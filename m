@@ -7,62 +7,64 @@ X-Spam-Status: No, score=-9.0 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D3997C433DF
-	for <intel-gfx@archiver.kernel.org>; Fri, 31 Jul 2020 08:09:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2BE73C433DF
+	for <intel-gfx@archiver.kernel.org>; Fri, 31 Jul 2020 08:11:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A5D9F2074B
-	for <intel-gfx@archiver.kernel.org>; Fri, 31 Jul 2020 08:09:26 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id F04B220829
+	for <intel-gfx@archiver.kernel.org>; Fri, 31 Jul 2020 08:11:27 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=shipmail.org header.i=@shipmail.org header.b="OwKj7/oT"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A5D9F2074B
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=shipmail.org header.i=@shipmail.org header.b="NCHfZ0I7"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F04B220829
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=shipmail.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 375566E0D5;
-	Fri, 31 Jul 2020 08:09:26 +0000 (UTC)
-Received: from ste-pvt-msa1.bahnhof.se (ste-pvt-msa1.bahnhof.se
- [213.80.101.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 950606E0D5
- for <intel-gfx@lists.freedesktop.org>; Fri, 31 Jul 2020 08:09:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F01F6EA17;
+	Fri, 31 Jul 2020 08:11:27 +0000 (UTC)
+Received: from ste-pvt-msa2.bahnhof.se (ste-pvt-msa2.bahnhof.se
+ [213.80.101.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 139B26EA17
+ for <intel-gfx@lists.freedesktop.org>; Fri, 31 Jul 2020 08:11:26 +0000 (UTC)
 Received: from localhost (localhost [127.0.0.1])
- by ste-pvt-msa1.bahnhof.se (Postfix) with ESMTP id 081353F3B8;
- Fri, 31 Jul 2020 10:09:23 +0200 (CEST)
-Authentication-Results: ste-pvt-msa1.bahnhof.se; dkim=pass (1024-bit key;
- unprotected) header.d=shipmail.org header.i=@shipmail.org header.b=OwKj7/oT; 
+ by ste-pvt-msa2.bahnhof.se (Postfix) with ESMTP id D4B003F3CA;
+ Fri, 31 Jul 2020 10:11:22 +0200 (CEST)
+Authentication-Results: ste-pvt-msa2.bahnhof.se; dkim=pass (1024-bit key;
+ unprotected) header.d=shipmail.org header.i=@shipmail.org header.b=NCHfZ0I7; 
  dkim-atps=neutral
 X-Virus-Scanned: Debian amavisd-new at bahnhof.se
-Received: from ste-pvt-msa1.bahnhof.se ([127.0.0.1])
- by localhost (ste-pvt-msa1.bahnhof.se [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id s61BpWKkUgrV; Fri, 31 Jul 2020 10:09:21 +0200 (CEST)
+Authentication-Results: ste-ftg-msa2.bahnhof.se (amavisd-new);
+ dkim=pass (1024-bit key) header.d=shipmail.org
+Received: from ste-pvt-msa2.bahnhof.se ([127.0.0.1])
+ by localhost (ste-ftg-msa2.bahnhof.se [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id rQEQEy-r0mXM; Fri, 31 Jul 2020 10:11:22 +0200 (CEST)
 Received: from mail1.shipmail.org (h-205-35.A357.priv.bahnhof.se
  [155.4.205.35]) (Authenticated sender: mb878879)
- by ste-pvt-msa1.bahnhof.se (Postfix) with ESMTPA id 916533F6A9;
- Fri, 31 Jul 2020 10:09:21 +0200 (CEST)
+ by ste-pvt-msa2.bahnhof.se (Postfix) with ESMTPA id 51A523F3BF;
+ Fri, 31 Jul 2020 10:11:22 +0200 (CEST)
 Received: from localhost.localdomain (h-205-35.A357.priv.bahnhof.se
  [155.4.205.35])
- by mail1.shipmail.org (Postfix) with ESMTPSA id E12C0361FD5;
- Fri, 31 Jul 2020 10:09:20 +0200 (CEST)
+ by mail1.shipmail.org (Postfix) with ESMTPSA id C5C7D361FD5;
+ Fri, 31 Jul 2020 10:11:23 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=shipmail.org; s=mail;
- t=1596182960; bh=dxVIvNw+fTFD4SA+gpexuX7Ea0TXjbFk2st6F0zcJZU=;
+ t=1596183083; bh=3qsYnPA8eDWmh4Eo0+1SVv0pBOIfCmUJ/cKUFLTCpXs=;
  h=Subject:To:References:From:Date:In-Reply-To:From;
- b=OwKj7/oTK3SphDvf6TviegXPV6xZaF/6vFzkaogLipUmOjqJBiuCrR+DXGBb95QZc
- 6VdZJ5uFvoA/oYbmmKXxK7gXzo+e7BAp3uQBQhr5erDSKv5owjweagRqDjQcqac5WM
- Ia8TyR1t3bhpmnGK0ThvTItk3FEhCi0CF8+I+iF8=
+ b=NCHfZ0I7cGE8qLKgeSgfTVRv9OETpLCwMxsbw9ynqsVwAU1MF+F7D6miJt0EMNZvh
+ w80Thzqerm7XiYESCFJHhUm4345k+/dVOUbBnhMtBJokOF7Y0lN4+lR6t8iZqm6z2a
+ q10vhyrqpCj0Gn+qxiobmezg7YaNWE9WDQgjfTLY=
 To: Chris Wilson <chris@chris-wilson.co.uk>, intel-gfx@lists.freedesktop.org
 References: <20200715115147.11866-1-chris@chris-wilson.co.uk>
- <20200715115147.11866-13-chris@chris-wilson.co.uk>
+ <20200715115147.11866-14-chris@chris-wilson.co.uk>
 From: =?UTF-8?Q?Thomas_Hellstr=c3=b6m_=28Intel=29?= <thomas_os@shipmail.org>
-Message-ID: <f92773ec-c345-0f30-662f-a1db3e7029a5@shipmail.org>
-Date: Fri, 31 Jul 2020 10:09:20 +0200
+Message-ID: <cefd2638-36a9-3d4a-e562-1bddc14d6776@shipmail.org>
+Date: Fri, 31 Jul 2020 10:11:23 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <20200715115147.11866-13-chris@chris-wilson.co.uk>
+In-Reply-To: <20200715115147.11866-14-chris@chris-wilson.co.uk>
 Content-Language: en-US
-Subject: Re: [Intel-gfx] [PATCH 13/66] drm/i915/gem: Don't drop the timeline
- lock during execbuf
+Subject: Re: [Intel-gfx] [PATCH 14/66] drm/i915/gem: Rename
+ execbuf.bind_link to unbound_link
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,19 +82,15 @@ Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Ck9uIDcvMTUvMjAgMTo1MCBQTSwgQ2hyaXMgV2lsc29uIHdyb3RlOgo+IE91ciB0aW1lbGluZSBs
-b2NrIGlzIG91ciBkZWZlbmNlIGFnYWluc3QgYSBjb25jdXJyZW50IGV4ZWNidWYKPiBpbnRlcnJ1
-cHRpbmcgb3VyIHJlcXVlc3QgY29uc3RydWN0aW9uLiB3ZSBuZWVkIGhvbGQgaXQgdGhyb3VnaG91
-dCBvciwKPiBmb3IgZXhhbXBsZSwgYSBzZWNvbmQgdGhyZWFkIG1heSBpbnRlcmplY3QgYSByZWxv
-Y2F0aW9uIHJlcXVlc3QgaW4KPiBiZXR3ZWVuIG91ciBvd24gcmVsb2NhdGlvbiByZXF1ZXN0IGFu
-ZCBleGVjdXRpb24gaW4gdGhlIHJpbmcuCj4KPiBBIHNlY29uZCwgbWFqb3IgYmVuZWZpdCwgaXMg
-dGhhdCBpdCBhbGxvd3MgdXMgdG8gcHJlc2VydmUgYSBsYXJnZSBjaHVuawo+IG9mIHRoZSByaW5n
-YnVmZmVyIGZvciBvdXIgZXhjbHVzaXZlIHVzZTsgd2hpY2ggc2hvdWxkIHZpcnR1YWxseQo+IGVs
-aW1pbmF0ZSB0aGUgdGhyZWF0IG9mIGhpdHRpbmcgYSB3YWl0X2Zvcl9zcGFjZSBkdXJpbmcgcmVx
-dWVzdAo+IGNvbnN0cnVjdGlvbiAtLSBhbHRob3VnaCB3ZSBzaG91bGQgaGF2ZSBhbHJlYWR5IGRy
-b3BwZWQgb3RoZXIKPiBjb250ZW50aW91cyBsb2NrcyBhdCB0aGF0IHBvaW50Lgo+Cj4gU2lnbmVk
-LW9mZi1ieTogQ2hyaXMgV2lsc29uIDxjaHJpc0BjaHJpcy13aWxzb24uY28udWs+Cj4KUmV2aWV3
-ZWQtYnk6IFRob21hcyBIZWxsc3Ryw7ZtIDx0aG9tYXMuaGVsbHN0cm9tQGludGVsLmNvbT4KCgpf
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpJbnRlbC1nZngg
-bWFpbGluZyBsaXN0CkludGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
-cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9pbnRlbC1nZngK
+Ck9uIDcvMTUvMjAgMTo1MCBQTSwgQ2hyaXMgV2lsc29uIHdyb3RlOgo+IFJlbmFtZSB0aGUgY3Vy
+cmVudCBsaXN0IG9mIHVuYm91bmQgb2JqZWN0cyBzbyB0aGF0IHdlIGNhbiB0cmFjayBvZiBhbGwK
+PiBvYmplY3RzIHRoYXQgd2UgbmVlZCB0byBiaW5kLCBhcyB3ZWxsIGFzIHRoZSBsaXN0IG9mIGN1
+cnJlbnRseSB1bmJvdW5kCj4gW3VucHJvY2Vzc2VkXSBvYmplY3RzLgo+Cj4gU2lnbmVkLW9mZi1i
+eTogQ2hyaXMgV2lsc29uIDxjaHJpc0BjaHJpcy13aWxzb24uY28udWs+Cj4gUmV2aWV3ZWQtYnk6
+IFR2cnRrbyBVcnN1bGluIDx0dnJ0a28udXJzdWxpbkBpbnRlbC5jb20+Cj4gLS0tCj4gICBkcml2
+ZXJzL2dwdS9kcm0vaTkxNS9nZW0vaTkxNV9nZW1fZXhlY2J1ZmZlci5jIHwgMTQgKysrKysrKy0t
+LS0tLS0KPiAgIDEgZmlsZSBjaGFuZ2VkLCA3IGluc2VydGlvbnMoKyksIDcgZGVsZXRpb25zKC0p
+Cj4KUmV2aWV3ZWQtYnk6IFRob21hcyBIZWxsc3Ryw7ZtIDx0aG9tYXMuaGVsbHN0cm9tQGludGVs
+LmNvbT4KCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpJ
+bnRlbC1nZnggbWFpbGluZyBsaXN0CkludGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0
+cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9pbnRlbC1nZngK
