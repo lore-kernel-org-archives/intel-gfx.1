@@ -2,59 +2,42 @@ Return-Path: <SRS0=EmSX=BK=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,MAILING_LIST_MULTI,NICE_REPLY_A,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no
+X-Spam-Status: No, score=-13.0 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 79774C433DF
-	for <intel-gfx@archiver.kernel.org>; Fri, 31 Jul 2020 15:45:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1B0B6C433E0
+	for <intel-gfx@archiver.kernel.org>; Fri, 31 Jul 2020 15:48:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 568812083B
-	for <intel-gfx@archiver.kernel.org>; Fri, 31 Jul 2020 15:45:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 568812083B
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id CCBCF2083B
+	for <intel-gfx@archiver.kernel.org>; Fri, 31 Jul 2020 15:48:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CCBCF2083B
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 025B06EAD9;
-	Fri, 31 Jul 2020 15:45:58 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C96F96EB09
- for <intel-gfx@lists.freedesktop.org>; Fri, 31 Jul 2020 15:45:56 +0000 (UTC)
-IronPort-SDR: cnT5p8k9l4axwYR5O52fWs0WWcfBuwVfDG65NCKWqwOQy6LAOTgQaQZpIq+e4bb+5IECdbpiGD
- iQL/qUTNI2/g==
-X-IronPort-AV: E=McAfee;i="6000,8403,9698"; a="149266493"
-X-IronPort-AV: E=Sophos;i="5.75,418,1589266800"; d="scan'208";a="149266493"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Jul 2020 08:45:56 -0700
-IronPort-SDR: WdDm2eMgp7z9qJwGmB1rYomTja3x9mVeHpzXH2IrJV0DAQ4ZQfkMdt6jMwUFB0r+WgRV33weeu
- gNcjtmi+C8cw==
-X-IronPort-AV: E=Sophos;i="5.75,418,1589266800"; d="scan'208";a="465651878"
-Received: from henyaffe-mobl2.ger.corp.intel.com (HELO [10.214.222.92])
- ([10.214.222.92])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Jul 2020 08:45:54 -0700
-To: Chris Wilson <chris@chris-wilson.co.uk>, intel-gfx@lists.freedesktop.org
-References: <20200730093756.16737-1-chris@chris-wilson.co.uk>
- <20200730093756.16737-18-chris@chris-wilson.co.uk>
- <6c74e04f-cfc7-215c-50f0-2b5be8a0b6c6@linux.intel.com>
- <159620904517.21624.5715729661074588496@build.alporthouse.com>
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Organization: Intel Corporation UK Plc
-Message-ID: <27c5b63e-e39e-df16-87b4-8b10fc6a8b7c@linux.intel.com>
-Date: Fri, 31 Jul 2020 16:45:51 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 650006EB09;
+	Fri, 31 Jul 2020 15:48:39 +0000 (UTC)
+Received: from fireflyinternet.com (unknown [77.68.26.236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 904336EB0D
+ for <intel-gfx@lists.freedesktop.org>; Fri, 31 Jul 2020 15:48:37 +0000 (UTC)
+X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
+ x-ip-name=78.156.65.138; 
+Received: from build.alporthouse.com (unverified [78.156.65.138]) 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 21995296-1500050 
+ for <intel-gfx@lists.freedesktop.org>; Fri, 31 Jul 2020 16:48:34 +0100
+From: Chris Wilson <chris@chris-wilson.co.uk>
+To: intel-gfx@lists.freedesktop.org
+Date: Fri, 31 Jul 2020 16:48:32 +0100
+Message-Id: <20200731154834.8378-2-chris@chris-wilson.co.uk>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20200731154834.8378-1-chris@chris-wilson.co.uk>
+References: <20200731154834.8378-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-In-Reply-To: <159620904517.21624.5715729661074588496@build.alporthouse.com>
-Content-Language: en-US
-Subject: Re: [Intel-gfx] [PATCH 17/21] drm/i915/gt: Protect context lifetime
- with RCU
+Subject: [Intel-gfx] [CI 2/4] drm/i915/gt: Replace
+ intel_engine_transfer_stale_breadcrumbs
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,38 +50,190 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: thomas.hellstrom@intel.com
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+After staring at the breadcrumb enabling/cancellation and coming to the
+conclusion that the cause of the mysterious stale breadcrumbs must the
+act of submitting a completed requests, we can then redirect those
+completed requests onto a dedicated signaled_list at the time of
+construction and so eliminate intel_engine_transfer_stale_breadcrumbs().
 
-On 31/07/2020 16:24, Chris Wilson wrote:
-> Quoting Tvrtko Ursulin (2020-07-31 16:15:43)
->>
->> On 30/07/2020 10:37, Chris Wilson wrote:
->>> Allow a brief period for continued access to a dead intel_context by
->>> deferring the release of the struct until after an RCU grace period.
->>> As we are using a dedicated slab cache for the contexts, we can defer
->>> the release of the slab pages via RCU, with the caveat that individual
->>> structs may be reused from the freelist within an RCU grace period. To
->>> handle that, we have to avoid clearing members of the zombie struct.
->>
->> What was the motivation?
-> 
-> I wanted a window where the pointer was kept alive by RCU after we
-> called intel_context_put() so I could keep using spinlock for a bit.
-> 
-> If you look closely, you might spot that isn't used any more, but I
-> liked the ctor so kept it around.
+Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_breadcrumbs.c | 50 ++++++++-------------
+ drivers/gpu/drm/i915/gt/intel_engine.h      |  3 --
+ drivers/gpu/drm/i915/gt/intel_lrc.c         | 15 -------
+ drivers/gpu/drm/i915/i915_request.c         |  5 +--
+ 4 files changed, 21 insertions(+), 52 deletions(-)
 
-In this case I think it is better to avoid changes which can introduce 
-potential bugs. (And added bonus time saved on review. :)
+diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
+index 3d211a0c2b5a..fbdc465a5870 100644
+--- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
++++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
+@@ -142,16 +142,16 @@ static void add_retire(struct intel_breadcrumbs *b, struct intel_timeline *tl)
+ 	intel_engine_add_retire(engine, tl);
+ }
+ 
+-static void __signal_request(struct i915_request *rq, struct list_head *signals)
++static bool __signal_request(struct i915_request *rq, struct list_head *signals)
+ {
+-	GEM_BUG_ON(!test_bit(I915_FENCE_FLAG_SIGNAL, &rq->fence.flags));
+ 	clear_bit(I915_FENCE_FLAG_SIGNAL, &rq->fence.flags);
+ 
+ 	if (!__dma_fence_signal(&rq->fence))
+-		return;
++		return false;
+ 
+ 	i915_request_get(rq);
+ 	list_add_tail(&rq->signal_link, signals);
++	return true;
+ }
+ 
+ static void signal_irq_work(struct irq_work *work)
+@@ -278,32 +278,6 @@ void intel_engine_reset_breadcrumbs(struct intel_engine_cs *engine)
+ 	spin_unlock_irqrestore(&b->irq_lock, flags);
+ }
+ 
+-void intel_engine_transfer_stale_breadcrumbs(struct intel_engine_cs *engine,
+-					     struct intel_context *ce)
+-{
+-	struct intel_breadcrumbs *b = &engine->breadcrumbs;
+-	unsigned long flags;
+-
+-	spin_lock_irqsave(&b->irq_lock, flags);
+-	if (!list_empty(&ce->signals)) {
+-		struct i915_request *rq, *next;
+-
+-		/* Queue for executing the signal callbacks in the irq_work */
+-		list_for_each_entry_safe(rq, next, &ce->signals, signal_link) {
+-			GEM_BUG_ON(rq->engine != engine);
+-			GEM_BUG_ON(!__request_completed(rq));
+-
+-			__signal_request(rq, &b->signaled_requests);
+-		}
+-
+-		INIT_LIST_HEAD(&ce->signals);
+-		list_del_init(&ce->signal_link);
+-
+-		irq_work_queue(&b->irq_work);
+-	}
+-	spin_unlock_irqrestore(&b->irq_lock, flags);
+-}
+-
+ void intel_engine_fini_breadcrumbs(struct intel_engine_cs *engine)
+ {
+ }
+@@ -317,6 +291,17 @@ static void insert_breadcrumb(struct i915_request *rq,
+ 	if (test_bit(I915_FENCE_FLAG_SIGNAL, &rq->fence.flags))
+ 		return;
+ 
++	/*
++	 * If the request is already completed, we can transfer it
++	 * straight onto a signaled list, and queue the irq worker for
++	 * its signal completion.
++	 */
++	if (__request_completed(rq)) {
++		if (__signal_request(rq, &b->signaled_requests))
++			irq_work_queue(&b->irq_work);
++		return;
++	}
++
+ 	__intel_breadcrumbs_arm_irq(b);
+ 
+ 	/*
+@@ -344,8 +329,11 @@ static void insert_breadcrumb(struct i915_request *rq,
+ 	if (pos == &ce->signals) /* catch transitions from empty list */
+ 		list_move_tail(&ce->signal_link, &b->signalers);
+ 	GEM_BUG_ON(!check_signal_order(ce, rq));
+-
+ 	set_bit(I915_FENCE_FLAG_SIGNAL, &rq->fence.flags);
++
++	/* Check after attaching to irq, interrupt may have already fired. */
++	if (__request_completed(rq))
++		irq_work_queue(&b->irq_work);
+ }
+ 
+ bool i915_request_enable_breadcrumb(struct i915_request *rq)
+@@ -401,7 +389,7 @@ bool i915_request_enable_breadcrumb(struct i915_request *rq)
+ 
+ 	spin_unlock(&b->irq_lock);
+ 
+-	return !__request_completed(rq);
++	return true;
+ }
+ 
+ void i915_request_cancel_breadcrumb(struct i915_request *rq)
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine.h b/drivers/gpu/drm/i915/gt/intel_engine.h
+index a9249a23903a..faf00a353e25 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine.h
++++ b/drivers/gpu/drm/i915/gt/intel_engine.h
+@@ -237,9 +237,6 @@ intel_engine_signal_breadcrumbs(struct intel_engine_cs *engine)
+ void intel_engine_reset_breadcrumbs(struct intel_engine_cs *engine);
+ void intel_engine_fini_breadcrumbs(struct intel_engine_cs *engine);
+ 
+-void intel_engine_transfer_stale_breadcrumbs(struct intel_engine_cs *engine,
+-					     struct intel_context *ce);
+-
+ void intel_engine_print_breadcrumbs(struct intel_engine_cs *engine,
+ 				    struct drm_printer *p);
+ 
+diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
+index d06e8420ee59..94c0942934ff 100644
+--- a/drivers/gpu/drm/i915/gt/intel_lrc.c
++++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
+@@ -1805,18 +1805,6 @@ static bool virtual_matches(const struct virtual_engine *ve,
+ 	return true;
+ }
+ 
+-static void virtual_xfer_breadcrumbs(struct virtual_engine *ve)
+-{
+-	/*
+-	 * All the outstanding signals on ve->siblings[0] must have
+-	 * been completed, just pending the interrupt handler. As those
+-	 * signals still refer to the old sibling (via rq->engine), we must
+-	 * transfer those to the old irq_worker to keep our locking
+-	 * consistent.
+-	 */
+-	intel_engine_transfer_stale_breadcrumbs(ve->siblings[0], &ve->context);
+-}
+-
+ #define for_each_waiter(p__, rq__) \
+ 	list_for_each_entry_lockless(p__, \
+ 				     &(rq__)->sched.waiters_list, \
+@@ -2275,9 +2263,6 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
+ 					virtual_update_register_offsets(regs,
+ 									engine);
+ 
+-				if (!list_empty(&ve->context.signals))
+-					virtual_xfer_breadcrumbs(ve);
+-
+ 				/*
+ 				 * Move the bound engine to the top of the list
+ 				 * for future execution. We then kick this
+diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
+index 350bf6f158cb..0cf2a10a24f1 100644
+--- a/drivers/gpu/drm/i915/i915_request.c
++++ b/drivers/gpu/drm/i915/i915_request.c
+@@ -592,9 +592,8 @@ bool __i915_request_submit(struct i915_request *request)
+ 	 */
+ 	__notify_execute_cb_irq(request);
+ 
+-	if (test_bit(DMA_FENCE_FLAG_ENABLE_SIGNAL_BIT, &request->fence.flags) &&
+-	    !i915_request_enable_breadcrumb(request))
+-		intel_engine_signal_breadcrumbs(engine);
++	if (test_bit(DMA_FENCE_FLAG_ENABLE_SIGNAL_BIT, &request->fence.flags))
++		i915_request_enable_breadcrumb(request);
+ 
+ 	return result;
+ }
+-- 
+2.20.1
 
-Regards,
-
-Tvrtko
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
