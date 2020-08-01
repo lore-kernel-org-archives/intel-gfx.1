@@ -2,85 +2,42 @@ Return-Path: <SRS0=JvXe=BL=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.2 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no
+X-Spam-Status: No, score=-13.0 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CD1BBC433E0
-	for <intel-gfx@archiver.kernel.org>; Sat,  1 Aug 2020 14:38:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C38F9C433E0
+	for <intel-gfx@archiver.kernel.org>; Sat,  1 Aug 2020 16:02:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A15492072A
-	for <intel-gfx@archiver.kernel.org>; Sat,  1 Aug 2020 14:38:24 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="FeJ3Xm2g"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A15492072A
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
+	by mail.kernel.org (Postfix) with ESMTPS id 65F88207BC
+	for <intel-gfx@archiver.kernel.org>; Sat,  1 Aug 2020 16:02:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 65F88207BC
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 577866EB90;
-	Sat,  1 Aug 2020 14:38:24 +0000 (UTC)
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com
- [207.211.31.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 437F66EB92
- for <intel-gfx@lists.freedesktop.org>; Sat,  1 Aug 2020 14:38:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1596292702;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=rPMJouJ664IpIpYWMWyBiWUEHfHruXWhEFW6i4OWc6U=;
- b=FeJ3Xm2gkjHQYWHqkYt1paF+/2NAQZI8ekmuMWZdhsi1odwET8gxDphM9xx1mjleN3ta0j
- sLdUt0RTtxo2JRYzVXLLv3dXGDWos7+mYsjcGCL2EXsOkyw76fa6bqreK6Pk3zNhGHwV0U
- K4f8iLDXCXwpAkp9uDtzmSYncBeJwbw=
-Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com
- [209.85.218.72]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-237-AhDboYtRMaO5bvUUnYUVJQ-1; Sat, 01 Aug 2020 10:38:20 -0400
-X-MC-Unique: AhDboYtRMaO5bvUUnYUVJQ-1
-Received: by mail-ej1-f72.google.com with SMTP id q9so12327895ejr.21
- for <intel-gfx@lists.freedesktop.org>; Sat, 01 Aug 2020 07:38:20 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=rPMJouJ664IpIpYWMWyBiWUEHfHruXWhEFW6i4OWc6U=;
- b=sihfDqOimdy3AfsbwS+BAOzmIH22gphwl9qrl5RJ2KiMfqdXtyIBMHgEFqMAfZRlge
- WVpk4k3lQ8zFKOg2jW79qw6FPwVTK6r0ZdHmOSvqsma0BZQPmoWNAgbcWCssvB8BHM1y
- o1NLVML9/AonwAfNxoQeomHuqkgaTcQMOh6RNotUPFKQYC9jCm3ApNFlUYGh1dpRcoBD
- NlwYjjhjBVzoHgVuAxZEipRXUI8JaPDKcoiNPWh8JCX5tNnML2FGclIM2B0/7ks6C5rj
- b3hnFdlD/VCtx6ywl0+IpkAfYtCk7vu1RC28DBfIh/Fjx2DyODdS2jNMT9D2WM2il4M9
- CudA==
-X-Gm-Message-State: AOAM530yTymwcO/wRpTAb7ayVVPde74S1T1S3X9f75pvTBtFNGdVQ6hA
- Yz+MHUFh4rhwXjhb7SPUzDW6UgTFjMj7TA3ei4BpWAzX+YqDDtpwu0aP64AxXsvFH8VN66FwfHC
- lelVx6gkH1oZg3JcjIPJoKiyduQ5J
-X-Received: by 2002:a17:906:25c4:: with SMTP id n4mr8776588ejb.3.1596292699670; 
- Sat, 01 Aug 2020 07:38:19 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJxjPcX/bFiAUHtXwuAaF05a6ZsFXjiF7gt7+jMKXpyprGcBXZ8zklO4Fxg9U+zmr2eCv0rfuA==
-X-Received: by 2002:a17:906:25c4:: with SMTP id n4mr8776564ejb.3.1596292699441; 
- Sat, 01 Aug 2020 07:38:19 -0700 (PDT)
-Received: from x1.localdomain ([109.38.137.213])
- by smtp.gmail.com with ESMTPSA id o9sm11813057edz.81.2020.08.01.07.38.17
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 01 Aug 2020 07:38:18 -0700 (PDT)
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-References: <20200717133753.127282-1-hdegoede@redhat.com>
- <20200729105436.GT3703480@smile.fi.intel.com>
-From: Hans de Goede <hdegoede@redhat.com>
-Message-ID: <e8f93474-1775-b20c-f9f2-e33592a02028@redhat.com>
-Date: Sat, 1 Aug 2020 16:38:16 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5DBD56EB7C;
+	Sat,  1 Aug 2020 16:02:30 +0000 (UTC)
+Received: from fireflyinternet.com (unknown [77.68.26.236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2BA5B6EB95
+ for <intel-gfx@lists.freedesktop.org>; Sat,  1 Aug 2020 16:02:28 +0000 (UTC)
+X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
+ x-ip-name=78.156.65.138; 
+Received: from build.alporthouse.com (unverified [78.156.65.138]) 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22003547-1500050 
+ for <intel-gfx@lists.freedesktop.org>; Sat, 01 Aug 2020 17:02:26 +0100
+From: Chris Wilson <chris@chris-wilson.co.uk>
+To: intel-gfx@lists.freedesktop.org
+Date: Sat,  1 Aug 2020 17:02:25 +0100
+Message-Id: <20200801160225.6814-2-chris@chris-wilson.co.uk>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20200801160225.6814-1-chris@chris-wilson.co.uk>
+References: <20200801160225.6814-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-In-Reply-To: <20200729105436.GT3703480@smile.fi.intel.com>
-Content-Language: en-US
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Subject: Re: [Intel-gfx] [PATCH v5 00/16] acpi/pwm/i915: Convert pwm-crc and
- i915 driver's PWM code to use the atomic PWM API
+Subject: [Intel-gfx] [CI 2/2] drm/i915/gt: Hold context/request reference
+ while breadcrumbs are active
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,68 +50,244 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-pwm@vger.kernel.org, intel-gfx <intel-gfx@lists.freedesktop.org>,
- "Rafael J . Wysocki" <rjw@rjwysocki.net>, linux-acpi@vger.kernel.org,
- dri-devel@lists.freedesktop.org,
- =?UTF-8?Q?Uwe_Kleine-K=c3=b6nig?= <u.kleine-koenig@pengutronix.de>,
- Mika Westerberg <mika.westerberg@linux.intel.com>, Len Brown <lenb@kernel.org>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+Currently we hold no actual reference to the request nor context while
+they are attached to a breadcrumb. To avoid freeing the request/context
+too early, we serialise with cancel-breadcrumbs by taking the irq
+spinlock in i915_request_retire(). The alternative is to take a
+reference for a new breadcrumb and release it upon signaling; removing
+the more frequently hit contention point in i915_request_retire().
 
-On 7/29/20 12:54 PM, Andy Shevchenko wrote:
-> On Fri, Jul 17, 2020 at 03:37:37PM +0200, Hans de Goede wrote:
->> Hi All,
->>
->> Here is v5 of my patch series converting the i915 driver's code for
->> controlling the panel's backlight with an external PWM controller to
->> use the atomic PWM API. See below for the changelog.
->>
->> This series consists of 4 parts:
->>
->> 1. acpi_lpss fixes workarounds for Cherry Trail DSTD nastiness
->> 2. various fixes to the pwm-lpss driver
->> 3. convert the pwm-crc driver to support the atomic PWM API and
->> 4. convert the i915 driver's PWM code to use the atomic PWM API
->>
->> The involved acpi_lpss and pwm drivers do not see a whole lot of churn,
->> so the plan is to merge this all through drm-intel-next-queued (dinq)
->> once all the patches are reviewed / have acks.
->>
->> Specifically patches 5-9, 11 still need an Acked- / Reviewed-by
->>
->> Andy, can you please take a look at the unreviewed patches? Specifically
->> patches 5-6 should address your review remarks from v4 of this set
->> and I've addressed your review remarks on patches 7-9 in v3 already.
->> A review of patch 11 would also be welcome
-> 
-> Done. Sorry for a delay.
-> 
-> One comment to consider, though. There are three channels in that PWM AFAIU.
-> One of them is backlight control, another one can be attached to haptics. The
-> concern is how this series may (or may not?) affect haptics behaviour.
+Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_breadcrumbs.c | 106 +++++++++++++-------
+ drivers/gpu/drm/i915/i915_request.c         |   9 +-
+ 2 files changed, 76 insertions(+), 39 deletions(-)
 
-When you say "in that PWM" do you mean the LPSS one or the CRC one ?
-
-The LPSS patches are all fixes, they don't change behavior, so those
-should be fine for the haptics.
-
-The CRC PWM driver patches do make it honor the requested output frequency,
-where before, because of a bug, it would stick with the out frequency
-setup by the firmware (or the power-on-reset value if no value is set
-by the firmware). This fix causing this is very clearly correct, but
-it could have unexpected side-effects.
-
-However I guess that you are talking about the LPSS PWM controllers
-and there I expect no impact on haptic or other non backlight users
-from these changes.
-
-Regards,
-
-Hans
+diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
+index 9dd99969fd07..0cc0517cd3b4 100644
+--- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
++++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
+@@ -29,6 +29,7 @@
+ #include "i915_drv.h"
+ #include "i915_trace.h"
+ #include "intel_breadcrumbs.h"
++#include "intel_context.h"
+ #include "intel_gt_pm.h"
+ #include "intel_gt_requests.h"
+ 
+@@ -99,6 +100,22 @@ static void __intel_breadcrumbs_disarm_irq(struct intel_breadcrumbs *b)
+ 	intel_gt_pm_put_async(b->irq_engine->gt);
+ }
+ 
++static void add_signaling_context(struct intel_breadcrumbs *b,
++				  struct intel_context *ce)
++{
++	intel_context_get(ce);
++	list_add_tail(&ce->signal_link, &b->signalers);
++	if (list_is_first(&ce->signal_link, &b->signalers))
++		__intel_breadcrumbs_arm_irq(b);
++}
++
++static void remove_signaling_context(struct intel_breadcrumbs *b,
++				     struct intel_context *ce)
++{
++	list_del(&ce->signal_link);
++	intel_context_put(ce);
++}
++
+ static inline bool __request_completed(const struct i915_request *rq)
+ {
+ 	return i915_seqno_passed(__hwsp_seqno(rq), rq->fence.seqno);
+@@ -107,6 +124,9 @@ static inline bool __request_completed(const struct i915_request *rq)
+ __maybe_unused static bool
+ check_signal_order(struct intel_context *ce, struct i915_request *rq)
+ {
++	if (rq->context != ce)
++		return false;
++
+ 	if (!list_is_last(&rq->signal_link, &ce->signals) &&
+ 	    i915_seqno_passed(rq->fence.seqno,
+ 			      list_next_entry(rq, signal_link)->fence.seqno))
+@@ -158,10 +178,11 @@ static bool __signal_request(struct i915_request *rq, struct list_head *signals)
+ {
+ 	clear_bit(I915_FENCE_FLAG_SIGNAL, &rq->fence.flags);
+ 
+-	if (!__dma_fence_signal(&rq->fence))
++	if (!__dma_fence_signal(&rq->fence)) {
++		i915_request_put(rq);
+ 		return false;
++	}
+ 
+-	i915_request_get(rq);
+ 	list_add_tail(&rq->signal_link, signals);
+ 	return true;
+ }
+@@ -209,8 +230,8 @@ static void signal_irq_work(struct irq_work *work)
+ 			/* Advance the list to the first incomplete request */
+ 			__list_del_many(&ce->signals, pos);
+ 			if (&ce->signals == pos) { /* now empty */
+-				list_del_init(&ce->signal_link);
+ 				add_retire(b, ce->timeline);
++				remove_signaling_context(b, ce);
+ 			}
+ 		}
+ 	}
+@@ -279,6 +300,9 @@ void intel_breadcrumbs_park(struct intel_breadcrumbs *b)
+ 	spin_lock_irqsave(&b->irq_lock, flags);
+ 	__intel_breadcrumbs_disarm_irq(b);
+ 	spin_unlock_irqrestore(&b->irq_lock, flags);
++
++	if (!list_empty(&b->signalers))
++		irq_work_queue(&b->irq_work);
+ }
+ 
+ void intel_breadcrumbs_free(struct intel_breadcrumbs *b)
+@@ -295,6 +319,8 @@ static void insert_breadcrumb(struct i915_request *rq,
+ 	if (test_bit(I915_FENCE_FLAG_SIGNAL, &rq->fence.flags))
+ 		return;
+ 
++	i915_request_get(rq);
++
+ 	/*
+ 	 * If the request is already completed, we can transfer it
+ 	 * straight onto a signaled list, and queue the irq worker for
+@@ -306,32 +332,33 @@ static void insert_breadcrumb(struct i915_request *rq,
+ 		return;
+ 	}
+ 
+-	__intel_breadcrumbs_arm_irq(b);
+-
+-	/*
+-	 * We keep the seqno in retirement order, so we can break
+-	 * inside intel_engine_signal_breadcrumbs as soon as we've
+-	 * passed the last completed request (or seen a request that
+-	 * hasn't event started). We could walk the timeline->requests,
+-	 * but keeping a separate signalers_list has the advantage of
+-	 * hopefully being much smaller than the full list and so
+-	 * provides faster iteration and detection when there are no
+-	 * more interrupts required for this context.
+-	 *
+-	 * We typically expect to add new signalers in order, so we
+-	 * start looking for our insertion point from the tail of
+-	 * the list.
+-	 */
+-	list_for_each_prev(pos, &ce->signals) {
+-		struct i915_request *it =
+-			list_entry(pos, typeof(*it), signal_link);
++	if (list_empty(&ce->signals)) {
++		add_signaling_context(b, ce);
++		pos = &ce->signals;
++	} else {
++		/*
++		 * We keep the seqno in retirement order, so we can break
++		 * inside intel_engine_signal_breadcrumbs as soon as we've
++		 * passed the last completed request (or seen a request that
++		 * hasn't event started). We could walk the timeline->requests,
++		 * but keeping a separate signalers_list has the advantage of
++		 * hopefully being much smaller than the full list and so
++		 * provides faster iteration and detection when there are no
++		 * more interrupts required for this context.
++		 *
++		 * We typically expect to add new signalers in order, so we
++		 * start looking for our insertion point from the tail of
++		 * the list.
++		 */
++		list_for_each_prev(pos, &ce->signals) {
++			struct i915_request *it =
++				list_entry(pos, typeof(*it), signal_link);
+ 
+-		if (i915_seqno_passed(rq->fence.seqno, it->fence.seqno))
+-			break;
++			if (i915_seqno_passed(rq->fence.seqno, it->fence.seqno))
++				break;
++		}
+ 	}
+ 	list_add(&rq->signal_link, pos);
+-	if (pos == &ce->signals) /* catch transitions from empty list */
+-		list_move_tail(&ce->signal_link, &b->signalers);
+ 	GEM_BUG_ON(!check_signal_order(ce, rq));
+ 	set_bit(I915_FENCE_FLAG_SIGNAL, &rq->fence.flags);
+ 
+@@ -412,27 +439,24 @@ void i915_request_cancel_breadcrumb(struct i915_request *rq)
+ 
+ 		list_del(&rq->signal_link);
+ 		if (list_empty(&ce->signals))
+-			list_del_init(&ce->signal_link);
++			remove_signaling_context(b, ce);
+ 
+ 		clear_bit(I915_FENCE_FLAG_SIGNAL, &rq->fence.flags);
++		i915_request_put(rq);
+ 	}
+ 	spin_unlock(&b->irq_lock);
+ }
+ 
+-void intel_engine_print_breadcrumbs(struct intel_engine_cs *engine,
+-				    struct drm_printer *p)
++static void print_signals(struct intel_breadcrumbs *b, struct drm_printer *p)
+ {
+-	struct intel_breadcrumbs *b = engine->breadcrumbs;
+ 	struct intel_context *ce;
+-	struct i915_request *rq;
+-
+-	if (!b || list_empty(&b->signalers))
+-		return;
+ 
+ 	drm_printf(p, "Signals:\n");
+ 
+ 	spin_lock_irq(&b->irq_lock);
+ 	list_for_each_entry(ce, &b->signalers, signal_link) {
++		struct i915_request *rq;
++
+ 		list_for_each_entry(rq, &ce->signals, signal_link) {
+ 			drm_printf(p, "\t[%llx:%llx%s] @ %dms\n",
+ 				   rq->fence.context, rq->fence.seqno,
+@@ -444,3 +468,17 @@ void intel_engine_print_breadcrumbs(struct intel_engine_cs *engine,
+ 	}
+ 	spin_unlock_irq(&b->irq_lock);
+ }
++
++void intel_engine_print_breadcrumbs(struct intel_engine_cs *engine,
++				    struct drm_printer *p)
++{
++	struct intel_breadcrumbs *b;
++
++	b = engine->breadcrumbs;
++	if (!b)
++		return;
++
++	drm_printf(p, "IRQ: %s\n", enableddisabled(b->irq_armed));
++	if (!list_empty(&b->signalers))
++		print_signals(b, p);
++}
+diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
+index 3b121fa38c60..e36253bb6124 100644
+--- a/drivers/gpu/drm/i915/i915_request.c
++++ b/drivers/gpu/drm/i915/i915_request.c
+@@ -300,12 +300,11 @@ bool i915_request_retire(struct i915_request *rq)
+ 		__i915_request_fill(rq, POISON_FREE);
+ 	rq->ring->head = rq->postfix;
+ 
+-	spin_lock_irq(&rq->lock);
+-	if (!i915_request_signaled(rq))
++	if (!i915_request_signaled(rq)) {
++		spin_lock_irq(&rq->lock);
+ 		dma_fence_signal_locked(&rq->fence);
+-	if (test_bit(DMA_FENCE_FLAG_ENABLE_SIGNAL_BIT, &rq->fence.flags))
+-		i915_request_cancel_breadcrumb(rq);
+-	spin_unlock_irq(&rq->lock);
++		spin_unlock_irq(&rq->lock);
++	}
+ 
+ 	if (i915_request_has_waitboost(rq)) {
+ 		GEM_BUG_ON(!atomic_read(&rq->engine->gt->rps.num_waiters));
+-- 
+2.20.1
 
 _______________________________________________
 Intel-gfx mailing list
