@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-13.0 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6A967C433E8
-	for <intel-gfx@archiver.kernel.org>; Sun,  2 Aug 2020 16:44:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 40340C433E5
+	for <intel-gfx@archiver.kernel.org>; Sun,  2 Aug 2020 16:44:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4C03320738
-	for <intel-gfx@archiver.kernel.org>; Sun,  2 Aug 2020 16:44:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4C03320738
+	by mail.kernel.org (Postfix) with ESMTPS id 201F920738
+	for <intel-gfx@archiver.kernel.org>; Sun,  2 Aug 2020 16:44:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 201F920738
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9779B6E1BE;
-	Sun,  2 Aug 2020 16:44:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AFE596E1D5;
+	Sun,  2 Aug 2020 16:44:34 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D1D06E194
- for <intel-gfx@lists.freedesktop.org>; Sun,  2 Aug 2020 16:44:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B1EAD6E1A4
+ for <intel-gfx@lists.freedesktop.org>; Sun,  2 Aug 2020 16:44:30 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22010421-1500050 
- for multiple; Sun, 02 Aug 2020 17:44:14 +0100
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22010440-1500050 
+ for multiple; Sun, 02 Aug 2020 17:44:17 +0100
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Sun,  2 Aug 2020 17:43:33 +0100
-Message-Id: <20200802164412.2738-4-chris@chris-wilson.co.uk>
+Date: Sun,  2 Aug 2020 17:43:51 +0100
+Message-Id: <20200802164412.2738-22-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200802164412.2738-1-chris@chris-wilson.co.uk>
 References: <20200802164412.2738-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 03/42] drm/i915/gem: Reduce context termination
- list iteration guard to RCU
+Subject: [Intel-gfx] [PATCH 21/42] drm/i915/gt: Simplify virtual engine
+ handling for execlists_hold()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,97 +56,61 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-As we now protect the timeline list using RCU, we can drop the
-timeline->mutex for guarding the list iteration during context close, as
-we are searching for an inflight request. Any new request will see the
-context is banned and not be submitted. In doing so, pull the checks for
-a concurrent submission of the request (notably the
-i915_request_completed()) under the engine spinlock, to fully serialise
-with __i915_request_submit()). That is in the case of preempt-to-busy
-where the request may be completed during the __i915_request_submit(),
-we need to be careful that we sample the request status after
-serialising so that we don't miss the request the engine is actually
-submitting.
+Now that the tasklet completely controls scheduling of the requests, and
+we postpone scheduling out the old requests, we can keep a hanging
+virtual request bound to the engine on which it hung, and remove it from
+te queue. On release, it will be returned to the same engine and remain
+in its queue until it is scheduled; after which point it will become
+eligible for transfer to a sibling. Instead, we could opt to resubmit the
+request along the virtual engine on unhold, making it eligible for load
+balancing immediately -- but that seems like a pointless optimisation
+for a hanging context.
 
-Fixes: 4a3174152147 ("drm/i915/gem: Refine occupancy test in kill_context()")
-References: d22d2d073ef8 ("drm/i915: Protect i915_request_await_start from early waits") # rcu protection of timeline->requests
-References: https://gitlab.freedesktop.org/drm/intel/-/issues/1622
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_context.c | 32 ++++++++++++---------
- 1 file changed, 19 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_lrc.c | 29 -----------------------------
+ 1 file changed, 29 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-index d8cccbab7a51..db893f6c516b 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-@@ -439,29 +439,36 @@ static bool __cancel_engine(struct intel_engine_cs *engine)
- 	return __reset_engine(engine);
- }
+diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
+index d1a45d5e4225..0d072356cf21 100644
+--- a/drivers/gpu/drm/i915/gt/intel_lrc.c
++++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
+@@ -2780,35 +2780,6 @@ static bool execlists_hold(struct intel_engine_cs *engine,
+ 		goto unlock;
+ 	}
  
--static struct intel_engine_cs *__active_engine(struct i915_request *rq)
-+static bool
-+__active_engine(struct i915_request *rq, struct intel_engine_cs **active)
- {
- 	struct intel_engine_cs *engine, *locked;
-+	bool ret = false;
- 
+-	if (rq->engine != engine) { /* preempted virtual engine */
+-		struct virtual_engine *ve = to_virtual_engine(rq->engine);
+-
+-		/*
+-		 * intel_context_inflight() is only protected by virtue
+-		 * of process_csb() being called only by the tasklet (or
+-		 * directly from inside reset while the tasklet is suspended).
+-		 * Assert that neither of those are allowed to run while we
+-		 * poke at the request queues.
+-		 */
+-		GEM_BUG_ON(!reset_in_progress(&engine->execlists));
+-
+-		/*
+-		 * An unsubmitted request along a virtual engine will
+-		 * remain on the active (this) engine until we are able
+-		 * to process the context switch away (and so mark the
+-		 * context as no longer in flight). That cannot have happened
+-		 * yet, otherwise we would not be hanging!
+-		 */
+-		spin_lock(&ve->base.active.lock);
+-		GEM_BUG_ON(intel_context_inflight(rq->context) != engine);
+-		GEM_BUG_ON(ve->request != rq);
+-		ve->request = NULL;
+-		spin_unlock(&ve->base.active.lock);
+-		i915_request_put(rq);
+-
+-		rq->engine = engine;
+-	}
+-
  	/*
- 	 * Serialise with __i915_request_submit() so that it sees
- 	 * is-banned?, or we know the request is already inflight.
-+	 *
-+	 * Note that rq->engine is unstable, and so we double
-+	 * check that we have acquired the lock on the final engine.
- 	 */
- 	locked = READ_ONCE(rq->engine);
- 	spin_lock_irq(&locked->active.lock);
- 	while (unlikely(locked != (engine = READ_ONCE(rq->engine)))) {
- 		spin_unlock(&locked->active.lock);
--		spin_lock(&engine->active.lock);
- 		locked = engine;
-+		spin_lock(&locked->active.lock);
- 	}
- 
--	engine = NULL;
--	if (i915_request_is_active(rq) && rq->fence.error != -EIO)
--		engine = rq->engine;
-+	if (!i915_request_completed(rq)) {
-+		if (i915_request_is_active(rq) && rq->fence.error != -EIO)
-+			*active = locked;
-+		ret = true;
-+	}
- 
- 	spin_unlock_irq(&locked->active.lock);
- 
--	return engine;
-+	return ret;
- }
- 
- static struct intel_engine_cs *active_engine(struct intel_context *ce)
-@@ -472,17 +479,16 @@ static struct intel_engine_cs *active_engine(struct intel_context *ce)
- 	if (!ce->timeline)
- 		return NULL;
- 
--	mutex_lock(&ce->timeline->mutex);
--	list_for_each_entry_reverse(rq, &ce->timeline->requests, link) {
--		if (i915_request_completed(rq))
--			break;
-+	rcu_read_lock();
-+	list_for_each_entry_rcu(rq, &ce->timeline->requests, link) {
-+		if (i915_request_is_active(rq) && i915_request_completed(rq))
-+			continue;
- 
- 		/* Check with the backend if the request is inflight */
--		engine = __active_engine(rq);
--		if (engine)
-+		if (__active_engine(rq, &engine))
- 			break;
- 	}
--	mutex_unlock(&ce->timeline->mutex);
-+	rcu_read_unlock();
- 
- 	return engine;
- }
+ 	 * Transfer this request onto the hold queue to prevent it
+ 	 * being resumbitted to HW (and potentially completed) before we have
 -- 
 2.20.1
 
