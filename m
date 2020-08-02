@@ -7,36 +7,37 @@ X-Spam-Status: No, score=-13.0 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 730AAC433EB
-	for <intel-gfx@archiver.kernel.org>; Sun,  2 Aug 2020 16:44:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EA1B3C433E1
+	for <intel-gfx@archiver.kernel.org>; Sun,  2 Aug 2020 16:44:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5245C20738
-	for <intel-gfx@archiver.kernel.org>; Sun,  2 Aug 2020 16:44:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5245C20738
+	by mail.kernel.org (Postfix) with ESMTPS id CAC7D20738
+	for <intel-gfx@archiver.kernel.org>; Sun,  2 Aug 2020 16:44:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CAC7D20738
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B9026E1E0;
-	Sun,  2 Aug 2020 16:44:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C051B6E1D3;
+	Sun,  2 Aug 2020 16:44:42 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 74A416E192
- for <intel-gfx@lists.freedesktop.org>; Sun,  2 Aug 2020 16:44:40 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E56916E1F1
+ for <intel-gfx@lists.freedesktop.org>; Sun,  2 Aug 2020 16:44:36 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22010419-1500050 
- for multiple; Sun, 02 Aug 2020 17:44:13 +0100
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22010423-1500050 
+ for multiple; Sun, 02 Aug 2020 17:44:14 +0100
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Sun,  2 Aug 2020 17:43:31 +0100
-Message-Id: <20200802164412.2738-2-chris@chris-wilson.co.uk>
+Date: Sun,  2 Aug 2020 17:43:35 +0100
+Message-Id: <20200802164412.2738-6-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200802164412.2738-1-chris@chris-wilson.co.uk>
 References: <20200802164412.2738-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 01/42] drm/i915: Fix wrong return value
+Subject: [Intel-gfx] [PATCH 05/42] drm/i915/gt: Free stale request on
+ destroying the virtual engine
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,74 +50,77 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tianjia Zhang <tianjia.zhang@linux.alibaba.com>,
- Chris Wilson <chris@chris-wilson.co.uk>
+Cc: Chris Wilson <chris@chris-wilson.co.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Tianjia Zhang <tianjia.zhang@linux.alibaba.com>
+Since preempt-to-busy, we may unsubmit a request while it is still on
+the HW and completes asynchronously. That means it may be retired and in
+the process destroy the virtual engine (as the user has closed their
+context), but that engine may still be holding onto the unsubmitted
+compelted request. Therefore we need to potentially cleanup the old
+request on destroying the virtual engine. We also have to keep the
+virtual_engine alive until after the sibling's execlists_dequeue() have
+finished peeking into the virtual engines, for which we serialise with
+RCU.
 
-In function i915_active_acquire_preallocate_barrier(), not all
-paths have the return value set correctly, and in case of memory
-allocation failure, a negative error code should be returned.
-
-Cc: Chris Wilson <chris@chris-wilson.co.uk>
-Signed-off-by: Tianjia Zhang <tianjia.zhang@linux.alibaba.com>
-Reviewed-by: Chris Wilson <chris@chris-wilson.co.uk>
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 ---
- drivers/gpu/drm/i915/i915_active.c            | 7 ++-----
- drivers/gpu/drm/i915/selftests/i915_request.c | 2 +-
- 2 files changed, 3 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_lrc.c | 22 +++++++++++++++++++---
+ 1 file changed, 19 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_active.c b/drivers/gpu/drm/i915/i915_active.c
-index 3ee5e02c3e17..b0a6522be3d1 100644
---- a/drivers/gpu/drm/i915/i915_active.c
-+++ b/drivers/gpu/drm/i915/i915_active.c
-@@ -889,7 +889,6 @@ int i915_active_acquire_preallocate_barrier(struct i915_active *ref,
- 	intel_engine_mask_t tmp, mask = engine->mask;
- 	struct llist_node *first = NULL, *last = NULL;
- 	struct intel_gt *gt = engine->gt;
--	int err;
+diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
+index 417f6b0c6c61..cb04bc5474be 100644
+--- a/drivers/gpu/drm/i915/gt/intel_lrc.c
++++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
+@@ -180,6 +180,7 @@
+ #define EXECLISTS_REQUEST_SIZE 64 /* bytes */
  
- 	GEM_BUG_ON(i915_active_is_idle(ref));
+ struct virtual_engine {
++	struct rcu_head rcu;
+ 	struct intel_engine_cs base;
+ 	struct intel_context context;
  
-@@ -914,10 +913,8 @@ int i915_active_acquire_preallocate_barrier(struct i915_active *ref,
- 		rcu_read_unlock();
- 		if (!node) {
- 			node = kmem_cache_alloc(global.slab_cache, GFP_KERNEL);
--			if (!node) {
--				err = ENOMEM;
-+			if (!node)
- 				goto unwind;
--			}
+@@ -5393,10 +5394,25 @@ static void virtual_context_destroy(struct kref *kref)
+ 		container_of(kref, typeof(*ve), context.ref);
+ 	unsigned int n;
  
- 			RCU_INIT_POINTER(node->base.fence, NULL);
- 			node->base.cb.func = node_retire;
-@@ -965,7 +962,7 @@ int i915_active_acquire_preallocate_barrier(struct i915_active *ref,
+-	GEM_BUG_ON(!list_empty(virtual_queue(ve)));
+-	GEM_BUG_ON(ve->request);
+ 	GEM_BUG_ON(ve->context.inflight);
  
- 		kmem_cache_free(global.slab_cache, node);
- 	}
--	return err;
-+	return -ENOMEM;
++	if (unlikely(ve->request)) {
++		struct i915_request *old;
++		unsigned long flags;
++
++		spin_lock_irqsave(&ve->base.active.lock, flags);
++
++		old = fetch_and_zero(&ve->request);
++		if (old) {
++			GEM_BUG_ON(!i915_request_completed(old));
++			__i915_request_submit(old);
++			i915_request_put(old);
++		}
++
++		spin_unlock_irqrestore(&ve->base.active.lock, flags);
++	}
++	GEM_BUG_ON(!list_empty(virtual_queue(ve)));
++
+ 	for (n = 0; n < ve->num_siblings; n++) {
+ 		struct intel_engine_cs *sibling = ve->siblings[n];
+ 		struct rb_node *node = &ve->nodes[sibling->id].rb;
+@@ -5422,7 +5438,7 @@ static void virtual_context_destroy(struct kref *kref)
+ 	intel_engine_free_request_pool(&ve->base);
+ 
+ 	kfree(ve->bonds);
+-	kfree(ve);
++	kfree_rcu(ve, rcu);
  }
  
- void i915_active_acquire_barrier(struct i915_active *ref)
-diff --git a/drivers/gpu/drm/i915/selftests/i915_request.c b/drivers/gpu/drm/i915/selftests/i915_request.c
-index 57dd6f5122ee..c1dcd4b91bda 100644
---- a/drivers/gpu/drm/i915/selftests/i915_request.c
-+++ b/drivers/gpu/drm/i915/selftests/i915_request.c
-@@ -331,7 +331,7 @@ static int __igt_breadcrumbs_smoketest(void *arg)
- 		if (!wait) {
- 			i915_sw_fence_commit(submit);
- 			heap_fence_put(submit);
--			err = ENOMEM;
-+			err = -ENOMEM;
- 			break;
- 		}
- 
+ static void virtual_engine_initial_hint(struct virtual_engine *ve)
 -- 
 2.20.1
 
