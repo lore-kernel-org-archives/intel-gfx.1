@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-13.0 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5E874C433E1
-	for <intel-gfx@archiver.kernel.org>; Sun,  2 Aug 2020 16:44:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 912E5C433DF
+	for <intel-gfx@archiver.kernel.org>; Sun,  2 Aug 2020 16:44:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3FE7920738
-	for <intel-gfx@archiver.kernel.org>; Sun,  2 Aug 2020 16:44:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3FE7920738
+	by mail.kernel.org (Postfix) with ESMTPS id 72D1B20738
+	for <intel-gfx@archiver.kernel.org>; Sun,  2 Aug 2020 16:44:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 72D1B20738
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB1366E15D;
-	Sun,  2 Aug 2020 16:44:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B16A6E159;
+	Sun,  2 Aug 2020 16:44:22 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 00F536E158
- for <intel-gfx@lists.freedesktop.org>; Sun,  2 Aug 2020 16:44:17 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA6D86E159
+ for <intel-gfx@lists.freedesktop.org>; Sun,  2 Aug 2020 16:44:19 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22010432-1500050 
- for multiple; Sun, 02 Aug 2020 17:44:15 +0100
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22010442-1500050 
+ for multiple; Sun, 02 Aug 2020 17:44:17 +0100
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Sun,  2 Aug 2020 17:43:43 +0100
-Message-Id: <20200802164412.2738-14-chris@chris-wilson.co.uk>
+Date: Sun,  2 Aug 2020 17:43:53 +0100
+Message-Id: <20200802164412.2738-24-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200802164412.2738-1-chris@chris-wilson.co.uk>
 References: <20200802164412.2738-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 13/42] drm/i915/gt: Decouple completed requests
- on unwind
+Subject: [Intel-gfx] [PATCH 23/42] drm/i915/gt: Drop atomic for
+ engine->fw_active tracking
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,52 +56,65 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Since the introduction of preempt-to-busy, requests can complete in the
-background, even while they are not on the engine->active.requests list.
-As such, the engine->active.request list itself is not in strict
-retirement order, and we have to scan the entire list while unwinding to
-not miss any. However, if the request is completed we currently leave it
-on the list [until retirement], but we could just as simply remove it
-and stop treating it as active. We would only have to then traverse it
-once while unwinding in quick succession.
+Since schedule-in/out is now entirely serialised by the tasklet bitlock,
+we do not need to worry about concurrent in/out operations and so reduce
+the atomic operations to plain instructions.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 ---
- drivers/gpu/drm/i915/gt/intel_lrc.c | 6 ++++--
- drivers/gpu/drm/i915/i915_request.c | 3 ++-
- 2 files changed, 6 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c    | 2 +-
+ drivers/gpu/drm/i915/gt/intel_engine_types.h | 2 +-
+ drivers/gpu/drm/i915/gt/intel_lrc.c          | 4 ++--
+ 3 files changed, 4 insertions(+), 4 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+index 26f2781e4a51..b2f520bc1497 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
++++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+@@ -1637,7 +1637,7 @@ void intel_engine_dump(struct intel_engine_cs *engine,
+ 			   ktime_to_ms(intel_engine_get_busy_time(engine,
+ 								  &dummy)));
+ 	drm_printf(m, "\tForcewake: %x domains, %d active\n",
+-		   engine->fw_domain, atomic_read(&engine->fw_active));
++		   engine->fw_domain, READ_ONCE(engine->fw_active));
+ 
+ 	rcu_read_lock();
+ 	rq = READ_ONCE(engine->heartbeat.systole);
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_types.h b/drivers/gpu/drm/i915/gt/intel_engine_types.h
+index 3ea1e59d2b85..2361206fd026 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_engine_types.h
+@@ -328,7 +328,7 @@ struct intel_engine_cs {
+ 	 * as possible.
+ 	 */
+ 	enum forcewake_domains fw_domain;
+-	atomic_t fw_active;
++	unsigned int fw_active;
+ 
+ 	unsigned long context_tag;
+ 
 diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
-index cb04bc5474be..f9aa44f222db 100644
+index e3dccdc53faf..61dfc932201e 100644
 --- a/drivers/gpu/drm/i915/gt/intel_lrc.c
 +++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
-@@ -1116,8 +1116,10 @@ __unwind_incomplete_requests(struct intel_engine_cs *engine)
- 	list_for_each_entry_safe_reverse(rq, rn,
- 					 &engine->active.requests,
- 					 sched.link) {
--		if (i915_request_completed(rq))
--			continue; /* XXX */
-+		if (i915_request_completed(rq)) {
-+			list_del_init(&rq->sched.link);
-+			continue;
-+		}
+@@ -1342,7 +1342,7 @@ __execlists_schedule_in(struct i915_request *rq)
+ 	ce->lrc.ccid |= engine->execlists.ccid;
  
- 		__i915_request_unsubmit(rq);
+ 	__intel_gt_pm_get(engine->gt);
+-	if (engine->fw_domain && !atomic_fetch_inc(&engine->fw_active))
++	if (engine->fw_domain && !engine->fw_active++)
+ 		intel_uncore_forcewake_get(engine->uncore, engine->fw_domain);
+ 	execlists_context_status_change(rq, INTEL_CONTEXT_SCHEDULE_IN);
+ 	intel_engine_context_in(engine);
+@@ -1435,7 +1435,7 @@ static inline void __execlists_schedule_out(struct i915_request *rq)
+ 	intel_context_update_runtime(ce);
+ 	intel_engine_context_out(engine);
+ 	execlists_context_status_change(rq, INTEL_CONTEXT_SCHEDULE_OUT);
+-	if (engine->fw_domain && !atomic_dec_return(&engine->fw_active))
++	if (engine->fw_domain && !--engine->fw_active)
+ 		intel_uncore_forcewake_put(engine->uncore, engine->fw_domain);
+ 	intel_gt_pm_put_async(engine->gt);
  
-diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
-index 1cd102591b36..ebfa195d6463 100644
---- a/drivers/gpu/drm/i915/i915_request.c
-+++ b/drivers/gpu/drm/i915/i915_request.c
-@@ -319,7 +319,8 @@ bool i915_request_retire(struct i915_request *rq)
- 	 * after removing the breadcrumb and signaling it, so that we do not
- 	 * inadvertently attach the breadcrumb to a completed request.
- 	 */
--	remove_from_engine(rq);
-+	if (!list_empty(&rq->sched.link))
-+		remove_from_engine(rq);
- 	GEM_BUG_ON(!llist_empty(&rq->execute_cb));
- 
- 	__list_del_entry(&rq->link); /* poison neither prev/next (RCU walks) */
 -- 
 2.20.1
 
