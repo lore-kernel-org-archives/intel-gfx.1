@@ -7,36 +7,37 @@ X-Spam-Status: No, score=-13.0 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5CED3C433DF
-	for <intel-gfx@archiver.kernel.org>; Sun,  2 Aug 2020 16:44:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6D92CC433FB
+	for <intel-gfx@archiver.kernel.org>; Sun,  2 Aug 2020 16:44:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3EF4620738
-	for <intel-gfx@archiver.kernel.org>; Sun,  2 Aug 2020 16:44:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3EF4620738
+	by mail.kernel.org (Postfix) with ESMTPS id 4349B20738
+	for <intel-gfx@archiver.kernel.org>; Sun,  2 Aug 2020 16:44:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4349B20738
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 470256E17B;
-	Sun,  2 Aug 2020 16:44:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B012E6E201;
+	Sun,  2 Aug 2020 16:44:37 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 713286E192
- for <intel-gfx@lists.freedesktop.org>; Sun,  2 Aug 2020 16:44:30 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 14F806E1D3
+ for <intel-gfx@lists.freedesktop.org>; Sun,  2 Aug 2020 16:44:31 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22010449-1500050 
- for multiple; Sun, 02 Aug 2020 17:44:18 +0100
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22010441-1500050 
+ for multiple; Sun, 02 Aug 2020 17:44:17 +0100
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Sun,  2 Aug 2020 17:44:00 +0100
-Message-Id: <20200802164412.2738-31-chris@chris-wilson.co.uk>
+Date: Sun,  2 Aug 2020 17:43:52 +0100
+Message-Id: <20200802164412.2738-23-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200802164412.2738-1-chris@chris-wilson.co.uk>
 References: <20200802164412.2738-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 30/42] drm/i915: Prune empty priolists
+Subject: [Intel-gfx] [PATCH 22/42] drm/i915/gt: ce->inflight updates are now
+ serialised
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,97 +56,121 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-A side-effect of our priority inheritance scheme is that we promote
-requests from one priority to the next, moving them from one list to the
-next. This can often leave the old priority list empty, but still
-resident in the rbtree, which we then have to traverse during HW
-submission. rb_next() is relatively expensive operation so if we can
-push that to the update where we can do piecemeal pruning and reuse the
-nodes, this reduces the latency for HW submission.
+Since schedule-in and schedule-out are now both always under the tasklet
+bitlock, we can reduce the individual atomic operations to simple
+instructions and worry less.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 ---
- drivers/gpu/drm/i915/i915_scheduler.c | 41 +++++++++++++++++++++------
- 1 file changed, 32 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_lrc.c | 44 +++++++++++++----------------
+ 1 file changed, 19 insertions(+), 25 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_scheduler.c b/drivers/gpu/drm/i915/i915_scheduler.c
-index bfbbd94dfcbc..4b465a571a83 100644
---- a/drivers/gpu/drm/i915/i915_scheduler.c
-+++ b/drivers/gpu/drm/i915/i915_scheduler.c
-@@ -64,9 +64,10 @@ struct list_head *
- i915_sched_lookup_priolist(struct intel_engine_cs *engine, int prio)
- {
- 	struct intel_engine_execlists * const execlists = &engine->execlists;
--	struct i915_priolist *p;
-+	struct list_head *free = NULL;
- 	struct rb_node **parent, *rb;
--	bool first = true;
-+	struct i915_priolist *p;
-+	bool first;
+diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
+index 0d072356cf21..e3dccdc53faf 100644
+--- a/drivers/gpu/drm/i915/gt/intel_lrc.c
++++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
+@@ -1333,7 +1333,7 @@ __execlists_schedule_in(struct i915_request *rq)
+ 		unsigned int tag = ffs(READ_ONCE(engine->context_tag));
  
- 	lockdep_assert_held(&engine->active.lock);
- 	assert_priolists(execlists);
-@@ -77,22 +78,40 @@ i915_sched_lookup_priolist(struct intel_engine_cs *engine, int prio)
- find_priolist:
- 	/* most positive priority is scheduled first, equal priorities fifo */
- 	rb = NULL;
-+	first = true;
- 	parent = &execlists->queue.rb_root.rb_node;
- 	while (*parent) {
- 		rb = *parent;
- 		p = to_priolist(rb);
--		if (prio > p->priority) {
--			parent = &rb->rb_left;
--		} else if (prio < p->priority) {
--			parent = &rb->rb_right;
--			first = false;
--		} else {
--			return &p->requests;
-+
-+		if (prio == p->priority)
-+			goto out;
-+
-+		/*
-+		 * Prune an empty priolist, we can reuse it if we need to
-+		 * allocate. After removing this node and rotating the subtrees
-+		 * beneath its parent, we need to restart our descent from the
-+		 * parent.
-+		 */
-+		if (list_empty(&p->requests)) {
-+			rb = rb_parent(&p->node);
-+			parent = rb ? &rb : &execlists->queue.rb_root.rb_node;
-+			rb_erase_cached(&p->node, &execlists->queue);
-+			free = i915_priolist_free_defer(p, free);
-+			continue;
- 		}
-+
-+		if (prio < p->priority)
-+			parent = &rb->rb_left;
-+		else
-+			parent = &rb->rb_right, first = false;
- 	}
+ 		GEM_BUG_ON(tag == 0 || tag >= BITS_PER_LONG);
+-		clear_bit(tag - 1, &engine->context_tag);
++		__clear_bit(tag - 1, &engine->context_tag);
+ 		ce->lrc.ccid = tag << (GEN11_SW_CTX_ID_SHIFT - 32);
  
- 	if (prio == I915_PRIORITY_NORMAL) {
- 		p = &execlists->default_priolist;
-+	} else if (free) {
-+		p = container_of(free, typeof(*p), requests);
-+		free = p->requests.next;
- 	} else {
- 		p = kmem_cache_alloc(global.slab_priorities, GFP_ATOMIC);
- 		/* Convert an allocation failure to a priority bump */
-@@ -117,7 +136,11 @@ i915_sched_lookup_priolist(struct intel_engine_cs *engine, int prio)
+ 		BUILD_BUG_ON(BITS_PER_LONG > GEN12_MAX_CONTEXT_HW_ID);
+@@ -1360,13 +1360,10 @@ static inline void execlists_schedule_in(struct i915_request *rq, int idx)
+ 	GEM_BUG_ON(!intel_engine_pm_is_awake(rq->engine));
+ 	trace_i915_request_in(rq, idx);
  
- 	rb_link_node(&p->node, rb, parent);
- 	rb_insert_color_cached(&p->node, &execlists->queue, first);
-+	GEM_BUG_ON(rb_first_cached(&execlists->queue) !=
-+		   rb_first(&execlists->queue.rb_root));
+-	old = READ_ONCE(ce->inflight);
+-	do {
+-		if (!old) {
+-			WRITE_ONCE(ce->inflight, __execlists_schedule_in(rq));
+-			break;
+-		}
+-	} while (!try_cmpxchg(&ce->inflight, &old, ptr_inc(old)));
++	old = ce->inflight;
++	if (!old)
++		old = __execlists_schedule_in(rq);
++	WRITE_ONCE(ce->inflight, ptr_inc(old));
  
-+out:
-+	i915_priolist_free_many(free);
- 	return &p->requests;
+ 	GEM_BUG_ON(intel_context_inflight(ce) != rq->engine);
+ }
+@@ -1404,12 +1401,11 @@ static void kick_siblings(struct i915_request *rq, struct intel_context *ce)
+ 		resubmit_virtual_request(rq, ve);
  }
  
+-static inline void
+-__execlists_schedule_out(struct i915_request *rq,
+-			 struct intel_engine_cs * const engine,
+-			 unsigned int ccid)
++static inline void __execlists_schedule_out(struct i915_request *rq)
+ {
+ 	struct intel_context * const ce = rq->context;
++	struct intel_engine_cs * const engine = rq->engine;
++	unsigned int ccid;
+ 
+ 	/*
+ 	 * NB process_csb() is not under the engine->active.lock and hence
+@@ -1417,7 +1413,7 @@ __execlists_schedule_out(struct i915_request *rq,
+ 	 * refrain from doing non-trivial work here.
+ 	 */
+ 
+-	CE_TRACE(ce, "schedule-out, ccid:%x\n", ccid);
++	CE_TRACE(ce, "schedule-out, ccid:%x\n", ce->lrc.ccid);
+ 
+ 	/*
+ 	 * If we have just completed this context, the engine may now be
+@@ -1427,12 +1423,13 @@ __execlists_schedule_out(struct i915_request *rq,
+ 	    i915_request_completed(rq))
+ 		intel_engine_add_retire(engine, ce->timeline);
+ 
++	ccid = ce->lrc.ccid;
+ 	ccid >>= GEN11_SW_CTX_ID_SHIFT - 32;
+ 	ccid &= GEN12_MAX_CONTEXT_HW_ID;
+ 	if (ccid < BITS_PER_LONG) {
+ 		GEM_BUG_ON(ccid == 0);
+ 		GEM_BUG_ON(test_bit(ccid - 1, &engine->context_tag));
+-		set_bit(ccid - 1, &engine->context_tag);
++		__set_bit(ccid - 1, &engine->context_tag);
+ 	}
+ 
+ 	intel_context_update_runtime(ce);
+@@ -1453,26 +1450,23 @@ __execlists_schedule_out(struct i915_request *rq,
+ 	 */
+ 	if (ce->engine != engine)
+ 		kick_siblings(rq, ce);
+-
+-	intel_context_put(ce);
+ }
+ 
+ static inline void
+ execlists_schedule_out(struct i915_request *rq)
+ {
+ 	struct intel_context * const ce = rq->context;
+-	struct intel_engine_cs *cur, *old;
+-	u32 ccid;
+ 
+ 	trace_i915_request_out(rq);
+ 
+-	ccid = rq->context->lrc.ccid;
+-	old = READ_ONCE(ce->inflight);
+-	do
+-		cur = ptr_unmask_bits(old, 2) ? ptr_dec(old) : NULL;
+-	while (!try_cmpxchg(&ce->inflight, &old, cur));
+-	if (!cur)
+-		__execlists_schedule_out(rq, old, ccid);
++	GEM_BUG_ON(!ce->inflight);
++	ce->inflight = ptr_dec(ce->inflight);
++	if (!intel_context_inflight_count(ce)) {
++		GEM_BUG_ON(ce->inflight != rq->engine);
++		__execlists_schedule_out(rq);
++		WRITE_ONCE(ce->inflight, NULL);
++		intel_context_put(ce);
++	}
+ 
+ 	i915_request_put(rq);
+ }
 -- 
 2.20.1
 
