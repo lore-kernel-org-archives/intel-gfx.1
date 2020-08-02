@@ -6,46 +6,37 @@ X-Spam-Status: No, score=-7.0 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
 	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8DE54C433DF
-	for <intel-gfx@archiver.kernel.org>; Sun,  2 Aug 2020 11:40:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 845A6C433DF
+	for <intel-gfx@archiver.kernel.org>; Sun,  2 Aug 2020 11:51:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6169020738
-	for <intel-gfx@archiver.kernel.org>; Sun,  2 Aug 2020 11:40:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6169020738
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 30C802075B
+	for <intel-gfx@archiver.kernel.org>; Sun,  2 Aug 2020 11:51:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 30C802075B
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C43B989CAF;
-	Sun,  2 Aug 2020 11:40:52 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4BDD189C96;
- Sun,  2 Aug 2020 11:40:51 +0000 (UTC)
-IronPort-SDR: +vZxP5qq/ipmYYS9nCz4JlIndGS7vjJWP5cxKPu7WiVxYhMZNh3kzcoxhvNUBHPCro6jubjihP
- OK1+833IU7NQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9700"; a="153201992"
-X-IronPort-AV: E=Sophos;i="5.75,426,1589266800"; d="scan'208";a="153201992"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Aug 2020 04:40:50 -0700
-IronPort-SDR: zTmAvTqRF5Q/d8MAJQczFCPyOgqePoEIe4gpsyHTg45B1dHmF8LJdjZvJFUotZCyOJbim2Oxxp
- KUn8qpeVMTlg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.75,426,1589266800"; d="scan'208";a="366035580"
-Received: from cahanley-mobl.ger.corp.intel.com (HELO intel.com)
- ([10.252.10.182])
- by orsmga001.jf.intel.com with ESMTP; 02 Aug 2020 04:40:45 -0700
-Date: Sun, 2 Aug 2020 14:40:44 +0300
-From: Andi Shyti <andi.shyti@intel.com>
-To: Tianjia Zhang <tianjia.zhang@linux.alibaba.com>
-Message-ID: <20200802114044.GD4705@intel.intel>
-References: <20200802111534.5155-1-tianjia.zhang@linux.alibaba.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 887F86E0F2;
+	Sun,  2 Aug 2020 11:51:52 +0000 (UTC)
+Received: from fireflyinternet.com (unknown [77.68.26.236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EC6326E0F2;
+ Sun,  2 Aug 2020 11:51:50 +0000 (UTC)
+X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
+ x-ip-name=78.156.65.138; 
+Received: from localhost (unverified [78.156.65.138]) 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP (TLS) id
+ 22008785-1500050 for multiple; Sun, 02 Aug 2020 12:51:23 +0100
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200802111534.5155-1-tianjia.zhang@linux.alibaba.com>
+In-Reply-To: <20200802114044.GD4705@intel.intel>
+References: <20200802111534.5155-1-tianjia.zhang@linux.alibaba.com>
+ <20200802114044.GD4705@intel.intel>
+From: Chris Wilson <chris@chris-wilson.co.uk>
+To: Andi Shyti <andi.shyti@intel.com>,
+ Tianjia Zhang <tianjia.zhang@linux.alibaba.com>
+Date: Sun, 02 Aug 2020 12:51:22 +0100
+Message-ID: <159636908251.23037.6183292610375916917@build.alporthouse.com>
+User-Agent: alot/0.9
 Subject: Re: [Intel-gfx] [PATCH] drm/i915: Fix wrong return value
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -59,31 +50,33 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, airlied@linux.ie,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- chris@chris-wilson.co.uk, tianjia.zhang@alibaba.com, matthew.auld@intel.com
+Cc: airlied@linux.ie, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ tianjia.zhang@alibaba.com, matthew.auld@intel.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Tianjia,
+Quoting Andi Shyti (2020-08-02 12:40:44)
+> Hi Tianjia,
+> 
+> > diff --git a/drivers/gpu/drm/i915/i915_active.c b/drivers/gpu/drm/i915/i915_active.c
+> > index d960d0be5bd2..cc017e3cc9c5 100644
+> > --- a/drivers/gpu/drm/i915/i915_active.c
+> > +++ b/drivers/gpu/drm/i915/i915_active.c
+> > @@ -758,7 +758,7 @@ int i915_active_acquire_preallocate_barrier(struct i915_active *ref,
+> >       intel_engine_mask_t tmp, mask = engine->mask;
+> >       struct llist_node *first = NULL, *last = NULL;
+> >       struct intel_gt *gt = engine->gt;
+> > -     int err;
+> > +     int err = 0;
+> 
+> you don't need the initialization here.
 
-> diff --git a/drivers/gpu/drm/i915/i915_active.c b/drivers/gpu/drm/i915/i915_active.c
-> index d960d0be5bd2..cc017e3cc9c5 100644
-> --- a/drivers/gpu/drm/i915/i915_active.c
-> +++ b/drivers/gpu/drm/i915/i915_active.c
-> @@ -758,7 +758,7 @@ int i915_active_acquire_preallocate_barrier(struct i915_active *ref,
->  	intel_engine_mask_t tmp, mask = engine->mask;
->  	struct llist_node *first = NULL, *last = NULL;
->  	struct intel_gt *gt = engine->gt;
-> -	int err;
-> +	int err = 0;
-
-you don't need the initialization here.
-
-Thanks,
-Andi
+But it's close enough that I can munge the patch inline.
+Reviewed-by: Chris Wilson <chris@chris-wilson.co.uk>
+-Chris
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
