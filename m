@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-13.0 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EAB77C433E3
-	for <intel-gfx@archiver.kernel.org>; Sun,  2 Aug 2020 16:44:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B1188C433DF
+	for <intel-gfx@archiver.kernel.org>; Sun,  2 Aug 2020 16:44:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CBD6020738
-	for <intel-gfx@archiver.kernel.org>; Sun,  2 Aug 2020 16:44:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CBD6020738
+	by mail.kernel.org (Postfix) with ESMTPS id 9304920738
+	for <intel-gfx@archiver.kernel.org>; Sun,  2 Aug 2020 16:44:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9304920738
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 185C66E1B4;
-	Sun,  2 Aug 2020 16:44:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F4B06E19A;
+	Sun,  2 Aug 2020 16:44:30 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CBDC06E17D
- for <intel-gfx@lists.freedesktop.org>; Sun,  2 Aug 2020 16:44:27 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 43D1F6E17A
+ for <intel-gfx@lists.freedesktop.org>; Sun,  2 Aug 2020 16:44:26 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22010454-1500050 
- for multiple; Sun, 02 Aug 2020 17:44:19 +0100
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22010436-1500050 
+ for multiple; Sun, 02 Aug 2020 17:44:16 +0100
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Sun,  2 Aug 2020 17:44:05 +0100
-Message-Id: <20200802164412.2738-36-chris@chris-wilson.co.uk>
+Date: Sun,  2 Aug 2020 17:43:47 +0100
+Message-Id: <20200802164412.2738-18-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200802164412.2738-1-chris@chris-wilson.co.uk>
 References: <20200802164412.2738-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 35/42] drm/i915/selftests: Measure set-priority
- duration
+Subject: [Intel-gfx] [PATCH 17/42] drm/i915/gt: Use virtual_engine during
+ execlists_dequeue
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,273 +51,369 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Chris Wilson <chris@chris-wilson.co.uk>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-QXMgYSB0b3BvbG9naWNhbCBzb3J0LCB3ZSBleHBlY3QgaXQgdG8gcnVuIGluIGxpbmVhciBncmFw
-aCB0aW1lLApPKFYrRSkuIEluIHJlbW92aW5nIHRoZSByZWN1cnNpb24sIGl0IGlzIG5vIGxvbmdl
-ciBhIERGUyBidXQgcmF0aGVyIGEKQkZTLCBhbmQgcGVyZm9ybXMgYXMgTyhWRSkuIExldCdzIGRl
-bW9uc3RyYXRlIGhvdyBiYWQgdGhpcyBpcyB3aXRoIGEgZmV3CmV4YW1wbGVzLCBhbmQgYnVpbGQg
-YSBmZXcgdGVzdCBjYXNlcyB0byB2ZXJpZnkgYSBwb3RlbnRpYWwgZml4LgoKU2lnbmVkLW9mZi1i
-eTogQ2hyaXMgV2lsc29uIDxjaHJpc0BjaHJpcy13aWxzb24uY28udWs+Ci0tLQogZHJpdmVycy9n
-cHUvZHJtL2k5MTUvaTkxNV9zY2hlZHVsZXIuYyAgICAgICAgIHwgICA0ICsKIC4uLi9kcm0vaTkx
-NS9zZWxmdGVzdHMvaTkxNV9saXZlX3NlbGZ0ZXN0cy5oICB8ICAgMSArCiAuLi4vZHJtL2k5MTUv
-c2VsZnRlc3RzL2k5MTVfcGVyZl9zZWxmdGVzdHMuaCAgfCAgIDEgKwogLi4uL2dwdS9kcm0vaTkx
-NS9zZWxmdGVzdHMvaTkxNV9zY2hlZHVsZXIuYyAgIHwgNTMwICsrKysrKysrKysrKysrKysrKwog
-NCBmaWxlcyBjaGFuZ2VkLCA1MzYgaW5zZXJ0aW9ucygrKQogY3JlYXRlIG1vZGUgMTAwNjQ0IGRy
-aXZlcnMvZ3B1L2RybS9pOTE1L3NlbGZ0ZXN0cy9pOTE1X3NjaGVkdWxlci5jCgpkaWZmIC0tZ2l0
-IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV9zY2hlZHVsZXIuYyBiL2RyaXZlcnMvZ3B1L2Ry
-bS9pOTE1L2k5MTVfc2NoZWR1bGVyLmMKaW5kZXggNDVlMDAwYzI1N2RiLi4zYzFhMGIwMDE3NDYg
-MTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfc2NoZWR1bGVyLmMKKysrIGIv
-ZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV9zY2hlZHVsZXIuYwpAQCAtNTY1LDYgKzU2NSwxMCBA
-QCB2b2lkIGk5MTVfc2NoZWRfbm9kZV9yZXRpcmUoc3RydWN0IGk5MTVfc2NoZWRfbm9kZSAqbm9k
-ZSkKIAlzcGluX3VubG9ja19pcnEoJm5vZGUtPmxvY2spOwogfQogCisjaWYgSVNfRU5BQkxFRChD
-T05GSUdfRFJNX0k5MTVfU0VMRlRFU1QpCisjaW5jbHVkZSAic2VsZnRlc3RzL2k5MTVfc2NoZWR1
-bGVyLmMiCisjZW5kaWYKKwogc3RhdGljIHZvaWQgaTkxNV9nbG9iYWxfc2NoZWR1bGVyX3Nocmlu
-ayh2b2lkKQogewogCWttZW1fY2FjaGVfc2hyaW5rKGdsb2JhbC5zbGFiX2RlcGVuZGVuY2llcyk7
-CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9zZWxmdGVzdHMvaTkxNV9saXZlX3Nl
-bGZ0ZXN0cy5oIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvc2VsZnRlc3RzL2k5MTVfbGl2ZV9zZWxm
-dGVzdHMuaAppbmRleCBhOTJjMGU5YjdlNmIuLjIyMDBhNWJhYTY4ZSAxMDA2NDQKLS0tIGEvZHJp
-dmVycy9ncHUvZHJtL2k5MTUvc2VsZnRlc3RzL2k5MTVfbGl2ZV9zZWxmdGVzdHMuaAorKysgYi9k
-cml2ZXJzL2dwdS9kcm0vaTkxNS9zZWxmdGVzdHMvaTkxNV9saXZlX3NlbGZ0ZXN0cy5oCkBAIC0y
-Niw2ICsyNiw3IEBAIHNlbGZ0ZXN0KGd0X21vY3MsIGludGVsX21vY3NfbGl2ZV9zZWxmdGVzdHMp
-CiBzZWxmdGVzdChndF9wbSwgaW50ZWxfZ3RfcG1fbGl2ZV9zZWxmdGVzdHMpCiBzZWxmdGVzdChn
-dF9oZWFydGJlYXQsIGludGVsX2hlYXJ0YmVhdF9saXZlX3NlbGZ0ZXN0cykKIHNlbGZ0ZXN0KHJl
-cXVlc3RzLCBpOTE1X3JlcXVlc3RfbGl2ZV9zZWxmdGVzdHMpCitzZWxmdGVzdChzY2hlZHVsZXIs
-IGk5MTVfc2NoZWR1bGVyX2xpdmVfc2VsZnRlc3RzKQogc2VsZnRlc3QoYWN0aXZlLCBpOTE1X2Fj
-dGl2ZV9saXZlX3NlbGZ0ZXN0cykKIHNlbGZ0ZXN0KG9iamVjdHMsIGk5MTVfZ2VtX29iamVjdF9s
-aXZlX3NlbGZ0ZXN0cykKIHNlbGZ0ZXN0KG1tYW4sIGk5MTVfZ2VtX21tYW5fbGl2ZV9zZWxmdGVz
-dHMpCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9zZWxmdGVzdHMvaTkxNV9wZXJm
-X3NlbGZ0ZXN0cy5oIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvc2VsZnRlc3RzL2k5MTVfcGVyZl9z
-ZWxmdGVzdHMuaAppbmRleCBjMjM4OWY4YTI1N2QuLjEzN2UzNTI4M2ZlZSAxMDA2NDQKLS0tIGEv
-ZHJpdmVycy9ncHUvZHJtL2k5MTUvc2VsZnRlc3RzL2k5MTVfcGVyZl9zZWxmdGVzdHMuaAorKysg
-Yi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9zZWxmdGVzdHMvaTkxNV9wZXJmX3NlbGZ0ZXN0cy5oCkBA
-IC0xNyw1ICsxNyw2IEBACiAgKi8KIHNlbGZ0ZXN0KGVuZ2luZV9jcywgaW50ZWxfZW5naW5lX2Nz
-X3BlcmZfc2VsZnRlc3RzKQogc2VsZnRlc3QocmVxdWVzdCwgaTkxNV9yZXF1ZXN0X3BlcmZfc2Vs
-ZnRlc3RzKQorc2VsZnRlc3Qoc2NoZWR1bGVyLCBpOTE1X3NjaGVkdWxlcl9wZXJmX3NlbGZ0ZXN0
-cykKIHNlbGZ0ZXN0KGJsdCwgaTkxNV9nZW1fb2JqZWN0X2JsdF9wZXJmX3NlbGZ0ZXN0cykKIHNl
-bGZ0ZXN0KHJlZ2lvbiwgaW50ZWxfbWVtb3J5X3JlZ2lvbl9wZXJmX3NlbGZ0ZXN0cykKZGlmZiAt
-LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L3NlbGZ0ZXN0cy9pOTE1X3NjaGVkdWxlci5jIGIv
-ZHJpdmVycy9ncHUvZHJtL2k5MTUvc2VsZnRlc3RzL2k5MTVfc2NoZWR1bGVyLmMKbmV3IGZpbGUg
-bW9kZSAxMDA2NDQKaW5kZXggMDAwMDAwMDAwMDAwLi45OGQyOWZhOGY1ZjgKLS0tIC9kZXYvbnVs
-bAorKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9zZWxmdGVzdHMvaTkxNV9zY2hlZHVsZXIuYwpA
-QCAtMCwwICsxLDUzMCBAQAorLy8gU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IE1JVAorLyoKKyAq
-IENvcHlyaWdodCDCqSAyMDIwIEludGVsIENvcnBvcmF0aW9uCisgKi8KKworI2luY2x1ZGUgImk5
-MTVfc2VsZnRlc3QuaCIKKworI2luY2x1ZGUgImd0L2ludGVsX2NvbnRleHQuaCIKKyNpbmNsdWRl
-ICJndC9zZWxmdGVzdF9lbmdpbmVfaGVhcnRiZWF0LmgiCisjaW5jbHVkZSAic2VsZnRlc3RzL2ln
-dF9zcGlubmVyLmgiCisKK3N0YXRpYyB2b2lkIHNjaGVkdWxpbmdfZGlzYWJsZShzdHJ1Y3QgaW50
-ZWxfZW5naW5lX2NzICplbmdpbmUpCit7CisJZW5naW5lLT5wcm9wcy5wcmVlbXB0X3RpbWVvdXRf
-bXMgPSAwOworCWVuZ2luZS0+cHJvcHMudGltZXNsaWNlX2R1cmF0aW9uX21zID0gMDsKKworCXN0
-X2VuZ2luZV9oZWFydGJlYXRfZGlzYWJsZShlbmdpbmUpOworfQorCitzdGF0aWMgdm9pZCBzY2hl
-ZHVsaW5nX2VuYWJsZShzdHJ1Y3QgaW50ZWxfZW5naW5lX2NzICplbmdpbmUpCit7CisJc3RfZW5n
-aW5lX2hlYXJ0YmVhdF9lbmFibGUoZW5naW5lKTsKKworCWVuZ2luZS0+cHJvcHMucHJlZW1wdF90
-aW1lb3V0X21zID0KKwkJZW5naW5lLT5kZWZhdWx0cy5wcmVlbXB0X3RpbWVvdXRfbXM7CisJZW5n
-aW5lLT5wcm9wcy50aW1lc2xpY2VfZHVyYXRpb25fbXMgPQorCQllbmdpbmUtPmRlZmF1bHRzLnRp
-bWVzbGljZV9kdXJhdGlvbl9tczsKK30KKworc3RhdGljIGludCBmaXJzdF9lbmdpbmUoc3RydWN0
-IGRybV9pOTE1X3ByaXZhdGUgKmk5MTUsCisJCQlpbnQgKCpjaGFpbikoc3RydWN0IGludGVsX2Vu
-Z2luZV9jcyAqZW5naW5lLAorCQkJCSAgICAgdW5zaWduZWQgbG9uZyBwYXJhbSwKKwkJCQkgICAg
-IHZvaWQgKCpmbikoc3RydWN0IGk5MTVfcmVxdWVzdCAqcnEsCisJCQkJCQl1bnNpZ25lZCBsb25n
-IHYsCisJCQkJCQl1bnNpZ25lZCBsb25nIGUpKSwKKwkJCXVuc2lnbmVkIGxvbmcgcGFyYW0sCisJ
-CQl2b2lkICgqZm4pKHN0cnVjdCBpOTE1X3JlcXVlc3QgKnJxLAorCQkJCSAgIHVuc2lnbmVkIGxv
-bmcgdiwgdW5zaWduZWQgbG9uZyBlKSkKK3sKKwlzdHJ1Y3QgaW50ZWxfZW5naW5lX2NzICplbmdp
-bmU7CisKKwlmb3JfZWFjaF91YWJpX2VuZ2luZShlbmdpbmUsIGk5MTUpIHsKKwkJaWYgKCFpbnRl
-bF9lbmdpbmVfaGFzX3NjaGVkdWxlcihlbmdpbmUpKQorCQkJY29udGludWU7CisKKwkJcmV0dXJu
-IGNoYWluKGVuZ2luZSwgcGFyYW0sIGZuKTsKKwl9CisKKwlyZXR1cm4gMDsKK30KKworc3RhdGlj
-IGludCBhbGxfZW5naW5lcyhzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqaTkxNSwKKwkJICAgICAg
-IGludCAoKmNoYWluKShzdHJ1Y3QgaW50ZWxfZW5naW5lX2NzICplbmdpbmUsCisJCQkJICAgIHVu
-c2lnbmVkIGxvbmcgcGFyYW0sCisJCQkJICAgIHZvaWQgKCpmbikoc3RydWN0IGk5MTVfcmVxdWVz
-dCAqcnEsCisJCQkJCSAgICAgICB1bnNpZ25lZCBsb25nIHYsCisJCQkJCSAgICAgICB1bnNpZ25l
-ZCBsb25nIGUpKSwKKwkJICAgICAgIHVuc2lnbmVkIGxvbmcgcGFyYW0sCisJCSAgICAgICB2b2lk
-ICgqZm4pKHN0cnVjdCBpOTE1X3JlcXVlc3QgKnJxLAorCQkJCSAgdW5zaWduZWQgbG9uZyB2LCB1
-bnNpZ25lZCBsb25nIGUpKQoreworCXN0cnVjdCBpbnRlbF9lbmdpbmVfY3MgKmVuZ2luZTsKKwlp
-bnQgZXJyOworCisJZm9yX2VhY2hfdWFiaV9lbmdpbmUoZW5naW5lLCBpOTE1KSB7CisJCWlmICgh
-aW50ZWxfZW5naW5lX2hhc19zY2hlZHVsZXIoZW5naW5lKSkKKwkJCWNvbnRpbnVlOworCisJCWVy
-ciA9IGNoYWluKGVuZ2luZSwgcGFyYW0sIGZuKTsKKwkJaWYgKGVycikKKwkJCXJldHVybiBlcnI7
-CisJfQorCisJcmV0dXJuIDA7Cit9CisKK3N0YXRpYyBib29sIGNoZWNrX2NvbnRleHRfb3JkZXIo
-c3RydWN0IGludGVsX2VuZ2luZV9jcyAqZW5naW5lKQoreworCXU2NCBsYXN0X3NlcW5vLCBsYXN0
-X2NvbnRleHQ7CisJdW5zaWduZWQgbG9uZyBjb3VudDsKKwlib29sIHJlc3VsdCA9IGZhbHNlOwor
-CXN0cnVjdCByYl9ub2RlICpyYjsKKwlpbnQgbGFzdF9wcmlvOworCisJLyogV2UgZXhwZWN0IHRo
-ZSBleGVjdXRpb24gb3JkZXIgdG8gZm9sbG93IGFzY2VuZGluZyBmZW5jZS1jb250ZXh0ICovCisJ
-c3Bpbl9sb2NrX2lycSgmZW5naW5lLT5hY3RpdmUubG9jayk7CisKKwljb3VudCA9IDA7CisJbGFz
-dF9jb250ZXh0ID0gMDsKKwlmb3IgKHJiID0gcmJfZmlyc3RfY2FjaGVkKCZlbmdpbmUtPmV4ZWNs
-aXN0cy5xdWV1ZSk7IHJiOyByYiA9IHJiX25leHQocmIpKSB7CisJCXN0cnVjdCBpOTE1X3ByaW9s
-aXN0ICpwID0gcmJfZW50cnkocmIsIHR5cGVvZigqcCksIG5vZGUpOworCQlzdHJ1Y3QgaTkxNV9y
-ZXF1ZXN0ICpycTsKKworCQlwcmlvbGlzdF9mb3JfZWFjaF9yZXF1ZXN0KHJxLCBwKSB7CisJCQlp
-ZiAocnEtPmZlbmNlLmNvbnRleHQgPCBsYXN0X2NvbnRleHQgfHwKKwkJCSAgICAocnEtPmZlbmNl
-LmNvbnRleHQgPT0gbGFzdF9jb250ZXh0ICYmCisJCQkgICAgIHJxLT5mZW5jZS5zZXFubyA8IGxh
-c3Rfc2Vxbm8pKSB7CisJCQkJcHJfZXJyKCJbJWx1XSAlbGx4OiVsbGQgW3ByaW86JWRdIGFmdGVy
-ICVsbHg6JWxsZCBbcHJpbzolZF1cbiIsCisJCQkJICAgICAgIGNvdW50LAorCQkJCSAgICAgICBy
-cS0+ZmVuY2UuY29udGV4dCwKKwkJCQkgICAgICAgcnEtPmZlbmNlLnNlcW5vLAorCQkJCSAgICAg
-ICBycV9wcmlvKHJxKSwKKwkJCQkgICAgICAgbGFzdF9jb250ZXh0LAorCQkJCSAgICAgICBsYXN0
-X3NlcW5vLAorCQkJCSAgICAgICBsYXN0X3ByaW8pOworCQkJCWdvdG8gb3V0X3VubG9jazsKKwkJ
-CX0KKworCQkJbGFzdF9jb250ZXh0ID0gcnEtPmZlbmNlLmNvbnRleHQ7CisJCQlsYXN0X3NlcW5v
-ID0gcnEtPmZlbmNlLnNlcW5vOworCQkJbGFzdF9wcmlvID0gcnFfcHJpbyhycSk7CisJCQljb3Vu
-dCsrOworCQl9CisJfQorCXJlc3VsdCA9IHRydWU7CitvdXRfdW5sb2NrOgorCXNwaW5fdW5sb2Nr
-X2lycSgmZW5naW5lLT5hY3RpdmUubG9jayk7CisKKwlyZXR1cm4gcmVzdWx0OworfQorCitzdGF0
-aWMgaW50IF9fc2luZ2xlX2NoYWluKHN0cnVjdCBpbnRlbF9lbmdpbmVfY3MgKmVuZ2luZSwgdW5z
-aWduZWQgbG9uZyBsZW5ndGgsCisJCQkgIHZvaWQgKCpmbikoc3RydWN0IGk5MTVfcmVxdWVzdCAq
-cnEsCisJCQkJICAgICB1bnNpZ25lZCBsb25nIHYsIHVuc2lnbmVkIGxvbmcgZSkpCit7CisJc3Ry
-dWN0IGludGVsX2NvbnRleHQgKmNlOworCXN0cnVjdCBpZ3Rfc3Bpbm5lciBzcGluOworCXN0cnVj
-dCBpOTE1X3JlcXVlc3QgKnJxOworCXVuc2lnbmVkIGxvbmcgY291bnQ7CisJdW5zaWduZWQgbG9u
-ZyBtaW47CisJaW50IGVyciA9IDA7CisKKwlzY2hlZHVsaW5nX2Rpc2FibGUoZW5naW5lKTsKKwor
-CWlmIChpZ3Rfc3Bpbm5lcl9pbml0KCZzcGluLCBlbmdpbmUtPmd0KSkgeworCQllcnIgPSAtRU5P
-TUVNOworCQlnb3RvIGVycl9oZWFydGJlYXQ7CisJfQorCisJY2UgPSBpbnRlbF9jb250ZXh0X2Ny
-ZWF0ZShlbmdpbmUpOworCWlmIChJU19FUlIoY2UpKSB7CisJCWVyciA9IFBUUl9FUlIoY2UpOwor
-CQlnb3RvIGVycl9zcGluOworCX0KKwljZS0+cmluZyA9IF9faW50ZWxfY29udGV4dF9yaW5nX3Np
-emUoU1pfNTEySyk7CisKKwlycSA9IGlndF9zcGlubmVyX2NyZWF0ZV9yZXF1ZXN0KCZzcGluLCBj
-ZSwgTUlfTk9PUCk7CisJaWYgKElTX0VSUihycSkpIHsKKwkJZXJyID0gUFRSX0VSUihycSk7CisJ
-CWdvdG8gZXJyX2NvbnRleHQ7CisJfQorCWk5MTVfcmVxdWVzdF9hZGQocnEpOworCW1pbiA9IGNl
-LT5yaW5nLT5zaXplIC0gY2UtPnJpbmctPnNwYWNlOworCisJY291bnQgPSAxOworCXdoaWxlIChj
-b3VudCA8IGxlbmd0aCAmJiBjZS0+cmluZy0+c3BhY2UgPiBtaW4pIHsKKwkJcnEgPSBpbnRlbF9j
-b250ZXh0X2NyZWF0ZV9yZXF1ZXN0KGNlKTsKKwkJaWYgKElTX0VSUihycSkpIHsKKwkJCWVyciA9
-IFBUUl9FUlIocnEpOworCQkJYnJlYWs7CisJCX0KKwkJaTkxNV9yZXF1ZXN0X2FkZChycSk7CisJ
-CWNvdW50Kys7CisJfQorCisJdGFza2xldF9kaXNhYmxlKCZlbmdpbmUtPmV4ZWNsaXN0cy50YXNr
-bGV0KTsKKwlsb2NhbF9iaF9kaXNhYmxlKCk7CisJZm4ocnEsIGNvdW50LCBjb3VudCAtIDEpOwor
-CWlmICghY2hlY2tfY29udGV4dF9vcmRlcihlbmdpbmUpKQorCQllcnIgPSAtRUlOVkFMOworCWxv
-Y2FsX2JoX2VuYWJsZSgpOworCXRhc2tsZXRfZW5hYmxlKCZlbmdpbmUtPmV4ZWNsaXN0cy50YXNr
-bGV0KTsKKworCWlndF9zcGlubmVyX2VuZCgmc3Bpbik7CitlcnJfY29udGV4dDoKKwlpbnRlbF9j
-b250ZXh0X3B1dChjZSk7CitlcnJfc3BpbjoKKwlpZ3Rfc3Bpbm5lcl9maW5pKCZzcGluKTsKK2Vy
-cl9oZWFydGJlYXQ6CisJc2NoZWR1bGluZ19lbmFibGUoZW5naW5lKTsKKwlyZXR1cm4gZXJyOwor
-fQorCitzdGF0aWMgaW50IF9fd2lkZV9jaGFpbihzdHJ1Y3QgaW50ZWxfZW5naW5lX2NzICplbmdp
-bmUsIHVuc2lnbmVkIGxvbmcgd2lkdGgsCisJCQl2b2lkICgqZm4pKHN0cnVjdCBpOTE1X3JlcXVl
-c3QgKnJxLAorCQkJCSAgIHVuc2lnbmVkIGxvbmcgdiwgdW5zaWduZWQgbG9uZyBlKSkKK3sKKwlz
-dHJ1Y3QgaW50ZWxfY29udGV4dCAqKmNlOworCXN0cnVjdCBpOTE1X3JlcXVlc3QgKipycTsKKwlz
-dHJ1Y3QgaWd0X3NwaW5uZXIgc3BpbjsKKwl1bnNpZ25lZCBsb25nIGNvdW50OworCXVuc2lnbmVk
-IGxvbmcgaSwgajsKKwlpbnQgZXJyID0gMDsKKworCXNjaGVkdWxpbmdfZGlzYWJsZShlbmdpbmUp
-OworCisJaWYgKGlndF9zcGlubmVyX2luaXQoJnNwaW4sIGVuZ2luZS0+Z3QpKSB7CisJCWVyciA9
-IC1FTk9NRU07CisJCWdvdG8gZXJyX2hlYXJ0YmVhdDsKKwl9CisKKwljZSA9IGttYWxsb2NfYXJy
-YXkod2lkdGgsIHNpemVvZigqY2UpLCBHRlBfS0VSTkVMKTsKKwlpZiAoIWNlKSB7CisJCWVyciA9
-IC1FTk9NRU07CisJCWdvdG8gZXJyX3NwaW47CisJfQorCisJZm9yIChpID0gMDsgaSA8IHdpZHRo
-OyBpKyspIHsKKwkJY2VbaV0gPSBpbnRlbF9jb250ZXh0X2NyZWF0ZShlbmdpbmUpOworCQlpZiAo
-SVNfRVJSKGNlW2ldKSkgeworCQkJZXJyID0gUFRSX0VSUihjZVtpXSk7CisJCQl3aWR0aCA9IGk7
-CisJCQlnb3RvIGVycl9jb250ZXh0OworCQl9CisJfQorCisJcnEgPSBrbWFsbG9jX2FycmF5KHdp
-ZHRoLCBzaXplb2YoKnJxKSwgR0ZQX0tFUk5FTCk7CisJaWYgKCFycSkgeworCQllcnIgPSAtRU5P
-TUVNOworCQlnb3RvIGVycl9jb250ZXh0OworCX0KKworCXJxWzBdID0gaWd0X3NwaW5uZXJfY3Jl
-YXRlX3JlcXVlc3QoJnNwaW4sIGNlWzBdLCBNSV9OT09QKTsKKwlpZiAoSVNfRVJSKHJxWzBdKSkg
-eworCQllcnIgPSBQVFJfRVJSKHJxWzBdKTsKKwkJZ290byBlcnJfZnJlZTsKKwl9CisJaTkxNV9y
-ZXF1ZXN0X2FkZChycVswXSk7CisKKwljb3VudCA9IDA7CisJZm9yIChpID0gMTsgaSA8IHdpZHRo
-OyBpKyspIHsKKwkJR0VNX0JVR19PTihpOTE1X3JlcXVlc3RfY29tcGxldGVkKHJxWzBdKSk7CisK
-KwkJcnFbaV0gPSBpbnRlbF9jb250ZXh0X2NyZWF0ZV9yZXF1ZXN0KGNlW2ldKTsKKwkJaWYgKElT
-X0VSUihycVtpXSkpIHsKKwkJCWVyciA9IFBUUl9FUlIocnFbaV0pOworCQkJYnJlYWs7CisJCX0K
-KwkJZm9yIChqID0gMDsgaiA8IGk7IGorKykgeworCQkJZXJyID0gaTkxNV9yZXF1ZXN0X2F3YWl0
-X2RtYV9mZW5jZShycVtpXSwKKwkJCQkJCQkgICAmcnFbal0tPmZlbmNlKTsKKwkJCWlmIChlcnIp
-CisJCQkJYnJlYWs7CisJCQljb3VudCsrOworCQl9CisJCWk5MTVfcmVxdWVzdF9hZGQocnFbaV0p
-OworCX0KKworCXRhc2tsZXRfZGlzYWJsZSgmZW5naW5lLT5leGVjbGlzdHMudGFza2xldCk7CisJ
-bG9jYWxfYmhfZGlzYWJsZSgpOworCWZuKHJxW2kgLSAxXSwgaSwgY291bnQpOworCWlmICghY2hl
-Y2tfY29udGV4dF9vcmRlcihlbmdpbmUpKQorCQllcnIgPSAtRUlOVkFMOworCWxvY2FsX2JoX2Vu
-YWJsZSgpOworCXRhc2tsZXRfZW5hYmxlKCZlbmdpbmUtPmV4ZWNsaXN0cy50YXNrbGV0KTsKKwor
-CWlndF9zcGlubmVyX2VuZCgmc3Bpbik7CitlcnJfZnJlZToKKwlrZnJlZShycSk7CitlcnJfY29u
-dGV4dDoKKwlmb3IgKGkgPSAwOyBpIDwgd2lkdGg7IGkrKykKKwkJaW50ZWxfY29udGV4dF9wdXQo
-Y2VbaV0pOworCWtmcmVlKGNlKTsKK2Vycl9zcGluOgorCWlndF9zcGlubmVyX2ZpbmkoJnNwaW4p
-OworZXJyX2hlYXJ0YmVhdDoKKwlzY2hlZHVsaW5nX2VuYWJsZShlbmdpbmUpOworCXJldHVybiBl
-cnI7Cit9CisKK3N0YXRpYyBpbnQgX19pbnZfY2hhaW4oc3RydWN0IGludGVsX2VuZ2luZV9jcyAq
-ZW5naW5lLCB1bnNpZ25lZCBsb25nIHdpZHRoLAorCQkgICAgICAgdm9pZCAoKmZuKShzdHJ1Y3Qg
-aTkxNV9yZXF1ZXN0ICpycSwKKwkJCQkgIHVuc2lnbmVkIGxvbmcgdiwgdW5zaWduZWQgbG9uZyBl
-KSkKK3sKKwlzdHJ1Y3QgaW50ZWxfY29udGV4dCAqKmNlOworCXN0cnVjdCBpOTE1X3JlcXVlc3Qg
-KipycTsKKwlzdHJ1Y3QgaWd0X3NwaW5uZXIgc3BpbjsKKwl1bnNpZ25lZCBsb25nIGNvdW50Owor
-CXVuc2lnbmVkIGxvbmcgaSwgajsKKwlpbnQgZXJyID0gMDsKKworCXNjaGVkdWxpbmdfZGlzYWJs
-ZShlbmdpbmUpOworCisJaWYgKGlndF9zcGlubmVyX2luaXQoJnNwaW4sIGVuZ2luZS0+Z3QpKSB7
-CisJCWVyciA9IC1FTk9NRU07CisJCWdvdG8gZXJyX2hlYXJ0YmVhdDsKKwl9CisKKwljZSA9IGtt
-YWxsb2NfYXJyYXkod2lkdGgsIHNpemVvZigqY2UpLCBHRlBfS0VSTkVMKTsKKwlpZiAoIWNlKSB7
-CisJCWVyciA9IC1FTk9NRU07CisJCWdvdG8gZXJyX3NwaW47CisJfQorCisJZm9yIChpID0gMDsg
-aSA8IHdpZHRoOyBpKyspIHsKKwkJY2VbaV0gPSBpbnRlbF9jb250ZXh0X2NyZWF0ZShlbmdpbmUp
-OworCQlpZiAoSVNfRVJSKGNlW2ldKSkgeworCQkJZXJyID0gUFRSX0VSUihjZVtpXSk7CisJCQl3
-aWR0aCA9IGk7CisJCQlnb3RvIGVycl9jb250ZXh0OworCQl9CisJfQorCisJcnEgPSBrbWFsbG9j
-X2FycmF5KHdpZHRoLCBzaXplb2YoKnJxKSwgR0ZQX0tFUk5FTCk7CisJaWYgKCFycSkgeworCQll
-cnIgPSAtRU5PTUVNOworCQlnb3RvIGVycl9jb250ZXh0OworCX0KKworCXJxWzBdID0gaWd0X3Nw
-aW5uZXJfY3JlYXRlX3JlcXVlc3QoJnNwaW4sIGNlWzBdLCBNSV9OT09QKTsKKwlpZiAoSVNfRVJS
-KHJxWzBdKSkgeworCQllcnIgPSBQVFJfRVJSKHJxWzBdKTsKKwkJZ290byBlcnJfZnJlZTsKKwl9
-CisJaTkxNV9yZXF1ZXN0X2FkZChycVswXSk7CisKKwljb3VudCA9IDA7CisJZm9yIChpID0gMTsg
-aSA8IHdpZHRoOyBpKyspIHsKKwkJR0VNX0JVR19PTihpOTE1X3JlcXVlc3RfY29tcGxldGVkKHJx
-WzBdKSk7CisKKwkJcnFbaV0gPSBpbnRlbF9jb250ZXh0X2NyZWF0ZV9yZXF1ZXN0KGNlW2ldKTsK
-KwkJaWYgKElTX0VSUihycVtpXSkpIHsKKwkJCWVyciA9IFBUUl9FUlIocnFbaV0pOworCQkJYnJl
-YWs7CisJCX0KKwkJZm9yIChqID0gaTsgaiA+IDA7IGotLSkgeworCQkJZXJyID0gaTkxNV9yZXF1
-ZXN0X2F3YWl0X2RtYV9mZW5jZShycVtpXSwKKwkJCQkJCQkgICAmcnFbaiAtIDFdLT5mZW5jZSk7
-CisJCQlpZiAoZXJyKQorCQkJCWJyZWFrOworCQkJY291bnQrKzsKKwkJfQorCQlpOTE1X3JlcXVl
-c3RfYWRkKHJxW2ldKTsKKwl9CisKKwl0YXNrbGV0X2Rpc2FibGUoJmVuZ2luZS0+ZXhlY2xpc3Rz
-LnRhc2tsZXQpOworCWxvY2FsX2JoX2Rpc2FibGUoKTsKKwlmbihycVtpIC0gMV0sIGksIGNvdW50
-KTsKKwlpZiAoIWNoZWNrX2NvbnRleHRfb3JkZXIoZW5naW5lKSkKKwkJZXJyID0gLUVJTlZBTDsK
-Kwlsb2NhbF9iaF9lbmFibGUoKTsKKwl0YXNrbGV0X2VuYWJsZSgmZW5naW5lLT5leGVjbGlzdHMu
-dGFza2xldCk7CisKKwlpZ3Rfc3Bpbm5lcl9lbmQoJnNwaW4pOworZXJyX2ZyZWU6CisJa2ZyZWUo
-cnEpOworZXJyX2NvbnRleHQ6CisJZm9yIChpID0gMDsgaSA8IHdpZHRoOyBpKyspCisJCWludGVs
-X2NvbnRleHRfcHV0KGNlW2ldKTsKKwlrZnJlZShjZSk7CitlcnJfc3BpbjoKKwlpZ3Rfc3Bpbm5l
-cl9maW5pKCZzcGluKTsKK2Vycl9oZWFydGJlYXQ6CisJc2NoZWR1bGluZ19lbmFibGUoZW5naW5l
-KTsKKwlyZXR1cm4gZXJyOworfQorCitzdGF0aWMgaW50IGlndF9zaW5nbGUoc3RydWN0IGRybV9p
-OTE1X3ByaXZhdGUgKmk5MTUsCisJCSAgICAgIHZvaWQgKCpmbikoc3RydWN0IGk5MTVfcmVxdWVz
-dCAqcnEsCisJCQkJIHVuc2lnbmVkIGxvbmcgdiwgdW5zaWduZWQgbG9uZyBlKSkKK3sKKwlyZXR1
-cm4gYWxsX2VuZ2luZXMoaTkxNSwgX19zaW5nbGVfY2hhaW4sIDE3LCBmbik7Cit9CisKK3N0YXRp
-YyBpbnQgaWd0X3dpZGUoc3RydWN0IGRybV9pOTE1X3ByaXZhdGUgKmk5MTUsCisJCSAgICB2b2lk
-ICgqZm4pKHN0cnVjdCBpOTE1X3JlcXVlc3QgKnJxLAorCQkJICAgICAgIHVuc2lnbmVkIGxvbmcg
-diwgdW5zaWduZWQgbG9uZyBlKSkKK3sKKwlyZXR1cm4gYWxsX2VuZ2luZXMoaTkxNSwgX193aWRl
-X2NoYWluLCAxNywgZm4pOworfQorCitzdGF0aWMgaW50IGlndF9pbnYoc3RydWN0IGRybV9pOTE1
-X3ByaXZhdGUgKmk5MTUsCisJCSAgIHZvaWQgKCpmbikoc3RydWN0IGk5MTVfcmVxdWVzdCAqcnEs
-CisJCQkgICAgICB1bnNpZ25lZCBsb25nIHYsIHVuc2lnbmVkIGxvbmcgZSkpCit7CisJcmV0dXJu
-IGFsbF9lbmdpbmVzKGk5MTUsIF9faW52X2NoYWluLCAxNywgZm4pOworfQorCitzdGF0aWMgdm9p
-ZCBpZ3RfcHJpb3JpdHkoc3RydWN0IGk5MTVfcmVxdWVzdCAqcnEsCisJCQkgdW5zaWduZWQgbG9u
-ZyB2LCB1bnNpZ25lZCBsb25nIGUpCit7CisJaTkxNV9yZXF1ZXN0X3NldF9wcmlvcml0eShycSwg
-STkxNV9QUklPUklUWV9CQVJSSUVSKTsKKwlHRU1fQlVHX09OKHJxX3ByaW8ocnEpICE9IEk5MTVf
-UFJJT1JJVFlfQkFSUklFUik7Cit9CisKK3N0YXRpYyBpbnQgaWd0X3ByaW9yaXR5X3NpbmdsZSh2
-b2lkICphcmcpCit7CisJcmV0dXJuIGlndF9zaW5nbGUoYXJnLCBpZ3RfcHJpb3JpdHkpOworfQor
-CitzdGF0aWMgaW50IGlndF9wcmlvcml0eV93aWRlKHZvaWQgKmFyZykKK3sKKwlyZXR1cm4gaWd0
-X3dpZGUoYXJnLCBpZ3RfcHJpb3JpdHkpOworfQorCitzdGF0aWMgaW50IGlndF9wcmlvcml0eV9p
-bnYodm9pZCAqYXJnKQoreworCXJldHVybiBpZ3RfaW52KGFyZywgaWd0X3ByaW9yaXR5KTsKK30K
-KworaW50IGk5MTVfc2NoZWR1bGVyX2xpdmVfc2VsZnRlc3RzKHN0cnVjdCBkcm1faTkxNV9wcml2
-YXRlICppOTE1KQoreworCXN0YXRpYyBjb25zdCBzdHJ1Y3QgaTkxNV9zdWJ0ZXN0IHRlc3RzW10g
-PSB7CisJCVNVQlRFU1QoaWd0X3ByaW9yaXR5X3NpbmdsZSksCisJCVNVQlRFU1QoaWd0X3ByaW9y
-aXR5X3dpZGUpLAorCQlTVUJURVNUKGlndF9wcmlvcml0eV9pbnYpLAorCX07CisKKwlyZXR1cm4g
-aTkxNV9zdWJ0ZXN0cyh0ZXN0cywgaTkxNSk7Cit9CisKK3N0YXRpYyBpbnQgY2hhaW5zKHN0cnVj
-dCBkcm1faTkxNV9wcml2YXRlICppOTE1LAorCQkgIGludCAoKmNoYWluKShzdHJ1Y3QgZHJtX2k5
-MTVfcHJpdmF0ZSAqaTkxNSwKKwkJCSAgICAgICB1bnNpZ25lZCBsb25nIGxlbmd0aCwKKwkJCSAg
-ICAgICB2b2lkICgqZm4pKHN0cnVjdCBpOTE1X3JlcXVlc3QgKnJxLAorCQkJCQkgIHVuc2lnbmVk
-IGxvbmcgdiwgdW5zaWduZWQgbG9uZyBlKSksCisJCSAgdm9pZCAoKmZuKShzdHJ1Y3QgaTkxNV9y
-ZXF1ZXN0ICpycSwKKwkJCSAgICAgdW5zaWduZWQgbG9uZyB2LCB1bnNpZ25lZCBsb25nIGUpKQor
-eworCXVuc2lnbmVkIGxvbmcgeFtdID0geyAxLCA0LCAxNiwgNjQsIDEyOCwgMjU2LCA1MTIsIDEw
-MjQsIDQwOTYgfTsKKwlpbnQgaSwgZXJyOworCisJZm9yIChpID0gMDsgaSA8IEFSUkFZX1NJWkUo
-eCk7IGkrKykgeworCQlJR1RfVElNRU9VVChlbmRfdGltZSk7CisKKwkJZXJyID0gY2hhaW4oaTkx
-NSwgeFtpXSwgZm4pOworCQlpZiAoZXJyKQorCQkJcmV0dXJuIGVycjsKKworCQlpZiAoX19pZ3Rf
-dGltZW91dChlbmRfdGltZSwgTlVMTCkpCisJCQlicmVhazsKKwl9CisKKwlyZXR1cm4gMDsKK30K
-Kworc3RhdGljIGludCBzaW5nbGVfY2hhaW4oc3RydWN0IGRybV9pOTE1X3ByaXZhdGUgKmk5MTUs
-CisJCQl1bnNpZ25lZCBsb25nIGxlbmd0aCwKKwkJCXZvaWQgKCpmbikoc3RydWN0IGk5MTVfcmVx
-dWVzdCAqcnEsCisJCQkJICAgdW5zaWduZWQgbG9uZyB2LCB1bnNpZ25lZCBsb25nIGUpKQorewor
-CXJldHVybiBmaXJzdF9lbmdpbmUoaTkxNSwgX19zaW5nbGVfY2hhaW4sIGxlbmd0aCwgZm4pOwor
-fQorCitzdGF0aWMgaW50IHNpbmdsZShzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqaTkxNSwKKwkJ
-ICB2b2lkICgqZm4pKHN0cnVjdCBpOTE1X3JlcXVlc3QgKnJxLAorCQkJICAgICB1bnNpZ25lZCBs
-b25nIHYsIHVuc2lnbmVkIGxvbmcgZSkpCit7CisJcmV0dXJuIGNoYWlucyhpOTE1LCBzaW5nbGVf
-Y2hhaW4sIGZuKTsKK30KKworc3RhdGljIGludCB3aWRlX2NoYWluKHN0cnVjdCBkcm1faTkxNV9w
-cml2YXRlICppOTE1LAorCQkgICAgICB1bnNpZ25lZCBsb25nIHdpZHRoLAorCQkgICAgICB2b2lk
-ICgqZm4pKHN0cnVjdCBpOTE1X3JlcXVlc3QgKnJxLAorCQkJCSB1bnNpZ25lZCBsb25nIHYsIHVu
-c2lnbmVkIGxvbmcgZSkpCit7CisJcmV0dXJuIGZpcnN0X2VuZ2luZShpOTE1LCBfX3dpZGVfY2hh
-aW4sIHdpZHRoLCBmbik7Cit9CisKK3N0YXRpYyBpbnQgd2lkZShzdHJ1Y3QgZHJtX2k5MTVfcHJp
-dmF0ZSAqaTkxNSwKKwkJdm9pZCAoKmZuKShzdHJ1Y3QgaTkxNV9yZXF1ZXN0ICpycSwKKwkJCSAg
-IHVuc2lnbmVkIGxvbmcgdiwgdW5zaWduZWQgbG9uZyBlKSkKK3sKKwlyZXR1cm4gY2hhaW5zKGk5
-MTUsIHdpZGVfY2hhaW4sIGZuKTsKK30KKworc3RhdGljIGludCBpbnZfY2hhaW4oc3RydWN0IGRy
-bV9pOTE1X3ByaXZhdGUgKmk5MTUsCisJCSAgICAgdW5zaWduZWQgbG9uZyB3aWR0aCwKKwkJICAg
-ICB2b2lkICgqZm4pKHN0cnVjdCBpOTE1X3JlcXVlc3QgKnJxLAorCQkJCXVuc2lnbmVkIGxvbmcg
-diwgdW5zaWduZWQgbG9uZyBlKSkKK3sKKwlyZXR1cm4gZmlyc3RfZW5naW5lKGk5MTUsIF9faW52
-X2NoYWluLCB3aWR0aCwgZm4pOworfQorCitzdGF0aWMgaW50IGludihzdHJ1Y3QgZHJtX2k5MTVf
-cHJpdmF0ZSAqaTkxNSwKKwkgICAgICAgdm9pZCAoKmZuKShzdHJ1Y3QgaTkxNV9yZXF1ZXN0ICpy
-cSwKKwkJCSAgdW5zaWduZWQgbG9uZyB2LCB1bnNpZ25lZCBsb25nIGUpKQoreworCXJldHVybiBj
-aGFpbnMoaTkxNSwgaW52X2NoYWluLCBmbik7Cit9CisKK3N0YXRpYyB2b2lkIHJlcG9ydChjb25z
-dCBjaGFyICp3aGF0LCB1bnNpZ25lZCBsb25nIHYsIHVuc2lnbmVkIGxvbmcgZSwgdTY0IGR0KQor
-eworCXByX2luZm8oIiglNGx1LCAlN2x1KSwgJXM6JTEwbGx1bnNcbiIsIHYsIGUsIHdoYXQsIGR0
-KTsKK30KKworc3RhdGljIHU2NCBfX3NldF9wcmlvcml0eShzdHJ1Y3QgaTkxNV9yZXF1ZXN0ICpy
-cSwgaW50IHByaW8pCit7CisJdTY0IGR0OworCisJcHJlZW1wdF9kaXNhYmxlKCk7CisJZHQgPSBr
-dGltZV9nZXRfcmF3X2Zhc3RfbnMoKTsKKwlpOTE1X3JlcXVlc3Rfc2V0X3ByaW9yaXR5KHJxLCBw
-cmlvKTsKKwlkdCA9IGt0aW1lX2dldF9yYXdfZmFzdF9ucygpIC0gZHQ7CisJcHJlZW1wdF9lbmFi
-bGUoKTsKKworCXJldHVybiBkdDsKK30KKworc3RhdGljIHZvaWQgc2V0X3ByaW9yaXR5KHN0cnVj
-dCBpOTE1X3JlcXVlc3QgKnJxLAorCQkJIHVuc2lnbmVkIGxvbmcgdiwgdW5zaWduZWQgbG9uZyBl
-KQoreworCXJlcG9ydCgic2V0LXByaW9yaXR5IiwgdiwgZSwgX19zZXRfcHJpb3JpdHkocnEsIEk5
-MTVfUFJJT1JJVFlfQkFSUklFUikpOworfQorCitzdGF0aWMgaW50IHNpbmdsZV9wcmlvcml0eSh2
-b2lkICphcmcpCit7CisJcmV0dXJuIHNpbmdsZShhcmcsIHNldF9wcmlvcml0eSk7Cit9CisKK3N0
-YXRpYyBpbnQgd2lkZV9wcmlvcml0eSh2b2lkICphcmcpCit7CisJcmV0dXJuIHdpZGUoYXJnLCBz
-ZXRfcHJpb3JpdHkpOworfQorCitzdGF0aWMgaW50IGludl9wcmlvcml0eSh2b2lkICphcmcpCit7
-CisJcmV0dXJuIGludihhcmcsIHNldF9wcmlvcml0eSk7Cit9CisKK2ludCBpOTE1X3NjaGVkdWxl
-cl9wZXJmX3NlbGZ0ZXN0cyhzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqaTkxNSkKK3sKKwlzdGF0
-aWMgY29uc3Qgc3RydWN0IGk5MTVfc3VidGVzdCB0ZXN0c1tdID0geworCQlTVUJURVNUKHNpbmds
-ZV9wcmlvcml0eSksCisJCVNVQlRFU1Qod2lkZV9wcmlvcml0eSksCisJCVNVQlRFU1QoaW52X3By
-aW9yaXR5KSwKKwl9OworCisJcmV0dXJuIGk5MTVfc3VidGVzdHModGVzdHMsIGk5MTUpOworfQot
-LSAKMi4yMC4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-XwpJbnRlbC1nZnggbWFpbGluZyBsaXN0CkludGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcK
-aHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9pbnRlbC1nZngK
+Rather than going back and forth between the rb_node entry and the
+virtual_engine type, store the ve local and reuse it. As the
+container_of conversion from rb_node to virtual_engine requires a
+variable offset, performing that conversion just once shaves off a bit
+of code.
+
+v2: Keep a single virtual engine lookup, for typical use.
+
+Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_lrc.c | 239 ++++++++++++----------------
+ 1 file changed, 105 insertions(+), 134 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
+index dcbd47e8a513..c1ba1eee4b29 100644
+--- a/drivers/gpu/drm/i915/gt/intel_lrc.c
++++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
+@@ -454,9 +454,15 @@ static int queue_prio(const struct intel_engine_execlists *execlists)
+ 	return ((p->priority + 1) << I915_USER_PRIORITY_SHIFT) - ffs(p->used);
+ }
+ 
++static int virtual_prio(const struct intel_engine_execlists *el)
++{
++	struct rb_node *rb = rb_first_cached(&el->virtual);
++
++	return rb ? rb_entry(rb, struct ve_node, rb)->prio : INT_MIN;
++}
++
+ static inline bool need_preempt(const struct intel_engine_cs *engine,
+-				const struct i915_request *rq,
+-				struct rb_node *rb)
++				const struct i915_request *rq)
+ {
+ 	int last_prio;
+ 
+@@ -493,25 +499,6 @@ static inline bool need_preempt(const struct intel_engine_cs *engine,
+ 	    rq_prio(list_next_entry(rq, sched.link)) > last_prio)
+ 		return true;
+ 
+-	if (rb) {
+-		struct virtual_engine *ve =
+-			rb_entry(rb, typeof(*ve), nodes[engine->id].rb);
+-		bool preempt = false;
+-
+-		if (engine == ve->siblings[0]) { /* only preempt one sibling */
+-			struct i915_request *next;
+-
+-			rcu_read_lock();
+-			next = READ_ONCE(ve->request);
+-			if (next)
+-				preempt = rq_prio(next) > last_prio;
+-			rcu_read_unlock();
+-		}
+-
+-		if (preempt)
+-			return preempt;
+-	}
+-
+ 	/*
+ 	 * If the inflight context did not trigger the preemption, then maybe
+ 	 * it was the set of queued requests? Pick the highest priority in
+@@ -522,7 +509,8 @@ static inline bool need_preempt(const struct intel_engine_cs *engine,
+ 	 * ELSP[0] or ELSP[1] as, thanks again to PI, if it was the same
+ 	 * context, it's priority would not exceed ELSP[0] aka last_prio.
+ 	 */
+-	return queue_prio(&engine->execlists) > last_prio;
++	return max(virtual_prio(&engine->execlists),
++		   queue_prio(&engine->execlists)) > last_prio;
+ }
+ 
+ __maybe_unused static inline bool
+@@ -1807,6 +1795,35 @@ static bool virtual_matches(const struct virtual_engine *ve,
+ 	return true;
+ }
+ 
++static struct virtual_engine *
++first_virtual_engine(struct intel_engine_cs *engine)
++{
++	struct intel_engine_execlists *el = &engine->execlists;
++	struct rb_node *rb = rb_first_cached(&el->virtual);
++
++	while (rb) {
++		struct virtual_engine *ve =
++			rb_entry(rb, typeof(*ve), nodes[engine->id].rb);
++		struct i915_request *rq = READ_ONCE(ve->request);
++
++		/* lazily cleanup after another engine handled rq */
++		if (!rq) {
++			rb_erase_cached(rb, &el->virtual);
++			RB_CLEAR_NODE(rb);
++			rb = rb_first_cached(&el->virtual);
++			continue;
++		}
++
++		if (!virtual_matches(ve, rq, engine)) {
++			rb = rb_next(rb);
++			continue;
++		}
++		return ve;
++	}
++
++	return NULL;
++}
++
+ static void virtual_xfer_context(struct virtual_engine *ve,
+ 				 struct intel_engine_cs *engine)
+ {
+@@ -1905,32 +1922,15 @@ static void defer_active(struct intel_engine_cs *engine)
+ 
+ static bool
+ need_timeslice(const struct intel_engine_cs *engine,
+-	       const struct i915_request *rq,
+-	       const struct rb_node *rb)
++	       const struct i915_request *rq)
+ {
+ 	int hint;
+ 
+ 	if (!intel_engine_has_timeslices(engine))
+ 		return false;
+ 
+-	hint = engine->execlists.queue_priority_hint;
+-
+-	if (rb) {
+-		const struct virtual_engine *ve =
+-			rb_entry(rb, typeof(*ve), nodes[engine->id].rb);
+-		const struct intel_engine_cs *inflight =
+-			intel_context_inflight(&ve->context);
+-
+-		if (!inflight || inflight == engine) {
+-			struct i915_request *next;
+-
+-			rcu_read_lock();
+-			next = READ_ONCE(ve->request);
+-			if (next)
+-				hint = max(hint, rq_prio(next));
+-			rcu_read_unlock();
+-		}
+-	}
++	hint = max(engine->execlists.queue_priority_hint,
++		   virtual_prio(&engine->execlists));
+ 
+ 	if (!list_is_last(&rq->sched.link, &engine->active.requests))
+ 		hint = max(hint, rq_prio(list_next_entry(rq, sched.link)));
+@@ -2077,6 +2077,7 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
+ 	struct i915_request **port = execlists->pending;
+ 	struct i915_request ** const last_port = port + execlists->port_mask;
+ 	struct i915_request *last = *execlists->active;
++	struct virtual_engine *ve;
+ 	struct rb_node *rb;
+ 	bool submit = false;
+ 
+@@ -2103,26 +2104,6 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
+ 	 */
+ 	spin_lock_irq(&engine->active.lock);
+ 
+-	for (rb = rb_first_cached(&execlists->virtual); rb; ) {
+-		struct virtual_engine *ve =
+-			rb_entry(rb, typeof(*ve), nodes[engine->id].rb);
+-		struct i915_request *rq = READ_ONCE(ve->request);
+-
+-		if (!rq) { /* lazily cleanup after another engine handled rq */
+-			rb_erase_cached(rb, &execlists->virtual);
+-			RB_CLEAR_NODE(rb);
+-			rb = rb_first_cached(&execlists->virtual);
+-			continue;
+-		}
+-
+-		if (!virtual_matches(ve, rq, engine)) {
+-			rb = rb_next(rb);
+-			continue;
+-		}
+-
+-		break;
+-	}
+-
+ 	/*
+ 	 * If the queue is higher priority than the last
+ 	 * request in the currently active context, submit afresh.
+@@ -2145,7 +2126,7 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
+ 	if (last) {
+ 		if (i915_request_completed(last)) {
+ 			goto check_secondary;
+-		} else if (need_preempt(engine, last, rb)) {
++		} else if (need_preempt(engine, last)) {
+ 			ENGINE_TRACE(engine,
+ 				     "preempting last=%llx:%lld, prio=%d, hint=%d\n",
+ 				     last->fence.context,
+@@ -2171,7 +2152,7 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
+ 			__unwind_incomplete_requests(engine);
+ 
+ 			last = NULL;
+-		} else if (need_timeslice(engine, last, rb) &&
++		} else if (need_timeslice(engine, last) &&
+ 			   timeslice_expired(execlists, last)) {
+ 			ENGINE_TRACE(engine,
+ 				     "expired last=%llx:%lld, prio=%d, hint=%d, yield?=%s\n",
+@@ -2222,96 +2203,86 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
+ 		}
+ 	}
+ 
+-	while (rb) { /* XXX virtual is always taking precedence */
+-		struct virtual_engine *ve =
+-			rb_entry(rb, typeof(*ve), nodes[engine->id].rb);
++	/* XXX virtual is always taking precedence */
++	while ((ve = first_virtual_engine(engine))) {
+ 		struct i915_request *rq;
+ 
+ 		spin_lock(&ve->base.active.lock);
+ 
+ 		rq = ve->request;
+-		if (unlikely(!rq)) { /* lost the race to a sibling */
+-			spin_unlock(&ve->base.active.lock);
+-			rb_erase_cached(rb, &execlists->virtual);
+-			RB_CLEAR_NODE(rb);
+-			rb = rb_first_cached(&execlists->virtual);
+-			continue;
+-		}
++		if (unlikely(!rq)) /* lost the race to a sibling */
++			goto unlock;
+ 
+-		GEM_BUG_ON(rq != ve->request);
+ 		GEM_BUG_ON(rq->engine != &ve->base);
+ 		GEM_BUG_ON(rq->context != &ve->context);
+ 
+-		if (rq_prio(rq) >= queue_prio(execlists)) {
+-			if (!virtual_matches(ve, rq, engine)) {
+-				spin_unlock(&ve->base.active.lock);
+-				rb = rb_next(rb);
+-				continue;
+-			}
++		if (unlikely(rq_prio(rq) < queue_prio(execlists))) {
++			spin_unlock(&ve->base.active.lock);
++			break;
++		}
+ 
+-			if (last && !can_merge_rq(last, rq)) {
+-				spin_unlock(&ve->base.active.lock);
+-				spin_unlock_irq(&engine->active.lock);
+-				start_timeslice(engine, rq_prio(rq));
+-				return; /* leave this for another sibling */
+-			}
++		GEM_BUG_ON(!virtual_matches(ve, rq, engine));
+ 
+-			ENGINE_TRACE(engine,
+-				     "virtual rq=%llx:%lld%s, new engine? %s\n",
+-				     rq->fence.context,
+-				     rq->fence.seqno,
+-				     i915_request_completed(rq) ? "!" :
+-				     i915_request_started(rq) ? "*" :
+-				     "",
+-				     yesno(engine != ve->siblings[0]));
+-
+-			WRITE_ONCE(ve->request, NULL);
+-			WRITE_ONCE(ve->base.execlists.queue_priority_hint,
+-				   INT_MIN);
+-			rb_erase_cached(rb, &execlists->virtual);
+-			RB_CLEAR_NODE(rb);
++		if (last && !can_merge_rq(last, rq)) {
++			spin_unlock(&ve->base.active.lock);
++			spin_unlock_irq(&engine->active.lock);
++			start_timeslice(engine, rq_prio(rq));
++			return; /* leave this for another sibling */
++		}
+ 
+-			GEM_BUG_ON(!(rq->execution_mask & engine->mask));
+-			WRITE_ONCE(rq->engine, engine);
++		ENGINE_TRACE(engine,
++			     "virtual rq=%llx:%lld%s, new engine? %s\n",
++			     rq->fence.context,
++			     rq->fence.seqno,
++			     i915_request_completed(rq) ? "!" :
++			     i915_request_started(rq) ? "*" :
++			     "",
++			     yesno(engine != ve->siblings[0]));
+ 
+-			if (__i915_request_submit(rq)) {
+-				/*
+-				 * Only after we confirm that we will submit
+-				 * this request (i.e. it has not already
+-				 * completed), do we want to update the context.
+-				 *
+-				 * This serves two purposes. It avoids
+-				 * unnecessary work if we are resubmitting an
+-				 * already completed request after timeslicing.
+-				 * But more importantly, it prevents us altering
+-				 * ve->siblings[] on an idle context, where
+-				 * we may be using ve->siblings[] in
+-				 * virtual_context_enter / virtual_context_exit.
+-				 */
+-				virtual_xfer_context(ve, engine);
+-				GEM_BUG_ON(ve->siblings[0] != engine);
++		WRITE_ONCE(ve->request, NULL);
++		WRITE_ONCE(ve->base.execlists.queue_priority_hint, INT_MIN);
+ 
+-				submit = true;
+-				last = rq;
+-			}
+-			i915_request_put(rq);
++		rb = &ve->nodes[engine->id].rb;
++		rb_erase_cached(rb, &execlists->virtual);
++		RB_CLEAR_NODE(rb);
++
++		GEM_BUG_ON(!(rq->execution_mask & engine->mask));
++		WRITE_ONCE(rq->engine, engine);
+ 
++		if (__i915_request_submit(rq)) {
+ 			/*
+-			 * Hmm, we have a bunch of virtual engine requests,
+-			 * but the first one was already completed (thanks
+-			 * preempt-to-busy!). Keep looking at the veng queue
+-			 * until we have no more relevant requests (i.e.
+-			 * the normal submit queue has higher priority).
++			 * Only after we confirm that we will submit
++			 * this request (i.e. it has not already
++			 * completed), do we want to update the context.
++			 *
++			 * This serves two purposes. It avoids
++			 * unnecessary work if we are resubmitting an
++			 * already completed request after timeslicing.
++			 * But more importantly, it prevents us altering
++			 * ve->siblings[] on an idle context, where
++			 * we may be using ve->siblings[] in
++			 * virtual_context_enter / virtual_context_exit.
+ 			 */
+-			if (!submit) {
+-				spin_unlock(&ve->base.active.lock);
+-				rb = rb_first_cached(&execlists->virtual);
+-				continue;
+-			}
++			virtual_xfer_context(ve, engine);
++			GEM_BUG_ON(ve->siblings[0] != engine);
++
++			submit = true;
++			last = rq;
+ 		}
+ 
++		i915_request_put(rq);
++unlock:
+ 		spin_unlock(&ve->base.active.lock);
+-		break;
++
++		/*
++		 * Hmm, we have a bunch of virtual engine requests,
++		 * but the first one was already completed (thanks
++		 * preempt-to-busy!). Keep looking at the veng queue
++		 * until we have no more relevant requests (i.e.
++		 * the normal submit queue has higher priority).
++		 */
++		if (submit)
++			break;
+ 	}
+ 
+ 	while ((rb = rb_first_cached(&execlists->queue))) {
+-- 
+2.20.1
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
