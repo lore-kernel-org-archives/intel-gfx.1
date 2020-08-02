@@ -2,73 +2,49 @@ Return-Path: <SRS0=uD7q=BN=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+X-Spam-Status: No, score=-13.0 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,UNPARSEABLE_RELAY,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AFEDEC433DF
-	for <intel-gfx@archiver.kernel.org>; Mon,  3 Aug 2020 13:04:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DE1C8C433E1
+	for <intel-gfx@archiver.kernel.org>; Mon,  3 Aug 2020 13:04:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 81789205CB
-	for <intel-gfx@archiver.kernel.org>; Mon,  3 Aug 2020 13:04:28 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MxXS7aXG"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 81789205CB
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 74A57205CB
+	for <intel-gfx@archiver.kernel.org>; Mon,  3 Aug 2020 13:04:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 74A57205CB
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.alibaba.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 014A06E267;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 60DFE6E279;
 	Mon,  3 Aug 2020 13:04:29 +0000 (UTC)
-Received: from mail-ed1-x541.google.com (mail-ed1-x541.google.com
- [IPv6:2a00:1450:4864:20::541])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 573136EB79;
- Sat,  1 Aug 2020 12:24:37 +0000 (UTC)
-Received: by mail-ed1-x541.google.com with SMTP id l23so10420144edv.11;
- Sat, 01 Aug 2020 05:24:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=mTab8JNvsgo4CL+J2E65GCxL4zVDcvJICP1+e2MGiww=;
- b=MxXS7aXGg49OI8aq1o2JxQSacx3GEkx7XRc4h3ldURK6zBJgpz5BCs4TCQi9vzW8bw
- 6N5rmJ/Bc2EsNZmNEy95m4VrSdD6S36XHIE0bXDvbmHdvv8Ihd/DN3YqOot8+XNsBn4K
- uH6Ip0XLj/CLkS7OQbIMeU5cG1JmDbAF6R4dkjrmVllWjiJc6lq/K7WJN3y20CFnB+Zq
- Veh4WXw6cFj5wfDJzSErjSaJ/GQ1p/YmseYNttpG96RLDnixkmg9o75N4xiBxD0qqPsJ
- 1iL8Qj7buxqLPP29VEWOUOsDSz4OPW5lGkFWyKdBy9bfKl3Yd4OWQ3uoiFlz2n2kpCGD
- NGZg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references;
- bh=mTab8JNvsgo4CL+J2E65GCxL4zVDcvJICP1+e2MGiww=;
- b=fGFpXHb5yFqLC9rsaj6KGPNxRHw/BD55LHEjfJf57GrWsRG1DPtB3y0d40tmT4UwOB
- UejZRlmSWtUOz8SGwLV3zmnMSK6NbJhJ5ruB0TrN/HL2w3Ty4jgIv6mP+4bsAxExX5Cb
- 7/1yt4FFCcLy9MT9tQQy+JaBXRUCH+McTkhae36sZels85MO2zddWBDBHOVL9xNj13AT
- YaJznRNkazVCfP8OkbT8BJZuhAqg07e+wCFbKMyY/FNStM/z98W4EAorsKsNmCqhJcek
- fG74F/6DX/VOffcYWup2lCTRYzc4T4KAqz15a1qClmwazEqs+ZJ+8f6BVkN3RQKHyxfX
- Mo8A==
-X-Gm-Message-State: AOAM533H50KeZ6VWpTStO9VPEhEYBHt1eNPvf3ThRtATFQFx32gDTatI
- RPXHjMBcXR2ISxVT3sUDGYM=
-X-Google-Smtp-Source: ABdhPJyNuqCc/8r6/A/7Q7T/LnVDBWUQ9SzPEt/TNIqjoVA3EMIMDnSI53A+QOmplMa8tW5cITLjzA==
-X-Received: by 2002:aa7:d5d0:: with SMTP id d16mr7805559eds.212.1596284675988; 
- Sat, 01 Aug 2020 05:24:35 -0700 (PDT)
-Received: from net.saheed (95C84E0A.dsl.pool.telekom.hu. [149.200.78.10])
- by smtp.gmail.com with ESMTPSA id a101sm12083131edf.76.2020.08.01.05.24.34
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 01 Aug 2020 05:24:35 -0700 (PDT)
-From: "Saheed O. Bolarinwa" <refactormyself@gmail.com>
-To: helgaas@kernel.org, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>
-Date: Sat,  1 Aug 2020 13:24:38 +0200
-Message-Id: <20200801112446.149549-10-refactormyself@gmail.com>
-X-Mailer: git-send-email 2.18.4
-In-Reply-To: <20200801112446.149549-1-refactormyself@gmail.com>
-References: <20200801112446.149549-1-refactormyself@gmail.com>
+Received: from out4436.biz.mail.alibaba.com (out4436.biz.mail.alibaba.com
+ [47.88.44.36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E65B06E0F2;
+ Sun,  2 Aug 2020 11:15:48 +0000 (UTC)
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R211e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04426;
+ MF=tianjia.zhang@linux.alibaba.com; NM=1; PH=DS; RN=16; SR=0;
+ TI=SMTPD_---0U4TqfqO_1596366935; 
+Received: from localhost(mailfrom:tianjia.zhang@linux.alibaba.com
+ fp:SMTPD_---0U4TqfqO_1596366935) by smtp.aliyun-inc.com(127.0.0.1);
+ Sun, 02 Aug 2020 19:15:35 +0800
+From: Tianjia Zhang <tianjia.zhang@linux.alibaba.com>
+To: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
+ rodrigo.vivi@intel.com, airlied@linux.ie, daniel@ffwll.ch,
+ ville.syrjala@linux.intel.com, jose.souza@intel.com,
+ maarten.lankhorst@linux.intel.com, chris@chris-wilson.co.uk,
+ manasi.d.navare@intel.com, wambui.karugax@gmail.com,
+ stanislav.lisovskiy@intel.com
+Date: Sun,  2 Aug 2020 19:15:35 +0800
+Message-Id: <20200802111535.5200-1-tianjia.zhang@linux.alibaba.com>
+X-Mailer: git-send-email 2.17.1
+MIME-Version: 1.0
 X-Mailman-Approved-At: Mon, 03 Aug 2020 13:04:28 +0000
-Subject: [Intel-gfx] [RFC PATCH 09/17] drm/i915/vga: Drop uses of
- pci_read_config_*() return value
+Subject: [Intel-gfx] [PATCH] drm/i915: Fix wrong return value in
+ intel_atomic_check()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,54 +57,30 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Saheed O. Bolarinwa" <refactormyself@gmail.com>,
- intel-gfx@lists.freedesktop.org, skhan@linuxfoundation.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-pci@vger.kernel.org, bjorn@helgaas.com,
- linux-kernel-mentees@lists.linuxfoundation.org
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: tianjia.zhang@alibaba.com, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The return value of pci_read_config_*() may not indicate a device error.
-However, the value read by these functions is more likely to indicate
-this kind of error. This presents two overlapping ways of reporting
-errors and complicates error checking.
-
-It is possible to move to one single way of checking for error if the
-dependency on the return value of these functions is removed, then it
-can later be made to return void.
-
-Remove all uses of the return value of pci_read_config_*().
-Check the actual value read for ~0. In this case, ~0 is an invalid
-value thus it indicates some kind of error.
-
-Suggested-by: Bjorn Helgaas <bjorn@helgaas.com>
-Signed-off-by: Saheed O. Bolarinwa <refactormyself@gmail.com>
----
- drivers/gpu/drm/i915/display/intel_vga.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_vga.c b/drivers/gpu/drm/i915/display/intel_vga.c
-index be333699c515..6f9406699c9d 100644
---- a/drivers/gpu/drm/i915/display/intel_vga.c
-+++ b/drivers/gpu/drm/i915/display/intel_vga.c
-@@ -99,7 +99,8 @@ intel_vga_set_state(struct drm_i915_private *i915, bool enable_decode)
- 	unsigned int reg = INTEL_GEN(i915) >= 6 ? SNB_GMCH_CTRL : INTEL_GMCH_CTRL;
- 	u16 gmch_ctrl;
- 
--	if (pci_read_config_word(i915->bridge_dev, reg, &gmch_ctrl)) {
-+	pci_read_config_word(i915->bridge_dev, reg, &gmch_ctrl);
-+	if (gmch_ctrl == (u16)~0) {
- 		drm_err(&i915->drm, "failed to read control word\n");
- 		return -EIO;
- 	}
--- 
-2.18.4
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+SW4gdGhlIGNhc2Ugb2YgY2FsbGluZyBjaGVja19kaWdpdGFsX3BvcnRfY29uZmxpY3RzKCkgZmFp
+bGVkLCBhCm5lZ2F0aXZlIGVycm9yIGNvZGUgLUVJTlZBTCBzaG91bGQgYmUgcmV0dXJuZWQuCgpG
+aXhlczogYmY1ZGE4M2U0YmQ4MCAoImRybS9pOTE1OiBNb3ZlIGNoZWNrX2RpZ2l0YWxfcG9ydF9j
+b25mbGljdHMoKSBlYXJpZXIiKQpDYzogVmlsbGUgU3lyasOkbMOkIDx2aWxsZS5zeXJqYWxhQGxp
+bnV4LmludGVsLmNvbT4KU2lnbmVkLW9mZi1ieTogVGlhbmppYSBaaGFuZyA8dGlhbmppYS56aGFu
+Z0BsaW51eC5hbGliYWJhLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2lu
+dGVsX2Rpc3BsYXkuYyB8IDIgKy0KIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMSBk
+ZWxldGlvbigtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50
+ZWxfZGlzcGxheS5jIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kaXNwbGF5
+LmMKaW5kZXggMjY5OTZlMTgzOWUyLi45ZjNhN2VmNThhYmEgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMv
+Z3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGlzcGxheS5jCisrKyBiL2RyaXZlcnMvZ3B1L2Ry
+bS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGlzcGxheS5jCkBAIC0xNDg3Miw3ICsxNDg3Miw3IEBAIHN0
+YXRpYyBpbnQgaW50ZWxfYXRvbWljX2NoZWNrKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsCiAJaWYg
+KGFueV9tcyAmJiAhY2hlY2tfZGlnaXRhbF9wb3J0X2NvbmZsaWN0cyhzdGF0ZSkpIHsKIAkJZHJt
+X2RiZ19rbXMoJmRldl9wcml2LT5kcm0sCiAJCQkgICAgInJlamVjdGluZyBjb25mbGljdGluZyBk
+aWdpdGFsIHBvcnQgY29uZmlndXJhdGlvblxuIik7Ci0JCXJldCA9IEVJTlZBTDsKKwkJcmV0ID0g
+LUVJTlZBTDsKIAkJZ290byBmYWlsOwogCX0KIAotLSAKMi4yNi4yCgpfX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpJbnRlbC1nZnggbWFpbGluZyBsaXN0Cklu
+dGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5v
+cmcvbWFpbG1hbi9saXN0aW5mby9pbnRlbC1nZngK
