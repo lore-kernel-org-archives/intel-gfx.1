@@ -6,36 +6,36 @@ X-Spam-Status: No, score=-4.0 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7CB4CC433DF
-	for <intel-gfx@archiver.kernel.org>; Tue,  4 Aug 2020 10:51:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4F376C433E0
+	for <intel-gfx@archiver.kernel.org>; Tue,  4 Aug 2020 10:52:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6978E2075D
-	for <intel-gfx@archiver.kernel.org>; Tue,  4 Aug 2020 10:51:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6978E2075D
+	by mail.kernel.org (Postfix) with ESMTPS id 36F0E2075D
+	for <intel-gfx@archiver.kernel.org>; Tue,  4 Aug 2020 10:52:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 36F0E2075D
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D1D7B6E090;
-	Tue,  4 Aug 2020 10:51:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C25E6E140;
+	Tue,  4 Aug 2020 10:52:21 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
  [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 087786E090;
- Tue,  4 Aug 2020 10:51:29 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 273B86E140;
+ Tue,  4 Aug 2020 10:52:20 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 01C43A0BCB;
- Tue,  4 Aug 2020 10:51:29 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id 24D33A0BCB;
+ Tue,  4 Aug 2020 10:52:20 +0000 (UTC)
 MIME-Version: 1.0
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Lionel Landwerlin" <lionel.g.landwerlin@intel.com>
-Date: Tue, 04 Aug 2020 10:51:29 -0000
-Message-ID: <159653828900.12580.5413575082098086675@emeril.freedesktop.org>
+Date: Tue, 04 Aug 2020 10:52:20 -0000
+Message-ID: <159653834014.12582.1313055710945759407@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <20200804085954.350343-1-lionel.g.landwerlin@intel.com>
 In-Reply-To: <20200804085954.350343-1-lionel.g.landwerlin@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_drm/i915=3A_add_syncobj_timeline_support?=
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?drm/i915=3A_add_syncobj_timeline_support?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,24 +63,9 @@ State : warning
 
 == Summary ==
 
-$ dim checkpatch origin/drm-tip
-3effdabf8574 drm/i915: introduce a mechanism to extend execbuf2
--:377: CHECK:SPACING: spaces preferred around that '<<' (ctx:VxV)
-#377: FILE: include/uapi/drm/i915_drm.h:1204:
-+#define __I915_EXEC_UNKNOWN_FLAGS (-(I915_EXEC_USE_EXTENSIONS<<1))
-                                                              ^
-
-total: 0 errors, 0 warnings, 1 checks, 333 lines checked
-73f06b6f331d drm/i915: add syncobj timeline support
--:25: WARNING:COMMIT_LOG_LONG_LINE: Possible unwrapped commit description (prefer a maximum 75 chars per line)
-#25: 
-    https://lists.freedesktop.org/archives/dri-devel/2019-August/229287.html
-
--:35: WARNING:BAD_SIGN_OFF: Non-standard signature: Co-authored-by:
-#35: 
-Co-authored-by: Chris Wilson <chris@chris-wilson.co.uk>
-
-total: 0 errors, 2 warnings, 0 checks, 524 lines checked
+$ dim sparse --fast origin/drm-tip
+Sparse version: v0.6.0
+Fast mode used, each commit won't be checked separately.
 
 
 _______________________________________________
