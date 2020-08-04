@@ -6,36 +6,36 @@ X-Spam-Status: No, score=-4.0 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4DEC8C433E0
-	for <intel-gfx@archiver.kernel.org>; Tue,  4 Aug 2020 17:54:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CD641C433DF
+	for <intel-gfx@archiver.kernel.org>; Tue,  4 Aug 2020 17:56:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 38116206DA
-	for <intel-gfx@archiver.kernel.org>; Tue,  4 Aug 2020 17:54:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 38116206DA
+	by mail.kernel.org (Postfix) with ESMTPS id B41AA21744
+	for <intel-gfx@archiver.kernel.org>; Tue,  4 Aug 2020 17:56:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B41AA21744
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE5D96E0BA;
-	Tue,  4 Aug 2020 17:54:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 407D96E282;
+	Tue,  4 Aug 2020 17:56:45 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
  [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 71E006E0BA;
- Tue,  4 Aug 2020 17:54:35 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 30EF36E282;
+ Tue,  4 Aug 2020 17:56:43 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 6B78CA47DF;
- Tue,  4 Aug 2020 17:54:35 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id 2A92AA0BCB;
+ Tue,  4 Aug 2020 17:56:43 +0000 (UTC)
 MIME-Version: 1.0
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Umesh Nerlige Ramappa" <umesh.nerlige.ramappa@intel.com>
-Date: Tue, 04 Aug 2020 17:54:35 -0000
-Message-ID: <159656367540.12581.17142529048937902085@emeril.freedesktop.org>
+Date: Tue, 04 Aug 2020 17:56:43 -0000
+Message-ID: <159656380314.12579.9117097372505800064@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <20200804171127.66926-1-umesh.nerlige.ramappa@intel.com>
 In-Reply-To: <20200804171127.66926-1-umesh.nerlige.ramappa@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
- =?utf-8?q?Allow_privileged_user_to_map_the_OA_buffer?=
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkRPQ1M6IHdhcm5pbmcgZm9yIEFs?=
+ =?utf-8?q?low_privileged_user_to_map_the_OA_buffer?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,9 +63,8 @@ State : warning
 
 == Summary ==
 
-$ dim sparse --fast origin/drm-tip
-Sparse version: v0.6.0
-Fast mode used, each commit won't be checked separately.
+$ make htmldocs 2>&1 > /dev/null | grep i915
+./drivers/gpu/drm/i915/i915_perf.c:3281: warning: Function parameter or member 'cmd' not described in 'i915_perf_oa_buffer_info_locked'
 
 
 _______________________________________________
