@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-13.0 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6AFD4C433F4
-	for <intel-gfx@archiver.kernel.org>; Wed,  5 Aug 2020 12:23:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D6D89C433E1
+	for <intel-gfx@archiver.kernel.org>; Wed,  5 Aug 2020 12:23:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 48AF122D05
-	for <intel-gfx@archiver.kernel.org>; Wed,  5 Aug 2020 12:23:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 48AF122D05
+	by mail.kernel.org (Postfix) with ESMTPS id B8B4322D2B
+	for <intel-gfx@archiver.kernel.org>; Wed,  5 Aug 2020 12:23:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B8B4322D2B
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D1516E5C8;
-	Wed,  5 Aug 2020 12:23:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 85D156E5BF;
+	Wed,  5 Aug 2020 12:23:00 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D97B66E573
- for <intel-gfx@lists.freedesktop.org>; Wed,  5 Aug 2020 12:22:50 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 58BCD6E58B
+ for <intel-gfx@lists.freedesktop.org>; Wed,  5 Aug 2020 12:22:55 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22039489-1500050 
- for multiple; Wed, 05 Aug 2020 13:22:36 +0100
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22039463-1500050 
+ for multiple; Wed, 05 Aug 2020 13:22:31 +0100
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed,  5 Aug 2020 13:22:24 +0100
-Message-Id: <20200805122231.23313-31-chris@chris-wilson.co.uk>
+Date: Wed,  5 Aug 2020 13:21:58 +0100
+Message-Id: <20200805122231.23313-5-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200805122231.23313-1-chris@chris-wilson.co.uk>
 References: <20200805122231.23313-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 30/37] drm/i915: Hold wakeref for the duration
- of the vma GGTT binding
+Subject: [Intel-gfx] [PATCH 04/37] drm/i915/gt: Defer enabling the
+ breadcrumb interrupt to after submission
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,83 +50,185 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@intel.com>,
- Chris Wilson <chris@chris-wilson.co.uk>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Chris Wilson <chris@chris-wilson.co.uk>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Tm93IHRoYXQgd2UgaGF2ZSBwdXNoZWQgdGhlIGJpbmRpbmcgaXRzZWxmIG91dHNpZGUgb2YgdGhl
-IHZtLT5tdXRleCwgd2UKYXJlIGNsZWFyIG9mIHRoZSBwb3RlbnRpYWwgd2FrZXJlZiBpbnZlcnNp
-b25zIGFuZCBjYW4gdGFrZSB0aGUgd2FrZXJlZgphcm91bmQgdGhlIGFjdHVhbCBkdXJhdGlvbiBv
-ZiB0aGUgSFcgaW50ZXJhY3Rpb24uCgpTaWduZWQtb2ZmLWJ5OiBDaHJpcyBXaWxzb24gPGNocmlz
-QGNocmlzLXdpbHNvbi5jby51az4KUmV2aWV3ZWQtYnk6IFRob21hcyBIZWxsc3Ryw7ZtIDx0aG9t
-YXMuaGVsbHN0cm9tQGludGVsLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9ndC9pbnRl
-bF9nZ3R0LmMgfCAzOSArKysrKysrKysrKysrKysrLS0tLS0tLS0tLS0tCiBkcml2ZXJzL2dwdS9k
-cm0vaTkxNS9pOTE1X3ZtYS5jICAgICAgfCAgNiAtLS0tLQogMiBmaWxlcyBjaGFuZ2VkLCAyMiBp
-bnNlcnRpb25zKCspLCAyMyBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
-cm0vaTkxNS9ndC9pbnRlbF9nZ3R0LmMgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9ndC9pbnRlbF9n
-Z3R0LmMKaW5kZXggOTJiNmNjNzU0ZDViLi5hMmM3YzU1YjM1OGQgMTAwNjQ0Ci0tLSBhL2RyaXZl
-cnMvZ3B1L2RybS9pOTE1L2d0L2ludGVsX2dndHQuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkx
-NS9ndC9pbnRlbF9nZ3R0LmMKQEAgLTQzNCwyNyArNDM0LDM5IEBAIHN0YXRpYyB2b2lkIGk5MTVf
-Z2d0dF9jbGVhcl9yYW5nZShzdHJ1Y3QgaTkxNV9hZGRyZXNzX3NwYWNlICp2bSwKIAlpbnRlbF9n
-dHRfY2xlYXJfcmFuZ2Uoc3RhcnQgPj4gUEFHRV9TSElGVCwgbGVuZ3RoID4+IFBBR0VfU0hJRlQp
-OwogfQogCi1zdGF0aWMgdm9pZCBnZ3R0X2JpbmRfdm1hKHN0cnVjdCBpOTE1X2FkZHJlc3Nfc3Bh
-Y2UgKnZtLAotCQkJICBzdHJ1Y3QgaTkxNV92bV9wdF9zdGFzaCAqc3Rhc2gsCi0JCQkgIHN0cnVj
-dCBpOTE1X3ZtYSAqdm1hLAotCQkJICBlbnVtIGk5MTVfY2FjaGVfbGV2ZWwgY2FjaGVfbGV2ZWws
-Ci0JCQkgIHUzMiBmbGFncykKK3N0YXRpYyB2b2lkIF9fZ2d0dF9iaW5kX3ZtYShzdHJ1Y3QgaTkx
-NV9hZGRyZXNzX3NwYWNlICp2bSwKKwkJCSAgICBzdHJ1Y3QgaTkxNV92bV9wdF9zdGFzaCAqc3Rh
-c2gsCisJCQkgICAgc3RydWN0IGk5MTVfdm1hICp2bWEsCisJCQkgICAgZW51bSBpOTE1X2NhY2hl
-X2xldmVsIGNhY2hlX2xldmVsLAorCQkJICAgIHUzMiBmbGFncykKIHsKIAlzdHJ1Y3QgZHJtX2k5
-MTVfZ2VtX29iamVjdCAqb2JqID0gdm1hLT5vYmo7CisJaW50ZWxfd2FrZXJlZl90IHdha2VyZWY7
-CiAJdTMyIHB0ZV9mbGFnczsKIAotCWlmIChpOTE1X3ZtYV9pc19ib3VuZCh2bWEsIH5mbGFncyAm
-IEk5MTVfVk1BX0JJTkRfTUFTSykpCi0JCXJldHVybjsKLQogCS8qIEFwcGxpY2FibGUgdG8gVkxW
-IChnZW44KyBkbyBub3Qgc3VwcG9ydCBSTyBpbiB0aGUgR0dUVCkgKi8KIAlwdGVfZmxhZ3MgPSAw
-OwogCWlmIChpOTE1X2dlbV9vYmplY3RfaXNfcmVhZG9ubHkob2JqKSkKIAkJcHRlX2ZsYWdzIHw9
-IFBURV9SRUFEX09OTFk7CiAKLQl2bS0+aW5zZXJ0X2VudHJpZXModm0sIHZtYSwgY2FjaGVfbGV2
-ZWwsIHB0ZV9mbGFncyk7CisJd2l0aF9pbnRlbF9ydW50aW1lX3BtKHZtLT5ndC0+dW5jb3JlLT5y
-cG0sIHdha2VyZWYpCisJCXZtLT5pbnNlcnRfZW50cmllcyh2bSwgdm1hLCBjYWNoZV9sZXZlbCwg
-cHRlX2ZsYWdzKTsKKwogCXZtYS0+cGFnZV9zaXplcy5ndHQgPSBJOTE1X0dUVF9QQUdFX1NJWkU7
-CiB9CiAKK3N0YXRpYyB2b2lkIGdndHRfYmluZF92bWEoc3RydWN0IGk5MTVfYWRkcmVzc19zcGFj
-ZSAqdm0sCisJCQkgIHN0cnVjdCBpOTE1X3ZtX3B0X3N0YXNoICpzdGFzaCwKKwkJCSAgc3RydWN0
-IGk5MTVfdm1hICp2bWEsCisJCQkgIGVudW0gaTkxNV9jYWNoZV9sZXZlbCBjYWNoZV9sZXZlbCwK
-KwkJCSAgdTMyIGZsYWdzKQoreworCWlmIChpOTE1X3ZtYV9pc19ib3VuZCh2bWEsIH5mbGFncyAm
-IEk5MTVfVk1BX0JJTkRfTUFTSykpCisJCXJldHVybjsKKworCV9fZ2d0dF9iaW5kX3ZtYSh2bSwg
-c3Rhc2gsIHZtYSwgY2FjaGVfbGV2ZWwsIGZsYWdzKTsKK30KKwogc3RhdGljIHZvaWQgZ2d0dF91
-bmJpbmRfdm1hKHN0cnVjdCBpOTE1X2FkZHJlc3Nfc3BhY2UgKnZtLCBzdHJ1Y3QgaTkxNV92bWEg
-KnZtYSkKIHsKIAl2bS0+Y2xlYXJfcmFuZ2Uodm0sIHZtYS0+bm9kZS5zdGFydCwgdm1hLT5zaXpl
-KTsKQEAgLTU3MSwxOSArNTgzLDEyIEBAIHN0YXRpYyB2b2lkIGFsaWFzaW5nX2d0dF9iaW5kX3Zt
-YShzdHJ1Y3QgaTkxNV9hZGRyZXNzX3NwYWNlICp2bSwKIAkJCQkgIGVudW0gaTkxNV9jYWNoZV9s
-ZXZlbCBjYWNoZV9sZXZlbCwKIAkJCQkgIHUzMiBmbGFncykKIHsKLQl1MzIgcHRlX2ZsYWdzOwot
-Ci0JLyogQ3VycmVudGx5IGFwcGxpY2FibGUgb25seSB0byBWTFYgKi8KLQlwdGVfZmxhZ3MgPSAw
-OwotCWlmIChpOTE1X2dlbV9vYmplY3RfaXNfcmVhZG9ubHkodm1hLT5vYmopKQotCQlwdGVfZmxh
-Z3MgfD0gUFRFX1JFQURfT05MWTsKLQogCWlmIChmbGFncyAmIEk5MTVfVk1BX0xPQ0FMX0JJTkQp
-CiAJCXBwZ3R0X2JpbmRfdm1hKCZpOTE1X3ZtX3RvX2dndHQodm0pLT5hbGlhcy0+dm0sCiAJCQkg
-ICAgICAgc3Rhc2gsIHZtYSwgY2FjaGVfbGV2ZWwsIGZsYWdzKTsKIAogCWlmIChmbGFncyAmIEk5
-MTVfVk1BX0dMT0JBTF9CSU5EKQotCQl2bS0+aW5zZXJ0X2VudHJpZXModm0sIHZtYSwgY2FjaGVf
-bGV2ZWwsIHB0ZV9mbGFncyk7CisJCV9fZ2d0dF9iaW5kX3ZtYSh2bSwgc3Rhc2gsIHZtYSwgY2Fj
-aGVfbGV2ZWwsIGZsYWdzKTsKIH0KIAogc3RhdGljIHZvaWQgYWxpYXNpbmdfZ3R0X3VuYmluZF92
-bWEoc3RydWN0IGk5MTVfYWRkcmVzc19zcGFjZSAqdm0sCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
-dS9kcm0vaTkxNS9pOTE1X3ZtYS5jIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV92bWEuYwpp
-bmRleCA0MGUzOGI1MzNiNTkuLjMyMGY2ZjhlYzA0MiAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUv
-ZHJtL2k5MTUvaTkxNV92bWEuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X3ZtYS5j
-CkBAIC03OTQsNyArNzk0LDYgQEAgc3RhdGljIGludCBfX3dhaXRfZm9yX3VuYmluZChzdHJ1Y3Qg
-aTkxNV92bWEgKnZtYSwgdW5zaWduZWQgaW50IGZsYWdzKQogaW50IGk5MTVfdm1hX3BpbihzdHJ1
-Y3QgaTkxNV92bWEgKnZtYSwgdTY0IHNpemUsIHU2NCBhbGlnbm1lbnQsIHU2NCBmbGFncykKIHsK
-IAlzdHJ1Y3QgaTkxNV92bWFfd29yayAqd29yayA9IE5VTEw7Ci0JaW50ZWxfd2FrZXJlZl90IHdh
-a2VyZWYgPSAwOwogCXVuc2lnbmVkIGludCBib3VuZDsKIAlpbnQgZXJyOwogCkBAIC04MTMsOSAr
-ODEyLDYgQEAgaW50IGk5MTVfdm1hX3BpbihzdHJ1Y3QgaTkxNV92bWEgKnZtYSwgdTY0IHNpemUs
-IHU2NCBhbGlnbm1lbnQsIHU2NCBmbGFncykKIAkJCXJldHVybiBlcnI7CiAJfQogCi0JaWYgKGZs
-YWdzICYgUElOX0dMT0JBTCkKLQkJd2FrZXJlZiA9IGludGVsX3J1bnRpbWVfcG1fZ2V0KCZ2bWEt
-PnZtLT5pOTE1LT5ydW50aW1lX3BtKTsKLQogCWVyciA9IF9fd2FpdF9mb3JfdW5iaW5kKHZtYSwg
-ZmxhZ3MpOwogCWlmIChlcnIpCiAJCWdvdG8gZXJyX3JwbTsKQEAgLTkyNSw4ICs5MjEsNiBAQCBp
-bnQgaTkxNV92bWFfcGluKHN0cnVjdCBpOTE1X3ZtYSAqdm1hLCB1NjQgc2l6ZSwgdTY0IGFsaWdu
-bWVudCwgdTY0IGZsYWdzKQogZXJyX2ZlbmNlOgogCWRtYV9mZW5jZV93b3JrX2NvbW1pdF9pbW0o
-JndvcmstPmJhc2UpOwogZXJyX3JwbToKLQlpZiAod2FrZXJlZikKLQkJaW50ZWxfcnVudGltZV9w
-bV9wdXQoJnZtYS0+dm0tPmk5MTUtPnJ1bnRpbWVfcG0sIHdha2VyZWYpOwogCWlmICh2bWEtPm9i
-aikKIAkJaTkxNV9nZW1fb2JqZWN0X3VucGluX3BhZ2VzKHZtYS0+b2JqKTsKIAlyZXR1cm4gZXJy
-OwotLSAKMi4yMC4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fXwpJbnRlbC1nZnggbWFpbGluZyBsaXN0CkludGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
-cmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9pbnRlbC1n
-ZngK
+Move the register slow register write and readback from out of the
+critical path for execlists submission and delay it until the following
+worker, shaving off around 200us. Note that the same signal_irq_work() is
+allowed to run concurrently on each CPU (but it will only be queued once,
+once running though it can be requeued and reexecuted) so we have to
+remember to lock the global interactions as we cannot rely on the
+signal_irq_work() itself providing the serialisation (in constrast to a
+tasklet).
+
+Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+---
+ drivers/gpu/drm/i915/gt/intel_breadcrumbs.c | 72 ++++++++++++++-------
+ drivers/gpu/drm/i915/gt/intel_engine_pm.h   |  5 ++
+ 2 files changed, 52 insertions(+), 25 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
+index d8b206e53660..dee6d5c9b413 100644
+--- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
++++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
+@@ -30,6 +30,7 @@
+ #include "i915_trace.h"
+ #include "intel_breadcrumbs.h"
+ #include "intel_context.h"
++#include "intel_engine_pm.h"
+ #include "intel_gt_pm.h"
+ #include "intel_gt_requests.h"
+ 
+@@ -57,12 +58,10 @@ static void irq_disable(struct intel_engine_cs *engine)
+ 
+ static void __intel_breadcrumbs_arm_irq(struct intel_breadcrumbs *b)
+ {
+-	lockdep_assert_held(&b->irq_lock);
+-
+-	if (!b->irq_engine || b->irq_armed)
++	if (!b->irq_engine)
+ 		return;
+ 
+-	if (!intel_gt_pm_get_if_awake(b->irq_engine->gt))
++	if (GEM_WARN_ON(!intel_gt_pm_get_if_awake(b->irq_engine->gt)))
+ 		return;
+ 
+ 	/*
+@@ -83,15 +82,13 @@ static void __intel_breadcrumbs_arm_irq(struct intel_breadcrumbs *b)
+ 
+ 	if (!b->irq_enabled++)
+ 		irq_enable(b->irq_engine);
++
++	/* Requests may have completed before we could enable the interrupt. */
++	irq_work_queue(&b->irq_work);
+ }
+ 
+ static void __intel_breadcrumbs_disarm_irq(struct intel_breadcrumbs *b)
+ {
+-	lockdep_assert_held(&b->irq_lock);
+-
+-	if (!b->irq_engine || !b->irq_armed)
+-		return;
+-
+ 	GEM_BUG_ON(!b->irq_enabled);
+ 	if (!--b->irq_enabled)
+ 		irq_disable(b->irq_engine);
+@@ -105,8 +102,6 @@ static void add_signaling_context(struct intel_breadcrumbs *b,
+ {
+ 	intel_context_get(ce);
+ 	list_add_tail(&ce->signal_link, &b->signalers);
+-	if (list_is_first(&ce->signal_link, &b->signalers))
+-		__intel_breadcrumbs_arm_irq(b);
+ }
+ 
+ static void remove_signaling_context(struct intel_breadcrumbs *b,
+@@ -197,7 +192,30 @@ static void signal_irq_work(struct irq_work *work)
+ 
+ 	spin_lock(&b->irq_lock);
+ 
+-	if (list_empty(&b->signalers))
++	/*
++	 * Keep the irq armed until the interrupt after all listeners are gone.
++	 *
++	 * Enabling/disabling the interrupt is rather costly, roughly a couple
++	 * of hundred microseconds. If we are proactive and enable/disable
++	 * the interrupt around every request that wants a breadcrumb, we
++	 * quickly drown in the extra orders of magnitude of latency imposed
++	 * on request submission.
++	 *
++	 * So we try to be lazy, and keep the interrupts enabled until no
++	 * more listeners appear within a breadcrumb interrupt interval (that
++	 * is until a request completes that no one cares about). The
++	 * observation is that listeners come in batches, and will often
++	 * listen to a bunch of requests in succession.
++	 *
++	 * We also try to avoid raising too many interrupts, as they may
++	 * be generated by userspace batches and it is unfortunately rather
++	 * too easy to drown the CPU under a flood of GPU interrupts. Thus
++	 * whenever no one appears to be listening, we turn off the interrupts.
++	 * Fewer interrupts should conserve power -- at the very least, fewer
++	 * interrupt draw less ire from other users of the system and tools
++	 * like powertop.
++	 */
++	if (b->irq_armed && list_empty(&b->signalers))
+ 		__intel_breadcrumbs_disarm_irq(b);
+ 
+ 	list_splice_init(&b->signaled_requests, &signal);
+@@ -251,6 +269,15 @@ static void signal_irq_work(struct irq_work *work)
+ 
+ 		i915_request_put(rq);
+ 	}
++
++	if (!READ_ONCE(b->irq_armed) && !list_empty(&b->signalers)) {
++		spin_lock(&b->irq_lock);
++		if (!b->irq_armed)
++			__intel_breadcrumbs_arm_irq(b);
++		spin_unlock(&b->irq_lock);
++	}
++	if (READ_ONCE(b->irq_armed) && intel_engine_is_parking(b->irq_engine))
++		irq_work_queue(&b->irq_work); /* flush the signalers */
+ }
+ 
+ struct intel_breadcrumbs *
+@@ -292,16 +319,8 @@ void intel_breadcrumbs_reset(struct intel_breadcrumbs *b)
+ 
+ void intel_breadcrumbs_park(struct intel_breadcrumbs *b)
+ {
+-	unsigned long flags;
+-
+-	if (!READ_ONCE(b->irq_armed))
+-		return;
+-
+-	spin_lock_irqsave(&b->irq_lock, flags);
+-	__intel_breadcrumbs_disarm_irq(b);
+-	spin_unlock_irqrestore(&b->irq_lock, flags);
+-
+-	if (!list_empty(&b->signalers))
++	/* Kick the work once more to drain the signalers */
++	if (READ_ONCE(b->irq_armed))
+ 		irq_work_queue(&b->irq_work);
+ }
+ 
+@@ -362,9 +381,12 @@ static void insert_breadcrumb(struct i915_request *rq,
+ 	GEM_BUG_ON(!check_signal_order(ce, rq));
+ 	set_bit(I915_FENCE_FLAG_SIGNAL, &rq->fence.flags);
+ 
+-	/* Check after attaching to irq, interrupt may have already fired. */
+-	if (__request_completed(rq))
+-		irq_work_queue(&b->irq_work);
++	/*
++	 * Defer enabling the interrupt to after HW submission and recheck
++	 * the request as it may have completed and raised the interrupt as
++	 * we were attaching it into the lists.
++	 */
++	irq_work_queue(&b->irq_work);
+ }
+ 
+ bool i915_request_enable_breadcrumb(struct i915_request *rq)
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_pm.h b/drivers/gpu/drm/i915/gt/intel_engine_pm.h
+index 418df0a13145..06267c20b0a1 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_pm.h
++++ b/drivers/gpu/drm/i915/gt/intel_engine_pm.h
+@@ -17,6 +17,11 @@ intel_engine_pm_is_awake(const struct intel_engine_cs *engine)
+ 	return intel_wakeref_is_active(&engine->wakeref);
+ }
+ 
++static inline bool intel_engine_is_parking(const struct intel_engine_cs *engine)
++{
++	return atomic_read(&engine->wakeref.count) == 0;
++}
++
+ static inline void intel_engine_pm_get(struct intel_engine_cs *engine)
+ {
+ 	intel_wakeref_get(&engine->wakeref);
+-- 
+2.20.1
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
