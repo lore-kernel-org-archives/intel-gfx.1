@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-13.0 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A77E5C433F2
-	for <intel-gfx@archiver.kernel.org>; Wed,  5 Aug 2020 12:23:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6C986C433EC
+	for <intel-gfx@archiver.kernel.org>; Wed,  5 Aug 2020 12:23:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 839BA22D05
-	for <intel-gfx@archiver.kernel.org>; Wed,  5 Aug 2020 12:23:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 839BA22D05
+	by mail.kernel.org (Postfix) with ESMTPS id 4E7CC22D05
+	for <intel-gfx@archiver.kernel.org>; Wed,  5 Aug 2020 12:23:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4E7CC22D05
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE8E06E5B2;
-	Wed,  5 Aug 2020 12:23:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 642686E5A5;
+	Wed,  5 Aug 2020 12:22:59 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1F8216E5A2
- for <intel-gfx@lists.freedesktop.org>; Wed,  5 Aug 2020 12:22:53 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E668B6E581
+ for <intel-gfx@lists.freedesktop.org>; Wed,  5 Aug 2020 12:22:50 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22039485-1500050 
- for multiple; Wed, 05 Aug 2020 13:22:35 +0100
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22039471-1500050 
+ for multiple; Wed, 05 Aug 2020 13:22:33 +0100
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed,  5 Aug 2020 13:22:20 +0100
-Message-Id: <20200805122231.23313-27-chris@chris-wilson.co.uk>
+Date: Wed,  5 Aug 2020 13:22:06 +0100
+Message-Id: <20200805122231.23313-13-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200805122231.23313-1-chris@chris-wilson.co.uk>
 References: <20200805122231.23313-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 26/37] drm/i915/gem: Pull execbuf dma resv under
- a single critical section
+Subject: [Intel-gfx] [PATCH 12/37] drm/i915/gem: Break apart the early
+ i915_vma_pin from execbuf object lookup
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,400 +50,115 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Chris Wilson <chris@chris-wilson.co.uk>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@intel.com>,
+ Chris Wilson <chris@chris-wilson.co.uk>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Acquire all the objects and their backing storage, and page directories,
-as used by execbuf under a single common ww_mutex. Albeit we have to
-restart the critical section a few times in order to handle various
-restrictions (such as avoiding copy_(from|to)_user and mmap_sem).
-
-Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
----
- .../gpu/drm/i915/gem/i915_gem_execbuffer.c    | 166 +++++++++---------
- .../i915/gem/selftests/i915_gem_execbuffer.c  |   2 +
- 2 files changed, 84 insertions(+), 84 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-index 58e40348b551..3a79b6facb02 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-@@ -20,6 +20,7 @@
- #include "gt/intel_gt_pm.h"
- #include "gt/intel_gt_requests.h"
- #include "gt/intel_ring.h"
-+#include "mm/i915_acquire_ctx.h"
- 
- #include "i915_drv.h"
- #include "i915_gem_clflush.h"
-@@ -267,6 +268,8 @@ struct i915_execbuffer {
- 	struct intel_context *reloc_context; /* distinct context for relocs */
- 	struct i915_gem_context *gem_context; /** caller's context */
- 
-+	struct i915_acquire_ctx acquire; /** lock for _all_ DMA reservations */
-+
- 	struct i915_request *request; /** our request to build */
- 	struct eb_vma *batch; /** identity of the batch obj/vma */
- 
-@@ -392,42 +395,6 @@ static void eb_vma_array_put(struct eb_vma_array *arr)
- 	kref_put(&arr->kref, eb_vma_array_destroy);
- }
- 
--static int
--eb_lock_vma(struct i915_execbuffer *eb, struct ww_acquire_ctx *acquire)
--{
--	struct eb_vma *ev;
--	int err = 0;
--
--	list_for_each_entry(ev, &eb->submit_list, submit_link) {
--		struct i915_vma *vma = ev->vma;
--
--		err = ww_mutex_lock_interruptible(&vma->resv->lock, acquire);
--		if (err == -EDEADLK) {
--			struct eb_vma *unlock = ev, *en;
--
--			list_for_each_entry_safe_continue_reverse(unlock, en,
--								  &eb->submit_list,
--								  submit_link) {
--				ww_mutex_unlock(&unlock->vma->resv->lock);
--				list_move_tail(&unlock->submit_link, &eb->submit_list);
--			}
--
--			GEM_BUG_ON(!list_is_first(&ev->submit_link, &eb->submit_list));
--			err = ww_mutex_lock_slow_interruptible(&vma->resv->lock,
--							       acquire);
--		}
--		if (err) {
--			list_for_each_entry_continue_reverse(ev,
--							     &eb->submit_list,
--							     submit_link)
--				ww_mutex_unlock(&ev->vma->resv->lock);
--			break;
--		}
--	}
--
--	return err;
--}
--
- static int eb_create(struct i915_execbuffer *eb)
- {
- 	/* Allocate an extra slot for use by the sentinel */
-@@ -656,6 +623,25 @@ eb_add_vma(struct i915_execbuffer *eb,
- 	}
- }
- 
-+static int eb_lock_mm(struct i915_execbuffer *eb)
-+{
-+	struct eb_vma *ev;
-+	int err;
-+
-+	list_for_each_entry(ev, &eb->bind_list, bind_link) {
-+		err = i915_acquire_ctx_lock(&eb->acquire, ev->vma->obj);
-+		if (err)
-+			return err;
-+	}
-+
-+	return 0;
-+}
-+
-+static int eb_acquire_mm(struct i915_execbuffer *eb)
-+{
-+	return i915_acquire_mm(&eb->acquire);
-+}
-+
- struct eb_vm_work {
- 	struct dma_fence_work base;
- 	struct eb_vma_array *array;
-@@ -1378,7 +1364,15 @@ static int eb_reserve_vm(struct i915_execbuffer *eb)
- 	unsigned long count;
- 	struct eb_vma *ev;
- 	unsigned int pass;
--	int err = 0;
-+	int err;
-+
-+	err = eb_lock_mm(eb);
-+	if (err)
-+		return err;
-+
-+	err = eb_acquire_mm(eb);
-+	if (err)
-+		return err;
- 
- 	count = 0;
- 	INIT_LIST_HEAD(&unbound);
-@@ -1404,10 +1398,15 @@ static int eb_reserve_vm(struct i915_execbuffer *eb)
- 	if (count == 0)
- 		return 0;
- 
-+	/* We need to reserve page directories, release all, start over */
-+	i915_acquire_ctx_fini(&eb->acquire);
-+
- 	pass = 0;
- 	do {
- 		struct eb_vm_work *work;
- 
-+		i915_acquire_ctx_init(&eb->acquire);
-+
- 		/*
- 		 * We need to hold one lock as we bind all the vma so that
- 		 * we have a consistent view of the entire vm and can plan
-@@ -1424,6 +1423,11 @@ static int eb_reserve_vm(struct i915_execbuffer *eb)
- 		 * beneath it, so we have to stage and preallocate all the
- 		 * resources we may require before taking the mutex.
- 		 */
-+
-+		err = eb_lock_mm(eb);
-+		if (err)
-+			return err;
-+
- 		work = eb_vm_work(eb, count);
- 		if (!work)
- 			return -ENOMEM;
-@@ -1441,6 +1445,10 @@ static int eb_reserve_vm(struct i915_execbuffer *eb)
- 			}
- 		}
- 
-+		err = eb_acquire_mm(eb);
-+		if (err)
-+			return eb_vm_work_cancel(work, err);
-+
- 		err = i915_vm_pin_pt_stash(work->vm, &work->stash);
- 		if (err)
- 			return eb_vm_work_cancel(work, err);
-@@ -1531,6 +1539,8 @@ static int eb_reserve_vm(struct i915_execbuffer *eb)
- 		if (signal_pending(current))
- 			return -EINTR;
- 
-+		i915_acquire_ctx_fini(&eb->acquire);
-+
- 		/* Now safe to wait with no reservations held */
- 
- 		if (err == -EAGAIN) {
-@@ -1554,8 +1564,10 @@ static int eb_reserve_vm(struct i915_execbuffer *eb)
- 		 * total ownership of the vm.
- 		 */
- 		err = wait_for_unbinds(eb, &unbound, pass++);
--		if (err)
-+		if (err) {
-+			i915_acquire_ctx_init(&eb->acquire);
- 			return err;
-+		}
- 	} while (1);
- }
- 
-@@ -2008,8 +2020,6 @@ static int reloc_move_to_gpu(struct i915_request *rq, struct i915_vma *vma)
- 	struct drm_i915_gem_object *obj = vma->obj;
- 	int err;
- 
--	i915_vma_lock(vma);
--
- 	if (obj->cache_dirty & ~obj->cache_coherent)
- 		i915_gem_clflush_object(obj, 0);
- 	obj->write_domain = 0;
-@@ -2018,8 +2028,6 @@ static int reloc_move_to_gpu(struct i915_request *rq, struct i915_vma *vma)
- 	if (err == 0)
- 		err = i915_vma_move_to_active(vma, rq, EXEC_OBJECT_WRITE);
- 
--	i915_vma_unlock(vma);
--
- 	return err;
- }
- 
-@@ -2505,6 +2513,7 @@ static int eb_relocate(struct i915_execbuffer *eb)
- 	/* Drop everything before we copy_from_user */
- 	list_for_each_entry(ev, &eb->bind_list, bind_link)
- 		eb_unreserve_vma(ev);
-+	i915_acquire_ctx_fini(&eb->acquire);
- 
- 	/* Pick a single buffer for all relocs, within reason */
- 	bufsz = round_up(eb->relocs_count * sz + sz, SZ_4K);
-@@ -2515,6 +2524,7 @@ static int eb_relocate(struct i915_execbuffer *eb)
- 
- 	/* Copy the user's relocations into plain system memory */
- 	err = eb_relocs_copy_user(eb, &relocs);
-+	i915_acquire_ctx_init(&eb->acquire);
- 	if (err)
- 		goto out_close;
- 
-@@ -2551,17 +2561,8 @@ static int eb_reserve(struct i915_execbuffer *eb)
- 
- static int eb_move_to_gpu(struct i915_execbuffer *eb)
- {
--	struct ww_acquire_ctx acquire;
- 	struct eb_vma *ev;
--	int err = 0;
--
--	ww_acquire_init(&acquire, &reservation_ww_class);
--
--	err = eb_lock_vma(eb, &acquire);
--	if (err)
--		goto err_fini;
--
--	ww_acquire_done(&acquire);
-+	int err;
- 
- 	list_for_each_entry(ev, &eb->submit_list, submit_link) {
- 		struct i915_vma *vma = ev->vma;
-@@ -2600,27 +2601,22 @@ static int eb_move_to_gpu(struct i915_execbuffer *eb)
- 				flags &= ~EXEC_OBJECT_ASYNC;
- 		}
- 
--		if (err == 0 && !(flags & EXEC_OBJECT_ASYNC)) {
-+		if (!(flags & EXEC_OBJECT_ASYNC)) {
- 			err = i915_request_await_object
- 				(eb->request, obj, flags & EXEC_OBJECT_WRITE);
-+			if (unlikely(err))
-+				goto err_skip;
- 		}
- 
--		if (err == 0)
--			err = i915_vma_move_to_active(vma, eb->request, flags);
--
--		i915_vma_unlock(vma);
-+		err = i915_vma_move_to_active(vma, eb->request, flags);
-+		if (unlikely(err))
-+			goto err_skip;
- 	}
--	ww_acquire_fini(&acquire);
--
--	if (unlikely(err))
--		goto err_skip;
- 
- 	/* Unconditionally flush any chipset caches (for streaming writes). */
- 	intel_gt_chipset_flush(eb->engine->gt);
- 	return 0;
- 
--err_fini:
--	ww_acquire_fini(&acquire);
- err_skip:
- 	i915_request_set_error_once(eb->request, err);
- 	return err;
-@@ -2784,39 +2780,27 @@ static int eb_parse_pipeline(struct i915_execbuffer *eb,
- 	/* Mark active refs early for this worker, in case we get interrupted */
- 	err = parser_mark_active(pw, eb->context->timeline);
- 	if (err)
--		goto err_commit;
--
--	err = dma_resv_lock_interruptible(pw->batch->resv, NULL);
--	if (err)
--		goto err_commit;
-+		goto out;
- 
- 	err = dma_resv_reserve_shared(pw->batch->resv, 1);
- 	if (err)
--		goto err_commit_unlock;
-+		goto out;
- 
- 	/* Wait for all writes (and relocs) into the batch to complete */
- 	err = i915_sw_fence_await_reservation(&pw->base.chain,
- 					      pw->batch->resv, NULL, false,
- 					      0, I915_FENCE_GFP);
- 	if (err < 0)
--		goto err_commit_unlock;
-+		goto out;
- 
- 	/* Keep the batch alive and unwritten as we parse */
- 	dma_resv_add_shared_fence(pw->batch->resv, &pw->base.dma);
- 
--	dma_resv_unlock(pw->batch->resv);
--
- 	/* Force execution to wait for completion of the parser */
--	dma_resv_lock(shadow->resv, NULL);
- 	dma_resv_add_excl_fence(shadow->resv, &pw->base.dma);
--	dma_resv_unlock(shadow->resv);
- 
--	dma_fence_work_commit_imm(&pw->base);
--	return 0;
--
--err_commit_unlock:
--	dma_resv_unlock(pw->batch->resv);
--err_commit:
-+	err = 0;
-+out:
- 	i915_sw_fence_set_error_once(&pw->base.chain, err);
- 	dma_fence_work_commit_imm(&pw->base);
- 	return err;
-@@ -2856,10 +2840,6 @@ static int eb_submit(struct i915_execbuffer *eb)
- {
- 	int err;
- 
--	err = eb_move_to_gpu(eb);
--	if (err)
--		return err;
--
- 	if (eb->args->flags & I915_EXEC_GEN7_SOL_RESET) {
- 		err = i915_reset_gen7_sol_offsets(eb->request);
- 		if (err)
-@@ -3636,6 +3616,9 @@ i915_gem_do_execbuffer(struct drm_device *dev,
- 		goto err_engine;
- 	lockdep_assert_held(&eb.context->timeline->mutex);
- 
-+	/* *** DMA-RESV LOCK *** */
-+	i915_acquire_ctx_init(&eb.acquire);
-+
- 	err = eb_reserve(&eb);
- 	if (err) {
- 		/*
-@@ -3649,6 +3632,8 @@ i915_gem_do_execbuffer(struct drm_device *dev,
- 		goto err_vma;
- 	}
- 
-+	/* *** DMA-RESV SEALED *** */
-+
- 	err = eb_parse(&eb);
- 	if (err)
- 		goto err_vma;
-@@ -3699,9 +3684,20 @@ i915_gem_do_execbuffer(struct drm_device *dev,
- 		intel_gt_buffer_pool_mark_active(eb.parser.shadow->vma->private,
- 						 eb.request);
- 
-+	err = eb_move_to_gpu(&eb);
-+	if (err)
-+		goto err_request;
-+
-+	/* *** DMA-RESV PUBLISHED *** */
-+
- 	trace_i915_request_queue(eb.request, eb.batch_flags);
- 	err = eb_submit(&eb);
-+
- err_request:
-+	i915_acquire_ctx_fini(&eb.acquire);
-+	eb.acquire.locked = ERR_PTR(-1);
-+	/* *** DMA-RESV UNLOCK *** */
-+
- 	i915_request_get(eb.request);
- 	eb_request_add(&eb);
- 
-@@ -3711,6 +3707,8 @@ i915_gem_do_execbuffer(struct drm_device *dev,
- 	i915_request_put(eb.request);
- 
- err_vma:
-+	if (eb.acquire.locked != ERR_PTR(-1))
-+		i915_acquire_ctx_fini(&eb.acquire);
- 	eb_unlock_engine(&eb);
- 	/* *** TIMELINE UNLOCK *** */
- 
-diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_execbuffer.c
-index df02cb8b27ed..ed140d34a678 100644
---- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_execbuffer.c
-+++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_execbuffer.c
-@@ -116,7 +116,9 @@ static int __igt_gpu_reloc(struct i915_execbuffer *eb,
- 		return err;
- 	ev->exec->relocation_count = err;
- 
-+	i915_acquire_ctx_init(&eb->acquire);
- 	err = mock_reloc_gpu(eb, relocs);
-+	i915_acquire_ctx_fini(&eb->acquire);
- 	if (err)
- 		return err;
- 
--- 
-2.20.1
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+QXMgYSBwcmVsdWRlIHRvIHRoZSBuZXh0IHN0ZXAgd2hlcmUgd2Ugd2FudCB0byBwZXJmb3JtIGFs
+bCB0aGUgb2JqZWN0CmFsbG9jYXRpb25zIHRvZ2V0aGVyIHVuZGVyIHRoZSBzYW1lIGxvY2ssIHdl
+IGZpcnN0IG11c3QgZGVsYXkgdGhlCmk5MTVfdm1hX3BpbigpIGFzIHRoYXQgaW1wbGljaXRseSBk
+b2VzIHRoZSBhbGxvY2F0aW9ucyBmb3IgdXMsIG9uZSBieQpvbmUuIEFzIGl0IG9ubHkgZG9lcyB0
+aGUgYWxsb2NhdGlvbnMgb25lIGJ5IG9uZSwgaXQgaXMgbm90IGFsbG93ZWQgdG8Kd2FpdC9ldmlj
+dCwgd2hlcmVhcyBwdWxsaW5nIGFsbCB0aGUgYWxsb2NhdGlvbnMgdG9nZXRoZXIgdGhlIGVudGly
+ZSBzZXQKY2FuIGJlIHNjaGVkdWxlZCBhcyBvbmUuCgpTaWduZWQtb2ZmLWJ5OiBDaHJpcyBXaWxz
+b24gPGNocmlzQGNocmlzLXdpbHNvbi5jby51az4KUmV2aWV3ZWQtYnk6IFR2cnRrbyBVcnN1bGlu
+IDx0dnJ0a28udXJzdWxpbkBpbnRlbC5jb20+ClJldmlld2VkLWJ5OiBUaG9tYXMgSGVsbHN0csO2
+bSA8dGhvbWFzLmhlbGxzdHJvbUBpbnRlbC5jb20+Ci0tLQogLi4uL2dwdS9kcm0vaTkxNS9nZW0v
+aTkxNV9nZW1fZXhlY2J1ZmZlci5jICAgIHwgNzQgKysrKysrKysrKy0tLS0tLS0tLQogMSBmaWxl
+IGNoYW5nZWQsIDQxIGluc2VydGlvbnMoKyksIDMzIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBh
+L2RyaXZlcnMvZ3B1L2RybS9pOTE1L2dlbS9pOTE1X2dlbV9leGVjYnVmZmVyLmMgYi9kcml2ZXJz
+L2dwdS9kcm0vaTkxNS9nZW0vaTkxNV9nZW1fZXhlY2J1ZmZlci5jCmluZGV4IGU5ZWYwYzI4N2Zk
+OS4uMmY2ZmE4YjNhODA1IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9nZW0vaTkx
+NV9nZW1fZXhlY2J1ZmZlci5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2dlbS9pOTE1X2dl
+bV9leGVjYnVmZmVyLmMKQEAgLTM0LDYgKzM0LDggQEAgc3RydWN0IGViX3ZtYSB7CiAKIAkvKiog
+VGhpcyB2bWEncyBwbGFjZSBpbiB0aGUgZXhlY2J1ZiByZXNlcnZhdGlvbiBsaXN0ICovCiAJc3Ry
+dWN0IGRybV9pOTE1X2dlbV9leGVjX29iamVjdDIgKmV4ZWM7CisKKwlzdHJ1Y3QgbGlzdF9oZWFk
+IGJpbmRfbGluazsKIAlzdHJ1Y3QgbGlzdF9oZWFkIHVuYm91bmRfbGluazsKIAlzdHJ1Y3QgbGlz
+dF9oZWFkIHJlbG9jX2xpbms7CiAKQEAgLTI0OCw4ICsyNTAsOCBAQCBzdHJ1Y3QgaTkxNV9leGVj
+YnVmZmVyIHsKIAkvKiogYWN0dWFsIHNpemUgb2YgZXhlY29ialtdIGFzIHdlIG1heSBleHRlbmQg
+aXQgZm9yIHRoZSBjbWRwYXJzZXIgKi8KIAl1bnNpZ25lZCBpbnQgYnVmZmVyX2NvdW50OwogCi0J
+LyoqIGxpc3Qgb2Ygdm1hIG5vdCB5ZXQgYm91bmQgZHVyaW5nIHJlc2VydmF0aW9uIHBoYXNlICov
+Ci0Jc3RydWN0IGxpc3RfaGVhZCB1bmJvdW5kOworCS8qKiBsaXN0IG9mIGFsbCB2bWEgcmVxdWly
+ZWQgdG8gYmUgYm91bmQgZm9yIHRoaXMgZXhlY2J1ZiAqLworCXN0cnVjdCBsaXN0X2hlYWQgYmlu
+ZF9saXN0OwogCiAJLyoqIGxpc3Qgb2Ygdm1hIHRoYXQgaGF2ZSBleGVjb2JqLnJlbG9jYXRpb25f
+Y291bnQgKi8KIAlzdHJ1Y3QgbGlzdF9oZWFkIHJlbG9jc19saXN0OwpAQCAtNTc3LDYgKzU3OSw4
+IEBAIGViX2FkZF92bWEoc3RydWN0IGk5MTVfZXhlY2J1ZmZlciAqZWIsCiAJCQkJCQkgICAgZWIt
+Pmx1dF9zaXplKV0pOwogCX0KIAorCWxpc3RfYWRkX3RhaWwoJmV2LT5iaW5kX2xpbmssICZlYi0+
+YmluZF9saXN0KTsKKwogCWlmIChlbnRyeS0+cmVsb2NhdGlvbl9jb3VudCkKIAkJbGlzdF9hZGRf
+dGFpbCgmZXYtPnJlbG9jX2xpbmssICZlYi0+cmVsb2NzX2xpc3QpOwogCkBAIC01OTgsMTYgKzYw
+Miw2IEBAIGViX2FkZF92bWEoc3RydWN0IGk5MTVfZXhlY2J1ZmZlciAqZWIsCiAKIAkJZWItPmJh
+dGNoID0gZXY7CiAJfQotCi0JaWYgKGViX3Bpbl92bWEoZWIsIGVudHJ5LCBldikpIHsKLQkJaWYg
+KGVudHJ5LT5vZmZzZXQgIT0gdm1hLT5ub2RlLnN0YXJ0KSB7Ci0JCQllbnRyeS0+b2Zmc2V0ID0g
+dm1hLT5ub2RlLnN0YXJ0IHwgVVBEQVRFOwotCQkJZWItPmFyZ3MtPmZsYWdzIHw9IF9fRVhFQ19I
+QVNfUkVMT0M7Ci0JCX0KLQl9IGVsc2UgewotCQllYl91bnJlc2VydmVfdm1hKGV2KTsKLQkJbGlz
+dF9hZGRfdGFpbCgmZXYtPnVuYm91bmRfbGluaywgJmViLT51bmJvdW5kKTsKLQl9CiB9CiAKIHN0
+YXRpYyBpbnQgZWJfcmVzZXJ2ZV92bWEoY29uc3Qgc3RydWN0IGk5MTVfZXhlY2J1ZmZlciAqZWIs
+CkBAIC02ODIsMTMgKzY3NiwzMSBAQCBzdGF0aWMgaW50IHdhaXRfZm9yX3RpbWVsaW5lKHN0cnVj
+dCBpbnRlbF90aW1lbGluZSAqdGwpCiAJfSB3aGlsZSAoMSk7CiB9CiAKLXN0YXRpYyBpbnQgZWJf
+cmVzZXJ2ZShzdHJ1Y3QgaTkxNV9leGVjYnVmZmVyICplYikKK3N0YXRpYyBpbnQgZWJfcmVzZXJ2
+ZV92bShzdHJ1Y3QgaTkxNV9leGVjYnVmZmVyICplYikKIHsKLQljb25zdCB1bnNpZ25lZCBpbnQg
+Y291bnQgPSBlYi0+YnVmZmVyX2NvdW50OwogCXVuc2lnbmVkIGludCBwaW5fZmxhZ3MgPSBQSU5f
+VVNFUiB8IFBJTl9OT05CTE9DSzsKLQlzdHJ1Y3QgbGlzdF9oZWFkIGxhc3Q7CisJc3RydWN0IGxp
+c3RfaGVhZCBsYXN0LCB1bmJvdW5kOwogCXN0cnVjdCBlYl92bWEgKmV2OwotCXVuc2lnbmVkIGlu
+dCBpLCBwYXNzOworCXVuc2lnbmVkIGludCBwYXNzOworCisJSU5JVF9MSVNUX0hFQUQoJnVuYm91
+bmQpOworCWxpc3RfZm9yX2VhY2hfZW50cnkoZXYsICZlYi0+YmluZF9saXN0LCBiaW5kX2xpbmsp
+IHsKKwkJc3RydWN0IGRybV9pOTE1X2dlbV9leGVjX29iamVjdDIgKmVudHJ5ID0gZXYtPmV4ZWM7
+CisJCXN0cnVjdCBpOTE1X3ZtYSAqdm1hID0gZXYtPnZtYTsKKworCQlpZiAoZWJfcGluX3ZtYShl
+YiwgZW50cnksIGV2KSkgeworCQkJaWYgKGVudHJ5LT5vZmZzZXQgIT0gdm1hLT5ub2RlLnN0YXJ0
+KSB7CisJCQkJZW50cnktPm9mZnNldCA9IHZtYS0+bm9kZS5zdGFydCB8IFVQREFURTsKKwkJCQll
+Yi0+YXJncy0+ZmxhZ3MgfD0gX19FWEVDX0hBU19SRUxPQzsKKwkJCX0KKwkJfSBlbHNlIHsKKwkJ
+CWViX3VucmVzZXJ2ZV92bWEoZXYpOworCQkJbGlzdF9hZGRfdGFpbCgmZXYtPnVuYm91bmRfbGlu
+aywgJnVuYm91bmQpOworCQl9CisJfQorCisJaWYgKGxpc3RfZW1wdHkoJnVuYm91bmQpKQorCQly
+ZXR1cm4gMDsKIAogCS8qCiAJICogQXR0ZW1wdCB0byBwaW4gYWxsIG9mIHRoZSBidWZmZXJzIGlu
+dG8gdGhlIEdUVC4KQEAgLTcyNiw3ICs3MzgsNyBAQCBzdGF0aWMgaW50IGViX3Jlc2VydmUoc3Ry
+dWN0IGk5MTVfZXhlY2J1ZmZlciAqZWIpCiAJCWlmIChtdXRleF9sb2NrX2ludGVycnVwdGlibGUo
+JmViLT5pOTE1LT5kcm0uc3RydWN0X211dGV4KSkKIAkJCXJldHVybiAtRUlOVFI7CiAKLQkJbGlz
+dF9mb3JfZWFjaF9lbnRyeShldiwgJmViLT51bmJvdW5kLCB1bmJvdW5kX2xpbmspIHsKKwkJbGlz
+dF9mb3JfZWFjaF9lbnRyeShldiwgJnVuYm91bmQsIHVuYm91bmRfbGluaykgewogCQkJZXJyID0g
+ZWJfcmVzZXJ2ZV92bWEoZWIsIGV2LCBwaW5fZmxhZ3MpOwogCQkJaWYgKGVycikKIAkJCQlicmVh
+azsKQEAgLTczNywxMyArNzQ5LDExIEBAIHN0YXRpYyBpbnQgZWJfcmVzZXJ2ZShzdHJ1Y3QgaTkx
+NV9leGVjYnVmZmVyICplYikKIAkJfQogCiAJCS8qIFJlc29ydCAqYWxsKiB0aGUgb2JqZWN0cyBp
+bnRvIHByaW9yaXR5IG9yZGVyICovCi0JCUlOSVRfTElTVF9IRUFEKCZlYi0+dW5ib3VuZCk7CisJ
+CUlOSVRfTElTVF9IRUFEKCZ1bmJvdW5kKTsKIAkJSU5JVF9MSVNUX0hFQUQoJmxhc3QpOwotCQlm
+b3IgKGkgPSAwOyBpIDwgY291bnQ7IGkrKykgewotCQkJdW5zaWduZWQgaW50IGZsYWdzOworCQls
+aXN0X2Zvcl9lYWNoX2VudHJ5KGV2LCAmZWItPmJpbmRfbGlzdCwgYmluZF9saW5rKSB7CisJCQl1
+bnNpZ25lZCBpbnQgZmxhZ3MgPSBldi0+ZmxhZ3M7CiAKLQkJCWV2ID0gJmViLT52bWFbaV07Ci0J
+CQlmbGFncyA9IGV2LT5mbGFnczsKIAkJCWlmIChmbGFncyAmIEVYRUNfT0JKRUNUX1BJTk5FRCAm
+JgogCQkJICAgIGZsYWdzICYgX19FWEVDX09CSkVDVF9IQVNfUElOKQogCQkJCWNvbnRpbnVlOwpA
+QCAtNzUyLDE3ICs3NjIsMTcgQEAgc3RhdGljIGludCBlYl9yZXNlcnZlKHN0cnVjdCBpOTE1X2V4
+ZWNidWZmZXIgKmViKQogCiAJCQlpZiAoZmxhZ3MgJiBFWEVDX09CSkVDVF9QSU5ORUQpCiAJCQkJ
+LyogUGlubmVkIG11c3QgaGF2ZSB0aGVpciBzbG90ICovCi0JCQkJbGlzdF9hZGQoJmV2LT51bmJv
+dW5kX2xpbmssICZlYi0+dW5ib3VuZCk7CisJCQkJbGlzdF9hZGQoJmV2LT51bmJvdW5kX2xpbmss
+ICZ1bmJvdW5kKTsKIAkJCWVsc2UgaWYgKGZsYWdzICYgX19FWEVDX09CSkVDVF9ORUVEU19NQVAp
+CiAJCQkJLyogTWFwIHJlcXVpcmUgdGhlIGxvd2VzdCAyNTZNaUIgKGFwZXJ0dXJlKSAqLwotCQkJ
+CWxpc3RfYWRkX3RhaWwoJmV2LT51bmJvdW5kX2xpbmssICZlYi0+dW5ib3VuZCk7CisJCQkJbGlz
+dF9hZGRfdGFpbCgmZXYtPnVuYm91bmRfbGluaywgJnVuYm91bmQpOwogCQkJZWxzZSBpZiAoIShm
+bGFncyAmIEVYRUNfT0JKRUNUX1NVUFBPUlRTXzQ4Ql9BRERSRVNTKSkKIAkJCQkvKiBQcmlvcml0
+aXNlIDRHaUIgcmVnaW9uIGZvciByZXN0cmljdGVkIGJvICovCiAJCQkJbGlzdF9hZGQoJmV2LT51
+bmJvdW5kX2xpbmssICZsYXN0KTsKIAkJCWVsc2UKIAkJCQlsaXN0X2FkZF90YWlsKCZldi0+dW5i
+b3VuZF9saW5rLCAmbGFzdCk7CiAJCX0KLQkJbGlzdF9zcGxpY2VfdGFpbCgmbGFzdCwgJmViLT51
+bmJvdW5kKTsKKwkJbGlzdF9zcGxpY2VfdGFpbCgmbGFzdCwgJnVuYm91bmQpOwogCQltdXRleF91
+bmxvY2soJmViLT5pOTE1LT5kcm0uc3RydWN0X211dGV4KTsKIAogCQlpZiAoZXJyID09IC1FQUdB
+SU4pIHsKQEAgLTkzMyw4ICs5NDMsOCBAQCBzdGF0aWMgaW50IGViX2xvb2t1cF92bWFzKHN0cnVj
+dCBpOTE1X2V4ZWNidWZmZXIgKmViKQogCXVuc2lnbmVkIGludCBpOwogCWludCBlcnIgPSAwOwog
+CisJSU5JVF9MSVNUX0hFQUQoJmViLT5iaW5kX2xpc3QpOwogCUlOSVRfTElTVF9IRUFEKCZlYi0+
+cmVsb2NzX2xpc3QpOwotCUlOSVRfTElTVF9IRUFEKCZlYi0+dW5ib3VuZCk7CiAKIAlmb3IgKGkg
+PSAwOyBpIDwgZWItPmJ1ZmZlcl9jb3VudDsgaSsrKSB7CiAJCXN0cnVjdCBpOTE1X3ZtYSAqdm1h
+OwpAQCAtMTU4MywxNiArMTU5MywxMCBAQCBzdGF0aWMgaW50IGViX3JlbG9jYXRlKHN0cnVjdCBp
+OTE1X2V4ZWNidWZmZXIgKmViKQogewogCWludCBlcnI7CiAKLQllcnIgPSBlYl9sb29rdXBfdm1h
+cyhlYik7CisJZXJyID0gZWJfcmVzZXJ2ZV92bShlYik7CiAJaWYgKGVycikKIAkJcmV0dXJuIGVy
+cjsKIAotCWlmICghbGlzdF9lbXB0eSgmZWItPnVuYm91bmQpKSB7Ci0JCWVyciA9IGViX3Jlc2Vy
+dmUoZWIpOwotCQlpZiAoZXJyKQotCQkJcmV0dXJuIGVycjsKLQl9Ci0KIAkvKiBUaGUgb2JqZWN0
+cyBhcmUgaW4gdGhlaXIgZmluYWwgbG9jYXRpb25zLCBhcHBseSB0aGUgcmVsb2NhdGlvbnMuICov
+CiAJaWYgKGViLT5hcmdzLT5mbGFncyAmIF9fRVhFQ19IQVNfUkVMT0MpIHsKIAkJc3RydWN0IGVi
+X3ZtYSAqZXY7CkBAIC0yNzUzLDYgKzI3NTcsMTAgQEAgaTkxNV9nZW1fZG9fZXhlY2J1ZmZlcihz
+dHJ1Y3QgZHJtX2RldmljZSAqZGV2LAogCWlmICh1bmxpa2VseShlcnIpKQogCQlnb3RvIGVycl9j
+b250ZXh0OwogCisJZXJyID0gZWJfbG9va3VwX3ZtYXMoJmViKTsKKwlpZiAodW5saWtlbHkoZXJy
+KSkKKwkJZ290byBlcnJfZW5naW5lOworCiAJLyogKioqIFRJTUVMSU5FIExPQ0sgKioqICovCiAJ
+ZXJyID0gZWJfbG9ja19lbmdpbmUoJmViKTsKIAlpZiAodW5saWtlbHkoZXJyKSkKLS0gCjIuMjAu
+MQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KSW50ZWwt
+Z2Z4IG1haWxpbmcgbGlzdApJbnRlbC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8v
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vaW50ZWwtZ2Z4Cg==
