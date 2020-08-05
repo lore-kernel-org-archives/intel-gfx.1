@@ -6,36 +6,36 @@ X-Spam-Status: No, score=-4.0 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5156EC433E0
-	for <intel-gfx@archiver.kernel.org>; Wed,  5 Aug 2020 15:16:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CBFE0C433DF
+	for <intel-gfx@archiver.kernel.org>; Wed,  5 Aug 2020 15:16:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 124C8206B6
-	for <intel-gfx@archiver.kernel.org>; Wed,  5 Aug 2020 15:16:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 124C8206B6
+	by mail.kernel.org (Postfix) with ESMTPS id 98B1E206B6
+	for <intel-gfx@archiver.kernel.org>; Wed,  5 Aug 2020 15:16:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 98B1E206B6
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 74D4B89D4F;
-	Wed,  5 Aug 2020 15:16:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 29C1A6E819;
+	Wed,  5 Aug 2020 15:16:55 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 0E70D89D4F;
- Wed,  5 Aug 2020 15:16:02 +0000 (UTC)
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id E9CD76E817;
+ Wed,  5 Aug 2020 15:16:53 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 07E79A00CC;
- Wed,  5 Aug 2020 15:16:02 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id E7A42A00CC;
+ Wed,  5 Aug 2020 15:16:53 +0000 (UTC)
 MIME-Version: 1.0
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Imre Deak" <imre.deak@intel.com>
-Date: Wed, 05 Aug 2020 15:16:02 -0000
-Message-ID: <159664056200.4769.17103661320291162672@emeril.freedesktop.org>
+Date: Wed, 05 Aug 2020 15:16:53 -0000
+Message-ID: <159664061394.4768.482307440871800735@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <20200805150056.24248-1-imre.deak@intel.com>
 In-Reply-To: <20200805150056.24248-1-imre.deak@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_i915/tgl=3A_Fix_TC-cold_block/unblock_sequence?=
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?i915/tgl=3A_Fix_TC-cold_block/unblock_sequence?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,13 +63,9 @@ State : warning
 
 == Summary ==
 
-$ dim checkpatch origin/drm-tip
-26989606f3cd i915/tgl: Fix TC-cold block/unblock sequence
--:52: WARNING:MSLEEP: msleep < 20ms can sleep for up to 20ms; see Documentation/timers/timers-howto.rst
-#52: FILE: drivers/gpu/drm/i915/display/intel_display_power.c:3955:
-+		msleep(1);
-
-total: 0 errors, 1 warnings, 0 checks, 35 lines checked
+$ dim sparse --fast origin/drm-tip
+Sparse version: v0.6.0
+Fast mode used, each commit won't be checked separately.
 
 
 _______________________________________________
