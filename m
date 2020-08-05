@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-13.0 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 38F75C433EA
-	for <intel-gfx@archiver.kernel.org>; Wed,  5 Aug 2020 12:23:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8F4D7C433FB
+	for <intel-gfx@archiver.kernel.org>; Wed,  5 Aug 2020 12:23:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1AD9B22D2B
-	for <intel-gfx@archiver.kernel.org>; Wed,  5 Aug 2020 12:23:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1AD9B22D2B
+	by mail.kernel.org (Postfix) with ESMTPS id 69C8B22D05
+	for <intel-gfx@archiver.kernel.org>; Wed,  5 Aug 2020 12:23:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 69C8B22D05
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD5C06E5C3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB2A36E5C6;
 	Wed,  5 Aug 2020 12:23:00 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 150C56E573
- for <intel-gfx@lists.freedesktop.org>; Wed,  5 Aug 2020 12:22:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 00DCF6E58B
+ for <intel-gfx@lists.freedesktop.org>; Wed,  5 Aug 2020 12:22:53 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22039496-1500050 
- for multiple; Wed, 05 Aug 2020 13:22:37 +0100
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22039465-1500050 
+ for multiple; Wed, 05 Aug 2020 13:22:32 +0100
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed,  5 Aug 2020 13:22:31 +0100
-Message-Id: <20200805122231.23313-38-chris@chris-wilson.co.uk>
+Date: Wed,  5 Aug 2020 13:22:00 +0100
+Message-Id: <20200805122231.23313-7-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200805122231.23313-1-chris@chris-wilson.co.uk>
 References: <20200805122231.23313-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 37/37] drm/i915/gem: Delay attach mmu-notifier
- until we acquire the pinned userptr
+Subject: [Intel-gfx] [PATCH 06/37] drm/i915/gt: Don't cancel the interrupt
+ shadow too early
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,78 +56,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On the fast path, we first try to pin the user pages and then attach the
-mmu-notifier. On the slow path, we did it the opposite way around,
-carrying the mmu-notifier over from the tail of the fast path. However,
-if we are mapping a fresh batch of user pages, we will always hit a pmd
-split operation (to replace the zero pages with real pages), triggering
-an invalidate-range callback for this userptr, and so we have to cancel
-the work [after completing the pinning] and cause the caller to retry
-(an extra EAGAIN return from an ioctl for some paths). If we follow the
-fast path approach and attach the callback after completion, we only see
-the invalidate-range for revocations of our pages.
+We currently want to keep the interrupt enabled until the interrupt after
+which we have no more work to do. This heuristic was broken by us
+kicking the irq-work on adding a completed request without attaching a
+signaler -- hence it appearing to the irq-worker that an interrupt had
+fired when we were idle.
 
-The risk (the same as for the fast path) is that if the mmu-notifier
-should have been run during the page lookup, we will have missed it and
-the pages will be mixed. One might conclude that the fast path is wrong,
-and we should always attach the mmu-notifier first and bear the cost of
-redundant repetition.
-
+Fixes: bda4d4db6dd6 ("drm/i915/gt: Replace intel_engine_transfer_stale_breadcrumbs")
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_userptr.c | 11 +++--------
- 1 file changed, 3 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_breadcrumbs.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_userptr.c b/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
-index 80907c00c6fd..ba1f01650eeb 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
-@@ -500,14 +500,13 @@ __i915_gem_userptr_get_pages_worker(struct work_struct *_work)
- 			pages = __i915_gem_userptr_alloc_pages(obj, pvec,
- 							       npages);
- 			if (!IS_ERR(pages)) {
-+				__i915_gem_userptr_set_active(obj, true);
- 				pinned = 0;
- 				pages = NULL;
- 			}
- 		}
+diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
+index 9710d09e7670..ae8895b48eca 100644
+--- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
++++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
+@@ -216,7 +216,7 @@ static void signal_irq_work(struct irq_work *work)
+ 	 * interrupt draw less ire from other users of the system and tools
+ 	 * like powertop.
+ 	 */
+-	if (b->irq_armed && list_empty(&b->signalers))
++	if (!signal && b->irq_armed && list_empty(&b->signalers))
+ 		__intel_breadcrumbs_disarm_irq(b);
  
- 		obj->userptr.work = ERR_CAST(pages);
--		if (IS_ERR(pages))
--			__i915_gem_userptr_set_active(obj, false);
- 	}
- 	i915_gem_object_unlock(obj);
- 
-@@ -566,7 +565,6 @@ static int i915_gem_userptr_get_pages(struct drm_i915_gem_object *obj)
- 	struct mm_struct *mm = obj->userptr.mm->mm;
- 	struct page **pvec;
- 	struct sg_table *pages;
--	bool active;
- 	int pinned;
- 	unsigned int gup_flags = 0;
- 
-@@ -621,19 +619,16 @@ static int i915_gem_userptr_get_pages(struct drm_i915_gem_object *obj)
- 		}
- 	}
- 
--	active = false;
- 	if (pinned < 0) {
- 		pages = ERR_PTR(pinned);
- 		pinned = 0;
- 	} else if (pinned < num_pages) {
- 		pages = __i915_gem_userptr_get_pages_schedule(obj);
--		active = pages == ERR_PTR(-EAGAIN);
- 	} else {
- 		pages = __i915_gem_userptr_alloc_pages(obj, pvec, num_pages);
--		active = !IS_ERR(pages);
-+		if (!IS_ERR(pages))
-+			__i915_gem_userptr_set_active(obj, true);
- 	}
--	if (active)
--		__i915_gem_userptr_set_active(obj, true);
- 
- 	if (IS_ERR(pages))
- 		unpin_user_pages(pvec, pinned);
+ 	list_for_each_entry_safe(ce, cn, &b->signalers, signal_link) {
 -- 
 2.20.1
 
