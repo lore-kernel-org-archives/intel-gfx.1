@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-13.0 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 950F8C433DF
-	for <intel-gfx@archiver.kernel.org>; Wed,  5 Aug 2020 12:22:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5DA5AC433E0
+	for <intel-gfx@archiver.kernel.org>; Wed,  5 Aug 2020 12:22:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7456F22D03
-	for <intel-gfx@archiver.kernel.org>; Wed,  5 Aug 2020 12:22:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7456F22D03
+	by mail.kernel.org (Postfix) with ESMTPS id 3125B22D05
+	for <intel-gfx@archiver.kernel.org>; Wed,  5 Aug 2020 12:22:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3125B22D05
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E4EEE6E566;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E9BDC6E56D;
 	Wed,  5 Aug 2020 12:22:49 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 007AF6E56D
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E89BF6E566
  for <intel-gfx@lists.freedesktop.org>; Wed,  5 Aug 2020 12:22:47 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22039487-1500050 
- for multiple; Wed, 05 Aug 2020 13:22:35 +0100
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22039462-1500050 
+ for multiple; Wed, 05 Aug 2020 13:22:31 +0100
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed,  5 Aug 2020 13:22:22 +0100
-Message-Id: <20200805122231.23313-29-chris@chris-wilson.co.uk>
+Date: Wed,  5 Aug 2020 13:21:57 +0100
+Message-Id: <20200805122231.23313-4-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200805122231.23313-1-chris@chris-wilson.co.uk>
 References: <20200805122231.23313-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 28/37] drm/i915: Acquire the object lock around
- page directories
+Subject: [Intel-gfx] [PATCH 03/37] drm/i915/gt: Free stale request on
+ destroying the virtual engine
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,150 +56,71 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Now that the page directories are backed by an object, and we wish to
-acquire multiple objects together under the same acquire context, teach
-i915_vm_map_pt_stash() to use i915_acquire_ctx.
+Since preempt-to-busy, we may unsubmit a request while it is still on
+the HW and completes asynchronously. That means it may be retired and in
+the process destroy the virtual engine (as the user has closed their
+context), but that engine may still be holding onto the unsubmitted
+compelted request. Therefore we need to potentially cleanup the old
+request on destroying the virtual engine. We also have to keep the
+virtual_engine alive until after the sibling's execlists_dequeue() have
+finished peeking into the virtual engines, for which we serialise with
+RCU.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 ---
- .../gpu/drm/i915/gem/i915_gem_execbuffer.c    |  2 +-
- drivers/gpu/drm/i915/gt/intel_gtt.c           | 14 +++++++-
- drivers/gpu/drm/i915/gt/intel_gtt.h           |  4 +++
- drivers/gpu/drm/i915/gt/intel_ppgtt.c         | 34 +++++++++++++++++--
- 4 files changed, 49 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_lrc.c | 22 +++++++++++++++++++---
+ 1 file changed, 19 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-index d3ac2542a039..94ec3536cac4 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-@@ -1450,7 +1450,7 @@ static int eb_reserve_vm(struct i915_execbuffer *eb)
- 			return eb_vm_work_cancel(work, err);
+diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
+index 417f6b0c6c61..cb04bc5474be 100644
+--- a/drivers/gpu/drm/i915/gt/intel_lrc.c
++++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
+@@ -180,6 +180,7 @@
+ #define EXECLISTS_REQUEST_SIZE 64 /* bytes */
  
- 		/* We also need to prepare mappings to write the PD pages */
--		err = i915_vm_map_pt_stash(work->vm, &work->stash);
-+		err = __i915_vm_map_pt_stash_locked(work->vm, &work->stash);
- 		if (err)
- 			return eb_vm_work_cancel(work, err);
+ struct virtual_engine {
++	struct rcu_head rcu;
+ 	struct intel_engine_cs base;
+ 	struct intel_context context;
  
-diff --git a/drivers/gpu/drm/i915/gt/intel_gtt.c b/drivers/gpu/drm/i915/gt/intel_gtt.c
-index 1a7efbad8f74..b0629de490a3 100644
---- a/drivers/gpu/drm/i915/gt/intel_gtt.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gtt.c
-@@ -19,7 +19,8 @@ struct drm_i915_gem_object *alloc_pt_dma(struct i915_address_space *vm, int sz)
- 	return i915_gem_object_create_internal(vm->i915, sz);
- }
+@@ -5393,10 +5394,25 @@ static void virtual_context_destroy(struct kref *kref)
+ 		container_of(kref, typeof(*ve), context.ref);
+ 	unsigned int n;
  
--int map_pt_dma(struct i915_address_space *vm, struct drm_i915_gem_object *obj)
-+int __map_pt_dma_locked(struct i915_address_space *vm,
-+			struct drm_i915_gem_object *obj)
- {
- 	void *vaddr;
+-	GEM_BUG_ON(!list_empty(virtual_queue(ve)));
+-	GEM_BUG_ON(ve->request);
+ 	GEM_BUG_ON(ve->context.inflight);
  
-@@ -31,6 +32,17 @@ int map_pt_dma(struct i915_address_space *vm, struct drm_i915_gem_object *obj)
- 	return 0;
- }
- 
-+int map_pt_dma(struct i915_address_space *vm, struct drm_i915_gem_object *obj)
-+{
-+	int err;
++	if (unlikely(ve->request)) {
++		struct i915_request *old;
++		unsigned long flags;
 +
-+	i915_gem_object_lock(obj);
-+	err = __map_pt_dma_locked(vm, obj);
-+	i915_gem_object_unlock(obj);
++		spin_lock_irqsave(&ve->base.active.lock, flags);
 +
-+	return err;
-+}
-+
- void __i915_vm_close(struct i915_address_space *vm)
- {
- 	struct i915_vma *vma, *vn;
-diff --git a/drivers/gpu/drm/i915/gt/intel_gtt.h b/drivers/gpu/drm/i915/gt/intel_gtt.h
-index c659dbd6cda2..b4e1519e4028 100644
---- a/drivers/gpu/drm/i915/gt/intel_gtt.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gtt.h
-@@ -525,6 +525,8 @@ struct i915_page_directory *alloc_pd(struct i915_address_space *vm);
- struct i915_page_directory *__alloc_pd(int npde);
- 
- int map_pt_dma(struct i915_address_space *vm, struct drm_i915_gem_object *obj);
-+int __map_pt_dma_locked(struct i915_address_space *vm,
-+			struct drm_i915_gem_object *obj);
- 
- void free_px(struct i915_address_space *vm,
- 	     struct i915_page_table *pt, int lvl);
-@@ -573,6 +575,8 @@ int i915_vm_alloc_pt_stash(struct i915_address_space *vm,
- 			   u64 size);
- int i915_vm_map_pt_stash(struct i915_address_space *vm,
- 			 struct i915_vm_pt_stash *stash);
-+int __i915_vm_map_pt_stash_locked(struct i915_address_space *vm,
-+				  struct i915_vm_pt_stash *stash);
- void i915_vm_free_pt_stash(struct i915_address_space *vm,
- 			   struct i915_vm_pt_stash *stash);
- 
-diff --git a/drivers/gpu/drm/i915/gt/intel_ppgtt.c b/drivers/gpu/drm/i915/gt/intel_ppgtt.c
-index 11e7288464c0..ada894885795 100644
---- a/drivers/gpu/drm/i915/gt/intel_ppgtt.c
-+++ b/drivers/gpu/drm/i915/gt/intel_ppgtt.c
-@@ -5,6 +5,8 @@
- 
- #include <linux/slab.h>
- 
-+#include "mm/i915_acquire_ctx.h"
-+
- #include "i915_trace.h"
- #include "intel_gtt.h"
- #include "gen6_ppgtt.h"
-@@ -253,15 +255,15 @@ int i915_vm_alloc_pt_stash(struct i915_address_space *vm,
- 	return 0;
- }
- 
--int i915_vm_map_pt_stash(struct i915_address_space *vm,
--			 struct i915_vm_pt_stash *stash)
-+int __i915_vm_map_pt_stash_locked(struct i915_address_space *vm,
-+				  struct i915_vm_pt_stash *stash)
- {
- 	struct i915_page_table *pt;
- 	int n, err;
- 
- 	for (n = 0; n < ARRAY_SIZE(stash->pt); n++) {
- 		for (pt = stash->pt[n]; pt; pt = pt->stash) {
--			err = map_pt_dma(vm, pt->base);
-+			err = __map_pt_dma_locked(vm, pt->base);
- 			if (err)
- 				return err;
- 		}
-@@ -270,6 +272,32 @@ int i915_vm_map_pt_stash(struct i915_address_space *vm,
- 	return 0;
- }
- 
-+int i915_vm_map_pt_stash(struct i915_address_space *vm,
-+			 struct i915_vm_pt_stash *stash)
-+{
-+	struct i915_acquire_ctx acquire;
-+	struct i915_page_table *pt;
-+	int n, err;
-+
-+	/* Acquire all the pages for the page directories simultaneously */
-+	i915_acquire_ctx_init(&acquire);
-+	for (n = 0; n < ARRAY_SIZE(stash->pt); n++) {
-+		for (pt = stash->pt[n]; pt; pt = pt->stash) {
-+			err = i915_acquire_ctx_lock(&acquire, pt->base);
-+			if (err)
-+				goto out;
++		old = fetch_and_zero(&ve->request);
++		if (old) {
++			GEM_BUG_ON(!i915_request_completed(old));
++			__i915_request_submit(old);
++			i915_request_put(old);
 +		}
++
++		spin_unlock_irqrestore(&ve->base.active.lock, flags);
 +	}
++	GEM_BUG_ON(!list_empty(virtual_queue(ve)));
 +
-+	err = i915_acquire_mm(&acquire);
-+	if (err == 0)
-+		err = __i915_vm_map_pt_stash_locked(vm, stash);
-+
-+out:
-+	i915_acquire_ctx_fini(&acquire);
-+	return err;
-+}
-+
- void i915_vm_free_pt_stash(struct i915_address_space *vm,
- 			   struct i915_vm_pt_stash *stash)
- {
+ 	for (n = 0; n < ve->num_siblings; n++) {
+ 		struct intel_engine_cs *sibling = ve->siblings[n];
+ 		struct rb_node *node = &ve->nodes[sibling->id].rb;
+@@ -5422,7 +5438,7 @@ static void virtual_context_destroy(struct kref *kref)
+ 	intel_engine_free_request_pool(&ve->base);
+ 
+ 	kfree(ve->bonds);
+-	kfree(ve);
++	kfree_rcu(ve, rcu);
+ }
+ 
+ static void virtual_engine_initial_hint(struct virtual_engine *ve)
 -- 
 2.20.1
 
