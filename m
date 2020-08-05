@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-13.0 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1443FC433E1
-	for <intel-gfx@archiver.kernel.org>; Wed,  5 Aug 2020 12:22:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5CFB9C433E0
+	for <intel-gfx@archiver.kernel.org>; Wed,  5 Aug 2020 12:22:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DE8B522D03
-	for <intel-gfx@archiver.kernel.org>; Wed,  5 Aug 2020 12:22:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DE8B522D03
+	by mail.kernel.org (Postfix) with ESMTPS id 3B54222D03
+	for <intel-gfx@archiver.kernel.org>; Wed,  5 Aug 2020 12:22:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3B54222D03
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA7FF89CBA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E9C216E584;
 	Wed,  5 Aug 2020 12:22:50 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 09BFD6E573
- for <intel-gfx@lists.freedesktop.org>; Wed,  5 Aug 2020 12:22:47 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 026186E566
+ for <intel-gfx@lists.freedesktop.org>; Wed,  5 Aug 2020 12:22:48 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22039460-1500050 
- for multiple; Wed, 05 Aug 2020 13:22:30 +0100
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22039469-1500050 
+ for multiple; Wed, 05 Aug 2020 13:22:32 +0100
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed,  5 Aug 2020 13:21:55 +0100
-Message-Id: <20200805122231.23313-2-chris@chris-wilson.co.uk>
+Date: Wed,  5 Aug 2020 13:22:04 +0100
+Message-Id: <20200805122231.23313-11-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200805122231.23313-1-chris@chris-wilson.co.uk>
 References: <20200805122231.23313-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 01/37] drm/i915/gem: Reduce context termination
- list iteration guard to RCU
+Subject: [Intel-gfx] [PATCH 10/37] drm/i915/gem: Rename the list of
+ relocations to reloc_list
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,97 +56,55 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-As we now protect the timeline list using RCU, we can drop the
-timeline->mutex for guarding the list iteration during context close, as
-we are searching for an inflight request. Any new request will see the
-context is banned and not be submitted. In doing so, pull the checks for
-a concurrent submission of the request (notably the
-i915_request_completed()) under the engine spinlock, to fully serialise
-with __i915_request_submit()). That is in the case of preempt-to-busy
-where the request may be completed during the __i915_request_submit(),
-we need to be careful that we sample the request status after
-serialising so that we don't miss the request the engine is actually
-submitting.
+Continuing the theme of calling the lists a foo_list, rename the relocs
+list. This means that we can now use relocs for the old reloc_cache that
+is not a cache anymore.
 
-Fixes: 4a3174152147 ("drm/i915/gem: Refine occupancy test in kill_context()")
-References: d22d2d073ef8 ("drm/i915: Protect i915_request_await_start from early waits") # rcu protection of timeline->requests
-References: https://gitlab.freedesktop.org/drm/intel/-/issues/1622
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_context.c | 32 ++++++++++++---------
- 1 file changed, 19 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-index d8cccbab7a51..db893f6c516b 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-@@ -439,29 +439,36 @@ static bool __cancel_engine(struct intel_engine_cs *engine)
- 	return __reset_engine(engine);
- }
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+index a5b63ae17241..e7e16c62df1c 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+@@ -252,7 +252,7 @@ struct i915_execbuffer {
+ 	struct list_head unbound;
  
--static struct intel_engine_cs *__active_engine(struct i915_request *rq)
-+static bool
-+__active_engine(struct i915_request *rq, struct intel_engine_cs **active)
- {
- 	struct intel_engine_cs *engine, *locked;
-+	bool ret = false;
+ 	/** list of vma that have execobj.relocation_count */
+-	struct list_head relocs;
++	struct list_head relocs_list;
+ 
+ 	/**
+ 	 * Track the most recently used object for relocations, as we
+@@ -577,7 +577,7 @@ eb_add_vma(struct i915_execbuffer *eb,
+ 	}
+ 
+ 	if (entry->relocation_count)
+-		list_add_tail(&ev->reloc_link, &eb->relocs);
++		list_add_tail(&ev->reloc_link, &eb->relocs_list);
  
  	/*
- 	 * Serialise with __i915_request_submit() so that it sees
- 	 * is-banned?, or we know the request is already inflight.
-+	 *
-+	 * Note that rq->engine is unstable, and so we double
-+	 * check that we have acquired the lock on the final engine.
- 	 */
- 	locked = READ_ONCE(rq->engine);
- 	spin_lock_irq(&locked->active.lock);
- 	while (unlikely(locked != (engine = READ_ONCE(rq->engine)))) {
- 		spin_unlock(&locked->active.lock);
--		spin_lock(&engine->active.lock);
- 		locked = engine;
-+		spin_lock(&locked->active.lock);
- 	}
+ 	 * SNA is doing fancy tricks with compressing batch buffers, which leads
+@@ -932,7 +932,7 @@ static int eb_lookup_vmas(struct i915_execbuffer *eb)
+ 	unsigned int i;
+ 	int err = 0;
  
--	engine = NULL;
--	if (i915_request_is_active(rq) && rq->fence.error != -EIO)
--		engine = rq->engine;
-+	if (!i915_request_completed(rq)) {
-+		if (i915_request_is_active(rq) && rq->fence.error != -EIO)
-+			*active = locked;
-+		ret = true;
-+	}
+-	INIT_LIST_HEAD(&eb->relocs);
++	INIT_LIST_HEAD(&eb->relocs_list);
+ 	INIT_LIST_HEAD(&eb->unbound);
  
- 	spin_unlock_irq(&locked->active.lock);
+ 	for (i = 0; i < eb->buffer_count; i++) {
+@@ -1592,7 +1592,7 @@ static int eb_relocate(struct i915_execbuffer *eb)
+ 		struct eb_vma *ev;
+ 		int flush;
  
--	return engine;
-+	return ret;
- }
- 
- static struct intel_engine_cs *active_engine(struct intel_context *ce)
-@@ -472,17 +479,16 @@ static struct intel_engine_cs *active_engine(struct intel_context *ce)
- 	if (!ce->timeline)
- 		return NULL;
- 
--	mutex_lock(&ce->timeline->mutex);
--	list_for_each_entry_reverse(rq, &ce->timeline->requests, link) {
--		if (i915_request_completed(rq))
--			break;
-+	rcu_read_lock();
-+	list_for_each_entry_rcu(rq, &ce->timeline->requests, link) {
-+		if (i915_request_is_active(rq) && i915_request_completed(rq))
-+			continue;
- 
- 		/* Check with the backend if the request is inflight */
--		engine = __active_engine(rq);
--		if (engine)
-+		if (__active_engine(rq, &engine))
- 			break;
- 	}
--	mutex_unlock(&ce->timeline->mutex);
-+	rcu_read_unlock();
- 
- 	return engine;
- }
+-		list_for_each_entry(ev, &eb->relocs, reloc_link) {
++		list_for_each_entry(ev, &eb->relocs_list, reloc_link) {
+ 			err = eb_relocate_vma(eb, ev);
+ 			if (err)
+ 				break;
 -- 
 2.20.1
 
