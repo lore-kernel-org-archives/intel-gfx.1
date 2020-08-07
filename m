@@ -6,54 +6,54 @@ X-Spam-Status: No, score=-4.0 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 30B09C433E0
-	for <intel-gfx@archiver.kernel.org>; Fri,  7 Aug 2020 09:32:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B4384C433E0
+	for <intel-gfx@archiver.kernel.org>; Fri,  7 Aug 2020 09:39:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1023022CAE
-	for <intel-gfx@archiver.kernel.org>; Fri,  7 Aug 2020 09:32:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1023022CAE
+	by mail.kernel.org (Postfix) with ESMTPS id 9007622D00
+	for <intel-gfx@archiver.kernel.org>; Fri,  7 Aug 2020 09:39:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9007622D00
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 913706E996;
-	Fri,  7 Aug 2020 09:32:22 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 71DD56E996
- for <intel-gfx@lists.freedesktop.org>; Fri,  7 Aug 2020 09:32:21 +0000 (UTC)
-IronPort-SDR: XpMURYbLFlAvx5u8tbRDdUeNKoNEtki/69WLQawYMo6dBvk+loAKT58b0zPtN/Q1Aux5z4i9Cr
- c43OWfL1z6zQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9705"; a="140628659"
-X-IronPort-AV: E=Sophos;i="5.75,445,1589266800"; d="scan'208";a="140628659"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C47F6E991;
+	Fri,  7 Aug 2020 09:39:02 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CCD206E991
+ for <intel-gfx@lists.freedesktop.org>; Fri,  7 Aug 2020 09:39:00 +0000 (UTC)
+IronPort-SDR: O52IJZeYp5chaCp5jGblE2Jf/92jGFaWX9MSOaJ7L13SNG52VXd9HTYmkIM09GoJuIViO+Beh1
+ 4XglLFTDoJpw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9705"; a="150765943"
+X-IronPort-AV: E=Sophos;i="5.75,445,1589266800"; d="scan'208";a="150765943"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Aug 2020 02:32:20 -0700
-IronPort-SDR: 4+4vNicRfgCgL7pfnMLY+zpaBVGtwQqNhGBYRoFTFiXDjgnImZ5u3SXtHt3CZ9W40t7y80RQQw
- 5U4Khkl7/2Qw==
-X-IronPort-AV: E=Sophos;i="5.75,445,1589266800"; d="scan'208";a="437852825"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Aug 2020 02:39:00 -0700
+IronPort-SDR: gb8PjiACs3hddVSDMrQoqoNLhbymGSq8sOPbB1yvTLvnzr9TwtAuht8L2h7erKdtdRTj54MtGp
+ x/L3P9h+f9Rg==
+X-IronPort-AV: E=Sophos;i="5.75,445,1589266800"; d="scan'208";a="468172736"
 Received: from walshric-mobl1.ger.corp.intel.com (HELO localhost)
  ([10.252.12.98])
- by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Aug 2020 02:32:19 -0700
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Aug 2020 02:38:53 -0700
 MIME-Version: 1.0
-In-Reply-To: <CAPM=9tx0TW1ooPb89ifN6=OAYEt8f71=cMnZJzFf_p3xOmWFfw@mail.gmail.com>
+In-Reply-To: <CAPM=9txUuw23Y5q9SndkMM+ZuXLyC60P0HqG-=4GSbPPujh+Vw@mail.gmail.com>
 References: <20200710115757.290984-1-matthew.auld@intel.com>
- <20200710115757.290984-34-matthew.auld@intel.com>
- <CAPM=9tzvetxhBJBOC60ydOVcTN9ujtHLCODFNwGtONTDzuzwZA@mail.gmail.com>
- <c6cd965d-9a03-10fd-517e-a44934a2b0c9@intel.com>
- <CAPM=9txaksu8brsPTHsLkQudpNLd6O1MOzG8APGTrMaoXMioqw@mail.gmail.com>
- <d7e7b910-81d0-d7b2-b426-51b0714836eb@intel.com>
- <CAPM=9tx0TW1ooPb89ifN6=OAYEt8f71=cMnZJzFf_p3xOmWFfw@mail.gmail.com>
-To: Dave Airlie <airlied@gmail.com>, Matthew Auld <matthew.auld@intel.com>
+ <20200710115757.290984-54-matthew.auld@intel.com>
+ <CAPM=9twBBVQy_0O6ES5UjtBpn0hfjaWoo24miziBj+VMrbciWg@mail.gmail.com>
+ <84ff0146-0a35-c66e-2c33-2ce22aae4c6c@intel.com>
+ <1D440B9B88E22A4ABEF89F9F1F81BC290117BB8F99@ORSMSX163.amr.corp.intel.com>
+ <CAPM=9txUuw23Y5q9SndkMM+ZuXLyC60P0HqG-=4GSbPPujh+Vw@mail.gmail.com>
+To: "Tang, CQ" <cq.tang@intel.com>, Dave Airlie <airlied@gmail.com>
 From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Message-ID: <159679273645.9764.6619843023434546025@jlahtine-mobl.ger.corp.intel.com>
+Message-ID: <159679313093.9764.11140358447333089444@jlahtine-mobl.ger.corp.intel.com>
 User-Agent: alot/0.8.1
-Date: Fri, 07 Aug 2020 12:32:16 +0300
-Subject: Re: [Intel-gfx] [RFC 33/60] drm/i915/lmem: support pwrite
+Date: Fri, 07 Aug 2020 12:38:51 +0300
+Subject: Re: [Intel-gfx] [RFC 53/60] drm/i915: Create stolen memory region
+ from local memory
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,93 +66,88 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Intel Graphics Development <intel-gfx@lists.freedesktop.org>
+Cc: Abdiel Janulgue <abdiel.janulgue@linux.intel.com>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>, "De Marchi,
+ Lucas" <lucas.demarchi@intel.com>, "Wilson,
+ Chris P" <chris.p.wilson@intel.com>, "Auld, Matthew" <matthew.auld@intel.com>,
+ Neel Desai <neel.desai@intel.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Quoting Dave Airlie (2020-07-20 00:52:19)
-> On Thu, 16 Jul 2020 at 20:11, Matthew Auld <matthew.auld@intel.com> wrote:
+Quoting Dave Airlie (2020-07-14 22:26:16)
+> On Wed, 15 Jul 2020 at 02:57, Tang, CQ <cq.tang@intel.com> wrote:
 > >
-> > On 16/07/2020 01:43, Dave Airlie wrote:
-> > > On Wed, 15 Jul 2020 at 00:35, Matthew Auld <matthew.auld@intel.com> wrote:
-> > >>
-> > >> On 13/07/2020 06:09, Dave Airlie wrote:
-> > >>> On Fri, 10 Jul 2020 at 22:00, Matthew Auld <matthew.auld@intel.com> wrote:
-> > >>>>
-> > >>>> We need to add support for pwrite'ing an LMEM object.
-> > >>>
-> > >>> why? DG1 is a discrete GPU, these interfaces we already gross and
-> > >>> overly hacky for integrated, I'd prefer not to drag them across into
-> > >>> discrete land.
-> > >>>
-> > >>> same goes for pread.
-> > >>>
-> > >>> You have no legacy userspace here, userspace needs change to support
-> > >>> LMEM, it can be fixed to avoid legacy ioctls paths.
-> > >>
-> > >> Ok, there have also been similar discussions internally in the past. I
-> > >> think one of the reasons was around IGT, and how keeping the
-> > >> pread/pwrite interface meant slightly less pain, also it's not much
-> > >> effort to implement for LMEM. If this is a NACK, then I guess the other
-> > >> idea was to somehow fallback to mmap and update IGT accordingly.
+> >
+> >
+> > > -----Original Message-----
+> > > From: Auld, Matthew <matthew.auld@intel.com>
+> > > Sent: Tuesday, July 14, 2020 8:02 AM
+> > > To: Dave Airlie <airlied@gmail.com>
+> > > Cc: Intel Graphics Development <intel-gfx@lists.freedesktop.org>; Tang, CQ
+> > > <cq.tang@intel.com>; Joonas Lahtinen <joonas.lahtinen@linux.intel.com>;
+> > > Abdiel Janulgue <abdiel.janulgue@linux.intel.com>; Wilson, Chris P
+> > > <chris.p.wilson@intel.com>; Balestrieri, Francesco
+> > > <francesco.balestrieri@intel.com>; Vishwanathapura, Niranjana
+> > > <niranjana.vishwanathapura@intel.com>; Dhanalakota, Venkata S
+> > > <venkata.s.dhanalakota@intel.com>; Neel Desai <neel.desai@intel.com>;
+> > > Brost, Matthew <matthew.brost@intel.com>; Dutt, Sudeep
+> > > <sudeep.dutt@intel.com>; De Marchi, Lucas <lucas.demarchi@intel.com>
+> > > Subject: Re: [RFC 53/60] drm/i915: Create stolen memory region from local
+> > > memory
 > > >
-> > > I just don't think we should have internal kernel interfaces for
-> > > mapping ram in the kernel address space, seems pointless, makes less
-> > > sense with a discrete GPU in the mix, so yes I think NAK for
-> > > pread/pwrite at least at this time.
-> >
-> > Ok.
-> >
+> > > On 13/07/2020 05:48, Dave Airlie wrote:
+> > > > On Fri, 10 Jul 2020 at 22:01, Matthew Auld <matthew.auld@intel.com>
+> > > wrote:
+> > > >>
+> > > >> From: CQ Tang <cq.tang@intel.com>
+> > > >>
+> > > >> Add "REGION_STOLEN" device info to dg1, create stolen memory region
+> > > >> from upper portion of local device memory, starting from DSMBASE.
+> > > >>
+> > > >> The memory region is marked with "is_devmem=true".
+> > > >
+> > > > So is stolen fake on LMEM devices? The concept of stolen doesn't seem
+> > > > to make much sense with VRAM, so please enlighten me.
 > > >
-> > > I'd also like to see a hard no relocs policy for DG1 enforced in the kernel.
+> > > CQ, do we actually need an explicit stolen LMEM region? The idea of having a
+> > > DSM like stolen region for LMEM does sound strange(outside of the usual
+> > > reserved portions which are for HW use etc), since the driver has complete
+> > > control over LMEM. Is it just a convenience thing to keep things working as-is
+> > > for fbc, initial fb, etc. or is there more to it?
+> > > There is buddy_alloc_range() for LMEM which we could potentially use to
+> > > wrap an object around for things like the initial fb or similar.
 > >
-> > Ok, just checking, is that the case even if we don't require extra code
-> > to support it? We recently dropped the CPU reloc path completely, in
-> > favour of single GPU reloc path, and so no special code is required to
-> > support LMEM, it should just work. IGT of course makes heavy use of
-> > relocs, so that would need an overhaul.
+> > This is a natural extension from IGT stolen memory region into DGT, we want to allocate objects from stolen area. In DGT, we have one stolen area per tile so we create one region in each of these area. Using memory region is easier to manage objects allocation and free. Other than fbc and rc6, we have gt/ring allocate stolen memory objects when without LMEM, so only apply to IGT case:
+> >
+> > display/intel_display.c:        obj = i915_gem_object_create_stolen_for_preallocated(dev_priv,
+> > display/intel_fbdev.c:                  obj = i915_gem_object_create_stolen(dev_priv, size);
+> > display/intel_overlay.c:        obj = i915_gem_object_create_stolen(i915, PAGE_SIZE);
+> > intel_rc6.c:            pctx = i915_gem_object_create_stolen_for_preallocated(i915,
+> > intel_rc6.c:    pctx = i915_gem_object_create_stolen(i915, pctx_size);
+> >
+> > intel_ring.c:                   obj = intel_gt_object_create_stolen(ggtt->vm.gt, size);
+> > intel_gt.c:             obj = intel_gt_object_create_stolen(gt, size);
+> >
+> > For some reason, we don't use buddy allocator to manage the stolen memory, instead, we use drm_mm_node allocator directly, we have one-to-one mapping between drm_mm address space to dma address of the stolen memory. We also use contiguous allocation where an object always get a single contiguous block of pages.
+> >
+> > So fundamentally, we want to use the same code to work on both IGT stolen memory and DGT stolen memory.
 > 
-> The GPU reloc path is optimising a path that we simply shouldn't need
-> or be using.
+> If this is fundamentally a software construct then it's horrible, if
+> the HW has a stolen base like Ville said, and it needs to be in a
+> chunk of VRAM, how do you go about sizing that, and carving it out
+> from the user?
 > 
-> IGT tests relocs, ripping out relocs should reduce the amount of
-> testing IGT has to do and reduce CI run times. Why carry the techincal
-> debt deliberately.
+> I don't think wanting to share the same codepaths here is an
+> acceptable answer, just fix the code to handle LMEM vs stolen, but if
+> there are hw reasons on why this is required it would be good to
+> enumerate exactly what they are and document them.
 
-We still have to optimize and keep the the relocations for the older
-generations, where they are used. So can't really be eliminated from
-codebase as much of the code is shared.
+The boot firmware does configure the stolen region, so it's not fake.
 
-Agreed on the benefit in the more distant future coming from dropping
-the relocations, once pre-Gen12 hardware is no more.
-
-Note that IGT also uses relocations indirectly in non-relocation-specific
-testtests, so there is quite some work according to our validation team.
-
-Wrt this RFC, as no extra code is needed, it is faster to get stack
-up and running with relocations. It also keeps the changes between
-iGFX and dGFX minimal, which should help debugging. So that path was
-taken to get the functional RFC out as fast as possible.
-
-Moving away from relocations in both IGT and media driver is being
-discussed and worked on. See below.
-
-> I expect the kernel team to be a bit more authorative inside Intel on
-> why uAPI gets exposed and why, it seems like everytime there is an
-> attempt to limit the tech debt of carrying forward unnecessary uAPIs
-> there is some push back for media driver or IGT. Fix stuff and be
-> harder in pushing back on carrying unneeded interfaces forward so we
-> future products are less mired in pointless debt. DG1 uAPI should
-> really be a chance to full review the legacy of integrated graphics +
-> pre-48-bit VM interfaces and they should all be turned off for DG1 so
-> that future discrete GPUs can move forward cleaner. I really shouldn't
-> be the one enforcing this, the i915 team needs to be a bit
-> authoritative on what is necessary to support.
-
-The patches were sent out as RFC to collect comments. Based on the
-comments, we're expediting the work to eliminate the use of relocations.
+But there's no need to expose the stolen memory to userspace, so these
+patches will be dropped.
 
 Regards, Joonas
 _______________________________________________
