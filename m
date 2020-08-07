@@ -7,37 +7,35 @@ X-Spam-Status: No, score=-13.0 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 438F9C433E3
-	for <intel-gfx@archiver.kernel.org>; Fri,  7 Aug 2020 08:33:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 47D3AC433E0
+	for <intel-gfx@archiver.kernel.org>; Fri,  7 Aug 2020 08:33:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 20E242177B
-	for <intel-gfx@archiver.kernel.org>; Fri,  7 Aug 2020 08:33:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 20E242177B
+	by mail.kernel.org (Postfix) with ESMTPS id 250B822CAE
+	for <intel-gfx@archiver.kernel.org>; Fri,  7 Aug 2020 08:33:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 250B822CAE
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B37156E963;
-	Fri,  7 Aug 2020 08:33:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A71B26E96E;
+	Fri,  7 Aug 2020 08:33:25 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 54BB26E079
- for <intel-gfx@lists.freedesktop.org>; Fri,  7 Aug 2020 08:33:11 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 32BE06E96E
+ for <intel-gfx@lists.freedesktop.org>; Fri,  7 Aug 2020 08:33:24 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22057767-1500050 
- for multiple; Fri, 07 Aug 2020 09:33:02 +0100
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22057763-1500050 
+ for multiple; Fri, 07 Aug 2020 09:33:01 +0100
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri,  7 Aug 2020 09:32:54 +0100
-Message-Id: <20200807083256.32761-5-chris@chris-wilson.co.uk>
+Date: Fri,  7 Aug 2020 09:32:50 +0100
+Message-Id: <20200807083256.32761-1-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20200807083256.32761-1-chris@chris-wilson.co.uk>
-References: <20200807083256.32761-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 5/7] drm/i915/gt: Don't cancel the interrupt
- shadow too early
+Subject: [Intel-gfx] [PATCH 1/7] drm/i915/gt: Remove defunct
+ intel_virtual_engine_get_sibling()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,31 +54,56 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-We currently want to keep the interrupt enabled until the interrupt after
-which we have no more work to do. This heuristic was broken by us
-kicking the irq-work on adding a completed request without attaching a
-signaler -- hence it appearing to the irq-worker that an interrupt had
-fired when we were idle.
+As the last user was eliminated in commit e21fecdcde40 ("drm/i915/gt:
+Distinguish the virtual breadcrumbs from the irq breadcrumbs"), we can
+remove the function. One less implementation detail creeping beyond its
+scope.
 
-Fixes: bda4d4db6dd6 ("drm/i915/gt: Replace intel_engine_transfer_stale_breadcrumbs")
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_breadcrumbs.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/i915/gt/intel_lrc.c | 12 ------------
+ drivers/gpu/drm/i915/gt/intel_lrc.h |  4 ----
+ 2 files changed, 16 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-index 98923344f491..c290a47a96e3 100644
---- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-@@ -229,7 +229,7 @@ static void signal_irq_work(struct irq_work *work)
- 	 * interrupt draw less ire from other users of the system and tools
- 	 * like powertop.
- 	 */
--	if (b->irq_armed && list_empty(&b->signalers))
-+	if (!signal && b->irq_armed && list_empty(&b->signalers))
- 		__intel_breadcrumbs_disarm_irq(b);
+diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
+index 417f6b0c6c61..0c632f15f677 100644
+--- a/drivers/gpu/drm/i915/gt/intel_lrc.c
++++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
+@@ -5882,18 +5882,6 @@ int intel_virtual_engine_attach_bond(struct intel_engine_cs *engine,
+ 	return 0;
+ }
  
- 	list_for_each_entry_safe(ce, cn, &b->signalers, signal_link) {
+-struct intel_engine_cs *
+-intel_virtual_engine_get_sibling(struct intel_engine_cs *engine,
+-				 unsigned int sibling)
+-{
+-	struct virtual_engine *ve = to_virtual_engine(engine);
+-
+-	if (sibling >= ve->num_siblings)
+-		return NULL;
+-
+-	return ve->siblings[sibling];
+-}
+-
+ void intel_execlists_show_requests(struct intel_engine_cs *engine,
+ 				   struct drm_printer *m,
+ 				   void (*show_request)(struct drm_printer *m,
+diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.h b/drivers/gpu/drm/i915/gt/intel_lrc.h
+index 91fd8e452d9b..c2d287f25497 100644
+--- a/drivers/gpu/drm/i915/gt/intel_lrc.h
++++ b/drivers/gpu/drm/i915/gt/intel_lrc.h
+@@ -121,10 +121,6 @@ int intel_virtual_engine_attach_bond(struct intel_engine_cs *engine,
+ 				     const struct intel_engine_cs *master,
+ 				     const struct intel_engine_cs *sibling);
+ 
+-struct intel_engine_cs *
+-intel_virtual_engine_get_sibling(struct intel_engine_cs *engine,
+-				 unsigned int sibling);
+-
+ bool
+ intel_engine_in_execlists_submission_mode(const struct intel_engine_cs *engine);
+ 
 -- 
 2.20.1
 
