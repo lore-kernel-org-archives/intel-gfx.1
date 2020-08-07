@@ -2,71 +2,42 @@ Return-Path: <SRS0=TzMs=BR=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.0 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-13.0 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 77433C433DF
-	for <intel-gfx@archiver.kernel.org>; Fri,  7 Aug 2020 08:04:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F0157C433E0
+	for <intel-gfx@archiver.kernel.org>; Fri,  7 Aug 2020 08:33:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 55A6C20866
-	for <intel-gfx@archiver.kernel.org>; Fri,  7 Aug 2020 08:04:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 55A6C20866
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id A128922D08
+	for <intel-gfx@archiver.kernel.org>; Fri,  7 Aug 2020 08:33:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A128922D08
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4BA8B6E061;
-	Fri,  7 Aug 2020 08:04:58 +0000 (UTC)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E84BB6E053;
- Fri,  7 Aug 2020 08:04:56 +0000 (UTC)
-IronPort-SDR: GSE+5CCvH2Q3DYEnXPWja3lY9OGnWhUfodYEdG//p0933r7UJiK9kMeonuTs37t+och83iAzg4
- cuF16/DK4ipw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9705"; a="214556548"
-X-IronPort-AV: E=Sophos;i="5.75,444,1589266800"; d="scan'208";a="214556548"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Aug 2020 01:04:56 -0700
-IronPort-SDR: PQOSgDI3+nBL0kcN9NchwEdvD491fGNm8VP2pA8AXjkRAYklvdSTNMfGY1gIRdTgcV9vfxZ6jJ
- /Mj6VBIqqD7Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.75,444,1589266800"; d="scan'208";a="397517187"
-Received: from fmsmsx602.amr.corp.intel.com ([10.18.126.82])
- by fmsmga001.fm.intel.com with ESMTP; 07 Aug 2020 01:04:55 -0700
-Received: from bgsmsx605.gar.corp.intel.com (10.67.234.7) by
- fmsmsx602.amr.corp.intel.com (10.18.126.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1713.5; Fri, 7 Aug 2020 01:04:54 -0700
-Received: from irsmsx604.ger.corp.intel.com (163.33.146.137) by
- BGSMSX605.gar.corp.intel.com (10.67.234.7) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1713.5; Fri, 7 Aug 2020 13:34:52 +0530
-Received: from irsmsx604.ger.corp.intel.com ([163.33.146.137]) by
- IRSMSX604.ger.corp.intel.com ([163.33.146.137]) with mapi id 15.01.1713.004;
- Fri, 7 Aug 2020 09:04:50 +0100
-From: "Grzegorzek, Dominik" <dominik.grzegorzek@intel.com>
-To: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "chris@chris-wilson.co.uk" <chris@chris-wilson.co.uk>
-Thread-Topic: [PATCH i-g-t] i915/gem_caching: Fix mmap protection for writes
-Thread-Index: AQHWbB/fOspK208NwkOqd+ed2RzjPqksOdUA
-Date: Fri, 7 Aug 2020 08:04:50 +0000
-Message-ID: <938038521cf2f066d592fabff750356103057389.camel@intel.com>
-References: <20200806183143.311857-1-chris@chris-wilson.co.uk>
-In-Reply-To: <20200806183143.311857-1-chris@chris-wilson.co.uk>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.213.30.247]
-Content-ID: <8895935013595840903C0C5DDAD6977A@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 13A926E079;
+	Fri,  7 Aug 2020 08:33:12 +0000 (UTC)
+Received: from fireflyinternet.com (unknown [77.68.26.236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 738C96E079
+ for <intel-gfx@lists.freedesktop.org>; Fri,  7 Aug 2020 08:33:10 +0000 (UTC)
+X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
+ x-ip-name=78.156.65.138; 
+Received: from build.alporthouse.com (unverified [78.156.65.138]) 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22057765-1500050 
+ for multiple; Fri, 07 Aug 2020 09:33:02 +0100
+From: Chris Wilson <chris@chris-wilson.co.uk>
+To: intel-gfx@lists.freedesktop.org
+Date: Fri,  7 Aug 2020 09:32:52 +0100
+Message-Id: <20200807083256.32761-3-chris@chris-wilson.co.uk>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20200807083256.32761-1-chris@chris-wilson.co.uk>
+References: <20200807083256.32761-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: Re: [Intel-gfx] [PATCH i-g-t] i915/gem_caching: Fix mmap protection
- for writes
+Subject: [Intel-gfx] [PATCH 3/7] drm/i915/gt: Defer enabling the breadcrumb
+ interrupt to after submission
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,43 +50,224 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "igt-dev@lists.freedesktop.org" <igt-dev@lists.freedesktop.org>
+Cc: Chris Wilson <chris@chris-wilson.co.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 2020-08-06 at 19:31 +0100, Chris Wilson wrote:
-> As we are about to write into the mmap'ed pointer using memset, we
-> need
-> to specify PROT_WRITE [if we only say PROT_READ, then the memset
-> should
-> generate a SIGSEGV].
-> 
-Thank you for fixing that.
-> Fixes: 897d21d14e99 ("i915/gem_caching: Remove libdrm dependency")
-> Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-> Cc: Ramalingam C <ramalingam.c@intel.com>
-> Cc: Dominik Grzegorzek <dominik.grzegorzek@intel.com>
-> ---
->  tests/i915/gem_caching.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/tests/i915/gem_caching.c b/tests/i915/gem_caching.c
-> index 1d8989db7..894c4b12e 100644
-> --- a/tests/i915/gem_caching.c
-> +++ b/tests/i915/gem_caching.c
-> @@ -282,7 +282,7 @@ igt_main
->  			val2 = i + 63;
->  			cpu_ptr = gem_mmap__cpu(data.fd, scratch_buf-
-> >handle,
->  						0, scratch_buf-
-> >surface[0].size,
-> -						PROT_READ);
-> +						PROT_WRITE);
->  
->  			memset(cpu_ptr + start, val2, len);
->  
+Move the register slow register write and readback from out of the
+critical path for execlists submission and delay it until the following
+worker, shaving off around 200us. Note that the same signal_irq_work() is
+allowed to run concurrently on each CPU (but it will only be queued once,
+once running though it can be requeued and reexecuted) so we have to
+remember to lock the global interactions as we cannot rely on the
+signal_irq_work() itself providing the serialisation (in constrast to a
+tasklet).
+
+By pushing the arm/disarm into the central signaling worker we can close
+the race for disarming the interrupt (and dropping its associated
+GT wakeref) on parking the engine. If we loose the race, that GT wakeref
+may be held indefinitely, preventing the machine from sleeping while
+the GPU is ostensibly idle.
+
+v2: Move the self-arming parking of the signal_irq_work to a flush of
+the irq-work from intel_breadcrumbs_park().
+
+Fixes: dfeba1ae34c8 ("drm/i915/gt: Hold context/request reference while breadcrumbs are active")
+Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+---
+ drivers/gpu/drm/i915/gt/intel_breadcrumbs.c | 106 +++++++++++++-------
+ 1 file changed, 67 insertions(+), 39 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
+index d8b206e53660..6c321419441f 100644
+--- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
++++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
+@@ -30,18 +30,21 @@
+ #include "i915_trace.h"
+ #include "intel_breadcrumbs.h"
+ #include "intel_context.h"
++#include "intel_engine_pm.h"
+ #include "intel_gt_pm.h"
+ #include "intel_gt_requests.h"
+ 
+-static void irq_enable(struct intel_engine_cs *engine)
++static bool irq_enable(struct intel_engine_cs *engine)
+ {
+ 	if (!engine->irq_enable)
+-		return;
++		return false;
+ 
+ 	/* Caller disables interrupts */
+ 	spin_lock(&engine->gt->irq_lock);
+ 	engine->irq_enable(engine);
+ 	spin_unlock(&engine->gt->irq_lock);
++
++	return true;
+ }
+ 
+ static void irq_disable(struct intel_engine_cs *engine)
+@@ -57,12 +60,11 @@ static void irq_disable(struct intel_engine_cs *engine)
+ 
+ static void __intel_breadcrumbs_arm_irq(struct intel_breadcrumbs *b)
+ {
+-	lockdep_assert_held(&b->irq_lock);
+-
+-	if (!b->irq_engine || b->irq_armed)
+-		return;
+-
+-	if (!intel_gt_pm_get_if_awake(b->irq_engine->gt))
++	/*
++	 * Since we are waiting on a request, the GPU should be busy
++	 * and should have its own rpm reference.
++	 */
++	if (GEM_WARN_ON(!intel_gt_pm_get_if_awake(b->irq_engine->gt)))
+ 		return;
+ 
+ 	/*
+@@ -73,25 +75,24 @@ static void __intel_breadcrumbs_arm_irq(struct intel_breadcrumbs *b)
+ 	 */
+ 	WRITE_ONCE(b->irq_armed, true);
+ 
+-	/*
+-	 * Since we are waiting on a request, the GPU should be busy
+-	 * and should have its own rpm reference. This is tracked
+-	 * by i915->gt.awake, we can forgo holding our own wakref
+-	 * for the interrupt as before i915->gt.awake is released (when
+-	 * the driver is idle) we disarm the breadcrumbs.
+-	 */
+-
+-	if (!b->irq_enabled++)
+-		irq_enable(b->irq_engine);
++	/* Requests may have completed before we could enable the interrupt. */
++	if (!b->irq_enabled++ && irq_enable(b->irq_engine))
++		irq_work_queue(&b->irq_work);
+ }
+ 
+-static void __intel_breadcrumbs_disarm_irq(struct intel_breadcrumbs *b)
++static void intel_breadcrumbs_arm_irq(struct intel_breadcrumbs *b)
+ {
+-	lockdep_assert_held(&b->irq_lock);
+-
+-	if (!b->irq_engine || !b->irq_armed)
++	if (!b->irq_engine)
+ 		return;
+ 
++	spin_lock(&b->irq_lock);
++	if (!b->irq_armed)
++		__intel_breadcrumbs_arm_irq(b);
++	spin_unlock(&b->irq_lock);
++}
++
++static void __intel_breadcrumbs_disarm_irq(struct intel_breadcrumbs *b)
++{
+ 	GEM_BUG_ON(!b->irq_enabled);
+ 	if (!--b->irq_enabled)
+ 		irq_disable(b->irq_engine);
+@@ -105,8 +106,6 @@ static void add_signaling_context(struct intel_breadcrumbs *b,
+ {
+ 	intel_context_get(ce);
+ 	list_add_tail(&ce->signal_link, &b->signalers);
+-	if (list_is_first(&ce->signal_link, &b->signalers))
+-		__intel_breadcrumbs_arm_irq(b);
+ }
+ 
+ static void remove_signaling_context(struct intel_breadcrumbs *b,
+@@ -197,7 +196,32 @@ static void signal_irq_work(struct irq_work *work)
+ 
+ 	spin_lock(&b->irq_lock);
+ 
+-	if (list_empty(&b->signalers))
++	/*
++	 * Keep the irq armed until the interrupt after all listeners are gone.
++	 *
++	 * Enabling/disabling the interrupt is rather costly, roughly a couple
++	 * of hundred microseconds. If we are proactive and enable/disable
++	 * the interrupt around every request that wants a breadcrumb, we
++	 * quickly drown in the extra orders of magnitude of latency imposed
++	 * on request submission.
++	 *
++	 * So we try to be lazy, and keep the interrupts enabled until no
++	 * more listeners appear within a breadcrumb interrupt interval (that
++	 * is until a request completes that no one cares about). The
++	 * observation is that listeners come in batches, and will often
++	 * listen to a bunch of requests in succession. Though note on icl+,
++	 * interrupts are always enabled due to concerns with rc6 being
++	 * dysfunctional with per-engine interrupt masking.
++	 *
++	 * We also try to avoid raising too many interrupts, as they may
++	 * be generated by userspace batches and it is unfortunately rather
++	 * too easy to drown the CPU under a flood of GPU interrupts. Thus
++	 * whenever no one appears to be listening, we turn off the interrupts.
++	 * Fewer interrupts should conserve power -- at the very least, fewer
++	 * interrupt draw less ire from other users of the system and tools
++	 * like powertop.
++	 */
++	if (b->irq_armed && list_empty(&b->signalers))
+ 		__intel_breadcrumbs_disarm_irq(b);
+ 
+ 	list_splice_init(&b->signaled_requests, &signal);
+@@ -251,6 +275,9 @@ static void signal_irq_work(struct irq_work *work)
+ 
+ 		i915_request_put(rq);
+ 	}
++
++	if (!b->irq_armed && !list_empty(&b->signalers))
++		intel_breadcrumbs_arm_irq(b);
+ }
+ 
+ struct intel_breadcrumbs *
+@@ -292,21 +319,19 @@ void intel_breadcrumbs_reset(struct intel_breadcrumbs *b)
+ 
+ void intel_breadcrumbs_park(struct intel_breadcrumbs *b)
+ {
+-	unsigned long flags;
+-
+-	if (!READ_ONCE(b->irq_armed))
+-		return;
+-
+-	spin_lock_irqsave(&b->irq_lock, flags);
+-	__intel_breadcrumbs_disarm_irq(b);
+-	spin_unlock_irqrestore(&b->irq_lock, flags);
+-
+-	if (!list_empty(&b->signalers))
+-		irq_work_queue(&b->irq_work);
++	/* Kick the work once more to drain the signalers */
++	irq_work_sync(&b->irq_work);
++	while (unlikely(READ_ONCE(b->irq_armed))) {
++		local_irq_disable();
++		signal_irq_work(&b->irq_work);
++		local_irq_enable();
++		cond_resched();
++	}
+ }
+ 
+ void intel_breadcrumbs_free(struct intel_breadcrumbs *b)
+ {
++	irq_work_sync(&b->irq_work);
+ 	kfree(b);
+ }
+ 
+@@ -362,9 +387,12 @@ static void insert_breadcrumb(struct i915_request *rq,
+ 	GEM_BUG_ON(!check_signal_order(ce, rq));
+ 	set_bit(I915_FENCE_FLAG_SIGNAL, &rq->fence.flags);
+ 
+-	/* Check after attaching to irq, interrupt may have already fired. */
+-	if (__request_completed(rq))
+-		irq_work_queue(&b->irq_work);
++	/*
++	 * Defer enabling the interrupt to after HW submission and recheck
++	 * the request as it may have completed and raised the interrupt as
++	 * we were attaching it into the lists.
++	 */
++	irq_work_queue(&b->irq_work);
+ }
+ 
+ bool i915_request_enable_breadcrumb(struct i915_request *rq)
+-- 
+2.20.1
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
