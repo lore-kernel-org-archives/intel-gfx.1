@@ -2,58 +2,65 @@ Return-Path: <SRS0=TzMs=BR=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.0 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B4384C433E0
-	for <intel-gfx@archiver.kernel.org>; Fri,  7 Aug 2020 09:39:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5D49BC433DF
+	for <intel-gfx@archiver.kernel.org>; Fri,  7 Aug 2020 09:42:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9007622D00
-	for <intel-gfx@archiver.kernel.org>; Fri,  7 Aug 2020 09:39:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9007622D00
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 2D7BF20748
+	for <intel-gfx@archiver.kernel.org>; Fri,  7 Aug 2020 09:42:48 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=tronnes.org header.i=@tronnes.org header.b="m+PWgSDl"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2D7BF20748
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=tronnes.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C47F6E991;
-	Fri,  7 Aug 2020 09:39:02 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CCD206E991
- for <intel-gfx@lists.freedesktop.org>; Fri,  7 Aug 2020 09:39:00 +0000 (UTC)
-IronPort-SDR: O52IJZeYp5chaCp5jGblE2Jf/92jGFaWX9MSOaJ7L13SNG52VXd9HTYmkIM09GoJuIViO+Beh1
- 4XglLFTDoJpw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9705"; a="150765943"
-X-IronPort-AV: E=Sophos;i="5.75,445,1589266800"; d="scan'208";a="150765943"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Aug 2020 02:39:00 -0700
-IronPort-SDR: gb8PjiACs3hddVSDMrQoqoNLhbymGSq8sOPbB1yvTLvnzr9TwtAuht8L2h7erKdtdRTj54MtGp
- x/L3P9h+f9Rg==
-X-IronPort-AV: E=Sophos;i="5.75,445,1589266800"; d="scan'208";a="468172736"
-Received: from walshric-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.252.12.98])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Aug 2020 02:38:53 -0700
+	by gabe.freedesktop.org (Postfix) with ESMTP id B3D1C6E9A7;
+	Fri,  7 Aug 2020 09:42:47 +0000 (UTC)
+X-Greylist: delayed 531 seconds by postgrey-1.36 at gabe;
+ Fri, 07 Aug 2020 09:42:45 UTC
+Received: from smtp.domeneshop.no (smtp.domeneshop.no
+ [IPv6:2a01:5b40:0:3005::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E90256E9A7
+ for <intel-gfx@lists.freedesktop.org>; Fri,  7 Aug 2020 09:42:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=tronnes.org
+ ; s=ds201912;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=dhBn85DVkd9WiwzdeA0ZAk87Jr2Z06qRR9qaDjfK2Q0=; b=m+PWgSDl91eMGK8rvIUKM0yLbY
+ BTtvVt7GHjbFDWuiAwCew1o4DpGo0X5EvPmAu5NoF3KVa/WrJcno0rE7yU1ZuLLtdori78nG3MTCt
+ /b8lIQ2wjTrAa0IiTxbfflVOoB7ItTWH5BtnD5ca03DmpWO/VJDk2VuV869dshjYbkabO+gvNdp24
+ JWObB1zbNo/5PI0p3ZVDSwL/BO7R7V/6mJxK0CCdbPFRQbzPeg7iUN/yZAnyl20Pngs2xjN3NmTPy
+ zdQzdFT7BoYqEc5G2bz0PhPFH2d51HiC/khBGUEla9ZiuFb88uEbH9k/urcGwnv8sV65Q7rLD6Dvg
+ 5yexQLUA==;
+Received: from 211.81-166-168.customer.lyse.net ([81.166.168.211]:52994
+ helo=[192.168.10.61])
+ by smtp.domeneshop.no with esmtpsa (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.92) (envelope-from <noralf@tronnes.org>)
+ id 1k3yl5-0001BT-1d; Fri, 07 Aug 2020 11:33:51 +0200
+To: Oleksandr Andrushchenko <andr2000@gmail.com>,
+ xen-devel@lists.xenproject.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, boris.ostrovsky@oracle.com, jgross@suse.com,
+ airlied@linux.ie, daniel@ffwll.ch
+References: <20200731125109.18666-1-andr2000@gmail.com>
+ <20200731125109.18666-6-andr2000@gmail.com>
+From: =?UTF-8?Q?Noralf_Tr=c3=b8nnes?= <noralf@tronnes.org>
+Message-ID: <a8930c22-756f-0fc9-6288-8945a058764e@tronnes.org>
+Date: Fri, 7 Aug 2020 11:33:49 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <CAPM=9txUuw23Y5q9SndkMM+ZuXLyC60P0HqG-=4GSbPPujh+Vw@mail.gmail.com>
-References: <20200710115757.290984-1-matthew.auld@intel.com>
- <20200710115757.290984-54-matthew.auld@intel.com>
- <CAPM=9twBBVQy_0O6ES5UjtBpn0hfjaWoo24miziBj+VMrbciWg@mail.gmail.com>
- <84ff0146-0a35-c66e-2c33-2ce22aae4c6c@intel.com>
- <1D440B9B88E22A4ABEF89F9F1F81BC290117BB8F99@ORSMSX163.amr.corp.intel.com>
- <CAPM=9txUuw23Y5q9SndkMM+ZuXLyC60P0HqG-=4GSbPPujh+Vw@mail.gmail.com>
-To: "Tang, CQ" <cq.tang@intel.com>, Dave Airlie <airlied@gmail.com>
-From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Message-ID: <159679313093.9764.11140358447333089444@jlahtine-mobl.ger.corp.intel.com>
-User-Agent: alot/0.8.1
-Date: Fri, 07 Aug 2020 12:38:51 +0300
-Subject: Re: [Intel-gfx] [RFC 53/60] drm/i915: Create stolen memory region
- from local memory
+In-Reply-To: <20200731125109.18666-6-andr2000@gmail.com>
+Subject: Re: [Intel-gfx] [PATCH 5/6] drm/xen-front: Pass dumb buffer data
+ offset to the backend
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,91 +73,22 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Abdiel Janulgue <abdiel.janulgue@linux.intel.com>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>, "De Marchi,
- Lucas" <lucas.demarchi@intel.com>, "Wilson,
- Chris P" <chris.p.wilson@intel.com>, "Auld, Matthew" <matthew.auld@intel.com>,
- Neel Desai <neel.desai@intel.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: intel-gfx@lists.freedesktop.org, sstabellini@kernel.org,
+ dan.carpenter@oracle.com,
+ Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Quoting Dave Airlie (2020-07-14 22:26:16)
-> On Wed, 15 Jul 2020 at 02:57, Tang, CQ <cq.tang@intel.com> wrote:
-> >
-> >
-> >
-> > > -----Original Message-----
-> > > From: Auld, Matthew <matthew.auld@intel.com>
-> > > Sent: Tuesday, July 14, 2020 8:02 AM
-> > > To: Dave Airlie <airlied@gmail.com>
-> > > Cc: Intel Graphics Development <intel-gfx@lists.freedesktop.org>; Tang, CQ
-> > > <cq.tang@intel.com>; Joonas Lahtinen <joonas.lahtinen@linux.intel.com>;
-> > > Abdiel Janulgue <abdiel.janulgue@linux.intel.com>; Wilson, Chris P
-> > > <chris.p.wilson@intel.com>; Balestrieri, Francesco
-> > > <francesco.balestrieri@intel.com>; Vishwanathapura, Niranjana
-> > > <niranjana.vishwanathapura@intel.com>; Dhanalakota, Venkata S
-> > > <venkata.s.dhanalakota@intel.com>; Neel Desai <neel.desai@intel.com>;
-> > > Brost, Matthew <matthew.brost@intel.com>; Dutt, Sudeep
-> > > <sudeep.dutt@intel.com>; De Marchi, Lucas <lucas.demarchi@intel.com>
-> > > Subject: Re: [RFC 53/60] drm/i915: Create stolen memory region from local
-> > > memory
-> > >
-> > > On 13/07/2020 05:48, Dave Airlie wrote:
-> > > > On Fri, 10 Jul 2020 at 22:01, Matthew Auld <matthew.auld@intel.com>
-> > > wrote:
-> > > >>
-> > > >> From: CQ Tang <cq.tang@intel.com>
-> > > >>
-> > > >> Add "REGION_STOLEN" device info to dg1, create stolen memory region
-> > > >> from upper portion of local device memory, starting from DSMBASE.
-> > > >>
-> > > >> The memory region is marked with "is_devmem=true".
-> > > >
-> > > > So is stolen fake on LMEM devices? The concept of stolen doesn't seem
-> > > > to make much sense with VRAM, so please enlighten me.
-> > >
-> > > CQ, do we actually need an explicit stolen LMEM region? The idea of having a
-> > > DSM like stolen region for LMEM does sound strange(outside of the usual
-> > > reserved portions which are for HW use etc), since the driver has complete
-> > > control over LMEM. Is it just a convenience thing to keep things working as-is
-> > > for fbc, initial fb, etc. or is there more to it?
-> > > There is buddy_alloc_range() for LMEM which we could potentially use to
-> > > wrap an object around for things like the initial fb or similar.
-> >
-> > This is a natural extension from IGT stolen memory region into DGT, we want to allocate objects from stolen area. In DGT, we have one stolen area per tile so we create one region in each of these area. Using memory region is easier to manage objects allocation and free. Other than fbc and rc6, we have gt/ring allocate stolen memory objects when without LMEM, so only apply to IGT case:
-> >
-> > display/intel_display.c:        obj = i915_gem_object_create_stolen_for_preallocated(dev_priv,
-> > display/intel_fbdev.c:                  obj = i915_gem_object_create_stolen(dev_priv, size);
-> > display/intel_overlay.c:        obj = i915_gem_object_create_stolen(i915, PAGE_SIZE);
-> > intel_rc6.c:            pctx = i915_gem_object_create_stolen_for_preallocated(i915,
-> > intel_rc6.c:    pctx = i915_gem_object_create_stolen(i915, pctx_size);
-> >
-> > intel_ring.c:                   obj = intel_gt_object_create_stolen(ggtt->vm.gt, size);
-> > intel_gt.c:             obj = intel_gt_object_create_stolen(gt, size);
-> >
-> > For some reason, we don't use buddy allocator to manage the stolen memory, instead, we use drm_mm_node allocator directly, we have one-to-one mapping between drm_mm address space to dma address of the stolen memory. We also use contiguous allocation where an object always get a single contiguous block of pages.
-> >
-> > So fundamentally, we want to use the same code to work on both IGT stolen memory and DGT stolen memory.
-> 
-> If this is fundamentally a software construct then it's horrible, if
-> the HW has a stolen base like Ville said, and it needs to be in a
-> chunk of VRAM, how do you go about sizing that, and carving it out
-> from the user?
-> 
-> I don't think wanting to share the same codepaths here is an
-> acceptable answer, just fix the code to handle LMEM vs stolen, but if
-> there are hw reasons on why this is required it would be good to
-> enumerate exactly what they are and document them.
-
-The boot firmware does configure the stolen region, so it's not fake.
-
-But there's no need to expose the stolen memory to userspace, so these
-patches will be dropped.
-
-Regards, Joonas
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+CgpEZW4gMzEuMDcuMjAyMCAxNC41MSwgc2tyZXYgT2xla3NhbmRyIEFuZHJ1c2hjaGVua286Cj4g
+RnJvbTogT2xla3NhbmRyIEFuZHJ1c2hjaGVua28gPG9sZWtzYW5kcl9hbmRydXNoY2hlbmtvQGVw
+YW0uY29tPgo+IAo+IFdoaWxlIGltcG9ydGluZyBhIGRtYWJ1ZiBpdCBpcyBwb3NzaWJsZSB0aGF0
+IHRoZSBkYXRhIG9mIHRoZSBidWZmZXIKPiBpcyBwdXQgd2l0aCBvZmZzZXQgd2hpY2ggaXMgaW5k
+aWNhdGVkIGJ5IHRoZSBTR1Qgb2Zmc2V0Lgo+IFJlc3BlY3QgdGhlIG9mZnNldCB2YWx1ZSBhbmQg
+Zm9yd2FyZCBpdCB0byB0aGUgYmFja2VuZC4KPiAKPiBTaWduZWQtb2ZmLWJ5OiBPbGVrc2FuZHIg
+QW5kcnVzaGNoZW5rbyA8b2xla3NhbmRyX2FuZHJ1c2hjaGVua29AZXBhbS5jb20+Cj4gLS0tCgpB
+Y2tlZC1ieTogTm9yYWxmIFRyw7hubmVzIDxub3JhbGZAdHJvbm5lcy5vcmc+Cl9fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkludGVsLWdmeCBtYWlsaW5nIGxp
+c3QKSW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNr
+dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ludGVsLWdmeAo=
