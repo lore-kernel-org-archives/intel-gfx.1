@@ -2,131 +2,37 @@ Return-Path: <SRS0=NnJ0=BU=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.0 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 01BB7C433DF
-	for <intel-gfx@archiver.kernel.org>; Mon, 10 Aug 2020 10:23:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A2F85C433DF
+	for <intel-gfx@archiver.kernel.org>; Mon, 10 Aug 2020 10:33:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C8AF1206C3
-	for <intel-gfx@archiver.kernel.org>; Mon, 10 Aug 2020 10:23:14 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=intel.onmicrosoft.com header.i=@intel.onmicrosoft.com header.b="PMOJdZH3"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C8AF1206C3
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 7BC72206E9
+	for <intel-gfx@archiver.kernel.org>; Mon, 10 Aug 2020 10:33:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7BC72206E9
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 202346E094;
-	Mon, 10 Aug 2020 10:23:14 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EDFF56E094
- for <intel-gfx@lists.freedesktop.org>; Mon, 10 Aug 2020 10:23:12 +0000 (UTC)
-IronPort-SDR: 1Fwpbf/XqmcmiNw7Iy2XAV+P4TTVd7G5+s2hKQlR6pwusXmtzADJ1eUp909nunUBdF1Jb/PVg7
- hfIjBLRi0RPQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9708"; a="141112913"
-X-IronPort-AV: E=Sophos;i="5.75,457,1589266800"; d="scan'208";a="141112913"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Aug 2020 03:23:11 -0700
-IronPort-SDR: /5Gt9KuDgufYOsty2bAjfAPCeIj1XeDSuB45Q0azw95ZhrScqta3bP/Fgwr62qJjORnwJiinXY
- CrWKY4X+0AnA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.75,457,1589266800"; d="scan'208";a="438639548"
-Received: from fmsmsx603-2.cps.intel.com (HELO fmsmsx603.amr.corp.intel.com)
- ([10.18.84.213])
- by orsmga004.jf.intel.com with ESMTP; 10 Aug 2020 03:23:11 -0700
-Received: from fmsmsx612.amr.corp.intel.com (10.18.126.92) by
- fmsmsx603.amr.corp.intel.com (10.18.126.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1713.5; Mon, 10 Aug 2020 03:23:10 -0700
-Received: from fmsmsx612.amr.corp.intel.com (10.18.126.92) by
- fmsmsx612.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1713.5; Mon, 10 Aug 2020 03:23:10 -0700
-Received: from FMSEDG001.ED.cps.intel.com (10.1.192.133) by
- fmsmsx612.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.1713.5
- via Frontend Transport; Mon, 10 Aug 2020 03:23:10 -0700
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com (104.47.58.107)
- by edgegateway.intel.com (192.55.55.68) with Microsoft SMTP Server (TLS) id
- 14.3.439.0; Mon, 10 Aug 2020 03:23:10 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=B8Q5yuum9i/mSgYhoWewnVmOgoz+k7CQzIxumG1i9Ad+sD41+ltQMXJo04W3L9evvGseRfiV0UuU7BnasJ9/LptDhkYk9BrP01fhGMh9S0CJ6CBQhgaaz1q+wij8tiSi9RifWOMxfzcfqoaLA/8B5znQ+cV3goy9PdzK+FPiu0H4Smf0xMG1ssmZJ6pequmNF9S1P4qUz5/MIVy2TOUND2clpi13QWXgiK1t9ZhrXL7Z0vApFcqs1VMTohZVAsebBT3U+qozq0v1EJIsnaW2Y93vsHN5s9ZcpzyFWUzGvCUdZcFizxrIwaIjkY4t0FanakpyJWVOeirjxpLtdWNTLQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DbBWIfH7quqagW0Y3RWCvrBNXh9R3zP3aHC4kHuDpHc=;
- b=iWUPThMccbo3U5sV1pjE0EDvj8XRgdZBrJ/gHc4kGsd2H8LNIu6z4RMLIFh8ABdn9cuUMeCoJC+i7KMfmLhILUyyTCRHMvmtixNAONIV/l3uiZiM9Q1LUZb3y7f0TpiJ7EZNAvUlJDAAs6+apu/EQdOl7G8V9OCFf1hr9SQJwE2QpZfaOQDtLZ8Ym8EVsnXxbzlJAKCMmoGUYrK+q6K0Q/gprsl2BLrORiwCcA51y8HVXk+dkL+hpvtTFGTbkzwxZmi9GtL9OGzDBAXlRZxQP/4r10L8v4o0IOVa+RFDAxazAlO54uu+nDetemYPURT9/qOFFj9vL8/U7dN9CF728Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.onmicrosoft.com; 
- s=selector2-intel-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DbBWIfH7quqagW0Y3RWCvrBNXh9R3zP3aHC4kHuDpHc=;
- b=PMOJdZH37M3lBPx4/dujMCs+5JIlsfcut/H3WpxXoMOHqGJeTwBDUkRdAl5BgXHVE59aHr+zBOYfeda8sWOuGXwKhLbgP/ATo7yYdmYyF2reatQiFMX2uIbDI0+z+XwztAys0cPzGEiLnLPCwgpSDZXUIUVbKTpivGhN7HIhIaY=
-Received: from BYAPR11MB3352.namprd11.prod.outlook.com (2603:10b6:a03:1d::26)
- by BY5PR11MB4323.namprd11.prod.outlook.com (2603:10b6:a03:1c2::23)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3261.18; Mon, 10 Aug
- 2020 10:23:09 +0000
-Received: from BYAPR11MB3352.namprd11.prod.outlook.com
- ([fe80::f4b4:bfac:9201:eba6]) by BYAPR11MB3352.namprd11.prod.outlook.com
- ([fe80::f4b4:bfac:9201:eba6%3]) with mapi id 15.20.3261.024; Mon, 10 Aug 2020
- 10:23:09 +0000
-From: "Singh, Gaurav K" <gaurav.k.singh@intel.com>
-To: Chris Wilson <chris@chris-wilson.co.uk>, "intel-gfx@lists.freedesktop.org"
- <intel-gfx@lists.freedesktop.org>
-Thread-Topic: [Intel-gfx] [PATCH] i915/gem: Force HW tracking to exit PSR
-Thread-Index: AQHWbLFGAFkEg1MN+kCO50emM3buq6ksizEAgASZuFA=
-Date: Mon, 10 Aug 2020 10:23:08 +0000
-Message-ID: <BYAPR11MB335279F722A013EFEE2F2069C9440@BYAPR11MB3352.namprd11.prod.outlook.com>
-References: <20200807115633.16328-1-gaurav.k.singh@intel.com>
- <159680160634.9674.17164057449268997767@build.alporthouse.com>
-In-Reply-To: <159680160634.9674.17164057449268997767@build.alporthouse.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-dlp-reaction: no-action
-dlp-version: 11.5.1.3
-dlp-product: dlpe-windows
-authentication-results: chris-wilson.co.uk; dkim=none (message not signed)
- header.d=none;chris-wilson.co.uk; dmarc=none action=none
- header.from=intel.com;
-x-originating-ip: [103.195.203.233]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: c34169d7-0955-4e68-ea70-08d83d1760c8
-x-ms-traffictypediagnostic: BY5PR11MB4323:
-x-microsoft-antispam-prvs: <BY5PR11MB432392DDD9EB0E459252B822C9440@BY5PR11MB4323.namprd11.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:9508;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 8wYm8cKBk0BvUgrXSjj/AD2zRubGW8OqDNemhrB/la3mU9o5j1lF+aL6/2nDSk/u8CZ1dTvo7G32Vg7QJyxM+SX5f8NMmR3uJ9keSssVGvDU7Dh7qDHapKXW79eYqB0IqLcYz/TVCvhl6uGnngSGubXpH6tBk4vSK4wK2mp9CGNaR2QNjEBH1EOwDmnVR8Sr9qcvITAMXkJcs4JUMRjSUiQsEHv4Lpn3a5fVPPniPABlMW0jg/BGCVc9PrOBL5VujBpU/2N8XEt998pDEr5CYDi6aZhlZaUHtj5kx5Gd43JoZAQKULLoprr/lNCv+mcsSMQa1n6T9QHFKF+LyGppcA==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BYAPR11MB3352.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(4636009)(376002)(396003)(39860400002)(346002)(366004)(136003)(33656002)(2906002)(83380400001)(8936002)(86362001)(8676002)(316002)(110136005)(186003)(7696005)(71200400001)(52536014)(26005)(53546011)(6506007)(55016002)(76116006)(64756008)(66556008)(66476007)(66946007)(478600001)(9686003)(66446008)(5660300002);
- DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata: JT+lCMEKa0Egkp6lMfLNl9Yg/HoPLVHJ9jTG+g/W6Qr1uEv+7wq0wsykEusRg5R1H27HO2CFsqGMj31WolJqfn2gRmYqWdv4zWjNLuWC4R6hyaXHrmAWVKj6I221qUvVwzKF1Us87wd+jcBVFL3z1DxrssOSp8sHVrTDjKm5F7Nnn3M/6qU9AJvYhiQwNXKJRi9eveUZC67RwBDedEDqBzhOCWwwi2GJKOU0B8vj61Do5lLIKUTBX7n7flNoZ41+l5m4+eZEIJ/tsyq3t4G1RvtGokrxqioUABp3DjRTI1QufemlKqChuwhh1HaL/PvI7BhEW/gBOkYnyZZxSqNq5PCAcdBAMPJCUO8W50AQs8Z8ko0LAQGFhanMIUEEFo8qVabucul9dR7KttR7mst8tlLoi+6qXjsu5EwuNzSqXVKHDWXOQng56NfY2M23B/C+sdenJE9JkmOXebzvQdoA58wJb+f7E0OYUDGHox9SKxP/TLipHw3W10Au3bgTdokWZmc/RWkO9sUDgnPhvmgKwxQlcaazbrpkeDdCjUMuHHkjr0Q7f1qCsjX9Mcli8xqFx8acEiCcHK9Et11FruWLzdlT8GQVzrKuEf+lUxH6iFkiGKs3oB97v7JsdCLZ0KTdp+NLhqg8dMReaJj9wBCYvQ==
-x-ms-exchange-transport-forked: True
+	by gabe.freedesktop.org (Postfix) with ESMTP id 079C389D9B;
+	Mon, 10 Aug 2020 10:33:28 +0000 (UTC)
+Received: from mblankhorst.nl (mblankhorst.nl [141.105.120.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D5BFF89D9B
+ for <intel-gfx@lists.freedesktop.org>; Mon, 10 Aug 2020 10:33:26 +0000 (UTC)
+From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Mon, 10 Aug 2020 12:30:42 +0200
+Message-Id: <20200810103103.303818-4-maarten.lankhorst@linux.intel.com>
+X-Mailer: git-send-email 2.28.0
+In-Reply-To: <20200810103103.303818-1-maarten.lankhorst@linux.intel.com>
+References: <20200810103103.303818-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR11MB3352.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c34169d7-0955-4e68-ea70-08d83d1760c8
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Aug 2020 10:23:08.8628 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 63nbSAY0+vtTcmsrS9bw8XDdRVT2xzH+TGy8m2ZIUw/bw09aPJX6AXfm82NgTNLLFPC9FN97xLec3BAgaFNBKo1yzFNnVxk2GVR+IZ4oygQ=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR11MB4323
-X-OriginatorOrg: intel.com
-Subject: Re: [Intel-gfx] [PATCH] i915/gem: Force HW tracking to exit PSR
+Subject: [Intel-gfx] [PATCH 03/24] Revert "drm/i915/gem: Drop relocation
+ slowpath".
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,39 +45,336 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Matthew Auld <matthew.auld@intel.com>,
+ Chris Wilson <chris@chris-wilson.co.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+This reverts commit 7dc8f1143778 ("drm/i915/gem: Drop relocation
+slowpath"). We need the slowpath relocation for taking ww-mutex
+inside the page fault handler, and we will take this mutex when
+pinning all objects.
 
+With this, we have a proper working slowpath again, which
+will allow us to do fault handling with WW locks held.
 
------Original Message-----
-From: Chris Wilson <chris@chris-wilson.co.uk> 
-Sent: Friday, August 7, 2020 5:30 PM
-To: Singh, Gaurav K <gaurav.k.singh@intel.com>; intel-gfx@lists.freedesktop.org
-Subject: Re: [Intel-gfx] [PATCH] i915/gem: Force HW tracking to exit PSR
+[mlankhorst: Adjusted for reloc_gpu_flush() changes]
 
-Quoting Gaurav K Singh (2020-08-07 12:56:33)
-> Instead of calling i915_gem_object_invalidate_frontbuffer(),
-> call i915_gem_object_flush_frontbuffer() which will eventually call 
-> psr_force_hw_tracking_exit(). This will force HW tracking to exit PSR 
-> instead of disabling and re-enabling.
+Cc: Chris Wilson <chris@chris-wilson.co.uk>
+Cc: Matthew Auld <matthew.auld@intel.com>
+Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+---
+ .../gpu/drm/i915/gem/i915_gem_execbuffer.c    | 263 +++++++++++++++++-
+ 1 file changed, 253 insertions(+), 10 deletions(-)
 
-set-domain is before the frontbuffer is dirtied. This is meant to be followed by either sw_finish (primarily for direct CPU access to the
-frontbuffer) or the more modern approach of marking the framebuffer as dirty (DRM_IOCTL_MODE_DIRTYFB).
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+index 6acbd08f82f0..12a130f92e72 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+@@ -707,7 +707,7 @@ static int eb_reserve(struct i915_execbuffer *eb)
+ 			if (err)
+ 				break;
+ 		}
+-		if (!(err == -ENOSPC || err == -EAGAIN))
++		if (err != -ENOSPC)
+ 			break;
+ 
+ 		/* Resort *all* the objects into priority order */
+@@ -738,13 +738,6 @@ static int eb_reserve(struct i915_execbuffer *eb)
+ 		}
+ 		list_splice_tail(&last, &eb->unbound);
+ 
+-		if (err == -EAGAIN) {
+-			mutex_unlock(&eb->i915->drm.struct_mutex);
+-			flush_workqueue(eb->i915->mm.userptr_wq);
+-			mutex_lock(&eb->i915->drm.struct_mutex);
+-			continue;
+-		}
+-
+ 		switch (pass++) {
+ 		case 0:
+ 			break;
+@@ -1626,7 +1619,9 @@ static int eb_relocate_vma(struct i915_execbuffer *eb, struct eb_vma *ev)
+ 		 * we would try to acquire the struct mutex again. Obviously
+ 		 * this is bad and so lockdep complains vehemently.
+ 		 */
+-		copied = __copy_from_user(r, urelocs, count * sizeof(r[0]));
++		pagefault_disable();
++		copied = __copy_from_user_inatomic(r, urelocs, count * sizeof(r[0]));
++		pagefault_enable();
+ 		if (unlikely(copied)) {
+ 			remain = -EFAULT;
+ 			goto out;
+@@ -1674,6 +1669,251 @@ static int eb_relocate_vma(struct i915_execbuffer *eb, struct eb_vma *ev)
+ 	return remain;
+ }
+ 
++static int
++eb_relocate_vma_slow(struct i915_execbuffer *eb, struct eb_vma *ev)
++{
++	const struct drm_i915_gem_exec_object2 *entry = ev->exec;
++	struct drm_i915_gem_relocation_entry *relocs =
++		u64_to_ptr(typeof(*relocs), entry->relocs_ptr);
++	unsigned int i;
++	int err;
++
++	for (i = 0; i < entry->relocation_count; i++) {
++		u64 offset = eb_relocate_entry(eb, ev, &relocs[i]);
++
++		if ((s64)offset < 0) {
++			err = (int)offset;
++			goto err;
++		}
++	}
++	err = 0;
++err:
++	reloc_cache_reset(&eb->reloc_cache);
++	return err;
++}
++
++static int check_relocations(const struct drm_i915_gem_exec_object2 *entry)
++{
++	const char __user *addr, *end;
++	unsigned long size;
++	char __maybe_unused c;
++
++	size = entry->relocation_count;
++	if (size == 0)
++		return 0;
++
++	if (size > N_RELOC(ULONG_MAX))
++		return -EINVAL;
++
++	addr = u64_to_user_ptr(entry->relocs_ptr);
++	size *= sizeof(struct drm_i915_gem_relocation_entry);
++	if (!access_ok(addr, size))
++		return -EFAULT;
++
++	end = addr + size;
++	for (; addr < end; addr += PAGE_SIZE) {
++		int err = __get_user(c, addr);
++		if (err)
++			return err;
++	}
++	return __get_user(c, end - 1);
++}
++
++static int eb_copy_relocations(const struct i915_execbuffer *eb)
++{
++	struct drm_i915_gem_relocation_entry *relocs;
++	const unsigned int count = eb->buffer_count;
++	unsigned int i;
++	int err;
++
++	for (i = 0; i < count; i++) {
++		const unsigned int nreloc = eb->exec[i].relocation_count;
++		struct drm_i915_gem_relocation_entry __user *urelocs;
++		unsigned long size;
++		unsigned long copied;
++
++		if (nreloc == 0)
++			continue;
++
++		err = check_relocations(&eb->exec[i]);
++		if (err)
++			goto err;
++
++		urelocs = u64_to_user_ptr(eb->exec[i].relocs_ptr);
++		size = nreloc * sizeof(*relocs);
++
++		relocs = kvmalloc_array(size, 1, GFP_KERNEL);
++		if (!relocs) {
++			err = -ENOMEM;
++			goto err;
++		}
++
++		/* copy_from_user is limited to < 4GiB */
++		copied = 0;
++		do {
++			unsigned int len =
++				min_t(u64, BIT_ULL(31), size - copied);
++
++			if (__copy_from_user((char *)relocs + copied,
++					     (char __user *)urelocs + copied,
++					     len))
++				goto end;
++
++			copied += len;
++		} while (copied < size);
++
++		/*
++		 * As we do not update the known relocation offsets after
++		 * relocating (due to the complexities in lock handling),
++		 * we need to mark them as invalid now so that we force the
++		 * relocation processing next time. Just in case the target
++		 * object is evicted and then rebound into its old
++		 * presumed_offset before the next execbuffer - if that
++		 * happened we would make the mistake of assuming that the
++		 * relocations were valid.
++		 */
++		if (!user_access_begin(urelocs, size))
++			goto end;
++
++		for (copied = 0; copied < nreloc; copied++)
++			unsafe_put_user(-1,
++					&urelocs[copied].presumed_offset,
++					end_user);
++		user_access_end();
++
++		eb->exec[i].relocs_ptr = (uintptr_t)relocs;
++	}
++
++	return 0;
++
++end_user:
++	user_access_end();
++end:
++	kvfree(relocs);
++	err = -EFAULT;
++err:
++	while (i--) {
++		relocs = u64_to_ptr(typeof(*relocs), eb->exec[i].relocs_ptr);
++		if (eb->exec[i].relocation_count)
++			kvfree(relocs);
++	}
++	return err;
++}
++
++static int eb_prefault_relocations(const struct i915_execbuffer *eb)
++{
++	const unsigned int count = eb->buffer_count;
++	unsigned int i;
++
++	for (i = 0; i < count; i++) {
++		int err;
++
++		err = check_relocations(&eb->exec[i]);
++		if (err)
++			return err;
++	}
++
++	return 0;
++}
++
++static noinline int eb_relocate_slow(struct i915_execbuffer *eb)
++{
++	bool have_copy = false;
++	struct eb_vma *ev;
++	int err = 0;
++
++repeat:
++	if (signal_pending(current)) {
++		err = -ERESTARTSYS;
++		goto out;
++	}
++
++	/*
++	 * We take 3 passes through the slowpatch.
++	 *
++	 * 1 - we try to just prefault all the user relocation entries and
++	 * then attempt to reuse the atomic pagefault disabled fast path again.
++	 *
++	 * 2 - we copy the user entries to a local buffer here outside of the
++	 * local and allow ourselves to wait upon any rendering before
++	 * relocations
++	 *
++	 * 3 - we already have a local copy of the relocation entries, but
++	 * were interrupted (EAGAIN) whilst waiting for the objects, try again.
++	 */
++	if (!err) {
++		err = eb_prefault_relocations(eb);
++	} else if (!have_copy) {
++		err = eb_copy_relocations(eb);
++		have_copy = err == 0;
++	} else {
++		cond_resched();
++		err = 0;
++	}
++
++	flush_workqueue(eb->i915->mm.userptr_wq);
++
++	if (err)
++		goto out;
++
++	err = mutex_lock_interruptible(&eb->i915->drm.struct_mutex);
++	if (err)
++		goto out;
++
++	list_for_each_entry(ev, &eb->relocs, reloc_link) {
++		if (!have_copy) {
++			pagefault_disable();
++			err = eb_relocate_vma(eb, ev);
++			pagefault_enable();
++			if (err)
++				break;
++		} else {
++			err = eb_relocate_vma_slow(eb, ev);
++			if (err)
++				break;
++		}
++	}
++
++	reloc_gpu_flush(&eb->reloc_cache);
++	mutex_unlock(&eb->i915->drm.struct_mutex);
++	if (err && !have_copy)
++		goto repeat;
++
++	if (err)
++		goto err;
++
++	/*
++	 * Leave the user relocations as are, this is the painfully slow path,
++	 * and we want to avoid the complication of dropping the lock whilst
++	 * having buffers reserved in the aperture and so causing spurious
++	 * ENOSPC for random operations.
++	 */
++
++err:
++	if (err == -EAGAIN)
++		goto repeat;
++
++out:
++	if (have_copy) {
++		const unsigned int count = eb->buffer_count;
++		unsigned int i;
++
++		for (i = 0; i < count; i++) {
++			const struct drm_i915_gem_exec_object2 *entry =
++				&eb->exec[i];
++			struct drm_i915_gem_relocation_entry *relocs;
++
++			if (!entry->relocation_count)
++				continue;
++
++			relocs = u64_to_ptr(typeof(*relocs), entry->relocs_ptr);
++			kvfree(relocs);
++		}
++	}
++
++	return err;
++}
++
+ static int eb_relocate(struct i915_execbuffer *eb)
+ {
+ 	int err;
+@@ -1695,8 +1935,11 @@ static int eb_relocate(struct i915_execbuffer *eb)
+ 		list_for_each_entry(ev, &eb->relocs, reloc_link) {
+ 			err = eb_relocate_vma(eb, ev);
+ 			if (err)
+-				return err;
++				break;
+ 		}
++
++		if (err)
++			return eb_relocate_slow(eb);
+ 	}
+ 
+ 	return 0;
+-- 
+2.28.0
 
-If you following the API, then we have a problem. But it sounds like it could be circumventing an important step.
--Chris
-
-Hi Chris,
-
-Thanks for your comments.  I was following the API and this issue is seen on various kind of PSR1 & PSR2 panels on older Gen and as well as on new Gen with older and latest drm-tip kernel. 
-With this patch, the issue was resolved on all kinds of PSR panels across platforms.  
-Can you please suggest a way to do it in kernel, not sure whether I have access to Application code.
-
-With regards,
-Gaurav
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
