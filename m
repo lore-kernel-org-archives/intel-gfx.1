@@ -6,37 +6,37 @@ X-Spam-Status: No, score=-4.0 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3E89CC433DF
-	for <intel-gfx@archiver.kernel.org>; Mon, 10 Aug 2020 15:53:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 76038C433DF
+	for <intel-gfx@archiver.kernel.org>; Mon, 10 Aug 2020 15:54:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1C34022B4E
-	for <intel-gfx@archiver.kernel.org>; Mon, 10 Aug 2020 15:53:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1C34022B4E
+	by mail.kernel.org (Postfix) with ESMTPS id 4D24622BEB
+	for <intel-gfx@archiver.kernel.org>; Mon, 10 Aug 2020 15:54:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4D24622BEB
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 93BDA6E03B;
-	Mon, 10 Aug 2020 15:53:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C9B806E14B;
+	Mon, 10 Aug 2020 15:54:09 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
  [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id EA4488918F;
- Mon, 10 Aug 2020 15:53:49 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 6C7DD6E10F;
+ Mon, 10 Aug 2020 15:54:08 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id E4904A47EB;
- Mon, 10 Aug 2020 15:53:49 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id 6A23BA47EB;
+ Mon, 10 Aug 2020 15:54:08 +0000 (UTC)
 MIME-Version: 1.0
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Chris Wilson" <chris@chris-wilson.co.uk>
-Date: Mon, 10 Aug 2020 15:53:49 -0000
-Message-ID: <159707482993.17062.11254087027141119055@emeril.freedesktop.org>
+Date: Mon, 10 Aug 2020 15:54:08 -0000
+Message-ID: <159707484843.17063.3484276970079298841@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <20200810153851.31997-1-chris@chris-wilson.co.uk>
 In-Reply-To: <20200810153851.31997-1-chris@chris-wilson.co.uk>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_drm/i915/selftests=3A_Confirm_RING=5FTIMESTAMP_/_CTX=5FTIME?=
- =?utf-8?q?STAMP_share_a_clock?=
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?drm/i915/selftests=3A_Confirm_RING=5FTIMESTAMP_/_CTX=5FTIMESTAM?=
+ =?utf-8?q?P_share_a_clock?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,17 +64,9 @@ State : warning
 
 == Summary ==
 
-$ dim checkpatch origin/drm-tip
-89b5186bbf39 drm/i915/selftests: Confirm RING_TIMESTAMP / CTX_TIMESTAMP share a clock
--:65: WARNING:MEMORY_BARRIER: memory barrier without comment
-#65: FILE: drivers/gpu/drm/i915/gt/selftest_engine_pm.c:51:
-+	wmb();
-
--:117: CHECK:USLEEP_RANGE: usleep_range is preferred over udelay; see Documentation/timers/timers-howto.rst
-#117: FILE: drivers/gpu/drm/i915/gt/selftest_engine_pm.c:103:
-+	udelay(100);
-
-total: 0 errors, 1 warnings, 1 checks, 163 lines checked
+$ dim sparse --fast origin/drm-tip
+Sparse version: v0.6.0
+Fast mode used, each commit won't be checked separately.
 
 
 _______________________________________________
