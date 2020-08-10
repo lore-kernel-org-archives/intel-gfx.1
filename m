@@ -2,40 +2,41 @@ Return-Path: <SRS0=NnJ0=BU=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.0 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-4.0 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AC49DC433DF
-	for <intel-gfx@archiver.kernel.org>; Mon, 10 Aug 2020 15:39:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3E89CC433DF
+	for <intel-gfx@archiver.kernel.org>; Mon, 10 Aug 2020 15:53:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5C42C22D6F
-	for <intel-gfx@archiver.kernel.org>; Mon, 10 Aug 2020 15:39:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5C42C22D6F
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
+	by mail.kernel.org (Postfix) with ESMTPS id 1C34022B4E
+	for <intel-gfx@archiver.kernel.org>; Mon, 10 Aug 2020 15:53:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1C34022B4E
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0FC2F89AFF;
-	Mon, 10 Aug 2020 15:39:00 +0000 (UTC)
-Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D1F489AFF
- for <intel-gfx@lists.freedesktop.org>; Mon, 10 Aug 2020 15:38:58 +0000 (UTC)
-X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
- x-ip-name=78.156.65.138; 
-Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22086376-1500050 
- for multiple; Mon, 10 Aug 2020 16:38:51 +0100
-From: Chris Wilson <chris@chris-wilson.co.uk>
-To: intel-gfx@lists.freedesktop.org
-Date: Mon, 10 Aug 2020 16:38:51 +0100
-Message-Id: <20200810153851.31997-1-chris@chris-wilson.co.uk>
-X-Mailer: git-send-email 2.20.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 93BDA6E03B;
+	Mon, 10 Aug 2020 15:53:51 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id EA4488918F;
+ Mon, 10 Aug 2020 15:53:49 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id E4904A47EB;
+ Mon, 10 Aug 2020 15:53:49 +0000 (UTC)
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH] drm/i915/selftests: Confirm RING_TIMESTAMP /
- CTX_TIMESTAMP share a clock
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Chris Wilson" <chris@chris-wilson.co.uk>
+Date: Mon, 10 Aug 2020 15:53:49 -0000
+Message-ID: <159707482993.17062.11254087027141119055@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20200810153851.31997-1-chris@chris-wilson.co.uk>
+In-Reply-To: <20200810153851.31997-1-chris@chris-wilson.co.uk>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_drm/i915/selftests=3A_Confirm_RING=5FTIMESTAMP_/_CTX=5FTIME?=
+ =?utf-8?q?STAMP_share_a_clock?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,193 +49,33 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Chris Wilson <chris@chris-wilson.co.uk>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-We assume that both timestamps are driven off the same clock [reported
-to userspace as I915_PARAM_CS_TIMESTAMP_FREQUENCY]. Verify that this is
-so by reading the timestamp registers around a busywait (on an otherwise
-engine so there should be no preemptions).
+== Series Details ==
 
-Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
----
- drivers/gpu/drm/i915/gt/selftest_engine_pm.c | 145 +++++++++++++++++++
- 1 file changed, 145 insertions(+)
+Series: drm/i915/selftests: Confirm RING_TIMESTAMP / CTX_TIMESTAMP share a clock
+URL   : https://patchwork.freedesktop.org/series/80475/
+State : warning
 
-diff --git a/drivers/gpu/drm/i915/gt/selftest_engine_pm.c b/drivers/gpu/drm/i915/gt/selftest_engine_pm.c
-index b08fc5390e8a..f44e29ea523a 100644
---- a/drivers/gpu/drm/i915/gt/selftest_engine_pm.c
-+++ b/drivers/gpu/drm/i915/gt/selftest_engine_pm.c
-@@ -5,12 +5,156 @@
-  */
- 
- #include "i915_selftest.h"
-+#include "intel_gt_clock_utils.h"
- #include "selftest_engine.h"
- #include "selftest_engine_heartbeat.h"
- #include "selftests/igt_atomic.h"
- #include "selftests/igt_flush_test.h"
- #include "selftests/igt_spinner.h"
- 
-+static u32 *emit_wait(u32 *cs, u32 offset, int op, u32 value)
-+{
-+	*cs++ = MI_SEMAPHORE_WAIT |
-+		MI_SEMAPHORE_GLOBAL_GTT |
-+		MI_SEMAPHORE_POLL |
-+		op;
-+	*cs++ = value;
-+	*cs++ = offset;
-+	*cs++ = 0;
-+
-+	return cs;
-+}
-+
-+static u32 *emit_store(u32 *cs, u32 offset, u32 value)
-+{
-+	*cs++ = MI_STORE_DWORD_IMM_GEN4 | MI_USE_GGTT;
-+	*cs++ = offset;
-+	*cs++ = 0;
-+	*cs++ = value;
-+
-+	return cs;
-+}
-+
-+static u32 *emit_srm(u32 *cs, i915_reg_t reg, u32 offset)
-+{
-+	*cs++ = MI_STORE_REGISTER_MEM_GEN8 | MI_USE_GGTT;
-+	*cs++ = i915_mmio_reg_offset(reg);
-+	*cs++ = offset;
-+	*cs++ = 0;
-+
-+	return cs;
-+}
-+
-+static void write_semaphore(u32 *x, u32 value)
-+{
-+	WRITE_ONCE(*x, value);
+== Summary ==
+
+$ dim checkpatch origin/drm-tip
+89b5186bbf39 drm/i915/selftests: Confirm RING_TIMESTAMP / CTX_TIMESTAMP share a clock
+-:65: WARNING:MEMORY_BARRIER: memory barrier without comment
+#65: FILE: drivers/gpu/drm/i915/gt/selftest_engine_pm.c:51:
 +	wmb();
-+}
-+
-+static int __live_engine_timestamps(struct intel_engine_cs *engine)
-+{
-+	u32 *sema = memset32(engine->status_page.addr + 1000, 0, 5);
-+	u32 offset = i915_ggtt_offset(engine->status_page.vma);
-+	struct intel_context *ce;
-+	struct i915_request *rq;
-+	u32 d_ring, d_ctx;
-+	u64 start, end;
-+	u32 *cs;
-+
-+	ce = intel_context_create(engine);
-+	if (IS_ERR(ce))
-+		return PTR_ERR(ce);
-+
-+	rq = intel_context_create_request(ce);
-+	intel_context_put(ce);
-+	if (IS_ERR(rq))
-+		return PTR_ERR(rq);
-+
-+	cs = intel_ring_begin(rq, 28);
-+	if (IS_ERR(cs)) {
-+		i915_request_add(rq);
-+		return PTR_ERR(cs);
-+	}
-+
-+	/* Signal & wait for start */
-+	cs = emit_store(cs, offset + 4008, 1);
-+	cs = emit_wait(cs, offset + 4008, MI_SEMAPHORE_SAD_NEQ_SDD, 1);
-+
-+	cs = emit_srm(cs, RING_TIMESTAMP(engine->mmio_base), offset + 4000);
-+	cs = emit_srm(cs, RING_CTX_TIMESTAMP(engine->mmio_base), offset + 4004);
-+
-+	/* Busy wait */
-+	cs = emit_wait(cs, offset + 4008, MI_SEMAPHORE_SAD_EQ_SDD, 1);
-+
-+	cs = emit_srm(cs, RING_TIMESTAMP(engine->mmio_base), offset + 4016);
-+	cs = emit_srm(cs, RING_CTX_TIMESTAMP(engine->mmio_base), offset + 4012);
-+
-+	intel_ring_advance(rq, cs);
-+	i915_request_get(rq);
-+	i915_request_add(rq);
-+	intel_engine_flush_submission(engine);
-+
-+	while (READ_ONCE(sema[2]) == 0)
-+		cpu_relax();
-+
-+	preempt_disable();
-+	start = ktime_get_mono_fast_ns();
-+	write_semaphore(&sema[2], 0);
+
+-:117: CHECK:USLEEP_RANGE: usleep_range is preferred over udelay; see Documentation/timers/timers-howto.rst
+#117: FILE: drivers/gpu/drm/i915/gt/selftest_engine_pm.c:103:
 +	udelay(100);
-+	write_semaphore(&sema[2], 1);
-+	end = ktime_get_mono_fast_ns();
-+	preempt_enable();
-+
-+	if (i915_request_wait(rq, 0, HZ / 2) < 0) {
-+		i915_request_put(rq);
-+		return -ETIME;
-+	}
-+	i915_request_put(rq);
-+
-+	pr_debug("%s CTX_TIMESTAMP: [%x, %x]\n",
-+		 engine->name, sema[1], sema[3]);
-+	pr_debug("%s RING_TIMESTAMP: [%x, %x]\n",
-+		 engine->name, sema[0], sema[4]);
-+
-+	d_ctx = sema[3] - sema[1];
-+	d_ring = sema[4] - sema[0];
-+
-+	pr_info("%s elapsed:%lldns, CTX_TIMESTAMP:%dns, RING_TIMESTAMP:%dns\n",
-+		engine->name, end - start,
-+		intel_gt_clock_interval_to_ns(engine->gt, d_ctx),
-+		intel_gt_clock_interval_to_ns(engine->gt, d_ring));
-+
-+	if (4 * d_ctx > 5 * d_ring || 5 * d_ctx < 4 * d_ring) {
-+		pr_err("%s Mismatch between ring and context timestamps!\n",
-+		       engine->name);
-+		return -EINVAL;
-+	}
-+
-+	return 0;
-+}
-+
-+static int live_engine_timestamps(void *arg)
-+{
-+	struct intel_gt *gt = arg;
-+	struct intel_engine_cs *engine;
-+	enum intel_engine_id id;
-+
-+	if (INTEL_GEN(gt->i915) < 8)
-+		return 0;
-+
-+	for_each_engine(engine, gt, id) {
-+		int err;
-+
-+		st_engine_heartbeat_disable(engine);
-+		err = __live_engine_timestamps(engine);
-+		st_engine_heartbeat_enable(engine);
-+		if (err)
-+			return err;
-+	}
-+
-+	return 0;
-+}
-+
- static int live_engine_busy_stats(void *arg)
- {
- 	struct intel_gt *gt = arg;
-@@ -177,6 +321,7 @@ static int live_engine_pm(void *arg)
- int live_engine_pm_selftests(struct intel_gt *gt)
- {
- 	static const struct i915_subtest tests[] = {
-+		SUBTEST(live_engine_timestamps),
- 		SUBTEST(live_engine_busy_stats),
- 		SUBTEST(live_engine_pm),
- 	};
--- 
-2.20.1
+
+total: 0 errors, 1 warnings, 1 checks, 163 lines checked
+
 
 _______________________________________________
 Intel-gfx mailing list
