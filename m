@@ -2,55 +2,41 @@ Return-Path: <SRS0=NnJ0=BU=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.5 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-4.0 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 35A67C433DF
-	for <intel-gfx@archiver.kernel.org>; Mon, 10 Aug 2020 08:22:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 858B9C433DF
+	for <intel-gfx@archiver.kernel.org>; Mon, 10 Aug 2020 08:56:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0FA00206B5
-	for <intel-gfx@archiver.kernel.org>; Mon, 10 Aug 2020 08:22:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0FA00206B5
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id F1CB520678
+	for <intel-gfx@archiver.kernel.org>; Mon, 10 Aug 2020 08:56:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F1CB520678
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E6316E372;
-	Mon, 10 Aug 2020 08:22:46 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 41E7089FF7;
- Mon, 10 Aug 2020 08:22:45 +0000 (UTC)
-IronPort-SDR: dGZVIyujPQ4CX2goC89WcnakoPieQ0W+lwMnm2WUFERBgqULbxvIJGN7SesX4OQ+cX2cuvu9LN
- Qpibp15FV9oA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9708"; a="150931236"
-X-IronPort-AV: E=Sophos;i="5.75,457,1589266800"; d="scan'208";a="150931236"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Aug 2020 01:22:43 -0700
-IronPort-SDR: PtPmET/DxmI+dhBk6edbVbRTIanNWI5TM1TCsv/6fNGjxP8O9D+AI8eZvLyLuCGrgnBdD8ELiT
- VlmJmldpKFbA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.75,457,1589266800"; d="scan'208";a="324373095"
-Received: from thrakatuluk.fi.intel.com (HELO thrakatuluk) ([10.237.68.154])
- by orsmga008.jf.intel.com with ESMTP; 10 Aug 2020 01:22:43 -0700
-Received: from platvala by thrakatuluk with local (Exim 4.92)
- (envelope-from <petri.latvala@intel.com>)
- id 1k534s-0000Qr-F8; Mon, 10 Aug 2020 11:22:42 +0300
-Date: Mon, 10 Aug 2020 11:22:42 +0300
-From: Petri Latvala <petri.latvala@intel.com>
-To: Zbigniew =?utf-8?Q?Kempczy=C5=84ski?= <zbigniew.kempczynski@intel.com>
-Message-ID: <20200810082242.GH7444@platvala-desk.ger.corp.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 66F736E3AA;
+	Mon, 10 Aug 2020 08:56:46 +0000 (UTC)
+Received: from fireflyinternet.com (unknown [77.68.26.236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 169226E398;
+ Mon, 10 Aug 2020 08:56:43 +0000 (UTC)
+X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
+ x-ip-name=78.156.65.138; 
+Received: from localhost (unverified [78.156.65.138]) 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP (TLS) id
+ 22081672-1500050 for multiple; Mon, 10 Aug 2020 09:56:34 +0100
+MIME-Version: 1.0
+In-Reply-To: <20200810082242.GH7444@platvala-desk.ger.corp.intel.com>
 References: <20200806144529.140512-1-chris@chris-wilson.co.uk>
  <20200810080807.GA3956@zkempczy-mobl2>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200810080807.GA3956@zkempczy-mobl2>
-X-Patchwork-Hint: comment
-User-Agent: Mutt/1.10.1 (2018-07-13)
+ <20200810082242.GH7444@platvala-desk.ger.corp.intel.com>
+From: Chris Wilson <chris@chris-wilson.co.uk>
+To: Petri Latvala <petri.latvala@intel.com>, Zbigniew Kempczyński <zbigniew.kempczynski@intel.com>
+Date: Mon, 10 Aug 2020 09:56:34 +0100
+Message-ID: <159704979478.6812.5770687018171262759@build.alporthouse.com>
+User-Agent: alot/0.9
 Subject: Re: [Intel-gfx] [igt-dev] [PATCH i-g-t] lib: Use unsigned gen for
  forward compatible tests
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -65,26 +51,30 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: igt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- Chris Wilson <chris@chris-wilson.co.uk>
+Cc: igt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-T24gTW9uLCBBdWcgMTAsIDIwMjAgYXQgMTA6MDk6NDZBTSArMDIwMCwgWmJpZ25pZXcgS2VtcGN6
-ecWEc2tpIHdyb3RlOgo+IE9uIFRodSwgQXVnIDA2LCAyMDIwIGF0IDAzOjQ1OjI5UE0gKzAxMDAs
-IENocmlzIFdpbHNvbiB3cm90ZToKPiA+IFVua25vd24sIHNvIGZ1dHVyZSwgZ2VuIGFyZSBtYXJr
-ZWQgYXMgLTEgd2hpY2ggd2Ugd2FudCB0byB0cmVhdCBhcyAtMXUKPiA+IHNvIHRoYXQgYWx3YXlz
-IHBhc3MgPj0gZ2VuIGNoZWNrcy4KPiAKPiBEbyB3ZSByZWFsbHkgd2FudCB0byBlbmFibGUgdGhl
-IHRlc3RzIHdoZW4gcGxhdGZvcm0gaXMgbm90IGZ1bGx5Cj4gZW5hYmxlZCBpbiBJR1Q/CgpXaGF0
-IGRvZXMgImZ1bGx5IGVuYWJsZWQiIG1lYW4/CgpJZiB0aGUgdGVzdCBpcyBjaGVja2luZyBmb3Ig
-anVzdCAiZ2VuID4geCIsIHRoZSB0ZXN0IHNob3VsZCB3b3JrCmFscmVhZHkuIElmIHRoZSB0ZXN0
-IGlzIGFsc28gY2hlY2tpbmcgZm9yICJnZW4gPCB5IiB0aGVuIHdlIGdldCBhCnNwdXJpb3VzIGZh
-aWx1cmUsIGJ1dCBlaXRoZXIgd2F5IENJIGlzIGdvaW5nIHRvIHRlbGwgeW91IHRoYXQKc29tZXRo
-aW5nIGlzIG5vdCBwYXNzaW5nLiBXaXRob3V0IHRoaXMgaXQgd2lsbCBiZSBhIHNraXAsIGFsb25n
-IHdpdGgKc2tpcHBpbmcgaW4gdGhlIGNhc2UgdGhhdCBzaG91bGQganVzdCB3b3JrIGFscmVhZHkg
-d2l0aG91dCBhY3R1YWwgdGVzdApjaGFuZ2VzLgoKCi0tIApQZXRyaSBMYXR2YWxhCl9fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkludGVsLWdmeCBtYWlsaW5n
-IGxpc3QKSW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVk
-ZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ludGVsLWdmeAo=
+UXVvdGluZyBQZXRyaSBMYXR2YWxhICgyMDIwLTA4LTEwIDA5OjIyOjQyKQo+IE9uIE1vbiwgQXVn
+IDEwLCAyMDIwIGF0IDEwOjA5OjQ2QU0gKzAyMDAsIFpiaWduaWV3IEtlbXBjennFhHNraSB3cm90
+ZToKPiA+IE9uIFRodSwgQXVnIDA2LCAyMDIwIGF0IDAzOjQ1OjI5UE0gKzAxMDAsIENocmlzIFdp
+bHNvbiB3cm90ZToKPiA+ID4gVW5rbm93biwgc28gZnV0dXJlLCBnZW4gYXJlIG1hcmtlZCBhcyAt
+MSB3aGljaCB3ZSB3YW50IHRvIHRyZWF0IGFzIC0xdQo+ID4gPiBzbyB0aGF0IGFsd2F5cyBwYXNz
+ID49IGdlbiBjaGVja3MuCj4gPiAKPiA+IERvIHdlIHJlYWxseSB3YW50IHRvIGVuYWJsZSB0aGUg
+dGVzdHMgd2hlbiBwbGF0Zm9ybSBpcyBub3QgZnVsbHkKPiA+IGVuYWJsZWQgaW4gSUdUPwo+IAo+
+IFdoYXQgZG9lcyAiZnVsbHkgZW5hYmxlZCIgbWVhbj8KPiAKPiBJZiB0aGUgdGVzdCBpcyBjaGVj
+a2luZyBmb3IganVzdCAiZ2VuID4geCIsIHRoZSB0ZXN0IHNob3VsZCB3b3JrCj4gYWxyZWFkeS4g
+SWYgdGhlIHRlc3QgaXMgYWxzbyBjaGVja2luZyBmb3IgImdlbiA8IHkiIHRoZW4gd2UgZ2V0IGEK
+PiBzcHVyaW91cyBmYWlsdXJlLCBidXQgZWl0aGVyIHdheSBDSSBpcyBnb2luZyB0byB0ZWxsIHlv
+dSB0aGF0Cj4gc29tZXRoaW5nIGlzIG5vdCBwYXNzaW5nLiBXaXRob3V0IHRoaXMgaXQgd2lsbCBi
+ZSBhIHNraXAsIGFsb25nIHdpdGgKPiBza2lwcGluZyBpbiB0aGUgY2FzZSB0aGF0IHNob3VsZCBq
+dXN0IHdvcmsgYWxyZWFkeSB3aXRob3V0IGFjdHVhbCB0ZXN0Cj4gY2hhbmdlcy4KCkFuZCBmb3Ig
+YSB2ZXJ5IGxhcmdlIGZyYWN0aW9uIG9mIHRlc3RzLCB0aGUgYmVoYXZpb3VyIG9mIG5leHQgZ2Vu
+CmZvbGxvd3MgY3VycmVudCBnZW4uIFRob3NlIHRoYXQgZG8gbm90IGFyZSB2ZXJ5IGludGVyZXN0
+aW5nLCBhbmQgd2lsbCBiZQphIG11Y2ggc21hbGxlciBudW1iZXIgdGhhbiB0aGUgdm9sdW1lIG9m
+IHNraXBzIHdlIGhhdmUgdG8gcHJvY2Vzcy4KLUNocmlzCl9fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fCkludGVsLWdmeCBtYWlsaW5nIGxpc3QKSW50ZWwtZ2Z4
+QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWls
+bWFuL2xpc3RpbmZvL2ludGVsLWdmeAo=
