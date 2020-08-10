@@ -7,32 +7,32 @@ X-Spam-Status: No, score=-13.0 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 565DBC433F2
-	for <intel-gfx@archiver.kernel.org>; Mon, 10 Aug 2020 10:33:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5D281C433E4
+	for <intel-gfx@archiver.kernel.org>; Mon, 10 Aug 2020 10:33:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 38160206E9
-	for <intel-gfx@archiver.kernel.org>; Mon, 10 Aug 2020 10:33:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 38160206E9
+	by mail.kernel.org (Postfix) with ESMTPS id 4058E206E9
+	for <intel-gfx@archiver.kernel.org>; Mon, 10 Aug 2020 10:33:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4058E206E9
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E0E2E6E40A;
-	Mon, 10 Aug 2020 10:33:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 640226E3FE;
+	Mon, 10 Aug 2020 10:33:37 +0000 (UTC)
 Received: from mblankhorst.nl (mblankhorst.nl [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 686F16E3E5
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D7B0897E0
  for <intel-gfx@lists.freedesktop.org>; Mon, 10 Aug 2020 10:33:29 +0000 (UTC)
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 10 Aug 2020 12:30:58 +0200
-Message-Id: <20200810103103.303818-20-maarten.lankhorst@linux.intel.com>
+Date: Mon, 10 Aug 2020 12:30:56 +0200
+Message-Id: <20200810103103.303818-18-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20200810103103.303818-1-maarten.lankhorst@linux.intel.com>
 References: <20200810103103.303818-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 19/24] drm/i915: Dirty hack to fix selftests
- locking inversion
+Subject: [Intel-gfx] [PATCH 17/24] drm/i915: Kill last user of
+ intel_context_create_request outside of selftests
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,39 +50,94 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Some i915 selftests still use i915_vma_lock() as inner lock, and
-intel_context_create_request() intel_timeline->mutex as outer lock.
-Fortunately for selftests this is not an issue, they should be fixed
-but we can move ahead and cleanify lockdep now.
+Instead of using intel_context_create_request(), use intel_context_pin()
+and i915_create_request directly.
+
+Now all those calls are gone outside of selftests. :)
 
 Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_context.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ drivers/gpu/drm/i915/gt/intel_workarounds.c | 43 ++++++++++++++-------
+ 1 file changed, 29 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_context.c b/drivers/gpu/drm/i915/gt/intel_context.c
-index c05ef213bdc2..671081b0e4d6 100644
---- a/drivers/gpu/drm/i915/gt/intel_context.c
-+++ b/drivers/gpu/drm/i915/gt/intel_context.c
-@@ -459,6 +459,18 @@ struct i915_request *intel_context_create_request(struct intel_context *ce)
- 	rq = i915_request_create(ce);
- 	intel_context_unpin(ce);
+diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+index cef1c122696f..5737d851fb4c 100644
+--- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
++++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+@@ -2070,6 +2070,7 @@ static int engine_wa_list_verify(struct intel_context *ce,
+ 	const struct i915_wa *wa;
+ 	struct i915_request *rq;
+ 	struct i915_vma *vma;
++	struct i915_gem_ww_ctx ww;
+ 	unsigned int i;
+ 	u32 *results;
+ 	int err;
+@@ -2082,29 +2083,34 @@ static int engine_wa_list_verify(struct intel_context *ce,
+ 		return PTR_ERR(vma);
  
-+	if (IS_ERR(rq))
-+		return rq;
+ 	intel_engine_pm_get(ce->engine);
+-	rq = intel_context_create_request(ce);
+-	intel_engine_pm_put(ce->engine);
++	i915_gem_ww_ctx_init(&ww, false);
++retry:
++	err = i915_gem_object_lock(vma->obj, &ww);
++	if (err == 0)
++		err = intel_context_pin_ww(ce, &ww);
++	if (err)
++		goto err_pm;
 +
-+	/*
-+	 * timeline->mutex should be the inner lock, but is used as outer lock.
-+	 * Hack around this to shut up lockdep in selftests..
-+	 */
-+	lockdep_unpin_lock(&ce->timeline->mutex, rq->cookie);
-+	mutex_release(&ce->timeline->mutex.dep_map, _RET_IP_);
-+	mutex_acquire(&ce->timeline->mutex.dep_map, SINGLE_DEPTH_NESTING, 0, _RET_IP_);
-+	rq->cookie = lockdep_pin_lock(&ce->timeline->mutex);
-+
- 	return rq;
- }
++	rq = i915_request_create(ce);
+ 	if (IS_ERR(rq)) {
+ 		err = PTR_ERR(rq);
+-		goto err_vma;
++		goto err_unpin;
+ 	}
  
+-	i915_vma_lock(vma);
+ 	err = i915_request_await_object(rq, vma->obj, true);
+ 	if (err == 0)
+ 		err = i915_vma_move_to_active(vma, rq, EXEC_OBJECT_WRITE);
+-	i915_vma_unlock(vma);
+-	if (err) {
+-		i915_request_add(rq);
+-		goto err_vma;
+-	}
+-
+-	err = wa_list_srm(rq, wal, vma);
+-	if (err)
+-		goto err_vma;
++	if (err == 0)
++		err = wa_list_srm(rq, wal, vma);
+ 
+ 	i915_request_get(rq);
++	if (err)
++		i915_request_set_error_once(rq, err);
+ 	i915_request_add(rq);
++
++	if (err)
++		goto err_rq;
++
+ 	if (i915_request_wait(rq, 0, HZ / 5) < 0) {
+ 		err = -ETIME;
+ 		goto err_rq;
+@@ -2129,7 +2135,16 @@ static int engine_wa_list_verify(struct intel_context *ce,
+ 
+ err_rq:
+ 	i915_request_put(rq);
+-err_vma:
++err_unpin:
++	intel_context_unpin(ce);
++err_pm:
++	if (err == -EDEADLK) {
++		err = i915_gem_ww_ctx_backoff(&ww);
++		if (!err)
++			goto retry;
++	}
++	i915_gem_ww_ctx_fini(&ww);
++	intel_engine_pm_put(ce->engine);
+ 	i915_vma_unpin(vma);
+ 	i915_vma_put(vma);
+ 	return err;
 -- 
 2.28.0
 
