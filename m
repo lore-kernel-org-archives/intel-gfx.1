@@ -7,32 +7,31 @@ X-Spam-Status: No, score=-13.0 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BC1A3C433F1
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3E03DC433E1
 	for <intel-gfx@archiver.kernel.org>; Mon, 10 Aug 2020 10:33:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9ED47206E9
+	by mail.kernel.org (Postfix) with ESMTPS id 207C2206E9
 	for <intel-gfx@archiver.kernel.org>; Mon, 10 Aug 2020 10:33:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9ED47206E9
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 207C2206E9
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B9AD6E0E3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A58E86E3EE;
 	Mon, 10 Aug 2020 10:33:44 +0000 (UTC)
 Received: from mblankhorst.nl (mblankhorst.nl [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE22689C3B
- for <intel-gfx@lists.freedesktop.org>; Mon, 10 Aug 2020 10:33:27 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 90FD089CDE
+ for <intel-gfx@lists.freedesktop.org>; Mon, 10 Aug 2020 10:33:29 +0000 (UTC)
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 10 Aug 2020 12:30:45 +0200
-Message-Id: <20200810103103.303818-7-maarten.lankhorst@linux.intel.com>
+Date: Mon, 10 Aug 2020 12:31:02 +0200
+Message-Id: <20200810103103.303818-24-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20200810103103.303818-1-maarten.lankhorst@linux.intel.com>
 References: <20200810103103.303818-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 06/24] drm/i915: Remove locking from
- i915_gem_object_prepare_read/write
+Subject: [Intel-gfx] [PATCH 23/24] drm/i915: Add ww locking to vm_fault_gtt
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,326 +49,108 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Execbuffer submission will perform its own WW locking, and we
-cannot rely on the implicit lock there.
-
-This also makes it clear that the GVT code will get a lockdep splat when
-multiple batchbuffer shadows need to be performed in the same instance,
-fix that up.
-
 Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_domain.c    | 20 ++++++-------------
- .../gpu/drm/i915/gem/i915_gem_execbuffer.c    | 13 ++++++++++--
- drivers/gpu/drm/i915/gem/i915_gem_object.h    |  1 -
- .../gpu/drm/i915/gem/selftests/huge_pages.c   |  5 ++++-
- .../i915/gem/selftests/i915_gem_coherency.c   | 14 +++++++++----
- .../drm/i915/gem/selftests/i915_gem_context.c | 12 ++++++++---
- drivers/gpu/drm/i915/gvt/cmd_parser.c         |  1 +
- drivers/gpu/drm/i915/i915_gem.c               | 20 +++++++++++++++++--
- 8 files changed, 59 insertions(+), 27 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_mman.c | 51 +++++++++++++++---------
+ 1 file changed, 33 insertions(+), 18 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_domain.c b/drivers/gpu/drm/i915/gem/i915_gem_domain.c
-index c0acfc97fae3..8ebceebd11b0 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_domain.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_domain.c
-@@ -576,19 +576,17 @@ int i915_gem_object_prepare_read(struct drm_i915_gem_object *obj,
- 	if (!i915_gem_object_has_struct_page(obj))
- 		return -ENODEV;
- 
--	ret = i915_gem_object_lock_interruptible(obj, NULL);
--	if (ret)
--		return ret;
-+	assert_object_held(obj);
- 
- 	ret = i915_gem_object_wait(obj,
- 				   I915_WAIT_INTERRUPTIBLE,
- 				   MAX_SCHEDULE_TIMEOUT);
- 	if (ret)
--		goto err_unlock;
-+		return ret;
- 
- 	ret = i915_gem_object_pin_pages(obj);
- 	if (ret)
--		goto err_unlock;
-+		return ret;
- 
- 	if (obj->cache_coherent & I915_BO_CACHE_COHERENT_FOR_READ ||
- 	    !static_cpu_has(X86_FEATURE_CLFLUSH)) {
-@@ -616,8 +614,6 @@ int i915_gem_object_prepare_read(struct drm_i915_gem_object *obj,
- 
- err_unpin:
- 	i915_gem_object_unpin_pages(obj);
--err_unlock:
--	i915_gem_object_unlock(obj);
- 	return ret;
- }
- 
-@@ -630,20 +626,18 @@ int i915_gem_object_prepare_write(struct drm_i915_gem_object *obj,
- 	if (!i915_gem_object_has_struct_page(obj))
- 		return -ENODEV;
- 
--	ret = i915_gem_object_lock_interruptible(obj, NULL);
--	if (ret)
--		return ret;
-+	assert_object_held(obj);
- 
- 	ret = i915_gem_object_wait(obj,
- 				   I915_WAIT_INTERRUPTIBLE |
- 				   I915_WAIT_ALL,
- 				   MAX_SCHEDULE_TIMEOUT);
- 	if (ret)
--		goto err_unlock;
-+		return ret;
- 
- 	ret = i915_gem_object_pin_pages(obj);
- 	if (ret)
--		goto err_unlock;
-+		return ret;
- 
- 	if (obj->cache_coherent & I915_BO_CACHE_COHERENT_FOR_WRITE ||
- 	    !static_cpu_has(X86_FEATURE_CLFLUSH)) {
-@@ -680,7 +674,5 @@ int i915_gem_object_prepare_write(struct drm_i915_gem_object *obj,
- 
- err_unpin:
- 	i915_gem_object_unpin_pages(obj);
--err_unlock:
--	i915_gem_object_unlock(obj);
- 	return ret;
- }
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-index 2bb414d55f10..ebb45fdfad0e 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-@@ -991,11 +991,14 @@ static void reloc_cache_reset(struct reloc_cache *cache)
- 
- 	vaddr = unmask_page(cache->vaddr);
- 	if (cache->vaddr & KMAP) {
-+		struct drm_i915_gem_object *obj =
-+			(struct drm_i915_gem_object *)cache->node.mm;
- 		if (cache->vaddr & CLFLUSH_AFTER)
- 			mb();
- 
- 		kunmap_atomic(vaddr);
--		i915_gem_object_finish_access((struct drm_i915_gem_object *)cache->node.mm);
-+		i915_gem_object_finish_access(obj);
-+		i915_gem_object_unlock(obj);
- 	} else {
- 		struct i915_ggtt *ggtt = cache_to_ggtt(cache);
- 
-@@ -1031,10 +1034,16 @@ static void *reloc_kmap(struct drm_i915_gem_object *obj,
- 		unsigned int flushes;
- 		int err;
- 
--		err = i915_gem_object_prepare_write(obj, &flushes);
-+		err = i915_gem_object_lock_interruptible(obj, NULL);
- 		if (err)
- 			return ERR_PTR(err);
- 
-+		err = i915_gem_object_prepare_write(obj, &flushes);
-+		if (err) {
-+			i915_gem_object_unlock(obj);
-+			return ERR_PTR(err);
-+		}
-+
- 		BUILD_BUG_ON(KMAP & CLFLUSH_FLAGS);
- 		BUILD_BUG_ON((KMAP | CLFLUSH_FLAGS) & PAGE_MASK);
- 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.h b/drivers/gpu/drm/i915/gem/i915_gem_object.h
-index 488459143366..45d79d75e73a 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_object.h
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_object.h
-@@ -432,7 +432,6 @@ static inline void
- i915_gem_object_finish_access(struct drm_i915_gem_object *obj)
- {
- 	i915_gem_object_unpin_pages(obj);
--	i915_gem_object_unlock(obj);
- }
- 
- static inline struct intel_engine_cs *
-diff --git a/drivers/gpu/drm/i915/gem/selftests/huge_pages.c b/drivers/gpu/drm/i915/gem/selftests/huge_pages.c
-index 68c3631f3746..5daf4a2be422 100644
---- a/drivers/gpu/drm/i915/gem/selftests/huge_pages.c
-+++ b/drivers/gpu/drm/i915/gem/selftests/huge_pages.c
-@@ -964,9 +964,10 @@ __cpu_check_shmem(struct drm_i915_gem_object *obj, u32 dword, u32 val)
- 	unsigned long n;
- 	int err;
- 
-+	i915_gem_object_lock(obj, NULL);
- 	err = i915_gem_object_prepare_read(obj, &needs_flush);
- 	if (err)
--		return err;
-+		goto err_unlock;
- 
- 	for (n = 0; n < obj->base.size >> PAGE_SHIFT; ++n) {
- 		u32 *ptr = kmap_atomic(i915_gem_object_get_page(obj, n));
-@@ -986,6 +987,8 @@ __cpu_check_shmem(struct drm_i915_gem_object *obj, u32 dword, u32 val)
- 	}
- 
- 	i915_gem_object_finish_access(obj);
-+err_unlock:
-+	i915_gem_object_unlock(obj);
- 
- 	return err;
- }
-diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_coherency.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_coherency.c
-index 1de2959b153c..dcdfc396f2f8 100644
---- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_coherency.c
-+++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_coherency.c
-@@ -27,9 +27,10 @@ static int cpu_set(struct context *ctx, unsigned long offset, u32 v)
- 	u32 *cpu;
- 	int err;
- 
-+	i915_gem_object_lock(ctx->obj, NULL);
- 	err = i915_gem_object_prepare_write(ctx->obj, &needs_clflush);
- 	if (err)
--		return err;
-+		goto out;
- 
- 	page = i915_gem_object_get_page(ctx->obj, offset >> PAGE_SHIFT);
- 	map = kmap_atomic(page);
-@@ -46,7 +47,9 @@ static int cpu_set(struct context *ctx, unsigned long offset, u32 v)
- 	kunmap_atomic(map);
- 	i915_gem_object_finish_access(ctx->obj);
- 
--	return 0;
-+out:
-+	i915_gem_object_unlock(ctx->obj);
-+	return err;
- }
- 
- static int cpu_get(struct context *ctx, unsigned long offset, u32 *v)
-@@ -57,9 +60,10 @@ static int cpu_get(struct context *ctx, unsigned long offset, u32 *v)
- 	u32 *cpu;
- 	int err;
- 
-+	i915_gem_object_lock(ctx->obj, NULL);
- 	err = i915_gem_object_prepare_read(ctx->obj, &needs_clflush);
- 	if (err)
--		return err;
-+		goto out;
- 
- 	page = i915_gem_object_get_page(ctx->obj, offset >> PAGE_SHIFT);
- 	map = kmap_atomic(page);
-@@ -73,7 +77,9 @@ static int cpu_get(struct context *ctx, unsigned long offset, u32 *v)
- 	kunmap_atomic(map);
- 	i915_gem_object_finish_access(ctx->obj);
- 
--	return 0;
-+out:
-+	i915_gem_object_unlock(ctx->obj);
-+	return err;
- }
- 
- static int gtt_set(struct context *ctx, unsigned long offset, u32 v)
-diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
-index 52af9a52b743..9160a335c684 100644
---- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
-+++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
-@@ -461,9 +461,10 @@ static int cpu_fill(struct drm_i915_gem_object *obj, u32 value)
- 	unsigned int n, m, need_flush;
- 	int err;
- 
-+	i915_gem_object_lock(obj, NULL);
- 	err = i915_gem_object_prepare_write(obj, &need_flush);
- 	if (err)
--		return err;
-+		goto out;
- 
- 	for (n = 0; n < real_page_count(obj); n++) {
- 		u32 *map;
-@@ -479,7 +480,9 @@ static int cpu_fill(struct drm_i915_gem_object *obj, u32 value)
- 	i915_gem_object_finish_access(obj);
- 	obj->read_domains = I915_GEM_DOMAIN_GTT | I915_GEM_DOMAIN_CPU;
- 	obj->write_domain = 0;
--	return 0;
-+out:
-+	i915_gem_object_unlock(obj);
-+	return err;
- }
- 
- static noinline int cpu_check(struct drm_i915_gem_object *obj,
-@@ -488,9 +491,10 @@ static noinline int cpu_check(struct drm_i915_gem_object *obj,
- 	unsigned int n, m, needs_flush;
- 	int err;
- 
-+	i915_gem_object_lock(obj, NULL);
- 	err = i915_gem_object_prepare_read(obj, &needs_flush);
- 	if (err)
--		return err;
-+		goto out_unlock;
- 
- 	for (n = 0; n < real_page_count(obj); n++) {
- 		u32 *map;
-@@ -527,6 +531,8 @@ static noinline int cpu_check(struct drm_i915_gem_object *obj,
- 	}
- 
- 	i915_gem_object_finish_access(obj);
-+out_unlock:
-+	i915_gem_object_unlock(obj);
- 	return err;
- }
- 
-diff --git a/drivers/gpu/drm/i915/gvt/cmd_parser.c b/drivers/gpu/drm/i915/gvt/cmd_parser.c
-index 943c8d232703..d0a599b51bfe 100644
---- a/drivers/gpu/drm/i915/gvt/cmd_parser.c
-+++ b/drivers/gpu/drm/i915/gvt/cmd_parser.c
-@@ -1923,6 +1923,7 @@ static int perform_bb_shadow(struct parser_exec_state *s)
- 	if (ret)
- 		goto err_unmap;
- 
-+	i915_gem_object_unlock(bb->obj);
- 	INIT_LIST_HEAD(&bb->list);
- 	list_add(&bb->list, &s->workload->shadow_bb);
- 
-diff --git a/drivers/gpu/drm/i915/i915_gem.c b/drivers/gpu/drm/i915/i915_gem.c
-index 4bc8fdb94019..55158e487a7f 100644
---- a/drivers/gpu/drm/i915/i915_gem.c
-+++ b/drivers/gpu/drm/i915/i915_gem.c
-@@ -335,12 +335,20 @@ i915_gem_shmem_pread(struct drm_i915_gem_object *obj,
- 	u64 remain;
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_mman.c b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
+index b23368529a40..548ed9fb427d 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_mman.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
+@@ -283,37 +283,46 @@ static vm_fault_t vm_fault_gtt(struct vm_fault *vmf)
+ 	struct intel_runtime_pm *rpm = &i915->runtime_pm;
+ 	struct i915_ggtt *ggtt = &i915->ggtt;
+ 	bool write = area->vm_flags & VM_WRITE;
++	struct i915_gem_ww_ctx ww;
+ 	intel_wakeref_t wakeref;
+ 	struct i915_vma *vma;
+ 	pgoff_t page_offset;
+ 	int srcu;
  	int ret;
  
--	ret = i915_gem_object_prepare_read(obj, &needs_clflush);
-+	ret = i915_gem_object_lock_interruptible(obj, NULL);
+-	/* Sanity check that we allow writing into this object */
+-	if (i915_gem_object_is_readonly(obj) && write)
+-		return VM_FAULT_SIGBUS;
+-
+ 	/* We don't use vmf->pgoff since that has the fake offset */
+ 	page_offset = (vmf->address - area->vm_start) >> PAGE_SHIFT;
+ 
+ 	trace_i915_gem_object_fault(obj, page_offset, true, write);
+ 
+-	ret = i915_gem_object_pin_pages(obj);
++	wakeref = intel_runtime_pm_get(rpm);
++
++	i915_gem_ww_ctx_init(&ww, true);
++retry:
++	ret = i915_gem_object_lock(obj, &ww);
  	if (ret)
- 		return ret;
+-		goto err;
++		goto err_rpm;
  
-+	ret = i915_gem_object_prepare_read(obj, &needs_clflush);
-+	if (ret) {
-+		i915_gem_object_unlock(obj);
-+		return ret;
+-	wakeref = intel_runtime_pm_get(rpm);
++	/* Sanity check that we allow writing into this object */
++	if (i915_gem_object_is_readonly(obj) && write) {
++		ret = -EFAULT;
++		goto err_rpm;
 +	}
-+
- 	fence = i915_gem_object_lock_fence(obj);
- 	i915_gem_object_finish_access(obj);
-+	i915_gem_object_unlock(obj);
-+
- 	if (!fence)
- 		return -ENOMEM;
  
-@@ -734,12 +742,20 @@ i915_gem_shmem_pwrite(struct drm_i915_gem_object *obj,
- 	u64 remain;
- 	int ret;
- 
--	ret = i915_gem_object_prepare_write(obj, &needs_clflush);
-+	ret = i915_gem_object_lock_interruptible(obj, NULL);
+-	ret = intel_gt_reset_trylock(ggtt->vm.gt, &srcu);
++	ret = i915_gem_object_pin_pages(obj);
  	if (ret)
- 		return ret;
+ 		goto err_rpm;
  
-+	ret = i915_gem_object_prepare_write(obj, &needs_clflush);
-+	if (ret) {
-+		i915_gem_object_unlock(obj);
-+		return ret;
++	ret = intel_gt_reset_trylock(ggtt->vm.gt, &srcu);
++	if (ret)
++		goto err_pages;
++
+ 	/* Now pin it into the GTT as needed */
+-	vma = i915_gem_object_ggtt_pin(obj, NULL, 0, 0,
+-				       PIN_MAPPABLE |
+-				       PIN_NONBLOCK /* NOWARN */ |
+-				       PIN_NOEVICT);
+-	if (IS_ERR(vma)) {
++	vma = i915_gem_object_ggtt_pin_ww(obj, &ww, NULL, 0, 0,
++					  PIN_MAPPABLE |
++					  PIN_NONBLOCK /* NOWARN */ |
++					  PIN_NOEVICT);
++	if (IS_ERR(vma) && vma != ERR_PTR(-EDEADLK)) {
+ 		/* Use a partial view if it is bigger than available space */
+ 		struct i915_ggtt_view view =
+ 			compute_partial_view(obj, page_offset, MIN_CHUNK_PAGES);
+@@ -328,11 +337,11 @@ static vm_fault_t vm_fault_gtt(struct vm_fault *vmf)
+ 		 * all hope that the hardware is able to track future writes.
+ 		 */
+ 
+-		vma = i915_gem_object_ggtt_pin(obj, &view, 0, 0, flags);
+-		if (IS_ERR(vma)) {
++		vma = i915_gem_object_ggtt_pin_ww(obj, &ww, &view, 0, 0, flags);
++		if (IS_ERR(vma) && vma != ERR_PTR(-EDEADLK)) {
+ 			flags = PIN_MAPPABLE;
+ 			view.type = I915_GGTT_VIEW_PARTIAL;
+-			vma = i915_gem_object_ggtt_pin(obj, &view, 0, 0, flags);
++			vma = i915_gem_object_ggtt_pin_ww(obj, &ww, &view, 0, 0, flags);
+ 		}
+ 
+ 		/* The entire mappable GGTT is pinned? Unexpected! */
+@@ -389,10 +398,16 @@ static vm_fault_t vm_fault_gtt(struct vm_fault *vmf)
+ 	__i915_vma_unpin(vma);
+ err_reset:
+ 	intel_gt_reset_unlock(ggtt->vm.gt, srcu);
++err_pages:
++	i915_gem_object_unpin_pages(obj);
+ err_rpm:
++	if (ret == -EDEADLK) {
++		ret = i915_gem_ww_ctx_backoff(&ww);
++		if (!ret)
++			goto retry;
 +	}
-+
- 	fence = i915_gem_object_lock_fence(obj);
- 	i915_gem_object_finish_access(obj);
-+	i915_gem_object_unlock(obj);
-+
- 	if (!fence)
- 		return -ENOMEM;
++	i915_gem_ww_ctx_fini(&ww);
+ 	intel_runtime_pm_put(rpm, wakeref);
+-	i915_gem_object_unpin_pages(obj);
+-err:
+ 	return i915_error_to_vmf_fault(ret);
+ }
  
 -- 
 2.28.0
