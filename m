@@ -7,32 +7,32 @@ X-Spam-Status: No, score=-13.0 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7FC9EC433E0
-	for <intel-gfx@archiver.kernel.org>; Mon, 10 Aug 2020 10:33:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E0118C433E1
+	for <intel-gfx@archiver.kernel.org>; Mon, 10 Aug 2020 10:33:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5FF7C206E9
-	for <intel-gfx@archiver.kernel.org>; Mon, 10 Aug 2020 10:33:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5FF7C206E9
+	by mail.kernel.org (Postfix) with ESMTPS id C246C206E9
+	for <intel-gfx@archiver.kernel.org>; Mon, 10 Aug 2020 10:33:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C246C206E9
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA0F06E3DB;
-	Mon, 10 Aug 2020 10:33:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0933B6E3F0;
+	Mon, 10 Aug 2020 10:33:31 +0000 (UTC)
 Received: from mblankhorst.nl (mblankhorst.nl [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ECC07897E0
- for <intel-gfx@lists.freedesktop.org>; Mon, 10 Aug 2020 10:33:27 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 63DD189FC9
+ for <intel-gfx@lists.freedesktop.org>; Mon, 10 Aug 2020 10:33:29 +0000 (UTC)
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 10 Aug 2020 12:30:46 +0200
-Message-Id: <20200810103103.303818-8-maarten.lankhorst@linux.intel.com>
+Date: Mon, 10 Aug 2020 12:30:55 +0200
+Message-Id: <20200810103103.303818-17-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20200810103103.303818-1-maarten.lankhorst@linux.intel.com>
 References: <20200810103103.303818-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 07/24] drm/i915: Parse command buffer earlier in
- eb_relocate(slow)
+Subject: [Intel-gfx] [PATCH 16/24] drm/i915: Convert
+ i915_gem_object/client_blt.c to use ww locking as well, v2.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,182 +50,488 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-We want to introduce backoff logic, but we need to lock the
-pool object as well for command parsing. Because of this, we
-will need backoff logic for the engine pool obj, move the batch
-validation up slightly to eb_lookup_vmas, and the actual command
-parsing in a separate function which can get called from execbuf
-relocation fast and slowpath.
+This is the last part outside of selftests that still don't use the
+correct lock ordering of timeline->mutex vs resv_lock.
+
+With gem fixed, there are a few places that still get locking wrong:
+- gvt/scheduler.c
+- i915_perf.c
+- Most if not all selftests.
+
+Changes since v1:
+- Add intel_engine_pm_get/put() calls to fix use-after-free when using
+  intel_engine_get_pool().
 
 Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 ---
- .../gpu/drm/i915/gem/i915_gem_execbuffer.c    | 68 ++++++++++---------
- 1 file changed, 37 insertions(+), 31 deletions(-)
+ .../gpu/drm/i915/gem/i915_gem_client_blt.c    |  78 +++++++--
+ .../gpu/drm/i915/gem/i915_gem_object_blt.c    | 152 ++++++++++++------
+ .../gpu/drm/i915/gem/i915_gem_object_blt.h    |   3 +
+ 3 files changed, 163 insertions(+), 70 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-index ebb45fdfad0e..23811fc4c8bb 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-@@ -296,6 +296,8 @@ struct i915_execbuffer {
- 	unsigned long num_fences;
- };
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_client_blt.c b/drivers/gpu/drm/i915/gem/i915_gem_client_blt.c
+index a85907f29c53..272cf3ea68d5 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_client_blt.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_client_blt.c
+@@ -158,6 +158,7 @@ static void clear_pages_worker(struct work_struct *work)
+ 	struct clear_pages_work *w = container_of(work, typeof(*w), work);
+ 	struct drm_i915_gem_object *obj = w->sleeve->vma->obj;
+ 	struct i915_vma *vma = w->sleeve->vma;
++	struct i915_gem_ww_ctx ww;
+ 	struct i915_request *rq;
+ 	struct i915_vma *batch;
+ 	int err = w->dma.error;
+@@ -173,17 +174,20 @@ static void clear_pages_worker(struct work_struct *work)
+ 	obj->read_domains = I915_GEM_GPU_DOMAINS;
+ 	obj->write_domain = 0;
  
-+static int eb_parse(struct i915_execbuffer *eb);
-+
- static inline bool eb_use_cmdparser(const struct i915_execbuffer *eb)
- {
- 	return intel_engine_requires_cmd_parser(eb->engine) ||
-@@ -843,6 +845,7 @@ static struct i915_vma *eb_lookup_vma(struct i915_execbuffer *eb, u32 handle)
+-	err = i915_vma_pin(vma, 0, 0, PIN_USER);
+-	if (unlikely(err))
++	i915_gem_ww_ctx_init(&ww, false);
++	intel_engine_pm_get(w->ce->engine);
++retry:
++	err = intel_context_pin_ww(w->ce, &ww);
++	if (err)
+ 		goto out_signal;
  
- static int eb_lookup_vmas(struct i915_execbuffer *eb)
- {
-+	struct drm_i915_private *i915 = eb->i915;
- 	unsigned int batch = eb_batch_index(eb);
- 	unsigned int i;
- 	int err = 0;
-@@ -856,18 +859,37 @@ static int eb_lookup_vmas(struct i915_execbuffer *eb)
- 		vma = eb_lookup_vma(eb, eb->exec[i].handle);
- 		if (IS_ERR(vma)) {
- 			err = PTR_ERR(vma);
--			break;
-+			goto err;
- 		}
- 
- 		err = eb_validate_vma(eb, &eb->exec[i], vma);
- 		if (unlikely(err)) {
- 			i915_vma_put(vma);
--			break;
-+			goto err;
- 		}
- 
- 		eb_add_vma(eb, i, batch, vma);
+-	batch = intel_emit_vma_fill_blt(w->ce, vma, w->value);
++	batch = intel_emit_vma_fill_blt(w->ce, vma, &ww, w->value);
+ 	if (IS_ERR(batch)) {
+ 		err = PTR_ERR(batch);
+-		goto out_unpin;
++		goto out_ctx;
  	}
  
-+	if (unlikely(eb->batch->flags & EXEC_OBJECT_WRITE)) {
-+		drm_dbg(&i915->drm,
-+			"Attempting to use self-modifying batch buffer\n");
-+		return -EINVAL;
+-	rq = intel_context_create_request(w->ce);
++	rq = i915_request_create(w->ce);
+ 	if (IS_ERR(rq)) {
+ 		err = PTR_ERR(rq);
+ 		goto out_batch;
+@@ -225,9 +229,19 @@ static void clear_pages_worker(struct work_struct *work)
+ 	i915_request_add(rq);
+ out_batch:
+ 	intel_emit_vma_release(w->ce, batch);
+-out_unpin:
+-	i915_vma_unpin(vma);
++out_ctx:
++	intel_context_unpin(w->ce);
+ out_signal:
++	if (err == -EDEADLK) {
++		err = i915_gem_ww_ctx_backoff(&ww);
++		if (!err)
++			goto retry;
 +	}
++	i915_gem_ww_ctx_fini(&ww);
 +
-+	if (range_overflows_t(u64,
-+			      eb->batch_start_offset, eb->batch_len,
-+			      eb->batch->vma->size)) {
-+		drm_dbg(&i915->drm, "Attempting to use out-of-bounds batch\n");
-+		return -EINVAL;
-+	}
++	i915_vma_unpin(w->sleeve->vma);
++	intel_engine_pm_put(w->ce->engine);
 +
-+	if (eb->batch_len == 0)
-+		eb->batch_len = eb->batch->vma->size - eb->batch_start_offset;
-+
-+	return 0;
-+
-+err:
- 	eb->vma[i].vma = NULL;
- 	return err;
- }
-@@ -1802,7 +1824,7 @@ static int eb_prefault_relocations(const struct i915_execbuffer *eb)
- 	return 0;
+ 	if (unlikely(err)) {
+ 		dma_fence_set_error(&w->dma, err);
+ 		dma_fence_signal(&w->dma);
+@@ -235,6 +249,44 @@ static void clear_pages_worker(struct work_struct *work)
+ 	}
  }
  
--static noinline int eb_relocate_slow(struct i915_execbuffer *eb)
-+static noinline int eb_relocate_parse_slow(struct i915_execbuffer *eb)
- {
- 	bool have_copy = false;
- 	struct eb_vma *ev;
-@@ -1868,6 +1890,11 @@ static noinline int eb_relocate_slow(struct i915_execbuffer *eb)
- 	if (err)
- 		goto err;
- 
-+	/* as last step, parse the command buffer */
-+	err = eb_parse(eb);
++static int pin_wait_clear_pages_work(struct clear_pages_work *w,
++				     struct intel_context *ce)
++{
++	struct i915_vma *vma = w->sleeve->vma;
++	struct i915_gem_ww_ctx ww;
++	int err;
++
++	i915_gem_ww_ctx_init(&ww, false);
++retry:
++	err = i915_gem_object_lock(vma->obj, &ww);
 +	if (err)
-+		goto err;
++		goto out;
 +
- 	/*
- 	 * Leave the user relocations as are, this is the painfully slow path,
- 	 * and we want to avoid the complication of dropping the lock whilst
-@@ -1900,7 +1927,7 @@ static noinline int eb_relocate_slow(struct i915_execbuffer *eb)
- 	return err;
- }
++	err = i915_vma_pin_ww(vma, &ww, 0, 0, PIN_USER);
++	if (unlikely(err))
++		goto out;
++
++	err = i915_sw_fence_await_reservation(&w->wait,
++					      vma->obj->base.resv, NULL,
++					      true, 0, I915_FENCE_GFP);
++	if (err)
++		goto err_unpin_vma;
++
++	dma_resv_add_excl_fence(vma->obj->base.resv, &w->dma);
++
++err_unpin_vma:
++	if (err)
++		i915_vma_unpin(vma);
++out:
++	if (err == -EDEADLK) {
++		err = i915_gem_ww_ctx_backoff(&ww);
++		if (!err)
++			goto retry;
++	}
++	i915_gem_ww_ctx_fini(&ww);
++	return err;
++}
++
+ static int __i915_sw_fence_call
+ clear_pages_work_notify(struct i915_sw_fence *fence,
+ 			enum i915_sw_fence_notify state)
+@@ -288,17 +340,9 @@ int i915_gem_schedule_fill_pages_blt(struct drm_i915_gem_object *obj,
+ 	dma_fence_init(&work->dma, &clear_pages_work_ops, &fence_lock, 0, 0);
+ 	i915_sw_fence_init(&work->wait, clear_pages_work_notify);
  
--static int eb_relocate(struct i915_execbuffer *eb)
-+static int eb_relocate_parse(struct i915_execbuffer *eb)
+-	i915_gem_object_lock(obj, NULL);
+-	err = i915_sw_fence_await_reservation(&work->wait,
+-					      obj->base.resv, NULL, true, 0,
+-					      I915_FENCE_GFP);
+-	if (err < 0) {
++	err = pin_wait_clear_pages_work(work, ce);
++	if (err < 0)
+ 		dma_fence_set_error(&work->dma, err);
+-	} else {
+-		dma_resv_add_excl_fence(obj->base.resv, &work->dma);
+-		err = 0;
+-	}
+-	i915_gem_object_unlock(obj);
+ 
+ 	dma_fence_get(&work->dma);
+ 	i915_sw_fence_commit(&work->wait);
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object_blt.c b/drivers/gpu/drm/i915/gem/i915_gem_object_blt.c
+index bfdb32d46877..d93eb36160c9 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_object_blt.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_object_blt.c
+@@ -14,6 +14,7 @@
+ 
+ struct i915_vma *intel_emit_vma_fill_blt(struct intel_context *ce,
+ 					 struct i915_vma *vma,
++					 struct i915_gem_ww_ctx *ww,
+ 					 u32 value)
+ {
+ 	struct drm_i915_private *i915 = ce->vm->i915;
+@@ -39,10 +40,24 @@ struct i915_vma *intel_emit_vma_fill_blt(struct intel_context *ce,
+ 		goto out_pm;
+ 	}
+ 
++	err = i915_gem_object_lock(pool->obj, ww);
++	if (err)
++		goto out_put;
++
++	batch = i915_vma_instance(pool->obj, ce->vm, NULL);
++	if (IS_ERR(batch)) {
++		err = PTR_ERR(batch);
++		goto out_put;
++	}
++
++	err = i915_vma_pin_ww(batch, ww, 0, 0, PIN_USER);
++	if (unlikely(err))
++		goto out_put;
++
+ 	cmd = i915_gem_object_pin_map(pool->obj, I915_MAP_WC);
+ 	if (IS_ERR(cmd)) {
+ 		err = PTR_ERR(cmd);
+-		goto out_put;
++		goto out_unpin;
+ 	}
+ 
+ 	rem = vma->size;
+@@ -84,19 +99,11 @@ struct i915_vma *intel_emit_vma_fill_blt(struct intel_context *ce,
+ 
+ 	intel_gt_chipset_flush(ce->vm->gt);
+ 
+-	batch = i915_vma_instance(pool->obj, ce->vm, NULL);
+-	if (IS_ERR(batch)) {
+-		err = PTR_ERR(batch);
+-		goto out_put;
+-	}
+-
+-	err = i915_vma_pin(batch, 0, 0, PIN_USER);
+-	if (unlikely(err))
+-		goto out_put;
+-
+ 	batch->private = pool;
+ 	return batch;
+ 
++out_unpin:
++	i915_vma_unpin(batch);
+ out_put:
+ 	intel_gt_buffer_pool_put(pool);
+ out_pm:
+@@ -108,11 +115,9 @@ int intel_emit_vma_mark_active(struct i915_vma *vma, struct i915_request *rq)
  {
  	int err;
  
-@@ -1925,10 +1952,10 @@ static int eb_relocate(struct i915_execbuffer *eb)
- 		}
+-	i915_vma_lock(vma);
+ 	err = i915_request_await_object(rq, vma->obj, false);
+ 	if (err == 0)
+ 		err = i915_vma_move_to_active(vma, rq, 0);
+-	i915_vma_unlock(vma);
+ 	if (unlikely(err))
+ 		return err;
  
- 		if (err)
--			return eb_relocate_slow(eb);
-+			return eb_relocate_parse_slow(eb);
+@@ -141,6 +146,7 @@ int i915_gem_object_fill_blt(struct drm_i915_gem_object *obj,
+ 			     struct intel_context *ce,
+ 			     u32 value)
+ {
++	struct i915_gem_ww_ctx ww;
+ 	struct i915_request *rq;
+ 	struct i915_vma *batch;
+ 	struct i915_vma *vma;
+@@ -150,17 +156,28 @@ int i915_gem_object_fill_blt(struct drm_i915_gem_object *obj,
+ 	if (IS_ERR(vma))
+ 		return PTR_ERR(vma);
+ 
+-	err = i915_vma_pin(vma, 0, 0, PIN_USER);
+-	if (unlikely(err))
+-		return err;
++	i915_gem_ww_ctx_init(&ww, true);
++	intel_engine_pm_get(ce->engine);
++retry:
++	err = i915_gem_object_lock(obj, &ww);
++	if (err)
++		goto out;
+ 
+-	batch = intel_emit_vma_fill_blt(ce, vma, value);
++	err = intel_context_pin_ww(ce, &ww);
++	if (err)
++		goto out;
++
++	err = i915_vma_pin_ww(vma, &ww, 0, 0, PIN_USER);
++	if (err)
++		goto out_ctx;
++
++	batch = intel_emit_vma_fill_blt(ce, vma, &ww, value);
+ 	if (IS_ERR(batch)) {
+ 		err = PTR_ERR(batch);
+-		goto out_unpin;
++		goto out_vma;
  	}
  
--	return 0;
-+	return eb_parse(eb);
+-	rq = intel_context_create_request(ce);
++	rq = i915_request_create(ce);
+ 	if (IS_ERR(rq)) {
+ 		err = PTR_ERR(rq);
+ 		goto out_batch;
+@@ -170,11 +187,9 @@ int i915_gem_object_fill_blt(struct drm_i915_gem_object *obj,
+ 	if (unlikely(err))
+ 		goto out_request;
+ 
+-	i915_vma_lock(vma);
+ 	err = move_obj_to_gpu(vma->obj, rq, true);
+ 	if (err == 0)
+ 		err = i915_vma_move_to_active(vma, rq, EXEC_OBJECT_WRITE);
+-	i915_vma_unlock(vma);
+ 	if (unlikely(err))
+ 		goto out_request;
+ 
+@@ -193,8 +208,18 @@ int i915_gem_object_fill_blt(struct drm_i915_gem_object *obj,
+ 	i915_request_add(rq);
+ out_batch:
+ 	intel_emit_vma_release(ce, batch);
+-out_unpin:
++out_vma:
+ 	i915_vma_unpin(vma);
++out_ctx:
++	intel_context_unpin(ce);
++out:
++	if (err == -EDEADLK) {
++		err = i915_gem_ww_ctx_backoff(&ww);
++		if (!err)
++			goto retry;
++	}
++	i915_gem_ww_ctx_fini(&ww);
++	intel_engine_pm_put(ce->engine);
+ 	return err;
  }
  
- static int eb_move_to_gpu(struct i915_execbuffer *eb)
-@@ -3046,7 +3073,7 @@ i915_gem_do_execbuffer(struct drm_device *dev,
+@@ -210,6 +235,7 @@ static bool wa_1209644611_applies(struct drm_i915_private *i915, u32 size)
+ }
+ 
+ struct i915_vma *intel_emit_vma_copy_blt(struct intel_context *ce,
++					 struct i915_gem_ww_ctx *ww,
+ 					 struct i915_vma *src,
+ 					 struct i915_vma *dst)
+ {
+@@ -236,10 +262,24 @@ struct i915_vma *intel_emit_vma_copy_blt(struct intel_context *ce,
+ 		goto out_pm;
+ 	}
+ 
++	err = i915_gem_object_lock(pool->obj, ww);
++	if (err)
++		goto out_put;
++
++	batch = i915_vma_instance(pool->obj, ce->vm, NULL);
++	if (IS_ERR(batch)) {
++		err = PTR_ERR(batch);
++		goto out_put;
++	}
++
++	err = i915_vma_pin_ww(batch, ww, 0, 0, PIN_USER);
++	if (unlikely(err))
++		goto out_put;
++
+ 	cmd = i915_gem_object_pin_map(pool->obj, I915_MAP_WC);
+ 	if (IS_ERR(cmd)) {
+ 		err = PTR_ERR(cmd);
+-		goto out_put;
++		goto out_unpin;
+ 	}
+ 
+ 	rem = src->size;
+@@ -296,20 +336,11 @@ struct i915_vma *intel_emit_vma_copy_blt(struct intel_context *ce,
+ 	i915_gem_object_unpin_map(pool->obj);
+ 
+ 	intel_gt_chipset_flush(ce->vm->gt);
+-
+-	batch = i915_vma_instance(pool->obj, ce->vm, NULL);
+-	if (IS_ERR(batch)) {
+-		err = PTR_ERR(batch);
+-		goto out_put;
+-	}
+-
+-	err = i915_vma_pin(batch, 0, 0, PIN_USER);
+-	if (unlikely(err))
+-		goto out_put;
+-
+ 	batch->private = pool;
+ 	return batch;
+ 
++out_unpin:
++	i915_vma_unpin(batch);
+ out_put:
+ 	intel_gt_buffer_pool_put(pool);
+ out_pm:
+@@ -321,10 +352,9 @@ int i915_gem_object_copy_blt(struct drm_i915_gem_object *src,
+ 			     struct drm_i915_gem_object *dst,
+ 			     struct intel_context *ce)
+ {
+-	struct drm_gem_object *objs[] = { &src->base, &dst->base };
+ 	struct i915_address_space *vm = ce->vm;
+ 	struct i915_vma *vma[2], *batch;
+-	struct ww_acquire_ctx acquire;
++	struct i915_gem_ww_ctx ww;
+ 	struct i915_request *rq;
+ 	int err, i;
+ 
+@@ -332,25 +362,36 @@ int i915_gem_object_copy_blt(struct drm_i915_gem_object *src,
+ 	if (IS_ERR(vma[0]))
+ 		return PTR_ERR(vma[0]);
+ 
+-	err = i915_vma_pin(vma[0], 0, 0, PIN_USER);
+-	if (unlikely(err))
+-		return err;
+-
+ 	vma[1] = i915_vma_instance(dst, vm, NULL);
+ 	if (IS_ERR(vma[1]))
+-		goto out_unpin_src;
++		return PTR_ERR(vma);
+ 
+-	err = i915_vma_pin(vma[1], 0, 0, PIN_USER);
++	i915_gem_ww_ctx_init(&ww, true);
++	intel_engine_pm_get(ce->engine);
++retry:
++	err = i915_gem_object_lock(src, &ww);
++	if (!err)
++		err = i915_gem_object_lock(dst, &ww);
++	if (!err)
++		err = intel_context_pin_ww(ce, &ww);
++	if (err)
++		goto out;
++
++	err = i915_vma_pin_ww(vma[0], &ww, 0, 0, PIN_USER);
++	if (err)
++		goto out_ctx;
++
++	err = i915_vma_pin_ww(vma[1], &ww, 0, 0, PIN_USER);
  	if (unlikely(err))
- 		goto err_context;
+ 		goto out_unpin_src;
  
--	err = eb_relocate(&eb);
-+	err = eb_relocate_parse(&eb);
- 	if (err) {
- 		/*
- 		 * If the user expects the execobject.offset and
-@@ -3059,33 +3086,10 @@ i915_gem_do_execbuffer(struct drm_device *dev,
- 		goto err_vma;
+-	batch = intel_emit_vma_copy_blt(ce, vma[0], vma[1]);
++	batch = intel_emit_vma_copy_blt(ce, &ww, vma[0], vma[1]);
+ 	if (IS_ERR(batch)) {
+ 		err = PTR_ERR(batch);
+ 		goto out_unpin_dst;
  	}
  
--	if (unlikely(eb.batch->flags & EXEC_OBJECT_WRITE)) {
--		drm_dbg(&i915->drm,
--			"Attempting to use self-modifying batch buffer\n");
--		err = -EINVAL;
--		goto err_vma;
--	}
--
--	if (range_overflows_t(u64,
--			      eb.batch_start_offset, eb.batch_len,
--			      eb.batch->vma->size)) {
--		drm_dbg(&i915->drm, "Attempting to use out-of-bounds batch\n");
--		err = -EINVAL;
--		goto err_vma;
--	}
--
--	if (eb.batch_len == 0)
--		eb.batch_len = eb.batch->vma->size - eb.batch_start_offset;
--
--	err = eb_parse(&eb);
--	if (err)
--		goto err_vma;
--
- 	/*
- 	 * snb/ivb/vlv conflate the "batch in ppgtt" bit with the "non-secure
- 	 * batch" bit. Hence we need to pin secure batches into the global gtt.
- 	 * hsw should have this fixed, but bdw mucks it up again. */
--	batch = eb.batch->vma;
- 	if (eb.batch_flags & I915_DISPATCH_SECURE) {
- 		struct i915_vma *vma;
+-	rq = intel_context_create_request(ce);
++	rq = i915_request_create(ce);
+ 	if (IS_ERR(rq)) {
+ 		err = PTR_ERR(rq);
+ 		goto out_batch;
+@@ -360,14 +401,10 @@ int i915_gem_object_copy_blt(struct drm_i915_gem_object *src,
+ 	if (unlikely(err))
+ 		goto out_request;
  
-@@ -3099,13 +3103,15 @@ i915_gem_do_execbuffer(struct drm_device *dev,
- 		 *   fitting due to fragmentation.
- 		 * So this is actually safe.
- 		 */
--		vma = i915_gem_object_ggtt_pin(batch->obj, NULL, 0, 0, 0);
-+		vma = i915_gem_object_ggtt_pin(eb.batch->vma->obj, NULL, 0, 0, 0);
- 		if (IS_ERR(vma)) {
- 			err = PTR_ERR(vma);
- 			goto err_parse;
- 		}
- 
- 		batch = vma;
-+	} else {
-+		batch = eb.batch->vma;
+-	err = drm_gem_lock_reservations(objs, ARRAY_SIZE(objs), &acquire);
+-	if (unlikely(err))
+-		goto out_request;
+-
+ 	for (i = 0; i < ARRAY_SIZE(vma); i++) {
+ 		err = move_obj_to_gpu(vma[i]->obj, rq, i);
+ 		if (unlikely(err))
+-			goto out_unlock;
++			goto out_request;
  	}
  
- 	/* All GPU relocation batches must be submitted prior to the user rq */
+ 	for (i = 0; i < ARRAY_SIZE(vma); i++) {
+@@ -375,20 +412,19 @@ int i915_gem_object_copy_blt(struct drm_i915_gem_object *src,
+ 
+ 		err = i915_vma_move_to_active(vma[i], rq, flags);
+ 		if (unlikely(err))
+-			goto out_unlock;
++			goto out_request;
+ 	}
+ 
+ 	if (rq->engine->emit_init_breadcrumb) {
+ 		err = rq->engine->emit_init_breadcrumb(rq);
+ 		if (unlikely(err))
+-			goto out_unlock;
++			goto out_request;
+ 	}
+ 
+ 	err = rq->engine->emit_bb_start(rq,
+ 					batch->node.start, batch->node.size,
+ 					0);
+-out_unlock:
+-	drm_gem_unlock_reservations(objs, ARRAY_SIZE(objs), &acquire);
++
+ out_request:
+ 	if (unlikely(err))
+ 		i915_request_set_error_once(rq, err);
+@@ -400,6 +436,16 @@ int i915_gem_object_copy_blt(struct drm_i915_gem_object *src,
+ 	i915_vma_unpin(vma[1]);
+ out_unpin_src:
+ 	i915_vma_unpin(vma[0]);
++out_ctx:
++	intel_context_unpin(ce);
++out:
++	if (err == -EDEADLK) {
++		err = i915_gem_ww_ctx_backoff(&ww);
++		if (!err)
++			goto retry;
++	}
++	i915_gem_ww_ctx_fini(&ww);
++	intel_engine_pm_put(ce->engine);
+ 	return err;
+ }
+ 
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object_blt.h b/drivers/gpu/drm/i915/gem/i915_gem_object_blt.h
+index 8bcd336a90dc..2409fdcccf0e 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_object_blt.h
++++ b/drivers/gpu/drm/i915/gem/i915_gem_object_blt.h
+@@ -13,12 +13,15 @@
+ #include "i915_vma.h"
+ 
+ struct drm_i915_gem_object;
++struct i915_gem_ww_ctx;
+ 
+ struct i915_vma *intel_emit_vma_fill_blt(struct intel_context *ce,
+ 					 struct i915_vma *vma,
++					 struct i915_gem_ww_ctx *ww,
+ 					 u32 value);
+ 
+ struct i915_vma *intel_emit_vma_copy_blt(struct intel_context *ce,
++					 struct i915_gem_ww_ctx *ww,
+ 					 struct i915_vma *src,
+ 					 struct i915_vma *dst);
+ 
 -- 
 2.28.0
 
