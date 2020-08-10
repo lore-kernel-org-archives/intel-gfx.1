@@ -7,32 +7,32 @@ X-Spam-Status: No, score=-13.0 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3AFEDC433E0
-	for <intel-gfx@archiver.kernel.org>; Mon, 10 Aug 2020 10:33:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1486AC433E0
+	for <intel-gfx@archiver.kernel.org>; Mon, 10 Aug 2020 10:33:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 18651206E9
-	for <intel-gfx@archiver.kernel.org>; Mon, 10 Aug 2020 10:33:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 18651206E9
+	by mail.kernel.org (Postfix) with ESMTPS id E5F5F206E9
+	for <intel-gfx@archiver.kernel.org>; Mon, 10 Aug 2020 10:33:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E5F5F206E9
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C475897E0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 246B289C3B;
 	Mon, 10 Aug 2020 10:33:30 +0000 (UTC)
 Received: from mblankhorst.nl (mblankhorst.nl [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 645B36E0E3
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 67A816E3D0
  for <intel-gfx@lists.freedesktop.org>; Mon, 10 Aug 2020 10:33:29 +0000 (UTC)
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 10 Aug 2020 12:30:57 +0200
-Message-Id: <20200810103103.303818-19-maarten.lankhorst@linux.intel.com>
+Date: Mon, 10 Aug 2020 12:30:59 +0200
+Message-Id: <20200810103103.303818-21-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20200810103103.303818-1-maarten.lankhorst@linux.intel.com>
 References: <20200810103103.303818-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 18/24] drm/i915: Convert i915_perf to ww locking
- as well
+Subject: [Intel-gfx] [PATCH 20/24] drm/i915/selftests: Fix locking inversion
+ in lrc selftest.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,124 +50,63 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-We have the ordering of timeline->mutex vs resv_lock wrong,
-convert the i915_pin_vma and intel_context_pin as well to
-future-proof this.
-
-We may need to do future changes to do this more transaction-like,
-and only get down to a single i915_gem_ww_ctx, but for now this
-should work.
+This function does not use intel_context_create_request, so it has
+to use the same locking order as normal code. This is required to
+shut up lockdep in selftests.
 
 Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 ---
- drivers/gpu/drm/i915/i915_perf.c | 57 +++++++++++++++++++++++---------
- 1 file changed, 42 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/i915/gt/selftest_lrc.c | 15 ++++++++++++---
+ 1 file changed, 12 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
-index c6f6370283cf..e94976976571 100644
---- a/drivers/gpu/drm/i915/i915_perf.c
-+++ b/drivers/gpu/drm/i915/i915_perf.c
-@@ -1195,24 +1195,39 @@ static struct intel_context *oa_pin_context(struct i915_perf_stream *stream)
- 	struct i915_gem_engines_iter it;
- 	struct i915_gem_context *ctx = stream->ctx;
- 	struct intel_context *ce;
--	int err;
-+	struct i915_gem_ww_ctx ww;
-+	int err = -ENODEV;
- 
- 	for_each_gem_engine(ce, i915_gem_context_lock_engines(ctx), it) {
- 		if (ce->engine != stream->engine) /* first match! */
- 			continue;
- 
--		/*
--		 * As the ID is the gtt offset of the context's vma we
--		 * pin the vma to ensure the ID remains fixed.
--		 */
--		err = intel_context_pin(ce);
--		if (err == 0) {
--			stream->pinned_ctx = ce;
--			break;
--		}
-+		err = 0;
-+		break;
- 	}
- 	i915_gem_context_unlock_engines(ctx);
- 
-+	if (err)
-+		return ERR_PTR(err);
-+
-+	i915_gem_ww_ctx_init(&ww, true);
-+retry:
-+	/*
-+	 * As the ID is the gtt offset of the context's vma we
-+	 * pin the vma to ensure the ID remains fixed.
-+	 */
-+	err = intel_context_pin_ww(ce, &ww);
-+	if (err == -EDEADLK) {
-+		err = i915_gem_ww_ctx_backoff(&ww);
-+		if (!err)
-+			goto retry;
-+	}
-+	i915_gem_ww_ctx_fini(&ww);
-+
-+	if (err)
-+		return ERR_PTR(err);
-+
-+	stream->pinned_ctx = ce;
- 	return stream->pinned_ctx;
- }
- 
-@@ -1923,15 +1938,22 @@ emit_oa_config(struct i915_perf_stream *stream,
+diff --git a/drivers/gpu/drm/i915/gt/selftest_lrc.c b/drivers/gpu/drm/i915/gt/selftest_lrc.c
+index 7faba9f91224..95d41c01d0e0 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_lrc.c
++++ b/drivers/gpu/drm/i915/gt/selftest_lrc.c
+@@ -4996,6 +4996,7 @@ static int __live_lrc_state(struct intel_engine_cs *engine,
  {
+ 	struct intel_context *ce;
  	struct i915_request *rq;
- 	struct i915_vma *vma;
 +	struct i915_gem_ww_ctx ww;
- 	int err;
+ 	enum {
+ 		RING_START_IDX = 0,
+ 		RING_TAIL_IDX,
+@@ -5010,7 +5011,11 @@ static int __live_lrc_state(struct intel_engine_cs *engine,
+ 	if (IS_ERR(ce))
+ 		return PTR_ERR(ce);
  
- 	vma = get_oa_vma(stream, oa_config);
- 	if (IS_ERR(vma))
- 		return PTR_ERR(vma);
- 
--	err = i915_vma_pin(vma, 0, 0, PIN_GLOBAL | PIN_HIGH);
-+	i915_gem_ww_ctx_init(&ww, true);
+-	err = intel_context_pin(ce);
++	i915_gem_ww_ctx_init(&ww, false);
 +retry:
-+	err = i915_gem_object_lock(vma->obj, &ww);
-+	if (err)
-+		goto err;
-+
-+	err = i915_vma_pin_ww(vma, &ww, 0, 0, PIN_GLOBAL | PIN_HIGH);
++	err = i915_gem_object_lock(scratch->obj, &ww);
++	if (!err)
++		err = intel_context_pin_ww(ce, &ww);
  	if (err)
--		goto err_vma_put;
-+		goto err;
+ 		goto err_put;
  
- 	intel_engine_pm_get(ce->engine);
- 	rq = i915_request_create(ce);
-@@ -1953,11 +1975,9 @@ emit_oa_config(struct i915_perf_stream *stream,
- 			goto err_add_request;
- 	}
+@@ -5039,11 +5044,9 @@ static int __live_lrc_state(struct intel_engine_cs *engine,
+ 	*cs++ = i915_ggtt_offset(scratch) + RING_TAIL_IDX * sizeof(u32);
+ 	*cs++ = 0;
  
--	i915_vma_lock(vma);
- 	err = i915_request_await_object(rq, vma->obj, 0);
+-	i915_vma_lock(scratch);
+ 	err = i915_request_await_object(rq, scratch->obj, true);
  	if (!err)
- 		err = i915_vma_move_to_active(vma, rq, 0);
--	i915_vma_unlock(vma);
- 	if (err)
- 		goto err_add_request;
+ 		err = i915_vma_move_to_active(scratch, rq, EXEC_OBJECT_WRITE);
+-	i915_vma_unlock(scratch);
  
-@@ -1971,7 +1991,14 @@ emit_oa_config(struct i915_perf_stream *stream,
+ 	i915_request_get(rq);
  	i915_request_add(rq);
- err_vma_unpin:
- 	i915_vma_unpin(vma);
--err_vma_put:
-+err:
+@@ -5080,6 +5083,12 @@ static int __live_lrc_state(struct intel_engine_cs *engine,
+ err_unpin:
+ 	intel_context_unpin(ce);
+ err_put:
 +	if (err == -EDEADLK) {
 +		err = i915_gem_ww_ctx_backoff(&ww);
 +		if (!err)
 +			goto retry;
 +	}
-+
 +	i915_gem_ww_ctx_fini(&ww);
- 	i915_vma_put(vma);
+ 	intel_context_put(ce);
  	return err;
  }
 -- 
