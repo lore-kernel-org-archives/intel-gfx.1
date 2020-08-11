@@ -2,55 +2,40 @@ Return-Path: <SRS0=3cRA=BV=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.5 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-4.0 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EA347C433DF
-	for <intel-gfx@archiver.kernel.org>; Tue, 11 Aug 2020 08:57:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F0EA0C433E0
+	for <intel-gfx@archiver.kernel.org>; Tue, 11 Aug 2020 09:13:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DD05A20678
-	for <intel-gfx@archiver.kernel.org>; Tue, 11 Aug 2020 08:57:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DD05A20678
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id AC43E2076B
+	for <intel-gfx@archiver.kernel.org>; Tue, 11 Aug 2020 09:13:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AC43E2076B
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F7F889B96;
-	Tue, 11 Aug 2020 08:57:22 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1829C89B96;
- Tue, 11 Aug 2020 08:57:21 +0000 (UTC)
-IronPort-SDR: KRhEesK2wzOZRyMFbHg48jUEnpPElz8cWe0TWJ2FVr7qeMb8cYgeUgmVy+wRIpdn+w1whcGomi
- 4EAEF4pfpzig==
-X-IronPort-AV: E=McAfee;i="6000,8403,9709"; a="218030519"
-X-IronPort-AV: E=Sophos;i="5.75,460,1589266800"; 
- d="asc'?scan'208";a="218030519"
-X-Amp-Result: UNKNOWN
-X-Amp-Original-Verdict: FILE UNKNOWN
-X-Amp-File-Uploaded: False
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Aug 2020 01:57:20 -0700
-IronPort-SDR: 6w6pEaNMHsf3yFldUzEZW7pA/PGPHU3iNV03jY5lWj7tErsW5U82MaqytpMB0xbzib4Zfiv61T
- 11w2wjZrKpOg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.75,460,1589266800"; 
- d="asc'?scan'208";a="494611047"
-Received: from zhen-hp.sh.intel.com (HELO zhen-hp) ([10.239.160.147])
- by fmsmga006.fm.intel.com with ESMTP; 11 Aug 2020 01:57:18 -0700
-Date: Tue, 11 Aug 2020 16:39:09 +0800
-From: Zhenyu Wang <zhenyuw@linux.intel.com>
-To: Chris Wilson <chris@chris-wilson.co.uk>
-Message-ID: <20200811083909.GM27035@zhen-hp.sh.intel.com>
-References: <20200811030209.21058-1-yan.y.zhao@intel.com>
- <159713437103.2955.4439985576665396417@build.alporthouse.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3780A89C09;
+	Tue, 11 Aug 2020 09:13:42 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 864B789C09;
+ Tue, 11 Aug 2020 09:13:40 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 806E6A47E9;
+ Tue, 11 Aug 2020 09:13:40 +0000 (UTC)
 MIME-Version: 1.0
-In-Reply-To: <159713437103.2955.4439985576665396417@build.alporthouse.com>
-User-Agent: Mutt/1.10.0 (2018-05-17)
-Subject: Re: [Intel-gfx] [PATCH] drm/i915/gt:fix raw-wakeref not held
- calltrace in vGPU
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Gaurav K Singh" <gaurav.k.singh@intel.com>
+Date: Tue, 11 Aug 2020 09:13:40 -0000
+Message-ID: <159713722050.3770.17753195394376869508@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20200807115633.16328-1-gaurav.k.singh@intel.com>
+In-Reply-To: <20200807115633.16328-1-gaurav.k.singh@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_i915/gem=3A_Force_HW_tracking_to_exit_PSR_=28rev2=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,59 +48,32 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Zhenyu Wang <zhenyuw@linux.intel.com>
-Cc: intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- Yan Zhao <yan.y.zhao@intel.com>
-Content-Type: multipart/mixed; boundary="===============1902971479=="
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+== Series Details ==
 
---===============1902971479==
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="APsrsY0yTFDXy1q8"
-Content-Disposition: inline
+Series: i915/gem: Force HW tracking to exit PSR (rev2)
+URL   : https://patchwork.freedesktop.org/series/80391/
+State : warning
 
+== Summary ==
 
---APsrsY0yTFDXy1q8
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+$ dim checkpatch origin/drm-tip
+f25572dd467f i915/gem: Force HW tracking to exit PSR
+-:44: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#44: FILE: drivers/gpu/drm/i915/gem/i915_gem_domain.c:561:
++			i915_gem_object_invalidate_frontbuffer(obj,
++								ORIGIN_CPU);
 
-On 2020.08.11 09:26:11 +0100, Chris Wilson wrote:
-> Quoting Yan Zhao (2020-08-11 04:02:09)
-> > UNCORE_HAS_FORCEWAKE is not turned on when intel_vgpu_active() returns
-> > true, so the guest mmio writes go to gen2_write32().
->=20
-> The vgpu writes are just memory traps, the device wakeref should not be
-> required. It seems like we've accidentally added the assert to the wrong
-> io accessors.
+total: 0 errors, 0 warnings, 1 checks, 22 lines checked
 
-yeah, I agree. I did remember we didn't have that assert before for
-vgpu case... maybe better hook with explicit vgpu_read()/vgpu_write()
-that won't be affected by other changes.
-
---APsrsY0yTFDXy1q8
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iF0EARECAB0WIQTXuabgHDW6LPt9CICxBBozTXgYJwUCXzJZLQAKCRCxBBozTXgY
-J1h0AJ9/XbyF3jeaoSuF1hm+FEEWH7I1OgCfQAOIVos3VAmLu4wrgp7BwMAP314=
-=y+Gq
------END PGP SIGNATURE-----
-
---APsrsY0yTFDXy1q8--
-
---===============1902971479==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
 
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-
---===============1902971479==--
