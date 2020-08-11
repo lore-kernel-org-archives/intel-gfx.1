@@ -7,58 +7,59 @@ X-Spam-Status: No, score=-9.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D11D3C433E4
-	for <intel-gfx@archiver.kernel.org>; Tue, 11 Aug 2020 20:06:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5DA7CC433EA
+	for <intel-gfx@archiver.kernel.org>; Tue, 11 Aug 2020 20:06:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A2A8F20774
-	for <intel-gfx@archiver.kernel.org>; Tue, 11 Aug 2020 20:06:49 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 318B120774
+	for <intel-gfx@archiver.kernel.org>; Tue, 11 Aug 2020 20:06:50 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="gt9J2xi2"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A2A8F20774
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="GFfYteHj"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 318B120774
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A10096E832;
-	Tue, 11 Aug 2020 20:06:48 +0000 (UTC)
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com
- [207.211.31.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E4B06E82C
- for <intel-gfx@lists.freedesktop.org>; Tue, 11 Aug 2020 20:06:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 64A846E82C;
+	Tue, 11 Aug 2020 20:06:49 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF7696E82C
+ for <intel-gfx@lists.freedesktop.org>; Tue, 11 Aug 2020 20:06:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1597176405;
+ s=mimecast20190719; t=1597176406;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=AhcvER536skwh1frvQT5MeeGfBQaW3XChUL6+sO3t0s=;
- b=gt9J2xi20NY6Q3lJXiUaDWGPa3MbCaJPYd8KospPSkqz0OuEpsrzzkz2itL51k80JIDuwv
- rdJxB6p/DSOqcvFHWTecmUah4BFZR6BQUs75m+hZSbM7u7NqIG+n1q6WBlGqiHKRmGOZzK
- mvWAD5RaxATogLCo2o2Ly3sGqFDoRmo=
+ bh=sgg37WZh69LSLwxGUtSXIG4MJ9CWasQ79mUGDw7UX14=;
+ b=GFfYteHj4ta0aw8tyTnK0tb/uq+2y1ZU+HMRITI8/tuJvTRvk0E+qdmUuAVockuIciir71
+ 0+UfyGqlLcwZ6H4jUkANEn/5rZ1UywmxwIdjAZEkGew0x5N799J0nk1aZHa07QwhKYtVbE
+ afjxIc6bJ7Hj60pdN2c19+WtZYnSQUQ=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-285-WOfAwr5KPz-iuXpgqm4tMw-1; Tue, 11 Aug 2020 16:06:43 -0400
-X-MC-Unique: WOfAwr5KPz-iuXpgqm4tMw-1
+ us-mta-442-ahYqJW-DNBuT28W1k5_iUg-1; Tue, 11 Aug 2020 16:05:41 -0400
+X-MC-Unique: ahYqJW-DNBuT28W1k5_iUg-1
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
  [10.5.11.14])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 6BCDC800479;
- Tue, 11 Aug 2020 20:06:41 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id EA4EC1853DAB;
+ Tue, 11 Aug 2020 20:05:39 +0000 (UTC)
 Received: from Ruby.redhat.com (ovpn-119-184.rdu2.redhat.com [10.10.119.184])
- by smtp.corp.redhat.com (Postfix) with ESMTP id E67B05D9DD;
- Tue, 11 Aug 2020 20:06:35 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id AF1025D9DD;
+ Tue, 11 Aug 2020 20:05:38 +0000 (UTC)
 From: Lyude Paul <lyude@redhat.com>
 To: nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
-Date: Tue, 11 Aug 2020 16:04:52 -0400
-Message-Id: <20200811200457.134743-16-lyude@redhat.com>
+Date: Tue, 11 Aug 2020 16:04:38 -0400
+Message-Id: <20200811200457.134743-2-lyude@redhat.com>
 In-Reply-To: <20200811200457.134743-1-lyude@redhat.com>
 References: <20200811200457.134743-1-lyude@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
-Subject: [Intel-gfx] [RFC 15/20] drm/i915/dp: Extract drm_dp_has_sink_count()
+Subject: [Intel-gfx] [RFC 01/20] drm/nouveau/kms: Fix some indenting in
+ nouveau_dp_detect()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,136 +72,45 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@linux.ie>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- open list <linux-kernel@vger.kernel.org>, Maxime Ripard <mripard@kernel.org>,
- Wambui Karuga <wambui.karugax@gmail.com>
+Cc: David Airlie <airlied@linux.ie>, Ben Skeggs <bskeggs@redhat.com>,
+ open list <linux-kernel@vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Since other drivers are also going to need to be aware of the sink count
-in order to do proper dongle detection, we might as well steal i915's
-DP_SINK_COUNT helpers and move them into DRM helpers so that other
-dirvers can use them as well.
-
-Note that this also starts using intel_dp_has_sink_count() in
-intel_dp_detect_dpcd(), which is a functional change.
-
 Signed-off-by: Lyude Paul <lyude@redhat.com>
 ---
- drivers/gpu/drm/drm_dp_helper.c         | 22 ++++++++++++++++++++++
- drivers/gpu/drm/i915/display/intel_dp.c | 21 ++++++++++++---------
- include/drm/drm_dp_helper.h             |  8 +++++++-
- 3 files changed, 41 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/nouveau/nouveau_dp.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_dp_helper.c b/drivers/gpu/drm/drm_dp_helper.c
-index 9703b33599c3b..05bb47e589731 100644
---- a/drivers/gpu/drm/drm_dp_helper.c
-+++ b/drivers/gpu/drm/drm_dp_helper.c
-@@ -700,6 +700,28 @@ void drm_dp_set_subconnector_property(struct drm_connector *connector,
- }
- EXPORT_SYMBOL(drm_dp_set_subconnector_property);
+diff --git a/drivers/gpu/drm/nouveau/nouveau_dp.c b/drivers/gpu/drm/nouveau/nouveau_dp.c
+index 8a0f7994e1aeb..ee778ddc95fae 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_dp.c
++++ b/drivers/gpu/drm/nouveau/nouveau_dp.c
+@@ -76,10 +76,10 @@ nouveau_dp_detect(struct nouveau_encoder *nv_encoder)
+ 	nv_encoder->dp.link_nr = dpcd[2] & DP_MAX_LANE_COUNT_MASK;
  
-+/**
-+ * drm_dp_has_sink_count() - Check whether a given connector has a valid sink
-+ * count
-+ * @connector: The DRM connector to check
-+ * @dpcd: A cached copy of the connector's DPCD RX capabilities
-+ * @desc: A cached copy of the connector's DP descriptor
-+ *
-+ * Returns: %True if the (e)DP connector has a valid sink count that should
-+ * be probed, %false otherwise.
-+ */
-+bool drm_dp_has_sink_count(struct drm_connector *connector,
-+			   const u8 dpcd[DP_RECEIVER_CAP_SIZE],
-+			   const struct drm_dp_desc *desc)
-+{
-+	/* Some eDP panels don't set a valid value for the sink count */
-+	return connector->connector_type != DRM_MODE_CONNECTOR_eDP &&
-+		dpcd[DP_DPCD_REV] >= DP_DPCD_REV_11 &&
-+		dpcd[DP_DOWNSTREAMPORT_PRESENT] & DP_DWN_STRM_PORT_PRESENT &&
-+		!drm_dp_has_quirk(desc, 0, DP_DPCD_QUIRK_NO_SINK_COUNT);
-+}
-+EXPORT_SYMBOL(drm_dp_has_sink_count);
-+
- /*
-  * I2C-over-AUX implementation
-  */
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 984e49194ca31..35a4779a442e2 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -4634,6 +4634,16 @@ intel_edp_init_dpcd(struct intel_dp *intel_dp)
- 	return true;
- }
+ 	NV_DEBUG(drm, "display: %dx%d dpcd 0x%02x\n",
+-		     nv_encoder->dp.link_nr, nv_encoder->dp.link_bw, dpcd[0]);
++		 nv_encoder->dp.link_nr, nv_encoder->dp.link_bw, dpcd[0]);
+ 	NV_DEBUG(drm, "encoder: %dx%d\n",
+-		     nv_encoder->dcb->dpconf.link_nr,
+-		     nv_encoder->dcb->dpconf.link_bw);
++		 nv_encoder->dcb->dpconf.link_nr,
++		 nv_encoder->dcb->dpconf.link_bw);
  
-+static bool
-+intel_dp_has_sink_count(struct intel_dp *intel_dp)
-+{
-+	if (!intel_dp->attached_connector)
-+		return false;
-+
-+	return drm_dp_has_sink_count(&intel_dp->attached_connector->base,
-+				     intel_dp->dpcd,
-+				     &intel_dp->desc);
-+}
+ 	if (nv_encoder->dcb->dpconf.link_nr < nv_encoder->dp.link_nr)
+ 		nv_encoder->dp.link_nr = nv_encoder->dcb->dpconf.link_nr;
+@@ -87,7 +87,7 @@ nouveau_dp_detect(struct nouveau_encoder *nv_encoder)
+ 		nv_encoder->dp.link_bw = nv_encoder->dcb->dpconf.link_bw;
  
- static bool
- intel_dp_get_dpcd(struct intel_dp *intel_dp)
-@@ -4653,13 +4663,7 @@ intel_dp_get_dpcd(struct intel_dp *intel_dp)
- 		intel_dp_set_common_rates(intel_dp);
- 	}
+ 	NV_DEBUG(drm, "maximum: %dx%d\n",
+-		     nv_encoder->dp.link_nr, nv_encoder->dp.link_bw);
++		 nv_encoder->dp.link_nr, nv_encoder->dp.link_bw);
  
--	/*
--	 * Some eDP panels do not set a valid value for sink count, that is why
--	 * it don't care about read it here and in intel_edp_init_dpcd().
--	 */
--	if (!intel_dp_is_edp(intel_dp) &&
--	    !drm_dp_has_quirk(&intel_dp->desc, 0,
--			      DP_DPCD_QUIRK_NO_SINK_COUNT)) {
-+	if (intel_dp_has_sink_count(intel_dp)) {
- 		u8 count;
- 		ssize_t r;
+ 	nouveau_dp_probe_oui(dev, aux, dpcd);
  
-@@ -5939,9 +5943,8 @@ intel_dp_detect_dpcd(struct intel_dp *intel_dp)
- 		return connector_status_connected;
- 
- 	/* If we're HPD-aware, SINK_COUNT changes dynamically */
--	if (intel_dp->dpcd[DP_DPCD_REV] >= 0x11 &&
-+	if (intel_dp_has_sink_count(intel_dp) &&
- 	    intel_dp->downstream_ports[0] & DP_DS_PORT_HPD) {
--
- 		return intel_dp->sink_count ?
- 		connector_status_connected : connector_status_disconnected;
- 	}
-diff --git a/include/drm/drm_dp_helper.h b/include/drm/drm_dp_helper.h
-index 1349f16564ace..a1413a531eaf4 100644
---- a/include/drm/drm_dp_helper.h
-+++ b/include/drm/drm_dp_helper.h
-@@ -1631,6 +1631,11 @@ void drm_dp_set_subconnector_property(struct drm_connector *connector,
- 				      const u8 *dpcd,
- 				      const u8 port_cap[4]);
- 
-+struct drm_dp_desc;
-+bool drm_dp_has_sink_count(struct drm_connector *connector,
-+			   const u8 dpcd[DP_RECEIVER_CAP_SIZE],
-+			   const struct drm_dp_desc *desc);
-+
- void drm_dp_remote_aux_init(struct drm_dp_aux *aux);
- void drm_dp_aux_init(struct drm_dp_aux *aux);
- int drm_dp_aux_register(struct drm_dp_aux *aux);
-@@ -1689,7 +1694,8 @@ enum drm_dp_quirk {
- 	 * @DP_DPCD_QUIRK_NO_SINK_COUNT:
- 	 *
- 	 * The device does not set SINK_COUNT to a non-zero value.
--	 * The driver should ignore SINK_COUNT during detection.
-+	 * The driver should ignore SINK_COUNT during detection. Note that
-+	 * drm_dp_has_sink_count() automatically checks for this quirk.
- 	 */
- 	DP_DPCD_QUIRK_NO_SINK_COUNT,
- 	/**
 -- 
 2.26.2
 
