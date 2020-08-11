@@ -6,36 +6,36 @@ X-Spam-Status: No, score=-4.0 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F0EA0C433E0
-	for <intel-gfx@archiver.kernel.org>; Tue, 11 Aug 2020 09:13:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id ED81CC433E0
+	for <intel-gfx@archiver.kernel.org>; Tue, 11 Aug 2020 09:13:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AC43E2076B
-	for <intel-gfx@archiver.kernel.org>; Tue, 11 Aug 2020 09:13:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AC43E2076B
+	by mail.kernel.org (Postfix) with ESMTPS id C87CF2076B
+	for <intel-gfx@archiver.kernel.org>; Tue, 11 Aug 2020 09:13:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C87CF2076B
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3780A89C09;
-	Tue, 11 Aug 2020 09:13:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A63089D2E;
+	Tue, 11 Aug 2020 09:13:59 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 864B789C09;
- Tue, 11 Aug 2020 09:13:40 +0000 (UTC)
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 222E589C6A;
+ Tue, 11 Aug 2020 09:13:59 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 806E6A47E9;
- Tue, 11 Aug 2020 09:13:40 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id 20118A47E9;
+ Tue, 11 Aug 2020 09:13:59 +0000 (UTC)
 MIME-Version: 1.0
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Gaurav K Singh" <gaurav.k.singh@intel.com>
-Date: Tue, 11 Aug 2020 09:13:40 -0000
-Message-ID: <159713722050.3770.17753195394376869508@emeril.freedesktop.org>
+Date: Tue, 11 Aug 2020 09:13:59 -0000
+Message-ID: <159713723912.3770.15455388055778588229@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <20200807115633.16328-1-gaurav.k.singh@intel.com>
 In-Reply-To: <20200807115633.16328-1-gaurav.k.singh@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_i915/gem=3A_Force_HW_tracking_to_exit_PSR_=28rev2=29?=
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?i915/gem=3A_Force_HW_tracking_to_exit_PSR_=28rev2=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,14 +63,9 @@ State : warning
 
 == Summary ==
 
-$ dim checkpatch origin/drm-tip
-f25572dd467f i915/gem: Force HW tracking to exit PSR
--:44: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
-#44: FILE: drivers/gpu/drm/i915/gem/i915_gem_domain.c:561:
-+			i915_gem_object_invalidate_frontbuffer(obj,
-+								ORIGIN_CPU);
-
-total: 0 errors, 0 warnings, 1 checks, 22 lines checked
+$ dim sparse --fast origin/drm-tip
+Sparse version: v0.6.0
+Fast mode used, each commit won't be checked separately.
 
 
 _______________________________________________
