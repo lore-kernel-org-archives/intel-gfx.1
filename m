@@ -7,59 +7,59 @@ X-Spam-Status: No, score=-9.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8985BC433E0
-	for <intel-gfx@archiver.kernel.org>; Tue, 11 Aug 2020 20:07:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C3CE2C433E0
+	for <intel-gfx@archiver.kernel.org>; Tue, 11 Aug 2020 20:07:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5775120756
-	for <intel-gfx@archiver.kernel.org>; Tue, 11 Aug 2020 20:07:15 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 9299420756
+	for <intel-gfx@archiver.kernel.org>; Tue, 11 Aug 2020 20:07:39 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="g2ckOJss"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5775120756
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="gJ3APoPH"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9299420756
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F24386E823;
-	Tue, 11 Aug 2020 20:07:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 39FB66E831;
+	Tue, 11 Aug 2020 20:07:39 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E42256E823
- for <intel-gfx@lists.freedesktop.org>; Tue, 11 Aug 2020 20:07:13 +0000 (UTC)
+ [205.139.110.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D767F6E831
+ for <intel-gfx@lists.freedesktop.org>; Tue, 11 Aug 2020 20:07:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1597176433;
+ s=mimecast20190719; t=1597176456;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=RRGHgwzsXS0o3mVytKRQqN5oLHj47u7fpNcdLqnBhlQ=;
- b=g2ckOJssougmXRy0lguB6HKESc0Q30pPoOcvqiO3eQ2TtlLCRmIwKHF2gC3hWG0Q1FbvyY
- ZoVUrC3+6C9CyQa3FyKwFUyzdZs7GMOUBU9raPzOxoTTqdwGcC2DKjiSwn0EmLa67cSJ4O
- UCWOsrzqLQMGY8OhbaZp38x2MzQVnik=
+ bh=bQrLRzkmqAjmojfr9QpfevMihBC8AjtoB9png7TmsPM=;
+ b=gJ3APoPHbfIV89tooi7JbGlAkBYW4OfteL4aLh4nmKizjGGZIGOgJyMakMkrtfybGKvrJc
+ iCq+qnSTH6EYO+OQe6EbeRxuMIB+HteRDxYGR9i0+eplHPhlGa2SA2D2ox3Up6sCarpd86
+ 18ppIPNV+o40kpaibtxWiQOedc6G2QM=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-237-Mp_-vOMvO9-zW-L6ak6ufA-1; Tue, 11 Aug 2020 16:06:04 -0400
-X-MC-Unique: Mp_-vOMvO9-zW-L6ak6ufA-1
+ us-mta-385-TUHR8MbhML227kW5qed5Eg-1; Tue, 11 Aug 2020 16:06:28 -0400
+X-MC-Unique: TUHR8MbhML227kW5qed5Eg-1
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
  [10.5.11.14])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id BE7D71DE1;
- Tue, 11 Aug 2020 20:06:01 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 49CD78B0084;
+ Tue, 11 Aug 2020 20:06:27 +0000 (UTC)
 Received: from Ruby.redhat.com (ovpn-119-184.rdu2.redhat.com [10.10.119.184])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 87F9A5D9D7;
- Tue, 11 Aug 2020 20:05:58 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id D387E5D9D7;
+ Tue, 11 Aug 2020 20:06:22 +0000 (UTC)
 From: Lyude Paul <lyude@redhat.com>
 To: nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
-Date: Tue, 11 Aug 2020 16:04:43 -0400
-Message-Id: <20200811200457.134743-7-lyude@redhat.com>
+Date: Tue, 11 Aug 2020 16:04:49 -0400
+Message-Id: <20200811200457.134743-13-lyude@redhat.com>
 In-Reply-To: <20200811200457.134743-1-lyude@redhat.com>
 References: <20200811200457.134743-1-lyude@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
-Subject: [Intel-gfx] [RFC 06/20] drm/nouveau/kms: Search for encoders'
- connectors properly
+Subject: [Intel-gfx] [RFC 12/20] drm/nouveau/kms: Only use hpd_work for
+ reprobing in HPD paths
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,416 +72,300 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Hariprasad Kelam <hariprasad.kelam@gmail.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@linux.ie>,
- James Jones <jajones@nvidia.com>, YueHaibing <yuehaibing@huawei.com>,
- open list <linux-kernel@vger.kernel.org>, Takashi Iwai <tiwai@suse.de>,
- Ben Skeggs <bskeggs@redhat.com>, Alex Deucher <alexander.deucher@amd.com>,
- Sam Ravnborg <sam@ravnborg.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Nirmoy Das <nirmoy.aiemd@gmail.com>
+Cc: David Airlie <airlied@linux.ie>, Ben Skeggs <bskeggs@redhat.com>,
+ open list <linux-kernel@vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-While the way we find the associated connector for an encoder is just
-fine for legacy modesetting, it's not correct for nv50+ since that uses
-atomic modesetting. For reference, see the drm_encoder kdocs.
+Currently we perform both short IRQ handling for DP, and connector
+reprobing in the HPD IRQ handler. However since we need to grab
+connection_mutex in order to reprobe a connector, in theory we could
+accidentally block ourselves from handling any short IRQs until after a
+modeset completes if a connector hotplug happens to occur in parallel
+with a modeset.
 
-Fix this by removing nouveau_encoder_connector_get(), and replacing it
-with nv04_encoder_get_connector(), nv50_outp_get_old_connector(), and
-nv50_outp_get_new_connector().
+I haven't seen this actually happen yet, but since we're cleaning up
+nouveau's hotplug handling code anyway and we already have a hpd worker,
+we can simply fix this by only relying on the HPD worker to actually
+reprobe connectors when we receive a HPD IRQ. We also add a mask to
+nouveau_drm to keep track of which connectors are waiting to be reprobed
+in response to an HPD IRQ.
 
 Signed-off-by: Lyude Paul <lyude@redhat.com>
 Reviewed-by: Ben Skeggs <bskeggs@redhat.com>
 ---
- drivers/gpu/drm/nouveau/dispnv04/dac.c      |  2 +-
- drivers/gpu/drm/nouveau/dispnv04/dfp.c      |  7 +-
- drivers/gpu/drm/nouveau/dispnv04/disp.c     | 18 +++++
- drivers/gpu/drm/nouveau/dispnv04/disp.h     |  4 +
- drivers/gpu/drm/nouveau/dispnv04/tvnv04.c   |  2 +-
- drivers/gpu/drm/nouveau/dispnv04/tvnv17.c   |  2 +-
- drivers/gpu/drm/nouveau/dispnv50/disp.c     | 87 +++++++++++++++++----
- drivers/gpu/drm/nouveau/nouveau_connector.c | 14 ----
- drivers/gpu/drm/nouveau/nouveau_encoder.h   |  6 +-
- 9 files changed, 105 insertions(+), 37 deletions(-)
+ drivers/gpu/drm/nouveau/nouveau_connector.c | 42 +++++--------
+ drivers/gpu/drm/nouveau/nouveau_connector.h |  1 +
+ drivers/gpu/drm/nouveau/nouveau_display.c   | 70 ++++++++++++++++++---
+ drivers/gpu/drm/nouveau/nouveau_display.h   |  1 +
+ drivers/gpu/drm/nouveau/nouveau_dp.c        |  2 +-
+ drivers/gpu/drm/nouveau/nouveau_drm.c       |  4 +-
+ drivers/gpu/drm/nouveau/nouveau_drv.h       |  2 +
+ 7 files changed, 86 insertions(+), 36 deletions(-)
 
-diff --git a/drivers/gpu/drm/nouveau/dispnv04/dac.c b/drivers/gpu/drm/nouveau/dispnv04/dac.c
-index ffdd447d87068..22d10f3285597 100644
---- a/drivers/gpu/drm/nouveau/dispnv04/dac.c
-+++ b/drivers/gpu/drm/nouveau/dispnv04/dac.c
-@@ -419,7 +419,7 @@ static void nv04_dac_commit(struct drm_encoder *encoder)
- 	helper->dpms(encoder, DRM_MODE_DPMS_ON);
- 
- 	NV_DEBUG(drm, "Output %s is running on CRTC %d using output %c\n",
--		 nouveau_encoder_connector_get(nv_encoder)->base.name,
-+		 nv04_encoder_get_connector(nv_encoder)->base.name,
- 		 nv_crtc->index, '@' + ffs(nv_encoder->dcb->or));
- }
- 
-diff --git a/drivers/gpu/drm/nouveau/dispnv04/dfp.c b/drivers/gpu/drm/nouveau/dispnv04/dfp.c
-index f9f4482c79b54..42687ea2a4ca3 100644
---- a/drivers/gpu/drm/nouveau/dispnv04/dfp.c
-+++ b/drivers/gpu/drm/nouveau/dispnv04/dfp.c
-@@ -184,7 +184,8 @@ static bool nv04_dfp_mode_fixup(struct drm_encoder *encoder,
- 				struct drm_display_mode *adjusted_mode)
- {
- 	struct nouveau_encoder *nv_encoder = nouveau_encoder(encoder);
--	struct nouveau_connector *nv_connector = nouveau_encoder_connector_get(nv_encoder);
-+	struct nouveau_connector *nv_connector =
-+		nv04_encoder_get_connector(nv_encoder);
- 
- 	if (!nv_connector->native_mode ||
- 	    nv_connector->scaling_mode == DRM_MODE_SCALE_NONE ||
-@@ -478,7 +479,7 @@ static void nv04_dfp_commit(struct drm_encoder *encoder)
- 	helper->dpms(encoder, DRM_MODE_DPMS_ON);
- 
- 	NV_DEBUG(drm, "Output %s is running on CRTC %d using output %c\n",
--		 nouveau_encoder_connector_get(nv_encoder)->base.name,
-+		 nv04_encoder_get_connector(nv_encoder)->base.name,
- 		 nv_crtc->index, '@' + ffs(nv_encoder->dcb->or));
- }
- 
-@@ -591,7 +592,7 @@ static void nv04_dfp_restore(struct drm_encoder *encoder)
- 
- 	if (nv_encoder->dcb->type == DCB_OUTPUT_LVDS) {
- 		struct nouveau_connector *connector =
--			nouveau_encoder_connector_get(nv_encoder);
-+			nv04_encoder_get_connector(nv_encoder);
- 
- 		if (connector && connector->native_mode)
- 			call_lvds_script(dev, nv_encoder->dcb, head,
-diff --git a/drivers/gpu/drm/nouveau/dispnv04/disp.c b/drivers/gpu/drm/nouveau/dispnv04/disp.c
-index 900ab69df7e8f..3f046b917c85c 100644
---- a/drivers/gpu/drm/nouveau/dispnv04/disp.c
-+++ b/drivers/gpu/drm/nouveau/dispnv04/disp.c
-@@ -35,6 +35,24 @@
- 
- #include <nvif/if0004.h>
- 
-+struct nouveau_connector *
-+nv04_encoder_get_connector(struct nouveau_encoder *encoder)
-+{
-+	struct drm_device *dev = to_drm_encoder(encoder)->dev;
-+	struct drm_connector *connector;
-+	struct drm_connector_list_iter conn_iter;
-+	struct nouveau_connector *nv_connector = NULL;
-+
-+	drm_connector_list_iter_begin(dev, &conn_iter);
-+	drm_for_each_connector_iter(connector, &conn_iter) {
-+		if (connector->encoder == to_drm_encoder(encoder))
-+			nv_connector = nouveau_connector(connector);
-+	}
-+	drm_connector_list_iter_end(&conn_iter);
-+
-+	return nv_connector;
-+}
-+
- static void
- nv04_display_fini(struct drm_device *dev, bool suspend)
- {
-diff --git a/drivers/gpu/drm/nouveau/dispnv04/disp.h b/drivers/gpu/drm/nouveau/dispnv04/disp.h
-index 495d3284e8766..5ace5e906949a 100644
---- a/drivers/gpu/drm/nouveau/dispnv04/disp.h
-+++ b/drivers/gpu/drm/nouveau/dispnv04/disp.h
-@@ -6,6 +6,8 @@
- 
- #include "nouveau_display.h"
- 
-+struct nouveau_encoder;
-+
- enum nv04_fp_display_regs {
- 	FP_DISPLAY_END,
- 	FP_TOTAL,
-@@ -93,6 +95,8 @@ nv04_display(struct drm_device *dev)
- 
- /* nv04_display.c */
- int nv04_display_create(struct drm_device *);
-+struct nouveau_connector *
-+nv04_encoder_get_connector(struct nouveau_encoder *nv_encoder);
- 
- /* nv04_crtc.c */
- int nv04_crtc_create(struct drm_device *, int index);
-diff --git a/drivers/gpu/drm/nouveau/dispnv04/tvnv04.c b/drivers/gpu/drm/nouveau/dispnv04/tvnv04.c
-index b701a4d8fe760..3ba7b59580d59 100644
---- a/drivers/gpu/drm/nouveau/dispnv04/tvnv04.c
-+++ b/drivers/gpu/drm/nouveau/dispnv04/tvnv04.c
-@@ -172,7 +172,7 @@ static void nv04_tv_commit(struct drm_encoder *encoder)
- 	helper->dpms(encoder, DRM_MODE_DPMS_ON);
- 
- 	NV_DEBUG(drm, "Output %s is running on CRTC %d using output %c\n",
--		 nouveau_encoder_connector_get(nv_encoder)->base.name,
-+		 nv04_encoder_get_connector(nv_encoder)->base.name,
- 		 nv_crtc->index, '@' + ffs(nv_encoder->dcb->or));
- }
- 
-diff --git a/drivers/gpu/drm/nouveau/dispnv04/tvnv17.c b/drivers/gpu/drm/nouveau/dispnv04/tvnv17.c
-index 3a9489ed6544f..be28e7bd74903 100644
---- a/drivers/gpu/drm/nouveau/dispnv04/tvnv17.c
-+++ b/drivers/gpu/drm/nouveau/dispnv04/tvnv17.c
-@@ -599,7 +599,7 @@ static void nv17_tv_commit(struct drm_encoder *encoder)
- 	helper->dpms(encoder, DRM_MODE_DPMS_ON);
- 
- 	NV_INFO(drm, "Output %s is running on CRTC %d using output %c\n",
--		nouveau_encoder_connector_get(nv_encoder)->base.name,
-+		nv04_encoder_get_connector(nv_encoder)->base.name,
- 		nv_crtc->index, '@' + ffs(nv_encoder->dcb->or));
- }
- 
-diff --git a/drivers/gpu/drm/nouveau/dispnv50/disp.c b/drivers/gpu/drm/nouveau/dispnv50/disp.c
-index c4d138f0ca054..71c65f0a68a27 100644
---- a/drivers/gpu/drm/nouveau/dispnv50/disp.c
-+++ b/drivers/gpu/drm/nouveau/dispnv50/disp.c
-@@ -411,6 +411,42 @@ nv50_outp_atomic_check(struct drm_encoder *encoder,
- 	return 0;
- }
- 
-+struct nouveau_connector *
-+nv50_outp_get_new_connector(struct nouveau_encoder *outp,
-+			    struct drm_atomic_state *state)
-+{
-+	struct drm_connector *connector;
-+	struct drm_connector_state *connector_state;
-+	struct drm_encoder *encoder = to_drm_encoder(outp);
-+	int i;
-+
-+	for_each_new_connector_in_state(state, connector, connector_state,
-+					i) {
-+		if (connector_state->best_encoder == encoder)
-+			return nouveau_connector(connector);
-+	}
-+
-+	return NULL;
-+}
-+
-+struct nouveau_connector *
-+nv50_outp_get_old_connector(struct nouveau_encoder *outp,
-+			    struct drm_atomic_state *state)
-+{
-+	struct drm_connector *connector;
-+	struct drm_connector_state *connector_state;
-+	struct drm_encoder *encoder = to_drm_encoder(outp);
-+	int i;
-+
-+	for_each_old_connector_in_state(state, connector, connector_state,
-+					i) {
-+		if (connector_state->best_encoder == encoder)
-+			return nouveau_connector(connector);
-+	}
-+
-+	return NULL;
-+}
-+
- /******************************************************************************
-  * DAC
-  *****************************************************************************/
-@@ -552,16 +588,30 @@ nv50_audio_component_get_eld(struct device *kdev, int port, int dev_id,
- 	struct nouveau_drm *drm = nouveau_drm(drm_dev);
- 	struct drm_encoder *encoder;
- 	struct nouveau_encoder *nv_encoder;
-+	struct drm_connector *connector;
- 	struct nouveau_connector *nv_connector;
- 	struct nouveau_crtc *nv_crtc;
-+	struct drm_connector_list_iter conn_iter;
- 	int ret = 0;
- 
- 	*enabled = false;
-+
- 	drm_for_each_encoder(encoder, drm->dev) {
- 		nv_encoder = nouveau_encoder(encoder);
--		nv_connector = nouveau_encoder_connector_get(nv_encoder);
-+
-+		drm_connector_list_iter_begin(drm_dev, &conn_iter);
-+		drm_for_each_connector_iter(connector, &conn_iter) {
-+			if (connector->state->best_encoder == encoder) {
-+				nv_connector = nouveau_connector(connector);
-+				break;
-+			}
-+		}
-+		drm_connector_list_iter_end(&conn_iter);
-+		if (!nv_connector)
-+			continue;
-+
- 		nv_crtc = nouveau_crtc(encoder->crtc);
--		if (!nv_connector || !nv_crtc || nv_encoder->or != port ||
-+		if (!nv_crtc || nv_encoder->or != port ||
- 		    nv_crtc->index != dev_id)
- 			continue;
- 		*enabled = nv_encoder->audio;
-@@ -572,6 +622,7 @@ nv50_audio_component_get_eld(struct device *kdev, int port, int dev_id,
- 		}
- 		break;
- 	}
-+
- 	return ret;
- }
- 
-@@ -665,7 +716,8 @@ nv50_audio_disable(struct drm_encoder *encoder, struct nouveau_crtc *nv_crtc)
- }
- 
- static void
--nv50_audio_enable(struct drm_encoder *encoder, struct drm_display_mode *mode)
-+nv50_audio_enable(struct drm_encoder *encoder, struct drm_atomic_state *state,
-+		  struct drm_display_mode *mode)
- {
- 	struct nouveau_drm *drm = nouveau_drm(encoder->dev);
- 	struct nouveau_encoder *nv_encoder = nouveau_encoder(encoder);
-@@ -686,7 +738,7 @@ nv50_audio_enable(struct drm_encoder *encoder, struct drm_display_mode *mode)
- 				     (0x0100 << nv_crtc->index),
- 	};
- 
--	nv_connector = nouveau_encoder_connector_get(nv_encoder);
-+	nv_connector = nv50_outp_get_new_connector(nv_encoder, state);
- 	if (!drm_detect_monitor_audio(nv_connector->edid))
- 		return;
- 
-@@ -723,7 +775,8 @@ nv50_hdmi_disable(struct drm_encoder *encoder, struct nouveau_crtc *nv_crtc)
- }
- 
- static void
--nv50_hdmi_enable(struct drm_encoder *encoder, struct drm_display_mode *mode)
-+nv50_hdmi_enable(struct drm_encoder *encoder, struct drm_atomic_state *state,
-+		 struct drm_display_mode *mode)
- {
- 	struct nouveau_drm *drm = nouveau_drm(encoder->dev);
- 	struct nouveau_encoder *nv_encoder = nouveau_encoder(encoder);
-@@ -752,7 +805,7 @@ nv50_hdmi_enable(struct drm_encoder *encoder, struct drm_display_mode *mode)
- 	int ret;
- 	int size;
- 
--	nv_connector = nouveau_encoder_connector_get(nv_encoder);
-+	nv_connector = nv50_outp_get_new_connector(nv_encoder, state);
- 	if (!drm_detect_hdmi_monitor(nv_connector->edid))
- 		return;
- 
-@@ -798,7 +851,7 @@ nv50_hdmi_enable(struct drm_encoder *encoder, struct drm_display_mode *mode)
- 		+ args.pwr.vendor_infoframe_length;
- 	nvif_mthd(&disp->disp->object, 0, &args, size);
- 
--	nv50_audio_enable(encoder, mode);
-+	nv50_audio_enable(encoder, state, mode);
- 
- 	/* If SCDC is supported by the downstream monitor, update
- 	 * divider / scrambling settings to what we programmed above.
-@@ -1573,7 +1626,8 @@ nv50_sor_update(struct nouveau_encoder *nv_encoder, u8 head,
- }
- 
- static void
--nv50_sor_disable(struct drm_encoder *encoder)
-+nv50_sor_disable(struct drm_encoder *encoder,
-+		 struct drm_atomic_state *state)
- {
- 	struct nouveau_encoder *nv_encoder = nouveau_encoder(encoder);
- 	struct nouveau_crtc *nv_crtc = nouveau_crtc(nv_encoder->crtc);
-@@ -1601,7 +1655,8 @@ nv50_sor_disable(struct drm_encoder *encoder)
- }
- 
- static void
--nv50_sor_enable(struct drm_encoder *encoder)
-+nv50_sor_enable(struct drm_encoder *encoder,
-+		struct drm_atomic_state *state)
- {
- 	struct nouveau_encoder *nv_encoder = nouveau_encoder(encoder);
- 	struct nouveau_crtc *nv_crtc = nouveau_crtc(encoder->crtc);
-@@ -1625,7 +1680,7 @@ nv50_sor_enable(struct drm_encoder *encoder)
- 	u8 proto = NV507D_SOR_SET_CONTROL_PROTOCOL_CUSTOM;
- 	u8 depth = NV837D_SOR_SET_CONTROL_PIXEL_DEPTH_DEFAULT;
- 
--	nv_connector = nouveau_encoder_connector_get(nv_encoder);
-+	nv_connector = nv50_outp_get_new_connector(nv_encoder, state);
- 	nv_encoder->crtc = encoder->crtc;
- 
- 	if ((disp->disp->object.oclass == GT214_DISP ||
-@@ -1652,7 +1707,7 @@ nv50_sor_enable(struct drm_encoder *encoder)
- 			proto = NV507D_SOR_SET_CONTROL_PROTOCOL_SINGLE_TMDS_B;
- 		}
- 
--		nv50_hdmi_enable(&nv_encoder->base.base, mode);
-+		nv50_hdmi_enable(&nv_encoder->base.base, state, mode);
- 		break;
- 	case DCB_OUTPUT_LVDS:
- 		proto = NV507D_SOR_SET_CONTROL_PROTOCOL_LVDS_CUSTOM;
-@@ -1693,7 +1748,7 @@ nv50_sor_enable(struct drm_encoder *encoder)
- 		else
- 			proto = NV887D_SOR_SET_CONTROL_PROTOCOL_DP_B;
- 
--		nv50_audio_enable(encoder, mode);
-+		nv50_audio_enable(encoder, state, mode);
- 		break;
- 	default:
- 		BUG();
-@@ -1706,8 +1761,8 @@ nv50_sor_enable(struct drm_encoder *encoder)
- static const struct drm_encoder_helper_funcs
- nv50_sor_help = {
- 	.atomic_check = nv50_outp_atomic_check,
--	.enable = nv50_sor_enable,
--	.disable = nv50_sor_disable,
-+	.atomic_enable = nv50_sor_enable,
-+	.atomic_disable = nv50_sor_disable,
- };
- 
- static void
-@@ -2066,7 +2121,7 @@ nv50_disp_atomic_commit_tail(struct drm_atomic_state *state)
- 			  outp->clr.mask, outp->set.mask);
- 
- 		if (outp->clr.mask) {
--			help->disable(encoder);
-+			help->atomic_disable(encoder, state);
- 			interlock[NV50_DISP_INTERLOCK_CORE] |= 1;
- 			if (outp->flush_disable) {
- 				nv50_disp_atomic_commit_wndw(state, interlock);
-@@ -2105,7 +2160,7 @@ nv50_disp_atomic_commit_tail(struct drm_atomic_state *state)
- 			  outp->set.mask, outp->clr.mask);
- 
- 		if (outp->set.mask) {
--			help->enable(encoder);
-+			help->atomic_enable(encoder, state);
- 			interlock[NV50_DISP_INTERLOCK_CORE] = 1;
- 		}
- 
 diff --git a/drivers/gpu/drm/nouveau/nouveau_connector.c b/drivers/gpu/drm/nouveau/nouveau_connector.c
-index e12957e6faa7c..1d5696c39792a 100644
+index 4a29f691c08e4..637e91594fbe8 100644
 --- a/drivers/gpu/drm/nouveau/nouveau_connector.c
 +++ b/drivers/gpu/drm/nouveau/nouveau_connector.c
-@@ -391,20 +391,6 @@ find_encoder(struct drm_connector *connector, int type)
- 	return NULL;
- }
+@@ -1138,6 +1138,20 @@ nouveau_connector_funcs_lvds = {
+ 	.early_unregister = nouveau_connector_early_unregister,
+ };
  
--struct nouveau_connector *
--nouveau_encoder_connector_get(struct nouveau_encoder *encoder)
--{
--	struct drm_device *dev = to_drm_encoder(encoder)->dev;
--	struct drm_connector *drm_connector;
++void
++nouveau_connector_hpd(struct drm_connector *connector)
++{
++	struct nouveau_drm *drm = nouveau_drm(connector->dev);
++	u32 mask = drm_connector_mask(connector);
++
++	mutex_lock(&drm->hpd_lock);
++	if (!(drm->hpd_pending & mask)) {
++		drm->hpd_pending |= mask;
++		schedule_work(&drm->hpd_work);
++	}
++	mutex_unlock(&drm->hpd_lock);
++}
++
+ static int
+ nouveau_connector_hotplug(struct nvif_notify *notify)
+ {
+@@ -1147,8 +1161,6 @@ nouveau_connector_hotplug(struct nvif_notify *notify)
+ 	struct drm_device *dev = connector->dev;
+ 	struct nouveau_drm *drm = nouveau_drm(dev);
+ 	const struct nvif_notify_conn_rep_v0 *rep = notify->data;
+-	const char *name = connector->name;
+-	int ret;
+ 	bool plugged = (rep->mask != NVIF_NOTIFY_CONN_V0_UNPLUG);
+ 
+ 	if (rep->mask & NVIF_NOTIFY_CONN_V0_IRQ) {
+@@ -1156,31 +1168,9 @@ nouveau_connector_hotplug(struct nvif_notify *notify)
+ 		return NVIF_NOTIFY_KEEP;
+ 	}
+ 
+-	ret = pm_runtime_get(drm->dev->dev);
+-	if (ret == 0) {
+-		/* We can't block here if there's a pending PM request
+-		 * running, as we'll deadlock nouveau_display_fini() when it
+-		 * calls nvif_put() on our nvif_notify struct. So, simply
+-		 * defer the hotplug event until the device finishes resuming
+-		 */
+-		NV_DEBUG(drm, "Deferring HPD on %s until runtime resume\n",
+-			 name);
+-		schedule_work(&drm->hpd_work);
 -
--	list_for_each_entry(drm_connector, &dev->mode_config.connector_list, head) {
--		if (drm_connector->encoder == to_drm_encoder(encoder))
--			return nouveau_connector(drm_connector);
+-		pm_runtime_put_noidle(drm->dev->dev);
+-		return NVIF_NOTIFY_KEEP;
+-	} else if (ret != 1 && ret != -EACCES) {
+-		NV_WARN(drm, "HPD on %s dropped due to RPM failure: %d\n",
+-			name, ret);
+-		return NVIF_NOTIFY_DROP;
 -	}
 -
--	return NULL;
--}
+-	NV_DEBUG(drm, "%splugged %s\n", plugged ? "" : "un", name);
 -
+-	drm_helper_hpd_irq_event(connector->dev);
++	NV_DEBUG(drm, "%splugged %s\n", plugged ? "" : "un", connector->name);
++	nouveau_connector_hpd(connector);
+ 
+-	pm_runtime_mark_last_busy(drm->dev->dev);
+-	pm_runtime_put_autosuspend(drm->dev->dev);
+ 	return NVIF_NOTIFY_KEEP;
+ }
+ 
+diff --git a/drivers/gpu/drm/nouveau/nouveau_connector.h b/drivers/gpu/drm/nouveau/nouveau_connector.h
+index d6de5cb8e2238..d0b859c4a80ea 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_connector.h
++++ b/drivers/gpu/drm/nouveau/nouveau_connector.h
+@@ -187,6 +187,7 @@ nouveau_crtc_connector_get(struct nouveau_crtc *nv_crtc)
+ 
+ struct drm_connector *
+ nouveau_connector_create(struct drm_device *, const struct dcb_output *);
++void nouveau_connector_hpd(struct drm_connector *connector);
+ 
+ extern int nouveau_tv_disable;
+ extern int nouveau_ignorelid;
+diff --git a/drivers/gpu/drm/nouveau/nouveau_display.c b/drivers/gpu/drm/nouveau/nouveau_display.c
+index 13016769a194b..bceb48a2dfca6 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_display.c
++++ b/drivers/gpu/drm/nouveau/nouveau_display.c
+@@ -457,16 +457,70 @@ static struct nouveau_drm_prop_enum_list dither_depth[] = {
+ 	}                                                                      \
+ } while(0)
+ 
++void
++nouveau_display_hpd_resume(struct drm_device *dev)
++{
++	struct nouveau_drm *drm = nouveau_drm(dev);
++
++	mutex_lock(&drm->hpd_lock);
++	drm->hpd_pending = ~0;
++	mutex_unlock(&drm->hpd_lock);
++
++	schedule_work(&drm->hpd_work);
++}
++
  static void
- nouveau_connector_destroy(struct drm_connector *connector)
+ nouveau_display_hpd_work(struct work_struct *work)
  {
-diff --git a/drivers/gpu/drm/nouveau/nouveau_encoder.h b/drivers/gpu/drm/nouveau/nouveau_encoder.h
-index 6424cdcb4913f..b0e1dad2367d6 100644
---- a/drivers/gpu/drm/nouveau/nouveau_encoder.h
-+++ b/drivers/gpu/drm/nouveau/nouveau_encoder.h
-@@ -113,7 +113,11 @@ enum drm_mode_status nv50_dp_mode_valid(struct drm_connector *,
- 					unsigned *clock);
+ 	struct nouveau_drm *drm = container_of(work, typeof(*drm), hpd_work);
++	struct drm_device *dev = drm->dev;
++	struct drm_connector *connector;
++	struct drm_connector_list_iter conn_iter;
++	u32 pending;
++	bool changed = false;
++
++	pm_runtime_get_sync(dev->dev);
  
- struct nouveau_connector *
--nouveau_encoder_connector_get(struct nouveau_encoder *encoder);
-+nv50_outp_get_new_connector(struct nouveau_encoder *outp,
-+			    struct drm_atomic_state *state);
-+struct nouveau_connector *
-+nv50_outp_get_old_connector(struct nouveau_encoder *outp,
-+			    struct drm_atomic_state *state);
+-	pm_runtime_get_sync(drm->dev->dev);
++	mutex_lock(&drm->hpd_lock);
++	pending = drm->hpd_pending;
++	drm->hpd_pending = 0;
++	mutex_unlock(&drm->hpd_lock);
  
- int nv50_mstm_detect(struct nv50_mstm *, u8 dpcd[8], int allow);
- void nv50_mstm_remove(struct nv50_mstm *);
+-	drm_helper_hpd_irq_event(drm->dev);
++	/* Nothing to do, exit early without updating the last busy counter */
++	if (!pending)
++		goto noop;
++
++	mutex_lock(&dev->mode_config.mutex);
++	drm_connector_list_iter_begin(dev, &conn_iter);
++
++	nouveau_for_each_non_mst_connector_iter(connector, &conn_iter) {
++		enum drm_connector_status old_status = connector->status;
++		u64 old_epoch_counter = connector->epoch_counter;
++
++		if (!(pending & drm_connector_mask(connector)))
++			continue;
++
++		connector->status = drm_helper_probe_detect(connector, NULL,
++							    false);
++		if (old_epoch_counter == connector->epoch_counter)
++			continue;
++
++		changed = true;
++		drm_dbg_kms(dev, "[CONNECTOR:%d:%s] status updated from %s to %s (epoch counter %llu->%llu)\n",
++			    connector->base.id, connector->name,
++			    drm_get_connector_status_name(old_status),
++			    drm_get_connector_status_name(connector->status),
++			    old_epoch_counter, connector->epoch_counter);
++	}
++
++	drm_connector_list_iter_end(&conn_iter);
++	mutex_unlock(&dev->mode_config.mutex);
++
++	if (changed)
++		drm_kms_helper_hotplug_event(dev);
+ 
+ 	pm_runtime_mark_last_busy(drm->dev->dev);
++noop:
+ 	pm_runtime_put_sync(drm->dev->dev);
+ }
+ 
+@@ -490,12 +544,11 @@ nouveau_display_acpi_ntfy(struct notifier_block *nb, unsigned long val,
+ 				 */
+ 				pm_runtime_put_autosuspend(drm->dev->dev);
+ 			} else if (ret == 0) {
+-				/* This may be the only indication we receive
+-				 * of a connector hotplug on a runtime
+-				 * suspended GPU, schedule hpd_work to check.
++				/* We've started resuming the GPU already, so
++				 * it will handle scheduling a full reprobe
++				 * itself
+ 				 */
+ 				NV_DEBUG(drm, "ACPI requested connector reprobe\n");
+-				schedule_work(&drm->hpd_work);
+ 				pm_runtime_put_noidle(drm->dev->dev);
+ 			} else {
+ 				NV_WARN(drm, "Dropped ACPI reprobe event due to RPM error: %d\n",
+@@ -686,6 +739,7 @@ nouveau_display_create(struct drm_device *dev)
+ 	}
+ 
+ 	INIT_WORK(&drm->hpd_work, nouveau_display_hpd_work);
++	mutex_init(&drm->hpd_lock);
+ #ifdef CONFIG_ACPI
+ 	drm->acpi_nb.notifier_call = nouveau_display_acpi_ntfy;
+ 	register_acpi_notifier(&drm->acpi_nb);
+@@ -705,9 +759,10 @@ void
+ nouveau_display_destroy(struct drm_device *dev)
+ {
+ 	struct nouveau_display *disp = nouveau_display(dev);
++	struct nouveau_drm *drm = nouveau_drm(dev);
+ 
+ #ifdef CONFIG_ACPI
+-	unregister_acpi_notifier(&nouveau_drm(dev)->acpi_nb);
++	unregister_acpi_notifier(&drm->acpi_nb);
+ #endif
+ 
+ 	drm_kms_helper_poll_fini(dev);
+@@ -719,6 +774,7 @@ nouveau_display_destroy(struct drm_device *dev)
+ 	nvif_disp_dtor(&disp->disp);
+ 
+ 	nouveau_drm(dev)->display = NULL;
++	mutex_destroy(&drm->hpd_lock);
+ 	kfree(disp);
+ }
+ 
+diff --git a/drivers/gpu/drm/nouveau/nouveau_display.h b/drivers/gpu/drm/nouveau/nouveau_display.h
+index 76ba93e01aff4..616c434270594 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_display.h
++++ b/drivers/gpu/drm/nouveau/nouveau_display.h
+@@ -45,6 +45,7 @@ nouveau_display(struct drm_device *dev)
+ int  nouveau_display_create(struct drm_device *dev);
+ void nouveau_display_destroy(struct drm_device *dev);
+ int  nouveau_display_init(struct drm_device *dev, bool resume, bool runtime);
++void nouveau_display_hpd_resume(struct drm_device *dev);
+ void nouveau_display_fini(struct drm_device *dev, bool suspend, bool runtime);
+ int  nouveau_display_suspend(struct drm_device *dev, bool runtime);
+ void nouveau_display_resume(struct drm_device *dev, bool runtime);
+diff --git a/drivers/gpu/drm/nouveau/nouveau_dp.c b/drivers/gpu/drm/nouveau/nouveau_dp.c
+index bb85d81c25244..c6a04d0ac99d1 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_dp.c
++++ b/drivers/gpu/drm/nouveau/nouveau_dp.c
+@@ -167,7 +167,7 @@ void nouveau_dp_irq(struct nouveau_drm *drm,
+ 
+ 	if (mstm && mstm->is_mst) {
+ 		if (!nv50_mstm_service(drm, nv_connector, mstm))
+-			schedule_work(&drm->hpd_work);
++			nouveau_connector_hpd(connector);
+ 	} else {
+ 		drm_dp_cec_irq(&nv_connector->aux);
+ 	}
+diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouveau/nouveau_drm.c
+index 22d246acc5e52..42fc5c813a9bb 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_drm.c
++++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
+@@ -953,7 +953,7 @@ nouveau_pmops_resume(struct device *dev)
+ 	ret = nouveau_do_resume(drm_dev, false);
+ 
+ 	/* Monitors may have been connected / disconnected during suspend */
+-	schedule_work(&nouveau_drm(drm_dev)->hpd_work);
++	nouveau_display_hpd_resume(drm_dev);
+ 
+ 	return ret;
+ }
+@@ -1036,7 +1036,7 @@ nouveau_pmops_runtime_resume(struct device *dev)
+ 	drm_dev->switch_power_state = DRM_SWITCH_POWER_ON;
+ 
+ 	/* Monitors may have been connected / disconnected during suspend */
+-	schedule_work(&nouveau_drm(drm_dev)->hpd_work);
++	nouveau_display_hpd_resume(drm_dev);
+ 
+ 	return ret;
+ }
+diff --git a/drivers/gpu/drm/nouveau/nouveau_drv.h b/drivers/gpu/drm/nouveau/nouveau_drv.h
+index f63ac72aa556f..73ebf5fba2fcd 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_drv.h
++++ b/drivers/gpu/drm/nouveau/nouveau_drv.h
+@@ -198,6 +198,8 @@ struct nouveau_drm {
+ 	struct nvbios vbios;
+ 	struct nouveau_display *display;
+ 	struct work_struct hpd_work;
++	struct mutex hpd_lock;
++	u32 hpd_pending;
+ 	struct work_struct fbcon_work;
+ 	int fbcon_new_state;
+ #ifdef CONFIG_ACPI
 -- 
 2.26.2
 
