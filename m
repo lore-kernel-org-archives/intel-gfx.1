@@ -2,64 +2,64 @@ Return-Path: <SRS0=3cRA=BV=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0605AC433E3
-	for <intel-gfx@archiver.kernel.org>; Tue, 11 Aug 2020 20:07:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9A724C433E5
+	for <intel-gfx@archiver.kernel.org>; Tue, 11 Aug 2020 20:07:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CC56A20756
-	for <intel-gfx@archiver.kernel.org>; Tue, 11 Aug 2020 20:07:02 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 6389D20774
+	for <intel-gfx@archiver.kernel.org>; Tue, 11 Aug 2020 20:07:05 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="GthvYlqv"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CC56A20756
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="bFvbcCMg"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6389D20774
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6EECD6E837;
-	Tue, 11 Aug 2020 20:07:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 83E3C6E83A;
+	Tue, 11 Aug 2020 20:07:03 +0000 (UTC)
 Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com
- [205.139.110.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 33D366E837
- for <intel-gfx@lists.freedesktop.org>; Tue, 11 Aug 2020 20:07:01 +0000 (UTC)
+ [207.211.31.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3C5F66E83E
+ for <intel-gfx@lists.freedesktop.org>; Tue, 11 Aug 2020 20:07:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1597176417;
+ s=mimecast20190719; t=1597176421;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=x4DQ0kPXl3MtnH3b+tNHnnMobzeU885QuofMWORRLrI=;
- b=GthvYlqvml9neuNhavYuyqm5CmyTUv7HmLtPOYewPN7l++zr43v1r9E6mBN0BpXoi46lLb
- e5MMi6GoQb59Kxmmz6Bvri7udlvYzvEuXL6ofaklwYftc7yh33r4ahB6y6gsgIShaY/NZR
- 2K8I6JZXeFExqnx8HsQqWkILlF6a+1g=
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=0PGG//CtuoOTYv2p77D8V5k7E6MAMYxPO8Vv8577Zp8=;
+ b=bFvbcCMguCjvU111njve4CvT0OxiEz38KcIOnviM4Cy1Rc67fycIM/sNuAqgCKPkg2eT0z
+ iail5LYKthbWIeOFnPbEEHpBqLdePuSqLjhqusF/HWQCRNN5RZ3sb86ySjWza1AMSiN53P
+ iYlWIP6XugPyJrWurMWpQBxACfF1ZWU=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-300-kfIJk-h3PruSX4L6RT3QKA-1; Tue, 11 Aug 2020 16:05:39 -0400
-X-MC-Unique: kfIJk-h3PruSX4L6RT3QKA-1
+ us-mta-255-VKygY5HSMxeH3V02zJJllw-1; Tue, 11 Aug 2020 16:06:58 -0400
+X-MC-Unique: VKygY5HSMxeH3V02zJJllw-1
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
  [10.5.11.14])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 629BB1DE0;
- Tue, 11 Aug 2020 20:05:38 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 383BA1DE1;
+ Tue, 11 Aug 2020 20:06:57 +0000 (UTC)
 Received: from Ruby.redhat.com (ovpn-119-184.rdu2.redhat.com [10.10.119.184])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 9AE1F5D9D7;
- Tue, 11 Aug 2020 20:05:37 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 44FEA5D9D7;
+ Tue, 11 Aug 2020 20:06:56 +0000 (UTC)
 From: Lyude Paul <lyude@redhat.com>
 To: nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
-Date: Tue, 11 Aug 2020 16:04:37 -0400
-Message-Id: <20200811200457.134743-1-lyude@redhat.com>
+Date: Tue, 11 Aug 2020 16:04:57 -0400
+Message-Id: <20200811200457.134743-21-lyude@redhat.com>
+In-Reply-To: <20200811200457.134743-1-lyude@redhat.com>
+References: <20200811200457.134743-1-lyude@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=lyude@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Subject: [Intel-gfx] [RFC 00/20] drm/dp, i915,
- nouveau: Cleanup nouveau HPD and add DP features from i915
+Subject: [Intel-gfx] [RFC 20/20] drm/nouveau/kms: Start using
+ drm_dp_read_dpcd_caps()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,116 +72,48 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: David Airlie <airlied@linux.ie>, Ben Skeggs <bskeggs@redhat.com>,
+ open list <linux-kernel@vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-To start off: this patch series is less work to review then it looks -
-most (but not all) of the nouveau related work has already been reviewed
-elsewhere. Most of the reason I'm asking for an RFC here is because this
-code pulls a lot of code out of i915 and into shared DP helpers.
+Now that we've extracted i915's code for reading both the normal DPCD
+caps and extended DPCD caps into a shared helper, let's start using this
+in nouveau to enable us to start checking extended DPCD caps for free.
 
-Anyway-nouveau's HPD related code has been collecting dust for a while.
-Other then the occasional runtime PM related and MST related fixes,
-we're missing a lot of nice things that have been added to DRM since
-this was originally written. Additionally, the code is just really
-unoptimized in general:
+Signed-off-by: Lyude Paul <lyude@redhat.com>
+---
+ drivers/gpu/drm/nouveau/nouveau_dp.c | 14 ++++++--------
+ 1 file changed, 6 insertions(+), 8 deletions(-)
 
-* We handle connector probing in the same context that we handle short
-  IRQs in for DP, which means connector probing could potentially block
-  ESI handling for MST
-* When we receive a hotplug event from a connector, we reprobe every
-  single connector instead of just the connector that was hotplugged
-* Additionally because of the above reason, combined with the fact I had
-  the bad idea of reusing some of the MST locks when I last rewrote
-  nouveau's DP MST detection, trying to handle any other events that
-  require short HPD IRQs is a bit awkward to actually implement.
-* We don't actually properly check whether EDIDs change or not when
-  reprobing, which means we basically send out a hotplug event every
-  single time we receive one even if nothing has changed
-
-Additionally, the code for handling DP that we have in nouveau is also
-quite unoptimized in general, doesn't use a lot of helpers that have
-been added since it was written, and is also missing quite a number of
-features:
-
-* Downstream port capability probing
-* Extended DPRX cap parsing
-* SINK_COUNT handling for hpd on dongles
-
-Luckily for us - all of these are implemented in i915 already. Since
-there's no reason for us to reinvent the wheel, and having more shared
-code is always nice, I decided to take the opportunity to extract the
-code for all of these features from i915 into a set of core DP helpers,
-which both i915 and nouveau (and hopefully other drivers in the future)
-can use.
-
-As well, this patch series also addesses the other general
-connector probing related issues I mentioned above, along with rewriting
-how we handle MST probing so we don't hit any surprise locking design
-issues in the future.
-
-As a note - most of this work is motivated by the fact that I'm
-planning on adding max_bpc/output_bpc prop support, DSC support (for
-both MST and SST, along with proper helpers for handling bandwidth
-limitations and DSC), and fallback link retraining. I figured I might as
-clean this code up and implement missing DP features like the ones
-mentioned here before moving on to those tasks.
-
-Also, I'm intending for this patch series to get merged through
-drm-misc-next. Once that happens, upstream maintainers will probably
-have an easier time with merging if they pull the pending patches for
-nouveau from Ben's tree before merging drm-misc-next.
-
-Lyude Paul (20):
-  drm/nouveau/kms: Fix some indenting in nouveau_dp_detect()
-  drm/nouveau/kms/nv50-: Remove open-coded drm_dp_read_desc()
-  drm/nouveau/kms/nv50-: Just use drm_dp_dpcd_read() in nouveau_dp.c
-  drm/nouveau/kms/nv50-: Use macros for DP registers in nouveau_dp.c
-  drm/nouveau/kms: Don't clear DP_MST_CTRL DPCD in nv50_mstm_new()
-  drm/nouveau/kms: Search for encoders' connectors properly
-  drm/nouveau/kms/nv50-: Use drm_dp_dpcd_(readb|writeb)() in
-    nv50_sor_disable()
-  drm/nouveau/kms/nv50-: Refactor and cleanup DP HPD handling
-  drm/i915/dp: Extract drm_dp_has_mst()
-  drm/nouveau/kms: Use new drm_dp_has_mst() helper for checking MST caps
-  drm/nouveau/kms: Move drm_dp_cec_unset_edid() into
-    nouveau_connector_detect()
-  drm/nouveau/kms: Only use hpd_work for reprobing in HPD paths
-  drm/i915/dp: Extract drm_dp_downstream_read_info()
-  drm/nouveau/kms/nv50-: Use downstream DP clock limits for mode
-    validation
-  drm/i915/dp: Extract drm_dp_has_sink_count()
-  drm/i915/dp: Extract drm_dp_get_sink_count()
-  drm/nouveau/kms/nv50-: Add support for DP_SINK_COUNT
-  drm/nouveau/kms: Don't change EDID when it hasn't actually changed
-  drm/i915/dp: Extract drm_dp_read_dpcd_caps()
-  drm/nouveau/kms: Start using drm_dp_read_dpcd_caps()
-
- drivers/gpu/drm/drm_dp_helper.c             | 150 ++++++++++
- drivers/gpu/drm/i915/display/intel_dp.c     | 130 ++-------
- drivers/gpu/drm/i915/display/intel_dp.h     |   1 -
- drivers/gpu/drm/i915/display/intel_lspcon.c |   2 +-
- drivers/gpu/drm/nouveau/dispnv04/dac.c      |   2 +-
- drivers/gpu/drm/nouveau/dispnv04/dfp.c      |   7 +-
- drivers/gpu/drm/nouveau/dispnv04/disp.c     |  24 +-
- drivers/gpu/drm/nouveau/dispnv04/disp.h     |   4 +
- drivers/gpu/drm/nouveau/dispnv04/tvnv04.c   |   2 +-
- drivers/gpu/drm/nouveau/dispnv04/tvnv17.c   |   2 +-
- drivers/gpu/drm/nouveau/dispnv50/disp.c     | 308 +++++++++++---------
- drivers/gpu/drm/nouveau/nouveau_connector.c | 132 ++++-----
- drivers/gpu/drm/nouveau/nouveau_connector.h |   1 +
- drivers/gpu/drm/nouveau/nouveau_display.c   |  72 ++++-
- drivers/gpu/drm/nouveau/nouveau_display.h   |   3 +-
- drivers/gpu/drm/nouveau/nouveau_dp.c        | 201 ++++++++++---
- drivers/gpu/drm/nouveau/nouveau_drm.c       |   4 +-
- drivers/gpu/drm/nouveau/nouveau_drv.h       |   2 +
- drivers/gpu/drm/nouveau/nouveau_encoder.h   |  48 ++-
- include/drm/drm_dp_helper.h                 |  15 +-
- include/drm/drm_dp_mst_helper.h             |  22 ++
- 21 files changed, 741 insertions(+), 391 deletions(-)
-
+diff --git a/drivers/gpu/drm/nouveau/nouveau_dp.c b/drivers/gpu/drm/nouveau/nouveau_dp.c
+index f41fa513023fd..a4e07d116972f 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_dp.c
++++ b/drivers/gpu/drm/nouveau/nouveau_dp.c
+@@ -55,15 +55,13 @@ nouveau_dp_probe_dpcd(struct nouveau_connector *nv_connector,
+ 	int ret;
+ 	u8 *dpcd = outp->dp.dpcd;
+ 
+-	ret = drm_dp_dpcd_read(aux, DP_DPCD_REV, dpcd, DP_RECEIVER_CAP_SIZE);
+-	if (ret == DP_RECEIVER_CAP_SIZE && dpcd[DP_DPCD_REV]) {
+-		ret = drm_dp_read_desc(aux, &outp->dp.desc,
+-				       drm_dp_is_branch(dpcd));
+-		if (ret < 0)
+-			goto out;
+-	} else {
++	ret = drm_dp_read_dpcd_caps(aux, dpcd);
++	if (ret < 0)
++		goto out;
++
++	ret = drm_dp_read_desc(aux, &outp->dp.desc, drm_dp_is_branch(dpcd));
++	if (ret < 0)
+ 		goto out;
+-	}
+ 
+ 	if (nouveau_mst) {
+ 		mstm = outp->dp.mstm;
 -- 
 2.26.2
 
