@@ -7,37 +7,35 @@ X-Spam-Status: No, score=-13.0 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4C124C433DF
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4FD73C433E0
 	for <intel-gfx@archiver.kernel.org>; Wed, 12 Aug 2020 22:36:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8BE4A2080C
+	by mail.kernel.org (Postfix) with ESMTPS id 282E920774
 	for <intel-gfx@archiver.kernel.org>; Wed, 12 Aug 2020 22:36:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8BE4A2080C
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 282E920774
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A6E26E959;
-	Wed, 12 Aug 2020 22:36:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF84F6E954;
+	Wed, 12 Aug 2020 22:36:39 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B7FD46E954
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B8AD06E958
  for <intel-gfx@lists.freedesktop.org>; Wed, 12 Aug 2020 22:36:37 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22111009-1500050 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22111007-1500050 
  for multiple; Wed, 12 Aug 2020 23:36:23 +0100
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 12 Aug 2020 23:36:21 +0100
-Message-Id: <20200812223621.22292-3-chris@chris-wilson.co.uk>
+Date: Wed, 12 Aug 2020 23:36:19 +0100
+Message-Id: <20200812223621.22292-1-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20200812223621.22292-1-chris@chris-wilson.co.uk>
-References: <20200812223621.22292-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 3/3] drm/i915/gem: Always test execution status
- on closing the context
+Subject: [Intel-gfx] [PATCH 1/3] drm/i915: Cancel outstanding work after
+ disabling heartbeats on an engine
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,103 +54,61 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Verify that if a context is active at the time it is closed, that it is
-either persistent and preemptible (with hangcheck running) or it shall
-be removed from execution.
+We only allow persistent requests to remain on the GPU past the closure
+of their containing context (and process) so long as they are continuously
+checked for hangs or allow other requests to preempt them, as we need to
+ensure forward progress of the system. If we allow persistent contexts
+to remain on the system after the the hangcheck mechanism is disabled,
+the system may grind to a halt. On disabling the mechanism, we sent a
+pulse along the engine to remove all executing contexts from the engine
+which would check for hung contexts -- but we did not prevent those
+contexts from being resubmitted if they survived the final hangcheck.
 
 Fixes: 9a40bddd47ca ("drm/i915/gt: Expose heartbeat interval via sysfs")
-Testcase: igt/gem_ctx_persistence/heartbeat-close
+Testcase: igt/gem_ctx_persistence/heartbeat-stop
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 Cc: <stable@vger.kernel.org> # v5.7+
 ---
- drivers/gpu/drm/i915/gem/i915_gem_context.c | 24 ++++++++-------------
- 1 file changed, 9 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_engine.h | 9 +++++++++
+ drivers/gpu/drm/i915/i915_request.c    | 5 +++++
+ 2 files changed, 14 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-index db893f6c516b..49715ae71386 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-@@ -431,8 +431,7 @@ static bool __cancel_engine(struct intel_engine_cs *engine)
- 	 * kill the banned context, we fallback to doing a local reset
- 	 * instead.
- 	 */
--	if (IS_ACTIVE(CONFIG_DRM_I915_PREEMPT_TIMEOUT) &&
--	    !intel_engine_pulse(engine))
-+	if (intel_engine_pulse(engine) == 0)
- 		return true;
- 
- 	/* If we are unable to send a pulse, try resetting this engine. */
-@@ -493,7 +492,7 @@ static struct intel_engine_cs *active_engine(struct intel_context *ce)
- 	return engine;
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine.h b/drivers/gpu/drm/i915/gt/intel_engine.h
+index 08e2c000dcc3..a90cb91c8246 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine.h
++++ b/drivers/gpu/drm/i915/gt/intel_engine.h
+@@ -337,4 +337,13 @@ intel_engine_has_preempt_reset(const struct intel_engine_cs *engine)
+ 	return intel_engine_has_preemption(engine);
  }
  
--static void kill_engines(struct i915_gem_engines *engines)
-+static void kill_engines(struct i915_gem_engines *engines, bool ban)
- {
- 	struct i915_gem_engines_iter it;
- 	struct intel_context *ce;
-@@ -508,7 +507,7 @@ static void kill_engines(struct i915_gem_engines *engines)
- 	for_each_gem_engine(ce, engines, it) {
- 		struct intel_engine_cs *engine;
++static inline bool
++intel_engine_has_heartbeat(const struct intel_engine_cs *engine)
++{
++	if (!IS_ACTIVE(CONFIG_DRM_I915_HEARTBEAT_INTERVAL))
++		return false;
++
++	return engine->props.heartbeat_interval_ms;
++}
++
+ #endif /* _INTEL_RINGBUFFER_H_ */
+diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
+index 0208e917d14a..92efca606f91 100644
+--- a/drivers/gpu/drm/i915/i915_request.c
++++ b/drivers/gpu/drm/i915/i915_request.c
+@@ -542,8 +542,13 @@ bool __i915_request_submit(struct i915_request *request)
+ 	if (i915_request_completed(request))
+ 		goto xfer;
  
--		if (intel_context_set_banned(ce))
-+		if (ban && intel_context_set_banned(ce))
- 			continue;
++	if (unlikely(intel_context_is_closed(request->context) &&
++		     !intel_engine_has_heartbeat(engine)))
++		intel_context_set_banned(request->context);
++
+ 	if (unlikely(intel_context_is_banned(request->context)))
+ 		i915_request_set_error_once(request, -EIO);
++
+ 	if (unlikely(fatal_error(request->fence.error)))
+ 		__i915_request_skip(request);
  
- 		/*
-@@ -531,8 +530,10 @@ static void kill_engines(struct i915_gem_engines *engines)
- 	}
- }
- 
--static void kill_stale_engines(struct i915_gem_context *ctx)
-+static void kill_context(struct i915_gem_context *ctx)
- {
-+	bool ban = (!i915_gem_context_is_persistent(ctx) ||
-+		    !ctx->i915->params.enable_hangcheck);
- 	struct i915_gem_engines *pos, *next;
- 
- 	spin_lock_irq(&ctx->stale.lock);
-@@ -545,7 +546,7 @@ static void kill_stale_engines(struct i915_gem_context *ctx)
- 
- 		spin_unlock_irq(&ctx->stale.lock);
- 
--		kill_engines(pos);
-+		kill_engines(pos, ban);
- 
- 		spin_lock_irq(&ctx->stale.lock);
- 		GEM_BUG_ON(i915_sw_fence_signaled(&pos->fence));
-@@ -557,11 +558,6 @@ static void kill_stale_engines(struct i915_gem_context *ctx)
- 	spin_unlock_irq(&ctx->stale.lock);
- }
- 
--static void kill_context(struct i915_gem_context *ctx)
--{
--	kill_stale_engines(ctx);
--}
--
- static void engines_idle_release(struct i915_gem_context *ctx,
- 				 struct i915_gem_engines *engines)
- {
-@@ -596,7 +592,7 @@ static void engines_idle_release(struct i915_gem_context *ctx,
- 
- kill:
- 	if (list_empty(&engines->link)) /* raced, already closed */
--		kill_engines(engines);
-+		kill_engines(engines, true);
- 
- 	i915_sw_fence_commit(&engines->fence);
- }
-@@ -654,9 +650,7 @@ static void context_close(struct i915_gem_context *ctx)
- 	 * case we opt to forcibly kill off all remaining requests on
- 	 * context close.
- 	 */
--	if (!i915_gem_context_is_persistent(ctx) ||
--	    !ctx->i915->params.enable_hangcheck)
--		kill_context(ctx);
-+	kill_context(ctx);
- 
- 	i915_gem_context_put(ctx);
- }
 -- 
 2.20.1
 
