@@ -2,40 +2,42 @@ Return-Path: <SRS0=eb9m=BW=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.0 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.0 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8253FC433DF
-	for <intel-gfx@archiver.kernel.org>; Wed, 12 Aug 2020 22:35:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4C124C433DF
+	for <intel-gfx@archiver.kernel.org>; Wed, 12 Aug 2020 22:36:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3FCDE20774
-	for <intel-gfx@archiver.kernel.org>; Wed, 12 Aug 2020 22:35:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3FCDE20774
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id 8BE4A2080C
+	for <intel-gfx@archiver.kernel.org>; Wed, 12 Aug 2020 22:36:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8BE4A2080C
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A548E6E955;
-	Wed, 12 Aug 2020 22:35:10 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id DC2E46E954;
- Wed, 12 Aug 2020 22:35:08 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id D521CA3ECB;
- Wed, 12 Aug 2020 22:35:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A6E26E959;
+	Wed, 12 Aug 2020 22:36:40 +0000 (UTC)
+Received: from fireflyinternet.com (unknown [77.68.26.236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B7FD46E954
+ for <intel-gfx@lists.freedesktop.org>; Wed, 12 Aug 2020 22:36:37 +0000 (UTC)
+X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
+ x-ip-name=78.156.65.138; 
+Received: from build.alporthouse.com (unverified [78.156.65.138]) 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22111009-1500050 
+ for multiple; Wed, 12 Aug 2020 23:36:23 +0100
+From: Chris Wilson <chris@chris-wilson.co.uk>
+To: intel-gfx@lists.freedesktop.org
+Date: Wed, 12 Aug 2020 23:36:21 +0100
+Message-Id: <20200812223621.22292-3-chris@chris-wilson.co.uk>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20200812223621.22292-1-chris@chris-wilson.co.uk>
+References: <20200812223621.22292-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Matt Atwood" <matthew.s.atwood@intel.com>
-Date: Wed, 12 Aug 2020 22:35:08 -0000
-Message-ID: <159727170884.25467.11005151604966649642@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20200812210702.7153-1-matthew.s.atwood@intel.com>
-In-Reply-To: <20200812210702.7153-1-matthew.s.atwood@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_drm/i915=3A_Apply_Wa=5F14011264657=3Agen11+_=28rev2=29?=
+Subject: [Intel-gfx] [PATCH 3/3] drm/i915/gem: Always test execution status
+ on closing the context
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,32 +50,111 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
+Cc: stable@vger.kernel.org, Chris Wilson <chris@chris-wilson.co.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+Verify that if a context is active at the time it is closed, that it is
+either persistent and preemptible (with hangcheck running) or it shall
+be removed from execution.
 
-Series: drm/i915: Apply Wa_14011264657:gen11+ (rev2)
-URL   : https://patchwork.freedesktop.org/series/78430/
-State : warning
+Fixes: 9a40bddd47ca ("drm/i915/gt: Expose heartbeat interval via sysfs")
+Testcase: igt/gem_ctx_persistence/heartbeat-close
+Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+Cc: <stable@vger.kernel.org> # v5.7+
+---
+ drivers/gpu/drm/i915/gem/i915_gem_context.c | 24 ++++++++-------------
+ 1 file changed, 9 insertions(+), 15 deletions(-)
 
-== Summary ==
-
-$ dim checkpatch origin/drm-tip
-9ee56d53b00b drm/i915: Apply Wa_14011264657:gen11+
--:74: CHECK:BRACES: braces {} should be used on all arms of this statement
-#74: FILE: drivers/gpu/drm/i915/display/intel_display.c:3890:
-+	if (INTEL_GEN(dev_priv) >= 11) {
-[...]
- 	else if (INTEL_GEN(dev_priv) >= 10 || IS_GEMINILAKE(dev_priv))
-[...]
-
-total: 0 errors, 0 warnings, 1 checks, 77 lines checked
-
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+index db893f6c516b..49715ae71386 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+@@ -431,8 +431,7 @@ static bool __cancel_engine(struct intel_engine_cs *engine)
+ 	 * kill the banned context, we fallback to doing a local reset
+ 	 * instead.
+ 	 */
+-	if (IS_ACTIVE(CONFIG_DRM_I915_PREEMPT_TIMEOUT) &&
+-	    !intel_engine_pulse(engine))
++	if (intel_engine_pulse(engine) == 0)
+ 		return true;
+ 
+ 	/* If we are unable to send a pulse, try resetting this engine. */
+@@ -493,7 +492,7 @@ static struct intel_engine_cs *active_engine(struct intel_context *ce)
+ 	return engine;
+ }
+ 
+-static void kill_engines(struct i915_gem_engines *engines)
++static void kill_engines(struct i915_gem_engines *engines, bool ban)
+ {
+ 	struct i915_gem_engines_iter it;
+ 	struct intel_context *ce;
+@@ -508,7 +507,7 @@ static void kill_engines(struct i915_gem_engines *engines)
+ 	for_each_gem_engine(ce, engines, it) {
+ 		struct intel_engine_cs *engine;
+ 
+-		if (intel_context_set_banned(ce))
++		if (ban && intel_context_set_banned(ce))
+ 			continue;
+ 
+ 		/*
+@@ -531,8 +530,10 @@ static void kill_engines(struct i915_gem_engines *engines)
+ 	}
+ }
+ 
+-static void kill_stale_engines(struct i915_gem_context *ctx)
++static void kill_context(struct i915_gem_context *ctx)
+ {
++	bool ban = (!i915_gem_context_is_persistent(ctx) ||
++		    !ctx->i915->params.enable_hangcheck);
+ 	struct i915_gem_engines *pos, *next;
+ 
+ 	spin_lock_irq(&ctx->stale.lock);
+@@ -545,7 +546,7 @@ static void kill_stale_engines(struct i915_gem_context *ctx)
+ 
+ 		spin_unlock_irq(&ctx->stale.lock);
+ 
+-		kill_engines(pos);
++		kill_engines(pos, ban);
+ 
+ 		spin_lock_irq(&ctx->stale.lock);
+ 		GEM_BUG_ON(i915_sw_fence_signaled(&pos->fence));
+@@ -557,11 +558,6 @@ static void kill_stale_engines(struct i915_gem_context *ctx)
+ 	spin_unlock_irq(&ctx->stale.lock);
+ }
+ 
+-static void kill_context(struct i915_gem_context *ctx)
+-{
+-	kill_stale_engines(ctx);
+-}
+-
+ static void engines_idle_release(struct i915_gem_context *ctx,
+ 				 struct i915_gem_engines *engines)
+ {
+@@ -596,7 +592,7 @@ static void engines_idle_release(struct i915_gem_context *ctx,
+ 
+ kill:
+ 	if (list_empty(&engines->link)) /* raced, already closed */
+-		kill_engines(engines);
++		kill_engines(engines, true);
+ 
+ 	i915_sw_fence_commit(&engines->fence);
+ }
+@@ -654,9 +650,7 @@ static void context_close(struct i915_gem_context *ctx)
+ 	 * case we opt to forcibly kill off all remaining requests on
+ 	 * context close.
+ 	 */
+-	if (!i915_gem_context_is_persistent(ctx) ||
+-	    !ctx->i915->params.enable_hangcheck)
+-		kill_context(ctx);
++	kill_context(ctx);
+ 
+ 	i915_gem_context_put(ctx);
+ }
+-- 
+2.20.1
 
 _______________________________________________
 Intel-gfx mailing list
