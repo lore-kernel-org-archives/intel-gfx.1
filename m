@@ -7,32 +7,34 @@ X-Spam-Status: No, score=-13.0 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 976D8C433E1
-	for <intel-gfx@archiver.kernel.org>; Wed, 12 Aug 2020 21:33:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 37BDAC433E0
+	for <intel-gfx@archiver.kernel.org>; Wed, 12 Aug 2020 21:33:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2E57F20781
-	for <intel-gfx@archiver.kernel.org>; Wed, 12 Aug 2020 21:33:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2E57F20781
+	by mail.kernel.org (Postfix) with ESMTPS id 0660320781
+	for <intel-gfx@archiver.kernel.org>; Wed, 12 Aug 2020 21:33:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0660320781
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 722816E94F;
-	Wed, 12 Aug 2020 21:33:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D6C36E950;
+	Wed, 12 Aug 2020 21:33:58 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D9B3A6E94F;
- Wed, 12 Aug 2020 21:33:07 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7156F6E950;
+ Wed, 12 Aug 2020 21:33:57 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from haswell.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22110793-1500050 
- for multiple; Wed, 12 Aug 2020 22:33:01 +0100
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22110799-1500050 
+ for multiple; Wed, 12 Aug 2020 22:33:51 +0100
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 12 Aug 2020 22:33:00 +0100
-Message-Id: <20200812213300.905759-1-chris@chris-wilson.co.uk>
+Date: Wed, 12 Aug 2020 22:33:49 +0100
+Message-Id: <20200812213349.905842-1-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.28.0
+In-Reply-To: <20200812213300.905759-1-chris@chris-wilson.co.uk>
+References: <20200812213300.905759-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
 Subject: [Intel-gfx] [PATCH i-g-t] i915/gem_ctx_persistence: Exercise
  cleanup after disabling heartbeats
@@ -64,11 +66,13 @@ lest they continue to run unchecked.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 ---
+git add
+---
  tests/i915/gem_ctx_persistence.c | 92 ++++++++++++++++++++++++++++++++
  1 file changed, 92 insertions(+)
 
 diff --git a/tests/i915/gem_ctx_persistence.c b/tests/i915/gem_ctx_persistence.c
-index e73a3e6a0..ca676d845 100644
+index e73a3e6a0..d9c972130 100644
 --- a/tests/i915/gem_ctx_persistence.c
 +++ b/tests/i915/gem_ctx_persistence.c
 @@ -426,6 +426,87 @@ static void test_nohangcheck_hang(int i915)
@@ -110,7 +114,7 @@ index e73a3e6a0..ca676d845 100644
 +
 +		if (set_heartbeat(i915, e->full_name, 0)) {
 +			for (int n = 0; n < ARRAY_SIZE(spin); n++) {
-+				igt_assert_eq(wait_for_status(i915, spin[n]->out_fence, reset_timeout_ms),
++				igt_assert_eq(wait_for_status(spin[n]->out_fence, reset_timeout_ms),
 +					      -EIO);
 +			}
 +		}
@@ -148,7 +152,7 @@ index e73a3e6a0..ca676d845 100644
 +
 +		set_heartbeat(i915, e->full_name, 2500);
 +
-+		igt_assert_eq(wait_for_status(i915, spin->out_fence, reset_timeout_ms),
++		igt_assert_eq(wait_for_status(spin->out_fence, reset_timeout_ms),
 +			      -EIO);
 +
 +		igt_spin_free(i915, spin);
