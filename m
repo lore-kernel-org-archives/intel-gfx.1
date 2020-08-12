@@ -4,38 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-13.0 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
-	autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4FD73C433E0
-	for <intel-gfx@archiver.kernel.org>; Wed, 12 Aug 2020 22:36:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 148C8C433E3
+	for <intel-gfx@archiver.kernel.org>; Wed, 12 Aug 2020 22:36:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 282E920774
-	for <intel-gfx@archiver.kernel.org>; Wed, 12 Aug 2020 22:36:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 282E920774
+	by mail.kernel.org (Postfix) with ESMTPS id E14A520774
+	for <intel-gfx@archiver.kernel.org>; Wed, 12 Aug 2020 22:36:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E14A520774
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF84F6E954;
-	Wed, 12 Aug 2020 22:36:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 67FEE6E958;
+	Wed, 12 Aug 2020 22:36:41 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B8AD06E958
- for <intel-gfx@lists.freedesktop.org>; Wed, 12 Aug 2020 22:36:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B7ED16E954
+ for <intel-gfx@lists.freedesktop.org>; Wed, 12 Aug 2020 22:36:38 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22111007-1500050 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22111008-1500050 
  for multiple; Wed, 12 Aug 2020 23:36:23 +0100
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 12 Aug 2020 23:36:19 +0100
-Message-Id: <20200812223621.22292-1-chris@chris-wilson.co.uk>
+Date: Wed, 12 Aug 2020 23:36:20 +0100
+Message-Id: <20200812223621.22292-2-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20200812223621.22292-1-chris@chris-wilson.co.uk>
+References: <20200812223621.22292-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 1/3] drm/i915: Cancel outstanding work after
- disabling heartbeats on an engine
+Subject: [Intel-gfx] [PATCH 2/3] drm/i915/gt: Always send a pulse down the
+ engine after disabling heartbeat
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,60 +56,36 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-We only allow persistent requests to remain on the GPU past the closure
-of their containing context (and process) so long as they are continuously
-checked for hangs or allow other requests to preempt them, as we need to
-ensure forward progress of the system. If we allow persistent contexts
-to remain on the system after the the hangcheck mechanism is disabled,
-the system may grind to a halt. On disabling the mechanism, we sent a
-pulse along the engine to remove all executing contexts from the engine
-which would check for hung contexts -- but we did not prevent those
-contexts from being resubmitted if they survived the final hangcheck.
+Currently, we check we can send a pulse prior to disabling the
+heartbeat to verify that we can change the heartbeat, but since we may
+re-evaluate execution upon changing the heartbeat interval we need another
+pulse afterwards to refresh execution.
 
 Fixes: 9a40bddd47ca ("drm/i915/gt: Expose heartbeat interval via sysfs")
-Testcase: igt/gem_ctx_persistence/heartbeat-stop
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 Cc: <stable@vger.kernel.org> # v5.7+
 ---
- drivers/gpu/drm/i915/gt/intel_engine.h | 9 +++++++++
- drivers/gpu/drm/i915/i915_request.c    | 5 +++++
- 2 files changed, 14 insertions(+)
+ drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine.h b/drivers/gpu/drm/i915/gt/intel_engine.h
-index 08e2c000dcc3..a90cb91c8246 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine.h
-+++ b/drivers/gpu/drm/i915/gt/intel_engine.h
-@@ -337,4 +337,13 @@ intel_engine_has_preempt_reset(const struct intel_engine_cs *engine)
- 	return intel_engine_has_preemption(engine);
- }
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c b/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
+index 8ffdf676c0a0..d09df370f7cd 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
++++ b/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
+@@ -192,10 +192,12 @@ int intel_engine_set_heartbeat(struct intel_engine_cs *engine,
+ 	WRITE_ONCE(engine->props.heartbeat_interval_ms, delay);
  
-+static inline bool
-+intel_engine_has_heartbeat(const struct intel_engine_cs *engine)
-+{
-+	if (!IS_ACTIVE(CONFIG_DRM_I915_HEARTBEAT_INTERVAL))
-+		return false;
-+
-+	return engine->props.heartbeat_interval_ms;
-+}
-+
- #endif /* _INTEL_RINGBUFFER_H_ */
-diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
-index 0208e917d14a..92efca606f91 100644
---- a/drivers/gpu/drm/i915/i915_request.c
-+++ b/drivers/gpu/drm/i915/i915_request.c
-@@ -542,8 +542,13 @@ bool __i915_request_submit(struct i915_request *request)
- 	if (i915_request_completed(request))
- 		goto xfer;
- 
-+	if (unlikely(intel_context_is_closed(request->context) &&
-+		     !intel_engine_has_heartbeat(engine)))
-+		intel_context_set_banned(request->context);
-+
- 	if (unlikely(intel_context_is_banned(request->context)))
- 		i915_request_set_error_once(request, -EIO);
-+
- 	if (unlikely(fatal_error(request->fence.error)))
- 		__i915_request_skip(request);
+ 	if (intel_engine_pm_get_if_awake(engine)) {
+-		if (delay)
++		if (delay) {
+ 			intel_engine_unpark_heartbeat(engine);
+-		else
++		} else {
+ 			intel_engine_park_heartbeat(engine);
++			intel_engine_pulse(engine); /* recheck execution */
++		}
+ 		intel_engine_pm_put(engine);
+ 	}
  
 -- 
 2.20.1
