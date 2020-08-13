@@ -2,75 +2,40 @@ Return-Path: <SRS0=YOLQ=BX=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-4.0 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 98A95C433DF
-	for <intel-gfx@archiver.kernel.org>; Thu, 13 Aug 2020 06:21:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0B772C433DF
+	for <intel-gfx@archiver.kernel.org>; Thu, 13 Aug 2020 06:37:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6DCCA20716
-	for <intel-gfx@archiver.kernel.org>; Thu, 13 Aug 2020 06:21:38 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O9T+cO7y"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6DCCA20716
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id CEC102078B
+	for <intel-gfx@archiver.kernel.org>; Thu, 13 Aug 2020 06:37:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CEC102078B
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 617C36E30F;
-	Thu, 13 Aug 2020 06:21:25 +0000 (UTC)
-Received: from mail-lj1-x243.google.com (mail-lj1-x243.google.com
- [IPv6:2a00:1450:4864:20::243])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9A0246E28A;
- Thu, 13 Aug 2020 06:21:23 +0000 (UTC)
-Received: by mail-lj1-x243.google.com with SMTP id v12so4890440ljc.10;
- Wed, 12 Aug 2020 23:21:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=ic1tOm+qheUq6zWKsHFH8/lisv9bz4c0DNj333ORfFc=;
- b=O9T+cO7yS6RByinXxGlmLnMuw8UB7Uq04JQ4MQH8ZaRBOREswU+LwInwis5NeFpWMP
- 6b4afB4V0u8+vl74/ktAUqv/5NLckdOirqGtDWy0DnfLDzw0F9uS9oFATKIZak9LD0cR
- EIe1i7j7ul/9h7WHFujo40DWgSI49tHQOpChP2CPy1NIu2Q0p4IeMhjKIPe7GW9sQJzq
- d5c/3lf54qiYjopAmeFXxgIvsdX3ue0RCxavzsT6hs7ZHte2Ni4c0+gpVNyxj8MAJSIz
- jWGfGy0Vt9wMXRy75BmyDOX3dfHEFPWVj3RohotOBYiovpXcbaa+zZho0FsfhquQPZ8v
- IpYw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=ic1tOm+qheUq6zWKsHFH8/lisv9bz4c0DNj333ORfFc=;
- b=Zamr7zQhFo2BTiczKu8VIHW/jzcMDGP3pPfl1n4Ih/keQDSRS77Bg0mRu3KhVdTy2k
- KY7bb6hZ146RbY2BeO7FbUQQCd0uyHwSHrqUATq8GkCyX29yxhTpsVt18zjJ76fXwEYx
- UoPTSTuEuY6BDBCEyj306GwLcIvimZ9zAronD28Fa/3f3Y0owGQlTIPAccCJ0kwjaF4a
- H3s2NEV9om2KdUWYaWud15AGH+u54EhEPNWzjDSBZ8GK4MniksrkWQUfxvyBLRPbMm5y
- /QbgMNpeT1/GlOzzU528bvE5fE7+wniymsBflQHKbIw/I57tOaZfexqyg9TPBGi/QwNb
- IGLg==
-X-Gm-Message-State: AOAM531T0KtUrx1qARJsZhsF4tQDbUvxN4z1k4AxA6pO3kVxA3Cihmzi
- y+WMsf57WV7t6Y2PyZB+RvE=
-X-Google-Smtp-Source: ABdhPJyX+MvFXLa7uDXAhUUkCxsqv4e8xQyC/os7RXs2QYFFoTANe4fzaGRUHzioE6sQe5EkReoukQ==
-X-Received: by 2002:a2e:8144:: with SMTP id t4mr1368074ljg.100.1597299682024; 
- Wed, 12 Aug 2020 23:21:22 -0700 (PDT)
-Received: from a2klaptop.localdomain ([185.199.97.5])
- by smtp.gmail.com with ESMTPSA id f14sm964060lfd.2.2020.08.12.23.21.20
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 12 Aug 2020 23:21:21 -0700 (PDT)
-From: Oleksandr Andrushchenko <andr2000@gmail.com>
-To: xen-devel@lists.xenproject.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, boris.ostrovsky@oracle.com, jgross@suse.com,
- airlied@linux.ie, daniel@ffwll.ch
-Date: Thu, 13 Aug 2020 09:21:13 +0300
-Message-Id: <20200813062113.11030-6-andr2000@gmail.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20200813062113.11030-1-andr2000@gmail.com>
-References: <20200813062113.11030-1-andr2000@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 284C56E1D7;
+	Thu, 13 Aug 2020 06:37:17 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id EB4776E0CF;
+ Thu, 13 Aug 2020 06:37:15 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id E530BA73C9;
+ Thu, 13 Aug 2020 06:37:15 +0000 (UTC)
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v2 5/5] drm/xen-front: Pass dumb buffer data
- offset to the backend
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Oleksandr Andrushchenko" <andr2000@gmail.com>
+Date: Thu, 13 Aug 2020 06:37:15 -0000
+Message-ID: <159730063591.14258.7333461453189641742@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20200813062113.11030-1-andr2000@gmail.com>
+In-Reply-To: <20200813062113.11030-1-andr2000@gmail.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_Fixes_and_improvements_for_Xen_pvdrm_=28rev2=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,70 +48,52 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, sstabellini@kernel.org,
- dan.carpenter@oracle.com,
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-RnJvbTogT2xla3NhbmRyIEFuZHJ1c2hjaGVua28gPG9sZWtzYW5kcl9hbmRydXNoY2hlbmtvQGVw
-YW0uY29tPgoKV2hpbGUgaW1wb3J0aW5nIGEgZG1hYnVmIGl0IGlzIHBvc3NpYmxlIHRoYXQgdGhl
-IGRhdGEgb2YgdGhlIGJ1ZmZlcgppcyBwdXQgd2l0aCBvZmZzZXQgd2hpY2ggaXMgaW5kaWNhdGVk
-IGJ5IHRoZSBTR1Qgb2Zmc2V0LgpSZXNwZWN0IHRoZSBvZmZzZXQgdmFsdWUgYW5kIGZvcndhcmQg
-aXQgdG8gdGhlIGJhY2tlbmQuCgpTaWduZWQtb2ZmLWJ5OiBPbGVrc2FuZHIgQW5kcnVzaGNoZW5r
-byA8b2xla3NhbmRyX2FuZHJ1c2hjaGVua29AZXBhbS5jb20+CkFja2VkLWJ5OiBOb3JhbGYgVHLD
-uG5uZXMgPG5vcmFsZkB0cm9ubmVzLm9yZz4KLS0tCiBkcml2ZXJzL2dwdS9kcm0veGVuL3hlbl9k
-cm1fZnJvbnQuYyAgICAgfCA2ICsrKystLQogZHJpdmVycy9ncHUvZHJtL3hlbi94ZW5fZHJtX2Zy
-b250LmggICAgIHwgMiArLQogZHJpdmVycy9ncHUvZHJtL3hlbi94ZW5fZHJtX2Zyb250X2dlbS5j
-IHwgMyArKy0KIDMgZmlsZXMgY2hhbmdlZCwgNyBpbnNlcnRpb25zKCspLCA0IGRlbGV0aW9ucygt
-KQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS94ZW4veGVuX2RybV9mcm9udC5jIGIvZHJp
-dmVycy9ncHUvZHJtL3hlbi94ZW5fZHJtX2Zyb250LmMKaW5kZXggNTE4MThlNzZmYWNkLi4zZGQ1
-Njc5NDU5M2EgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS94ZW4veGVuX2RybV9mcm9udC5j
-CisrKyBiL2RyaXZlcnMvZ3B1L2RybS94ZW4veGVuX2RybV9mcm9udC5jCkBAIC0xNTcsNyArMTU3
-LDggQEAgaW50IHhlbl9kcm1fZnJvbnRfbW9kZV9zZXQoc3RydWN0IHhlbl9kcm1fZnJvbnRfZHJt
-X3BpcGVsaW5lICpwaXBlbGluZSwKIAogaW50IHhlbl9kcm1fZnJvbnRfZGJ1Zl9jcmVhdGUoc3Ry
-dWN0IHhlbl9kcm1fZnJvbnRfaW5mbyAqZnJvbnRfaW5mbywKIAkJCSAgICAgIHU2NCBkYnVmX2Nv
-b2tpZSwgdTMyIHdpZHRoLCB1MzIgaGVpZ2h0LAotCQkJICAgICAgdTMyIGJwcCwgdTY0IHNpemUs
-IHN0cnVjdCBwYWdlICoqcGFnZXMpCisJCQkgICAgICB1MzIgYnBwLCB1NjQgc2l6ZSwgdTMyIG9m
-ZnNldCwKKwkJCSAgICAgIHN0cnVjdCBwYWdlICoqcGFnZXMpCiB7CiAJc3RydWN0IHhlbl9kcm1f
-ZnJvbnRfZXZ0Y2hubCAqZXZ0Y2hubDsKIAlzdHJ1Y3QgeGVuX2RybV9mcm9udF9kYnVmICpkYnVm
-OwpAQCAtMTk0LDYgKzE5NSw3IEBAIGludCB4ZW5fZHJtX2Zyb250X2RidWZfY3JlYXRlKHN0cnVj
-dCB4ZW5fZHJtX2Zyb250X2luZm8gKmZyb250X2luZm8sCiAJcmVxLT5vcC5kYnVmX2NyZWF0ZS5n
-cmVmX2RpcmVjdG9yeSA9CiAJCQl4ZW5fZnJvbnRfcGdkaXJfc2hidWZfZ2V0X2Rpcl9zdGFydCgm
-ZGJ1Zi0+c2hidWYpOwogCXJlcS0+b3AuZGJ1Zl9jcmVhdGUuYnVmZmVyX3N6ID0gc2l6ZTsKKwly
-ZXEtPm9wLmRidWZfY3JlYXRlLmRhdGFfb2ZzID0gb2Zmc2V0OwogCXJlcS0+b3AuZGJ1Zl9jcmVh
-dGUuZGJ1Zl9jb29raWUgPSBkYnVmX2Nvb2tpZTsKIAlyZXEtPm9wLmRidWZfY3JlYXRlLndpZHRo
-ID0gd2lkdGg7CiAJcmVxLT5vcC5kYnVmX2NyZWF0ZS5oZWlnaHQgPSBoZWlnaHQ7CkBAIC00MDgs
-NyArNDEwLDcgQEAgc3RhdGljIGludCB4ZW5fZHJtX2Rydl9kdW1iX2NyZWF0ZShzdHJ1Y3QgZHJt
-X2ZpbGUgKmZpbHAsCiAJcmV0ID0geGVuX2RybV9mcm9udF9kYnVmX2NyZWF0ZShkcm1faW5mby0+
-ZnJvbnRfaW5mbywKIAkJCQkJeGVuX2RybV9mcm9udF9kYnVmX3RvX2Nvb2tpZShvYmopLAogCQkJ
-CQlhcmdzLT53aWR0aCwgYXJncy0+aGVpZ2h0LCBhcmdzLT5icHAsCi0JCQkJCWFyZ3MtPnNpemUs
-CisJCQkJCWFyZ3MtPnNpemUsIDAsCiAJCQkJCXhlbl9kcm1fZnJvbnRfZ2VtX2dldF9wYWdlcyhv
-YmopKTsKIAlpZiAocmV0KQogCQlnb3RvIGZhaWxfYmFja2VuZDsKZGlmZiAtLWdpdCBhL2RyaXZl
-cnMvZ3B1L2RybS94ZW4veGVuX2RybV9mcm9udC5oIGIvZHJpdmVycy9ncHUvZHJtL3hlbi94ZW5f
-ZHJtX2Zyb250LmgKaW5kZXggZjkyYzI1ODM1MGNhLi41NDQ4NmQ4OTY1MGUgMTAwNjQ0Ci0tLSBh
-L2RyaXZlcnMvZ3B1L2RybS94ZW4veGVuX2RybV9mcm9udC5oCisrKyBiL2RyaXZlcnMvZ3B1L2Ry
-bS94ZW4veGVuX2RybV9mcm9udC5oCkBAIC0xNDUsNyArMTQ1LDcgQEAgaW50IHhlbl9kcm1fZnJv
-bnRfbW9kZV9zZXQoc3RydWN0IHhlbl9kcm1fZnJvbnRfZHJtX3BpcGVsaW5lICpwaXBlbGluZSwK
-IAogaW50IHhlbl9kcm1fZnJvbnRfZGJ1Zl9jcmVhdGUoc3RydWN0IHhlbl9kcm1fZnJvbnRfaW5m
-byAqZnJvbnRfaW5mbywKIAkJCSAgICAgIHU2NCBkYnVmX2Nvb2tpZSwgdTMyIHdpZHRoLCB1MzIg
-aGVpZ2h0LAotCQkJICAgICAgdTMyIGJwcCwgdTY0IHNpemUsIHN0cnVjdCBwYWdlICoqcGFnZXMp
-OworCQkJICAgICAgdTMyIGJwcCwgdTY0IHNpemUsIHUzMiBvZmZzZXQsIHN0cnVjdCBwYWdlICoq
-cGFnZXMpOwogCiBpbnQgeGVuX2RybV9mcm9udF9mYl9hdHRhY2goc3RydWN0IHhlbl9kcm1fZnJv
-bnRfaW5mbyAqZnJvbnRfaW5mbywKIAkJCSAgICB1NjQgZGJ1Zl9jb29raWUsIHU2NCBmYl9jb29r
-aWUsIHUzMiB3aWR0aCwKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS94ZW4veGVuX2RybV9m
-cm9udF9nZW0uYyBiL2RyaXZlcnMvZ3B1L2RybS94ZW4veGVuX2RybV9mcm9udF9nZW0uYwppbmRl
-eCA0ZWM4YTQ5MjQxZTEuLjM5ZmY5NWI3NTM1NyAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJt
-L3hlbi94ZW5fZHJtX2Zyb250X2dlbS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS94ZW4veGVuX2Ry
-bV9mcm9udF9nZW0uYwpAQCAtMjEwLDcgKzIxMCw4IEBAIHhlbl9kcm1fZnJvbnRfZ2VtX2ltcG9y
-dF9zZ190YWJsZShzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LAogCiAJcmV0ID0geGVuX2RybV9mcm9u
-dF9kYnVmX2NyZWF0ZShkcm1faW5mby0+ZnJvbnRfaW5mbywKIAkJCQkJeGVuX2RybV9mcm9udF9k
-YnVmX3RvX2Nvb2tpZSgmeGVuX29iai0+YmFzZSksCi0JCQkJCTAsIDAsIDAsIHNpemUsIHhlbl9v
-YmotPnBhZ2VzKTsKKwkJCQkJMCwgMCwgMCwgc2l6ZSwgc2d0LT5zZ2wtPm9mZnNldCwKKwkJCQkJ
-eGVuX29iai0+cGFnZXMpOwogCWlmIChyZXQgPCAwKQogCQlyZXR1cm4gRVJSX1BUUihyZXQpOwog
-Ci0tIAoyLjE3LjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fCkludGVsLWdmeCBtYWlsaW5nIGxpc3QKSW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
-ZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ludGVsLWdm
-eAo=
+== Series Details ==
+
+Series: Fixes and improvements for Xen pvdrm (rev2)
+URL   : https://patchwork.freedesktop.org/series/80141/
+State : warning
+
+== Summary ==
+
+$ dim checkpatch origin/drm-tip
+18bd08b8bf52 xen/gntdev: Fix dmabuf import with non-zero sgt offset
+edc113ee2576 drm/xen-front: Fix misused IS_ERR_OR_NULL checks
+-:14: WARNING:COMMIT_LOG_LONG_LINE: Possible unwrapped commit description (prefer a maximum 75 chars per line)
+#14: 
+   133  struct drm_gem_object *xen_drm_front_gem_create(struct drm_device *dev,
+
+total: 0 errors, 1 warnings, 0 checks, 50 lines checked
+8ba79afe8343 drm/xen-front: Add YUYV to supported formats
+76f71f3be317 xen: Sync up with the canonical protocol definition in Xen
+-:109: CHECK:PREFER_KERNEL_TYPES: Prefer kernel type 'u32' over 'uint32_t'
+#109: FILE: include/xen/interface/io/displif.h:522:
++	uint32_t data_ofs;
+
+-:151: CHECK:PREFER_KERNEL_TYPES: Prefer kernel type 'u32' over 'uint32_t'
+#151: FILE: include/xen/interface/io/displif.h:782:
++	uint32_t buffer_sz;
+
+-:187: CHECK:PREFER_KERNEL_TYPES: Prefer kernel type 'u32' over 'uint32_t'
+#187: FILE: include/xen/interface/io/displif.h:833:
++	uint32_t edid_sz;
+
+-:209: CHECK:PREFER_KERNEL_TYPES: Prefer kernel type 'u8' over 'uint8_t'
+#209: FILE: include/xen/interface/io/displif.h:900:
++		uint8_t reserved1[56];
+
+total: 0 errors, 0 warnings, 4 checks, 157 lines checked
+62487e5fb7ce drm/xen-front: Pass dumb buffer data offset to the backend
+
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
