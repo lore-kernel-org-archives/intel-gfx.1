@@ -2,55 +2,60 @@ Return-Path: <SRS0=YOLQ=BX=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.0 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-13.0 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DCD99C433E1
-	for <intel-gfx@archiver.kernel.org>; Thu, 13 Aug 2020 08:07:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E0682C433E4
+	for <intel-gfx@archiver.kernel.org>; Thu, 13 Aug 2020 08:36:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B7B0420781
-	for <intel-gfx@archiver.kernel.org>; Thu, 13 Aug 2020 08:07:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B7B0420781
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id BF7EF20791
+	for <intel-gfx@archiver.kernel.org>; Thu, 13 Aug 2020 08:36:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BF7EF20791
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 53E116E54C;
-	Thu, 13 Aug 2020 08:07:24 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 011CE6E54C
- for <intel-gfx@lists.freedesktop.org>; Thu, 13 Aug 2020 08:07:22 +0000 (UTC)
-IronPort-SDR: wtrnwml42j4tmLtImw0BgaezcGm9ycEJ44syrtR3xcO+26XdTtZ0vUBAi0lk11wHURJjRarr75
- uc0c5ZTFxqeg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9711"; a="151599329"
-X-IronPort-AV: E=Sophos;i="5.76,307,1592895600"; d="scan'208";a="151599329"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Aug 2020 01:07:21 -0700
-IronPort-SDR: a+H1WnLiXt50ddh4Lv9yh3e1Qta/xOIyUXrm1+VRksnjDo0Q7s7xTN0eauw8raC9odiPv+T4Ej
- LbT1kVPxoZWA==
-X-IronPort-AV: E=Sophos;i="5.76,307,1592895600"; d="scan'208";a="495307749"
-Received: from stallamr-mobl1.amr.corp.intel.com (HELO ldmartin-desk1)
- ([10.213.186.225])
- by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Aug 2020 01:07:19 -0700
-Date: Thu, 13 Aug 2020 01:07:18 -0700
-From: Lucas De Marchi <lucas.demarchi@intel.com>
-To: Matt Roper <matthew.d.roper@intel.com>
-Message-ID: <20200813080718.zurwmlyqvjib2unc@ldmartin-desk1>
-X-Patchwork-Hint: ignore
-References: <20200724213918.27424-1-lucas.demarchi@intel.com>
- <20200724213918.27424-7-lucas.demarchi@intel.com>
- <20200728215418.GF35208@mdroper-desk1.amr.corp.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 12D5A6E202;
+	Thu, 13 Aug 2020 08:36:54 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3BA336E202;
+ Thu, 13 Aug 2020 08:36:53 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id AE46EAFAC;
+ Thu, 13 Aug 2020 08:37:13 +0000 (UTC)
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@linux.ie,
+ daniel@ffwll.ch, linux@armlinux.org.uk, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, l.stach@pengutronix.de, christian.gmeiner@gmail.com,
+ inki.dae@samsung.com, jy0922.shim@samsung.com, sw0312.kim@samsung.com,
+ kyungmin.park@samsung.com, kgene@kernel.org, krzk@kernel.org,
+ patrik.r.jakobsson@gmail.com, jani.nikula@linux.intel.com,
+ joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
+ chunkuang.hu@kernel.org, p.zabel@pengutronix.de, matthias.bgg@gmail.com,
+ robdclark@gmail.com, sean@poorly.run, bskeggs@redhat.com,
+ tomi.valkeinen@ti.com, eric@anholt.net, hjc@rock-chips.com,
+ heiko@sntech.de, thierry.reding@gmail.com, jonathanh@nvidia.com,
+ rodrigosiqueiramelo@gmail.com, hamohammed.sa@gmail.com,
+ oleksandr_andrushchenko@epam.com, hyun.kwon@xilinx.com,
+ laurent.pinchart@ideasonboard.com, michal.simek@xilinx.com,
+ sumit.semwal@linaro.org, evan.quan@amd.com, Hawking.Zhang@amd.com,
+ tianci.yin@amd.com, marek.olsak@amd.com, hdegoede@redhat.com,
+ andrey.grodzovsky@amd.com, Felix.Kuehling@amd.com, xinhui.pan@amd.com,
+ aaron.liu@amd.com, nirmoy.das@amd.com, chris@chris-wilson.co.uk,
+ matthew.auld@intel.com, abdiel.janulgue@linux.intel.com,
+ tvrtko.ursulin@linux.intel.com, andi.shyti@intel.com, sam@ravnborg.org,
+ miaoqinglang@huawei.com, emil.velikov@collabora.com
+Date: Thu, 13 Aug 2020 10:36:25 +0200
+Message-Id: <20200813083644.31711-2-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.28.0
+In-Reply-To: <20200813083644.31711-1-tzimmermann@suse.de>
+References: <20200813083644.31711-1-tzimmermann@suse.de>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200728215418.GF35208@mdroper-desk1.amr.corp.intel.com>
-Subject: Re: [Intel-gfx] [PATCH v5 06/22] drm/i915/dg1: Add DPLL macros for
- DG1
+Subject: [Intel-gfx] [PATCH 01/20] drm/amdgpu: Introduce GEM object functions
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,125 +68,93 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org
+Cc: linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, etnaviv@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, amd-gfx@lists.freedesktop.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, nouveau@lists.freedesktop.org,
+ linux-tegra@vger.kernel.org, xen-devel@lists.xenproject.org,
+ freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jul 28, 2020 at 02:54:18PM -0700, Matt Roper wrote:
->On Fri, Jul 24, 2020 at 02:39:02PM -0700, Lucas De Marchi wrote:
->> From: Aditya Swarup <aditya.swarup@intel.com>
->>
->> DG1 has 4 DPLLs where DPLL0 and DPLL1 drive DDIA/B and
->> DPLL2 and DPLL3 drive DDIC/DDID.
->
->Since this is a DG1-specific commit with DG1-specific macros, we should
->also use the DG1-specific terminology in the commit message to avoid
->confusion (i.e., DDI-TC1 and DDI-TC2 instead of DDIC/DDID).
->
+GEM object functions deprecate several similar callback interfaces in
+struct drm_driver. This patch replaces the per-driver callbacks with
+per-instance callbacks in amdgpu. The only exception is gem_prime_mmap,
+which is non-trivial to convert.
 
-ok, re-reading  bspec 49182 now I agree, although I find this naming
-more confusing as it doesn't use TC phy
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |  6 ------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 12 ++++++++++++
+ 2 files changed, 12 insertions(+), 6 deletions(-)
 
-thanks
-Lucas De Marchi
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 81a79760ca61..51525b8774c9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -1468,19 +1468,13 @@ static struct drm_driver kms_driver = {
+ 	.lastclose = amdgpu_driver_lastclose_kms,
+ 	.irq_handler = amdgpu_irq_handler,
+ 	.ioctls = amdgpu_ioctls_kms,
+-	.gem_free_object_unlocked = amdgpu_gem_object_free,
+-	.gem_open_object = amdgpu_gem_object_open,
+-	.gem_close_object = amdgpu_gem_object_close,
+ 	.dumb_create = amdgpu_mode_dumb_create,
+ 	.dumb_map_offset = amdgpu_mode_dumb_mmap,
+ 	.fops = &amdgpu_driver_kms_fops,
+ 
+ 	.prime_handle_to_fd = drm_gem_prime_handle_to_fd,
+ 	.prime_fd_to_handle = drm_gem_prime_fd_to_handle,
+-	.gem_prime_export = amdgpu_gem_prime_export,
+ 	.gem_prime_import = amdgpu_gem_prime_import,
+-	.gem_prime_vmap = amdgpu_gem_prime_vmap,
+-	.gem_prime_vunmap = amdgpu_gem_prime_vunmap,
+ 	.gem_prime_mmap = amdgpu_gem_prime_mmap,
+ 
+ 	.name = DRIVER_NAME,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+index 43f4966331dd..ca2b79f94e99 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+@@ -36,6 +36,7 @@
+ #include <drm/amdgpu_drm.h>
+ #include <drm/drm_cache.h>
+ #include "amdgpu.h"
++#include "amdgpu_dma_buf.h"
+ #include "amdgpu_trace.h"
+ #include "amdgpu_amdkfd.h"
+ 
+@@ -510,6 +511,15 @@ bool amdgpu_bo_support_uswc(u64 bo_flags)
+ #endif
+ }
+ 
++static const struct drm_gem_object_funcs amdgpu_gem_object_funcs = {
++	.free = amdgpu_gem_object_free,
++	.open = amdgpu_gem_object_open,
++	.close = amdgpu_gem_object_close,
++	.export = amdgpu_gem_prime_export,
++	.vmap = amdgpu_gem_prime_vmap,
++	.vunmap = amdgpu_gem_prime_vunmap,
++};
++
+ static int amdgpu_bo_do_create(struct amdgpu_device *adev,
+ 			       struct amdgpu_bo_param *bp,
+ 			       struct amdgpu_bo **bo_ptr)
+@@ -552,6 +562,8 @@ static int amdgpu_bo_do_create(struct amdgpu_device *adev,
+ 	bo = kzalloc(sizeof(struct amdgpu_bo), GFP_KERNEL);
+ 	if (bo == NULL)
+ 		return -ENOMEM;
++
++	bo->tbo.base.funcs = &amdgpu_gem_object_funcs;
+ 	drm_gem_private_object_init(adev->ddev, &bo->tbo.base, size);
+ 	INIT_LIST_HEAD(&bo->shadow_list);
+ 	bo->vm_bo = NULL;
+-- 
+2.28.0
 
->Aside from that,
->
->Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
->
->>
->> Introduce DG1_DPLL_CFCRx() helper macros to configure
->> DPLL registers.
->>
->> Bspec: 50288, 50299
->>
->> Cc: Matt Roper <matthew.d.roper@intel.com>
->> Signed-off-by: Aditya Swarup <aditya.swarup@intel.com>
->> Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
->> ---
->>  drivers/gpu/drm/i915/display/intel_dpll_mgr.h | 17 +++++++++++++++++
->>  drivers/gpu/drm/i915/i915_reg.h               | 17 ++++++++++++++++-
->>  2 files changed, 33 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/i915/display/intel_dpll_mgr.h b/drivers/gpu/drm/i915/display/intel_dpll_mgr.h
->> index 5d9a2bc371e7..205542fb8dc7 100644
->> --- a/drivers/gpu/drm/i915/display/intel_dpll_mgr.h
->> +++ b/drivers/gpu/drm/i915/display/intel_dpll_mgr.h
->> @@ -154,6 +154,23 @@ enum intel_dpll_id {
->>  	 * @DPLL_ID_TGL_MGPLL6: TGL TC PLL port 6 (TC6)
->>  	 */
->>  	DPLL_ID_TGL_MGPLL6 = 8,
->> +
->> +	/**
->> +	 * @DPLL_ID_DG1_DPLL0: DG1 combo PHY DPLL0
->> +	 */
->> +	DPLL_ID_DG1_DPLL0 = 0,
->> +	/**
->> +	 * @DPLL_ID_DG1_DPLL1: DG1 combo PHY DPLL1
->> +	 */
->> +	DPLL_ID_DG1_DPLL1 = 1,
->> +	/**
->> +	 * @DPLL_ID_DG1_DPLL2: DG1 combo PHY DPLL2
->> +	 */
->> +	DPLL_ID_DG1_DPLL2 = 2,
->> +	/**
->> +	 * @DPLL_ID_DG1_DPLL3: DG1 combo PHY DPLL3
->> +	 */
->> +	DPLL_ID_DG1_DPLL3 = 3,
->>  };
->>
->>  #define I915_NUM_PLLS 9
->> diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
->> index 3767b32127da..986e31af7763 100644
->> --- a/drivers/gpu/drm/i915/i915_reg.h
->> +++ b/drivers/gpu/drm/i915/i915_reg.h
->> @@ -242,7 +242,8 @@ static inline bool i915_mmio_reg_valid(i915_reg_t reg)
->>  #define _MMIO_PIPE3(pipe, a, b, c)	_MMIO(_PICK(pipe, a, b, c))
->>  #define _MMIO_PORT3(pipe, a, b, c)	_MMIO(_PICK(pipe, a, b, c))
->>  #define _MMIO_PHY3(phy, a, b, c)	_MMIO(_PHY3(phy, a, b, c))
->> -#define _MMIO_PLL3(pll, a, b, c)	_MMIO(_PICK(pll, a, b, c))
->> +#define _MMIO_PLL3(pll, ...)		_MMIO(_PICK(pll, __VA_ARGS__))
->> +
->>
->>  /*
->>   * Device info offset array based helpers for groups of registers with unevenly
->> @@ -10547,6 +10548,20 @@ enum skl_power_gate {
->>  #define RKL_DPLL_CFGCR1(pll)		_MMIO_PLL(pll, _TGL_DPLL0_CFGCR1, \
->>  						  _TGL_DPLL1_CFGCR1)
->>
->> +#define _DG1_DPLL2_CFGCR0		0x16C284
->> +#define _DG1_DPLL3_CFGCR0		0x16C28C
->> +#define DG1_DPLL_CFGCR0(pll)		_MMIO_PLL3(pll, _TGL_DPLL0_CFGCR0, \
->> +						   _TGL_DPLL1_CFGCR0, \
->> +						   _DG1_DPLL2_CFGCR0, \
->> +						   _DG1_DPLL3_CFGCR0)
->> +
->> +#define _DG1_DPLL2_CFGCR1               0x16C288
->> +#define _DG1_DPLL3_CFGCR1               0x16C290
->> +#define DG1_DPLL_CFGCR1(pll)            _MMIO_PLL3(pll, _TGL_DPLL0_CFGCR1, \
->> +						   _TGL_DPLL1_CFGCR1, \
->> +						   _DG1_DPLL2_CFGCR1, \
->> +						   _DG1_DPLL3_CFGCR1)
->> +
->>  #define _DKL_PHY1_BASE			0x168000
->>  #define _DKL_PHY2_BASE			0x169000
->>  #define _DKL_PHY3_BASE			0x16A000
->> --
->> 2.26.2
->>
->
->-- 
->Matt Roper
->Graphics Software Engineer
->VTT-OSGC Platform Enablement
->Intel Corporation
->(916) 356-2795
->_______________________________________________
->Intel-gfx mailing list
->Intel-gfx@lists.freedesktop.org
->https://lists.freedesktop.org/mailman/listinfo/intel-gfx
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
