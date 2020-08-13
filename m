@@ -2,61 +2,74 @@ Return-Path: <SRS0=YOLQ=BX=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.0 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-10.0 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
-	autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 181B9C433F1
-	for <intel-gfx@archiver.kernel.org>; Thu, 13 Aug 2020 08:38:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A13DDC433E4
+	for <intel-gfx@archiver.kernel.org>; Thu, 13 Aug 2020 09:08:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E778D20781
-	for <intel-gfx@archiver.kernel.org>; Thu, 13 Aug 2020 08:38:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E778D20781
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
+	by mail.kernel.org (Postfix) with ESMTPS id 805BC2074D
+	for <intel-gfx@archiver.kernel.org>; Thu, 13 Aug 2020 09:08:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 805BC2074D
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E91EA6E9EF;
-	Thu, 13 Aug 2020 08:37:13 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 94E176E9DA;
- Thu, 13 Aug 2020 08:37:09 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 2ACFFB5A7;
- Thu, 13 Aug 2020 08:37:30 +0000 (UTC)
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@linux.ie,
- daniel@ffwll.ch, linux@armlinux.org.uk, maarten.lankhorst@linux.intel.com,
+	by gabe.freedesktop.org (Postfix) with ESMTP id 266486E974;
+	Thu, 13 Aug 2020 09:08:51 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D6F4C6E970;
+ Thu, 13 Aug 2020 09:08:49 +0000 (UTC)
+IronPort-SDR: Ww4lKOaG9cU+FnkgZG8qE9y0LRLCNvCKjCsEnyAZGC1KTEzae9cenFaCVVxK+apoPIlifPVygw
+ 3QkijXjXIv6A==
+X-IronPort-AV: E=McAfee;i="6000,8403,9711"; a="154148059"
+X-IronPort-AV: E=Sophos;i="5.76,307,1592895600"; d="scan'208";a="154148059"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Aug 2020 02:08:49 -0700
+IronPort-SDR: MzLdBg29y17Qw947zHTwHA+CSmHBs2Zvn+6Bs6sqi/aBfHd1F5a0YahIdS8U60Hdv6sgpLlMWW
+ /z+PVkWCy4qA==
+X-IronPort-AV: E=Sophos;i="5.76,307,1592895600"; d="scan'208";a="470144306"
+Received: from jgronski-mobl.ger.corp.intel.com (HELO localhost)
+ ([10.252.50.170])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Aug 2020 02:08:15 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>, alexander.deucher@amd.com,
+ christian.koenig@amd.com, airlied@linux.ie, daniel@ffwll.ch,
+ linux@armlinux.org.uk, maarten.lankhorst@linux.intel.com,
  mripard@kernel.org, l.stach@pengutronix.de, christian.gmeiner@gmail.com,
  inki.dae@samsung.com, jy0922.shim@samsung.com, sw0312.kim@samsung.com,
  kyungmin.park@samsung.com, kgene@kernel.org, krzk@kernel.org,
- patrik.r.jakobsson@gmail.com, jani.nikula@linux.intel.com,
- joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
- chunkuang.hu@kernel.org, p.zabel@pengutronix.de, matthias.bgg@gmail.com,
- robdclark@gmail.com, sean@poorly.run, bskeggs@redhat.com,
- tomi.valkeinen@ti.com, eric@anholt.net, hjc@rock-chips.com,
- heiko@sntech.de, thierry.reding@gmail.com, jonathanh@nvidia.com,
- rodrigosiqueiramelo@gmail.com, hamohammed.sa@gmail.com,
- oleksandr_andrushchenko@epam.com, hyun.kwon@xilinx.com,
- laurent.pinchart@ideasonboard.com, michal.simek@xilinx.com,
- sumit.semwal@linaro.org, evan.quan@amd.com, Hawking.Zhang@amd.com,
- tianci.yin@amd.com, marek.olsak@amd.com, hdegoede@redhat.com,
- andrey.grodzovsky@amd.com, Felix.Kuehling@amd.com, xinhui.pan@amd.com,
- aaron.liu@amd.com, nirmoy.das@amd.com, chris@chris-wilson.co.uk,
- matthew.auld@intel.com, abdiel.janulgue@linux.intel.com,
- tvrtko.ursulin@linux.intel.com, andi.shyti@intel.com, sam@ravnborg.org,
- miaoqinglang@huawei.com, emil.velikov@collabora.com
-Date: Thu, 13 Aug 2020 10:36:43 +0200
-Message-Id: <20200813083644.31711-20-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.28.0
-In-Reply-To: <20200813083644.31711-1-tzimmermann@suse.de>
+ patrik.r.jakobsson@gmail.com, joonas.lahtinen@linux.intel.com,
+ rodrigo.vivi@intel.com, chunkuang.hu@kernel.org, p.zabel@pengutronix.de,
+ matthias.bgg@gmail.com, robdclark@gmail.com, sean@poorly.run,
+ bskeggs@redhat.com, tomi.valkeinen@ti.com, eric@anholt.net,
+ hjc@rock-chips.com, heiko@sntech.de, thierry.reding@gmail.com,
+ jonathanh@nvidia.com, rodrigosiqueiramelo@gmail.com,
+ hamohammed.sa@gmail.com, oleksandr_andrushchenko@epam.com,
+ hyun.kwon@xilinx.com, laurent.pinchart@ideasonboard.com,
+ michal.simek@xilinx.com, sumit.semwal@linaro.org, evan.quan@amd.com,
+ Hawking.Zhang@amd.com, tianci.yin@amd.com, marek.olsak@amd.com,
+ hdegoede@redhat.com, andrey.grodzovsky@amd.com, Felix.Kuehling@amd.com,
+ xinhui.pan@amd.com, aaron.liu@amd.com, nirmoy.das@amd.com,
+ chris@chris-wilson.co.uk, matthew.auld@intel.com,
+ abdiel.janulgue@linux.intel.com, tvrtko.ursulin@linux.intel.com,
+ andi.shyti@intel.com, sam@ravnborg.org, miaoqinglang@huawei.com,
+ emil.velikov@collabora.com
+In-Reply-To: <20200813083644.31711-7-tzimmermann@suse.de>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 References: <20200813083644.31711-1-tzimmermann@suse.de>
+ <20200813083644.31711-7-tzimmermann@suse.de>
+Date: Thu, 13 Aug 2020 12:08:12 +0300
+Message-ID: <877du2j4lf.fsf@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 19/20] drm/xlnx: Initialize DRM driver instance
- with CMA helper macro
+Subject: Re: [Intel-gfx] [PATCH 06/20] drm/i915: Introduce GEM object
+ functions
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,47 +94,106 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The xlnx driver uses CMA helpers with default callback functions.
-Initialize the driver structure with the rsp CMA helper macro. The
-driver is being converted to use GEM object functions as part of
-this change.
+On Thu, 13 Aug 2020, Thomas Zimmermann <tzimmermann@suse.de> wrote:
+> GEM object functions deprecate several similar callback interfaces in
+> struct drm_driver. This patch replaces the per-driver callbacks with
+> per-instance callbacks in i915.
+>
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> ---
+>  drivers/gpu/drm/i915/gem/i915_gem_object.c       |  9 ++++++++-
+>  drivers/gpu/drm/i915/i915_drv.c                  | 10 ++++++----
+>  drivers/gpu/drm/i915/i915_drv.h                  |  1 +
+>  drivers/gpu/drm/i915/selftests/mock_gem_device.c |  3 ---
+>  4 files changed, 15 insertions(+), 8 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.c b/drivers/gpu/drm/i915/gem/i915_gem_object.c
+> index c8421fd9d2dc..bc15ee4f2bd5 100644
+> --- a/drivers/gpu/drm/i915/gem/i915_gem_object.c
+> +++ b/drivers/gpu/drm/i915/gem/i915_gem_object.c
+> @@ -41,7 +41,14 @@ static struct i915_global_object {
+>  
+>  struct drm_i915_gem_object *i915_gem_object_alloc(void)
+>  {
+> -	return kmem_cache_zalloc(global.slab_objects, GFP_KERNEL);
+> +	struct drm_i915_gem_object *obj;
+> +
+> +	obj = kmem_cache_zalloc(global.slab_objects, GFP_KERNEL);
+> +	if (!obj)
+> +		return NULL;
+> +	obj->base.funcs = &i915_gem_object_funcs;
+> +
+> +	return obj;
+>  }
+>  
+>  void i915_gem_object_free(struct drm_i915_gem_object *obj)
+> diff --git a/drivers/gpu/drm/i915/i915_drv.c b/drivers/gpu/drm/i915/i915_drv.c
+> index 068447f565a9..b09eee11c540 100644
+> --- a/drivers/gpu/drm/i915/i915_drv.c
+> +++ b/drivers/gpu/drm/i915/i915_drv.c
+> @@ -1840,6 +1840,12 @@ static const struct drm_ioctl_desc i915_ioctls[] = {
+>  	DRM_IOCTL_DEF_DRV(I915_GEM_VM_DESTROY, i915_gem_vm_destroy_ioctl, DRM_RENDER_ALLOW),
+>  };
+>  
+> +const struct drm_gem_object_funcs i915_gem_object_funcs = {
+> +	.free = i915_gem_free_object,
+> +	.close = i915_gem_close_object,
+> +	.export = i915_gem_prime_export,
+> +};
+> +
 
-Two callbacks, .dumb_destroy and .gem_prime_import, were initialized
-to their default implementations, so they are just kept empty now.
+Any reason not to make this static in i915_gem_object.c next to its only
+user?
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
----
- drivers/gpu/drm/xlnx/zynqmp_dpsub.c | 14 +-------------
- 1 file changed, 1 insertion(+), 13 deletions(-)
+BR,
+Jani.
 
-diff --git a/drivers/gpu/drm/xlnx/zynqmp_dpsub.c b/drivers/gpu/drm/xlnx/zynqmp_dpsub.c
-index 26328c76305b..058044dcc062 100644
---- a/drivers/gpu/drm/xlnx/zynqmp_dpsub.c
-+++ b/drivers/gpu/drm/xlnx/zynqmp_dpsub.c
-@@ -80,19 +80,7 @@ static struct drm_driver zynqmp_dpsub_drm_driver = {
- 	.driver_features		= DRIVER_MODESET | DRIVER_GEM |
- 					  DRIVER_ATOMIC,
- 
--	.prime_handle_to_fd		= drm_gem_prime_handle_to_fd,
--	.prime_fd_to_handle		= drm_gem_prime_fd_to_handle,
--	.gem_prime_export		= drm_gem_prime_export,
--	.gem_prime_import		= drm_gem_prime_import,
--	.gem_prime_get_sg_table		= drm_gem_cma_prime_get_sg_table,
--	.gem_prime_import_sg_table	= drm_gem_cma_prime_import_sg_table,
--	.gem_prime_vmap			= drm_gem_cma_prime_vmap,
--	.gem_prime_vunmap		= drm_gem_cma_prime_vunmap,
--	.gem_prime_mmap			= drm_gem_cma_prime_mmap,
--	.gem_free_object_unlocked	= drm_gem_cma_free_object,
--	.gem_vm_ops			= &drm_gem_cma_vm_ops,
--	.dumb_create			= zynqmp_dpsub_dumb_create,
--	.dumb_destroy			= drm_gem_dumb_destroy,
-+	DRM_GEM_CMA_DRIVER_OPS_VMAP_WITH_DUMB_CREATE(zynqmp_dpsub_dumb_create),
- 
- 	.fops				= &zynqmp_dpsub_drm_fops,
- 
+
+>  static struct drm_driver driver = {
+>  	/* Don't use MTRRs here; the Xserver or userspace app should
+>  	 * deal with them for Intel hardware.
+> @@ -1853,12 +1859,8 @@ static struct drm_driver driver = {
+>  	.lastclose = i915_driver_lastclose,
+>  	.postclose = i915_driver_postclose,
+>  
+> -	.gem_close_object = i915_gem_close_object,
+> -	.gem_free_object_unlocked = i915_gem_free_object,
+> -
+>  	.prime_handle_to_fd = drm_gem_prime_handle_to_fd,
+>  	.prime_fd_to_handle = drm_gem_prime_fd_to_handle,
+> -	.gem_prime_export = i915_gem_prime_export,
+>  	.gem_prime_import = i915_gem_prime_import,
+>  
+>  	.dumb_create = i915_gem_dumb_create,
+> diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+> index bacb4c762f5b..666db65fe69e 100644
+> --- a/drivers/gpu/drm/i915/i915_drv.h
+> +++ b/drivers/gpu/drm/i915/i915_drv.h
+> @@ -1736,6 +1736,7 @@ intel_ggtt_update_needs_vtd_wa(struct drm_i915_private *dev_priv)
+>  
+>  /* i915_drv.c */
+>  extern const struct dev_pm_ops i915_pm_ops;
+> +extern const struct drm_gem_object_funcs i915_gem_object_funcs;
+>  
+>  int i915_driver_probe(struct pci_dev *pdev, const struct pci_device_id *ent);
+>  void i915_driver_remove(struct drm_i915_private *i915);
+> diff --git a/drivers/gpu/drm/i915/selftests/mock_gem_device.c b/drivers/gpu/drm/i915/selftests/mock_gem_device.c
+> index ce4d4303229c..4725dad63e0a 100644
+> --- a/drivers/gpu/drm/i915/selftests/mock_gem_device.c
+> +++ b/drivers/gpu/drm/i915/selftests/mock_gem_device.c
+> @@ -86,9 +86,6 @@ static struct drm_driver mock_driver = {
+>  	.name = "mock",
+>  	.driver_features = DRIVER_GEM,
+>  	.release = mock_device_release,
+> -
+> -	.gem_close_object = i915_gem_close_object,
+> -	.gem_free_object_unlocked = i915_gem_free_object,
+>  };
+>  
+>  static void release_dev(struct device *dev)
+
 -- 
-2.28.0
-
+Jani Nikula, Intel Open Source Graphics Center
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
