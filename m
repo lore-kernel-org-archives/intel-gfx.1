@@ -2,67 +2,49 @@ Return-Path: <SRS0=1luh=BY=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.5 required=3.0 tests=BAYES_00,DATE_IN_PAST_06_12,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F39E4C433DF
-	for <intel-gfx@archiver.kernel.org>; Fri, 14 Aug 2020 09:38:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1D191C433E1
+	for <intel-gfx@archiver.kernel.org>; Fri, 14 Aug 2020 09:46:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C6EDD206B2
-	for <intel-gfx@archiver.kernel.org>; Fri, 14 Aug 2020 09:38:52 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="fYOi3zNJ"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C6EDD206B2
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	by mail.kernel.org (Postfix) with ESMTPS id ED7C8206B2
+	for <intel-gfx@archiver.kernel.org>; Fri, 14 Aug 2020 09:46:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org ED7C8206B2
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B99836E2E9;
-	Fri, 14 Aug 2020 09:38:51 +0000 (UTC)
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
- [IPv6:2a00:1450:4864:20::442])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 065A86E178
- for <intel-gfx@lists.freedesktop.org>; Fri, 14 Aug 2020 09:38:50 +0000 (UTC)
-Received: by mail-wr1-x442.google.com with SMTP id a15so7748358wrh.10
- for <intel-gfx@lists.freedesktop.org>; Fri, 14 Aug 2020 02:38:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=GlRbfN15T5Cg85h0wsIiuda9qqa99m1J2oOUVAH6u5I=;
- b=fYOi3zNJmQMHegHs2QSvL5wWQhR/7lfJGqv2xN9QUjvneWY9wv3M0eKjKklrgcDoRS
- zUuAVpQsyX01dVhDn/eJhCkIN5uMBJzDBmvz49m7X4qMeyGufrAVtvwfkffHK2GpMKiQ
- 0xcPUucA+BzoBQ/XXQvcMEeb9XIrX6QHzNoT4=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=GlRbfN15T5Cg85h0wsIiuda9qqa99m1J2oOUVAH6u5I=;
- b=r3kNipthMKiEk9pmA4L5om66LUi4ljmc+ZrFanwxkdGwiQyJ4/eOCn6pNx01SiKI8j
- CzY4vrZ7QDdBQJW8JD8pkSSW5YL3ZjAIMgYP3BBmqcBYdlNI0lNYII+2uhacqZlgL4YR
- X6RFUa0Oej/kCoe2umpUekhCqQw74uJGmKDDmmaBx8r0OBoO7WEB0SYDcpWDuTrUptnI
- z/Y2evIEz+2YTIkfNeyW6ofmTMNl7J5UfY+CbxULTZH/0nXFDxFHvFUGuYnwvAPvAGZC
- Oby9bwRpelulwXR6hPU76u53z413kAU/EHsppQV7NuFdQTsa94bXi08hos4Rws3oFXC7
- FBuA==
-X-Gm-Message-State: AOAM532iDKQZAD7KBkexR+acy9e2ZJKS0bfoF0Gp9W8NANACbU4D7wkB
- UDuBopByiZ71vWOQimp7w1NqhH8NjBHBDw==
-X-Google-Smtp-Source: ABdhPJxJathjrmL587wR7q0nkRavVrPuzw+35i1QEWinUdWFfDqV2CL2Cu4Cf29RHiHkcGUJPuzcpQ==
-X-Received: by 2002:adf:ab0d:: with SMTP id q13mr1847361wrc.134.1597397928650; 
- Fri, 14 Aug 2020 02:38:48 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id t14sm13790478wrv.14.2020.08.14.02.38.47
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 14 Aug 2020 02:38:47 -0700 (PDT)
-From: Daniel Vetter <daniel.vetter@ffwll.ch>
-To: DRI Development <dri-devel@lists.freedesktop.org>
-Date: Fri, 14 Aug 2020 11:38:42 +0200
-Message-Id: <20200814093842.3048472-1-daniel.vetter@ffwll.ch>
-X-Mailer: git-send-email 2.28.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7AAD46E2EF;
+	Fri, 14 Aug 2020 09:46:09 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 793F66E2EF
+ for <intel-gfx@lists.freedesktop.org>; Fri, 14 Aug 2020 09:46:08 +0000 (UTC)
+IronPort-SDR: 7jNROBoYVcVxufeVrSXUab91grzKmK4mmvVmxZEVnpB7gw/beRt58PRCI66LqBYpnR96ZiIrh9
+ hcZPahhfi8mQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9712"; a="152026585"
+X-IronPort-AV: E=Sophos;i="5.76,311,1592895600"; d="scan'208";a="152026585"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Aug 2020 02:46:07 -0700
+IronPort-SDR: isMhC1ClflQe8RxQHLLiyJCh9fVMHFmH6IXTmZFNvQrBS8OHMgJ7/c+U4zs0BTTrHP9hBLmq9I
+ Vszlvlt5tERw==
+X-IronPort-AV: E=Sophos;i="5.76,311,1592895600"; d="scan'208";a="440068590"
+Received: from unknown (HELO john.iind.intel.com) ([10.223.74.105])
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-SHA;
+ 14 Aug 2020 02:46:06 -0700
+From: Nischal Varide <nischal.varide@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Fri, 14 Aug 2020 08:19:43 +0530
+Message-Id: <20200814024950.26830-1-nischal.varide@intel.com>
+X-Mailer: git-send-email 2.26.0
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH] drm/modeset-lock: Take the modeset BKL for
- legacy drivers
+Subject: [Intel-gfx] [PATCH 1/8] Critical KlockWork Error - Fixes -
+ intel_cdclk.c - Possible NullPointerDereference1
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,216 +57,60 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Michal Orzel <michalorzel.eng@gmail.com>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel.vetter@ffwll.ch>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Maxime Ripard <mripard@kernel.org>, stable@vger.kernel.org,
- Thomas Zimmermann <tzimmermann@suse.de>, Alex Deucher <alexdeucher@gmail.com>,
- Daniel Vetter <daniel.vetter@intel.com>
+Cc: Nischal Varide <nischal.varide@intel.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This fell off in the conversion in
-
-commit 9bcaa3fe58ab7559e71df798bcff6e0795158695
-Author: Michal Orzel <michalorzel.eng@gmail.com>
-Date:   Tue Apr 28 19:10:04 2020 +0200
-
-    drm: Replace drm_modeset_lock/unlock_all with DRM_MODESET_LOCK_ALL_* helpers
-
-but it's caught by the drm_warn_on_modeset_not_all_locked() that the
-legacy modeset code uses. Since this is the bkl and it's unclear
-what's all protected, play it safe and grab it again for legacy
-drivers.
-
-Unfortunately this means we need to sprinkle a few more #includes
-around.
-
-Also we need to add the drm_device as a parameter to the _END macro.
-
-Finally remove the mute_lock() from setcrtc, since that's now done by
-the macro.
-
-Cc: Alex Deucher <alexdeucher@gmail.com>
-References: https://gitlab.freedesktop.org/drm/amd/-/issues/1224
-Fixes: 9bcaa3fe58ab ("drm: Replace drm_modeset_lock/unlock_all with DRM_MODESET_LOCK_ALL_* helpers")
-Cc: Michal Orzel <michalorzel.eng@gmail.com>
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: David Airlie <airlied@linux.ie>
-Cc: Daniel Vetter <daniel@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org
-Cc: <stable@vger.kernel.org> # v5.8+
-Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
---
-Patch compiles but otherwise untested, and I'll go on vacations now
-for 2 weeks. Alex, can you pls take care of this?
-
-Thanks, Daniel
 ---
- drivers/gpu/drm/drm_atomic_helper.c | 7 ++++---
- drivers/gpu/drm/drm_color_mgmt.c    | 2 +-
- drivers/gpu/drm/drm_crtc.c          | 4 +---
- drivers/gpu/drm/drm_mode_object.c   | 4 ++--
- drivers/gpu/drm/drm_plane.c         | 2 +-
- include/drm/drm_modeset_lock.h      | 9 +++++++--
- 6 files changed, 16 insertions(+), 12 deletions(-)
+ drivers/gpu/drm/i915/display/intel_cdclk.c | 17 +++++++++++++++--
+ 1 file changed, 15 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
-index f67ee513a7cc..7515a40b2056 100644
---- a/drivers/gpu/drm/drm_atomic_helper.c
-+++ b/drivers/gpu/drm/drm_atomic_helper.c
-@@ -34,6 +34,7 @@
- #include <drm/drm_bridge.h>
- #include <drm/drm_damage_helper.h>
- #include <drm/drm_device.h>
-+#include <drm/drm_drv.h>
- #include <drm/drm_plane_helper.h>
- #include <drm/drm_print.h>
- #include <drm/drm_self_refresh_helper.h>
-@@ -3109,7 +3110,7 @@ void drm_atomic_helper_shutdown(struct drm_device *dev)
- 	if (ret)
- 		DRM_ERROR("Disabling all crtc's during unload failed with %i\n", ret);
+diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i915/display/intel_cdclk.c
+index 9d6cacbdb691..1cd0ab5b36d2 100644
+--- a/drivers/gpu/drm/i915/display/intel_cdclk.c
++++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
+@@ -1926,7 +1926,11 @@ intel_set_cdclk_pre_plane_update(struct intel_atomic_state *state)
+ 		intel_atomic_get_old_cdclk_state(state);
+ 	const struct intel_cdclk_state *new_cdclk_state =
+ 		intel_atomic_get_new_cdclk_state(state);
+-	enum pipe pipe = new_cdclk_state->pipe;
++	enum pipe pipe;
++
++	if (!(old_cdclk_state && new_cdclk_state))
++		return
++	(void)(pipe = new_cdclk_state->pipe);
  
--	DRM_MODESET_LOCK_ALL_END(ctx, ret);
-+	DRM_MODESET_LOCK_ALL_END(dev, ctx, ret);
- }
- EXPORT_SYMBOL(drm_atomic_helper_shutdown);
+ 	if (!intel_cdclk_changed(&old_cdclk_state->actual,
+ 				 &new_cdclk_state->actual))
+@@ -1955,7 +1959,13 @@ intel_set_cdclk_post_plane_update(struct intel_atomic_state *state)
+ 		intel_atomic_get_old_cdclk_state(state);
+ 	const struct intel_cdclk_state *new_cdclk_state =
+ 		intel_atomic_get_new_cdclk_state(state);
+-	enum pipe pipe = new_cdclk_state->pipe;
++	enum pipe pipe;
++
++	if (!(old_cdclk_state && new_cdclk_state))
++		return
++	(void)(pipe = new_cdclk_state->pipe);
++
++
  
-@@ -3249,7 +3250,7 @@ struct drm_atomic_state *drm_atomic_helper_suspend(struct drm_device *dev)
- 	}
+ 	if (!intel_cdclk_changed(&old_cdclk_state->actual,
+ 				 &new_cdclk_state->actual))
+@@ -2484,6 +2494,9 @@ int intel_modeset_calc_cdclk(struct intel_atomic_state *state)
  
- unlock:
--	DRM_MODESET_LOCK_ALL_END(ctx, err);
-+	DRM_MODESET_LOCK_ALL_END(dev, ctx, err);
- 	if (err)
- 		return ERR_PTR(err);
+ 	old_cdclk_state = intel_atomic_get_old_cdclk_state(state);
  
-@@ -3330,7 +3331,7 @@ int drm_atomic_helper_resume(struct drm_device *dev,
++	if (!(old_cdclk_state && new_cdclk_state))
++		return
++
+ 	new_cdclk_state->active_pipes =
+ 		intel_calc_active_pipes(state, old_cdclk_state->active_pipes);
  
- 	err = drm_atomic_helper_commit_duplicated_state(state, &ctx);
- 
--	DRM_MODESET_LOCK_ALL_END(ctx, err);
-+	DRM_MODESET_LOCK_ALL_END(dev, ctx, err);
- 	drm_atomic_state_put(state);
- 
- 	return err;
-diff --git a/drivers/gpu/drm/drm_color_mgmt.c b/drivers/gpu/drm/drm_color_mgmt.c
-index c93123ff7c21..138ff34b31db 100644
---- a/drivers/gpu/drm/drm_color_mgmt.c
-+++ b/drivers/gpu/drm/drm_color_mgmt.c
-@@ -294,7 +294,7 @@ int drm_mode_gamma_set_ioctl(struct drm_device *dev,
- 				     crtc->gamma_size, &ctx);
- 
- out:
--	DRM_MODESET_LOCK_ALL_END(ctx, ret);
-+	DRM_MODESET_LOCK_ALL_END(dev, ctx, ret);
- 	return ret;
- 
- }
-diff --git a/drivers/gpu/drm/drm_crtc.c b/drivers/gpu/drm/drm_crtc.c
-index 283bcc4362ca..aecdd7ea26dc 100644
---- a/drivers/gpu/drm/drm_crtc.c
-+++ b/drivers/gpu/drm/drm_crtc.c
-@@ -588,7 +588,6 @@ int drm_mode_setcrtc(struct drm_device *dev, void *data,
- 	if (crtc_req->mode_valid && !drm_lease_held(file_priv, plane->base.id))
- 		return -EACCES;
- 
--	mutex_lock(&crtc->dev->mode_config.mutex);
- 	DRM_MODESET_LOCK_ALL_BEGIN(dev, ctx,
- 				   DRM_MODESET_ACQUIRE_INTERRUPTIBLE, ret);
- 
-@@ -756,8 +755,7 @@ int drm_mode_setcrtc(struct drm_device *dev, void *data,
- 	fb = NULL;
- 	mode = NULL;
- 
--	DRM_MODESET_LOCK_ALL_END(ctx, ret);
--	mutex_unlock(&crtc->dev->mode_config.mutex);
-+	DRM_MODESET_LOCK_ALL_END(dev, ctx, ret);
- 
- 	return ret;
- }
-diff --git a/drivers/gpu/drm/drm_mode_object.c b/drivers/gpu/drm/drm_mode_object.c
-index 901b078abf40..db05f386a709 100644
---- a/drivers/gpu/drm/drm_mode_object.c
-+++ b/drivers/gpu/drm/drm_mode_object.c
-@@ -428,7 +428,7 @@ int drm_mode_obj_get_properties_ioctl(struct drm_device *dev, void *data,
- out_unref:
- 	drm_mode_object_put(obj);
- out:
--	DRM_MODESET_LOCK_ALL_END(ctx, ret);
-+	DRM_MODESET_LOCK_ALL_END(dev, ctx, ret);
- 	return ret;
- }
- 
-@@ -470,7 +470,7 @@ static int set_property_legacy(struct drm_mode_object *obj,
- 		break;
- 	}
- 	drm_property_change_valid_put(prop, ref);
--	DRM_MODESET_LOCK_ALL_END(ctx, ret);
-+	DRM_MODESET_LOCK_ALL_END(dev, ctx, ret);
- 
- 	return ret;
- }
-diff --git a/drivers/gpu/drm/drm_plane.c b/drivers/gpu/drm/drm_plane.c
-index b7b90b3a2e38..affe1cfed009 100644
---- a/drivers/gpu/drm/drm_plane.c
-+++ b/drivers/gpu/drm/drm_plane.c
-@@ -792,7 +792,7 @@ static int setplane_internal(struct drm_plane *plane,
- 					  crtc_x, crtc_y, crtc_w, crtc_h,
- 					  src_x, src_y, src_w, src_h, &ctx);
- 
--	DRM_MODESET_LOCK_ALL_END(ctx, ret);
-+	DRM_MODESET_LOCK_ALL_END(plane->dev, ctx, ret);
- 
- 	return ret;
- }
-diff --git a/include/drm/drm_modeset_lock.h b/include/drm/drm_modeset_lock.h
-index 4fc9a43ac45a..aafd07388eb7 100644
---- a/include/drm/drm_modeset_lock.h
-+++ b/include/drm/drm_modeset_lock.h
-@@ -164,6 +164,8 @@ int drm_modeset_lock_all_ctx(struct drm_device *dev,
-  * is 0, so no error checking is necessary
-  */
- #define DRM_MODESET_LOCK_ALL_BEGIN(dev, ctx, flags, ret)		\
-+	if (!drm_drv_uses_atomic_modeset(dev))				\
-+		mutex_lock(&dev->mode_config.mutex);			\
- 	drm_modeset_acquire_init(&ctx, flags);				\
- modeset_lock_retry:							\
- 	ret = drm_modeset_lock_all_ctx(dev, &ctx);			\
-@@ -172,6 +174,7 @@ modeset_lock_retry:							\
- 
- /**
-  * DRM_MODESET_LOCK_ALL_END - Helper to release and cleanup modeset locks
-+ * @dev: drm device
-  * @ctx: local modeset acquire context, will be dereferenced
-  * @ret: local ret/err/etc variable to track error status
-  *
-@@ -188,7 +191,7 @@ modeset_lock_retry:							\
-  * to that failure. In both of these cases the code between BEGIN/END will not
-  * be run, so the failure will reflect the inability to grab the locks.
-  */
--#define DRM_MODESET_LOCK_ALL_END(ctx, ret)				\
-+#define DRM_MODESET_LOCK_ALL_END(dev, ctx, ret)				\
- modeset_lock_fail:							\
- 	if (ret == -EDEADLK) {						\
- 		ret = drm_modeset_backoff(&ctx);			\
-@@ -196,6 +199,8 @@ modeset_lock_fail:							\
- 			goto modeset_lock_retry;			\
- 	}								\
- 	drm_modeset_drop_locks(&ctx);					\
--	drm_modeset_acquire_fini(&ctx);
-+	drm_modeset_acquire_fini(&ctx);					\
-+	if (!drm_drv_uses_atomic_modeset(dev))				\
-+		mutex_unlock(&dev->mode_config.mutex);
- 
- #endif /* DRM_MODESET_LOCK_H_ */
 -- 
-2.28.0
+2.26.0
 
 _______________________________________________
 Intel-gfx mailing list
