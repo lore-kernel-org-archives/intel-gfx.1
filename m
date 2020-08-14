@@ -2,42 +2,41 @@ Return-Path: <SRS0=1luh=BY=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.0 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-4.0 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 34C46C433E1
-	for <intel-gfx@archiver.kernel.org>; Fri, 14 Aug 2020 15:57:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DA122C433DF
+	for <intel-gfx@archiver.kernel.org>; Fri, 14 Aug 2020 16:15:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 157912074D
-	for <intel-gfx@archiver.kernel.org>; Fri, 14 Aug 2020 15:57:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 157912074D
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
+	by mail.kernel.org (Postfix) with ESMTPS id A02BE20768
+	for <intel-gfx@archiver.kernel.org>; Fri, 14 Aug 2020 16:15:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A02BE20768
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE9B36EB76;
-	Fri, 14 Aug 2020 15:57:54 +0000 (UTC)
-Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E6B76EB76
- for <intel-gfx@lists.freedesktop.org>; Fri, 14 Aug 2020 15:57:52 +0000 (UTC)
-X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
- x-ip-name=78.156.65.138; 
-Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22129561-1500050 
- for multiple; Fri, 14 Aug 2020 16:57:38 +0100
-From: Chris Wilson <chris@chris-wilson.co.uk>
-To: intel-gfx@lists.freedesktop.org
-Date: Fri, 14 Aug 2020 16:57:34 +0100
-Message-Id: <20200814155735.29138-2-chris@chris-wilson.co.uk>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20200814155735.29138-1-chris@chris-wilson.co.uk>
-References: <20200814155735.29138-1-chris@chris-wilson.co.uk>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D8726EB8F;
+	Fri, 14 Aug 2020 16:15:21 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 6DDAE6EB8E;
+ Fri, 14 Aug 2020 16:15:20 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 5F10AA66C9;
+ Fri, 14 Aug 2020 16:15:20 +0000 (UTC)
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 2/3] drm/i915/gt: Wait for CSB entries on
- Tigerlake
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Chris Wilson" <chris@chris-wilson.co.uk>
+Date: Fri, 14 Aug 2020 16:15:20 -0000
+Message-ID: <159742172038.3439.13743958094760698114@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20200814155735.29138-1-chris@chris-wilson.co.uk>
+In-Reply-To: <20200814155735.29138-1-chris@chris-wilson.co.uk>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_series_starting_with_=5B1/3=5D_drm/i915/gt=3A_Widen_CSB_poi?=
+ =?utf-8?q?nter_to_u64_for_the_parsers?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,81 +49,44 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stable@vger.kernel.org, Chris Wilson <chris@chris-wilson.co.uk>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tigerlake, we are seeing a repeat of commit d8f505311717 ("drm/i915/icl:
-Forcibly evict stale csb entries") where, presumably, due to a missing
-Global Observation Point synchronisation, the write pointer of the CSB
-ringbuffer is updated _prior_ to the contents of the ringbuffer. That is
-we see the GPU report more context-switch entries for us to parse, but
-those entries have not been written, leading us to process stale events,
-and eventually report a hung GPU.
+== Series Details ==
 
-However, this effect appears to be much more severe than we previously
-saw on Icelake (though it might be best if we try the same approach
-there as well and measure), and Bruce suggested the good idea of resetting
-the CSB entry after use so that we can detect when it has been updated by
-the GPU. By instrumenting how long that may be, we can set a reliable
-upper bound for how long we should wait for:
+Series: series starting with [1/3] drm/i915/gt: Widen CSB pointer to u64 for the parsers
+URL   : https://patchwork.freedesktop.org/series/80627/
+State : warning
 
-    513 late, avg of 61 retries (590 ns), max of 1061 retries (10099 ns)
+== Summary ==
 
-Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/2045
+$ dim checkpatch origin/drm-tip
+1c6a740de44a drm/i915/gt: Widen CSB pointer to u64 for the parsers
+f1c36ee09bda drm/i915/gt: Wait for CSB entries on Tigerlake
+-:24: ERROR:GIT_COMMIT_ID: Please use git commit description style 'commit <12+ chars of sha1> ("<title line>")' - ie: 'commit d8f505311717 ("drm/i915/icl: Forcibly evict stale csb entries")'
+#24: 
 References: d8f505311717 ("drm/i915/icl: Forcibly evict stale csb entries")
-Suggested-by: Bruce Chang <yu.bruce.chang@intel.com>
-Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-Cc: Bruce Chang <yu.bruce.chang@intel.com>
-Cc: Mika Kuoppala <mika.kuoppala@linux.intel.com>
-Cc: stable@vger.kernel.org # v5.4
----
- drivers/gpu/drm/i915/gt/intel_lrc.c | 21 ++++++++++++++++++---
- 1 file changed, 18 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
-index db982fc0f0bc..3b8161c6b601 100644
---- a/drivers/gpu/drm/i915/gt/intel_lrc.c
-+++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
-@@ -2498,9 +2498,22 @@ invalidate_csb_entries(const u64 *first, const u64 *last)
-  */
- static inline bool gen12_csb_parse(const u64 *csb)
- {
--	u64 entry = READ_ONCE(*csb);
--	bool ctx_away_valid = GEN12_CSB_CTX_VALID(upper_32_bits(entry));
--	bool new_queue =
-+	bool ctx_away_valid;
-+	bool new_queue;
-+	u64 entry;
-+
-+	/* XXX HSD */
-+	entry = READ_ONCE(*csb);
-+	if (unlikely(entry == -1)) {
-+		preempt_disable();
+-:50: ERROR:ASSIGN_IN_IF: do not use assignment in if condition
+#50: FILE: drivers/gpu/drm/i915/gt/intel_lrc.c:2509:
 +		if (wait_for_atomic_us((entry = READ_ONCE(*csb)) != -1, 50))
-+			GEM_WARN_ON("50us CSB timeout");
-+		preempt_enable();
-+	}
-+	WRITE_ONCE(*(u64 *)csb, -1);
-+
-+	ctx_away_valid = GEN12_CSB_CTX_VALID(upper_32_bits(entry));
-+	new_queue =
- 		lower_32_bits(entry) & GEN12_CTX_STATUS_SWITCHED_TO_NEW_QUEUE;
- 
- 	/*
-@@ -3995,6 +4008,8 @@ static void reset_csb_pointers(struct intel_engine_cs *engine)
- 	WRITE_ONCE(*execlists->csb_write, reset_value);
- 	wmb(); /* Make sure this is visible to HW (paranoia?) */
- 
-+	/* Check that the GPU does indeed update the CSB entries! */
-+	memset(execlists->csb_status, -1, (reset_value + 1) * sizeof(u64));
- 	invalidate_csb_entries(&execlists->csb_status[0],
- 			       &execlists->csb_status[reset_value]);
- 
--- 
-2.20.1
+
+total: 2 errors, 0 warnings, 0 checks, 33 lines checked
+0e3d8f6ca520 drm/i915/gt: Apply the CSB w/a for all
+-:12: ERROR:GIT_COMMIT_ID: Please use git commit description style 'commit <12+ chars of sha1> ("<title line>")' - ie: 'commit d8f505311717 ("drm/i915/icl: Forcibly evict stale csb entries")'
+#12: 
+References: d8f505311717 ("drm/i915/icl: Forcibly evict stale csb entries")
+
+-:93: ERROR:ASSIGN_IN_IF: do not use assignment in if condition
+#93: FILE: drivers/gpu/drm/i915/gt/intel_lrc.c:2548:
++		if (wait_for_atomic_us((entry = READ_ONCE(*csb)) != -1, 50))
+
+total: 2 errors, 0 warnings, 0 checks, 114 lines checked
+
 
 _______________________________________________
 Intel-gfx mailing list
