@@ -2,54 +2,40 @@ Return-Path: <SRS0=1luh=BY=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.5 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-13.0 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C371EC433E1
-	for <intel-gfx@archiver.kernel.org>; Fri, 14 Aug 2020 13:44:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3FE66C433E1
+	for <intel-gfx@archiver.kernel.org>; Fri, 14 Aug 2020 15:57:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A0A0F2068E
-	for <intel-gfx@archiver.kernel.org>; Fri, 14 Aug 2020 13:44:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A0A0F2068E
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id CEA692074D
+	for <intel-gfx@archiver.kernel.org>; Fri, 14 Aug 2020 15:57:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CEA692074D
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F6476EB3C;
-	Fri, 14 Aug 2020 13:44:50 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 425AD6EB3C
- for <intel-gfx@lists.freedesktop.org>; Fri, 14 Aug 2020 13:44:48 +0000 (UTC)
-IronPort-SDR: 8DmuU0Yu8tX0i+xtRg6G49jwRNWY8R+0cB9DO/DbvU890RyNNNmgokR6wsGSoWr9VGZwnzH1uO
- m+XyuJYkU6wA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9712"; a="155510048"
-X-IronPort-AV: E=Sophos;i="5.76,312,1592895600"; d="scan'208";a="155510048"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Aug 2020 06:44:47 -0700
-IronPort-SDR: WUjsBLgL4pqHDqCWpO/0fP1lDq8G15eUJjqkd5XO2o/doiVwV/s8z/bnx/+hLDHGPhwWhEul+n
- FxdPWkJQgSIg==
-X-IronPort-AV: E=Sophos;i="5.76,312,1592895600"; d="scan'208";a="470590257"
-Received: from unknown (HELO intel.com) ([10.223.74.178])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Aug 2020 06:44:46 -0700
-Date: Fri, 14 Aug 2020 19:03:07 +0530
-From: Anshuman Gupta <anshuman.gupta@intel.com>
-To: Nischal Varide <nischal.varide@intel.com>
-Message-ID: <20200814133306.GK30770@intel.com>
-References: <20200814024950.26830-1-nischal.varide@intel.com>
- <20200814024950.26830-8-nischal.varide@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5729A6E0FD;
+	Fri, 14 Aug 2020 15:57:50 +0000 (UTC)
+Received: from fireflyinternet.com (unknown [77.68.26.236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 709D36EA82
+ for <intel-gfx@lists.freedesktop.org>; Fri, 14 Aug 2020 15:57:47 +0000 (UTC)
+X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
+ x-ip-name=78.156.65.138; 
+Received: from build.alporthouse.com (unverified [78.156.65.138]) 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22129560-1500050 
+ for multiple; Fri, 14 Aug 2020 16:57:37 +0100
+From: Chris Wilson <chris@chris-wilson.co.uk>
+To: intel-gfx@lists.freedesktop.org
+Date: Fri, 14 Aug 2020 16:57:33 +0100
+Message-Id: <20200814155735.29138-1-chris@chris-wilson.co.uk>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200814024950.26830-8-nischal.varide@intel.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Subject: Re: [Intel-gfx] [PATCH 8/8] Critical KlockWork Error - Fixes -
- intel_combo_phy.c Uninitialized Variable-1
+Subject: [Intel-gfx] [PATCH 1/3] drm/i915/gt: Widen CSB pointer to u64 for
+ the parsers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,42 +48,131 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
+Cc: Chris Wilson <chris@chris-wilson.co.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 2020-08-14 at 08:19:50 +0530, Nischal Varide wrote:
-> ---
->  drivers/gpu/drm/i915/display/intel_combo_phy.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/display/intel_combo_phy.c b/drivers/gpu/drm/i915/display/intel_combo_phy.c
-> index eccaa79cb4a9..6e721b8ed611 100644
-> --- a/drivers/gpu/drm/i915/display/intel_combo_phy.c
-> +++ b/drivers/gpu/drm/i915/display/intel_combo_phy.c
-> @@ -258,7 +258,7 @@ static bool phy_is_master(struct drm_i915_private *dev_priv, enum phy phy)
->  static bool icl_combo_phy_verify_state(struct drm_i915_private *dev_priv,
->  				       enum phy phy)
->  {
-> -	bool ret;
-> +	bool ret = 1;
-IMHO in this function in each code flow ret is assigned with some value,
-so i have not noticed any case ret could return any garbag value here.
-It seems a false alarm to me.
-Thanks,
-Anshuman Gupta.
->  	u32 expected_val = 0;
->  
->  	if (!icl_combo_phy_enabled(dev_priv, phy))
-> -- 
-> 2.26.0
-> 
-> _______________________________________________
-> Intel-gfx mailing list
-> Intel-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+A CSB entry is 64b, and it is simpler for us to treat it as an array of
+64b entries than as an array of pairs of 32b entries.
+
+Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+Cc: Mika Kuoppala <mika.kuoppala@linux.intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_engine_types.h |  2 +-
+ drivers/gpu/drm/i915/gt/intel_lrc.c          | 33 ++++++++++----------
+ 2 files changed, 17 insertions(+), 18 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_types.h b/drivers/gpu/drm/i915/gt/intel_engine_types.h
+index c400aaa2287b..ee6312601c56 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_engine_types.h
+@@ -278,7 +278,7 @@ struct intel_engine_execlists {
+ 	 *
+ 	 * Note these register may be either mmio or HWSP shadow.
+ 	 */
+-	u32 *csb_status;
++	u64 *csb_status;
+ 
+ 	/**
+ 	 * @csb_size: context status buffer FIFO size
+diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
+index 82742c6f423c..db982fc0f0bc 100644
+--- a/drivers/gpu/drm/i915/gt/intel_lrc.c
++++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
+@@ -2464,7 +2464,7 @@ cancel_port_requests(struct intel_engine_execlists * const execlists)
+ }
+ 
+ static inline void
+-invalidate_csb_entries(const u32 *first, const u32 *last)
++invalidate_csb_entries(const u64 *first, const u64 *last)
+ {
+ 	clflush((void *)first);
+ 	clflush((void *)last);
+@@ -2496,14 +2496,12 @@ invalidate_csb_entries(const u32 *first, const u32 *last)
+  *     bits 47-57: sw context id of the lrc the GT switched away from
+  *     bits 58-63: sw counter of the lrc the GT switched away from
+  */
+-static inline bool
+-gen12_csb_parse(const struct intel_engine_execlists *execlists, const u32 *csb)
++static inline bool gen12_csb_parse(const u64 *csb)
+ {
+-	u32 lower_dw = csb[0];
+-	u32 upper_dw = csb[1];
+-	bool ctx_to_valid = GEN12_CSB_CTX_VALID(lower_dw);
+-	bool ctx_away_valid = GEN12_CSB_CTX_VALID(upper_dw);
+-	bool new_queue = lower_dw & GEN12_CTX_STATUS_SWITCHED_TO_NEW_QUEUE;
++	u64 entry = READ_ONCE(*csb);
++	bool ctx_away_valid = GEN12_CSB_CTX_VALID(upper_32_bits(entry));
++	bool new_queue =
++		lower_32_bits(entry) & GEN12_CTX_STATUS_SWITCHED_TO_NEW_QUEUE;
+ 
+ 	/*
+ 	 * The context switch detail is not guaranteed to be 5 when a preemption
+@@ -2513,7 +2511,7 @@ gen12_csb_parse(const struct intel_engine_execlists *execlists, const u32 *csb)
+ 	 * would require some extra handling, but we don't support that.
+ 	 */
+ 	if (!ctx_away_valid || new_queue) {
+-		GEM_BUG_ON(!ctx_to_valid);
++		GEM_BUG_ON(!GEN12_CSB_CTX_VALID(lower_32_bits(entry)));
+ 		return true;
+ 	}
+ 
+@@ -2522,12 +2520,11 @@ gen12_csb_parse(const struct intel_engine_execlists *execlists, const u32 *csb)
+ 	 * context switch on an unsuccessful wait instruction since we always
+ 	 * use polling mode.
+ 	 */
+-	GEM_BUG_ON(GEN12_CTX_SWITCH_DETAIL(upper_dw));
++	GEM_BUG_ON(GEN12_CTX_SWITCH_DETAIL(upper_32_bits(entry)));
+ 	return false;
+ }
+ 
+-static inline bool
+-gen8_csb_parse(const struct intel_engine_execlists *execlists, const u32 *csb)
++static inline bool gen8_csb_parse(const u64 *csb)
+ {
+ 	return *csb & (GEN8_CTX_STATUS_IDLE_ACTIVE | GEN8_CTX_STATUS_PREEMPTED);
+ }
+@@ -2535,7 +2532,7 @@ gen8_csb_parse(const struct intel_engine_execlists *execlists, const u32 *csb)
+ static void process_csb(struct intel_engine_cs *engine)
+ {
+ 	struct intel_engine_execlists * const execlists = &engine->execlists;
+-	const u32 * const buf = execlists->csb_status;
++	const u64 * const buf = execlists->csb_status;
+ 	const u8 num_entries = execlists->csb_size;
+ 	u8 head, tail;
+ 
+@@ -2616,12 +2613,14 @@ static void process_csb(struct intel_engine_cs *engine)
+ 		 */
+ 
+ 		ENGINE_TRACE(engine, "csb[%d]: status=0x%08x:0x%08x\n",
+-			     head, buf[2 * head + 0], buf[2 * head + 1]);
++			     head,
++			     upper_32_bits(buf[head]),
++			     lower_32_bits(buf[head]));
+ 
+ 		if (INTEL_GEN(engine->i915) >= 12)
+-			promote = gen12_csb_parse(execlists, buf + 2 * head);
++			promote = gen12_csb_parse(buf + head);
+ 		else
+-			promote = gen8_csb_parse(execlists, buf + 2 * head);
++			promote = gen8_csb_parse(buf + head);
+ 		if (promote) {
+ 			struct i915_request * const *old = execlists->active;
+ 
+@@ -5148,7 +5147,7 @@ int intel_execlists_submission_setup(struct intel_engine_cs *engine)
+ 	}
+ 
+ 	execlists->csb_status =
+-		&engine->status_page.addr[I915_HWS_CSB_BUF0_INDEX];
++		(u64 *)&engine->status_page.addr[I915_HWS_CSB_BUF0_INDEX];
+ 
+ 	execlists->csb_write =
+ 		&engine->status_page.addr[intel_hws_csb_write_index(i915)];
+-- 
+2.20.1
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
