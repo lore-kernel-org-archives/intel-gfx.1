@@ -5,60 +5,60 @@ X-Spam-Level:
 X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,
 	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
 	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 302B3C433E1
-	for <intel-gfx@archiver.kernel.org>; Mon, 17 Aug 2020 13:02:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 44A2FC433DF
+	for <intel-gfx@archiver.kernel.org>; Mon, 17 Aug 2020 13:02:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 057162075B
-	for <intel-gfx@archiver.kernel.org>; Mon, 17 Aug 2020 13:02:31 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 1A32C2075B
+	for <intel-gfx@archiver.kernel.org>; Mon, 17 Aug 2020 13:02:32 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SB1by7Ka"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 057162075B
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WvuNpwFG"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1A32C2075B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C6376E2B0;
-	Mon, 17 Aug 2020 13:02:23 +0000 (UTC)
-Received: from mail-pj1-x1043.google.com (mail-pj1-x1043.google.com
- [IPv6:2607:f8b0:4864:20::1043])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BBBA06E0F8;
- Mon, 17 Aug 2020 09:18:39 +0000 (UTC)
-Received: by mail-pj1-x1043.google.com with SMTP id ha11so7406375pjb.1;
- Mon, 17 Aug 2020 02:18:39 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 045ED6E4E8;
+	Mon, 17 Aug 2020 13:02:24 +0000 (UTC)
+Received: from mail-pl1-x642.google.com (mail-pl1-x642.google.com
+ [IPv6:2607:f8b0:4864:20::642])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 96D4A6E0F8;
+ Mon, 17 Aug 2020 09:19:45 +0000 (UTC)
+Received: by mail-pl1-x642.google.com with SMTP id u10so7195396plr.7;
+ Mon, 17 Aug 2020 02:19:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=XewQeBy6WMQV1RzMvwbB0P7og4UUzSYm8rIudQOA7EQ=;
- b=SB1by7KaCL6cQHhv3XdgwPt9YA/PFNHKz0XfjEYA7w8aj9S9xxq0uzFLbo5O6jzB4d
- /BYHZnjCspLMklc6e+gKyyCLFL3PHl7af9K5z5BDc5pWk2fIAQV01uqg0x9A0rU3WJxB
- ynFJ+ZLHuAglHnrYfLWpNfsi8kvUoViShOQNB7TA1ZWciy7PmxwYny6mHPJlIoYZ82L2
- ZlBRzMm/o+SqonfkfIlyC7nCbwSclfnufsgMssi54+P+P7lc4ySD7vMC9Fk1Ls9A6dWc
- Okus7LMmEyRKUYFE86ulIu8GL6VYAG0MmqBllZv+Zn5LQaK/NiqDbEErMnl69t8YVmpD
- i99A==
+ bh=rg9O+UuIrcRklqdLDyvqN900SVFxVyljAa/s7srCNnQ=;
+ b=WvuNpwFGNWbf3ugG14n+zwKOY/otFa6nSLps1Uk3WhYO9QhlgfX29+70gj4yecSVqe
+ YmEaWyKwvwZLdqCS1f4rjFzeI/WYV2mrJXFqK7u1fv3j1mD6vv7ArpSQ8eB9kebxavUo
+ v4gjm/SQe2dmKaNUs5jSYqEpMcOQLTy1XStSEI/HRZPc81UrOC06O4IvkZlb9P+d+J9+
+ 6iZP3dRMy48wvQtGHCCdONIoXtX+tgg7bwCEGbZzuseWjZ9rC+VhjkH7FoBRe7RFBqof
+ Eu7g0wB9F52zpe5wgpjT7872Gbi0ZB7cwZGvpBfTBYz4nR6UMl9C43xvhapmPwtLTJTg
+ rU/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references;
- bh=XewQeBy6WMQV1RzMvwbB0P7og4UUzSYm8rIudQOA7EQ=;
- b=ED5v3EYxdL2ztXUNL067bJZcFVzlqeRtWhU7tqElpo+8h3m2TehNpAOF7sJexwYbTi
- 7PkgljrzxdH8zjeauVZFLxIvhqKZjTvmIc1NTYCPfCERjq4tzfVhTt7jir6EjrXntaMT
- RBh50X7A90yuITHahNpYRji3z+G3rELdvL27ZA4R0bChXHaUkHuw7rLIrskf/erwWedM
- MuB8pOpW6lqa0DBnplSb+jhfQS3gMiHcukvqtCDDIny45O4Ugh6LUKAifXtZNlX4PKP1
- VdriuGqXYUXaZ8v9hXIhNn2TUerJVPV/MnFQlbkC6DDFU1NiSv5XhZPV+J+sHgRT8q/t
- FIeQ==
-X-Gm-Message-State: AOAM531PJiH78RUp+DUrixTAt70qrAjDT9rL7BzqCEP4ySE9oLJv+Q6d
- bUB3cq6aRoFR0D6BYy+/WFQ=
-X-Google-Smtp-Source: ABdhPJzpGkHvt1LevgAfoz+X8j8B4a1KTwgUtKHLjr8EQlBQBbyxfG8elY9nfvO7GsksTpqaKtjyFg==
-X-Received: by 2002:a17:90a:36ee:: with SMTP id
- t101mr12384566pjb.47.1597655919356; 
- Mon, 17 Aug 2020 02:18:39 -0700 (PDT)
+ bh=rg9O+UuIrcRklqdLDyvqN900SVFxVyljAa/s7srCNnQ=;
+ b=TvX9wCWpu61k8vq1l3w+hTKDjf+4cUj0o8sW5j9eiv1z4JduCN+RZ5psOe29B6WusM
+ hhAUQBsialFp6iXQSo8MR5kWFLMemVaOv2Ojd22/DnI5OBPY8ooDVYBor0Z8h8i8wykm
+ NCMTVY7FHMDxExaTN+PLfTM4Y9gP2h6W8q4cd6Kd0NGYvlzgwrkcjgzXLdTcq2sFmKde
+ tIQ1rIC3IFdHfph92tRZcOZWGcnIZPnK0iE0Mi8hux6eDTKkLwFtbLrq8ENnQ/QXpm2K
+ 8LMxzCWP2UL5kc0121zKptyCP+JTKW/KjktWp2NVB/+L/ZxjWv6GPM66DbTJB68xWQh1
+ oRbw==
+X-Gm-Message-State: AOAM530u/4q+TUpHCdkOzs1NGkN39KDhJm2/BogvDE3qTkXvPxYMi2D2
+ ouLaCoInhMrGBz1GQKUcMH8=
+X-Google-Smtp-Source: ABdhPJxVPsBMIEeexKvgRfN8Y85NhtB5FsOgXp8HBPraiCyANuba28QRU7wOPQwsX7fudbCrO/coPA==
+X-Received: by 2002:a17:902:6b05:: with SMTP id
+ o5mr10459515plk.173.1597655985094; 
+ Mon, 17 Aug 2020 02:19:45 -0700 (PDT)
 Received: from localhost.localdomain ([49.207.202.98])
- by smtp.gmail.com with ESMTPSA id r25sm15971028pgv.88.2020.08.17.02.18.25
+ by smtp.gmail.com with ESMTPSA id r25sm15971028pgv.88.2020.08.17.02.19.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 17 Aug 2020 02:18:38 -0700 (PDT)
+ Mon, 17 Aug 2020 02:19:44 -0700 (PDT)
 From: Allen Pais <allen.cryptic@gmail.com>
 To: jdike@addtoit.com, richard@nod.at, anton.ivanov@cambridgegreys.com,
  3chas3@gmail.com, axboe@kernel.dk, stefanr@s5r6.in-berlin.de,
@@ -69,14 +69,14 @@ To: jdike@addtoit.com, richard@nod.at, anton.ivanov@cambridgegreys.com,
  ulf.hansson@linaro.org, mporter@kernel.crashing.org, alex.bou9@gmail.com,
  broonie@kernel.org, martyn@welchs.me.uk, manohar.vanga@gmail.com,
  mitch@sfgoth.com, davem@davemloft.net, kuba@kernel.org
-Date: Mon, 17 Aug 2020 14:46:04 +0530
-Message-Id: <20200817091617.28119-10-allen.cryptic@gmail.com>
+Date: Mon, 17 Aug 2020 14:46:09 +0530
+Message-Id: <20200817091617.28119-15-allen.cryptic@gmail.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200817091617.28119-1-allen.cryptic@gmail.com>
 References: <20200817091617.28119-1-allen.cryptic@gmail.com>
 X-Mailman-Approved-At: Mon, 17 Aug 2020 13:02:22 +0000
-Subject: [Intel-gfx] [PATCH] drm: i915: convert tasklets to use new
- tasklet_setup() API
+Subject: [Intel-gfx] [PATCH 1/2] memstick: jmb38x: convert tasklets to use
+ new tasklet_setup() API
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,137 +111,41 @@ From: Allen Pais <allen.lkml@gmail.com>
 In preparation for unconditionally passing the
 struct tasklet_struct pointer to all tasklet
 callbacks, switch to using the new tasklet_setup()
-and from_tasklet() to pass the tasklet pointer explicitly
-and remove the .data field.
+and from_tasklet() to pass the tasklet pointer explicitly.
 
 Signed-off-by: Romain Perier <romain.perier@gmail.com>
 Signed-off-by: Allen Pais <allen.lkml@gmail.com>
 ---
- drivers/gpu/drm/i915/gt/intel_lrc.c           | 31 ++++++++++---------
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c |  8 +++--
- 2 files changed, 22 insertions(+), 17 deletions(-)
+ drivers/memstick/host/jmb38x_ms.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
-index 24322ef08aa4..c45e42b9f239 100644
---- a/drivers/gpu/drm/i915/gt/intel_lrc.c
-+++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
-@@ -3130,9 +3130,10 @@ static bool preempt_timeout(const struct intel_engine_cs *const engine)
-  * Check the unread Context Status Buffers and manage the submission of new
-  * contexts to the ELSP accordingly.
-  */
--static void execlists_submission_tasklet(unsigned long data)
-+static void execlists_submission_tasklet(struct tasklet_struct *t)
- {
--	struct intel_engine_cs * const engine = (struct intel_engine_cs *)data;
-+	struct intel_engine_cs * const engine = from_tasklet(engine, t,
-+						     execlists.tasklet);
- 	bool timeout = preempt_timeout(engine);
- 
- 	process_csb(engine);
-@@ -4306,9 +4307,10 @@ static void execlists_reset_rewind(struct intel_engine_cs *engine, bool stalled)
- 	spin_unlock_irqrestore(&engine->active.lock, flags);
+diff --git a/drivers/memstick/host/jmb38x_ms.c b/drivers/memstick/host/jmb38x_ms.c
+index 4a6b866b0291..2bcf5ce113bd 100644
+--- a/drivers/memstick/host/jmb38x_ms.c
++++ b/drivers/memstick/host/jmb38x_ms.c
+@@ -603,10 +603,10 @@ static void jmb38x_ms_abort(struct timer_list *t)
+ 	spin_unlock_irqrestore(&host->lock, flags);
  }
  
--static void nop_submission_tasklet(unsigned long data)
-+static void nop_submission_tasklet(struct tasklet_struct *t)
+-static void jmb38x_ms_req_tasklet(unsigned long data)
++static void jmb38x_ms_req_tasklet(struct tasklet_struct *t)
  {
--	struct intel_engine_cs * const engine = (struct intel_engine_cs *)data;
-+	struct intel_engine_cs * const engine = from_tasklet(engine, t,
-+						     execlists.tasklet);
- 
- 	/* The driver is wedged; don't process any more events. */
- 	WRITE_ONCE(engine->execlists.queue_priority_hint, INT_MIN);
-@@ -4391,7 +4393,8 @@ static void execlists_reset_cancel(struct intel_engine_cs *engine)
- 	execlists->queue = RB_ROOT_CACHED;
- 
- 	GEM_BUG_ON(__tasklet_is_enabled(&execlists->tasklet));
--	execlists->tasklet.func = nop_submission_tasklet;
-+	execlists->tasklet.func = (void (*)(unsigned long))
-+				  nop_submission_tasklet;
- 
- 	spin_unlock_irqrestore(&engine->active.lock, flags);
- }
-@@ -4986,7 +4989,8 @@ void intel_execlists_set_default_submission(struct intel_engine_cs *engine)
- {
- 	engine->submit_request = execlists_submit_request;
- 	engine->schedule = i915_schedule;
--	engine->execlists.tasklet.func = execlists_submission_tasklet;
-+	engine->execlists.tasklet.func = (void (*)(unsigned long))
-+		execlists_submission_tasklet;
- 
- 	engine->reset.prepare = execlists_reset_prepare;
- 	engine->reset.rewind = execlists_reset_rewind;
-@@ -5113,8 +5117,7 @@ int intel_execlists_submission_setup(struct intel_engine_cs *engine)
- 	struct intel_uncore *uncore = engine->uncore;
- 	u32 base = engine->mmio_base;
- 
--	tasklet_init(&engine->execlists.tasklet,
--		     execlists_submission_tasklet, (unsigned long)engine);
-+	tasklet_setup(&engine->execlists.tasklet, execlists_submission_tasklet);
- 	timer_setup(&engine->execlists.timer, execlists_timeslice, 0);
- 	timer_setup(&engine->execlists.preempt, execlists_preempt, 0);
- 
-@@ -5509,9 +5512,10 @@ static intel_engine_mask_t virtual_submission_mask(struct virtual_engine *ve)
- 	return mask;
- }
- 
--static void virtual_submission_tasklet(unsigned long data)
-+static void virtual_submission_tasklet(struct tasklet_struct *t)
- {
--	struct virtual_engine * const ve = (struct virtual_engine *)data;
-+	struct virtual_engine *  ve = from_tasklet(ve, t,
-+						   base.execlists.tasklet);
- 	const int prio = READ_ONCE(ve->base.execlists.queue_priority_hint);
- 	intel_engine_mask_t mask;
- 	unsigned int n;
-@@ -5724,9 +5728,8 @@ intel_execlists_create_virtual(struct intel_engine_cs **siblings,
- 
- 	INIT_LIST_HEAD(virtual_queue(ve));
- 	ve->base.execlists.queue_priority_hint = INT_MIN;
--	tasklet_init(&ve->base.execlists.tasklet,
--		     virtual_submission_tasklet,
--		     (unsigned long)ve);
-+	tasklet_setup(&ve->base.execlists.tasklet,
-+		     virtual_submission_tasklet);
- 
- 	intel_context_init(&ve->context, &ve->base);
- 
-@@ -5748,7 +5751,7 @@ intel_execlists_create_virtual(struct intel_engine_cs **siblings,
- 		 * layering if we handle cloning of the requests and
- 		 * submitting a copy into each backend.
- 		 */
--		if (sibling->execlists.tasklet.func !=
-+		if (sibling->execlists.tasklet.func != (void (*)(unsigned long))
- 		    execlists_submission_tasklet) {
- 			err = -ENODEV;
- 			goto err_put;
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index fdfeb4b9b0f5..3013ff54431c 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -344,9 +344,10 @@ static void __guc_dequeue(struct intel_engine_cs *engine)
- 	execlists->active = execlists->inflight;
- }
- 
--static void guc_submission_tasklet(unsigned long data)
-+static void guc_submission_tasklet(struct tasklet_struct *t)
- {
--	struct intel_engine_cs * const engine = (struct intel_engine_cs *)data;
-+	struct intel_engine_cs * const engine = from_tasklet(engine, t,
-+							     execlists.tasklet);
- 	struct intel_engine_execlists * const execlists = &engine->execlists;
- 	struct i915_request **port, *rq;
+-	struct memstick_host *msh = (struct memstick_host *)data;
+-	struct jmb38x_ms_host *host = memstick_priv(msh);
++	struct jmb38x_ms_host *host = from_tasklet(host, t, notify);
++	struct memstick_host *msh = host->msh;
  	unsigned long flags;
-@@ -591,7 +592,8 @@ static void guc_set_default_submission(struct intel_engine_cs *engine)
- 	 */
- 	intel_execlists_set_default_submission(engine);
+ 	int rc;
  
--	engine->execlists.tasklet.func = guc_submission_tasklet;
-+	engine->execlists.tasklet.func =
-+				(void (*)(unsigned long))guc_submission_tasklet;
+@@ -868,7 +868,7 @@ static struct memstick_host *jmb38x_ms_alloc_host(struct jmb38x_ms *jm, int cnt)
+ 	host->irq = jm->pdev->irq;
+ 	host->timeout_jiffies = msecs_to_jiffies(1000);
  
- 	/* do not use execlists park/unpark */
- 	engine->park = engine->unpark = NULL;
+-	tasklet_init(&host->notify, jmb38x_ms_req_tasklet, (unsigned long)msh);
++	tasklet_setup(&host->notify, jmb38x_ms_req_tasklet);
+ 	msh->request = jmb38x_ms_submit_req;
+ 	msh->set_param = jmb38x_ms_set_param;
+ 
 -- 
 2.17.1
 
