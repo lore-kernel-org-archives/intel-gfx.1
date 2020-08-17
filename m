@@ -8,56 +8,57 @@ X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 43427C433DF
-	for <intel-gfx@archiver.kernel.org>; Mon, 17 Aug 2020 13:02:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 33379C433E1
+	for <intel-gfx@archiver.kernel.org>; Mon, 17 Aug 2020 13:02:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 15F802075B
-	for <intel-gfx@archiver.kernel.org>; Mon, 17 Aug 2020 13:02:34 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 09C422075B
+	for <intel-gfx@archiver.kernel.org>; Mon, 17 Aug 2020 13:02:35 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pH1u/a65"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 15F802075B
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TzbwEFTq"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 09C422075B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B60D6E506;
-	Mon, 17 Aug 2020 13:02:24 +0000 (UTC)
-Received: from mail-pf1-x442.google.com (mail-pf1-x442.google.com
- [IPv6:2607:f8b0:4864:20::442])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE5026E4B3;
- Mon, 17 Aug 2020 09:19:16 +0000 (UTC)
-Received: by mail-pf1-x442.google.com with SMTP id 74so7908895pfx.13;
- Mon, 17 Aug 2020 02:19:16 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD4286E108;
+	Mon, 17 Aug 2020 13:02:22 +0000 (UTC)
+Received: from mail-pj1-x1041.google.com (mail-pj1-x1041.google.com
+ [IPv6:2607:f8b0:4864:20::1041])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 96AAC6E0F8;
+ Mon, 17 Aug 2020 09:17:45 +0000 (UTC)
+Received: by mail-pj1-x1041.google.com with SMTP id t6so7405118pjr.0;
+ Mon, 17 Aug 2020 02:17:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=BhmC2dfR9Z2FpcZrdiI/rF+di1B3O2m2kCZjxi0Nzus=;
- b=pH1u/a65jck4CF/HaoBjMB2yQ7DQRuOjq2EQe/YOxb/OD7LRTsfaGPckhcN+7n9R1u
- 8haLtPH3/hoBwBJOPjlUu2iYNKNPElK2iQu8xAhfWEfShI0bje7FwzTh8mTzsrV2FN/G
- T9q7gfYpRkJs922O9WCJDcFzNiLghUNavbp+zlHscWAG2oqdLCD4z56Z3vUZOyp4D6dk
- KhQqBlfrQV46/Pb2iMfJWkdHHcpVNp7jqYJJ9NEWjQKozVbz9oxhRN55xVrJNhB3JaO3
- Dp4F6ts/oPz/ziaWkRipTHlRzYfTQoj0G/RUnkwPSw1bnvtUKBj+EftqSWTMiaLoQ1jv
- lH8g==
+ bh=Mo6iICj1w8TKwOisUCBNzTZG5p5dM66mXRaY4cwKyZk=;
+ b=TzbwEFTqX0QCsBFflLiO6trddpNRzDxFXlyalb8p8shAuNzSqnVRPY8vMtBs1W5gGO
+ YUc9r1hZWkAsv9H25E5N7kwqFWChbTSHzlTwFhWkQtf63DEW68snGk4kLIJ5B50DmJxW
+ MWiO1udraHvmpV1CUmZxnsCDK3iuigHsru9yj+Oquzzzyly4+EM9iRLcN2KRuZWEdlkQ
+ fk0Czl4+kqYHd4k4r0smEt/HwPMvVApbc9poEuzVer5sNiD49xlJWmv3Z+GjWTQ1m5b+
+ aFLAe1vugsFxn+AMoHEAGT8072rZH7m2jZyN/wKgUUmGiQtrTmT5nZIW44CYFt5Ph9RF
+ ifXw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references;
- bh=BhmC2dfR9Z2FpcZrdiI/rF+di1B3O2m2kCZjxi0Nzus=;
- b=B0GpMB1bQQH9VKTtngdxJulOiFvnlRPE01yJrOTouxcV595dMdV3uUaKo5ejgCdgap
- 5HMiPN1Ve/kqfXYRWxB5ugCVpG/8AKWUvGC/SNICUv5+FlnbNCEjxlftkV86TIEguLHY
- Oli0k/p3Am0m5Bz2mgY9ngo3/BroTnqH1XctDcTAuC1sB8URC3tLHrn180bCw3Q333Nq
- flSneUFkv9BYvsMCP5R6WJ1WIkWLng7Pn+WfP7tY0y84TgBFtNTXELW5NiU4PgQrN0xd
- /eX6U2pZd7IYsN5LJuSIUzvLLZW4RqfWLsCA78OG2bQnWiQOob/+hk7Z1PzXkYW2lv5J
- zjTg==
-X-Gm-Message-State: AOAM5318NNGYNnqGnRJaRh2dVU3awmSbKxlk9IK6jJJgT/B2Sx0L73tS
- YO+IFH10Jb1IPkMSHzQvwI4=
-X-Google-Smtp-Source: ABdhPJyB5tc5dUu27VbUdOZ9DzBdNo9HMZYO5yS/FgK5KFnwUfpfaMSoblaoVOfdDSu8KmjNrpWWGw==
-X-Received: by 2002:a63:2e87:: with SMTP id u129mr9420810pgu.347.1597655956522; 
- Mon, 17 Aug 2020 02:19:16 -0700 (PDT)
+ bh=Mo6iICj1w8TKwOisUCBNzTZG5p5dM66mXRaY4cwKyZk=;
+ b=A0aMow6vJ2eY9DqWcssFiELl7G91ZQNc6M444zYR+IGmgcfM/r7UUZRK4pR2y3LTMI
+ BtNUgf5rKKAKM15bDoBQYdoO5Gv+qrfubkom9Nu4ZiZLnGR0Dox3NS+r1V/2zc8SDQRN
+ Ikq98/QGrHN01Lcfqqqh57RycxsR0gDc/aKi4bdDuDAWa0Pni5YWbd3JPxnBU3rjfpYt
+ /qODptzYTlIgIZ7Ep6GEVZ5U8YZgSclx2+So7HV+cNubbSNKFiedczZ0eDstQOA7hRVb
+ WHSbHghs8nc3KXg+KCHtDU3VswdPaFiRTT/F5eJ+hZ4yI0g3oNOTDjE5sOeC4LoEHdty
+ ryIg==
+X-Gm-Message-State: AOAM531Uo7eg7auFh3XrytjALokDtLfpOJn1QI3w3c9egmmfHBO+DNwt
+ nVxIsLojUQUwP6sZZKzm1Go=
+X-Google-Smtp-Source: ABdhPJwq6UEku9ZvxUlcSd9v3lLdDcS44qfn7fyf+CsiORE4iW8DsxOdwJSiRT3OcMi8Q3GfQoOtrg==
+X-Received: by 2002:a17:90a:2210:: with SMTP id
+ c16mr12286360pje.65.1597655865119; 
+ Mon, 17 Aug 2020 02:17:45 -0700 (PDT)
 Received: from localhost.localdomain ([49.207.202.98])
- by smtp.gmail.com with ESMTPSA id r25sm15971028pgv.88.2020.08.17.02.19.04
+ by smtp.gmail.com with ESMTPSA id r25sm15971028pgv.88.2020.08.17.02.17.32
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 17 Aug 2020 02:19:15 -0700 (PDT)
+ Mon, 17 Aug 2020 02:17:44 -0700 (PDT)
 From: Allen Pais <allen.cryptic@gmail.com>
 To: jdike@addtoit.com, richard@nod.at, anton.ivanov@cambridgegreys.com,
  3chas3@gmail.com, axboe@kernel.dk, stefanr@s5r6.in-berlin.de,
@@ -68,13 +69,13 @@ To: jdike@addtoit.com, richard@nod.at, anton.ivanov@cambridgegreys.com,
  ulf.hansson@linaro.org, mporter@kernel.crashing.org, alex.bou9@gmail.com,
  broonie@kernel.org, martyn@welchs.me.uk, manohar.vanga@gmail.com,
  mitch@sfgoth.com, davem@davemloft.net, kuba@kernel.org
-Date: Mon, 17 Aug 2020 14:46:07 +0530
-Message-Id: <20200817091617.28119-13-allen.cryptic@gmail.com>
+Date: Mon, 17 Aug 2020 14:46:00 +0530
+Message-Id: <20200817091617.28119-6-allen.cryptic@gmail.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200817091617.28119-1-allen.cryptic@gmail.com>
 References: <20200817091617.28119-1-allen.cryptic@gmail.com>
 X-Mailman-Approved-At: Mon, 17 Aug 2020 13:02:22 +0000
-Subject: [Intel-gfx] [PATCH] input: serio: convert tasklets to use new
+Subject: [Intel-gfx] [PATCH] drivers: ntb: convert tasklets to use new
  tasklet_setup() API
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -115,31 +116,44 @@ and from_tasklet() to pass the tasklet pointer explicitly.
 Signed-off-by: Romain Perier <romain.perier@gmail.com>
 Signed-off-by: Allen Pais <allen.lkml@gmail.com>
 ---
- drivers/input/serio/hp_sdc.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/ntb/ntb_transport.c | 9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/input/serio/hp_sdc.c b/drivers/input/serio/hp_sdc.c
-index 13eacf6ab431..91f8253ac66a 100644
---- a/drivers/input/serio/hp_sdc.c
-+++ b/drivers/input/serio/hp_sdc.c
-@@ -301,7 +301,7 @@ static irqreturn_t hp_sdc_nmisr(int irq, void *dev_id)
+diff --git a/drivers/ntb/ntb_transport.c b/drivers/ntb/ntb_transport.c
+index e6d1f5b298f3..ab3bee2fc803 100644
+--- a/drivers/ntb/ntb_transport.c
++++ b/drivers/ntb/ntb_transport.c
+@@ -273,7 +273,7 @@ enum {
+ #define NTB_QP_DEF_NUM_ENTRIES	100
+ #define NTB_LINK_DOWN_TIMEOUT	10
  
- unsigned long hp_sdc_put(void);
+-static void ntb_transport_rxc_db(unsigned long data);
++static void ntb_transport_rxc_db(struct tasklet_struct *t);
+ static const struct ntb_ctx_ops ntb_transport_ops;
+ static struct ntb_client ntb_transport_client;
+ static int ntb_async_tx_submit(struct ntb_transport_qp *qp,
+@@ -1234,8 +1234,7 @@ static int ntb_transport_init_queue(struct ntb_transport_ctx *nt,
+ 	INIT_LIST_HEAD(&qp->rx_free_q);
+ 	INIT_LIST_HEAD(&qp->tx_free_q);
  
--static void hp_sdc_tasklet(unsigned long foo)
-+static void hp_sdc_tasklet(struct tasklet_struct *unused)
+-	tasklet_init(&qp->rxc_db_work, ntb_transport_rxc_db,
+-		     (unsigned long)qp);
++	tasklet_setup(&qp->rxc_db_work, ntb_transport_rxc_db);
+ 
+ 	return 0;
+ }
+@@ -1685,9 +1684,9 @@ static int ntb_process_rxc(struct ntb_transport_qp *qp)
+ 	return 0;
+ }
+ 
+-static void ntb_transport_rxc_db(unsigned long data)
++static void ntb_transport_rxc_db(struct tasklet_struct *t)
  {
- 	write_lock_irq(&hp_sdc.rtq_lock);
+-	struct ntb_transport_qp *qp = (void *)data;
++	struct ntb_transport_qp *qp = from_tasklet(qp, t, rxc_db_work);
+ 	int rc, i;
  
-@@ -890,7 +890,7 @@ static int __init hp_sdc_init(void)
- 	hp_sdc_status_in8();
- 	hp_sdc_data_in8();
- 
--	tasklet_init(&hp_sdc.task, hp_sdc_tasklet, 0);
-+	tasklet_setup(&hp_sdc.task, hp_sdc_tasklet, 0);
- 
- 	/* Sync the output buffer registers, thus scheduling hp_sdc_tasklet. */
- 	t_sync.actidx	= 0;
+ 	dev_dbg(&qp->ndev->pdev->dev, "%s: doorbell %d received\n",
 -- 
 2.17.1
 
