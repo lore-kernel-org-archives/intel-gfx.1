@@ -8,56 +8,57 @@ X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 30D7EC433E1
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EFE47C433DF
 	for <intel-gfx@archiver.kernel.org>; Mon, 17 Aug 2020 13:02:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 054332075B
+	by mail.kernel.org (Postfix) with ESMTPS id C32522075B
 	for <intel-gfx@archiver.kernel.org>; Mon, 17 Aug 2020 13:02:40 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="D7eDa0sT"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 054332075B
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mbKVOHJM"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C32522075B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3441F6E570;
-	Mon, 17 Aug 2020 13:02:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D14C16E2E3;
+	Mon, 17 Aug 2020 13:02:35 +0000 (UTC)
 Received: from mail-pg1-x541.google.com (mail-pg1-x541.google.com
  [IPv6:2607:f8b0:4864:20::541])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F31DE6E513;
- Mon, 17 Aug 2020 09:18:25 +0000 (UTC)
-Received: by mail-pg1-x541.google.com with SMTP id j21so7815113pgi.9;
- Mon, 17 Aug 2020 02:18:25 -0700 (PDT)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE45F6E0F8;
+ Mon, 17 Aug 2020 09:20:00 +0000 (UTC)
+Received: by mail-pg1-x541.google.com with SMTP id v15so7823085pgh.6;
+ Mon, 17 Aug 2020 02:20:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=FQvu3zIKHcfDVUfKtSNhAC6ZzQDedEm/LuwK8bWrPeg=;
- b=D7eDa0sTjwHCA8r6MCWSFMRxFQkDRfX7e4fguBwE+NqCdLaBdvT8ONpLvgzAjxtVQT
- 0ppL357zpK2cqmejsnz5VEqE9kmyIvsp/43Twv5a9NzWcoSYF0wGizjZ9zjUOZUarpa6
- Rc3XCG4Wm/C+XLOLCzBVfdIXQ90RWb8AEOKqZXhdPJ/NfRn3hfLtGberOYeprAHUwSJQ
- ulOOErg41MiOj1g2LNgno+3QMivuYXqc4mkuyqq2LhWdKpn3CpDymg1ZrwPxHiavkADA
- aWCo+QxkF5OeKgNSC4ix5Pl06VUDNeICDFdGAyaW4Q4qIj4LQJvAqaJseGgPjYZCbCYI
- stcw==
+ bh=lUWUV2v5oTJVUGMm6xf12JUfYyiWzcefGfdAtQk2jwM=;
+ b=mbKVOHJMzNpskDzHydVD5JZdcRfrw+xd2+Uv78XbvKMc+387psZ2V2hk4qrHnsS81T
+ /zH73TElq4axoclHQIy0bA2CbV9hfC8GYC+eakgtOktC3A5XsD2xiPjCrklKsR3XFyFd
+ fsIOloQVGdK6RU/6EWDMjEAfDxSohJd//jLLtalmI0rGbeu1xwfLvpwSymywSxSBVX3G
+ uhosJxEfiUcPuUNVJvS0yzIPELIzVumGhuE5Qx9Ojw3cmc6kmaA4ZQewhXRClGiu+tq2
+ Aj/I10puZjlvAygrQvpRDOADkQfmJxn+4bXKvfXCvf9sZS7FhECvv/YiYSa/EN75dMVj
+ 0suw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references;
- bh=FQvu3zIKHcfDVUfKtSNhAC6ZzQDedEm/LuwK8bWrPeg=;
- b=DEt4v6ZJpxAXtOt2UbAsEpuwuxOydNSuFVZEaSwExP5cftuaOZXUI4DYkIi6GYPV9x
- cPZct70h+XDOOPIU4DliKwC4W8K+yv80UjzH9cMDv7d0CnFZwWU7CGq+YFYqtM6uqV/g
- eebdDUboPIv0jeYXf3MdK44HYk2VTqeaO+5gQe6v8KHYVLk24csAjzWXuurVR6NiKOJC
- /WHzktAQnwIdCv0HR+Eb3g5S3s0zXHbqsMfPG9qF3gg0MTgWzVN5tCF5FotZttbr8y7C
- 1ktB0lvweObdvIMdWI/3Py17jAVwQr0YVD4/lcyJnqduRx3OXa5OmebGzkR9H9NCbh9r
- c11A==
-X-Gm-Message-State: AOAM532efDbc90hvcosM+lIlgvCmAR0MyjmBsBIfiAn51pl5r6XHUizo
- HtK1dHp0FTMkpAl09mfIh78=
-X-Google-Smtp-Source: ABdhPJwtRhOmhjCwN7IXEf1tWrXGn9elZdq5DEvcUP+b4kgMpyQCKqzdT+NRfaecTuV91gmR9bNLEw==
-X-Received: by 2002:aa7:8c42:: with SMTP id e2mr10326531pfd.181.1597655905521; 
- Mon, 17 Aug 2020 02:18:25 -0700 (PDT)
+ bh=lUWUV2v5oTJVUGMm6xf12JUfYyiWzcefGfdAtQk2jwM=;
+ b=goFuqeN2EwgYIq26nY9c5h9iG1S0E8L4m7MQcLAJFO/VNtblLlsosNVex0uV1RyZ9M
+ WcoaoxoapSNnA4CuBtSV7JwGK4XVYLcjwQtBdcI9ciwSCE99nH+cu/jlX0LovQ4g2Y2K
+ FermPpL3otgqfNryi3ky6IquPfAaABQ2J2NhOaQf8QO/2IDhqyJ9t0EikrcCWEBsmcfx
+ NWqE1xa79i5cOi/JTcEgxzU4tZOuiifJtLvYxPNTYM8hOiKwCnc+HU9F5CF4VAVsWsak
+ 8sV5fgjbtZwDItNfrHIO/ve4Uq5hqL/OmiyVEnuQhnxHx3KHJ0KVAaLn84UUX3HpXKGm
+ Yevw==
+X-Gm-Message-State: AOAM532ziQYTtIrM2sL9iFmQL2Nolo2rFk+0SLBREQFMO6KrgXJzQP58
+ kepZf+tDGNd1Nsh2ySrNwN4=
+X-Google-Smtp-Source: ABdhPJxQcfdrrCrfZXVUBP2XgAqTEjdFaPRIHC7BcYbo0cXrAVQPSPy8pM2ZDmwAm4cu8q6kfjMCtw==
+X-Received: by 2002:a62:7785:: with SMTP id
+ s127mr10452297pfc.196.1597656000455; 
+ Mon, 17 Aug 2020 02:20:00 -0700 (PDT)
 Received: from localhost.localdomain ([49.207.202.98])
- by smtp.gmail.com with ESMTPSA id r25sm15971028pgv.88.2020.08.17.02.18.13
+ by smtp.gmail.com with ESMTPSA id r25sm15971028pgv.88.2020.08.17.02.19.45
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 17 Aug 2020 02:18:24 -0700 (PDT)
+ Mon, 17 Aug 2020 02:19:59 -0700 (PDT)
 From: Allen Pais <allen.cryptic@gmail.com>
 To: jdike@addtoit.com, richard@nod.at, anton.ivanov@cambridgegreys.com,
  3chas3@gmail.com, axboe@kernel.dk, stefanr@s5r6.in-berlin.de,
@@ -68,13 +69,13 @@ To: jdike@addtoit.com, richard@nod.at, anton.ivanov@cambridgegreys.com,
  ulf.hansson@linaro.org, mporter@kernel.crashing.org, alex.bou9@gmail.com,
  broonie@kernel.org, martyn@welchs.me.uk, manohar.vanga@gmail.com,
  mitch@sfgoth.com, davem@davemloft.net, kuba@kernel.org
-Date: Mon, 17 Aug 2020 14:46:03 +0530
-Message-Id: <20200817091617.28119-9-allen.cryptic@gmail.com>
+Date: Mon, 17 Aug 2020 14:46:10 +0530
+Message-Id: <20200817091617.28119-16-allen.cryptic@gmail.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200817091617.28119-1-allen.cryptic@gmail.com>
 References: <20200817091617.28119-1-allen.cryptic@gmail.com>
 X-Mailman-Approved-At: Mon, 17 Aug 2020 13:02:22 +0000
-Subject: [Intel-gfx] [PATCH] drivers: vme: convert tasklets to use new
+Subject: [Intel-gfx] [PATCH 1/2] misc: ibmvmc: convert tasklets to use new
  tasklet_setup() API
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -115,40 +116,36 @@ and from_tasklet() to pass the tasklet pointer explicitly.
 Signed-off-by: Romain Perier <romain.perier@gmail.com>
 Signed-off-by: Allen Pais <allen.lkml@gmail.com>
 ---
- drivers/vme/bridges/vme_fake.c | 9 ++++-----
- 1 file changed, 4 insertions(+), 5 deletions(-)
+ drivers/misc/ibmvmc.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/vme/bridges/vme_fake.c b/drivers/vme/bridges/vme_fake.c
-index 6a1bc284f297..38dd5f949cd0 100644
---- a/drivers/vme/bridges/vme_fake.c
-+++ b/drivers/vme/bridges/vme_fake.c
-@@ -90,13 +90,13 @@ static struct device *vme_root;
- /*
-  * Calling VME bus interrupt callback if provided.
-  */
--static void fake_VIRQ_tasklet(unsigned long data)
-+static void fake_VIRQ_tasklet(struct tasklet_struct *t)
- {
- 	struct vme_bridge *fake_bridge;
- 	struct fake_driver *bridge;
- 
--	fake_bridge = (struct vme_bridge *) data;
--	bridge = fake_bridge->driver_priv;
-+	bridge = from_tasklet(bridge, t, int_tasklet);
-+	fake_bridge = bridge->parent;
- 
- 	vme_irq_handler(fake_bridge, bridge->int_level, bridge->int_statid);
+diff --git a/drivers/misc/ibmvmc.c b/drivers/misc/ibmvmc.c
+index 2d778d0f011e..347278c1a5e4 100644
+--- a/drivers/misc/ibmvmc.c
++++ b/drivers/misc/ibmvmc.c
+@@ -2064,10 +2064,10 @@ static void ibmvmc_handle_crq(struct ibmvmc_crq_msg *crq,
+ 	}
  }
-@@ -1098,8 +1098,7 @@ static int __init fake_init(void)
- 	/* Initialize wait queues & mutual exclusion flags */
- 	mutex_init(&fake_device->vme_int);
- 	mutex_init(&fake_bridge->irq_mtx);
--	tasklet_init(&fake_device->int_tasklet, fake_VIRQ_tasklet,
--			(unsigned long) fake_bridge);
-+	tasklet_setup(&fake_device->int_tasklet, fake_VIRQ_tasklet);
  
- 	strcpy(fake_bridge->name, driver_name);
+-static void ibmvmc_task(unsigned long data)
++static void ibmvmc_task(struct tasklet_struct *t)
+ {
+-	struct crq_server_adapter *adapter =
+-		(struct crq_server_adapter *)data;
++	struct crq_server_adapter *adapter = from_tasklet(adapter, t,
++							  work_task);
+ 	struct vio_dev *vdev = to_vio_dev(adapter->dev);
+ 	struct ibmvmc_crq_msg *crq;
+ 	int done = 0;
+@@ -2150,7 +2150,7 @@ static int ibmvmc_init_crq_queue(struct crq_server_adapter *adapter)
+ 	queue->cur = 0;
+ 	spin_lock_init(&queue->lock);
  
+-	tasklet_init(&adapter->work_task, ibmvmc_task, (unsigned long)adapter);
++	tasklet_setup(&adapter->work_task, ibmvmc_task);
+ 
+ 	if (request_irq(vdev->irq,
+ 			ibmvmc_handle_event,
 -- 
 2.17.1
 
