@@ -8,57 +8,56 @@ X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6CAE8C433E3
-	for <intel-gfx@archiver.kernel.org>; Mon, 17 Aug 2020 13:02:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1E64AC433DF
+	for <intel-gfx@archiver.kernel.org>; Mon, 17 Aug 2020 13:02:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 427E22075B
+	by mail.kernel.org (Postfix) with ESMTPS id E6FB92075B
 	for <intel-gfx@archiver.kernel.org>; Mon, 17 Aug 2020 13:02:43 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FoufY+wC"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 427E22075B
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mxWi/elP"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E6FB92075B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A425A6E51B;
-	Mon, 17 Aug 2020 13:02:36 +0000 (UTC)
-Received: from mail-pl1-x641.google.com (mail-pl1-x641.google.com
- [IPv6:2607:f8b0:4864:20::641])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5BE886E0F8;
- Mon, 17 Aug 2020 09:20:15 +0000 (UTC)
-Received: by mail-pl1-x641.google.com with SMTP id g7so6063960plq.1;
- Mon, 17 Aug 2020 02:20:15 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 08C696E55E;
+	Mon, 17 Aug 2020 13:02:41 +0000 (UTC)
+Received: from mail-pj1-x1044.google.com (mail-pj1-x1044.google.com
+ [IPv6:2607:f8b0:4864:20::1044])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 25A196E0F8;
+ Mon, 17 Aug 2020 09:16:41 +0000 (UTC)
+Received: by mail-pj1-x1044.google.com with SMTP id e4so7524702pjd.0;
+ Mon, 17 Aug 2020 02:16:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=48ZUy5TmzQBYUzPrjZvYPJeHWlYkLbZYovshPbclrcg=;
- b=FoufY+wCt538UGODDBNoxdFMHMLuyZNGQ6MHR7pZXvqvIrAnPj8PHB4pQsWp/mWg6o
- KsvcX8Y87zDteEZApNo70LMlrBVZaBliAR2vLGx60Xbo7CohHtYkdt/Mg+u50DG1h36h
- 9Fwly9brTQHjZlbl7lAqxgOWAbzrsFhJBcqUC23aSRj/VpiU2JCK2mbui+uqvhxhgmrl
- IvuQewyHW9KqIl6MAWFr6dd8dgP34kntnReO4dunTk9vfs81InEHWHE3302xh+V3TqjN
- 5ledaxK7A0foZnhRefzAA6Ra/wxb6d+K7gxqNB1TdKvqBatRR5FaVQrX9ZSt/5m+frdy
- H7BA==
+ h=from:to:cc:subject:date:message-id;
+ bh=nYi1qCRVXukm3Vys4Ax0zzpvhrxgpQ9/OWRIEzi7jMM=;
+ b=mxWi/elPlQYhLXMLOAt36tJYQ+Hp1VAtd/uz+Kc8cIdiewSdg8n95X+KYxSdWGZJ1y
+ /1rHnM4HvYeEmKOOLXL2wTqM2vSxMsb9VJZkfdrjZ8c8pWQ4rrQImtoKQ977EHgQ+THx
+ Aa919IaWGz3+LC2CnAhGPcCnKZKjEcT2ftL3tbor1l7DdNN51bTmd6wf3G7Uglbn9gd3
+ IvO4ciTbor+qNIHbn5ZnArhfiWQHMjs284hcUdKxz9v7/11dHOTVFY1ki+iFopZAQ166
+ 233J/wFqybY2SkuhDb0GHf7Xk3e7tw+qSNZabUjFckMBu8dhIwFr7uUw3BLLKtx0v0Fq
+ 3HVg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references;
- bh=48ZUy5TmzQBYUzPrjZvYPJeHWlYkLbZYovshPbclrcg=;
- b=YbLp81nkjQYzCC3RbNefQ0pJ3DtjzsR0IBs814E09oqC2HRSR+/cEK7qaHo95/kFYV
- Ygd/BOFU/e9J8pKRTQWrmTnPX4Zdc5unW89G/2XyHUczaw0Ic2hzU+clY+W1bo3sZrGc
- Xj7+Y1RTqO2VeT7J9RszE+bGOYwRJ0tVjdfQvsjcS3ZpYxZpBDnEKORJ/cWN05lcrbBD
- s9oZi9VZ/glsHjgL0LPV8o4372cVCqPv2oI6zS4i3fUFjaorCqfJLT/Rga9h8ESDSK9K
- S6m0EYWWAJy80K1MXLCYyCR/mvIn8ypF7VZIaMWuHUWrtK3sMq3igpsoJWyOrnA+HHa4
- x/gw==
-X-Gm-Message-State: AOAM533PNFwnUzenbWL1ihtDLpQfWxcdqHIJYnEa+Iafnhl6vY/v8Qer
- x0pzjbMTsVv5pRHPE4Vsy+s=
-X-Google-Smtp-Source: ABdhPJzGq3wy6E/Dy/SnfM+UdmLXd8ExYtYFE4LwG7DZVH6d40QHdot/zCUw6TFKmzo3uMNttbjBZg==
-X-Received: by 2002:a17:902:bd85:: with SMTP id
- q5mr9922465pls.99.1597656014891; 
- Mon, 17 Aug 2020 02:20:14 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=nYi1qCRVXukm3Vys4Ax0zzpvhrxgpQ9/OWRIEzi7jMM=;
+ b=uaPkfB4T5hPFhd32wPZ//+gENq/ZaNYILTZZJg5kiKNqnjZcyzKgKOnzQ58yZUpRgZ
+ /4l2v9zUBQkK3tP3C4VP/VYMunGUxAMF3F0eqoolGgq8ggTJuf84f1LLUjPz6DS2ioei
+ 5Za3YEm330KDjB0IOlT3kTBN/3QHlRXjq58byTL9o6DPl6jzHdbArEEnSdQ3JqzjAMz/
+ Z3jkrRga0CqtdHrZO7GjJyeMdXouLTHu8ggDYVM1mA7et2spm/vCuLLPg2Skz7fWPMdq
+ sxPTpN72e9Ja+nmxg6eIL9OZukhEJ2YuDKu0gxxvUW2VSrt+I0z87+jKjo2fyvJbsHPA
+ zrog==
+X-Gm-Message-State: AOAM530SfSv7+VScP93CT6hH9de1bvGu+MQ1skUTN6VSiFqqvqZL0pe5
+ wKtZloXsaLyOOZ0NPSajC7E=
+X-Google-Smtp-Source: ABdhPJx+wEvCOSvKZxezpdY6lLs7UvfZeX3QH5NUsgJeM5vKZGxtJnJRJpZ8+dEdqnJdMBLPa9KLfg==
+X-Received: by 2002:a17:902:8495:: with SMTP id
+ c21mr10840498plo.82.1597655800670; 
+ Mon, 17 Aug 2020 02:16:40 -0700 (PDT)
 Received: from localhost.localdomain ([49.207.202.98])
- by smtp.gmail.com with ESMTPSA id r25sm15971028pgv.88.2020.08.17.02.20.00
+ by smtp.gmail.com with ESMTPSA id r25sm15971028pgv.88.2020.08.17.02.16.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 17 Aug 2020 02:20:14 -0700 (PDT)
+ Mon, 17 Aug 2020 02:16:39 -0700 (PDT)
 From: Allen Pais <allen.cryptic@gmail.com>
 To: jdike@addtoit.com, richard@nod.at, anton.ivanov@cambridgegreys.com,
  3chas3@gmail.com, axboe@kernel.dk, stefanr@s5r6.in-berlin.de,
@@ -69,14 +68,12 @@ To: jdike@addtoit.com, richard@nod.at, anton.ivanov@cambridgegreys.com,
  ulf.hansson@linaro.org, mporter@kernel.crashing.org, alex.bou9@gmail.com,
  broonie@kernel.org, martyn@welchs.me.uk, manohar.vanga@gmail.com,
  mitch@sfgoth.com, davem@davemloft.net, kuba@kernel.org
-Date: Mon, 17 Aug 2020 14:46:11 +0530
-Message-Id: <20200817091617.28119-17-allen.cryptic@gmail.com>
+Date: Mon, 17 Aug 2020 14:45:55 +0530
+Message-Id: <20200817091617.28119-1-allen.cryptic@gmail.com>
 X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20200817091617.28119-1-allen.cryptic@gmail.com>
-References: <20200817091617.28119-1-allen.cryptic@gmail.com>
 X-Mailman-Approved-At: Mon, 17 Aug 2020 13:02:22 +0000
-Subject: [Intel-gfx] [PATCH] net: atm: convert tasklets callbacks to use
- from_tasklet()
+Subject: [Intel-gfx] [PATCH] arch: um: convert tasklets to use new
+ tasklet_setup() API
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,27 +105,42 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Allen Pais <allen.lkml@gmail.com>
 
-Update all the callbacks of all tasklets by using
-from_tasklet() and remove .data field.
+In preparation for unconditionally passing the
+struct tasklet_struct pointer to all tasklet
+callbacks, switch to using the new tasklet_setup()
+and from_tasklet() to pass the tasklet pointer explicitly.
 
 Signed-off-by: Romain Perier <romain.perier@gmail.com>
 Signed-off-by: Allen Pais <allen.lkml@gmail.com>
 ---
- net/atm/pppoatm.c | 1 -
- 1 file changed, 1 deletion(-)
+ arch/um/drivers/vector_kern.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/net/atm/pppoatm.c b/net/atm/pppoatm.c
-index 579b66da1d95..3803be8470f7 100644
---- a/net/atm/pppoatm.c
-+++ b/net/atm/pppoatm.c
-@@ -416,7 +416,6 @@ static int pppoatm_assign_vcc(struct atm_vcc *atmvcc, void __user *arg)
- 	pvcc->chan.mtu = atmvcc->qos.txtp.max_sdu - PPP_HDRLEN -
- 	    (be.encaps == e_vc ? 0 : LLC_LEN);
- 	pvcc->wakeup_tasklet = tasklet_proto;
--	pvcc->wakeup_tasklet.data = (unsigned long) &pvcc->chan;
- 	err = ppp_register_channel(&pvcc->chan);
- 	if (err != 0) {
- 		kfree(pvcc);
+diff --git a/arch/um/drivers/vector_kern.c b/arch/um/drivers/vector_kern.c
+index 8735c468230a..06980870ae23 100644
+--- a/arch/um/drivers/vector_kern.c
++++ b/arch/um/drivers/vector_kern.c
+@@ -1196,9 +1196,9 @@ static int vector_net_close(struct net_device *dev)
+ 
+ /* TX tasklet */
+ 
+-static void vector_tx_poll(unsigned long data)
++static void vector_tx_poll(struct tasklet_struct *t)
+ {
+-	struct vector_private *vp = (struct vector_private *)data;
++	struct vector_private *vp = from_tasklet(vp, t, tx_poll);
+ 
+ 	vp->estats.tx_kicks++;
+ 	vector_send(vp->tx_queue);
+@@ -1629,7 +1629,7 @@ static void vector_eth_configure(
+ 	});
+ 
+ 	dev->features = dev->hw_features = (NETIF_F_SG | NETIF_F_FRAGLIST);
+-	tasklet_init(&vp->tx_poll, vector_tx_poll, (unsigned long)vp);
++	tasklet_setup(&vp->tx_poll, vector_tx_poll);
+ 	INIT_WORK(&vp->reset_tx, vector_reset_tx);
+ 
+ 	timer_setup(&vp->tl, vector_timer_expire, 0);
 -- 
 2.17.1
 
