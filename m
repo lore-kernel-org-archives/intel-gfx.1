@@ -5,60 +5,60 @@ X-Spam-Level:
 X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,
 	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
 	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 01A30C433DF
-	for <intel-gfx@archiver.kernel.org>; Mon, 17 Aug 2020 13:02:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 302B3C433E1
+	for <intel-gfx@archiver.kernel.org>; Mon, 17 Aug 2020 13:02:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CB6622076E
-	for <intel-gfx@archiver.kernel.org>; Mon, 17 Aug 2020 13:02:29 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 057162075B
+	for <intel-gfx@archiver.kernel.org>; Mon, 17 Aug 2020 13:02:31 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PyMcWayB"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CB6622076E
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SB1by7Ka"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 057162075B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AAE486E2F9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C6376E2B0;
 	Mon, 17 Aug 2020 13:02:23 +0000 (UTC)
-Received: from mail-pj1-x1041.google.com (mail-pj1-x1041.google.com
- [IPv6:2607:f8b0:4864:20::1041])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 113966E0F8;
- Mon, 17 Aug 2020 09:18:00 +0000 (UTC)
-Received: by mail-pj1-x1041.google.com with SMTP id d4so7395278pjx.5;
- Mon, 17 Aug 2020 02:18:00 -0700 (PDT)
+Received: from mail-pj1-x1043.google.com (mail-pj1-x1043.google.com
+ [IPv6:2607:f8b0:4864:20::1043])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BBBA06E0F8;
+ Mon, 17 Aug 2020 09:18:39 +0000 (UTC)
+Received: by mail-pj1-x1043.google.com with SMTP id ha11so7406375pjb.1;
+ Mon, 17 Aug 2020 02:18:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=b4rgdbawNMIYfrAuQkyVo4UViOG64WWeDycX+5MFQIw=;
- b=PyMcWayBkiZh2L1sh4qEZP3dTK3G8sAqxmaVVytXPS3SWG3GgG94sw6o0Nrcf1df+Q
- wERBWbwHQv6Qgu7hNTSGUUVnjknbD/6NI8hJDMspn8CczdQvJPM76KBjotTKq1nRqCMz
- PeaUjGlQDtl3+8tYa2241Lt0gFMVJ1Pj2m5WjIwAk0QPXbTouobbDDQHD7yRGFSTHJfF
- TGVqoP9D0FSDOwtCHrJQip7z1NvCco4b1IQwWbk2n5T8eRS7cLsH017gTERiI8GS8Tqs
- 077uDrcWAyQImiWo67W3QAf+RCwJGajol8woY3NpuxxUzfr5gmwXTFilhRPsJnsV/onK
- O2Gw==
+ bh=XewQeBy6WMQV1RzMvwbB0P7og4UUzSYm8rIudQOA7EQ=;
+ b=SB1by7KaCL6cQHhv3XdgwPt9YA/PFNHKz0XfjEYA7w8aj9S9xxq0uzFLbo5O6jzB4d
+ /BYHZnjCspLMklc6e+gKyyCLFL3PHl7af9K5z5BDc5pWk2fIAQV01uqg0x9A0rU3WJxB
+ ynFJ+ZLHuAglHnrYfLWpNfsi8kvUoViShOQNB7TA1ZWciy7PmxwYny6mHPJlIoYZ82L2
+ ZlBRzMm/o+SqonfkfIlyC7nCbwSclfnufsgMssi54+P+P7lc4ySD7vMC9Fk1Ls9A6dWc
+ Okus7LMmEyRKUYFE86ulIu8GL6VYAG0MmqBllZv+Zn5LQaK/NiqDbEErMnl69t8YVmpD
+ i99A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references;
- bh=b4rgdbawNMIYfrAuQkyVo4UViOG64WWeDycX+5MFQIw=;
- b=SaGIuUg+usJdz7Fb38hh1G2evkTN59y6pxyhz+tovL2l2DD1YS3Yd9R1jLJ+nwwFaf
- OL6xjSKbshraBm/Wq2/y3EFg9ntNbOC1v67tP9W8krLrEu312AfGpyACGA2Ed4yqHOjq
- yp7n2qXIcdwz3XOv42CyOV4nOR5u+VKtmM/uBpoFcu/5sWdkm4dmrJOeWpNKob1FJCwk
- M03njbpMMqau0q9L1V0o1y6+tvFci7KsCeexnkGZkWutcGKFhpiHW+wT0i2FmPwZuFAG
- nbilHtaaCJlbINSaiooLoQgO2aSIocwUwhvxiDMieyX9B5H8uuHR/Lnr/S+TJ7B9TmOA
- t9gw==
-X-Gm-Message-State: AOAM531YY7UEvJOM+ky7p1U8+Iudawey2qqoB17mZjTGt/uLKQkkKvpn
- yyEWmLu243HWxOGTWDcVD8M=
-X-Google-Smtp-Source: ABdhPJwJpNSWTk4IID0rEMXxIuI6kibpl/4HWTcEM39pCyHeMQh+u9mKWbVjT3TDQxfuQPdXa1o+UA==
-X-Received: by 2002:a17:90a:a65:: with SMTP id
- o92mr11920119pjo.104.1597655879719; 
- Mon, 17 Aug 2020 02:17:59 -0700 (PDT)
+ bh=XewQeBy6WMQV1RzMvwbB0P7og4UUzSYm8rIudQOA7EQ=;
+ b=ED5v3EYxdL2ztXUNL067bJZcFVzlqeRtWhU7tqElpo+8h3m2TehNpAOF7sJexwYbTi
+ 7PkgljrzxdH8zjeauVZFLxIvhqKZjTvmIc1NTYCPfCERjq4tzfVhTt7jir6EjrXntaMT
+ RBh50X7A90yuITHahNpYRji3z+G3rELdvL27ZA4R0bChXHaUkHuw7rLIrskf/erwWedM
+ MuB8pOpW6lqa0DBnplSb+jhfQS3gMiHcukvqtCDDIny45O4Ugh6LUKAifXtZNlX4PKP1
+ VdriuGqXYUXaZ8v9hXIhNn2TUerJVPV/MnFQlbkC6DDFU1NiSv5XhZPV+J+sHgRT8q/t
+ FIeQ==
+X-Gm-Message-State: AOAM531PJiH78RUp+DUrixTAt70qrAjDT9rL7BzqCEP4ySE9oLJv+Q6d
+ bUB3cq6aRoFR0D6BYy+/WFQ=
+X-Google-Smtp-Source: ABdhPJzpGkHvt1LevgAfoz+X8j8B4a1KTwgUtKHLjr8EQlBQBbyxfG8elY9nfvO7GsksTpqaKtjyFg==
+X-Received: by 2002:a17:90a:36ee:: with SMTP id
+ t101mr12384566pjb.47.1597655919356; 
+ Mon, 17 Aug 2020 02:18:39 -0700 (PDT)
 Received: from localhost.localdomain ([49.207.202.98])
- by smtp.gmail.com with ESMTPSA id r25sm15971028pgv.88.2020.08.17.02.17.45
+ by smtp.gmail.com with ESMTPSA id r25sm15971028pgv.88.2020.08.17.02.18.25
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 17 Aug 2020 02:17:59 -0700 (PDT)
+ Mon, 17 Aug 2020 02:18:38 -0700 (PDT)
 From: Allen Pais <allen.cryptic@gmail.com>
 To: jdike@addtoit.com, richard@nod.at, anton.ivanov@cambridgegreys.com,
  3chas3@gmail.com, axboe@kernel.dk, stefanr@s5r6.in-berlin.de,
@@ -69,13 +69,13 @@ To: jdike@addtoit.com, richard@nod.at, anton.ivanov@cambridgegreys.com,
  ulf.hansson@linaro.org, mporter@kernel.crashing.org, alex.bou9@gmail.com,
  broonie@kernel.org, martyn@welchs.me.uk, manohar.vanga@gmail.com,
  mitch@sfgoth.com, davem@davemloft.net, kuba@kernel.org
-Date: Mon, 17 Aug 2020 14:46:01 +0530
-Message-Id: <20200817091617.28119-7-allen.cryptic@gmail.com>
+Date: Mon, 17 Aug 2020 14:46:04 +0530
+Message-Id: <20200817091617.28119-10-allen.cryptic@gmail.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200817091617.28119-1-allen.cryptic@gmail.com>
 References: <20200817091617.28119-1-allen.cryptic@gmail.com>
 X-Mailman-Approved-At: Mon, 17 Aug 2020 13:02:22 +0000
-Subject: [Intel-gfx] [PATCH] drivers: rapidio: convert tasklets to use new
+Subject: [Intel-gfx] [PATCH] drm: i915: convert tasklets to use new
  tasklet_setup() API
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -111,40 +111,137 @@ From: Allen Pais <allen.lkml@gmail.com>
 In preparation for unconditionally passing the
 struct tasklet_struct pointer to all tasklet
 callbacks, switch to using the new tasklet_setup()
-and from_tasklet() to pass the tasklet pointer explicitly.
+and from_tasklet() to pass the tasklet pointer explicitly
+and remove the .data field.
 
 Signed-off-by: Romain Perier <romain.perier@gmail.com>
 Signed-off-by: Allen Pais <allen.lkml@gmail.com>
 ---
- drivers/rapidio/devices/tsi721_dma.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_lrc.c           | 31 ++++++++++---------
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c |  8 +++--
+ 2 files changed, 22 insertions(+), 17 deletions(-)
 
-diff --git a/drivers/rapidio/devices/tsi721_dma.c b/drivers/rapidio/devices/tsi721_dma.c
-index d375c02059f3..4a2bb6d7c692 100644
---- a/drivers/rapidio/devices/tsi721_dma.c
-+++ b/drivers/rapidio/devices/tsi721_dma.c
-@@ -566,9 +566,9 @@ static void tsi721_advance_work(struct tsi721_bdma_chan *bdma_chan,
- 		  bdma_chan->id);
+diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
+index 24322ef08aa4..c45e42b9f239 100644
+--- a/drivers/gpu/drm/i915/gt/intel_lrc.c
++++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
+@@ -3130,9 +3130,10 @@ static bool preempt_timeout(const struct intel_engine_cs *const engine)
+  * Check the unread Context Status Buffers and manage the submission of new
+  * contexts to the ELSP accordingly.
+  */
+-static void execlists_submission_tasklet(unsigned long data)
++static void execlists_submission_tasklet(struct tasklet_struct *t)
+ {
+-	struct intel_engine_cs * const engine = (struct intel_engine_cs *)data;
++	struct intel_engine_cs * const engine = from_tasklet(engine, t,
++						     execlists.tasklet);
+ 	bool timeout = preempt_timeout(engine);
+ 
+ 	process_csb(engine);
+@@ -4306,9 +4307,10 @@ static void execlists_reset_rewind(struct intel_engine_cs *engine, bool stalled)
+ 	spin_unlock_irqrestore(&engine->active.lock, flags);
  }
  
--static void tsi721_dma_tasklet(unsigned long data)
-+static void tsi721_dma_tasklet(struct tasklet_struct *t)
+-static void nop_submission_tasklet(unsigned long data)
++static void nop_submission_tasklet(struct tasklet_struct *t)
  {
--	struct tsi721_bdma_chan *bdma_chan = (struct tsi721_bdma_chan *)data;
-+	struct tsi721_bdma_chan *bdma_chan = from_tasklet(bdma_chan, t, tasklet);
- 	u32 dmac_int, dmac_sts;
+-	struct intel_engine_cs * const engine = (struct intel_engine_cs *)data;
++	struct intel_engine_cs * const engine = from_tasklet(engine, t,
++						     execlists.tasklet);
  
- 	dmac_int = ioread32(bdma_chan->regs + TSI721_DMAC_INT);
-@@ -988,8 +988,7 @@ int tsi721_register_dma(struct tsi721_device *priv)
- 		INIT_LIST_HEAD(&bdma_chan->queue);
- 		INIT_LIST_HEAD(&bdma_chan->free_list);
+ 	/* The driver is wedged; don't process any more events. */
+ 	WRITE_ONCE(engine->execlists.queue_priority_hint, INT_MIN);
+@@ -4391,7 +4393,8 @@ static void execlists_reset_cancel(struct intel_engine_cs *engine)
+ 	execlists->queue = RB_ROOT_CACHED;
  
--		tasklet_init(&bdma_chan->tasklet, tsi721_dma_tasklet,
--			     (unsigned long)bdma_chan);
-+		tasklet_setup(&bdma_chan->tasklet, tsi721_dma_tasklet);
- 		list_add_tail(&bdma_chan->dchan.device_node,
- 			      &mport->dma.channels);
- 		nr_channels++;
+ 	GEM_BUG_ON(__tasklet_is_enabled(&execlists->tasklet));
+-	execlists->tasklet.func = nop_submission_tasklet;
++	execlists->tasklet.func = (void (*)(unsigned long))
++				  nop_submission_tasklet;
+ 
+ 	spin_unlock_irqrestore(&engine->active.lock, flags);
+ }
+@@ -4986,7 +4989,8 @@ void intel_execlists_set_default_submission(struct intel_engine_cs *engine)
+ {
+ 	engine->submit_request = execlists_submit_request;
+ 	engine->schedule = i915_schedule;
+-	engine->execlists.tasklet.func = execlists_submission_tasklet;
++	engine->execlists.tasklet.func = (void (*)(unsigned long))
++		execlists_submission_tasklet;
+ 
+ 	engine->reset.prepare = execlists_reset_prepare;
+ 	engine->reset.rewind = execlists_reset_rewind;
+@@ -5113,8 +5117,7 @@ int intel_execlists_submission_setup(struct intel_engine_cs *engine)
+ 	struct intel_uncore *uncore = engine->uncore;
+ 	u32 base = engine->mmio_base;
+ 
+-	tasklet_init(&engine->execlists.tasklet,
+-		     execlists_submission_tasklet, (unsigned long)engine);
++	tasklet_setup(&engine->execlists.tasklet, execlists_submission_tasklet);
+ 	timer_setup(&engine->execlists.timer, execlists_timeslice, 0);
+ 	timer_setup(&engine->execlists.preempt, execlists_preempt, 0);
+ 
+@@ -5509,9 +5512,10 @@ static intel_engine_mask_t virtual_submission_mask(struct virtual_engine *ve)
+ 	return mask;
+ }
+ 
+-static void virtual_submission_tasklet(unsigned long data)
++static void virtual_submission_tasklet(struct tasklet_struct *t)
+ {
+-	struct virtual_engine * const ve = (struct virtual_engine *)data;
++	struct virtual_engine *  ve = from_tasklet(ve, t,
++						   base.execlists.tasklet);
+ 	const int prio = READ_ONCE(ve->base.execlists.queue_priority_hint);
+ 	intel_engine_mask_t mask;
+ 	unsigned int n;
+@@ -5724,9 +5728,8 @@ intel_execlists_create_virtual(struct intel_engine_cs **siblings,
+ 
+ 	INIT_LIST_HEAD(virtual_queue(ve));
+ 	ve->base.execlists.queue_priority_hint = INT_MIN;
+-	tasklet_init(&ve->base.execlists.tasklet,
+-		     virtual_submission_tasklet,
+-		     (unsigned long)ve);
++	tasklet_setup(&ve->base.execlists.tasklet,
++		     virtual_submission_tasklet);
+ 
+ 	intel_context_init(&ve->context, &ve->base);
+ 
+@@ -5748,7 +5751,7 @@ intel_execlists_create_virtual(struct intel_engine_cs **siblings,
+ 		 * layering if we handle cloning of the requests and
+ 		 * submitting a copy into each backend.
+ 		 */
+-		if (sibling->execlists.tasklet.func !=
++		if (sibling->execlists.tasklet.func != (void (*)(unsigned long))
+ 		    execlists_submission_tasklet) {
+ 			err = -ENODEV;
+ 			goto err_put;
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+index fdfeb4b9b0f5..3013ff54431c 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+@@ -344,9 +344,10 @@ static void __guc_dequeue(struct intel_engine_cs *engine)
+ 	execlists->active = execlists->inflight;
+ }
+ 
+-static void guc_submission_tasklet(unsigned long data)
++static void guc_submission_tasklet(struct tasklet_struct *t)
+ {
+-	struct intel_engine_cs * const engine = (struct intel_engine_cs *)data;
++	struct intel_engine_cs * const engine = from_tasklet(engine, t,
++							     execlists.tasklet);
+ 	struct intel_engine_execlists * const execlists = &engine->execlists;
+ 	struct i915_request **port, *rq;
+ 	unsigned long flags;
+@@ -591,7 +592,8 @@ static void guc_set_default_submission(struct intel_engine_cs *engine)
+ 	 */
+ 	intel_execlists_set_default_submission(engine);
+ 
+-	engine->execlists.tasklet.func = guc_submission_tasklet;
++	engine->execlists.tasklet.func =
++				(void (*)(unsigned long))guc_submission_tasklet;
+ 
+ 	/* do not use execlists park/unpark */
+ 	engine->park = engine->unpark = NULL;
 -- 
 2.17.1
 
