@@ -5,60 +5,60 @@ X-Spam-Level:
 X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,
 	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
 	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 87A88C433E1
-	for <intel-gfx@archiver.kernel.org>; Mon, 17 Aug 2020 13:02:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 01A30C433DF
+	for <intel-gfx@archiver.kernel.org>; Mon, 17 Aug 2020 13:02:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 55DF22075B
-	for <intel-gfx@archiver.kernel.org>; Mon, 17 Aug 2020 13:02:28 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id CB6622076E
+	for <intel-gfx@archiver.kernel.org>; Mon, 17 Aug 2020 13:02:29 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QOU3It2w"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 55DF22075B
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PyMcWayB"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CB6622076E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F3A3A6E11D;
-	Mon, 17 Aug 2020 13:02:22 +0000 (UTC)
-Received: from mail-pj1-x1043.google.com (mail-pj1-x1043.google.com
- [IPv6:2607:f8b0:4864:20::1043])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D77076E079;
- Mon, 17 Aug 2020 09:17:07 +0000 (UTC)
-Received: by mail-pj1-x1043.google.com with SMTP id d4so7394344pjx.5;
- Mon, 17 Aug 2020 02:17:07 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AAE486E2F9;
+	Mon, 17 Aug 2020 13:02:23 +0000 (UTC)
+Received: from mail-pj1-x1041.google.com (mail-pj1-x1041.google.com
+ [IPv6:2607:f8b0:4864:20::1041])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 113966E0F8;
+ Mon, 17 Aug 2020 09:18:00 +0000 (UTC)
+Received: by mail-pj1-x1041.google.com with SMTP id d4so7395278pjx.5;
+ Mon, 17 Aug 2020 02:18:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=uZ+1GKxChp21LTxKeZeHItaYyTUEZmeDAjJJ3IuyUSU=;
- b=QOU3It2wstSJQ8rTV/fRKD6g3FxnjKR7x+Yn8XhXibiXjd9f+wMUX06FxPTeJckaOy
- b461ZvK+YUE+a4MgqglsIfnmBh1hfgw+OcprCrJKfwn6S7iF4u002CSD866ly3D9ewzl
- KZefKfGEV/Ayb6cOaQMdIuFxRgOzaQ6p54wUjWaECLiKBrgQHy3tV6AeZbifktOme+eH
- NjF7sOjZeNi5IMHEZbD9MOiEmhtBLqVvzb4547MxWG8lXsvmAhu3YelPfx4zHgGe28Jc
- 2XbbfK00LrxN/7E2T3xL/1NXOWZUugF7t8FyOW2q/Qb6jXYDE7eKIouYXUKYiMSgzqKW
- ix0A==
+ bh=b4rgdbawNMIYfrAuQkyVo4UViOG64WWeDycX+5MFQIw=;
+ b=PyMcWayBkiZh2L1sh4qEZP3dTK3G8sAqxmaVVytXPS3SWG3GgG94sw6o0Nrcf1df+Q
+ wERBWbwHQv6Qgu7hNTSGUUVnjknbD/6NI8hJDMspn8CczdQvJPM76KBjotTKq1nRqCMz
+ PeaUjGlQDtl3+8tYa2241Lt0gFMVJ1Pj2m5WjIwAk0QPXbTouobbDDQHD7yRGFSTHJfF
+ TGVqoP9D0FSDOwtCHrJQip7z1NvCco4b1IQwWbk2n5T8eRS7cLsH017gTERiI8GS8Tqs
+ 077uDrcWAyQImiWo67W3QAf+RCwJGajol8woY3NpuxxUzfr5gmwXTFilhRPsJnsV/onK
+ O2Gw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references;
- bh=uZ+1GKxChp21LTxKeZeHItaYyTUEZmeDAjJJ3IuyUSU=;
- b=NSsr9SYg8hpCWwOD1phaR2GBAqUfoXB/OhzFtFE96c34DL46xT5wymR6yzi8G23syQ
- EM3wglQ9ghnNeINptYxAjhlZuiU29GL6RK1M5qggkqM8sdOfpWD5QRkP/4+t5GQrY9nc
- VpZD4dfcwOEugkpb/XHbCF8o59IeJX72pFhUhcuPoFEtsdSEK58f8UmMf0wsIS/8KmxY
- fH5MuEE/29uvWW/kt0Lr4ESf/XnzTtm1YmCrSaP7oj+Ves3z/plodGhzxSs3xK84FZdd
- s9lD7iWpooNufebtC8Bp1f7JBPCp/Z15f/rsCH9+NRCYYAaDlDJSvfeynDMA3wwi7La7
- DmBQ==
-X-Gm-Message-State: AOAM531kwoYU5NDsbg0ysXNqx9X0RkgauAeT5juxOIc5ehnJUaf/8ZQD
- yGWn+MOWPfQshIBeIJkRmNA=
-X-Google-Smtp-Source: ABdhPJwXoSwxxXkSke3l7PujHUMjPUXY5EKX6zhSfgL0hCl2GRP8rzNL2p+R0J7BH7wXM281JFEI2Q==
-X-Received: by 2002:a17:90a:3948:: with SMTP id
- n8mr8798780pjf.156.1597655827403; 
- Mon, 17 Aug 2020 02:17:07 -0700 (PDT)
+ bh=b4rgdbawNMIYfrAuQkyVo4UViOG64WWeDycX+5MFQIw=;
+ b=SaGIuUg+usJdz7Fb38hh1G2evkTN59y6pxyhz+tovL2l2DD1YS3Yd9R1jLJ+nwwFaf
+ OL6xjSKbshraBm/Wq2/y3EFg9ntNbOC1v67tP9W8krLrEu312AfGpyACGA2Ed4yqHOjq
+ yp7n2qXIcdwz3XOv42CyOV4nOR5u+VKtmM/uBpoFcu/5sWdkm4dmrJOeWpNKob1FJCwk
+ M03njbpMMqau0q9L1V0o1y6+tvFci7KsCeexnkGZkWutcGKFhpiHW+wT0i2FmPwZuFAG
+ nbilHtaaCJlbINSaiooLoQgO2aSIocwUwhvxiDMieyX9B5H8uuHR/Lnr/S+TJ7B9TmOA
+ t9gw==
+X-Gm-Message-State: AOAM531YY7UEvJOM+ky7p1U8+Iudawey2qqoB17mZjTGt/uLKQkkKvpn
+ yyEWmLu243HWxOGTWDcVD8M=
+X-Google-Smtp-Source: ABdhPJwJpNSWTk4IID0rEMXxIuI6kibpl/4HWTcEM39pCyHeMQh+u9mKWbVjT3TDQxfuQPdXa1o+UA==
+X-Received: by 2002:a17:90a:a65:: with SMTP id
+ o92mr11920119pjo.104.1597655879719; 
+ Mon, 17 Aug 2020 02:17:59 -0700 (PDT)
 Received: from localhost.localdomain ([49.207.202.98])
- by smtp.gmail.com with ESMTPSA id r25sm15971028pgv.88.2020.08.17.02.16.54
+ by smtp.gmail.com with ESMTPSA id r25sm15971028pgv.88.2020.08.17.02.17.45
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 17 Aug 2020 02:17:06 -0700 (PDT)
+ Mon, 17 Aug 2020 02:17:59 -0700 (PDT)
 From: Allen Pais <allen.cryptic@gmail.com>
 To: jdike@addtoit.com, richard@nod.at, anton.ivanov@cambridgegreys.com,
  3chas3@gmail.com, axboe@kernel.dk, stefanr@s5r6.in-berlin.de,
@@ -69,13 +69,13 @@ To: jdike@addtoit.com, richard@nod.at, anton.ivanov@cambridgegreys.com,
  ulf.hansson@linaro.org, mporter@kernel.crashing.org, alex.bou9@gmail.com,
  broonie@kernel.org, martyn@welchs.me.uk, manohar.vanga@gmail.com,
  mitch@sfgoth.com, davem@davemloft.net, kuba@kernel.org
-Date: Mon, 17 Aug 2020 14:45:57 +0530
-Message-Id: <20200817091617.28119-3-allen.cryptic@gmail.com>
+Date: Mon, 17 Aug 2020 14:46:01 +0530
+Message-Id: <20200817091617.28119-7-allen.cryptic@gmail.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200817091617.28119-1-allen.cryptic@gmail.com>
 References: <20200817091617.28119-1-allen.cryptic@gmail.com>
 X-Mailman-Approved-At: Mon, 17 Aug 2020 13:02:22 +0000
-Subject: [Intel-gfx] [PATCH] char: ipmi: convert tasklets to use new
+Subject: [Intel-gfx] [PATCH] drivers: rapidio: convert tasklets to use new
  tasklet_setup() API
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -116,56 +116,35 @@ and from_tasklet() to pass the tasklet pointer explicitly.
 Signed-off-by: Romain Perier <romain.perier@gmail.com>
 Signed-off-by: Allen Pais <allen.lkml@gmail.com>
 ---
- drivers/char/ipmi/ipmi_msghandler.c | 13 ++++++-------
- 1 file changed, 6 insertions(+), 7 deletions(-)
+ drivers/rapidio/devices/tsi721_dma.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/char/ipmi/ipmi_msghandler.c b/drivers/char/ipmi/ipmi_msghandler.c
-index 737c0b6b24ea..e1814b6a1225 100644
---- a/drivers/char/ipmi/ipmi_msghandler.c
-+++ b/drivers/char/ipmi/ipmi_msghandler.c
-@@ -39,7 +39,7 @@
- 
- static struct ipmi_recv_msg *ipmi_alloc_recv_msg(void);
- static int ipmi_init_msghandler(void);
--static void smi_recv_tasklet(unsigned long);
-+static void smi_recv_tasklet(struct tasklet_struct *t);
- static void handle_new_recv_msgs(struct ipmi_smi *intf);
- static void need_waiter(struct ipmi_smi *intf);
- static int handle_one_recv_msg(struct ipmi_smi *intf,
-@@ -3430,9 +3430,8 @@ int ipmi_add_smi(struct module         *owner,
- 	intf->curr_seq = 0;
- 	spin_lock_init(&intf->waiting_rcv_msgs_lock);
- 	INIT_LIST_HEAD(&intf->waiting_rcv_msgs);
--	tasklet_init(&intf->recv_tasklet,
--		     smi_recv_tasklet,
--		     (unsigned long) intf);
-+	tasklet_setup(&intf->recv_tasklet,
-+		     smi_recv_tasklet);
- 	atomic_set(&intf->watchdog_pretimeouts_to_deliver, 0);
- 	spin_lock_init(&intf->xmit_msgs_lock);
- 	INIT_LIST_HEAD(&intf->xmit_msgs);
-@@ -4467,10 +4466,10 @@ static void handle_new_recv_msgs(struct ipmi_smi *intf)
- 	}
+diff --git a/drivers/rapidio/devices/tsi721_dma.c b/drivers/rapidio/devices/tsi721_dma.c
+index d375c02059f3..4a2bb6d7c692 100644
+--- a/drivers/rapidio/devices/tsi721_dma.c
++++ b/drivers/rapidio/devices/tsi721_dma.c
+@@ -566,9 +566,9 @@ static void tsi721_advance_work(struct tsi721_bdma_chan *bdma_chan,
+ 		  bdma_chan->id);
  }
  
--static void smi_recv_tasklet(unsigned long val)
-+static void smi_recv_tasklet(struct tasklet_struct *t)
+-static void tsi721_dma_tasklet(unsigned long data)
++static void tsi721_dma_tasklet(struct tasklet_struct *t)
  {
- 	unsigned long flags = 0; /* keep us warning-free. */
--	struct ipmi_smi *intf = (struct ipmi_smi *) val;
-+	struct ipmi_smi *intf = from_tasklet(intf, t, recv_tasklet);
- 	int run_to_completion = intf->run_to_completion;
- 	struct ipmi_smi_msg *newmsg = NULL;
+-	struct tsi721_bdma_chan *bdma_chan = (struct tsi721_bdma_chan *)data;
++	struct tsi721_bdma_chan *bdma_chan = from_tasklet(bdma_chan, t, tasklet);
+ 	u32 dmac_int, dmac_sts;
  
-@@ -4542,7 +4541,7 @@ void ipmi_smi_msg_received(struct ipmi_smi *intf,
- 		spin_unlock_irqrestore(&intf->xmit_msgs_lock, flags);
+ 	dmac_int = ioread32(bdma_chan->regs + TSI721_DMAC_INT);
+@@ -988,8 +988,7 @@ int tsi721_register_dma(struct tsi721_device *priv)
+ 		INIT_LIST_HEAD(&bdma_chan->queue);
+ 		INIT_LIST_HEAD(&bdma_chan->free_list);
  
- 	if (run_to_completion)
--		smi_recv_tasklet((unsigned long) intf);
-+		smi_recv_tasklet(&intf->recv_tasklet);
- 	else
- 		tasklet_schedule(&intf->recv_tasklet);
- }
+-		tasklet_init(&bdma_chan->tasklet, tsi721_dma_tasklet,
+-			     (unsigned long)bdma_chan);
++		tasklet_setup(&bdma_chan->tasklet, tsi721_dma_tasklet);
+ 		list_add_tail(&bdma_chan->dchan.device_node,
+ 			      &mport->dma.channels);
+ 		nr_channels++;
 -- 
 2.17.1
 
