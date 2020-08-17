@@ -8,56 +8,57 @@ X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AF4E4C433E1
-	for <intel-gfx@archiver.kernel.org>; Mon, 17 Aug 2020 13:02:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6CAE8C433E3
+	for <intel-gfx@archiver.kernel.org>; Mon, 17 Aug 2020 13:02:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 841762075B
-	for <intel-gfx@archiver.kernel.org>; Mon, 17 Aug 2020 13:02:42 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 427E22075B
+	for <intel-gfx@archiver.kernel.org>; Mon, 17 Aug 2020 13:02:43 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Q9//06Pp"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 841762075B
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FoufY+wC"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 427E22075B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F1A6E6E32A;
-	Mon, 17 Aug 2020 13:02:35 +0000 (UTC)
-Received: from mail-pg1-x542.google.com (mail-pg1-x542.google.com
- [IPv6:2607:f8b0:4864:20::542])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F0996E0F8;
- Mon, 17 Aug 2020 09:19:04 +0000 (UTC)
-Received: by mail-pg1-x542.google.com with SMTP id x6so7812161pgx.12;
- Mon, 17 Aug 2020 02:19:04 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A425A6E51B;
+	Mon, 17 Aug 2020 13:02:36 +0000 (UTC)
+Received: from mail-pl1-x641.google.com (mail-pl1-x641.google.com
+ [IPv6:2607:f8b0:4864:20::641])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5BE886E0F8;
+ Mon, 17 Aug 2020 09:20:15 +0000 (UTC)
+Received: by mail-pl1-x641.google.com with SMTP id g7so6063960plq.1;
+ Mon, 17 Aug 2020 02:20:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=H53NItB96hhK0lZMvS5UWr62MZO4kDlJxK+OZQUxxIA=;
- b=Q9//06PpCdzBcB5+2FmR3vcPX8ASc3s+ZqMBFaeRwEkDMjoO3ubFfEuRDvNyw69Dic
- A+UvP5p7Sa7LwPskN9TiPkDaTIGuH2iea/lkrw98pDSnGmsaUfJX37kbIJa1u46YHB5f
- Biss505SKwh0HAGB5MaLRxgXu1CO2EwXczixBc538BCK83Jyz086JRCbTSXgutB7e4FX
- /W9NvIU4fSh/Ib/tv7t7BztqxaZ4vcJQgOiXTE1ktzbLpdXGu8a6uU6wMvjuhA4hl/Yv
- klgo2KrIpjJmP8zUsX/rM/tO2Wej91r/JteBk1SMuYF1iBTXfyMg4piAFIrY2mqWn3/s
- KsRg==
+ bh=48ZUy5TmzQBYUzPrjZvYPJeHWlYkLbZYovshPbclrcg=;
+ b=FoufY+wCt538UGODDBNoxdFMHMLuyZNGQ6MHR7pZXvqvIrAnPj8PHB4pQsWp/mWg6o
+ KsvcX8Y87zDteEZApNo70LMlrBVZaBliAR2vLGx60Xbo7CohHtYkdt/Mg+u50DG1h36h
+ 9Fwly9brTQHjZlbl7lAqxgOWAbzrsFhJBcqUC23aSRj/VpiU2JCK2mbui+uqvhxhgmrl
+ IvuQewyHW9KqIl6MAWFr6dd8dgP34kntnReO4dunTk9vfs81InEHWHE3302xh+V3TqjN
+ 5ledaxK7A0foZnhRefzAA6Ra/wxb6d+K7gxqNB1TdKvqBatRR5FaVQrX9ZSt/5m+frdy
+ H7BA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references;
- bh=H53NItB96hhK0lZMvS5UWr62MZO4kDlJxK+OZQUxxIA=;
- b=Xjf69nyaFiOW4ugVp5puY5Vv5n+qceujznAlgI82+iyccQb65+1xnIFI6NuflFanVr
- y5KKRSRDyRVpcA/ONZIncpZykYj4GPpNyYWAyg57o7IvI/OXdZ9xVg1ktNyWLxc07EIO
- Qvar1B0NVqY+CqQ3kfwOdP+HOh3aMjUp2PufWr5ZUE/WpZ8YBeEwiUlA9ZDT9U7yLb9g
- HbxeWusTUS4vKSizwX1X6FUyuhR/dDCAIbwmmiDq0sdR0/7r6612PmueRiGR96nveeU+
- rFHSqCRM9tJVQu8BYYCShflCsv93wSLB5NegmuOeFKdqGJGRmo9ZTvWrfpklEO7Hqsbf
- yEAA==
-X-Gm-Message-State: AOAM533iDbC9fZC5ZyShr+MrWtgYJSZgc+C39WuklK1cncOhESjZFPbh
- Z0TMJ6j157j22KLN3ixZA2Q=
-X-Google-Smtp-Source: ABdhPJwwv5IFUmxu6OFvp0ePee/WauDvfAGFpW7BnuWSsn7pFfdtUZETkOuz5u6jMhvkrLcgz5ASfg==
-X-Received: by 2002:a63:5552:: with SMTP id f18mr8843602pgm.298.1597655944120; 
- Mon, 17 Aug 2020 02:19:04 -0700 (PDT)
+ bh=48ZUy5TmzQBYUzPrjZvYPJeHWlYkLbZYovshPbclrcg=;
+ b=YbLp81nkjQYzCC3RbNefQ0pJ3DtjzsR0IBs814E09oqC2HRSR+/cEK7qaHo95/kFYV
+ Ygd/BOFU/e9J8pKRTQWrmTnPX4Zdc5unW89G/2XyHUczaw0Ic2hzU+clY+W1bo3sZrGc
+ Xj7+Y1RTqO2VeT7J9RszE+bGOYwRJ0tVjdfQvsjcS3ZpYxZpBDnEKORJ/cWN05lcrbBD
+ s9oZi9VZ/glsHjgL0LPV8o4372cVCqPv2oI6zS4i3fUFjaorCqfJLT/Rga9h8ESDSK9K
+ S6m0EYWWAJy80K1MXLCYyCR/mvIn8ypF7VZIaMWuHUWrtK3sMq3igpsoJWyOrnA+HHa4
+ x/gw==
+X-Gm-Message-State: AOAM533PNFwnUzenbWL1ihtDLpQfWxcdqHIJYnEa+Iafnhl6vY/v8Qer
+ x0pzjbMTsVv5pRHPE4Vsy+s=
+X-Google-Smtp-Source: ABdhPJzGq3wy6E/Dy/SnfM+UdmLXd8ExYtYFE4LwG7DZVH6d40QHdot/zCUw6TFKmzo3uMNttbjBZg==
+X-Received: by 2002:a17:902:bd85:: with SMTP id
+ q5mr9922465pls.99.1597656014891; 
+ Mon, 17 Aug 2020 02:20:14 -0700 (PDT)
 Received: from localhost.localdomain ([49.207.202.98])
- by smtp.gmail.com with ESMTPSA id r25sm15971028pgv.88.2020.08.17.02.18.51
+ by smtp.gmail.com with ESMTPSA id r25sm15971028pgv.88.2020.08.17.02.20.00
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 17 Aug 2020 02:19:03 -0700 (PDT)
+ Mon, 17 Aug 2020 02:20:14 -0700 (PDT)
 From: Allen Pais <allen.cryptic@gmail.com>
 To: jdike@addtoit.com, richard@nod.at, anton.ivanov@cambridgegreys.com,
  3chas3@gmail.com, axboe@kernel.dk, stefanr@s5r6.in-berlin.de,
@@ -68,14 +69,14 @@ To: jdike@addtoit.com, richard@nod.at, anton.ivanov@cambridgegreys.com,
  ulf.hansson@linaro.org, mporter@kernel.crashing.org, alex.bou9@gmail.com,
  broonie@kernel.org, martyn@welchs.me.uk, manohar.vanga@gmail.com,
  mitch@sfgoth.com, davem@davemloft.net, kuba@kernel.org
-Date: Mon, 17 Aug 2020 14:46:06 +0530
-Message-Id: <20200817091617.28119-12-allen.cryptic@gmail.com>
+Date: Mon, 17 Aug 2020 14:46:11 +0530
+Message-Id: <20200817091617.28119-17-allen.cryptic@gmail.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200817091617.28119-1-allen.cryptic@gmail.com>
 References: <20200817091617.28119-1-allen.cryptic@gmail.com>
 X-Mailman-Approved-At: Mon, 17 Aug 2020 13:02:22 +0000
-Subject: [Intel-gfx] [PATCH 1/2] hsi: nokia-modem: convert tasklets to use
- new tasklet_setup() API
+Subject: [Intel-gfx] [PATCH] net: atm: convert tasklets callbacks to use
+ from_tasklet()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,45 +108,27 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Allen Pais <allen.lkml@gmail.com>
 
-In preparation for unconditionally passing the
-struct tasklet_struct pointer to all tasklet
-callbacks, switch to using the new tasklet_setup()
-and from_tasklet() to pass the tasklet pointer explicitly.
+Update all the callbacks of all tasklets by using
+from_tasklet() and remove .data field.
 
 Signed-off-by: Romain Perier <romain.perier@gmail.com>
 Signed-off-by: Allen Pais <allen.lkml@gmail.com>
 ---
- drivers/hsi/clients/nokia-modem.c | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+ net/atm/pppoatm.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/hsi/clients/nokia-modem.c b/drivers/hsi/clients/nokia-modem.c
-index cd7ebf4c2e2f..36d373f089ce 100644
---- a/drivers/hsi/clients/nokia-modem.c
-+++ b/drivers/hsi/clients/nokia-modem.c
-@@ -36,9 +36,10 @@ struct nokia_modem_device {
- 	struct hsi_client	*cmt_speech;
- };
- 
--static void do_nokia_modem_rst_ind_tasklet(unsigned long data)
-+static void do_nokia_modem_rst_ind_tasklet(struct tasklet_struct *t)
- {
--	struct nokia_modem_device *modem = (struct nokia_modem_device *)data;
-+	struct nokia_modem_device *modem = from_tasklet(modem, t,
-+						nokia_modem_rst_ind_tasklet);
- 
- 	if (!modem)
- 		return;
-@@ -155,8 +156,8 @@ static int nokia_modem_probe(struct device *dev)
- 	modem->nokia_modem_rst_ind_irq = irq;
- 	pflags = irq_get_trigger_type(irq);
- 
--	tasklet_init(&modem->nokia_modem_rst_ind_tasklet,
--			do_nokia_modem_rst_ind_tasklet, (unsigned long)modem);
-+	tasklet_setup(&modem->nokia_modem_rst_ind_tasklet,
-+			do_nokia_modem_rst_ind_tasklet);
- 	err = devm_request_irq(dev, irq, nokia_modem_rst_ind_isr,
- 				pflags, "modem_rst_ind", modem);
- 	if (err < 0) {
+diff --git a/net/atm/pppoatm.c b/net/atm/pppoatm.c
+index 579b66da1d95..3803be8470f7 100644
+--- a/net/atm/pppoatm.c
++++ b/net/atm/pppoatm.c
+@@ -416,7 +416,6 @@ static int pppoatm_assign_vcc(struct atm_vcc *atmvcc, void __user *arg)
+ 	pvcc->chan.mtu = atmvcc->qos.txtp.max_sdu - PPP_HDRLEN -
+ 	    (be.encaps == e_vc ? 0 : LLC_LEN);
+ 	pvcc->wakeup_tasklet = tasklet_proto;
+-	pvcc->wakeup_tasklet.data = (unsigned long) &pvcc->chan;
+ 	err = ppp_register_channel(&pvcc->chan);
+ 	if (err != 0) {
+ 		kfree(pvcc);
 -- 
 2.17.1
 
