@@ -5,60 +5,59 @@ X-Spam-Level:
 X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,
 	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
 	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F34F5C433DF
-	for <intel-gfx@archiver.kernel.org>; Mon, 17 Aug 2020 13:02:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 520BCC433E3
+	for <intel-gfx@archiver.kernel.org>; Mon, 17 Aug 2020 13:02:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C93772075B
-	for <intel-gfx@archiver.kernel.org>; Mon, 17 Aug 2020 13:02:36 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 274A82075B
+	for <intel-gfx@archiver.kernel.org>; Mon, 17 Aug 2020 13:02:38 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sp0LSuWI"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C93772075B
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cTZNXtt7"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 274A82075B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 552816E2C4;
-	Mon, 17 Aug 2020 13:02:23 +0000 (UTC)
-Received: from mail-pj1-x1044.google.com (mail-pj1-x1044.google.com
- [IPv6:2607:f8b0:4864:20::1044])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CCA766E079;
- Mon, 17 Aug 2020 09:17:20 +0000 (UTC)
-Received: by mail-pj1-x1044.google.com with SMTP id l60so7512392pjb.3;
- Mon, 17 Aug 2020 02:17:20 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 61D396E50B;
+	Mon, 17 Aug 2020 13:02:24 +0000 (UTC)
+Received: from mail-pg1-x543.google.com (mail-pg1-x543.google.com
+ [IPv6:2607:f8b0:4864:20::543])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 09E876E0F8;
+ Mon, 17 Aug 2020 09:20:29 +0000 (UTC)
+Received: by mail-pg1-x543.google.com with SMTP id d19so7815147pgl.10;
+ Mon, 17 Aug 2020 02:20:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=exYXzHUMf/iFSguNQmfag8NVMIwmEs2D9XqDGt6aa9s=;
- b=sp0LSuWIOb4/MJIas068i1WpBEM3xuHmLSe+GoqlRW4vIuITcNFJlJZEQ6Qrp7Gf8n
- 6ZVCV1OINCx8t0WTqiL2c2t/g73ZusUr8ZD0u7//k2W+3P69SlufEUzmU5sCLgEHp84w
- yYp5Hp0oOcosUCxUvw9aTc0Gf+wAJMQldYs5DlgXSeVn+Q4cbUzMlxEGp7MBce0mjFxl
- Q5uA/NH5nqVh53jSmBqdxLG7n/3BQKjEJWUq/EbpLwSoODEaMoOj4MUW3Qcbs42qaS1D
- /vRxYXv8CpEx8JUXV/f5y9ACHSk0+6v8lT4AzuKQRJ4ziUkSyXhhGjH+ZnIuX/kGCFSG
- OdxQ==
+ bh=QhPrNAdoeJw7hjMh0pGw+sjN4I+tDKGZ699gTXbu9Pc=;
+ b=cTZNXtt7wNfV+e9cJ76fTsPPVQZeYJIEY2TuWXhYA+6rL5+mQtvGCpP7nLFEEHniIY
+ ttRYkgElaSdYzjheNY+aJq+wt2TbwHocg2rHezNcVM8LeXUN8gM2nT5FPn17bkKOZJ/R
+ FpcUeStKvy2IzIoPd11K1+w6c4p381QKwm4Dhy02AfZUx3SzHjBImZSC4gDgffWV6h+v
+ 8YTTF/IpemIy0SQFRYOlz4ZDOq/9HJmYTUqHCVWY4C5ejhmLcUfPEpCe73ql4ONWBhLK
+ UZXD9rMiGnEuf0tCOKH/CAPFPO+ziHa24otJgykW+Fa09Aud/a6J7DqgcJ9+cKbuVreV
+ L6OQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references;
- bh=exYXzHUMf/iFSguNQmfag8NVMIwmEs2D9XqDGt6aa9s=;
- b=EJVDa7S0jwMvatfSJYETZl/GSZ/6Y2nHBvCyhPj3JrKzNKydaZSSeTgDSHj3zS83Ou
- yKvp+khfx2sCNWmjACAlTUI6eZQ0pQa3sCzfTW9ffC5OHuT2FgboAt9EcJar75KHpTbn
- Acap78K1ghVQ2uODUBvfxw4k1WEEt7Xl+inn2xUMT4ugpgisU6WsL9dFHDDXemKyO6m+
- NmVkecfm52Z6s2FOR66Ibm+eAaqo8Wm3lPnR9NEKIzj/vgSXDtuSDt0IyefRxdnnNQWO
- rAGcf4nrqxbOJ+Wb/TOdP+V6E/ZTTl54I/ncfVtRK/pBmmhEW7Vi/uJndMWaluUBKWi4
- mKCA==
-X-Gm-Message-State: AOAM533CML0g6h9l2h0SyC6aJBlEZzCpsLr0zPc1dVdGlaI/8PjKdns7
- 8hd3Hr2jji7Eh61ado6gFE8=
-X-Google-Smtp-Source: ABdhPJyAMB+6G62oEcrfzb24DAgVNvD84uFYo9XA6NUaYrL1tECz8B9ZQEChkhePghU0D+aehqQc+g==
-X-Received: by 2002:a17:90b:1287:: with SMTP id
- fw7mr7732879pjb.218.1597655840401; 
- Mon, 17 Aug 2020 02:17:20 -0700 (PDT)
+ bh=QhPrNAdoeJw7hjMh0pGw+sjN4I+tDKGZ699gTXbu9Pc=;
+ b=svCyUqWx+naulMu2aXLdY6kYaBHeLIHB+TJyCWxo7jFl3MzbMOJlEe/wb6VK+mz/kk
+ N2QcFzvVdweEXapcV751nckZTZcuDeRjM1fMUEKkeOVszWGjsnx83IlQnj0yxGKZ0+7F
+ puM/6+05GiTun3UxPDz/zNIbiU75yNRV8NHaNI1V58J+VXBNv1cFc3t3YW8OedhjIG4j
+ BTksgVupg8v+3voetnluvk/4ovi/7Ieh3pQoGEvpaEWVOcZFvbZlmNm3gKZ1Wfegi7Xe
+ 39rK5D5myhffqLfd0Y6Qvi6bBKfWovjty0DtrFsK8xBUQ5moGBu55xHi0dGOUcsuRuvI
+ TknQ==
+X-Gm-Message-State: AOAM532uQOO6aoBcDAFwxZLtbYhLAyT/WVJK53SxXbyYmwytuQo0qlF3
+ L2CmqKg2ShoEYGiBNMsAMQk=
+X-Google-Smtp-Source: ABdhPJzDyD/NrPXHKKUPdhhRODzrKgFhi3OcVBh0EqkEsk2AwP8x+cz/Kr8PlDriSCVb6p68quAdVw==
+X-Received: by 2002:a63:4545:: with SMTP id u5mr9191366pgk.229.1597656028627; 
+ Mon, 17 Aug 2020 02:20:28 -0700 (PDT)
 Received: from localhost.localdomain ([49.207.202.98])
- by smtp.gmail.com with ESMTPSA id r25sm15971028pgv.88.2020.08.17.02.17.07
+ by smtp.gmail.com with ESMTPSA id r25sm15971028pgv.88.2020.08.17.02.20.15
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 17 Aug 2020 02:17:19 -0700 (PDT)
+ Mon, 17 Aug 2020 02:20:28 -0700 (PDT)
 From: Allen Pais <allen.cryptic@gmail.com>
 To: jdike@addtoit.com, richard@nod.at, anton.ivanov@cambridgegreys.com,
  3chas3@gmail.com, axboe@kernel.dk, stefanr@s5r6.in-berlin.de,
@@ -69,13 +68,13 @@ To: jdike@addtoit.com, richard@nod.at, anton.ivanov@cambridgegreys.com,
  ulf.hansson@linaro.org, mporter@kernel.crashing.org, alex.bou9@gmail.com,
  broonie@kernel.org, martyn@welchs.me.uk, manohar.vanga@gmail.com,
  mitch@sfgoth.com, davem@davemloft.net, kuba@kernel.org
-Date: Mon, 17 Aug 2020 14:45:58 +0530
-Message-Id: <20200817091617.28119-4-allen.cryptic@gmail.com>
+Date: Mon, 17 Aug 2020 14:46:12 +0530
+Message-Id: <20200817091617.28119-18-allen.cryptic@gmail.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200817091617.28119-1-allen.cryptic@gmail.com>
 References: <20200817091617.28119-1-allen.cryptic@gmail.com>
 X-Mailman-Approved-At: Mon, 17 Aug 2020 13:02:22 +0000
-Subject: [Intel-gfx] [PATCH] driver: hv: convert tasklets to use new
+Subject: [Intel-gfx] [PATCH] platform: goldfish: convert tasklets to use new
  tasklet_setup() API
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -116,88 +115,36 @@ and from_tasklet() to pass the tasklet pointer explicitly.
 Signed-off-by: Romain Perier <romain.perier@gmail.com>
 Signed-off-by: Allen Pais <allen.lkml@gmail.com>
 ---
- drivers/hv/channel_mgmt.c | 3 +--
- drivers/hv/connection.c   | 4 ++--
- drivers/hv/hv.c           | 3 +--
- drivers/hv/hyperv_vmbus.h | 4 ++--
- drivers/hv/vmbus_drv.c    | 4 ++--
- 5 files changed, 8 insertions(+), 10 deletions(-)
+ drivers/platform/goldfish/goldfish_pipe.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/hv/channel_mgmt.c b/drivers/hv/channel_mgmt.c
-index 591106cf58fc..640fc1688d49 100644
---- a/drivers/hv/channel_mgmt.c
-+++ b/drivers/hv/channel_mgmt.c
-@@ -321,8 +321,7 @@ static struct vmbus_channel *alloc_channel(void)
- 
- 	INIT_LIST_HEAD(&channel->sc_list);
- 
--	tasklet_init(&channel->callback_event,
--		     vmbus_on_event, (unsigned long)channel);
-+	tasklet_setup(&channel->callback_event, vmbus_on_event);
- 
- 	hv_ringbuffer_pre_init(channel);
- 
-diff --git a/drivers/hv/connection.c b/drivers/hv/connection.c
-index 11170d9a2e1a..23e10ebecf5c 100644
---- a/drivers/hv/connection.c
-+++ b/drivers/hv/connection.c
-@@ -322,9 +322,9 @@ struct vmbus_channel *relid2channel(u32 relid)
-  *    If this tasklet has been running for a long time
-  *    then reschedule ourselves.
-  */
--void vmbus_on_event(unsigned long data)
-+void vmbus_on_event(struct tasklet_struct *t)
- {
--	struct vmbus_channel *channel = (void *) data;
-+	struct vmbus_channel *channel = from_tasklet(channel, t, callback_event);
- 	unsigned long time_limit = jiffies + 2;
- 
- 	trace_vmbus_on_event(channel);
-diff --git a/drivers/hv/hv.c b/drivers/hv/hv.c
-index da69338f92f5..91a0582387d6 100644
---- a/drivers/hv/hv.c
-+++ b/drivers/hv/hv.c
-@@ -96,8 +96,7 @@ int hv_synic_alloc(void)
- 	for_each_present_cpu(cpu) {
- 		hv_cpu = per_cpu_ptr(hv_context.cpu_context, cpu);
- 
--		tasklet_init(&hv_cpu->msg_dpc,
--			     vmbus_on_msg_dpc, (unsigned long) hv_cpu);
-+		tasklet_setup(&hv_cpu->msg_dpc, vmbus_on_msg_dpc);
- 
- 		hv_cpu->synic_message_page =
- 			(void *)get_zeroed_page(GFP_ATOMIC);
-diff --git a/drivers/hv/hyperv_vmbus.h b/drivers/hv/hyperv_vmbus.h
-index 40e2b9f91163..36199d8ea8c3 100644
---- a/drivers/hv/hyperv_vmbus.h
-+++ b/drivers/hv/hyperv_vmbus.h
-@@ -351,8 +351,8 @@ void vmbus_disconnect(void);
- 
- int vmbus_post_msg(void *buffer, size_t buflen, bool can_sleep);
- 
--void vmbus_on_event(unsigned long data);
--void vmbus_on_msg_dpc(unsigned long data);
-+void vmbus_on_event(struct tasklet_struct *t);
-+void vmbus_on_msg_dpc(struct tasklet_struct *t);
- 
- int hv_kvp_init(struct hv_util_service *srv);
- void hv_kvp_deinit(void);
-diff --git a/drivers/hv/vmbus_drv.c b/drivers/hv/vmbus_drv.c
-index 910b6e90866c..6b7987dac97a 100644
---- a/drivers/hv/vmbus_drv.c
-+++ b/drivers/hv/vmbus_drv.c
-@@ -1043,9 +1043,9 @@ static void vmbus_onmessage_work(struct work_struct *work)
- 	kfree(ctx);
+diff --git a/drivers/platform/goldfish/goldfish_pipe.c b/drivers/platform/goldfish/goldfish_pipe.c
+index 1ab207ec9c94..b9bead07760c 100644
+--- a/drivers/platform/goldfish/goldfish_pipe.c
++++ b/drivers/platform/goldfish/goldfish_pipe.c
+@@ -577,10 +577,10 @@ static struct goldfish_pipe *signalled_pipes_pop_front(
+ 	return pipe;
  }
  
--void vmbus_on_msg_dpc(unsigned long data)
-+void vmbus_on_msg_dpc(struct tasklet_struct *t)
+-static void goldfish_interrupt_task(unsigned long dev_addr)
++static void goldfish_interrupt_task(struct tasklet_struct *t)
  {
--	struct hv_per_cpu_context *hv_cpu = (void *)data;
-+	struct hv_per_cpu_context *hv_cpu = from_tasklet(hv_cpu, t, msg_dpc);
- 	void *page_addr = hv_cpu->synic_message_page;
- 	struct hv_message *msg = (struct hv_message *)page_addr +
- 				  VMBUS_MESSAGE_SINT;
+ 	/* Iterate over the signalled pipes and wake them one by one */
+-	struct goldfish_pipe_dev *dev = (struct goldfish_pipe_dev *)dev_addr;
++	struct goldfish_pipe_dev *dev = from_tasklet(dev, t, irq_tasklet);
+ 	struct goldfish_pipe *pipe;
+ 	int wakes;
+ 
+@@ -811,8 +811,7 @@ static int goldfish_pipe_device_init(struct platform_device *pdev,
+ {
+ 	int err;
+ 
+-	tasklet_init(&dev->irq_tasklet, &goldfish_interrupt_task,
+-		     (unsigned long)dev);
++	tasklet_setup(&dev->irq_tasklet, &goldfish_interrupt_task);
+ 
+ 	err = devm_request_irq(&pdev->dev, dev->irq,
+ 			       goldfish_pipe_interrupt,
 -- 
 2.17.1
 
