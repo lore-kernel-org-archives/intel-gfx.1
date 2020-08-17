@@ -5,59 +5,60 @@ X-Spam-Level:
 X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,
 	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
 	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 520BCC433E3
-	for <intel-gfx@archiver.kernel.org>; Mon, 17 Aug 2020 13:02:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 64B62C433DF
+	for <intel-gfx@archiver.kernel.org>; Mon, 17 Aug 2020 13:02:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 274A82075B
-	for <intel-gfx@archiver.kernel.org>; Mon, 17 Aug 2020 13:02:38 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 361B22076E
+	for <intel-gfx@archiver.kernel.org>; Mon, 17 Aug 2020 13:02:39 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cTZNXtt7"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 274A82075B
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DXgG1thd"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 361B22076E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 61D396E50B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 85DE06E513;
 	Mon, 17 Aug 2020 13:02:24 +0000 (UTC)
-Received: from mail-pg1-x543.google.com (mail-pg1-x543.google.com
- [IPv6:2607:f8b0:4864:20::543])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 09E876E0F8;
- Mon, 17 Aug 2020 09:20:29 +0000 (UTC)
-Received: by mail-pg1-x543.google.com with SMTP id d19so7815147pgl.10;
- Mon, 17 Aug 2020 02:20:29 -0700 (PDT)
+Received: from mail-pl1-x644.google.com (mail-pl1-x644.google.com
+ [IPv6:2607:f8b0:4864:20::644])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2FF9B6E0F8;
+ Mon, 17 Aug 2020 09:18:51 +0000 (UTC)
+Received: by mail-pl1-x644.google.com with SMTP id f5so7188379plr.9;
+ Mon, 17 Aug 2020 02:18:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=QhPrNAdoeJw7hjMh0pGw+sjN4I+tDKGZ699gTXbu9Pc=;
- b=cTZNXtt7wNfV+e9cJ76fTsPPVQZeYJIEY2TuWXhYA+6rL5+mQtvGCpP7nLFEEHniIY
- ttRYkgElaSdYzjheNY+aJq+wt2TbwHocg2rHezNcVM8LeXUN8gM2nT5FPn17bkKOZJ/R
- FpcUeStKvy2IzIoPd11K1+w6c4p381QKwm4Dhy02AfZUx3SzHjBImZSC4gDgffWV6h+v
- 8YTTF/IpemIy0SQFRYOlz4ZDOq/9HJmYTUqHCVWY4C5ejhmLcUfPEpCe73ql4ONWBhLK
- UZXD9rMiGnEuf0tCOKH/CAPFPO+ziHa24otJgykW+Fa09Aud/a6J7DqgcJ9+cKbuVreV
- L6OQ==
+ bh=Y/Lyd9iyb+e3Iwz9Po/fyIeEqiW8mHah9rIvstjO+PU=;
+ b=DXgG1thdfskvtuXZP8/vM2gAxPo04jWU1e+8F2TitfrFT6HmCFefFj4nhScJQTVk1q
+ gwLxkldM/Z+lONZzeR6zuZqiQyflB90NTYeiTaY2uBfmMOfTAXYT7jbI0r056THCHfBd
+ 3Di3net4lwJTB43A0rF2kp+rBzJcJY7T89VTsfvGCemy2qENpzVMLpR5W4yUkLrg5+z4
+ 9JO+T6FYEZY6ZUFsXdmos0B6tU4Q5kqzOQ+gRjZVd4YWOoPWnjX11Km6g+E3oY819bdf
+ yrJ9k2JC0MEmc+k1DjYwwIX9qR0IT6cjxsIz2qZVtoxc4ZLZ/IK7rkcfNaetwR8RSOCf
+ y05g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references;
- bh=QhPrNAdoeJw7hjMh0pGw+sjN4I+tDKGZ699gTXbu9Pc=;
- b=svCyUqWx+naulMu2aXLdY6kYaBHeLIHB+TJyCWxo7jFl3MzbMOJlEe/wb6VK+mz/kk
- N2QcFzvVdweEXapcV751nckZTZcuDeRjM1fMUEKkeOVszWGjsnx83IlQnj0yxGKZ0+7F
- puM/6+05GiTun3UxPDz/zNIbiU75yNRV8NHaNI1V58J+VXBNv1cFc3t3YW8OedhjIG4j
- BTksgVupg8v+3voetnluvk/4ovi/7Ieh3pQoGEvpaEWVOcZFvbZlmNm3gKZ1Wfegi7Xe
- 39rK5D5myhffqLfd0Y6Qvi6bBKfWovjty0DtrFsK8xBUQ5moGBu55xHi0dGOUcsuRuvI
- TknQ==
-X-Gm-Message-State: AOAM532uQOO6aoBcDAFwxZLtbYhLAyT/WVJK53SxXbyYmwytuQo0qlF3
- L2CmqKg2ShoEYGiBNMsAMQk=
-X-Google-Smtp-Source: ABdhPJzDyD/NrPXHKKUPdhhRODzrKgFhi3OcVBh0EqkEsk2AwP8x+cz/Kr8PlDriSCVb6p68quAdVw==
-X-Received: by 2002:a63:4545:: with SMTP id u5mr9191366pgk.229.1597656028627; 
- Mon, 17 Aug 2020 02:20:28 -0700 (PDT)
+ bh=Y/Lyd9iyb+e3Iwz9Po/fyIeEqiW8mHah9rIvstjO+PU=;
+ b=OucorLAKMHKG4Bse2/Gp+7bYmfE7W65pWeGm9vjg9IpL8Fiq+bAQV/uy+ytLtbkhXW
+ eVq0vxGalQUnubIjFv+51ROleeZ81kfZEoIsNAjYwKefMsKBLV0Rve9WIJ33STfxHHr9
+ dNQxcERrpI4DVWxt9Ey1XGQ3epQ3N8GU0z2D4dxzgwKfQVIj1rqfuA6SAFGlG0v/FgPL
+ FpTmyPw9LaIce9mEVpPWzlRZ8WLEYmTtLy50dE1NUL2vhmROAPMkjGK0oU2/ZFho0vYK
+ XE0CZXn0F3VOtNV451wo01XILXpROLPYi66y57vsxwao6HLxrFmgfa50iF8NSnlh/LUE
+ A//w==
+X-Gm-Message-State: AOAM532l12HoSgj7vS0zkna9PzaGNEiYcj4RHs/uasO9fGTEVi7wFe1U
+ 3WcqvGGzKU3eW34FHROktk4=
+X-Google-Smtp-Source: ABdhPJyIur6thpXJWevzBAIQBHYV2xsdEEXHh/+HT4l4m1kZQXfbzh30rMtWwCA6A2KqL1fU9TH91w==
+X-Received: by 2002:a17:90a:2525:: with SMTP id
+ j34mr12831046pje.208.1597655930802; 
+ Mon, 17 Aug 2020 02:18:50 -0700 (PDT)
 Received: from localhost.localdomain ([49.207.202.98])
- by smtp.gmail.com with ESMTPSA id r25sm15971028pgv.88.2020.08.17.02.20.15
+ by smtp.gmail.com with ESMTPSA id r25sm15971028pgv.88.2020.08.17.02.18.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 17 Aug 2020 02:20:28 -0700 (PDT)
+ Mon, 17 Aug 2020 02:18:50 -0700 (PDT)
 From: Allen Pais <allen.cryptic@gmail.com>
 To: jdike@addtoit.com, richard@nod.at, anton.ivanov@cambridgegreys.com,
  3chas3@gmail.com, axboe@kernel.dk, stefanr@s5r6.in-berlin.de,
@@ -68,13 +69,13 @@ To: jdike@addtoit.com, richard@nod.at, anton.ivanov@cambridgegreys.com,
  ulf.hansson@linaro.org, mporter@kernel.crashing.org, alex.bou9@gmail.com,
  broonie@kernel.org, martyn@welchs.me.uk, manohar.vanga@gmail.com,
  mitch@sfgoth.com, davem@davemloft.net, kuba@kernel.org
-Date: Mon, 17 Aug 2020 14:46:12 +0530
-Message-Id: <20200817091617.28119-18-allen.cryptic@gmail.com>
+Date: Mon, 17 Aug 2020 14:46:05 +0530
+Message-Id: <20200817091617.28119-11-allen.cryptic@gmail.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200817091617.28119-1-allen.cryptic@gmail.com>
 References: <20200817091617.28119-1-allen.cryptic@gmail.com>
 X-Mailman-Approved-At: Mon, 17 Aug 2020 13:02:22 +0000
-Subject: [Intel-gfx] [PATCH] platform: goldfish: convert tasklets to use new
+Subject: [Intel-gfx] [PATCH] firewire: ohci: convert tasklets to use new
  tasklet_setup() API
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -115,36 +116,73 @@ and from_tasklet() to pass the tasklet pointer explicitly.
 Signed-off-by: Romain Perier <romain.perier@gmail.com>
 Signed-off-by: Allen Pais <allen.lkml@gmail.com>
 ---
- drivers/platform/goldfish/goldfish_pipe.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+ drivers/firewire/ohci.c | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/platform/goldfish/goldfish_pipe.c b/drivers/platform/goldfish/goldfish_pipe.c
-index 1ab207ec9c94..b9bead07760c 100644
---- a/drivers/platform/goldfish/goldfish_pipe.c
-+++ b/drivers/platform/goldfish/goldfish_pipe.c
-@@ -577,10 +577,10 @@ static struct goldfish_pipe *signalled_pipes_pop_front(
- 	return pipe;
+diff --git a/drivers/firewire/ohci.c b/drivers/firewire/ohci.c
+index 7dde21b18b04..6298ff03796e 100644
+--- a/drivers/firewire/ohci.c
++++ b/drivers/firewire/ohci.c
+@@ -921,9 +921,9 @@ static void ar_recycle_buffers(struct ar_context *ctx, unsigned int end_buffer)
+ 	}
  }
  
--static void goldfish_interrupt_task(unsigned long dev_addr)
-+static void goldfish_interrupt_task(struct tasklet_struct *t)
+-static void ar_context_tasklet(unsigned long data)
++static void ar_context_tasklet(struct tasklet_struct *t)
  {
- 	/* Iterate over the signalled pipes and wake them one by one */
--	struct goldfish_pipe_dev *dev = (struct goldfish_pipe_dev *)dev_addr;
-+	struct goldfish_pipe_dev *dev = from_tasklet(dev, t, irq_tasklet);
- 	struct goldfish_pipe *pipe;
- 	int wakes;
+-	struct ar_context *ctx = (struct ar_context *)data;
++	struct ar_context *ctx = from_tasklet(ctx, t, tasklet);
+ 	unsigned int end_buffer_index, end_buffer_offset;
+ 	void *p, *end;
  
-@@ -811,8 +811,7 @@ static int goldfish_pipe_device_init(struct platform_device *pdev,
+@@ -977,7 +977,7 @@ static int ar_context_init(struct ar_context *ctx, struct fw_ohci *ohci,
+ 
+ 	ctx->regs        = regs;
+ 	ctx->ohci        = ohci;
+-	tasklet_init(&ctx->tasklet, ar_context_tasklet, (unsigned long)ctx);
++	tasklet_setup(&ctx->tasklet, ar_context_tasklet);
+ 
+ 	for (i = 0; i < AR_BUFFERS; i++) {
+ 		ctx->pages[i] = alloc_page(GFP_KERNEL | GFP_DMA32);
+@@ -1049,9 +1049,9 @@ static struct descriptor *find_branch_descriptor(struct descriptor *d, int z)
+ 		return d + z - 1;
+ }
+ 
+-static void context_tasklet(unsigned long data)
++static void context_tasklet(struct tasklet_struct *t)
  {
- 	int err;
+-	struct context *ctx = (struct context *) data;
++	struct context *ctx = from_tasklet(ctx, t, tasklet);
+ 	struct descriptor *d, *last;
+ 	u32 address;
+ 	int z;
+@@ -1145,7 +1145,7 @@ static int context_init(struct context *ctx, struct fw_ohci *ohci,
+ 	ctx->buffer_tail = list_entry(ctx->buffer_list.next,
+ 			struct descriptor_buffer, list);
  
--	tasklet_init(&dev->irq_tasklet, &goldfish_interrupt_task,
--		     (unsigned long)dev);
-+	tasklet_setup(&dev->irq_tasklet, &goldfish_interrupt_task);
+-	tasklet_init(&ctx->tasklet, context_tasklet, (unsigned long)ctx);
++	tasklet_setup(&ctx->tasklet, context_tasklet);
+ 	ctx->callback = callback;
  
- 	err = devm_request_irq(&pdev->dev, dev->irq,
- 			       goldfish_pipe_interrupt,
+ 	/*
+@@ -1420,7 +1420,7 @@ static void at_context_flush(struct context *ctx)
+ 	tasklet_disable(&ctx->tasklet);
+ 
+ 	ctx->flushing = true;
+-	context_tasklet((unsigned long)ctx);
++	context_tasklet(&ctx->tasklet);
+ 	ctx->flushing = false;
+ 
+ 	tasklet_enable(&ctx->tasklet);
+@@ -3472,7 +3472,7 @@ static int ohci_flush_iso_completions(struct fw_iso_context *base)
+ 	tasklet_disable(&ctx->context.tasklet);
+ 
+ 	if (!test_and_set_bit_lock(0, &ctx->flushing_completions)) {
+-		context_tasklet((unsigned long)&ctx->context);
++		context_tasklet(&ctx->context.tasklet);
+ 
+ 		switch (base->type) {
+ 		case FW_ISO_CONTEXT_TRANSMIT:
 -- 
 2.17.1
 
