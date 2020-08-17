@@ -2,80 +2,80 @@ Return-Path: <SRS0=qmob=B3=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable
+X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BE3D3C433DF
-	for <intel-gfx@archiver.kernel.org>; Mon, 17 Aug 2020 13:02:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8BE71C433E1
+	for <intel-gfx@archiver.kernel.org>; Mon, 17 Aug 2020 13:02:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8C46D2075B
-	for <intel-gfx@archiver.kernel.org>; Mon, 17 Aug 2020 13:02:23 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 60C962075B
+	for <intel-gfx@archiver.kernel.org>; Mon, 17 Aug 2020 13:02:26 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KQ04CZsR"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8C46D2075B
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=acm.org
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QLC6x/O1"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 60C962075B
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9FC756E0F8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB5936E118;
 	Mon, 17 Aug 2020 13:02:22 +0000 (UTC)
-Received: from mail-ot1-x344.google.com (mail-ot1-x344.google.com
- [IPv6:2607:f8b0:4864:20::344])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D29C6E31D;
- Mon, 17 Aug 2020 12:15:18 +0000 (UTC)
-Received: by mail-ot1-x344.google.com with SMTP id x24so13225562otp.3;
- Mon, 17 Aug 2020 05:15:18 -0700 (PDT)
+Received: from mail-pl1-x644.google.com (mail-pl1-x644.google.com
+ [IPv6:2607:f8b0:4864:20::644])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E5396E0F8;
+ Mon, 17 Aug 2020 09:19:30 +0000 (UTC)
+Received: by mail-pl1-x644.google.com with SMTP id t10so7188270plz.10;
+ Mon, 17 Aug 2020 02:19:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:date:from:to:cc:subject:message-id:reply-to:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=HJ0m+miDorhqglJ9JrK44iTq3d9R15TmbjC29old1f8=;
- b=KQ04CZsRLDiNek1Hq6BgWjnM11s2YmAiDjqEVGZ1TB6F4rCxf78rX4jbJ0CzT3vabY
- xrX4JEoDeIRQkHsLGU1+gcp8w5QWNQcEyBm3wuShwRxBfydODrCE4cRQV+E7WBzKB44r
- nItPN0459qY5GQ/vDZ0NyzENyHv44GovdpKFSl4hiVWaOB2zEjXEpxHT00gUoMHFf0Aj
- T3icpJ/3pjaEvvW0UMNkSAFYHa1jbJwCP0vrwjpIL/uytt4RzckTqwRdvf5FUeTb7MGh
- bx2bsLCHbfEXkOD8bVoKRj4Mx5bjsmewyyPYaN17ohutCV8HXhFZHeJnJ+WLeKJ12UV0
- gebw==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references;
+ bh=ifLfIrBu1ltO21juvrs7/f94zIPbflxds2FmAIn0JZY=;
+ b=QLC6x/O13MeP0lPsSOPKaI+ocf7oT0PGwI9jaqY5n+w05x+fnihg68gNW9IMTCYLmr
+ QP7/v8OCTappeLr1ZuVp0BsTJ1mH85ENUZ2a6AmLJxjUUhw01jO65HrM9m3jJ/8fkzOD
+ /S951cp1wfO+Ld6aPWrVxO7J0pQj6AA1qxc5UAopaYjDT3vKbgs6OuTAyMB506fY0UDH
+ 5Vov97HYXFpYb/YY3HH4v98ijkrDRUNEPcHpqzt4ZRRsovwJz6805sBa4AZVV67aGl1m
+ cckpnrRBYuVhiBXYyB2AdVauJXp4muM3muUnNrrm5+mb6Juwp+3iKvIPDL2fSNnGn3kS
+ Vy6Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:date:from:to:cc:subject:message-id
- :reply-to:references:mime-version:content-disposition:in-reply-to
- :user-agent;
- bh=HJ0m+miDorhqglJ9JrK44iTq3d9R15TmbjC29old1f8=;
- b=ovlHtiVFQ6384+D8o9mVeOCcCBRJotPyw553ucAK2H9bltxUe8h1Z47Pv5sp93d0xm
- U4Rmjtq6KKct32jiekKIMc6N8XNb3Lrxh5nSWQwAM0UdI3Yvu2bbfMetHyBTgBSgDnkp
- CZNw15afScOoEzn8YOTDYX5nfhd/Lu+/BLkjBNXy99DlaYDC4kCVEPFyNJPpC1Er6uIk
- qODRbvJM+TrDBrx/nsx69/lDRgfzpvJUvfYi+bJgGKgJSCDUBE+ZlVk49RTzaRp6JKH+
- x0xZjEq3NWiLJHF9551HM8k9OMOLMoFuQE1k+DgAjNX8wHWeF21TQoZ153LdMRKXenQL
- Sc2w==
-X-Gm-Message-State: AOAM533hv3r7yK2B9drxb9AhJQ9daGHUIwpWyMz/HNx7qkQCHURAr6Yj
- ZghArE6cw222Ga9Sqfgcpg==
-X-Google-Smtp-Source: ABdhPJy4QfXEUBbWmVDtAzyWm157/pCVwSVPWhR0mJ058Fnm0lC/IAUOoEeTjBc9itF58Cw5xKVyqA==
-X-Received: by 2002:a05:6830:1346:: with SMTP id
- r6mr11152982otq.325.1597666517323; 
- Mon, 17 Aug 2020 05:15:17 -0700 (PDT)
-Received: from serve.minyard.net ([47.184.146.204])
- by smtp.gmail.com with ESMTPSA id l17sm3384049otn.2.2020.08.17.05.15.16
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references;
+ bh=ifLfIrBu1ltO21juvrs7/f94zIPbflxds2FmAIn0JZY=;
+ b=tkt2XQNjdRuM84iFC1CZg4BvLTKWEX9EW4Xx7xg/5CaTbSZSr/tii8MOGEPAJcJsQk
+ XrR5mOr/oS1zi/LP1TtGg4xCTLXTD4rUoJMbM9157lxRmY+lkx22kKpK3MiCQ+sFELg1
+ 2d2EirhaDIqwvxRPGV9kLTSv1jul5mk6reMa+kQdr54zxyLW+0B0uoVt9tMdnUzpYiX9
+ mfkQrDmxDYe0wltP8G6i4T7F8r/TtdF4JQM5k/KaQDIXv/1VWC5TpyY2nu92WDYeq011
+ c+DOmMu4R9NxnT1S/tFXVzA1FZecTyTRWbL8Q/YCQ+fpMdIN3NsTqpaQ3jVptguN2QGF
+ YZRg==
+X-Gm-Message-State: AOAM530l2lBfH4Q+PzJj8M0OAAEklLz836ieaWodFY5+tqOIaRatWcQ6
+ 1J+BgIldBxrj9njFBNyOTTw=
+X-Google-Smtp-Source: ABdhPJwQiN0j3I0XTBAoTEh/kHlRdKQRBPrBZjjvBv7FEdQfK+kQb/LL0lHsiyq2Kw2a6+jej7syqg==
+X-Received: by 2002:a17:90a:2210:: with SMTP id
+ c16mr12291145pje.65.1597655969939; 
+ Mon, 17 Aug 2020 02:19:29 -0700 (PDT)
+Received: from localhost.localdomain ([49.207.202.98])
+ by smtp.gmail.com with ESMTPSA id r25sm15971028pgv.88.2020.08.17.02.19.16
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 17 Aug 2020 05:15:16 -0700 (PDT)
-Received: from minyard.net (unknown
- [IPv6:2001:470:b8f6:1b:8b39:c3f3:f502:5c4e])
- by serve.minyard.net (Postfix) with ESMTPSA id 846E11800D4;
- Mon, 17 Aug 2020 12:15:15 +0000 (UTC)
-Date: Mon, 17 Aug 2020 07:15:14 -0500
-From: Corey Minyard <minyard@acm.org>
-To: Allen Pais <allen.cryptic@gmail.com>
-Message-ID: <20200817121514.GE2865@minyard.net>
+ Mon, 17 Aug 2020 02:19:29 -0700 (PDT)
+From: Allen Pais <allen.cryptic@gmail.com>
+To: jdike@addtoit.com, richard@nod.at, anton.ivanov@cambridgegreys.com,
+ 3chas3@gmail.com, axboe@kernel.dk, stefanr@s5r6.in-berlin.de,
+ airlied@linux.ie, daniel@ffwll.ch, sre@kernel.org,
+ James.Bottomley@HansenPartnership.com, kys@microsoft.com, deller@gmx.de,
+ dmitry.torokhov@gmail.com, jassisinghbrar@gmail.com, shawnguo@kernel.org,
+ s.hauer@pengutronix.de, maximlevitsky@gmail.com, oakad@yahoo.com,
+ ulf.hansson@linaro.org, mporter@kernel.crashing.org, alex.bou9@gmail.com,
+ broonie@kernel.org, martyn@welchs.me.uk, manohar.vanga@gmail.com,
+ mitch@sfgoth.com, davem@davemloft.net, kuba@kernel.org
+Date: Mon, 17 Aug 2020 14:46:08 +0530
+Message-Id: <20200817091617.28119-14-allen.cryptic@gmail.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20200817091617.28119-1-allen.cryptic@gmail.com>
 References: <20200817091617.28119-1-allen.cryptic@gmail.com>
- <20200817091617.28119-3-allen.cryptic@gmail.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200817091617.28119-3-allen.cryptic@gmail.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
 X-Mailman-Approved-At: Mon, 17 Aug 2020 13:02:22 +0000
-Subject: Re: [Intel-gfx] [PATCH] char: ipmi: convert tasklets to use new
+Subject: [Intel-gfx] [PATCH 1/2] mailbox: bcm: convert tasklets to use new
  tasklet_setup() API
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -89,105 +89,64 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: minyard@acm.org
-Cc: ulf.hansson@linaro.org, linux-atm-general@lists.sourceforge.net,
- manohar.vanga@gmail.com, airlied@linux.ie, Allen Pais <allen.lkml@gmail.com>,
- linux-hyperv@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, James.Bottomley@HansenPartnership.com,
- kys@microsoft.com, anton.ivanov@cambridgegreys.com, devel@driverdev.osuosl.org,
- linux-s390@vger.kernel.org, linux1394-devel@lists.sourceforge.net,
- maximlevitsky@gmail.com, richard@nod.at, deller@gmx.de,
- jassisinghbrar@gmail.com, 3chas3@gmail.com, intel-gfx@lists.freedesktop.org,
- kuba@kernel.org, mporter@kernel.crashing.org, jdike@addtoit.com,
- keescook@chromium.org, oakad@yahoo.com, s.hauer@pengutronix.de,
- linux-input@vger.kernel.org, linux-um@lists.infradead.org,
- linux-block@vger.kernel.org, broonie@kernel.org,
- openipmi-developer@lists.sourceforge.net, mitch@sfgoth.com,
- linux-arm-kernel@lists.infradead.org, axboe@kernel.dk,
- linux-parisc@vger.kernel.org, netdev@vger.kernel.org, martyn@welchs.me.uk,
- dmitry.torokhov@gmail.com, linux-mmc@vger.kernel.org, sre@kernel.org,
- linux-spi@vger.kernel.org, alex.bou9@gmail.com, stefanr@s5r6.in-berlin.de,
- linux-ntb@googlegroups.com, Romain Perier <romain.perier@gmail.com>,
- shawnguo@kernel.org, davem@davemloft.net
+Cc: devel@driverdev.osuosl.org, linux-s390@vger.kernel.org,
+ linux-hyperv@vger.kernel.org, Romain Perier <romain.perier@gmail.com>,
+ keescook@chromium.org, linux-parisc@vger.kernel.org,
+ linux-ntb@googlegroups.com, netdev@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, linux-atm-general@lists.sourceforge.net,
+ linux-um@lists.infradead.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-spi@vger.kernel.org,
+ linux-block@vger.kernel.org, Allen Pais <allen.lkml@gmail.com>,
+ linux-input@vger.kernel.org, linux-mmc@vger.kernel.org,
+ openipmi-developer@lists.sourceforge.net,
+ linux1394-devel@lists.sourceforge.net, linux-arm-kernel@lists.infradead.org
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Aug 17, 2020 at 02:45:57PM +0530, Allen Pais wrote:
-> From: Allen Pais <allen.lkml@gmail.com>
-> 
-> In preparation for unconditionally passing the
-> struct tasklet_struct pointer to all tasklet
-> callbacks, switch to using the new tasklet_setup()
-> and from_tasklet() to pass the tasklet pointer explicitly.
-> 
-> Signed-off-by: Romain Perier <romain.perier@gmail.com>
-> Signed-off-by: Allen Pais <allen.lkml@gmail.com>
+From: Allen Pais <allen.lkml@gmail.com>
 
-This looks good to me.
+In preparation for unconditionally passing the
+struct tasklet_struct pointer to all tasklet
+callbacks, switch to using the new tasklet_setup()
+and from_tasklet() to pass the tasklet pointer explicitly.
 
-Reviewed-by: Corey Minyard <cminyard@mvista.com>
+Signed-off-by: Romain Perier <romain.perier@gmail.com>
+Signed-off-by: Allen Pais <allen.lkml@gmail.com>
+---
+ drivers/mailbox/bcm-pdc-mailbox.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-Are you planning to push this, or do you want me to take it?  If you
-want me to take it, what is the urgency?
+diff --git a/drivers/mailbox/bcm-pdc-mailbox.c b/drivers/mailbox/bcm-pdc-mailbox.c
+index 53945ca5d785..5b375985f7b8 100644
+--- a/drivers/mailbox/bcm-pdc-mailbox.c
++++ b/drivers/mailbox/bcm-pdc-mailbox.c
+@@ -962,9 +962,9 @@ static irqreturn_t pdc_irq_handler(int irq, void *data)
+  * a DMA receive interrupt. Reenables the receive interrupt.
+  * @data: PDC state structure
+  */
+-static void pdc_tasklet_cb(unsigned long data)
++static void pdc_tasklet_cb(struct tasklet_struct *t)
+ {
+-	struct pdc_state *pdcs = (struct pdc_state *)data;
++	struct pdc_state *pdcs = from_tasklet(pdcs, t, rx_tasklet);
+ 
+ 	pdc_receive(pdcs);
+ 
+@@ -1589,7 +1589,7 @@ static int pdc_probe(struct platform_device *pdev)
+ 	pdc_hw_init(pdcs);
+ 
+ 	/* Init tasklet for deferred DMA rx processing */
+-	tasklet_init(&pdcs->rx_tasklet, pdc_tasklet_cb, (unsigned long)pdcs);
++	tasklet_setup(&pdcs->rx_tasklet, pdc_tasklet_cb);
+ 
+ 	err = pdc_interrupts_init(pdcs);
+ 	if (err)
+-- 
+2.17.1
 
--corey
-
-> ---
->  drivers/char/ipmi/ipmi_msghandler.c | 13 ++++++-------
->  1 file changed, 6 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/char/ipmi/ipmi_msghandler.c b/drivers/char/ipmi/ipmi_msghandler.c
-> index 737c0b6b24ea..e1814b6a1225 100644
-> --- a/drivers/char/ipmi/ipmi_msghandler.c
-> +++ b/drivers/char/ipmi/ipmi_msghandler.c
-> @@ -39,7 +39,7 @@
->  
->  static struct ipmi_recv_msg *ipmi_alloc_recv_msg(void);
->  static int ipmi_init_msghandler(void);
-> -static void smi_recv_tasklet(unsigned long);
-> +static void smi_recv_tasklet(struct tasklet_struct *t);
->  static void handle_new_recv_msgs(struct ipmi_smi *intf);
->  static void need_waiter(struct ipmi_smi *intf);
->  static int handle_one_recv_msg(struct ipmi_smi *intf,
-> @@ -3430,9 +3430,8 @@ int ipmi_add_smi(struct module         *owner,
->  	intf->curr_seq = 0;
->  	spin_lock_init(&intf->waiting_rcv_msgs_lock);
->  	INIT_LIST_HEAD(&intf->waiting_rcv_msgs);
-> -	tasklet_init(&intf->recv_tasklet,
-> -		     smi_recv_tasklet,
-> -		     (unsigned long) intf);
-> +	tasklet_setup(&intf->recv_tasklet,
-> +		     smi_recv_tasklet);
->  	atomic_set(&intf->watchdog_pretimeouts_to_deliver, 0);
->  	spin_lock_init(&intf->xmit_msgs_lock);
->  	INIT_LIST_HEAD(&intf->xmit_msgs);
-> @@ -4467,10 +4466,10 @@ static void handle_new_recv_msgs(struct ipmi_smi *intf)
->  	}
->  }
->  
-> -static void smi_recv_tasklet(unsigned long val)
-> +static void smi_recv_tasklet(struct tasklet_struct *t)
->  {
->  	unsigned long flags = 0; /* keep us warning-free. */
-> -	struct ipmi_smi *intf = (struct ipmi_smi *) val;
-> +	struct ipmi_smi *intf = from_tasklet(intf, t, recv_tasklet);
->  	int run_to_completion = intf->run_to_completion;
->  	struct ipmi_smi_msg *newmsg = NULL;
->  
-> @@ -4542,7 +4541,7 @@ void ipmi_smi_msg_received(struct ipmi_smi *intf,
->  		spin_unlock_irqrestore(&intf->xmit_msgs_lock, flags);
->  
->  	if (run_to_completion)
-> -		smi_recv_tasklet((unsigned long) intf);
-> +		smi_recv_tasklet(&intf->recv_tasklet);
->  	else
->  		tasklet_schedule(&intf->recv_tasklet);
->  }
-> -- 
-> 2.17.1
-> 
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
