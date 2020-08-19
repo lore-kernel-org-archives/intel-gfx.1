@@ -7,46 +7,47 @@ X-Spam-Status: No, score=-12.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DA1ECC433E3
-	for <intel-gfx@archiver.kernel.org>; Wed, 19 Aug 2020 18:49:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E8EC8C433E1
+	for <intel-gfx@archiver.kernel.org>; Wed, 19 Aug 2020 18:49:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B243620758
-	for <intel-gfx@archiver.kernel.org>; Wed, 19 Aug 2020 18:49:07 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id BFDBB20758
+	for <intel-gfx@archiver.kernel.org>; Wed, 19 Aug 2020 18:49:09 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="mtqG2R5K"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B243620758
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="QBZEY6GN"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BFDBB20758
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C8C36E5B0;
-	Wed, 19 Aug 2020 18:49:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DCD8F6E5B2;
+	Wed, 19 Aug 2020 18:49:08 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org
  [IPv6:2001:8b0:10b:1236::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C3C2E6E5B2
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EBD416E5AB
  for <intel-gfx@lists.freedesktop.org>; Wed, 19 Aug 2020 18:49:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:MIME-Version:
  References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:
  Content-Type:Content-ID:Content-Description;
- bh=yHlibx9T0xrkfaCUzHO6K9mta5VlhggyQEWPghnljAs=; b=mtqG2R5K+Yx4dE8Kn6VbN3423G
- kIyD7iHdEs9//9zn4d+MqCrVYAzK+wcoAiner0u6ns9sOmIc5tfRAgo27IXLWgMP6nwGY0e6y6pmA
- 3HyU19g7ZHaw31ZJ8zxxv6IAybbAuxOaFrkQK2spsvcHh6QuyTpP2yNUbuYLJtWlcWRvqXSIlF0jI
- 9Vy40hmXVmrp6grQd7r+oJ7KtTvTI521d9fNWtfKyyqTvGJ4P+MhRWJZc+95qtI0mQz6V/ZnZbfe4
- Kgct1GcrVAvfxOQF0Ag9wTk4R925hXyZsT3fcWZRlbRDSahohQn09B2qh4/GBAkF9CnxwnjMmjRTs
- EKPHJUnA==;
+ bh=7+YSI5YaFA7nV1yaE7i/RW3xZbJtF/8x3LDr4io57Q8=; b=QBZEY6GNdSOmnF4ujehB7tIL/+
+ 8WlFkWpSxuLPFzkGOnnhlBlJavyO4Z+T0yXOfXgJgAGvoDk+Cf1m8ak9wPM8AkhSIMWn8nFA51xkD
+ WHXh1JSEJrwxa10n1dsaReCF4jaEG4ACDpvQROgOqopHoed3BHKh9cV153/2lHtDBdHzNGvzALDwt
+ xhCJjd4YgCOtHb28bEt8UYDUq80/QJIuQXJRj9csQ+VHnOkdnIJ+SSvdZLDIr692dGd7QtGw5TKT0
+ kT9IZJattIKOxBcoS1wr/w22x9PoXKBXAMBPZyBB/EKkYK4S922ZQv2l+P8miuoSBxQIRrrF5OJXs
+ 10W3+YmQ==;
 Received: from willy by casper.infradead.org with local (Exim 4.92.3 #3 (Red
- Hat Linux)) id 1k8T8n-0006T8-TC; Wed, 19 Aug 2020 18:48:53 +0000
+ Hat Linux)) id 1k8T8q-0006UR-DL; Wed, 19 Aug 2020 18:48:56 +0000
 From: "Matthew Wilcox (Oracle)" <willy@infradead.org>
 To: linux-mm@kvack.org
-Date: Wed, 19 Aug 2020 19:48:45 +0100
-Message-Id: <20200819184850.24779-4-willy@infradead.org>
+Date: Wed, 19 Aug 2020 19:48:50 +0100
+Message-Id: <20200819184850.24779-9-willy@infradead.org>
 X-Mailer: git-send-email 2.21.3
 In-Reply-To: <20200819184850.24779-1-willy@infradead.org>
 References: <20200819184850.24779-1-willy@infradead.org>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 3/8] mm: Optimise madvise WILLNEED
+Subject: [Intel-gfx] [PATCH 8/8] mm: Hoist find_subpage call further up in
+ pagecache_get_page
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,57 +73,48 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Instead of calling find_get_entry() for every page index, use an XArray
-iterator to skip over NULL entries, and avoid calling get_page(),
-because we only want the swap entries.
+This avoids a call to compound_head().
 
 Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
 ---
- mm/madvise.c | 21 ++++++++++++---------
- 1 file changed, 12 insertions(+), 9 deletions(-)
+ mm/filemap.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/mm/madvise.c b/mm/madvise.c
-index dd1d43cf026d..96189acd6969 100644
---- a/mm/madvise.c
-+++ b/mm/madvise.c
-@@ -224,25 +224,28 @@ static void force_shm_swapin_readahead(struct vm_area_struct *vma,
- 		unsigned long start, unsigned long end,
- 		struct address_space *mapping)
- {
--	pgoff_t index;
-+	XA_STATE(xas, &mapping->i_pages, linear_page_index(vma, start));
-+	pgoff_t end_index = end / PAGE_SIZE;
- 	struct page *page;
--	swp_entry_t swap;
+diff --git a/mm/filemap.c b/mm/filemap.c
+index 6594baae7cd2..8c354277108d 100644
+--- a/mm/filemap.c
++++ b/mm/filemap.c
+@@ -1667,7 +1667,6 @@ struct page *pagecache_get_page(struct address_space *mapping, pgoff_t index,
+ 		page = NULL;
+ 	if (!page)
+ 		goto no_page;
+-	page = find_subpage(page, index);
  
--	for (; start < end; start += PAGE_SIZE) {
--		index = ((start - vma->vm_start) >> PAGE_SHIFT) + vma->vm_pgoff;
-+	rcu_read_lock();
-+	xas_for_each(&xas, page, end_index) {
-+		swp_entry_t swap;
+ 	if (fgp_flags & FGP_LOCK) {
+ 		if (fgp_flags & FGP_NOWAIT) {
+@@ -1680,12 +1679,12 @@ struct page *pagecache_get_page(struct address_space *mapping, pgoff_t index,
+ 		}
  
--		page = find_get_entry(mapping, index);
--		if (!xa_is_value(page)) {
--			if (page)
--				put_page(page);
-+		if (!xa_is_value(page))
- 			continue;
--		}
-+		rcu_read_unlock();
-+
- 		swap = radix_to_swp_entry(page);
- 		page = read_swap_cache_async(swap, GFP_HIGHUSER_MOVABLE,
- 							NULL, 0, false);
- 		if (page)
+ 		/* Has the page been truncated? */
+-		if (unlikely(compound_head(page)->mapping != mapping)) {
++		if (unlikely(page->mapping != mapping)) {
+ 			unlock_page(page);
  			put_page(page);
-+
-+		rcu_read_lock();
-+		xas_reset(&xas);
+ 			goto repeat;
+ 		}
+-		VM_BUG_ON_PAGE(page->index != index, page);
++		VM_BUG_ON_PAGE(!thp_valid_index(page, index), page);
  	}
-+	rcu_read_unlock();
  
- 	lru_add_drain();	/* Push any new pages onto the LRU now */
- }
+ 	if (fgp_flags & FGP_ACCESSED)
+@@ -1695,6 +1694,7 @@ struct page *pagecache_get_page(struct address_space *mapping, pgoff_t index,
+ 		if (page_is_idle(page))
+ 			clear_page_idle(page);
+ 	}
++	page = find_subpage(page, index);
+ 
+ no_page:
+ 	if (!page && (fgp_flags & FGP_CREAT)) {
 -- 
 2.28.0
 
