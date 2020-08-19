@@ -7,53 +7,52 @@ X-Spam-Status: No, score=-3.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
 	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4677DC433E1
-	for <intel-gfx@archiver.kernel.org>; Wed, 19 Aug 2020 17:04:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0C843C433DF
+	for <intel-gfx@archiver.kernel.org>; Wed, 19 Aug 2020 17:04:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 156F0208A9
+	by mail.kernel.org (Postfix) with ESMTPS id D7263208A9
 	for <intel-gfx@archiver.kernel.org>; Wed, 19 Aug 2020 17:04:55 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Do1SU13c"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 156F0208A9
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SAlnLFGs"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D7263208A9
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A90BF6E563;
-	Wed, 19 Aug 2020 17:04:54 +0000 (UTC)
-Received: from mail-oi1-x242.google.com (mail-oi1-x242.google.com
- [IPv6:2607:f8b0:4864:20::242])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CFF166E0FD;
- Wed, 19 Aug 2020 16:24:28 +0000 (UTC)
-Received: by mail-oi1-x242.google.com with SMTP id v13so21486627oiv.13;
- Wed, 19 Aug 2020 09:24:28 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 657E36E573;
+	Wed, 19 Aug 2020 17:04:55 +0000 (UTC)
+Received: from mail-ot1-x343.google.com (mail-ot1-x343.google.com
+ [IPv6:2607:f8b0:4864:20::343])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B60F76E20C;
+ Wed, 19 Aug 2020 10:48:28 +0000 (UTC)
+Received: by mail-ot1-x343.google.com with SMTP id c4so18644246otf.12;
+ Wed, 19 Aug 2020 03:48:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=HU4eQwextT3u0Vy8pHWyNShnAd/EOsS2z1U17KkaX1w=;
- b=Do1SU13c8m0ev7rC+aSlATz3YC7HLEYtrWvOJM3hlYx5tibAn4nY6QBTQ6sL63+y1B
- MMICOhoWO2QuUo7XJXcNmi2U+jZFkCQmxwKcysxTB45P8s8hyGWMfAV/b9TWZwGMUstf
- eQNrTEk4Md6ORX7QTkn+vE+7QuV40o6StptyB5lbRYfwqel6HisdptT26ZHXxM5fvMgf
- Hrtd8Cg5JcovJzKRBu4i1OQaNFicedwyX0Gjkgy9VMM/toVIToznUVdAB9xldZ2UK6eB
- IrMKr2f8qBsOPZBeTcYzlGRInoJUjiFOhM2YCLXROPBSSoWa8KVaeHXHoJOeD+LqB0Ea
- LpeQ==
+ :cc; bh=JFCS1wWCaky01GdCrS5KhBNLCXiKvx8eu/9Q1CWY57o=;
+ b=SAlnLFGsaJJ2xUQvXdp6/REunLAQzaLpmNpCPkhdMyKVNOL4zXoJc+uTpvFb1PLXQe
+ nN8aQpwx9KlR0QpjA0U0Eq9qCAcvJ1BkG1Pmvfae+wF16AUCkU8W0GDQheD/o4B1VrUX
+ PelVL5WwDQloIppGpod8O4LcRauK/SLT0vBKv+BhPM4L1DU+6rZBrJ0Dt0oV8Ce4u200
+ wfYajuI8k/buRZ/KOQgJS9xFj6qU+vsS6Mi/Pic5cr7hyqCbNaPaM64dCQ32B92C7zpm
+ twdkgIcY8FJxVqqD5N4bDX/Yu8aavznJiTYE5JD98MkyaozlEe8FkOVjNVcv9NBfu1pV
+ 5Fgw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=HU4eQwextT3u0Vy8pHWyNShnAd/EOsS2z1U17KkaX1w=;
- b=GQtZfoBlQ0GfLnxrz69JrH0uzF1XKeAKCLmI4qSt9Ep4TEIOazA13U9HG7b7GU7UEa
- 7AIykoOzZbujdhEeC9VIiAcLJLVLyqHnKo4aTL5pS+URRgORDWgAE3WP/rccMFy7MXFw
- absa+Li5BXOWbhIUxfoAEtMxeno4EVJimI7WRhFp6v8h6X3EhoJDdR7qIwuS2SoPYfTX
- 0R5+5KnITbH4Sx98X0q4kvHwUdCFiMDrWCczHNHfjsDmaLvwLHOxnv95RXXd8tMKGXdk
- gMstaLtfKR0rV/mW7S+y8vJ9x9EJlVyj5ExeiLg3aZp0rFCqvDnaA4gjO1zzKkBPed8z
- 61Jw==
-X-Gm-Message-State: AOAM531MKiMCrYsniIqh8d40jmBb/N2jn74U48CZ0xA8ocfd2+PuARzO
- R8vk6bc5ULoj0N1thMYowMFTZVdbb4T4J5T3SZA=
-X-Google-Smtp-Source: ABdhPJzpfHTlGoLujvQ5GY5n5H9BSvs/wYOUntKm/P0xrLOUSJQWGq951RNy2Mt1jRO58Yz8dbZ6uoLPp4/f2bRhLs0=
-X-Received: by 2002:a05:6808:4c5:: with SMTP id
- a5mr3863067oie.175.1597854268104; 
- Wed, 19 Aug 2020 09:24:28 -0700 (PDT)
+ bh=JFCS1wWCaky01GdCrS5KhBNLCXiKvx8eu/9Q1CWY57o=;
+ b=GUMsyfQqIZ6zOBzFK7tEI90Z2kg6sB+ZnmtgXa6oec6MFTjKosl8PU5j+iPtgVEU+e
+ 1MhoGPWPV3io3UfKeX6yDOpSQ4xFdKW0UjfC9Q7pjx4O17V6b6MHFQQHZzz1Qd5UiHyR
+ vdpJTjQCHhj3h7/9lm6WC31v5CS3MiUmpsAnMlQXDfZTgIrQaC8hytl9xaxxJQPzPf/+
+ dtu2+YRGHjNINXPAy2BYObcnRSS7K1pQ95UEbemHAgrrxz0i9QBu5HCWrMPKV/88NYnk
+ PF9xyZZ9NKJ1RJNvqolCiGoBWbNBMUJ2vtwe7LM+GH4SB47Vqf9Sf0pRVobEXqIms4bM
+ 8lZA==
+X-Gm-Message-State: AOAM533mAPV+h6C45DpPsLukl0sF8EjRhz4s95kdtNAaSQt6vL7yAaqW
+ qZ6kmILNrZP9dUFZsW+z0vuKbGbzPEDv5De2Q3o=
+X-Google-Smtp-Source: ABdhPJwYTK+IRxToH0hqhLtJ7NIIqDs8lKmtEJkzNzElCKB5MQaF3rOwIOaAYWCB8rMlfnOVuvrNcqGFlbqr+yW4gKM=
+X-Received: by 2002:a9d:128c:: with SMTP id g12mr17527086otg.242.1597834108000; 
+ Wed, 19 Aug 2020 03:48:28 -0700 (PDT)
 MIME-Version: 1.0
 References: <20200817091617.28119-1-allen.cryptic@gmail.com>
  <20200817091617.28119-2-allen.cryptic@gmail.com>
@@ -63,13 +62,12 @@ References: <20200817091617.28119-1-allen.cryptic@gmail.com>
  <202008171246.80287CDCA@keescook>
  <df645c06-c30b-eafa-4d23-826b84f2ff48@kernel.dk>
  <1597780833.3978.3.camel@HansenPartnership.com>
- <f3312928-430c-25f3-7112-76f2754df080@kernel.dk>
- <1597849185.3875.7.camel@HansenPartnership.com>
-In-Reply-To: <1597849185.3875.7.camel@HansenPartnership.com>
+ <202008181309.FD3940A2D5@keescook>
+In-Reply-To: <202008181309.FD3940A2D5@keescook>
 From: Allen <allen.lkml@gmail.com>
-Date: Wed, 19 Aug 2020 21:54:16 +0530
-Message-ID: <CAOMdWSJRR0BhjJK1FxD7UKxNd5sk4ycmEX6TYtJjRNR6UFAj6Q@mail.gmail.com>
-To: James Bottomley <James.Bottomley@hansenpartnership.com>
+Date: Wed, 19 Aug 2020 16:18:16 +0530
+Message-ID: <CAOMdWSLi-aUeKDN8Xn-X2uW_LmWsp2n=NL3dPGiUbQKm_MxcAg@mail.gmail.com>
+To: Kees Cook <keescook@chromium.org>
 X-Mailman-Approved-At: Wed, 19 Aug 2020 17:04:54 +0000
 Subject: Re: [Intel-gfx] [PATCH] block: convert tasklets to use new
  tasklet_setup() API
@@ -89,14 +87,15 @@ Cc: Ulf Hansson <ulf.hansson@linaro.org>,
  linux-atm-general@lists.sourceforge.net, manohar.vanga@gmail.com,
  airlied@linux.ie, linux-hyperv@vger.kernel.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- kys@microsoft.com, anton.ivanov@cambridgegreys.com, devel@driverdev.osuosl.org,
+ James Bottomley <James.Bottomley@hansenpartnership.com>, kys@microsoft.com,
+ anton.ivanov@cambridgegreys.com, devel@driverdev.osuosl.org,
  linux-s390@vger.kernel.org, linux1394-devel@lists.sourceforge.net,
  maximlevitsky@gmail.com, richard@nod.at, deller@gmx.de,
  jassisinghbrar@gmail.com, 3chas3@gmail.com, intel-gfx@lists.freedesktop.org,
  Jakub Kicinski <kuba@kernel.org>, mporter@kernel.crashing.org,
- jdike@addtoit.com, Kees Cook <keescook@chromium.org>, oakad@yahoo.com,
- s.hauer@pengutronix.de, linux-input@vger.kernel.org,
- linux-um@lists.infradead.org, linux-block@vger.kernel.org, broonie@kernel.org,
+ jdike@addtoit.com, oakad@yahoo.com, s.hauer@pengutronix.de,
+ linux-input@vger.kernel.org, linux-um@lists.infradead.org,
+ linux-block@vger.kernel.org, broonie@kernel.org,
  openipmi-developer@lists.sourceforge.net, mitch@sfgoth.com,
  linux-arm-kernel@lists.infradead.org, Jens Axboe <axboe@kernel.dk>,
  linux-parisc@vger.kernel.org, netdev@vger.kernel.org, martyn@welchs.me.uk,
@@ -110,45 +109,54 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-> [...]
-> > > Since both threads seem to have petered out, let me suggest in
-> > > kernel.h:
+> > > > > > > >
+> > > > > > > > In preparation for unconditionally passing the
+> > > > > > > > struct tasklet_struct pointer to all tasklet
+> > > > > > > > callbacks, switch to using the new tasklet_setup()
+> > > > > > > > and from_tasklet() to pass the tasklet pointer explicitly.
+> > > > > > >
+> > > > > > > Who came up with the idea to add a macro 'from_tasklet' that
+> > > > > > > is just container_of? container_of in the code would be
+> > > > > > > _much_ more readable, and not leave anyone guessing wtf
+> > > > > > > from_tasklet is doing.
+> > > > > > >
+> > > > > > > I'd fix that up now before everything else goes in...
+> > > > > >
+> > > > > > As I mentioned in the other thread, I think this makes things
+> > > > > > much more readable. It's the same thing that the timer_struct
+> > > > > > conversion did (added a container_of wrapper) to avoid the
+> > > > > > ever-repeating use of typeof(), long lines, etc.
+> > > > >
+> > > > > But then it should use a generic name, instead of each sub-system
+> > > > > using some random name that makes people look up exactly what it
+> > > > > does. I'm not huge fan of the container_of() redundancy, but
+> > > > > adding private variants of this doesn't seem like the best way
+> > > > > forward. Let's have a generic helper that does this, and use it
+> > > > > everywhere.
+> > > >
+> > > > I'm open to suggestions, but as things stand, these kinds of
+> > > > treewide
 > > >
-> > > #define cast_out(ptr, container, member) \
-> > >     container_of(ptr, typeof(*container), member)
-> > >
-> > > It does what you want, the argument order is the same as
-> > > container_of with the only difference being you name the containing
-> > > structure instead of having to specify its type.
+> > > On naming? Implementation is just as it stands, from_tasklet() is
+> > > totally generic which is why I objected to it. from_member()? Not
+> > > great with naming... But I can see this going further and then we'll
+> > > suddenly have tons of these. It's not good for readability.
 > >
-> > Not to incessantly bike shed on the naming, but I don't like
-> > cast_out, it's not very descriptive. And it has connotations of
-> > getting rid of something, which isn't really true.
+> > Since both threads seem to have petered out, let me suggest in
+> > kernel.h:
+> >
+> > #define cast_out(ptr, container, member) \
+> >       container_of(ptr, typeof(*container), member)
+> >
+> > It does what you want, the argument order is the same as container_of
+> > with the only difference being you name the containing structure
+> > instead of having to specify its type.
 >
-> Um, I thought it was exactly descriptive: you're casting to the outer
-> container.  I thought about following the C++ dynamic casting style, so
-> out_cast(), but that seemed a bit pejorative.  What about outer_cast()?
->
-> > FWIW, I like the from_ part of the original naming, as it has some
-> > clues as to what is being done here. Why not just from_container()?
-> > That should immediately tell people what it does without having to
-> > look up the implementation, even before this becomes a part of the
-> > accepted coding norm.
->
-> I'm not opposed to container_from() but it seems a little less
-> descriptive than outer_cast() but I don't really care.  I always have
-> to look up container_of() when I'm using it so this would just be
-> another macro of that type ...
+> I like this! Shall I send this to Linus to see if this can land in -rc2
+> for use going forward?
 >
 
- So far we have a few which have been suggested as replacement
-for from_tasklet()
-
-- out_cast() or outer_cast()
-- from_member().
-- container_from() or from_container()
-
-from_container() sounds fine, would trimming it a bit work? like from_cont().
+Cool, I shall wait for it to be accepted and then spin out V2 with cast_out()
 
 -- 
        - Allen
