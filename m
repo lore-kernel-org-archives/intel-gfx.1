@@ -7,48 +7,46 @@ X-Spam-Status: No, score=-11.2 required=3.0 tests=BAYES_00,DATE_IN_PAST_06_12,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E301AC433DF
-	for <intel-gfx@archiver.kernel.org>; Wed, 19 Aug 2020 11:30:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 58D55C433E1
+	for <intel-gfx@archiver.kernel.org>; Wed, 19 Aug 2020 11:30:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BDDEC206FA
-	for <intel-gfx@archiver.kernel.org>; Wed, 19 Aug 2020 11:30:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BDDEC206FA
+	by mail.kernel.org (Postfix) with ESMTPS id 33CE0206FA
+	for <intel-gfx@archiver.kernel.org>; Wed, 19 Aug 2020 11:30:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 33CE0206FA
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 469F089AEA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C00389B05;
 	Wed, 19 Aug 2020 11:30:49 +0000 (UTC)
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 59E088996F
- for <intel-gfx@lists.freedesktop.org>; Wed, 19 Aug 2020 11:30:48 +0000 (UTC)
-IronPort-SDR: mNTNsNN3PyRkFZs8NJWjfbQi52A5p2lrUMr/JJWyen4VPCjlt7gG/x4ww5wZ6VvX5XAMTOUGAd
- +79yogS99PMw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9717"; a="135157581"
-X-IronPort-AV: E=Sophos;i="5.76,331,1592895600"; d="scan'208";a="135157581"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A47889255
+ for <intel-gfx@lists.freedesktop.org>; Wed, 19 Aug 2020 11:30:47 +0000 (UTC)
+IronPort-SDR: 1dUmbcTZOfNwkk2pXWdE7aA9sRB4VplrfUiQmV4AbEKC/2k/Cy6fM3yCKBXYAAfRmBZK+AwpBq
+ VKS1AjF/9elQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9717"; a="135157579"
+X-IronPort-AV: E=Sophos;i="5.76,331,1592895600"; d="scan'208";a="135157579"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Aug 2020 04:30:48 -0700
-IronPort-SDR: xJYNCsyptUgmE8r1xb7rq9Lxyf0c/rPeQEaq7wBoIyBbWrWnDB65skvPM2CCMdX+MeipgI9yLA
- m2/e7OabxizQ==
-X-IronPort-AV: E=Sophos;i="5.76,331,1592895600"; d="scan'208";a="472206429"
+ 19 Aug 2020 04:30:46 -0700
+IronPort-SDR: ZwV97iaW9jOi95nSxcM6Y81dRjiZnICfNPTWlFUl+jOKRxmhZ10R9GnHq5UXorR/XbCWf7Ijh1
+ GsqrFwDH4NkA==
+X-IronPort-AV: E=Sophos;i="5.76,331,1592895600"; d="scan'208";a="472206414"
 Received: from unknown (HELO john.iind.intel.com) ([10.223.74.105])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-SHA;
- 19 Aug 2020 04:30:47 -0700
+ 19 Aug 2020 04:30:45 -0700
 From: Nischal Varide <nischal.varide@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	nischal.varide@intel.com
-Date: Wed, 19 Aug 2020 10:04:06 +0530
-Message-Id: <20200819043409.26010-2-nischal.varide@intel.com>
+Date: Wed, 19 Aug 2020 10:04:05 +0530
+Message-Id: <20200819043409.26010-1-nischal.varide@intel.com>
 X-Mailer: git-send-email 2.26.0
-In-Reply-To: <20200819043409.26010-1-nischal.varide@intel.com>
-References: <20200819043409.26010-1-nischal.varide@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 2/5]
- Critical-KlockWork-Fixes-intel_display.c-NullDeref
+Subject: [Intel-gfx] [PATCH 1/5]
+ Critical-KclockWork-Fixes-intel_atomi.c-PossibleNull
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,63 +64,46 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This Patch fixes the Critical KlockWork Error and here a possible NuLL
-Pointer dereferencing is addressed. A check has been added before
-dereferencing.
+This Patch fixes the Klocwork errors and the Current fix is avoiding
+Possible Null Pointer Dereference
 
 Signed-off-by: Nischal Varide <nischal.varide@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c | 22 +++++++++++---------
- 1 file changed, 12 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/i915/display/intel_atomic.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 2ddabf92adde..cc59c5e94698 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -2265,9 +2265,9 @@ intel_pin_and_fence_fb_obj(struct drm_framebuffer *fb,
- 	pinctl = 0;
- 	if (HAS_GMCH(dev_priv))
- 		pinctl |= PIN_MAPPABLE;
--
--	vma = i915_gem_object_pin_to_display_plane(obj,
--						   alignment, view, pinctl);
-+	if (obj)
-+		vma = i915_gem_object_pin_to_display_plane(obj,
-+			alignment, view, pinctl);
- 	if (IS_ERR(vma))
- 		goto err;
+diff --git a/drivers/gpu/drm/i915/display/intel_atomic.c b/drivers/gpu/drm/i915/display/intel_atomic.c
+index 630f49b7aa01..cf51f1005ec1 100644
+--- a/drivers/gpu/drm/i915/display/intel_atomic.c
++++ b/drivers/gpu/drm/i915/display/intel_atomic.c
+@@ -132,6 +132,9 @@ int intel_digital_connector_atomic_check(struct drm_connector *conn,
+ 		to_intel_digital_connector_state(old_state);
+ 	struct drm_crtc_state *crtc_state;
  
-@@ -11269,10 +11269,13 @@ static u32 intel_cursor_base(const struct intel_plane_state *plane_state)
- 	const struct drm_i915_gem_object *obj = intel_fb_obj(fb);
- 	u32 base;
- 
--	if (INTEL_INFO(dev_priv)->display.cursor_needs_physical)
--		base = sg_dma_address(obj->mm.pages->sgl);
--	else
--		base = intel_plane_ggtt_offset(plane_state);
-+	if (obj) {
++	if (!(new_state && new_conn_state && old_state && old_conn_state))
++		return 0;
 +
-+		if (INTEL_INFO(dev_priv)->display.cursor_needs_physical)
-+			base = sg_dma_address(obj->mm.pages->sgl);
-+		else
-+			base = intel_plane_ggtt_offset(plane_state);
-+	}
+ 	intel_hdcp_atomic_check(conn, old_state, new_state);
+ 	intel_psr_atomic_check(conn, old_state, new_state);
  
- 	return base + plane_state->color_plane[0].offset;
- }
-@@ -17126,10 +17129,9 @@ static int intel_user_framebuffer_dirty(struct drm_framebuffer *fb,
- 					unsigned num_clips)
- {
- 	struct drm_i915_gem_object *obj = intel_fb_obj(fb);
--
--	i915_gem_object_flush_if_display(obj);
-+	if (obj)
-+		i915_gem_object_flush_if_display(obj);
- 	intel_frontbuffer_flush(to_intel_frontbuffer(fb), ORIGIN_DIRTYFB);
--
- 	return 0;
- }
+@@ -192,6 +195,8 @@ intel_connector_needs_modeset(struct intel_atomic_state *state,
  
+ 	old_conn_state = drm_atomic_get_old_connector_state(&state->base, connector);
+ 	new_conn_state = drm_atomic_get_new_connector_state(&state->base, connector);
++	if (!(old_conn_state && new_conn_state))
++		return 0;
+ 
+ 	return old_conn_state->crtc != new_conn_state->crtc ||
+ 	       (new_conn_state->crtc &&
+@@ -418,7 +423,7 @@ int intel_atomic_setup_scalers(struct drm_i915_private *dev_priv,
+ 	 */
+ 
+ 	/* fail if required scalers > available scalers */
+-	if (num_scalers_need > intel_crtc->num_scalers){
++	if (num_scalers_need > intel_crtc->num_scalers) {
+ 		drm_dbg_kms(&dev_priv->drm,
+ 			    "Too many scaling requests %d > %d\n",
+ 			    num_scalers_need, intel_crtc->num_scalers);
 -- 
 2.26.0
 
