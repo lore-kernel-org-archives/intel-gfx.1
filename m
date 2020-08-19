@@ -2,41 +2,41 @@ Return-Path: <SRS0=XCjr=B5=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 05791C433DF
-	for <intel-gfx@archiver.kernel.org>; Wed, 19 Aug 2020 19:06:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9F9B1C433DF
+	for <intel-gfx@archiver.kernel.org>; Wed, 19 Aug 2020 19:12:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DA88A207DA
-	for <intel-gfx@archiver.kernel.org>; Wed, 19 Aug 2020 19:06:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DA88A207DA
+	by mail.kernel.org (Postfix) with ESMTPS id 820D2207BB
+	for <intel-gfx@archiver.kernel.org>; Wed, 19 Aug 2020 19:12:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 820D2207BB
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 67F156E7D3;
-	Wed, 19 Aug 2020 19:06:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D09E6E7D4;
+	Wed, 19 Aug 2020 19:12:01 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id E647F6E7D0;
- Wed, 19 Aug 2020 19:06:17 +0000 (UTC)
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 558126E7D4;
+ Wed, 19 Aug 2020 19:11:59 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id DF687A7DFF;
- Wed, 19 Aug 2020 19:06:17 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id 50007A47EE;
+ Wed, 19 Aug 2020 19:11:59 +0000 (UTC)
 MIME-Version: 1.0
 From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Matthew Wilcox (Oracle)" <willy@infradead.org>
-Date: Wed, 19 Aug 2020 19:06:17 -0000
-Message-ID: <159786397788.23597.3955303702184593026@emeril.freedesktop.org>
+To: =?utf-8?q?Jos=C3=A9_Roberto_de_Souza?= <jose.souza@intel.com>
+Date: Wed, 19 Aug 2020 19:11:59 -0000
+Message-ID: <159786431929.23597.8173240208648686717@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
-References: <20200819184850.24779-1-willy@infradead.org>
-In-Reply-To: <20200819184850.24779-1-willy@infradead.org>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBS?=
- =?utf-8?q?eturn_head_pages_from_find=5Fget=5Fentry_and_find=5Flock=5Fentr?=
- =?utf-8?q?y?=
+References: <20200819185146.22109-1-jose.souza@intel.com>
+In-Reply-To: <20200819185146.22109-1-jose.souza@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_series_starting_with_=5B1/3=5D_drm/i915/display/tgl=3A_Use_?=
+ =?utf-8?q?TGL_DP_tables_for_eDP_ports_without_low_power_support?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,26 +51,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Reply-To: intel-gfx@lists.freedesktop.org
 Cc: intel-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-PT0gU2VyaWVzIERldGFpbHMgPT0KClNlcmllczogUmV0dXJuIGhlYWQgcGFnZXMgZnJvbSBmaW5k
-X2dldF9lbnRyeSBhbmQgZmluZF9sb2NrX2VudHJ5ClVSTCAgIDogaHR0cHM6Ly9wYXRjaHdvcmsu
-ZnJlZWRlc2t0b3Aub3JnL3Nlcmllcy84MDgxOC8KU3RhdGUgOiBmYWlsdXJlCgo9PSBTdW1tYXJ5
-ID09CgpDQUxMICAgIHNjcmlwdHMvY2hlY2tzeXNjYWxscy5zaAogIENBTEwgICAgc2NyaXB0cy9h
-dG9taWMvY2hlY2stYXRvbWljcy5zaAogIERFU0NFTkQgIG9ianRvb2wKICBDSEsgICAgIGluY2x1
-ZGUvZ2VuZXJhdGVkL2NvbXBpbGUuaAogIENDICAgICAgbW0vc3dhcF9zdGF0ZS5vCm1tL3N3YXBf
-c3RhdGUuYzogSW4gZnVuY3Rpb24g4oCYZmluZF9nZXRfc3dhcF9wYWdl4oCZOgptbS9zd2FwX3N0
-YXRlLmM6NDM1Ojc6IGVycm9yOiBpbXBsaWNpdCBkZWNsYXJhdGlvbiBvZiBmdW5jdGlvbiDigJhz
-aG1lbV9tYXBwaW5n4oCZOyBkaWQgeW91IG1lYW4g4oCYcGFnZV9tYXBwaW5n4oCZPyBbLVdlcnJv
-cj1pbXBsaWNpdC1mdW5jdGlvbi1kZWNsYXJhdGlvbl0KICBpZiAoIXNobWVtX21hcHBpbmcobWFw
-cGluZykpCiAgICAgICBefn5+fn5+fn5+fn5+CiAgICAgICBwYWdlX21hcHBpbmcKY2MxOiBzb21l
-IHdhcm5pbmdzIGJlaW5nIHRyZWF0ZWQgYXMgZXJyb3JzCnNjcmlwdHMvTWFrZWZpbGUuYnVpbGQ6
-MjgzOiByZWNpcGUgZm9yIHRhcmdldCAnbW0vc3dhcF9zdGF0ZS5vJyBmYWlsZWQKbWFrZVsxXTog
-KioqIFttbS9zd2FwX3N0YXRlLm9dIEVycm9yIDEKTWFrZWZpbGU6MTc4OTogcmVjaXBlIGZvciB0
-YXJnZXQgJ21tJyBmYWlsZWQKbWFrZTogKioqIFttbV0gRXJyb3IgMgoKCl9fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkludGVsLWdmeCBtYWlsaW5nIGxpc3QK
-SW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
-Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ludGVsLWdmeAo=
+== Series Details ==
+
+Series: series starting with [1/3] drm/i915/display/tgl: Use TGL DP tables for eDP ports without low power support
+URL   : https://patchwork.freedesktop.org/series/80819/
+State : warning
+
+== Summary ==
+
+$ dim checkpatch origin/drm-tip
+368c77e8c5f2 drm/i915/display/tgl: Use TGL DP tables for eDP ports without low power support
+-:42: WARNING:LONG_LINE: line length of 102 exceeds 100 columns
+#42: FILE: drivers/gpu/drm/i915/display/intel_ddi.c:1101:
++				*n_entries = ARRAY_SIZE(tgl_combo_phy_ddi_translations_edp_hbr2_hobl);
+
+-:61: WARNING:PREFER_FALLTHROUGH: Prefer 'fallthrough;' over fallthrough comment
+#61: FILE: drivers/gpu/drm/i915/display/intel_ddi.c:1113:
++		/* fall through */
+
+total: 0 errors, 2 warnings, 0 checks, 63 lines checked
+4ff37f4d65b8 drm/i915/display/ehl: Use EHL DP tables for eDP ports without low power support
+-:40: WARNING:PREFER_FALLTHROUGH: Prefer 'fallthrough;' over fallthrough comment
+#40: FILE: drivers/gpu/drm/i915/display/intel_ddi.c:1091:
++		/* fall through */
+
+total: 0 errors, 1 warnings, 0 checks, 29 lines checked
+91c25dc00bf9 drm/i915/ehl: Update voltage swing table
+-:9: WARNING:TYPO_SPELLING: 'tunning' may be misspelled - perhaps 'tuning'?
+#9: 
+Update with latest tunning in the table.
+
+total: 0 errors, 1 warnings, 0 checks, 20 lines checked
+
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
