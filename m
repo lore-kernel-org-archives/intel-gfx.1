@@ -2,56 +2,46 @@ Return-Path: <SRS0=XCjr=B5=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.7 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-6.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6D11EC433E3
-	for <intel-gfx@archiver.kernel.org>; Wed, 19 Aug 2020 12:34:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D04CDC433DF
+	for <intel-gfx@archiver.kernel.org>; Wed, 19 Aug 2020 12:46:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4D1FE2072D
-	for <intel-gfx@archiver.kernel.org>; Wed, 19 Aug 2020 12:34:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4D1FE2072D
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 6D84F2078D
+	for <intel-gfx@archiver.kernel.org>; Wed, 19 Aug 2020 12:46:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6D84F2078D
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 03A936E1EE;
-	Wed, 19 Aug 2020 12:34:51 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 31FA16E17A;
- Wed, 19 Aug 2020 12:34:49 +0000 (UTC)
-IronPort-SDR: A8+tzjjnRXpp0XKb3+O5w9LIQYPkDk+Q37iZRpWGoUTEb9UIS1t5djHmZNCb7Vn/S+7KgcYc34
- MVJFE4LYzzjA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9717"; a="173142452"
-X-IronPort-AV: E=Sophos;i="5.76,331,1592895600"; d="scan'208";a="173142452"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Aug 2020 05:34:48 -0700
-IronPort-SDR: O9Ilij2IMf9HVT2IzB1dK4nW7L+FRWw4cgkeaf0zBRU7iMFIEIuImDvn1sh6zUv1PeDac/lPrs
- VT61uBkKkePQ==
-X-IronPort-AV: E=Sophos;i="5.76,331,1592895600"; d="scan'208";a="441587305"
-Received: from mkapalax-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.249.47.149])
- by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Aug 2020 05:34:45 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Chris Wilson <chris@chris-wilson.co.uk>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	by gabe.freedesktop.org (Postfix) with ESMTP id ECEC789DC9;
+	Wed, 19 Aug 2020 12:46:20 +0000 (UTC)
+Received: from fireflyinternet.com (unknown [77.68.26.236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B37F89DC9;
+ Wed, 19 Aug 2020 12:46:18 +0000 (UTC)
+X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
+ x-ip-name=78.156.65.138; 
+Received: from localhost (unverified [78.156.65.138]) 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP (TLS) id
+ 22173661-1500050 for multiple; Wed, 19 Aug 2020 13:46:12 +0100
+MIME-Version: 1.0
+In-Reply-To: <87h7sy7r1a.fsf@intel.com>
+References: <20200819115353.59592-1-andriy.shevchenko@linux.intel.com>
+ <159783838601.667.13987031157680370712@build.alporthouse.com>
+ <87h7sy7r1a.fsf@intel.com>
+From: Chris Wilson <chris@chris-wilson.co.uk>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
  Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@linux.ie>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>, dri-devel@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org
-In-Reply-To: <159783838601.667.13987031157680370712@build.alporthouse.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20200819115353.59592-1-andriy.shevchenko@linux.intel.com>
- <159783838601.667.13987031157680370712@build.alporthouse.com>
-Date: Wed, 19 Aug 2020 15:34:41 +0300
-Message-ID: <87h7sy7r1a.fsf@intel.com>
-MIME-Version: 1.0
+Date: Wed, 19 Aug 2020 13:46:14 +0100
+Message-ID: <159784117463.667.14083963249056080662@build.alporthouse.com>
+User-Agent: alot/0.9
 Subject: Re: [Intel-gfx] [PATCH v1] drm/i915/gt: convert tasklets to use new
  tasklet_setup() API
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -72,23 +62,22 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 19 Aug 2020, Chris Wilson <chris@chris-wilson.co.uk> wrote:
-> Quoting Andy Shevchenko (2020-08-19 12:53:53)
->> In preparation for unconditionally passing the struct tasklet_struct
->> pointer to all tasklet callbacks, switch to using the new tasklet_setup()
->> and from_tasklet() to pass the tasklet pointer explicitly.
->> 
->> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> -Chris
+Quoting Jani Nikula (2020-08-19 13:34:41)
+> On Wed, 19 Aug 2020, Chris Wilson <chris@chris-wilson.co.uk> wrote:
+> > Quoting Andy Shevchenko (2020-08-19 12:53:53)
+> >> In preparation for unconditionally passing the struct tasklet_struct
+> >> pointer to all tasklet callbacks, switch to using the new tasklet_setup()
+> >> and from_tasklet() to pass the tasklet pointer explicitly.
+> >> 
+> >> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> > Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Reviewed-by: Chris Wilson <chris@chris-wilson.co.uk>
+> > -Chris
+> 
+> Uh, what?
 
-Uh, what?
-
-BR,
-Jani.
-
--- 
-Jani Nikula, Intel Open Source Graphics Center
+Copy-n-paste too far.
+-Chris
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
