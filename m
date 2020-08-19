@@ -7,32 +7,32 @@ X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9FC90C433E1
-	for <intel-gfx@archiver.kernel.org>; Wed, 19 Aug 2020 14:09:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 85C8BC433E5
+	for <intel-gfx@archiver.kernel.org>; Wed, 19 Aug 2020 14:09:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 80C0F204FD
-	for <intel-gfx@archiver.kernel.org>; Wed, 19 Aug 2020 14:09:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 80C0F204FD
+	by mail.kernel.org (Postfix) with ESMTPS id 657F3204FD
+	for <intel-gfx@archiver.kernel.org>; Wed, 19 Aug 2020 14:09:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 657F3204FD
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0444C6E409;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E4B76E40C;
 	Wed, 19 Aug 2020 14:09:18 +0000 (UTC)
 Received: from mblankhorst.nl (mblankhorst.nl [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 83EF26E400
- for <intel-gfx@lists.freedesktop.org>; Wed, 19 Aug 2020 14:09:13 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F0196E3AC
+ for <intel-gfx@lists.freedesktop.org>; Wed, 19 Aug 2020 14:09:12 +0000 (UTC)
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 19 Aug 2020 16:08:59 +0200
-Message-Id: <20200819140904.1708856-20-maarten.lankhorst@linux.intel.com>
+Date: Wed, 19 Aug 2020 16:08:47 +0200
+Message-Id: <20200819140904.1708856-8-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20200819140904.1708856-1-maarten.lankhorst@linux.intel.com>
 References: <20200819140904.1708856-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v2 19/24] drm/i915/selftests: Fix locking
- inversion in lrc selftest.
+Subject: [Intel-gfx] [PATCH v2 07/24] drm/i915: Parse command buffer earlier
+ in eb_relocate(slow)
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,46 +45,191 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@intel.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-VGhpcyBmdW5jdGlvbiBkb2VzIG5vdCB1c2UgaW50ZWxfY29udGV4dF9jcmVhdGVfcmVxdWVzdCwg
-c28gaXQgaGFzCnRvIHVzZSB0aGUgc2FtZSBsb2NraW5nIG9yZGVyIGFzIG5vcm1hbCBjb2RlLiBU
-aGlzIGlzIHJlcXVpcmVkIHRvCnNodXQgdXAgbG9ja2RlcCBpbiBzZWxmdGVzdHMuCgpTaWduZWQt
-b2ZmLWJ5OiBNYWFydGVuIExhbmtob3JzdCA8bWFhcnRlbi5sYW5raG9yc3RAbGludXguaW50ZWwu
-Y29tPgpSZXZpZXdlZC1ieTogVGhvbWFzIEhlbGxzdHLDtm0gPHRob21hcy5oZWxsc3Ryb21AaW50
-ZWwuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2d0L3NlbGZ0ZXN0X2xyYy5jIHwgMTUg
-KysrKysrKysrKysrLS0tCiAxIGZpbGUgY2hhbmdlZCwgMTIgaW5zZXJ0aW9ucygrKSwgMyBkZWxl
-dGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9ndC9zZWxmdGVzdF9s
-cmMuYyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2d0L3NlbGZ0ZXN0X2xyYy5jCmluZGV4IDdmYWJh
-OWY5MTIyNC4uOTVkNDFjMDFkMGUwIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9n
-dC9zZWxmdGVzdF9scmMuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9ndC9zZWxmdGVzdF9s
-cmMuYwpAQCAtNDk5Niw2ICs0OTk2LDcgQEAgc3RhdGljIGludCBfX2xpdmVfbHJjX3N0YXRlKHN0
-cnVjdCBpbnRlbF9lbmdpbmVfY3MgKmVuZ2luZSwKIHsKIAlzdHJ1Y3QgaW50ZWxfY29udGV4dCAq
-Y2U7CiAJc3RydWN0IGk5MTVfcmVxdWVzdCAqcnE7CisJc3RydWN0IGk5MTVfZ2VtX3d3X2N0eCB3
-dzsKIAllbnVtIHsKIAkJUklOR19TVEFSVF9JRFggPSAwLAogCQlSSU5HX1RBSUxfSURYLApAQCAt
-NTAxMCw3ICs1MDExLDExIEBAIHN0YXRpYyBpbnQgX19saXZlX2xyY19zdGF0ZShzdHJ1Y3QgaW50
-ZWxfZW5naW5lX2NzICplbmdpbmUsCiAJaWYgKElTX0VSUihjZSkpCiAJCXJldHVybiBQVFJfRVJS
-KGNlKTsKIAotCWVyciA9IGludGVsX2NvbnRleHRfcGluKGNlKTsKKwlpOTE1X2dlbV93d19jdHhf
-aW5pdCgmd3csIGZhbHNlKTsKK3JldHJ5OgorCWVyciA9IGk5MTVfZ2VtX29iamVjdF9sb2NrKHNj
-cmF0Y2gtPm9iaiwgJnd3KTsKKwlpZiAoIWVycikKKwkJZXJyID0gaW50ZWxfY29udGV4dF9waW5f
-d3coY2UsICZ3dyk7CiAJaWYgKGVycikKIAkJZ290byBlcnJfcHV0OwogCkBAIC01MDM5LDExICs1
-MDQ0LDkgQEAgc3RhdGljIGludCBfX2xpdmVfbHJjX3N0YXRlKHN0cnVjdCBpbnRlbF9lbmdpbmVf
-Y3MgKmVuZ2luZSwKIAkqY3MrKyA9IGk5MTVfZ2d0dF9vZmZzZXQoc2NyYXRjaCkgKyBSSU5HX1RB
-SUxfSURYICogc2l6ZW9mKHUzMik7CiAJKmNzKysgPSAwOwogCi0JaTkxNV92bWFfbG9jayhzY3Jh
-dGNoKTsKIAllcnIgPSBpOTE1X3JlcXVlc3RfYXdhaXRfb2JqZWN0KHJxLCBzY3JhdGNoLT5vYmos
-IHRydWUpOwogCWlmICghZXJyKQogCQllcnIgPSBpOTE1X3ZtYV9tb3ZlX3RvX2FjdGl2ZShzY3Jh
-dGNoLCBycSwgRVhFQ19PQkpFQ1RfV1JJVEUpOwotCWk5MTVfdm1hX3VubG9jayhzY3JhdGNoKTsK
-IAogCWk5MTVfcmVxdWVzdF9nZXQocnEpOwogCWk5MTVfcmVxdWVzdF9hZGQocnEpOwpAQCAtNTA4
-MCw2ICs1MDgzLDEyIEBAIHN0YXRpYyBpbnQgX19saXZlX2xyY19zdGF0ZShzdHJ1Y3QgaW50ZWxf
-ZW5naW5lX2NzICplbmdpbmUsCiBlcnJfdW5waW46CiAJaW50ZWxfY29udGV4dF91bnBpbihjZSk7
-CiBlcnJfcHV0OgorCWlmIChlcnIgPT0gLUVERUFETEspIHsKKwkJZXJyID0gaTkxNV9nZW1fd3df
-Y3R4X2JhY2tvZmYoJnd3KTsKKwkJaWYgKCFlcnIpCisJCQlnb3RvIHJldHJ5OworCX0KKwlpOTE1
-X2dlbV93d19jdHhfZmluaSgmd3cpOwogCWludGVsX2NvbnRleHRfcHV0KGNlKTsKIAlyZXR1cm4g
-ZXJyOwogfQotLSAKMi4yOC4wCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fXwpJbnRlbC1nZnggbWFpbGluZyBsaXN0CkludGVsLWdmeEBsaXN0cy5mcmVlZGVz
-a3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9p
-bnRlbC1nZngK
+We want to introduce backoff logic, but we need to lock the
+pool object as well for command parsing. Because of this, we
+will need backoff logic for the engine pool obj, move the batch
+validation up slightly to eb_lookup_vmas, and the actual command
+parsing in a separate function which can get called from execbuf
+relocation fast and slowpath.
+
+Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+---
+ .../gpu/drm/i915/gem/i915_gem_execbuffer.c    | 68 ++++++++++---------
+ 1 file changed, 37 insertions(+), 31 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+index ac2001f10b61..c34e55cff73d 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+@@ -296,6 +296,8 @@ struct i915_execbuffer {
+ 	unsigned long num_fences;
+ };
+ 
++static int eb_parse(struct i915_execbuffer *eb);
++
+ static inline bool eb_use_cmdparser(const struct i915_execbuffer *eb)
+ {
+ 	return intel_engine_requires_cmd_parser(eb->engine) ||
+@@ -843,6 +845,7 @@ static struct i915_vma *eb_lookup_vma(struct i915_execbuffer *eb, u32 handle)
+ 
+ static int eb_lookup_vmas(struct i915_execbuffer *eb)
+ {
++	struct drm_i915_private *i915 = eb->i915;
+ 	unsigned int batch = eb_batch_index(eb);
+ 	unsigned int i;
+ 	int err = 0;
+@@ -856,18 +859,37 @@ static int eb_lookup_vmas(struct i915_execbuffer *eb)
+ 		vma = eb_lookup_vma(eb, eb->exec[i].handle);
+ 		if (IS_ERR(vma)) {
+ 			err = PTR_ERR(vma);
+-			break;
++			goto err;
+ 		}
+ 
+ 		err = eb_validate_vma(eb, &eb->exec[i], vma);
+ 		if (unlikely(err)) {
+ 			i915_vma_put(vma);
+-			break;
++			goto err;
+ 		}
+ 
+ 		eb_add_vma(eb, i, batch, vma);
+ 	}
+ 
++	if (unlikely(eb->batch->flags & EXEC_OBJECT_WRITE)) {
++		drm_dbg(&i915->drm,
++			"Attempting to use self-modifying batch buffer\n");
++		return -EINVAL;
++	}
++
++	if (range_overflows_t(u64,
++			      eb->batch_start_offset, eb->batch_len,
++			      eb->batch->vma->size)) {
++		drm_dbg(&i915->drm, "Attempting to use out-of-bounds batch\n");
++		return -EINVAL;
++	}
++
++	if (eb->batch_len == 0)
++		eb->batch_len = eb->batch->vma->size - eb->batch_start_offset;
++
++	return 0;
++
++err:
+ 	eb->vma[i].vma = NULL;
+ 	return err;
+ }
+@@ -1802,7 +1824,7 @@ static int eb_prefault_relocations(const struct i915_execbuffer *eb)
+ 	return 0;
+ }
+ 
+-static noinline int eb_relocate_slow(struct i915_execbuffer *eb)
++static noinline int eb_relocate_parse_slow(struct i915_execbuffer *eb)
+ {
+ 	bool have_copy = false;
+ 	struct eb_vma *ev;
+@@ -1867,6 +1889,11 @@ static noinline int eb_relocate_slow(struct i915_execbuffer *eb)
+ 	if (err)
+ 		goto err;
+ 
++	/* as last step, parse the command buffer */
++	err = eb_parse(eb);
++	if (err)
++		goto err;
++
+ 	/*
+ 	 * Leave the user relocations as are, this is the painfully slow path,
+ 	 * and we want to avoid the complication of dropping the lock whilst
+@@ -1899,7 +1926,7 @@ static noinline int eb_relocate_slow(struct i915_execbuffer *eb)
+ 	return err;
+ }
+ 
+-static int eb_relocate(struct i915_execbuffer *eb)
++static int eb_relocate_parse(struct i915_execbuffer *eb)
+ {
+ 	int err;
+ 
+@@ -1924,10 +1951,10 @@ static int eb_relocate(struct i915_execbuffer *eb)
+ 		}
+ 
+ 		if (err)
+-			return eb_relocate_slow(eb);
++			return eb_relocate_parse_slow(eb);
+ 	}
+ 
+-	return 0;
++	return eb_parse(eb);
+ }
+ 
+ static int eb_move_to_gpu(struct i915_execbuffer *eb)
+@@ -3045,7 +3072,7 @@ i915_gem_do_execbuffer(struct drm_device *dev,
+ 	if (unlikely(err))
+ 		goto err_context;
+ 
+-	err = eb_relocate(&eb);
++	err = eb_relocate_parse(&eb);
+ 	if (err) {
+ 		/*
+ 		 * If the user expects the execobject.offset and
+@@ -3058,33 +3085,10 @@ i915_gem_do_execbuffer(struct drm_device *dev,
+ 		goto err_vma;
+ 	}
+ 
+-	if (unlikely(eb.batch->flags & EXEC_OBJECT_WRITE)) {
+-		drm_dbg(&i915->drm,
+-			"Attempting to use self-modifying batch buffer\n");
+-		err = -EINVAL;
+-		goto err_vma;
+-	}
+-
+-	if (range_overflows_t(u64,
+-			      eb.batch_start_offset, eb.batch_len,
+-			      eb.batch->vma->size)) {
+-		drm_dbg(&i915->drm, "Attempting to use out-of-bounds batch\n");
+-		err = -EINVAL;
+-		goto err_vma;
+-	}
+-
+-	if (eb.batch_len == 0)
+-		eb.batch_len = eb.batch->vma->size - eb.batch_start_offset;
+-
+-	err = eb_parse(&eb);
+-	if (err)
+-		goto err_vma;
+-
+ 	/*
+ 	 * snb/ivb/vlv conflate the "batch in ppgtt" bit with the "non-secure
+ 	 * batch" bit. Hence we need to pin secure batches into the global gtt.
+ 	 * hsw should have this fixed, but bdw mucks it up again. */
+-	batch = eb.batch->vma;
+ 	if (eb.batch_flags & I915_DISPATCH_SECURE) {
+ 		struct i915_vma *vma;
+ 
+@@ -3098,13 +3102,15 @@ i915_gem_do_execbuffer(struct drm_device *dev,
+ 		 *   fitting due to fragmentation.
+ 		 * So this is actually safe.
+ 		 */
+-		vma = i915_gem_object_ggtt_pin(batch->obj, NULL, 0, 0, 0);
++		vma = i915_gem_object_ggtt_pin(eb.batch->vma->obj, NULL, 0, 0, 0);
+ 		if (IS_ERR(vma)) {
+ 			err = PTR_ERR(vma);
+ 			goto err_parse;
+ 		}
+ 
+ 		batch = vma;
++	} else {
++		batch = eb.batch->vma;
+ 	}
+ 
+ 	/* All GPU relocation batches must be submitted prior to the user rq */
+-- 
+2.28.0
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
