@@ -2,37 +2,75 @@ Return-Path: <SRS0=XCjr=B5=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3B17BC433EC
-	for <intel-gfx@archiver.kernel.org>; Wed, 19 Aug 2020 14:09:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 11D36C433DF
+	for <intel-gfx@archiver.kernel.org>; Wed, 19 Aug 2020 14:31:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1BC9E204FD
-	for <intel-gfx@archiver.kernel.org>; Wed, 19 Aug 2020 14:09:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1BC9E204FD
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id CB08720738
+	for <intel-gfx@archiver.kernel.org>; Wed, 19 Aug 2020 14:31:40 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=poorly.run header.i=@poorly.run header.b="A4iO4lAR"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CB08720738
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=poorly.run
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF74F6E452;
-	Wed, 19 Aug 2020 14:09:19 +0000 (UTC)
-Received: from mblankhorst.nl (mblankhorst.nl [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3089D6E3A6
- for <intel-gfx@lists.freedesktop.org>; Wed, 19 Aug 2020 14:09:11 +0000 (UTC)
-From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Wed, 19 Aug 2020 16:08:44 +0200
-Message-Id: <20200819140904.1708856-5-maarten.lankhorst@linux.intel.com>
-X-Mailer: git-send-email 2.28.0
-In-Reply-To: <20200819140904.1708856-1-maarten.lankhorst@linux.intel.com>
-References: <20200819140904.1708856-1-maarten.lankhorst@linux.intel.com>
-MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v2 04/24] Revert "drm/i915/gem: Split eb_vma
- into its own allocation"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 630EB6E045;
+	Wed, 19 Aug 2020 14:31:40 +0000 (UTC)
+Received: from mail-qk1-x743.google.com (mail-qk1-x743.google.com
+ [IPv6:2607:f8b0:4864:20::743])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0435F6E14B
+ for <intel-gfx@lists.freedesktop.org>; Wed, 19 Aug 2020 14:31:40 +0000 (UTC)
+Received: by mail-qk1-x743.google.com with SMTP id p4so21775585qkf.0
+ for <intel-gfx@lists.freedesktop.org>; Wed, 19 Aug 2020 07:31:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=poorly.run; s=google;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references;
+ bh=hXzFL4KE7k0dSeP5KD3V+ObTUw3O6/zvVmYc5yQLvsY=;
+ b=A4iO4lAR8nK9td1V4HB/VS4Ch+dcjWlVfGmry9P5tDFbNSzSkQkjPkHTyhz/u/taue
+ lPcrdoxWSOGJ0nd2eyL3QY/JO4RjunojmTEH4QiMmHc8Xht3ntBijEqUkuIMz2Q34ejU
+ /LTNC6dZvExqbvs11YpLcOzLgoHjbB/GnbbKkmeUjh71F7RLvIZw0gzCDmGdOcHckBYN
+ pRFXKpWBEW+kUH7IbIR9D3ti9Nqf0HfazUIeb4Rhdcu59qNbsloBsT+vhQPQbZqa/vas
+ WQKc59UjcTimbHLW0XgObBLuoU+wnOwiDOusynRJgoLJ5mQ8v3dh9MK+18D+wyer9mqR
+ ZNYw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references;
+ bh=hXzFL4KE7k0dSeP5KD3V+ObTUw3O6/zvVmYc5yQLvsY=;
+ b=BUVMqHfuW0zOUREdGNOgVQa23+1WHoKEDObrXoLp87925qKNwKbUJC+5zUoQ7zAyOT
+ BfIQ1Wp7Tfa02KARycNRHjgEMTfjzpxM4oL/piU5DegORCLjV03g1zt3mnzl7/5QLTUO
+ zzTs0nCdei97SHC/A1wrOOpQqQ75uzTwhXnZMVddSTRHivuFxKbdTAvDesfGQVXeEf/3
+ y+WRjScUQrJ7o/E+4SrA3G5uWXUWRtj4cv7m00sKyFvRw2+i56Zg5pmwv6MW+kAEiCja
+ m9zKM5Ffvr0Evs2lfKp5ZsZQ6YmdSqw/6YDd+auHtDc8dFnsoKTxm5z4G0cYFYrb+gsS
+ kIAg==
+X-Gm-Message-State: AOAM530GQa0XhMct2L4RDAxAbFM0gSaItK5e2yZT+WT/ONEfjAwhsUKM
+ WNzV3zPSmtfkQAsjBZKHrRKyLg==
+X-Google-Smtp-Source: ABdhPJwoksaRSjiw4RN8B3WPniYEmfBPoAZMxuSD19MMYicTSENJocqMImv6HgE/y780P83sn16d6A==
+X-Received: by 2002:ae9:efcd:: with SMTP id
+ d196mr21694818qkg.251.1597847498781; 
+ Wed, 19 Aug 2020 07:31:38 -0700 (PDT)
+Received: from localhost (mobile-166-177-185-175.mycingular.net.
+ [166.177.185.175])
+ by smtp.gmail.com with ESMTPSA id 205sm24163482qkj.19.2020.08.19.07.31.37
+ (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
+ Wed, 19 Aug 2020 07:31:38 -0700 (PDT)
+From: Sean Paul <sean@poorly.run>
+To: lyude@redhat.com, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, juston.li@intel.com,
+ jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
+ rodrigo.vivi@intel.com, anshuman.gupta@intel.com
+Date: Wed, 19 Aug 2020 10:31:24 -0400
+Message-Id: <20200819143133.46232-1-sean@poorly.run>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <11e78f1f2a56e69f29cb9e8c078c158c9ff401fb.camel@redhat.com>
+References: <11e78f1f2a56e69f29cb9e8c078c158c9ff401fb.camel@redhat.com>
+Subject: [Intel-gfx] [PATCH v8.5] drm/mst: Add support for
+ QUERY_STREAM_ENCRYPTION_STATUS MST sideband message
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,263 +83,398 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
+Cc: Sean Paul <seanpaul@chromium.org>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This reverts commit 0f1dd02295f3 ("drm/i915/gem: Split eb_vma into
-its own allocation") and also moves all unreserving to a single
-place at the end, which is a minor simplification.
+From: Sean Paul <seanpaul@chromium.org>
 
-With the WW locking, we will drop all references only at the
-end when unlocking, so refcounting can now be removed.
+Used to query whether an MST stream is encrypted or not.
 
-Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+Cc: Lyude Paul <lyude@redhat.com>
+Reviewed-by: Anshuman Gupta <anshuman.gupta@intel.com>
+Reviewed-by: Lyude Paul <lyude@redhat.com>
+Signed-off-by: Sean Paul <seanpaul@chromium.org>
+
+Link: https://patchwork.freedesktop.org/patch/msgid/20200218220242.107265-14-sean@poorly.run #v4
+Link: https://patchwork.freedesktop.org/patch/msgid/20200305201236.152307-15-sean@poorly.run #v5
+Link: https://patchwork.freedesktop.org/patch/msgid/20200429195502.39919-15-sean@poorly.run #v6
+Link: https://patchwork.freedesktop.org/patch/msgid/20200623155907.22961-16-sean@poorly.run #v7
+Link: https://patchwork.freedesktop.org/patch/msgid/20200818153910.27894-16-sean@poorly.run #v8
+
+Changes in v4:
+-Added to the set
+Changes in v5:
+-None
+Changes in v6:
+-Use FIELD_PREP to generate request buffer bitfields (Lyude)
+-Add mst selftest and dump/decode_sideband_req for QSES (Lyude)
+Changes in v7:
+-None
+Changes in v8:
+-Reverse the parsing on the hdcp_*x_device_present bits and leave
+ breadcrumb in case this is incorrect (Anshuman)
+Changes in v8.5:
+-s/DRM_DEBUG_KMS/drm_dbg_kms/ (Lyude)
 ---
- .../gpu/drm/i915/gem/i915_gem_execbuffer.c    | 124 +++++++-----------
- 1 file changed, 51 insertions(+), 73 deletions(-)
+ drivers/gpu/drm/drm_dp_mst_topology.c         | 150 ++++++++++++++++++
+ .../drm/selftests/test-drm_dp_mst_helper.c    |  17 ++
+ include/drm/drm_dp_helper.h                   |   3 +
+ include/drm/drm_dp_mst_helper.h               |  44 +++++
+ 4 files changed, 214 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-index e8d713f78323..ccaaf9e599a0 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-@@ -41,11 +41,6 @@ struct eb_vma {
- 	u32 handle;
+diff --git a/drivers/gpu/drm/drm_dp_mst_topology.c b/drivers/gpu/drm/drm_dp_mst_topology.c
+index 67dd72ea200e..0968fc716d81 100644
+--- a/drivers/gpu/drm/drm_dp_mst_topology.c
++++ b/drivers/gpu/drm/drm_dp_mst_topology.c
+@@ -20,11 +20,13 @@
+  * OF THIS SOFTWARE.
+  */
+ 
++#include <linux/bitfield.h>
+ #include <linux/delay.h>
+ #include <linux/errno.h>
+ #include <linux/i2c.h>
+ #include <linux/init.h>
+ #include <linux/kernel.h>
++#include <linux/random.h>
+ #include <linux/sched.h>
+ #include <linux/seq_file.h>
+ #include <linux/iopoll.h>
+@@ -423,6 +425,22 @@ drm_dp_encode_sideband_req(const struct drm_dp_sideband_msg_req_body *req,
+ 		memcpy(&buf[idx], req->u.i2c_write.bytes, req->u.i2c_write.num_bytes);
+ 		idx += req->u.i2c_write.num_bytes;
+ 		break;
++	case DP_QUERY_STREAM_ENC_STATUS: {
++		const struct drm_dp_query_stream_enc_status *msg;
++
++		msg = &req->u.enc_status;
++		buf[idx] = msg->stream_id;
++		idx++;
++		memcpy(&buf[idx], msg->client_id, sizeof(msg->client_id));
++		idx += sizeof(msg->client_id);
++		buf[idx] = 0;
++		buf[idx] |= FIELD_PREP(GENMASK(1, 0), msg->stream_event);
++		buf[idx] |= msg->valid_stream_event ? BIT(2) : 0;
++		buf[idx] |= FIELD_PREP(GENMASK(4, 3), msg->stream_behavior);
++		buf[idx] |= msg->valid_stream_behavior ? BIT(5) : 0;
++		idx++;
++		}
++		break;
+ 	}
+ 	raw->cur_len = idx;
+ }
+@@ -551,6 +569,20 @@ drm_dp_decode_sideband_req(const struct drm_dp_sideband_msg_tx *raw,
+ 				return -ENOMEM;
+ 		}
+ 		break;
++	case DP_QUERY_STREAM_ENC_STATUS:
++		req->u.enc_status.stream_id = buf[idx++];
++		for (i = 0; i < sizeof(req->u.enc_status.client_id); i++)
++			req->u.enc_status.client_id[i] = buf[idx++];
++
++		req->u.enc_status.stream_event = FIELD_GET(GENMASK(1, 0),
++							   buf[idx]);
++		req->u.enc_status.valid_stream_event = FIELD_GET(BIT(2),
++								 buf[idx]);
++		req->u.enc_status.stream_behavior = FIELD_GET(GENMASK(4, 3),
++							      buf[idx]);
++		req->u.enc_status.valid_stream_behavior = FIELD_GET(BIT(5),
++								    buf[idx]);
++		break;
+ 	}
+ 
+ 	return 0;
+@@ -629,6 +661,16 @@ drm_dp_dump_sideband_msg_req_body(const struct drm_dp_sideband_msg_req_body *req
+ 		  req->u.i2c_write.num_bytes, req->u.i2c_write.num_bytes,
+ 		  req->u.i2c_write.bytes);
+ 		break;
++	case DP_QUERY_STREAM_ENC_STATUS:
++		P("stream_id=%u client_id=%*ph stream_event=%x "
++		  "valid_event=%d stream_behavior=%x valid_behavior=%d",
++		  req->u.enc_status.stream_id,
++		  (int)ARRAY_SIZE(req->u.enc_status.client_id),
++		  req->u.enc_status.client_id, req->u.enc_status.stream_event,
++		  req->u.enc_status.valid_stream_event,
++		  req->u.enc_status.stream_behavior,
++		  req->u.enc_status.valid_stream_behavior);
++		break;
+ 	default:
+ 		P("???\n");
+ 		break;
+@@ -936,6 +978,42 @@ static bool drm_dp_sideband_parse_power_updown_phy_ack(struct drm_dp_sideband_ms
+ 	return true;
+ }
+ 
++static bool
++drm_dp_sideband_parse_query_stream_enc_status(
++				struct drm_dp_sideband_msg_rx *raw,
++				struct drm_dp_sideband_msg_reply_body *repmsg)
++{
++	struct drm_dp_query_stream_enc_status_ack_reply *reply;
++
++	reply = &repmsg->u.enc_status;
++
++	reply->stream_id = raw->msg[3];
++
++	reply->reply_signed = raw->msg[2] & BIT(0);
++
++	/*
++	 * NOTE: It's my impression from reading the spec that the below parsing
++	 * is correct. However I noticed while testing with an HDCP 1.4 display
++	 * through an HDCP 2.2 hub that only bit 3 was set. In that case, I
++	 * would expect both bits to be set. So keep the parsing following the
++	 * spec, but beware reality might not match the spec (at least for some
++	 * configurations).
++	 */
++	reply->hdcp_1x_device_present = raw->msg[2] & BIT(4);
++	reply->hdcp_2x_device_present = raw->msg[2] & BIT(3);
++
++	reply->query_capable_device_present = raw->msg[2] & BIT(5);
++	reply->legacy_device_present = raw->msg[2] & BIT(6);
++	reply->unauthorizable_device_present = raw->msg[2] & BIT(7);
++
++	reply->auth_completed = !!(raw->msg[1] & BIT(3));
++	reply->encryption_enabled = !!(raw->msg[1] & BIT(4));
++	reply->repeater_present = !!(raw->msg[1] & BIT(5));
++	reply->state = (raw->msg[1] & GENMASK(7, 6)) >> 6;
++
++	return true;
++}
++
+ static bool drm_dp_sideband_parse_reply(struct drm_dp_sideband_msg_rx *raw,
+ 					struct drm_dp_sideband_msg_reply_body *msg)
+ {
+@@ -970,6 +1048,8 @@ static bool drm_dp_sideband_parse_reply(struct drm_dp_sideband_msg_rx *raw,
+ 		return drm_dp_sideband_parse_power_updown_phy_ack(raw, msg);
+ 	case DP_CLEAR_PAYLOAD_ID_TABLE:
+ 		return true; /* since there's nothing to parse */
++	case DP_QUERY_STREAM_ENC_STATUS:
++		return drm_dp_sideband_parse_query_stream_enc_status(raw, msg);
+ 	default:
+ 		DRM_ERROR("Got unknown reply 0x%02x (%s)\n", msg->req_type,
+ 			  drm_dp_mst_req_type_str(msg->req_type));
+@@ -1121,6 +1201,25 @@ static void build_power_updown_phy(struct drm_dp_sideband_msg_tx *msg,
+ 	msg->path_msg = true;
+ }
+ 
++static int
++build_query_stream_enc_status(struct drm_dp_sideband_msg_tx *msg, u8 stream_id,
++			      u8 *q_id)
++{
++	struct drm_dp_sideband_msg_req_body req;
++
++	req.req_type = DP_QUERY_STREAM_ENC_STATUS;
++	req.u.enc_status.stream_id = stream_id;
++	memcpy(req.u.enc_status.client_id, q_id,
++	       sizeof(req.u.enc_status.client_id));
++	req.u.enc_status.stream_event = 0;
++	req.u.enc_status.valid_stream_event = false;
++	req.u.enc_status.stream_behavior = 0;
++	req.u.enc_status.valid_stream_behavior = false;
++
++	drm_dp_encode_sideband_req(&req, msg);
++	return 0;
++}
++
+ static int drm_dp_mst_assign_payload_id(struct drm_dp_mst_topology_mgr *mgr,
+ 					struct drm_dp_vcpi *vcpi)
+ {
+@@ -3153,6 +3252,57 @@ int drm_dp_send_power_updown_phy(struct drm_dp_mst_topology_mgr *mgr,
+ }
+ EXPORT_SYMBOL(drm_dp_send_power_updown_phy);
+ 
++int drm_dp_send_query_stream_enc_status(struct drm_dp_mst_topology_mgr *mgr,
++		struct drm_dp_mst_port *port,
++		struct drm_dp_query_stream_enc_status_ack_reply *status)
++{
++	struct drm_dp_sideband_msg_tx *txmsg;
++	u8 nonce[7];
++	int len, ret;
++
++	txmsg = kzalloc(sizeof(*txmsg), GFP_KERNEL);
++	if (!txmsg)
++		return -ENOMEM;
++
++	port = drm_dp_mst_topology_get_port_validated(mgr, port);
++	if (!port) {
++		ret = -EINVAL;
++		goto out_get_port;
++	}
++
++	get_random_bytes(nonce, sizeof(nonce));
++
++	/*
++	 * "Source device targets the QUERY_STREAM_ENCRYPTION_STATUS message
++	 *  transaction at the MST Branch device directly connected to the
++	 *  Source"
++	 */
++	txmsg->dst = mgr->mst_primary;
++
++	len = build_query_stream_enc_status(txmsg, port->vcpi.vcpi, nonce);
++
++	drm_dp_queue_down_tx(mgr, txmsg);
++
++	ret = drm_dp_mst_wait_tx_reply(mgr->mst_primary, txmsg);
++	if (ret < 0) {
++		goto out;
++	} else if (txmsg->reply.reply_type == DP_SIDEBAND_REPLY_NAK) {
++		drm_dbg_kms(mgr->dev, "query encryption status nak received\n");
++		ret = -ENXIO;
++		goto out;
++	}
++
++	ret = 0;
++	memcpy(status, &txmsg->reply.u.enc_status, sizeof(*status));
++
++out:
++	drm_dp_mst_topology_put_port(port);
++out_get_port:
++	kfree(txmsg);
++	return ret;
++}
++EXPORT_SYMBOL(drm_dp_send_query_stream_enc_status);
++
+ static int drm_dp_create_payload_step1(struct drm_dp_mst_topology_mgr *mgr,
+ 				       int id,
+ 				       struct drm_dp_payload *payload)
+diff --git a/drivers/gpu/drm/selftests/test-drm_dp_mst_helper.c b/drivers/gpu/drm/selftests/test-drm_dp_mst_helper.c
+index bd990d178765..1d696ec001cf 100644
+--- a/drivers/gpu/drm/selftests/test-drm_dp_mst_helper.c
++++ b/drivers/gpu/drm/selftests/test-drm_dp_mst_helper.c
+@@ -5,6 +5,8 @@
+ 
+ #define PREFIX_STR "[drm_dp_mst_helper]"
+ 
++#include <linux/random.h>
++
+ #include <drm/drm_dp_mst_helper.h>
+ #include <drm/drm_print.h>
+ 
+@@ -237,6 +239,21 @@ int igt_dp_mst_sideband_msg_req_decode(void *unused)
+ 	in.u.i2c_write.bytes = data;
+ 	DO_TEST();
+ 
++	in.req_type = DP_QUERY_STREAM_ENC_STATUS;
++	in.u.enc_status.stream_id = 1;
++	DO_TEST();
++	get_random_bytes(in.u.enc_status.client_id,
++			 sizeof(in.u.enc_status.client_id));
++	DO_TEST();
++	in.u.enc_status.stream_event = 3;
++	DO_TEST();
++	in.u.enc_status.valid_stream_event = 0;
++	DO_TEST();
++	in.u.enc_status.stream_behavior = 3;
++	DO_TEST();
++	in.u.enc_status.valid_stream_behavior = 1;
++	DO_TEST();
++
+ #undef DO_TEST
+ 	return 0;
+ }
+diff --git a/include/drm/drm_dp_helper.h b/include/drm/drm_dp_helper.h
+index 5c2819924862..5e41e15cb5a1 100644
+--- a/include/drm/drm_dp_helper.h
++++ b/include/drm/drm_dp_helper.h
+@@ -1109,6 +1109,9 @@
+ #define DP_POWER_DOWN_PHY		0x25
+ #define DP_SINK_EVENT_NOTIFY		0x30
+ #define DP_QUERY_STREAM_ENC_STATUS	0x38
++#define  DP_QUERY_STREAM_ENC_STATUS_STATE_NO_EXIST	0
++#define  DP_QUERY_STREAM_ENC_STATUS_STATE_INACTIVE	1
++#define  DP_QUERY_STREAM_ENC_STATUS_STATE_ACTIVE	2
+ 
+ /* DP 1.2 MST sideband reply types */
+ #define DP_SIDEBAND_REPLY_ACK		0x00
+diff --git a/include/drm/drm_dp_mst_helper.h b/include/drm/drm_dp_mst_helper.h
+index 8b9eb4db3381..371eef8798ad 100644
+--- a/include/drm/drm_dp_mst_helper.h
++++ b/include/drm/drm_dp_mst_helper.h
+@@ -313,6 +313,34 @@ struct drm_dp_remote_i2c_write_ack_reply {
+ 	u8 port_number;
  };
  
--struct eb_vma_array {
--	struct kref kref;
--	struct eb_vma vma[];
--};
--
- enum {
- 	FORCE_CPU_RELOC = 1,
- 	FORCE_GTT_RELOC,
-@@ -58,6 +53,7 @@ enum {
- #define __EXEC_OBJECT_NEEDS_MAP		BIT(29)
- #define __EXEC_OBJECT_NEEDS_BIAS	BIT(28)
- #define __EXEC_OBJECT_INTERNAL_FLAGS	(~0u << 28) /* all of the above */
-+#define __EXEC_OBJECT_RESERVED (__EXEC_OBJECT_HAS_PIN | __EXEC_OBJECT_HAS_FENCE)
- 
- #define __EXEC_HAS_RELOC	BIT(31)
- #define __EXEC_INTERNAL_FLAGS	(~0u << 31)
-@@ -295,7 +291,6 @@ struct i915_execbuffer {
- 	 */
- 	int lut_size;
- 	struct hlist_head *buckets; /** ht for relocation handles */
--	struct eb_vma_array *array;
- 
- 	struct eb_fence *fences;
- 	unsigned long num_fences;
-@@ -308,62 +303,8 @@ static inline bool eb_use_cmdparser(const struct i915_execbuffer *eb)
- 		 eb->args->batch_len);
- }
- 
--static struct eb_vma_array *eb_vma_array_create(unsigned int count)
--{
--	struct eb_vma_array *arr;
--
--	arr = kvmalloc(struct_size(arr, vma, count), GFP_KERNEL | __GFP_NOWARN);
--	if (!arr)
--		return NULL;
--
--	kref_init(&arr->kref);
--	arr->vma[0].vma = NULL;
--
--	return arr;
--}
--
--static inline void eb_unreserve_vma(struct eb_vma *ev)
--{
--	struct i915_vma *vma = ev->vma;
--
--	if (unlikely(ev->flags & __EXEC_OBJECT_HAS_FENCE))
--		__i915_vma_unpin_fence(vma);
--
--	if (ev->flags & __EXEC_OBJECT_HAS_PIN)
--		__i915_vma_unpin(vma);
--
--	ev->flags &= ~(__EXEC_OBJECT_HAS_PIN |
--		       __EXEC_OBJECT_HAS_FENCE);
--}
--
--static void eb_vma_array_destroy(struct kref *kref)
--{
--	struct eb_vma_array *arr = container_of(kref, typeof(*arr), kref);
--	struct eb_vma *ev = arr->vma;
--
--	while (ev->vma) {
--		eb_unreserve_vma(ev);
--		i915_vma_put(ev->vma);
--		ev++;
--	}
--
--	kvfree(arr);
--}
--
--static void eb_vma_array_put(struct eb_vma_array *arr)
--{
--	kref_put(&arr->kref, eb_vma_array_destroy);
--}
--
- static int eb_create(struct i915_execbuffer *eb)
- {
--	/* Allocate an extra slot for use by the command parser + sentinel */
--	eb->array = eb_vma_array_create(eb->buffer_count + 2);
--	if (!eb->array)
--		return -ENOMEM;
--
--	eb->vma = eb->array->vma;
--
- 	if (!(eb->args->flags & I915_EXEC_HANDLE_LUT)) {
- 		unsigned int size = 1 + ilog2(eb->buffer_count);
- 
-@@ -397,10 +338,8 @@ static int eb_create(struct i915_execbuffer *eb)
- 				break;
- 		} while (--size);
- 
--		if (unlikely(!size)) {
--			eb_vma_array_put(eb->array);
-+		if (unlikely(!size))
- 			return -ENOMEM;
--		}
- 
- 		eb->lut_size = size;
- 	} else {
-@@ -511,6 +450,26 @@ eb_pin_vma(struct i915_execbuffer *eb,
- 	return !eb_vma_misplaced(entry, vma, ev->flags);
- }
- 
-+static inline void __eb_unreserve_vma(struct i915_vma *vma, unsigned int flags)
-+{
-+	GEM_BUG_ON(!(flags & __EXEC_OBJECT_HAS_PIN));
++struct drm_dp_query_stream_enc_status_ack_reply {
++	/* Bit[23:16]- Stream Id */
++	u8 stream_id;
 +
-+	if (unlikely(flags & __EXEC_OBJECT_HAS_FENCE))
-+		__i915_vma_unpin_fence(vma);
++	/* Bit[15]- Signed */
++	bool reply_signed;
 +
-+	__i915_vma_unpin(vma);
-+}
++	/* Bit[10:8]- Stream Output Sink Type */
++	bool unauthorizable_device_present;
++	bool legacy_device_present;
++	bool query_capable_device_present;
 +
-+static inline void
-+eb_unreserve_vma(struct eb_vma *ev)
-+{
-+	if (!(ev->flags & __EXEC_OBJECT_HAS_PIN))
-+		return;
++	/* Bit[12:11]- Stream Output CP Type */
++	bool hdcp_1x_device_present;
++	bool hdcp_2x_device_present;
 +
-+	__eb_unreserve_vma(ev->vma, ev->flags);
-+	ev->flags &= ~__EXEC_OBJECT_RESERVED;
-+}
++	/* Bit[4]- Stream Authentication */
++	bool auth_completed;
 +
- static int
- eb_validate_vma(struct i915_execbuffer *eb,
- 		struct drm_i915_gem_exec_object2 *entry,
-@@ -933,13 +892,31 @@ eb_get_vma(const struct i915_execbuffer *eb, unsigned long handle)
- 	}
- }
- 
-+static void eb_release_vmas(const struct i915_execbuffer *eb)
-+{
-+	const unsigned int count = eb->buffer_count;
-+	unsigned int i;
++	/* Bit[3]- Stream Encryption */
++	bool encryption_enabled;
 +
-+	for (i = 0; i < count; i++) {
-+		struct eb_vma *ev = &eb->vma[i];
-+		struct i915_vma *vma = ev->vma;
++	/* Bit[2]- Stream Repeater Function Present */
++	bool repeater_present;
 +
-+		if (!vma)
-+			break;
++	/* Bit[1:0]- Stream State */
++	u8 state;
++};
+ 
+ #define DRM_DP_MAX_SDP_STREAMS 16
+ struct drm_dp_allocate_payload {
+@@ -374,6 +402,15 @@ struct drm_dp_remote_i2c_write {
+ 	u8 *bytes;
+ };
+ 
++struct drm_dp_query_stream_enc_status {
++	u8 stream_id;
++	u8 client_id[7];	/* 56-bit nonce */
++	u8 stream_event;
++	bool valid_stream_event;
++	u8 stream_behavior;
++	u8 valid_stream_behavior;
++};
 +
-+		eb->vma[i].vma = NULL;
+ /* this covers ENUM_RESOURCES, POWER_DOWN_PHY, POWER_UP_PHY */
+ struct drm_dp_port_number_req {
+ 	u8 port_number;
+@@ -422,6 +459,8 @@ struct drm_dp_sideband_msg_req_body {
+ 
+ 		struct drm_dp_remote_i2c_read i2c_read;
+ 		struct drm_dp_remote_i2c_write i2c_write;
 +
-+		if (ev->flags & __EXEC_OBJECT_HAS_PIN)
-+			__eb_unreserve_vma(vma, ev->flags);
++		struct drm_dp_query_stream_enc_status enc_status;
+ 	} u;
+ };
+ 
+@@ -444,6 +483,8 @@ struct drm_dp_sideband_msg_reply_body {
+ 		struct drm_dp_remote_i2c_read_ack_reply remote_i2c_read_ack;
+ 		struct drm_dp_remote_i2c_read_nak_reply remote_i2c_read_nack;
+ 		struct drm_dp_remote_i2c_write_ack_reply remote_i2c_write_ack;
 +
-+		i915_vma_put(vma);
-+	}
-+}
-+
- static void eb_destroy(const struct i915_execbuffer *eb)
- {
- 	GEM_BUG_ON(eb->reloc_cache.rq);
++		struct drm_dp_query_stream_enc_status_ack_reply enc_status;
+ 	} u;
+ };
  
--	if (eb->array)
--		eb_vma_array_put(eb->array);
--
- 	if (eb->lut_size > 0)
- 		kfree(eb->buckets);
- }
-@@ -2021,12 +1998,9 @@ static int eb_move_to_gpu(struct i915_execbuffer *eb)
- 			err = i915_vma_move_to_active(vma, eb->request, flags);
+@@ -808,6 +849,9 @@ drm_dp_atomic_release_vcpi_slots(struct drm_atomic_state *state,
+ 				 struct drm_dp_mst_port *port);
+ int drm_dp_send_power_updown_phy(struct drm_dp_mst_topology_mgr *mgr,
+ 				 struct drm_dp_mst_port *port, bool power_up);
++int drm_dp_send_query_stream_enc_status(struct drm_dp_mst_topology_mgr *mgr,
++		struct drm_dp_mst_port *port,
++		struct drm_dp_query_stream_enc_status_ack_reply *status);
+ int __must_check drm_dp_mst_atomic_check(struct drm_atomic_state *state);
  
- 		i915_vma_unlock(vma);
--		eb_unreserve_vma(ev);
- 	}
- 	ww_acquire_fini(&acquire);
- 
--	eb_vma_array_put(fetch_and_zero(&eb->array));
--
- 	if (unlikely(err))
- 		goto err_skip;
- 
-@@ -2323,7 +2297,6 @@ static int eb_parse(struct i915_execbuffer *eb)
- 	eb->vma[eb->buffer_count].vma = i915_vma_get(shadow);
- 	eb->vma[eb->buffer_count].flags = __EXEC_OBJECT_HAS_PIN;
- 	eb->batch = &eb->vma[eb->buffer_count++];
--	eb->vma[eb->buffer_count].vma = NULL;
- 
- 	eb->trampoline = trampoline;
- 	eb->batch_start_offset = 0;
-@@ -2989,6 +2962,8 @@ i915_gem_do_execbuffer(struct drm_device *dev,
- 		args->flags |= __EXEC_HAS_RELOC;
- 
- 	eb.exec = exec;
-+	eb.vma = (struct eb_vma *)(exec + args->buffer_count + 1);
-+	eb.vma[0].vma = NULL;
- 
- 	eb.invalid_flags = __EXEC_OBJECT_UNKNOWN_FLAGS;
- 	reloc_cache_init(&eb.reloc_cache, eb.i915);
-@@ -3198,6 +3173,8 @@ i915_gem_do_execbuffer(struct drm_device *dev,
- 	if (batch->private)
- 		intel_gt_buffer_pool_put(batch->private);
- err_vma:
-+	if (eb.exec)
-+		eb_release_vmas(&eb);
- 	if (eb.trampoline)
- 		i915_vma_unpin(eb.trampoline);
- 	eb_unpin_engine(&eb);
-@@ -3217,7 +3194,7 @@ i915_gem_do_execbuffer(struct drm_device *dev,
- 
- static size_t eb_element_size(void)
- {
--	return sizeof(struct drm_i915_gem_exec_object2);
-+	return sizeof(struct drm_i915_gem_exec_object2) + sizeof(struct eb_vma);
- }
- 
- static bool check_buffer_count(size_t count)
-@@ -3273,7 +3250,7 @@ i915_gem_execbuffer_ioctl(struct drm_device *dev, void *data,
- 	/* Copy in the exec list from userland */
- 	exec_list = kvmalloc_array(count, sizeof(*exec_list),
- 				   __GFP_NOWARN | GFP_KERNEL);
--	exec2_list = kvmalloc_array(count, eb_element_size(),
-+	exec2_list = kvmalloc_array(count + 1, eb_element_size(),
- 				    __GFP_NOWARN | GFP_KERNEL);
- 	if (exec_list == NULL || exec2_list == NULL) {
- 		drm_dbg(&i915->drm,
-@@ -3350,7 +3327,8 @@ i915_gem_execbuffer2_ioctl(struct drm_device *dev, void *data,
- 	if (err)
- 		return err;
- 
--	exec2_list = kvmalloc_array(count, eb_element_size(),
-+	/* Allocate an extra slot for use by the command parser */
-+	exec2_list = kvmalloc_array(count + 1, eb_element_size(),
- 				    __GFP_NOWARN | GFP_KERNEL);
- 	if (exec2_list == NULL) {
- 		drm_dbg(&i915->drm, "Failed to allocate exec list for %zd buffers\n",
+ void drm_dp_mst_get_port_malloc(struct drm_dp_mst_port *port);
 -- 
-2.28.0
+Sean Paul, Software Engineer, Google / Chromium OS
 
 _______________________________________________
 Intel-gfx mailing list
