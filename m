@@ -2,41 +2,77 @@ Return-Path: <SRS0=XCjr=B5=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9D160C433DF
-	for <intel-gfx@archiver.kernel.org>; Wed, 19 Aug 2020 16:57:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4677DC433E1
+	for <intel-gfx@archiver.kernel.org>; Wed, 19 Aug 2020 17:04:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3C14D207FF
-	for <intel-gfx@archiver.kernel.org>; Wed, 19 Aug 2020 16:57:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3C14D207FF
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ucw.cz
+	by mail.kernel.org (Postfix) with ESMTPS id 156F0208A9
+	for <intel-gfx@archiver.kernel.org>; Wed, 19 Aug 2020 17:04:55 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Do1SU13c"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 156F0208A9
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D72916E536;
-	Wed, 19 Aug 2020 16:57:22 +0000 (UTC)
-Received: from jabberwock.ucw.cz (jabberwock.ucw.cz [46.255.230.98])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C83E6E536
- for <intel-gfx@lists.freedesktop.org>; Wed, 19 Aug 2020 16:57:21 +0000 (UTC)
-Received: by jabberwock.ucw.cz (Postfix, from userid 1017)
- id 607D51C0BBB; Wed, 19 Aug 2020 18:57:17 +0200 (CEST)
-Date: Wed, 19 Aug 2020 18:57:17 +0200
-From: Pavel Machek <pavel@ucw.cz>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Message-ID: <20200819165716.GA3803@amd>
-References: <20200817161132.GA4711@amd>
- <CAHk-=wh6_eWwvpL=AhOeY0btf_dkpu+0joNzPZWfbBWgAeAhMA@mail.gmail.com>
- <CAPM=9tw8LVWsuA6m_nkUDgm00iz2txYRNZY0b0WWZbyiUVzLEw@mail.gmail.com>
- <CAHk-=wg34bw1ude07nC_XCPOJHZ21-v6117p4574d5S7iP4gxw@mail.gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A90BF6E563;
+	Wed, 19 Aug 2020 17:04:54 +0000 (UTC)
+Received: from mail-oi1-x242.google.com (mail-oi1-x242.google.com
+ [IPv6:2607:f8b0:4864:20::242])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CFF166E0FD;
+ Wed, 19 Aug 2020 16:24:28 +0000 (UTC)
+Received: by mail-oi1-x242.google.com with SMTP id v13so21486627oiv.13;
+ Wed, 19 Aug 2020 09:24:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=HU4eQwextT3u0Vy8pHWyNShnAd/EOsS2z1U17KkaX1w=;
+ b=Do1SU13c8m0ev7rC+aSlATz3YC7HLEYtrWvOJM3hlYx5tibAn4nY6QBTQ6sL63+y1B
+ MMICOhoWO2QuUo7XJXcNmi2U+jZFkCQmxwKcysxTB45P8s8hyGWMfAV/b9TWZwGMUstf
+ eQNrTEk4Md6ORX7QTkn+vE+7QuV40o6StptyB5lbRYfwqel6HisdptT26ZHXxM5fvMgf
+ Hrtd8Cg5JcovJzKRBu4i1OQaNFicedwyX0Gjkgy9VMM/toVIToznUVdAB9xldZ2UK6eB
+ IrMKr2f8qBsOPZBeTcYzlGRInoJUjiFOhM2YCLXROPBSSoWa8KVaeHXHoJOeD+LqB0Ea
+ LpeQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=HU4eQwextT3u0Vy8pHWyNShnAd/EOsS2z1U17KkaX1w=;
+ b=GQtZfoBlQ0GfLnxrz69JrH0uzF1XKeAKCLmI4qSt9Ep4TEIOazA13U9HG7b7GU7UEa
+ 7AIykoOzZbujdhEeC9VIiAcLJLVLyqHnKo4aTL5pS+URRgORDWgAE3WP/rccMFy7MXFw
+ absa+Li5BXOWbhIUxfoAEtMxeno4EVJimI7WRhFp6v8h6X3EhoJDdR7qIwuS2SoPYfTX
+ 0R5+5KnITbH4Sx98X0q4kvHwUdCFiMDrWCczHNHfjsDmaLvwLHOxnv95RXXd8tMKGXdk
+ gMstaLtfKR0rV/mW7S+y8vJ9x9EJlVyj5ExeiLg3aZp0rFCqvDnaA4gjO1zzKkBPed8z
+ 61Jw==
+X-Gm-Message-State: AOAM531MKiMCrYsniIqh8d40jmBb/N2jn74U48CZ0xA8ocfd2+PuARzO
+ R8vk6bc5ULoj0N1thMYowMFTZVdbb4T4J5T3SZA=
+X-Google-Smtp-Source: ABdhPJzpfHTlGoLujvQ5GY5n5H9BSvs/wYOUntKm/P0xrLOUSJQWGq951RNy2Mt1jRO58Yz8dbZ6uoLPp4/f2bRhLs0=
+X-Received: by 2002:a05:6808:4c5:: with SMTP id
+ a5mr3863067oie.175.1597854268104; 
+ Wed, 19 Aug 2020 09:24:28 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <CAHk-=wg34bw1ude07nC_XCPOJHZ21-v6117p4574d5S7iP4gxw@mail.gmail.com>
-User-Agent: Mutt/1.5.23 (2014-03-12)
-Subject: Re: [Intel-gfx] 5.9-rc1: graphics regression moved from -next to
- mainline
+References: <20200817091617.28119-1-allen.cryptic@gmail.com>
+ <20200817091617.28119-2-allen.cryptic@gmail.com>
+ <b5508ca4-0641-7265-2939-5f03cbfab2e2@kernel.dk>
+ <202008171228.29E6B3BB@keescook>
+ <161b75f1-4e88-dcdf-42e8-b22504d7525c@kernel.dk>
+ <202008171246.80287CDCA@keescook>
+ <df645c06-c30b-eafa-4d23-826b84f2ff48@kernel.dk>
+ <1597780833.3978.3.camel@HansenPartnership.com>
+ <f3312928-430c-25f3-7112-76f2754df080@kernel.dk>
+ <1597849185.3875.7.camel@HansenPartnership.com>
+In-Reply-To: <1597849185.3875.7.camel@HansenPartnership.com>
+From: Allen <allen.lkml@gmail.com>
+Date: Wed, 19 Aug 2020 21:54:16 +0530
+Message-ID: <CAOMdWSJRR0BhjJK1FxD7UKxNd5sk4ycmEX6TYtJjRNR6UFAj6Q@mail.gmail.com>
+To: James Bottomley <James.Bottomley@hansenpartnership.com>
+X-Mailman-Approved-At: Wed, 19 Aug 2020 17:04:54 +0000
+Subject: Re: [Intel-gfx] [PATCH] block: convert tasklets to use new
+ tasklet_setup() API
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,79 +85,74 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>,
- intel-gfx <intel-gfx@lists.freedesktop.org>,
- kernel list <linux-kernel@vger.kernel.org>,
- Chris Wilson <chris@chris-wilson.co.uk>, Matthew Auld <matthew.auld@intel.com>
-Content-Type: multipart/mixed; boundary="===============0032421885=="
+Cc: Ulf Hansson <ulf.hansson@linaro.org>,
+ linux-atm-general@lists.sourceforge.net, manohar.vanga@gmail.com,
+ airlied@linux.ie, linux-hyperv@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ kys@microsoft.com, anton.ivanov@cambridgegreys.com, devel@driverdev.osuosl.org,
+ linux-s390@vger.kernel.org, linux1394-devel@lists.sourceforge.net,
+ maximlevitsky@gmail.com, richard@nod.at, deller@gmx.de,
+ jassisinghbrar@gmail.com, 3chas3@gmail.com, intel-gfx@lists.freedesktop.org,
+ Jakub Kicinski <kuba@kernel.org>, mporter@kernel.crashing.org,
+ jdike@addtoit.com, Kees Cook <keescook@chromium.org>, oakad@yahoo.com,
+ s.hauer@pengutronix.de, linux-input@vger.kernel.org,
+ linux-um@lists.infradead.org, linux-block@vger.kernel.org, broonie@kernel.org,
+ openipmi-developer@lists.sourceforge.net, mitch@sfgoth.com,
+ linux-arm-kernel@lists.infradead.org, Jens Axboe <axboe@kernel.dk>,
+ linux-parisc@vger.kernel.org, netdev@vger.kernel.org, martyn@welchs.me.uk,
+ dmitry.torokhov@gmail.com, linux-mmc@vger.kernel.org, sre@kernel.org,
+ linux-spi@vger.kernel.org, alex.bou9@gmail.com,
+ Allen Pais <allen.cryptic@gmail.com>, stefanr@s5r6.in-berlin.de,
+ linux-ntb@googlegroups.com, Romain Perier <romain.perier@gmail.com>,
+ shawnguo@kernel.org, David Miller <davem@davemloft.net>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+> [...]
+> > > Since both threads seem to have petered out, let me suggest in
+> > > kernel.h:
+> > >
+> > > #define cast_out(ptr, container, member) \
+> > >     container_of(ptr, typeof(*container), member)
+> > >
+> > > It does what you want, the argument order is the same as
+> > > container_of with the only difference being you name the containing
+> > > structure instead of having to specify its type.
+> >
+> > Not to incessantly bike shed on the naming, but I don't like
+> > cast_out, it's not very descriptive. And it has connotations of
+> > getting rid of something, which isn't really true.
+>
+> Um, I thought it was exactly descriptive: you're casting to the outer
+> container.  I thought about following the C++ dynamic casting style, so
+> out_cast(), but that seemed a bit pejorative.  What about outer_cast()?
+>
+> > FWIW, I like the from_ part of the original naming, as it has some
+> > clues as to what is being done here. Why not just from_container()?
+> > That should immediately tell people what it does without having to
+> > look up the implementation, even before this becomes a part of the
+> > accepted coding norm.
+>
+> I'm not opposed to container_from() but it seems a little less
+> descriptive than outer_cast() but I don't really care.  I always have
+> to look up container_of() when I'm using it so this would just be
+> another macro of that type ...
+>
 
---===============0032421885==
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="oyUTqETQ0mS9luUI"
-Content-Disposition: inline
+ So far we have a few which have been suggested as replacement
+for from_tasklet()
 
+- out_cast() or outer_cast()
+- from_member().
+- container_from() or from_container()
 
---oyUTqETQ0mS9luUI
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+from_container() sounds fine, would trimming it a bit work? like from_cont().
 
-Hi!
-
-> > I think there's been some discussion about reverting that change for
-> > other reasons, but it's quite likely the culprit.
->=20
-> Hmm. It reverts cleanly, but the end result doesn't work, because of
-> other changes.
->=20
-> Reverting all of
->=20
->    763fedd6a216 ("drm/i915: Remove i915_gem_object_get_dirty_page()")
->    7ac2d2536dfa ("drm/i915/gem: Delete unused code")
->    9e0f9464e2ab ("drm/i915/gem: Async GPU relocations only")
->=20
-> seems to at least build.
->=20
-> Pavel, does doing those three reverts make things work for you?
-
-Thanks.
-
-I got "[PATCH 1/2] drm/i915/gem: Replace reloc chain with terminator
-on..." in my inbox; I believe that's related. Let me try those, first.
-
-Best regards,
-								Pavel
---=20
-(english) http://www.livejournal.com/~pavelmachek
-(cesky, pictures) http://atrey.karlin.mff.cuni.cz/~pavel/picture/horses/blo=
-g.html
-
---oyUTqETQ0mS9luUI
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v1
-
-iEYEARECAAYFAl89WewACgkQMOfwapXb+vJnQACfYEYDrymKuDTAa+JArLe4U9Ld
-5xcAnjjWjwoOVl2xtpo/o+mbX+714h85
-=kU8f
------END PGP SIGNATURE-----
-
---oyUTqETQ0mS9luUI--
-
---===============0032421885==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+-- 
+       - Allen
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-
---===============0032421885==--
