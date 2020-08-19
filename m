@@ -2,37 +2,37 @@ Return-Path: <SRS0=XCjr=B5=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 575BBC433DF
-	for <intel-gfx@archiver.kernel.org>; Wed, 19 Aug 2020 14:09:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B87E8C433E3
+	for <intel-gfx@archiver.kernel.org>; Wed, 19 Aug 2020 14:09:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 37A4B204FD
-	for <intel-gfx@archiver.kernel.org>; Wed, 19 Aug 2020 14:09:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 37A4B204FD
+	by mail.kernel.org (Postfix) with ESMTPS id 92B98204FD
+	for <intel-gfx@archiver.kernel.org>; Wed, 19 Aug 2020 14:09:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 92B98204FD
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 195ED6E3A8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 975426E3B5;
 	Wed, 19 Aug 2020 14:09:16 +0000 (UTC)
 Received: from mblankhorst.nl (mblankhorst.nl [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 008DE6E3A8
- for <intel-gfx@lists.freedesktop.org>; Wed, 19 Aug 2020 14:09:13 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A1516E3A8
+ for <intel-gfx@lists.freedesktop.org>; Wed, 19 Aug 2020 14:09:12 +0000 (UTC)
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 19 Aug 2020 16:09:02 +0200
-Message-Id: <20200819140904.1708856-23-maarten.lankhorst@linux.intel.com>
+Date: Wed, 19 Aug 2020 16:08:51 +0200
+Message-Id: <20200819140904.1708856-12-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20200819140904.1708856-1-maarten.lankhorst@linux.intel.com>
 References: <20200819140904.1708856-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v2 22/24] drm/i915: Add ww locking to
- vm_fault_gtt
+Subject: [Intel-gfx] [PATCH v2 11/24] drm/i915: Nuke arguments to
+ eb_pin_engine
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,122 +45,56 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@intel.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-We want to start requiring the reservation_lock instead of obj->mm.lock
-for pinning objects, take the ww lock inside vm_fault_gtt as a first step
-towards the legacy lock removal.
-
-Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
----
- drivers/gpu/drm/i915/gem/i915_gem_mman.c | 51 +++++++++++++++---------
- 1 file changed, 33 insertions(+), 18 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_mman.c b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
-index b23368529a40..548ed9fb427d 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_mman.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
-@@ -283,37 +283,46 @@ static vm_fault_t vm_fault_gtt(struct vm_fault *vmf)
- 	struct intel_runtime_pm *rpm = &i915->runtime_pm;
- 	struct i915_ggtt *ggtt = &i915->ggtt;
- 	bool write = area->vm_flags & VM_WRITE;
-+	struct i915_gem_ww_ctx ww;
- 	intel_wakeref_t wakeref;
- 	struct i915_vma *vma;
- 	pgoff_t page_offset;
- 	int srcu;
- 	int ret;
- 
--	/* Sanity check that we allow writing into this object */
--	if (i915_gem_object_is_readonly(obj) && write)
--		return VM_FAULT_SIGBUS;
--
- 	/* We don't use vmf->pgoff since that has the fake offset */
- 	page_offset = (vmf->address - area->vm_start) >> PAGE_SHIFT;
- 
- 	trace_i915_gem_object_fault(obj, page_offset, true, write);
- 
--	ret = i915_gem_object_pin_pages(obj);
-+	wakeref = intel_runtime_pm_get(rpm);
-+
-+	i915_gem_ww_ctx_init(&ww, true);
-+retry:
-+	ret = i915_gem_object_lock(obj, &ww);
- 	if (ret)
--		goto err;
-+		goto err_rpm;
- 
--	wakeref = intel_runtime_pm_get(rpm);
-+	/* Sanity check that we allow writing into this object */
-+	if (i915_gem_object_is_readonly(obj) && write) {
-+		ret = -EFAULT;
-+		goto err_rpm;
-+	}
- 
--	ret = intel_gt_reset_trylock(ggtt->vm.gt, &srcu);
-+	ret = i915_gem_object_pin_pages(obj);
- 	if (ret)
- 		goto err_rpm;
- 
-+	ret = intel_gt_reset_trylock(ggtt->vm.gt, &srcu);
-+	if (ret)
-+		goto err_pages;
-+
- 	/* Now pin it into the GTT as needed */
--	vma = i915_gem_object_ggtt_pin(obj, NULL, 0, 0,
--				       PIN_MAPPABLE |
--				       PIN_NONBLOCK /* NOWARN */ |
--				       PIN_NOEVICT);
--	if (IS_ERR(vma)) {
-+	vma = i915_gem_object_ggtt_pin_ww(obj, &ww, NULL, 0, 0,
-+					  PIN_MAPPABLE |
-+					  PIN_NONBLOCK /* NOWARN */ |
-+					  PIN_NOEVICT);
-+	if (IS_ERR(vma) && vma != ERR_PTR(-EDEADLK)) {
- 		/* Use a partial view if it is bigger than available space */
- 		struct i915_ggtt_view view =
- 			compute_partial_view(obj, page_offset, MIN_CHUNK_PAGES);
-@@ -328,11 +337,11 @@ static vm_fault_t vm_fault_gtt(struct vm_fault *vmf)
- 		 * all hope that the hardware is able to track future writes.
- 		 */
- 
--		vma = i915_gem_object_ggtt_pin(obj, &view, 0, 0, flags);
--		if (IS_ERR(vma)) {
-+		vma = i915_gem_object_ggtt_pin_ww(obj, &ww, &view, 0, 0, flags);
-+		if (IS_ERR(vma) && vma != ERR_PTR(-EDEADLK)) {
- 			flags = PIN_MAPPABLE;
- 			view.type = I915_GGTT_VIEW_PARTIAL;
--			vma = i915_gem_object_ggtt_pin(obj, &view, 0, 0, flags);
-+			vma = i915_gem_object_ggtt_pin_ww(obj, &ww, &view, 0, 0, flags);
- 		}
- 
- 		/* The entire mappable GGTT is pinned? Unexpected! */
-@@ -389,10 +398,16 @@ static vm_fault_t vm_fault_gtt(struct vm_fault *vmf)
- 	__i915_vma_unpin(vma);
- err_reset:
- 	intel_gt_reset_unlock(ggtt->vm.gt, srcu);
-+err_pages:
-+	i915_gem_object_unpin_pages(obj);
- err_rpm:
-+	if (ret == -EDEADLK) {
-+		ret = i915_gem_ww_ctx_backoff(&ww);
-+		if (!ret)
-+			goto retry;
-+	}
-+	i915_gem_ww_ctx_fini(&ww);
- 	intel_runtime_pm_put(rpm, wakeref);
--	i915_gem_object_unpin_pages(obj);
--err:
- 	return i915_error_to_vmf_fault(ret);
- }
- 
--- 
-2.28.0
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+VGhvc2UgYXJndW1lbnRzIGFyZSBhbHJlYWR5IHNldCBhcyBlYi5maWxlIGFuZCBlYi5hcmdzLCBz
+byBraWxsIG9mZgp0aGUgZXh0cmEgYXJndW1lbnRzLiBUaGlzIHdpbGwgYWxsb3cgdXMgdG8gbW92
+ZSBlYl9waW5fZW5naW5lKCkgdG8KYWZ0ZXIgd2UgcmVzZXJ2ZWQgYWxsIEJPJ3MuCgpTaWduZWQt
+b2ZmLWJ5OiBNYWFydGVuIExhbmtob3JzdCA8bWFhcnRlbi5sYW5raG9yc3RAbGludXguaW50ZWwu
+Y29tPgpSZXZpZXdlZC1ieTogVHZydGtvIFVyc3VsaW4gPHR2cnRrby51cnN1bGluQGludGVsLmNv
+bT4KUmV2aWV3ZWQtYnk6IFRob21hcyBIZWxsc3Ryw7ZtIDx0aG9tYXMuaGVsbHN0cm9tQGludGVs
+LmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9nZW0vaTkxNV9nZW1fZXhlY2J1ZmZlci5j
+IHwgMTcgKysrKysrKy0tLS0tLS0tLS0KIDEgZmlsZSBjaGFuZ2VkLCA3IGluc2VydGlvbnMoKyks
+IDEwIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2dlbS9p
+OTE1X2dlbV9leGVjYnVmZmVyLmMgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9nZW0vaTkxNV9nZW1f
+ZXhlY2J1ZmZlci5jCmluZGV4IDEzYjk5NjgzMGUyNS4uMmNjYzU2NmY5MTU0IDEwMDY0NAotLS0g
+YS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9nZW0vaTkxNV9nZW1fZXhlY2J1ZmZlci5jCisrKyBiL2Ry
+aXZlcnMvZ3B1L2RybS9pOTE1L2dlbS9pOTE1X2dlbV9leGVjYnVmZmVyLmMKQEAgLTI2MTAsMTEg
+KzI2MTAsMTAgQEAgc3RhdGljIHZvaWQgZWJfdW5waW5fZW5naW5lKHN0cnVjdCBpOTE1X2V4ZWNi
+dWZmZXIgKmViKQogfQogCiBzdGF0aWMgdW5zaWduZWQgaW50Ci1lYl9zZWxlY3RfbGVnYWN5X3Jp
+bmcoc3RydWN0IGk5MTVfZXhlY2J1ZmZlciAqZWIsCi0JCSAgICAgIHN0cnVjdCBkcm1fZmlsZSAq
+ZmlsZSwKLQkJICAgICAgc3RydWN0IGRybV9pOTE1X2dlbV9leGVjYnVmZmVyMiAqYXJncykKK2Vi
+X3NlbGVjdF9sZWdhY3lfcmluZyhzdHJ1Y3QgaTkxNV9leGVjYnVmZmVyICplYikKIHsKIAlzdHJ1
+Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqaTkxNSA9IGViLT5pOTE1OworCXN0cnVjdCBkcm1faTkxNV9n
+ZW1fZXhlY2J1ZmZlcjIgKmFyZ3MgPSBlYi0+YXJnczsKIAl1bnNpZ25lZCBpbnQgdXNlcl9yaW5n
+X2lkID0gYXJncy0+ZmxhZ3MgJiBJOTE1X0VYRUNfUklOR19NQVNLOwogCiAJaWYgKHVzZXJfcmlu
+Z19pZCAhPSBJOTE1X0VYRUNfQlNEICYmCkBAIC0yNjI5LDcgKzI2MjgsNyBAQCBlYl9zZWxlY3Rf
+bGVnYWN5X3Jpbmcoc3RydWN0IGk5MTVfZXhlY2J1ZmZlciAqZWIsCiAJCXVuc2lnbmVkIGludCBi
+c2RfaWR4ID0gYXJncy0+ZmxhZ3MgJiBJOTE1X0VYRUNfQlNEX01BU0s7CiAKIAkJaWYgKGJzZF9p
+ZHggPT0gSTkxNV9FWEVDX0JTRF9ERUZBVUxUKSB7Ci0JCQlic2RfaWR4ID0gZ2VuOF9kaXNwYXRj
+aF9ic2RfZW5naW5lKGk5MTUsIGZpbGUpOworCQkJYnNkX2lkeCA9IGdlbjhfZGlzcGF0Y2hfYnNk
+X2VuZ2luZShpOTE1LCBlYi0+ZmlsZSk7CiAJCX0gZWxzZSBpZiAoYnNkX2lkeCA+PSBJOTE1X0VY
+RUNfQlNEX1JJTkcxICYmCiAJCQkgICBic2RfaWR4IDw9IEk5MTVfRVhFQ19CU0RfUklORzIpIHsK
+IAkJCWJzZF9pZHggPj49IEk5MTVfRVhFQ19CU0RfU0hJRlQ7CkBAIC0yNjU0LDE4ICsyNjUzLDE2
+IEBAIGViX3NlbGVjdF9sZWdhY3lfcmluZyhzdHJ1Y3QgaTkxNV9leGVjYnVmZmVyICplYiwKIH0K
+IAogc3RhdGljIGludAotZWJfcGluX2VuZ2luZShzdHJ1Y3QgaTkxNV9leGVjYnVmZmVyICplYiwK
+LQkgICAgICBzdHJ1Y3QgZHJtX2ZpbGUgKmZpbGUsCi0JICAgICAgc3RydWN0IGRybV9pOTE1X2dl
+bV9leGVjYnVmZmVyMiAqYXJncykKK2ViX3Bpbl9lbmdpbmUoc3RydWN0IGk5MTVfZXhlY2J1ZmZl
+ciAqZWIpCiB7CiAJc3RydWN0IGludGVsX2NvbnRleHQgKmNlOwogCXVuc2lnbmVkIGludCBpZHg7
+CiAJaW50IGVycjsKIAogCWlmIChpOTE1X2dlbV9jb250ZXh0X3VzZXJfZW5naW5lcyhlYi0+Z2Vt
+X2NvbnRleHQpKQotCQlpZHggPSBhcmdzLT5mbGFncyAmIEk5MTVfRVhFQ19SSU5HX01BU0s7CisJ
+CWlkeCA9IGViLT5hcmdzLT5mbGFncyAmIEk5MTVfRVhFQ19SSU5HX01BU0s7CiAJZWxzZQotCQlp
+ZHggPSBlYl9zZWxlY3RfbGVnYWN5X3JpbmcoZWIsIGZpbGUsIGFyZ3MpOworCQlpZHggPSBlYl9z
+ZWxlY3RfbGVnYWN5X3JpbmcoZWIpOwogCiAJY2UgPSBpOTE1X2dlbV9jb250ZXh0X2dldF9lbmdp
+bmUoZWItPmdlbV9jb250ZXh0LCBpZHgpOwogCWlmIChJU19FUlIoY2UpKQpAQCAtMzEyNSw3ICsz
+MTIyLDcgQEAgaTkxNV9nZW1fZG9fZXhlY2J1ZmZlcihzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LAog
+CWlmICh1bmxpa2VseShlcnIpKQogCQlnb3RvIGVycl9kZXN0cm95OwogCi0JZXJyID0gZWJfcGlu
+X2VuZ2luZSgmZWIsIGZpbGUsIGFyZ3MpOworCWVyciA9IGViX3Bpbl9lbmdpbmUoJmViKTsKIAlp
+ZiAodW5saWtlbHkoZXJyKSkKIAkJZ290byBlcnJfY29udGV4dDsKIAotLSAKMi4yOC4wCgpfX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpJbnRlbC1nZnggbWFp
+bGluZyBsaXN0CkludGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9pbnRlbC1nZngK
