@@ -7,47 +7,47 @@ X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 048EFC433E1
-	for <intel-gfx@archiver.kernel.org>; Thu, 20 Aug 2020 14:52:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C18F0C433E3
+	for <intel-gfx@archiver.kernel.org>; Thu, 20 Aug 2020 14:52:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D59ED2075E
-	for <intel-gfx@archiver.kernel.org>; Thu, 20 Aug 2020 14:52:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D59ED2075E
+	by mail.kernel.org (Postfix) with ESMTPS id 9B0722075E
+	for <intel-gfx@archiver.kernel.org>; Thu, 20 Aug 2020 14:52:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9B0722075E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F3EA6E58A;
-	Thu, 20 Aug 2020 14:52:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 208A76E94B;
+	Thu, 20 Aug 2020 14:52:49 +0000 (UTC)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA8CE6E378;
- Thu, 20 Aug 2020 14:52:43 +0000 (UTC)
-IronPort-SDR: r1TebQdLg/1QAg5zIiiyng9eAWDrAx1B6i4s5CROCK0EGp3eFRqgY9QVYQSepTR3/t61T5CR4F
- BqmfjVAdaZxQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9718"; a="240136050"
-X-IronPort-AV: E=Sophos;i="5.76,333,1592895600"; d="scan'208";a="240136050"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C4CDD6E94B;
+ Thu, 20 Aug 2020 14:52:47 +0000 (UTC)
+IronPort-SDR: HNp6Oi80f8KEKk48H2LVPJqsY8UmdQCLeX1yX11PSI0gj5uS5xk8rUw3V/hkln9RrML9yLAEBi
+ C5aCWQx47+Zg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9718"; a="240136081"
+X-IronPort-AV: E=Sophos;i="5.76,333,1592895600"; d="scan'208";a="240136081"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Aug 2020 07:52:42 -0700
-IronPort-SDR: fkOoJB/Eytgo3HJCuC95nvY2hc2tmZDsAvE9QPrSn6B+Esoj7eY2ubr+90OOwSzrGnAXmZH3lE
- 7pT7SyuX49+g==
-X-IronPort-AV: E=Sophos;i="5.76,333,1592895600"; d="scan'208";a="472679581"
+ 20 Aug 2020 07:52:47 -0700
+IronPort-SDR: gR/piRffpqkKylkxpZPcs/b2K/I/OhumrMhhmnnBhubsNFwz7BMEYVqHZiCwsmkPvmE3/kS7LI
+ 0wj7w7WI5rQw==
+X-IronPort-AV: E=Sophos;i="5.76,333,1592895600"; d="scan'208";a="472679626"
 Received: from jkrzyszt-desk.igk.intel.com ([172.22.244.18])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Aug 2020 07:52:39 -0700
+ 20 Aug 2020 07:52:45 -0700
 From: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
 To: igt-dev@lists.freedesktop.org
-Date: Thu, 20 Aug 2020 16:51:57 +0200
-Message-Id: <20200820145215.13238-2-janusz.krzysztofik@linux.intel.com>
+Date: Thu, 20 Aug 2020 16:51:59 +0200
+Message-Id: <20200820145215.13238-4-janusz.krzysztofik@linux.intel.com>
 X-Mailer: git-send-email 2.21.1
 In-Reply-To: <20200820145215.13238-1-janusz.krzysztofik@linux.intel.com>
 References: <20200820145215.13238-1-janusz.krzysztofik@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH i-g-t v3 01/19] tests/core_hotunplug: Use
- igt_assert_fd()
+Subject: [Intel-gfx] [PATCH i-g-t v3 03/19] tests/core_hotunplug: Clean up
+ device open error handling
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,43 +62,105 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: =?UTF-8?q?Micha=C5=82=20Winiarski?= <michal.winiarski@intel.com>,
  intel-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-VGhlcmUgaXMgYSBuZXcgbGlicmFyeSBoZWxwZXIgdGhhdCBhc3NlcnRzIHZhbGlkaXR5IG9mIG9w
-ZW4gZmlsZQpkZXNjcmlwdG9ycy4gIFVzZSBpdCBpbnN0ZWFkIG9mIG9wZW4gY29kaW5nLgoKU2ln
-bmVkLW9mZi1ieTogSmFudXN6IEtyenlzenRvZmlrIDxqYW51c3oua3J6eXN6dG9maWtAbGludXgu
-aW50ZWwuY29tPgpSZXZpZXdlZC1ieTogTWljaGHFgiBXaW5pYXJza2kgPG1pY2hhbC53aW5pYXJz
-a2lAaW50ZWwuY29tPgotLS0KIHRlc3RzL2NvcmVfaG90dW5wbHVnLmMgfCAxMCArKysrKy0tLS0t
-CiAxIGZpbGUgY2hhbmdlZCwgNSBpbnNlcnRpb25zKCspLCA1IGRlbGV0aW9ucygtKQoKZGlmZiAt
-LWdpdCBhL3Rlc3RzL2NvcmVfaG90dW5wbHVnLmMgYi90ZXN0cy9jb3JlX2hvdHVucGx1Zy5jCmlu
-ZGV4IGUwM2YzYjk0NS4uNzQzMTM0NmIxIDEwMDY0NAotLS0gYS90ZXN0cy9jb3JlX2hvdHVucGx1
-Zy5jCisrKyBiL3Rlc3RzL2NvcmVfaG90dW5wbHVnLmMKQEAgLTU3LDcgKzU3LDcgQEAgc3RhdGlj
-IHZvaWQgcHJlcGFyZV9mb3JfdW5iaW5kKHN0cnVjdCBob3R1bnBsdWcgKnByaXYsIGNoYXIgKmJ1
-ZiwgaW50IGJ1ZmxlbikKIAogCXByaXYtPmZkLnN5c2ZzX2RydiA9IG9wZW5hdChwcml2LT5mZC5z
-eXNmc19kZXYsICJkZXZpY2UvZHJpdmVyIiwKIAkJCQkgICAgT19ESVJFQ1RPUlkpOwotCWlndF9h
-c3NlcnQocHJpdi0+ZmQuc3lzZnNfZHJ2ID49IDApOworCWlndF9hc3NlcnRfZmQocHJpdi0+ZmQu
-c3lzZnNfZHJ2KTsKIAogCWxlbiA9IHJlYWRsaW5rYXQocHJpdi0+ZmQuc3lzZnNfZGV2LCAiZGV2
-aWNlIiwgYnVmLCBidWZsZW4gLSAxKTsKIAlidWZbbGVuXSA9ICdcMCc7CkBAIC03MiwxMCArNzIs
-MTAgQEAgc3RhdGljIHZvaWQgcHJlcGFyZShzdHJ1Y3QgaG90dW5wbHVnICpwcml2LCBjaGFyICpi
-dWYsIGludCBidWZsZW4pCiB7CiAJaWd0X2RlYnVnKCJvcGVuaW5nIGRldmljZVxuIik7CiAJcHJp
-di0+ZmQuZHJtID0gX19kcm1fb3Blbl9kcml2ZXIoRFJJVkVSX0FOWSk7Ci0JaWd0X2Fzc2VydChw
-cml2LT5mZC5kcm0gPj0gMCk7CisJaWd0X2Fzc2VydF9mZChwcml2LT5mZC5kcm0pOwogCiAJcHJp
-di0+ZmQuc3lzZnNfZGV2ID0gaWd0X3N5c2ZzX29wZW4ocHJpdi0+ZmQuZHJtKTsKLQlpZ3RfYXNz
-ZXJ0KHByaXYtPmZkLnN5c2ZzX2RldiA+PSAwKTsKKwlpZ3RfYXNzZXJ0X2ZkKHByaXYtPmZkLnN5
-c2ZzX2Rldik7CiAKIAlpZiAoYnVmKSB7CiAJCXByZXBhcmVfZm9yX3VuYmluZChwcml2LCBidWYs
-IGJ1Zmxlbik7CkBAIC04Myw3ICs4Myw3IEBAIHN0YXRpYyB2b2lkIHByZXBhcmUoc3RydWN0IGhv
-dHVucGx1ZyAqcHJpdiwgY2hhciAqYnVmLCBpbnQgYnVmbGVuKQogCQkvKiBwcmVwYXJlIGZvciBi
-dXMgcmVzY2FuICovCiAJCXByaXYtPmZkLnN5c2ZzX2J1cyA9IG9wZW5hdChwcml2LT5mZC5zeXNm
-c19kZXYsCiAJCQkJCSAgICAiZGV2aWNlL3N1YnN5c3RlbSIsIE9fRElSRUNUT1JZKTsKLQkJaWd0
-X2Fzc2VydChwcml2LT5mZC5zeXNmc19idXMgPj0gMCk7CisJCWlndF9hc3NlcnRfZmQocHJpdi0+
-ZmQuc3lzZnNfYnVzKTsKIAl9CiB9CiAKQEAgLTI2MSw3ICsyNjEsNyBAQCBpZ3RfbWFpbgogCQkg
-KiBhIGRldmljZSBmaWxlIGRlc2NyaXB0b3Igb3BlbiBmb3IgZXhpdCBoYW5kbGVyIHVzZS4KIAkJ
-ICovCiAJCWZkX2RybSA9IF9fZHJtX29wZW5fZHJpdmVyKERSSVZFUl9BTlkpOwotCQlpZ3RfYXNz
-ZXJ0KGZkX2RybSA+PSAwKTsKKwkJaWd0X2Fzc2VydF9mZChmZF9kcm0pOwogCiAJCWlmIChpc19p
-OTE1X2RldmljZShmZF9kcm0pKQogCQkJaWd0X3JlcXVpcmVfZ2VtKGZkX2RybSk7Ci0tIAoyLjIx
-LjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkludGVs
-LWdmeCBtYWlsaW5nIGxpc3QKSW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczov
-L2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ludGVsLWdmeAo=
+We don't use drm_driver_open() since in case of an i915 device it keeps
+an extra file descriptor of the exercised device open for exit handler
+use, while we would like to be able to close the device completely
+before running certain test operations.  Instead, we call
+__drm_driver_open() and handle its result ourselves.  Unlike
+drm_driver_open() which skips on device open errors, we always fail or
+abort the test in such case.  Moreover, we don't ensure that the i915
+driver is idle before starting subtests like drm_open_driver() does.
+
+Skip instead of failing on initial device open error.  Also, call
+gem_quiescent_gpu() if an i915 device is detected.  For subsequent
+device opens, define a local helper that fails on error and use it.  If
+we think we need to abort the test execution on device open error, set
+our failure marker first to trigger the abort from a follow up
+igt_fixture section.
+
+Signed-off-by: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+---
+ tests/core_hotunplug.c | 34 +++++++++++++++++++++++-----------
+ 1 file changed, 23 insertions(+), 11 deletions(-)
+
+diff --git a/tests/core_hotunplug.c b/tests/core_hotunplug.c
+index a4071f51e..e576a6c6c 100644
+--- a/tests/core_hotunplug.c
++++ b/tests/core_hotunplug.c
+@@ -49,6 +49,21 @@ struct hotunplug {
+ 
+ /* Helpers */
+ 
++/**
++ * Subtests must be able to close examined devices completely.  Don't
++ * use drm_open_driver() since in case of an i915 device it opens it
++ * twice and keeps a second file descriptor open for exit handler use.
++ */
++static int local_drm_open_driver(void)
++{
++	int fd_drm;
++
++	fd_drm = __drm_open_driver(DRIVER_ANY);
++	igt_assert_fd(fd_drm);
++
++	return fd_drm;
++}
++
+ static void prepare_for_unbind(struct hotunplug *priv, char *buf, int buflen)
+ {
+ 	int len;
+@@ -71,8 +86,7 @@ static void prepare_for_unbind(struct hotunplug *priv, char *buf, int buflen)
+ static void prepare(struct hotunplug *priv, char *buf, int buflen)
+ {
+ 	igt_debug("opening device\n");
+-	priv->fd.drm = __drm_open_driver(DRIVER_ANY);
+-	igt_assert_fd(priv->fd.drm);
++	priv->fd.drm = local_drm_open_driver();
+ 
+ 	priv->fd.sysfs_dev = igt_sysfs_open(priv->fd.drm);
+ 	igt_assert_fd(priv->fd.sysfs_dev);
+@@ -145,8 +159,9 @@ static void healthcheck(void)
+ 	igt_devices_scan(true);
+ 
+ 	igt_debug("reopening the device\n");
+-	fd_drm = __drm_open_driver(DRIVER_ANY);
+-	igt_abort_on_f(fd_drm < 0, "Device reopen failure");
++	failure = "Device reopen failure!";
++	fd_drm = local_drm_open_driver();
++	failure = NULL;
+ 
+ 	if (is_i915_device(fd_drm)) {
+ 		failure = "GEM failure";
+@@ -255,16 +270,13 @@ igt_main
+ 	igt_fixture {
+ 		int fd_drm;
+ 
+-		/**
+-		 * As subtests must be able to close examined devices
+-		 * completely, don't use drm_open_driver() as it keeps
+-		 * a device file descriptor open for exit handler use.
+-		 */
+ 		fd_drm = __drm_open_driver(DRIVER_ANY);
+-		igt_assert_fd(fd_drm);
++		igt_skip_on_f(fd_drm < 0, "No known DRM device found\n");
+ 
+-		if (is_i915_device(fd_drm))
++		if (is_i915_device(fd_drm)) {
++			gem_quiescent_gpu(fd_drm);
+ 			igt_require_gem(fd_drm);
++		}
+ 
+ 		/* Make sure subtests always reopen the same device */
+ 		set_filter_from_device(fd_drm);
+-- 
+2.21.1
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
