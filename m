@@ -7,60 +7,60 @@ X-Spam-Status: No, score=-9.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 01730C433DF
-	for <intel-gfx@archiver.kernel.org>; Thu, 20 Aug 2020 18:31:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E79D7C433E1
+	for <intel-gfx@archiver.kernel.org>; Thu, 20 Aug 2020 18:31:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BC0FC21775
-	for <intel-gfx@archiver.kernel.org>; Thu, 20 Aug 2020 18:31:09 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id A489C21775
+	for <intel-gfx@archiver.kernel.org>; Thu, 20 Aug 2020 18:31:14 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="gffWVt8h"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BC0FC21775
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="gd7TnsDm"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A489C21775
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0ED4A6E9A5;
-	Thu, 20 Aug 2020 18:31:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ABBBB6E9F2;
+	Thu, 20 Aug 2020 18:31:13 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [216.205.24.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A611A6E9EF
- for <intel-gfx@lists.freedesktop.org>; Thu, 20 Aug 2020 18:31:05 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3CCDA6E9F2
+ for <intel-gfx@lists.freedesktop.org>; Thu, 20 Aug 2020 18:31:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1597948264;
+ s=mimecast20190719; t=1597948271;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=rSe2STeJN/VQk299U6GdY2sy2HaDdveKDfR6OrqqUwA=;
- b=gffWVt8hd71Tn+FfwVTSDxTNy7PtHQ+cZUMGro57dJIP7QzaKfioC0gq5JOtm/P8IUXgQN
- bGyHJ3usMmuq3i7DuellmXg9nFB9G2TQy7dWcTBwnn8uAN+k9XHIvz3G3gQ5ty8lmaitV2
- r339avU+S6tqEhgHk5vPqowocT3MTic=
+ bh=fFL1iOBuGZvJCkaqlcirWKtkdgFP3ZklOioQkhlcPiM=;
+ b=gd7TnsDmzvn564OqbxX6SNzihC5+qfiX6A2TDxSAkgH9P02LWbo8AdtEakH27tXYWxHYLY
+ eut1DmSJeRlhfsExAE3aLkEV0PwFrv/+eE2ERKMx/5367ezGiFMpYxdEmJ5kMAHuJotQuF
+ bsv5BPqJXe8Cj7McYij8BMzlSnZVV/M=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-13-3rX1RrBeMkqa_e3UfeI8Hg-1; Thu, 20 Aug 2020 14:31:00 -0400
-X-MC-Unique: 3rX1RrBeMkqa_e3UfeI8Hg-1
+ us-mta-95-b9nuLIEdMi61S3Ajva3xEg-1; Thu, 20 Aug 2020 14:31:07 -0400
+X-MC-Unique: b9nuLIEdMi61S3Ajva3xEg-1
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
  [10.5.11.14])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id DB1BF1005E6D;
- Thu, 20 Aug 2020 18:30:58 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 6FF36186A57F;
+ Thu, 20 Aug 2020 18:31:05 +0000 (UTC)
 Received: from Whitewolf.redhat.com (ovpn-120-42.rdu2.redhat.com
  [10.10.120.42])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 28DF45DA79;
- Thu, 20 Aug 2020 18:30:58 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 581445DA74;
+ Thu, 20 Aug 2020 18:31:04 +0000 (UTC)
 From: Lyude Paul <lyude@redhat.com>
 To: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  nouveau@lists.freedesktop.org
-Date: Thu, 20 Aug 2020 14:30:04 -0400
-Message-Id: <20200820183012.288794-13-lyude@redhat.com>
+Date: Thu, 20 Aug 2020 14:30:06 -0400
+Message-Id: <20200820183012.288794-15-lyude@redhat.com>
 In-Reply-To: <20200820183012.288794-1-lyude@redhat.com>
 References: <20200820183012.288794-1-lyude@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
-Subject: [Intel-gfx] [RFC v2 12/20] drm/nouveau/kms: Only use hpd_work for
- reprobing in HPD paths
+Subject: [Intel-gfx] [RFC v2 14/20] drm/nouveau/kms/nv50-: Use downstream DP
+ clock limits for mode validation
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,300 +73,104 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, Ben Skeggs <bskeggs@redhat.com>,
- open list <linux-kernel@vger.kernel.org>
+Cc: David Airlie <airlied@linux.ie>, James Jones <jajones@nvidia.com>,
+ open list <linux-kernel@vger.kernel.org>, Takashi Iwai <tiwai@suse.de>,
+ Ben Skeggs <bskeggs@redhat.com>, Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Currently we perform both short IRQ handling for DP, and connector
-reprobing in the HPD IRQ handler. However since we need to grab
-connection_mutex in order to reprobe a connector, in theory we could
-accidentally block ourselves from handling any short IRQs until after a
-modeset completes if a connector hotplug happens to occur in parallel
-with a modeset.
+This adds support for querying the maximum clock rate of a downstream
+port on a DisplayPort connection. Generally, downstream ports refer to
+active dongles which can have their own pixel clock limits.
 
-I haven't seen this actually happen yet, but since we're cleaning up
-nouveau's hotplug handling code anyway and we already have a hpd worker,
-we can simply fix this by only relying on the HPD worker to actually
-reprobe connectors when we receive a HPD IRQ. We also add a mask to
-nouveau_drm to keep track of which connectors are waiting to be reprobed
-in response to an HPD IRQ.
+Note as well, we also start marking the connector as disconnected if we
+can't read the DPCD, since we wouldn't be able to do anything without
+DPCD access anyway.
 
 Signed-off-by: Lyude Paul <lyude@redhat.com>
 Reviewed-by: Ben Skeggs <bskeggs@redhat.com>
 ---
- drivers/gpu/drm/nouveau/nouveau_connector.c | 42 +++++--------
- drivers/gpu/drm/nouveau/nouveau_connector.h |  1 +
- drivers/gpu/drm/nouveau/nouveau_display.c   | 70 ++++++++++++++++++---
- drivers/gpu/drm/nouveau/nouveau_display.h   |  1 +
- drivers/gpu/drm/nouveau/nouveau_dp.c        |  2 +-
- drivers/gpu/drm/nouveau/nouveau_drm.c       |  4 +-
- drivers/gpu/drm/nouveau/nouveau_drv.h       |  2 +
- 7 files changed, 86 insertions(+), 36 deletions(-)
+ drivers/gpu/drm/nouveau/dispnv50/disp.c   |  3 +++
+ drivers/gpu/drm/nouveau/nouveau_dp.c      | 15 +++++++++++----
+ drivers/gpu/drm/nouveau/nouveau_encoder.h |  1 +
+ 3 files changed, 15 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/nouveau/nouveau_connector.c b/drivers/gpu/drm/nouveau/nouveau_connector.c
-index 4a29f691c08e4..637e91594fbe8 100644
---- a/drivers/gpu/drm/nouveau/nouveau_connector.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_connector.c
-@@ -1138,6 +1138,20 @@ nouveau_connector_funcs_lvds = {
- 	.early_unregister = nouveau_connector_early_unregister,
- };
+diff --git a/drivers/gpu/drm/nouveau/dispnv50/disp.c b/drivers/gpu/drm/nouveau/dispnv50/disp.c
+index 0d6879c532bec..c33b026c1f43f 100644
+--- a/drivers/gpu/drm/nouveau/dispnv50/disp.c
++++ b/drivers/gpu/drm/nouveau/dispnv50/disp.c
+@@ -1257,7 +1257,10 @@ nv50_mstc_detect(struct drm_connector *connector,
  
-+void
-+nouveau_connector_hpd(struct drm_connector *connector)
-+{
-+	struct nouveau_drm *drm = nouveau_drm(connector->dev);
-+	u32 mask = drm_connector_mask(connector);
-+
-+	mutex_lock(&drm->hpd_lock);
-+	if (!(drm->hpd_pending & mask)) {
-+		drm->hpd_pending |= mask;
-+		schedule_work(&drm->hpd_work);
-+	}
-+	mutex_unlock(&drm->hpd_lock);
-+}
-+
- static int
- nouveau_connector_hotplug(struct nvif_notify *notify)
- {
-@@ -1147,8 +1161,6 @@ nouveau_connector_hotplug(struct nvif_notify *notify)
- 	struct drm_device *dev = connector->dev;
- 	struct nouveau_drm *drm = nouveau_drm(dev);
- 	const struct nvif_notify_conn_rep_v0 *rep = notify->data;
--	const char *name = connector->name;
--	int ret;
- 	bool plugged = (rep->mask != NVIF_NOTIFY_CONN_V0_UNPLUG);
+ 	ret = drm_dp_mst_detect_port(connector, ctx, mstc->port->mgr,
+ 				     mstc->port);
++	if (ret != connector_status_connected)
++		goto out;
  
- 	if (rep->mask & NVIF_NOTIFY_CONN_V0_IRQ) {
-@@ -1156,31 +1168,9 @@ nouveau_connector_hotplug(struct nvif_notify *notify)
- 		return NVIF_NOTIFY_KEEP;
- 	}
- 
--	ret = pm_runtime_get(drm->dev->dev);
--	if (ret == 0) {
--		/* We can't block here if there's a pending PM request
--		 * running, as we'll deadlock nouveau_display_fini() when it
--		 * calls nvif_put() on our nvif_notify struct. So, simply
--		 * defer the hotplug event until the device finishes resuming
--		 */
--		NV_DEBUG(drm, "Deferring HPD on %s until runtime resume\n",
--			 name);
--		schedule_work(&drm->hpd_work);
--
--		pm_runtime_put_noidle(drm->dev->dev);
--		return NVIF_NOTIFY_KEEP;
--	} else if (ret != 1 && ret != -EACCES) {
--		NV_WARN(drm, "HPD on %s dropped due to RPM failure: %d\n",
--			name, ret);
--		return NVIF_NOTIFY_DROP;
--	}
--
--	NV_DEBUG(drm, "%splugged %s\n", plugged ? "" : "un", name);
--
--	drm_helper_hpd_irq_event(connector->dev);
-+	NV_DEBUG(drm, "%splugged %s\n", plugged ? "" : "un", connector->name);
-+	nouveau_connector_hpd(connector);
- 
--	pm_runtime_mark_last_busy(drm->dev->dev);
--	pm_runtime_put_autosuspend(drm->dev->dev);
- 	return NVIF_NOTIFY_KEEP;
- }
- 
-diff --git a/drivers/gpu/drm/nouveau/nouveau_connector.h b/drivers/gpu/drm/nouveau/nouveau_connector.h
-index d6de5cb8e2238..d0b859c4a80ea 100644
---- a/drivers/gpu/drm/nouveau/nouveau_connector.h
-+++ b/drivers/gpu/drm/nouveau/nouveau_connector.h
-@@ -187,6 +187,7 @@ nouveau_crtc_connector_get(struct nouveau_crtc *nv_crtc)
- 
- struct drm_connector *
- nouveau_connector_create(struct drm_device *, const struct dcb_output *);
-+void nouveau_connector_hpd(struct drm_connector *connector);
- 
- extern int nouveau_tv_disable;
- extern int nouveau_ignorelid;
-diff --git a/drivers/gpu/drm/nouveau/nouveau_display.c b/drivers/gpu/drm/nouveau/nouveau_display.c
-index 13016769a194b..bceb48a2dfca6 100644
---- a/drivers/gpu/drm/nouveau/nouveau_display.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_display.c
-@@ -457,16 +457,70 @@ static struct nouveau_drm_prop_enum_list dither_depth[] = {
- 	}                                                                      \
- } while(0)
- 
-+void
-+nouveau_display_hpd_resume(struct drm_device *dev)
-+{
-+	struct nouveau_drm *drm = nouveau_drm(dev);
-+
-+	mutex_lock(&drm->hpd_lock);
-+	drm->hpd_pending = ~0;
-+	mutex_unlock(&drm->hpd_lock);
-+
-+	schedule_work(&drm->hpd_work);
-+}
-+
- static void
- nouveau_display_hpd_work(struct work_struct *work)
- {
- 	struct nouveau_drm *drm = container_of(work, typeof(*drm), hpd_work);
-+	struct drm_device *dev = drm->dev;
-+	struct drm_connector *connector;
-+	struct drm_connector_list_iter conn_iter;
-+	u32 pending;
-+	bool changed = false;
-+
-+	pm_runtime_get_sync(dev->dev);
- 
--	pm_runtime_get_sync(drm->dev->dev);
-+	mutex_lock(&drm->hpd_lock);
-+	pending = drm->hpd_pending;
-+	drm->hpd_pending = 0;
-+	mutex_unlock(&drm->hpd_lock);
- 
--	drm_helper_hpd_irq_event(drm->dev);
-+	/* Nothing to do, exit early without updating the last busy counter */
-+	if (!pending)
-+		goto noop;
-+
-+	mutex_lock(&dev->mode_config.mutex);
-+	drm_connector_list_iter_begin(dev, &conn_iter);
-+
-+	nouveau_for_each_non_mst_connector_iter(connector, &conn_iter) {
-+		enum drm_connector_status old_status = connector->status;
-+		u64 old_epoch_counter = connector->epoch_counter;
-+
-+		if (!(pending & drm_connector_mask(connector)))
-+			continue;
-+
-+		connector->status = drm_helper_probe_detect(connector, NULL,
-+							    false);
-+		if (old_epoch_counter == connector->epoch_counter)
-+			continue;
-+
-+		changed = true;
-+		drm_dbg_kms(dev, "[CONNECTOR:%d:%s] status updated from %s to %s (epoch counter %llu->%llu)\n",
-+			    connector->base.id, connector->name,
-+			    drm_get_connector_status_name(old_status),
-+			    drm_get_connector_status_name(connector->status),
-+			    old_epoch_counter, connector->epoch_counter);
-+	}
-+
-+	drm_connector_list_iter_end(&conn_iter);
-+	mutex_unlock(&dev->mode_config.mutex);
-+
-+	if (changed)
-+		drm_kms_helper_hotplug_event(dev);
- 
- 	pm_runtime_mark_last_busy(drm->dev->dev);
-+noop:
- 	pm_runtime_put_sync(drm->dev->dev);
- }
- 
-@@ -490,12 +544,11 @@ nouveau_display_acpi_ntfy(struct notifier_block *nb, unsigned long val,
- 				 */
- 				pm_runtime_put_autosuspend(drm->dev->dev);
- 			} else if (ret == 0) {
--				/* This may be the only indication we receive
--				 * of a connector hotplug on a runtime
--				 * suspended GPU, schedule hpd_work to check.
-+				/* We've started resuming the GPU already, so
-+				 * it will handle scheduling a full reprobe
-+				 * itself
- 				 */
- 				NV_DEBUG(drm, "ACPI requested connector reprobe\n");
--				schedule_work(&drm->hpd_work);
- 				pm_runtime_put_noidle(drm->dev->dev);
- 			} else {
- 				NV_WARN(drm, "Dropped ACPI reprobe event due to RPM error: %d\n",
-@@ -686,6 +739,7 @@ nouveau_display_create(struct drm_device *dev)
- 	}
- 
- 	INIT_WORK(&drm->hpd_work, nouveau_display_hpd_work);
-+	mutex_init(&drm->hpd_lock);
- #ifdef CONFIG_ACPI
- 	drm->acpi_nb.notifier_call = nouveau_display_acpi_ntfy;
- 	register_acpi_notifier(&drm->acpi_nb);
-@@ -705,9 +759,10 @@ void
- nouveau_display_destroy(struct drm_device *dev)
- {
- 	struct nouveau_display *disp = nouveau_display(dev);
-+	struct nouveau_drm *drm = nouveau_drm(dev);
- 
- #ifdef CONFIG_ACPI
--	unregister_acpi_notifier(&nouveau_drm(dev)->acpi_nb);
-+	unregister_acpi_notifier(&drm->acpi_nb);
- #endif
- 
- 	drm_kms_helper_poll_fini(dev);
-@@ -719,6 +774,7 @@ nouveau_display_destroy(struct drm_device *dev)
- 	nvif_disp_dtor(&disp->disp);
- 
- 	nouveau_drm(dev)->display = NULL;
-+	mutex_destroy(&drm->hpd_lock);
- 	kfree(disp);
- }
- 
-diff --git a/drivers/gpu/drm/nouveau/nouveau_display.h b/drivers/gpu/drm/nouveau/nouveau_display.h
-index 76ba93e01aff4..616c434270594 100644
---- a/drivers/gpu/drm/nouveau/nouveau_display.h
-+++ b/drivers/gpu/drm/nouveau/nouveau_display.h
-@@ -45,6 +45,7 @@ nouveau_display(struct drm_device *dev)
- int  nouveau_display_create(struct drm_device *dev);
- void nouveau_display_destroy(struct drm_device *dev);
- int  nouveau_display_init(struct drm_device *dev, bool resume, bool runtime);
-+void nouveau_display_hpd_resume(struct drm_device *dev);
- void nouveau_display_fini(struct drm_device *dev, bool suspend, bool runtime);
- int  nouveau_display_suspend(struct drm_device *dev, bool runtime);
- void nouveau_display_resume(struct drm_device *dev, bool runtime);
++out:
+ 	pm_runtime_mark_last_busy(connector->dev->dev);
+ 	pm_runtime_put_autosuspend(connector->dev->dev);
+ 	return ret;
 diff --git a/drivers/gpu/drm/nouveau/nouveau_dp.c b/drivers/gpu/drm/nouveau/nouveau_dp.c
-index 201c0b4335563..71d095409c90d 100644
+index 71d095409c90d..c200f197083f9 100644
 --- a/drivers/gpu/drm/nouveau/nouveau_dp.c
 +++ b/drivers/gpu/drm/nouveau/nouveau_dp.c
-@@ -165,7 +165,7 @@ void nouveau_dp_irq(struct nouveau_drm *drm,
- 
- 	if (mstm && mstm->is_mst) {
- 		if (!nv50_mstm_service(drm, nv_connector, mstm))
--			schedule_work(&drm->hpd_work);
-+			nouveau_connector_hpd(connector);
- 	} else {
- 		drm_dp_cec_irq(&nv_connector->aux);
+@@ -61,6 +61,11 @@ nouveau_dp_probe_dpcd(struct nouveau_connector *nv_connector,
+ 			mstm->can_mst = drm_dp_has_mst(aux, dpcd);
  	}
-diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouveau/nouveau_drm.c
-index 22d246acc5e52..42fc5c813a9bb 100644
---- a/drivers/gpu/drm/nouveau/nouveau_drm.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
-@@ -953,7 +953,7 @@ nouveau_pmops_resume(struct device *dev)
- 	ret = nouveau_do_resume(drm_dev, false);
  
- 	/* Monitors may have been connected / disconnected during suspend */
--	schedule_work(&nouveau_drm(drm_dev)->hpd_work);
-+	nouveau_display_hpd_resume(drm_dev);
- 
- 	return ret;
++	ret = drm_dp_downstream_read_info(aux, dpcd,
++					  outp->dp.downstream_ports);
++	if (ret < 0)
++		return connector_status_disconnected;
++
+ 	return connector_status_connected;
  }
-@@ -1036,7 +1036,7 @@ nouveau_pmops_runtime_resume(struct device *dev)
- 	drm_dev->switch_power_state = DRM_SWITCH_POWER_ON;
  
- 	/* Monitors may have been connected / disconnected during suspend */
--	schedule_work(&nouveau_drm(drm_dev)->hpd_work);
-+	nouveau_display_hpd_resume(drm_dev);
+@@ -176,8 +181,6 @@ void nouveau_dp_irq(struct nouveau_drm *drm,
+ /* TODO:
+  * - Use the minimum possible BPC here, once we add support for the max bpc
+  *   property.
+- * - Validate the mode against downstream port caps (see
+- *   drm_dp_downstream_max_clock())
+  * - Validate against the DP caps advertised by the GPU (we don't check these
+  *   yet)
+  */
+@@ -188,15 +191,19 @@ nv50_dp_mode_valid(struct drm_connector *connector,
+ 		   unsigned *out_clock)
+ {
+ 	const unsigned min_clock = 25000;
+-	unsigned max_clock, clock;
++	unsigned max_clock, ds_clock, clock;
+ 	enum drm_mode_status ret;
  
- 	return ret;
- }
-diff --git a/drivers/gpu/drm/nouveau/nouveau_drv.h b/drivers/gpu/drm/nouveau/nouveau_drv.h
-index f63ac72aa556f..73ebf5fba2fcd 100644
---- a/drivers/gpu/drm/nouveau/nouveau_drv.h
-+++ b/drivers/gpu/drm/nouveau/nouveau_drv.h
-@@ -198,6 +198,8 @@ struct nouveau_drm {
- 	struct nvbios vbios;
- 	struct nouveau_display *display;
- 	struct work_struct hpd_work;
-+	struct mutex hpd_lock;
-+	u32 hpd_pending;
- 	struct work_struct fbcon_work;
- 	int fbcon_new_state;
- #ifdef CONFIG_ACPI
+ 	if (mode->flags & DRM_MODE_FLAG_INTERLACE && !outp->caps.dp_interlace)
+ 		return MODE_NO_INTERLACE;
+ 
+ 	max_clock = outp->dp.link_nr * outp->dp.link_bw;
+-	clock = mode->clock * (connector->display_info.bpc * 3) / 10;
++	ds_clock = drm_dp_downstream_max_clock(outp->dp.dpcd,
++					       outp->dp.downstream_ports);
++	if (ds_clock)
++		max_clock = min(max_clock, ds_clock);
+ 
++	clock = mode->clock * (connector->display_info.bpc * 3) / 10;
+ 	ret = nouveau_conn_mode_clock_valid(mode, min_clock, max_clock,
+ 					    &clock);
+ 	if (out_clock)
+diff --git a/drivers/gpu/drm/nouveau/nouveau_encoder.h b/drivers/gpu/drm/nouveau/nouveau_encoder.h
+index eef4643f5f982..c1924a4529a7b 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_encoder.h
++++ b/drivers/gpu/drm/nouveau/nouveau_encoder.h
+@@ -72,6 +72,7 @@ struct nouveau_encoder {
+ 			struct mutex hpd_irq_lock;
+ 
+ 			u8 dpcd[DP_RECEIVER_CAP_SIZE];
++			u8 downstream_ports[DP_MAX_DOWNSTREAM_PORTS];
+ 			struct drm_dp_desc desc;
+ 		} dp;
+ 	};
 -- 
 2.26.2
 
