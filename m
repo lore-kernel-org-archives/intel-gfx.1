@@ -2,67 +2,41 @@ Return-Path: <SRS0=S5Fm=B6=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D094DC433E1
-	for <intel-gfx@archiver.kernel.org>; Thu, 20 Aug 2020 18:36:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8D97EC433E1
+	for <intel-gfx@archiver.kernel.org>; Thu, 20 Aug 2020 19:11:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 92827206B5
-	for <intel-gfx@archiver.kernel.org>; Thu, 20 Aug 2020 18:36:46 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="R8D7EXDX"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 92827206B5
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
+	by mail.kernel.org (Postfix) with ESMTPS id 697F92075E
+	for <intel-gfx@archiver.kernel.org>; Thu, 20 Aug 2020 19:11:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 697F92075E
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2421E6EA03;
-	Thu, 20 Aug 2020 18:36:46 +0000 (UTC)
-X-Greylist: delayed 368 seconds by postgrey-1.36 at gabe;
- Thu, 20 Aug 2020 18:36:44 UTC
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [63.128.21.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 222896EA05
- for <intel-gfx@lists.freedesktop.org>; Thu, 20 Aug 2020 18:36:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1597948603;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=qfLxCMnsO7JIC/eaKaw8p9wTENERe+wpNdDpM58At2g=;
- b=R8D7EXDXQZUPhgjNf81+fQJ0jU8pK/hWkrpeZF4g33CmlapbgpemuBCdmUAFz1MpbDUeWk
- qqulK1bKQ6Xi/8g4FKxkQ557fI4vbJXh0JgFFHr9axVxYFrOSiSC5Tyg3erTC1VyYUIZlK
- 7azHVAoJCY2xNjes4r/hZJDhnQsP1lE=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-504-KB-dH9DdNdWoEqpta9TcZA-1; Thu, 20 Aug 2020 14:30:30 -0400
-X-MC-Unique: KB-dH9DdNdWoEqpta9TcZA-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
- [10.5.11.14])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C8EC81005E73;
- Thu, 20 Aug 2020 18:30:28 +0000 (UTC)
-Received: from Whitewolf.redhat.com (ovpn-120-42.rdu2.redhat.com
- [10.10.120.42])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 8C6885DA74;
- Thu, 20 Aug 2020 18:30:27 +0000 (UTC)
-From: Lyude Paul <lyude@redhat.com>
-To: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- nouveau@lists.freedesktop.org
-Date: Thu, 20 Aug 2020 14:29:54 -0400
-Message-Id: <20200820183012.288794-3-lyude@redhat.com>
-In-Reply-To: <20200820183012.288794-1-lyude@redhat.com>
-References: <20200820183012.288794-1-lyude@redhat.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F8A36EA30;
+	Thu, 20 Aug 2020 19:11:05 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 7260D6EA35;
+ Thu, 20 Aug 2020 19:11:03 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 6BE3BA7DFF;
+ Thu, 20 Aug 2020 19:11:03 +0000 (UTC)
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
-Subject: [Intel-gfx] [RFC v2 02/20] drm/nouveau/kms/nv50-: Remove open-coded
- drm_dp_read_desc()
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Lyude Paul" <lyude@redhat.com>
+Date: Thu, 20 Aug 2020 19:11:03 -0000
+Message-ID: <159795066341.19434.11369555277526439896@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20200820183012.288794-1-lyude@redhat.com>
+In-Reply-To: <20200820183012.288794-1-lyude@redhat.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_drm/dp=2C_i915=2C_nouveau=3A_Cleanup_nouveau_HPD_and_add_DP?=
+ =?utf-8?q?_features_from_i915_=28rev4=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,120 +49,92 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, Ben Skeggs <bskeggs@redhat.com>,
- open list <linux-kernel@vger.kernel.org>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Noticed this while going through our DP code - we use an open-coded
-version of drm_dp_read_desc() instead of just using the helper, so
-change that. This will also let us use quirks in the future if we end up
-needing them.
+== Series Details ==
 
-Signed-off-by: Lyude Paul <lyude@redhat.com>
-Reviewed-by: Ben Skeggs <bskeggs@redhat.com>
----
- drivers/gpu/drm/nouveau/nouveau_connector.c |  3 ++-
- drivers/gpu/drm/nouveau/nouveau_dp.c        | 30 +++++++--------------
- drivers/gpu/drm/nouveau/nouveau_encoder.h   |  4 ++-
- 3 files changed, 14 insertions(+), 23 deletions(-)
+Series: drm/dp, i915, nouveau: Cleanup nouveau HPD and add DP features from i915 (rev4)
+URL   : https://patchwork.freedesktop.org/series/80542/
+State : warning
 
-diff --git a/drivers/gpu/drm/nouveau/nouveau_connector.c b/drivers/gpu/drm/nouveau/nouveau_connector.c
-index 7674025a4bfe8..e12957e6faa7c 100644
---- a/drivers/gpu/drm/nouveau/nouveau_connector.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_connector.c
-@@ -435,7 +435,8 @@ nouveau_connector_ddc_detect(struct drm_connector *connector)
- 
- 		switch (nv_encoder->dcb->type) {
- 		case DCB_OUTPUT_DP:
--			ret = nouveau_dp_detect(nv_encoder);
-+			ret = nouveau_dp_detect(nouveau_connector(connector),
-+						nv_encoder);
- 			if (ret == NOUVEAU_DP_MST)
- 				return NULL;
- 			else if (ret == NOUVEAU_DP_SST)
-diff --git a/drivers/gpu/drm/nouveau/nouveau_dp.c b/drivers/gpu/drm/nouveau/nouveau_dp.c
-index ee778ddc95fae..c4e9c21d4dd2b 100644
---- a/drivers/gpu/drm/nouveau/nouveau_dp.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_dp.c
-@@ -36,27 +36,9 @@ MODULE_PARM_DESC(mst, "Enable DisplayPort multi-stream (default: enabled)");
- static int nouveau_mst = 1;
- module_param_named(mst, nouveau_mst, int, 0400);
- 
--static void
--nouveau_dp_probe_oui(struct drm_device *dev, struct nvkm_i2c_aux *aux, u8 *dpcd)
--{
--	struct nouveau_drm *drm = nouveau_drm(dev);
--	u8 buf[3];
--
--	if (!(dpcd[DP_DOWN_STREAM_PORT_COUNT] & DP_OUI_SUPPORT))
--		return;
--
--	if (!nvkm_rdaux(aux, DP_SINK_OUI, buf, 3))
--		NV_DEBUG(drm, "Sink OUI: %02hx%02hx%02hx\n",
--			     buf[0], buf[1], buf[2]);
--
--	if (!nvkm_rdaux(aux, DP_BRANCH_OUI, buf, 3))
--		NV_DEBUG(drm, "Branch OUI: %02hx%02hx%02hx\n",
--			     buf[0], buf[1], buf[2]);
--
--}
--
- int
--nouveau_dp_detect(struct nouveau_encoder *nv_encoder)
-+nouveau_dp_detect(struct nouveau_connector *nv_connector,
-+		  struct nouveau_encoder *nv_encoder)
- {
- 	struct drm_device *dev = nv_encoder->base.base.dev;
- 	struct nouveau_drm *drm = nouveau_drm(dev);
-@@ -89,7 +71,13 @@ nouveau_dp_detect(struct nouveau_encoder *nv_encoder)
- 	NV_DEBUG(drm, "maximum: %dx%d\n",
- 		 nv_encoder->dp.link_nr, nv_encoder->dp.link_bw);
- 
--	nouveau_dp_probe_oui(dev, aux, dpcd);
-+	ret = drm_dp_read_desc(&nv_connector->aux, &nv_encoder->dp.desc,
-+			       drm_dp_is_branch(dpcd));
-+	if (ret) {
-+		NV_ERROR(drm, "Failed to read DP descriptor on %s: %d\n",
-+			 nv_connector->base.name, ret);
-+		return ret;
-+	}
- 
- 	ret = nv50_mstm_detect(nv_encoder->dp.mstm, dpcd, nouveau_mst);
- 	if (ret == 1)
-diff --git a/drivers/gpu/drm/nouveau/nouveau_encoder.h b/drivers/gpu/drm/nouveau/nouveau_encoder.h
-index a72c412ac8b14..6424cdcb4913f 100644
---- a/drivers/gpu/drm/nouveau/nouveau_encoder.h
-+++ b/drivers/gpu/drm/nouveau/nouveau_encoder.h
-@@ -33,6 +33,7 @@
- #include <drm/drm_dp_mst_helper.h>
- #include "dispnv04/disp.h"
- struct nv50_head_atom;
-+struct nouveau_connector;
- 
- #define NV_DPMS_CLEARED 0x80
- 
-@@ -64,6 +65,7 @@ struct nouveau_encoder {
- 			struct nv50_mstm *mstm;
- 			int link_nr;
- 			int link_bw;
-+			struct drm_dp_desc desc;
- 		} dp;
- 	};
- 
-@@ -104,7 +106,7 @@ enum nouveau_dp_status {
- 	NOUVEAU_DP_MST,
- };
- 
--int nouveau_dp_detect(struct nouveau_encoder *);
+== Summary ==
+
+$ dim checkpatch origin/drm-tip
+a9e819463691 drm/nouveau/kms: Fix some indenting in nouveau_dp_detect()
+-:7: WARNING:COMMIT_MESSAGE: Missing commit description - Add an appropriate one
+
+total: 0 errors, 1 warnings, 0 checks, 21 lines checked
+7ae06bba566f drm/nouveau/kms/nv50-: Remove open-coded drm_dp_read_desc()
+-:102: WARNING:FUNCTION_ARGUMENTS: function definition argument 'struct nouveau_connector *' should also have an identifier name
+#102: FILE: drivers/gpu/drm/nouveau/nouveau_encoder.h:109:
 +int nouveau_dp_detect(struct nouveau_connector *, struct nouveau_encoder *);
- enum drm_mode_status nv50_dp_mode_valid(struct drm_connector *,
- 					struct nouveau_encoder *,
- 					const struct drm_display_mode *,
--- 
-2.26.2
+
+-:102: WARNING:FUNCTION_ARGUMENTS: function definition argument 'struct nouveau_encoder *' should also have an identifier name
+#102: FILE: drivers/gpu/drm/nouveau/nouveau_encoder.h:109:
++int nouveau_dp_detect(struct nouveau_connector *, struct nouveau_encoder *);
+
+total: 0 errors, 2 warnings, 0 checks, 74 lines checked
+6abb3f5c77eb drm/nouveau/kms/nv50-: Just use drm_dp_dpcd_read() in nouveau_dp.c
+f25602cad7dd drm/nouveau/kms/nv50-: Use macros for DP registers in nouveau_dp.c
+62e930dbeef6 drm/nouveau/kms: Don't clear DP_MST_CTRL DPCD in nv50_mstm_new()
+-:7: ERROR:GIT_COMMIT_ID: Please use git commit description style 'commit <12+ chars of sha1> ("<title line>")' - ie: 'commit fa3cdf8d0b09 ("drm/nouveau: Reset MST branching unit before enabling")'
+#7: 
+Since fa3cdf8d0b09 ("drm/nouveau: Reset MST branching unit before
+
+total: 1 errors, 0 warnings, 0 checks, 17 lines checked
+a9682f4e1452 drm/nouveau/kms: Search for encoders' connectors properly
+80d08ddcbe01 drm/nouveau/kms/nv50-: Use drm_dp_dpcd_(readb|writeb)() in nv50_sor_disable()
+de0d90b0cbbe drm/nouveau/kms/nv50-: Refactor and cleanup DP HPD handling
+-:53: WARNING:COMMIT_LOG_LONG_LINE: Possible unwrapped commit description (prefer a maximum 75 chars per line)
+#53: 
+* Enabling bits in MSTM_CTRL before calling drm_dp_mst_topology_mgr_set_mst().
+
+-:463: WARNING:FUNCTION_ARGUMENTS: function definition argument 'struct drm_device *' should also have an identifier name
+#463: FILE: drivers/gpu/drm/nouveau/nouveau_display.h:21:
++	void (*fini)(struct drm_device *, bool suspend, bool runtime);
+
+total: 0 errors, 2 warnings, 0 checks, 575 lines checked
+1ff3cc085ba8 drm/i915/dp: Extract drm_dp_has_mst()
+a6f9d631d9da drm/nouveau/kms: Use new drm_dp_has_mst() helper for checking MST caps
+-:8: WARNING:COMMIT_MESSAGE: Missing commit description - Add an appropriate one
+
+total: 0 errors, 1 warnings, 0 checks, 29 lines checked
+4f4b361d1f59 drm/nouveau/kms: Move drm_dp_cec_unset_edid() into nouveau_connector_detect()
+2c0d380033fe drm/nouveau/kms: Only use hpd_work for reprobing in HPD paths
+-:279: CHECK:UNCOMMENTED_DEFINITION: struct mutex definition without comment
+#279: FILE: drivers/gpu/drm/nouveau/nouveau_drv.h:201:
++	struct mutex hpd_lock;
+
+total: 0 errors, 0 warnings, 1 checks, 219 lines checked
+4a801b894885 drm/i915/dp: Extract drm_dp_downstream_read_info()
+36456c0c6ac1 drm/nouveau/kms/nv50-: Use downstream DP clock limits for mode validation
+-:63: WARNING:UNSPECIFIED_INT: Prefer 'unsigned int' to bare use of 'unsigned'
+#63: FILE: drivers/gpu/drm/nouveau/nouveau_dp.c:194:
++	unsigned max_clock, ds_clock, clock;
+
+total: 0 errors, 1 warnings, 0 checks, 57 lines checked
+3e316280cc66 drm/i915/dp: Extract drm_dp_has_sink_count()
+42375c922088 drm/i915/dp: Extract drm_dp_get_sink_count()
+-:12: WARNING:COMMIT_LOG_LONG_LINE: Possible unwrapped commit description (prefer a maximum 75 chars per line)
+#12: 
+* Add back comment and move back sink_count assignment in intel_dp_get_dpcd()
+
+total: 0 errors, 1 warnings, 0 checks, 64 lines checked
+e75ad1b640e6 drm/nouveau/kms/nv50-: Add support for DP_SINK_COUNT
+-:11: WARNING:COMMIT_LOG_LONG_LINE: Possible unwrapped commit description (prefer a maximum 75 chars per line)
+#11: 
+plugged into it currently results in a bogus EDID retrieval error in the kernel log.
+
+total: 0 errors, 1 warnings, 0 checks, 108 lines checked
+8eaee66ccf08 drm/nouveau/kms: Don't change EDID when it hasn't actually changed
+510983d335f7 drm/i915/dp: Extract drm_dp_read_dpcd_caps()
+c70e1535be58 drm/nouveau/kms: Start using drm_dp_read_dpcd_caps()
+
 
 _______________________________________________
 Intel-gfx mailing list
