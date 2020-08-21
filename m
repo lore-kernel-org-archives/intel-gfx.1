@@ -2,44 +2,43 @@ Return-Path: <SRS0=3jck=B7=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 35437C433DF
-	for <intel-gfx@archiver.kernel.org>; Fri, 21 Aug 2020 12:47:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 49372C433DF
+	for <intel-gfx@archiver.kernel.org>; Fri, 21 Aug 2020 13:02:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 10A862078D
-	for <intel-gfx@archiver.kernel.org>; Fri, 21 Aug 2020 12:47:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 10A862078D
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=8bytes.org
+	by mail.kernel.org (Postfix) with ESMTPS id E1F5F207BB
+	for <intel-gfx@archiver.kernel.org>; Fri, 21 Aug 2020 13:02:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E1F5F207BB
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 961856EADA;
-	Fri, 21 Aug 2020 12:47:35 +0000 (UTC)
-X-Greylist: delayed 572 seconds by postgrey-1.36 at gabe;
- Fri, 21 Aug 2020 12:47:33 UTC
-Received: from theia.8bytes.org (8bytes.org
- [IPv6:2a01:238:4383:600:38bc:a715:4b6d:a889])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F8236EAD4
- for <intel-gfx@lists.freedesktop.org>; Fri, 21 Aug 2020 12:47:33 +0000 (UTC)
-Received: from cap.home.8bytes.org (p4ff2bb8d.dip0.t-ipconnect.de
- [79.242.187.141])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
- (No client certificate requested)
- by theia.8bytes.org (Postfix) with ESMTPSA id 59C01284;
- Fri, 21 Aug 2020 14:37:59 +0200 (CEST)
-From: Joerg Roedel <joro@8bytes.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-Date: Fri, 21 Aug 2020 14:37:46 +0200
-Message-Id: <20200821123746.16904-1-joro@8bytes.org>
-X-Mailer: git-send-email 2.28.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 540156E95E;
+	Fri, 21 Aug 2020 13:02:22 +0000 (UTC)
+Received: from fireflyinternet.com (unknown [77.68.26.236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D8936E95E
+ for <intel-gfx@lists.freedesktop.org>; Fri, 21 Aug 2020 13:02:20 +0000 (UTC)
+X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
+ x-ip-name=78.156.65.138; 
+Received: from localhost (unverified [78.156.65.138]) 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP (TLS) id
+ 22198351-1500050 for multiple; Fri, 21 Aug 2020 14:01:43 +0100
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v2] mm: Track page table modifications in
- __apply_to_page_range()
+In-Reply-To: <CAHk-=wiu1WHD0x0VXKoLQGy43S7KLCY=Yd-TPDh=7tDW08554w@mail.gmail.com>
+References: <20200821085011.28878-1-chris@chris-wilson.co.uk>
+ <20200821085011.28878-2-chris@chris-wilson.co.uk>
+ <CAHk-=wiu1WHD0x0VXKoLQGy43S7KLCY=Yd-TPDh=7tDW08554w@mail.gmail.com>
+From: Chris Wilson <chris@chris-wilson.co.uk>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Fri, 21 Aug 2020 14:01:41 +0100
+Message-ID: <159801490171.29194.13892566081151243171@build.alporthouse.com>
+User-Agent: alot/0.9
+Subject: Re: [Intel-gfx] [PATCH 2/4] drm/i915/gem: Sync the vmap PTEs upon
+ construction
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,182 +51,48 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Joerg Roedel <jroedel@suse.de>, intel-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Chris Wilson <chris@chris-wilson.co.uk>, linux-mm@kvack.org,
- David Vrabel <david.vrabel@citrix.com>, Pavel Machek <pavel@ucw.cz>,
- Dave Airlie <airlied@redhat.com>,
- Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Joerg Roedel <jroedel@suse.de>, intel-gfx <intel-gfx@lists.freedesktop.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ stable <stable@vger.kernel.org>, Linux-MM <linux-mm@kvack.org>,
+ Pavel Machek <pavel@ucw.cz>, Dave Airlie <airlied@redhat.com>,
+ Andrew Morton <akpm@linux-foundation.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Joerg Roedel <jroedel@suse.de>
+Quoting Linus Torvalds (2020-08-21 13:41:03)
+> On Fri, Aug 21, 2020 at 1:50 AM Chris Wilson <chris@chris-wilson.co.uk> wrote:
+> >
+> > Since synchronising the PTE after assignment is a manual step, use the
+> > newly exported interface to flush the PTE after assigning via
+> > alloc_vm_area().
+> 
+> This commit message doesn't make much sense to me.
+> 
+> Are you talking about synchronizing the page directory structure
+> across processes after possibly creating new kernel page tables?
+> 
+> Because that has nothing to do with the PTE. It's all about making
+> sure the _upper_ layers of the page directories are populated
+> everywhere..
+> 
+> The name seems off to me too - what are you "flushing"? (And yes, I
+> know about the flush_cache_vmap(), but that looks just bogus, since
+> any non-mapped area shouldn't have any virtual caches to begin with,
+> so I suspect that is just the crazy architectures being confused -
+> flush_cache_vmap() is a no-op on any sane architecture - and powerpc
+> that mis-uses it for other things).
 
-The __apply_to_page_range() function is also used to change and/or
-allocate page-table pages in the vmalloc area of the address space.
-Make sure these changes get synchronized to other page-tables in the
-system by calling arch_sync_kernel_mappings() when necessary.
+I was trying to mimic map_kernel_range() which does the
+arch_sync_kernel_mappings and flush_cache_vmap on top of the
+apply_to_page_range performed by alloc_vm_area, because buried away in
+there, on x86-32, is a set_pmd(). Since map_kernel_range() wrapped
+map_kernel_range_noflush(), flush seemed like the right verb.
 
-Tested-by: Chris Wilson <chris@chris-wilson.co.uk> #x86-32
-Cc: <stable@vger.kernel.org> # v5.8+
-Signed-off-by: Joerg Roedel <jroedel@suse.de>
----
- mm/memory.c | 36 +++++++++++++++++++++++-------------
- 1 file changed, 23 insertions(+), 13 deletions(-)
-
-diff --git a/mm/memory.c b/mm/memory.c
-index 3a7779d9891d..1b7d846f6992 100644
---- a/mm/memory.c
-+++ b/mm/memory.c
-@@ -83,6 +83,7 @@
- #include <asm/tlb.h>
- #include <asm/tlbflush.h>
- 
-+#include "pgalloc-track.h"
- #include "internal.h"
- 
- #if defined(LAST_CPUPID_NOT_IN_PAGE_FLAGS) && !defined(CONFIG_COMPILE_TEST)
-@@ -2206,7 +2207,8 @@ EXPORT_SYMBOL(vm_iomap_memory);
- 
- static int apply_to_pte_range(struct mm_struct *mm, pmd_t *pmd,
- 				     unsigned long addr, unsigned long end,
--				     pte_fn_t fn, void *data, bool create)
-+				     pte_fn_t fn, void *data, bool create,
-+				     pgtbl_mod_mask *mask)
- {
- 	pte_t *pte;
- 	int err = 0;
-@@ -2214,7 +2216,7 @@ static int apply_to_pte_range(struct mm_struct *mm, pmd_t *pmd,
- 
- 	if (create) {
- 		pte = (mm == &init_mm) ?
--			pte_alloc_kernel(pmd, addr) :
-+			pte_alloc_kernel_track(pmd, addr, mask) :
- 			pte_alloc_map_lock(mm, pmd, addr, &ptl);
- 		if (!pte)
- 			return -ENOMEM;
-@@ -2235,6 +2237,7 @@ static int apply_to_pte_range(struct mm_struct *mm, pmd_t *pmd,
- 				break;
- 		}
- 	} while (addr += PAGE_SIZE, addr != end);
-+	*mask |= PGTBL_PTE_MODIFIED;
- 
- 	arch_leave_lazy_mmu_mode();
- 
-@@ -2245,7 +2248,8 @@ static int apply_to_pte_range(struct mm_struct *mm, pmd_t *pmd,
- 
- static int apply_to_pmd_range(struct mm_struct *mm, pud_t *pud,
- 				     unsigned long addr, unsigned long end,
--				     pte_fn_t fn, void *data, bool create)
-+				     pte_fn_t fn, void *data, bool create,
-+				     pgtbl_mod_mask *mask)
- {
- 	pmd_t *pmd;
- 	unsigned long next;
-@@ -2254,7 +2258,7 @@ static int apply_to_pmd_range(struct mm_struct *mm, pud_t *pud,
- 	BUG_ON(pud_huge(*pud));
- 
- 	if (create) {
--		pmd = pmd_alloc(mm, pud, addr);
-+		pmd = pmd_alloc_track(mm, pud, addr, mask);
- 		if (!pmd)
- 			return -ENOMEM;
- 	} else {
-@@ -2264,7 +2268,7 @@ static int apply_to_pmd_range(struct mm_struct *mm, pud_t *pud,
- 		next = pmd_addr_end(addr, end);
- 		if (create || !pmd_none_or_clear_bad(pmd)) {
- 			err = apply_to_pte_range(mm, pmd, addr, next, fn, data,
--						 create);
-+						 create, mask);
- 			if (err)
- 				break;
- 		}
-@@ -2274,14 +2278,15 @@ static int apply_to_pmd_range(struct mm_struct *mm, pud_t *pud,
- 
- static int apply_to_pud_range(struct mm_struct *mm, p4d_t *p4d,
- 				     unsigned long addr, unsigned long end,
--				     pte_fn_t fn, void *data, bool create)
-+				     pte_fn_t fn, void *data, bool create,
-+				     pgtbl_mod_mask *mask)
- {
- 	pud_t *pud;
- 	unsigned long next;
- 	int err = 0;
- 
- 	if (create) {
--		pud = pud_alloc(mm, p4d, addr);
-+		pud = pud_alloc_track(mm, p4d, addr, mask);
- 		if (!pud)
- 			return -ENOMEM;
- 	} else {
-@@ -2291,7 +2296,7 @@ static int apply_to_pud_range(struct mm_struct *mm, p4d_t *p4d,
- 		next = pud_addr_end(addr, end);
- 		if (create || !pud_none_or_clear_bad(pud)) {
- 			err = apply_to_pmd_range(mm, pud, addr, next, fn, data,
--						 create);
-+						 create, mask);
- 			if (err)
- 				break;
- 		}
-@@ -2301,14 +2306,15 @@ static int apply_to_pud_range(struct mm_struct *mm, p4d_t *p4d,
- 
- static int apply_to_p4d_range(struct mm_struct *mm, pgd_t *pgd,
- 				     unsigned long addr, unsigned long end,
--				     pte_fn_t fn, void *data, bool create)
-+				     pte_fn_t fn, void *data, bool create,
-+				     pgtbl_mod_mask *mask)
- {
- 	p4d_t *p4d;
- 	unsigned long next;
- 	int err = 0;
- 
- 	if (create) {
--		p4d = p4d_alloc(mm, pgd, addr);
-+		p4d = p4d_alloc_track(mm, pgd, addr, mask);
- 		if (!p4d)
- 			return -ENOMEM;
- 	} else {
-@@ -2318,7 +2324,7 @@ static int apply_to_p4d_range(struct mm_struct *mm, pgd_t *pgd,
- 		next = p4d_addr_end(addr, end);
- 		if (create || !p4d_none_or_clear_bad(p4d)) {
- 			err = apply_to_pud_range(mm, p4d, addr, next, fn, data,
--						 create);
-+						 create, mask);
- 			if (err)
- 				break;
- 		}
-@@ -2331,8 +2337,9 @@ static int __apply_to_page_range(struct mm_struct *mm, unsigned long addr,
- 				 void *data, bool create)
- {
- 	pgd_t *pgd;
--	unsigned long next;
-+	unsigned long start = addr, next;
- 	unsigned long end = addr + size;
-+	pgtbl_mod_mask mask = 0;
- 	int err = 0;
- 
- 	if (WARN_ON(addr >= end))
-@@ -2343,11 +2350,14 @@ static int __apply_to_page_range(struct mm_struct *mm, unsigned long addr,
- 		next = pgd_addr_end(addr, end);
- 		if (!create && pgd_none_or_clear_bad(pgd))
- 			continue;
--		err = apply_to_p4d_range(mm, pgd, addr, next, fn, data, create);
-+		err = apply_to_p4d_range(mm, pgd, addr, next, fn, data, create, &mask);
- 		if (err)
- 			break;
- 	} while (pgd++, addr = next, addr != end);
- 
-+	if (mask & ARCH_PAGE_TABLE_SYNC_MASK)
-+		arch_sync_kernel_mappings(start, start + size);
-+
- 	return err;
- }
- 
--- 
-2.28.0
-
+Joerg pointed out that the sync belonged to __apply_to_page_range and
+fixed it in situ.
+-Chris
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
