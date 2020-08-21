@@ -7,47 +7,47 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4F4C7C433DF
-	for <intel-gfx@archiver.kernel.org>; Fri, 21 Aug 2020 15:38:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 77B0DC433E1
+	for <intel-gfx@archiver.kernel.org>; Fri, 21 Aug 2020 15:39:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2C2042063A
-	for <intel-gfx@archiver.kernel.org>; Fri, 21 Aug 2020 15:38:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2C2042063A
+	by mail.kernel.org (Postfix) with ESMTPS id 535122063A
+	for <intel-gfx@archiver.kernel.org>; Fri, 21 Aug 2020 15:39:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 535122063A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7633E6E85F;
-	Fri, 21 Aug 2020 15:38:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CAEBD6E82B;
+	Fri, 21 Aug 2020 15:39:03 +0000 (UTC)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4AE946EADF;
- Fri, 21 Aug 2020 15:38:55 +0000 (UTC)
-IronPort-SDR: cZMeKTLBCtwaqw6HwfxECPzTAHkVsiQc80LirLdqgK+sELLEem1NGaAgJhwz/wDYliwqmIbI0W
- 3ytTcCaHRMhA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9719"; a="240381938"
-X-IronPort-AV: E=Sophos;i="5.76,337,1592895600"; d="scan'208";a="240381938"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4CCD86E9BF;
+ Fri, 21 Aug 2020 15:39:01 +0000 (UTC)
+IronPort-SDR: uIUyVHHiRkgQGHQf071EIPxSfoDQIjtYBfAygFs+ZTCJ17L8CGRhPC9ocqY0Dpr1D66kmDqE2I
+ N7bkoIRBjRfQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9719"; a="240381957"
+X-IronPort-AV: E=Sophos;i="5.76,337,1592895600"; d="scan'208";a="240381957"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Aug 2020 08:38:55 -0700
-IronPort-SDR: rtS7Ds/kFEjWAFAk64Juiwr4tdGvH0wGgf9hgR71q52jvPkxBwx3Jz6O6yI+VUmxVv9PK2l+w6
- x839fOp9uHrg==
-X-IronPort-AV: E=Sophos;i="5.76,337,1592895600"; d="scan'208";a="473086750"
+ 21 Aug 2020 08:39:01 -0700
+IronPort-SDR: DeO9PfS/ka5ygu3ejQCJaXFN8+htlrXj+mnxup0Zfiq303wZKyjNlki5CQ3Ly4mzHQxg1evor8
+ jbgFIIAt/r/Q==
+X-IronPort-AV: E=Sophos;i="5.76,337,1592895600"; d="scan'208";a="473086802"
 Received: from jkrzyszt-desk.igk.intel.com ([172.22.244.18])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Aug 2020 08:38:53 -0700
+ 21 Aug 2020 08:38:59 -0700
 From: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
 To: igt-dev@lists.freedesktop.org
-Date: Fri, 21 Aug 2020 17:38:04 +0200
-Message-Id: <20200821153807.18613-18-janusz.krzysztofik@linux.intel.com>
+Date: Fri, 21 Aug 2020 17:38:07 +0200
+Message-Id: <20200821153807.18613-21-janusz.krzysztofik@linux.intel.com>
 X-Mailer: git-send-email 2.21.1
 In-Reply-To: <20200821153807.18613-1-janusz.krzysztofik@linux.intel.com>
 References: <20200821153807.18613-1-janusz.krzysztofik@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH i-g-t v4 17/20] tests/core_hotunplug: More
- thorough i915 healthcheck and recovery
+Subject: [Intel-gfx] [PATCH i-g-t v4 20/20] tests/core_hotunplug:
+ Un-blocklist *bind* subtests
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,202 +67,29 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The test now assumes the i915 driver is able to identify potential
-hardware or driver issues while rebinding to a device and indicate them
-by marking the GPU wedged.  Should that assumption occur wrong, the
-health check phase of the test would happily succeed while potentially
-leaving the device in an unusable state.  That would not only give us
-falsely positive test results but could also potentially affect
-subsequently run applications.  Then, we should examine health of the
-exercised device more thoroughly and try harder to recover it from
-potentially detected stalls.
-
-We could use a gem_test_engine() library function which submits and
-asserts successful execution of a NOP batch on each physical engine.
-Unfortunately, on failure this function jumps out of an IGT test
-section it is called from, while we would like to continue with
-recovery steps, possibly not adding another level of test section group
-nesting.  Moreover, the function opens the device again and doesn't
-close the extra file descriptor before the jump, while we care for
-being able to close the exercised device completely before running
-certain subtest  operations.  Then, reimplement the function locally
-with those issues fixed and use it as an i915 healthcheck.  Call it
-also on test startup so operations performed by the test are never
-blamed for driver or hardware issues which may potentially exist and
-be possible to detect on test start.
-
-Should the i915 GPU be found unresponsive by the health check called
-from a recovery section, try harder to recover it to a usable state
-with a global GPU reset.
-
-For still more effective detection of GPU hangs, use a hang detector
-provided by IGT library.  However, replace the library signal handler
-with our own implementation that doesn't jump out of the current IGT
-test section on GPU hang so we are still able to perform the reset and
-retry.
-
-v2: Skip i915 health check if a GPU hang has been already detected by a
-    previous health check run and not yet remediated with a GPU reset,
-  - take care of stopping a hang detector instance possibly left
-    running by a failed health check attempt.
+Subtests which don't remove the device, only unbind the driver from it,
+seem relatively safe and harmless for CI.  Remove them from the CI
+blocklist.
 
 Signed-off-by: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
 ---
- tests/core_hotunplug.c | 97 ++++++++++++++++++++++++++++++++++++++----
- 1 file changed, 89 insertions(+), 8 deletions(-)
+ tests/intel-ci/blacklist.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/tests/core_hotunplug.c b/tests/core_hotunplug.c
-index 24beed81a..13e7aa46f 100644
---- a/tests/core_hotunplug.c
-+++ b/tests/core_hotunplug.c
-@@ -23,8 +23,10 @@
+diff --git a/tests/intel-ci/blacklist.txt b/tests/intel-ci/blacklist.txt
+index f9a57cb54..25b567038 100644
+--- a/tests/intel-ci/blacklist.txt
++++ b/tests/intel-ci/blacklist.txt
+@@ -120,7 +120,7 @@ igt@perf_pmu@cpu-hotplug
  
- #include <fcntl.h>
- #include <limits.h>
-+#include <signal.h>
- #include <stdlib.h>
- #include <string.h>
-+#include <sys/ioctl.h>
- #include <sys/stat.h>
- #include <sys/types.h>
- #include <unistd.h>
-@@ -195,7 +197,80 @@ static void cleanup(struct hotunplug *priv)
- 	priv->fd.sysfs_dev = close_sysfs(priv->fd.sysfs_dev);
- }
+ # Currently fails and leaves the machine in a very bad state, and
+ # causes coverage loss for other tests.
+-igt@core_hotunplug@.*
++igt@core_hotunplug@.*plug.*
  
--static void healthcheck(struct hotunplug *priv)
-+static bool local_i915_is_wedged(int i915)
-+{
-+	int err = 0;
-+
-+	if (ioctl(i915, DRM_IOCTL_I915_GEM_THROTTLE))
-+		err = -errno;
-+	return err == -EIO;
-+}
-+
-+static bool hang_detected = false;
-+
-+static void local_sig_abort(int sig)
-+{
-+	errno = 0; /* inside a signal, last errno reporting is confusing */
-+	hang_detected = true;
-+}
-+
-+static int local_i915_healthcheck(int i915)
-+{
-+	const uint32_t bbe = MI_BATCH_BUFFER_END;
-+	struct drm_i915_gem_exec_object2 obj = { };
-+	struct drm_i915_gem_execbuffer2 execbuf = {
-+		.buffers_ptr = to_user_pointer(&obj),
-+		.buffer_count = 1,
-+	};
-+	const struct intel_execution_engine2 *engine;
-+
-+	/* stop our hang detector possibly still runnign if we failed before */
-+	igt_stop_hang_detector();
-+
-+	/* don't run again before GPU reset if hang has been already detected */
-+	if (hang_detected)
-+		return -EIO;
-+
-+	igt_debug("running i915 GPU healthcheck\n");
-+
-+	if (local_i915_is_wedged(i915))
-+		return -EIO;
-+
-+	obj.handle = gem_create(i915, 4096);
-+	gem_write(i915, obj.handle, 0, &bbe, sizeof(bbe));
-+
-+	igt_fork_hang_detector(i915);
-+	signal(SIGIO, local_sig_abort);
-+
-+	__for_each_physical_engine(i915, engine) {
-+		execbuf.flags = engine->flags;
-+		gem_execbuf(i915, &execbuf);
-+	}
-+
-+	gem_sync(i915, obj.handle);
-+	gem_close(i915, obj.handle);
-+
-+	igt_stop_hang_detector();
-+	if (hang_detected)
-+		return -EIO;
-+
-+	if (local_i915_is_wedged(i915))
-+		return -EIO;
-+
-+	return 0;
-+}
-+
-+static int local_i915_recover(int i915)
-+{
-+	igt_debug("forcing i915 GPU reset\n");
-+
-+	igt_force_gpu_reset(i915);
-+	hang_detected = false;
-+
-+	return local_i915_healthcheck(i915);
-+}
-+
-+static void healthcheck(struct hotunplug *priv, bool recover)
- {
- 	/* preserve error code potentially stored before in priv->fd.drm */
- 	bool closed = priv->fd.drm == -1;
-@@ -210,9 +285,14 @@ static void healthcheck(struct hotunplug *priv)
- 		priv->fd.drm = fd_drm;
- 
- 	if (is_i915_device(fd_drm)) {
--		priv->failure = "GEM failure";
--		igt_require_gem(fd_drm);
--		priv->failure = NULL;
-+		/* don't report library failed asserts as healthcheck failure */
-+		priv->failure = "Unrecoverable test failure";
-+		if (local_i915_healthcheck(fd_drm) &&
-+		    (!recover || local_i915_recover(fd_drm)))
-+			priv->failure = "Healthcheck failure!";
-+		else
-+			priv->failure = NULL;
-+
- 	} else {
- 		/* no device specific healthcheck, rely on reopen result */
- 		priv->failure = NULL;
-@@ -237,7 +317,7 @@ static void recover(struct hotunplug *priv)
- 		driver_bind(priv, 60);
- 
- 	if (priv->failure)
--		healthcheck(priv);
-+		healthcheck(priv, true);
- }
- 
- static void post_healthcheck(struct hotunplug *priv)
-@@ -271,7 +351,7 @@ static void unbind_rebind(struct hotunplug *priv)
- 
- 	driver_bind(priv, 0);
- 
--	healthcheck(priv);
-+	healthcheck(priv, false);
- }
- 
- static void unplug_rescan(struct hotunplug *priv)
-@@ -280,7 +360,7 @@ static void unplug_rescan(struct hotunplug *priv)
- 
- 	bus_rescan(priv, 0);
- 
--	healthcheck(priv);
-+	healthcheck(priv, false);
- }
- 
- static void hotunbind_lateclose(struct hotunplug *priv)
-@@ -326,7 +406,8 @@ igt_main
- 
- 		if (is_i915_device(fd_drm)) {
- 			gem_quiescent_gpu(fd_drm);
--			igt_require_gem(fd_drm);
-+			igt_skip_on_f(local_i915_healthcheck(fd_drm),
-+				      "i915 device not healthy on test start\n");
- 		}
- 
- 		/* Make sure subtests always reopen the same device */
+ # hangs several gens of hosts, and has no immediate fix
+ igt@device_reset@reset-bound
+\ No newline at end of file
 -- 
 2.21.1
 
