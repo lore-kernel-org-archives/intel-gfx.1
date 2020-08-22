@@ -2,40 +2,42 @@ Return-Path: <SRS0=gpMv=CA=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-5.3 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+	USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E276DC433E3
-	for <intel-gfx@archiver.kernel.org>; Sat, 22 Aug 2020 16:09:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E7CA0C433E5
+	for <intel-gfx@archiver.kernel.org>; Sat, 22 Aug 2020 16:13:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C155B20738
-	for <intel-gfx@archiver.kernel.org>; Sat, 22 Aug 2020 16:09:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C155B20738
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id C74DE21734
+	for <intel-gfx@archiver.kernel.org>; Sat, 22 Aug 2020 16:13:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C74DE21734
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 674006E321;
-	Sat, 22 Aug 2020 16:09:13 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 63E926E31D;
- Sat, 22 Aug 2020 16:09:12 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 5DB65A011C;
- Sat, 22 Aug 2020 16:09:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6054E6E138;
+	Sat, 22 Aug 2020 16:13:03 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0887F6E138
+ for <intel-gfx@lists.freedesktop.org>; Sat, 22 Aug 2020 16:13:01 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 49E7DB746;
+ Sat, 22 Aug 2020 16:13:29 +0000 (UTC)
+Date: Sat, 22 Aug 2020 18:12:58 +0200
+From: Joerg Roedel <jroedel@suse.de>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Message-ID: <20200822161258.GP3354@suse.de>
+References: <20200821123746.16904-1-joro@8bytes.org>
+ <CAHk-=wgNEsVwVMwQdHL4O1tDWQa-HcmOv-EmqLTQH+SoC2CkWA@mail.gmail.com>
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Chris Wilson" <chris@chris-wilson.co.uk>
-Date: Sat, 22 Aug 2020 16:09:12 -0000
-Message-ID: <159811255238.6878.16752509466671920488@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20200822160209.28512-1-chris@chris-wilson.co.uk>
-In-Reply-To: <20200822160209.28512-1-chris@chris-wilson.co.uk>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_iommu/intel=3A_Handle_36b_addressing_for_x86-32?=
+Content-Disposition: inline
+In-Reply-To: <CAHk-=wgNEsVwVMwQdHL4O1tDWQa-HcmOv-EmqLTQH+SoC2CkWA@mail.gmail.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Subject: Re: [Intel-gfx] [PATCH v2] mm: Track page table modifications in
+ __apply_to_page_range()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,30 +50,48 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
+Cc: Joerg Roedel <joro@8bytes.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ stable <stable@vger.kernel.org>, Chris Wilson <chris@chris-wilson.co.uk>,
+ Linux-MM <linux-mm@kvack.org>, David Vrabel <david.vrabel@citrix.com>,
+ Pavel Machek <pavel@ucw.cz>, Dave Airlie <airlied@redhat.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ intel-gfx <intel-gfx@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+On Fri, Aug 21, 2020 at 12:18:41PM -0700, Linus Torvalds wrote:
+> It also strikes me that I think the only architecture that uses the
+> whole arch_sync_kernel_mappings() thing is now just x86-32.
+> 
+> [ Well, x86-64 still has it, but that's because we undid the 64-bit
+> removal, but it's on the verge of going away and x86-64 shouldn't
+> actually _need_ it any more ]
+> 
+> So all of this seems to be purely for 32-bit x86. Which kind of makes
+> this all fail the smell test.
 
-Series: iommu/intel: Handle 36b addressing for x86-32
-URL   : https://patchwork.freedesktop.org/series/80918/
-State : warning
+Yeah, it is certainly not the nicest thing to have in generic mm code,
+but at least it is an improvement of the vmalloc_sync_all() interface we
+had before, where the function had to be called at random undefined
+places.
 
-== Summary ==
+And x86-32 needs it, as long as we have the !SHARED_KERNEL_PMD cases
+(which includes legacy paging). Or we also pre-allocate the PMDs on
+x86-32 and forbid large ioremap mappings. But since the vmalloc area
+gets larger with less RAM on x86-32, this would penalize low memory
+machines by using more pages for the pre-allocations.
 
-$ dim checkpatch origin/drm-tip
-ce2e9f1b5e99 iommu/intel: Handle 36b addressing for x86-32
--:14: ERROR:GIT_COMMIT_ID: Please use git commit description style 'commit <12+ chars of sha1> ("<title line>")' - ie: 'commit fa954e683178 ("iommu/vt-d: Delegate the dma domain to upper layer")'
-#14: 
-fa954e683178 ("iommu/vt-d: Delegate the dma domain to upper layer"), but
+Not sure if making the vmalloc area on x86-32 a fixed 128MB range of
+address space independent of RAM size is doable or if it will break some
+machines. But with that pre-allocating PMDs would make more sense and we
+could get rid of the p?d_alloc_track() stuff.
 
-total: 1 errors, 0 warnings, 0 checks, 36 lines checked
+Regards,
 
-
+	Joerg
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
