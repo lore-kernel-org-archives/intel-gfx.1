@@ -7,49 +7,49 @@ X-Spam-Status: No, score=-9.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS autolearn=unavailable autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2C587C433E8
-	for <intel-gfx@archiver.kernel.org>; Mon, 24 Aug 2020 12:02:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AD7D0C433E5
+	for <intel-gfx@archiver.kernel.org>; Mon, 24 Aug 2020 12:02:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 01F682078A
-	for <intel-gfx@archiver.kernel.org>; Mon, 24 Aug 2020 12:02:08 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 83C6E2078D
+	for <intel-gfx@archiver.kernel.org>; Mon, 24 Aug 2020 12:02:12 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="ByPNYxOz"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 01F682078A
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Cq54sehp"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 83C6E2078D
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 12DD06E28A;
-	Mon, 24 Aug 2020 12:02:07 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 603B46E243
- for <intel-gfx@lists.freedesktop.org>; Mon, 24 Aug 2020 12:02:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 068EB6E25A;
+	Mon, 24 Aug 2020 12:02:12 +0000 (UTC)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com
+ [207.211.31.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C5CF6E25A
+ for <intel-gfx@lists.freedesktop.org>; Mon, 24 Aug 2020 12:02:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1598270524;
+ s=mimecast20190719; t=1598270529;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=cYWhKTISh/u3aMewN0hIMxxIUF++N0gpcMl9YN4NWk8=;
- b=ByPNYxOz7tZjrwC0b6zwEYXXPGzDMVYg0ZEmjsAYLIKDdSdnxjgu5MIUkoGuO2gXZ8IbeE
- PmFbOjmTpOki/bio99n2wMRdlDeYLeizzOq8ukqUMbsXdqWS2vfK54rSROidwwhzeFRatQ
- Rgz96qvRJvl6JDShN5wkcHW4mY5e2EU=
+ bh=X/u2P3rm/Mt8sbxumEdSG8Sz04qHhuY60Fsw4/vcSuw=;
+ b=Cq54sehpaEj9R7cYpdQ9eU/VH++qOU0nTWTTm15TFGFfFr0HivQtBYukxEQzBPlpDVQ1hD
+ TJuYmpuDzhrswRJzw87TbjK1GCJQyV9jSkrA+hUe8QDulCg+mQLoWP1Xe43EZJg8V8+OaA
+ GFKw9/koN49+rhl9MnNYjSuZ9c7gfTI=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-263-n9YNzGgQOfGhnTGEIDX35w-1; Mon, 24 Aug 2020 08:02:00 -0400
-X-MC-Unique: n9YNzGgQOfGhnTGEIDX35w-1
+ us-mta-239-oI_do7AkPrKD7RLO3zNc-A-1; Mon, 24 Aug 2020 08:02:07 -0400
+X-MC-Unique: oI_do7AkPrKD7RLO3zNc-A-1
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
  [10.5.11.14])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1521C801AE1;
- Mon, 24 Aug 2020 12:01:58 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4163A1005E6E;
+ Mon, 24 Aug 2020 12:02:05 +0000 (UTC)
 Received: from x1.localdomain.com (ovpn-113-147.ams2.redhat.com
  [10.36.113.147])
- by smtp.corp.redhat.com (Postfix) with ESMTP id C2DD35D9DD;
- Mon, 24 Aug 2020 12:01:54 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 423F45D9DD;
+ Mon, 24 Aug 2020 12:02:02 +0000 (UTC)
 From: Hans de Goede <hdegoede@redhat.com>
 To: Thierry Reding <thierry.reding@gmail.com>,
  =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
@@ -58,14 +58,14 @@ To: Thierry Reding <thierry.reding@gmail.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
  =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
  "Rafael J . Wysocki" <rjw@rjwysocki.net>, Len Brown <lenb@kernel.org>
-Date: Mon, 24 Aug 2020 14:01:17 +0200
-Message-Id: <20200824120126.7116-8-hdegoede@redhat.com>
+Date: Mon, 24 Aug 2020 14:01:19 +0200
+Message-Id: <20200824120126.7116-10-hdegoede@redhat.com>
 In-Reply-To: <20200824120126.7116-1-hdegoede@redhat.com>
 References: <20200824120126.7116-1-hdegoede@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
-Subject: [Intel-gfx] [PATCH v6 07/16] pwm: crc: Fix period / duty_cycle
- times being off by a factor of 256
+Subject: [Intel-gfx] [PATCH v6 09/16] pwm: crc: Fix period changes not
+ having any effect
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,72 +87,62 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-While looking into adding atomic-pwm support to the pwm-crc driver I
-noticed something odd, there is a PWM_BASE_CLK define of 6 MHz and
-there is a clock-divider which divides this with a value between 1-128,
-and there are 256 duty-cycle steps.
+The pwm-crc code is using 2 different enable bits:
+1. bit 7 of the PWM0_CLK_DIV (PWM_OUTPUT_ENABLE)
+2. bit 0 of the BACKLIGHT_EN register
 
-The pwm-crc code before this commit assumed that a clock-divider
-setting of 1 means that the PWM output is running at 6 MHZ, if that
-is true, where do these 256 duty-cycle steps come from?
+The BACKLIGHT_EN register at address 0x51 really controls a separate
+output-only GPIO which is earmarked to be used as output connected to the
+backlight-enable pin for LCD panels, this GPO is part of the PMIC's
+"Display Panel Control Block." . This pin should probably be moved over
+to a GPIO provider driver (and consumers modified accordingly), but that
+is something for an(other) patch.
 
-This would require an internal frequency of 256 * 6 MHz = 1.5 GHz, that
-seems unlikely for a PMIC which is using a silicon process optimized for
-power-switching transistors. It is way more likely that there is an 8
-bit counter for the duty cycle which acts as an extra fixed divider
-wrt the PWM output frequency.
+Enabling / disabling the actual PWM output is controlled by the
+PWM_OUTPUT_ENABLE bit of the PWM0_CLK_DIV register.
 
-The main user of the pwm-crc driver is the i915 GPU driver which uses it
-for backlight control. Lets compare the PWM register values set by the
-video-BIOS (the GOP), assuming the extra fixed divider is present versus
-the PWM frequency specified in the Video-BIOS-Tables:
+As the comment in the old code already indicates we must disable the PWM
+before we can change the clock divider. But the crc_pwm_disable() and
+crc_pwm_enable() calls the old code make for this only change the
+BACKLIGHT_EN register; and the value of that register does not matter for
+changing the period / the divider. What does matter is that the
+PWM_OUTPUT_ENABLE bit must be cleared before a new value can be written.
 
-Device:		PWM Hz set by BIOS	PWM Hz specified in VBT
-Asus T100TA 	200			200
-Asus T100HA 	200			200
-Lenovo Miix 2 8	23437			20000
-Toshiba WT8-A	23437			20000
+This commit modifies crc_pwm_config() to clear PWM_OUTPUT_ENABLE instead
+when changing the period, so that period changes actually work.
 
-So as we can see if we assume the extra division by 256 then the register
-values set by the GOP are an exact match for the VBT values, where as
-otherwise the values would be of by a factor of 256.
-
-This commit fixes the period / duty_cycle calculations to take the
-extra division by 256 into account.
+Note this fix will cause a significant behavior change on some devices
+using the CRC PWM output to drive their backlight. Before the PWM would
+always run with the output frequency configured by the BIOS at boot, now
+the period time specified by the i915 driver will actually be honored.
 
 Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 Signed-off-by: Hans de Goede <hdegoede@redhat.com>
 ---
-Changes in v3:
-- Use NSEC_PER_USEC instead of adding a new (non-sensical) NSEC_PER_MHZ define
----
- drivers/pwm/pwm-crc.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/pwm/pwm-crc.c | 7 ++-----
+ 1 file changed, 2 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/pwm/pwm-crc.c b/drivers/pwm/pwm-crc.c
-index 272eeb071147..c056eb9b858c 100644
+index 44ec7d5b63e1..81232da0c767 100644
 --- a/drivers/pwm/pwm-crc.c
 +++ b/drivers/pwm/pwm-crc.c
-@@ -21,8 +21,8 @@
+@@ -82,14 +82,11 @@ static int crc_pwm_config(struct pwm_chip *c, struct pwm_device *pwm,
+ 	if (pwm_get_period(pwm) != period_ns) {
+ 		int clk_div = crc_pwm_calc_clk_div(period_ns);
  
- #define PWM_MAX_LEVEL		0xFF
- 
--#define PWM_BASE_CLK		6000000  /* 6 MHz */
--#define PWM_MAX_PERIOD_NS	21333    /* 46.875KHz */
-+#define PWM_BASE_CLK_MHZ	6	/* 6 MHz */
-+#define PWM_MAX_PERIOD_NS	5461333	/* 183 Hz */
- 
- /**
-  * struct crystalcove_pwm - Crystal Cove PWM controller
-@@ -72,7 +72,7 @@ static int crc_pwm_config(struct pwm_chip *c, struct pwm_device *pwm,
- 
- 		/* changing the clk divisor, need to disable fisrt */
- 		crc_pwm_disable(c, pwm);
--		clk_div = PWM_BASE_CLK * period_ns / NSEC_PER_SEC;
-+		clk_div = PWM_BASE_CLK_MHZ * period_ns / (256 * NSEC_PER_USEC);
+-		/* changing the clk divisor, need to disable fisrt */
+-		crc_pwm_disable(c, pwm);
++		/* changing the clk divisor, clear PWM_OUTPUT_ENABLE first */
++		regmap_write(crc_pwm->regmap, PWM0_CLK_DIV, 0);
  
  		regmap_write(crc_pwm->regmap, PWM0_CLK_DIV,
  					clk_div | PWM_OUTPUT_ENABLE);
+-
+-		/* enable back */
+-		crc_pwm_enable(c, pwm);
+ 	}
+ 
+ 	/* change the pwm duty cycle */
 -- 
 2.28.0
 
