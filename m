@@ -2,72 +2,41 @@ Return-Path: <SRS0=Fv+K=CC=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS autolearn=unavailable autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 175AAC433DF
-	for <intel-gfx@archiver.kernel.org>; Mon, 24 Aug 2020 12:08:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 242EEC433DF
+	for <intel-gfx@archiver.kernel.org>; Mon, 24 Aug 2020 12:28:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DA18B2078D
-	for <intel-gfx@archiver.kernel.org>; Mon, 24 Aug 2020 12:08:06 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="BqolgFsO"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DA18B2078D
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
+	by mail.kernel.org (Postfix) with ESMTPS id 013D42074D
+	for <intel-gfx@archiver.kernel.org>; Mon, 24 Aug 2020 12:28:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 013D42074D
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7CD086E215;
-	Mon, 24 Aug 2020 12:08:06 +0000 (UTC)
-X-Greylist: delayed 366 seconds by postgrey-1.36 at gabe;
- Mon, 24 Aug 2020 12:08:05 UTC
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [63.128.21.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 86AC16E215
- for <intel-gfx@lists.freedesktop.org>; Mon, 24 Aug 2020 12:08:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1598270884;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=ZFaORSe/KawbFHy5kRARHzz/c0KVYX8ay1H7qz6CWHU=;
- b=BqolgFsOE9eJ9UD0CfuMmbP9UWuvrf1XuZi/kDy9yL4i4diEQlkf6+LbPDMQjvqzKU4uaH
- e7pOGyg0mJnsh4KsnfZUZ1bUTUGoAtEppzsGNUiqAby4IOUhRL3lxRey7Hzhv2fCU0gLuc
- 7t2YkaK/RtwwcsOlB73QjHR0fuFFeWI=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-152-IVaFUowwP6K_bCtpIYe-zw-1; Mon, 24 Aug 2020 08:01:56 -0400
-X-MC-Unique: IVaFUowwP6K_bCtpIYe-zw-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
- [10.5.11.14])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 6469581F011;
- Mon, 24 Aug 2020 12:01:54 +0000 (UTC)
-Received: from x1.localdomain.com (ovpn-113-147.ams2.redhat.com
- [10.36.113.147])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 342485D9DD;
- Mon, 24 Aug 2020 12:01:51 +0000 (UTC)
-From: Hans de Goede <hdegoede@redhat.com>
-To: Thierry Reding <thierry.reding@gmail.com>,
- =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
- "Rafael J . Wysocki" <rjw@rjwysocki.net>, Len Brown <lenb@kernel.org>
-Date: Mon, 24 Aug 2020 14:01:16 +0200
-Message-Id: <20200824120126.7116-7-hdegoede@redhat.com>
-In-Reply-To: <20200824120126.7116-1-hdegoede@redhat.com>
-References: <20200824120126.7116-1-hdegoede@redhat.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A0CF6E217;
+	Mon, 24 Aug 2020 12:28:31 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id C623C6E0F6;
+ Mon, 24 Aug 2020 12:28:30 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id BEC64A7DFF;
+ Mon, 24 Aug 2020 12:28:30 +0000 (UTC)
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
-Subject: [Intel-gfx] [PATCH v6 06/16] pwm: lpss: Use pwm_lpss_apply() when
- restoring state on resume
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Hans de Goede" <hdegoede@redhat.com>
+Date: Mon, 24 Aug 2020 12:28:30 -0000
+Message-ID: <159827211077.20778.4575869402766299068@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20200824120126.7116-1-hdegoede@redhat.com>
+In-Reply-To: <20200824120126.7116-1-hdegoede@redhat.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_acpi/pwm/i915=3A_Convert_pwm-crc_and_i915_driver=27s_PWM_co?=
+ =?utf-8?q?de_to_use_the_atomic_PWM_API?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,140 +49,48 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-pwm@vger.kernel.org, linux-acpi@vger.kernel.org,
- intel-gfx <intel-gfx@lists.freedesktop.org>, dri-devel@lists.freedesktop.org,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Mika Westerberg <mika.westerberg@linux.intel.com>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Before this commit a suspend + resume of the LPSS PWM controller
-would result in the controller being reset to its defaults of
-output-freq = clock/256, duty-cycle=100%, until someone changes
-to the output-freq and/or duty-cycle are made.
+== Series Details ==
 
-This problem has been masked so far because the main consumer
-(the i915 driver) was always making duty-cycle changes on resume.
-With the conversion of the i915 driver to the atomic PWM API the
-driver now only disables/enables the PWM on suspend/resume leaving
-the output-freq and duty as is, triggering this problem.
+Series: acpi/pwm/i915: Convert pwm-crc and i915 driver's PWM code to use the atomic PWM API
+URL   : https://patchwork.freedesktop.org/series/80943/
+State : warning
 
-The LPSS PWM controller has a mechanism where the ctrl register value
-and the actual base-unit and on-time-div values used are latched. When
-software sets the SW_UPDATE bit then at the end of the current PWM cycle,
-the new values from the ctrl-register will be latched into the actual
-registers, and the SW_UPDATE bit will be cleared.
+== Summary ==
 
-The problem is that before this commit our suspend/resume handling
-consisted of simply saving the PWM ctrl register on suspend and
-restoring it on resume, without setting the PWM_SW_UPDATE bit.
-When the controller has lost its state over a suspend/resume and thus
-has been reset to the defaults, just restoring the register is not
-enough. We must also set the SW_UPDATE bit to tell the controller to
-latch the restored values into the actual registers.
+$ dim checkpatch origin/drm-tip
+23eeb608a11a ACPI / LPSS: Resume Cherry Trail PWM controller in no-irq phase
+3404311e82b8 ACPI / LPSS: Save Cherry Trail PWM ctx registers only once (at activation)
+cc49add91e96 pwm: lpss: Fix off by one error in base_unit math in pwm_lpss_prepare()
+a9f8c291fa0f pwm: lpss: Add range limit check for the base_unit register value
+a7c9b3968280 pwm: lpss: Add pwm_lpss_prepare_enable() helper
+-:45: CHECK:BOOL_COMPARISON: Using comparison to false is error prone
+#45: FILE: drivers/pwm/pwm-lpss.c:137:
++	pwm_lpss_cond_enable(pwm, enable && lpwm->info->bypass == false);
 
-Fixing this problem is not as simple as just or-ing in the value which
-is being restored with SW_UPDATE. If the PWM was enabled before we must
-write the new settings + PWM_SW_UPDATE before setting PWM_ENABLE.
-We must also wait for PWM_SW_UPDATE to become 0 again and depending on the
-model we must do this either before or after the setting of PWM_ENABLE.
+-:50: CHECK:BOOL_COMPARISON: Using comparison to true is error prone
+#50: FILE: drivers/pwm/pwm-lpss.c:142:
++	pwm_lpss_cond_enable(pwm, enable && lpwm->info->bypass == true);
 
-All the necessary logic for doing this is already present inside
-pwm_lpss_apply(), so instead of duplicating this inside the resume
-handler, this commit makes the resume handler use pwm_lpss_apply() to
-restore the settings when necessary. This fixes the output-freq and
-duty-cycle being reset to their defaults on resume.
+total: 0 errors, 0 warnings, 2 checks, 67 lines checked
+19fbcc493a46 pwm: lpss: Use pwm_lpss_apply() when restoring state on resume
+23df6f9340c1 pwm: crc: Fix period / duty_cycle times being off by a factor of 256
+a9c78de3ade3 pwm: crc: Fix off-by-one error in the clock-divider calculations
+9d3242bf8a3e pwm: crc: Fix period changes not having any effect
+8b8e82933140 pwm: crc: Enable/disable PWM output on enable/disable
+6a44ff1498a2 pwm: crc: Implement apply() method to support the new atomic PWM API
+c72a3592f7d9 pwm: crc: Implement get_state() method
+1f8f97bf9b4a drm/i915: panel: Add get_vbt_pwm_freq() helper
+c1026447b3e9 drm/i915: panel: Honor the VBT PWM frequency for devs with an external PWM controller
+5e7767931e02 drm/i915: panel: Honor the VBT PWM min setting for devs with an external PWM controller
+80c31f95dffd drm/i915: panel: Use atomic PWM API for devs with an external PWM controller
 
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Signed-off-by: Hans de Goede <hdegoede@redhat.com>
----
-Changes in v6:
-- Add a pwm_lpss_restore_state() helper for re-applying the PWM state on resume
-
-Changes in v5:
-- The changes to pwm_lpss_apply() are much cleaner now thanks to the new
-  pwm_lpss_prepare_enable() helper.
-
-Changes in v3:
-- This replaces the "pwm: lpss: Set SW_UPDATE bit when enabling the PWM"
-  patch from previous versions of this patch-set, which really was a hack
-  working around the resume issue which this patch fixes properly.
----
- drivers/pwm/pwm-lpss.c | 49 +++++++++++++++++++++++++++++++++++++++---
- 1 file changed, 46 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/pwm/pwm-lpss.c b/drivers/pwm/pwm-lpss.c
-index 8a136ba2a583..d77869be053c 100644
---- a/drivers/pwm/pwm-lpss.c
-+++ b/drivers/pwm/pwm-lpss.c
-@@ -166,6 +166,24 @@ static int pwm_lpss_apply(struct pwm_chip *chip, struct pwm_device *pwm,
- 	return ret;
- }
- 
-+/*
-+ * This is a mirror of pwm_lpss_apply() without pm_runtime reference handling
-+ * for restoring the PWM state on resume.
-+ */
-+static int pwm_lpss_restore_state(struct pwm_lpss_chip *lpwm,
-+				  struct pwm_device *pwm,
-+				  const struct pwm_state *state)
-+{
-+	int ret = 0;
-+
-+	if (state->enabled)
-+		ret = pwm_lpss_prepare_enable(lpwm, pwm, state, !pwm_is_enabled(pwm));
-+	else if (pwm_is_enabled(pwm))
-+		pwm_lpss_write(pwm, pwm_lpss_read(pwm) & ~PWM_ENABLE);
-+
-+	return ret;
-+}
-+
- static void pwm_lpss_get_state(struct pwm_chip *chip, struct pwm_device *pwm,
- 			       struct pwm_state *state)
- {
-@@ -278,10 +296,35 @@ EXPORT_SYMBOL_GPL(pwm_lpss_suspend);
- int pwm_lpss_resume(struct device *dev)
- {
- 	struct pwm_lpss_chip *lpwm = dev_get_drvdata(dev);
--	int i;
-+	struct pwm_state saved_state;
-+	struct pwm_device *pwm;
-+	int i, ret;
-+	u32 ctrl;
- 
--	for (i = 0; i < lpwm->info->npwm; i++)
--		writel(lpwm->saved_ctrl[i], lpwm->regs + i * PWM_SIZE + PWM);
-+	for (i = 0; i < lpwm->info->npwm; i++) {
-+		pwm = &lpwm->chip.pwms[i];
-+
-+		ctrl = pwm_lpss_read(pwm);
-+		/* If we did not reach S0i3/S3 the controller keeps its state */
-+		if (ctrl == lpwm->saved_ctrl[i])
-+			continue;
-+
-+		/*
-+		 * We cannot just blindly restore the old value here. Since we
-+		 * are changing the settings we must set SW_UPDATE and if the
-+		 * PWM was enabled before we must write the new settings +
-+		 * PWM_SW_UPDATE before setting PWM_ENABLE. We must also wait
-+		 * for PWM_SW_UPDATE to become 0 again and depending on the
-+		 * model we must do this either before or after the setting of
-+		 * PWM_ENABLE.
-+		 */
-+		saved_state = pwm->state;
-+		/* Update enabled to its actual setting after resume */
-+		pwm->state.enabled = !!(ctrl & PWM_ENABLE);
-+		ret = pwm_lpss_restore_state(lpwm, pwm, &saved_state);
-+		if (ret)
-+			dev_err(dev, "Error restoring state on resume\n");
-+	}
- 
- 	return 0;
- }
--- 
-2.28.0
 
 _______________________________________________
 Intel-gfx mailing list
