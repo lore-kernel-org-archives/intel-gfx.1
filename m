@@ -7,49 +7,51 @@ X-Spam-Status: No, score=-9.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS autolearn=unavailable autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 38835C433DF
-	for <intel-gfx@archiver.kernel.org>; Mon, 24 Aug 2020 12:03:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 175AAC433DF
+	for <intel-gfx@archiver.kernel.org>; Mon, 24 Aug 2020 12:08:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0AA0C2078A
-	for <intel-gfx@archiver.kernel.org>; Mon, 24 Aug 2020 12:03:52 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id DA18B2078D
+	for <intel-gfx@archiver.kernel.org>; Mon, 24 Aug 2020 12:08:06 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="SDjWsWw3"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0AA0C2078A
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="BqolgFsO"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DA18B2078D
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D1EE6EC8A;
-	Mon, 24 Aug 2020 12:03:51 +0000 (UTC)
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com
- [205.139.110.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 05D756EC8A
- for <intel-gfx@lists.freedesktop.org>; Mon, 24 Aug 2020 12:03:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7CD086E215;
+	Mon, 24 Aug 2020 12:08:06 +0000 (UTC)
+X-Greylist: delayed 366 seconds by postgrey-1.36 at gabe;
+ Mon, 24 Aug 2020 12:08:05 UTC
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 86AC16E215
+ for <intel-gfx@lists.freedesktop.org>; Mon, 24 Aug 2020 12:08:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1598270629;
+ s=mimecast20190719; t=1598270884;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=yFFTSVDT+gHAwsmv9Utyv3F4A2wRwed+ThtSecryIWQ=;
- b=SDjWsWw3ySjE3PkRL/3EVweEww6qcqSGyPzBF8Ad7dyG2IHZuY/oCE03C1wD8Fb4F486C1
- F2Wjuh1okvzysNbqPQRvHuC0mq4x8DKlvpPZvTBhDJbq/QDxHVBRy2JevhTPF0lA2taeiy
- jZuPfWk2yjQ4ObCTSVRgPmyyikLxip8=
+ bh=ZFaORSe/KawbFHy5kRARHzz/c0KVYX8ay1H7qz6CWHU=;
+ b=BqolgFsOE9eJ9UD0CfuMmbP9UWuvrf1XuZi/kDy9yL4i4diEQlkf6+LbPDMQjvqzKU4uaH
+ e7pOGyg0mJnsh4KsnfZUZ1bUTUGoAtEppzsGNUiqAby4IOUhRL3lxRey7Hzhv2fCU0gLuc
+ 7t2YkaK/RtwwcsOlB73QjHR0fuFFeWI=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-538-uPvFJ4WcM9KFk5Sny7GrAg-1; Mon, 24 Aug 2020 08:02:42 -0400
-X-MC-Unique: uPvFJ4WcM9KFk5Sny7GrAg-1
+ us-mta-152-IVaFUowwP6K_bCtpIYe-zw-1; Mon, 24 Aug 2020 08:01:56 -0400
+X-MC-Unique: IVaFUowwP6K_bCtpIYe-zw-1
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
  [10.5.11.14])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 139C11006703;
- Mon, 24 Aug 2020 12:02:40 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 6469581F011;
+ Mon, 24 Aug 2020 12:01:54 +0000 (UTC)
 Received: from x1.localdomain.com (ovpn-113-147.ams2.redhat.com
  [10.36.113.147])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 9510E5D9DD;
- Mon, 24 Aug 2020 12:02:32 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 342485D9DD;
+ Mon, 24 Aug 2020 12:01:51 +0000 (UTC)
 From: Hans de Goede <hdegoede@redhat.com>
 To: Thierry Reding <thierry.reding@gmail.com>,
  =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
@@ -58,14 +60,14 @@ To: Thierry Reding <thierry.reding@gmail.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
  =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
  "Rafael J . Wysocki" <rjw@rjwysocki.net>, Len Brown <lenb@kernel.org>
-Date: Mon, 24 Aug 2020 14:01:24 +0200
-Message-Id: <20200824120126.7116-15-hdegoede@redhat.com>
+Date: Mon, 24 Aug 2020 14:01:16 +0200
+Message-Id: <20200824120126.7116-7-hdegoede@redhat.com>
 In-Reply-To: <20200824120126.7116-1-hdegoede@redhat.com>
 References: <20200824120126.7116-1-hdegoede@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
-Subject: [Intel-gfx] [PATCH v6 14/16] drm/i915: panel: Honor the VBT PWM
- frequency for devs with an external PWM controller
+Subject: [Intel-gfx] [PATCH v6 06/16] pwm: lpss: Use pwm_lpss_apply() when
+ restoring state on resume
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,7 +81,6 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: linux-pwm@vger.kernel.org, linux-acpi@vger.kernel.org,
- Jani Nikula <jani.nikula@intel.com>,
  intel-gfx <intel-gfx@lists.freedesktop.org>, dri-devel@lists.freedesktop.org,
  Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
  Mika Westerberg <mika.westerberg@linux.intel.com>
@@ -88,130 +89,129 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-So far for devices using an external PWM controller (devices using
-pwm_setup_backlight()), we have been hardcoding the period-time passed to
-pwm_config() to 21333 ns.
+Before this commit a suspend + resume of the LPSS PWM controller
+would result in the controller being reset to its defaults of
+output-freq = clock/256, duty-cycle=100%, until someone changes
+to the output-freq and/or duty-cycle are made.
 
-I suspect this was done because many VBTs set the PWM frequency to 200
-which corresponds to a period-time of 5000000 ns, which greatly exceeds
-the PWM_MAX_PERIOD_NS define in the Crystal Cove PMIC PWM driver, which
-used to be 21333.
+This problem has been masked so far because the main consumer
+(the i915 driver) was always making duty-cycle changes on resume.
+With the conversion of the i915 driver to the atomic PWM API the
+driver now only disables/enables the PWM on suspend/resume leaving
+the output-freq and duty as is, triggering this problem.
 
-This PWM_MAX_PERIOD_NS define was actually based on a bug in the PWM
-driver where its period and duty-cycle times where off by a factor of 256.
+The LPSS PWM controller has a mechanism where the ctrl register value
+and the actual base-unit and on-time-div values used are latched. When
+software sets the SW_UPDATE bit then at the end of the current PWM cycle,
+the new values from the ctrl-register will be latched into the actual
+registers, and the SW_UPDATE bit will be cleared.
 
-Due to this bug the hardcoded CRC_PMIC_PWM_PERIOD_NS value of 21333 would
-result in the PWM driver using its divider of 128, which would result in
-a PWM output frequency of 6000000 Hz / 256 / 128 = 183 Hz. So actually
-pretty close to the default VBT value of 200 Hz.
+The problem is that before this commit our suspend/resume handling
+consisted of simply saving the PWM ctrl register on suspend and
+restoring it on resume, without setting the PWM_SW_UPDATE bit.
+When the controller has lost its state over a suspend/resume and thus
+has been reset to the defaults, just restoring the register is not
+enough. We must also set the SW_UPDATE bit to tell the controller to
+latch the restored values into the actual registers.
 
-Now that this bug in the pwm-crc driver is fixed, we can actually use
-the VBT defined frequency.
+Fixing this problem is not as simple as just or-ing in the value which
+is being restored with SW_UPDATE. If the PWM was enabled before we must
+write the new settings + PWM_SW_UPDATE before setting PWM_ENABLE.
+We must also wait for PWM_SW_UPDATE to become 0 again and depending on the
+model we must do this either before or after the setting of PWM_ENABLE.
 
-This is important because:
+All the necessary logic for doing this is already present inside
+pwm_lpss_apply(), so instead of duplicating this inside the resume
+handler, this commit makes the resume handler use pwm_lpss_apply() to
+restore the settings when necessary. This fixes the output-freq and
+duty-cycle being reset to their defaults on resume.
 
-a) With the pwm-crc driver fixed it will now translate the hardcoded
-CRC_PMIC_PWM_PERIOD_NS value of 21333 ns / 46 Khz to a PWM output
-frequency of 23 KHz (the max it can do).
-
-b) The pwm-lpss driver used on many models has always honored the
-21333 ns / 46 Khz request
-
-Some panels do not like such high output frequencies. E.g. on a Terra
-Pad 1061 tablet, using the LPSS PWM controller, the backlight would go
-from off to max, when changing the sysfs backlight brightness value from
-90-100%, anything under aprox. 90% would turn the backlight fully off.
-
-Honoring the VBT specified PWM frequency will also hopefully fix the
-various bug reports which we have received about users perceiving the
-backlight to flicker after a suspend/resume cycle.
-
-Acked-by: Jani Nikula <jani.nikula@intel.com>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 Signed-off-by: Hans de Goede <hdegoede@redhat.com>
 ---
- .../drm/i915/display/intel_display_types.h    |  1 +
- drivers/gpu/drm/i915/display/intel_panel.c    | 19 +++++++++++--------
- 2 files changed, 12 insertions(+), 8 deletions(-)
+Changes in v6:
+- Add a pwm_lpss_restore_state() helper for re-applying the PWM state on resume
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-index e8f809161c75..7171e7c8d928 100644
---- a/drivers/gpu/drm/i915/display/intel_display_types.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-@@ -223,6 +223,7 @@ struct intel_panel {
- 		bool util_pin_active_low;	/* bxt+ */
- 		u8 controller;		/* bxt+ only */
- 		struct pwm_device *pwm;
-+		int pwm_period_ns;
- 
- 		/* DPCD backlight */
- 		u8 pwmgen_bit_count;
-diff --git a/drivers/gpu/drm/i915/display/intel_panel.c b/drivers/gpu/drm/i915/display/intel_panel.c
-index ec6b9d704542..7fb162fac8a1 100644
---- a/drivers/gpu/drm/i915/display/intel_panel.c
-+++ b/drivers/gpu/drm/i915/display/intel_panel.c
-@@ -40,8 +40,6 @@
- #include "intel_dsi_dcs_backlight.h"
- #include "intel_panel.h"
- 
--#define CRC_PMIC_PWM_PERIOD_NS	21333
--
- void
- intel_fixed_panel_mode(const struct drm_display_mode *fixed_mode,
- 		       struct drm_display_mode *adjusted_mode)
-@@ -597,7 +595,7 @@ static u32 pwm_get_backlight(struct intel_connector *connector)
- 	int duty_ns;
- 
- 	duty_ns = pwm_get_duty_cycle(panel->backlight.pwm);
--	return DIV_ROUND_UP(duty_ns * 100, CRC_PMIC_PWM_PERIOD_NS);
-+	return DIV_ROUND_UP(duty_ns * 100, panel->backlight.pwm_period_ns);
+Changes in v5:
+- The changes to pwm_lpss_apply() are much cleaner now thanks to the new
+  pwm_lpss_prepare_enable() helper.
+
+Changes in v3:
+- This replaces the "pwm: lpss: Set SW_UPDATE bit when enabling the PWM"
+  patch from previous versions of this patch-set, which really was a hack
+  working around the resume issue which this patch fixes properly.
+---
+ drivers/pwm/pwm-lpss.c | 49 +++++++++++++++++++++++++++++++++++++++---
+ 1 file changed, 46 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/pwm/pwm-lpss.c b/drivers/pwm/pwm-lpss.c
+index 8a136ba2a583..d77869be053c 100644
+--- a/drivers/pwm/pwm-lpss.c
++++ b/drivers/pwm/pwm-lpss.c
+@@ -166,6 +166,24 @@ static int pwm_lpss_apply(struct pwm_chip *chip, struct pwm_device *pwm,
+ 	return ret;
  }
  
- static void lpt_set_backlight(const struct drm_connector_state *conn_state, u32 level)
-@@ -671,9 +669,10 @@ static void bxt_set_backlight(const struct drm_connector_state *conn_state, u32
- static void pwm_set_backlight(const struct drm_connector_state *conn_state, u32 level)
- {
- 	struct intel_panel *panel = &to_intel_connector(conn_state->connector)->panel;
--	int duty_ns = DIV_ROUND_UP(level * CRC_PMIC_PWM_PERIOD_NS, 100);
-+	int duty_ns = DIV_ROUND_UP(level * panel->backlight.pwm_period_ns, 100);
- 
--	pwm_config(panel->backlight.pwm, duty_ns, CRC_PMIC_PWM_PERIOD_NS);
-+	pwm_config(panel->backlight.pwm, duty_ns,
-+		   panel->backlight.pwm_period_ns);
- }
- 
- static void
-@@ -1917,6 +1916,9 @@ static int pwm_setup_backlight(struct intel_connector *connector,
- 		return -ENODEV;
- 	}
- 
-+	panel->backlight.pwm_period_ns = NSEC_PER_SEC /
-+					 get_vbt_pwm_freq(dev_priv);
++/*
++ * This is a mirror of pwm_lpss_apply() without pm_runtime reference handling
++ * for restoring the PWM state on resume.
++ */
++static int pwm_lpss_restore_state(struct pwm_lpss_chip *lpwm,
++				  struct pwm_device *pwm,
++				  const struct pwm_state *state)
++{
++	int ret = 0;
 +
- 	/*
- 	 * FIXME: pwm_apply_args() should be removed when switching to
- 	 * the atomic PWM API.
-@@ -1926,9 +1928,10 @@ static int pwm_setup_backlight(struct intel_connector *connector,
- 	panel->backlight.min = 0; /* 0% */
- 	panel->backlight.max = 100; /* 100% */
- 	level = intel_panel_compute_brightness(connector, 100);
--	ns = DIV_ROUND_UP(level * CRC_PMIC_PWM_PERIOD_NS, 100);
-+	ns = DIV_ROUND_UP(level * panel->backlight.pwm_period_ns, 100);
++	if (state->enabled)
++		ret = pwm_lpss_prepare_enable(lpwm, pwm, state, !pwm_is_enabled(pwm));
++	else if (pwm_is_enabled(pwm))
++		pwm_lpss_write(pwm, pwm_lpss_read(pwm) & ~PWM_ENABLE);
++
++	return ret;
++}
++
+ static void pwm_lpss_get_state(struct pwm_chip *chip, struct pwm_device *pwm,
+ 			       struct pwm_state *state)
+ {
+@@ -278,10 +296,35 @@ EXPORT_SYMBOL_GPL(pwm_lpss_suspend);
+ int pwm_lpss_resume(struct device *dev)
+ {
+ 	struct pwm_lpss_chip *lpwm = dev_get_drvdata(dev);
+-	int i;
++	struct pwm_state saved_state;
++	struct pwm_device *pwm;
++	int i, ret;
++	u32 ctrl;
  
--	retval = pwm_config(panel->backlight.pwm, ns, CRC_PMIC_PWM_PERIOD_NS);
-+	retval = pwm_config(panel->backlight.pwm, ns,
-+			    panel->backlight.pwm_period_ns);
- 	if (retval < 0) {
- 		drm_err(&dev_priv->drm, "Failed to configure the pwm chip\n");
- 		pwm_put(panel->backlight.pwm);
-@@ -1937,7 +1940,7 @@ static int pwm_setup_backlight(struct intel_connector *connector,
- 	}
+-	for (i = 0; i < lpwm->info->npwm; i++)
+-		writel(lpwm->saved_ctrl[i], lpwm->regs + i * PWM_SIZE + PWM);
++	for (i = 0; i < lpwm->info->npwm; i++) {
++		pwm = &lpwm->chip.pwms[i];
++
++		ctrl = pwm_lpss_read(pwm);
++		/* If we did not reach S0i3/S3 the controller keeps its state */
++		if (ctrl == lpwm->saved_ctrl[i])
++			continue;
++
++		/*
++		 * We cannot just blindly restore the old value here. Since we
++		 * are changing the settings we must set SW_UPDATE and if the
++		 * PWM was enabled before we must write the new settings +
++		 * PWM_SW_UPDATE before setting PWM_ENABLE. We must also wait
++		 * for PWM_SW_UPDATE to become 0 again and depending on the
++		 * model we must do this either before or after the setting of
++		 * PWM_ENABLE.
++		 */
++		saved_state = pwm->state;
++		/* Update enabled to its actual setting after resume */
++		pwm->state.enabled = !!(ctrl & PWM_ENABLE);
++		ret = pwm_lpss_restore_state(lpwm, pwm, &saved_state);
++		if (ret)
++			dev_err(dev, "Error restoring state on resume\n");
++	}
  
- 	level = DIV_ROUND_UP_ULL(pwm_get_duty_cycle(panel->backlight.pwm) * 100,
--			     CRC_PMIC_PWM_PERIOD_NS);
-+				 panel->backlight.pwm_period_ns);
- 	panel->backlight.level =
- 		intel_panel_compute_brightness(connector, level);
- 	panel->backlight.enabled = panel->backlight.level != 0;
+ 	return 0;
+ }
 -- 
 2.28.0
 
