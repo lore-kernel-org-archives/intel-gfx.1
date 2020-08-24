@@ -4,52 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-9.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS autolearn=unavailable autolearn_force=no
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8D3D4C433E4
-	for <intel-gfx@archiver.kernel.org>; Mon, 24 Aug 2020 12:02:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6F7E3C433EB
+	for <intel-gfx@archiver.kernel.org>; Mon, 24 Aug 2020 12:02:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 634EE2078A
-	for <intel-gfx@archiver.kernel.org>; Mon, 24 Aug 2020 12:02:13 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 42CC72078A
+	for <intel-gfx@archiver.kernel.org>; Mon, 24 Aug 2020 12:02:19 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="hnQgvTAn"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 634EE2078A
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="gSjmzSbX"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 42CC72078A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A49CA6EC66;
-	Mon, 24 Aug 2020 12:02:12 +0000 (UTC)
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com
+	by gabe.freedesktop.org (Postfix) with ESMTP id D48FB6E995;
+	Mon, 24 Aug 2020 12:02:18 +0000 (UTC)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com
  [205.139.110.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BEA2E6E25A
- for <intel-gfx@lists.freedesktop.org>; Mon, 24 Aug 2020 12:02:08 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C39506EC73
+ for <intel-gfx@lists.freedesktop.org>; Mon, 24 Aug 2020 12:02:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1598270527;
+ s=mimecast20190719; t=1598270534;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=yf1u7UBfto7CRYFZUxDmMudYk5P2tT4SCbGumU5AATw=;
- b=hnQgvTAn4gC5W+/uoZcFN2Bkz8Rem+ydivFlPJh0LC6/8hCiS1PWYx3aBq7NswnaXDw+KB
- 2bYd/75fKWAxuwA1u+IeupXxX/aQ7cd/6FiaOb92qM2t/3PewPyBmCRoDxr4jB0e9u8inZ
- py5+OrFMazBXRDXzH8GsLRN8aPoOWHQ=
+ bh=6zdMqI9djrIOSjSF+r36fsHrv2APK30XDs0lh8OJOjs=;
+ b=gSjmzSbXAC4WJC08JLWM0Ex9NofA3of+h6jJ8MnyQNw5tkkTCihYhPsKCo8V0JjhQwgoNf
+ qiiFXhISAloHhvwuBs1CSTIpl4is0UT5u6gF5xrToS2uj67KIe+EFxsHsizTG4ozgII9e9
+ Yu8eVB1fsj7tGBgZz9fXYACET6GEfpg=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-148-j-QlUsLHNS-1EuILJjXbiA-1; Mon, 24 Aug 2020 08:02:03 -0400
-X-MC-Unique: j-QlUsLHNS-1EuILJjXbiA-1
+ us-mta-542-H0Iy9G3ANVKbNVL80gGOwA-1; Mon, 24 Aug 2020 08:02:11 -0400
+X-MC-Unique: H0Iy9G3ANVKbNVL80gGOwA-1
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
  [10.5.11.14])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id DC08F801AE1;
- Mon, 24 Aug 2020 12:02:01 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0CAA31005E6D;
+ Mon, 24 Aug 2020 12:02:09 +0000 (UTC)
 Received: from x1.localdomain.com (ovpn-113-147.ams2.redhat.com
  [10.36.113.147])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 5ED495D9DD;
- Mon, 24 Aug 2020 12:01:58 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id A31F85D9DD;
+ Mon, 24 Aug 2020 12:02:05 +0000 (UTC)
 From: Hans de Goede <hdegoede@redhat.com>
 To: Thierry Reding <thierry.reding@gmail.com>,
  =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
@@ -58,14 +58,14 @@ To: Thierry Reding <thierry.reding@gmail.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
  =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
  "Rafael J . Wysocki" <rjw@rjwysocki.net>, Len Brown <lenb@kernel.org>
-Date: Mon, 24 Aug 2020 14:01:18 +0200
-Message-Id: <20200824120126.7116-9-hdegoede@redhat.com>
+Date: Mon, 24 Aug 2020 14:01:20 +0200
+Message-Id: <20200824120126.7116-11-hdegoede@redhat.com>
 In-Reply-To: <20200824120126.7116-1-hdegoede@redhat.com>
 References: <20200824120126.7116-1-hdegoede@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
-Subject: [Intel-gfx] [PATCH v6 08/16] pwm: crc: Fix off-by-one error in the
- clock-divider calculations
+Subject: [Intel-gfx] [PATCH v6 10/16] pwm: crc: Enable/disable PWM output on
+ enable/disable
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,87 +82,42 @@ Cc: linux-pwm@vger.kernel.org, linux-acpi@vger.kernel.org,
  intel-gfx <intel-gfx@lists.freedesktop.org>, dri-devel@lists.freedesktop.org,
  Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
  Mika Westerberg <mika.westerberg@linux.intel.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The CRC PWM controller has a clock-divider which divides the clock with
-a value between 1-128. But as can seen from the PWM_DIV_CLK_xxx
-defines, this range maps to a register value of 0-127.
-
-So after calculating the clock-divider we must subtract 1 to get the
-register value, unless the requested frequency was so high that the
-calculation has already resulted in a (rounded) divider value of 0.
-
-Note that before this fix, setting a period of PWM_MAX_PERIOD_NS which
-corresponds to the max. divider value of 128 could have resulted in a
-bug where the code would use 128 as divider-register value which would
-have resulted in an actual divider value of 0 (and the enable bit being
-set). A rounding error stopped this bug from actually happen. This
-same rounding error means that after the subtraction of 1 it is impossible
-to set the divider to 128. Also bump PWM_MAX_PERIOD_NS by 1 ns to allow
-setting a divider of 128 (register-value 127).
-
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Signed-off-by: Hans de Goede <hdegoede@redhat.com>
----
-Changes in v3:
-- Introduce crc_pwm_calc_clk_div() here instead of later in the patch-set
-  to reduce the amount of churn in the patch-set a bit
----
- drivers/pwm/pwm-crc.c | 17 ++++++++++++++---
- 1 file changed, 14 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/pwm/pwm-crc.c b/drivers/pwm/pwm-crc.c
-index c056eb9b858c..44ec7d5b63e1 100644
---- a/drivers/pwm/pwm-crc.c
-+++ b/drivers/pwm/pwm-crc.c
-@@ -22,7 +22,7 @@
- #define PWM_MAX_LEVEL		0xFF
- 
- #define PWM_BASE_CLK_MHZ	6	/* 6 MHz */
--#define PWM_MAX_PERIOD_NS	5461333	/* 183 Hz */
-+#define PWM_MAX_PERIOD_NS	5461334	/* 183 Hz */
- 
- /**
-  * struct crystalcove_pwm - Crystal Cove PWM controller
-@@ -39,6 +39,18 @@ static inline struct crystalcove_pwm *to_crc_pwm(struct pwm_chip *pc)
- 	return container_of(pc, struct crystalcove_pwm, chip);
- }
- 
-+static int crc_pwm_calc_clk_div(int period_ns)
-+{
-+	int clk_div;
-+
-+	clk_div = PWM_BASE_CLK_MHZ * period_ns / (256 * NSEC_PER_USEC);
-+	/* clk_div 1 - 128, maps to register values 0-127 */
-+	if (clk_div > 0)
-+		clk_div--;
-+
-+	return clk_div;
-+}
-+
- static int crc_pwm_enable(struct pwm_chip *c, struct pwm_device *pwm)
- {
- 	struct crystalcove_pwm *crc_pwm = to_crc_pwm(c);
-@@ -68,11 +80,10 @@ static int crc_pwm_config(struct pwm_chip *c, struct pwm_device *pwm,
- 	}
- 
- 	if (pwm_get_period(pwm) != period_ns) {
--		int clk_div;
-+		int clk_div = crc_pwm_calc_clk_div(period_ns);
- 
- 		/* changing the clk divisor, need to disable fisrt */
- 		crc_pwm_disable(c, pwm);
--		clk_div = PWM_BASE_CLK_MHZ * period_ns / (256 * NSEC_PER_USEC);
- 
- 		regmap_write(crc_pwm->regmap, PWM0_CLK_DIV,
- 					clk_div | PWM_OUTPUT_ENABLE);
--- 
-2.28.0
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+VGhlIHB3bS1jcmMgY29kZSBpcyB1c2luZyAyIGRpZmZlcmVudCBlbmFibGUgYml0czoKMS4gYml0
+IDcgb2YgdGhlIFBXTTBfQ0xLX0RJViAoUFdNX09VVFBVVF9FTkFCTEUpCjIuIGJpdCAwIG9mIHRo
+ZSBCQUNLTElHSFRfRU4gcmVnaXN0ZXIKClNvIGZhciB3ZSd2ZSBrZXB0IHRoZSBQV01fT1VUUFVU
+X0VOQUJMRSBiaXQgc2V0IHdoZW4gZGlzYWJsaW5nIHRoZSBQV00sCnRoaXMgY29tbWl0IG1ha2Vz
+IGNyY19wd21fZGlzYWJsZSgpIGNsZWFyIGl0IG9uIGRpc2FibGUgYW5kIG1ha2VzCmNyY19wd21f
+ZW5hYmxlKCkgc2V0IGl0IGFnYWluIG9uIHJlLWVuYWJsZS4KCkFja2VkLWJ5OiBVd2UgS2xlaW5l
+LUvDtm5pZyA8dS5rbGVpbmUta29lbmlnQHBlbmd1dHJvbml4LmRlPgpSZXZpZXdlZC1ieTogQW5k
+eSBTaGV2Y2hlbmtvIDxhbmRyaXkuc2hldmNoZW5rb0BsaW51eC5pbnRlbC5jb20+ClNpZ25lZC1v
+ZmYtYnk6IEhhbnMgZGUgR29lZGUgPGhkZWdvZWRlQHJlZGhhdC5jb20+Ci0tLQpDaGFuZ2VzIGlu
+IHYzOgotIFJlbW92ZSBwYXJhZ3JhcGggYWJvdXQgdHJpLXN0YXRpbmcgdGhlIG91dHB1dCBmcm9t
+IHRoZSBjb21taXQgbWVzc2FnZSwKICB3ZSBkb24ndCBoYXZlIGEgZGF0YXNoZWV0IHNvIHRoaXMg
+d2FzIGp1c3QgYW4gdW5mb3VuZGVkIGd1ZXNzCi0tLQogZHJpdmVycy9wd20vcHdtLWNyYy5jIHwg
+NCArKysrCiAxIGZpbGUgY2hhbmdlZCwgNCBpbnNlcnRpb25zKCspCgpkaWZmIC0tZ2l0IGEvZHJp
+dmVycy9wd20vcHdtLWNyYy5jIGIvZHJpdmVycy9wd20vcHdtLWNyYy5jCmluZGV4IDgxMjMyZGEw
+Yzc2Ny4uYjcyMDA4YzliMDcyIDEwMDY0NAotLS0gYS9kcml2ZXJzL3B3bS9wd20tY3JjLmMKKysr
+IGIvZHJpdmVycy9wd20vcHdtLWNyYy5jCkBAIC01NCw3ICs1NCw5IEBAIHN0YXRpYyBpbnQgY3Jj
+X3B3bV9jYWxjX2Nsa19kaXYoaW50IHBlcmlvZF9ucykKIHN0YXRpYyBpbnQgY3JjX3B3bV9lbmFi
+bGUoc3RydWN0IHB3bV9jaGlwICpjLCBzdHJ1Y3QgcHdtX2RldmljZSAqcHdtKQogewogCXN0cnVj
+dCBjcnlzdGFsY292ZV9wd20gKmNyY19wd20gPSB0b19jcmNfcHdtKGMpOworCWludCBkaXYgPSBj
+cmNfcHdtX2NhbGNfY2xrX2Rpdihwd21fZ2V0X3BlcmlvZChwd20pKTsKIAorCXJlZ21hcF93cml0
+ZShjcmNfcHdtLT5yZWdtYXAsIFBXTTBfQ0xLX0RJViwgZGl2IHwgUFdNX09VVFBVVF9FTkFCTEUp
+OwogCXJlZ21hcF93cml0ZShjcmNfcHdtLT5yZWdtYXAsIEJBQ0tMSUdIVF9FTiwgMSk7CiAKIAly
+ZXR1cm4gMDsKQEAgLTYzLDggKzY1LDEwIEBAIHN0YXRpYyBpbnQgY3JjX3B3bV9lbmFibGUoc3Ry
+dWN0IHB3bV9jaGlwICpjLCBzdHJ1Y3QgcHdtX2RldmljZSAqcHdtKQogc3RhdGljIHZvaWQgY3Jj
+X3B3bV9kaXNhYmxlKHN0cnVjdCBwd21fY2hpcCAqYywgc3RydWN0IHB3bV9kZXZpY2UgKnB3bSkK
+IHsKIAlzdHJ1Y3QgY3J5c3RhbGNvdmVfcHdtICpjcmNfcHdtID0gdG9fY3JjX3B3bShjKTsKKwlp
+bnQgZGl2ID0gY3JjX3B3bV9jYWxjX2Nsa19kaXYocHdtX2dldF9wZXJpb2QocHdtKSk7CiAKIAly
+ZWdtYXBfd3JpdGUoY3JjX3B3bS0+cmVnbWFwLCBCQUNLTElHSFRfRU4sIDApOworCXJlZ21hcF93
+cml0ZShjcmNfcHdtLT5yZWdtYXAsIFBXTTBfQ0xLX0RJViwgZGl2KTsKIH0KIAogc3RhdGljIGlu
+dCBjcmNfcHdtX2NvbmZpZyhzdHJ1Y3QgcHdtX2NoaXAgKmMsIHN0cnVjdCBwd21fZGV2aWNlICpw
+d20sCi0tIAoyLjI4LjAKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fCkludGVsLWdmeCBtYWlsaW5nIGxpc3QKSW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
+Lm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ludGVs
+LWdmeAo=
