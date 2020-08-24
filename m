@@ -7,47 +7,47 @@ X-Spam-Status: No, score=-11.2 required=3.0 tests=BAYES_00,DATE_IN_PAST_06_12,
 	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 19C7AC433DF
-	for <intel-gfx@archiver.kernel.org>; Mon, 24 Aug 2020 10:42:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 46BB4C433DF
+	for <intel-gfx@archiver.kernel.org>; Mon, 24 Aug 2020 10:42:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EED27206B5
-	for <intel-gfx@archiver.kernel.org>; Mon, 24 Aug 2020 10:42:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EED27206B5
+	by mail.kernel.org (Postfix) with ESMTPS id 1FA68206B5
+	for <intel-gfx@archiver.kernel.org>; Mon, 24 Aug 2020 10:42:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1FA68206B5
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E5046E1D6;
-	Mon, 24 Aug 2020 10:42:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BEE316E1D7;
+	Mon, 24 Aug 2020 10:42:04 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 158426E1D7
- for <intel-gfx@lists.freedesktop.org>; Mon, 24 Aug 2020 10:42:00 +0000 (UTC)
-IronPort-SDR: IwO2WZCluA4JiHa034LB6L5wOB1uij4W/8pH5/uuy7otu2+JJeYMK1f6qvYUAqTmFYUvKTycVy
- fb7y800PtWog==
-X-IronPort-AV: E=McAfee;i="6000,8403,9722"; a="153285912"
-X-IronPort-AV: E=Sophos;i="5.76,348,1592895600"; d="scan'208";a="153285912"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 262FC6E1CF
+ for <intel-gfx@lists.freedesktop.org>; Mon, 24 Aug 2020 10:41:57 +0000 (UTC)
+IronPort-SDR: 4u4cqHx+DPUtcDOV9jF81QTQpu711TBkUUvI6cNdWOD/jEpCSRKClVMjk5YQInjiRnovBM9klg
+ FjyKfIo1BI3Q==
+X-IronPort-AV: E=McAfee;i="6000,8403,9722"; a="153285906"
+X-IronPort-AV: E=Sophos;i="5.76,348,1592895600"; d="scan'208";a="153285906"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Aug 2020 03:41:59 -0700
-IronPort-SDR: afX54lFYX1v9+g3HwEAnDCbTx8Ciaq7LWZ9LGZ1KHIke4fiXjWmpGy0uo6LOyMfg81ug5xABl1
- R77C5Q6G1S+w==
-X-IronPort-AV: E=Sophos;i="5.76,348,1592895600"; d="scan'208";a="473869541"
+ 24 Aug 2020 03:41:56 -0700
+IronPort-SDR: 9q3POlV+9xgOJ4O9ZPCatKcaytEE3vJlIf+RpIklQmuhXYZ2Yi3ea7dfahqd620hIeg9a2bpaU
+ RTql7V7710Eg==
+X-IronPort-AV: E=Sophos;i="5.76,348,1592895600"; d="scan'208";a="473869531"
 Received: from unknown (HELO john.iind.intel.com) ([10.223.74.105])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-SHA;
- 24 Aug 2020 03:41:58 -0700
+ 24 Aug 2020 03:41:55 -0700
 From: Nischal Varide <nischal.varide@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	nischal.varide@intel.com
-Date: Mon, 24 Aug 2020 09:15:56 +0530
-Message-Id: <20200824034556.26626-5-nischal.varide@intel.com>
+Date: Mon, 24 Aug 2020 09:15:54 +0530
+Message-Id: <20200824034556.26626-3-nischal.varide@intel.com>
 X-Mailer: git-send-email 2.26.0
 In-Reply-To: <20200824034556.26626-1-nischal.varide@intel.com>
 References: <20200824034556.26626-1-nischal.varide@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 5/5] Fixing a Possible Null Pointer Dereference.
+Subject: [Intel-gfx] [PATCH 3/5] Fixing a Possible Null Pointer Dereference.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,28 +65,28 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Fixing a Possible Null Pointer Dereference in intel_crt.c.
-Introduced a Null Check for dev_priv pointer before dereferencing.
+This Patch addresses a Possible Null Pointer Dereference of variables
+new_stae, new_conn_state and old_state, old_conn_state in intel_sdvo.c
 
 Signed-off-by: Nischal Varide <nischal.varide@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_crt.c | 3 +++
+ drivers/gpu/drm/i915/display/intel_sdvo.c | 3 +++
  1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_crt.c b/drivers/gpu/drm/i915/display/intel_crt.c
-index 5b4510ce5693..b5777fdc8cac 100644
---- a/drivers/gpu/drm/i915/display/intel_crt.c
-+++ b/drivers/gpu/drm/i915/display/intel_crt.c
-@@ -504,6 +504,9 @@ static bool valleyview_crt_detect_hotplug(struct drm_connector *connector)
- 	bool ret;
- 	u32 save_adpa;
+diff --git a/drivers/gpu/drm/i915/display/intel_sdvo.c b/drivers/gpu/drm/i915/display/intel_sdvo.c
+index 2da4388e1540..186a2d695bb6 100644
+--- a/drivers/gpu/drm/i915/display/intel_sdvo.c
++++ b/drivers/gpu/drm/i915/display/intel_sdvo.c
+@@ -2505,6 +2505,9 @@ static int intel_sdvo_atomic_check(struct drm_connector *conn,
+ 	struct intel_sdvo_connector_state *new_state =
+ 		to_intel_sdvo_connector_state(new_conn_state);
  
-+	if (!(dev_priv))
-+		return false;
++	if (!(new_conn_state && old_conn_state && old_state && new_state))
++		return 0;
 +
- 	/*
- 	 * Doing a force trigger causes a hpd interrupt to get sent, which can
- 	 * get us stuck in a loop if we're polling:
+ 	if (new_conn_state->crtc &&
+ 	    (memcmp(&old_state->tv, &new_state->tv, sizeof(old_state->tv)) ||
+ 	     memcmp(&old_conn_state->tv, &new_conn_state->tv, sizeof(old_conn_state->tv)))) {
 -- 
 2.26.0
 
