@@ -2,60 +2,55 @@ Return-Path: <SRS0=FAfE=CD=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_GIT autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 544B4C433E1
-	for <intel-gfx@archiver.kernel.org>; Tue, 25 Aug 2020 05:03:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4EEF2C433E1
+	for <intel-gfx@archiver.kernel.org>; Tue, 25 Aug 2020 05:03:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3015D20706
-	for <intel-gfx@archiver.kernel.org>; Tue, 25 Aug 2020 05:03:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3015D20706
+	by mail.kernel.org (Postfix) with ESMTPS id 2C9D620706
+	for <intel-gfx@archiver.kernel.org>; Tue, 25 Aug 2020 05:03:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2C9D620706
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=perches.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A42856E852;
-	Tue, 25 Aug 2020 05:03:18 +0000 (UTC)
-X-Greylist: delayed 392 seconds by postgrey-1.36 at gabe;
- Tue, 25 Aug 2020 05:03:17 UTC
-Received: from smtprelay.hostedemail.com (smtprelay0127.hostedemail.com
- [216.40.44.127])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 480E76E852
- for <intel-gfx@lists.freedesktop.org>; Tue, 25 Aug 2020 05:03:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B070C6E853;
+	Tue, 25 Aug 2020 05:03:53 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (smtprelay0213.hostedemail.com
+ [216.40.44.213])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB6136E853
+ for <intel-gfx@lists.freedesktop.org>; Tue, 25 Aug 2020 05:03:52 +0000 (UTC)
 Received: from smtprelay.hostedemail.com (10.5.19.251.rfc1918.com
  [10.5.19.251])
- by smtpgrave07.hostedemail.com (Postfix) with ESMTP id 74C9E18024CF0
- for <intel-gfx@lists.freedesktop.org>; Tue, 25 Aug 2020 04:56:45 +0000 (UTC)
+ by smtpgrave03.hostedemail.com (Postfix) with ESMTP id 6FFC618024DC0
+ for <intel-gfx@lists.freedesktop.org>; Tue, 25 Aug 2020 04:57:02 +0000 (UTC)
 Received: from filter.hostedemail.com (clb03-v110.bra.tucows.net
  [216.40.38.60])
- by smtprelay04.hostedemail.com (Postfix) with ESMTP id B846B180A9F54;
- Tue, 25 Aug 2020 04:56:42 +0000 (UTC)
+ by smtprelay02.hostedemail.com (Postfix) with ESMTP id 7303412C8;
+ Tue, 25 Aug 2020 04:57:01 +0000 (UTC)
 X-Session-Marker: 6A6F6540706572636865732E636F6D
-X-HE-Tag: chalk60_631385f27059
-X-Filterd-Recvd-Size: 5825
+X-HE-Tag: tooth95_1d0aaa027059
+X-Filterd-Recvd-Size: 3852
 Received: from joe-laptop.perches.com (unknown [47.151.133.149])
  (Authenticated sender: joe@perches.com)
  by omf08.hostedemail.com (Postfix) with ESMTPA;
- Tue, 25 Aug 2020 04:56:38 +0000 (UTC)
+ Tue, 25 Aug 2020 04:56:58 +0000 (UTC)
 From: Joe Perches <joe@perches.com>
-To: Jiri Kosina <trivial@kernel.org>, oprofile-list@lists.sf.net,
- linux-ide@vger.kernel.org, drbd-dev@lists.linbit.com,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, intel-gfx@lists.freedesktop.org,
- linux-hwmon@vger.kernel.org, linux-input@vger.kernel.org,
- linux-bcache@vger.kernel.org, netdev@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
- linux-fsdevel@vger.kernel.org, reiserfs-devel@vger.kernel.org,
- linux-nfs@vger.kernel.org
-Date: Mon, 24 Aug 2020 21:55:57 -0700
-Message-Id: <cover.1598331148.git.joe@perches.com>
+To: Jiri Kosina <trivial@kernel.org>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>
+Date: Mon, 24 Aug 2020 21:56:07 -0700
+Message-Id: <d687691df8f9978c7b2362c18d77a16b49be76b0.1598331148.git.joe@perches.com>
 X-Mailer: git-send-email 2.26.0
+In-Reply-To: <cover.1598331148.git.joe@perches.com>
+References: <cover.1598331148.git.joe@perches.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 00/29] treewide: Convert comma separated
- statements
+Subject: [Intel-gfx] [PATCH 10/29] drm/i915: Avoid comma separated statements
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,106 +63,94 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: devel@driverdev.osuosl.org, linux-s390@vger.kernel.org,
- linux-fbdev@vger.kernel.org, linux-ia64@vger.kernel.org,
- linux-scsi@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-block@vger.kernel.org, linux-mtd@lists.infradead.org,
- linux-kselftest@vger.kernel.org, linux-alpha@vger.kernel.org,
- sparclinux@vger.kernel.org
+Cc: David Airlie <airlied@linux.ie>, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-There are many comma separated statements in the kernel.
-See:https://lore.kernel.org/lkml/alpine.DEB.2.22.394.2008201856110.2524@hadrien/
+Use semicolons and braces.
 
-Convert the comma separated statements that are in if/do/while blocks
-to use braces and semicolons.
+Signed-off-by: Joe Perches <joe@perches.com>
+---
+ drivers/gpu/drm/i915/gt/gen8_ppgtt.c           | 8 +++++---
+ drivers/gpu/drm/i915/gt/intel_gt_requests.c    | 6 ++++--
+ drivers/gpu/drm/i915/gt/selftest_workarounds.c | 6 ++++--
+ drivers/gpu/drm/i915/intel_runtime_pm.c        | 6 ++++--
+ 4 files changed, 17 insertions(+), 9 deletions(-)
 
-Many comma separated statements still exist but those are changes for
-another day.
-
-Joe Perches (29):
-  coding-style.rst: Avoid comma statements
-  alpha: Avoid comma separated statements
-  ia64: Avoid comma separated statements
-  sparc: Avoid comma separated statements
-  ata: Avoid comma separated statements
-  drbd: Avoid comma separated statements
-  lp: Avoid comma separated statements
-  dma-buf: Avoid comma separated statements
-  drm/gma500: Avoid comma separated statements
-  drm/i915: Avoid comma separated statements
-  hwmon: (scmi-hwmon): Avoid comma separated statements
-  Input: MT - Avoid comma separated statements
-  bcache: Avoid comma separated statements
-  media: Avoid comma separated statements
-  mtd: Avoid comma separated statements
-  8390: Avoid comma separated statements
-  fs_enet: Avoid comma separated statements
-  wan: sbni: Avoid comma separated statements
-  s390/tty3270: Avoid comma separated statements
-  scai/arm: Avoid comma separated statements
-  media: atomisp: Avoid comma separated statements
-  video: fbdev: Avoid comma separated statements
-  fuse: Avoid comma separated statements
-  reiserfs: Avoid comma separated statements
-  lib/zlib: Avoid comma separated statements
-  lib: zstd: Avoid comma separated statements
-  ipv6: fib6: Avoid comma separated statements
-  sunrpc: Avoid comma separated statements
-  tools: Avoid comma separated statements
-
- Documentation/process/coding-style.rst        |  17 +
- arch/alpha/kernel/pci_iommu.c                 |   8 +-
- arch/alpha/oprofile/op_model_ev4.c            |  22 +-
- arch/alpha/oprofile/op_model_ev5.c            |   8 +-
- arch/ia64/kernel/smpboot.c                    |   7 +-
- arch/sparc/kernel/smp_64.c                    |   7 +-
- drivers/ata/pata_icside.c                     |  21 +-
- drivers/block/drbd/drbd_receiver.c            |   6 +-
- drivers/char/lp.c                             |   6 +-
- drivers/dma-buf/st-dma-fence.c                |   7 +-
- drivers/gpu/drm/gma500/mdfld_intel_display.c  |  44 ++-
- drivers/gpu/drm/i915/gt/gen8_ppgtt.c          |   8 +-
- drivers/gpu/drm/i915/gt/intel_gt_requests.c   |   6 +-
- .../gpu/drm/i915/gt/selftest_workarounds.c    |   6 +-
- drivers/gpu/drm/i915/intel_runtime_pm.c       |   6 +-
- drivers/hwmon/scmi-hwmon.c                    |   6 +-
- drivers/input/input-mt.c                      |  11 +-
- drivers/md/bcache/bset.c                      |  12 +-
- drivers/md/bcache/sysfs.c                     |   6 +-
- drivers/media/i2c/msp3400-kthreads.c          |  12 +-
- drivers/media/pci/bt8xx/bttv-cards.c          |   6 +-
- drivers/media/pci/saa7134/saa7134-video.c     |   7 +-
- drivers/mtd/devices/lart.c                    |  10 +-
- drivers/net/ethernet/8390/axnet_cs.c          |  19 +-
- drivers/net/ethernet/8390/lib8390.c           |  14 +-
- drivers/net/ethernet/8390/pcnet_cs.c          |   6 +-
- .../ethernet/freescale/fs_enet/fs_enet-main.c |  11 +-
- drivers/net/wan/sbni.c                        | 101 +++---
- drivers/s390/char/tty3270.c                   |   6 +-
- drivers/scsi/arm/cumana_2.c                   |  19 +-
- drivers/scsi/arm/eesox.c                      |   9 +-
- drivers/scsi/arm/powertec.c                   |   9 +-
- .../media/atomisp/pci/atomisp_subdev.c        |   6 +-
- drivers/video/fbdev/tgafb.c                   |  12 +-
- fs/fuse/dir.c                                 |  24 +-
- fs/reiserfs/fix_node.c                        |  36 ++-
- lib/zlib_deflate/deftree.c                    |  49 ++-
- lib/zstd/compress.c                           | 120 ++++---
- lib/zstd/fse_compress.c                       |  24 +-
- lib/zstd/huf_compress.c                       |   6 +-
- net/ipv6/ip6_fib.c                            |  12 +-
- net/sunrpc/sysctl.c                           |   6 +-
- tools/lib/subcmd/help.c                       |  10 +-
- tools/power/cpupower/utils/cpufreq-set.c      |  14 +-
- tools/testing/selftests/vm/gup_benchmark.c    |  18 +-
- tools/testing/selftests/vm/userfaultfd.c      | 296 +++++++++++-------
- 46 files changed, 694 insertions(+), 382 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/gt/gen8_ppgtt.c b/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
+index 699125928272..114c13285ff1 100644
+--- a/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
++++ b/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
+@@ -323,10 +323,12 @@ static int __gen8_ppgtt_alloc(struct i915_address_space * const vm,
+ 			}
+ 
+ 			spin_lock(&pd->lock);
+-			if (likely(!pd->entry[idx]))
++			if (likely(!pd->entry[idx])) {
+ 				set_pd_entry(pd, idx, pt);
+-			else
+-				alloc = pt, pt = pd->entry[idx];
++			} else {
++				alloc = pt;
++				pt = pd->entry[idx];
++			}
+ 		}
+ 
+ 		if (lvl) {
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_requests.c b/drivers/gpu/drm/i915/gt/intel_gt_requests.c
+index 66fcbf9d0fdd..54408d0b5e6e 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_requests.c
++++ b/drivers/gpu/drm/i915/gt/intel_gt_requests.c
+@@ -139,8 +139,10 @@ long intel_gt_retire_requests_timeout(struct intel_gt *gt, long timeout)
+ 	LIST_HEAD(free);
+ 
+ 	interruptible = true;
+-	if (unlikely(timeout < 0))
+-		timeout = -timeout, interruptible = false;
++	if (unlikely(timeout < 0)) {
++		timeout = -timeout;
++		interruptible = false;
++	}
+ 
+ 	flush_submission(gt, timeout); /* kick the ksoftirqd tasklets */
+ 	spin_lock(&timelines->lock);
+diff --git a/drivers/gpu/drm/i915/gt/selftest_workarounds.c b/drivers/gpu/drm/i915/gt/selftest_workarounds.c
+index febc9e6692ba..3e4cbeed20bd 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_workarounds.c
++++ b/drivers/gpu/drm/i915/gt/selftest_workarounds.c
+@@ -521,8 +521,10 @@ static int check_dirty_whitelist(struct intel_context *ce)
+ 
+ 		srm = MI_STORE_REGISTER_MEM;
+ 		lrm = MI_LOAD_REGISTER_MEM;
+-		if (INTEL_GEN(engine->i915) >= 8)
+-			lrm++, srm++;
++		if (INTEL_GEN(engine->i915) >= 8) {
++			lrm++;
++			srm++;
++		}
+ 
+ 		pr_debug("%s: Writing garbage to %x\n",
+ 			 engine->name, reg);
+diff --git a/drivers/gpu/drm/i915/intel_runtime_pm.c b/drivers/gpu/drm/i915/intel_runtime_pm.c
+index 153ca9e65382..f498f1c80755 100644
+--- a/drivers/gpu/drm/i915/intel_runtime_pm.c
++++ b/drivers/gpu/drm/i915/intel_runtime_pm.c
+@@ -201,8 +201,10 @@ __print_intel_runtime_pm_wakeref(struct drm_printer *p,
+ 		unsigned long rep;
+ 
+ 		rep = 1;
+-		while (i + 1 < dbg->count && dbg->owners[i + 1] == stack)
+-			rep++, i++;
++		while (i + 1 < dbg->count && dbg->owners[i + 1] == stack) {
++			rep++;
++			i++;
++		}
+ 		__print_depot_stack(stack, buf, PAGE_SIZE, 2);
+ 		drm_printf(p, "Wakeref x%lu taken at:\n%s", rep, buf);
+ 	}
 -- 
 2.26.0
 
