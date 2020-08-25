@@ -2,81 +2,53 @@ Return-Path: <SRS0=FAfE=CD=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C7EA6C433DF
-	for <intel-gfx@archiver.kernel.org>; Tue, 25 Aug 2020 18:19:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C2B8BC433DF
+	for <intel-gfx@archiver.kernel.org>; Tue, 25 Aug 2020 18:41:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9E0C52076C
-	for <intel-gfx@archiver.kernel.org>; Tue, 25 Aug 2020 18:19:30 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="h2PH6gWv"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9E0C52076C
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
+	by mail.kernel.org (Postfix) with ESMTPS id B2B032071E
+	for <intel-gfx@archiver.kernel.org>; Tue, 25 Aug 2020 18:41:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B2B032071E
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 28EBF6E3C4;
-	Tue, 25 Aug 2020 18:19:30 +0000 (UTC)
-Received: from mail-lj1-x241.google.com (mail-lj1-x241.google.com
- [IPv6:2a00:1450:4864:20::241])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8863E6E3C4
- for <intel-gfx@lists.freedesktop.org>; Tue, 25 Aug 2020 18:19:28 +0000 (UTC)
-Received: by mail-lj1-x241.google.com with SMTP id g6so14892212ljn.11
- for <intel-gfx@lists.freedesktop.org>; Tue, 25 Aug 2020 11:19:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linux-foundation.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=46qyLntGhqFIKIx0vS5eQWqEfe+Vbu8cNj42GZZptzk=;
- b=h2PH6gWvLDikDkSDOxim22YnimrYTywDHULqdiPXEaMaBQAYKyE2JgwLEHMD0cD4se
- e7g8tMvGLg0XeiAL8MF68+nFKvRH/TYavRAA60RxCSDGxFg4j8ZBmpolbIskCTCCh+ia
- pbiUT9xGSqYDflwulqlmwftH6VgjNGCM9B3EM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=46qyLntGhqFIKIx0vS5eQWqEfe+Vbu8cNj42GZZptzk=;
- b=spgWhuhkhLu1h25gTTp8iAuaMKeo5IT8CRSr1mHndPyGs+Pozbwlij66TLJMW8T3v/
- bIfDSUBjC0HdAbkYEjQiY87NwVHaAzz0LzckWkxuJq+dNKqPTYk2qjG4r1Ovra2FExMk
- yf72ER3tVvPylbE23cdy3Ac/ume1eQcIt141SSOzp7PXhkDSDs4wn0PMbDsGMn8Qz1XJ
- S+vzMwMAxHr6XFT6GO8gkDZz92cMH8DSqvJsIbDX2ZP1YXM0QxMxJBXOby7DGD70K4w5
- VW+8JWmqfJJ2mTnFwrOrdeAlLaZEAL7O+X8UEasc9coIVpHQlTuvO3L5hTe0/tS5SwmX
- UTIA==
-X-Gm-Message-State: AOAM532EKeDCfciReqeXvuiXxnbEJxbVbQW2XONZddBklBtsOacR0UoE
- OYL2GLDPzpZlOl+s3bg71g516JN1YJ4B9Q==
-X-Google-Smtp-Source: ABdhPJxi7EALMyYwO8bLT1KrwmbexAFdEBDzbHZ6jTF4hHgbikDHyt3yIJQAb1Lb00M7M+rW3leVzw==
-X-Received: by 2002:a2e:b008:: with SMTP id y8mr4783831ljk.421.1598379566397; 
- Tue, 25 Aug 2020 11:19:26 -0700 (PDT)
-Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com.
- [209.85.208.171])
- by smtp.gmail.com with ESMTPSA id y24sm2915302lfg.75.2020.08.25.11.19.24
- for <intel-gfx@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 25 Aug 2020 11:19:24 -0700 (PDT)
-Received: by mail-lj1-f171.google.com with SMTP id v9so14950110ljk.6
- for <intel-gfx@lists.freedesktop.org>; Tue, 25 Aug 2020 11:19:24 -0700 (PDT)
-X-Received: by 2002:a2e:9a11:: with SMTP id o17mr5206226lji.314.1598379564237; 
- Tue, 25 Aug 2020 11:19:24 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F5776E96B;
+	Tue, 25 Aug 2020 18:41:22 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D5A4C6E963
+ for <intel-gfx@lists.freedesktop.org>; Tue, 25 Aug 2020 18:41:21 +0000 (UTC)
+IronPort-SDR: QL8yI3qudL8QLiPT1YiU/zVB5P1tuLt1VYKP4wrmAlGLjaCEfoqG7zyDsy+T39p0oKstjSSa8h
+ Gkx78wN7/65A==
+X-IronPort-AV: E=McAfee;i="6000,8403,9723"; a="156169380"
+X-IronPort-AV: E=Sophos;i="5.76,353,1592895600"; d="scan'208";a="156169380"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Aug 2020 11:41:08 -0700
+IronPort-SDR: YqLDdr75ROeo33BtEqC6HoxqHC2HCZVALVnZhKyy7k6mUvkcfWvcFCpFfpeW7LlpqievYoucYw
+ G+YjGGP3MoFw==
+X-IronPort-AV: E=Sophos;i="5.76,353,1592895600"; d="scan'208";a="443729887"
+Received: from josouza-mobl2.jf.intel.com (HELO josouza-MOBL2.intel.com)
+ ([10.24.14.51])
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Aug 2020 11:41:08 -0700
+From: =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Tue, 25 Aug 2020 11:43:42 -0700
+Message-Id: <20200825184343.63253-2-jose.souza@intel.com>
+X-Mailer: git-send-email 2.28.0
+In-Reply-To: <20200825184343.63253-1-jose.souza@intel.com>
+References: <20200825184343.63253-1-jose.souza@intel.com>
 MIME-Version: 1.0
-References: <20200817161132.GA4711@amd>
- <CAHk-=wh6_eWwvpL=AhOeY0btf_dkpu+0joNzPZWfbBWgAeAhMA@mail.gmail.com>
- <CAPM=9tw8LVWsuA6m_nkUDgm00iz2txYRNZY0b0WWZbyiUVzLEw@mail.gmail.com>
- <CAHk-=wg34bw1ude07nC_XCPOJHZ21-v6117p4574d5S7iP4gxw@mail.gmail.com>
- <20200820092349.GA3792@amd>
- <CAHk-=wjX=ck_u8uvp=PjGCQ3M9igE-yqyRPsJ54th1gQWpwMnA@mail.gmail.com>
- <20200821091900.hzbivycs5ky5d3iw@duo.ucw.cz> <87tuwr59te.fsf@intel.com>
- <7efa547d-b7a4-b873-f1aa-4f19eb849fa3@skogtun.org>
-In-Reply-To: <7efa547d-b7a4-b873-f1aa-4f19eb849fa3@skogtun.org>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Tue, 25 Aug 2020 11:19:08 -0700
-X-Gmail-Original-Message-ID: <CAHk-=wj3WskPCtHncCWLdaP6xVecLp8bDBTT57vyiU-0=Ld6QQ@mail.gmail.com>
-Message-ID: <CAHk-=wj3WskPCtHncCWLdaP6xVecLp8bDBTT57vyiU-0=Ld6QQ@mail.gmail.com>
-To: Harald Arnesen <harald@skogtun.org>
-Subject: Re: [Intel-gfx] 5.9-rc1: graphics regression moved from -next to
- mainline
+Subject: [Intel-gfx] [PATCH v2 2/3] drm/i915/display/ehl: Use EHL DP tables
+ for eDP ports without low power support
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,33 +61,46 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>,
- intel-gfx <intel-gfx@lists.freedesktop.org>,
- kernel list <linux-kernel@vger.kernel.org>,
- Chris Wilson <chris@chris-wilson.co.uk>, Matthew Auld <matthew.auld@intel.com>,
- Pavel Machek <pavel@ucw.cz>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Aug 25, 2020 at 9:32 AM Harald Arnesen <harald@skogtun.org> wrote:
->
-> > For posterity, I'm told the fix is [1].
-> >
-> > [1] https://lore.kernel.org/intel-gfx/20200821123746.16904-1-joro@8bytes.org/
->
-> Doesn't fix it for me. As soon as I start XFCE, the mouse and keyboard
-> freeezes. I can still ssh into the machine
->
-> The three reverts (763fedd6a216, 7ac2d2536dfa and 9e0f9464e2ab) fixes
-> the bug for me.
-
-Do you get any oops or other indication of what ends up going wrong?
-Since ssh works that should be fairly easy to see.
-
-                Linus
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+UmV1c2luZyBpY2xfZ2V0X2NvbWJvX2J1Zl90cmFucygpIGZvciBlRFAgd2FzIGNhdXNpbmcgdGhl
+IHdyb25nIHRhYmxlCmJlaW5nIHVzZWQgd2hlbiB0aGUgZURQIHBvcnQgZG9uJ3Qgc3VwcG9ydCBs
+b3cgcG93ZXIgdm9sdGFnZSBzd2luZyB0YWJsZS4KCnYyOiBPbmx5IHVzZSBpY2xfY29tYm9fcGh5
+X2RkaV90cmFuc2xhdGlvbnNfZWRwX2hicjMgaWYgbG93X3Zzd2luZyBpcwpzZXQgYXMgRUhMIGNv
+bWJvIHBoeSBzdXBwb3J0cyBIQlIzIChNYXR0IFIpCgpDYzogTGVlIFNoYXduIEMgPHNoYXduLmMu
+bGVlQGludGVsLmNvbT4KQ2M6IEtoYWxlZCBBbG1haGFsbGF3eSA8a2hhbGVkLmFsbWFoYWxsYXd5
+QGludGVsLmNvbT4KQ2M6IE1hdHQgUm9wZXIgPG1hdHRoZXcuZC5yb3BlckBpbnRlbC5jb20+ClNp
+Z25lZC1vZmYtYnk6IEpvc8OpIFJvYmVydG8gZGUgU291emEgPGpvc2Uuc291emFAaW50ZWwuY29t
+PgotLS0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGRpLmMgfCAyMiArKysr
+KysrKysrKysrKysrKysrLS0tCiAxIGZpbGUgY2hhbmdlZCwgMTkgaW5zZXJ0aW9ucygrKSwgMyBk
+ZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2lu
+dGVsX2RkaS5jIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kZGkuYwppbmRl
+eCA5YTAzNWJiN2JkMDYuLjY5OTUxMTg3MjI5MCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJt
+L2k5MTUvZGlzcGxheS9pbnRlbF9kZGkuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNw
+bGF5L2ludGVsX2RkaS5jCkBAIC0xMDc0LDEyICsxMDc0LDI4IEBAIHN0YXRpYyBjb25zdCBzdHJ1
+Y3QgY25sX2RkaV9idWZfdHJhbnMgKgogZWhsX2dldF9jb21ib19idWZfdHJhbnMoc3RydWN0IGlu
+dGVsX2VuY29kZXIgKmVuY29kZXIsIGludCB0eXBlLCBpbnQgcmF0ZSwKIAkJCWludCAqbl9lbnRy
+aWVzKQogewotCWlmICh0eXBlICE9IElOVEVMX09VVFBVVF9IRE1JICYmIHR5cGUgIT0gSU5URUxf
+T1VUUFVUX0VEUCkgeworCXN0cnVjdCBkcm1faTkxNV9wcml2YXRlICpkZXZfcHJpdiA9IHRvX2k5
+MTUoZW5jb2Rlci0+YmFzZS5kZXYpOworCisJc3dpdGNoICh0eXBlKSB7CisJY2FzZSBJTlRFTF9P
+VVRQVVRfSERNSToKKwkJKm5fZW50cmllcyA9IEFSUkFZX1NJWkUoaWNsX2NvbWJvX3BoeV9kZGlf
+dHJhbnNsYXRpb25zX2hkbWkpOworCQlyZXR1cm4gaWNsX2NvbWJvX3BoeV9kZGlfdHJhbnNsYXRp
+b25zX2hkbWk7CisJY2FzZSBJTlRFTF9PVVRQVVRfRURQOgorCQlpZiAoZGV2X3ByaXYtPnZidC5l
+ZHAubG93X3Zzd2luZykgeworCQkJaWYgKHJhdGUgPiA1NDAwMDApIHsKKwkJCQkqbl9lbnRyaWVz
+ID0gQVJSQVlfU0laRShpY2xfY29tYm9fcGh5X2RkaV90cmFuc2xhdGlvbnNfZWRwX2hicjMpOwor
+CQkJCXJldHVybiBpY2xfY29tYm9fcGh5X2RkaV90cmFuc2xhdGlvbnNfZWRwX2hicjM7CisJCQl9
+IGVsc2UgeworCQkJCSpuX2VudHJpZXMgPSBBUlJBWV9TSVpFKGljbF9jb21ib19waHlfZGRpX3Ry
+YW5zbGF0aW9uc19lZHBfaGJyMik7CisJCQkJcmV0dXJuIGljbF9jb21ib19waHlfZGRpX3RyYW5z
+bGF0aW9uc19lZHBfaGJyMjsKKwkJCX0KKwkJfQorCQkvKiBmYWxsIHRocm91Z2ggKi8KKwlkZWZh
+dWx0OgorCQkvKiBBbGwgY29tYm8gRFAgYW5kIGVEUCBwb3J0cyB0aGF0IGRvIG5vdCBzdXBwb3J0
+IGxvd192c3dpbmcgKi8KIAkJKm5fZW50cmllcyA9IEFSUkFZX1NJWkUoZWhsX2NvbWJvX3BoeV9k
+ZGlfdHJhbnNsYXRpb25zX2RwKTsKIAkJcmV0dXJuIGVobF9jb21ib19waHlfZGRpX3RyYW5zbGF0
+aW9uc19kcDsKIAl9Ci0KLQlyZXR1cm4gaWNsX2dldF9jb21ib19idWZfdHJhbnMoZW5jb2Rlciwg
+dHlwZSwgcmF0ZSwgbl9lbnRyaWVzKTsKIH0KIAogc3RhdGljIGNvbnN0IHN0cnVjdCBjbmxfZGRp
+X2J1Zl90cmFucyAqCi0tIAoyLjI4LjAKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fCkludGVsLWdmeCBtYWlsaW5nIGxpc3QKSW50ZWwtZ2Z4QGxpc3RzLmZy
+ZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3Rp
+bmZvL2ludGVsLWdmeAo=
