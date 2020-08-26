@@ -2,50 +2,41 @@ Return-Path: <SRS0=RAJW=CE=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-6.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
+	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 856DCC433E1
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 19:05:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C3E60C433DF
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 19:07:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5A37A2078A
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 19:05:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5A37A2078A
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 967B8207BC
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 19:07:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 967B8207BC
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4AB1B6EAA2;
-	Wed, 26 Aug 2020 19:05:35 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F7B26E369
- for <intel-gfx@lists.freedesktop.org>; Wed, 26 Aug 2020 19:05:31 +0000 (UTC)
-IronPort-SDR: dRhFJBAd2SKn6BWeZ7AnhqR4nSoySeO9J8gQzOqmSzEPeYQ5flNsCubBotsbIGiDhAY6rEAreP
- clwPIGf30tEg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9725"; a="153790973"
-X-IronPort-AV: E=Sophos;i="5.76,356,1592895600"; d="scan'208";a="153790973"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Aug 2020 12:05:31 -0700
-IronPort-SDR: lVmN4xYoEZD+5++tnEgHYMGvikUsIEtgdpFbzH2wR8V+/THQnB/vJfqOBfte1ZmSPRGAY/QbWc
- DaqK2n/bXwJg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.76,356,1592895600"; d="scan'208";a="403157631"
-Received: from labuser-z97x-ud5h.jf.intel.com ([10.165.21.211])
- by fmsmga001.fm.intel.com with ESMTP; 26 Aug 2020 12:05:30 -0700
-From: Manasi Navare <manasi.d.navare@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Wed, 26 Aug 2020 12:06:54 -0700
-Message-Id: <20200826190657.18283-1-manasi.d.navare@intel.com>
-X-Mailer: git-send-email 2.19.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A05E6EAA3;
+	Wed, 26 Aug 2020 19:07:52 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 3E5726EA99;
+ Wed, 26 Aug 2020 19:07:51 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 36CB5A41FB;
+ Wed, 26 Aug 2020 19:07:51 +0000 (UTC)
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 1/4] drm/i915/display/dp: Attach and set drm
- connector VRR property
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Lyude Paul" <lyude@redhat.com>
+Date: Wed, 26 Aug 2020 19:07:51 -0000
+Message-ID: <159846887122.21253.10832733245700192047@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20200826182456.322681-1-lyude@redhat.com>
+In-Reply-To: <20200826182456.322681-1-lyude@redhat.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_drm/dp=2C_i915=2C_nouveau=3A_Cleanup_nouveau_HPD_and_add_DP?=
+ =?utf-8?q?_features_from_i915_=28rev7=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,81 +49,99 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-RnJvbTogQWRpdHlhIFN3YXJ1cCA8YWRpdHlhLnN3YXJ1cEBpbnRlbC5jb20+CgpUaGlzIGZ1bmN0
-aW9uIHNldHMgdGhlIFZSUiBwcm9wZXJ0eSBmb3IgY29ubmVjdG9yIGJhc2VkCm9uIHRoZSBwbGF0
-Zm9ybSBzdXBwb3J0LCBFRElEIG1vbml0b3IgcmFuZ2UgYW5kIERQIHNpbmsKRFBDRCBjYXBhYmls
-aXR5IG9mIG91dHB1dGluZyB2aWRlbyB3aXRob3V0IG1zYQp0aW1pbmcgaW5mb3JtYXRpb24uCgp2
-NToKKiBGaXggdGhlIHZyciBwcm9wIG5vdCBiZWluZyBzZXQgaW4ga2VybmVsIChNYW5hc2kpCiog
-VW5zZXQgdGhlIHByb3Agb24gY29ubmVjdG9yIGRpc2Nvbm5lY3QgKE1hbmFzaSkKdjQ6CiogUmVi
-YXNlIChNYW5zaSkKdjM6CiogaW50ZWxfZHBfaXNfdnJyX2NhcGFibGUgY2FuIGJlIHVzZWQgZm9y
-IGRlYnVnZnMsIG1ha2UgaXQKbm9uIHN0YXRpYyAoTWFuYXNpKQp2MjoKKiBKdXN0IHNldCB0aGlz
-IGluIGludGVsX2RwX2dldF9tb2RlcyBpbnN0ZWFkIG9mIG5ldyBob29rIChKYW5pKQoKQ2M6IFZp
-bGxlIFN5cmrDpGzDpCA8dmlsbGUuc3lyamFsYUBsaW51eC5pbnRlbC5jb20+CkNjOiBKYW5pIE5p
-a3VsYSA8amFuaS5uaWt1bGFAbGludXguaW50ZWwuY29tPgpTaWduZWQtb2ZmLWJ5OiBBZGl0eWEg
-U3dhcnVwIDxhZGl0eWEuc3dhcnVwQGludGVsLmNvbT4KU2lnbmVkLW9mZi1ieTogTWFuYXNpIE5h
-dmFyZSA8bWFuYXNpLmQubmF2YXJlQGludGVsLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vaTkx
-NS9kaXNwbGF5L2ludGVsX2RwLmMgfCAyNyArKysrKysrKysrKysrKysrKysrKysrKysrCiBkcml2
-ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2RwLmggfCAgMiArKwogMiBmaWxlcyBjaGFu
-Z2VkLCAyOSBpbnNlcnRpb25zKCspCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUv
-ZGlzcGxheS9pbnRlbF9kcC5jIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9k
-cC5jCmluZGV4IDc5YzI3ZjkxZjQyYy4uM2E3MTI5YThjYThhIDEwMDY0NAotLS0gYS9kcml2ZXJz
-L2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2RwLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5
-MTUvZGlzcGxheS9pbnRlbF9kcC5jCkBAIC02MTYwLDYgKzYxNjAsOSBAQCBpbnRlbF9kcF9kZXRl
-Y3Qoc3RydWN0IGRybV9jb25uZWN0b3IgKmNvbm5lY3RvciwKIAlpZiAoc3RhdHVzID09IGNvbm5l
-Y3Rvcl9zdGF0dXNfZGlzY29ubmVjdGVkKSB7CiAJCW1lbXNldCgmaW50ZWxfZHAtPmNvbXBsaWFu
-Y2UsIDAsIHNpemVvZihpbnRlbF9kcC0+Y29tcGxpYW5jZSkpOwogCQltZW1zZXQoaW50ZWxfZHAt
-PmRzY19kcGNkLCAwLCBzaXplb2YoaW50ZWxfZHAtPmRzY19kcGNkKSk7CisJCS8qUmVzZXQgdGhl
-IGltbXV0YWJsZSBWUlIgQ2FwYWJsZSBwcm9wZXJ0eSAqLworCQlkcm1fY29ubmVjdG9yX3NldF92
-cnJfY2FwYWJsZV9wcm9wZXJ0eShjb25uZWN0b3IsCisJCQkJCQkgICAgICAgZmFsc2UpOwogCiAJ
-CWlmIChpbnRlbF9kcC0+aXNfbXN0KSB7CiAJCQlkcm1fZGJnX2ttcygmZGV2X3ByaXYtPmRybSwK
-QEAgLTYyNzYsNiArNjI3OSwyMyBAQCBpbnRlbF9kcF9mb3JjZShzdHJ1Y3QgZHJtX2Nvbm5lY3Rv
-ciAqY29ubmVjdG9yKQogCWludGVsX2Rpc3BsYXlfcG93ZXJfcHV0KGRldl9wcml2LCBhdXhfZG9t
-YWluLCB3YWtlcmVmKTsKIH0KIAorYm9vbCBpbnRlbF9kcF9pc192cnJfY2FwYWJsZShzdHJ1Y3Qg
-ZHJtX2Nvbm5lY3RvciAqY29ubmVjdG9yKQoreworCXN0cnVjdCBpbnRlbF9kcCAqaW50ZWxfZHAg
-PSBpbnRlbF9hdHRhY2hlZF9kcCh0b19pbnRlbF9jb25uZWN0b3IoY29ubmVjdG9yKSk7CisJY29u
-c3Qgc3RydWN0IGRybV9kaXNwbGF5X2luZm8gKmluZm8gPSAmY29ubmVjdG9yLT5kaXNwbGF5X2lu
-Zm87CisJc3RydWN0IGRybV9pOTE1X3ByaXZhdGUgKmRldl9wcml2ID0gdG9faTkxNShjb25uZWN0
-b3ItPmRldik7CisKKwkvKgorCSAqIERQIFNpbmsgaXMgY2FwYWJsZSBvZiBWYXJpYWJsZSByZWZy
-ZXNoIHZpZGVvIHRpbWluZ3MgaWYKKwkgKiBJZ25vcmUgTVNBIGJpdCBpcyBzZXQgaW4gRFBDRC4K
-KwkgKiBFRElEIG1vbml0b3IgcmFuZ2UgYWxzbyBzaG91bGQgYmUgYXRsZWFzdCAxMCBmb3IgcmVh
-c29uYWJsZQorCSAqIEFkYXB0aXZlIHN5bmMvIFZSUiBlbmQgdXNlciBleHBlcmllbmNlLgorCSAq
-LworCXJldHVybiBJTlRFTF9HRU4oZGV2X3ByaXYpID49IDEyICYmCisJCWRybV9kcF9zaW5rX2Nh
-bl9kb192aWRlb193aXRob3V0X3RpbWluZ19tc2EoaW50ZWxfZHAtPmRwY2QpICYmCisJCWluZm8t
-Pm1vbml0b3JfcmFuZ2UubWF4X3ZmcmVxIC0gaW5mby0+bW9uaXRvcl9yYW5nZS5taW5fdmZyZXEg
-PiAxMDsKK30KKwogc3RhdGljIGludCBpbnRlbF9kcF9nZXRfbW9kZXMoc3RydWN0IGRybV9jb25u
-ZWN0b3IgKmNvbm5lY3RvcikKIHsKIAlzdHJ1Y3QgaW50ZWxfY29ubmVjdG9yICppbnRlbF9jb25u
-ZWN0b3IgPSB0b19pbnRlbF9jb25uZWN0b3IoY29ubmVjdG9yKTsKQEAgLTYyODQsNiArNjMwNCwx
-MCBAQCBzdGF0aWMgaW50IGludGVsX2RwX2dldF9tb2RlcyhzdHJ1Y3QgZHJtX2Nvbm5lY3RvciAq
-Y29ubmVjdG9yKQogCWVkaWQgPSBpbnRlbF9jb25uZWN0b3ItPmRldGVjdF9lZGlkOwogCWlmIChl
-ZGlkKSB7CiAJCWludCByZXQgPSBpbnRlbF9jb25uZWN0b3JfdXBkYXRlX21vZGVzKGNvbm5lY3Rv
-ciwgZWRpZCk7CisKKwkJaWYgKGludGVsX2RwX2lzX3Zycl9jYXBhYmxlKGNvbm5lY3RvcikpCisJ
-CQlkcm1fY29ubmVjdG9yX3NldF92cnJfY2FwYWJsZV9wcm9wZXJ0eShjb25uZWN0b3IsCisJCQkJ
-CQkJICAgICAgIHRydWUpOwogCQlpZiAocmV0KQogCQkJcmV0dXJuIHJldDsKIAl9CkBAIC03MzQ4
-LDYgKzczNzIsOSBAQCBpbnRlbF9kcF9hZGRfcHJvcGVydGllcyhzdHJ1Y3QgaW50ZWxfZHAgKmlu
-dGVsX2RwLCBzdHJ1Y3QgZHJtX2Nvbm5lY3RvciAqY29ubmVjdAogCQljb25uZWN0b3ItPnN0YXRl
-LT5zY2FsaW5nX21vZGUgPSBEUk1fTU9ERV9TQ0FMRV9BU1BFQ1Q7CiAKIAl9CisKKwlpZiAoSU5U
-RUxfR0VOKGRldl9wcml2KSA+PSAxMikKKwkJZHJtX2Nvbm5lY3Rvcl9hdHRhY2hfdnJyX2NhcGFi
-bGVfcHJvcGVydHkoY29ubmVjdG9yKTsKIH0KIAogc3RhdGljIHZvaWQgaW50ZWxfZHBfaW5pdF9w
-YW5lbF9wb3dlcl90aW1lc3RhbXBzKHN0cnVjdCBpbnRlbF9kcCAqaW50ZWxfZHApCmRpZmYgLS1n
-aXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2RwLmggYi9kcml2ZXJzL2dw
-dS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2RwLmgKaW5kZXggYjkwMWFiODUwY2JkLi4xZmJkYjQ2
-YjI2ZWQgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZHAu
-aAorKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2RwLmgKQEAgLTE0LDYg
-KzE0LDcgQEAgZW51bSBwaXBlOwogZW51bSBwb3J0Owogc3RydWN0IGRybV9jb25uZWN0b3Jfc3Rh
-dGU7CiBzdHJ1Y3QgZHJtX2VuY29kZXI7CitzdHJ1Y3QgZHJtX2Nvbm5lY3RvcjsKIHN0cnVjdCBk
-cm1faTkxNV9wcml2YXRlOwogc3RydWN0IGRybV9tb2Rlc2V0X2FjcXVpcmVfY3R4Owogc3RydWN0
-IGRybV9kcF92c2Nfc2RwOwpAQCAtMTIwLDYgKzEyMSw3IEBAIHZvaWQgaW50ZWxfcmVhZF9kcF9z
-ZHAoc3RydWN0IGludGVsX2VuY29kZXIgKmVuY29kZXIsCiAJCSAgICAgICB1bnNpZ25lZCBpbnQg
-dHlwZSk7CiBib29sIGludGVsX2RpZ2l0YWxfcG9ydF9jb25uZWN0ZWQoc3RydWN0IGludGVsX2Vu
-Y29kZXIgKmVuY29kZXIpOwogdm9pZCBpbnRlbF9kcF9wcm9jZXNzX3BoeV9yZXF1ZXN0KHN0cnVj
-dCBpbnRlbF9kcCAqaW50ZWxfZHApOworYm9vbCBpbnRlbF9kcF9pc192cnJfY2FwYWJsZShzdHJ1
-Y3QgZHJtX2Nvbm5lY3RvciAqY29ubmVjdG9yKTsKIAogc3RhdGljIGlubGluZSB1bnNpZ25lZCBp
-bnQgaW50ZWxfZHBfdW51c2VkX2xhbmVfbWFzayhpbnQgbGFuZV9jb3VudCkKIHsKLS0gCjIuMTku
-MQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KSW50ZWwt
-Z2Z4IG1haWxpbmcgbGlzdApJbnRlbC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8v
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vaW50ZWwtZ2Z4Cg==
+== Series Details ==
+
+Series: drm/dp, i915, nouveau: Cleanup nouveau HPD and add DP features from i915 (rev7)
+URL   : https://patchwork.freedesktop.org/series/80542/
+State : warning
+
+== Summary ==
+
+$ dim checkpatch origin/drm-tip
+b76b4b6f3675 drm/nouveau/kms: Fix some indenting in nouveau_dp_detect()
+-:7: WARNING:COMMIT_MESSAGE: Missing commit description - Add an appropriate one
+
+total: 0 errors, 1 warnings, 0 checks, 21 lines checked
+376f1358fe13 drm/nouveau/kms/nv50-: Remove open-coded drm_dp_read_desc()
+-:102: WARNING:FUNCTION_ARGUMENTS: function definition argument 'struct nouveau_connector *' should also have an identifier name
+#102: FILE: drivers/gpu/drm/nouveau/nouveau_encoder.h:109:
++int nouveau_dp_detect(struct nouveau_connector *, struct nouveau_encoder *);
+
+-:102: WARNING:FUNCTION_ARGUMENTS: function definition argument 'struct nouveau_encoder *' should also have an identifier name
+#102: FILE: drivers/gpu/drm/nouveau/nouveau_encoder.h:109:
++int nouveau_dp_detect(struct nouveau_connector *, struct nouveau_encoder *);
+
+total: 0 errors, 2 warnings, 0 checks, 74 lines checked
+bb5629743bd6 drm/nouveau/kms/nv50-: Just use drm_dp_dpcd_read() in nouveau_dp.c
+5a0c0ceff3b9 drm/nouveau/kms/nv50-: Use macros for DP registers in nouveau_dp.c
+ed53a7f096cc drm/nouveau/kms: Don't clear DP_MST_CTRL DPCD in nv50_mstm_new()
+-:7: ERROR:GIT_COMMIT_ID: Please use git commit description style 'commit <12+ chars of sha1> ("<title line>")' - ie: 'commit fa3cdf8d0b09 ("drm/nouveau: Reset MST branching unit before enabling")'
+#7: 
+Since fa3cdf8d0b09 ("drm/nouveau: Reset MST branching unit before
+
+total: 1 errors, 0 warnings, 0 checks, 17 lines checked
+2e212bc94c2b drm/nouveau/kms: Search for encoders' connectors properly
+d5c0b632ff50 drm/nouveau/kms/nv50-: Use drm_dp_dpcd_(readb|writeb)() in nv50_sor_disable()
+a494bdb7a99a drm/nouveau/kms/nv50-: Refactor and cleanup DP HPD handling
+-:53: WARNING:COMMIT_LOG_LONG_LINE: Possible unwrapped commit description (prefer a maximum 75 chars per line)
+#53: 
+* Enabling bits in MSTM_CTRL before calling drm_dp_mst_topology_mgr_set_mst().
+
+-:465: WARNING:FUNCTION_ARGUMENTS: function definition argument 'struct drm_device *' should also have an identifier name
+#465: FILE: drivers/gpu/drm/nouveau/nouveau_display.h:21:
++	void (*fini)(struct drm_device *, bool suspend, bool runtime);
+
+total: 0 errors, 2 warnings, 0 checks, 574 lines checked
+93c32b56a998 drm/i915/dp: Extract drm_dp_read_mst_cap()
+ab23bfd0015b drm/nouveau/kms: Use new drm_dp_read_mst_cap() helper for checking MST caps
+-:8: WARNING:COMMIT_MESSAGE: Missing commit description - Add an appropriate one
+
+total: 0 errors, 1 warnings, 0 checks, 29 lines checked
+d218727b4477 drm/nouveau/kms: Move drm_dp_cec_unset_edid() into nouveau_connector_detect()
+375b0f4cdd81 drm/nouveau/kms: Only use hpd_work for reprobing in HPD paths
+-:279: CHECK:UNCOMMENTED_DEFINITION: struct mutex definition without comment
+#279: FILE: drivers/gpu/drm/nouveau/nouveau_drv.h:201:
++	struct mutex hpd_lock;
+
+total: 0 errors, 0 warnings, 1 checks, 219 lines checked
+0134505297a1 drm/i915/dp: Extract drm_dp_read_downstream_info()
+-:38: WARNING:BAD_SIGN_OFF: Duplicate signature
+#38: 
+Signed-off-by: Lyude Paul <lyude@redhat.com>
+
+total: 0 errors, 1 warnings, 0 checks, 109 lines checked
+c4728875a1e1 drm/nouveau/kms/nv50-: Use downstream DP clock limits for mode validation
+-:63: WARNING:UNSPECIFIED_INT: Prefer 'unsigned int' to bare use of 'unsigned'
+#63: FILE: drivers/gpu/drm/nouveau/nouveau_dp.c:194:
++	unsigned max_clock, ds_clock, clock;
+
+total: 0 errors, 1 warnings, 0 checks, 57 lines checked
+21a1acc8b05d drm/i915/dp: Extract drm_dp_read_sink_count_cap()
+b10ed3135378 drm/i915/dp: Extract drm_dp_read_sink_count()
+-:12: WARNING:COMMIT_LOG_LONG_LINE: Possible unwrapped commit description (prefer a maximum 75 chars per line)
+#12: 
+* Add back comment and move back sink_count assignment in intel_dp_get_dpcd()
+
+total: 0 errors, 1 warnings, 0 checks, 74 lines checked
+9de8d3818bd8 drm/nouveau/kms/nv50-: Add support for DP_SINK_COUNT
+-:11: WARNING:COMMIT_LOG_LONG_LINE: Possible unwrapped commit description (prefer a maximum 75 chars per line)
+#11: 
+plugged into it currently results in a bogus EDID retrieval error in the kernel log.
+
+total: 0 errors, 1 warnings, 0 checks, 107 lines checked
+b2ef4135a827 drm/nouveau/kms: Don't change EDID when it hasn't actually changed
+6da06b467e41 drm/i915/dp: Extract drm_dp_read_dpcd_caps()
+02383c82b60a drm/nouveau/kms: Start using drm_dp_read_dpcd_caps()
+
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
