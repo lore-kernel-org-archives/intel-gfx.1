@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
-	autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A8073C433DF
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DC78EC433E5
 	for <intel-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 13:29:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 85A83214F1
+	by mail.kernel.org (Postfix) with ESMTPS id BD840214F1
 	for <intel-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 13:29:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 85A83214F1
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BD840214F1
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD9926EA75;
-	Wed, 26 Aug 2020 13:28:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 090FD6EA7C;
+	Wed, 26 Aug 2020 13:28:59 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B5C3C6EA69
- for <intel-gfx@lists.freedesktop.org>; Wed, 26 Aug 2020 13:28:31 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 026846EA61
+ for <intel-gfx@lists.freedesktop.org>; Wed, 26 Aug 2020 13:28:52 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22244734-1500050 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22244732-1500050 
  for multiple; Wed, 26 Aug 2020 14:28:14 +0100
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 26 Aug 2020 14:27:42 +0100
-Message-Id: <20200826132811.17577-10-chris@chris-wilson.co.uk>
+Date: Wed, 26 Aug 2020 14:27:40 +0100
+Message-Id: <20200826132811.17577-8-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200826132811.17577-1-chris@chris-wilson.co.uk>
 References: <20200826132811.17577-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 10/39] drm/i915: Cancel outstanding work after
- disabling heartbeats on an engine
+Subject: [Intel-gfx] [PATCH 08/39] drm/i915/gt: Show engine properties in
+ the pretty printer
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,67 +50,86 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stable@vger.kernel.org, Chris Wilson <chris@chris-wilson.co.uk>
+Cc: Chris Wilson <chris@chris-wilson.co.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-We only allow persistent requests to remain on the GPU past the closure
-of their containing context (and process) so long as they are continuously
-checked for hangs or allow other requests to preempt them, as we need to
-ensure forward progress of the system. If we allow persistent contexts
-to remain on the system after the the hangcheck mechanism is disabled,
-the system may grind to a halt. On disabling the mechanism, we sent a
-pulse along the engine to remove all executing contexts from the engine
-which would check for hung contexts -- but we did not prevent those
-contexts from being resubmitted if they survived the final hangcheck.
+When debugging the engine state, include the user properties that may,
+or may not, have been adjusted by the user/test.
 
-Fixes: 9a40bddd47ca ("drm/i915/gt: Expose heartbeat interval via sysfs")
-Testcase: igt/gem_ctx_persistence/heartbeat-stop
+For example,
+vecs0
+	...
+	Properties:
+		heartbeat_interval_ms: 2500 [default 2500]
+		max_busywait_duration_ns: 8000 [default 8000]
+		preempt_timeout_ms: 640 [default 640]
+		stop_timeout_ms: 100 [default 100]
+		timeslice_duration_ms: 1 [default 1]
+
+Suggested-by: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: <stable@vger.kernel.org> # v5.7+
+Cc: Mika Kuoppala <mika.kuoppala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_engine.h | 9 +++++++++
- drivers/gpu/drm/i915/i915_request.c    | 5 +++++
- 2 files changed, 14 insertions(+)
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c | 36 +++++++++++++++++++++++
+ 1 file changed, 36 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine.h b/drivers/gpu/drm/i915/gt/intel_engine.h
-index 08e2c000dcc3..7c3a1012e702 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine.h
-+++ b/drivers/gpu/drm/i915/gt/intel_engine.h
-@@ -337,4 +337,13 @@ intel_engine_has_preempt_reset(const struct intel_engine_cs *engine)
- 	return intel_engine_has_preemption(engine);
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+index f231edd3fa3a..1579a80bc8cb 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
++++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+@@ -1599,6 +1599,41 @@ static unsigned long list_count(struct list_head *list)
+ 	return count;
  }
  
-+static inline bool
-+intel_engine_has_heartbeat(const struct intel_engine_cs *engine)
++static unsigned long read_ul(void *p, size_t x)
 +{
-+	if (!IS_ACTIVE(CONFIG_DRM_I915_HEARTBEAT_INTERVAL))
-+		return false;
-+
-+	return READ_ONCE(engine->props.heartbeat_interval_ms);
++	return *(unsigned long *)(p + x);
 +}
 +
- #endif /* _INTEL_RINGBUFFER_H_ */
-diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
-index a931b8b571d1..c187e1ec0278 100644
---- a/drivers/gpu/drm/i915/i915_request.c
-+++ b/drivers/gpu/drm/i915/i915_request.c
-@@ -542,8 +542,13 @@ bool __i915_request_submit(struct i915_request *request)
- 	if (i915_request_completed(request))
- 		goto xfer;
++static void print_properties(struct intel_engine_cs *engine,
++			     struct drm_printer *m)
++{
++	static const struct pmap {
++		size_t offset;
++		const char *name;
++	} props[] = {
++#define P(x) { \
++	.offset = offsetof(typeof(engine->props), x), \
++	.name = #x \
++}
++		P(heartbeat_interval_ms),
++		P(max_busywait_duration_ns),
++		P(preempt_timeout_ms),
++		P(stop_timeout_ms),
++		P(timeslice_duration_ms),
++
++		{},
++#undef P
++	};
++	const struct pmap *p;
++
++	drm_printf(m, "\tProperties:\n");
++	for (p = props; p->name; p++)
++		drm_printf(m, "\t\t%s: %lu [default %lu]\n",
++			   p->name,
++			   read_ul(&engine->props, p->offset),
++			   read_ul(&engine->defaults, p->offset));
++}
++
+ void intel_engine_dump(struct intel_engine_cs *engine,
+ 		       struct drm_printer *m,
+ 		       const char *header, ...)
+@@ -1641,6 +1676,7 @@ void intel_engine_dump(struct intel_engine_cs *engine,
+ 	drm_printf(m, "\tReset count: %d (global %d)\n",
+ 		   i915_reset_engine_count(error, engine),
+ 		   i915_reset_count(error));
++	print_properties(engine, m);
  
-+	if (unlikely(intel_context_is_closed(request->context) &&
-+		     !intel_engine_has_heartbeat(engine)))
-+		intel_context_set_banned(request->context);
-+
- 	if (unlikely(intel_context_is_banned(request->context)))
- 		i915_request_set_error_once(request, -EIO);
-+
- 	if (unlikely(fatal_error(request->fence.error)))
- 		__i915_request_skip(request);
+ 	drm_printf(m, "\tRequests:\n");
  
 -- 
 2.20.1
