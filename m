@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4A3B1C433ED
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 13:28:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A6A66C433EA
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 13:28:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2558D214F1
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 13:28:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2558D214F1
+	by mail.kernel.org (Postfix) with ESMTPS id 83535214F1
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 13:28:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 83535214F1
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 054E96EA6D;
-	Wed, 26 Aug 2020 13:28:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A45B6EA66;
+	Wed, 26 Aug 2020 13:28:31 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C583E6EA59
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CFBAD6EA5F
  for <intel-gfx@lists.freedesktop.org>; Wed, 26 Aug 2020 13:28:27 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22244746-1500050 
- for multiple; Wed, 26 Aug 2020 14:28:16 +0100
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22244726-1500050 
+ for multiple; Wed, 26 Aug 2020 14:28:13 +0100
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 26 Aug 2020 14:27:52 +0100
-Message-Id: <20200826132811.17577-20-chris@chris-wilson.co.uk>
+Date: Wed, 26 Aug 2020 14:27:34 +0100
+Message-Id: <20200826132811.17577-2-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200826132811.17577-1-chris@chris-wilson.co.uk>
 References: <20200826132811.17577-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 20/39] drm/i915/gt: Free stale request on
- destroying the virtual engine
+Subject: [Intel-gfx] [PATCH 02/39] drm/i915/gem: Use set_pte_at() for
+ assigning the vmapped PTE
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,142 +50,87 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Chris Wilson <chris@chris-wilson.co.uk>
+Cc: Matthew Auld <matthew.auld@intel.com>,
+ Chris Wilson <chris@chris-wilson.co.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Since preempt-to-busy, we may unsubmit a request while it is still on
-the HW and completes asynchronously. That means it may be retired and in
-the process destroy the virtual engine (as the user has closed their
-context), but that engine may still be holding onto the unsubmitted
-compelted request. Therefore we need to potentially cleanup the old
-request on destroying the virtual engine. We also have to keep the
-virtual_engine alive until after the sibling's execlists_dequeue() have
-finished peeking into the virtual engines, for which we serialise with
-RCU.
+Use set_pte_at() to assign the PTE pointer returned by alloc_vm_area(),
+rather than a direct assignment.
 
-v2: Be paranoid and flush the tasklet as well.
-v3: And flush the tasklet before the engines, as the tasklet may
-re-attach an rb_node after our removal from the siblings.
-
+Fixes: 6056e50033d9 ("drm/i915/gem: Support discontiguous lmem object maps")
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+Cc: Matthew Auld <matthew.auld@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_lrc.c | 61 +++++++++++++++++++++++++----
- 1 file changed, 54 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_pages.c | 33 +++++++++++++++++++----
+ 1 file changed, 28 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
-index 0eda9885efcd..c2cd176f396d 100644
---- a/drivers/gpu/drm/i915/gt/intel_lrc.c
-+++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
-@@ -182,6 +182,7 @@
- struct virtual_engine {
- 	struct intel_engine_cs base;
- 	struct intel_context context;
-+	struct rcu_work rcu;
- 
- 	/*
- 	 * We allow only a single request through the virtual engine at a time
-@@ -5426,44 +5427,90 @@ static struct list_head *virtual_queue(struct virtual_engine *ve)
- 	return &ve->base.execlists.default_priolist.requests[0];
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_pages.c b/drivers/gpu/drm/i915/gem/i915_gem_pages.c
+index 51b63e05dbe4..0c3d0d6429ae 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_pages.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_pages.c
+@@ -241,6 +241,17 @@ static inline pte_t iomap_pte(resource_size_t base,
+ 	return pte_mkspecial(pfn_pte((base + offset) >> PAGE_SHIFT, prot));
  }
  
--static void virtual_context_destroy(struct kref *kref)
-+static void rcu_virtual_context_destroy(struct work_struct *wrk)
- {
- 	struct virtual_engine *ve =
--		container_of(kref, typeof(*ve), context.ref);
-+		container_of(wrk, typeof(*ve), rcu.work);
- 	unsigned int n;
- 
--	GEM_BUG_ON(!list_empty(virtual_queue(ve)));
--	GEM_BUG_ON(ve->request);
- 	GEM_BUG_ON(ve->context.inflight);
- 
-+	/* Preempt-to-busy may leave a stale request behind. */
-+	if (unlikely(ve->request)) {
-+		struct i915_request *old;
-+
-+		spin_lock_irq(&ve->base.active.lock);
-+
-+		old = fetch_and_zero(&ve->request);
-+		if (old) {
-+			GEM_BUG_ON(!i915_request_completed(old));
-+			__i915_request_submit(old);
-+			i915_request_put(old);
-+		}
-+
-+		spin_unlock_irq(&ve->base.active.lock);
-+	}
-+
-+	/*
-+	 * Flush the tasklet in case it is still running on another core.
-+	 *
-+	 * This needs to be done before we remove ourselves from the siblings'
-+	 * rbtrees as in the case it is running in parallel, it may reinsert
-+	 * the rb_node into a sibling.
-+	 */
-+	tasklet_kill(&ve->base.execlists.tasklet);
-+
-+	/* Decouple ourselves from the siblings, no more access allowed. */
- 	for (n = 0; n < ve->num_siblings; n++) {
- 		struct intel_engine_cs *sibling = ve->siblings[n];
- 		struct rb_node *node = &ve->nodes[sibling->id].rb;
--		unsigned long flags;
- 
- 		if (RB_EMPTY_NODE(node))
- 			continue;
- 
--		spin_lock_irqsave(&sibling->active.lock, flags);
-+		spin_lock_irq(&sibling->active.lock);
- 
- 		/* Detachment is lazily performed in the execlists tasklet */
- 		if (!RB_EMPTY_NODE(node))
- 			rb_erase_cached(node, &sibling->execlists.virtual);
- 
--		spin_unlock_irqrestore(&sibling->active.lock, flags);
-+		spin_unlock_irq(&sibling->active.lock);
- 	}
- 	GEM_BUG_ON(__tasklet_is_scheduled(&ve->base.execlists.tasklet));
-+	GEM_BUG_ON(!list_empty(virtual_queue(ve)));
- 
- 	if (ve->context.state)
- 		__execlists_context_fini(&ve->context);
- 	intel_context_fini(&ve->context);
- 
- 	intel_engine_free_request_pool(&ve->base);
-+	intel_breadcrumbs_free(ve->base.breadcrumbs);
- 
- 	kfree(ve->bonds);
- 	kfree(ve);
- }
- 
-+static void virtual_context_destroy(struct kref *kref)
++static void sync_vm_area(struct vm_struct *area)
 +{
-+	struct virtual_engine *ve =
-+		container_of(kref, typeof(*ve), context.ref);
++	unsigned long start = (unsigned long)area->addr;
++	unsigned long end = start + area->size;
 +
-+	GEM_BUG_ON(!list_empty(&ve->context.signals));
++	if (ARCH_PAGE_TABLE_SYNC_MASK & PGTBL_PTE_MODIFIED)
++		arch_sync_kernel_mappings(start, end); /* expected DCE */
 +
-+	/*
-+	 * When destroying the virtual engine, we have to be aware that
-+	 * it may still be in use from an hardirq/softirq context causing
-+	 * the resubmission of a completed request (background completion
-+	 * due to preempt-to-busy). Before we can free the engine, we need
-+	 * to flush the submission code and tasklets that are still potentially
-+	 * accessing the engine. Flushing the tasklets require process context,
-+	 * and since we can guard the resubmit onto the engine with an RCU read
-+	 * lock, we can delegate the free of the engine to an RCU worker.
-+	 */
-+	INIT_RCU_WORK(&ve->rcu, rcu_virtual_context_destroy);
-+	queue_rcu_work(system_wq, &ve->rcu);
++	flush_cache_vmap(start, end);
 +}
 +
- static void virtual_engine_initial_hint(struct virtual_engine *ve)
- {
- 	int swp;
+ /* The 'mapping' part of i915_gem_object_pin_map() below */
+ static void *i915_gem_object_map(struct drm_i915_gem_object *obj,
+ 				 enum i915_map_type type)
+@@ -308,24 +319,36 @@ static void *i915_gem_object_map(struct drm_i915_gem_object *obj,
+ 	}
+ 
+ 	if (i915_gem_object_has_struct_page(obj)) {
++		unsigned long addr = (unsigned long)area->addr;
+ 		struct sgt_iter iter;
+ 		struct page *page;
+ 		pte_t **ptes = mem;
+ 
+-		for_each_sgt_page(page, iter, sgt)
+-			**ptes++ = mk_pte(page, pgprot);
++		for_each_sgt_page(page, iter, sgt) {
++			set_pte_at(&init_mm, addr, *ptes, mk_pte(page, pgprot));
++			addr += PAGE_SIZE;
++			ptes++;
++		}
++		GEM_BUG_ON(addr != (unsigned long)area->addr + obj->base.size);
+ 	} else {
++		unsigned long addr = (unsigned long)area->addr;
+ 		resource_size_t iomap;
+ 		struct sgt_iter iter;
+ 		pte_t **ptes = mem;
+-		dma_addr_t addr;
++		dma_addr_t offset;
+ 
+ 		iomap = obj->mm.region->iomap.base;
+ 		iomap -= obj->mm.region->region.start;
+ 
+-		for_each_sgt_daddr(addr, iter, sgt)
+-			**ptes++ = iomap_pte(iomap, addr, pgprot);
++		for_each_sgt_daddr(offset, iter, sgt) {
++			set_pte_at(&init_mm, addr, *ptes,
++				   iomap_pte(iomap, offset, pgprot));
++			addr += PAGE_SIZE;
++			ptes++;
++		}
++		GEM_BUG_ON(addr != (unsigned long)area->addr + obj->base.size);
+ 	}
++	sync_vm_area(area);
+ 
+ 	if (mem != stack)
+ 		kvfree(mem);
 -- 
 2.20.1
 
