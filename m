@@ -2,54 +2,52 @@ Return-Path: <SRS0=RAJW=CE=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS autolearn=unavailable autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 29C59C433DF
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 07:05:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BD66AC433E1
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 07:18:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0625320767
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 07:05:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0625320767
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 83A482071E
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 07:18:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 83A482071E
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5120C6EA26;
-	Wed, 26 Aug 2020 07:05:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F37D26EA29;
+	Wed, 26 Aug 2020 07:18:31 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 92EF66E0F3;
- Wed, 26 Aug 2020 07:05:11 +0000 (UTC)
-IronPort-SDR: Oj7nKL7pv5oJFkcRVWg9TlPzYyMP1SCd1lDdVDvw0cYA/7dUyf3rsq1BLZlsE0Did/l3n9qSLy
- XzZ8zQIPQ5vA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9724"; a="153668932"
-X-IronPort-AV: E=Sophos;i="5.76,354,1592895600"; d="scan'208";a="153668932"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4EE336EA29
+ for <intel-gfx@lists.freedesktop.org>; Wed, 26 Aug 2020 07:18:31 +0000 (UTC)
+IronPort-SDR: +0hEzLn0vCyMeuCUz2ElBDg1J0sf4/bJ47kIafKr04ERPdc2UL+KnjtZj0tgufuVsq80l8cmIi
+ 3NnzsXjc3+2g==
+X-IronPort-AV: E=McAfee;i="6000,8403,9724"; a="153670436"
+X-IronPort-AV: E=Sophos;i="5.76,354,1592895600"; d="scan'208";a="153670436"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Aug 2020 00:05:11 -0700
-IronPort-SDR: t9zAxUm+0FHTf119H7H8PV8/d7t15hFwVjWcUpPmVuSJw246+3dLtlSGJIJdZMZ+UVL+wne0mJ
- l9sOlDzxYKFg==
-X-IronPort-AV: E=Sophos;i="5.76,354,1592895600"; d="scan'208";a="474661934"
-Received: from jguenthe-mobl.ger.corp.intel.com (HELO localhost)
- ([10.252.32.223])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Aug 2020 00:05:04 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Lyude Paul <lyude@redhat.com>, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org
-In-Reply-To: <20200825195027.74681-17-lyude@redhat.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20200825195027.74681-1-lyude@redhat.com>
- <20200825195027.74681-17-lyude@redhat.com>
-Date: Wed, 26 Aug 2020 10:05:01 +0300
-Message-ID: <87o8mx6g6a.fsf@intel.com>
+ 26 Aug 2020 00:18:30 -0700
+IronPort-SDR: 2XO8qujj3Z9j3bCsFVBRdhusdlVBz+CuSHpmNzh6SblzeE+HbKH8/kU4KV32Win3bZ2A7EKUjA
+ kDwjojcX9dJw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.76,354,1592895600"; d="scan'208";a="339068809"
+Received: from shawnle1-build-machine.itwn.intel.com ([10.5.253.9])
+ by orsmga007.jf.intel.com with ESMTP; 26 Aug 2020 00:18:29 -0700
+From: Lee Shawn C <shawn.c.lee@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Wed, 26 Aug 2020 15:17:10 +0800
+Message-Id: <20200826071710.31689-1-shawn.c.lee@intel.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20200825102600.27779-1-shawn.c.lee@intel.com>
+References: <20200825102600.27779-1-shawn.c.lee@intel.com>
 MIME-Version: 1.0
-Subject: Re: [Intel-gfx] [RFC v4 16/20] drm/i915/dp: Extract
- drm_dp_get_sink_count()
+Subject: [Intel-gfx] [PATCH v2] drm/i915/fbc: Disable fbc with VT-d also
+ with cometlake
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,136 +60,37 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@linux.ie>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- open list <linux-kernel@vger.kernel.org>, Maxime Ripard <mripard@kernel.org>,
- Wambui Karuga <wambui.karugax@gmail.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: William Tseng <william.tseng@intel.com>,
+ Jani Nikula <jani.nikula@intel.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 25 Aug 2020, Lyude Paul <lyude@redhat.com> wrote:
-> And of course, we'll also need to read the sink count from other drivers
-> as well if we're checking whether or not it's supported. So, let's
-> extract the code for this into another helper.
->
-> v2:
-> * Fix drm_dp_dpcd_readb() ret check
-> * Add back comment and move back sink_count assignment in intel_dp_get_dpcd()
->
-> Signed-off-by: Lyude Paul <lyude@redhat.com>
-> Reviewed-by: Sean Paul <sean@poorly.run>
-> ---
->  drivers/gpu/drm/drm_dp_helper.c         | 22 ++++++++++++++++++++++
->  drivers/gpu/drm/i915/display/intel_dp.c | 11 +++++------
->  include/drm/drm_dp_helper.h             |  1 +
->  3 files changed, 28 insertions(+), 6 deletions(-)
->
-> diff --git a/drivers/gpu/drm/drm_dp_helper.c b/drivers/gpu/drm/drm_dp_helper.c
-> index 863e0babc1903..67ad05eb05b7e 100644
-> --- a/drivers/gpu/drm/drm_dp_helper.c
-> +++ b/drivers/gpu/drm/drm_dp_helper.c
-> @@ -736,6 +736,28 @@ bool drm_dp_has_sink_count(struct drm_connector *connector,
->  }
->  EXPORT_SYMBOL(drm_dp_has_sink_count);
->  
-> +/**
-> + * drm_dp_get_sink_count() - Retrieve the sink count for a given sink
-
-From the department of bikeshedding...
-
-Should we have a naming scheme where it's obvious whether a function
-will do DPCD access, or just shuffle existing data?
-
-For example, drm_dp_read_foo() for anything with DPCD access
-vs. drm_dp_get_foo() or even simpler for anything that only processes
-pre-read data?
-
-> + * @aux: The DP AUX channel to use
-> + *
-> + * Returns: The current sink count reported by @aux, or a negative error code
-> + * otherwise.
-> + */
-> +int drm_dp_get_sink_count(struct drm_dp_aux *aux)
-> +{
-> +	u8 count;
-> +	int ret;
-> +
-> +	ret = drm_dp_dpcd_readb(aux, DP_SINK_COUNT, &count);
-> +	if (ret < 0)
-> +		return ret;
-> +	if (ret != 1)
-> +		return -EIO;
-
-Makes me wonder if that shouldn't be at drm_dp_dpcd_read() level, for
-reads returning 0..len-1 bytes. Not necessarily part of this series, but
-seems silly to set a precedent to start handling that return value all
-over the place.
-
-BR,
-Jani.
-
-> +
-> +	return DP_GET_SINK_COUNT(count);
-> +}
-> +EXPORT_SYMBOL(drm_dp_get_sink_count);
-> +
->  /*
->   * I2C-over-AUX implementation
->   */
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-> index 35a4779a442e2..4337321a3be4f 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-> @@ -4648,6 +4648,8 @@ intel_dp_has_sink_count(struct intel_dp *intel_dp)
->  static bool
->  intel_dp_get_dpcd(struct intel_dp *intel_dp)
->  {
-> +	int ret;
-> +
->  	if (!intel_dp_read_dpcd(intel_dp))
->  		return false;
->  
-> @@ -4664,11 +4666,8 @@ intel_dp_get_dpcd(struct intel_dp *intel_dp)
->  	}
->  
->  	if (intel_dp_has_sink_count(intel_dp)) {
-> -		u8 count;
-> -		ssize_t r;
-> -
-> -		r = drm_dp_dpcd_readb(&intel_dp->aux, DP_SINK_COUNT, &count);
-> -		if (r < 1)
-> +		ret = drm_dp_get_sink_count(&intel_dp->aux);
-> +		if (ret < 0)
->  			return false;
->  
->  		/*
-> @@ -4676,7 +4675,7 @@ intel_dp_get_dpcd(struct intel_dp *intel_dp)
->  		 * a member variable in intel_dp will track any changes
->  		 * between short pulse interrupts.
->  		 */
-> -		intel_dp->sink_count = DP_GET_SINK_COUNT(count);
-> +		intel_dp->sink_count = ret;
->  
->  		/*
->  		 * SINK_COUNT == 0 and DOWNSTREAM_PORT_PRESENT == 1 implies that
-> diff --git a/include/drm/drm_dp_helper.h b/include/drm/drm_dp_helper.h
-> index a1413a531eaf4..0c141fc81aaa8 100644
-> --- a/include/drm/drm_dp_helper.h
-> +++ b/include/drm/drm_dp_helper.h
-> @@ -1635,6 +1635,7 @@ struct drm_dp_desc;
->  bool drm_dp_has_sink_count(struct drm_connector *connector,
->  			   const u8 dpcd[DP_RECEIVER_CAP_SIZE],
->  			   const struct drm_dp_desc *desc);
-> +int drm_dp_get_sink_count(struct drm_dp_aux *aux);
->  
->  void drm_dp_remote_aux_init(struct drm_dp_aux *aux);
->  void drm_dp_aux_init(struct drm_dp_aux *aux);
-
--- 
-Jani Nikula, Intel Open Source Graphics Center
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+Qm90aCBWVC1kIGFuZCBGQkMgZW5hYmxlZCB0aGF0IGNhdXNlZCBkaXNwbGF5IGZsaWNrZXIKaXNz
+dWUgdmVyeSByYW5kb21seS4gQWNjb3JkaW5nIHRvIHNpZ2h0aW5nIHJlcG9ydCwKaXQgcmVjb21t
+ZW5kIHRvIGRpc2FibGUgRkJDIHRvIHdvcmthcm91bmQgdGhpcyBpc3N1ZS4KCnYyOiBTcGVjaWZp
+YyB0aGlzIGNoYW5nZSBmb3IgQ01MIFUgc2VyaWVzIGRldmljZS4KICAgIFVzaW5nIElTX0NNTF9V
+TFQoKSBpbnN0ZWFkIG9mIElTX0NPTUVUTEFLRSgpLgoKQ2M6IFZpbGxlIFN5cmrDpGzDpCA8dmls
+bGUuc3lyamFsYUBsaW51eC5pbnRlbC5jb20+CkNjOiBSb2RyaWdvIFZpdmkgPHJvZHJpZ28udml2
+aUBpbnRlbC5jb20+CkNjOiBNaWthIEt1b3BwYWxhIDxtaWthLmt1b3BwYWxhQGxpbnV4LmludGVs
+LmNvbT4KQ2M6IEphbmkgTmlrdWxhIDxqYW5pLm5pa3VsYUBpbnRlbC5jb20+CkNjOiBXaWxsaWFt
+IFRzZW5nIDx3aWxsaWFtLnRzZW5nQGludGVsLmNvbT4KU2lnbmVkLW9mZi1ieTogTGVlIFNoYXdu
+IEMgPHNoYXduLmMubGVlQGludGVsLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNw
+bGF5L2ludGVsX2ZiYy5jIHwgNCArKystCiAxIGZpbGUgY2hhbmdlZCwgMyBpbnNlcnRpb25zKCsp
+LCAxIGRlbGV0aW9uKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxh
+eS9pbnRlbF9mYmMuYyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZmJjLmMK
+aW5kZXggMTM1ZjVlOGE0ZDcwLi5jOTljNGM4NGEwZWQgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1
+L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZmJjLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUv
+ZGlzcGxheS9pbnRlbF9mYmMuYwpAQCAtMTQ0Myw3ICsxNDQzLDkgQEAgc3RhdGljIGJvb2wgbmVl
+ZF9mYmNfdnRkX3dhKHN0cnVjdCBkcm1faTkxNV9wcml2YXRlICpkZXZfcHJpdikKIHsKIAkvKiBX
+YUZiY1R1cm5PZmZGYmNXaGVuSHlwZXJWaXNvcklzVXNlZDpza2wsYnh0ICovCiAJaWYgKGludGVs
+X3Z0ZF9hY3RpdmUoKSAmJgotCSAgICAoSVNfU0tZTEFLRShkZXZfcHJpdikgfHwgSVNfQlJPWFRP
+TihkZXZfcHJpdikpKSB7CisJICAgIChJU19TS1lMQUtFKGRldl9wcml2KSB8fAorCSAgICAgSVNf
+QlJPWFRPTihkZXZfcHJpdikgfHwKKwkgICAgIElTX0NNTF9VTFQoZGV2X3ByaXYpKSkgewogCQlk
+cm1faW5mbygmZGV2X3ByaXYtPmRybSwKIAkJCSAiRGlzYWJsaW5nIGZyYW1lYnVmZmVyIGNvbXBy
+ZXNzaW9uIChGQkMpIHRvIHByZXZlbnQgc2NyZWVuIGZsaWNrZXIgd2l0aCBWVC1kIGVuYWJsZWRc
+biIpOwogCQlyZXR1cm4gdHJ1ZTsKLS0gCjIuMTcuMQoKX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRlbC1nZnhA
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
+YW4vbGlzdGluZm8vaW50ZWwtZ2Z4Cg==
