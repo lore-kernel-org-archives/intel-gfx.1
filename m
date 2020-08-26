@@ -2,51 +2,111 @@ Return-Path: <SRS0=RAJW=CE=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.9 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,USER_AGENT_GIT autolearn=ham
+X-Spam-Status: No, score=-12.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D6784C433E1
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 06:35:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 99B60C433F4
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 06:35:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B023D20738
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 06:35:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B023D20738
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 6F23C208E4
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 06:35:47 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="dUTjsC+l"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6F23C208E4
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=samsung.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C5AB6E9F7;
-	Wed, 26 Aug 2020 06:35:10 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 876986E9F7;
- Wed, 26 Aug 2020 06:35:09 +0000 (UTC)
-IronPort-SDR: wqeuo0owJHuDzakxbZxElGJf9SamyYX0VlZqEQIketha+PcTsAlyce7Bs2RbLIxgUugrsSvCPU
- 6tr4+Mzc8amg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9724"; a="153816589"
-X-IronPort-AV: E=Sophos;i="5.76,354,1592895600"; d="scan'208";a="153816589"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Aug 2020 23:35:09 -0700
-IronPort-SDR: 0qJHmoYuoTbbAx3CNpa26/YsqhdH3udVHKV8nL/3HQKz2SY0X8UUlHa4okz7HAiBgfbch/wS7W
- swF1fMESEL6A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.76,354,1592895600"; d="scan'208";a="499608025"
-Received: from unknown (HELO coxu-arch-shz.sh.intel.com) ([10.239.160.21])
- by fmsmga006.fm.intel.com with ESMTP; 25 Aug 2020 23:35:07 -0700
-From: Colin Xu <colin.xu@intel.com>
-To: zhenyuw@linux.intel.com, intel-gvt-dev@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org
-Date: Wed, 26 Aug 2020 14:35:05 +0800
-Message-Id: <20200826063505.680733-1-colin.xu@intel.com>
-X-Mailer: git-send-email 2.28.0
-MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v2 1/2] drm/i915/gvt: Save/restore HW status for
- GVT during suspend/resume
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B9466EA06;
+	Wed, 26 Aug 2020 06:35:36 +0000 (UTC)
+Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com
+ [210.118.77.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8DDD86E9FA
+ for <intel-gfx@lists.freedesktop.org>; Wed, 26 Aug 2020 06:35:34 +0000 (UTC)
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+ by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
+ 20200826063533euoutp0190c3c199cd917a607e0a578f4047c3b6~uveqpAfA81716617166euoutp01d
+ for <intel-gfx@lists.freedesktop.org>; Wed, 26 Aug 2020 06:35:33 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
+ 20200826063533euoutp0190c3c199cd917a607e0a578f4047c3b6~uveqpAfA81716617166euoutp01d
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+ s=mail20170921; t=1598423733;
+ bh=tj4USkT4mmzGAYtGQ+Hrc6tAZIJTZKbcemrdU4KaPkY=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=dUTjsC+lWGgje3l0CYUc5fZrHc0hvnmwedA17C19fTQFJawLlTv6ckJhlUBM0rcAS
+ S1VEHPOuivr4qb+V9DjCRBDuk2wqsnBDGJVK1EyyB6sVf90kMdJvyBYpgXPLLTuNBE
+ HfGxW0sqawpXcOi1j4UDd01BpKoXi0+srGYmGG2E=
+Received: from eusmges2new.samsung.com (unknown [203.254.199.244]) by
+ eucas1p1.samsung.com (KnoxPortal) with ESMTP id
+ 20200826063532eucas1p19599f3f76a90b38968292c91fdd010a2~uveqGviFR1480714807eucas1p1R;
+ Wed, 26 Aug 2020 06:35:32 +0000 (GMT)
+Received: from eucas1p2.samsung.com ( [182.198.249.207]) by
+ eusmges2new.samsung.com (EUCPMTA) with SMTP id 74.AD.05997.4B2064F5; Wed, 26
+ Aug 2020 07:35:32 +0100 (BST)
+Received: from eusmtrp2.samsung.com (unknown [182.198.249.139]) by
+ eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
+ 20200826063532eucas1p2a9e0215f483104d45af0560d5dbfa8e0~uvep1PGWJ1927919279eucas1p28;
+ Wed, 26 Aug 2020 06:35:32 +0000 (GMT)
+Received: from eusmgms2.samsung.com (unknown [182.198.249.180]) by
+ eusmtrp2.samsung.com (KnoxPortal) with ESMTP id
+ 20200826063532eusmtrp224e4f6d526159f7efce29882b84f4645~uvep0ik9A0466204662eusmtrp2F;
+ Wed, 26 Aug 2020 06:35:32 +0000 (GMT)
+X-AuditID: cbfec7f4-65dff7000000176d-c3-5f4602b4b8d4
+Received: from eusmtip2.samsung.com ( [203.254.199.222]) by
+ eusmgms2.samsung.com (EUCPMTA) with SMTP id AF.43.06017.4B2064F5; Wed, 26
+ Aug 2020 07:35:32 +0100 (BST)
+Received: from AMDC2765.digital.local (unknown [106.120.51.73]) by
+ eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
+ 20200826063531eusmtip23e0bc3de6df1e0ce7711e0325ad7623a~uvepOdmJC0091500915eusmtip2H;
+ Wed, 26 Aug 2020 06:35:31 +0000 (GMT)
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+To: dri-devel@lists.freedesktop.org, iommu@lists.linux-foundation.org,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org
+Date: Wed, 26 Aug 2020 08:32:52 +0200
+Message-Id: <20200826063316.23486-9-m.szyprowski@samsung.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20200826063316.23486-1-m.szyprowski@samsung.com>
+X-Brightmail-Tracker: H4sIAAAAAAAAA0WSeUgUURzHeTM7s6O4Oq6CL5XEJQMtNStowpSUkumPSoOITtty8D7YVUtF
+ Mstr1TwqErV103LNXdPUzCOvTVvFtE1tUbLDI2gLM/AgO7QdR+u/z+/7/X3f9/F4BCp8jtkS
+ oVGxjCRKHCHCTXlNL5ZfuTYifoE75GXbqNyhfoR6XFSLUatNBSg1ujiHUw9VvQhVkt+AUIpO
+ T0o5Uguo9nsItTA6iVD103qMGmktxamannd8qvv7DEZ1Fuv5+y1otVwN6PYlBY+ueGZA6KdL
+ HzFa3h9Af8jWInTD/Sv025VplL45pgR023gKTt9orAb0fP1mf7NTpvuCmIjQeEbi7n3eNERV
+ fZcXo7C/XDa6JQVobWTAhIDkbvgrMxWTAVNCSFYB2Kv6yuOGBQCLMjoQbpgHcDq9EtuILOpq
+ Uc5QAjizWoqwxlpkfNCcZZz0gLJZGc6yNZkGYF+uGRtAyR4UDiv0gDWsSH/4Y6xijXmkE5zK
+ r15rEJBe8LNeyePaHKCqrgtl2YT0htrsPJw9CJJ6PtQ+SMO5pQNwpjAXcGwFv2gb+Rzbw9WW
+ MoQLXANwcqiGzw05AI6kFq0nPOHE0E/jSYTxfs6wttWdk31gje46xsqQNIdjs5asjBqxsOkO
+ yskCmJku5La3wmLto3+13bphlGMajs7lrL9pgbH1UyaaDxyK/5cpAKgGNkycNDKYke6MYi65
+ ScWR0rioYLeL0ZH1wPi1Bla0C82g9fcFDSAJIDITKPCDgUJMHC9NiNQASKAia4Hv4MA5oSBI
+ nJDISKIDJXERjFQD7AieyEawq9xwVkgGi2OZcIaJYSQbLkKY2KaAMNliZZKsy74vQxU0MZ6o
+ tFTEZbdV2XvPi6wD2t4IhMSt4+LXrpO67X7HniQGZJafyMlKnlZX+pxOLjqjntpkcDQ5YoHm
+ ufScTDd0OP8JV9odPXy1JGgw392RTPJzcqDkHV51mqxDez3eh83q7ErMbit9Ndrmby/b9jRa
+ O0uWW0Q8aYjYwwWVSMV/AXf9lk1WAwAA
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFlrEIsWRmVeSWpSXmKPExsVy+t/xe7pbmNziDa4flrToPXeSyWLjjPWs
+ Fv+3TWS2uPL1PZvFytVHmSxmT9jMZLFgv7XF8svrGS32LmSy+HLlIZPFpsfXWC0u75rDZrH2
+ yF12i4MfnrBa7J91jd2B32PNvDWMHnu/LWDxWLznJZPH9m8PWD3mnQz0uN99nMlj85J6j9v/
+ HjN7TL6xnNFj980GNo++LasYPT5vkgvgidKzKcovLUlVyMgvLrFVija0MNIztLTQMzKx1DM0
+ No+1MjJV0rezSUnNySxLLdK3S9DLWL1qLkvBApmK+VdUGhiPi3cxcnJICJhIfL2wnhnEFhJY
+ yigx/3gwRFxG4uS0BlYIW1jiz7Uuti5GLqCaT4wSD45cZAJJsAkYSnS9hUiICHQySkzr/sgO
+ kmAWOMMs8XuDdxcjB4ewgJ/E115dkDCLgKrEowmrwIbyCthKvLi2nAVigbzE6g0HwI7gFLCT
+ ON7dzwZxkK3E6bUzmCcw8i1gZFjFKJJaWpybnltspFecmFtcmpeul5yfu4kRGD/bjv3csoOx
+ 613wIUYBDkYlHt4FbK7xQqyJZcWVuYcYJTiYlUR4nc6ejhPiTUmsrEotyo8vKs1JLT7EaAp0
+ 1ERmKdHkfGBs55XEG5oamltYGpobmxubWSiJ83YIHIwREkhPLEnNTk0tSC2C6WPi4JRqYLzy
+ tpxdIrv678HNR059CnxmLlCpLfdOfbFzmYVIe8WNpY9v2RzgDRIXF3GdbPaIf45B13wr9ymt
+ b8Luzt280kxBc3riycP3CldzHFBgfbM+h5FV8ZfKnXlLy3iLEn2Z3i4QWSKcqNK575qAfWPt
+ 25I5vF905+00NI21yg6TcM6vrtzUGK4YosRSnJFoqMVcVJwIAMZZ58e1AgAA
+X-CMS-MailID: 20200826063532eucas1p2a9e0215f483104d45af0560d5dbfa8e0
+X-Msg-Generator: CA
+X-RootMTR: 20200826063532eucas1p2a9e0215f483104d45af0560d5dbfa8e0
+X-EPHeader: CA
+CMS-TYPE: 201P
+X-CMS-RootMailID: 20200826063532eucas1p2a9e0215f483104d45af0560d5dbfa8e0
+References: <20200826063316.23486-1-m.szyprowski@samsung.com>
+ <CGME20200826063532eucas1p2a9e0215f483104d45af0560d5dbfa8e0@eucas1p2.samsung.com>
+Subject: [Intel-gfx] [PATCH v9 08/32] drm: i915: fix common struct sg_table
+ related issues
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,318 +119,108 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
+ David Airlie <airlied@linux.ie>, intel-gfx@lists.freedesktop.org,
+ Robin Murphy <robin.murphy@arm.com>, Christoph Hellwig <hch@lst.de>,
+ linux-arm-kernel@lists.infradead.org,
+ Marek Szyprowski <m.szyprowski@samsung.com>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This patch save/restore necessary GVT info during i915 suspend/resume so
-that GVT enabled QEMU VM can continue running.
+The Documentation/DMA-API-HOWTO.txt states that the dma_map_sg() function
+returns the number of the created entries in the DMA address space.
+However the subsequent calls to the dma_sync_sg_for_{device,cpu}() and
+dma_unmap_sg must be called with the original number of the entries
+passed to the dma_map_sg().
 
-Only GGTT and fence regs are saved/restored now. GVT will save GGTT
-entries into GVT in suspend routine, and restore the saved entries
-and re-init fence regs in resume routine.
+struct sg_table is a common structure used for describing a non-contiguous
+memory buffer, used commonly in the DRM and graphics subsystems. It
+consists of a scatterlist with memory pages and DMA addresses (sgl entry),
+as well as the number of scatterlist entries: CPU pages (orig_nents entry)
+and DMA mapped pages (nents entry).
 
-V2:
-- Change kzalloc/kfree to vzalloc/vfree since the space allocated
-from kmalloc may not enough for all saved GGTT entries.
-- Keep gvt suspend/resume wrapper in intel_gvt.h/intel_gvt.c and
-move the actual implementation to gvt.h/gvt.c. (zhenyu)
-- Check gvt config on and active with intel_gvt_active(). (zhenyu)
+It turned out that it was a common mistake to misuse nents and orig_nents
+entries, calling DMA-mapping functions with a wrong number of entries or
+ignoring the number of mapped entries returned by the dma_map_sg()
+function.
 
-Signed-off-by: Hang Yuan <hang.yuan@linux.intel.com>
-Signed-off-by: Colin Xu <colin.xu@intel.com>
+This driver creatively uses sg_table->orig_nents to store the size of the
+allocated scatterlist and ignores the number of the entries returned by
+dma_map_sg function. The sg_table->orig_nents is (mis)used to properly
+free the (over)allocated scatterlist.
+
+This patch only introduces the common DMA-mapping wrappers operating
+directly on the struct sg_table objects to the dmabuf related functions,
+so the other drivers, which might share buffers with i915 could rely on
+the properly set nents and orig_nents values.
+
+Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
 ---
- drivers/gpu/drm/i915/gvt/gtt.c      | 73 +++++++++++++++++++++++++++++
- drivers/gpu/drm/i915/gvt/gtt.h      |  2 +
- drivers/gpu/drm/i915/gvt/gvt.c      | 15 ++++++
- drivers/gpu/drm/i915/gvt/gvt.h      |  6 +++
- drivers/gpu/drm/i915/gvt/handlers.c | 20 ++++++++
- drivers/gpu/drm/i915/gvt/mmio.h     |  3 ++
- drivers/gpu/drm/i915/gvt/vgpu.c     |  1 +
- drivers/gpu/drm/i915/intel_gvt.c    | 29 ++++++++++++
- drivers/gpu/drm/i915/intel_gvt.h    | 10 ++++
- 9 files changed, 159 insertions(+)
+ drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c       | 11 +++--------
+ drivers/gpu/drm/i915/gem/selftests/mock_dmabuf.c |  7 +++----
+ 2 files changed, 6 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gvt/gtt.c b/drivers/gpu/drm/i915/gvt/gtt.c
-index 04bf018ecc34..7907a535d49f 100644
---- a/drivers/gpu/drm/i915/gvt/gtt.c
-+++ b/drivers/gpu/drm/i915/gvt/gtt.c
-@@ -2533,6 +2533,11 @@ static void intel_vgpu_destroy_ggtt_mm(struct intel_vgpu *vgpu)
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c b/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
+index 2679380159fc..8a988592715b 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
+@@ -48,12 +48,9 @@ static struct sg_table *i915_gem_map_dma_buf(struct dma_buf_attachment *attachme
+ 		src = sg_next(src);
  	}
- 	intel_vgpu_destroy_mm(vgpu->gtt.ggtt_mm);
- 	vgpu->gtt.ggtt_mm = NULL;
-+
-+	if (vgpu->ggtt_entries) {
-+		vfree(vgpu->ggtt_entries);
-+		vgpu->ggtt_entries = NULL;
-+	}
- }
  
- /**
-@@ -2834,3 +2839,71 @@ void intel_vgpu_reset_ggtt(struct intel_vgpu *vgpu, bool invalidate_old)
+-	if (!dma_map_sg_attrs(attachment->dev,
+-			      st->sgl, st->nents, dir,
+-			      DMA_ATTR_SKIP_CPU_SYNC)) {
+-		ret = -ENOMEM;
++	ret = dma_map_sgtable(attachment->dev, st, dir, DMA_ATTR_SKIP_CPU_SYNC);
++	if (ret)
+ 		goto err_free_sg;
+-	}
  
- 	ggtt_invalidate(gvt->gt);
- }
-+
-+/**
-+ * intel_gvt_save_ggtt - save all vGPU's ggtt entries
-+ * @gvt: intel gvt device
-+ *
-+ * This function is called at driver suspend stage to save
-+ * GGTT entries of every active vGPU.
-+ *
-+ */
-+void intel_gvt_save_ggtt(struct intel_gvt *gvt)
-+{
-+	struct intel_vgpu *vgpu;
-+	int id;
-+	u32 index, num_low, num_hi;
-+	void __iomem *addr;
-+
-+	for_each_active_vgpu(gvt, vgpu, id) {
-+		num_low = vgpu_aperture_sz(vgpu) >> PAGE_SHIFT;
-+		num_hi = vgpu_hidden_sz(vgpu) >> PAGE_SHIFT;
-+		vgpu->ggtt_entries = vzalloc((num_low + num_hi) * sizeof(u64));
-+		if (!vgpu->ggtt_entries)
-+			continue;
-+
-+		index = vgpu_aperture_gmadr_base(vgpu) >> PAGE_SHIFT;
-+		addr = (gen8_pte_t __iomem *)gvt->gt->i915->ggtt.gsm + index;
-+		memcpy(vgpu->ggtt_entries, addr, num_low);
-+
-+		index = vgpu_hidden_gmadr_base(vgpu) >> PAGE_SHIFT;
-+		addr = (gen8_pte_t __iomem *)gvt->gt->i915->ggtt.gsm + index;
-+		memcpy((u64 *)vgpu->ggtt_entries + num_low, addr, num_hi);
-+	}
-+}
-+
-+/**
-+ * intel_gvt_restore_ggtt - restore all vGPU's ggtt entries
-+ * @gvt: intel gvt device
-+ *
-+ * This function is called at driver resume stage to restore
-+ * GGTT entries of every active vGPU.
-+ *
-+ */
-+void intel_gvt_restore_ggtt(struct intel_gvt *gvt)
-+{
-+	struct intel_vgpu *vgpu;
-+	int id;
-+	u32 index, num_low, num_hi;
-+	void __iomem *addr;
-+
-+	for_each_active_vgpu(gvt, vgpu, id) {
-+		if (!vgpu->ggtt_entries) {
-+			gvt_vgpu_err("fail to get saved ggtt\n");
-+			continue;
-+		}
-+
-+		num_low = vgpu_aperture_sz(vgpu) >> PAGE_SHIFT;
-+		num_hi = vgpu_hidden_sz(vgpu) >> PAGE_SHIFT;
-+
-+		index = vgpu_aperture_gmadr_base(vgpu) >> PAGE_SHIFT;
-+		addr = (gen8_pte_t __iomem *)gvt->gt->i915->ggtt.gsm + index;
-+		memcpy(addr, vgpu->ggtt_entries, num_low);
-+		index = vgpu_hidden_gmadr_base(vgpu) >> PAGE_SHIFT;
-+		addr = (gen8_pte_t __iomem *)gvt->gt->i915->ggtt.gsm + index;
-+		memcpy(addr, (u64 *)vgpu->ggtt_entries + num_low, num_hi);
-+
-+		vfree(vgpu->ggtt_entries);
-+		vgpu->ggtt_entries = NULL;
-+	}
-+}
-diff --git a/drivers/gpu/drm/i915/gvt/gtt.h b/drivers/gpu/drm/i915/gvt/gtt.h
-index b76a262dd9bc..0d2fb2714852 100644
---- a/drivers/gpu/drm/i915/gvt/gtt.h
-+++ b/drivers/gpu/drm/i915/gvt/gtt.h
-@@ -279,5 +279,7 @@ int intel_vgpu_emulate_ggtt_mmio_write(struct intel_vgpu *vgpu,
- 	unsigned int off, void *p_data, unsigned int bytes);
+ 	return st;
  
- void intel_vgpu_destroy_all_ppgtt_mm(struct intel_vgpu *vgpu);
-+void intel_gvt_save_ggtt(struct intel_gvt *gvt);
-+void intel_gvt_restore_ggtt(struct intel_gvt *gvt);
- 
- #endif /* _GVT_GTT_H_ */
-diff --git a/drivers/gpu/drm/i915/gvt/gvt.c b/drivers/gpu/drm/i915/gvt/gvt.c
-index c7c561237883..3de740fa0911 100644
---- a/drivers/gpu/drm/i915/gvt/gvt.c
-+++ b/drivers/gpu/drm/i915/gvt/gvt.c
-@@ -405,6 +405,21 @@ int intel_gvt_init_device(struct drm_i915_private *i915)
- 	return ret;
- }
- 
-+int
-+intel_gvt_pm_suspend(struct intel_gvt *gvt)
-+{
-+	intel_gvt_save_ggtt(gvt);
-+	return 0;
-+}
-+
-+int
-+intel_gvt_pm_resume(struct intel_gvt *gvt)
-+{
-+	intel_gvt_restore_regs(gvt);
-+	intel_gvt_restore_ggtt(gvt);
-+	return 0;
-+}
-+
- int
- intel_gvt_register_hypervisor(struct intel_gvt_mpt *m)
+@@ -73,9 +70,7 @@ static void i915_gem_unmap_dma_buf(struct dma_buf_attachment *attachment,
  {
-diff --git a/drivers/gpu/drm/i915/gvt/gvt.h b/drivers/gpu/drm/i915/gvt/gvt.h
-index 9831361f181e..6d99bb970214 100644
---- a/drivers/gpu/drm/i915/gvt/gvt.h
-+++ b/drivers/gpu/drm/i915/gvt/gvt.h
-@@ -199,9 +199,13 @@ struct intel_vgpu {
- 	struct intel_vgpu_submission submission;
- 	struct radix_tree_root page_track_tree;
- 	u32 hws_pga[I915_NUM_ENGINES];
-+
- 	/* Set on PCI_D3, reset on DMLR, not reflecting the actual PM state */
- 	bool d3_entered;
+ 	struct drm_i915_gem_object *obj = dma_buf_to_obj(attachment->dmabuf);
  
-+	/* Saved GGTT entries during host suspend state */
-+	u64 *ggtt_entries;
-+
- 	struct dentry *debugfs;
+-	dma_unmap_sg_attrs(attachment->dev,
+-			   sg->sgl, sg->nents, dir,
+-			   DMA_ATTR_SKIP_CPU_SYNC);
++	dma_unmap_sgtable(attachment->dev, sg, dir, DMA_ATTR_SKIP_CPU_SYNC);
+ 	sg_free_table(sg);
+ 	kfree(sg);
  
- 	/* Hypervisor-specific device state. */
-@@ -685,6 +689,8 @@ void intel_gvt_debugfs_remove_vgpu(struct intel_vgpu *vgpu);
- void intel_gvt_debugfs_init(struct intel_gvt *gvt);
- void intel_gvt_debugfs_clean(struct intel_gvt *gvt);
+diff --git a/drivers/gpu/drm/i915/gem/selftests/mock_dmabuf.c b/drivers/gpu/drm/i915/gem/selftests/mock_dmabuf.c
+index debaf7b18ab5..be30b27e2926 100644
+--- a/drivers/gpu/drm/i915/gem/selftests/mock_dmabuf.c
++++ b/drivers/gpu/drm/i915/gem/selftests/mock_dmabuf.c
+@@ -28,10 +28,9 @@ static struct sg_table *mock_map_dma_buf(struct dma_buf_attachment *attachment,
+ 		sg = sg_next(sg);
+ 	}
  
-+int intel_gvt_pm_suspend(struct intel_gvt *gvt);
-+int intel_gvt_pm_resume(struct intel_gvt *gvt);
+-	if (!dma_map_sg(attachment->dev, st->sgl, st->nents, dir)) {
+-		err = -ENOMEM;
++	err = dma_map_sgtable(attachment->dev, st, dir, 0);
++	if (err)
+ 		goto err_st;
+-	}
  
- #include "trace.h"
- #include "mpt.h"
-diff --git a/drivers/gpu/drm/i915/gvt/handlers.c b/drivers/gpu/drm/i915/gvt/handlers.c
-index 72860aaf1656..24e9dde656a4 100644
---- a/drivers/gpu/drm/i915/gvt/handlers.c
-+++ b/drivers/gpu/drm/i915/gvt/handlers.c
-@@ -3642,3 +3642,23 @@ int intel_vgpu_mmio_reg_rw(struct intel_vgpu *vgpu, unsigned int offset,
- 		intel_vgpu_default_mmio_read(vgpu, offset, pdata, bytes) :
- 		intel_vgpu_default_mmio_write(vgpu, offset, pdata, bytes);
- }
-+
-+void intel_gvt_restore_regs(struct intel_gvt *gvt)
-+{
-+	struct drm_i915_private *dev_priv = gvt->gt->i915;
-+	struct intel_vgpu *vgpu;
-+	int i, id;
-+	u64 val;
-+
-+	for_each_active_vgpu(gvt, vgpu, id) {
-+		mmio_hw_access_pre(gvt->gt);
-+		for (i = 0; i < vgpu_fence_sz(vgpu); i++) {
-+			val = vgpu_vreg64(vgpu, fence_num_to_offset(i));
-+			intel_vgpu_write_fence(vgpu, i, val);
-+		}
-+
-+		I915_WRITE(_MMIO(TRTTE.reg), vgpu_vreg(vgpu, TRTTE.reg));
-+		I915_WRITE(_MMIO(0x4dfc), vgpu_vreg(vgpu, 0x4dfc));
-+		mmio_hw_access_post(gvt->gt);
-+	}
-+}
-diff --git a/drivers/gpu/drm/i915/gvt/mmio.h b/drivers/gpu/drm/i915/gvt/mmio.h
-index cc4812648bf4..999d9dda0614 100644
---- a/drivers/gpu/drm/i915/gvt/mmio.h
-+++ b/drivers/gpu/drm/i915/gvt/mmio.h
-@@ -104,4 +104,7 @@ int intel_vgpu_mmio_reg_rw(struct intel_vgpu *vgpu, unsigned int offset,
+ 	return st;
  
- int intel_vgpu_mask_mmio_write(struct intel_vgpu *vgpu, unsigned int offset,
- 				  void *p_data, unsigned int bytes);
-+
-+void intel_gvt_restore_regs(struct intel_gvt *gvt);
-+
- #endif
-diff --git a/drivers/gpu/drm/i915/gvt/vgpu.c b/drivers/gpu/drm/i915/gvt/vgpu.c
-index e0e073045d83..a0c1c47a842b 100644
---- a/drivers/gpu/drm/i915/gvt/vgpu.c
-+++ b/drivers/gpu/drm/i915/gvt/vgpu.c
-@@ -395,6 +395,7 @@ static struct intel_vgpu *__intel_gvt_create_vgpu(struct intel_gvt *gvt,
- 	idr_init(&vgpu->object_idr);
- 	intel_vgpu_init_cfg_space(vgpu, param->primary);
- 	vgpu->d3_entered = false;
-+	vgpu->ggtt_entries = NULL;
- 
- 	ret = intel_vgpu_init_mmio(vgpu);
- 	if (ret)
-diff --git a/drivers/gpu/drm/i915/intel_gvt.c b/drivers/gpu/drm/i915/intel_gvt.c
-index 99fe8aef1c67..33650daef567 100644
---- a/drivers/gpu/drm/i915/intel_gvt.c
-+++ b/drivers/gpu/drm/i915/intel_gvt.c
-@@ -24,6 +24,7 @@
- #include "i915_drv.h"
- #include "i915_vgpu.h"
- #include "intel_gvt.h"
-+#include "gvt/gvt.h"
- 
- /**
-  * DOC: Intel GVT-g host support
-@@ -147,3 +148,31 @@ void intel_gvt_driver_remove(struct drm_i915_private *dev_priv)
- 
- 	intel_gvt_clean_device(dev_priv);
- }
-+
-+/**
-+ * intel_gvt_suspend - GVT suspend routine wapper
-+ *
-+ * @dev_priv: drm i915 private *
-+ *
-+ * This function is called at the i915 driver suspend stage to save necessary
-+ * HW status for GVT so that vGPU can continue running after resume.
-+ */
-+void intel_gvt_suspend(struct drm_i915_private *dev_priv)
-+{
-+	if (intel_gvt_active(dev_priv))
-+		intel_gvt_pm_suspend(dev_priv->gvt);
-+}
-+
-+/**
-+ * intel_gvt_suspend - GVT resume routine wapper
-+ *
-+ * @dev_priv: drm i915 private *
-+ *
-+ * This function is called at the i915 driver resume stage to restore required
-+ * HW status for GVT so that vGPU can continue running after resumed.
-+ */
-+void intel_gvt_resume(struct drm_i915_private *dev_priv)
-+{
-+	if (intel_gvt_active(dev_priv))
-+		intel_gvt_pm_resume(dev_priv->gvt);
-+}
-diff --git a/drivers/gpu/drm/i915/intel_gvt.h b/drivers/gpu/drm/i915/intel_gvt.h
-index 502fad8a8652..5732c7b10ab2 100644
---- a/drivers/gpu/drm/i915/intel_gvt.h
-+++ b/drivers/gpu/drm/i915/intel_gvt.h
-@@ -33,6 +33,8 @@ int intel_gvt_init_device(struct drm_i915_private *dev_priv);
- void intel_gvt_clean_device(struct drm_i915_private *dev_priv);
- int intel_gvt_init_host(void);
- void intel_gvt_sanitize_options(struct drm_i915_private *dev_priv);
-+void intel_gvt_suspend(struct drm_i915_private *dev_priv);
-+void intel_gvt_resume(struct drm_i915_private *dev_priv);
- #else
- static inline int intel_gvt_init(struct drm_i915_private *dev_priv)
+@@ -46,7 +45,7 @@ static void mock_unmap_dma_buf(struct dma_buf_attachment *attachment,
+ 			       struct sg_table *st,
+ 			       enum dma_data_direction dir)
  {
-@@ -46,6 +48,14 @@ static inline void intel_gvt_driver_remove(struct drm_i915_private *dev_priv)
- static inline void intel_gvt_sanitize_options(struct drm_i915_private *dev_priv)
- {
+-	dma_unmap_sg(attachment->dev, st->sgl, st->nents, dir);
++	dma_unmap_sgtable(attachment->dev, st, dir, 0);
+ 	sg_free_table(st);
+ 	kfree(st);
  }
-+
-+static inline void intel_gvt_suspend(struct drm_i915_private *dev_priv)
-+{
-+}
-+
-+static inline void intel_gvt_resume(struct drm_i915_private *dev_priv)
-+{
-+}
- #endif
- 
- #endif /* _INTEL_GVT_H_ */
 -- 
-2.28.0
+2.17.1
 
 _______________________________________________
 Intel-gfx mailing list
