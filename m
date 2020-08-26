@@ -2,75 +2,85 @@ Return-Path: <SRS0=RAJW=CE=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 147BAC433DF
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 17:58:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7C155C433DF
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 18:04:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DE3AC2078D
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 17:58:49 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 4568820737
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 18:04:57 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="e4Vi6MHy"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DE3AC2078D
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="gsl5MMtp"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4568820737
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 78CF06E85F;
-	Wed, 26 Aug 2020 17:58:47 +0000 (UTC)
-Received: from mail-il1-x143.google.com (mail-il1-x143.google.com
- [IPv6:2607:f8b0:4864:20::143])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BFAC16E228;
- Wed, 26 Aug 2020 17:00:56 +0000 (UTC)
-Received: by mail-il1-x143.google.com with SMTP id q14so2385828ilj.8;
- Wed, 26 Aug 2020 10:00:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=F84GgHzsN1yeQN6PQRJoTTLm9lE05lKnfqitPnJqWLU=;
- b=e4Vi6MHy6UTLsDMSjkNofHtVcQzUuSjP1UEi4Zl4t/K7FK4wYLGiwebK/NStDprP7I
- odFjBwSqQCKsEVlcnX+yDkG/CENe6HUJJbKAsN/W791aS2qH2UWYswF/4ewLctaolHpV
- CBm8TzzLoKGLF8vkT58wSBPAmXdL2F7T/66f8TVM9Gf3FamqClb7nmLl1NgqcEsVUmHo
- dgabwZx0bB+Gx/t4j2JaxG/c/kX2yzPUPR68YgPP5jd8wvn7WTQR0BV2WhYxSEog3f9l
- QghttGRVagCMEoeemQdkmK0WpfU9s6H6i6hxGmw16LnQM+gcSjIo4/FUoxg6Nb/fe5Ep
- DnAA==
+	by gabe.freedesktop.org (Postfix) with ESMTP id E61806E359;
+	Wed, 26 Aug 2020 18:04:55 +0000 (UTC)
+Received: from mail-lf1-x141.google.com (mail-lf1-x141.google.com
+ [IPv6:2a00:1450:4864:20::141])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5383989FA0
+ for <intel-gfx@lists.freedesktop.org>; Wed, 26 Aug 2020 18:04:54 +0000 (UTC)
+Received: by mail-lf1-x141.google.com with SMTP id y26so1493440lfe.2
+ for <intel-gfx@lists.freedesktop.org>; Wed, 26 Aug 2020 11:04:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linux-foundation.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=WS/uJxuwiLHzldorNgMUOjPOOvCspP/oXyUz1rKFvLY=;
+ b=gsl5MMtpFNjAqrtJTRY10b6SSrB695wNhgGZ6I864ob20EWqPgWYXe7hztu360LCIz
+ Bjd31nxkTx3ZxjFZilSSbLw0bSNbgFN95BuF3Ay9Zjo/uP/uhRyADieYZsLTvpujmFRZ
+ nNRbOTiwJDThrxDAFViWi7YqXoD/BG3OChA7w=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=F84GgHzsN1yeQN6PQRJoTTLm9lE05lKnfqitPnJqWLU=;
- b=IZsCJ6tRSgF8vckYtnInz6Mf3Efcl9pzfdbdCQLmnuzZcRPDrwaq4DHW5B8+gt+6tc
- NR3pKtUTF6Qljyk6cbkvFpcXjNCXzRj7ub6mTjTHJEMcgoJrH9ol0nCFvsuvxIV+Jb1/
- /++uY/3WMnCEPqmMvU5zEir3xqkdidJK/XJpULkvWzvJdcacBuaXvuJx0knzGN4B2DtZ
- gtCgpKJ/BxYUSzvglhNGhI3goJdHH7N3FAi/IxhLZ7z3/5yEIHuMzjxFk/8rDUFAXVMb
- 6/82wK4QbXA99Ixuw1VnmOO4lOAL8qnva9N19CHsZjKsq785YEhA+A0gx+YE8UxAP6A8
- dIGg==
-X-Gm-Message-State: AOAM531kRgCs+uhqlh25OcBxL0yRPruvbX9GpIz/wHRKeV2kSpioNAiF
- r26sU+l/zj69vm+5mfeRXt0=
-X-Google-Smtp-Source: ABdhPJym6BLUjQHAO+G1iUIi+hQhRvVbz7JUbJGnpDxNbIAXPZhbdIj6klLQKPC0ZPXyAe01GYF/mw==
-X-Received: by 2002:a92:bb8d:: with SMTP id x13mr13758338ilk.243.1598461256033; 
- Wed, 26 Aug 2020 10:00:56 -0700 (PDT)
-Received: from frodo.hsd1.co.comcast.net ([2601:284:8203:5970::c4c])
- by smtp.googlemail.com with ESMTPSA id p78sm1479606iod.0.2020.08.26.10.00.53
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 26 Aug 2020 10:00:55 -0700 (PDT)
-From: Jim Cromie <jim.cromie@gmail.com>
-To: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- jbaron@akamai.com
-Date: Wed, 26 Aug 2020 11:00:40 -0600
-Message-Id: <20200826170041.2497546-4-jim.cromie@gmail.com>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20200826170041.2497546-1-jim.cromie@gmail.com>
-References: <20200826170041.2497546-1-jim.cromie@gmail.com>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=WS/uJxuwiLHzldorNgMUOjPOOvCspP/oXyUz1rKFvLY=;
+ b=VfNPfUlK8ny/lOloE2skCkqA+iKaBUt0guiPb6wsT/Ro358OXpBhmULff9hI+PBgyO
+ tA+1aF5gkot2tqCYBjm6YW64fkkdWLYjxwC+cdguTHoukMBIDt/wdss9tUOg4+SJD/Uj
+ m/QZvhWXCH0WDlXptCjh5uMHNndOFxg001z3crxcw9ZJKa8p3wy6VwQlnWptebk9KfPE
+ Ho+e1esSyC0pmxFfnfeRzuy2VvtG/XRuwuaoU92w+sGh5Wm46p56JVWRKkBuvFoy6sGB
+ RpLgzQA6GWyiocpGE3CNy4mQpvEtPmQrw9p4VnVKjX0GBEavNzE4m/WtjLc2lokTJ2oL
+ 7A0Q==
+X-Gm-Message-State: AOAM5333NaLWnNMq6QXhPnehbRQLrp5va12VewYr6vn0MW0aF4jlKvjC
+ 3BEjU6P1uh3VneISKb2tPsGvbPxHtyABOg==
+X-Google-Smtp-Source: ABdhPJykgAVJmBFFfJgKWAY+owrXDjPxCAOiCutNkIccjTFw509LqRAixaR5jGbt0S15hzyRT6O6TA==
+X-Received: by 2002:a05:6512:74b:: with SMTP id
+ c11mr7734317lfs.119.1598465092040; 
+ Wed, 26 Aug 2020 11:04:52 -0700 (PDT)
+Received: from mail-lj1-f178.google.com (mail-lj1-f178.google.com.
+ [209.85.208.178])
+ by smtp.gmail.com with ESMTPSA id g21sm653913ljh.103.2020.08.26.11.04.49
+ for <intel-gfx@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 26 Aug 2020 11:04:49 -0700 (PDT)
+Received: by mail-lj1-f178.google.com with SMTP id g6so3399929ljn.11
+ for <intel-gfx@lists.freedesktop.org>; Wed, 26 Aug 2020 11:04:49 -0700 (PDT)
+X-Received: by 2002:a2e:b008:: with SMTP id y8mr6907538ljk.421.1598465088967; 
+ Wed, 26 Aug 2020 11:04:48 -0700 (PDT)
 MIME-Version: 1.0
-X-Mailman-Approved-At: Wed, 26 Aug 2020 17:58:46 +0000
-Subject: [Intel-gfx] [PATCH 3/4] i915: add -DDYNAMIC_DEBUG_MODULE to
- i915/gvt/Makefile
+References: <20200817161132.GA4711@amd>
+ <CAHk-=wh6_eWwvpL=AhOeY0btf_dkpu+0joNzPZWfbBWgAeAhMA@mail.gmail.com>
+ <CAPM=9tw8LVWsuA6m_nkUDgm00iz2txYRNZY0b0WWZbyiUVzLEw@mail.gmail.com>
+ <CAHk-=wg34bw1ude07nC_XCPOJHZ21-v6117p4574d5S7iP4gxw@mail.gmail.com>
+ <20200820092349.GA3792@amd>
+ <CAHk-=wjX=ck_u8uvp=PjGCQ3M9igE-yqyRPsJ54th1gQWpwMnA@mail.gmail.com>
+ <20200821091900.hzbivycs5ky5d3iw@duo.ucw.cz> <87tuwr59te.fsf@intel.com>
+ <7efa547d-b7a4-b873-f1aa-4f19eb849fa3@skogtun.org>
+ <CAHk-=wj3WskPCtHncCWLdaP6xVecLp8bDBTT57vyiU-0=Ld6QQ@mail.gmail.com>
+ <d4db4a52-3001-cb02-4888-a9dfd55cdd7c@skogtun.org>
+ <656b8f9f-d696-c75d-aef6-2b8b5170f2f6@skogtun.org>
+In-Reply-To: <656b8f9f-d696-c75d-aef6-2b8b5170f2f6@skogtun.org>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Wed, 26 Aug 2020 11:04:32 -0700
+X-Gmail-Original-Message-ID: <CAHk-=wiAK=AiqTD47o-BFFZciQXpEC0SiiDnXLWJUcQtCo-Pig@mail.gmail.com>
+Message-ID: <CAHk-=wiAK=AiqTD47o-BFFZciQXpEC0SiiDnXLWJUcQtCo-Pig@mail.gmail.com>
+To: Harald Arnesen <harald@skogtun.org>
+Subject: Re: [Intel-gfx] 5.9-rc1: graphics regression moved from -next to
+ mainline
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,52 +93,36 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jim Cromie <jim.cromie@gmail.com>, intel-gfx@lists.freedesktop.org,
- David Airlie <airlied@linux.ie>, intel-gvt-dev@lists.freedesktop.org
+Cc: Daniel Vetter <daniel.vetter@ffwll.ch>,
+ intel-gfx <intel-gfx@lists.freedesktop.org>,
+ kernel list <linux-kernel@vger.kernel.org>,
+ Chris Wilson <chris@chris-wilson.co.uk>, Matthew Auld <matthew.auld@intel.com>,
+ Pavel Machek <pavel@ucw.cz>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This addition to cflags enables dyndbg in the gvt component of the
-i915 module, on a CONFIG_DYNAMIC_DEBUG_CORE build.
+On Wed, Aug 26, 2020 at 2:30 AM Harald Arnesen <harald@skogtun.org> wrote:
+>
+> Somehow related to lightdm or xfce4? However, it is a regression, since
+> kernel 5.8 works.
 
-So here are the message classifications that the gvt driver uses.
+Yeah, apparently there's something else wrong with the relocation changes too.
 
-   cut -d= -f2 | cut -d\  -f2,3 | \
-   perl -ne 'chomp $_ && $h{$_}++; END{print "$_\" \tseen $h{$_}\n" for sort keys %h}'
+That said, does that patch at
 
-"gvt: cmd:" 	seen 11
-"gvt: core:" 	seen 48
-"gvt: dpy:" 	seen 4
-"gvt: el:" 	seen 21
-"gvt: irq:" 	seen 1
-"gvt: mm:" 	seen 6
-"gvt: mmio:" 	seen 9
-"gvt: render:" 	seen 1
-"gvt: sched:" 	seen 15
+  https://lore.kernel.org/intel-gfx/20200821123746.16904-1-joro@8bytes.org/
 
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
----
- drivers/gpu/drm/i915/gvt/Makefile | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+change things at all? If there are two independent bugs, maybe
+applying that patch might at least give you an oops that gets saved in
+the logs?
 
-diff --git a/drivers/gpu/drm/i915/gvt/Makefile b/drivers/gpu/drm/i915/gvt/Makefile
-index ea8324abc784..2c581e910688 100644
---- a/drivers/gpu/drm/i915/gvt/Makefile
-+++ b/drivers/gpu/drm/i915/gvt/Makefile
-@@ -5,5 +5,6 @@ GVT_SOURCE := gvt.o aperture_gm.o handlers.o vgpu.o trace_points.o firmware.o \
- 	execlist.o scheduler.o sched_policy.o mmio_context.o cmd_parser.o debugfs.o \
- 	fb_decoder.o dmabuf.o page_track.o
- 
--ccflags-y				+= -I $(srctree)/$(src) -I $(srctree)/$(src)/$(GVT_DIR)/
--i915-y					+= $(addprefix $(GVT_DIR)/, $(GVT_SOURCE))
-+ccflags-y	+= -I $(srctree)/$(src) -I $(srctree)/$(src)/$(GVT_DIR)/
-+ccflags-y	+= -DDYNAMIC_DEBUG_MODULE
-+i915-y		+= $(addprefix $(GVT_DIR)/, $(GVT_SOURCE))
--- 
-2.26.2
+(it might be worth waiting a bit after the machine locks up in case
+the machine is alive enough so sync logs after a bit.. If ssh works,
+that's obviously better yet)
 
+              Linus
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
