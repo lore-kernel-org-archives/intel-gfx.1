@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5383CC433F2
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 13:28:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 498FAC433E8
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 13:28:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2F530214F1
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 13:28:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2F530214F1
+	by mail.kernel.org (Postfix) with ESMTPS id 26DAE214F1
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 13:28:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 26DAE214F1
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A5DC86EA60;
-	Wed, 26 Aug 2020 13:28:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B4066EA64;
+	Wed, 26 Aug 2020 13:28:32 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F76B6EA5A
- for <intel-gfx@lists.freedesktop.org>; Wed, 26 Aug 2020 13:28:30 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA2146E11F
+ for <intel-gfx@lists.freedesktop.org>; Wed, 26 Aug 2020 13:28:28 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22244750-1500050 
- for multiple; Wed, 26 Aug 2020 14:28:17 +0100
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22244730-1500050 
+ for multiple; Wed, 26 Aug 2020 14:28:13 +0100
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 26 Aug 2020 14:27:56 +0100
-Message-Id: <20200826132811.17577-24-chris@chris-wilson.co.uk>
+Date: Wed, 26 Aug 2020 14:27:38 +0100
+Message-Id: <20200826132811.17577-6-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200826132811.17577-1-chris@chris-wilson.co.uk>
 References: <20200826132811.17577-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 24/39] drm/i915/gt: Decouple completed requests
- on unwind
+Subject: [Intel-gfx] [PATCH 06/39] drm/i915/gt: Wait for CSB entries on
+ Tigerlake
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,58 +50,79 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Chris Wilson <chris@chris-wilson.co.uk>
+Cc: stable@vger.kernel.org, Chris Wilson <chris@chris-wilson.co.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Since the introduction of preempt-to-busy, requests can complete in the
-background, even while they are not on the engine->active.requests list.
-As such, the engine->active.request list itself is not in strict
-retirement order, and we have to scan the entire list while unwinding to
-not miss any. However, if the request is completed we currently leave it
-on the list [until retirement], but we could just as simply remove it
-and stop treating it as active. We would only have to then traverse it
-once while unwinding in quick succession.
+On Tigerlake, we are seeing a repeat of commit d8f505311717 ("drm/i915/icl:
+Forcibly evict stale csb entries") where, presumably, due to a missing
+Global Observation Point synchronisation, the write pointer of the CSB
+ringbuffer is updated _prior_ to the contents of the ringbuffer. That is
+we see the GPU report more context-switch entries for us to parse, but
+those entries have not been written, leading us to process stale events,
+and eventually report a hung GPU.
 
+However, this effect appears to be much more severe than we previously
+saw on Icelake (though it might be best if we try the same approach
+there as well and measure), and Bruce suggested the good idea of resetting
+the CSB entry after use so that we can detect when it has been updated by
+the GPU. By instrumenting how long that may be, we can set a reliable
+upper bound for how long we should wait for:
+
+    513 late, avg of 61 retries (590 ns), max of 1061 retries (10099 ns)
+
+Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/2045
+References: d8f505311717 ("drm/i915/icl: Forcibly evict stale csb entries")
+Suggested-by: Bruce Chang <yu.bruce.chang@intel.com>
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+Cc: Bruce Chang <yu.bruce.chang@intel.com>
+Cc: Mika Kuoppala <mika.kuoppala@linux.intel.com>
+Cc: stable@vger.kernel.org # v5.4
 ---
- drivers/gpu/drm/i915/gt/intel_lrc.c | 6 ++++--
- drivers/gpu/drm/i915/i915_request.c | 3 ++-
- 2 files changed, 6 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_lrc.c | 21 ++++++++++++++++++---
+ 1 file changed, 18 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
-index c2cd176f396d..4727348a48a2 100644
+index d6e0f62337b4..d75712a503b7 100644
 --- a/drivers/gpu/drm/i915/gt/intel_lrc.c
 +++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
-@@ -1116,8 +1116,10 @@ __unwind_incomplete_requests(struct intel_engine_cs *engine)
- 	list_for_each_entry_safe_reverse(rq, rn,
- 					 &engine->active.requests,
- 					 sched.link) {
--		if (i915_request_completed(rq))
--			continue; /* XXX */
-+		if (i915_request_completed(rq)) {
-+			list_del_init(&rq->sched.link);
-+			continue;
-+		}
+@@ -2498,9 +2498,22 @@ invalidate_csb_entries(const u64 *first, const u64 *last)
+  */
+ static inline bool gen12_csb_parse(const u64 *csb)
+ {
+-	u64 entry = READ_ONCE(*csb);
+-	bool ctx_away_valid = GEN12_CSB_CTX_VALID(upper_32_bits(entry));
+-	bool new_queue =
++	bool ctx_away_valid;
++	bool new_queue;
++	u64 entry;
++
++	/* HSD#22011248461 */
++	entry = READ_ONCE(*csb);
++	if (unlikely(entry == -1)) {
++		preempt_disable();
++		if (wait_for_atomic_us((entry = READ_ONCE(*csb)) != -1, 50))
++			GEM_WARN_ON("50us CSB timeout");
++		preempt_enable();
++	}
++	WRITE_ONCE(*(u64 *)csb, -1);
++
++	ctx_away_valid = GEN12_CSB_CTX_VALID(upper_32_bits(entry));
++	new_queue =
+ 		lower_32_bits(entry) & GEN12_CTX_STATUS_SWITCHED_TO_NEW_QUEUE;
  
- 		__i915_request_unsubmit(rq);
+ 	/*
+@@ -4004,6 +4017,8 @@ static void reset_csb_pointers(struct intel_engine_cs *engine)
+ 	WRITE_ONCE(*execlists->csb_write, reset_value);
+ 	wmb(); /* Make sure this is visible to HW (paranoia?) */
  
-diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
-index c187e1ec0278..a17c0f297461 100644
---- a/drivers/gpu/drm/i915/i915_request.c
-+++ b/drivers/gpu/drm/i915/i915_request.c
-@@ -321,7 +321,8 @@ bool i915_request_retire(struct i915_request *rq)
- 	 * after removing the breadcrumb and signaling it, so that we do not
- 	 * inadvertently attach the breadcrumb to a completed request.
- 	 */
--	remove_from_engine(rq);
-+	if (!list_empty(&rq->sched.link))
-+		remove_from_engine(rq);
- 	GEM_BUG_ON(!llist_empty(&rq->execute_cb));
++	/* Check that the GPU does indeed update the CSB entries! */
++	memset(execlists->csb_status, -1, (reset_value + 1) * sizeof(u64));
+ 	invalidate_csb_entries(&execlists->csb_status[0],
+ 			       &execlists->csb_status[reset_value]);
  
- 	__list_del_entry(&rq->link); /* poison neither prev/next (RCU walks) */
 -- 
 2.20.1
 
