@@ -2,67 +2,75 @@ Return-Path: <SRS0=RAJW=CE=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
-	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BA97AC433DF
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 17:15:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BEA86C433DF
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 17:58:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 89F8D2083B
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 17:15:45 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 88ED92078D
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 17:58:47 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KNr6AlaD"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 89F8D2083B
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UCIjmonq"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 88ED92078D
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC2296E27C;
-	Wed, 26 Aug 2020 17:15:44 +0000 (UTC)
-Received: from mail-vs1-xe42.google.com (mail-vs1-xe42.google.com
- [IPv6:2607:f8b0:4864:20::e42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2BBF86E27C
- for <intel-gfx@lists.freedesktop.org>; Wed, 26 Aug 2020 17:15:43 +0000 (UTC)
-Received: by mail-vs1-xe42.google.com with SMTP id r7so1349284vsq.5
- for <intel-gfx@lists.freedesktop.org>; Wed, 26 Aug 2020 10:15:43 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 22EC16E857;
+	Wed, 26 Aug 2020 17:58:47 +0000 (UTC)
+Received: from mail-il1-x142.google.com (mail-il1-x142.google.com
+ [IPv6:2607:f8b0:4864:20::142])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 407356E221;
+ Wed, 26 Aug 2020 17:00:59 +0000 (UTC)
+Received: by mail-il1-x142.google.com with SMTP id j9so2383055ilc.11;
+ Wed, 26 Aug 2020 10:00:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=REaTehmhboYnMbL2bdtp9dndQp3r5vWDjV7Xywab6cM=;
- b=KNr6AlaDZVO8I/wc2PZbtqQHi7L8sme+Y1QtNgDSEnMYj7NQYl+yOpnRvNJRuue5Fn
- lT2R1NDXdxcybZgBtJ5j3KsZ7xlCqq6biWlAT+VkUkc9YwGcNpXJbvJQ8N/HbRwUM8VY
- GNjhzyKskC5Nzk9E8dOeVtWr4ICG0crnFOd6iNeLJxDJjYYbGR2U970ca0yA1mi8neIk
- elkjLDadGEnbqOoMpWC4zM1SiLENQYp2M3gSEPFwuGE757uXdSzLVQ+kd2+HPFoe0CrI
- koJg/wXzzYdORz9Ndq2nJACa8rQO0ZyPpJzSDmNi6tJZ82vO1L2vy4p7Nx08dYqFZUhS
- 3pHw==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=Iifl+SrM927K50PeABJCPm1vnXa9Xbx3f5/rhAuv9Uk=;
+ b=UCIjmonqsdoZZADUxRAJErxSCQ15XXBm5g2t7eD7umbVbTkt95mBhxnPcyoiqdMx/f
+ 4ZgPZTFwDWxO/9ZVmGdf9LPDnJXCKtig3T2BQcWEgkreb/2mFIu5yG4B33T7PobYhe50
+ pLHQtCBOOSU9LEyJAIyaFrcb3ZI31jI5GxIcB21o6zVS3IFo3vJEBmWPPqIcvc0hwf7N
+ EqkpOyj1qz4FmuO2LG2ehBAzEsIiauUHZcqh1e5ESjJdRZ0CUFyxdJqfG3oGzZ/+zJbj
+ HGGUi22gfUelU1RgtqRjp3N1HZgSOyM2PZQZdMQkkjFM/694y+SxzKI3B8Z3sq5Pbkm+
+ 3/ag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=REaTehmhboYnMbL2bdtp9dndQp3r5vWDjV7Xywab6cM=;
- b=exDCduwAxFRiZOwIN5vfEfImtpYecTL0f2TqXoY402IyFPUzDnNhzM/fq9pjrzkXYg
- bDPNZaEAx/RJeum+Os7n3iotAJ+W8Pb3Ayg/Tkh4lhPyBR7zrhB0hCLyqM/4wKVpPyyP
- ELwwCNOsCgoZR8qdZZB6ETnzZu9gCDhXmblPS5gCXwRMdGM29iMWO/4dd+kA/Keb6ZB9
- LsIugmWY/H8DLtdELmige4dMrpM8wX/fRYOp35mfhA5BqiHLVfhgb/VA83c0z/BDqnS9
- lm9hiP7vptyevNabYTyKZJKzFwWaJ/BhO/CHUAViBYP8s/KjnNE+Atg9s0eRhj+wtnZw
- JWfA==
-X-Gm-Message-State: AOAM531Nn5I3GR7IQh5pb1mZGqTRIsdzla0BpFF/CiS+mnl8z7RWgKPR
- Diw9VYzuoyPMsHr3AXSNsG8rfEn7/z4jtoyBijC/dQNdTyk=
-X-Google-Smtp-Source: ABdhPJzZQ6bTXEAzdinurERiwH4HDbA8aeoTC36BsF+yfJCj4BwRwcLjc6xVi9L13tbGiOd8dXJkhMv3+Fb/fG7TCPA=
-X-Received: by 2002:a67:1702:: with SMTP id 2mr4962720vsx.6.1598462142265;
- Wed, 26 Aug 2020 10:15:42 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=Iifl+SrM927K50PeABJCPm1vnXa9Xbx3f5/rhAuv9Uk=;
+ b=KZmuVuLEzYCJrdvakDATBvU0WeGP1JMaQPeDuvZW8E2JUpU1/i82JvO40Uhcgb4CiT
+ hdtjmH8ow9UeNoHG8GYeJCgIBoupCsXqv8M/FXYfKJRVY+uRZ1mGYrFffGfQsgd57tWp
+ wrABuv23SdsT2Dewwrc54aNOl1xDjWplQq0grSRlQv4JrpM73OIo5q193jjccrDjjMcI
+ lOLmLO/563kTQ/+9WExICeVA1q3KgI4lVh9fEzDLjM0qmGXzOYkv+DFKwFACLpIBD8s5
+ 62ypZpZ7ZjfT/wRWGk/7iUd+Qyytqi6zU0GoIXCA9W46tz3dXvybaA0CwFmZaEYRblpQ
+ AgUA==
+X-Gm-Message-State: AOAM532U5J8D1+PPXPk6ZbHEughj+AshSw2sXzT6QqtNvjrLXvjrVb04
+ rCAFOjLLiVAPrCYZt/01Z80=
+X-Google-Smtp-Source: ABdhPJxBi1zHiX32RRVtEu9X620S7bHDX1wd9DIE9g9VRWFTCA6+Ytp4dwOPtFz82AaD5G33jga18w==
+X-Received: by 2002:a92:d0c7:: with SMTP id y7mr14347265ila.224.1598461258562; 
+ Wed, 26 Aug 2020 10:00:58 -0700 (PDT)
+Received: from frodo.hsd1.co.comcast.net ([2601:284:8203:5970::c4c])
+ by smtp.googlemail.com with ESMTPSA id p78sm1479606iod.0.2020.08.26.10.00.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 26 Aug 2020 10:00:57 -0700 (PDT)
+From: Jim Cromie <jim.cromie@gmail.com>
+To: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ jbaron@akamai.com
+Date: Wed, 26 Aug 2020 11:00:41 -0600
+Message-Id: <20200826170041.2497546-5-jim.cromie@gmail.com>
+X-Mailer: git-send-email 2.26.2
+In-Reply-To: <20200826170041.2497546-1-jim.cromie@gmail.com>
+References: <20200826170041.2497546-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
-References: <20200826132811.17577-1-chris@chris-wilson.co.uk>
- <20200826132811.17577-4-chris@chris-wilson.co.uk>
-In-Reply-To: <20200826132811.17577-4-chris@chris-wilson.co.uk>
-From: Matthew Auld <matthew.william.auld@gmail.com>
-Date: Wed, 26 Aug 2020 18:15:16 +0100
-Message-ID: <CAM0jSHPaUFND-XbQcaOzTfLg+BeZmBZc=jGXui+x6U66Wqe7Kg@mail.gmail.com>
-To: Chris Wilson <chris@chris-wilson.co.uk>
-Subject: Re: [Intel-gfx] [PATCH 04/39] drm/i915/gt: Clear the buffer pool
- age before use
+X-Mailman-Approved-At: Wed, 26 Aug 2020 17:58:46 +0000
+Subject: [Intel-gfx] [PATCH 4/4] i915: POC use dynamic_debug_exec_queries to
+ control pr_debugs in gvt
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,24 +83,137 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Intel Graphics Development <intel-gfx@lists.freedesktop.org>
+Cc: Jim Cromie <jim.cromie@gmail.com>, intel-gfx@lists.freedesktop.org,
+ David Airlie <airlied@linux.ie>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 26 Aug 2020 at 14:28, Chris Wilson <chris@chris-wilson.co.uk> wrote:
->
-> If we create a new node, it is possible for the slab allocator to return
-> us a recently freed node. If that node was just retired, it will retain
-> the current jiffy as its node->age. There is then a miniscule window,
-> where as that node is retired, it will appear on the free list with an
-> incorrect age and be eligible for reuse by one thread, and then by a
-> second thread as the correct node->age is written.
->
-> Fixes: 8080ffd81600 ("drm/i915/gt: Delay taking the spinlock for grabbing from the buffer pool")
-> Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+The gvt component of this driver has ~120 pr_debugs, in 9 "classes".
+Add a "knob", like drm.debug, to map bits to these classes.
+
+bash-5.0# echo 0x01 > /sys/module/i915/parameters/debug_dyn
+ set_dyndbg: result:0x1 from 0x01
+ dyndbg: query 0: "format='^gvt: cmd: ' +p"
+ dyndbg: entry, buf:'format='^gvt: cmd: ' +p'
+ dyndbg: start-of-word:0 'format='^gvt: cmd: ' +p'
+ dyndbg: start-of-word:1 ''^gvt: cmd: ' +p'
+ dyndbg: start-of-word:2 '+p'
+ dyndbg: split into words: "format" "^gvt: cmd: " "+p"
+ dyndbg: op='+'
+ dyndbg: flags=0x1
+ dyndbg: *flagsp=0x1 *maskp=0xffffffff
+ dyndbg: key:'format' arg:'^gvt: cmd: '
+ dyndbg: parsed: func="" file="" module="i915" format="^gvt: cmd: " lineno=0-0
+ dyndbg: changed drivers/gpu/drm/i915/gvt/cmd_parser.c:3081 [i915]init_cmd_table =p
+ dyndbg: changed drivers/gpu/drm/i915/gvt/cmd_parser.c:1376 [i915]gen8_check_mi_display_flip =p
+ dyndbg: changed drivers/gpu/drm/i915/gvt/cmd_parser.c:1373 [i915]gen8_check_mi_display_flip =p
+ dyndbg: changed drivers/gpu/drm/i915/gvt/cmd_parser.c:745 [i915]parser_exec_state_dump =p
+ dyndbg: changed drivers/gpu/drm/i915/gvt/cmd_parser.c:744 [i915]parser_exec_state_dump =p
+ dyndbg: changed drivers/gpu/drm/i915/gvt/cmd_parser.c:742 [i915]parser_exec_state_dump =p
+ dyndbg: changed drivers/gpu/drm/i915/gvt/cmd_parser.c:733 [i915]parser_exec_state_dump =p
+ dyndbg: changed drivers/gpu/drm/i915/gvt/cmd_parser.c:729 [i915]parser_exec_state_dump =p
+ dyndbg: changed drivers/gpu/drm/i915/gvt/cmd_parser.c:722 [i915]parser_exec_state_dump =p
+ dyndbg: changed drivers/gpu/drm/i915/gvt/cmd_parser.c:716 [i915]parser_exec_state_dump =p
+ dyndbg: changed drivers/gpu/drm/i915/gvt/cmd_parser.c:691 [i915]print_opcode =p
+ dyndbg: applied: func="" file="" module="i915" format="^gvt: cmd: " lineno=0-0
+ dyndbg: processed 1 queries, with 11 matches, 0 errs
+ change ct:11 on format='gvt: cmd: '
+ change ct:11
+
+Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+---
+ drivers/gpu/drm/i915/i915_params.c | 76 ++++++++++++++++++++++++++++++
+ 1 file changed, 76 insertions(+)
+
+diff --git a/drivers/gpu/drm/i915/i915_params.c b/drivers/gpu/drm/i915/i915_params.c
+index 8d8db9ff0a48..4e1f01ab4865 100644
+--- a/drivers/gpu/drm/i915/i915_params.c
++++ b/drivers/gpu/drm/i915/i915_params.c
+@@ -255,3 +255,79 @@ void i915_params_free(struct i915_params *params)
+ 	I915_PARAMS_FOR_EACH(FREE);
+ #undef FREE
+ }
++
++/* POC for callback -> dynamic_debug_exec_queries */
++unsigned long __new_knob;
++EXPORT_SYMBOL(__new_knob);
++
++static char *pr_debug_classes[] = {
++	"gvt: cmd: ",
++	"gvt: core: ",
++	"gvt: dpy: ",
++	"gvt: el: ",
++	"gvt: irq: ",
++	"gvt: mm: ",
++	"gvt: mmio: ",
++	"gvt: render: ",
++	"gvt: sched: "
++};
++#define NUM_CLASSES	ARRAY_SIZE(pr_debug_classes)
++#define OUR_QUERY_SIZE	128 /* we need about 20 */
++
++#include <linux/module.h>
++
++static int param_set_dyndbg(const char *instr, const struct kernel_param *kp)
++{
++	static unsigned long int old_val;
++        unsigned int val;
++	unsigned long int changes, result;
++	int rc, chgct = 0, totct = 0, bitpos;
++	char query[OUR_QUERY_SIZE];
++
++	rc = kstrtouint(instr, 0, &val);
++	if (rc) {
++		pr_err("set_dyndbg: failed\n");
++		return -EINVAL;
++	}
++	result = val;
++	pr_info("set_dyndbg: result:0x%lx from %s\n", result, instr);
++
++	changes = result ^ old_val;
++
++	for_each_set_bit(bitpos, &changes, NUM_CLASSES) {
++
++		sprintf(query, "format='^%s' %cp", pr_debug_classes[bitpos],
++			test_bit(bitpos, &result) ? '+' : '-');
++
++		chgct = dynamic_debug_exec_queries(query, "i915");
++		totct += chgct;
++		pr_info("change ct:%d on format='%s'\n", chgct,
++			pr_debug_classes[bitpos]);
++	}
++	old_val = result;
++	pr_info("change ct:%d\n", totct);
++	return 0;
++}
++static int param_get_dyndbg(char *buffer, const struct kernel_param *kp)
++{
++	return scnprintf(buffer, PAGE_SIZE, "%u\n",
++			 *((unsigned int *)kp->arg));
++}
++static const struct kernel_param_ops param_ops_dyndbg = {
++	.set = param_set_dyndbg,
++	.get = param_get_dyndbg,
++};
++
++MODULE_PARM_DESC(debug_dyn, " enable dynamic-debug by format-string classifications.\n"
++		 "\t\twhich are:"
++		 "\n\t\t gvt: cmd:"
++		 "\n\t\t gvt: core:"
++		 "\n\t\t gvt: dpy:"
++		 "\n\t\t gvt: el:"
++		 "\n\t\t gvt: irq:"
++		 "\n\t\t gvt: mm:"
++		 "\n\t\t gvt: mmio:"
++		 "\n\t\t gvt: render:"
++		 "\n\t\t gvt: sched:" "\n");
++
++module_param_cb(debug_dyn, &param_ops_dyndbg, &__new_knob, 0644);
+-- 
+2.26.2
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
