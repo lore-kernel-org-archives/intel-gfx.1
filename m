@@ -2,65 +2,73 @@ Return-Path: <SRS0=RAJW=CE=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-8.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
+	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C8FAEC433DF
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 18:26:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 17DACC433E4
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 18:26:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 98EC4207BC
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 18:26:23 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id DB9A720737
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 18:26:54 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="eeexZ+8i"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 98EC4207BC
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aATDp49D"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DB9A720737
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C08006EACC;
-	Wed, 26 Aug 2020 18:26:20 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A387B6EACF
- for <intel-gfx@lists.freedesktop.org>; Wed, 26 Aug 2020 18:26:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1598466376;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=7K7gHdedqiVbmUKSx9Su58MqOV5iGPwjtfCRwew8VFI=;
- b=eeexZ+8ifJZB7z0Mg9Su99LRQ6s117Kmr59xOOFVcHUooFBljJ5wvo4FflS6sJFe4elH78
- WazGRn84+6yYu0BATI10EKopk+oHnrFw80r39sgHbJ53PooS+bgTcun7+aqlc1OnOsfd8u
- MU2jMDXYhMwqdEb42rcbMNSpACecgsA=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-570-D7iPjlF3NEablcm0g_qEWw-1; Wed, 26 Aug 2020 14:26:14 -0400
-X-MC-Unique: D7iPjlF3NEablcm0g_qEWw-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
- [10.5.11.22])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8BE5A1015DC4;
- Wed, 26 Aug 2020 18:26:11 +0000 (UTC)
-Received: from Whitewolf.redhat.com (ovpn-119-77.rdu2.redhat.com
- [10.10.119.77])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 6EE9110021AA;
- Wed, 26 Aug 2020 18:26:09 +0000 (UTC)
-From: Lyude Paul <lyude@redhat.com>
-To: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- nouveau@lists.freedesktop.org
-Date: Wed, 26 Aug 2020 14:24:55 -0400
-Message-Id: <20200826182456.322681-20-lyude@redhat.com>
-In-Reply-To: <20200826182456.322681-1-lyude@redhat.com>
-References: <20200826182456.322681-1-lyude@redhat.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 612106EAAD;
+	Wed, 26 Aug 2020 18:26:54 +0000 (UTC)
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
+ [IPv6:2a00:1450:4864:20::442])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F7B86EAAD;
+ Wed, 26 Aug 2020 18:26:53 +0000 (UTC)
+Received: by mail-wr1-x442.google.com with SMTP id a5so2816578wrm.6;
+ Wed, 26 Aug 2020 11:26:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=Bu4pOYOLpF8hHIWAO8QllDzn4fIcc5GK3Fq1pOjr02M=;
+ b=aATDp49DrNEi4o+dQ3aZilAVzYRQBAblxtl0UNdBGXKSmVRdFgpISE1zQyc7cNSsZ9
+ lW/EYpEmbA0Lu3HCV4gTg4WJlfsP9Ucv3zSATOZO1HiWK3Xl7zEtjeqoNbC6i1Ns4mAR
+ ZRq0r3vG4sM3xbUlDy8LPAizO4V/iBIepvQgRwBNTOXvKWuZklWHI7dz6KPp6mM5pW+8
+ e4/LtEjr5E3izgeXPBOlpPbB1jJpfchAVzL6KSrkYYKPwTjqCaTuOMWV4ujlyA488gay
+ 4N7boVhG1b57UDIcUR6HQBrmSeSXAtmip16JCAoNV2oOOh9NdAZhe34FxbbIB/ucho4E
+ KVLQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=Bu4pOYOLpF8hHIWAO8QllDzn4fIcc5GK3Fq1pOjr02M=;
+ b=TsWk90sr4q/fHgjSMmwS84TV8YcYl3CCSgD6+Rz9j3XecxGWccOimkACcoP3lpOB4q
+ +UcjOmXZ0JWbnFiwhWKKdjiC/IpHx9R7ru8+YbgpXDBc2gG/7oJNLOHkAAaiyaBdgt40
+ FtjaDHkhF7dIS/dlzdERVJTH1kSX5oTJI+445aBm323Ymvuc/LqIO+fHEhXkrOXEkldY
+ fPWGvP/FQoJ5Gfg+ER7HeifhZjjspmYpnQD64TGmNcyz4k/Qryn0Jn+ul4bqQYYbGxPE
+ LkwlCm6rXMsqq8lQuSJsM/Wu8VyETvjADRnKAcfPYwPQxcl9zgRy/qeGZeV6lkLN94Oy
+ wsQg==
+X-Gm-Message-State: AOAM532Ucynu9+45h/WLkEn51LONvACTuHHUmHqQW/Q53IwI0TJqSs6w
+ Yn7Pr0LpJ7tA+VnbhZvCqiJcfaiF5vEjHOS8Izg=
+X-Google-Smtp-Source: ABdhPJw6XRhfFzc0ep7oxhqIsPm6hA1ZYk5Rt4Z7Rf4kNW/IcW2BOalXNQMof7JDtDOsechyJwXMAwWd0bJeEtpmfUE=
+X-Received: by 2002:a5d:6085:: with SMTP id w5mr16385547wrt.362.1598466412249; 
+ Wed, 26 Aug 2020 11:26:52 -0700 (PDT)
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
-Subject: [Intel-gfx] [PATCH v5 19/20] drm/i915/dp: Extract
- drm_dp_read_dpcd_caps()
+References: <20191221150402.13868-1-murphyt7@tcd.ie>
+ <465815ae-9292-f37a-59b9-03949cb68460@deltatee.com>
+ <20200529124523.GA11817@infradead.org>
+ <CGME20200529190523eucas1p2c086133e707257c0cdc002f502d4f51d@eucas1p2.samsung.com>
+ <33137cfb-603c-86e8-1091-f36117ecfaf3@deltatee.com>
+ <ef2150d5-7b6a-df25-c10d-e43316fe7812@samsung.com>
+ <b9140772-0370-a858-578c-af503a06d8e9@deltatee.com>
+ <CALQxJuutRaeX89k2o4ffTKYRMizmMu0XbRnzpFuSSrkQR02jKg@mail.gmail.com>
+In-Reply-To: <CALQxJuutRaeX89k2o4ffTKYRMizmMu0XbRnzpFuSSrkQR02jKg@mail.gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 26 Aug 2020 14:26:40 -0400
+Message-ID: <CADnq5_PRuPtpzR-pCgXARRXVaC0vO=HdcGUkGQr7sDqUmq7G_Q@mail.gmail.com>
+To: Tom Murphy <murphyt7@tcd.ie>
+Subject: Re: [Intel-gfx] [PATCH 0/8] Convert the intel iommu driver to the
+ dma-iommu api
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,253 +81,111 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@linux.ie>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- open list <linux-kernel@vger.kernel.org>, Maxime Ripard <mripard@kernel.org>,
- Wambui Karuga <wambui.karugax@gmail.com>
+Cc: kvm@vger.kernel.org, David Airlie <airlied@linux.ie>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>, Julien Grall <julien.grall@arm.com>,
+ Will Deacon <will@kernel.org>, Marek Szyprowski <m.szyprowski@samsung.com>,
+ Jean-Philippe Brucker <jean-philippe@linaro.org>,
+ linux-samsung-soc@vger.kernel.org, Marc Zyngier <maz@kernel.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>,
+ Christoph Hellwig <hch@infradead.org>, linux-rockchip@lists.infradead.org,
+ Andy Gross <agross@kernel.org>, Gerald Schaefer <gerald.schaefer@de.ibm.com>,
+ linux-s390@vger.kernel.org, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ Robin Murphy <robin.murphy@arm.com>, linux-mediatek@lists.infradead.org,
+ linux-tegra@vger.kernel.org, Thomas Gleixner <tglx@linutronix.de>,
+ "open list:VIRTIO CORE, NET..." <virtualization@lists.linux-foundation.org>,
+ linux-arm-kernel <linux-arm-kernel@lists.infradead.org>,
+ David Woodhouse <dwmw2@infradead.org>, Cornelia Huck <cohuck@redhat.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ "list@263.net:IOMMU DRIVERS <iommu@lists.linux-foundation.org>,
+ Joerg Roedel <joro@8bytes.org>, " <iommu@lists.linux-foundation.org>,
+ Kukjin Kim <kgene@kernel.org>, Logan Gunthorpe <logang@deltatee.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Since DP 1.3, it's been possible for DP receivers to specify an
-additional set of DPCD capabilities, which can take precedence over the
-capabilities reported at DP_DPCD_REV.
+On Mon, Aug 24, 2020 at 2:56 AM Tom Murphy <murphyt7@tcd.ie> wrote:
+>
+> Hi Logan/All,
+>
+> I have added a check for the sg_dma_len == 0 :
+> """
+>  } __sgt_iter(struct scatterlist *sgl, bool dma) {
+>         struct sgt_iter s = { .sgp = sgl };
+>
+> +       if (sgl && sg_dma_len(sgl) == 0)
+> +           s.sgp = NULL;
+>
+>         if (s.sgp) {
+>             .....
+> """
+> at location [1].
+> but it doens't fix the problem.
+>
+> You're right though, this change does need to be made, this code
+> doesn't handle pages of sg_dma_len(sg) == 0 correctly
+> So my guess is that we have more bugs in other parts of the i915
+> driver (or there is a problem with my "sg_dma_len == 0" fix above).
+> I have been trying to spot where else the code might be buggy but I
+> haven't had any luck so far.
+>
+> I'm doing a microconfernce (at LPC 2020) this wednesdays [1] on this
+> if you're interested in attending.
+> I'm hoping I can chat about it with a few people and find how can
+> reproduce and fix this issues. I don't have any more time I can give
+> to this unfortunately and it would be a shame for the work to go to
+> waste.
+>
+> [0] https://github.com/torvalds/linux/blob/d012a7190fc1fd72ed48911e77ca97ba4521bccd/drivers/gpu/drm/i915/i915_scatterlist.h#L28
+> [1] https://linuxplumbersconf.org/event/7/contributions/846/
+>
+> On Fri, 29 May 2020 at 22:21, Logan Gunthorpe <logang@deltatee.com> wrote:
+> >
+> >
+> >
+> > On 2020-05-29 3:11 p.m., Marek Szyprowski wrote:
+> > > Patches are pending:
+> > > https://lore.kernel.org/linux-iommu/20200513132114.6046-1-m.szyprowski@samsung.com/T/
+> >
+> > Cool, nice! Though, I still don't think that fixes the issue in
+> > i915_scatterlist.h given it still ignores sg_dma_len() and strictly
+> > relies on sg_next()/sg_is_last() to stop iterating -- and I suspect this
+> > is the bug that got in Tom's way.
+> >
+> > >> However, as Robin pointed out, there are other ugly tricks like stopping
+> > >> iterating through the SGL when sg_dma_len() is zero. For example, the
+> > >> AMD driver appears to use drm_prime_sg_to_page_addr_arrays() which does
+> > >> this trick and thus likely isn't buggy (otherwise, I'd expect someone to
+> > >> have complained by now seeing AMD has already switched to IOMMU-DMA.
 
-Basically any device supporting DP is going to need to read these in an
-identical manner, in particular nouveau, so let's go ahead and just move
-this code out of i915 into a shared DRM DP helper that we can use in
-other drivers.
+We ran into the same issue with amdgpu and radeon when the AMD IOMMU
+driver was converted and had to fix it as well.  The relevant fixes
+were:
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=42e67b479eab6d26459b80b4867298232b0435e7
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=0199172f933342d8b1011aae2054a695c25726f4
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=47f7826c520ecd92ffbffe59ecaa2fe61e42ec70
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=c0f83d164fb8f3a2b7bc379a6c1e27d1123a9eab
 
-v2:
-* Remove redundant dpcd[DP_DPCD_REV] == 0 check
-* Fix drm_dp_dpcd_read() ret checks
+Alex
 
-Signed-off-by: Lyude Paul <lyude@redhat.com>
-Reviewed-by: Sean Paul <sean@poorly.run>
----
- drivers/gpu/drm/drm_dp_helper.c             | 77 +++++++++++++++++++++
- drivers/gpu/drm/i915/display/intel_dp.c     | 60 +---------------
- drivers/gpu/drm/i915/display/intel_dp.h     |  1 -
- drivers/gpu/drm/i915/display/intel_lspcon.c |  2 +-
- include/drm/drm_dp_helper.h                 |  3 +
- 5 files changed, 83 insertions(+), 60 deletions(-)
-
-diff --git a/drivers/gpu/drm/drm_dp_helper.c b/drivers/gpu/drm/drm_dp_helper.c
-index 46d88ef4f59ac..9ca88e6c78820 100644
---- a/drivers/gpu/drm/drm_dp_helper.c
-+++ b/drivers/gpu/drm/drm_dp_helper.c
-@@ -433,6 +433,83 @@ static u8 drm_dp_downstream_port_count(const u8 dpcd[DP_RECEIVER_CAP_SIZE])
- 	return port_count;
- }
- 
-+static int drm_dp_read_extended_dpcd_caps(struct drm_dp_aux *aux,
-+					  u8 dpcd[DP_RECEIVER_CAP_SIZE])
-+{
-+	u8 dpcd_ext[6];
-+	int ret;
-+
-+	/*
-+	 * Prior to DP1.3 the bit represented by
-+	 * DP_EXTENDED_RECEIVER_CAP_FIELD_PRESENT was reserved.
-+	 * If it is set DP_DPCD_REV at 0000h could be at a value less than
-+	 * the true capability of the panel. The only way to check is to
-+	 * then compare 0000h and 2200h.
-+	 */
-+	if (!(dpcd[DP_TRAINING_AUX_RD_INTERVAL] &
-+	      DP_EXTENDED_RECEIVER_CAP_FIELD_PRESENT))
-+		return 0;
-+
-+	ret = drm_dp_dpcd_read(aux, DP_DP13_DPCD_REV, &dpcd_ext,
-+			       sizeof(dpcd_ext));
-+	if (ret < 0)
-+		return ret;
-+	if (ret != sizeof(dpcd_ext))
-+		return -EIO;
-+
-+	if (dpcd[DP_DPCD_REV] > dpcd_ext[DP_DPCD_REV]) {
-+		DRM_DEBUG_KMS("%s: Extended DPCD rev less than base DPCD rev (%d > %d)\n",
-+			      aux->name, dpcd[DP_DPCD_REV],
-+			      dpcd_ext[DP_DPCD_REV]);
-+		return 0;
-+	}
-+
-+	if (!memcmp(dpcd, dpcd_ext, sizeof(dpcd_ext)))
-+		return 0;
-+
-+	DRM_DEBUG_KMS("%s: Base DPCD: %*ph\n",
-+		      aux->name, DP_RECEIVER_CAP_SIZE, dpcd);
-+
-+	memcpy(dpcd, dpcd_ext, sizeof(dpcd_ext));
-+
-+	return 0;
-+}
-+
-+/**
-+ * drm_dp_read_dpcd_caps() - read DPCD caps and extended DPCD caps if
-+ * available
-+ * @aux: DisplayPort AUX channel
-+ * @dpcd: Buffer to store the resulting DPCD in
-+ *
-+ * Attempts to read the base DPCD caps for @aux. Additionally, this function
-+ * checks for and reads the extended DPRX caps (%DP_DP13_DPCD_REV) if
-+ * present.
-+ *
-+ * Returns: %0 if the DPCD was read successfully, negative error code
-+ * otherwise.
-+ */
-+int drm_dp_read_dpcd_caps(struct drm_dp_aux *aux,
-+			  u8 dpcd[DP_RECEIVER_CAP_SIZE])
-+{
-+	int ret;
-+
-+	ret = drm_dp_dpcd_read(aux, DP_DPCD_REV, dpcd, DP_RECEIVER_CAP_SIZE);
-+	if (ret < 0)
-+		return ret;
-+	if (ret != DP_RECEIVER_CAP_SIZE || dpcd[DP_DPCD_REV] == 0)
-+		return -EIO;
-+
-+	ret = drm_dp_read_extended_dpcd_caps(aux, dpcd);
-+	if (ret < 0)
-+		return ret;
-+
-+	DRM_DEBUG_KMS("%s: DPCD: %*ph\n",
-+		      aux->name, DP_RECEIVER_CAP_SIZE, dpcd);
-+
-+	return ret;
-+}
-+EXPORT_SYMBOL(drm_dp_read_dpcd_caps);
-+
- /**
-  * drm_dp_read_downstream_info() - read DPCD downstream port info if available
-  * @aux: DisplayPort AUX channel
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 0de94fc6289be..284b15f845926 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -4449,62 +4449,6 @@ intel_dp_link_down(struct intel_encoder *encoder,
- 	}
- }
- 
--static void
--intel_dp_extended_receiver_capabilities(struct intel_dp *intel_dp)
--{
--	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
--	u8 dpcd_ext[6];
--
--	/*
--	 * Prior to DP1.3 the bit represented by
--	 * DP_EXTENDED_RECEIVER_CAP_FIELD_PRESENT was reserved.
--	 * if it is set DP_DPCD_REV at 0000h could be at a value less than
--	 * the true capability of the panel. The only way to check is to
--	 * then compare 0000h and 2200h.
--	 */
--	if (!(intel_dp->dpcd[DP_TRAINING_AUX_RD_INTERVAL] &
--	      DP_EXTENDED_RECEIVER_CAP_FIELD_PRESENT))
--		return;
--
--	if (drm_dp_dpcd_read(&intel_dp->aux, DP_DP13_DPCD_REV,
--			     &dpcd_ext, sizeof(dpcd_ext)) != sizeof(dpcd_ext)) {
--		drm_err(&i915->drm,
--			"DPCD failed read at extended capabilities\n");
--		return;
--	}
--
--	if (intel_dp->dpcd[DP_DPCD_REV] > dpcd_ext[DP_DPCD_REV]) {
--		drm_dbg_kms(&i915->drm,
--			    "DPCD extended DPCD rev less than base DPCD rev\n");
--		return;
--	}
--
--	if (!memcmp(intel_dp->dpcd, dpcd_ext, sizeof(dpcd_ext)))
--		return;
--
--	drm_dbg_kms(&i915->drm, "Base DPCD: %*ph\n",
--		    (int)sizeof(intel_dp->dpcd), intel_dp->dpcd);
--
--	memcpy(intel_dp->dpcd, dpcd_ext, sizeof(dpcd_ext));
--}
--
--bool
--intel_dp_read_dpcd(struct intel_dp *intel_dp)
--{
--	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
--
--	if (drm_dp_dpcd_read(&intel_dp->aux, 0x000, intel_dp->dpcd,
--			     sizeof(intel_dp->dpcd)) < 0)
--		return false; /* aux transfer failed */
--
--	intel_dp_extended_receiver_capabilities(intel_dp);
--
--	drm_dbg_kms(&i915->drm, "DPCD: %*ph\n", (int)sizeof(intel_dp->dpcd),
--		    intel_dp->dpcd);
--
--	return intel_dp->dpcd[DP_DPCD_REV] != 0;
--}
--
- bool intel_dp_get_colorimetry_status(struct intel_dp *intel_dp)
- {
- 	u8 dprx = 0;
-@@ -4563,7 +4507,7 @@ intel_edp_init_dpcd(struct intel_dp *intel_dp)
- 	/* this function is meant to be called only once */
- 	drm_WARN_ON(&dev_priv->drm, intel_dp->dpcd[DP_DPCD_REV] != 0);
- 
--	if (!intel_dp_read_dpcd(intel_dp))
-+	if (drm_dp_read_dpcd_caps(&intel_dp->aux, intel_dp->dpcd) != 0)
- 		return false;
- 
- 	drm_dp_read_desc(&intel_dp->aux, &intel_dp->desc,
-@@ -4650,7 +4594,7 @@ intel_dp_get_dpcd(struct intel_dp *intel_dp)
- {
- 	int ret;
- 
--	if (!intel_dp_read_dpcd(intel_dp))
-+	if (drm_dp_read_dpcd_caps(&intel_dp->aux, intel_dp->dpcd))
- 		return false;
- 
- 	/*
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.h b/drivers/gpu/drm/i915/display/intel_dp.h
-index b901ab850cbd9..0a3af3410d52e 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.h
-+++ b/drivers/gpu/drm/i915/display/intel_dp.h
-@@ -99,7 +99,6 @@ bool intel_dp_source_supports_hbr3(struct intel_dp *intel_dp);
- bool
- intel_dp_get_link_status(struct intel_dp *intel_dp, u8 *link_status);
- 
--bool intel_dp_read_dpcd(struct intel_dp *intel_dp);
- bool intel_dp_get_colorimetry_status(struct intel_dp *intel_dp);
- int intel_dp_link_required(int pixel_clock, int bpp);
- int intel_dp_max_data_rate(int max_link_clock, int max_lanes);
-diff --git a/drivers/gpu/drm/i915/display/intel_lspcon.c b/drivers/gpu/drm/i915/display/intel_lspcon.c
-index b781bf4696443..dc1b35559afdf 100644
---- a/drivers/gpu/drm/i915/display/intel_lspcon.c
-+++ b/drivers/gpu/drm/i915/display/intel_lspcon.c
-@@ -571,7 +571,7 @@ bool lspcon_init(struct intel_digital_port *dig_port)
- 		return false;
- 	}
- 
--	if (!intel_dp_read_dpcd(dp)) {
-+	if (drm_dp_read_dpcd_caps(&dp->aux, dp->dpcd) != 0) {
- 		DRM_ERROR("LSPCON DPCD read failed\n");
- 		return false;
- 	}
-diff --git a/include/drm/drm_dp_helper.h b/include/drm/drm_dp_helper.h
-index bc5cb8c503fbc..85513eeb21966 100644
---- a/include/drm/drm_dp_helper.h
-+++ b/include/drm/drm_dp_helper.h
-@@ -1607,6 +1607,9 @@ static inline ssize_t drm_dp_dpcd_writeb(struct drm_dp_aux *aux,
- 	return drm_dp_dpcd_write(aux, offset, &value, 1);
- }
- 
-+int drm_dp_read_dpcd_caps(struct drm_dp_aux *aux,
-+			  u8 dpcd[DP_RECEIVER_CAP_SIZE]);
-+
- int drm_dp_dpcd_read_link_status(struct drm_dp_aux *aux,
- 				 u8 status[DP_LINK_STATUS_SIZE]);
- 
--- 
-2.26.2
-
+> > >
+> > > I'm not sure that this is a trick. Stopping at zero sg_dma_len() was
+> > > somewhere documented.
+> >
+> > Well whatever you want to call it, it is ugly to have some drivers doing
+> > one thing with the returned value and others assuming there's an extra
+> > zero at the end. It just causes confusion for people reading/copying the
+> > code. It would be better if they are all consistent. However, I concede
+> > stopping at zero should not be broken, presently.
+> >
+> > Logan
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
