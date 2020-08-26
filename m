@@ -2,78 +2,42 @@ Return-Path: <SRS0=RAJW=CE=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3E36AC433E1
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 13:18:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B4256C433E3
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 13:28:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0CDE62080C
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 13:18:17 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rkPU8zA6"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0CDE62080C
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 5841B214F1
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 13:28:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5841B214F1
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8CF046E134;
-	Wed, 26 Aug 2020 13:18:17 +0000 (UTC)
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
- [IPv6:2a00:1450:4864:20::442])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 242E06E9EE;
- Wed, 26 Aug 2020 01:51:48 +0000 (UTC)
-Received: by mail-wr1-x442.google.com with SMTP id a5so163729wrm.6;
- Tue, 25 Aug 2020 18:51:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=6lKBXswTrzhA0xBsr6HB8AlB5+bACM8/QHtln5EsmDM=;
- b=rkPU8zA6FnvPI7YRdwlrF32Z+jufZRPGDhsVbublBxI+2WdfyrQZ4OMYugj2LjMgRs
- tcBC2iVxYnWeg8Zk6YWzQfE0csZvqLsQKSxRKrpJnxvpSdJ9HVsaxBuVVCZ33a7Fy89F
- YzL00nv71TEx1KwJewv+LaAx654GeLawZ3dB08BJtkewTW0RxdimmA59/2c32/oJxdK5
- dSKP0GfmMvAUQJfWlO1JkSN5McliJO+sig5zbM32H0/Kuj9D+O0+2QWE9ikcOBAgMoCE
- knF+3yVSHzD+dH7rwDtBk3Dij3c2i2NaVRbX/WHThEgypBISYgNE6EdHQjalStrd+n7R
- ERAQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=6lKBXswTrzhA0xBsr6HB8AlB5+bACM8/QHtln5EsmDM=;
- b=Jir5oU4JYAc/XwzFornCF+JetY+nb0W9W/2VK191K3ybnniVSatqirM8g3123gXWU7
- gbDq1VhNYDde/t6awFAGHqnXD+0OJzCuy7ScZJltJgAhFppedpQoz3QRe6WUNvdcdotT
- RrLX53clzORfON5s0osb5i17uumyV87qyHKJ/I826erHD4mbnx08XB4kGSqmF3Hoj4Qh
- hAdeCwj45X2ARPmBmx+wfTbBLTSZ57uk6UjOLb94ADnQH4VRkVE9bccuz2b7MB2cemij
- cefWQVL3N4bUgDFduU82yvb2Ul0JiXxYmPj++glmd2EZNxNB70dZsbruAT96LVgRXv2D
- W17g==
-X-Gm-Message-State: AOAM531h1I51DHsvyKU3cRxxTFTeEouXdDYdtOICUXnc7L/neGNsCmTz
- WJxKNqMpDWc1UStY+6JCj6PGiUCzefDMLvIEKtE=
-X-Google-Smtp-Source: ABdhPJyeqlKj5YPc50Em7rO4ODLMTr2DC/m+jfMJDMOpF+XoOI2kKLAaJQ+LNrc4dhPoiuNEDU0+R/Ls8lv1xf0wUss=
-X-Received: by 2002:adf:db43:: with SMTP id f3mr14164955wrj.219.1598406706678; 
- Tue, 25 Aug 2020 18:51:46 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F39AE6E8F1;
+	Wed, 26 Aug 2020 13:28:25 +0000 (UTC)
+Received: from fireflyinternet.com (unknown [77.68.26.236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BEB476E11F
+ for <intel-gfx@lists.freedesktop.org>; Wed, 26 Aug 2020 13:28:24 +0000 (UTC)
+X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
+ x-ip-name=78.156.65.138; 
+Received: from build.alporthouse.com (unverified [78.156.65.138]) 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22244760-1500050 
+ for multiple; Wed, 26 Aug 2020 14:28:18 +0100
+From: Chris Wilson <chris@chris-wilson.co.uk>
+To: intel-gfx@lists.freedesktop.org
+Date: Wed, 26 Aug 2020 14:28:05 +0100
+Message-Id: <20200826132811.17577-33-chris@chris-wilson.co.uk>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20200826132811.17577-1-chris@chris-wilson.co.uk>
+References: <20200826132811.17577-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-References: <20200817091617.28119-1-allen.cryptic@gmail.com>
- <20200817091617.28119-2-allen.cryptic@gmail.com>
- <b5508ca4-0641-7265-2939-5f03cbfab2e2@kernel.dk>
- <202008171228.29E6B3BB@keescook>
- <161b75f1-4e88-dcdf-42e8-b22504d7525c@kernel.dk>
- <202008171246.80287CDCA@keescook>
- <df645c06-c30b-eafa-4d23-826b84f2ff48@kernel.dk>
- <1597780833.3978.3.camel@HansenPartnership.com>
- <f3312928-430c-25f3-7112-76f2754df080@kernel.dk>
- <1597849185.3875.7.camel@HansenPartnership.com>
- <CAOMdWSJRR0BhjJK1FxD7UKxNd5sk4ycmEX6TYtJjRNR6UFAj6Q@mail.gmail.com>
- <1597873172.4030.2.camel@HansenPartnership.com>
-In-Reply-To: <1597873172.4030.2.camel@HansenPartnership.com>
-From: Allen Pais <allen.cryptic@gmail.com>
-Date: Wed, 26 Aug 2020 07:21:35 +0530
-Message-ID: <CAEogwTCH8qqjAnSpT0GDn+NuAps8dNbfcPVQ9h8kfOWNbzrD0w@mail.gmail.com>
-To: James Bottomley <James.Bottomley@hansenpartnership.com>
-X-Mailman-Approved-At: Wed, 26 Aug 2020 13:18:16 +0000
-Subject: Re: [Intel-gfx] [PATCH] block: convert tasklets to use new
- tasklet_setup() API
+Subject: [Intel-gfx] [PATCH 33/39] drm/i915/gt: Resubmit the virtual engine
+ on schedule-out
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,89 +50,244 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Ulf Hansson <ulf.hansson@linaro.org>,
- linux-atm-general@lists.sourceforge.net, manohar.vanga@gmail.com,
- airlied@linux.ie, linux-hyperv@vger.kernel.org,
- dri-devel@lists.freedesktop.org, sre@kernel.org, kys@microsoft.com,
- anton.ivanov@cambridgegreys.com, devel@driverdev.osuosl.org,
- linux-s390@vger.kernel.org, linux1394-devel@lists.sourceforge.net,
- maximlevitsky@gmail.com, richard@nod.at, deller@gmx.de,
- jassisinghbrar@gmail.com, linux-spi@vger.kernel.org, 3chas3@gmail.com,
- intel-gfx@lists.freedesktop.org, Jakub Kicinski <kuba@kernel.org>,
- mporter@kernel.crashing.org, jdike@addtoit.com,
- Kees Cook <keescook@chromium.org>, oakad@yahoo.com, s.hauer@pengutronix.de,
- linux-input@vger.kernel.org, linux-um@lists.infradead.org,
- linux-block@vger.kernel.org, broonie@kernel.org,
- openipmi-developer@lists.sourceforge.net, mitch@sfgoth.com,
- linux-arm-kernel@lists.infradead.org, Jens Axboe <axboe@kernel.dk>,
- linux-parisc@vger.kernel.org, netdev@vger.kernel.org, martyn@welchs.me.uk,
- dmitry.torokhov@gmail.com, linux-mmc@vger.kernel.org,
- Allen <allen.lkml@gmail.com>, linux-kernel@vger.kernel.org,
- alex.bou9@gmail.com, stefanr@s5r6.in-berlin.de, linux-ntb@googlegroups.com,
- Romain Perier <romain.perier@gmail.com>, shawnguo@kernel.org,
- David Miller <davem@davemloft.net>
+Cc: Chris Wilson <chris@chris-wilson.co.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Aug 20, 2020 at 3:09 AM James Bottomley
-<James.Bottomley@hansenpartnership.com> wrote:
->
-> On Wed, 2020-08-19 at 21:54 +0530, Allen wrote:
-> > > [...]
-> > > > > Since both threads seem to have petered out, let me suggest in
-> > > > > kernel.h:
-> > > > >
-> > > > > #define cast_out(ptr, container, member) \
-> > > > >     container_of(ptr, typeof(*container), member)
-> > > > >
-> > > > > It does what you want, the argument order is the same as
-> > > > > container_of with the only difference being you name the
-> > > > > containing structure instead of having to specify its type.
-> > > >
-> > > > Not to incessantly bike shed on the naming, but I don't like
-> > > > cast_out, it's not very descriptive. And it has connotations of
-> > > > getting rid of something, which isn't really true.
-> > >
-> > > Um, I thought it was exactly descriptive: you're casting to the
-> > > outer container.  I thought about following the C++ dynamic casting
-> > > style, so out_cast(), but that seemed a bit pejorative.  What about
-> > > outer_cast()?
-> > >
-> > > > FWIW, I like the from_ part of the original naming, as it has
-> > > > some clues as to what is being done here. Why not just
-> > > > from_container()? That should immediately tell people what it
-> > > > does without having to look up the implementation, even before
-> > > > this becomes a part of the accepted coding norm.
-> > >
-> > > I'm not opposed to container_from() but it seems a little less
-> > > descriptive than outer_cast() but I don't really care.  I always
-> > > have to look up container_of() when I'm using it so this would just
-> > > be another macro of that type ...
-> > >
-> >
-> >  So far we have a few which have been suggested as replacement
-> > for from_tasklet()
-> >
-> > - out_cast() or outer_cast()
-> > - from_member().
-> > - container_from() or from_container()
-> >
-> > from_container() sounds fine, would trimming it a bit work? like
-> > from_cont().
->
-> I'm fine with container_from().  It's the same form as container_of()
-> and I think we need urgent agreement to not stall everything else so
-> the most innocuous name is likely to get the widest acceptance.
+Having recognised that we do not change the sibling until we schedule
+out, we can then defer the decision to resubmit the virtual engine from
+the unwind of the active queue to scheduling out of the virtual context.
+This improves our resilence in virtual engine scheduling, and should
+eliminate the rare cases of gem_exec_balance failing.
 
-Kees,
+By keeping the unwind order intact on the local engine, we can preserve
+data dependency ordering while doing a preempt-to-busy pass until we
+have determined the new ELSP. This means that if we try to timeslice
+between a virtual engine and a data-dependent ordinary request, the pair
+will maintain their relative ordering and we will avoid the
+resubmission, cancelling the timeslicing until further change.
 
-  Will you be  sending the newly proposed API to Linus? I have V2
-which uses container_from()
-ready to be sent out.
+The dilemma though is that we then may end up in a situation where the
+'demotion' of the virtual request to an ordinary request in the engine
+queue results in filling the ELSP[] with virtual requests instead of
+spreading the load across the engines. To compensate for this, we mark
+each virtual request and refuse to resubmit a virtual request in the
+secondary ELSP slots, thus forcing subsequent virtual requests to be
+scheduled out after timeslicing. By delaying the decision until we
+schedule out, we will avoid unnecessary resubmission.
 
-Thanks.
+Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/2079
+Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/2098
+Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_lrc.c    | 123 +++++++++++++++----------
+ drivers/gpu/drm/i915/gt/selftest_lrc.c |   2 +-
+ 2 files changed, 77 insertions(+), 48 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
+index f98d5fd81904..69dccd17dc39 100644
+--- a/drivers/gpu/drm/i915/gt/intel_lrc.c
++++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
+@@ -1111,39 +1111,23 @@ __unwind_incomplete_requests(struct intel_engine_cs *engine)
+ 
+ 		__i915_request_unsubmit(rq);
+ 
+-		/*
+-		 * Push the request back into the queue for later resubmission.
+-		 * If this request is not native to this physical engine (i.e.
+-		 * it came from a virtual source), push it back onto the virtual
+-		 * engine so that it can be moved across onto another physical
+-		 * engine as load dictates.
+-		 */
+-		if (likely(rq->execution_mask == engine->mask)) {
+-			GEM_BUG_ON(rq_prio(rq) == I915_PRIORITY_INVALID);
+-			if (rq_prio(rq) != prio) {
+-				prio = rq_prio(rq);
+-				pl = i915_sched_lookup_priolist(engine, prio);
+-			}
+-			GEM_BUG_ON(RB_EMPTY_ROOT(&engine->execlists.queue.rb_root));
+-
+-			list_move(&rq->sched.link, pl);
+-			set_bit(I915_FENCE_FLAG_PQUEUE, &rq->fence.flags);
++		GEM_BUG_ON(rq_prio(rq) == I915_PRIORITY_INVALID);
++		if (rq_prio(rq) != prio) {
++			prio = rq_prio(rq);
++			pl = i915_sched_lookup_priolist(engine, prio);
++		}
++		GEM_BUG_ON(RB_EMPTY_ROOT(&engine->execlists.queue.rb_root));
+ 
+-			/* Check in case we rollback so far we wrap [size/2] */
+-			if (intel_ring_direction(rq->ring,
+-						 intel_ring_wrap(rq->ring,
+-								 rq->tail),
+-						 rq->ring->tail) > 0)
+-				rq->context->lrc.desc |= CTX_DESC_FORCE_RESTORE;
++		list_move(&rq->sched.link, pl);
++		set_bit(I915_FENCE_FLAG_PQUEUE, &rq->fence.flags);
+ 
+-			active = rq;
+-		} else {
+-			struct intel_engine_cs *owner = rq->context->engine;
++		/* Check in case we rollback so far we wrap [size/2] */
++		if (intel_ring_direction(rq->ring,
++					 intel_ring_wrap(rq->ring, rq->tail),
++					 rq->ring->tail) > 0)
++			rq->context->lrc.desc |= CTX_DESC_FORCE_RESTORE;
+ 
+-			WRITE_ONCE(rq->engine, owner);
+-			owner->submit_request(rq);
+-			active = NULL;
+-		}
++		active = rq;
+ 	}
+ 
+ 	return active;
+@@ -1384,6 +1368,20 @@ static inline void execlists_schedule_in(struct i915_request *rq, int idx)
+ 	GEM_BUG_ON(intel_context_inflight(ce) != rq->engine);
+ }
+ 
++static void
++resubmit_virtual_request(struct i915_request *rq, struct virtual_engine *ve)
++{
++	struct intel_engine_cs *engine = rq->engine;
++
++	spin_lock_irq(&engine->active.lock);
++
++	clear_bit(I915_FENCE_FLAG_PQUEUE, &rq->fence.flags);
++	WRITE_ONCE(rq->engine, &ve->base);
++	ve->base.submit_request(rq);
++
++	spin_unlock_irq(&engine->active.lock);
++}
++
+ static void kick_siblings(struct i915_request *rq, struct intel_context *ce)
+ {
+ 	struct virtual_engine *ve = container_of(ce, typeof(*ve), context);
+@@ -1404,6 +1402,16 @@ static void kick_siblings(struct i915_request *rq, struct intel_context *ce)
+ 			cpu_relax();
+ 	}
+ 
++	/*
++	 * This engine is now too busy to run this virtual request, so
++	 * see if we can find an alternative engine for it to execute on.
++	 * Once a request has become bonded to this engine, we treat it the
++	 * same as other native request.
++	 */
++	if (i915_request_in_priority_queue(rq) &&
++	    rq->execution_mask != engine->mask)
++		resubmit_virtual_request(rq, ve);
++
+ 	if (READ_ONCE(ve->request))
+ 		tasklet_hi_schedule(&ve->base.execlists.tasklet);
+ }
+@@ -1645,6 +1653,20 @@ assert_pending_valid(const struct intel_engine_execlists *execlists,
+ 		}
+ 		sentinel = i915_request_has_sentinel(rq);
+ 
++		/*
++		 * We want virtual requests to only be in the first slot so
++		 * that they are never stuck behind a hog and can be immediately
++		 * transferred onto the next idle engine.
++		 */
++		if (rq->execution_mask != engine->mask &&
++		    port != execlists->pending) {
++			GEM_TRACE_ERR("%s: virtual engine:%llx not in prime position[%zd]\n",
++				      engine->name,
++				      ce->timeline->fence_context,
++				      port - execlists->pending);
++			return false;
++		}
++
+ 		/* Hold tightly onto the lock to prevent concurrent retires! */
+ 		if (!spin_trylock_irqsave(&rq->lock, flags))
+ 			continue;
+@@ -2320,6 +2342,15 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
+ 				if (i915_request_has_sentinel(last))
+ 					goto done;
+ 
++				/*
++				 * We avoid submitting virtual requests into
++				 * the secondary ports so that we can migrate
++				 * the request immediately to another engine
++				 * rather than wait for the primary request.
++				 */
++				if (rq->execution_mask != engine->mask)
++					goto done;
++
+ 				/*
+ 				 * If GVT overrides us we only ever submit
+ 				 * port[0], leaving port[1] empty. Note that we
+@@ -5666,7 +5697,6 @@ static void virtual_submission_tasklet(unsigned long data)
+ static void virtual_submit_request(struct i915_request *rq)
+ {
+ 	struct virtual_engine *ve = to_virtual_engine(rq->engine);
+-	struct i915_request *old;
+ 	unsigned long flags;
+ 
+ 	ENGINE_TRACE(&ve->base, "rq=%llx:%lld\n",
+@@ -5677,28 +5707,27 @@ static void virtual_submit_request(struct i915_request *rq)
+ 
+ 	spin_lock_irqsave(&ve->base.active.lock, flags);
+ 
+-	old = ve->request;
+-	if (old) { /* background completion event from preempt-to-busy */
+-		GEM_BUG_ON(!i915_request_completed(old));
+-		__i915_request_submit(old);
+-		i915_request_put(old);
+-	}
+-
++	/* By the time we resubmit a request, it may be completed */
+ 	if (i915_request_completed(rq)) {
+ 		__i915_request_submit(rq);
++		goto unlock;
++	}
+ 
+-		ve->base.execlists.queue_priority_hint = INT_MIN;
+-		ve->request = NULL;
+-	} else {
+-		ve->base.execlists.queue_priority_hint = rq_prio(rq);
+-		ve->request = i915_request_get(rq);
++	if (ve->request) { /* background completion from preempt-to-busy */
++		GEM_BUG_ON(!i915_request_completed(ve->request));
++		__i915_request_submit(ve->request);
++		i915_request_put(ve->request);
++	}
+ 
+-		GEM_BUG_ON(!list_empty(virtual_queue(ve)));
+-		list_move_tail(&rq->sched.link, virtual_queue(ve));
++	ve->base.execlists.queue_priority_hint = rq_prio(rq);
++	ve->request = i915_request_get(rq);
+ 
+-		tasklet_hi_schedule(&ve->base.execlists.tasklet);
+-	}
++	GEM_BUG_ON(!list_empty(virtual_queue(ve)));
++	list_move_tail(&rq->sched.link, virtual_queue(ve));
+ 
++	tasklet_hi_schedule(&ve->base.execlists.tasklet);
++
++unlock:
+ 	spin_unlock_irqrestore(&ve->base.active.lock, flags);
+ }
+ 
+diff --git a/drivers/gpu/drm/i915/gt/selftest_lrc.c b/drivers/gpu/drm/i915/gt/selftest_lrc.c
+index 37cb51c3f4f6..fbbd8343d7f6 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_lrc.c
++++ b/drivers/gpu/drm/i915/gt/selftest_lrc.c
+@@ -4589,7 +4589,7 @@ static int reset_virtual_engine(struct intel_gt *gt,
+ 	spin_lock_irq(&engine->active.lock);
+ 	__unwind_incomplete_requests(engine);
+ 	spin_unlock_irq(&engine->active.lock);
+-	GEM_BUG_ON(rq->engine != ve->engine);
++	GEM_BUG_ON(rq->engine != engine);
+ 
+ 	/* Reset the engine while keeping our active request on hold */
+ 	execlists_hold(engine, rq);
+-- 
+2.20.1
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
