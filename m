@@ -7,44 +7,47 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6F333C433E1
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 18:36:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B5749C433DF
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 19:05:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3E91B208E4
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 18:36:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3E91B208E4
+	by mail.kernel.org (Postfix) with ESMTPS id 886002078A
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 19:05:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 886002078A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C85076E85E;
-	Wed, 26 Aug 2020 18:36:38 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BF8346E85E
- for <intel-gfx@lists.freedesktop.org>; Wed, 26 Aug 2020 18:36:36 +0000 (UTC)
-IronPort-SDR: XaE6o5Nlz1FYdo8B/xTEyK9lvS3RiB1EEil+592FsQKRM9L4ccqidOG/3WkVFvLBbcuzt3GLmK
- n4G3pRaUO/nA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9725"; a="220621222"
-X-IronPort-AV: E=Sophos;i="5.76,356,1592895600"; d="scan'208";a="220621222"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 089F96E369;
+	Wed, 26 Aug 2020 19:05:33 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA1D46E996
+ for <intel-gfx@lists.freedesktop.org>; Wed, 26 Aug 2020 19:05:31 +0000 (UTC)
+IronPort-SDR: nl6MoeArv4QNYoTi2Qm7KQpGrb4RkYAzEDiZbxuhoMDjDipEUpHIxP4nnV8SDcMKYVWTfvd76e
+ MGTYRAxj/wiw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9725"; a="153790974"
+X-IronPort-AV: E=Sophos;i="5.76,356,1592895600"; d="scan'208";a="153790974"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Aug 2020 11:36:36 -0700
-IronPort-SDR: TlUkMNgagVPrJ0f7QB6UuryQb4mRdgUUozkSghXFeWYOVMkTOt9YMW0POsTmVSvZVcf1A4F0TF
- iSPIhjtZ/TFw==
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Aug 2020 12:05:31 -0700
+IronPort-SDR: LJvGiIV6jtJLzc0TFm5qhJa/ZQllHcDqWutI04bQpfE3xpPOBah/ALIsF/7d5CAlEdOPYtLdMz
+ WS42F72SJvBA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.76,356,1592895600"; d="scan'208";a="295464415"
-Received: from gtax-ubuntu-2004.igk.intel.com ([10.102.46.77])
- by orsmga003.jf.intel.com with ESMTP; 26 Aug 2020 11:36:35 -0700
-From: Sowmya Kaparthi <sowmyax.kaparthi@intel.com>
+X-IronPort-AV: E=Sophos;i="5.76,356,1592895600"; d="scan'208";a="403157634"
+Received: from labuser-z97x-ud5h.jf.intel.com ([10.165.21.211])
+ by fmsmga001.fm.intel.com with ESMTP; 26 Aug 2020 12:05:31 -0700
+From: Manasi Navare <manasi.d.navare@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 26 Aug 2020 18:36:35 +0000
-Message-Id: <20200826183635.1569-1-sowmyax.kaparthi@intel.com>
-X-Mailer: git-send-email 2.25.1
+Date: Wed, 26 Aug 2020 12:06:55 -0700
+Message-Id: <20200826190657.18283-2-manasi.d.navare@intel.com>
+X-Mailer: git-send-email 2.19.1
+In-Reply-To: <20200826190657.18283-1-manasi.d.navare@intel.com>
+References: <20200826190657.18283-1-manasi.d.navare@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [igt-gpu-tools] Fixing the latency of hrtimer
+Subject: [Intel-gfx] [PATCH 2/4] drm/i915/display/dp: Add VRR crtc state
+ variables
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,48 +60,27 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The blocking/polling parameterized tests were introduced to test
-different hrtimer configurations.These tests check how many times the
-process wakes up to read the reports with different hrtimer values (=
-duration of test / hrtimer value). A user is more likely to choose a
-larger hrtimer value than the default 5ms to avoid wake up too frequently.
-
-Signed-off-by: Sowmya Kaparthi <sowmyax.kaparthi@intel.com>
----
- tests/i915/perf.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/tests/i915/perf.c b/tests/i915/perf.c
-index a894fd38..5fd1193f 100644
---- a/tests/i915/perf.c
-+++ b/tests/i915/perf.c
-@@ -4995,7 +4995,7 @@ igt_main
- 			      40 * 1000 * 1000 /* default 40ms hrtimer */);
- 		test_blocking(500 * 1000 /* 500us oa period */,
- 			      true /* set_kernel_hrtimer */,
--			      2 * 1000 * 1000 /* default 2ms hrtimer */);
-+			      10 * 1000 * 1000 /* default 10ms hrtimer */);
- 	}
- 
- 	igt_describe("Test polled read with default hrtimer frequency");
-@@ -5014,7 +5014,7 @@ igt_main
- 			     40 * 1000 * 1000 /* default 40ms hrtimer */);
- 		test_polling(500 * 1000 /* 500us oa period */,
- 			     true /* set_kernel_hrtimer */,
--			     2 * 1000 * 1000 /* default 2ms hrtimer */);
-+			     10 * 1000 * 1000 /* default 10ms hrtimer */);
- 	}
- 
- 	igt_describe("Test polled read with buffer size smaller than available data");
--- 
-2.25.1
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+SW50cm9kdWNlIFZSUiBzdHJ1Y3QgaW4gaW50ZWxfY3J0Y19zdGF0ZSBhbmQgYWRkClZSUiBjcnRj
+IHN0YXRlIHZhcmlhYmxlcyBFbmFibGUsIFZ0b3RhbG1pbiBhbmQgVnRvdGFsbWF4CnRvIGJlIGRl
+cml2ZWQgZnJvbSBtb2RlIHRpbWluZ3MgYW5kIFZSUiBjcnRjIHByb3BlcnR5LgoKQ2M6IFZpbGxl
+IFN5cmrDpGzDpCA8dmlsbGUuc3lyamFsYUBsaW51eC5pbnRlbC5jb20+ClNpZ25lZC1vZmYtYnk6
+IE1hbmFzaSBOYXZhcmUgPG1hbmFzaS5kLm5hdmFyZUBpbnRlbC5jb20+Ci0tLQogZHJpdmVycy9n
+cHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kaXNwbGF5X3R5cGVzLmggfCA3ICsrKysrKysKIDEg
+ZmlsZSBjaGFuZ2VkLCA3IGluc2VydGlvbnMoKykKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
+cm0vaTkxNS9kaXNwbGF5L2ludGVsX2Rpc3BsYXlfdHlwZXMuaCBiL2RyaXZlcnMvZ3B1L2RybS9p
+OTE1L2Rpc3BsYXkvaW50ZWxfZGlzcGxheV90eXBlcy5oCmluZGV4IDkzNDliMTVhZmZmNi4uYWI1
+N2YyMjU3MDZiIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVs
+X2Rpc3BsYXlfdHlwZXMuaAorKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVs
+X2Rpc3BsYXlfdHlwZXMuaApAQCAtMTA3Niw2ICsxMDc2LDEzIEBAIHN0cnVjdCBpbnRlbF9jcnRj
+X3N0YXRlIHsKIAlzdHJ1Y3QgaW50ZWxfZHNiICpkc2I7CiAKIAl1MzIgcHNyMl9tYW5fdHJhY2tf
+Y3RsOworCisJLyogVmFyaWFibGUgUmVmcmVzaCBSYXRlIHN0YXRlICovCisJc3RydWN0IHsKKwkJ
+Ym9vbCBlbmFibGU7CisJCXUxNiB2dG90YWxtaW47CisJCXUxNiB2dG90YWxtYXg7CisJfSB2cnI7
+CiB9OwogCiBlbnVtIGludGVsX3BpcGVfY3JjX3NvdXJjZSB7Ci0tIAoyLjE5LjEKCl9fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkludGVsLWdmeCBtYWlsaW5n
+IGxpc3QKSW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVk
+ZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ludGVsLWdmeAo=
