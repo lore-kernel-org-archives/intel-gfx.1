@@ -4,38 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
-	autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DE44CC433E1
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 13:29:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2E758C433E5
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 13:29:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BDB4F214F1
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 13:29:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BDB4F214F1
+	by mail.kernel.org (Postfix) with ESMTPS id 0D3CA214F1
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 13:29:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0D3CA214F1
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8541F6EA7E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD9316EA80;
 	Wed, 26 Aug 2020 13:29:08 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF71C6EA68
- for <intel-gfx@lists.freedesktop.org>; Wed, 26 Aug 2020 13:28:28 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4077E6EA5F
+ for <intel-gfx@lists.freedesktop.org>; Wed, 26 Aug 2020 13:28:30 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22244725-1500050 
- for multiple; Wed, 26 Aug 2020 14:28:12 +0100
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22244747-1500050 
+ for multiple; Wed, 26 Aug 2020 14:28:16 +0100
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 26 Aug 2020 14:27:33 +0100
-Message-Id: <20200826132811.17577-1-chris@chris-wilson.co.uk>
+Date: Wed, 26 Aug 2020 14:27:53 +0100
+Message-Id: <20200826132811.17577-21-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20200826132811.17577-1-chris@chris-wilson.co.uk>
+References: <20200826132811.17577-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 01/39] drm/i915/gem: Avoid implicit vmap for
- highmem on x86-32
+Subject: [Intel-gfx] [PATCH 21/39] drm/i915/gt: Protect context lifetime
+ with RCU
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,70 +50,99 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Harald Arnesen <harald@skogtun.org>, stable@vger.kernel.org,
- Chris Wilson <chris@chris-wilson.co.uk>
+Cc: Chris Wilson <chris@chris-wilson.co.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 32b, highmem uses a finite set of indirect PTE (i.e. vmap) to provide
-virtual mappings of the high pages. As these are finite, map_new_virtual()
-must wait for some other kmap() to finish when it runs out. If we map a
-large number of objects, there is no method for it to tell us to release
-the mappings, and we deadlock.
+Allow a brief period for continued access to a dead intel_context by
+deferring the release of the struct until after an RCU grace period.
+As we are using a dedicated slab cache for the contexts, we can defer
+the release of the slab pages via RCU, with the caveat that individual
+structs may be reused from the freelist within an RCU grace period. To
+handle that, we have to avoid clearing members of the zombie struct.
 
-However, if we make an explicit vmap of the page, that uses a larger
-vmalloc arena, and also has the ability to tell us to release unwanted
-mappings. Most importantly, it will fail and propagate an error instead
-of waiting forever.
+This is required for a later patch to handle locking around virtual
+requests in the signaler, as those requests may want to move between
+engines and be destroyed while we are holding b->irq_lock on a physical
+engine.
 
-Fixes: fb8621d3bee8 ("drm/i915: Avoid allocating a vmap arena for a single page") #x86-32
-References: e87666b52f00 ("drm/i915/shrinker: Hook up vmap allocation failure notifier")
+v2: Drop mutex_reinit(), if we never mark the mutex as destroyed we
+don't need to reset the debug code, at the loss of having the mutex
+debug code spot us attempting to destroy a locked mutex.
+v3: As the intended use will remain strongly referenced counted, with
+very little inflight access across reuse, drop the ctor.
+v4: Drop the unrequired change to remove the temporary reference around
+dropping the active context, and add back some more missing ctor
+operations.
+v5: The ctor is back. Tvrtko spotted that ce->signal_lock [introduced
+later] maybe accessed under RCU and so needs special care not to be
+reinitialised.
+v6: Don't mix SLAB_TYPESAFE_BY_RCU and RCU list iteration.
+
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-Cc: Harald Arnesen <harald@skogtun.org>
-Cc: <stable@vger.kernel.org> # v4.7+
 ---
- drivers/gpu/drm/i915/gem/i915_gem_pages.c | 26 +++++++++++++++++++++--
- 1 file changed, 24 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_context.c       | 12 +++++++++---
+ drivers/gpu/drm/i915/gt/intel_context_types.h | 11 ++++++++++-
+ 2 files changed, 19 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_pages.c b/drivers/gpu/drm/i915/gem/i915_gem_pages.c
-index 7050519c87a4..51b63e05dbe4 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_pages.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_pages.c
-@@ -255,8 +255,30 @@ static void *i915_gem_object_map(struct drm_i915_gem_object *obj,
- 		return NULL;
+diff --git a/drivers/gpu/drm/i915/gt/intel_context.c b/drivers/gpu/drm/i915/gt/intel_context.c
+index 61b05cd4c47a..52a836ef0006 100644
+--- a/drivers/gpu/drm/i915/gt/intel_context.c
++++ b/drivers/gpu/drm/i915/gt/intel_context.c
+@@ -25,11 +25,18 @@ static struct intel_context *intel_context_alloc(void)
+ 	return kmem_cache_zalloc(global.slab_ce, GFP_KERNEL);
+ }
  
- 	/* A single page can always be kmapped */
--	if (n_pte == 1 && type == I915_MAP_WB)
--		return kmap(sg_page(sgt->sgl));
-+	if (n_pte == 1 && type == I915_MAP_WB) {
-+		struct page *page = sg_page(sgt->sgl);
+-void intel_context_free(struct intel_context *ce)
++static void rcu_context_free(struct rcu_head *rcu)
+ {
++	struct intel_context *ce = container_of(rcu, typeof(*ce), rcu);
 +
-+		/*
-+		 * On 32b, highmem uses a finite set of indirect PTE (i.e.
-+		 * vmap) to provide virtual mappings of the high pages.
-+		 * As these are finite, map_new_virtual() must wait for some
-+		 * other kmap() to finish when it runs out. If we map a large
-+		 * number of objects, there is no method for it to tell us
-+		 * to release the mappings, and we deadlock.
-+		 *
-+		 * However, if we make an explicit vmap of the page, that
-+		 * uses a larger vmalloc arena, and also has the ability
-+		 * to tell us to release unwanted mappings. Most importantly,
-+		 * it will fail and propagate an error instead of waiting
-+		 * forever.
-+		 *
-+		 * So if the page is beyond the 32b boundary, make an explicit
-+		 * vmap. On 64b, this check will be optimised away as we can
-+		 * directly kmap any page on the system.
-+		 */
-+		if (!PageHighMem(page))
-+			return kmap(page);
-+	}
+ 	kmem_cache_free(global.slab_ce, ce);
+ }
  
- 	mem = stack;
- 	if (n_pte > ARRAY_SIZE(stack)) {
++void intel_context_free(struct intel_context *ce)
++{
++	call_rcu(&ce->rcu, rcu_context_free);
++}
++
+ struct intel_context *
+ intel_context_create(struct intel_engine_cs *engine)
+ {
+@@ -347,8 +354,7 @@ static int __intel_context_active(struct i915_active *active)
+ }
+ 
+ void
+-intel_context_init(struct intel_context *ce,
+-		   struct intel_engine_cs *engine)
++intel_context_init(struct intel_context *ce, struct intel_engine_cs *engine)
+ {
+ 	GEM_BUG_ON(!engine->cops);
+ 	GEM_BUG_ON(!engine->gt->vm);
+diff --git a/drivers/gpu/drm/i915/gt/intel_context_types.h b/drivers/gpu/drm/i915/gt/intel_context_types.h
+index 552cb57a2e8c..20cb5835d1c3 100644
+--- a/drivers/gpu/drm/i915/gt/intel_context_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_context_types.h
+@@ -44,7 +44,16 @@ struct intel_context_ops {
+ };
+ 
+ struct intel_context {
+-	struct kref ref;
++	/*
++	 * Note: Some fields may be accessed under RCU.
++	 *
++	 * Unless otherwise noted a field can safely be assumed to be protected
++	 * by strong reference counting.
++	 */
++	union {
++		struct kref ref; /* no kref_get_unless_zero()! */
++		struct rcu_head rcu;
++	};
+ 
+ 	struct intel_engine_cs *engine;
+ 	struct intel_engine_cs *inflight;
 -- 
 2.20.1
 
