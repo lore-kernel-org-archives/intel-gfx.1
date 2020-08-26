@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0C4E3C433E3
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 13:29:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 00BD5C433E5
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 13:29:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D1129221E2
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 13:29:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D1129221E2
+	by mail.kernel.org (Postfix) with ESMTPS id D588E214F1
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 13:29:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D588E214F1
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D39526EA89;
-	Wed, 26 Aug 2020 13:29:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E73BC6EA8C;
+	Wed, 26 Aug 2020 13:29:17 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0FB7D6EA60
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB1656E11F
  for <intel-gfx@lists.freedesktop.org>; Wed, 26 Aug 2020 13:28:30 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22244765-1500050 
- for multiple; Wed, 26 Aug 2020 14:28:19 +0100
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22244741-1500050 
+ for multiple; Wed, 26 Aug 2020 14:28:15 +0100
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 26 Aug 2020 14:28:10 +0100
-Message-Id: <20200826132811.17577-38-chris@chris-wilson.co.uk>
+Date: Wed, 26 Aug 2020 14:27:47 +0100
+Message-Id: <20200826132811.17577-15-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200826132811.17577-1-chris@chris-wilson.co.uk>
 References: <20200826132811.17577-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 38/39] drm/i915: Break up error capture
- compression loops with cond_resched()
+Subject: [Intel-gfx] [PATCH 15/39] drm/i915/gt: Retire cancelled requests on
+ unload
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,47 +50,43 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stable@vger.kernel.org, Chris Wilson <chris@chris-wilson.co.uk>
+Cc: Chris Wilson <chris@chris-wilson.co.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-As the error capture will compress user buffers as directed to by the
-user, it can take an arbitrary amount of time and space. Break up the
-compression loops with a call to cond_resched(), that will allow other
-processes to schedule (avoiding the soft lockups) and also serve as a
-warning should we try to make this loop atomic in the future.
+If we manage to hit the intel_gt_set_wedged_on_fini() while active, i.e.
+module unload during a stress test, we may cancel the requests but not
+clean up. This leads to a slow module unload as we wait for something or
+other to trigger the retirement flushing. Instead if we explicitly
+cancel then cleanup on an active unload, it should be instant.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-Cc: Mika Kuoppala <mika.kuoppala@linux.intel.com>
-Cc: stable@vger.kernel.org
-Reviewed-by: Mika Kuoppala <mika.kuoppala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/i915_gpu_error.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/i915/gt/intel_reset.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/i915_gpu_error.c b/drivers/gpu/drm/i915/i915_gpu_error.c
-index 2d76f3ddc571..70274fa0664d 100644
---- a/drivers/gpu/drm/i915/i915_gpu_error.c
-+++ b/drivers/gpu/drm/i915/i915_gpu_error.c
-@@ -311,6 +311,8 @@ static int compress_page(struct i915_vma_compress *c,
+diff --git a/drivers/gpu/drm/i915/gt/intel_reset.c b/drivers/gpu/drm/i915/gt/intel_reset.c
+index ac36b67fb46b..4e5e13dc95da 100644
+--- a/drivers/gpu/drm/i915/gt/intel_reset.c
++++ b/drivers/gpu/drm/i915/gt/intel_reset.c
+@@ -19,6 +19,7 @@
+ #include "intel_engine_pm.h"
+ #include "intel_gt.h"
+ #include "intel_gt_pm.h"
++#include "intel_gt_requests.h"
+ #include "intel_reset.h"
  
- 		if (zlib_deflate(zstream, Z_NO_FLUSH) != Z_OK)
- 			return -EIO;
-+
-+		cond_resched();
- 	} while (zstream->avail_in);
- 
- 	/* Fallback to uncompressed if we increase size? */
-@@ -397,6 +399,7 @@ static int compress_page(struct i915_vma_compress *c,
- 	if (!(wc && i915_memcpy_from_wc(ptr, src, PAGE_SIZE)))
- 		memcpy(ptr, src, PAGE_SIZE);
- 	dst->pages[dst->page_count++] = ptr;
-+	cond_resched();
- 
- 	return 0;
+ #include "uc/intel_guc.h"
+@@ -1370,6 +1371,7 @@ void intel_gt_set_wedged_on_fini(struct intel_gt *gt)
+ {
+ 	intel_gt_set_wedged(gt);
+ 	set_bit(I915_WEDGED_ON_FINI, &gt->reset.flags);
++	intel_gt_retire_requests(gt); /* cleanup any wedged requests */
  }
+ 
+ void intel_gt_init_reset(struct intel_gt *gt)
 -- 
 2.20.1
 
