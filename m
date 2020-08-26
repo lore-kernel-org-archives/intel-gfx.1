@@ -4,63 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-9.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS autolearn=unavailable autolearn_force=no
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 02A9DC433E4
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 92AE9C433E1
 	for <intel-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 18:25:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BE4D3207BC
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 18:25:34 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 5B03B207BC
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 18:25:35 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="eN6Ttlif"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BE4D3207BC
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="N9fNA0RM"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5B03B207BC
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 864BA6EA90;
-	Wed, 26 Aug 2020 18:25:24 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [63.128.21.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC4936E984
- for <intel-gfx@lists.freedesktop.org>; Wed, 26 Aug 2020 18:25:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D6126EA93;
+	Wed, 26 Aug 2020 18:25:26 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC3066EA9E
+ for <intel-gfx@lists.freedesktop.org>; Wed, 26 Aug 2020 18:25:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1598466320;
+ s=mimecast20190719; t=1598466323;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=+wo54Fztl+nW8iXS4XGGsRse4eb/aZW2O/0PU/MC/eQ=;
- b=eN6TtliflORRbj+IbClhtmy/IJQf8TSG4upCYL3lRuW4GF5LVSspg7UsmQ2pzplMyxhNmp
- xkZuR4wgMoLbT7zZuOrqxJhZUo0zNb1ouPq8WBotM98QKzRAY3xuG0RAqHLQLOWJ9GleiW
- YJ7CwTFH/0LBl9eOL/SyAfZDiVyv5Qg=
+ bh=dcFp48n/aLMtpSE/1lSAUTj8bSRshm4WBYhHn9wvw8Q=;
+ b=N9fNA0RMkcgdxnn50PPW3cgetpzkrqaxhXCfpyO3wm8VdTRquNzQcLlLKJ66/qhlnas+Qh
+ H/r3PZzuCA5L0PP10EdnvxFWzWj65b0/wcOEFuFod3ZLLqeEUabRJJVgtOh4CK1x2CawOA
+ KwYks6T+gwLjM47uwV5zWmO9iVZRHpc=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-142-AiJmwQihO8yU5cCvcUX-wA-1; Wed, 26 Aug 2020 14:25:17 -0400
-X-MC-Unique: AiJmwQihO8yU5cCvcUX-wA-1
+ us-mta-266-NJMvAa3eMmObAUD8K-updA-1; Wed, 26 Aug 2020 14:25:22 -0400
+X-MC-Unique: NJMvAa3eMmObAUD8K-updA-1
 Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
  [10.5.11.22])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 98B261015DBE;
- Wed, 26 Aug 2020 18:25:15 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 40C028015A8;
+ Wed, 26 Aug 2020 18:25:20 +0000 (UTC)
 Received: from Whitewolf.redhat.com (ovpn-119-77.rdu2.redhat.com
  [10.10.119.77])
- by smtp.corp.redhat.com (Postfix) with ESMTP id C225F1002382;
- Wed, 26 Aug 2020 18:25:14 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 9D6881002382;
+ Wed, 26 Aug 2020 18:25:18 +0000 (UTC)
 From: Lyude Paul <lyude@redhat.com>
 To: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  nouveau@lists.freedesktop.org
-Date: Wed, 26 Aug 2020 14:24:39 -0400
-Message-Id: <20200826182456.322681-4-lyude@redhat.com>
+Date: Wed, 26 Aug 2020 14:24:41 -0400
+Message-Id: <20200826182456.322681-6-lyude@redhat.com>
 In-Reply-To: <20200826182456.322681-1-lyude@redhat.com>
 References: <20200826182456.322681-1-lyude@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
-Subject: [Intel-gfx] [PATCH v5 03/20] drm/nouveau/kms/nv50-: Just use
- drm_dp_dpcd_read() in nouveau_dp.c
+Subject: [Intel-gfx] [PATCH v5 05/20] drm/nouveau/kms: Don't clear
+ DP_MST_CTRL DPCD in nv50_mstm_new()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,33 +73,51 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, Ben Skeggs <bskeggs@redhat.com>,
- open list <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: David Airlie <airlied@linux.ie>, James Jones <jajones@nvidia.com>,
+ open list <linux-kernel@vger.kernel.org>, Takashi Iwai <tiwai@suse.de>,
+ Ben Skeggs <bskeggs@redhat.com>, Alex Deucher <alexander.deucher@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-U2luY2UgdGhpcyBhY3R1YWxseSBsb2dzIGFjY2Vzc2VzLCB3ZSBzaG91bGQgcHJvYmFibHkgYWx3
-YXlzIGJlIHVzaW5nCnRoaXMgaW1ob+KApgoKU2lnbmVkLW9mZi1ieTogTHl1ZGUgUGF1bCA8bHl1
-ZGVAcmVkaGF0LmNvbT4KUmV2aWV3ZWQtYnk6IEJlbiBTa2VnZ3MgPGJza2VnZ3NAcmVkaGF0LmNv
-bT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vbm91dmVhdS9ub3V2ZWF1X2RwLmMgfCAxMiArKysrLS0t
-LS0tLS0KIDEgZmlsZSBjaGFuZ2VkLCA0IGluc2VydGlvbnMoKyksIDggZGVsZXRpb25zKC0pCgpk
-aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL25vdXZlYXUvbm91dmVhdV9kcC5jIGIvZHJpdmVy
-cy9ncHUvZHJtL25vdXZlYXUvbm91dmVhdV9kcC5jCmluZGV4IGM0ZTljMjFkNGRkMmIuLjhkYjky
-MTZkNTJjNjkgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9ub3V2ZWF1L25vdXZlYXVfZHAu
-YworKysgYi9kcml2ZXJzL2dwdS9kcm0vbm91dmVhdS9ub3V2ZWF1X2RwLmMKQEAgLTQyLDE2ICs0
-MiwxMiBAQCBub3V2ZWF1X2RwX2RldGVjdChzdHJ1Y3Qgbm91dmVhdV9jb25uZWN0b3IgKm52X2Nv
-bm5lY3RvciwKIHsKIAlzdHJ1Y3QgZHJtX2RldmljZSAqZGV2ID0gbnZfZW5jb2Rlci0+YmFzZS5i
-YXNlLmRldjsKIAlzdHJ1Y3Qgbm91dmVhdV9kcm0gKmRybSA9IG5vdXZlYXVfZHJtKGRldik7Ci0J
-c3RydWN0IG52a21faTJjX2F1eCAqYXV4OwotCXU4IGRwY2RbOF07CisJc3RydWN0IGRybV9kcF9h
-dXggKmF1eCA9ICZudl9jb25uZWN0b3ItPmF1eDsKKwl1OCBkcGNkW0RQX1JFQ0VJVkVSX0NBUF9T
-SVpFXTsKIAlpbnQgcmV0OwogCi0JYXV4ID0gbnZfZW5jb2Rlci0+YXV4OwotCWlmICghYXV4KQot
-CQlyZXR1cm4gLUVOT0RFVjsKLQotCXJldCA9IG52a21fcmRhdXgoYXV4LCBEUF9EUENEX1JFViwg
-ZHBjZCwgc2l6ZW9mKGRwY2QpKTsKLQlpZiAocmV0KQorCXJldCA9IGRybV9kcF9kcGNkX3JlYWQo
-YXV4LCBEUF9EUENEX1JFViwgZHBjZCwgRFBfUkVDRUlWRVJfQ0FQX1NJWkUpOworCWlmIChyZXQg
-IT0gc2l6ZW9mKGRwY2QpKQogCQlyZXR1cm4gcmV0OwogCiAJbnZfZW5jb2Rlci0+ZHAubGlua19i
-dyA9IDI3MDAwICogZHBjZFsxXTsKLS0gCjIuMjYuMgoKX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRlbC1nZnhA
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
-YW4vbGlzdGluZm8vaW50ZWwtZ2Z4Cg==
+Since fa3cdf8d0b09 ("drm/nouveau: Reset MST branching unit before
+enabling") we've been clearing DP_MST_CTRL before we start enabling MST.
+Since then clearing DP_MST_CTRL in nv50_mstm_new() has been unnecessary
+and redundant, so let's remove it.
+
+Signed-off-by: Lyude Paul <lyude@redhat.com>
+Reviewed-by: Ben Skeggs <bskeggs@redhat.com>
+---
+ drivers/gpu/drm/nouveau/dispnv50/disp.c | 11 -----------
+ 1 file changed, 11 deletions(-)
+
+diff --git a/drivers/gpu/drm/nouveau/dispnv50/disp.c b/drivers/gpu/drm/nouveau/dispnv50/disp.c
+index e7874877da858..c4d138f0ca054 100644
+--- a/drivers/gpu/drm/nouveau/dispnv50/disp.c
++++ b/drivers/gpu/drm/nouveau/dispnv50/disp.c
+@@ -1535,17 +1535,6 @@ nv50_mstm_new(struct nouveau_encoder *outp, struct drm_dp_aux *aux, int aux_max,
+ 	struct drm_device *dev = outp->base.base.dev;
+ 	struct nv50_mstm *mstm;
+ 	int ret;
+-	u8 dpcd;
+-
+-	/* This is a workaround for some monitors not functioning
+-	 * correctly in MST mode on initial module load.  I think
+-	 * some bad interaction with the VBIOS may be responsible.
+-	 *
+-	 * A good ol' off and on again seems to work here ;)
+-	 */
+-	ret = drm_dp_dpcd_readb(aux, DP_DPCD_REV, &dpcd);
+-	if (ret >= 0 && dpcd >= 0x12)
+-		drm_dp_dpcd_writeb(aux, DP_MSTM_CTRL, 0);
+ 
+ 	if (!(mstm = *pmstm = kzalloc(sizeof(*mstm), GFP_KERNEL)))
+ 		return -ENOMEM;
+-- 
+2.26.2
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
