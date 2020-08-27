@@ -2,76 +2,54 @@ Return-Path: <SRS0=KxAq=CF=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D803CC433E1
-	for <intel-gfx@archiver.kernel.org>; Thu, 27 Aug 2020 13:24:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6EA31C433DF
+	for <intel-gfx@archiver.kernel.org>; Thu, 27 Aug 2020 13:51:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AA140207CD
-	for <intel-gfx@archiver.kernel.org>; Thu, 27 Aug 2020 13:24:15 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="I80xaBRJ"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AA140207CD
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 4547B206F0
+	for <intel-gfx@archiver.kernel.org>; Thu, 27 Aug 2020 13:51:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4547B206F0
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 373F96E2A9;
-	Thu, 27 Aug 2020 13:24:15 +0000 (UTC)
-Received: from mail-oi1-x244.google.com (mail-oi1-x244.google.com
- [IPv6:2607:f8b0:4864:20::244])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB0846EB1E;
- Thu, 27 Aug 2020 01:37:59 +0000 (UTC)
-Received: by mail-oi1-x244.google.com with SMTP id z22so3313620oid.1;
- Wed, 26 Aug 2020 18:37:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=Rsb5LLd+wEYl5+11BE05ItDTZCXQhjeMW019xM5KW9w=;
- b=I80xaBRJ50n8a6fI5zGd+zDFXBJzdkM/CYwdFxWUUjYU3c+2p64n4BZ92Q57vwyNvT
- WA9AXEE5mkmSWs9RicapGSPmYl7SBg2jYYPKSa/nI/+15pdR7K1Y4Cu0DHfnjPwN8yXR
- icr8tNGeIcQL3s2nHPbJyB6yfauHJDS+gWazTyaRFZfsu6K/xYzwtyDy670Ye8cnRtyg
- TR/hJM9qLFyVWX5fPwsxGxi/JNo/PLB2M5jflTu50Xv+DnpTnsNDIefohCCH/iR6ipaV
- nyjrEne62FM9W1doljqrO4mZtREkO1PUraYtOXDLLpGubpcLL1+FWyQrEJDylKkUrU3D
- wKgA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=Rsb5LLd+wEYl5+11BE05ItDTZCXQhjeMW019xM5KW9w=;
- b=KlvsA7Shlx1OyAv0jhD8jEmcnXf2VNgMsTFddEcoW+9h/yHpxGUqFczuXH4wIU0evy
- MdqtACQe+IMz/0uzWMLXnQPbjkjCkjMJYCTxeXQZpvmcYe0+YqZDT86/MnPWFjQKQg0r
- px/iwNglayttpiqAs7bej19sKBy/NIV7UqkspakZP5bQN4I0Z4P+QcmpqBvuxJp6IzjY
- M7GOlHlfNXKNgpT6R5hpSKYrP6pifngK6beVypiJEFhkbftoP8Ca0TLRYynrOfM34Wnk
- +NXDEK2Id1Mn2kAKsMZgwzPxiYYtCzu+gbSc9N8YlSCfOhqe4W+lx4mAgNL9Uf+e6/Kq
- vWsw==
-X-Gm-Message-State: AOAM533ZH3+/hfjQ1kl8Gz+UK5rYCAmDdp1RfQgIL/dK+cGAf9gbcLw4
- DT8WHwVKPeURAxexTSeO0DxpGtCt7ctdBQTJwUU=
-X-Google-Smtp-Source: ABdhPJwhCHTUyQeL6NO7VZ9TErlPHSPJaUSJlRG8on4DJcl3XVowSsSaDNvfXk39W2OiRUOfnXZzLQickeYXItlZbbE=
-X-Received: by 2002:aca:ec95:: with SMTP id k143mr5299041oih.76.1598492278869; 
- Wed, 26 Aug 2020 18:37:58 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AA36B6E07B;
+	Thu, 27 Aug 2020 13:50:57 +0000 (UTC)
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3BE7E6E069;
+ Thu, 27 Aug 2020 13:50:56 +0000 (UTC)
+IronPort-SDR: ryq3+Y9UwLaTceV0Yf+ETv6+eq0mK0RFxLsjTYIXBE8Gq9cbVVp0PPTtFwc5ox869NLrRR+3Bp
+ gTGJflEfQcBg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9725"; a="218028069"
+X-IronPort-AV: E=Sophos;i="5.76,359,1592895600"; d="scan'208";a="218028069"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Aug 2020 06:50:55 -0700
+IronPort-SDR: ROk2sEy5DjeF13nIMr60DR/K8Q6X9Mh1wvDhBaEzk8LFWPUA0odTbyC00j591GLrPHPcRFt1xE
+ mH9ogS5hdkAg==
+X-IronPort-AV: E=Sophos;i="5.76,359,1592895600"; d="scan'208";a="475221159"
+Received: from jhaapako-mobl4.ger.corp.intel.com (HELO localhost)
+ ([10.249.33.115])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Aug 2020 06:50:48 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Lyude Paul <lyude@redhat.com>, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org
+In-Reply-To: <20200826182456.322681-10-lyude@redhat.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20200826182456.322681-1-lyude@redhat.com>
+ <20200826182456.322681-10-lyude@redhat.com>
+Date: Thu, 27 Aug 2020 16:50:46 +0300
+Message-ID: <87d03c5hah.fsf@intel.com>
 MIME-Version: 1.0
-References: <161b75f1-4e88-dcdf-42e8-b22504d7525c@kernel.dk>
- <202008171246.80287CDCA@keescook>
- <df645c06-c30b-eafa-4d23-826b84f2ff48@kernel.dk>
- <1597780833.3978.3.camel@HansenPartnership.com>
- <f3312928-430c-25f3-7112-76f2754df080@kernel.dk>
- <1597849185.3875.7.camel@HansenPartnership.com>
- <CAOMdWSJRR0BhjJK1FxD7UKxNd5sk4ycmEX6TYtJjRNR6UFAj6Q@mail.gmail.com>
- <1597873172.4030.2.camel@HansenPartnership.com>
- <CAEogwTCH8qqjAnSpT0GDn+NuAps8dNbfcPVQ9h8kfOWNbzrD0w@mail.gmail.com>
- <20200826095528.GX1793@kadam> <202008260811.1CE425B5C2@keescook>
-In-Reply-To: <202008260811.1CE425B5C2@keescook>
-From: Allen <allen.lkml@gmail.com>
-Date: Thu, 27 Aug 2020 07:07:47 +0530
-Message-ID: <CAOMdWSLyacdeoqnZBuLu6z1B6cY-WbtUJQm6+8=WHyE49tVaEg@mail.gmail.com>
-To: Kees Cook <keescook@chromium.org>
-X-Mailman-Approved-At: Thu, 27 Aug 2020 13:24:13 +0000
-Subject: Re: [Intel-gfx] [PATCH] block: convert tasklets to use new
- tasklet_setup() API
+Subject: Re: [Intel-gfx] [PATCH v5 09/20] drm/i915/dp: Extract
+ drm_dp_read_mst_cap()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,112 +62,128 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Ulf Hansson <ulf.hansson@linaro.org>,
- linux-atm-general@lists.sourceforge.net, s.hauer@pengutronix.de,
- manohar.vanga@gmail.com, airlied@linux.ie, linux-hyperv@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- James Bottomley <James.Bottomley@hansenpartnership.com>,
- linux1394-devel@lists.sourceforge.net, anton.ivanov@cambridgegreys.com,
- devel@driverdev.osuosl.org, linux-s390@vger.kernel.org,
- maximlevitsky@gmail.com, richard@nod.at, deller@gmx.de,
- jassisinghbrar@gmail.com, 3chas3@gmail.com, linux-input@vger.kernel.org,
- Jakub Kicinski <kuba@kernel.org>, mporter@kernel.crashing.org,
- jdike@addtoit.com, Dan Carpenter <dan.carpenter@oracle.com>, oakad@yahoo.com,
- intel-gfx@lists.freedesktop.org, linux-um@lists.infradead.org,
- linux-block@vger.kernel.org, Mark Brown <broonie@kernel.org>,
- openipmi-developer@lists.sourceforge.net, mitch@sfgoth.com,
- linux-arm-kernel@lists.infradead.org, Jens Axboe <axboe@kernel.dk>,
- linux-parisc@vger.kernel.org, netdev@vger.kernel.org, martyn@welchs.me.uk,
- dmitry.torokhov@gmail.com, linux-mmc@vger.kernel.org, sre@kernel.org,
- linux-spi@vger.kernel.org, alex.bou9@gmail.com,
- Allen Pais <allen.cryptic@gmail.com>, stefanr@s5r6.in-berlin.de,
- linux-ntb@googlegroups.com, Romain Perier <romain.perier@gmail.com>,
- shawnguo@kernel.org, David Miller <davem@davemloft.net>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@linux.ie>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ open list <linux-kernel@vger.kernel.org>, Maxime Ripard <mripard@kernel.org>,
+ Wambui Karuga <wambui.karugax@gmail.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Aug 26, 2020 at 8:43 PM Kees Cook <keescook@chromium.org> wrote:
+On Wed, 26 Aug 2020, Lyude Paul <lyude@redhat.com> wrote:
+> Just a tiny drive-by cleanup, we can consolidate i915's code for
+> checking for MST support into a helper to be shared across drivers.
 >
-> On Wed, Aug 26, 2020 at 12:55:28PM +0300, Dan Carpenter wrote:
-> > On Wed, Aug 26, 2020 at 07:21:35AM +0530, Allen Pais wrote:
-> > > On Thu, Aug 20, 2020 at 3:09 AM James Bottomley
-> > > <James.Bottomley@hansenpartnership.com> wrote:
-> > > >
-> > > > On Wed, 2020-08-19 at 21:54 +0530, Allen wrote:
-> > > > > > [...]
-> > > > > > > > Since both threads seem to have petered out, let me suggest in
-> > > > > > > > kernel.h:
-> > > > > > > >
-> > > > > > > > #define cast_out(ptr, container, member) \
-> > > > > > > >     container_of(ptr, typeof(*container), member)
-> > > > > > > >
-> > > > > > > > It does what you want, the argument order is the same as
-> > > > > > > > container_of with the only difference being you name the
-> > > > > > > > containing structure instead of having to specify its type.
-> > > > > > >
-> > > > > > > Not to incessantly bike shed on the naming, but I don't like
-> > > > > > > cast_out, it's not very descriptive. And it has connotations of
-> > > > > > > getting rid of something, which isn't really true.
-> > > > > >
-> > > > > > Um, I thought it was exactly descriptive: you're casting to the
-> > > > > > outer container.  I thought about following the C++ dynamic casting
-> > > > > > style, so out_cast(), but that seemed a bit pejorative.  What about
-> > > > > > outer_cast()?
-> > > > > >
-> > > > > > > FWIW, I like the from_ part of the original naming, as it has
-> > > > > > > some clues as to what is being done here. Why not just
-> > > > > > > from_container()? That should immediately tell people what it
-> > > > > > > does without having to look up the implementation, even before
-> > > > > > > this becomes a part of the accepted coding norm.
-> > > > > >
-> > > > > > I'm not opposed to container_from() but it seems a little less
-> > > > > > descriptive than outer_cast() but I don't really care.  I always
-> > > > > > have to look up container_of() when I'm using it so this would just
-> > > > > > be another macro of that type ...
-> > > > > >
-> > > > >
-> > > > >  So far we have a few which have been suggested as replacement
-> > > > > for from_tasklet()
-> > > > >
-> > > > > - out_cast() or outer_cast()
-> > > > > - from_member().
-> > > > > - container_from() or from_container()
-> > > > >
-> > > > > from_container() sounds fine, would trimming it a bit work? like
-> > > > > from_cont().
-> > > >
-> > > > I'm fine with container_from().  It's the same form as container_of()
-> > > > and I think we need urgent agreement to not stall everything else so
-> > > > the most innocuous name is likely to get the widest acceptance.
-> > >
-> > > Kees,
-> > >
-> > >   Will you be  sending the newly proposed API to Linus? I have V2
-> > > which uses container_from()
-> > > ready to be sent out.
-> >
-> > I liked that James swapped the first two arguments so that it matches
-> > container_of().  Plus it's nice that when you have:
-> >
-> >       struct whatever *foo = container_from(ptr, foo, member);
-> >
-> > Then it means that "ptr == &foo->member".
+> v5:
+> * Drop !!()
+> * Move drm_dp_has_mst() out of header
+> * Change name from drm_dp_has_mst() to drm_dp_read_mst_cap()
 >
-> I'm a bit stalled right now -- the merge window was keeping me busy, and
-> this week is the Linux Plumbers Conference. This is on my list, but I
-> haven't gotten back around to it. If you want, feel free to send the
-> container_from() patch; you might be able to unblock this faster than me
-> right now. :)
+> Signed-off-by: Lyude Paul <lyude@redhat.com>
+> Reviewed-by: Sean Paul <sean@poorly.run>
+
+Reviewed-by: Jani Nikula <jani.nikula@intel.com>
+
+> ---
+>  drivers/gpu/drm/drm_dp_mst_topology.c   | 22 ++++++++++++++++++++++
+>  drivers/gpu/drm/i915/display/intel_dp.c | 18 ++----------------
+>  include/drm/drm_dp_mst_helper.h         |  3 +--
+>  3 files changed, 25 insertions(+), 18 deletions(-)
 >
-
-Sure, Thanks.
-
-
+> diff --git a/drivers/gpu/drm/drm_dp_mst_topology.c b/drivers/gpu/drm/drm_dp_mst_topology.c
+> index 67dd72ea200e0..17dbed0a9800d 100644
+> --- a/drivers/gpu/drm/drm_dp_mst_topology.c
+> +++ b/drivers/gpu/drm/drm_dp_mst_topology.c
+> @@ -3486,6 +3486,28 @@ static int drm_dp_get_vc_payload_bw(u8 dp_link_bw, u8  dp_link_count)
+>  	return dp_link_bw * dp_link_count / 2;
+>  }
+>  
+> +/**
+> + * drm_dp_read_mst_cap() - check whether or not a sink supports MST
+> + * @aux: The DP AUX channel to use
+> + * @dpcd: A cached copy of the DPCD capabilities for this sink
+> + *
+> + * Returns: %True if the sink supports MST, %false otherwise
+> + */
+> +bool drm_dp_read_mst_cap(struct drm_dp_aux *aux,
+> +			 const u8 dpcd[DP_RECEIVER_CAP_SIZE])
+> +{
+> +	u8 mstm_cap;
+> +
+> +	if (dpcd[DP_DPCD_REV] < DP_DPCD_REV_12)
+> +		return false;
+> +
+> +	if (drm_dp_dpcd_readb(aux, DP_MSTM_CAP, &mstm_cap) != 1)
+> +		return false;
+> +
+> +	return mstm_cap & DP_MST_CAP;
+> +}
+> +EXPORT_SYMBOL(drm_dp_read_mst_cap);
+> +
+>  /**
+>   * drm_dp_mst_topology_mgr_set_mst() - Set the MST state for a topology manager
+>   * @mgr: manager to set state for
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+> index 79c27f91f42c0..4c7314b7a84e4 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+> @@ -4699,20 +4699,6 @@ intel_dp_get_dpcd(struct intel_dp *intel_dp)
+>  	return true;
+>  }
+>  
+> -static bool
+> -intel_dp_sink_can_mst(struct intel_dp *intel_dp)
+> -{
+> -	u8 mstm_cap;
+> -
+> -	if (intel_dp->dpcd[DP_DPCD_REV] < 0x12)
+> -		return false;
+> -
+> -	if (drm_dp_dpcd_readb(&intel_dp->aux, DP_MSTM_CAP, &mstm_cap) != 1)
+> -		return false;
+> -
+> -	return mstm_cap & DP_MST_CAP;
+> -}
+> -
+>  static bool
+>  intel_dp_can_mst(struct intel_dp *intel_dp)
+>  {
+> @@ -4720,7 +4706,7 @@ intel_dp_can_mst(struct intel_dp *intel_dp)
+>  
+>  	return i915->params.enable_dp_mst &&
+>  		intel_dp->can_mst &&
+> -		intel_dp_sink_can_mst(intel_dp);
+> +		drm_dp_read_mst_cap(&intel_dp->aux, intel_dp->dpcd);
+>  }
+>  
+>  static void
+> @@ -4729,7 +4715,7 @@ intel_dp_configure_mst(struct intel_dp *intel_dp)
+>  	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
+>  	struct intel_encoder *encoder =
+>  		&dp_to_dig_port(intel_dp)->base;
+> -	bool sink_can_mst = intel_dp_sink_can_mst(intel_dp);
+> +	bool sink_can_mst = drm_dp_read_mst_cap(&intel_dp->aux, intel_dp->dpcd);
+>  
+>  	drm_dbg_kms(&i915->drm,
+>  		    "[ENCODER:%d:%s] MST support: port: %s, sink: %s, modparam: %s\n",
+> diff --git a/include/drm/drm_dp_mst_helper.h b/include/drm/drm_dp_mst_helper.h
+> index 8b9eb4db3381c..6ae5860d8644e 100644
+> --- a/include/drm/drm_dp_mst_helper.h
+> +++ b/include/drm/drm_dp_mst_helper.h
+> @@ -728,10 +728,9 @@ int drm_dp_mst_topology_mgr_init(struct drm_dp_mst_topology_mgr *mgr,
+>  
+>  void drm_dp_mst_topology_mgr_destroy(struct drm_dp_mst_topology_mgr *mgr);
+>  
+> -
+> +bool drm_dp_read_mst_cap(struct drm_dp_aux *aux, const u8 dpcd[DP_RECEIVER_CAP_SIZE]);
+>  int drm_dp_mst_topology_mgr_set_mst(struct drm_dp_mst_topology_mgr *mgr, bool mst_state);
+>  
+> -
+>  int drm_dp_mst_hpd_irq(struct drm_dp_mst_topology_mgr *mgr, u8 *esi, bool *handled);
 
 -- 
-       - Allen
+Jani Nikula, Intel Open Source Graphics Center
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
