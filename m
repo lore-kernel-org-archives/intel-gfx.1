@@ -7,47 +7,47 @@ X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B23C4C2BB56
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2C090C43461
 	for <intel-gfx@archiver.kernel.org>; Fri, 28 Aug 2020 08:00:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 925E0205CB
+	by mail.kernel.org (Postfix) with ESMTPS id 081B3205CB
 	for <intel-gfx@archiver.kernel.org>; Fri, 28 Aug 2020 08:00:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 925E0205CB
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 081B3205CB
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 318846EBA3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AEA966EBA0;
 	Fri, 28 Aug 2020 08:00:36 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 42A406EB94;
- Fri, 28 Aug 2020 08:00:28 +0000 (UTC)
-IronPort-SDR: lply4t6R+6wWo4SKX0/jqU4WCmIzcI7jPjlOwVQm8W4T86wR7Hsak0jkEzC26aEMGS5oyQhKwC
- dfLgkVwNq2eA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9726"; a="136690274"
-X-IronPort-AV: E=Sophos;i="5.76,362,1592895600"; d="scan'208";a="136690274"
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D8006EB98;
+ Fri, 28 Aug 2020 08:00:26 +0000 (UTC)
+IronPort-SDR: qmVMXistbuFLOysMcfxek4QgKsW0r0HXCeuyOYHpXRGiFsI/bSq/zHlHgF4Pe13gt6mpPjsJuE
+ /+2GPJ0v1lKQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9726"; a="144375153"
+X-IronPort-AV: E=Sophos;i="5.76,363,1592895600"; d="scan'208";a="144375153"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Aug 2020 01:00:27 -0700
-IronPort-SDR: KHiKa28ntic34j4LAGBWoEYttp9WwII+x/jhLFD6nR2f3D1EWYjCygL4GJ71mfal/1WRTY3nqP
- SLDNL5nf+3JQ==
-X-IronPort-AV: E=Sophos;i="5.76,363,1592895600"; d="scan'208";a="444756033"
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Aug 2020 01:00:24 -0700
+IronPort-SDR: qOol0Ohi92gWtaWA9g6nsZ6yb727N3SYabomxFhDn+siNOdXMLPCxs73mbq0CqbBass6sJ+GEO
+ O//3hHtl8ruQ==
+X-IronPort-AV: E=Sophos;i="5.76,363,1592895600"; d="scan'208";a="444756023"
 Received: from jkrzyszt-desk.igk.intel.com ([172.22.244.18])
  by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Aug 2020 01:00:24 -0700
+ 28 Aug 2020 01:00:20 -0700
 From: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
 To: igt-dev@lists.freedesktop.org
-Date: Fri, 28 Aug 2020 09:59:25 +0200
-Message-Id: <20200828075927.17061-20-janusz.krzysztofik@linux.intel.com>
+Date: Fri, 28 Aug 2020 09:59:23 +0200
+Message-Id: <20200828075927.17061-18-janusz.krzysztofik@linux.intel.com>
 X-Mailer: git-send-email 2.21.1
 In-Reply-To: <20200828075927.17061-1-janusz.krzysztofik@linux.intel.com>
 References: <20200828075927.17061-1-janusz.krzysztofik@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH i-g-t v5 19/21] tests/core_hotunplug: Duplicate
- debug messages in dmesg
+Subject: [Intel-gfx] [PATCH i-g-t v5 17/21] tests/core_hotunplug: More
+ thorough i915 healthcheck and recovery
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,136 +67,246 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The purpose of debug messages displayed by the test is to make
-identification of a subtest phase that fails more easy.  Since issues
-exhibited by the test are mostly reported to dmesg, print those debug
-messages to /dev/kmsg as well.
+The test now assumes the i915 driver is able to identify potential
+hardware or driver issues while rebinding to a device and indicate them
+by marking the GPU wedged.  Should that assumption occur wrong, the
+health check phase of the test would happily succeed while potentially
+leaving the device in an unusable state.  That would not only give us
+falsely positive test results but could also potentially affect
+subsequently run applications.  Then, we should examine health of the
+exercised device more thoroughly and try harder to recover it from
+potentially detected stalls.
 
-v2: Rebase on upstream.
-v3: Refresh.
-v4: Refresh.
+We could use a gem_test_engine() library function which submits and
+asserts successful execution of a NOP batch on each physical engine.
+Unfortunately, on failure this function jumps out of an IGT test
+section it is called from, while we would like to continue with
+recovery steps, possibly not adding another level of test section group
+nesting.  Moreover, the function opens the device again and doesn't
+close the extra file descriptor before the jump, while we care for
+being able to close the exercised device completely before running
+certain subtest operations.  Then, reimplement the function locally
+with those issues fixed and use it as an i915 health check.  Call it
+also on test startup so operations performed by the test are never
+blamed for driver or hardware issues which may potentially exist and
+be possible to detect on test start.
+
+Should the i915 GPU be found unresponsive by the health check called
+from a recovery section, try harder to recover it to a usable state
+with a global GPU reset.
+
+For still more effective detection of GPU hangs, use a hang detector
+provided by IGT library.  However, replace the library signal handler
+with our own implementation that doesn't jump out of the current IGT
+test section on GPU hang so we are still able to perform the reset and
+retry.
+
+v2: Skip i915 health check if a GPU hang has been already detected by a
+    previous health check run and not yet recovered with a GPU reset,
+  - take care of stopping a hang detector instance possibly left
+    running by a failed health check attempt.
+v3: Re-run i915 health check as a first setp of i915 recovery (use full
+    GPU reset as a last resort),
+  - prefix i915 health check debug messages with step indicators,
+  - fix spelling error in a comment.
+v4: Unbind the driver from an unhealthy device before recovery,
+  - drop caches on i915 health check completion.
 
 Signed-off-by: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
 ---
- tests/core_hotunplug.c | 28 +++++++++++++++++-----------
- 1 file changed, 17 insertions(+), 11 deletions(-)
+ tests/core_hotunplug.c | 114 +++++++++++++++++++++++++++++++++++++----
+ 1 file changed, 104 insertions(+), 10 deletions(-)
 
 diff --git a/tests/core_hotunplug.c b/tests/core_hotunplug.c
-index 305c57a3f..361d601af 100644
+index 923b8cdfd..1f211a820 100644
 --- a/tests/core_hotunplug.c
 +++ b/tests/core_hotunplug.c
-@@ -52,6 +52,12 @@ struct hotunplug {
+@@ -23,8 +23,10 @@
  
- /* Helpers */
+ #include <fcntl.h>
+ #include <limits.h>
++#include <signal.h>
+ #include <stdlib.h>
+ #include <string.h>
++#include <sys/ioctl.h>
+ #include <sys/stat.h>
+ #include <sys/types.h>
+ #include <unistd.h>
+@@ -196,7 +198,83 @@ static void cleanup(struct hotunplug *priv)
+ 	priv->fd.sysfs_dev = close_sysfs(priv->fd.sysfs_dev);
+ }
  
-+#define local_debug(fmt, msg...)			       \
-+({							       \
-+	igt_debug(fmt, msg);				       \
-+	igt_kmsg(KMSG_DEBUG "%s: " fmt, igt_test_name(), msg); \
-+})
+-static void healthcheck(struct hotunplug *priv)
++static bool local_i915_is_wedged(int i915)
++{
++	int err = 0;
 +
- /**
-  * Subtests must be able to close examined devices completely.  Don't
-  * use drm_open_driver() since in case of an i915 device it opens it
-@@ -61,7 +67,7 @@ static int local_drm_open_driver(const char *prefix, const char *suffix)
++	if (ioctl(i915, DRM_IOCTL_I915_GEM_THROTTLE))
++		err = -errno;
++	return err == -EIO;
++}
++
++static bool hang_detected = false;
++
++static void local_sig_abort(int sig)
++{
++	errno = 0; /* inside a signal, last errno reporting is confusing */
++	hang_detected = true;
++}
++
++static int local_i915_healthcheck(int i915, const char *prefix)
++{
++	const uint32_t bbe = MI_BATCH_BUFFER_END;
++	struct drm_i915_gem_exec_object2 obj = { };
++	struct drm_i915_gem_execbuffer2 execbuf = {
++		.buffers_ptr = to_user_pointer(&obj),
++		.buffer_count = 1,
++	};
++	const struct intel_execution_engine2 *engine;
++
++	/* stop our hang detector possibly still running if we failed before */
++	igt_stop_hang_detector();
++
++	/* don't run again before GPU reset if hang has been already detected */
++	if (hang_detected)
++		return -EIO;
++
++	igt_debug("%srunning i915 GPU healthcheck\n", prefix);
++
++	if (local_i915_is_wedged(i915))
++		return -EIO;
++
++	obj.handle = gem_create(i915, 4096);
++	gem_write(i915, obj.handle, 0, &bbe, sizeof(bbe));
++
++	igt_fork_hang_detector(i915);
++	signal(SIGIO, local_sig_abort);
++
++	__for_each_physical_engine(i915, engine) {
++		execbuf.flags = engine->flags;
++		gem_execbuf(i915, &execbuf);
++	}
++
++	gem_sync(i915, obj.handle);
++	gem_close(i915, obj.handle);
++
++	igt_stop_hang_detector();
++	if (hang_detected)
++		return -EIO;
++
++	if (local_i915_is_wedged(i915))
++		return -EIO;
++
++	return 0;
++}
++
++static int local_i915_recover(int i915)
++{
++	hang_detected = false;
++	if (!local_i915_healthcheck(i915, "re-"))
++		return 0;
++
++	igt_debug("forcing i915 GPU reset\n");
++	igt_force_gpu_reset(i915);
++
++	hang_detected = false;
++	return local_i915_healthcheck(i915, "post-");
++}
++
++static void healthcheck(struct hotunplug *priv, bool recover)
  {
- 	int fd_drm;
+ 	/* preserve error code potentially stored before in priv->fd.drm */
+ 	bool closed = priv->fd.drm == -1;
+@@ -211,9 +289,19 @@ static void healthcheck(struct hotunplug *priv)
+ 		priv->fd.drm = fd_drm;
  
--	igt_debug("%sopening device%s\n", prefix, suffix);
-+	local_debug("%sopening device%s\n", prefix, suffix);
- 
- 	fd_drm = __drm_open_driver(DRIVER_ANY);
- 	igt_assert_fd(fd_drm);
-@@ -121,7 +127,7 @@ static void prepare(struct hotunplug *priv)
- static void driver_unbind(struct hotunplug *priv, const char *prefix,
- 			  int timeout)
+ 	if (is_i915_device(fd_drm)) {
+-		priv->failure = "GEM failure";
+-		igt_require_gem(fd_drm);
+-		priv->failure = NULL;
++		const char *failure = NULL;
++
++		/* don't report library failed asserts as healthcheck failure */
++		priv->failure = "Unrecoverable test failure";
++
++		if (local_i915_healthcheck(fd_drm, "") &&
++		    (!recover || local_i915_recover(fd_drm)))
++			failure = "Healthcheck failure!";
++
++		gem_quiescent_gpu(fd_drm);
++
++		priv->failure = failure;
++
+ 	} else {
+ 		/* no device specific healthcheck, rely on reopen result */
+ 		priv->failure = NULL;
+@@ -231,6 +319,11 @@ static void recover(struct hotunplug *priv)
  {
--	igt_debug("%sunbinding the driver from the device\n", prefix);
-+	local_debug("%sunbinding the driver from the device\n", prefix);
- 	priv->failure = "Driver unbind failure!";
+ 	cleanup(priv);
  
- 	igt_set_timeout(timeout, "Driver unbind timeout!");
-@@ -137,7 +143,7 @@ static void driver_unbind(struct hotunplug *priv, const char *prefix,
- /* Re-bind the driver to the device */
- static void driver_bind(struct hotunplug *priv, int timeout)
- {
--	igt_debug("rebinding the driver to the device\n");
-+	local_debug("%s\n", "rebinding the driver to the device");
- 	priv->failure = "Driver re-bind failure!";
++	/* unbind the driver from a possibly hot rebound unhealthy device */
++	if (priv->failure && priv->fd.drm == -1 &&
++	    !faccessat(priv->fd.sysfs_drv, priv->dev_bus_addr, F_OK, 0))
++		driver_unbind(priv, "post ", 60);
++
+ 	if (faccessat(priv->fd.sysfs_bus, priv->dev_bus_addr, F_OK, 0))
+ 		bus_rescan(priv, 60);
  
- 	igt_set_timeout(timeout, "Driver re-bind timeout!");
-@@ -161,7 +167,7 @@ static void device_unplug(struct hotunplug *priv, const char *prefix,
- 				    O_DIRECTORY);
- 	igt_assert_fd(priv->fd.sysfs_dev);
+@@ -238,7 +331,7 @@ static void recover(struct hotunplug *priv)
+ 		driver_bind(priv, 60);
  
--	igt_debug("%sunplugging the device\n", prefix);
-+	local_debug("%sunplugging the device\n", prefix);
- 	priv->failure = "Device unplug failure!";
+ 	if (priv->failure)
+-		healthcheck(priv);
++		healthcheck(priv, true);
+ }
  
- 	igt_set_timeout(timeout, "Device unplug timeout!");
-@@ -179,7 +185,7 @@ static void device_unplug(struct hotunplug *priv, const char *prefix,
- /* Re-discover the device by rescanning its bus */
- static void bus_rescan(struct hotunplug *priv, int timeout)
- {
--	igt_debug("rediscovering the device\n");
-+	local_debug("%s\n", "rediscovering the device");
- 	priv->failure = "Bus rescan failure!";
+ static void post_healthcheck(struct hotunplug *priv)
+@@ -274,7 +367,7 @@ static void unbind_rebind(struct hotunplug *priv)
  
- 	igt_set_timeout(timeout, "Bus rescan timeout!");
-@@ -232,7 +238,7 @@ static int local_i915_healthcheck(int i915, const char *prefix)
- 	if (hang_detected)
- 		return -EIO;
+ 	driver_bind(priv, 0);
  
--	igt_debug("%srunning i915 GPU healthcheck\n", prefix);
-+	local_debug("%s%s\n", prefix, "running i915 GPU healthcheck");
+-	healthcheck(priv);
++	healthcheck(priv, false);
+ }
  
- 	if (local_i915_is_wedged(i915))
- 		return -EIO;
-@@ -267,7 +273,7 @@ static int local_i915_recover(int i915)
- 	if (!local_i915_healthcheck(i915, "re-"))
- 		return 0;
+ static void unplug_rescan(struct hotunplug *priv)
+@@ -285,7 +378,7 @@ static void unplug_rescan(struct hotunplug *priv)
  
--	igt_debug("forcing i915 GPU reset\n");
-+	local_debug("%s\n", "forcing i915 GPU reset");
- 	igt_force_gpu_reset(i915);
+ 	bus_rescan(priv, 0);
  
- 	hang_detected = false;
-@@ -392,7 +398,7 @@ static void hotunbind_rebind(struct hotunplug *priv)
+-	healthcheck(priv);
++	healthcheck(priv, false);
+ }
  
- 	driver_unbind(priv, "hot ", 0);
- 
--	igt_debug("late closing the unbound device instance\n");
-+	local_debug("%s\n", "late closing the unbound device instance");
+ static void hotunbind_lateclose(struct hotunplug *priv)
+@@ -301,7 +394,7 @@ static void hotunbind_lateclose(struct hotunplug *priv)
  	priv->fd.drm = close_device(priv->fd.drm);
  	igt_assert_eq(priv->fd.drm, -1);
  
-@@ -408,7 +414,7 @@ static void hotunplug_rescan(struct hotunplug *priv)
+-	healthcheck(priv);
++	healthcheck(priv, false);
+ }
  
- 	device_unplug(priv, "hot ", 0);
- 
--	igt_debug("late closing the removed device instance\n");
-+	local_debug("%s\n", "late closing the removed device instance");
+ static void hotunplug_lateclose(struct hotunplug *priv)
+@@ -317,7 +410,7 @@ static void hotunplug_lateclose(struct hotunplug *priv)
  	priv->fd.drm = close_device(priv->fd.drm);
  	igt_assert_eq(priv->fd.drm, -1);
  
-@@ -427,7 +433,7 @@ static void hotrebind_lateclose(struct hotunplug *priv)
+-	healthcheck(priv);
++	healthcheck(priv, false);
+ }
  
- 	healthcheck(priv, false);
+ /* Main */
+@@ -337,7 +430,8 @@ igt_main
  
--	igt_debug("late closing the unbound device instance\n");
-+	local_debug("%s\n", "late closing the unbound device instance");
- 	priv->fd.drm = close_device(priv->fd.drm);
- 	igt_assert_eq(priv->fd.drm, -1);
+ 		if (is_i915_device(fd_drm)) {
+ 			gem_quiescent_gpu(fd_drm);
+-			igt_require_gem(fd_drm);
++			igt_skip_on_f(local_i915_healthcheck(fd_drm, "pre-"),
++				      "i915 device not healthy on test start\n");
+ 		}
  
-@@ -444,7 +450,7 @@ static void hotreplug_lateclose(struct hotunplug *priv)
- 
- 	healthcheck(priv, false);
- 
--	igt_debug("late closing the removed device instance\n");
-+	local_debug("%s\n", "late closing the removed device instance");
- 	priv->fd.drm = close_device(priv->fd.drm);
- 	igt_assert_eq(priv->fd.drm, -1);
- 
+ 		/* Make sure subtests always reopen the same device */
 -- 
 2.21.1
 
