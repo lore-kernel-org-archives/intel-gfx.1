@@ -7,48 +7,48 @@ X-Spam-Status: No, score=-9.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 43B16C433E6
-	for <intel-gfx@archiver.kernel.org>; Sun, 30 Aug 2020 12:58:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 33346C433E2
+	for <intel-gfx@archiver.kernel.org>; Sun, 30 Aug 2020 12:58:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 19AD72087D
-	for <intel-gfx@archiver.kernel.org>; Sun, 30 Aug 2020 12:58:27 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 03D232087D
+	for <intel-gfx@archiver.kernel.org>; Sun, 30 Aug 2020 12:58:33 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="jEqiPkvR"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 19AD72087D
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="b8AdXyOp"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 03D232087D
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E6EB6E2CF;
-	Sun, 30 Aug 2020 12:58:22 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [216.205.24.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 255356E2CF
- for <intel-gfx@lists.freedesktop.org>; Sun, 30 Aug 2020 12:58:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B38166E2E6;
+	Sun, 30 Aug 2020 12:58:28 +0000 (UTC)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com
+ [207.211.31.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 358636E2EA
+ for <intel-gfx@lists.freedesktop.org>; Sun, 30 Aug 2020 12:58:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1598792299;
+ s=mimecast20190719; t=1598792305;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=+iL0S8ORO2sibR8s+wLFkvCJSbjQA2ggoJWqfR/GnX0=;
- b=jEqiPkvRtNR4Vo5ZOCpLDDWbKffMGv5U+y8yyeBkjr8sJhaaLCB8aHli9vmKNVk+nAtKt6
- luJLDIyhRQ/Is9cWI+NztMnWPgbQ/qI+Sci0WSzg4+rZcZvjTJ7mnCWlqD0W2zy361C4Sb
- bz6euj3JJtn50VI3cGQRMwpYiGWildI=
+ bh=sL+jByNDV2GBlQ72/Hf5linnOG6oA5dOJnHUKFCOLME=;
+ b=b8AdXyOpxBGMKBnCBhoDCjDav5YSP937OcntPNsJz4tOFWerOSEjvdlwVCDQc5PcQsKUE2
+ +aTAMRFhJnpDdL55EF0RywvzVAKy0ZNMBwQqRrpJAFIRGPiLlCD+5/Scq1E/cl2EZqp8dK
+ jZp0mFR4Ew8FLb0MGY4AYAA2opopDSM=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-579-Jfs-QP1nMESs4Dhj4OpoZg-1; Sun, 30 Aug 2020 08:58:17 -0400
-X-MC-Unique: Jfs-QP1nMESs4Dhj4OpoZg-1
+ us-mta-43-Bk9voESCM1OtViAZKhZ31w-1; Sun, 30 Aug 2020 08:58:23 -0400
+X-MC-Unique: Bk9voESCM1OtViAZKhZ31w-1
 Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
  [10.5.11.23])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 12FBC10ABDA3;
- Sun, 30 Aug 2020 12:58:15 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CDE5E1005E5E;
+ Sun, 30 Aug 2020 12:58:20 +0000 (UTC)
 Received: from x1.localdomain.com (ovpn-112-77.ams2.redhat.com [10.36.112.77])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 774CA171C6;
- Sun, 30 Aug 2020 12:58:12 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 3CA04171C6;
+ Sun, 30 Aug 2020 12:58:18 +0000 (UTC)
 From: Hans de Goede <hdegoede@redhat.com>
 To: Thierry Reding <thierry.reding@gmail.com>,
  =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
@@ -57,14 +57,14 @@ To: Thierry Reding <thierry.reding@gmail.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
  =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
  "Rafael J . Wysocki" <rjw@rjwysocki.net>, Len Brown <lenb@kernel.org>
-Date: Sun, 30 Aug 2020 14:57:41 +0200
-Message-Id: <20200830125753.230420-6-hdegoede@redhat.com>
+Date: Sun, 30 Aug 2020 14:57:43 +0200
+Message-Id: <20200830125753.230420-8-hdegoede@redhat.com>
 In-Reply-To: <20200830125753.230420-1-hdegoede@redhat.com>
 References: <20200830125753.230420-1-hdegoede@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
-Subject: [Intel-gfx] [PATCH v8 05/17] pwm: lpss: Add
- pwm_lpss_prepare_enable() helper
+Subject: [Intel-gfx] [PATCH v8 07/17] pwm: lpss: Always update state and set
+ update bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,100 +86,105 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-In the not-enabled -> enabled path pwm_lpss_apply() needs to get a
-runtime-pm reference; and then on any errors it needs to release it
-again.
+This commit removes a check where we would skip writing the ctrl register
+and then setting the update bit in case the ctrl register already contains
+the correct values.
 
-This leads to somewhat hard to read code. This commit introduces a new
-pwm_lpss_prepare_enable() helper and moves all the steps necessary for
-the not-enabled -> enabled transition there, so that we can error check
-the entire transition in a single place and only have one pm_runtime_put()
-on failure call site.
+In a perfect world skipping the update should be fine in these cases, but
+on Cherry Trail devices the AML code in the GFX0 devices' PS0 and PS3
+methods messes with the PWM controller.
 
-While working on this I noticed that the enabled -> enabled (update
-settings) path was quite similar, so I've added an enable parameter to
-the new pwm_lpss_prepare_enable() helper, which allows using it in that
-path too.
+The "ACPI / LPSS: Resume Cherry Trail PWM controller in no-irq phase" patch
+earlier in this series stops the GFX0._PS0 method from messing with the PWM
+controller and on the DSDT-s inspected sofar the _PS3 method only reads
+from the PWM controller (and turns it off before we get a change to do so):
 
-Suggested-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+    {
+        PWMB = PWMC /* \_SB_.PCI0.GFX0.PWMC */
+        PSAT |= 0x03
+        Local0 = PSAT /* \_SB_.PCI0.GFX0.PSAT */
+    }
+
+The PWM controller getting turning off before we do this ourselves is
+a bit annoying but not really an issue.
+
+The problem this patch fixes comes from a new variant of the GFX0._PS3 code
+messing with the PWM controller found on the Acer One 10 S1003 (1):
+
+    {
+        PWMB = PWMC /* \_SB_.PCI0.GFX0.PWMC */
+        PWMT = PWMC /* \_SB_.PCI0.GFX0.PWMC */
+        PWMT &= 0xFF0000FF
+        PWMT |= 0xC0000000
+        PWMC = PWMT /* \_SB_.PCI0.GFX0.PWMT */
+        PWMT = PWMC /* \_SB_.PCI0.GFX0.PWMC */
+        Sleep (0x64)
+        PWMB &= 0x3FFFFFFF
+        PWMC = PWMB /* \_SB_.PCI0.GFX0.PWMB */
+        PSAT |= 0x03
+        Local0 = PSAT /* \_SB_.PCI0.GFX0.PSAT */
+    }
+
+This "beautiful" piece of code clears the base-unit part of the ctrl-reg,
+which effectively disables the controller, and it sets the update flag
+to apply this change. Then after this it restores the original ctrl-reg
+value, so we do not see it has mucked with the controller.
+
+*But* it does not set the update flag when restoring the original value.
+So the check to see if we can skip writing the ctrl register succeeds
+but since the update flag was not set, the old base-unit value of 0 is
+still in use and the PWM controller is effectively disabled.
+
+IOW this PWM controller poking means that we cannot trust the base-unit /
+on-time-div value we read back from the PWM controller since it may not
+have been applied/committed. Thus we must always update the ctrl-register
+and set the update bit.
+
+1) And once I knew what to look for also in a bunch of other devices
+including the popular Lenovo Ideapad Miix 310 and 320 models and
+various Medion models.
+
 Signed-off-by: Hans de Goede <hdegoede@redhat.com>
 ---
- drivers/pwm/pwm-lpss.c | 45 ++++++++++++++++++++++++------------------
- 1 file changed, 26 insertions(+), 19 deletions(-)
+Changes in v8:
+- New patch in v8 of this patch-set
+---
+ drivers/pwm/pwm-lpss.c | 10 ++++------
+ 1 file changed, 4 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/pwm/pwm-lpss.c b/drivers/pwm/pwm-lpss.c
-index da9bc3d10104..8a136ba2a583 100644
+index 9a7400c6fb6e..20f6b6d6f874 100644
 --- a/drivers/pwm/pwm-lpss.c
 +++ b/drivers/pwm/pwm-lpss.c
-@@ -122,41 +122,48 @@ static inline void pwm_lpss_cond_enable(struct pwm_device *pwm, bool cond)
- 		pwm_lpss_write(pwm, pwm_lpss_read(pwm) | PWM_ENABLE);
+@@ -85,7 +85,7 @@ static void pwm_lpss_prepare(struct pwm_lpss_chip *lpwm, struct pwm_device *pwm,
+ 	unsigned long long on_time_div;
+ 	unsigned long c = lpwm->info->clk_rate, base_unit_range;
+ 	unsigned long long base_unit, freq = NSEC_PER_SEC;
+-	u32 orig_ctrl, ctrl;
++	u32 ctrl;
+ 
+ 	do_div(freq, period_ns);
+ 
+@@ -104,16 +104,14 @@ static void pwm_lpss_prepare(struct pwm_lpss_chip *lpwm, struct pwm_device *pwm,
+ 	do_div(on_time_div, period_ns);
+ 	on_time_div = 255ULL - on_time_div;
+ 
+-	orig_ctrl = ctrl = pwm_lpss_read(pwm);
++	ctrl = pwm_lpss_read(pwm);
+ 	ctrl &= ~PWM_ON_TIME_DIV_MASK;
+ 	ctrl &= ~((base_unit_range - 1) << PWM_BASE_UNIT_SHIFT);
+ 	ctrl |= (u32) base_unit << PWM_BASE_UNIT_SHIFT;
+ 	ctrl |= on_time_div;
+ 
+-	if (orig_ctrl != ctrl) {
+-		pwm_lpss_write(pwm, ctrl);
+-		pwm_lpss_write(pwm, ctrl | PWM_SW_UPDATE);
+-	}
++	pwm_lpss_write(pwm, ctrl);
++	pwm_lpss_write(pwm, ctrl | PWM_SW_UPDATE);
  }
  
-+static int pwm_lpss_prepare_enable(struct pwm_lpss_chip *lpwm,
-+				   struct pwm_device *pwm,
-+				   const struct pwm_state *state,
-+				   bool enable)
-+{
-+	int ret;
-+
-+	ret = pwm_lpss_is_updating(pwm);
-+	if (ret)
-+		return ret;
-+
-+	pwm_lpss_prepare(lpwm, pwm, state->duty_cycle, state->period);
-+	pwm_lpss_cond_enable(pwm, enable && lpwm->info->bypass == false);
-+	ret = pwm_lpss_wait_for_update(pwm);
-+	if (ret)
-+		return ret;
-+
-+	pwm_lpss_cond_enable(pwm, enable && lpwm->info->bypass == true);
-+	return 0;
-+}
-+
- static int pwm_lpss_apply(struct pwm_chip *chip, struct pwm_device *pwm,
- 			  const struct pwm_state *state)
- {
- 	struct pwm_lpss_chip *lpwm = to_lpwm(chip);
--	int ret;
-+	int ret = 0;
- 
- 	if (state->enabled) {
- 		if (!pwm_is_enabled(pwm)) {
- 			pm_runtime_get_sync(chip->dev);
--			ret = pwm_lpss_is_updating(pwm);
--			if (ret) {
--				pm_runtime_put(chip->dev);
--				return ret;
--			}
--			pwm_lpss_prepare(lpwm, pwm, state->duty_cycle, state->period);
--			pwm_lpss_cond_enable(pwm, lpwm->info->bypass == false);
--			ret = pwm_lpss_wait_for_update(pwm);
--			if (ret) {
-+			ret = pwm_lpss_prepare_enable(lpwm, pwm, state, true);
-+			if (ret)
- 				pm_runtime_put(chip->dev);
--				return ret;
--			}
--			pwm_lpss_cond_enable(pwm, lpwm->info->bypass == true);
- 		} else {
--			ret = pwm_lpss_is_updating(pwm);
--			if (ret)
--				return ret;
--			pwm_lpss_prepare(lpwm, pwm, state->duty_cycle, state->period);
--			return pwm_lpss_wait_for_update(pwm);
-+			ret = pwm_lpss_prepare_enable(lpwm, pwm, state, false);
- 		}
- 	} else if (pwm_is_enabled(pwm)) {
- 		pwm_lpss_write(pwm, pwm_lpss_read(pwm) & ~PWM_ENABLE);
- 		pm_runtime_put(chip->dev);
- 	}
- 
--	return 0;
-+	return ret;
- }
- 
- static void pwm_lpss_get_state(struct pwm_chip *chip, struct pwm_device *pwm,
+ static inline void pwm_lpss_cond_enable(struct pwm_device *pwm, bool cond)
 -- 
 2.28.0
 
