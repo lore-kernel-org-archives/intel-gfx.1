@@ -4,51 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-9.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS autolearn=unavailable autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E835AC433E6
-	for <intel-gfx@archiver.kernel.org>; Sun, 30 Aug 2020 12:58:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E38A9C433E7
+	for <intel-gfx@archiver.kernel.org>; Sun, 30 Aug 2020 12:59:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BBC932087D
-	for <intel-gfx@archiver.kernel.org>; Sun, 30 Aug 2020 12:58:50 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id B7B742087D
+	for <intel-gfx@archiver.kernel.org>; Sun, 30 Aug 2020 12:59:01 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="A5O/FE2r"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BBC932087D
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="iRclTDez"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B7B742087D
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 51E6A6E32B;
-	Sun, 30 Aug 2020 12:58:50 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [216.205.24.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 15CB36E329
- for <intel-gfx@lists.freedesktop.org>; Sun, 30 Aug 2020 12:58:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 030A86E351;
+	Sun, 30 Aug 2020 12:59:00 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C76AE6E32B
+ for <intel-gfx@lists.freedesktop.org>; Sun, 30 Aug 2020 12:58:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
  s=mimecast20190719; t=1598792328;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=sVjx4EGfhRBDZlJyfOCPuAVbuYnQnae4/qIYiLWMT1M=;
- b=A5O/FE2r7l3zsoBRznubF61RXlKfKXYKDanPN7rLU02Iy4BkLxTv4XwNVg/QBAZlefN6UT
- dveQgpBQ+lWTAt9Q21B2jzcYQbR5md+Kfj9oPWxUitoeIm+jyq0v+U/LKZXTUYeaZcLWEg
- M6hGDE55B2DLxXvzhvMwzy3ETBbYHeI=
+ bh=1wMXBHDyyQ6t98T6xFtSD2movAwUy8KekR8cCyDYfqQ=;
+ b=iRclTDezEXc9h660BQGRqWY1uTvW9GAfGsDNau+uT/xHxOay/OGp5RwwA9lNl4yym+L2zq
+ gBnX5QrKPOzYL7wraAIXBaqS/MAm4WtbM8Uvf/D0LEEjgRJZLn7vDOfIxbni/wF8nUJ3qa
+ zu89PPaFnalg9OMZVjVr/6e09rRNJqY=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-363-vu2RpGzxPy6nNGOfR8kZeA-1; Sun, 30 Aug 2020 08:58:46 -0400
-X-MC-Unique: vu2RpGzxPy6nNGOfR8kZeA-1
+ us-mta-555-cD2kDO3lO5mNHbOuhgplmA-1; Sun, 30 Aug 2020 08:58:43 -0400
+X-MC-Unique: cD2kDO3lO5mNHbOuhgplmA-1
 Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
  [10.5.11.23])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4B3A78015A8;
- Sun, 30 Aug 2020 12:58:44 +0000 (UTC)
-Received: from x1.localdomain.com (ovpn-112-77.ams2.redhat.com [10.36.112.77])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 7C776171C6;
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 35ED7801AC3;
  Sun, 30 Aug 2020 12:58:41 +0000 (UTC)
+Received: from x1.localdomain.com (ovpn-112-77.ams2.redhat.com [10.36.112.77])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 760C01A8EC;
+ Sun, 30 Aug 2020 12:58:38 +0000 (UTC)
 From: Hans de Goede <hdegoede@redhat.com>
 To: Thierry Reding <thierry.reding@gmail.com>,
  =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
@@ -57,14 +57,14 @@ To: Thierry Reding <thierry.reding@gmail.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
  =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
  "Rafael J . Wysocki" <rjw@rjwysocki.net>, Len Brown <lenb@kernel.org>
-Date: Sun, 30 Aug 2020 14:57:51 +0200
-Message-Id: <20200830125753.230420-16-hdegoede@redhat.com>
+Date: Sun, 30 Aug 2020 14:57:50 +0200
+Message-Id: <20200830125753.230420-15-hdegoede@redhat.com>
 In-Reply-To: <20200830125753.230420-1-hdegoede@redhat.com>
 References: <20200830125753.230420-1-hdegoede@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
-Subject: [Intel-gfx] [PATCH v8 15/17] drm/i915: panel: Honor the VBT PWM
- frequency for devs with an external PWM controller
+Subject: [Intel-gfx] [PATCH v8 14/17] drm/i915: panel: Add
+ get_vbt_pwm_freq() helper
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,130 +87,66 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-So far for devices using an external PWM controller (devices using
-pwm_setup_backlight()), we have been hardcoding the period-time passed to
-pwm_config() to 21333 ns.
+Factor the code which checks and drm_dbg_kms-s the VBT PWM frequency
+out of get_backlight_max_vbt().
 
-I suspect this was done because many VBTs set the PWM frequency to 200
-which corresponds to a period-time of 5000000 ns, which greatly exceeds
-the PWM_MAX_PERIOD_NS define in the Crystal Cove PMIC PWM driver, which
-used to be 21333.
-
-This PWM_MAX_PERIOD_NS define was actually based on a bug in the PWM
-driver where its period and duty-cycle times where off by a factor of 256.
-
-Due to this bug the hardcoded CRC_PMIC_PWM_PERIOD_NS value of 21333 would
-result in the PWM driver using its divider of 128, which would result in
-a PWM output frequency of 6000000 Hz / 256 / 128 = 183 Hz. So actually
-pretty close to the default VBT value of 200 Hz.
-
-Now that this bug in the pwm-crc driver is fixed, we can actually use
-the VBT defined frequency.
-
-This is important because:
-
-a) With the pwm-crc driver fixed it will now translate the hardcoded
-CRC_PMIC_PWM_PERIOD_NS value of 21333 ns / 46 Khz to a PWM output
-frequency of 23 KHz (the max it can do).
-
-b) The pwm-lpss driver used on many models has always honored the
-21333 ns / 46 Khz request
-
-Some panels do not like such high output frequencies. E.g. on a Terra
-Pad 1061 tablet, using the LPSS PWM controller, the backlight would go
-from off to max, when changing the sysfs backlight brightness value from
-90-100%, anything under aprox. 90% would turn the backlight fully off.
-
-Honoring the VBT specified PWM frequency will also hopefully fix the
-various bug reports which we have received about users perceiving the
-backlight to flicker after a suspend/resume cycle.
+This is a preparation patch for honering the VBT PWM frequency for
+devices which use an external PWM controller (devices using
+pwm_setup_backlight()).
 
 Acked-by: Jani Nikula <jani.nikula@intel.com>
 Signed-off-by: Hans de Goede <hdegoede@redhat.com>
 ---
- .../drm/i915/display/intel_display_types.h    |  1 +
- drivers/gpu/drm/i915/display/intel_panel.c    | 19 +++++++++++--------
- 2 files changed, 12 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/i915/display/intel_panel.c | 27 ++++++++++++++--------
+ 1 file changed, 17 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-index e8f809161c75..7171e7c8d928 100644
---- a/drivers/gpu/drm/i915/display/intel_display_types.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-@@ -223,6 +223,7 @@ struct intel_panel {
- 		bool util_pin_active_low;	/* bxt+ */
- 		u8 controller;		/* bxt+ only */
- 		struct pwm_device *pwm;
-+		int pwm_period_ns;
- 
- 		/* DPCD backlight */
- 		u8 pwmgen_bit_count;
 diff --git a/drivers/gpu/drm/i915/display/intel_panel.c b/drivers/gpu/drm/i915/display/intel_panel.c
-index df7472a3b9f8..5a13089d2fc0 100644
+index 4072d7062efd..df7472a3b9f8 100644
 --- a/drivers/gpu/drm/i915/display/intel_panel.c
 +++ b/drivers/gpu/drm/i915/display/intel_panel.c
-@@ -40,8 +40,6 @@
- #include "intel_dsi_dcs_backlight.h"
- #include "intel_panel.h"
- 
--#define CRC_PMIC_PWM_PERIOD_NS	21333
--
- void
- intel_fixed_panel_mode(const struct drm_display_mode *fixed_mode,
- 		       struct drm_display_mode *adjusted_mode)
-@@ -597,7 +595,7 @@ static u32 pwm_get_backlight(struct intel_connector *connector)
- 	int duty_ns;
- 
- 	duty_ns = pwm_get_duty_cycle(panel->backlight.pwm);
--	return DIV_ROUND_UP(duty_ns * 100, CRC_PMIC_PWM_PERIOD_NS);
-+	return DIV_ROUND_UP(duty_ns * 100, panel->backlight.pwm_period_ns);
+@@ -1543,18 +1543,9 @@ static u32 vlv_hz_to_pwm(struct intel_connector *connector, u32 pwm_freq_hz)
+ 	return DIV_ROUND_CLOSEST(clock, pwm_freq_hz * mul);
  }
  
- static void lpt_set_backlight(const struct drm_connector_state *conn_state, u32 level)
-@@ -671,9 +669,10 @@ static void bxt_set_backlight(const struct drm_connector_state *conn_state, u32
- static void pwm_set_backlight(const struct drm_connector_state *conn_state, u32 level)
+-static u32 get_backlight_max_vbt(struct intel_connector *connector)
++static u16 get_vbt_pwm_freq(struct drm_i915_private *dev_priv)
  {
- 	struct intel_panel *panel = &to_intel_connector(conn_state->connector)->panel;
--	int duty_ns = DIV_ROUND_UP(level * CRC_PMIC_PWM_PERIOD_NS, 100);
-+	int duty_ns = DIV_ROUND_UP(level * panel->backlight.pwm_period_ns, 100);
+-	struct drm_i915_private *dev_priv = to_i915(connector->base.dev);
+-	struct intel_panel *panel = &connector->panel;
+ 	u16 pwm_freq_hz = dev_priv->vbt.backlight.pwm_freq_hz;
+-	u32 pwm;
+-
+-	if (!panel->backlight.hz_to_pwm) {
+-		drm_dbg_kms(&dev_priv->drm,
+-			    "backlight frequency conversion not supported\n");
+-		return 0;
+-	}
  
--	pwm_config(panel->backlight.pwm, duty_ns, CRC_PMIC_PWM_PERIOD_NS);
-+	pwm_config(panel->backlight.pwm, duty_ns,
-+		   panel->backlight.pwm_period_ns);
- }
- 
- static void
-@@ -1917,6 +1916,9 @@ static int pwm_setup_backlight(struct intel_connector *connector,
- 		return -ENODEV;
+ 	if (pwm_freq_hz) {
+ 		drm_dbg_kms(&dev_priv->drm,
+@@ -1567,6 +1558,22 @@ static u32 get_backlight_max_vbt(struct intel_connector *connector)
+ 			    pwm_freq_hz);
  	}
  
-+	panel->backlight.pwm_period_ns = NSEC_PER_SEC /
-+					 get_vbt_pwm_freq(dev_priv);
++	return pwm_freq_hz;
++}
 +
- 	/*
- 	 * FIXME: pwm_apply_args() should be removed when switching to
- 	 * the atomic PWM API.
-@@ -1926,9 +1928,10 @@ static int pwm_setup_backlight(struct intel_connector *connector,
- 	panel->backlight.min = 0; /* 0% */
- 	panel->backlight.max = 100; /* 100% */
- 	level = intel_panel_compute_brightness(connector, 100);
--	ns = DIV_ROUND_UP(level * CRC_PMIC_PWM_PERIOD_NS, 100);
-+	ns = DIV_ROUND_UP(level * panel->backlight.pwm_period_ns, 100);
- 
--	retval = pwm_config(panel->backlight.pwm, ns, CRC_PMIC_PWM_PERIOD_NS);
-+	retval = pwm_config(panel->backlight.pwm, ns,
-+			    panel->backlight.pwm_period_ns);
- 	if (retval < 0) {
- 		drm_err(&dev_priv->drm, "Failed to configure the pwm chip\n");
- 		pwm_put(panel->backlight.pwm);
-@@ -1937,7 +1940,7 @@ static int pwm_setup_backlight(struct intel_connector *connector,
- 	}
- 
- 	level = DIV_ROUND_UP_ULL(pwm_get_duty_cycle(panel->backlight.pwm) * 100,
--			     CRC_PMIC_PWM_PERIOD_NS);
-+				 panel->backlight.pwm_period_ns);
- 	panel->backlight.level =
- 		intel_panel_compute_brightness(connector, level);
- 	panel->backlight.enabled = panel->backlight.level != 0;
++static u32 get_backlight_max_vbt(struct intel_connector *connector)
++{
++	struct drm_i915_private *dev_priv = to_i915(connector->base.dev);
++	struct intel_panel *panel = &connector->panel;
++	u16 pwm_freq_hz = get_vbt_pwm_freq(dev_priv);
++	u32 pwm;
++
++	if (!panel->backlight.hz_to_pwm) {
++		drm_dbg_kms(&dev_priv->drm,
++			    "backlight frequency conversion not supported\n");
++		return 0;
++	}
++
+ 	pwm = panel->backlight.hz_to_pwm(connector, pwm_freq_hz);
+ 	if (!pwm) {
+ 		drm_dbg_kms(&dev_priv->drm,
 -- 
 2.28.0
 
