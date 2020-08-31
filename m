@@ -2,40 +2,81 @@ Return-Path: <SRS0=MyGl=CJ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.0 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PULL_REQUEST,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 072BFC433E2
-	for <intel-gfx@archiver.kernel.org>; Mon, 31 Aug 2020 20:41:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AC1E9C433E6
+	for <intel-gfx@archiver.kernel.org>; Mon, 31 Aug 2020 23:39:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BA0F62054F
-	for <intel-gfx@archiver.kernel.org>; Mon, 31 Aug 2020 20:41:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BA0F62054F
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id 7C2AB2073A
+	for <intel-gfx@archiver.kernel.org>; Mon, 31 Aug 2020 23:39:11 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="P+OzyJ3t"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7C2AB2073A
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D3DE6E519;
-	Mon, 31 Aug 2020 20:41:33 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 3A0906E519;
- Mon, 31 Aug 2020 20:41:32 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 3101EA7525;
- Mon, 31 Aug 2020 20:41:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C5AB06E544;
+	Mon, 31 Aug 2020 23:39:06 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9BC576E42C
+ for <intel-gfx@lists.freedesktop.org>; Mon, 31 Aug 2020 23:39:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1598917144;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=n5R+f1PNBorU/jsUkdeV70NC+z+cmxf6ppfqklZypiw=;
+ b=P+OzyJ3tlcqIGjHQ555Hlrsra7u8a7arkT/Zszvh5v/G5qgkXWhTBPFDdj5gpsCvbDYb0T
+ MefJMVYnLJrFj+KttVf4pwtzE1+G9u5uEOYDjViCwvqhzmW87/l3k7hqcLMEot0GVOSnjq
+ ulkUkNqPu53o/XVIm8TSA/URcubsMSY=
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
+ [209.85.160.199]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-53-KDPp9AorMAOKNyFBrhTRNQ-1; Mon, 31 Aug 2020 19:39:00 -0400
+X-MC-Unique: KDPp9AorMAOKNyFBrhTRNQ-1
+Received: by mail-qt1-f199.google.com with SMTP id e14so7248659qtm.5
+ for <intel-gfx@lists.freedesktop.org>; Mon, 31 Aug 2020 16:39:00 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:message-id:subject:from:to:cc:date:organization
+ :user-agent:mime-version:content-transfer-encoding;
+ bh=n5R+f1PNBorU/jsUkdeV70NC+z+cmxf6ppfqklZypiw=;
+ b=L8sFNb0AZJfc5ooKt2CQovX5rkEWn2RiXz9XAZlnrH3svPDbejdvMZRH3Ill0qNbfA
+ 9S23K29AAQ371zi8mGJNmqbqVnY45Gehjzz6wUmObD6Gk6f46k2OIrpnCggthkFYwAtl
+ kS0xlMwwbknAiJjF8cQqk4NnYdQthv1MZoN74oVfirDn4Fg6I8a1YUNMOYxgLLGSe/2p
+ s6VBbHKZ19xfG2Nlk1RRlhQ1yqImAh57E+tLXZuTBA2NZZd87nuS1nX5pUdrRpfLLJDW
+ WnDydQsVAlq+BzRgDgM+/dSKvxvyx5l8XGLLeLyuDhvjgEHVe8tsmeuHAOHJ4RaJnt7F
+ nl1g==
+X-Gm-Message-State: AOAM531klF3UxG93R9qjXJQySjDyxSqN1qQqpyhwlWyJBzM730ho6j34
+ AgReh+z78dqtR6RkKYUHYhe7gn84yjZwu9EMSrGjGDd4Fj1cd2i8H8qGYW/Ecpw+NiMfXtdJssK
+ xPFYqjaSIUSggV814Y3AAYnzhpYyq
+X-Received: by 2002:a37:5703:: with SMTP id l3mr3335473qkb.125.1598917140398; 
+ Mon, 31 Aug 2020 16:39:00 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJyh2vGecgFDzmMhCpTudfXK9+M8MKeOUjCbJMZN6KO19xGuqD62k3eaBxVpoVpy94NLr3TYtg==
+X-Received: by 2002:a37:5703:: with SMTP id l3mr3335457qkb.125.1598917140142; 
+ Mon, 31 Aug 2020 16:39:00 -0700 (PDT)
+Received: from Ruby.lyude.net (pool-108-49-102-102.bstnma.fios.verizon.net.
+ [108.49.102.102])
+ by smtp.gmail.com with ESMTPSA id v18sm7271596qtq.15.2020.08.31.16.38.58
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 31 Aug 2020 16:38:59 -0700 (PDT)
+Message-ID: <11e59ebdea7ee4f46803a21fe9b21443d2b9c401.camel@redhat.com>
+From: Lyude Paul <lyude@redhat.com>
+To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel.vetter@ffwll.ch>
+Date: Mon, 31 Aug 2020 19:38:57 -0400
+Organization: Red Hat
+User-Agent: Evolution 3.36.5 (3.36.5-1.fc32)
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Dave Airlie" <airlied@gmail.com>
-Date: Mon, 31 Aug 2020 20:41:32 -0000
-Message-ID: <159890649216.7426.2258326271608226059@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20200831203343.1198057-1-airlied@gmail.com>
-In-Reply-To: <20200831203343.1198057-1-airlied@gmail.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBk?=
- =?utf-8?q?rm/i915=3A_make_object_creation_avoid_regions_layering=2E?=
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=lyude@redhat.com
+X-Mimecast-Spam-Score: 0.002
+X-Mimecast-Originator: redhat.com
+Subject: [Intel-gfx] [PULL] topic/nouveau-i915-dp-helpers-and-cleanup
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,65 +89,111 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: dim-tools@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Maxime Ripard <mripard@kernel.org>, intel-gfx@lists.freedesktop.org,
+ Ben Skeggs <bskeggs@redhat.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-PT0gU2VyaWVzIERldGFpbHMgPT0KClNlcmllczogZHJtL2k5MTU6IG1ha2Ugb2JqZWN0IGNyZWF0
-aW9uIGF2b2lkIHJlZ2lvbnMgbGF5ZXJpbmcuClVSTCAgIDogaHR0cHM6Ly9wYXRjaHdvcmsuZnJl
-ZWRlc2t0b3Aub3JnL3Nlcmllcy84MTE5Ny8KU3RhdGUgOiBmYWlsdXJlCgo9PSBTdW1tYXJ5ID09
-CgpDQUxMICAgIHNjcmlwdHMvY2hlY2tzeXNjYWxscy5zaAogIENBTEwgICAgc2NyaXB0cy9hdG9t
-aWMvY2hlY2stYXRvbWljcy5zaAogIERFU0NFTkQgIG9ianRvb2wKICBDSEsgICAgIGluY2x1ZGUv
-Z2VuZXJhdGVkL2NvbXBpbGUuaAogIENDIFtNXSAgZHJpdmVycy9ncHUvZHJtL2k5MTUvaW50ZWxf
-bWVtb3J5X3JlZ2lvbi5vCkluIGZpbGUgaW5jbHVkZWQgZnJvbSBkcml2ZXJzL2dwdS9kcm0vaTkx
-NS9pbnRlbF9tZW1vcnlfcmVnaW9uLmM6MzAyOjA6CmRyaXZlcnMvZ3B1L2RybS9pOTE1L3NlbGZ0
-ZXN0cy9pbnRlbF9tZW1vcnlfcmVnaW9uLmM6IEluIGZ1bmN0aW9uIOKAmGlndF9tb2NrX2ZpbGzi
-gJk6CmRyaXZlcnMvZ3B1L2RybS9pOTE1L3NlbGZ0ZXN0cy9pbnRlbF9tZW1vcnlfcmVnaW9uLmM6
-NjY6OTogZXJyb3I6IGltcGxpY2l0IGRlY2xhcmF0aW9uIG9mIGZ1bmN0aW9uIOKAmGk5MTVfZ2Vt
-X29iamVjdF9jcmVhdGVfcmVnaW9u4oCZOyBkaWQgeW91IG1lYW4g4oCYaTkxNV9nZW1fb2JqZWN0
-X2NyZWF0ZV9zdG9sZW7igJk/IFstV2Vycm9yPWltcGxpY2l0LWZ1bmN0aW9uLWRlY2xhcmF0aW9u
-XQogICBvYmogPSBpOTE1X2dlbV9vYmplY3RfY3JlYXRlX3JlZ2lvbihtZW0sIHNpemUsIDApOwog
-ICAgICAgICBefn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fgogICAgICAgICBpOTE1X2dlbV9v
-YmplY3RfY3JlYXRlX3N0b2xlbgpkcml2ZXJzL2dwdS9kcm0vaTkxNS9zZWxmdGVzdHMvaW50ZWxf
-bWVtb3J5X3JlZ2lvbi5jOjY2Ojc6IGVycm9yOiBhc3NpZ25tZW50IG1ha2VzIHBvaW50ZXIgZnJv
-bSBpbnRlZ2VyIHdpdGhvdXQgYSBjYXN0IFstV2Vycm9yPWludC1jb252ZXJzaW9uXQogICBvYmog
-PSBpOTE1X2dlbV9vYmplY3RfY3JlYXRlX3JlZ2lvbihtZW0sIHNpemUsIDApOwogICAgICAgXgpk
-cml2ZXJzL2dwdS9kcm0vaTkxNS9zZWxmdGVzdHMvaW50ZWxfbWVtb3J5X3JlZ2lvbi5jOiBJbiBm
-dW5jdGlvbiDigJhpZ3Rfb2JqZWN0X2NyZWF0ZeKAmToKZHJpdmVycy9ncHUvZHJtL2k5MTUvc2Vs
-ZnRlc3RzL2ludGVsX21lbW9yeV9yZWdpb24uYzoxMDg6NjogZXJyb3I6IGFzc2lnbm1lbnQgbWFr
-ZXMgcG9pbnRlciBmcm9tIGludGVnZXIgd2l0aG91dCBhIGNhc3QgWy1XZXJyb3I9aW50LWNvbnZl
-cnNpb25dCiAgb2JqID0gaTkxNV9nZW1fb2JqZWN0X2NyZWF0ZV9yZWdpb24obWVtLCBzaXplLCBm
-bGFncyk7CiAgICAgIF4KZHJpdmVycy9ncHUvZHJtL2k5MTUvc2VsZnRlc3RzL2ludGVsX21lbW9y
-eV9yZWdpb24uYzogSW4gZnVuY3Rpb24g4oCYY3JlYXRlX3JlZ2lvbl9mb3JfbWFwcGluZ+KAmToK
-ZHJpdmVycy9ncHUvZHJtL2k5MTUvc2VsZnRlc3RzL2ludGVsX21lbW9yeV9yZWdpb24uYzo1OTY6
-NjogZXJyb3I6IGFzc2lnbm1lbnQgbWFrZXMgcG9pbnRlciBmcm9tIGludGVnZXIgd2l0aG91dCBh
-IGNhc3QgWy1XZXJyb3I9aW50LWNvbnZlcnNpb25dCiAgb2JqID0gaTkxNV9nZW1fb2JqZWN0X2Ny
-ZWF0ZV9yZWdpb24obXIsIHNpemUsIDApOwogICAgICBeCkluIGZpbGUgaW5jbHVkZWQgZnJvbSBk
-cml2ZXJzL2dwdS9kcm0vaTkxNS9pbnRlbF9tZW1vcnlfcmVnaW9uLmM6MzAzOjA6CmRyaXZlcnMv
-Z3B1L2RybS9pOTE1L3NlbGZ0ZXN0cy9tb2NrX3JlZ2lvbi5jOiBBdCB0b3AgbGV2ZWw6CmRyaXZl
-cnMvZ3B1L2RybS9pOTE1L3NlbGZ0ZXN0cy9tb2NrX3JlZ2lvbi5jOjQ5OjM6IGVycm9yOiDigJhj
-b25zdCBzdHJ1Y3QgaW50ZWxfbWVtb3J5X3JlZ2lvbl9vcHPigJkgaGFzIG5vIG1lbWJlciBuYW1l
-ZCDigJhjcmVhdGVfb2JqZWN04oCZCiAgLmNyZWF0ZV9vYmplY3QgPSBtb2NrX29iamVjdF9jcmVh
-dGUsCiAgIF5+fn5+fn5+fn5+fn4KZHJpdmVycy9ncHUvZHJtL2k5MTUvc2VsZnRlc3RzL21vY2tf
-cmVnaW9uLmM6NDk6MTk6IGVycm9yOiBleGNlc3MgZWxlbWVudHMgaW4gc3RydWN0IGluaXRpYWxp
-emVyIFstV2Vycm9yXQogIC5jcmVhdGVfb2JqZWN0ID0gbW9ja19vYmplY3RfY3JlYXRlLAogICAg
-ICAgICAgICAgICAgICAgXn5+fn5+fn5+fn5+fn5+fn5+CmRyaXZlcnMvZ3B1L2RybS9pOTE1L3Nl
-bGZ0ZXN0cy9tb2NrX3JlZ2lvbi5jOjQ5OjE5OiBub3RlOiAobmVhciBpbml0aWFsaXphdGlvbiBm
-b3Ig4oCYbW9ja19yZWdpb25fb3Bz4oCZKQpjYzE6IGFsbCB3YXJuaW5ncyBiZWluZyB0cmVhdGVk
-IGFzIGVycm9ycwpzY3JpcHRzL01ha2VmaWxlLmJ1aWxkOjI4MzogcmVjaXBlIGZvciB0YXJnZXQg
-J2RyaXZlcnMvZ3B1L2RybS9pOTE1L2ludGVsX21lbW9yeV9yZWdpb24ubycgZmFpbGVkCm1ha2Vb
-NF06ICoqKiBbZHJpdmVycy9ncHUvZHJtL2k5MTUvaW50ZWxfbWVtb3J5X3JlZ2lvbi5vXSBFcnJv
-ciAxCnNjcmlwdHMvTWFrZWZpbGUuYnVpbGQ6NTAwOiByZWNpcGUgZm9yIHRhcmdldCAnZHJpdmVy
-cy9ncHUvZHJtL2k5MTUnIGZhaWxlZAptYWtlWzNdOiAqKiogW2RyaXZlcnMvZ3B1L2RybS9pOTE1
-XSBFcnJvciAyCnNjcmlwdHMvTWFrZWZpbGUuYnVpbGQ6NTAwOiByZWNpcGUgZm9yIHRhcmdldCAn
-ZHJpdmVycy9ncHUvZHJtJyBmYWlsZWQKbWFrZVsyXTogKioqIFtkcml2ZXJzL2dwdS9kcm1dIEVy
-cm9yIDIKc2NyaXB0cy9NYWtlZmlsZS5idWlsZDo1MDA6IHJlY2lwZSBmb3IgdGFyZ2V0ICdkcml2
-ZXJzL2dwdScgZmFpbGVkCm1ha2VbMV06ICoqKiBbZHJpdmVycy9ncHVdIEVycm9yIDIKTWFrZWZp
-bGU6MTc4ODogcmVjaXBlIGZvciB0YXJnZXQgJ2RyaXZlcnMnIGZhaWxlZAptYWtlOiAqKiogW2Ry
-aXZlcnNdIEVycm9yIDIKCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fXwpJbnRlbC1nZnggbWFpbGluZyBsaXN0CkludGVsLWdmeEBsaXN0cy5mcmVlZGVza3Rv
-cC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9pbnRl
-bC1nZngK
+topic/nouveau-i915-dp-helpers-and-cleanup-2020-08-31-1:
+UAPI Changes:
+
+None
+
+Cross-subsystem Changes:
+
+* Moves a bunch of miscellaneous DP code from the i915 driver into a set
+  of shared DRM DP helpers
+
+Core Changes:
+
+* New DRM DP helpers (see above)
+
+Driver Changes:
+
+* Implements usage of the aforementioned DP helpers in the nouveau
+  driver, along with some other various HPD related cleanup for nouveau
+The following changes since commit bfacb84993eb173c0ab53ca4dd6180f76f4dc176:
+
+  drm: virtio: fix kconfig dependency warning (2020-08-31 08:55:02 +0200)
+
+are available in the Git repository at:
+
+  git://anongit.freedesktop.org/drm/drm-misc tags/topic/nouveau-i915-dp-helpers-and-cleanup-2020-08-31-1
+
+for you to fetch changes up to 79416e97dda0118b137302575a70a14259a27d7d:
+
+  drm/nouveau/kms: Start using drm_dp_read_dpcd_caps() (2020-08-31 19:10:09 -0400)
+
+----------------------------------------------------------------
+UAPI Changes:
+
+None
+
+Cross-subsystem Changes:
+
+* Moves a bunch of miscellaneous DP code from the i915 driver into a set
+  of shared DRM DP helpers
+
+Core Changes:
+
+* New DRM DP helpers (see above)
+
+Driver Changes:
+
+* Implements usage of the aforementioned DP helpers in the nouveau
+  driver, along with some other various HPD related cleanup for nouveau
+
+----------------------------------------------------------------
+Lyude Paul (20):
+      drm/nouveau/kms: Fix some indenting in nouveau_dp_detect()
+      drm/nouveau/kms/nv50-: Remove open-coded drm_dp_read_desc()
+      drm/nouveau/kms/nv50-: Just use drm_dp_dpcd_read() in nouveau_dp.c
+      drm/nouveau/kms/nv50-: Use macros for DP registers in nouveau_dp.c
+      drm/nouveau/kms: Don't clear DP_MST_CTRL DPCD in nv50_mstm_new()
+      drm/nouveau/kms: Search for encoders' connectors properly
+      drm/nouveau/kms/nv50-: Use drm_dp_dpcd_(readb|writeb)() in nv50_sor_disable()
+      drm/nouveau/kms/nv50-: Refactor and cleanup DP HPD handling
+      drm/i915/dp: Extract drm_dp_read_mst_cap()
+      drm/nouveau/kms: Use new drm_dp_read_mst_cap() helper for checking MST caps
+      drm/nouveau/kms: Move drm_dp_cec_unset_edid() into nouveau_connector_detect()
+      drm/nouveau/kms: Only use hpd_work for reprobing in HPD paths
+      drm/i915/dp: Extract drm_dp_read_downstream_info()
+      drm/nouveau/kms/nv50-: Use downstream DP clock limits for mode validation
+      drm/i915/dp: Extract drm_dp_read_sink_count_cap()
+      drm/i915/dp: Extract drm_dp_read_sink_count()
+      drm/nouveau/kms/nv50-: Add support for DP_SINK_COUNT
+      drm/nouveau/kms: Don't change EDID when it hasn't actually changed
+      drm/i915/dp: Extract drm_dp_read_dpcd_caps()
+      drm/nouveau/kms: Start using drm_dp_read_dpcd_caps()
+
+ drivers/gpu/drm/drm_dp_helper.c             | 187 ++++++++++++++++-
+ drivers/gpu/drm/drm_dp_mst_topology.c       |  22 ++
+ drivers/gpu/drm/i915/display/intel_dp.c     | 124 +++--------
+ drivers/gpu/drm/i915/display/intel_dp.h     |   1 -
+ drivers/gpu/drm/i915/display/intel_lspcon.c |   2 +-
+ drivers/gpu/drm/nouveau/dispnv04/dac.c      |   2 +-
+ drivers/gpu/drm/nouveau/dispnv04/dfp.c      |   7 +-
+ drivers/gpu/drm/nouveau/dispnv04/disp.c     |  24 ++-
+ drivers/gpu/drm/nouveau/dispnv04/disp.h     |   4 +
+ drivers/gpu/drm/nouveau/dispnv04/tvnv04.c   |   2 +-
+ drivers/gpu/drm/nouveau/dispnv04/tvnv17.c   |   2 +-
+ drivers/gpu/drm/nouveau/dispnv50/disp.c     | 305 ++++++++++++++++------------
+ drivers/gpu/drm/nouveau/nouveau_connector.c | 132 +++++-------
+ drivers/gpu/drm/nouveau/nouveau_connector.h |   1 +
+ drivers/gpu/drm/nouveau/nouveau_display.c   |  72 ++++++-
+ drivers/gpu/drm/nouveau/nouveau_display.h   |   3 +-
+ drivers/gpu/drm/nouveau/nouveau_dp.c        | 210 +++++++++++++++----
+ drivers/gpu/drm/nouveau/nouveau_drm.c       |   4 +-
+ drivers/gpu/drm/nouveau/nouveau_drv.h       |   2 +
+ drivers/gpu/drm/nouveau/nouveau_encoder.h   |  48 ++++-
+ include/drm/drm_dp_helper.h                 |  15 +-
+ include/drm/drm_dp_mst_helper.h             |   3 +-
+ 22 files changed, 779 insertions(+), 393 deletions(-)
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
