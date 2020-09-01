@@ -2,52 +2,40 @@ Return-Path: <SRS0=JBua=CK=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.0 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-4.0 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D14DCC433E7
-	for <intel-gfx@archiver.kernel.org>; Tue,  1 Sep 2020 12:32:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 14D51C433E6
+	for <intel-gfx@archiver.kernel.org>; Tue,  1 Sep 2020 12:40:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9D2EF20767
-	for <intel-gfx@archiver.kernel.org>; Tue,  1 Sep 2020 12:32:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9D2EF20767
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id E4D61206CD
+	for <intel-gfx@archiver.kernel.org>; Tue,  1 Sep 2020 12:40:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E4D61206CD
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C4C46E426;
-	Tue,  1 Sep 2020 12:32:36 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 32E6F6E426;
- Tue,  1 Sep 2020 12:32:35 +0000 (UTC)
-IronPort-SDR: Q7QA00jr2u5lGYaqqescYIgAJDCgfoYtJF64+dP4RqL+klwFxti6Imbj0QQl+nEBUxCyQVu+zx
- dEwSk8JgVRZw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9730"; a="158157457"
-X-IronPort-AV: E=Sophos;i="5.76,379,1592895600"; d="scan'208";a="158157457"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Sep 2020 05:32:32 -0700
-IronPort-SDR: csHmgCL3y2+/hiPxTON1Cf0koylB6CGy43LyI/w5dY+Re4g1LqLlmfXQp4qUVWiVXe/KYkBqMQ
- c2B0GcQf9KZg==
-X-IronPort-AV: E=Sophos;i="5.76,379,1592895600"; d="scan'208";a="325326231"
-Received: from kgeneral-mobl.ccr.corp.intel.com (HELO localhost)
- ([10.251.95.121])
- by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Sep 2020 05:32:30 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Date: Tue,  1 Sep 2020 15:32:26 +0300
-Message-Id: <20200901123226.4177-1-jani.nikula@intel.com>
-X-Mailer: git-send-email 2.20.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7CCF16E075;
+	Tue,  1 Sep 2020 12:40:08 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id D3C756E075;
+ Tue,  1 Sep 2020 12:40:06 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id CA3A3A011C;
+ Tue,  1 Sep 2020 12:40:06 +0000 (UTC)
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH] drm/dp: start using more of the extended
- receiver caps
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Anshuman Gupta" <anshuman.gupta@intel.com>
+Date: Tue, 01 Sep 2020 12:40:06 -0000
+Message-ID: <159896400679.31090.12984742324351863913@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20200901121041.8793-1-anshuman.gupta@intel.com>
+In-Reply-To: <20200901121041.8793-1-anshuman.gupta@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBk?=
+ =?utf-8?q?rm/i915/hdcp=3A_Gen12_HDCP_1=2E4_support_over_DP_MST?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,46 +48,38 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-In the future, we'll be needing more of the extended receiver capability
-field starting at DPCD address 0x2200. (Specifically, we'll need main
-link channel coding cap for DP 2.0.) Start using it now to not miss out
-later on.
-
-Cc: Lyude Paul <lyude@redhat.com>
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
-
----
-
-I guess this can be merged after the topic branch to drm-misc-next or
-so, but I'd prefer to have this fairly early on to catch any potential
-issues.
----
- drivers/gpu/drm/drm_dp_helper.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/drm_dp_helper.c b/drivers/gpu/drm/drm_dp_helper.c
-index 1e7c638873c8..3a3c238452df 100644
---- a/drivers/gpu/drm/drm_dp_helper.c
-+++ b/drivers/gpu/drm/drm_dp_helper.c
-@@ -436,7 +436,7 @@ static u8 drm_dp_downstream_port_count(const u8 dpcd[DP_RECEIVER_CAP_SIZE])
- static int drm_dp_read_extended_dpcd_caps(struct drm_dp_aux *aux,
- 					  u8 dpcd[DP_RECEIVER_CAP_SIZE])
- {
--	u8 dpcd_ext[6];
-+	u8 dpcd_ext[DP_RECEIVER_CAP_SIZE];
- 	int ret;
- 
- 	/*
--- 
-2.20.1
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+PT0gU2VyaWVzIERldGFpbHMgPT0KClNlcmllczogZHJtL2k5MTUvaGRjcDogR2VuMTIgSERDUCAx
+LjQgc3VwcG9ydCBvdmVyIERQIE1TVApVUkwgICA6IGh0dHBzOi8vcGF0Y2h3b3JrLmZyZWVkZXNr
+dG9wLm9yZy9zZXJpZXMvODEyMjIvClN0YXRlIDogZmFpbHVyZQoKPT0gU3VtbWFyeSA9PQoKQ0FM
+TCAgICBzY3JpcHRzL2NoZWNrc3lzY2FsbHMuc2gKICBDQUxMICAgIHNjcmlwdHMvYXRvbWljL2No
+ZWNrLWF0b21pY3Muc2gKICBERVNDRU5EICBvYmp0b29sCiAgQ0hLICAgICBpbmNsdWRlL2dlbmVy
+YXRlZC9jb21waWxlLmgKICBDQyBbTV0gIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50
+ZWxfaGRjcC5vCmRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfaGRjcC5jOiBJbiBm
+dW5jdGlvbiDigJhfaW50ZWxfaGRjcF9kaXNhYmxl4oCZOgpkcml2ZXJzL2dwdS9kcm0vaTkxNS9k
+aXNwbGF5L2ludGVsX2hkY3AuYzo4MDU6NjogZXJyb3I6IOKAmGludGVsX2RpZ19wb3J04oCZIHVu
+ZGVjbGFyZWQgKGZpcnN0IHVzZSBpbiB0aGlzIGZ1bmN0aW9uKTsgZGlkIHlvdSBtZWFuIOKAmGlu
+dGVsX2RpZ2l0YWxfcG9ydOKAmT8KICBpZiAoaW50ZWxfZGlnX3BvcnQtPm51bV9oZGNwX3N0cmVh
+bXMgPiAwKSB7CiAgICAgIF5+fn5+fn5+fn5+fn5+CiAgICAgIGludGVsX2RpZ2l0YWxfcG9ydApk
+cml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2hkY3AuYzo4MDU6Njogbm90ZTogZWFj
+aCB1bmRlY2xhcmVkIGlkZW50aWZpZXIgaXMgcmVwb3J0ZWQgb25seSBvbmNlIGZvciBlYWNoIGZ1
+bmN0aW9uIGl0IGFwcGVhcnMgaW4Kc2NyaXB0cy9NYWtlZmlsZS5idWlsZDoyODM6IHJlY2lwZSBm
+b3IgdGFyZ2V0ICdkcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2hkY3AubycgZmFp
+bGVkCm1ha2VbNF06ICoqKiBbZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9oZGNw
+Lm9dIEVycm9yIDEKc2NyaXB0cy9NYWtlZmlsZS5idWlsZDo1MDA6IHJlY2lwZSBmb3IgdGFyZ2V0
+ICdkcml2ZXJzL2dwdS9kcm0vaTkxNScgZmFpbGVkCm1ha2VbM106ICoqKiBbZHJpdmVycy9ncHUv
+ZHJtL2k5MTVdIEVycm9yIDIKc2NyaXB0cy9NYWtlZmlsZS5idWlsZDo1MDA6IHJlY2lwZSBmb3Ig
+dGFyZ2V0ICdkcml2ZXJzL2dwdS9kcm0nIGZhaWxlZAptYWtlWzJdOiAqKiogW2RyaXZlcnMvZ3B1
+L2RybV0gRXJyb3IgMgpzY3JpcHRzL01ha2VmaWxlLmJ1aWxkOjUwMDogcmVjaXBlIGZvciB0YXJn
+ZXQgJ2RyaXZlcnMvZ3B1JyBmYWlsZWQKbWFrZVsxXTogKioqIFtkcml2ZXJzL2dwdV0gRXJyb3Ig
+MgpNYWtlZmlsZToxNzg4OiByZWNpcGUgZm9yIHRhcmdldCAnZHJpdmVycycgZmFpbGVkCm1ha2U6
+ICoqKiBbZHJpdmVyc10gRXJyb3IgMgoKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fCkludGVsLWdmeCBtYWlsaW5nIGxpc3QKSW50ZWwtZ2Z4QGxpc3RzLmZy
+ZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3Rp
+bmZvL2ludGVsLWdmeAo=
