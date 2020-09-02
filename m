@@ -2,55 +2,41 @@ Return-Path: <SRS0=CUzP=CL=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.0 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-4.0 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0764BC433E7
-	for <intel-gfx@archiver.kernel.org>; Wed,  2 Sep 2020 11:35:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2C23FC433E7
+	for <intel-gfx@archiver.kernel.org>; Wed,  2 Sep 2020 11:46:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D473F2065E
-	for <intel-gfx@archiver.kernel.org>; Wed,  2 Sep 2020 11:35:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D473F2065E
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 0933620758
+	for <intel-gfx@archiver.kernel.org>; Wed,  2 Sep 2020 11:46:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0933620758
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 66CF06E4AF;
-	Wed,  2 Sep 2020 11:35:03 +0000 (UTC)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9CFFD6E4AF
- for <intel-gfx@lists.freedesktop.org>; Wed,  2 Sep 2020 11:35:01 +0000 (UTC)
-IronPort-SDR: hfOkLZhbmTW/w2G5jhUUQSoRoLbrPSjKnB08si2GSdLfj7a9Vb3G0wFDVRh8lPYxZQ50EZnukt
- I2s0ezyvks+A==
-X-IronPort-AV: E=McAfee;i="6000,8403,9731"; a="218918447"
-X-IronPort-AV: E=Sophos;i="5.76,381,1592895600"; d="scan'208";a="218918447"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Sep 2020 04:34:59 -0700
-IronPort-SDR: GUZUNNZImNmwnSHUm42tuwEOP4CCxxK46glSp4emc/S7K4KthEGCq+2XwgqjmliiHwvKzhR8bE
- uGZ2YG8yc4TA==
-X-IronPort-AV: E=Sophos;i="5.76,381,1592895600"; d="scan'208";a="477605963"
-Received: from klaatz-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.251.95.101])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Sep 2020 04:34:58 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-In-Reply-To: <20200902101125.GL6112@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20200828061941.17051-1-jani.nikula@intel.com>
- <20200831133905.GW6112@intel.com> <87imcy4qus.fsf@intel.com>
- <87ft814ov8.fsf@intel.com> <20200902101125.GL6112@intel.com>
-Date: Wed, 02 Sep 2020 14:34:55 +0300
-Message-ID: <878sds4dk0.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD8546E47E;
+	Wed,  2 Sep 2020 11:46:51 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 6CBBE89973;
+ Wed,  2 Sep 2020 11:46:50 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 64DE5A0BCB;
+ Wed,  2 Sep 2020 11:46:50 +0000 (UTC)
 MIME-Version: 1.0
-Subject: Re: [Intel-gfx] [PATCH 1/2] drm/i915/opregion: add support for
- mailbox #5 EDID
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Mohammed Khajapasha" <mohammed.khajapasha@intel.com>
+Date: Wed, 02 Sep 2020 11:46:50 -0000
+Message-ID: <159904721038.24288.9295785108926970887@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20200902113139.17929-1-mohammed.khajapasha@intel.com>
+In-Reply-To: <20200902113139.17929-1-mohammed.khajapasha@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_drm/kms=3A_Add_separate_hotplug_event_call_for_drm_connecto?=
+ =?utf-8?q?r_=28rev2=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,51 +49,56 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Cc: intel-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-T24gV2VkLCAwMiBTZXAgMjAyMCwgVmlsbGUgU3lyasOkbMOkIDx2aWxsZS5zeXJqYWxhQGxpbnV4
-LmludGVsLmNvbT4gd3JvdGU6Cj4gT24gVHVlLCBTZXAgMDEsIDIwMjAgYXQgMDQ6MTg6MTlQTSAr
-MDMwMCwgSmFuaSBOaWt1bGEgd3JvdGU6Cj4+IE9uIE1vbiwgMzEgQXVnIDIwMjAsIEphbmkgTmlr
-dWxhIDxqYW5pLm5pa3VsYUBpbnRlbC5jb20+IHdyb3RlOgo+PiA+IE9uIE1vbiwgMzEgQXVnIDIw
-MjAsIFZpbGxlIFN5cmrDpGzDpCA8dmlsbGUuc3lyamFsYUBsaW51eC5pbnRlbC5jb20+IHdyb3Rl
-Ogo+PiA+PiBPbiBGcmksIEF1ZyAyOCwgMjAyMCBhdCAwOToxOTo0MEFNICswMzAwLCBKYW5pIE5p
-a3VsYSB3cm90ZToKPj4gPj4+IFRoZSBBQ1BJIE9wUmVnaW9uIE1haWxib3ggIzUgQVNMRSBleHRl
-bnNpb24gbWF5IGNvbnRhaW4gYW4gRURJRCB0byBiZQo+PiA+Pj4gdXNlZCBmb3IgdGhlIGVtYmVk
-ZGVkIGRpc3BsYXkuIEFkZCBzdXBwb3J0IGZvciB1c2luZyBpdCB2aWEgdGhlIEVESUQKPj4gPj4+
-IG92ZXJyaWRlIG1lY2hhbmlzbS4KPj4gPj4KPj4gPj4gQWJ1c2luZyB0aGUgb3ZlcnJpZGUgZm9y
-IHRoaXMgZmVlbHMgYSBiaXQgb2RkLgo+PiA+Cj4+ID4gSXQncyB0aGUgbGVhc3QgaW50cnVzaXZl
-IHdheSB0byBtYWtlIHRoaXMgd29yayBhY3Jvc3MgdGhlIGRybSBhbmQgZHJpdmVyCj4+ID4gRURJ
-RCBjb2RlIHRoYXQgSSBjb3VsZCB0aGluayBvZi4KPj4gPgo+PiA+IEJSLAo+PiA+IEphbmkuCj4+
-ID4KPj4gPgo+PiA+Pgo+PiA+PiBBbHNvIEkgaGF2ZSBhIHZhZ3VlIHJlY29sbGVjdGlvbiB0aGF0
-IHRoZXJlIHdhcyBwZXJoYXBzIHNvbWUKPj4gPj4gbGlua2FnZSBiZXR3ZWVuIHRoZSBtYWlsYm94
-IGFuZCB0aGUgQUNQSSBfRERDIHN0dWZmOgo+PiA+PiBnaXQ6Ly9naXRodWIuY29tL3ZzeXJqYWxh
-L2xpbnV4LmdpdCBhY3BpX2VkaWQKPj4gCj4+IE9ubHkgbG9va2VkIGF0IHRoaXMgbm93LiBUaGUg
-cGF0Y2ggYXQgaGFuZCBpcyBmb3IgYWN0dWFsbHkgb3ZlcnJpZGluZwo+PiB0aGUgRURJRCBmcm9t
-IHRoZSBwYW5lbCwgYmVjYXVzZSB0aGUgcGFuZWwgRURJRCBpcyByZWFkYWJsZSBidXQgYm9ndXMu
-Cj4KPiBEbyB3ZSBoYXZlIGFuIGFjdHVhbCB1c2UgY2FzZSBmb3IgdGhpcz8gVGhlIGNvbW1pdCBt
-c2cgZG9lc24ndCBzYXkgc28uCgpJdCdzIGEgYml0IGhhenkgc3RpbGwsIGJ1dCBwb3RlbnRpYWxs
-eSB5ZXMsIHdpdGggYSBuZWVkIHRvIGJhY2twb3J0IHRvCnN0YWJsZSBhcyB3ZWxsLgoKPj4gSQo+
-PiBoYXZlIG5vIGlkZWEgaG93IHRoZSBBQ1BJIF9EREMgc3R1ZmYgd291bGQgd29yayBpbiB0aGlz
-IGNhc2UuIFdvdWxkIGl0Cj4+IHJldHVybiB0aGUgRURJRCBmcm9tIHRoZSBwYW5lbCBvciBmcm9t
-IG1haWxib3ggIzUgb3Igc29tZXRoaW5nCj4+IGNvbXBsZXRlbHkgZGlmZmVyZW50PyBXaG8ga25v
-d3MuCj4+IAo+PiBVc2luZyBkcm1fZG9fZ2V0X2VkaWQoKSB3b3VsZCBvZiBjb3Vyc2UgYmUgZG9h
-YmxlIGZvciByZWFkaW5nIG1haWxib3ggIzUKPj4gZGlyZWN0bHkgYXMgd2VsbCwgYnV0IHlvdSdk
-IGhhdmUgdG8gbWFrZSB0aGF0IHRoZSAicHJpbWFyeSIgbWV0aG9kIGFuZAo+PiBmYWxsIGJhY2sg
-dG8gdGhlIHVzdWFsIGRybV9nZXRfZWRpZCgpLiBOb3RlIHRoYXQgdGhpcyBjb21wbGV0ZWx5Cj4+
-IHByZXZlbnRzIHlvdSBmcm9tIGV2ZXIgcmVhZGluZyB0aGUgYWN0dWFsIHBhbmVsIEVESUQuIFVz
-aW5nCj4+IGVkaWRfb3ZlcnJpZGUgbGV0cyB5b3UgZ2V0IGF0IHRoZSBwYW5lbCBFRElEIHRvby4K
-Pgo+IE1pZ2h0IGJlIG5pY2UgdG8gbWFrZSAuZ2V0X2VkaWQoKSBhIGNvbm5lY3RvciB2ZnVuYyBh
-bmQgbGV0IGVhY2ggZHJpdmVyCj4gaW1wbGVtZW50IGl0IGhvd2V2ZXIgdGhleSB3YW50LiBUaGF0
-IHdheSB0aGUgZHJpdmVyIHdvdWxkIGJlIGluIHRvdGFsCj4gY29udHJvbCBvdmVyIHRoZSBwcmlv
-cml0eSBvZiBkaWZmZXJlbnQgRURJRCBzb3VyY2VzLiBCdXQgaGF2ZW4ndCByZWFsbHkKPiBsb29r
-ZWQgYXQgd2hhdCB0aGF0IHdvdWxkIHRha2UuIE5vdCBldmVuIHN1cmUgaWYgYSB2ZnVuYyBpcyB0
-b3RhbGx5Cj4gcmVxdWlyZWQgYXMgSSB0aGluayBtb3N0IEVESUQgcmVhZHMgc2hvdWxkIGJlIGlu
-IHNvbWUgY29ubmVjdG9yIHNwZWNpZmljCj4gZHJpdmVyIGNvZGUuCgotLSAKSmFuaSBOaWt1bGEs
-IEludGVsIE9wZW4gU291cmNlIEdyYXBoaWNzIENlbnRlcgpfX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fXwpJbnRlbC1nZnggbWFpbGluZyBsaXN0CkludGVsLWdm
-eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
-bG1hbi9saXN0aW5mby9pbnRlbC1nZngK
+== Series Details ==
+
+Series: drm/kms: Add separate hotplug event call for drm connector (rev2)
+URL   : https://patchwork.freedesktop.org/series/81257/
+State : warning
+
+== Summary ==
+
+$ dim checkpatch origin/drm-tip
+e24fd2c19263 drm/kms: Add separate hotplug event call for drm connector
+-:40: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#40: FILE: drivers/gpu/drm/drm_probe_helper.c:610:
++void drm_kms_connector_hotplug_helper(struct drm_device *dev,
++		struct drm_connector *connector)
+
+-:72: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#72: FILE: drivers/gpu/drm/drm_sysfs.c:357:
++void drm_sysfs_connector_hotplug_event(struct drm_device *dev,
++		struct drm_connector *connector)
+
+-:75: WARNING:STATIC_CONST_CHAR_ARRAY: char * array declaration might be better as static const
+#75: FILE: drivers/gpu/drm/drm_sysfs.c:360:
++	char *envp[] = { hotplug_str, conn_id, NULL };
+
+-:78: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#78: FILE: drivers/gpu/drm/drm_sysfs.c:363:
++	snprintf(conn_id, ARRAY_SIZE(conn_id),
++			"CONNECTOR=%u", connector->base.id);
+
+-:98: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#98: FILE: include/drm/drm_probe_helper.h:23:
++void drm_kms_connector_hotplug_helper(struct drm_device *dev,
++		struct drm_connector *connector);
+
+-:111: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#111: FILE: include/drm/drm_sysfs.h:15:
++void drm_sysfs_connector_hotplug_event(struct drm_device *dev,
++		struct drm_connector *connector);
+
+total: 0 errors, 1 warnings, 5 checks, 82 lines checked
+
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
