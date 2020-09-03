@@ -2,50 +2,67 @@ Return-Path: <SRS0=04ZO=CM=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-14.0 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PULL_REQUEST,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.7 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	NICE_REPLY_A,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6EBD9C433E7
-	for <intel-gfx@archiver.kernel.org>; Thu,  3 Sep 2020 09:08:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 63871C43461
+	for <intel-gfx@archiver.kernel.org>; Thu,  3 Sep 2020 09:51:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3D17E20709
-	for <intel-gfx@archiver.kernel.org>; Thu,  3 Sep 2020 09:08:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3D17E20709
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 5CDDD20709
+	for <intel-gfx@archiver.kernel.org>; Thu,  3 Sep 2020 09:50:58 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=shipmail.org header.i=@shipmail.org header.b="rM2KtoeH"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5CDDD20709
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=shipmail.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E1256E96D;
-	Thu,  3 Sep 2020 09:08:42 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CFEE56E96D;
- Thu,  3 Sep 2020 09:08:41 +0000 (UTC)
-IronPort-SDR: jVQwnx7JhfCUiMDVgJ3Zp4Att3N4YeZWJX5nZ0tMmb8VIU0Op6H2nbAc+9iBqJX0O0H7n2SkbS
- 0rf3wshYa8ug==
-X-IronPort-AV: E=McAfee;i="6000,8403,9732"; a="137594932"
-X-IronPort-AV: E=Sophos;i="5.76,386,1592895600"; d="scan'208";a="137594932"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Sep 2020 02:08:41 -0700
-IronPort-SDR: caTYvbvfMEHR5U/pFc9WfuubkHNtxwnAO7LQ8oWngipPEMHTPrw/nQxxzhGkyAoz3wpbVsjjg4
- 6c2nv6B4YYkA==
-X-IronPort-AV: E=Sophos;i="5.76,386,1592895600"; d="scan'208";a="326142259"
-Received: from cbanica1-mobl.ger.corp.intel.com (HELO localhost)
- ([10.252.22.177])
- by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Sep 2020 02:08:37 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel.vetter@ffwll.ch>, 
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Date: Thu, 03 Sep 2020 12:08:34 +0300
-Message-ID: <87sgbz2pnx.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC9886E977;
+	Thu,  3 Sep 2020 09:50:57 +0000 (UTC)
+Received: from pio-pvt-msa3.bahnhof.se (pio-pvt-msa3.bahnhof.se [79.136.2.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 73F586E977
+ for <intel-gfx@lists.freedesktop.org>; Thu,  3 Sep 2020 09:50:56 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+ by pio-pvt-msa3.bahnhof.se (Postfix) with ESMTP id 763E83FEB2;
+ Thu,  3 Sep 2020 11:50:54 +0200 (CEST)
+Authentication-Results: pio-pvt-msa3.bahnhof.se; dkim=pass (1024-bit key;
+ unprotected) header.d=shipmail.org header.i=@shipmail.org header.b=rM2KtoeH; 
+ dkim-atps=neutral
+X-Virus-Scanned: Debian amavisd-new at bahnhof.se
+Received: from pio-pvt-msa3.bahnhof.se ([127.0.0.1])
+ by localhost (pio-pvt-msa3.bahnhof.se [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id QLiTYYngjN7W; Thu,  3 Sep 2020 11:50:53 +0200 (CEST)
+Received: from mail1.shipmail.org (h-205-35.A357.priv.bahnhof.se
+ [155.4.205.35]) (Authenticated sender: mb878879)
+ by pio-pvt-msa3.bahnhof.se (Postfix) with ESMTPA id 5EB96405E4;
+ Thu,  3 Sep 2020 11:50:51 +0200 (CEST)
+Received: from Win10-1tb-87.SSPE.ch.intel.com (jfdmzpr03-ext.jf.intel.com
+ [134.134.139.72])
+ by mail1.shipmail.org (Postfix) with ESMTPSA id 1A6DC360303;
+ Thu,  3 Sep 2020 11:50:49 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=shipmail.org; s=mail;
+ t=1599126651; bh=pQDI6LEgv6hAvcQz3t5nWgetKA1KrhjQR77batwKOxU=;
+ h=Subject:From:To:References:Date:In-Reply-To:From;
+ b=rM2KtoeHDB2z983snojOsqqupxkgnKSp+rTMVFEJLV0oBY8lIEgJIUNLjS2MtQY0I
+ Fqqbyw4XzopuRS4MmCVXdWnFmHepJ0Swea/hf0nZviZQElICxN7H5E/y2Ab88SxpfR
+ l0HXElZa3gVPp+E+7fF5X4dBKzcCok5RKbO5ZY2c=
+From: =?UTF-8?Q?Thomas_Hellstr=c3=b6m_=28Intel=29?= <thomas_os@shipmail.org>
+To: Chris Wilson <chris@chris-wilson.co.uk>, intel-gfx@lists.freedesktop.org
+References: <20200826132811.17577-1-chris@chris-wilson.co.uk>
+ <20200826132811.17577-35-chris@chris-wilson.co.uk>
+ <b2ebd7c1-733f-04aa-78cd-f05e5ff5438a@shipmail.org>
+Message-ID: <ca140ae5-96be-e72c-662d-64a0d8ad9689@shipmail.org>
+Date: Thu, 3 Sep 2020 11:50:45 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.11.0
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PULL] drm-intel-fixes
+In-Reply-To: <b2ebd7c1-733f-04aa-78cd-f05e5ff5438a@shipmail.org>
+Content-Language: en-US
+Subject: Re: [Intel-gfx] [PATCH 35/39] drm/i915: Encode fence specific
+ waitqueue behaviour into the wait.flags
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,57 +75,45 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: , dim-tools@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Maxime Ripard <mripard@kernel.org>, intel-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-
-Hi Dave & Daniel -
-
-drm-intel-fixes-2020-09-03:
-drm/i915 fixes for v5.9-rc4:
-- Clang build warning fix
-- HDCP fixes
-
-BR,
-Jani.
-
-The following changes since commit f75aef392f869018f78cfedf3c320a6b3fcfda6b:
-
-  Linux 5.9-rc3 (2020-08-30 16:01:54 -0700)
-
-are available in the Git repository at:
-
-  git://anongit.freedesktop.org/drm/drm-intel tags/drm-intel-fixes-2020-09-03
-
-for you to fetch changes up to 57537b4e1d37002ed8cbd0a9be082104749e9d8f:
-
-  drm/i915: Clear the repeater bit on HDCP disable (2020-09-02 10:48:23 +0300)
-
-----------------------------------------------------------------
-drm/i915 fixes for v5.9-rc4:
-- Clang build warning fix
-- HDCP fixes
-
-----------------------------------------------------------------
-Nathan Chancellor (1):
-      drm/i915/display: Ensure that ret is always initialized in icl_combo_phy_verify_state
-
-Sean Paul (2):
-      drm/i915: Fix sha_text population code
-      drm/i915: Clear the repeater bit on HDCP disable
-
- drivers/gpu/drm/i915/display/intel_combo_phy.c |  4 ++--
- drivers/gpu/drm/i915/display/intel_hdcp.c      | 32 +++++++++++++++++++++-----
- include/drm/drm_hdcp.h                         |  3 +++
- 3 files changed, 31 insertions(+), 8 deletions(-)
-
--- 
-Jani Nikula, Intel Open Source Graphics Center
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+Ck9uIDkvMi8yMCA0OjAyIFBNLCBUaG9tYXMgSGVsbHN0csO2bSAoSW50ZWwpIHdyb3RlOgo+IEhp
+LCBDaHJpcywKPgo+IE9uIDgvMjYvMjAgMzoyOCBQTSwgQ2hyaXMgV2lsc29uIHdyb3RlOgo+PiBV
+c2UgdGhlIHdhaXRfcXVldWVfZW50cnkuZmxhZ3MgdG8gZGVub3RlIHRoZSBzcGVjaWFsIGZlbmNl
+IGJlaGF2aW91cgo+PiAoZmxhdHRlbmluZyBjb250aW51YXRpb25zIGFsb25nIGZlbmNlIGNoYWlu
+cywgYW5kIGZvciBwcm9wYWdhdGluZwo+PiBlcnJvcnMpIHJhdGhlciB0aGFuIHRyeWluZyB0byBk
+ZXRlY3Qgb3JkaW5hcnkgd2FpdGVycyBieSB0aGVpcgo+PiBmdW5jdGlvbnMuCj4+Cj4+IFNpZ25l
+ZC1vZmYtYnk6IENocmlzIFdpbHNvbiA8Y2hyaXNAY2hyaXMtd2lsc29uLmNvLnVrPgo+PiAtLS0K
+Pj4gwqAgZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV9zd19mZW5jZS5jIHwgMjUgKysrKysrKysr
+KysrKysrLS0tLS0tLS0tLQo+PiDCoCAxIGZpbGUgY2hhbmdlZCwgMTUgaW5zZXJ0aW9ucygrKSwg
+MTAgZGVsZXRpb25zKC0pCj4+Cj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9p
+OTE1X3N3X2ZlbmNlLmMgCj4+IGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV9zd19mZW5jZS5j
+Cj4+IGluZGV4IDRjZDIwMzhjYmUzNS4uNGU1NTdkMWM0NjQ0IDEwMDY0NAo+PiAtLS0gYS9kcml2
+ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X3N3X2ZlbmNlLmMKPj4gKysrIGIvZHJpdmVycy9ncHUvZHJt
+L2k5MTUvaTkxNV9zd19mZW5jZS5jCj4+IEBAIC0xOCwxMCArMTgsMTUgQEAKPj4gwqAgI2RlZmlu
+ZSBJOTE1X1NXX0ZFTkNFX0JVR19PTihleHByKSBCVUlMRF9CVUdfT05fSU5WQUxJRChleHByKQo+
+PiDCoCAjZW5kaWYKPj4gwqAgLSNkZWZpbmUgSTkxNV9TV19GRU5DRV9GTEFHX0FMTE9DIEJJVCgz
+KSAvKiBhZnRlciBXUV9GTEFHXyogZm9yIAo+PiBzYWZldHkgKi8KPj4gLQo+PiDCoCBzdGF0aWMg
+REVGSU5FX1NQSU5MT0NLKGk5MTVfc3dfZmVuY2VfbG9jayk7Cj4+IMKgICsjZGVmaW5lIFdRX0ZM
+QUdfQklUUyBcCj4+ICvCoMKgwqAgQklUU19QRVJfVFlQRSh0eXBlb2ZfbWVtYmVyKHN0cnVjdCB3
+YWl0X3F1ZXVlX2VudHJ5LCBmbGFncykpCj4+ICsKPj4gKy8qIGFmdGVyIFdRX0ZMQUdfKiBmb3Ig
+c2FmZXR5ICovCj4+ICsjZGVmaW5lIEk5MTVfU1dfRkVOQ0VfRkxBR19GRU5DRSBCSVQoV1FfRkxB
+R19CSVRTIC0gMSkKPj4gKyNkZWZpbmUgSTkxNV9TV19GRU5DRV9GTEFHX0FMTE9DIEJJVChXUV9G
+TEFHX0JJVFMgLSAyKQo+Cj4gTm90IHN1cmUgaWYgc2hhcmluZyB0aGUgZmxhZ3MgZmllbGQgd2l0
+aCB0aGUgd2FpdC5jIGltcGxlbWVudGF0aW9uIGlzIAo+IGZ1bGx5IE9LIGVpdGhlci4gSXMgdGhl
+IEBrZXkgcGFyYW1ldGVyIHRvIHRoZSB3YWtlIGZ1bmN0aW9uIHVzZWFibGU/IEkgCj4gbWVhbiBy
+YXRoZXIgdGhhbiBwYXNzaW5nIGp1c3QgYSBsaXN0IGhlYWQgY291bGQgd2UgcGFzcyBzb21ldGhp
+bmcgbGlrZQo+Cj4gc3RydWN0IGk5MTVfc3dfZmVuY2Vfa2V5IHsKPiDCoMKgwqAgYm9vbCBub19y
+ZWN1cnNpb247IC8qIE1ha2VzIHRoZSB3YWl0IGZ1bmN0aW9uIGp1c3QgcHV0IGl0cyBlbnRyeSAK
+PiBvbiBAY29udGludWF0aW9uIGFuZCByZXR1cm4gKi8KPiDCoMKgwqAgaW50IGVycm9yOwo+IMKg
+wqDCoCBzdHJ1Y3QgbGlzdF9oZWFkIGNvbnRpbnVhdGlvbjsKPiB9Cj4KPiAvVGhvbWFzCj4KPgpB
+Y3R1YWxseSwgYWZ0ZXIgZG9pbmcgc29tZSB0aGlua2luZywgd291bGRuJ3QganVzdCBjb21wYXJp
+bmcgYWdhaW5zdCB0aGUgCmludGVybmFsIHdha2UgZnVuY3Rpb24gaW5zdGVhZCBvZiB0aGUgYXV0
+b3JlbW92ZV93YWtlX2Z1bmN0aW9uIHJlbW92ZSAKdGhlIGZyYWdpbGl0eS4gV291bGQgdGhhdCBi
+ZSBwb3NzaWJsZT8KCi9UaG9tYXMKCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fXwpJbnRlbC1nZnggbWFpbGluZyBsaXN0CkludGVsLWdmeEBsaXN0cy5mcmVl
+ZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
+by9pbnRlbC1nZngK
