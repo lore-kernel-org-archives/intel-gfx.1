@@ -4,51 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-9.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6CAD0C2BB84
-	for <intel-gfx@archiver.kernel.org>; Thu,  3 Sep 2020 10:52:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8ABBDC433E2
+	for <intel-gfx@archiver.kernel.org>; Thu,  3 Sep 2020 10:52:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 37ED0206A5
-	for <intel-gfx@archiver.kernel.org>; Thu,  3 Sep 2020 10:52:17 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 56BE82086A
+	for <intel-gfx@archiver.kernel.org>; Thu,  3 Sep 2020 10:52:18 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="aa9pL9Ta"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 37ED0206A5
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="I43/nCDp"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 56BE82086A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 208C66E996;
-	Thu,  3 Sep 2020 10:52:16 +0000 (UTC)
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com
- [207.211.31.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8CF956E998
- for <intel-gfx@lists.freedesktop.org>; Thu,  3 Sep 2020 10:52:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE24F6E999;
+	Thu,  3 Sep 2020 10:52:17 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 426676E99A
+ for <intel-gfx@lists.freedesktop.org>; Thu,  3 Sep 2020 10:52:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1599130333;
+ s=mimecast20190719; t=1599130335;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=1wMXBHDyyQ6t98T6xFtSD2movAwUy8KekR8cCyDYfqQ=;
- b=aa9pL9Ta3rDloIHLfFSsaT2EB8urSnA2Y9vBebQOrI8Rz6/27QhF6nCGPtcmsLI9apJmO/
- Z9SbrIWxs70LdChoee1Na3fH9xSr3Qiyf4oDzog1VMRtNPKsECWlyxayqqa1tL1XtCTQcd
- QYjyq20zNcTNi9NPhGwzLM1MS7e3a2M=
+ bh=yBZnW0uEhs9/IogdfbWxz1WbKxUqUn2zepvhTOAX9YU=;
+ b=I43/nCDpKi8KNCzol2BBY7wfVgAE+tfOemHgQiOcejC3EDsk4J7Z9m+GAJoy+g7nRXgG2F
+ F/1Bdz8k9FUo5j0xvA1yRSfKbhbi9LgvsiDNF5wuP5ul1OIzHzndczPU3Tt5o/K46eu6BZ
+ T9uCW4EYwT90Ml1ChdaufSoyT0imgBs=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-533--_LT4ow9O3Sq7pwO4Ub6cg-1; Thu, 03 Sep 2020 06:52:07 -0400
-X-MC-Unique: -_LT4ow9O3Sq7pwO4Ub6cg-1
+ us-mta-326-YJxxVde4NCeiAWF5mi9HMg-1; Thu, 03 Sep 2020 06:52:13 -0400
+X-MC-Unique: YJxxVde4NCeiAWF5mi9HMg-1
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
  [10.5.11.13])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8B7E31DE09;
- Thu,  3 Sep 2020 10:52:05 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A42E1801AE6;
+ Thu,  3 Sep 2020 10:52:11 +0000 (UTC)
 Received: from x1.localdomain.com (ovpn-115-4.ams2.redhat.com [10.36.115.4])
- by smtp.corp.redhat.com (Postfix) with ESMTP id B6D21784A8;
- Thu,  3 Sep 2020 10:52:02 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id DF218784A8;
+ Thu,  3 Sep 2020 10:52:08 +0000 (UTC)
 From: Hans de Goede <hdegoede@redhat.com>
 To: Thierry Reding <thierry.reding@gmail.com>,
  =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
@@ -57,14 +57,14 @@ To: Thierry Reding <thierry.reding@gmail.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
  =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
  "Rafael J . Wysocki" <rjw@rjwysocki.net>, Len Brown <lenb@kernel.org>
-Date: Thu,  3 Sep 2020 12:51:11 +0200
-Message-Id: <20200903105114.9969-15-hdegoede@redhat.com>
+Date: Thu,  3 Sep 2020 12:51:13 +0200
+Message-Id: <20200903105114.9969-17-hdegoede@redhat.com>
 In-Reply-To: <20200903105114.9969-1-hdegoede@redhat.com>
 References: <20200903105114.9969-1-hdegoede@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
-Subject: [Intel-gfx] [PATCH v9 14/17] drm/i915: panel: Add
- get_vbt_pwm_freq() helper
+Subject: [Intel-gfx] [PATCH v9 16/17] drm/i915: panel: Honor the VBT PWM min
+ setting for devs with an external PWM controller
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,66 +87,46 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Factor the code which checks and drm_dbg_kms-s the VBT PWM frequency
-out of get_backlight_max_vbt().
+So far for devices using an external PWM controller (devices using
+pwm_setup_backlight()), we have been hardcoding the minimum allowed
+PWM level to 0. But several of these devices specify a non 0 minimum
+setting in their VBT.
 
-This is a preparation patch for honering the VBT PWM frequency for
-devices which use an external PWM controller (devices using
-pwm_setup_backlight()).
+Change pwm_setup_backlight() to use get_backlight_min_vbt() to get
+the minimum level.
 
 Acked-by: Jani Nikula <jani.nikula@intel.com>
 Signed-off-by: Hans de Goede <hdegoede@redhat.com>
 ---
- drivers/gpu/drm/i915/display/intel_panel.c | 27 ++++++++++++++--------
- 1 file changed, 17 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/i915/display/intel_panel.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_panel.c b/drivers/gpu/drm/i915/display/intel_panel.c
-index 4072d7062efd..df7472a3b9f8 100644
+index 5a13089d2fc0..2b27f9b07403 100644
 --- a/drivers/gpu/drm/i915/display/intel_panel.c
 +++ b/drivers/gpu/drm/i915/display/intel_panel.c
-@@ -1543,18 +1543,9 @@ static u32 vlv_hz_to_pwm(struct intel_connector *connector, u32 pwm_freq_hz)
- 	return DIV_ROUND_CLOSEST(clock, pwm_freq_hz * mul);
- }
+@@ -1925,8 +1925,8 @@ static int pwm_setup_backlight(struct intel_connector *connector,
+ 	 */
+ 	pwm_apply_args(panel->backlight.pwm);
  
--static u32 get_backlight_max_vbt(struct intel_connector *connector)
-+static u16 get_vbt_pwm_freq(struct drm_i915_private *dev_priv)
- {
--	struct drm_i915_private *dev_priv = to_i915(connector->base.dev);
--	struct intel_panel *panel = &connector->panel;
- 	u16 pwm_freq_hz = dev_priv->vbt.backlight.pwm_freq_hz;
--	u32 pwm;
--
--	if (!panel->backlight.hz_to_pwm) {
--		drm_dbg_kms(&dev_priv->drm,
--			    "backlight frequency conversion not supported\n");
--		return 0;
--	}
+-	panel->backlight.min = 0; /* 0% */
+ 	panel->backlight.max = 100; /* 100% */
++	panel->backlight.min = get_backlight_min_vbt(connector);
+ 	level = intel_panel_compute_brightness(connector, 100);
+ 	ns = DIV_ROUND_UP(level * panel->backlight.pwm_period_ns, 100);
  
- 	if (pwm_freq_hz) {
- 		drm_dbg_kms(&dev_priv->drm,
-@@ -1567,6 +1558,22 @@ static u32 get_backlight_max_vbt(struct intel_connector *connector)
- 			    pwm_freq_hz);
- 	}
+@@ -1941,8 +1941,9 @@ static int pwm_setup_backlight(struct intel_connector *connector,
  
-+	return pwm_freq_hz;
-+}
-+
-+static u32 get_backlight_max_vbt(struct intel_connector *connector)
-+{
-+	struct drm_i915_private *dev_priv = to_i915(connector->base.dev);
-+	struct intel_panel *panel = &connector->panel;
-+	u16 pwm_freq_hz = get_vbt_pwm_freq(dev_priv);
-+	u32 pwm;
-+
-+	if (!panel->backlight.hz_to_pwm) {
-+		drm_dbg_kms(&dev_priv->drm,
-+			    "backlight frequency conversion not supported\n");
-+		return 0;
-+	}
-+
- 	pwm = panel->backlight.hz_to_pwm(connector, pwm_freq_hz);
- 	if (!pwm) {
- 		drm_dbg_kms(&dev_priv->drm,
+ 	level = DIV_ROUND_UP_ULL(pwm_get_duty_cycle(panel->backlight.pwm) * 100,
+ 				 panel->backlight.pwm_period_ns);
+-	panel->backlight.level =
+-		intel_panel_compute_brightness(connector, level);
++	level = intel_panel_compute_brightness(connector, level);
++	panel->backlight.level = clamp(level, panel->backlight.min,
++				       panel->backlight.max);
+ 	panel->backlight.enabled = panel->backlight.level != 0;
+ 
+ 	drm_info(&dev_priv->drm, "Using %s PWM for LCD backlight control\n",
 -- 
 2.28.0
 
