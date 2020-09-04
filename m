@@ -2,52 +2,57 @@ Return-Path: <SRS0=Y2nD=CN=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.0 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.5 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8A981C43461
-	for <intel-gfx@archiver.kernel.org>; Fri,  4 Sep 2020 12:01:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D38FEC433E2
+	for <intel-gfx@archiver.kernel.org>; Fri,  4 Sep 2020 12:02:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3A3C420791
-	for <intel-gfx@archiver.kernel.org>; Fri,  4 Sep 2020 12:01:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3A3C420791
+	by mail.kernel.org (Postfix) with ESMTPS id 84D3D2084D
+	for <intel-gfx@archiver.kernel.org>; Fri,  4 Sep 2020 12:02:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 84D3D2084D
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C219A6E26C;
-	Fri,  4 Sep 2020 12:01:33 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8EC3D6E26C;
- Fri,  4 Sep 2020 12:01:32 +0000 (UTC)
-IronPort-SDR: Dkx60BFjI4qNuAUh5wsybFPE0/lYzcRnhUlObYPmWjXO8AwbPpnIJONxOKC9XcwDtpE243GyyI
- qNnazGfVcpDw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9733"; a="242548495"
-X-IronPort-AV: E=Sophos;i="5.76,389,1592895600"; d="scan'208";a="242548495"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1BF1B6EB91;
+	Fri,  4 Sep 2020 12:02:44 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B42696EB88;
+ Fri,  4 Sep 2020 12:02:42 +0000 (UTC)
+IronPort-SDR: swTxtRvwaUTe1lmOOR8qu85tU/3/3akefG6kLmNeR6//tArL4Bs1Uoh5Di+AzvCLYKBphCNALX
+ vze4hLs6hRvg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9733"; a="155127274"
+X-IronPort-AV: E=Sophos;i="5.76,389,1592895600"; d="scan'208";a="155127274"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Sep 2020 05:01:32 -0700
-IronPort-SDR: 3XFK1uwixj27q9XuEn9RZFQj/3VOqhm5BrSz2ndAttHkffoOKrrcKgDxqpEIP3I8Oifqsh7TyL
- bYreST9/2Svg==
-X-IronPort-AV: E=Sophos;i="5.76,389,1592895600"; d="scan'208";a="298390180"
-Received: from unknown (HELO karthik-2012-Client-Platform.iind.intel.com)
- ([10.223.74.217])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-SHA;
- 04 Sep 2020 05:01:28 -0700
-From: Karthik B S <karthik.b.s@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Fri,  4 Sep 2020 17:03:30 +0530
-Message-Id: <20200904113330.19815-8-karthik.b.s@intel.com>
-X-Mailer: git-send-email 2.22.0
-In-Reply-To: <20200904113330.19815-1-karthik.b.s@intel.com>
-References: <20200904113330.19815-1-karthik.b.s@intel.com>
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Sep 2020 05:02:42 -0700
+IronPort-SDR: i5N4RdgN1WjUVGUoLAAXq9gXmSzTPcFGlKMpiPT5A8R/tI9NWtmxteLqBwuxs8dSPg4ArFo02M
+ PTo86P/NEapg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.76,389,1592895600"; d="scan'208";a="332132786"
+Received: from thrakatuluk.fi.intel.com (HELO thrakatuluk) ([10.237.68.154])
+ by orsmga008.jf.intel.com with ESMTP; 04 Sep 2020 05:02:39 -0700
+Received: from platvala by thrakatuluk with local (Exim 4.92)
+ (envelope-from <petri.latvala@intel.com>)
+ id 1kEAK5-0004k3-39; Fri, 04 Sep 2020 14:56:05 +0300
+Date: Fri, 4 Sep 2020 14:56:05 +0300
+From: Petri Latvala <petri.latvala@intel.com>
+To: Liviu Dudau <Liviu.Dudau@arm.com>
+Message-ID: <20200904115605.GW7444@platvala-desk.ger.corp.intel.com>
+References: <20200830174410.256533-1-rodrigosiqueiramelo@gmail.com>
+ <20200904110918.GM159988@e110455-lin.cambridge.arm.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v7 7/7] drm/i915: Enable async flips in i915
+Content-Disposition: inline
+In-Reply-To: <20200904110918.GM159988@e110455-lin.cambridge.arm.com>
+X-Patchwork-Hint: comment
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Subject: Re: [Intel-gfx] [PATCH i-g-t v9 0/4] Add support for testing
+ writeback connectors
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,51 +65,33 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: paulo.r.zanoni@intel.com, michel@daenzer.net,
- dri-devel@lists.freedesktop.org, daniel.vetter@intel.com,
- harry.wentland@amd.com, nicholas.kazlauskas@amd.com
+Cc: melissa.srw@gmail.com, Rodrigo Siqueira <rodrigosiqueiramelo@gmail.com>,
+ Simon Ser <contact@emersion.fr>, intel-gfx@lists.freedesktop.org,
+ igt-dev@lists.freedesktop.org, Maxime Ripard <maxime@cerno.tech>,
+ nd <nd@arm.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Enable asynchronous flips in i915 for gen9+ platforms.
+On Fri, Sep 04, 2020 at 12:09:18PM +0100, Liviu Dudau wrote:
+> On Sun, Aug 30, 2020 at 01:44:06PM -0400, Rodrigo Siqueira wrote:
+> > Hi,
+> 
+> Hi,
+> 
+> Can this series be merged?
 
-v2: -Async flip enablement should be a stand alone patch (Paulo)
+Thanks for the poke. It's merged now.
 
-v3: -Move the patch to the end of the serires (Paulo)
+> Neither me nor Brian managed to get accepted
+> in the i-g-t committers list, so I cannot push it.
 
-v4: -Rebased.
+Let's fix that. Please apply in gitlab.
 
-v5: -Rebased.
 
-v6: -Rebased.
-
-v7: -Rebased.
-
-Signed-off-by: Karthik B S <karthik.b.s@intel.com>
-Signed-off-by: Vandita Kulkarni <vandita.kulkarni@intel.com>
----
- drivers/gpu/drm/i915/display/intel_display.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 6fa142b1c6ff..854413973637 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -17974,6 +17974,9 @@ static void intel_mode_config_init(struct drm_i915_private *i915)
- 
- 	mode_config->funcs = &intel_mode_funcs;
- 
-+	if (INTEL_GEN(i915) >= 9)
-+		mode_config->async_page_flip = true;
-+
- 	/*
- 	 * Maximum framebuffer dimensions, chosen to match
- 	 * the maximum render engine surface size on gen4+.
 -- 
-2.22.0
-
+Petri Latvala
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
