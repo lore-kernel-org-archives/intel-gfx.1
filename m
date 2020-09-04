@@ -7,63 +7,64 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 895BFC433E2
-	for <intel-gfx@archiver.kernel.org>; Fri,  4 Sep 2020 14:41:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 59768C43461
+	for <intel-gfx@archiver.kernel.org>; Fri,  4 Sep 2020 14:41:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5249F206F2
-	for <intel-gfx@archiver.kernel.org>; Fri,  4 Sep 2020 14:41:06 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 273A320770
+	for <intel-gfx@archiver.kernel.org>; Fri,  4 Sep 2020 14:41:07 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="MG40Uuxn"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5249F206F2
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="FbJaaiQ7"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 273A320770
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 39DC36EC2A;
-	Fri,  4 Sep 2020 14:40:21 +0000 (UTC)
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [IPv6:2a00:1450:4864:20::434])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7DDCB6EC1D
- for <intel-gfx@lists.freedesktop.org>; Fri,  4 Sep 2020 14:40:15 +0000 (UTC)
-Received: by mail-wr1-x434.google.com with SMTP id g4so7004130wrs.5
- for <intel-gfx@lists.freedesktop.org>; Fri, 04 Sep 2020 07:40:15 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EAF936EC34;
+	Fri,  4 Sep 2020 14:40:22 +0000 (UTC)
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
+ [IPv6:2a00:1450:4864:20::344])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E4126EC1A
+ for <intel-gfx@lists.freedesktop.org>; Fri,  4 Sep 2020 14:40:17 +0000 (UTC)
+Received: by mail-wm1-x344.google.com with SMTP id a65so6282211wme.5
+ for <intel-gfx@lists.freedesktop.org>; Fri, 04 Sep 2020 07:40:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=onJaBf7cogfZvGiBgkWimmj+83F0Y7zTn6JsKLkyU/A=;
- b=MG40UuxndvuDIb1eMdrSEf28NlUMRM2y9wPQ95XikDbEP/723R3A3g9w5VXpeJG59U
- 4L5CYUuYTDGVf7R9sNssUBTn28VeziJen1e/YUW6mQAO4H0aZegy6oh2rNo0EvKXCM2z
- qxZB1v1qWs+06pKtc53ZcbLEryjIbdZd65N3U=
+ bh=4wzMb0717D0Q9qqW/DPit7cYamIg8OSI7Hu5q7RfZo8=;
+ b=FbJaaiQ7gF3OOILrYql4OWAxx5r6WzzJ0bEz8ui5wTr7POFM3I4S2Z3RLucFz3kFrj
+ eINu46+JLzmlS6kVecpwp6VfQ9lHYdZYsNAoYFE03FzBtcl911UB4ercXx9hm/OvCFA9
+ 0XLgs5o6ai8jhBo2q++kHPaihwMK4A9R0PXDk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=onJaBf7cogfZvGiBgkWimmj+83F0Y7zTn6JsKLkyU/A=;
- b=qTQzhsw+aA5BFwN3JKK8Mwi1XXQoidGEIu7uQzQkfGSyWHFU8v4VAp7HA7OzC2nEU/
- iHP5ycE6om19PJXtHT//5BBL6f9S+/wJFOg1W21hw7ON8sqSzMIqif3bTueBXPJtIyZc
- 7gZpTsi/zy6nGc41FO+7zrLiRnH4S+iYHrbU1iYTUVjU3xfi6KqALwaaoKaBSDHsWz6o
- xrywR1WmbThsVsFA8yRzy4yWyEArpT8dEArOqyl2od33FnTro/J3tonQGCAtv7Glx3pP
- VVyzw9X1c0Kzhsv6erTLG2YmVMkgahCj+0knrRzV/f/KRvIyh7cD/S4whwTwc/unD2JW
- BSyw==
-X-Gm-Message-State: AOAM530zZKWCxXD4wdf9gefrB+9aGjRTYssnRxhMXnrJvHZGHbh1dBFB
- Plpxmz+QX1TOVREq3wZyTug+Eg==
-X-Google-Smtp-Source: ABdhPJwUVWmCLjnR8iGpb0moKtP3zMq6hIWcwqzAKAqHSgIs7siUXEwJjoho/QlnZZDl6Mfi5SUVZQ==
-X-Received: by 2002:a5d:67d0:: with SMTP id n16mr8595409wrw.198.1599230414131; 
- Fri, 04 Sep 2020 07:40:14 -0700 (PDT)
+ bh=4wzMb0717D0Q9qqW/DPit7cYamIg8OSI7Hu5q7RfZo8=;
+ b=uhtlLX+YE7rqm6Ggt0lQ/QxJg/JcG4naGmCDCz6asnd9hwR+ZK+9d5EjLrf8vcVEig
+ Ptuf4JFs2MKgs9MQFfJ7lHxdgzPgCtIvqPxFOuCSA9zkiMDVnpvwkkuYEBVj9dXjNZ5j
+ oBjaiXfqoFYQ7czh+jfObda26gZbniadAPxprvGbUgHdQ1sF5yCZ+HBqzSfIKD58N2RU
+ 4ftGR9gtjwVtxFsmDumhxD8VsoEBlXM28Np1q+SLM9v8iA4IU8GffMNY9cGOp4EXNh7F
+ pxXOlNSqcEB+zhMm4HkDyK9uJV0XnK5DjfflnsexSYEPEWZ6TUrddYF/OlqwoGVFUfEY
+ DY+w==
+X-Gm-Message-State: AOAM530S34A99s0GZ9UkMCto2ThaXw3h2fN9lX4wwCYnyZVwD1ca1Rot
+ r9vN2ndpInvLdaOVmC1SL4emqA==
+X-Google-Smtp-Source: ABdhPJxrexo6CnLaDXDfaheFkMuCx54WrgSVj5/OsVFjIrOt86j/0JdHt4UbysbIj9V4GI6SwP2YRA==
+X-Received: by 2002:a05:600c:2257:: with SMTP id
+ a23mr8295080wmm.102.1599230416283; 
+ Fri, 04 Sep 2020 07:40:16 -0700 (PDT)
 Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id z15sm11597949wrv.94.2020.09.04.07.40.13
+ by smtp.gmail.com with ESMTPSA id z15sm11597949wrv.94.2020.09.04.07.40.15
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 04 Sep 2020 07:40:13 -0700 (PDT)
+ Fri, 04 Sep 2020 07:40:15 -0700 (PDT)
 From: Daniel Vetter <daniel.vetter@ffwll.ch>
 To: DRI Development <dri-devel@lists.freedesktop.org>
-Date: Fri,  4 Sep 2020 16:39:39 +0200
-Message-Id: <20200904143941.110665-23-daniel.vetter@ffwll.ch>
+Date: Fri,  4 Sep 2020 16:39:41 +0200
+Message-Id: <20200904143941.110665-25-daniel.vetter@ffwll.ch>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20200904143941.110665-1-daniel.vetter@ffwll.ch>
 References: <20200904143941.110665-1-daniel.vetter@ffwll.ch>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 22/24] drm/arc: Inline remaining files
+Subject: [Intel-gfx] [PATCH 24/24] drm/arc: Move to drm/tiny
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,321 +81,131 @@ Cc: Daniel Vetter <daniel.vetter@ffwll.ch>,
  Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
  Alexey Brodkin <abrodkin@synopsys.com>,
  Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
- Daniel Vetter <daniel.vetter@intel.com>, Sam Ravnborg <sam@ravnborg.org>
+ Daniel Vetter <daniel.vetter@intel.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-At less than 500 lines total feels like the right thing to do.
+Because it is.
 
-Also noticed that the simple wrapper around drm_connector_cleanup can
-be dropped.
+v2: Delete now unused crtc funcs (0day)
 
-Acked-by: Sam Ravnborg <sam@ravnborg.org>
 Cc: Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>
-Cc: Alexey Brodkin <abrodkin@synopsys.com>
 Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
+Cc: Alexey Brodkin <abrodkin@synopsys.com>
 ---
- drivers/gpu/drm/arc/Makefile      |   2 +-
- drivers/gpu/drm/arc/arcpgu.h      |  39 ------------
- drivers/gpu/drm/arc/arcpgu_drv.c  | 102 +++++++++++++++++++++++++++++-
- drivers/gpu/drm/arc/arcpgu_regs.h |  31 ---------
- drivers/gpu/drm/arc/arcpgu_sim.c  |  74 ----------------------
- 5 files changed, 101 insertions(+), 147 deletions(-)
- delete mode 100644 drivers/gpu/drm/arc/arcpgu.h
- delete mode 100644 drivers/gpu/drm/arc/arcpgu_regs.h
- delete mode 100644 drivers/gpu/drm/arc/arcpgu_sim.c
+ MAINTAINERS                                         |  2 +-
+ drivers/gpu/drm/Kconfig                             |  2 --
+ drivers/gpu/drm/Makefile                            |  1 -
+ drivers/gpu/drm/arc/Kconfig                         | 10 ----------
+ drivers/gpu/drm/arc/Makefile                        |  3 ---
+ drivers/gpu/drm/tiny/Kconfig                        | 10 ++++++++++
+ drivers/gpu/drm/tiny/Makefile                       |  1 +
+ drivers/gpu/drm/{arc/arcpgu_drv.c => tiny/arcpgu.c} |  0
+ 8 files changed, 12 insertions(+), 17 deletions(-)
+ delete mode 100644 drivers/gpu/drm/arc/Kconfig
+ delete mode 100644 drivers/gpu/drm/arc/Makefile
+ rename drivers/gpu/drm/{arc/arcpgu_drv.c => tiny/arcpgu.c} (100%)
 
+diff --git a/MAINTAINERS b/MAINTAINERS
+index f92035bfbbcd..b16e80c4d669 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -1334,7 +1334,7 @@ ARC PGU DRM DRIVER
+ M:	Alexey Brodkin <abrodkin@synopsys.com>
+ S:	Supported
+ F:	Documentation/devicetree/bindings/display/snps,arcpgu.txt
+-F:	drivers/gpu/drm/arc/
++F:	drivers/gpu/drm/tiny/arcpgu.c
+ 
+ ARCNET NETWORK LAYER
+ M:	Michael Grzeschik <m.grzeschik@pengutronix.de>
+diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
+index 147d61b9674e..9efb82caaa87 100644
+--- a/drivers/gpu/drm/Kconfig
++++ b/drivers/gpu/drm/Kconfig
+@@ -354,8 +354,6 @@ source "drivers/gpu/drm/vc4/Kconfig"
+ 
+ source "drivers/gpu/drm/etnaviv/Kconfig"
+ 
+-source "drivers/gpu/drm/arc/Kconfig"
+-
+ source "drivers/gpu/drm/hisilicon/Kconfig"
+ 
+ source "drivers/gpu/drm/mediatek/Kconfig"
+diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
+index 2f31579f91d4..6c15ef9b04d6 100644
+--- a/drivers/gpu/drm/Makefile
++++ b/drivers/gpu/drm/Makefile
+@@ -109,7 +109,6 @@ obj-y			+= panel/
+ obj-y			+= bridge/
+ obj-$(CONFIG_DRM_FSL_DCU) += fsl-dcu/
+ obj-$(CONFIG_DRM_ETNAVIV) += etnaviv/
+-obj-$(CONFIG_DRM_ARCPGU)+= arc/
+ obj-y			+= hisilicon/
+ obj-$(CONFIG_DRM_ZTE)	+= zte/
+ obj-$(CONFIG_DRM_MXSFB)	+= mxsfb/
+diff --git a/drivers/gpu/drm/arc/Kconfig b/drivers/gpu/drm/arc/Kconfig
+deleted file mode 100644
+index e8f3d63e0b91..000000000000
+--- a/drivers/gpu/drm/arc/Kconfig
++++ /dev/null
+@@ -1,10 +0,0 @@
+-# SPDX-License-Identifier: GPL-2.0-only
+-config DRM_ARCPGU
+-	tristate "ARC PGU"
+-	depends on DRM && OF
+-	select DRM_KMS_CMA_HELPER
+-	select DRM_KMS_HELPER
+-	help
+-	  Choose this option if you have an ARC PGU controller.
+-
+-	  If M is selected the module will be called arcpgu.
 diff --git a/drivers/gpu/drm/arc/Makefile b/drivers/gpu/drm/arc/Makefile
-index 379a1145bc2f..b26f2495c532 100644
+deleted file mode 100644
+index b26f2495c532..000000000000
 --- a/drivers/gpu/drm/arc/Makefile
-+++ b/drivers/gpu/drm/arc/Makefile
-@@ -1,3 +1,3 @@
++++ /dev/null
+@@ -1,3 +0,0 @@
+-# SPDX-License-Identifier: GPL-2.0-only
+-arcpgu-y := arcpgu_drv.o
+-obj-$(CONFIG_DRM_ARCPGU) += arcpgu.o
+diff --git a/drivers/gpu/drm/tiny/Kconfig b/drivers/gpu/drm/tiny/Kconfig
+index 2b6414f0fa75..9bbaa1a69050 100644
+--- a/drivers/gpu/drm/tiny/Kconfig
++++ b/drivers/gpu/drm/tiny/Kconfig
+@@ -1,5 +1,15 @@
  # SPDX-License-Identifier: GPL-2.0-only
--arcpgu-y := arcpgu_sim.o arcpgu_drv.o
-+arcpgu-y := arcpgu_drv.o
- obj-$(CONFIG_DRM_ARCPGU) += arcpgu.o
-diff --git a/drivers/gpu/drm/arc/arcpgu.h b/drivers/gpu/drm/arc/arcpgu.h
-deleted file mode 100644
-index 7dce0c2313ba..000000000000
---- a/drivers/gpu/drm/arc/arcpgu.h
-+++ /dev/null
-@@ -1,39 +0,0 @@
--/* SPDX-License-Identifier: GPL-2.0-only */
--/*
-- * ARC PGU DRM driver.
-- *
-- * Copyright (C) 2016 Synopsys, Inc. (www.synopsys.com)
-- */
--
--#ifndef _ARCPGU_H_
--#define _ARCPGU_H_
--
--#include <drm/drm_simple_kms_helper.h>
--
--struct arcpgu_drm_private {
--	struct drm_device	drm;
--	void __iomem		*regs;
--	struct clk		*clk;
--	struct drm_simple_display_pipe pipe;
--	struct drm_connector	sim_conn;
--};
--
--#define dev_to_arcpgu(x) container_of(x, struct arcpgu_drm_private, drm)
--
--#define pipe_to_arcpgu_priv(x) container_of(x, struct arcpgu_drm_private, pipe)
--
--static inline void arc_pgu_write(struct arcpgu_drm_private *arcpgu,
--				 unsigned int reg, u32 value)
--{
--	iowrite32(value, arcpgu->regs + reg);
--}
--
--static inline u32 arc_pgu_read(struct arcpgu_drm_private *arcpgu,
--			       unsigned int reg)
--{
--	return ioread32(arcpgu->regs + reg);
--}
--
--int arcpgu_drm_sim_init(struct drm_device *drm, struct device_node *np);
--
--#endif
-diff --git a/drivers/gpu/drm/arc/arcpgu_drv.c b/drivers/gpu/drm/arc/arcpgu_drv.c
-index 0e959e42893d..0a0b54993773 100644
---- a/drivers/gpu/drm/arc/arcpgu_drv.c
-+++ b/drivers/gpu/drm/arc/arcpgu_drv.c
-@@ -17,13 +17,111 @@
- #include <drm/drm_gem_framebuffer_helper.h>
- #include <drm/drm_of.h>
- #include <drm/drm_probe_helper.h>
-+#include <drm/drm_simple_kms_helper.h>
- #include <linux/dma-mapping.h>
- #include <linux/module.h>
- #include <linux/of_reserved_mem.h>
- #include <linux/platform_device.h>
  
--#include "arcpgu.h"
--#include "arcpgu_regs.h"
-+#define ARCPGU_REG_CTRL		0x00
-+#define ARCPGU_REG_STAT		0x04
-+#define ARCPGU_REG_FMT		0x10
-+#define ARCPGU_REG_HSYNC	0x14
-+#define ARCPGU_REG_VSYNC	0x18
-+#define ARCPGU_REG_ACTIVE	0x1c
-+#define ARCPGU_REG_BUF0_ADDR	0x40
-+#define ARCPGU_REG_STRIDE	0x50
-+#define ARCPGU_REG_START_SET	0x84
++config DRM_ARCPGU
++	tristate "ARC PGU"
++	depends on DRM && OF
++	select DRM_KMS_CMA_HELPER
++	select DRM_KMS_HELPER
++	help
++	  Choose this option if you have an ARC PGU controller.
 +
-+#define ARCPGU_REG_ID		0x3FC
++	  If M is selected the module will be called arcpgu.
 +
-+#define ARCPGU_CTRL_ENABLE_MASK	0x02
-+#define ARCPGU_CTRL_VS_POL_MASK	0x1
-+#define ARCPGU_CTRL_VS_POL_OFST	0x3
-+#define ARCPGU_CTRL_HS_POL_MASK	0x1
-+#define ARCPGU_CTRL_HS_POL_OFST	0x4
-+#define ARCPGU_MODE_XRGB8888	BIT(2)
-+#define ARCPGU_STAT_BUSY_MASK	0x02
-+
-+struct arcpgu_drm_private {
-+	struct drm_device	drm;
-+	void __iomem		*regs;
-+	struct clk		*clk;
-+	struct drm_simple_display_pipe pipe;
-+	struct drm_connector	sim_conn;
-+};
-+
-+#define dev_to_arcpgu(x) container_of(x, struct arcpgu_drm_private, drm)
-+
-+#define pipe_to_arcpgu_priv(x) container_of(x, struct arcpgu_drm_private, pipe)
-+
-+static inline void arc_pgu_write(struct arcpgu_drm_private *arcpgu,
-+				 unsigned int reg, u32 value)
-+{
-+	iowrite32(value, arcpgu->regs + reg);
-+}
-+
-+static inline u32 arc_pgu_read(struct arcpgu_drm_private *arcpgu,
-+			       unsigned int reg)
-+{
-+	return ioread32(arcpgu->regs + reg);
-+}
-+
-+#define XRES_DEF	640
-+#define YRES_DEF	480
-+
-+#define XRES_MAX	8192
-+#define YRES_MAX	8192
-+
-+static int arcpgu_drm_connector_get_modes(struct drm_connector *connector)
-+{
-+	int count;
-+
-+	count = drm_add_modes_noedid(connector, XRES_MAX, YRES_MAX);
-+	drm_set_preferred_mode(connector, XRES_DEF, YRES_DEF);
-+	return count;
-+}
-+
-+static const struct drm_connector_helper_funcs
-+arcpgu_drm_connector_helper_funcs = {
-+	.get_modes = arcpgu_drm_connector_get_modes,
-+};
-+
-+static const struct drm_connector_funcs arcpgu_drm_connector_funcs = {
-+	.reset = drm_atomic_helper_connector_reset,
-+	.fill_modes = drm_helper_probe_single_connector_modes,
-+	.destroy = drm_connector_cleanup,
-+	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
-+	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
-+};
-+
-+static int arcpgu_drm_sim_init(struct drm_device *drm, struct device_node *np)
-+{
-+	struct arcpgu_drm_private *arcpgu = dev_to_arcpgu(drm);
-+	struct drm_encoder *encoder;
-+	struct drm_connector *connector;
-+	int ret;
-+
-+	encoder = &arcpgu->pipe.encoder;
-+
-+	connector = &arcpgu->sim_conn;
-+	drm_connector_helper_add(connector, &arcpgu_drm_connector_helper_funcs);
-+
-+	ret = drm_connector_init(drm, connector, &arcpgu_drm_connector_funcs,
-+			DRM_MODE_CONNECTOR_VIRTUAL);
-+	if (ret < 0) {
-+		dev_err(drm->dev, "failed to initialize drm connector\n");
-+		return ret;
-+	}
-+
-+	ret = drm_connector_attach_encoder(connector, encoder);
-+	if (ret < 0) {
-+		dev_err(drm->dev, "could not attach connector to encoder\n");
-+		return ret;
-+	}
-+
-+	return 0;
-+}
+ config DRM_CIRRUS_QEMU
+ 	tristate "Cirrus driver for QEMU emulated device"
+ 	depends on DRM && PCI && MMU
+diff --git a/drivers/gpu/drm/tiny/Makefile b/drivers/gpu/drm/tiny/Makefile
+index 6ae4e9e5a35f..bef6780bdd6f 100644
+--- a/drivers/gpu/drm/tiny/Makefile
++++ b/drivers/gpu/drm/tiny/Makefile
+@@ -1,5 +1,6 @@
+ # SPDX-License-Identifier: GPL-2.0-only
  
- #define ENCODE_PGU_XY(x, y)	((((x) - 1) << 16) | ((y) - 1))
- 
-diff --git a/drivers/gpu/drm/arc/arcpgu_regs.h b/drivers/gpu/drm/arc/arcpgu_regs.h
-deleted file mode 100644
-index b689a382d556..000000000000
---- a/drivers/gpu/drm/arc/arcpgu_regs.h
-+++ /dev/null
-@@ -1,31 +0,0 @@
--/* SPDX-License-Identifier: GPL-2.0-only */
--/*
-- * ARC PGU DRM driver.
-- *
-- * Copyright (C) 2016 Synopsys, Inc. (www.synopsys.com)
-- */
--
--#ifndef _ARC_PGU_REGS_H_
--#define _ARC_PGU_REGS_H_
--
--#define ARCPGU_REG_CTRL		0x00
--#define ARCPGU_REG_STAT		0x04
--#define ARCPGU_REG_FMT		0x10
--#define ARCPGU_REG_HSYNC	0x14
--#define ARCPGU_REG_VSYNC	0x18
--#define ARCPGU_REG_ACTIVE	0x1c
--#define ARCPGU_REG_BUF0_ADDR	0x40
--#define ARCPGU_REG_STRIDE	0x50
--#define ARCPGU_REG_START_SET	0x84
--
--#define ARCPGU_REG_ID		0x3FC
--
--#define ARCPGU_CTRL_ENABLE_MASK	0x02
--#define ARCPGU_CTRL_VS_POL_MASK	0x1
--#define ARCPGU_CTRL_VS_POL_OFST	0x3
--#define ARCPGU_CTRL_HS_POL_MASK	0x1
--#define ARCPGU_CTRL_HS_POL_OFST	0x4
--#define ARCPGU_MODE_XRGB8888	BIT(2)
--#define ARCPGU_STAT_BUSY_MASK	0x02
--
--#endif
-diff --git a/drivers/gpu/drm/arc/arcpgu_sim.c b/drivers/gpu/drm/arc/arcpgu_sim.c
-deleted file mode 100644
-index 1a63f0868504..000000000000
---- a/drivers/gpu/drm/arc/arcpgu_sim.c
-+++ /dev/null
-@@ -1,74 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0-only
--/*
-- * ARC PGU DRM driver.
-- *
-- * Copyright (C) 2016 Synopsys, Inc. (www.synopsys.com)
-- */
--
--#include <drm/drm_atomic_helper.h>
--#include <drm/drm_device.h>
--#include <drm/drm_probe_helper.h>
--
--#include "arcpgu.h"
--
--#define XRES_DEF	640
--#define YRES_DEF	480
--
--#define XRES_MAX	8192
--#define YRES_MAX	8192
--
--
--static int arcpgu_drm_connector_get_modes(struct drm_connector *connector)
--{
--	int count;
--
--	count = drm_add_modes_noedid(connector, XRES_MAX, YRES_MAX);
--	drm_set_preferred_mode(connector, XRES_DEF, YRES_DEF);
--	return count;
--}
--
--static void arcpgu_drm_connector_destroy(struct drm_connector *connector)
--{
--	drm_connector_cleanup(connector);
--}
--
--static const struct drm_connector_helper_funcs
--arcpgu_drm_connector_helper_funcs = {
--	.get_modes = arcpgu_drm_connector_get_modes,
--};
--
--static const struct drm_connector_funcs arcpgu_drm_connector_funcs = {
--	.reset = drm_atomic_helper_connector_reset,
--	.fill_modes = drm_helper_probe_single_connector_modes,
--	.destroy = arcpgu_drm_connector_destroy,
--	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
--	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
--};
--
--int arcpgu_drm_sim_init(struct drm_device *drm, struct device_node *np)
--{
--	struct arcpgu_drm_private *arcpgu = dev_to_arcpgu(drm);
--	struct drm_encoder *encoder;
--	struct drm_connector *connector;
--	int ret;
--
--	encoder = &arcpgu->pipe.encoder;
--
--	connector = &arcpgu->sim_conn;
--	drm_connector_helper_add(connector, &arcpgu_drm_connector_helper_funcs);
--
--	ret = drm_connector_init(drm, connector, &arcpgu_drm_connector_funcs,
--			DRM_MODE_CONNECTOR_VIRTUAL);
--	if (ret < 0) {
--		dev_err(drm->dev, "failed to initialize drm connector\n");
--		return ret;
--	}
--
--	ret = drm_connector_attach_encoder(connector, encoder);
--	if (ret < 0) {
--		dev_err(drm->dev, "could not attach connector to encoder\n");
--		return ret;
--	}
--
--	return 0;
--}
++obj-$(CONFIG_DRM_ARCPGU)		+= arcpgu.o
+ obj-$(CONFIG_DRM_CIRRUS_QEMU)		+= cirrus.o
+ obj-$(CONFIG_DRM_GM12U320)		+= gm12u320.o
+ obj-$(CONFIG_TINYDRM_HX8357D)		+= hx8357d.o
+diff --git a/drivers/gpu/drm/arc/arcpgu_drv.c b/drivers/gpu/drm/tiny/arcpgu.c
+similarity index 100%
+rename from drivers/gpu/drm/arc/arcpgu_drv.c
+rename to drivers/gpu/drm/tiny/arcpgu.c
 -- 
 2.28.0
 
