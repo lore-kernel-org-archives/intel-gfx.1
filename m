@@ -7,64 +7,64 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A0B02C433E2
-	for <intel-gfx@archiver.kernel.org>; Fri,  4 Sep 2020 14:40:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9B01DC2BB84
+	for <intel-gfx@archiver.kernel.org>; Fri,  4 Sep 2020 14:40:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6B6EF206B8
-	for <intel-gfx@archiver.kernel.org>; Fri,  4 Sep 2020 14:40:38 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 6619020770
+	for <intel-gfx@archiver.kernel.org>; Fri,  4 Sep 2020 14:40:40 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="b58Mi9oo"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6B6EF206B8
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="NSv3BL7a"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6619020770
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B198C6EC05;
-	Fri,  4 Sep 2020 14:40:09 +0000 (UTC)
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
- [IPv6:2a00:1450:4864:20::442])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A7F436EC05
- for <intel-gfx@lists.freedesktop.org>; Fri,  4 Sep 2020 14:40:05 +0000 (UTC)
-Received: by mail-wr1-x442.google.com with SMTP id z1so7033755wrt.3
- for <intel-gfx@lists.freedesktop.org>; Fri, 04 Sep 2020 07:40:05 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B8D6B6EC16;
+	Fri,  4 Sep 2020 14:40:11 +0000 (UTC)
+Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
+ [IPv6:2a00:1450:4864:20::341])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 964186EC1D
+ for <intel-gfx@lists.freedesktop.org>; Fri,  4 Sep 2020 14:40:07 +0000 (UTC)
+Received: by mail-wm1-x341.google.com with SMTP id w2so6316022wmi.1
+ for <intel-gfx@lists.freedesktop.org>; Fri, 04 Sep 2020 07:40:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=HBOjyCPAXryIuMpxrPLg7nORAAz7RDZXLbKKtaGc1mg=;
- b=b58Mi9oolIGycfZ8qH6wUTJDPew1QLjYB1QggBuvlsu2Pju9o4LacriVwg62zX3Dk5
- +qdWq7NVx/QT8uVC81sEsCReAFeUVl+Px4a+WMHCl3FuevX+0c8QJby9EnnAmP9uUq1E
- /VYZY69qsoysb1vCz4vAHCPl+Uyjdez0NxgBs=
+ bh=QMvX9hmUqz6p45iZrFsQ0+pmY5YRNJr+kE+ADKN2NdI=;
+ b=NSv3BL7aQ9XhE8T/jt7SFLCvI4EO8MSwp1VSqCDfNBbcE32Q3LLGiPJBo3HdfBW4Lm
+ 2MNCdxviVmEBIvFvnnPa7yJ4IeNCoeXpRx/3qIkKo0F7SpCxu3XIbXnup0k+ZLuwLUu/
+ v2HFnBc88KM7R78eBkVObB+zg8mxs9ssrYRws=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=HBOjyCPAXryIuMpxrPLg7nORAAz7RDZXLbKKtaGc1mg=;
- b=RyBvjbFr5oLgI2+0SCdrTSKWAvtsE9YUhaM4ZfJbTq4CEuPW3xsmf5ElIXu2+YQX0P
- lKCC1bV4txX53GDez75U9Nj9H/mDUfT9+ezxu62nN8uCOIIeexvybSX8AciQJmfT9o+6
- 75ySsmkYkDJU+z5Xp1Gv5qeIzYnyHQ53oC1EQj1WiC6P7Tjx5Q/N4T9K4vD85bZTePbx
- LFWOe0Ie6qDHqgCp5XrvbUl6ZLjiY+TWLqY2VI2riWO9AreNbdEHKzSJYUzqIXlWxM2L
- gXS3bixp20Vo9DOqn3mc9YRZ4HSJO51LUWpIfaLAuQlGuLni5BnAE9D4h5VrziZYlBaO
- M7OA==
-X-Gm-Message-State: AOAM532E3kz+f0tyYY4Ag0mhNSQjZdWq3e3GmGazeh9XY4YF2vIzDwE7
- Lz0wNeOtV2a/+qYd0Brcj7oACQ==
-X-Google-Smtp-Source: ABdhPJw11faFH0Z+FunP7tufvw1EVl5eU37SYY4wZp3cYxjKG+C+TVV6ZzcQepRMjLsFYU4OBeyVdw==
-X-Received: by 2002:a5d:4cc1:: with SMTP id c1mr3582428wrt.122.1599230402530; 
- Fri, 04 Sep 2020 07:40:02 -0700 (PDT)
+ bh=QMvX9hmUqz6p45iZrFsQ0+pmY5YRNJr+kE+ADKN2NdI=;
+ b=IYqJCW3HStLnUa2pMwOMS3FeggjdvLU3svgRD5AHyzjUjfM320f9MwggTwbCwP79US
+ azKb2oqJY+FrhVAJN7MCUcNe7raKJcOwJHrbN4OawamnFx+wS/zNojLpTWrQ0+75Vozg
+ MNxwVtXubfkHQKIwBaKkwWb6ePWjxNrxkWR+4xq50J59iWpq95lU0hl+58PWx/0si/dr
+ +Z8In5JBFBMZFhIEYe8xFMF2AEw7ejIGUKrBMHMctIzM2z6gN5GZLIy56DGaKbdwdmG4
+ qb4X3RocxGhUKlhzad9/l5/3zL8tasnrs2D/SCiZl2FhXL1ziM2SGF9IRFgRzKJXuvbd
+ bECQ==
+X-Gm-Message-State: AOAM530T/msRF4QSZ7Ll1RospIuoHKJQwPMncmRNVF218+cLuuk5W1A7
+ +dBBTsST4ceYvSblXbP5UQQLSg==
+X-Google-Smtp-Source: ABdhPJxlbAPD0t+C8zswzbzueEUi+mGjzQU2OtnGoVaGT6LD8UB8yxoPCTX3MjXSOKxQyAYlc43BhQ==
+X-Received: by 2002:a1c:234b:: with SMTP id j72mr8054995wmj.153.1599230405766; 
+ Fri, 04 Sep 2020 07:40:05 -0700 (PDT)
 Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id z15sm11597949wrv.94.2020.09.04.07.40.01
+ by smtp.gmail.com with ESMTPSA id z15sm11597949wrv.94.2020.09.04.07.40.04
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 04 Sep 2020 07:40:02 -0700 (PDT)
+ Fri, 04 Sep 2020 07:40:05 -0700 (PDT)
 From: Daniel Vetter <daniel.vetter@ffwll.ch>
 To: DRI Development <dri-devel@lists.freedesktop.org>
-Date: Fri,  4 Sep 2020 16:39:28 +0200
-Message-Id: <20200904143941.110665-12-daniel.vetter@ffwll.ch>
+Date: Fri,  4 Sep 2020 16:39:31 +0200
+Message-Id: <20200904143941.110665-15-daniel.vetter@ffwll.ch>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20200904143941.110665-1-daniel.vetter@ffwll.ch>
 References: <20200904143941.110665-1-daniel.vetter@ffwll.ch>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 11/24] drm/arc: Stop using
- drm_device->dev_private
+Subject: [Intel-gfx] [PATCH 14/24] drm/arc: Embedd a drm_connector for sim
+ case
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,81 +81,75 @@ Cc: Daniel Vetter <daniel.vetter@ffwll.ch>,
  Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
  Alexey Brodkin <abrodkin@synopsys.com>,
  Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
- Daniel Vetter <daniel.vetter@intel.com>
+ Daniel Vetter <daniel.vetter@intel.com>, Sam Ravnborg <sam@ravnborg.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Upcasting using a container_of macro is more typesafe, faster and
-easier for the compiler to optimize.
+Removes the last devm_kzalloc, which means we're now prepared to use
+drmm_mode_config_cleanup!
 
+Acked-by: Sam Ravnborg <sam@ravnborg.org>
 Cc: Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>
 Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
 Cc: Alexey Brodkin <abrodkin@synopsys.com>
 ---
- drivers/gpu/drm/arc/arcpgu.h      | 2 ++
- drivers/gpu/drm/arc/arcpgu_crtc.c | 4 ++--
- drivers/gpu/drm/arc/arcpgu_drv.c  | 4 +---
- 3 files changed, 5 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/arc/arcpgu.h     |  1 +
+ drivers/gpu/drm/arc/arcpgu_sim.c | 14 +-------------
+ 2 files changed, 2 insertions(+), 13 deletions(-)
 
 diff --git a/drivers/gpu/drm/arc/arcpgu.h b/drivers/gpu/drm/arc/arcpgu.h
-index cd9e932f501e..87821c91a00c 100644
+index 52afd638a4d2..c52cdd2274e1 100644
 --- a/drivers/gpu/drm/arc/arcpgu.h
 +++ b/drivers/gpu/drm/arc/arcpgu.h
-@@ -17,6 +17,8 @@ struct arcpgu_drm_private {
- 	struct drm_plane	*plane;
+@@ -15,6 +15,7 @@ struct arcpgu_drm_private {
+ 	void __iomem		*regs;
+ 	struct clk		*clk;
+ 	struct drm_simple_display_pipe pipe;
++	struct drm_connector	sim_conn;
  };
  
-+#define dev_to_arcpgu(x) container_of(x, struct arcpgu_drm_private, drm)
-+
- #define crtc_to_arcpgu_priv(x) container_of(x, struct arcpgu_drm_private, crtc)
+ #define dev_to_arcpgu(x) container_of(x, struct arcpgu_drm_private, drm)
+diff --git a/drivers/gpu/drm/arc/arcpgu_sim.c b/drivers/gpu/drm/arc/arcpgu_sim.c
+index 134afb9fa625..e42fe5d05a3d 100644
+--- a/drivers/gpu/drm/arc/arcpgu_sim.c
++++ b/drivers/gpu/drm/arc/arcpgu_sim.c
+@@ -18,10 +18,6 @@
+ #define YRES_MAX	8192
  
- static inline void arc_pgu_write(struct arcpgu_drm_private *arcpgu,
-diff --git a/drivers/gpu/drm/arc/arcpgu_crtc.c b/drivers/gpu/drm/arc/arcpgu_crtc.c
-index be7c29cec318..ba796a216244 100644
---- a/drivers/gpu/drm/arc/arcpgu_crtc.c
-+++ b/drivers/gpu/drm/arc/arcpgu_crtc.c
-@@ -178,7 +178,7 @@ static const struct drm_plane_funcs arc_pgu_plane_funcs = {
  
- static struct drm_plane *arc_pgu_plane_init(struct drm_device *drm)
- {
--	struct arcpgu_drm_private *arcpgu = drm->dev_private;
-+	struct arcpgu_drm_private *arcpgu = dev_to_arcpgu(drm);
- 	struct drm_plane *plane = NULL;
- 	int ret;
- 
-@@ -202,7 +202,7 @@ static struct drm_plane *arc_pgu_plane_init(struct drm_device *drm)
- 
- int arc_pgu_setup_crtc(struct drm_device *drm)
- {
--	struct arcpgu_drm_private *arcpgu = drm->dev_private;
-+	struct arcpgu_drm_private *arcpgu = dev_to_arcpgu(drm);
- 	struct drm_plane *primary;
- 	int ret;
- 
-diff --git a/drivers/gpu/drm/arc/arcpgu_drv.c b/drivers/gpu/drm/arc/arcpgu_drv.c
-index 68eb4a31c54b..c6a8deb56b0f 100644
---- a/drivers/gpu/drm/arc/arcpgu_drv.c
-+++ b/drivers/gpu/drm/arc/arcpgu_drv.c
-@@ -50,8 +50,6 @@ static int arcpgu_load(struct arcpgu_drm_private *arcpgu)
- 	struct resource *res;
- 	int ret;
- 
--	drm->dev_private = arcpgu;
+-struct arcpgu_drm_connector {
+-	struct drm_connector connector;
+-};
 -
- 	arcpgu->clk = devm_clk_get(drm->dev, "pxlclk");
- 	if (IS_ERR(arcpgu->clk))
- 		return PTR_ERR(arcpgu->clk);
-@@ -120,7 +118,7 @@ static int arcpgu_show_pxlclock(struct seq_file *m, void *arg)
+ static int arcpgu_drm_connector_get_modes(struct drm_connector *connector)
  {
- 	struct drm_info_node *node = (struct drm_info_node *)m->private;
- 	struct drm_device *drm = node->minor->dev;
--	struct arcpgu_drm_private *arcpgu = drm->dev_private;
-+	struct arcpgu_drm_private *arcpgu = dev_to_arcpgu(drm);
- 	unsigned long clkrate = clk_get_rate(arcpgu->clk);
- 	unsigned long mode_clock = arcpgu->crtc.mode.crtc_clock * 1000;
+ 	int count;
+@@ -57,7 +53,6 @@ static struct drm_encoder_funcs arcpgu_drm_encoder_funcs = {
+ int arcpgu_drm_sim_init(struct drm_device *drm, struct device_node *np)
+ {
+ 	struct arcpgu_drm_private *arcpgu = dev_to_arcpgu(drm);
+-	struct arcpgu_drm_connector *arcpgu_connector;
+ 	struct drm_encoder *encoder;
+ 	struct drm_connector *connector;
+ 	int ret;
+@@ -72,14 +67,7 @@ int arcpgu_drm_sim_init(struct drm_device *drm, struct device_node *np)
+ 	if (ret)
+ 		return ret;
  
+-	arcpgu_connector = devm_kzalloc(drm->dev, sizeof(*arcpgu_connector),
+-					GFP_KERNEL);
+-	if (!arcpgu_connector) {
+-		ret = -ENOMEM;
+-		goto error_encoder_cleanup;
+-	}
+-
+-	connector = &arcpgu_connector->connector;
++	connector = &arcpgu->sim_conn;
+ 	drm_connector_helper_add(connector, &arcpgu_drm_connector_helper_funcs);
+ 
+ 	ret = drm_connector_init(drm, connector, &arcpgu_drm_connector_funcs,
 -- 
 2.28.0
 
