@@ -7,63 +7,64 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4F188C2BB84
-	for <intel-gfx@archiver.kernel.org>; Fri,  4 Sep 2020 14:40:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C388BC433E2
+	for <intel-gfx@archiver.kernel.org>; Fri,  4 Sep 2020 14:40:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1D0B9206F2
-	for <intel-gfx@archiver.kernel.org>; Fri,  4 Sep 2020 14:40:32 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 8E796206B8
+	for <intel-gfx@archiver.kernel.org>; Fri,  4 Sep 2020 14:40:36 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="QT91j46E"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1D0B9206F2
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="O0AR/e4r"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8E796206B8
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C808D6EC10;
-	Fri,  4 Sep 2020 14:40:06 +0000 (UTC)
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
- [IPv6:2a00:1450:4864:20::442])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 11FAB6EC05
- for <intel-gfx@lists.freedesktop.org>; Fri,  4 Sep 2020 14:40:03 +0000 (UTC)
-Received: by mail-wr1-x442.google.com with SMTP id e16so7015736wrm.2
- for <intel-gfx@lists.freedesktop.org>; Fri, 04 Sep 2020 07:40:02 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 78D5A6EBED;
+	Fri,  4 Sep 2020 14:40:09 +0000 (UTC)
+Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
+ [IPv6:2a00:1450:4864:20::343])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 352426EC00
+ for <intel-gfx@lists.freedesktop.org>; Fri,  4 Sep 2020 14:40:08 +0000 (UTC)
+Received: by mail-wm1-x343.google.com with SMTP id q9so6307569wmj.2
+ for <intel-gfx@lists.freedesktop.org>; Fri, 04 Sep 2020 07:40:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=eOCRFsY1vb5jaEMem8o2Yaii6vx9plUiAh9tAq5PM+g=;
- b=QT91j46EzPek7Va8Z5+WHBFgNs0hl8yiH6+MSqvPh0nWwIaqQSDKBE3dJlSnwewPom
- I+kd/QT77oOsVdbv0wpeaBj5Mo4QJUQUn7725z1a5DGTrWuwpgO52n3E79rktnlGyZRb
- WhedPj9L2v71VDXMm/sTKmcY5VxyVjLL9y+fk=
+ bh=du/z75457y6KI1rsQmBRtEQ4cXiJI1WVzJRMvyz/O3E=;
+ b=O0AR/e4rSWoS/mHwwcO30vgbZIBmW5cF2/mKIMzDpdw6TiG4uHSpWQE5Pik+5YQZmD
+ N5AoPcHOaZyHd78CDcUFyPC5WOz7HnGmsiQbRfSvCiu9XJmV5dXdbsYI9WCwWNVKL86A
+ 1orrxZ9LdvOJMt7Mw2IROBnQgM+zRcZAVib9c=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=eOCRFsY1vb5jaEMem8o2Yaii6vx9plUiAh9tAq5PM+g=;
- b=MPZSCtW0N674TQuDt/lWix/gZX0/x5uMxo2D6fyhkz5jp3SCq1NGcFAGSMxclanj+Q
- 2luGiOrIorr2hYFOPeEbr/008H8iqjR6YXds0zAsH0yE2bOl0tFftWf1zpKVwx+JsJvb
- t2/XD2y7zgNpCjtwiOAqAjYE/aqs2xS4CgkhEGzKI9FigelivfPQHvtVnjlWynd6qpKD
- zdxPuI7vHkDlPr0VSvDpgGFk+b56G4o/bPkuiVdLbh5cMxzIazuHEJN5+J3uOqbm8LKR
- qzf58sHlzHLo1bhvWY8v+z55kEfAvfkhAXLsJP6xy4SrmYJhOY0oFpNqUtItE7N/xduq
- SJdQ==
-X-Gm-Message-State: AOAM532nl8qHrQ+0QdMgpYV5HA8jxFI8UZoAiQlE4ctWUswRZIo8pe6V
- qZqZtXz8ZPqVhnf8XQOA/HAFBg==
-X-Google-Smtp-Source: ABdhPJxYz8O/5F3NsAmU5LSFZeS+8bk1fsXVDTH1ZEAHm1JOZakM7RKf68y++gW/qVbhAmuUGHryiw==
-X-Received: by 2002:a5d:67d0:: with SMTP id n16mr8594414wrw.198.1599230401607; 
- Fri, 04 Sep 2020 07:40:01 -0700 (PDT)
+ bh=du/z75457y6KI1rsQmBRtEQ4cXiJI1WVzJRMvyz/O3E=;
+ b=JirDdnBt23ppB//Oojrd8zMmHCzMILSFcJs/5iQ1nk85FHw75Ghg3Dfh+t3VRNCuGz
+ N4iM3LWp+bwRMa7vdeQ28zeUUUDkiQlyKapx8dyR0wRrjvs7AwSymalJ8slP/IQOwzDs
+ rlyvlLoWhEOJ7NLFlzRw8dUlvB1vS6V08ZuL2x5bcNUMNVJY6PzS8BWhL6S+vWFBt9n+
+ PpryF1iL0WH8UWB7+dH2sZhQRNp8v/sLjiraBPLd6MciJ8WHIrZYJtFLjyRwc1B5FwKC
+ jdc5fBsScG7cf/9NJaL8EViGopGvIgL8Aw9roE/5TZ0yaAj778NIXofWi62iAKax4e6i
+ VZKw==
+X-Gm-Message-State: AOAM531PYuyiHm62hvHpxI6P4/S4CRV5LCE9c9S8lnxNxuMYjVOVUU9d
+ QGmu6hQFeTZo2EdFlDbOm1PJG2Fcq1zoKNHk
+X-Google-Smtp-Source: ABdhPJx2VS/zkTx2NmlxxniPZd3sxAnKtpQbp6GS47CjxR1z9nx1eqsz0p+ByDvUCPEQ/u4PbSbw7A==
+X-Received: by 2002:a1c:e917:: with SMTP id q23mr7694766wmc.125.1599230406838; 
+ Fri, 04 Sep 2020 07:40:06 -0700 (PDT)
 Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id z15sm11597949wrv.94.2020.09.04.07.40.00
+ by smtp.gmail.com with ESMTPSA id z15sm11597949wrv.94.2020.09.04.07.40.05
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 04 Sep 2020 07:40:00 -0700 (PDT)
+ Fri, 04 Sep 2020 07:40:06 -0700 (PDT)
 From: Daniel Vetter <daniel.vetter@ffwll.ch>
 To: DRI Development <dri-devel@lists.freedesktop.org>
-Date: Fri,  4 Sep 2020 16:39:27 +0200
-Message-Id: <20200904143941.110665-11-daniel.vetter@ffwll.ch>
+Date: Fri,  4 Sep 2020 16:39:32 +0200
+Message-Id: <20200904143941.110665-16-daniel.vetter@ffwll.ch>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20200904143941.110665-1-daniel.vetter@ffwll.ch>
 References: <20200904143941.110665-1-daniel.vetter@ffwll.ch>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 10/24] drm/arc: Switch to devm_drm_dev_alloc
+Subject: [Intel-gfx] [PATCH 15/24] drm/arc: Drop surplus connector
+ registration
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,116 +79,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Daniel Vetter <daniel.vetter@ffwll.ch>,
  Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Alexey Brodkin <abrodkin@synopsys.com>,
- Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
- Daniel Vetter <daniel.vetter@intel.com>, Sam Ravnborg <sam@ravnborg.org>
+ Alexey Brodkin <abrodkin@synopsys.com>, Sam Ravnborg <sam@ravnborg.org>,
+ Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-- Need to embedded the drm_device, but for now we keep the usual
-  pointer chasing.
-- No more devm_kzalloc, which fixes a lifetime issues on driver
-  remove.
-- No more drm_dev_put, that's done by devm_ now.
+drm_connector_register does nothing before drm_dev_register(), it
+is meant for hotpluggable connectors only. Same for the unregister side.
 
 Acked-by: Sam Ravnborg <sam@ravnborg.org>
 Cc: Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>
-Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
+Signed-off-by: Daniel Vetter <daniel.vetter@ffwll.ch>
 Cc: Alexey Brodkin <abrodkin@synopsys.com>
 ---
- drivers/gpu/drm/arc/arcpgu.h     |  1 +
- drivers/gpu/drm/arc/arcpgu_drv.c | 33 +++++++++++++-------------------
- 2 files changed, 14 insertions(+), 20 deletions(-)
+ drivers/gpu/drm/arc/arcpgu_sim.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/arc/arcpgu.h b/drivers/gpu/drm/arc/arcpgu.h
-index 6aac44b953ad..cd9e932f501e 100644
---- a/drivers/gpu/drm/arc/arcpgu.h
-+++ b/drivers/gpu/drm/arc/arcpgu.h
-@@ -9,6 +9,7 @@
- #define _ARCPGU_H_
+diff --git a/drivers/gpu/drm/arc/arcpgu_sim.c b/drivers/gpu/drm/arc/arcpgu_sim.c
+index e42fe5d05a3d..3772df1647aa 100644
+--- a/drivers/gpu/drm/arc/arcpgu_sim.c
++++ b/drivers/gpu/drm/arc/arcpgu_sim.c
+@@ -29,7 +29,6 @@ static int arcpgu_drm_connector_get_modes(struct drm_connector *connector)
  
- struct arcpgu_drm_private {
-+	struct drm_device	drm;
- 	void __iomem		*regs;
- 	struct clk		*clk;
- 	struct drm_framebuffer	*fb;
-diff --git a/drivers/gpu/drm/arc/arcpgu_drv.c b/drivers/gpu/drm/arc/arcpgu_drv.c
-index f164818ec477..68eb4a31c54b 100644
---- a/drivers/gpu/drm/arc/arcpgu_drv.c
-+++ b/drivers/gpu/drm/arc/arcpgu_drv.c
-@@ -42,18 +42,14 @@ static void arcpgu_setup_mode_config(struct drm_device *drm)
- 
- DEFINE_DRM_GEM_CMA_FOPS(arcpgu_drm_ops);
- 
--static int arcpgu_load(struct drm_device *drm)
-+static int arcpgu_load(struct arcpgu_drm_private *arcpgu)
+ static void arcpgu_drm_connector_destroy(struct drm_connector *connector)
  {
--	struct platform_device *pdev = to_platform_device(drm->dev);
--	struct arcpgu_drm_private *arcpgu;
-+	struct platform_device *pdev = to_platform_device(arcpgu->drm.dev);
- 	struct device_node *encoder_node = NULL, *endpoint_node = NULL;
-+	struct drm_device *drm = &arcpgu->drm;
- 	struct resource *res;
- 	int ret;
- 
--	arcpgu = devm_kzalloc(&pdev->dev, sizeof(*arcpgu), GFP_KERNEL);
--	if (arcpgu == NULL)
--		return -ENOMEM;
--
- 	drm->dev_private = arcpgu;
- 
- 	arcpgu->clk = devm_clk_get(drm->dev, "pxlclk");
-@@ -162,30 +158,28 @@ static struct drm_driver arcpgu_drm_driver = {
- 
- static int arcpgu_probe(struct platform_device *pdev)
- {
--	struct drm_device *drm;
-+	struct arcpgu_drm_private *arcpgu;
- 	int ret;
- 
--	drm = drm_dev_alloc(&arcpgu_drm_driver, &pdev->dev);
--	if (IS_ERR(drm))
--		return PTR_ERR(drm);
-+	arcpgu = devm_drm_dev_alloc(&pdev->dev, &arcpgu_drm_driver,
-+				    struct arcpgu_drm_private, drm);
-+	if (IS_ERR(arcpgu))
-+		return PTR_ERR(arcpgu);
- 
--	ret = arcpgu_load(drm);
-+	ret = arcpgu_load(arcpgu);
- 	if (ret)
--		goto err_unref;
-+		return ret;
- 
--	ret = drm_dev_register(drm, 0);
-+	ret = drm_dev_register(&arcpgu->drm, 0);
- 	if (ret)
- 		goto err_unload;
- 
--	drm_fbdev_generic_setup(drm, 16);
-+	drm_fbdev_generic_setup(&arcpgu->drm, 16);
- 
- 	return 0;
- 
- err_unload:
--	arcpgu_unload(drm);
--
--err_unref:
--	drm_dev_put(drm);
-+	arcpgu_unload(&arcpgu->drm);
- 
- 	return ret;
+-	drm_connector_unregister(connector);
+ 	drm_connector_cleanup(connector);
  }
-@@ -196,7 +190,6 @@ static int arcpgu_remove(struct platform_device *pdev)
  
- 	drm_dev_unregister(drm);
- 	arcpgu_unload(drm);
--	drm_dev_put(drm);
+@@ -80,7 +79,6 @@ int arcpgu_drm_sim_init(struct drm_device *drm, struct device_node *np)
+ 	ret = drm_connector_attach_encoder(connector, encoder);
+ 	if (ret < 0) {
+ 		dev_err(drm->dev, "could not attach connector to encoder\n");
+-		drm_connector_unregister(connector);
+ 		goto error_connector_cleanup;
+ 	}
  
- 	return 0;
- }
 -- 
 2.28.0
 
