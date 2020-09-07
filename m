@@ -6,49 +6,46 @@ X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
 	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3D88BC43461
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5EEC7C2D0A8
 	for <intel-gfx@archiver.kernel.org>; Tue,  8 Sep 2020 14:23:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C2CC722527
+	by mail.kernel.org (Postfix) with ESMTPS id 0532222A83
 	for <intel-gfx@archiver.kernel.org>; Tue,  8 Sep 2020 14:23:56 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="PwJlaz8Q"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C2CC722527
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="g4rWFwqP"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0532222A83
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9399C6E83E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C52126E841;
 	Tue,  8 Sep 2020 14:23:55 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org
  [IPv6:2001:8b0:10b:1236::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A90C6E58E
- for <intel-gfx@lists.freedesktop.org>; Tue,  8 Sep 2020 05:55:14 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F97D88E41
+ for <intel-gfx@lists.freedesktop.org>; Mon,  7 Sep 2020 07:00:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
  References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
  Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=S3ldECwV6aYVj8kFvW2tKZDE9/xw5MtcF6dMvAAzlgk=; b=PwJlaz8QSQA8PmEsdT/oEaZTXP
- ybFVlLL+6NodzFFNNFhCkvJoI/2GqgQmwf0qU3lL9ljNCgMfVnL+9OubVVmnvsaKQGiXmaOCmfykA
- 6tyQ9TLS/LgF/mbnW8+YfiBKz8RdibDRYPaIdUsSX36o/zYxmUJijjHKll8nWoGOq6b0TD++EtI+j
- 0U4SS7my6/Cah3C7yLeF3v2knnA3X9WwbpTiRr0rW5bFYo3UxCSdWrtBdJO/lacNS0WCm9RGY8PEK
- ZkEqbNlf9pFfq0IAtR3PK40VroF4oi20xKozo26cC8mqcPqXaqG/dDWKVgLzwIPQwgtnmJqgTXsE4
- L3M7KigA==;
+ bh=mOwuNgBR5sDIJB+BvLt/e/G3W0U4pZcy6kQxubHpOsc=; b=g4rWFwqPV1Go6Awo3Xadh/+FTc
+ rhkqVOirmN3euJ0YqlVMZuHmarTPW9k/+KBS0IBJiq7PF6T/kKmi+Jfc3KrgtB827pIK6HWC/Mdht
+ 5xhoUhE0TgTLAd6RWIpqSgFwrqFKpVC7zMd2tCVTTzzCpWaSypFoADb7e9sp/QltHPE07bTrXlPCo
+ jJpbTL7D5CEklu82hlfFs0pIt6EB91s9Pmo7ouUpJXku2JCl7cHofEBhAXLGEdBYyHfDd6vouz/NI
+ JFp7LEB0sCZpyV49c8FZmuTBa8B14Fk7K9ICTPjCb0tLjN2FnTVYTfg2bFkUBB72NcK8nFsDXX9cL
+ 9fzmjARw==;
 Received: from hch by casper.infradead.org with local (Exim 4.92.3 #3 (Red Hat
- Linux)) id 1kFWb0-00057I-8N; Tue, 08 Sep 2020 05:55:10 +0000
-Date: Tue, 8 Sep 2020 06:55:10 +0100
+ Linux)) id 1kFB8l-0006fv-7r; Mon, 07 Sep 2020 07:00:35 +0000
+Date: Mon, 7 Sep 2020 08:00:35 +0100
 From: Christoph Hellwig <hch@infradead.org>
 To: Tom Murphy <murphyt7@tcd.ie>
-Message-ID: <20200908055510.GA19078@infradead.org>
+Message-ID: <20200907070035.GA25114@infradead.org>
 References: <20200903201839.7327-1-murphyt7@tcd.ie>
  <20200903201839.7327-6-murphyt7@tcd.ie>
- <20200907070035.GA25114@infradead.org>
- <CALQxJute8_y=JsW4UV1awSccOjxT_1OyPdymq=R_PurVQzENeQ@mail.gmail.com>
- <20200908053619.GA15418@infradead.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200908053619.GA15418@infradead.org>
+In-Reply-To: <20200903201839.7327-6-murphyt7@tcd.ie>
 X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
  casper.infradead.org. See http://www.infradead.org/rpr.html
 X-Mailman-Approved-At: Tue, 08 Sep 2020 14:23:54 +0000
@@ -66,34 +63,26 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Christoph Hellwig <hch@infradead.org>, iommu@lists.linux-foundation.org,
- David Woodhouse <dwmw2@infradead.org>
+Cc: intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ iommu@lists.linux-foundation.org, David Woodhouse <dwmw2@infradead.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Sep 08, 2020 at 06:36:19AM +0100, Christoph Hellwig wrote:
-> On Mon, Sep 07, 2020 at 09:18:50PM +0100, Tom Murphy wrote:
-> > Yeah we talked about passing an attr to map_sg to disable merging at
-> > the following microconfernce:
-> > https://linuxplumbersconf.org/event/7/contributions/846/
-> > As far as I can remember everyone seemed happy with that solution. I
-> > won't be working on this though as I don't have any more time to
-> > dedicate to this. It seems Lu Baolu will take over this.
-> 
-> I'm absolutely again passing a flag.  Tha just invites further
-> abuse.  We need a PCI ID based quirk or something else that can't
-> be as easily abused.
+On Thu, Sep 03, 2020 at 09:18:37PM +0100, Tom Murphy wrote:
+> Disable combining sg segments in the dma-iommu api.
+> Combining the sg segments exposes a bug in the intel i915 driver which
+> causes visual artifacts and the screen to freeze. This is most likely
+> because of how the i915 handles the returned list. It probably doesn't
+> respect the returned value specifying the number of elements in the list
+> and instead depends on the previous behaviour of the intel iommu driver
+> which would return the same number of elements in the output list as in
+> the input list.
 
-Also, I looked at i915 and there are just three dma_map_sg callers.
-The two dmabuf related ones are fixed by Marek in his series, leaving
-just the one in i915_gem_gtt_prepare_pages, which does indeed look
-very fishy.  But if that one is so hard to fix it can just be replaced
-by an open coded for_each_sg loop that contains manual dma_map_page
-calls.
+So what is the state of addressing this properly in i915?  IF we can't
+get it done ASAP I wonder if we need a runtime quirk to disable
+merging instead of blocking this conversion..
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
