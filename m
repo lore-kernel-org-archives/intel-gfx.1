@@ -2,43 +2,73 @@ Return-Path: <SRS0=Nr63=CR=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 27D29C43461
-	for <intel-gfx@archiver.kernel.org>; Tue,  8 Sep 2020 22:23:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B420BC433E2
+	for <intel-gfx@archiver.kernel.org>; Tue,  8 Sep 2020 23:42:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C93612087D
-	for <intel-gfx@archiver.kernel.org>; Tue,  8 Sep 2020 22:23:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C93612087D
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ucw.cz
+	by mail.kernel.org (Postfix) with ESMTPS id 5EC5A20672
+	for <intel-gfx@archiver.kernel.org>; Tue,  8 Sep 2020 23:42:42 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dEXtg6pZ"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5EC5A20672
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 36A7C6E083;
-	Tue,  8 Sep 2020 22:23:25 +0000 (UTC)
-Received: from jabberwock.ucw.cz (jabberwock.ucw.cz [46.255.230.98])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 437D06E083
- for <intel-gfx@lists.freedesktop.org>; Tue,  8 Sep 2020 22:23:23 +0000 (UTC)
-Received: by jabberwock.ucw.cz (Postfix, from userid 1017)
- id 316341C0B87; Wed,  9 Sep 2020 00:23:19 +0200 (CEST)
-Date: Wed, 9 Sep 2020 00:23:18 +0200
-From: Pavel Machek <pavel@ucw.cz>
-To: Chris Wilson <chris@chris-wilson.co.uk>
-Message-ID: <20200908222318.GD1005@bug>
-References: <20200819103952.19083-1-chris@chris-wilson.co.uk>
- <20200819172331.GA4796@amd>
- <159785861047.667.10730572472834322633@build.alporthouse.com>
- <20200819193326.p62h2dj7jpzfkeyy@duo.ucw.cz>
- <159790897155.667.4491040035549523476@build.alporthouse.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id C776E6E0C1;
+	Tue,  8 Sep 2020 23:42:41 +0000 (UTC)
+Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
+ [IPv6:2a00:1450:4864:20::343])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2CCB76E0C1;
+ Tue,  8 Sep 2020 23:42:41 +0000 (UTC)
+Received: by mail-wm1-x343.google.com with SMTP id w2so579754wmi.1;
+ Tue, 08 Sep 2020 16:42:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=n7ux27HOKrOXej9DZ3uZ7OTZU29xet2/IanneRat7K8=;
+ b=dEXtg6pZnOqKUqf5Cbz8aNOyMfnx4bQc2RWRxtED6J9BcdrdzA2DyfkeO6sqVrnPt0
+ zsxCPOjzhMEqjLk9PrFbXPFYWIfMbbbxds7+Yp+Nf2mwg3/Zqymkpsu+PyBd0P9IsAB9
+ yc9Si4GuFOG8R9pLYtIjXeS4q/dgSut9+heFVchWz2tv3XkdsnGcIq4Zsvumrj4P/IdG
+ nE1b8f/tkJcNH8DIih2FbkmdN/XIZgSXlgzNJig0hUVpr8URwUem1KM/WYoh3nOmmblM
+ EPF9dXpIfG6M51RakYlffXCmSVmTv3MqmK8t8v8NyvUvH5hMpg5ZrUdK6Bu6iCp0xmtj
+ o24w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=n7ux27HOKrOXej9DZ3uZ7OTZU29xet2/IanneRat7K8=;
+ b=EsBzVblD/F4ii/k8A5FxK/yZw1mYFPPMZcyDkoNmeK7l2naeVFOHOFKy/BGj9AUQAx
+ DDhGeNwFmX7FDGKQtLM6tRLZfJ5Hyop/1JgBv3+VoUNjbAGU7jyrNmgLK4erQykGJX9r
+ NMTqH16cwMveOYqgyiJ/zS0TUpkLyrvoI1aZbqlSn9DhzoBTCBerrHQ39k+33rcemLaK
+ ibBO52D72DlvUzWit66pDl35KCpAMOTE3D7fkoi3oqxzgbpBg7HDFXYO06e+PyEgBu8E
+ qUZpHqxrUWV6+xkrIjKeM2tfoF5DHYHuAuuFOvhxZSnVOC2LDphAEv7FGfKDFI5QfntJ
+ QQyQ==
+X-Gm-Message-State: AOAM532hVsrSNDCsMcWnP3NkQHbkcvBMtOeBzagyMRGujIldBRcRdkN5
+ LXioQAZ9kSZacFBh7cuWiiB7JK17e80=
+X-Google-Smtp-Source: ABdhPJyOjLYEyuWjio3JhRfxv7GC/5Q2bv9GyUanouuG00z5cj3h6i5VAfe5Ih97dh2LfqezrFR2eA==
+X-Received: by 2002:a1c:6385:: with SMTP id x127mr740932wmb.95.1599608559827; 
+ Tue, 08 Sep 2020 16:42:39 -0700 (PDT)
+Received: from smtp.gmail.com (a95-92-181-29.cpe.netcabo.pt. [95.92.181.29])
+ by smtp.gmail.com with ESMTPSA id q4sm1336072wru.65.2020.09.08.16.42.38
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 08 Sep 2020 16:42:39 -0700 (PDT)
+Date: Tue, 8 Sep 2020 20:42:31 -0300
+From: Melissa Wen <melissa.srw@gmail.com>
+To: Daniel Vetter <daniel.vetter@ffwll.ch>
+Message-ID: <20200908234231.pizidtjqua77mewc@smtp.gmail.com>
+References: <20200904143941.110665-1-daniel.vetter@ffwll.ch>
+ <20200904143941.110665-6-daniel.vetter@ffwll.ch>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <159790897155.667.4491040035549523476@build.alporthouse.com>
-User-Agent: Mutt/1.5.23 (2014-03-12)
-Subject: Re: [Intel-gfx] [PATCH 1/2] drm/i915/gem: Replace reloc chain with
- terminator on error unwind
+In-Reply-To: <20200904143941.110665-6-daniel.vetter@ffwll.ch>
+Subject: Re: [Intel-gfx] [PATCH 05/24] drm/vkms: Use devm_drm_dev_alloc
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,59 +81,170 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, stable@vger.kernel.org
+Cc: Haneen Mohammed <hamohammed.sa@gmail.com>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ Rodrigo Siqueira <rodrigosiqueiramelo@gmail.com>,
+ DRI Development <dri-devel@lists.freedesktop.org>,
+ Daniel Vetter <daniel.vetter@intel.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi!
+Hi Daniel,
 
-> > > > Thanks for the patches. I assume this should fix problem from
-> > > > "5.9-rc1: graphics regression moved from -next to mainline" thread.
-> > > > 
-> > > > I have applied them over current -next, and my machine seems to be
-> > > > working so far (but uptime is less than 30 minutes).
-> > > > 
-> > > > If the machine still works tommorow, I'll assume problem is solved.
-> > > 
-> > > Aye, best wait until we have to start competing with Chromium for
-> > > memory... The suspicion is that it was the resource allocation failure
-> > > path.
-> > 
-> > Yep, my machines are low on memory.
-> > 
-> > But ... test did not work that well. I have dead X and blinking
-> > screen. Machine still works reasonably well over ssh, so I guess
-> > that's an improvement.
+Thanks for this work.
+
+This change works smoothly to me. However, there is a check in the vkms_exit
+that doesn't look very good. Please, see inline comment.
+
+On 09/04, Daniel Vetter wrote:
+> This means we also need to slightly restructure the exit code, so that
+> final cleanup of the drm_device is triggered by unregistering the
+> platform device. Note that devres is both clean up when the driver is
+> unbound (not the case for vkms, we don't bind), and also when unregistering
+> the device (very much the case for vkms). Therefore we can rely on devres
+> even though vkms isn't a proper platform device driver.
 > 
-> Well my last remaining 32bit gen3 device is currently pushing up the
-> daises, so could you try removing the attempt to use WC? Something like
+> This also somewhat untangles the load code, since the drm and platform device
+> setup are no longer interleaved, but two distinct steps.
 > 
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-> @@ -955,10 +955,7 @@ static u32 *__reloc_gpu_map(struct reloc_cache *cache,
+> v2: use devres_open/release_group so we can use devm without real
+> hacks in the driver core or having to create an entire fake bus for
+> testing drivers. Might want to extract this into helpers eventually,
+> maybe as a mock_drm_dev_alloc or test_drm_dev_alloc.
+> 
+> Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
+> Cc: Rodrigo Siqueira <rodrigosiqueiramelo@gmail.com>
+> Cc: Haneen Mohammed <hamohammed.sa@gmail.com>
+> Cc: Daniel Vetter <daniel@ffwll.ch>
+> ---
+>  drivers/gpu/drm/vkms/vkms_drv.c | 54 ++++++++++++++++-----------------
+>  1 file changed, 26 insertions(+), 28 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/vkms/vkms_drv.c b/drivers/gpu/drm/vkms/vkms_drv.c
+> index 83dd5567de8b..0d2c6dcf73c3 100644
+> --- a/drivers/gpu/drm/vkms/vkms_drv.c
+> +++ b/drivers/gpu/drm/vkms/vkms_drv.c
+> @@ -61,9 +61,6 @@ static void vkms_release(struct drm_device *dev)
 >  {
->         u32 *map;
+>  	struct vkms_device *vkms = container_of(dev, struct vkms_device, drm);
+>  
+> -	platform_device_unregister(vkms->platform);
+> -	drm_atomic_helper_shutdown(&vkms->drm);
+> -	drm_mode_config_cleanup(&vkms->drm);
+>  	destroy_workqueue(vkms->output.composer_workq);
+>  }
+>  
+> @@ -144,30 +141,31 @@ static int vkms_modeset_init(struct vkms_device *vkmsdev)
+>  static int __init vkms_init(void)
+>  {
+>  	int ret;
+> +	struct platform_device *pdev;
+>  
+> -	vkms_device = kzalloc(sizeof(*vkms_device), GFP_KERNEL);
+> -	if (!vkms_device)
+> -		return -ENOMEM;
+> +	pdev = platform_device_register_simple(DRIVER_NAME, -1, NULL, 0);
+> +	if (IS_ERR(pdev))
+> +		return PTR_ERR(pdev);
+>  
+> -	vkms_device->platform =
+> -		platform_device_register_simple(DRIVER_NAME, -1, NULL, 0);
+> -	if (IS_ERR(vkms_device->platform)) {
+> -		ret = PTR_ERR(vkms_device->platform);
+> -		goto out_free;
+> +	if (!devres_open_group(&pdev->dev, NULL, GFP_KERNEL)) {
+> +		ret = -ENOMEM;
+> +		goto out_unregister;
+>  	}
+>  
+> -	ret = drm_dev_init(&vkms_device->drm, &vkms_driver,
+> -			   &vkms_device->platform->dev);
+> -	if (ret)
+> -		goto out_unregister;
+> -	drmm_add_final_kfree(&vkms_device->drm, vkms_device);
+> +	vkms_device = devm_drm_dev_alloc(&pdev->dev, &vkms_driver,
+> +					 struct vkms_device, drm);
+> +	if (IS_ERR(vkms_device)) {
+> +		ret = PTR_ERR(vkms_device);
+> +		goto out_devres;
+> +	}
+> +	vkms_device->platform = pdev;
+>  
+>  	ret = dma_coerce_mask_and_coherent(vkms_device->drm.dev,
+>  					   DMA_BIT_MASK(64));
+>  
+>  	if (ret) {
+>  		DRM_ERROR("Could not initialize DMA support\n");
+> -		goto out_put;
+> +		goto out_devres;
+>  	}
+>  
+>  	vkms_device->drm.irq_enabled = true;
+> @@ -175,39 +173,39 @@ static int __init vkms_init(void)
+>  	ret = drm_vblank_init(&vkms_device->drm, 1);
+>  	if (ret) {
+>  		DRM_ERROR("Failed to vblank\n");
+> -		goto out_put;
+> +		goto out_devres;
+>  	}
+>  
+>  	ret = vkms_modeset_init(vkms_device);
+>  	if (ret)
+> -		goto out_put;
+> +		goto out_devres;
+>  
+>  	ret = drm_dev_register(&vkms_device->drm, 0);
+>  	if (ret)
+> -		goto out_put;
+> +		goto out_devres;
+>  
+>  	return 0;
+>  
+> -out_put:
+> -	drm_dev_put(&vkms_device->drm);
+> -	platform_device_unregister(vkms_device->platform);
+> -	return ret;
+> +out_devres:
+> +	devres_release_group(&pdev->dev, NULL);
+>  out_unregister:
+> -	platform_device_unregister(vkms_device->platform);
+> -out_free:
+> -	kfree(vkms_device);
+> +	platform_device_unregister(pdev);
+>  	return ret;
+>  }
+>  
+>  static void __exit vkms_exit(void)
+>  {
+> +	struct platform_device *pdev = vkms_device->platform;
+> +
+>  	if (!vkms_device) {
+>  		DRM_INFO("vkms_device is NULL.\n");
+>  		return;
+>  	}
+
+I think it would be better to check vkms_device before assigning
+vkms_device->platform to the pdev above. I don't know if the compiler
+handles this, but doing the validation first seems more clear.
+
+>  
+>  	drm_dev_unregister(&vkms_device->drm);
+> -	drm_dev_put(&vkms_device->drm);
+> +	drm_atomic_helper_shutdown(&vkms_device->drm);
+> +	devres_release_group(&pdev->dev, NULL);
+> +	platform_device_unregister(pdev);
+>  }
+>  
+>  module_init(vkms_init);
+> -- 
+> 2.28.0
 > 
-> -       map = i915_gem_object_pin_map(pool->obj,
-> -                                     cache->has_llc ?
-> -                                     I915_MAP_FORCE_WB :
-> -                                     I915_MAP_FORCE_WC);
-> +       map = i915_gem_object_pin_map(pool->obj, I915_MAP_FORCE_WB);
-> 
-> on top of the previous patch. Faultinjection didn't turn up anything in
-> eb_relocate_vma, so we need to dig deeper.
-
-With this on top of other patches, it works.
-
-Tested-by: Pavel Machek <pavel@ucw.cz>
-
-Best regards,
-									Pavel
-
--- 
-(english) http://www.livejournal.com/~pavelmachek
-(cesky, pictures) http://atrey.karlin.mff.cuni.cz/~pavel/picture/horses/blog.html
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
