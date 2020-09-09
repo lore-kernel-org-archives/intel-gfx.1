@@ -2,48 +2,48 @@ Return-Path: <SRS0=K74T=CT=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.3 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-6.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 42ADEC43461
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Sep 2020 13:49:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3E9C5C433E2
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Sep 2020 13:49:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F2E4321D81
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Sep 2020 13:49:11 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id D427F21D81
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Sep 2020 13:49:12 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="e3Jk9M7Z"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F2E4321D81
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="MIR0n2v6"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D427F21D81
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 987956E95D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id F0B366E960;
 	Thu, 10 Sep 2020 13:49:11 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9FBFE6E030;
- Thu, 10 Sep 2020 06:53:15 +0000 (UTC)
-Received: from localhost (p5486ceec.dip0.t-ipconnect.de [84.134.206.236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D022E6F50A;
+ Wed,  9 Sep 2020 20:56:03 +0000 (UTC)
+Received: from dhcp-10-100-145-180.wdl.wdc.com (unknown [199.255.45.60])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 93A222078E;
- Thu, 10 Sep 2020 06:53:14 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id A2AC920BED;
+ Wed,  9 Sep 2020 20:56:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1599720795;
- bh=/LOePKGDUR83plqAhx1ySvpBeTmOBTt4AYD41Ar10p8=;
+ s=default; t=1599684963;
+ bh=HOi/gRnNWCADuH3C2tuPouagH6ACKRSW8Me9mQGESc8=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=e3Jk9M7ZKtsnsBd892ykDqq6ldjJyX23IqJ7DyDWgKOR2vkDHWpTUx3L4W3ZSGRl8
- gbJ25CK/q4T0DRgLEQdFDMLfOBf9AoSauHV2UkWklXje0SfXK1Ub2yM0Bl5ncgFE73
- tRqSbJwVN+gRudxLpTtOTt3VxbQSMkA19oVYS08w=
-Date: Thu, 10 Sep 2020 08:53:12 +0200
-From: Wolfram Sang <wsa@kernel.org>
+ b=MIR0n2v6jYMLvL9ylCeswSmSkNjM38pD+hUWnq3QNBxdxavUAFW1nFlTLHe2pybfD
+ odrRmpSK6VaBtY4y/JW5mI6voxGDP7xP7wyaKsNWcxcK7TIQVymwmw1HPj8MEaIJrr
+ wYpwdfF4aTXncxhcjdHkCnRIxxiQ6/mo+8A6FHH4=
+Date: Wed, 9 Sep 2020 13:55:58 -0700
+From: Keith Busch <kbusch@kernel.org>
 To: Joe Perches <joe@perches.com>
-Message-ID: <20200910065312.GH1031@ninjato>
+Message-ID: <20200909205558.GA3384631@dhcp-10-100-145-180.wdl.wdc.com>
 References: <e6387578c75736d61b2fe70d9783d91329a97eb4.camel@perches.com>
 MIME-Version: 1.0
+Content-Disposition: inline
 In-Reply-To: <e6387578c75736d61b2fe70d9783d91329a97eb4.camel@perches.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
 X-Mailman-Approved-At: Thu, 10 Sep 2020 13:49:08 +0000
 Subject: Re: [Intel-gfx] [trivial PATCH] treewide: Convert switch/case
  fallthrough; to break; 
@@ -82,73 +82,30 @@ Cc: linux-wireless@vger.kernel.org, linux-fbdev@vger.kernel.org,
  LKML <linux-kernel@vger.kernel.org>, iommu@lists.linux-foundation.org,
  netfilter-devel@vger.kernel.org, linux-crypto@vger.kernel.org,
  bpf@vger.kernel.org, linuxppc-dev@lists.ozlabs.org
-Content-Type: multipart/mixed; boundary="===============1772913030=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-
---===============1772913030==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="OpLPJvDmhXTZE4Lg"
-Content-Disposition: inline
-
-
---OpLPJvDmhXTZE4Lg
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-
-> diff --git a/drivers/i2c/busses/i2c-i801.c b/drivers/i2c/busses/i2c-i801.c
-> index e32ef3f01fe8..b13b1cbcac29 100644
-> --- a/drivers/i2c/busses/i2c-i801.c
-> +++ b/drivers/i2c/busses/i2c-i801.c
-> @@ -1785,7 +1785,7 @@ static int i801_probe(struct pci_dev *dev, const struct pci_device_id *id)
->  		fallthrough;
->  	case PCI_DEVICE_ID_INTEL_82801CA_3:
->  		priv->features |= FEATURE_HOST_NOTIFY;
+On Wed, Sep 09, 2020 at 01:06:39PM -0700, Joe Perches wrote:
+> diff --git a/crypto/tcrypt.c b/crypto/tcrypt.c
+> index eea0f453cfb6..8aac5bc60f4c 100644
+> --- a/crypto/tcrypt.c
+> +++ b/crypto/tcrypt.c
+> @@ -2464,7 +2464,7 @@ static int do_test(const char *alg, u32 type, u32 mask, int m, u32 num_mb)
+>  		test_hash_speed("streebog512", sec,
+>  				generic_hash_speed_template);
+>  		if (mode > 300 && mode < 400) break;
 > -		fallthrough;
 > +		break;
->  	case PCI_DEVICE_ID_INTEL_82801BA_2:
->  	case PCI_DEVICE_ID_INTEL_82801AB_3:
->  	case PCI_DEVICE_ID_INTEL_82801AA_3:
+>  	case 399:
+>  		break;
 
-I am not the maintainer (Jean is) but I suggest to drop this hunk. The
-code is more complex with multiple 'fallthrough', so this change alone
-actually makes the code inconsistent. A rework would need a seperate
-patch.
-
-
---OpLPJvDmhXTZE4Lg
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAl9ZzVQACgkQFA3kzBSg
-KbYNuA//cymFe0KsFqywRHv3eBWJhoqwvWN2Xhwrx5/b6N3kkKGTo61aOo1ZI2gU
-55rQoGusy8OzGXaxlyhNS8Ea9ztPZc/tHEohOHKPYr52ErUMXlbMo3I3q7sZAZEI
-O/bRlnPKUCKqKOpZBin0ri6NE3FNYybTW30HgIk/LFUeCuaup10cUcxCmPfXHlNc
-M/2M2tBVyyBOqlVVsPxIfEZ4jGDaikxt7mBZDj4QMJnivnuMFuuz8U7gYzkXIHfO
-4ahGx+dBLCCInwFNFjEIPr+biq6Bgt/Vl9bbgN/BYbzdgbbJcikEhWHd9FxEoxQ5
-Y4M6/HxLDuCwTLIoFHjVifsFHK4Emk5ECc0xBWjHu3CJDunZSmy6yS5gbD1BrstW
-Djf0Ue1kyqnVPBDKE0EwFmwz1z1V14bhhXVC1fkiJjTpYRA6g3zMwH1oan6XIbGj
-v4OuWFDkQLEfzCCBIASGS849HtQ4rNafKxX3KQ3qxngh7XBrK7X92SLf3qRJurdt
-h5Ozd/zYDzyKQ1nOf/XWAOP5SKZH2ANjTrFKgIZE8MRkTmbzrlZkCnDnFD0pKPlB
-Z9h9uPZ7kifAejwaRPfsTu6/B9XJafMKfLa3hKTg2kgO+p67ItBEQ0W8wrXLE1/1
-c5FW5PqdkjKnx/9yUqosjEsHV2goh1guE4cziLkF1pZXcrElbtk=
-=ZP3J
------END PGP SIGNATURE-----
-
---OpLPJvDmhXTZE4Lg--
-
---===============1772913030==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+Just imho, this change makes the preceding 'if' look even more
+pointless. Maybe the fallthrough was a deliberate choice? Not that my
+opinion matters here as I don't know this module, but it looked a bit
+odd to me.
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-
---===============1772913030==--
