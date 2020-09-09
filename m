@@ -2,50 +2,62 @@ Return-Path: <SRS0=DO2q=CS=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.0 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 66F53C433E2
-	for <intel-gfx@archiver.kernel.org>; Wed,  9 Sep 2020 12:45:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0FC4BC433E2
+	for <intel-gfx@archiver.kernel.org>; Wed,  9 Sep 2020 12:45:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1946121941
-	for <intel-gfx@archiver.kernel.org>; Wed,  9 Sep 2020 12:45:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1946121941
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id AE54021941
+	for <intel-gfx@archiver.kernel.org>; Wed,  9 Sep 2020 12:45:18 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="QWCA9gPZ"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AE54021941
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 960FF6E045;
-	Wed,  9 Sep 2020 12:45:12 +0000 (UTC)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 287F46E045
- for <Intel-gfx@lists.freedesktop.org>; Wed,  9 Sep 2020 12:45:11 +0000 (UTC)
-IronPort-SDR: zHLaI+ydQp2p8wSmCKh1c4gGMFKxz/3EuEMO7vCDQAuV+tcnS1pkYBdmy6OPW1rYl4XH/Vten8
- Djn84u87GszA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9738"; a="219877595"
-X-IronPort-AV: E=Sophos;i="5.76,409,1592895600"; d="scan'208";a="219877595"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Sep 2020 05:45:10 -0700
-IronPort-SDR: W1kAJEosxG9d/sP6HfRFjrAb0Aa5p5vLbmQqTNZhCYnFrXHecl4sn7Nm4WGwT6Uv+QG/s5bJAr
- W/T6QUbwpZUg==
-X-IronPort-AV: E=Sophos;i="5.76,409,1592895600"; d="scan'208";a="480448988"
-Received: from vdc-station-04.ger.corp.intel.com (HELO localhost.localdomain)
- ([10.251.165.91])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Sep 2020 05:45:06 -0700
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-To: Intel-gfx@lists.freedesktop.org
-Date: Wed,  9 Sep 2020 13:44:57 +0100
-Message-Id: <20200909124457.296845-1-tvrtko.ursulin@linux.intel.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3EB346EB86;
+	Wed,  9 Sep 2020 12:45:18 +0000 (UTC)
+Received: from casper.infradead.org (casper.infradead.org
+ [IPv6:2001:8b0:10b:1236::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B33916E9F9
+ for <intel-gfx@lists.freedesktop.org>; Wed,  9 Sep 2020 07:06:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description;
+ bh=hCw8xGdlNdOCLWn3JTGudEyCmE42OPi648sQ0UReuL4=; b=QWCA9gPZCZ3wzIlKZV6poclcFq
+ LzfIY4lmnE8VjlKQlNvIxOZhHe41lSL2CEaz90i97YxxVXfVK2X9ipiCtBI5MxDA/GrklQLLksV9N
+ A+Npi3L42x5yATBqMul+YVCITK1IZThjOn0EUXnndO9qp7cPI0FFjw4jGkioLYG7yo+OIXJ90SVhh
+ p828BaX8dZFZEzYrjLX+PcMmEzTQ4QaFDIf9VTMHiOulzyKvRLp4LgQRkKE6IWheY0Qo2AZRcG4t/
+ E31RYqm6VXEyf9QSWC6uKFR7sdjlY3BZMedrpiAOMTsUbtVtomspvCxcQvlyn4mr8HghIktPWnf/d
+ Z5aMpAyA==;
+Received: from hch by casper.infradead.org with local (Exim 4.92.3 #3 (Red Hat
+ Linux)) id 1kFuBQ-0007rM-HR; Wed, 09 Sep 2020 07:06:20 +0000
+Date: Wed, 9 Sep 2020 08:06:20 +0100
+From: Christoph Hellwig <hch@infradead.org>
+To: Lu Baolu <baolu.lu@linux.intel.com>
+Message-ID: <20200909070620.GB28245@infradead.org>
+References: <20200903201839.7327-1-murphyt7@tcd.ie>
+ <20200903201839.7327-6-murphyt7@tcd.ie>
+ <20200907070035.GA25114@infradead.org>
+ <CALQxJute8_y=JsW4UV1awSccOjxT_1OyPdymq=R_PurVQzENeQ@mail.gmail.com>
+ <20200908053619.GA15418@infradead.org>
+ <20200908055510.GA19078@infradead.org>
+ <9655fdc9-6ea0-e4c1-e104-a9a8981ecb1e@linux.intel.com>
+ <20200908062326.GB20774@infradead.org>
+ <a10026ea-6de5-b7b1-80af-8000dfd4601b@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH] drm/i915: Fix DMA mapped scatterlist walks
+Content-Disposition: inline
+In-Reply-To: <a10026ea-6de5-b7b1-80af-8000dfd4601b@linux.intel.com>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
+ casper.infradead.org. See http://www.infradead.org/rpr.html
+X-Mailman-Approved-At: Wed, 09 Sep 2020 12:45:17 +0000
+Subject: Re: [Intel-gfx] [PATCH V2 5/5] DO NOT MERGE: iommu: disable list
+ appending in dma-iommu
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,176 +70,48 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tom Murphy <murphyt7@tcd.ie>, Chris Wilson <chris@chris-wilson.co.uk>,
- Matthew Auld <matthew.auld@intel.com>, Logan Gunthorpe <logang@deltatee.com>,
- Lu Baolu <baolu.lu@linux.intel.com>
+Cc: intel-gfx@lists.freedesktop.org,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Christoph Hellwig <hch@infradead.org>, iommu@lists.linux-foundation.org,
+ Tom Murphy <murphyt7@tcd.ie>, David Woodhouse <dwmw2@infradead.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+On Wed, Sep 09, 2020 at 09:43:09AM +0800, Lu Baolu wrote:
+> +       /*
+> +        * The Intel graphic device driver is used to assume that the
+> returned
+> +        * sg list is not combound. This blocks the efforts of converting
+> the
 
-When walking DMA mapped scatterlists sg_dma_len has to be used since it
-can be different (coalesced) from the backing store entry.
+This adds pointless overly long lines.
 
-This also means we have to end the walk when encountering a zero length
-DMA entry and cannot rely on the normal sg list end marker.
+> +        * Intel IOMMU driver to dma-iommu api's. Add this quirk to make the
+> +        * device driver work and should be removed once it's fixed in i915
+> +        * driver.
+> +        */
+> +       if (dev_is_pci(dev) &&
+> +           to_pci_dev(dev)->vendor == PCI_VENDOR_ID_INTEL &&
+> +           (to_pci_dev(dev)->class >> 16) == PCI_BASE_CLASS_DISPLAY) {
+> +               for_each_sg(sg, s, nents, i) {
+> +                       unsigned int s_iova_off = sg_dma_address(s);
+> +                       unsigned int s_length = sg_dma_len(s);
+> +                       unsigned int s_iova_len = s->length;
+> +
+> +                       s->offset += s_iova_off;
+> +                       s->length = s_length;
+> +                       sg_dma_address(s) = dma_addr + s_iova_off;
+> +                       sg_dma_len(s) = s_length;
+> +                       dma_addr += s_iova_len;
+> +               }
+> +
+> +               return nents;
+> +       }
 
-Both issues were there in theory for some time but were hidden by the fact
-Intel IOMMU driver was never coalescing entries. As there are ongoing
-efforts to change this we need to start handling it.
-
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-References: 85d1225ec066 ("drm/i915: Introduce & use new lightweight SGL iterators")
-References: b31144c0daa8 ("drm/i915: Micro-optimise gen6_ppgtt_insert_entries()")
-Reported-by: Tom Murphy <murphyt7@tcd.ie>
-Suggested-by: Tom Murphy <murphyt7@tcd.ie> # __sgt_iter
-Suggested-by: Logan Gunthorpe <logang@deltatee.com> # __sgt_iter
-Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: Chris Wilson <chris@chris-wilson.co.uk>
-Cc: Matthew Auld <matthew.auld@intel.com>
-Cc: Lu Baolu <baolu.lu@linux.intel.com>
----
- drivers/gpu/drm/i915/gt/gen6_ppgtt.c    |  6 +++---
- drivers/gpu/drm/i915/gt/gen8_ppgtt.c    | 17 ++++++++++-------
- drivers/gpu/drm/i915/gt/intel_gtt.h     |  2 +-
- drivers/gpu/drm/i915/i915_scatterlist.h | 12 ++++++++----
- 4 files changed, 22 insertions(+), 15 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/gt/gen6_ppgtt.c b/drivers/gpu/drm/i915/gt/gen6_ppgtt.c
-index fd0d24d28763..c0d17f87b00f 100644
---- a/drivers/gpu/drm/i915/gt/gen6_ppgtt.c
-+++ b/drivers/gpu/drm/i915/gt/gen6_ppgtt.c
-@@ -131,17 +131,17 @@ static void gen6_ppgtt_insert_entries(struct i915_address_space *vm,
- 
- 	vaddr = kmap_atomic_px(i915_pt_entry(pd, act_pt));
- 	do {
--		GEM_BUG_ON(iter.sg->length < I915_GTT_PAGE_SIZE);
-+		GEM_BUG_ON(sg_dma_len(iter.sg) < I915_GTT_PAGE_SIZE);
- 		vaddr[act_pte] = pte_encode | GEN6_PTE_ADDR_ENCODE(iter.dma);
- 
- 		iter.dma += I915_GTT_PAGE_SIZE;
- 		if (iter.dma == iter.max) {
- 			iter.sg = __sg_next(iter.sg);
--			if (!iter.sg)
-+			if (!iter.sg || sg_dma_len(iter.sg) == 0)
- 				break;
- 
- 			iter.dma = sg_dma_address(iter.sg);
--			iter.max = iter.dma + iter.sg->length;
-+			iter.max = iter.dma + sg_dma_len(iter.sg);
- 		}
- 
- 		if (++act_pte == GEN6_PTES) {
-diff --git a/drivers/gpu/drm/i915/gt/gen8_ppgtt.c b/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
-index eb64f474a78c..0361b3dfdc72 100644
---- a/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
-+++ b/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
-@@ -372,19 +372,19 @@ gen8_ppgtt_insert_pte(struct i915_ppgtt *ppgtt,
- 	pd = i915_pd_entry(pdp, gen8_pd_index(idx, 2));
- 	vaddr = kmap_atomic_px(i915_pt_entry(pd, gen8_pd_index(idx, 1)));
- 	do {
--		GEM_BUG_ON(iter->sg->length < I915_GTT_PAGE_SIZE);
-+		GEM_BUG_ON(sg_dma_len(iter->sg) < I915_GTT_PAGE_SIZE);
- 		vaddr[gen8_pd_index(idx, 0)] = pte_encode | iter->dma;
- 
- 		iter->dma += I915_GTT_PAGE_SIZE;
- 		if (iter->dma >= iter->max) {
- 			iter->sg = __sg_next(iter->sg);
--			if (!iter->sg) {
-+			if (!iter->sg || sg_dma_len(iter->sg) == 0) {
- 				idx = 0;
- 				break;
- 			}
- 
- 			iter->dma = sg_dma_address(iter->sg);
--			iter->max = iter->dma + iter->sg->length;
-+			iter->max = iter->dma + sg_dma_len(iter->sg);
- 		}
- 
- 		if (gen8_pd_index(++idx, 0) == 0) {
-@@ -414,7 +414,7 @@ static void gen8_ppgtt_insert_huge(struct i915_vma *vma,
- {
- 	const gen8_pte_t pte_encode = gen8_pte_encode(0, cache_level, flags);
- 	u64 start = vma->node.start;
--	dma_addr_t rem = iter->sg->length;
-+	dma_addr_t rem = sg_dma_len(iter->sg);
- 
- 	GEM_BUG_ON(!i915_vm_is_4lvl(vma->vm));
- 
-@@ -456,7 +456,7 @@ static void gen8_ppgtt_insert_huge(struct i915_vma *vma,
- 		}
- 
- 		do {
--			GEM_BUG_ON(iter->sg->length < page_size);
-+			GEM_BUG_ON(sg_dma_len(iter->sg) < page_size);
- 			vaddr[index++] = encode | iter->dma;
- 
- 			start += page_size;
-@@ -467,7 +467,10 @@ static void gen8_ppgtt_insert_huge(struct i915_vma *vma,
- 				if (!iter->sg)
- 					break;
- 
--				rem = iter->sg->length;
-+				rem = sg_dma_len(iter->sg);
-+				if (!rem)
-+					break;
-+
- 				iter->dma = sg_dma_address(iter->sg);
- 				iter->max = iter->dma + rem;
- 
-@@ -525,7 +528,7 @@ static void gen8_ppgtt_insert_huge(struct i915_vma *vma,
- 		}
- 
- 		vma->page_sizes.gtt |= page_size;
--	} while (iter->sg);
-+	} while (iter->sg && sg_dma_len(iter->sg));
- }
- 
- static void gen8_ppgtt_insert(struct i915_address_space *vm,
-diff --git a/drivers/gpu/drm/i915/gt/intel_gtt.h b/drivers/gpu/drm/i915/gt/intel_gtt.h
-index c13c650ced22..8a33940a71f3 100644
---- a/drivers/gpu/drm/i915/gt/intel_gtt.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gtt.h
-@@ -580,7 +580,7 @@ static inline struct sgt_dma {
- 	struct scatterlist *sg = vma->pages->sgl;
- 	dma_addr_t addr = sg_dma_address(sg);
- 
--	return (struct sgt_dma){ sg, addr, addr + sg->length };
-+	return (struct sgt_dma){ sg, addr, addr + sg_dma_len(sg) };
- }
- 
- #endif
-diff --git a/drivers/gpu/drm/i915/i915_scatterlist.h b/drivers/gpu/drm/i915/i915_scatterlist.h
-index b7b59328cb76..510856887628 100644
---- a/drivers/gpu/drm/i915/i915_scatterlist.h
-+++ b/drivers/gpu/drm/i915/i915_scatterlist.h
-@@ -27,13 +27,17 @@ static __always_inline struct sgt_iter {
- } __sgt_iter(struct scatterlist *sgl, bool dma) {
- 	struct sgt_iter s = { .sgp = sgl };
- 
--	if (s.sgp) {
-+	if (dma && s.sgp && sg_dma_len(s.sgp) == 0) {
-+		s.sgp = NULL;
-+	} else if (s.sgp) {
- 		s.max = s.curr = s.sgp->offset;
--		s.max += s.sgp->length;
--		if (dma)
-+		if (dma) {
- 			s.dma = sg_dma_address(s.sgp);
--		else
-+			s.max += sg_dma_len(s.sgp);
-+		} else {
- 			s.pfn = page_to_pfn(sg_page(s.sgp));
-+			s.max += s.sgp->length;
-+		}
- 	}
- 
- 	return s;
--- 
-2.25.1
-
+This wants an IS_ENABLED() check.  And probably a pr_once reminding
+of the workaround.
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
