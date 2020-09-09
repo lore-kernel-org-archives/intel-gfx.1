@@ -6,36 +6,36 @@ X-Spam-Status: No, score=-3.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C9437C433E2
-	for <intel-gfx@archiver.kernel.org>; Wed,  9 Sep 2020 09:26:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4204EC433E2
+	for <intel-gfx@archiver.kernel.org>; Wed,  9 Sep 2020 09:26:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6E61E2145D
-	for <intel-gfx@archiver.kernel.org>; Wed,  9 Sep 2020 09:26:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6E61E2145D
+	by mail.kernel.org (Postfix) with ESMTPS id E1A622145D
+	for <intel-gfx@archiver.kernel.org>; Wed,  9 Sep 2020 09:26:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E1A622145D
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC22E6ED9A;
-	Wed,  9 Sep 2020 09:26:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 64A7F6ED9B;
+	Wed,  9 Sep 2020 09:26:45 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 87B4D6ED9A;
- Wed,  9 Sep 2020 09:26:03 +0000 (UTC)
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 783BD6ED9B;
+ Wed,  9 Sep 2020 09:26:43 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 80CFCA363D;
- Wed,  9 Sep 2020 09:26:03 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id 7521DA363D;
+ Wed,  9 Sep 2020 09:26:43 +0000 (UTC)
 MIME-Version: 1.0
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Vandita Kulkarni" <vandita.kulkarni@intel.com>
-Date: Wed, 09 Sep 2020 09:26:03 -0000
-Message-ID: <159964356351.8837.2283032591601351064@emeril.freedesktop.org>
+Date: Wed, 09 Sep 2020 09:26:43 -0000
+Message-ID: <159964360347.8836.1321817222221242300@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <20200909085047.31004-1-vandita.kulkarni@intel.com>
 In-Reply-To: <20200909085047.31004-1-vandita.kulkarni@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_Add_support_for_mipi_dsi_cmd_mode_=28rev9=29?=
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?Add_support_for_mipi_dsi_cmd_mode_=28rev9=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,31 +63,11 @@ State : warning
 
 == Summary ==
 
-$ dim checkpatch origin/drm-tip
-5e85a0c24d65 drm/i915/dsi: Add details about TE in get_config
-afc7ad4c92cd i915/dsi: Configure TE interrupt for cmd mode
-4ef5ce3428d7 drm/i915/dsi: Add TE handler for dsi cmd mode.
--:59: CHECK:UNNECESSARY_PARENTHESES: Unnecessary parentheses around 'val != CMD_MODE_NO_GATE'
-#59: FILE: drivers/gpu/drm/i915/i915_irq.c:2329:
-+	if ((val != CMD_MODE_NO_GATE) && (val != CMD_MODE_TE_GATE)) {
-
--:59: CHECK:UNNECESSARY_PARENTHESES: Unnecessary parentheses around 'val != CMD_MODE_TE_GATE'
-#59: FILE: drivers/gpu/drm/i915/i915_irq.c:2329:
-+	if ((val != CMD_MODE_NO_GATE) && (val != CMD_MODE_TE_GATE)) {
-
--:88: CHECK:BRACES: Blank lines aren't necessary before a close brace '}'
-#88: FILE: drivers/gpu/drm/i915/i915_irq.c:2358:
-+
-+}
-
-total: 0 errors, 0 warnings, 3 checks, 78 lines checked
-bfde9ee264dc drm/i915/dsi: Initiate fame request in cmd mode
--:85: CHECK:LINE_SPACING: Please don't use multiple blank lines
-#85: FILE: drivers/gpu/drm/i915/display/intel_display.c:15641:
- 
-+
-
-total: 0 errors, 0 warnings, 1 checks, 66 lines checked
+$ dim sparse --fast origin/drm-tip
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
+-
++drivers/gpu/drm/i915/i915_irq.c:2302:6: warning: symbol 'gen11_dsi_te_interrupt_handler' was not declared. Should it be static?
 
 
 _______________________________________________
