@@ -2,75 +2,56 @@ Return-Path: <SRS0=DO2q=CS=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+X-Spam-Status: No, score=-11.2 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 57C97C43461
-	for <intel-gfx@archiver.kernel.org>; Wed,  9 Sep 2020 16:29:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E79F2C433E2
+	for <intel-gfx@archiver.kernel.org>; Wed,  9 Sep 2020 19:17:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DF561206B8
-	for <intel-gfx@archiver.kernel.org>; Wed,  9 Sep 2020 16:29:33 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pi75ykfy"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DF561206B8
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 67EF121D6C
+	for <intel-gfx@archiver.kernel.org>; Wed,  9 Sep 2020 19:17:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 67EF121D6C
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D2D0A6EC7D;
-	Wed,  9 Sep 2020 16:29:32 +0000 (UTC)
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
- [IPv6:2a00:1450:4864:20::343])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6C79C6EC7D;
- Wed,  9 Sep 2020 16:29:32 +0000 (UTC)
-Received: by mail-wm1-x343.google.com with SMTP id c19so17625wmd.1;
- Wed, 09 Sep 2020 09:29:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=FZIqICSKuKNwK5rrfHPWQmz/7gXTmA9acTIMh9JnGbM=;
- b=pi75ykfy18DV7S/NN3NBbbtZymnY6pfU6QT9a96JZddOd4mXBrZu2EdeoH7bU5oyZg
- QgR8Bu3VginuZtlSo7x97ioyCAjRzuUhdne13lhlqqlc+5p95IS189Ir/Q8kCCYeTXL/
- oTut/4NLjIMvQDwcLVGaTF3xWh73E9Wm6CFXkgxg9ZhSum/1L4p5Cy6ltUyWH5uLsIdh
- 6GbcFpZzPg346YqNYIFACt+lbJL/j8Ne1BbrNot5iiXge13SDhUh28dQ961Rkmg7La36
- 40F6QPGS5TLCG48vzYW2i/gzSdYVCmpCoZ4nBjfoWBaWOBh5UPP12m6ckckRGh6enyLn
- sqQg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=FZIqICSKuKNwK5rrfHPWQmz/7gXTmA9acTIMh9JnGbM=;
- b=Y5pBgmXHtGG4HRcNKpkQS1Z3qzNYS+pjRqurNEIfvzvRd84NymQmQ5ja+LgFdmimoz
- ezXBywwKzLMpZZ7tvelyyqeRW60r2BZLOYTzIzgKSW9UPeCHsUnScXcN4f0nWyTx0TEY
- i50NafDfqLAOjxoBQUcufsRYmm8jokTJwc/H9+3gnryIqv1q26lDOz0BbKqmjchA9fFS
- tO3+jVeHjQzi1jtyflOMNsvsI91SakDQ47amHeZ5GRKK5XffHFpWOjvuyJm4mzfq/tQz
- kSqWxpoPeTaTUDhtiMf3vCGpRODyVqg5Vz0WVehZAV2VvFzkYRpN4ccrAbj2IJpEY193
- dy0w==
-X-Gm-Message-State: AOAM532aS6UjcW80GffpsMox3cqjIFNKQvzXJka0p8+0flaoFfeMMXR1
- X+R2RKxR+KG5cfw6J7XMc8M=
-X-Google-Smtp-Source: ABdhPJxfgEszsopJuCfUITEuuxF0XJNqNAJoaTz5efgeSThC9Kkv/0X0rncFsBSuKUNm6IXtsNhdyg==
-X-Received: by 2002:a7b:c341:: with SMTP id l1mr4488126wmj.80.1599668971100;
- Wed, 09 Sep 2020 09:29:31 -0700 (PDT)
-Received: from smtp.gmail.com (a95-92-181-29.cpe.netcabo.pt. [95.92.181.29])
- by smtp.gmail.com with ESMTPSA id l9sm4410449wmh.1.2020.09.09.09.29.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 09 Sep 2020 09:29:30 -0700 (PDT)
-Date: Wed, 9 Sep 2020 13:29:24 -0300
-From: Melissa Wen <melissa.srw@gmail.com>
-To: Daniel Vetter <daniel.vetter@ffwll.ch>
-Message-ID: <20200909162924.nfqxv5pcmnbq3hmi@smtp.gmail.com>
-References: <20200904143941.110665-1-daniel.vetter@ffwll.ch>
- <20200904143941.110665-5-daniel.vetter@ffwll.ch>
- <20200909110144.pyptgix7y7yftuxy@smtp.gmail.com>
- <CAKMK7uFJ3Yf-rnb5VAYj1xF2VZmoY+yt+zWyRcaMLU0t6eCyoA@mail.gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B545E6F49E;
+	Wed,  9 Sep 2020 19:17:10 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E9D176F49E
+ for <intel-gfx@lists.freedesktop.org>; Wed,  9 Sep 2020 19:17:09 +0000 (UTC)
+IronPort-SDR: jxbrBMaBITJ7gm9OmJXAf6rAsVxCy9dASKg2GmpEgWH+FBf+KciwmAMZSMgv2seJtmRRSrFQgA
+ TPa1uGCybqZg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9739"; a="137924074"
+X-IronPort-AV: E=Sophos;i="5.76,409,1592895600"; d="scan'208";a="137924074"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Sep 2020 12:17:09 -0700
+IronPort-SDR: rP31+M9WUA6QWjiyebgS77++ipmPsabGFpXtmpO0AovQSaeYJmipNI3b+fEEhC4UbZLfr+BjAB
+ qpaaK5s27a3Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.76,409,1592895600"; d="scan'208";a="407542638"
+Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.174])
+ by fmsmga001.fm.intel.com with SMTP; 09 Sep 2020 12:17:07 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Wed, 09 Sep 2020 22:17:06 +0300
+Date: Wed, 9 Sep 2020 22:17:06 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: "Souza, Jose" <jose.souza@intel.com>
+Message-ID: <20200909191706.GQ6112@intel.com>
+References: <20200630215601.28557-12-ville.syrjala@linux.intel.com>
+ <d716a2310227ceca42abc51a75cae51fed79dc62.camel@intel.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <CAKMK7uFJ3Yf-rnb5VAYj1xF2VZmoY+yt+zWyRcaMLU0t6eCyoA@mail.gmail.com>
-Subject: Re: [Intel-gfx] [PATCH 04/24] drm/vgem: Use devm_drm_dev_alloc
+In-Reply-To: <d716a2310227ceca42abc51a75cae51fed79dc62.camel@intel.com>
+X-Patchwork-Hint: comment
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Subject: Re: [Intel-gfx] [11/12] drm/i915: Introduce intel_hpd_hotplug_irqs()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,177 +64,249 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- DRI Development <dri-devel@lists.freedesktop.org>,
- Chris Wilson <chris@chris-wilson.co.uk>, Sean Paul <seanpaul@chromium.org>,
- Sam Ravnborg <sam@ravnborg.org>, Emil Velikov <emil.velikov@collabora.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 09/09, Daniel Vetter wrote:
-> On Wed, Sep 9, 2020 at 1:01 PM Melissa Wen <melissa.srw@gmail.com> wrote:
-> >
-> > Hi Daniel,
-> >
-> > looks good to me, just a few things inline.
-> >
-> > On 09/04, Daniel Vetter wrote:
-> > > This means we also need to slightly restructure the exit code, so that
-> > > final cleanup of the drm_device is triggered by unregistering the
-> > > platform device. Note that devres is both clean up when the driver is
-> > > unbound (not the case for vgem, we don't bind), and also when unregistering
-> > > the device (very much the case for vgem). Therefore we can rely on devres
-> > > even though vgem isn't a proper platform device driver.
+On Wed, Sep 09, 2020 at 12:46:56AM +0000, Souza, Jose wrote:
+> On Wed, 2020-07-01 at 00:56 +0300, Ville Syrjala wrote:
+> > From: Ville Syrj=E4l=E4 <
+> > ville.syrjala@linux.intel.com
 > > >
-> > > This also somewhat untangles the load code, since the drm and platform device
-> > > setup are no longer interleaved, but two distinct steps.
-> > >
-> > > v2: use devres_open/release_group so we can use devm without real
-> > > hacks in the driver core or having to create an entire fake bus for
-> > > testing drivers. Might want to extract this into helpers eventually,
-> > > maybe as a mock_drm_dev_alloc or test_drm_dev_alloc.
-> > >
-> > > Signed-off-by: Daniel Vetter <daniel.vetter@ffwll.ch>
-> > > Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
-> > > Cc: Emil Velikov <emil.velikov@collabora.com>
-> > > Cc: Sean Paul <seanpaul@chromium.org>
-> > > Cc: Chris Wilson <chris@chris-wilson.co.uk>
-> > > Cc: Sam Ravnborg <sam@ravnborg.org>
-> > > Cc: Rob Clark <robdclark@chromium.org>
-> > > ---
-> > >  drivers/gpu/drm/vgem/vgem_drv.c | 55 ++++++++++++++-------------------
-> > >  1 file changed, 24 insertions(+), 31 deletions(-)
-> > >
-> > > diff --git a/drivers/gpu/drm/vgem/vgem_drv.c b/drivers/gpu/drm/vgem/vgem_drv.c
-> > > index 313339bbff90..f95537627463 100644
-> > > --- a/drivers/gpu/drm/vgem/vgem_drv.c
-> > > +++ b/drivers/gpu/drm/vgem/vgem_drv.c
-> > > @@ -401,16 +401,8 @@ static int vgem_prime_mmap(struct drm_gem_object *obj,
-> > >       return 0;
-> > >  }
-> > >
-> > > -static void vgem_release(struct drm_device *dev)
-> > > -{
-> > > -     struct vgem_device *vgem = container_of(dev, typeof(*vgem), drm);
-> > > -
-> > > -     platform_device_unregister(vgem->platform);
-> > > -}
-> > > -
-> > >  static struct drm_driver vgem_driver = {
-> > >       .driver_features                = DRIVER_GEM | DRIVER_RENDER,
-> > > -     .release                        = vgem_release,
-> > >       .open                           = vgem_open,
-> > >       .postclose                      = vgem_postclose,
-> > >       .gem_free_object_unlocked       = vgem_gem_free_object,
-> > > @@ -442,48 +434,49 @@ static struct drm_driver vgem_driver = {
-> > >  static int __init vgem_init(void)
-> > >  {
-> > >       int ret;
-> > > +     struct platform_device *pdev;
-> > >
-> > > -     vgem_device = kzalloc(sizeof(*vgem_device), GFP_KERNEL);
-> > > -     if (!vgem_device)
-> > > -             return -ENOMEM;
-> > > +     pdev = platform_device_register_simple("vgem", -1, NULL, 0);
-> > > +     if (IS_ERR(pdev))
-> > > +             return PTR_ERR(vgem_device->platform);
-> > I caught this line right above.
-> > It should be: return PTR_ERR (pdev), right?
-> 
-> Yes I will fix.
-> 
-> > > -     vgem_device->platform =
-> > > -             platform_device_register_simple("vgem", -1, NULL, 0);
-> > > -     if (IS_ERR(vgem_device->platform)) {
-> > > -             ret = PTR_ERR(vgem_device->platform);
-> > > -             goto out_free;
-> > > +     if (!devres_open_group(&pdev->dev, NULL, GFP_KERNEL)) {
-> > > +             ret = -ENOMEM;
-> > > +             goto out_unregister;
-> > >       }
-> > >
-> > > -     dma_coerce_mask_and_coherent(&vgem_device->platform->dev,
-> > > +     dma_coerce_mask_and_coherent(&pdev->dev,
-> > >                                    DMA_BIT_MASK(64));
-> > > -     ret = drm_dev_init(&vgem_device->drm, &vgem_driver,
-> > > -                        &vgem_device->platform->dev);
-> > > -     if (ret)
-> > > -             goto out_unregister;
-> > > -     drmm_add_final_kfree(&vgem_device->drm, vgem_device);
-> > > +
-> > > +     vgem_device = devm_drm_dev_alloc(&pdev->dev, &vgem_driver,
-> > > +                                      struct vgem_device, drm);
-> > > +     if (IS_ERR(vgem_device)) {
-> > > +             ret = PTR_ERR(vgem_device);
-> > > +             goto out_devres;
-> > > +     }
-> > > +     vgem_device->platform = pdev;
-> > >
-> > >       /* Final step: expose the device/driver to userspace */
-> > >       ret = drm_dev_register(&vgem_device->drm, 0);
-> > >       if (ret)
-> > > -             goto out_put;
-> > > +             goto out_devres;
-> > >
-> > >       return 0;
-> > >
-> > > -out_put:
-> > > -     drm_dev_put(&vgem_device->drm);
-> > > -     platform_device_unregister(vgem_device->platform);
-> > > -     return ret;
-> > > +out_devres:
-> > > +     devres_release_group(&pdev->dev, NULL);
-> > >  out_unregister:
-> > > -     platform_device_unregister(vgem_device->platform);
-> > > -out_free:
-> > > -     kfree(vgem_device);
-> > > +     platform_device_unregister(pdev);
-> > >       return ret;
-> > >  }
-> > >
-> > >  static void __exit vgem_exit(void)
-> > >  {
-> > > +     struct platform_device *pdev = vgem_device->platform;
-> > > +
-> > Well, there has never been a check for a null vgem_device here before,
-> > as in vkms. Should?
-> 
-> I think it should, but that's kinda a separate patch. Want to type it?
+> > =
 
-Make sense. Ok, I can do that.
+> > Introduce intel_hpd_hotplug_irqs() as a partner to
+> > intel_hpd_enabled_irqs(). There's no need to care about the
+> > encoders which we're not exposing, so we can avoid hardocoding
+> =
 
-> -Daniel
-> 
-> > >       drm_dev_unregister(&vgem_device->drm);
-> > > -     drm_dev_put(&vgem_device->drm);
-> > > +     devres_release_group(&pdev->dev, NULL);
-> > > +     platform_device_unregister(pdev);
-> > >  }
+> hard-coding
+> =
+
+> > the masks in various places.
+> =
+
+> Pretty nice patch, you only missed to do this change in the irq_handlers =
+so we could nuke the SDE_DDI_MASKs, or are you planning to do this in a
+> follow up patch? If later consider this
+
+I didn't decide yet how to do that part. One option is to compute the
+mask there too, but the other option to just use the full mask there
+and rely on the fact that the IMR will keep the unused bits clear
+in the IIR. Not sure if the latter approach is quite as scalable though.
+Eg. in theory some new PCH type might repurpose some of the bits for
+some totally different use.
+
+> =
+
+> Reviewed-by: Jos=E9 Roberto de Souza <jose.souza@intel.com>
+> =
+
+> > =
+
+> > Signed-off-by: Ville Syrj=E4l=E4 <
+> > ville.syrjala@linux.intel.com
 > > >
-> > >  module_init(vgem_init);
-> > > --
-> > > 2.28.0
-> >
-> > Apart from these two points,
-> >
-> > Reviewed-by: Melissa Wen <melissa.srw@gmail.com>
-> >
-> > Thanks!
-> > >
-> > > _______________________________________________
-> > > dri-devel mailing list
-> > > dri-devel@lists.freedesktop.org
-> > > https://lists.freedesktop.org/mailman/listinfo/dri-devel
-> 
-> 
-> 
-> -- 
-> Daniel Vetter
-> Software Engineer, Intel Corporation
-> http://blog.ffwll.ch
+> > ---
+> >  drivers/gpu/drm/i915/i915_irq.c | 50 +++++++++++++++------------------
+> >  1 file changed, 23 insertions(+), 27 deletions(-)
+> > =
+
+> > diff --git a/drivers/gpu/drm/i915/i915_irq.c b/drivers/gpu/drm/i915/i91=
+5_irq.c
+> > index 95ab4432a87d..b8a6a21f4c54 100644
+> > --- a/drivers/gpu/drm/i915/i915_irq.c
+> > +++ b/drivers/gpu/drm/i915/i915_irq.c
+> > @@ -2943,6 +2943,18 @@ static u32 intel_hpd_enabled_irqs(struct drm_i91=
+5_private *dev_priv,
+> >  	return enabled_irqs;
+> >  }
+> >  =
+
+> > +static u32 intel_hpd_hotplug_irqs(struct drm_i915_private *dev_priv,
+> > +				  const u32 hpd[HPD_NUM_PINS])
+> > +{
+> > +	struct intel_encoder *encoder;
+> > +	u32 hotplug_irqs =3D 0;
+> > +
+> > +	for_each_intel_encoder(&dev_priv->drm, encoder)
+> > +		hotplug_irqs |=3D hpd[encoder->hpd_pin];
+> > +
+> > +	return hotplug_irqs;
+> > +}
+> > +
+> >  static void ibx_hpd_detection_setup(struct drm_i915_private *dev_priv)
+> >  {
+> >  	u32 hotplug;
+> > @@ -2972,12 +2984,8 @@ static void ibx_hpd_irq_setup(struct drm_i915_pr=
+ivate *dev_priv)
+> >  {
+> >  	u32 hotplug_irqs, enabled_irqs;
+> >  =
+
+> > -	if (HAS_PCH_IBX(dev_priv))
+> > -		hotplug_irqs =3D SDE_HOTPLUG_MASK;
+> > -	else
+> > -		hotplug_irqs =3D SDE_HOTPLUG_MASK_CPT;
+> > -
+> >  	enabled_irqs =3D intel_hpd_enabled_irqs(dev_priv, dev_priv->hotplug.p=
+ch_hpd);
+> > +	hotplug_irqs =3D intel_hpd_hotplug_irqs(dev_priv, dev_priv->hotplug.p=
+ch_hpd);
+> >  =
+
+> >  	ibx_display_interrupt_update(dev_priv, hotplug_irqs, enabled_irqs);
+> >  =
+
+> > @@ -3005,13 +3013,12 @@ static void icp_tc_hpd_detection_setup(struct d=
+rm_i915_private *dev_priv,
+> >  }
+> >  =
+
+> >  static void icp_hpd_irq_setup(struct drm_i915_private *dev_priv,
+> > -			      u32 sde_ddi_mask, u32 sde_tc_mask,
+> >  			      u32 ddi_enable_mask, u32 tc_enable_mask)
+> >  {
+> >  	u32 hotplug_irqs, enabled_irqs;
+> >  =
+
+> > -	hotplug_irqs =3D sde_ddi_mask | sde_tc_mask;
+> >  	enabled_irqs =3D intel_hpd_enabled_irqs(dev_priv, dev_priv->hotplug.p=
+ch_hpd);
+> > +	hotplug_irqs =3D intel_hpd_hotplug_irqs(dev_priv, dev_priv->hotplug.p=
+ch_hpd);
+> >  =
+
+> >  	I915_WRITE(SHPD_FILTER_CNT, SHPD_FILTER_CNT_500_ADJ);
+> >  =
+
+> > @@ -3029,7 +3036,6 @@ static void icp_hpd_irq_setup(struct drm_i915_pri=
+vate *dev_priv,
+> >  static void mcc_hpd_irq_setup(struct drm_i915_private *dev_priv)
+> >  {
+> >  	icp_hpd_irq_setup(dev_priv,
+> > -			  SDE_DDI_MASK_ICP, SDE_TC_HOTPLUG_ICP(PORT_TC1),
+> >  			  ICP_DDI_HPD_ENABLE_MASK, ICP_TC_HPD_ENABLE(PORT_TC1));
+> >  }
+> >  =
+
+> > @@ -3041,7 +3047,6 @@ static void mcc_hpd_irq_setup(struct drm_i915_pri=
+vate *dev_priv)
+> >  static void jsp_hpd_irq_setup(struct drm_i915_private *dev_priv)
+> >  {
+> >  	icp_hpd_irq_setup(dev_priv,
+> > -			  SDE_DDI_MASK_TGP, 0,
+> >  			  TGP_DDI_HPD_ENABLE_MASK, 0);
+> >  }
+> >  =
+
+> > @@ -3074,7 +3079,7 @@ static void gen11_hpd_irq_setup(struct drm_i915_p=
+rivate *dev_priv)
+> >  	u32 val;
+> >  =
+
+> >  	enabled_irqs =3D intel_hpd_enabled_irqs(dev_priv, dev_priv->hotplug.h=
+pd);
+> > -	hotplug_irqs =3D GEN11_DE_TC_HOTPLUG_MASK | GEN11_DE_TBT_HOTPLUG_MASK;
+> > +	hotplug_irqs =3D intel_hpd_hotplug_irqs(dev_priv, dev_priv->hotplug.h=
+pd);
+> >  =
+
+> >  	val =3D I915_READ(GEN11_DE_HPD_IMR);
+> >  	val &=3D ~hotplug_irqs;
+> > @@ -3085,10 +3090,10 @@ static void gen11_hpd_irq_setup(struct drm_i915=
+_private *dev_priv)
+> >  	gen11_hpd_detection_setup(dev_priv);
+> >  =
+
+> >  	if (INTEL_PCH_TYPE(dev_priv) >=3D PCH_TGP)
+> > -		icp_hpd_irq_setup(dev_priv, SDE_DDI_MASK_TGP, SDE_TC_MASK_TGP,
+> > +		icp_hpd_irq_setup(dev_priv,
+> >  				  TGP_DDI_HPD_ENABLE_MASK, TGP_TC_HPD_ENABLE_MASK);
+> >  	else if (INTEL_PCH_TYPE(dev_priv) >=3D PCH_ICP)
+> > -		icp_hpd_irq_setup(dev_priv, SDE_DDI_MASK_ICP, SDE_TC_MASK_ICP,
+> > +		icp_hpd_irq_setup(dev_priv,
+> >  				  ICP_DDI_HPD_ENABLE_MASK, ICP_TC_HPD_ENABLE_MASK);
+> >  }
+> >  =
+
+> > @@ -3124,8 +3129,8 @@ static void spt_hpd_irq_setup(struct drm_i915_pri=
+vate *dev_priv)
+> >  	if (INTEL_PCH_TYPE(dev_priv) >=3D PCH_CNP)
+> >  		I915_WRITE(SHPD_FILTER_CNT, SHPD_FILTER_CNT_500_ADJ);
+> >  =
+
+> > -	hotplug_irqs =3D SDE_HOTPLUG_MASK_SPT;
+> >  	enabled_irqs =3D intel_hpd_enabled_irqs(dev_priv, dev_priv->hotplug.p=
+ch_hpd);
+> > +	hotplug_irqs =3D intel_hpd_hotplug_irqs(dev_priv, dev_priv->hotplug.p=
+ch_hpd);
+> >  =
+
+> >  	ibx_display_interrupt_update(dev_priv, hotplug_irqs, enabled_irqs);
+> >  =
+
+> > @@ -3152,22 +3157,13 @@ static void ilk_hpd_irq_setup(struct drm_i915_p=
+rivate *dev_priv)
+> >  {
+> >  	u32 hotplug_irqs, enabled_irqs;
+> >  =
+
+> > -	if (INTEL_GEN(dev_priv) >=3D 8) {
+> > -		hotplug_irqs =3D GEN8_PORT_DP_A_HOTPLUG;
+> > -		enabled_irqs =3D intel_hpd_enabled_irqs(dev_priv, dev_priv->hotplug.=
+hpd);
+> > +	enabled_irqs =3D intel_hpd_enabled_irqs(dev_priv, dev_priv->hotplug.h=
+pd);
+> > +	hotplug_irqs =3D intel_hpd_hotplug_irqs(dev_priv, dev_priv->hotplug.h=
+pd);
+> >  =
+
+> > +	if (INTEL_GEN(dev_priv) >=3D 8)
+> >  		bdw_update_port_irq(dev_priv, hotplug_irqs, enabled_irqs);
+> > -	} else if (INTEL_GEN(dev_priv) >=3D 7) {
+> > -		hotplug_irqs =3D DE_DP_A_HOTPLUG_IVB;
+> > -		enabled_irqs =3D intel_hpd_enabled_irqs(dev_priv, dev_priv->hotplug.=
+hpd);
+> > -
+> > +	else
+> >  		ilk_update_display_irq(dev_priv, hotplug_irqs, enabled_irqs);
+> > -	} else {
+> > -		hotplug_irqs =3D DE_DP_A_HOTPLUG;
+> > -		enabled_irqs =3D intel_hpd_enabled_irqs(dev_priv, dev_priv->hotplug.=
+hpd);
+> > -
+> > -		ilk_update_display_irq(dev_priv, hotplug_irqs, enabled_irqs);
+> > -	}
+> >  =
+
+> >  	ilk_hpd_detection_setup(dev_priv);
+> >  =
+
+> > @@ -3216,7 +3212,7 @@ static void bxt_hpd_irq_setup(struct drm_i915_pri=
+vate *dev_priv)
+> >  	u32 hotplug_irqs, enabled_irqs;
+> >  =
+
+> >  	enabled_irqs =3D intel_hpd_enabled_irqs(dev_priv, dev_priv->hotplug.h=
+pd);
+> > -	hotplug_irqs =3D BXT_DE_PORT_HOTPLUG_MASK;
+> > +	hotplug_irqs =3D intel_hpd_hotplug_irqs(dev_priv, dev_priv->hotplug.h=
+pd);
+> >  =
+
+> >  	bdw_update_port_irq(dev_priv, hotplug_irqs, enabled_irqs);
+> >  =
+
+> > =
+
+
+-- =
+
+Ville Syrj=E4l=E4
+Intel
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
