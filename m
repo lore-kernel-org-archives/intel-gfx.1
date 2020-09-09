@@ -2,51 +2,47 @@ Return-Path: <SRS0=DO2q=CS=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.9 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.2 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BEC74C43461
-	for <intel-gfx@archiver.kernel.org>; Wed,  9 Sep 2020 08:57:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 65AC8C433E2
+	for <intel-gfx@archiver.kernel.org>; Wed,  9 Sep 2020 09:15:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 63726218AC
-	for <intel-gfx@archiver.kernel.org>; Wed,  9 Sep 2020 08:57:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 63726218AC
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 0591420708
+	for <intel-gfx@archiver.kernel.org>; Wed,  9 Sep 2020 09:15:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0591420708
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ucw.cz
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD98E6EB42;
-	Wed,  9 Sep 2020 08:57:17 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 043186EB1E
- for <intel-gfx@lists.freedesktop.org>; Wed,  9 Sep 2020 08:57:13 +0000 (UTC)
-IronPort-SDR: AwfPvIA1NxP5sDmyEXn9pGcbfiVUEG7C+iPoF0BOBDj30ZHfyXWYWxYTpVD7NYBpVgLQLqKwOf
- NPKfTDNn9OkA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9738"; a="159257114"
-X-IronPort-AV: E=Sophos;i="5.76,409,1592895600"; d="scan'208";a="159257114"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Sep 2020 01:57:05 -0700
-IronPort-SDR: 2fdH2Z2rBgO4jamofym2OU2ItRAnKu2rcdFNFi83C8wtQLpEVcAEVA3blqZcCGl7DMMjnwVdKw
- 9HdZ7a5Xh3+w==
-X-IronPort-AV: E=Sophos;i="5.76,409,1592895600"; d="scan'208";a="480384770"
-Received: from vandita-desktop.iind.intel.com ([10.223.74.218])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-SHA;
- 09 Sep 2020 01:57:03 -0700
-From: Vandita Kulkarni <vandita.kulkarni@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Wed,  9 Sep 2020 14:20:45 +0530
-Message-Id: <20200909085047.31004-3-vandita.kulkarni@intel.com>
-X-Mailer: git-send-email 2.21.0.5.gaeb582a
-In-Reply-To: <20200909085047.31004-1-vandita.kulkarni@intel.com>
-References: <20200909085047.31004-1-vandita.kulkarni@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 929DB6ED80;
+	Wed,  9 Sep 2020 09:15:18 +0000 (UTC)
+Received: from jabberwock.ucw.cz (jabberwock.ucw.cz [46.255.230.98])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E22A6ED80
+ for <intel-gfx@lists.freedesktop.org>; Wed,  9 Sep 2020 09:15:18 +0000 (UTC)
+Received: by jabberwock.ucw.cz (Postfix, from userid 1017)
+ id 173081C0B87; Wed,  9 Sep 2020 11:15:14 +0200 (CEST)
+Date: Wed, 9 Sep 2020 11:15:13 +0200
+From: Pavel Machek <pavel@ucw.cz>
+To: Harald Arnesen <harald@skogtun.org>
+Message-ID: <20200909091513.GG10891@amd>
+References: <7efa547d-b7a4-b873-f1aa-4f19eb849fa3@skogtun.org>
+ <CAHk-=wj3WskPCtHncCWLdaP6xVecLp8bDBTT57vyiU-0=Ld6QQ@mail.gmail.com>
+ <d4db4a52-3001-cb02-4888-a9dfd55cdd7c@skogtun.org>
+ <656b8f9f-d696-c75d-aef6-2b8b5170f2f6@skogtun.org>
+ <CAHk-=wiAK=AiqTD47o-BFFZciQXpEC0SiiDnXLWJUcQtCo-Pig@mail.gmail.com>
+ <101bff45-0ebd-8fb6-7c99-963aa4fcc588@skogtun.org>
+ <CAPM=9twLvHu_XLJ89GVXpNo=PHPZLJuRpHggkfzvvuVf+xrwoA@mail.gmail.com>
+ <0f06d704-c14e-0d86-c8bb-8c7b3a34758a@skogtun.org>
+ <CAHk-=wh=MjX6+Bn-ooHT_wf4VTpe7y-5czbAUT=vaAn2VCBNBQ@mail.gmail.com>
+ <71064aa0-1b62-5437-8fa6-7e7af0e3d4c2@skogtun.org>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [V9 2/4] i915/dsi: Configure TE interrupt for cmd mode
+In-Reply-To: <71064aa0-1b62-5437-8fa6-7e7af0e3d4c2@skogtun.org>
+User-Agent: Mutt/1.5.23 (2014-03-12)
+Subject: Re: [Intel-gfx] 5.9-rc1: graphics regression moved from -next to
+ mainline
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,122 +55,67 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Daniel Vetter <daniel.vetter@ffwll.ch>,
+ intel-gfx <intel-gfx@lists.freedesktop.org>,
+ kernel list <linux-kernel@vger.kernel.org>,
+ Chris Wilson <chris@chris-wilson.co.uk>,
+ Linus Torvalds <torvalds@linux-foundation.org>,
+ Matthew Auld <matthew.auld@intel.com>
+Content-Type: multipart/mixed; boundary="===============1456895312=="
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Configure TE interrupt as part of the vblank
-enable call flow.
 
-v2: Hide the private flags check inside configure_te (Jani)
+--===============1456895312==
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="z9ECzHErBrwFF8sy"
+Content-Disposition: inline
 
-v3: Fix the position of masking de_port_masked for DSI_TE.
 
-v4: Simplify the caller of configure_te (Jani)
+--z9ECzHErBrwFF8sy
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-v5: Clear IIR, remove the usage of private_flags
+On Tue 2020-09-01 13:57:55, Harald Arnesen wrote:
+> Still (rc3) doesn't work without the three reverts.
+>=20
+> I'm not sure how to proceed, I cannot capture any oops, and see nothing
+> obvious in any logs.
 
-Signed-off-by: Vandita Kulkarni <vandita.kulkarni@intel.com>
----
- drivers/gpu/drm/i915/i915_irq.c | 51 +++++++++++++++++++++++++++++++--
- 1 file changed, 49 insertions(+), 2 deletions(-)
+I believe this is the place when you ask Linus for reverts...
 
-diff --git a/drivers/gpu/drm/i915/i915_irq.c b/drivers/gpu/drm/i915/i915_irq.c
-index f113fe44572b..de540194ce67 100644
---- a/drivers/gpu/drm/i915/i915_irq.c
-+++ b/drivers/gpu/drm/i915/i915_irq.c
-@@ -40,6 +40,7 @@
- #include "display/intel_hotplug.h"
- #include "display/intel_lpe_audio.h"
- #include "display/intel_psr.h"
-+#include "display/intel_dsi.h"
- 
- #include "gt/intel_breadcrumbs.h"
- #include "gt/intel_gt.h"
-@@ -2692,12 +2693,47 @@ int ilk_enable_vblank(struct drm_crtc *crtc)
- 	return 0;
- }
- 
-+static bool gen11_dsi_configure_te(struct intel_crtc *intel_crtc,
-+				   bool enable)
-+{
-+	struct drm_i915_private *dev_priv = to_i915(intel_crtc->base.dev);
-+	enum port port;
-+	u32 tmp;
-+
-+	if (!(intel_crtc->mode_flags &
-+	    (I915_MODE_FLAG_DSI_USE_TE1 | I915_MODE_FLAG_DSI_USE_TE0)))
-+		return false;
-+
-+	/* for dual link cases we consider TE from slave */
-+	if (intel_crtc->mode_flags & I915_MODE_FLAG_DSI_USE_TE1)
-+		port = PORT_B;
-+	else
-+		port = PORT_A;
-+
-+	tmp =  I915_READ(DSI_INTR_MASK_REG(port));
-+	if (enable)
-+		tmp &= ~DSI_TE_EVENT;
-+	else
-+		tmp |= DSI_TE_EVENT;
-+
-+	I915_WRITE(DSI_INTR_MASK_REG(port), tmp);
-+
-+	tmp = I915_READ(DSI_INTR_IDENT_REG(port));
-+	I915_WRITE(DSI_INTR_IDENT_REG(port), tmp);
-+
-+	return true;
-+}
-+
- int bdw_enable_vblank(struct drm_crtc *crtc)
- {
- 	struct drm_i915_private *dev_priv = to_i915(crtc->dev);
--	enum pipe pipe = to_intel_crtc(crtc)->pipe;
-+	struct intel_crtc *intel_crtc = to_intel_crtc(crtc);
-+	enum pipe pipe = intel_crtc->pipe;
- 	unsigned long irqflags;
- 
-+	if (gen11_dsi_configure_te(intel_crtc, true))
-+		return 0;
-+
- 	spin_lock_irqsave(&dev_priv->irq_lock, irqflags);
- 	bdw_enable_pipe_irq(dev_priv, pipe, GEN8_PIPE_VBLANK);
- 	spin_unlock_irqrestore(&dev_priv->irq_lock, irqflags);
-@@ -2763,9 +2799,13 @@ void ilk_disable_vblank(struct drm_crtc *crtc)
- void bdw_disable_vblank(struct drm_crtc *crtc)
- {
- 	struct drm_i915_private *dev_priv = to_i915(crtc->dev);
--	enum pipe pipe = to_intel_crtc(crtc)->pipe;
-+	struct intel_crtc *intel_crtc = to_intel_crtc(crtc);
-+	enum pipe pipe = intel_crtc->pipe;
- 	unsigned long irqflags;
- 
-+	if (gen11_dsi_configure_te(intel_crtc, false))
-+		return;
-+
- 	spin_lock_irqsave(&dev_priv->irq_lock, irqflags);
- 	bdw_disable_pipe_irq(dev_priv, pipe, GEN8_PIPE_VBLANK);
- 	spin_unlock_irqrestore(&dev_priv->irq_lock, irqflags);
-@@ -3456,6 +3496,13 @@ static void gen8_de_irq_postinstall(struct drm_i915_private *dev_priv)
- 	if (IS_GEN9_LP(dev_priv))
- 		de_port_masked |= BXT_DE_PORT_GMBUS;
- 
-+	if (INTEL_GEN(dev_priv) >= 11) {
-+		enum port port;
-+
-+		if (intel_bios_is_dsi_present(dev_priv, &port))
-+			de_port_masked |= DSI0_TE | DSI1_TE;
-+	}
-+
- 	de_pipe_enables = de_pipe_masked | GEN8_PIPE_VBLANK |
- 					   GEN8_PIPE_FIFO_UNDERRUN;
- 
--- 
-2.21.0.5.gaeb582a
+Best regards,
+
+									Pavel
+--=20
+(english) http://www.livejournal.com/~pavelmachek
+(cesky, pictures) http://atrey.karlin.mff.cuni.cz/~pavel/picture/horses/blo=
+g.html
+
+--z9ECzHErBrwFF8sy
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1
+
+iEYEARECAAYFAl9YnSEACgkQMOfwapXb+vLL4gCeMCucyulZXxfhftemFuhj7Zud
+KX0AnidRO+JQtFCfPVRM95Zdgx++n/OP
+=GtV1
+-----END PGP SIGNATURE-----
+
+--z9ECzHErBrwFF8sy--
+
+--===============1456895312==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+
+--===============1456895312==--
