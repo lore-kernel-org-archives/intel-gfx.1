@@ -2,61 +2,56 @@ Return-Path: <SRS0=DO2q=CS=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.9 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-11.2 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3EE16C43461
-	for <intel-gfx@archiver.kernel.org>; Wed,  9 Sep 2020 01:49:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 207CFC433E2
+	for <intel-gfx@archiver.kernel.org>; Wed,  9 Sep 2020 02:26:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DF794216C4
-	for <intel-gfx@archiver.kernel.org>; Wed,  9 Sep 2020 01:49:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DF794216C4
+	by mail.kernel.org (Postfix) with ESMTPS id B2C062080C
+	for <intel-gfx@archiver.kernel.org>; Wed,  9 Sep 2020 02:26:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B2C062080C
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3AA266E8EB;
-	Wed,  9 Sep 2020 01:49:02 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 82D356E8EB
- for <intel-gfx@lists.freedesktop.org>; Wed,  9 Sep 2020 01:49:00 +0000 (UTC)
-IronPort-SDR: zIQtdj9TomFYYEvn7SQLCZuOV4pF3FNCXqrT8pR2iJCC1mzW7cKwcJsbjOEIaa2VX+/mNhrPgr
- 5f52//0prq0A==
-X-IronPort-AV: E=McAfee;i="6000,8403,9738"; a="155655518"
-X-IronPort-AV: E=Sophos;i="5.76,407,1592895600"; d="scan'208";a="155655518"
-X-Amp-Result: SKIPPED(no attachment in message)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 13C2D6E90B;
+	Wed,  9 Sep 2020 02:26:20 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4508D6E90B;
+ Wed,  9 Sep 2020 02:26:18 +0000 (UTC)
+IronPort-SDR: 06gUYsPB0mtWVR7G+U3VllcfbSFFkYupLU4DyTAkhSDK0sHO3yeV4ZoicUW8Vd18xHq9j/kcg5
+ y32vIQPnvOVQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9738"; a="137774318"
+X-IronPort-AV: E=Sophos;i="5.76,408,1592895600"; 
+ d="asc'?scan'208";a="137774318"
+X-Amp-Result: UNKNOWN
+X-Amp-Original-Verdict: FILE UNKNOWN
 X-Amp-File-Uploaded: False
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Sep 2020 18:48:59 -0700
-IronPort-SDR: iu1TM291fKLzW13YkpPo+t+WTXhU6OwMMLl9NaOEaJe/bkV8fk4PoCH/IQPpFihFj7CFCpN+QZ
- QO3ApYZpMMQw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.76,407,1592895600"; d="scan'208";a="407316380"
-Received: from allen-box.sh.intel.com (HELO [10.239.159.139])
- ([10.239.159.139])
- by fmsmga001.fm.intel.com with ESMTP; 08 Sep 2020 18:48:55 -0700
-To: Christoph Hellwig <hch@infradead.org>
-References: <20200903201839.7327-1-murphyt7@tcd.ie>
- <20200903201839.7327-6-murphyt7@tcd.ie>
- <20200907070035.GA25114@infradead.org>
- <CALQxJute8_y=JsW4UV1awSccOjxT_1OyPdymq=R_PurVQzENeQ@mail.gmail.com>
- <20200908053619.GA15418@infradead.org> <20200908055510.GA19078@infradead.org>
- <9655fdc9-6ea0-e4c1-e104-a9a8981ecb1e@linux.intel.com>
- <20200908062326.GB20774@infradead.org>
-From: Lu Baolu <baolu.lu@linux.intel.com>
-Message-ID: <a10026ea-6de5-b7b1-80af-8000dfd4601b@linux.intel.com>
-Date: Wed, 9 Sep 2020 09:43:09 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Sep 2020 19:26:16 -0700
+IronPort-SDR: fjXekW4zPAo0eK/gD6yeRGrt/z1wodFkOGiqmRR1t948MS97pO/NCLanqbRlG1syjTmgLbDgPw
+ BX3YqHTMXntw==
+X-IronPort-AV: E=Sophos;i="5.76,408,1592895600"; 
+ d="asc'?scan'208";a="449028307"
+Received: from zhen-hp.sh.intel.com (HELO zhen-hp) ([10.239.160.147])
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Sep 2020 19:26:13 -0700
+Date: Wed, 9 Sep 2020 10:06:58 +0800
+From: Zhenyu Wang <zhenyuw@linux.intel.com>
+To: Colin Xu <Colin.Xu@intel.com>
+Message-ID: <20200909020658.GF28614@zhen-hp.sh.intel.com>
+References: <20200907200203.535-1-zhi.a.wang@intel.com>
+ <8e0f7bf0-ce43-7a29-6766-24836e60326f@intel.com>
 MIME-Version: 1.0
-In-Reply-To: <20200908062326.GB20774@infradead.org>
-Content-Language: en-US
-Subject: Re: [Intel-gfx] [PATCH V2 5/5] DO NOT MERGE: iommu: disable list
- appending in dma-iommu
+In-Reply-To: <8e0f7bf0-ce43-7a29-6766-24836e60326f@intel.com>
+User-Agent: Mutt/1.10.0 (2018-05-17)
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/gvt: Introduce per object locking
+ in GVT scheduler.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,67 +64,251 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- iommu@lists.linux-foundation.org, Tom Murphy <murphyt7@tcd.ie>,
- David Woodhouse <dwmw2@infradead.org>, baolu.lu@linux.intel.com
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Reply-To: Zhenyu Wang <zhenyuw@linux.intel.com>
+Cc: intel-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============2127137635=="
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Christoph,
 
-On 9/8/20 2:23 PM, Christoph Hellwig wrote:
-> On Tue, Sep 08, 2020 at 02:04:53PM +0800, Lu Baolu wrote:
->> Do you mind telling where can I find Marek's series?
-> 
-> [PATCH v10 00/30] DRM: fix struct sg_table nents vs. orig_nents misuse
-> 
-> on various lists including the iommu one.
-> 
+--===============2127137635==
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="yEPQxsgoJgBvi8ip"
+Content-Disposition: inline
 
-It seems that more work is needed in i915 driver. I will added below
-quirk as you suggested.
 
---- a/drivers/iommu/dma-iommu.c
-+++ b/drivers/iommu/dma-iommu.c
-@@ -851,6 +851,31 @@ static int __finalise_sg(struct device *dev, struct 
-scatterlist *sg, int nents,
-         unsigned int cur_len = 0, max_len = dma_get_max_seg_size(dev);
-         int i, count = 0;
+--yEPQxsgoJgBvi8ip
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-+       /*
-+        * The Intel graphic device driver is used to assume that the 
-returned
-+        * sg list is not combound. This blocks the efforts of 
-converting the
-+        * Intel IOMMU driver to dma-iommu api's. Add this quirk to make the
-+        * device driver work and should be removed once it's fixed in i915
-+        * driver.
-+        */
-+       if (dev_is_pci(dev) &&
-+           to_pci_dev(dev)->vendor == PCI_VENDOR_ID_INTEL &&
-+           (to_pci_dev(dev)->class >> 16) == PCI_BASE_CLASS_DISPLAY) {
-+               for_each_sg(sg, s, nents, i) {
-+                       unsigned int s_iova_off = sg_dma_address(s);
-+                       unsigned int s_length = sg_dma_len(s);
-+                       unsigned int s_iova_len = s->length;
-+
-+                       s->offset += s_iova_off;
-+                       s->length = s_length;
-+                       sg_dma_address(s) = dma_addr + s_iova_off;
-+                       sg_dma_len(s) = s_length;
-+                       dma_addr += s_iova_len;
-+               }
-+
-+               return nents;
-+       }
-+
+On 2020.09.09 09:43:21 +0800, Colin Xu wrote:
+> I tested this patch on the suspend/resume case with vGPU created (no need
+> really activate), can still observer the system freeze issue as mentioned=
+ in
+> another patch I sent. So I suppose we still need decouple context pin/unp=
+in
+> with submission setup/clean, but move to workload create/destroy?
+>
 
-Best regards,
-baolu
+yeah, I observed that conflict too. How about merging Zhi's ww lock fix fir=
+st
+then next for left suspend/resume fixes? And better if you could pack all f=
+ixes
+in one series.
+
+Thanks
+
+> After made similar changes based on this one, plus the suspend/resume
+> support patch, below tests can pass:
+>=20
+> - Create vGPU then suspend/resume.
+>=20
+> - Run VM w/ vGPU then suspend/resume.
+>=20
+> https://lists.freedesktop.org/archives/intel-gvt-dev/2020-September/00706=
+1.html
+>=20
+> On 2020-09-08 04:02, Zhi Wang wrote:
+> > To support ww locking and per-object implemented in i915, GVT scheduler=
+ needs
+> > to be refined. Most of the changes are located in shadow batch buffer, =
+shadow
+> > wa context in GVT-g, where use quite a lot of i915 gem object APIs.
+> >=20
+> > Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> > Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+> > Cc: Zhenyu Wang <zhenyuw@linux.intel.com>
+> > Signed-off-by: Zhi Wang <zhi.a.wang@intel.com>
+> > ---
+> >   drivers/gpu/drm/i915/gvt/scheduler.c | 68 +++++++++++++++++++++++++++=
++++------
+> >   1 file changed, 57 insertions(+), 11 deletions(-)
+> >=20
+> > diff --git a/drivers/gpu/drm/i915/gvt/scheduler.c b/drivers/gpu/drm/i91=
+5/gvt/scheduler.c
+> > index 1570eb8..fe7ee10 100644
+> > --- a/drivers/gpu/drm/i915/gvt/scheduler.c
+> > +++ b/drivers/gpu/drm/i915/gvt/scheduler.c
+> > @@ -396,7 +396,9 @@ static void release_shadow_wa_ctx(struct intel_shad=
+ow_wa_ctx *wa_ctx)
+> >   	if (!wa_ctx->indirect_ctx.obj)
+> >   		return;
+> > +	i915_gem_object_lock(wa_ctx->indirect_ctx.obj, NULL);
+> >   	i915_gem_object_unpin_map(wa_ctx->indirect_ctx.obj);
+> > +	i915_gem_object_unlock(wa_ctx->indirect_ctx.obj);
+> >   	i915_gem_object_put(wa_ctx->indirect_ctx.obj);
+> >   	wa_ctx->indirect_ctx.obj =3D NULL;
+> > @@ -504,6 +506,7 @@ static int prepare_shadow_batch_buffer(struct intel=
+_vgpu_workload *workload)
+> >   	struct intel_gvt *gvt =3D workload->vgpu->gvt;
+> >   	const int gmadr_bytes =3D gvt->device_info.gmadr_bytes_in_cmd;
+> >   	struct intel_vgpu_shadow_bb *bb;
+> > +	struct i915_gem_ww_ctx ww;
+> >   	int ret;
+> >   	list_for_each_entry(bb, &workload->shadow_bb, list) {
+> > @@ -528,10 +531,19 @@ static int prepare_shadow_batch_buffer(struct int=
+el_vgpu_workload *workload)
+> >   		 * directly
+> >   		 */
+> >   		if (!bb->ppgtt) {
+> > -			bb->vma =3D i915_gem_object_ggtt_pin(bb->obj,
+> > -							   NULL, 0, 0, 0);
+> > +			i915_gem_ww_ctx_init(&ww, false);
+> > +retry:
+> > +			i915_gem_object_lock(bb->obj, &ww);
+> > +
+> > +			bb->vma =3D i915_gem_object_ggtt_pin_ww(bb->obj, &ww,
+> > +							      NULL, 0, 0, 0);
+> >   			if (IS_ERR(bb->vma)) {
+> >   				ret =3D PTR_ERR(bb->vma);
+> > +				if (ret =3D=3D -EDEADLK) {
+> > +					ret =3D i915_gem_ww_ctx_backoff(&ww);
+> > +					if (!ret)
+> > +						goto retry;
+> > +				}
+> >   				goto err;
+> >   			}
+> > @@ -545,13 +557,18 @@ static int prepare_shadow_batch_buffer(struct int=
+el_vgpu_workload *workload)
+> >   						      0);
+> >   			if (ret)
+> >   				goto err;
+> > +
+> > +			/* No one is going to touch shadow bb from now on. */
+> > +			i915_gem_object_flush_map(bb->obj);
+> > +
+> > +			i915_gem_object_unlock(bb->obj);
+> > +			i915_gem_ww_ctx_fini(&ww);
+> >   		}
+> > -		/* No one is going to touch shadow bb from now on. */
+> > -		i915_gem_object_flush_map(bb->obj);
+> >   	}
+> >   	return 0;
+> >   err:
+> > +	i915_gem_ww_ctx_fini(&ww);
+> >   	release_shadow_batch_buffer(workload);
+> >   	return ret;
+> >   }
+> > @@ -578,14 +595,30 @@ static int prepare_shadow_wa_ctx(struct intel_sha=
+dow_wa_ctx *wa_ctx)
+> >   	unsigned char *per_ctx_va =3D
+> >   		(unsigned char *)wa_ctx->indirect_ctx.shadow_va +
+> >   		wa_ctx->indirect_ctx.size;
+> > +	struct i915_gem_ww_ctx ww;
+> > +	int ret;
+> >   	if (wa_ctx->indirect_ctx.size =3D=3D 0)
+> >   		return 0;
+> > -	vma =3D i915_gem_object_ggtt_pin(wa_ctx->indirect_ctx.obj, NULL,
+> > -				       0, CACHELINE_BYTES, 0);
+> > -	if (IS_ERR(vma))
+> > -		return PTR_ERR(vma);
+> > +	i915_gem_ww_ctx_init(&ww, false);
+> > +retry:
+> > +	i915_gem_object_lock(wa_ctx->indirect_ctx.obj, &ww);
+> > +
+> > +	vma =3D i915_gem_object_ggtt_pin_ww(wa_ctx->indirect_ctx.obj, &ww, NU=
+LL,
+> > +					  0, CACHELINE_BYTES, 0);
+> > +	if (IS_ERR(vma)) {
+> > +		ret =3D PTR_ERR(vma);
+> > +		if (ret =3D=3D -EDEADLK) {
+> > +			ret =3D i915_gem_ww_ctx_backoff(&ww);
+> > +			if (!ret)
+> > +				goto retry;
+> > +		}
+> > +		return ret;
+> > +	}
+> > +
+> > +	i915_gem_object_unlock(wa_ctx->indirect_ctx.obj);
+> > +	i915_gem_ww_ctx_fini(&ww);
+> >   	/* FIXME: we are not tracking our pinned VMA leaving it
+> >   	 * up to the core to fix up the stray pin_count upon
+> > @@ -619,12 +652,14 @@ static void release_shadow_batch_buffer(struct in=
+tel_vgpu_workload *workload)
+> >   	list_for_each_entry_safe(bb, pos, &workload->shadow_bb, list) {
+> >   		if (bb->obj) {
+> > +			i915_gem_object_lock(bb->obj, NULL);
+> >   			if (bb->va && !IS_ERR(bb->va))
+> >   				i915_gem_object_unpin_map(bb->obj);
+> >   			if (bb->vma && !IS_ERR(bb->vma))
+> >   				i915_vma_unpin(bb->vma);
+> > +			i915_gem_object_unlock(bb->obj);
+> >   			i915_gem_object_put(bb->obj);
+> >   		}
+> >   		list_del(&bb->list);
+> > @@ -1337,6 +1372,7 @@ int intel_vgpu_setup_submission(struct intel_vgpu=
+ *vgpu)
+> >   	struct intel_vgpu_submission *s =3D &vgpu->submission;
+> >   	struct intel_engine_cs *engine;
+> >   	struct i915_ppgtt *ppgtt;
+> > +	struct i915_gem_ww_ctx ww;
+> >   	enum intel_engine_id i;
+> >   	int ret;
+> > @@ -1368,11 +1404,20 @@ int intel_vgpu_setup_submission(struct intel_vg=
+pu *vgpu)
+> >   			ce->ring =3D __intel_context_ring_size(ring_size);
+> >   		}
+> Cut here
+> > +		i915_gem_ww_ctx_init(&ww, false);
+> > +retry:
+> > +		ret =3D intel_context_pin_ww(ce, &ww);
+> > +		if (ret) {
+> > +			if (ret =3D=3D -EDEADLK) {
+> > +				ret =3D i915_gem_ww_ctx_backoff(&ww);
+> > +				if (!ret)
+> > +					goto retry;
+> > +			}
+> > +			goto out_shadow_ctx;
+> > +		}
+> I move the piece to create_workload. Similar to the change I made in my
+> patch sent.
+> > -		ret =3D intel_context_pin(ce);
+> >   		intel_context_put(ce);
+> > -		if (ret)
+> > -			goto out_shadow_ctx;
+> > +		i915_gem_ww_ctx_fini(&ww);
+> >   		s->shadow[i] =3D ce;
+> >   	}
+> > @@ -1400,6 +1445,7 @@ int intel_vgpu_setup_submission(struct intel_vgpu=
+ *vgpu)
+> >   	return 0;
+> >   out_shadow_ctx:
+> > +	i915_gem_ww_ctx_fini(&ww);
+> >   	i915_context_ppgtt_root_restore(s, ppgtt);
+> >   	for_each_engine(engine, vgpu->gvt->gt, i) {
+> >   		if (IS_ERR(s->shadow[i]))
+>=20
+> --=20
+> Best Regards,
+> Colin Xu
+>=20
+
+--=20
+
+$gpg --keyserver wwwkeys.pgp.net --recv-keys 4D781827
+
+--yEPQxsgoJgBvi8ip
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iF0EARECAB0WIQTXuabgHDW6LPt9CICxBBozTXgYJwUCX1g4wgAKCRCxBBozTXgY
+J6BEAKCdhVkWD1Pei3Ml7U+IqpjzpR1PWwCfVNcMcYF7K6j6H/vHwYN21LB1uf4=
+=TiB/
+-----END PGP SIGNATURE-----
+
+--yEPQxsgoJgBvi8ip--
+
+--===============2127137635==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+
+--===============2127137635==--
