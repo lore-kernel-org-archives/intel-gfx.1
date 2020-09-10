@@ -2,51 +2,80 @@ Return-Path: <SRS0=K74T=CT=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2F907C2BB84
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Sep 2020 08:29:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 780BFC433E2
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Sep 2020 08:36:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D8B002076C
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Sep 2020 08:29:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D8B002076C
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 2B035206D4
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Sep 2020 08:36:29 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="U7fSAXGm"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2B035206D4
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=oracle.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 746476E32D;
-	Thu, 10 Sep 2020 08:29:11 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 90E196E31C
- for <intel-gfx@lists.freedesktop.org>; Thu, 10 Sep 2020 08:29:10 +0000 (UTC)
-IronPort-SDR: zMf7is57zVqigDDaY98rUKpsrnASckyUSq/S/ZqRu+IPwCcEOUIToF1NG5I+Zwui0KNLm0DvjH
- yR6aGNV/YdiQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9739"; a="157772117"
-X-IronPort-AV: E=Sophos;i="5.76,412,1592895600"; d="scan'208";a="157772117"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Sep 2020 01:29:10 -0700
-IronPort-SDR: OJeYDQuBf18+annJjIPpQoag1cqkrrC1ZjclYD7ybCeXtSu6IgjdgracuEsJvXsII0dX47hN0Y
- qctnyVT08ZPQ==
-X-IronPort-AV: E=Sophos;i="5.76,412,1592895600"; d="scan'208";a="505043873"
-Received: from unknown (HELO genxfsim-desktop.iind.intel.com) ([10.223.74.178])
- by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Sep 2020 01:29:08 -0700
-From: Anshuman Gupta <anshuman.gupta@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Thu, 10 Sep 2020 13:47:27 +0530
-Message-Id: <20200910081727.4505-7-anshuman.gupta@intel.com>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20200910081727.4505-1-anshuman.gupta@intel.com>
-References: <20200910081727.4505-1-anshuman.gupta@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC0056E339;
+	Thu, 10 Sep 2020 08:36:28 +0000 (UTC)
+Received: from userp2120.oracle.com (userp2120.oracle.com [156.151.31.85])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 57BAE6E339
+ for <intel-gfx@lists.freedesktop.org>; Thu, 10 Sep 2020 08:36:27 +0000 (UTC)
+Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
+ by userp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 08A8Y5NS150613;
+ Thu, 10 Sep 2020 08:36:24 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=date : from : to : cc
+ : subject : message-id : mime-version : content-type; s=corp-2020-01-29;
+ bh=GCz9wm5qFbwf7Jdc2xlUd9If6vmdTOpDv2auXvM30fY=;
+ b=U7fSAXGmYt1Tc/cgxNzqfQQ+kYzn8WLvJwx2MKKmgjYGt7vI7aX8Abj4u7d+ftA9Ay08
+ f4ytgvOR8p25nMn4uR3QZw4z1UBsCubSk5hU1k98Yr7gGVZ7RJ84sUBkt2Tq46TXG6hb
+ v29xZwhVPScq7vIJX/aMosIZ7osszZ9vXV8F4sL6nkDhOLLal6iAhoA23ZpWRYyU5AxE
+ gYb5UPF6pVm5Ew6MyMAQ+Na7pavBaPZ2/m1eR9TCd5yUGySc0CwoOGOziQjVKkfC8ank
+ +CESDGu1OgYl+LosipLU67SotLO22y0SiOgglc9ezO9ZlK1Jyjrfc4Ipm/4bsEn8ELPW 4g== 
+Received: from aserp3020.oracle.com (aserp3020.oracle.com [141.146.126.70])
+ by userp2120.oracle.com with ESMTP id 33c3an6fuw-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Thu, 10 Sep 2020 08:36:24 +0000
+Received: from pps.filterd (aserp3020.oracle.com [127.0.0.1])
+ by aserp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 08A8ZC2I112026;
+ Thu, 10 Sep 2020 08:36:24 GMT
+Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
+ by aserp3020.oracle.com with ESMTP id 33cmk9394v-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Thu, 10 Sep 2020 08:36:24 +0000
+Received: from abhmp0011.oracle.com (abhmp0011.oracle.com [141.146.116.17])
+ by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 08A8aNdO025259;
+ Thu, 10 Sep 2020 08:36:23 GMT
+Received: from mwanda (/41.57.98.10) by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Thu, 10 Sep 2020 01:36:22 -0700
+Date: Thu, 10 Sep 2020 11:36:17 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: Dave Airlie <airlied@redhat.com>, maarten.lankhorst@linux.intel.com
+Message-ID: <20200910083617.GA64330@mwanda>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [RFC 6/6] drm/i915/hdcp: Enable HDCP 2.2 MST support
+Content-Disposition: inline
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9739
+ signatures=668679
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
+ malwarescore=0 phishscore=0
+ mlxlogscore=999 bulkscore=0 adultscore=0 mlxscore=0 suspectscore=1
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2006250000
+ definitions=main-2009100080
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9739
+ signatures=668679
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0
+ priorityscore=1501
+ clxscore=1011 bulkscore=0 malwarescore=0 lowpriorityscore=0
+ mlxlogscore=999 suspectscore=1 adultscore=0 mlxscore=0 impostorscore=0
+ spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2006250000 definitions=main-2009100080
+Subject: [Intel-gfx] [bug report] drm/i915: Use per object locking in
+ execbuf, v12.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,74 +88,69 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: seanpaul@chromium.org
+Cc: intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Enable HDCP 2.2 over DP MST.
+Hey Dave,
 
-Cc: Ramalingam C <ramalingam.c@intel.com>
-Signed-off-by: Anshuman Gupta <anshuman.gupta@intel.com>
----
- drivers/gpu/drm/i915/display/intel_hdcp.c | 19 ++++++++++++++++++-
- 1 file changed, 18 insertions(+), 1 deletion(-)
+I think this is a bad merge:
 
-diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.c b/drivers/gpu/drm/i915/display/intel_hdcp.c
-index f7ca9dfad825..2498c2c7c245 100644
---- a/drivers/gpu/drm/i915/display/intel_hdcp.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdcp.c
-@@ -1698,6 +1698,14 @@ static int hdcp2_enable_encryption(struct intel_connector *connector)
- 				    LINK_ENCRYPTION_STATUS,
- 				    HDCP_ENCRYPT_STATUS_CHANGE_TIMEOUT_MS);
- 
-+	if (hdcp->shim->stream_2_2_encryption) {
-+		ret = hdcp->shim->stream_2_2_encryption(dig_port, true);
-+		if (ret) {
-+			drm_err(&dev_priv->drm, "Failed to enable HDCP 2.2 stream enc\n");
-+			return ret;
-+		}
-+	}
-+
- 	return ret;
- }
- 
-@@ -1810,6 +1818,7 @@ static int _intel_hdcp2_disable(struct intel_connector *connector)
- 	struct intel_digital_port *dig_port = intel_attached_dig_port(connector);
- 	struct drm_i915_private *i915 = to_i915(connector->base.dev);
- 	struct hdcp_port_data *data = &dig_port->port_data;
-+	struct intel_hdcp *hdcp = &connector->hdcp;
- 	int ret;
- 
- 	drm_dbg_kms(&i915->drm, "[%s:%d] HDCP2.2 is being Disabled\n",
-@@ -1818,6 +1827,14 @@ static int _intel_hdcp2_disable(struct intel_connector *connector)
- 	if (drm_WARN_ON(&i915->drm, data->k < 0))
- 		return -EINVAL;
- 
-+	if (dig_port->num_hdcp_streams > 0 && hdcp->shim->stream_2_2_encryption) {
-+		ret = hdcp->shim->stream_2_2_encryption(dig_port, false);
-+		if (ret) {
-+			drm_err(&i915->drm, "Failed to disable HDCP 2.2 stream enc\n");
-+			return ret;
-+		}
-+	}
-+
- 	ret = hdcp2_disable_encryption(connector);
- 
- 	if (hdcp2_deauthenticate_port(connector) < 0)
-@@ -2097,7 +2114,7 @@ int intel_hdcp_init(struct intel_connector *connector,
- 	if (!shim)
- 		return -EINVAL;
- 
--	if (is_hdcp2_supported(dev_priv) && !connector->mst_port)
-+	if (is_hdcp2_supported(dev_priv))
- 		intel_hdcp2_init(connector, port, shim);
- 
- 	ret =
--- 
-2.26.2
+The patch c43ce12328df: "drm/i915: Use per object locking in execbuf,
+v12." from Aug 19, 2020, leads to the following static checker
+warning:
 
+	drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c:1459 __reloc_entry_gpu()
+	warn: signedness bug returning '(-35)'
+
+drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+  1440  static bool __reloc_entry_gpu(struct i915_execbuffer *eb,
+               ^^^^
+This should be int.
+
+  1441                                struct i915_vma *vma,
+  1442                                u64 offset,
+  1443                                u64 target_addr)
+  1444  {
+  1445          const unsigned int gen = eb->reloc_cache.gen;
+  1446          unsigned int len;
+  1447          u32 *batch;
+  1448          u64 addr;
+  1449  
+  1450          if (gen >= 8)
+  1451                  len = offset & 7 ? 8 : 5;
+  1452          else if (gen >= 4)
+  1453                  len = 4;
+  1454          else
+  1455                  len = 3;
+  1456  
+  1457          batch = reloc_gpu(eb, vma, len);
+  1458          if (batch == ERR_PTR(-EDEADLK))
+  1459                  return (s64)-EDEADLK;
+
+No need for this cast, btw.
+
+  1460          else if (IS_ERR(batch))
+  1461                  return false;
+  1462  
+  1463          addr = gen8_canonical_addr(vma->node.start + offset);
+  1464          if (gen >= 8) {
+  1465                  if (offset & 7) {
+  1466                          *batch++ = MI_STORE_DWORD_IMM_GEN4;
+  1467                          *batch++ = lower_32_bits(addr);
+  1468                          *batch++ = upper_32_bits(addr);
+  1469                          *batch++ = lower_32_bits(target_addr);
+  1470  
+  1471                          addr = gen8_canonical_addr(addr + 4);
+  1472  
+  1473                          *batch++ = MI_STORE_DWORD_IMM_GEN4;
+  1474                          *batch++ = lower_32_bits(addr);
+  1475                          *batch++ = upper_32_bits(addr);
+
+regards,
+dan carpenter
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
