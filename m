@@ -2,53 +2,36 @@ Return-Path: <SRS0=K74T=CT=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-15.2 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PULL_REQUEST,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EF580C43461
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Sep 2020 04:19:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A6CDEC433E2
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Sep 2020 05:51:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3955E20719
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Sep 2020 04:19:02 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=canb.auug.org.au header.i=@canb.auug.org.au header.b="evbTMrD3"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3955E20719
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=canb.auug.org.au
+	by mail.kernel.org (Postfix) with ESMTPS id 3D3482075B
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Sep 2020 05:51:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3D3482075B
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B791A89FCE;
-	Thu, 10 Sep 2020 04:19:01 +0000 (UTC)
-Received: from ozlabs.org (bilbo.ozlabs.org [IPv6:2401:3900:2:1::2])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AAFDF89FCE;
- Thu, 10 Sep 2020 04:19:00 +0000 (UTC)
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by mail.ozlabs.org (Postfix) with ESMTPSA id 4Bn5HM5Ncqz9sTd;
- Thu, 10 Sep 2020 14:18:55 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=canb.auug.org.au;
- s=201702; t=1599711538;
- bh=EhVZZhtTZCGxIkbgzYqVicFIUPzGTN9DxCVVPOY1Xss=;
- h=Date:From:To:Cc:Subject:From;
- b=evbTMrD34oqRHtx7o9AHio+LEMg/rNnKdizpFr2dEn4JHdhyKJtxaSjpX/uWXfroX
- jU9wefkUcSN/FZ74YN8rn0SkzBGNSzSeDxsSsC5YKO9vqghY9gQYSWQ15WXQ6NnK23
- Rk+KsUXLBHvx+OzLwGS8DDf3pjVXFJRcgKOnztZDZSiyP9vcZuRy+6RIVL03uiF3Eg
- mNmLWDLrIksfVgRydeCGU1X6K7Gpx26Ff0cockawtd5Oy5qOKf6bigR+rHOdcEPMA+
- Dokh4zzBffQYiKnRLhWZM1a8yeWdr33iPqDXO1epCGdfP7PNrQhvSEyeffyN4NKV7y
- YcdzOVLfdgJ1A==
-Date: Thu, 10 Sep 2020 14:18:54 +1000
-From: Stephen Rothwell <sfr@canb.auug.org.au>
-To: Chanwoo Choi <cw00.choi@samsung.com>, Daniel Vetter
- <daniel.vetter@ffwll.ch>, Intel Graphics <intel-gfx@lists.freedesktop.org>,
- DRI <dri-devel@lists.freedesktop.org>
-Message-ID: <20200910141854.1d4b1b10@canb.auug.org.au>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B413C89DE5;
+	Thu, 10 Sep 2020 05:51:15 +0000 (UTC)
+Received: from mblankhorst.nl (mblankhorst.nl [141.105.120.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F3ED89DE5
+ for <intel-gfx@lists.freedesktop.org>; Thu, 10 Sep 2020 05:51:14 +0000 (UTC)
+From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel.vetter@ffwll.ch>
+Message-ID: <478b49d1-b1b3-c983-7056-8a89249be435@mblankhorst.nl>
+Date: Thu, 10 Sep 2020 07:51:10 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-Subject: [Intel-gfx] linux-next: manual merge of the extcon tree with the
- drm-misc tree
+Content-Language: en-US
+Subject: [Intel-gfx] [PULL] drm-misc-fixes
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,103 +44,96 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Linux Next Mailing List <linux-next@vger.kernel.org>,
- Laurentiu Palcu <laurentiu.palcu@nxp.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Krzysztof Kozlowski <krzk@kernel.org>, Lucas Stach <l.stach@pengutronix.de>
-Content-Type: multipart/mixed; boundary="===============1889793458=="
+Cc: dim-tools@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Maxime Ripard <mripard@kernel.org>, intel-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============1889793458==
-Content-Type: multipart/signed; boundary="Sig_/e=KaLfUS5Ij0WJmpNj.Op=0";
- protocol="application/pgp-signature"; micalg=pgp-sha256
+drm-misc-fixes-2020-09-09:
+drm-misc-fixes for v5.9-rc5:
+- Fix double free in virtio.
+- Add missing put_device in sun4i, and other fixes.
+- Small ingenic fixes.
+- Handle sun4i alpha on lowest plane correctly.
+- Remove output->enabled from virtio, as it should use crtc_state.
+- Fix tve200 enable/disable.
+- Documentation fix.
+- Fix virtio unblank.
+The following changes since commit 7fd5b25499bcec157dd4de9a713425efcf4571cd:
 
---Sig_/e=KaLfUS5Ij0WJmpNj.Op=0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+  drm/omap: fix incorrect lock state (2020-08-25 12:05:15 +0300)
 
-Hi all,
+are available in the Git repository at:
 
-Today's linux-next merge of the extcon tree got a conflict in:
+  git://anongit.freedesktop.org/drm/drm-misc tags/drm-misc-fixes-2020-09-09
 
-  MAINTAINERS
+for you to fetch changes up to fc7f148feb8975784bd40e41fff875d33f698be8:
 
-between commit:
+  drm/virtio: drop virtio_gpu_output->enabled (2020-09-04 13:11:32 +0200)
 
-  f61249dddecc ("MAINTAINERS: Add entry for i.MX 8MQ DCSS driver")
+----------------------------------------------------------------
+drm-misc-fixes for v5.9-rc5:
+- Fix double free in virtio.
+- Add missing put_device in sun4i, and other fixes.
+- Small ingenic fixes.
+- Handle sun4i alpha on lowest plane correctly.
+- Remove output->enabled from virtio, as it should use crtc_state.
+- Fix tve200 enable/disable.
+- Documentation fix.
+- Fix virtio unblank.
 
-from the drm-misc tree and commit:
+----------------------------------------------------------------
+Gerd Hoffmann (2):
+      drm/virtio: fix unblank
+      drm/virtio: drop virtio_gpu_output->enabled
 
-  d0e3c25150dd ("MAINTAINERS: Add entry for NXP PTN5150A CC driver")
+Gurchetan Singh (1):
+      drm/virtio: Revert "drm/virtio: Call the right shmem helpers"
 
-from the extcon tree.
+Jernej Skrabec (1):
+      drm/sun4i: Fix DE2 YVU handling
 
-I fixed it up (see below) and can carry the fix as necessary. This
-is now fixed as far as linux-next is concerned, but any non trivial
-conflicts should be mentioned to your upstream maintainer when your tree
-is submitted for merging.  You may also want to consider cooperating
-with the maintainer of the conflicting tree to minimise any particularly
-complex conflicts.
+Krzysztof Kozlowski (2):
+      dma-buf: Fix kerneldoc of dma_buf_set_name()
+      dma-buf: fence-chain: Document missing dma_fence_chain_init() parameter in kerneldoc
 
---=20
-Cheers,
-Stephen Rothwell
+Linus Walleij (1):
+      drm/tve200: Stabilize enable/disable
 
-diff --cc MAINTAINERS
-index 623c53ab5bd5,da94c9b12f1b..000000000000
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@@ -12496,14 -12430,13 +12496,21 @@@ F:	drivers/iio/gyro/fxas21002c_core.
-  F:	drivers/iio/gyro/fxas21002c_i2c.c
-  F:	drivers/iio/gyro/fxas21002c_spi.c
- =20
- +NXP i.MX 8MQ DCSS DRIVER
- +M:	Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
- +R:	Lucas Stach <l.stach@pengutronix.de>
- +L:	dri-devel@lists.freedesktop.org
- +S:	Maintained
- +F:	Documentation/devicetree/bindings/display/imx/nxp,imx8mq-dcss.yaml
- +F:	drivers/gpu/drm/imx/dcss/
- +
-+ NXP PTN5150A CC LOGIC AND EXTCON DRIVER
-+ M:	Krzysztof Kozlowski <krzk@kernel.org>
-+ L:	linux-kernel@vger.kernel.org
-+ S:	Maintained
-+ F:	Documentation/devicetree/bindings/extcon/extcon-ptn5150.yaml
-+ F:	drivers/extcon/extcon-ptn5150.c
-+=20
-  NXP SGTL5000 DRIVER
-  M:	Fabio Estevam <festevam@gmail.com>
-  L:	alsa-devel@alsa-project.org (moderated for non-subscribers)
+Maxime Ripard (2):
+      drm/sun4i: backend: Support alpha property on lowest plane
+      drm/sun4i: backend: Disable alpha on the lowest plane on the A20
 
---Sig_/e=KaLfUS5Ij0WJmpNj.Op=0
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
+Ondrej Jirman (1):
+      drm/sun4i: Fix dsi dcs long write function
 
------BEGIN PGP SIGNATURE-----
+Paul Cercueil (2):
+      drm/ingenic: Fix leak of device_node pointer
+      drm/ingenic: Fix driver not probing when IPU port is missing
 
-iQEzBAEBCAAdFiEENIC96giZ81tWdLgKAVBC80lX0GwFAl9ZqS4ACgkQAVBC80lX
-0GzmZQgAhm9Au7ork/yyZ3MKOW+hLWU+QSZsorx+EpWJ0cp7nYN/YDijwMydfpXk
-DFf53BByT7rglwvwis8zhMwjoodlGOY6ImkMIIlOZEMZMhaLlZunhTWdeuYCuKvM
-xDyjPwQbXK/QCaoYGcTUrvG58IBqOIaeIIgGYc/bgw5aU/KER4syr8XS6KYGWsrX
-DQGlzedAMcfsoclBIRMjpuuSIuDHtMwVMa4Pnfz2PNcGnFZ7r5V24Pi4NY5+2zTW
-tdrmfs58w3Ilq30feyn5BYae64qwV5Z2jSVJOLYvgl5OS4YP79Q4ivf3738l04eK
-SEdOJSIYKI7pZkhmdJNu4fKLkxbENw==
-=zfDk
------END PGP SIGNATURE-----
+Randy Dunlap (1):
+      Documentation: fix dma-buf.rst underline length warning
 
---Sig_/e=KaLfUS5Ij0WJmpNj.Op=0--
+Yu Kuai (1):
+      drm/sun4i: add missing put_device() call in sun8i_r40_tcon_tv_set_mux()
 
---===============1889793458==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+ Documentation/driver-api/dma-buf.rst      |  2 +-
+ drivers/dma-buf/dma-buf.c                 |  6 +++---
+ drivers/dma-buf/dma-fence-chain.c         |  1 +
+ drivers/gpu/drm/ingenic/ingenic-drm-drv.c | 20 ++++++++++++--------
+ drivers/gpu/drm/sun4i/sun4i_backend.c     |  4 +---
+ drivers/gpu/drm/sun4i/sun4i_tcon.c        |  8 ++++++--
+ drivers/gpu/drm/sun4i/sun6i_mipi_dsi.c    |  4 ++--
+ drivers/gpu/drm/sun4i/sun8i_vi_layer.c    |  2 +-
+ drivers/gpu/drm/tve200/tve200_display.c   | 22 +++++++++++++++++++++-
+ drivers/gpu/drm/virtio/virtgpu_display.c  | 15 +++++++++++----
+ drivers/gpu/drm/virtio/virtgpu_drv.h      |  2 +-
+ drivers/gpu/drm/virtio/virtgpu_object.c   |  8 +++++++-
+ drivers/gpu/drm/virtio/virtgpu_plane.c    |  6 ++++--
+ 13 files changed, 71 insertions(+), 29 deletions(-)
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-
---===============1889793458==--
