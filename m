@@ -7,47 +7,47 @@ X-Spam-Status: No, score=-12.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 790B3C433E2
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Sep 2020 18:33:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EE25FC43461
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Sep 2020 18:33:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 14C66221EA
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Sep 2020 18:33:55 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 8E06221D81
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Sep 2020 18:33:51 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="pJRs1fv6"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 14C66221EA
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="F5AUBEYv"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8E06221D81
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 43F206E980;
-	Thu, 10 Sep 2020 18:33:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B7F396E97D;
+	Thu, 10 Sep 2020 18:33:50 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org
  [IPv6:2001:8b0:10b:1236::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E3F9C6E97E
- for <intel-gfx@lists.freedesktop.org>; Thu, 10 Sep 2020 18:33:53 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E8B476E97B
+ for <intel-gfx@lists.freedesktop.org>; Thu, 10 Sep 2020 18:33:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:MIME-Version:
  References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:
  Content-Type:Content-ID:Content-Description;
- bh=wbdpAXqj/iEx6EyIMoxgt0sVerHjAkyShMVwI+uny1Q=; b=pJRs1fv6/U1cDPcHJO/d6uGe68
- zx+LxtAYUzYOOMLNaWcwUA/TDBT9LWGZGazRv/4K91Y7ZzYrFNMQLcC51R6CReznUaXHfu4qcDuVB
- rWQAtWLeNfvDT3ylTYEmaiMC9hRiBEa/cU3QfmlGhRV1uY9l0cAGOsYJVsE8bojVTGu4BW0uwRCIk
- tIuSB227gJFvCj97WZ9JvFGphzpl857t6IhN/UdDNCduoat3cq+DyiiBvsFoaRX1asx2bFbZmBi5s
- 3uF74gDU/S3WNrL4Pe4C/6j5y+/7h5eBqxuBEauyS42arTqIsrdzU2N3wtaIlLlTnX4oz7Cp9GgSm
- 9QoNUXyg==;
+ bh=ewcIYV3TQS8WP/lMrXPvrY92L5jpE36QYNCFA1ncbsc=; b=F5AUBEYvYzQN95hW85bBYGSNGm
+ dqr/FIDMdYM5Al3Z2/G44MeSLdg3FvtOGcL0es06Bnbznufe5c2x8Lz7RURVTk5n1zGZVcxrtzErO
+ PZ53gJcR2CXaf7QigmY9EKywMn+n16Qge5W7dl8WazyVronln+U5qPN3PfzSg5tX+bQ9YjA+Pfu9M
+ c3fW+KnwVq/E0Pe1/bLa7ghA4WL8vnyOSLsz70Fb8hIGYcN9V2XzkttUG0ylT6s6TAtKtqFAl7Zby
+ QT5oT1X4Vq1OFEaAcU7o+Vf1OKFDtdZ4g2MaHkbITxeystP2bEPVRt06WbX6e2y0WsrLILor5Rj0F
+ 0CyJHhKw==;
 Received: from willy by casper.infradead.org with local (Exim 4.92.3 #3 (Red
- Hat Linux)) id 1kGRNp-0005GW-Ou; Thu, 10 Sep 2020 18:33:21 +0000
+ Hat Linux)) id 1kGRNp-0005GR-FC; Thu, 10 Sep 2020 18:33:21 +0000
 From: "Matthew Wilcox (Oracle)" <willy@infradead.org>
 To: linux-mm@kvack.org
-Date: Thu, 10 Sep 2020 19:33:16 +0100
-Message-Id: <20200910183318.20139-7-willy@infradead.org>
+Date: Thu, 10 Sep 2020 19:33:15 +0100
+Message-Id: <20200910183318.20139-6-willy@infradead.org>
 X-Mailer: git-send-email 2.21.3
 In-Reply-To: <20200910183318.20139-1-willy@infradead.org>
 References: <20200910183318.20139-1-willy@infradead.org>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v2 6/8] mm: Convert find_get_entry to return the
- head page
+Subject: [Intel-gfx] [PATCH v2 5/8] i915: Use find_lock_page instead of
+ find_lock_entry
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,83 +73,74 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-There are only four callers remaining of find_get_entry().
-get_shadow_from_swap_cache() only wants to see shadow entries and doesn't
-care about which page is returned.  Push the find_subpage() call into
-find_lock_entry(), find_get_incore_page() and pagecache_get_page().
+i915 does not want to see value entries.  Switch it to use
+find_lock_page() instead, and remove the export of find_lock_entry().
+Move find_lock_entry() and find_get_entry() to mm/internal.h to discourage
+any future use.
 
 Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
+Acked-by: Johannes Weiner <hannes@cmpxchg.org>
 ---
- mm/filemap.c    | 13 +++++++------
- mm/swap_state.c |  2 +-
- 2 files changed, 8 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_shmem.c | 4 ++--
+ include/linux/pagemap.h                   | 2 --
+ mm/filemap.c                              | 1 -
+ mm/internal.h                             | 3 +++
+ 4 files changed, 5 insertions(+), 5 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
+index 38113d3c0138..75e8b71c18b9 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
+@@ -258,8 +258,8 @@ shmem_writeback(struct drm_i915_gem_object *obj)
+ 	for (i = 0; i < obj->base.size >> PAGE_SHIFT; i++) {
+ 		struct page *page;
+ 
+-		page = find_lock_entry(mapping, i);
+-		if (!page || xa_is_value(page))
++		page = find_lock_page(mapping, i);
++		if (!page)
+ 			continue;
+ 
+ 		if (!page_mapped(page) && clear_page_dirty_for_io(page)) {
+diff --git a/include/linux/pagemap.h b/include/linux/pagemap.h
+index 12ab56c3a86f..905a64030647 100644
+--- a/include/linux/pagemap.h
++++ b/include/linux/pagemap.h
+@@ -384,8 +384,6 @@ static inline struct page *find_subpage(struct page *head, pgoff_t index)
+ 	return head + (index & (thp_nr_pages(head) - 1));
+ }
+ 
+-struct page *find_get_entry(struct address_space *mapping, pgoff_t offset);
+-struct page *find_lock_entry(struct address_space *mapping, pgoff_t offset);
+ unsigned find_get_entries(struct address_space *mapping, pgoff_t start,
+ 			  unsigned int nr_entries, struct page **entries,
+ 			  pgoff_t *indices);
 diff --git a/mm/filemap.c b/mm/filemap.c
-index d64f6f76bc0b..2f134383b0ae 100644
+index 78d07a712112..d64f6f76bc0b 100644
 --- a/mm/filemap.c
 +++ b/mm/filemap.c
-@@ -1567,19 +1567,19 @@ EXPORT_SYMBOL(page_cache_prev_miss);
- /**
-  * find_get_entry - find and get a page cache entry
-  * @mapping: the address_space to search
-- * @offset: the page cache index
-+ * @index: The page cache index.
-  *
-  * Looks up the page cache slot at @mapping & @offset.  If there is a
-- * page cache page, it is returned with an increased refcount.
-+ * page cache page, the head page is returned with an increased refcount.
-  *
-  * If the slot holds a shadow entry of a previously evicted page, or a
-  * swap entry from shmem/tmpfs, it is returned.
-  *
-- * Return: the found page or shadow entry, %NULL if nothing is found.
-+ * Return: The head page or shadow entry, %NULL if nothing is found.
-  */
--struct page *find_get_entry(struct address_space *mapping, pgoff_t offset)
-+struct page *find_get_entry(struct address_space *mapping, pgoff_t index)
- {
--	XA_STATE(xas, &mapping->i_pages, offset);
-+	XA_STATE(xas, &mapping->i_pages, index);
- 	struct page *page;
- 
- 	rcu_read_lock();
-@@ -1607,7 +1607,6 @@ struct page *find_get_entry(struct address_space *mapping, pgoff_t offset)
- 		put_page(page);
- 		goto repeat;
- 	}
--	page = find_subpage(page, offset);
- out:
- 	rcu_read_unlock();
- 
-@@ -1644,6 +1643,7 @@ struct page *find_lock_entry(struct address_space *mapping, pgoff_t offset)
- 			put_page(page);
- 			goto repeat;
- 		}
-+		page = find_subpage(page, offset);
- 		VM_BUG_ON_PAGE(page_to_pgoff(page) != offset, page);
+@@ -1648,7 +1648,6 @@ struct page *find_lock_entry(struct address_space *mapping, pgoff_t offset)
  	}
  	return page;
-@@ -1690,6 +1690,7 @@ struct page *pagecache_get_page(struct address_space *mapping, pgoff_t index,
- 		page = NULL;
- 	if (!page)
- 		goto no_page;
-+	page = find_subpage(page, index);
+ }
+-EXPORT_SYMBOL(find_lock_entry);
  
- 	if (fgp_flags & FGP_LOCK) {
- 		if (fgp_flags & FGP_NOWAIT) {
-diff --git a/mm/swap_state.c b/mm/swap_state.c
-index c79e2242dd04..c8cf1757ca06 100644
---- a/mm/swap_state.c
-+++ b/mm/swap_state.c
-@@ -432,7 +432,7 @@ struct page *find_get_incore_page(struct address_space *mapping, pgoff_t index)
- 	struct page *page = find_get_entry(mapping, index);
+ /**
+  * pagecache_get_page - Find and get a reference to a page.
+diff --git a/mm/internal.h b/mm/internal.h
+index ab4beb7c5cd2..6345b08ce86c 100644
+--- a/mm/internal.h
++++ b/mm/internal.h
+@@ -60,6 +60,9 @@ static inline void force_page_cache_readahead(struct address_space *mapping,
+ 	force_page_cache_ra(&ractl, &file->f_ra, nr_to_read);
+ }
  
- 	if (!xa_is_value(page))
--		return page;
-+		return find_subpage(page, index);
- 	if (!shmem_mapping(mapping))
- 		return NULL;
- 
++struct page *find_get_entry(struct address_space *mapping, pgoff_t index);
++struct page *find_lock_entry(struct address_space *mapping, pgoff_t index);
++
+ /**
+  * page_evictable - test whether a page is evictable
+  * @page: the page to test
 -- 
 2.28.0
 
