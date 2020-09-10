@@ -2,51 +2,82 @@ Return-Path: <SRS0=K74T=CT=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3E9C5C433E2
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 931F4C07548
 	for <intel-gfx@archiver.kernel.org>; Thu, 10 Sep 2020 13:49:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D427F21D81
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Sep 2020 13:49:12 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 17A8321D91
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Sep 2020 13:49:13 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="MIR0n2v6"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D427F21D81
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=tcd-ie.20150623.gappssmtp.com header.i=@tcd-ie.20150623.gappssmtp.com header.b="fcQ8pRBP"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 17A8321D91
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=tcd.ie
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F0B366E960;
-	Thu, 10 Sep 2020 13:49:11 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D022E6F50A;
- Wed,  9 Sep 2020 20:56:03 +0000 (UTC)
-Received: from dhcp-10-100-145-180.wdl.wdc.com (unknown [199.255.45.60])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id A2AC920BED;
- Wed,  9 Sep 2020 20:56:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1599684963;
- bh=HOi/gRnNWCADuH3C2tuPouagH6ACKRSW8Me9mQGESc8=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=MIR0n2v6jYMLvL9ylCeswSmSkNjM38pD+hUWnq3QNBxdxavUAFW1nFlTLHe2pybfD
- odrRmpSK6VaBtY4y/JW5mI6voxGDP7xP7wyaKsNWcxcK7TIQVymwmw1HPj8MEaIJrr
- wYpwdfF4aTXncxhcjdHkCnRIxxiQ6/mo+8A6FHH4=
-Date: Wed, 9 Sep 2020 13:55:58 -0700
-From: Keith Busch <kbusch@kernel.org>
-To: Joe Perches <joe@perches.com>
-Message-ID: <20200909205558.GA3384631@dhcp-10-100-145-180.wdl.wdc.com>
-References: <e6387578c75736d61b2fe70d9783d91329a97eb4.camel@perches.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 17A826E963;
+	Thu, 10 Sep 2020 13:49:12 +0000 (UTC)
+Received: from mail-io1-xd44.google.com (mail-io1-xd44.google.com
+ [IPv6:2607:f8b0:4864:20::d44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 16E106E92B
+ for <intel-gfx@lists.freedesktop.org>; Thu, 10 Sep 2020 13:33:55 +0000 (UTC)
+Received: by mail-io1-xd44.google.com with SMTP id u126so7024394iod.12
+ for <intel-gfx@lists.freedesktop.org>; Thu, 10 Sep 2020 06:33:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=tcd-ie.20150623.gappssmtp.com; s=20150623;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=NA4xq/RvWtw1DoG4R42VuDAYvxbq5gOs0uGkp97do30=;
+ b=fcQ8pRBPaEWiThwI4IpJI/6RvrpktlhqIcuTs8ion57IfAcoLZwMinlg018HPs4g0P
+ PfERQLGzgxTimYY/S16DcluJPa3UrMAv2VeDrvrD2khzMlgcNU3uG+U66xQTcGI4k/PB
+ tyd6Y57erW7Jw7CdoQkzGYnD3z09a+1xAJWCw3ZTA9vq0DdHjCGpzxmBZebxDdyQNZ5o
+ a8n4/aQGMi16zmzKxYbuyXtVYNEIktp6No97ibi4qLI+zDV4g/TXIXD87q5g2S3KNUFg
+ wjgBbIjqjQrEef6DxEeF173z4nhe4RTeiKBDtbYrCu4PSy+IwGvrlXsJFLKINZmU1V2I
+ yoXQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=NA4xq/RvWtw1DoG4R42VuDAYvxbq5gOs0uGkp97do30=;
+ b=mNjiDmJrIZinD0a1cxXDbpS6KCGcLat31TBIZ29HDad+fxSje9XnBTw0Rrpk0Neho+
+ fc1HffRJbPo+wOfvdeLifh8deUZOFSUpvfAtpFzihKak7ANTxCO+HDRtbxZHwbbRhScJ
+ a5ns+Uyeo2lvIpuAvngUoOb8dKHn8n4Lx1ACYCszaFuABtoruB5n6m/zw3uvcRAOELXR
+ dW8ARqwsNrREV9ATd2sa3dFKDntScFXfE7jL5a9XNPrE3rzBPpGDcNXCYb5Q3ng+sf+q
+ UWXM2YjbCw1utL3cc3x3dISM/im83BPdsUInf4hqU1Jnl7NM0n/nh357kvwEwvEDay16
+ Dz/Q==
+X-Gm-Message-State: AOAM531m1uEEHyEUoMNnOlElEQKVVp5mKZNZz6NpwcnDDbicoTPURN/r
+ xH02RLkRi33i0HQFOe5KB+YSW3B76l2RC3OWPoXe/Q==
+X-Google-Smtp-Source: ABdhPJzlID7Qr9FJiMTGq9orpwBT55dMvomyRpqx73nK5lHz5vZjsdxpDDRxLur0/nChDVSeWcISfULGX7CKyavrOhU=
+X-Received: by 2002:a02:834a:: with SMTP id w10mr8873252jag.63.1599744834395; 
+ Thu, 10 Sep 2020 06:33:54 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <e6387578c75736d61b2fe70d9783d91329a97eb4.camel@perches.com>
+References: <20191221150402.13868-1-murphyt7@tcd.ie>
+ <465815ae-9292-f37a-59b9-03949cb68460@deltatee.com>
+ <20200529124523.GA11817@infradead.org>
+ <CGME20200529190523eucas1p2c086133e707257c0cdc002f502d4f51d@eucas1p2.samsung.com>
+ <33137cfb-603c-86e8-1091-f36117ecfaf3@deltatee.com>
+ <ef2150d5-7b6a-df25-c10d-e43316fe7812@samsung.com>
+ <b9140772-0370-a858-578c-af503a06d8e9@deltatee.com>
+ <CALQxJuutRaeX89k2o4ffTKYRMizmMu0XbRnzpFuSSrkQR02jKg@mail.gmail.com>
+ <766525c3-4da9-6db7-cd90-fb4b82cd8083@deltatee.com>
+ <60a82319-cbee-4cd1-0d5e-3c407cc51330@linux.intel.com>
+ <e598fb31-ef7a-c2ee-8a54-bf62d50c480c@deltatee.com>
+ <b27cae1f-07ff-bef2-f125-a5f0d968016d@linux.intel.com>
+ <CALQxJut5c=cWdi+SVkN3JnbkhPSYmLkOyRUhduL-UJ9gyKn9Ow@mail.gmail.com>
+ <7106602a-9964-851e-9c4e-d8acf4033b89@linux.intel.com>
+ <ea24e077-5aa6-dd8e-69a7-d186b606703f@linux.intel.com>
+In-Reply-To: <ea24e077-5aa6-dd8e-69a7-d186b606703f@linux.intel.com>
+From: Tom Murphy <murphyt7@tcd.ie>
+Date: Thu, 10 Sep 2020 14:33:43 +0100
+Message-ID: <CALQxJus4prs0T6G9Z4bw5BDgwmkaiynBcoknLsYEY45SNZ6Ukg@mail.gmail.com>
+To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 X-Mailman-Approved-At: Thu, 10 Sep 2020 13:49:08 +0000
-Subject: Re: [Intel-gfx] [trivial PATCH] treewide: Convert switch/case
- fallthrough; to break; 
+Subject: Re: [Intel-gfx] [PATCH 0/8] Convert the intel iommu driver to the
+ dma-iommu api
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,52 +90,144 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-wireless@vger.kernel.org, linux-fbdev@vger.kernel.org,
- oss-drivers@netronome.com, nouveau@lists.freedesktop.org,
- alsa-devel <alsa-devel@alsa-project.org>, dri-devel@lists.freedesktop.org,
- linux-mips@vger.kernel.org, linux-ide@vger.kernel.org, dm-devel@redhat.com,
- linux-mtd@lists.infradead.org, linux-i2c@vger.kernel.org,
- sparclinux@vger.kernel.org, kvmarm@lists.cs.columbia.edu,
- linux-rtc@vger.kernel.org, linux-s390@vger.kernel.org,
- linux-scsi@vger.kernel.org, dccp@vger.kernel.org, linux-rdma@vger.kernel.org,
- linux-atm-general@lists.sourceforge.net, linux-afs@lists.infradead.org,
- coreteam@netfilter.org, intel-wired-lan@lists.osuosl.org,
- linux-serial@vger.kernel.org, linux-input@vger.kernel.org,
- linux-mmc@vger.kernel.org, Kees Cook <kees.cook@canonical.com>,
- linux-media@vger.kernel.org, linux-pm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, linux-sctp@vger.kernel.org,
- linux-mediatek@lists.infradead.org, linux-nvme@lists.infradead.org,
- storagedev@microchip.com, ceph-devel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-nfs@vger.kernel.org,
- Jiri Kosina <trivial@kernel.org>, linux-parisc@vger.kernel.org,
- netdev@vger.kernel.org, linux-usb@vger.kernel.org,
- Nick Desaulniers <ndesaulniers@google.com>,
- LKML <linux-kernel@vger.kernel.org>, iommu@lists.linux-foundation.org,
- netfilter-devel@vger.kernel.org, linux-crypto@vger.kernel.org,
- bpf@vger.kernel.org, linuxppc-dev@lists.ozlabs.org
+Cc: kvm@vger.kernel.org, David Airlie <airlied@linux.ie>,
+ dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ linux-tegra@vger.kernel.org, Julien Grall <julien.grall@arm.com>,
+ Will Deacon <will@kernel.org>, Marek Szyprowski <m.szyprowski@samsung.com>,
+ Jean-Philippe Brucker <jean-philippe@linaro.org>,
+ linux-samsung-soc@vger.kernel.org, Marc Zyngier <maz@kernel.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>,
+ Christoph Hellwig <hch@infradead.org>, linux-rockchip@lists.infradead.org,
+ Andy Gross <agross@kernel.org>, linux-arm-kernel@lists.infradead.org,
+ linux-s390@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Thomas Gleixner <tglx@linutronix.de>,
+ virtualization@lists.linux-foundation.org,
+ Gerald Schaefer <gerald.schaefer@de.ibm.com>,
+ Logan Gunthorpe <logang@deltatee.com>, David Woodhouse <dwmw2@infradead.org>,
+ Cornelia Huck <cohuck@redhat.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ iommu@lists.linux-foundation.org, Kukjin Kim <kgene@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Sep 09, 2020 at 01:06:39PM -0700, Joe Perches wrote:
-> diff --git a/crypto/tcrypt.c b/crypto/tcrypt.c
-> index eea0f453cfb6..8aac5bc60f4c 100644
-> --- a/crypto/tcrypt.c
-> +++ b/crypto/tcrypt.c
-> @@ -2464,7 +2464,7 @@ static int do_test(const char *alg, u32 type, u32 mask, int m, u32 num_mb)
->  		test_hash_speed("streebog512", sec,
->  				generic_hash_speed_template);
->  		if (mode > 300 && mode < 400) break;
-> -		fallthrough;
-> +		break;
->  	case 399:
->  		break;
+On Wed, 9 Sep 2020 at 13:56, Tvrtko Ursulin
+<tvrtko.ursulin@linux.intel.com> wrote:
+>
+>
+> On 09/09/2020 10:16, Tvrtko Ursulin wrote:
+> > On 08/09/2020 23:43, Tom Murphy wrote:
+> >> On Tue, 8 Sep 2020 at 16:56, Tvrtko Ursulin
+> >> <tvrtko.ursulin@linux.intel.com> wrote:
+> >>> On 08/09/2020 16:44, Logan Gunthorpe wrote:
+> >>>> On 2020-09-08 9:28 a.m., Tvrtko Ursulin wrote:
+> >>>>>>
+> >>>>>> diff --git a/drivers/gpu/drm/i915/i915_scatterlist.h
+> >>>>>> b/drivers/gpu/drm/i915/i915
+> >>>>>> index b7b59328cb76..9367ac801f0c 100644
+> >>>>>> --- a/drivers/gpu/drm/i915/i915_scatterlist.h
+> >>>>>> +++ b/drivers/gpu/drm/i915/i915_scatterlist.h
+> >>>>>> @@ -27,13 +27,19 @@ static __always_inline struct sgt_iter {
+> >>>>>>     } __sgt_iter(struct scatterlist *sgl, bool dma) {
+> >>>>>>            struct sgt_iter s = { .sgp = sgl };
+> >>>>>>
+> >>>>>> +       if (sgl && !sg_dma_len(s.sgp))
+> >>>>>
+> >>>>> I'd extend the condition to be, just to be safe:
+> >>>>>       if (dma && sgl && !sg_dma_len(s.sgp))
+> >>>>>
+> >>>>
+> >>>> Right, good catch, that's definitely necessary.
+> >>>>
+> >>>>>> +               s.sgp = NULL;
+> >>>>>> +
+> >>>>>>            if (s.sgp) {
+> >>>>>>                    s.max = s.curr = s.sgp->offset;
+> >>>>>> -               s.max += s.sgp->length;
+> >>>>>> -               if (dma)
+> >>>>>> +
+> >>>>>> +               if (dma) {
+> >>>>>> +                       s.max += sg_dma_len(s.sgp);
+> >>>>>>                            s.dma = sg_dma_address(s.sgp);
+> >>>>>> -               else
+> >>>>>> +               } else {
+> >>>>>> +                       s.max += s.sgp->length;
+> >>>>>>                            s.pfn = page_to_pfn(sg_page(s.sgp));
+> >>>>>> +               }
+> >>>>>
+> >>>>> Otherwise has this been tested or alternatively how to test it?
+> >>>>> (How to
+> >>>>> repro the issue.)
+> >>>>
+> >>>> It has not been tested. To test it, you need Tom's patch set without
+> >>>> the
+> >>>> last "DO NOT MERGE" patch:
+> >>>>
+> >>>> https://lkml.kernel.org/lkml/20200907070035.GA25114@infradead.org/T/
+> >>>
+> >>> Tom, do you have a branch somewhere I could pull from? (Just being lazy
+> >>> about downloading a bunch of messages from the archives.)
+> >>
+> >> I don't unfortunately. I'm working locally with poor internet.
+> >>
+> >>>
+> >>> What GPU is in your Lenovo x1 carbon 5th generation and what
+> >>> graphical/desktop setup I need to repro?
+> >>
+> >>
+> >> Is this enough info?:
+> >>
+> >> $ lspci -vnn | grep VGA -A 12
+> >> 00:02.0 VGA compatible controller [0300]: Intel Corporation HD
+> >> Graphics 620 [8086:5916] (rev 02) (prog-if 00 [VGA controller])
+> >>      Subsystem: Lenovo ThinkPad X1 Carbon 5th Gen [17aa:224f]
+> >>      Flags: bus master, fast devsel, latency 0, IRQ 148
+> >>      Memory at eb000000 (64-bit, non-prefetchable) [size=16M]
+> >>      Memory at 60000000 (64-bit, prefetchable) [size=256M]
+> >>      I/O ports at e000 [size=64]
+> >>      [virtual] Expansion ROM at 000c0000 [disabled] [size=128K]
+> >>      Capabilities: [40] Vendor Specific Information: Len=0c <?>
+> >>      Capabilities: [70] Express Root Complex Integrated Endpoint, MSI 00
+> >>      Capabilities: [ac] MSI: Enable+ Count=1/1 Maskable- 64bit-
+> >>      Capabilities: [d0] Power Management version 2
+> >>      Capabilities: [100] Process Address Space ID (PASID)
+> >>      Capabilities: [200] Address Translation Service (ATS)
+> >
+> > Works for a start. What about the steps to repro? Any desktop
+> > environment and it is just visual corruption, no hangs/stalls or such?
+> >
+> > I've submitted a series consisting of what I understood are the patches
+> > needed to repro the issue to our automated CI here:
+> >
+> > https://patchwork.freedesktop.org/series/81489/
+> >
+> > So will see if it will catch something, or more targeted testing will be
+> > required. Hopefully it does trip over in which case I can add the patch
+> > suggested by Logan on top and see if that fixes it. Or I'll need to
+> > write a new test case.
+> >
+> > If you could glance over my series to check I identified the patches
+> > correctly it would be appreciated.
+>
+> Our CI was more than capable at catching the breakage so I've copied you
+> on a patch (https://patchwork.freedesktop.org/series/81497/) which has a
+> good potential to fix this. (Or improve the robustness of our sg walks,
+> depends how you look at it.)
+>
+> Would you be able to test it in your environment by any chance? If it
+> works I understand it unblocks your IOMMU work, right?
 
-Just imho, this change makes the preceding 'if' look even more
-pointless. Maybe the fallthrough was a deliberate choice? Not that my
-opinion matters here as I don't know this module, but it looked a bit
-odd to me.
+I tested your latest patch set ([PATCH 1/2] drm/i915: Fix DMA mapped
+scatterlist walks) and it fixes the issue. great work!
+
+>
+> Regards,
+>
+> Tvrtko
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
