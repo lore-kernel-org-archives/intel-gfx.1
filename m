@@ -7,46 +7,47 @@ X-Spam-Status: No, score=-12.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 34480C433E2
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Sep 2020 18:34:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7C006C43461
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Sep 2020 18:34:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B02C5214F1
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Sep 2020 18:33:39 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 1A0A1214F1
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Sep 2020 18:34:26 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="Z0ig8BZO"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B02C5214F1
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="t24P+wZG"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1A0A1214F1
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1E3966E977;
-	Thu, 10 Sep 2020 18:33:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8DFAC6E97F;
+	Thu, 10 Sep 2020 18:34:25 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org
  [IPv6:2001:8b0:10b:1236::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 75C306E978
- for <intel-gfx@lists.freedesktop.org>; Thu, 10 Sep 2020 18:33:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 201526E97F
+ for <intel-gfx@lists.freedesktop.org>; Thu, 10 Sep 2020 18:34:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:MIME-Version:
  References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:
  Content-Type:Content-ID:Content-Description;
- bh=5pz6pk0hQVCAmUCzXhhMl6SI7ek8eXmhvDqxhMsMWZA=; b=Z0ig8BZOOs874Iqk+s8Hjq2poV
- GfUU0UHAUN9Q10UU2Qc227BQGYSAuBuImaK2JLeoDFbGlpRzkAAOn6+/YaptLDl2FRANNaxYmEE3w
- mM4+ZjVmKwqOk3NY3DlezWO3uDRW1yESEcjvvUwqea0D+xOlNL846Qr76zhGuKKjx9HOj3KgtZscS
- jit7EaGeKPNdD6jg3LNu0n3gynAd6wlhzi9Hsj3R5Mi0n4mt1NX4STEfYrPFDWo1mhNjNsHg18nlj
- vZc8Lz/HCP7Iav4W1Li83NNG/RE38e7EQqq6JJ3V+y6qbzdR40ePerF8p7gTuN16/gueZ/fX6Ngp1
- qzZoxrDw==;
+ bh=9Kn2iFLtjBF2LN/hYtvFQ/WKPU3K2jlU8w46DPT4v9k=; b=t24P+wZGPBULu7P1ekGMrb5y9T
+ +Q1IxPXTncTG4gGwrZhjgf4JJghC8ojB18ezEOesNeo4Xuqjhr0wHwKeYeiTkSWAu/RAssUiItsYh
+ NYU5A8Djhbd24fNw+Oz5dTRDqjbttRVgFEDZVwFxAFDmZKu/vgIL+3rT5W9t2BvdUeUTKwYjFasW4
+ +6lT8Ru9pPL8wGIiD6mjfygYSG5lYSrgza1ShAHEuy5rL7B422LXHzNcpvSvfiupaPI4Ph8RJyLX6
+ bUKIAao2SDGexvS6Pn8LYeVeNjsBmywkZEQZuiQhcC54PcAvlH1iO/eZraGUIu0C56F46awFsb6qI
+ jNq1efPg==;
 Received: from willy by casper.infradead.org with local (Exim 4.92.3 #3 (Red
- Hat Linux)) id 1kGRNo-0005GA-TG; Thu, 10 Sep 2020 18:33:20 +0000
+ Hat Linux)) id 1kGRNo-0005Fu-Ho; Thu, 10 Sep 2020 18:33:20 +0000
 From: "Matthew Wilcox (Oracle)" <willy@infradead.org>
 To: linux-mm@kvack.org
-Date: Thu, 10 Sep 2020 19:33:13 +0100
-Message-Id: <20200910183318.20139-4-willy@infradead.org>
+Date: Thu, 10 Sep 2020 19:33:12 +0100
+Message-Id: <20200910183318.20139-3-willy@infradead.org>
 X-Mailer: git-send-email 2.21.3
 In-Reply-To: <20200910183318.20139-1-willy@infradead.org>
 References: <20200910183318.20139-1-willy@infradead.org>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v2 3/8] mm: Optimise madvise WILLNEED
+Subject: [Intel-gfx] [PATCH v2 2/8] mm: Use find_get_incore_page in
+ memcontrol
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,58 +73,57 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Instead of calling find_get_entry() for every page index, use an XArray
-iterator to skip over NULL entries, and avoid calling get_page(),
-because we only want the swap entries.
+The current code does not protect against swapoff of the underlying
+swap device, so this is a bug fix as well as a worthwhile reduction in
+code complexity.
 
 Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
-Acked-by: Johannes Weiner <hannes@cmpxchg.org>
 ---
- mm/madvise.c | 21 ++++++++++++---------
- 1 file changed, 12 insertions(+), 9 deletions(-)
+ mm/memcontrol.c | 24 ++----------------------
+ 1 file changed, 2 insertions(+), 22 deletions(-)
 
-diff --git a/mm/madvise.c b/mm/madvise.c
-index dd1d43cf026d..96189acd6969 100644
---- a/mm/madvise.c
-+++ b/mm/madvise.c
-@@ -224,25 +224,28 @@ static void force_shm_swapin_readahead(struct vm_area_struct *vma,
- 		unsigned long start, unsigned long end,
- 		struct address_space *mapping)
+diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+index b807952b4d43..2f02eaee7115 100644
+--- a/mm/memcontrol.c
++++ b/mm/memcontrol.c
+@@ -5539,35 +5539,15 @@ static struct page *mc_handle_swap_pte(struct vm_area_struct *vma,
+ static struct page *mc_handle_file_pte(struct vm_area_struct *vma,
+ 			unsigned long addr, pte_t ptent, swp_entry_t *entry)
  {
--	pgoff_t index;
-+	XA_STATE(xas, &mapping->i_pages, linear_page_index(vma, start));
-+	pgoff_t end_index = end / PAGE_SIZE;
- 	struct page *page;
--	swp_entry_t swap;
+-	struct page *page = NULL;
+-	struct address_space *mapping;
+-	pgoff_t pgoff;
+-
+ 	if (!vma->vm_file) /* anonymous vma */
+ 		return NULL;
+ 	if (!(mc.flags & MOVE_FILE))
+ 		return NULL;
  
--	for (; start < end; start += PAGE_SIZE) {
--		index = ((start - vma->vm_start) >> PAGE_SHIFT) + vma->vm_pgoff;
-+	rcu_read_lock();
-+	xas_for_each(&xas, page, end_index) {
-+		swp_entry_t swap;
- 
--		page = find_get_entry(mapping, index);
--		if (!xa_is_value(page)) {
--			if (page)
--				put_page(page);
-+		if (!xa_is_value(page))
- 			continue;
+-	mapping = vma->vm_file->f_mapping;
+-	pgoff = linear_page_index(vma, addr);
+-
+ 	/* page is moved even if it's not RSS of this task(page-faulted). */
+-#ifdef CONFIG_SWAP
+ 	/* shmem/tmpfs may report page out on swap: account for that too. */
+-	if (shmem_mapping(mapping)) {
+-		page = find_get_entry(mapping, pgoff);
+-		if (xa_is_value(page)) {
+-			swp_entry_t swp = radix_to_swp_entry(page);
+-			*entry = swp;
+-			page = find_get_page(swap_address_space(swp),
+-					     swp_offset(swp));
 -		}
-+		rcu_read_unlock();
-+
- 		swap = radix_to_swp_entry(page);
- 		page = read_swap_cache_async(swap, GFP_HIGHUSER_MOVABLE,
- 							NULL, 0, false);
- 		if (page)
- 			put_page(page);
-+
-+		rcu_read_lock();
-+		xas_reset(&xas);
- 	}
-+	rcu_read_unlock();
- 
- 	lru_add_drain();	/* Push any new pages onto the LRU now */
+-	} else
+-		page = find_get_page(mapping, pgoff);
+-#else
+-	page = find_get_page(mapping, pgoff);
+-#endif
+-	return page;
++	return find_get_incore_page(vma->vm_file->f_mapping,
++			linear_page_index(vma, addr));
  }
+ 
+ /**
 -- 
 2.28.0
 
