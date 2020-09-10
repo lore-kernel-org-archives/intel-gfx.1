@@ -2,135 +2,70 @@ Return-Path: <SRS0=K74T=CT=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-9.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A7994C433E2
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Sep 2020 13:49:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 070D2C07548
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Sep 2020 13:49:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3191C21D81
+	by mail.kernel.org (Postfix) with ESMTPS id 677A221D91
 	for <intel-gfx@archiver.kernel.org>; Thu, 10 Sep 2020 13:49:10 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="FSjwZBeA";
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=microchiptechnology.onmicrosoft.com header.i=@microchiptechnology.onmicrosoft.com header.b="nHI74pvW"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3191C21D81
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=microchip.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=tcd-ie.20150623.gappssmtp.com header.i=@tcd-ie.20150623.gappssmtp.com header.b="A6RMHr1n"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 677A221D91
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=tcd.ie
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 147CD6E94E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6AD926E940;
 	Thu, 10 Sep 2020 13:49:09 +0000 (UTC)
-X-Greylist: delayed 426 seconds by postgrey-1.36 at gabe;
- Thu, 10 Sep 2020 08:31:34 UTC
-Received: from esa3.microchip.iphmx.com (esa3.microchip.iphmx.com
- [68.232.153.233])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E4E7D6E339;
- Thu, 10 Sep 2020 08:31:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
- t=1599726694; x=1631262694;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-id:content-transfer-encoding: mime-version;
- bh=Yyq2EDCS2vKZmH5eLOYYicNPIXcRgkd+H8Ca+7FcXOc=;
- b=FSjwZBeAojAmbj1F1vsXyqfWadm2YhFYdZ/fHe6LWMepQIjiE35VjZdj
- 0aGjBmCeJbJQdyTozj6zxm4i6OcZ1wUhwqOLUWFh/jNFrEchO1V2F/p+J
- ioKbc6B/YmhaXSY5Dzwxv6eIu4ff3EIvrXGMqI5ZJO+AOG1XAJyYcj47Y
- 3pNy4bZJ19mQ9VswIqvEB5wOPidvJch95DFJNmPWCBidUZd7HD2tpgkYJ
- qU3MPuXkR21Er/7QQpq8a4WIHxAbUoaZ9ZO/vkZMQad4KSsyEgoRjtG6E
- TkSX1S1bKlXaDSesGVb/gG7MjezSWl/TIzp0EPnSo/5XE6i8sVO6KEI4l w==;
-IronPort-SDR: ftLnKVJWWVARs6xE60k80lvcWvEF9LnNReTXi2pIeHcFd1pOvCbq5YtWKyNQKbgntoF3PJrEzZ
- yGkW+CSPkTanXwFzN+yaXQvli7N+J9TDXD7EYbxy0puKvjPuscpCKfJznonLOJ1RssHzyGXWld
- FEmXkljrjgcGdATyyJ52ywdn6YOedSeAiw39Unb2/iAlFSlX4xOSaPEQ1oDzJo6jB0orKUYHob
- 8TPZOmriiXyQ/YsxyXR92KLsMxoOl9I7rBMGKN1j5VU4WXWSblm45hfVc18o3BtgyAUNaPQFAh
- yGo=
-X-IronPort-AV: E=Sophos;i="5.76,412,1592895600"; d="scan'208";a="91279822"
-Received: from smtpout.microchip.com (HELO email.microchip.com)
- ([198.175.253.82])
- by esa3.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256;
- 10 Sep 2020 01:24:26 -0700
-Received: from chn-vm-ex03.mchp-main.com (10.10.85.151) by
- chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1979.3; Thu, 10 Sep 2020 01:24:22 -0700
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com (10.10.215.89) by
- email.microchip.com (10.10.87.152) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3
- via Frontend Transport; Thu, 10 Sep 2020 01:24:22 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=itElKv30dbsNhtpfiKLkCOXYopTjtkZ9zEAzRioxDAmgifjIhq6QVV/lc6kfk0TIuSPX1OZAUrSDWVumK4tLXffHjOu4WRZugnRrQRvvAAgpCE7V1+zJn3PyPC0j6/G2aAtgoGzj2pGQVkq35HD5i3ZvkV68QA+ILQVSTYqBA+q+9/IrmOIYHSq5T7WknjE5tqhKpcoEPyxu0LHlp9MR91+nL0ffI8mb6UZ8R19c1Z8LDep20pLw6r6tPamTWrMJ0hAxNX35wsV6GMNcE6JFgdV5g0JfNl3CssuMyPR0eMKE/T9DeShiio5DN/5SR2TytdQ7bAPBSy6lDzF4x9zLmg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/BE3UD6DmJgxUoBN4fm1O92DvDQlokRm7L2E5H8tZ/w=;
- b=aw+E7ncriQCfdGAUGrQZUE/X01NpnQkPaMKg98SJOA6wY+Umt71j+ZM3yJT4X2e4Z3a1Nf1QLyhCWVWM5woSGiSrFRCtJ7Y+axoK5muAMFzy8K/q5zDKA+XhU43kGZTFp6nun78Bc4vdtny2nuHntBDykocQKzISfMU5cKF8KWDvMYiCfneJuxF9RID1NNZC8H0s/Flemt9H/8te0Tc5X4Wgyt0zHH2qftbjcUtGDix9JdV3FbJj+OP489jnkeYYjXBTFPWiX1axHsYPxivLdaeMUWo+d8svoqnPmKjaFYR7H+Czrws9kPnJiEDFXxT1EnrZJjVbs3wTlpHvyWTwVg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=microchip.com; dmarc=pass action=none
- header.from=microchip.com; dkim=pass header.d=microchip.com; arc=none
+Received: from mail-io1-xd44.google.com (mail-io1-xd44.google.com
+ [IPv6:2607:f8b0:4864:20::d44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B6AE6E057
+ for <Intel-gfx@lists.freedesktop.org>; Thu, 10 Sep 2020 13:31:41 +0000 (UTC)
+Received: by mail-io1-xd44.google.com with SMTP id y13so7067052iow.4
+ for <Intel-gfx@lists.freedesktop.org>; Thu, 10 Sep 2020 06:31:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=microchiptechnology.onmicrosoft.com;
- s=selector2-microchiptechnology-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/BE3UD6DmJgxUoBN4fm1O92DvDQlokRm7L2E5H8tZ/w=;
- b=nHI74pvWX9voKu6qjF0Kfqy5Sc0AGs+NSCuuZ7eJDs13Cd2LSPaaZXvb/ZjcOfT09uuWHM6p5pmozbJumZzu3LweHgExn3n4A3SazKZjxpV5HJ3Rfd1IYhfQ1vrLcAgTG/9j9wdLhYAt6RaeZr3RJVUTfyzdVhJVMpRZmeQD3Xk=
-Received: from BYAPR11MB3477.namprd11.prod.outlook.com (2603:10b6:a03:7c::28)
- by BY5PR11MB4307.namprd11.prod.outlook.com (2603:10b6:a03:1bd::27)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3370.16; Thu, 10 Sep
- 2020 08:24:22 +0000
-Received: from BYAPR11MB3477.namprd11.prod.outlook.com
- ([fe80::d1dd:de76:4e99:7c85]) by BYAPR11MB3477.namprd11.prod.outlook.com
- ([fe80::d1dd:de76:4e99:7c85%7]) with mapi id 15.20.3348.019; Thu, 10 Sep 2020
- 08:24:21 +0000
-From: <Nicolas.Ferre@microchip.com>
-To: <joe@perches.com>, <linux-kernel@vger.kernel.org>, <trivial@kernel.org>
-Thread-Topic: [trivial PATCH] treewide: Convert switch/case fallthrough; to
- break;
-Thread-Index: AQHWh0vIy44IYF5A+kuaVLhVJ6ZdVw==
-Date: Thu, 10 Sep 2020 08:24:21 +0000
-Message-ID: <c2929349-ca60-486d-3cad-a83321587c5f@microchip.com>
-References: <e6387578c75736d61b2fe70d9783d91329a97eb4.camel@perches.com>
-In-Reply-To: <e6387578c75736d61b2fe70d9783d91329a97eb4.camel@perches.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-authentication-results: perches.com; dkim=none (message not signed)
- header.d=none;perches.com; dmarc=none action=none header.from=microchip.com;
-x-originating-ip: [2a01:cb1c:8c:b200:d11f:426b:f805:cbe2]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: e351a690-85b8-47aa-f38f-08d85562eb8c
-x-ms-traffictypediagnostic: BY5PR11MB4307:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <BY5PR11MB4307E000D4DA0597A74F9A31E0270@BY5PR11MB4307.namprd11.prod.outlook.com>
-x-bypassexternaltag: True
-x-ms-oob-tlc-oobclassifiers: OLM:6108;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: rwdyTK6oNx+pJXY+VYO8jlUUcB5LsJW3ZQhau0YhpysDI1uZrWJ+5KkXmnJNABVwRpL8mxf24YLlXWyB3yirjaXQ/srQXMAk73DmLRMX7FFSd/uWs59kXpR0gz7YIDZpkdEHXR8Ks47+GSWaldjUxHW1dDgr9Bml1Ile+LfAjDi5j/2WavAN5DcmiJhVV86brSYApECTF1sqFMiIoIfargGWcDiXjLp0xoZy1wTF5cYKXSjd2DGvBQRASj+UAeO1Pg9WFEX+2sgdqqFJ/HgGUzu9uaOU20bpHBTTwQw7yoVGql5DTXE+Xr30INsHw1gSuTyHpcI3KtFhJi6QDKEIl6ZhO0EwhNcia52tqGsvyefiqtKNAZSsmZhN9N/OPaNO
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BYAPR11MB3477.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(136003)(376002)(346002)(396003)(366004)(39860400002)(36756003)(6506007)(4744005)(53546011)(31686004)(4326008)(8676002)(31696002)(6512007)(186003)(478600001)(2616005)(107886003)(83380400001)(54906003)(110136005)(5660300002)(316002)(2906002)(6486002)(76116006)(71200400001)(91956017)(66476007)(66556008)(8936002)(66446008)(66946007)(64756008)(7416002)(7406005)(86362001)(43740500002);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: CK3jnFjP+DaxTGoKSfijNwQSDSi+zYRAANKGWEe0w6BHoCBr3jeo8QFCPrdi+OpT1qz3lmVs3mCRxOmBtUGK5WN0AxOt0wvA3bBJRUyjBicAE+lDMsP7vy1cft0wcXBrEZgdgqF7VD1sQj+khtUTD5EsNnntahNSIGqwN+VZCKQ1QzjPtAbjR2oPP/LrPDKYk//qfKAomMDI7R2fpR0tTUzDMz48DEh+PQCCmr/krCP8U3KTB6FIGhilgI7TLOfsJcLS9qlGh0PGNeVy7GIerGvFEQfkR4YdlzVLyEKvYmf4EXR5wArGM6eS5MMbLL4vYVjGrhiNaJt+earGuTqyYiFZbc+uujPQG9qCWcGOhC7tSaJvV/BIkb7lV8g/yXvxSbayqkCXQ/s7jX+D9fM+ZWNqgoWbSd/P+uuCP7/8e33PXHOet1lAM1sUIHpLxk8RCyecYucN6ijlgMa8IdFcV7U+ZA3zH97/7OWVEtd6OgF0CR21Hki2raxtlS5sca+cVURYu2gcHFAMLULSgaOruMk5qcKurGsgOTL9NDY1H7Jpn1+7gJ+bMQIt2b5OxDFW2nSizeQSfqlNFoprGc6aS71OSv+MwkoEfhBi640q5sGrdYfhliWNj5HhbdiTLJVy1TBmrhSIzi6KODxmStaMlQzfe8a1Otv3042csYwXaPKEPC9i6WiYuHbWrvEwzSbxIsAABeXwAiTaxYC040N9rw==
-Content-ID: <0B2726412C35D14B94E876CA5EB14904@namprd11.prod.outlook.com>
+ d=tcd-ie.20150623.gappssmtp.com; s=20150623;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=rqo0kj5mzJRo0skHc2h2qOtoduVFNCp46fktvVaBQ7I=;
+ b=A6RMHr1nxbMLLx9/KgUbuLxN2sEjtNbWaUvyiTUWgiqypPTXGg3QYZ9Y8/pS9Cupup
+ kCa2h5a1pP2ZGW2lW/xGhcXWcGbxdAPTF/X+Ou3tVm6xDRWiilWi3pT0AIWOaD/41m3D
+ MxAQJKFvuNFazcr5GteViV8tZlJtyc+z3jWEGa1SfloYzr7OjZdBXMYXC8RmqKaVQvW6
+ 8j5HuPlwEnN0O6omU7/av0RLBXaeMMf6kWD2LvQyqB1Qs4ZtgGjmFclQP6dDhkFUpidr
+ V5kzDPmAHCq0/H+YyEmkzbT/uFWgFUM2Z6Ht7e9MUyHu2PGjo4SC+3Zcqr/muq5LUZv/
+ sTrw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=rqo0kj5mzJRo0skHc2h2qOtoduVFNCp46fktvVaBQ7I=;
+ b=YSQyKaraQqQV7JzTg4yJ9wUkyeTLp+zbq6RUtDxWC4qAU1AJCuHoJIUdK/wbS5iSaU
+ 5+CvhnK67fivY7FixWLwyW2vdyWZ/8S321hDIUhuF2BGv3L6tVbbVQdJSbBXnwJR6UeG
+ rMOQF4wpKQdauV4Y0RNZLxcK0yHoaiIs2Ub3CaFlcTtvoXvb2AE5Md1c5gk7I4+J/Dpe
+ ZVtmojLjrRtNaxyp7wnztV5NnW6va3z6W57RVFybhYihexlQNLv3vNzBWKJ1Mu/uMh2J
+ hvTfJSc9uuXgrbas7XCaFte99rxfTYP8j6vY97WA8lk+CuLnURThgWKhGCF0ulVPKepW
+ hkkw==
+X-Gm-Message-State: AOAM533xfAxTpI4P5V0pptXv/9v8JveedjETMZzaNiZ40EwvLcd9Bok+
+ 2YO6hDODpjasglLylsoEij6PkY9+PUHPGEZu7xQLUA==
+X-Google-Smtp-Source: ABdhPJyyoLufcLLi5ant1tOCef7IRdyxUI6H4BylWrmEFCFJiXbhgv/HCzXP+l1KpQrv4LPMqS71wtBzV4LjCfITUGQ=
+X-Received: by 2002:a05:6638:24d1:: with SMTP id
+ y17mr8517484jat.3.1599744700960; 
+ Thu, 10 Sep 2020 06:31:40 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR11MB3477.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e351a690-85b8-47aa-f38f-08d85562eb8c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Sep 2020 08:24:21.4887 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3f4057f3-b418-4d4e-ba84-d55b4e897d88
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: JW3oElxXZwEvl6R2z5GFIVkcX/+UpGKsEW8MKFxofB9W1y9KDMUkM69WnQUZrCOB/0mudh2ADBhfj0C34gWZhgepCXhZk3LC9prwi+CGg3E=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR11MB4307
+References: <20200910115900.407686-1-tvrtko.ursulin@linux.intel.com>
+ <20200910115900.407686-3-tvrtko.ursulin@linux.intel.com>
+In-Reply-To: <20200910115900.407686-3-tvrtko.ursulin@linux.intel.com>
+From: Tom Murphy <murphyt7@tcd.ie>
+Date: Thu, 10 Sep 2020 14:31:30 +0100
+Message-ID: <CALQxJuuF0i4NWvVfh1G0TZWS0oYiwSRLycMte6LZ5n6Oif3aFQ@mail.gmail.com>
+To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 X-Mailman-Approved-At: Thu, 10 Sep 2020 13:49:08 +0000
-Subject: Re: [Intel-gfx] [trivial PATCH] treewide: Convert switch/case
- fallthrough; to break; 
+Subject: Re: [Intel-gfx] [PATCH 2/2] drm/i915: Fix DMA mapped scatterlist
+ lookup
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,63 +78,252 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-wireless@vger.kernel.org, linux-fbdev@vger.kernel.org,
- oss-drivers@netronome.com, nouveau@lists.freedesktop.org,
- alsa-devel@alsa-project.org, dri-devel@lists.freedesktop.org,
- linux-ide@vger.kernel.org, dm-devel@redhat.com, linux-mtd@lists.infradead.org,
- linux-i2c@vger.kernel.org, sparclinux@vger.kernel.org,
- kvmarm@lists.cs.columbia.edu, linux-rtc@vger.kernel.org,
- linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, dccp@vger.kernel.org,
- linux-rdma@vger.kernel.org, linux-atm-general@lists.sourceforge.net,
- linux-afs@lists.infradead.org, Ludovic.Desroches@microchip.com,
- coreteam@netfilter.org, intel-wired-lan@lists.osuosl.org,
- linux-serial@vger.kernel.org, linux-input@vger.kernel.org,
- linux-mmc@vger.kernel.org, kees.cook@canonical.com,
- linux-media@vger.kernel.org, linux-pm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, linux-sctp@vger.kernel.org,
- linux-mediatek@lists.infradead.org, linux-nvme@lists.infradead.org,
- storagedev@microchip.com, ceph-devel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-nfs@vger.kernel.org,
- linux-parisc@vger.kernel.org, netdev@vger.kernel.org,
- linux-usb@vger.kernel.org, ndesaulniers@google.com, linux-mips@vger.kernel.org,
- iommu@lists.linux-foundation.org, netfilter-devel@vger.kernel.org,
- linux-crypto@vger.kernel.org, Eugen.Hristev@microchip.com, bpf@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org
+Cc: Intel-gfx@lists.freedesktop.org, Chris Wilson <chris@chris-wilson.co.uk>,
+ Matthew Auld <matthew.auld@intel.com>, Logan Gunthorpe <logang@deltatee.com>,
+ Lu Baolu <baolu.lu@linux.intel.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Joe,
+This patch series fixes the issue I was having. I tested it with my
+patch set ("[PATCH V2 0/5] Convert the intel iommu driver to the
+dma-iommu api") applied, excluding the last patch in that series which
+disables the coalescing.
 
-Please drop this chunk: it's a successive controller version number 
-which are all backward compatible with "fallthrough" on each case so 
-removing from this last one makes it inconsistent.
+So once your patch set is merged we should be good to convert the
+intel iommu driver to the dma-iommu api
 
-In sort: NACK for atmel-mci.
-
-Best regards,
-   Nicolas
-
-
-On 09/09/2020 at 22:06, Joe Perches wrote:
-> diff --git a/drivers/mmc/host/atmel-mci.c b/drivers/mmc/host/atmel-mci.c
-> index 444bd3a0a922..8324312e4f42 100644
-> --- a/drivers/mmc/host/atmel-mci.c
-> +++ b/drivers/mmc/host/atmel-mci.c
-> @@ -2435,7 +2435,7 @@ static void atmci_get_cap(struct atmel_mci *host)
->          case 0x100:
->                  host->caps.has_bad_data_ordering = 0;
->                  host->caps.need_reset_after_xfer = 0;
-> -               fallthrough;
-> +               break;
->          case 0x0:
->                  break;
->          default:
-
-
--- 
-Nicolas Ferre
+On Thu, 10 Sep 2020 at 12:59, Tvrtko Ursulin
+<tvrtko.ursulin@linux.intel.com> wrote:
+>
+> From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+>
+> As the previous patch fixed the places where we walk the whole scatterlist
+> for DMA addresses, this patch fixes the random lookup functionality.
+>
+> To achieve this we have to add a second lookup iterator and add a
+> i915_gem_object_get_sg_dma helper, to be used analoguous to existing
+> i915_gem_object_get_sg_dma. Therefore two lookup caches are maintained per
+> object and they are flushed at the same point for simplicity. (Strictly
+> speaking the DMA cache should be flushed from i915_gem_gtt_finish_pages,
+> but today this conincides with unsetting of the pages in general.)
+>
+> Partial VMA view is then fixed to use the new DMA lookup and properly
+> query sg length.
+>
+> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+> Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+> Cc: Chris Wilson <chris@chris-wilson.co.uk>
+> Cc: Matthew Auld <matthew.auld@intel.com>
+> Cc: Lu Baolu <baolu.lu@linux.intel.com>
+> Cc: Tom Murphy <murphyt7@tcd.ie>
+> Cc: Logan Gunthorpe <logang@deltatee.com>
+> ---
+>  drivers/gpu/drm/i915/gem/i915_gem_object.c    |  2 ++
+>  drivers/gpu/drm/i915/gem/i915_gem_object.h    | 20 +++++++++++++++++-
+>  .../gpu/drm/i915/gem/i915_gem_object_types.h  | 17 ++++++++-------
+>  drivers/gpu/drm/i915/gem/i915_gem_pages.c     | 21 ++++++++++++-------
+>  drivers/gpu/drm/i915/gt/intel_ggtt.c          |  4 ++--
+>  drivers/gpu/drm/i915/i915_scatterlist.h       |  5 +++++
+>  6 files changed, 51 insertions(+), 18 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.c b/drivers/gpu/drm/i915/gem/i915_gem_object.c
+> index c8421fd9d2dc..ffeaf1b9b1bb 100644
+> --- a/drivers/gpu/drm/i915/gem/i915_gem_object.c
+> +++ b/drivers/gpu/drm/i915/gem/i915_gem_object.c
+> @@ -73,6 +73,8 @@ void i915_gem_object_init(struct drm_i915_gem_object *obj,
+>         obj->mm.madv = I915_MADV_WILLNEED;
+>         INIT_RADIX_TREE(&obj->mm.get_page.radix, GFP_KERNEL | __GFP_NOWARN);
+>         mutex_init(&obj->mm.get_page.lock);
+> +       INIT_RADIX_TREE(&obj->mm.get_dma_page.radix, GFP_KERNEL | __GFP_NOWARN);
+> +       mutex_init(&obj->mm.get_dma_page.lock);
+>
+>         if (IS_ENABLED(CONFIG_LOCKDEP) && i915_gem_object_is_shrinkable(obj))
+>                 i915_gem_shrinker_taints_mutex(to_i915(obj->base.dev),
+> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.h b/drivers/gpu/drm/i915/gem/i915_gem_object.h
+> index d46db8d8f38e..7ba5e958a3d0 100644
+> --- a/drivers/gpu/drm/i915/gem/i915_gem_object.h
+> +++ b/drivers/gpu/drm/i915/gem/i915_gem_object.h
+> @@ -275,8 +275,26 @@ int i915_gem_object_set_tiling(struct drm_i915_gem_object *obj,
+>                                unsigned int tiling, unsigned int stride);
+>
+>  struct scatterlist *
+> +__i915_gem_object_get_sg(struct drm_i915_gem_object *obj,
+> +                        struct i915_gem_object_page_iter *iter,
+> +                        unsigned int n,
+> +                        unsigned int *offset);
+> +
+> +static inline struct scatterlist *
+>  i915_gem_object_get_sg(struct drm_i915_gem_object *obj,
+> -                      unsigned int n, unsigned int *offset);
+> +                      unsigned int n,
+> +                      unsigned int *offset)
+> +{
+> +       return __i915_gem_object_get_sg(obj, &obj->mm.get_page, n, offset);
+> +}
+> +
+> +static inline struct scatterlist *
+> +i915_gem_object_get_sg_dma(struct drm_i915_gem_object *obj,
+> +                      unsigned int n,
+> +                      unsigned int *offset)
+> +{
+> +       return __i915_gem_object_get_sg(obj, &obj->mm.get_dma_page, n, offset);
+> +}
+>
+>  struct page *
+>  i915_gem_object_get_page(struct drm_i915_gem_object *obj,
+> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
+> index b5c15557cc87..fedfebf13344 100644
+> --- a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
+> +++ b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
+> @@ -80,6 +80,14 @@ struct i915_mmap_offset {
+>         struct rb_node offset;
+>  };
+>
+> +struct i915_gem_object_page_iter {
+> +       struct scatterlist *sg_pos;
+> +       unsigned int sg_idx; /* in pages, but 32bit eek! */
+> +
+> +       struct radix_tree_root radix;
+> +       struct mutex lock; /* protects this cache */
+> +};
+> +
+>  struct drm_i915_gem_object {
+>         struct drm_gem_object base;
+>
+> @@ -246,13 +254,8 @@ struct drm_i915_gem_object {
+>
+>                 I915_SELFTEST_DECLARE(unsigned int page_mask);
+>
+> -               struct i915_gem_object_page_iter {
+> -                       struct scatterlist *sg_pos;
+> -                       unsigned int sg_idx; /* in pages, but 32bit eek! */
+> -
+> -                       struct radix_tree_root radix;
+> -                       struct mutex lock; /* protects this cache */
+> -               } get_page;
+> +               struct i915_gem_object_page_iter get_page;
+> +               struct i915_gem_object_page_iter get_dma_page;
+>
+>                 /**
+>                  * Element within i915->mm.unbound_list or i915->mm.bound_list,
+> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_pages.c b/drivers/gpu/drm/i915/gem/i915_gem_pages.c
+> index e8a083743e09..04a3c1233f80 100644
+> --- a/drivers/gpu/drm/i915/gem/i915_gem_pages.c
+> +++ b/drivers/gpu/drm/i915/gem/i915_gem_pages.c
+> @@ -33,6 +33,8 @@ void __i915_gem_object_set_pages(struct drm_i915_gem_object *obj,
+>
+>         obj->mm.get_page.sg_pos = pages->sgl;
+>         obj->mm.get_page.sg_idx = 0;
+> +       obj->mm.get_dma_page.sg_pos = pages->sgl;
+> +       obj->mm.get_dma_page.sg_idx = 0;
+>
+>         obj->mm.pages = pages;
+>
+> @@ -155,6 +157,8 @@ static void __i915_gem_object_reset_page_iter(struct drm_i915_gem_object *obj)
+>         rcu_read_lock();
+>         radix_tree_for_each_slot(slot, &obj->mm.get_page.radix, &iter, 0)
+>                 radix_tree_delete(&obj->mm.get_page.radix, iter.index);
+> +       radix_tree_for_each_slot(slot, &obj->mm.get_dma_page.radix, &iter, 0)
+> +               radix_tree_delete(&obj->mm.get_dma_page.radix, iter.index);
+>         rcu_read_unlock();
+>  }
+>
+> @@ -424,11 +428,12 @@ void __i915_gem_object_release_map(struct drm_i915_gem_object *obj)
+>  }
+>
+>  struct scatterlist *
+> -i915_gem_object_get_sg(struct drm_i915_gem_object *obj,
+> -                      unsigned int n,
+> -                      unsigned int *offset)
+> +__i915_gem_object_get_sg(struct drm_i915_gem_object *obj,
+> +                        struct i915_gem_object_page_iter *iter,
+> +                        unsigned int n,
+> +                        unsigned int *offset)
+>  {
+> -       struct i915_gem_object_page_iter *iter = &obj->mm.get_page;
+> +       const bool dma = iter == &obj->mm.get_dma_page;
+>         struct scatterlist *sg;
+>         unsigned int idx, count;
+>
+> @@ -457,7 +462,7 @@ i915_gem_object_get_sg(struct drm_i915_gem_object *obj,
+>
+>         sg = iter->sg_pos;
+>         idx = iter->sg_idx;
+> -       count = __sg_page_count(sg);
+> +       count = dma ? __sg_dma_page_count(sg) : __sg_page_count(sg);
+>
+>         while (idx + count <= n) {
+>                 void *entry;
+> @@ -485,7 +490,7 @@ i915_gem_object_get_sg(struct drm_i915_gem_object *obj,
+>
+>                 idx += count;
+>                 sg = ____sg_next(sg);
+> -               count = __sg_page_count(sg);
+> +               count = dma ? __sg_dma_page_count(sg) : __sg_page_count(sg);
+>         }
+>
+>  scan:
+> @@ -503,7 +508,7 @@ i915_gem_object_get_sg(struct drm_i915_gem_object *obj,
+>         while (idx + count <= n) {
+>                 idx += count;
+>                 sg = ____sg_next(sg);
+> -               count = __sg_page_count(sg);
+> +               count = dma ? __sg_dma_page_count(sg) : __sg_page_count(sg);
+>         }
+>
+>         *offset = n - idx;
+> @@ -570,7 +575,7 @@ i915_gem_object_get_dma_address_len(struct drm_i915_gem_object *obj,
+>         struct scatterlist *sg;
+>         unsigned int offset;
+>
+> -       sg = i915_gem_object_get_sg(obj, n, &offset);
+> +       sg = i915_gem_object_get_sg_dma(obj, n, &offset);
+>
+>         if (len)
+>                 *len = sg_dma_len(sg) - (offset << PAGE_SHIFT);
+> diff --git a/drivers/gpu/drm/i915/gt/intel_ggtt.c b/drivers/gpu/drm/i915/gt/intel_ggtt.c
+> index 81c05f551b9c..95e77d56c1ce 100644
+> --- a/drivers/gpu/drm/i915/gt/intel_ggtt.c
+> +++ b/drivers/gpu/drm/i915/gt/intel_ggtt.c
+> @@ -1383,7 +1383,7 @@ intel_partial_pages(const struct i915_ggtt_view *view,
+>         if (ret)
+>                 goto err_sg_alloc;
+>
+> -       iter = i915_gem_object_get_sg(obj, view->partial.offset, &offset);
+> +       iter = i915_gem_object_get_sg_dma(obj, view->partial.offset, &offset);
+>         GEM_BUG_ON(!iter);
+>
+>         sg = st->sgl;
+> @@ -1391,7 +1391,7 @@ intel_partial_pages(const struct i915_ggtt_view *view,
+>         do {
+>                 unsigned int len;
+>
+> -               len = min(iter->length - (offset << PAGE_SHIFT),
+> +               len = min(sg_dma_len(iter) - (offset << PAGE_SHIFT),
+>                           count << PAGE_SHIFT);
+>                 sg_set_page(sg, NULL, len, 0);
+>                 sg_dma_address(sg) =
+> diff --git a/drivers/gpu/drm/i915/i915_scatterlist.h b/drivers/gpu/drm/i915/i915_scatterlist.h
+> index 510856887628..102d8d7007b6 100644
+> --- a/drivers/gpu/drm/i915/i915_scatterlist.h
+> +++ b/drivers/gpu/drm/i915/i915_scatterlist.h
+> @@ -48,6 +48,11 @@ static inline int __sg_page_count(const struct scatterlist *sg)
+>         return sg->length >> PAGE_SHIFT;
+>  }
+>
+> +static inline int __sg_dma_page_count(const struct scatterlist *sg)
+> +{
+> +       return sg_dma_len(sg) >> PAGE_SHIFT;
+> +}
+> +
+>  static inline struct scatterlist *____sg_next(struct scatterlist *sg)
+>  {
+>         ++sg;
+> --
+> 2.25.1
+>
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
