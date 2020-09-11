@@ -2,63 +2,56 @@ Return-Path: <SRS0=QVu9=CU=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.2 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 066EBC43461
-	for <intel-gfx@archiver.kernel.org>; Fri, 11 Sep 2020 05:42:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4C701C433E2
+	for <intel-gfx@archiver.kernel.org>; Fri, 11 Sep 2020 05:58:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A3E5221D40
-	for <intel-gfx@archiver.kernel.org>; Fri, 11 Sep 2020 05:42:37 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KC1tlJje"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A3E5221D40
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id E834A21D90
+	for <intel-gfx@archiver.kernel.org>; Fri, 11 Sep 2020 05:58:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E834A21D90
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F333E6E2CA;
-	Fri, 11 Sep 2020 05:42:36 +0000 (UTC)
-Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
- [IPv6:2a00:1450:4864:20::533])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE4C26E2CA
- for <intel-gfx@lists.freedesktop.org>; Fri, 11 Sep 2020 05:42:35 +0000 (UTC)
-Received: by mail-ed1-x533.google.com with SMTP id n13so8650631edo.10
- for <intel-gfx@lists.freedesktop.org>; Thu, 10 Sep 2020 22:42:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=zIWi03gn1XKnz5At3291xLapwiRskEI9EP1bzOYRhd4=;
- b=KC1tlJjeyLhYHamDI5USvhSVUxB6UWMQ0zdu1QQrPOA7FFLDkxMmoPYKqPaC2lfc9t
- XOGUeR7cDGrn9X2MEOqISpW3rruoTxFix/CvEYYRzXSvEByu/a7bjkyxv16uI/p0Ywcd
- fT/KyYqGgwVnvunzQgQ7y6GBPI3S0RcNiSSD0p+6sHH5X1vPZ4jrct7Q3xuttTgpnM0T
- O7DJtHdVCluxRsL3uM1lZ/H1AAdGGPgRSmkxdRmlrC2Eh0PwAxqHLPy1uRcjDOBk2M8k
- s2vQBj06R5E8jpQ5t2c9M6WAp6FnqP4fhkGjaee3QBZiAxeBKApQYzRrN/RYxbedKdWz
- 1dOA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=zIWi03gn1XKnz5At3291xLapwiRskEI9EP1bzOYRhd4=;
- b=R5CCto10R4f8ZS/W6pDtTdNplpfuZjpqkL6XkKLw1pQxZTCKLhfzrYmCrMoglw+q8P
- uxAh1gMlCan1AGHTNOZa1gaqXGg3mcIIbsuzZS0u54ETh8RjAoHOPo2d8EDKUL58p2Mp
- vWQsL3OH3YrDv0QQTpbBPRS/kZFBdfoK24ePuoajyejDA3Z+kLX9aK/6Yik0sIBrF1mh
- M0XTLI5uIL5Vq3O68BCYRaUNmqnMEcWfQbRLr162g7bUuB1yFeROCwaFIKZ1eErI4cJG
- vT0ckYX26B8K05ookpX8wHpWpaeluRqXyNRff7/OBQninKtZWYGuoP0ajPiIJ2rQovLn
- IJag==
-X-Gm-Message-State: AOAM531mI9dRYd91wmOqn1ilesNgyHiJy00fGuNceEQc9sU8tva3EpdZ
- ZY8+8J6TGZac3GXPSNWuyAyHIJdQsPXK4ZRtbek+TrIr
-X-Google-Smtp-Source: ABdhPJxDYd8RTdESS15kZYjYyW7e07xKv5CnF5Q1ui2o1QC013CQ/P+T8R3kjexuOZF1Ty8du5ecTOHGBpYp+dnnqOQ=
-X-Received: by 2002:aa7:d959:: with SMTP id l25mr254447eds.383.1599802954264; 
- Thu, 10 Sep 2020 22:42:34 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 243A36E2D6;
+	Fri, 11 Sep 2020 05:58:48 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 915FC6E2D6;
+ Fri, 11 Sep 2020 05:58:47 +0000 (UTC)
+IronPort-SDR: nb9B+JAGwxyIdnwwq/hhG8ojwn95SwX9rHpiP8UgVe5rodBlShByllQbAy5eUKKOHDS+DXrcls
+ fWhCRvVDjBKg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9740"; a="222899430"
+X-IronPort-AV: E=Sophos;i="5.76,414,1592895600"; 
+ d="asc'?scan'208";a="222899430"
+X-Amp-Result: UNKNOWN
+X-Amp-Original-Verdict: FILE UNKNOWN
+X-Amp-File-Uploaded: False
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Sep 2020 22:58:45 -0700
+IronPort-SDR: Q402+VGaRmxhMWdHJGWqdRbUQWDkz5A9hlInK3bqLW8woPO4FQwk83QfYMDeXNGHJThOG9nxAI
+ 6UtL7nLTc5LA==
+X-IronPort-AV: E=Sophos;i="5.76,414,1592895600"; 
+ d="asc'?scan'208";a="329643229"
+Received: from zhen-hp.sh.intel.com (HELO zhen-hp) ([10.239.160.147])
+ by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Sep 2020 22:58:42 -0700
+Date: Fri, 11 Sep 2020 13:39:23 +0800
+From: Zhenyu Wang <zhenyuw@linux.intel.com>
+To: Alejandro Sior <aho@sior.be>
+Message-ID: <20200911053923.GS28614@zhen-hp.sh.intel.com>
+References: <743818af-fa38-e31a-1780-84a6a7e72e25@web.de>
+ <20200908181122.9100-1-aho@sior.be>
 MIME-Version: 1.0
-From: Dave Airlie <airlied@gmail.com>
-Date: Fri, 11 Sep 2020 15:42:23 +1000
-Message-ID: <CAPM=9twVqXMW17Pw11W09D9+tn+r676yb7R3FxwpkMYrTEtS1A@mail.gmail.com>
-To: Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Matthew Auld <matthew.auld@intel.com>
-Subject: [Intel-gfx] dg1 flag for userspace to allocate contig resources
+In-Reply-To: <20200908181122.9100-1-aho@sior.be>
+User-Agent: Mutt/1.10.0 (2018-05-17)
+Subject: Re: [Intel-gfx] [PATCH v2] drm/i915/gvt: Prevent NULL pointer
+ dereference in intel_vgpu_reg_rw_edid()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,20 +64,158 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Reply-To: Zhenyu Wang <zhenyuw@linux.intel.com>
+Cc: David Airlie <airlied@linux.ie>, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ intel-gvt-dev@lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============0324610705=="
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-I've just been looking at the current DG1 uapi, and I can't see any
-flag to allow userspace to upfront say it was a contiguous vram BO.
 
-I think you'd really want this for scanout, since otherwise you'll
-have to migrate any non-contig to contig when it transitions to
-scanout, and cause an extra set of copies.
+--===============0324610705==
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="8S1fMsFYqgBC+BN/"
+Content-Disposition: inline
 
-Dave.
+
+--8S1fMsFYqgBC+BN/
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On 2020.09.08 20:11:21 +0200, Alejandro Sior wrote:
+> In the function intel_vgpu_reg_rw_edid of kvmgt.c, pos can be equal
+> to NULL for GPUs that do not properly support EDID. In those cases, when
+> pos gets passed to the handle_edid functions, it gets added a short offset
+> then it's dereferenced in memcpy's, leading to NULL pointer
+> dereference kernel oops.
+>=20
+> More concretely, that kernel oops renders some Broadwell GPUs users
+> unable to set up virtual machines with virtual GPU passthrough (virtual
+> machines hang indefinitely when trying to make use of the virtual GPU),
+> and make them unable to remove the virtual GPUs once the kernel oops has
+> happened (it hangs indefinitely, and notably too when the kernel tries to
+> shutdown). The issues that this causes and steps to reproduce are
+> discussed in more details in this github issue post:
+> https://github.com/intel/gvt-linux/issues/170#issuecomment-685806160
+>=20
+> Check if pos is equal to NULL, and if it is, set ret to a negative
+> value, making the module simply indicate that the access to EDID region
+> has failed, without any fatal repercussion.
+>=20
+> Signed-off-by: Alejandro Sior <aho@sior.be>
+>=20
+> ---
+> Changes in v2:
+> - removed middle name of author to comply with git name
+> - rephrased the patch description with imperative phrasing
+> - removed useless paragraph
+> - made a paragraph more concise
+> - fixed typos
+> - made individual lines shorter than 75 chars
+>=20
+>  drivers/gpu/drm/i915/gvt/kvmgt.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/gpu/drm/i915/gvt/kvmgt.c b/drivers/gpu/drm/i915/gvt/=
+kvmgt.c
+> index ad8a9df49f29..49163363ba4a 100644
+> --- a/drivers/gpu/drm/i915/gvt/kvmgt.c
+> +++ b/drivers/gpu/drm/i915/gvt/kvmgt.c
+> @@ -557,7 +557,9 @@ static size_t intel_vgpu_reg_rw_edid(struct intel_vgp=
+u *vgpu, char *buf,
+>  		(struct vfio_edid_region *)kvmgt_vdev(vgpu)->region[i].data;
+>  	loff_t pos =3D *ppos & VFIO_PCI_OFFSET_MASK;
+> =20
+> -	if (pos < region->vfio_edid_regs.edid_offset) {
+> +	if (pos =3D=3D NULL) {
+> +		ret =3D -EINVAL;
+> +	} else if (pos < region->vfio_edid_regs.edid_offset) {
+>  		ret =3D handle_edid_regs(vgpu, region, buf, count, pos, iswrite);
+>  	} else {
+>  		pos -=3D EDID_BLOB_OFFSET;
+
+Thanks for reporting this! Sorry that we failed to do sanity validation on =
+older
+platform when enabling vfio edid function for all platform.
+
+Could you try below one to see if it fixes your problem? Instead of refusing
+possible read of edid, this fixes port number for BDW.
+
+=46rom d5d9304b6bfdc31356fd2feb1ddbbf28073fe3d4 Mon Sep 17 00:00:00 2001
+=46rom: Zhenyu Wang <zhenyuw@linux.intel.com>
+Date: Fri, 11 Sep 2020 13:50:20 +0800
+Subject: [PATCH] drm/i915/gvt: Fix port number for BDW on EDID region setup
+
+Current BDW virtual display port is initialized as PORT_B, so need
+to use same port for VFIO EDID region, otherwise invalid EDID blob
+pointer is assigned.
+
+Fixes: 0178f4ce3c3b ("drm/i915/gvt: Enable vfio edid for all GVT supported =
+platform")
+Signed-off-by: Zhenyu Wang <zhenyuw@linux.intel.com>
+---
+ drivers/gpu/drm/i915/gvt/vgpu.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/i915/gvt/vgpu.c b/drivers/gpu/drm/i915/gvt/vgp=
+u.c
+index 8fa9b31a2484..f6d7e33c7099 100644
+--- a/drivers/gpu/drm/i915/gvt/vgpu.c
++++ b/drivers/gpu/drm/i915/gvt/vgpu.c
+@@ -368,6 +368,7 @@ void intel_gvt_destroy_idle_vgpu(struct intel_vgpu *vgp=
+u)
+ static struct intel_vgpu *__intel_gvt_create_vgpu(struct intel_gvt *gvt,
+ 		struct intel_vgpu_creation_params *param)
+ {
++	struct drm_i915_private *dev_priv =3D gvt->gt->i915;
+ 	struct intel_vgpu *vgpu;
+ 	int ret;
+=20
+@@ -436,7 +437,10 @@ static struct intel_vgpu *__intel_gvt_create_vgpu(stru=
+ct intel_gvt *gvt,
+ 	if (ret)
+ 		goto out_clean_sched_policy;
+=20
+-	ret =3D intel_gvt_hypervisor_set_edid(vgpu, PORT_D);
++	if (IS_BROADWELL(dev_priv))
++		ret =3D intel_gvt_hypervisor_set_edid(vgpu, PORT_B);
++	else
++		ret =3D intel_gvt_hypervisor_set_edid(vgpu, PORT_D);
+ 	if (ret)
+ 		goto out_clean_sched_policy;
+=20
+--=20
+2.28.0
+
+
+
+--=20
+
+$gpg --keyserver wwwkeys.pgp.net --recv-keys 4D781827
+
+--8S1fMsFYqgBC+BN/
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iF0EARECAB0WIQTXuabgHDW6LPt9CICxBBozTXgYJwUCX1sNiwAKCRCxBBozTXgY
+J178AKCLWKo7RfqGXpQi9NqnMJIxrpwgcwCeIrbxnT+NeVSpEFsJHEnHt7VcFaQ=
+=j8Om
+-----END PGP SIGNATURE-----
+
+--8S1fMsFYqgBC+BN/--
+
+--===============0324610705==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+
+--===============0324610705==--
