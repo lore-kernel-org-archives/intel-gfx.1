@@ -2,55 +2,55 @@ Return-Path: <SRS0=QVu9=CU=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.7 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-5.2 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6F45AC433E2
-	for <intel-gfx@archiver.kernel.org>; Fri, 11 Sep 2020 12:27:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 52E46C43461
+	for <intel-gfx@archiver.kernel.org>; Fri, 11 Sep 2020 12:31:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0A3F621D92
-	for <intel-gfx@archiver.kernel.org>; Fri, 11 Sep 2020 12:27:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0A3F621D92
+	by mail.kernel.org (Postfix) with ESMTPS id B6B2F21D92
+	for <intel-gfx@archiver.kernel.org>; Fri, 11 Sep 2020 12:31:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B6B2F21D92
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B38F6EA14;
-	Fri, 11 Sep 2020 12:27:15 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F9466EA14
- for <intel-gfx@lists.freedesktop.org>; Fri, 11 Sep 2020 12:27:13 +0000 (UTC)
-IronPort-SDR: H7ZA6H1QQVo5askJ51WqCLIlc2CuSCV5Opotgtof/20/F4Di5XY8E3DEa68bXYDuGs5yEK4ndn
- SHwfDBbUYSCg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9740"; a="146476871"
-X-IronPort-AV: E=Sophos;i="5.76,415,1592895600"; d="scan'208";a="146476871"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 307596EA19;
+	Fri, 11 Sep 2020 12:31:34 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B29F06EA19
+ for <intel-gfx@lists.freedesktop.org>; Fri, 11 Sep 2020 12:31:32 +0000 (UTC)
+IronPort-SDR: ZqvC03r2osGHqowkiJNvbbC0f6kCxKkP9ZSxrKJjMLZfU57u7EgFw/H4rMgaLsAzzRVSZ1WHGI
+ h9vkwxpjF+6A==
+X-IronPort-AV: E=McAfee;i="6000,8403,9740"; a="138261112"
+X-IronPort-AV: E=Sophos;i="5.76,415,1592895600"; d="scan'208";a="138261112"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Sep 2020 05:27:11 -0700
-IronPort-SDR: WVLhJdTiUqmD1jiPze4nyy2eET5u/aF1Pq/qQwD8w5+fThDdHBTLUKQnTF4gAAIa4EdlCte5B2
- PDPSZNC89Nng==
-X-IronPort-AV: E=Sophos;i="5.76,415,1592895600"; d="scan'208";a="449971090"
-Received: from reweir-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.252.6.151])
- by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Sep 2020 05:27:09 -0700
-MIME-Version: 1.0
-In-Reply-To: <f42a12f4-9c43-bfe1-20b6-f42b729d633f@intel.com>
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Sep 2020 05:31:32 -0700
+IronPort-SDR: xEK9ur+3f1GgI/BKAAQpUh55jIpMnSa5Cw5b1jlEwUT3FBfMGqMtgno/B4HqIPhG5JC48/UxnJ
+ e51+fTWDlVLA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.76,415,1592895600"; d="scan'208";a="286882899"
+Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.174])
+ by fmsmga008.fm.intel.com with SMTP; 11 Sep 2020 05:31:29 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Fri, 11 Sep 2020 15:31:28 +0300
+Date: Fri, 11 Sep 2020 15:31:28 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Message-ID: <20200911123128.GG6112@intel.com>
 References: <CAPM=9twVqXMW17Pw11W09D9+tn+r676yb7R3FxwpkMYrTEtS1A@mail.gmail.com>
  <f42a12f4-9c43-bfe1-20b6-f42b729d633f@intel.com>
-From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-To: Dave Airlie <airlied@gmail.com>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Matthew Auld <matthew.auld@intel.com>, Jani Nikula <jani.nikula@intel.com>,
- Ville Syrjala <ville.syrjala@linux.intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Message-ID: <159982722697.15554.10447903613389770525@jlahtine-mobl.ger.corp.intel.com>
-User-Agent: alot/0.8.1
-Date: Fri, 11 Sep 2020 15:27:07 +0300
+ <159982722697.15554.10447903613389770525@jlahtine-mobl.ger.corp.intel.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <159982722697.15554.10447903613389770525@jlahtine-mobl.ger.corp.intel.com>
+X-Patchwork-Hint: comment
+User-Agent: Mutt/1.10.1 (2018-07-13)
 Subject: Re: [Intel-gfx] dg1 flag for userspace to allocate contig resources
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -64,36 +64,44 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Jani Nikula <jani.nikula@intel.com>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ Matthew Auld <matthew.auld@intel.com>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-+ Jani and Ville
+On Fri, Sep 11, 2020 at 03:27:07PM +0300, Joonas Lahtinen wrote:
+> + Jani and Ville
+> =
 
-Quoting Matthew Auld (2020-09-11 11:56:56)
-> On 11/09/2020 06:42, Dave Airlie wrote:
-> > I've just been looking at the current DG1 uapi, and I can't see any
-> > flag to allow userspace to upfront say it was a contiguous vram BO.
-> > 
-> > I think you'd really want this for scanout, since otherwise you'll
-> > have to migrate any non-contig to contig when it transitions to
-> > scanout, and cause an extra set of copies.
-> 
-> Hmm, why do we need physically contiguous memory for scanout? From hw 
-> pov it's seen through the GTT.
+> Quoting Matthew Auld (2020-09-11 11:56:56)
+> > On 11/09/2020 06:42, Dave Airlie wrote:
+> > > I've just been looking at the current DG1 uapi, and I can't see any
+> > > flag to allow userspace to upfront say it was a contiguous vram BO.
+> > > =
 
-That's correct. On both discrete (and integrated) platforms the scan-out
-addresses on Intel GPUs are programmed to targer Global GTT managed by
-kernel. So no need to have the backing storage contiguous.
+> > > I think you'd really want this for scanout, since otherwise you'll
+> > > have to migrate any non-contig to contig when it transitions to
+> > > scanout, and cause an extra set of copies.
+> > =
 
-Only extra action required for a scan-out BO is to bind it to the GGTT in
-addition to the ppGTT that renders to it. 
+> > Hmm, why do we need physically contiguous memory for scanout? From hw =
 
-GGTT is relatively expensive to write to these days and limited in size,
-but that can't really be helped with an upfront flag.
+> > pov it's seen through the GTT.
+> =
 
-Regards, Joonas
+> That's correct. On both discrete (and integrated) platforms the scan-out
+> addresses on Intel GPUs are programmed to targer Global GTT managed by
+> kernel. So no need to have the backing storage contiguous.
+
+The only exception being the ye olde gen2/3 physical cursor stuff :)
+
+-- =
+
+Ville Syrj=E4l=E4
+Intel
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
