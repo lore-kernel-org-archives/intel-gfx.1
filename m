@@ -2,53 +2,50 @@ Return-Path: <SRS0=QVu9=CU=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.7 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 95EA6C43461
-	for <intel-gfx@archiver.kernel.org>; Fri, 11 Sep 2020 20:25:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3AD26C43461
+	for <intel-gfx@archiver.kernel.org>; Fri, 11 Sep 2020 22:23:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EFC0E221E5
-	for <intel-gfx@archiver.kernel.org>; Fri, 11 Sep 2020 20:25:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EFC0E221E5
+	by mail.kernel.org (Postfix) with ESMTPS id E41D721D7E
+	for <intel-gfx@archiver.kernel.org>; Fri, 11 Sep 2020 22:23:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E41D721D7E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E3F46E0AC;
-	Fri, 11 Sep 2020 20:25:00 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5FCB56E0AC
- for <intel-gfx@lists.freedesktop.org>; Fri, 11 Sep 2020 20:24:59 +0000 (UTC)
-IronPort-SDR: XzYw8rq6NwoTg0Z/tIvlbnClwGCFmo4ueT/uIDrl4I8D1VN2DAuYSTQblWEmtCK82qljAwhTl9
- 30EThKcCefFA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9741"; a="146538944"
-X-IronPort-AV: E=Sophos;i="5.76,417,1592895600"; d="scan'208";a="146538944"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 31E0A6E0F1;
+	Fri, 11 Sep 2020 22:23:51 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9471D6E0F1
+ for <intel-gfx@lists.freedesktop.org>; Fri, 11 Sep 2020 22:23:49 +0000 (UTC)
+IronPort-SDR: vQp93bxGS8YHY1c7dJ6tiaUm7VeIuFuhfHei3ehJIj56Vc6mFUWRwlrczwvuXNIrussuQgXRrL
+ 3GUj7JZ7Qwjw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9741"; a="138879338"
+X-IronPort-AV: E=Sophos;i="5.76,418,1592895600"; d="scan'208";a="138879338"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Sep 2020 13:24:57 -0700
-IronPort-SDR: +HMCy2sAvfztfJg1vLvrurYstG7qobocWJpLi3zYfYDmVZk/gUCXsWGnbl6d/oiyjqVRJvncT2
- nXZl/WRcFhoA==
-X-IronPort-AV: E=Sophos;i="5.76,417,1592895600"; d="scan'208";a="506392547"
-Received: from rdvivi-losangeles.jf.intel.com (HELO intel.com)
- ([10.165.21.201])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Sep 2020 15:23:40 -0700
+IronPort-SDR: 2O/zYFc5dXv2nyfIh3zzEUkkEUsABuGxVgHbR0UByFIFiQve/1/bgoOYf8p03ntgWf+YR0Kzjp
+ lbVUZcdti9uA==
+X-IronPort-AV: E=Sophos;i="5.76,418,1592895600"; d="scan'208";a="506417504"
+Received: from sdhanava-desk2.jf.intel.com ([10.165.21.144])
  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Sep 2020 13:24:57 -0700
-Date: Fri, 11 Sep 2020 16:27:20 -0400
-From: Rodrigo Vivi <rodrigo.vivi@intel.com>
-To: Chris Wilson <chris@chris-wilson.co.uk>
-Message-ID: <20200911202720.GA2235@intel.com>
-References: <20200723153805.8076-1-chris@chris-wilson.co.uk>
+ 11 Sep 2020 15:23:40 -0700
+From: Swathi Dhanavanthri <swathi.dhanavanthri@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Fri, 11 Sep 2020 15:11:58 -0700
+Message-Id: <20200911221158.4700-1-swathi.dhanavanthri@intel.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200723153805.8076-1-chris@chris-wilson.co.uk>
-Subject: Re: [Intel-gfx] [CI] drm/i915/selftests: Downgrade severity of
- CS/SRM frequency scaling tests
+Subject: [Intel-gfx] [PATCH] drm/i915/tgl,
+ rkl: Make Wa_1606700617/22010271021 permanent
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,60 +58,40 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jul 23, 2020 at 04:38:05PM +0100, Chris Wilson wrote:
-> Gracefully skip over the failures in the frequency scaling for the
-> moment, the results are under review.
+This workaround applies to all TGL and RKL steppings.
 
-We need to clock gate media sampler to be able to scale the
-frequency without getting throttled.
+Signed-off-by: Swathi Dhanavanthri <swathi.dhanavanthri@intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_workarounds.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-Reference: https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/6684
+diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+index 39817c5a7058..6c580d0d9ea8 100644
+--- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
++++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+@@ -1729,10 +1729,11 @@ rcs_engine_wa_init(struct intel_engine_cs *engine, struct i915_wa_list *wal)
+ 			     GEN6_RC_SLEEP_PSMI_CONTROL,
+ 			     GEN12_WAIT_FOR_EVENT_POWER_DOWN_DISABLE |
+ 			     GEN8_RC_SEMA_IDLE_MSG_DISABLE);
+-	}
+ 
+-	if (IS_TGL_U(i915) || IS_TGL_Y(i915)) {
+-		/* Wa_1606700617:tgl */
++		/*
++		 * Wa_1606700617:tgl
++		 * Wa_22010271021:tgl,rkl
++		 */
+ 		wa_masked_en(wal,
+ 			     GEN9_CS_DEBUG_MODE1,
+ 			     FF_DOP_CLOCK_GATE_DISABLE);
+-- 
+2.20.1
 
-> 
-> References: https://gitlab.freedesktop.org/drm/intel/-/issues/1754
-> Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-> Cc: "Sundaresan, Sujaritha" <sujaritha.sundaresan@intel.com>
-> Cc: "Ewins, Jon" <jon.ewins@intel.com>
-> Reviewed-by: Sujaritha Sundaresan <sujaritha.sundaresan@intel.com>
-> ---
->  drivers/gpu/drm/i915/gt/selftest_rps.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/gt/selftest_rps.c b/drivers/gpu/drm/i915/gt/selftest_rps.c
-> index 8624f5d2a1f3..34b403d47840 100644
-> --- a/drivers/gpu/drm/i915/gt/selftest_rps.c
-> +++ b/drivers/gpu/drm/i915/gt/selftest_rps.c
-> @@ -700,7 +700,7 @@ int live_rps_frequency_cs(void *arg)
->  				f = act; /* may skip ahead [pcu granularity] */
->  			}
->  
-> -			err = -EINVAL;
-> +			err = -EINTR; /* ignore error, continue on with test */
->  		}
->  
->  err_vma:
-> @@ -841,7 +841,7 @@ int live_rps_frequency_srm(void *arg)
->  				f = act; /* may skip ahead [pcu granularity] */
->  			}
->  
-> -			err = -EINVAL;
-> +			err = -EINTR; /* ignore error, continue on with test */
->  		}
->  
->  err_vma:
-> -- 
-> 2.20.1
-> 
-> _______________________________________________
-> Intel-gfx mailing list
-> Intel-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/intel-gfx
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
