@@ -2,53 +2,53 @@ Return-Path: <SRS0=xLvN=CV=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.9 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 52577C433E2
-	for <intel-gfx@archiver.kernel.org>; Sat, 12 Sep 2020 03:21:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AC83BC433E2
+	for <intel-gfx@archiver.kernel.org>; Sat, 12 Sep 2020 03:28:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DE3AB2083E
-	for <intel-gfx@archiver.kernel.org>; Sat, 12 Sep 2020 03:21:07 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="POSXWmPe"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DE3AB2083E
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org
+	by mail.kernel.org (Postfix) with ESMTPS id 3FDE7221E7
+	for <intel-gfx@archiver.kernel.org>; Sat, 12 Sep 2020 03:28:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3FDE7221E7
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 84B466E046;
-	Sat, 12 Sep 2020 03:21:07 +0000 (UTC)
-Received: from casper.infradead.org (casper.infradead.org
- [IPv6:2001:8b0:10b:1236::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D394B6E046
- for <intel-gfx@lists.freedesktop.org>; Sat, 12 Sep 2020 03:21:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=3XyNqMnXE3dOK2LZAXqfj7lb32o+C6Csf8Brn5Bb450=; b=POSXWmPe4sISzgZQH+wc1kFuN3
- zmQW6gC6mLwro2U2FtHW7Sq93S+VHIBsct6sWrOaNPkyAQFzzqNf8xvDFwDMjm9G5OBLpip/L2MCw
- 2hgEDnwZb400PZWOBSnVpoQJXOd33tlbN5YkfZGu7uS9j2nvE7pEH4Zr6Eg0MhTouPNg+RPUrpqXd
- rPj6X2GCPbfbcGJ7tF3ijPy4hbLotRMAy/KayY7tFS0lna10TRTjm1hPkjAVjVF4clTnF+G0+t5Ua
- DN0oTTARMku5+xwm3lRWb1U1vQmFiBoUDSzwq1nbBeRykblqL6AYaT3brtZD134pn2pzNW7IjXeDe
- RAIxAAgQ==;
-Received: from willy by casper.infradead.org with local (Exim 4.92.3 #3 (Red
- Hat Linux)) id 1kGw5i-0006YH-Ck; Sat, 12 Sep 2020 03:20:42 +0000
-Date: Sat, 12 Sep 2020 04:20:42 +0100
-From: Matthew Wilcox <willy@infradead.org>
-To: linux-mm@kvack.org
-Message-ID: <20200912032042.GA6583@casper.infradead.org>
-References: <20200910183318.20139-1-willy@infradead.org>
- <20200910183318.20139-8-willy@infradead.org>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200910183318.20139-8-willy@infradead.org>
-Subject: Re: [Intel-gfx] [PATCH v2 7/8] mm/shmem: Return head page from
- find_lock_entry
+	by gabe.freedesktop.org (Postfix) with ESMTP id 88B4F6E081;
+	Sat, 12 Sep 2020 03:28:10 +0000 (UTC)
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7205E6E081
+ for <Intel-gfx@lists.freedesktop.org>; Sat, 12 Sep 2020 03:28:09 +0000 (UTC)
+IronPort-SDR: SqGhw41FweP6PR5GNiR7irKqQE+uL/aSuT/lxEayd7tJ7BYMRNIhJW8nqAuHbyoXZXUh9nsbCc
+ qiQC/9uOrU1g==
+X-IronPort-AV: E=McAfee;i="6000,8403,9741"; a="220441584"
+X-IronPort-AV: E=Sophos;i="5.76,418,1592895600"; d="scan'208";a="220441584"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Sep 2020 20:28:06 -0700
+IronPort-SDR: xQh4118GOqs/1+PyAwnEcCygSu27/CDuu8TcRwx3fsmE9n57zbqAAeMWgr4sB3HFl6MHKfMTtZ
+ ixIYv4R2yRVw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.76,418,1592895600"; d="scan'208";a="408321393"
+Received: from allen-box.sh.intel.com ([10.239.159.139])
+ by fmsmga001.fm.intel.com with ESMTP; 11 Sep 2020 20:28:03 -0700
+From: Lu Baolu <baolu.lu@linux.intel.com>
+To: Joerg Roedel <joro@8bytes.org>, Tom Murphy <murphyt7@tcd.ie>,
+ David Woodhouse <dwmw2@infradead.org>,
+ Christoph Hellwig <hch@infradead.org>
+Date: Sat, 12 Sep 2020 11:21:55 +0800
+Message-Id: <20200912032200.11489-2-baolu.lu@linux.intel.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20200912032200.11489-1-baolu.lu@linux.intel.com>
+References: <20200912032200.11489-1-baolu.lu@linux.intel.com>
+Subject: [Intel-gfx] [PATCH v3 1/6] iommu: Handle freelists when using
+ deferred flushing in iommu drivers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,167 +61,268 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, Huang Ying <ying.huang@intel.com>,
- Hugh Dickins <hughd@google.com>, linux-kernel@vger.kernel.org,
- Chris Wilson <chris@chris-wilson.co.uk>,
- William Kucharski <william.kucharski@oracle.com>,
- Matthew Auld <matthew.auld@intel.com>, Johannes Weiner <hannes@cmpxchg.org>,
- cgroups@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
- Alexey Dobriyan <adobriyan@gmail.com>
+Cc: Ashok Raj <ashok.raj@intel.com>, Intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, iommu@lists.linux-foundation.org,
+ Lu Baolu <baolu.lu@linux.intel.com>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Sep 10, 2020 at 07:33:17PM +0100, Matthew Wilcox (Oracle) wrote:
-> Convert shmem_getpage_gfp() (the only remaining caller of
-> find_lock_entry()) to cope with a head page being returned instead of
-> the subpage for the index.
+From: Tom Murphy <murphyt7@tcd.ie>
 
-This version was buggy.  Apparently I was too focused on running the test suite against XFS and neglected to run it against tmpfs, which crashed instantly.
+Allow the iommu_unmap_fast to return newly freed page table pages and
+pass the freelist to queue_iova in the dma-iommu ops path.
 
-Here's the patch I should have sent.
+This is useful for iommu drivers (in this case the intel iommu driver)
+which need to wait for the ioTLB to be flushed before newly
+free/unmapped page table pages can be freed. This way we can still batch
+ioTLB free operations and handle the freelists.
 
-commit 7bfa655881da76f3386e6d4c07e38a165b4a6ca8
-Author: Matthew Wilcox (Oracle) <willy@infradead.org>
-Date:   Sun Aug 2 07:22:34 2020 -0400
+Signed-off-by: Tom Murphy <murphyt7@tcd.ie>
+Signed-off-by: Lu Baolu <baolu.lu@linux.intel.com>
+---
+ drivers/iommu/dma-iommu.c   | 30 ++++++++++++++------
+ drivers/iommu/intel/iommu.c | 55 ++++++++++++++++++++++++-------------
+ include/linux/iommu.h       |  1 +
+ 3 files changed, 59 insertions(+), 27 deletions(-)
 
-    mm/shmem: Return head page from find_lock_entry
-    
-    Convert shmem_getpage_gfp() (the only remaining caller of
-    find_lock_entry()) to cope with a head page being returned instead of
-    the subpage for the index.
-    
-    Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
-
-diff --git a/include/linux/pagemap.h b/include/linux/pagemap.h
-index 905a64030647..f374618b2c93 100644
---- a/include/linux/pagemap.h
-+++ b/include/linux/pagemap.h
-@@ -371,6 +371,15 @@ static inline struct page *grab_cache_page_nowait(struct address_space *mapping,
- 			mapping_gfp_mask(mapping));
- }
+diff --git a/drivers/iommu/dma-iommu.c b/drivers/iommu/dma-iommu.c
+index 5141d49a046b..82c071b2d5c8 100644
+--- a/drivers/iommu/dma-iommu.c
++++ b/drivers/iommu/dma-iommu.c
+@@ -50,6 +50,18 @@ struct iommu_dma_cookie {
+ 	struct iommu_domain		*fq_domain;
+ };
  
-+/* Does this page contain this index? */
-+static inline bool thp_contains(struct page *head, pgoff_t index)
++static void iommu_dma_entry_dtor(unsigned long data)
 +{
-+	/* HugeTLBfs indexes the page cache in units of hpage_size */
-+	if (PageHuge(head))
-+		return head->index == index;
-+	return page_index(head) == (index & ~(thp_nr_pages(head) - 1UL));
++	struct page *freelist = (struct page *)data;
++
++	while (freelist) {
++		unsigned long p = (unsigned long)page_address(freelist);
++
++		freelist = freelist->freelist;
++		free_page(p);
++	}
 +}
 +
- /*
-  * Given the page we found in the page cache, return the page corresponding
-  * to this index in the file
-diff --git a/mm/filemap.c b/mm/filemap.c
-index 2f134383b0ae..453535170b8d 100644
---- a/mm/filemap.c
-+++ b/mm/filemap.c
-@@ -1614,37 +1614,34 @@ struct page *find_get_entry(struct address_space *mapping, pgoff_t index)
+ static inline size_t cookie_msi_granule(struct iommu_dma_cookie *cookie)
+ {
+ 	if (cookie->type == IOMMU_DMA_IOVA_COOKIE)
+@@ -344,7 +356,8 @@ static int iommu_dma_init_domain(struct iommu_domain *domain, dma_addr_t base,
+ 	if (!cookie->fq_domain && !iommu_domain_get_attr(domain,
+ 			DOMAIN_ATTR_DMA_USE_FLUSH_QUEUE, &attr) && attr) {
+ 		cookie->fq_domain = domain;
+-		init_iova_flush_queue(iovad, iommu_dma_flush_iotlb_all, NULL);
++		init_iova_flush_queue(iovad, iommu_dma_flush_iotlb_all,
++				      iommu_dma_entry_dtor);
+ 	}
+ 
+ 	if (!dev)
+@@ -438,7 +451,7 @@ static dma_addr_t iommu_dma_alloc_iova(struct iommu_domain *domain,
  }
+ 
+ static void iommu_dma_free_iova(struct iommu_dma_cookie *cookie,
+-		dma_addr_t iova, size_t size)
++		dma_addr_t iova, size_t size, struct page *freelist)
+ {
+ 	struct iova_domain *iovad = &cookie->iovad;
+ 
+@@ -447,7 +460,8 @@ static void iommu_dma_free_iova(struct iommu_dma_cookie *cookie,
+ 		cookie->msi_iova -= size;
+ 	else if (cookie->fq_domain)	/* non-strict mode */
+ 		queue_iova(iovad, iova_pfn(iovad, iova),
+-				size >> iova_shift(iovad), 0);
++				size >> iova_shift(iovad),
++				(unsigned long)freelist);
+ 	else
+ 		free_iova_fast(iovad, iova_pfn(iovad, iova),
+ 				size >> iova_shift(iovad));
+@@ -472,7 +486,7 @@ static void __iommu_dma_unmap(struct device *dev, dma_addr_t dma_addr,
+ 
+ 	if (!cookie->fq_domain)
+ 		iommu_tlb_sync(domain, &iotlb_gather);
+-	iommu_dma_free_iova(cookie, dma_addr, size);
++	iommu_dma_free_iova(cookie, dma_addr, size, iotlb_gather.freelist);
+ }
+ 
+ static dma_addr_t __iommu_dma_map(struct device *dev, phys_addr_t phys,
+@@ -494,7 +508,7 @@ static dma_addr_t __iommu_dma_map(struct device *dev, phys_addr_t phys,
+ 		return DMA_MAPPING_ERROR;
+ 
+ 	if (iommu_map_atomic(domain, iova, phys - iova_off, size, prot)) {
+-		iommu_dma_free_iova(cookie, iova, size);
++		iommu_dma_free_iova(cookie, iova, size, NULL);
+ 		return DMA_MAPPING_ERROR;
+ 	}
+ 	return iova + iova_off;
+@@ -649,7 +663,7 @@ static void *iommu_dma_alloc_remap(struct device *dev, size_t size,
+ out_free_sg:
+ 	sg_free_table(&sgt);
+ out_free_iova:
+-	iommu_dma_free_iova(cookie, iova, size);
++	iommu_dma_free_iova(cookie, iova, size, NULL);
+ out_free_pages:
+ 	__iommu_dma_free_pages(pages, count);
+ 	return NULL;
+@@ -900,7 +914,7 @@ static int iommu_dma_map_sg(struct device *dev, struct scatterlist *sg,
+ 	return __finalise_sg(dev, sg, nents, iova);
+ 
+ out_free_iova:
+-	iommu_dma_free_iova(cookie, iova, iova_len);
++	iommu_dma_free_iova(cookie, iova, iova_len, NULL);
+ out_restore_sg:
+ 	__invalidate_sg(sg, nents);
+ 	return 0;
+@@ -1194,7 +1208,7 @@ static struct iommu_dma_msi_page *iommu_dma_get_msi_page(struct device *dev,
+ 	return msi_page;
+ 
+ out_free_iova:
+-	iommu_dma_free_iova(cookie, iova, size);
++	iommu_dma_free_iova(cookie, iova, size, NULL);
+ out_free_page:
+ 	kfree(msi_page);
+ 	return NULL;
+diff --git a/drivers/iommu/intel/iommu.c b/drivers/iommu/intel/iommu.c
+index 87b17bac04c2..63ee30c689a7 100644
+--- a/drivers/iommu/intel/iommu.c
++++ b/drivers/iommu/intel/iommu.c
+@@ -1208,17 +1208,17 @@ static struct page *dma_pte_clear_level(struct dmar_domain *domain, int level,
+    pages can only be freed after the IOTLB flush has been done. */
+ static struct page *domain_unmap(struct dmar_domain *domain,
+ 				 unsigned long start_pfn,
+-				 unsigned long last_pfn)
++				 unsigned long last_pfn,
++				 struct page *freelist)
+ {
+-	struct page *freelist;
+-
+ 	BUG_ON(!domain_pfn_supported(domain, start_pfn));
+ 	BUG_ON(!domain_pfn_supported(domain, last_pfn));
+ 	BUG_ON(start_pfn > last_pfn);
+ 
+ 	/* we don't need lock here; nobody else touches the iova range */
+ 	freelist = dma_pte_clear_level(domain, agaw_to_level(domain->agaw),
+-				       domain->pgd, 0, start_pfn, last_pfn, NULL);
++				       domain->pgd, 0, start_pfn, last_pfn,
++				       freelist);
+ 
+ 	/* free pgd */
+ 	if (start_pfn == 0 && last_pfn == DOMAIN_MAX_PFN(domain->gaw)) {
+@@ -1976,7 +1976,8 @@ static void domain_exit(struct dmar_domain *domain)
+ 	if (domain->pgd) {
+ 		struct page *freelist;
+ 
+-		freelist = domain_unmap(domain, 0, DOMAIN_MAX_PFN(domain->gaw));
++		freelist = domain_unmap(domain, 0,
++					DOMAIN_MAX_PFN(domain->gaw), NULL);
+ 		dma_free_pagelist(freelist);
+ 	}
+ 
+@@ -3532,7 +3533,7 @@ static void intel_unmap(struct device *dev, dma_addr_t dev_addr, size_t size)
+ 	if (dev_is_pci(dev))
+ 		pdev = to_pci_dev(dev);
+ 
+-	freelist = domain_unmap(domain, start_pfn, last_pfn);
++	freelist = domain_unmap(domain, start_pfn, last_pfn, NULL);
+ 	if (intel_iommu_strict || (pdev && pdev->untrusted) ||
+ 			!has_iova_flush_queue(&domain->iovad)) {
+ 		iommu_flush_iotlb_psi(iommu, domain, start_pfn,
+@@ -4595,7 +4596,8 @@ static int intel_iommu_memory_notifier(struct notifier_block *nb,
+ 			struct page *freelist;
+ 
+ 			freelist = domain_unmap(si_domain,
+-						start_vpfn, last_vpfn);
++						start_vpfn, last_vpfn,
++						NULL);
+ 
+ 			rcu_read_lock();
+ 			for_each_active_iommu(iommu, drhd)
+@@ -5570,10 +5572,8 @@ static size_t intel_iommu_unmap(struct iommu_domain *domain,
+ 				struct iommu_iotlb_gather *gather)
+ {
+ 	struct dmar_domain *dmar_domain = to_dmar_domain(domain);
+-	struct page *freelist = NULL;
+ 	unsigned long start_pfn, last_pfn;
+-	unsigned int npages;
+-	int iommu_id, level = 0;
++	int level = 0;
+ 
+ 	/* Cope with horrid API which requires us to unmap more than the
+ 	   size argument if it happens to be a large-page mapping. */
+@@ -5585,22 +5585,38 @@ static size_t intel_iommu_unmap(struct iommu_domain *domain,
+ 	start_pfn = iova >> VTD_PAGE_SHIFT;
+ 	last_pfn = (iova + size - 1) >> VTD_PAGE_SHIFT;
+ 
+-	freelist = domain_unmap(dmar_domain, start_pfn, last_pfn);
+-
+-	npages = last_pfn - start_pfn + 1;
+-
+-	for_each_domain_iommu(iommu_id, dmar_domain)
+-		iommu_flush_iotlb_psi(g_iommus[iommu_id], dmar_domain,
+-				      start_pfn, npages, !freelist, 0);
+-
+-	dma_free_pagelist(freelist);
++	gather->freelist = domain_unmap(dmar_domain, start_pfn,
++					last_pfn, gather->freelist);
+ 
+ 	if (dmar_domain->max_addr == iova + size)
+ 		dmar_domain->max_addr = iova;
+ 
++	iommu_iotlb_gather_add_page(domain, gather, iova, size);
++
+ 	return size;
+ }
+ 
++static void intel_iommu_tlb_sync(struct iommu_domain *domain,
++				 struct iommu_iotlb_gather *gather)
++{
++	struct dmar_domain *dmar_domain = to_dmar_domain(domain);
++	unsigned long iova_pfn = IOVA_PFN(gather->start);
++	size_t size = gather->end - gather->start;
++	unsigned long start_pfn, last_pfn;
++	unsigned long nrpages;
++	int iommu_id;
++
++	nrpages = aligned_nrpages(gather->start, size);
++	start_pfn = mm_to_dma_pfn(iova_pfn);
++	last_pfn = start_pfn + nrpages - 1;
++
++	for_each_domain_iommu(iommu_id, dmar_domain)
++		iommu_flush_iotlb_psi(g_iommus[iommu_id], dmar_domain,
++				      start_pfn, nrpages, !gather->freelist, 0);
++
++	dma_free_pagelist(gather->freelist);
++}
++
+ static phys_addr_t intel_iommu_iova_to_phys(struct iommu_domain *domain,
+ 					    dma_addr_t iova)
+ {
+@@ -6060,6 +6076,7 @@ const struct iommu_ops intel_iommu_ops = {
+ 	.aux_get_pasid		= intel_iommu_aux_get_pasid,
+ 	.map			= intel_iommu_map,
+ 	.unmap			= intel_iommu_unmap,
++	.iotlb_sync		= intel_iommu_tlb_sync,
+ 	.iova_to_phys		= intel_iommu_iova_to_phys,
+ 	.probe_device		= intel_iommu_probe_device,
+ 	.probe_finalize		= intel_iommu_probe_finalize,
+diff --git a/include/linux/iommu.h b/include/linux/iommu.h
+index fee209efb756..f0d56360a976 100644
+--- a/include/linux/iommu.h
++++ b/include/linux/iommu.h
+@@ -180,6 +180,7 @@ struct iommu_iotlb_gather {
+ 	unsigned long		start;
+ 	unsigned long		end;
+ 	size_t			pgsize;
++	struct page		*freelist;
+ };
  
  /**
-- * find_lock_entry - locate, pin and lock a page cache entry
-- * @mapping: the address_space to search
-- * @offset: the page cache index
-+ * find_lock_entry - Locate and lock a page cache entry.
-+ * @mapping: The address_space to search.
-+ * @index: The page cache index.
-  *
-- * Looks up the page cache slot at @mapping & @offset.  If there is a
-- * page cache page, it is returned locked and with an increased
-- * refcount.
-+ * Looks up the page at @mapping & @index.  If there is a page in the
-+ * cache, the head page is returned locked and with an increased refcount.
-  *
-  * If the slot holds a shadow entry of a previously evicted page, or a
-  * swap entry from shmem/tmpfs, it is returned.
-  *
-- * find_lock_entry() may sleep.
-- *
-- * Return: the found page or shadow entry, %NULL if nothing is found.
-+ * Context: May sleep.
-+ * Return: The head page or shadow entry, %NULL if nothing is found.
-  */
--struct page *find_lock_entry(struct address_space *mapping, pgoff_t offset)
-+struct page *find_lock_entry(struct address_space *mapping, pgoff_t index)
- {
- 	struct page *page;
- 
- repeat:
--	page = find_get_entry(mapping, offset);
-+	page = find_get_entry(mapping, index);
- 	if (page && !xa_is_value(page)) {
- 		lock_page(page);
- 		/* Has the page been truncated? */
--		if (unlikely(page_mapping(page) != mapping)) {
-+		if (unlikely(page->mapping != mapping)) {
- 			unlock_page(page);
- 			put_page(page);
- 			goto repeat;
- 		}
--		page = find_subpage(page, offset);
--		VM_BUG_ON_PAGE(page_to_pgoff(page) != offset, page);
-+		VM_BUG_ON_PAGE(!thp_contains(page, index), page);
- 	}
- 	return page;
- }
-diff --git a/mm/shmem.c b/mm/shmem.c
-index 271548ca20f3..58bc9e326d0d 100644
---- a/mm/shmem.c
-+++ b/mm/shmem.c
-@@ -1822,6 +1822,8 @@ static int shmem_getpage_gfp(struct inode *inode, pgoff_t index,
- 		return error;
- 	}
- 
-+	if (page)
-+		hindex = page->index;
- 	if (page && sgp == SGP_WRITE)
- 		mark_page_accessed(page);
- 
-@@ -1832,11 +1834,10 @@ static int shmem_getpage_gfp(struct inode *inode, pgoff_t index,
- 		unlock_page(page);
- 		put_page(page);
- 		page = NULL;
-+		hindex = index;
- 	}
--	if (page || sgp == SGP_READ) {
--		*pagep = page;
--		return 0;
--	}
-+	if (page || sgp == SGP_READ)
-+		goto out;
- 
- 	/*
- 	 * Fast cache lookup did not find it:
-@@ -1961,14 +1962,13 @@ static int shmem_getpage_gfp(struct inode *inode, pgoff_t index,
- 	 * it now, lest undo on failure cancel our earlier guarantee.
- 	 */
- 	if (sgp != SGP_WRITE && !PageUptodate(page)) {
--		struct page *head = compound_head(page);
- 		int i;
- 
--		for (i = 0; i < compound_nr(head); i++) {
--			clear_highpage(head + i);
--			flush_dcache_page(head + i);
-+		for (i = 0; i < compound_nr(page); i++) {
-+			clear_highpage(page + i);
-+			flush_dcache_page(page + i);
- 		}
--		SetPageUptodate(head);
-+		SetPageUptodate(page);
- 	}
- 
- 	/* Perhaps the file has been truncated since we checked */
-@@ -1984,6 +1984,7 @@ static int shmem_getpage_gfp(struct inode *inode, pgoff_t index,
- 		error = -EINVAL;
- 		goto unlock;
- 	}
-+out:
- 	*pagep = page + index - hindex;
- 	return 0;
- 
+-- 
+2.17.1
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
