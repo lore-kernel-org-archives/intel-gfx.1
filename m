@@ -7,52 +7,54 @@ X-Spam-Status: No, score=-6.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2714CC433E2
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Sep 2020 20:54:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3D68EC2BBD1
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Sep 2020 20:55:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C7D95217BA
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Sep 2020 20:54:57 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id E5EE9217BA
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Sep 2020 20:55:01 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="W4+uvZLg";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="rmUXqBTT"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C7D95217BA
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="pjt4ipoH";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="KKlXvjmR"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E5EE9217BA
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linutronix.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 115606E5A5;
-	Mon, 14 Sep 2020 20:54:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E7EB16E5A4;
+	Mon, 14 Sep 2020 20:54:56 +0000 (UTC)
+X-Greylist: delayed 586 seconds by postgrey-1.36 at gabe;
+ Mon, 14 Sep 2020 20:54:55 UTC
 Received: from galois.linutronix.de (Galois.linutronix.de
  [IPv6:2a0a:51c0:0:12e:550::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E20CC6E5A9
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BEA596E5A4
  for <intel-gfx@lists.freedesktop.org>; Mon, 14 Sep 2020 20:54:55 +0000 (UTC)
-Message-Id: <20200914204442.098732980@linutronix.de>
+Message-Id: <20200914204441.686695987@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1600116317;
+ s=2020; t=1600116312;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:  references:references;
- bh=Npom2EuTd1Uo7psEmtBh4sk2VgJVlpo8NVJUnRcKB8Y=;
- b=W4+uvZLgtQPO+glf5eld0ZiR3ISK15YAJdt6WwDfLADo+AFztlldWd6dnTxcOG/enrCJ4/
- 7u32/7TCACBuN+lo9boB/TOBAm6lrW4MkZvhScrz2WB81lO817FQoWuHqGyf0TAAuP0Ksy
- bQAQSul1hAW3wOWSLEfq17ljxGNiuOhar1IwVKgwHYhek9tw/3yrLDOa9DFoBNHou7Q8sL
- Le6TVnnkHmmXl+4IiF/zt1wPOBUG50o5ppXwlIGJ70nYtKJmMdCTQo/NKnxVnjfwqRAD6b
- vnHkPQvTNh5QiYsQhxa5/jPIbzb3YqssC6+bhpF8Ptsv7cCXWCB03aLYCfb3oA==
+ bh=RfxMqlPiepbkielPdHvAzLuC/W7nRAVZVsmDVELAHII=;
+ b=pjt4ipoHz2SR+76u/tosh7gyPxQsg2oL/bqNd6MRCV4oI1z48eqv1u70tHD6lv8me21lrp
+ r0nf9q7gfeNk/g6/mQbWoxxc6sgattZculBG7/CAEhhAosn3HO+ELh/5ZMKS01PZDGGPiV
+ 5UPGaI9uTL9WPM9r49P7uaq5wk95tawOQtkcIzkOz6iSKD5SsqVW8RpHISt5xAmsNGRf/s
+ PwQDlz+dCOVfrDUrCEkzB0vPklJs8f3/2QV6ZG5w6yyAxtpbaqFGEafdnTlhe/mPuQGW/2
+ aaWaJRqL/bLlqEm3DE9P4rm0Ldlt8ELtOtjbcIXqqOCzZO06YL/N5kw2xvNEHQ==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1600116317;
+ s=2020e; t=1600116312;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:  references:references;
- bh=Npom2EuTd1Uo7psEmtBh4sk2VgJVlpo8NVJUnRcKB8Y=;
- b=rmUXqBTTaScVxDZkMGFWRq5utqR7uYKuoMeo7quwxFSAzx9Kf0xGyQn88w3XHaSrv5KeED
- X25Q3ysRxDcMBzBA==
-Date: Mon, 14 Sep 2020 22:42:20 +0200
+ bh=RfxMqlPiepbkielPdHvAzLuC/W7nRAVZVsmDVELAHII=;
+ b=KKlXvjmRL6XVp/lLKfPN8jJGOYdGr+dBLEzJxa2pQ6HTfXoVmCn9f/zEn0x26bRx145urU
+ PFTkWVcFpRpLnPDg==
+Date: Mon, 14 Sep 2020 22:42:16 +0200
 From: Thomas Gleixner <tglx@linutronix.de>
 To: LKML <linux-kernel@vger.kernel.org>
 References: <20200914204209.256266093@linutronix.de>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [patch 11/13] drm/i915: Clenaup PREEMPT_COUNT leftovers
+Subject: [Intel-gfx] [patch 07/13] uaccess: Clenaup PREEMPT_COUNT leftovers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,7 +67,7 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Juri Lelli <juri.lelli@redhat.com>, David Airlie <airlied@linux.ie>,
+Cc: Juri Lelli <juri.lelli@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
  Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
  Lai Jiangshan <jiangshanlai@gmail.com>, dri-devel@lists.freedesktop.org,
  Ben Segall <bsegall@google.com>, linux-mm@kvack.org,
@@ -73,21 +75,20 @@ Cc: Juri Lelli <juri.lelli@redhat.com>, David Airlie <airlied@linux.ie>,
  Will Deacon <will@kernel.org>, Ingo Molnar <mingo@kernel.org>,
  Anton Ivanov <anton.ivanov@cambridgegreys.com>, linux-arch@vger.kernel.org,
  Brian Cain <bcain@codeaurora.org>, Richard Weinberger <richard@nod.at>,
- Russell King <linux@armlinux.org.uk>, Peter Zijlstra <peterz@infradead.org>,
+ Russell King <linux@armlinux.org.uk>, David Airlie <airlied@linux.ie>,
  Ingo Molnar <mingo@redhat.com>, Geert Uytterhoeven <geert@linux-m68k.org>,
- Mel Gorman <mgorman@suse.de>, Matt Turner <mattst88@gmail.com>,
- intel-gfx@lists.freedesktop.org, linux-xtensa@linux-xtensa.org,
+ Mel Gorman <mgorman@suse.de>, intel-gfx@lists.freedesktop.org,
+ Matt Turner <mattst88@gmail.com>,
+ Valentin Schneider <valentin.schneider@arm.com>, linux-xtensa@linux-xtensa.org,
  Shuah Khan <shuah@kernel.org>, "Paul E. McKenney" <paulmck@kernel.org>,
  Jeff Dike <jdike@addtoit.com>, linux-um@lists.infradead.org,
- Josh Triplett <josh@joshtriplett.org>, rcu@vger.kernel.org,
- Linus Torvalds <torvalds@linuxfoundation.org>,
+ Josh Triplett <josh@joshtriplett.org>, Steven Rostedt <rostedt@goodmis.org>,
+ rcu@vger.kernel.org, linux-m68k@lists.linux-m68k.org,
  Ivan Kokshaysky <ink@jurassic.park.msu.ru>,
- Steven Rostedt <rostedt@goodmis.org>,
  Dietmar Eggemann <dietmar.eggemann@arm.com>,
  linux-arm-kernel@lists.infradead.org, Richard Henderson <rth@twiddle.net>,
  Chris Zankel <chris@zankel.net>, Max Filippov <jcmvbkbc@gmail.com>,
- linux-m68k@lists.linux-m68k.org,
- Valentin Schneider <valentin.schneider@arm.com>, linux-alpha@vger.kernel.org,
+ Linus Torvalds <torvalds@linuxfoundation.org>, linux-alpha@vger.kernel.org,
  Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
  Andrew Morton <akpm@linux-foundation.org>,
  Daniel Bristot de Oliveira <bristot@redhat.com>
@@ -100,40 +101,25 @@ CONFIG_PREEMPT_COUNT is now unconditionally enabled and will be
 removed. Cleanup the leftovers before doing so.
 
 Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: David Airlie <airlied@linux.ie>
-Cc: Daniel Vetter <daniel@ffwll.ch>
-Cc: intel-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org
 ---
- drivers/gpu/drm/i915/Kconfig.debug |    1 -
- drivers/gpu/drm/i915/i915_utils.h  |    3 +--
- 2 files changed, 1 insertion(+), 3 deletions(-)
+ include/linux/uaccess.h |    6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
---- a/drivers/gpu/drm/i915/Kconfig.debug
-+++ b/drivers/gpu/drm/i915/Kconfig.debug
-@@ -20,7 +20,6 @@ config DRM_I915_DEBUG
- 	bool "Enable additional driver debugging"
- 	depends on DRM_I915
- 	select DEBUG_FS
--	select PREEMPT_COUNT
- 	select I2C_CHARDEV
- 	select STACKDEPOT
- 	select DRM_DP_AUX_CHARDEV
---- a/drivers/gpu/drm/i915/i915_utils.h
-+++ b/drivers/gpu/drm/i915/i915_utils.h
-@@ -337,8 +337,7 @@ wait_remaining_ms_from_jiffies(unsigned
- 						   (Wmax))
- #define wait_for(COND, MS)		_wait_for((COND), (MS) * 1000, 10, 1000)
+--- a/include/linux/uaccess.h
++++ b/include/linux/uaccess.h
+@@ -230,9 +230,9 @@ static inline bool pagefault_disabled(vo
+  *
+  * This function should only be used by the fault handlers. Other users should
+  * stick to pagefault_disabled().
+- * Please NEVER use preempt_disable() to disable the fault handler. With
+- * !CONFIG_PREEMPT_COUNT, this is like a NOP. So the handler won't be disabled.
+- * in_atomic() will report different values based on !CONFIG_PREEMPT_COUNT.
++ *
++ * Please NEVER use preempt_disable() or local_irq_disable() to disable the
++ * fault handler.
+  */
+ #define faulthandler_disabled() (pagefault_disabled() || in_atomic())
  
--/* If CONFIG_PREEMPT_COUNT is disabled, in_atomic() always reports false. */
--#if defined(CONFIG_DRM_I915_DEBUG) && defined(CONFIG_PREEMPT_COUNT)
-+#ifdef CONFIG_DRM_I915_DEBUG
- # define _WAIT_FOR_ATOMIC_CHECK(ATOMIC) WARN_ON_ONCE((ATOMIC) && !in_atomic())
- #else
- # define _WAIT_FOR_ATOMIC_CHECK(ATOMIC) do { } while (0)
 
 _______________________________________________
 Intel-gfx mailing list
