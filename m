@@ -2,56 +2,57 @@ Return-Path: <SRS0=dUrX=CX=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BD29BC433E2
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Sep 2020 20:55:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2BCBBC43461
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Sep 2020 20:55:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 78A992193E
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Sep 2020 20:55:05 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id D3976217BA
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Sep 2020 20:55:06 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="JAPA/qzJ";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="JVGAZSnC"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 78A992193E
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="0l+YgFUM";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="279035Db"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D3976217BA
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linutronix.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9A6DC6E5A9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A7F706E5AE;
 	Mon, 14 Sep 2020 20:54:58 +0000 (UTC)
 Received: from galois.linutronix.de (Galois.linutronix.de
  [IPv6:2a0a:51c0:0:12e:550::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA64E6E5AB
- for <intel-gfx@lists.freedesktop.org>; Mon, 14 Sep 2020 20:54:55 +0000 (UTC)
-Message-Id: <20200914204209.256266093@linutronix.de>
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D4DA6E5B2
+ for <intel-gfx@lists.freedesktop.org>; Mon, 14 Sep 2020 20:54:57 +0000 (UTC)
+Message-Id: <20200914204441.375753691@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1600116304;
+ s=2020; t=1600116308;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=9WPslsayaKn9l4KRCy6vC0tA0OD05xl/cJA1zjQzh9Q=;
- b=JAPA/qzJzqHcag6qcakOZ9GWUXDKy6NtfE7r1NQIWc0gTSVI1iY9yrfWEOEFzix8pmbAuS
- MuaADNs3pSiCLAI4n+a3p1Yf/IWnvCFznqLXHdFbrDe3FVowlmnsdQrS2jaIRBADVVI35z
- w4z5EtbZ4BM+lDYkm4gbkp+SUGbQKvIrUNGyKtK0Iy+a2fNL9PfeIjhLDWq/Rh541SefY6
- UEZRJAC+1zAPbDuYa0LqAwZ3otlmljq7saTqU/AENBQStLBF6lG25DUU28wlzUFRs8NAHx
- Sc5WJ3V+SMr9bgVMgPIVxmsQXr7EAdha5VH1MxCb2AQt5zljIPUjkUY/FDZVaw==
+ content-transfer-encoding:content-transfer-encoding:  references:references;
+ bh=rLyqvXX8ykRDikewrjB+k5sQeB3vmoPh6IJL9FYNd5E=;
+ b=0l+YgFUMwvopub406qnKsr3dUzMW5NPZcFv6G4XvOZEQ88/olItKzVOA4C3bYkFUtxUTsb
+ d6v+xvHY0Cf0pFi1XJzwPekHutxMnxoSPZyRNSusdIzlgBLEkcIcT5ez6oqXXsfXE4RpVG
+ z8jA+tpUmSkmgzrIuoELC0Qs0HIQUSZ+ThJunQNfgd64d5ALlWCN7spWOTKewPGG//X5uW
+ SDnsdlTigGEpi0Yk5N8j2gX8QGJXem5Feo6hcxV45cAdC1ZglVX7WyKso58nhlsjDukKbG
+ 5B5Dq7tjsGgdcRn9YcRdYTN6CFERdRtNhn2Rq0CHP4BBToJrIEpQLMh/myq27w==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1600116304;
+ s=2020e; t=1600116309;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=9WPslsayaKn9l4KRCy6vC0tA0OD05xl/cJA1zjQzh9Q=;
- b=JVGAZSnCuZ9YvnhwM1nsyY3Yl860vCMg1V49xOerJHh7jF1cfp3RkRkcmNc+b0cld1O3y+
- vBmqvqKHtYT11hAw==
-Date: Mon, 14 Sep 2020 22:42:09 +0200
+ content-transfer-encoding:content-transfer-encoding:  references:references;
+ bh=rLyqvXX8ykRDikewrjB+k5sQeB3vmoPh6IJL9FYNd5E=;
+ b=279035DbbzR5rrA/oYFZOR6A7RqYHpogOyqAAY71fcsTyj3GPke7oTdjeG6zebT9b9iXf2
+ aR4ImfvLkgSxNvBg==
+Date: Mon, 14 Sep 2020 22:42:13 +0200
 From: Thomas Gleixner <tglx@linutronix.de>
 To: LKML <linux-kernel@vger.kernel.org>
+References: <20200914204209.256266093@linutronix.de>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [patch 00/13] preempt: Make preempt count unconditional
+Subject: [Intel-gfx] [patch 04/13] lockdep: Clenaup PREEMPT_COUNT leftovers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,108 +95,49 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Folks!
+CONFIG_PREEMPT_COUNT is now unconditionally enabled and will be
+removed. Cleanup the leftovers before doing so.
 
-While working on various preempt count related things, I stumbled (again)
-over the inconsistency of our preempt count handling.
-
-The handling of preempt_count() is inconsistent accross kernel
-configurations. On kernels which have PREEMPT_COUNT=n
-preempt_disable/enable() and the lock/unlock functions are not affecting
-the preempt count, only local_bh_disable/enable() and _bh variants of
-locking, soft interrupt delivery, hard interrupt and NMI context affect it.
-
-It's therefore impossible to have a consistent set of checks which provide
-information about the context in which a function is called. In many cases
-it makes sense to have seperate functions for seperate contexts, but there
-are valid reasons to avoid that and handle different calling contexts
-conditionally.
-
-The lack of such indicators which work on all kernel configuratios is a
-constant source of trouble because developers either do not understand the
-implications or try to work around this inconsistency in weird
-ways. Neither seem these issues be catched by reviewers and testing.
-
-Recently merged code does:
-
-	 gfp = preemptible() ? GFP_KERNEL : GFP_ATOMIC;
-
-Looks obviously correct, except for the fact that preemptible() is
-unconditionally false for CONFIF_PREEMPT_COUNT=n, i.e. all allocations in
-that code use GFP_ATOMIC on such kernels.
-
-Attempts to make preempt count unconditional and consistent have been
-rejected in the past with handwaving performance arguments.
-
-Freshly conducted benchmarks did not reveal any measurable impact from
-enabling preempt count unconditionally. On kernels with CONFIG_PREEMPT_NONE
-or CONFIG_PREEMPT_VOLUNTARY the preempt count is only incremented and
-decremented but the result of the decrement is not tested. Contrary to that
-enabling CONFIG_PREEMPT which tests the result has a small but measurable
-impact due to the conditional branch/call.
-
-It's about time to make essential functionality of the kernel consistent
-accross the various preemption models.
-
-The series is also available from git:
-
-   git://git.kernel.org/pub/scm/linux/kernel/git/tglx/devel.git preempt
-
-That's the first part of a larger effort related to preempt count:
-
- 1) The analysis of the usage sites of in_interrupt(), in_atomic(),
-    in_softirq() is still ongoing, but so far the number of buggy users is
-    clearly the vast majority. There will be seperate patch series
-    (currently 46 and counting) to address these issues once the analysis
-    is complete in the next days.
-
- 2) The long discussed state tracking of local irq disable in preempt count
-    which accounts interrupt disabled sections as atomic and avoids issuing
-    costly instructions (sti, cli, popf or their non X86 counterparts) when
-    the state does not change, i.e. nested irq_save() or irq_restore(). I
-    have this working on X86 already and contrary to my earlier attempts
-    this was reasonably straight forward due to the recent entry/exit code
-    consolidation.
-
-    What I've not done yet is to optimize the preempt count handling
-    of the [un]lock_irq* operations so they handle the interrupt disabled
-    state and the preempt count modification in one go. That's an obvious
-    add on, but correctness first ...
-
- 3) Lazy interrupt disabling as a straight forward extension to #2. This
-    avoids the actual disabling at the CPU level completely and catches an
-    incoming interrupt in the low level entry code, modifies the interrupt
-    disabled state on the return stack, notes the interrupt as pending in
-    software and raises it again when interrupts are reenabled. This has
-    still a few issues which I'm hunting down (cpuidle is unhappy ...)
-
-Thanks,
-
-	tglx
+Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
+Cc: Peter Zijlstra <peterz@infradead.org>
+Cc: Ingo Molnar <mingo@kernel.org>
+Cc: Will Deacon <will@kernel.org>
 ---
- arch/arm/include/asm/assembler.h                                 |   11 --
- arch/arm/kernel/iwmmxt.S                                         |    2 
- arch/arm/mach-ep93xx/crunch-bits.S                               |    2 
- arch/xtensa/kernel/entry.S                                       |    2 
- drivers/gpu/drm/i915/Kconfig.debug                               |    1 
- drivers/gpu/drm/i915/i915_utils.h                                |    3 
- include/linux/bit_spinlock.h                                     |    4 -
- include/linux/lockdep.h                                          |    6 -
- include/linux/pagemap.h                                          |    4 -
- include/linux/preempt.h                                          |   37 +---------
- include/linux/uaccess.h                                          |    6 -
- kernel/Kconfig.preempt                                           |    4 -
- kernel/sched/core.c                                              |    6 -
- lib/Kconfig.debug                                                |    3 
- lib/Kconfig.debug.rej                                            |   14 +--
- tools/testing/selftests/rcutorture/configs/rcu/SRCU-t            |    1 
- tools/testing/selftests/rcutorture/configs/rcu/SRCU-u            |    1 
- tools/testing/selftests/rcutorture/configs/rcu/TINY01            |    1 
- tools/testing/selftests/rcutorture/doc/TINY_RCU.txt              |    5 -
- tools/testing/selftests/rcutorture/doc/TREE_RCU-kconfig.txt      |    1 
- tools/testing/selftests/rcutorture/formal/srcu-cbmc/src/config.h |    1 
- 21 files changed, 23 insertions(+), 92 deletions(-)
+ include/linux/lockdep.h |    6 ++----
+ lib/Kconfig.debug       |    1 -
+ 2 files changed, 2 insertions(+), 5 deletions(-)
 
+--- a/include/linux/lockdep.h
++++ b/include/linux/lockdep.h
+@@ -585,16 +585,14 @@ do {									\
+ 
+ #define lockdep_assert_preemption_enabled()				\
+ do {									\
+-	WARN_ON_ONCE(IS_ENABLED(CONFIG_PREEMPT_COUNT)	&&		\
+-		     debug_locks			&&		\
++	WARN_ON_ONCE(debug_locks			&&		\
+ 		     (preempt_count() != 0		||		\
+ 		      !raw_cpu_read(hardirqs_enabled)));		\
+ } while (0)
+ 
+ #define lockdep_assert_preemption_disabled()				\
+ do {									\
+-	WARN_ON_ONCE(IS_ENABLED(CONFIG_PREEMPT_COUNT)	&&		\
+-		     debug_locks			&&		\
++	WARN_ON_ONCE(debug_locks			&&		\
+ 		     (preempt_count() == 0		&&		\
+ 		      raw_cpu_read(hardirqs_enabled)));			\
+ } while (0)
+--- a/lib/Kconfig.debug
++++ b/lib/Kconfig.debug
+@@ -1161,7 +1161,6 @@ config PROVE_LOCKING
+ 	select DEBUG_RWSEMS
+ 	select DEBUG_WW_MUTEX_SLOWPATH
+ 	select DEBUG_LOCK_ALLOC
+-	select PREEMPT_COUNT
+ 	select TRACE_IRQFLAGS
+ 	default n
+ 	help
 
 _______________________________________________
 Intel-gfx mailing list
