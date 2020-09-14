@@ -7,54 +7,54 @@ X-Spam-Status: No, score=-6.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3D68EC2BBD1
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Sep 2020 20:55:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 306A5C433E2
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Sep 2020 20:55:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E5EE9217BA
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Sep 2020 20:55:01 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id CE8D3217BA
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Sep 2020 20:55:03 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="pjt4ipoH";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="KKlXvjmR"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E5EE9217BA
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="4P8s5xX/";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="iux8epOC"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CE8D3217BA
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linutronix.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E7EB16E5A4;
-	Mon, 14 Sep 2020 20:54:56 +0000 (UTC)
-X-Greylist: delayed 586 seconds by postgrey-1.36 at gabe;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 492286E5AB;
+	Mon, 14 Sep 2020 20:54:58 +0000 (UTC)
+X-Greylist: delayed 588 seconds by postgrey-1.36 at gabe;
  Mon, 14 Sep 2020 20:54:55 UTC
-Received: from galois.linutronix.de (Galois.linutronix.de
- [IPv6:2a0a:51c0:0:12e:550::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BEA596E5A4
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F37D06E5AE
  for <intel-gfx@lists.freedesktop.org>; Mon, 14 Sep 2020 20:54:55 +0000 (UTC)
-Message-Id: <20200914204441.686695987@linutronix.de>
+Message-Id: <20200914204441.486057928@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1600116312;
+ s=2020; t=1600116310;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:  references:references;
- bh=RfxMqlPiepbkielPdHvAzLuC/W7nRAVZVsmDVELAHII=;
- b=pjt4ipoHz2SR+76u/tosh7gyPxQsg2oL/bqNd6MRCV4oI1z48eqv1u70tHD6lv8me21lrp
- r0nf9q7gfeNk/g6/mQbWoxxc6sgattZculBG7/CAEhhAosn3HO+ELh/5ZMKS01PZDGGPiV
- 5UPGaI9uTL9WPM9r49P7uaq5wk95tawOQtkcIzkOz6iSKD5SsqVW8RpHISt5xAmsNGRf/s
- PwQDlz+dCOVfrDUrCEkzB0vPklJs8f3/2QV6ZG5w6yyAxtpbaqFGEafdnTlhe/mPuQGW/2
- aaWaJRqL/bLlqEm3DE9P4rm0Ldlt8ELtOtjbcIXqqOCzZO06YL/N5kw2xvNEHQ==
+ bh=JgtXFDXxZGfThbRDf0kz64PxO4briiyz9f7Eq57ONcE=;
+ b=4P8s5xX/bAi2a+N+CIbhQrzcX7HvFJ7S6CNHYdIstAaonGR/+Dnp1rRjEv7pyPlLgNCFYx
+ sFTsKc2IsAVS7kbywI0LEVkCa6iWPXHUhikvoBItTFVO86zjlB5Fn+D/mFFgSAQbIZQS53
+ 00ZNDy4dfDU32t9qHFMauWVHXQtP0Qojy3xvBYG6atY0csq7zU4WIhUdO5c7N/c6aLPgTC
+ Z464/mn2KP5p1MToHKTSzU6V5E1wKd/QmhgJgb7HxMSTZ+HFYru8UIB2rZH4RJycqwOVJD
+ uGhpci7usAWJWI1a0nfucwZNnQUjJHBVkOYdQoqQaJQUx9zkmrQU6A8iuIY1nA==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1600116312;
+ s=2020e; t=1600116310;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:  references:references;
- bh=RfxMqlPiepbkielPdHvAzLuC/W7nRAVZVsmDVELAHII=;
- b=KKlXvjmRL6XVp/lLKfPN8jJGOYdGr+dBLEzJxa2pQ6HTfXoVmCn9f/zEn0x26bRx145urU
- PFTkWVcFpRpLnPDg==
-Date: Mon, 14 Sep 2020 22:42:16 +0200
+ bh=JgtXFDXxZGfThbRDf0kz64PxO4briiyz9f7Eq57ONcE=;
+ b=iux8epOCVyhcOltC05jMckhTC3+4PPkpXc+cvBTMuwrFHucsc14BLoy7aSSCwXQ7rqsNPn
+ xvgdzAI0oBjN5YAA==
+Date: Mon, 14 Sep 2020 22:42:14 +0200
 From: Thomas Gleixner <tglx@linutronix.de>
 To: LKML <linux-kernel@vger.kernel.org>
 References: <20200914204209.256266093@linutronix.de>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [patch 07/13] uaccess: Clenaup PREEMPT_COUNT leftovers
+Subject: [Intel-gfx] [patch 05/13] mm/pagemap: Clenaup PREEMPT_COUNT
+ leftovers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,25 +101,25 @@ CONFIG_PREEMPT_COUNT is now unconditionally enabled and will be
 removed. Cleanup the leftovers before doing so.
 
 Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
+Cc: Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-mm@kvack.org
 ---
- include/linux/uaccess.h |    6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ include/linux/pagemap.h |    4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
---- a/include/linux/uaccess.h
-+++ b/include/linux/uaccess.h
-@@ -230,9 +230,9 @@ static inline bool pagefault_disabled(vo
-  *
-  * This function should only be used by the fault handlers. Other users should
-  * stick to pagefault_disabled().
-- * Please NEVER use preempt_disable() to disable the fault handler. With
-- * !CONFIG_PREEMPT_COUNT, this is like a NOP. So the handler won't be disabled.
-- * in_atomic() will report different values based on !CONFIG_PREEMPT_COUNT.
-+ *
-+ * Please NEVER use preempt_disable() or local_irq_disable() to disable the
-+ * fault handler.
-  */
- #define faulthandler_disabled() (pagefault_disabled() || in_atomic())
- 
+--- a/include/linux/pagemap.h
++++ b/include/linux/pagemap.h
+@@ -168,9 +168,7 @@ void release_pages(struct page **pages,
+ static inline int __page_cache_add_speculative(struct page *page, int count)
+ {
+ #ifdef CONFIG_TINY_RCU
+-# ifdef CONFIG_PREEMPT_COUNT
+-	VM_BUG_ON(!in_atomic() && !irqs_disabled());
+-# endif
++	VM_BUG_ON(preemptible())
+ 	/*
+ 	 * Preempt must be disabled here - we rely on rcu_read_lock doing
+ 	 * this for us.
 
 _______________________________________________
 Intel-gfx mailing list
