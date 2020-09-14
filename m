@@ -2,52 +2,58 @@ Return-Path: <SRS0=dUrX=CX=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.9 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-11.2 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0F3D1C2D0E1
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Sep 2020 13:13:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5DC00C433E2
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Sep 2020 13:44:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CA862208E4
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Sep 2020 13:13:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CA862208E4
+	by mail.kernel.org (Postfix) with ESMTPS id BFB70208E4
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Sep 2020 13:44:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BFB70208E4
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 493256E4A7;
-	Mon, 14 Sep 2020 13:13:24 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D32286E49F
- for <Intel-gfx@lists.freedesktop.org>; Mon, 14 Sep 2020 13:13:18 +0000 (UTC)
-IronPort-SDR: cX/0Vq41JD6m9ysjKV02AotKk97l0uM+til0eMQ0YKIVVOTha7ZFAhIH1qdBWAVhKfa5rlC3BI
- vlY64ptcgd7Q==
-X-IronPort-AV: E=McAfee;i="6000,8403,9743"; a="159113442"
-X-IronPort-AV: E=Sophos;i="5.76,426,1592895600"; d="scan'208";a="159113442"
+	by gabe.freedesktop.org (Postfix) with ESMTP id DFADA89DA9;
+	Mon, 14 Sep 2020 13:44:17 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F00589DA9
+ for <intel-gfx@lists.freedesktop.org>; Mon, 14 Sep 2020 13:44:16 +0000 (UTC)
+IronPort-SDR: i5jEnvp+fAo+UpXMt4NChsZO3reJ6Q+HRohU+bNXbltcibzG0z9rXe248iX0qqx36geRq4d3yC
+ uIFwq56VoDJg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9743"; a="158361706"
+X-IronPort-AV: E=Sophos;i="5.76,426,1592895600"; d="scan'208";a="158361706"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Sep 2020 06:13:18 -0700
-IronPort-SDR: UfbCTNqYjjPj7YSUBfUHkyMtiGh5EabLbOsjrl5gHcxTtR/nmktfuveQ//N1WW5/yj1lB7Me46
- WvMNUgKAVUSg==
-X-IronPort-AV: E=Sophos;i="5.76,426,1592895600"; d="scan'208";a="507136410"
-Received: from matancoh-mobl2.ger.corp.intel.com (HELO localhost.localdomain)
- ([10.255.198.45])
- by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Sep 2020 06:13:17 -0700
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-To: Intel-gfx@lists.freedesktop.org
-Date: Mon, 14 Sep 2020 14:12:55 +0100
-Message-Id: <20200914131256.89465-9-tvrtko.ursulin@linux.intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20200914131256.89465-1-tvrtko.ursulin@linux.intel.com>
-References: <20200914131256.89465-1-tvrtko.ursulin@linux.intel.com>
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Sep 2020 06:44:16 -0700
+IronPort-SDR: T6WWY13lCW4i2QVu+5Jp3vk46iZx6/B2pANuJ6F9vP81MetAzjSvurLf+j4Y2XHx9sKJZ5/ewY
+ tu3Hs/u855oA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.76,426,1592895600"; d="scan'208";a="343124155"
+Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.174])
+ by FMSMGA003.fm.intel.com with SMTP; 14 Sep 2020 06:44:14 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Mon, 14 Sep 2020 16:44:13 +0300
+Date: Mon, 14 Sep 2020 16:44:13 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Message-ID: <20200914134413.GL6112@intel.com>
+References: <20200206201204.31704-1-ville.syrjala@linux.intel.com>
+ <20200206201204.31704-2-ville.syrjala@linux.intel.com>
+ <87d02syyf5.fsf@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 8/9] drm/i915: Track context current active time
+Content-Disposition: inline
+In-Reply-To: <87d02syyf5.fsf@intel.com>
+X-Patchwork-Hint: comment
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Subject: Re: [Intel-gfx] [PATCH 2/2] drm/i915: Use fb->format->is_yuv for
+ the g4x+ sprite RGB vs. YUV check
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,342 +66,73 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: intel-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+On Fri, Sep 11, 2020 at 09:13:18PM +0300, Jani Nikula wrote:
+> On Thu, 06 Feb 2020, Ville Syrjala <ville.syrjala@linux.intel.com> wrote:
+> > From: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
+> >
+> > g4x+ sprites have an extra cdclk limitation listed for RGB formats.
+> > For some random reason I chose to use cpp>=3D4 as the check for that.
+> > While that does actually work let's deobfuscate it by checking
+> > for !is_yuv instead. I suspect is_yuv didn't exist way back when
+> > I originally write the code.
+> =
 
-Track context active (on hardware) status together with the start
-timestamp.
+> Mmh, there are formats with cpp >=3D 4 && is_yuv =3D=3D true making this =
+look
+> like a functional change... but I presume those are not relevant and/or
+> this change is the right thing to do anyway.
 
-This will be used to provide better granularity of context
-runtime reporting in conjunction with already tracked pphwsp accumulated
-runtime.
+This only applies to g4x/ilk/snb which only support
+YUYV/etc. (cpp=3D=3D2), and 32/64bpp RGB (cpp=3D=3D4/8).
 
-The latter is only updated on context save so does not give us visibility
-to any currently executing work.
+> =
 
-As part of the patch the existing runtime tracking data is moved under the
-new ce->stats member and updated under the seqlock. This provides the
-ability to atomically read out accumulated plus active runtime.
+> Acked-by: Jani Nikula <jani.nikula@intel.com>
+> =
 
-v2:
- * Rename and make __intel_context_get_active_time unlocked.
+> >
+> > Also drop the duplicate comment.
+> >
+> > Signed-off-by: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
+> > ---
+> >  drivers/gpu/drm/i915/display/intel_sprite.c | 4 ++--
+> >  1 file changed, 2 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/i915/display/intel_sprite.c b/drivers/gpu/=
+drm/i915/display/intel_sprite.c
+> > index 6e2e22d9bbaa..f95fe2c99468 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_sprite.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_sprite.c
+> > @@ -1624,8 +1624,8 @@ static int g4x_sprite_min_cdclk(const struct inte=
+l_crtc_state *crtc_state,
+> >  	limit -=3D decimate;
+> >  =
 
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
----
- drivers/gpu/drm/i915/gem/i915_gem_context.c   |  3 +-
- drivers/gpu/drm/i915/gt/intel_context.c       | 11 +++-
- drivers/gpu/drm/i915/gt/intel_context.h       |  6 +-
- drivers/gpu/drm/i915/gt/intel_context_types.h | 24 +++++---
- drivers/gpu/drm/i915/gt/intel_lrc.c           | 57 ++++++++++++++-----
- drivers/gpu/drm/i915/gt/selftest_lrc.c        | 10 ++--
- drivers/gpu/drm/i915/i915_drm_client.c        |  2 +-
- drivers/gpu/drm/i915/i915_gpu_error.c         |  4 +-
- 8 files changed, 84 insertions(+), 33 deletions(-)
+> >  	/* -10% for RGB */
+> > -	if (fb->format->cpp[0] >=3D 4)
+> > -		limit--; /* -10% for RGB */
+> > +	if (!fb->format->is_yuv)
+> > +		limit--;
+> >  =
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-index 8a5b36418860..1f3c33f862fb 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-@@ -262,7 +262,8 @@ static void free_engines_rcu(struct rcu_head *rcu)
- 		unsigned int class = ce->engine->uabi_class;
- 
- 		GEM_BUG_ON(class >= ARRAY_SIZE(ctx->past_runtime));
--		atomic64_add(ce->runtime.total, &ctx->past_runtime[class]);
-+		atomic64_add(ce->stats.runtime.total,
-+			     &ctx->past_runtime[class]);
- 	}
- 
- 	i915_gem_context_put(ctx);
-diff --git a/drivers/gpu/drm/i915/gt/intel_context.c b/drivers/gpu/drm/i915/gt/intel_context.c
-index d301dda1b261..471550e60a35 100644
---- a/drivers/gpu/drm/i915/gt/intel_context.c
-+++ b/drivers/gpu/drm/i915/gt/intel_context.c
-@@ -369,7 +369,7 @@ intel_context_init(struct intel_context *ce,
- 	ce->sseu = engine->sseu;
- 	ce->ring = __intel_context_ring_size(SZ_4K);
- 
--	ewma_runtime_init(&ce->runtime.avg);
-+	ewma_runtime_init(&ce->stats.runtime.avg);
- 
- 	ce->vm = i915_vm_get(engine->gt->vm);
- 
-@@ -377,6 +377,7 @@ intel_context_init(struct intel_context *ce,
- 	INIT_LIST_HEAD(&ce->signals);
- 
- 	mutex_init(&ce->pin_mutex);
-+	seqlock_init(&ce->stats.lock);
- 
- 	i915_active_init(&ce->active,
- 			 __intel_context_active, __intel_context_retire);
-@@ -493,6 +494,14 @@ struct i915_request *intel_context_create_request(struct intel_context *ce)
- 	return rq;
- }
- 
-+ktime_t __intel_context_get_active_time(struct intel_context *ce)
-+{
-+	struct intel_context_stats *stats = &ce->stats;
-+
-+	return stats->active ? ktime_sub(ktime_get(), stats->start) : 0;
-+}
-+
-+
- #if IS_ENABLED(CONFIG_DRM_I915_SELFTEST)
- #include "selftest_context.c"
- #endif
-diff --git a/drivers/gpu/drm/i915/gt/intel_context.h b/drivers/gpu/drm/i915/gt/intel_context.h
-index fda2eba81e22..1e76291485ac 100644
---- a/drivers/gpu/drm/i915/gt/intel_context.h
-+++ b/drivers/gpu/drm/i915/gt/intel_context.h
-@@ -251,7 +251,7 @@ static inline u64 intel_context_get_total_runtime_ns(struct intel_context *ce)
- 	const u32 period =
- 		RUNTIME_INFO(ce->engine->i915)->cs_timestamp_period_ns;
- 
--	return READ_ONCE(ce->runtime.total) * period;
-+	return READ_ONCE(ce->stats.runtime.total) * period;
- }
- 
- static inline u64 intel_context_get_avg_runtime_ns(struct intel_context *ce)
-@@ -259,7 +259,9 @@ static inline u64 intel_context_get_avg_runtime_ns(struct intel_context *ce)
- 	const u32 period =
- 		RUNTIME_INFO(ce->engine->i915)->cs_timestamp_period_ns;
- 
--	return mul_u32_u32(ewma_runtime_read(&ce->runtime.avg), period);
-+	return mul_u32_u32(ewma_runtime_read(&ce->stats.runtime.avg), period);
- }
- 
-+ktime_t __intel_context_get_active_time(struct intel_context *ce);
-+
- #endif /* __INTEL_CONTEXT_H__ */
-diff --git a/drivers/gpu/drm/i915/gt/intel_context_types.h b/drivers/gpu/drm/i915/gt/intel_context_types.h
-index 552cb57a2e8c..bdeb65c0f1a9 100644
---- a/drivers/gpu/drm/i915/gt/intel_context_types.h
-+++ b/drivers/gpu/drm/i915/gt/intel_context_types.h
-@@ -12,6 +12,7 @@
- #include <linux/list.h>
- #include <linux/mutex.h>
- #include <linux/types.h>
-+#include <linux/seqlock.h>
- 
- #include "i915_active_types.h"
- #include "i915_utils.h"
-@@ -81,14 +82,21 @@ struct intel_context {
- 	} lrc;
- 	u32 tag; /* cookie passed to HW to track this context on submission */
- 
--	/* Time on GPU as tracked by the hw. */
--	struct {
--		struct ewma_runtime avg;
--		u64 total;
--		u32 last;
--		I915_SELFTEST_DECLARE(u32 num_underflow);
--		I915_SELFTEST_DECLARE(u32 max_underflow);
--	} runtime;
-+	/** stats: Context GPU engine busyness tracking. */
-+	struct intel_context_stats {
-+		seqlock_t lock;
-+		bool active;
-+		ktime_t start;
-+
-+		/* Time on GPU as tracked by the hw. */
-+		struct {
-+			struct ewma_runtime avg;
-+			u64 total;
-+			u32 last;
-+			I915_SELFTEST_DECLARE(u32 num_underflow);
-+			I915_SELFTEST_DECLARE(u32 max_underflow);
-+		} runtime;
-+	} stats;
- 
- 	unsigned int active_count; /* protected by timeline->mutex */
- 
-diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
-index 0412a44f25f2..9ce123450f1e 100644
---- a/drivers/gpu/drm/i915/gt/intel_lrc.c
-+++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
-@@ -1262,7 +1262,7 @@ static void restore_default_state(struct intel_context *ce,
- 	regs = memset(ce->lrc_reg_state, 0, engine->context_size - PAGE_SIZE);
- 	execlists_init_reg_state(regs, ce, engine, ce->ring, true);
- 
--	ce->runtime.last = intel_context_get_runtime(ce);
-+	ce->stats.runtime.last = intel_context_get_runtime(ce);
- }
- 
- static void reset_active(struct i915_request *rq,
-@@ -1304,35 +1304,61 @@ static void reset_active(struct i915_request *rq,
- 	ce->lrc.desc |= CTX_DESC_FORCE_RESTORE;
- }
- 
--static void st_update_runtime_underflow(struct intel_context *ce, s32 dt)
-+static void
-+st_update_runtime_underflow(struct intel_context_stats *stats, s32 dt)
- {
- #if IS_ENABLED(CONFIG_DRM_I915_SELFTEST)
--	ce->runtime.num_underflow += dt < 0;
--	ce->runtime.max_underflow = max_t(u32, ce->runtime.max_underflow, -dt);
-+	stats->runtime.num_underflow += dt < 0;
-+	stats->runtime.max_underflow =
-+		max_t(u32, stats->runtime.max_underflow, -dt);
- #endif
- }
- 
- static void intel_context_update_runtime(struct intel_context *ce)
- {
-+	struct intel_context_stats *stats = &ce->stats;
- 	u32 old;
- 	s32 dt;
- 
- 	if (intel_context_is_barrier(ce))
- 		return;
- 
--	old = ce->runtime.last;
--	ce->runtime.last = intel_context_get_runtime(ce);
--	dt = ce->runtime.last - old;
-+	old = stats->runtime.last;
-+	stats->runtime.last = intel_context_get_runtime(ce);
-+	dt = stats->runtime.last - old;
- 
- 	if (unlikely(dt <= 0)) {
- 		CE_TRACE(ce, "runtime underflow: last=%u, new=%u, delta=%d\n",
--			 old, ce->runtime.last, dt);
--		st_update_runtime_underflow(ce, dt);
-+			 old, stats->runtime.last, dt);
-+		st_update_runtime_underflow(stats, dt);
- 		return;
- 	}
- 
--	ewma_runtime_add(&ce->runtime.avg, dt);
--	ce->runtime.total += dt;
-+	ewma_runtime_add(&stats->runtime.avg, dt);
-+	stats->runtime.total += dt;
-+}
-+
-+static void intel_context_stats_start(struct intel_context *ce)
-+{
-+	struct intel_context_stats *stats = &ce->stats;
-+	unsigned long flags;
-+
-+	write_seqlock_irqsave(&stats->lock, flags);
-+	stats->start = ktime_get();
-+	stats->active = true;
-+	write_sequnlock_irqrestore(&stats->lock, flags);
-+}
-+
-+static void intel_context_stats_stop(struct intel_context *ce)
-+{
-+	struct intel_context_stats *stats = &ce->stats;
-+	unsigned long flags;
-+
-+	write_seqlock_irqsave(&stats->lock, flags);
-+	stats->active = false;
-+	stats->start = 0;
-+	intel_context_update_runtime(ce);
-+	write_sequnlock_irqrestore(&stats->lock, flags);
- }
- 
- static inline struct intel_engine_cs *
-@@ -1410,7 +1436,7 @@ __execlists_schedule_out(struct i915_request *rq,
- 			 struct intel_engine_cs * const engine,
- 			 unsigned int ccid)
- {
--	struct intel_context * const ce = rq->context;
-+	struct intel_context *ce = rq->context;
- 
- 	/*
- 	 * NB process_csb() is not under the engine->active.lock and hence
-@@ -1436,6 +1462,7 @@ __execlists_schedule_out(struct i915_request *rq,
- 
- 	intel_context_update_runtime(ce);
- 	intel_engine_context_out(engine);
-+	intel_context_stats_stop(ce);
- 	execlists_context_status_change(rq, INTEL_CONTEXT_SCHEDULE_OUT);
- 	if (engine->fw_domain && !atomic_dec_return(&engine->fw_active))
- 		intel_uncore_forcewake_put(engine->uncore, engine->fw_domain);
-@@ -1995,15 +2022,19 @@ static unsigned long active_timeslice(const struct intel_engine_cs *engine)
- 
- static void set_timeslice(struct intel_engine_cs *engine)
- {
-+	struct intel_engine_execlists * const execlists = &engine->execlists;
- 	unsigned long duration;
- 
-+	if (*execlists->active)
-+		intel_context_stats_start((*execlists->active)->context);
-+
- 	if (!intel_engine_has_timeslices(engine))
- 		return;
- 
- 	duration = active_timeslice(engine);
- 	ENGINE_TRACE(engine, "bump timeslicing, interval:%lu", duration);
- 
--	set_timer_ms(&engine->execlists.timer, duration);
-+	set_timer_ms(&execlists->timer, duration);
- }
- 
- static void start_timeslice(struct intel_engine_cs *engine, int prio)
-diff --git a/drivers/gpu/drm/i915/gt/selftest_lrc.c b/drivers/gpu/drm/i915/gt/selftest_lrc.c
-index 95d41c01d0e0..67f8083f40a3 100644
---- a/drivers/gpu/drm/i915/gt/selftest_lrc.c
-+++ b/drivers/gpu/drm/i915/gt/selftest_lrc.c
-@@ -6381,8 +6381,8 @@ static int __live_pphwsp_runtime(struct intel_engine_cs *engine)
- 	if (IS_ERR(ce))
- 		return PTR_ERR(ce);
- 
--	ce->runtime.num_underflow = 0;
--	ce->runtime.max_underflow = 0;
-+	ce->stats.runtime.num_underflow = 0;
-+	ce->stats.runtime.max_underflow = 0;
- 
- 	do {
- 		unsigned int loop = 1024;
-@@ -6420,11 +6420,11 @@ static int __live_pphwsp_runtime(struct intel_engine_cs *engine)
- 		intel_context_get_avg_runtime_ns(ce));
- 
- 	err = 0;
--	if (ce->runtime.num_underflow) {
-+	if (ce->stats.runtime.num_underflow) {
- 		pr_err("%s: pphwsp underflow %u time(s), max %u cycles!\n",
- 		       engine->name,
--		       ce->runtime.num_underflow,
--		       ce->runtime.max_underflow);
-+		       ce->stats.runtime.num_underflow,
-+		       ce->stats.runtime.max_underflow);
- 		GEM_TRACE_DUMP();
- 		err = -EOVERFLOW;
- 	}
-diff --git a/drivers/gpu/drm/i915/i915_drm_client.c b/drivers/gpu/drm/i915/i915_drm_client.c
-index e21d97d810a5..93265d1afaef 100644
---- a/drivers/gpu/drm/i915/i915_drm_client.c
-+++ b/drivers/gpu/drm/i915/i915_drm_client.c
-@@ -67,7 +67,7 @@ pphwsp_busy_add(struct i915_gem_context *ctx, unsigned int class)
- 
- 	for_each_gem_engine(ce, engines, it) {
- 		if (ce->engine->uabi_class == class)
--			total += ce->runtime.total;
-+			total += ce->stats.runtime.total;
- 	}
- 
- 	return total;
-diff --git a/drivers/gpu/drm/i915/i915_gpu_error.c b/drivers/gpu/drm/i915/i915_gpu_error.c
-index 8e468942f943..4262a2c72617 100644
---- a/drivers/gpu/drm/i915/i915_gpu_error.c
-+++ b/drivers/gpu/drm/i915/i915_gpu_error.c
-@@ -1277,8 +1277,8 @@ static bool record_context(struct i915_gem_context_coredump *e,
- 	e->guilty = atomic_read(&ctx->guilty_count);
- 	e->active = atomic_read(&ctx->active_count);
- 
--	e->total_runtime = rq->context->runtime.total;
--	e->avg_runtime = ewma_runtime_read(&rq->context->runtime.avg);
-+	e->total_runtime = rq->context->stats.runtime.total;
-+	e->avg_runtime = ewma_runtime_read(&rq->context->stats.runtime.avg);
- 
- 	simulated = i915_gem_context_no_error_capture(ctx);
- 
--- 
-2.25.1
+> >  	/*
+> >  	 * We should also do -10% if sprite scaling is enabled
+> =
 
+> -- =
+
+> Jani Nikula, Intel Open Source Graphics Center
+
+-- =
+
+Ville Syrj=E4l=E4
+Intel
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
