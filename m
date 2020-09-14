@@ -7,52 +7,52 @@ X-Spam-Status: No, score=-6.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 24703C2BBD1
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Sep 2020 20:55:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6B069C43461
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Sep 2020 20:55:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D356E217BA
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Sep 2020 20:55:15 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 2834E217BA
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Sep 2020 20:55:17 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="RAb00Ukv";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="oQ2vMxxQ"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D356E217BA
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="akEfXSzp";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="n0Bmd855"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2834E217BA
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linutronix.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E520D6E5BE;
-	Mon, 14 Sep 2020 20:55:07 +0000 (UTC)
-Received: from galois.linutronix.de (Galois.linutronix.de
- [IPv6:2a0a:51c0:0:12e:550::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D36016E5A5
- for <intel-gfx@lists.freedesktop.org>; Mon, 14 Sep 2020 20:54:55 +0000 (UTC)
-Message-Id: <20200914204441.268144917@linutronix.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D16A26E5C0;
+	Mon, 14 Sep 2020 20:55:11 +0000 (UTC)
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7245D6E5B6
+ for <intel-gfx@lists.freedesktop.org>; Mon, 14 Sep 2020 20:54:57 +0000 (UTC)
+Message-Id: <20200914204442.204800632@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1600116307;
+ s=2020; t=1600116318;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:  references:references;
- bh=ajWUogX9TC/RhWUhRjsoMZCVU/A2PO+1RO8AbyH0tUg=;
- b=RAb00UkvZ+1mWj/+2gg0IPuBWdTR5Qbi+PQESZyHXv1CItmopUrZlAq9TSJHNYfojgGSdR
- 5BE+RuwGi8NmBr2Uw0WAJiRD0XDvAGH4BH29hgBFptKvSMxgM8BhYnqVkeljZe18eS8Ed5
- j+wrWel9v3p5Pl/2zo/iLWFZpL8ffLCpF0hxbDL1lhhrvHtpVYUFVon3VNC3R9byNCimCH
- MTjQQNKWVR8cL03iEEhtjiXUOaaZS+ZBFeiRO3utQHEcD8qTjabtmfx5AFc6r3X1IC6UeD
- rfuYAssuCjUUppwvqtWIseLtNqUKUpCUGw2/twhDQc4NjP7+Ta76nsTyO4rvQw==
+ bh=XyvC7yBudjy7gN990L1QZH9Nylf7gOC9KQ7KI91uUOM=;
+ b=akEfXSzp1aVBWTteUJmTC4HEdeDmhL7rTwjlr2U80/m0udF6LaZbKm5shVqUmJ6JtB3YW1
+ tsGgyr+hHKalavhDUn+aa/9oPdrLHUGicw8r3Op8do1j33Cs/ht56Jl83zEs5b8dMQCvBc
+ C6/6kn5IoIvp+Y6d1+5IBK6vdL1JQvpzhobOZfmqQciOLsOV1HtgraHHRnA4FCUu8Fjumo
+ a6Zvz/3FZjzglBH7nIfS9+YAfbz6fDdE5mRe5N1/ytHTH4klAK+eYBifmKyhcmAqZ6m2FG
+ 7fxbApFt+eRUp1cILIVVBYRPysDKnL96fJQsv225URI7lc5XIAqYpGiDWpx2ZQ==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1600116307;
+ s=2020e; t=1600116318;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:  references:references;
- bh=ajWUogX9TC/RhWUhRjsoMZCVU/A2PO+1RO8AbyH0tUg=;
- b=oQ2vMxxQ1S8jokngl4Em2aMbT6mff6jhwsdggEzoGhrKVDyfNVUrlVeH//sWkf+ZmBUC+x
- 4p1R9v6zXDc5VBCw==
-Date: Mon, 14 Sep 2020 22:42:12 +0200
+ bh=XyvC7yBudjy7gN990L1QZH9Nylf7gOC9KQ7KI91uUOM=;
+ b=n0Bmd855DlgSURWhypGfhEUBZgUW5/TCOXlYwxsXJg34s+YsXgJYyMc5y7W0Ht72bPwilb
+ Jio8U7PGX2lFjtAQ==
+Date: Mon, 14 Sep 2020 22:42:21 +0200
 From: Thomas Gleixner <tglx@linutronix.de>
 To: LKML <linux-kernel@vger.kernel.org>
 References: <20200914204209.256266093@linutronix.de>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [patch 03/13] preempt: Clenaup PREEMPT_COUNT leftovers
+Subject: [Intel-gfx] [patch 12/13] rcutorture: Clenaup PREEMPT_COUNT
+ leftovers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,8 +69,8 @@ Cc: Juri Lelli <juri.lelli@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
  Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
  Lai Jiangshan <jiangshanlai@gmail.com>, dri-devel@lists.freedesktop.org,
  Ben Segall <bsegall@google.com>, linux-mm@kvack.org,
- linux-kselftest@vger.kernel.org, linux-hexagon@vger.kernel.org,
- Will Deacon <will@kernel.org>, Ingo Molnar <mingo@kernel.org>,
+ Will Deacon <will@kernel.org>, linux-kselftest@vger.kernel.org,
+ Shuah Khan <shuah@kernel.org>, Ingo Molnar <mingo@kernel.org>,
  Anton Ivanov <anton.ivanov@cambridgegreys.com>, linux-arch@vger.kernel.org,
  Brian Cain <bcain@codeaurora.org>, Richard Weinberger <richard@nod.at>,
  Russell King <linux@armlinux.org.uk>, David Airlie <airlied@linux.ie>,
@@ -78,16 +78,16 @@ Cc: Juri Lelli <juri.lelli@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
  Mel Gorman <mgorman@suse.de>, intel-gfx@lists.freedesktop.org,
  Matt Turner <mattst88@gmail.com>,
  Valentin Schneider <valentin.schneider@arm.com>, linux-xtensa@linux-xtensa.org,
- Shuah Khan <shuah@kernel.org>, "Paul E. McKenney" <paulmck@kernel.org>,
- Jeff Dike <jdike@addtoit.com>, linux-um@lists.infradead.org,
+ "Paul E. McKenney" <paulmck@kernel.org>, Jeff Dike <jdike@addtoit.com>,
+ linux-alpha@vger.kernel.org, linux-um@lists.infradead.org,
  Josh Triplett <josh@joshtriplett.org>, Steven Rostedt <rostedt@goodmis.org>,
  rcu@vger.kernel.org, Linus Torvalds <torvalds@linuxfoundation.org>,
- Ivan Kokshaysky <ink@jurassic.park.msu.ru>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
  Dietmar Eggemann <dietmar.eggemann@arm.com>,
  linux-arm-kernel@lists.infradead.org, Richard Henderson <rth@twiddle.net>,
  Chris Zankel <chris@zankel.net>, Max Filippov <jcmvbkbc@gmail.com>,
- linux-m68k@lists.linux-m68k.org, linux-alpha@vger.kernel.org,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ linux-m68k@lists.linux-m68k.org, linux-hexagon@vger.kernel.org,
+ Ivan Kokshaysky <ink@jurassic.park.msu.ru>,
  Andrew Morton <akpm@linux-foundation.org>,
  Daniel Bristot de Oliveira <bristot@redhat.com>
 Content-Type: text/plain; charset="us-ascii"
@@ -99,100 +99,80 @@ CONFIG_PREEMPT_COUNT is now unconditionally enabled and will be
 removed. Cleanup the leftovers before doing so.
 
 Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
-Cc: Ingo Molnar <mingo@kernel.org>
-Cc: Peter Zijlstra <peterz@infradead.org>
-Cc: Juri Lelli <juri.lelli@redhat.com>
-Cc: Vincent Guittot <vincent.guittot@linaro.org>
-Cc: Dietmar Eggemann <dietmar.eggemann@arm.com>
+Cc: "Paul E. McKenney" <paulmck@kernel.org>
+Cc: Josh Triplett <josh@joshtriplett.org>
 Cc: Steven Rostedt <rostedt@goodmis.org>
-Cc: Ben Segall <bsegall@google.com>
-Cc: Mel Gorman <mgorman@suse.de>
-Cc: Daniel Bristot de Oliveira <bristot@redhat.com>
+Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Cc: Lai Jiangshan <jiangshanlai@gmail.com>
+Cc: Shuah Khan <shuah@kernel.org>
+Cc: rcu@vger.kernel.org
+Cc: linux-kselftest@vger.kernel.org
 ---
- include/linux/preempt.h |   37 ++++---------------------------------
- 1 file changed, 4 insertions(+), 33 deletions(-)
+ tools/testing/selftests/rcutorture/configs/rcu/SRCU-t            |    1 -
+ tools/testing/selftests/rcutorture/configs/rcu/SRCU-u            |    1 -
+ tools/testing/selftests/rcutorture/configs/rcu/TINY01            |    1 -
+ tools/testing/selftests/rcutorture/doc/TINY_RCU.txt              |    5 ++---
+ tools/testing/selftests/rcutorture/doc/TREE_RCU-kconfig.txt      |    1 -
+ tools/testing/selftests/rcutorture/formal/srcu-cbmc/src/config.h |    1 -
+ 6 files changed, 2 insertions(+), 8 deletions(-)
 
---- a/include/linux/preempt.h
-+++ b/include/linux/preempt.h
-@@ -56,8 +56,7 @@
- #define PREEMPT_DISABLED	(PREEMPT_DISABLE_OFFSET + PREEMPT_ENABLED)
+--- a/tools/testing/selftests/rcutorture/configs/rcu/SRCU-t
++++ b/tools/testing/selftests/rcutorture/configs/rcu/SRCU-t
+@@ -7,4 +7,3 @@ CONFIG_RCU_TRACE=n
+ CONFIG_DEBUG_LOCK_ALLOC=n
+ CONFIG_DEBUG_OBJECTS_RCU_HEAD=n
+ CONFIG_DEBUG_ATOMIC_SLEEP=y
+-#CHECK#CONFIG_PREEMPT_COUNT=y
+--- a/tools/testing/selftests/rcutorture/configs/rcu/SRCU-u
++++ b/tools/testing/selftests/rcutorture/configs/rcu/SRCU-u
+@@ -7,4 +7,3 @@ CONFIG_RCU_TRACE=n
+ CONFIG_DEBUG_LOCK_ALLOC=y
+ CONFIG_PROVE_LOCKING=y
+ CONFIG_DEBUG_OBJECTS_RCU_HEAD=n
+-CONFIG_PREEMPT_COUNT=n
+--- a/tools/testing/selftests/rcutorture/configs/rcu/TINY01
++++ b/tools/testing/selftests/rcutorture/configs/rcu/TINY01
+@@ -10,4 +10,3 @@ CONFIG_RCU_TRACE=n
+ #CHECK#CONFIG_RCU_STALL_COMMON=n
+ CONFIG_DEBUG_LOCK_ALLOC=n
+ CONFIG_DEBUG_OBJECTS_RCU_HEAD=n
+-CONFIG_PREEMPT_COUNT=n
+--- a/tools/testing/selftests/rcutorture/doc/TINY_RCU.txt
++++ b/tools/testing/selftests/rcutorture/doc/TINY_RCU.txt
+@@ -3,11 +3,10 @@ This document gives a brief rationale fo
  
- /*
-- * Disable preemption until the scheduler is running -- use an unconditional
-- * value so that it also works on !PREEMPT_COUNT kernels.
-+ * Disable preemption until the scheduler is running.
-  *
-  * Reset by start_kernel()->sched_init()->init_idle()->init_idle_preempt_count().
-  */
-@@ -69,7 +68,6 @@
-  *
-  *    preempt_count() == 2*PREEMPT_DISABLE_OFFSET
-  *
-- * Note: PREEMPT_DISABLE_OFFSET is 0 for !PREEMPT_COUNT kernels.
-  * Note: See finish_task_switch().
-  */
- #define FORK_PREEMPT_COUNT	(2*PREEMPT_DISABLE_OFFSET + PREEMPT_ENABLED)
-@@ -106,11 +104,7 @@
- /*
-  * The preempt_count offset after preempt_disable();
-  */
--#if defined(CONFIG_PREEMPT_COUNT)
--# define PREEMPT_DISABLE_OFFSET	PREEMPT_OFFSET
--#else
--# define PREEMPT_DISABLE_OFFSET	0
--#endif
-+#define PREEMPT_DISABLE_OFFSET	PREEMPT_OFFSET
+ Kconfig Parameters:
  
- /*
-  * The preempt_count offset after spin_lock()
-@@ -122,8 +116,8 @@
-  *
-  *  spin_lock_bh()
-  *
-- * Which need to disable both preemption (CONFIG_PREEMPT_COUNT) and
-- * softirqs, such that unlock sequences of:
-+ * Which need to disable both preemption and softirqs, such that unlock
-+ * sequences of:
-  *
-  *  spin_unlock();
-  *  local_bh_enable();
-@@ -164,8 +158,6 @@ extern void preempt_count_sub(int val);
- #define preempt_count_inc() preempt_count_add(1)
- #define preempt_count_dec() preempt_count_sub(1)
+-CONFIG_DEBUG_LOCK_ALLOC -- Do all three and none of the three.
+-CONFIG_PREEMPT_COUNT
++CONFIG_DEBUG_LOCK_ALLOC -- Do both and none of the two.
+ CONFIG_RCU_TRACE
  
--#ifdef CONFIG_PREEMPT_COUNT
--
- #define preempt_disable() \
- do { \
- 	preempt_count_inc(); \
-@@ -231,27 +223,6 @@ do { \
- 	__preempt_count_dec(); \
- } while (0)
+-The theory here is that randconfig testing will hit the other six possible
++The theory here is that randconfig testing will hit the other two possible
+ combinations of these parameters.
  
--#else /* !CONFIG_PREEMPT_COUNT */
--
--/*
-- * Even if we don't have any preemption, we need preempt disable/enable
-- * to be barriers, so that we don't have things like get_user/put_user
-- * that can cause faults and scheduling migrate into our preempt-protected
-- * region.
-- */
--#define preempt_disable()			barrier()
--#define sched_preempt_enable_no_resched()	barrier()
--#define preempt_enable_no_resched()		barrier()
--#define preempt_enable()			barrier()
--#define preempt_check_resched()			do { } while (0)
--
--#define preempt_disable_notrace()		barrier()
--#define preempt_enable_no_resched_notrace()	barrier()
--#define preempt_enable_notrace()		barrier()
--#define preemptible()				0
--
--#endif /* CONFIG_PREEMPT_COUNT */
--
- #ifdef MODULE
- /*
-  * Modules have no business playing preemption tricks.
+ 
+--- a/tools/testing/selftests/rcutorture/doc/TREE_RCU-kconfig.txt
++++ b/tools/testing/selftests/rcutorture/doc/TREE_RCU-kconfig.txt
+@@ -43,7 +43,6 @@ CONFIG_64BIT
+ 
+ 	Used only to check CONFIG_RCU_FANOUT value, inspection suffices.
+ 
+-CONFIG_PREEMPT_COUNT
+ CONFIG_PREEMPT_RCU
+ 
+ 	Redundant with CONFIG_PREEMPT, ignore.
+--- a/tools/testing/selftests/rcutorture/formal/srcu-cbmc/src/config.h
++++ b/tools/testing/selftests/rcutorture/formal/srcu-cbmc/src/config.h
+@@ -8,7 +8,6 @@
+ #undef CONFIG_HOTPLUG_CPU
+ #undef CONFIG_MODULES
+ #undef CONFIG_NO_HZ_FULL_SYSIDLE
+-#undef CONFIG_PREEMPT_COUNT
+ #undef CONFIG_PREEMPT_RCU
+ #undef CONFIG_PROVE_RCU
+ #undef CONFIG_RCU_NOCB_CPU
 
 _______________________________________________
 Intel-gfx mailing list
