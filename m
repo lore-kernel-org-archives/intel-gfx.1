@@ -2,47 +2,52 @@ Return-Path: <SRS0=dUrX=CX=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_GIT autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 207D4C43461
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Sep 2020 11:25:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3E584C2BC11
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Sep 2020 11:28:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DDFE920759
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Sep 2020 11:25:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DDFE920759
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
+	by mail.kernel.org (Postfix) with ESMTPS id C8C7F216C4
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Sep 2020 11:28:03 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="ZnFpgSWD"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C8C7F216C4
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A28C96E243;
-	Mon, 14 Sep 2020 11:25:30 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3048F6E442;
- Mon, 14 Sep 2020 11:25:27 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 0E010B0EA;
- Mon, 14 Sep 2020 11:25:41 +0000 (UTC)
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: sumit.semwal@linaro.org, christian.koenig@amd.com, daniel@ffwll.ch,
- airlied@linux.ie, sam@ravnborg.org, mark.cave-ayland@ilande.co.uk,
- kraxel@redhat.com, davem@davemloft.net, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, l.stach@pengutronix.de, linux+etnaviv@armlinux.org.uk,
- christian.gmeiner@gmail.com, jani.nikula@linux.intel.com,
- joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
- thierry.reding@gmail.com, jonathanh@nvidia.com, pawel@osciak.com,
- m.szyprowski@samsung.com, kyungmin.park@samsung.com, tfiga@chromium.org,
- mchehab@kernel.org, chris@chris-wilson.co.uk, matthew.auld@intel.com,
- thomas.hellstrom@intel.com
-Date: Mon, 14 Sep 2020 13:25:18 +0200
-Message-Id: <20200914112521.1327-1-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.28.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5408389E7B;
+	Mon, 14 Sep 2020 11:28:03 +0000 (UTC)
+Received: from casper.infradead.org (casper.infradead.org
+ [IPv6:2001:8b0:10b:1236::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 52EC889E7B
+ for <intel-gfx@lists.freedesktop.org>; Mon, 14 Sep 2020 11:28:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description;
+ bh=3a9YiCRLSdfxT+zjyDP/va2bUubeehwvzanOvcg0GxQ=; b=ZnFpgSWDEryPzF8z+fHhQ7Shl2
+ hBFm8DenBw+/t889jQOCGrpQ0rDHOLM5QHUJqsC7TICkw+13dTLpYnqWx0CdPTLoOyu8laVcTlmOI
+ yxVmM2AFdyZUGoWpMbvqHA5MZw4ppabm02Qyz8GBvL0/8wsASVW0xm3Y+5PhYEfz90lpQXdG97AoZ
+ /tzQ02AOeLp7eJnKP/zIe+sMez7ySzubAluHZ3CsL8xYtrxf6O0oJArjOA4k1S28+zlTh5aIiJELq
+ b2uZ3guQq9luXS2rnz4d3U2dyMC2M1lebD8l63wWox7AXf2XZ0FgL6q14dyqyK+5EkK3hNS7GkwPW
+ wkHTxNDA==;
+Received: from willy by casper.infradead.org with local (Exim 4.92.3 #3 (Red
+ Hat Linux)) id 1kHme2-0005if-Uf; Mon, 14 Sep 2020 11:27:39 +0000
+Date: Mon, 14 Sep 2020 12:27:38 +0100
+From: Matthew Wilcox <willy@infradead.org>
+To: kernel test robot <lkp@intel.com>
+Message-ID: <20200914112738.GM6583@casper.infradead.org>
+References: <20200910183318.20139-7-willy@infradead.org>
+ <20200914085545.GB28738@shao2-debian>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 0/3] dma-buf: Flag vmap'ed memory as system or
- I/O memory
+Content-Disposition: inline
+In-Reply-To: <20200914085545.GB28738@shao2-debian>
+Subject: Re: [Intel-gfx] [mm] 2037ab69a5: BUG:KASAN:null-ptr-deref_in_t
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,76 +60,40 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, etnaviv@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- sparclinux@vger.kernel.org, Thomas Zimmermann <tzimmermann@suse.de>,
- linux-tegra@vger.kernel.org, linux-media@vger.kernel.org
+Cc: William Kucharski <william.kucharski@oracle.com>,
+ intel-gfx@lists.freedesktop.org, Huang Ying <ying.huang@intel.com>,
+ Hugh Dickins <hughd@google.com>, linux-kernel@vger.kernel.org,
+ Chris Wilson <chris@chris-wilson.co.uk>, linux-mm@kvack.org, lkp@lists.01.org,
+ Matthew Auld <matthew.auld@intel.com>, Johannes Weiner <hannes@cmpxchg.org>,
+ cgroups@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
+ Alexey Dobriyan <adobriyan@gmail.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Dma-buf provides vmap() and vunmap() for retrieving and releasing mappings
-of dma-buf memory in kernel address space. The functions operate with plain
-addresses and the assumption is that the memory can be accessed with load
-and store operations. This is not the case on some architectures (e.g.,
-sparc64) where I/O memory can only be accessed with dedicated instructions.
+On Mon, Sep 14, 2020 at 04:55:45PM +0800, kernel test robot wrote:
+> Greeting,
+> 
+> FYI, we noticed the following commit (built with gcc-9):
+> 
+> commit: 2037ab69a5cd8afe58347135010f6160ea368dd0 ("mm: Convert find_get_entry to return the head page")
 
-This patchset introduces struct dma_buf_map, which contains the address of
-a buffer and a flag that tells whether system- or I/O-memory instructions
-are required.
+Thank you!
 
-Some background: updating the DRM framebuffer console on sparc64 makes the
-kernel panic. This is because the framebuffer memory cannot be accessed with
-system-memory instructions. We currently employ a workaround in DRM to
-address this specific problem. [1]
-
-To resolve the problem, we'd like to address it at the most common point,
-which is the dma-buf framework. The dma-buf mapping ideally knows if I/O
-instructions are required and exports this information to it's users. The
-new structure struct dma_buf_map stores the buffer address and a flag that
-signals I/O memory. Affected users of the buffer (e.g., drivers, frameworks)
-can then access the memory accordingly.
-
-This patchset only introduces struct dma_buf_map, and updates struct dma_buf
-and it's interfaces. Further patches can update dma-buf users. For example,
-there's a prototype patchset for DRM that fixes the framebuffer problem. [2]
-
-Further work: TTM, one of DRM's memory managers, already exports an
-is_iomem flag of its own. It could later be switched over to exporting struct
-dma_buf_map, thus simplifying some code. Several DRM drivers expect their
-fbdev console to operate on I/O memory. These could possibly be switched over
-to the generic fbdev emulation, as soon as the generic code uses struct
-dma_buf_map.
-
-[1] https://lore.kernel.org/dri-devel/20200725191012.GA434957@ravnborg.org/
-[2] https://lore.kernel.org/dri-devel/20200806085239.4606-1-tzimmermann@suse.de/
-
-Thomas Zimmermann (3):
-  dma-buf: Add struct dma-buf-map for storing struct dma_buf.vaddr_ptr
-  dma-buf: Use struct dma_buf_map in dma_buf_vmap() interfaces
-  dma-buf: Use struct dma_buf_map in dma_buf_vunmap() interfaces
-
- Documentation/driver-api/dma-buf.rst          |   3 +
- drivers/dma-buf/dma-buf.c                     |  40 +++---
- drivers/gpu/drm/drm_gem_cma_helper.c          |  16 ++-
- drivers/gpu/drm/drm_gem_shmem_helper.c        |  17 ++-
- drivers/gpu/drm/drm_prime.c                   |  14 +-
- drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c   |  13 +-
- drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c    |  13 +-
- .../drm/i915/gem/selftests/i915_gem_dmabuf.c  |  18 ++-
- drivers/gpu/drm/tegra/gem.c                   |  23 ++--
- .../common/videobuf2/videobuf2-dma-contig.c   |  17 ++-
- .../media/common/videobuf2/videobuf2-dma-sg.c |  19 ++-
- .../common/videobuf2/videobuf2-vmalloc.c      |  21 ++-
- include/drm/drm_prime.h                       |   5 +-
- include/linux/dma-buf-map.h                   | 126 ++++++++++++++++++
- include/linux/dma-buf.h                       |  11 +-
- 15 files changed, 274 insertions(+), 82 deletions(-)
- create mode 100644 include/linux/dma-buf-map.h
-
---
-2.28.0
+diff --git a/mm/swap_state.c b/mm/swap_state.c
+index c2fb62f660a5..a22c2430e80c 100644
+--- a/mm/swap_state.c
++++ b/mm/swap_state.c
+@@ -427,6 +427,8 @@ struct page *find_get_incore_page(struct address_space *mapping, pgoff_t index)
+ 	struct swap_info_struct *si;
+ 	struct page *page = find_get_entry(mapping, index);
+ 
++	if (!page)
++		return page;
+ 	if (!xa_is_value(page))
+ 		return find_subpage(page, index);
+ 	if (!shmem_mapping(mapping))
 
 _______________________________________________
 Intel-gfx mailing list
