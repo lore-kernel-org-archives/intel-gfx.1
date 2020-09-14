@@ -2,47 +2,57 @@ Return-Path: <SRS0=dUrX=CX=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.3 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-11.2 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7FDD7C43461
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Sep 2020 13:44:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B7D0AC433E2
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Sep 2020 13:48:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 09BE4208E4
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Sep 2020 13:44:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 09BE4208E4
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=arm.com
+	by mail.kernel.org (Postfix) with ESMTPS id 3425220E65
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Sep 2020 13:48:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3425220E65
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A7736E4C1;
-	Mon, 14 Sep 2020 13:44:33 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 9D68D6E0CB;
- Thu, 10 Sep 2020 14:21:18 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E3BEB11B3;
- Thu, 10 Sep 2020 07:21:17 -0700 (PDT)
-Received: from [10.57.40.122] (unknown [10.57.40.122])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 1B4783F66E;
- Thu, 10 Sep 2020 07:21:08 -0700 (PDT)
-To: Joe Perches <joe@perches.com>, LKML <linux-kernel@vger.kernel.org>,
- Jiri Kosina <trivial@kernel.org>
-References: <e6387578c75736d61b2fe70d9783d91329a97eb4.camel@perches.com>
-From: Robin Murphy <robin.murphy@arm.com>
-Message-ID: <9372456a-8dcf-2735-57a4-e126aa5df3a6@arm.com>
-Date: Thu, 10 Sep 2020 15:21:05 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8826F6E045;
+	Mon, 14 Sep 2020 13:48:39 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 286B46E1F8
+ for <intel-gfx@lists.freedesktop.org>; Mon, 14 Sep 2020 13:48:38 +0000 (UTC)
+IronPort-SDR: FVZGEB9POxbrAX5S6Z5UTsnRrmWBP54+TQBA+Qv/AyuhJw5Q3r8wl65Zu+qGDFk38CfSL4ws22
+ aUzaLIt61pAQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9743"; a="139091614"
+X-IronPort-AV: E=Sophos;i="5.76,426,1592895600"; d="scan'208";a="139091614"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Sep 2020 06:48:37 -0700
+IronPort-SDR: 0IIAygaBb9XBIWroyjiUYngHgoF1x5+u2cy8JnsN7+p+0cXlhlrGzOkpQ+MLTYs1KZKKTnnewt
+ 4wJvxI7WqLqw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.76,426,1592895600"; d="scan'208";a="345436176"
+Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.174])
+ by orsmga007.jf.intel.com with SMTP; 14 Sep 2020 06:48:35 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Mon, 14 Sep 2020 16:48:34 +0300
+Date: Mon, 14 Sep 2020 16:48:34 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Message-ID: <20200914134834.GM6112@intel.com>
+References: <20200206201204.31704-1-ville.syrjala@linux.intel.com>
+ <87ft7oyyvb.fsf@intel.com>
 MIME-Version: 1.0
-In-Reply-To: <e6387578c75736d61b2fe70d9783d91329a97eb4.camel@perches.com>
-Content-Language: en-GB
-X-Mailman-Approved-At: Mon, 14 Sep 2020 13:44:28 +0000
-Subject: Re: [Intel-gfx] [trivial PATCH] treewide: Convert switch/case
- fallthrough; to break; 
+Content-Disposition: inline
+In-Reply-To: <87ft7oyyvb.fsf@intel.com>
+X-Patchwork-Hint: comment
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Subject: Re: [Intel-gfx] [PATCH 1/2] drm/i915: Fix g4x+ sprite dotclock
+ limit for upscaling
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,80 +65,91 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-fbdev@vger.kernel.org, oss-drivers@netronome.com,
- nouveau@lists.freedesktop.org, alsa-devel <alsa-devel@alsa-project.org>,
- dri-devel@lists.freedesktop.org, linux-mips@vger.kernel.org,
- linux-ide@vger.kernel.org, dm-devel@redhat.com, linux-mtd@lists.infradead.org,
- linux-i2c@vger.kernel.org, sparclinux@vger.kernel.org,
- Will Deacon <will@kernel.org>, linux-afs@lists.infradead.org,
- linux-rtc@vger.kernel.org, linux-s390@vger.kernel.org,
- linux-scsi@vger.kernel.org, dccp@vger.kernel.org, linux-rdma@vger.kernel.org,
- linux-atm-general@lists.sourceforge.net, kvmarm@lists.cs.columbia.edu,
- coreteam@netfilter.org, intel-wired-lan@lists.osuosl.org,
- linux-serial@vger.kernel.org, linux-input@vger.kernel.org,
- linux-mmc@vger.kernel.org, Kees Cook <kees.cook@canonical.com>,
- linux-media@vger.kernel.org, linux-pm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
- linux-nvme@lists.infradead.org, storagedev@microchip.com,
- ceph-devel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- Nick Desaulniers <ndesaulniers@google.com>, linux-nfs@vger.kernel.org,
- linux-parisc@vger.kernel.org, netdev@vger.kernel.org,
- linux-usb@vger.kernel.org, linux-wireless@vger.kernel.org,
- linux-sctp@vger.kernel.org, iommu@lists.linux-foundation.org,
- netfilter-devel@vger.kernel.org, linux-crypto@vger.kernel.org,
- bpf@vger.kernel.org, linuxppc-dev@lists.ozlabs.org
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Cc: intel-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 2020-09-09 21:06, Joe Perches wrote:
-> fallthrough to a separate case/default label break; isn't very readable.
-> 
-> Convert pseudo-keyword fallthrough; statements to a simple break; when
-> the next label is case or default and the only statement in the next
-> label block is break;
-> 
-> Found using:
-> 
-> $ grep-2.5.4 -rP --include=*.[ch] -n "fallthrough;(\s*(case\s+\w+|default)\s*:\s*){1,7}break;" *
-> 
-> Miscellanea:
-> 
-> o Move or coalesce a couple label blocks above a default: block.
-> 
-> Signed-off-by: Joe Perches <joe@perches.com>
-> ---
-> 
-> Compiled allyesconfig x86-64 only.
-> A few files for other arches were not compiled.
-> 
+On Fri, Sep 11, 2020 at 09:03:36PM +0300, Jani Nikula wrote:
+> On Thu, 06 Feb 2020, Ville Syrjala <ville.syrjala@linux.intel.com> wrote:
+> > From: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
+> >
+> > Even if we're not doing downscaling we should account for
+> > some of the extra dotclock limitations for g4x+ sprites. In
+> > particular we must never exceed the 90% rule, and with RGB
+> > that limits actually drops to 80%.
+> >
+> > So instead of bailing out when upscaling let's clamp the
+> > scaling factor appropriately and go through the rest of
+> > calculation normally. By luck we already did the full
+> > calculations for the 1:1 case.
+> >
+> > Signed-off-by: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
+> > ---
+> >  drivers/gpu/drm/i915/display/intel_sprite.c | 3 +--
+> >  1 file changed, 1 insertion(+), 2 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/i915/display/intel_sprite.c b/drivers/gpu/=
+drm/i915/display/intel_sprite.c
+> > index 7abeefe8dce5..6e2e22d9bbaa 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_sprite.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_sprite.c
+> > @@ -1611,8 +1611,7 @@ static int g4x_sprite_min_cdclk(const struct inte=
+l_crtc_state *crtc_state,
+> >  	hscale =3D drm_rect_calc_hscale(&plane_state->uapi.src,
+> >  				      &plane_state->uapi.dst,
+> >  				      0, INT_MAX);
+> > -	if (hscale < 0x10000)
+> > -		return pixel_rate;
+> > +	hscale =3D max(hscale, 0x10000u);
+> =
 
-[...]
-> diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-> index c192544e874b..743db1abec40 100644
-> --- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-> +++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-> @@ -3777,7 +3777,7 @@ static int arm_smmu_device_hw_probe(struct arm_smmu_device *smmu)
->   	switch (FIELD_GET(IDR0_TTF, reg)) {
->   	case IDR0_TTF_AARCH32_64:
->   		smmu->ias = 40;
-> -		fallthrough;
-> +		break;
->   	case IDR0_TTF_AARCH64:
->   		break;
->   	default:
+> It bugs me that drm_rect seems to be used for both integer and 16.16
+> fixed point and whatnot.
 
-I have to say I don't really agree with the readability argument for 
-this one - a fallthrough is semantically correct here, since the first 
-case is a superset of the second. It just happens that anything we would 
-do for the common subset is implicitly assumed (there are other 
-potential cases we simply haven't added support for at the moment), thus 
-the second case is currently empty.
+In theory it can use any arbitrary precision. There are a few
+functions which do assume .0 or .16 though.
 
-This change actively obfuscates that distinction.
+> =
 
-Robin.
+> It also gives me an uneasy feeling that hscale is uint while
+> drm_rect_calc_hscale() may return -ERANGE... but I guess shouldn't
+> happen.
+
+Yeah, should not happen since we've already done this
+same calculation (+check for <0) earlier. I've occasionally
+pondered about stashing the h/vscale from that first check
+into the plane state so we wouldn't have to redo it here.
+But I never found sufficient motivation to actually do it.
+
+> =
+
+> All in all,
+> =
+
+> Reviewed-by: Jani Nikula <jani.nikula@intel.com>
+
+Ta.
+
+> =
+
+> =
+
+> >  =
+
+> >  	/* Decimation steps at 2x,4x,8x,16x */
+> >  	decimate =3D ilog2(hscale >> 16);
+> =
+
+> -- =
+
+> Jani Nikula, Intel Open Source Graphics Center
+
+-- =
+
+Ville Syrj=E4l=E4
+Intel
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
