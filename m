@@ -7,52 +7,52 @@ X-Spam-Status: No, score=-6.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9F2E0C2BC11
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Sep 2020 20:55:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 83443C43461
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Sep 2020 20:55:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5ECE32193E
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Sep 2020 20:55:11 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 3FA5C217BA
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Sep 2020 20:55:12 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="vFnjOhcm";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="JU7ChlHF"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5ECE32193E
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="3TD4iEAa";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="bHJIqI1a"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3FA5C217BA
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linutronix.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 648766E5B0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 276CA6E5B9;
 	Mon, 14 Sep 2020 20:54:59 +0000 (UTC)
 Received: from galois.linutronix.de (Galois.linutronix.de
  [IPv6:2a0a:51c0:0:12e:550::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 36C476E5AE
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5DB756E5B4
  for <intel-gfx@lists.freedesktop.org>; Mon, 14 Sep 2020 20:54:57 +0000 (UTC)
-Message-Id: <20200914204441.888971282@linutronix.de>
+Message-Id: <20200914204441.994684356@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1600116315;
+ s=2020; t=1600116316;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:  references:references;
- bh=8jOReEDZljlqa4dRpw6zeMP+ergwjtpRGdTwRrkKdMw=;
- b=vFnjOhcm6A5rkHvga94OSbt2wSr9aZ4/4+Gjp2chF1ha6JRKuOU3CNHmQq7Rg0ucK7RjRq
- d1D2Op6P1EtRbiw1cEqLOfkMOTw5M9OBQCUWIX2Vc7AfVnYS9V/tDPBpJkwrvrHwRdU1d7
- 7DUDLh3A28EHsBiZZaaiZ4XcKkxPFqmL/FjArWA/u2rDiLgyAiFFZv/ZPgW3uVZZIF0hNt
- SO4D6rz5myLzg+OIBie1VxAn7tKs9mhq1R5tw2SsZ+K8oofgfxbHrAuKz3D8rHzFCar81p
- rprjoEA30lfX7K/ss6o941PuhINzOHmOt/SOQ4kR19H9U8YiCZtP9wbcNIoZtg==
+ bh=TRrTJ1jZm0XUMVVVU/gV/azUYmKke4wyEiIzxYaskEw=;
+ b=3TD4iEAa5z0918ENIAD9UxVHjDn6ypjdORbq/o3MOziAQLn2y1ZnbIN+xIaEaHclb0As+g
+ 58l/uRb7XMMAuEbOSN2Ue4Kh8MReixiWlQi5uyvfUGUgvgpdIeI9d9iu/KlurZfPHgCQ16
+ TElbADAbR1FhIsJ8R5Mm6lfip/Blm699jZkGnbmpWLLZhJtUitEXrKx74t54p2WgINTc7J
+ Eyh7FNLevwbWXZVNvHaiTDEXkbaqKcDlPV1IJ9AaJsejXEHERuNWJg72je9bpL2lFGOLKa
+ tLZfD1PaRIHn/gSUkFHjmh94UUn70FgTc3BXS0N8kofNqvF8MBi3aOXfALZc7Q==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1600116315;
+ s=2020e; t=1600116316;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:  references:references;
- bh=8jOReEDZljlqa4dRpw6zeMP+ergwjtpRGdTwRrkKdMw=;
- b=JU7ChlHF+O/eQcV9Z/9GQyaR7D5Z3O57wqZXnRf3e7Ecka8E/GQOwYqD+fJd5CXXar201W
- f9H0fImrNN7UHEDQ==
-Date: Mon, 14 Sep 2020 22:42:18 +0200
+ bh=TRrTJ1jZm0XUMVVVU/gV/azUYmKke4wyEiIzxYaskEw=;
+ b=bHJIqI1achWaHiH5/5wVKP2PP0lec8Ju34VdhGbJlNLEqtL/PZG2iVbcTXhNbUAOwhfTJu
+ lVgqSlRYWtmPO0Bw==
+Date: Mon, 14 Sep 2020 22:42:19 +0200
 From: Thomas Gleixner <tglx@linutronix.de>
 To: LKML <linux-kernel@vger.kernel.org>
 References: <20200914204209.256266093@linutronix.de>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [patch 09/13] ARM: Clenaup PREEMPT_COUNT leftovers
+Subject: [Intel-gfx] [patch 10/13] xtensa: Clenaup PREEMPT_COUNT leftovers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,7 +68,7 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Cc: Juri Lelli <juri.lelli@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
  Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
  Lai Jiangshan <jiangshanlai@gmail.com>, dri-devel@lists.freedesktop.org,
- Ben Segall <bsegall@google.com>, linux-mm@kvack.org,
+ Ben Segall <bsegall@google.com>, Max Filippov <jcmvbkbc@gmail.com>,
  linux-kselftest@vger.kernel.org, linux-hexagon@vger.kernel.org,
  Will Deacon <will@kernel.org>, Ingo Molnar <mingo@kernel.org>,
  Anton Ivanov <anton.ivanov@cambridgegreys.com>, linux-arch@vger.kernel.org,
@@ -85,7 +85,7 @@ Cc: Juri Lelli <juri.lelli@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
  Ivan Kokshaysky <ink@jurassic.park.msu.ru>,
  Dietmar Eggemann <dietmar.eggemann@arm.com>,
  linux-arm-kernel@lists.infradead.org, Richard Henderson <rth@twiddle.net>,
- Chris Zankel <chris@zankel.net>, Max Filippov <jcmvbkbc@gmail.com>,
+ Chris Zankel <chris@zankel.net>, linux-mm@kvack.org,
  Linus Torvalds <torvalds@linuxfoundation.org>, linux-alpha@vger.kernel.org,
  Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
  Andrew Morton <akpm@linux-foundation.org>,
@@ -99,65 +99,24 @@ CONFIG_PREEMPT_COUNT is now unconditionally enabled and will be
 removed. Cleanup the leftovers before doing so.
 
 Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
-Cc: Russell King <linux@armlinux.org.uk>
-Cc: linux-arm-kernel@lists.infradead.org
+Cc: Chris Zankel <chris@zankel.net>
+Cc: Max Filippov <jcmvbkbc@gmail.com>
+Cc: linux-xtensa@linux-xtensa.org
 ---
- arch/arm/include/asm/assembler.h   |   11 -----------
- arch/arm/kernel/iwmmxt.S           |    2 --
- arch/arm/mach-ep93xx/crunch-bits.S |    2 --
- 3 files changed, 15 deletions(-)
+ arch/xtensa/kernel/entry.S |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
---- a/arch/arm/include/asm/assembler.h
-+++ b/arch/arm/include/asm/assembler.h
-@@ -212,7 +212,6 @@
- /*
-  * Increment/decrement the preempt count.
-  */
--#ifdef CONFIG_PREEMPT_COUNT
- 	.macro	inc_preempt_count, ti, tmp
- 	ldr	\tmp, [\ti, #TI_PREEMPT]	@ get preempt count
- 	add	\tmp, \tmp, #1			@ increment it
-@@ -229,16 +228,6 @@
- 	get_thread_info \ti
- 	dec_preempt_count \ti, \tmp
- 	.endm
--#else
--	.macro	inc_preempt_count, ti, tmp
--	.endm
--
--	.macro	dec_preempt_count, ti, tmp
--	.endm
--
--	.macro	dec_preempt_count_ti, ti, tmp
--	.endm
--#endif
- 
- #define USERL(l, x...)				\
- 9999:	x;					\
---- a/arch/arm/kernel/iwmmxt.S
-+++ b/arch/arm/kernel/iwmmxt.S
-@@ -94,9 +94,7 @@ ENTRY(iwmmxt_task_enable)
- 	mov	r2, r2				@ cpwait
- 	bl	concan_save
- 
--#ifdef CONFIG_PREEMPT_COUNT
- 	get_thread_info r10
--#endif
- 4:	dec_preempt_count r10, r3
- 	ret	r9				@ normal exit from exception
- 
---- a/arch/arm/mach-ep93xx/crunch-bits.S
-+++ b/arch/arm/mach-ep93xx/crunch-bits.S
-@@ -191,9 +191,7 @@ ENTRY(crunch_task_enable)
- 	cfldr64		mvdx15, [r0, #CRUNCH_MVDX15]
- 
- 1:
--#ifdef CONFIG_PREEMPT_COUNT
- 	get_thread_info r10
--#endif
- 2:	dec_preempt_count r10, r3
- 	ret	lr
- 
+--- a/arch/xtensa/kernel/entry.S
++++ b/arch/xtensa/kernel/entry.S
+@@ -819,7 +819,7 @@ ENTRY(debug_exception)
+ 	 * preemption if we have HW breakpoints to preserve DEBUGCAUSE.DBNUM
+ 	 * meaning.
+ 	 */
+-#if defined(CONFIG_PREEMPT_COUNT) && defined(CONFIG_HAVE_HW_BREAKPOINT)
++#ifdef CONFIG_HAVE_HW_BREAKPOINT
+ 	GET_THREAD_INFO(a2, a1)
+ 	l32i	a3, a2, TI_PRE_COUNT
+ 	addi	a3, a3, 1
 
 _______________________________________________
 Intel-gfx mailing list
