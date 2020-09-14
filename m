@@ -7,52 +7,52 @@ X-Spam-Status: No, score=-6.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2BCBBC43461
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Sep 2020 20:55:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A9746C2BBD1
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Sep 2020 20:55:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D3976217BA
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Sep 2020 20:55:06 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 5FD43217BA
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Sep 2020 20:55:08 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="0l+YgFUM";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="279035Db"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D3976217BA
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="RL+Gkltu";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="iut+FC9x"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5FD43217BA
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linutronix.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A7F706E5AE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E4FDA6E5B2;
 	Mon, 14 Sep 2020 20:54:58 +0000 (UTC)
-Received: from galois.linutronix.de (Galois.linutronix.de
- [IPv6:2a0a:51c0:0:12e:550::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D4DA6E5B2
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 75DDF6E5B9
  for <intel-gfx@lists.freedesktop.org>; Mon, 14 Sep 2020 20:54:57 +0000 (UTC)
-Message-Id: <20200914204441.375753691@linutronix.de>
+Message-Id: <20200914204441.579902354@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1600116308;
+ s=2020; t=1600116311;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:  references:references;
- bh=rLyqvXX8ykRDikewrjB+k5sQeB3vmoPh6IJL9FYNd5E=;
- b=0l+YgFUMwvopub406qnKsr3dUzMW5NPZcFv6G4XvOZEQ88/olItKzVOA4C3bYkFUtxUTsb
- d6v+xvHY0Cf0pFi1XJzwPekHutxMnxoSPZyRNSusdIzlgBLEkcIcT5ez6oqXXsfXE4RpVG
- z8jA+tpUmSkmgzrIuoELC0Qs0HIQUSZ+ThJunQNfgd64d5ALlWCN7spWOTKewPGG//X5uW
- SDnsdlTigGEpi0Yk5N8j2gX8QGJXem5Feo6hcxV45cAdC1ZglVX7WyKso58nhlsjDukKbG
- 5B5Dq7tjsGgdcRn9YcRdYTN6CFERdRtNhn2Rq0CHP4BBToJrIEpQLMh/myq27w==
+ bh=jSFTo2fNR1Fdj7RHwVSUWdICcz7BXx9GuxCsTljfBDc=;
+ b=RL+GkltuYzZCWy8Cl1LjhwVE2UJSR7gGP8TiZHbtSgQnmRdyXbIOVVanHwJJVoDlIcYY5Q
+ LT96l5PoSA374gjRYkYij/UgBBRwAsUNJA27/lNUFgAab0YxBGxg+IQGVFDp6i0sbydVRc
+ IgZYFrlBf+xwTJJ8aV7qkci3qtWFLu9LbGCA31a69ZP2uifgnP2luS1nAIav4nxaYCJEkQ
+ BaAeIICjaUsuG+G/c/xCj5ieBqIiGoaPVVF7QnE/PLcdRXu4uEgJ+t+EnJKscI1HXpkBnh
+ uVgfLl8V0mb6gBn4Ey5eVzZRinNAX/sDY29X2dWyf7b2WPCGws3FVkfELbK5XA==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1600116309;
+ s=2020e; t=1600116311;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:  references:references;
- bh=rLyqvXX8ykRDikewrjB+k5sQeB3vmoPh6IJL9FYNd5E=;
- b=279035DbbzR5rrA/oYFZOR6A7RqYHpogOyqAAY71fcsTyj3GPke7oTdjeG6zebT9b9iXf2
- aR4ImfvLkgSxNvBg==
-Date: Mon, 14 Sep 2020 22:42:13 +0200
+ bh=jSFTo2fNR1Fdj7RHwVSUWdICcz7BXx9GuxCsTljfBDc=;
+ b=iut+FC9xX/+WwHylk5Bo+ib2vZPOOOfiQ/k306Td/lwmjp/fN6Nz77KXB6ZCuxjuePB6sn
+ U5e1M/wY5OUVmsAw==
+Date: Mon, 14 Sep 2020 22:42:15 +0200
 From: Thomas Gleixner <tglx@linutronix.de>
 To: LKML <linux-kernel@vger.kernel.org>
 References: <20200914204209.256266093@linutronix.de>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [patch 04/13] lockdep: Clenaup PREEMPT_COUNT leftovers
+Subject: [Intel-gfx] [patch 06/13] locking/bitspinlock: Clenaup
+ PREEMPT_COUNT leftovers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,45 +99,24 @@ CONFIG_PREEMPT_COUNT is now unconditionally enabled and will be
 removed. Cleanup the leftovers before doing so.
 
 Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
-Cc: Peter Zijlstra <peterz@infradead.org>
-Cc: Ingo Molnar <mingo@kernel.org>
-Cc: Will Deacon <will@kernel.org>
 ---
- include/linux/lockdep.h |    6 ++----
- lib/Kconfig.debug       |    1 -
- 2 files changed, 2 insertions(+), 5 deletions(-)
+ include/linux/bit_spinlock.h |    4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
---- a/include/linux/lockdep.h
-+++ b/include/linux/lockdep.h
-@@ -585,16 +585,14 @@ do {									\
+--- a/include/linux/bit_spinlock.h
++++ b/include/linux/bit_spinlock.h
+@@ -90,10 +90,8 @@ static inline int bit_spin_is_locked(int
+ {
+ #if defined(CONFIG_SMP) || defined(CONFIG_DEBUG_SPINLOCK)
+ 	return test_bit(bitnum, addr);
+-#elif defined CONFIG_PREEMPT_COUNT
+-	return preempt_count();
+ #else
+-	return 1;
++	return preempt_count();
+ #endif
+ }
  
- #define lockdep_assert_preemption_enabled()				\
- do {									\
--	WARN_ON_ONCE(IS_ENABLED(CONFIG_PREEMPT_COUNT)	&&		\
--		     debug_locks			&&		\
-+	WARN_ON_ONCE(debug_locks			&&		\
- 		     (preempt_count() != 0		||		\
- 		      !raw_cpu_read(hardirqs_enabled)));		\
- } while (0)
- 
- #define lockdep_assert_preemption_disabled()				\
- do {									\
--	WARN_ON_ONCE(IS_ENABLED(CONFIG_PREEMPT_COUNT)	&&		\
--		     debug_locks			&&		\
-+	WARN_ON_ONCE(debug_locks			&&		\
- 		     (preempt_count() == 0		&&		\
- 		      raw_cpu_read(hardirqs_enabled)));			\
- } while (0)
---- a/lib/Kconfig.debug
-+++ b/lib/Kconfig.debug
-@@ -1161,7 +1161,6 @@ config PROVE_LOCKING
- 	select DEBUG_RWSEMS
- 	select DEBUG_WW_MUTEX_SLOWPATH
- 	select DEBUG_LOCK_ALLOC
--	select PREEMPT_COUNT
- 	select TRACE_IRQFLAGS
- 	default n
- 	help
 
 _______________________________________________
 Intel-gfx mailing list
