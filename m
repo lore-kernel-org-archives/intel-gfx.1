@@ -7,52 +7,52 @@ X-Spam-Status: No, score=-6.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A9746C2BBD1
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Sep 2020 20:55:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B6BAEC43461
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Sep 2020 20:55:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5FD43217BA
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Sep 2020 20:55:08 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 70D61217BA
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Sep 2020 20:55:09 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="RL+Gkltu";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="iut+FC9x"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5FD43217BA
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="A1nP+uNH";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="zdd/Mm/J"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 70D61217BA
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linutronix.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E4FDA6E5B2;
-	Mon, 14 Sep 2020 20:54:58 +0000 (UTC)
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 75DDF6E5B9
+	by gabe.freedesktop.org (Postfix) with ESMTP id 055436E5B6;
+	Mon, 14 Sep 2020 20:54:59 +0000 (UTC)
+Received: from galois.linutronix.de (Galois.linutronix.de
+ [IPv6:2a0a:51c0:0:12e:550::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A0626E5B0
  for <intel-gfx@lists.freedesktop.org>; Mon, 14 Sep 2020 20:54:57 +0000 (UTC)
-Message-Id: <20200914204441.579902354@linutronix.de>
+Message-Id: <20200914204441.794954043@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1600116311;
+ s=2020; t=1600116314;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:  references:references;
- bh=jSFTo2fNR1Fdj7RHwVSUWdICcz7BXx9GuxCsTljfBDc=;
- b=RL+GkltuYzZCWy8Cl1LjhwVE2UJSR7gGP8TiZHbtSgQnmRdyXbIOVVanHwJJVoDlIcYY5Q
- LT96l5PoSA374gjRYkYij/UgBBRwAsUNJA27/lNUFgAab0YxBGxg+IQGVFDp6i0sbydVRc
- IgZYFrlBf+xwTJJ8aV7qkci3qtWFLu9LbGCA31a69ZP2uifgnP2luS1nAIav4nxaYCJEkQ
- BaAeIICjaUsuG+G/c/xCj5ieBqIiGoaPVVF7QnE/PLcdRXu4uEgJ+t+EnJKscI1HXpkBnh
- uVgfLl8V0mb6gBn4Ey5eVzZRinNAX/sDY29X2dWyf7b2WPCGws3FVkfELbK5XA==
+ bh=7peXevktBYsFk34wm8L75T0nsPk5gnSvk+DWEgeI/Vw=;
+ b=A1nP+uNHxXIHRSaQfo4YEEBXkNc5lEKqsa3e9ZF16Mjxoy2hyJe3jYIclstpFysB9+yhkl
+ 6BJmX4d0VGhUHfrqZ99YiKgnDDEKF/0G47GYpaJrPGTpN/QZTYqN5RoutXNpp3V1eagHEd
+ 1I8+FvO96pkUL+g/chBpkTP2STb2Yp9k9TlY1hsvNnP+5yKkzdcMXCCT5WYR0aFvr/f5Gb
+ v882kTY7TgtIhZxNAl+4R3t6wwqFtSFu6vh6GWbJdLdgHmEJejAg+EXh6pguxew3F9cvUQ
+ J0Q+f/McALfJaEP6IOZ2Ph7YeDaVLv5ly5xuP3c0lVjGvOu5v8C7SFXEDbJ1bg==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1600116311;
+ s=2020e; t=1600116314;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:  references:references;
- bh=jSFTo2fNR1Fdj7RHwVSUWdICcz7BXx9GuxCsTljfBDc=;
- b=iut+FC9xX/+WwHylk5Bo+ib2vZPOOOfiQ/k306Td/lwmjp/fN6Nz77KXB6ZCuxjuePB6sn
- U5e1M/wY5OUVmsAw==
-Date: Mon, 14 Sep 2020 22:42:15 +0200
+ bh=7peXevktBYsFk34wm8L75T0nsPk5gnSvk+DWEgeI/Vw=;
+ b=zdd/Mm/JBQah2WSeC3g/P4gSriHqu9VTmesvYkyojBCblFCX+/r8LrnQYIfLtLeNfYCVhp
+ m1SdTR/ofp2HUZDQ==
+Date: Mon, 14 Sep 2020 22:42:17 +0200
 From: Thomas Gleixner <tglx@linutronix.de>
 To: LKML <linux-kernel@vger.kernel.org>
 References: <20200914204209.256266093@linutronix.de>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [patch 06/13] locking/bitspinlock: Clenaup
- PREEMPT_COUNT leftovers
+Subject: [Intel-gfx] [patch 08/13] sched: Clenaup PREEMPT_COUNT leftovers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,12 +81,12 @@ Cc: Juri Lelli <juri.lelli@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
  Shuah Khan <shuah@kernel.org>, "Paul E. McKenney" <paulmck@kernel.org>,
  Jeff Dike <jdike@addtoit.com>, linux-um@lists.infradead.org,
  Josh Triplett <josh@joshtriplett.org>, Steven Rostedt <rostedt@goodmis.org>,
- rcu@vger.kernel.org, linux-m68k@lists.linux-m68k.org,
+ rcu@vger.kernel.org, Linus Torvalds <torvalds@linuxfoundation.org>,
  Ivan Kokshaysky <ink@jurassic.park.msu.ru>,
  Dietmar Eggemann <dietmar.eggemann@arm.com>,
  linux-arm-kernel@lists.infradead.org, Richard Henderson <rth@twiddle.net>,
  Chris Zankel <chris@zankel.net>, Max Filippov <jcmvbkbc@gmail.com>,
- Linus Torvalds <torvalds@linuxfoundation.org>, linux-alpha@vger.kernel.org,
+ linux-m68k@lists.linux-m68k.org, linux-alpha@vger.kernel.org,
  Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
  Andrew Morton <akpm@linux-foundation.org>,
  Daniel Bristot de Oliveira <bristot@redhat.com>
@@ -99,24 +99,52 @@ CONFIG_PREEMPT_COUNT is now unconditionally enabled and will be
 removed. Cleanup the leftovers before doing so.
 
 Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
+Cc: Ingo Molnar <mingo@redhat.com>
+Cc: Peter Zijlstra <peterz@infradead.org>
+Cc: Juri Lelli <juri.lelli@redhat.com>
+Cc: Vincent Guittot <vincent.guittot@linaro.org>
+Cc: Dietmar Eggemann <dietmar.eggemann@arm.com>
+Cc: Steven Rostedt <rostedt@goodmis.org>
+Cc: Ben Segall <bsegall@google.com>
+Cc: Mel Gorman <mgorman@suse.de>
+Cc: Daniel Bristot de Oliveira <bristot@redhat.com>
 ---
- include/linux/bit_spinlock.h |    4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+ kernel/sched/core.c |    6 +-----
+ lib/Kconfig.debug   |    1 -
+ 2 files changed, 1 insertion(+), 6 deletions(-)
 
---- a/include/linux/bit_spinlock.h
-+++ b/include/linux/bit_spinlock.h
-@@ -90,10 +90,8 @@ static inline int bit_spin_is_locked(int
- {
- #if defined(CONFIG_SMP) || defined(CONFIG_DEBUG_SPINLOCK)
- 	return test_bit(bitnum, addr);
--#elif defined CONFIG_PREEMPT_COUNT
--	return preempt_count();
- #else
--	return 1;
-+	return preempt_count();
- #endif
- }
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -3706,8 +3706,7 @@ asmlinkage __visible void schedule_tail(
+ 	 * finish_task_switch() for details.
+ 	 *
+ 	 * finish_task_switch() will drop rq->lock() and lower preempt_count
+-	 * and the preempt_enable() will end up enabling preemption (on
+-	 * PREEMPT_COUNT kernels).
++	 * and the preempt_enable() will end up enabling preemption.
+ 	 */
  
+ 	rq = finish_task_switch(prev);
+@@ -7311,9 +7310,6 @@ void __cant_sleep(const char *file, int
+ 	if (irqs_disabled())
+ 		return;
+ 
+-	if (!IS_ENABLED(CONFIG_PREEMPT_COUNT))
+-		return;
+-
+ 	if (preempt_count() > preempt_offset)
+ 		return;
+ 
+--- a/lib/Kconfig.debug
++++ b/lib/Kconfig.debug
+@@ -1320,7 +1320,6 @@ config DEBUG_LOCKDEP
+ 
+ config DEBUG_ATOMIC_SLEEP
+ 	bool "Sleep inside atomic section checking"
+-	select PREEMPT_COUNT
+ 	depends on DEBUG_KERNEL
+ 	help
+ 	  If you say Y here, various routines which may sleep will become very
 
 _______________________________________________
 Intel-gfx mailing list
