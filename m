@@ -2,57 +2,42 @@ Return-Path: <SRS0=dUrX=CX=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-5.3 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_2 autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6B069C43461
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Sep 2020 20:55:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 249DAC2BBD1
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Sep 2020 20:55:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2834E217BA
+	by mail.kernel.org (Postfix) with ESMTPS id BD863217BA
 	for <intel-gfx@archiver.kernel.org>; Mon, 14 Sep 2020 20:55:17 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="akEfXSzp";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="n0Bmd855"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2834E217BA
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linutronix.de
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BD863217BA
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=goodmis.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D16A26E5C0;
-	Mon, 14 Sep 2020 20:55:11 +0000 (UTC)
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7245D6E5B6
- for <intel-gfx@lists.freedesktop.org>; Mon, 14 Sep 2020 20:54:57 +0000 (UTC)
-Message-Id: <20200914204442.204800632@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1600116318;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:  references:references;
- bh=XyvC7yBudjy7gN990L1QZH9Nylf7gOC9KQ7KI91uUOM=;
- b=akEfXSzp1aVBWTteUJmTC4HEdeDmhL7rTwjlr2U80/m0udF6LaZbKm5shVqUmJ6JtB3YW1
- tsGgyr+hHKalavhDUn+aa/9oPdrLHUGicw8r3Op8do1j33Cs/ht56Jl83zEs5b8dMQCvBc
- C6/6kn5IoIvp+Y6d1+5IBK6vdL1JQvpzhobOZfmqQciOLsOV1HtgraHHRnA4FCUu8Fjumo
- a6Zvz/3FZjzglBH7nIfS9+YAfbz6fDdE5mRe5N1/ytHTH4klAK+eYBifmKyhcmAqZ6m2FG
- 7fxbApFt+eRUp1cILIVVBYRPysDKnL96fJQsv225URI7lc5XIAqYpGiDWpx2ZQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1600116318;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:  references:references;
- bh=XyvC7yBudjy7gN990L1QZH9Nylf7gOC9KQ7KI91uUOM=;
- b=n0Bmd855DlgSURWhypGfhEUBZgUW5/TCOXlYwxsXJg34s+YsXgJYyMc5y7W0Ht72bPwilb
- Jio8U7PGX2lFjtAQ==
-Date: Mon, 14 Sep 2020 22:42:21 +0200
-From: Thomas Gleixner <tglx@linutronix.de>
-To: LKML <linux-kernel@vger.kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 614986E5BD;
+	Mon, 14 Sep 2020 20:55:12 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A1096E5A9;
+ Mon, 14 Sep 2020 20:54:58 +0000 (UTC)
+Received: from gandalf.local.home (cpe-66-24-58-225.stny.res.rr.com
+ [66.24.58.225])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id AB4AD21741;
+ Mon, 14 Sep 2020 20:54:53 +0000 (UTC)
+Date: Mon, 14 Sep 2020 16:54:52 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Thomas Gleixner <tglx@linutronix.de>
+Message-ID: <20200914165452.4babd92b@gandalf.local.home>
+In-Reply-To: <20200914204209.256266093@linutronix.de>
 References: <20200914204209.256266093@linutronix.de>
+X-Mailer: Claws Mail 3.17.3 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Subject: [Intel-gfx] [patch 12/13] rcutorture: Clenaup PREEMPT_COUNT
- leftovers
+Subject: Re: [Intel-gfx] [patch 00/13] preempt: Make preempt count
+ unconditional
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,11 +51,12 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Juri Lelli <juri.lelli@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
+ Linus Torvalds <torvalds@linuxfoundation.org>,
  Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
  Lai Jiangshan <jiangshanlai@gmail.com>, dri-devel@lists.freedesktop.org,
  Ben Segall <bsegall@google.com>, linux-mm@kvack.org,
- Will Deacon <will@kernel.org>, linux-kselftest@vger.kernel.org,
- Shuah Khan <shuah@kernel.org>, Ingo Molnar <mingo@kernel.org>,
+ linux-kselftest@vger.kernel.org, linux-hexagon@vger.kernel.org,
+ Will Deacon <will@kernel.org>, Ingo Molnar <mingo@kernel.org>,
  Anton Ivanov <anton.ivanov@cambridgegreys.com>, linux-arch@vger.kernel.org,
  Brian Cain <bcain@codeaurora.org>, Richard Weinberger <richard@nod.at>,
  Russell King <linux@armlinux.org.uk>, David Airlie <airlied@linux.ie>,
@@ -78,16 +64,16 @@ Cc: Juri Lelli <juri.lelli@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
  Mel Gorman <mgorman@suse.de>, intel-gfx@lists.freedesktop.org,
  Matt Turner <mattst88@gmail.com>,
  Valentin Schneider <valentin.schneider@arm.com>, linux-xtensa@linux-xtensa.org,
- "Paul E. McKenney" <paulmck@kernel.org>, Jeff Dike <jdike@addtoit.com>,
- linux-alpha@vger.kernel.org, linux-um@lists.infradead.org,
- Josh Triplett <josh@joshtriplett.org>, Steven Rostedt <rostedt@goodmis.org>,
- rcu@vger.kernel.org, Linus Torvalds <torvalds@linuxfoundation.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Shuah Khan <shuah@kernel.org>, "Paul E.
+ McKenney" <paulmck@kernel.org>, Jeff Dike <jdike@addtoit.com>,
+ linux-um@lists.infradead.org, Josh Triplett <josh@joshtriplett.org>,
+ rcu@vger.kernel.org, linux-m68k@lists.linux-m68k.org,
+ Ivan Kokshaysky <ink@jurassic.park.msu.ru>,
  Dietmar Eggemann <dietmar.eggemann@arm.com>,
  linux-arm-kernel@lists.infradead.org, Richard Henderson <rth@twiddle.net>,
  Chris Zankel <chris@zankel.net>, Max Filippov <jcmvbkbc@gmail.com>,
- linux-m68k@lists.linux-m68k.org, linux-hexagon@vger.kernel.org,
- Ivan Kokshaysky <ink@jurassic.park.msu.ru>,
+ LKML <linux-kernel@vger.kernel.org>, linux-alpha@vger.kernel.org,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
  Andrew Morton <akpm@linux-foundation.org>,
  Daniel Bristot de Oliveira <bristot@redhat.com>
 Content-Type: text/plain; charset="us-ascii"
@@ -95,85 +81,14 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-CONFIG_PREEMPT_COUNT is now unconditionally enabled and will be
-removed. Cleanup the leftovers before doing so.
+On Mon, 14 Sep 2020 22:42:09 +0200
+Thomas Gleixner <tglx@linutronix.de> wrote:
 
-Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
-Cc: "Paul E. McKenney" <paulmck@kernel.org>
-Cc: Josh Triplett <josh@joshtriplett.org>
-Cc: Steven Rostedt <rostedt@goodmis.org>
-Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: Lai Jiangshan <jiangshanlai@gmail.com>
-Cc: Shuah Khan <shuah@kernel.org>
-Cc: rcu@vger.kernel.org
-Cc: linux-kselftest@vger.kernel.org
----
- tools/testing/selftests/rcutorture/configs/rcu/SRCU-t            |    1 -
- tools/testing/selftests/rcutorture/configs/rcu/SRCU-u            |    1 -
- tools/testing/selftests/rcutorture/configs/rcu/TINY01            |    1 -
- tools/testing/selftests/rcutorture/doc/TINY_RCU.txt              |    5 ++---
- tools/testing/selftests/rcutorture/doc/TREE_RCU-kconfig.txt      |    1 -
- tools/testing/selftests/rcutorture/formal/srcu-cbmc/src/config.h |    1 -
- 6 files changed, 2 insertions(+), 8 deletions(-)
+> 21 files changed, 23 insertions(+), 92 deletions(-)
 
---- a/tools/testing/selftests/rcutorture/configs/rcu/SRCU-t
-+++ b/tools/testing/selftests/rcutorture/configs/rcu/SRCU-t
-@@ -7,4 +7,3 @@ CONFIG_RCU_TRACE=n
- CONFIG_DEBUG_LOCK_ALLOC=n
- CONFIG_DEBUG_OBJECTS_RCU_HEAD=n
- CONFIG_DEBUG_ATOMIC_SLEEP=y
--#CHECK#CONFIG_PREEMPT_COUNT=y
---- a/tools/testing/selftests/rcutorture/configs/rcu/SRCU-u
-+++ b/tools/testing/selftests/rcutorture/configs/rcu/SRCU-u
-@@ -7,4 +7,3 @@ CONFIG_RCU_TRACE=n
- CONFIG_DEBUG_LOCK_ALLOC=y
- CONFIG_PROVE_LOCKING=y
- CONFIG_DEBUG_OBJECTS_RCU_HEAD=n
--CONFIG_PREEMPT_COUNT=n
---- a/tools/testing/selftests/rcutorture/configs/rcu/TINY01
-+++ b/tools/testing/selftests/rcutorture/configs/rcu/TINY01
-@@ -10,4 +10,3 @@ CONFIG_RCU_TRACE=n
- #CHECK#CONFIG_RCU_STALL_COMMON=n
- CONFIG_DEBUG_LOCK_ALLOC=n
- CONFIG_DEBUG_OBJECTS_RCU_HEAD=n
--CONFIG_PREEMPT_COUNT=n
---- a/tools/testing/selftests/rcutorture/doc/TINY_RCU.txt
-+++ b/tools/testing/selftests/rcutorture/doc/TINY_RCU.txt
-@@ -3,11 +3,10 @@ This document gives a brief rationale fo
- 
- Kconfig Parameters:
- 
--CONFIG_DEBUG_LOCK_ALLOC -- Do all three and none of the three.
--CONFIG_PREEMPT_COUNT
-+CONFIG_DEBUG_LOCK_ALLOC -- Do both and none of the two.
- CONFIG_RCU_TRACE
- 
--The theory here is that randconfig testing will hit the other six possible
-+The theory here is that randconfig testing will hit the other two possible
- combinations of these parameters.
- 
- 
---- a/tools/testing/selftests/rcutorture/doc/TREE_RCU-kconfig.txt
-+++ b/tools/testing/selftests/rcutorture/doc/TREE_RCU-kconfig.txt
-@@ -43,7 +43,6 @@ CONFIG_64BIT
- 
- 	Used only to check CONFIG_RCU_FANOUT value, inspection suffices.
- 
--CONFIG_PREEMPT_COUNT
- CONFIG_PREEMPT_RCU
- 
- 	Redundant with CONFIG_PREEMPT, ignore.
---- a/tools/testing/selftests/rcutorture/formal/srcu-cbmc/src/config.h
-+++ b/tools/testing/selftests/rcutorture/formal/srcu-cbmc/src/config.h
-@@ -8,7 +8,6 @@
- #undef CONFIG_HOTPLUG_CPU
- #undef CONFIG_MODULES
- #undef CONFIG_NO_HZ_FULL_SYSIDLE
--#undef CONFIG_PREEMPT_COUNT
- #undef CONFIG_PREEMPT_RCU
- #undef CONFIG_PROVE_RCU
- #undef CONFIG_RCU_NOCB_CPU
+This alone makes it look promising, and hopefully acceptable by Linus :-)
 
+-- Steve
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
