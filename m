@@ -7,47 +7,47 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B40E6C2BBD1
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Sep 2020 20:25:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 059F7C433E2
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Sep 2020 20:25:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 75CCF20E65
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Sep 2020 20:25:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 75CCF20E65
+	by mail.kernel.org (Postfix) with ESMTPS id C126320E65
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Sep 2020 20:25:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C126320E65
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 15A0A6E593;
-	Mon, 14 Sep 2020 20:25:16 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A7B7D6E595
- for <intel-gfx@lists.freedesktop.org>; Mon, 14 Sep 2020 20:25:14 +0000 (UTC)
-IronPort-SDR: 1chdWzAhp53XHOA6bUAH6KxLs4gB1kDCJ6RKG8W1VyqFXEcN8wuS8ep3hZjT6EDr+xICij6ZzR
- BGkNckA5YKdg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9744"; a="223340814"
-X-IronPort-AV: E=Sophos;i="5.76,427,1592895600"; d="scan'208";a="223340814"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 614C96E58B;
+	Mon, 14 Sep 2020 20:25:19 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A41C46E595
+ for <intel-gfx@lists.freedesktop.org>; Mon, 14 Sep 2020 20:25:18 +0000 (UTC)
+IronPort-SDR: 4xYbCvPp1cFGJc71KUeWmEF/S6lRnSzbinv0eMKBX1Fae61VJtnKMHO9knQ7Y1kGk2YcJKXayg
+ bFzKz7R4R3Tw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9744"; a="158441063"
+X-IronPort-AV: E=Sophos;i="5.76,427,1592895600"; d="scan'208";a="158441063"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Sep 2020 13:25:14 -0700
-IronPort-SDR: yflE9HIDbF8jqsWhFY3NHUEDASFyinJOziH+Po5f+Wn3iTrT5hxjobF/l05vTd+/tP07i/d8wF
- rq/LbJ9Ntz/w==
-X-IronPort-AV: E=Sophos;i="5.76,427,1592895600"; d="scan'208";a="306307179"
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Sep 2020 13:25:18 -0700
+IronPort-SDR: GyrbBAnrrqe1ojp5VygJ9HOAFr7q8lAiQ/C/9NxCeSzDReNBuQB4P/X1+to5rWNN/iwC/Q+QKZ
+ HI9GrK5xvkFA==
+X-IronPort-AV: E=Sophos;i="5.76,427,1592895600"; d="scan'208";a="306307215"
 Received: from unknown (HELO linux-desktop.iind.intel.com) ([10.223.34.173])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Sep 2020 13:25:13 -0700
+ 14 Sep 2020 13:25:16 -0700
 From: Uma Shankar <uma.shankar@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 15 Sep 2020 02:30:45 +0530
-Message-Id: <20200914210047.11972-10-uma.shankar@intel.com>
+Date: Tue, 15 Sep 2020 02:30:47 +0530
+Message-Id: <20200914210047.11972-12-uma.shankar@intel.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20200914210047.11972-1-uma.shankar@intel.com>
 References: <20200914210047.11972-1-uma.shankar@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [v6 09/11] drm/i915/lspcon: Do not send infoframes to
- non-HDMI sinks
+Subject: [Intel-gfx] [v6 11/11] drm/i915/display: [NOT FOR MERGE] Reduce
+ blanking to support 4k60@10bpp for LSPCON
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,63 +60,71 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-RnJvbTogVmlsbGUgU3lyasOkbMOkIDx2aWxsZS5zeXJqYWxhQGxpbnV4LmludGVsLmNvbT4KCk5v
-bi1IRE1JIHNpbmtzIHNob3VsZG4ndCBiZSBzZW50IGluZm9mcmFtZXMuIENoZWNrIGZvciB0aGF0
-IHdoZW4KdXNpbmcgTFNQQ09OLgoKRklYTUU6IEhvdyBkbyB3ZSB0dXJuIG9mZiBpbmZvZnJhbWVz
-IG9uY2UgZW5hYmxlZD8gRG8gd2UgZXZlbgogICAgICAgaGF2ZSB0bz8KClNpZ25lZC1vZmYtYnk6
-IFZpbGxlIFN5cmrDpGzDpCA8dmlsbGUuc3lyamFsYUBsaW51eC5pbnRlbC5jb20+Ci0tLQogZHJp
-dmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kZGkuYyAgICAgICAgICAgfCAxMCArKysr
-LS0tLS0tCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Rpc3BsYXlfdHlwZXMu
-aCB8ICAxICsKIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZHAuYyAgICAgICAg
-ICAgIHwgIDcgKysrKysrLQogMyBmaWxlcyBjaGFuZ2VkLCAxMSBpbnNlcnRpb25zKCspLCA3IGRl
-bGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50
-ZWxfZGRpLmMgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2RkaS5jCmluZGV4
-IDFiNjAxYjA0ZjYyZi4uOGNlOWJhZDRkZjkxIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0v
-aTkxNS9kaXNwbGF5L2ludGVsX2RkaS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3Bs
-YXkvaW50ZWxfZGRpLmMKQEAgLTM1ODEsMTkgKzM1ODEsMTcgQEAgc3RhdGljIHZvaWQgaW50ZWxf
-ZGRpX3ByZV9lbmFibGUoc3RydWN0IGludGVsX2F0b21pY19zdGF0ZSAqc3RhdGUsCiAJCWludGVs
-X2RkaV9wcmVfZW5hYmxlX2hkbWkoc3RhdGUsIGVuY29kZXIsIGNydGNfc3RhdGUsCiAJCQkJCSAg
-Y29ubl9zdGF0ZSk7CiAJfSBlbHNlIHsKLQkJc3RydWN0IGludGVsX2xzcGNvbiAqbHNwY29uID0K
-LQkJCQllbmNfdG9faW50ZWxfbHNwY29uKGVuY29kZXIpOworCQlzdHJ1Y3QgaW50ZWxfZGlnaXRh
-bF9wb3J0ICpkaWdfcG9ydCA9IGVuY190b19kaWdfcG9ydChlbmNvZGVyKTsKIAogCQlpbnRlbF9k
-ZGlfcHJlX2VuYWJsZV9kcChzdGF0ZSwgZW5jb2RlciwgY3J0Y19zdGF0ZSwKIAkJCQkJY29ubl9z
-dGF0ZSk7Ci0JCWlmIChsc3Bjb24tPmFjdGl2ZSkgewotCQkJc3RydWN0IGludGVsX2RpZ2l0YWxf
-cG9ydCAqZGlnX3BvcnQgPQotCQkJCQllbmNfdG9fZGlnX3BvcnQoZW5jb2Rlcik7CiAKKwkJLyog
-RklYTUUgcHJlY29tcHV0ZSBldmVyeXRoaW5nIHByb3Blcmx5ICovCisJCS8qIEZJWE1FIGhvdyBk
-byB3ZSB0dXJuIGluZm9mcmFtZXMgb2ZmIGFnYWluPyAqLworCQlpZiAoZGlnX3BvcnQtPmxzcGNv
-bi5hY3RpdmUgJiYgZGlnX3BvcnQtPmRwLmhhc19oZG1pX3NpbmspCiAJCQlkaWdfcG9ydC0+c2V0
-X2luZm9mcmFtZXMoZW5jb2RlciwKIAkJCQkJCSBjcnRjX3N0YXRlLT5oYXNfaW5mb2ZyYW1lLAog
-CQkJCQkJIGNydGNfc3RhdGUsIGNvbm5fc3RhdGUpOwotCQl9CiAJfQogfQogCmRpZmYgLS1naXQg
-YS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Rpc3BsYXlfdHlwZXMuaCBiL2Ry
-aXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGlzcGxheV90eXBlcy5oCmluZGV4IDVj
-ZjRlN2E1OTFlMC4uYmI2YjcyYmZkNzJkIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkx
-NS9kaXNwbGF5L2ludGVsX2Rpc3BsYXlfdHlwZXMuaAorKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkx
-NS9kaXNwbGF5L2ludGVsX2Rpc3BsYXlfdHlwZXMuaApAQCAtMTI3OSw2ICsxMjc5LDcgQEAgc3Ry
-dWN0IGludGVsX2RwIHsKIAl1OCBzaW5rX2NvdW50OwogCWJvb2wgbGlua19tc3Q7CiAJYm9vbCBs
-aW5rX3RyYWluZWQ7CisJYm9vbCBoYXNfaGRtaV9zaW5rOwogCWJvb2wgaGFzX2F1ZGlvOwogCWJv
-b2wgcmVzZXRfbGlua19wYXJhbXM7CiAJdTggZHBjZFtEUF9SRUNFSVZFUl9DQVBfU0laRV07CmRp
-ZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2RwLmMgYi9kcml2
-ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2RwLmMKaW5kZXggOGE2NzNkMGQ3MDUxLi42
-MGJmMDFhOGI0YWQgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50
-ZWxfZHAuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2RwLmMKQEAg
-LTYwNjksNyArNjA2OSwxMSBAQCBpbnRlbF9kcF9zZXRfZWRpZChzdHJ1Y3QgaW50ZWxfZHAgKmlu
-dGVsX2RwKQogCWVkaWQgPSBpbnRlbF9kcF9nZXRfZWRpZChpbnRlbF9kcCk7CiAJaW50ZWxfY29u
-bmVjdG9yLT5kZXRlY3RfZWRpZCA9IGVkaWQ7CiAKLQlpbnRlbF9kcC0+aGFzX2F1ZGlvID0gZHJt
-X2RldGVjdF9tb25pdG9yX2F1ZGlvKGVkaWQpOworCWlmIChlZGlkICYmIGVkaWQtPmlucHV0ICYg
-RFJNX0VESURfSU5QVVRfRElHSVRBTCkgeworCQlpbnRlbF9kcC0+aGFzX2hkbWlfc2luayA9IGRy
-bV9kZXRlY3RfaGRtaV9tb25pdG9yKGVkaWQpOworCQlpbnRlbF9kcC0+aGFzX2F1ZGlvID0gZHJt
-X2RldGVjdF9tb25pdG9yX2F1ZGlvKGVkaWQpOworCX0KKwogCWRybV9kcF9jZWNfc2V0X2VkaWQo
-JmludGVsX2RwLT5hdXgsIGVkaWQpOwogCWludGVsX2RwLT5lZGlkX3F1aXJrcyA9IGRybV9kcF9n
-ZXRfZWRpZF9xdWlya3MoZWRpZCk7CiB9CkBAIC02MDgzLDYgKzYwODcsNyBAQCBpbnRlbF9kcF91
-bnNldF9lZGlkKHN0cnVjdCBpbnRlbF9kcCAqaW50ZWxfZHApCiAJa2ZyZWUoaW50ZWxfY29ubmVj
-dG9yLT5kZXRlY3RfZWRpZCk7CiAJaW50ZWxfY29ubmVjdG9yLT5kZXRlY3RfZWRpZCA9IE5VTEw7
-CiAKKwlpbnRlbF9kcC0+aGFzX2hkbWlfc2luayA9IGZhbHNlOwogCWludGVsX2RwLT5oYXNfYXVk
-aW8gPSBmYWxzZTsKIAlpbnRlbF9kcC0+ZWRpZF9xdWlya3MgPSAwOwogfQotLSAKMi4yNi4yCgpf
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpJbnRlbC1nZngg
-bWFpbGluZyBsaXN0CkludGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
-cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9pbnRlbC1nZngK
+Blanking needs to be reduced to incorporate DP and HDMI timing/link
+bandwidth limitations for CEA modes (4k@60 at 10 bpp). DP can drive
+17.28Gbs while 4k modes (VIC97 etc) at 10 bpp required 17.8 Gbps.
+This will cause mode to blank out. Reduced Htotal by shortening the
+back porch and front porch within permissible limits.
+
+Note: This is for reference for userspace, not to be merged in kernel.
+
+v2: This is marked as Not for merge and the responsibilty to program
+these custom timings will be on userspace. This patch is just for
+reference purposes. This is based on Ville's recommendation.
+
+v3: updated commit message.
+
+Signed-off-by: Uma Shankar <uma.shankar@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_dp.c | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 60bf01a8b4ad..c7ee13cd54e5 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -640,8 +640,10 @@ intel_dp_mode_valid(struct drm_connector *connector,
+ {
+ 	struct intel_dp *intel_dp = intel_attached_dp(to_intel_connector(connector));
+ 	struct intel_connector *intel_connector = to_intel_connector(connector);
++	struct intel_encoder *intel_encoder = intel_attached_encoder(intel_connector);
+ 	struct drm_display_mode *fixed_mode = intel_connector->panel.fixed_mode;
+ 	struct drm_i915_private *dev_priv = to_i915(connector->dev);
++	struct intel_lspcon *lspcon = enc_to_intel_lspcon(intel_encoder);
+ 	int target_clock = mode->clock;
+ 	int max_rate, mode_rate, max_lanes, max_link_clock;
+ 	int max_dotclk;
+@@ -663,6 +665,21 @@ intel_dp_mode_valid(struct drm_connector *connector,
+ 		target_clock = fixed_mode->clock;
+ 	}
+ 
++	/*
++	 * Reducing Blanking to incorporate DP and HDMI timing/link bandwidth
++	 * limitations for CEA modes (4k@60 at 10 bpp). DP can drive 17.28Gbs
++	 * while 4k modes (VIC97 etc) at 10 bpp required 17.8 Gbps. This will
++	 * cause mode to blank out. Reduced Htotal by shortening the back porch
++	 * and front porch within permissible limits.
++	 */
++	if (lspcon->active && lspcon->hdr_supported &&
++	    mode->clock > 570000) {
++		mode->clock = 570000;
++		mode->htotal -= 180;
++		mode->hsync_start -= 72;
++		mode->hsync_end -= 72;
++	}
++
+ 	max_link_clock = intel_dp_max_link_rate(intel_dp);
+ 	max_lanes = intel_dp_max_lane_count(intel_dp);
+ 
+-- 
+2.26.2
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
