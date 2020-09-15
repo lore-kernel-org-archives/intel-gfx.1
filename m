@@ -2,42 +2,52 @@ Return-Path: <SRS0=duUN=CY=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BBC4BC433E2
-	for <intel-gfx@archiver.kernel.org>; Tue, 15 Sep 2020 13:00:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C89CCC433E2
+	for <intel-gfx@archiver.kernel.org>; Tue, 15 Sep 2020 13:09:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5237920872
-	for <intel-gfx@archiver.kernel.org>; Tue, 15 Sep 2020 13:00:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5237920872
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
+	by mail.kernel.org (Postfix) with ESMTPS id 2877E20684
+	for <intel-gfx@archiver.kernel.org>; Tue, 15 Sep 2020 13:09:15 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="ZO9myoY4"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2877E20684
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 794C16E239;
-	Tue, 15 Sep 2020 13:00:17 +0000 (UTC)
-Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2D1236E239
- for <intel-gfx@lists.freedesktop.org>; Tue, 15 Sep 2020 13:00:16 +0000 (UTC)
-X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
- x-ip-name=78.156.65.138; 
-Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22434180-1500050 
- for multiple; Tue, 15 Sep 2020 13:41:51 +0100
-From: Chris Wilson <chris@chris-wilson.co.uk>
-To: intel-gfx@lists.freedesktop.org
-Date: Tue, 15 Sep 2020 13:41:48 +0100
-Message-Id: <20200915124150.12045-2-chris@chris-wilson.co.uk>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20200915124150.12045-1-chris@chris-wilson.co.uk>
-References: <20200915124150.12045-1-chris@chris-wilson.co.uk>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A54286E29B;
+	Tue, 15 Sep 2020 13:09:14 +0000 (UTC)
+Received: from casper.infradead.org (casper.infradead.org
+ [IPv6:2001:8b0:10b:1236::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 431BA6E297
+ for <intel-gfx@lists.freedesktop.org>; Tue, 15 Sep 2020 13:09:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description;
+ bh=7NBf7Gx3NEoEBeWF+X5RA2TyfqQ9s1ho0GYQa3vJ+Jk=; b=ZO9myoY4N8MfiF8r9ZsvVUTGB0
+ OpnTN/gQGj4PpxFg8LiE+oarC9K2KzEtQiyaBPyHtovx7UQS5tW+8bfbZDtPpgRuvDKMNJaZJbnec
+ DrMTvRg1f1Te744UlXOkbnaopigPono/kBlyjwnNfR0ZoKnhZnaFfm2koAZUL1lyoGn01IeqbSwFC
+ yDxXO8ABXfJxT5Vh8Kv5VpEcNU5zbsf0MhVPYtVLKyR8o2A2dpQz9WFvK8WbHRf/K1mH/HftDS0+k
+ XVucUsuZ1mjpTCkcuCujL50iA09RUSUuTMire+garHju3WRwUpM7Qwp53r2bIHF2mw1nW9mACo6pG
+ 7bLfhU2w==;
+Received: from willy by casper.infradead.org with local (Exim 4.92.3 #3 (Red
+ Hat Linux)) id 1kIAhU-0000rc-Od; Tue, 15 Sep 2020 13:08:48 +0000
+Date: Tue, 15 Sep 2020 14:08:48 +0100
+From: Matthew Wilcox <willy@infradead.org>
+To: Naresh Kamboju <naresh.kamboju@linaro.org>
+Message-ID: <20200915130848.GD5449@casper.infradead.org>
+References: <20200910183318.20139-1-willy@infradead.org>
+ <alpine.LSU.2.11.2009150059310.1550@eggly.anvils>
+ <CA+G9fYvqbKPHoYbU7w2bPkOF_vgbYgEHavLDxXQ4O5xUFHGCuw@mail.gmail.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 2/4] drm/i915/gt: Wait for CSB entries on
- Tigerlake
+Content-Disposition: inline
+In-Reply-To: <CA+G9fYvqbKPHoYbU7w2bPkOF_vgbYgEHavLDxXQ4O5xUFHGCuw@mail.gmail.com>
+Subject: Re: [Intel-gfx] [PATCH v2 0/8] Return head pages from find_*_entry
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,82 +60,26 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stable@vger.kernel.org, Chris Wilson <chris@chris-wilson.co.uk>
+Cc: Stephen Rothwell <sfr@canb.auug.org.au>,
+ William Kucharski <william.kucharski@oracle.com>,
+ intel-gfx@lists.freedesktop.org, Huang Ying <ying.huang@intel.com>,
+ Hugh Dickins <hughd@google.com>, open list <linux-kernel@vger.kernel.org>,
+ Chris Wilson <chris@chris-wilson.co.uk>, linux-mm <linux-mm@kvack.org>,
+ Linux-Next Mailing List <linux-next@vger.kernel.org>,
+ Matthew Auld <matthew.auld@intel.com>, lkft-triage@lists.linaro.org,
+ Johannes Weiner <hannes@cmpxchg.org>, Cgroups <cgroups@vger.kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>, ricardo.canuelo@collabora.com,
+ Alexey Dobriyan <adobriyan@gmail.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tigerlake, we are seeing a repeat of commit d8f505311717 ("drm/i915/icl:
-Forcibly evict stale csb entries") where, presumably, due to a missing
-Global Observation Point synchronisation, the write pointer of the CSB
-ringbuffer is updated _prior_ to the contents of the ringbuffer. That is
-we see the GPU report more context-switch entries for us to parse, but
-those entries have not been written, leading us to process stale events,
-and eventually report a hung GPU.
+On Tue, Sep 15, 2020 at 06:23:27PM +0530, Naresh Kamboju wrote:
+> While running kselftest mincore tests the following kernel BUG reported on the
+> linux next-20200915 tag on x86_64, i386 and arm64.
 
-However, this effect appears to be much more severe than we previously
-saw on Icelake (though it might be best if we try the same approach
-there as well and measure), and Bruce suggested the good idea of resetting
-the CSB entry after use so that we can detect when it has been updated by
-the GPU. By instrumenting how long that may be, we can set a reliable
-upper bound for how long we should wait for:
-
-    513 late, avg of 61 retries (590 ns), max of 1061 retries (10099 ns)
-
-Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/2045
-References: d8f505311717 ("drm/i915/icl: Forcibly evict stale csb entries")
-Suggested-by: Bruce Chang <yu.bruce.chang@intel.com>
-Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-Cc: Bruce Chang <yu.bruce.chang@intel.com>
-Cc: Mika Kuoppala <mika.kuoppala@linux.intel.com>
-Cc: stable@vger.kernel.org # v5.4
----
- drivers/gpu/drm/i915/gt/intel_lrc.c | 21 ++++++++++++++++++---
- 1 file changed, 18 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
-index d6e0f62337b4..d75712a503b7 100644
---- a/drivers/gpu/drm/i915/gt/intel_lrc.c
-+++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
-@@ -2498,9 +2498,22 @@ invalidate_csb_entries(const u64 *first, const u64 *last)
-  */
- static inline bool gen12_csb_parse(const u64 *csb)
- {
--	u64 entry = READ_ONCE(*csb);
--	bool ctx_away_valid = GEN12_CSB_CTX_VALID(upper_32_bits(entry));
--	bool new_queue =
-+	bool ctx_away_valid;
-+	bool new_queue;
-+	u64 entry;
-+
-+	/* HSD#22011248461 */
-+	entry = READ_ONCE(*csb);
-+	if (unlikely(entry == -1)) {
-+		preempt_disable();
-+		if (wait_for_atomic_us((entry = READ_ONCE(*csb)) != -1, 50))
-+			GEM_WARN_ON("50us CSB timeout");
-+		preempt_enable();
-+	}
-+	WRITE_ONCE(*(u64 *)csb, -1);
-+
-+	ctx_away_valid = GEN12_CSB_CTX_VALID(upper_32_bits(entry));
-+	new_queue =
- 		lower_32_bits(entry) & GEN12_CTX_STATUS_SWITCHED_TO_NEW_QUEUE;
- 
- 	/*
-@@ -4004,6 +4017,8 @@ static void reset_csb_pointers(struct intel_engine_cs *engine)
- 	WRITE_ONCE(*execlists->csb_write, reset_value);
- 	wmb(); /* Make sure this is visible to HW (paranoia?) */
- 
-+	/* Check that the GPU does indeed update the CSB entries! */
-+	memset(execlists->csb_status, -1, (reset_value + 1) * sizeof(u64));
- 	invalidate_csb_entries(&execlists->csb_status[0],
- 			       &execlists->csb_status[reset_value]);
- 
--- 
-2.20.1
-
+https://lore.kernel.org/linux-mm/20200914112738.GM6583@casper.infradead.org/
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
