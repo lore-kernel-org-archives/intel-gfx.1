@@ -2,83 +2,41 @@ Return-Path: <SRS0=duUN=CY=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 31F8AC433E2
-	for <intel-gfx@archiver.kernel.org>; Tue, 15 Sep 2020 17:35:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 507B3C43461
+	for <intel-gfx@archiver.kernel.org>; Tue, 15 Sep 2020 17:37:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A30D5208E4
-	for <intel-gfx@archiver.kernel.org>; Tue, 15 Sep 2020 17:35:21 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="HrsWxAPB"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A30D5208E4
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
+	by mail.kernel.org (Postfix) with ESMTPS id E307921D1B
+	for <intel-gfx@archiver.kernel.org>; Tue, 15 Sep 2020 17:37:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E307921D1B
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F0D66E8BE;
-	Tue, 15 Sep 2020 17:35:21 +0000 (UTC)
-Received: from mail-ej1-x642.google.com (mail-ej1-x642.google.com
- [IPv6:2a00:1450:4864:20::642])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A65CC6E8BE
- for <intel-gfx@lists.freedesktop.org>; Tue, 15 Sep 2020 17:35:19 +0000 (UTC)
-Received: by mail-ej1-x642.google.com with SMTP id lo4so6239078ejb.8
- for <intel-gfx@lists.freedesktop.org>; Tue, 15 Sep 2020 10:35:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linux-foundation.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=xSVHWYbzu3UQ8PBlLDNLl6dehpYO4ZB4CwIyD75ZWAE=;
- b=HrsWxAPBdchRgJHFmShgtgLo+DYOxZ4XfJAXkzfzzcfRKd+SalkgHXOKOAhxqlhHgQ
- V1SM0m5nq2pQBoktRVl1X3TADwVGw68gQTnxbkgl/4Ys1lUtjCYE6YOc6zJjNuYpT6Oi
- cumGXilNIqaAVXq/H8sUmOpuXNhTWtrjfr3qo=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=xSVHWYbzu3UQ8PBlLDNLl6dehpYO4ZB4CwIyD75ZWAE=;
- b=eWDA1gNFIekEunK6UFVvo2Iw9b8ceLZAx1oHtkV5ppiIxarb6WEu5j7GT4mW7gWT+a
- BGgTzYbAk4PYk6kAfCOpN2/CSFGE+Ygn2GTp+/AkTs0tXCP49Z0Y38NgPzTRdyeLJBFT
- qOGjhQXwa5aM29t6q+gGfbtJFq/vqFPlRe4cLImWld/vSLilsF572bEmcTftRg1524Rb
- Ev/38xK7BBEBi6m9+PUlJlvvW8xyLJscTDIpqeCSqypVABAFN8tVR9CWDr0wTFIB3hVB
- N9oZkzX65mmOhI7u5YBu8k23KXQdSJOYW6n+NWwKXPTZhwyByxE0AXcD45aLhy9zwoi7
- XWQQ==
-X-Gm-Message-State: AOAM532E27XlRXGnvc85aML3E1EfPLfoZ2XuUeIijAKU8SpSu2OYuefp
- bOHFSYPHELlh9diTCResFpEFlyyp7jWtvg==
-X-Google-Smtp-Source: ABdhPJysaunH6P3RlR01p3US6y7oA7stfbwa7HgspVSC31nQax2Ws5A3UDXG5T8ZQAAIZLqj6Jku2Q==
-X-Received: by 2002:a17:906:354c:: with SMTP id
- s12mr21886707eja.370.1600191318069; 
- Tue, 15 Sep 2020 10:35:18 -0700 (PDT)
-Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com.
- [209.85.208.48])
- by smtp.gmail.com with ESMTPSA id r13sm12323742edo.48.2020.09.15.10.35.17
- for <intel-gfx@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 15 Sep 2020 10:35:17 -0700 (PDT)
-Received: by mail-ed1-f48.google.com with SMTP id k14so3896102edo.1
- for <intel-gfx@lists.freedesktop.org>; Tue, 15 Sep 2020 10:35:17 -0700 (PDT)
-X-Received: by 2002:a19:521a:: with SMTP id m26mr7168489lfb.133.1600191006488; 
- Tue, 15 Sep 2020 10:30:06 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 449706E8C7;
+	Tue, 15 Sep 2020 17:37:10 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 9EF446E8C0;
+ Tue, 15 Sep 2020 17:37:08 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 979ABA008A;
+ Tue, 15 Sep 2020 17:37:08 +0000 (UTC)
 MIME-Version: 1.0
-References: <20200914204209.256266093@linutronix.de>
- <CAHk-=win80rdof8Pb=5k6gT9j_v+hz-TQzKPVastZDvBe9RimQ@mail.gmail.com>
- <871rj4owfn.fsf@nanos.tec.linutronix.de>
- <CAHk-=wj0eUuVQ=hRFZv_nY7g5ZLt7Fy3K7SMJL0ZCzniPtsbbg@mail.gmail.com>
- <CAHk-=wjOV6f_ddg+QVCF6RUe+pXPhSR2WevnNyOs9oT+q2ihEA@mail.gmail.com>
- <CAMj1kXHrDU50D08TwLfzz2hCK+8+C7KGPF99PphXtsOYZ-ff1g@mail.gmail.com>
- <20200915062253.GA26275@gondor.apana.org.au>
- <CAHk-=wir6LZ=4gHt8VDdASv=TmEMjEUONuzbt=s+DyXPCvxaBA@mail.gmail.com>
- <87een35woz.fsf@nanos.tec.linutronix.de>
-In-Reply-To: <87een35woz.fsf@nanos.tec.linutronix.de>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Tue, 15 Sep 2020 10:29:50 -0700
-X-Gmail-Original-Message-ID: <CAHk-=wg_koVS=8bYurGCZ8zs=zDH5cOKVzFdoj4AkUWEW9mKjA@mail.gmail.com>
-Message-ID: <CAHk-=wg_koVS=8bYurGCZ8zs=zDH5cOKVzFdoj4AkUWEW9mKjA@mail.gmail.com>
-To: Thomas Gleixner <tglx@linutronix.de>
-Subject: Re: [Intel-gfx] [patch 00/13] preempt: Make preempt count
- unconditional
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Lyude Paul" <lyude@redhat.com>
+Date: Tue, 15 Sep 2020 17:37:08 -0000
+Message-ID: <160019142859.30599.12633010595367092642@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20200915172939.2810538-1-lyude@redhat.com>
+In-Reply-To: <20200915172939.2810538-1-lyude@redhat.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_drm/i915=3A_Add_support_for_Intel=27s_eDP_backlight_control?=
+ =?utf-8?q?s?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,62 +49,50 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Juri Lelli <juri.lelli@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Lai Jiangshan <jiangshanlai@gmail.com>,
- dri-devel <dri-devel@lists.freedesktop.org>, Ben Segall <bsegall@google.com>,
- Linux-MM <linux-mm@kvack.org>, linux-hexagon@vger.kernel.org,
- Will Deacon <will@kernel.org>, Ingo Molnar <mingo@kernel.org>,
- Anton Ivanov <anton.ivanov@cambridgegreys.com>,
- linux-arch <linux-arch@vger.kernel.org>,
- Herbert Xu <herbert@gondor.apana.org.au>, Brian Cain <bcain@codeaurora.org>,
- Richard Weinberger <richard@nod.at>, Russell King <linux@armlinux.org.uk>,
- Ard Biesheuvel <ardb@kernel.org>, David Airlie <airlied@linux.ie>,
- Ingo Molnar <mingo@redhat.com>, Geert Uytterhoeven <geert@linux-m68k.org>,
- Mel Gorman <mgorman@suse.de>, intel-gfx <intel-gfx@lists.freedesktop.org>,
- Matt Turner <mattst88@gmail.com>,
- Valentin Schneider <valentin.schneider@arm.com>, linux-xtensa@linux-xtensa.org,
- Shuah Khan <shuah@kernel.org>, "Paul E. McKenney" <paulmck@kernel.org>,
- Jeff Dike <jdike@addtoit.com>, linux-um <linux-um@lists.infradead.org>,
- Josh Triplett <josh@joshtriplett.org>, Steven Rostedt <rostedt@goodmis.org>,
- rcu@vger.kernel.org, linux-m68k <linux-m68k@lists.linux-m68k.org>,
- Ivan Kokshaysky <ink@jurassic.park.msu.ru>,
- Dietmar Eggemann <dietmar.eggemann@arm.com>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>,
- Richard Henderson <rth@twiddle.net>, Chris Zankel <chris@zankel.net>,
- Max Filippov <jcmvbkbc@gmail.com>, LKML <linux-kernel@vger.kernel.org>,
- alpha <linux-alpha@vger.kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Daniel Bristot de Oliveira <bristot@redhat.com>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Sep 15, 2020 at 12:24 AM Thomas Gleixner <tglx@linutronix.de> wrote:
->
-> Alternatively we just make highmem a bit more expensive by making these
-> maps preemptible. RT is doing this for a long time and it's not that
-> horrible.
+== Series Details ==
 
-Ack.
+Series: drm/i915: Add support for Intel's eDP backlight controls
+URL   : https://patchwork.freedesktop.org/series/81702/
+State : warning
 
-In fact, I've wanted to start just removing kmap support entirely. At
-some point it's not so much about "I have an old machine that wants
-HIGHMEM" but about "I have an old CPU, and I'll just run an old
-kernel".
+== Summary ==
 
-It's not that 32-bit is irrelevant, it's that 32-bit with large
-amounts of memory is irrelevant.
+$ dim checkpatch origin/drm-tip
+d4faeb36f092 drm/i915/dp: Program source OUI on eDP panels
+0debab180b3b drm/i915: Rename pwm_* backlight callbacks to ext_pwm_*
+740d9664b33f drm/i915: Keep track of pwm-related backlight hooks separately
+1363d7a69e3a drm/i915: Enable Intel's HDR backlight interface (only SDR for now)
+-:210: WARNING:UNNECESSARY_ELSE: else is not generally useful after a break or return
+#210: FILE: drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c:147:
++			return panel->backlight.max;
++		} else {
 
-Last time this was discussed, iirc the main issue was some
-questionable old ARM chips that were still very common in embedded
-environments, even with large memory.
+-:231: CHECK:PREFER_KERNEL_TYPES: Prefer kernel type 'u8' over 'uint8_t'
+#231: FILE: drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c:168:
++	uint8_t buf[4] = { 0 };
 
-But we could definitely start de-emphasizing HIGHMEM.
+-:250: WARNING:LINE_SPACING: Missing a blank line after declarations
+#250: FILE: drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c:187:
++		const u32 pwm_level = intel_panel_backlight_level_to_pwm(connector, level);
++		intel_panel_set_pwm_level(conn_state, pwm_level);
 
-                     Linus
+total: 0 errors, 2 warnings, 1 checks, 573 lines checked
+e7a29d101ca4 drm/dp: Revert "drm/dp: Introduce EDID-based quirks"
+-:205: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#205: FILE: drivers/gpu/drm/i915/display/intel_dp.c:7467:
++			drm_connector_update_edid_property(connector,
++								edid);
+
+total: 0 errors, 0 warnings, 1 checks, 220 lines checked
+
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
