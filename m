@@ -2,65 +2,41 @@ Return-Path: <SRS0=duUN=CY=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F3143C433E2
-	for <intel-gfx@archiver.kernel.org>; Tue, 15 Sep 2020 15:18:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B205FC43461
+	for <intel-gfx@archiver.kernel.org>; Tue, 15 Sep 2020 15:23:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3355B2067C
-	for <intel-gfx@archiver.kernel.org>; Tue, 15 Sep 2020 15:18:50 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=armlinux.org.uk header.i=@armlinux.org.uk header.b="DY/uEfsi"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3355B2067C
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=armlinux.org.uk
+	by mail.kernel.org (Postfix) with ESMTPS id 53FE8206A2
+	for <intel-gfx@archiver.kernel.org>; Tue, 15 Sep 2020 15:23:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 53FE8206A2
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6CAF36E08A;
-	Tue, 15 Sep 2020 15:18:50 +0000 (UTC)
-X-Greylist: delayed 617 seconds by postgrey-1.36 at gabe;
- Tue, 15 Sep 2020 15:18:49 UTC
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk
- [IPv6:2001:4d48:ad52:32c8:5054:ff:fe00:142])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 82B8E6E08A
- for <intel-gfx@lists.freedesktop.org>; Tue, 15 Sep 2020 15:18:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=n0AeAcI3zA0iCIxRdvDpWIpeomoM/Ow+oqCMUrZ8unY=; b=DY/uEfsiICorhg8iHeARjWh0Q
- cS0EKw/YCxVo9c/DRgV77Gc/fMhw80uqdFD1X3NvNbG8E9/gDU7FOr8XhdiWA4oeGiVT2qR18cF2G
- rbumEdeKR7VfQDXUwezoo+hIbAR+lkT20j5iUe9RiL8DC97jOljbnlxm0stBllgiNwutxUvFMmjf2
- nZaK5hytHWAtFXkuU5EYx2JOLZTIRELbYZ15UAAlaZBs+E+zoYjszb6y0j79bc+LUZ0g2Qxuu6Zcq
- d7bL2K6UkYMroIM/nP+yxcofUcKz/TRZ/3IX2smVFTWH7UaXEb6h6XVwsj25JE3FRBD4+grwHrZEJ
- 9t8rye/uQ==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:34006)
- by pandora.armlinux.org.uk with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <linux@armlinux.org.uk>)
- id 1kICYn-00035d-N0; Tue, 15 Sep 2020 16:07:57 +0100
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.92)
- (envelope-from <linux@shell.armlinux.org.uk>)
- id 1kICYY-0003lk-6C; Tue, 15 Sep 2020 16:07:42 +0100
-Date: Tue, 15 Sep 2020 16:07:42 +0100
-From: Russell King - ARM Linux admin <linux@armlinux.org.uk>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Message-ID: <20200915150742.GO1551@shell.armlinux.org.uk>
-References: <20200915145958.19993-1-tzimmermann@suse.de>
- <20200915145958.19993-3-tzimmermann@suse.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5BDCD6E861;
+	Tue, 15 Sep 2020 15:23:27 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 1388C6E0E2;
+ Tue, 15 Sep 2020 15:23:26 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 0BD37A011C;
+ Tue, 15 Sep 2020 15:23:26 +0000 (UTC)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200915145958.19993-3-tzimmermann@suse.de>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Subject: Re: [Intel-gfx] [PATCH v2 02/21] drm/armada: Introduce GEM object
- functions
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Chris Wilson" <chris@chris-wilson.co.uk>
+Date: Tue, 15 Sep 2020 15:23:26 -0000
+Message-ID: <160018340601.30600.12368996976178751086@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20200915134923.30088-1-chris@chris-wilson.co.uk>
+In-Reply-To: <20200915134923.30088-1-chris@chris-wilson.co.uk>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_series_starting_with_=5BCI=2C1/4=5D_drm/i915/gt=3A_Widen_CS?=
+ =?utf-8?q?B_pointer_to_u64_for_the_parsers?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,133 +49,51 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: hamohammed.sa@gmail.com, heiko@sntech.de, andrey.grodzovsky@amd.com,
- airlied@linux.ie, nouveau@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, michal.simek@xilinx.com, eric@anholt.net,
- krzk@kernel.org, sam@ravnborg.org, sumit.semwal@linaro.org,
- emil.velikov@collabora.com, linux-samsung-soc@vger.kernel.org,
- jy0922.shim@samsung.com, oleksandr_andrushchenko@epam.com,
- tomi.valkeinen@ti.com, linux-tegra@vger.kernel.org, jonathanh@nvidia.com,
- linux-rockchip@lists.infradead.org, kgene@kernel.org, bskeggs@redhat.com,
- xen-devel@lists.xenproject.org, miaoqinglang@huawei.com,
- intel-gfx@lists.freedesktop.org, matthew.auld@intel.com,
- chunkuang.hu@kernel.org, p.zabel@pengutronix.de, linux-arm-msm@vger.kernel.org,
- marek.olsak@amd.com, tianci.yin@amd.com, etnaviv@lists.freedesktop.org,
- inki.dae@samsung.com, christian.gmeiner@gmail.com,
- linux-mediatek@lists.infradead.org, mripard@kernel.org, matthias.bgg@gmail.com,
- evan.quan@amd.com, linux-arm-kernel@lists.infradead.org,
- amd-gfx@lists.freedesktop.org, laurent.pinchart@ideasonboard.com,
- hyun.kwon@xilinx.com, rodrigosiqueiramelo@gmail.com, aaron.liu@amd.com,
- Felix.Kuehling@amd.com, xinhui.pan@amd.com, sw0312.kim@samsung.com,
- hjc@rock-chips.com, chris@chris-wilson.co.uk, kyungmin.park@samsung.com,
- nirmoy.das@amd.com, alexander.deucher@amd.com, Hawking.Zhang@amd.com,
- freedreno@lists.freedesktop.org, christian.koenig@amd.com,
- l.stach@pengutronix.de
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Sep 15, 2020 at 04:59:39PM +0200, Thomas Zimmermann wrote:
-> GEM object functions deprecate several similar callback interfaces in
-> struct drm_driver. This patch replaces the per-driver callbacks with
-> per-instance callbacks in armada.
-> 
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+== Series Details ==
 
-Acked-by: Russell King <rmk+kernel@armlinux.org.uk>
+Series: series starting with [CI,1/4] drm/i915/gt: Widen CSB pointer to u64 for the parsers
+URL   : https://patchwork.freedesktop.org/series/81688/
+State : warning
 
-Thanks.
+== Summary ==
 
-> ---
->  drivers/gpu/drm/armada/armada_drv.c |  3 ---
->  drivers/gpu/drm/armada/armada_gem.c | 12 +++++++++++-
->  drivers/gpu/drm/armada/armada_gem.h |  2 --
->  3 files changed, 11 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/armada/armada_drv.c b/drivers/gpu/drm/armada/armada_drv.c
-> index 980d3f1f8f16..22247cfce80b 100644
-> --- a/drivers/gpu/drm/armada/armada_drv.c
-> +++ b/drivers/gpu/drm/armada/armada_drv.c
-> @@ -37,13 +37,10 @@ DEFINE_DRM_GEM_FOPS(armada_drm_fops);
->  
->  static struct drm_driver armada_drm_driver = {
->  	.lastclose		= drm_fb_helper_lastclose,
-> -	.gem_free_object_unlocked = armada_gem_free_object,
->  	.prime_handle_to_fd	= drm_gem_prime_handle_to_fd,
->  	.prime_fd_to_handle	= drm_gem_prime_fd_to_handle,
-> -	.gem_prime_export	= armada_gem_prime_export,
->  	.gem_prime_import	= armada_gem_prime_import,
->  	.dumb_create		= armada_gem_dumb_create,
-> -	.gem_vm_ops		= &armada_gem_vm_ops,
->  	.major			= 1,
->  	.minor			= 0,
->  	.name			= "armada-drm",
-> diff --git a/drivers/gpu/drm/armada/armada_gem.c b/drivers/gpu/drm/armada/armada_gem.c
-> index ecf8a55e93d9..c343fbefe47c 100644
-> --- a/drivers/gpu/drm/armada/armada_gem.c
-> +++ b/drivers/gpu/drm/armada/armada_gem.c
-> @@ -25,7 +25,7 @@ static vm_fault_t armada_gem_vm_fault(struct vm_fault *vmf)
->  	return vmf_insert_pfn(vmf->vma, vmf->address, pfn);
->  }
->  
-> -const struct vm_operations_struct armada_gem_vm_ops = {
-> +static const struct vm_operations_struct armada_gem_vm_ops = {
->  	.fault	= armada_gem_vm_fault,
->  	.open	= drm_gem_vm_open,
->  	.close	= drm_gem_vm_close,
-> @@ -184,6 +184,12 @@ armada_gem_map_object(struct drm_device *dev, struct armada_gem_object *dobj)
->  	return dobj->addr;
->  }
->  
-> +static const struct drm_gem_object_funcs armada_gem_object_funcs = {
-> +	.free = armada_gem_free_object,
-> +	.export = armada_gem_prime_export,
-> +	.vm_ops = &armada_gem_vm_ops,
-> +};
-> +
->  struct armada_gem_object *
->  armada_gem_alloc_private_object(struct drm_device *dev, size_t size)
->  {
-> @@ -195,6 +201,8 @@ armada_gem_alloc_private_object(struct drm_device *dev, size_t size)
->  	if (!obj)
->  		return NULL;
->  
-> +	obj->obj.funcs = &armada_gem_object_funcs;
-> +
->  	drm_gem_private_object_init(dev, &obj->obj, size);
->  
->  	DRM_DEBUG_DRIVER("alloc private obj %p size %zu\n", obj, size);
-> @@ -214,6 +222,8 @@ static struct armada_gem_object *armada_gem_alloc_object(struct drm_device *dev,
->  	if (!obj)
->  		return NULL;
->  
-> +	obj->obj.funcs = &armada_gem_object_funcs;
-> +
->  	if (drm_gem_object_init(dev, &obj->obj, size)) {
->  		kfree(obj);
->  		return NULL;
-> diff --git a/drivers/gpu/drm/armada/armada_gem.h b/drivers/gpu/drm/armada/armada_gem.h
-> index de04cc2c8f0e..ffcc7e8dd351 100644
-> --- a/drivers/gpu/drm/armada/armada_gem.h
-> +++ b/drivers/gpu/drm/armada/armada_gem.h
-> @@ -21,8 +21,6 @@ struct armada_gem_object {
->  	void			*update_data;
->  };
->  
-> -extern const struct vm_operations_struct armada_gem_vm_ops;
-> -
->  #define drm_to_armada_gem(o) container_of(o, struct armada_gem_object, obj)
->  
->  void armada_gem_free_object(struct drm_gem_object *);
-> -- 
-> 2.28.0
-> 
-> 
+$ dim checkpatch origin/drm-tip
+0479f6ad75dc drm/i915/gt: Widen CSB pointer to u64 for the parsers
+f495c988d0c6 drm/i915/gt: Wait for CSB entries on Tigerlake
+-:24: ERROR:GIT_COMMIT_ID: Please use git commit description style 'commit <12+ chars of sha1> ("<title line>")' - ie: 'commit d8f505311717 ("drm/i915/icl: Forcibly evict stale csb entries")'
+#24: 
+References: d8f505311717 ("drm/i915/icl: Forcibly evict stale csb entries")
 
--- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 40Mbps down 10Mbps up. Decent connectivity at last!
+-:52: ERROR:ASSIGN_IN_IF: do not use assignment in if condition
+#52: FILE: drivers/gpu/drm/i915/gt/intel_lrc.c:2509:
++		if (wait_for_atomic_us((entry = READ_ONCE(*csb)) != -1, 50))
+
+total: 2 errors, 0 warnings, 0 checks, 33 lines checked
+53ad42fb5853 drm/i915/gt: Apply the CSB w/a for all
+-:12: ERROR:GIT_COMMIT_ID: Please use git commit description style 'commit <12+ chars of sha1> ("<title line>")' - ie: 'commit d8f505311717 ("drm/i915/icl: Forcibly evict stale csb entries")'
+#12: 
+References: d8f505311717 ("drm/i915/icl: Forcibly evict stale csb entries")
+
+-:82: ERROR:ASSIGN_IN_IF: do not use assignment in if condition
+#82: FILE: drivers/gpu/drm/i915/gt/intel_lrc.c:2536:
++	if (wait_for_atomic_us((entry = READ_ONCE(*csb)) != -1, 50))
+
+total: 2 errors, 0 warnings, 0 checks, 123 lines checked
+f9b252d2da73 drm/i915/gt: Use a mmio read of the CSB in case of failure
+-:42: ERROR:ASSIGN_IN_IF: do not use assignment in if condition
+#42: FILE: drivers/gpu/drm/i915/gt/intel_lrc.c:2546:
++	if (wait_for_atomic_us((entry = READ_ONCE(*csb)) != -1, 10)) {
+
+total: 1 errors, 0 warnings, 0 checks, 69 lines checked
+
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
