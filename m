@@ -7,35 +7,36 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5E998C2D0E0
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1CBE1C433E2
 	for <intel-gfx@archiver.kernel.org>; Tue, 15 Sep 2020 13:49:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0DA19221E8
-	for <intel-gfx@archiver.kernel.org>; Tue, 15 Sep 2020 13:49:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0DA19221E8
+	by mail.kernel.org (Postfix) with ESMTPS id 81A4E21D24
+	for <intel-gfx@archiver.kernel.org>; Tue, 15 Sep 2020 13:49:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 81A4E21D24
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B459C6E34E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D242E6E46F;
 	Tue, 15 Sep 2020 13:49:28 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B10446E32D
- for <intel-gfx@lists.freedesktop.org>; Tue, 15 Sep 2020 13:49:26 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF9C46E33C
+ for <intel-gfx@lists.freedesktop.org>; Tue, 15 Sep 2020 13:49:27 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22434957-1500050 
- for <intel-gfx@lists.freedesktop.org>; Tue, 15 Sep 2020 14:49:22 +0100
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22434959-1500050 
+ for <intel-gfx@lists.freedesktop.org>; Tue, 15 Sep 2020 14:49:23 +0100
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 15 Sep 2020 14:49:20 +0100
-Message-Id: <20200915134923.30088-1-chris@chris-wilson.co.uk>
+Date: Tue, 15 Sep 2020 14:49:22 +0100
+Message-Id: <20200915134923.30088-3-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20200915134923.30088-1-chris@chris-wilson.co.uk>
+References: <20200915134923.30088-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [CI 1/4] drm/i915/gt: Widen CSB pointer to u64 for the
- parsers
+Subject: [Intel-gfx] [CI 3/4] drm/i915/gt: Apply the CSB w/a for all
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,123 +54,153 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-A CSB entry is 64b, and it is simpler for us to treat it as an array of
-64b entries than as an array of pairs of 32b entries.
+Since we expect to inline the csb_parse() routines, the w/a for the
+stale CSB data on Tigerlake will be pulled into process_csb(), and so we
+might as well simply reuse the logic for all, and so will hopefully
+avoid any strange behaviour on Icelake that was not covered by our
+previous w/a.
 
+References: d8f505311717 ("drm/i915/icl: Forcibly evict stale csb entries")
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 Cc: Mika Kuoppala <mika.kuoppala@linux.intel.com>
+Cc: Bruce Chang <yu.bruce.chang@intel.com>
 Reviewed-by: Mika Kuoppala <mika.kuoppala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_engine_types.h |  2 +-
- drivers/gpu/drm/i915/gt/intel_lrc.c          | 33 ++++++++++----------
- 2 files changed, 17 insertions(+), 18 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_lrc.c | 79 +++++++++++++++++++----------
+ 1 file changed, 51 insertions(+), 28 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_types.h b/drivers/gpu/drm/i915/gt/intel_engine_types.h
-index c400aaa2287b..ee6312601c56 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_types.h
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_types.h
-@@ -278,7 +278,7 @@ struct intel_engine_execlists {
- 	 *
- 	 * Note these register may be either mmio or HWSP shadow.
- 	 */
--	u32 *csb_status;
-+	u64 *csb_status;
- 
- 	/**
- 	 * @csb_size: context status buffer FIFO size
 diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
-index 0412a44f25f2..d6e0f62337b4 100644
+index d75712a503b7..fcb6ec3d55f4 100644
 --- a/drivers/gpu/drm/i915/gt/intel_lrc.c
 +++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
-@@ -2464,7 +2464,7 @@ cancel_port_requests(struct intel_engine_execlists * const execlists)
- }
- 
- static inline void
--invalidate_csb_entries(const u32 *first, const u32 *last)
-+invalidate_csb_entries(const u64 *first, const u64 *last)
- {
- 	clflush((void *)first);
- 	clflush((void *)last);
-@@ -2496,14 +2496,12 @@ invalidate_csb_entries(const u32 *first, const u32 *last)
+@@ -2496,25 +2496,11 @@ invalidate_csb_entries(const u64 *first, const u64 *last)
   *     bits 47-57: sw context id of the lrc the GT switched away from
   *     bits 58-63: sw counter of the lrc the GT switched away from
   */
--static inline bool
--gen12_csb_parse(const struct intel_engine_execlists *execlists, const u32 *csb)
-+static inline bool gen12_csb_parse(const u64 *csb)
+-static inline bool gen12_csb_parse(const u64 *csb)
++static inline bool gen12_csb_parse(const u64 csb)
  {
--	u32 lower_dw = csb[0];
--	u32 upper_dw = csb[1];
--	bool ctx_to_valid = GEN12_CSB_CTX_VALID(lower_dw);
--	bool ctx_away_valid = GEN12_CSB_CTX_VALID(upper_dw);
--	bool new_queue = lower_dw & GEN12_CTX_STATUS_SWITCHED_TO_NEW_QUEUE;
-+	u64 entry = READ_ONCE(*csb);
-+	bool ctx_away_valid = GEN12_CSB_CTX_VALID(upper_32_bits(entry));
+-	bool ctx_away_valid;
+-	bool new_queue;
+-	u64 entry;
+-
+-	/* HSD#22011248461 */
+-	entry = READ_ONCE(*csb);
+-	if (unlikely(entry == -1)) {
+-		preempt_disable();
+-		if (wait_for_atomic_us((entry = READ_ONCE(*csb)) != -1, 50))
+-			GEM_WARN_ON("50us CSB timeout");
+-		preempt_enable();
+-	}
+-	WRITE_ONCE(*(u64 *)csb, -1);
+-
+-	ctx_away_valid = GEN12_CSB_CTX_VALID(upper_32_bits(entry));
+-	new_queue =
+-		lower_32_bits(entry) & GEN12_CTX_STATUS_SWITCHED_TO_NEW_QUEUE;
++	bool ctx_away_valid = GEN12_CSB_CTX_VALID(upper_32_bits(csb));
 +	bool new_queue =
-+		lower_32_bits(entry) & GEN12_CTX_STATUS_SWITCHED_TO_NEW_QUEUE;
++		lower_32_bits(csb) & GEN12_CTX_STATUS_SWITCHED_TO_NEW_QUEUE;
  
  	/*
  	 * The context switch detail is not guaranteed to be 5 when a preemption
-@@ -2513,7 +2511,7 @@ gen12_csb_parse(const struct intel_engine_execlists *execlists, const u32 *csb)
+@@ -2524,7 +2510,7 @@ static inline bool gen12_csb_parse(const u64 *csb)
  	 * would require some extra handling, but we don't support that.
  	 */
  	if (!ctx_away_valid || new_queue) {
--		GEM_BUG_ON(!ctx_to_valid);
-+		GEM_BUG_ON(!GEN12_CSB_CTX_VALID(lower_32_bits(entry)));
+-		GEM_BUG_ON(!GEN12_CSB_CTX_VALID(lower_32_bits(entry)));
++		GEM_BUG_ON(!GEN12_CSB_CTX_VALID(lower_32_bits(csb)));
  		return true;
  	}
  
-@@ -2522,12 +2520,11 @@ gen12_csb_parse(const struct intel_engine_execlists *execlists, const u32 *csb)
+@@ -2533,19 +2519,56 @@ static inline bool gen12_csb_parse(const u64 *csb)
  	 * context switch on an unsuccessful wait instruction since we always
  	 * use polling mode.
  	 */
--	GEM_BUG_ON(GEN12_CTX_SWITCH_DETAIL(upper_dw));
-+	GEM_BUG_ON(GEN12_CTX_SWITCH_DETAIL(upper_32_bits(entry)));
+-	GEM_BUG_ON(GEN12_CTX_SWITCH_DETAIL(upper_32_bits(entry)));
++	GEM_BUG_ON(GEN12_CTX_SWITCH_DETAIL(upper_32_bits(csb)));
  	return false;
  }
  
--static inline bool
--gen8_csb_parse(const struct intel_engine_execlists *execlists, const u32 *csb)
-+static inline bool gen8_csb_parse(const u64 *csb)
+-static inline bool gen8_csb_parse(const u64 *csb)
++static inline bool gen8_csb_parse(const u64 csb)
++{
++	return csb & (GEN8_CTX_STATUS_IDLE_ACTIVE | GEN8_CTX_STATUS_PREEMPTED);
++}
++
++static noinline u64 wa_csb_read(u64 * const csb)
  {
- 	return *csb & (GEN8_CTX_STATUS_IDLE_ACTIVE | GEN8_CTX_STATUS_PREEMPTED);
+-	return *csb & (GEN8_CTX_STATUS_IDLE_ACTIVE | GEN8_CTX_STATUS_PREEMPTED);
++	u64 entry;
++
++	preempt_disable();
++	if (wait_for_atomic_us((entry = READ_ONCE(*csb)) != -1, 50))
++		GEM_WARN_ON("50us CSB timeout");
++	preempt_enable();
++
++	return entry;
++}
++
++static inline u64 csb_read(u64 * const csb)
++{
++	u64 entry = READ_ONCE(*csb);
++
++	/*
++	 * Unfortunately, the GPU does not always serialise its write
++	 * of the CSB entries before its write of the CSB pointer, at least
++	 * from the perspective of the CPU, using what is known as a Global
++	 * Observation Point. We may read a new CSB tail pointer, but then
++	 * read the stale CSB entries, causing us to misinterpret the
++	 * context-switch events, and eventually declare the GPU hung.
++	 *
++	 * icl:HSDES#1806554093
++	 * tgl:HSDES#22011248461
++	 */
++	if (unlikely(entry == -1))
++		entry = wa_csb_read(csb);
++
++	/* Consume this entry so that we can spot its future reuse. */
++	WRITE_ONCE(*csb, -1);
++
++	/* ELSP is an implicit wmb() before the GPU wraps and overwrites csb */
++	return entry;
  }
-@@ -2535,7 +2532,7 @@ gen8_csb_parse(const struct intel_engine_execlists *execlists, const u32 *csb)
+ 
  static void process_csb(struct intel_engine_cs *engine)
  {
  	struct intel_engine_execlists * const execlists = &engine->execlists;
--	const u32 * const buf = execlists->csb_status;
-+	const u64 * const buf = execlists->csb_status;
+-	const u64 * const buf = execlists->csb_status;
++	u64 * const buf = execlists->csb_status;
  	const u8 num_entries = execlists->csb_size;
  	u8 head, tail;
  
-@@ -2616,12 +2613,14 @@ static void process_csb(struct intel_engine_cs *engine)
+@@ -2603,6 +2626,7 @@ static void process_csb(struct intel_engine_cs *engine)
+ 	rmb();
+ 	do {
+ 		bool promote;
++		u64 csb;
+ 
+ 		if (++head == num_entries)
+ 			head = 0;
+@@ -2625,15 +2649,14 @@ static void process_csb(struct intel_engine_cs *engine)
+ 		 * status notifier.
  		 */
  
++		csb = csb_read(buf + head);
  		ENGINE_TRACE(engine, "csb[%d]: status=0x%08x:0x%08x\n",
--			     head, buf[2 * head + 0], buf[2 * head + 1]);
-+			     head,
-+			     upper_32_bits(buf[head]),
-+			     lower_32_bits(buf[head]));
+-			     head,
+-			     upper_32_bits(buf[head]),
+-			     lower_32_bits(buf[head]));
++			     head, upper_32_bits(csb), lower_32_bits(csb));
  
  		if (INTEL_GEN(engine->i915) >= 12)
--			promote = gen12_csb_parse(execlists, buf + 2 * head);
-+			promote = gen12_csb_parse(buf + head);
+-			promote = gen12_csb_parse(buf + head);
++			promote = gen12_csb_parse(csb);
  		else
--			promote = gen8_csb_parse(execlists, buf + 2 * head);
-+			promote = gen8_csb_parse(buf + head);
+-			promote = gen8_csb_parse(buf + head);
++			promote = gen8_csb_parse(csb);
  		if (promote) {
  			struct i915_request * const *old = execlists->active;
  
-@@ -5157,7 +5156,7 @@ int intel_execlists_submission_setup(struct intel_engine_cs *engine)
- 	}
- 
- 	execlists->csb_status =
--		&engine->status_page.addr[I915_HWS_CSB_BUF0_INDEX];
-+		(u64 *)&engine->status_page.addr[I915_HWS_CSB_BUF0_INDEX];
- 
- 	execlists->csb_write =
- 		&engine->status_page.addr[intel_hws_csb_write_index(i915)];
 -- 
 2.20.1
 
