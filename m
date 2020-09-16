@@ -7,37 +7,35 @@ X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 573C8C43461
-	for <intel-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 09:01:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E46AFC433E2
+	for <intel-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 09:01:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A8D8020738
-	for <intel-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 09:01:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A8D8020738
+	by mail.kernel.org (Postfix) with ESMTPS id 845F920708
+	for <intel-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 09:01:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 845F920708
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 180C66E37C;
-	Wed, 16 Sep 2020 09:01:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 02ED96E379;
+	Wed, 16 Sep 2020 09:01:13 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 32F6F6E379
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 17BFB6E379
  for <intel-gfx@lists.freedesktop.org>; Wed, 16 Sep 2020 09:01:10 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22442879-1500050 
- for multiple; Wed, 16 Sep 2020 10:01:00 +0100
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22442876-1500050 
+ for multiple; Wed, 16 Sep 2020 10:00:59 +0100
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 16 Sep 2020 10:00:59 +0100
-Message-Id: <20200916090059.3189-3-chris@chris-wilson.co.uk>
+Date: Wed, 16 Sep 2020 10:00:57 +0100
+Message-Id: <20200916090059.3189-1-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20200916090059.3189-1-chris@chris-wilson.co.uk>
-References: <20200916090059.3189-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 3/3] drm/i915: Reduce GPU error capture mutex
- hold time
+Subject: [Intel-gfx] [PATCH 1/3] drm/i915/gt: Show engine properties in the
+ pretty printer
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,89 +54,82 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Shrink the hold time for the error capture mutex to just around the
-acquire/release of the PTE used for reading back the object via the
-Global GTT. For platforms that do not need the GGTT read back, we can
-skip the mutex entirely and allow concurrent error capture. Where we do
-use the GGTT, by restricting the hold time around the slow readback and
-compression, we are more resilient against softlockups (khungtaskd) as
-the heartbeat may well also trigger an error while the first is on
-going, and this allows the heartbeat reset to skip past the capture and
-not be stalled.
+When debugging the engine state, include the user properties that may,
+or may not, have been adjusted by the user/test.
 
+For example,
+vecs0
+	...
+	Properties:
+		heartbeat_interval_ms: 2500 [default 2500]
+		max_busywait_duration_ns: 8000 [default 8000]
+		preempt_timeout_ms: 640 [default 640]
+		stop_timeout_ms: 100 [default 100]
+		timeslice_duration_ms: 1 [default 1]
+
+Suggested-by: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
 Cc: Mika Kuoppala <mika.kuoppala@linux.intel.com>
+Reviewed-by: Mika Kuoppala <mika.kuoppala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/i915_gpu_error.c | 28 +++++----------------------
- 1 file changed, 5 insertions(+), 23 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c | 36 +++++++++++++++++++++++
+ 1 file changed, 36 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/i915_gpu_error.c b/drivers/gpu/drm/i915/i915_gpu_error.c
-index a635ec8d0b94..2d0c4b8d9e3c 100644
---- a/drivers/gpu/drm/i915/i915_gpu_error.c
-+++ b/drivers/gpu/drm/i915/i915_gpu_error.c
-@@ -1026,6 +1026,7 @@ i915_vma_coredump_create(const struct intel_gt *gt,
- 		dma_addr_t dma;
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+index 5bfb5f7ed02c..1985772152bf 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
++++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+@@ -1599,6 +1599,41 @@ static unsigned long list_count(struct list_head *list)
+ 	return count;
+ }
  
- 		for_each_sgt_daddr(dma, iter, vma->pages) {
-+			mutex_lock(&ggtt->error_mutex);
- 			ggtt->vm.insert_page(&ggtt->vm, dma, slot,
- 					     I915_CACHE_NONE, 0);
- 			mb();
-@@ -1035,6 +1036,10 @@ i915_vma_coredump_create(const struct intel_gt *gt,
- 					    (void  __force *)s, dst,
- 					    true);
- 			io_mapping_unmap(s);
++static unsigned long read_ul(void *p, size_t x)
++{
++	return *(unsigned long *)(p + x);
++}
 +
-+			mb();
-+			ggtt->vm.clear_range(&ggtt->vm, slot, PAGE_SIZE);
-+			mutex_unlock(&ggtt->error_mutex);
- 			if (ret)
- 				break;
- 		}
-@@ -1506,25 +1511,6 @@ gt_record_uc(struct intel_gt_coredump *gt,
- 	return error_uc;
- }
++static void print_properties(struct intel_engine_cs *engine,
++			     struct drm_printer *m)
++{
++	static const struct pmap {
++		size_t offset;
++		const char *name;
++	} props[] = {
++#define P(x) { \
++	.offset = offsetof(typeof(engine->props), x), \
++	.name = #x \
++}
++		P(heartbeat_interval_ms),
++		P(max_busywait_duration_ns),
++		P(preempt_timeout_ms),
++		P(stop_timeout_ms),
++		P(timeslice_duration_ms),
++
++		{},
++#undef P
++	};
++	const struct pmap *p;
++
++	drm_printf(m, "\tProperties:\n");
++	for (p = props; p->name; p++)
++		drm_printf(m, "\t\t%s: %lu [default %lu]\n",
++			   p->name,
++			   read_ul(&engine->props, p->offset),
++			   read_ul(&engine->defaults, p->offset));
++}
++
+ void intel_engine_dump(struct intel_engine_cs *engine,
+ 		       struct drm_printer *m,
+ 		       const char *header, ...)
+@@ -1641,6 +1676,7 @@ void intel_engine_dump(struct intel_engine_cs *engine,
+ 	drm_printf(m, "\tReset count: %d (global %d)\n",
+ 		   i915_reset_engine_count(error, engine),
+ 		   i915_reset_count(error));
++	print_properties(engine, m);
  
--static void gt_capture_prepare(struct intel_gt_coredump *gt)
--{
--	struct i915_ggtt *ggtt = gt->_gt->ggtt;
--
--	mutex_lock(&ggtt->error_mutex);
--}
--
--static void gt_capture_finish(struct intel_gt_coredump *gt)
--{
--	struct i915_ggtt *ggtt = gt->_gt->ggtt;
--
--	if (drm_mm_node_allocated(&ggtt->error_capture))
--		ggtt->vm.clear_range(&ggtt->vm,
--				     ggtt->error_capture.start,
--				     PAGE_SIZE);
--
--	mutex_unlock(&ggtt->error_mutex);
--}
--
- /* Capture all registers which don't fit into another category. */
- static void gt_record_regs(struct intel_gt_coredump *gt)
- {
-@@ -1783,8 +1769,6 @@ i915_vma_capture_prepare(struct intel_gt_coredump *gt)
- 		return NULL;
- 	}
+ 	drm_printf(m, "\tRequests:\n");
  
--	gt_capture_prepare(gt);
--
- 	return compress;
- }
- 
-@@ -1794,8 +1778,6 @@ void i915_vma_capture_finish(struct intel_gt_coredump *gt,
- 	if (!compress)
- 		return;
- 
--	gt_capture_finish(gt);
--
- 	compress_fini(compress);
- 	kfree(compress);
- }
 -- 
 2.20.1
 
