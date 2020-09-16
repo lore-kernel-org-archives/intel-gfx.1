@@ -4,62 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-9.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D8C85C433E2
-	for <intel-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 17:19:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E9B0AC43461
+	for <intel-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 17:19:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 77A83223E8
-	for <intel-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 17:19:43 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 94839223E8
+	for <intel-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 17:19:49 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="TYAiiaS6"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 77A83223E8
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="dZou0bIJ"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 94839223E8
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE97B6EA9A;
-	Wed, 16 Sep 2020 17:19:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED9E36EA9C;
+	Wed, 16 Sep 2020 17:19:48 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [216.205.24.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 04AB96EA99
- for <intel-gfx@lists.freedesktop.org>; Wed, 16 Sep 2020 17:19:40 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 479EE6EA9C
+ for <intel-gfx@lists.freedesktop.org>; Wed, 16 Sep 2020 17:19:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1600276780;
+ s=mimecast20190719; t=1600276787;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=rTE9cJznhR6LaB3O2iqpAeyWXzykJ8nKiYtplo0vYS8=;
- b=TYAiiaS6VRUYYvwZI2MloQ5pC4Z6mxubXM7TenAZNvWGKyR5ce38sbgXoSqrsuPLz0sj6m
- 6ifH9CszlpEj1phGuBR6wmxO2XS5tKGGrXuHQh/HR5sBdttTjdXhpNs1uXZSTWN8zQB7ny
- 7J8G/Z93H7xew+5uf0O+zq7DszZyOR8=
+ bh=Lyx36WMHRsGiiJu366iOAUHmwFCp7ig/T6xHCostHnU=;
+ b=dZou0bIJQNDM5rBWJ76w6cDE1T+zyB84coCbe3YcSdHGCR8exx4Ulw9NQPNWNe1BNAnz9P
+ cw+Ey56vM99QxH+f7zTeDSTs33HFuwp656j0adCzAz6Fe8q2MTjJP6YV8hslGhD0s8y+BD
+ pWuhjQNPZ21jBSr+OUOryaBMsvFsP/o=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-517-9a4H02IqNi-qBXHalpQL9Q-1; Wed, 16 Sep 2020 13:19:34 -0400
-X-MC-Unique: 9a4H02IqNi-qBXHalpQL9Q-1
+ us-mta-43-ygl5PSujOOqpvfHOLkjX6A-1; Wed, 16 Sep 2020 13:19:43 -0400
+X-MC-Unique: ygl5PSujOOqpvfHOLkjX6A-1
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
  [10.5.11.13])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C5EC880EF8C;
- Wed, 16 Sep 2020 17:19:30 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8C8908030B9;
+ Wed, 16 Sep 2020 17:19:41 +0000 (UTC)
 Received: from Whitewolf.redhat.com (ovpn-120-66.rdu2.redhat.com
  [10.10.120.66])
- by smtp.corp.redhat.com (Postfix) with ESMTP id E88BA1C4;
- Wed, 16 Sep 2020 17:19:27 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 7463C1C4;
+ Wed, 16 Sep 2020 17:19:40 +0000 (UTC)
 From: Lyude Paul <lyude@redhat.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 16 Sep 2020 13:18:48 -0400
-Message-Id: <20200916171855.129511-2-lyude@redhat.com>
+Date: Wed, 16 Sep 2020 13:18:51 -0400
+Message-Id: <20200916171855.129511-5-lyude@redhat.com>
 In-Reply-To: <20200916171855.129511-1-lyude@redhat.com>
 References: <20200916171855.129511-1-lyude@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
-Subject: [Intel-gfx] [RFC v2 1/8] drm/i915/dp: Program source OUI on eDP
- panels
+Subject: [Intel-gfx] [RFC v2 4/8] drm/i915/dp: Rename eDP VESA backlight
+ interface functions
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,92 +73,168 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: David Airlie <airlied@linux.ie>, open list <linux-kernel@vger.kernel.org>,
- Vasily Khoruzhick <anarsoul@gmail.com>, Sean Paul <seanpaul@chromium.org>,
- dri-devel@lists.freedesktop.org, Wambui Karuga <wambui.karugax@gmail.com>
+ Vasily Khoruzhick <anarsoul@gmail.com>, dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Since we're about to start adding support for Intel's magic HDR
-backlight interface over DPCD, we need to ensure we're properly
-programming this field so that Intel specific sink services are exposed.
-Otherwise, 0x300-0x3ff will just read zeroes.
-
-We also take care not to reprogram the source OUI if it already matches
-what we expect. This is just to be careful so that we don't accidentally
-take the panel out of any backlight control modes we found it in.
-
-v2:
-* Add careful parameter to intel_edp_init_source_oui() to avoid
-  re-writing the source OUI if it's already been set during driver
-  initialization
+Since we're about to add support for a second type of backlight control
+interface over DP AUX (specifically, Intel's proprietary HDR backlight
+controls) let's rename all of the current backlight hooks we have for
+vesa to make it clear that they're specific to the VESA interface and
+not Intel's.
 
 Signed-off-by: Lyude Paul <lyude@redhat.com>
 Cc: thaytan@noraisin.net
 Cc: Vasily Khoruzhick <anarsoul@gmail.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c | 33 +++++++++++++++++++++++++
- 1 file changed, 33 insertions(+)
+ .../drm/i915/display/intel_dp_aux_backlight.c | 51 ++++++++++---------
+ 1 file changed, 26 insertions(+), 25 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 4bd10456ad188..7db2b6a3cd52e 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -3424,6 +3424,29 @@ void intel_dp_sink_set_decompression_state(struct intel_dp *intel_dp,
- 			    enable ? "enable" : "disable");
- }
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
+index acbd7eb66cbe3..f601bcbe8ee46 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
+@@ -25,7 +25,7 @@
+ #include "intel_display_types.h"
+ #include "intel_dp_aux_backlight.h"
  
-+static void
-+intel_edp_init_source_oui(struct intel_dp *intel_dp, bool careful)
-+{
-+	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
-+	u8 oui[] = { 0x00, 0xaa, 0x01 };
-+	u8 buf[3] = { 0 };
-+
-+	/*
-+	 * During driver init, we want to be careful and avoid changing the source OUI if it's
-+	 * already set to what we want, so as to avoid clearing any state by accident
-+	 */
-+	if (careful) {
-+		if (drm_dp_dpcd_read(&intel_dp->aux, DP_SOURCE_OUI, buf, sizeof(buf)) < 0)
-+			drm_err(&i915->drm, "Failed to read source OUI\n");
-+
-+		if (memcmp(oui, buf, sizeof(oui)) == 0)
-+			return;
-+	}
-+
-+	if (drm_dp_dpcd_write(&intel_dp->aux, DP_SOURCE_OUI, oui, sizeof(oui)) < 0)
-+		drm_err(&i915->drm, "Failed to write source OUI\n");
-+}
-+
- /* If the sink supports it, try to set the power state appropriately */
- void intel_dp_sink_dpms(struct intel_dp *intel_dp, int mode)
+-static void set_aux_backlight_enable(struct intel_dp *intel_dp, bool enable)
++static void set_vesa_backlight_enable(struct intel_dp *intel_dp, bool enable)
  {
-@@ -3443,6 +3466,10 @@ void intel_dp_sink_dpms(struct intel_dp *intel_dp, int mode)
- 	} else {
- 		struct intel_lspcon *lspcon = dp_to_lspcon(intel_dp);
- 
-+		/* Write the source OUI as early as possible */
-+		if (intel_dp_is_edp(intel_dp))
-+			intel_edp_init_source_oui(intel_dp, false);
-+
- 		/*
- 		 * When turning on, we need to retry for 1ms to give the sink
- 		 * time to wake up.
-@@ -4607,6 +4634,12 @@ intel_edp_init_dpcd(struct intel_dp *intel_dp)
- 	if (INTEL_GEN(dev_priv) >= 10 || IS_GEMINILAKE(dev_priv))
- 		intel_dp_get_dsc_sink_cap(intel_dp);
- 
-+	/*
-+	 * If needed, program our source OUI so we can make various Intel-specific AUX services
-+	 * available (such as HDR backlight controls)
-+	 */
-+	intel_edp_init_source_oui(intel_dp, true);
-+
+ 	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
+ 	u8 reg_val = 0;
+@@ -56,7 +56,7 @@ static void set_aux_backlight_enable(struct intel_dp *intel_dp, bool enable)
+  * Read the current backlight value from DPCD register(s) based
+  * on if 8-bit(MSB) or 16-bit(MSB and LSB) values are supported
+  */
+-static u32 intel_dp_aux_get_backlight(struct intel_connector *connector)
++static u32 intel_dp_aux_vesa_get_backlight(struct intel_connector *connector)
+ {
+ 	struct intel_dp *intel_dp = intel_attached_dp(connector);
+ 	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
+@@ -99,7 +99,8 @@ static u32 intel_dp_aux_get_backlight(struct intel_connector *connector)
+  * 8-bit or 16 bit value (MSB and LSB)
+  */
+ static void
+-intel_dp_aux_set_backlight(const struct drm_connector_state *conn_state, u32 level)
++intel_dp_aux_vesa_set_backlight(const struct drm_connector_state *conn_state,
++				u32 level)
+ {
+ 	struct intel_connector *connector = to_intel_connector(conn_state->connector);
+ 	struct intel_dp *intel_dp = intel_attached_dp(connector);
+@@ -129,7 +130,7 @@ intel_dp_aux_set_backlight(const struct drm_connector_state *conn_state, u32 lev
+  * - Where P = 2^Pn, where Pn is the value programmed by field 4:0 of the
+  *             EDP_PWMGEN_BIT_COUNT register (DPCD Address 00724h)
+  */
+-static bool intel_dp_aux_set_pwm_freq(struct intel_connector *connector)
++static bool intel_dp_aux_vesa_set_pwm_freq(struct intel_connector *connector)
+ {
+ 	struct drm_i915_private *dev_priv = to_i915(connector->base.dev);
+ 	struct intel_dp *intel_dp = intel_attached_dp(connector);
+@@ -165,8 +166,8 @@ static bool intel_dp_aux_set_pwm_freq(struct intel_connector *connector)
  	return true;
  }
  
+-static void intel_dp_aux_enable_backlight(const struct intel_crtc_state *crtc_state,
+-					  const struct drm_connector_state *conn_state)
++static void intel_dp_aux_vesa_enable_backlight(const struct intel_crtc_state *crtc_state,
++					       const struct drm_connector_state *conn_state)
+ {
+ 	struct intel_connector *connector = to_intel_connector(conn_state->connector);
+ 	struct intel_dp *intel_dp = intel_attached_dp(connector);
+@@ -206,7 +207,7 @@ static void intel_dp_aux_enable_backlight(const struct intel_crtc_state *crtc_st
+ 	}
+ 
+ 	if (intel_dp->edp_dpcd[2] & DP_EDP_BACKLIGHT_FREQ_AUX_SET_CAP)
+-		if (intel_dp_aux_set_pwm_freq(connector))
++		if (intel_dp_aux_vesa_set_pwm_freq(connector))
+ 			new_dpcd_buf |= DP_EDP_BACKLIGHT_FREQ_AUX_SET_ENABLE;
+ 
+ 	if (new_dpcd_buf != dpcd_buf) {
+@@ -217,18 +218,18 @@ static void intel_dp_aux_enable_backlight(const struct intel_crtc_state *crtc_st
+ 		}
+ 	}
+ 
+-	intel_dp_aux_set_backlight(conn_state,
+-				   connector->panel.backlight.level);
+-	set_aux_backlight_enable(intel_dp, true);
++	intel_dp_aux_vesa_set_backlight(conn_state,
++					connector->panel.backlight.level);
++	set_vesa_backlight_enable(intel_dp, true);
+ }
+ 
+-static void intel_dp_aux_disable_backlight(const struct drm_connector_state *old_conn_state)
++static void intel_dp_aux_vesa_disable_backlight(const struct drm_connector_state *old_conn_state)
+ {
+-	set_aux_backlight_enable(enc_to_intel_dp(to_intel_encoder(old_conn_state->best_encoder)),
+-				 false);
++	set_vesa_backlight_enable(enc_to_intel_dp(to_intel_encoder(old_conn_state->best_encoder)),
++				  false);
+ }
+ 
+-static u32 intel_dp_aux_calc_max_backlight(struct intel_connector *connector)
++static u32 intel_dp_aux_vesa_calc_max_backlight(struct intel_connector *connector)
+ {
+ 	struct drm_i915_private *i915 = to_i915(connector->base.dev);
+ 	struct intel_dp *intel_dp = intel_attached_dp(connector);
+@@ -308,24 +309,24 @@ static u32 intel_dp_aux_calc_max_backlight(struct intel_connector *connector)
+ 	return max_backlight;
+ }
+ 
+-static int intel_dp_aux_setup_backlight(struct intel_connector *connector,
+-					enum pipe pipe)
++static int intel_dp_aux_vesa_setup_backlight(struct intel_connector *connector,
++					     enum pipe pipe)
+ {
+ 	struct intel_panel *panel = &connector->panel;
+ 
+-	panel->backlight.max = intel_dp_aux_calc_max_backlight(connector);
++	panel->backlight.max = intel_dp_aux_vesa_calc_max_backlight(connector);
+ 	if (!panel->backlight.max)
+ 		return -ENODEV;
+ 
+ 	panel->backlight.min = 0;
+-	panel->backlight.level = intel_dp_aux_get_backlight(connector);
++	panel->backlight.level = intel_dp_aux_vesa_get_backlight(connector);
+ 	panel->backlight.enabled = panel->backlight.level != 0;
+ 
+ 	return 0;
+ }
+ 
+ static bool
+-intel_dp_aux_display_control_capable(struct intel_connector *connector)
++intel_dp_aux_supports_vesa_backlight(struct intel_connector *connector)
+ {
+ 	struct intel_dp *intel_dp = intel_attached_dp(connector);
+ 	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
+@@ -349,7 +350,7 @@ int intel_dp_aux_init_backlight_funcs(struct intel_connector *intel_connector)
+ 	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
+ 
+ 	if (i915->params.enable_dpcd_backlight == 0 ||
+-	    !intel_dp_aux_display_control_capable(intel_connector))
++	    !intel_dp_aux_supports_vesa_backlight(intel_connector))
+ 		return -ENODEV;
+ 
+ 	/*
+@@ -371,11 +372,11 @@ int intel_dp_aux_init_backlight_funcs(struct intel_connector *intel_connector)
+ 		return -ENODEV;
+ 	}
+ 
+-	panel->backlight.setup = intel_dp_aux_setup_backlight;
+-	panel->backlight.enable = intel_dp_aux_enable_backlight;
+-	panel->backlight.disable = intel_dp_aux_disable_backlight;
+-	panel->backlight.set = intel_dp_aux_set_backlight;
+-	panel->backlight.get = intel_dp_aux_get_backlight;
++	panel->backlight.setup = intel_dp_aux_vesa_setup_backlight;
++	panel->backlight.enable = intel_dp_aux_vesa_enable_backlight;
++	panel->backlight.disable = intel_dp_aux_vesa_disable_backlight;
++	panel->backlight.set = intel_dp_aux_vesa_set_backlight;
++	panel->backlight.get = intel_dp_aux_vesa_get_backlight;
+ 
+ 	return 0;
+ }
 -- 
 2.26.2
 
