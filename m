@@ -6,39 +6,40 @@ X-Spam-Status: No, score=-6.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
 	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F087FC43461
-	for <intel-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 13:53:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6A763C2BB84
+	for <intel-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 13:53:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8007622240
-	for <intel-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 13:53:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8007622240
+	by mail.kernel.org (Postfix) with ESMTPS id E8A9422240
+	for <intel-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 13:53:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E8A9422240
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=arm.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C7DD26EA2F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 244B46EA29;
 	Wed, 16 Sep 2020 13:53:22 +0000 (UTC)
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id C842E6E99C;
- Wed, 16 Sep 2020 10:56:31 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 0F1AF6E999;
+ Wed, 16 Sep 2020 10:56:19 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2D4E413D5;
- Wed, 16 Sep 2020 03:56:31 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E8C9113A1;
+ Wed, 16 Sep 2020 03:56:18 -0700 (PDT)
 Received: from e113632-lin (e113632-lin.cambridge.arm.com [10.1.194.46])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 889213F68F;
- Wed, 16 Sep 2020 03:56:25 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 521533F68F;
+ Wed, 16 Sep 2020 03:56:13 -0700 (PDT)
 References: <20200914204209.256266093@linutronix.de>
- <20200914204441.794954043@linutronix.de>
+ <20200914204441.268144917@linutronix.de>
 User-agent: mu4e 0.9.17; emacs 26.3
 From: Valentin Schneider <valentin.schneider@arm.com>
 To: Thomas Gleixner <tglx@linutronix.de>
-In-reply-to: <20200914204441.794954043@linutronix.de>
-Date: Wed, 16 Sep 2020 11:56:23 +0100
-Message-ID: <jhj8sda56so.mognet@arm.com>
+In-reply-to: <20200914204441.268144917@linutronix.de>
+Date: Wed, 16 Sep 2020 11:56:01 +0100
+Message-ID: <jhja6xq56ta.mognet@arm.com>
 MIME-Version: 1.0
 X-Mailman-Approved-At: Wed, 16 Sep 2020 13:53:21 +0000
-Subject: Re: [Intel-gfx] [patch 08/13] sched: Clenaup PREEMPT_COUNT leftovers
+Subject: Re: [Intel-gfx] [patch 03/13] preempt: Clenaup PREEMPT_COUNT
+ leftovers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,7 +88,7 @@ On 14/09/20 21:42, Thomas Gleixner wrote:
 > removed. Cleanup the leftovers before doing so.
 >
 > Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
-> Cc: Ingo Molnar <mingo@redhat.com>
+> Cc: Ingo Molnar <mingo@kernel.org>
 > Cc: Peter Zijlstra <peterz@infradead.org>
 > Cc: Juri Lelli <juri.lelli@redhat.com>
 > Cc: Vincent Guittot <vincent.guittot@linaro.org>
@@ -97,31 +98,7 @@ On 14/09/20 21:42, Thomas Gleixner wrote:
 > Cc: Mel Gorman <mgorman@suse.de>
 > Cc: Daniel Bristot de Oliveira <bristot@redhat.com>
 
-Small nit below;
-
 Reviewed-by: Valentin Schneider <valentin.schneider@arm.com>
-
-> ---
->  kernel/sched/core.c |    6 +-----
->  lib/Kconfig.debug   |    1 -
->  2 files changed, 1 insertion(+), 6 deletions(-)
->
-> --- a/kernel/sched/core.c
-> +++ b/kernel/sched/core.c
-> @@ -3706,8 +3706,7 @@ asmlinkage __visible void schedule_tail(
->        * finish_task_switch() for details.
->        *
->        * finish_task_switch() will drop rq->lock() and lower preempt_count
-> -	 * and the preempt_enable() will end up enabling preemption (on
-> -	 * PREEMPT_COUNT kernels).
-
-I suppose this wanted to be s/PREEMPT_COUNT/PREEMPT/ in the first place,
-which ought to be still relevant.
-
-> +	 * and the preempt_enable() will end up enabling preemption.
->        */
->
->       rq = finish_task_switch(prev);
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
