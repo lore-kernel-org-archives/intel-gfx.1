@@ -2,48 +2,51 @@ Return-Path: <SRS0=Ht+W=CZ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_GIT autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E4D23C2D0A7
-	for <intel-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 05:03:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 37C5BC2D0E3
+	for <intel-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 05:03:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 82E2720936
-	for <intel-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 05:03:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 82E2720936
+	by mail.kernel.org (Postfix) with ESMTPS id D5C6420936
+	for <intel-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 05:03:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D5C6420936
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E4C036E98A;
-	Wed, 16 Sep 2020 05:03:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 46E936E984;
+	Wed, 16 Sep 2020 05:03:29 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0426D6E2A8
- for <intel-gfx@lists.freedesktop.org>; Wed, 16 Sep 2020 05:03:21 +0000 (UTC)
-IronPort-SDR: wONjV8nx5duE+j5eNCbwl6R5rpak1u/dl2WQv/P9fU36+EYP43KZVxMhmzN8Y6yusuxHC6fnOM
- 1cogRE457SNA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9745"; a="160333246"
-X-IronPort-AV: E=Sophos;i="5.76,431,1592895600"; d="scan'208";a="160333246"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 503E56E984
+ for <intel-gfx@lists.freedesktop.org>; Wed, 16 Sep 2020 05:03:28 +0000 (UTC)
+IronPort-SDR: 5c6jCEsrcTFePAdVpYJxdOCzW7dtqiVgRTOqWfyt17lKX2I2ITH9VdbgRfs9ZG7+zx6M3EQTNB
+ 87JhQCuKH+Gw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9745"; a="160333258"
+X-IronPort-AV: E=Sophos;i="5.76,431,1592895600"; d="scan'208";a="160333258"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Sep 2020 22:03:17 -0700
-IronPort-SDR: M4mJ8z87kaM4Zm0uOg3xRbiyF+2jw90Gd524A9YnECdWAuDeCeWtU1LG1gX+N0YBx78fovVMaE
- nJ+HPgggjCeg==
-X-IronPort-AV: E=Sophos;i="5.76,431,1592895600"; d="scan'208";a="306911824"
+ 15 Sep 2020 22:03:24 -0700
+IronPort-SDR: b7O7Ww+AoV0yeXK4fOMs/LEZVUn1LbtzTkeTkOxicGT/i2AClvzk0oe7eTyqz7bFZOzIjc/EMh
+ trM3kIUijr+Q==
+X-IronPort-AV: E=Sophos;i="5.76,431,1592895600"; d="scan'208";a="306911845"
 Received: from vandita-desktop.iind.intel.com ([10.223.74.218])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-SHA;
- 15 Sep 2020 22:03:15 -0700
+ 15 Sep 2020 22:03:21 -0700
 From: Vandita Kulkarni <vandita.kulkarni@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 16 Sep 2020 10:26:44 +0530
-Message-Id: <20200916045648.21837-1-vandita.kulkarni@intel.com>
+Date: Wed, 16 Sep 2020 10:26:47 +0530
+Message-Id: <20200916045648.21837-4-vandita.kulkarni@intel.com>
 X-Mailer: git-send-email 2.21.0.5.gaeb582a
+In-Reply-To: <20200916045648.21837-1-vandita.kulkarni@intel.com>
+References: <20200916045648.21837-1-vandita.kulkarni@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [V10 0/4] Add support for mipi dsi cmd mode
+Subject: [Intel-gfx] [V10 3/4] drm/i915/dsi: Add TE handler for dsi cmd mode.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,23 +65,115 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This series contain interrupt handling part of cmd mode.
-Configuration patches were merged already.
+In case of dual link, we get the TE on slave.
+So clear the TE on slave DSI IIR.
 
-v10: Address the review comments on patch 3 and 4
+If we are operating in TE_GATE mode, after we do
+a frame update, the transcoder will send the frame data
+to the panel, after it receives a TE. Whereas if we
+are operating in NO_GATE mode then the transcoder will
+immediately send the frame data to the panel.
+We are not dealing with the periodic command mode here.
 
-Vandita Kulkarni (4):
-  drm/i915/dsi: Add details about TE in get_config
-  i915/dsi: Configure TE interrupt for cmd mode
-  drm/i915/dsi: Add TE handler for dsi cmd mode.
-  drm/i915/dsi: Initiate fame request in cmd mode
+v2: Pass only relevant masked bits to the handler (Jani)
 
- drivers/gpu/drm/i915/display/icl_dsi.c       |  56 +++++++--
- drivers/gpu/drm/i915/display/intel_display.c |  10 ++
- drivers/gpu/drm/i915/display/intel_dsi.h     |   1 +
- drivers/gpu/drm/i915/i915_irq.c              | 116 ++++++++++++++++++-
- 4 files changed, 169 insertions(+), 14 deletions(-)
+v3: Fix the check for cmd mode in TE handler function.
 
+v4: Use intel_handle_vblank instead of drm_handle_vblank (Jani)
+
+v3: Use handler func should be static (Jani),
+
+Signed-off-by: Vandita Kulkarni <vandita.kulkarni@intel.com>
+Reported-by: kernel test robot <lkp@intel.com>
+Acked-by: Jani Nikula <jani.nikula@intel.com>
+---
+ drivers/gpu/drm/i915/i915_irq.c | 66 +++++++++++++++++++++++++++++++++
+ 1 file changed, 66 insertions(+)
+
+diff --git a/drivers/gpu/drm/i915/i915_irq.c b/drivers/gpu/drm/i915/i915_irq.c
+index 913548addfba..4a1f13425108 100644
+--- a/drivers/gpu/drm/i915/i915_irq.c
++++ b/drivers/gpu/drm/i915/i915_irq.c
+@@ -2237,6 +2237,64 @@ gen8_de_misc_irq_handler(struct drm_i915_private *dev_priv, u32 iir)
+ 		drm_err(&dev_priv->drm, "Unexpected DE Misc interrupt\n");
+ }
+ 
++static void gen11_dsi_te_interrupt_handler(struct drm_i915_private *dev_priv,
++				    u32 te_trigger)
++{
++	enum pipe pipe = INVALID_PIPE;
++	enum transcoder dsi_trans;
++	enum port port;
++	u32 val, tmp;
++
++	/*
++	 * Incase of dual link, TE comes from DSI_1
++	 * this is to check if dual link is enabled
++	 */
++	val = I915_READ(TRANS_DDI_FUNC_CTL2(TRANSCODER_DSI_0));
++	val &= PORT_SYNC_MODE_ENABLE;
++
++	/*
++	 * if dual link is enabled, then read DSI_0
++	 * transcoder registers
++	 */
++	port = ((te_trigger & DSI1_TE && val) || (te_trigger & DSI0_TE)) ?
++						  PORT_A : PORT_B;
++	dsi_trans = (port == PORT_A) ? TRANSCODER_DSI_0 : TRANSCODER_DSI_1;
++
++	/* Check if DSI configured in command mode */
++	val = I915_READ(DSI_TRANS_FUNC_CONF(dsi_trans));
++	val = val & OP_MODE_MASK;
++
++	if ((val != CMD_MODE_NO_GATE) && (val != CMD_MODE_TE_GATE)) {
++		drm_err(&dev_priv->drm, "DSI trancoder not configured in command mode\n");
++		return;
++	}
++
++	/* Get PIPE for handling VBLANK event */
++	val = I915_READ(TRANS_DDI_FUNC_CTL(dsi_trans));
++	switch (val & TRANS_DDI_EDP_INPUT_MASK) {
++	case TRANS_DDI_EDP_INPUT_A_ON:
++		pipe = PIPE_A;
++		break;
++	case TRANS_DDI_EDP_INPUT_B_ONOFF:
++		pipe = PIPE_B;
++		break;
++	case TRANS_DDI_EDP_INPUT_C_ONOFF:
++		pipe = PIPE_C;
++		break;
++	default:
++		drm_err(&dev_priv->drm, "Invalid PIPE\n");
++		return;
++	}
++
++	intel_handle_vblank(dev_priv, pipe);
++
++	/* clear TE in dsi IIR */
++	port = (te_trigger & DSI1_TE) ? PORT_B : PORT_A;
++	tmp = I915_READ(DSI_INTR_IDENT_REG(port));
++	I915_WRITE(DSI_INTR_IDENT_REG(port), tmp);
++
++}
++
+ static irqreturn_t
+ gen8_de_irq_handler(struct drm_i915_private *dev_priv, u32 master_ctl)
+ {
+@@ -2301,6 +2359,14 @@ gen8_de_irq_handler(struct drm_i915_private *dev_priv, u32 master_ctl)
+ 				found = true;
+ 			}
+ 
++			if (INTEL_GEN(dev_priv) >= 11) {
++				tmp_mask = iir & (DSI0_TE | DSI1_TE);
++				if (tmp_mask) {
++					gen11_dsi_te_interrupt_handler(dev_priv, tmp_mask);
++					found = true;
++				}
++			}
++
+ 			if (!found)
+ 				drm_err(&dev_priv->drm,
+ 					"Unexpected DE Port interrupt\n");
 -- 
 2.21.0.5.gaeb582a
 
