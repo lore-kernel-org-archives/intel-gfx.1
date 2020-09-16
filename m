@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DC12FC35256
-	for <intel-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 09:42:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 33A21C43461
+	for <intel-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 09:46:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8164A21974
-	for <intel-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 09:42:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8164A21974
+	by mail.kernel.org (Postfix) with ESMTPS id AB051206B7
+	for <intel-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 09:46:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AB051206B7
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CEB916E9E8;
-	Wed, 16 Sep 2020 09:42:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 41B8B6E358;
+	Wed, 16 Sep 2020 09:46:17 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 550EE6E9E5
- for <intel-gfx@lists.freedesktop.org>; Wed, 16 Sep 2020 09:42:36 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB3486E9EB
+ for <intel-gfx@lists.freedesktop.org>; Wed, 16 Sep 2020 09:46:15 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22443434-1500050 
- for multiple; Wed, 16 Sep 2020 10:42:19 +0100
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22443509-1500050 
+ for multiple; Wed, 16 Sep 2020 10:46:07 +0100
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 16 Sep 2020 10:42:18 +0100
-Message-Id: <20200916094219.3878-3-chris@chris-wilson.co.uk>
+Date: Wed, 16 Sep 2020 10:46:07 +0100
+Message-Id: <20200916094607.409-3-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20200916094219.3878-1-chris@chris-wilson.co.uk>
-References: <20200916094219.3878-1-chris@chris-wilson.co.uk>
+In-Reply-To: <20200916094607.409-1-chris@chris-wilson.co.uk>
+References: <20200916094607.409-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 3/4] drm/i915/gt: Always send a pulse down the
- engine after disabling heartbeat
+Subject: [Intel-gfx] [PATCH 3/3] drm/i915/gt: Retire cancelled requests on
+ unload
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,44 +50,43 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stable@vger.kernel.org, Chris Wilson <chris@chris-wilson.co.uk>
+Cc: Chris Wilson <chris@chris-wilson.co.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Currently, we check we can send a pulse prior to disabling the
-heartbeat to verify that we can change the heartbeat, but since we may
-re-evaluate execution upon changing the heartbeat interval we need another
-pulse afterwards to refresh execution.
+If we manage to hit the intel_gt_set_wedged_on_fini() while active, i.e.
+module unload during a stress test, we may cancel the requests but not
+clean up. This leads to a slow module unload as we wait for something or
+other to trigger the retirement flushing. Instead if we explicitly
+cancel then cleanup on an active unload, it should be instant.
 
-Fixes: 9a40bddd47ca ("drm/i915/gt: Expose heartbeat interval via sysfs")
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: <stable@vger.kernel.org> # v5.7+
 ---
- drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_reset.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c b/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
-index 8ffdf676c0a0..d09df370f7cd 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
-@@ -192,10 +192,12 @@ int intel_engine_set_heartbeat(struct intel_engine_cs *engine,
- 	WRITE_ONCE(engine->props.heartbeat_interval_ms, delay);
+diff --git a/drivers/gpu/drm/i915/gt/intel_reset.c b/drivers/gpu/drm/i915/gt/intel_reset.c
+index ac36b67fb46b..4e5e13dc95da 100644
+--- a/drivers/gpu/drm/i915/gt/intel_reset.c
++++ b/drivers/gpu/drm/i915/gt/intel_reset.c
+@@ -19,6 +19,7 @@
+ #include "intel_engine_pm.h"
+ #include "intel_gt.h"
+ #include "intel_gt_pm.h"
++#include "intel_gt_requests.h"
+ #include "intel_reset.h"
  
- 	if (intel_engine_pm_get_if_awake(engine)) {
--		if (delay)
-+		if (delay) {
- 			intel_engine_unpark_heartbeat(engine);
--		else
-+		} else {
- 			intel_engine_park_heartbeat(engine);
-+			intel_engine_pulse(engine); /* recheck execution */
-+		}
- 		intel_engine_pm_put(engine);
- 	}
+ #include "uc/intel_guc.h"
+@@ -1370,6 +1371,7 @@ void intel_gt_set_wedged_on_fini(struct intel_gt *gt)
+ {
+ 	intel_gt_set_wedged(gt);
+ 	set_bit(I915_WEDGED_ON_FINI, &gt->reset.flags);
++	intel_gt_retire_requests(gt); /* cleanup any wedged requests */
+ }
  
+ void intel_gt_init_reset(struct intel_gt *gt)
 -- 
 2.20.1
 
