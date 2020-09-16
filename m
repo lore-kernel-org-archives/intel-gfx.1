@@ -6,37 +6,37 @@ X-Spam-Status: No, score=-3.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 06AEAC43461
-	for <intel-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 12:34:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B90E0C433E2
+	for <intel-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 12:34:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A80C02224A
-	for <intel-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 12:34:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A80C02224A
+	by mail.kernel.org (Postfix) with ESMTPS id 6384B2224F
+	for <intel-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 12:34:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6384B2224F
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 21D546E9FA;
-	Wed, 16 Sep 2020 12:34:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD0076E9FD;
+	Wed, 16 Sep 2020 12:34:50 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id E221D6E15E;
- Wed, 16 Sep 2020 12:34:20 +0000 (UTC)
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 7F5B36E9FC;
+ Wed, 16 Sep 2020 12:34:49 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id CCF63A47DB;
- Wed, 16 Sep 2020 12:34:20 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id 75B01A47DB;
+ Wed, 16 Sep 2020 12:34:49 +0000 (UTC)
 MIME-Version: 1.0
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Chris Wilson" <chris@chris-wilson.co.uk>
-Date: Wed, 16 Sep 2020 12:34:20 -0000
-Message-ID: <160025966080.19374.8289218038230608864@emeril.freedesktop.org>
+Date: Wed, 16 Sep 2020 12:34:49 -0000
+Message-ID: <160025968947.19375.12268710696561012064@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <20200916090059.3189-1-chris@chris-wilson.co.uk>
 In-Reply-To: <20200916090059.3189-1-chris@chris-wilson.co.uk>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_series_starting_with_=5B1/3=5D_drm/i915/gt=3A_Show_engine_p?=
- =?utf-8?q?roperties_in_the_pretty_printer?=
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?series_starting_with_=5B1/3=5D_drm/i915/gt=3A_Show_engine_prope?=
+ =?utf-8?q?rties_in_the_pretty_printer?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,21 +64,12 @@ State : warning
 
 == Summary ==
 
-$ dim checkpatch origin/drm-tip
-22a8bb51bc47 drm/i915/gt: Show engine properties in the pretty printer
--:49: CHECK:LINE_SPACING: Please use a blank line after function/struct/union/enum declarations
-#49: FILE: drivers/gpu/drm/i915/gt/intel_engine_cs.c:1618:
-+}
-+		P(heartbeat_interval_ms),
-
-total: 0 errors, 0 warnings, 1 checks, 48 lines checked
-4a0bcbb88652 drm/i915: Break up error capture compression loops with cond_resched()
-5d65ed072d0d drm/i915: Reduce GPU error capture mutex hold time
--:36: WARNING:MEMORY_BARRIER: memory barrier without comment
-#36: FILE: drivers/gpu/drm/i915/i915_gpu_error.c:1040:
-+			mb();
-
-total: 0 errors, 1 warnings, 0 checks, 58 lines checked
+$ dim sparse --fast origin/drm-tip
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
+-
++./include/linux/seqlock.h:752:24: warning: trying to copy expression type 31
++./include/linux/seqlock.h:778:16: warning: trying to copy expression type 31
 
 
 _______________________________________________
