@@ -2,55 +2,43 @@ Return-Path: <SRS0=Ht+W=CZ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 60D01C433E2
-	for <intel-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 13:51:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F087FC43461
+	for <intel-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 13:53:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0158120732
-	for <intel-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 13:51:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0158120732
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 8007622240
+	for <intel-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 13:53:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8007622240
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=arm.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C99C6E0A8;
-	Wed, 16 Sep 2020 13:51:02 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B0BC46E0A8
- for <intel-gfx@lists.freedesktop.org>; Wed, 16 Sep 2020 13:51:00 +0000 (UTC)
-IronPort-SDR: BGpYcGtyVKaUSzPfXYZqINzr2upGikFp04LMvMRWwbcRleDvhnfv9GOy9Mo4lMofqURn9EDR5t
- 2KFwjqMYODOg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9745"; a="147214341"
-X-IronPort-AV: E=Sophos;i="5.76,433,1592895600"; d="scan'208";a="147214341"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Sep 2020 06:51:00 -0700
-IronPort-SDR: SP1+LjmK3SvlRturvR9fbYAKyVvKuWhvyi6m5rOjMEFmKCoEXcRWmDOfWOAfktp5z9o/Vb1YpW
- 285eyzmUpWqA==
-X-IronPort-AV: E=Sophos;i="5.76,433,1592895600"; d="scan'208";a="483320229"
-Received: from djgriffi-mobl.ger.corp.intel.com (HELO localhost)
- ([10.252.8.217])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Sep 2020 06:50:57 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Anusha Srivatsa <anusha.srivatsa@intel.com>
-In-Reply-To: <159978425524.14123.1265738591680006266@emeril.freedesktop.org>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20200910234850.12709-1-anusha.srivatsa@intel.com>
- <159978425524.14123.1265738591680006266@emeril.freedesktop.org>
-Date: Wed, 16 Sep 2020 16:51:02 +0300
-Message-ID: <87d02lx22h.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id C7DD26EA2F;
+	Wed, 16 Sep 2020 13:53:22 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id C842E6E99C;
+ Wed, 16 Sep 2020 10:56:31 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2D4E413D5;
+ Wed, 16 Sep 2020 03:56:31 -0700 (PDT)
+Received: from e113632-lin (e113632-lin.cambridge.arm.com [10.1.194.46])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 889213F68F;
+ Wed, 16 Sep 2020 03:56:25 -0700 (PDT)
+References: <20200914204209.256266093@linutronix.de>
+ <20200914204441.794954043@linutronix.de>
+User-agent: mu4e 0.9.17; emacs 26.3
+From: Valentin Schneider <valentin.schneider@arm.com>
+To: Thomas Gleixner <tglx@linutronix.de>
+In-reply-to: <20200914204441.794954043@linutronix.de>
+Date: Wed, 16 Sep 2020 11:56:23 +0100
+Message-ID: <jhj8sda56so.mognet@arm.com>
 MIME-Version: 1.0
-Subject: Re: [Intel-gfx] 
- =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_drm/i915/pll=3A_Centralize_PLL=5FENABLE_register_lookup_=28?=
- =?utf-8?q?rev4=29?=
+X-Mailman-Approved-At: Wed, 16 Sep 2020 13:53:21 +0000
+Subject: Re: [Intel-gfx] [patch 08/13] sched: Clenaup PREEMPT_COUNT leftovers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,60 +51,77 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org
+Cc: Juri Lelli <juri.lelli@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Lai Jiangshan <jiangshanlai@gmail.com>, dri-devel@lists.freedesktop.org,
+ Ben Segall <bsegall@google.com>, linux-mm@kvack.org,
+ linux-kselftest@vger.kernel.org, linux-hexagon@vger.kernel.org,
+ Will Deacon <will@kernel.org>, Ingo Molnar <mingo@kernel.org>,
+ Anton Ivanov <anton.ivanov@cambridgegreys.com>, linux-arch@vger.kernel.org,
+ Brian Cain <bcain@codeaurora.org>, Richard Weinberger <richard@nod.at>,
+ Russell King <linux@armlinux.org.uk>, David Airlie <airlied@linux.ie>,
+ Ingo Molnar <mingo@redhat.com>, Geert Uytterhoeven <geert@linux-m68k.org>,
+ Mel Gorman <mgorman@suse.de>, Matt Turner <mattst88@gmail.com>,
+ intel-gfx@lists.freedesktop.org, linux-xtensa@linux-xtensa.org,
+ Shuah Khan <shuah@kernel.org>, "Paul E. McKenney" <paulmck@kernel.org>,
+ Jeff Dike <jdike@addtoit.com>, linux-um@lists.infradead.org,
+ Josh Triplett <josh@joshtriplett.org>, Steven Rostedt <rostedt@goodmis.org>,
+ rcu@vger.kernel.org, Linus Torvalds <torvalds@linuxfoundation.org>,
+ Ivan Kokshaysky <ink@jurassic.park.msu.ru>,
+ Dietmar Eggemann <dietmar.eggemann@arm.com>,
+ linux-arm-kernel@lists.infradead.org, Richard Henderson <rth@twiddle.net>,
+ Chris Zankel <chris@zankel.net>, Max Filippov <jcmvbkbc@gmail.com>,
+ linux-m68k@lists.linux-m68k.org, LKML <linux-kernel@vger.kernel.org>,
+ linux-alpha@vger.kernel.org,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Daniel Bristot de Oliveira <bristot@redhat.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 11 Sep 2020, Patchwork <patchwork@emeril.freedesktop.org> wrote:
-> == Series Details ==
->
-> Series: drm/i915/pll: Centralize PLL_ENABLE register lookup (rev4)
-> URL   : https://patchwork.freedesktop.org/series/81150/
-> State : warning
->
-> == Summary ==
->
-> $ dim checkpatch origin/drm-tip
-> dac234339c17 drm/i915/pll: Centralize PLL_ENABLE register lookup
-> -:38: CHECK:BRACES: Blank lines aren't necessary after an open brace '{'
-> #38: FILE: drivers/gpu/drm/i915/display/intel_dpll_mgr.c:154:
-> +{
-> +
->
-> -:39: CHECK:UNNECESSARY_PARENTHESES: Unnecessary parentheses around 'pll->info->id == DPLL_ID_EHL_DPLL4'
-> #39: FILE: drivers/gpu/drm/i915/display/intel_dpll_mgr.c:155:
-> +	if (IS_ELKHARTLAKE(i915) && (pll->info->id == DPLL_ID_EHL_DPLL4))
->
-> -:44: CHECK:LINE_SPACING: Please don't use multiple blank lines
-> #44: FILE: drivers/gpu/drm/i915/display/intel_dpll_mgr.c:160:
-> +
-> +
->
-> -:45: CHECK:BRACES: Blank lines aren't necessary before a close brace '}'
-> #45: FILE: drivers/gpu/drm/i915/display/intel_dpll_mgr.c:161:
-> +
-> +}
 
-We have this in CI so people don't have to bother with mentioning this
-stuff. But I do expect people to look at them and fix them.
-
-BR,
-Jani.
-
-
+On 14/09/20 21:42, Thomas Gleixner wrote:
+> CONFIG_PREEMPT_COUNT is now unconditionally enabled and will be
+> removed. Cleanup the leftovers before doing so.
 >
-> total: 0 errors, 0 warnings, 4 checks, 66 lines checked
->
->
-> _______________________________________________
-> Intel-gfx mailing list
-> Intel-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+> Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
+> Cc: Ingo Molnar <mingo@redhat.com>
+> Cc: Peter Zijlstra <peterz@infradead.org>
+> Cc: Juri Lelli <juri.lelli@redhat.com>
+> Cc: Vincent Guittot <vincent.guittot@linaro.org>
+> Cc: Dietmar Eggemann <dietmar.eggemann@arm.com>
+> Cc: Steven Rostedt <rostedt@goodmis.org>
+> Cc: Ben Segall <bsegall@google.com>
+> Cc: Mel Gorman <mgorman@suse.de>
+> Cc: Daniel Bristot de Oliveira <bristot@redhat.com>
 
--- 
-Jani Nikula, Intel Open Source Graphics Center
+Small nit below;
+
+Reviewed-by: Valentin Schneider <valentin.schneider@arm.com>
+
+> ---
+>  kernel/sched/core.c |    6 +-----
+>  lib/Kconfig.debug   |    1 -
+>  2 files changed, 1 insertion(+), 6 deletions(-)
+>
+> --- a/kernel/sched/core.c
+> +++ b/kernel/sched/core.c
+> @@ -3706,8 +3706,7 @@ asmlinkage __visible void schedule_tail(
+>        * finish_task_switch() for details.
+>        *
+>        * finish_task_switch() will drop rq->lock() and lower preempt_count
+> -	 * and the preempt_enable() will end up enabling preemption (on
+> -	 * PREEMPT_COUNT kernels).
+
+I suppose this wanted to be s/PREEMPT_COUNT/PREEMPT/ in the first place,
+which ought to be still relevant.
+
+> +	 * and the preempt_enable() will end up enabling preemption.
+>        */
+>
+>       rq = finish_task_switch(prev);
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
