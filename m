@@ -2,40 +2,50 @@ Return-Path: <SRS0=Ht+W=CZ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7C13CC43461
-	for <intel-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 18:09:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CD5FBC433E2
+	for <intel-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 18:14:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F36DC2083B
-	for <intel-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 18:09:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F36DC2083B
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id 7887321655
+	for <intel-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 18:14:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7887321655
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C08A6EA19;
-	Wed, 16 Sep 2020 18:09:51 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id F32A66EA19;
- Wed, 16 Sep 2020 18:09:49 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id EB506A7DFB;
- Wed, 16 Sep 2020 18:09:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD24C6EAAF;
+	Wed, 16 Sep 2020 18:14:32 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C11896EAAF
+ for <intel-gfx@lists.freedesktop.org>; Wed, 16 Sep 2020 18:14:30 +0000 (UTC)
+IronPort-SDR: 0eHrm0axipuKn1+g9Q1eD0jLRbrkoRcNgD9+e9swqMiTExWcUaeXs2C9op157w7mt8LKmlap0u
+ U4U4Y5NRJl0w==
+X-IronPort-AV: E=McAfee;i="6000,8403,9746"; a="160465080"
+X-IronPort-AV: E=Sophos;i="5.76,433,1592895600"; d="scan'208";a="160465080"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Sep 2020 11:14:29 -0700
+IronPort-SDR: A/g0FEa6yuJtS9ySIwsi+2e3cgVF9c0+n4S6ix83l4iN9pYmtVHAWv+UTE0L6Pwz6mSbnwiJ5b
+ y6jxByZFIA0Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.76,433,1592895600"; d="scan'208";a="288442091"
+Received: from cooperch-ml.itwn.intel.com ([10.5.253.151])
+ by fmsmga008.fm.intel.com with ESMTP; 16 Sep 2020 11:14:27 -0700
+From: Cooper Chiou <cooper.chiou@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Thu, 17 Sep 2020 02:07:45 +0800
+Message-Id: <20200916180745.627-1-cooper.chiou@intel.com>
+X-Mailer: git-send-email 2.28.0
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: John.C.Harrison@Intel.com
-Date: Wed, 16 Sep 2020 18:09:49 -0000
-Message-ID: <160027978993.19374.14287271369027929353@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20200916171653.2021483-1-John.C.Harrison@Intel.com>
-In-Reply-To: <20200916171653.2021483-1-John.C.Harrison@Intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_drm/i915/guc=3A_Update_to_GuC_v49?=
+Subject: [Intel-gfx] [PATCH] drm/i915: Enable
+ WaProgramMgsrForCorrectSliceSpecificMmioReads for Gen9
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,42 +58,53 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Cooper Chiou <cooper.chiou@intel.com>,
+ William Tseng <william.tseng@intel.com>, Jani Nikula <jani.nikula@intel.com>,
+ Chris Wilson <chris@chris-wilson.co.uk>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
-
-Series: drm/i915/guc: Update to GuC v49
-URL   : https://patchwork.freedesktop.org/series/81761/
-State : warning
-
-== Summary ==
-
-$ dim checkpatch origin/drm-tip
-b85247eec0d5 drm/i915/guc: New GuC IDs based on engine class and instance
-923da8dfc700 drm/i915/guc: Support logical engine mapping table in ADS
-a0177d57bb38 drm/i915/guc: Setup private_data pointer in GuC ADS
-5f423aca568b drm/i915/guc: Remove GUC_CTL_CTXINFO init param
-64ae9427b7d7 drm/i915/guc: Kill guc_ads.reg_state_buffer
-f93beff182b6 drm/i915/guc: ADS changes for GuC v42
-bfb299260ee6 drm/i915/guc: Setup doorbells data in ADS
-0ee8c9ccbc81 drm/i915/guc: Increased engine classes in ADS
--:40: WARNING:LONG_LINE: line length of 103 exceeds 100 columns
-#40: FILE: drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c:167:
-+		blob->system_info.generic_gt_sysinfo[GUC_GENERIC_GT_SYSINFO_DOORBELL_COUNT_PER_SQIDI] =
-
-total: 0 errors, 1 warnings, 0 checks, 65 lines checked
-f61c746b164f drm/i915/guc: Update firmware to v49.0.1
-4e7c8483904f drm/i915/guc: Improved reporting when GuC fails to load
-44b2ad598451 drm/i915/guc: Clear pointers on free
-ea57f0f58d2b drm/i915/uc: turn on GuC/HuC auto mode by default
-
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+V2FQcm9ncmFtTWdzckZvckNvcnJlY3RTbGljZVNwZWNpZmljTW1pb1JlYWRzIGFwcGxpZXMgZm9y
+IEdlbjkgdG8KcmVzb2x2ZSBWUDggaGFyZHdhcmUgZW5jb2Rpbmcgc3lzdGVtIGhhbmcgdXAgb24g
+R1QxIHNrdQoKUmVmZXJlbmNlOiBIU0QjMTUwODA0NTAxOAoKQ2M6IFZpbGxlIFN5cmrDpGzDpCA8
+dmlsbGUuc3lyamFsYUBsaW51eC5pbnRlbC5jb20+CkNjOiBSb2RyaWdvIFZpdmkgPHJvZHJpZ28u
+dml2aUBpbnRlbC5jb20+CkNjOiBKYW5pIE5pa3VsYSA8amFuaS5uaWt1bGFAaW50ZWwuY29tPgpD
+YzogQ2hyaXMgV2lsc29uIDxjaHJpc0BjaHJpcy13aWxzb24uY28udWs+CkNjOiBUdnJ0a28gVXJz
+dWxpbiA8dHZydGtvLnVyc3VsaW5AbGludXguaW50ZWwuY29tPgpDYzogV2lsbGlhbSBUc2VuZyA8
+d2lsbGlhbS50c2VuZ0BpbnRlbC5jb20+CkNjOiBMZWUgU2hhd24gQyA8c2hhd24uYy5sZWVAaW50
+ZWwuY29tPgpTaWduZWQtb2ZmLWJ5OiBDb29wZXIgQ2hpb3UgPGNvb3Blci5jaGlvdUBpbnRlbC5j
+b20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3QvaW50ZWxfd29ya2Fyb3VuZHMuYyB8IDgg
+KysrKysrLS0KIDEgZmlsZSBjaGFuZ2VkLCA2IGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0p
+CgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3QvaW50ZWxfd29ya2Fyb3VuZHMu
+YyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2d0L2ludGVsX3dvcmthcm91bmRzLmMKaW5kZXggNTcy
+NmNkMGEzN2UwLi41M2VhNDM1OTU0NWIgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1
+L2d0L2ludGVsX3dvcmthcm91bmRzLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3QvaW50
+ZWxfd29ya2Fyb3VuZHMuYwpAQCAtOTM1LDkgKzkzNSwxMyBAQCBoc3dfZ3Rfd29ya2Fyb3VuZHNf
+aW5pdChzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqaTkxNSwgc3RydWN0IGk5MTVfd2FfbGlzdCAq
+d2FsKQogCXdhX21hc2tlZF9lbih3YWwsIEhBTEZfU0xJQ0VfQ0hJQ0tFTjMsIEhTV19TQU1QTEVf
+Q19QRVJGT1JNQU5DRSk7CiB9CiAKK3N0YXRpYyB2b2lkIHdhX2luaXRfbWNyKHN0cnVjdCBkcm1f
+aTkxNV9wcml2YXRlICppOTE1LCBzdHJ1Y3QgaTkxNV93YV9saXN0ICp3YWwpOworCiBzdGF0aWMg
+dm9pZAogZ2VuOV9ndF93b3JrYXJvdW5kc19pbml0KHN0cnVjdCBkcm1faTkxNV9wcml2YXRlICpp
+OTE1LCBzdHJ1Y3QgaTkxNV93YV9saXN0ICp3YWwpCiB7CisJd2FfaW5pdF9tY3IoaTkxNSwgd2Fs
+KTsKKwogCS8qIFdhRGlzYWJsZUtpbGxMb2dpYzpieHQsc2tsLGtibCAqLwogCWlmICghSVNfQ09G
+RkVFTEFLRShpOTE1KSAmJiAhSVNfQ09NRVRMQUtFKGk5MTUpKQogCQl3YV93cml0ZV9vcih3YWws
+CkBAIC0xMDQwLDcgKzEwNDQsNyBAQCB3YV9pbml0X21jcihzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0
+ZSAqaTkxNSwgc3RydWN0IGk5MTVfd2FfbGlzdCAqd2FsKQogCXVuc2lnbmVkIGludCBzbGljZSwg
+c3Vic2xpY2U7CiAJdTMyIGwzX2VuLCBtY3IsIG1jcl9tYXNrOwogCi0JR0VNX0JVR19PTihJTlRF
+TF9HRU4oaTkxNSkgPCAxMCk7CisJR0VNX0JVR19PTihJTlRFTF9HRU4oaTkxNSkgPCA5KTsKIAog
+CS8qCiAJICogV2FQcm9ncmFtTWdzckZvckwzQmFua1NwZWNpZmljTW1pb1JlYWRzOiBjbmwsaWNs
+CkBAIC0xMDQ5LDcgKzEwNTMsNyBAQCB3YV9pbml0X21jcihzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0
+ZSAqaTkxNSwgc3RydWN0IGk5MTVfd2FfbGlzdCAqd2FsKQogCSAqIGJ5IGRlZmF1bHQsIHRvIG1h
+a2Ugc3VyZSB3ZSBjb3JyZWN0bHkgcmVhZCBjZXJ0YWluIHJlZ2lzdGVycwogCSAqIGxhdGVyIG9u
+IChpbiB0aGUgcmFuZ2UgMHhCMTAwIC0gMHhCM0ZGKS4KIAkgKgotCSAqIFdhUHJvZ3JhbU1nc3JG
+b3JDb3JyZWN0U2xpY2VTcGVjaWZpY01taW9SZWFkczpjbmwsaWNsCisJICogV2FQcm9ncmFtTWdz
+ckZvckNvcnJlY3RTbGljZVNwZWNpZmljTW1pb1JlYWRzOmdlbjksY25sLGljbAogCSAqIEJlZm9y
+ZSBhbnkgTU1JTyByZWFkIGludG8gc2xpY2Uvc3Vic2xpY2Ugc3BlY2lmaWMgcmVnaXN0ZXJzLCBN
+Q1IKIAkgKiBwYWNrZXQgY29udHJvbCByZWdpc3RlciBuZWVkcyB0byBiZSBwcm9ncmFtbWVkIHRv
+IHBvaW50IHRvIGFueQogCSAqIGVuYWJsZWQgcy9zcyBwYWlyLiBPdGhlcndpc2UsIGluY29ycmVj
+dCB2YWx1ZXMgd2lsbCBiZSByZXR1cm5lZC4KLS0gCjIuMjguMAoKX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRl
+bC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+L21haWxtYW4vbGlzdGluZm8vaW50ZWwtZ2Z4Cg==
