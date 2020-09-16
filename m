@@ -7,49 +7,48 @@ X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 018A8C43461
-	for <intel-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 17:17:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1C087C433E2
+	for <intel-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 17:17:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AD347223D6
-	for <intel-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 17:17:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AD347223D6
+	by mail.kernel.org (Postfix) with ESMTPS id D177A223D6
+	for <intel-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 17:17:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D177A223D6
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=Intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 457FE6EA8D;
-	Wed, 16 Sep 2020 17:17:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A63B6EA91;
+	Wed, 16 Sep 2020 17:17:12 +0000 (UTC)
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A8A76EA85
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CDF306EA83
  for <Intel-GFX@lists.freedesktop.org>; Wed, 16 Sep 2020 17:16:55 +0000 (UTC)
-IronPort-SDR: fh6+Bc5sgMwp33TdAs/8NNQhNbJpSM/9s44w6e4/TmQxq41lZaeCxdBw3V5uAnq7oiSDEhrbxc
- Zw4x3CPVkDhA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9746"; a="139534271"
-X-IronPort-AV: E=Sophos;i="5.76,433,1592895600"; d="scan'208";a="139534271"
+IronPort-SDR: ocLE4mP+de57bka98X4A+zCwC3O3k8Q0zpq4T58sQzz0aHRekbaKfme0CKaj94o/KT+fOhwxPP
+ KdDtksifkXeA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9746"; a="139534279"
+X-IronPort-AV: E=Sophos;i="5.76,433,1592895600"; d="scan'208";a="139534279"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Sep 2020 10:16:54 -0700
-IronPort-SDR: fegJHUHsUbQTnK8wXWm8ZN2o5S9yfuz/oZ2ku47DcP0TBUbTCxSVLqR5L5JWwmM1Ml2RxDFxfV
- jbl/GS3Pa6gw==
+ 16 Sep 2020 10:16:55 -0700
+IronPort-SDR: nlUMKHFejOoo8R9U+opkCogz7P5BSZxghcYSwxg/nUnlNjs5M4aCRWm+6SwrGliDRo3uB7Nn16
+ 8gWjUu5fThDg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.76,433,1592895600"; d="scan'208";a="287259446"
+X-IronPort-AV: E=Sophos;i="5.76,433,1592895600"; d="scan'208";a="287259458"
 Received: from relo-linux-5.jf.intel.com ([10.165.21.134])
- by fmsmga007.fm.intel.com with ESMTP; 16 Sep 2020 10:16:54 -0700
+ by fmsmga007.fm.intel.com with ESMTP; 16 Sep 2020 10:16:55 -0700
 From: John.C.Harrison@Intel.com
 To: Intel-GFX@Lists.FreeDesktop.Org
-Date: Wed, 16 Sep 2020 10:16:46 -0700
-Message-Id: <20200916171653.2021483-6-John.C.Harrison@Intel.com>
+Date: Wed, 16 Sep 2020 10:16:50 -0700
+Message-Id: <20200916171653.2021483-10-John.C.Harrison@Intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200916171653.2021483-1-John.C.Harrison@Intel.com>
 References: <20200916171653.2021483-1-John.C.Harrison@Intel.com>
 MIME-Version: 1.0
 Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
  Swindon SN3 1RJ
-Subject: [Intel-gfx] [PATCH 05/12] drm/i915/guc: Kill
- guc_ads.reg_state_buffer
+Subject: [Intel-gfx] [PATCH 09/12] drm/i915/guc: Update firmware to v49.0.1
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,50 +66,59 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Michal Wajdeczko <michal.wajdeczko@intel.com>
+From: John Harrison <John.C.Harrison@Intel.com>
 
-Starting GuC firmware version 40.0 reg_state_buffer is maintained
-internally by the GuC as part of "private data".
+Note that the GuC major version jumped from 35 to 40. This is because
+the v40 firmware included a significant re-write of the API. The 'new
+GuC API' patch series is required to make use of command submission
+with this new GuC firmware. Versions 36 through 39 are reserved for
+updates to the v35 code base.
 
+Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
 Signed-off-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
+Cc: Matthew Brost <matthew.brost@intel.com>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c  | 2 --
- drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h | 2 +-
- 2 files changed, 1 insertion(+), 3 deletions(-)
+ drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c | 24 ++++++++++--------------
+ 1 file changed, 10 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-index 7c16ade44b2b..a662825f67ad 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-@@ -83,7 +83,6 @@ struct __guc_ads_blob {
- 	struct guc_gt_system_info system_info;
- 	struct guc_clients_info clients_info;
- 	struct guc_ct_pool_entry ct_pool[GUC_CT_POOL_SIZE];
--	u8 reg_state_buffer[GUC_S3_SAVE_SPACE_PAGES * PAGE_SIZE];
- } __packed;
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
+index 1928ce94faf8..ee4ac3922277 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
+@@ -44,23 +44,19 @@ void intel_uc_fw_change_status(struct intel_uc_fw *uc_fw,
+  * List of required GuC and HuC binaries per-platform.
+  * Must be ordered based on platform + revid, from newer to older.
+  *
+- * TGL 35.2 is interface-compatible with 33.0 for previous Gens. The deltas
+- * between 33.0 and 35.2 are only related to new additions to support new Gen12
+- * features.
+- *
+  * Note that RKL uses the same firmware as TGL.
+  */
+ #define INTEL_UC_FIRMWARE_DEFS(fw_def, guc_def, huc_def) \
+-	fw_def(ROCKETLAKE,  0, guc_def(tgl, 35, 2, 0), huc_def(tgl,  7, 5, 0)) \
+-	fw_def(TIGERLAKE,   0, guc_def(tgl, 35, 2, 0), huc_def(tgl,  7, 5, 0)) \
+-	fw_def(ELKHARTLAKE, 0, guc_def(ehl, 33, 0, 4), huc_def(ehl,  9, 0, 0)) \
+-	fw_def(ICELAKE,     0, guc_def(icl, 33, 0, 0), huc_def(icl,  9, 0, 0)) \
+-	fw_def(COMETLAKE,   5, guc_def(cml, 33, 0, 0), huc_def(cml,  4, 0, 0)) \
+-	fw_def(COFFEELAKE,  0, guc_def(kbl, 33, 0, 0), huc_def(kbl,  4, 0, 0)) \
+-	fw_def(GEMINILAKE,  0, guc_def(glk, 33, 0, 0), huc_def(glk,  4, 0, 0)) \
+-	fw_def(KABYLAKE,    0, guc_def(kbl, 33, 0, 0), huc_def(kbl,  4, 0, 0)) \
+-	fw_def(BROXTON,     0, guc_def(bxt, 33, 0, 0), huc_def(bxt,  2, 0, 0)) \
+-	fw_def(SKYLAKE,     0, guc_def(skl, 33, 0, 0), huc_def(skl,  2, 0, 0))
++	fw_def(ROCKETLAKE,  0, guc_def(tgl, 49, 0, 1), huc_def(tgl,  7, 5, 0)) \
++	fw_def(TIGERLAKE,   0, guc_def(tgl, 49, 0, 1), huc_def(tgl,  7, 5, 0)) \
++	fw_def(ELKHARTLAKE, 0, guc_def(ehl, 49, 0, 1), huc_def(ehl,  9, 0, 0)) \
++	fw_def(ICELAKE,     0, guc_def(icl, 49, 0, 1), huc_def(icl,  9, 0, 0)) \
++	fw_def(COMETLAKE,   5, guc_def(cml, 49, 0, 1), huc_def(cml,  4, 0, 0)) \
++	fw_def(COFFEELAKE,  0, guc_def(kbl, 49, 0, 1), huc_def(kbl,  4, 0, 0)) \
++	fw_def(GEMINILAKE,  0, guc_def(glk, 49, 0, 1), huc_def(glk,  4, 0, 0)) \
++	fw_def(KABYLAKE,    0, guc_def(kbl, 49, 0, 1), huc_def(kbl,  4, 0, 0)) \
++	fw_def(BROXTON,     0, guc_def(bxt, 49, 0, 1), huc_def(bxt,  2, 0, 0)) \
++	fw_def(SKYLAKE,     0, guc_def(skl, 49, 0, 1), huc_def(skl,  2, 0, 0))
  
- static void __guc_ads_init(struct intel_guc *guc)
-@@ -141,7 +140,6 @@ static void __guc_ads_init(struct intel_guc *guc)
- 
- 	/* ADS */
- 	blob->ads.scheduler_policies = base + ptr_offset(blob, policies);
--	blob->ads.reg_state_buffer = base + ptr_offset(blob, reg_state_buffer);
- 	blob->ads.reg_state_addr = base + ptr_offset(blob, reg_state);
- 	blob->ads.gt_system_info = base + ptr_offset(blob, system_info);
- 	blob->ads.clients_info = base + ptr_offset(blob, clients_info);
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
-index d4e2c32f44cf..f375388e8c50 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
-@@ -407,7 +407,7 @@ struct guc_clients_info {
- /* GuC Additional Data Struct */
- struct guc_ads {
- 	u32 reg_state_addr;
--	u32 reg_state_buffer;
-+	u32 reserved0;
- 	u32 scheduler_policies;
- 	u32 gt_system_info;
- 	u32 clients_info;
+ #define __MAKE_UC_FW_PATH(prefix_, name_, major_, minor_, patch_) \
+ 	"i915/" \
 -- 
 2.25.1
 
