@@ -7,49 +7,49 @@ X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 00C7EC43461
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BC9E8C2BB84
 	for <intel-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 17:17:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A8ACD223D6
-	for <intel-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 17:17:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A8ACD223D6
+	by mail.kernel.org (Postfix) with ESMTPS id 73DC4223D6
+	for <intel-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 17:17:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 73DC4223D6
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=Intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DBAF66EA84;
-	Wed, 16 Sep 2020 17:17:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 806A66EA90;
+	Wed, 16 Sep 2020 17:17:03 +0000 (UTC)
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE65F6EA83
- for <Intel-GFX@lists.freedesktop.org>; Wed, 16 Sep 2020 17:16:54 +0000 (UTC)
-IronPort-SDR: 2u0nmhTNbI1Cs3AdCLcdakv6aJvhKhLg+CrI+NOKij4pYXToUsjg+cOaWOHZkWxtYThxtsjZ0+
- 98Am+oE7xmVg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9746"; a="139534262"
-X-IronPort-AV: E=Sophos;i="5.76,433,1592895600"; d="scan'208";a="139534262"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3229B6EA83
+ for <Intel-GFX@lists.freedesktop.org>; Wed, 16 Sep 2020 17:16:55 +0000 (UTC)
+IronPort-SDR: DLY89Rh4aLZmLoNzcPRu6gHi3l03oIriXzaMTatM22NpsvrQn10PF3lG90PXJJUA2xB9DBCsDi
+ SRTKa4HMbV4Q==
+X-IronPort-AV: E=McAfee;i="6000,8403,9746"; a="139534269"
+X-IronPort-AV: E=Sophos;i="5.76,433,1592895600"; d="scan'208";a="139534269"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  16 Sep 2020 10:16:54 -0700
-IronPort-SDR: XGoS+g0U2Yg15kqrT2KFrdNTeNjPLSogqClg4RJdXZeY3DBlobuOjQmHP5JYalZBhQdNNVCWGI
- JKUgCDGBpQ3Q==
+IronPort-SDR: +wp5fPb5WpPvm4FSqxQYyfWAmgU6Nr/3bFr1Je/0yuGAdVMBcz7N+H3b1JEWN/WDu/0t1hmDw1
+ 9c4US3LUBx4A==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.76,433,1592895600"; d="scan'208";a="287259436"
+X-IronPort-AV: E=Sophos;i="5.76,433,1592895600"; d="scan'208";a="287259444"
 Received: from relo-linux-5.jf.intel.com ([10.165.21.134])
  by fmsmga007.fm.intel.com with ESMTP; 16 Sep 2020 10:16:54 -0700
 From: John.C.Harrison@Intel.com
 To: Intel-GFX@Lists.FreeDesktop.Org
-Date: Wed, 16 Sep 2020 10:16:43 -0700
-Message-Id: <20200916171653.2021483-3-John.C.Harrison@Intel.com>
+Date: Wed, 16 Sep 2020 10:16:45 -0700
+Message-Id: <20200916171653.2021483-5-John.C.Harrison@Intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200916171653.2021483-1-John.C.Harrison@Intel.com>
 References: <20200916171653.2021483-1-John.C.Harrison@Intel.com>
 MIME-Version: 1.0
 Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
  Swindon SN3 1RJ
-Subject: [Intel-gfx] [PATCH 02/12] drm/i915/guc: Support logical engine
- mapping table in ADS
+Subject: [Intel-gfx] [PATCH 04/12] drm/i915/guc: Remove GUC_CTL_CTXINFO init
+ param
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,74 +69,94 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Matthew Brost <matthew.brost@intel.com>
 
-The new GuC FW introduces a physical to logical engine mapping table in
-the GuC additional data structures which needs to be configured in order
-for the firmware to load. This patch initializes the table with a 1 to 1
-mapping.
+The new GuC interface has removed GUC_CTL_CTXINFO from initialization
+params.
 
+Cc: John Harrison <john.c.harrison@intel.com>
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-CC: John Harrison <John.C.Harrison@Intel.com>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c  | 23 +++++++++++++++++++++
- drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h |  4 +++-
- 2 files changed, 26 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/gt/uc/intel_guc.c      | 18 ------------------
+ drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h | 15 +++++----------
+ 2 files changed, 5 insertions(+), 28 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-index d44061033f23..57954c6360e0 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-@@ -48,6 +48,27 @@ static void guc_ct_pool_entries_init(struct guc_ct_pool_entry *pool, u32 num)
- 	memset(pool, 0, num * sizeof(*pool));
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.c b/drivers/gpu/drm/i915/gt/uc/intel_guc.c
+index 942c7c187adb..6909da1e1a73 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.c
+@@ -213,23 +213,6 @@ static u32 guc_ctl_feature_flags(struct intel_guc *guc)
+ 	return flags;
  }
  
-+static void guc_mapping_table_init(struct intel_gt *gt,
-+				   struct guc_gt_system_info *system_info)
-+{
-+	unsigned int i, j;
-+	struct intel_engine_cs *engine;
-+	enum intel_engine_id id;
-+
-+	/* Table must be set to invalid values for entries not used */
-+	for (i = 0; i < GUC_MAX_ENGINE_CLASSES; ++i)
-+		for (j = 0; j < GUC_MAX_INSTANCES_PER_CLASS; ++j)
-+			system_info->mapping_table[i][j] =
-+				GUC_MAX_INSTANCES_PER_CLASS;
-+
-+	for_each_engine(engine, gt, id) {
-+		u8 guc_class = engine->class;
-+
-+		system_info->mapping_table[guc_class][engine->instance] =
-+			engine->instance;
-+	}
-+}
-+
- /*
-  * The first 80 dwords of the register state context, containing the
-  * execlists and ppgtt registers.
-@@ -107,6 +128,8 @@ static void __guc_ads_init(struct intel_guc *guc)
- 	blob->system_info.vebox_enable_mask = VEBOX_MASK(gt);
- 	blob->system_info.vdbox_sfc_support_mask = gt->info.vdbox_sfc_access;
+-static u32 guc_ctl_ctxinfo_flags(struct intel_guc *guc)
+-{
+-	u32 flags = 0;
+-
+-	if (intel_guc_submission_is_used(guc)) {
+-		u32 ctxnum, base;
+-
+-		base = intel_guc_ggtt_offset(guc, guc->stage_desc_pool);
+-		ctxnum = GUC_MAX_STAGE_DESCRIPTORS / 16;
+-
+-		base >>= PAGE_SHIFT;
+-		flags |= (base << GUC_CTL_BASE_ADDR_SHIFT) |
+-			(ctxnum << GUC_CTL_CTXNUM_IN16_SHIFT);
+-	}
+-	return flags;
+-}
+-
+ static u32 guc_ctl_log_params_flags(struct intel_guc *guc)
+ {
+ 	u32 offset = intel_guc_ggtt_offset(guc, guc->log.vma) >> PAGE_SHIFT;
+@@ -291,7 +274,6 @@ static void guc_init_params(struct intel_guc *guc)
  
-+	guc_mapping_table_init(guc_to_gt(guc), &blob->system_info);
-+
- 	base = intel_guc_ggtt_offset(guc, guc->ads_vma);
+ 	BUILD_BUG_ON(sizeof(guc->params) != GUC_CTL_MAX_DWORDS * sizeof(u32));
  
- 	/* Clients info  */
+-	params[GUC_CTL_CTXINFO] = guc_ctl_ctxinfo_flags(guc);
+ 	params[GUC_CTL_LOG_PARAMS] = guc_ctl_log_params_flags(guc);
+ 	params[GUC_CTL_FEATURE] = guc_ctl_feature_flags(guc);
+ 	params[GUC_CTL_DEBUG] = guc_ctl_debug_flags(guc);
 diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
-index 8b3684c6a9a1..e283156624b5 100644
+index fa19c9d248f2..d4e2c32f44cf 100644
 --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
 +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
-@@ -388,7 +388,9 @@ struct guc_gt_system_info {
- 	u32 vdbox_enable_mask;
- 	u32 vdbox_sfc_support_mask;
- 	u32 vebox_enable_mask;
--	u32 reserved[9];
-+	u32 reserved1;
-+	u8 mapping_table[GUC_MAX_ENGINE_CLASSES][GUC_MAX_INSTANCES_PER_CLASS];
-+	u32 reserved2[8];
- } __packed;
+@@ -62,12 +62,7 @@
+ #define GUC_STAGE_DESC_ATTR_PCH		BIT(6)
+ #define GUC_STAGE_DESC_ATTR_TERMINATED	BIT(7)
  
- /* Clients info */
+-/* New GuC control data */
+-#define GUC_CTL_CTXINFO			0
+-#define   GUC_CTL_CTXNUM_IN16_SHIFT	0
+-#define   GUC_CTL_BASE_ADDR_SHIFT	12
+-
+-#define GUC_CTL_LOG_PARAMS		1
++#define GUC_CTL_LOG_PARAMS		0
+ #define   GUC_LOG_VALID			(1 << 0)
+ #define   GUC_LOG_NOTIFY_ON_HALF_FULL	(1 << 1)
+ #define   GUC_LOG_ALLOC_IN_MEGABYTE	(1 << 3)
+@@ -79,11 +74,11 @@
+ #define   GUC_LOG_ISR_MASK	        (0x7 << GUC_LOG_ISR_SHIFT)
+ #define   GUC_LOG_BUF_ADDR_SHIFT	12
+ 
+-#define GUC_CTL_WA			2
+-#define GUC_CTL_FEATURE			3
++#define GUC_CTL_WA			1
++#define GUC_CTL_FEATURE			2
+ #define   GUC_CTL_DISABLE_SCHEDULER	(1 << 14)
+ 
+-#define GUC_CTL_DEBUG			4
++#define GUC_CTL_DEBUG			3
+ #define   GUC_LOG_VERBOSITY_SHIFT	0
+ #define   GUC_LOG_VERBOSITY_LOW		(0 << GUC_LOG_VERBOSITY_SHIFT)
+ #define   GUC_LOG_VERBOSITY_MED		(1 << GUC_LOG_VERBOSITY_SHIFT)
+@@ -97,7 +92,7 @@
+ #define   GUC_LOG_DISABLED		(1 << 6)
+ #define   GUC_PROFILE_ENABLED		(1 << 7)
+ 
+-#define GUC_CTL_ADS			5
++#define GUC_CTL_ADS			4
+ #define   GUC_ADS_ADDR_SHIFT		1
+ #define   GUC_ADS_ADDR_MASK		(0xFFFFF << GUC_ADS_ADDR_SHIFT)
+ 
 -- 
 2.25.1
 
