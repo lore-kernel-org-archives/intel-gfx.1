@@ -2,49 +2,55 @@ Return-Path: <SRS0=vKGW=C2=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-11.3 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DDF94C43461
-	for <intel-gfx@archiver.kernel.org>; Thu, 17 Sep 2020 16:50:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 50A7AC43461
+	for <intel-gfx@archiver.kernel.org>; Thu, 17 Sep 2020 17:05:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9279720838
-	for <intel-gfx@archiver.kernel.org>; Thu, 17 Sep 2020 16:50:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9279720838
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 0F288206A2
+	for <intel-gfx@archiver.kernel.org>; Thu, 17 Sep 2020 17:05:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0F288206A2
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3ACF76EC5D;
-	Thu, 17 Sep 2020 16:50:57 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4BAF36EC5B
- for <intel-gfx@lists.freedesktop.org>; Thu, 17 Sep 2020 16:50:56 +0000 (UTC)
-IronPort-SDR: eWY9EvXmD5hxV0dt8kIovu27JGAk0JdXFuxMgrWIu9T63vcDwqHz/LLIk9KwPjOBIITvg+HPUf
- XNuQO5ZOUlKw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9747"; a="159791461"
-X-IronPort-AV: E=Sophos;i="5.77,271,1596524400"; d="scan'208";a="159791461"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4BD156EC5F;
+	Thu, 17 Sep 2020 17:05:34 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 180F66EC5F
+ for <intel-gfx@lists.freedesktop.org>; Thu, 17 Sep 2020 17:05:33 +0000 (UTC)
+IronPort-SDR: 1oMXEP0otgR64FSzpOdOtT0wOj/Fet2xNarnp0ZgxMtuQe2ASZ8mgBCNJv9JDDQHez5jOOjjPN
+ uR/sVQhN4ueQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9747"; a="147433331"
+X-IronPort-AV: E=Sophos;i="5.77,271,1596524400"; d="scan'208";a="147433331"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Sep 2020 09:50:54 -0700
-IronPort-SDR: FwwoLzc07HA1WumQCHTWm+k5EkGnLEbeVvHBUf3qZljEb7t4T40V0rj1yp6fjbUijBHo7UyU3d
- XbGVK0B/Dkqw==
-X-IronPort-AV: E=Sophos;i="5.77,271,1596524400"; d="scan'208";a="452382705"
-Received: from wgitix-mobl.ger.corp.intel.com (HELO localhost) ([10.251.83.57])
- by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Sep 2020 09:50:51 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Thu, 17 Sep 2020 19:50:56 +0300
-Message-Id: <20200917165056.29766-1-jani.nikula@intel.com>
-X-Mailer: git-send-email 2.20.1
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Sep 2020 10:05:28 -0700
+IronPort-SDR: 8N/vRbjwsJefpd49K/uBRLTJc+xwOVJsHkXBWaKejxadeTTSJ10rVWDJEHbFTgMma3lUUFA1GJ
+ WTnLugPCxJ+Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.77,271,1596524400"; d="scan'208";a="307549921"
+Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.174])
+ by orsmga006.jf.intel.com with SMTP; 17 Sep 2020 10:05:26 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Thu, 17 Sep 2020 20:05:25 +0300
+Date: Thu, 17 Sep 2020 20:05:25 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Jani Nikula <jani.nikula@intel.com>
+Message-ID: <20200917170525.GA6112@intel.com>
+References: <20200917165056.29766-1-jani.nikula@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH] drm/i915/uc: tune down GuC communication
+Content-Disposition: inline
+In-Reply-To: <20200917165056.29766-1-jani.nikula@intel.com>
+X-Patchwork-Hint: comment
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/uc: tune down GuC communication
  enabled/disabled messages
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -58,56 +64,81 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com, Karol Herbst <kherbst@redhat.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: intel-gfx@lists.freedesktop.org, Karol Herbst <kherbst@redhat.com>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The GuC communication enabled/disabled messages are too noisy in info
-level. Convert them from info to debug level, and switch to device based
-logging while at it.
+On Thu, Sep 17, 2020 at 07:50:56PM +0300, Jani Nikula wrote:
+> The GuC communication enabled/disabled messages are too noisy in info
+> level. Convert them from info to debug level, and switch to device based
+> logging while at it.
+> =
 
-Reported-by: Karol Herbst <kherbst@redhat.com>
-Cc: Karol Herbst <kherbst@redhat.com>
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
----
- drivers/gpu/drm/i915/gt/uc/intel_uc.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+> Reported-by: Karol Herbst <kherbst@redhat.com>
+> Cc: Karol Herbst <kherbst@redhat.com>
+> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc.c b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
-index d6f55f70889d..4e6070e95fe9 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_uc.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
-@@ -231,13 +231,15 @@ static int guc_enable_communication(struct intel_guc *guc)
- 	intel_guc_ct_event_handler(&guc->ct);
- 	spin_unlock_irq(&i915->irq_lock);
- 
--	DRM_INFO("GuC communication enabled\n");
-+	drm_dbg(&i915->drm, "GuC communication enabled\n");
- 
- 	return 0;
- }
- 
- static void guc_disable_communication(struct intel_guc *guc)
- {
-+	struct drm_i915_private *i915 = guc_to_gt(guc)->i915;
-+
- 	/*
- 	 * Events generated during or after CT disable are logged by guc in
- 	 * via mmio. Make sure the register is clear before disabling CT since
-@@ -257,7 +259,7 @@ static void guc_disable_communication(struct intel_guc *guc)
- 	 */
- 	guc_get_mmio_msg(guc);
- 
--	DRM_INFO("GuC communication disabled\n");
-+	drm_dbg(&i915->drm, "GuC communication disabled\n");
- }
- 
- static void __uc_fetch_firmwares(struct intel_uc *uc)
--- 
-2.20.1
+Reviewed-by: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
 
+> ---
+>  drivers/gpu/drm/i915/gt/uc/intel_uc.c | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
+> =
+
+> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc.c b/drivers/gpu/drm/i915=
+/gt/uc/intel_uc.c
+> index d6f55f70889d..4e6070e95fe9 100644
+> --- a/drivers/gpu/drm/i915/gt/uc/intel_uc.c
+> +++ b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
+> @@ -231,13 +231,15 @@ static int guc_enable_communication(struct intel_gu=
+c *guc)
+>  	intel_guc_ct_event_handler(&guc->ct);
+>  	spin_unlock_irq(&i915->irq_lock);
+>  =
+
+> -	DRM_INFO("GuC communication enabled\n");
+> +	drm_dbg(&i915->drm, "GuC communication enabled\n");
+>  =
+
+>  	return 0;
+>  }
+>  =
+
+>  static void guc_disable_communication(struct intel_guc *guc)
+>  {
+> +	struct drm_i915_private *i915 =3D guc_to_gt(guc)->i915;
+> +
+>  	/*
+>  	 * Events generated during or after CT disable are logged by guc in
+>  	 * via mmio. Make sure the register is clear before disabling CT since
+> @@ -257,7 +259,7 @@ static void guc_disable_communication(struct intel_gu=
+c *guc)
+>  	 */
+>  	guc_get_mmio_msg(guc);
+>  =
+
+> -	DRM_INFO("GuC communication disabled\n");
+> +	drm_dbg(&i915->drm, "GuC communication disabled\n");
+>  }
+>  =
+
+>  static void __uc_fetch_firmwares(struct intel_uc *uc)
+> -- =
+
+> 2.20.1
+> =
+
+> _______________________________________________
+> Intel-gfx mailing list
+> Intel-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+
+-- =
+
+Ville Syrj=E4l=E4
+Intel
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
