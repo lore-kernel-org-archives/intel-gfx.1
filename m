@@ -2,40 +2,57 @@ Return-Path: <SRS0=vKGW=C2=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-11.3 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1AA4FC433E2
-	for <intel-gfx@archiver.kernel.org>; Thu, 17 Sep 2020 11:29:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E6766C43461
+	for <intel-gfx@archiver.kernel.org>; Thu, 17 Sep 2020 11:31:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 87CFE21974
-	for <intel-gfx@archiver.kernel.org>; Thu, 17 Sep 2020 11:29:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 87CFE21974
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id 95869208DB
+	for <intel-gfx@archiver.kernel.org>; Thu, 17 Sep 2020 11:31:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 95869208DB
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C55D56EC02;
-	Thu, 17 Sep 2020 11:29:27 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 3412B6EA61;
- Thu, 17 Sep 2020 11:29:27 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 2498BA7DFC;
- Thu, 17 Sep 2020 11:29:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A05488427;
+	Thu, 17 Sep 2020 11:31:26 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0BBA888427
+ for <intel-gfx@lists.freedesktop.org>; Thu, 17 Sep 2020 11:31:24 +0000 (UTC)
+IronPort-SDR: s1QRBCk8X8CePW7RJvvWKjLM+Qyfew4j9fR30364+qotIEd4ZO4SUhQOG3ZKfif9+2UFT0EGyY
+ 14L/9E5wfPRg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9746"; a="139182593"
+X-IronPort-AV: E=Sophos;i="5.76,436,1592895600"; d="scan'208";a="139182593"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Sep 2020 04:31:23 -0700
+IronPort-SDR: qkHHIf2SYEZMOgzKkRbUzI/gc2qa9uyXpeAK19b15IEimLCnaHKmRrWfLq/4pmQmpTz5Sy6fjv
+ QeaxN1owil9A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.76,436,1592895600"; d="scan'208";a="344270341"
+Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.174])
+ by FMSMGA003.fm.intel.com with SMTP; 17 Sep 2020 04:31:19 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Thu, 17 Sep 2020 14:31:19 +0300
+Date: Thu, 17 Sep 2020 14:31:19 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Vandita Kulkarni <vandita.kulkarni@intel.com>
+Message-ID: <20200917113119.GS6112@intel.com>
+References: <20200916161528.2659-1-vandita.kulkarni@intel.com>
+ <20200916161528.2659-5-vandita.kulkarni@intel.com>
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: =?utf-8?q?Thomas_Hellstr=C3=B6m_=28Intel=29?= <thomas_os@shipmail.org>
-Date: Thu, 17 Sep 2020 11:29:27 -0000
-Message-ID: <160034216711.14570.13094584897654674103@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20200917094409.193697-1-thomas_os@shipmail.org>
-In-Reply-To: <20200917094409.193697-1-thomas_os@shipmail.org>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBJ?=
- =?utf-8?q?ntroduce_a_ww_transaction_utility?=
+Content-Disposition: inline
+In-Reply-To: <20200916161528.2659-5-vandita.kulkarni@intel.com>
+X-Patchwork-Hint: comment
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Subject: Re: [Intel-gfx] [V12 4/4] drm/i915/dsi: Initiate fame request in
+ cmd mode
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,31 +65,134 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: jani.nikula@intel.com, intel-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+On Wed, Sep 16, 2020 at 09:45:28PM +0530, Vandita Kulkarni wrote:
+> In TE Gate mode or TE NO_GATE mode on every flip
+> we need to set the frame update request bit.
+> After this  bit is set transcoder hardware will
+> automatically send the frame data to the panel
+> in case of TE NO_GATE mode, where it sends after
+> it receives the TE event in case of TE_GATE mode.
+> Once the frame data is sent to the panel, we see
+> the frame counter updating.
+> =
 
-Series: Introduce a ww transaction utility
-URL   : https://patchwork.freedesktop.org/series/81787/
-State : failure
+> v2: Use intel_de_read/write
+> =
 
-== Summary ==
+> v3: remove the usage of private_flags
+> =
 
-Applying: drm/i915: Break out dma_resv ww locking utilities to separate files
-error: sha1 information is lacking or useless (drivers/gpu/drm/i915/gem/i915_gem_object.h).
-error: could not build fake ancestor
-hint: Use 'git am --show-current-patch=diff' to see the failed patch
-Patch failed at 0001 drm/i915: Break out dma_resv ww locking utilities to separate files
-When you have resolved this problem, run "git am --continue".
-If you prefer to skip this patch, run "git am --skip" instead.
-To restore the original branch and stop patching, run "git am --abort".
+> v4: Use icl_dsi in func names if non static,
+>     fix code formatting issues. (Jani)
+> =
 
+> Signed-off-by: Vandita Kulkarni <vandita.kulkarni@intel.com>
+> ---
+>  drivers/gpu/drm/i915/display/icl_dsi.c       | 26 ++++++++++++++++++++
+>  drivers/gpu/drm/i915/display/intel_display.c | 10 ++++++++
+>  drivers/gpu/drm/i915/display/intel_dsi.h     |  1 +
+>  3 files changed, 37 insertions(+)
+> =
 
+> diff --git a/drivers/gpu/drm/i915/display/icl_dsi.c b/drivers/gpu/drm/i91=
+5/display/icl_dsi.c
+> index 2789020e20db..7d2abc7f6ba3 100644
+> --- a/drivers/gpu/drm/i915/display/icl_dsi.c
+> +++ b/drivers/gpu/drm/i915/display/icl_dsi.c
+> @@ -205,6 +205,32 @@ static int dsi_send_pkt_payld(struct intel_dsi_host =
+*host,
+>  	return 0;
+>  }
+>  =
+
+> +void icl_dsi_frame_update(struct intel_crtc_state *crtc_state)
+> +{
+> +	struct intel_crtc *crtc =3D to_intel_crtc(crtc_state->uapi.crtc);
+> +	struct drm_i915_private *dev_priv =3D to_i915(crtc->base.dev);
+> +	u32 tmp, flags;
+> +	enum port port;
+> +
+> +	flags =3D crtc->mode_flags;
+> +
+> +	/*
+> +	 * case 1 also covers dual link
+> +	 * In case of dual link, frame update should be set on
+> +	 * DSI_0
+> +	 */
+> +	if (flags & I915_MODE_FLAG_DSI_USE_TE0)
+> +		port =3D PORT_A;
+> +	else if (flags & I915_MODE_FLAG_DSI_USE_TE1)
+> +		port =3D PORT_B;
+> +	else
+> +		return;
+> +
+> +	tmp =3D intel_de_read(dev_priv, DSI_CMD_FRMCTL(port));
+> +	tmp |=3D DSI_FRAME_UPDATE_REQUEST;
+> +	intel_de_write(dev_priv, DSI_CMD_FRMCTL(port), tmp);
+> +}
+> +
+>  static void dsi_program_swing_and_deemphasis(struct intel_encoder *encod=
+er)
+>  {
+>  	struct drm_i915_private *dev_priv =3D to_i915(encoder->base.dev);
+> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/d=
+rm/i915/display/intel_display.c
+> index f862403388f6..11a20bf2255f 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display.c
+> +++ b/drivers/gpu/drm/i915/display/intel_display.c
+> @@ -15621,6 +15621,16 @@ static void intel_atomic_commit_tail(struct inte=
+l_atomic_state *state)
+>  		intel_set_cdclk_post_plane_update(state);
+>  	}
+>  =
+
+> +	/*
+> +	 * Incase of mipi dsi command mode, we need to set frame update
+> +	 * for every commit
+> +	 */
+> +	for_each_new_intel_crtc_in_state(state, crtc, new_crtc_state, i)
+> +		if (INTEL_GEN(dev_priv) >=3D 11 &&
+> +		    intel_crtc_has_type(new_crtc_state, INTEL_OUTPUT_DSI))
+> +			if (new_crtc_state->hw.active)
+> +				icl_dsi_frame_update(new_crtc_state);
+
+If this is the thing that triggers the update then it should
+probably be called at the start of intel_pipe_update_end().
+
+> +
+>  	/* FIXME: We should call drm_atomic_helper_commit_hw_done() here
+>  	 * already, but still need the state for the delayed optimization. To
+>  	 * fix this:
+> diff --git a/drivers/gpu/drm/i915/display/intel_dsi.h b/drivers/gpu/drm/i=
+915/display/intel_dsi.h
+> index 19f78a4022d3..625f2f1ae061 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dsi.h
+> +++ b/drivers/gpu/drm/i915/display/intel_dsi.h
+> @@ -167,6 +167,7 @@ static inline u16 intel_dsi_encoder_ports(struct inte=
+l_encoder *encoder)
+>  =
+
+>  /* icl_dsi.c */
+>  void icl_dsi_init(struct drm_i915_private *dev_priv);
+> +void icl_dsi_frame_update(struct intel_crtc_state *crtc_state);
+>  =
+
+>  /* intel_dsi.c */
+>  int intel_dsi_bitrate(const struct intel_dsi *intel_dsi);
+> -- =
+
+> 2.21.0.5.gaeb582a
+
+-- =
+
+Ville Syrj=E4l=E4
+Intel
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
