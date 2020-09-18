@@ -7,64 +7,65 @@ X-Spam-Status: No, score=-12.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3F0F9C43467
-	for <intel-gfx@archiver.kernel.org>; Fri, 18 Sep 2020 13:25:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B8201C43466
+	for <intel-gfx@archiver.kernel.org>; Fri, 18 Sep 2020 13:25:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EFBEC21D24
-	for <intel-gfx@archiver.kernel.org>; Fri, 18 Sep 2020 13:25:25 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 69B4421D24
+	for <intel-gfx@archiver.kernel.org>; Fri, 18 Sep 2020 13:25:28 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="FatEyEj3"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EFBEC21D24
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="C4Hm1mXr"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 69B4421D24
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 30BBC6ECFA;
-	Fri, 18 Sep 2020 13:25:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5BED16ECFF;
+	Fri, 18 Sep 2020 13:25:18 +0000 (UTC)
 Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
  [IPv6:2a00:1450:4864:20::343])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 72DDD6ECE2
- for <intel-gfx@lists.freedesktop.org>; Fri, 18 Sep 2020 13:25:13 +0000 (UTC)
-Received: by mail-wm1-x343.google.com with SMTP id a9so5585464wmm.2
- for <intel-gfx@lists.freedesktop.org>; Fri, 18 Sep 2020 06:25:13 -0700 (PDT)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B93586ECFA
+ for <intel-gfx@lists.freedesktop.org>; Fri, 18 Sep 2020 13:25:15 +0000 (UTC)
+Received: by mail-wm1-x343.google.com with SMTP id y15so5577029wmi.0
+ for <intel-gfx@lists.freedesktop.org>; Fri, 18 Sep 2020 06:25:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=OKsZKeGF/oKuwjD45gDaPBlOWbb956a2d4in7boDJ+g=;
- b=FatEyEj3qH2OqZmc2kwDTGXASUhtz7dcN0advILQbhPJz8inMZDQ4WI2fSQ9BLh1gc
- iCyJ1+qsBUrdN7YbYb9LHM0ev4p1gP002/S5nOTUSd6xeA59bALvkzzovwo+psYXHqHc
- wqZrMq6BwFlCMuJDB9TpHN81uPMVTLjkWEoMc=
+ bh=bqA8wRk5Nq48ozg18p/JKqMGUJq+nJzeTZVZ0hWoQos=;
+ b=C4Hm1mXrEZIpzJLmmnj9SW/UFx7zjK6EuR3i3MW4mFiIYbSwKMcxIG3IWt4gnhRZJu
+ KnWAekST9k368aQae2zhwPEa37MUPkHUZYjhqmqep26crrRIO13HXIv8JAt6FN4C22sN
+ M+WKIFcCZAwvM/gH7X5UD8r/GHOuKqIgjibjc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=OKsZKeGF/oKuwjD45gDaPBlOWbb956a2d4in7boDJ+g=;
- b=sialVD17M+tO+4Xf9PwFHbuhGr5/obj2mNMb7OT8AI7APy05EKnZnpUyahfJHShta8
- D9tVgft+Hi5LAWZy9Vmbj17RSN07/uf7oLGWXgJLSodwt7noWnCyy0Og3A6J33xEG+r4
- lYyxaRcZLAnsOiSsK41W+SVa68Hpo4QfykO1NqajZECkvvqRJIfx06SbAWYGC6W5Lq2u
- bfbz7PRQ3IIBbmmX+PGbnQsVc0eVSBFi0IMe6HiXXeT5i1ZIVPj25wcv7qY3ehMRP+fr
- uXcsRCuJ8pA8Izg3CZTIoWLHpKTpYFnL1TsKLI/AEMhe91I3bpexpiF5rnIpHSHwspKo
- P+cw==
-X-Gm-Message-State: AOAM533Eg9BfKj2oQCeDPXFOQoLh77Wg5oFFa0JqEs8+ninm3Mq+w1D3
- LVLbJal1k89Okzj3ybIj9p0i6g==
-X-Google-Smtp-Source: ABdhPJx/1nyq22k8LCioO1NyWYjQIDaGjDtAJ20T9ky7zgvHsYUavswNF+QtkO3Vx3wDq6uRAyPcMg==
-X-Received: by 2002:a1c:6487:: with SMTP id y129mr16383729wmb.90.1600435512077; 
- Fri, 18 Sep 2020 06:25:12 -0700 (PDT)
+ bh=bqA8wRk5Nq48ozg18p/JKqMGUJq+nJzeTZVZ0hWoQos=;
+ b=gl2zuz8yhHz4yN6cDpHB40wTE3xq2NOsolZ4PgLIiCBZx+ol+qawePmMhiKkOkcXEV
+ CZeYrRHxOuwh/cyWEwzGYEqm5pPYL6xI4WM0g4Ou+tFrqrh48vofVuGThLMOmYWg4B5d
+ YXV3wGvJ8olkWUw/hw+8dQL8VznCZwmPSsMQauv1L0v/MKkGBld4aVVTYanDq20ZlZiZ
+ fIqxO6OpLAVTFaKTkSt/op1mRAZyNTl3fWUb/t+8dXI7yP7cqUIN9Aa/2DFpgnQwfEoW
+ 6tJMH5qj52BK7jwY/tGbbelamXlHjSkwX+Hx41fFUS7FNt4ascCie/bFtIgd9cBQvUCx
+ cfZA==
+X-Gm-Message-State: AOAM533fngEcSfkETl3YGjEKqSTeqq7jHMRZsoJkeKBdPISptDcFkiim
+ 362QKq5QNZfs6k//lDsLj0B01QIWKcNWtus+
+X-Google-Smtp-Source: ABdhPJwVtnqw7M6swccNbGpHxkdHeMxmPX5dearv/JGiLGTZ/LiJWe4vzfqEie1ExiM+YfwlbAWt3A==
+X-Received: by 2002:a1c:bbd7:: with SMTP id
+ l206mr16570930wmf.185.1600435514370; 
+ Fri, 18 Sep 2020 06:25:14 -0700 (PDT)
 Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id k6sm4872693wmi.1.2020.09.18.06.25.11
+ by smtp.gmail.com with ESMTPSA id k6sm4872693wmi.1.2020.09.18.06.25.13
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 18 Sep 2020 06:25:11 -0700 (PDT)
+ Fri, 18 Sep 2020 06:25:13 -0700 (PDT)
 From: Daniel Vetter <daniel.vetter@ffwll.ch>
 To: DRI Development <dri-devel@lists.freedesktop.org>
-Date: Fri, 18 Sep 2020 15:25:02 +0200
-Message-Id: <20200918132505.2316382-2-daniel.vetter@ffwll.ch>
+Date: Fri, 18 Sep 2020 15:25:04 +0200
+Message-Id: <20200918132505.2316382-4-daniel.vetter@ffwll.ch>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20200918132505.2316382-1-daniel.vetter@ffwll.ch>
 References: <20200918132505.2316382-1-daniel.vetter@ffwll.ch>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 1/4] drm/i915/selftest: Create
- mock_destroy_device
+Subject: [Intel-gfx] [PATCH 3/4] drm/amdgpu: Convert to using
+ devm_drm_dev_alloc() (v2)
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,209 +78,87 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>,
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>,
  Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- amd-gfx@lists.freedesktop.org, Daniel Vetter <daniel.vetter@intel.com>
+ Luben Tuikov <luben.tuikov@amd.com>, amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Just some prep work before we rework the lifetime handling, which
-requires replacing all the drm_dev_put in selftests by something else.
+From: Luben Tuikov <luben.tuikov@amd.com>
 
-v2: Don't go with a static inline, upsets the header tests and
-separation.
+Convert to using devm_drm_dev_alloc(),
+as drm_dev_init() is going away.
 
-Reviewed-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
+v2: Remove drm_dev_put() since
+    a) devres doesn't do refcounting, see
+    Documentation/driver-api/driver-model/devres.rst,
+    Section 4, paragraph 1; and since
+    b) devres acts as garbage collector when
+    the DRM device's parent's devres "action" callback
+    is called to free the container device (amdgpu_device),
+    which embeds the DRM dev.
+
+Signed-off-by: Luben Tuikov <luben.tuikov@amd.com>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Daniel Vetter <daniel.vetter@ffwll.ch>
 ---
- drivers/gpu/drm/i915/gem/selftests/huge_pages.c       | 2 +-
- drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c | 2 +-
- drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c  | 2 +-
- drivers/gpu/drm/i915/gem/selftests/i915_gem_object.c  | 2 +-
- drivers/gpu/drm/i915/gem/selftests/i915_gem_phys.c    | 2 +-
- drivers/gpu/drm/i915/gt/selftest_timeline.c           | 2 +-
- drivers/gpu/drm/i915/selftests/i915_gem_evict.c       | 2 +-
- drivers/gpu/drm/i915/selftests/i915_gem_gtt.c         | 2 +-
- drivers/gpu/drm/i915/selftests/i915_request.c         | 2 +-
- drivers/gpu/drm/i915/selftests/i915_vma.c             | 2 +-
- drivers/gpu/drm/i915/selftests/intel_memory_region.c  | 2 +-
- drivers/gpu/drm/i915/selftests/mock_gem_device.c      | 7 ++++++-
- drivers/gpu/drm/i915/selftests/mock_gem_device.h      | 2 ++
- 13 files changed, 19 insertions(+), 12 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 16 ++++------------
+ 1 file changed, 4 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/selftests/huge_pages.c b/drivers/gpu/drm/i915/gem/selftests/huge_pages.c
-index 5daf4a2be422..1f35e71429b4 100644
---- a/drivers/gpu/drm/i915/gem/selftests/huge_pages.c
-+++ b/drivers/gpu/drm/i915/gem/selftests/huge_pages.c
-@@ -1617,7 +1617,7 @@ int i915_gem_huge_page_mock_selftests(void)
- out_put:
- 	i915_vm_put(&ppgtt->vm);
- out_unlock:
--	drm_dev_put(&dev_priv->drm);
-+	mock_destroy_device(dev_priv);
- 	return err;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 6edde2b9e402..3ded6f43f982 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -1142,25 +1142,20 @@ static int amdgpu_pci_probe(struct pci_dev *pdev,
+ 	if (ret)
+ 		return ret;
+ 
+-	adev = kzalloc(sizeof(*adev), GFP_KERNEL);
+-	if (!adev)
+-		return -ENOMEM;
++	adev = devm_drm_dev_alloc(&pdev->dev, &kms_driver, typeof(*adev), ddev);
++	if (IS_ERR(adev))
++		return PTR_ERR(adev);
+ 
+ 	adev->dev  = &pdev->dev;
+ 	adev->pdev = pdev;
+ 	ddev = adev_to_drm(adev);
+-	ret = drm_dev_init(ddev, &kms_driver, &pdev->dev);
+-	if (ret)
+-		goto err_free;
+-
+-	drmm_add_final_kfree(ddev, adev);
+ 
+ 	if (!supports_atomic)
+ 		ddev->driver_features &= ~DRIVER_ATOMIC;
+ 
+ 	ret = pci_enable_device(pdev);
+ 	if (ret)
+-		goto err_free;
++		return ret;
+ 
+ 	ddev->pdev = pdev;
+ 	pci_set_drvdata(pdev, ddev);
+@@ -1188,8 +1183,6 @@ static int amdgpu_pci_probe(struct pci_dev *pdev,
+ 
+ err_pci:
+ 	pci_disable_device(pdev);
+-err_free:
+-	drm_dev_put(ddev);
+ 	return ret;
  }
  
-diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
-index 99becb86abd3..d3f87dc4eda3 100644
---- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
-+++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
-@@ -1997,7 +1997,7 @@ int i915_gem_context_mock_selftests(void)
- 
- 	err = i915_subtests(tests, i915);
- 
--	drm_dev_put(&i915->drm);
-+	mock_destroy_device(i915);
- 	return err;
+@@ -1206,7 +1199,6 @@ amdgpu_pci_remove(struct pci_dev *pdev)
+ 	amdgpu_driver_unload_kms(dev);
+ 	pci_disable_device(pdev);
+ 	pci_set_drvdata(pdev, NULL);
+-	drm_dev_put(dev);
  }
  
-diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c
-index 2a52b92586b9..0845ce1ae37c 100644
---- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c
-+++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c
-@@ -272,7 +272,7 @@ int i915_gem_dmabuf_mock_selftests(void)
- 
- 	err = i915_subtests(tests, i915);
- 
--	drm_dev_put(&i915->drm);
-+	mock_destroy_device(i915);
- 	return err;
- }
- 
-diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_object.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_object.c
-index faa5b6d91795..bf853c40ec65 100644
---- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_object.c
-+++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_object.c
-@@ -85,7 +85,7 @@ int i915_gem_object_mock_selftests(void)
- 
- 	err = i915_subtests(tests, i915);
- 
--	drm_dev_put(&i915->drm);
-+	mock_destroy_device(i915);
- 	return err;
- }
- 
-diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_phys.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_phys.c
-index a94243dc4c5c..8cee68c6a6dc 100644
---- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_phys.c
-+++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_phys.c
-@@ -73,6 +73,6 @@ int i915_gem_phys_mock_selftests(void)
- 
- 	err = i915_subtests(tests, i915);
- 
--	drm_dev_put(&i915->drm);
-+	mock_destroy_device(i915);
- 	return err;
- }
-diff --git a/drivers/gpu/drm/i915/gt/selftest_timeline.c b/drivers/gpu/drm/i915/gt/selftest_timeline.c
-index 96d164a3841d..19c2cb166e7c 100644
---- a/drivers/gpu/drm/i915/gt/selftest_timeline.c
-+++ b/drivers/gpu/drm/i915/gt/selftest_timeline.c
-@@ -158,7 +158,7 @@ static int mock_hwsp_freelist(void *arg)
- 		__mock_hwsp_record(&state, na, NULL);
- 	kfree(state.history);
- err_put:
--	drm_dev_put(&i915->drm);
-+	mock_destroy_device(i915);
- 	return err;
- }
- 
-diff --git a/drivers/gpu/drm/i915/selftests/i915_gem_evict.c b/drivers/gpu/drm/i915/selftests/i915_gem_evict.c
-index 028baae9631f..f88473d396f4 100644
---- a/drivers/gpu/drm/i915/selftests/i915_gem_evict.c
-+++ b/drivers/gpu/drm/i915/selftests/i915_gem_evict.c
-@@ -536,7 +536,7 @@ int i915_gem_evict_mock_selftests(void)
- 	with_intel_runtime_pm(&i915->runtime_pm, wakeref)
- 		err = i915_subtests(tests, &i915->gt);
- 
--	drm_dev_put(&i915->drm);
-+	mock_destroy_device(i915);
- 	return err;
- }
- 
-diff --git a/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c b/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
-index af8205a2bd8f..c53a222e3dec 100644
---- a/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
-+++ b/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
-@@ -1727,7 +1727,7 @@ int i915_gem_gtt_mock_selftests(void)
- 	mock_fini_ggtt(ggtt);
- 	kfree(ggtt);
- out_put:
--	drm_dev_put(&i915->drm);
-+	mock_destroy_device(i915);
- 	return err;
- }
- 
-diff --git a/drivers/gpu/drm/i915/selftests/i915_request.c b/drivers/gpu/drm/i915/selftests/i915_request.c
-index 3092ca763789..64bbb8288249 100644
---- a/drivers/gpu/drm/i915/selftests/i915_request.c
-+++ b/drivers/gpu/drm/i915/selftests/i915_request.c
-@@ -527,7 +527,7 @@ int i915_request_mock_selftests(void)
- 	with_intel_runtime_pm(&i915->runtime_pm, wakeref)
- 		err = i915_subtests(tests, i915);
- 
--	drm_dev_put(&i915->drm);
-+	mock_destroy_device(i915);
- 
- 	return err;
- }
-diff --git a/drivers/gpu/drm/i915/selftests/i915_vma.c b/drivers/gpu/drm/i915/selftests/i915_vma.c
-index 88c5e9acb84c..1b6125e4c1ac 100644
---- a/drivers/gpu/drm/i915/selftests/i915_vma.c
-+++ b/drivers/gpu/drm/i915/selftests/i915_vma.c
-@@ -841,7 +841,7 @@ int i915_vma_mock_selftests(void)
- 	mock_fini_ggtt(ggtt);
- 	kfree(ggtt);
- out_put:
--	drm_dev_put(&i915->drm);
-+	mock_destroy_device(i915);
- 	return err;
- }
- 
-diff --git a/drivers/gpu/drm/i915/selftests/intel_memory_region.c b/drivers/gpu/drm/i915/selftests/intel_memory_region.c
-index 93a38a323584..334b0648e253 100644
---- a/drivers/gpu/drm/i915/selftests/intel_memory_region.c
-+++ b/drivers/gpu/drm/i915/selftests/intel_memory_region.c
-@@ -791,7 +791,7 @@ int intel_memory_region_mock_selftests(void)
- 
- 	intel_memory_region_put(mem);
- out_unref:
--	drm_dev_put(&i915->drm);
-+	mock_destroy_device(i915);
- 	return err;
- }
- 
-diff --git a/drivers/gpu/drm/i915/selftests/mock_gem_device.c b/drivers/gpu/drm/i915/selftests/mock_gem_device.c
-index 397c313a8b69..ac600d395c8f 100644
---- a/drivers/gpu/drm/i915/selftests/mock_gem_device.c
-+++ b/drivers/gpu/drm/i915/selftests/mock_gem_device.c
-@@ -222,7 +222,12 @@ struct drm_i915_private *mock_gem_device(void)
- 	intel_gt_driver_late_release(&i915->gt);
- 	intel_memory_regions_driver_release(i915);
- 	drm_mode_config_cleanup(&i915->drm);
--	drm_dev_put(&i915->drm);
-+	mock_destroy_device(i915);
- 
- 	return NULL;
- }
-+
-+void mock_destroy_device(struct drm_i915_private *i915)
-+{
-+	drm_dev_put(&i915->drm);
-+}
-diff --git a/drivers/gpu/drm/i915/selftests/mock_gem_device.h b/drivers/gpu/drm/i915/selftests/mock_gem_device.h
-index b5dc4e394555..953cfe4fab34 100644
---- a/drivers/gpu/drm/i915/selftests/mock_gem_device.h
-+++ b/drivers/gpu/drm/i915/selftests/mock_gem_device.h
-@@ -7,4 +7,6 @@ struct drm_i915_private;
- struct drm_i915_private *mock_gem_device(void);
- void mock_device_flush(struct drm_i915_private *i915);
- 
-+void mock_destroy_device(struct drm_i915_private *i915);
-+
- #endif /* !__MOCK_GEM_DEVICE_H__ */
+ static void
 -- 
 2.28.0
 
