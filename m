@@ -7,53 +7,53 @@ X-Spam-Status: No, score=-6.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4B671C4346A
-	for <intel-gfx@archiver.kernel.org>; Sat, 19 Sep 2020 09:50:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 25EDCC43464
+	for <intel-gfx@archiver.kernel.org>; Sat, 19 Sep 2020 09:50:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D1BBD23730
-	for <intel-gfx@archiver.kernel.org>; Sat, 19 Sep 2020 09:50:08 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id CA49723447
+	for <intel-gfx@archiver.kernel.org>; Sat, 19 Sep 2020 09:50:13 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="U6fqw0lO";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="YU/1SbOA"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D1BBD23730
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="0gJqxzWf";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="VWslGr2T"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CA49723447
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linutronix.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A6DD46E1F3;
-	Sat, 19 Sep 2020 09:50:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 015D86E1FB;
+	Sat, 19 Sep 2020 09:50:11 +0000 (UTC)
 Received: from galois.linutronix.de (Galois.linutronix.de
  [IPv6:2a0a:51c0:0:12e:550::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 913D66E1EC;
- Sat, 19 Sep 2020 09:50:03 +0000 (UTC)
-Message-Id: <20200919092615.879315697@linutronix.de>
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF0456E200;
+ Sat, 19 Sep 2020 09:50:08 +0000 (UTC)
+Message-Id: <20200919092616.319114547@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1600509001;
+ s=2020; t=1600509006;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:  references:references;
- bh=H19N93lyCWKUFrJfknJveCBx/SKVmbFW8Yl82i7bCJA=;
- b=U6fqw0lOwRRvIGe/7IzbGf1Hqghw0ykyVeiK7gVdoSzy4eqGuEga+Id5p+KPktWpCVdzmK
- aV0Z4FPPg7rGCSmfQXi1uk2t8w2P29Uep6GMCn47Sn6S/JkyDkBodYAl//JRgWDPBzL2mU
- WcC0bRk2IQjTTMHKXJiFVz+5C0MTTLHH4a1alauXsy5v4plgP/T1tIfQZXGbV2jMc4rbfz
- Y3BE6uq25uZJkKeGmxAKWr9klMDY4mJbZgTnEgGGhqJ+FZWjm2MjP1C9JNxPwHqYoIC8Io
- nA1UXQDNDtnvjnQ/ivPlJLT+094/Nqjbl9461P5VTyE1ySxcWJb/J/q3UB0Ytg==
+ bh=fvOeqhBIZfTzz9IjwJGkrIPXB/ESaUeosaYZN/1PpYs=;
+ b=0gJqxzWfxYCTqq728ADiT6UHDajgQ+AoV6qm8i5pQ3aIhx2mY1Q98kuJkfQFkywvseawzf
+ GTbT16UixiEeYonVTh96BDNJqzIr1iCWvogiiqXORNpSnlGtp7AoM2w4tqLMkQtdU8z6Kj
+ 1DUuLjhbmA8qP4u+dhglzdtT1L9vSNy1iS6kmXQKiIBgH4ck9mCAOgcSi6LjVB73Y3/sSS
+ UJWZdnK4gx8dHdKmgDigvVlqXySY+UdKFtEfSShBZgIrWNELl2TIXbn78mFaQoQAa2DZB3
+ rfEoMLEev7o9ZIp+MIo8EAwetbWuDJDVyc6rrqITlfEtHebWCfiJ4n8DUh9kKQ==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1600509001;
+ s=2020e; t=1600509006;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:  references:references;
- bh=H19N93lyCWKUFrJfknJveCBx/SKVmbFW8Yl82i7bCJA=;
- b=YU/1SbOA+qMlJhFqk1C7pS2Lm8Q3mBHsYZZQkFTg+LuWwrYQJ/Kqfx66UoYa85NJCFtsm9
- MelcZbcHhGbfVZBA==
-Date: Sat, 19 Sep 2020 11:17:52 +0200
+ bh=fvOeqhBIZfTzz9IjwJGkrIPXB/ESaUeosaYZN/1PpYs=;
+ b=VWslGr2TXEeybLV3O9VbTGnToYo4xC1R0oFHQawehxUFrdnZRoN214jTSAKbq7YZ6Vf+br
+ RjvRsoKSEX9rD1DQ==
+Date: Sat, 19 Sep 2020 11:17:56 +0200
 From: Thomas Gleixner <tglx@linutronix.de>
 To: LKML <linux-kernel@vger.kernel.org>
 References: <20200919091751.011116649@linutronix.de>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [patch RFC 01/15] mm/highmem: Un-EXPORT
- __kmap_atomic_idx()
+Subject: [Intel-gfx] [patch RFC 05/15] ARM: highmem: Switch to generic kmap
+ atomic
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,24 +97,207 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Nothing in modules can use that.
-
 Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
+Cc: Russell King <linux@armlinux.org.uk>
+Cc: Arnd Bergmann <arnd@arndb.de>
+Cc: linux-arm-kernel@lists.infradead.org
 ---
- mm/highmem.c |    2 --
- 1 file changed, 2 deletions(-)
+Note: Completely untested
+---
+ arch/arm/Kconfig               |    1 
+ arch/arm/include/asm/highmem.h |   30 +++++++---
+ arch/arm/mm/Makefile           |    1 
+ arch/arm/mm/highmem.c          |  121 -----------------------------------------
+ 4 files changed, 23 insertions(+), 130 deletions(-)
 
---- a/mm/highmem.c
-+++ b/mm/highmem.c
-@@ -108,8 +108,6 @@ static inline wait_queue_head_t *get_pkm
- atomic_long_t _totalhigh_pages __read_mostly;
- EXPORT_SYMBOL(_totalhigh_pages);
+--- a/arch/arm/Kconfig
++++ b/arch/arm/Kconfig
+@@ -1499,6 +1499,7 @@ config HAVE_ARCH_PFN_VALID
+ config HIGHMEM
+ 	bool "High Memory Support"
+ 	depends on MMU
++	select KMAP_ATOMIC_GENERIC
+ 	help
+ 	  The address space of ARM processors is only 4 Gigabytes large
+ 	  and it has to accommodate user address space, kernel address
+--- a/arch/arm/include/asm/highmem.h
++++ b/arch/arm/include/asm/highmem.h
+@@ -46,19 +46,33 @@ extern pte_t *pkmap_page_table;
  
--EXPORT_PER_CPU_SYMBOL(__kmap_atomic_idx);
--
- unsigned int nr_free_highpages (void)
+ #ifdef ARCH_NEEDS_KMAP_HIGH_GET
+ extern void *kmap_high_get(struct page *page);
++
++#ifdef CONFIG_DEBUG_HIGHMEM
++extern void *arch_kmap_temporary_high_get(struct page *page);
+ #else
++static inline void *arch_kmap_temporary_high_get(struct page *page)
++{
++	return kmap_high_get(page);
++}
++#endif /* !CONFIG_DEBUG_HIGHMEM */
++
++#else /* ARCH_NEEDS_KMAP_HIGH_GET */
+ static inline void *kmap_high_get(struct page *page)
  {
- 	struct zone *zone;
+ 	return NULL;
+ }
+-#endif
++#endif /* !ARCH_NEEDS_KMAP_HIGH_GET */
+ 
+-/*
+- * The following functions are already defined by <linux/highmem.h>
+- * when CONFIG_HIGHMEM is not set.
+- */
+-#ifdef CONFIG_HIGHMEM
+-extern void *kmap_atomic_pfn(unsigned long pfn);
+-#endif
++#define arch_kmap_temp_post_map(vaddr, pteval)				\
++	local_flush_tlb_kernel_page(vaddr)
++
++#define arch_kmap_temp_pre_unmap(vaddr)					\
++do {									\
++	if (cache_is_vivt())						\
++		__cpuc_flush_dcache_area((void *)vaddr, PAGE_SIZE);	\
++} while (0)
++
++#define arch_kmap_temp_post_unmap(vaddr)				\
++	local_flush_tlb_kernel_page(vaddr)
+ 
+ #endif
+--- a/arch/arm/mm/Makefile
++++ b/arch/arm/mm/Makefile
+@@ -19,7 +19,6 @@ obj-$(CONFIG_MODULES)		+= proc-syms.o
+ obj-$(CONFIG_DEBUG_VIRTUAL)	+= physaddr.o
+ 
+ obj-$(CONFIG_ALIGNMENT_TRAP)	+= alignment.o
+-obj-$(CONFIG_HIGHMEM)		+= highmem.o
+ obj-$(CONFIG_HUGETLB_PAGE)	+= hugetlbpage.o
+ obj-$(CONFIG_ARM_PV_FIXUP)	+= pv-fixup-asm.o
+ 
+--- a/arch/arm/mm/highmem.c
++++ /dev/null
+@@ -1,121 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0-only
+-/*
+- * arch/arm/mm/highmem.c -- ARM highmem support
+- *
+- * Author:	Nicolas Pitre
+- * Created:	september 8, 2008
+- * Copyright:	Marvell Semiconductors Inc.
+- */
+-
+-#include <linux/module.h>
+-#include <linux/highmem.h>
+-#include <linux/interrupt.h>
+-#include <asm/fixmap.h>
+-#include <asm/cacheflush.h>
+-#include <asm/tlbflush.h>
+-#include "mm.h"
+-
+-static inline void set_fixmap_pte(int idx, pte_t pte)
+-{
+-	unsigned long vaddr = __fix_to_virt(idx);
+-	pte_t *ptep = virt_to_kpte(vaddr);
+-
+-	set_pte_ext(ptep, pte, 0);
+-	local_flush_tlb_kernel_page(vaddr);
+-}
+-
+-static inline pte_t get_fixmap_pte(unsigned long vaddr)
+-{
+-	pte_t *ptep = virt_to_kpte(vaddr);
+-
+-	return *ptep;
+-}
+-
+-void *kmap_atomic_high_prot(struct page *page, pgprot_t prot)
+-{
+-	unsigned int idx;
+-	unsigned long vaddr;
+-	void *kmap;
+-	int type;
+-
+-#ifdef CONFIG_DEBUG_HIGHMEM
+-	/*
+-	 * There is no cache coherency issue when non VIVT, so force the
+-	 * dedicated kmap usage for better debugging purposes in that case.
+-	 */
+-	if (!cache_is_vivt())
+-		kmap = NULL;
+-	else
+-#endif
+-		kmap = kmap_high_get(page);
+-	if (kmap)
+-		return kmap;
+-
+-	type = kmap_atomic_idx_push();
+-
+-	idx = FIX_KMAP_BEGIN + type + KM_TYPE_NR * smp_processor_id();
+-	vaddr = __fix_to_virt(idx);
+-#ifdef CONFIG_DEBUG_HIGHMEM
+-	/*
+-	 * With debugging enabled, kunmap_atomic forces that entry to 0.
+-	 * Make sure it was indeed properly unmapped.
+-	 */
+-	BUG_ON(!pte_none(get_fixmap_pte(vaddr)));
+-#endif
+-	/*
+-	 * When debugging is off, kunmap_atomic leaves the previous mapping
+-	 * in place, so the contained TLB flush ensures the TLB is updated
+-	 * with the new mapping.
+-	 */
+-	set_fixmap_pte(idx, mk_pte(page, prot));
+-
+-	return (void *)vaddr;
+-}
+-EXPORT_SYMBOL(kmap_atomic_high_prot);
+-
+-void kunmap_atomic_high(void *kvaddr)
+-{
+-	unsigned long vaddr = (unsigned long) kvaddr & PAGE_MASK;
+-	int idx, type;
+-
+-	if (kvaddr >= (void *)FIXADDR_START) {
+-		type = kmap_atomic_idx();
+-		idx = FIX_KMAP_BEGIN + type + KM_TYPE_NR * smp_processor_id();
+-
+-		if (cache_is_vivt())
+-			__cpuc_flush_dcache_area((void *)vaddr, PAGE_SIZE);
+-#ifdef CONFIG_DEBUG_HIGHMEM
+-		BUG_ON(vaddr != __fix_to_virt(idx));
+-		set_fixmap_pte(idx, __pte(0));
+-#else
+-		(void) idx;  /* to kill a warning */
+-#endif
+-		kmap_atomic_idx_pop();
+-	} else if (vaddr >= PKMAP_ADDR(0) && vaddr < PKMAP_ADDR(LAST_PKMAP)) {
+-		/* this address was obtained through kmap_high_get() */
+-		kunmap_high(pte_page(pkmap_page_table[PKMAP_NR(vaddr)]));
+-	}
+-}
+-EXPORT_SYMBOL(kunmap_atomic_high);
+-
+-void *kmap_atomic_pfn(unsigned long pfn)
+-{
+-	unsigned long vaddr;
+-	int idx, type;
+-	struct page *page = pfn_to_page(pfn);
+-
+-	preempt_disable();
+-	pagefault_disable();
+-	if (!PageHighMem(page))
+-		return page_address(page);
+-
+-	type = kmap_atomic_idx_push();
+-	idx = FIX_KMAP_BEGIN + type + KM_TYPE_NR * smp_processor_id();
+-	vaddr = __fix_to_virt(idx);
+-#ifdef CONFIG_DEBUG_HIGHMEM
+-	BUG_ON(!pte_none(get_fixmap_pte(vaddr)));
+-#endif
+-	set_fixmap_pte(idx, pfn_pte(pfn, kmap_prot));
+-
+-	return (void *)vaddr;
+-}
 
 _______________________________________________
 Intel-gfx mailing list
