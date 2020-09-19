@@ -7,52 +7,53 @@ X-Spam-Status: No, score=-6.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6BEC9C4347E
-	for <intel-gfx@archiver.kernel.org>; Sat, 19 Sep 2020 09:50:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 45C29C4363A
+	for <intel-gfx@archiver.kernel.org>; Sat, 19 Sep 2020 09:50:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 20B5B21582
-	for <intel-gfx@archiver.kernel.org>; Sat, 19 Sep 2020 09:50:18 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 03F5921D43
+	for <intel-gfx@archiver.kernel.org>; Sat, 19 Sep 2020 09:50:25 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="1dEadAMf";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="HHsYin3h"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 20B5B21582
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="4aGjXseo";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="Z+O8xe+M"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 03F5921D43
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linutronix.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 894056E20E;
-	Sat, 19 Sep 2020 09:50:14 +0000 (UTC)
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B254F6E1F9;
- Sat, 19 Sep 2020 09:50:10 +0000 (UTC)
-Message-Id: <20200919092616.532034197@linutronix.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5AC836E20C;
+	Sat, 19 Sep 2020 09:50:25 +0000 (UTC)
+Received: from galois.linutronix.de (Galois.linutronix.de
+ [IPv6:2a0a:51c0:0:12e:550::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 55B686E202;
+ Sat, 19 Sep 2020 09:50:13 +0000 (UTC)
+Message-Id: <20200919092616.736510871@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1600509009;
+ s=2020; t=1600509011;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:  references:references;
- bh=OkH79zSn8o38fzD7JzvNsCURJbh/0cL2cB7YR+jiu7g=;
- b=1dEadAMfikKVkX+JheXl/3yHO/KxRbc6sn18yWMUb6TQXwRIoVBomWYzHRSoVhdAWhXbok
- mxb2+MwCupT5RciB56zMSEFujTDWfuWtxN2TLHqi/V7n/oGQXp9Yx+Qox2eb9C2kfn20TU
- AOskpP2PPzcwlEkjjwy+yn9a9ZgtzD7mHEJ3E3tUD97Dl6s24qaMCks1mgUi8svknwNZ8u
- Oq2+LN6x/tBklYneOjj3NkQ5sYclM6KneHZsudegrlxj4RQWZx7Jqonves55u7mv7SzGhW
- WSpgLWZX8kzlHN5WWK4gOwyRrBzOQ3gV9DNRptWmgwpYIpsE/eLGjRKi7ercBA==
+ bh=KCsaboacsuJ88jqIg0buxiu+ksgl22D90Mxj1XlMJa8=;
+ b=4aGjXseoaPwfvC1RztSPZmMPssvx2DAHZ0yqYHLoXSYiocGwX1jEFz1j94PvUMprh1rKNl
+ epJRsEhX8k8BXyGAbHBQcU8ti2G1WgSmO45ofO7u685Iiiq33ZlBm40IDsBQx4SVN1qG8p
+ NvNgwqpPxE7jmG6tO5AwRcx3XLlluU4maXhXXRVsvbIFK11+FNNbChWbuzWY2FrHT1sH7C
+ jTR6uDLqw/6GXaa62jrp2/RD9ANnlOBeRj5oltXG0EtUxVFJhgkUrLkw6SsHV0NWbDq+nQ
+ iKJgZmVYUCq01IQvsyKTNQnpNYvIqMR5MAwU0vq6advwfeunO0NLj41fZ7cRlA==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1600509009;
+ s=2020e; t=1600509011;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:  references:references;
- bh=OkH79zSn8o38fzD7JzvNsCURJbh/0cL2cB7YR+jiu7g=;
- b=HHsYin3hEtSgx7A+Jn4tyCStHWKrW3Mjp52FqGcUD/TY/pd+2VXb0zJ6Gi490o0Kta+x78
- fV20ltW77ve09ODg==
-Date: Sat, 19 Sep 2020 11:17:58 +0200
+ bh=KCsaboacsuJ88jqIg0buxiu+ksgl22D90Mxj1XlMJa8=;
+ b=Z+O8xe+MGt5jyRp84X/pvcvuy8DIoXD1jiMiTNmpv474C8OxJBYxsbYAxaWRzNO/Jc2Oo6
+ D5mWn+A1kiGj7wCw==
+Date: Sat, 19 Sep 2020 11:18:00 +0200
 From: Thomas Gleixner <tglx@linutronix.de>
 To: LKML <linux-kernel@vger.kernel.org>
 References: <20200919091751.011116649@linutronix.de>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [patch RFC 07/15] microblaze/mm/highmem: Switch to
- generic kmap atomic
+Subject: [Intel-gfx] [patch RFC 09/15] nds32/mm/highmem: Switch to generic
+ kmap atomic
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,158 +97,122 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+The mapping code is odd and looks broken. See FIXME in the comment.
+
 Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
-Cc: Michal Simek <monstr@monstr.eu>
+Cc: Nick Hu <nickhu@andestech.com>
+Cc: Greentime Hu <green.hu@gmail.com>
+Cc: Vincent Chen <deanbo422@gmail.com>
 ---
 Note: Completely untested
 ---
- arch/microblaze/Kconfig               |    1 
- arch/microblaze/include/asm/highmem.h |    6 ++
- arch/microblaze/mm/Makefile           |    1 
- arch/microblaze/mm/highmem.c          |   78 ----------------------------------
- arch/microblaze/mm/init.c             |    6 --
- 5 files changed, 6 insertions(+), 86 deletions(-)
+ arch/nds32/Kconfig.cpu           |    1 
+ arch/nds32/include/asm/highmem.h |   21 +++++++++++++----
+ arch/nds32/mm/Makefile           |    1 
+ arch/nds32/mm/highmem.c          |   48 ---------------------------------------
+ 4 files changed, 17 insertions(+), 54 deletions(-)
 
---- a/arch/microblaze/Kconfig
-+++ b/arch/microblaze/Kconfig
-@@ -170,6 +170,7 @@ config XILINX_UNCACHED_SHADOW
+--- a/arch/nds32/Kconfig.cpu
++++ b/arch/nds32/Kconfig.cpu
+@@ -157,6 +157,7 @@ config HW_SUPPORT_UNALIGNMENT_ACCESS
  config HIGHMEM
- 	bool "High memory support"
- 	depends on MMU
-+	select KMAP_ATOMIC_GENERIC
+ 	bool "High Memory Support"
+ 	depends on MMU && !CPU_CACHE_ALIASING
++        select KMAP_ATOMIC_GENERIC
  	help
- 	  The address space of Microblaze processors is only 4 Gigabytes large
+ 	  The address space of Andes processors is only 4 Gigabytes large
  	  and it has to accommodate user address space, kernel address
---- a/arch/microblaze/include/asm/highmem.h
-+++ b/arch/microblaze/include/asm/highmem.h
-@@ -25,7 +25,6 @@
- #include <linux/uaccess.h>
- #include <asm/fixmap.h>
- 
--extern pte_t *kmap_pte;
- extern pte_t *pkmap_page_table;
+--- a/arch/nds32/include/asm/highmem.h
++++ b/arch/nds32/include/asm/highmem.h
+@@ -45,11 +45,22 @@ extern pte_t *pkmap_page_table;
+ extern void kmap_init(void);
  
  /*
-@@ -52,6 +51,11 @@ extern pte_t *pkmap_page_table;
- 
- #define flush_cache_kmaps()	{ flush_icache(); flush_dcache(); }
- 
-+#define arch_kmap_temp_post_map(vaddr, pteval)	\
-+	local_flush_tlb_page(NULL, vaddr);
-+#define arch_kmap_temp_post_unmap(vaddr)	\
-+	local_flush_tlb_page(NULL, vaddr);
+- * The following functions are already defined by <linux/highmem.h>
+- * when CONFIG_HIGHMEM is not set.
++ * FIXME: The below looks broken vs. a kmap_atomic() in task context which
++ * is interupted and another kmap_atomic() happens in interrupt context.
++ * But what do I know about nds32. -- tglx
+  */
+-#ifdef CONFIG_HIGHMEM
+-extern void *kmap_atomic_pfn(unsigned long pfn);
+-#endif
++#define arch_kmap_temp_post_map(vaddr, pteval)			\
++	do {							\
++		__nds32__tlbop_inv(vaddr);			\
++		__nds32__mtsr_dsb(vaddr, NDS32_SR_TLB_VPN);	\
++		__nds32__tlbop_rwr(pteval);			\
++		__nds32__isb();					\
++	} while (0)
 +
- #endif /* __KERNEL__ */
++#define arch_kmap_temp_pre_unmap(vaddr, pte)			\
++	do {							\
++		__nds32__tlbop_inv(vaddr);			\
++		__nds32__isb();					\
++	} while (0)
  
- #endif /* _ASM_HIGHMEM_H */
---- a/arch/microblaze/mm/Makefile
-+++ b/arch/microblaze/mm/Makefile
-@@ -6,4 +6,3 @@
- obj-y := consistent.o init.o
+ #endif
+--- a/arch/nds32/mm/Makefile
++++ b/arch/nds32/mm/Makefile
+@@ -3,7 +3,6 @@ obj-y				:= extable.o tlb.o fault.o init
+                                    mm-nds32.o cacheflush.o proc.o
  
- obj-$(CONFIG_MMU) += pgtable.o mmu_context.o fault.o
--obj-$(CONFIG_HIGHMEM) += highmem.o
---- a/arch/microblaze/mm/highmem.c
+ obj-$(CONFIG_ALIGNMENT_TRAP)	+= alignment.o
+-obj-$(CONFIG_HIGHMEM)           += highmem.o
+ 
+ ifdef CONFIG_FUNCTION_TRACER
+ CFLAGS_REMOVE_proc.o     = $(CC_FLAGS_FTRACE)
+--- a/arch/nds32/mm/highmem.c
 +++ /dev/null
-@@ -1,78 +0,0 @@
+@@ -1,48 +0,0 @@
 -// SPDX-License-Identifier: GPL-2.0
--/*
-- * highmem.c: virtual kernel memory mappings for high memory
-- *
-- * PowerPC version, stolen from the i386 version.
-- *
-- * Used in CONFIG_HIGHMEM systems for memory pages which
-- * are not addressable by direct kernel virtual addresses.
-- *
-- * Copyright (C) 1999 Gerhard Wichert, Siemens AG
-- *		      Gerhard.Wichert@pdb.siemens.de
-- *
-- *
-- * Redesigned the x86 32-bit VM architecture to deal with
-- * up to 16 Terrabyte physical memory. With current x86 CPUs
-- * we now support up to 64 Gigabytes physical RAM.
-- *
-- * Copyright (C) 1999 Ingo Molnar <mingo@redhat.com>
-- *
-- * Reworked for PowerPC by various contributors. Moved from
-- * highmem.h by Benjamin Herrenschmidt (c) 2009 IBM Corp.
-- */
+-// Copyright (C) 2005-2017 Andes Technology Corporation
 -
 -#include <linux/export.h>
 -#include <linux/highmem.h>
--
--/*
-- * The use of kmap_atomic/kunmap_atomic is discouraged - kmap/kunmap
-- * gives a more generic (and caching) interface. But kmap_atomic can
-- * be used in IRQ contexts, so in some (very limited) cases we need
-- * it.
-- */
+-#include <linux/sched.h>
+-#include <linux/smp.h>
+-#include <linux/interrupt.h>
+-#include <linux/memblock.h>
+-#include <asm/fixmap.h>
 -#include <asm/tlbflush.h>
 -
 -void *kmap_atomic_high_prot(struct page *page, pgprot_t prot)
 -{
--
--	unsigned long vaddr;
--	int idx, type;
+-	unsigned int idx;
+-	unsigned long vaddr, pte;
+-	int type;
+-	pte_t *ptep;
 -
 -	type = kmap_atomic_idx_push();
--	idx = type + KM_TYPE_NR*smp_processor_id();
--	vaddr = __fix_to_virt(FIX_KMAP_BEGIN + idx);
--#ifdef CONFIG_DEBUG_HIGHMEM
--	BUG_ON(!pte_none(*(kmap_pte-idx)));
--#endif
--	set_pte_at(&init_mm, vaddr, kmap_pte-idx, mk_pte(page, prot));
--	local_flush_tlb_page(NULL, vaddr);
 -
--	return (void *) vaddr;
+-	idx = type + KM_TYPE_NR * smp_processor_id();
+-	vaddr = __fix_to_virt(FIX_KMAP_BEGIN + idx);
+-	pte = (page_to_pfn(page) << PAGE_SHIFT) | prot;
+-	ptep = pte_offset_kernel(pmd_off_k(vaddr), vaddr);
+-	set_pte(ptep, pte);
+-
+-	__nds32__tlbop_inv(vaddr);
+-	__nds32__mtsr_dsb(vaddr, NDS32_SR_TLB_VPN);
+-	__nds32__tlbop_rwr(pte);
+-	__nds32__isb();
+-	return (void *)vaddr;
 -}
 -EXPORT_SYMBOL(kmap_atomic_high_prot);
 -
 -void kunmap_atomic_high(void *kvaddr)
 -{
--	unsigned long vaddr = (unsigned long) kvaddr & PAGE_MASK;
--	int type;
--	unsigned int idx;
--
--	if (vaddr < __fix_to_virt(FIX_KMAP_END))
--		return;
--
--	type = kmap_atomic_idx();
--
--	idx = type + KM_TYPE_NR * smp_processor_id();
--#ifdef CONFIG_DEBUG_HIGHMEM
--	BUG_ON(vaddr != __fix_to_virt(FIX_KMAP_BEGIN + idx));
--#endif
--	/*
--	 * force other mappings to Oops if they'll try to access
--	 * this pte without first remap it
--	 */
--	pte_clear(&init_mm, vaddr, kmap_pte-idx);
--	local_flush_tlb_page(NULL, vaddr);
--
--	kmap_atomic_idx_pop();
+-	if (kvaddr >= (void *)FIXADDR_START) {
+-		unsigned long vaddr = (unsigned long)kvaddr;
+-		pte_t *ptep;
+-		kmap_atomic_idx_pop();
+-		__nds32__tlbop_inv(vaddr);
+-		__nds32__isb();
+-		ptep = pte_offset_kernel(pmd_off_k(vaddr), vaddr);
+-		set_pte(ptep, 0);
+-	}
 -}
 -EXPORT_SYMBOL(kunmap_atomic_high);
---- a/arch/microblaze/mm/init.c
-+++ b/arch/microblaze/mm/init.c
-@@ -49,17 +49,11 @@ unsigned long lowmem_size;
- EXPORT_SYMBOL(min_low_pfn);
- EXPORT_SYMBOL(max_low_pfn);
- 
--#ifdef CONFIG_HIGHMEM
--pte_t *kmap_pte;
--EXPORT_SYMBOL(kmap_pte);
--
- static void __init highmem_init(void)
- {
- 	pr_debug("%x\n", (u32)PKMAP_BASE);
- 	map_page(PKMAP_BASE, 0, 0);	/* XXX gross */
- 	pkmap_page_table = virt_to_kpte(PKMAP_BASE);
--
--	kmap_pte = virt_to_kpte(__fix_to_virt(FIX_KMAP_BEGIN));
- }
- 
- static void highmem_setup(void)
 
 _______________________________________________
 Intel-gfx mailing list
