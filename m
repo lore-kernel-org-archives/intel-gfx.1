@@ -6,54 +6,54 @@ X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
 	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F0047C43466
-	for <intel-gfx@archiver.kernel.org>; Sun, 20 Sep 2020 17:24:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5EC99C43463
+	for <intel-gfx@archiver.kernel.org>; Sun, 20 Sep 2020 17:40:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 958AA20897
-	for <intel-gfx@archiver.kernel.org>; Sun, 20 Sep 2020 17:24:55 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 0606A20789
+	for <intel-gfx@archiver.kernel.org>; Sun, 20 Sep 2020 17:40:46 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="tzqY9X8f";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="Ajg419VR"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 958AA20897
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="QNCArf/v";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="pomJJyR0"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0606A20789
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linutronix.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A07FC6E0CA;
-	Sun, 20 Sep 2020 17:24:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 171BA6E096;
+	Sun, 20 Sep 2020 17:40:46 +0000 (UTC)
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 66AF36E0CA;
- Sun, 20 Sep 2020 17:24:52 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3C2316E096;
+ Sun, 20 Sep 2020 17:40:44 +0000 (UTC)
 From: Thomas Gleixner <tglx@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1600622689;
+ s=2020; t=1600623642;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=ELUNMLCQYXoHQWzGjHTiBi/GvrgBrzUdsStDgdETjPA=;
- b=tzqY9X8fLvmtivfsbNK0pUu8YiUj7NKf7+bQzIN33nK/SwghNMa2rz52k7m9LEaGnDxB4p
- 5uJRP8jzSGhdLLpPzoF07YS1dppzeAHFuaRXBxkQ6eQFewoBrpPutv3yBGdR9YKqd5UnMc
- Lfw64Wh81l4jTzfijbUVM/G1PeB+l9wpVjsRPd3Xz3aQUHw9+Bu78ZLn5k1aNaH9Pkc5ms
- Lg9Dct8esi3AxOTl0URAWW4pIL6LMaz6yDqISWtV082sZby+eUJYHhPHZSuxMGdcllbxYl
- qQ/7nvxbGePtOn6SDA8Bi+zAxXBj+TvBWAwr7ALWt4wsGLJLJU/NhQ4k2+3KDg==
+ bh=9ka0n+28OJXKPQLIVVR5Idhk3egkf6ni8LHSNLSNto8=;
+ b=QNCArf/vGifXO0hggd/oZT3co789XMX68FBpCZc9ELpUzjSb976p4qnrJXsUs4Wtn54Oe5
+ cREp7rnAnzQ2lkpB3S51Szog5eqcRviWtdYmN6anOoL9fmTtcQqDtDSWpVqORSo+xe9eNI
+ ov8P0XhtU/ulbV28ywMlU0xr6kjRfIcVtmCVZ2FKw+DGK6aL/ezJuFiklF8NhXvAMiIh49
+ yrsZFHHw6uzr03zNYpu3ftPmTuZ7RyM2m1FWCRDFflQbJ/wuC7iq3YbPgWy/7QFdvivYSQ
+ /Lqxr0wjpHyMFoiBEk4JJ16r2HL2cAu9GKsxBmw9WWw39VkpbDCGdel1jZCIGw==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1600622689;
+ s=2020e; t=1600623642;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=ELUNMLCQYXoHQWzGjHTiBi/GvrgBrzUdsStDgdETjPA=;
- b=Ajg419VRwVNBaCnESvnWBGYX1dQ8DDFprO3wwe5+UvEno+/XgboH3A5bxhtY6hr785JAXL
- VPGuKWoChMzzg9BQ==
-To: Daniel Vetter <daniel@ffwll.ch>
-In-Reply-To: <20200920082353.GG438822@phenom.ffwll.local>
+ bh=9ka0n+28OJXKPQLIVVR5Idhk3egkf6ni8LHSNLSNto8=;
+ b=pomJJyR0iiUjZA6jjfbK7rYJBQcHpFL04sHLhdkrrobwFUG9h3ONNeKC4FHSzSIeasL6F6
+ 5LIRCzwKaerEOICg==
+To: Linus Torvalds <torvalds@linux-foundation.org>
+In-Reply-To: <CAHk-=wgbmwsTOKs23Z=71EBTrULoeaH2U3TNqT2atHEWvkBKdw@mail.gmail.com>
 References: <20200919091751.011116649@linutronix.de>
- <CAKMK7uHTVJL2jGtCg61zG=myiF1BSk+yDdRYikcm-Mq_1TQWMQ@mail.gmail.com>
- <CAKMK7uENFDANQKebS_H0bhHeQRijrp1aVHQqyZPute3KBZ+fVQ@mail.gmail.com>
- <87pn6hc6g1.fsf@nanos.tec.linutronix.de>
- <20200920082353.GG438822@phenom.ffwll.local>
-Date: Sun, 20 Sep 2020 19:24:49 +0200
-Message-ID: <87h7rscqe6.fsf@nanos.tec.linutronix.de>
+ <CAHk-=wiYGyrFRbA1cc71D2-nc5U9LM9jUJesXGqpPnB7E4X1YQ@mail.gmail.com>
+ <87mu1lc5mp.fsf@nanos.tec.linutronix.de>
+ <87k0wode9a.fsf@nanos.tec.linutronix.de>
+ <CAHk-=wgbmwsTOKs23Z=71EBTrULoeaH2U3TNqT2atHEWvkBKdw@mail.gmail.com>
+Date: Sun, 20 Sep 2020 19:40:41 +0200
+Message-ID: <87eemwcpnq.fsf@nanos.tec.linutronix.de>
 MIME-Version: 1.0
 Subject: Re: [Intel-gfx] [patch RFC 00/15] mm/highmem: Provide a preemptible
  variant of kmap_atomic & friends
@@ -74,20 +74,19 @@ Cc: Juri Lelli <juri.lelli@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
  Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
  dri-devel <dri-devel@lists.freedesktop.org>, linux-mips@vger.kernel.org,
  Ben Segall <bsegall@google.com>, Max Filippov <jcmvbkbc@gmail.com>,
- Guo Ren <guoren@kernel.org>, sparclinux@vger.kernel.org,
+ Guo Ren <guoren@kernel.org>, linux-sparc <sparclinux@vger.kernel.org>,
  Vincent Chen <deanbo422@gmail.com>, Will Deacon <will@kernel.org>,
- Ard Biesheuvel <ardb@kernel.org>,
- "open list:GENERIC INCLUDE/A..." <linux-arch@vger.kernel.org>,
+ Ard Biesheuvel <ardb@kernel.org>, linux-arch <linux-arch@vger.kernel.org>,
  Herbert Xu <herbert@gondor.apana.org.au>,
- Michael Ellerman <mpe@ellerman.id.au>, X86 ML <x86@kernel.org>,
+ Michael Ellerman <mpe@ellerman.id.au>,
+ the arch/x86 maintainers <x86@kernel.org>,
  Russell King <linux@armlinux.org.uk>, linux-csky@vger.kernel.org,
  David Airlie <airlied@linux.ie>, Mel Gorman <mgorman@suse.de>,
- arcml <linux-snps-arc@lists.infradead.org>, linux-xtensa@linux-xtensa.org,
- Paul McKenney <paulmck@kernel.org>,
+ "open list:SYNOPSYS ARC ARCHITECTURE" <linux-snps-arc@lists.infradead.org>,
+ linux-xtensa@linux-xtensa.org, Paul McKenney <paulmck@kernel.org>,
  intel-gfx <intel-gfx@lists.freedesktop.org>,
  linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
  Steven Rostedt <rostedt@goodmis.org>,
- Linus Torvalds <torvalds@linuxfoundation.org>,
  Dietmar Eggemann <dietmar.eggemann@arm.com>,
  Linux ARM <linux-arm-kernel@lists.infradead.org>,
  Chris Zankel <chris@zankel.net>, Michal Simek <monstr@monstr.eu>,
@@ -96,42 +95,81 @@ Cc: Juri Lelli <juri.lelli@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
  Vineet Gupta <vgupta@synopsys.com>, LKML <linux-kernel@vger.kernel.org>,
  Arnd Bergmann <arnd@arndb.de>, Paul Mackerras <paulus@samba.org>,
  Andrew Morton <akpm@linux-foundation.org>,
- Daniel Bristot de Oliveira <bristot@redhat.com>, "David
- S. Miller" <davem@davemloft.net>, Greentime Hu <green.hu@gmail.com>
+ Daniel Bristot de Oliveira <bristot@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, Greentime Hu <green.hu@gmail.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Sun, Sep 20 2020 at 10:23, Daniel Vetter wrote:
+On Sun, Sep 20 2020 at 09:57, Linus Torvalds wrote:
+> On Sun, Sep 20, 2020 at 1:49 AM Thomas Gleixner <tglx@linutronix.de> wrote:
+> Btw, looking at the stack code, Ithink your new implementation of it
+> is a bit scary:
+>
+>    static inline int kmap_atomic_idx_push(void)
+>    {
+>   -       int idx = __this_cpu_inc_return(__kmap_atomic_idx) - 1;
+>   +       int idx = current->kmap_ctrl.idx++;
+>
+> and now that 'current->kmap_ctrl.idx' is not atomic wrt
+>
+>  (a) NMI's (this may be ok, maybe we never do kmaps in NMIs, and with
+> nesting I think it's fine anyway - the NMI will undo whatever it did)
 
-> On Sun, Sep 20, 2020 at 08:23:26AM +0200, Thomas Gleixner wrote:
->> On Sat, Sep 19 2020 at 12:37, Daniel Vetter wrote:
->> > On Sat, Sep 19, 2020 at 12:35 PM Daniel Vetter <daniel@ffwll.ch> wrote:
->> >> I think it should be the case, but I want to double check: Will
->> >> copy_*_user be allowed within a kmap_temporary section? This would
->> >> allow us to ditch an absolute pile of slowpaths.
->> >
->> > (coffee just kicked in) copy_*_user is ofc allowed, but if you hit a
->> > page fault you get a short read/write. This looks like it would remove
->> > the need to handle these in a slowpath, since page faults can now be
->> > served in this new kmap_temporary sections. But this sounds too good
->> > to be true, so I'm wondering what I'm missing.
->> 
->> In principle we could allow pagefaults, but not with the currently
->> proposed interface which can be called from any context. Obviously if
->> called from atomic context it can't handle user page faults.
->  
-> Yeah that's clear, but does the implemention need to disable pagefaults
-> unconditionally?
+Right. Nesting should be a non issue, but I don't think we have
+kmap_atomic() in NMI context.
 
-As I wrote in the other reply it's not required and the final interface
-will neither disable preemption nor pagefaults (except for the atomic
-wrapper around it).
+>  (b) the prev/next switch
+>
+> And that (b) part worries me. You do the kmap_switch_temporary() to
+> switch the entries, but you do that *separately* from actually
+> switching 'current' to the new value.
+>
+> So kmap_switch_temporary() looks safe, but I don't think it actually
+> is. Because while it first unmaps the old entries and then remaps the
+> new ones, an interrupt can come in, and at that point it matters what
+> is *CURRENT*.
+>
+> And regardless of whether 'current' is 'prev' or 'next', that
+> kmap_switch_temporary() loop may be doing the wrong thing, depending
+> on which one had the deeper stack. The interrupt will be using
+> whatever "current->kmap_ctrl.idx" is, but that might overwrite entries
+> that are in the process of being restored (if current is still 'prev',
+> but kmap_switch_temporary() is in the "restore @next's kmaps" pgase),
+> or it might stomp on entries that have been pte_clear()'ed by the
+> 'prev' thing.
+
+Duh yes. Never thought about that.
+
+> Alternatively, that process counter would need about a hundred lines
+> of commentary about exactly why it's safe. Because I don't think it
+> is.
+
+I think the more obvious solution is to split the whole exercise:
+
+
+  schedule()
+     prepare_switch()
+        unmap()
+
+    switch_to()
+
+    finish_switch()
+        map()
+
+That's safe because neither the unmap() nor the map() code changes
+kmap_ctrl.idx. So if there is an interrupt coming in between unmap() and
+switch_to() then a kmap_local() there will use the next entry. So we
+could even do the unmap() with interrupts enabled (preemption disabled).
+Same for the map() part.
+
+To explain that we need only a few lines of commentry methinks.
 
 Thanks,
 
         tglx
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
