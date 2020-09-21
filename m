@@ -2,89 +2,46 @@ Return-Path: <SRS0=0qc7=C7=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 95332C4363D
-	for <intel-gfx@archiver.kernel.org>; Tue, 22 Sep 2020 14:21:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1524CC4363D
+	for <intel-gfx@archiver.kernel.org>; Tue, 22 Sep 2020 14:22:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 358B22395C
-	for <intel-gfx@archiver.kernel.org>; Tue, 22 Sep 2020 14:21:50 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="TgUfJcvq"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 358B22395C
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=oracle.com
+	by mail.kernel.org (Postfix) with ESMTPS id 7259420C09
+	for <intel-gfx@archiver.kernel.org>; Tue, 22 Sep 2020 14:22:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7259420C09
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=huawei.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 02A6B896B5;
-	Tue, 22 Sep 2020 14:21:49 +0000 (UTC)
-Received: from aserp2120.oracle.com (aserp2120.oracle.com [141.146.126.78])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 61CEF89F1B;
- Mon, 21 Sep 2020 20:44:38 +0000 (UTC)
-Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
- by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 08LKdCRp085819;
- Mon, 21 Sep 2020 20:44:24 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=corp-2020-01-29;
- bh=7ujMtTvfd+IOkCnn7iI/GoTDPJ8pxvj1u7VSyDhDIiE=;
- b=TgUfJcvqhnH4X5TErTOA7ctRXSXQGoVSuGYWQLux1TS6gP/EFUFQnZPW1RbI+0E3cL3B
- in/KONvWNSkpL0McwdWOCYcEE71inohanA9TuEaBwbVsC+zymxPchZWkmSx8xBtSpz45
- n4nSBlQUHVmHXIe079bdqGiphbvhJyNT4NA7Zc1AGj/hU0sZ8Gjz7k8rSC1nxwxqxoDc
- M/3OmSs0Xen7YIDCD5IseKHAjxpvC1Wd93RKD+UTZE2zo/tF5x3Gs3ujB2MuqgPbpVVb
- G2l9kt0/DZBWdfye+7ecmzj4ylCxjUBE6JtHlfJDOmpinNW39aF0e9JhEBK/pXjcS2Z0 kg== 
-Received: from aserp3020.oracle.com (aserp3020.oracle.com [141.146.126.70])
- by aserp2120.oracle.com with ESMTP id 33n9xks3vf-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Mon, 21 Sep 2020 20:44:24 +0000
-Received: from pps.filterd (aserp3020.oracle.com [127.0.0.1])
- by aserp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 08LKdmAx065052;
- Mon, 21 Sep 2020 20:44:24 GMT
-Received: from userv0122.oracle.com (userv0122.oracle.com [156.151.31.75])
- by aserp3020.oracle.com with ESMTP id 33nuw1usdt-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 21 Sep 2020 20:44:24 +0000
-Received: from abhmp0009.oracle.com (abhmp0009.oracle.com [141.146.116.15])
- by userv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 08LKiFvM023808;
- Mon, 21 Sep 2020 20:44:20 GMT
-Received: from [10.74.86.189] (/10.74.86.189)
- by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Mon, 21 Sep 2020 13:44:14 -0700
-To: Christoph Hellwig <hch@lst.de>, Andrew Morton <akpm@linux-foundation.org>
-References: <20200918163724.2511-1-hch@lst.de>
- <20200918163724.2511-7-hch@lst.de>
-From: boris.ostrovsky@oracle.com
-Organization: Oracle Corporation
-Message-ID: <0833b9a8-5096-d105-a850-1336150eada1@oracle.com>
-Date: Mon, 21 Sep 2020 16:44:10 -0400
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.2.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 08A108968D;
+	Tue, 22 Sep 2020 14:22:00 +0000 (UTC)
+Received: from huawei.com (szxga04-in.huawei.com [45.249.212.190])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D981689D53;
+ Mon, 21 Sep 2020 13:09:59 +0000 (UTC)
+Received: from DGGEMS413-HUB.china.huawei.com (unknown [172.30.72.60])
+ by Forcepoint Email with ESMTP id BCFAAA82AE6A42431295;
+ Mon, 21 Sep 2020 21:09:56 +0800 (CST)
+Received: from localhost.localdomain.localdomain (10.175.113.25) by
+ DGGEMS413-HUB.china.huawei.com (10.3.19.213) with Microsoft SMTP Server id
+ 14.3.487.0; Mon, 21 Sep 2020 21:09:50 +0800
+From: Qinglang Miao <miaoqinglang@huawei.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
+Date: Mon, 21 Sep 2020 21:10:14 +0800
+Message-ID: <20200921131014.91372-1-miaoqinglang@huawei.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-In-Reply-To: <20200918163724.2511-7-hch@lst.de>
-Content-Language: en-US
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9751
- signatures=668679
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
- phishscore=0 malwarescore=0
- mlxscore=0 suspectscore=2 adultscore=0 mlxlogscore=999 bulkscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2006250000
- definitions=main-2009210152
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9751
- signatures=668679
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
- lowpriorityscore=0 malwarescore=0
- suspectscore=2 priorityscore=1501 adultscore=0 spamscore=0 clxscore=1011
- mlxlogscore=999 bulkscore=0 mlxscore=0 phishscore=0 impostorscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2006250000
- definitions=main-2009210152
-X-Mailman-Approved-At: Tue, 22 Sep 2020 14:08:19 +0000
-Subject: Re: [Intel-gfx] [PATCH 6/6] x86/xen: open code alloc_vm_area in
- arch_gnttab_valloc
+X-Originating-IP: [10.175.113.25]
+X-CFilter-Loop: Reflected
+X-Mailman-Approved-At: Tue, 22 Sep 2020 14:08:14 +0000
+Subject: [Intel-gfx] [PATCH -next] drm/i915: simplify the return expression
+ of i915_driver_release()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,37 +54,43 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>, linux-mm@kvack.org,
- Peter Zijlstra <peterz@infradead.org>, intel-gfx@lists.freedesktop.org,
- x86@kernel.org, linux-kernel@vger.kernel.org, Minchan Kim <minchan@kernel.org>,
- dri-devel@lists.freedesktop.org, xen-devel@lists.xenproject.org,
- Nitin Gupta <ngupta@vflare.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: intel-gfx@lists.freedesktop.org, Qinglang Miao <miaoqinglang@huawei.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Ck9uIDkvMTgvMjAgMTI6MzcgUE0sIENocmlzdG9waCBIZWxsd2lnIHdyb3RlOgo+ICAKPiArc3Rh
-dGljIGludCBnbnR0YWJfYXBwbHkocHRlX3QgKnB0ZSwgdW5zaWduZWQgbG9uZyBhZGRyLCB2b2lk
-ICpkYXRhKQo+ICt7Cj4gKwlwdGVfdCAqKipwID0gZGF0YTsKPiArCj4gKwkqKnAgPSBwdGU7Cj4g
-KwkoKnApKys7Cj4gKwlyZXR1cm4gMDsKPiArfQo+ICsKPiAgc3RhdGljIGludCBhcmNoX2dudHRh
-Yl92YWxsb2Moc3RydWN0IGdudHRhYl92bV9hcmVhICphcmVhLCB1bnNpZ25lZCBucl9mcmFtZXMp
-Cj4gIHsKPiAgCWFyZWEtPnB0ZXMgPSBrbWFsbG9jX2FycmF5KG5yX2ZyYW1lcywgc2l6ZW9mKCph
-cmVhLT5wdGVzKSwgR0ZQX0tFUk5FTCk7Cj4gIAlpZiAoYXJlYS0+cHRlcyA9PSBOVUxMKQo+ICAJ
-CXJldHVybiAtRU5PTUVNOwo+IC0KPiAtCWFyZWEtPmFyZWEgPSBhbGxvY192bV9hcmVhKFBBR0Vf
-U0laRSAqIG5yX2ZyYW1lcywgYXJlYS0+cHRlcyk7Cj4gLQlpZiAoYXJlYS0+YXJlYSA9PSBOVUxM
-KSB7Cj4gLQkJa2ZyZWUoYXJlYS0+cHRlcyk7Cj4gLQkJcmV0dXJuIC1FTk9NRU07Cj4gLQl9Cj4g
-LQo+ICsJYXJlYS0+YXJlYSA9IGdldF92bV9hcmVhKFBBR0VfU0laRSAqIG5yX2ZyYW1lcywgVk1f
-SU9SRU1BUCk7Cj4gKwlpZiAoIWFyZWEtPmFyZWEpCj4gKwkJZ290byBvdXRfZnJlZV9wdGVzOwo+
-ICsJaWYgKGFwcGx5X3RvX3BhZ2VfcmFuZ2UoJmluaXRfbW0sICh1bnNpZ25lZCBsb25nKWFyZWEt
-PmFyZWEtPmFkZHIsCj4gKwkJCVBBR0VfU0laRSAqIG5yX2ZyYW1lcywgZ250dGFiX2FwcGx5LCAm
-YXJlYS0+cHRlcykpCgoKVGhpcyB3aWxsIGVuZCB1cCBpbmNyZW1lbnRpbmcgYXJlYS0+cHRlcyBw
-b2ludGVyLiBTbyBwZXJoYXBzIHNvbWV0aGluZyBsaWtlCgoKcHRlX3QgKipwdGVzID0gYXJlYS0+
-cHRlczsKCmlmIChhcHBseV90b19wYWdlX3JhbmdlKCZpbml0X21tLCAodW5zaWduZWQgbG9uZylh
-cmVhLT5hcmVhLT5hZGRyLArCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgIFBBR0VfU0laRSAqIG5yX2ZyYW1lcywgZ250dGFiX2FwcGx5LCAmcHRlcykpIHsKCsKg
-wqDCoMKgwqDCoCAuLi4KCn0KCgotYm9yaXMKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRlbC1nZnhAbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlz
-dGluZm8vaW50ZWwtZ2Z4Cg==
+Simplify the return expression.
+
+Signed-off-by: Qinglang Miao <miaoqinglang@huawei.com>
+---
+ drivers/gpu/drm/i915/i915_drv.c | 7 +------
+ 1 file changed, 1 insertion(+), 6 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/i915_drv.c b/drivers/gpu/drm/i915/i915_drv.c
+index acc32066c..a594bb4aa 100644
+--- a/drivers/gpu/drm/i915/i915_drv.c
++++ b/drivers/gpu/drm/i915/i915_drv.c
+@@ -985,13 +985,8 @@ static void i915_driver_release(struct drm_device *dev)
+ static int i915_driver_open(struct drm_device *dev, struct drm_file *file)
+ {
+ 	struct drm_i915_private *i915 = to_i915(dev);
+-	int ret;
+ 
+-	ret = i915_gem_open(i915, file);
+-	if (ret)
+-		return ret;
+-
+-	return 0;
++	return i915_gem_open(i915, file);
+ }
+ 
+ /**
+-- 
+2.23.0
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
