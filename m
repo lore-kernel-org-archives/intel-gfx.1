@@ -2,54 +2,51 @@ Return-Path: <SRS0=k2AZ=C6=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 265B5C4363C
-	for <intel-gfx@archiver.kernel.org>; Mon, 21 Sep 2020 17:54:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 246BCC4363D
+	for <intel-gfx@archiver.kernel.org>; Mon, 21 Sep 2020 17:54:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D3E6520BED
-	for <intel-gfx@archiver.kernel.org>; Mon, 21 Sep 2020 17:54:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D3E6520BED
+	by mail.kernel.org (Postfix) with ESMTPS id D985B20BED
+	for <intel-gfx@archiver.kernel.org>; Mon, 21 Sep 2020 17:54:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D985B20BED
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=Intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A4326E512;
-	Mon, 21 Sep 2020 17:54:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2647C6E517;
+	Mon, 21 Sep 2020 17:54:42 +0000 (UTC)
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D1C086E513
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9AF1B6E511
  for <Intel-GFX@lists.freedesktop.org>; Mon, 21 Sep 2020 17:54:29 +0000 (UTC)
-IronPort-SDR: DjWxblVLbDWXoCiCsXcpimvozj9EvpKA3H3YXrf/QAfB0A1INgCyzwzoy/hmX4aOxq/+6yjZ5D
- 6xom3w/IjrAg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9751"; a="224596833"
-X-IronPort-AV: E=Sophos;i="5.77,287,1596524400"; d="scan'208";a="224596833"
+IronPort-SDR: S3NlDXKHeoP3+Lnb/mNTy9S4TzsA6gxMjPDatbS41hv+r02BL/zZP7ujOfv1kUZ0V8UVjPzwKO
+ opO/n+MhEsbA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9751"; a="224596829"
+X-IronPort-AV: E=Sophos;i="5.77,287,1596524400"; d="scan'208";a="224596829"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  21 Sep 2020 10:54:28 -0700
-IronPort-SDR: SAcsDhzl/1yPQBxF8WUTgerCV0O7W2gaNJ9B2KGrtrnEPxtFq8PrAcerYptfzBb7bZEVdDLy/f
- fPYt4HYGyeHw==
+IronPort-SDR: r3a18swf8QRhdMMYuurZ6eD0EHghyTm7OlwI7NBnBngqemn+fNcsY8iyC3DI5JdfqNtgpUtmCy
+ ukbj3UFhPNeA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.77,287,1596524400"; d="scan'208";a="321863516"
+X-IronPort-AV: E=Sophos;i="5.77,287,1596524400"; d="scan'208";a="321863505"
 Received: from relo-linux-5.jf.intel.com ([10.165.21.134])
  by orsmga002.jf.intel.com with ESMTP; 21 Sep 2020 10:54:28 -0700
 From: John.C.Harrison@Intel.com
 To: Intel-GFX@Lists.FreeDesktop.Org
-Date: Mon, 21 Sep 2020 10:54:28 -0700
-Message-Id: <20200921175428.2914478-5-John.C.Harrison@Intel.com>
+Date: Mon, 21 Sep 2020 10:54:24 -0700
+Message-Id: <20200921175428.2914478-1-John.C.Harrison@Intel.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20200921175428.2914478-1-John.C.Harrison@Intel.com>
-References: <20200921175428.2914478-1-John.C.Harrison@Intel.com>
 MIME-Version: 1.0
 Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
  Swindon SN3 1RJ
-Subject: [Intel-gfx] [PATCH 4/4] drm/i915/uc: turn on GuC/HuC auto mode by
- default
+Subject: [Intel-gfx] [PATCH 0/4] drm/i915/guc: Update to GuC v49
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,31 +64,34 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+From: John Harrison <John.C.Harrison@Intel.com>
 
-This will enable HuC loading for Gen11+ by default if the binaries
-are available on the system. GuC submission still requires explicit
-enabling by the user.
+Update to the latest GuC firmware and enable by default.
 
-Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-Cc: Michal Wajdeczko <michal.wajdeczko@intel.com>
----
- drivers/gpu/drm/i915/i915_params.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
 
-diff --git a/drivers/gpu/drm/i915/i915_params.h b/drivers/gpu/drm/i915/i915_params.h
-index 330c03e2b4f7..7bdbd8f6ed30 100644
---- a/drivers/gpu/drm/i915/i915_params.h
-+++ b/drivers/gpu/drm/i915/i915_params.h
-@@ -58,7 +58,7 @@ struct drm_printer;
- 	param(int, disable_power_well, -1, 0400) \
- 	param(int, enable_ips, 1, 0600) \
- 	param(int, invert_brightness, 0, 0600) \
--	param(int, enable_guc, 0, 0400) \
-+	param(int, enable_guc, -1, 0400) \
- 	param(int, guc_log_level, -1, 0400) \
- 	param(char *, guc_firmware_path, NULL, 0400) \
- 	param(char *, huc_firmware_path, NULL, 0400) \
+
+Daniele Ceraolo Spurio (1):
+  drm/i915/uc: turn on GuC/HuC auto mode by default
+
+John Harrison (3):
+  drm/i915/guc: Update to use firmware v49.0.1
+  drm/i915/guc: Improved reporting when GuC fails to load
+  drm/i915/guc: Clear pointers on free
+
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c    |   3 +-
+ drivers/gpu/drm/i915/gt/uc/intel_guc.c       |  18 ---
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c   | 132 +++++++++++++++----
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c    |   1 +
+ drivers/gpu/drm/i915/gt/uc/intel_guc_fw.c    |  27 +++-
+ drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h  |  82 +++++++-----
+ drivers/gpu/drm/i915/gt/uc/intel_guc_reg.h   |   5 +
+ drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c     |  27 ++--
+ drivers/gpu/drm/i915/gt/uc/intel_uc_fw.h     |   2 +
+ drivers/gpu/drm/i915/gt/uc/intel_uc_fw_abi.h |   6 +-
+ drivers/gpu/drm/i915/i915_params.h           |   2 +-
+ 11 files changed, 207 insertions(+), 98 deletions(-)
+
 -- 
 2.25.1
 
