@@ -2,55 +2,56 @@ Return-Path: <SRS0=k2AZ=C6=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 53051C43464
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5B168C43465
 	for <intel-gfx@archiver.kernel.org>; Mon, 21 Sep 2020 12:22:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7A24420EDD
+	by mail.kernel.org (Postfix) with ESMTPS id 9C5D9206A4
 	for <intel-gfx@archiver.kernel.org>; Mon, 21 Sep 2020 12:22:04 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="eHeD509S"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7A24420EDD
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="RTAohrKQ"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9C5D9206A4
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9207C6E07F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C2C846E2F3;
 	Mon, 21 Sep 2020 12:22:03 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org
  [IPv6:2001:8b0:10b:1236::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E67789257;
- Mon, 21 Sep 2020 06:28:43 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 203546E167;
+ Mon, 21 Sep 2020 06:24:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
  References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
  Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=Tci2tqg3leIbmrKKmdytiLIb3svt+yq3AUhipK0JnoY=; b=eHeD509SDxyAiHGiTwo9U9RK6O
- BdV0ol0+bUl0JcuR4cH5K4iJppCvrjMC+FXmd1lF9otzHdHbgaqWCPBbYEVccspM4hNb0ELFrDX41
- s330N9PwkKFmY1+L4xtZqC6TuuZXPpHTsXwNy2mxRh6hHZxeOvX7QA3hIrIh11xqjXXtgY0KOrH1g
- TAa/FH4UUQzLwOqDXwmFk20iXdkTE1C5bNJ47X+kA8GBuFsMKdIwnr8VE2F05aYZUn3BWrCVUA/8S
- mbIk+BpzsIVAf7vJcwgjD0vdvWTXz3H9YwI8DG/vud/142FwM17JAPgxfqgTAucNSaDR8ooXWbNYe
- L6UrCpkA==;
+ bh=xTLh23wHPG4TqC3FM8xjFZG4IFBTa9u/cbF3kBwK6Ds=; b=RTAohrKQEJ4d/+2FHmYCSfnjaU
+ 3Y1oN0bX+qNiXFWWNQ5Bx+rNc3TH1ppQwCVDi8zlXDOxk4uSGN0o6OjNUqN5ZaH5p/UcdOos6uaKX
+ vllToVdZRo/76JFQ3wTCiQ471CZFaX1BccaWpPpcB/IeKOoZaf90ILoLhkgXiVEZjCJAlFIHYK7cC
+ 2Idpp6EiVC1risOlIyV1ZZZgUcMQYapM6jn/nD1nDGMIF9n70bKhqPEdll9S2tBpls2hjZ8pj53jo
+ 5fqdSa3anAUXYCJg0H/nKgdpbgaLvqoX/s5XchLK7sAQ11cFqoLoPDGi8F3iJ/WzUGnXg/GC/FoHK
+ JVE5YMag==;
 Received: from hch by casper.infradead.org with local (Exim 4.92.3 #3 (Red Hat
- Linux)) id 1kKFJD-0000eG-TH; Mon, 21 Sep 2020 06:28:19 +0000
-Date: Mon, 21 Sep 2020 07:28:19 +0100
+ Linux)) id 1kKFEf-0000LF-P3; Mon, 21 Sep 2020 06:23:37 +0000
+Date: Mon, 21 Sep 2020 07:23:37 +0100
 From: Christoph Hellwig <hch@infradead.org>
 To: Thomas Gleixner <tglx@linutronix.de>
-Message-ID: <20200921062819.GB32081@infradead.org>
+Message-ID: <20200921062337.GA32081@infradead.org>
 References: <20200919091751.011116649@linutronix.de>
- <20200919092615.990731525@linutronix.de>
+ <20200919092615.879315697@linutronix.de>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200919092615.990731525@linutronix.de>
+In-Reply-To: <20200919092615.879315697@linutronix.de>
 X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
  casper.infradead.org. See http://www.infradead.org/rpr.html
 X-Mailman-Approved-At: Mon, 21 Sep 2020 12:22:02 +0000
-Subject: Re: [Intel-gfx] [patch RFC 02/15] highmem: Provide generic variant
- of kmap_atomic*
+Subject: Re: [Intel-gfx] [patch RFC 01/15] mm/highmem: Un-EXPORT
+ __kmap_atomic_idx()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,52 +96,14 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-> +# ifndef ARCH_NEEDS_KMAP_HIGH_GET
-> +static inline void *arch_kmap_temporary_high_get(struct page *page)
-> +{
-> +	return NULL;
-> +}
-> +# endif
+On Sat, Sep 19, 2020 at 11:17:52AM +0200, Thomas Gleixner wrote:
+> Nothing in modules can use that.
+> 
+> Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
 
-Turn this into a macro and use #ifndef on the symbol name?
+Looks good,
 
-> +static inline void __kunmap_atomic(void *addr)
-> +{
-> +	kumap_atomic_indexed(addr);
-> +}
-> +
-> +
-> +#endif /* CONFIG_KMAP_ATOMIC_GENERIC */
-
-Stange double empty line above the endif.
-
-> -#define kunmap_atomic(addr)                                     \
-> -do {                                                            \
-> -	BUILD_BUG_ON(__same_type((addr), struct page *));       \
-> -	kunmap_atomic_high(addr);                                  \
-> -	pagefault_enable();                                     \
-> -	preempt_enable();                                       \
-> -} while (0)
-> -
-> +#define kunmap_atomic(addr)						\
-> +	do {								\
-> +		BUILD_BUG_ON(__same_type((addr), struct page *));	\
-> +		__kunmap_atomic(addr);					\
-> +		preempt_enable();					\
-> +	} while (0)
-
-Why the strange re-indent to a form that is much less common and less
-readable?
-
-> +void *kmap_atomic_pfn_prot(unsigned long pfn, pgprot_t prot)
-> +{
-> +	pagefault_disable();
-> +	return __kmap_atomic_pfn_prot(pfn, prot);
-> +}
-> +EXPORT_SYMBOL(kmap_atomic_pfn_prot);
-
-The existing kmap_atomic_pfn & co implementation is EXPORT_SYMBOL_GPL,
-and this stuff should preferably stay that way.
+Reviewed-by: Christoph Hellwig <hch@lst.de>
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
