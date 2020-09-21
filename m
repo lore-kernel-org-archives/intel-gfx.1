@@ -2,56 +2,51 @@ Return-Path: <SRS0=k2AZ=C6=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5B168C43465
-	for <intel-gfx@archiver.kernel.org>; Mon, 21 Sep 2020 12:22:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8E148C43465
+	for <intel-gfx@archiver.kernel.org>; Mon, 21 Sep 2020 12:54:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9C5D9206A4
-	for <intel-gfx@archiver.kernel.org>; Mon, 21 Sep 2020 12:22:04 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id EDDF52193E
+	for <intel-gfx@archiver.kernel.org>; Mon, 21 Sep 2020 12:54:46 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="RTAohrKQ"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9C5D9206A4
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="1ym5/lRx"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EDDF52193E
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C2C846E2F3;
-	Mon, 21 Sep 2020 12:22:03 +0000 (UTC)
-Received: from casper.infradead.org (casper.infradead.org
- [IPv6:2001:8b0:10b:1236::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 203546E167;
- Mon, 21 Sep 2020 06:24:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=xTLh23wHPG4TqC3FM8xjFZG4IFBTa9u/cbF3kBwK6Ds=; b=RTAohrKQEJ4d/+2FHmYCSfnjaU
- 3Y1oN0bX+qNiXFWWNQ5Bx+rNc3TH1ppQwCVDi8zlXDOxk4uSGN0o6OjNUqN5ZaH5p/UcdOos6uaKX
- vllToVdZRo/76JFQ3wTCiQ471CZFaX1BccaWpPpcB/IeKOoZaf90ILoLhkgXiVEZjCJAlFIHYK7cC
- 2Idpp6EiVC1risOlIyV1ZZZgUcMQYapM6jn/nD1nDGMIF9n70bKhqPEdll9S2tBpls2hjZ8pj53jo
- 5fqdSa3anAUXYCJg0H/nKgdpbgaLvqoX/s5XchLK7sAQ11cFqoLoPDGi8F3iJ/WzUGnXg/GC/FoHK
- JVE5YMag==;
-Received: from hch by casper.infradead.org with local (Exim 4.92.3 #3 (Red Hat
- Linux)) id 1kKFEf-0000LF-P3; Mon, 21 Sep 2020 06:23:37 +0000
-Date: Mon, 21 Sep 2020 07:23:37 +0100
-From: Christoph Hellwig <hch@infradead.org>
-To: Thomas Gleixner <tglx@linutronix.de>
-Message-ID: <20200921062337.GA32081@infradead.org>
-References: <20200919091751.011116649@linutronix.de>
- <20200919092615.879315697@linutronix.de>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200919092615.879315697@linutronix.de>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
- casper.infradead.org. See http://www.infradead.org/rpr.html
-X-Mailman-Approved-At: Mon, 21 Sep 2020 12:22:02 +0000
-Subject: Re: [Intel-gfx] [patch RFC 01/15] mm/highmem: Un-EXPORT
- __kmap_atomic_idx()
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4AD766E15E;
+	Mon, 21 Sep 2020 12:54:46 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D64936E15E
+ for <intel-gfx@lists.freedesktop.org>; Mon, 21 Sep 2020 12:54:45 +0000 (UTC)
+Received: from localhost (unknown [70.37.104.77])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 250D920874;
+ Mon, 21 Sep 2020 12:54:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1600692885;
+ bh=3HQubua1JVZSbuiksHja1yPDGgphBllup5nvb5XngtM=;
+ h=Date:From:To:To:To:Cc:Cc:Cc:Cc:Subject:In-Reply-To:References:
+ From;
+ b=1ym5/lRxm2lnN2eYU+cWZxzt8wO4hrOs7K30FDk4I4A/Ga31se+Pqnd5VCuDpGNXr
+ MtIg7E/fN3MJmGOzjuYFI8pVkqYThNs2DTQl96a01Z8YpU8CKdfFIIi1Ssn0Ec7qxP
+ sPcW1Owx5fzuqMkqXUHD+ejqana03DBUUmfS+KXk=
+Date: Mon, 21 Sep 2020 12:54:44 +0000
+From: Sasha Levin <sashal@kernel.org>
+To: Sasha Levin <sashal@kernel.org>
+To: Chris Wilson <chris@chris-wilson.co.uk>
+To: intel-gfx@lists.freedesktop.org
+In-Reply-To: <20200916090059.3189-2-chris@chris-wilson.co.uk>
+References: <20200916090059.3189-2-chris@chris-wilson.co.uk>
+Message-Id: <20200921125445.250D920874@mail.kernel.org>
+Subject: Re: [Intel-gfx] [PATCH 2/3] drm/i915: Break up error capture
+ compression loops with cond_resched()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,46 +59,55 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Juri Lelli <juri.lelli@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- dri-devel <dri-devel@lists.freedesktop.org>, linux-mips@vger.kernel.org,
- Ben Segall <bsegall@google.com>, Max Filippov <jcmvbkbc@gmail.com>,
- Guo Ren <guoren@kernel.org>, sparclinux@vger.kernel.org,
- Vincent Chen <deanbo422@gmail.com>, Will Deacon <will@kernel.org>,
- Ard Biesheuvel <ardb@kernel.org>, linux-arch@vger.kernel.org,
- Herbert Xu <herbert@gondor.apana.org.au>,
- Michael Ellerman <mpe@ellerman.id.au>, x86@kernel.org,
- Russell King <linux@armlinux.org.uk>, linux-csky@vger.kernel.org,
- David Airlie <airlied@linux.ie>, Mel Gorman <mgorman@suse.de>,
- linux-snps-arc@lists.infradead.org, linux-xtensa@linux-xtensa.org,
- Paul McKenney <paulmck@kernel.org>,
- intel-gfx <intel-gfx@lists.freedesktop.org>, linuxppc-dev@lists.ozlabs.org,
- Steven Rostedt <rostedt@goodmis.org>,
- Linus Torvalds <torvalds@linuxfoundation.org>,
- Dietmar Eggemann <dietmar.eggemann@arm.com>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>,
- Chris Zankel <chris@zankel.net>, Michal Simek <monstr@monstr.eu>,
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
- Nick Hu <nickhu@andestech.com>, Linux-MM <linux-mm@kvack.org>,
- Vineet Gupta <vgupta@synopsys.com>, LKML <linux-kernel@vger.kernel.org>,
- Arnd Bergmann <arnd@arndb.de>, Paul Mackerras <paulus@samba.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Daniel Bristot de Oliveira <bristot@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, Greentime Hu <green.hu@gmail.com>
+Cc: stable@vger.kernel.org, Chris Wilson <chris@chris-wilson.co.uk>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Sat, Sep 19, 2020 at 11:17:52AM +0200, Thomas Gleixner wrote:
-> Nothing in modules can use that.
-> 
-> Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
+Hi
 
-Looks good,
+[This is an automated email]
 
-Reviewed-by: Christoph Hellwig <hch@lst.de>
+This commit has been processed because it contains a -stable tag.
+The stable tag indicates that it's relevant for the following trees: all
+
+The bot has tested the following trees: v5.8.10, v5.4.66, v4.19.146, v4.14.198, v4.9.236, v4.4.236.
+
+v5.8.10: Build OK!
+v5.4.66: Build OK!
+v4.19.146: Build OK!
+v4.14.198: Build OK!
+v4.9.236: Failed to apply! Possible dependencies:
+    0a97015d45ee ("drm/i915: Compress GPU objects in error state")
+    83bc0f5b432f ("drm/i915: Handle incomplete Z_FINISH for compressed error states")
+    95374d759ac7 ("drm/i915: Always use the GTT for error capture")
+    98a2f411671f ("drm/i915: Allow disabling error capture")
+    9f267eb8d2ea ("drm/i915: Stop the machine whilst capturing the GPU crash dump")
+    d636951ec01b ("drm/i915: Cleanup instdone collection")
+    fc4c79c37e82 ("drm/i915: Consolidate error object printing")
+
+v4.4.236: Failed to apply! Possible dependencies:
+    0a97015d45ee ("drm/i915: Compress GPU objects in error state")
+    0bc40be85f33 ("drm/i915: Rename intel_engine_cs function parameters")
+    688e6c725816 ("drm/i915: Slaughter the thundering i915_wait_request herd")
+    755412e29c77 ("drm/i915: Add an optional selection from i915 of CONFIG_MMU_NOTIFIER")
+    98a2f411671f ("drm/i915: Allow disabling error capture")
+    ca82580c9cea ("drm/i915: Do not call API requiring struct_mutex where it is not available")
+    cbdc12a9fc9d ("drm/i915: make A0 wa's applied to A1")
+    e87a005d90c3 ("drm/i915: add helpers for platform specific revision id range checks")
+    ef712bb4b700 ("drm/i915: remove parens around revision ids")
+    fffda3f4fb49 ("drm/i915/bxt: add revision id for A1 stepping and use it")
+
+
+NOTE: The patch will not be queued to stable trees until it is upstream.
+
+How should we proceed with this patch?
+
+-- 
+Thanks
+Sasha
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
