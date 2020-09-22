@@ -2,60 +2,93 @@ Return-Path: <SRS0=0qc7=C7=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.2 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,NICE_REPLY_A,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-5.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AD420C4741F
-	for <intel-gfx@archiver.kernel.org>; Tue, 22 Sep 2020 16:14:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A4D9DC4363D
+	for <intel-gfx@archiver.kernel.org>; Tue, 22 Sep 2020 16:27:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5D3EB22206
-	for <intel-gfx@archiver.kernel.org>; Tue, 22 Sep 2020 16:14:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5D3EB22206
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 452C023A1B
+	for <intel-gfx@archiver.kernel.org>; Tue, 22 Sep 2020 16:27:55 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="vXNxTqEa"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 452C023A1B
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=oracle.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3B1B96E84B;
-	Tue, 22 Sep 2020 16:14:03 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 922B589DFA;
- Tue, 22 Sep 2020 16:13:56 +0000 (UTC)
-IronPort-SDR: qkr6VoB/egwcfCaNcsnXR7d/qcZmES8OyUZzODJUsOeT0is+x4xx6auq/uq1DUdhzwBHYkKJRS
- qrd8JFcAiu2w==
-X-IronPort-AV: E=McAfee;i="6000,8403,9752"; a="148304471"
-X-IronPort-AV: E=Sophos;i="5.77,291,1596524400"; d="scan'208";a="148304471"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Sep 2020 09:13:55 -0700
-IronPort-SDR: W+rmWqa0xT/ewOCnu96ywZFFN7sCksDJXZ0B8m2eSjjHf9ai3YA0OAm303ILetoqVH5E8M1i2E
- QP+Qxj+EsOlg==
-X-IronPort-AV: E=Sophos;i="5.77,291,1596524400"; d="scan'208";a="454544739"
-Received: from atroib-mobl2.ger.corp.intel.com (HELO [10.214.238.184])
- ([10.214.238.184])
- by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Sep 2020 09:13:49 -0700
+	by gabe.freedesktop.org (Postfix) with ESMTP id 043856E8BE;
+	Tue, 22 Sep 2020 16:27:54 +0000 (UTC)
+Received: from userp2120.oracle.com (userp2120.oracle.com [156.151.31.85])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7254789EB8;
+ Tue, 22 Sep 2020 15:34:51 +0000 (UTC)
+Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
+ by userp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 08MFXZ4A115377;
+ Tue, 22 Sep 2020 15:34:42 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=corp-2020-01-29;
+ bh=SQUZRxKbOrj7C5f6uXB0QaPDAWtQi5hHWGb3AMCGwok=;
+ b=vXNxTqEaODuD+fyU1jUL8sgHm/70CoNspaljF2CVJy8YCkwoU79BXOLKh267UZHkplF8
+ 8gDxgeFrbFB3MPy3LpGLNkXfd1SvSHwK+Aa1BHsHL6vvwsYit9kqi55PmIfQ5VEjTtfj
+ xYG2uDen9YZs91OrBwjVJcj7oFo6Mv3iUblQ43Pm81r+jgqhZ/1Tcx8D1VYYb7+x69fb
+ n+qGpLjCo2XbRGqid1wVg1IbrdOhxG/60xd/nbbzTVHN4KXX5ILRDFS7r3qd1qqYr6Ez
+ qQJnMwFLIBPdG4ZIkFCq9APz0yHuY8A6pTbvyMU5RcXkzUXKRKPdNqjFklU4rSPXqE1a Hw== 
+Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
+ by userp2120.oracle.com with ESMTP id 33ndnudj4p-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Tue, 22 Sep 2020 15:34:42 +0000
+Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
+ by aserp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 08MFURVL072451;
+ Tue, 22 Sep 2020 15:34:41 GMT
+Received: from userv0122.oracle.com (userv0122.oracle.com [156.151.31.75])
+ by aserp3030.oracle.com with ESMTP id 33nujncaex-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 22 Sep 2020 15:34:41 +0000
+Received: from abhmp0018.oracle.com (abhmp0018.oracle.com [141.146.116.24])
+ by userv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 08MFYdJl019605;
+ Tue, 22 Sep 2020 15:34:39 GMT
+Received: from [10.74.86.236] (/10.74.86.236)
+ by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Tue, 22 Sep 2020 08:34:38 -0700
 To: Christoph Hellwig <hch@lst.de>
 References: <20200918163724.2511-1-hch@lst.de>
- <20200918163724.2511-4-hch@lst.de>
- <20200921191157.GX32101@casper.infradead.org> <20200922062249.GA30831@lst.de>
- <43d10588-2033-038b-14e4-9f41cd622d7b@linux.intel.com>
- <20200922143141.GA26637@lst.de>
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Organization: Intel Corporation UK Plc
-Message-ID: <e429c3e6-2143-f51a-4c1c-c1470076ad3e@linux.intel.com>
-Date: Tue, 22 Sep 2020 17:13:45 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ <20200918163724.2511-7-hch@lst.de>
+ <0833b9a8-5096-d105-a850-1336150eada1@oracle.com>
+ <20200922145819.GA28420@lst.de>
+ <ebd69ba1-fc06-3cc7-348e-3cb0004c2a34@oracle.com>
+ <20200922152706.GA30633@lst.de>
+From: boris.ostrovsky@oracle.com
+Organization: Oracle Corporation
+Message-ID: <a3daaf31-d1cd-2bf1-5b2f-aaae32baa7f6@oracle.com>
+Date: Tue, 22 Sep 2020 11:34:35 -0400
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.2.1
 MIME-Version: 1.0
-In-Reply-To: <20200922143141.GA26637@lst.de>
+In-Reply-To: <20200922152706.GA30633@lst.de>
 Content-Language: en-US
-Subject: Re: [Intel-gfx] [PATCH 3/6] drm/i915: use vmap in shmem_pin_map
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9752
+ signatures=668679
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 bulkscore=0
+ malwarescore=0
+ mlxlogscore=999 phishscore=0 adultscore=0 spamscore=0 suspectscore=0
+ mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2006250000 definitions=main-2009220121
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9752
+ signatures=668679
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
+ priorityscore=1501 malwarescore=0
+ lowpriorityscore=0 phishscore=0 adultscore=0 suspectscore=0 bulkscore=0
+ clxscore=1015 impostorscore=0 mlxlogscore=999 mlxscore=0 spamscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2006250000
+ definitions=main-2009220121
+X-Mailman-Approved-At: Tue, 22 Sep 2020 16:27:52 +0000
+Subject: Re: [Intel-gfx] [PATCH 6/6] x86/xen: open code alloc_vm_area in
+ arch_gnttab_valloc
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,194 +102,36 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Minchan Kim <minchan@kernel.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, linux-mm@kvack.org,
  Peter Zijlstra <peterz@infradead.org>, intel-gfx@lists.freedesktop.org,
- x86@kernel.org, linux-kernel@vger.kernel.org,
- Matthew Wilcox <willy@infradead.org>, Chris Wilson <chris@chris-wilson.co.uk>,
- linux-mm@kvack.org, dri-devel@lists.freedesktop.org,
- xen-devel@lists.xenproject.org, Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Andrew Morton <akpm@linux-foundation.org>, Nitin Gupta <ngupta@vflare.org>,
- Matthew Auld <matthew.auld@intel.com>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+ x86@kernel.org, linux-kernel@vger.kernel.org, Minchan Kim <minchan@kernel.org>,
+ dri-devel@lists.freedesktop.org, xen-devel@lists.xenproject.org,
+ Andrew Morton <akpm@linux-foundation.org>, Nitin Gupta <ngupta@vflare.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-
-On 22/09/2020 15:31, Christoph Hellwig wrote:
-> On Tue, Sep 22, 2020 at 09:23:59AM +0100, Tvrtko Ursulin wrote:
->> If I understood this sub-thread correctly, iterating and freeing the pages
->> via the vmapped ptes, so no need for a
->> shmem_read_mapping_page_gfp loop in shmem_unpin_map looks plausible to me.
->>
->> I did not get the reference to kernel/dma/remap.c though,
-> 
-> What I mean is the code in dma_common_find_pages, which returns the
-> page array for freeing.
-
-Got it.
-
->> and also not sure
->> how to do the error unwind path in shmem_pin_map at which point the
->> allocated vm area hasn't been fully populated yet. Hand-roll the loop
->> walking vm area struct in there?
-> 
-> Yes.  What I originally did (re-created as I didn't save it) would be
-> something like this:
-> 
-> ---
->>From 5605e77cda246df6dd7ded99ec22cb3f341ef5d5 Mon Sep 17 00:00:00 2001
-> From: Christoph Hellwig <hch@lst.de>
-> Date: Wed, 16 Sep 2020 13:54:04 +0200
-> Subject: drm/i915: use vmap in shmem_pin_map
-> 
-> shmem_pin_map somewhat awkwardly reimplements vmap using
-> alloc_vm_area and manual pte setup.  The only practical difference
-> is that alloc_vm_area prefeaults the vmalloc area PTEs, which doesn't
-> seem to be required here (and could be added to vmap using a flag
-> if actually required).
-> 
-> Signed-off-by: Christoph Hellwig <hch@lst.de>
-> ---
->   drivers/gpu/drm/i915/gt/shmem_utils.c | 81 +++++++++------------------
->   1 file changed, 27 insertions(+), 54 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/gt/shmem_utils.c b/drivers/gpu/drm/i915/gt/shmem_utils.c
-> index 43c7acbdc79dea..7ec6ba4c1065b2 100644
-> --- a/drivers/gpu/drm/i915/gt/shmem_utils.c
-> +++ b/drivers/gpu/drm/i915/gt/shmem_utils.c
-> @@ -49,80 +49,53 @@ struct file *shmem_create_from_object(struct drm_i915_gem_object *obj)
->   	return file;
->   }
->   
-> -static size_t shmem_npte(struct file *file)
-> +static size_t shmem_npages(struct file *file)
->   {
->   	return file->f_mapping->host->i_size >> PAGE_SHIFT;
->   }
->   
-> -static void __shmem_unpin_map(struct file *file, void *ptr, size_t n_pte)
-> -{
-> -	unsigned long pfn;
-> -
-> -	vunmap(ptr);
-> -
-> -	for (pfn = 0; pfn < n_pte; pfn++) {
-> -		struct page *page;
-> -
-> -		page = shmem_read_mapping_page_gfp(file->f_mapping, pfn,
-> -						   GFP_KERNEL);
-> -		if (!WARN_ON(IS_ERR(page))) {
-> -			put_page(page);
-> -			put_page(page);
-> -		}
-> -	}
-> -}
-> -
->   void *shmem_pin_map(struct file *file)
->   {
-> -	const size_t n_pte = shmem_npte(file);
-> -	pte_t *stack[32], **ptes, **mem;
-
-Chris can comment how much he'd miss the 32 page stack shortcut.
-
-> -	struct vm_struct *area;
-> -	unsigned long pfn;
-> -
-> -	mem = stack;
-> -	if (n_pte > ARRAY_SIZE(stack)) {
-> -		mem = kvmalloc_array(n_pte, sizeof(*mem), GFP_KERNEL);
-> -		if (!mem)
-> -			return NULL;
-> -	}
-> +	size_t n_pages = shmem_npages(file), i;
-> +	struct page **pages;
-> +	void *vaddr;
->   
-> -	area = alloc_vm_area(n_pte << PAGE_SHIFT, mem);
-> -	if (!area) {
-> -		if (mem != stack)
-> -			kvfree(mem);
-> +	pages = kvmalloc_array(n_pages, sizeof(*pages), GFP_KERNEL);
-> +	if (!pages)
->   		return NULL;
-> -	}
-> -
-> -	ptes = mem;
-> -	for (pfn = 0; pfn < n_pte; pfn++) {
-> -		struct page *page;
->   
-> -		page = shmem_read_mapping_page_gfp(file->f_mapping, pfn,
-> -						   GFP_KERNEL);
-> -		if (IS_ERR(page))
-> +	for (i = 0; i < n_pages; i++) {
-> +		pages[i] = shmem_read_mapping_page_gfp(file->f_mapping, i,
-> +						       GFP_KERNEL);
-> +		if (IS_ERR(pages[i]))
->   			goto err_page;
-> -
-> -		**ptes++ = mk_pte(page,  PAGE_KERNEL);
->   	}
->   
-> -	if (mem != stack)
-> -		kvfree(mem);
-> -
-> +	vaddr = vmap(pages, n_pages, 0, PAGE_KERNEL);
-> +	if (!vaddr)
-> +		goto err_page;
->   	mapping_set_unevictable(file->f_mapping);
-> -	return area->addr;
-> -
-> +	return vaddr;
-
-Is there something in vmap() preventing us from freeing the pages array 
-here? I can't spot anything that is holding on to the pointer. Or it was 
-just a sketch before you realized we could walk the vm_area?
-
-Also, I may be totally misunderstanding something, but I think you need 
-to assign area->pages manually so shmem_unpin_map can access it below.
-
->   err_page:
-> -	if (mem != stack)
-> -		kvfree(mem);
-> -
-> -	__shmem_unpin_map(file, area->addr, pfn);
-> +	while (--i >= 0)
-> +		put_page(pages[i]);
-> +	kvfree(pages);
->   	return NULL;
->   }
->   
->   void shmem_unpin_map(struct file *file, void *ptr)
->   {
-> +	struct vm_struct *area = find_vm_area(ptr);
-> +	size_t i = shmem_npages(file);
-> +
-> +	if (WARN_ON_ONCE(!area || !area->pages))
-> +		return;
-> +
->   	mapping_clear_unevictable(file->f_mapping);
-> -	__shmem_unpin_map(file, ptr, shmem_npte(file));
-> +	for (i = 0; i < shmem_npages(file); i++)
-> +		put_page(area->pages[i]);
-> +	kvfree(area->pages);
-> +	vunmap(ptr);
-
-Is the verdict from mm experts that we can't use vfree due __free_pages 
-vs put_page differences?
-
-Could we get from ptes to pages, so that we don't have to keep the 
-area->pages array allocated for the duration of the pin?
-
-Regards,
-
-Tvrtko
-
->   }
->   
->   static int __shmem_rw(struct file *file, loff_t off,
-> 
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+Ck9uIDkvMjIvMjAgMTE6MjcgQU0sIENocmlzdG9waCBIZWxsd2lnIHdyb3RlOgo+IE9uIFR1ZSwg
+U2VwIDIyLCAyMDIwIGF0IDExOjI0OjIwQU0gLTA0MDAsIGJvcmlzLm9zdHJvdnNreUBvcmFjbGUu
+Y29tIHdyb3RlOgo+PiBPbiA5LzIyLzIwIDEwOjU4IEFNLCBDaHJpc3RvcGggSGVsbHdpZyB3cm90
+ZToKPj4+IE9uIE1vbiwgU2VwIDIxLCAyMDIwIGF0IDA0OjQ0OjEwUE0gLTA0MDAsIGJvcmlzLm9z
+dHJvdnNreUBvcmFjbGUuY29tIHdyb3RlOgo+Pj4+IFRoaXMgd2lsbCBlbmQgdXAgaW5jcmVtZW50
+aW5nIGFyZWEtPnB0ZXMgcG9pbnRlci4gU28gcGVyaGFwcyBzb21ldGhpbmcgbGlrZQo+Pj4+Cj4+
+Pj4KPj4+PiBwdGVfdCAqKnB0ZXMgPSBhcmVhLT5wdGVzOwo+Pj4+Cj4+Pj4gaWYgKGFwcGx5X3Rv
+X3BhZ2VfcmFuZ2UoJmluaXRfbW0sICh1bnNpZ25lZCBsb25nKWFyZWEtPmFyZWEtPmFkZHIsCj4+
+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBQQUdFX1NJ
+WkUgKiBucl9mcmFtZXMsIGdudHRhYl9hcHBseSwgJnB0ZXMpKSB7Cj4+Pj4KPj4+PiDCoMKgwqDC
+oMKgwqAgLi4uCj4+PiBZZWFoLiAgV2hhdCBkbyB5b3UgdGhpbmsgb2YgdGhpcyB2ZXJzaW9uPyAK
+Pj4KPj4gT2ggeWVzLCB0aGlzIGlzIHdheSBiZXR0ZXIuIFRoaXMgbm93IGNhbiBhY3R1YWxseSBi
+ZSByZWFkIHdpdGhvdXQgdHJ5aW5nIHRvIG1lbnRhbGx5IHVud2luZCB0cmlwbGUgcG9pbnRlcnMu
+IChZb3UgcHJvYmFibHkgd2FudCB0byBpbml0aWFsaXplIGlkeCB0byB6ZXJvIGJlZm9yZSBjYWxs
+aW5nIGFwcGx5X3RvX3BhZ2VfcmFuZ2UoKSwgSSBhbSBub3Qgc3VyZSBpdCdzIGd1YXJhbnRlZWQg
+dG8gYmUgemVybykuCj4gQm90aCBpbnN0YW5jZXMgYXJlIHN0YXRpYyB2YXJpYWJsZXMsIHRodXMg
+aW4gLmJzcyBhbmQgaW5pdGlhbGl6ZWQuCj4gU28gdW5sZXNzIHlvdSBpbnNpc3QgSSBkb24ndCB0
+aGluayB3ZSBuZWVkIGEgbWFudWFsIG9uZS4KCgpZZXMsIHlvdSBhcmUgcmlnaHQuIChJIHRob3Vn
+aHQgcGVyaGFwcyB0aGlzIGNvZGUgY291bGQgYmUgY2FsbGVkIG1vcmUgdGhhbiBvbmNlIGJ1dCBu
+bywgaXQgY2FuJ3QpLgoKCi1ib3JpcwoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRlbC1nZnhAbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
+Zm8vaW50ZWwtZ2Z4Cg==
