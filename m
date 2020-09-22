@@ -2,43 +2,70 @@ Return-Path: <SRS0=0qc7=C7=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7BD6FC4363D
-	for <intel-gfx@archiver.kernel.org>; Tue, 22 Sep 2020 14:22:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7FD07C4363D
+	for <intel-gfx@archiver.kernel.org>; Tue, 22 Sep 2020 14:23:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 09BF720C09
-	for <intel-gfx@archiver.kernel.org>; Tue, 22 Sep 2020 14:22:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 09BF720C09
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=porcupinefactory.org
+	by mail.kernel.org (Postfix) with ESMTPS id 2B73620C09
+	for <intel-gfx@archiver.kernel.org>; Tue, 22 Sep 2020 14:23:00 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=fooishbar-org.20150623.gappssmtp.com header.i=@fooishbar-org.20150623.gappssmtp.com header.b="B5np/HrB"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2B73620C09
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=fooishbar.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3BDD96E87C;
-	Tue, 22 Sep 2020 14:22:47 +0000 (UTC)
-X-Greylist: delayed 498 seconds by postgrey-1.36 at gabe;
- Mon, 21 Sep 2020 16:39:18 UTC
-Received: from comms.puri.sm (comms.puri.sm [159.203.221.185])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E1CB6E4F3;
- Mon, 21 Sep 2020 16:39:18 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by comms.puri.sm (Postfix) with ESMTP id 442CBDF6E2;
- Mon, 21 Sep 2020 09:30:29 -0700 (PDT)
-Received: from comms.puri.sm ([127.0.0.1])
- by localhost (comms.puri.sm [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id XnmnsU6MQcby; Mon, 21 Sep 2020 09:30:27 -0700 (PDT)
-Date: Mon, 21 Sep 2020 18:30:21 +0200
-From: DorotaC <xofofu.dcz@porcupinefactory.org>
-To: Samuel Iglesias =?UTF-8?B?R29uc8OhbHZleg==?= <siglesias@igalia.com>
-Message-ID: <20200921183016.670ce6a6.dorota.czaplejewicz@puri.sm>
-In-Reply-To: <4eaa69879014a406424b9702dd6574a305f4c98e.camel@igalia.com>
-References: <4eaa69879014a406424b9702dd6574a305f4c98e.camel@igalia.com>
-Organization: Purism
-X-Mailman-Approved-At: Tue, 22 Sep 2020 14:07:49 +0000
-Subject: Re: [Intel-gfx] XDC 2020 feedback and comments
+	by gabe.freedesktop.org (Postfix) with ESMTP id 749DA6E883;
+	Tue, 22 Sep 2020 14:22:58 +0000 (UTC)
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
+ [IPv6:2a00:1450:4864:20::344])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D3F08986D
+ for <intel-gfx@lists.freedesktop.org>; Tue, 22 Sep 2020 14:14:24 +0000 (UTC)
+Received: by mail-wm1-x344.google.com with SMTP id x23so3509388wmi.3
+ for <intel-gfx@lists.freedesktop.org>; Tue, 22 Sep 2020 07:14:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=fooishbar-org.20150623.gappssmtp.com; s=20150623;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=09aMBDkPJux1mOBtGcc/fyhx1X6XV4+R4LwQfh2kMPU=;
+ b=B5np/HrBFPNZ/G2O3WjCvtixGWYcqMjEluiig3iewAlWg+Cfa8cziRu6OHmTKT4ECW
+ gNBrlaVJmxR0amUAv2BAmoVTdkDo/f/QdzbVJhcZTUB7+GUvJvwIJoN0NAqizyZ0VKvW
+ 1Cb5nc+lR1kWQscJ1Y/4LGB0wDCJzhnAE8NXh277COKJ8yqFnpAbgyoJ2d+yjkWHed3j
+ NRQdFtldSUlTR70rPny/jSF/PZ1MIklMPOj0jg+eM4Ey1HbZwt+vHb8ajj7U0LlisjLD
+ CQ7Vt0/9jxVSDovZnZb0BgMBMz4V0CdsSsl/HbqHsC59IoDzQ6032Hlrxkk5ghEb0g/b
+ 3M5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=09aMBDkPJux1mOBtGcc/fyhx1X6XV4+R4LwQfh2kMPU=;
+ b=r+00mmgJfKs4BQXre042UrvMXT8VymdSWFrkfEaDaoC4nIC/NoHGAkvcttsZ/BVdMx
+ CIJ804op2XfHCj28kQojLGcv/gDQw+JPrjo5xju14ug9yvlWzre4vSXXoMewemQmnH5a
+ PtPo/PnN9VGs838mbKPlMa3YG0tKdrA38Z9DZwNmVcJ617t1db680ks80F9QfMLsvQ35
+ 6zP9kdRvw9ZEWbm5G0Fucvcyj5GyFwd7g9cvOhECLMnQX6GFrK3ix633H4ojnDleKLAg
+ EPWyq2QJ6Y2pIllSMHiMvBG0T7fYJTLKsRgeh64aQIFNzq5A+die5EC2UVlCYOsuj+le
+ HLDw==
+X-Gm-Message-State: AOAM532bm03wFGysFKrHbtUl2yk0lq3SYYfqEQ0c3fWESjoulTVAGcle
+ WBZIpSUrqiCt2CUgYk50/dszCy67Tyd3zZpC/LIIHw==
+X-Google-Smtp-Source: ABdhPJyRiNmKIR+ib/A/iCuGpj88zEWajj+OMCgabJvnHMLyXhDDYeenoXnXVC6GmPgUV0l3AKahFTpQsIFvPdot2XA=
+X-Received: by 2002:a7b:c241:: with SMTP id b1mr1275471wmj.98.1600784062650;
+ Tue, 22 Sep 2020 07:14:22 -0700 (PDT)
+MIME-Version: 1.0
+References: <20180705101043.4883-1-daniel.vetter@ffwll.ch>
+ <20180705102121.5091-1-daniel.vetter@ffwll.ch>
+ <CAPj87rN48S8+pLd0ksOX4pdCTqtO=bDgjhkPxpWr_AnpVvgaSQ@mail.gmail.com>
+ <20200922133636.GA2369@xpredator>
+ <CAKMK7uHCeFan4+agMn0sr-z9UDyZwEJv0_dL-K-gA1n0=m+A2w@mail.gmail.com>
+In-Reply-To: <CAKMK7uHCeFan4+agMn0sr-z9UDyZwEJv0_dL-K-gA1n0=m+A2w@mail.gmail.com>
+From: Daniel Stone <daniel@fooishbar.org>
+Date: Tue, 22 Sep 2020 15:14:11 +0100
+Message-ID: <CAPj87rNLzFjn7xyePmEBEY8teL7TnL-HrQHXbp7C1tXDdWgeUA@mail.gmail.com>
+To: Daniel Vetter <daniel.vetter@ffwll.ch>
+Subject: Re: [Intel-gfx] [PATCH] drm: avoid spurious EBUSY due to
+ nonblocking atomic modesets
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,51 +78,35 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "xorg-devel@lists.freedesktop.org" <xorg-devel@lists.freedesktop.org>,
- "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "etnaviv@lists.freedesktop.org" <etnaviv@lists.freedesktop.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "wayland-devel@lists.freedesktop.org" <wayland-devel@lists.freedesktop.org>,
- "board@foundation.x.org" <board@foundation.x.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "events@lists.x.org" <events@lists.x.org>,
- "mesa-dev@lists.freedesktop.org" <mesa-dev@lists.freedesktop.org>,
- "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ DRI Development <dri-devel@lists.freedesktop.org>,
+ stable <stable@vger.kernel.org>, Daniel Vetter <daniel.vetter@intel.com>,
+ Pekka Paalanen <pekka.paalanen@collabora.co.uk>,
+ Marius Vlad <marius.vlad@collabora.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-T24gTW9uLCAyMSBTZXAgMjAyMCAxMDowMzozMiArMDIwMApTYW11ZWwgSWdsZXNpYXMgR29uc8Oh
-bHZleiA8c2lnbGVzaWFzQGlnYWxpYS5jb20+IHdyb3RlOgoKPiBIaSBhbGwsCj4gCj4gSHVnZSB0
-aGFua3MgYWdhaW4gdG8gdGhlIGVudGlyZSB0ZWFtIGZyb20gSW50ZWwsIGZvciB0aGVpciBncmVh
-dCB3b3JrCj4gb3JnYW5pemluZyBYREMgMjAyMCwgb3VyIGZpcnN0IHZpcnR1YWwgY29uZmVyZW5j
-ZSEKPiAKPiBBcyB1c3VhbCB3ZSdyZSBsb29raW5nIGZvciBmZWVkYmFjayBvbiBib3RoIFhEQyBp
-dHNlbGYsIGFuZCB0aGUgQ0ZQCj4gcHJvY2VzcyBhbmQgcHJvZ3JhbSBzZWxlY3Rpb24uIEJvdGgg
-YWJvdXQgd2hhdCB3YXMgZ3JlYXQgYW5kIHNob3VsZCBiZQo+IGtlcHQgZm9yIG5leHQgeWVhcidz
-IGVkaXRpb24sIGFuZCB3aGVyZSB0aGVyZSdzIHJvb20gZm9yIGltcHJvdmVtZW50Lgo+IAo+IFRo
-ZSBib2FyZCBkb2VzIGtlZXAgc29tZSBub3RlcywgZm9yIHRob3NlIGludGVyZXN0ZWQgaW4gd2hh
-dCB3ZSBoYXZlCj4gYWxyZWFkeToKPiAKPiAtIFhEQyBub3RlcyBmb3IgcHJvc3BlY3RpdmUgb3Jn
-YW5pemVyczogCj4gaHR0cHM6Ly93d3cueC5vcmcvd2lraS9FdmVudHMvUkZQLwo+IAo+IC0gQ0ZQ
-IG5vdGVzOiBodHRwczovL3d3dy54Lm9yZy93aWtpL0V2ZW50cy9QYXBlcnNDb21taXR0ZWUvCj4g
-Cj4gSWYgeW91IHdhbnQgdG8gc2VuZCBpbiB5b3VyIGNvbW1lbnRzIGluIHByaXZhdGUsIHBsZWFz
-ZSBzZW5kIHRoZW0gdG8KPiB0aGUgWC5vcmcgRm91bmRhdGlvbiBib2FyZDogYm9hcmRAZm91bmRh
-dGlvbi54Lm9yZwo+IAo+IENoZWVycywKPiAKPiBTYW0KCkhpIFNhbSwKCkknZCBsaWtlIHRvIG1h
-a2UgYSBub3RlIGFib3V0IHVzaW5nIHNvbWUgbW9yZSBwcml2YWN5LWZyaWVuZGx5IHN0cmVhbWlu
-ZyBwbGF0Zm9ybS4KCldoZW4gSSB0cmllZCB0byB3YXRjaCB0aGUgc3RyZWFtcywgaW5zdGVhZCBv
-ZiBzaG93aW5nIHRoZSB2aWRlbywgeW91dHViZSBwcmVzZW50ZWQgbWUgd2l0aCBhIEdEUFIgZGlh
-bG9nLgoKV2hpbGUgaXQgd2FzIGdsaXRjaGVkIGFuZCB1bnNraXBwYWJsZSBmb3IgbWUsIGp1c3Qg
-dGhlIGZhY3QgdGhhdCBHb29nbGUgbWFkZSBpdCBub24tb3B0aW9uYWwgc2hvd3MgdGhlaXIgZGlz
-cmVnYXJkIGZvciBteSBwcml2YWN5IChhbmQsIElNTywgdGhlIGxldHRlciBvZiBsYXcsIHdoaWNo
-IG1hbmRhdGVzIG9wdC1pbikuIFVuZm9ydHVuYXRlbHksIEkgd2Fzbid0IGFibGUgdG8gZXZhbHVh
-dGUgdGhlIGRpYWxvZydzIGNvbnRlbnRzIGR1ZSB0byB0aGUgZ2xpdGNoLCBidXQgb25saW5lIHJl
-cG9ydHMgc3VnZ2VzdCB0aGV5IGFyZSBzaW1pbGFybHkgaWdub3JhbnQuIEFsbCBpbiBhbGwsIEkg
-b25seSBhY2Nlc3MgeW91dHViZSB2aWEgeW91dHViZS1kbCBhbnkgbW9yZSwgYW5kIHRoYXQgZG9l
-c24ndCBzdXBwb3J0IHN0cmVhbWluZy4KCldoZW4gYXR0ZW5kaW5nIEFrYWRlbXkgMiB3ZWVrcyBh
-Z28sIHRoZXkgaGFkIGEgc2V0dXAgYmFzZWQgb24gQmlnQmx1ZUJ1dHRvbiB0aGF0IHdvcmtlZCB3
-ZWxsIHdpdGhvdXQgdGhhdCBzb3J0IG9mIGlzc3Vlcy4KCkNoZWVycywKRG9yb3RhCl9fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkludGVsLWdmeCBtYWlsaW5n
-IGxpc3QKSW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVk
-ZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ludGVsLWdmeAo=
+On Tue, 22 Sep 2020 at 15:04, Daniel Vetter <daniel.vetter@ffwll.ch> wrote:
+> On Tue, Sep 22, 2020 at 3:36 PM Marius Vlad <marius.vlad@collabora.com> wrote:
+> > Gentle ping. I've tried out Linus's master tree and, and like Pekka,
+> > I've noticed this isn't integrated/added.
+>
+> Defacto the uapi we have now is that userspace needs to ignore "spurious" EBUSY.
+
+This really, really, really, bites.
+
+I think we need a guarantee that this never happens if ALLOW_MODESET
+is always used in blocking mode, plus in future a cap we can use to
+detect that we won't be getting spurious EBUSY events.
+
+I really don't want to ever paper over this, because it's one of the
+clearest indications that userspace has its timing/signalling wrong.
+
+Cheers,
+Daniel
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
