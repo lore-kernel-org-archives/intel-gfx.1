@@ -2,52 +2,48 @@ Return-Path: <SRS0=0qc7=C7=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_GIT autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C9C71C4363D
-	for <intel-gfx@archiver.kernel.org>; Tue, 22 Sep 2020 13:51:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2D92CC4363D
+	for <intel-gfx@archiver.kernel.org>; Tue, 22 Sep 2020 13:51:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8AEE620936
-	for <intel-gfx@archiver.kernel.org>; Tue, 22 Sep 2020 13:51:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8AEE620936
+	by mail.kernel.org (Postfix) with ESMTPS id DABC920936
+	for <intel-gfx@archiver.kernel.org>; Tue, 22 Sep 2020 13:51:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DABC920936
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EAA2C6E14A;
-	Tue, 22 Sep 2020 13:51:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 38F076E874;
+	Tue, 22 Sep 2020 13:51:28 +0000 (UTC)
 Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 837AE6E874
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 479146E14A
  for <intel-gfx@lists.freedesktop.org>; Tue, 22 Sep 2020 13:51:26 +0000 (UTC)
-IronPort-SDR: YRMXp6DoYIioomby6y47dgT5DEfrrIL/6/Bi0e4BK+55GujvHFJb85lV5YJx3nk9QHjZvaPB4a
- WmWkEZKTlH4g==
-X-IronPort-AV: E=McAfee;i="6000,8403,9751"; a="222197887"
-X-IronPort-AV: E=Sophos;i="5.77,290,1596524400"; d="scan'208";a="222197887"
+IronPort-SDR: 338LXD/tEXSG7MOvDT1p3hMJ1n2+Gdi1hd0CZ4ktXfaGt5ZShMoJZ34zrp+42z7l5kK7L2x8BX
+ S9KDqIZG1aGQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9751"; a="222197879"
+X-IronPort-AV: E=Sophos;i="5.77,290,1596524400"; d="scan'208";a="222197879"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Sep 2020 06:51:24 -0700
-IronPort-SDR: kH9cTXyGgaTPd1LhuiQGchmtiRVKQgraiMShRqt8k9f1fR3onfeOAJnqQNX57emXOIC6pnE+ul
- fSiKhuPLGvcg==
-X-IronPort-AV: E=Sophos;i="5.77,290,1596524400"; d="scan'208";a="485966887"
+ 22 Sep 2020 06:51:22 -0700
+IronPort-SDR: o1jWSyT2VKPCsuM1OQcE458dmdMejRNAMS0PB8jVTxZtXNA5xkYXITAZdhPES6Y4Y7Yvo4Y+jT
+ q7s86FJPJjbQ==
+X-IronPort-AV: E=Sophos;i="5.77,290,1596524400"; d="scan'208";a="485966856"
 Received: from vandita-desktop.iind.intel.com ([10.223.74.218])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-SHA;
- 22 Sep 2020 06:51:23 -0700
+ 22 Sep 2020 06:51:21 -0700
 From: Vandita Kulkarni <vandita.kulkarni@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 22 Sep 2020 19:14:22 +0530
-Message-Id: <20200922134426.9840-2-vandita.kulkarni@intel.com>
+Date: Tue, 22 Sep 2020 19:14:21 +0530
+Message-Id: <20200922134426.9840-1-vandita.kulkarni@intel.com>
 X-Mailer: git-send-email 2.21.0.5.gaeb582a
-In-Reply-To: <20200922134426.9840-1-vandita.kulkarni@intel.com>
-References: <20200922134426.9840-1-vandita.kulkarni@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [V13 1/5] drm/i915/dsi: Add details about TE in
- get_config
+Subject: [Intel-gfx] [V13 0/5] Add support for mipi dsi cmd mode
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,72 +62,27 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-We need details about enabling TE on which port
-before we enable TE through vblank enable path.
-This is based on the configuration that we receive
-from the VBT wrt ports, dual_link.
+This series contain interrupt handling part of cmd mode.
+Configuration patches were merged already.
 
-Signed-off-by: Vandita Kulkarni <vandita.kulkarni@intel.com>
-Reviewed-by: Jani Nikula <jani.nikula@intel.com>
----
- drivers/gpu/drm/i915/display/icl_dsi.c | 30 +++++++++++++++-----------
- 1 file changed, 18 insertions(+), 12 deletions(-)
+v10: Address the review comments on patch 3 and 4
+v11: fix compilation issue introduced in v10
+v12: fix check patch errors on patch 3
+v13: Use sw vblank counter (Ville)
 
-diff --git a/drivers/gpu/drm/i915/display/icl_dsi.c b/drivers/gpu/drm/i915/display/icl_dsi.c
-index 520715b7d5b5..2789020e20db 100644
---- a/drivers/gpu/drm/i915/display/icl_dsi.c
-+++ b/drivers/gpu/drm/i915/display/icl_dsi.c
-@@ -1447,6 +1447,18 @@ static bool gen11_dsi_is_periodic_cmd_mode(struct intel_dsi *intel_dsi)
- 	return (val & DSI_PERIODIC_FRAME_UPDATE_ENABLE);
- }
- 
-+static void gen11_dsi_get_cmd_mode_config(struct intel_dsi *intel_dsi,
-+					  struct intel_crtc_state *pipe_config)
-+{
-+	if (intel_dsi->ports == (BIT(PORT_B) | BIT(PORT_A)))
-+		pipe_config->mode_flags |= I915_MODE_FLAG_DSI_USE_TE1 |
-+					    I915_MODE_FLAG_DSI_USE_TE0;
-+	else if (intel_dsi->ports == BIT(PORT_B))
-+		pipe_config->mode_flags |= I915_MODE_FLAG_DSI_USE_TE1;
-+	else
-+		pipe_config->mode_flags |= I915_MODE_FLAG_DSI_USE_TE0;
-+}
-+
- static void gen11_dsi_get_config(struct intel_encoder *encoder,
- 				 struct intel_crtc_state *pipe_config)
- {
-@@ -1468,6 +1480,10 @@ static void gen11_dsi_get_config(struct intel_encoder *encoder,
- 	pipe_config->output_types |= BIT(INTEL_OUTPUT_DSI);
- 	pipe_config->pipe_bpp = bdw_get_pipemisc_bpp(crtc);
- 
-+	/* Get the details on which TE should be enabled */
-+	if (is_cmd_mode(intel_dsi))
-+		gen11_dsi_get_cmd_mode_config(intel_dsi, pipe_config);
-+
- 	if (gen11_dsi_is_periodic_cmd_mode(intel_dsi))
- 		pipe_config->mode_flags |= I915_MODE_FLAG_DSI_PERIODIC_CMD_MODE;
- }
-@@ -1562,18 +1578,8 @@ static int gen11_dsi_compute_config(struct intel_encoder *encoder,
- 	 * receive TE from the slave if
- 	 * dual link is enabled
- 	 */
--	if (is_cmd_mode(intel_dsi)) {
--		if (intel_dsi->ports == (BIT(PORT_B) | BIT(PORT_A)))
--			pipe_config->mode_flags |=
--						I915_MODE_FLAG_DSI_USE_TE1 |
--						I915_MODE_FLAG_DSI_USE_TE0;
--		else if (intel_dsi->ports == BIT(PORT_B))
--			pipe_config->mode_flags |=
--						I915_MODE_FLAG_DSI_USE_TE1;
--		else
--			pipe_config->mode_flags |=
--						I915_MODE_FLAG_DSI_USE_TE0;
--	}
-+	if (is_cmd_mode(intel_dsi))
-+		gen11_dsi_get_cmd_mode_config(intel_dsi, pipe_config);
- 
- 	return 0;
- }
+Vandita Kulkarni (5):
+  drm/i915/dsi: Add details about TE in get_config
+  i915/dsi: Configure TE interrupt for cmd mode
+  drm/i915/dsi: Add TE handler for dsi cmd mode.
+  drm/i915/dsi: Initiate fame request in cmd mode
+  drm/i915/dsi: Enable software vblank counter
+
+ drivers/gpu/drm/i915/display/icl_dsi.c       |  56 +++++++--
+ drivers/gpu/drm/i915/display/intel_display.c |  21 ++++
+ drivers/gpu/drm/i915/display/intel_dsi.h     |   1 +
+ drivers/gpu/drm/i915/i915_irq.c              | 119 ++++++++++++++++++-
+ 4 files changed, 183 insertions(+), 14 deletions(-)
+
 -- 
 2.21.0.5.gaeb582a
 
