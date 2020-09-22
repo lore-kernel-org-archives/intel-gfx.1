@@ -7,69 +7,67 @@ X-Spam-Status: No, score=-5.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A4D9DC4363D
-	for <intel-gfx@archiver.kernel.org>; Tue, 22 Sep 2020 16:27:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 30145C4727C
+	for <intel-gfx@archiver.kernel.org>; Tue, 22 Sep 2020 16:27:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 452C023A1B
-	for <intel-gfx@archiver.kernel.org>; Tue, 22 Sep 2020 16:27:55 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id AE1DB23A1B
+	for <intel-gfx@archiver.kernel.org>; Tue, 22 Sep 2020 16:27:56 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="vXNxTqEa"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 452C023A1B
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="bB8Tp/a2"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AE1DB23A1B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=oracle.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 043856E8BE;
-	Tue, 22 Sep 2020 16:27:54 +0000 (UTC)
-Received: from userp2120.oracle.com (userp2120.oracle.com [156.151.31.85])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7254789EB8;
- Tue, 22 Sep 2020 15:34:51 +0000 (UTC)
-Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
- by userp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 08MFXZ4A115377;
- Tue, 22 Sep 2020 15:34:42 GMT
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF1096E8BF;
+	Tue, 22 Sep 2020 16:27:55 +0000 (UTC)
+Received: from aserp2120.oracle.com (aserp2120.oracle.com [141.146.126.78])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5915389DEC;
+ Tue, 22 Sep 2020 15:24:40 +0000 (UTC)
+Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
+ by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 08MF99uD108659;
+ Tue, 22 Sep 2020 15:24:29 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
  h=subject : to : cc :
  references : from : message-id : date : mime-version : in-reply-to :
  content-type : content-transfer-encoding; s=corp-2020-01-29;
- bh=SQUZRxKbOrj7C5f6uXB0QaPDAWtQi5hHWGb3AMCGwok=;
- b=vXNxTqEaODuD+fyU1jUL8sgHm/70CoNspaljF2CVJy8YCkwoU79BXOLKh267UZHkplF8
- 8gDxgeFrbFB3MPy3LpGLNkXfd1SvSHwK+Aa1BHsHL6vvwsYit9kqi55PmIfQ5VEjTtfj
- xYG2uDen9YZs91OrBwjVJcj7oFo6Mv3iUblQ43Pm81r+jgqhZ/1Tcx8D1VYYb7+x69fb
- n+qGpLjCo2XbRGqid1wVg1IbrdOhxG/60xd/nbbzTVHN4KXX5ILRDFS7r3qd1qqYr6Ez
- qQJnMwFLIBPdG4ZIkFCq9APz0yHuY8A6pTbvyMU5RcXkzUXKRKPdNqjFklU4rSPXqE1a Hw== 
+ bh=r25X6J1q+Ighced5STv1N+Q9x56TJMr0M8XmPWVmk4w=;
+ b=bB8Tp/a2lSI+UwYmqXXKz5Y23TH5yE09ciN0f0sy3qt19cNhEhgksqgJ9nY6Q7FHdqr5
+ Bj6NZjV37L+9k30k+sStCWjIWjb3Ku8CSL6l1POKFNXfXE7HYCIV82SAjw7MQKGPgnDR
+ Kw5X2XpfKcODiRMBXcg9wFTOahB8pyoEu3wJaCPA3pS5RO6mExJgFsqXBwcDKafq5t6B
+ hQMtnhiJ37dQzyVQCoh1oa9eh/nLFNekem8w4gp1vbNpKm+sEpYKhcbEqKkOoPjQ1OAn
+ 1TucTPU5tN6rNwjoHoSKQdXi9Gtq8zA8k12iNAEJCTzdfjm7ZqUf68EhJIGFWJhinzYg 9Q== 
 Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
- by userp2120.oracle.com with ESMTP id 33ndnudj4p-1
+ by aserp2120.oracle.com with ESMTP id 33q5rgbsn3-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Tue, 22 Sep 2020 15:34:42 +0000
+ Tue, 22 Sep 2020 15:24:29 +0000
 Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
- by aserp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 08MFURVL072451;
- Tue, 22 Sep 2020 15:34:41 GMT
+ by aserp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 08MFAMQ1168760;
+ Tue, 22 Sep 2020 15:24:29 GMT
 Received: from userv0122.oracle.com (userv0122.oracle.com [156.151.31.75])
- by aserp3030.oracle.com with ESMTP id 33nujncaex-1
+ by aserp3030.oracle.com with ESMTP id 33nujnbted-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 22 Sep 2020 15:34:41 +0000
-Received: from abhmp0018.oracle.com (abhmp0018.oracle.com [141.146.116.24])
- by userv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 08MFYdJl019605;
- Tue, 22 Sep 2020 15:34:39 GMT
+ Tue, 22 Sep 2020 15:24:29 +0000
+Received: from abhmp0011.oracle.com (abhmp0011.oracle.com [141.146.116.17])
+ by userv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 08MFOPZn012709;
+ Tue, 22 Sep 2020 15:24:25 GMT
 Received: from [10.74.86.236] (/10.74.86.236)
  by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Tue, 22 Sep 2020 08:34:38 -0700
+ with ESMTP ; Tue, 22 Sep 2020 08:24:25 -0700
 To: Christoph Hellwig <hch@lst.de>
 References: <20200918163724.2511-1-hch@lst.de>
  <20200918163724.2511-7-hch@lst.de>
  <0833b9a8-5096-d105-a850-1336150eada1@oracle.com>
  <20200922145819.GA28420@lst.de>
- <ebd69ba1-fc06-3cc7-348e-3cb0004c2a34@oracle.com>
- <20200922152706.GA30633@lst.de>
 From: boris.ostrovsky@oracle.com
 Organization: Oracle Corporation
-Message-ID: <a3daaf31-d1cd-2bf1-5b2f-aaae32baa7f6@oracle.com>
-Date: Tue, 22 Sep 2020 11:34:35 -0400
+Message-ID: <ebd69ba1-fc06-3cc7-348e-3cb0004c2a34@oracle.com>
+Date: Tue, 22 Sep 2020 11:24:20 -0400
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
  Gecko/20100101 Thunderbird/78.2.1
 MIME-Version: 1.0
-In-Reply-To: <20200922152706.GA30633@lst.de>
+In-Reply-To: <20200922145819.GA28420@lst.de>
 Content-Language: en-US
 X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9752
  signatures=668679
@@ -77,15 +75,15 @@ X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 bulkscore=0
  malwarescore=0
  mlxlogscore=999 phishscore=0 adultscore=0 spamscore=0 suspectscore=0
  mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2006250000 definitions=main-2009220121
+ engine=8.12.0-2006250000 definitions=main-2009220120
 X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9752
  signatures=668679
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
- priorityscore=1501 malwarescore=0
- lowpriorityscore=0 phishscore=0 adultscore=0 suspectscore=0 bulkscore=0
- clxscore=1015 impostorscore=0 mlxlogscore=999 mlxscore=0 spamscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2006250000
- definitions=main-2009220121
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
+ impostorscore=0
+ clxscore=1015 suspectscore=0 phishscore=0 malwarescore=0
+ priorityscore=1501 mlxlogscore=999 adultscore=0 bulkscore=0 mlxscore=0
+ lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2006250000 definitions=main-2009220120
 X-Mailman-Approved-At: Tue, 22 Sep 2020 16:27:52 +0000
 Subject: Re: [Intel-gfx] [PATCH 6/6] x86/xen: open code alloc_vm_area in
  arch_gnttab_valloc
@@ -112,26 +110,22 @@ Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Ck9uIDkvMjIvMjAgMTE6MjcgQU0sIENocmlzdG9waCBIZWxsd2lnIHdyb3RlOgo+IE9uIFR1ZSwg
-U2VwIDIyLCAyMDIwIGF0IDExOjI0OjIwQU0gLTA0MDAsIGJvcmlzLm9zdHJvdnNreUBvcmFjbGUu
-Y29tIHdyb3RlOgo+PiBPbiA5LzIyLzIwIDEwOjU4IEFNLCBDaHJpc3RvcGggSGVsbHdpZyB3cm90
-ZToKPj4+IE9uIE1vbiwgU2VwIDIxLCAyMDIwIGF0IDA0OjQ0OjEwUE0gLTA0MDAsIGJvcmlzLm9z
-dHJvdnNreUBvcmFjbGUuY29tIHdyb3RlOgo+Pj4+IFRoaXMgd2lsbCBlbmQgdXAgaW5jcmVtZW50
-aW5nIGFyZWEtPnB0ZXMgcG9pbnRlci4gU28gcGVyaGFwcyBzb21ldGhpbmcgbGlrZQo+Pj4+Cj4+
-Pj4KPj4+PiBwdGVfdCAqKnB0ZXMgPSBhcmVhLT5wdGVzOwo+Pj4+Cj4+Pj4gaWYgKGFwcGx5X3Rv
-X3BhZ2VfcmFuZ2UoJmluaXRfbW0sICh1bnNpZ25lZCBsb25nKWFyZWEtPmFyZWEtPmFkZHIsCj4+
-Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBQQUdFX1NJ
-WkUgKiBucl9mcmFtZXMsIGdudHRhYl9hcHBseSwgJnB0ZXMpKSB7Cj4+Pj4KPj4+PiDCoMKgwqDC
-oMKgwqAgLi4uCj4+PiBZZWFoLiAgV2hhdCBkbyB5b3UgdGhpbmsgb2YgdGhpcyB2ZXJzaW9uPyAK
-Pj4KPj4gT2ggeWVzLCB0aGlzIGlzIHdheSBiZXR0ZXIuIFRoaXMgbm93IGNhbiBhY3R1YWxseSBi
-ZSByZWFkIHdpdGhvdXQgdHJ5aW5nIHRvIG1lbnRhbGx5IHVud2luZCB0cmlwbGUgcG9pbnRlcnMu
-IChZb3UgcHJvYmFibHkgd2FudCB0byBpbml0aWFsaXplIGlkeCB0byB6ZXJvIGJlZm9yZSBjYWxs
-aW5nIGFwcGx5X3RvX3BhZ2VfcmFuZ2UoKSwgSSBhbSBub3Qgc3VyZSBpdCdzIGd1YXJhbnRlZWQg
-dG8gYmUgemVybykuCj4gQm90aCBpbnN0YW5jZXMgYXJlIHN0YXRpYyB2YXJpYWJsZXMsIHRodXMg
-aW4gLmJzcyBhbmQgaW5pdGlhbGl6ZWQuCj4gU28gdW5sZXNzIHlvdSBpbnNpc3QgSSBkb24ndCB0
-aGluayB3ZSBuZWVkIGEgbWFudWFsIG9uZS4KCgpZZXMsIHlvdSBhcmUgcmlnaHQuIChJIHRob3Vn
-aHQgcGVyaGFwcyB0aGlzIGNvZGUgY291bGQgYmUgY2FsbGVkIG1vcmUgdGhhbiBvbmNlIGJ1dCBu
-bywgaXQgY2FuJ3QpLgoKCi1ib3JpcwoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRlbC1nZnhAbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
-Zm8vaW50ZWwtZ2Z4Cg==
+Ck9uIDkvMjIvMjAgMTA6NTggQU0sIENocmlzdG9waCBIZWxsd2lnIHdyb3RlOgo+IE9uIE1vbiwg
+U2VwIDIxLCAyMDIwIGF0IDA0OjQ0OjEwUE0gLTA0MDAsIGJvcmlzLm9zdHJvdnNreUBvcmFjbGUu
+Y29tIHdyb3RlOgo+PiBUaGlzIHdpbGwgZW5kIHVwIGluY3JlbWVudGluZyBhcmVhLT5wdGVzIHBv
+aW50ZXIuIFNvIHBlcmhhcHMgc29tZXRoaW5nIGxpa2UKPj4KPj4KPj4gcHRlX3QgKipwdGVzID0g
+YXJlYS0+cHRlczsKPj4KPj4gaWYgKGFwcGx5X3RvX3BhZ2VfcmFuZ2UoJmluaXRfbW0sICh1bnNp
+Z25lZCBsb25nKWFyZWEtPmFyZWEtPmFkZHIsCj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqAgUEFHRV9TSVpFICogbnJfZnJhbWVzLCBnbnR0YWJfYXBwbHks
+ICZwdGVzKSkgewo+Pgo+PiDCoMKgwqDCoMKgwqAgLi4uCj4gWWVhaC4gIFdoYXQgZG8geW91IHRo
+aW5rIG9mIHRoaXMgdmVyc2lvbj8gCgoKT2ggeWVzLCB0aGlzIGlzIHdheSBiZXR0ZXIuIFRoaXMg
+bm93IGNhbiBhY3R1YWxseSBiZSByZWFkIHdpdGhvdXQgdHJ5aW5nIHRvIG1lbnRhbGx5IHVud2lu
+ZCB0cmlwbGUgcG9pbnRlcnMuIChZb3UgcHJvYmFibHkgd2FudCB0byBpbml0aWFsaXplIGlkeCB0
+byB6ZXJvIGJlZm9yZSBjYWxsaW5nIGFwcGx5X3RvX3BhZ2VfcmFuZ2UoKSwgSSBhbSBub3Qgc3Vy
+ZSBpdCdzIGd1YXJhbnRlZWQgdG8gYmUgemVybykuCgoKPiAgSSB0aGluayBpdCBpcyBhIGxpdHRs
+ZQo+IGNsZWFuZXIgYW5kIG1hdGNoZXMgd2hhdCB4ZW5idXMgZG9lcy4gIEF0IHRoaXMgcG9pbnQg
+aXQgcHJvYmFibHkgc2hvdWxkCj4gYmUgc3BsaXQgaW50byBhIFhlbiBhbmQgYSBhbGxvY192bV9h
+cmVhIHJlbW92YWwgcGF0Y2gsIHRob3VnaC4KCgpSaWdodC4KCgotYm9yaXMKCl9fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkludGVsLWdmeCBtYWlsaW5nIGxp
+c3QKSW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNr
+dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ludGVsLWdmeAo=
