@@ -2,76 +2,52 @@ Return-Path: <SRS0=0qc7=C7=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D4AC8C4363D
-	for <intel-gfx@archiver.kernel.org>; Tue, 22 Sep 2020 13:39:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C9C71C4363D
+	for <intel-gfx@archiver.kernel.org>; Tue, 22 Sep 2020 13:51:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8C5B0208A9
-	for <intel-gfx@archiver.kernel.org>; Tue, 22 Sep 2020 13:39:49 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="MEH74Edu"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8C5B0208A9
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=chromium.org
+	by mail.kernel.org (Postfix) with ESMTPS id 8AEE620936
+	for <intel-gfx@archiver.kernel.org>; Tue, 22 Sep 2020 13:51:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8AEE620936
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 150F189DA5;
-	Tue, 22 Sep 2020 13:39:49 +0000 (UTC)
-Received: from mail-qv1-xf42.google.com (mail-qv1-xf42.google.com
- [IPv6:2607:f8b0:4864:20::f42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 042BC6E25B
- for <intel-gfx@lists.freedesktop.org>; Tue, 22 Sep 2020 13:39:48 +0000 (UTC)
-Received: by mail-qv1-xf42.google.com with SMTP id z18so9504581qvp.6
- for <intel-gfx@lists.freedesktop.org>; Tue, 22 Sep 2020 06:39:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=DN5HrV6lRK11U7swBKzqMYVTceYfF67vW6UB3xFMDX0=;
- b=MEH74Edu9ILhusR5nRoWNe//d9MXwoD7+H/pGPrliC0dBY1GarFQmBYjdtKAhFxXyd
- Nb1YCf9qRyuJR1qNODyYqadxzgDtOLGxEsxn5jcKIs138kHe2t8bErCpDOkZ0opvcQ6I
- s8YY2thzwmFLFvP4PiKaSvkYeRPoASWObXtGg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=DN5HrV6lRK11U7swBKzqMYVTceYfF67vW6UB3xFMDX0=;
- b=cToyScXvvhDMSr6D/rU6NN0eP+AwdDGgBHEKjD39xawIOv1YNrj1AoK3OehPMTt2y3
- UeDHqQ7iAn/qWG0q0iammTFLLnzYCDSr/Ewi/2b8WXJtv3oD/l6D84lGeF/hcJM1at5w
- dd8d8MZxPAiXVP2s14h4smD9FcufmiNWhBIryBvJ7+gWWfVA4DCMsubMoVKJEkp3k6pm
- khF3ISUvhse1fAqTSk8iHsd8OQaUokhdiGaLaw3lVDO1Sp90VWQtiMz28nOTC+72cwd8
- hAxnlmV0A9Rb9DW3vTNs5G/OqaCCs7fIl1GI0fudyhl8reAbhln/78oooRtqIQ/axOY0
- GsYQ==
-X-Gm-Message-State: AOAM533xLSFec/Loo0scoR41ddMy/p4Ko/XlPSTwmVZSfwXWfmQdoVOk
- 2YLtaMVVJFzHvFIC+f6698hUAi9PXGIQ5A==
-X-Google-Smtp-Source: ABdhPJz1o4LHIHmX0bVN6zvuMpVA3nlWdWpqyNOOuoLD2zLyHId1p62u/CxEJ8mpfhCib64ot6/KuA==
-X-Received: by 2002:a0c:cdc4:: with SMTP id a4mr6022423qvn.31.1600781986778;
- Tue, 22 Sep 2020 06:39:46 -0700 (PDT)
-Received: from mail-yb1-f173.google.com (mail-yb1-f173.google.com.
- [209.85.219.173])
- by smtp.gmail.com with ESMTPSA id h199sm11482037qke.112.2020.09.22.06.39.45
- for <intel-gfx@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 22 Sep 2020 06:39:45 -0700 (PDT)
-Received: by mail-yb1-f173.google.com with SMTP id 67so12896046ybt.6
- for <intel-gfx@lists.freedesktop.org>; Tue, 22 Sep 2020 06:39:45 -0700 (PDT)
-X-Received: by 2002:a25:16c4:: with SMTP id 187mr7262306ybw.496.1600781984688; 
- Tue, 22 Sep 2020 06:39:44 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EAA2C6E14A;
+	Tue, 22 Sep 2020 13:51:27 +0000 (UTC)
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 837AE6E874
+ for <intel-gfx@lists.freedesktop.org>; Tue, 22 Sep 2020 13:51:26 +0000 (UTC)
+IronPort-SDR: YRMXp6DoYIioomby6y47dgT5DEfrrIL/6/Bi0e4BK+55GujvHFJb85lV5YJx3nk9QHjZvaPB4a
+ WmWkEZKTlH4g==
+X-IronPort-AV: E=McAfee;i="6000,8403,9751"; a="222197887"
+X-IronPort-AV: E=Sophos;i="5.77,290,1596524400"; d="scan'208";a="222197887"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Sep 2020 06:51:24 -0700
+IronPort-SDR: kH9cTXyGgaTPd1LhuiQGchmtiRVKQgraiMShRqt8k9f1fR3onfeOAJnqQNX57emXOIC6pnE+ul
+ fSiKhuPLGvcg==
+X-IronPort-AV: E=Sophos;i="5.77,290,1596524400"; d="scan'208";a="485966887"
+Received: from vandita-desktop.iind.intel.com ([10.223.74.218])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-SHA;
+ 22 Sep 2020 06:51:23 -0700
+From: Vandita Kulkarni <vandita.kulkarni@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Tue, 22 Sep 2020 19:14:22 +0530
+Message-Id: <20200922134426.9840-2-vandita.kulkarni@intel.com>
+X-Mailer: git-send-email 2.21.0.5.gaeb582a
+In-Reply-To: <20200922134426.9840-1-vandita.kulkarni@intel.com>
+References: <20200922134426.9840-1-vandita.kulkarni@intel.com>
 MIME-Version: 1.0
-References: <20200918002845.32766-1-sean@poorly.run>
- <470a3a448a80ae6f8e6e6f6a82f5ffc01c1d6033.camel@redhat.com>
-In-Reply-To: <470a3a448a80ae6f8e6e6f6a82f5ffc01c1d6033.camel@redhat.com>
-From: Sean Paul <seanpaul@chromium.org>
-Date: Tue, 22 Sep 2020 09:39:07 -0400
-X-Gmail-Original-Message-ID: <CAOw6vb+chhRTvF0kHy55uXb9BKqbPAhwJCuJ=_1uOPEHbRXMcA@mail.gmail.com>
-Message-ID: <CAOw6vb+chhRTvF0kHy55uXb9BKqbPAhwJCuJ=_1uOPEHbRXMcA@mail.gmail.com>
-To: Lyude Paul <lyude@redhat.com>
-Subject: Re: [Intel-gfx] [PATCH] drm/i915/dp: Tweak initial dpcd
- backlight.enabled value
+Subject: [Intel-gfx] [V13 1/5] drm/i915/dsi: Add details about TE in
+ get_config
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,107 +60,82 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Kevin Chowski <chowski@chromium.org>, Jani Nikula <jani.nikula@intel.com>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, David Airlie <airlied@linux.ie>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: jani.nikula@intel.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-T24gTW9uLCBTZXAgMjEsIDIwMjAgYXQgNjozNSBQTSBMeXVkZSBQYXVsIDxseXVkZUByZWRoYXQu
-Y29tPiB3cm90ZToKPgo+IFNvIGlmIEkgdW5kZXJzdGFuZCB0aGlzIGNvcnJlY3RseSwgaXQgc291
-bmRzIGxpa2UgdGhhdCBzb21lIFBpeGVsYm9va3MgYm9vdCB1cAo+IHdpdGggRFBfRURQX0JBQ0tM
-SUdIVF9CUklHSFRORVNTX01TQiBzZXQgdG8gYSBub24temVybyB2YWx1ZSwgd2l0aG91dCB0aGUK
-PiBwYW5lbCBhY3R1YWxseSBoYXZpbmcgRFBDRCBiYWNrbGlnaHQgY29udHJvbHMgZW5hYmxlZD8K
-Ckl0IGJvb3RzIHdpdGggRFBfRURQX0JBQ0tMSUdIVF9CUklHSFRORVNTX01TQiA9PSAwLCB3aGlj
-aCB1c2VkIHRvIHNldApiYWNrbGlnaHQuZW5hYmxlZCA9IGZhbHNlLiBCeSBjaGFuZ2luZyBiYWNr
-bGlnaHQubGV2ZWwgPSBtYXgsCmJhY2tsaWdodC5lbmFibGVkIGlzIG5vdyBzZXQgdG8gdHJ1ZS4g
-VGhpcyByZXN1bHRzIGluIGxvc2luZyBiYWNrbGlnaHQKY29udHJvbCBvbiBib290IChzaW5jZSB0
-aGUgZW5hYmxlIHJvdXRpbmUgaXMgbm8gbG9uZ2VyIGludm9rZWQpLgoKU2VhbgoKPgo+IElmIEkn
-bSB1bmRlcnN0YW5kaW5nIHRoYXQgY29ycmVjdGx5LCB0aGVuIHRoaXMgcGF0Y2ggbG9va3MgZ29v
-ZCB0byBtZToKPgo+IFJldmlld2VkLWJ5OiBMeXVkZSBQYXVsIDxseXVkZUByZWRoYXQuY29tPgo+
-Cj4gT24gVGh1LCAyMDIwLTA5LTE3IGF0IDIwOjI4IC0wNDAwLCBTZWFuIFBhdWwgd3JvdGU6Cj4g
-PiBGcm9tOiBTZWFuIFBhdWwgPHNlYW5wYXVsQGNocm9taXVtLm9yZz4KPiA+Cj4gPiBJbiBjb21t
-aXQgNzk5NDY3MjMwOTJiICgiZHJtL2k5MTU6IEFzc3VtZSAxMDAlIGJyaWdodG5lc3Mgd2hlbiBu
-b3QgaW4KPiA+IERQQ0QgY29udHJvbCBtb2RlIiksIHdlIGZpeGVkIHRoZSBicmlnaHRuZXNzIGxl
-dmVsIHdoZW4gRFBDRCBjb250cm9sIHdhcwo+ID4gbm90IGFjdGl2ZSB0byBtYXggYnJpZ2h0bmVz
-cy4gVGhpcyBpcyBhcyBnb29kIGFzIHdlIGNhbiBndWVzcyBzaW5jZSBtb3N0Cj4gPiBiYWNrbGln
-aHRzIGdvIG9uIGZ1bGwgd2hlbiB1bmNvbnRyb2xsZWQuCj4gPgo+ID4gSG93ZXZlciBpbiBkb2lu
-ZyBzbyB3ZSBjaGFuZ2VkIHRoZSBzZW1hbnRpY3Mgb2YgdGhlIGluaXRpYWwKPiA+ICdiYWNrbGln
-aHQuZW5hYmxlZCcgdmFsdWUuIEF0IGxlYXN0IG9uIFBpeGVsYm9va3MsIHRoZXkgIHdlcmUgcmVs
-eWluZwo+ID4gb24gdGhlIGJyaWdodG5lc3MgbGV2ZWwgaW4gRFBfRURQX0JBQ0tMSUdIVF9CUklH
-SFRORVNTX01TQiB0byBiZSAwIG9uCj4gPiBib290IHN1Y2ggdGhhdCBlbmFibGVkIHdvdWxkIGJl
-IGZhbHNlLiBUaGlzIGNhdXNlcyB0aGUgZGV2aWNlIHRvIGJlCj4gPiBlbmFibGVkIHdoZW4gdGhl
-IGJyaWdodG5lc3MgaXMgc2V0LiBXaXRob3V0IHRoaXMsIGJyaWdodG5lc3MgY29udHJvbAo+ID4g
-ZG9lc24ndCB3b3JrLiBTbyBieSBjaGFuZ2luZyBicmlnaHRuZXNzIHRvIG1heCwgd2UgYWxzbyBm
-bGlwcGVkIGVuYWJsZWQKPiA+IHRvIGJlIHRydWUgb24gYm9vdC4KPiA+Cj4gPiBUbyBmaXggdGhp
-cywgbWFrZSBlbmFibGVkIGEgZnVuY3Rpb24gb2YgYnJpZ2h0bmVzcyBhbmQgYmFja2xpZ2h0IGNv
-bnRyb2wKPiA+IG1lY2hhbmlzbS4KPiA+Cj4gPiBGaXhlczogNzk5NDY3MjMwOTJiICgiZHJtL2k5
-MTU6IEFzc3VtZSAxMDAlIGJyaWdodG5lc3Mgd2hlbiBub3QgaW4gRFBDRAo+ID4gY29udHJvbCBt
-b2RlIikKPiA+IENjOiBMeXVkZSBQYXVsIDxseXVkZUByZWRoYXQuY29tPgo+ID4gQ2M6IEphbmkg
-TmlrdWxhIDxqYW5pLm5pa3VsYUBpbnRlbC5jb20+Cj4gPiBDYzogSnVoYS1QZWtrYSBIZWlra2ls
-YSA8anVoYXBla2thLmhlaWtraWxhQGdtYWlsLmNvbT4KPiA+IENjOiAiVmlsbGUgU3lyasOkbMOk
-IiA8dmlsbGUuc3lyamFsYUBsaW51eC5pbnRlbC5jb20+Cj4gPiBDYzogUm9kcmlnbyBWaXZpIDxy
-b2RyaWdvLnZpdmlAaW50ZWwuY29tPgo+ID4gQ2M6IEtldmluIENob3dza2kgPGNob3dza2lAY2hy
-b21pdW0ub3JnPj4KPiA+IFNpZ25lZC1vZmYtYnk6IFNlYW4gUGF1bCA8c2VhbnBhdWxAY2hyb21p
-dW0ub3JnPgo+ID4gLS0tCj4gPiAgLi4uL2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZHBfYXV4X2Jh
-Y2tsaWdodC5jIHwgMzEgKysrKysrKysrKysrLS0tLS0tLQo+ID4gIDEgZmlsZSBjaGFuZ2VkLCAy
-MCBpbnNlcnRpb25zKCspLCAxMSBkZWxldGlvbnMoLSkKPiA+Cj4gPiBkaWZmIC0tZ2l0IGEvZHJp
-dmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kcF9hdXhfYmFja2xpZ2h0LmMKPiA+IGIv
-ZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kcF9hdXhfYmFja2xpZ2h0LmMKPiA+
-IGluZGV4IGFjYmQ3ZWI2NmNiZS4uMDM2ZjUwNGFjN2RiIDEwMDY0NAo+ID4gLS0tIGEvZHJpdmVy
-cy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kcF9hdXhfYmFja2xpZ2h0LmMKPiA+ICsrKyBi
-L2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZHBfYXV4X2JhY2tsaWdodC5jCj4g
-PiBAQCAtNTIsMTcgKzUyLDExIEBAIHN0YXRpYyB2b2lkIHNldF9hdXhfYmFja2xpZ2h0X2VuYWJs
-ZShzdHJ1Y3QgaW50ZWxfZHAKPiA+ICppbnRlbF9kcCwgYm9vbCBlbmFibGUpCj4gPiAgICAgICB9
-Cj4gPiAgfQo+ID4KPiA+IC0vKgo+ID4gLSAqIFJlYWQgdGhlIGN1cnJlbnQgYmFja2xpZ2h0IHZh
-bHVlIGZyb20gRFBDRCByZWdpc3RlcihzKSBiYXNlZAo+ID4gLSAqIG9uIGlmIDgtYml0KE1TQikg
-b3IgMTYtYml0KE1TQiBhbmQgTFNCKSB2YWx1ZXMgYXJlIHN1cHBvcnRlZAo+ID4gLSAqLwo+ID4g
-LXN0YXRpYyB1MzIgaW50ZWxfZHBfYXV4X2dldF9iYWNrbGlnaHQoc3RydWN0IGludGVsX2Nvbm5l
-Y3RvciAqY29ubmVjdG9yKQo+ID4gK3N0YXRpYyBib29sIGludGVsX2RwX2F1eF9iYWNrbGlnaHRf
-ZHBjZF9tb2RlKHN0cnVjdCBpbnRlbF9jb25uZWN0b3IKPiA+ICpjb25uZWN0b3IpCj4gPiAgewo+
-ID4gICAgICAgc3RydWN0IGludGVsX2RwICppbnRlbF9kcCA9IGludGVsX2F0dGFjaGVkX2RwKGNv
-bm5lY3Rvcik7Cj4gPiAgICAgICBzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqaTkxNSA9IGRwX3Rv
-X2k5MTUoaW50ZWxfZHApOwo+ID4gLSAgICAgdTggcmVhZF92YWxbMl0gPSB7IDB4MCB9Owo+ID4g
-ICAgICAgdTggbW9kZV9yZWc7Cj4gPiAtICAgICB1MTYgbGV2ZWwgPSAwOwo+ID4KPiA+ICAgICAg
-IGlmIChkcm1fZHBfZHBjZF9yZWFkYigmaW50ZWxfZHAtPmF1eCwKPiA+ICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICBEUF9FRFBfQkFDS0xJR0hUX01PREVfU0VUX1JFR0lTVEVSLAo+ID4gQEAg
-LTcwLDE1ICs2NCwyOSBAQCBzdGF0aWMgdTMyIGludGVsX2RwX2F1eF9nZXRfYmFja2xpZ2h0KHN0
-cnVjdAo+ID4gaW50ZWxfY29ubmVjdG9yICpjb25uZWN0b3IpCj4gPiAgICAgICAgICAgICAgIGRy
-bV9kYmdfa21zKCZpOTE1LT5kcm0sCj4gPiAgICAgICAgICAgICAgICAgICAgICAgICAgICJGYWls
-ZWQgdG8gcmVhZCB0aGUgRFBDRCByZWdpc3RlciAweCV4XG4iLAo+ID4gICAgICAgICAgICAgICAg
-ICAgICAgICAgICBEUF9FRFBfQkFDS0xJR0hUX01PREVfU0VUX1JFR0lTVEVSKTsKPiA+IC0gICAg
-ICAgICAgICAgcmV0dXJuIDA7Cj4gPiArICAgICAgICAgICAgIHJldHVybiBmYWxzZTsKPiA+ICAg
-ICAgIH0KPiA+Cj4gPiArICAgICByZXR1cm4gKG1vZGVfcmVnICYgRFBfRURQX0JBQ0tMSUdIVF9D
-T05UUk9MX01PREVfTUFTSykgPT0KPiA+ICsgICAgICAgICAgICBEUF9FRFBfQkFDS0xJR0hUX0NP
-TlRST0xfTU9ERV9EUENEOwo+ID4gK30KPiA+ICsKPiA+ICsvKgo+ID4gKyAqIFJlYWQgdGhlIGN1
-cnJlbnQgYmFja2xpZ2h0IHZhbHVlIGZyb20gRFBDRCByZWdpc3RlcihzKSBiYXNlZAo+ID4gKyAq
-IG9uIGlmIDgtYml0KE1TQikgb3IgMTYtYml0KE1TQiBhbmQgTFNCKSB2YWx1ZXMgYXJlIHN1cHBv
-cnRlZAo+ID4gKyAqLwo+ID4gK3N0YXRpYyB1MzIgaW50ZWxfZHBfYXV4X2dldF9iYWNrbGlnaHQo
-c3RydWN0IGludGVsX2Nvbm5lY3RvciAqY29ubmVjdG9yKQo+ID4gK3sKPiA+ICsgICAgIHN0cnVj
-dCBpbnRlbF9kcCAqaW50ZWxfZHAgPSBpbnRlbF9hdHRhY2hlZF9kcChjb25uZWN0b3IpOwo+ID4g
-KyAgICAgc3RydWN0IGRybV9pOTE1X3ByaXZhdGUgKmk5MTUgPSBkcF90b19pOTE1KGludGVsX2Rw
-KTsKPiA+ICsgICAgIHU4IHJlYWRfdmFsWzJdID0geyAweDAgfTsKPiA+ICsgICAgIHUxNiBsZXZl
-bCA9IDA7Cj4gPiArCj4gPiAgICAgICAvKgo+ID4gICAgICAgICogSWYgd2UncmUgbm90IGluIERQ
-Q0QgY29udHJvbCBtb2RlIHlldCwgdGhlIHByb2dyYW1tZWQgYnJpZ2h0bmVzcwo+ID4gICAgICAg
-ICogdmFsdWUgaXMgbWVhbmluZ2xlc3MgYW5kIHdlIHNob3VsZCBhc3N1bWUgbWF4IGJyaWdodG5l
-c3MKPiA+ICAgICAgICAqLwo+ID4gLSAgICAgaWYgKChtb2RlX3JlZyAmIERQX0VEUF9CQUNLTElH
-SFRfQ09OVFJPTF9NT0RFX01BU0spICE9Cj4gPiAtICAgICAgICAgRFBfRURQX0JBQ0tMSUdIVF9D
-T05UUk9MX01PREVfRFBDRCkKPiA+ICsgICAgIGlmICghaW50ZWxfZHBfYXV4X2JhY2tsaWdodF9k
-cGNkX21vZGUoY29ubmVjdG9yKSkKPiA+ICAgICAgICAgICAgICAgcmV0dXJuIGNvbm5lY3Rvci0+
-cGFuZWwuYmFja2xpZ2h0Lm1heDsKPiA+Cj4gPiAgICAgICBpZiAoZHJtX2RwX2RwY2RfcmVhZCgm
-aW50ZWxfZHAtPmF1eCwgRFBfRURQX0JBQ0tMSUdIVF9CUklHSFRORVNTX01TQiwKPiA+IEBAIC0z
-MTksNyArMzI3LDggQEAgc3RhdGljIGludCBpbnRlbF9kcF9hdXhfc2V0dXBfYmFja2xpZ2h0KHN0
-cnVjdAo+ID4gaW50ZWxfY29ubmVjdG9yICpjb25uZWN0b3IsCj4gPgo+ID4gICAgICAgcGFuZWwt
-PmJhY2tsaWdodC5taW4gPSAwOwo+ID4gICAgICAgcGFuZWwtPmJhY2tsaWdodC5sZXZlbCA9IGlu
-dGVsX2RwX2F1eF9nZXRfYmFja2xpZ2h0KGNvbm5lY3Rvcik7Cj4gPiAtICAgICBwYW5lbC0+YmFj
-a2xpZ2h0LmVuYWJsZWQgPSBwYW5lbC0+YmFja2xpZ2h0LmxldmVsICE9IDA7Cj4gPiArICAgICBw
-YW5lbC0+YmFja2xpZ2h0LmVuYWJsZWQgPSBpbnRlbF9kcF9hdXhfYmFja2xpZ2h0X2RwY2RfbW9k
-ZShjb25uZWN0b3IpCj4gPiAmJgo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-cGFuZWwtPmJhY2tsaWdodC5sZXZlbCAhPSAwOwo+ID4KPiA+ICAgICAgIHJldHVybiAwOwo+ID4g
-IH0KPiAtLQo+IENoZWVycywKPiAgICAgICAgIEx5dWRlIFBhdWwgKHNoZS9oZXIpCj4gICAgICAg
-ICBTb2Z0d2FyZSBFbmdpbmVlciBhdCBSZWQgSGF0Cj4KX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRlbC1nZnhA
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
-YW4vbGlzdGluZm8vaW50ZWwtZ2Z4Cg==
+We need details about enabling TE on which port
+before we enable TE through vblank enable path.
+This is based on the configuration that we receive
+from the VBT wrt ports, dual_link.
+
+Signed-off-by: Vandita Kulkarni <vandita.kulkarni@intel.com>
+Reviewed-by: Jani Nikula <jani.nikula@intel.com>
+---
+ drivers/gpu/drm/i915/display/icl_dsi.c | 30 +++++++++++++++-----------
+ 1 file changed, 18 insertions(+), 12 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/display/icl_dsi.c b/drivers/gpu/drm/i915/display/icl_dsi.c
+index 520715b7d5b5..2789020e20db 100644
+--- a/drivers/gpu/drm/i915/display/icl_dsi.c
++++ b/drivers/gpu/drm/i915/display/icl_dsi.c
+@@ -1447,6 +1447,18 @@ static bool gen11_dsi_is_periodic_cmd_mode(struct intel_dsi *intel_dsi)
+ 	return (val & DSI_PERIODIC_FRAME_UPDATE_ENABLE);
+ }
+ 
++static void gen11_dsi_get_cmd_mode_config(struct intel_dsi *intel_dsi,
++					  struct intel_crtc_state *pipe_config)
++{
++	if (intel_dsi->ports == (BIT(PORT_B) | BIT(PORT_A)))
++		pipe_config->mode_flags |= I915_MODE_FLAG_DSI_USE_TE1 |
++					    I915_MODE_FLAG_DSI_USE_TE0;
++	else if (intel_dsi->ports == BIT(PORT_B))
++		pipe_config->mode_flags |= I915_MODE_FLAG_DSI_USE_TE1;
++	else
++		pipe_config->mode_flags |= I915_MODE_FLAG_DSI_USE_TE0;
++}
++
+ static void gen11_dsi_get_config(struct intel_encoder *encoder,
+ 				 struct intel_crtc_state *pipe_config)
+ {
+@@ -1468,6 +1480,10 @@ static void gen11_dsi_get_config(struct intel_encoder *encoder,
+ 	pipe_config->output_types |= BIT(INTEL_OUTPUT_DSI);
+ 	pipe_config->pipe_bpp = bdw_get_pipemisc_bpp(crtc);
+ 
++	/* Get the details on which TE should be enabled */
++	if (is_cmd_mode(intel_dsi))
++		gen11_dsi_get_cmd_mode_config(intel_dsi, pipe_config);
++
+ 	if (gen11_dsi_is_periodic_cmd_mode(intel_dsi))
+ 		pipe_config->mode_flags |= I915_MODE_FLAG_DSI_PERIODIC_CMD_MODE;
+ }
+@@ -1562,18 +1578,8 @@ static int gen11_dsi_compute_config(struct intel_encoder *encoder,
+ 	 * receive TE from the slave if
+ 	 * dual link is enabled
+ 	 */
+-	if (is_cmd_mode(intel_dsi)) {
+-		if (intel_dsi->ports == (BIT(PORT_B) | BIT(PORT_A)))
+-			pipe_config->mode_flags |=
+-						I915_MODE_FLAG_DSI_USE_TE1 |
+-						I915_MODE_FLAG_DSI_USE_TE0;
+-		else if (intel_dsi->ports == BIT(PORT_B))
+-			pipe_config->mode_flags |=
+-						I915_MODE_FLAG_DSI_USE_TE1;
+-		else
+-			pipe_config->mode_flags |=
+-						I915_MODE_FLAG_DSI_USE_TE0;
+-	}
++	if (is_cmd_mode(intel_dsi))
++		gen11_dsi_get_cmd_mode_config(intel_dsi, pipe_config);
+ 
+ 	return 0;
+ }
+-- 
+2.21.0.5.gaeb582a
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
