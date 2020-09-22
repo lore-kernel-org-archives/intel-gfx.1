@@ -2,57 +2,61 @@ Return-Path: <SRS0=0qc7=C7=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.2 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-10.2 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 267A0C4363D
-	for <intel-gfx@archiver.kernel.org>; Tue, 22 Sep 2020 16:54:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 55709C4363D
+	for <intel-gfx@archiver.kernel.org>; Tue, 22 Sep 2020 17:04:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CA9A4235FC
-	for <intel-gfx@archiver.kernel.org>; Tue, 22 Sep 2020 16:54:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CA9A4235FC
+	by mail.kernel.org (Postfix) with ESMTPS id EE20323A9C
+	for <intel-gfx@archiver.kernel.org>; Tue, 22 Sep 2020 17:04:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EE20323A9C
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3FEA588ECC;
-	Tue, 22 Sep 2020 16:54:25 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A3F8888ECC
- for <intel-gfx@lists.freedesktop.org>; Tue, 22 Sep 2020 16:54:23 +0000 (UTC)
-IronPort-SDR: d/ua0nOII7IkIq+MDnAwtAruu60Lni+nWarDcnG3uKZWfY3RZWK3R0zanRYBCJDLXAqTrXQdG2
- JfbQgXOi0H0Q==
-X-IronPort-AV: E=McAfee;i="6000,8403,9752"; a="159945051"
-X-IronPort-AV: E=Sophos;i="5.77,291,1596524400"; d="scan'208";a="159945051"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C51C6E8C0;
+	Tue, 22 Sep 2020 17:04:56 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1EDAF6E8B6;
+ Tue, 22 Sep 2020 17:04:53 +0000 (UTC)
+IronPort-SDR: Ld6WS8CriGcr9x8zS1HMgK3nruiRUrOpvXdZWbkdXiFNwtFoQ9vYd1jzVubQ+tw2toMGwFIxwc
+ OoEevvPTkjiA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9752"; a="148414903"
+X-IronPort-AV: E=Sophos;i="5.77,291,1596524400"; d="scan'208";a="148414903"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Sep 2020 09:54:23 -0700
-IronPort-SDR: GOqVquhZamguccgr+xvqri/wG/OFqWQ88aK9us1Jy8//bfSZHL6I64fcfCWW7MFKX6AiWx5JM5
- ZvLf3CKmMdsA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.77,291,1596524400"; d="scan'208";a="412712646"
-Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.174])
- by fmsmga001.fm.intel.com with SMTP; 22 Sep 2020 09:54:21 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Tue, 22 Sep 2020 19:54:20 +0300
-Date: Tue, 22 Sep 2020 19:54:20 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Imre Deak <imre.deak@intel.com>
-Message-ID: <20200922165420.GU6112@intel.com>
-References: <20200922125106.30540-1-imre.deak@intel.com>
- <20200922125106.30540-5-imre.deak@intel.com>
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Sep 2020 10:04:46 -0700
+IronPort-SDR: pDr7f0tvI2tkaSrmro3ZOlGNzDsLFUlZA0Y2mT+eov61oD3VbMWAcbZ9JV/I+/GzNzMjkvUYD3
+ Fddbwl4KcUrw==
+X-IronPort-AV: E=Sophos;i="5.77,291,1596524400"; d="scan'208";a="454564080"
+Received: from atroib-mobl2.ger.corp.intel.com (HELO [10.214.238.184])
+ ([10.214.238.184])
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Sep 2020 10:04:40 -0700
+To: Christoph Hellwig <hch@lst.de>
+References: <20200918163724.2511-1-hch@lst.de>
+ <20200918163724.2511-4-hch@lst.de>
+ <20200921191157.GX32101@casper.infradead.org> <20200922062249.GA30831@lst.de>
+ <43d10588-2033-038b-14e4-9f41cd622d7b@linux.intel.com>
+ <20200922143141.GA26637@lst.de>
+ <e429c3e6-2143-f51a-4c1c-c1470076ad3e@linux.intel.com>
+ <20200922163346.GA1701@lst.de>
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Organization: Intel Corporation UK Plc
+Message-ID: <1b05b9d6-a14c-85cd-0728-d0d40c9ff84b@linux.intel.com>
+Date: Tue, 22 Sep 2020 18:04:37 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200922125106.30540-5-imre.deak@intel.com>
-X-Patchwork-Hint: comment
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Subject: Re: [Intel-gfx] [PATCH 4/7] drm/i915: Factor out a helper to
- disable the DPCD training pattern
+In-Reply-To: <20200922163346.GA1701@lst.de>
+Content-Language: en-US
+Subject: Re: [Intel-gfx] [PATCH 3/6] drm/i915: use vmap in shmem_pin_map
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,109 +69,93 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Cc: Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Minchan Kim <minchan@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>, intel-gfx@lists.freedesktop.org,
+ x86@kernel.org, linux-kernel@vger.kernel.org,
+ Matthew Wilcox <willy@infradead.org>, Chris Wilson <chris@chris-wilson.co.uk>,
+ linux-mm@kvack.org, dri-devel@lists.freedesktop.org,
+ xen-devel@lists.xenproject.org, Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Nitin Gupta <ngupta@vflare.org>,
+ Matthew Auld <matthew.auld@intel.com>
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Sep 22, 2020 at 03:51:03PM +0300, Imre Deak wrote:
-> To prepare for a follow-up LTTPR change factor out a helper to disable
-> the training pattern in DPCD. We'll need to do this for each LTTPR
-> (without programming the port to output the idle pattern) when training
-> in LTTPR non-transparent mode.
-> =
 
-> Signed-off-by: Imre Deak <imre.deak@intel.com>
-> ---
->  .../drm/i915/display/intel_dp_link_training.c | 28 +++++++++++--------
->  1 file changed, 16 insertions(+), 12 deletions(-)
-> =
+On 22/09/2020 17:33, Christoph Hellwig wrote:
+> On Tue, Sep 22, 2020 at 05:13:45PM +0100, Tvrtko Ursulin wrote:
+>>>    void *shmem_pin_map(struct file *file)
+>>>    {
+>>> -	const size_t n_pte = shmem_npte(file);
+>>> -	pte_t *stack[32], **ptes, **mem;
+>>
+>> Chris can comment how much he'd miss the 32 page stack shortcut.
+> 
+> I'd like to see a profile that claim that kmalloc matters in a
+> path that does a vmap and reads pages through the page cache.
+> Especially when the kmalloc saves doing another page cache lookup
+> on the free side.
 
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c b/driv=
-ers/gpu/drm/i915/display/intel_dp_link_training.c
-> index 0c3809891bd2..6994a32244dc 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-> @@ -102,30 +102,34 @@ void intel_dp_get_adjust_train(struct intel_dp *int=
-el_dp,
->  		intel_dp->train_set[lane] =3D v | p;
->  }
->  =
+Only reason I can come up with now is if mapping side is on a latency 
+sensitive path, while un-mapping is lazy/delayed so can be more costly. 
+Then fast map and extra cost on unmap may make sense.
 
-> +static bool intel_dp_disable_dpcd_training_pattern(struct intel_dp *inte=
-l_dp)
-> +{
-> +	u8 val =3D DP_TRAINING_PATTERN_DISABLE;
-> +
-> +	return drm_dp_dpcd_write(&intel_dp->aux, DP_TRAINING_PATTERN_SET, &val,=
- 1) =3D=3D 1;
-> +}
+It more applies to the other i915 patch, which implements a much more 
+used API, but whether or not we can demonstrate any difference in the 
+perf profiles I couldn't tell you without trying to collect some.
 
+>> Is there something in vmap() preventing us from freeing the pages array
+>> here? I can't spot anything that is holding on to the pointer. Or it was
+>> just a sketch before you realized we could walk the vm_area?
+>>
+>> Also, I may be totally misunderstanding something, but I think you need to
+>> assign area->pages manually so shmem_unpin_map can access it below.
+> 
+> We need area->pages to hold the pages for the free side.  That being
+> said the patch I posted is broken because it never assigned to that.
+> As said it was a sketch.  This is the patch I just rebooted into on
+> my Laptop:
+> 
+> http://git.infradead.org/users/hch/misc.git/commitdiff/048522dfa26b6667adfb0371ff530dc263abe829
+> 
+> it needs extra prep patches from the series:
+> 
+> http://git.infradead.org/users/hch/misc.git/shortlog/refs/heads/alloc_vm_area
+> 
+>>>    	mapping_clear_unevictable(file->f_mapping);
+>>> -	__shmem_unpin_map(file, ptr, shmem_npte(file));
+>>> +	for (i = 0; i < shmem_npages(file); i++)
+>>> +		put_page(area->pages[i]);
+>>> +	kvfree(area->pages);
+>>> +	vunmap(ptr);
+>>
+>> Is the verdict from mm experts that we can't use vfree due __free_pages vs
+>> put_page differences?
+> 
+> Switched to vfree now.
+> 
+>> Could we get from ptes to pages, so that we don't have to keep the
+>> area->pages array allocated for the duration of the pin?
+> 
+> We could do vmalloc_to_page, but that is fairly expensive (not as bad
+> as reading from the page cache..).  Are you really worried about the
+> allocation?
 
-> +
->  static bool
->  intel_dp_set_link_train(struct intel_dp *intel_dp,
->  			u8 dp_train_pat)
->  {
->  	u8 buf[sizeof(intel_dp->train_set) + 1];
-> -	int ret, len;
-> +	int len;
->  =
+Not so much given how we don't even use shmem_pin_map outside selftests.
 
->  	intel_dp_program_link_training_pattern(intel_dp, dp_train_pat);
->  =
+If we start using it I expect it will be for tiny objects anyway. Only 
+if they end up being pinned for the lifetime of the driver, it may be a 
+pointless waste of memory compared to the downsides of vmalloc_to_page. 
+But we can revisit this particular edge case optimization if the need 
+arises.
 
-> -	buf[0] =3D dp_train_pat;
->  	if ((dp_train_pat & ~DP_LINK_SCRAMBLING_DISABLE) =3D=3D
-> -	    DP_TRAINING_PATTERN_DISABLE) {
-> +	    DP_TRAINING_PATTERN_DISABLE)
->  		/* don't write DP_TRAINING_LANEx_SET on disable */
+I'll look at your other i915 patch tomorrow.
 
-As mentioned in the other patch I think we're doing things in the wrong
-order here. I suspect it'll be cleaner to just stop doing
-intel_dp_set_link_train(DISABLE) entirely and just have a dedicated
-function for disabling link training. We can then trivially do a
-followup to swap the order of operations to match the spec.
+Regards,
 
-> -		len =3D 1;
-> -	} else {
-> -		/* DP_TRAINING_LANEx_SET follow DP_TRAINING_PATTERN_SET */
-> -		memcpy(buf + 1, intel_dp->train_set, intel_dp->lane_count);
-> -		len =3D intel_dp->lane_count + 1;
-> -	}
-> +		return intel_dp_disable_dpcd_training_pattern(intel_dp);
->  =
-
-> -	ret =3D drm_dp_dpcd_write(&intel_dp->aux, DP_TRAINING_PATTERN_SET,
-> -				buf, len);
-> +	buf[0] =3D dp_train_pat;
-> +	/* DP_TRAINING_LANEx_SET follow DP_TRAINING_PATTERN_SET */
-> +	memcpy(buf + 1, intel_dp->train_set, intel_dp->lane_count);
-> +	len =3D intel_dp->lane_count + 1;
->  =
-
-> -	return ret =3D=3D len;
-> +	return drm_dp_dpcd_write(&intel_dp->aux, DP_TRAINING_PATTERN_SET,
-> +				 buf, len) =3D=3D len;
->  }
->  =
-
->  static bool
-> -- =
-
-> 2.17.1
-> =
-
-> _______________________________________________
-> Intel-gfx mailing list
-> Intel-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-
--- =
-
-Ville Syrj=E4l=E4
-Intel
+Tvrtko
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
