@@ -2,48 +2,51 @@ Return-Path: <SRS0=0qc7=C7=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_GIT autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.9 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2D92CC4363D
-	for <intel-gfx@archiver.kernel.org>; Tue, 22 Sep 2020 13:51:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 88A58C4727D
+	for <intel-gfx@archiver.kernel.org>; Tue, 22 Sep 2020 13:51:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DABC920936
-	for <intel-gfx@archiver.kernel.org>; Tue, 22 Sep 2020 13:51:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DABC920936
+	by mail.kernel.org (Postfix) with ESMTPS id 42E2020936
+	for <intel-gfx@archiver.kernel.org>; Tue, 22 Sep 2020 13:51:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 42E2020936
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 38F076E874;
-	Tue, 22 Sep 2020 13:51:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B4CB96E878;
+	Tue, 22 Sep 2020 13:51:29 +0000 (UTC)
 Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 479146E14A
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BBB4F6E14A
  for <intel-gfx@lists.freedesktop.org>; Tue, 22 Sep 2020 13:51:26 +0000 (UTC)
-IronPort-SDR: 338LXD/tEXSG7MOvDT1p3hMJ1n2+Gdi1hd0CZ4ktXfaGt5ZShMoJZ34zrp+42z7l5kK7L2x8BX
- S9KDqIZG1aGQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9751"; a="222197879"
-X-IronPort-AV: E=Sophos;i="5.77,290,1596524400"; d="scan'208";a="222197879"
+IronPort-SDR: S4alobyHqKTbx04qJ5AtO90fUnAoO9VTkxtxOIQAFZBuT3V7+7e9bIakd6h9xj9ALZ4sv+iTbJ
+ JBJrVyJmdkLA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9751"; a="222197895"
+X-IronPort-AV: E=Sophos;i="5.77,290,1596524400"; d="scan'208";a="222197895"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Sep 2020 06:51:22 -0700
-IronPort-SDR: o1jWSyT2VKPCsuM1OQcE458dmdMejRNAMS0PB8jVTxZtXNA5xkYXITAZdhPES6Y4Y7Yvo4Y+jT
- q7s86FJPJjbQ==
-X-IronPort-AV: E=Sophos;i="5.77,290,1596524400"; d="scan'208";a="485966856"
+ 22 Sep 2020 06:51:26 -0700
+IronPort-SDR: ES+Ed28LqjNti/IuGw7trzy2Du/wMcXSrPSUhoHWQ935wjY/1DsHTVHrJmkYQIxE9RGKULBFkb
+ 1eTXYTiqfecQ==
+X-IronPort-AV: E=Sophos;i="5.77,290,1596524400"; d="scan'208";a="485966894"
 Received: from vandita-desktop.iind.intel.com ([10.223.74.218])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-SHA;
- 22 Sep 2020 06:51:21 -0700
+ 22 Sep 2020 06:51:24 -0700
 From: Vandita Kulkarni <vandita.kulkarni@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 22 Sep 2020 19:14:21 +0530
-Message-Id: <20200922134426.9840-1-vandita.kulkarni@intel.com>
+Date: Tue, 22 Sep 2020 19:14:23 +0530
+Message-Id: <20200922134426.9840-3-vandita.kulkarni@intel.com>
 X-Mailer: git-send-email 2.21.0.5.gaeb582a
+In-Reply-To: <20200922134426.9840-1-vandita.kulkarni@intel.com>
+References: <20200922134426.9840-1-vandita.kulkarni@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [V13 0/5] Add support for mipi dsi cmd mode
+Subject: [Intel-gfx] [V13 2/5] i915/dsi: Configure TE interrupt for cmd mode
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,27 +65,106 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This series contain interrupt handling part of cmd mode.
-Configuration patches were merged already.
+Configure TE interrupt as part of the vblank
+enable call flow.
 
-v10: Address the review comments on patch 3 and 4
-v11: fix compilation issue introduced in v10
-v12: fix check patch errors on patch 3
-v13: Use sw vblank counter (Ville)
+v2: Hide the private flags check inside configure_te (Jani)
 
-Vandita Kulkarni (5):
-  drm/i915/dsi: Add details about TE in get_config
-  i915/dsi: Configure TE interrupt for cmd mode
-  drm/i915/dsi: Add TE handler for dsi cmd mode.
-  drm/i915/dsi: Initiate fame request in cmd mode
-  drm/i915/dsi: Enable software vblank counter
+v3: Fix the position of masking de_port_masked for DSI_TE.
 
- drivers/gpu/drm/i915/display/icl_dsi.c       |  56 +++++++--
- drivers/gpu/drm/i915/display/intel_display.c |  21 ++++
- drivers/gpu/drm/i915/display/intel_dsi.h     |   1 +
- drivers/gpu/drm/i915/i915_irq.c              | 119 ++++++++++++++++++-
- 4 files changed, 183 insertions(+), 14 deletions(-)
+v4: Simplify the caller of configure_te (Jani)
 
+v5: Clear IIR, remove the usage of private_flags
+
+v6: including icl_dsi header is not needed
+
+Signed-off-by: Vandita Kulkarni <vandita.kulkarni@intel.com>
+---
+ drivers/gpu/drm/i915/i915_irq.c | 50 +++++++++++++++++++++++++++++++--
+ 1 file changed, 48 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/i915_irq.c b/drivers/gpu/drm/i915/i915_irq.c
+index 759f523c6a6b..913548addfba 100644
+--- a/drivers/gpu/drm/i915/i915_irq.c
++++ b/drivers/gpu/drm/i915/i915_irq.c
+@@ -2631,12 +2631,47 @@ int ilk_enable_vblank(struct drm_crtc *crtc)
+ 	return 0;
+ }
+ 
++static bool gen11_dsi_configure_te(struct intel_crtc *intel_crtc,
++				   bool enable)
++{
++	struct drm_i915_private *dev_priv = to_i915(intel_crtc->base.dev);
++	enum port port;
++	u32 tmp;
++
++	if (!(intel_crtc->mode_flags &
++	    (I915_MODE_FLAG_DSI_USE_TE1 | I915_MODE_FLAG_DSI_USE_TE0)))
++		return false;
++
++	/* for dual link cases we consider TE from slave */
++	if (intel_crtc->mode_flags & I915_MODE_FLAG_DSI_USE_TE1)
++		port = PORT_B;
++	else
++		port = PORT_A;
++
++	tmp =  I915_READ(DSI_INTR_MASK_REG(port));
++	if (enable)
++		tmp &= ~DSI_TE_EVENT;
++	else
++		tmp |= DSI_TE_EVENT;
++
++	I915_WRITE(DSI_INTR_MASK_REG(port), tmp);
++
++	tmp = I915_READ(DSI_INTR_IDENT_REG(port));
++	I915_WRITE(DSI_INTR_IDENT_REG(port), tmp);
++
++	return true;
++}
++
+ int bdw_enable_vblank(struct drm_crtc *crtc)
+ {
+ 	struct drm_i915_private *dev_priv = to_i915(crtc->dev);
+-	enum pipe pipe = to_intel_crtc(crtc)->pipe;
++	struct intel_crtc *intel_crtc = to_intel_crtc(crtc);
++	enum pipe pipe = intel_crtc->pipe;
+ 	unsigned long irqflags;
+ 
++	if (gen11_dsi_configure_te(intel_crtc, true))
++		return 0;
++
+ 	spin_lock_irqsave(&dev_priv->irq_lock, irqflags);
+ 	bdw_enable_pipe_irq(dev_priv, pipe, GEN8_PIPE_VBLANK);
+ 	spin_unlock_irqrestore(&dev_priv->irq_lock, irqflags);
+@@ -2702,9 +2737,13 @@ void ilk_disable_vblank(struct drm_crtc *crtc)
+ void bdw_disable_vblank(struct drm_crtc *crtc)
+ {
+ 	struct drm_i915_private *dev_priv = to_i915(crtc->dev);
+-	enum pipe pipe = to_intel_crtc(crtc)->pipe;
++	struct intel_crtc *intel_crtc = to_intel_crtc(crtc);
++	enum pipe pipe = intel_crtc->pipe;
+ 	unsigned long irqflags;
+ 
++	if (gen11_dsi_configure_te(intel_crtc, false))
++		return;
++
+ 	spin_lock_irqsave(&dev_priv->irq_lock, irqflags);
+ 	bdw_disable_pipe_irq(dev_priv, pipe, GEN8_PIPE_VBLANK);
+ 	spin_unlock_irqrestore(&dev_priv->irq_lock, irqflags);
+@@ -3400,6 +3439,13 @@ static void gen8_de_irq_postinstall(struct drm_i915_private *dev_priv)
+ 	if (IS_GEN9_LP(dev_priv))
+ 		de_port_masked |= BXT_DE_PORT_GMBUS;
+ 
++	if (INTEL_GEN(dev_priv) >= 11) {
++		enum port port;
++
++		if (intel_bios_is_dsi_present(dev_priv, &port))
++			de_port_masked |= DSI0_TE | DSI1_TE;
++	}
++
+ 	de_pipe_enables = de_pipe_masked | GEN8_PIPE_VBLANK |
+ 					   GEN8_PIPE_FIFO_UNDERRUN;
+ 
 -- 
 2.21.0.5.gaeb582a
 
