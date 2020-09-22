@@ -2,91 +2,44 @@ Return-Path: <SRS0=0qc7=C7=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no
+X-Spam-Status: No, score=-10.2 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 30145C4727C
-	for <intel-gfx@archiver.kernel.org>; Tue, 22 Sep 2020 16:27:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E0860C4363D
+	for <intel-gfx@archiver.kernel.org>; Tue, 22 Sep 2020 16:33:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AE1DB23A1B
-	for <intel-gfx@archiver.kernel.org>; Tue, 22 Sep 2020 16:27:56 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="bB8Tp/a2"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AE1DB23A1B
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=oracle.com
+	by mail.kernel.org (Postfix) with ESMTPS id 76D772086A
+	for <intel-gfx@archiver.kernel.org>; Tue, 22 Sep 2020 16:33:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 76D772086A
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=lst.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF1096E8BF;
-	Tue, 22 Sep 2020 16:27:55 +0000 (UTC)
-Received: from aserp2120.oracle.com (aserp2120.oracle.com [141.146.126.78])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5915389DEC;
- Tue, 22 Sep 2020 15:24:40 +0000 (UTC)
-Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
- by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 08MF99uD108659;
- Tue, 22 Sep 2020 15:24:29 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=corp-2020-01-29;
- bh=r25X6J1q+Ighced5STv1N+Q9x56TJMr0M8XmPWVmk4w=;
- b=bB8Tp/a2lSI+UwYmqXXKz5Y23TH5yE09ciN0f0sy3qt19cNhEhgksqgJ9nY6Q7FHdqr5
- Bj6NZjV37L+9k30k+sStCWjIWjb3Ku8CSL6l1POKFNXfXE7HYCIV82SAjw7MQKGPgnDR
- Kw5X2XpfKcODiRMBXcg9wFTOahB8pyoEu3wJaCPA3pS5RO6mExJgFsqXBwcDKafq5t6B
- hQMtnhiJ37dQzyVQCoh1oa9eh/nLFNekem8w4gp1vbNpKm+sEpYKhcbEqKkOoPjQ1OAn
- 1TucTPU5tN6rNwjoHoSKQdXi9Gtq8zA8k12iNAEJCTzdfjm7ZqUf68EhJIGFWJhinzYg 9Q== 
-Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
- by aserp2120.oracle.com with ESMTP id 33q5rgbsn3-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Tue, 22 Sep 2020 15:24:29 +0000
-Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
- by aserp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 08MFAMQ1168760;
- Tue, 22 Sep 2020 15:24:29 GMT
-Received: from userv0122.oracle.com (userv0122.oracle.com [156.151.31.75])
- by aserp3030.oracle.com with ESMTP id 33nujnbted-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 22 Sep 2020 15:24:29 +0000
-Received: from abhmp0011.oracle.com (abhmp0011.oracle.com [141.146.116.17])
- by userv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 08MFOPZn012709;
- Tue, 22 Sep 2020 15:24:25 GMT
-Received: from [10.74.86.236] (/10.74.86.236)
- by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Tue, 22 Sep 2020 08:24:25 -0700
-To: Christoph Hellwig <hch@lst.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B82176E8BC;
+	Tue, 22 Sep 2020 16:33:52 +0000 (UTC)
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 166D66E8BC;
+ Tue, 22 Sep 2020 16:33:50 +0000 (UTC)
+Received: by verein.lst.de (Postfix, from userid 2407)
+ id DF8FD67373; Tue, 22 Sep 2020 18:33:46 +0200 (CEST)
+Date: Tue, 22 Sep 2020 18:33:46 +0200
+From: Christoph Hellwig <hch@lst.de>
+To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Message-ID: <20200922163346.GA1701@lst.de>
 References: <20200918163724.2511-1-hch@lst.de>
- <20200918163724.2511-7-hch@lst.de>
- <0833b9a8-5096-d105-a850-1336150eada1@oracle.com>
- <20200922145819.GA28420@lst.de>
-From: boris.ostrovsky@oracle.com
-Organization: Oracle Corporation
-Message-ID: <ebd69ba1-fc06-3cc7-348e-3cb0004c2a34@oracle.com>
-Date: Tue, 22 Sep 2020 11:24:20 -0400
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.2.1
+ <20200918163724.2511-4-hch@lst.de>
+ <20200921191157.GX32101@casper.infradead.org> <20200922062249.GA30831@lst.de>
+ <43d10588-2033-038b-14e4-9f41cd622d7b@linux.intel.com>
+ <20200922143141.GA26637@lst.de>
+ <e429c3e6-2143-f51a-4c1c-c1470076ad3e@linux.intel.com>
 MIME-Version: 1.0
-In-Reply-To: <20200922145819.GA28420@lst.de>
-Content-Language: en-US
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9752
- signatures=668679
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 bulkscore=0
- malwarescore=0
- mlxlogscore=999 phishscore=0 adultscore=0 spamscore=0 suspectscore=0
- mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2006250000 definitions=main-2009220120
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9752
- signatures=668679
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
- impostorscore=0
- clxscore=1015 suspectscore=0 phishscore=0 malwarescore=0
- priorityscore=1501 mlxlogscore=999 adultscore=0 bulkscore=0 mlxscore=0
- lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2006250000 definitions=main-2009220120
-X-Mailman-Approved-At: Tue, 22 Sep 2020 16:27:52 +0000
-Subject: Re: [Intel-gfx] [PATCH 6/6] x86/xen: open code alloc_vm_area in
- arch_gnttab_valloc
+Content-Disposition: inline
+In-Reply-To: <e429c3e6-2143-f51a-4c1c-c1470076ad3e@linux.intel.com>
+User-Agent: Mutt/1.5.17 (2007-11-01)
+Subject: Re: [Intel-gfx] [PATCH 3/6] drm/i915: use vmap in shmem_pin_map
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,32 +53,70 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>, linux-mm@kvack.org,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>, Minchan Kim <minchan@kernel.org>,
  Peter Zijlstra <peterz@infradead.org>, intel-gfx@lists.freedesktop.org,
- x86@kernel.org, linux-kernel@vger.kernel.org, Minchan Kim <minchan@kernel.org>,
- dri-devel@lists.freedesktop.org, xen-devel@lists.xenproject.org,
- Andrew Morton <akpm@linux-foundation.org>, Nitin Gupta <ngupta@vflare.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ x86@kernel.org, linux-kernel@vger.kernel.org,
+ Matthew Wilcox <willy@infradead.org>, Chris Wilson <chris@chris-wilson.co.uk>,
+ linux-mm@kvack.org, dri-devel@lists.freedesktop.org,
+ xen-devel@lists.xenproject.org, Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Christoph Hellwig <hch@lst.de>, Nitin Gupta <ngupta@vflare.org>,
+ Matthew Auld <matthew.auld@intel.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Ck9uIDkvMjIvMjAgMTA6NTggQU0sIENocmlzdG9waCBIZWxsd2lnIHdyb3RlOgo+IE9uIE1vbiwg
-U2VwIDIxLCAyMDIwIGF0IDA0OjQ0OjEwUE0gLTA0MDAsIGJvcmlzLm9zdHJvdnNreUBvcmFjbGUu
-Y29tIHdyb3RlOgo+PiBUaGlzIHdpbGwgZW5kIHVwIGluY3JlbWVudGluZyBhcmVhLT5wdGVzIHBv
-aW50ZXIuIFNvIHBlcmhhcHMgc29tZXRoaW5nIGxpa2UKPj4KPj4KPj4gcHRlX3QgKipwdGVzID0g
-YXJlYS0+cHRlczsKPj4KPj4gaWYgKGFwcGx5X3RvX3BhZ2VfcmFuZ2UoJmluaXRfbW0sICh1bnNp
-Z25lZCBsb25nKWFyZWEtPmFyZWEtPmFkZHIsCj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqAgUEFHRV9TSVpFICogbnJfZnJhbWVzLCBnbnR0YWJfYXBwbHks
-ICZwdGVzKSkgewo+Pgo+PiDCoMKgwqDCoMKgwqAgLi4uCj4gWWVhaC4gIFdoYXQgZG8geW91IHRo
-aW5rIG9mIHRoaXMgdmVyc2lvbj8gCgoKT2ggeWVzLCB0aGlzIGlzIHdheSBiZXR0ZXIuIFRoaXMg
-bm93IGNhbiBhY3R1YWxseSBiZSByZWFkIHdpdGhvdXQgdHJ5aW5nIHRvIG1lbnRhbGx5IHVud2lu
-ZCB0cmlwbGUgcG9pbnRlcnMuIChZb3UgcHJvYmFibHkgd2FudCB0byBpbml0aWFsaXplIGlkeCB0
-byB6ZXJvIGJlZm9yZSBjYWxsaW5nIGFwcGx5X3RvX3BhZ2VfcmFuZ2UoKSwgSSBhbSBub3Qgc3Vy
-ZSBpdCdzIGd1YXJhbnRlZWQgdG8gYmUgemVybykuCgoKPiAgSSB0aGluayBpdCBpcyBhIGxpdHRs
-ZQo+IGNsZWFuZXIgYW5kIG1hdGNoZXMgd2hhdCB4ZW5idXMgZG9lcy4gIEF0IHRoaXMgcG9pbnQg
-aXQgcHJvYmFibHkgc2hvdWxkCj4gYmUgc3BsaXQgaW50byBhIFhlbiBhbmQgYSBhbGxvY192bV9h
-cmVhIHJlbW92YWwgcGF0Y2gsIHRob3VnaC4KCgpSaWdodC4KCgotYm9yaXMKCl9fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkludGVsLWdmeCBtYWlsaW5nIGxp
-c3QKSW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNr
-dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ludGVsLWdmeAo=
+On Tue, Sep 22, 2020 at 05:13:45PM +0100, Tvrtko Ursulin wrote:
+>>   void *shmem_pin_map(struct file *file)
+>>   {
+>> -	const size_t n_pte = shmem_npte(file);
+>> -	pte_t *stack[32], **ptes, **mem;
+>
+> Chris can comment how much he'd miss the 32 page stack shortcut.
+
+I'd like to see a profile that claim that kmalloc matters in a
+path that does a vmap and reads pages through the page cache.
+Especially when the kmalloc saves doing another page cache lookup
+on the free side.
+
+> Is there something in vmap() preventing us from freeing the pages array 
+> here? I can't spot anything that is holding on to the pointer. Or it was 
+> just a sketch before you realized we could walk the vm_area?
+>
+> Also, I may be totally misunderstanding something, but I think you need to 
+> assign area->pages manually so shmem_unpin_map can access it below.
+
+We need area->pages to hold the pages for the free side.  That being
+said the patch I posted is broken because it never assigned to that.
+As said it was a sketch.  This is the patch I just rebooted into on
+my Laptop:
+
+http://git.infradead.org/users/hch/misc.git/commitdiff/048522dfa26b6667adfb0371ff530dc263abe829
+
+it needs extra prep patches from the series:
+
+http://git.infradead.org/users/hch/misc.git/shortlog/refs/heads/alloc_vm_area
+
+>>   	mapping_clear_unevictable(file->f_mapping);
+>> -	__shmem_unpin_map(file, ptr, shmem_npte(file));
+>> +	for (i = 0; i < shmem_npages(file); i++)
+>> +		put_page(area->pages[i]);
+>> +	kvfree(area->pages);
+>> +	vunmap(ptr);
+>
+> Is the verdict from mm experts that we can't use vfree due __free_pages vs 
+> put_page differences?
+
+Switched to vfree now.
+
+> Could we get from ptes to pages, so that we don't have to keep the 
+> area->pages array allocated for the duration of the pin?
+
+We could do vmalloc_to_page, but that is fairly expensive (not as bad
+as reading from the page cache..).  Are you really worried about the
+allocation?
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
