@@ -4,61 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-9.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 15490C4363D
-	for <intel-gfx@archiver.kernel.org>; Tue, 22 Sep 2020 17:54:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BE83BC4363D
+	for <intel-gfx@archiver.kernel.org>; Tue, 22 Sep 2020 17:54:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BC5732376F
-	for <intel-gfx@archiver.kernel.org>; Tue, 22 Sep 2020 17:54:31 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 6B72B2376F
+	for <intel-gfx@archiver.kernel.org>; Tue, 22 Sep 2020 17:54:35 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="SYsHHg1r"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BC5732376F
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="EZdt/Ets"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6B72B2376F
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C8C189E06;
-	Tue, 22 Sep 2020 17:54:29 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [216.205.24.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 416C289E9B
- for <intel-gfx@lists.freedesktop.org>; Tue, 22 Sep 2020 17:54:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF7D589F61;
+	Tue, 22 Sep 2020 17:54:31 +0000 (UTC)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com
+ [207.211.31.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9CC3889E8C
+ for <intel-gfx@lists.freedesktop.org>; Tue, 22 Sep 2020 17:54:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1600797256;
+ s=mimecast20190719; t=1600797257;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=alwBugiUW8xhAC3yh9HKqdv3Lr5JciXw+OErJT8eH5U=;
- b=SYsHHg1rongJPRlFKYcIZmt9oHGNM9qG94BYs7ppAGLL615JyBTbnP6sgdw24vG2NrrLZw
- rsbMBUePQwaidXDk6nGU/pSbwAoX1oPnr4xIIubOWy5EH11tLA/PcHdHqQsXBGsXhpKYdB
- qBUmqHhLmZSyUQ1Q1cfg5v3u1A25tsw=
+ bh=6NohBF9hAWZCXDLKEK08Sf9Lg0kRzkT+pBxKOk6E4yU=;
+ b=EZdt/Ets1147Z3m/3dxB8lZha4Mwfs5iCgLSeo3p6jgC3gdxJJTTjUMO0dVkyRScXx67Ls
+ /D02qFzyTaM6hLElN9cNAsi3ZffdJwcvGW7YHBvkf9/PjdLBQ48I1UrYQtPJoDnsCJkfKW
+ qLJIxEGOqD7dpuzqQsCQ0wg5JXLvBIk=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-265-8Soh6L6WOce9OXEe3dfgMw-1; Tue, 22 Sep 2020 13:54:14 -0400
-X-MC-Unique: 8Soh6L6WOce9OXEe3dfgMw-1
+ us-mta-225-MMf9XHsBOvmwtziY-7XyDQ-1; Tue, 22 Sep 2020 13:54:15 -0400
+X-MC-Unique: MMf9XHsBOvmwtziY-7XyDQ-1
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
  [10.5.11.13])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 02D3D186DD29;
- Tue, 22 Sep 2020 17:54:12 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 6344781CBF1;
+ Tue, 22 Sep 2020 17:54:13 +0000 (UTC)
 Received: from Ruby.redhat.com (unknown [10.10.115.243])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 74E8C7368D;
- Tue, 22 Sep 2020 17:54:10 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 4939C7368D;
+ Tue, 22 Sep 2020 17:54:12 +0000 (UTC)
 From: Lyude Paul <lyude@redhat.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 22 Sep 2020 13:53:56 -0400
-Message-Id: <20200922175357.42998-2-lyude@redhat.com>
+Date: Tue, 22 Sep 2020 13:53:57 -0400
+Message-Id: <20200922175357.42998-3-lyude@redhat.com>
 In-Reply-To: <20200922175357.42998-1-lyude@redhat.com>
 References: <20200922175357.42998-1-lyude@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
-Subject: [Intel-gfx] [RESEND PATCH 1/2] drm/dp: fix kernel-doc warnings at
- drm_dp_helper.c
+Subject: [Intel-gfx] [RESEND PATCH 2/2] drm/dp: fix a kernel-doc issue at
+ drm_edid.c
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,42 +83,30 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
 
-As warned by kernel-doc:
+The name of the argument is different, causing those warnings:
 
-	./drivers/gpu/drm/drm_dp_helper.c:385: warning: Function parameter or member 'type' not described in 'drm_dp_downstream_is_type'
-	./drivers/gpu/drm/drm_dp_helper.c:886: warning: Function parameter or member 'dev' not described in 'drm_dp_downstream_mode'
+	./drivers/gpu/drm/drm_edid.c:3754: warning: Function parameter or member 'video_code' not described in 'drm_display_mode_from_cea_vic'
+	./drivers/gpu/drm/drm_edid.c:3754: warning: Excess function parameter 'vic' description in 'drm_display_mode_from_cea_vic'
 
-Some function parameters weren't documented.
-
-Fixes: 38784f6f8805 ("drm/dp: Add helpers to identify downstream facing port types")
+Fixes: 7af655bce275 ("drm/dp: Add drm_dp_downstream_mode()")
 Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
 Reviewed-by: Lyude Paul <lyude@redhat.com>
 ---
- drivers/gpu/drm/drm_dp_helper.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/gpu/drm/drm_edid.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/drm_dp_helper.c b/drivers/gpu/drm/drm_dp_helper.c
-index 90807a6b415c..478dd51f738d 100644
---- a/drivers/gpu/drm/drm_dp_helper.c
-+++ b/drivers/gpu/drm/drm_dp_helper.c
-@@ -374,6 +374,10 @@ static bool is_edid_digital_input_dp(const struct edid *edid)
-  * drm_dp_downstream_is_type() - is the downstream facing port of certain type?
-  * @dpcd: DisplayPort configuration data
-  * @port_cap: port capabilities
-+ * @type: port type to be checked. Can be:
-+ * 	  %DP_DS_PORT_TYPE_DP, %DP_DS_PORT_TYPE_VGA, %DP_DS_PORT_TYPE_DVI,
-+ * 	  %DP_DS_PORT_TYPE_HDMI, %DP_DS_PORT_TYPE_NON_EDID,
-+ *	  %DP_DS_PORT_TYPE_DP_DUALMODE or %DP_DS_PORT_TYPE_WIRELESS.
-  *
-  * Caveat: Only works with DPCD 1.1+ port caps.
-  *
-@@ -870,6 +874,7 @@ EXPORT_SYMBOL(drm_dp_downstream_444_to_420_conversion);
- 
+diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+index a82f37d44258..631125b46e04 100644
+--- a/drivers/gpu/drm/drm_edid.c
++++ b/drivers/gpu/drm/drm_edid.c
+@@ -3741,7 +3741,7 @@ drm_add_cmdb_modes(struct drm_connector *connector, u8 svd)
  /**
-  * drm_dp_downstream_mode() - return a mode for downstream facing port
-+ * @dev: DRM device
-  * @dpcd: DisplayPort configuration data
-  * @port_cap: port capabilities
+  * drm_display_mode_from_cea_vic() - return a mode for CEA VIC
+  * @dev: DRM device
+- * @vic: CEA VIC of the mode
++ * @video_code: CEA VIC of the mode
+  *
+  * Creates a new mode matching the specified CEA VIC.
   *
 -- 
 2.26.2
