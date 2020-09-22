@@ -7,46 +7,46 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 71F97C2D0E2
-	for <intel-gfx@archiver.kernel.org>; Tue, 22 Sep 2020 12:51:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2D095C4741F
+	for <intel-gfx@archiver.kernel.org>; Tue, 22 Sep 2020 12:51:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2A0CF2395C
-	for <intel-gfx@archiver.kernel.org>; Tue, 22 Sep 2020 12:51:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2A0CF2395C
+	by mail.kernel.org (Postfix) with ESMTPS id E83862399A
+	for <intel-gfx@archiver.kernel.org>; Tue, 22 Sep 2020 12:51:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E83862399A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4544D6E22D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B0776E149;
 	Tue, 22 Sep 2020 12:51:32 +0000 (UTC)
 Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A69D86E148
- for <intel-gfx@lists.freedesktop.org>; Tue, 22 Sep 2020 12:51:29 +0000 (UTC)
-IronPort-SDR: Ts8mSdK15L/NYpG2BsmKR4KboBW8MlNyiyZmc1zmts4Hlru1Go6jJxThEgGP53TMNKp7UsTtOP
- ss2kfX/XVN9w==
-X-IronPort-AV: E=McAfee;i="6000,8403,9751"; a="148342810"
-X-IronPort-AV: E=Sophos;i="5.77,290,1596524400"; d="scan'208";a="148342810"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 62B816E148
+ for <intel-gfx@lists.freedesktop.org>; Tue, 22 Sep 2020 12:51:23 +0000 (UTC)
+IronPort-SDR: T11SqaPNwjQsizJIeqZpDdRyxxogHJWRFjab6p0kFST8njGiEuxTzif6LWtPQwWTlyvJWsK0yl
+ Gkf/z58HwkDA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9751"; a="148342798"
+X-IronPort-AV: E=Sophos;i="5.77,290,1596524400"; d="scan'208";a="148342798"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Sep 2020 05:51:29 -0700
-IronPort-SDR: e61T6XZ0kRu8JJ2ALgOjrv0Y01o/RxGBO5DYe+LnIZeTb5kaAbGbddHH7TQ51WNXevNWearjxJ
- 2a7pl9A4whzA==
-X-IronPort-AV: E=Sophos;i="5.77,290,1596524400"; d="scan'208";a="309485623"
+ 22 Sep 2020 05:51:23 -0700
+IronPort-SDR: ZtTjqLJkNv9gHvKKAV7vch4lmEkQqzZhiXg4F5+hEd2YAe5vlsTYSu7FCS4sFeAOayNwdPkuq9
+ XTrYVKu+Mljg==
+X-IronPort-AV: E=Sophos;i="5.77,290,1596524400"; d="scan'208";a="309485569"
 Received: from ideak-desk.fi.intel.com (HELO localhost) ([10.237.68.141])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Sep 2020 05:51:28 -0700
+ 22 Sep 2020 05:51:22 -0700
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 22 Sep 2020 15:51:03 +0300
-Message-Id: <20200922125106.30540-5-imre.deak@intel.com>
+Date: Tue, 22 Sep 2020 15:51:01 +0300
+Message-Id: <20200922125106.30540-3-imre.deak@intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200922125106.30540-1-imre.deak@intel.com>
 References: <20200922125106.30540-1-imre.deak@intel.com>
-Subject: [Intel-gfx] [PATCH 4/7] drm/i915: Factor out a helper to disable
- the DPCD training pattern
+Subject: [Intel-gfx] [PATCH 2/7] drm/i915: Move intel_dp_get_link_status to
+ intel_dp_link_training.c
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,67 +65,95 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-To prepare for a follow-up LTTPR change factor out a helper to disable
-the training pattern in DPCD. We'll need to do this for each LTTPR
-(without programming the port to output the idle pattern) when training
-in LTTPR non-transparent mode.
+The link status is used to communicate the parameters of the link
+training with the DPRX and determine if the link training is successful
+or a retraining is needed. Accordingly move the function to read the
+link status to intel_dp_link_training.c
 
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- .../drm/i915/display/intel_dp_link_training.c | 28 +++++++++++--------
- 1 file changed, 16 insertions(+), 12 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp.c          | 11 -----------
+ drivers/gpu/drm/i915/display/intel_dp.h          |  2 --
+ .../drm/i915/display/intel_dp_link_training.c    | 16 ++++++++++++++++
+ .../drm/i915/display/intel_dp_link_training.h    |  3 +++
+ 4 files changed, 19 insertions(+), 13 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 2a4a9c0e7427..ee93a00a4d5e 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -4126,17 +4126,6 @@ static void chv_dp_post_pll_disable(struct intel_atomic_state *state,
+ 	chv_phy_post_pll_disable(encoder, old_crtc_state);
+ }
+ 
+-/*
+- * Fetch AUX CH registers 0x202 - 0x207 which contain
+- * link status information
+- */
+-bool
+-intel_dp_get_link_status(struct intel_dp *intel_dp, u8 link_status[DP_LINK_STATUS_SIZE])
+-{
+-	return drm_dp_dpcd_read(&intel_dp->aux, DP_LANE0_1_STATUS, link_status,
+-				DP_LINK_STATUS_SIZE) == DP_LINK_STATUS_SIZE;
+-}
+-
+ static u8 intel_dp_voltage_max_2(struct intel_dp *intel_dp)
+ {
+ 	return DP_TRAIN_VOLTAGE_SWING_LEVEL_2;
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.h b/drivers/gpu/drm/i915/display/intel_dp.h
+index 08a1c0aa8b94..34ae7988a554 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.h
++++ b/drivers/gpu/drm/i915/display/intel_dp.h
+@@ -100,8 +100,6 @@ void intel_dp_compute_rate(struct intel_dp *intel_dp, int port_clock,
+ 			   u8 *link_bw, u8 *rate_select);
+ bool intel_dp_source_supports_hbr2(struct intel_dp *intel_dp);
+ bool intel_dp_source_supports_hbr3(struct intel_dp *intel_dp);
+-bool
+-intel_dp_get_link_status(struct intel_dp *intel_dp, u8 *link_status);
+ 
+ bool intel_dp_get_colorimetry_status(struct intel_dp *intel_dp);
+ int intel_dp_link_required(int pixel_clock, int bpp);
 diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-index 0c3809891bd2..6994a32244dc 100644
+index f8b53c5b5777..6d13d00db5e6 100644
 --- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
 +++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-@@ -102,30 +102,34 @@ void intel_dp_get_adjust_train(struct intel_dp *intel_dp,
- 		intel_dp->train_set[lane] = v | p;
+@@ -34,6 +34,22 @@ intel_dp_dump_link_status(const u8 link_status[DP_LINK_STATUS_SIZE])
+ 		      link_status[3], link_status[4], link_status[5]);
  }
  
-+static bool intel_dp_disable_dpcd_training_pattern(struct intel_dp *intel_dp)
++/**
++ * intel_dp_get_link_status - get the link status information for the DPRX
++ * @intel_dp: DP struct
++ * @link_status: buffer to return the status in
++ *
++ * Fetch the AUX DPCD registers for the DPRX link status.
++ *
++ * Returns true if the information was read successfully, false otherwise.
++ */
++bool
++intel_dp_get_link_status(struct intel_dp *intel_dp, u8 link_status[DP_LINK_STATUS_SIZE])
 +{
-+	u8 val = DP_TRAINING_PATTERN_DISABLE;
-+
-+	return drm_dp_dpcd_write(&intel_dp->aux, DP_TRAINING_PATTERN_SET, &val, 1) == 1;
++	return drm_dp_dpcd_read(&intel_dp->aux, DP_LANE0_1_STATUS, link_status,
++				DP_LINK_STATUS_SIZE) == DP_LINK_STATUS_SIZE;
 +}
 +
- static bool
- intel_dp_set_link_train(struct intel_dp *intel_dp,
- 			u8 dp_train_pat)
+ static u8 dp_voltage_max(u8 preemph)
  {
- 	u8 buf[sizeof(intel_dp->train_set) + 1];
--	int ret, len;
-+	int len;
+ 	switch (preemph & DP_TRAIN_PRE_EMPHASIS_MASK) {
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.h b/drivers/gpu/drm/i915/display/intel_dp_link_training.h
+index 01f1dabbb060..47c97f4a0d57 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_link_training.h
++++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.h
+@@ -10,6 +10,9 @@
  
- 	intel_dp_program_link_training_pattern(intel_dp, dp_train_pat);
+ struct intel_dp;
  
--	buf[0] = dp_train_pat;
- 	if ((dp_train_pat & ~DP_LINK_SCRAMBLING_DISABLE) ==
--	    DP_TRAINING_PATTERN_DISABLE) {
-+	    DP_TRAINING_PATTERN_DISABLE)
- 		/* don't write DP_TRAINING_LANEx_SET on disable */
--		len = 1;
--	} else {
--		/* DP_TRAINING_LANEx_SET follow DP_TRAINING_PATTERN_SET */
--		memcpy(buf + 1, intel_dp->train_set, intel_dp->lane_count);
--		len = intel_dp->lane_count + 1;
--	}
-+		return intel_dp_disable_dpcd_training_pattern(intel_dp);
- 
--	ret = drm_dp_dpcd_write(&intel_dp->aux, DP_TRAINING_PATTERN_SET,
--				buf, len);
-+	buf[0] = dp_train_pat;
-+	/* DP_TRAINING_LANEx_SET follow DP_TRAINING_PATTERN_SET */
-+	memcpy(buf + 1, intel_dp->train_set, intel_dp->lane_count);
-+	len = intel_dp->lane_count + 1;
- 
--	return ret == len;
-+	return drm_dp_dpcd_write(&intel_dp->aux, DP_TRAINING_PATTERN_SET,
-+				 buf, len) == len;
- }
- 
- static bool
++bool intel_dp_get_link_status(struct intel_dp *intel_dp,
++			      u8 link_status[DP_LINK_STATUS_SIZE]);
++
+ void intel_dp_get_adjust_train(struct intel_dp *intel_dp,
+ 			       const u8 link_status[DP_LINK_STATUS_SIZE]);
+ void intel_dp_start_link_train(struct intel_dp *intel_dp);
 -- 
 2.17.1
 
