@@ -2,60 +2,40 @@ Return-Path: <SRS0=0qc7=C7=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-0.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 08825C4363D
-	for <intel-gfx@archiver.kernel.org>; Tue, 22 Sep 2020 18:51:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 34FD5C4363D
+	for <intel-gfx@archiver.kernel.org>; Tue, 22 Sep 2020 18:52:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 985D520756
-	for <intel-gfx@archiver.kernel.org>; Tue, 22 Sep 2020 18:51:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 985D520756
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id A59B720936
+	for <intel-gfx@archiver.kernel.org>; Tue, 22 Sep 2020 18:52:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A59B720936
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 034E76E2D7;
-	Tue, 22 Sep 2020 18:51:20 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D5E666E2D7
- for <intel-gfx@lists.freedesktop.org>; Tue, 22 Sep 2020 18:51:17 +0000 (UTC)
-IronPort-SDR: oAdfDjKNjDXdJZHLYAGnII4rQ4RU5zwc3TJmQaWvUG4F7yZANGEkYnBmhPe9wR5J2YY6XJbM2U
- pVZklfC4jnHA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9752"; a="140167170"
-X-IronPort-AV: E=Sophos;i="5.77,291,1596524400"; d="scan'208";a="140167170"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Sep 2020 11:51:17 -0700
-IronPort-SDR: HYKb9Vv20eSq/2eZCH8dgzxTRU5mT4LEaltOx/1WGzlfhcuQRUtjNOzgoTZPslAmNvs4Od/8E1
- 5riiI83C57xA==
-X-IronPort-AV: E=Sophos;i="5.77,291,1596524400"; d="scan'208";a="511325942"
-Received: from labuser-z97x-ud5h.jf.intel.com (HELO labuser-Z97X-UD5H)
- ([10.165.21.211])
- by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Sep 2020 11:51:17 -0700
-Date: Tue, 22 Sep 2020 11:52:09 -0700
-From: "Navare, Manasi" <manasi.d.navare@intel.com>
-To: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-Message-ID: <20200922185209.GA24216@labuser-Z97X-UD5H>
-References: <20200715224222.7557-1-manasi.d.navare@intel.com>
- <20200715224222.7557-2-manasi.d.navare@intel.com>
- <20200903174944.GW6112@intel.com>
- <20200903180432.GA22804@labuser-Z97X-UD5H>
- <20200903184044.GZ6112@intel.com> <20200907123523.GG6112@intel.com>
- <20200914183242.GA28634@labuser-Z97X-UD5H>
- <20200914185257.GW6112@intel.com>
- <20200921210118.GA18761@labuser-Z97X-UD5H>
- <20200922101915.GN6112@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF0C66E8DB;
+	Tue, 22 Sep 2020 18:52:07 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id DF8BD6E8DA;
+ Tue, 22 Sep 2020 18:52:05 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id D02F0A7DFC;
+ Tue, 22 Sep 2020 18:52:05 +0000 (UTC)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200922101915.GN6112@intel.com>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-Subject: Re: [Intel-gfx] [PATCH v6 02/11] drm/i915: Remove hw.mode
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Lyude Paul" <lyude@redhat.com>
+Date: Tue, 22 Sep 2020 18:52:05 -0000
+Message-ID: <160080072584.13390.8098876479043768411@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20200922175357.42998-1-lyude@redhat.com>
+In-Reply-To: <20200922175357.42998-1-lyude@redhat.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJBVDogZmFpbHVyZSBmb3IgZHJt?=
+ =?utf-8?q?/i915=3A_kernel-doc_fixes_for_new_DP_helpers?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,111 +48,94 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Cc: intel-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/mixed; boundary="===============0146782194=="
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Sep 22, 2020 at 01:19:15PM +0300, Ville Syrj=E4l=E4 wrote:
-> On Mon, Sep 21, 2020 at 02:01:25PM -0700, Navare, Manasi wrote:
-> > On Mon, Sep 14, 2020 at 09:52:57PM +0300, Ville Syrj=E4l=E4 wrote:
-> > > On Mon, Sep 14, 2020 at 11:32:48AM -0700, Navare, Manasi wrote:
-> > > > On Mon, Sep 07, 2020 at 03:35:23PM +0300, Ville Syrj=E4l=E4 wrote:
-> > > > > On Thu, Sep 03, 2020 at 09:40:44PM +0300, Ville Syrj=E4l=E4 wrote:
-> > > > > > On Thu, Sep 03, 2020 at 11:04:33AM -0700, Navare, Manasi wrote:
-> > > > > > > On Thu, Sep 03, 2020 at 08:49:44PM +0300, Ville Syrj=E4l=E4 w=
-rote:
-> > > > > > > > On Wed, Jul 15, 2020 at 03:42:13PM -0700, Manasi Navare wro=
-te:
-> > > > > > > > > From: Maarten Lankhorst <maarten.lankhorst@linux.intel.co=
-m>
-> > > > > > > > > =
+--===============0146782194==
+Content-Type: multipart/alternative;
+ boundary="===============3290762550521560158=="
 
-> > > > > > > > > The members in hw.mode can be used from adjusted_mode as =
-well,
-> > > > > > > > > use that when available.
-> > > > > > > > > =
+--===============3290762550521560158==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-> > > > > > > > > Some places that use hw.mode can be converted to use adju=
-sted_mode
-> > > > > > > > > as well.
-> > > > > > > > > =
+== Series Details ==
 
-> > > > > > > > > v2:
-> > > > > > > > > * Manual rebase (Manasi)
-> > > > > > > > > * remove the use of pipe_mode defined in patch 3 (Manasi)
-> > > > > > > > > =
+Series: drm/i915: kernel-doc fixes for new DP helpers
+URL   : https://patchwork.freedesktop.org/series/81985/
+State : failure
 
-> > > > > > > > > v3:
-> > > > > > > > > * Rebase on drm-tip (Manasi)
-> > > > > > > > =
+== Summary ==
 
-> > > > > > > > Previous review was apparently ignored. Or is there a bette=
-r version
-> > > > > > > > somewhere? If not, this still looks very wrong.
-> > > > > > > =
+Applying: drm/dp: fix kernel-doc warnings at drm_dp_helper.c
+Using index info to reconstruct a base tree...
+M	drivers/gpu/drm/drm_dp_helper.c
+Falling back to patching base and 3-way merge...
+No changes -- Patch already applied.
+Applying: drm/dp: fix a kernel-doc issue at drm_edid.c
+Using index info to reconstruct a base tree...
+M	drivers/gpu/drm/drm_edid.c
+Falling back to patching base and 3-way merge...
+No changes -- Patch already applied.
 
-> > > > > > > This was the latest rev that Maarten had in his local tree wh=
-ich he said should address all the review comments.
-> > > > > > > What in particular looks wrong or what review comments were u=
-naddressed here?
-> > > > > > =
 
-> > > > > > The dvo/sdvo changes.
-> > > > > =
 
-> > > > > I recommend just dropping this patch entirely. It doesn't seem to=
- have
-> > > > > anything to do with the bigjoiner anyway.
-> > > > =
+--===============3290762550521560158==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-> > > > So for the dvo/svdo changes, no need to use the adjusted_mode inste=
-ad keep using hw.mode?
-> > > > How about other cleanups like: intel_crtc_copy_hw_to_uapi_state(crt=
-c_state, &mode); and
-> > > > static void intel_crtc_copy_hw_to_uapi_state(struct intel_crtc_stat=
-e *crtc_state,
-> > > > +					     struct drm_display_mode *user_mode)
-> > > > =
 
-> > > > You think we dont need mode as an argument there either?
-> > > =
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
 
-> > > Not in this patch if all the other stuff disappears. No idea if some
-> > > later patch might need something like it.
-> > =
 
-> > Hi Ville,
-> > =
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915: kernel-doc fixes for new DP helpers</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/81985/">https://patchwork.freedesktop.org/series/81985/</a></td></tr>
+<tr><td><b>State:</b></td><td>failure</td></tr>
 
-> > So this patch basically removes the hw.mode and just keeps hw.adjusted_=
-mode
-> > So no need to remove that? =
+</table>
 
-> > But basically from this patch onwards we say that there is hw.pipe_mode
-> > and hw.adjusted_mode, there is no hw.mode.
-> > Are you suggesting keeping hw.mode as well? Would this be replacing hw.=
-pipe_mode then?
-> =
 
-> No. hw.mode is the original timings, adjusted_mode is the output timings,
-> pipe_mode is the the pipe timings.
+    <p>Applying: drm/dp: fix kernel-doc warnings at drm_dp_helper.c<br />
+Using index info to reconstruct a base tree...<br />
+M   drivers/gpu/drm/drm_dp_helper.c<br />
+Falling back to patching base and 3-way merge...<br />
+No changes -- Patch already applied.<br />
+Applying: drm/dp: fix a kernel-doc issue at drm_edid.c<br />
+Using index info to reconstruct a base tree...<br />
+M   drivers/gpu/drm/drm_edid.c<br />
+Falling back to patching base and 3-way merge...<br />
+No changes -- Patch already applied.</p>
 
-So is the suggestion to keep hw.mode so the original timings as well as adj=
-usted_mode and
-then have pipe_mode for per pipe timings.
-So get rid of this patch meaning do not remove hw.mode?
+</body>
+</html>
 
-Manasi
+--===============3290762550521560158==--
 
-> =
+--===============0146782194==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
-> -- =
-
-> Ville Syrj=E4l=E4
-> Intel
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+
+--===============0146782194==--
