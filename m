@@ -2,31 +2,31 @@ Return-Path: <SRS0=ky/+=DA=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.9 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B1027C4CC62
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Sep 2020 10:23:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8F8D4C47429
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Sep 2020 10:23:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 594A623899
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Sep 2020 10:23:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 594A623899
+	by mail.kernel.org (Postfix) with ESMTPS id 61BB9238A1
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Sep 2020 10:23:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 61BB9238A1
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D8E226E95E;
-	Wed, 23 Sep 2020 10:22:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 012796E968;
+	Wed, 23 Sep 2020 10:22:20 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D1E66E94C;
- Wed, 23 Sep 2020 10:22:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 60D2E6E959;
+ Wed, 23 Sep 2020 10:22:13 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 44BA5B284;
- Wed, 23 Sep 2020 10:22:52 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 364BEB016;
+ Wed, 23 Sep 2020 10:22:49 +0000 (UTC)
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@linux.ie,
  daniel@ffwll.ch, linux@armlinux.org.uk, maarten.lankhorst@linux.intel.com,
@@ -51,14 +51,14 @@ To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@linux.ie,
  emil.velikov@collabora.com, laurentiu.palcu@oss.nxp.com,
  shawnguo@kernel.org, s.hauer@pengutronix.de, kernel@pengutronix.de,
  festevam@gmail.com, linux-imx@nxp.com
-Date: Wed, 23 Sep 2020 12:21:51 +0200
-Message-Id: <20200923102159.24084-15-tzimmermann@suse.de>
+Date: Wed, 23 Sep 2020 12:21:48 +0200
+Message-Id: <20200923102159.24084-12-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20200923102159.24084-1-tzimmermann@suse.de>
 References: <20200923102159.24084-1-tzimmermann@suse.de>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v3 14/22] drm/rockchip: Convert to
- drm_gem_object_funcs
+Subject: [Intel-gfx] [PATCH v3 11/22] drm/omapdrm: Introduce GEM object
+ functions
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,12 +73,11 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  intel-gfx@lists.freedesktop.org, etnaviv@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel.vetter@ffwll.ch>,
- linux-rockchip@lists.infradead.org, linux-mediatek@lists.infradead.org,
- amd-gfx@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
- nouveau@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- xen-devel@lists.xenproject.org, freedreno@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, amd-gfx@lists.freedesktop.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, nouveau@lists.freedesktop.org,
+ linux-tegra@vger.kernel.org, xen-devel@lists.xenproject.org,
+ freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
@@ -86,76 +85,118 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 GEM object functions deprecate several similar callback interfaces in
 struct drm_driver. This patch replaces the per-driver callbacks with
-per-instance callbacks in rockchip. The only exception is gem_prime_mmap,
-which is non-trivial to convert.
+per-instance callbacks in omapdrm.
 
-v3:
-	* update documentation
+v2:
+	* make omap_gem_free_object() static (Tomi)
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Reviewed-by: Tomi Valkeinen <tomi.valkeinen@ti.com>
 ---
- drivers/gpu/drm/rockchip/rockchip_drm_drv.c |  5 -----
- drivers/gpu/drm/rockchip/rockchip_drm_gem.c | 12 +++++++++++-
- 2 files changed, 11 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/omapdrm/omap_drv.c |  9 ---------
+ drivers/gpu/drm/omapdrm/omap_gem.c | 18 ++++++++++++++++--
+ drivers/gpu/drm/omapdrm/omap_gem.h |  2 --
+ 3 files changed, 16 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_drv.c b/drivers/gpu/drm/rockchip/rockchip_drm_drv.c
-index 0f3eb392fe39..b7654f5e4225 100644
---- a/drivers/gpu/drm/rockchip/rockchip_drm_drv.c
-+++ b/drivers/gpu/drm/rockchip/rockchip_drm_drv.c
-@@ -212,15 +212,10 @@ static const struct file_operations rockchip_drm_driver_fops = {
- static struct drm_driver rockchip_drm_driver = {
- 	.driver_features	= DRIVER_MODESET | DRIVER_GEM | DRIVER_ATOMIC,
- 	.lastclose		= drm_fb_helper_lastclose,
--	.gem_vm_ops		= &drm_gem_cma_vm_ops,
--	.gem_free_object_unlocked = rockchip_gem_free_object,
- 	.dumb_create		= rockchip_gem_dumb_create,
- 	.prime_handle_to_fd	= drm_gem_prime_handle_to_fd,
- 	.prime_fd_to_handle	= drm_gem_prime_fd_to_handle,
--	.gem_prime_get_sg_table	= rockchip_gem_prime_get_sg_table,
- 	.gem_prime_import_sg_table	= rockchip_gem_prime_import_sg_table,
--	.gem_prime_vmap		= rockchip_gem_prime_vmap,
--	.gem_prime_vunmap	= rockchip_gem_prime_vunmap,
- 	.gem_prime_mmap		= rockchip_gem_mmap_buf,
- 	.fops			= &rockchip_drm_driver_fops,
- 	.name	= DRIVER_NAME,
-diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_gem.c b/drivers/gpu/drm/rockchip/rockchip_drm_gem.c
-index 62e5d0970525..1cf4631461c9 100644
---- a/drivers/gpu/drm/rockchip/rockchip_drm_gem.c
-+++ b/drivers/gpu/drm/rockchip/rockchip_drm_gem.c
-@@ -295,6 +295,14 @@ static void rockchip_gem_release_object(struct rockchip_gem_object *rk_obj)
- 	kfree(rk_obj);
+diff --git a/drivers/gpu/drm/omapdrm/omap_drv.c b/drivers/gpu/drm/omapdrm/omap_drv.c
+index 53d5e184ee77..2e598b8b72af 100644
+--- a/drivers/gpu/drm/omapdrm/omap_drv.c
++++ b/drivers/gpu/drm/omapdrm/omap_drv.c
+@@ -521,12 +521,6 @@ static int dev_open(struct drm_device *dev, struct drm_file *file)
+ 	return 0;
  }
  
-+static const struct drm_gem_object_funcs rockchip_gem_object_funcs = {
-+	.free = rockchip_gem_free_object,
-+	.get_sg_table = rockchip_gem_prime_get_sg_table,
-+	.vmap = rockchip_gem_prime_vmap,
-+	.vunmap	= rockchip_gem_prime_vunmap,
-+	.vm_ops = &drm_gem_cma_vm_ops,
+-static const struct vm_operations_struct omap_gem_vm_ops = {
+-	.fault = omap_gem_fault,
+-	.open = drm_gem_vm_open,
+-	.close = drm_gem_vm_close,
+-};
+-
+ static const struct file_operations omapdriver_fops = {
+ 	.owner = THIS_MODULE,
+ 	.open = drm_open,
+@@ -549,10 +543,7 @@ static struct drm_driver omap_drm_driver = {
+ #endif
+ 	.prime_handle_to_fd = drm_gem_prime_handle_to_fd,
+ 	.prime_fd_to_handle = drm_gem_prime_fd_to_handle,
+-	.gem_prime_export = omap_gem_prime_export,
+ 	.gem_prime_import = omap_gem_prime_import,
+-	.gem_free_object_unlocked = omap_gem_free_object,
+-	.gem_vm_ops = &omap_gem_vm_ops,
+ 	.dumb_create = omap_gem_dumb_create,
+ 	.dumb_map_offset = omap_gem_dumb_map_offset,
+ 	.ioctls = ioctls,
+diff --git a/drivers/gpu/drm/omapdrm/omap_gem.c b/drivers/gpu/drm/omapdrm/omap_gem.c
+index f67f223c6479..d8e09792793a 100644
+--- a/drivers/gpu/drm/omapdrm/omap_gem.c
++++ b/drivers/gpu/drm/omapdrm/omap_gem.c
+@@ -487,7 +487,7 @@ static vm_fault_t omap_gem_fault_2d(struct drm_gem_object *obj,
+  * vma->vm_private_data points to the GEM object that is backing this
+  * mapping.
+  */
+-vm_fault_t omap_gem_fault(struct vm_fault *vmf)
++static vm_fault_t omap_gem_fault(struct vm_fault *vmf)
+ {
+ 	struct vm_area_struct *vma = vmf->vma;
+ 	struct drm_gem_object *obj = vma->vm_private_data;
+@@ -1089,7 +1089,7 @@ void omap_gem_describe_objects(struct list_head *list, struct seq_file *m)
+  * Constructor & Destructor
+  */
+ 
+-void omap_gem_free_object(struct drm_gem_object *obj)
++static void omap_gem_free_object(struct drm_gem_object *obj)
+ {
+ 	struct drm_device *dev = obj->dev;
+ 	struct omap_drm_private *priv = dev->dev_private;
+@@ -1169,6 +1169,18 @@ static bool omap_gem_validate_flags(struct drm_device *dev, u32 flags)
+ 	return true;
+ }
+ 
++static const struct vm_operations_struct omap_gem_vm_ops = {
++	.fault = omap_gem_fault,
++	.open = drm_gem_vm_open,
++	.close = drm_gem_vm_close,
 +};
 +
- static struct rockchip_gem_object *
- 	rockchip_gem_alloc_object(struct drm_device *drm, unsigned int size)
- {
-@@ -309,6 +317,8 @@ static struct rockchip_gem_object *
- 
- 	obj = &rk_obj->base;
- 
-+	obj->funcs = &rockchip_gem_object_funcs;
++static const struct drm_gem_object_funcs omap_gem_object_funcs = {
++	.free = omap_gem_free_object,
++	.export = omap_gem_prime_export,
++	.vm_ops = &omap_gem_vm_ops,
++};
 +
- 	drm_gem_object_init(drm, obj, size);
+ /* GEM buffer object constructor */
+ struct drm_gem_object *omap_gem_new(struct drm_device *dev,
+ 		union omap_gem_size gsize, u32 flags)
+@@ -1236,6 +1248,8 @@ struct drm_gem_object *omap_gem_new(struct drm_device *dev,
+ 		size = PAGE_ALIGN(gsize.bytes);
+ 	}
  
- 	return rk_obj;
-@@ -337,7 +347,7 @@ rockchip_gem_create_object(struct drm_device *drm, unsigned int size,
- }
++	obj->funcs = &omap_gem_object_funcs;
++
+ 	/* Initialize the GEM object. */
+ 	if (!(flags & OMAP_BO_MEM_SHMEM)) {
+ 		drm_gem_private_object_init(dev, obj, size);
+diff --git a/drivers/gpu/drm/omapdrm/omap_gem.h b/drivers/gpu/drm/omapdrm/omap_gem.h
+index 729b7812a815..eda9b4839c30 100644
+--- a/drivers/gpu/drm/omapdrm/omap_gem.h
++++ b/drivers/gpu/drm/omapdrm/omap_gem.h
+@@ -48,7 +48,6 @@ struct drm_gem_object *omap_gem_new_dmabuf(struct drm_device *dev, size_t size,
+ 		struct sg_table *sgt);
+ int omap_gem_new_handle(struct drm_device *dev, struct drm_file *file,
+ 		union omap_gem_size gsize, u32 flags, u32 *handle);
+-void omap_gem_free_object(struct drm_gem_object *obj);
+ void *omap_gem_vaddr(struct drm_gem_object *obj);
  
- /*
-- * rockchip_gem_free_object - (struct drm_driver)->gem_free_object_unlocked
-+ * rockchip_gem_free_object - (struct drm_gem_object_funcs)->free
-  * callback function
-  */
- void rockchip_gem_free_object(struct drm_gem_object *obj)
+ /* Dumb Buffers Interface */
+@@ -69,7 +68,6 @@ struct dma_buf *omap_gem_prime_export(struct drm_gem_object *obj, int flags);
+ struct drm_gem_object *omap_gem_prime_import(struct drm_device *dev,
+ 		struct dma_buf *buffer);
+ 
+-vm_fault_t omap_gem_fault(struct vm_fault *vmf);
+ int omap_gem_roll(struct drm_gem_object *obj, u32 roll);
+ void omap_gem_cpu_sync_page(struct drm_gem_object *obj, int pgoff);
+ void omap_gem_dma_sync_buffer(struct drm_gem_object *obj,
 -- 
 2.28.0
 
