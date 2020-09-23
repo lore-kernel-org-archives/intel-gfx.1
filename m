@@ -2,30 +2,31 @@ Return-Path: <SRS0=ky/+=DA=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_GIT autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A4E6DC4CC69
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Sep 2020 10:22:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8FD12C520AB
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Sep 2020 10:22:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 66FFA21BE5
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Sep 2020 10:22:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 66FFA21BE5
+	by mail.kernel.org (Postfix) with ESMTPS id 6272721BE5
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Sep 2020 10:22:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6272721BE5
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9EC066E925;
-	Wed, 23 Sep 2020 10:22:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 42D706E91A;
+	Wed, 23 Sep 2020 10:22:10 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E9C26E918;
- Wed, 23 Sep 2020 10:22:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ACCA16E927;
+ Wed, 23 Sep 2020 10:22:06 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id AC061B278;
- Wed, 23 Sep 2020 10:22:39 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 827A8B283;
+ Wed, 23 Sep 2020 10:22:42 +0000 (UTC)
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@linux.ie,
  daniel@ffwll.ch, linux@armlinux.org.uk, maarten.lankhorst@linux.intel.com,
@@ -50,12 +51,14 @@ To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@linux.ie,
  emil.velikov@collabora.com, laurentiu.palcu@oss.nxp.com,
  shawnguo@kernel.org, s.hauer@pengutronix.de, kernel@pengutronix.de,
  festevam@gmail.com, linux-imx@nxp.com
-Date: Wed, 23 Sep 2020 12:21:37 +0200
-Message-Id: <20200923102159.24084-1-tzimmermann@suse.de>
+Date: Wed, 23 Sep 2020 12:21:41 +0200
+Message-Id: <20200923102159.24084-5-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.28.0
+In-Reply-To: <20200923102159.24084-1-tzimmermann@suse.de>
+References: <20200923102159.24084-1-tzimmermann@suse.de>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v3 00/22] Convert all remaining drivers to GEM
- object functions
+Subject: [Intel-gfx] [PATCH v3 04/22] drm/exynos: Introduce GEM object
+ functions
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,145 +73,96 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  intel-gfx@lists.freedesktop.org, etnaviv@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- linux-mediatek@lists.infradead.org, amd-gfx@lists.freedesktop.org,
- Thomas Zimmermann <tzimmermann@suse.de>, nouveau@lists.freedesktop.org,
- linux-tegra@vger.kernel.org, xen-devel@lists.xenproject.org,
- freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel.vetter@ffwll.ch>,
+ linux-rockchip@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ amd-gfx@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
+ nouveau@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+ xen-devel@lists.xenproject.org, freedreno@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The GEM and PRIME related callbacks in struct drm_driver are deprecated in
-favor of GEM object functions in struct drm_gem_object_funcs. This patchset
-converts the remaining drivers to object functions and removes most of the
-obsolete interfaces.
+GEM object functions deprecate several similar callback interfaces in
+struct drm_driver. This patch replaces the per-driver callbacks with
+per-instance callbacks in exynos. The only exception is gem_prime_mmap,
+which is non-trivial to convert.
 
-Version 3 of this patchset mostly fixes drm_gem_prime_handle_to_fd and
-updates i.MX's dcss driver. The driver was missing from earlier versions
-and still needs review.
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+---
+ drivers/gpu/drm/exynos/exynos_drm_drv.c | 10 ----------
+ drivers/gpu/drm/exynos/exynos_drm_gem.c | 15 +++++++++++++++
+ 2 files changed, 15 insertions(+), 10 deletions(-)
 
-Patches #1 to #6, #8 to #17 and #19 to #20 convert DRM drivers to GEM object
-functions, one by one. Each patch moves existing callbacks from struct
-drm_driver to an instance of struct drm_gem_object_funcs, and sets these
-funcs when the GEM object is initialized. The expection is .gem_prime_mmap.
-There are different ways of how drivers implement the callback, and moving
-it to GEM object functions requires a closer review for each.
-
-Patch #18 fixes virtgpu to use GEM object functions where possible. The
-driver recently introduced a function for one of the deprecated callbacks.
-
-Patches #7 and #20 convert i.MX's dcss and xlnx to CMA helper macros. There's
-no apparent reason why the drivers do the GEM setup on their's own. Using CMA
-helper macros adds GEM object functions implicitly.
-
-With most of the GEM and PRIME moved to GEM object functions, related code
-in struct drm_driver and in the DRM core/helpers is being removed by patch
-#22.
-
-Further testing is welcome. I tested the drivers for which I have HW
-available. These are gma500, i915, nouveau, radeon and vc4. The console,
-Weston and Xorg apparently work with the patches applied.
-
-v3:
-	* restore default call to drm_gem_prime_export() in
-	  drm_gem_prime_handle_to_fd()
-	* return -ENOSYS if get_sg_table is not set
-	* drop all checks for obj->funcs
-	* clean up TODO list and documentation
-v2:
-	* moved code in amdgpu and radeon
-	* made several functions static in various drivers
-	* updated TODO-list item
-	* fix virtgpu
-
-Thomas Zimmermann (22):
-  drm/amdgpu: Introduce GEM object functions
-  drm/armada: Introduce GEM object functions
-  drm/etnaviv: Introduce GEM object functions
-  drm/exynos: Introduce GEM object functions
-  drm/gma500: Introduce GEM object functions
-  drm/i915: Introduce GEM object functions
-  drm/imx/dcss: Initialize DRM driver instance with CMA helper macro
-  drm/mediatek: Introduce GEM object functions
-  drm/msm: Introduce GEM object funcs
-  drm/nouveau: Introduce GEM object functions
-  drm/omapdrm: Introduce GEM object functions
-  drm/pl111: Introduce GEM object functions
-  drm/radeon: Introduce GEM object functions
-  drm/rockchip: Convert to drm_gem_object_funcs
-  drm/tegra: Introduce GEM object functions
-  drm/vc4: Introduce GEM object functions
-  drm/vgem: Introduce GEM object functions
-  drm/virtgpu: Set PRIME export function in struct drm_gem_object_funcs
-  drm/vkms: Introduce GEM object functions
-  drm/xen: Introduce GEM object functions
-  drm/xlnx: Initialize DRM driver instance with CMA helper macro
-  drm: Remove obsolete GEM and PRIME callbacks from struct drm_driver
-
- Documentation/gpu/drm-mm.rst                  |  4 +-
- Documentation/gpu/todo.rst                    |  9 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |  6 --
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c       | 23 +++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h       |  5 --
- drivers/gpu/drm/armada/armada_drv.c           |  3 -
- drivers/gpu/drm/armada/armada_gem.c           | 12 ++-
- drivers/gpu/drm/armada/armada_gem.h           |  2 -
- drivers/gpu/drm/drm_gem.c                     | 53 ++++--------
- drivers/gpu/drm/drm_gem_cma_helper.c          |  8 +-
- drivers/gpu/drm/drm_prime.c                   | 14 +--
- drivers/gpu/drm/etnaviv/etnaviv_drv.c         | 13 ---
- drivers/gpu/drm/etnaviv/etnaviv_drv.h         |  1 -
- drivers/gpu/drm/etnaviv/etnaviv_gem.c         | 19 ++++-
- drivers/gpu/drm/exynos/exynos_drm_drv.c       | 10 ---
- drivers/gpu/drm/exynos/exynos_drm_gem.c       | 15 ++++
- drivers/gpu/drm/gma500/framebuffer.c          |  2 +
- drivers/gpu/drm/gma500/gem.c                  | 18 +++-
- drivers/gpu/drm/gma500/gem.h                  |  3 +
- drivers/gpu/drm/gma500/psb_drv.c              |  9 --
- drivers/gpu/drm/gma500/psb_drv.h              |  2 -
- drivers/gpu/drm/i915/gem/i915_gem_object.c    | 21 ++++-
- drivers/gpu/drm/i915/gem/i915_gem_object.h    |  3 -
- drivers/gpu/drm/i915/i915_drv.c               |  4 -
- .../gpu/drm/i915/selftests/mock_gem_device.c  |  3 -
- drivers/gpu/drm/imx/dcss/dcss-kms.c           | 14 +--
- drivers/gpu/drm/mediatek/mtk_drm_drv.c        |  5 --
- drivers/gpu/drm/mediatek/mtk_drm_gem.c        | 11 +++
- drivers/gpu/drm/msm/msm_drv.c                 | 13 ---
- drivers/gpu/drm/msm/msm_drv.h                 |  1 -
- drivers/gpu/drm/msm/msm_gem.c                 | 19 ++++-
- drivers/gpu/drm/nouveau/nouveau_drm.c         |  9 --
- drivers/gpu/drm/nouveau/nouveau_gem.c         | 13 +++
- drivers/gpu/drm/nouveau/nouveau_gem.h         |  2 +
- drivers/gpu/drm/nouveau/nouveau_prime.c       |  2 +
- drivers/gpu/drm/omapdrm/omap_drv.c            |  9 --
- drivers/gpu/drm/omapdrm/omap_gem.c            | 18 +++-
- drivers/gpu/drm/omapdrm/omap_gem.h            |  2 -
- drivers/gpu/drm/pl111/pl111_drv.c             |  5 +-
- drivers/gpu/drm/radeon/radeon_drv.c           | 23 +----
- drivers/gpu/drm/radeon/radeon_gem.c           | 31 ++++++-
- drivers/gpu/drm/rockchip/rockchip_drm_drv.c   |  5 --
- drivers/gpu/drm/rockchip/rockchip_drm_gem.c   | 12 ++-
- drivers/gpu/drm/tegra/drm.c                   |  4 -
- drivers/gpu/drm/tegra/gem.c                   |  8 ++
- drivers/gpu/drm/vc4/vc4_bo.c                  | 21 ++++-
- drivers/gpu/drm/vc4/vc4_drv.c                 | 12 ---
- drivers/gpu/drm/vc4/vc4_drv.h                 |  1 -
- drivers/gpu/drm/vgem/vgem_drv.c               | 21 +++--
- drivers/gpu/drm/virtio/virtgpu_drv.c          |  1 -
- drivers/gpu/drm/virtio/virtgpu_object.c       |  1 +
- drivers/gpu/drm/vkms/vkms_drv.c               |  8 --
- drivers/gpu/drm/vkms/vkms_gem.c               | 13 +++
- drivers/gpu/drm/xen/xen_drm_front.c           | 44 ++++------
- drivers/gpu/drm/xen/xen_drm_front.h           |  2 +
- drivers/gpu/drm/xen/xen_drm_front_gem.c       | 15 ++++
- drivers/gpu/drm/xlnx/zynqmp_dpsub.c           | 14 +--
- include/drm/drm_drv.h                         | 85 +------------------
- include/drm/drm_gem.h                         |  2 +-
- 59 files changed, 333 insertions(+), 375 deletions(-)
-
---
+diff --git a/drivers/gpu/drm/exynos/exynos_drm_drv.c b/drivers/gpu/drm/exynos/exynos_drm_drv.c
+index dbd80f1e4c78..fe46680ca208 100644
+--- a/drivers/gpu/drm/exynos/exynos_drm_drv.c
++++ b/drivers/gpu/drm/exynos/exynos_drm_drv.c
+@@ -75,11 +75,6 @@ static void exynos_drm_postclose(struct drm_device *dev, struct drm_file *file)
+ 	file->driver_priv = NULL;
+ }
+ 
+-static const struct vm_operations_struct exynos_drm_gem_vm_ops = {
+-	.open = drm_gem_vm_open,
+-	.close = drm_gem_vm_close,
+-};
+-
+ static const struct drm_ioctl_desc exynos_ioctls[] = {
+ 	DRM_IOCTL_DEF_DRV(EXYNOS_GEM_CREATE, exynos_drm_gem_create_ioctl,
+ 			DRM_RENDER_ALLOW),
+@@ -124,16 +119,11 @@ static struct drm_driver exynos_drm_driver = {
+ 	.open			= exynos_drm_open,
+ 	.lastclose		= drm_fb_helper_lastclose,
+ 	.postclose		= exynos_drm_postclose,
+-	.gem_free_object_unlocked = exynos_drm_gem_free_object,
+-	.gem_vm_ops		= &exynos_drm_gem_vm_ops,
+ 	.dumb_create		= exynos_drm_gem_dumb_create,
+ 	.prime_handle_to_fd	= drm_gem_prime_handle_to_fd,
+ 	.prime_fd_to_handle	= drm_gem_prime_fd_to_handle,
+ 	.gem_prime_import	= exynos_drm_gem_prime_import,
+-	.gem_prime_get_sg_table	= exynos_drm_gem_prime_get_sg_table,
+ 	.gem_prime_import_sg_table	= exynos_drm_gem_prime_import_sg_table,
+-	.gem_prime_vmap		= exynos_drm_gem_prime_vmap,
+-	.gem_prime_vunmap	= exynos_drm_gem_prime_vunmap,
+ 	.gem_prime_mmap		= exynos_drm_gem_prime_mmap,
+ 	.ioctls			= exynos_ioctls,
+ 	.num_ioctls		= ARRAY_SIZE(exynos_ioctls),
+diff --git a/drivers/gpu/drm/exynos/exynos_drm_gem.c b/drivers/gpu/drm/exynos/exynos_drm_gem.c
+index 1716a023bca0..e7a6eb96f692 100644
+--- a/drivers/gpu/drm/exynos/exynos_drm_gem.c
++++ b/drivers/gpu/drm/exynos/exynos_drm_gem.c
+@@ -129,6 +129,19 @@ void exynos_drm_gem_destroy(struct exynos_drm_gem *exynos_gem)
+ 	kfree(exynos_gem);
+ }
+ 
++static const struct vm_operations_struct exynos_drm_gem_vm_ops = {
++	.open = drm_gem_vm_open,
++	.close = drm_gem_vm_close,
++};
++
++static const struct drm_gem_object_funcs exynos_drm_gem_object_funcs = {
++	.free = exynos_drm_gem_free_object,
++	.get_sg_table = exynos_drm_gem_prime_get_sg_table,
++	.vmap = exynos_drm_gem_prime_vmap,
++	.vunmap	= exynos_drm_gem_prime_vunmap,
++	.vm_ops = &exynos_drm_gem_vm_ops,
++};
++
+ static struct exynos_drm_gem *exynos_drm_gem_init(struct drm_device *dev,
+ 						  unsigned long size)
+ {
+@@ -143,6 +156,8 @@ static struct exynos_drm_gem *exynos_drm_gem_init(struct drm_device *dev,
+ 	exynos_gem->size = size;
+ 	obj = &exynos_gem->base;
+ 
++	obj->funcs = &exynos_drm_gem_object_funcs;
++
+ 	ret = drm_gem_object_init(dev, obj, size);
+ 	if (ret < 0) {
+ 		DRM_DEV_ERROR(dev->dev, "failed to initialize gem object\n");
+-- 
 2.28.0
 
 _______________________________________________
