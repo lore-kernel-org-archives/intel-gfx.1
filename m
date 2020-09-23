@@ -2,51 +2,68 @@ Return-Path: <SRS0=ky/+=DA=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6A04DC4741F
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Sep 2020 12:32:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 852C5C2D0A8
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Sep 2020 12:33:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1E17A2137B
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Sep 2020 12:32:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1E17A2137B
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
+	by mail.kernel.org (Postfix) with ESMTPS id 1EA89206F7
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Sep 2020 12:33:22 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="mQ42gd2D";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="ohpCeECC"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1EA89206F7
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linutronix.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A6436E9A7;
-	Wed, 23 Sep 2020 12:32:13 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D4AA6E99A;
- Wed, 23 Sep 2020 12:32:11 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 12910B120;
- Wed, 23 Sep 2020 12:32:47 +0000 (UTC)
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: sumit.semwal@linaro.org, christian.koenig@amd.com, afd@ti.com,
- corbet@lwn.net, benjamin.gaignard@linaro.org, lmark@codeaurora.org,
- labbott@redhat.com, Brian.Starkey@arm.com, john.stultz@linaro.org,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@linux.ie,
- daniel@ffwll.ch, l.stach@pengutronix.de, linux+etnaviv@armlinux.org.uk,
- christian.gmeiner@gmail.com, jani.nikula@linux.intel.com,
- joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
- thierry.reding@gmail.com, jonathanh@nvidia.com, pawel@osciak.com,
- m.szyprowski@samsung.com, kyungmin.park@samsung.com, tfiga@chromium.org,
- mchehab@kernel.org, matthew.auld@intel.com, robin.murphy@arm.com,
- thomas.hellstrom@intel.com, sam@ravnborg.org, kraxel@redhat.com
-Date: Wed, 23 Sep 2020 14:32:04 +0200
-Message-Id: <20200923123205.30671-3-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.28.0
-In-Reply-To: <20200923123205.30671-1-tzimmermann@suse.de>
-References: <20200923123205.30671-1-tzimmermann@suse.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8B2AC6E9A1;
+	Wed, 23 Sep 2020 12:33:21 +0000 (UTC)
+Received: from galois.linutronix.de (Galois.linutronix.de
+ [IPv6:2a0a:51c0:0:12e:550::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5120E6E9A1;
+ Wed, 23 Sep 2020 12:33:20 +0000 (UTC)
+From: Thomas Gleixner <tglx@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+ s=2020; t=1600864398;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=4zUEMW9wU+kwouVfGxKhtf6Di/IFhmYOqDGQKAREV8o=;
+ b=mQ42gd2DhQ/RG0jBtJb4meJN+5wV2pj9iVLxHpupYAkadW+bY5A7tLe5ML2OCxkUDyFcOz
+ 1ID+60xXG2OjXRxOxnGUclm3zYFaTcjPF9ahEeidyum940F7pRvQQ+6fARlpRL8arWBYw5
+ sXQ3YFT0QLJJsnhzzhPX5pkUAQdcb0r75msvmD5rVzIQdvYOpaNOYhzVgXEW9+SvrTpZ5S
+ VYlZevpT0pbNGk2c2vrUKV2OAsLRNBNh2/g0YkvfbfbDyed7rHhHQWMZYKtR79LU83j38G
+ 5r/WEDgX3y9hgl7i7P9JlU2XJG/6OaMoTDqwD5QZO9LvlKLV3P7ptN62EV3bIA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+ s=2020e; t=1600864398;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=4zUEMW9wU+kwouVfGxKhtf6Di/IFhmYOqDGQKAREV8o=;
+ b=ohpCeECCtFRlt7dpUmuCjEyhCy6FZxCGdV74xdJ5JgvLxUGaba5R+t2Tfw4DYzdeiW9o4A
+ 74IrdXtsMBTtycCw==
+To: peterz@infradead.org
+In-Reply-To: <20200923101953.GT2674@hirez.programming.kicks-ass.net>
+References: <20200919091751.011116649@linutronix.de>
+ <CAHk-=wiYGyrFRbA1cc71D2-nc5U9LM9jUJesXGqpPnB7E4X1YQ@mail.gmail.com>
+ <87mu1lc5mp.fsf@nanos.tec.linutronix.de>
+ <87k0wode9a.fsf@nanos.tec.linutronix.de>
+ <CAHk-=wgbmwsTOKs23Z=71EBTrULoeaH2U3TNqT2atHEWvkBKdw@mail.gmail.com>
+ <87eemwcpnq.fsf@nanos.tec.linutronix.de>
+ <CAHk-=wgF-upZVpqJWK=TK7MS9H-Rp1ZxGfOG+dDW=JThtxAzVQ@mail.gmail.com>
+ <87a6xjd1dw.fsf@nanos.tec.linutronix.de>
+ <CAHk-=wjhxzx3KHHOMvdDj3Aw-_Mk5eRiNTUBB=tFf=vTkw1FeA@mail.gmail.com>
+ <87sgbbaq0y.fsf@nanos.tec.linutronix.de>
+ <20200923101953.GT2674@hirez.programming.kicks-ass.net>
+Date: Wed, 23 Sep 2020 14:33:17 +0200
+Message-ID: <87sgb8ad0y.fsf@nanos.tec.linutronix.de>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v2 2/3] dma-buf: Use struct dma_buf_map in
- dma_buf_vmap() interfaces
+Subject: Re: [Intel-gfx] [patch RFC 00/15] mm/highmem: Provide a preemptible
+ variant of kmap_atomic & friends
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,600 +76,71 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-doc@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- etnaviv@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, Thomas Zimmermann <tzimmermann@suse.de>,
- linux-tegra@vger.kernel.org, linux-media@vger.kernel.org
+Cc: Juri Lelli <juri.lelli@redhat.com>, David Airlie <airlied@linux.ie>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ dri-devel <dri-devel@lists.freedesktop.org>, linux-mips@vger.kernel.org,
+ Ben Segall <bsegall@google.com>, Max Filippov <jcmvbkbc@gmail.com>,
+ Guo Ren <guoren@kernel.org>, linux-sparc <sparclinux@vger.kernel.org>,
+ Vincent Chen <deanbo422@gmail.com>, Will Deacon <will@kernel.org>,
+ Ard Biesheuvel <ardb@kernel.org>, linux-arch <linux-arch@vger.kernel.org>,
+ Herbert Xu <herbert@gondor.apana.org.au>,
+ Michael Ellerman <mpe@ellerman.id.au>,
+ the arch/x86 maintainers <x86@kernel.org>,
+ Russell King <linux@armlinux.org.uk>, linux-csky@vger.kernel.org,
+ Mel Gorman <mgorman@suse.de>,
+ "open list:SYNOPSYS ARC ARCHITECTURE" <linux-snps-arc@lists.infradead.org>,
+ linux-xtensa@linux-xtensa.org, Paul McKenney <paulmck@kernel.org>,
+ intel-gfx <intel-gfx@lists.freedesktop.org>,
+ linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
+ Steven Rostedt <rostedt@goodmis.org>,
+ Dietmar Eggemann <dietmar.eggemann@arm.com>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>,
+ Chris Zankel <chris@zankel.net>, Michal Simek <monstr@monstr.eu>,
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ Nick Hu <nickhu@andestech.com>, Linux-MM <linux-mm@kvack.org>,
+ Linus Torvalds <torvalds@linux-foundation.org>,
+ LKML <linux-kernel@vger.kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+ Vineet Gupta <vgupta@synopsys.com>, Paul Mackerras <paulus@samba.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Daniel Bristot de Oliveira <bristot@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, Greentime Hu <green.hu@gmail.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This patch updates dma_buf_vmap() and dma-buf's vmap callback to use
-struct dma_buf_map.
+On Wed, Sep 23 2020 at 12:19, peterz wrote:
+> On Mon, Sep 21, 2020 at 09:27:57PM +0200, Thomas Gleixner wrote:
+>> Alternatively this could of course be solved with per CPU page tables
+>> which will come around some day anyway I fear.
+>
+> Previously (with PTI) we looked at making the entire kernel map per-CPU,
+> and that takes a 2K copy on switch_mm() (or more general, the user part
+> of whatever the top level directory is for architectures that have a
+> shared kernel/user page-table setup in the first place).
+>
+> The idea was having a fixed per-cpu kernel page-table, share a bunch of
+> (kernel) page-tables between all CPUs and then copy in the user part on
+> switch.
+>
+> I've forgotten what the plan was for ASID/PCID in that scheme.
+>
+> For x86_64 we've been fearing the performance of that 2k copy, but I
+> don't think we've ever actually bit the bullet and implemented it to see
+> how bad it really is.
 
-The interfaces used to return a buffer address. This address now gets
-stored in an instance of the structure that is given as an additional
-argument. The functions return an errno code on errors.
+I actually did at some point and depending on the workload the overhead
+was clearly measurable. And yes, it fell apart with PCID and I could not
+come up with a scheme for it which did not suck horribly. So I burried
+the patches in the poison cabinet.
 
-Users of the functions are updated accordingly. This is only an interface
-change. It is currently expected that dma-buf memory can be accessed with
-system memory load/store operations.
+Aside of that, we'd need to implement that for a eight other
+architectures as well...
 
-v2:
-	* always clear map parameter in dma_buf_vmap() (Daniel)
-	* include dma-buf-heaps and i915 selftests (kernel test robot)
+Thanks,
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Acked-by: Sumit Semwal <sumit.semwal@linaro.org>
----
- drivers/dma-buf/dma-buf.c                     | 28 +++++++++++--------
- drivers/dma-buf/heaps/heap-helpers.c          |  8 ++++--
- drivers/gpu/drm/drm_gem_cma_helper.c          | 13 +++++----
- drivers/gpu/drm/drm_gem_shmem_helper.c        | 14 ++++++----
- drivers/gpu/drm/drm_prime.c                   |  8 ++++--
- drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c   |  8 +++++-
- drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c    | 11 ++++++--
- .../drm/i915/gem/selftests/i915_gem_dmabuf.c  | 12 ++++++--
- .../gpu/drm/i915/gem/selftests/mock_dmabuf.c  | 10 +++++--
- drivers/gpu/drm/tegra/gem.c                   | 18 ++++++++----
- .../common/videobuf2/videobuf2-dma-contig.c   | 14 +++++++---
- .../media/common/videobuf2/videobuf2-dma-sg.c | 16 +++++++----
- .../common/videobuf2/videobuf2-vmalloc.c      | 15 +++++++---
- include/drm/drm_prime.h                       |  3 +-
- include/linux/dma-buf-map.h                   | 13 +++++++++
- include/linux/dma-buf.h                       |  6 ++--
- 16 files changed, 138 insertions(+), 59 deletions(-)
-
-diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-index 5e849ca241a0..61bd24d21b38 100644
---- a/drivers/dma-buf/dma-buf.c
-+++ b/drivers/dma-buf/dma-buf.c
-@@ -1186,46 +1186,50 @@ EXPORT_SYMBOL_GPL(dma_buf_mmap);
-  * dma_buf_vmap - Create virtual mapping for the buffer object into kernel
-  * address space. Same restrictions as for vmap and friends apply.
-  * @dmabuf:	[in]	buffer to vmap
-+ * @map:	[out]	returns the vmap pointer
-  *
-  * This call may fail due to lack of virtual mapping address space.
-  * These calls are optional in drivers. The intended use for them
-  * is for mapping objects linear in kernel space for high use objects.
-  * Please attempt to use kmap/kunmap before thinking about these interfaces.
-  *
-- * Returns NULL on error.
-+ * Returns 0 on success, or a negative errno code otherwise.
-  */
--void *dma_buf_vmap(struct dma_buf *dmabuf)
-+int dma_buf_vmap(struct dma_buf *dmabuf, struct dma_buf_map *map)
- {
--	void *ptr;
-+	struct dma_buf_map ptr;
-+	int ret = 0;
-+
-+	dma_buf_map_clear(map);
- 
- 	if (WARN_ON(!dmabuf))
--		return NULL;
-+		return -EINVAL;
- 
- 	if (!dmabuf->ops->vmap)
--		return NULL;
-+		return -EINVAL;
- 
- 	mutex_lock(&dmabuf->lock);
- 	if (dmabuf->vmapping_counter) {
- 		dmabuf->vmapping_counter++;
- 		BUG_ON(dma_buf_map_is_null(&dmabuf->vmap_ptr));
--		ptr = dmabuf->vmap_ptr.vaddr;
-+		*map = dmabuf->vmap_ptr;
- 		goto out_unlock;
- 	}
- 
- 	BUG_ON(dma_buf_map_is_set(&dmabuf->vmap_ptr));
- 
--	ptr = dmabuf->ops->vmap(dmabuf);
--	if (WARN_ON_ONCE(IS_ERR(ptr)))
--		ptr = NULL;
--	if (!ptr)
-+	ret = dmabuf->ops->vmap(dmabuf, &ptr);
-+	if (WARN_ON_ONCE(ret))
- 		goto out_unlock;
- 
--	dmabuf->vmap_ptr.vaddr = ptr;
-+	dmabuf->vmap_ptr = ptr;
- 	dmabuf->vmapping_counter = 1;
- 
-+	*map = dmabuf->vmap_ptr;
-+
- out_unlock:
- 	mutex_unlock(&dmabuf->lock);
--	return ptr;
-+	return ret;
- }
- EXPORT_SYMBOL_GPL(dma_buf_vmap);
- 
-diff --git a/drivers/dma-buf/heaps/heap-helpers.c b/drivers/dma-buf/heaps/heap-helpers.c
-index d0696cf937af..aeb9e100f339 100644
---- a/drivers/dma-buf/heaps/heap-helpers.c
-+++ b/drivers/dma-buf/heaps/heap-helpers.c
-@@ -235,7 +235,7 @@ static int dma_heap_dma_buf_end_cpu_access(struct dma_buf *dmabuf,
- 	return 0;
- }
- 
--static void *dma_heap_dma_buf_vmap(struct dma_buf *dmabuf)
-+static int dma_heap_dma_buf_vmap(struct dma_buf *dmabuf, struct dma_buf_map *map)
- {
- 	struct heap_helper_buffer *buffer = dmabuf->priv;
- 	void *vaddr;
-@@ -244,7 +244,11 @@ static void *dma_heap_dma_buf_vmap(struct dma_buf *dmabuf)
- 	vaddr = dma_heap_buffer_vmap_get(buffer);
- 	mutex_unlock(&buffer->lock);
- 
--	return vaddr;
-+	if (!vaddr)
-+		return -ENOMEM;
-+	dma_buf_map_set_vaddr(map, vaddr);
-+
-+	return 0;
- }
- 
- static void dma_heap_dma_buf_vunmap(struct dma_buf *dmabuf, void *vaddr)
-diff --git a/drivers/gpu/drm/drm_gem_cma_helper.c b/drivers/gpu/drm/drm_gem_cma_helper.c
-index 59b9ca207b42..1ece73fd3fe9 100644
---- a/drivers/gpu/drm/drm_gem_cma_helper.c
-+++ b/drivers/gpu/drm/drm_gem_cma_helper.c
-@@ -617,22 +617,23 @@ drm_gem_cma_prime_import_sg_table_vmap(struct drm_device *dev,
- {
- 	struct drm_gem_cma_object *cma_obj;
- 	struct drm_gem_object *obj;
--	void *vaddr;
-+	struct dma_buf_map map;
-+	int ret;
- 
--	vaddr = dma_buf_vmap(attach->dmabuf);
--	if (!vaddr) {
-+	ret = dma_buf_vmap(attach->dmabuf, &map);
-+	if (ret) {
- 		DRM_ERROR("Failed to vmap PRIME buffer\n");
--		return ERR_PTR(-ENOMEM);
-+		return ERR_PTR(ret);
- 	}
- 
- 	obj = drm_gem_cma_prime_import_sg_table(dev, attach, sgt);
- 	if (IS_ERR(obj)) {
--		dma_buf_vunmap(attach->dmabuf, vaddr);
-+		dma_buf_vunmap(attach->dmabuf, map.vaddr);
- 		return obj;
- 	}
- 
- 	cma_obj = to_drm_gem_cma_obj(obj);
--	cma_obj->vaddr = vaddr;
-+	cma_obj->vaddr = map.vaddr;
- 
- 	return obj;
- }
-diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
-index d77c9f8ff26c..6328cfbb828e 100644
---- a/drivers/gpu/drm/drm_gem_shmem_helper.c
-+++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
-@@ -261,13 +261,16 @@ EXPORT_SYMBOL(drm_gem_shmem_unpin);
- static void *drm_gem_shmem_vmap_locked(struct drm_gem_shmem_object *shmem)
- {
- 	struct drm_gem_object *obj = &shmem->base;
--	int ret;
-+	struct dma_buf_map map;
-+	int ret = 0;
- 
- 	if (shmem->vmap_use_count++ > 0)
- 		return shmem->vaddr;
- 
- 	if (obj->import_attach) {
--		shmem->vaddr = dma_buf_vmap(obj->import_attach->dmabuf);
-+		ret = dma_buf_vmap(obj->import_attach->dmabuf, &map);
-+		if (!ret)
-+			shmem->vaddr = map.vaddr;
- 	} else {
- 		pgprot_t prot = PAGE_KERNEL;
- 
-@@ -279,11 +282,12 @@ static void *drm_gem_shmem_vmap_locked(struct drm_gem_shmem_object *shmem)
- 			prot = pgprot_writecombine(prot);
- 		shmem->vaddr = vmap(shmem->pages, obj->size >> PAGE_SHIFT,
- 				    VM_MAP, prot);
-+		if (!shmem->vaddr)
-+			ret = -ENOMEM;
- 	}
- 
--	if (!shmem->vaddr) {
--		DRM_DEBUG_KMS("Failed to vmap pages\n");
--		ret = -ENOMEM;
-+	if (ret) {
-+		DRM_DEBUG_KMS("Failed to vmap pages, error %d\n", ret);
- 		goto err_put_pages;
- 	}
- 
-diff --git a/drivers/gpu/drm/drm_prime.c b/drivers/gpu/drm/drm_prime.c
-index 11fe9ff76fd5..2b3fd01867e4 100644
---- a/drivers/gpu/drm/drm_prime.c
-+++ b/drivers/gpu/drm/drm_prime.c
-@@ -669,16 +669,18 @@ EXPORT_SYMBOL(drm_gem_unmap_dma_buf);
-  *
-  * Returns the kernel virtual address or NULL on failure.
-  */
--void *drm_gem_dmabuf_vmap(struct dma_buf *dma_buf)
-+int drm_gem_dmabuf_vmap(struct dma_buf *dma_buf, struct dma_buf_map *map)
- {
- 	struct drm_gem_object *obj = dma_buf->priv;
- 	void *vaddr;
- 
- 	vaddr = drm_gem_vmap(obj);
- 	if (IS_ERR(vaddr))
--		vaddr = NULL;
-+		return PTR_ERR(vaddr);
- 
--	return vaddr;
-+	dma_buf_map_set_vaddr(map, vaddr);
-+
-+	return 0;
- }
- EXPORT_SYMBOL(drm_gem_dmabuf_vmap);
- 
-diff --git a/drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c b/drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c
-index 4aa3426a9ba4..80a9fc143bbb 100644
---- a/drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c
-+++ b/drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c
-@@ -85,9 +85,15 @@ static void etnaviv_gem_prime_release(struct etnaviv_gem_object *etnaviv_obj)
- 
- static void *etnaviv_gem_prime_vmap_impl(struct etnaviv_gem_object *etnaviv_obj)
- {
-+	struct dma_buf_map map;
-+	int ret;
-+
- 	lockdep_assert_held(&etnaviv_obj->lock);
- 
--	return dma_buf_vmap(etnaviv_obj->base.import_attach->dmabuf);
-+	ret = dma_buf_vmap(etnaviv_obj->base.import_attach->dmabuf, &map);
-+	if (ret)
-+		return NULL;
-+	return map.vaddr;
- }
- 
- static int etnaviv_gem_prime_mmap_obj(struct etnaviv_gem_object *etnaviv_obj,
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c b/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
-index 8dd295dbe241..6ee8f2cfd8c1 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
-@@ -77,11 +77,18 @@ static void i915_gem_unmap_dma_buf(struct dma_buf_attachment *attachment,
- 	i915_gem_object_unpin_pages(obj);
- }
- 
--static void *i915_gem_dmabuf_vmap(struct dma_buf *dma_buf)
-+static int i915_gem_dmabuf_vmap(struct dma_buf *dma_buf, struct dma_buf_map *map)
- {
- 	struct drm_i915_gem_object *obj = dma_buf_to_obj(dma_buf);
-+	void *vaddr;
- 
--	return i915_gem_object_pin_map(obj, I915_MAP_WB);
-+	vaddr = i915_gem_object_pin_map(obj, I915_MAP_WB);
-+	if (IS_ERR(vaddr))
-+		return PTR_ERR(vaddr);
-+
-+	dma_buf_map_set_vaddr(map, vaddr);
-+
-+	return 0;
- }
- 
- static void i915_gem_dmabuf_vunmap(struct dma_buf *dma_buf, void *vaddr)
-diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c
-index 2a52b92586b9..f79ebc5329b7 100644
---- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c
-+++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c
-@@ -82,6 +82,7 @@ static int igt_dmabuf_import(void *arg)
- 	struct drm_i915_gem_object *obj;
- 	struct dma_buf *dmabuf;
- 	void *obj_map, *dma_map;
-+	struct dma_buf_map map;
- 	u32 pattern[] = { 0, 0xaa, 0xcc, 0x55, 0xff };
- 	int err, i;
- 
-@@ -110,7 +111,8 @@ static int igt_dmabuf_import(void *arg)
- 		goto out_obj;
- 	}
- 
--	dma_map = dma_buf_vmap(dmabuf);
-+	err = dma_buf_vmap(dmabuf, &map);
-+	dma_map = err ? NULL : map.vaddr;
- 	if (!dma_map) {
- 		pr_err("dma_buf_vmap failed\n");
- 		err = -ENOMEM;
-@@ -163,6 +165,7 @@ static int igt_dmabuf_import_ownership(void *arg)
- 	struct drm_i915_private *i915 = arg;
- 	struct drm_i915_gem_object *obj;
- 	struct dma_buf *dmabuf;
-+	struct dma_buf_map map;
- 	void *ptr;
- 	int err;
- 
-@@ -170,7 +173,8 @@ static int igt_dmabuf_import_ownership(void *arg)
- 	if (IS_ERR(dmabuf))
- 		return PTR_ERR(dmabuf);
- 
--	ptr = dma_buf_vmap(dmabuf);
-+	err = dma_buf_vmap(dmabuf, &map);
-+	ptr = err ? NULL : map.vaddr;
- 	if (!ptr) {
- 		pr_err("dma_buf_vmap failed\n");
- 		err = -ENOMEM;
-@@ -212,6 +216,7 @@ static int igt_dmabuf_export_vmap(void *arg)
- 	struct drm_i915_private *i915 = arg;
- 	struct drm_i915_gem_object *obj;
- 	struct dma_buf *dmabuf;
-+	struct dma_buf_map map;
- 	void *ptr;
- 	int err;
- 
-@@ -228,7 +233,8 @@ static int igt_dmabuf_export_vmap(void *arg)
- 	}
- 	i915_gem_object_put(obj);
- 
--	ptr = dma_buf_vmap(dmabuf);
-+	err = dma_buf_vmap(dmabuf, &map);
-+	ptr = err ? NULL : map.vaddr;
- 	if (!ptr) {
- 		pr_err("dma_buf_vmap failed\n");
- 		err = -ENOMEM;
-diff --git a/drivers/gpu/drm/i915/gem/selftests/mock_dmabuf.c b/drivers/gpu/drm/i915/gem/selftests/mock_dmabuf.c
-index be30b27e2926..becd9fb95d58 100644
---- a/drivers/gpu/drm/i915/gem/selftests/mock_dmabuf.c
-+++ b/drivers/gpu/drm/i915/gem/selftests/mock_dmabuf.c
-@@ -61,11 +61,17 @@ static void mock_dmabuf_release(struct dma_buf *dma_buf)
- 	kfree(mock);
- }
- 
--static void *mock_dmabuf_vmap(struct dma_buf *dma_buf)
-+static int mock_dmabuf_vmap(struct dma_buf *dma_buf, struct dma_buf_map *map)
- {
- 	struct mock_dmabuf *mock = to_mock(dma_buf);
-+	void *vaddr;
- 
--	return vm_map_ram(mock->pages, mock->npages, 0);
-+	vaddr = vm_map_ram(mock->pages, mock->npages, 0);
-+	if (!vaddr)
-+		return -ENOMEM;
-+	dma_buf_map_set_vaddr(map, vaddr);
-+
-+	return 0;
- }
- 
- static void mock_dmabuf_vunmap(struct dma_buf *dma_buf, void *vaddr)
-diff --git a/drivers/gpu/drm/tegra/gem.c b/drivers/gpu/drm/tegra/gem.c
-index a2bac20ff19d..6f04d7855f95 100644
---- a/drivers/gpu/drm/tegra/gem.c
-+++ b/drivers/gpu/drm/tegra/gem.c
-@@ -132,14 +132,18 @@ static void tegra_bo_unpin(struct device *dev, struct sg_table *sgt)
- static void *tegra_bo_mmap(struct host1x_bo *bo)
- {
- 	struct tegra_bo *obj = host1x_to_tegra_bo(bo);
-+	struct dma_buf_map map;
-+	int ret;
- 
--	if (obj->vaddr)
-+	if (obj->vaddr) {
- 		return obj->vaddr;
--	else if (obj->gem.import_attach)
--		return dma_buf_vmap(obj->gem.import_attach->dmabuf);
--	else
-+	} else if (obj->gem.import_attach) {
-+		ret = dma_buf_vmap(obj->gem.import_attach->dmabuf, &map);
-+		return ret ? NULL : map.vaddr;
-+	} else {
- 		return vmap(obj->pages, obj->num_pages, VM_MAP,
- 			    pgprot_writecombine(PAGE_KERNEL));
-+	}
- }
- 
- static void tegra_bo_munmap(struct host1x_bo *bo, void *addr)
-@@ -634,12 +638,14 @@ static int tegra_gem_prime_mmap(struct dma_buf *buf, struct vm_area_struct *vma)
- 	return __tegra_gem_mmap(gem, vma);
- }
- 
--static void *tegra_gem_prime_vmap(struct dma_buf *buf)
-+static int tegra_gem_prime_vmap(struct dma_buf *buf, struct dma_buf_map *map)
- {
- 	struct drm_gem_object *gem = buf->priv;
- 	struct tegra_bo *bo = to_tegra_bo(gem);
- 
--	return bo->vaddr;
-+	dma_buf_map_set_vaddr(map, bo->vaddr);
-+
-+	return 0;
- }
- 
- static void tegra_gem_prime_vunmap(struct dma_buf *buf, void *vaddr)
-diff --git a/drivers/media/common/videobuf2/videobuf2-dma-contig.c b/drivers/media/common/videobuf2/videobuf2-dma-contig.c
-index ec3446cc45b8..11428287bdf3 100644
---- a/drivers/media/common/videobuf2/videobuf2-dma-contig.c
-+++ b/drivers/media/common/videobuf2/videobuf2-dma-contig.c
-@@ -81,9 +81,13 @@ static void *vb2_dc_cookie(void *buf_priv)
- static void *vb2_dc_vaddr(void *buf_priv)
- {
- 	struct vb2_dc_buf *buf = buf_priv;
-+	struct dma_buf_map map;
-+	int ret;
- 
--	if (!buf->vaddr && buf->db_attach)
--		buf->vaddr = dma_buf_vmap(buf->db_attach->dmabuf);
-+	if (!buf->vaddr && buf->db_attach) {
-+		ret = dma_buf_vmap(buf->db_attach->dmabuf, &map);
-+		buf->vaddr = ret ? NULL : map.vaddr;
-+	}
- 
- 	return buf->vaddr;
- }
-@@ -365,11 +369,13 @@ vb2_dc_dmabuf_ops_end_cpu_access(struct dma_buf *dbuf,
- 	return 0;
- }
- 
--static void *vb2_dc_dmabuf_ops_vmap(struct dma_buf *dbuf)
-+static int vb2_dc_dmabuf_ops_vmap(struct dma_buf *dbuf, struct dma_buf_map *map)
- {
- 	struct vb2_dc_buf *buf = dbuf->priv;
- 
--	return buf->vaddr;
-+	dma_buf_map_set_vaddr(map, buf->vaddr);
-+
-+	return 0;
- }
- 
- static int vb2_dc_dmabuf_ops_mmap(struct dma_buf *dbuf,
-diff --git a/drivers/media/common/videobuf2/videobuf2-dma-sg.c b/drivers/media/common/videobuf2/videobuf2-dma-sg.c
-index 0a40e00f0d7e..c51170e9c1b9 100644
---- a/drivers/media/common/videobuf2/videobuf2-dma-sg.c
-+++ b/drivers/media/common/videobuf2/videobuf2-dma-sg.c
-@@ -300,14 +300,18 @@ static void vb2_dma_sg_put_userptr(void *buf_priv)
- static void *vb2_dma_sg_vaddr(void *buf_priv)
- {
- 	struct vb2_dma_sg_buf *buf = buf_priv;
-+	struct dma_buf_map map;
-+	int ret;
- 
- 	BUG_ON(!buf);
- 
- 	if (!buf->vaddr) {
--		if (buf->db_attach)
--			buf->vaddr = dma_buf_vmap(buf->db_attach->dmabuf);
--		else
-+		if (buf->db_attach) {
-+			ret = dma_buf_vmap(buf->db_attach->dmabuf, &map);
-+			buf->vaddr = ret ? NULL : map.vaddr;
-+		} else {
- 			buf->vaddr = vm_map_ram(buf->pages, buf->num_pages, -1);
-+		}
- 	}
- 
- 	/* add offset in case userptr is not page-aligned */
-@@ -489,11 +493,13 @@ vb2_dma_sg_dmabuf_ops_end_cpu_access(struct dma_buf *dbuf,
- 	return 0;
- }
- 
--static void *vb2_dma_sg_dmabuf_ops_vmap(struct dma_buf *dbuf)
-+static int vb2_dma_sg_dmabuf_ops_vmap(struct dma_buf *dbuf, struct dma_buf_map *map)
- {
- 	struct vb2_dma_sg_buf *buf = dbuf->priv;
- 
--	return vb2_dma_sg_vaddr(buf);
-+	dma_buf_map_set_vaddr(map, buf->vaddr);
-+
-+	return 0;
- }
- 
- static int vb2_dma_sg_dmabuf_ops_mmap(struct dma_buf *dbuf,
-diff --git a/drivers/media/common/videobuf2/videobuf2-vmalloc.c b/drivers/media/common/videobuf2/videobuf2-vmalloc.c
-index c66fda4a65e4..7b68e2379c65 100644
---- a/drivers/media/common/videobuf2/videobuf2-vmalloc.c
-+++ b/drivers/media/common/videobuf2/videobuf2-vmalloc.c
-@@ -318,11 +318,13 @@ static void vb2_vmalloc_dmabuf_ops_release(struct dma_buf *dbuf)
- 	vb2_vmalloc_put(dbuf->priv);
- }
- 
--static void *vb2_vmalloc_dmabuf_ops_vmap(struct dma_buf *dbuf)
-+static int vb2_vmalloc_dmabuf_ops_vmap(struct dma_buf *dbuf, struct dma_buf_map *map)
- {
- 	struct vb2_vmalloc_buf *buf = dbuf->priv;
- 
--	return buf->vaddr;
-+	dma_buf_map_set_vaddr(map, buf->vaddr);
-+
-+	return 0;
- }
- 
- static int vb2_vmalloc_dmabuf_ops_mmap(struct dma_buf *dbuf,
-@@ -374,10 +376,15 @@ static struct dma_buf *vb2_vmalloc_get_dmabuf(void *buf_priv, unsigned long flag
- static int vb2_vmalloc_map_dmabuf(void *mem_priv)
- {
- 	struct vb2_vmalloc_buf *buf = mem_priv;
-+	struct dma_buf_map map;
-+	int ret;
- 
--	buf->vaddr = dma_buf_vmap(buf->dbuf);
-+	ret = dma_buf_vmap(buf->dbuf, &map);
-+	if (ret)
-+		return -EFAULT;
-+	buf->vaddr = map.vaddr;
- 
--	return buf->vaddr ? 0 : -EFAULT;
-+	return 0;
- }
- 
- static void vb2_vmalloc_unmap_dmabuf(void *mem_priv)
-diff --git a/include/drm/drm_prime.h b/include/drm/drm_prime.h
-index 0f69f9fbf12c..5125f84c28f6 100644
---- a/include/drm/drm_prime.h
-+++ b/include/drm/drm_prime.h
-@@ -54,6 +54,7 @@ struct device;
- struct dma_buf_export_info;
- struct dma_buf;
- struct dma_buf_attachment;
-+struct dma_buf_map;
- 
- enum dma_data_direction;
- 
-@@ -82,7 +83,7 @@ struct sg_table *drm_gem_map_dma_buf(struct dma_buf_attachment *attach,
- void drm_gem_unmap_dma_buf(struct dma_buf_attachment *attach,
- 			   struct sg_table *sgt,
- 			   enum dma_data_direction dir);
--void *drm_gem_dmabuf_vmap(struct dma_buf *dma_buf);
-+int drm_gem_dmabuf_vmap(struct dma_buf *dma_buf, struct dma_buf_map *map);
- void drm_gem_dmabuf_vunmap(struct dma_buf *dma_buf, void *vaddr);
- 
- int drm_gem_prime_mmap(struct drm_gem_object *obj, struct vm_area_struct *vma);
-diff --git a/include/linux/dma-buf-map.h b/include/linux/dma-buf-map.h
-index d4b1bb3cc4b0..6b4f6e0e8b5d 100644
---- a/include/linux/dma-buf-map.h
-+++ b/include/linux/dma-buf-map.h
-@@ -28,6 +28,19 @@ struct dma_buf_map {
- 	bool is_iomem;
- };
- 
-+/**
-+ * dma_buf_map_set_vaddr - Sets a dma-buf mapping structure to an address in system memory
-+ * @map:	The dma-buf mapping structure
-+ * @vaddr:	A system-memory address
-+ *
-+ * Sets the address and clears the I/O-memory flag.
-+ */
-+static inline void dma_buf_map_set_vaddr(struct dma_buf_map *map, void *vaddr)
-+{
-+	map->vaddr = vaddr;
-+	map->is_iomem = false;
-+}
-+
- /* API transition helper */
- static inline bool dma_buf_map_is_vaddr(const struct dma_buf_map *map, const void *vaddr)
- {
-diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
-index fcc2ddfb6d18..7237997cfa38 100644
---- a/include/linux/dma-buf.h
-+++ b/include/linux/dma-buf.h
-@@ -266,7 +266,7 @@ struct dma_buf_ops {
- 	 */
- 	int (*mmap)(struct dma_buf *, struct vm_area_struct *vma);
- 
--	void *(*vmap)(struct dma_buf *);
-+	int (*vmap)(struct dma_buf *dmabuf, struct dma_buf_map *map);
- 	void (*vunmap)(struct dma_buf *, void *vaddr);
- };
- 
-@@ -503,6 +503,6 @@ int dma_buf_end_cpu_access(struct dma_buf *dma_buf,
- 
- int dma_buf_mmap(struct dma_buf *, struct vm_area_struct *,
- 		 unsigned long);
--void *dma_buf_vmap(struct dma_buf *);
--void dma_buf_vunmap(struct dma_buf *, void *vaddr);
-+int dma_buf_vmap(struct dma_buf *dmabuf, struct dma_buf_map *map);
-+void dma_buf_vunmap(struct dma_buf *dmabuf, void *vaddr);
- #endif /* __DMA_BUF_H__ */
--- 
-2.28.0
+        tglx
 
 _______________________________________________
 Intel-gfx mailing list
