@@ -2,70 +2,63 @@ Return-Path: <SRS0=ky/+=DA=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DAAC1C2D0A8
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Sep 2020 10:21:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 12F24C47432
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Sep 2020 10:22:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7317B20C09
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Sep 2020 10:21:05 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="pNi62cLp"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7317B20C09
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org
+	by mail.kernel.org (Postfix) with ESMTPS id BE2E82145D
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Sep 2020 10:22:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BE2E82145D
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C27216E911;
-	Wed, 23 Sep 2020 10:21:04 +0000 (UTC)
-Received: from casper.infradead.org (casper.infradead.org
- [IPv6:2001:8b0:10b:1236::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E3226E911;
- Wed, 23 Sep 2020 10:21:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=O4A3QRP4HEH7pkY19EFh0K5o5RX6GGVTm9jhhlkiNIA=; b=pNi62cLpz5Zta9gkWwEt4lfxLS
- MvhJOB6wShDmzS61MUaHO4PpqjGN9Sm/CRsoDDzFeOKdB1AsXqzPU0+ObaxataHs7GirJ6ZZrNA29
- JPWLW2cWAsjQWQbdxWBW0dcBjYBOhFdcukcR730OctenEgtMdnxXFf2H16Xmyh8kGL1vudzudnTWS
- vgNOihiXykvGZ4JuqnJtzxEEw21LcbXj/0WRtpi2vf37zyqZKGgA0xHxtS+lCluMZDHojS7jgks+j
- aId3Dnzk0AyXRqRRmekuY3B5xhsSuZTtpZucjls9NPVPsQXWrpdBaC7TpOBBrZeOKsQtIyaebVCjb
- X6rPNsiw==;
-Received: from j217100.upc-j.chello.nl ([24.132.217.100]
- helo=noisy.programming.kicks-ass.net)
- by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1kL1sU-00033a-DF; Wed, 23 Sep 2020 10:19:58 +0000
-Received: from hirez.programming.kicks-ass.net
- (hirez.programming.kicks-ass.net [192.168.1.225])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (Client did not present a certificate)
- by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id 0EA94301124;
- Wed, 23 Sep 2020 12:19:54 +0200 (CEST)
-Received: by hirez.programming.kicks-ass.net (Postfix, from userid 1000)
- id E35462B79EDA9; Wed, 23 Sep 2020 12:19:53 +0200 (CEST)
-Date: Wed, 23 Sep 2020 12:19:53 +0200
-From: peterz@infradead.org
-To: Thomas Gleixner <tglx@linutronix.de>
-Message-ID: <20200923101953.GT2674@hirez.programming.kicks-ass.net>
-References: <20200919091751.011116649@linutronix.de>
- <CAHk-=wiYGyrFRbA1cc71D2-nc5U9LM9jUJesXGqpPnB7E4X1YQ@mail.gmail.com>
- <87mu1lc5mp.fsf@nanos.tec.linutronix.de>
- <87k0wode9a.fsf@nanos.tec.linutronix.de>
- <CAHk-=wgbmwsTOKs23Z=71EBTrULoeaH2U3TNqT2atHEWvkBKdw@mail.gmail.com>
- <87eemwcpnq.fsf@nanos.tec.linutronix.de>
- <CAHk-=wgF-upZVpqJWK=TK7MS9H-Rp1ZxGfOG+dDW=JThtxAzVQ@mail.gmail.com>
- <87a6xjd1dw.fsf@nanos.tec.linutronix.de>
- <CAHk-=wjhxzx3KHHOMvdDj3Aw-_Mk5eRiNTUBB=tFf=vTkw1FeA@mail.gmail.com>
- <87sgbbaq0y.fsf@nanos.tec.linutronix.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0DCDF6E91F;
+	Wed, 23 Sep 2020 10:22:06 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 546506E919;
+ Wed, 23 Sep 2020 10:22:04 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id AECA9B279;
+ Wed, 23 Sep 2020 10:22:39 +0000 (UTC)
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@linux.ie,
+ daniel@ffwll.ch, linux@armlinux.org.uk, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, l.stach@pengutronix.de, christian.gmeiner@gmail.com,
+ inki.dae@samsung.com, jy0922.shim@samsung.com, sw0312.kim@samsung.com,
+ kyungmin.park@samsung.com, kgene@kernel.org, krzk@kernel.org,
+ patrik.r.jakobsson@gmail.com, jani.nikula@linux.intel.com,
+ joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
+ chunkuang.hu@kernel.org, p.zabel@pengutronix.de, matthias.bgg@gmail.com,
+ robdclark@gmail.com, sean@poorly.run, bskeggs@redhat.com,
+ tomi.valkeinen@ti.com, eric@anholt.net, hjc@rock-chips.com,
+ heiko@sntech.de, thierry.reding@gmail.com, jonathanh@nvidia.com,
+ rodrigosiqueiramelo@gmail.com, hamohammed.sa@gmail.com,
+ oleksandr_andrushchenko@epam.com, hyun.kwon@xilinx.com,
+ laurent.pinchart@ideasonboard.com, michal.simek@xilinx.com,
+ sumit.semwal@linaro.org, evan.quan@amd.com, Hawking.Zhang@amd.com,
+ tianci.yin@amd.com, marek.olsak@amd.com, hdegoede@redhat.com,
+ andrey.grodzovsky@amd.com, Felix.Kuehling@amd.com, xinhui.pan@amd.com,
+ aaron.liu@amd.com, nirmoy.das@amd.com, chris@chris-wilson.co.uk,
+ matthew.auld@intel.com, tvrtko.ursulin@linux.intel.com,
+ andi.shyti@intel.com, sam@ravnborg.org, miaoqinglang@huawei.com,
+ emil.velikov@collabora.com, laurentiu.palcu@oss.nxp.com,
+ shawnguo@kernel.org, s.hauer@pengutronix.de, kernel@pengutronix.de,
+ festevam@gmail.com, linux-imx@nxp.com
+Date: Wed, 23 Sep 2020 12:21:38 +0200
+Message-Id: <20200923102159.24084-2-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.28.0
+In-Reply-To: <20200923102159.24084-1-tzimmermann@suse.de>
+References: <20200923102159.24084-1-tzimmermann@suse.de>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <87sgbbaq0y.fsf@nanos.tec.linutronix.de>
-Subject: Re: [Intel-gfx] [patch RFC 00/15] mm/highmem: Provide a preemptible
- variant of kmap_atomic & friends
+Subject: [Intel-gfx] [PATCH v3 01/22] drm/amdgpu: Introduce GEM object
+ functions
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,59 +71,99 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Juri Lelli <juri.lelli@redhat.com>, David Airlie <airlied@linux.ie>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- dri-devel <dri-devel@lists.freedesktop.org>, linux-mips@vger.kernel.org,
- Ben Segall <bsegall@google.com>, Max Filippov <jcmvbkbc@gmail.com>,
- Guo Ren <guoren@kernel.org>, linux-sparc <sparclinux@vger.kernel.org>,
- Vincent Chen <deanbo422@gmail.com>, Will Deacon <will@kernel.org>,
- Ard Biesheuvel <ardb@kernel.org>, linux-arch <linux-arch@vger.kernel.org>,
- Herbert Xu <herbert@gondor.apana.org.au>,
- Michael Ellerman <mpe@ellerman.id.au>,
- the arch/x86 maintainers <x86@kernel.org>,
- Russell King <linux@armlinux.org.uk>, linux-csky@vger.kernel.org,
- Mel Gorman <mgorman@suse.de>,
- "open list:SYNOPSYS ARC ARCHITECTURE" <linux-snps-arc@lists.infradead.org>,
- linux-xtensa@linux-xtensa.org, Paul McKenney <paulmck@kernel.org>,
- intel-gfx <intel-gfx@lists.freedesktop.org>,
- linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
- Steven Rostedt <rostedt@goodmis.org>,
- Dietmar Eggemann <dietmar.eggemann@arm.com>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>,
- Chris Zankel <chris@zankel.net>, Michal Simek <monstr@monstr.eu>,
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
- Nick Hu <nickhu@andestech.com>, Linux-MM <linux-mm@kvack.org>,
- Linus Torvalds <torvalds@linux-foundation.org>,
- LKML <linux-kernel@vger.kernel.org>, Arnd Bergmann <arnd@arndb.de>,
- Vineet Gupta <vgupta@synopsys.com>, Paul Mackerras <paulus@samba.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Daniel Bristot de Oliveira <bristot@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, Greentime Hu <green.hu@gmail.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, etnaviv@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, amd-gfx@lists.freedesktop.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, nouveau@lists.freedesktop.org,
+ linux-tegra@vger.kernel.org, xen-devel@lists.xenproject.org,
+ freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Sep 21, 2020 at 09:27:57PM +0200, Thomas Gleixner wrote:
-> Alternatively this could of course be solved with per CPU page tables
-> which will come around some day anyway I fear.
-
-Previously (with PTI) we looked at making the entire kernel map per-CPU,
-and that takes a 2K copy on switch_mm() (or more general, the user part
-of whatever the top level directory is for architectures that have a
-shared kernel/user page-table setup in the first place).
-
-The idea was having a fixed per-cpu kernel page-table, share a bunch of
-(kernel) page-tables between all CPUs and then copy in the user part on
-switch.
-
-I've forgotten what the plan was for ASID/PCID in that scheme.
-
-For x86_64 we've been fearing the performance of that 2k copy, but I
-don't think we've ever actually bit the bullet and implemented it to see
-how bad it really is.
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+R0VNIG9iamVjdCBmdW5jdGlvbnMgZGVwcmVjYXRlIHNldmVyYWwgc2ltaWxhciBjYWxsYmFjayBp
+bnRlcmZhY2VzIGluCnN0cnVjdCBkcm1fZHJpdmVyLiBUaGlzIHBhdGNoIHJlcGxhY2VzIHRoZSBw
+ZXItZHJpdmVyIGNhbGxiYWNrcyB3aXRoCnBlci1pbnN0YW5jZSBjYWxsYmFja3MgaW4gYW1kZ3B1
+LiBUaGUgb25seSBleGNlcHRpb24gaXMgZ2VtX3ByaW1lX21tYXAsCndoaWNoIGlzIG5vbi10cml2
+aWFsIHRvIGNvbnZlcnQuCgp2MzoKCSogcmVtb3ZlIGFtZGdwdV9vYmplY3QuYyBmcm9tIHBhdGNo
+IChDaHJpc3RpYW4pCnYyOgoJKiBtb3ZlIG9iamVjdC1mdW5jdGlvbiBpbnN0YW5jZSB0byBhbWRn
+cHVfZ2VtLmMgKENocmlzdGlhbikKCSogc2V0IGNhbGxiYWNrcyBpbiBhbWRncHVfZ2VtX29iamVj
+dF9jcmVhdGUoKSAoQ2hyaXN0aWFuKQoKU2lnbmVkLW9mZi1ieTogVGhvbWFzIFppbW1lcm1hbm4g
+PHR6aW1tZXJtYW5uQHN1c2UuZGU+ClJldmlld2VkLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJp
+c3RpYW4ua29lbmlnQGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
+Z3B1X2Rydi5jIHwgIDYgLS0tLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
+Z2VtLmMgfCAyMyArKysrKysrKysrKysrKysrKystLS0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvYW1kZ3B1X2dlbS5oIHwgIDUgLS0tLS0KIDMgZmlsZXMgY2hhbmdlZCwgMTggaW5zZXJ0
+aW9ucygrKSwgMTYgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvYW1kZ3B1X2Rydi5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X2Rydi5jCmluZGV4IDZlZGRlMmI5ZTQwMi4uODQwY2E4ZjljMWUxIDEwMDY0NAotLS0gYS9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMKKysrIGIvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jCkBAIC0xNTA1LDE5ICsxNTA1LDEzIEBAIHN0YXRpYyBz
+dHJ1Y3QgZHJtX2RyaXZlciBrbXNfZHJpdmVyID0gewogCS5sYXN0Y2xvc2UgPSBhbWRncHVfZHJp
+dmVyX2xhc3RjbG9zZV9rbXMsCiAJLmlycV9oYW5kbGVyID0gYW1kZ3B1X2lycV9oYW5kbGVyLAog
+CS5pb2N0bHMgPSBhbWRncHVfaW9jdGxzX2ttcywKLQkuZ2VtX2ZyZWVfb2JqZWN0X3VubG9ja2Vk
+ID0gYW1kZ3B1X2dlbV9vYmplY3RfZnJlZSwKLQkuZ2VtX29wZW5fb2JqZWN0ID0gYW1kZ3B1X2dl
+bV9vYmplY3Rfb3BlbiwKLQkuZ2VtX2Nsb3NlX29iamVjdCA9IGFtZGdwdV9nZW1fb2JqZWN0X2Ns
+b3NlLAogCS5kdW1iX2NyZWF0ZSA9IGFtZGdwdV9tb2RlX2R1bWJfY3JlYXRlLAogCS5kdW1iX21h
+cF9vZmZzZXQgPSBhbWRncHVfbW9kZV9kdW1iX21tYXAsCiAJLmZvcHMgPSAmYW1kZ3B1X2RyaXZl
+cl9rbXNfZm9wcywKIAogCS5wcmltZV9oYW5kbGVfdG9fZmQgPSBkcm1fZ2VtX3ByaW1lX2hhbmRs
+ZV90b19mZCwKIAkucHJpbWVfZmRfdG9faGFuZGxlID0gZHJtX2dlbV9wcmltZV9mZF90b19oYW5k
+bGUsCi0JLmdlbV9wcmltZV9leHBvcnQgPSBhbWRncHVfZ2VtX3ByaW1lX2V4cG9ydCwKIAkuZ2Vt
+X3ByaW1lX2ltcG9ydCA9IGFtZGdwdV9nZW1fcHJpbWVfaW1wb3J0LAotCS5nZW1fcHJpbWVfdm1h
+cCA9IGFtZGdwdV9nZW1fcHJpbWVfdm1hcCwKLQkuZ2VtX3ByaW1lX3Z1bm1hcCA9IGFtZGdwdV9n
+ZW1fcHJpbWVfdnVubWFwLAogCS5nZW1fcHJpbWVfbW1hcCA9IGFtZGdwdV9nZW1fcHJpbWVfbW1h
+cCwKIAogCS5uYW1lID0gRFJJVkVSX05BTUUsCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9hbWRncHVfZ2VtLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
+cHVfZ2VtLmMKaW5kZXggYWE3ZjIzMGM3MWJmLi5hZWVjZDVkYzNjZTQgMTAwNjQ0Ci0tLSBhL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nZW0uYworKysgYi9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9hbWRncHVfZ2VtLmMKQEAgLTM2LDkgKzM2LDEyIEBACiAKICNpbmNsdWRl
+ICJhbWRncHUuaCIKICNpbmNsdWRlICJhbWRncHVfZGlzcGxheS5oIgorI2luY2x1ZGUgImFtZGdw
+dV9kbWFfYnVmLmgiCiAjaW5jbHVkZSAiYW1kZ3B1X3hnbWkuaCIKIAotdm9pZCBhbWRncHVfZ2Vt
+X29iamVjdF9mcmVlKHN0cnVjdCBkcm1fZ2VtX29iamVjdCAqZ29iaikKK3N0YXRpYyBjb25zdCBz
+dHJ1Y3QgZHJtX2dlbV9vYmplY3RfZnVuY3MgYW1kZ3B1X2dlbV9vYmplY3RfZnVuY3M7CisKK3N0
+YXRpYyB2b2lkIGFtZGdwdV9nZW1fb2JqZWN0X2ZyZWUoc3RydWN0IGRybV9nZW1fb2JqZWN0ICpn
+b2JqKQogewogCXN0cnVjdCBhbWRncHVfYm8gKnJvYmogPSBnZW1fdG9fYW1kZ3B1X2JvKGdvYmop
+OwogCkBAIC04Nyw2ICs5MCw3IEBAIGludCBhbWRncHVfZ2VtX29iamVjdF9jcmVhdGUoc3RydWN0
+IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHVuc2lnbmVkIGxvbmcgc2l6ZSwKIAkJcmV0dXJuIHI7CiAJ
+fQogCSpvYmogPSAmYm8tPnRiby5iYXNlOworCSgqb2JqKS0+ZnVuY3MgPSAmYW1kZ3B1X2dlbV9v
+YmplY3RfZnVuY3M7CiAKIAlyZXR1cm4gMDsKIH0KQEAgLTExOSw4ICsxMjMsOCBAQCB2b2lkIGFt
+ZGdwdV9nZW1fZm9yY2VfcmVsZWFzZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKICAqIENh
+bGwgZnJvbSBkcm1fZ2VtX2hhbmRsZV9jcmVhdGUgd2hpY2ggYXBwZWFyIGluIGJvdGggbmV3IGFu
+ZCBvcGVuIGlvY3RsCiAgKiBjYXNlLgogICovCi1pbnQgYW1kZ3B1X2dlbV9vYmplY3Rfb3Blbihz
+dHJ1Y3QgZHJtX2dlbV9vYmplY3QgKm9iaiwKLQkJCSAgIHN0cnVjdCBkcm1fZmlsZSAqZmlsZV9w
+cml2KQorc3RhdGljIGludCBhbWRncHVfZ2VtX29iamVjdF9vcGVuKHN0cnVjdCBkcm1fZ2VtX29i
+amVjdCAqb2JqLAorCQkJCSAgc3RydWN0IGRybV9maWxlICpmaWxlX3ByaXYpCiB7CiAJc3RydWN0
+IGFtZGdwdV9ibyAqYWJvID0gZ2VtX3RvX2FtZGdwdV9ibyhvYmopOwogCXN0cnVjdCBhbWRncHVf
+ZGV2aWNlICphZGV2ID0gYW1kZ3B1X3R0bV9hZGV2KGFiby0+dGJvLmJkZXYpOwpAQCAtMTUyLDgg
+KzE1Niw4IEBAIGludCBhbWRncHVfZ2VtX29iamVjdF9vcGVuKHN0cnVjdCBkcm1fZ2VtX29iamVj
+dCAqb2JqLAogCXJldHVybiAwOwogfQogCi12b2lkIGFtZGdwdV9nZW1fb2JqZWN0X2Nsb3NlKHN0
+cnVjdCBkcm1fZ2VtX29iamVjdCAqb2JqLAotCQkJICAgICBzdHJ1Y3QgZHJtX2ZpbGUgKmZpbGVf
+cHJpdikKK3N0YXRpYyB2b2lkIGFtZGdwdV9nZW1fb2JqZWN0X2Nsb3NlKHN0cnVjdCBkcm1fZ2Vt
+X29iamVjdCAqb2JqLAorCQkJCSAgICBzdHJ1Y3QgZHJtX2ZpbGUgKmZpbGVfcHJpdikKIHsKIAlz
+dHJ1Y3QgYW1kZ3B1X2JvICpibyA9IGdlbV90b19hbWRncHVfYm8ob2JqKTsKIAlzdHJ1Y3QgYW1k
+Z3B1X2RldmljZSAqYWRldiA9IGFtZGdwdV90dG1fYWRldihiby0+dGJvLmJkZXYpOwpAQCAtMjEx
+LDYgKzIxNSwxNSBAQCB2b2lkIGFtZGdwdV9nZW1fb2JqZWN0X2Nsb3NlKHN0cnVjdCBkcm1fZ2Vt
+X29iamVjdCAqb2JqLAogCXR0bV9ldV9iYWNrb2ZmX3Jlc2VydmF0aW9uKCZ0aWNrZXQsICZsaXN0
+KTsKIH0KIAorc3RhdGljIGNvbnN0IHN0cnVjdCBkcm1fZ2VtX29iamVjdF9mdW5jcyBhbWRncHVf
+Z2VtX29iamVjdF9mdW5jcyA9IHsKKwkuZnJlZSA9IGFtZGdwdV9nZW1fb2JqZWN0X2ZyZWUsCisJ
+Lm9wZW4gPSBhbWRncHVfZ2VtX29iamVjdF9vcGVuLAorCS5jbG9zZSA9IGFtZGdwdV9nZW1fb2Jq
+ZWN0X2Nsb3NlLAorCS5leHBvcnQgPSBhbWRncHVfZ2VtX3ByaW1lX2V4cG9ydCwKKwkudm1hcCA9
+IGFtZGdwdV9nZW1fcHJpbWVfdm1hcCwKKwkudnVubWFwID0gYW1kZ3B1X2dlbV9wcmltZV92dW5t
+YXAsCit9OworCiAvKgogICogR0VNIGlvY3Rscy4KICAqLwpkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dlbS5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvYW1kZ3B1X2dlbS5oCmluZGV4IGUwZjAyNWRkMWIxNC4uNjM3YmY1MWRiZjA2IDEwMDY0NAot
+LS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ2VtLmgKKysrIGIvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dlbS5oCkBAIC0zMywxMSArMzMsNiBAQAogI2Rl
+ZmluZSBBTURHUFVfR0VNX0RPTUFJTl9NQVgJCTB4MwogI2RlZmluZSBnZW1fdG9fYW1kZ3B1X2Jv
+KGdvYmopIGNvbnRhaW5lcl9vZigoZ29iaiksIHN0cnVjdCBhbWRncHVfYm8sIHRiby5iYXNlKQog
+Ci12b2lkIGFtZGdwdV9nZW1fb2JqZWN0X2ZyZWUoc3RydWN0IGRybV9nZW1fb2JqZWN0ICpvYmop
+OwotaW50IGFtZGdwdV9nZW1fb2JqZWN0X29wZW4oc3RydWN0IGRybV9nZW1fb2JqZWN0ICpvYmos
+Ci0JCQkJc3RydWN0IGRybV9maWxlICpmaWxlX3ByaXYpOwotdm9pZCBhbWRncHVfZ2VtX29iamVj
+dF9jbG9zZShzdHJ1Y3QgZHJtX2dlbV9vYmplY3QgKm9iaiwKLQkJCQlzdHJ1Y3QgZHJtX2ZpbGUg
+KmZpbGVfcHJpdik7CiB1bnNpZ25lZCBsb25nIGFtZGdwdV9nZW1fdGltZW91dCh1aW50NjRfdCB0
+aW1lb3V0X25zKTsKIAogLyoKLS0gCjIuMjguMAoKX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRlbC1nZnhAbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4v
+bGlzdGluZm8vaW50ZWwtZ2Z4Cg==
