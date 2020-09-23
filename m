@@ -7,35 +7,48 @@ X-Spam-Status: No, score=-9.8 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D409BC2D0A8
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Sep 2020 08:58:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B0E0EC2D0A8
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Sep 2020 09:05:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5C76A206C9
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Sep 2020 08:58:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5C76A206C9
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
+	by mail.kernel.org (Postfix) with ESMTPS id 4C3A32075B
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Sep 2020 09:05:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4C3A32075B
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B65A26E43C;
-	Wed, 23 Sep 2020 08:58:17 +0000 (UTC)
-Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D32AB6E43C
- for <intel-gfx@lists.freedesktop.org>; Wed, 23 Sep 2020 08:58:16 +0000 (UTC)
-X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
- x-ip-name=78.156.65.138; 
-Received: from localhost (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP (TLS) id
- 22510066-1500050 for multiple; Wed, 23 Sep 2020 09:58:12 +0100
-MIME-Version: 1.0
-In-Reply-To: <20200923044054.5653-1-steven.t.hampson@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D86E6E145;
+	Wed, 23 Sep 2020 09:05:06 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 34A806E145
+ for <intel-gfx@lists.freedesktop.org>; Wed, 23 Sep 2020 09:05:05 +0000 (UTC)
+IronPort-SDR: V3wUqs1Ct3Dl7YncECfa5uBOJi6JUORy3hPVk7b84+E6CI/gkbNOt/9jWq0qCHIv71estUIRrO
+ WD7loykWjGnA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9752"; a="178903659"
+X-IronPort-AV: E=Sophos;i="5.77,293,1596524400"; d="scan'208";a="178903659"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Sep 2020 02:04:47 -0700
+IronPort-SDR: lwUXVT52PJTdkK520GPJcdg6a9It16VWhoaBTnEKofCKvjUQWDja88G4xC1+uSBKsCewsYZE7y
+ WCOMp34+IMHg==
+X-IronPort-AV: E=Sophos;i="5.77,293,1596524400"; d="scan'208";a="309832346"
+Received: from bravinar-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.252.9.250])
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Sep 2020 02:04:45 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Chris Wilson <chris@chris-wilson.co.uk>,
+ Steve Hampson <steven.t.hampson@intel.com>, intel-gfx@lists.freedesktop.org
+In-Reply-To: <160085149249.27151.12750028761264321987@build.alporthouse.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 References: <20200923044054.5653-1-steven.t.hampson@intel.com>
-From: Chris Wilson <chris@chris-wilson.co.uk>
-To: Steve Hampson <steven.t.hampson@intel.com>, intel-gfx@lists.freedesktop.org
-Date: Wed, 23 Sep 2020 09:58:12 +0100
-Message-ID: <160085149249.27151.12750028761264321987@build.alporthouse.com>
-User-Agent: alot/0.9
+ <160085149249.27151.12750028761264321987@build.alporthouse.com>
+Date: Wed, 23 Sep 2020 12:04:58 +0300
+Message-ID: <87eemsrhhh.fsf@intel.com>
+MIME-Version: 1.0
 Subject: Re: [Intel-gfx] [PATCH] Fix NULL pointer found by static analysis
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -54,29 +67,39 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Quoting Steve Hampson (2020-09-23 05:40:54)
-> A static analysis tool has reveiled a NULL pointer error in
-> __i915_gem_object_lock.  This appears to be correct as many calls
-> pass a NULL into the ww parameter.
-> 
-> Signed-off-by: Steve Hampson <steven.t.hampson@intel.com>
-> ---
->  drivers/gpu/drm/i915/gem/i915_gem_object.h | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.h b/drivers/gpu/drm/i915/gem/i915_gem_object.h
-> index d46db8d8f38e..9b18ead42991 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_object.h
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_object.h
-> @@ -126,7 +126,7 @@ static inline int __i915_gem_object_lock(struct drm_i915_gem_object *obj,
->         if (ret == -EALREADY)
->                 ret = 0;
->  
-> -       if (ret == -EDEADLK)
-> +       if (ret == -EDEADLK && ww)
+On Wed, 23 Sep 2020, Chris Wilson <chris@chris-wilson.co.uk> wrote:
+> Quoting Steve Hampson (2020-09-23 05:40:54)
+>> A static analysis tool has reveiled a NULL pointer error in
+>> __i915_gem_object_lock.  This appears to be correct as many calls
+>> pass a NULL into the ww parameter.
+>> 
+>> Signed-off-by: Steve Hampson <steven.t.hampson@intel.com>
+>> ---
+>>  drivers/gpu/drm/i915/gem/i915_gem_object.h | 2 +-
+>>  1 file changed, 1 insertion(+), 1 deletion(-)
+>> 
+>> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.h b/drivers/gpu/drm/i915/gem/i915_gem_object.h
+>> index d46db8d8f38e..9b18ead42991 100644
+>> --- a/drivers/gpu/drm/i915/gem/i915_gem_object.h
+>> +++ b/drivers/gpu/drm/i915/gem/i915_gem_object.h
+>> @@ -126,7 +126,7 @@ static inline int __i915_gem_object_lock(struct drm_i915_gem_object *obj,
+>>         if (ret == -EALREADY)
+>>                 ret = 0;
+>>  
+>> -       if (ret == -EDEADLK)
+>> +       if (ret == -EDEADLK && ww)
+>
+> EDEADLK is predicated by ww already.
 
-EDEADLK is predicated by ww already.
--Chris
+The hard part is that neither the analyzer nor a human who doesn't know
+how dma_resv_lock* work can easily deduce that. :(
+
+BR,
+Jani.
+
+
+-- 
+Jani Nikula, Intel Open Source Graphics Center
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
