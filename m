@@ -2,52 +2,69 @@ Return-Path: <SRS0=ky/+=DA=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 03A97C2D0A8
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Sep 2020 11:16:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A26B9C4727F
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Sep 2020 11:16:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 985C72145D
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Sep 2020 11:16:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 985C72145D
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id F00D72388A
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Sep 2020 11:16:55 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="U3ePQ6UA"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F00D72388A
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D8406E970;
-	Wed, 23 Sep 2020 11:16:47 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 58CD66E970
- for <intel-gfx@lists.freedesktop.org>; Wed, 23 Sep 2020 11:16:43 +0000 (UTC)
-IronPort-SDR: 6PhnwRbmEJmPaz1Wa2IBgdQDA4XDwG+GS6SuLHaYNCsDTwNnGEXgnjMPvJIms0Tpnn89KePq11
- kJdtkC6K0Uqw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9752"; a="178932849"
-X-IronPort-AV: E=Sophos;i="5.77,293,1596524400"; d="scan'208";a="178932849"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Sep 2020 04:16:43 -0700
-IronPort-SDR: 8OGHgsz5GZDCUm5vf4Xh13r1wqCzcFwvCY5k8TTzGl6G2MZD7osuy9JisWwQeoJ9kqEQF4RkSi
- pn6dhYgjntaw==
-X-IronPort-AV: E=Sophos;i="5.77,293,1596524400"; d="scan'208";a="511610364"
-Received: from genxfsim-desktop.iind.intel.com ([10.223.74.178])
- by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Sep 2020 04:16:41 -0700
-From: Anshuman Gupta <anshuman.gupta@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Wed, 23 Sep 2020 16:35:27 +0530
-Message-Id: <20200923110527.28661-5-anshuman.gupta@intel.com>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20200923110527.28661-1-anshuman.gupta@intel.com>
-References: <20200923110527.28661-1-anshuman.gupta@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E81A6E051;
+	Wed, 23 Sep 2020 11:16:55 +0000 (UTC)
+Received: from mail-oi1-x242.google.com (mail-oi1-x242.google.com
+ [IPv6:2607:f8b0:4864:20::242])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D4A36E051
+ for <intel-gfx@lists.freedesktop.org>; Wed, 23 Sep 2020 11:16:54 +0000 (UTC)
+Received: by mail-oi1-x242.google.com with SMTP id x14so24614981oic.9
+ for <intel-gfx@lists.freedesktop.org>; Wed, 23 Sep 2020 04:16:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=rTSXpPPpcxIeMmfzwprfzSe0gqeoKE7piFOaQTAnR88=;
+ b=U3ePQ6UANsmOqJvqkSDwhxC0dOVjzUOwE4x0udnLdKAnZwfoH54D6zA2aFyQNBZ6wx
+ 2nPN0NSQMoR5XgpW6AE5wFrsDvhtBtVH1i8rDX+nIRku/Hn3aKl/NydxLBvMqP61YHXK
+ klri+iTBjmr1dXBgHh5qcNJuaXoUc/kGEvHXM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=rTSXpPPpcxIeMmfzwprfzSe0gqeoKE7piFOaQTAnR88=;
+ b=tysW9L+GRWPOk3ipz3if/Zr3V4IKXiFR8IvNIz1Vr16aboHYuYIvW0nIyokZ6IM+Zf
+ IzrvVPLwHO9q7Hf2i/BmEDLfg9RTvibNfBYZ079hJA1EhtJC6U7LWNO5AEbxZR+T1rBZ
+ 25PY/BQcgTGwwzj0F4+0ytUXcvxZsQwdquraw2BOQA4BtC3a7/idyFizuQn6ay2QCD6/
+ dIITOpD5l5b2HxITSgpR9xZAIwAzD1H+lvP2F4QQPMiUJCJVToJKxEFqMf/297GgM8HL
+ 9FDj8lU2WI18fIKRDUWhP0b3NfwCBAW8yo0mirEQgZKcx0smQDXwpOQhbu+5eFQ37ncD
+ J57Q==
+X-Gm-Message-State: AOAM532EjK96XN2tWdOwUG3AlCkd+eML0xVnOi+6/3+EkiOSAor9SlQU
+ sZPhjZy0aeHn32VMdpu+SVCn419IiXyxgeQhaVkUSA==
+X-Google-Smtp-Source: ABdhPJym2IcGvMv5rOZjsbiRqhxPjtR71Yu3t2aEm8NnZePkvZj0lvdMkwwEEHrfVsZ043SiVMMfQ1JGyPCTmC7z9Bw=
+X-Received: by 2002:a05:6808:206:: with SMTP id
+ l6mr5446894oie.128.1600859813680; 
+ Wed, 23 Sep 2020 04:16:53 -0700 (PDT)
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v2 4/4] drm/i915/hdcp: Enable Gen12 HDCP 1.4 DP
- MST support
+References: <20180705101043.4883-1-daniel.vetter@ffwll.ch>
+ <20180705102121.5091-1-daniel.vetter@ffwll.ch>
+ <CAPj87rN48S8+pLd0ksOX4pdCTqtO=bDgjhkPxpWr_AnpVvgaSQ@mail.gmail.com>
+ <20200922133636.GA2369@xpredator>
+ <CAKMK7uHr3dKu8o4e3hoSe3S5MfVtZ92nLk1VGZTqSuDsH6kphg@mail.gmail.com>
+ <20200923111443.GA8478@xpredator>
+In-Reply-To: <20200923111443.GA8478@xpredator>
+From: Daniel Vetter <daniel.vetter@ffwll.ch>
+Date: Wed, 23 Sep 2020 13:16:42 +0200
+Message-ID: <CAKMK7uGwTbt4OdfVGVLk_0i_F5LNTx1RAaNz_D8LxnpwJo-i2Q@mail.gmail.com>
+To: Marius Vlad <marius.vlad@collabora.com>, 
+ "Syrjala, Ville" <ville.syrjala@linux.intel.com>
+Subject: Re: [Intel-gfx] [PATCH] drm: avoid spurious EBUSY due to
+ nonblocking atomic modesets
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,127 +77,89 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: seanpaul@chromium.org
+Cc: Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ DRI Development <dri-devel@lists.freedesktop.org>,
+ stable <stable@vger.kernel.org>, Daniel Vetter <daniel.vetter@intel.com>,
+ Pekka Paalanen <pekka.paalanen@collabora.co.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Enable HDCP 1.4 over DP MST for Gen12.
-This also enable the stream encryption support for
-older generations, which was missing earlier.
+On Wed, Sep 23, 2020 at 1:14 PM Marius Vlad <marius.vlad@collabora.com> wrote:
+>
+> On Wed, Sep 23, 2020 at 12:58:30PM +0200, Daniel Vetter wrote:
+> > On Tue, Sep 22, 2020 at 3:36 PM Marius Vlad <marius.vlad@collabora.com> wrote:
+> > >
+> > > On Fri, Jan 31, 2020 at 07:34:00AM +0000, Daniel Stone wrote:
+> > > > On Thu, 5 Jul 2018 at 11:21, Daniel Vetter <daniel.vetter@ffwll.ch> wrote:
+> > > > > When doing an atomic modeset with ALLOW_MODESET drivers are allowed to
+> > > > > pull in arbitrary other resources, including CRTCs (e.g. when
+> > > > > reconfiguring global resources).
+> > > > >
+> > > > > But in nonblocking mode userspace has then no idea this happened,
+> > > > > which can lead to spurious EBUSY calls, both:
+> > > > > - when that other CRTC is currently busy doing a page_flip the
+> > > > >   ALLOW_MODESET commit can fail with an EBUSY
+> > > > > - on the other CRTC a normal atomic flip can fail with EBUSY because
+> > > > >   of the additional commit inserted by the kernel without userspace's
+> > > > >   knowledge
+> > > > >
+> > > > > For blocking commits this isn't a problem, because everyone else will
+> > > > > just block until all the CRTC are reconfigured. Only thing userspace
+> > > > > can notice is the dropped frames without any reason for why frames got
+> > > > > dropped.
+> > > > >
+> > > > > Consensus is that we need new uapi to handle this properly, but no one
+> > > > > has any idea what exactly the new uapi should look like. As a stop-gap
+> > > > > plug this problem by demoting nonblocking commits which might cause
+> > > > > issues by including CRTCs not in the original request to blocking
+> > > > > commits.
+> > > Gentle ping. I've tried out Linus's master tree and, and like Pekka,
+> > > I've noticed this isn't integrated/added.
+> > >
+> > > Noticed this is fixing (also) DPMS when multiple outputs are in use.
+> > > Wondering if we can just use a _ONCE() variant instead of WARN_ON(). I'm seeing
+> > > the warning quite often.
+> >
+> > On which driver/chip does this happen?
+> I've tried it out on i915.
 
-v2:
-- Added debug print for stream encryption.
-- Disable the hdcp on port after disabling last stream
-  encryption.
+lspci -nn please.
 
-Cc: Ramalingam C <ramalingam.c@intel.com>
-Signed-off-by: Anshuman Gupta <anshuman.gupta@intel.com>
----
- drivers/gpu/drm/i915/display/intel_dp_mst.c | 10 ++---
- drivers/gpu/drm/i915/display/intel_hdcp.c   | 46 ++++++++++++++-------
- 2 files changed, 35 insertions(+), 21 deletions(-)
+Also adding Ville, who has an idea where this can all go wrong. The
+one he pointed out thus far is gen12+ only though.
+-Daniel
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-index 79060b2aefcd..9223d57ef3e3 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-@@ -813,13 +813,9 @@ static struct drm_connector *intel_dp_add_mst_connector(struct drm_dp_mst_topolo
- 	intel_attach_force_audio_property(connector);
- 	intel_attach_broadcast_rgb_property(connector);
- 
--
--	/* TODO: Figure out how to make HDCP work on GEN12+ */
--	if (INTEL_GEN(dev_priv) < 12) {
--		ret = intel_dp_init_hdcp(dig_port, intel_connector);
--		if (ret)
--			DRM_DEBUG_KMS("HDCP init failed, skipping.\n");
--	}
-+	ret = intel_dp_init_hdcp(dig_port, intel_connector);
-+	if (ret)
-+		drm_dbg_kms(&dev_priv->drm, "HDCP init failed, skipping.\n");
- 
- 	/*
- 	 * Reuse the prop from the SST connector because we're
-diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.c b/drivers/gpu/drm/i915/display/intel_hdcp.c
-index f401fdaa7336..744cefc0c35d 100644
---- a/drivers/gpu/drm/i915/display/intel_hdcp.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdcp.c
-@@ -612,7 +612,12 @@ int intel_hdcp_auth_downstream(struct intel_connector *connector)
- 	return ret;
- }
- 
--/* Implements Part 1 of the HDCP authorization procedure */
-+/*
-+ * Implements Part 1 of the HDCP authorization procedure.
-+ * Authentication Part 1 steps for Multi-stream DisplayPort.
-+ * Step 1. Auth Part 1 sequence on the driving MST Trasport Link.
-+ * Step 2. Enable encryption for each stream that requires encryption.
-+ */
- static int intel_hdcp_auth(struct intel_connector *connector)
- {
- 	struct intel_digital_port *dig_port = intel_attached_dig_port(connector);
-@@ -766,10 +771,16 @@ static int intel_hdcp_auth(struct intel_connector *connector)
- 		return -ETIMEDOUT;
- 	}
- 
--	/*
--	 * XXX: If we have MST-connected devices, we need to enable encryption
--	 * on those as well.
--	 */
-+	/* DP MST Auth Part 1 Step 2.a and Step 2.b */
-+	if (shim->stream_encryption) {
-+		ret = shim->stream_encryption(dig_port, true);
-+		if (ret) {
-+			drm_err(&dev_priv->drm, "Failed to enable HDCP 1.4 stream enc\n");
-+			return ret;
-+		}
-+		drm_dbg_kms(&dev_priv->drm, "HDCP 1.4 tras %s stream encrypted\n",
-+			    transcoder_name(hdcp->stream_transcoder));
-+	}
- 
- 	if (repeater_present)
- 		return intel_hdcp_auth_downstream(connector);
-@@ -790,19 +801,26 @@ static int _intel_hdcp_disable(struct intel_connector *connector)
- 
- 	drm_dbg_kms(&dev_priv->drm, "[%s:%d] HDCP is being disabled...\n",
- 		    connector->base.name, connector->base.base.id);
-+	/*
-+	 * Step 1: Deselect HDCP Multiplestream Bit.
-+	 * Step 2: poll for stream encryption status to be disable.
-+	 */
-+	if (hdcp->shim->stream_encryption) {
-+		ret = hdcp->shim->stream_encryption(dig_port, false);
-+		if (ret) {
-+			drm_err(&dev_priv->drm, "Failed to disable HDCP 1.4 stream enc\n");
-+			return ret;
-+		}
-+		drm_dbg_kms(&dev_priv->drm, "HDCP 1.4 trans %s stream encryption disabled\n",
-+			    transcoder_name(hdcp->stream_transcoder));
-+	}
- 
- 	/*
--	 * If there are other connectors on this port using HDCP, don't disable
--	 * it. Instead, toggle the HDCP signalling off on that particular
--	 * connector/pipe and exit.
-+	 * If there are other connectors on this port using HDCP, don't disable it.
-+	 * Repeat steps 1-2 for each stream that no longer requires encryption.
- 	 */
--	if (dig_port->num_hdcp_streams > 0) {
--		ret = hdcp->shim->toggle_signalling(dig_port,
--						    cpu_transcoder, false);
--		if (ret)
--			DRM_ERROR("Failed to disable HDCP signalling\n");
-+	if (dig_port->num_hdcp_streams > 0)
- 		return ret;
--	}
- 
- 	hdcp->hdcp_encrypted = false;
- 	intel_de_write(dev_priv, HDCP_CONF(dev_priv, cpu_transcoder, port), 0);
+> > -Daniel
+> >
+> > >
+> > > >
+> > > > Thanks for writing this up Daniel, and for reminding me about it some
+> > > > time later as well ...
+> > > >
+> > > > Reviewed-by: Daniel Stone <daniels@collabora.com>
+> > > >
+> > > > Cheers,
+> > > > Daniel
+> > > > _______________________________________________
+> > > > dri-devel mailing list
+> > > > dri-devel@lists.freedesktop.org
+> > > > https://lists.freedesktop.org/mailman/listinfo/dri-devel
+> >
+> >
+> >
+> > --
+> > Daniel Vetter
+> > Software Engineer, Intel Corporation
+> > http://blog.ffwll.ch
+
+
+
 -- 
-2.26.2
-
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
