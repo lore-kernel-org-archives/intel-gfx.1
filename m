@@ -2,52 +2,56 @@ Return-Path: <SRS0=6TpN=DB=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-11.5 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,NICE_REPLY_A,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F0271C4363D
-	for <intel-gfx@archiver.kernel.org>; Thu, 24 Sep 2020 12:49:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C6918C4363D
+	for <intel-gfx@archiver.kernel.org>; Thu, 24 Sep 2020 13:16:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A120920708
-	for <intel-gfx@archiver.kernel.org>; Thu, 24 Sep 2020 12:49:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A120920708
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 60A772344C
+	for <intel-gfx@archiver.kernel.org>; Thu, 24 Sep 2020 13:16:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 60A772344C
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E8FB76EAF0;
-	Thu, 24 Sep 2020 12:49:14 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C1FB6E408
- for <intel-gfx@lists.freedesktop.org>; Thu, 24 Sep 2020 12:49:11 +0000 (UTC)
-IronPort-SDR: oL/S+tE4d4mb3US+BBzcL3VfZ4gNB2d3chbRTIqpTfY1Q1X/dL+tjvgD2bWboX3F75nyacfJLF
- jNwhupTKj6LQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9753"; a="160480088"
-X-IronPort-AV: E=Sophos;i="5.77,297,1596524400"; d="scan'208";a="160480088"
+	by gabe.freedesktop.org (Postfix) with ESMTP id C28066EB11;
+	Thu, 24 Sep 2020 13:16:31 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 787066EAD5
+ for <intel-gfx@lists.freedesktop.org>; Thu, 24 Sep 2020 13:16:30 +0000 (UTC)
+IronPort-SDR: gtqVBJOSXacHtTDmbg/3LMRahRsVB2K6oc54JBXoZg1LQ95x99TP49dhFm1eatz2tcAOHyGPpz
+ aKf9hxjR46qw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9753"; a="245989744"
+X-IronPort-AV: E=Sophos;i="5.77,297,1596524400"; d="scan'208";a="245989744"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Sep 2020 05:49:11 -0700
-IronPort-SDR: Qbw0IfXXOAz4B+n7RFieEC1NRFT+jIuv4oJ8fiE2kocoE5rYU6tNgEL7EpfBMDHyfhsidL/Duh
- crlSReRxmByA==
-X-IronPort-AV: E=Sophos;i="5.77,297,1596524400"; d="scan'208";a="486889794"
-Received: from vandita-desktop.iind.intel.com ([10.223.74.218])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-SHA;
- 24 Sep 2020 05:49:09 -0700
-From: Vandita Kulkarni <vandita.kulkarni@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Thu, 24 Sep 2020 18:12:08 +0530
-Message-Id: <20200924124209.17916-5-vandita.kulkarni@intel.com>
-X-Mailer: git-send-email 2.21.0.5.gaeb582a
-In-Reply-To: <20200924124209.17916-1-vandita.kulkarni@intel.com>
-References: <20200924124209.17916-1-vandita.kulkarni@intel.com>
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Sep 2020 06:16:29 -0700
+IronPort-SDR: WY06ZyfFjBsY5f4/0+3kkLERDMAfJskmTTpTU7wBlDaBISUBxCZruTxsofjzBt1+MskUkvnAmk
+ 5qMgr6LcuP9A==
+X-IronPort-AV: E=Sophos;i="5.77,297,1596524400"; d="scan'208";a="486898073"
+Received: from dsmahang-mobl2.ger.corp.intel.com (HELO [10.252.48.167])
+ ([10.252.48.167])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Sep 2020 06:16:28 -0700
+To: Chris Wilson <chris@chris-wilson.co.uk>, intel-gfx@lists.freedesktop.org
+References: <20200915093010.30573-1-chris@chris-wilson.co.uk>
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Organization: Intel Corporation UK Plc
+Message-ID: <e9123c83-ef8f-ec26-b878-300610899dee@linux.intel.com>
+Date: Thu, 24 Sep 2020 14:16:26 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Subject: [Intel-gfx] [V14 4/5] drm/i915/dsi: Initiate frame request in cmd
- mode
+In-Reply-To: <20200915093010.30573-1-chris@chris-wilson.co.uk>
+Content-Language: en-US
+Subject: Re: [Intel-gfx] [PATCH] drm/i915: Redo "Remove i915_request.lock
+ requirement for execution callbacks"
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,115 +64,58 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-In TE Gate mode or TE NO_GATE mode on every flip
-we need to set the frame update request bit.
-After this  bit is set transcoder hardware will
-automatically send the frame data to the panel
-in case of TE NO_GATE mode, where it sends after
-it receives the TE event in case of TE_GATE mode.
-Once the frame data is sent to the panel, we see
-the frame counter updating.
 
-v2: Use intel_de_read/write
+On 15/09/2020 10:30, Chris Wilson wrote:
+> The reordering and rebasing of commit 2e4c6c1a9db5 ("drm/i915: Remove
+> i915_request.lock requirement for execution callbacks") caused it to
+> revert an earlier correction. Let us restore commit 99f0a640d464
+> ("drm/i915: Remove requirement for holding i915_request.lock for
+> breadcrumbs")
+> 
+> Fixes: 2e4c6c1a9db5 ("drm/i915: Remove i915_request.lock requirement for execution callbacks")
+> Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+> Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+> Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+> ---
+>   drivers/gpu/drm/i915/i915_request.c | 12 ++----------
+>   1 file changed, 2 insertions(+), 10 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
+> index 11e272422fb7..436ce368ddaa 100644
+> --- a/drivers/gpu/drm/i915/i915_request.c
+> +++ b/drivers/gpu/drm/i915/i915_request.c
+> @@ -593,16 +593,8 @@ bool __i915_request_submit(struct i915_request *request)
+>   	__notify_execute_cb_irq(request);
+>   
+>   	/* We may be recursing from the signal callback of another i915 fence */
+> -	if (!i915_request_signaled(request)) {
+> -		spin_lock_nested(&request->lock, SINGLE_DEPTH_NESTING);
+> -
+> -		if (test_bit(DMA_FENCE_FLAG_ENABLE_SIGNAL_BIT,
+> -			     &request->fence.flags) &&
+> -		    !i915_request_enable_breadcrumb(request))
+> -			intel_engine_signal_breadcrumbs(engine);
+> -
+> -		spin_unlock(&request->lock);
+> -	}
+> +	if (test_bit(DMA_FENCE_FLAG_ENABLE_SIGNAL_BIT, &request->fence.flags))
+> +		i915_request_enable_breadcrumb(request);
+>   
+>   	return result;
+>   }
+> 
 
-v3: remove the usage of private_flags
+Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-v4: Use icl_dsi in func names if non static,
-    fix code formatting issues. (Jani)
+Regards,
 
-v5: Send frame update request at the beginning of
-    pipe_update_end, use crtc_state mode_flags (Ville)
-
-Signed-off-by: Vandita Kulkarni <vandita.kulkarni@intel.com>
----
- drivers/gpu/drm/i915/display/icl_dsi.c      | 26 +++++++++++++++++++++
- drivers/gpu/drm/i915/display/intel_dsi.h    |  1 +
- drivers/gpu/drm/i915/display/intel_sprite.c |  7 ++++++
- 3 files changed, 34 insertions(+)
-
-diff --git a/drivers/gpu/drm/i915/display/icl_dsi.c b/drivers/gpu/drm/i915/display/icl_dsi.c
-index 2789020e20db..fe946a2e2082 100644
---- a/drivers/gpu/drm/i915/display/icl_dsi.c
-+++ b/drivers/gpu/drm/i915/display/icl_dsi.c
-@@ -205,6 +205,32 @@ static int dsi_send_pkt_payld(struct intel_dsi_host *host,
- 	return 0;
- }
- 
-+void icl_dsi_frame_update(struct intel_crtc_state *crtc_state)
-+{
-+	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
-+	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
-+	u32 tmp, mode_flags;
-+	enum port port;
-+
-+	mode_flags = crtc_state->mode_flags;
-+
-+	/*
-+	 * case 1 also covers dual link
-+	 * In case of dual link, frame update should be set on
-+	 * DSI_0
-+	 */
-+	if (mode_flags & I915_MODE_FLAG_DSI_USE_TE0)
-+		port = PORT_A;
-+	else if (mode_flags & I915_MODE_FLAG_DSI_USE_TE1)
-+		port = PORT_B;
-+	else
-+		return;
-+
-+	tmp = intel_de_read(dev_priv, DSI_CMD_FRMCTL(port));
-+	tmp |= DSI_FRAME_UPDATE_REQUEST;
-+	intel_de_write(dev_priv, DSI_CMD_FRMCTL(port), tmp);
-+}
-+
- static void dsi_program_swing_and_deemphasis(struct intel_encoder *encoder)
- {
- 	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
-diff --git a/drivers/gpu/drm/i915/display/intel_dsi.h b/drivers/gpu/drm/i915/display/intel_dsi.h
-index 19f78a4022d3..625f2f1ae061 100644
---- a/drivers/gpu/drm/i915/display/intel_dsi.h
-+++ b/drivers/gpu/drm/i915/display/intel_dsi.h
-@@ -167,6 +167,7 @@ static inline u16 intel_dsi_encoder_ports(struct intel_encoder *encoder)
- 
- /* icl_dsi.c */
- void icl_dsi_init(struct drm_i915_private *dev_priv);
-+void icl_dsi_frame_update(struct intel_crtc_state *crtc_state);
- 
- /* intel_dsi.c */
- int intel_dsi_bitrate(const struct intel_dsi *intel_dsi);
-diff --git a/drivers/gpu/drm/i915/display/intel_sprite.c b/drivers/gpu/drm/i915/display/intel_sprite.c
-index 63040cb0d4e1..eaee29e0f535 100644
---- a/drivers/gpu/drm/i915/display/intel_sprite.c
-+++ b/drivers/gpu/drm/i915/display/intel_sprite.c
-@@ -47,6 +47,7 @@
- #include "intel_frontbuffer.h"
- #include "intel_pm.h"
- #include "intel_psr.h"
-+#include "intel_dsi.h"
- #include "intel_sprite.h"
- 
- int intel_usecs_to_scanlines(const struct drm_display_mode *adjusted_mode,
-@@ -202,6 +203,12 @@ void intel_pipe_update_end(struct intel_crtc_state *new_crtc_state)
- 
- 	trace_intel_pipe_update_end(crtc, end_vbl_count, scanline_end);
- 
-+	/*
-+	 * Incase of mipi dsi command mode, we need to set frame update
-+	 * request for every commit.
-+	 */
-+	icl_dsi_frame_update(new_crtc_state);
-+
- 	/* We're still in the vblank-evade critical section, this can't race.
- 	 * Would be slightly nice to just grab the vblank count and arm the
- 	 * event outside of the critical section - the spinlock might spin for a
--- 
-2.21.0.5.gaeb582a
-
+Tvrtko
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
