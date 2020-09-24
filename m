@@ -2,54 +2,52 @@ Return-Path: <SRS0=6TpN=DB=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+X-Spam-Status: No, score=-11.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9D56BC47428
-	for <intel-gfx@archiver.kernel.org>; Thu, 24 Sep 2020 13:59:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B350BC47425
+	for <intel-gfx@archiver.kernel.org>; Thu, 24 Sep 2020 13:59:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 46C4420888
-	for <intel-gfx@archiver.kernel.org>; Thu, 24 Sep 2020 13:59:29 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 5F8EB20888
+	for <intel-gfx@archiver.kernel.org>; Thu, 24 Sep 2020 13:59:27 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="u8zXv86J"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 46C4420888
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="bBQO05Vw"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5F8EB20888
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=lst.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF30E6EB23;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF6E76EB1E;
 	Thu, 24 Sep 2020 13:59:24 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org
  [IPv6:2001:8b0:10b:1236::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7856A6EB0B;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 86A736EB1B;
  Thu, 24 Sep 2020 13:59:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:MIME-Version:
- References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:
- Content-Type:Content-ID:Content-Description;
- bh=egAh0AyaJU/L8zB++A7y8+b+g9+HnktXyv/oSuuetso=; b=u8zXv86Jo0uvHG04wra1Ey2FC5
- 4BmGm5rwILkRlXWjNo27W+sYj1vETLRMbiA4/fWiPqk4byxXZWqRE685R4RRF+w0dgExTfCbVtFh5
- +2RhGbduILeabm6vLx9zVmYo43Px3DA0P2YOCwRFFtS05jzHEf6zcWNFmZOTxI+un96fpjKjEkGLZ
- Z7UQLa0aAVYhycLBRUmZmcNmFbr9EddfkWvsChn0SzDWwK28fb1uUfnti7yy3BPrKuF2lDlN6TeYr
- OjqPvwDRq77s0mmrlrGQup9jWQSEGcRmoDlWfevvV7pax80ghmy8o7JsqBu4tzzebz8Q3owfyJLuS
- oG0ke2LA==;
+ Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
+ Content-Description:In-Reply-To:References;
+ bh=dr6dZs3VFHA+kNUsKD0hzBTElVLKOQakCcBlV/ZNErM=; b=bBQO05VwDwAfaDqhekxajuofQQ
+ bb+lb4i3TKVtAyCr2iKg1X8aUn1bdOY06BtcZKEUPCPJtazgELgC/vFbSI7vij62OU7cmoS4Lvp4J
+ HeFUAy34D9c2sIi29BVo8WSJNoo9JaIHBXsP95f4sWbTsfn3hoxVg4re0K37rJI6FFIX4dKQNQ4qi
+ wfy/IU/xQP3fhkdpdco0xb2XcZ5VH/JIoM+BRD8a3NgAFOiUbXH1CBYUN6/Wme9eQ0VGwp1cdaydU
+ G8A1Rfo80MP8zwb3Qv4JgG75vxpJs/kFWWto8tgyBgmVyD0urYVmuY8SbsxiVEvcP/dgcqoII8P4f
+ gsCE6STw==;
 Received: from p4fdb0c34.dip0.t-ipconnect.de ([79.219.12.52] helo=localhost)
  by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1kLRm2-0003vy-8W; Thu, 24 Sep 2020 13:59:02 +0000
+ id 1kLRlu-0003uT-GF; Thu, 24 Sep 2020 13:58:54 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Andrew Morton <akpm@linux-foundation.org>
-Date: Thu, 24 Sep 2020 15:58:48 +0200
-Message-Id: <20200924135853.875294-7-hch@lst.de>
+Date: Thu, 24 Sep 2020 15:58:42 +0200
+Message-Id: <20200924135853.875294-1-hch@lst.de>
 X-Mailer: git-send-email 2.28.0
-In-Reply-To: <20200924135853.875294-1-hch@lst.de>
-References: <20200924135853.875294-1-hch@lst.de>
 MIME-Version: 1.0
 X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
  casper.infradead.org. See http://www.infradead.org/rpr.html
-Subject: [Intel-gfx] [PATCH 06/11] drm/i915: use vmap in shmem_pin_map
+Subject: [Intel-gfx] remove alloc_vm_area v2
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,125 +73,47 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-shmem_pin_map somewhat awkwardly reimplements vmap using
-alloc_vm_area and manual pte setup.  The only practical difference
-is that alloc_vm_area prefeaults the vmalloc area PTEs, which doesn't
-seem to be required here (and could be added to vmap using a flag if
-actually required).  Switch to use vmap, and use vfree to free both the
-vmalloc mapping and the page array, as well as dropping the references
-to each page.
+Hi Andrew,
 
-Signed-off-by: Christoph Hellwig <hch@lst.de>
----
- drivers/gpu/drm/i915/gt/shmem_utils.c | 76 +++++++--------------------
- 1 file changed, 18 insertions(+), 58 deletions(-)
+this series removes alloc_vm_area, which was left over from the big
+vmalloc interface rework.  It is a rather arkane interface, basicaly
+the equivalent of get_vm_area + actually faulting in all PTEs in
+the allocated area.  It was originally addeds for Xen (which isn't
+modular to start with), and then grew users in zsmalloc and i915
+which seems to mostly qualify as abuses of the interface, especially
+for i915 as a random driver should not set up PTE bits directly.
 
-diff --git a/drivers/gpu/drm/i915/gt/shmem_utils.c b/drivers/gpu/drm/i915/gt/shmem_utils.c
-index 43c7acbdc79dea..f011ea42487e11 100644
---- a/drivers/gpu/drm/i915/gt/shmem_utils.c
-+++ b/drivers/gpu/drm/i915/gt/shmem_utils.c
-@@ -49,80 +49,40 @@ struct file *shmem_create_from_object(struct drm_i915_gem_object *obj)
- 	return file;
- }
- 
--static size_t shmem_npte(struct file *file)
--{
--	return file->f_mapping->host->i_size >> PAGE_SHIFT;
--}
--
--static void __shmem_unpin_map(struct file *file, void *ptr, size_t n_pte)
--{
--	unsigned long pfn;
--
--	vunmap(ptr);
--
--	for (pfn = 0; pfn < n_pte; pfn++) {
--		struct page *page;
--
--		page = shmem_read_mapping_page_gfp(file->f_mapping, pfn,
--						   GFP_KERNEL);
--		if (!WARN_ON(IS_ERR(page))) {
--			put_page(page);
--			put_page(page);
--		}
--	}
--}
--
- void *shmem_pin_map(struct file *file)
- {
--	const size_t n_pte = shmem_npte(file);
--	pte_t *stack[32], **ptes, **mem;
--	struct vm_struct *area;
--	unsigned long pfn;
--
--	mem = stack;
--	if (n_pte > ARRAY_SIZE(stack)) {
--		mem = kvmalloc_array(n_pte, sizeof(*mem), GFP_KERNEL);
--		if (!mem)
--			return NULL;
--	}
-+	struct page **pages;
-+	size_t n_pages, i;
-+	void *vaddr;
- 
--	area = alloc_vm_area(n_pte << PAGE_SHIFT, mem);
--	if (!area) {
--		if (mem != stack)
--			kvfree(mem);
-+	n_pages = file->f_mapping->host->i_size >> PAGE_SHIFT;
-+	pages = kvmalloc_array(n_pages, sizeof(*pages), GFP_KERNEL);
-+	if (!pages)
- 		return NULL;
--	}
- 
--	ptes = mem;
--	for (pfn = 0; pfn < n_pte; pfn++) {
--		struct page *page;
--
--		page = shmem_read_mapping_page_gfp(file->f_mapping, pfn,
--						   GFP_KERNEL);
--		if (IS_ERR(page))
-+	for (i = 0; i < n_pages; i++) {
-+		pages[i] = shmem_read_mapping_page_gfp(file->f_mapping, i,
-+						       GFP_KERNEL);
-+		if (IS_ERR(pages[i]))
- 			goto err_page;
--
--		**ptes++ = mk_pte(page,  PAGE_KERNEL);
- 	}
- 
--	if (mem != stack)
--		kvfree(mem);
--
-+	vaddr = vmap(pages, n_pages, VM_MAP_PUT_PAGES, PAGE_KERNEL);
-+	if (!vaddr)
-+		goto err_page;
- 	mapping_set_unevictable(file->f_mapping);
--	return area->addr;
--
-+	return vaddr;
- err_page:
--	if (mem != stack)
--		kvfree(mem);
--
--	__shmem_unpin_map(file, area->addr, pfn);
-+	while (--i >= 0)
-+		put_page(pages[i]);
-+	kvfree(pages);
- 	return NULL;
- }
- 
- void shmem_unpin_map(struct file *file, void *ptr)
- {
- 	mapping_clear_unevictable(file->f_mapping);
--	__shmem_unpin_map(file, ptr, shmem_npte(file));
-+	vfree(ptr);
- }
- 
- static int __shmem_rw(struct file *file, loff_t off,
--- 
-2.28.0
+Note that the i915 patches apply to the drm-tip branch of the drm-tip
+tree, as that tree has recent conflicting commits in the same area.
 
+A git tree is also available here:
+
+    git://git.infradead.org/users/hch/misc.git alloc_vm_area
+
+Gitweb:
+
+    http://git.infradead.org/users/hch/misc.git/shortlog/refs/heads/alloc_vm_area
+
+Changes since v1:
+ - fix a bug in the zsmalloc changes
+ - fix a bug and rebase to include the recent changes in i915
+ - add a new vmap flag that allows to free the page array and pages
+   using vfree
+ - add a vfree documentation updated from Matthew
+
+Diffstat:
+ arch/x86/xen/grant-table.c                |   27 ++++--
+ drivers/gpu/drm/i915/Kconfig              |    1 
+ drivers/gpu/drm/i915/gem/i915_gem_pages.c |  131 +++++++++++++-----------------
+ drivers/gpu/drm/i915/gt/shmem_utils.c     |   76 ++++-------------
+ drivers/xen/xenbus/xenbus_client.c        |   30 +++---
+ include/linux/vmalloc.h                   |    7 -
+ mm/Kconfig                                |    3 
+ mm/memory.c                               |   16 ++-
+ mm/nommu.c                                |    7 -
+ mm/vmalloc.c                              |  123 ++++++++++++++--------------
+ mm/zsmalloc.c                             |   10 +-
+ 11 files changed, 200 insertions(+), 231 deletions(-)
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
