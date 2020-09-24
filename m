@@ -7,46 +7,46 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 65D9FC4363D
-	for <intel-gfx@archiver.kernel.org>; Thu, 24 Sep 2020 12:49:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2BCDAC2D0E2
+	for <intel-gfx@archiver.kernel.org>; Thu, 24 Sep 2020 12:49:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1A09C20708
-	for <intel-gfx@archiver.kernel.org>; Thu, 24 Sep 2020 12:49:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1A09C20708
+	by mail.kernel.org (Postfix) with ESMTPS id C92CE20708
+	for <intel-gfx@archiver.kernel.org>; Thu, 24 Sep 2020 12:49:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C92CE20708
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 859E16E408;
-	Thu, 24 Sep 2020 12:49:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A3706EADC;
+	Thu, 24 Sep 2020 12:49:14 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CBAF68931F
- for <intel-gfx@lists.freedesktop.org>; Thu, 24 Sep 2020 12:49:09 +0000 (UTC)
-IronPort-SDR: FBDMIJrbnmPzS4P6Ubk1bmq722AKU2/QbMJfSdoJ+qPjjw4P0rRp9ILbMprpG/+Z6opmueO+RI
- 49q0g1L+Zr2Q==
-X-IronPort-AV: E=McAfee;i="6000,8403,9753"; a="160480086"
-X-IronPort-AV: E=Sophos;i="5.77,297,1596524400"; d="scan'208";a="160480086"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8B63C6E40B
+ for <intel-gfx@lists.freedesktop.org>; Thu, 24 Sep 2020 12:49:13 +0000 (UTC)
+IronPort-SDR: Qe93GymCc4V3WNVAQtxhkhlovTsWwio9s8w39381OLhn0LrkywiXAW5ZVV3E1JxIbOckeItOwh
+ WFt5zH+g6Zuw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9753"; a="160480091"
+X-IronPort-AV: E=Sophos;i="5.77,297,1596524400"; d="scan'208";a="160480091"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Sep 2020 05:49:09 -0700
-IronPort-SDR: Dz31CnYAqRQzDcUgP1YsFZXjVOi/7vMyC3ydMwZ24MNPao18/Sqr7J21tRug+0DkIweR+fR96O
- v7ali7qWKq/A==
-X-IronPort-AV: E=Sophos;i="5.77,297,1596524400"; d="scan'208";a="486889785"
+ 24 Sep 2020 05:49:13 -0700
+IronPort-SDR: eYffqMdSm9TpjezNPNGMyW4pQUpEj+lDFXBTExQYUlRyAx04JwcK793pX6qMIUWWogdgO6HBaP
+ B2NKPP3i59YQ==
+X-IronPort-AV: E=Sophos;i="5.77,297,1596524400"; d="scan'208";a="486889805"
 Received: from vandita-desktop.iind.intel.com ([10.223.74.218])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-SHA;
- 24 Sep 2020 05:49:07 -0700
+ 24 Sep 2020 05:49:11 -0700
 From: Vandita Kulkarni <vandita.kulkarni@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 24 Sep 2020 18:12:07 +0530
-Message-Id: <20200924124209.17916-4-vandita.kulkarni@intel.com>
+Date: Thu, 24 Sep 2020 18:12:09 +0530
+Message-Id: <20200924124209.17916-6-vandita.kulkarni@intel.com>
 X-Mailer: git-send-email 2.21.0.5.gaeb582a
 In-Reply-To: <20200924124209.17916-1-vandita.kulkarni@intel.com>
 References: <20200924124209.17916-1-vandita.kulkarni@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [V14 3/5] drm/i915/dsi: Add TE handler for dsi cmd mode.
+Subject: [Intel-gfx] [V14 5/5] drm/i915/dsi: Enable software vblank counter
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,114 +65,64 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-In case of dual link, we get the TE on slave.
-So clear the TE on slave DSI IIR.
+In case of DSI cmd mode, we get hw vblank counter
+updated after the TE comes in, if we try to read
+the hw vblank counter in te handler we wouldnt have
+the udpated vblank counter yet.
+This will lead to a state where we would send the
+vblank event to the user space in the next te,
+though the frame update would have completed in
+the first TE duration itself.
+Hence switch to using software timestamp based
+vblank counter.
 
-If we are operating in TE_GATE mode, after we do
-a frame update, the transcoder will send the frame data
-to the panel, after it receives a TE. Whereas if we
-are operating in NO_GATE mode then the transcoder will
-immediately send the frame data to the panel.
-We are not dealing with the periodic command mode here.
-
-v2: Pass only relevant masked bits to the handler (Jani)
-
-v3: Fix the check for cmd mode in TE handler function.
-
-v4: Use intel_handle_vblank instead of drm_handle_vblank (Jani)
-
-v3: Use static on handler func (Jani)
+v2: Use mode_flags from crtc_state (Ville)
 
 Signed-off-by: Vandita Kulkarni <vandita.kulkarni@intel.com>
-Reported-by: kernel test robot <lkp@intel.com>
-Acked-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/i915/i915_irq.c | 65 +++++++++++++++++++++++++++++++++
- 1 file changed, 65 insertions(+)
+ drivers/gpu/drm/i915/display/intel_display.c | 11 +++++++++++
+ drivers/gpu/drm/i915/i915_irq.c              |  4 ++++
+ 2 files changed, 15 insertions(+)
 
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 5a9d933e425a..bb495947ccd5 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -1808,6 +1808,17 @@ enum pipe intel_crtc_pch_transcoder(struct intel_crtc *crtc)
+ static u32 intel_crtc_max_vblank_count(const struct intel_crtc_state *crtc_state)
+ {
+ 	struct drm_i915_private *dev_priv = to_i915(crtc_state->uapi.crtc->dev);
++	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
++	u32 mode_flags = crtc->mode_flags;
++
++	/*
++	 * From Gen 11, In case of dsi cmd mode, frame counter wouldnt
++	 * have updated at the beginning of TE, if we want to use
++	 * the hw counter, then we would find it updated in only
++	 * the next TE, hence switching to sw counter.
++	 */
++	if (mode_flags & (I915_MODE_FLAG_DSI_USE_TE0 | I915_MODE_FLAG_DSI_USE_TE1))
++		return 0;
+ 
+ 	/*
+ 	 * On i965gm the hardware frame counter reads
 diff --git a/drivers/gpu/drm/i915/i915_irq.c b/drivers/gpu/drm/i915/i915_irq.c
-index 913548addfba..c2e4b227bdf3 100644
+index c2e4b227bdf3..634c60befe7e 100644
 --- a/drivers/gpu/drm/i915/i915_irq.c
 +++ b/drivers/gpu/drm/i915/i915_irq.c
-@@ -2237,6 +2237,63 @@ gen8_de_misc_irq_handler(struct drm_i915_private *dev_priv, u32 iir)
- 		drm_err(&dev_priv->drm, "Unexpected DE Misc interrupt\n");
+@@ -682,8 +682,12 @@ u32 i915_get_vblank_counter(struct drm_crtc *crtc)
+ u32 g4x_get_vblank_counter(struct drm_crtc *crtc)
+ {
+ 	struct drm_i915_private *dev_priv = to_i915(crtc->dev);
++	struct drm_vblank_crtc *vblank = &dev_priv->drm.vblank[drm_crtc_index(crtc)];
+ 	enum pipe pipe = to_intel_crtc(crtc)->pipe;
+ 
++	if (!vblank->max_vblank_count)
++		return 0;
++
+ 	return I915_READ(PIPE_FRMCOUNT_G4X(pipe));
  }
  
-+static void gen11_dsi_te_interrupt_handler(struct drm_i915_private *dev_priv,
-+					   u32 te_trigger)
-+{
-+	enum pipe pipe = INVALID_PIPE;
-+	enum transcoder dsi_trans;
-+	enum port port;
-+	u32 val, tmp;
-+
-+	/*
-+	 * Incase of dual link, TE comes from DSI_1
-+	 * this is to check if dual link is enabled
-+	 */
-+	val = I915_READ(TRANS_DDI_FUNC_CTL2(TRANSCODER_DSI_0));
-+	val &= PORT_SYNC_MODE_ENABLE;
-+
-+	/*
-+	 * if dual link is enabled, then read DSI_0
-+	 * transcoder registers
-+	 */
-+	port = ((te_trigger & DSI1_TE && val) || (te_trigger & DSI0_TE)) ?
-+						  PORT_A : PORT_B;
-+	dsi_trans = (port == PORT_A) ? TRANSCODER_DSI_0 : TRANSCODER_DSI_1;
-+
-+	/* Check if DSI configured in command mode */
-+	val = I915_READ(DSI_TRANS_FUNC_CONF(dsi_trans));
-+	val = val & OP_MODE_MASK;
-+
-+	if (val != CMD_MODE_NO_GATE && val != CMD_MODE_TE_GATE) {
-+		drm_err(&dev_priv->drm, "DSI trancoder not configured in command mode\n");
-+		return;
-+	}
-+
-+	/* Get PIPE for handling VBLANK event */
-+	val = I915_READ(TRANS_DDI_FUNC_CTL(dsi_trans));
-+	switch (val & TRANS_DDI_EDP_INPUT_MASK) {
-+	case TRANS_DDI_EDP_INPUT_A_ON:
-+		pipe = PIPE_A;
-+		break;
-+	case TRANS_DDI_EDP_INPUT_B_ONOFF:
-+		pipe = PIPE_B;
-+		break;
-+	case TRANS_DDI_EDP_INPUT_C_ONOFF:
-+		pipe = PIPE_C;
-+		break;
-+	default:
-+		drm_err(&dev_priv->drm, "Invalid PIPE\n");
-+		return;
-+	}
-+
-+	intel_handle_vblank(dev_priv, pipe);
-+
-+	/* clear TE in dsi IIR */
-+	port = (te_trigger & DSI1_TE) ? PORT_B : PORT_A;
-+	tmp = I915_READ(DSI_INTR_IDENT_REG(port));
-+	I915_WRITE(DSI_INTR_IDENT_REG(port), tmp);
-+}
-+
- static irqreturn_t
- gen8_de_irq_handler(struct drm_i915_private *dev_priv, u32 master_ctl)
- {
-@@ -2301,6 +2358,14 @@ gen8_de_irq_handler(struct drm_i915_private *dev_priv, u32 master_ctl)
- 				found = true;
- 			}
- 
-+			if (INTEL_GEN(dev_priv) >= 11) {
-+				tmp_mask = iir & (DSI0_TE | DSI1_TE);
-+				if (tmp_mask) {
-+					gen11_dsi_te_interrupt_handler(dev_priv, tmp_mask);
-+					found = true;
-+				}
-+			}
-+
- 			if (!found)
- 				drm_err(&dev_priv->drm,
- 					"Unexpected DE Port interrupt\n");
 -- 
 2.21.0.5.gaeb582a
 
