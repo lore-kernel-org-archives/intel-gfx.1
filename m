@@ -2,89 +2,137 @@ Return-Path: <SRS0=QgXV=DC=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.3 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 66423C4363D
-	for <intel-gfx@archiver.kernel.org>; Fri, 25 Sep 2020 15:37:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C268FC4363D
+	for <intel-gfx@archiver.kernel.org>; Fri, 25 Sep 2020 15:37:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 14F6020809
-	for <intel-gfx@archiver.kernel.org>; Fri, 25 Sep 2020 15:37:31 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 551A820809
+	for <intel-gfx@archiver.kernel.org>; Fri, 25 Sep 2020 15:37:34 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="MMVLyPrv"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 14F6020809
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=oracle.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=nvidia.com header.i=@nvidia.com header.b="UBU7RbJG"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 551A820809
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=nvidia.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8CD766ED1D;
-	Fri, 25 Sep 2020 15:37:31 +0000 (UTC)
-Received: from aserp2120.oracle.com (aserp2120.oracle.com [141.146.126.78])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D23B96EB5F;
- Thu, 24 Sep 2020 23:43:01 +0000 (UTC)
-Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
- by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 08ONZx0j085851;
- Thu, 24 Sep 2020 23:42:39 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=corp-2020-01-29;
- bh=VvCv4Gti0LRNvu/JiuhQzqXwh4k4ms6S4iJ4yRBRgEM=;
- b=MMVLyPrv7sPtJ1/RwS7dn5G6wMF0WLG4ffVhrRrQHgdemGHrQEKGFjfZfcvc1bqEP4AN
- aHjVeVEMTc2nfLh3f3jd7D7bgCB0wPhBNJAA2DUnyUVt/WVGsksMCyTDcGpnQo+Ve0V5
- x2YWLO/6uCk0REcuKVztrcAzZ0/Mpn68GAFWjhjvWFKguSxvqjNZ+qqRO7Eq3IOA0gfw
- M2gm6L672PBJtZxbuoSJpxzvnhHurd0xQJPFSNuYIWPu4qMoIbDqoIo9UjvPaPugqqHi
- C41EQ5bVrLxxVt2MHMnZACz8qXoTqnKUKL5aajg5l1UHFQX/47Trpqczl0R+xCwGy2st 5g== 
-Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
- by aserp2120.oracle.com with ESMTP id 33q5rgscs2-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Thu, 24 Sep 2020 23:42:39 +0000
-Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
- by userp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 08ONZTet163174;
- Thu, 24 Sep 2020 23:42:38 GMT
-Received: from userv0121.oracle.com (userv0121.oracle.com [156.151.31.72])
- by userp3030.oracle.com with ESMTP id 33nux3jpbk-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 24 Sep 2020 23:42:38 +0000
-Received: from abhmp0003.oracle.com (abhmp0003.oracle.com [141.146.116.9])
- by userv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 08ONgVnu011111;
- Thu, 24 Sep 2020 23:42:31 GMT
-Received: from [10.74.109.22] (/10.74.109.22)
- by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Thu, 24 Sep 2020 16:42:31 -0700
-To: Christoph Hellwig <hch@lst.de>, Andrew Morton <akpm@linux-foundation.org>
-References: <20200924135853.875294-1-hch@lst.de>
- <20200924135853.875294-10-hch@lst.de>
-From: boris.ostrovsky@oracle.com
-Organization: Oracle Corporation
-Message-ID: <ab2913a6-c5ac-c067-6e55-e2549b286f36@oracle.com>
-Date: Thu, 24 Sep 2020 19:42:27 -0400
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.2.2
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0D9766ED29;
+	Fri, 25 Sep 2020 15:37:32 +0000 (UTC)
+Received: from nat-hk.nvidia.com (nat-hk.nvidia.com [203.18.50.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 311AD6ECA4;
+ Fri, 25 Sep 2020 12:03:48 +0000 (UTC)
+Received: from HKMAIL102.nvidia.com (Not Verified[10.18.92.9]) by
+ nat-hk.nvidia.com (using TLS: TLSv1.2, AES256-SHA)
+ id <B5f6ddb710000>; Fri, 25 Sep 2020 19:58:41 +0800
+Received: from HKMAIL104.nvidia.com (10.18.16.13) by HKMAIL102.nvidia.com
+ (10.18.16.11) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 25 Sep
+ 2020 11:58:37 +0000
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com (104.47.36.51) by
+ HKMAIL104.nvidia.com (10.18.16.13) with Microsoft SMTP Server (TLS)
+ id
+ 15.0.1473.3 via Frontend Transport; Fri, 25 Sep 2020 11:58:37 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=jlzDhE2CpEFR5UvMwx36aDOIi8nVK1CJQ+3s+5S/ZeslJRzDEf77mLg7u1W6eMIBP692JvubWExDT4R5A622dAYa6IUW/v34epl+XJC0Jc28LSQ+A8KK0Y/EJ0CWeeKoIsQKvGGO8kNWwHNWc8FESTY1f7VPdHspT0Vb84wnVzkd0pBz82mWoQ0h8BjAYpbhBMpzmNJP1FR4TRG3va55fN2+o9dggqqyiG2EEJNs1HG42+R1aWbkREuTCqqu4g+rIRsQcsME6769pQUyLR+1d/kTiSGY9KI4JHTcBRjQOS9YIxaVsiyEu8ZnCO/2nkLsKnCk4k6/o4tIbdqHgY3rGA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=i9MYxayAQMlbYSUtc6MXr0ErFpGIN/sIC/TquzhapA0=;
+ b=Ss4o6zXfwfTmWOLuTukOd2vjQsAav5B4QFY5AoYQju2RNDSeHW8NPc9Pwrnb9y/0ceYr3nMgyf+95S5TyCORcm8ayy0l4ahmEzb29IzO4zVNi2AMsiu4iTZaOOZV2HCzRHMAAcqhlnhkQ2wLw4Vi/+xr1CtzmG8+uv6GJFAlHt1lvjzCiwmSAxhMnECed3JUx55RTznX+NKmt3y+Oi31Q/+WXxjbzcM9cuB0g/excOXIcyaqjWvQ8kAxZK/3mqjc9yMocBJts5ehQtpTAVFxd1iyTvMeJ/Pux+m0acU5kjaOxtWsyiBvTeBWuNrQi50MaE87wmLE9b+vX39SbFXtBA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+Authentication-Results: linux.intel.com; dkim=none (message not signed)
+ header.d=none; linux.intel.com; dmarc=none action=none header.from=nvidia.com; 
+Received: from DM6PR12MB3834.namprd12.prod.outlook.com (2603:10b6:5:14a::12)
+ by DM5PR12MB2485.namprd12.prod.outlook.com (2603:10b6:4:bb::29) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3412.22; Fri, 25 Sep
+ 2020 11:58:35 +0000
+Received: from DM6PR12MB3834.namprd12.prod.outlook.com
+ ([fe80::cdbe:f274:ad65:9a78]) by DM6PR12MB3834.namprd12.prod.outlook.com
+ ([fe80::cdbe:f274:ad65:9a78%7]) with mapi id 15.20.3412.024; Fri, 25 Sep 2020
+ 11:58:35 +0000
+Date: Fri, 25 Sep 2020 08:58:33 -0300
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Message-ID: <20200925115833.GZ9475@nvidia.com>
+References: <20200922083958.2150803-1-leon@kernel.org>
+ <20200922083958.2150803-2-leon@kernel.org>
+ <118a03ef-d160-e202-81cc-16c9c39359fc@linux.intel.com>
+ <20200925071330.GA2280698@unreal>
+ <adff5752-582c-2065-89e2-924ef732911a@linux.intel.com>
+Content-Disposition: inline
+In-Reply-To: <adff5752-582c-2065-89e2-924ef732911a@linux.intel.com>
+X-Originating-IP: [156.34.48.30]
+X-ClientProxiedBy: BL1PR13CA0026.namprd13.prod.outlook.com
+ (2603:10b6:208:256::31) To DM6PR12MB3834.namprd12.prod.outlook.com
+ (2603:10b6:5:14a::12)
 MIME-Version: 1.0
-In-Reply-To: <20200924135853.875294-10-hch@lst.de>
-Content-Language: en-US
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9754
- signatures=668680
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0
- mlxscore=0 adultscore=0
- bulkscore=0 mlxlogscore=999 phishscore=0 suspectscore=0 spamscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2006250000
- definitions=main-2009240170
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9754
- signatures=668680
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
- impostorscore=0
- clxscore=1011 suspectscore=0 phishscore=0 malwarescore=0
- priorityscore=1501 mlxlogscore=999 adultscore=0 bulkscore=0 mlxscore=0
- lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2006250000 definitions=main-2009240170
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from mlx.ziepe.ca (156.34.48.30) by
+ BL1PR13CA0026.namprd13.prod.outlook.com (2603:10b6:208:256::31) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3433.14 via Frontend
+ Transport; Fri, 25 Sep 2020 11:58:35 +0000
+Received: from jgg by mlx with local (Exim 4.94)	(envelope-from
+ <jgg@nvidia.com>)	id 1kLmMz-000nQL-L0; Fri, 25 Sep 2020 08:58:33 -0300
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: fcf473df-5ed4-4e72-f637-08d8614a54cc
+X-MS-TrafficTypeDiagnostic: DM5PR12MB2485:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM5PR12MB2485C89862DB531E934930C8C2360@DM5PR12MB2485.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: pMV9LxU4FhJo3IJUVpgvPqcdEchPAJA70JaUfKLK4k1NGWSTlTy43Afs28aoX7j3IQjozRAs97nTVNtrwnK5RU38ak7Ts0k7FwbOjxBc3DjE90X0GXeGXDM+/IsC43pV3ET+rGknb/Iv5+VcolaY6lL18M3FaIusR6aH/HqPe1WjdQ2MH8iUPHNiphNXo+6XugRc/nf1TrqdNWZBeZb8Y4TTpeuURugtBQBWL6pjp0Zt6PNuptXX3c8jmC5AY9WpfGzg7bCQz2LNQqaSllTuAKzIzDy8FkH62cPcgoAoww47m1gIzBPwEM1oi0e5N6JQGcg4kEG0BUt/QAR51gR8jguFW5tKD7yykhaUBsGR0u0kEZa98oexnVMGpMVTQJnl
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB3834.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(376002)(136003)(396003)(346002)(39860400002)(366004)(66946007)(66556008)(186003)(54906003)(2906002)(1076003)(26005)(53546011)(316002)(86362001)(33656002)(5660300002)(36756003)(7416002)(9786002)(9746002)(6916009)(478600001)(2616005)(66476007)(8676002)(4326008)(107886003)(8936002)(426003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: e1pQNxeP/TLN76OdKBdfxJXBFLssCjTtnS2Sg+COpOc5a/oKkkEmd1WpC9AR2QE/tKIFAvYilsGWgPvMKb+Q1zcagbV1h/O7BgBBH2AUkDWywKirbJ5Ek4y0PCvSeU123qF9hfbUkGyMv4lw/Pp69XIHitctjcnxWH7v5jH87hb/7GRzD1uEQTbsRitWzQxVAJg2MkYhkrmtbwZ3Qk1FV2bOjlpFS5gemOYM9yFj1YGowaUqzXLB8YU7MQB2S18e60oAcVWpEc9ss2+eqvKLePcHlwMjKifkh8CoPsVowtEEetSJestHd5j7Ge0O+uwvbOoD8k8zmCKJw/YVsb+uUtbgcj2EwXfyYgkoOgcwJm+AHD2kTOgZnQB0rxVeKdBrP3QuFN0pJywahgHGIpHEGV4MPXs+9NQs6wxSZrxSTj0er4gs5fDUd1XsnPq/oQ6SkZwJfoQz/cx1/l8X/AEhf8eRBsXebWOjA+P+XEHwAcILC2HjObNXbye3TRrrPOVY9tJmE2MQhltYA7M3kM8ANTx4LAokYt8ZatMqGQKooHaRN700v2ySGU5omELT5iG20ZpzMnlri5IplYPCAAOaEvTfviDs1gDAQtImDpGiupDlarCqaOVp45WKXgpEETnHCYJ1sXhh02MO/ea1bxK/8Q==
+X-MS-Exchange-CrossTenant-Network-Message-Id: fcf473df-5ed4-4e72-f637-08d8614a54cc
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3834.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2020 11:58:35.2696 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: e7iCdokvHLeK1A+yiFj3KUn+HddJZG/boTZlaxhSMLJoc/U9cAJtVN/5jaPdOTmV
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB2485
+X-OriginatorOrg: Nvidia.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
+ t=1601035121; bh=i9MYxayAQMlbYSUtc6MXr0ErFpGIN/sIC/TquzhapA0=;
+ h=ARC-Seal:ARC-Message-Signature:ARC-Authentication-Results:
+ Authentication-Results:Date:From:To:CC:Subject:Message-ID:
+ References:Content-Type:Content-Disposition:In-Reply-To:
+ X-Originating-IP:X-ClientProxiedBy:MIME-Version:
+ X-MS-Exchange-MessageSentRepresentingType:X-MS-PublicTrafficType:
+ X-MS-Office365-Filtering-Correlation-Id:X-MS-TrafficTypeDiagnostic:
+ X-MS-Exchange-Transport-Forked:X-Microsoft-Antispam-PRVS:
+ X-MS-Oob-TLC-OOBClassifiers:X-MS-Exchange-SenderADCheck:
+ X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+ X-Forefront-Antispam-Report:X-MS-Exchange-AntiSpam-MessageData:
+ X-MS-Exchange-CrossTenant-Network-Message-Id:
+ X-MS-Exchange-CrossTenant-AuthSource:
+ X-MS-Exchange-CrossTenant-AuthAs:
+ X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+ X-MS-Exchange-CrossTenant-FromEntityHeader:
+ X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+ X-MS-Exchange-CrossTenant-UserPrincipalName:
+ X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+ b=UBU7RbJGc72g5nCst20RcXOTriUU+oCCDckomH4l7d67cf1gNfCg0h6Dd9KYzRDUS
+ sKgShT2YOL3yJfyXHrIXOqFDqqDKbi9PZAd5zzB3M5DoCpSXxWGYgD7O6NYjkrE5ya
+ w8V/kJ4iX0rcRh+OVcJQM6bDrZdFQHr5XB0z5ZrHZl/geDsCLk/uXlQydLeCZjtKW9
+ hjDQPYQZP/dH/N8BbbusUwVCVV4ZptczESC4NoSnHMcX850PkScP+IsLMsgBNnq7XT
+ 1h7EJOUPDC2GbzDuLcCZsjgJIlFOJg5ESgdBMccxUmY5vMm/s2WuuWjBp36ZGA0IYt
+ odRFDPnap/PHw==
 X-Mailman-Approved-At: Fri, 25 Sep 2020 15:37:31 +0000
-Subject: Re: [Intel-gfx] [PATCH 09/11] xen/xenbus: use apply_to_page_range
- directly in xenbus_map_ring_pv
+Subject: Re: [Intel-gfx] [PATCH rdma-next v3 1/2] lib/scatterlist: Add
+ support in dynamic allocation of SG table from pages
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,33 +145,49 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Matthew Wilcox <willy@infradead.org>, dri-devel@lists.freedesktop.org,
- linux-mm@kvack.org, Peter Zijlstra <peterz@infradead.org>,
- linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org, x86@kernel.org,
- Chris Wilson <chris@chris-wilson.co.uk>, Minchan Kim <minchan@kernel.org>,
- Matthew Auld <matthew.auld@intel.com>, xen-devel@lists.xenproject.org,
- Nitin Gupta <ngupta@vflare.org>
+Cc: Leon Romanovsky <leon@kernel.org>, linux-rdma@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, Roland Scheidegger <sroland@vmware.com>,
+ dri-devel@lists.freedesktop.org, Maor Gottlieb <maorg@mellanox.com>,
+ David Airlie <airlied@linux.ie>, Doug Ledford <dledford@redhat.com>, VMware
+ Graphics <linux-graphics-maintainer@vmware.com>,
+ Maor Gottlieb <maorg@nvidia.com>, Christoph Hellwig <hch@lst.de>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+On Fri, Sep 25, 2020 at 12:41:29PM +0100, Tvrtko Ursulin wrote:
+> 
+> On 25/09/2020 08:13, Leon Romanovsky wrote:
+> > On Thu, Sep 24, 2020 at 09:21:20AM +0100, Tvrtko Ursulin wrote:
+> > > 
+> > > On 22/09/2020 09:39, Leon Romanovsky wrote:
+> > > > From: Maor Gottlieb <maorg@mellanox.com>
+> > > > 
+> > > > Extend __sg_alloc_table_from_pages to support dynamic allocation of
+> > > > SG table from pages. It should be used by drivers that can't supply
+> > > > all the pages at one time.
+> > > > 
+> > > > This function returns the last populated SGE in the table. Users should
+> > > > pass it as an argument to the function from the second call and forward.
+> > > > As before, nents will be equal to the number of populated SGEs (chunks).
+> > > 
+> > > So it's appending and growing the "list", did I get that right? Sounds handy
+> > > indeed. Some comments/questions below.
+> > 
+> > Yes, we (RDMA) use this function to chain contiguous pages.
+> 
+> I will eveluate if i915 could start using it. We have some loops which build
+> page by page and coalesce.
 
-On 9/24/20 9:58 AM, Christoph Hellwig wrote:
-> Replacing alloc_vm_area with get_vm_area_caller + apply_page_range
-> allows to fill put the phys_addr values directly instead of doing
-> another loop over all addresses.
->
-> Signed-off-by: Christoph Hellwig <hch@lst.de>
+Christoph H doesn't like it, but if there are enough cases we should
+really have a pin_user_pages_to_sg() rather than open code this all
+over the place.
 
+With THP the chance of getting a coalescing SG is much higher, and
+everything is more efficient with larger SGEs.
 
-Reviewed-by: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-
-
--boris
-
+Jason
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
