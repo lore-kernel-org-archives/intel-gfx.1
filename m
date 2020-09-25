@@ -2,89 +2,69 @@ Return-Path: <SRS0=QgXV=DC=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.3 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.3 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 85DB4C47423
-	for <intel-gfx@archiver.kernel.org>; Fri, 25 Sep 2020 15:37:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C2575C4741F
+	for <intel-gfx@archiver.kernel.org>; Fri, 25 Sep 2020 15:37:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2F99A208B6
-	for <intel-gfx@archiver.kernel.org>; Fri, 25 Sep 2020 15:37:36 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 75D3420809
+	for <intel-gfx@archiver.kernel.org>; Fri, 25 Sep 2020 15:37:37 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="CYXf0fTj"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2F99A208B6
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=oracle.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=nvidia.com header.i=@nvidia.com header.b="cT03BzeJ"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 75D3420809
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=nvidia.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C7E2E6ED22;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D924B6ED20;
 	Fri, 25 Sep 2020 15:37:31 +0000 (UTC)
-Received: from userp2120.oracle.com (userp2120.oracle.com [156.151.31.85])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3BB1C6EB69;
- Thu, 24 Sep 2020 23:43:56 +0000 (UTC)
-Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
- by userp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 08ONZFwE100834;
- Thu, 24 Sep 2020 23:43:43 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=corp-2020-01-29;
- bh=4T7MwI86Tdbp1GAwGn7YNnD5aIov6tuCb1xRlBKCjkY=;
- b=CYXf0fTjvhIsR7MRYK2KBGHpbztF/aSBrKi4pyo0Dba7lP1QzffF9CPARQdraZNI73aD
- pdTLv7jyyHQLejhJ4nowJicKzV9gY1GPionBKQtyk/PZ06iumKvC+pD6mk+0hyk7njzC
- GS9T7iPfoRsFXVyUllxOxzYlTSD7hNgYxKidCnPTF5w4IwR+Y6WXV0nJOoWfy5LL8j5G
- DEy3hiWToLa1rsZaobLFJjE5t/9errRxvKU5Y4gsvZV4F6anOfwOMiN+iuLrTmY9HVe8
- BCIHK9AWEb4xKtyvEZG3kf6gdFAhc+AL12nagwzml2CVspzeSy2PiT1xs8T6NG3nU2ow mg== 
-Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
- by userp2120.oracle.com with ESMTP id 33ndnuu3fs-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Thu, 24 Sep 2020 23:43:43 +0000
-Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
- by userp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 08ONZTrb163168;
- Thu, 24 Sep 2020 23:43:42 GMT
-Received: from aserv0121.oracle.com (aserv0121.oracle.com [141.146.126.235])
- by userp3030.oracle.com with ESMTP id 33nux3jpv4-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 24 Sep 2020 23:43:42 +0000
-Received: from abhmp0017.oracle.com (abhmp0017.oracle.com [141.146.116.23])
- by aserv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 08ONhexi002750;
- Thu, 24 Sep 2020 23:43:40 GMT
-Received: from [10.74.109.22] (/10.74.109.22)
- by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Thu, 24 Sep 2020 16:43:40 -0700
-To: Christoph Hellwig <hch@lst.de>, Andrew Morton <akpm@linux-foundation.org>
-References: <20200924135853.875294-1-hch@lst.de>
- <20200924135853.875294-11-hch@lst.de>
-From: boris.ostrovsky@oracle.com
-Organization: Oracle Corporation
-Message-ID: <5222d13f-8eff-1536-4e8d-e4013039ecca@oracle.com>
-Date: Thu, 24 Sep 2020 19:43:36 -0400
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.2.2
+Received: from hqnvemgate26.nvidia.com (hqnvemgate26.nvidia.com
+ [216.228.121.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B7E46EB29;
+ Fri, 25 Sep 2020 13:40:12 +0000 (UTC)
+Received: from hqmail.nvidia.com (Not Verified[216.228.121.13]) by
+ hqnvemgate26.nvidia.com (using TLS: TLSv1.2, AES256-SHA)
+ id <B5f6df32e0000>; Fri, 25 Sep 2020 06:39:58 -0700
+Received: from [172.27.1.66] (10.124.1.5) by HQMAIL107.nvidia.com
+ (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 25 Sep
+ 2020 13:39:56 +0000
+To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, Jason Gunthorpe
+ <jgg@nvidia.com>, Leon Romanovsky <leon@kernel.org>
+References: <20200922083958.2150803-1-leon@kernel.org>
+ <20200922083958.2150803-2-leon@kernel.org>
+ <118a03ef-d160-e202-81cc-16c9c39359fc@linux.intel.com>
+ <20200925071330.GA2280698@unreal> <20200925115544.GY9475@nvidia.com>
+ <65ca566b-7a5e-620f-13a4-c59eb836345a@nvidia.com>
+ <33942b10-8eef-9180-44c5-b7379b92b824@linux.intel.com>
+From: Maor Gottlieb <maorg@nvidia.com>
+Message-ID: <9d69d68d-7868-609b-c703-dfe9fec93a0f@nvidia.com>
+Date: Fri, 25 Sep 2020 16:39:53 +0300
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.2.1
 MIME-Version: 1.0
-In-Reply-To: <20200924135853.875294-11-hch@lst.de>
+In-Reply-To: <33942b10-8eef-9180-44c5-b7379b92b824@linux.intel.com>
 Content-Language: en-US
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9754
- signatures=668680
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0
- mlxscore=0 adultscore=0
- bulkscore=0 mlxlogscore=999 phishscore=0 suspectscore=0 spamscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2006250000
- definitions=main-2009240170
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9754
- signatures=668680
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
- priorityscore=1501 malwarescore=0
- lowpriorityscore=0 phishscore=0 adultscore=0 suspectscore=0 bulkscore=0
- clxscore=1015 impostorscore=0 mlxlogscore=999 mlxscore=0 spamscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2006250000
- definitions=main-2009240170
+X-Originating-IP: [10.124.1.5]
+X-ClientProxiedBy: HQMAIL105.nvidia.com (172.20.187.12) To
+ HQMAIL107.nvidia.com (172.20.187.13)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
+ t=1601041198; bh=I3MevVq0rfThlib9stYezAlO6VoXyq/abMk8uS5Rf30=;
+ h=Subject:To:CC:References:From:Message-ID:Date:User-Agent:
+ MIME-Version:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+ Content-Language:X-Originating-IP:X-ClientProxiedBy;
+ b=cT03BzeJw3AnIIrmEndxMyFxZGs1x1e+luerBaV6utLXOQpxqyHE0J35I/xDt+xhQ
+ nR5XsHMTcB0Sg+P7pyDrtOk1sPUxKgkwNxDjh5LrmwZNkflEO0B+KyIXAPtShuGdZp
+ BAkM4kyDxQzdIawJgqR//5croKMPwX5+yyb7UibsGX7XYCgs5+KQQNnOr3xu1koFWo
+ l66mYjr0hXJexrdgIiX4ZJXsHGEllajD/0UevEWQGSQk7XBJszxIYwaFw0yubCntpL
+ oG5dpHOEhdPi1skYh5ja8JQdJ+bII9s7XSD/ihYM9L8T/rsdj8ZZifbMGapnVBN7QJ
+ rq56RmEyRwkhA==
 X-Mailman-Approved-At: Fri, 25 Sep 2020 15:37:31 +0000
-Subject: Re: [Intel-gfx] [PATCH 10/11] x86/xen: open code alloc_vm_area in
- arch_gnttab_valloc
+Subject: Re: [Intel-gfx] [PATCH rdma-next v3 1/2] lib/scatterlist: Add
+ support in dynamic allocation of SG table from pages
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,32 +77,72 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Matthew Wilcox <willy@infradead.org>, dri-devel@lists.freedesktop.org,
- linux-mm@kvack.org, Peter Zijlstra <peterz@infradead.org>,
- linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org, x86@kernel.org,
- Chris Wilson <chris@chris-wilson.co.uk>, Minchan Kim <minchan@kernel.org>,
- Matthew Auld <matthew.auld@intel.com>, xen-devel@lists.xenproject.org,
- Nitin Gupta <ngupta@vflare.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: linux-rdma@vger.kernel.org, intel-gfx@lists.freedesktop.org, Roland
+ Scheidegger <sroland@vmware.com>, dri-devel@lists.freedesktop.org,
+ Maor Gottlieb <maorg@mellanox.com>, David
+ Airlie <airlied@linux.ie>, Doug Ledford <dledford@redhat.com>,
+ VMware Graphics <linux-graphics-maintainer@vmware.com>,
+ Christoph Hellwig <hch@lst.de>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-
-On 9/24/20 9:58 AM, Christoph Hellwig wrote:
-> Replace the last call to alloc_vm_area with an open coded version using
-> an iterator in struct gnttab_vm_area instead of the triple indirection
-> magic in alloc_vm_area.
->
-> Signed-off-by: Christoph Hellwig <hch@lst.de>
-
-
-Reviewed-by: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+Ck9uIDkvMjUvMjAyMCAzOjMzIFBNLCBUdnJ0a28gVXJzdWxpbiB3cm90ZToKPgo+IE9uIDI1LzA5
+LzIwMjAgMTM6MTgsIE1hb3IgR290dGxpZWIgd3JvdGU6Cj4+IE9uIDkvMjUvMjAyMCAyOjU1IFBN
+LCBKYXNvbiBHdW50aG9ycGUgd3JvdGU6Cj4+PiBPbiBGcmksIFNlcCAyNSwgMjAyMCBhdCAxMDox
+MzozMEFNICswMzAwLCBMZW9uIFJvbWFub3Zza3kgd3JvdGU6Cj4+Pj4+PiBkaWZmIC0tZ2l0IGEv
+dG9vbHMvdGVzdGluZy9zY2F0dGVybGlzdC9tYWluLmMgCj4+Pj4+PiBiL3Rvb2xzL3Rlc3Rpbmcv
+c2NhdHRlcmxpc3QvbWFpbi5jCj4+Pj4+PiBpbmRleCAwYTE0NjQxODEyMjYuLjQ4OTkzNTlhMzFh
+YyAxMDA2NDQKPj4+Pj4+ICsrKyBiL3Rvb2xzL3Rlc3Rpbmcvc2NhdHRlcmxpc3QvbWFpbi5jCj4+
+Pj4+PiBAQCAtNTUsMTQgKzU1LDEzIEBAIGludCBtYWluKHZvaWQpCj4+Pj4+PiDCoMKgwqDCoMKg
+wqAgZm9yIChpID0gMCwgdGVzdCA9IHRlc3RzOyB0ZXN0LT5leHBlY3RlZF9zZWdtZW50czsgdGVz
+dCsrLCAKPj4+Pj4+IGkrKykgewo+Pj4+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqAgc3RydWN0IHBh
+Z2UgKnBhZ2VzW01BWF9QQUdFU107Cj4+Pj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoCBzdHJ1Y3Qg
+c2dfdGFibGUgc3Q7Cj4+Pj4+PiAtwqDCoMKgwqDCoMKgwqAgaW50IHJldDsKPj4+Pj4+ICvCoMKg
+wqDCoMKgwqDCoCBzdHJ1Y3Qgc2NhdHRlcmxpc3QgKnNnOwo+Pj4+Pj4KPj4+Pj4+IMKgwqDCoMKg
+wqDCoMKgwqDCoMKgIHNldF9wYWdlcyhwYWdlcywgdGVzdC0+cGZuLCB0ZXN0LT5udW1fcGFnZXMp
+Owo+Pj4+Pj4KPj4+Pj4+IC3CoMKgwqDCoMKgwqDCoCByZXQgPSBfX3NnX2FsbG9jX3RhYmxlX2Zy
+b21fcGFnZXMoJnN0LCBwYWdlcywgCj4+Pj4+PiB0ZXN0LT5udW1fcGFnZXMsCj4+Pj4+PiAtwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgMCwgdGVzdC0+
+c2l6ZSwgdGVzdC0+bWF4X3NlZywKPj4+Pj4+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBHRlBfS0VSTkVMKTsKPj4+Pj4+IC3CoMKgwqDCoMKgwqDC
+oCBhc3NlcnQocmV0ID09IHRlc3QtPmFsbG9jX3JldCk7Cj4+Pj4+PiArwqDCoMKgwqDCoMKgwqAg
+c2cgPSBfX3NnX2FsbG9jX3RhYmxlX2Zyb21fcGFnZXMoJnN0LCBwYWdlcywgCj4+Pj4+PiB0ZXN0
+LT5udW1fcGFnZXMsIDAsCj4+Pj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHRl
+c3QtPnNpemUsIHRlc3QtPm1heF9zZWcsIE5VTEwsIDAsIEdGUF9LRVJORUwpOwo+Pj4+Pj4gK8Kg
+wqDCoMKgwqDCoMKgIGFzc2VydChQVFJfRVJSX09SX1pFUk8oc2cpID09IHRlc3QtPmFsbG9jX3Jl
+dCk7Cj4+Pj4+IFNvbWUgdGVzdCBjb3ZlcmFnZSBmb3IgcmVsYXRpdmVseSBjb21wbGV4IGNvZGUg
+d291bGQgYmUgdmVyeSAKPj4+Pj4gd2VsY29tZWQuIFNpbmNlCj4+Pj4+IHRoZSB0ZXN0aW5nIGZy
+YW1ld29yayBpcyBhbHJlYWR5IHRoZXJlLCBldmVuIGlmIGl0IGJpdC1yb3R0ZWQgYSAKPj4+Pj4g
+Yml0LCBidXQKPj4+Pj4gc2hvdWxkbid0IGJlIGhhcmQgdG8gZml4Lgo+Pj4+Pgo+Pj4+PiBBIGZl
+dyB0ZXN0cyB0byBjaGVjayBhcHBlbmQvZ3JvdyB3b3JrcyBhcyBleHBlY3RlZCwgaW4gdGVybXMg
+b2YgCj4+Pj4+IGhvdyB0aGUgZW5kCj4+Pj4+IHRhYmxlIGxvb2tzIGxpa2UgZ2l2ZW4gdGhlIGlu
+aXRpYWwgc3RhdGUgYW5kIHNvbWUgZGlmZmVyZW50IHBhZ2UgCj4+Pj4+IHBhdHRlcm5zCj4+Pj4+
+IGFkZGVkIHRvIGl0LiBBbmQgYm90aCBjcm9zc2luZyBhbmQgbm90IGNyb3NzaW5nIGludG8gc2cg
+Y2hhaW5pbmcgCj4+Pj4+IHNjZW5hcmlvcy4KPj4+PiBUaGlzIGZ1bmN0aW9uIGlzIGJhc2ljIGZv
+ciBhbGwgUkRNQSBkZXZpY2VzIGFuZCB3ZSBhcmUgcHJldHR5IAo+Pj4+IGNvbmZpZGVudAo+Pj4+
+IHRoYXQgdGhlIG9sZCBhbmQgbmV3IGZsb3dzIGFyZSB0ZXN0ZWQgdGhvcm91Z2hseS4KPj4+IFdl
+bGwsIHNpbmNlIDAtZGF5IGlzIHJlcG9ydGluZyB0aGF0IF9faTkxNV9nZW1fdXNlcnB0cl9hbGxv
+Y19wYWdlcyBpcwo+Pj4gY3Jhc2hpbmcgb24gdGhpcywgaXQgcHJvYmFibHkgZG9lcyBuZWVkIHNv
+bWUgdGVzdHMgOlwKPj4+Cj4+PiBKYXNvbgo+Pgo+PiBJdCBpcyBjcmFzaGluZyBpbiB0aGUgcmVn
+dWxhciBvbGQgZmxvdyB3aGljaCBhbHJlYWR5IHRlc3RlZC4KPj4gSG93ZXZlciwgSSB3aWxsIGFk
+ZCBtb3JlIHRlc3RzLgo+Cj4gRG8geW91IHdhbnQgdG8gdGFrZSBzb21lIG9mIHRoZSBjb21taXRz
+IGZyb20gCj4gZ2l0Oi8vcGVvcGxlLmZyZWVkZXNrdG9wLm9yZy9+dHVyc3VsaW4vZHJtLWludGVs
+IHNndGVzdD8gSXQgd291bGQgYmUgCj4gZmluZSBieSBtZS4gSSBjYW4gY2xlYW4gdXAgdGhlIGNv
+bW1pdCBtZXNzYWdlcyBpZiB5b3Ugd2FudC4KCkkgd2lsbCB2ZXJ5IGFwcHJlY2lhdGUgaXQuIFRo
+YW5rcwo+Cj4gaHR0cHM6Ly9jZ2l0LmZyZWVkZXNrdG9wLm9yZy9+dHVyc3VsaW4vZHJtLWludGVs
+L2NvbW1pdC8/aD1zZ3Rlc3QmaWQ9NzkxMDJmNGQ3OTVjNDc2OTQzMWZjNDRhNmNmN2VkNWM1YjFi
+NTIxNCAKPiAtIHRoaXMgb25lIHVuZG9lcyB0aGUgYml0IHJvdCBhbmQgbWFrZXMgdGhlIHRlc3Qg
+anVzdCB3b3JrIG9uIHRoZSAKPiBjdXJyZW50IGtlcm5lbC4KPgo+IGh0dHBzOi8vY2dpdC5mcmVl
+ZGVza3RvcC5vcmcvfnR1cnN1bGluL2RybS1pbnRlbC9jb21taXQvP2g9c2d0ZXN0JmlkPWIwOWJm
+ZTgwNDg2YzRkOTNlZTFkOGFlMTdkNWI0NjM5N2IxYzZlZTEgCj4gLSB0aGlzIG9uZSB5b3UgcHJv
+YmFibHkgc2hvdWxkIHNxdWFzaCBpbiB5b3VyIHBhdGNoLiBNaW51cyB0aGUgemVyb2luZyAKPiBv
+ZiBzdHJ1Y3Qgc2dfc3RhYmxlIHNpbmNlIHRoYXQgd291bGQgaGlkZSB0aGUgaXNzdWUuCj4KPiBo
+dHRwczovL2NnaXQuZnJlZWRlc2t0b3Aub3JnL350dXJzdWxpbi9kcm0taW50ZWwvY29tbWl0Lz9o
+PXNndGVzdCZpZD05N2Y1ZGYzN2U2MTJmNzk4Y2VkOTA1NDFlZWNlMTNlMmVmNjM5MTgxIAo+IC0g
+ZmluYWwgY29tbWl0IGlzIG9wdGlvbmFsIGJ1dCBJIGd1ZXNzIGhhbmR5IGZvciBkZWJ1Z2dpbmcu
+Cj4KPiBSZWdhcmRzLAo+Cj4gVHZydGtvCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fCkludGVsLWdmeCBtYWlsaW5nIGxpc3QKSW50ZWwtZ2Z4QGxpc3RzLmZy
+ZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3Rp
+bmZvL2ludGVsLWdmeAo=
