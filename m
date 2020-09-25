@@ -2,54 +2,48 @@ Return-Path: <SRS0=QgXV=DC=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_GIT autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DCE10C4363D
-	for <intel-gfx@archiver.kernel.org>; Fri, 25 Sep 2020 12:17:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9A1C5C4727C
+	for <intel-gfx@archiver.kernel.org>; Fri, 25 Sep 2020 12:21:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7D02D2086A
-	for <intel-gfx@archiver.kernel.org>; Fri, 25 Sep 2020 12:17:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7D02D2086A
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 3CE0721D91
+	for <intel-gfx@archiver.kernel.org>; Fri, 25 Sep 2020 12:21:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3CE0721D91
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E065A6ECB2;
-	Fri, 25 Sep 2020 12:17:56 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9235D6ECB2
- for <intel-gfx@lists.freedesktop.org>; Fri, 25 Sep 2020 12:17:55 +0000 (UTC)
-IronPort-SDR: 6X6PSZ/6Xjk7jsaOXluHW0TOxKW3pen5QUHHaU1PV7SxOUM2pC/22RatvOT+IfD29rEKbZqzBx
- MKaTGShQChNA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9754"; a="149277148"
-X-IronPort-AV: E=Sophos;i="5.77,301,1596524400"; d="scan'208";a="149277148"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7ECC26ECB6;
+	Fri, 25 Sep 2020 12:21:02 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B506C6ECB4;
+ Fri, 25 Sep 2020 12:21:00 +0000 (UTC)
+IronPort-SDR: 5d6WB9WtEBXMAuuqCn2gmK1Jsq+VPkfwCQTGqUa8Kq6mxh5bIsQtNBbcN+ktdgl75Et4gWRNdZ
+ pS1gN9YVPyuQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9754"; a="149163855"
+X-IronPort-AV: E=Sophos;i="5.77,301,1596524400"; d="scan'208";a="149163855"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Sep 2020 05:17:54 -0700
-IronPort-SDR: iOQyouy1weduCaC7AdKsi5qdI51kxjJCTn51qJy6FSJgGuO5l7+co4DF7aa+vVL+RSJNSgkgKo
- TpNjkYVGzp3g==
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Sep 2020 05:20:59 -0700
+IronPort-SDR: Lsm8bWnGAlbWTA7kb2AstTJPcd3vxCL0JQRppMoiWzcPFPbRUIOpAxfHXE0jAih+iA329RWLTR
+ qkg29cbYGmnw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.77,301,1596524400"; d="scan'208";a="348361599"
-Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.174])
- by FMSMGA003.fm.intel.com with SMTP; 25 Sep 2020 05:17:52 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Fri, 25 Sep 2020 15:17:52 +0300
-From: Ville Syrjala <ville.syrjala@linux.intel.com>
+X-IronPort-AV: E=Sophos;i="5.77,301,1596524400"; d="scan'208";a="383460341"
+Received: from unknown (HELO linux-akn.iind.intel.com) ([10.223.34.148])
+ by orsmga001.jf.intel.com with ESMTP; 25 Sep 2020 05:20:57 -0700
+From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 25 Sep 2020 15:17:49 +0300
-Message-Id: <20200925121749.708-2-ville.syrjala@linux.intel.com>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20200925121749.708-1-ville.syrjala@linux.intel.com>
-References: <20200925121749.708-1-ville.syrjala@linux.intel.com>
+Date: Fri, 25 Sep 2020 17:43:33 +0530
+Message-Id: <20200925121340.29497-1-ankit.k.nautiyal@intel.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 2/2] drm/i915: Don't hide the
- intel_crtc_atomic_check() call
+Subject: [Intel-gfx] [RFC 0/7] Add support for DP-HDMI2.1 PCON
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,30 +56,72 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-RnJvbTogVmlsbGUgU3lyasOkbMOkIDx2aWxsZS5zeXJqYWxhQGxpbnV4LmludGVsLmNvbT4KCk1v
-dmUgdGhlIGludGVsX2NydGNfYXRvbWljX2NoZWNrKCkgY2FsbCBvdXQgZnJvbSB0aGUgdmFyaWFi
-bGUKZGVjbGFyYXRpb25zIHRvIGEgcGxhY2Ugd2hlcmUgd2UgY2FuIGFjdHVhbGx5IHNlZSBpdC4K
-ClNpZ25lZC1vZmYtYnk6IFZpbGxlIFN5cmrDpGzDpCA8dmlsbGUuc3lyamFsYUBsaW51eC5pbnRl
-bC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kaXNwbGF5LmMg
-fCA0ICsrKy0KIDEgZmlsZSBjaGFuZ2VkLCAzIGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkK
-CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Rpc3BsYXku
-YyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGlzcGxheS5jCmluZGV4IDVh
-OWQ5MzNlNDI1YS4uMTE4NjJkZTNkNzcyIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkx
-NS9kaXNwbGF5L2ludGVsX2Rpc3BsYXkuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNw
-bGF5L2ludGVsX2Rpc3BsYXkuYwpAQCAtMTQ4NDQsOCArMTQ4NDQsMTAgQEAgc3RhdGljIGludCBp
-bnRlbF9hdG9taWNfY2hlY2tfY3J0Y3Moc3RydWN0IGludGVsX2F0b21pY19zdGF0ZSAqc3RhdGUp
-CiAJaW50IGk7CiAKIAlmb3JfZWFjaF9uZXdfaW50ZWxfY3J0Y19pbl9zdGF0ZShzdGF0ZSwgY3J0
-YywgY3J0Y19zdGF0ZSwgaSkgewotCQlpbnQgcmV0ID0gaW50ZWxfY3J0Y19hdG9taWNfY2hlY2so
-c3RhdGUsIGNydGMpOwogCQlzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqaTkxNSA9IHRvX2k5MTUo
-Y3J0Yy0+YmFzZS5kZXYpOworCQlpbnQgcmV0OworCisJCXJldCA9IGludGVsX2NydGNfYXRvbWlj
-X2NoZWNrKHN0YXRlLCBjcnRjKTsKIAkJaWYgKHJldCkgewogCQkJZHJtX2RiZ19hdG9taWMoJmk5
-MTUtPmRybSwKIAkJCQkgICAgICAgIltDUlRDOiVkOiVzXSBhdG9taWMgZHJpdmVyIGNoZWNrIGZh
-aWxlZFxuIiwKLS0gCjIuMjYuMgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRlbC1nZnhAbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
-aW50ZWwtZ2Z4Cg==
+This patch series attempts to add support for a DP-HDMI2.1 Protocol
+Convertor. The VESA spec for the HDMI2.1 PCON are proposed in Errata
+E5 to DisplayPort_v2.0:
+https://vesa.org/join-vesamemberships/member-downloads/?action=stamp&fileid=42299
+The details are mentioned in DP to HDMI2.1 PCON Enum/Config
+improvement slide decks:
+https://groups.vesa.org/wg/DP/document/folder/1316
+
+This RFC series starts with adding support for FRL (Fixed Rate Link)
+Training between the PCON and HDMI2.1 sink.
+As per HDMI2.1 specification, a new data-channel or lane is added in
+FRL mode, by repurposing the TMDS clock Channel. Through FRL, higher
+bit-rate can be supported, ie. up to 12 Gbps/lane (48 Gbps over 4
+lanes).
+
+With these patches, the HDMI2.1 PCON can be configured to achieve FRL
+training based on the maximum FRL rate supported by the panel, source
+and the PCON.
+The approach is to add the support for FRL training between PCON and
+HDMI2.1 sink and gradually add other blocks for supporting higher
+resolutions and other HDMI2.1 features, that can be supported by pcon
+for the sources that do not natively support HDMI2.1.
+
+This is done before the DP Link training between the source and PCON
+is started. In case of FRL training is not achieved, the PCON will
+work in the regular TMDS mode, without HDMI2.1 feature support.
+Any interruption in FRL training between the PCON and HDMI2.1 sink is
+notified through IRQ_HPD. On receiving the IRQ_HPD the concerned DPCD
+registers are read and FRL training is re-attempted.
+
+Currently, we have tested the FRL training and are able to enable 4K
+display with TGL Platform + Realtek PCON RTD2173 with HDMI2.1 supporting
+panel.
+
+Ankit Nautiyal (3):
+  drm/dp_helper: Add FRL training support for a DP-HDMI2.1 PCON
+  drm/i915: Add support for starting FRL training for HDMI2.1 via PCON
+  drm/i915: Check for FRL training before DP Link training
+
+Swati Sharma (4):
+  drm/edid: Add additional HFVSDB fields for HDMI2.1
+  drm/edid: Parse MAX_FRL field from HFVSDB block
+  drm/dp_helper: Add support for link status and link recovery
+  drm/i915: Add support for enabling link status and recovery
+
+ drivers/gpu/drm/drm_dp_helper.c               | 338 ++++++++++++++++++
+ drivers/gpu/drm/drm_edid.c                    |  50 +++
+ drivers/gpu/drm/i915/display/intel_ddi.c      |   2 +
+ .../drm/i915/display/intel_display_types.h    |   6 +
+ drivers/gpu/drm/i915/display/intel_dp.c       | 251 ++++++++++++-
+ drivers/gpu/drm/i915/display/intel_dp.h       |   2 +
+ include/drm/drm_connector.h                   |   6 +
+ include/drm/drm_dp_helper.h                   |  97 +++++
+ include/drm/drm_edid.h                        |  30 ++
+ 9 files changed, 779 insertions(+), 3 deletions(-)
+
+-- 
+2.17.1
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
