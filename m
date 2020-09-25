@@ -2,111 +2,112 @@ Return-Path: <SRS0=QgXV=DC=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
 	MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6F2E3C4363D
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F16EEC4727C
 	for <intel-gfx@archiver.kernel.org>; Fri, 25 Sep 2020 15:37:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 29F1C20809
+	by mail.kernel.org (Postfix) with ESMTPS id A7F9A20809
 	for <intel-gfx@archiver.kernel.org>; Fri, 25 Sep 2020 15:37:42 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=nvidia.com header.i=@nvidia.com header.b="IqDFG02J"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 29F1C20809
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=nvidia.com header.i=@nvidia.com header.b="RLL2U2m8"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A7F9A20809
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=nvidia.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB4456ED15;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EE5796ED18;
 	Fri, 25 Sep 2020 15:37:41 +0000 (UTC)
-X-Greylist: delayed 304 seconds by postgrey-1.36 at gabe;
- Fri, 25 Sep 2020 12:01:04 UTC
-Received: from nat-hk.nvidia.com (nat-hk.nvidia.com [203.18.50.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D3CE46ECAC;
- Fri, 25 Sep 2020 12:01:04 +0000 (UTC)
-Received: from HKMAIL104.nvidia.com (Not Verified[10.18.92.100]) by
- nat-hk.nvidia.com (using TLS: TLSv1.2, AES256-SHA)
- id <B5f6ddacb0001>; Fri, 25 Sep 2020 19:55:55 +0800
-Received: from HKMAIL101.nvidia.com (10.18.16.10) by HKMAIL104.nvidia.com
- (10.18.16.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 25 Sep
- 2020 11:55:50 +0000
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com (104.47.36.57) by
- HKMAIL101.nvidia.com (10.18.16.10) with Microsoft SMTP Server (TLS)
- id
- 15.0.1473.3 via Frontend Transport; Fri, 25 Sep 2020 11:55:49 +0000
+Received: from hqnvemgate24.nvidia.com (hqnvemgate24.nvidia.com
+ [216.228.121.143])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8FFDF6E215;
+ Fri, 25 Sep 2020 12:34:18 +0000 (UTC)
+Received: from hqmail.nvidia.com (Not Verified[216.228.121.13]) by
+ hqnvemgate24.nvidia.com (using TLS: TLSv1.2, AES256-SHA)
+ id <B5f6de3690000>; Fri, 25 Sep 2020 05:32:41 -0700
+Received: from HQMAIL101.nvidia.com (172.20.187.10) by HQMAIL109.nvidia.com
+ (172.20.187.15) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 25 Sep
+ 2020 12:34:13 +0000
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com (104.47.58.106)
+ by HQMAIL101.nvidia.com (172.20.187.10) with Microsoft SMTP Server (TLS) id
+ 15.0.1473.3 via Frontend Transport; Fri, 25 Sep 2020 12:34:13 +0000
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=aZlHyC+i40Jx0QCfbC2UcUfkDR2Oqa5QZ538ZQtiw0yD+VqsCk8yKubMnVf46KkeX8Z0Ii8y7BbjLKCnI7Vsvl/mkeVtGma+H4MshL9kl1hi2mFlvMt77PBreqad9CjHIZJQGTk0S8EHT4PE/M5B6ZKVGfl8viejzmsePLgEFj7ASoJeW0M+lFleBPS08jZfFhuywRbHCug1mSuNpSFBRLD1acRNYA/wIX5i4zYNYVTSarcwViWAOSdOBXIWnpzLqkfcVoGIhAiwzPmc6+l5zYokD85jol4bFoT3R6fXhm582ggKVGEoz4+epkd5J25jvopsrjerG3L09VQ9gBQ8Nw==
+ b=W0jjRPsHfE8U/qTYft2FmHo2rf4Vd29LQSgcPY0FshMo7XRktr1mjxZ9OG/bGImnft12h9/SIgA1xr68NNFm6W2rn8UPaQkDPBmh2m0SaKnj5C6Mlo7RYGqauvOjGp1VKyi5gyF93WwnTsGyPHAky7P7itQXXGX0KYv8+NdtyYb1uWDhKKjubMKT0cFpSz3qE/Gykys+oJM9WNig/De1BGiR1iQHE0aq1ZjnJ/zK7fNc4x8fQvKs4uLOQU9+koIqK5UD9+bQZEB0nFLhuFm01V1zSRQKM2F68zAUgsNLE8vf6oBTmy0BSeT2lqLZ6rqkrPtX037G3j1GPwhoSxwhlQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=K7un/5f7i/od79b7GD2C9iKkz7Uw+RURaayiAbz5t+c=;
- b=DoCfWwb+FVHbSY9Di/tvjG02zgfIEsMJ46wFRJBG0siij4bnfnbulTwDqmgWiKL8skxwPXInkQ6S1pi343WKlXbB2+iu+f0zu9Yu69gfu32ZrWxzdBRoJGcQN60UYaev8gaJ1bfGKw/v2SqSJP4YA4JXM7mVNQ1dmq16ds9oKijrVzAtS4Rbn/UwPj+/VhuAAqL441lZvN1BcI3JWQVNRCxfmLIHFkFmnCuba742mVDy1qG9qt/uaaGsT6x/WWMBk97XhCHnZlj37OCkw6ElRi/7ajPDI2AgNeJsXTxNY4SnnDb8MNWADEPT4Qn8YAJg/fchD9Y7h3tCg6omreos8w==
+ bh=LVv89qw5CwXSZ8qOghWfBQYpAqxXhazOniUnTnG3Zwo=;
+ b=h5KMdkKty25JEShVuk6+GM7tAV8p+hUYx9N2+otOkSivjmOVuIJjvoAp44eLqfsDt8dzZdtfNFPqlEFWGcJv7t9llP0LRjS0pwAidD6OdWYTAtqjP/HngbYC17nPVaZxiQ4tk02iRPpsRfK24y2gbLqlRUMuk43QPyzuvyhrW1N0y5byQgNM9jLwp+opE8p/mp4R//NvgZOp9BKInkgQtAKlL6jGI/q/khq3q5tM822MElqLSHkrn4hiXeYIV9U92xFutRSipbnKClYbZQgiU1CZwNkRHG6evc6S0S21Zy35nNeU6NokRU8BstIYzER1YIuK/3bFaJPx6m0HJ74Wvw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
-Authentication-Results: kernel.org; dkim=none (message not signed)
- header.d=none;kernel.org; dmarc=none action=none header.from=nvidia.com;
+Authentication-Results: linux.intel.com; dkim=none (message not signed)
+ header.d=none; linux.intel.com; dmarc=none action=none header.from=nvidia.com; 
 Received: from DM6PR12MB3834.namprd12.prod.outlook.com (2603:10b6:5:14a::12)
- by DM5PR12MB2485.namprd12.prod.outlook.com (2603:10b6:4:bb::29) with
+ by DM5PR1201MB0105.namprd12.prod.outlook.com (2603:10b6:4:54::23) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3412.22; Fri, 25 Sep
- 2020 11:55:45 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3412.20; Fri, 25 Sep
+ 2020 12:34:12 +0000
 Received: from DM6PR12MB3834.namprd12.prod.outlook.com
  ([fe80::cdbe:f274:ad65:9a78]) by DM6PR12MB3834.namprd12.prod.outlook.com
  ([fe80::cdbe:f274:ad65:9a78%7]) with mapi id 15.20.3412.024; Fri, 25 Sep 2020
- 11:55:45 +0000
-Date: Fri, 25 Sep 2020 08:55:44 -0300
+ 12:34:12 +0000
+Date: Fri, 25 Sep 2020 09:34:10 -0300
 From: Jason Gunthorpe <jgg@nvidia.com>
-To: Leon Romanovsky <leon@kernel.org>
-Message-ID: <20200925115544.GY9475@nvidia.com>
+To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Message-ID: <20200925123410.GB9475@nvidia.com>
 References: <20200922083958.2150803-1-leon@kernel.org>
  <20200922083958.2150803-2-leon@kernel.org>
  <118a03ef-d160-e202-81cc-16c9c39359fc@linux.intel.com>
  <20200925071330.GA2280698@unreal>
+ <adff5752-582c-2065-89e2-924ef732911a@linux.intel.com>
+ <20200925115833.GZ9475@nvidia.com>
+ <c5956163-1769-ee40-e4ed-45532d8c4e19@linux.intel.com>
 Content-Disposition: inline
-In-Reply-To: <20200925071330.GA2280698@unreal>
+In-Reply-To: <c5956163-1769-ee40-e4ed-45532d8c4e19@linux.intel.com>
 X-Originating-IP: [156.34.48.30]
-X-ClientProxiedBy: MN2PR14CA0018.namprd14.prod.outlook.com
- (2603:10b6:208:23e::23) To DM6PR12MB3834.namprd12.prod.outlook.com
+X-ClientProxiedBy: MN2PR19CA0012.namprd19.prod.outlook.com
+ (2603:10b6:208:178::25) To DM6PR12MB3834.namprd12.prod.outlook.com
  (2603:10b6:5:14a::12)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from mlx.ziepe.ca (156.34.48.30) by
- MN2PR14CA0018.namprd14.prod.outlook.com (2603:10b6:208:23e::23) with
+ MN2PR19CA0012.namprd19.prod.outlook.com (2603:10b6:208:178::25) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3412.23 via Frontend
- Transport; Fri, 25 Sep 2020 11:55:45 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3412.20 via Frontend
+ Transport; Fri, 25 Sep 2020 12:34:12 +0000
 Received: from jgg by mlx with local (Exim 4.94)	(envelope-from
- <jgg@nvidia.com>)	id 1kLmKG-000nOT-6d; Fri, 25 Sep 2020 08:55:44 -0300
+ <jgg@nvidia.com>)	id 1kLmvS-000o9Y-AT; Fri, 25 Sep 2020 09:34:10 -0300
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 5c69e17f-6cc8-4a0a-bb36-08d86149efae
-X-MS-TrafficTypeDiagnostic: DM5PR12MB2485:
+X-MS-Office365-Filtering-Correlation-Id: 98e5d078-c12a-4d0c-af73-08d8614f4e87
+X-MS-TrafficTypeDiagnostic: DM5PR1201MB0105:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM5PR12MB24852EA7682E2D2694D47F33C2360@DM5PR12MB2485.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
+X-Microsoft-Antispam-PRVS: <DM5PR1201MB010518B90B279F540DA2C5C4C2360@DM5PR1201MB0105.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: bjETh35cKQuGlWia2cc4lJNFoN4EOznj0XVJk8IO3vdGooRPy6jSpYUzKjgug7pe5RVwvKR6fCV/P/KM0VZGJZcUKh/jwbNJGZqhQn7Lb/6y31GCBv+Oa6oH5Z4gjayobEAmLxfOBTW9GOoNYge8kObjsZ3NRvhPE7lnaJER2cuw63/+VsiJmy3PX9PlriiTz1iyX9ZC6Wg2p+QAtQz4UAS3NB4zybvXCrIM/uODWVvNVapaBlqSNQOfV0uw2mI3s2GTp+TlskgYb4LNW9Hgl0qf9r8mWSs9UhI4I2dKKq6UbFGTupSRrZaaASfGNFw6cchQkxWQT56vgoUpd5heNLlTfZSVLeZZ9w47kyIXQtCES6eOivTWgxZE3U55OO3V
+X-Microsoft-Antispam-Message-Info: 2k+WvxUCKhe+yOdboPSeK5gg6Gbhn2U0SxTPr7Xad5/XLlusJzZoavTaa/ksznhkZHmaADduc/rRrpJFuz/FB9zOQP37C3G00rZwpTqDRLMF03zb8YEFzBPX2cQuvexSOShyJwvHrs9lJUfndHCToryQBSFJeT5v+a8mLnyfa+gNSmoePwDD2a2ZtRlMy/GZT6cPJXCyFf9BZCirhaN1/88II+XSrX8kDd0frQVRQ7J8UsaApepOEbyhwnAn8UJ+DRNJSJzP3Y3vz+SaQX2H2hFUihBFYWVMbAZJklwJ8Pp1dGynsAZdeMk0l/KV2IdH6ZVF68nO1mfi2MDjya6lMlpHQAIvSzQMHXADmvyEZHkOol0DPVFwst2p3P0fHH4I
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB3834.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(376002)(136003)(396003)(346002)(39860400002)(366004)(66946007)(66556008)(186003)(54906003)(2906002)(1076003)(26005)(316002)(86362001)(33656002)(5660300002)(36756003)(7416002)(9786002)(9746002)(6916009)(478600001)(2616005)(66476007)(8676002)(4326008)(107886003)(8936002)(426003);
+ SFS:(4636009)(376002)(366004)(396003)(346002)(39860400002)(136003)(66476007)(66556008)(66946007)(2906002)(5660300002)(9786002)(9746002)(2616005)(107886003)(316002)(36756003)(426003)(53546011)(4326008)(33656002)(26005)(1076003)(6916009)(8676002)(186003)(478600001)(8936002)(86362001)(7416002)(54906003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: XgbRTfOUWpFzL9fR1edgYoRAxsXKE8ZLpJ3IW3t+l2I2knfFsAYoJHYglty8CVXf4l1ismX0BQZQyfVOkz3Dkpwn+JwInAWShBSfvo9AvYy4oSSWf4WLtl12H6U62iHu1Y4Z+fwus2kQqulVMuSRIB71ThjoRcug7EW4jcuxsh+nI0MQ9yvpauzzuf1rbT7qHWCQBMYLZS3v8zr+hEf2DDDEN7jEvEShM5EKTSZ2jEZxHHCHajb45P4Ar3VFVp4DhpMJm9/iyfIFVv47LAm71V5KdSH6xHUK+5NV3rrSAsE/tgZOv8lipriGX5RLtbq1vbgNximWhaSp2b7mQhQ3yyMuij4DpoJPHiNMqgABrGO6SPu+UxcPxUyF9LGANgSvFesdHxl0/4dyIxnqLM0Xh+xOwdVvzgLm30Kf2ReqcvwIjUkCfRlnmMS37iCxIG+gZUflXNpLPgVrX4rTcIDCu0S4ItlFVUMQwliV/3OWPc0IpjfcbhPlnTekzx/0BIzLplW0KkNUGoyG15uWibWDrF6MnK3IIsSlTaaN24CTCFPLTF/3czC4Hqr1AcCrezAz+A+ZFw3JstzxWHdZwHDFfvNP+4ceF5Wo177xETIs1pMBXQ8Wai323G5zQ60isiH37L+RplH9tSN+BRXbNZktEQ==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5c69e17f-6cc8-4a0a-bb36-08d86149efae
+X-MS-Exchange-AntiSpam-MessageData: Bp/f4Y41Y9mqOHKmYD4lNTYmN82OmU5BOT2OQtXKevBQ/DkeWx441XhHAMRx9DxZ99odNGhSEDv+0HH0JyS2CVXCam9s99dDWLAEWHEmspqBZ26yaw9S1lpK7ATB1svz64p1hDze+A+weP3WdmPbN9zjDqC4sF410eVEyKxpzRR0vxIV0PV5vpNtN2eXYTdGRhOmu/txsnYZi4NRdoanq2lKB5k4WWOSuIL0Ae2DIrqFH5cgWdX+1DqFn8Wx+mzef6tgObIplfHUX0M07R3cFJwsSzpHzagsd15GQ6amaItTXhcRNMT3eGPdg3fv7nbm0p8eHakQzTMY2BXMehlDsEzDV9VYUAOtTQZD9IQ44wKoJMN3uKGI5wJqipR6mI53t2Ek3JPLLdOr+71Zp/Yq7BwdX5gYyRE7YoHQk4cQJ2jjkgBiVT+0D6lDP8OQcC8bThf0uWdBvKEnMX/9RipP5vEHpX6/JnpQwPxSeGzjLYRDecp/B+X+1N9wF7dORVZdBWxiKEL0jcrD+e7IELhFpe/QOoNeDcfz4IIRm6psZ7M1DQAT8Vu1Xs7NtTBZNglRy2O0yEvHXLp9oi1Qtc3QusrdcbBOnhl3zmb7LD+PrI0rlg+g0wiwUTkSBNKA8XOqIl/M9rvgWIh0k2R08Ed5pw==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 98e5d078-c12a-4d0c-af73-08d8614f4e87
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3834.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2020 11:55:45.6416 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2020 12:34:12.2619 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Jt9/UbD1aOgPmBRoSnCTZW++Abj+NEp99wMHpZcrjTgq/9EiOdSaV1SoIM8MyHWQ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB2485
+X-MS-Exchange-CrossTenant-UserPrincipalName: nP3LDA9tHbYl8K08gGqjzk3RelVIT+dwNgKclpMs2WT0YS0cPTGZ5BTIjAKzwMVp
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR1201MB0105
 X-OriginatorOrg: Nvidia.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
- t=1601034955; bh=K7un/5f7i/od79b7GD2C9iKkz7Uw+RURaayiAbz5t+c=;
+ t=1601037161; bh=LVv89qw5CwXSZ8qOghWfBQYpAqxXhazOniUnTnG3Zwo=;
  h=ARC-Seal:ARC-Message-Signature:ARC-Authentication-Results:
  Authentication-Results:Date:From:To:CC:Subject:Message-ID:
  References:Content-Type:Content-Disposition:In-Reply-To:
@@ -125,12 +126,12 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
  X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
  X-MS-Exchange-CrossTenant-UserPrincipalName:
  X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
- b=IqDFG02JscTGlt7X327i4HW06op2maNlGR5RUGXRBT+AyAVAwB9Tc3xu7LERRhoOv
- RnXngW/NtrfEh+2HtoCNCRHyg1sOLI1g1BMS9KdNR/U9FFiwu2jDLROIKVkMmuUw1e
- dMlgSe8DfzL+k9o/WahsZSjX4rCuGURppSosbz7oSf4YYjiirdg0OrlSbSxxy6F421
- qlHvDNDKMKJ/OWhJIVk0H4i9PeA2ig7z4GstTpd1FYK3E0sB8tLv+qYl7uDxsCF2aj
- uW4fnCO4nxF3c94lti4N29USkKbg9J8FicZDh9wut2CIihS01eMf28S59e0Vy6K/pX
- 58Cxt+RedoSBg==
+ b=RLL2U2m82i7etYr0XorLpUXVwoTsFJ8R+dWV532yZwld6XZagjbtidK4yOaro15Vw
+ c5oSdd/CKlDmj9rManJjOcGBz5l+PtvD+BU9TecVMcFQ5XFtNwsJDpxwoMIiId8jmD
+ hJFcMSwHmwxWQY3c4TirKc76FiyNG9XpKGiB9Q1GofrUymPY9HuX6VqI4BYrsilueG
+ Uam/bCJL+ifjY6In1OrmG2wx3JBr05tnuf6LYBruYcqKarZJkCz9+ToSO1w2LRC8ja
+ oscP+MSshZ4Hq9/vCaHueD7+l1ndc0+TR5voHJuaqTYj3FHjjldH1SxCBvCGcy9Z7R
+ QN13Gd+pfmELg==
 X-Mailman-Approved-At: Fri, 25 Sep 2020 15:37:31 +0000
 Subject: Re: [Intel-gfx] [PATCH rdma-next v3 1/2] lib/scatterlist: Add
  support in dynamic allocation of SG table from pages
@@ -146,51 +147,69 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-rdma@vger.kernel.org, intel-gfx@lists.freedesktop.org, Roland
- Scheidegger <sroland@vmware.com>, dri-devel@lists.freedesktop.org,
- Maor Gottlieb <maorg@mellanox.com>, David
- Airlie <airlied@linux.ie>, Doug Ledford <dledford@redhat.com>,
- VMware Graphics <linux-graphics-maintainer@vmware.com>,
+Cc: Leon Romanovsky <leon@kernel.org>, linux-rdma@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, Roland Scheidegger <sroland@vmware.com>,
+ dri-devel@lists.freedesktop.org, Maor Gottlieb <maorg@mellanox.com>,
+ David Airlie <airlied@linux.ie>, Doug Ledford <dledford@redhat.com>, VMware
+ Graphics <linux-graphics-maintainer@vmware.com>,
  Maor Gottlieb <maorg@nvidia.com>, Christoph Hellwig <hch@lst.de>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Sep 25, 2020 at 10:13:30AM +0300, Leon Romanovsky wrote:
-> > > diff --git a/tools/testing/scatterlist/main.c b/tools/testing/scatterlist/main.c
-> > > index 0a1464181226..4899359a31ac 100644
-> > > +++ b/tools/testing/scatterlist/main.c
-> > > @@ -55,14 +55,13 @@ int main(void)
-> > >   	for (i = 0, test = tests; test->expected_segments; test++, i++) {
-> > >   		struct page *pages[MAX_PAGES];
-> > >   		struct sg_table st;
-> > > -		int ret;
-> > > +		struct scatterlist *sg;
-> > >
-> > >   		set_pages(pages, test->pfn, test->num_pages);
-> > >
-> > > -		ret = __sg_alloc_table_from_pages(&st, pages, test->num_pages,
-> > > -						  0, test->size, test->max_seg,
-> > > -						  GFP_KERNEL);
-> > > -		assert(ret == test->alloc_ret);
-> > > +		sg = __sg_alloc_table_from_pages(&st, pages, test->num_pages, 0,
-> > > +				test->size, test->max_seg, NULL, 0, GFP_KERNEL);
-> > > +		assert(PTR_ERR_OR_ZERO(sg) == test->alloc_ret);
-> >
-> > Some test coverage for relatively complex code would be very welcomed. Since
-> > the testing framework is already there, even if it bit-rotted a bit, but
-> > shouldn't be hard to fix.
-> >
-> > A few tests to check append/grow works as expected, in terms of how the end
-> > table looks like given the initial state and some different page patterns
-> > added to it. And both crossing and not crossing into sg chaining scenarios.
+On Fri, Sep 25, 2020 at 01:29:49PM +0100, Tvrtko Ursulin wrote:
 > 
-> This function is basic for all RDMA devices and we are pretty confident
-> that the old and new flows are tested thoroughly.
+> On 25/09/2020 12:58, Jason Gunthorpe wrote:
+> > On Fri, Sep 25, 2020 at 12:41:29PM +0100, Tvrtko Ursulin wrote:
+> > > 
+> > > On 25/09/2020 08:13, Leon Romanovsky wrote:
+> > > > On Thu, Sep 24, 2020 at 09:21:20AM +0100, Tvrtko Ursulin wrote:
+> > > > > 
+> > > > > On 22/09/2020 09:39, Leon Romanovsky wrote:
+> > > > > > From: Maor Gottlieb <maorg@mellanox.com>
+> > > > > > 
+> > > > > > Extend __sg_alloc_table_from_pages to support dynamic allocation of
+> > > > > > SG table from pages. It should be used by drivers that can't supply
+> > > > > > all the pages at one time.
+> > > > > > 
+> > > > > > This function returns the last populated SGE in the table. Users should
+> > > > > > pass it as an argument to the function from the second call and forward.
+> > > > > > As before, nents will be equal to the number of populated SGEs (chunks).
+> > > > > 
+> > > > > So it's appending and growing the "list", did I get that right? Sounds handy
+> > > > > indeed. Some comments/questions below.
+> > > > 
+> > > > Yes, we (RDMA) use this function to chain contiguous pages.
+> > > 
+> > > I will eveluate if i915 could start using it. We have some loops which build
+> > > page by page and coalesce.
+> > 
+> > Christoph H doesn't like it, but if there are enough cases we should
+> > really have a pin_user_pages_to_sg() rather than open code this all
+> > over the place.
+> > 
+> > With THP the chance of getting a coalescing SG is much higher, and
+> > everything is more efficient with larger SGEs.
+> 
+> Right, I was actually referring to i915 sites where we build sg tables out
+> of shmem and plain kernel pages. In those areas we have some open coded
+> coalescing loops (see for instance our shmem_get_pages). Plus a local "trim"
+> to discard the unused entries, since we allocate pessimistically not knowing
+> how coalescing will pan out. This kind of core function which appends pages
+> could replace some of that. Maybe it would be slightly less efficient but I
+> will pencil in to at least evaluate it.
+> 
+> Otherwise I do agree that coalescing is a win and in the past I have
+> measured savings in a few MiB range just for struct scatterlist storage.
 
-Well, since 0-day is reporting that __i915_gem_userptr_alloc_pages is
-crashing on this, it probably does need some tests :\
+I think the eventual dream is to have a pin_user_pages_bvec or similar
+that is integrated into the GUP logic so avoids all the extra work,
+just allocates pages of bvecs on the fly. No extra step through a
+linear array of page *'s
+
+Starting to structuring things to take advantage of that makes some
+sense
 
 Jason
 _______________________________________________
