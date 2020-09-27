@@ -6,36 +6,36 @@ X-Spam-Status: No, score=-3.9 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BF873C4346E
-	for <intel-gfx@archiver.kernel.org>; Sun, 27 Sep 2020 06:47:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1A78FC4346E
+	for <intel-gfx@archiver.kernel.org>; Sun, 27 Sep 2020 06:48:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5B2022388B
-	for <intel-gfx@archiver.kernel.org>; Sun, 27 Sep 2020 06:47:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5B2022388B
+	by mail.kernel.org (Postfix) with ESMTPS id CD4F6239D4
+	for <intel-gfx@archiver.kernel.org>; Sun, 27 Sep 2020 06:48:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CD4F6239D4
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F394A6E249;
-	Sun, 27 Sep 2020 06:47:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 543876E24D;
+	Sun, 27 Sep 2020 06:48:18 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
  [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 9C5A56E249;
- Sun, 27 Sep 2020 06:47:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 818DD6E24B;
+ Sun, 27 Sep 2020 06:48:17 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 9468CA0009;
- Sun, 27 Sep 2020 06:47:22 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id 7D6CCA0009;
+ Sun, 27 Sep 2020 06:48:17 +0000 (UTC)
 MIME-Version: 1.0
 From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Lu Baolu" <baolu.lu@linux.intel.com>
-Date: Sun, 27 Sep 2020 06:47:22 -0000
-Message-ID: <160118924260.14965.5296843436576951080@emeril.freedesktop.org>
+To: "Leon Romanovsky" <leon@kernel.org>
+Date: Sun, 27 Sep 2020 06:48:17 -0000
+Message-ID: <160118929751.14965.4143946506827949690@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
-References: <20200927063437.13988-1-baolu.lu@linux.intel.com>
-In-Reply-To: <20200927063437.13988-1-baolu.lu@linux.intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBD?=
- =?utf-8?q?onvert_the_intel_iommu_driver_to_the_dma-iommu_api_=28rev3=29?=
+References: <20200927064647.3106737-1-leon@kernel.org>
+In-Reply-To: <20200927064647.3106737-1-leon@kernel.org>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBE?=
+ =?utf-8?q?ynamicaly_allocate_SG_table_from_the_pages_=28rev2=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,17 +57,17 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 == Series Details ==
 
-Series: Convert the intel iommu driver to the dma-iommu api (rev3)
-URL   : https://patchwork.freedesktop.org/series/71260/
+Series: Dynamicaly allocate SG table from the pages (rev2)
+URL   : https://patchwork.freedesktop.org/series/81962/
 State : failure
 
 == Summary ==
 
-Applying: iommu: Handle freelists when using deferred flushing in iommu drivers
-error: sha1 information is lacking or useless (drivers/iommu/dma-iommu.c).
+Applying: This series extends __sg_alloc_table_from_pages to allow chaining of
+error: sha1 information is lacking or useless (tools/testing/scatterlist/main.c).
 error: could not build fake ancestor
 hint: Use 'git am --show-current-patch=diff' to see the failed patch
-Patch failed at 0001 iommu: Handle freelists when using deferred flushing in iommu drivers
+Patch failed at 0001 This series extends __sg_alloc_table_from_pages to allow chaining of
 When you have resolved this problem, run "git am --continue".
 If you prefer to skip this patch, run "git am --skip" instead.
 To restore the original branch and stop patching, run "git am --abort".
