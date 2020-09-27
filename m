@@ -7,47 +7,47 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 73623C4727D
-	for <intel-gfx@archiver.kernel.org>; Sun, 27 Sep 2020 06:47:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9B367C4741F
+	for <intel-gfx@archiver.kernel.org>; Sun, 27 Sep 2020 06:47:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2FCEB2388B
-	for <intel-gfx@archiver.kernel.org>; Sun, 27 Sep 2020 06:47:05 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 56BDD239EB
+	for <intel-gfx@archiver.kernel.org>; Sun, 27 Sep 2020 06:47:08 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="K4Ior6IL"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2FCEB2388B
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZMispFsO"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 56BDD239EB
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 136936E239;
-	Sun, 27 Sep 2020 06:47:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 155A46E241;
+	Sun, 27 Sep 2020 06:47:04 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 35D1C6E239;
- Sun, 27 Sep 2020 06:47:00 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E6EF6E241;
+ Sun, 27 Sep 2020 06:47:03 +0000 (UTC)
 Received: from localhost (unknown [213.57.247.131])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 5B2A023A04;
- Sun, 27 Sep 2020 06:46:59 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id C6203239D4;
+ Sun, 27 Sep 2020 06:47:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1601189220;
- bh=X0Gx2aQ5HAIcUm/V+07epd86vOJhBgOcCwwTjg4zaDU=;
+ s=default; t=1601189223;
+ bh=gl14ZErzehWQb9/1WcJI2wZGRSjulxeuYZbP3y4EGLc=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=K4Ior6ILrlGRKpyGEEUKlL1f/2LiM3+lhS3EnTrH1srs0Abz9bV5NZgx68aaIGJTP
- djnmHurCY9sNUaX/vb5TRzCIACdJhdfMiAkgNam+RJP4hqdPDry4Q0xkmFPrBz1kEk
- 3cEphCTgiiI2weVFh7SvR4Bt8eGnpGLoSZmI5DxE=
+ b=ZMispFsOQLvz+Qyxmrt6Qc0ik7QXjFAb+TFUmE8BjHObN8yQ6F7vLrE/qymgZKfFS
+ yyJHHX+n5q/7piF1S4/keK1b/SPLD425FV4m4bEyAUqCGjRzudjxlVAEFzs9keBLme
+ DpUVbiO1gbp7UwKvsWHFW1fGX3qGgOCshU8lQtnM=
 From: Leon Romanovsky <leon@kernel.org>
 To: Doug Ledford <dledford@redhat.com>,
 	Jason Gunthorpe <jgg@nvidia.com>
-Date: Sun, 27 Sep 2020 09:46:45 +0300
-Message-Id: <20200927064647.3106737-3-leon@kernel.org>
+Date: Sun, 27 Sep 2020 09:46:47 +0300
+Message-Id: <20200927064647.3106737-5-leon@kernel.org>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20200927064647.3106737-1-leon@kernel.org>
 References: <20200927064647.3106737-1-leon@kernel.org>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH rdma-next v4 2/4] tools/testing/scatterlist:
- Rejuvenate bit-rotten test
+Subject: [Intel-gfx] [PATCH rdma-next v4 4/4] RDMA/umem: Move to allocate SG
+ table from pages
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,89 +70,164 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+From: Maor Gottlieb <maorg@nvidia.com>
 
-A couple small tweaks are needed to make the test build and run
-on current kernels.
+Remove the implementation of ib_umem_add_sg_table and instead
+call to __sg_alloc_table_from_pages which already has the logic to
+merge contiguous pages.
 
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+Besides that it removes duplicated functionality, it reduces the
+memory consumption of the SG table significantly. Prior to this
+patch, the SG table was allocated in advance regardless consideration
+of contiguous pages.
+
+In huge pages system of 2MB page size, without this change, the SG table
+would contain x512 SG entries. E.g. for 100GB memory registration:
+
+	 Number of entries	Size
+Before 	      26214400          600.0MB
+After            51200		  1.2MB
+
 Signed-off-by: Maor Gottlieb <maorg@nvidia.com>
 Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
 ---
- tools/testing/scatterlist/Makefile   |  3 ++-
- tools/testing/scatterlist/linux/mm.h | 35 ++++++++++++++++++++++++++++
- 2 files changed, 37 insertions(+), 1 deletion(-)
+ drivers/infiniband/core/umem.c | 92 +++++-----------------------------
+ 1 file changed, 12 insertions(+), 80 deletions(-)
 
-diff --git a/tools/testing/scatterlist/Makefile b/tools/testing/scatterlist/Makefile
-index cbb003d9305e..c65233876622 100644
---- a/tools/testing/scatterlist/Makefile
-+++ b/tools/testing/scatterlist/Makefile
-@@ -14,7 +14,7 @@ targets: include $(TARGETS)
- main: $(OFILES)
-
- clean:
--	$(RM) $(TARGETS) $(OFILES) scatterlist.c linux/scatterlist.h linux/highmem.h linux/kmemleak.h asm/io.h
-+	$(RM) $(TARGETS) $(OFILES) scatterlist.c linux/scatterlist.h linux/highmem.h linux/kmemleak.h linux/slab.h asm/io.h
- 	@rmdir asm
-
- scatterlist.c: ../../../lib/scatterlist.c
-@@ -28,4 +28,5 @@ include: ../../../include/linux/scatterlist.h
- 	@touch asm/io.h
- 	@touch linux/highmem.h
- 	@touch linux/kmemleak.h
-+	@touch linux/slab.h
- 	@cp $< linux/scatterlist.h
-diff --git a/tools/testing/scatterlist/linux/mm.h b/tools/testing/scatterlist/linux/mm.h
-index 6f9ac14aa800..6ae907f375d2 100644
---- a/tools/testing/scatterlist/linux/mm.h
-+++ b/tools/testing/scatterlist/linux/mm.h
-@@ -114,6 +114,12 @@ static inline void *kmalloc(unsigned int size, unsigned int flags)
- 	return malloc(size);
+diff --git a/drivers/infiniband/core/umem.c b/drivers/infiniband/core/umem.c
+index 01b680b62846..0ef736970aba 100644
+--- a/drivers/infiniband/core/umem.c
++++ b/drivers/infiniband/core/umem.c
+@@ -63,73 +63,6 @@ static void __ib_umem_release(struct ib_device *dev, struct ib_umem *umem, int d
+ 	sg_free_table(&umem->sg_head);
  }
 
-+static inline void *
-+kmalloc_array(unsigned int n, unsigned int size, unsigned int flags)
-+{
-+	return malloc(n * size);
-+}
-+
- #define kfree(x) free(x)
+-/* ib_umem_add_sg_table - Add N contiguous pages to scatter table
+- *
+- * sg: current scatterlist entry
+- * page_list: array of npage struct page pointers
+- * npages: number of pages in page_list
+- * max_seg_sz: maximum segment size in bytes
+- * nents: [out] number of entries in the scatterlist
+- *
+- * Return new end of scatterlist
+- */
+-static struct scatterlist *ib_umem_add_sg_table(struct scatterlist *sg,
+-						struct page **page_list,
+-						unsigned long npages,
+-						unsigned int max_seg_sz,
+-						int *nents)
+-{
+-	unsigned long first_pfn;
+-	unsigned long i = 0;
+-	bool update_cur_sg = false;
+-	bool first = !sg_page(sg);
+-
+-	/* Check if new page_list is contiguous with end of previous page_list.
+-	 * sg->length here is a multiple of PAGE_SIZE and sg->offset is 0.
+-	 */
+-	if (!first && (page_to_pfn(sg_page(sg)) + (sg->length >> PAGE_SHIFT) ==
+-		       page_to_pfn(page_list[0])))
+-		update_cur_sg = true;
+-
+-	while (i != npages) {
+-		unsigned long len;
+-		struct page *first_page = page_list[i];
+-
+-		first_pfn = page_to_pfn(first_page);
+-
+-		/* Compute the number of contiguous pages we have starting
+-		 * at i
+-		 */
+-		for (len = 0; i != npages &&
+-			      first_pfn + len == page_to_pfn(page_list[i]) &&
+-			      len < (max_seg_sz >> PAGE_SHIFT);
+-		     len++)
+-			i++;
+-
+-		/* Squash N contiguous pages from page_list into current sge */
+-		if (update_cur_sg) {
+-			if ((max_seg_sz - sg->length) >= (len << PAGE_SHIFT)) {
+-				sg_set_page(sg, sg_page(sg),
+-					    sg->length + (len << PAGE_SHIFT),
+-					    0);
+-				update_cur_sg = false;
+-				continue;
+-			}
+-			update_cur_sg = false;
+-		}
+-
+-		/* Squash N contiguous pages into next sge or first sge */
+-		if (!first)
+-			sg = sg_next(sg);
+-
+-		(*nents)++;
+-		sg_set_page(sg, first_page, len << PAGE_SHIFT, 0);
+-		first = false;
+-	}
+-
+-	return sg;
+-}
+-
+ /**
+  * ib_umem_find_best_pgsz - Find best HW page size to use for this MR
+  *
+@@ -221,7 +154,7 @@ static struct ib_umem *__ib_umem_get(struct ib_device *device,
+ 	struct mm_struct *mm;
+ 	unsigned long npages;
+ 	int ret;
+-	struct scatterlist *sg;
++	struct scatterlist *sg = NULL;
+ 	unsigned int gup_flags = FOLL_WRITE;
 
- #define kmemleak_alloc(a, b, c, d)
-@@ -122,4 +128,33 @@ static inline void *kmalloc(unsigned int size, unsigned int flags)
- #define PageSlab(p) (0)
- #define flush_kernel_dcache_page(p)
+ 	/*
+@@ -276,15 +209,9 @@ static struct ib_umem *__ib_umem_get(struct ib_device *device,
 
-+#define MAX_ERRNO	4095
-+
-+#define IS_ERR_VALUE(x) unlikely((unsigned long)(void *)(x) >= (unsigned long)-MAX_ERRNO)
-+
-+static inline void * __must_check ERR_PTR(long error)
-+{
-+	return (void *) error;
-+}
-+
-+static inline long __must_check PTR_ERR(__force const void *ptr)
-+{
-+	return (long) ptr;
-+}
-+
-+static inline bool __must_check IS_ERR(__force const void *ptr)
-+{
-+	return IS_ERR_VALUE((unsigned long)ptr);
-+}
-+
-+static inline int __must_check PTR_ERR_OR_ZERO(__force const void *ptr)
-+{
-+	if (IS_ERR(ptr))
-+		return PTR_ERR(ptr);
-+	else
-+		return 0;
-+}
-+
-+#define IS_ENABLED(x) (0)
-+
- #endif
+ 	cur_base = addr & PAGE_MASK;
+
+-	ret = sg_alloc_table(&umem->sg_head, npages, GFP_KERNEL);
+-	if (ret)
+-		goto vma;
+-
+ 	if (!umem->writable)
+ 		gup_flags |= FOLL_FORCE;
+
+-	sg = umem->sg_head.sgl;
+-
+ 	while (npages) {
+ 		cond_resched();
+ 		ret = pin_user_pages_fast(cur_base,
+@@ -296,11 +223,17 @@ static struct ib_umem *__ib_umem_get(struct ib_device *device,
+ 			goto umem_release;
+
+ 		cur_base += ret * PAGE_SIZE;
+-		npages   -= ret;
+-
+-		sg = ib_umem_add_sg_table(sg, page_list, ret,
+-			dma_get_max_seg_size(device->dma_device),
+-			&umem->sg_nents);
++		npages -= ret;
++		sg = __sg_alloc_table_from_pages(
++			&umem->sg_head, page_list, ret, 0, ret << PAGE_SHIFT,
++			dma_get_max_seg_size(device->dma_device), sg, npages,
++			GFP_KERNEL);
++		umem->sg_nents = umem->sg_head.nents;
++		if (IS_ERR(sg)) {
++			unpin_user_pages_dirty_lock(page_list, ret, 0);
++			ret = PTR_ERR(sg);
++			goto umem_release;
++		}
+ 	}
+
+ 	sg_mark_end(sg);
+@@ -322,7 +255,6 @@ static struct ib_umem *__ib_umem_get(struct ib_device *device,
+
+ umem_release:
+ 	__ib_umem_release(device, umem, 0);
+-vma:
+ 	atomic64_sub(ib_umem_num_pages(umem), &mm->pinned_vm);
+ out:
+ 	free_page((unsigned long) page_list);
 --
 2.26.2
 
