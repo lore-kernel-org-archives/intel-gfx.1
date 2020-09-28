@@ -2,42 +2,56 @@ Return-Path: <SRS0=y0J5=DF=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 25D7BC2D0A8
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Sep 2020 22:15:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D5F0CC2D0A8
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Sep 2020 23:07:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C4F96235F7
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Sep 2020 22:15:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C4F96235F7
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
+	by mail.kernel.org (Postfix) with ESMTPS id 7639C23A58
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Sep 2020 23:07:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7639C23A58
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 60B6C6E027;
-	Mon, 28 Sep 2020 22:15:20 +0000 (UTC)
-Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 288E889FEC
- for <intel-gfx@lists.freedesktop.org>; Mon, 28 Sep 2020 22:15:17 +0000 (UTC)
-X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
- x-ip-name=78.156.65.138; 
-Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22561564-1500050 
- for <intel-gfx@lists.freedesktop.org>; Mon, 28 Sep 2020 23:15:07 +0100
-From: Chris Wilson <chris@chris-wilson.co.uk>
-To: intel-gfx@lists.freedesktop.org
-Date: Mon, 28 Sep 2020 23:15:09 +0100
-Message-Id: <20200928221510.26044-2-chris@chris-wilson.co.uk>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20200928221510.26044-1-chris@chris-wilson.co.uk>
-References: <20200928221510.26044-1-chris@chris-wilson.co.uk>
+	by gabe.freedesktop.org (Postfix) with ESMTP id E575889F01;
+	Mon, 28 Sep 2020 23:07:41 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C6F3D89F01;
+ Mon, 28 Sep 2020 23:07:40 +0000 (UTC)
+IronPort-SDR: L3UR5RZVDDQItRY9zY30xuOeQ23DHmrFeRacRmOCQ+f8xUwRc/89wZypBjwy/28KQshz3vSLQR
+ C3pE+klsiOVA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9758"; a="246817677"
+X-IronPort-AV: E=Sophos;i="5.77,315,1596524400"; d="scan'208";a="246817677"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Sep 2020 16:07:40 -0700
+IronPort-SDR: 9XkV9aLbK1uAODE88byKKp4MRaliHvhMU2hA+PTmt3T8XPM+w0ywCelOZNty1UJdqIhZAm4dv8
+ RTFYnpFF8n1g==
+X-IronPort-AV: E=Sophos;i="5.77,315,1596524400"; d="scan'208";a="340597549"
+Received: from pchilaka-mobl.amr.corp.intel.com (HELO ldmartin-desk1)
+ ([10.212.247.146])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Sep 2020 16:07:39 -0700
+Date: Mon, 28 Sep 2020 16:07:39 -0700
+From: Lucas De Marchi <lucas.demarchi@intel.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Message-ID: <20200928230739.vpj22bwebqhtehuk@ldmartin-desk1>
+References: <20200928080931.246347-1-tejaskumarx.surendrakumar.upadhyay@intel.com>
+ <20200928080931.246347-3-tejaskumarx.surendrakumar.upadhyay@intel.com>
+ <87a6xaow40.fsf@intel.com>
+ <SN6PR11MB3421725FE60CC7930FC02AB6DF350@SN6PR11MB3421.namprd11.prod.outlook.com>
+ <871rilq0um.fsf@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [CI 2/3] drm/i915/gt: Always send a pulse down the
- engine after disabling heartbeat
+Content-Disposition: inline
+In-Reply-To: <871rilq0um.fsf@intel.com>
+Subject: Re: [Intel-gfx] [PATCH 2/2] drm/i915/edp/jsl: Update vswing table
+ for HBR and HBR2
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,174 +64,51 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
+Cc: "Pandey, Hariom" <hariom.pandey@intel.com>,
+ "airlied@linux.ie" <airlied@linux.ie>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Currently, we check we can send a pulse prior to disabling the
-heartbeat to verify that we can change the heartbeat, but since we may
-re-evaluate execution upon changing the heartbeat interval we need another
-pulse afterwards to refresh execution.
+On Mon, Sep 28, 2020 at 08:15:29PM +0300, Jani Nikula wrote:
+>On Mon, 28 Sep 2020, "Surendrakumar Upadhyay, TejaskumarX"	<tejaskumarx.surendrakumar.upadhyay@intel.com> wrote:
+>> This is a good example of a potential trap that having
+>> IS_ELKHARTLAKE() cover both ELK and JSP creates. An unsuspecting coder
+>> might change the if ladder to have IS_ELKHARTLAKE() first, and the
+>> subsequent IS_JASPERLAKE() branch would never be taken.
+>>
+>> BR,
+>> Jani.
+>>
+>> Tejas : In that case I will put attention note in comment about
+>> platform checks such that ladder distrubance can be avoided. What you
+>> suggest?
 
-v2: Tvrtko asked if we could reduce the double pulse to a single, which
-opened up a discussion of how we should handle the pulse-error after
-attempting to change the property, and the desire to serialise
-adjustment of the property with its validating pulse, and unwind upon
-failure.
+>The solution is to make IS_ELKHARTLAKE() mean ELK and only ELK.
 
-Fixes: 9a40bddd47ca ("drm/i915/gt: Expose heartbeat interval via sysfs")
-Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-Cc: <stable@vger.kernel.org> # v5.7+
-Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-Acked-by: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
----
- .../gpu/drm/i915/gt/intel_engine_heartbeat.c  | 105 +++++++++++-------
- 1 file changed, 66 insertions(+), 39 deletions(-)
+Since we are talking about the TLA for JSL in the other patch, for
+elkhartlake it is EHL, not ELK. ELK is something else, but I'm not sure
+what:
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c b/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
-index 8ffdf676c0a0..5f1b6a8e07bd 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
-@@ -177,36 +177,81 @@ void intel_engine_init_heartbeat(struct intel_engine_cs *engine)
- 	INIT_DELAYED_WORK(&engine->heartbeat.work, heartbeat);
- }
- 
-+static int __intel_engine_pulse(struct intel_engine_cs *engine)
-+{
-+	struct i915_sched_attr attr = { .priority = I915_PRIORITY_BARRIER };
-+	struct intel_context *ce = engine->kernel_context;
-+	struct i915_request *rq;
-+
-+	lockdep_assert_held(&ce->timeline->mutex);
-+	GEM_BUG_ON(!intel_engine_has_preemption(engine));
-+	GEM_BUG_ON(!intel_engine_pm_is_awake(engine));
-+
-+	intel_context_enter(ce);
-+	rq = __i915_request_create(ce, GFP_NOWAIT | __GFP_NOWARN);
-+	intel_context_exit(ce);
-+	if (IS_ERR(rq))
-+		return PTR_ERR(rq);
-+
-+	__set_bit(I915_FENCE_FLAG_SENTINEL, &rq->fence.flags);
-+	idle_pulse(engine, rq);
-+
-+	__i915_request_commit(rq);
-+	__i915_request_queue(rq, &attr);
-+	GEM_BUG_ON(rq->sched.attr.priority < I915_PRIORITY_BARRIER);
-+
-+	return 0;
-+}
-+
-+static unsigned long set_heartbeat(struct intel_engine_cs *engine,
-+				   unsigned long delay)
-+{
-+	unsigned long old;
-+
-+	old = xchg(&engine->props.heartbeat_interval_ms, delay);
-+	if (delay)
-+		intel_engine_unpark_heartbeat(engine);
-+	else
-+		intel_engine_park_heartbeat(engine);
-+
-+	return old;
-+}
-+
- int intel_engine_set_heartbeat(struct intel_engine_cs *engine,
- 			       unsigned long delay)
- {
--	int err;
-+	struct intel_context *ce = engine->kernel_context;
-+	int err = 0;
- 
--	/* Send one last pulse before to cleanup persistent hogs */
--	if (!delay && IS_ACTIVE(CONFIG_DRM_I915_PREEMPT_TIMEOUT)) {
--		err = intel_engine_pulse(engine);
--		if (err)
--			return err;
--	}
-+	if (!delay && !intel_engine_has_preempt_reset(engine))
-+		return -ENODEV;
-+
-+	intel_engine_pm_get(engine);
-+
-+	err = mutex_lock_interruptible(&ce->timeline->mutex);
-+	if (err)
-+		return err;
- 
--	WRITE_ONCE(engine->props.heartbeat_interval_ms, delay);
-+	if (delay != engine->props.heartbeat_interval_ms) {
-+		unsigned long saved = set_heartbeat(engine, delay);
- 
--	if (intel_engine_pm_get_if_awake(engine)) {
--		if (delay)
--			intel_engine_unpark_heartbeat(engine);
--		else
--			intel_engine_park_heartbeat(engine);
--		intel_engine_pm_put(engine);
-+		/* recheck current execution */
-+		if (intel_engine_has_preemption(engine)) {
-+			err = __intel_engine_pulse(engine);
-+			if (err)
-+				set_heartbeat(engine, saved);
-+		}
- 	}
- 
--	return 0;
-+	mutex_unlock(&ce->timeline->mutex);
-+	intel_engine_pm_put(engine);
-+
-+	return err;
- }
- 
- int intel_engine_pulse(struct intel_engine_cs *engine)
- {
--	struct i915_sched_attr attr = { .priority = I915_PRIORITY_BARRIER };
- 	struct intel_context *ce = engine->kernel_context;
--	struct i915_request *rq;
- 	int err;
- 
- 	if (!intel_engine_has_preemption(engine))
-@@ -215,30 +260,12 @@ int intel_engine_pulse(struct intel_engine_cs *engine)
- 	if (!intel_engine_pm_get_if_awake(engine))
- 		return 0;
- 
--	if (mutex_lock_interruptible(&ce->timeline->mutex)) {
--		err = -EINTR;
--		goto out_rpm;
-+	err = -EINTR;
-+	if (!mutex_lock_interruptible(&ce->timeline->mutex)) {
-+		err = __intel_engine_pulse(engine);
-+		mutex_unlock(&ce->timeline->mutex);
- 	}
- 
--	intel_context_enter(ce);
--	rq = __i915_request_create(ce, GFP_NOWAIT | __GFP_NOWARN);
--	intel_context_exit(ce);
--	if (IS_ERR(rq)) {
--		err = PTR_ERR(rq);
--		goto out_unlock;
--	}
--
--	__set_bit(I915_FENCE_FLAG_SENTINEL, &rq->fence.flags);
--	idle_pulse(engine, rq);
--
--	__i915_request_commit(rq);
--	__i915_request_queue(rq, &attr);
--	GEM_BUG_ON(rq->sched.attr.priority < I915_PRIORITY_BARRIER);
--	err = 0;
--
--out_unlock:
--	mutex_unlock(&ce->timeline->mutex);
--out_rpm:
- 	intel_engine_pm_put(engine);
- 	return err;
- }
--- 
-2.20.1
+$ git grep -w ELK -- drivers/gpu/drm/
+drivers/gpu/drm/i915/gem/i915_gem_stolen.c:             IS_GM45(i915) ? "CTG" : "ELK", reg_val);
+drivers/gpu/drm/i915/gem/i915_gem_stolen.c:      * Whether ILK really reuses the ELK register for this is unclear.
+drivers/gpu/drm/i915/intel_pm.c:         * Not 100% sure which way ELK should go here as the
+drivers/gpu/drm/i915/intel_pm.c:         * assume ELK doesn't need this.
 
+Lucas De Marchi
+
+>
+>BR,
+>Jani.
+>
+>
+>-- 
+>Jani Nikula, Intel Open Source Graphics Center
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
