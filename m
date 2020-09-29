@@ -2,42 +2,43 @@ Return-Path: <SRS0=bDtt=DG=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-5.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+	SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 775A5C47420
-	for <intel-gfx@archiver.kernel.org>; Tue, 29 Sep 2020 08:20:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E8DE8C4346E
+	for <intel-gfx@archiver.kernel.org>; Tue, 29 Sep 2020 08:21:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2143121974
-	for <intel-gfx@archiver.kernel.org>; Tue, 29 Sep 2020 08:20:12 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 68DE920773
+	for <intel-gfx@archiver.kernel.org>; Tue, 29 Sep 2020 08:21:26 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=suse.com header.i=@suse.com header.b="pr56FUr2"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2143121974
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=suse.com header.i=@suse.com header.b="kYjuvZ+i"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 68DE920773
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=suse.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6FD2789AF3;
-	Tue, 29 Sep 2020 08:20:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE47C89C80;
+	Tue, 29 Sep 2020 08:21:25 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 346AF89AF3;
- Tue, 29 Sep 2020 08:20:11 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B218689C2C;
+ Tue, 29 Sep 2020 08:21:23 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1601367609;
+ t=1601367682;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
  bh=KFyfyEQCS1dcCR4BhfL+zwiQ3CuzyAy4x23tr+VkzjE=;
- b=pr56FUr28WzVjlye8ocfuUATkeSwhUXvbjPgGkEbab2FCVC+0BKyl8PhOHOFpR/zRWD2YJ
- XkENxEAzZ+xaNySUfCCAfperdR1yK017PGgjlx8BHtiTSBrVceVD6B+fvb12QX9yuBiWP6
- UV9FaMEAQthXh0P6zC/B1D/pMFgxjZ8=
+ b=kYjuvZ+ilRICWeNF3tv+sX4B6qR0l26SNFX+2yuqmAbG6VZsVdy+/ab4DWFA/2mAPMzvho
+ sWiMi4hR4DtnoNBd3zA9aScladT2LR3g7zk3zp4xXinjBQFShKRtNv5abZ+aKM+mJdoLfs
+ LfJPGyvdVLHOxuKwI+4KWXzshc3e4XY=
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 981CFB2AE;
- Tue, 29 Sep 2020 08:20:09 +0000 (UTC)
-Date: Tue, 29 Sep 2020 10:20:08 +0200
+ by mx2.suse.de (Postfix) with ESMTP id 4162CACA3;
+ Tue, 29 Sep 2020 08:21:22 +0000 (UTC)
+Date: Tue, 29 Sep 2020 10:21:21 +0200
 From: Michal Hocko <mhocko@suse.com>
 To: Daniel Vetter <daniel@ffwll.ch>
 Message-ID: <20200929081938.GC22035@dhcp22.suse.cz>
@@ -54,6 +55,7 @@ References: <CAHk-=win80rdof8Pb=5k6gT9j_v+hz-TQzKPVastZDvBe9RimQ@mail.gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
 In-Reply-To: <CAKMK7uHL2dMv80b8uBXr=BqHD2TQeODQQM1MGYhAfCYbX7sLrA@mail.gmail.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
 Subject: Re: [Intel-gfx] [patch 00/13] preempt: Make preempt count
  unconditional
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -103,7 +105,7 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-Message-ID: <20200929082008.S7hCrmQRfpYkcAjIo2TAnYchy0xO9lJn7IPIopNtL8Y@z>
+Message-ID: <20200929082121.5YVpvTrVCGBZs1h7zSLWWk4FeqUP2AEkncT-kl3LwVo@z>
 
 On Wed 16-09-20 23:43:02, Daniel Vetter wrote:
 > I can
