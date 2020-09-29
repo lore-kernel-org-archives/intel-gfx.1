@@ -2,54 +2,58 @@ Return-Path: <SRS0=bDtt=DG=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-5.3 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4FF01C47423
-	for <intel-gfx@archiver.kernel.org>; Tue, 29 Sep 2020 21:01:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DE313C4727D
+	for <intel-gfx@archiver.kernel.org>; Tue, 29 Sep 2020 21:11:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EDFAE20774
-	for <intel-gfx@archiver.kernel.org>; Tue, 29 Sep 2020 21:01:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EDFAE20774
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 78A1420757
+	for <intel-gfx@archiver.kernel.org>; Tue, 29 Sep 2020 21:11:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 78A1420757
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 277FA6E1D7;
-	Tue, 29 Sep 2020 21:01:49 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B27B6E1CF;
- Tue, 29 Sep 2020 21:01:47 +0000 (UTC)
-IronPort-SDR: 1HZPEGG3Nh0EWvMrQ8R9kzYdgsRcvrltKTMelo16RsH7HiU2u2Jd1QrdmlZdu1QL4XetAUiCsr
- MVaxfImQUFjA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9759"; a="159670480"
-X-IronPort-AV: E=Sophos;i="5.77,319,1596524400"; d="scan'208";a="159670480"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 809386E1F3;
+	Tue, 29 Sep 2020 21:11:55 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A77C26E1EC;
+ Tue, 29 Sep 2020 21:11:53 +0000 (UTC)
+IronPort-SDR: vkgce8qWYsediiJesM3dtGqedF0rR+0wdI7w5ktGlH9k8Y+N1EycWlst3EVuwwyaYixBrG13VG
+ b7plSznmvKgQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9759"; a="247021694"
+X-IronPort-AV: E=Sophos;i="5.77,319,1596524400"; d="scan'208";a="247021694"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Sep 2020 14:01:46 -0700
-IronPort-SDR: 3y3hxNG837iKBHrtpVmPmwtpYnxUZuyzdnd78mzT/zxiC23dluy0F43zwvwf8RPmHNxE5YaL4K
- mF77vBotTbeA==
-X-IronPort-AV: E=Sophos;i="5.77,319,1596524400"; d="scan'208";a="514024926"
-Received: from mdroper-desk1.fm.intel.com (HELO
- mdroper-desk1.amr.corp.intel.com) ([10.1.27.168])
- by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Sep 2020 14:01:45 -0700
-Date: Tue, 29 Sep 2020 14:01:44 -0700
-From: Matt Roper <matthew.d.roper@intel.com>
-To: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-Message-ID: <20200929210144.GA2214475@mdroper-desk1.amr.corp.intel.com>
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Sep 2020 14:11:53 -0700
+IronPort-SDR: jWa+6osF7t7buvmXJEmL1EyMaCgRd+lglNeUdQMrDEQyVZlBI2JyXo5pJvp00X4S0+cE3JLYy6
+ j0JSPa+LTMow==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.77,319,1596524400"; d="scan'208";a="345408105"
+Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.174])
+ by fmsmga002.fm.intel.com with SMTP; 29 Sep 2020 14:11:48 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Wed, 30 Sep 2020 00:11:48 +0300
+Date: Wed, 30 Sep 2020 00:11:48 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Matt Roper <matthew.d.roper@intel.com>
+Message-ID: <20200929211148.GJ6112@intel.com>
 References: <20200929121127.254086-1-tejaskumarx.surendrakumar.upadhyay@intel.com>
  <d235e6f34182e327d8bb46383f6c3ef518b5fc23.camel@intel.com>
  <20200929200201.GH6112@intel.com>
  <a4a075597c7d3e65b25598ab696a59eccbd2a069.camel@intel.com>
  <20200929203022.GI6112@intel.com>
+ <20200929210144.GA2214475@mdroper-desk1.amr.corp.intel.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200929203022.GI6112@intel.com>
+In-Reply-To: <20200929210144.GA2214475@mdroper-desk1.amr.corp.intel.com>
+X-Patchwork-Hint: comment
+User-Agent: Mutt/1.10.1 (2018-07-13)
 Subject: Re: [Intel-gfx] [PATCH v2] drm/i915/edp/jsl: Update vswing table
  for HBR and HBR2
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -73,71 +77,65 @@ Content-Transfer-Encoding: quoted-printable
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Sep 29, 2020 at 11:30:22PM +0300, Ville Syrj=E4l=E4 wrote:
-> On Tue, Sep 29, 2020 at 08:20:22PM +0000, Souza, Jose wrote:
-> > On Tue, 2020-09-29 at 23:02 +0300, Ville Syrj=E4l=E4 wrote:
-> > > On Tue, Sep 29, 2020 at 07:33:45PM +0000, Souza, Jose wrote:
-> > > > On Tue, 2020-09-29 at 17:41 +0530, Tejas Upadhyay wrote:
-> > > > > JSL has update in vswing table for eDP
+On Tue, Sep 29, 2020 at 02:01:44PM -0700, Matt Roper wrote:
+> On Tue, Sep 29, 2020 at 11:30:22PM +0300, Ville Syrj=E4l=E4 wrote:
+> > On Tue, Sep 29, 2020 at 08:20:22PM +0000, Souza, Jose wrote:
+> > > On Tue, 2020-09-29 at 23:02 +0300, Ville Syrj=E4l=E4 wrote:
+> > > > On Tue, Sep 29, 2020 at 07:33:45PM +0000, Souza, Jose wrote:
+> > > > > On Tue, 2020-09-29 at 17:41 +0530, Tejas Upadhyay wrote:
+> > > > > > JSL has update in vswing table for eDP
+> > > > > =
+
+> > > > > Would be nice to mention in the commit description why PCH is bei=
+ng used, that would avoid Ville's question.
 > > > > =
 
-> > > > Would be nice to mention in the commit description why PCH is being=
- used, that would avoid Ville's question.
+> > > > If the thing has nothing to do PCH then it should not use the PCH t=
+ype
+> > > > for the the check. Instead we should just do the EHL/JSL split.
 > > > =
 
-> > > If the thing has nothing to do PCH then it should not use the PCH type
-> > > for the the check. Instead we should just do the EHL/JSL split.
+> > > In the first version Matt Roper suggested to use PCH to differentiate=
+ between EHL and JSL, Jani also agreed with this solution.This 2 PCHs can o=
+nly be
+> > > associate with EHL and JSL respectively, so no downsides here.
 > > =
 
-> > In the first version Matt Roper suggested to use PCH to differentiate b=
-etween EHL and JSL, Jani also agreed with this solution.This 2 PCHs can onl=
-y be
-> > associate with EHL and JSL respectively, so no downsides here.
+> > The downside is that the code makes no sense on the first glance.
+> > It's going to generate a "wtf?" exception in the brain and require
+> > me to take a second look to figure what is going on. Exception
+> > handling is expensive and shouldn't be needed in cases where it's
+> > trivial to make the code 100% obvious.
 > =
 
-> The downside is that the code makes no sense on the first glance.
-> It's going to generate a "wtf?" exception in the brain and require
-> me to take a second look to figure what is going on. Exception
-> handling is expensive and shouldn't be needed in cases where it's
-> trivial to make the code 100% obvious.
-
-The bspec documents EHL and JSL as being the same platform and identical
-in all programming since they are literally the same display IP; this
-vswing table is the one and only place where the two are treated in a
-distinct manner for reasons that lie outside the display controller.  If
-you had to stop and take a closer look at the code here, that's a
-probably a good thing since in general there should generally never be a
-difference in the behavior between the two.  Adding an additional
-clarifying comment is probably in order too since this is a very
-exceptional special case.
-
-If we deviate from the bspec's guidance and try to split IS_ELKHARTLAKE
-and IS_JASPERLAKE across the whole driver, that's going to be a lot more
-pain to maintain down the road since we'll almost certainly have cases
-where someone silently leaves one or the other off a condition and gets
-unexepcted behavior.  I could see arguments for using a SUBPLATFORM here
-like we do for TGL_U vs TGL_Y, but even that seems like overkill if we
-already have a clear way to distinguish the two cases (PCH pairing) and
-can just leave a clarifying comment.
-
-
-Matt
-
-
+> The bspec documents EHL and JSL as being the same platform and identical
+> in all programming since they are literally the same display IP; this
+> vswing table is the one and only place where the two are treated in a
+> distinct manner for reasons that lie outside the display controller.  If
+> you had to stop and take a closer look at the code here, that's a
+> probably a good thing since in general there should generally never be a
+> difference in the behavior between the two.  Adding an additional
+> clarifying comment is probably in order too since this is a very
+> exceptional special case.
 > =
 
-> -- =
+> If we deviate from the bspec's guidance and try to split IS_ELKHARTLAKE
+> and IS_JASPERLAKE across the whole driver, that's going to be a lot more
+> pain to maintain down the road since we'll almost certainly have cases
+> where someone silently leaves one or the other off a condition and gets
+> unexepcted behavior.  I could see arguments for using a SUBPLATFORM here
+> like we do for TGL_U vs TGL_Y, but even that seems like overkill if we
+> already have a clear way to distinguish the two cases (PCH pairing) and
+> can just leave a clarifying comment.
 
-> Ville Syrj=E4l=E4
-> Intel
+That fixed PCH pairing is totally undocumented AFAICS. And vswing has
+nothing to do with the south display, so the wtf will still happen.
+Comment or no comment.
 
 -- =
 
-Matt Roper
-Graphics Software Engineer
-VTT-OSGC Platform Enablement
-Intel Corporation
-(916) 356-2795
+Ville Syrj=E4l=E4
+Intel
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
