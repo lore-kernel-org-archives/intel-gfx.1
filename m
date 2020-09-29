@@ -2,62 +2,41 @@ Return-Path: <SRS0=bDtt=DG=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B5AB4C47425
-	for <intel-gfx@archiver.kernel.org>; Tue, 29 Sep 2020 14:54:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 265E8C4727C
+	for <intel-gfx@archiver.kernel.org>; Tue, 29 Sep 2020 15:02:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 42F9420757
-	for <intel-gfx@archiver.kernel.org>; Tue, 29 Sep 2020 14:54:08 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=suse.com header.i=@suse.com header.b="eoKKMBN7"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 42F9420757
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=suse.com
+	by mail.kernel.org (Postfix) with ESMTPS id B587A2075F
+	for <intel-gfx@archiver.kernel.org>; Tue, 29 Sep 2020 15:02:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B587A2075F
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5430189CF3;
-	Tue, 29 Sep 2020 14:54:08 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 907EB89CF3;
- Tue, 29 Sep 2020 14:54:06 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1601391245;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=IgDvWNQP8iyuHEvr4G441L71BKSYFJPWhAP8LkzWJfg=;
- b=eoKKMBN7CEGS/O8wpnxX5YX5p7R/6oj0pmjByAZssa/tlgDzObwBIbhZXkZHaNf3yxFnjs
- /xxRgUM/x4iZ6RwvlYDvqSTGjNG6UgIhlOVv1JFsk77ppGGHvo3dx1IKn0uI5+hjhXkchS
- /V0QnFBKAlwY5qjuSlhyF3uziX8+a1k=
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id CB7CAAD0F;
- Tue, 29 Sep 2020 14:54:04 +0000 (UTC)
-Date: Tue, 29 Sep 2020 16:54:03 +0200
-From: Michal Hocko <mhocko@suse.com>
-To: Daniel Vetter <daniel@ffwll.ch>
-Message-ID: <20200929145403.GE2277@dhcp22.suse.cz>
-References: <CAHk-=wj0eUuVQ=hRFZv_nY7g5ZLt7Fy3K7SMJL0ZCzniPtsbbg@mail.gmail.com>
- <87bli75t7v.fsf@nanos.tec.linutronix.de>
- <CAHk-=wht7kAeyR5xEW2ORj7m0hibVxZ3t+2ie8vNHLQfdbN2_g@mail.gmail.com>
- <CAKMK7uHAk9-Vy2cof0ws=DrcD52GHiCDiyHbjLd19CgpBU2rKQ@mail.gmail.com>
- <20200916152956.GV29330@paulmck-ThinkPad-P72>
- <CAKMK7uGFyfhEyt=jmdk2jDO-hq0_Pf0ck+cKSELHjr2U3rPuYQ@mail.gmail.com>
- <20200916205840.GD29330@paulmck-ThinkPad-P72>
- <CAKMK7uHL2dMv80b8uBXr=BqHD2TQeODQQM1MGYhAfCYbX7sLrA@mail.gmail.com>
- <20200929081938.GC22035@dhcp22.suse.cz>
- <20200929090003.GG438822@phenom.ffwll.local>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 22DEC6E1BC;
+	Tue, 29 Sep 2020 15:02:15 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id DCA706E1BB;
+ Tue, 29 Sep 2020 15:02:13 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id D4ADEA47E9;
+ Tue, 29 Sep 2020 15:02:13 +0000 (UTC)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200929090003.GG438822@phenom.ffwll.local>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Subject: Re: [Intel-gfx] [patch 00/13] preempt: Make preempt count
- unconditional
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Chris Wilson" <chris@chris-wilson.co.uk>
+Date: Tue, 29 Sep 2020 15:02:13 -0000
+Message-ID: <160139173384.28027.12722071508008406832@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20200929082859.26652-1-chris@chris-wilson.co.uk>
+In-Reply-To: <20200929082859.26652-1-chris@chris-wilson.co.uk>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?series_starting_with_=5B1/3=5D_drm/i915/gt=3A_Signal_cancelled_?=
+ =?utf-8?q?requests?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,95 +49,28 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Juri Lelli <juri.lelli@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Lai Jiangshan <jiangshanlai@gmail.com>,
- dri-devel <dri-devel@lists.freedesktop.org>, Ben Segall <bsegall@google.com>,
- Linux-MM <linux-mm@kvack.org>,
- "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>,
- Will Deacon <will@kernel.org>, Ard Biesheuvel <ardb@kernel.org>,
- Anton Ivanov <anton.ivanov@cambridgegreys.com>,
- linux-arch <linux-arch@vger.kernel.org>,
- Herbert Xu <herbert@gondor.apana.org.au>, Brian Cain <bcain@codeaurora.org>,
- linux-hexagon@vger.kernel.org, Russell King <linux@armlinux.org.uk>,
- Ingo Molnar <mingo@kernel.org>, David Airlie <airlied@linux.ie>,
- Ingo Molnar <mingo@redhat.com>, Geert Uytterhoeven <geert@linux-m68k.org>,
- Mel Gorman <mgorman@suse.de>, Matt Turner <mattst88@gmail.com>,
- Valentin Schneider <valentin.schneider@arm.com>, linux-xtensa@linux-xtensa.org,
- Shuah Khan <shuah@kernel.org>, "Paul E. McKenney" <paulmck@kernel.org>,
- Jeff Dike <jdike@addtoit.com>, intel-gfx <intel-gfx@lists.freedesktop.org>,
- alpha <linux-alpha@vger.kernel.org>, linux-um <linux-um@lists.infradead.org>,
- Josh Triplett <josh@joshtriplett.org>, Steven Rostedt <rostedt@goodmis.org>,
- rcu@vger.kernel.org, linux-m68k <linux-m68k@lists.linux-m68k.org>,
- Ivan Kokshaysky <ink@jurassic.park.msu.ru>,
- Thomas Gleixner <tglx@linutronix.de>,
- Dietmar Eggemann <dietmar.eggemann@arm.com>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>,
- Richard Henderson <rth@twiddle.net>, Chris Zankel <chris@zankel.net>,
- Max Filippov <jcmvbkbc@gmail.com>,
- Linus Torvalds <torvalds@linux-foundation.org>,
- LKML <linux-kernel@vger.kernel.org>, Richard Weinberger <richard@nod.at>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Daniel Bristot de Oliveira <bristot@redhat.com>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue 29-09-20 11:00:03, Daniel Vetter wrote:
-> On Tue, Sep 29, 2020 at 10:19:38AM +0200, Michal Hocko wrote:
-> > On Wed 16-09-20 23:43:02, Daniel Vetter wrote:
-> > > I can
-> > > then figure out whether it's better to risk not spotting issues with
-> > > call_rcu vs slapping a memalloc_noio_save/restore around all these
-> > > critical section which force-degrades any allocation to GFP_ATOMIC at
-> > 
-> > did you mean memalloc_noreclaim_* here?
-> 
-> Yeah I picked the wrong one of that family of functions.
-> 
-> > > most, but has the risk that we run into code that assumes "GFP_KERNEL
-> > > never fails for small stuff" and has a decidedly less tested fallback
-> > > path than rcu code.
-> > 
-> > Even if the above then please note that memalloc_noreclaim_* or
-> > PF_MEMALLOC should be used with an extreme care. Essentially only for
-> > internal memory reclaimers. It grants access to _all_ the available
-> > memory so any abuse can be detrimental to the overall system operation.
-> > Allocation failure in this mode means that we are out of memory and any
-> > code relying on such an allocation has to carefuly consider failure.
-> > This is not a random allocation mode.
-> 
-> Agreed, that's why I don't like having these kind of automagic critical
-> sections. It's a bit a shotgun approach. Paul said that the code would
-> handle failures, but the problem is that it applies everywhere.
+== Series Details ==
 
-Ohh, in the ideal world we wouldn't need anything like that. But then
-the reality fires:
-* PF_MEMALLOC (resp memalloc_noreclaim_* for that matter) is primarily used
-  to make sure that allocations from inside the memory reclaim - yeah that
-  happens - will not recurse.
-* PF_MEMALLOC_NO{FS,IO} (resp memalloc_no{fs,io}*) are used to mark no
-  fs/io reclaim recursion critical sections because controling that for
-  each allocation inside fs transaction (or other sensitive) or IO
-  contexts turned out to be unmaintainable and people simply fallen into
-  using NOFS/NOIO unconditionally which is causing reclaim imbalance
-  problems.
-* PF_MEMALLOC_NOCMA (resp memalloc_nocma*) is used for long term pinning
-  when CMA pages cannot be pinned because that would break the CMA
-  guarantees. Communicating this to all potential allocations during
-  pinning is simply unfeasible.
+Series: series starting with [1/3] drm/i915/gt: Signal cancelled requests
+URL   : https://patchwork.freedesktop.org/series/82189/
+State : warning
 
-So you are absolutely right that these critical sections with side
-effects on all allocations are far from ideal from the API point of view
-but they are mostly mirroring a demand for functionality which is
-_practically_ impossible to achieve with our current code base. Not that
-we couldn't get back to drawing board and come up with a saner thing and
-rework the world...
--- 
-Michal Hocko
-SUSE Labs
+== Summary ==
+
+$ dim sparse --fast origin/drm-tip
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
++./include/linux/seqlock.h:752:24: warning: trying to copy expression type 31
++./include/linux/seqlock.h:778:16: warning: trying to copy expression type 31
+
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
