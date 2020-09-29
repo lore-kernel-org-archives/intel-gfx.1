@@ -7,38 +7,38 @@ X-Spam-Status: No, score=-5.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E8DE8C4346E
-	for <intel-gfx@archiver.kernel.org>; Tue, 29 Sep 2020 08:21:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 54BD3C47423
+	for <intel-gfx@archiver.kernel.org>; Tue, 29 Sep 2020 08:23:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 68DE920773
-	for <intel-gfx@archiver.kernel.org>; Tue, 29 Sep 2020 08:21:26 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 083C820C09
+	for <intel-gfx@archiver.kernel.org>; Tue, 29 Sep 2020 08:23:28 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=suse.com header.i=@suse.com header.b="kYjuvZ+i"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 68DE920773
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=suse.com header.i=@suse.com header.b="Yx+4OiWz"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 083C820C09
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=suse.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE47C89C80;
-	Tue, 29 Sep 2020 08:21:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8312489C3B;
+	Tue, 29 Sep 2020 08:23:28 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B218689C2C;
- Tue, 29 Sep 2020 08:21:23 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 83D7189C3B;
+ Tue, 29 Sep 2020 08:23:26 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1601367682;
+ t=1601367805;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
  bh=KFyfyEQCS1dcCR4BhfL+zwiQ3CuzyAy4x23tr+VkzjE=;
- b=kYjuvZ+ilRICWeNF3tv+sX4B6qR0l26SNFX+2yuqmAbG6VZsVdy+/ab4DWFA/2mAPMzvho
- sWiMi4hR4DtnoNBd3zA9aScladT2LR3g7zk3zp4xXinjBQFShKRtNv5abZ+aKM+mJdoLfs
- LfJPGyvdVLHOxuKwI+4KWXzshc3e4XY=
+ b=Yx+4OiWzh8hL3oRWBVwsl7OoNxopUmSyQasLhmn1G1pwm5WeUKovPN8LH2bdOC7Tf1qJAG
+ BQKht+ljEQ7JSXztBWuZ/SDej3VcAwduMW5YketNY8WVwtpxMMor30Pmo+P2rpxR7SkCAG
+ TBCtVCqjpOLjck1NyY3qWCFDobpueAs=
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 4162CACA3;
- Tue, 29 Sep 2020 08:21:22 +0000 (UTC)
-Date: Tue, 29 Sep 2020 10:21:21 +0200
+ by mx2.suse.de (Postfix) with ESMTP id 0860EB2A1;
+ Tue, 29 Sep 2020 08:23:25 +0000 (UTC)
+Date: Tue, 29 Sep 2020 10:23:24 +0200
 From: Michal Hocko <mhocko@suse.com>
 To: Daniel Vetter <daniel@ffwll.ch>
 Message-ID: <20200929081938.GC22035@dhcp22.suse.cz>
@@ -105,7 +105,7 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-Message-ID: <20200929082121.5YVpvTrVCGBZs1h7zSLWWk4FeqUP2AEkncT-kl3LwVo@z>
+Message-ID: <20200929082324.HftM9Jl9iqt0ZmCTD_jW4UAADw6JfJX1PNMdnJXRS_Q@z>
 
 On Wed 16-09-20 23:43:02, Daniel Vetter wrote:
 > I can
