@@ -7,49 +7,50 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0BDE6C47420
-	for <intel-gfx@archiver.kernel.org>; Wed, 30 Sep 2020 17:52:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3D4DBC47430
+	for <intel-gfx@archiver.kernel.org>; Wed, 30 Sep 2020 17:52:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AF12C2074B
-	for <intel-gfx@archiver.kernel.org>; Wed, 30 Sep 2020 17:52:08 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id E8C4D20706
+	for <intel-gfx@archiver.kernel.org>; Wed, 30 Sep 2020 17:52:16 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="DQMmlnFg"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AF12C2074B
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="YkJ+uCPt"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E8C4D20706
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=lst.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 564B16E81C;
-	Wed, 30 Sep 2020 17:52:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EE9306E822;
+	Wed, 30 Sep 2020 17:52:15 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org
  [IPv6:2001:8b0:10b:1236::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B5C0D89D7D;
- Wed, 30 Sep 2020 17:51:59 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A50146E580;
+ Wed, 30 Sep 2020 17:52:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:MIME-Version:
  References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:
  Content-Type:Content-ID:Content-Description;
- bh=71LvYnHcMs7/rXGs508r2vzZrQvLA4mfS9GwJnz8e8I=; b=DQMmlnFg6WAYeylc76zZu+7vNK
- Y7Dy7Hk+84PRUsKFyWhQc9sB5+zPoig2xujJ2u9hIT8LWeR04zfy86BxI9Tg9lkl3aegreAvuv0UI
- W7cjIEn7vxyAYoLf+cTgHdVTu4L+t3DDAcCoBnv8CJlHXBQNg74qbtCWXPgT7+hL9mLVTGddGoiVI
- eFpmiqUu+XCdR0ihnpC0zWAmcfbRaMjSMeOrEHONXWVFaku/aUAkhAz/hlX+HjiMQfVpwJ8SEbETO
- Ldn9h1nrZYduwY7/TaQFjcI2THjl6OacN+hzEWEKr3z6CZN8FFYwV8CDtDH3Jet2r0Kk9VdJgAoB6
- lDRQXPhA==;
+ bh=/d6+Dk3KKsbjd+NK9IaRJO1MZ62p/5JmeyWovJ8r20c=; b=YkJ+uCPtqA1Td8zeKp//6WB4ex
+ 2L7PhMeNNVChodci0VbKBYP/+QMdhLPZmUoFLFcWhehk7/nZO4O/VTTSj/QJlXD0APsmA6FpQr4K0
+ tySIUrS8BaaMaf2oLTkKi08nizfzKbfYWDmfJuahykiGnY6uF1SWzgQhXSGFIrEcoECNAmcOt43oz
+ 6M55bJ9RMrTV6WBCPR+ciE5DFex6s6zi/bRyqqcbzrY4leTjDRFayj4JdF7yAaOvbAQ7YEkqfeI/W
+ PkxY3VTS6b0FSlKz4CAebXcFshlnG6UuA9qZWLczS1dJqPlXeEZkAYKr+VvP9KJpwM8OvPSsRsxpP
+ lPs56omQ==;
 Received: from [2001:4bb8:180:7b62:c70:4a89:bc61:4] (helo=localhost)
  by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1kNgGP-0001Bs-MG; Wed, 30 Sep 2020 17:51:38 +0000
+ id 1kNgGS-0001C3-Jg; Wed, 30 Sep 2020 17:51:41 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Andrew Morton <akpm@linux-foundation.org>
-Date: Wed, 30 Sep 2020 19:51:25 +0200
-Message-Id: <20200930175133.1252382-3-hch@lst.de>
+Date: Wed, 30 Sep 2020 19:51:27 +0200
+Message-Id: <20200930175133.1252382-5-hch@lst.de>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20200930175133.1252382-1-hch@lst.de>
 References: <20200930175133.1252382-1-hch@lst.de>
 MIME-Version: 1.0
 X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
  casper.infradead.org. See http://www.infradead.org/rpr.html
-Subject: [Intel-gfx] [PATCH 02/10] mm: add a VM_MAP_PUT_PAGES flag for vmap
+Subject: [Intel-gfx] [PATCH 04/10] mm: allow a NULL fn callback in
+ apply_to_page_range
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,55 +76,44 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add a flag so that vmap takes ownership of the passed in page array.
-When vfree is called on such an allocation it will put one reference
-on each page, and free the page array itself.
+Besides calling the callback on each page, apply_to_page_range also has
+the effect of pre-faulting all PTEs for the range.  To support callers
+that only need the pre-faulting, make the callback optional.
+
+Based on a patch from Minchan Kim <minchan@kernel.org>.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- include/linux/vmalloc.h | 1 +
- mm/vmalloc.c            | 9 +++++++--
- 2 files changed, 8 insertions(+), 2 deletions(-)
+ mm/memory.c | 16 +++++++++-------
+ 1 file changed, 9 insertions(+), 7 deletions(-)
 
-diff --git a/include/linux/vmalloc.h b/include/linux/vmalloc.h
-index 0221f852a7e1a3..b899681e3ff9f0 100644
---- a/include/linux/vmalloc.h
-+++ b/include/linux/vmalloc.h
-@@ -24,6 +24,7 @@ struct notifier_block;		/* in notifier.h */
- #define VM_UNINITIALIZED	0x00000020	/* vm_struct is not fully initialized */
- #define VM_NO_GUARD		0x00000040      /* don't add guard page */
- #define VM_KASAN		0x00000080      /* has allocated kasan shadow memory */
-+#define VM_MAP_PUT_PAGES	0x00000100	/* put pages and free array in vfree */
+diff --git a/mm/memory.c b/mm/memory.c
+index fcfc4ca36eba80..dcf2bb69fbf847 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -2420,13 +2420,15 @@ static int apply_to_pte_range(struct mm_struct *mm, pmd_t *pmd,
  
- /*
-  * VM_KASAN is used slighly differently depending on CONFIG_KASAN_VMALLOC.
-diff --git a/mm/vmalloc.c b/mm/vmalloc.c
-index 8770260419af06..ffad65f052c3f9 100644
---- a/mm/vmalloc.c
-+++ b/mm/vmalloc.c
-@@ -2377,8 +2377,11 @@ EXPORT_SYMBOL(vunmap);
-  * @flags: vm_area->flags
-  * @prot: page protection for the mapping
-  *
-- * Maps @count pages from @pages into contiguous kernel virtual
-- * space.
-+ * Maps @count pages from @pages into contiguous kernel virtual space.
-+ * If @flags contains %VM_MAP_PUT_PAGES the ownership of the pages array itself
-+ * (which must be kmalloc or vmalloc memory) and one reference per pages in it
-+ * are transferred from the caller to vmap(), and will be freed / dropped when
-+ * vfree() is called on the return value.
-  *
-  * Return: the address of the area or %NULL on failure
-  */
-@@ -2404,6 +2407,8 @@ void *vmap(struct page **pages, unsigned int count,
- 		return NULL;
- 	}
+ 	arch_enter_lazy_mmu_mode();
  
-+	if (flags & VM_MAP_PUT_PAGES)
-+		area->pages = pages;
- 	return area->addr;
- }
- EXPORT_SYMBOL(vmap);
+-	do {
+-		if (create || !pte_none(*pte)) {
+-			err = fn(pte++, addr, data);
+-			if (err)
+-				break;
+-		}
+-	} while (addr += PAGE_SIZE, addr != end);
++	if (fn) {
++		do {
++			if (create || !pte_none(*pte)) {
++				err = fn(pte++, addr, data);
++				if (err)
++					break;
++			}
++		} while (addr += PAGE_SIZE, addr != end);
++	}
+ 	*mask |= PGTBL_PTE_MODIFIED;
+ 
+ 	arch_leave_lazy_mmu_mode();
 -- 
 2.28.0
 
