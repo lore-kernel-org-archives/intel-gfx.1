@@ -2,64 +2,40 @@ Return-Path: <SRS0=p/WI=DH=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+X-Spam-Status: No, score=-7.0 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
 	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0606AC4727E
-	for <intel-gfx@archiver.kernel.org>; Wed, 30 Sep 2020 16:26:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D43E8C4727C
+	for <intel-gfx@archiver.kernel.org>; Wed, 30 Sep 2020 16:30:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7F29F20759
-	for <intel-gfx@archiver.kernel.org>; Wed, 30 Sep 2020 16:26:03 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="f+nc7RkM"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7F29F20759
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 415452072E
+	for <intel-gfx@archiver.kernel.org>; Wed, 30 Sep 2020 16:30:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 415452072E
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EBA7789D3E;
-	Wed, 30 Sep 2020 16:26:02 +0000 (UTC)
-Received: from mail-vs1-xe42.google.com (mail-vs1-xe42.google.com
- [IPv6:2607:f8b0:4864:20::e42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 274D889CD3
- for <intel-gfx@lists.freedesktop.org>; Wed, 30 Sep 2020 16:26:02 +0000 (UTC)
-Received: by mail-vs1-xe42.google.com with SMTP id e23so1258516vsk.2
- for <intel-gfx@lists.freedesktop.org>; Wed, 30 Sep 2020 09:26:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=nBFQDFAOmg+z2cI1aG6+TVTGyX6Ia20sz+ft9vRu58E=;
- b=f+nc7RkMqmF5R6BwldNuu4UwCDZ2cPum6XLnrJIGBuqDFdQCr4/I2uDpoL7EHfhfFe
- IYfMRjwvO3BthKQROSIv4dJqLnGaTrIzPgm8M7gx1iwXjTKdVg6SNsYT/haX3rh7gofI
- 8yesw3tQztcuIGAJJUfZ2ZgW7/RLmws8oHgqp56eklaMj3JghummIr6UX1q5OWMooE66
- 4VaNVpuX2JbQQzPRb4NNe6bju/C95oPUXTuojSfuL2BuzWnuRXvJp2MvcUV7lguWCa7E
- gGILeDNclDpaiNTpZFpNvoul6f1lhnFOLribZrV/156jW8C6jHmp4Inpth5RbSFJ3Eeo
- 9pgw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=nBFQDFAOmg+z2cI1aG6+TVTGyX6Ia20sz+ft9vRu58E=;
- b=iKar2CG9WW+kKYkcFn3kJkIxmVFOUsHm/N2EC2u6M4eGry/dFLGiC4aLeoi6E/RHGu
- MaxIPaaULuc4OVo12se9+0E3fn6eGPj1/7STToNRc8s91QuDBY2S/2OWHNM2toBDiPTF
- uyABl2rDfrvm7mPeER9nOs2kqkdzyAK7RsXqk1xU9UZca9EhbaJvttuohYe/oK5fvbgz
- s34l5tJGxFZg64tp9KevLnfEU+RsGbchetsEHveoCYKxD+Br4X4JdcX52h6p5UhwEMqE
- QXSmr5bbJDdnBak28DBI/VKqAeBrZ5p5e9qS3GKpjBoJttJHX04zh+JlvcLjYhf7ap6m
- WtjA==
-X-Gm-Message-State: AOAM530+bGVL8gvSQj3EZPqvpvyJ2lSUIcL6GKll7/Gj4XoPWb0fZAg8
- b5KrObS+DWwaRYWF/Sgo3ti5RtaqQ9+s+IWoBPHFLVUaEHo=
-X-Google-Smtp-Source: ABdhPJxMK+lTKZ1DI9GkI+FBc8IFDqJ/KSUyaVPlfkD5adqTzPSU7KwI56RfXgmQWJd16OLN+OSm6QPRi1M5PSCTt14=
-X-Received: by 2002:a67:b645:: with SMTP id e5mr2054584vsm.8.1601483161346;
- Wed, 30 Sep 2020 09:26:01 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AA43E89D77;
+	Wed, 30 Sep 2020 16:30:15 +0000 (UTC)
+Received: from fireflyinternet.com (unknown [77.68.26.236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EE90C89D77
+ for <intel-gfx@lists.freedesktop.org>; Wed, 30 Sep 2020 16:30:13 +0000 (UTC)
+X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
+ x-ip-name=78.156.65.138; 
+Received: from localhost (unverified [78.156.65.138]) 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP (TLS) id
+ 22582477-1500050 for multiple; Wed, 30 Sep 2020 17:30:04 +0100
 MIME-Version: 1.0
+In-Reply-To: <CAM0jSHNwqN=_=mgLpxq0p5O3dS1NSYGJQay6JP=MHGjGRRqPLg@mail.gmail.com>
 References: <20200929082859.26652-1-chris@chris-wilson.co.uk>
-In-Reply-To: <20200929082859.26652-1-chris@chris-wilson.co.uk>
-From: Matthew Auld <matthew.william.auld@gmail.com>
-Date: Wed, 30 Sep 2020 17:25:35 +0100
-Message-ID: <CAM0jSHNwqN=_=mgLpxq0p5O3dS1NSYGJQay6JP=MHGjGRRqPLg@mail.gmail.com>
-To: Chris Wilson <chris@chris-wilson.co.uk>
+ <CAM0jSHNwqN=_=mgLpxq0p5O3dS1NSYGJQay6JP=MHGjGRRqPLg@mail.gmail.com>
+From: Chris Wilson <chris@chris-wilson.co.uk>
+To: Matthew Auld <matthew.william.auld@gmail.com>
+Date: Wed, 30 Sep 2020 17:30:08 +0100
+Message-ID: <160148340869.23784.13135562039996340240@build.alporthouse.com>
+User-Agent: alot/0.9
 Subject: Re: [Intel-gfx] [PATCH 1/3] drm/i915/gt: Signal cancelled requests
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -79,15 +55,19 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 29 Sep 2020 at 09:29, Chris Wilson <chris@chris-wilson.co.uk> wrote:
->
-> After marking the requests on an engine as cancelled upon wedging, send
-> any signals for their completions.
->
-> Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+Quoting Matthew Auld (2020-09-30 17:25:35)
+> On Tue, 29 Sep 2020 at 09:29, Chris Wilson <chris@chris-wilson.co.uk> wrote:
+> >
+> > After marking the requests on an engine as cancelled upon wedging, send
+> > any signals for their completions.
+> >
+> > Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+> 
+> Fwiw these were all previously reviewed at:
+> https://patchwork.freedesktop.org/series/81729/
 
-Fwiw these were all previously reviewed at:
-https://patchwork.freedesktop.org/series/81729/
+Ta, I was blind.
+-Chris
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
