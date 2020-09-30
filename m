@@ -7,50 +7,49 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4992CC4742B
-	for <intel-gfx@archiver.kernel.org>; Wed, 30 Sep 2020 17:52:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0BDE6C47420
+	for <intel-gfx@archiver.kernel.org>; Wed, 30 Sep 2020 17:52:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E400E20706
-	for <intel-gfx@archiver.kernel.org>; Wed, 30 Sep 2020 17:52:10 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id AF12C2074B
+	for <intel-gfx@archiver.kernel.org>; Wed, 30 Sep 2020 17:52:08 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="CpPbN3ix"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E400E20706
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="DQMmlnFg"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AF12C2074B
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=lst.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2745B6E81F;
-	Wed, 30 Sep 2020 17:52:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 564B16E81C;
+	Wed, 30 Sep 2020 17:52:05 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org
  [IPv6:2001:8b0:10b:1236::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2BD196E7E6;
- Wed, 30 Sep 2020 17:52:02 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B5C0D89D7D;
+ Wed, 30 Sep 2020 17:51:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:MIME-Version:
  References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:
  Content-Type:Content-ID:Content-Description;
- bh=aKbcvSTUYHnc5Kwat+nQ3mcktPzxpqXoVaxpdMprQBc=; b=CpPbN3ixHM87YY3u9XM3Qv+U7T
- 1ZWv8GVgV6IxroFPz3OTmX0Pvp+2NDzRr4qI7h1iJaBus5DlsMnTe2D91JP/X3IVr95lVLMJV1nvH
- D9Os2QRPqW7J6RDHO1kY7okt1bF/FA1lHIbFlVkHQo/rkpDvgaS5aoBM6saFqyGifoYvIjFyGQMzE
- nCpf/HBAlm8ElQB7pCVubi8N9HqQ1iV6uH3LxWO2hN1BUnaEIDYz76I/QQqBQqiRZ7Q9lYlmRLZ/F
- 73ufU43CuubCJKrxqv+c3PvEcn6kc89SL24CgkYdHvU/uyKb1K6tQ4Inps8UoBNoa+BVSXTsdMGNn
- 1BJqCBzA==;
+ bh=71LvYnHcMs7/rXGs508r2vzZrQvLA4mfS9GwJnz8e8I=; b=DQMmlnFg6WAYeylc76zZu+7vNK
+ Y7Dy7Hk+84PRUsKFyWhQc9sB5+zPoig2xujJ2u9hIT8LWeR04zfy86BxI9Tg9lkl3aegreAvuv0UI
+ W7cjIEn7vxyAYoLf+cTgHdVTu4L+t3DDAcCoBnv8CJlHXBQNg74qbtCWXPgT7+hL9mLVTGddGoiVI
+ eFpmiqUu+XCdR0ihnpC0zWAmcfbRaMjSMeOrEHONXWVFaku/aUAkhAz/hlX+HjiMQfVpwJ8SEbETO
+ Ldn9h1nrZYduwY7/TaQFjcI2THjl6OacN+hzEWEKr3z6CZN8FFYwV8CDtDH3Jet2r0Kk9VdJgAoB6
+ lDRQXPhA==;
 Received: from [2001:4bb8:180:7b62:c70:4a89:bc61:4] (helo=localhost)
  by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1kNgGZ-0001D6-Mw; Wed, 30 Sep 2020 17:51:49 +0000
+ id 1kNgGP-0001Bs-MG; Wed, 30 Sep 2020 17:51:38 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Andrew Morton <akpm@linux-foundation.org>
-Date: Wed, 30 Sep 2020 19:51:32 +0200
-Message-Id: <20200930175133.1252382-10-hch@lst.de>
+Date: Wed, 30 Sep 2020 19:51:25 +0200
+Message-Id: <20200930175133.1252382-3-hch@lst.de>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20200930175133.1252382-1-hch@lst.de>
 References: <20200930175133.1252382-1-hch@lst.de>
 MIME-Version: 1.0
 X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
  casper.infradead.org. See http://www.infradead.org/rpr.html
-Subject: [Intel-gfx] [PATCH 09/10] x86/xen: open code alloc_vm_area in
- arch_gnttab_valloc
+Subject: [Intel-gfx] [PATCH 02/10] mm: add a VM_MAP_PUT_PAGES flag for vmap
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,67 +75,55 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Replace the last call to alloc_vm_area with an open coded version using
-an iterator in struct gnttab_vm_area instead of the triple indirection
-magic in alloc_vm_area.
+Add a flag so that vmap takes ownership of the passed in page array.
+When vfree is called on such an allocation it will put one reference
+on each page, and free the page array itself.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
-Reviewed-by: Boris Ostrovsky <boris.ostrovsky@oracle.com>
 ---
- arch/x86/xen/grant-table.c | 27 ++++++++++++++++++++-------
- 1 file changed, 20 insertions(+), 7 deletions(-)
+ include/linux/vmalloc.h | 1 +
+ mm/vmalloc.c            | 9 +++++++--
+ 2 files changed, 8 insertions(+), 2 deletions(-)
 
-diff --git a/arch/x86/xen/grant-table.c b/arch/x86/xen/grant-table.c
-index 4988e19598c8a5..1e681bf62561a0 100644
---- a/arch/x86/xen/grant-table.c
-+++ b/arch/x86/xen/grant-table.c
-@@ -25,6 +25,7 @@
- static struct gnttab_vm_area {
- 	struct vm_struct *area;
- 	pte_t **ptes;
-+	int idx;
- } gnttab_shared_vm_area, gnttab_status_vm_area;
+diff --git a/include/linux/vmalloc.h b/include/linux/vmalloc.h
+index 0221f852a7e1a3..b899681e3ff9f0 100644
+--- a/include/linux/vmalloc.h
++++ b/include/linux/vmalloc.h
+@@ -24,6 +24,7 @@ struct notifier_block;		/* in notifier.h */
+ #define VM_UNINITIALIZED	0x00000020	/* vm_struct is not fully initialized */
+ #define VM_NO_GUARD		0x00000040      /* don't add guard page */
+ #define VM_KASAN		0x00000080      /* has allocated kasan shadow memory */
++#define VM_MAP_PUT_PAGES	0x00000100	/* put pages and free array in vfree */
  
- int arch_gnttab_map_shared(unsigned long *frames, unsigned long nr_gframes,
-@@ -90,19 +91,31 @@ void arch_gnttab_unmap(void *shared, unsigned long nr_gframes)
+ /*
+  * VM_KASAN is used slighly differently depending on CONFIG_KASAN_VMALLOC.
+diff --git a/mm/vmalloc.c b/mm/vmalloc.c
+index 8770260419af06..ffad65f052c3f9 100644
+--- a/mm/vmalloc.c
++++ b/mm/vmalloc.c
+@@ -2377,8 +2377,11 @@ EXPORT_SYMBOL(vunmap);
+  * @flags: vm_area->flags
+  * @prot: page protection for the mapping
+  *
+- * Maps @count pages from @pages into contiguous kernel virtual
+- * space.
++ * Maps @count pages from @pages into contiguous kernel virtual space.
++ * If @flags contains %VM_MAP_PUT_PAGES the ownership of the pages array itself
++ * (which must be kmalloc or vmalloc memory) and one reference per pages in it
++ * are transferred from the caller to vmap(), and will be freed / dropped when
++ * vfree() is called on the return value.
+  *
+  * Return: the address of the area or %NULL on failure
+  */
+@@ -2404,6 +2407,8 @@ void *vmap(struct page **pages, unsigned int count,
+ 		return NULL;
  	}
- }
  
-+static int gnttab_apply(pte_t *pte, unsigned long addr, void *data)
-+{
-+	struct gnttab_vm_area *area = data;
-+
-+	area->ptes[area->idx++] = pte;
-+	return 0;
-+}
-+
- static int arch_gnttab_valloc(struct gnttab_vm_area *area, unsigned nr_frames)
- {
- 	area->ptes = kmalloc_array(nr_frames, sizeof(*area->ptes), GFP_KERNEL);
- 	if (area->ptes == NULL)
- 		return -ENOMEM;
--
--	area->area = alloc_vm_area(PAGE_SIZE * nr_frames, area->ptes);
--	if (area->area == NULL) {
--		kfree(area->ptes);
--		return -ENOMEM;
--	}
--
-+	area->area = get_vm_area(PAGE_SIZE * nr_frames, VM_IOREMAP);
-+	if (!area->area)
-+		goto out_free_ptes;
-+	if (apply_to_page_range(&init_mm, (unsigned long)area->area->addr,
-+			PAGE_SIZE * nr_frames, gnttab_apply, area))
-+		goto out_free_vm_area;
- 	return 0;
-+out_free_vm_area:
-+	free_vm_area(area->area);
-+out_free_ptes:
-+	kfree(area->ptes);
-+	return -ENOMEM;
++	if (flags & VM_MAP_PUT_PAGES)
++		area->pages = pages;
+ 	return area->addr;
  }
- 
- static void arch_gnttab_vfree(struct gnttab_vm_area *area)
+ EXPORT_SYMBOL(vmap);
 -- 
 2.28.0
 
