@@ -2,41 +2,55 @@ Return-Path: <SRS0=p/WI=DH=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.0 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-10.0 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D43E8C4727C
-	for <intel-gfx@archiver.kernel.org>; Wed, 30 Sep 2020 16:30:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 08C8FC4727C
+	for <intel-gfx@archiver.kernel.org>; Wed, 30 Sep 2020 16:31:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 415452072E
-	for <intel-gfx@archiver.kernel.org>; Wed, 30 Sep 2020 16:30:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 415452072E
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
+	by mail.kernel.org (Postfix) with ESMTPS id 99B752085B
+	for <intel-gfx@archiver.kernel.org>; Wed, 30 Sep 2020 16:31:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 99B752085B
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA43E89D77;
-	Wed, 30 Sep 2020 16:30:15 +0000 (UTC)
-Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE90C89D77
- for <intel-gfx@lists.freedesktop.org>; Wed, 30 Sep 2020 16:30:13 +0000 (UTC)
-X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
- x-ip-name=78.156.65.138; 
-Received: from localhost (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP (TLS) id
- 22582477-1500050 for multiple; Wed, 30 Sep 2020 17:30:04 +0100
-MIME-Version: 1.0
-In-Reply-To: <CAM0jSHNwqN=_=mgLpxq0p5O3dS1NSYGJQay6JP=MHGjGRRqPLg@mail.gmail.com>
-References: <20200929082859.26652-1-chris@chris-wilson.co.uk>
- <CAM0jSHNwqN=_=mgLpxq0p5O3dS1NSYGJQay6JP=MHGjGRRqPLg@mail.gmail.com>
-From: Chris Wilson <chris@chris-wilson.co.uk>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0FA8B6E489;
+	Wed, 30 Sep 2020 16:31:33 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB4376E4CD
+ for <intel-gfx@lists.freedesktop.org>; Wed, 30 Sep 2020 16:31:31 +0000 (UTC)
+IronPort-SDR: 4q8lut5rPu2NxCoUmrso11cvRXpeiFZIXc4pWRf+CKWZr+XVuYaEux1932iLmXE9AXIfnJRAOA
+ JAACYdYjXroQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9760"; a="180647533"
+X-IronPort-AV: E=Sophos;i="5.77,322,1596524400"; d="scan'208";a="180647533"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Sep 2020 09:31:29 -0700
+IronPort-SDR: HYWdbzaWGyTX4RWpVxFXlgmIoYM5bVsknOpUyNclV8CJRvWz3IrDjDvPoHiLXdrwOpDXFLdvOd
+ jDjetlgMYAXA==
+X-IronPort-AV: E=Sophos;i="5.77,322,1596524400"; d="scan'208";a="457715588"
+Received: from jjgryzlo-mobl1.amr.corp.intel.com (HELO ldmartin-desk1)
+ ([10.212.105.223])
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Sep 2020 09:31:28 -0700
+Date: Wed, 30 Sep 2020 09:31:26 -0700
+From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: Matthew Auld <matthew.william.auld@gmail.com>
-Date: Wed, 30 Sep 2020 17:30:08 +0100
-Message-ID: <160148340869.23784.13135562039996340240@build.alporthouse.com>
-User-Agent: alot/0.9
-Subject: Re: [Intel-gfx] [PATCH 1/3] drm/i915/gt: Signal cancelled requests
+Message-ID: <20200930163126.6p4d6tfrfxwt7z6c@ldmartin-desk1>
+X-Patchwork-Hint: ignore
+References: <20200930153016.105711-1-lucas.demarchi@intel.com>
+ <CAM0jSHON6C2xvg9DezVYku2Ue-k94SGUZ9269ZZ49PjYqsTW4A@mail.gmail.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <CAM0jSHON6C2xvg9DezVYku2Ue-k94SGUZ9269ZZ49PjYqsTW4A@mail.gmail.com>
+Subject: Re: [Intel-gfx] [PATCH] drm/i915: don't conflate is_dgfx with fake
+ lmem
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,25 +63,81 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Intel Graphics Development <intel-gfx@lists.freedesktop.org>
-Content-Type: text/plain; charset="us-ascii"
+Cc: Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ Matthew Auld <matthew.auld@intel.com>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Quoting Matthew Auld (2020-09-30 17:25:35)
-> On Tue, 29 Sep 2020 at 09:29, Chris Wilson <chris@chris-wilson.co.uk> wrote:
-> >
-> > After marking the requests on an engine as cancelled upon wedging, send
-> > any signals for their completions.
-> >
-> > Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-> 
-> Fwiw these were all previously reviewed at:
-> https://patchwork.freedesktop.org/series/81729/
+On Wed, Sep 30, 2020 at 04:58:42PM +0100, Matthew Auld wrote:
+>On Wed, 30 Sep 2020 at 16:30, Lucas De Marchi <lucas.demarchi@intel.com> wrote:
+>>
+>> When using fake lmem for tests, we are overriding the setting in
+>> device info for dgfx devices. Current users of IS_DGFX() are correct,
+>> but as we add support for DG1, we are going to use it in additional
+>> places to trigger dgfx-only code path.
+>>
+>> In future if we need we can use HAS_LMEM() instead of IS_DGFX() in the
+>> places that make sense to also contemplate fake lmem use.
+>>
+>> Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+>> ---
+>>  drivers/gpu/drm/i915/i915_drv.c | 2 --
+>>  1 file changed, 2 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/i915/i915_drv.c b/drivers/gpu/drm/i915/i915_drv.c
+>> index 45e719c79183..3f6ed142198c 100644
+>> --- a/drivers/gpu/drm/i915/i915_drv.c
+>> +++ b/drivers/gpu/drm/i915/i915_drv.c
+>> @@ -840,9 +840,7 @@ int i915_driver_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+>>                     i915->params.fake_lmem_start) {
+>>                         mkwrite_device_info(i915)->memory_regions =
+>>                                 REGION_SMEM | REGION_LMEM | REGION_STOLEN;
+>> -                       mkwrite_device_info(i915)->is_dgfx = true;
+>>                         GEM_BUG_ON(!HAS_LMEM(i915));
+>> -                       GEM_BUG_ON(!IS_DGFX(i915));
+>
+>Hmm, I guess this could work as an option c) but I think we will also
+>need to add something like:
+>
+>@@ -835,7 +835,7 @@ static int gen8_gmch_probe(struct i915_ggtt *ggtt)
+>        u16 snb_gmch_ctl;
+>
+>        /* TODO: We're not aware of mappable constraints on gen8 yet */
+>-       if (!IS_DGFX(i915)) {
+>+       if (!IS_DGFX(i915) && !HAS_LMEM(i915)) {
+>                ggtt->gmadr = pci_resource(pdev, 2);
+>                ggtt->mappable_end = resource_size(&ggtt->gmadr);
+>        }
+>
+>The point is that we need to steal the mappable aperture later(which
+>is fine since it doesn't exist on "DGFX"), and use it as a substitute
+>for LMEMBAR. The !mappable aperture property is also useful since it
+>exercises some other parts of the code too.
 
-Ta, I was blind.
--Chris
+humn.. this was actually the one I was on the fence switching to
+HAS_LMEM().  It seemed to me we would not need to, but now I understand.
+
+But since !HAS_LMEM() implies !IS_DGFX(), I would rather just replace
+the check.
+
+@@ -835,7 +835,7 @@ static int gen8_gmch_probe(struct i915_ggtt *ggtt)
+         u16 snb_gmch_ctl;
+
+         /* TODO: We're not aware of mappable constraints on gen8 yet */
+-       if (!IS_DGFX(i915)) {
++       if (!HAS_LMEM(i915)) {
+                 ggtt->gmadr = pci_resource(pdev, 2);
+                 ggtt->mappable_end = resource_size(&ggtt->gmadr);
+         }
+
+
+Lucas De Marchi
+
+>
+>Assuming CI is happy and this unbocks you then,
+>Reviewed-by: Matthew Auld <matthew.auld@intel.com>
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
