@@ -2,44 +2,37 @@ Return-Path: <SRS0=p/WI=DH=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.3 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A2E51C4727C
-	for <intel-gfx@archiver.kernel.org>; Wed, 30 Sep 2020 16:51:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 79574C4741F
+	for <intel-gfx@archiver.kernel.org>; Wed, 30 Sep 2020 16:53:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5EFF4206C9
-	for <intel-gfx@archiver.kernel.org>; Wed, 30 Sep 2020 16:51:51 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 2641D206C9
+	for <intel-gfx@archiver.kernel.org>; Wed, 30 Sep 2020 16:53:54 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="0QiwqGrr"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5EFF4206C9
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=nvidia.com header.i=@nvidia.com header.b="WaVIxgyV"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2641D206C9
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=nvidia.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C5FF89E33;
-	Wed, 30 Sep 2020 16:51:48 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2700989DD2;
- Wed, 30 Sep 2020 16:51:47 +0000 (UTC)
-Received: from localhost (unknown [213.57.247.131])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 1FD65206C9;
- Wed, 30 Sep 2020 16:51:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1601484706;
- bh=MwdJW4mqrWOrBCkHeReFHIvPIJHWwvzq0/1WZ3thz34=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=0QiwqGrru7E0hnFByyf199zgzY5HfiHmMto2K2DP2GQaRpF+SQylW3LD64x0jYywQ
- GcH0r71FBZ2SrN2dwCGbIV3fjNBJqBLpm/gW0SCLI6mvVwTGAH152XfnjfVFnYbu9N
- wSMSXIznFZBAd5pNwXWXfAuppEMtLhJPcm6C38Ms=
-Date: Wed, 30 Sep 2020 19:51:42 +0300
-From: Leon Romanovsky <leon@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id AA3B66E064;
+	Wed, 30 Sep 2020 16:53:53 +0000 (UTC)
+Received: from hqnvemgate24.nvidia.com (hqnvemgate24.nvidia.com
+ [216.228.121.143])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4689589DB8;
+ Wed, 30 Sep 2020 15:40:26 +0000 (UTC)
+Received: from hqmail.nvidia.com (Not Verified[216.228.121.13]) by
+ hqnvemgate24.nvidia.com (using TLS: TLSv1.2, AES256-SHA)
+ id <B5f74a6830001>; Wed, 30 Sep 2020 08:38:43 -0700
+Received: from [172.27.13.156] (10.124.1.5) by HQMAIL107.nvidia.com
+ (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Wed, 30 Sep
+ 2020 15:40:18 +0000
 To: Jason Gunthorpe <jgg@nvidia.com>
-Message-ID: <20200930165142.GS3094@unreal>
 References: <20200927064647.3106737-1-leon@kernel.org>
  <20200927064647.3106737-5-leon@kernel.org>
  <20200929195929.GA803555@nvidia.com> <20200930095321.GL3094@unreal>
@@ -48,9 +41,29 @@ References: <20200927064647.3106737-1-leon@kernel.org>
  <20200930115837.GF816047@nvidia.com>
  <7e09167f-c57a-cdfe-a842-c920e9421e53@nvidia.com>
  <20200930151406.GM816047@nvidia.com>
+From: Maor Gottlieb <maorg@nvidia.com>
+Message-ID: <086a82d3-fd3a-7160-dba4-c7b223585b88@nvidia.com>
+Date: Wed, 30 Sep 2020 18:40:15 +0300
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.3.1
 MIME-Version: 1.0
-Content-Disposition: inline
 In-Reply-To: <20200930151406.GM816047@nvidia.com>
+Content-Language: en-US
+X-Originating-IP: [10.124.1.5]
+X-ClientProxiedBy: HQMAIL105.nvidia.com (172.20.187.12) To
+ HQMAIL107.nvidia.com (172.20.187.13)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
+ t=1601480324; bh=q/MX2HPw+Rl/oCY6oRvBsm/gn1tjQ5WhgRmOnWsAgQA=;
+ h=Subject:To:CC:References:From:Message-ID:Date:User-Agent:
+ MIME-Version:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+ Content-Language:X-Originating-IP:X-ClientProxiedBy;
+ b=WaVIxgyVk3b9bgUcy85wupDJhbbDtGuPqHhr8jyeRr1uTOTwPSn80cEQrT2VOHqgO
+ V22dizW+QUZgEduNkEJDaPoCQxGyxuLgvEVVDNSShG1qgWKQng8Nm/usd/GFlZRFfx
+ CnNMioOZOhW8AYxa+gyh+TiWnPzfJSgsIotUhHtpoxBcs2LEsS/xvvCBS441nIJT+9
+ jDa9BufMDv2CW7O5OP72rhLeXweRy1sB/RbvVFOvruWdozkaqS2TG6T5EAs+xAnf/a
+ uWEk9j6KrRowRZKFMYqnJXa6UqzUJr/iKZUhLABwhFOi4SxRKt8TxXB7eS2LlK/kWc
+ zJqt9g7z1xCJw==
+X-Mailman-Approved-At: Wed, 30 Sep 2020 16:53:52 +0000
 Subject: Re: [Intel-gfx] [PATCH rdma-next v4 4/4] RDMA/umem: Move to
  allocate SG table from pages
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -65,40 +78,31 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, intel-gfx@lists.freedesktop.org,
- Roland Scheidegger <sroland@vmware.com>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org,
- Doug Ledford <dledford@redhat.com>,
+Cc: Leon Romanovsky <leon@kernel.org>, David Airlie <airlied@linux.ie>,
+ intel-gfx@lists.freedesktop.org, Roland Scheidegger <sroland@vmware.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-rdma@vger.kernel.org, Doug Ledford <dledford@redhat.com>,
  VMware Graphics <linux-graphics-maintainer@vmware.com>,
- Maor Gottlieb <maorg@nvidia.com>, Christoph Hellwig <hch@lst.de>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+ Christoph Hellwig <hch@lst.de>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Sep 30, 2020 at 12:14:06PM -0300, Jason Gunthorpe wrote:
-> On Wed, Sep 30, 2020 at 06:05:15PM +0300, Maor Gottlieb wrote:
-> > This is right only for the last iteration. E.g. in the first iteration =
-in
-> > case that there are more pages (left_pages), then we allocate
-> > SG_MAX_SINGLE_ALLOC.=A0 We don't know how many pages from the second it=
-eration
-> > will be squashed to the SGE from the first iteration.
->
-> Well, it is 0 or 1 SGE's. Check if the first page is mergable and
-> subtract one from the required length?
->
-> I dislike this sg_mark_end() it is something that should be internal,
-> IMHO.
-
-I don't think so, but Maor provided possible solution.
-Can you take the patches?
-
-Thanks
-
->
-> Jason
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+Ck9uIDkvMzAvMjAyMCA2OjE0IFBNLCBKYXNvbiBHdW50aG9ycGUgd3JvdGU6Cj4gT24gV2VkLCBT
+ZXAgMzAsIDIwMjAgYXQgMDY6MDU6MTVQTSArMDMwMCwgTWFvciBHb3R0bGllYiB3cm90ZToKPj4g
+VGhpcyBpcyByaWdodCBvbmx5IGZvciB0aGUgbGFzdCBpdGVyYXRpb24uIEUuZy4gaW4gdGhlIGZp
+cnN0IGl0ZXJhdGlvbiBpbgo+PiBjYXNlIHRoYXQgdGhlcmUgYXJlIG1vcmUgcGFnZXMgKGxlZnRf
+cGFnZXMpLCB0aGVuIHdlIGFsbG9jYXRlCj4+IFNHX01BWF9TSU5HTEVfQUxMT0MuwqAgV2UgZG9u
+J3Qga25vdyBob3cgbWFueSBwYWdlcyBmcm9tIHRoZSBzZWNvbmQgaXRlcmF0aW9uCj4+IHdpbGwg
+YmUgc3F1YXNoZWQgdG8gdGhlIFNHRSBmcm9tIHRoZSBmaXJzdCBpdGVyYXRpb24uCj4gV2VsbCwg
+aXQgaXMgMCBvciAxIFNHRSdzLiBDaGVjayBpZiB0aGUgZmlyc3QgcGFnZSBpcyBtZXJnYWJsZSBh
+bmQKPiBzdWJ0cmFjdCBvbmUgZnJvbSB0aGUgcmVxdWlyZWQgbGVuZ3RoPwo+Cj4gSSBkaXNsaWtl
+IHRoaXMgc2dfbWFya19lbmQoKSBpdCBpcyBzb21ldGhpbmcgdGhhdCBzaG91bGQgYmUgaW50ZXJu
+YWwsCj4gSU1ITy4KCkkgY2FuIG1vdmUgaXQgdG8gX19zZ19hbGxvY190YWJsZV9mcm9tX3BhZ2Vz
+OgoKIMKgwqDCoMKgwqDCoMKgIHNndC0+bmVudHMgPSB0bXBfbmVudHM7CisgaWYgKCFsZWZ0X3Bh
+Z2VzKQorwqDCoMKgwqDCoMKgwqDCoCBzZ19tYXJrX2VuZChzKTsKIMKgb3V0OgogwqDCoMKgwqDC
+oMKgwqAgcmV0dXJuIHM7Cgo+Cj4gSmFzb24KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRlbC1nZnhAbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlz
+dGluZm8vaW50ZWwtZ2Z4Cg==
