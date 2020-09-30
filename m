@@ -7,48 +7,47 @@ X-Spam-Status: No, score=-13.0 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1011FC2D0A8
-	for <intel-gfx@archiver.kernel.org>; Wed, 30 Sep 2020 06:42:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 03B61C4727F
+	for <intel-gfx@archiver.kernel.org>; Wed, 30 Sep 2020 06:42:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CCC1C2075F
-	for <intel-gfx@archiver.kernel.org>; Wed, 30 Sep 2020 06:42:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CCC1C2075F
+	by mail.kernel.org (Postfix) with ESMTPS id BA7FA2075F
+	for <intel-gfx@archiver.kernel.org>; Wed, 30 Sep 2020 06:42:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BA7FA2075F
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 45FB06E503;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F6CF6E508;
 	Wed, 30 Sep 2020 06:42:49 +0000 (UTC)
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B65336E4FE
- for <intel-gfx@lists.freedesktop.org>; Wed, 30 Sep 2020 06:42:46 +0000 (UTC)
-IronPort-SDR: lsB1pOaSK24X9a9QT5EU+AiNG8GsfDBDGptLbSnNU5sEKl5XH44w5fAc71jHXz9xJ550duwKWC
- slzmdAtXkg2g==
-X-IronPort-AV: E=McAfee;i="6000,8403,9759"; a="142387755"
-X-IronPort-AV: E=Sophos;i="5.77,321,1596524400"; d="scan'208";a="142387755"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 396D16E4FF
+ for <intel-gfx@lists.freedesktop.org>; Wed, 30 Sep 2020 06:42:45 +0000 (UTC)
+IronPort-SDR: 7uhNdW96CliLxcMjVjy+fs2pTYPnl9svKU5M251IikAvHukEEBFlNQd7nl/2j9QMAPRJxDcPm8
+ OuBCiqCNe5Ng==
+X-IronPort-AV: E=McAfee;i="6000,8403,9759"; a="142387751"
+X-IronPort-AV: E=Sophos;i="5.77,321,1596524400"; d="scan'208";a="142387751"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Sep 2020 23:42:46 -0700
-IronPort-SDR: nC2+FFEOVYv1MIF9upgamDXrDRb1w3fInvrwarTJIl/M3hRad268heyp12sSHETiP6eyjUR3wG
- gr0zs841d4OQ==
-X-IronPort-AV: E=Sophos;i="5.77,321,1596524400"; d="scan'208";a="312487700"
+ 29 Sep 2020 23:42:44 -0700
+IronPort-SDR: Kaay2gZrS6No+/FwOq823bZrKdm8wTdQ+G/1rzi8TP5tDdQappoMB8j0pZR9tlvO10JoSJ4kpX
+ DIcl0e8Hxg6w==
+X-IronPort-AV: E=Sophos;i="5.77,321,1596524400"; d="scan'208";a="312487689"
 Received: from cdgarci1-mobl1.amr.corp.intel.com (HELO
  ldmartin-desk1.intel.com) ([10.213.164.152])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Sep 2020 23:42:45 -0700
+ 29 Sep 2020 23:42:44 -0700
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 29 Sep 2020 23:42:16 -0700
-Message-Id: <20200930064234.85769-7-lucas.demarchi@intel.com>
+Date: Tue, 29 Sep 2020 23:42:14 -0700
+Message-Id: <20200930064234.85769-5-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20200930064234.85769-1-lucas.demarchi@intel.com>
 References: <20200930064234.85769-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v6 06/24] drm/i915/dg1: Wait for pcode/uncore
- handshake at startup
+Subject: [Intel-gfx] [PATCH v6 04/24] drm/i915/dg1: Add DG1 power wells
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,77 +60,262 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-RnJvbTogTWF0dCBSb3BlciA8bWF0dGhldy5kLnJvcGVyQGludGVsLmNvbT4KCkRHMSBkb2VzIHNv
-bWUgYWRkaXRpb25hbCBwY29kZS91bmNvcmUgaGFuZHNoYWtpbmcgYXQKYm9vdCB0aW1lOyB0aGlz
-IGhhbmRzaGFraW5nIG11c3QgY29tcGxldGUgYmVmb3JlIHZhcmlvdXMgb3RoZXIgcGNvZGUKY29t
-bWFuZHMgYXJlIGVmZmVjdGl2ZSBhbmQgYmVmb3JlIGdlbmVyYWwgd29yayBpcyBzdWJtaXR0ZWQg
-dG8gdGhlIEdQVS4KV2UgbmVlZCB0byBwb2xsIGEgbmV3IHBjb2RlIG1haWxib3ggZHVyaW5nIHN0
-YXJ0dXAgdW50aWwgaXQgcmVwb3J0cyB0aGF0CnRoaXMgaGFuZHNoYWtpbmcgaXMgY29tcGxldGUu
-CgpUaGUgYnNwZWMgZG9lc24ndCBnaXZlIGd1aWRhbmNlIG9uIGhvdyBsb25nIHdlIG1heSBuZWVk
-IHRvIHdhaXQgZm9yIHRoaXMKaGFuZHNoYWtpbmcgdG8gY29tcGxldGUuICBGb3Igbm93LCBsZXQn
-cyBqdXN0IHNldCBhIHJlYWxseSBsb25nIHRpbWVvdXQ7CmlmIHdlIHN0aWxsIGRvbid0IGdldCBh
-IGNvbXBsZXRpb24gc3RhdHVzIGJ5IHRoZSBlbmQgb2YgdGhhdCB0aW1lb3V0LAp3ZSdsbCBqdXN0
-IGNvbnRpbnVlIG9uIGFuZCBob3BlIGZvciB0aGUgYmVzdC4KCnYyIChMdWNhcyk6IFJlbmFtZSBt
-YWNyb3MgdG8gbWFrZSBjbGVhciB0aGUgcmVsYXRpb24gYmV0d2VlbiBjb21tYW5kIGFuZAogICBy
-ZXN1bHQgKHJlcXVlc3RlZCBieSBKb3PDqSkKCkJzcGVjOiA1MjA2NQpDYzogQ2xpbnRvbiBUYXls
-b3IgPENsaW50b24uQS5UYXlsb3JAaW50ZWwuY29tPgpDYzogVmlsbGUgU3lyasOkbMOkIDx2aWxs
-ZS5zeXJqYWxhQGxpbnV4LmludGVsLmNvbT4KQ2M6IFJhZGhha3Jpc2huYSBTcmlwYWRhIDxyYWRo
-YWtyaXNobmEuc3JpcGFkYUBpbnRlbC5jb20+ClNpZ25lZC1vZmYtYnk6IE1hdHQgUm9wZXIgPG1h
-dHRoZXcuZC5yb3BlckBpbnRlbC5jb20+ClNpZ25lZC1vZmYtYnk6IEx1Y2FzIERlIE1hcmNoaSA8
-bHVjYXMuZGVtYXJjaGlAaW50ZWwuY29tPgpSZXZpZXdlZC1ieTogSm9zw6kgUm9iZXJ0byBkZSBT
-b3V6YSA8am9zZS5zb3V6YUBpbnRlbC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkx
-NV9kcnYuYyAgICAgICB8ICAzICsrKwogZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV9yZWcuaCAg
-ICAgICB8ICAzICsrKwogZHJpdmVycy9ncHUvZHJtL2k5MTUvaW50ZWxfc2lkZWJhbmQuYyB8IDE1
-ICsrKysrKysrKysrKysrKwogZHJpdmVycy9ncHUvZHJtL2k5MTUvaW50ZWxfc2lkZWJhbmQuaCB8
-ICAyICsrCiA0IGZpbGVzIGNoYW5nZWQsIDIzIGluc2VydGlvbnMoKykKCmRpZmYgLS1naXQgYS9k
-cml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X2Rydi5jIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkx
-NV9kcnYuYwppbmRleCA0NWU3MTljNzkxODMuLmE5ZjRlMzMxYTRmYiAxMDA2NDQKLS0tIGEvZHJp
-dmVycy9ncHUvZHJtL2k5MTUvaTkxNV9kcnYuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9p
-OTE1X2Rydi5jCkBAIC04NCw2ICs4NCw3IEBACiAjaW5jbHVkZSAiaW50ZWxfZ3Z0LmgiCiAjaW5j
-bHVkZSAiaW50ZWxfbWVtb3J5X3JlZ2lvbi5oIgogI2luY2x1ZGUgImludGVsX3BtLmgiCisjaW5j
-bHVkZSAiaW50ZWxfc2lkZWJhbmQuaCIKICNpbmNsdWRlICJ2bHZfc3VzcGVuZC5oIgogCiBzdGF0
-aWMgc3RydWN0IGRybV9kcml2ZXIgZHJpdmVyOwpAQCAtNjE2LDYgKzYxNyw4IEBAIHN0YXRpYyBp
-bnQgaTkxNV9kcml2ZXJfaHdfcHJvYmUoc3RydWN0IGRybV9pOTE1X3ByaXZhdGUgKmRldl9wcml2
-KQogCSAqLwogCWludGVsX2RyYW1fZGV0ZWN0KGRldl9wcml2KTsKIAorCWludGVsX3Bjb2RlX2lu
-aXQoZGV2X3ByaXYpOworCiAJaW50ZWxfYndfaW5pdF9odyhkZXZfcHJpdik7CiAKIAlyZXR1cm4g
-MDsKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfcmVnLmggYi9kcml2ZXJz
-L2dwdS9kcm0vaTkxNS9pOTE1X3JlZy5oCmluZGV4IDQ3NzMwYTE3NjY5OC4uODU4MmRiZTZlZjY5
-IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X3JlZy5oCisrKyBiL2RyaXZl
-cnMvZ3B1L2RybS9pOTE1L2k5MTVfcmVnLmgKQEAgLTkyMjQsNiArOTIyNCw5IEBAIGVudW0gewog
-I2RlZmluZSAgICAgR0VOOV9TQUdWX0RJU0FCTEUJCQkweDAKICNkZWZpbmUgICAgIEdFTjlfU0FH
-Vl9JU19ESVNBQkxFRAkJMHgxCiAjZGVmaW5lICAgICBHRU45X1NBR1ZfRU5BQkxFCQkJMHgzCisj
-ZGVmaW5lICAgREcxX1BDT0RFX1NUQVRVUwkJCTB4N0UKKyNkZWZpbmUgICAgIERHMV9VTkNPUkVf
-R0VUX0lOSVRfU1RBVFVTCQkweDAKKyNkZWZpbmUgICAgIERHMV9VTkNPUkVfSU5JVF9TVEFUVVNf
-Q09NUExFVEUJMHgxCiAjZGVmaW5lIEdFTjEyX1BDT0RFX1JFQURfU0FHVl9CTE9DS19USU1FX1VT
-CTB4MjMKICNkZWZpbmUgR0VONl9QQ09ERV9EQVRBCQkJCV9NTUlPKDB4MTM4MTI4KQogI2RlZmlu
-ZSAgIEdFTjZfUENPREVfRlJFUV9JQV9SQVRJT19TSElGVAk4CmRpZmYgLS1naXQgYS9kcml2ZXJz
-L2dwdS9kcm0vaTkxNS9pbnRlbF9zaWRlYmFuZC5jIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvaW50
-ZWxfc2lkZWJhbmQuYwppbmRleCA1YjMyNzkyNjIxMjMuLjAyZWJmNWEwNGE5YiAxMDA2NDQKLS0t
-IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvaW50ZWxfc2lkZWJhbmQuYworKysgYi9kcml2ZXJzL2dw
-dS9kcm0vaTkxNS9pbnRlbF9zaWRlYmFuZC5jCkBAIC01NTUsMyArNTU1LDE4IEBAIGludCBza2xf
-cGNvZGVfcmVxdWVzdChzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqaTkxNSwgdTMyIG1ib3gsIHUz
-MiByZXF1ZXN0LAogCXJldHVybiByZXQgPyByZXQgOiBzdGF0dXM7CiAjdW5kZWYgQ09ORAogfQor
-Cit2b2lkIGludGVsX3Bjb2RlX2luaXQoc3RydWN0IGRybV9pOTE1X3ByaXZhdGUgKmk5MTUpCit7
-CisJaW50IHJldDsKKworCWlmICghSVNfREdGWChpOTE1KSkKKwkJcmV0dXJuOworCisJcmV0ID0g
-c2tsX3Bjb2RlX3JlcXVlc3QoaTkxNSwgREcxX1BDT0RFX1NUQVRVUywKKwkJCQlERzFfVU5DT1JF
-X0dFVF9JTklUX1NUQVRVUywKKwkJCQlERzFfVU5DT1JFX0lOSVRfU1RBVFVTX0NPTVBMRVRFLAor
-CQkJCURHMV9VTkNPUkVfSU5JVF9TVEFUVVNfQ09NUExFVEUsIDUwKTsKKwlpZiAocmV0KQorCQlk
-cm1fZXJyKCZpOTE1LT5kcm0sICJQY29kZSBkaWQgbm90IHJlcG9ydCB1bmNvcmUgaW5pdGlhbGl6
-YXRpb24gY29tcGxldGlvbiFcbiIpOworfQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5
-MTUvaW50ZWxfc2lkZWJhbmQuaCBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2ludGVsX3NpZGViYW5k
-LmgKaW5kZXggN2ZiOTU3NDVhNDQ0Li4wOTRjN2IxOWM1ZDQgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMv
-Z3B1L2RybS9pOTE1L2ludGVsX3NpZGViYW5kLmgKKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUv
-aW50ZWxfc2lkZWJhbmQuaApAQCAtMTM4LDQgKzEzOCw2IEBAIGludCBzYW5keWJyaWRnZV9wY29k
-ZV93cml0ZV90aW1lb3V0KHN0cnVjdCBkcm1faTkxNV9wcml2YXRlICppOTE1LCB1MzIgbWJveCwK
-IGludCBza2xfcGNvZGVfcmVxdWVzdChzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqaTkxNSwgdTMy
-IG1ib3gsIHUzMiByZXF1ZXN0LAogCQkgICAgICB1MzIgcmVwbHlfbWFzaywgdTMyIHJlcGx5LCBp
-bnQgdGltZW91dF9iYXNlX21zKTsKIAordm9pZCBpbnRlbF9wY29kZV9pbml0KHN0cnVjdCBkcm1f
-aTkxNV9wcml2YXRlICppOTE1KTsKKwogI2VuZGlmIC8qIF9JTlRFTF9TSURFQkFORF9IICovCi0t
-IAoyLjI4LjAKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-CkludGVsLWdmeCBtYWlsaW5nIGxpc3QKSW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpo
-dHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ludGVsLWdmeAo=
+From: Uma Shankar <uma.shankar@intel.com>
+
+Most of TGL power wells are re-used for DG1. However, AUDIO Power
+Domain is moved from PG3 to PG0. Handle the change and initialize
+power wells with the new power well structure.
+
+Some of the Audio Streaming logic still remains in PW3 so still
+it needs to be enabled.
+
+DDIA, DDIB, TC1 and TC2 are the active ports on DG1.
+
+Bspec: 49182
+
+Cc: Matt Roper <matthew.d.roper@intel.com>
+Cc: Anshuman Gupta <anshuman.gupta@intel.com>
+Signed-off-by: Uma Shankar <uma.shankar@intel.com>
+Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+---
+ .../drm/i915/display/intel_display_power.c    | 201 +++++++++++++++++-
+ 1 file changed, 200 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
+index 7277e58b01f1..94be64fce5d3 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_power.c
++++ b/drivers/gpu/drm/i915/display/intel_display_power.c
+@@ -2970,6 +2970,44 @@ void intel_display_power_put(struct drm_i915_private *dev_priv,
+ 	BIT_ULL(POWER_DOMAIN_AUX_B) |			\
+ 	BIT_ULL(POWER_DOMAIN_INIT))
+ 
++#define DG1_PW_5_POWER_DOMAINS (			\
++	BIT_ULL(POWER_DOMAIN_PIPE_D) |			\
++	BIT_ULL(POWER_DOMAIN_TRANSCODER_D) |		\
++	BIT_ULL(POWER_DOMAIN_PIPE_D_PANEL_FITTER) |     \
++	BIT_ULL(POWER_DOMAIN_INIT))
++
++#define DG1_PW_4_POWER_DOMAINS (			\
++	DG1_PW_5_POWER_DOMAINS |			\
++	BIT_ULL(POWER_DOMAIN_PIPE_C) |			\
++	BIT_ULL(POWER_DOMAIN_TRANSCODER_C) |		\
++	BIT_ULL(POWER_DOMAIN_PIPE_C_PANEL_FITTER) |	\
++	BIT_ULL(POWER_DOMAIN_INIT))
++
++#define DG1_PW_3_POWER_DOMAINS (			\
++	DG1_PW_4_POWER_DOMAINS |			\
++	BIT_ULL(POWER_DOMAIN_PIPE_B) |			\
++	BIT_ULL(POWER_DOMAIN_TRANSCODER_B) |		\
++	BIT_ULL(POWER_DOMAIN_PIPE_B_PANEL_FITTER) |	\
++	BIT_ULL(POWER_DOMAIN_PORT_DDI_D_LANES) |	\
++	BIT_ULL(POWER_DOMAIN_PORT_DDI_E_LANES) |	\
++	BIT_ULL(POWER_DOMAIN_AUX_D) |		\
++	BIT_ULL(POWER_DOMAIN_AUX_E) |		\
++	BIT_ULL(POWER_DOMAIN_VGA) |			\
++	BIT_ULL(POWER_DOMAIN_AUDIO) |			\
++	BIT_ULL(POWER_DOMAIN_INIT))
++
++#define DG1_PW_2_POWER_DOMAINS (			\
++	DG1_PW_3_POWER_DOMAINS |			\
++	BIT_ULL(POWER_DOMAIN_TRANSCODER_VDSC_PW2) |	\
++	BIT_ULL(POWER_DOMAIN_INIT))
++
++#define DG1_DISPLAY_DC_OFF_POWER_DOMAINS (		\
++	DG1_PW_3_POWER_DOMAINS |			\
++	BIT_ULL(POWER_DOMAIN_MODESET) |			\
++	BIT_ULL(POWER_DOMAIN_AUX_A) |			\
++	BIT_ULL(POWER_DOMAIN_AUX_B) |			\
++	BIT_ULL(POWER_DOMAIN_INIT))
++
+ static const struct i915_power_well_ops i9xx_always_on_power_well_ops = {
+ 	.sync_hw = i9xx_power_well_sync_hw_noop,
+ 	.enable = i9xx_always_on_power_well_noop,
+@@ -4474,6 +4512,165 @@ static const struct i915_power_well_desc rkl_power_wells[] = {
+ 	},
+ };
+ 
++static const struct i915_power_well_desc dg1_power_wells[] = {
++	{
++		.name = "always-on",
++		.always_on = true,
++		.domains = POWER_DOMAIN_MASK,
++		.ops = &i9xx_always_on_power_well_ops,
++		.id = DISP_PW_ID_NONE,
++	},
++	{
++		.name = "power well 1",
++		/* Handled by the DMC firmware */
++		.always_on = true,
++		.domains = 0,
++		.ops = &hsw_power_well_ops,
++		.id = SKL_DISP_PW_1,
++		{
++			.hsw.regs = &hsw_power_well_regs,
++			.hsw.idx = ICL_PW_CTL_IDX_PW_1,
++			.hsw.has_fuses = true,
++		},
++	},
++	{
++		.name = "DC off",
++		.domains = DG1_DISPLAY_DC_OFF_POWER_DOMAINS,
++		.ops = &gen9_dc_off_power_well_ops,
++		.id = SKL_DISP_DC_OFF,
++	},
++	{
++		.name = "power well 2",
++		.domains = DG1_PW_2_POWER_DOMAINS,
++		.ops = &hsw_power_well_ops,
++		.id = SKL_DISP_PW_2,
++		{
++			.hsw.regs = &hsw_power_well_regs,
++			.hsw.idx = ICL_PW_CTL_IDX_PW_2,
++			.hsw.has_fuses = true,
++		},
++	},
++	{
++		.name = "power well 3",
++		.domains = DG1_PW_3_POWER_DOMAINS,
++		.ops = &hsw_power_well_ops,
++		.id = ICL_DISP_PW_3,
++		{
++			.hsw.regs = &hsw_power_well_regs,
++			.hsw.idx = ICL_PW_CTL_IDX_PW_3,
++			.hsw.irq_pipe_mask = BIT(PIPE_B),
++			.hsw.has_vga = true,
++			.hsw.has_fuses = true,
++		},
++	},
++	{
++		.name = "DDI A IO",
++		.domains = ICL_DDI_IO_A_POWER_DOMAINS,
++		.ops = &hsw_power_well_ops,
++		.id = DISP_PW_ID_NONE,
++		{
++			.hsw.regs = &icl_ddi_power_well_regs,
++			.hsw.idx = ICL_PW_CTL_IDX_DDI_A,
++		}
++	},
++	{
++		.name = "DDI B IO",
++		.domains = ICL_DDI_IO_B_POWER_DOMAINS,
++		.ops = &hsw_power_well_ops,
++		.id = DISP_PW_ID_NONE,
++		{
++			.hsw.regs = &icl_ddi_power_well_regs,
++			.hsw.idx = ICL_PW_CTL_IDX_DDI_B,
++		}
++	},
++	{
++		.name = "DDI D TC1 IO",
++		.domains = TGL_DDI_IO_D_TC1_POWER_DOMAINS,
++		.ops = &hsw_power_well_ops,
++		.id = DISP_PW_ID_NONE,
++		{
++			.hsw.regs = &icl_ddi_power_well_regs,
++			.hsw.idx = TGL_PW_CTL_IDX_DDI_TC1,
++		},
++	},
++	{
++		.name = "DDI E TC2 IO",
++		.domains = TGL_DDI_IO_E_TC2_POWER_DOMAINS,
++		.ops = &hsw_power_well_ops,
++		.id = DISP_PW_ID_NONE,
++		{
++			.hsw.regs = &icl_ddi_power_well_regs,
++			.hsw.idx = TGL_PW_CTL_IDX_DDI_TC2,
++		},
++	},
++	{
++		.name = "AUX A",
++		.domains = ICL_AUX_A_IO_POWER_DOMAINS,
++		.ops = &icl_aux_power_well_ops,
++		.id = DISP_PW_ID_NONE,
++		{
++			.hsw.regs = &icl_aux_power_well_regs,
++			.hsw.idx = ICL_PW_CTL_IDX_AUX_A,
++		},
++	},
++	{
++		.name = "AUX B",
++		.domains = ICL_AUX_B_IO_POWER_DOMAINS,
++		.ops = &icl_aux_power_well_ops,
++		.id = DISP_PW_ID_NONE,
++		{
++			.hsw.regs = &icl_aux_power_well_regs,
++			.hsw.idx = ICL_PW_CTL_IDX_AUX_B,
++		},
++	},
++	{
++		.name = "AUX D TC1",
++		.domains = TGL_AUX_D_TC1_IO_POWER_DOMAINS,
++		.ops = &icl_aux_power_well_ops,
++		.id = DISP_PW_ID_NONE,
++		{
++			.hsw.regs = &icl_aux_power_well_regs,
++			.hsw.idx = TGL_PW_CTL_IDX_AUX_TC1,
++			.hsw.is_tc_tbt = false,
++		},
++	},
++	{
++		.name = "AUX E TC2",
++		.domains = TGL_AUX_E_TC2_IO_POWER_DOMAINS,
++		.ops = &icl_aux_power_well_ops,
++		.id = DISP_PW_ID_NONE,
++		{
++			.hsw.regs = &icl_aux_power_well_regs,
++			.hsw.idx = TGL_PW_CTL_IDX_AUX_TC2,
++			.hsw.is_tc_tbt = false,
++		},
++	},
++	{
++		.name = "power well 4",
++		.domains = DG1_PW_4_POWER_DOMAINS,
++		.ops = &hsw_power_well_ops,
++		.id = DISP_PW_ID_NONE,
++		{
++			.hsw.regs = &hsw_power_well_regs,
++			.hsw.idx = ICL_PW_CTL_IDX_PW_4,
++			.hsw.has_fuses = true,
++			.hsw.irq_pipe_mask = BIT(PIPE_C),
++		}
++	},
++	{
++		.name = "power well 5",
++		.domains = DG1_PW_5_POWER_DOMAINS,
++		.ops = &hsw_power_well_ops,
++		.id = DISP_PW_ID_NONE,
++		{
++			.hsw.regs = &hsw_power_well_regs,
++			.hsw.idx = TGL_PW_CTL_IDX_PW_5,
++			.hsw.has_fuses = true,
++			.hsw.irq_pipe_mask = BIT(PIPE_D),
++		},
++	},
++};
++
+ static int
+ sanitize_disable_power_well_option(const struct drm_i915_private *dev_priv,
+ 				   int disable_power_well)
+@@ -4622,7 +4819,9 @@ int intel_power_domains_init(struct drm_i915_private *dev_priv)
+ 	 * The enabling order will be from lower to higher indexed wells,
+ 	 * the disabling order is reversed.
+ 	 */
+-	if (IS_ROCKETLAKE(dev_priv)) {
++	if (IS_DG1(dev_priv)) {
++		err = set_power_wells(power_domains, dg1_power_wells);
++	} else if (IS_ROCKETLAKE(dev_priv)) {
+ 		err = set_power_wells(power_domains, rkl_power_wells);
+ 	} else if (IS_GEN(dev_priv, 12)) {
+ 		err = set_power_wells(power_domains, tgl_power_wells);
+-- 
+2.28.0
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
