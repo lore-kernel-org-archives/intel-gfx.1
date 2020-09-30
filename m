@@ -7,48 +7,47 @@ X-Spam-Status: No, score=-13.0 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 59529C2D0A8
-	for <intel-gfx@archiver.kernel.org>; Wed, 30 Sep 2020 06:42:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7DBA8C2D0A8
+	for <intel-gfx@archiver.kernel.org>; Wed, 30 Sep 2020 06:42:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1A5FD2075F
-	for <intel-gfx@archiver.kernel.org>; Wed, 30 Sep 2020 06:42:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1A5FD2075F
+	by mail.kernel.org (Postfix) with ESMTPS id 404392075F
+	for <intel-gfx@archiver.kernel.org>; Wed, 30 Sep 2020 06:42:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 404392075F
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 08E976E4FB;
-	Wed, 30 Sep 2020 06:42:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7215D6E4FE;
+	Wed, 30 Sep 2020 06:42:48 +0000 (UTC)
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1F7DF6E4F8
- for <intel-gfx@lists.freedesktop.org>; Wed, 30 Sep 2020 06:42:44 +0000 (UTC)
-IronPort-SDR: NXd/YQTS2HGptOttnRS7zl/iM/764ALI1+YiYzwGQTWGEx0GIr9AMffye3QqXfRhxW8QgkTFRZ
- d0byo2QqqaOA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9759"; a="142387747"
-X-IronPort-AV: E=Sophos;i="5.77,321,1596524400"; d="scan'208";a="142387747"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A8E126E4FF
+ for <intel-gfx@lists.freedesktop.org>; Wed, 30 Sep 2020 06:42:45 +0000 (UTC)
+IronPort-SDR: RuIHWqrvvyfjMWjboVHIpJIJIZ5vHMBD4Y75OXQoZF3te3SetfwB79RJbyyPtXevHQFA63IEvo
+ oiIpzQNkuhXw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9759"; a="142387752"
+X-IronPort-AV: E=Sophos;i="5.77,321,1596524400"; d="scan'208";a="142387752"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Sep 2020 23:42:43 -0700
-IronPort-SDR: rIV+pMY0fpJjYEKMBga0KORB172iRfrSH4P5KPw+NSCyi3uh6fXncOiNK1vOs+Icgtxh993f1n
- +cDrKG0mAQNQ==
-X-IronPort-AV: E=Sophos;i="5.77,321,1596524400"; d="scan'208";a="312487679"
+ 29 Sep 2020 23:42:45 -0700
+IronPort-SDR: LYI2OfQotz7op429yvt7xfS2r4N9lWbt8wLShoFHnTHBNefFRrvo8SNarHtMpgsPzEI9BtbdmB
+ TSEJo7QtUb4g==
+X-IronPort-AV: E=Sophos;i="5.77,321,1596524400"; d="scan'208";a="312487694"
 Received: from cdgarci1-mobl1.amr.corp.intel.com (HELO
  ldmartin-desk1.intel.com) ([10.213.164.152])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Sep 2020 23:42:43 -0700
+ 29 Sep 2020 23:42:44 -0700
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 29 Sep 2020 23:42:12 -0700
-Message-Id: <20200930064234.85769-3-lucas.demarchi@intel.com>
+Date: Tue, 29 Sep 2020 23:42:15 -0700
+Message-Id: <20200930064234.85769-6-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20200930064234.85769-1-lucas.demarchi@intel.com>
 References: <20200930064234.85769-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v6 02/24] drm/i915/dg1: Initialize RAWCLK
- properly
+Subject: [Intel-gfx] [PATCH v6 05/24] drm/i915/dg1: Increase mmio size to 4MB
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,48 +60,54 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-RnJvbTogTWF0dCBSb3BlciA8bWF0dGhldy5kLnJvcGVyQGludGVsLmNvbT4KCkRHMSBhbHdheXMg
-dXNlcyBhIDM4LjQgTUh6IHJhd2NsayByYXRoZXIgdGhhbiB0aGUgMTkuMi8yNCBNSHoKZnJlcXVl
-bmNpZXMgb24gQ05QKy4gIE5vdGUgdGhhdCByZWdpc3RlciBiaXRzIGFzc29jaWF0ZWQgd2l0aCB0
-aGlzCmZyZXF1ZW5jeSBjb25mdXNpbmdseSB1c2UgMzcgZm9yIHRoZSBkaXZpZGVyIGZpZWxkIHJh
-dGhlciB0aGFuIDM4IGFzIHlvdQptaWdodCBleHBlY3QuCgpGb3Igc2ltcGxpY2l0eSwgbGV0J3Mg
-anVzdCBhc3N1bWUgdGhhdCB0aGlzIDM4LjQgTUh6IGZyZXF1ZW5jeSB3aWxsIGhvbGQKdHJ1ZSBm
-b3Igb3RoZXIgZnV0dXJlIHBsYXRmb3JtcyB3aXRoICJmYWtlIiBQQ0ggc291dGggZGlzcGxheXMg
-YW5kIHRoYXQKdGhlIENOUC1zdHlsZSBiZWhhdmlvciB3aWxsIHJlbWFpbiBmb3Igb3RoZXIgcGxh
-dGZvcm1zIHdpdGggYSByZWFsIFBDSC4KCkJzcGVjOiA0OTk1MApCc3BlYzogNDkzMDkKQ2M6IEFk
-aXR5YSBTd2FydXAgPGFkaXR5YS5zd2FydXBAaW50ZWwuY29tPgpDYzogQ2xpbnRvbiBUYXlsb3Ig
-PENsaW50b24uQS5UYXlsb3JAaW50ZWwuY29tPgpDYzogTHVjYXMgRGUgTWFyY2hpIDxsdWNhcy5k
-ZW1hcmNoaUBpbnRlbC5jb20+ClNpZ25lZC1vZmYtYnk6IE1hdHQgUm9wZXIgPG1hdHRoZXcuZC5y
-b3BlckBpbnRlbC5jb20+ClNpZ25lZC1vZmYtYnk6IEx1Y2FzIERlIE1hcmNoaSA8bHVjYXMuZGVt
-YXJjaGlAaW50ZWwuY29tPgpSZXZpZXdlZC1ieTogSm9zw6kgUm9iZXJ0byBkZSBTb3V6YSA8am9z
-ZS5zb3V6YUBpbnRlbC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRl
-bF9jZGNsay5jIHwgMTYgKysrKysrKysrKysrKysrLQogMSBmaWxlIGNoYW5nZWQsIDE1IGluc2Vy
-dGlvbnMoKyksIDEgZGVsZXRpb24oLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkx
-NS9kaXNwbGF5L2ludGVsX2NkY2xrLmMgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2lu
-dGVsX2NkY2xrLmMKaW5kZXggY2I5M2Y2Y2Y2ZDM3Li43ZGJmMTUzMjc5ZmIgMTAwNjQ0Ci0tLSBh
-L2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfY2RjbGsuYworKysgYi9kcml2ZXJz
-L2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2NkY2xrLmMKQEAgLTI2ODAsNiArMjY4MCwxOCBA
-QCB2b2lkIGludGVsX3VwZGF0ZV9jZGNsayhzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqZGV2X3By
-aXYpCiAJCQkgICAgICAgRElWX1JPVU5EX1VQKGRldl9wcml2LT5jZGNsay5ody5jZGNsaywgMTAw
-MCkpOwogfQogCitzdGF0aWMgaW50IGRnMV9yYXdjbGsoc3RydWN0IGRybV9pOTE1X3ByaXZhdGUg
-KmRldl9wcml2KQoreworCS8qCisJICogREcxIGFsd2F5cyB1c2VzIGEgMzguNCBNSHogcmF3Y2xr
-LiAgVGhlIGJzcGVjIHRlbGxzIHVzCisJICogIlByb2dyYW0gTnVtZXJhdG9yPTIsIERlbm9taW5h
-dG9yPTQsIERpdmlkZXI9MzcgZGVjaW1hbC4iCisJICovCisJSTkxNV9XUklURShQQ0hfUkFXQ0xL
-X0ZSRVEsCisJCSAgIENOUF9SQVdDTEtfREVOKDQpIHwgQ05QX1JBV0NMS19ESVYoMzcpIHwgSUNQ
-X1JBV0NMS19OVU0oMikpOworCisJcmV0dXJuIDM4NDAwOworfQorCiBzdGF0aWMgaW50IGNucF9y
-YXdjbGsoc3RydWN0IGRybV9pOTE1X3ByaXZhdGUgKmRldl9wcml2KQogewogCXUzMiByYXdjbGs7
-CkBAIC0yNzg4LDcgKzI4MDAsOSBAQCB1MzIgaW50ZWxfcmVhZF9yYXdjbGsoc3RydWN0IGRybV9p
-OTE1X3ByaXZhdGUgKmRldl9wcml2KQogewogCXUzMiBmcmVxOwogCi0JaWYgKElOVEVMX1BDSF9U
-WVBFKGRldl9wcml2KSA+PSBQQ0hfQ05QKQorCWlmIChJTlRFTF9QQ0hfVFlQRShkZXZfcHJpdikg
-Pj0gUENIX0RHMSkKKwkJZnJlcSA9IGRnMV9yYXdjbGsoZGV2X3ByaXYpOworCWVsc2UgaWYgKElO
-VEVMX1BDSF9UWVBFKGRldl9wcml2KSA+PSBQQ0hfQ05QKQogCQlmcmVxID0gY25wX3Jhd2Nsayhk
-ZXZfcHJpdik7CiAJZWxzZSBpZiAoSEFTX1BDSF9TUExJVChkZXZfcHJpdikpCiAJCWZyZXEgPSBw
-Y2hfcmF3Y2xrKGRldl9wcml2KTsKLS0gCjIuMjguMAoKX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRlbC1nZnhA
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
-YW4vbGlzdGluZm8vaW50ZWwtZ2Z4Cg==
+From: Venkata Sandeep Dhanalakota <venkata.s.dhanalakota@intel.com>
+
+On DGFX the register range has been extended to go up to 8MB. However we
+only actually use up to address 280000h, so let's increase it to 4MB.
+
+v2 (Lucas):  add bspec reference and reword commit message to explain
+   the 4 vs 8 MB used (requested by Matt Roper)
+
+Bspec: 53616
+
+Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+Cc: Michael J. Ruhl <michael.j.ruhl@intel.com>
+Signed-off-by: Venkata Sandeep Dhanalakota <venkata.s.dhanalakota@intel.com>
+Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
+---
+ drivers/gpu/drm/i915/intel_uncore.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/drivers/gpu/drm/i915/intel_uncore.c b/drivers/gpu/drm/i915/intel_uncore.c
+index 263ffcb832b7..54e201fdeba4 100644
+--- a/drivers/gpu/drm/i915/intel_uncore.c
++++ b/drivers/gpu/drm/i915/intel_uncore.c
+@@ -1701,11 +1701,15 @@ static int uncore_mmio_setup(struct intel_uncore *uncore)
+ 	 * clobbering the GTT which we want ioremap_wc instead. Fortunately,
+ 	 * the register BAR remains the same size for all the earlier
+ 	 * generations up to Ironlake.
++	 * For dgfx chips register range is expanded to 4MB.
+ 	 */
+ 	if (INTEL_GEN(i915) < 5)
+ 		mmio_size = 512 * 1024;
++	else if (IS_DGFX(i915))
++		mmio_size = 4 * 1024 * 1024;
+ 	else
+ 		mmio_size = 2 * 1024 * 1024;
++
+ 	uncore->regs = pci_iomap(pdev, mmio_bar, mmio_size);
+ 	if (uncore->regs == NULL) {
+ 		drm_err(&i915->drm, "failed to map registers\n");
+-- 
+2.28.0
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
