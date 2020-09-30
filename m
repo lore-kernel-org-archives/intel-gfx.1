@@ -2,41 +2,54 @@ Return-Path: <SRS0=p/WI=DH=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.0 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-10.0 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DB00BC4727E
-	for <intel-gfx@archiver.kernel.org>; Wed, 30 Sep 2020 16:39:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4F191C4727C
+	for <intel-gfx@archiver.kernel.org>; Wed, 30 Sep 2020 16:50:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 757F020789
-	for <intel-gfx@archiver.kernel.org>; Wed, 30 Sep 2020 16:39:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 757F020789
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id E3C492076B
+	for <intel-gfx@archiver.kernel.org>; Wed, 30 Sep 2020 16:50:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E3C492076B
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EAFFF89BAE;
-	Wed, 30 Sep 2020 16:39:27 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id BC39E89B99;
- Wed, 30 Sep 2020 16:39:26 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id B40C4A47E1;
- Wed, 30 Sep 2020 16:39:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 651C589CF9;
+	Wed, 30 Sep 2020 16:50:10 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB3BD89CF9
+ for <intel-gfx@lists.freedesktop.org>; Wed, 30 Sep 2020 16:50:09 +0000 (UTC)
+IronPort-SDR: LyCKRj8ZFJTm6MDyAta89Wo2q5pJhcWKerZKvAxBPow/KmTZtQOjECbLmF37SZ2m8QVJEVUHV3
+ 2DwhzEXt5bBA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9760"; a="162547932"
+X-IronPort-AV: E=Sophos;i="5.77,322,1596524400"; d="scan'208";a="162547932"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Sep 2020 09:50:09 -0700
+IronPort-SDR: zI0vN1SVQESjWFPzwJh67FfExDZ6SBFai9lf9hM0iRmFMwBXNuLirM+OEAFJe93zsY4WbZXYrG
+ TJ+k7yDSbLiA==
+X-IronPort-AV: E=Sophos;i="5.77,322,1596524400"; d="scan'208";a="325096343"
+Received: from mdroper-desk1.fm.intel.com (HELO
+ mdroper-desk1.amr.corp.intel.com) ([10.1.27.168])
+ by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Sep 2020 09:50:09 -0700
+Date: Wed, 30 Sep 2020 09:50:07 -0700
+From: Matt Roper <matthew.d.roper@intel.com>
+To: Lucas De Marchi <lucas.demarchi@intel.com>
+Message-ID: <20200930165007.GA2245633@mdroper-desk1.amr.corp.intel.com>
+References: <20200930064234.85769-1-lucas.demarchi@intel.com>
+ <20200930064234.85769-23-lucas.demarchi@intel.com>
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Chris Wilson" <chris@chris-wilson.co.uk>
-Date: Wed, 30 Sep 2020 16:39:26 -0000
-Message-ID: <160148396670.17417.5582658260408515254@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20200930163253.2789-1-chris@chris-wilson.co.uk>
-In-Reply-To: <20200930163253.2789-1-chris@chris-wilson.co.uk>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
- =?utf-8?q?series_starting_with_=5BCI=2C1/3=5D_drm/i915/gt=3A_Signal_cance?=
- =?utf-8?q?lled_requests?=
+Content-Disposition: inline
+In-Reply-To: <20200930064234.85769-23-lucas.demarchi@intel.com>
+Subject: Re: [Intel-gfx] [PATCH v6 22/24] drm/i915/dg1: DG1 does not support
+ DC6
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,28 +62,74 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Cc: intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+On Tue, Sep 29, 2020 at 11:42:32PM -0700, Lucas De Marchi wrote:
+> From: Anshuman Gupta <anshuman.gupta@intel.com>
+> 
+> DC6 is not supported on DG1, so change the allowed DC mask for DG1.
+> 
+> Cc: Uma Shankar <uma.shankar@intel.com>
+> Signed-off-by: Anshuman Gupta <anshuman.gupta@intel.com>
 
-Series: series starting with [CI,1/3] drm/i915/gt: Signal cancelled requests
-URL   : https://patchwork.freedesktop.org/series/82267/
-State : warning
+Do we have a bspec reference for this?  I can't find anything specific
+about this from a casual skim of the pages I'd expect it to be mentioned
+on.
 
-== Summary ==
+If we have a reference added (or a note clarifying that we have offline
+confirmation from hardware architects),
 
-$ dim sparse --fast origin/drm-tip
-Sparse version: v0.6.2
-Fast mode used, each commit won't be checked separately.
-+./include/linux/seqlock.h:752:24: warning: trying to copy expression type 31
-+./include/linux/seqlock.h:778:16: warning: trying to copy expression type 31
+Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
 
 
+At some point I think we should re-write this section of the code in
+general.  The magic numbers used here are annoying, and a driver
+modparam named 'enable_dc' really sounds like it should be a bitmask of
+the exact DCs supported (rather than defining a combination of 'up to'
+values + DC3CO and omitting DC9 completely).  But we don't need to do
+that in a DG1 enabling patch.
+
+
+Matt
+
+> ---
+>  drivers/gpu/drm/i915/display/intel_display_power.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
+> index 0827e68a9d89..7dfc697ccf78 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display_power.c
+> +++ b/drivers/gpu/drm/i915/display/intel_display_power.c
+> @@ -4689,7 +4689,10 @@ static u32 get_allowed_dc_mask(const struct drm_i915_private *dev_priv,
+>  	int max_dc;
+>  
+>  	if (INTEL_GEN(dev_priv) >= 12) {
+> -		max_dc = 4;
+> +		if (IS_DG1(dev_priv))
+> +			max_dc = 3;
+> +		else
+> +			max_dc = 4;
+>  		/*
+>  		 * DC9 has a separate HW flow from the rest of the DC states,
+>  		 * not depending on the DMC firmware. It's needed by system
+> -- 
+> 2.28.0
+> 
+> _______________________________________________
+> Intel-gfx mailing list
+> Intel-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+
+-- 
+Matt Roper
+Graphics Software Engineer
+VTT-OSGC Platform Enablement
+Intel Corporation
+(916) 356-2795
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
