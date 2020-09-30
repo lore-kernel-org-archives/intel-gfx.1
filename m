@@ -7,47 +7,48 @@ X-Spam-Status: No, score=-13.0 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F003EC4727F
-	for <intel-gfx@archiver.kernel.org>; Wed, 30 Sep 2020 06:43:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B33E7C2D0A8
+	for <intel-gfx@archiver.kernel.org>; Wed, 30 Sep 2020 06:43:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BA49B2075F
-	for <intel-gfx@archiver.kernel.org>; Wed, 30 Sep 2020 06:43:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BA49B2075F
+	by mail.kernel.org (Postfix) with ESMTPS id 809122075F
+	for <intel-gfx@archiver.kernel.org>; Wed, 30 Sep 2020 06:43:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 809122075F
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA8CB6E509;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0289D6E514;
 	Wed, 30 Sep 2020 06:42:56 +0000 (UTC)
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 740366E4F8
- for <intel-gfx@lists.freedesktop.org>; Wed, 30 Sep 2020 06:42:44 +0000 (UTC)
-IronPort-SDR: wK16ukfVQPkPOWxzK3zuJfH+Jlum9CJoQuFVts6j/ArGe3MGgAQOEc+Lx4kaAY3j5eLEyc1OB9
- Bj/EVTcmA7Ag==
-X-IronPort-AV: E=McAfee;i="6000,8403,9759"; a="142387749"
-X-IronPort-AV: E=Sophos;i="5.77,321,1596524400"; d="scan'208";a="142387749"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 412DA6E509
+ for <intel-gfx@lists.freedesktop.org>; Wed, 30 Sep 2020 06:42:51 +0000 (UTC)
+IronPort-SDR: kfsn/n7Bt4Zh2Vx1uHDyoxwGzl72fRpyad7yAzvIC9XByUSRXQlhH90sudNHnJtUOHWVU+kiQO
+ FBvC6EbxPMgQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9759"; a="142387768"
+X-IronPort-AV: E=Sophos;i="5.77,321,1596524400"; d="scan'208";a="142387768"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Sep 2020 23:42:44 -0700
-IronPort-SDR: JwbbogGtDpK3n8tBgwBYyGeMiJf/Iawe9IBI0VOVmuB1Diocn2ktdasOIa7sM3ylJuaTuXnWOP
- rUw7Aj01ufiw==
-X-IronPort-AV: E=Sophos;i="5.77,321,1596524400"; d="scan'208";a="312487683"
+ 29 Sep 2020 23:42:51 -0700
+IronPort-SDR: BLFXQvln/ctIu9KUpmd/sxuFKaqtOFYZVHCFVSeZvWH2MyLr3um63BAFhIkxoAvG3tavn4mzJC
+ 7ycoaZbdGprA==
+X-IronPort-AV: E=Sophos;i="5.77,321,1596524400"; d="scan'208";a="312487739"
 Received: from cdgarci1-mobl1.amr.corp.intel.com (HELO
  ldmartin-desk1.intel.com) ([10.213.164.152])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Sep 2020 23:42:43 -0700
+ 29 Sep 2020 23:42:50 -0700
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 29 Sep 2020 23:42:13 -0700
-Message-Id: <20200930064234.85769-4-lucas.demarchi@intel.com>
+Date: Tue, 29 Sep 2020 23:42:25 -0700
+Message-Id: <20200930064234.85769-16-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20200930064234.85769-1-lucas.demarchi@intel.com>
 References: <20200930064234.85769-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v6 03/24] drm/i915/dg1: Define MOCS table for DG1
+Subject: [Intel-gfx] [PATCH v6 15/24] drm/i915/dg1: Update comp master/slave
+ relationships for PHYs
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,90 +66,39 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-DG1 has a new MOCS table. We still use the old definition of the table,
-but as for any dgfx card it doesn't contain the control_value values
-(these values don't matter as we won't program them).
+From: Matt Roper <matthew.d.roper@intel.com>
 
-Bspec: 45101
+As with RKL, DG1's PHY C acts as a comp master for PHY D.
 
-v2: Reword the comment to state that the last few entries are reserved
-    instead of "the last two". DG1 reserves four instead of two from
-    previous platforms (from Matt Roper)
-
-Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Bspec: 49291
+Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
-Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
+Reviewed-by: Anusha Srivatsa <anusha.srivatsa@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_mocs.c | 41 ++++++++++++++++++++++++++--
- 1 file changed, 39 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_combo_phy.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_mocs.c b/drivers/gpu/drm/i915/gt/intel_mocs.c
-index 632e08a4592b..8d0614d547bf 100644
---- a/drivers/gpu/drm/i915/gt/intel_mocs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_mocs.c
-@@ -109,7 +109,7 @@ struct drm_i915_mocs_table {
-  * they will be initialized to PTE. Gen >= 12 onwards don't have a setting for
-  * PTE and will be initialized to an invalid value.
-  *
-- * The last two entries are reserved by the hardware. For ICL+ they
-+ * The last few entries are reserved by the hardware. For ICL+ they
-  * should be initialized according to bspec and never used, for older
-  * platforms they should never be written to.
-  *
-@@ -280,6 +280,39 @@ static const struct drm_i915_mocs_entry icl_mocs_table[] = {
- 	GEN11_MOCS_ENTRIES
- };
+diff --git a/drivers/gpu/drm/i915/display/intel_combo_phy.c b/drivers/gpu/drm/i915/display/intel_combo_phy.c
+index 07c9fa2fb835..932265f1ac90 100644
+--- a/drivers/gpu/drm/i915/display/intel_combo_phy.c
++++ b/drivers/gpu/drm/i915/display/intel_combo_phy.c
+@@ -243,14 +243,14 @@ static bool phy_is_master(struct drm_i915_private *dev_priv, enum phy phy)
+ 	 *
+ 	 * ICL,TGL:
+ 	 *   A(master) -> B(slave), C(slave)
+-	 * RKL:
++	 * RKL,DG1:
+ 	 *   A(master) -> B(slave)
+ 	 *   C(master) -> D(slave)
+ 	 *
+ 	 * We must set the IREFGEN bit for any PHY acting as a master
+ 	 * to another PHY.
+ 	 */
+-	if (IS_ROCKETLAKE(dev_priv) && phy == PHY_C)
++	if ((IS_DG1(dev_priv) || IS_ROCKETLAKE(dev_priv)) && phy == PHY_C)
+ 		return true;
  
-+static const struct drm_i915_mocs_entry dg1_mocs_table[] = {
-+	/* Error */
-+	MOCS_ENTRY(0, 0, L3_0_DIRECT),
-+
-+	/* UC */
-+	MOCS_ENTRY(1, 0, L3_1_UC),
-+
-+	/* Reserved */
-+	MOCS_ENTRY(2, 0, L3_0_DIRECT),
-+	MOCS_ENTRY(3, 0, L3_0_DIRECT),
-+	MOCS_ENTRY(4, 0, L3_0_DIRECT),
-+
-+	/* WB - L3 */
-+	MOCS_ENTRY(5, 0, L3_3_WB),
-+	/* WB - L3 50% */
-+	MOCS_ENTRY(6, 0, L3_ESC(1) | L3_SCC(1) | L3_3_WB),
-+	/* WB - L3 25% */
-+	MOCS_ENTRY(7, 0, L3_ESC(1) | L3_SCC(3) | L3_3_WB),
-+	/* WB - L3 12.5% */
-+	MOCS_ENTRY(8, 0, L3_ESC(1) | L3_SCC(7) | L3_3_WB),
-+
-+	/* HDC:L1 + L3 */
-+	MOCS_ENTRY(48, 0, L3_3_WB),
-+	/* HDC:L1 */
-+	MOCS_ENTRY(49, 0, L3_1_UC),
-+
-+	/* HW Reserved */
-+	MOCS_ENTRY(60, 0, L3_1_UC),
-+	MOCS_ENTRY(61, 0, L3_1_UC),
-+	MOCS_ENTRY(62, 0, L3_1_UC),
-+	MOCS_ENTRY(63, 0, L3_1_UC),
-+};
-+
- enum {
- 	HAS_GLOBAL_MOCS = BIT(0),
- 	HAS_ENGINE_MOCS = BIT(1),
-@@ -306,7 +339,11 @@ static unsigned int get_mocs_settings(const struct drm_i915_private *i915,
- {
- 	unsigned int flags;
- 
--	if (INTEL_GEN(i915) >= 12) {
-+	if (IS_DG1(i915)) {
-+		table->size = ARRAY_SIZE(dg1_mocs_table);
-+		table->table = dg1_mocs_table;
-+		table->n_entries = GEN11_NUM_MOCS_ENTRIES;
-+	} else if (INTEL_GEN(i915) >= 12) {
- 		table->size  = ARRAY_SIZE(tgl_mocs_table);
- 		table->table = tgl_mocs_table;
- 		table->n_entries = GEN11_NUM_MOCS_ENTRIES;
+ 	return phy == PHY_A;
 -- 
 2.28.0
 
