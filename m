@@ -7,34 +7,37 @@ X-Spam-Status: No, score=-13.0 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E063BC4727C
-	for <intel-gfx@archiver.kernel.org>; Wed, 30 Sep 2020 16:32:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1A733C4741F
+	for <intel-gfx@archiver.kernel.org>; Wed, 30 Sep 2020 16:33:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9E10620789
-	for <intel-gfx@archiver.kernel.org>; Wed, 30 Sep 2020 16:32:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9E10620789
+	by mail.kernel.org (Postfix) with ESMTPS id C1F18207FB
+	for <intel-gfx@archiver.kernel.org>; Wed, 30 Sep 2020 16:33:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C1F18207FB
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1CE1989D7F;
-	Wed, 30 Sep 2020 16:32:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3123F6E7D0;
+	Wed, 30 Sep 2020 16:33:01 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D04A89D7F
- for <intel-gfx@lists.freedesktop.org>; Wed, 30 Sep 2020 16:32:56 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F85C89D7F
+ for <intel-gfx@lists.freedesktop.org>; Wed, 30 Sep 2020 16:32:57 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22582523-1500050 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22582525-1500050 
  for <intel-gfx@lists.freedesktop.org>; Wed, 30 Sep 2020 17:32:48 +0100
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 30 Sep 2020 17:32:51 +0100
-Message-Id: <20200930163253.2789-1-chris@chris-wilson.co.uk>
+Date: Wed, 30 Sep 2020 17:32:53 +0100
+Message-Id: <20200930163253.2789-3-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20200930163253.2789-1-chris@chris-wilson.co.uk>
+References: <20200930163253.2789-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [CI 1/3] drm/i915/gt: Signal cancelled requests
+Subject: [Intel-gfx] [CI 3/3] drm/i915/gt: Retire cancelled requests on
+ unload
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,40 +55,39 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-After marking the requests on an engine as cancelled upon wedging, send
-any signals for their completions.
+If we manage to hit the intel_gt_set_wedged_on_fini() while active, i.e.
+module unload during a stress test, we may cancel the requests but not
+clean up. This leads to a very slow module unload as we wait for
+something or other to trigger the retirement flushing, or timeout and
+unload with a bunch of warnings. Instead if we explicitly cancel then
+cleanup on an active unload, it should be instant and quiet.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 Reviewed-by: Matthew Auld <matthew.auld@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_lrc.c             | 1 +
- drivers/gpu/drm/i915/gt/intel_ring_submission.c | 1 +
- 2 files changed, 2 insertions(+)
+ drivers/gpu/drm/i915/gt/intel_reset.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
-index 1a1c3b077b7b..287537089c77 100644
---- a/drivers/gpu/drm/i915/gt/intel_lrc.c
-+++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
-@@ -4407,6 +4407,7 @@ static void execlists_reset_cancel(struct intel_engine_cs *engine)
- 	/* Mark all executing requests as skipped. */
- 	list_for_each_entry(rq, &engine->active.requests, sched.link)
- 		mark_eio(rq);
-+	intel_engine_signal_breadcrumbs(engine);
+diff --git a/drivers/gpu/drm/i915/gt/intel_reset.c b/drivers/gpu/drm/i915/gt/intel_reset.c
+index ac36b67fb46b..4e5e13dc95da 100644
+--- a/drivers/gpu/drm/i915/gt/intel_reset.c
++++ b/drivers/gpu/drm/i915/gt/intel_reset.c
+@@ -19,6 +19,7 @@
+ #include "intel_engine_pm.h"
+ #include "intel_gt.h"
+ #include "intel_gt_pm.h"
++#include "intel_gt_requests.h"
+ #include "intel_reset.h"
  
- 	/* Flush the queued requests to the timeline list (for retiring). */
- 	while ((rb = rb_first_cached(&execlists->queue))) {
-diff --git a/drivers/gpu/drm/i915/gt/intel_ring_submission.c b/drivers/gpu/drm/i915/gt/intel_ring_submission.c
-index 16b48e72c369..a41b43f445b8 100644
---- a/drivers/gpu/drm/i915/gt/intel_ring_submission.c
-+++ b/drivers/gpu/drm/i915/gt/intel_ring_submission.c
-@@ -444,6 +444,7 @@ static void reset_cancel(struct intel_engine_cs *engine)
- 		i915_request_set_error_once(request, -EIO);
- 		i915_request_mark_complete(request);
- 	}
-+	intel_engine_signal_breadcrumbs(engine);
+ #include "uc/intel_guc.h"
+@@ -1370,6 +1371,7 @@ void intel_gt_set_wedged_on_fini(struct intel_gt *gt)
+ {
+ 	intel_gt_set_wedged(gt);
+ 	set_bit(I915_WEDGED_ON_FINI, &gt->reset.flags);
++	intel_gt_retire_requests(gt); /* cleanup any wedged requests */
+ }
  
- 	/* Remaining _unready_ requests will be nop'ed when submitted */
- 
+ void intel_gt_init_reset(struct intel_gt *gt)
 -- 
 2.20.1
 
