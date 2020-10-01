@@ -2,56 +2,41 @@ Return-Path: <SRS0=YfZL=DI=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.2 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C5292C4727C
-	for <intel-gfx@archiver.kernel.org>; Thu,  1 Oct 2020 15:24:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2E6B7C47429
+	for <intel-gfx@archiver.kernel.org>; Thu,  1 Oct 2020 15:36:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7AC2220672
-	for <intel-gfx@archiver.kernel.org>; Thu,  1 Oct 2020 15:24:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7AC2220672
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id D7CA8206C1
+	for <intel-gfx@archiver.kernel.org>; Thu,  1 Oct 2020 15:36:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D7CA8206C1
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E92DF6E8B6;
-	Thu,  1 Oct 2020 15:23:59 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D2A6A6E8B6;
- Thu,  1 Oct 2020 15:23:58 +0000 (UTC)
-IronPort-SDR: ElrEQb7tIw4AuL6gyHk8ruE2bOdY11KmVKk4jbwLslbyBKUlwjFrKlVTEnswpayyCG9aFCmf4y
- mZ/3XjwBudSA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9761"; a="163609403"
-X-IronPort-AV: E=Sophos;i="5.77,323,1596524400"; d="scan'208";a="163609403"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Oct 2020 08:23:50 -0700
-IronPort-SDR: 2LSkLNxDmCaJokfBHHpYAA+Oftl3Eqw7W8OAHLZXSQhkY4vRLUm+E3C/+tTZMJHMamfgML0LEp
- toHry8oB/K+Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.77,323,1596524400"; d="scan'208";a="325443848"
-Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.174])
- by orsmga002.jf.intel.com with SMTP; 01 Oct 2020 08:23:47 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Thu, 01 Oct 2020 18:23:46 +0300
-Date: Thu, 1 Oct 2020 18:23:46 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Stefan Joosten <stefan@atcomputing.nl>
-Message-ID: <20201001152346.GR6112@intel.com>
-References: <60a804aa6357eb17daa1729f4bce25e762344e9f.camel@atcomputing.nl>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 602AA6E8BC;
+	Thu,  1 Oct 2020 15:36:22 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 024F36E8BC;
+ Thu,  1 Oct 2020 15:36:21 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id ECF6AA011C;
+ Thu,  1 Oct 2020 15:36:20 +0000 (UTC)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <60a804aa6357eb17daa1729f4bce25e762344e9f.camel@atcomputing.nl>
-X-Patchwork-Hint: comment
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Subject: Re: [Intel-gfx] [PATCH] Revert "drm/i915: Force state->modeset=true
- when distrust_bios_wm==true"
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: =?utf-8?b?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Date: Thu, 01 Oct 2020 15:36:20 -0000
+Message-ID: <160156658093.16180.16260555957257944224@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20201001151640.14590-1-ville.syrjala@linux.intel.com>
+In-Reply-To: <20201001151640.14590-1-ville.syrjala@linux.intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?series_starting_with_=5Bv2=2C1/6=5D_drm/i915=3A_Shut_down_displ?=
+ =?utf-8?q?ays_gracefully_on_reboot?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,87 +49,64 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, intel-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Sep 30, 2020 at 03:47:06PM +0200, Stefan Joosten wrote:
-> The fix of flagging state->modeset whenever distrust_bios_wm is set
-> causes a regression when initializing display(s) attached to a Lenovo
-> USB-C docking station. The display remains blank until the dock is
-> reattached. Revert to bring the behavior of the functional v5.6 stable.
-> =
+== Series Details ==
 
-> This reverts commit 0f8839f5f323da04a800e6ced1136e4b1e1689a9.
-> =
+Series: series starting with [v2,1/6] drm/i915: Shut down displays gracefully on reboot
+URL   : https://patchwork.freedesktop.org/series/82308/
+State : warning
 
-> BugLink: https://bugzilla.redhat.com/show_bug.cgi?id=3D1879442
-> Signed-off-by: Stefan Joosten <stefan@atcomputing.nl>
-> ---
->  drivers/gpu/drm/i915/display/intel_display.c | 14 --------------
->  1 file changed, 14 deletions(-)
-> =
+== Summary ==
 
-> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/d=
-rm/i915/display/intel_display.c
-> index b18c5ac2934d..ece1c28278f7 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display.c
-> +++ b/drivers/gpu/drm/i915/display/intel_display.c
-> @@ -14942,20 +14942,6 @@ static int intel_atomic_check(struct drm_device =
-*dev,
->  	if (ret)
->  		goto fail;
->  =
-
-> -	/*
-> -	 * distrust_bios_wm will force a full dbuf recomputation
-> -	 * but the hardware state will only get updated accordingly
-> -	 * if state->modeset=3D=3Dtrue. Hence distrust_bios_wm=3D=3Dtrue &&
-> -	 * state->modeset=3D=3Dfalse is an invalid combination which
-> -	 * would cause the hardware and software dbuf state to get
-> -	 * out of sync. We must prevent that.
-> -	 *
-> -	 * FIXME clean up this mess and introduce better
-> -	 * state tracking for dbuf.
-> -	 */
-> -	if (dev_priv->wm.distrust_bios_wm)
-> -		any_ms =3D true;
-> -
-
-Argh. If only I had managed to land the full dbuf rework and nuke this
-mess before it came back to bite us...
-
-This is definitely going to break something else, so not great.
-
-Can you file an upstream bug at
-https://gitlab.freedesktop.org/drm/intel/issues/new
-and attach dmesgs from booting both good and bad kernels with
-drm.debug=3D0x1e passed to the kernel cmdline? Bump log_buf_len=3D
-if necessary to capture the full log.
+$ dim sparse --fast origin/drm-tip
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
+-
++drivers/gpu/drm/i915/gt/intel_reset.c:1312:5: warning: context imbalance in 'intel_gt_reset_trylock' - different lock contexts for basic block
++drivers/gpu/drm/i915/gvt/mmio.c:290:23: warning: memcpy with byte count of 279040
++drivers/gpu/drm/i915/i915_perf.c:1440:15: warning: memset with byte count of 16777216
++drivers/gpu/drm/i915/i915_perf.c:1494:15: warning: memset with byte count of 16777216
++./include/linux/seqlock.h:752:24: warning: trying to copy expression type 31
++./include/linux/seqlock.h:778:16: warning: trying to copy expression type 31
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'fwtable_read16' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'fwtable_read32' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'fwtable_read64' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'fwtable_read8' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'fwtable_write16' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'fwtable_write32' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'fwtable_write8' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen11_fwtable_read16' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen11_fwtable_read32' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen11_fwtable_read64' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen11_fwtable_read8' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen11_fwtable_write16' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen11_fwtable_write32' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen11_fwtable_write8' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen12_fwtable_read16' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen12_fwtable_read32' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen12_fwtable_read64' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen12_fwtable_read8' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen12_fwtable_write16' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen12_fwtable_write32' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen12_fwtable_write8' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen6_read16' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen6_read32' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen6_read64' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen6_read8' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen6_write16' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen6_write32' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen6_write8' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen8_write16' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen8_write32' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen8_write8' - different lock contexts for basic block
 
 
->  	intel_fbc_choose_crtc(dev_priv, state);
->  	ret =3D calc_watermark_data(state);
->  	if (ret)
-> -- =
-
-> 2.25.4
-> =
-
-> =
-
-> _______________________________________________
-> Intel-gfx mailing list
-> Intel-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-
--- =
-
-Ville Syrj=E4l=E4
-Intel
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
