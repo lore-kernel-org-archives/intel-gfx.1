@@ -7,31 +7,32 @@ X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BDE0DC4363D
-	for <intel-gfx@archiver.kernel.org>; Fri,  2 Oct 2020 13:00:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8ADC7C47426
+	for <intel-gfx@archiver.kernel.org>; Fri,  2 Oct 2020 13:00:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7D633206DC
-	for <intel-gfx@archiver.kernel.org>; Fri,  2 Oct 2020 13:00:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7D633206DC
+	by mail.kernel.org (Postfix) with ESMTPS id 48B53206DC
+	for <intel-gfx@archiver.kernel.org>; Fri,  2 Oct 2020 13:00:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 48B53206DC
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 245B16E968;
-	Fri,  2 Oct 2020 12:59:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B34E46E984;
+	Fri,  2 Oct 2020 12:59:52 +0000 (UTC)
 Received: from mblankhorst.nl (mblankhorst.nl [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B9DA36E975
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2935E6E969
  for <intel-gfx@lists.freedesktop.org>; Fri,  2 Oct 2020 12:59:49 +0000 (UTC)
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri,  2 Oct 2020 14:59:09 +0200
-Message-Id: <20201002125939.50817-32-maarten.lankhorst@linux.intel.com>
+Date: Fri,  2 Oct 2020 14:58:59 +0200
+Message-Id: <20201002125939.50817-22-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20201002125939.50817-1-maarten.lankhorst@linux.intel.com>
 References: <20201002125939.50817-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 31/61] drm/i915: Prepare for obj->mm.lock removal
+Subject: [Intel-gfx] [PATCH 21/61] drm/i915: Pass ww ctx to
+ intel_pin_to_display_plane
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,90 +45,383 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@intel.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-RnJvbTogVGhvbWFzIEhlbGxzdHLDtm0gPHRob21hcy5oZWxsc3Ryb21AaW50ZWwuY29tPgoKU3Rv
-bGVuIG9iamVjdHMgbmVlZCB0byBsb2NrLCBhbmQgd2UgbWF5IGNhbGwgcHV0X3BhZ2VzIHdoZW4K
-cmVmY291bnQgZHJvcHMgdG8gMCwgZW5zdXJlIGFsbCBjYWxscyBhcmUgaGFuZGxlZCBjb3JyZWN0
-bHkuCgpJZGVhLWZyb206IFRob21hcyBIZWxsc3Ryw7ZtIDx0aG9tYXMuaGVsbHN0cm9tQGludGVs
-LmNvbT4KU2lnbmVkLW9mZi1ieTogTWFhcnRlbiBMYW5raG9yc3QgPG1hYXJ0ZW4ubGFua2hvcnN0
-QGxpbnV4LmludGVsLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9nZW0vaTkxNV9nZW1f
-b2JqZWN0LmggfCAxNCArKysrKysrKysrKysrKwogZHJpdmVycy9ncHUvZHJtL2k5MTUvZ2VtL2k5
-MTVfZ2VtX3BhZ2VzLmMgIHwgMTQgKysrKysrKysrKysrLS0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1
-L2dlbS9pOTE1X2dlbV9zdG9sZW4uYyB8IDEwICsrKysrKysrKy0KIDMgZmlsZXMgY2hhbmdlZCwg
-MzUgaW5zZXJ0aW9ucygrKSwgMyBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
-dS9kcm0vaTkxNS9nZW0vaTkxNV9nZW1fb2JqZWN0LmggYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9n
-ZW0vaTkxNV9nZW1fb2JqZWN0LmgKaW5kZXggODA0MjRjZTQ5ZjI2Li41MzRlMzZiOGQ0M2IgMTAw
-NjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2dlbS9pOTE1X2dlbV9vYmplY3QuaAorKysg
-Yi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9nZW0vaTkxNV9nZW1fb2JqZWN0LmgKQEAgLTExMiw2ICsx
-MTIsMjAgQEAgaTkxNV9nZW1fb2JqZWN0X3B1dChzdHJ1Y3QgZHJtX2k5MTVfZ2VtX29iamVjdCAq
-b2JqKQogCiAjZGVmaW5lIGFzc2VydF9vYmplY3RfaGVsZChvYmopIGRtYV9yZXN2X2Fzc2VydF9o
-ZWxkKChvYmopLT5iYXNlLnJlc3YpCiAKKy8qCisgKiBJZiBtb3JlIHRoYW4gb25lIHBvdGVudGlh
-bCBzaW11bHRhbmVvdXMgbG9ja2VyLCBhc3NlcnQgaGVsZC4KKyAqLworc3RhdGljIGlubGluZSB2
-b2lkIGFzc2VydF9vYmplY3RfaGVsZF9zaGFyZWQoc3RydWN0IGRybV9pOTE1X2dlbV9vYmplY3Qg
-Km9iaikKK3sKKwkvKgorCSAqIE5vdGUgbW0gbGlzdCBsb29rdXAgaXMgcHJvdGVjdGVkIGJ5CisJ
-ICoga3JlZl9nZXRfdW5sZXNzX3plcm8oKS4KKwkgKi8KKwlpZiAoSVNfRU5BQkxFRChDT05GSUdf
-TE9DS0RFUCkgJiYKKwkgICAga3JlZl9yZWFkKCZvYmotPmJhc2UucmVmY291bnQpID4gMCkKKwkJ
-bG9ja2RlcF9hc3NlcnRfaGVsZCgmb2JqLT5tbS5sb2NrKTsKK30KKwogc3RhdGljIGlubGluZSBp
-bnQgX19pOTE1X2dlbV9vYmplY3RfbG9jayhzdHJ1Y3QgZHJtX2k5MTVfZ2VtX29iamVjdCAqb2Jq
-LAogCQkJCQkgc3RydWN0IGk5MTVfZ2VtX3d3X2N0eCAqd3csCiAJCQkJCSBib29sIGludHIpCmRp
-ZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9nZW0vaTkxNV9nZW1fcGFnZXMuYyBiL2Ry
-aXZlcnMvZ3B1L2RybS9pOTE1L2dlbS9pOTE1X2dlbV9wYWdlcy5jCmluZGV4IDcwZDhlMDlhOTE4
-OC4uNzU1NTZjNDE3ODczIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9nZW0vaTkx
-NV9nZW1fcGFnZXMuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9nZW0vaTkxNV9nZW1fcGFn
-ZXMuYwpAQCAtMTgsNyArMTgsNyBAQCB2b2lkIF9faTkxNV9nZW1fb2JqZWN0X3NldF9wYWdlcyhz
-dHJ1Y3QgZHJtX2k5MTVfZ2VtX29iamVjdCAqb2JqLAogCXVuc2lnbmVkIGxvbmcgc3VwcG9ydGVk
-ID0gSU5URUxfSU5GTyhpOTE1KS0+cGFnZV9zaXplczsKIAlpbnQgaTsKIAotCWxvY2tkZXBfYXNz
-ZXJ0X2hlbGQoJm9iai0+bW0ubG9jayk7CisJYXNzZXJ0X29iamVjdF9oZWxkX3NoYXJlZChvYmop
-OwogCiAJaWYgKGk5MTVfZ2VtX29iamVjdF9pc192b2xhdGlsZShvYmopKQogCQlvYmotPm1tLm1h
-ZHYgPSBJOTE1X01BRFZfRE9OVE5FRUQ7CkBAIC02NSw2ICs2NSw3IEBAIHZvaWQgX19pOTE1X2dl
-bV9vYmplY3Rfc2V0X3BhZ2VzKHN0cnVjdCBkcm1faTkxNV9nZW1fb2JqZWN0ICpvYmosCiAJCXN0
-cnVjdCBsaXN0X2hlYWQgKmxpc3Q7CiAJCXVuc2lnbmVkIGxvbmcgZmxhZ3M7CiAKKwkJbG9ja2Rl
-cF9hc3NlcnRfaGVsZCgmb2JqLT5tbS5sb2NrKTsKIAkJc3Bpbl9sb2NrX2lycXNhdmUoJmk5MTUt
-Pm1tLm9ial9sb2NrLCBmbGFncyk7CiAKIAkJaTkxNS0+bW0uc2hyaW5rX2NvdW50Kys7CkBAIC04
-Niw2ICs4Nyw4IEBAIGludCBfX19faTkxNV9nZW1fb2JqZWN0X2dldF9wYWdlcyhzdHJ1Y3QgZHJt
-X2k5MTVfZ2VtX29iamVjdCAqb2JqKQogCXN0cnVjdCBkcm1faTkxNV9wcml2YXRlICppOTE1ID0g
-dG9faTkxNShvYmotPmJhc2UuZGV2KTsKIAlpbnQgZXJyOwogCisJYXNzZXJ0X29iamVjdF9oZWxk
-X3NoYXJlZChvYmopOworCiAJaWYgKHVubGlrZWx5KG9iai0+bW0ubWFkdiAhPSBJOTE1X01BRFZf
-V0lMTE5FRUQpKSB7CiAJCWRybV9kYmcoJmk5MTUtPmRybSwKIAkJCSJBdHRlbXB0aW5nIHRvIG9i
-dGFpbiBhIHB1cmdlYWJsZSBvYmplY3RcbiIpOwpAQCAtMTEzLDYgKzExNiw4IEBAIGludCBfX2k5
-MTVfZ2VtX29iamVjdF9nZXRfcGFnZXMoc3RydWN0IGRybV9pOTE1X2dlbV9vYmplY3QgKm9iaikK
-IAlpZiAoZXJyKQogCQlyZXR1cm4gZXJyOwogCisJYXNzZXJ0X29iamVjdF9oZWxkX3NoYXJlZChv
-YmopOworCiAJaWYgKHVubGlrZWx5KCFpOTE1X2dlbV9vYmplY3RfaGFzX3BhZ2VzKG9iaikpKSB7
-CiAJCUdFTV9CVUdfT04oaTkxNV9nZW1fb2JqZWN0X2hhc19waW5uZWRfcGFnZXMob2JqKSk7CiAK
-QEAgLTE0MCw3ICsxNDUsNyBAQCB2b2lkIGk5MTVfZ2VtX29iamVjdF90cnVuY2F0ZShzdHJ1Y3Qg
-ZHJtX2k5MTVfZ2VtX29iamVjdCAqb2JqKQogLyogVHJ5IHRvIGRpc2NhcmQgdW53YW50ZWQgcGFn
-ZXMgKi8KIHZvaWQgaTkxNV9nZW1fb2JqZWN0X3dyaXRlYmFjayhzdHJ1Y3QgZHJtX2k5MTVfZ2Vt
-X29iamVjdCAqb2JqKQogewotCWxvY2tkZXBfYXNzZXJ0X2hlbGQoJm9iai0+bW0ubG9jayk7CisJ
-YXNzZXJ0X29iamVjdF9oZWxkX3NoYXJlZChvYmopOwogCUdFTV9CVUdfT04oaTkxNV9nZW1fb2Jq
-ZWN0X2hhc19wYWdlcyhvYmopKTsKIAogCWlmIChvYmotPm9wcy0+d3JpdGViYWNrKQpAQCAtMTcx
-LDYgKzE3Niw4IEBAIF9faTkxNV9nZW1fb2JqZWN0X3Vuc2V0X3BhZ2VzKHN0cnVjdCBkcm1faTkx
-NV9nZW1fb2JqZWN0ICpvYmopCiB7CiAJc3RydWN0IHNnX3RhYmxlICpwYWdlczsKIAorCWFzc2Vy
-dF9vYmplY3RfaGVsZF9zaGFyZWQob2JqKTsKKwogCXBhZ2VzID0gZmV0Y2hfYW5kX3plcm8oJm9i
-ai0+bW0ucGFnZXMpOwogCWlmIChJU19FUlJfT1JfTlVMTChwYWdlcykpCiAJCXJldHVybiBwYWdl
-czsKQEAgLTE5OCw2ICsyMDUsOSBAQCBpbnQgX19pOTE1X2dlbV9vYmplY3RfcHV0X3BhZ2VzX2xv
-Y2tlZChzdHJ1Y3QgZHJtX2k5MTVfZ2VtX29iamVjdCAqb2JqKQogCWlmIChpOTE1X2dlbV9vYmpl
-Y3RfaGFzX3Bpbm5lZF9wYWdlcyhvYmopKQogCQlyZXR1cm4gLUVCVVNZOwogCisJLyogTWF5IGJl
-IGNhbGxlZCBieSBzaHJpbmtlciBmcm9tIHdpdGhpbiBnZXRfcGFnZXMoKSAob24gYW5vdGhlciBi
-bykgKi8KKwlhc3NlcnRfb2JqZWN0X2hlbGRfc2hhcmVkKG9iaik7CisKIAlpOTE1X2dlbV9vYmpl
-Y3RfcmVsZWFzZV9tbWFwX29mZnNldChvYmopOwogCiAJLyoKZGlmZiAtLWdpdCBhL2RyaXZlcnMv
-Z3B1L2RybS9pOTE1L2dlbS9pOTE1X2dlbV9zdG9sZW4uYyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1
-L2dlbS9pOTE1X2dlbV9zdG9sZW4uYwppbmRleCA5YTkyNDJiNWE5OWYuLjFmZDI4N2NlODZmNCAx
-MDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ2VtL2k5MTVfZ2VtX3N0b2xlbi5jCisr
-KyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2dlbS9pOTE1X2dlbV9zdG9sZW4uYwpAQCAtNTkzLDEx
-ICs1OTMsMTkgQEAgX19pOTE1X2dlbV9vYmplY3RfY3JlYXRlX3N0b2xlbihzdHJ1Y3QgaW50ZWxf
-bWVtb3J5X3JlZ2lvbiAqbWVtLAogCWNhY2hlX2xldmVsID0gSEFTX0xMQyhtZW0tPmk5MTUpID8g
-STkxNV9DQUNIRV9MTEMgOiBJOTE1X0NBQ0hFX05PTkU7CiAJaTkxNV9nZW1fb2JqZWN0X3NldF9j
-YWNoZV9jb2hlcmVuY3kob2JqLCBjYWNoZV9sZXZlbCk7CiAKKwlpZiAoV0FSTl9PTighaTkxNV9n
-ZW1fb2JqZWN0X3RyeWxvY2sob2JqKSkpIHsKKwkJZXJyID0gLUVCVVNZOworCQlnb3RvIGNsZWFu
-dXA7CisJfQorCiAJZXJyID0gaTkxNV9nZW1fb2JqZWN0X3Bpbl9wYWdlcyhvYmopOwotCWlmIChl
-cnIpCisJaWYgKGVycikgeworCQlpOTE1X2dlbV9vYmplY3RfdW5sb2NrKG9iaik7CiAJCWdvdG8g
-Y2xlYW51cDsKKwl9CiAKIAlpOTE1X2dlbV9vYmplY3RfaW5pdF9tZW1vcnlfcmVnaW9uKG9iaiwg
-bWVtKTsKKwlpOTE1X2dlbV9vYmplY3RfdW5sb2NrKG9iaik7CiAKIAlyZXR1cm4gb2JqOwogCi0t
-IAoyLjI4LjAKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-CkludGVsLWdmeCBtYWlsaW5nIGxpc3QKSW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpo
-dHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ludGVsLWdmeAo=
+Instead of multiple lockings, lock the object once,
+and perform the ww dance around attach_phys and pin_pages.
+
+Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_display.c  | 69 ++++++++++++-------
+ drivers/gpu/drm/i915/display/intel_display.h  |  2 +-
+ drivers/gpu/drm/i915/display/intel_fbdev.c    |  2 +-
+ drivers/gpu/drm/i915/display/intel_overlay.c  | 34 +++++++--
+ drivers/gpu/drm/i915/gem/i915_gem_domain.c    | 30 ++------
+ drivers/gpu/drm/i915/gem/i915_gem_object.h    |  1 +
+ drivers/gpu/drm/i915/gem/i915_gem_phys.c      | 10 +--
+ .../drm/i915/gem/selftests/i915_gem_phys.c    |  2 +
+ 8 files changed, 86 insertions(+), 64 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index cc2c8ba00ed5..47b4b72bc95e 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -2228,6 +2228,7 @@ static bool intel_plane_uses_fence(const struct intel_plane_state *plane_state)
+ 
+ struct i915_vma *
+ intel_pin_and_fence_fb_obj(struct drm_framebuffer *fb,
++			   bool phys_cursor,
+ 			   const struct i915_ggtt_view *view,
+ 			   bool uses_fence,
+ 			   unsigned long *out_flags)
+@@ -2236,14 +2237,19 @@ intel_pin_and_fence_fb_obj(struct drm_framebuffer *fb,
+ 	struct drm_i915_private *dev_priv = to_i915(dev);
+ 	struct drm_i915_gem_object *obj = intel_fb_obj(fb);
+ 	intel_wakeref_t wakeref;
++	struct i915_gem_ww_ctx ww;
+ 	struct i915_vma *vma;
+ 	unsigned int pinctl;
+ 	u32 alignment;
++	int ret;
+ 
+ 	if (drm_WARN_ON(dev, !i915_gem_object_is_framebuffer(obj)))
+ 		return ERR_PTR(-EINVAL);
+ 
+-	alignment = intel_surf_alignment(fb, 0);
++	if (phys_cursor)
++		alignment = intel_cursor_alignment(dev_priv);
++	else
++		alignment = intel_surf_alignment(fb, 0);
+ 	if (drm_WARN_ON(dev, alignment && !is_power_of_2(alignment)))
+ 		return ERR_PTR(-EINVAL);
+ 
+@@ -2278,14 +2284,26 @@ intel_pin_and_fence_fb_obj(struct drm_framebuffer *fb,
+ 	if (HAS_GMCH(dev_priv))
+ 		pinctl |= PIN_MAPPABLE;
+ 
+-	vma = i915_gem_object_pin_to_display_plane(obj,
+-						   alignment, view, pinctl);
+-	if (IS_ERR(vma))
++	i915_gem_ww_ctx_init(&ww, true);
++retry:
++	ret = i915_gem_object_lock(obj, &ww);
++	if (!ret && phys_cursor)
++		ret = i915_gem_object_attach_phys(obj, alignment);
++	if (!ret)
++		ret = i915_gem_object_pin_pages(obj);
++	if (ret)
+ 		goto err;
+ 
+-	if (uses_fence && i915_vma_is_map_and_fenceable(vma)) {
+-		int ret;
++	if (!ret) {
++		vma = i915_gem_object_pin_to_display_plane(obj, &ww, alignment,
++							   view, pinctl);
++		if (IS_ERR(vma)) {
++			ret = PTR_ERR(vma);
++			goto err_unpin;
++		}
++	}
+ 
++	if (uses_fence && i915_vma_is_map_and_fenceable(vma)) {
+ 		/*
+ 		 * Install a fence for tiled scan-out. Pre-i965 always needs a
+ 		 * fence, whereas 965+ only requires a fence if using
+@@ -2306,16 +2324,28 @@ intel_pin_and_fence_fb_obj(struct drm_framebuffer *fb,
+ 		ret = i915_vma_pin_fence(vma);
+ 		if (ret != 0 && INTEL_GEN(dev_priv) < 4) {
+ 			i915_gem_object_unpin_from_display_plane(vma);
+-			vma = ERR_PTR(ret);
+-			goto err;
++			goto err_unpin;
+ 		}
++		ret = 0;
+ 
+-		if (ret == 0 && vma->fence)
++		if (vma->fence)
+ 			*out_flags |= PLANE_HAS_FENCE;
+ 	}
+ 
+ 	i915_vma_get(vma);
++
++err_unpin:
++	i915_gem_object_unpin_pages(obj);
+ err:
++	if (ret == -EDEADLK) {
++		ret = i915_gem_ww_ctx_backoff(&ww);
++		if (!ret)
++			goto retry;
++	}
++	i915_gem_ww_ctx_fini(&ww);
++	if (ret)
++		vma = ERR_PTR(ret);
++
+ 	atomic_dec(&dev_priv->gpu_error.pending_fb_pin);
+ 	intel_runtime_pm_put(&dev_priv->runtime_pm, wakeref);
+ 	return vma;
+@@ -16133,19 +16163,11 @@ static int intel_plane_pin_fb(struct intel_plane_state *plane_state)
+ 	struct drm_i915_private *dev_priv = to_i915(plane->base.dev);
+ 	struct drm_framebuffer *fb = plane_state->hw.fb;
+ 	struct i915_vma *vma;
++	bool phys_cursor =
++		plane->id == PLANE_CURSOR &&
++		INTEL_INFO(dev_priv)->display.cursor_needs_physical;
+ 
+-	if (plane->id == PLANE_CURSOR &&
+-	    INTEL_INFO(dev_priv)->display.cursor_needs_physical) {
+-		struct drm_i915_gem_object *obj = intel_fb_obj(fb);
+-		const int align = intel_cursor_alignment(dev_priv);
+-		int err;
+-
+-		err = i915_gem_object_attach_phys(obj, align);
+-		if (err)
+-			return err;
+-	}
+-
+-	vma = intel_pin_and_fence_fb_obj(fb,
++	vma = intel_pin_and_fence_fb_obj(fb, phys_cursor,
+ 					 &plane_state->view,
+ 					 intel_plane_uses_fence(plane_state),
+ 					 &plane_state->flags);
+@@ -16241,13 +16263,8 @@ intel_prepare_plane_fb(struct drm_plane *_plane,
+ 	if (!obj)
+ 		return 0;
+ 
+-	ret = i915_gem_object_pin_pages(obj);
+-	if (ret)
+-		return ret;
+ 
+ 	ret = intel_plane_pin_fb(new_plane_state);
+-
+-	i915_gem_object_unpin_pages(obj);
+ 	if (ret)
+ 		return ret;
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_display.h b/drivers/gpu/drm/i915/display/intel_display.h
+index d10b7c8cde3f..03058d69d15d 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.h
++++ b/drivers/gpu/drm/i915/display/intel_display.h
+@@ -551,7 +551,7 @@ void intel_release_load_detect_pipe(struct drm_connector *connector,
+ 				    struct intel_load_detect_pipe *old,
+ 				    struct drm_modeset_acquire_ctx *ctx);
+ struct i915_vma *
+-intel_pin_and_fence_fb_obj(struct drm_framebuffer *fb,
++intel_pin_and_fence_fb_obj(struct drm_framebuffer *fb, bool phys_cursor,
+ 			   const struct i915_ggtt_view *view,
+ 			   bool uses_fence,
+ 			   unsigned long *out_flags);
+diff --git a/drivers/gpu/drm/i915/display/intel_fbdev.c b/drivers/gpu/drm/i915/display/intel_fbdev.c
+index 842c04e63214..bdf44e923cc0 100644
+--- a/drivers/gpu/drm/i915/display/intel_fbdev.c
++++ b/drivers/gpu/drm/i915/display/intel_fbdev.c
+@@ -211,7 +211,7 @@ static int intelfb_create(struct drm_fb_helper *helper,
+ 	 * This also validates that any existing fb inherited from the
+ 	 * BIOS is suitable for own access.
+ 	 */
+-	vma = intel_pin_and_fence_fb_obj(&ifbdev->fb->base,
++	vma = intel_pin_and_fence_fb_obj(&ifbdev->fb->base, false,
+ 					 &view, false, &flags);
+ 	if (IS_ERR(vma)) {
+ 		ret = PTR_ERR(vma);
+diff --git a/drivers/gpu/drm/i915/display/intel_overlay.c b/drivers/gpu/drm/i915/display/intel_overlay.c
+index 52b4f6193b4c..9cf634cc7084 100644
+--- a/drivers/gpu/drm/i915/display/intel_overlay.c
++++ b/drivers/gpu/drm/i915/display/intel_overlay.c
+@@ -755,6 +755,32 @@ static u32 overlay_cmd_reg(struct drm_intel_overlay_put_image *params)
+ 	return cmd;
+ }
+ 
++static struct i915_vma *intel_overlay_pin_fb(struct drm_i915_gem_object *new_bo)
++{
++	struct i915_gem_ww_ctx ww;
++	struct i915_vma *vma;
++	int ret;
++
++	i915_gem_ww_ctx_init(&ww, true);
++retry:
++	ret = i915_gem_object_lock(new_bo, &ww);
++	if (!ret) {
++		vma = i915_gem_object_pin_to_display_plane(new_bo, &ww, 0,
++							   NULL, PIN_MAPPABLE);
++		ret = PTR_ERR_OR_ZERO(vma);
++	}
++	if (ret == -EDEADLK) {
++		ret = i915_gem_ww_ctx_backoff(&ww);
++		if (!ret)
++			goto retry;
++	}
++	i915_gem_ww_ctx_fini(&ww);
++	if (ret)
++		return ERR_PTR(ret);
++
++	return vma;
++}
++
+ static int intel_overlay_do_put_image(struct intel_overlay *overlay,
+ 				      struct drm_i915_gem_object *new_bo,
+ 				      struct drm_intel_overlay_put_image *params)
+@@ -776,12 +802,10 @@ static int intel_overlay_do_put_image(struct intel_overlay *overlay,
+ 
+ 	atomic_inc(&dev_priv->gpu_error.pending_fb_pin);
+ 
+-	vma = i915_gem_object_pin_to_display_plane(new_bo,
+-						   0, NULL, PIN_MAPPABLE);
+-	if (IS_ERR(vma)) {
+-		ret = PTR_ERR(vma);
++	vma = intel_overlay_pin_fb(new_bo);
++	if (IS_ERR(vma))
+ 		goto out_pin_section;
+-	}
++
+ 	i915_gem_object_flush_frontbuffer(new_bo, ORIGIN_DIRTYFB);
+ 
+ 	if (!overlay->active) {
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_domain.c b/drivers/gpu/drm/i915/gem/i915_gem_domain.c
+index 43c22648b074..9adced5a6843 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_domain.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_domain.c
+@@ -313,12 +313,12 @@ int i915_gem_set_caching_ioctl(struct drm_device *dev, void *data,
+  */
+ struct i915_vma *
+ i915_gem_object_pin_to_display_plane(struct drm_i915_gem_object *obj,
++				     struct i915_gem_ww_ctx *ww,
+ 				     u32 alignment,
+ 				     const struct i915_ggtt_view *view,
+ 				     unsigned int flags)
+ {
+ 	struct drm_i915_private *i915 = to_i915(obj->base.dev);
+-	struct i915_gem_ww_ctx ww;
+ 	struct i915_vma *vma;
+ 	int ret;
+ 
+@@ -326,11 +326,6 @@ i915_gem_object_pin_to_display_plane(struct drm_i915_gem_object *obj,
+ 	if (HAS_LMEM(i915) && !i915_gem_object_is_lmem(obj))
+ 		return ERR_PTR(-EINVAL);
+ 
+-	i915_gem_ww_ctx_init(&ww, true);
+-retry:
+-	ret = i915_gem_object_lock(obj, &ww);
+-	if (ret)
+-		goto err;
+ 	/*
+ 	 * The display engine is not coherent with the LLC cache on gen6.  As
+ 	 * a result, we make sure that the pinning that is about to occur is
+@@ -345,7 +340,7 @@ i915_gem_object_pin_to_display_plane(struct drm_i915_gem_object *obj,
+ 					      HAS_WT(i915) ?
+ 					      I915_CACHE_WT : I915_CACHE_NONE);
+ 	if (ret)
+-		goto err;
++		return ERR_PTR(ret);
+ 
+ 	/*
+ 	 * As the user may map the buffer once pinned in the display plane
+@@ -358,32 +353,19 @@ i915_gem_object_pin_to_display_plane(struct drm_i915_gem_object *obj,
+ 	vma = ERR_PTR(-ENOSPC);
+ 	if ((flags & PIN_MAPPABLE) == 0 &&
+ 	    (!view || view->type == I915_GGTT_VIEW_NORMAL))
+-		vma = i915_gem_object_ggtt_pin_ww(obj, &ww, view, 0, alignment,
++		vma = i915_gem_object_ggtt_pin_ww(obj, ww, view, 0, alignment,
+ 						  flags | PIN_MAPPABLE |
+ 						  PIN_NONBLOCK);
+ 	if (IS_ERR(vma) && vma != ERR_PTR(-EDEADLK))
+-		vma = i915_gem_object_ggtt_pin_ww(obj, &ww, view, 0,
++		vma = i915_gem_object_ggtt_pin_ww(obj, ww, view, 0,
+ 						  alignment, flags);
+-	if (IS_ERR(vma)) {
+-		ret = PTR_ERR(vma);
+-		goto err;
+-	}
++	if (IS_ERR(vma))
++		return vma;
+ 
+ 	vma->display_alignment = max_t(u64, vma->display_alignment, alignment);
+ 
+ 	i915_gem_object_flush_if_display_locked(obj);
+ 
+-err:
+-	if (ret == -EDEADLK) {
+-		ret = i915_gem_ww_ctx_backoff(&ww);
+-		if (!ret)
+-			goto retry;
+-	}
+-	i915_gem_ww_ctx_fini(&ww);
+-
+-	if (ret)
+-		return ERR_PTR(ret);
+-
+ 	return vma;
+ }
+ 
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.h b/drivers/gpu/drm/i915/gem/i915_gem_object.h
+index d34c6e2424f9..c48df27d66f6 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_object.h
++++ b/drivers/gpu/drm/i915/gem/i915_gem_object.h
+@@ -449,6 +449,7 @@ int __must_check
+ i915_gem_object_set_to_cpu_domain(struct drm_i915_gem_object *obj, bool write);
+ struct i915_vma * __must_check
+ i915_gem_object_pin_to_display_plane(struct drm_i915_gem_object *obj,
++				     struct i915_gem_ww_ctx *ww,
+ 				     u32 alignment,
+ 				     const struct i915_ggtt_view *view,
+ 				     unsigned int flags);
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_phys.c b/drivers/gpu/drm/i915/gem/i915_gem_phys.c
+index 4322e35cfe48..15d8f8d52cbe 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_phys.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_phys.c
+@@ -169,6 +169,8 @@ int i915_gem_object_attach_phys(struct drm_i915_gem_object *obj, int align)
+ {
+ 	int err;
+ 
++	assert_object_held(obj);
++
+ 	if (align > obj->base.size)
+ 		return -EINVAL;
+ 
+@@ -182,13 +184,9 @@ int i915_gem_object_attach_phys(struct drm_i915_gem_object *obj, int align)
+ 	if (err)
+ 		return err;
+ 
+-	err = i915_gem_object_lock_interruptible(obj, NULL);
+-	if (err)
+-		return err;
+-
+ 	err = mutex_lock_interruptible(&obj->mm.lock);
+ 	if (err)
+-		goto err_unlock;
++		return err;
+ 
+ 	if (unlikely(!i915_gem_object_has_struct_page(obj)))
+ 		goto out;
+@@ -219,8 +217,6 @@ int i915_gem_object_attach_phys(struct drm_i915_gem_object *obj, int align)
+ 
+ out:
+ 	mutex_unlock(&obj->mm.lock);
+-err_unlock:
+-	i915_gem_object_unlock(obj);
+ 	return err;
+ }
+ 
+diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_phys.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_phys.c
+index 0cfa082047fe..3a6ce87f8b52 100644
+--- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_phys.c
++++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_phys.c
+@@ -31,7 +31,9 @@ static int mock_phys_object(void *arg)
+ 		goto out_obj;
+ 	}
+ 
++	i915_gem_object_lock(obj, NULL);
+ 	err = i915_gem_object_attach_phys(obj, PAGE_SIZE);
++	i915_gem_object_unlock(obj);
+ 	if (err) {
+ 		pr_err("i915_gem_object_attach_phys failed, err=%d\n", err);
+ 		goto out_obj;
+-- 
+2.28.0
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
