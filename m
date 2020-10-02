@@ -7,32 +7,32 @@ X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AA213C47431
-	for <intel-gfx@archiver.kernel.org>; Fri,  2 Oct 2020 13:00:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 46587C47429
+	for <intel-gfx@archiver.kernel.org>; Fri,  2 Oct 2020 13:00:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 72C43206DC
-	for <intel-gfx@archiver.kernel.org>; Fri,  2 Oct 2020 13:00:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 72C43206DC
+	by mail.kernel.org (Postfix) with ESMTPS id 0D596206DC
+	for <intel-gfx@archiver.kernel.org>; Fri,  2 Oct 2020 13:00:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0D596206DC
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 35D336E996;
-	Fri,  2 Oct 2020 13:00:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 710306E993;
+	Fri,  2 Oct 2020 13:00:00 +0000 (UTC)
 Received: from mblankhorst.nl (mblankhorst.nl [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D2CEE6E964
- for <intel-gfx@lists.freedesktop.org>; Fri,  2 Oct 2020 12:59:50 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AE5556E962
+ for <intel-gfx@lists.freedesktop.org>; Fri,  2 Oct 2020 12:59:48 +0000 (UTC)
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri,  2 Oct 2020 14:59:16 +0200
-Message-Id: <20201002125939.50817-39-maarten.lankhorst@linux.intel.com>
+Date: Fri,  2 Oct 2020 14:58:57 +0200
+Message-Id: <20201002125939.50817-20-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20201002125939.50817-1-maarten.lankhorst@linux.intel.com>
 References: <20201002125939.50817-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 38/61] drm/i915: Fix ww locking in
- shmem_create_from_object
+Subject: [Intel-gfx] [PATCH 19/61] drm/i915: Handle ww locking in
+ init_status_page
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,25 +50,92 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Quick fix, just use the unlocked version.
+Try to pin to ggtt first, and use a full ww loop to handle
+eviction correctly.
 
 Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 ---
- drivers/gpu/drm/i915/gt/shmem_utils.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c | 37 +++++++++++++++--------
+ 1 file changed, 24 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/shmem_utils.c b/drivers/gpu/drm/i915/gt/shmem_utils.c
-index 43c7acbdc79d..8c8dfa41e032 100644
---- a/drivers/gpu/drm/i915/gt/shmem_utils.c
-+++ b/drivers/gpu/drm/i915/gt/shmem_utils.c
-@@ -39,7 +39,7 @@ struct file *shmem_create_from_object(struct drm_i915_gem_object *obj)
- 		return file;
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+index 1985772152bf..66d87ce764e0 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
++++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+@@ -615,6 +615,7 @@ static void cleanup_status_page(struct intel_engine_cs *engine)
+ }
+ 
+ static int pin_ggtt_status_page(struct intel_engine_cs *engine,
++				struct i915_gem_ww_ctx *ww,
+ 				struct i915_vma *vma)
+ {
+ 	unsigned int flags;
+@@ -635,12 +636,13 @@ static int pin_ggtt_status_page(struct intel_engine_cs *engine,
+ 	else
+ 		flags = PIN_HIGH;
+ 
+-	return i915_ggtt_pin(vma, NULL, 0, flags);
++	return i915_ggtt_pin(vma, ww, 0, flags);
+ }
+ 
+ static int init_status_page(struct intel_engine_cs *engine)
+ {
+ 	struct drm_i915_gem_object *obj;
++	struct i915_gem_ww_ctx ww;
+ 	struct i915_vma *vma;
+ 	void *vaddr;
+ 	int ret;
+@@ -664,30 +666,39 @@ static int init_status_page(struct intel_engine_cs *engine)
+ 	vma = i915_vma_instance(obj, &engine->gt->ggtt->vm, NULL);
+ 	if (IS_ERR(vma)) {
+ 		ret = PTR_ERR(vma);
+-		goto err;
++		goto err_put;
  	}
  
--	ptr = i915_gem_object_pin_map(obj, I915_MAP_WB);
-+	ptr = i915_gem_object_pin_map_unlocked(obj, I915_MAP_WB);
- 	if (IS_ERR(ptr))
- 		return ERR_CAST(ptr);
++	i915_gem_ww_ctx_init(&ww, true);
++retry:
++	ret = i915_gem_object_lock(obj, &ww);
++	if (!ret && !HWS_NEEDS_PHYSICAL(engine->i915))
++		ret = pin_ggtt_status_page(engine, &ww, vma);
++	if (ret)
++		goto err;
++
+ 	vaddr = i915_gem_object_pin_map(obj, I915_MAP_WB);
+ 	if (IS_ERR(vaddr)) {
+ 		ret = PTR_ERR(vaddr);
+-		goto err;
++		goto err_unpin;
+ 	}
+ 
+ 	engine->status_page.addr = memset(vaddr, 0, PAGE_SIZE);
+ 	engine->status_page.vma = vma;
+ 
+-	if (!HWS_NEEDS_PHYSICAL(engine->i915)) {
+-		ret = pin_ggtt_status_page(engine, vma);
+-		if (ret)
+-			goto err_unpin;
+-	}
+-
+-	return 0;
+-
+ err_unpin:
+-	i915_gem_object_unpin_map(obj);
++	if (ret)
++		i915_vma_unpin(vma);
+ err:
+-	i915_gem_object_put(obj);
++	if (ret == -EDEADLK) {
++		ret = i915_gem_ww_ctx_backoff(&ww);
++		if (!ret)
++			goto retry;
++	}
++	i915_gem_ww_ctx_fini(&ww);
++err_put:
++	if (ret)
++		i915_gem_object_put(obj);
+ 	return ret;
+ }
  
 -- 
 2.28.0
