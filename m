@@ -7,32 +7,32 @@ X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2FD9DC47427
-	for <intel-gfx@archiver.kernel.org>; Fri,  2 Oct 2020 13:00:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AA213C47431
+	for <intel-gfx@archiver.kernel.org>; Fri,  2 Oct 2020 13:00:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E6476206DC
+	by mail.kernel.org (Postfix) with ESMTPS id 72C43206DC
 	for <intel-gfx@archiver.kernel.org>; Fri,  2 Oct 2020 13:00:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E6476206DC
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 72C43206DC
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C3DEB6E998;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 35D336E996;
 	Fri,  2 Oct 2020 13:00:12 +0000 (UTC)
 Received: from mblankhorst.nl (mblankhorst.nl [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DAB086E973
- for <intel-gfx@lists.freedesktop.org>; Fri,  2 Oct 2020 12:59:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D2CEE6E964
+ for <intel-gfx@lists.freedesktop.org>; Fri,  2 Oct 2020 12:59:50 +0000 (UTC)
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri,  2 Oct 2020 14:59:37 +0200
-Message-Id: <20201002125939.50817-60-maarten.lankhorst@linux.intel.com>
+Date: Fri,  2 Oct 2020 14:59:16 +0200
+Message-Id: <20201002125939.50817-39-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20201002125939.50817-1-maarten.lankhorst@linux.intel.com>
 References: <20201002125939.50817-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 59/61] drm/i915/selftests: Prepare gtt tests for
- obj->mm.lock removal
+Subject: [Intel-gfx] [PATCH 38/61] drm/i915: Fix ww locking in
+ shmem_create_from_object
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,237 +50,26 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-We need to lock the global gtt dma_resv, use i915_vm_lock_objects
-to handle this correctly. Add ww handling for this where required.
-
-Add the object lock around unpin/put pages, and use the unlocked
-versions of pin_pages and pin_map where required.
+Quick fix, just use the unlocked version.
 
 Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 ---
- drivers/gpu/drm/i915/selftests/i915_gem_gtt.c | 92 ++++++++++++++-----
- 1 file changed, 67 insertions(+), 25 deletions(-)
+ drivers/gpu/drm/i915/gt/shmem_utils.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c b/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
-index 2cfe99c79034..d07dd6780005 100644
---- a/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
-+++ b/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
-@@ -129,7 +129,7 @@ fake_dma_object(struct drm_i915_private *i915, u64 size)
- 	obj->cache_level = I915_CACHE_NONE;
- 
- 	/* Preallocate the "backing storage" */
--	if (i915_gem_object_pin_pages(obj))
-+	if (i915_gem_object_pin_pages_unlocked(obj))
- 		goto err_obj;
- 
- 	i915_gem_object_unpin_pages(obj);
-@@ -145,6 +145,7 @@ static int igt_ppgtt_alloc(void *arg)
- {
- 	struct drm_i915_private *dev_priv = arg;
- 	struct i915_ppgtt *ppgtt;
-+	struct i915_gem_ww_ctx ww;
- 	u64 size, last, limit;
- 	int err = 0;
- 
-@@ -170,6 +171,12 @@ static int igt_ppgtt_alloc(void *arg)
- 	limit = totalram_pages() << PAGE_SHIFT;
- 	limit = min(ppgtt->vm.total, limit);
- 
-+	i915_gem_ww_ctx_init(&ww, false);
-+retry:
-+	err = i915_vm_lock_objects(&ppgtt->vm, &ww);
-+	if (err)
-+		goto err_ppgtt_cleanup;
-+
- 	/* Check we can allocate the entire range */
- 	for (size = 4096; size <= limit; size <<= 2) {
- 		struct i915_vm_pt_stash stash = {};
-@@ -214,6 +221,13 @@ static int igt_ppgtt_alloc(void *arg)
+diff --git a/drivers/gpu/drm/i915/gt/shmem_utils.c b/drivers/gpu/drm/i915/gt/shmem_utils.c
+index 43c7acbdc79d..8c8dfa41e032 100644
+--- a/drivers/gpu/drm/i915/gt/shmem_utils.c
++++ b/drivers/gpu/drm/i915/gt/shmem_utils.c
+@@ -39,7 +39,7 @@ struct file *shmem_create_from_object(struct drm_i915_gem_object *obj)
+ 		return file;
  	}
  
- err_ppgtt_cleanup:
-+	if (err == -EDEADLK) {
-+		err = i915_gem_ww_ctx_backoff(&ww);
-+		if (!err)
-+			goto retry;
-+	}
-+	i915_gem_ww_ctx_fini(&ww);
-+
- 	i915_vm_put(&ppgtt->vm);
- 	return err;
- }
-@@ -275,7 +289,7 @@ static int lowlevel_hole(struct i915_address_space *vm,
+-	ptr = i915_gem_object_pin_map(obj, I915_MAP_WB);
++	ptr = i915_gem_object_pin_map_unlocked(obj, I915_MAP_WB);
+ 	if (IS_ERR(ptr))
+ 		return ERR_CAST(ptr);
  
- 		GEM_BUG_ON(obj->base.size != BIT_ULL(size));
- 
--		if (i915_gem_object_pin_pages(obj)) {
-+		if (i915_gem_object_pin_pages_unlocked(obj)) {
- 			i915_gem_object_put(obj);
- 			kfree(order);
- 			break;
-@@ -296,20 +310,36 @@ static int lowlevel_hole(struct i915_address_space *vm,
- 
- 			if (vm->allocate_va_range) {
- 				struct i915_vm_pt_stash stash = {};
-+				struct i915_gem_ww_ctx ww;
-+				int err;
-+
-+				i915_gem_ww_ctx_init(&ww, false);
-+retry:
-+				err = i915_vm_lock_objects(vm, &ww);
-+				if (err)
-+					goto alloc_vm_end;
- 
-+				err = -ENOMEM;
- 				if (i915_vm_alloc_pt_stash(vm, &stash,
- 							   BIT_ULL(size)))
--					break;
--
--				if (i915_vm_pin_pt_stash(vm, &stash)) {
--					i915_vm_free_pt_stash(vm, &stash);
--					break;
--				}
-+					goto alloc_vm_end;
- 
--				vm->allocate_va_range(vm, &stash,
--						      addr, BIT_ULL(size));
-+				err = i915_vm_pin_pt_stash(vm, &stash);
-+				if (!err)
-+					vm->allocate_va_range(vm, &stash,
-+							      addr, BIT_ULL(size));
- 
- 				i915_vm_free_pt_stash(vm, &stash);
-+alloc_vm_end:
-+				if (err == -EDEADLK) {
-+					err = i915_gem_ww_ctx_backoff(&ww);
-+					if (!err)
-+						goto retry;
-+				}
-+				i915_gem_ww_ctx_fini(&ww);
-+
-+				if (err)
-+					break;
- 			}
- 
- 			mock_vma->pages = obj->mm.pages;
-@@ -1165,7 +1195,7 @@ static int igt_ggtt_page(void *arg)
- 	if (IS_ERR(obj))
- 		return PTR_ERR(obj);
- 
--	err = i915_gem_object_pin_pages(obj);
-+	err = i915_gem_object_pin_pages_unlocked(obj);
- 	if (err)
- 		goto out_free;
- 
-@@ -1332,7 +1362,7 @@ static int igt_gtt_reserve(void *arg)
- 			goto out;
- 		}
- 
--		err = i915_gem_object_pin_pages(obj);
-+		err = i915_gem_object_pin_pages_unlocked(obj);
- 		if (err) {
- 			i915_gem_object_put(obj);
- 			goto out;
-@@ -1384,7 +1414,7 @@ static int igt_gtt_reserve(void *arg)
- 			goto out;
- 		}
- 
--		err = i915_gem_object_pin_pages(obj);
-+		err = i915_gem_object_pin_pages_unlocked(obj);
- 		if (err) {
- 			i915_gem_object_put(obj);
- 			goto out;
-@@ -1548,7 +1578,7 @@ static int igt_gtt_insert(void *arg)
- 			goto out;
- 		}
- 
--		err = i915_gem_object_pin_pages(obj);
-+		err = i915_gem_object_pin_pages_unlocked(obj);
- 		if (err) {
- 			i915_gem_object_put(obj);
- 			goto out;
-@@ -1657,7 +1687,7 @@ static int igt_gtt_insert(void *arg)
- 			goto out;
- 		}
- 
--		err = i915_gem_object_pin_pages(obj);
-+		err = i915_gem_object_pin_pages_unlocked(obj);
- 		if (err) {
- 			i915_gem_object_put(obj);
- 			goto out;
-@@ -1828,7 +1858,7 @@ static int igt_cs_tlb(void *arg)
- 		goto out_vm;
- 	}
- 
--	batch = i915_gem_object_pin_map(bbe, I915_MAP_WC);
-+	batch = i915_gem_object_pin_map_unlocked(bbe, I915_MAP_WC);
- 	if (IS_ERR(batch)) {
- 		err = PTR_ERR(batch);
- 		goto out_put_bbe;
-@@ -1844,7 +1874,7 @@ static int igt_cs_tlb(void *arg)
- 	}
- 
- 	/* Track the execution of each request by writing into different slot */
--	batch = i915_gem_object_pin_map(act, I915_MAP_WC);
-+	batch = i915_gem_object_pin_map_unlocked(act, I915_MAP_WC);
- 	if (IS_ERR(batch)) {
- 		err = PTR_ERR(batch);
- 		goto out_put_act;
-@@ -1891,7 +1921,7 @@ static int igt_cs_tlb(void *arg)
- 		goto out_put_out;
- 	GEM_BUG_ON(vma->node.start != vm->total - PAGE_SIZE);
- 
--	result = i915_gem_object_pin_map(out, I915_MAP_WB);
-+	result = i915_gem_object_pin_map_unlocked(out, I915_MAP_WB);
- 	if (IS_ERR(result)) {
- 		err = PTR_ERR(result);
- 		goto out_put_out;
-@@ -1907,6 +1937,7 @@ static int igt_cs_tlb(void *arg)
- 		while (!__igt_timeout(end_time, NULL)) {
- 			struct i915_vm_pt_stash stash = {};
- 			struct i915_request *rq;
-+			struct i915_gem_ww_ctx ww;
- 			u64 offset;
- 
- 			offset = igt_random_offset(&prng,
-@@ -1925,19 +1956,30 @@ static int igt_cs_tlb(void *arg)
- 			if (err)
- 				goto end;
- 
-+			i915_gem_ww_ctx_init(&ww, false);
-+retry:
-+			err = i915_vm_lock_objects(vm, &ww);
-+			if (err)
-+				goto end_ww;
-+
- 			err = i915_vm_alloc_pt_stash(vm, &stash, chunk_size);
- 			if (err)
--				goto end;
-+				goto end_ww;
- 
- 			err = i915_vm_pin_pt_stash(vm, &stash);
--			if (err) {
--				i915_vm_free_pt_stash(vm, &stash);
--				goto end;
--			}
--
--			vm->allocate_va_range(vm, &stash, offset, chunk_size);
-+			if (!err)
-+				vm->allocate_va_range(vm, &stash, offset, chunk_size);
- 
- 			i915_vm_free_pt_stash(vm, &stash);
-+end_ww:
-+			if (err == -EDEADLK) {
-+				err = i915_gem_ww_ctx_backoff(&ww);
-+				if (!err)
-+					goto retry;
-+			}
-+			i915_gem_ww_ctx_fini(&ww);
-+			if (err)
-+				goto end;
- 
- 			/* Prime the TLB with the dummy pages */
- 			for (i = 0; i < count; i++) {
 -- 
 2.28.0
 
