@@ -7,32 +7,32 @@ X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BFDC8C47426
-	for <intel-gfx@archiver.kernel.org>; Fri,  2 Oct 2020 13:00:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B2D8AC4742C
+	for <intel-gfx@archiver.kernel.org>; Fri,  2 Oct 2020 13:00:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 82A55206E3
-	for <intel-gfx@archiver.kernel.org>; Fri,  2 Oct 2020 13:00:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 82A55206E3
+	by mail.kernel.org (Postfix) with ESMTPS id 7BDDC206DC
+	for <intel-gfx@archiver.kernel.org>; Fri,  2 Oct 2020 13:00:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7BDDC206DC
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC06E6E97A;
-	Fri,  2 Oct 2020 12:59:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 26B226E9A0;
+	Fri,  2 Oct 2020 13:00:01 +0000 (UTC)
 Received: from mblankhorst.nl (mblankhorst.nl [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A1F006E979
- for <intel-gfx@lists.freedesktop.org>; Fri,  2 Oct 2020 12:59:50 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 062936E97B
+ for <intel-gfx@lists.freedesktop.org>; Fri,  2 Oct 2020 12:59:52 +0000 (UTC)
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri,  2 Oct 2020 14:59:15 +0200
-Message-Id: <20201002125939.50817-38-maarten.lankhorst@linux.intel.com>
+Date: Fri,  2 Oct 2020 14:59:25 +0200
+Message-Id: <20201002125939.50817-48-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20201002125939.50817-1-maarten.lankhorst@linux.intel.com>
 References: <20201002125939.50817-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 37/61] drm/i915: Add missing ww lock in
- intel_dsb_prepare.
+Subject: [Intel-gfx] [PATCH 47/61] drm/i915/selftests: Prepare object tests
+ for obj->mm.lock removal.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,29 +50,26 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Because of the long lifetime of the mapping, we cannot wrap this in a
-simple limited ww lock. Just use the unlocked version of pin_map,
-because we'll likely release the mapping a lot later, in a different
-thread.
+Convert a single pin_pages call to use the unlocked version.
 
 Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dsb.c | 2 +-
+ drivers/gpu/drm/i915/gem/selftests/i915_gem_object.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dsb.c b/drivers/gpu/drm/i915/display/intel_dsb.c
-index 566fa72427b3..857126822a88 100644
---- a/drivers/gpu/drm/i915/display/intel_dsb.c
-+++ b/drivers/gpu/drm/i915/display/intel_dsb.c
-@@ -293,7 +293,7 @@ void intel_dsb_prepare(struct intel_crtc_state *crtc_state)
- 		goto out;
- 	}
+diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_object.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_object.c
+index bf853c40ec65..740ee8086a27 100644
+--- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_object.c
++++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_object.c
+@@ -47,7 +47,7 @@ static int igt_gem_huge(void *arg)
+ 	if (IS_ERR(obj))
+ 		return PTR_ERR(obj);
  
--	buf = i915_gem_object_pin_map(vma->obj, I915_MAP_WC);
-+	buf = i915_gem_object_pin_map_unlocked(vma->obj, I915_MAP_WC);
- 	if (IS_ERR(buf)) {
- 		drm_err(&i915->drm, "Command buffer creation failed\n");
- 		i915_vma_unpin_and_release(&vma, I915_VMA_RELEASE_MAP);
+-	err = i915_gem_object_pin_pages(obj);
++	err = i915_gem_object_pin_pages_unlocked(obj);
+ 	if (err) {
+ 		pr_err("Failed to allocate %u pages (%lu total), err=%d\n",
+ 		       nreal, obj->base.size / PAGE_SIZE, err);
 -- 
 2.28.0
 
