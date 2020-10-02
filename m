@@ -2,37 +2,37 @@ Return-Path: <SRS0=5YwX=DJ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-9.9 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 21075C47423
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BDB7AC47425
 	for <intel-gfx@archiver.kernel.org>; Fri,  2 Oct 2020 13:00:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DE5AF206DC
-	for <intel-gfx@archiver.kernel.org>; Fri,  2 Oct 2020 13:00:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DE5AF206DC
+	by mail.kernel.org (Postfix) with ESMTPS id 79CA9206DC
+	for <intel-gfx@archiver.kernel.org>; Fri,  2 Oct 2020 13:00:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 79CA9206DC
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B5DA36E95C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 57E7C6E95B;
 	Fri,  2 Oct 2020 12:59:53 +0000 (UTC)
 Received: from mblankhorst.nl (mblankhorst.nl [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 887CD6E95A
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8CD4B6E95B
  for <intel-gfx@lists.freedesktop.org>; Fri,  2 Oct 2020 12:59:48 +0000 (UTC)
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri,  2 Oct 2020 14:59:10 +0200
-Message-Id: <20201002125939.50817-33-maarten.lankhorst@linux.intel.com>
+Date: Fri,  2 Oct 2020 14:58:55 +0200
+Message-Id: <20201002125939.50817-18-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20201002125939.50817-1-maarten.lankhorst@linux.intel.com>
 References: <20201002125939.50817-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 32/61] drm/i915: Add igt_spinner_pin() to allow
- for ww locking around spinner.
+Subject: [Intel-gfx] [PATCH 17/61] drm/i915: Populate logical context during
+ first pin.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,239 +50,199 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-By default, we assume that it's called inside igt_create_request
-to keep existing selftests working, but allow for manual pinning
-when passing a ww context.
+This allows us to remove pin_map from state allocation, which saves
+us a few retry loops. We won't need this until first pin, anyway.
 
 Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 ---
- drivers/gpu/drm/i915/selftests/igt_spinner.c | 136 ++++++++++++-------
- drivers/gpu/drm/i915/selftests/igt_spinner.h |   5 +
- 2 files changed, 95 insertions(+), 46 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_context_types.h |  13 ++-
+ drivers/gpu/drm/i915/gt/intel_lrc.c           | 107 +++++++++---------
+ 2 files changed, 62 insertions(+), 58 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/selftests/igt_spinner.c b/drivers/gpu/drm/i915/selftests/igt_spinner.c
-index ec0ecb4e4ca6..9c461edb0b73 100644
---- a/drivers/gpu/drm/i915/selftests/igt_spinner.c
-+++ b/drivers/gpu/drm/i915/selftests/igt_spinner.c
-@@ -11,8 +11,6 @@
+diff --git a/drivers/gpu/drm/i915/gt/intel_context_types.h b/drivers/gpu/drm/i915/gt/intel_context_types.h
+index 552cb57a2e8c..bebf52868563 100644
+--- a/drivers/gpu/drm/i915/gt/intel_context_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_context_types.h
+@@ -64,12 +64,13 @@ struct intel_context {
+ 	unsigned long flags;
+ #define CONTEXT_BARRIER_BIT		0
+ #define CONTEXT_ALLOC_BIT		1
+-#define CONTEXT_VALID_BIT		2
+-#define CONTEXT_CLOSED_BIT		3
+-#define CONTEXT_USE_SEMAPHORES		4
+-#define CONTEXT_BANNED			5
+-#define CONTEXT_FORCE_SINGLE_SUBMISSION	6
+-#define CONTEXT_NOPREEMPT		7
++#define CONTEXT_INIT_BIT		2
++#define CONTEXT_VALID_BIT		3
++#define CONTEXT_CLOSED_BIT		4
++#define CONTEXT_USE_SEMAPHORES		5
++#define CONTEXT_BANNED			6
++#define CONTEXT_FORCE_SINGLE_SUBMISSION	7
++#define CONTEXT_NOPREEMPT		8
  
- int igt_spinner_init(struct igt_spinner *spin, struct intel_gt *gt)
- {
--	unsigned int mode;
--	void *vaddr;
- 	int err;
- 
- 	memset(spin, 0, sizeof(*spin));
-@@ -23,6 +21,7 @@ int igt_spinner_init(struct igt_spinner *spin, struct intel_gt *gt)
- 		err = PTR_ERR(spin->hws);
- 		goto err;
+ 	u32 *lrc_reg_state;
+ 	union {
+diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
+index 287537089c77..39cb45ccb506 100644
+--- a/drivers/gpu/drm/i915/gt/intel_lrc.c
++++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
+@@ -3525,9 +3525,39 @@ __execlists_update_reg_state(const struct intel_context *ce,
  	}
-+	i915_gem_object_set_cache_coherency(spin->hws, I915_CACHE_LLC);
- 
- 	spin->obj = i915_gem_object_create_internal(gt->i915, PAGE_SIZE);
- 	if (IS_ERR(spin->obj)) {
-@@ -30,34 +29,83 @@ int igt_spinner_init(struct igt_spinner *spin, struct intel_gt *gt)
- 		goto err_hws;
- 	}
- 
--	i915_gem_object_set_cache_coherency(spin->hws, I915_CACHE_LLC);
--	vaddr = i915_gem_object_pin_map(spin->hws, I915_MAP_WB);
--	if (IS_ERR(vaddr)) {
--		err = PTR_ERR(vaddr);
--		goto err_obj;
--	}
--	spin->seqno = memset(vaddr, 0xff, PAGE_SIZE);
--
--	mode = i915_coherent_map_type(gt->i915);
--	vaddr = i915_gem_object_pin_map(spin->obj, mode);
--	if (IS_ERR(vaddr)) {
--		err = PTR_ERR(vaddr);
--		goto err_unpin_hws;
--	}
--	spin->batch = vaddr;
--
- 	return 0;
- 
--err_unpin_hws:
--	i915_gem_object_unpin_map(spin->hws);
--err_obj:
--	i915_gem_object_put(spin->obj);
- err_hws:
- 	i915_gem_object_put(spin->hws);
- err:
- 	return err;
  }
  
-+static void *igt_spinner_pin_obj(struct intel_context *ce,
-+				 struct i915_gem_ww_ctx *ww,
-+				 struct drm_i915_gem_object *obj,
-+				 unsigned int mode, struct i915_vma **vma)
++static void populate_lr_context(struct intel_context *ce,
++				struct intel_engine_cs *engine,
++				void *vaddr)
 +{
-+	void *vaddr;
-+	int ret;
++	bool inhibit = true;
++	struct drm_i915_gem_object *ctx_obj = ce->state->obj;
 +
-+	*vma = i915_vma_instance(obj, ce->vm, NULL);
-+	if (IS_ERR(*vma))
-+		return ERR_CAST(*vma);
++	set_redzone(vaddr, engine);
 +
-+	ret = i915_gem_object_lock(obj, ww);
-+	if (ret)
-+		return ERR_PTR(ret);
-+
-+	vaddr = i915_gem_object_pin_map(obj, mode);
-+
-+	if (!ww)
-+		i915_gem_object_unlock(obj);
-+
-+	if (IS_ERR(vaddr))
-+		return vaddr;
-+
-+	if (ww)
-+		ret = i915_vma_pin_ww(*vma, ww, 0, 0, PIN_USER);
-+	else
-+		ret = i915_vma_pin(*vma, 0, 0, PIN_USER);
-+
-+	if (ret) {
-+		i915_gem_object_unpin_map(obj);
-+		return ERR_PTR(ret);
++	if (engine->default_state) {
++		shmem_read(engine->default_state, 0,
++			   vaddr, engine->context_size);
++		__set_bit(CONTEXT_VALID_BIT, &ce->flags);
++		inhibit = false;
 +	}
 +
-+	return vaddr;
++	/* Clear the ppHWSP (inc. per-context counters) */
++	memset(vaddr, 0, PAGE_SIZE);
++
++	/*
++	 * The second page of the context object contains some registers which
++	 * must be set up prior to the first execution.
++	 */
++	execlists_init_reg_state(vaddr + LRC_STATE_OFFSET,
++				 ce, engine, ce->ring, inhibit);
++
++	__i915_gem_object_flush_map(ctx_obj, 0, engine->context_size);
 +}
 +
-+int igt_spinner_pin(struct igt_spinner *spin,
-+		    struct intel_context *ce,
-+		    struct i915_gem_ww_ctx *ww)
-+{
-+	void *vaddr;
+ static int
+-execlists_context_pre_pin(struct intel_context *ce,
+-			  struct i915_gem_ww_ctx *ww, void **vaddr)
++__execlists_context_pre_pin(struct intel_context *ce,
++			    struct intel_engine_cs *engine,
++			    struct i915_gem_ww_ctx *ww, void **vaddr)
+ {
+ 	GEM_BUG_ON(!ce->state);
+ 	GEM_BUG_ON(!i915_vma_is_pinned(ce->state));
+@@ -3535,8 +3565,20 @@ execlists_context_pre_pin(struct intel_context *ce,
+ 	*vaddr = i915_gem_object_pin_map(ce->state->obj,
+ 					i915_coherent_map_type(ce->engine->i915) |
+ 					I915_MAP_OVERRIDE);
++	if (IS_ERR(*vaddr))
++		return PTR_ERR(*vaddr);
 +
-+	if (spin->ce && WARN_ON(spin->ce != ce))
-+		return -ENODEV;
-+	spin->ce = ce;
-+
-+	if (!spin->seqno) {
-+		vaddr = igt_spinner_pin_obj(ce, ww, spin->hws, I915_MAP_WB, &spin->hws_vma);
-+		if (IS_ERR(vaddr))
-+			return PTR_ERR(vaddr);
-+
-+		spin->seqno = memset(vaddr, 0xff, PAGE_SIZE);
-+	}
-+
-+	if (!spin->batch) {
-+		unsigned int mode =
-+			i915_coherent_map_type(spin->gt->i915);
-+
-+		vaddr = igt_spinner_pin_obj(ce, ww, spin->obj, mode, &spin->batch_vma);
-+		if (IS_ERR(vaddr))
-+			return PTR_ERR(vaddr);
-+
-+		spin->batch = vaddr;
-+	}
++	if (!__test_and_set_bit(CONTEXT_INIT_BIT, &ce->flags))
++		populate_lr_context(ce, engine, *vaddr);
 +
 +	return 0;
 +}
-+
- static unsigned int seqno_offset(u64 fence)
- {
- 	return offset_in_page(sizeof(u32) * fence);
-@@ -102,27 +150,18 @@ igt_spinner_create_request(struct igt_spinner *spin,
- 	if (!intel_engine_can_store_dword(ce->engine))
- 		return ERR_PTR(-ENODEV);
  
--	vma = i915_vma_instance(spin->obj, ce->vm, NULL);
--	if (IS_ERR(vma))
--		return ERR_CAST(vma);
+-	return PTR_ERR_OR_ZERO(*vaddr);
++static int
++execlists_context_pre_pin(struct intel_context *ce,
++			  struct i915_gem_ww_ctx *ww, void **vaddr)
++{
++	return __execlists_context_pre_pin(ce, ce->engine, ww, vaddr);
+ }
+ 
+ static int
+@@ -5331,45 +5373,6 @@ static void execlists_init_reg_state(u32 *regs,
+ 	__reset_stop_ring(regs, engine);
+ }
+ 
+-static int
+-populate_lr_context(struct intel_context *ce,
+-		    struct drm_i915_gem_object *ctx_obj,
+-		    struct intel_engine_cs *engine,
+-		    struct intel_ring *ring)
+-{
+-	bool inhibit = true;
+-	void *vaddr;
 -
--	hws = i915_vma_instance(spin->hws, ce->vm, NULL);
--	if (IS_ERR(hws))
--		return ERR_CAST(hws);
-+	if (!spin->batch) {
-+		err = igt_spinner_pin(spin, ce, NULL);
-+		if (err)
-+			return ERR_PTR(err);
-+	}
- 
--	err = i915_vma_pin(vma, 0, 0, PIN_USER);
--	if (err)
--		return ERR_PTR(err);
--
--	err = i915_vma_pin(hws, 0, 0, PIN_USER);
--	if (err)
--		goto unpin_vma;
-+	hws = spin->hws_vma;
-+	vma = spin->batch_vma;
- 
- 	rq = intel_context_create_request(ce);
--	if (IS_ERR(rq)) {
--		err = PTR_ERR(rq);
--		goto unpin_hws;
+-	vaddr = i915_gem_object_pin_map(ctx_obj, I915_MAP_WB);
+-	if (IS_ERR(vaddr)) {
+-		drm_dbg(&engine->i915->drm, "Could not map object pages!\n");
+-		return PTR_ERR(vaddr);
 -	}
-+	if (IS_ERR(rq))
-+		return ERR_CAST(rq);
- 
- 	err = move_to_active(vma, rq, 0);
- 	if (err)
-@@ -185,10 +224,6 @@ igt_spinner_create_request(struct igt_spinner *spin,
- 		i915_request_set_error_once(rq, err);
- 		i915_request_add(rq);
+-
+-	set_redzone(vaddr, engine);
+-
+-	if (engine->default_state) {
+-		shmem_read(engine->default_state, 0,
+-			   vaddr, engine->context_size);
+-		__set_bit(CONTEXT_VALID_BIT, &ce->flags);
+-		inhibit = false;
+-	}
+-
+-	/* Clear the ppHWSP (inc. per-context counters) */
+-	memset(vaddr, 0, PAGE_SIZE);
+-
+-	/*
+-	 * The second page of the context object contains some registers which
+-	 * must be set up prior to the first execution.
+-	 */
+-	execlists_init_reg_state(vaddr + LRC_STATE_OFFSET,
+-				 ce, engine, ring, inhibit);
+-
+-	__i915_gem_object_flush_map(ctx_obj, 0, engine->context_size);
+-	i915_gem_object_unpin_map(ctx_obj);
+-	return 0;
+-}
+-
+ static struct intel_timeline *pinned_timeline(struct intel_context *ce)
+ {
+ 	struct intel_timeline *tl = fetch_and_zero(&ce->timeline);
+@@ -5433,20 +5436,11 @@ static int __execlists_context_alloc(struct intel_context *ce,
+ 		goto error_deref_obj;
  	}
--unpin_hws:
--	i915_vma_unpin(hws);
--unpin_vma:
--	i915_vma_unpin(vma);
- 	return err ? ERR_PTR(err) : rq;
+ 
+-	ret = populate_lr_context(ce, ctx_obj, engine, ring);
+-	if (ret) {
+-		drm_dbg(&engine->i915->drm,
+-			"Failed to populate LRC: %d\n", ret);
+-		goto error_ring_free;
+-	}
+-
+ 	ce->ring = ring;
+ 	ce->state = vma;
+ 
+ 	return 0;
+ 
+-error_ring_free:
+-	intel_ring_put(ring);
+ error_deref_obj:
+ 	i915_gem_object_put(ctx_obj);
+ 	return ret;
+@@ -5524,6 +5518,15 @@ static int virtual_context_alloc(struct intel_context *ce)
+ 	return __execlists_context_alloc(ce, ve->siblings[0]);
  }
  
-@@ -202,6 +237,9 @@ hws_seqno(const struct igt_spinner *spin, const struct i915_request *rq)
- 
- void igt_spinner_end(struct igt_spinner *spin)
- {
-+	if (!spin->batch)
-+		return;
++static int
++virtual_context_pre_pin(struct intel_context *ce,
++			  struct i915_gem_ww_ctx *ww, void **vaddr)
++{
++	struct virtual_engine *ve = container_of(ce, typeof(*ve), context);
 +
- 	*spin->batch = MI_BATCH_BUFFER_END;
- 	intel_gt_chipset_flush(spin->gt);
- }
-@@ -210,10 +248,16 @@ void igt_spinner_fini(struct igt_spinner *spin)
++	return __execlists_context_pre_pin(ce, ve->siblings[0], ww, vaddr);
++}
++
+ static int virtual_context_pin(struct intel_context *ce, void *vaddr)
  {
- 	igt_spinner_end(spin);
+ 	struct virtual_engine *ve = container_of(ce, typeof(*ve), context);
+@@ -5557,7 +5560,7 @@ static void virtual_context_exit(struct intel_context *ce)
+ static const struct intel_context_ops virtual_context_ops = {
+ 	.alloc = virtual_context_alloc,
  
--	i915_gem_object_unpin_map(spin->obj);
-+	if (spin->batch) {
-+		i915_vma_unpin(spin->batch_vma);
-+		i915_gem_object_unpin_map(spin->obj);
-+	}
- 	i915_gem_object_put(spin->obj);
- 
--	i915_gem_object_unpin_map(spin->hws);
-+	if (spin->seqno) {
-+		i915_vma_unpin(spin->hws_vma);
-+		i915_gem_object_unpin_map(spin->hws);
-+	}
- 	i915_gem_object_put(spin->hws);
- }
- 
-diff --git a/drivers/gpu/drm/i915/selftests/igt_spinner.h b/drivers/gpu/drm/i915/selftests/igt_spinner.h
-index ec62c9ef320b..fbe5b1625b05 100644
---- a/drivers/gpu/drm/i915/selftests/igt_spinner.h
-+++ b/drivers/gpu/drm/i915/selftests/igt_spinner.h
-@@ -20,11 +20,16 @@ struct igt_spinner {
- 	struct intel_gt *gt;
- 	struct drm_i915_gem_object *hws;
- 	struct drm_i915_gem_object *obj;
-+	struct intel_context *ce;
-+	struct i915_vma *hws_vma, *batch_vma;
- 	u32 *batch;
- 	void *seqno;
- };
- 
- int igt_spinner_init(struct igt_spinner *spin, struct intel_gt *gt);
-+int igt_spinner_pin(struct igt_spinner *spin,
-+		    struct intel_context *ce,
-+		    struct i915_gem_ww_ctx *ww);
- void igt_spinner_fini(struct igt_spinner *spin);
- 
- struct i915_request *
+-	.pre_pin = execlists_context_pre_pin,
++	.pre_pin = virtual_context_pre_pin,
+ 	.pin = virtual_context_pin,
+ 	.unpin = execlists_context_unpin,
+ 	.post_unpin = execlists_context_post_unpin,
 -- 
 2.28.0
 
