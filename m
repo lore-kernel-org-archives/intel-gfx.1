@@ -7,32 +7,32 @@ X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6A93BC47425
-	for <intel-gfx@archiver.kernel.org>; Fri,  2 Oct 2020 13:00:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 10763C4727D
+	for <intel-gfx@archiver.kernel.org>; Fri,  2 Oct 2020 13:00:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2BDAE206DC
+	by mail.kernel.org (Postfix) with ESMTPS id CD07B206DC
 	for <intel-gfx@archiver.kernel.org>; Fri,  2 Oct 2020 13:00:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2BDAE206DC
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CD07B206DC
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D044B6E985;
-	Fri,  2 Oct 2020 12:59:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 213516E988;
+	Fri,  2 Oct 2020 12:59:53 +0000 (UTC)
 Received: from mblankhorst.nl (mblankhorst.nl [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CDAF46E95F
- for <intel-gfx@lists.freedesktop.org>; Fri,  2 Oct 2020 12:59:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2773B6E968
+ for <intel-gfx@lists.freedesktop.org>; Fri,  2 Oct 2020 12:59:49 +0000 (UTC)
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri,  2 Oct 2020 14:58:58 +0200
-Message-Id: <20201002125939.50817-21-maarten.lankhorst@linux.intel.com>
+Date: Fri,  2 Oct 2020 14:59:00 +0200
+Message-Id: <20201002125939.50817-23-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20201002125939.50817-1-maarten.lankhorst@linux.intel.com>
 References: <20201002125939.50817-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 20/61] drm/i915: Rework clflush to work
- correctly without obj->mm.lock.
+Subject: [Intel-gfx] [PATCH 22/61] drm/i915: Add object locking to
+ vm_fault_cpu
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,54 +50,34 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Pin in the caller, not in the work itself. This should also
-work better for dma-fence annotations.
+Take a simple lock so we hold ww around (un)pin_pages as needed.
 
 Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_clflush.c | 15 +++++++--------
- 1 file changed, 7 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_mman.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_clflush.c b/drivers/gpu/drm/i915/gem/i915_gem_clflush.c
-index bc0223716906..daf9284ef1f5 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_clflush.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_clflush.c
-@@ -27,15 +27,8 @@ static void __do_clflush(struct drm_i915_gem_object *obj)
- static int clflush_work(struct dma_fence_work *base)
- {
- 	struct clflush *clflush = container_of(base, typeof(*clflush), base);
--	struct drm_i915_gem_object *obj = clflush->obj;
--	int err;
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_mman.c b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
+index 5aa037ca3a41..ba8e9ef6943d 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_mman.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
+@@ -246,6 +246,9 @@ static vm_fault_t vm_fault_cpu(struct vm_fault *vmf)
+ 		     area->vm_flags & VM_WRITE))
+ 		return VM_FAULT_SIGBUS;
  
--	err = i915_gem_object_pin_pages(obj);
--	if (err)
--		return err;
--
--	__do_clflush(obj);
--	i915_gem_object_unpin_pages(obj);
-+	__do_clflush(clflush->obj);
- 
- 	return 0;
- }
-@@ -44,6 +37,7 @@ static void clflush_release(struct dma_fence_work *base)
- {
- 	struct clflush *clflush = container_of(base, typeof(*clflush), base);
- 
-+	i915_gem_object_unpin_pages(clflush->obj);
- 	i915_gem_object_put(clflush->obj);
- }
- 
-@@ -63,6 +57,11 @@ static struct clflush *clflush_work_create(struct drm_i915_gem_object *obj)
- 	if (!clflush)
- 		return NULL;
- 
-+	if (__i915_gem_object_get_pages(obj) < 0) {
-+		kfree(clflush);
-+		return NULL;
-+	}
++	if (i915_gem_object_lock_interruptible(obj, NULL))
++		return VM_FAULT_NOPAGE;
 +
- 	dma_fence_work_init(&clflush->base, &clflush_ops);
- 	clflush->obj = i915_gem_object_get(obj); /* obj <-> clflush cycle */
+ 	err = i915_gem_object_pin_pages(obj);
+ 	if (err)
+ 		goto out;
+@@ -269,6 +272,7 @@ static vm_fault_t vm_fault_cpu(struct vm_fault *vmf)
+ 	i915_gem_object_unpin_pages(obj);
+ 
+ out:
++	i915_gem_object_unlock(obj);
+ 	return i915_error_to_vmf_fault(err);
+ }
  
 -- 
 2.28.0
