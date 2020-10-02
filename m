@@ -7,32 +7,32 @@ X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 958A5C4363D
-	for <intel-gfx@archiver.kernel.org>; Fri,  2 Oct 2020 12:59:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 82B1AC4727D
+	for <intel-gfx@archiver.kernel.org>; Fri,  2 Oct 2020 12:59:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 56632206DC
-	for <intel-gfx@archiver.kernel.org>; Fri,  2 Oct 2020 12:59:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 56632206DC
+	by mail.kernel.org (Postfix) with ESMTPS id 41858206E3
+	for <intel-gfx@archiver.kernel.org>; Fri,  2 Oct 2020 12:59:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 41858206E3
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 295036E961;
-	Fri,  2 Oct 2020 12:59:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 604C26E959;
+	Fri,  2 Oct 2020 12:59:48 +0000 (UTC)
 Received: from mblankhorst.nl (mblankhorst.nl [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 95A2D6E95C
- for <intel-gfx@lists.freedesktop.org>; Fri,  2 Oct 2020 12:59:45 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A698A6E959
+ for <intel-gfx@lists.freedesktop.org>; Fri,  2 Oct 2020 12:59:46 +0000 (UTC)
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri,  2 Oct 2020 14:58:46 +0200
-Message-Id: <20201002125939.50817-9-maarten.lankhorst@linux.intel.com>
+Date: Fri,  2 Oct 2020 14:58:43 +0200
+Message-Id: <20201002125939.50817-6-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20201002125939.50817-1-maarten.lankhorst@linux.intel.com>
 References: <20201002125939.50817-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 08/61] drm/i915: Convert
- i915_gem_object_attach_phys() to ww locking
+Subject: [Intel-gfx] [PATCH 05/61] drm/i915: Add gem object locking to
+ madvise.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,44 +50,42 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Simple adding of i915_gem_object_lock, we may start to pass ww to
-get_pages() in the future, but that won't be the case here;
-We override shmem's get_pages() handling by calling
-i915_gem_object_get_pages_phys(), no ww is needed.
+Doesn't need the full ww lock, only checking if pages are bound.
 
 Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_phys.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/i915_gem.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_phys.c b/drivers/gpu/drm/i915/gem/i915_gem_phys.c
-index 3960c1d9d415..153de6538378 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_phys.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_phys.c
-@@ -182,7 +182,13 @@ int i915_gem_object_attach_phys(struct drm_i915_gem_object *obj, int align)
- 	if (err)
- 		return err;
+diff --git a/drivers/gpu/drm/i915/i915_gem.c b/drivers/gpu/drm/i915/i915_gem.c
+index bb0c12975f38..30af7e4b71ab 100644
+--- a/drivers/gpu/drm/i915/i915_gem.c
++++ b/drivers/gpu/drm/i915/i915_gem.c
+@@ -1071,10 +1071,14 @@ i915_gem_madvise_ioctl(struct drm_device *dev, void *data,
+ 	if (!obj)
+ 		return -ENOENT;
  
--	mutex_lock_nested(&obj->mm.lock, I915_MM_GET_PAGES);
+-	err = mutex_lock_interruptible(&obj->mm.lock);
 +	err = i915_gem_object_lock_interruptible(obj, NULL);
-+	if (err)
-+		return err;
-+
-+	err = mutex_lock_interruptible_nested(&obj->mm.lock, I915_MM_GET_PAGES);
-+	if (err)
-+		goto err_unlock;
- 
- 	if (unlikely(!i915_gem_object_has_struct_page(obj)))
+ 	if (err)
  		goto out;
-@@ -213,6 +219,8 @@ int i915_gem_object_attach_phys(struct drm_i915_gem_object *obj, int align)
  
- out:
++	err = mutex_lock_interruptible(&obj->mm.lock);
++	if (err)
++		goto out_ww;
++
+ 	if (i915_gem_object_has_pages(obj) &&
+ 	    i915_gem_object_is_tiled(obj) &&
+ 	    i915->quirks & QUIRK_PIN_SWIZZLED_PAGES) {
+@@ -1119,6 +1123,8 @@ i915_gem_madvise_ioctl(struct drm_device *dev, void *data,
+ 	args->retained = obj->mm.madv != __I915_MADV_PURGED;
  	mutex_unlock(&obj->mm.lock);
-+err_unlock:
-+	i915_gem_object_unlock(obj);
- 	return err;
- }
  
++out_ww:
++	i915_gem_object_unlock(obj);
+ out:
+ 	i915_gem_object_put(obj);
+ 	return err;
 -- 
 2.28.0
 
