@@ -2,37 +2,37 @@ Return-Path: <SRS0=5YwX=DJ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.9 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4533AC4742F
-	for <intel-gfx@archiver.kernel.org>; Fri,  2 Oct 2020 13:00:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BBED0C4742B
+	for <intel-gfx@archiver.kernel.org>; Fri,  2 Oct 2020 13:00:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 07786206DC
+	by mail.kernel.org (Postfix) with ESMTPS id 7157C206DC
 	for <intel-gfx@archiver.kernel.org>; Fri,  2 Oct 2020 13:00:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 07786206DC
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7157C206DC
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7894A6E9A4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 682A36E98E;
 	Fri,  2 Oct 2020 13:00:01 +0000 (UTC)
 Received: from mblankhorst.nl (mblankhorst.nl [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 759536E982
- for <intel-gfx@lists.freedesktop.org>; Fri,  2 Oct 2020 12:59:52 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B23B06E96E
+ for <intel-gfx@lists.freedesktop.org>; Fri,  2 Oct 2020 12:59:51 +0000 (UTC)
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri,  2 Oct 2020 14:59:33 +0200
-Message-Id: <20201002125939.50817-56-maarten.lankhorst@linux.intel.com>
+Date: Fri,  2 Oct 2020 14:59:21 +0200
+Message-Id: <20201002125939.50817-44-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20201002125939.50817-1-maarten.lankhorst@linux.intel.com>
 References: <20201002125939.50817-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 55/61] drm/i915/selftests: Prepare timeline
- tests for obj->mm.lock removal
+Subject: [Intel-gfx] [PATCH 43/61] drm/i915/selftests: Prepare context tests
+ for obj->mm.lock removal.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,72 +50,63 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-We can no longer call intel_timeline_pin with a null argument,
-so add a ww loop that locks the backing object.
+Straightforward conversion, just convert a bunch of calls to
+unlocked versions.
 
 Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 ---
- drivers/gpu/drm/i915/gt/selftest_timeline.c | 26 ++++++++++++++++++---
- 1 file changed, 23 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/selftest_timeline.c b/drivers/gpu/drm/i915/gt/selftest_timeline.c
-index 6d6092a28e6b..cd8374780f7c 100644
---- a/drivers/gpu/drm/i915/gt/selftest_timeline.c
-+++ b/drivers/gpu/drm/i915/gt/selftest_timeline.c
-@@ -36,6 +36,26 @@ static unsigned long hwsp_cacheline(struct intel_timeline *tl)
- 	return (address + offset_in_page(tl->hwsp_offset)) / CACHELINE_BYTES;
- }
+diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
+index d3f87dc4eda3..5fef592390cb 100644
+--- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
++++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
+@@ -1094,7 +1094,7 @@ __read_slice_count(struct intel_context *ce,
+ 	if (ret < 0)
+ 		return ret;
  
-+static int selftest_tl_pin(struct intel_timeline *tl)
-+{
-+	struct i915_gem_ww_ctx ww;
-+	int err;
-+
-+	i915_gem_ww_ctx_init(&ww, false);
-+retry:
-+	err = i915_gem_object_lock(tl->hwsp_ggtt->obj, &ww);
-+	if (!err)
-+		err = intel_timeline_pin(tl, &ww);
-+
-+	if (err == -EDEADLK) {
-+		err = i915_gem_ww_ctx_backoff(&ww);
-+		if (!err)
-+			goto retry;
-+	}
-+	i915_gem_ww_ctx_fini(&ww);
-+	return err;
-+}
-+
- #define CACHELINES_PER_PAGE (PAGE_SIZE / CACHELINE_BYTES)
+-	buf = i915_gem_object_pin_map(obj, I915_MAP_WB);
++	buf = i915_gem_object_pin_map_unlocked(obj, I915_MAP_WB);
+ 	if (IS_ERR(buf)) {
+ 		ret = PTR_ERR(buf);
+ 		return ret;
+@@ -1511,7 +1511,7 @@ static int write_to_scratch(struct i915_gem_context *ctx,
+ 	if (IS_ERR(obj))
+ 		return PTR_ERR(obj);
  
- struct mock_hwsp_freelist {
-@@ -77,7 +97,7 @@ static int __mock_hwsp_timeline(struct mock_hwsp_freelist *state,
- 		if (IS_ERR(tl))
- 			return PTR_ERR(tl);
- 
--		err = intel_timeline_pin(tl, NULL);
-+		err = selftest_tl_pin(tl);
- 		if (err) {
- 			intel_timeline_put(tl);
- 			return err;
-@@ -463,7 +483,7 @@ checked_tl_write(struct intel_timeline *tl, struct intel_engine_cs *engine, u32
- 	struct i915_request *rq;
- 	int err;
- 
--	err = intel_timeline_pin(tl, NULL);
-+	err = selftest_tl_pin(tl);
- 	if (err) {
- 		rq = ERR_PTR(err);
+-	cmd = i915_gem_object_pin_map(obj, I915_MAP_WB);
++	cmd = i915_gem_object_pin_map_unlocked(obj, I915_MAP_WB);
+ 	if (IS_ERR(cmd)) {
+ 		err = PTR_ERR(cmd);
  		goto out;
-@@ -663,7 +683,7 @@ static int live_hwsp_wrap(void *arg)
- 	if (!tl->has_initial_breadcrumb)
- 		goto out_free;
+@@ -1622,7 +1622,7 @@ static int read_from_scratch(struct i915_gem_context *ctx,
+ 		if (err)
+ 			goto out_vm;
  
--	err = intel_timeline_pin(tl, NULL);
-+	err = selftest_tl_pin(tl);
+-		cmd = i915_gem_object_pin_map(obj, I915_MAP_WB);
++		cmd = i915_gem_object_pin_map_unlocked(obj, I915_MAP_WB);
+ 		if (IS_ERR(cmd)) {
+ 			err = PTR_ERR(cmd);
+ 			goto out;
+@@ -1658,7 +1658,7 @@ static int read_from_scratch(struct i915_gem_context *ctx,
+ 		if (err)
+ 			goto out_vm;
+ 
+-		cmd = i915_gem_object_pin_map(obj, I915_MAP_WB);
++		cmd = i915_gem_object_pin_map_unlocked(obj, I915_MAP_WB);
+ 		if (IS_ERR(cmd)) {
+ 			err = PTR_ERR(cmd);
+ 			goto out;
+@@ -1715,7 +1715,7 @@ static int read_from_scratch(struct i915_gem_context *ctx,
  	if (err)
- 		goto out_free;
+ 		goto out_vm;
  
+-	cmd = i915_gem_object_pin_map(obj, I915_MAP_WB);
++	cmd = i915_gem_object_pin_map_unlocked(obj, I915_MAP_WB);
+ 	if (IS_ERR(cmd)) {
+ 		err = PTR_ERR(cmd);
+ 		goto out_vm;
 -- 
 2.28.0
 
