@@ -7,32 +7,32 @@ X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2B591C47427
-	for <intel-gfx@archiver.kernel.org>; Fri,  2 Oct 2020 13:00:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3D282C4742A
+	for <intel-gfx@archiver.kernel.org>; Fri,  2 Oct 2020 13:00:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DDF3D206DC
-	for <intel-gfx@archiver.kernel.org>; Fri,  2 Oct 2020 13:00:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DDF3D206DC
+	by mail.kernel.org (Postfix) with ESMTPS id EFD4A206DC
+	for <intel-gfx@archiver.kernel.org>; Fri,  2 Oct 2020 13:00:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EFD4A206DC
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 015416E96B;
-	Fri,  2 Oct 2020 12:59:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A0C656E997;
+	Fri,  2 Oct 2020 13:00:00 +0000 (UTC)
 Received: from mblankhorst.nl (mblankhorst.nl [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8DCC76E953
- for <intel-gfx@lists.freedesktop.org>; Fri,  2 Oct 2020 12:59:46 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1E0B16E97E
+ for <intel-gfx@lists.freedesktop.org>; Fri,  2 Oct 2020 12:59:52 +0000 (UTC)
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri,  2 Oct 2020 14:58:48 +0200
-Message-Id: <20201002125939.50817-11-maarten.lankhorst@linux.intel.com>
+Date: Fri,  2 Oct 2020 14:59:26 +0200
+Message-Id: <20201002125939.50817-49-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20201002125939.50817-1-maarten.lankhorst@linux.intel.com>
 References: <20201002125939.50817-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 10/61] drm/i915: Disable userptr pread/pwrite
- support.
+Subject: [Intel-gfx] [PATCH 48/61] drm/i915/selftests: Prepare object blit
+ tests for obj->mm.lock removal.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,83 +50,44 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Userptr should not need the kernel for a userspace memcpy, userspace
-needs to call memcpy directly.
+Use some unlocked versions where we're not holding the ww lock.
 
 Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 ---
- .../gpu/drm/i915/gem/i915_gem_object_types.h  |  2 ++
- drivers/gpu/drm/i915/gem/i915_gem_userptr.c   | 20 +++++++++++++++++++
- drivers/gpu/drm/i915/i915_gem.c               |  5 +++++
- 3 files changed, 27 insertions(+)
+ drivers/gpu/drm/i915/gem/selftests/i915_gem_object_blt.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
-index 62dde3585b51..dbb6f6171165 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
-@@ -57,6 +57,8 @@ struct drm_i915_gem_object_ops {
+diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_object_blt.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_object_blt.c
+index 23b6e11bbc3e..ee9496f3d11d 100644
+--- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_object_blt.c
++++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_object_blt.c
+@@ -262,7 +262,7 @@ static int igt_fill_blt_thread(void *arg)
+ 			goto err_flush;
+ 		}
  
- 	int (*pwrite)(struct drm_i915_gem_object *obj,
- 		      const struct drm_i915_gem_pwrite *arg);
-+	int (*pread)(struct drm_i915_gem_object *obj,
-+		     const struct drm_i915_gem_pread *arg);
+-		vaddr = i915_gem_object_pin_map(obj, I915_MAP_WB);
++		vaddr = i915_gem_object_pin_map_unlocked(obj, I915_MAP_WB);
+ 		if (IS_ERR(vaddr)) {
+ 			err = PTR_ERR(vaddr);
+ 			goto err_put;
+@@ -380,7 +380,7 @@ static int igt_copy_blt_thread(void *arg)
+ 			goto err_flush;
+ 		}
  
- 	int (*dmabuf_export)(struct drm_i915_gem_object *obj);
- 	void (*release)(struct drm_i915_gem_object *obj);
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_userptr.c b/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
-index 22008948be58..136a589e5d94 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
-@@ -700,6 +700,24 @@ i915_gem_userptr_dmabuf_export(struct drm_i915_gem_object *obj)
- 	return i915_gem_userptr_init__mmu_notifier(obj, 0);
- }
+-		vaddr = i915_gem_object_pin_map(src, I915_MAP_WB);
++		vaddr = i915_gem_object_pin_map_unlocked(src, I915_MAP_WB);
+ 		if (IS_ERR(vaddr)) {
+ 			err = PTR_ERR(vaddr);
+ 			goto err_put_src;
+@@ -400,7 +400,7 @@ static int igt_copy_blt_thread(void *arg)
+ 			goto err_put_src;
+ 		}
  
-+static int
-+i915_gem_userptr_pwrite(struct drm_i915_gem_object *obj,
-+			const struct drm_i915_gem_pwrite *args)
-+{
-+	drm_dbg(obj->base.dev, "pwrite to userptr no longer allowed\n");
-+
-+	return -EINVAL;
-+}
-+
-+static int
-+i915_gem_userptr_pread(struct drm_i915_gem_object *obj,
-+		       const struct drm_i915_gem_pread *args)
-+{
-+	drm_dbg(obj->base.dev, "pread from userptr no longer allowed\n");
-+
-+	return -EINVAL;
-+}
-+
- static const struct drm_i915_gem_object_ops i915_gem_userptr_ops = {
- 	.name = "i915_gem_object_userptr",
- 	.flags = I915_GEM_OBJECT_IS_SHRINKABLE |
-@@ -708,6 +726,8 @@ static const struct drm_i915_gem_object_ops i915_gem_userptr_ops = {
- 	.get_pages = i915_gem_userptr_get_pages,
- 	.put_pages = i915_gem_userptr_put_pages,
- 	.dmabuf_export = i915_gem_userptr_dmabuf_export,
-+	.pwrite = i915_gem_userptr_pwrite,
-+	.pread = i915_gem_userptr_pread,
- 	.release = i915_gem_userptr_release,
- };
- 
-diff --git a/drivers/gpu/drm/i915/i915_gem.c b/drivers/gpu/drm/i915/i915_gem.c
-index 30af7e4b71ab..d349c0b796ec 100644
---- a/drivers/gpu/drm/i915/i915_gem.c
-+++ b/drivers/gpu/drm/i915/i915_gem.c
-@@ -526,6 +526,11 @@ i915_gem_pread_ioctl(struct drm_device *dev, void *data,
- 	}
- 
- 	trace_i915_gem_object_pread(obj, args->offset, args->size);
-+	ret = -ENODEV;
-+	if (obj->ops->pread)
-+		ret = obj->ops->pread(obj, args);
-+	if (ret != -ENODEV)
-+		goto out;
- 
- 	ret = i915_gem_object_wait(obj,
- 				   I915_WAIT_INTERRUPTIBLE,
+-		vaddr = i915_gem_object_pin_map(dst, I915_MAP_WB);
++		vaddr = i915_gem_object_pin_map_unlocked(dst, I915_MAP_WB);
+ 		if (IS_ERR(vaddr)) {
+ 			err = PTR_ERR(vaddr);
+ 			goto err_put_dst;
 -- 
 2.28.0
 
