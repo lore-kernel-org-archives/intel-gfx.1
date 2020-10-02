@@ -2,53 +2,42 @@ Return-Path: <SRS0=5YwX=DJ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+X-Spam-Status: No, score=-5.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B2814C41604
-	for <intel-gfx@archiver.kernel.org>; Fri,  2 Oct 2020 23:28:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4E24AC35257
+	for <intel-gfx@archiver.kernel.org>; Fri,  2 Oct 2020 23:46:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 73ED22072E
-	for <intel-gfx@archiver.kernel.org>; Fri,  2 Oct 2020 23:28:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 73ED22072E
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id AC993206A2
+	for <intel-gfx@archiver.kernel.org>; Fri,  2 Oct 2020 23:46:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AC993206A2
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 173286E9F1;
-	Fri,  2 Oct 2020 23:28:07 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 316446E9E9
- for <intel-gfx@lists.freedesktop.org>; Fri,  2 Oct 2020 23:28:02 +0000 (UTC)
-IronPort-SDR: zW7XLD7q9H8GdGFIYrRpFRIYn/r8svMx1vhV2D+CHFWbl2jQIxaW5t4311F51KE4dSqnaT7vFv
- RFqR6be9p99w==
-X-IronPort-AV: E=McAfee;i="6000,8403,9762"; a="163969276"
-X-IronPort-AV: E=Sophos;i="5.77,329,1596524400"; d="scan'208";a="163969276"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Oct 2020 16:28:01 -0700
-IronPort-SDR: GzwTOvCFfeYz1DXLz5G6CLFV9ui8LROqef2dTwI3DMsDEZ5DMl+PXTQMrnjfdYQX7su8o3pCXs
- Heuz3xJQ4hnA==
-X-IronPort-AV: E=Sophos;i="5.77,329,1596524400"; d="scan'208";a="325972367"
-Received: from orsosgc001.ra.intel.com ([10.23.184.150])
- by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Oct 2020 16:28:01 -0700
-From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
-To: intel-gfx@lists.freedesktop.org, Chris Wilson <chris.p.wilson@intel.com>,
- Lionel G Landwerlin <lionel.g.landwerlin@intel.com>
-Date: Fri,  2 Oct 2020 16:27:58 -0700
-Message-Id: <20201002232801.51936-4-umesh.nerlige.ramappa@intel.com>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20201002232801.51936-1-umesh.nerlige.ramappa@intel.com>
-References: <20201002232801.51936-1-umesh.nerlige.ramappa@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F0606E9F2;
+	Fri,  2 Oct 2020 23:46:20 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 811646E0FC;
+ Fri,  2 Oct 2020 23:46:18 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 7A1C0A47E9;
+ Fri,  2 Oct 2020 23:46:18 +0000 (UTC)
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 3/6] drm/i915/perf: Whitelist OA report trigger
- registers
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: =?utf-8?q?Jos=C3=A9_Roberto_de_Souza?= <jose.souza@intel.com>
+Date: Fri, 02 Oct 2020 23:46:18 -0000
+Message-ID: <160168237846.3608.3200675129619975740@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20201002231627.24528-1-jose.souza@intel.com>
+In-Reply-To: <20201002231627.24528-1-jose.souza@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZHJt?=
+ =?utf-8?q?/i915/tgl/psr=3A_Fix_glitches_when_doing_frontbuffer_modificati?=
+ =?utf-8?q?ons?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,401 +50,257 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============1501790028=="
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-OA reports can be triggered into the OA buffer by writing into the
-OAREPORTTRIG registers. Whitelist the registers to allow non-privileged
-user to trigger reports.
+--===============1501790028==
+Content-Type: multipart/alternative;
+ boundary="===============8350789890276705737=="
 
-Whitelist registers only if perf_stream_paranoid is set to 0. In
-i915_perf_open_ioctl, this setting is checked and the whitelist is
-enabled accordingly. On closing the perf fd, the whitelist is removed.
+--===============8350789890276705737==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-This ensures that the access to the whitelist is gated by
-perf_stream_paranoid.
+== Series Details ==
 
-v2:
-- Move related change to this patch (Lionel)
-- Bump up perf revision (Lionel)
+Series: drm/i915/tgl/psr: Fix glitches when doing frontbuffer modifications
+URL   : https://patchwork.freedesktop.org/series/82351/
+State : success
 
-v3: Pardon whitelisted registers for selftest (Umesh)
-v4: Document supported gens for the feature (Lionel)
-v5: Whitelist registers only if perf_stream_paranoid is set to 0 (Jon)
-v6: Move oa whitelist array to i915_perf (Chris)
-v7: Fix OA writing beyond the wal->list memory (CI)
-v8: Protect write to engine whitelist registers
-v9: (Umesh)
-- Use uncore->lock to protect write to forcepriv regs
-- In case wal->count falls to zero on _wa_remove, make sure you still
-  clear the registers. Remove wal->count check when applying whitelist.
-v10: (Umesh)
-- Split patches modifying intel_workarounds
-- On some platforms there are no whitelisted regs. intel_engine_resume
-  applies whitelist on these platforms too and the wal->count gates such
-  platforms. Bring back the wal->count check.
-- intel_engine_allow/deny_user_register_access modifies the engine
-  whitelist and the wal->count. Use uncore->lock to serialize it with
-  intel_engine_apply_whitelist.
-- Grow the wal->list when adding whitelist registers after driver load.
+== Summary ==
 
-Signed-off-by: Piotr Maciejewski <piotr.maciejewski@intel.com>
-Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
-Reviewed-by: Lionel Landwerlin <lionel.g.landwerlin@intel.com>
----
- drivers/gpu/drm/i915/gt/intel_workarounds.c   | 118 ++++++++++++++++++
- drivers/gpu/drm/i915/gt/intel_workarounds.h   |   7 ++
- .../gpu/drm/i915/gt/intel_workarounds_types.h |   5 +
- drivers/gpu/drm/i915/i915_perf.c              |  79 +++++++++++-
- drivers/gpu/drm/i915/i915_perf_types.h        |   8 ++
- 5 files changed, 214 insertions(+), 3 deletions(-)
+CI Bug Log - changes from CI_DRM_9093 -> Patchwork_18617
+====================================================
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-index b7db34dc9687..8eda3bc3991e 100644
---- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
-+++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-@@ -112,6 +112,66 @@ static void wa_init_finish(struct i915_wa_list *wal)
- 			 wal->wa_count, wal->name, wal->engine_name);
- }
- 
-+static int _wa_index(struct i915_wa_list *wal, i915_reg_t reg)
-+{
-+	unsigned int addr = i915_mmio_reg_offset(reg);
-+	int start = 0, end = wal->count;
-+
-+	/* addr and wal->list[].reg, both include the R/W flags */
-+	while (start < end) {
-+		unsigned int mid = start + (end - start) / 2;
-+
-+		if (i915_mmio_reg_offset(wal->list[mid].reg) < addr)
-+			start = mid + 1;
-+		else if (i915_mmio_reg_offset(wal->list[mid].reg) > addr)
-+			end = mid;
-+		else
-+			return mid;
-+	}
-+
-+	return -ENOENT;
-+}
-+
-+static int _wa_list_grow(struct i915_wa_list *wal, size_t count)
-+{
-+	struct i915_wa *list;
-+
-+	list = kmalloc_array(ALIGN(count + 1, WA_LIST_CHUNK), sizeof(*list),
-+			     GFP_KERNEL);
-+	if (!list) {
-+		DRM_ERROR("No space for workaround init!\n");
-+		return -ENOMEM;
-+	}
-+
-+	if (wal->list)
-+		memcpy(list, wal->list, sizeof(*list) * count);
-+
-+	wal->list = list;
-+
-+	return 0;
-+}
-+ 
-+static void _wa_remove(struct i915_wa_list *wal, i915_reg_t reg, u32 flags)
-+{
-+	int index;
-+	struct i915_wa *wa = wal->list;
-+
-+	reg.reg |= flags;
-+
-+	index = _wa_index(wal, reg);
-+	if (GEM_DEBUG_WARN_ON(index < 0))
-+		return;
-+
-+	memset(wa + index, 0, sizeof(*wa));
-+
-+	while (index < wal->count - 1) {
-+		swap(wa[index], wa[index + 1]);
-+		index++;
-+	}
-+
-+	wal->count--;
-+}
-+
- static void _wa_add(struct i915_wa_list *wal, const struct i915_wa *wa)
- {
- 	unsigned int addr = i915_mmio_reg_offset(wa->reg);
-@@ -2011,6 +2071,64 @@ void intel_engine_init_workarounds(struct intel_engine_cs *engine)
- 	wa_init_finish(wal);
- }
- 
-+int intel_engine_allow_user_register_access(struct intel_engine_cs *engine,
-+					    struct i915_whitelist_reg *reg,
-+					    u32 count)
-+{
-+	unsigned long flags;
-+	struct i915_wa_list *wal;
-+	int ret;
-+
-+	if (!engine || !reg || !count)
-+		return -EINVAL;
-+
-+	wal = &engine->whitelist;
-+
-+	/*
-+	 * i915 compacts the wa list by calling wa_init_finish during driver
-+	 * load. If we want to add additional workarounds after driver load,
-+	 * we need to grow the list. _wa_list_grow will add at least one free
-+	 * slot for a workaround. Any additional slot required are added by
-+	 * _wa_add in the below for loop.
-+	 *
-+	 * Once we remove the workarounds, we compact the list again in 
-+	 * intel_engine_deny_user_register_access by calling wa_init_finish.
-+	 */
-+	ret = _wa_list_grow(wal, wal->count);
-+	if (ret < 0)
-+		return ret;
-+
-+	spin_lock_irqsave(&engine->uncore->lock, flags);
-+	for (; count--; reg++)
-+		whitelist_reg_ext(wal, reg->reg, reg->flags);
-+
-+	intel_engine_apply_whitelist_locked(engine);
-+	spin_unlock_irqrestore(&engine->uncore->lock, flags);
-+
-+	return 0;
-+}
-+
-+void intel_engine_deny_user_register_access(struct intel_engine_cs *engine,
-+					    struct i915_whitelist_reg *reg,
-+					    u32 count)
-+{
-+	unsigned long flags;
-+	struct i915_wa_list *wal;
-+
-+	if (!engine || !reg || !count)
-+		return;
-+
-+	wal = &engine->whitelist;
-+	spin_lock_irqsave(&engine->uncore->lock, flags);
-+	for (; count--; reg++)
-+		_wa_remove(wal, reg->reg, reg->flags);
-+
-+	intel_engine_apply_whitelist_locked(engine);
-+	spin_unlock_irqrestore(&engine->uncore->lock, flags);
-+
-+	wa_init_finish(wal);
-+}
-+
- void intel_engine_apply_workarounds(struct intel_engine_cs *engine)
- {
- 	wa_list_apply(engine->uncore, &engine->wa_list);
-diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.h b/drivers/gpu/drm/i915/gt/intel_workarounds.h
-index 8c9c769c2204..558c21b7d4cb 100644
---- a/drivers/gpu/drm/i915/gt/intel_workarounds.h
-+++ b/drivers/gpu/drm/i915/gt/intel_workarounds.h
-@@ -37,4 +37,11 @@ void intel_engine_apply_workarounds(struct intel_engine_cs *engine);
- int intel_engine_verify_workarounds(struct intel_engine_cs *engine,
- 				    const char *from);
- 
-+int intel_engine_allow_user_register_access(struct intel_engine_cs *engine,
-+					    struct i915_whitelist_reg *reg,
-+					    u32 count);
-+void intel_engine_deny_user_register_access(struct intel_engine_cs *engine,
-+					    struct i915_whitelist_reg *reg,
-+					    u32 count);
-+
- #endif
-diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds_types.h b/drivers/gpu/drm/i915/gt/intel_workarounds_types.h
-index d166a7145720..437981debe14 100644
---- a/drivers/gpu/drm/i915/gt/intel_workarounds_types.h
-+++ b/drivers/gpu/drm/i915/gt/intel_workarounds_types.h
-@@ -11,6 +11,11 @@
- 
- #include "i915_reg.h"
- 
-+struct i915_whitelist_reg {
-+	i915_reg_t reg;
-+	u32 flags;
-+};
-+
- struct i915_wa {
- 	i915_reg_t	reg;
- 	u32		clr;
-diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
-index df5166d89d82..c5238dbda9de 100644
---- a/drivers/gpu/drm/i915/i915_perf.c
-+++ b/drivers/gpu/drm/i915/i915_perf.c
-@@ -1362,12 +1362,56 @@ free_noa_wait(struct i915_perf_stream *stream)
- 	i915_vma_unpin_and_release(&stream->noa_wait, 0);
- }
- 
-+static struct i915_whitelist_reg gen9_oa_wl_regs[] = {
-+	{ OAREPORTTRIG2, RING_FORCE_TO_NONPRIV_ACCESS_RW },
-+	{ OAREPORTTRIG6, RING_FORCE_TO_NONPRIV_ACCESS_RW },
-+};
-+
-+static struct i915_whitelist_reg gen12_oa_wl_regs[] = {
-+	{ GEN12_OAG_OAREPORTTRIG2, RING_FORCE_TO_NONPRIV_ACCESS_RW },
-+	{ GEN12_OAG_OAREPORTTRIG6, RING_FORCE_TO_NONPRIV_ACCESS_RW },
-+};
-+
-+static int intel_engine_apply_oa_whitelist(struct i915_perf_stream *stream)
-+{
-+	struct intel_engine_cs *engine = stream->engine;
-+	int ret;
-+
-+	if (i915_perf_stream_paranoid ||
-+	    !(stream->sample_flags & SAMPLE_OA_REPORT) ||
-+	    stream->perf->oa_wl == NULL)
-+		return 0;
-+
-+	ret = intel_engine_allow_user_register_access(engine,
-+						      stream->perf->oa_wl,
-+						      stream->perf->num_oa_wl);
-+	if (ret < 0)
-+		return ret;
-+
-+	stream->oa_whitelisted = true;
-+	return 0;
-+}
-+
-+static void intel_engine_remove_oa_whitelist(struct i915_perf_stream *stream)
-+{
-+	struct intel_engine_cs *engine = stream->engine;
-+
-+	if (!stream->oa_whitelisted)
-+		return;
-+
-+	intel_engine_deny_user_register_access(engine,
-+					       stream->perf->oa_wl,
-+					       stream->perf->num_oa_wl);
-+}
-+
- static void i915_oa_stream_destroy(struct i915_perf_stream *stream)
- {
- 	struct i915_perf *perf = stream->perf;
- 
- 	BUG_ON(stream != perf->exclusive_stream);
- 
-+	intel_engine_remove_oa_whitelist(stream);
-+
- 	/*
- 	 * Unset exclusive_stream first, it will be checked while disabling
- 	 * the metric set on gen8+.
-@@ -1463,7 +1507,8 @@ static void gen8_init_oa_buffer(struct i915_perf_stream *stream)
- 	 *  bit."
- 	 */
- 	intel_uncore_write(uncore, GEN8_OABUFFER, gtt_offset |
--		   OABUFFER_SIZE_16M | GEN8_OABUFFER_MEM_SELECT_GGTT);
-+			   OABUFFER_SIZE_16M | GEN8_OABUFFER_MEM_SELECT_GGTT |
-+			   GEN7_OABUFFER_EDGE_TRIGGER);
- 	intel_uncore_write(uncore, GEN8_OATAILPTR, gtt_offset & GEN8_OATAILPTR_MASK);
- 
- 	/* Mark that we need updated tail pointers to read from... */
-@@ -1516,7 +1561,8 @@ static void gen12_init_oa_buffer(struct i915_perf_stream *stream)
- 	 *  bit."
- 	 */
- 	intel_uncore_write(uncore, GEN12_OAG_OABUFFER, gtt_offset |
--			   OABUFFER_SIZE_16M | GEN8_OABUFFER_MEM_SELECT_GGTT);
-+			   OABUFFER_SIZE_16M | GEN8_OABUFFER_MEM_SELECT_GGTT |
-+			   GEN7_OABUFFER_EDGE_TRIGGER);
- 	intel_uncore_write(uncore, GEN12_OAG_OATAILPTR,
- 			   gtt_offset & GEN12_OAG_OATAILPTR_MASK);
- 
-@@ -3497,6 +3543,20 @@ i915_perf_open_ioctl_locked(struct i915_perf *perf,
- 	if (!(param->flags & I915_PERF_FLAG_DISABLED))
- 		i915_perf_enable_locked(stream);
- 
-+	/*
-+	 * OA whitelist allows non-privileged access to some OA counters for
-+	 * triggering reports into the OA buffer. This is only allowed if
-+	 * perf_stream_paranoid is set to 0 by the sysadmin.
-+	 *
-+	 * We want to make sure this is almost the last thing we do before
-+	 * returning the stream fd. If we do end up checking for errors in code
-+	 * that follows this, we MUST call intel_engine_remove_oa_whitelist in
-+	 * the error handling path to remove the whitelisted registers.
-+	 */
-+	ret = intel_engine_apply_oa_whitelist(stream);
-+	if (ret < 0)
-+		goto err_flags;
-+
- 	/* Take a reference on the driver that will be kept with stream_fd
- 	 * until its release.
- 	 */
-@@ -4323,6 +4383,8 @@ void i915_perf_init(struct drm_i915_private *i915)
- 				perf->ctx_flexeu0_offset = 0x3de;
- 
- 				perf->gen8_valid_ctx_bit = BIT(16);
-+				perf->oa_wl = gen9_oa_wl_regs;
-+				perf->num_oa_wl = ARRAY_SIZE(gen9_oa_wl_regs);
- 			}
- 		} else if (IS_GEN_RANGE(i915, 10, 11)) {
- 			perf->oa_formats = gen8_plus_oa_formats;
-@@ -4340,6 +4402,9 @@ void i915_perf_init(struct drm_i915_private *i915)
- 			perf->ops.disable_metric_set = gen10_disable_metric_set;
- 			perf->ops.oa_hw_tail_read = gen8_oa_hw_tail_read;
- 
-+			perf->oa_wl = gen9_oa_wl_regs;
-+			perf->num_oa_wl = ARRAY_SIZE(gen9_oa_wl_regs);
-+
- 			if (IS_GEN(i915, 10)) {
- 				perf->ctx_oactxctrl_offset = 0x128;
- 				perf->ctx_flexeu0_offset = 0x3de;
-@@ -4366,6 +4431,9 @@ void i915_perf_init(struct drm_i915_private *i915)
- 
- 			perf->ctx_flexeu0_offset = 0;
- 			perf->ctx_oactxctrl_offset = 0x144;
-+
-+			perf->oa_wl = gen12_oa_wl_regs;
-+			perf->num_oa_wl = ARRAY_SIZE(gen12_oa_wl_regs);
- 		}
- 	}
- 
-@@ -4468,8 +4536,13 @@ int i915_perf_ioctl_version(void)
- 	 *
- 	 * 5: Add DRM_I915_PERF_PROP_POLL_OA_PERIOD parameter that controls the
- 	 *    interval for the hrtimer used to check for OA data.
-+	 *
-+	 * 6: Whitelist OATRIGGER registers to allow user to trigger reports
-+	 *    into the OA buffer. This applies only to gen8+. The feature can
-+	 *    only be accessed if perf_stream_paranoid is set to 0 by privileged
-+	 *    user.
- 	 */
--	return 5;
-+	return 6;
- }
- 
- #if IS_ENABLED(CONFIG_DRM_I915_SELFTEST)
-diff --git a/drivers/gpu/drm/i915/i915_perf_types.h b/drivers/gpu/drm/i915/i915_perf_types.h
-index a36a455ae336..cceb54012053 100644
---- a/drivers/gpu/drm/i915/i915_perf_types.h
-+++ b/drivers/gpu/drm/i915/i915_perf_types.h
-@@ -311,6 +311,11 @@ struct i915_perf_stream {
- 	 * buffer should be checked for available data.
- 	 */
- 	u64 poll_oa_period;
-+
-+	/**
-+	 * @oa_whitelisted: Indicates that the oa registers are whitelisted.
-+	 */
-+	bool oa_whitelisted;
- };
- 
- /**
-@@ -431,6 +436,9 @@ struct i915_perf {
- 	u32 ctx_oactxctrl_offset;
- 	u32 ctx_flexeu0_offset;
- 
-+	struct i915_whitelist_reg *oa_wl;
-+	size_t num_oa_wl;
-+
- 	/**
- 	 * The RPT_ID/reason field for Gen8+ includes a bit
- 	 * to determine if the CTX ID in the report is valid
--- 
-2.20.1
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18617/index.html
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_18617 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@kms_cursor_legacy@basic-flip-after-cursor-legacy:
+    - fi-icl-u2:          [PASS][1] -> [DMESG-WARN][2] ([i915#1982])
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9093/fi-icl-u2/igt@kms_cursor_legacy@basic-flip-after-cursor-legacy.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18617/fi-icl-u2/igt@kms_cursor_legacy@basic-flip-after-cursor-legacy.html
+
+  
+#### Possible fixes ####
+
+  * igt@i915_module_load@reload:
+    - {fi-tgl-dsi}:       [DMESG-WARN][3] ([i915#1982] / [k.org#205379]) -> [PASS][4]
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9093/fi-tgl-dsi/igt@i915_module_load@reload.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18617/fi-tgl-dsi/igt@i915_module_load@reload.html
+
+  * igt@kms_cursor_legacy@basic-busy-flip-before-cursor-atomic:
+    - {fi-kbl-7560u}:     [DMESG-WARN][5] ([i915#1982]) -> [PASS][6]
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9093/fi-kbl-7560u/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-atomic.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18617/fi-kbl-7560u/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-atomic.html
+
+  * igt@vgem_basic@unload:
+    - fi-skl-guc:         [DMESG-WARN][7] ([i915#2203]) -> [PASS][8]
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9093/fi-skl-guc/igt@vgem_basic@unload.html
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18617/fi-skl-guc/igt@vgem_basic@unload.html
+
+  
+#### Warnings ####
+
+  * igt@i915_pm_rpm@basic-rte:
+    - fi-kbl-guc:         [DMESG-FAIL][9] ([i915#2203]) -> [SKIP][10] ([fdo#109271])
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9093/fi-kbl-guc/igt@i915_pm_rpm@basic-rte.html
+   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18617/fi-kbl-guc/igt@i915_pm_rpm@basic-rte.html
+
+  * igt@i915_pm_rpm@module-reload:
+    - fi-kbl-x1275:       [DMESG-FAIL][11] ([i915#62] / [i915#95]) -> [DMESG-FAIL][12] ([i915#62])
+   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9093/fi-kbl-x1275/igt@i915_pm_rpm@module-reload.html
+   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18617/fi-kbl-x1275/igt@i915_pm_rpm@module-reload.html
+
+  * igt@kms_force_connector_basic@prune-stale-modes:
+    - fi-kbl-x1275:       [DMESG-WARN][13] ([i915#62] / [i915#92]) -> [DMESG-WARN][14] ([i915#62] / [i915#92] / [i915#95]) +5 similar issues
+   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9093/fi-kbl-x1275/igt@kms_force_connector_basic@prune-stale-modes.html
+   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18617/fi-kbl-x1275/igt@kms_force_connector_basic@prune-stale-modes.html
+
+  * igt@vgem_basic@unload:
+    - fi-kbl-x1275:       [DMESG-WARN][15] ([i915#62] / [i915#92] / [i915#95]) -> [DMESG-WARN][16] ([i915#62] / [i915#92])
+   [15]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9093/fi-kbl-x1275/igt@vgem_basic@unload.html
+   [16]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18617/fi-kbl-x1275/igt@vgem_basic@unload.html
+
+  
+  {name}: This element is suppressed. This means it is ignored when computing
+          the status of the difference (SUCCESS, WARNING, or FAILURE).
+
+  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
+  [i915#1635]: https://gitlab.freedesktop.org/drm/intel/issues/1635
+  [i915#1982]: https://gitlab.freedesktop.org/drm/intel/issues/1982
+  [i915#2203]: https://gitlab.freedesktop.org/drm/intel/issues/2203
+  [i915#289]: https://gitlab.freedesktop.org/drm/intel/issues/289
+  [i915#62]: https://gitlab.freedesktop.org/drm/intel/issues/62
+  [i915#92]: https://gitlab.freedesktop.org/drm/intel/issues/92
+  [i915#95]: https://gitlab.freedesktop.org/drm/intel/issues/95
+  [k.org#205379]: https://bugzilla.kernel.org/show_bug.cgi?id=205379
+
+
+Participating hosts (45 -> 38)
+------------------------------
+
+  Missing    (7): fi-ilk-m540 fi-hsw-4200u fi-byt-squawks fi-bsw-cyan fi-bsw-kefka fi-byt-clapper fi-bdw-samus 
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_9093 -> Patchwork_18617
+
+  CI-20190529: 20190529
+  CI_DRM_9093: 827ebff930c6340ed1c1c274909717525951c496 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_5798: 430bad5a53c08125fbd48978ed6a66f61a33a40b @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools
+  Patchwork_18617: f1ada30987fd65e158d57983299cc772f8af8a7a @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+== Linux commits ==
+
+f1ada30987fd drm/i915/tgl/psr: Fix glitches when doing frontbuffer modifications
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18617/index.html
+
+--===============8350789890276705737==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/tgl/psr: Fix glitches when doing frontbuffer modifications</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/82351/">https://patchwork.freedesktop.org/series/82351/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18617/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18617/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_9093 -&gt; Patchwork_18617</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18617/index.html</p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_18617 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>igt@kms_cursor_legacy@basic-flip-after-cursor-legacy:<ul>
+<li>fi-icl-u2:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9093/fi-icl-u2/igt@kms_cursor_legacy@basic-flip-after-cursor-legacy.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18617/fi-icl-u2/igt@kms_cursor_legacy@basic-flip-after-cursor-legacy.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1982">i915#1982</a>)</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@i915_module_load@reload:</p>
+<ul>
+<li>{fi-tgl-dsi}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9093/fi-tgl-dsi/igt@i915_module_load@reload.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1982">i915#1982</a> / <a href="https://bugzilla.kernel.org/show_bug.cgi?id=205379">k.org#205379</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18617/fi-tgl-dsi/igt@i915_module_load@reload.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@kms_cursor_legacy@basic-busy-flip-before-cursor-atomic:</p>
+<ul>
+<li>{fi-kbl-7560u}:     <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9093/fi-kbl-7560u/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-atomic.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1982">i915#1982</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18617/fi-kbl-7560u/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-atomic.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@vgem_basic@unload:</p>
+<ul>
+<li>fi-skl-guc:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9093/fi-skl-guc/igt@vgem_basic@unload.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2203">i915#2203</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18617/fi-skl-guc/igt@vgem_basic@unload.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<h4>Warnings</h4>
+<ul>
+<li>
+<p>igt@i915_pm_rpm@basic-rte:</p>
+<ul>
+<li>fi-kbl-guc:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9093/fi-kbl-guc/igt@i915_pm_rpm@basic-rte.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2203">i915#2203</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18617/fi-kbl-guc/igt@i915_pm_rpm@basic-rte.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_pm_rpm@module-reload:</p>
+<ul>
+<li>fi-kbl-x1275:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9093/fi-kbl-x1275/igt@i915_pm_rpm@module-reload.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/62">i915#62</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/95">i915#95</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18617/fi-kbl-x1275/igt@i915_pm_rpm@module-reload.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/62">i915#62</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_force_connector_basic@prune-stale-modes:</p>
+<ul>
+<li>fi-kbl-x1275:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9093/fi-kbl-x1275/igt@kms_force_connector_basic@prune-stale-modes.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/62">i915#62</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/92">i915#92</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18617/fi-kbl-x1275/igt@kms_force_connector_basic@prune-stale-modes.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/62">i915#62</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/92">i915#92</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/95">i915#95</a>) +5 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@vgem_basic@unload:</p>
+<ul>
+<li>fi-kbl-x1275:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9093/fi-kbl-x1275/igt@vgem_basic@unload.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/62">i915#62</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/92">i915#92</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/95">i915#95</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18617/fi-kbl-x1275/igt@vgem_basic@unload.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/62">i915#62</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/92">i915#92</a>)</li>
+</ul>
+</li>
+</ul>
+<p>{name}: This element is suppressed. This means it is ignored when computing<br />
+          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
+<h2>Participating hosts (45 -&gt; 38)</h2>
+<p>Missing    (7): fi-ilk-m540 fi-hsw-4200u fi-byt-squawks fi-bsw-cyan fi-bsw-kefka fi-byt-clapper fi-bdw-samus </p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_9093 -&gt; Patchwork_18617</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_9093: 827ebff930c6340ed1c1c274909717525951c496 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_5798: 430bad5a53c08125fbd48978ed6a66f61a33a40b @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools<br />
+  Patchwork_18617: f1ada30987fd65e158d57983299cc772f8af8a7a @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<p>== Linux commits ==</p>
+<p>f1ada30987fd drm/i915/tgl/psr: Fix glitches when doing frontbuffer modifications</p>
+
+</body>
+</html>
+
+--===============8350789890276705737==--
+
+--===============1501790028==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+
+--===============1501790028==--
