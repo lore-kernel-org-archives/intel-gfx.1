@@ -2,40 +2,49 @@ Return-Path: <SRS0=TOJz=DK=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.7 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-6.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+	URIBL_BLOCKED,USER_AGENT_GIT autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DDC1AC4363C
-	for <intel-gfx@archiver.kernel.org>; Sat,  3 Oct 2020 00:15:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 50E28C4363C
+	for <intel-gfx@archiver.kernel.org>; Sat,  3 Oct 2020 00:18:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 85EBF206E3
-	for <intel-gfx@archiver.kernel.org>; Sat,  3 Oct 2020 00:15:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 85EBF206E3
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id E3EC6206DD
+	for <intel-gfx@archiver.kernel.org>; Sat,  3 Oct 2020 00:18:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E3EC6206DD
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D064D6E9F5;
-	Sat,  3 Oct 2020 00:15:06 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 3AC896E9F5;
- Sat,  3 Oct 2020 00:15:05 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 2DBB6A0094;
- Sat,  3 Oct 2020 00:15:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 26D646E9F6;
+	Sat,  3 Oct 2020 00:18:53 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B02B86E9F9
+ for <intel-gfx@lists.freedesktop.org>; Sat,  3 Oct 2020 00:18:51 +0000 (UTC)
+IronPort-SDR: /KxRE6RiWrMrY5A/NqNwt4mR2E4OGQZYceXenSu7NZVmi89yMOk2X2wdPgIzX9zZmwz3dSF57u
+ Jc413Flv/N3w==
+X-IronPort-AV: E=McAfee;i="6000,8403,9762"; a="143102188"
+X-IronPort-AV: E=Sophos;i="5.77,329,1596524400"; d="scan'208";a="143102188"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Oct 2020 17:18:49 -0700
+IronPort-SDR: HZmTKz+KaGX8pAHolRrXBwRnFyoFHkd1GumK+5E83bvKmuf2YbB65xWbUndnQI+yJCKkdwrM2r
+ LD8I0IwLCyFQ==
+X-IronPort-AV: E=Sophos;i="5.77,329,1596524400"; d="scan'208";a="511239165"
+Received: from ideak-desk.fi.intel.com ([10.237.68.141])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Oct 2020 17:18:48 -0700
+From: Imre Deak <imre.deak@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Sat,  3 Oct 2020 03:18:41 +0300
+Message-Id: <20201003001846.1271151-1-imre.deak@intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Umesh Nerlige Ramappa" <umesh.nerlige.ramappa@intel.com>
-Date: Sat, 03 Oct 2020 00:15:05 -0000
-Message-ID: <160168410518.24062.10833783475062463111@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20201002232801.51936-1-umesh.nerlige.ramappa@intel.com>
-In-Reply-To: <20201002232801.51936-1-umesh.nerlige.ramappa@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
- =?utf-8?q?Allow_privileged_user_to_map_the_OA_buffer?=
+Subject: [Intel-gfx] [PATCH 0/5] drm/i915/tgl: Fix Combo PHY DPLL fractional
+ divider for 38.4MHz ref clock
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,28 +57,38 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
-
-Series: Allow privileged user to map the OA buffer
-URL   : https://patchwork.freedesktop.org/series/82353/
-State : warning
-
-== Summary ==
-
-$ dim sparse --fast origin/drm-tip
-Sparse version: v0.6.2
-Fast mode used, each commit won't be checked separately.
-+drivers/gpu/drm/i915/gt/intel_workarounds.c:1688:6: warning: symbol 'intel_engine_apply_whitelist_locked' was not declared. Should it be static?
-
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+VGhpcyBwYXRjaHNldCByZXBsYWNlcyBbMV0uIFRoYXQgdmVyc2lvbidzIHNvbHV0aW9uIHRvIHdv
+cmsgYXJvdW5kCmJyb2tlbiBUR0wgQSBCSU9TZXMgdHVybmVkIG91dCB0byBiZSBwYXBlcmluZyBv
+dmVyIHNvbWV0aGluZy4gVGhlIHJlYWwKcm9vdCBjYXVzZSB3YXMgdGhlIGxhY2sgb2YgYSBmdWxs
+IGVuY29kZXIgcmVjb21wdXRlL21vZGVzZXQgZHVyaW5nIHRoZQppbml0aWFsIGNvbW1pdCBhbmQg
+bGVha2luZyB0aGUgaW5jb3JyZWN0IGxpbmsgcmF0ZSBpbnRvIHRoZSBQTEwKZnJlcXVlbmN5IGNh
+bGN1bGF0aW9uIGNvZGUuIFNvIGluc3RlYWQgb2YgbWFraW5nIHRoZSBQTEwgY29kZSBhd2FyZSBv
+ZgppbmNvcnJlY3QgbGluayByYXRlcywgdGhpcyBwYXRjaHNldCBmb3JjZXMgYSBmdWxsIG1vZGVz
+ZXQgd2hpY2ggd2lsbApyZWNvbXB1dGUgdGhlIGNvcnJlY3QgbGluayByYXRlLgoKQ2M6IFZpbGxl
+IFN5cmrDpGzDpCA8dmlsbGUuc3lyamFsYUBsaW51eC5pbnRlbC5jb20+CgpbMV0gaHR0cHM6Ly9w
+YXRjaHdvcmsuZnJlZWRlc2t0b3Aub3JnL3Nlcmllcy84MjE3My8KCkltcmUgRGVhayAoNSk6CiAg
+ZHJtL2k5MTUvc2tsOiBXb3JrIGFyb3VuZCBpbmNvcnJlY3QgQklPUyBXUlBMTCBQRElWIHByb2dy
+YW1taW5nCiAgZHJtL2k5MTU6IE1vdmUgdGhlIGluaXRpYWwgZmFzdHNldCBjb21taXQgY2hlY2sg
+dG8gZW5jb2RlciBob29rcwogIGRybS9pOTE1OiBDaGVjayBmb3IgdW5zdXBwb3J0ZWQgRFAgbGlu
+ayByYXRlcyBkdXJpbmcgaW5pdGlhbCBjb21taXQKICBkcm0vaTkxNTogQWRkIGFuIGVuY29kZXIg
+aG9vayB0byBzYW5pdGl6ZSBpdHMgc3RhdGUgZHVyaW5nIGluaXQvcmVzdW1lCiAgZHJtL2k5MTUv
+dGdsOiBGaXggQ29tYm8gUEhZIERQTEwgZnJhY3Rpb25hbCBkaXZpZGVyIGZvciAzOC40TUh6IHJl
+ZgogICAgY2xvY2sKCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ljbF9kc2kuYyAgICAg
+ICAgfCAxNCArKysrCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2RkaS5jICAg
+ICAgfCAxOCArKysrKwogZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kaXNwbGF5
+LmMgIHwgMzMgKysrKystLS0tLQogLi4uL2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGlzcGxheV90
+eXBlcy5oICAgIHwgMTUgKysrKysKIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxf
+ZHAuYyAgICAgICB8IDY1ICsrKysrKysrKysrKysrKysrKysKIGRyaXZlcnMvZ3B1L2RybS9pOTE1
+L2Rpc3BsYXkvaW50ZWxfZHAuaCAgICAgICB8ICA1ICsrCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9k
+aXNwbGF5L2ludGVsX2RwX21zdC5jICAgfCAyMCArKysrKysKIGRyaXZlcnMvZ3B1L2RybS9pOTE1
+L2Rpc3BsYXkvaW50ZWxfZHBsbF9tZ3IuYyB8IDU1ICsrKysrKysrKysrLS0tLS0KIGRyaXZlcnMv
+Z3B1L2RybS9pOTE1L2k5MTVfcmVnLmggICAgICAgICAgICAgICB8ICAxICsKIDkgZmlsZXMgY2hh
+bmdlZCwgMTk0IGluc2VydGlvbnMoKyksIDMyIGRlbGV0aW9ucygtKQoKLS0gCjIuMjUuMQoKX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KSW50ZWwtZ2Z4IG1h
+aWxpbmcgbGlzdApJbnRlbC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vaW50ZWwtZ2Z4Cg==
