@@ -2,78 +2,40 @@ Return-Path: <SRS0=FACB=DM=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8B699C4363A
-	for <intel-gfx@archiver.kernel.org>; Mon,  5 Oct 2020 12:02:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 510FDC4363A
+	for <intel-gfx@archiver.kernel.org>; Mon,  5 Oct 2020 12:04:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2E23E2085B
-	for <intel-gfx@archiver.kernel.org>; Mon,  5 Oct 2020 12:02:55 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=hpe.com header.i=@hpe.com header.b="n+k9V67f"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2E23E2085B
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=hpe.com
+	by mail.kernel.org (Postfix) with ESMTPS id EE56B20776
+	for <intel-gfx@archiver.kernel.org>; Mon,  5 Oct 2020 12:04:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EE56B20776
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C99C689D53;
-	Mon,  5 Oct 2020 12:02:54 +0000 (UTC)
-X-Greylist: delayed 795 seconds by postgrey-1.36 at gabe;
- Sun, 04 Oct 2020 20:49:48 UTC
-Received: from mx0b-002e3701.pphosted.com (mx0b-002e3701.pphosted.com
- [148.163.143.35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9EAA989DDF
- for <intel-gfx@lists.freedesktop.org>; Sun,  4 Oct 2020 20:49:48 +0000 (UTC)
-Received: from pps.filterd (m0150244.ppops.net [127.0.0.1])
- by mx0b-002e3701.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 094KSQAb002628
- for <intel-gfx@lists.freedesktop.org>; Sun, 4 Oct 2020 20:36:32 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hpe.com;
- h=date : from : to :
- subject : message-id : reply-to : content-type : mime-version; s=pps0720;
- bh=ErMtz+UxxYdpksyjhZAXQfgIVYTvlvGVgWJuLeN5xcc=;
- b=n+k9V67funcOMAKUU4lQor/hbDuok7KQUaeHxpnRkrEtBD91bdfmgl00Nk9GraBsxaEm
- wI7fuyrxTKDjURM0oq5CRcozCDmb9qCUO1FH3Zu31GYTniQef3VKcmQlEfZWvjCcyAQM
- tZkDanjYlZozTT4PIXZyzi45F/7uCyTxAsLTTiQCZUA34feBX7hb+kckm+t54lDQqY4X
- x5U6SRyrqfsfopTnym2LfGXbB597gaSXv1RbBWGZlQFFESIdHsS9GRZlGPHJHBQi3GM7
- 8vBLxmreGNcM4ZUtjSXRXQvxUpIg+dEIJ3T8//gc5VlpMkk7r0XX3FyVNIp/L89lI64r WQ== 
-Received: from g4t3427.houston.hpe.com (g4t3427.houston.hpe.com
- [15.241.140.73])
- by mx0b-002e3701.pphosted.com with ESMTP id 33xhy2s3d8-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <intel-gfx@lists.freedesktop.org>; Sun, 04 Oct 2020 20:36:32 +0000
-Received: from g4t3433.houston.hpecorp.net (g4t3433.houston.hpecorp.net
- [16.208.49.245])
- by g4t3427.houston.hpe.com (Postfix) with ESMTP id F1AFC57
- for <intel-gfx@lists.freedesktop.org>; Sun,  4 Oct 2020 20:36:31 +0000 (UTC)
-Received: from rfwz62 (rfwz62.americas.hpqcorp.net [10.33.237.8])
- by g4t3433.houston.hpecorp.net (Postfix) with ESMTP id C453547
- for <intel-gfx@lists.freedesktop.org>; Sun,  4 Oct 2020 20:36:31 +0000 (UTC)
-Date: Sun, 4 Oct 2020 14:36:31 -0600
-From: rwright@hpe.com
-To: intel-gfx@lists.freedesktop.org
-Message-ID: <20201004203631.GA6686@rfwz62>
-Content-Disposition: inline
-User-Agent: Mutt/1.9.4 (2018-02-28)
-X-Proofpoint-UnRewURL: 0 URL was un-rewritten
+	by gabe.freedesktop.org (Postfix) with ESMTP id 55FCD89DA8;
+	Mon,  5 Oct 2020 12:04:06 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 0C74589C80;
+ Mon,  5 Oct 2020 12:04:05 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 0409FA363D;
+ Mon,  5 Oct 2020 12:04:05 +0000 (UTC)
 MIME-Version: 1.0
-X-HPE-SCL: -1
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
- definitions=2020-10-04_20:2020-10-02,
- 2020-10-04 signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 spamscore=0
- mlxlogscore=999 priorityscore=1501 lowpriorityscore=0 phishscore=0
- suspectscore=0 bulkscore=0 adultscore=0 clxscore=1011 mlxscore=0
- malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2006250000 definitions=main-2010040158
-X-Mailman-Approved-At: Mon, 05 Oct 2020 12:02:54 +0000
-Subject: [Intel-gfx] [RFC] drm/i915/gt: reduce context clear batch size to
- avoid gpu hang
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: rwright@hpe.com
+Date: Mon, 05 Oct 2020 12:04:05 -0000
+Message-ID: <160189944501.25154.13495141244295574705@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20201004203631.GA6686@rfwz62>
+In-Reply-To: <20201004203631.GA6686@rfwz62>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBk?=
+ =?utf-8?q?rm/i915/gt=3A_reduce_context_clear_batch_size_to_avoid_gpu_hang?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,64 +48,34 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: rwright@hpe.com
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hello,
+== Series Details ==
 
-For several months, I've been experiencing GPU hangs when  starting
-Cinnamon on an HP Pavilion Mini 300-020 if I try to run an upstream
-kernel.  I reported this recently in
-https://gitlab.freedesktop.org/drm/intel/-/issues/2413 where I have
-attached the requested evidence including the state collected from
-/sys/class/drm/card0/error and debug output from dmesg.
+Series: drm/i915/gt: reduce context clear batch size to avoid gpu hang
+URL   : https://patchwork.freedesktop.org/series/82377/
+State : failure
 
-I got around to running a bisect to find the problem, which indicates:
+== Summary ==
 
-  [47f8253d2b8947d79fd3196bf96c1959c0f25f20] drm/i915/gen7: Clear all EU/L3 residual contexts
+Applying: drm/i915/gt: reduce context clear batch size to avoid gpu hang
+error: patch failed: drivers/gpu/drm/i915/gt/gen7_renderclear.c:49
+error: drivers/gpu/drm/i915/gt/gen7_renderclear.c: patch does not apply
+error: Did you hand edit your patch?
+It does not apply to blobs recorded in its index.
+hint: Use 'git am --show-current-patch=diff' to see the failed patch
+Using index info to reconstruct a base tree...
+Patch failed at 0001 drm/i915/gt: reduce context clear batch size to avoid gpu hang
+When you have resolved this problem, run "git am --continue".
+If you prefer to skip this patch, run "git am --skip" instead.
+To restore the original branch and stop patching, run "git am --abort".
 
-While I'm experienced in several areas of the Linux kernel, I'm really
-nothing but an end user of the graphics drivers.  But the nature of that
-troublesome commit suggested to me that reducing the batch size used in
-the context clear operation might help this relatively low-powered
-system to avoid the hang.... and it did!  I simply forced this system to
-take the smaller batch length that is already used for non-Haswell
-systems.
 
-I'm calling this patch an RFC because this version is quick-and-dirty,
-affecting only one file.  If this makes sense, I have a cleaner version
-that keys off of a proper quirk, but let's discuss the idea first before
-looking at that.   Maybe it doesn't need a new quirk?  Maybe
-there is already something distinctive on which the decision
-could be made?
-
-diff --git a/drivers/gpu/drm/i915/gt/gen7_renderclear.c b/drivers/gpu/drm/i915/gt/gen7_renderclear.c
-index d93d85cd3027..6d24e266cda2 100644
---- a/drivers/gpu/drm/i915/gt/gen7_renderclear.c
-+++ b/drivers/gpu/drm/i915/gt/gen7_renderclear.c
-@@ -49,7 +49,11 @@ struct batch_vals {
- static void
- batch_get_defaults(struct drm_i915_private *i915, struct batch_vals *bv)
- {
--       if (IS_HASWELL(i915)) {
-+        struct pci_dev *d = i915->drm.pdev;
-+        int force_reduced = (d->subsystem_vendor == PCI_VENDOR_ID_HP
-+                         && d->subsystem_device == 0x2b38);
-+
-+       if (IS_HASWELL(i915) && !force_reduced) {
-                bv->max_primitives = 280;
-                bv->max_urb_entries = MAX_URB_ENTRIES;
-                bv->surface_height = 16 * 16;
-
--- 
---
-Randy Wright            Usmail: Hewlett Packard Enterprise
-Email: rwright@hpe.com          Servers Linux Enablement
-Phone: (970) 898-0998           3404 E. Harmony Rd, Mailstop 36
-                                Fort Collins, CO 80528-9599 
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
