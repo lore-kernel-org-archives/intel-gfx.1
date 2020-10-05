@@ -6,44 +6,44 @@ X-Spam-Status: No, score=-6.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED,USER_AGENT_GIT autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D7374C4363A
-	for <intel-gfx@archiver.kernel.org>; Mon,  5 Oct 2020 18:50:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BF812C4363A
+	for <intel-gfx@archiver.kernel.org>; Mon,  5 Oct 2020 19:04:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9973B20853
-	for <intel-gfx@archiver.kernel.org>; Mon,  5 Oct 2020 18:50:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9973B20853
+	by mail.kernel.org (Postfix) with ESMTPS id 7682D20FC3
+	for <intel-gfx@archiver.kernel.org>; Mon,  5 Oct 2020 19:04:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7682D20FC3
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC05889C1C;
-	Mon,  5 Oct 2020 18:50:29 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6B92689C16;
- Mon,  5 Oct 2020 18:50:28 +0000 (UTC)
-IronPort-SDR: NYhv5Yce4220djfLWPIDoFdW/hHt+no+bFqt9gMJkOtCbJPesorQp0BUCO7cwL2d84bug7ge9o
- OB3b7TTwIeQQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9765"; a="160813285"
-X-IronPort-AV: E=Sophos;i="5.77,340,1596524400"; d="scan'208";a="160813285"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2980A89C56;
+	Mon,  5 Oct 2020 19:04:20 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F2A789A91;
+ Mon,  5 Oct 2020 19:04:18 +0000 (UTC)
+IronPort-SDR: fEkxjAU8Yx11dfioSIshQJ+cMPiyz2WPVgf9OG4GMQzTsyMuVlEPreBJ+ORQBqmkMOCYy1kuNG
+ Rj5UkJ8ONzzw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9765"; a="161240842"
+X-IronPort-AV: E=Sophos;i="5.77,340,1596524400"; d="scan'208";a="161240842"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Oct 2020 11:50:11 -0700
-IronPort-SDR: fgSRMQa4nUqrMFo6w7Zgp6nY59sOmc97GJADZ6wNyO+iZE9VCMUup+a/BVVDyXedDZNZe7rorC
- Hqht0I0pTJrg==
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Oct 2020 12:02:00 -0700
+IronPort-SDR: 9Y86dWdOANEG59Jz9d6f85rYrAD+hjMo/yq3B6FxXBxeRBFJ6rLfrTWkbA/xaIx9kWyIqeWUAB
+ L6xUjprNu6fQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.77,340,1596524400"; d="scan'208";a="341225847"
+X-IronPort-AV: E=Sophos;i="5.77,340,1596524400"; d="scan'208";a="341253560"
 Received: from tejas-system-product-name.iind.intel.com ([10.145.162.130])
- by fmsmga004.fm.intel.com with ESMTP; 05 Oct 2020 09:35:35 -0700
+ by fmsmga004.fm.intel.com with ESMTP; 05 Oct 2020 10:15:29 -0700
 From: Tejas Upadhyay <tejaskumarx.surendrakumar.upadhyay@intel.com>
 To: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  james.ausmus@intel.com, matthew.d.roper@intel.com, jose.souza@intel.com,
  ville.syrjala@linux.intel.com, lucas.demarchi@intel.com,
  hariom.pandey@intel.com
-Date: Mon,  5 Oct 2020 21:57:34 +0530
-Message-Id: <20201005162736.280653-1-tejaskumarx.surendrakumar.upadhyay@intel.com>
+Date: Mon,  5 Oct 2020 22:36:17 +0530
+Message-Id: <20201005170619.1523-1-tejaskumarx.surendrakumar.upadhyay@intel.com>
 X-Mailer: git-send-email 2.28.0
 MIME-Version: 1.0
 Subject: [Intel-gfx] [PATCH v4 0/2] drm/i915/jsl: Update JSL Voltage swing
