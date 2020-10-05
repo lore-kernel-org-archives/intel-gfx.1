@@ -7,46 +7,46 @@ X-Spam-Status: No, score=-9.8 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 635A7C4363A
-	for <intel-gfx@archiver.kernel.org>; Mon,  5 Oct 2020 23:05:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1FFBEC4363A
+	for <intel-gfx@archiver.kernel.org>; Mon,  5 Oct 2020 23:12:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F245E207F7
-	for <intel-gfx@archiver.kernel.org>; Mon,  5 Oct 2020 23:05:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F245E207F7
+	by mail.kernel.org (Postfix) with ESMTPS id 5D92A207F7
+	for <intel-gfx@archiver.kernel.org>; Mon,  5 Oct 2020 23:12:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5D92A207F7
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F4A489BFB;
-	Mon,  5 Oct 2020 23:05:33 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F3CC489BFB
- for <intel-gfx@lists.freedesktop.org>; Mon,  5 Oct 2020 23:05:31 +0000 (UTC)
-IronPort-SDR: wovXo4yJz+TGhtsD4oef8DrOPakQ0vwXsqjck4WHKx3UiCdQTCXmaLZOlW/CSiqifOCwm08v2J
- scj1Z35bvRjQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9765"; a="144091151"
-X-IronPort-AV: E=Sophos;i="5.77,340,1596524400"; d="scan'208";a="144091151"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7977F6E194;
+	Mon,  5 Oct 2020 23:12:40 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A193D6E194
+ for <intel-gfx@lists.freedesktop.org>; Mon,  5 Oct 2020 23:12:39 +0000 (UTC)
+IronPort-SDR: SUTuXWqgRgS5TcewDvNcnc/QypOWndPMPM64zOmFjaflCnQufr+neURG5DhL1h0bZUiwGj5bLi
+ WuqVuUerGhyw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9765"; a="248908449"
+X-IronPort-AV: E=Sophos;i="5.77,341,1596524400"; d="scan'208";a="248908449"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga107.fm.intel.com with ESMTP; 05 Oct 2020 15:58:40 -0700
-IronPort-SDR: feT7GVrmY1o/ehv8W4D/qydMFLabEbkMiGAQ9n5TB2sget9wGmhLthMSUSNWt0yXCx364FyrS9
- vl1ttYCc3phA==
-X-IronPort-AV: E=Sophos;i="5.77,340,1596524400"; d="scan'208";a="296606828"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga105.fm.intel.com with ESMTP; 05 Oct 2020 16:12:27 -0700
+IronPort-SDR: bV4Kbn5ADWnpTH8fVe0UgrlTSV0Q8DOPmp6dvgxafCnW6SxgP1u62B8LCEhWLRN85uMArbtXIx
+ ekF1FaoYu9MQ==
+X-IronPort-AV: E=Sophos;i="5.77,341,1596524400"; d="scan'208";a="460086003"
 Received: from ideak-desk.fi.intel.com ([10.237.68.141])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Oct 2020 13:58:19 -0700
-Date: Mon, 5 Oct 2020 23:57:59 +0300
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Oct 2020 13:46:39 -0700
+Date: Mon, 5 Oct 2020 23:46:17 +0300
 From: Imre Deak <imre.deak@intel.com>
 To: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-Message-ID: <20201005205759.GD1378377@ideak-desk.fi.intel.com>
+Message-ID: <20201005204617.GC1378377@ideak-desk.fi.intel.com>
 References: <20201003001846.1271151-1-imre.deak@intel.com>
  <20201003001846.1271151-5-imre.deak@intel.com>
- <20201005204044.GN6112@intel.com>
+ <20201005203055.GM6112@intel.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20201005204044.GN6112@intel.com>
+In-Reply-To: <20201005203055.GM6112@intel.com>
 Subject: Re: [Intel-gfx] [PATCH 4/5] drm/i915: Add an encoder hook to
  sanitize its state during init/resume
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -68,7 +68,7 @@ Content-Transfer-Encoding: quoted-printable
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Oct 05, 2020 at 11:40:44PM +0300, Ville Syrj=E4l=E4 wrote:
+On Mon, Oct 05, 2020 at 11:30:55PM +0300, Ville Syrj=E4l=E4 wrote:
 > On Sat, Oct 03, 2020 at 03:18:45AM +0300, Imre Deak wrote:
 > > Atm, if a full modeset is performed during the initial modeset the link
 > > training will happen with uninitialized max DP rate and lane count. Make
@@ -117,6 +117,19 @@ encoder,
 > > +	if (crtc_state && intel_crtc_has_dp_encoder(crtc_state))
 > > +		intel_dp_sanitize_state(encoder, crtc_state);
 > > +}
+> =
+
+> I think we usually use 'sanitize' to mean "hw state is garbage -> must
+> take steps to sanitize it". This one is just filling in our intel_dp
+> sidechannel state. So the name isn't super consistnet with existing
+> practies.
+
+It is called during init/resume time when encoders are sanitized as
+well, but yea it's a separate step from HW readout. So I can rename it
+for instance (back) to sync_state, or any better idea?
+
+> =
+
 > > +
 > >  static bool intel_ddi_initial_fastset_check(struct intel_encoder *enco=
 der,
@@ -148,6 +161,15 @@ uct drm_device *dev)
 > >  			encoder->base.crtc =3D NULL;
 > > +			if (encoder->sanitize_state)
 > > +				encoder->sanitize_state(encoder, NULL);
+> =
+
+> I wonder if we should even bother calling it in this case.
+
+Yes, it would be just a nop atm, and can't think what state would need
+to be updated, so will remove it.
+
+> =
+
 > >  		}
 > >  =
 
@@ -264,16 +286,19 @@ el_encoder *encoder,
 > > +
 > > +	return intel_dp_sanitize_state(&dig_port->base, crtc_state);
 > > +}
-> =
-
-> MST readout is still totally missing, so not sure this part can
-> make any practical difference ever.
-
-No actual use case atm, I added this only for consistency since BIOS
-could misconfigure port_clock on an MST port as well, which would need
-at least the link  params to be inited correctly. But I realize now we
-would not run these hooks during driver init, so can drop it for MST.
-
+> > +
+> >  static bool intel_dp_mst_initial_fastset_check(struct intel_encoder *e=
+ncoder,
+> >  					       struct intel_crtc_state *crtc_state)
+> >  {
+> > @@ -906,6 +915,7 @@ intel_dp_create_fake_mst_encoder(struct intel_digit=
+al_port *dig_port, enum pipe
+> >  	intel_encoder->enable =3D intel_mst_enable_dp;
+> >  	intel_encoder->get_hw_state =3D intel_dp_mst_enc_get_hw_state;
+> >  	intel_encoder->get_config =3D intel_dp_mst_enc_get_config;
+> > +	intel_encoder->sanitize_state =3D intel_dp_mst_sync_state;
+> >  	intel_encoder->initial_fastset_check =3D intel_dp_mst_initial_fastset=
+_check;
 > >  =
 
 > >  	return intel_mst;
