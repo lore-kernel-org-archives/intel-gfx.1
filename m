@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A85C2C47095
-	for <intel-gfx@archiver.kernel.org>; Tue,  6 Oct 2020 09:54:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F275CC41604
+	for <intel-gfx@archiver.kernel.org>; Tue,  6 Oct 2020 09:54:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 550C720674
-	for <intel-gfx@archiver.kernel.org>; Tue,  6 Oct 2020 09:54:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 550C720674
+	by mail.kernel.org (Postfix) with ESMTPS id AC1E220674
+	for <intel-gfx@archiver.kernel.org>; Tue,  6 Oct 2020 09:54:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AC1E220674
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5BC636E441;
-	Tue,  6 Oct 2020 09:54:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B82046E44B;
+	Tue,  6 Oct 2020 09:54:47 +0000 (UTC)
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C5B46E444;
- Tue,  6 Oct 2020 09:54:41 +0000 (UTC)
-IronPort-SDR: LWbrpm5g7hLKjdnr5/WK/gt0gUn63JG64YgGHaViUCcKtsIrdZQ7mznwJ+/qaktU/CczadJ2NV
- fxaqDlQJD8QQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9765"; a="151361698"
-X-IronPort-AV: E=Sophos;i="5.77,342,1596524400"; d="scan'208";a="151361698"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C57E6E448;
+ Tue,  6 Oct 2020 09:54:46 +0000 (UTC)
+IronPort-SDR: 12tlb/sHG7serthu/z6sHb1mdlLP7SjU55U7kQxJmcZaNQlsS2SFgaH7M7SM5Gk44YJG3rGvUS
+ /FJEC58LbQEg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9765"; a="151361732"
+X-IronPort-AV: E=Sophos;i="5.77,342,1596524400"; d="scan'208";a="151361732"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Oct 2020 02:54:41 -0700
-IronPort-SDR: V4AR2DsSsymZiA0/typH3RkSGcfMFv/JnSIxEE/vZAws2UXdwEzFyrsF2MJNgAagzAwX5RgBxt
- G0LU6dE/eLaQ==
+ 06 Oct 2020 02:54:45 -0700
+IronPort-SDR: owCWSADmzJvILTRAtNojOr5Gcg6fN3rNPE388zqohWE8qSQmQbh9UcvFWWYAWbyePwWLJ5o+pd
+ F0SaCGZHUBfQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.77,342,1596524400"; d="scan'208";a="342171828"
+X-IronPort-AV: E=Sophos;i="5.77,342,1596524400"; d="scan'208";a="342171902"
 Received: from unknown (HELO linux-akn.iind.intel.com) ([10.223.34.148])
- by fmsmga004.fm.intel.com with ESMTP; 06 Oct 2020 02:54:38 -0700
+ by fmsmga004.fm.intel.com with ESMTP; 06 Oct 2020 02:54:44 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue,  6 Oct 2020 15:17:15 +0530
-Message-Id: <20201006094719.24119-5-ankit.k.nautiyal@intel.com>
+Date: Tue,  6 Oct 2020 15:17:17 +0530
+Message-Id: <20201006094719.24119-7-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20201006094719.24119-1-ankit.k.nautiyal@intel.com>
 References: <20201006094719.24119-1-ankit.k.nautiyal@intel.com>
-Subject: [Intel-gfx] [RFC 4/8] drm/i915: Capture max frl rate for PCON in
- dfp cap structure
+Subject: [Intel-gfx] [RFC 6/8] drm/i915: Check for FRL training before DP
+ Link training
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,94 +66,51 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-HDMI2.1 PCON advertises Max FRL bandwidth supported by the PCON and
-by the sink.
-
-This patch captures these in dfp cap structure in intel_dp and uses
-these to prune connector modes that cannot be supported by the PCON
-and sink FRL bandwidth.
+This patch calls functions to check FRL training requirements
+for an HDMI2.1 sink, when connected through PCON.
+The call is made before the DP link training. In case FRL is not
+required or failure during FRL training, the TMDS mode is selected
+for the pcon.
 
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- .../drm/i915/display/intel_display_types.h    |  1 +
- drivers/gpu/drm/i915/display/intel_dp.c       | 33 +++++++++++++++++--
- 2 files changed, 32 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_ddi.c | 2 ++
+ drivers/gpu/drm/i915/display/intel_dp.c  | 2 ++
+ 2 files changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-index d5dc18cb8c39..77e486d78b7c 100644
---- a/drivers/gpu/drm/i915/display/intel_display_types.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-@@ -1378,6 +1378,7 @@ struct intel_dp {
- 	struct {
- 		int min_tmds_clock, max_tmds_clock;
- 		int max_dotclock;
-+		int pcon_max_frl, sink_max_frl;
- 		u8 max_bpc;
- 		bool ycbcr_444_to_420;
- 	} dfp;
+diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
+index b4c520348b3b..94c8a7dab97b 100644
+--- a/drivers/gpu/drm/i915/display/intel_ddi.c
++++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+@@ -3489,6 +3489,8 @@ static void tgl_ddi_pre_enable_dp(struct intel_atomic_state *state,
+ 	if (!is_mst)
+ 		intel_dp_sink_dpms(intel_dp, DRM_MODE_DPMS_ON);
+ 
++	intel_dp_check_frl_training(intel_dp);
++
+ 	intel_dp_sink_set_decompression_state(intel_dp, crtc_state, true);
+ 	/*
+ 	 * DDI FEC: "anticipates enabling FEC encoding sets the FEC_READY bit
 diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 7429597b57be..b28583ed6559 100644
+index fd30e025a09e..d3b67c7123d8 100644
 --- a/drivers/gpu/drm/i915/display/intel_dp.c
 +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -667,6 +667,24 @@ intel_dp_mode_valid_downstream(struct intel_connector *connector,
- 	const struct drm_display_info *info = &connector->base.display_info;
- 	int tmds_clock;
+@@ -4165,6 +4165,7 @@ static void intel_enable_dp(struct intel_atomic_state *state,
  
-+	/* If PCON and HDMI2.1 sink both support FRL MODE, check FRL
-+	 * bandwidth constraints.
-+	 */
-+	if (intel_dp->dfp.pcon_max_frl) {
-+		int target_bw;
-+		int max_frl_bw;
-+		int bpp = intel_dp_mode_min_output_bpp(&connector->base, mode);
-+
-+		target_bw = bpp * DIV_ROUND_UP(target_clock, 1000000);
-+
-+		max_frl_bw = min(intel_dp->dfp.pcon_max_frl,
-+				 intel_dp->dfp.sink_max_frl);
-+		if (target_bw > max_frl_bw)
-+			return MODE_CLOCK_HIGH;
-+
-+		return MODE_OK;
-+	}
-+
- 	if (intel_dp->dfp.max_dotclock &&
- 	    target_clock > intel_dp->dfp.max_dotclock)
- 		return MODE_CLOCK_HIGH;
-@@ -6355,13 +6373,21 @@ intel_dp_update_dfp(struct intel_dp *intel_dp,
- 						 intel_dp->downstream_ports,
- 						 edid);
+ 	intel_dp_sink_dpms(intel_dp, DRM_MODE_DPMS_ON);
+ 	intel_dp_configure_protocol_converter(intel_dp);
++	intel_dp_check_frl_training(intel_dp);
+ 	intel_dp_start_link_train(intel_dp, pipe_config);
+ 	intel_dp_stop_link_train(intel_dp, pipe_config);
  
-+	intel_dp->dfp.pcon_max_frl =
-+		drm_dp_get_pcon_max_frl_bw(intel_dp->dpcd,
-+					   intel_dp->downstream_ports);
-+
-+	intel_dp->dfp.sink_max_frl = drm_dp_get_hdmi_max_frl_bw(&intel_dp->aux);
-+
- 	drm_dbg_kms(&i915->drm,
--		    "[CONNECTOR:%d:%s] DFP max bpc %d, max dotclock %d, TMDS clock %d-%d\n",
-+		    "[CONNECTOR:%d:%s] DFP max bpc %d, max dotclock %d, TMDS clock %d-%d, PCON Max FRL BW %dGbps, Sink Max FRL BW %dGbps\n",
- 		    connector->base.base.id, connector->base.name,
- 		    intel_dp->dfp.max_bpc,
- 		    intel_dp->dfp.max_dotclock,
- 		    intel_dp->dfp.min_tmds_clock,
--		    intel_dp->dfp.max_tmds_clock);
-+		    intel_dp->dfp.max_tmds_clock,
-+		    intel_dp->dfp.pcon_max_frl,
-+		    intel_dp->dfp.sink_max_frl);
- }
+@@ -6099,6 +6100,7 @@ int intel_dp_retrain_link(struct intel_encoder *encoder,
+ 		    !intel_dp_mst_is_master_trans(crtc_state))
+ 			continue;
  
- static void
-@@ -6451,6 +6477,9 @@ intel_dp_unset_edid(struct intel_dp *intel_dp)
- 	intel_dp->dfp.min_tmds_clock = 0;
- 	intel_dp->dfp.max_tmds_clock = 0;
- 
-+	intel_dp->dfp.pcon_max_frl = 0;
-+	intel_dp->dfp.sink_max_frl = 0;
-+
- 	intel_dp->dfp.ycbcr_444_to_420 = false;
- 	connector->base.ycbcr_420_allowed = false;
- }
++		intel_dp_check_frl_training(intel_dp);
+ 		intel_dp_start_link_train(intel_dp, crtc_state);
+ 		intel_dp_stop_link_train(intel_dp, crtc_state);
+ 		break;
 -- 
 2.17.1
 
