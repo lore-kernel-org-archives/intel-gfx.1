@@ -2,58 +2,40 @@ Return-Path: <SRS0=f8CR=DN=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.2 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4B523C4363D
-	for <intel-gfx@archiver.kernel.org>; Tue,  6 Oct 2020 13:43:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EB840C41604
+	for <intel-gfx@archiver.kernel.org>; Tue,  6 Oct 2020 14:22:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CDB2D20760
-	for <intel-gfx@archiver.kernel.org>; Tue,  6 Oct 2020 13:43:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CDB2D20760
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 90CD420760
+	for <intel-gfx@archiver.kernel.org>; Tue,  6 Oct 2020 14:22:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 90CD420760
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3B6196E048;
-	Tue,  6 Oct 2020 13:43:53 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E4AE36E048
- for <intel-gfx@lists.freedesktop.org>; Tue,  6 Oct 2020 13:43:51 +0000 (UTC)
-IronPort-SDR: fj04b5b6PgzwAlRg2VlgjP3tWSWgtbCTdba8sdJdguyWGWnB2SF94iG4VY2T4g9XNz9U5MtUqj
- /V8fI4gJqLHQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9765"; a="228629889"
-X-IronPort-AV: E=Sophos;i="5.77,343,1596524400"; d="scan'208";a="228629889"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Oct 2020 06:43:44 -0700
-IronPort-SDR: RFWfjKtlu14UkXJ1KU9joLOzye60t9luJoVyg/fyD43saWYzQ1vhRg8gb7UM2ol+QjefAkPioK
- eWcq7xCYewBA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.77,343,1596524400"; d="scan'208";a="315642495"
-Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.174])
- by orsmga006.jf.intel.com with SMTP; 06 Oct 2020 06:43:41 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Tue, 06 Oct 2020 16:43:40 +0300
-Date: Tue, 6 Oct 2020 16:43:40 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>
-Message-ID: <20201006134340.GW6112@intel.com>
-References: <20201001151640.14590-1-ville.syrjala@linux.intel.com>
- <20201001151640.14590-3-ville.syrjala@linux.intel.com>
- <87o8lfk8i5.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC19D6E177;
+	Tue,  6 Oct 2020 14:22:29 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id D410C6E07F;
+ Tue,  6 Oct 2020 14:22:28 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id CBA2FA73C9;
+ Tue,  6 Oct 2020 14:22:28 +0000 (UTC)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <87o8lfk8i5.fsf@intel.com>
-X-Patchwork-Hint: comment
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Subject: Re: [Intel-gfx] [PATCH v2 3/6] drm/i915: Replace the VLV/CHV eDP
- reboot notifier with the .shutdown() hook
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Ankit Nautiyal" <ankit.k.nautiyal@intel.com>
+Date: Tue, 06 Oct 2020 14:22:28 -0000
+Message-ID: <160199414880.18759.14621506938062383085@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20201006094719.24119-1-ankit.k.nautiyal@intel.com>
+In-Reply-To: <20201006094719.24119-1-ankit.k.nautiyal@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBB?=
+ =?utf-8?q?dd_support_for_DP-HDMI2=2E1_PCON_=28rev2=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,208 +48,35 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Cc: intel-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Oct 06, 2020 at 12:29:22PM +0300, Jani Nikula wrote:
-> On Thu, 01 Oct 2020, Ville Syrjala <ville.syrjala@linux.intel.com> wrote:
-> > From: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
-> >
-> > Currently VLV/CHV use a reboot notifier to make sure the panel
-> > power cycle delay isn't violated across a system reboot. Replace
-> > that with the new encoder .shutdown() hook.
-> >
-> > And let's also stop overriding the power cycle delay with the
-> > max value. No idea why the current code does that. The already
-> > programmed delay should be correct.
-> =
+== Series Details ==
 
-> I kind of have a little uneasy feeling about conflating these two
-> changes together. I think both are objectively good changes, just not
-> necessarily at once.
-> =
+Series: Add support for DP-HDMI2.1 PCON (rev2)
+URL   : https://patchwork.freedesktop.org/series/82098/
+State : failure
 
-> ISTR setting the max delay was, perhaps, somehow related to the hardware
-> losing its marbles after power is cut, effectively not ensuring any of
-> the delays at power-on. So it's possible we set the max here to account
-> for that. Maybe. ;)
-> =
+== Summary ==
 
-> Anyway,
-> =
+Applying: drm/edid: Add additional HFVSDB fields for HDMI2.1
+Applying: drm/edid: Parse MAX_FRL field from HFVSDB block
+Applying: drm/dp_helper: Add FRL training support for a DP-HDMI2.1 PCON
+Applying: drm/i915: Capture max frl rate for PCON in dfp cap structure
+Applying: drm/i915: Add support for starting FRL training for HDMI2.1 via PCON
+error: sha1 information is lacking or useless (drivers/gpu/drm/i915/display/intel_display_types.h).
+error: could not build fake ancestor
+hint: Use 'git am --show-current-patch=diff' to see the failed patch
+Patch failed at 0005 drm/i915: Add support for starting FRL training for HDMI2.1 via PCON
+When you have resolved this problem, run "git am --continue".
+If you prefer to skip this patch, run "git am --skip" instead.
+To restore the original branch and stop patching, run "git am --abort".
 
-> Reviewed-by: Jani Nikula <jani.nikula@intel.com>
-> =
 
-> on the whole.
-> =
-
-> I'm leaving it up to you, but personally I'd lean towards switching
-> edp_notify_handler() to use wait_panel_power_cycle(intel_dp) first in a
-> separate patch, to help with potential bisect results, and then doing
-> the rest.
-
-I don't think it would be quite that simple. We'd have to also toss
-in some combination of panel_off() and vdd_off_sync() in there,
-depending on whether the panel power is currently enabled or not.
-Otherwise the bookkeeping needed by wait_panel_power_cycle() isn't
-going to be up to date.
-
-> =
-
-> >
-> > Signed-off-by: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
-> > ---
-> >  .../drm/i915/display/intel_display_types.h    |  2 -
-> >  drivers/gpu/drm/i915/display/intel_dp.c       | 58 +++++--------------
-> >  2 files changed, 14 insertions(+), 46 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drive=
-rs/gpu/drm/i915/display/intel_display_types.h
-> > index 6f3e3d756383..9b9ed1a2f412 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_display_types.h
-> > +++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-> > @@ -1319,8 +1319,6 @@ struct intel_dp {
-> >  	unsigned long last_backlight_off;
-> >  	ktime_t panel_power_off_time;
-> >  =
-
-> > -	struct notifier_block edp_notifier;
-> > -
-> >  	/*
-> >  	 * Pipe whose power sequencer is currently locked into
-> >  	 * this port. Only relevant on VLV/CHV.
-> > diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/=
-i915/display/intel_dp.c
-> > index 70e0b85442f9..e0f2e9236785 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_dp.c
-> > +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-> > @@ -28,7 +28,6 @@
-> >  #include <linux/export.h>
-> >  #include <linux/i2c.h>
-> >  #include <linux/notifier.h>
-> > -#include <linux/reboot.h>
-> >  #include <linux/slab.h>
-> >  #include <linux/types.h>
-> >  =
-
-> > @@ -1191,41 +1190,6 @@ _pp_stat_reg(struct intel_dp *intel_dp)
-> >  	return regs.pp_stat;
-> >  }
-> >  =
-
-> > -/* Reboot notifier handler to shutdown panel power to guarantee T12 ti=
-ming
-> > -   This function only applicable when panel PM state is not to be trac=
-ked */
-> > -static int edp_notify_handler(struct notifier_block *this, unsigned lo=
-ng code,
-> > -			      void *unused)
-> > -{
-> > -	struct intel_dp *intel_dp =3D container_of(this, typeof(* intel_dp),
-> > -						 edp_notifier);
-> > -	struct drm_i915_private *dev_priv =3D dp_to_i915(intel_dp);
-> > -	intel_wakeref_t wakeref;
-> > -
-> > -	if (!intel_dp_is_edp(intel_dp) || code !=3D SYS_RESTART)
-> > -		return 0;
-> > -
-> > -	with_pps_lock(intel_dp, wakeref) {
-> > -		if (IS_VALLEYVIEW(dev_priv) || IS_CHERRYVIEW(dev_priv)) {
-> > -			enum pipe pipe =3D vlv_power_sequencer_pipe(intel_dp);
-> > -			i915_reg_t pp_ctrl_reg, pp_div_reg;
-> > -			u32 pp_div;
-> > -
-> > -			pp_ctrl_reg =3D PP_CONTROL(pipe);
-> > -			pp_div_reg  =3D PP_DIVISOR(pipe);
-> > -			pp_div =3D intel_de_read(dev_priv, pp_div_reg);
-> > -			pp_div &=3D PP_REFERENCE_DIVIDER_MASK;
-> > -
-> > -			/* 0x1F write to PP_DIV_REG sets max cycle delay */
-> > -			intel_de_write(dev_priv, pp_div_reg, pp_div | 0x1F);
-> > -			intel_de_write(dev_priv, pp_ctrl_reg,
-> > -				       PANEL_UNLOCK_REGS);
-> > -			msleep(intel_dp->panel_power_cycle_delay);
-> > -		}
-> > -	}
-> > -
-> > -	return 0;
-> > -}
-> > -
-> >  static bool edp_have_panel_power(struct intel_dp *intel_dp)
-> >  {
-> >  	struct drm_i915_private *dev_priv =3D dp_to_i915(intel_dp);
-> > @@ -6690,11 +6654,6 @@ void intel_dp_encoder_flush_work(struct drm_enco=
-der *encoder)
-> >  		 */
-> >  		with_pps_lock(intel_dp, wakeref)
-> >  			edp_panel_vdd_off_sync(intel_dp);
-> > -
-> > -		if (intel_dp->edp_notifier.notifier_call) {
-> > -			unregister_reboot_notifier(&intel_dp->edp_notifier);
-> > -			intel_dp->edp_notifier.notifier_call =3D NULL;
-> > -		}
-> >  	}
-> >  =
-
-> >  	intel_dp_aux_fini(intel_dp);
-> > @@ -6725,6 +6684,18 @@ void intel_dp_encoder_suspend(struct intel_encod=
-er *intel_encoder)
-> >  		edp_panel_vdd_off_sync(intel_dp);
-> >  }
-> >  =
-
-> > +static void intel_dp_encoder_shutdown(struct intel_encoder *intel_enco=
-der)
-> > +{
-> > +	struct intel_dp *intel_dp =3D enc_to_intel_dp(intel_encoder);
-> > +	intel_wakeref_t wakeref;
-> > +
-> > +	if (!intel_dp_is_edp(intel_dp))
-> > +		return;
-> > +
-> > +	with_pps_lock(intel_dp, wakeref)
-> > +		wait_panel_power_cycle(intel_dp);
-> > +}
-> > +
-> >  static void intel_edp_panel_vdd_sanitize(struct intel_dp *intel_dp)
-> >  {
-> >  	struct drm_i915_private *dev_priv =3D dp_to_i915(intel_dp);
-> > @@ -7838,9 +7809,6 @@ static bool intel_edp_init_connector(struct intel=
-_dp *intel_dp,
-> >  	mutex_unlock(&dev->mode_config.mutex);
-> >  =
-
-> >  	if (IS_VALLEYVIEW(dev_priv) || IS_CHERRYVIEW(dev_priv)) {
-> > -		intel_dp->edp_notifier.notifier_call =3D edp_notify_handler;
-> > -		register_reboot_notifier(&intel_dp->edp_notifier);
-> > -
-> >  		/*
-> >  		 * Figure out the current pipe for the initial backlight setup.
-> >  		 * If the current pipe isn't valid, try the PPS pipe, and if that
-> > @@ -8061,6 +8029,8 @@ bool intel_dp_init(struct drm_i915_private *dev_p=
-riv,
-> >  	intel_encoder->get_config =3D intel_dp_get_config;
-> >  	intel_encoder->update_pipe =3D intel_panel_update_backlight;
-> >  	intel_encoder->suspend =3D intel_dp_encoder_suspend;
-> > +	if (IS_VALLEYVIEW(dev_priv) || IS_CHERRYVIEW(dev_priv))
-> > +		intel_encoder->shutdown =3D intel_dp_encoder_shutdown;
-> >  	if (IS_CHERRYVIEW(dev_priv)) {
-> >  		intel_encoder->pre_pll_enable =3D chv_dp_pre_pll_enable;
-> >  		intel_encoder->pre_enable =3D chv_pre_enable_dp;
-> =
-
-> -- =
-
-> Jani Nikula, Intel Open Source Graphics Center
-
--- =
-
-Ville Syrj=E4l=E4
-Intel
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
