@@ -2,57 +2,58 @@ Return-Path: <SRS0=f8CR=DN=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 53089C41604
-	for <intel-gfx@archiver.kernel.org>; Tue,  6 Oct 2020 17:03:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0FFC6C4727E
+	for <intel-gfx@archiver.kernel.org>; Tue,  6 Oct 2020 17:03:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B4965206DD
-	for <intel-gfx@archiver.kernel.org>; Tue,  6 Oct 2020 17:03:49 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 2D994206DD
+	for <intel-gfx@archiver.kernel.org>; Tue,  6 Oct 2020 17:03:51 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="Fz6g+hB3"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B4965206DD
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="geZKcgda"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2D994206DD
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=igalia.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 256676E4CD;
-	Tue,  6 Oct 2020 17:03:49 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A9F56E158;
- Tue,  6 Oct 2020 14:03:56 +0000 (UTC)
-Received: from mail.kernel.org (ip5f5ad5bd.dynamic.kabel-deutschland.de
- [95.90.213.189])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 0FA2A235FD;
- Tue,  6 Oct 2020 14:03:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1601993035;
- bh=M1VGTHk8BLaW4v48n5cCYFm+g0FFa67u3wYgBuflCQw=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Fz6g+hB3s1Vc80qz+6n7aCKm7jWwlczR2yyeXTyHUIgwHtdGLlCU6Ud2aODZG3G4V
- gmTh6LLAPmn28KJdD/6n5iGKWGX/S+aqHh52ZUSVRSMlwyAnMut4Cqd8IJNwtLnASO
- tP5RxvyiIoreTe7W+ska8O+5uUYOlfx+GDOYHO6w=
-Received: from mchehab by mail.kernel.org with local (Exim 4.94)
- (envelope-from <mchehab@kernel.org>)
- id 1kPnZI-0019GT-Ql; Tue, 06 Oct 2020 16:03:52 +0200
-From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-To: Linux Doc Mailing List <linux-doc@vger.kernel.org>,
- Jonathan Corbet <corbet@lwn.net>
-Date: Tue,  6 Oct 2020 16:03:41 +0200
-Message-Id: <01ee9a6f5d592b7aa311c13640b4994773b0d438.1601992016.git.mchehab+huawei@kernel.org>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <cover.1601992016.git.mchehab+huawei@kernel.org>
-References: <cover.1601992016.git.mchehab+huawei@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id AECFA6E4CF;
+	Tue,  6 Oct 2020 17:03:50 +0000 (UTC)
+Received: from fanzine.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3DFB88913B;
+ Tue,  6 Oct 2020 08:48:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+ s=20170329; 
+ h=MIME-Version:Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID;
+ bh=B6IlmCjekqif+t616Ax228HYiFyy1jBul9azecGXGdU=; 
+ b=geZKcgdaXju0bL8gRGOeUyvkSMBYsw+tzWrb2nldtRplQlj96kTyLTzKGWzVLBDvg3Vv3DuvC7t3x7LRJisRpV05u2vagDLVV/Qfluc2YoeteExiYTJlj+4hJZrGk/M0km8hQ911sN1+MKqfth/5BTpVRr6yEBZgWk03/rPn9TvD895jFTHmqthkwD2t1hob4rMGgbe/sRpG0XkGXBWoLZ2WpxjFlEr2zROlcPj+IEyAvdcjTZGtn6ayTL36IlgoHwKYWcoM2sbvTgEyIs9KqAeNKU63fQOuXKJjKCVxxIFMGOdURWZ7lorJwn1O3SmT/PgAYJBnv2P4pqs4VNa8iw==;
+Received: from 11.red-79-157-245.dynamicip.rima-tde.net ([79.157.245.11]
+ helo=fourier) by fanzine.igalia.com with esmtpsa 
+ (Cipher TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim)
+ id 1kPidq-0005Cc-Uk; Tue, 06 Oct 2020 10:48:15 +0200
+Message-ID: <ee5153f7dc037ab96aff6795c5514da3fea3af94.camel@igalia.com>
+From: Samuel Iglesias =?ISO-8859-1?Q?Gons=E1lvez?= <siglesias@igalia.com>
+To: "members@x.org" <members@x.org>, "events@lists.x.org"
+ <events@lists.x.org>,  "xorg-devel@lists.freedesktop.org"
+ <xorg-devel@lists.freedesktop.org>, "wayland-devel@lists.freedesktop.org"
+ <wayland-devel@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>, "mesa-dev@lists.freedesktop.org"
+ <mesa-dev@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "etnaviv@lists.freedesktop.org"
+ <etnaviv@lists.freedesktop.org>, "freedreno@lists.freedesktop.org"
+ <freedreno@lists.freedesktop.org>, "nouveau@lists.freedesktop.org"
+ <nouveau@lists.freedesktop.org>, "intel-gfx@lists.freedesktop.org"
+ <intel-gfx@lists.freedesktop.org>
+Date: Tue, 06 Oct 2020 10:48:04 +0200
+In-Reply-To: <a171fea35e5dab03873876e221ab15b74ab24d62.camel@redhat.com>
+References: <a171fea35e5dab03873876e221ab15b74ab24d62.camel@redhat.com>
+User-Agent: Evolution 3.36.5 (3.36.5-1.fc32) 
 MIME-Version: 1.0
 X-Mailman-Approved-At: Tue, 06 Oct 2020 17:03:46 +0000
-Subject: [Intel-gfx] [PATCH v5 44/52] docs: gpu: i915.rst: Fix several C
- duplication warnings
+Subject: Re: [Intel-gfx] [Freedreno] [RESEND] Requests For Proposals for
+ hosting XDC2021 are now open
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,123 +66,107 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>,
- Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- David Airlie <airlied@linux.ie>, Maxime Ripard <mripard@kernel.org>,
- intel-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: "X.Org Foundation Board" <board@foundation.x.org>
+Content-Type: multipart/mixed; boundary="===============1706350236=="
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-As reported by Sphinx:
 
-	./Documentation/gpu/i915:646: ./drivers/gpu/drm/i915/i915_perf.c:1147: WARNING: Duplicate C declaration, also defined in 'gpu/i915'.
-	Declaration is 'i915_oa_wait_unlocked'.
-	./Documentation/gpu/i915:646: ./drivers/gpu/drm/i915/i915_perf.c:1169: WARNING: Duplicate C declaration, also defined in 'gpu/i915'.
-	Declaration is 'i915_oa_poll_wait'.
-	./Documentation/gpu/i915:646: ./drivers/gpu/drm/i915/i915_perf.c:1189: WARNING: Duplicate C declaration, also defined in 'gpu/i915'.
-	Declaration is 'i915_oa_read'.
-	./Documentation/gpu/i915:646: ./drivers/gpu/drm/i915/i915_perf.c:2669: WARNING: Duplicate C declaration, also defined in 'gpu/i915'.
-	Declaration is 'i915_oa_stream_enable'.
-	./Documentation/gpu/i915:646: ./drivers/gpu/drm/i915/i915_perf.c:2734: WARNING: Duplicate C declaration, also defined in 'gpu/i915'.
-	Declaration is 'i915_oa_stream_disable'.
-	./Documentation/gpu/i915:646: ./drivers/gpu/drm/i915/i915_perf.c:2820: WARNING: Duplicate C declaration, also defined in 'gpu/i915'.
-	Declaration is 'i915_oa_stream_init'.
-	./Documentation/gpu/i915:646: ./drivers/gpu/drm/i915/i915_perf.c:3010: WARNING: Duplicate C declaration, also defined in 'gpu/i915'.
-	Declaration is 'i915_perf_read'.
-	./Documentation/gpu/i915:646: ./drivers/gpu/drm/i915/i915_perf.c:3098: WARNING: Duplicate C declaration, also defined in 'gpu/i915'.
-	Declaration is 'i915_perf_poll_locked'.
-	./Documentation/gpu/i915:646: ./drivers/gpu/drm/i915/i915_perf.c:3129: WARNING: Duplicate C declaration, also defined in 'gpu/i915'.
-	Declaration is 'i915_perf_poll'.
-	./Documentation/gpu/i915:646: ./drivers/gpu/drm/i915/i915_perf.c:3152: WARNING: Duplicate C declaration, also defined in 'gpu/i915'.
-	Declaration is 'i915_perf_enable_locked'.
-	./Documentation/gpu/i915:646: ./drivers/gpu/drm/i915/i915_perf.c:3181: WARNING: Duplicate C declaration, also defined in 'gpu/i915'.
-	Declaration is 'i915_perf_disable_locked'.
-	./Documentation/gpu/i915:646: ./drivers/gpu/drm/i915/i915_perf.c:3273: WARNING: Duplicate C declaration, also defined in 'gpu/i915'.
-	Declaration is 'i915_perf_ioctl'.
-	./Documentation/gpu/i915:646: ./drivers/gpu/drm/i915/i915_perf.c:3296: WARNING: Duplicate C declaration, also defined in 'gpu/i915'.
-	Declaration is 'i915_perf_destroy_locked'.
-	./Documentation/gpu/i915:646: ./drivers/gpu/drm/i915/i915_perf.c:3321: WARNING: Duplicate C declaration, also defined in 'gpu/i915'.
-	Declaration is 'i915_perf_release'.
-	./Documentation/gpu/i915:646: ./drivers/gpu/drm/i915/i915_perf.c:3379: WARNING: Duplicate C declaration, also defined in 'gpu/i915'.
-	Declaration is 'i915_perf_open_ioctl_locked'.
-	./Documentation/gpu/i915:646: ./drivers/gpu/drm/i915/i915_perf.c:3534: WARNING: Duplicate C declaration, also defined in 'gpu/i915'.
-	Declaration is 'read_properties_unlocked'.
-	./Documentation/gpu/i915:646: ./drivers/gpu/drm/i915/i915_perf.c:3717: WARNING: Duplicate C declaration, also defined in 'gpu/i915'.
-	Declaration is 'i915_perf_open_ioctl'.
-	./Documentation/gpu/i915:646: ./drivers/gpu/drm/i915/i915_perf.c:3760: WARNING: Duplicate C declaration, also defined in 'gpu/i915'.
-	Declaration is 'i915_perf_register'.
-	./Documentation/gpu/i915:646: ./drivers/gpu/drm/i915/i915_perf.c:3789: WARNING: Duplicate C declaration, also defined in 'gpu/i915'.
-	Declaration is 'i915_perf_unregister'.
-	./Documentation/gpu/i915:646: ./drivers/gpu/drm/i915/i915_perf.c:4009: WARNING: Duplicate C declaration, also defined in 'gpu/i915'.
-	Declaration is 'i915_perf_add_config_ioctl'.
-	./Documentation/gpu/i915:646: ./drivers/gpu/drm/i915/i915_perf.c:4162: WARNING: Duplicate C declaration, also defined in 'gpu/i915'.
-	Declaration is 'i915_perf_remove_config_ioctl'.
-	./Documentation/gpu/i915:646: ./drivers/gpu/drm/i915/i915_perf.c:4260: WARNING: Duplicate C declaration, also defined in 'gpu/i915'.
-	Declaration is 'i915_perf_init'.
-	./Documentation/gpu/i915:646: ./drivers/gpu/drm/i915/i915_perf.c:4423: WARNING: Duplicate C declaration, also defined in 'gpu/i915'.
-	Declaration is 'i915_perf_fini'.
+--===============1706350236==
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-i8Rt81kDKlWriGrdIRjk"
 
-With Sphinx 3, C declarations can't be duplicated anymore,
-so let's exclude those from the other internals found on
-i915_perf.c file.
 
-Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
----
- Documentation/gpu/i915.rst | 29 +++++++++++++++++++++++++----
- 1 file changed, 25 insertions(+), 4 deletions(-)
+--=-i8Rt81kDKlWriGrdIRjk
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/Documentation/gpu/i915.rst b/Documentation/gpu/i915.rst
-index 33cc6ddf8f64..cff1f154b473 100644
---- a/Documentation/gpu/i915.rst
-+++ b/Documentation/gpu/i915.rst
-@@ -636,15 +636,36 @@ i915 Perf Observation Architecture Stream
- .. kernel-doc:: drivers/gpu/drm/i915/i915_perf.c
-    :functions: i915_oa_poll_wait
- 
--All i915 Perf Internals
-------------------------
-+Other i915 Perf Internals
-+-------------------------
- 
--This section simply includes all currently documented i915 perf internals, in
--no particular order, but may include some more minor utilities or platform
-+This section simply includes all other currently documented i915 perf internals,
-+in no particular order, but may include some more minor utilities or platform
- specific details than found in the more high-level sections.
- 
- .. kernel-doc:: drivers/gpu/drm/i915/i915_perf.c
-    :internal:
-+   :no-identifiers:
-+       i915_perf_init
-+       i915_perf_fini
-+       i915_perf_register
-+       i915_perf_unregister
-+       i915_perf_open_ioctl
-+       i915_perf_release
-+       i915_perf_add_config_ioctl
-+       i915_perf_remove_config_ioctl
-+       read_properties_unlocked
-+       i915_perf_open_ioctl_locked
-+       i915_perf_destroy_locked
-+       i915_perf_read i915_perf_ioctl
-+       i915_perf_enable_locked
-+       i915_perf_disable_locked
-+       i915_perf_poll i915_perf_poll_locked
-+       i915_oa_stream_init i915_oa_read
-+       i915_oa_stream_enable
-+       i915_oa_stream_disable
-+       i915_oa_wait_unlocked
-+       i915_oa_poll_wait
- 
- Style
- =====
--- 
-2.26.2
+Deadline is November 1st, just in a few weeks!
+
+Don't forget to submit your XDC 2021 proposal to board@foundation.x.org
+.
+
+Sam
+
+On Thu, 2020-09-03 at 12:16 -0400, Lyude Paul wrote:
+> (Including a bunch more emails in the To: that got missed the first
+> time)
+>=20
+> Hello everyone!
+>=20
+> The X.org board is soliciting proposals to host XDC in 2021. Since
+> XDC2020 is being held virtually this year, we've decided to host in
+> either North America or Europe. However, the board is open to other
+> locations, especially if there's an interesting co-location with
+> another
+> conference.
+>=20
+> Of course though, due to the ongoing COVID-19 pandemic it's not yet
+> clear whether or not it will be possible to host XDC2021 in person.
+> Because of this, we would like to make it clear that sponsors should
+> prepare for both the possibility of an in person conference, and the
+> possibility of a virtual conference. We will work with organizers on
+> coming up with a deadline for deciding whether or not we'll be going
+> virtual, likely sometime around July.
+>=20
+> If you're considering hosting XDC, we've assembled a wiki page with
+> what's generally expected and needed:
+>=20
+> https://www.x.org/wiki/Events/RFP/
+>=20
+> When submitting your proposal, please make sure to include at least
+> the
+> key information about the potential location in question, possible
+> dates
+> along with estimated costs. Proposals can be submitted to board at
+> foundation.x.org until the deadline of November 1st. Additionally, an
+> quirk early heads-up to the board if you're considering hosting would
+> be
+> appreciated, in case we need to adjust the schedule a bit. Also,
+> earlier
+> is better since there generally will be a bit of Q&A with organizers.
+>=20
+> And if you just have some questions about what organizing XDC
+> entails,
+> please feel free to chat with previous organizers, or someone from
+> the
+> board.
+
+--=-i8Rt81kDKlWriGrdIRjk
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEQP+ZAvaXWkfuKXiEf/S6MvF9w0MFAl98L0QACgkQf/S6MvF9
+w0MB5Q//ZfxA9TMZbNgz2V21T4oNCgQg7w3bkzftP1l10UHVSfnpbz3mKGctMm6K
+csjdcmQgVJ6n4gs2VlDGhluukN5hMnBQPe+py1Oyu7SmBYyB6TjhjExHGnd/TX1j
+G/KqpyAnXCZOE1JzuK4u4fmLenGbzqywXgciRuWria6QxG0z06K+8yjZMMk3C1Dv
+O0dRGMt7SLzXwojjWSZQqsY50wBeafdfsP5l1encOn8/KEqSIhf2fnnrKhdt24UT
+8Sravrz1bN0MaCEVFqA51Vq5/RxgA/VY8+VVP+fXRdJdvoJzozlTr7Oj1OtIz9KC
+2aJp+BzV9zlVyPyEOe9aFJUeCUpa8PulNSi6Yuoy6l8Bbqu1KqdGC8rOT2A2eFHo
+yIxHkXDBr+PTb59k6tXzCL6usuUgNFcExnJxIjEJ1XZLscm5hq2aGb9EzeiSYPVE
+Y+W0/x5EyoIGzd1owJQM1GqrXnDqcyNiSAqi/6J7Gae8FS4k4qTg8nRu6wxzYNnt
+aJ4ZuOplyLrFAnP+Wz1b80S/i5kl6sVpopytFMp3biLTXg6z1FfnCKiF1u9SrHYM
+P7c4WS8L3aWrOLh0eZI2Q1Lfiu8EPeAWk4Dkt6gBkjdHbDmKuOZnLgm7rStu4gWm
+th2pTohkIOJtv2QRJ1ysnK5QaR1294jB+fUfLN+PultZiPunLEA=
+=4OiG
+-----END PGP SIGNATURE-----
+
+--=-i8Rt81kDKlWriGrdIRjk--
+
+
+--===============1706350236==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+
+--===============1706350236==--
+
