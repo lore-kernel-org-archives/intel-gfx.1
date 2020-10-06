@@ -4,52 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 16BFDC41604
-	for <intel-gfx@archiver.kernel.org>; Tue,  6 Oct 2020 16:26:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DE4A2C4727D
+	for <intel-gfx@archiver.kernel.org>; Tue,  6 Oct 2020 16:30:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A4044206CB
-	for <intel-gfx@archiver.kernel.org>; Tue,  6 Oct 2020 16:26:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A4044206CB
+	by mail.kernel.org (Postfix) with ESMTPS id 78558206D4
+	for <intel-gfx@archiver.kernel.org>; Tue,  6 Oct 2020 16:30:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 78558206D4
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D8156E4C7;
-	Tue,  6 Oct 2020 16:26:30 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9599C6E4C7
- for <intel-gfx@lists.freedesktop.org>; Tue,  6 Oct 2020 16:26:28 +0000 (UTC)
-IronPort-SDR: Mx/UJoJx31WpWLqD/ByG0QNw0f0jUlwYLTjYDuFbNQF/6on734d+8qqiyP7rSL8h2Or+/bPegX
- KAYFnt3ItRaA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9765"; a="164633993"
-X-IronPort-AV: E=Sophos;i="5.77,343,1596524400"; d="scan'208";a="164633993"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1475A6E21B;
+	Tue,  6 Oct 2020 16:30:10 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 68F1C6E21B;
+ Tue,  6 Oct 2020 16:30:08 +0000 (UTC)
+IronPort-SDR: X2S7Xni4Czr8+Vnj2LGhBiRFbbE9pXIshv1On9yfcnrdb+ia0fGGNcvCwAPf/LMp8McS9ucics
+ ImAIErkBH0xA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9765"; a="151491155"
+X-IronPort-AV: E=Sophos;i="5.77,343,1596524400"; d="scan'208";a="151491155"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Oct 2020 09:25:26 -0700
-IronPort-SDR: Fq+hfPlk+ctAIyQtTBw5h+jEAPRDg+j1fCICN65Rp+e8xDSTCSdSmavTyy3FncNksmHc1WLa+a
- qNT81XDq/r8g==
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Oct 2020 09:19:45 -0700
+IronPort-SDR: rykPb+F00eOIYzeQ87BYpQocUltM8yEEajjSDyj1Nm5O8tCPOAI6GlKp2JR9zlnMJJlExydZMi
+ LOsAllcW2TdQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.77,343,1596524400"; d="scan'208";a="353550772"
-Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.174])
- by FMSMGA003.fm.intel.com with SMTP; 06 Oct 2020 09:25:22 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Tue, 06 Oct 2020 19:25:22 +0300
-From: Ville Syrjala <ville.syrjala@linux.intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Tue,  6 Oct 2020 19:25:22 +0300
-Message-Id: <20201006162522.2854-1-ville.syrjala@linux.intel.com>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20201006143349.5561-9-ville.syrjala@linux.intel.com>
-References: <20201006143349.5561-9-ville.syrjala@linux.intel.com>
+X-IronPort-AV: E=Sophos;i="5.77,343,1596524400"; d="scan'208";a="327619123"
+Received: from eliteleevi.tm.intel.com ([10.237.54.20])
+ by orsmga002.jf.intel.com with ESMTP; 06 Oct 2020 09:19:40 -0700
+From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+To: tiwai@suse.de, alsa-devel@alsa-project.org,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@linux.ie, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, jani.nikula@intel.com
+Date: Tue,  6 Oct 2020 19:17:22 +0300
+Message-Id: <20201006161722.500256-1-kai.vehmanen@linux.intel.com>
+X-Mailer: git-send-email 2.28.0
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v2 08/20] drm/i915: Parametrize
- BXT_DE_PORT_HP_DDI with hpd_pin
+Subject: [Intel-gfx] [PATCH] ALSA: hda/i915 - fix list corruption with
+ concurrent probes
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,87 +61,133 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-RnJvbTogVmlsbGUgU3lyasOkbMOkIDx2aWxsZS5zeXJqYWxhQGxpbnV4LmludGVsLmNvbT4KClVz
-ZSBocGRfcGluIHRvIHBhcmFtZXRyaXplIEJYVF9ERV9QT1JUX0hQX0RESSgpIHRvIG1ha2UgaXQg
-Y2xlYXIKdGhlc2UgaGF2ZSBub3RoaW5nIHRvIGRvIHdpdGggRERJIHBvcnRzIG9yIFBIWXMgYXMg
-c3VjaC4gVGhlIG9ubHkKdGhpbmcgdGhhdCBtYXR0ZXJzIGlzIHRoZSBIUEQgcGluIGFzc2lnbm1l
-bnQuCgp2MjogUmVtZW1iZXIgdGhlIGd2dAoKU2lnbmVkLW9mZi1ieTogVmlsbGUgU3lyasOkbMOk
-IDx2aWxsZS5zeXJqYWxhQGxpbnV4LmludGVsLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vaTkx
-NS9ndnQvZGlzcGxheS5jIHwgMTMgKysrKysrKy0tLS0tLQogZHJpdmVycy9ncHUvZHJtL2k5MTUv
-aTkxNV9pcnEuYyAgICB8IDEyICsrKysrKy0tLS0tLQogZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkx
-NV9yZWcuaCAgICB8IDEyICsrKysrKy0tLS0tLQogMyBmaWxlcyBjaGFuZ2VkLCAxOSBpbnNlcnRp
-b25zKCspLCAxOCBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkx
-NS9ndnQvZGlzcGxheS5jIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3Z0L2Rpc3BsYXkuYwppbmRl
-eCA3YmExNmRkZmU3NWYuLmMxMjQ3MzRlMTE0YyAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJt
-L2k5MTUvZ3Z0L2Rpc3BsYXkuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9ndnQvZGlzcGxh
-eS5jCkBAIC0xNzMsMjMgKzE3MywyNCBAQCBzdGF0aWMgdm9pZCBlbXVsYXRlX21vbml0b3Jfc3Rh
-dHVzX2NoYW5nZShzdHJ1Y3QgaW50ZWxfdmdwdSAqdmdwdSkKIAlpbnQgcGlwZTsKIAogCWlmIChJ
-U19CUk9YVE9OKGRldl9wcml2KSkgewotCQl2Z3B1X3ZyZWdfdCh2Z3B1LCBHRU44X0RFX1BPUlRf
-SVNSKSAmPSB+KEJYVF9ERV9QT1JUX0hQX0RESUEgfAotCQkJQlhUX0RFX1BPUlRfSFBfRERJQiB8
-Ci0JCQlCWFRfREVfUE9SVF9IUF9ERElDKTsKKwkJdmdwdV92cmVnX3QodmdwdSwgR0VOOF9ERV9Q
-T1JUX0lTUikgJj0KKwkJCX4oQlhUX0RFX1BPUlRfSFBfRERJKEhQRF9QT1JUX0EpIHwKKwkJCSAg
-QlhUX0RFX1BPUlRfSFBfRERJKEhQRF9QT1JUX0IpIHwKKwkJCSAgQlhUX0RFX1BPUlRfSFBfRERJ
-KEhQRF9QT1JUX0MpKTsKIAogCQlpZiAoaW50ZWxfdmdwdV9oYXNfbW9uaXRvcl9vbl9wb3J0KHZn
-cHUsIFBPUlRfQSkpIHsKIAkJCXZncHVfdnJlZ190KHZncHUsIEdFTjhfREVfUE9SVF9JU1IpIHw9
-Ci0JCQkJQlhUX0RFX1BPUlRfSFBfRERJQTsKKwkJCQlCWFRfREVfUE9SVF9IUF9EREkoSFBEX1BP
-UlRfQSk7CiAJCX0KIAogCQlpZiAoaW50ZWxfdmdwdV9oYXNfbW9uaXRvcl9vbl9wb3J0KHZncHUs
-IFBPUlRfQikpIHsKIAkJCXZncHVfdnJlZ190KHZncHUsIEdFTjhfREVfUE9SVF9JU1IpIHw9Ci0J
-CQkJQlhUX0RFX1BPUlRfSFBfRERJQjsKKwkJCQlCWFRfREVfUE9SVF9IUF9EREkoSFBEX1BPUlRf
-Qik7CiAJCX0KIAogCQlpZiAoaW50ZWxfdmdwdV9oYXNfbW9uaXRvcl9vbl9wb3J0KHZncHUsIFBP
-UlRfQykpIHsKIAkJCXZncHVfdnJlZ190KHZncHUsIEdFTjhfREVfUE9SVF9JU1IpIHw9Ci0JCQkJ
-QlhUX0RFX1BPUlRfSFBfRERJQzsKKwkJCQlCWFRfREVfUE9SVF9IUF9EREkoSFBEX1BPUlRfQyk7
-CiAJCX0KIAogCQlyZXR1cm47CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1
-X2lycS5jIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV9pcnEuYwppbmRleCBkOTQzODE5NGMy
-ZjAuLjliOTJiOTVmN2E2ZiAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV9p
-cnEuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X2lycS5jCkBAIC0xMjYsOSArMTI2
-LDkgQEAgc3RhdGljIGNvbnN0IHUzMiBocGRfc3RhdHVzX2k5MTVbSFBEX05VTV9QSU5TXSA9IHsK
-IH07CiAKIHN0YXRpYyBjb25zdCB1MzIgaHBkX2J4dFtIUERfTlVNX1BJTlNdID0gewotCVtIUERf
-UE9SVF9BXSA9IEJYVF9ERV9QT1JUX0hQX0RESUEsCi0JW0hQRF9QT1JUX0JdID0gQlhUX0RFX1BP
-UlRfSFBfRERJQiwKLQlbSFBEX1BPUlRfQ10gPSBCWFRfREVfUE9SVF9IUF9ERElDLAorCVtIUERf
-UE9SVF9BXSA9IEJYVF9ERV9QT1JUX0hQX0RESShIUERfUE9SVF9BKSwKKwlbSFBEX1BPUlRfQl0g
-PSBCWFRfREVfUE9SVF9IUF9EREkoSFBEX1BPUlRfQiksCisJW0hQRF9QT1JUX0NdID0gQlhUX0RF
-X1BPUlRfSFBfRERJKEhQRF9QT1JUX0MpLAogfTsKIAogc3RhdGljIGNvbnN0IHUzMiBocGRfZ2Vu
-MTFbSFBEX05VTV9QSU5TXSA9IHsKQEAgLTMzOTEsMTMgKzMzOTEsMTMgQEAgc3RhdGljIHZvaWQg
-X19ieHRfaHBkX2RldGVjdGlvbl9zZXR1cChzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqZGV2X3By
-aXYsCiAJICogRm9yIEJYVCBpbnZlcnQgYml0IGhhcyB0byBiZSBzZXQgYmFzZWQgb24gQU9CIGRl
-c2lnbgogCSAqIGZvciBIUEQgZGV0ZWN0aW9uIGxvZ2ljLCB1cGRhdGUgaXQgYmFzZWQgb24gVkJU
-IGZpZWxkcy4KIAkgKi8KLQlpZiAoKGVuYWJsZWRfaXJxcyAmIEJYVF9ERV9QT1JUX0hQX0RESUEp
-ICYmCisJaWYgKChlbmFibGVkX2lycXMgJiBCWFRfREVfUE9SVF9IUF9EREkoSFBEX1BPUlRfQSkp
-ICYmCiAJICAgIGludGVsX2Jpb3NfaXNfcG9ydF9ocGRfaW52ZXJ0ZWQoZGV2X3ByaXYsIFBPUlRf
-QSkpCiAJCWhvdHBsdWcgfD0gQlhUX0RESUFfSFBEX0lOVkVSVDsKLQlpZiAoKGVuYWJsZWRfaXJx
-cyAmIEJYVF9ERV9QT1JUX0hQX0RESUIpICYmCisJaWYgKChlbmFibGVkX2lycXMgJiBCWFRfREVf
-UE9SVF9IUF9EREkoSFBEX1BPUlRfQikpICYmCiAJICAgIGludGVsX2Jpb3NfaXNfcG9ydF9ocGRf
-aW52ZXJ0ZWQoZGV2X3ByaXYsIFBPUlRfQikpCiAJCWhvdHBsdWcgfD0gQlhUX0RESUJfSFBEX0lO
-VkVSVDsKLQlpZiAoKGVuYWJsZWRfaXJxcyAmIEJYVF9ERV9QT1JUX0hQX0RESUMpICYmCisJaWYg
-KChlbmFibGVkX2lycXMgJiBCWFRfREVfUE9SVF9IUF9EREkoSFBEX1BPUlRfQykpICYmCiAJICAg
-IGludGVsX2Jpb3NfaXNfcG9ydF9ocGRfaW52ZXJ0ZWQoZGV2X3ByaXYsIFBPUlRfQykpCiAJCWhv
-dHBsdWcgfD0gQlhUX0RESUNfSFBEX0lOVkVSVDsKIApkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
-ZHJtL2k5MTUvaTkxNV9yZWcuaCBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfcmVnLmgKaW5k
-ZXggMmUzNzhkOWIyMWM1Li43MmY5M2VjMzhhZWEgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2Ry
-bS9pOTE1L2k5MTVfcmVnLmgKKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV9yZWcuaApA
-QCAtNzc4Niw2ICs3Nzg2LDggQEAgZW51bSB7CiAJKEdFTjlfREVfUElQRV9JUlFfRkFVTFRfRVJS
-T1JTIHwgXAogCSBHRU4xMV9QSVBFX1BMQU5FNV9GQVVMVCkKIAorI2RlZmluZSBfSFBEX1BJTl9E
-REkoaHBkX3BpbikJKChocGRfcGluKSAtIEhQRF9QT1JUX0EpCisKICNkZWZpbmUgR0VOOF9ERV9Q
-T1JUX0lTUiBfTU1JTygweDQ0NDQwKQogI2RlZmluZSBHRU44X0RFX1BPUlRfSU1SIF9NTUlPKDB4
-NDQ0NDQpCiAjZGVmaW5lIEdFTjhfREVfUE9SVF9JSVIgX01NSU8oMHg0NDQ0OCkKQEAgLTc3OTks
-MTIgKzc4MDEsMTAgQEAgZW51bSB7CiAjZGVmaW5lICBHRU45X0FVWF9DSEFOTkVMX0IJCSgxIDw8
-IDI1KQogI2RlZmluZSAgRFNJMV9URQkJCSgxIDw8IDI0KQogI2RlZmluZSAgRFNJMF9URQkJCSgx
-IDw8IDIzKQotI2RlZmluZSAgQlhUX0RFX1BPUlRfSFBfRERJQwkJKDEgPDwgNSkKLSNkZWZpbmUg
-IEJYVF9ERV9QT1JUX0hQX0RESUIJCSgxIDw8IDQpCi0jZGVmaW5lICBCWFRfREVfUE9SVF9IUF9E
-RElBCQkoMSA8PCAzKQotI2RlZmluZSAgQlhUX0RFX1BPUlRfSE9UUExVR19NQVNLCShCWFRfREVf
-UE9SVF9IUF9ERElBIHwgXAotCQkJCQkgQlhUX0RFX1BPUlRfSFBfRERJQiB8IFwKLQkJCQkJIEJY
-VF9ERV9QT1JUX0hQX0RESUMpCisjZGVmaW5lICBCWFRfREVfUE9SVF9IUF9EREkoaHBkX3BpbikJ
-UkVHX0JJVCgzICsgX0hQRF9QSU5fRERJKGhwZF9waW4pKQorI2RlZmluZSAgQlhUX0RFX1BPUlRf
-SE9UUExVR19NQVNLCShCWFRfREVfUE9SVF9IUF9EREkoSFBEX1BPUlRfQSkgfCBcCisJCQkJCSBC
-WFRfREVfUE9SVF9IUF9EREkoSFBEX1BPUlRfQikgfCBcCisJCQkJCSBCWFRfREVfUE9SVF9IUF9E
-REkoSFBEX1BPUlRfQykpCiAjZGVmaW5lICBHRU44X1BPUlRfRFBfQV9IT1RQTFVHCQkoMSA8PCAz
-KQogI2RlZmluZSAgQlhUX0RFX1BPUlRfR01CVVMJCSgxIDw8IDEpCiAjZGVmaW5lICBHRU44X0FV
-WF9DSEFOTkVMX0EJCSgxIDw8IDApCi0tIAoyLjI2LjIKCl9fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fCkludGVsLWdmeCBtYWlsaW5nIGxpc3QKSW50ZWwtZ2Z4
-QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWls
-bWFuL2xpc3RpbmZvL2ludGVsLWdmeAo=
+From: Takashi Iwai <tiwai@suse.de>
+
+Current hdac_i915 uses a static completion instance to wait
+for i915 driver to complete the component bind.
+
+This design is not safe if multiple HDA controllers are active and
+communicating with different i915 instances, and can lead to list
+corruption and failed audio driver probe.
+
+Fix the design by moving completion mechanism to common acomp
+code and remove the related code from hdac_i915.
+
+Co-developed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ include/drm/drm_audio_component.h |  4 ++++
+ sound/hda/hdac_component.c        |  3 +++
+ sound/hda/hdac_i915.c             | 23 +++--------------------
+ 3 files changed, 10 insertions(+), 20 deletions(-)
+
+diff --git a/include/drm/drm_audio_component.h b/include/drm/drm_audio_component.h
+index a45f93487039..0d36bfd1a4cd 100644
+--- a/include/drm/drm_audio_component.h
++++ b/include/drm/drm_audio_component.h
+@@ -117,6 +117,10 @@ struct drm_audio_component {
+ 	 * @audio_ops: Ops implemented by hda driver, called by DRM driver
+ 	 */
+ 	const struct drm_audio_component_audio_ops *audio_ops;
++	/**
++	 * @master_bind_complete: completion held during component master binding
++	 */
++	struct completion master_bind_complete;
+ };
+ 
+ #endif /* _DRM_AUDIO_COMPONENT_H_ */
+diff --git a/sound/hda/hdac_component.c b/sound/hda/hdac_component.c
+index 89126c6fd216..bb37e7e0bd79 100644
+--- a/sound/hda/hdac_component.c
++++ b/sound/hda/hdac_component.c
+@@ -210,12 +210,14 @@ static int hdac_component_master_bind(struct device *dev)
+ 			goto module_put;
+ 	}
+ 
++	complete_all(&acomp->master_bind_complete);
+ 	return 0;
+ 
+  module_put:
+ 	module_put(acomp->ops->owner);
+ out_unbind:
+ 	component_unbind_all(dev, acomp);
++	complete_all(&acomp->master_bind_complete);
+ 
+ 	return ret;
+ }
+@@ -296,6 +298,7 @@ int snd_hdac_acomp_init(struct hdac_bus *bus,
+ 	if (!acomp)
+ 		return -ENOMEM;
+ 	acomp->audio_ops = aops;
++	init_completion(&acomp->master_bind_complete);
+ 	bus->audio_component = acomp;
+ 	devres_add(dev, acomp);
+ 
+diff --git a/sound/hda/hdac_i915.c b/sound/hda/hdac_i915.c
+index 5f0a1aa6ad84..454474ac5716 100644
+--- a/sound/hda/hdac_i915.c
++++ b/sound/hda/hdac_i915.c
+@@ -11,8 +11,6 @@
+ #include <sound/hda_i915.h>
+ #include <sound/hda_register.h>
+ 
+-static struct completion bind_complete;
+-
+ #define IS_HSW_CONTROLLER(pci) (((pci)->device == 0x0a0c) || \
+ 				((pci)->device == 0x0c0c) || \
+ 				((pci)->device == 0x0d0c) || \
+@@ -130,19 +128,6 @@ static bool i915_gfx_present(void)
+ 	return pci_dev_present(ids);
+ }
+ 
+-static int i915_master_bind(struct device *dev,
+-			    struct drm_audio_component *acomp)
+-{
+-	complete_all(&bind_complete);
+-	/* clear audio_ops here as it was needed only for completion call */
+-	acomp->audio_ops = NULL;
+-	return 0;
+-}
+-
+-static const struct drm_audio_component_audio_ops i915_init_ops = {
+-	.master_bind = i915_master_bind
+-};
+-
+ /**
+  * snd_hdac_i915_init - Initialize i915 audio component
+  * @bus: HDA core bus
+@@ -163,9 +148,7 @@ int snd_hdac_i915_init(struct hdac_bus *bus)
+ 	if (!i915_gfx_present())
+ 		return -ENODEV;
+ 
+-	init_completion(&bind_complete);
+-
+-	err = snd_hdac_acomp_init(bus, &i915_init_ops,
++	err = snd_hdac_acomp_init(bus, NULL,
+ 				  i915_component_master_match,
+ 				  sizeof(struct i915_audio_component) - sizeof(*acomp));
+ 	if (err < 0)
+@@ -177,8 +160,8 @@ int snd_hdac_i915_init(struct hdac_bus *bus)
+ 		if (!IS_ENABLED(CONFIG_MODULES) ||
+ 		    !request_module("i915")) {
+ 			/* 60s timeout */
+-			wait_for_completion_timeout(&bind_complete,
+-						   msecs_to_jiffies(60 * 1000));
++			wait_for_completion_timeout(&acomp->master_bind_complete,
++						    msecs_to_jiffies(60 * 1000));
+ 		}
+ 	}
+ 	if (!acomp->ops) {
+-- 
+2.28.0
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
