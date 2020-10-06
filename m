@@ -2,51 +2,52 @@ Return-Path: <SRS0=f8CR=DN=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.9 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DEE74C47425
-	for <intel-gfx@archiver.kernel.org>; Tue,  6 Oct 2020 09:54:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8C7EDC47426
+	for <intel-gfx@archiver.kernel.org>; Tue,  6 Oct 2020 09:54:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A4D3520674
-	for <intel-gfx@archiver.kernel.org>; Tue,  6 Oct 2020 09:54:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A4D3520674
+	by mail.kernel.org (Postfix) with ESMTPS id 3F09E20674
+	for <intel-gfx@archiver.kernel.org>; Tue,  6 Oct 2020 09:54:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3F09E20674
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C9356E448;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BBEF76E44E;
 	Tue,  6 Oct 2020 09:54:49 +0000 (UTC)
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CA6C86E448;
- Tue,  6 Oct 2020 09:54:45 +0000 (UTC)
-IronPort-SDR: t7bycALzfGwubYVlcEXjrcJaHeJQRQFp1vLUHCeS7oIrfJ6GYBNmB5SWb5Y0z3NM1cvO6jae1L
- MSMcfXNa6GpA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9765"; a="151361729"
-X-IronPort-AV: E=Sophos;i="5.77,342,1596524400"; d="scan'208";a="151361729"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C25B6E44C;
+ Tue,  6 Oct 2020 09:54:48 +0000 (UTC)
+IronPort-SDR: w6ZxkBV6kZuwKzQRU+ETR+dwwFFo4BRzoFTYvpbhtu76Sn8ba6KzwreTA/Tz18oRxNq9XocPxE
+ Ooa27NPv0xzA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9765"; a="151361751"
+X-IronPort-AV: E=Sophos;i="5.77,342,1596524400"; d="scan'208";a="151361751"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Oct 2020 02:54:45 -0700
-IronPort-SDR: BkcqFXrmmROQD2znKX7C+LbYx4fLK46m5vSV2gBBO/BfwN54dIXdB0ClSLFdUrmwvF5eHBvoxC
- Ft9Q1Yv1+38w==
+ 06 Oct 2020 02:54:48 -0700
+IronPort-SDR: iw0x1860SMAOQgC8dyKK4QG2CmE6Vd/LRiPyuvu73f9dlFgCV6HaJKx3kejcN7+3TDNaT8ArVD
+ yvv67VANom4A==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.77,342,1596524400"; d="scan'208";a="342171876"
+X-IronPort-AV: E=Sophos;i="5.77,342,1596524400"; d="scan'208";a="342171915"
 Received: from unknown (HELO linux-akn.iind.intel.com) ([10.223.34.148])
- by fmsmga004.fm.intel.com with ESMTP; 06 Oct 2020 02:54:41 -0700
+ by fmsmga004.fm.intel.com with ESMTP; 06 Oct 2020 02:54:46 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue,  6 Oct 2020 15:17:16 +0530
-Message-Id: <20201006094719.24119-6-ankit.k.nautiyal@intel.com>
+Date: Tue,  6 Oct 2020 15:17:18 +0530
+Message-Id: <20201006094719.24119-8-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20201006094719.24119-1-ankit.k.nautiyal@intel.com>
 References: <20201006094719.24119-1-ankit.k.nautiyal@intel.com>
-Subject: [Intel-gfx] [RFC 5/8] drm/i915: Add support for starting FRL
- training for HDMI2.1 via PCON
+MIME-Version: 1.0
+Subject: [Intel-gfx] [RFC 7/8] drm/dp_helper: Add support for link status
+ and link recovery
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,288 +61,79 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: dri-devel@lists.freedesktop.org
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This patch adds functions to start FRL training for an HDMI2.1 sink,
-connected via a PCON as a DP branch device.
-This patch also adds a new structure for storing frl training related
-data, when FRL training is completed.
-
-Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
----
- .../drm/i915/display/intel_display_types.h    |   6 +
- drivers/gpu/drm/i915/display/intel_dp.c       | 200 ++++++++++++++++++
- drivers/gpu/drm/i915/display/intel_dp.h       |   2 +
- 3 files changed, 208 insertions(+)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-index 77e486d78b7c..e667caf90eb9 100644
---- a/drivers/gpu/drm/i915/display/intel_display_types.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-@@ -1267,6 +1267,11 @@ struct intel_dp_compliance {
- 	u8 test_lane_count;
- };
- 
-+struct intel_dp_pcon_frl {
-+	bool is_trained;
-+	int trained_rate_gbps;
-+};
-+
- struct intel_dp {
- 	i915_reg_t output_reg;
- 	u32 DP;
-@@ -1314,6 +1319,7 @@ struct intel_dp {
- 	unsigned long last_backlight_off;
- 	ktime_t panel_power_off_time;
- 
-+	struct intel_dp_pcon_frl frl;
- 	struct notifier_block edp_notifier;
- 
- 	/*
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index b28583ed6559..fd30e025a09e 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -2904,6 +2904,9 @@ static void intel_dp_prepare(struct intel_encoder *encoder,
- 			intel_dp->DP |= DP_PIPE_SEL_CHV(crtc->pipe);
- 		else
- 			intel_dp->DP |= DP_PIPE_SEL(crtc->pipe);
-+
-+		intel_dp->frl.is_trained = false;
-+		intel_dp->frl.trained_rate_gbps = 0;
- 	}
- }
- 
-@@ -3740,6 +3743,9 @@ static void intel_disable_dp(struct intel_atomic_state *state,
- 	intel_edp_backlight_off(old_conn_state);
- 	intel_dp_sink_dpms(intel_dp, DRM_MODE_DPMS_OFF);
- 	intel_edp_panel_off(intel_dp);
-+
-+	intel_dp->frl.is_trained = false;
-+	intel_dp->frl.trained_rate_gbps = 0;
- }
- 
- static void g4x_disable_dp(struct intel_atomic_state *state,
-@@ -3835,6 +3841,200 @@ cpt_set_link_train(struct intel_dp *intel_dp,
- 	intel_de_posting_read(dev_priv, intel_dp->output_reg);
- }
- 
-+static int intel_dp_get_max_rate_gbps(struct intel_dp *intel_dp)
-+{
-+	int max_link_clock, max_lanes, max_rate_khz, max_rate_gbps;
-+
-+	max_link_clock = intel_dp_max_link_rate(intel_dp);
-+	max_lanes = intel_dp_max_lane_count(intel_dp);
-+	max_rate_khz = intel_dp_max_data_rate(max_link_clock, max_lanes);
-+	max_rate_gbps = 8 * DIV_ROUND_UP(max_rate_khz, 1000000);
-+
-+	return max_rate_gbps;
-+}
-+
-+static int intel_dp_pcon_get_frl_mask(u8 frl_bw_mask)
-+{
-+	int bw_gbps[] = {9, 18, 24, 32, 40, 48};
-+	int i;
-+
-+	for (i = ARRAY_SIZE(bw_gbps) - 1; i >= 0; i--) {
-+		if (frl_bw_mask & (1 << i))
-+			return bw_gbps[i];
-+	}
-+	return 0;
-+}
-+
-+static int intel_dp_pcon_set_frl_mask(int max_frl)
-+{
-+	int max_frl_mask = 0;
-+
-+	switch (max_frl) {
-+	case 48:
-+		max_frl_mask |= DP_PCON_FRL_BW_MASK_48GBPS;
-+		break;
-+	case 40:
-+		max_frl_mask |= DP_PCON_FRL_BW_MASK_40GBPS;
-+		break;
-+	case 32:
-+		max_frl_mask |= DP_PCON_FRL_BW_MASK_32GBPS;
-+		break;
-+	case 24:
-+		max_frl_mask |= DP_PCON_FRL_BW_MASK_24GBPS;
-+		break;
-+	case 18:
-+		max_frl_mask |= DP_PCON_FRL_BW_MASK_18GBPS;
-+		break;
-+	case 9:
-+		max_frl_mask |= DP_PCON_FRL_BW_MASK_9GBPS;
-+		break;
-+	default:
-+		max_frl_mask = 0;
-+	}
-+
-+	return max_frl_mask;
-+}
-+
-+static int intel_dp_hdmi_sink_max_frl(struct intel_dp *intel_dp)
-+{
-+	struct intel_connector *intel_connector = intel_dp->attached_connector;
-+	struct drm_connector *connector = &intel_connector->base;
-+
-+	return (connector->display_info.hdmi.max_frl_rate_per_lane *
-+		connector->display_info.hdmi.max_lane);
-+}
-+
-+static int intel_dp_pcon_start_frl_training(struct intel_dp *intel_dp)
-+{
-+#define PCON_EXTENDED_TRAIN_MODE true
-+#define PCON_CONCURRENT_MODE true
-+#define PCON_SEQUENTIAL_MODE !PCON_CONCURRENT_MODE
-+#define PCON_NORMAL_TRAIN_MODE !PCON_EXTENDED_TRAIN_MODE
-+#define TIMEOUT_FRL_READY_MS 500
-+#define TIMEOUT_HDMI_LINK_ACTIVE_MS 1000
-+
-+	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
-+	int max_frl, max_pcon_frl, max_sink_frl, max_rate_gbps, max_frl_edid, ret;
-+	u8 max_frl_mask = 0, frl_trained_mask;
-+	bool is_active;
-+
-+	ret = drm_dp_pcon_reset_frl_config(&intel_dp->aux);
-+	if (ret < 0)
-+		return ret;
-+
-+	max_rate_gbps = intel_dp_get_max_rate_gbps(intel_dp);
-+	drm_dbg(&i915->drm, "Source max rate = %d Gbps\n", max_rate_gbps);
-+
-+	max_pcon_frl = intel_dp->dfp.pcon_max_frl;
-+	drm_dbg(&i915->drm, "PCON max rate = %d Gbps\n", max_pcon_frl);
-+
-+	/* Double Check from HDMI SINK EDID */
-+	max_frl_edid = intel_dp_hdmi_sink_max_frl(intel_dp);
-+	drm_dbg(&i915->drm, "Sink max rate from EDID = %d Gbps\n", max_frl_edid);
-+
-+	max_sink_frl = intel_dp->dfp.sink_max_frl;
-+	drm_dbg(&i915->drm, "Sink max rate from PCON = %d Gbps\n", max_sink_frl);
-+
-+	/* TODO MAX SINK FRL from PCON is not enumerated. Using MAX FRL value
-+	 * directly from EDID. Need to confirm from Spec.
-+	 */
-+	max_frl = min(max_rate_gbps, min(max_frl_edid, max_pcon_frl));
-+
-+	if (max_frl <= 0)
-+		return -EINVAL;
-+
-+	ret = drm_dp_pcon_frl_prepare(&intel_dp->aux, false);
-+	if (ret < 0)
-+		return ret;
-+	/* Wait for PCON to be FRL Ready */
-+	wait_for(is_active = drm_dp_pcon_is_frl_ready(&intel_dp->aux) == true, TIMEOUT_FRL_READY_MS);
-+
-+	if (!is_active)
-+		return -ETIMEDOUT;
-+
-+	max_frl_mask = intel_dp_pcon_set_frl_mask(max_frl);
-+	ret = drm_dp_pcon_frl_configure_1(&intel_dp->aux, max_frl, PCON_SEQUENTIAL_MODE);
-+	if (ret < 0)
-+		return ret;
-+	ret = drm_dp_pcon_frl_configure_2(&intel_dp->aux, max_frl_mask, PCON_NORMAL_TRAIN_MODE);
-+	if (ret < 0)
-+		return ret;
-+	ret = drm_dp_pcon_frl_enable(&intel_dp->aux);
-+	if (ret < 0)
-+		return ret;
-+	/*
-+	 * Wait for FRL to be completed
-+	 * Check if the HDMI Link is up and active.
-+	 */
-+	wait_for(is_active = drm_dp_pcon_hdmi_link_active(&intel_dp->aux) == true, TIMEOUT_HDMI_LINK_ACTIVE_MS);
-+
-+	if (!is_active)
-+		return -ETIMEDOUT;
-+	/*
-+	 * Verify HDMI Link configuration shows FRL Mode.
-+	 */
-+	if (DP_PCON_HDMI_MODE_FRL != drm_dp_pcon_hdmi_link_mode(&intel_dp->aux, &frl_trained_mask)) {
-+		drm_dbg(&i915->drm, "HDMI couldn't be trained in FRL Mode\n");
-+		return -EINVAL;
-+	}
-+	drm_dbg(&i915->drm, "MAX_FRL_MASK = %u, FRL_TRAINED_MASK = %u\n", max_frl_mask, frl_trained_mask);
-+
-+	/*
-+	 * Read HDMI_LINK_STATUS_TRAINED 0x2005 bit 5
-+	 * TODO: Details not mentioned in spec. Need to check.
-+	 */
-+
-+	intel_dp->frl.trained_rate_gbps = intel_dp_pcon_get_frl_mask(frl_trained_mask);
-+	intel_dp->frl.is_trained = true;
-+	drm_dbg(&i915->drm, "FRL trained with : %d Gbps\n", intel_dp->frl.trained_rate_gbps);
-+
-+	return 0;
-+}
-+
-+static bool intel_dp_is_frl_required(struct intel_dp *intel_dp)
-+{
-+	if (!intel_dp->frl.is_trained)
-+		return true;
-+	/*
-+	 * #TODO check if the mode really required FRL or can work
-+	 * with TMDS mode.
-+	 */
-+
-+	return false;
-+}
-+
-+static bool intel_dp_is_hdmi_2_1_sink(struct intel_dp *intel_dp)
-+{
-+	if (drm_dp_is_branch(intel_dp->dpcd) &&
-+	    intel_dp_hdmi_sink_max_frl(intel_dp) > 0)
-+		return true;
-+
-+	return false;
-+}
-+
-+void intel_dp_check_frl_training(struct intel_dp *intel_dp)
-+{
-+	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
-+
-+	if (!intel_dp_is_hdmi_2_1_sink(intel_dp) ||
-+	    !intel_dp_is_frl_required(intel_dp))
-+		return;
-+
-+	if (intel_dp_pcon_start_frl_training(intel_dp) < 0) {
-+		int ret, mode;
-+
-+		drm_dbg(&dev_priv->drm, "Couldnt set FRL mode, continuing with TMDS mode\n");
-+		ret = drm_dp_pcon_reset_frl_config(&intel_dp->aux);
-+		mode = drm_dp_pcon_hdmi_link_mode(&intel_dp->aux, NULL);
-+
-+		if (ret < 0 || mode != DP_PCON_HDMI_MODE_TMDS)
-+			drm_dbg(&dev_priv->drm, "Issue with PCON, cannot set TMDS mode\n");
-+	}
-+
-+	else
-+		drm_dbg(&dev_priv->drm, "FRL training Completed\n");
-+}
-+
- static void
- g4x_set_link_train(struct intel_dp *intel_dp,
- 		   const struct intel_crtc_state *crtc_state,
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.h b/drivers/gpu/drm/i915/display/intel_dp.h
-index 66854aab9887..45d15fecbfe7 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.h
-+++ b/drivers/gpu/drm/i915/display/intel_dp.h
-@@ -141,4 +141,6 @@ void intel_ddi_update_pipe(struct intel_atomic_state *state,
- int intel_dp_init_hdcp(struct intel_digital_port *dig_port,
- 		       struct intel_connector *intel_connector);
- 
-+void intel_dp_check_frl_training(struct intel_dp *intel_dp);
-+
- #endif /* __INTEL_DP_H__ */
--- 
-2.17.1
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+RnJvbTogU3dhdGkgU2hhcm1hIDxzd2F0aTIuc2hhcm1hQGludGVsLmNvbT4KClRoaXMgcGF0Y2gg
+YWRkcyBzdXBwb3J0IGZvciBsaW5rIHN0YXR1cyBhbmQgbGluayByZWNvdmVyeS4gVGhlcmUKYXJl
+IHNwZWNpZmljIERQQ0TigJlzIGRlZmluZWQgZm9yIGxpbmsgc3RhdHVzIGNoZWNrIGFuZCByZWNv
+dmVyeSBpbgpjYXNlIG9mIGFueSBpc3N1ZXMuIFBDT04gd2lsbCBjb21tdW5pY2F0ZSB0aGUgc2Ft
+ZSB1c2luZyBhbiBJUlFfSFBECnRvIHNvdXJjZS4gSERNSSBzaW5rIHdvdWxkIGhhdmUgaW5kaWNh
+dGVkIHRoZSBzYW1lIHRvIFBDT04gdXNpbmcKU0NEQyBpbnRlcnJ1cHQgbWVjaGFuaXNtLiBXaGls
+ZSBzb3VyY2UgY2FuIGFsd2F5cyByZWFkIGZpbmFsIEhETUkKc2lua+KAmXMgc3RhdHVzIHVzaW5n
+IEkyQyBvdmVyIEFVWCwgaXTigJlzIGVhc2llciBhbmQgZmFzdGVyIHRvIHJlYWQKdGhlIFBDT07i
+gJlzIGFscmVhZHkgcmVhZCBIRE1JIHNpbmvigJlzIHN0YXR1cyByZWdpc3RlcnMuCgpTaWduZWQt
+b2ZmLWJ5OiBTd2F0aSBTaGFybWEgPHN3YXRpMi5zaGFybWFAaW50ZWwuY29tPgpTaWduZWQtb2Zm
+LWJ5OiBBbmtpdCBOYXV0aXlhbCA8YW5raXQuay5uYXV0aXlhbEBpbnRlbC5jb20+Ci0tLQogZHJp
+dmVycy9ncHUvZHJtL2RybV9kcF9oZWxwZXIuYyB8IDMzICsrKysrKysrKysrKysrKysrKysrKysr
+KysrKysrKysrKwogaW5jbHVkZS9kcm0vZHJtX2RwX2hlbHBlci5oICAgICB8IDE2ICsrKysrKysr
+KysrKysrKysKIDIgZmlsZXMgY2hhbmdlZCwgNDkgaW5zZXJ0aW9ucygrKQoKZGlmZiAtLWdpdCBh
+L2RyaXZlcnMvZ3B1L2RybS9kcm1fZHBfaGVscGVyLmMgYi9kcml2ZXJzL2dwdS9kcm0vZHJtX2Rw
+X2hlbHBlci5jCmluZGV4IDM5ZDhlNGQ2NjViNy4uMTMxZWE2MDQzMjFiIDEwMDY0NAotLS0gYS9k
+cml2ZXJzL2dwdS9kcm0vZHJtX2RwX2hlbHBlci5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9kcm1f
+ZHBfaGVscGVyLmMKQEAgLTI2NzEsMyArMjY3MSwzNiBAQCBpbnQgZHJtX2RwX3Bjb25faGRtaV9s
+aW5rX21vZGUoc3RydWN0IGRybV9kcF9hdXggKmF1eCwgdTggKmZybF90cmFpbmVkX21hc2spCiAJ
+cmV0dXJuIG1vZGU7CiB9CiBFWFBPUlRfU1lNQk9MKGRybV9kcF9wY29uX2hkbWlfbGlua19tb2Rl
+KTsKKwordm9pZCBkcm1fZHBfcGNvbl9oZG1pX2ZybF9saW5rX2Vycm9yX2NvdW50KHN0cnVjdCBk
+cm1fZHBfYXV4ICphdXgsCisJCQkJCSAgIHN0cnVjdCBkcm1fY29ubmVjdG9yICpjb25uZWN0b3Ip
+Cit7CisJdTggYnVmLCBlcnJvcl9jb3VudDsKKwlpbnQgaSwgbnVtX2Vycm9yOworCXN0cnVjdCBk
+cm1faGRtaV9pbmZvICpoZG1pID0gJmNvbm5lY3Rvci0+ZGlzcGxheV9pbmZvLmhkbWk7CisKKwlm
+b3IgKGkgPSAwOyBpIDwgaGRtaS0+bWF4X2xhbmU7IGkrKykKKwl7CisJCWlmIChkcm1fZHBfZHBj
+ZF9yZWFkYihhdXgsIERQX1BDT05fSERNSV9FUlJPUl9TVEFUVVNfTE4wICsgaSAsICZidWYpIDwg
+MCkKKwkJCXJldHVybjsKKworCQllcnJvcl9jb3VudCA9IGJ1ZiAmIERQX1BDT05fSERNSV9FUlJP
+Ul9DT1VOVF9NQVNLOworCisJc3dpdGNoKGVycm9yX2NvdW50KSB7CisJY2FzZSBEUF9QQ09OX0hE
+TUlfRVJST1JfQ09VTlRfSFVORFJFRF9QTFVTOgorCQludW1fZXJyb3IgPSAxMDA7CisJCWJyZWFr
+OworCWNhc2UgRFBfUENPTl9IRE1JX0VSUk9SX0NPVU5UX1RFTl9QTFVTOgorCQludW1fZXJyb3Ig
+PSAxMDsKKwkJYnJlYWs7CisJY2FzZSBEUF9QQ09OX0hETUlfRVJST1JfQ09VTlRfVEhSRUVfUExV
+UzoKKwkJbnVtX2Vycm9yID0gMzsKKwkJYnJlYWs7CisJZGVmYXVsdDoKKwkJbnVtX2Vycm9yID0g
+MDsKKwl9CisKKwkJRFJNX0VSUk9SKCJNb3JlIHRoYW4gJWQgZXJyb3JzIHNpbmNlIHRoZSBsYXN0
+IHJlYWQgZm9yIGxhbmUgJWQiLCBudW1fZXJyb3IsIGkpOworCX0KK30KK0VYUE9SVF9TWU1CT0wo
+ZHJtX2RwX3Bjb25faGRtaV9mcmxfbGlua19lcnJvcl9jb3VudCk7CmRpZmYgLS1naXQgYS9pbmNs
+dWRlL2RybS9kcm1fZHBfaGVscGVyLmggYi9pbmNsdWRlL2RybS9kcm1fZHBfaGVscGVyLmgKaW5k
+ZXggODJmYTc1ZjZjYzg2Li45Mzk3NDEwMzkwZTcgMTAwNjQ0Ci0tLSBhL2luY2x1ZGUvZHJtL2Ry
+bV9kcF9oZWxwZXIuaAorKysgYi9pbmNsdWRlL2RybS9kcm1fZHBfaGVscGVyLmgKQEAgLTk0Niw2
+ICs5NDYsMTEgQEAgc3RydWN0IGRybV9kZXZpY2U7CiAjIGRlZmluZSBEUF9DRUNfSVJRICAgICAg
+ICAgICAgICAgICAgICAgICAgICAoMSA8PCAyKQogCiAjZGVmaW5lIERQX0xJTktfU0VSVklDRV9J
+UlFfVkVDVE9SX0VTSTAgICAgIDB4MjAwNSAgIC8qIDEuMiAqLworIyBkZWZpbmUgUlhfQ0FQX0NI
+QU5HRUQgICAgICAgICAgICAgICAgICAgICAgKDEgPDwgMCkKKyMgZGVmaW5lIExJTktfU1RBVFVT
+X0NIQU5HRUQgICAgICAgICAgICAgICAgICgxIDw8IDEpCisjIGRlZmluZSBTVFJFQU1fU1RBVFVT
+X0NIQU5HRUQgICAgICAgICAgICAgICAoMSA8PCAyKQorIyBkZWZpbmUgSERNSV9MSU5LX1NUQVRV
+U19DSEFOR0VEICAgICAgICAgICAgKDEgPDwgMykKKyMgZGVmaW5lIENPTk5FQ1RFRF9PRkZfRU5U
+UllfUkVRVUVTVEVEICAgICAgICgxIDw8IDQpCiAKICNkZWZpbmUgRFBfUFNSX0VSUk9SX1NUQVRV
+UyAgICAgICAgICAgICAgICAgMHgyMDA2ICAvKiBYWFggMS4yPyAqLwogIyBkZWZpbmUgRFBfUFNS
+X0xJTktfQ1JDX0VSUk9SICAgICAgICAgICAgICAoMSA8PCAwKQpAQCAtMTEzMCw2ICsxMTM1LDE2
+IEBAIHN0cnVjdCBkcm1fZGV2aWNlOwogI2RlZmluZSBEUF9QUk9UT0NPTF9DT05WRVJURVJfQ09O
+VFJPTF8yCQkweDMwNTIgLyogRFAgMS4zICovCiAjIGRlZmluZSBEUF9DT05WRVJTSU9OX1RPX1lD
+QkNSNDIyX0VOQUJMRQkoMSA8PCAwKSAvKiBEUCAxLjMgKi8KIAorLyogUENPTiBEb3duc3RyZWFt
+IEhETUkgRVJST1IgU3RhdHVzIHBlciBMYW5lICovCisjZGVmaW5lIERQX1BDT05fSERNSV9FUlJP
+Ul9TVEFUVVNfTE4wICAgICAgICAgIDB4MzAzNworI2RlZmluZSBEUF9QQ09OX0hETUlfRVJST1Jf
+U1RBVFVTX0xOMSAgICAgICAgICAweDMwMzgKKyNkZWZpbmUgRFBfUENPTl9IRE1JX0VSUk9SX1NU
+QVRVU19MTjIgICAgICAgICAgMHgzMDM5CisjZGVmaW5lIERQX1BDT05fSERNSV9FUlJPUl9TVEFU
+VVNfTE4zICAgICAgICAgIDB4MzAzQQorIyBkZWZpbmUgRFBfUENPTl9IRE1JX0VSUk9SX0NPVU5U
+X01BU0sgICAgICAgICAoMHg3IDw8IDApCisjIGRlZmluZSBEUF9QQ09OX0hETUlfRVJST1JfQ09V
+TlRfVEhSRUVfUExVUyAgICgxIDw8IDApCisjIGRlZmluZSBEUF9QQ09OX0hETUlfRVJST1JfQ09V
+TlRfVEVOX1BMVVMgICAgICgxIDw8IDEpCisjIGRlZmluZSBEUF9QQ09OX0hETUlfRVJST1JfQ09V
+TlRfSFVORFJFRF9QTFVTICgxIDw8IDIpCisKIC8qIEhEQ1AgMS4zIGFuZCBIRENQIDIuMiAqLwog
+I2RlZmluZSBEUF9BVVhfSERDUF9CS1NWCQkweDY4MDAwCiAjZGVmaW5lIERQX0FVWF9IRENQX1JJ
+X1BSSU1FCQkweDY4MDA1CkBAIC0xOTg1LDQgKzIwMDAsNSBAQCBpbnQgZHJtX2RwX3Bjb25fZnJs
+X2VuYWJsZShzdHJ1Y3QgZHJtX2RwX2F1eCAqYXV4KTsKIAogYm9vbCBkcm1fZHBfcGNvbl9oZG1p
+X2xpbmtfYWN0aXZlKHN0cnVjdCBkcm1fZHBfYXV4ICphdXgpOwogaW50IGRybV9kcF9wY29uX2hk
+bWlfbGlua19tb2RlKHN0cnVjdCBkcm1fZHBfYXV4ICphdXgsIHU4ICpmcmxfdHJhaW5lZF9tYXNr
+KTsKK3ZvaWQgZHJtX2RwX3Bjb25faGRtaV9mcmxfbGlua19lcnJvcl9jb3VudChzdHJ1Y3QgZHJt
+X2RwX2F1eCAqYXV4LCBzdHJ1Y3QgZHJtX2Nvbm5lY3RvciAqY29ubmVjdG9yKTsKICNlbmRpZiAv
+KiBfRFJNX0RQX0hFTFBFUl9IXyAqLwotLSAKMi4xNy4xCgpfX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fXwpJbnRlbC1nZnggbWFpbGluZyBsaXN0CkludGVsLWdm
+eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
+bG1hbi9saXN0aW5mby9pbnRlbC1nZngK
