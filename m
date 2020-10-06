@@ -2,58 +2,41 @@ Return-Path: <SRS0=f8CR=DN=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0FFC6C4727E
-	for <intel-gfx@archiver.kernel.org>; Tue,  6 Oct 2020 17:03:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F3922C41604
+	for <intel-gfx@archiver.kernel.org>; Tue,  6 Oct 2020 17:07:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2D994206DD
-	for <intel-gfx@archiver.kernel.org>; Tue,  6 Oct 2020 17:03:51 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="geZKcgda"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2D994206DD
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=igalia.com
+	by mail.kernel.org (Postfix) with ESMTPS id 97AD5206DD
+	for <intel-gfx@archiver.kernel.org>; Tue,  6 Oct 2020 17:07:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 97AD5206DD
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AECFA6E4CF;
-	Tue,  6 Oct 2020 17:03:50 +0000 (UTC)
-Received: from fanzine.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3DFB88913B;
- Tue,  6 Oct 2020 08:48:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
- s=20170329; 
- h=MIME-Version:Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID;
- bh=B6IlmCjekqif+t616Ax228HYiFyy1jBul9azecGXGdU=; 
- b=geZKcgdaXju0bL8gRGOeUyvkSMBYsw+tzWrb2nldtRplQlj96kTyLTzKGWzVLBDvg3Vv3DuvC7t3x7LRJisRpV05u2vagDLVV/Qfluc2YoeteExiYTJlj+4hJZrGk/M0km8hQ911sN1+MKqfth/5BTpVRr6yEBZgWk03/rPn9TvD895jFTHmqthkwD2t1hob4rMGgbe/sRpG0XkGXBWoLZ2WpxjFlEr2zROlcPj+IEyAvdcjTZGtn6ayTL36IlgoHwKYWcoM2sbvTgEyIs9KqAeNKU63fQOuXKJjKCVxxIFMGOdURWZ7lorJwn1O3SmT/PgAYJBnv2P4pqs4VNa8iw==;
-Received: from 11.red-79-157-245.dynamicip.rima-tde.net ([79.157.245.11]
- helo=fourier) by fanzine.igalia.com with esmtpsa 
- (Cipher TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim)
- id 1kPidq-0005Cc-Uk; Tue, 06 Oct 2020 10:48:15 +0200
-Message-ID: <ee5153f7dc037ab96aff6795c5514da3fea3af94.camel@igalia.com>
-From: Samuel Iglesias =?ISO-8859-1?Q?Gons=E1lvez?= <siglesias@igalia.com>
-To: "members@x.org" <members@x.org>, "events@lists.x.org"
- <events@lists.x.org>,  "xorg-devel@lists.freedesktop.org"
- <xorg-devel@lists.freedesktop.org>, "wayland-devel@lists.freedesktop.org"
- <wayland-devel@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>, "mesa-dev@lists.freedesktop.org"
- <mesa-dev@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "etnaviv@lists.freedesktop.org"
- <etnaviv@lists.freedesktop.org>, "freedreno@lists.freedesktop.org"
- <freedreno@lists.freedesktop.org>, "nouveau@lists.freedesktop.org"
- <nouveau@lists.freedesktop.org>, "intel-gfx@lists.freedesktop.org"
- <intel-gfx@lists.freedesktop.org>
-Date: Tue, 06 Oct 2020 10:48:04 +0200
-In-Reply-To: <a171fea35e5dab03873876e221ab15b74ab24d62.camel@redhat.com>
-References: <a171fea35e5dab03873876e221ab15b74ab24d62.camel@redhat.com>
-User-Agent: Evolution 3.36.5 (3.36.5-1.fc32) 
+	by gabe.freedesktop.org (Postfix) with ESMTP id D04176E4D7;
+	Tue,  6 Oct 2020 17:07:45 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 827936E4D2;
+ Tue,  6 Oct 2020 17:07:45 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 73004A0099;
+ Tue,  6 Oct 2020 17:07:45 +0000 (UTC)
 MIME-Version: 1.0
-X-Mailman-Approved-At: Tue, 06 Oct 2020 17:03:46 +0000
-Subject: Re: [Intel-gfx] [Freedreno] [RESEND] Requests For Proposals for
- hosting XDC2021 are now open
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: =?utf-8?b?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Date: Tue, 06 Oct 2020 17:07:45 -0000
+Message-ID: <160200406544.18759.4783400526455639024@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20201006143349.5561-1-ville.syrjala@linux.intel.com>
+In-Reply-To: <20201006143349.5561-1-ville.syrjala@linux.intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_drm/i915=3A_Futher_cleanup_around_hpd_pins_and_port_identfi?=
+ =?utf-8?q?ers_=28rev3=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,107 +49,69 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "X.Org Foundation Board" <board@foundation.x.org>
-Content-Type: multipart/mixed; boundary="===============1706350236=="
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+== Series Details ==
 
---===============1706350236==
-Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-i8Rt81kDKlWriGrdIRjk"
+Series: drm/i915: Futher cleanup around hpd pins and port identfiers (rev3)
+URL   : https://patchwork.freedesktop.org/series/82411/
+State : warning
 
+== Summary ==
 
---=-i8Rt81kDKlWriGrdIRjk
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+$ dim checkpatch origin/drm-tip
+ac8d5caeb9e4 drm/i915: Sort the mess around ICP TC hotplugs regs
+c825eca75000 drm/i915: s/PORT_TC/TC_PORT_TC/
+-:310: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'tc_port' - possible side-effects?
+#310: FILE: drivers/gpu/drm/i915/i915_reg.h:10286:
++#define  ICL_DPCLKA_CFGCR0_TC_CLK_OFF(tc_port)	(1 << ((tc_port) < TC_PORT_TC4 ? \
+ 						       (tc_port) + 12 : \
++						       (tc_port) - TC_PORT_TC4 + 21))
 
-Deadline is November 1st, just in a few weeks!
+total: 0 errors, 0 warnings, 1 checks, 269 lines checked
+febabec5fc30 drm/i915: Add PORT_TCn aliases to enum port
+0fd1b45546eb drm/i915: Give DDI encoders even better names
+-:43: WARNING:LONG_LINE: line length of 104 exceeds 100 columns
+#43: FILE: drivers/gpu/drm/i915/display/intel_ddi.c:5183:
++				 tc_port != TC_PORT_NONE ? phy_name(phy) : tc_port - TC_PORT_TC1 + '1');
 
-Don't forget to submit your XDC 2021 proposal to board@foundation.x.org
-.
+-:53: WARNING:LONG_LINE: line length of 104 exceeds 100 columns
+#53: FILE: drivers/gpu/drm/i915/display/intel_ddi.c:5193:
++				 tc_port != TC_PORT_NONE ? phy_name(phy) : tc_port - TC_PORT_TC1 + '1');
 
-Sam
+total: 0 errors, 2 warnings, 0 checks, 33 lines checked
+944768cafe11 drm/i915: Introduce AUX_CH_USBCn
+79ead29c1550 drm/i915: Pimp AUX CH names
+b5d260d99ea5 drm/i915: Use AUX_CH_USBCn for the RKL VBT AUX CH setup
+609d459a8656 drm/i915: Parametrize BXT_DE_PORT_HP_DDI with hpd_pin
+504b3a46f276 drm/i915: Introduce GEN8_DE_PORT_HOTPLUG()
+a0f5f533ef42 drm/i915: s/port/hpd_pin/ for icp+ ddi hpd bits
+e280cadea053 drm/i915: s/tc_port/hpd_pin/ in GEN11_{TC, TBT}_HOTPLUG()
+58484246fe9e drm/i915: s/tc_port/hpd_pin/ in icp+ TC hotplug bits
+2cf3a3a5de78 drm/i915: Relocate intel_hpd_{enabled, hotplug}_irqs()
+2f1980b7acec drm/i915: Split gen11_hpd_detection_setup() into tc vs. tbt variants
+913dadb8c216 drm/i915: Don't enable hpd detection logic from irq_postinstall()
+e17684d1f041 drm/i915: Rename 'tmp_mask'
+ff428055fb0d drm/i915: Remove the per-plaform IIR HPD masking
+-:68: ERROR:COMPLEX_MACRO: Macros with complex values should be enclosed in parentheses
+#68: FILE: drivers/gpu/drm/i915/i915_reg.h:8325:
++#define SDE_TC_MASK_ICP			(SDE_TC_HOTPLUG_ICP(HPD_PORT_TC6) | \
+ 					 SDE_TC_HOTPLUG_ICP(HPD_PORT_TC5) | \
+ 					 SDE_TC_HOTPLUG_ICP(HPD_PORT_TC4) | \
+ 					 SDE_TC_HOTPLUG_ICP(HPD_PORT_TC3) | \
 
-On Thu, 2020-09-03 at 12:16 -0400, Lyude Paul wrote:
-> (Including a bunch more emails in the To: that got missed the first
-> time)
->=20
-> Hello everyone!
->=20
-> The X.org board is soliciting proposals to host XDC in 2021. Since
-> XDC2020 is being held virtually this year, we've decided to host in
-> either North America or Europe. However, the board is open to other
-> locations, especially if there's an interesting co-location with
-> another
-> conference.
->=20
-> Of course though, due to the ongoing COVID-19 pandemic it's not yet
-> clear whether or not it will be possible to host XDC2021 in person.
-> Because of this, we would like to make it clear that sponsors should
-> prepare for both the possibility of an in person conference, and the
-> possibility of a virtual conference. We will work with organizers on
-> coming up with a deadline for deciding whether or not we'll be going
-> virtual, likely sometime around July.
->=20
-> If you're considering hosting XDC, we've assembled a wiki page with
-> what's generally expected and needed:
->=20
-> https://www.x.org/wiki/Events/RFP/
->=20
-> When submitting your proposal, please make sure to include at least
-> the
-> key information about the potential location in question, possible
-> dates
-> along with estimated costs. Proposals can be submitted to board at
-> foundation.x.org until the deadline of November 1st. Additionally, an
-> quirk early heads-up to the board if you're considering hosting would
-> be
-> appreciated, in case we need to adjust the schedule a bit. Also,
-> earlier
-> is better since there generally will be a bit of Q&A with organizers.
->=20
-> And if you just have some questions about what organizing XDC
-> entails,
-> please feel free to chat with previous organizers, or someone from
-> the
-> board.
+total: 1 errors, 0 warnings, 0 checks, 47 lines checked
+6dc728777193 drm/i915: Enable hpd logic only for ports that are present
+54780a93e89d drm/i915: Use GEN3_IRQ_INIT() to init south interrupts in icp+
+d239f4c5ab84 drm/i915: Get rid of ibx_irq_pre_postinstall()
 
---=-i8Rt81kDKlWriGrdIRjk
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEQP+ZAvaXWkfuKXiEf/S6MvF9w0MFAl98L0QACgkQf/S6MvF9
-w0MB5Q//ZfxA9TMZbNgz2V21T4oNCgQg7w3bkzftP1l10UHVSfnpbz3mKGctMm6K
-csjdcmQgVJ6n4gs2VlDGhluukN5hMnBQPe+py1Oyu7SmBYyB6TjhjExHGnd/TX1j
-G/KqpyAnXCZOE1JzuK4u4fmLenGbzqywXgciRuWria6QxG0z06K+8yjZMMk3C1Dv
-O0dRGMt7SLzXwojjWSZQqsY50wBeafdfsP5l1encOn8/KEqSIhf2fnnrKhdt24UT
-8Sravrz1bN0MaCEVFqA51Vq5/RxgA/VY8+VVP+fXRdJdvoJzozlTr7Oj1OtIz9KC
-2aJp+BzV9zlVyPyEOe9aFJUeCUpa8PulNSi6Yuoy6l8Bbqu1KqdGC8rOT2A2eFHo
-yIxHkXDBr+PTb59k6tXzCL6usuUgNFcExnJxIjEJ1XZLscm5hq2aGb9EzeiSYPVE
-Y+W0/x5EyoIGzd1owJQM1GqrXnDqcyNiSAqi/6J7Gae8FS4k4qTg8nRu6wxzYNnt
-aJ4ZuOplyLrFAnP+Wz1b80S/i5kl6sVpopytFMp3biLTXg6z1FfnCKiF1u9SrHYM
-P7c4WS8L3aWrOLh0eZI2Q1Lfiu8EPeAWk4Dkt6gBkjdHbDmKuOZnLgm7rStu4gWm
-th2pTohkIOJtv2QRJ1ysnK5QaR1294jB+fUfLN+PultZiPunLEA=
-=4OiG
------END PGP SIGNATURE-----
-
---=-i8Rt81kDKlWriGrdIRjk--
-
-
---===============1706350236==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
 
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-
---===============1706350236==--
-
