@@ -4,51 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-9.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable autolearn_force=no
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BAF4AC4363D
-	for <intel-gfx@archiver.kernel.org>; Wed,  7 Oct 2020 09:32:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E7BB3C4363C
+	for <intel-gfx@archiver.kernel.org>; Wed,  7 Oct 2020 09:42:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4A9C020760
-	for <intel-gfx@archiver.kernel.org>; Wed,  7 Oct 2020 09:32:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4A9C020760
+	by mail.kernel.org (Postfix) with ESMTPS id 57B0020760
+	for <intel-gfx@archiver.kernel.org>; Wed,  7 Oct 2020 09:42:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 57B0020760
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 853AA6E284;
-	Wed,  7 Oct 2020 09:32:14 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5FFAD6E284
- for <intel-gfx@lists.freedesktop.org>; Wed,  7 Oct 2020 09:32:13 +0000 (UTC)
-IronPort-SDR: OtYge+4sRM8g5ZOysbCp2od9VAJ/73D88QfdJC00DUWootyxi0akSgYhqTAHWzEN0TfIKOKxIl
- Hb//U5vjZNlA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9766"; a="249586267"
-X-IronPort-AV: E=Sophos;i="5.77,346,1596524400"; d="scan'208";a="249586267"
+	by gabe.freedesktop.org (Postfix) with ESMTP id CFC1E6E03C;
+	Wed,  7 Oct 2020 09:42:28 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 420CF6E03C
+ for <intel-gfx@lists.freedesktop.org>; Wed,  7 Oct 2020 09:42:28 +0000 (UTC)
+IronPort-SDR: 8FbK0wAcpmVp0qKIeYqyEhEXzRk1sHoc6wZzZUfIoFoomTbdsaUvGXX/sonswGv8yg5fNDsmmc
+ tGs4NVsSt04A==
+X-IronPort-AV: E=McAfee;i="6000,8403,9766"; a="144797003"
+X-IronPort-AV: E=Sophos;i="5.77,346,1596524400"; d="scan'208";a="144797003"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Oct 2020 02:32:11 -0700
-IronPort-SDR: //chKk75FBbrv9JgQ0Yrx62RqhP/2zdYIG+w0xCcRCSC6HNq1hgkd8LhpuZflL6Lc0thaXqiH7
- ZkYzpPOPId3w==
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Oct 2020 02:42:27 -0700
+IronPort-SDR: rceFJheUWXjn1skmSGbmnHCJXa06jGjfE8LX7QsUwd3nMh7dh73gqUQbsyTJhqqF3bSribXrTA
+ odgOiTYMiYuw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.77,346,1596524400"; d="scan'208";a="316129397"
+X-IronPort-AV: E=Sophos;i="5.77,346,1596524400"; d="scan'208";a="344208897"
 Received: from gaia.fi.intel.com ([10.237.72.192])
- by orsmga006.jf.intel.com with ESMTP; 07 Oct 2020 02:32:09 -0700
+ by orsmga008.jf.intel.com with ESMTP; 07 Oct 2020 02:42:26 -0700
 Received: by gaia.fi.intel.com (Postfix, from userid 1000)
- id ACD845C2038; Wed,  7 Oct 2020 12:30:42 +0300 (EEST)
+ id 4DB645C2038; Wed,  7 Oct 2020 12:40:59 +0300 (EEST)
 From: Mika Kuoppala <mika.kuoppala@linux.intel.com>
 To: Chris Wilson <chris@chris-wilson.co.uk>, intel-gfx@lists.freedesktop.org
-In-Reply-To: <20201002083425.4605-1-chris@chris-wilson.co.uk>
-References: <20201002083425.4605-1-chris@chris-wilson.co.uk>
-Date: Wed, 07 Oct 2020 12:30:42 +0300
-Message-ID: <87tuv6cri5.fsf@gaia.fi.intel.com>
+In-Reply-To: <20201007090947.19950-1-chris@chris-wilson.co.uk>
+References: <20201007090947.19950-1-chris@chris-wilson.co.uk>
+Date: Wed, 07 Oct 2020 12:40:59 +0300
+Message-ID: <87r1qacr10.fsf@gaia.fi.intel.com>
 MIME-Version: 1.0
-Subject: Re: [Intel-gfx] [PATCH] drm/i915/gt: Undo forced context restores
- after trivial preemptions
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/gem: Perform all asynchronous
+ waits prior to marking payload start
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,7 +61,7 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stable@vger.kernel.org, Chris Wilson <chris@chris-wilson.co.uk>
+Cc: Chris Wilson <chris@chris-wilson.co.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
@@ -69,63 +69,73 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 Chris Wilson <chris@chris-wilson.co.uk> writes:
 
-> We may try to preempt the currently executing request, only to find that
-> after unravelling all the dependencies that the original executing
-> context is still the earliest in the topological sort and re-submitted
-> back to HW (if we do detect some change in the ELSP that requires
-> re-submission). However, due to the way we check for wrap-around during
-> the unravelling, we mark any context that has been submitted just once
-> (i.e. with the rq->wa_tail set, but the ring->tail earlier) as
-> potentially wrapping and requiring a forced restore on resubmission.
-> This was expected to be not a problem, as it was anticipated that most
-> unwinding for preemption would result in a context switch and the few
-> that did not would be lost in the noise. It did not take long for
-> someone to find one particular workload where the cost of those extra
-> context restores was measurable.
+> The initial breadcrumb marks the transition from context wait and setup
+> into the request payload. We use the marker to determine if the request
+> is merely waiting to begin, or is inside the payload and hung.
+> Forgetting to include a breadcrumb before the user payload would mean we
+> do not reset the guilty user request, and conversely if the initial
+> breadcrumb is too early we blame the user for a problem elsewhere.
+
+Agreed.
+
 >
-> However, since we know the wa_tail is of fixed size, and we know that a
-> request must be larger than the wa_tail itself, we can safely maintain
-> the check for request wrapping and check against a slightly future point
-> in the ring that includes an expected wa_tail. (That is if the
-> ring->tail is already set to rq->wa_tail, including another 8 bytes in
-> the check does not invalidate the incremental wrap detection.)
->
-> Fixes: 8ab3a3812aa9 ("drm/i915/gt: Incrementally check for rewinding")
 > Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-> Cc: Mika Kuoppala <mika.kuoppala@linux.intel.com>
-> Cc: Bruce Chang <yu.bruce.chang@intel.com>
-> Cc: Ramalingam C <ramalingam.c@intel.com>
-> Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-> Cc: <stable@vger.kernel.org> # v5.4+
 > ---
->  drivers/gpu/drm/i915/gt/intel_lrc.c | 5 ++---
->  1 file changed, 2 insertions(+), 3 deletions(-)
+>  drivers/gpu/drm/i915/gem/i915_gem_client_blt.c | 18 +++++++++---------
+>  1 file changed, 9 insertions(+), 9 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
-> index 287537089c77..3aa05588834b 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_lrc.c
-> +++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
-> @@ -1140,9 +1140,8 @@ __unwind_incomplete_requests(struct intel_engine_cs *engine)
+> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_client_blt.c b/drivers/gpu/drm/i915/gem/i915_gem_client_blt.c
+> index 272cf3ea68d5..44821d94544f 100644
+> --- a/drivers/gpu/drm/i915/gem/i915_gem_client_blt.c
+> +++ b/drivers/gpu/drm/i915/gem/i915_gem_client_blt.c
+> @@ -202,12 +202,6 @@ static void clear_pages_worker(struct work_struct *work)
+>  	if (unlikely(err))
+>  		goto out_request;
 >  
->  			/* Check in case we rollback so far we wrap [size/2] */
-
-My parser hickups. /* Make sure rollback doesn't make hardware think we
-went forward */
-
-But for this patch,
-Reviewed-by: Mika Kuoppala <mika.kuoppala@linux.intel.com>
-
->  			if (intel_ring_direction(rq->ring,
-> -						 intel_ring_wrap(rq->ring,
-> -								 rq->tail),
-> -						 rq->ring->tail) > 0)
-> +						 rq->tail,
-> +						 rq->ring->tail + 8) > 0)
->  				rq->context->lrc.desc |= CTX_DESC_FORCE_RESTORE;
+> -	if (w->ce->engine->emit_init_breadcrumb) {
+> -		err = w->ce->engine->emit_init_breadcrumb(rq);
+> -		if (unlikely(err))
+> -			goto out_request;
+> -	}
+> -
+>  	/*
+>  	 * w->dma is already exported via (vma|obj)->resv we need only
+>  	 * keep track of the GPU activity within this vma/request, and
+> @@ -217,9 +211,15 @@ static void clear_pages_worker(struct work_struct *work)
+>  	if (err)
+>  		goto out_request;
 >  
->  			active = rq;
+> -	err = w->ce->engine->emit_bb_start(rq,
+> -					   batch->node.start, batch->node.size,
+> -					   0);
+
+We don't have to do any extra steps to counter
+
+__i915_vma_move_to_active(vma, rq);
+
+in error path?
+
+-Mika
+
+> +	if (rq->engine->emit_init_breadcrumb) {
+> +		err = rq->engine->emit_init_breadcrumb(rq);
+> +		if (unlikely(err))
+> +			goto out_request;
+> +	}
+> +
+> +	err = rq->engine->emit_bb_start(rq,
+> +					batch->node.start, batch->node.size,
+> +					0);
+>  out_request:
+>  	if (unlikely(err)) {
+>  		i915_request_set_error_once(rq, err);
 > -- 
 > 2.20.1
+>
+> _______________________________________________
+> Intel-gfx mailing list
+> Intel-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/intel-gfx
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
