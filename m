@@ -2,51 +2,95 @@ Return-Path: <SRS0=Us3n=DO=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+X-Spam-Status: No, score=-9.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CB9C0C4727F
-	for <intel-gfx@archiver.kernel.org>; Wed,  7 Oct 2020 19:50:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D8A31C4363D
+	for <intel-gfx@archiver.kernel.org>; Wed,  7 Oct 2020 21:53:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 72A21206F4
-	for <intel-gfx@archiver.kernel.org>; Wed,  7 Oct 2020 19:50:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 72A21206F4
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 2E1BB2083B
+	for <intel-gfx@archiver.kernel.org>; Wed,  7 Oct 2020 21:53:28 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="X5640okf"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2E1BB2083B
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E550A6E9A7;
-	Wed,  7 Oct 2020 19:50:20 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E1E446E98B
- for <intel-gfx@lists.freedesktop.org>; Wed,  7 Oct 2020 19:50:16 +0000 (UTC)
-IronPort-SDR: XLb+QwUHbVKlEHDNnskoYU6AL+L4ZCswUA68fMzWKkS/K6YAOiFkAC0PAHMnwA3KtCss/3MGBy
- eCPbROgdDBoA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9767"; a="144457287"
-X-IronPort-AV: E=Sophos;i="5.77,348,1596524400"; d="scan'208";a="144457287"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Oct 2020 12:49:20 -0700
-IronPort-SDR: xqfNsdiElJK5NGLC2fh31Rif53SxhQNFiwuBGRs4b196QkQwuiF1QX3ncoSHbf8cgaxLDr8Sbp
- eSK22HxK/+hQ==
-X-IronPort-AV: E=Sophos;i="5.77,348,1596524400"; d="scan'208";a="528129157"
-Received: from jelloyd-mobl.amr.corp.intel.com (HELO
- josouza-MOBL2.amr.corp.intel.com) ([10.254.178.45])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Oct 2020 12:49:19 -0700
-From: =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Wed,  7 Oct 2020 12:52:36 -0700
-Message-Id: <20201007195238.53955-1-jose.souza@intel.com>
-X-Mailer: git-send-email 2.28.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id A1F426E9BE;
+	Wed,  7 Oct 2020 21:53:27 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC99C6E9BE
+ for <intel-gfx@lists.freedesktop.org>; Wed,  7 Oct 2020 21:53:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1602107605;
+ h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=BXDLJy3cpaM5bBZA0XOwM+ZPJVSdq/P/kp7oZvNnPnY=;
+ b=X5640okfPXJTktdvl2NE0KeCy2nk2DO0qfWioBoW05db4KLD4ub3SSbdVOv9i0ycpx2avS
+ 3t8NC87NpAI1h2ZlvIcM5UAzsSEcIRDjm3kpz7JtpYmVzk7m+jQi3wcgWqLdUmVnlhoGhy
+ E0AOwk+dvptRPwDQ/DgBmU47BygRQaA=
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
+ [209.85.219.71]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-188-2UNSzMtrPn2GxYSPklM51g-1; Wed, 07 Oct 2020 17:53:23 -0400
+X-MC-Unique: 2UNSzMtrPn2GxYSPklM51g-1
+Received: by mail-qv1-f71.google.com with SMTP id t7so2290210qvz.5
+ for <intel-gfx@lists.freedesktop.org>; Wed, 07 Oct 2020 14:53:23 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:message-id:subject:from:reply-to:to:date
+ :in-reply-to:references:organization:user-agent:mime-version
+ :content-transfer-encoding;
+ bh=BXDLJy3cpaM5bBZA0XOwM+ZPJVSdq/P/kp7oZvNnPnY=;
+ b=unPZXut6qdY61ah5PRwYp7X/13gVGCrd2aHjYxlt/YR5DA3XQVH+Kfk4/Wa0OCbGM0
+ nLcxB+0naoQsT5IuKnOMyfs/b6L3VDowyhuYkiMf/Zs+fcg+L9jW595bcEfaHBVCMIa8
+ EIdgEpWmdhOZogevMe/YZF8qL6F5G6nfA71Dox0xTfJwVyJVEo76n6G43bDVNlUCN/24
+ 2fbdJZi9tNgUIPRC6SqfD1HTLC3oSSkPrszO9S5JdYEq8Cqi1Ni6nX+k5oVEYfPBYLw/
+ 68xzhfpyHS3I3hAcEL8mAvexEPXsXz2DePKk6Zao97vHTo2bC4wxPuBOb3ud9OsGeEiV
+ MT9A==
+X-Gm-Message-State: AOAM533O/djitnTLDvyUPm4GMg5eddDamGNWlE4kB48qMbCATZR1ugUe
+ ACQsBtXq8iYNSJnxC3oiHr8bD6bR6+i1eA97uMH8qxQzZjYV+RobSTu7Zi6zVdU8cFoPkek5Dti
+ 8O4TX3rBqiNRy756wDhqdupeIpLa7
+X-Received: by 2002:ac8:2f4f:: with SMTP id k15mr5437826qta.178.1602107603052; 
+ Wed, 07 Oct 2020 14:53:23 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJztgHq1DT8+0EZ0EAp6o4jDXABu9jdnfkiN69e3Dl5kWLMjxM+WdfGkPc8Onrw+Fq1DP+x8Zg==
+X-Received: by 2002:ac8:2f4f:: with SMTP id k15mr5437813qta.178.1602107602829; 
+ Wed, 07 Oct 2020 14:53:22 -0700 (PDT)
+Received: from Whitewolf.lyude.net
+ (pool-108-49-102-102.bstnma.fios.verizon.net. [108.49.102.102])
+ by smtp.gmail.com with ESMTPSA id g1sm2485892qtp.74.2020.10.07.14.53.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 07 Oct 2020 14:53:22 -0700 (PDT)
+Message-ID: <268f495fbb7e3042eb613398a8513a83d28d3fd9.camel@redhat.com>
+From: Lyude Paul <lyude@redhat.com>
+To: Satadru Pramanik <satadru@gmail.com>, Kai-Heng Feng
+ <kai.heng.feng@canonical.com>, Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi
+ <rodrigo.vivi@intel.com>, David Airlie <airlied@linux.ie>, Daniel Vetter
+ <daniel@ffwll.ch>, Ville =?ISO-8859-1?Q?Syrj=E4l=E4?=
+ <ville.syrjala@linux.intel.com>, Juha-Pekka Heikkila
+ <juhapekka.heikkila@gmail.com>, intel-gfx@lists.freedesktop.org, "open
+ list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>, open list
+ <linux-kernel@vger.kernel.org>
+Date: Wed, 07 Oct 2020 17:53:21 -0400
+In-Reply-To: <20201007065915.13883-1-kai.heng.feng@canonical.com>
+References: <20201007065915.13883-1-kai.heng.feng@canonical.com>
+Organization: Red Hat
+User-Agent: Evolution 3.36.5 (3.36.5-1.fc32)
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v5 1/3] drm/i915/display: Ignore
- IGNORE_PSR2_HW_TRACKING for platforms without sel fetch
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=lyude@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Subject: Re: [Intel-gfx] [PATCH 1/2] drm/i915/dpcd_bl: Skip testing control
+ capability with force DPCD quirk
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,30 +103,77 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Reply-To: lyude@redhat.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Rm9yIHBsYXRmb3JtcyB3aXRob3V0IHNlbGVjdGl2ZSBmZXRjaCB0aGlzIHJlZ2lzdGVyIGlzIHJl
-c2VydmVkIHNvCmRvIG5vdCB3cml0ZSAwIHRvIGl0LgoKQ2M6IEd3YW4tZ3llb25nIE11biA8Z3dh
-bi1neWVvbmcubXVuQGludGVsLmNvbT4KQ2M6IFZpbGxlIFN5cmrDpGzDpCA8dmlsbGUuc3lyamFs
-YUBsaW51eC5pbnRlbC5jb20+ClJldmlld2VkLWJ5OiBSb2RyaWdvIFZpdmkgPHJvZHJpZ28udml2
-aUBpbnRlbC5jb20+ClNpZ25lZC1vZmYtYnk6IEpvc8OpIFJvYmVydG8gZGUgU291emEgPGpvc2Uu
-c291emFAaW50ZWwuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxf
-cHNyLmMgfCAyICstCiAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDEgZGVsZXRpb24o
-LSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX3Bzci5j
-IGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9wc3IuYwppbmRleCA4YTlkMGJk
-ZGUxYmYuLjRlMDlhZTYxZDRhYSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlz
-cGxheS9pbnRlbF9wc3IuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVs
-X3Bzci5jCkBAIC05NDIsNyArOTQyLDcgQEAgc3RhdGljIHZvaWQgaW50ZWxfcHNyX2VuYWJsZV9z
-b3VyY2Uoc3RydWN0IGludGVsX2RwICppbnRlbF9kcCwKIAkJaW50ZWxfZGVfd3JpdGUoZGV2X3By
-aXYsIEVYSVRMSU5FKGNwdV90cmFuc2NvZGVyKSwgdmFsKTsKIAl9CiAKLQlpZiAoSEFTX1BTUl9I
-V19UUkFDS0lORyhkZXZfcHJpdikpCisJaWYgKEhBU19QU1JfSFdfVFJBQ0tJTkcoZGV2X3ByaXYp
-ICYmIEhBU19QU1IyX1NFTF9GRVRDSChkZXZfcHJpdikpCiAJCWludGVsX2RlX3JtdyhkZXZfcHJp
-diwgQ0hJQ0tFTl9QQVIxXzEsIElHTk9SRV9QU1IyX0hXX1RSQUNLSU5HLAogCQkJICAgICBkZXZf
-cHJpdi0+cHNyLnBzcjJfc2VsX2ZldGNoX2VuYWJsZWQgPwogCQkJICAgICBJR05PUkVfUFNSMl9I
-V19UUkFDS0lORyA6IDApOwotLSAKMi4yOC4wCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fXwpJbnRlbC1nZnggbWFpbGluZyBsaXN0CkludGVsLWdmeEBsaXN0
-cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9s
-aXN0aW5mby9pbnRlbC1nZngK
+Hi! I thought this patch rang a bell, we actually already had some discussion
+about this since there's a couple of other systems this was causing issues for.
+Unfortunately it never seems like that patch got sent out. Satadru?
+
+(if I don't hear back from them soon, I'll just send out a patch for this
+myself)
+
+JFYI - the proper fix here is to just drop the
+DP_EDP_BACKLIGHT_BRIGHTNESS_PWM_PIN_CAP check from the code entirely. As long as
+the backlight supports AUX_SET_CAP, that should be enough for us to control it.
+
+
+On Wed, 2020-10-07 at 14:58 +0800, Kai-Heng Feng wrote:
+> HP DreamColor panel needs to be controlled via AUX interface. However,
+> it has both DP_EDP_BACKLIGHT_BRIGHTNESS_AUX_SET_CAP and
+> DP_EDP_BACKLIGHT_BRIGHTNESS_PWM_PIN_CAP set, so it fails to pass
+> intel_dp_aux_display_control_capable() test.
+> 
+> Skip the test if the panel has force DPCD quirk.
+> 
+> Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
+> ---
+>  drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c | 10 ++++++----
+>  1 file changed, 6 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
+> b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
+> index acbd7eb66cbe..acf2e1c65290 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
+> @@ -347,9 +347,13 @@ int intel_dp_aux_init_backlight_funcs(struct
+> intel_connector *intel_connector)
+>  	struct intel_panel *panel = &intel_connector->panel;
+>  	struct intel_dp *intel_dp = enc_to_intel_dp(intel_connector->encoder);
+>  	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
+> +	bool force_dpcd;
+> +
+> +	force_dpcd = drm_dp_has_quirk(&intel_dp->desc, intel_dp->edid_quirks,
+> +				      DP_QUIRK_FORCE_DPCD_BACKLIGHT);
+>  
+>  	if (i915->params.enable_dpcd_backlight == 0 ||
+> -	    !intel_dp_aux_display_control_capable(intel_connector))
+> +	    (!force_dpcd &&
+> !intel_dp_aux_display_control_capable(intel_connector)))
+>  		return -ENODEV;
+>  
+>  	/*
+> @@ -358,9 +362,7 @@ int intel_dp_aux_init_backlight_funcs(struct
+> intel_connector *intel_connector)
+>  	 */
+>  	if (i915->vbt.backlight.type !=
+>  	    INTEL_BACKLIGHT_VESA_EDP_AUX_INTERFACE &&
+> -	    i915->params.enable_dpcd_backlight != 1 &&
+> -	    !drm_dp_has_quirk(&intel_dp->desc, intel_dp->edid_quirks,
+> -			      DP_QUIRK_FORCE_DPCD_BACKLIGHT)) {
+> +	    i915->params.enable_dpcd_backlight != 1 && !force_dpcd) {
+>  		drm_info(&i915->drm,
+>  			 "Panel advertises DPCD backlight support, but "
+>  			 "VBT disagrees. If your backlight controls "
+-- 
+Sincerely,
+      Lyude Paul (she/her)
+      Software Engineer at Red Hat
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
