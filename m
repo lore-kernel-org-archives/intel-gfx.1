@@ -2,52 +2,52 @@ Return-Path: <SRS0=1MTx=DP=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-9.9 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9FF0AC2BD10
-	for <intel-gfx@archiver.kernel.org>; Thu,  8 Oct 2020 21:44:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D5F6EC43467
+	for <intel-gfx@archiver.kernel.org>; Thu,  8 Oct 2020 21:44:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 403D222241
-	for <intel-gfx@archiver.kernel.org>; Thu,  8 Oct 2020 21:44:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 403D222241
+	by mail.kernel.org (Postfix) with ESMTPS id 7BE8622241
+	for <intel-gfx@archiver.kernel.org>; Thu,  8 Oct 2020 21:44:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7BE8622241
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A5BAF6EB47;
-	Thu,  8 Oct 2020 21:44:27 +0000 (UTC)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E269989815
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0AAD66EB43;
+	Thu,  8 Oct 2020 21:44:26 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E48889815
  for <intel-gfx@lists.freedesktop.org>; Thu,  8 Oct 2020 21:44:24 +0000 (UTC)
-IronPort-SDR: 5DfN4Ta/R2irrVzSLINGQ6rC5fWwtXDBsFvtToKP2gQ4CaQNIfvWEtv9AZlzJnvAZrkpdrk1dU
- T8/SLLmkwJ7w==
-X-IronPort-AV: E=McAfee;i="6000,8403,9768"; a="227057662"
-X-IronPort-AV: E=Sophos;i="5.77,352,1596524400"; d="scan'208";a="227057662"
+IronPort-SDR: fyvhZtyRAD5ex0xtA6gYPTxy3gZWz9+1l2opf5OmRhyKRQn1VAtNitJtoiPQtMeH0adWFCZtMc
+ HU6+HSG6bO4A==
+X-IronPort-AV: E=McAfee;i="6000,8403,9768"; a="182844148"
+X-IronPort-AV: E=Sophos;i="5.77,352,1596524400"; d="scan'208";a="182844148"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  08 Oct 2020 14:44:24 -0700
-IronPort-SDR: DVqy4BZgXZOEbcm+bYVhYeT+yiducTYDtfJcH329bFL/573BAPiDHd3UidFz1TlQvqzDHcHu0s
- LMqKbRsfqp2g==
-X-IronPort-AV: E=Sophos;i="5.77,352,1596524400"; d="scan'208";a="312338262"
+IronPort-SDR: gkD8sQJWTC/7g7NGXapBcJwVel+RFic3uyEtepJAXwvuj0kMaHWpe9Qov+PRUuOW46J6W6Bkgt
+ uaeNRrLkxbcg==
+X-IronPort-AV: E=Sophos;i="5.77,352,1596524400"; d="scan'208";a="312338249"
 Received: from labuser-z97x-ud5h.jf.intel.com ([10.165.21.211])
  by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-SHA;
  08 Oct 2020 14:44:23 -0700
 From: Manasi Navare <manasi.d.navare@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu,  8 Oct 2020 14:45:33 -0700
-Message-Id: <20201008214535.22942-9-manasi.d.navare@intel.com>
+Date: Thu,  8 Oct 2020 14:45:29 -0700
+Message-Id: <20201008214535.22942-5-manasi.d.navare@intel.com>
 X-Mailer: git-send-email 2.19.1
 In-Reply-To: <20201008214535.22942-1-manasi.d.navare@intel.com>
 References: <20201008214535.22942-1-manasi.d.navare@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v10 09/11] drm/i915: Add bigjoiner aware plane
- clipping checks
+Subject: [Intel-gfx] [PATCH v10 05/11] drm/i915: Try to make bigjoiner work
+ in atomic check
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,199 +67,479 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 
-We need to look at hw.fb for the framebuffer, and add the translation
-for the slave_plane_state. With these changes we set the correct
-rectangle on the bigjoiner slave, and don't set incorrect
-src/dst/visibility on the slave plane.
+ When the clock is higher than the dotclock, try with 2 pipes enabled.
+ If we can enable 2, then we will go into big joiner mode, and steal
+ the adjacent crtc.
 
-v2:
-* Manual rebase (Manasi)
+ This only links the crtc's in software, no hardware or plane
+ programming is done yet. Blobs are also copied from the master's
+ crtc_state, so it doesn't depend at commit time on the other
+ crtc_state.
+
+v4:
+* Fixes in intel_crtc_compute_config (Ville)
+v3:
+* Manual Rebase (Manasi)
+ Changes since v1:
+ - Rename pipe timings to transcoder timings, as they are now different.
+  Changes since v2:
+ - Rework bigjoiner checks; always disable slave when recalculating
+   master. No need to have a separate bigjoiner pass any more.
+ - Use pipe_mode instead of transcoder_mode, to clean up the code.
 
 Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 Signed-off-by: Manasi Navare <manasi.d.navare@intel.com>
 ---
- .../gpu/drm/i915/display/intel_atomic_plane.c | 60 +++++++++++++++++++
- .../gpu/drm/i915/display/intel_atomic_plane.h |  4 ++
- drivers/gpu/drm/i915/display/intel_display.c  | 19 +++---
- drivers/gpu/drm/i915/display/intel_sprite.c   | 21 +++----
- 4 files changed, 80 insertions(+), 24 deletions(-)
+ drivers/gpu/drm/i915/display/intel_atomic.c   |   9 +-
+ drivers/gpu/drm/i915/display/intel_atomic.h   |   3 +-
+ drivers/gpu/drm/i915/display/intel_display.c  | 202 ++++++++++++++++--
+ .../drm/i915/display/intel_display_types.h    |   9 +
+ drivers/gpu/drm/i915/display/intel_dp.c       |  22 +-
+ 5 files changed, 211 insertions(+), 34 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_atomic_plane.c b/drivers/gpu/drm/i915/display/intel_atomic_plane.c
-index a8f1fd85a6c0..09cb3adc36da 100644
---- a/drivers/gpu/drm/i915/display/intel_atomic_plane.c
-+++ b/drivers/gpu/drm/i915/display/intel_atomic_plane.c
-@@ -267,6 +267,9 @@ void intel_plane_copy_uapi_to_hw_state(const struct intel_crtc_state *crtc_state
- 	plane_state->hw.rotation = from_plane_state->uapi.rotation;
- 	plane_state->hw.color_encoding = from_plane_state->uapi.color_encoding;
- 	plane_state->hw.color_range = from_plane_state->uapi.color_range;
+diff --git a/drivers/gpu/drm/i915/display/intel_atomic.c b/drivers/gpu/drm/i915/display/intel_atomic.c
+index 86be032bcf96..e243ce97b534 100644
+--- a/drivers/gpu/drm/i915/display/intel_atomic.c
++++ b/drivers/gpu/drm/i915/display/intel_atomic.c
+@@ -270,14 +270,15 @@ void intel_crtc_free_hw_state(struct intel_crtc_state *crtc_state)
+ 	intel_crtc_put_color_blobs(crtc_state);
+ }
+ 
+-void intel_crtc_copy_color_blobs(struct intel_crtc_state *crtc_state)
++void intel_crtc_copy_color_blobs(struct intel_crtc_state *crtc_state,
++				 const struct intel_crtc_state *from_crtc_state)
+ {
+ 	drm_property_replace_blob(&crtc_state->hw.degamma_lut,
+-				  crtc_state->uapi.degamma_lut);
++				  from_crtc_state->uapi.degamma_lut);
+ 	drm_property_replace_blob(&crtc_state->hw.gamma_lut,
+-				  crtc_state->uapi.gamma_lut);
++				  from_crtc_state->uapi.gamma_lut);
+ 	drm_property_replace_blob(&crtc_state->hw.ctm,
+-				  crtc_state->uapi.ctm);
++				  from_crtc_state->uapi.ctm);
+ }
+ 
+ /**
+diff --git a/drivers/gpu/drm/i915/display/intel_atomic.h b/drivers/gpu/drm/i915/display/intel_atomic.h
+index 285de07011dc..62a3365ed5e6 100644
+--- a/drivers/gpu/drm/i915/display/intel_atomic.h
++++ b/drivers/gpu/drm/i915/display/intel_atomic.h
+@@ -43,7 +43,8 @@ struct drm_crtc_state *intel_crtc_duplicate_state(struct drm_crtc *crtc);
+ void intel_crtc_destroy_state(struct drm_crtc *crtc,
+ 			       struct drm_crtc_state *state);
+ void intel_crtc_free_hw_state(struct intel_crtc_state *crtc_state);
+-void intel_crtc_copy_color_blobs(struct intel_crtc_state *crtc_state);
++void intel_crtc_copy_color_blobs(struct intel_crtc_state *crtc_state,
++				 const struct intel_crtc_state *from_crtc_state);
+ struct drm_atomic_state *intel_atomic_state_alloc(struct drm_device *dev);
+ void intel_atomic_state_free(struct drm_atomic_state *state);
+ void intel_atomic_state_clear(struct drm_atomic_state *state);
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index cc540c7b7dcd..37b56f4c2401 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -8130,9 +8130,24 @@ static int intel_crtc_compute_config(struct intel_crtc *crtc,
+ 				     struct intel_crtc_state *pipe_config)
+ {
+ 	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
+-	const struct drm_display_mode *pipe_mode = &pipe_config->hw.pipe_mode;
++	struct drm_display_mode *pipe_mode = &pipe_config->hw.pipe_mode;
+ 	int clock_limit = dev_priv->max_dotclk_freq;
+ 
++	*pipe_mode = pipe_config->hw.adjusted_mode;
 +
-+	plane_state->uapi.src = drm_plane_state_src(&from_plane_state->uapi);
-+	plane_state->uapi.dst = drm_plane_state_dest(&from_plane_state->uapi);
++	/* Adjust pipe_mode for bigjoiner, with half the horizontal mode */
++	if (pipe_config->bigjoiner) {
++		pipe_mode->crtc_clock /= 2;
++		pipe_mode->crtc_hdisplay /= 2;
++		pipe_mode->crtc_hblank_start /= 2;
++		pipe_mode->crtc_hblank_end /= 2;
++		pipe_mode->crtc_hsync_start /= 2;
++		pipe_mode->crtc_hsync_end /= 2;
++		pipe_mode->crtc_htotal /= 2;
++		pipe_mode->crtc_hskew /= 2;
++		pipe_config->pipe_src_w /= 2;
++	}
++
+ 	if (INTEL_GEN(dev_priv) < 4) {
+ 		clock_limit = dev_priv->max_cdclk_freq * 9 / 10;
+ 
+@@ -8193,7 +8208,7 @@ static int intel_crtc_compute_config(struct intel_crtc *crtc,
+ 	 * WaPruneModeWithIncorrectHsyncOffset:ctg,elk,ilk,snb,ivb,vlv,hsw.
+ 	 */
+ 	if ((INTEL_GEN(dev_priv) > 4 || IS_G4X(dev_priv)) &&
+-		pipe_mode->crtc_hsync_start == pipe_mode->crtc_hdisplay)
++	    pipe_mode->crtc_hsync_start == pipe_mode->crtc_hdisplay)
+ 		return -EINVAL;
+ 
+ 	intel_crtc_compute_pixel_rate(pipe_config);
+@@ -12559,7 +12574,7 @@ static bool encoders_cloneable(const struct intel_encoder *a,
+ 			  b->cloneable & (1 << a->type));
  }
  
- void intel_plane_set_invisible(struct intel_crtc_state *crtc_state,
-@@ -519,6 +522,63 @@ void i9xx_update_planes_on_crtc(struct intel_atomic_state *state,
- 	}
+-static bool check_single_encoder_cloning(struct drm_atomic_state *state,
++static bool check_single_encoder_cloning(struct intel_atomic_state *state,
+ 					 struct intel_crtc *crtc,
+ 					 struct intel_encoder *encoder)
+ {
+@@ -12568,7 +12583,7 @@ static bool check_single_encoder_cloning(struct drm_atomic_state *state,
+ 	struct drm_connector_state *connector_state;
+ 	int i;
+ 
+-	for_each_new_connector_in_state(state, connector, connector_state, i) {
++	for_each_new_connector_in_state(&state->base, connector, connector_state, i) {
+ 		if (connector_state->crtc != &crtc->base)
+ 			continue;
+ 
+@@ -12808,6 +12823,7 @@ static int intel_crtc_atomic_check(struct intel_atomic_state *state,
+ 
+ 	if (mode_changed && crtc_state->hw.enable &&
+ 	    dev_priv->display.crtc_compute_clock &&
++	    !crtc_state->bigjoiner_slave &&
+ 	    !drm_WARN_ON(&dev_priv->drm, crtc_state->shared_dpll)) {
+ 		ret = dev_priv->display.crtc_compute_clock(crtc, crtc_state);
+ 		if (ret)
+@@ -13341,19 +13357,32 @@ static bool check_digital_port_conflicts(struct intel_atomic_state *state)
  }
  
-+int intel_atomic_plane_check_clipping(struct intel_plane_state *plane_state,
-+				      struct intel_crtc_state *crtc_state,
-+				      int min_scale, int max_scale,
-+				      bool can_position)
+ static void
+-intel_crtc_copy_uapi_to_hw_state_nomodeset(struct intel_crtc_state *crtc_state)
++intel_crtc_copy_uapi_to_hw_state_nomodeset(struct intel_atomic_state *state,
++					   struct intel_crtc_state *crtc_state)
+ {
+-	intel_crtc_copy_color_blobs(crtc_state);
++	const struct intel_crtc_state *from_crtc_state = crtc_state;
++
++	if (crtc_state->bigjoiner_slave) {
++		from_crtc_state = intel_atomic_get_new_crtc_state(state,
++								  crtc_state->bigjoiner_linked_crtc);
++
++		/* No need to copy state if the master state is unchanged */
++		if (!from_crtc_state)
++			return;
++	}
++
++	intel_crtc_copy_color_blobs(crtc_state, from_crtc_state);
+ }
+ 
+ static void
+-intel_crtc_copy_uapi_to_hw_state(struct intel_crtc_state *crtc_state)
++intel_crtc_copy_uapi_to_hw_state(struct intel_atomic_state *state,
++				 struct intel_crtc_state *crtc_state)
+ {
+ 	crtc_state->hw.enable = crtc_state->uapi.enable;
+ 	crtc_state->hw.active = crtc_state->uapi.active;
+ 	crtc_state->hw.mode = crtc_state->uapi.mode;
+ 	crtc_state->hw.pipe_mode = crtc_state->hw.adjusted_mode = crtc_state->uapi.adjusted_mode;
+-	intel_crtc_copy_uapi_to_hw_state_nomodeset(crtc_state);
++	intel_crtc_copy_uapi_to_hw_state_nomodeset(state, crtc_state);
+ }
+ 
+ static void intel_crtc_copy_hw_to_uapi_state(struct intel_crtc_state *crtc_state)
+@@ -13375,7 +13404,49 @@ static void intel_crtc_copy_hw_to_uapi_state(struct intel_crtc_state *crtc_state
+ }
+ 
+ static int
+-intel_crtc_prepare_cleared_state(struct intel_crtc_state *crtc_state)
++copy_bigjoiner_crtc_state(struct intel_crtc_state *crtc_state,
++			  const struct intel_crtc_state *from_crtc_state)
 +{
-+	struct drm_framebuffer *fb = plane_state->hw.fb;
-+	struct drm_rect *src = &plane_state->uapi.src;
-+	struct drm_rect *dst = &plane_state->uapi.dst;
-+	unsigned int rotation = plane_state->uapi.rotation;
-+	struct drm_rect clip = {};
-+	int hscale, vscale;
++	struct intel_crtc_state *saved_state;
++	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
 +
-+	if (!fb) {
-+		plane_state->uapi.visible = false;
-+		return 0;
-+	}
++	saved_state = kmemdup(from_crtc_state, sizeof(*saved_state), GFP_KERNEL);
++	if (!saved_state)
++		return -ENOMEM;
 +
-+	drm_rect_rotate(src, fb->width << 16, fb->height << 16, rotation);
++	saved_state->uapi = crtc_state->uapi;
++	saved_state->scaler_state = crtc_state->scaler_state;
++	saved_state->shared_dpll = crtc_state->shared_dpll;
++	saved_state->dpll_hw_state = crtc_state->dpll_hw_state;
++	saved_state->crc_enabled = crtc_state->crc_enabled;
 +
-+	/* Check scaling */
-+	hscale = drm_rect_calc_hscale(src, dst, min_scale, max_scale);
-+	vscale = drm_rect_calc_vscale(src, dst, min_scale, max_scale);
-+	if (hscale < 0 || vscale < 0) {
-+		DRM_DEBUG_KMS("Invalid scaling of plane\n");
-+		drm_rect_debug_print("src: ", src, true);
-+		drm_rect_debug_print("dst: ", dst, false);
-+		return -ERANGE;
-+	}
++	intel_crtc_free_hw_state(crtc_state);
++	memcpy(crtc_state, saved_state, sizeof(*crtc_state));
++	kfree(saved_state);
 +
-+	if (crtc_state->hw.enable) {
-+		clip.x2 = crtc_state->pipe_src_w;
-+		clip.y2 = crtc_state->pipe_src_h;
-+	}
++	/* Re-init hw state */
++	memset(&crtc_state->hw, 0, sizeof(saved_state->hw));
++	crtc_state->hw.enable = from_crtc_state->hw.enable;
++	crtc_state->hw.active = from_crtc_state->hw.active;
++	crtc_state->hw.pipe_mode = from_crtc_state->hw.pipe_mode;
++	crtc_state->hw.adjusted_mode = from_crtc_state->hw.adjusted_mode;
 +
-+	/* right side of the image is on the slave crtc, adjust dst to match */
-+	if (crtc_state->bigjoiner_slave)
-+		drm_rect_translate(dst, -crtc_state->pipe_src_w, 0);
-+
-+	/*
-+	 * FIXME: This might need further adjustment for seamless scaling
-+	 * with phase information, for the 2p2 and 2p1 scenarios.
-+	 */
-+	plane_state->uapi.visible = drm_rect_clip_scaled(src, dst, &clip);
-+
-+	drm_rect_rotate_inv(src, fb->width << 16, fb->height << 16, rotation);
-+
-+	if (!can_position && plane_state->uapi.visible &&
-+	    !drm_rect_equals(dst, &clip)) {
-+		DRM_DEBUG_KMS("Plane must cover entire CRTC\n");
-+		drm_rect_debug_print("dst: ", dst, false);
-+		drm_rect_debug_print("clip: ", &clip, false);
-+		return -EINVAL;
-+	}
++	/* Some fixups */
++	crtc_state->uapi.mode_changed = from_crtc_state->uapi.mode_changed;
++	crtc_state->uapi.connectors_changed = from_crtc_state->uapi.connectors_changed;
++	crtc_state->uapi.active_changed = from_crtc_state->uapi.active_changed;
++	crtc_state->nv12_planes = crtc_state->c8_planes = crtc_state->update_planes = 0;
++	crtc_state->bigjoiner_linked_crtc = to_intel_crtc(from_crtc_state->uapi.crtc);
++	crtc_state->bigjoiner_slave = true;
++	crtc_state->cpu_transcoder = (enum transcoder)crtc->pipe;
++	crtc_state->has_audio = false;
 +
 +	return 0;
 +}
 +
- const struct drm_plane_helper_funcs intel_plane_helper_funcs = {
- 	.prepare_fb = intel_prepare_plane_fb,
- 	.cleanup_fb = intel_cleanup_plane_fb,
-diff --git a/drivers/gpu/drm/i915/display/intel_atomic_plane.h b/drivers/gpu/drm/i915/display/intel_atomic_plane.h
-index c2a1e7c86e6c..d0a599d00ecd 100644
---- a/drivers/gpu/drm/i915/display/intel_atomic_plane.h
-+++ b/drivers/gpu/drm/i915/display/intel_atomic_plane.h
-@@ -53,6 +53,10 @@ int intel_plane_atomic_calc_changes(const struct intel_crtc_state *old_crtc_stat
- int intel_plane_calc_min_cdclk(struct intel_atomic_state *state,
- 			       struct intel_plane *plane,
- 			       bool *need_cdclk_calc);
-+int intel_atomic_plane_check_clipping(struct intel_plane_state *plane_state,
-+				      struct intel_crtc_state *crtc_state,
-+				      int min_scale, int max_scale,
-+				      bool can_position);
- void intel_plane_set_invisible(struct intel_crtc_state *crtc_state,
- 			       struct intel_plane_state *plane_state);
++static int
++intel_crtc_prepare_cleared_state(struct intel_atomic_state *state,
++				 struct intel_crtc_state *crtc_state)
+ {
+ 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
+ 	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
+@@ -13407,16 +13478,16 @@ intel_crtc_prepare_cleared_state(struct intel_crtc_state *crtc_state)
+ 	memcpy(crtc_state, saved_state, sizeof(*crtc_state));
+ 	kfree(saved_state);
  
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index d5a6f07bb674..357cc2bce300 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -4409,12 +4409,10 @@ i9xx_plane_check(struct intel_crtc_state *crtc_state,
- 	if (ret)
- 		return ret;
+-	intel_crtc_copy_uapi_to_hw_state(crtc_state);
++	intel_crtc_copy_uapi_to_hw_state(state, crtc_state);
  
--	ret = drm_atomic_helper_check_plane_state(&plane_state->uapi,
--						  &crtc_state->uapi,
--						  DRM_PLANE_HELPER_NO_SCALING,
--						  DRM_PLANE_HELPER_NO_SCALING,
--						  i9xx_plane_has_windowing(plane),
--						  true);
-+	ret = intel_atomic_plane_check_clipping(plane_state, crtc_state,
-+						DRM_PLANE_HELPER_NO_SCALING,
-+						DRM_PLANE_HELPER_NO_SCALING,
-+						i9xx_plane_has_windowing(plane));
- 	if (ret)
- 		return ret;
+ 	return 0;
+ }
  
-@@ -11611,11 +11609,10 @@ static int intel_check_cursor(struct intel_crtc_state *crtc_state,
- 		return -EINVAL;
- 	}
+ static int
+-intel_modeset_pipe_config(struct intel_crtc_state *pipe_config)
++intel_modeset_pipe_config(struct intel_atomic_state *state,
++			  struct intel_crtc_state *pipe_config)
+ {
+ 	struct drm_crtc *crtc = pipe_config->uapi.crtc;
+-	struct drm_atomic_state *state = pipe_config->uapi.state;
+ 	struct drm_i915_private *i915 = to_i915(pipe_config->uapi.crtc->dev);
+ 	struct drm_connector *connector;
+ 	struct drm_connector_state *connector_state;
+@@ -13458,7 +13529,7 @@ intel_modeset_pipe_config(struct intel_crtc_state *pipe_config)
+ 			       &pipe_config->pipe_src_w,
+ 			       &pipe_config->pipe_src_h);
  
--	ret = drm_atomic_helper_check_plane_state(&plane_state->uapi,
--						  &crtc_state->uapi,
--						  DRM_PLANE_HELPER_NO_SCALING,
--						  DRM_PLANE_HELPER_NO_SCALING,
--						  true, true);
-+	ret = intel_atomic_plane_check_clipping(plane_state, crtc_state,
-+						DRM_PLANE_HELPER_NO_SCALING,
-+						DRM_PLANE_HELPER_NO_SCALING,
-+						true);
- 	if (ret)
- 		return ret;
+-	for_each_new_connector_in_state(state, connector, connector_state, i) {
++	for_each_new_connector_in_state(&state->base, connector, connector_state, i) {
+ 		struct intel_encoder *encoder =
+ 			to_intel_encoder(connector_state->best_encoder);
  
-diff --git a/drivers/gpu/drm/i915/display/intel_sprite.c b/drivers/gpu/drm/i915/display/intel_sprite.c
-index 2da11ab6343c..9e235210adc7 100644
---- a/drivers/gpu/drm/i915/display/intel_sprite.c
-+++ b/drivers/gpu/drm/i915/display/intel_sprite.c
-@@ -2047,10 +2047,8 @@ g4x_sprite_check(struct intel_crtc_state *crtc_state,
+@@ -13496,7 +13567,7 @@ intel_modeset_pipe_config(struct intel_crtc_state *pipe_config)
+ 	 * adjust it according to limitations or connector properties, and also
+ 	 * a chance to reject the mode entirely.
+ 	 */
+-	for_each_new_connector_in_state(state, connector, connector_state, i) {
++	for_each_new_connector_in_state(&state->base, connector, connector_state, i) {
+ 		struct intel_encoder *encoder =
+ 			to_intel_encoder(connector_state->best_encoder);
+ 
+@@ -13548,9 +13619,6 @@ intel_modeset_pipe_config(struct intel_crtc_state *pipe_config)
+ 		    "hw max bpp: %i, pipe bpp: %i, dithering: %i\n",
+ 		    base_bpp, pipe_config->pipe_bpp, pipe_config->dither);
+ 
+-	/* without bigjoiner, pipe_mode == adjusted_mode */
+-	pipe_config->hw.pipe_mode = pipe_config->hw.adjusted_mode;
+-
+ 	return 0;
+ }
+ 
+@@ -14946,6 +15014,75 @@ static bool intel_cpu_transcoders_need_modeset(struct intel_atomic_state *state,
+ 	return false;
+ }
+ 
++static int intel_atomic_check_bigjoiner(struct intel_atomic_state *state,
++					struct intel_crtc *crtc,
++					struct intel_crtc_state *old_crtc_state,
++					struct intel_crtc_state *new_crtc_state)
++{
++	struct drm_i915_private *dev_priv = to_i915(state->base.dev);
++	struct intel_crtc_state *slave_crtc_state, *master_crtc_state;
++	struct intel_crtc *slave, *master;
++
++	/* slave being enabled, is master is still claiming this crtc? */
++	if (old_crtc_state->bigjoiner_slave) {
++		slave = crtc;
++		master = old_crtc_state->bigjoiner_linked_crtc;
++		master_crtc_state = intel_atomic_get_new_crtc_state(state, master);
++		if (!master_crtc_state || !needs_modeset(master_crtc_state))
++			goto claimed;
++	}
++
++	if (!new_crtc_state->bigjoiner)
++		return 0;
++
++	if (1 + crtc->pipe >= INTEL_NUM_PIPES(dev_priv)) {
++		DRM_DEBUG_KMS("[CRTC:%d:%s] Big joiner configuration requires "
++			      "CRTC + 1 to be used, doesn't exist\n",
++			      crtc->base.base.id, crtc->base.name);
++		return -EINVAL;
++	}
++
++	slave = new_crtc_state->bigjoiner_linked_crtc =
++		intel_get_crtc_for_pipe(dev_priv, crtc->pipe + 1);
++	slave_crtc_state = intel_atomic_get_crtc_state(&state->base, slave);
++	master = crtc;
++	if (IS_ERR(slave_crtc_state))
++		return PTR_ERR(slave_crtc_state);
++
++	/* master being enabled, slave was already configured? */
++	if (slave_crtc_state->uapi.enable)
++		goto claimed;
++
++	DRM_DEBUG_KMS("[CRTC:%d:%s] Used as slave for big joiner\n",
++		      slave->base.base.id, slave->base.name);
++
++	return copy_bigjoiner_crtc_state(slave_crtc_state, new_crtc_state);
++
++claimed:
++	DRM_DEBUG_KMS("[CRTC:%d:%s] Slave is enabled as normal CRTC, but "
++		      "[CRTC:%d:%s] claiming this CRTC for bigjoiner.\n",
++		      slave->base.base.id, slave->base.name,
++		      master->base.base.id, master->base.name);
++	return -EINVAL;
++}
++
++static int kill_bigjoiner_slave(struct intel_atomic_state *state,
++				struct intel_crtc_state *master_crtc_state)
++{
++	struct intel_crtc_state *slave_crtc_state =
++			intel_atomic_get_crtc_state(&state->base,
++						    master_crtc_state->bigjoiner_linked_crtc);
++
++		if (IS_ERR(slave_crtc_state))
++			return PTR_ERR(slave_crtc_state);
++
++		slave_crtc_state->bigjoiner = master_crtc_state->bigjoiner = false;
++		slave_crtc_state->bigjoiner_slave = master_crtc_state->bigjoiner_slave = false;
++		slave_crtc_state->bigjoiner_linked_crtc = master_crtc_state->bigjoiner_linked_crtc = NULL;
++		intel_crtc_copy_uapi_to_hw_state(state, slave_crtc_state);
++		return 0;
++}
++
+ /**
+  * DOC: asynchronous flip implementation
+  *
+@@ -15108,19 +15245,36 @@ static int intel_atomic_check(struct drm_device *dev,
+ 					    new_crtc_state, i) {
+ 		if (!needs_modeset(new_crtc_state)) {
+ 			/* Light copy */
+-			intel_crtc_copy_uapi_to_hw_state_nomodeset(new_crtc_state);
++			intel_crtc_copy_uapi_to_hw_state_nomodeset(state, new_crtc_state);
++
++			continue;
++		}
+ 
++		/* Kill old bigjoiner link, we may re-establish afterwards */
++		if (old_crtc_state->bigjoiner && !old_crtc_state->bigjoiner_slave) {
++			ret = kill_bigjoiner_slave(state, new_crtc_state);
++			if (ret)
++				goto fail;
++		}
++
++		if (!new_crtc_state->uapi.enable) {
++			if (!new_crtc_state->bigjoiner_slave) {
++				intel_crtc_copy_uapi_to_hw_state(state, new_crtc_state);
++				any_ms = true;
++			}
+ 			continue;
  		}
+ 
+-		ret = intel_crtc_prepare_cleared_state(new_crtc_state);
++		ret = intel_crtc_prepare_cleared_state(state, new_crtc_state);
+ 		if (ret)
+ 			goto fail;
+ 
+-		if (!new_crtc_state->hw.enable)
+-			continue;
++		ret = intel_modeset_pipe_config(state, new_crtc_state);
++		if (ret)
++			goto fail;
+ 
+-		ret = intel_modeset_pipe_config(new_crtc_state);
++		ret = intel_atomic_check_bigjoiner(state, crtc, old_crtc_state,
++						   new_crtc_state);
+ 		if (ret)
+ 			goto fail;
+ 	}
+@@ -15458,7 +15612,9 @@ static void intel_update_crtc(struct intel_atomic_state *state,
+ 
+ 	commit_pipe_config(state, crtc);
+ 
+-	if (INTEL_GEN(dev_priv) >= 9)
++	if (new_crtc_state->bigjoiner) {
++	/* Not supported yet */
++	} else if (INTEL_GEN(dev_priv) >= 9)
+ 		skl_update_planes_on_crtc(state, crtc);
+ 	else
+ 		i9xx_update_planes_on_crtc(state, crtc);
+diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
+index 513576217d14..c159f6a48bf0 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_types.h
++++ b/drivers/gpu/drm/i915/display/intel_display_types.h
+@@ -1066,6 +1066,15 @@ struct intel_crtc_state {
+ 	/* enable pipe csc? */
+ 	bool csc_enable;
+ 
++	/* enable pipe big joiner? */
++	bool bigjoiner;
++
++	/* big joiner slave crtc? */
++	bool bigjoiner_slave;
++
++	/* linked crtc for bigjoiner, either slave or master */
++	struct intel_crtc *bigjoiner_linked_crtc;
++
+ 	/* Display Stream compression state */
+ 	struct {
+ 		bool compression_enable;
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index af2ff425e5d5..a627ad77dd3f 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -2386,6 +2386,15 @@ static int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
+ 	pipe_config->port_clock = intel_dp->common_rates[limits->max_clock];
+ 	pipe_config->lane_count = limits->max_lane_count;
+ 
++	if (adjusted_mode->crtc_clock > intel_dp_max_dotclock(intel_dp, false)) {
++		if (adjusted_mode->crtc_clock > intel_dp_max_dotclock(intel_dp, true)) {
++			DRM_DEBUG_KMS("Clock rate too high for big joiner\n");
++			return -EINVAL;
++		}
++		pipe_config->bigjoiner = true;
++		DRM_DEBUG_KMS("Using bigjoiner configuration\n");
++	}
++
+ 	if (intel_dp_is_edp(intel_dp)) {
+ 		pipe_config->dsc.compressed_bpp =
+ 			min_t(u16, drm_edp_dsc_sink_output_bpp(intel_dp->dsc_dpcd) >> 4,
+@@ -2403,12 +2412,12 @@ static int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
+ 						    pipe_config->lane_count,
+ 						    adjusted_mode->crtc_clock,
+ 						    adjusted_mode->crtc_hdisplay,
+-						    false);
++						    pipe_config->bigjoiner);
+ 		dsc_dp_slice_count =
+ 			intel_dp_dsc_get_slice_count(intel_dp,
+ 						     adjusted_mode->crtc_clock,
+ 						     adjusted_mode->crtc_hdisplay,
+-						     false);
++						     pipe_config->bigjoiner);
+ 		if (!dsc_max_output_bpp || !dsc_dp_slice_count) {
+ 			drm_dbg_kms(&dev_priv->drm,
+ 				    "Compressed BPP/Slice Count not supported\n");
+@@ -2424,14 +2433,15 @@ static int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
+ 	 * is greater than the maximum Cdclock and if slice count is even
+ 	 * then we need to use 2 VDSC instances.
+ 	 */
+-	if (adjusted_mode->crtc_clock > dev_priv->max_cdclk_freq) {
+-		if (pipe_config->dsc.slice_count > 1) {
+-			pipe_config->dsc.dsc_split = true;
+-		} else {
++	if (adjusted_mode->crtc_clock > dev_priv->max_cdclk_freq ||
++	    pipe_config->bigjoiner) {
++		if (pipe_config->dsc.slice_count < 2) {
+ 			drm_dbg_kms(&dev_priv->drm,
+ 				    "Cannot split stream to use 2 VDSC instances\n");
+ 			return -EINVAL;
+ 		}
++
++		pipe_config->dsc.dsc_split = true;
  	}
  
--	ret = drm_atomic_helper_check_plane_state(&plane_state->uapi,
--						  &crtc_state->uapi,
--						  min_scale, max_scale,
--						  true, true);
-+	ret = intel_atomic_plane_check_clipping(plane_state, crtc_state,
-+						min_scale, max_scale, true);
- 	if (ret)
- 		return ret;
- 
-@@ -2105,11 +2103,10 @@ vlv_sprite_check(struct intel_crtc_state *crtc_state,
- 	if (ret)
- 		return ret;
- 
--	ret = drm_atomic_helper_check_plane_state(&plane_state->uapi,
--						  &crtc_state->uapi,
--						  DRM_PLANE_HELPER_NO_SCALING,
--						  DRM_PLANE_HELPER_NO_SCALING,
--						  true, true);
-+	ret = intel_atomic_plane_check_clipping(plane_state, crtc_state,
-+						DRM_PLANE_HELPER_NO_SCALING,
-+						DRM_PLANE_HELPER_NO_SCALING,
-+						true);
- 	if (ret)
- 		return ret;
- 
-@@ -2316,10 +2313,8 @@ static int skl_plane_check(struct intel_crtc_state *crtc_state,
- 		max_scale = skl_plane_max_scale(dev_priv, fb);
- 	}
- 
--	ret = drm_atomic_helper_check_plane_state(&plane_state->uapi,
--						  &crtc_state->uapi,
--						  min_scale, max_scale,
--						  true, true);
-+	ret = intel_atomic_plane_check_clipping(plane_state, crtc_state,
-+						min_scale, max_scale, true);
- 	if (ret)
- 		return ret;
- 
+ 	ret = intel_dp_dsc_compute_params(&dig_port->base, pipe_config);
 -- 
 2.19.1
 
