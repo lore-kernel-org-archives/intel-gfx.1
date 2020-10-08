@@ -2,70 +2,52 @@ Return-Path: <SRS0=1MTx=DP=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.9 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8451FC433DF
-	for <intel-gfx@archiver.kernel.org>; Thu,  8 Oct 2020 21:32:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E8184C433DF
+	for <intel-gfx@archiver.kernel.org>; Thu,  8 Oct 2020 21:44:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 15E18207DE
-	for <intel-gfx@archiver.kernel.org>; Thu,  8 Oct 2020 21:32:53 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Jh38EcWP"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 15E18207DE
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 7366222241
+	for <intel-gfx@archiver.kernel.org>; Thu,  8 Oct 2020 21:44:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7366222241
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 21D1A6EAA8;
-	Thu,  8 Oct 2020 21:32:53 +0000 (UTC)
-Received: from mail-oi1-x244.google.com (mail-oi1-x244.google.com
- [IPv6:2607:f8b0:4864:20::244])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ADCC86EAA8;
- Thu,  8 Oct 2020 21:32:51 +0000 (UTC)
-Received: by mail-oi1-x244.google.com with SMTP id l85so7909865oih.10;
- Thu, 08 Oct 2020 14:32:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=cevBbZkl6jHkOu62C8Mabmldy49O6VfxjaThJkT7fqo=;
- b=Jh38EcWPcovRgGZovjptNmTC3XFLtdgDObcxU9J+Ngdo+JXkKMre2cFv1NNnc3Cksz
- Gw1qrxaSLznsP44k1kDXrGURJtVDpg1gMW5y6NJWW6QJFYp0CLt1vqtuojXyFkSvn7/t
- b666ABSDS178wKDyFFqh62mHgrcTal81GSuk9H4yQgCPhyBgz8h1fYNazcKi9tmUEesw
- QFj/aEbAF/sDrj5NYtY25wL63a2jcP2s6fXckEKyJFY6VnM3AF+1q1Feri6T0/wPUaLl
- jhKfGgOdYFJ9Nsyrc7zMJrY9aDBghZGQkYsosoQ0BzSJ8LOrRWAdYgxRTGBWHMwOSeuX
- EBNg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=cevBbZkl6jHkOu62C8Mabmldy49O6VfxjaThJkT7fqo=;
- b=idn8bEleAo+26+7mHDS1lKGGQ+L8VPmCR0HJb+JBs49V4GX/z7euSu+OKumLKlSe6x
- raEaOQ4bPd3mqAWvDWHZgUBi8oaIY4SrUd6CADPvouxkcp+9pdq0cQC2I47sr0Lg4Bja
- J3VS+TQYMSTvWmIZCp2qOXox5TUNEY+1/u1yMQepT/sdwxcWUcDJ32pzPIkjJqNvcEdU
- JBR8f2MbuabTNA5N3MJxMIa86XiDCehw6yflAd5HJpqacvbDGwszCxyu+/4LYdVi9XO+
- hvsY2GVbJXcnOrOoutN46diZsR7E1sBn75j+ibbdbMTqbY8SM5+wzNaryYBypug8c4lR
- EVJw==
-X-Gm-Message-State: AOAM533EEE16EtMcIucn0U2JN7VaDurxIKCQrq1WOV6FeQwl0pRxGxP4
- usSx/WUg8uA8khJDYqJvnk454HH6BnsN2pkM58c=
-X-Google-Smtp-Source: ABdhPJzzahJ9fNxMH7IRwnNuERPwbx/+Sm0GiltQD1QVQgQHMkVEjAJGOq4UBnib/mfX+ntmq1mJfDiRNt2fXEspr4I=
-X-Received: by 2002:aca:b9c4:: with SMTP id j187mr502838oif.48.1602192770806; 
- Thu, 08 Oct 2020 14:32:50 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C7FC589BA5;
+	Thu,  8 Oct 2020 21:44:24 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D4F6F89815
+ for <intel-gfx@lists.freedesktop.org>; Thu,  8 Oct 2020 21:44:23 +0000 (UTC)
+IronPort-SDR: 85PYGtKbw/eAHucfzQuiWsZvcCNGvBbvsGwPsJioArzPdJL47D2SIG2SPsU7+3jFcmCK4tQiw3
+ 33RPcu8TuVpw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9768"; a="182844144"
+X-IronPort-AV: E=Sophos;i="5.77,352,1596524400"; d="scan'208";a="182844144"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Oct 2020 14:44:23 -0700
+IronPort-SDR: 8tz0lCdNakS1z1VFN8Q6m7PLbLZZOsPIlx/3pUkFXuO5oY9l96PjZbTSpH3vmkPWXaiK1iMy13
+ 8EKxsB0xhJZw==
+X-IronPort-AV: E=Sophos;i="5.77,352,1596524400"; d="scan'208";a="312338240"
+Received: from labuser-z97x-ud5h.jf.intel.com ([10.165.21.211])
+ by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-SHA;
+ 08 Oct 2020 14:44:23 -0700
+From: Manasi Navare <manasi.d.navare@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Thu,  8 Oct 2020 14:45:26 -0700
+Message-Id: <20201008214535.22942-2-manasi.d.navare@intel.com>
+X-Mailer: git-send-email 2.19.1
+In-Reply-To: <20201008214535.22942-1-manasi.d.navare@intel.com>
+References: <20201008214535.22942-1-manasi.d.navare@intel.com>
 MIME-Version: 1.0
-References: <20201007065915.13883-1-kai.heng.feng@canonical.com>
- <268f495fbb7e3042eb613398a8513a83d28d3fd9.camel@redhat.com>
- <D18BA369-25A0-4D5E-A171-9EACF7DC950B@canonical.com>
- <27402476cddeef59e9ee05e1cdda430a9e34d29c.camel@redhat.com>
-In-Reply-To: <27402476cddeef59e9ee05e1cdda430a9e34d29c.camel@redhat.com>
-From: Satadru Pramanik <satadru@gmail.com>
-Date: Thu, 8 Oct 2020 17:32:39 -0400
-Message-ID: <CAFrh3J9epixh4tTbZ83+W3bEd+Y6OzEAd+WX8t6hmmjHMnw_PQ@mail.gmail.com>
-To: Lyude Paul <lyude@redhat.com>, Kevin Chowski <chowski@chromium.org>
-Subject: Re: [Intel-gfx] [PATCH 1/2] drm/i915/dpcd_bl: Skip testing control
- capability with force DPCD quirk
+Subject: [Intel-gfx] [PATCH v10 02/11] drm/i915/display: Rename pipe_timings
+ to transcoder_timings
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,279 +60,99 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, intel-gfx@lists.freedesktop.org,
- open list <linux-kernel@vger.kernel.org>,
- Kai-Heng Feng <kai.heng.feng@canonical.com>,
- "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>
-Content-Type: multipart/mixed; boundary="===============0469164112=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============0469164112==
-Content-Type: multipart/alternative; boundary="000000000000f7378b05b12f92e7"
-
---000000000000f7378b05b12f92e7
-Content-Type: text/plain; charset="UTF-8"
-
-Kevin Chowski said he would be geting to working on upstreaming a version
-of that which was in the ChromeOS tree here:
-
-https://chromium-review.googlesource.com/c/chromiumos/third_party/kernel/+/2344844
-when I last spoke to hi
-
-(This was two weeks ago.)
-
-Kevin - do you have any input on this?
-
-Satadru
-
-On Thu, Oct 8, 2020 at 1:07 PM Lyude Paul <lyude@redhat.com> wrote:
-
-> oh hold on, I misspoke. Here's the patch I was thinking of:
->
-> https://patchwork.freedesktop.org/series/82041/
->
-> On Thu, 2020-10-08 at 10:32 +0800, Kai-Heng Feng wrote:
-> > Hi Lyude,
-> >
-> > > On Oct 8, 2020, at 05:53, Lyude Paul <lyude@redhat.com> wrote:
-> > >
-> > > Hi! I thought this patch rang a bell, we actually already had some
-> > > discussion
-> > > about this since there's a couple of other systems this was causing
-> issues
-> > > for.
-> > > Unfortunately it never seems like that patch got sent out. Satadru?
-> > >
-> > > (if I don't hear back from them soon, I'll just send out a patch for
-> this
-> > > myself)
-> > >
-> > > JFYI - the proper fix here is to just drop the
-> > > DP_EDP_BACKLIGHT_BRIGHTNESS_PWM_PIN_CAP check from the code entirely.
-> As
-> > > long as
-> > > the backlight supports AUX_SET_CAP, that should be enough for us to
-> control
-> > > it.
-> >
-> > Does the proper fix include dropping DP_QUIRK_FORCE_DPCD_BACKLIGHT
-> entirely?
-> >
-> > Kai-Heng
-> >
-> > >
-> > > On Wed, 2020-10-07 at 14:58 +0800, Kai-Heng Feng wrote:
-> > > > HP DreamColor panel needs to be controlled via AUX interface.
-> However,
-> > > > it has both DP_EDP_BACKLIGHT_BRIGHTNESS_AUX_SET_CAP and
-> > > > DP_EDP_BACKLIGHT_BRIGHTNESS_PWM_PIN_CAP set, so it fails to pass
-> > > > intel_dp_aux_display_control_capable() test.
-> > > >
-> > > > Skip the test if the panel has force DPCD quirk.
-> > > >
-> > > > Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
-> > > > ---
-> > > > drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c | 10 ++++++----
-> > > > 1 file changed, 6 insertions(+), 4 deletions(-)
-> > > >
-> > > > diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-> > > > b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-> > > > index acbd7eb66cbe..acf2e1c65290 100644
-> > > > --- a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-> > > > +++ b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-> > > > @@ -347,9 +347,13 @@ int intel_dp_aux_init_backlight_funcs(struct
-> > > > intel_connector *intel_connector)
-> > > >   struct intel_panel *panel = &intel_connector->panel;
-> > > >   struct intel_dp *intel_dp =
-> enc_to_intel_dp(intel_connector->encoder);
-> > > >   struct drm_i915_private *i915 = dp_to_i915(intel_dp);
-> > > > + bool force_dpcd;
-> > > > +
-> > > > + force_dpcd = drm_dp_has_quirk(&intel_dp->desc,
-> intel_dp->edid_quirks,
-> > > > +                               DP_QUIRK_FORCE_DPCD_BACKLIGHT);
-> > > >
-> > > >   if (i915->params.enable_dpcd_backlight == 0 ||
-> > > > -     !intel_dp_aux_display_control_capable(intel_connector))
-> > > > +     (!force_dpcd &&
-> > > > !intel_dp_aux_display_control_capable(intel_connector)))
-> > > >           return -ENODEV;
-> > > >
-> > > >   /*
-> > > > @@ -358,9 +362,7 @@ int intel_dp_aux_init_backlight_funcs(struct
-> > > > intel_connector *intel_connector)
-> > > >    */
-> > > >   if (i915->vbt.backlight.type !=
-> > > >       INTEL_BACKLIGHT_VESA_EDP_AUX_INTERFACE &&
-> > > > -     i915->params.enable_dpcd_backlight != 1 &&
-> > > > -     !drm_dp_has_quirk(&intel_dp->desc, intel_dp->edid_quirks,
-> > > > -                       DP_QUIRK_FORCE_DPCD_BACKLIGHT)) {
-> > > > +     i915->params.enable_dpcd_backlight != 1 && !force_dpcd) {
-> > > >           drm_info(&i915->drm,
-> > > >                    "Panel advertises DPCD backlight support, but "
-> > > >                    "VBT disagrees. If your backlight controls "
-> > > --
-> > > Sincerely,
-> > >      Lyude Paul (she/her)
-> > >      Software Engineer at Red Hat
-> --
-> Sincerely,
->       Lyude Paul (she/her)
->       Software Engineer at Red Hat
->
->
-
---000000000000f7378b05b12f92e7
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Kevin Chowski said he would be geting to working on upstre=
-aming a version of that which was in the ChromeOS tree here:=C2=A0<div><br>=
-</div><div><a href=3D"https://chromium-review.googlesource.com/c/chromiumos=
-/third_party/kernel/+/2344844">https://chromium-review.googlesource.com/c/c=
-hromiumos/third_party/kernel/+/2344844</a> when I last spoke to hi<div><br>=
-</div><div>(This was two weeks ago.)</div></div><div><br></div><div>Kevin -=
- do you have any input on this?</div><div><br></div><div>Satadru</div></div=
-><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Th=
-u, Oct 8, 2020 at 1:07 PM Lyude Paul &lt;<a href=3D"mailto:lyude@redhat.com=
-" target=3D"_blank">lyude@redhat.com</a>&gt; wrote:<br></div><blockquote cl=
-ass=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid=
- rgb(204,204,204);padding-left:1ex">oh hold on, I misspoke. Here&#39;s the =
-patch I was thinking of:<br>
-<br>
-<a href=3D"https://patchwork.freedesktop.org/series/82041/" rel=3D"noreferr=
-er" target=3D"_blank">https://patchwork.freedesktop.org/series/82041/</a><b=
-r>
-<br>
-On Thu, 2020-10-08 at 10:32 +0800, Kai-Heng Feng wrote:<br>
-&gt; Hi Lyude,<br>
-&gt; <br>
-&gt; &gt; On Oct 8, 2020, at 05:53, Lyude Paul &lt;<a href=3D"mailto:lyude@=
-redhat.com" target=3D"_blank">lyude@redhat.com</a>&gt; wrote:<br>
-&gt; &gt; <br>
-&gt; &gt; Hi! I thought this patch rang a bell, we actually already had som=
-e<br>
-&gt; &gt; discussion<br>
-&gt; &gt; about this since there&#39;s a couple of other systems this was c=
-ausing issues<br>
-&gt; &gt; for.<br>
-&gt; &gt; Unfortunately it never seems like that patch got sent out. Satadr=
-u?<br>
-&gt; &gt; <br>
-&gt; &gt; (if I don&#39;t hear back from them soon, I&#39;ll just send out =
-a patch for this<br>
-&gt; &gt; myself)<br>
-&gt; &gt; <br>
-&gt; &gt; JFYI - the proper fix here is to just drop the<br>
-&gt; &gt; DP_EDP_BACKLIGHT_BRIGHTNESS_PWM_PIN_CAP check from the code entir=
-ely. As<br>
-&gt; &gt; long as<br>
-&gt; &gt; the backlight supports AUX_SET_CAP, that should be enough for us =
-to control<br>
-&gt; &gt; it.<br>
-&gt; <br>
-&gt; Does the proper fix include dropping DP_QUIRK_FORCE_DPCD_BACKLIGHT ent=
-irely?<br>
-&gt; <br>
-&gt; Kai-Heng<br>
-&gt; <br>
-&gt; &gt; <br>
-&gt; &gt; On Wed, 2020-10-07 at 14:58 +0800, Kai-Heng Feng wrote:<br>
-&gt; &gt; &gt; HP DreamColor panel needs to be controlled via AUX interface=
-. However,<br>
-&gt; &gt; &gt; it has both DP_EDP_BACKLIGHT_BRIGHTNESS_AUX_SET_CAP and<br>
-&gt; &gt; &gt; DP_EDP_BACKLIGHT_BRIGHTNESS_PWM_PIN_CAP set, so it fails to =
-pass<br>
-&gt; &gt; &gt; intel_dp_aux_display_control_capable() test.<br>
-&gt; &gt; &gt; <br>
-&gt; &gt; &gt; Skip the test if the panel has force DPCD quirk.<br>
-&gt; &gt; &gt; <br>
-&gt; &gt; &gt; Signed-off-by: Kai-Heng Feng &lt;<a href=3D"mailto:kai.heng.=
-feng@canonical.com" target=3D"_blank">kai.heng.feng@canonical.com</a>&gt;<b=
-r>
-&gt; &gt; &gt; ---<br>
-&gt; &gt; &gt; drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c | 10 +=
-+++++----<br>
-&gt; &gt; &gt; 1 file changed, 6 insertions(+), 4 deletions(-)<br>
-&gt; &gt; &gt; <br>
-&gt; &gt; &gt; diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux_backl=
-ight.c<br>
-&gt; &gt; &gt; b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c<br>
-&gt; &gt; &gt; index acbd7eb66cbe..acf2e1c65290 100644<br>
-&gt; &gt; &gt; --- a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c<=
-br>
-&gt; &gt; &gt; +++ b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c<=
-br>
-&gt; &gt; &gt; @@ -347,9 +347,13 @@ int intel_dp_aux_init_backlight_funcs(s=
-truct<br>
-&gt; &gt; &gt; intel_connector *intel_connector)<br>
-&gt; &gt; &gt;=C2=A0 =C2=A0struct intel_panel *panel =3D &amp;intel_connect=
-or-&gt;panel;<br>
-&gt; &gt; &gt;=C2=A0 =C2=A0struct intel_dp *intel_dp =3D enc_to_intel_dp(in=
-tel_connector-&gt;encoder);<br>
-&gt; &gt; &gt;=C2=A0 =C2=A0struct drm_i915_private *i915 =3D dp_to_i915(int=
-el_dp);<br>
-&gt; &gt; &gt; + bool force_dpcd;<br>
-&gt; &gt; &gt; +<br>
-&gt; &gt; &gt; + force_dpcd =3D drm_dp_has_quirk(&amp;intel_dp-&gt;desc, in=
-tel_dp-&gt;edid_quirks,<br>
-&gt; &gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0DP_QUIRK_FORCE_DPCD_BAC=
-KLIGHT);<br>
-&gt; &gt; &gt; <br>
-&gt; &gt; &gt;=C2=A0 =C2=A0if (i915-&gt;params.enable_dpcd_backlight =3D=3D=
- 0 ||<br>
-&gt; &gt; &gt; -=C2=A0 =C2=A0 =C2=A0!intel_dp_aux_display_control_capable(i=
-ntel_connector))<br>
-&gt; &gt; &gt; +=C2=A0 =C2=A0 =C2=A0(!force_dpcd &amp;&amp;<br>
-&gt; &gt; &gt; !intel_dp_aux_display_control_capable(intel_connector)))<br>
-&gt; &gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -ENODEV;<br>
-&gt; &gt; &gt; <br>
-&gt; &gt; &gt;=C2=A0 =C2=A0/*<br>
-&gt; &gt; &gt; @@ -358,9 +362,7 @@ int intel_dp_aux_init_backlight_funcs(st=
-ruct<br>
-&gt; &gt; &gt; intel_connector *intel_connector)<br>
-&gt; &gt; &gt;=C2=A0 =C2=A0 */<br>
-&gt; &gt; &gt;=C2=A0 =C2=A0if (i915-&gt;vbt.backlight.type !=3D<br>
-&gt; &gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0INTEL_BACKLIGHT_VESA_EDP_AUX_INTER=
-FACE &amp;&amp;<br>
-&gt; &gt; &gt; -=C2=A0 =C2=A0 =C2=A0i915-&gt;params.enable_dpcd_backlight !=
-=3D 1 &amp;&amp;<br>
-&gt; &gt; &gt; -=C2=A0 =C2=A0 =C2=A0!drm_dp_has_quirk(&amp;intel_dp-&gt;des=
-c, intel_dp-&gt;edid_quirks,<br>
-&gt; &gt; &gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0DP_QUIRK_FORCE_DPCD_BACKLIGHT)) {<br>
-&gt; &gt; &gt; +=C2=A0 =C2=A0 =C2=A0i915-&gt;params.enable_dpcd_backlight !=
-=3D 1 &amp;&amp; !force_dpcd) {<br>
-&gt; &gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0drm_info(&amp;i915-&=
-gt;drm,<br>
-&gt; &gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 &quot;Panel advertises DPCD backlight support, but &quot;<br>
-&gt; &gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 &quot;VBT disagrees. If your backlight controls &quot;<br>
-&gt; &gt; -- <br>
-&gt; &gt; Sincerely,<br>
-&gt; &gt;=C2=A0 =C2=A0 =C2=A0 Lyude Paul (she/her)<br>
-&gt; &gt;=C2=A0 =C2=A0 =C2=A0 Software Engineer at Red Hat<br>
--- <br>
-Sincerely,<br>
-=C2=A0 =C2=A0 =C2=A0 Lyude Paul (she/her)<br>
-=C2=A0 =C2=A0 =C2=A0 Software Engineer at Red Hat<br>
-<br>
-</blockquote></div>
-
---000000000000f7378b05b12f92e7--
-
---===============0469164112==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-
---===============0469164112==--
+Tm8gZnVuY3Rpb25hbCBjaGFuZ2VzIGluIHRoaXMgcGF0Y2guCgpXaXRoIEJpZ2pvaW5lciwgdGhl
+cmUgYXJlIDIgcGlwZXMgZHJpdmluZyAyIGhhbGZzIG9mIDEKdHJhbnNjb2Rlci4gVGhlIHRyYW5z
+Y29kZXJfbW9kZSBoYXMgdGhlIGZ1bGwgdGltaW5ncywgYW5kIGlzIHVzZWQKZm9yIGNvbmZpZ3Vy
+aW5nIHRoZSB0cmFuc2NvZGVyIHdpdGggdGhlIGludGVuZGVkIG1vZGUgYWZ0ZXIKam9pbmluZyB0
+aGUgMiBoYWx2ZXMuClRvIGNsZWFyIHRoZSBjb25mdXNpb24sIHdlIHJlbmFtZSBpbnRlbF9zZXRf
+cGlwZV90aW1pbmdzIHRvCmludGVsX3NldF90cmFuc2NvZGVyX3RpbWluZ3MKCnYyOgoqIFNwbGl0
+IHRoZSByZW5hbWluZyBpbnRvIHNlcGFyYXRlIHBhdGNoIChWaWxsZSkKCkNjOiBNYWFydGVuIExh
+bmtob3JzdCA8bWFhcnRlbi5sYW5raG9yc3RAbGludXguaW50ZWwuY29tPgpDYzogVmlsbGUgU3ly
+asOkbMOkIDx2aWxsZS5zeXJqYWxhQGxpbnV4LmludGVsLmNvbT4KU2lnbmVkLW9mZi1ieTogTWFu
+YXNpIE5hdmFyZSA8bWFuYXNpLmQubmF2YXJlQGludGVsLmNvbT4KUmV2aWV3ZWQtYnk6IEFuaW1l
+c2ggTWFubmEgPGFuaW1lc2gubWFubmFAaW50ZWwuY29tPgpSZXZpZXdlZC1ieTogVmlsbGUgU3ly
+asOkbMOkIDx2aWxsZS5zeXJqYWxhQGxpbnV4LmludGVsLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9k
+cm0vaTkxNS9kaXNwbGF5L2ludGVsX2Rpc3BsYXkuYyB8IDIyICsrKysrKysrKystLS0tLS0tLS0t
+CiAxIGZpbGUgY2hhbmdlZCwgMTEgaW5zZXJ0aW9ucygrKSwgMTEgZGVsZXRpb25zKC0pCgpkaWZm
+IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kaXNwbGF5LmMgYi9k
+cml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Rpc3BsYXkuYwppbmRleCA5MDdlMWQx
+NTU0NDMuLjkyNzRmZmE2ZTAzYSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlz
+cGxheS9pbnRlbF9kaXNwbGF5LmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9p
+bnRlbF9kaXNwbGF5LmMKQEAgLTE1NCw3ICsxNTQsNyBAQCBzdGF0aWMgdm9pZCBpbGtfcGNoX2Ns
+b2NrX2dldChzdHJ1Y3QgaW50ZWxfY3J0YyAqY3J0YywKIHN0YXRpYyBpbnQgaW50ZWxfZnJhbWVi
+dWZmZXJfaW5pdChzdHJ1Y3QgaW50ZWxfZnJhbWVidWZmZXIgKmlmYiwKIAkJCQkgIHN0cnVjdCBk
+cm1faTkxNV9nZW1fb2JqZWN0ICpvYmosCiAJCQkJICBzdHJ1Y3QgZHJtX21vZGVfZmJfY21kMiAq
+bW9kZV9jbWQpOwotc3RhdGljIHZvaWQgaW50ZWxfc2V0X3BpcGVfdGltaW5ncyhjb25zdCBzdHJ1
+Y3QgaW50ZWxfY3J0Y19zdGF0ZSAqY3J0Y19zdGF0ZSk7CitzdGF0aWMgdm9pZCBpbnRlbF9zZXRf
+dHJhbnNjb2Rlcl90aW1pbmdzKGNvbnN0IHN0cnVjdCBpbnRlbF9jcnRjX3N0YXRlICpjcnRjX3N0
+YXRlKTsKIHN0YXRpYyB2b2lkIGludGVsX3NldF9waXBlX3NyY19zaXplKGNvbnN0IHN0cnVjdCBp
+bnRlbF9jcnRjX3N0YXRlICpjcnRjX3N0YXRlKTsKIHN0YXRpYyB2b2lkIGludGVsX2NwdV90cmFu
+c2NvZGVyX3NldF9tX24oY29uc3Qgc3RydWN0IGludGVsX2NydGNfc3RhdGUgKmNydGNfc3RhdGUs
+CiAJCQkJCSBjb25zdCBzdHJ1Y3QgaW50ZWxfbGlua19tX24gKm1fbiwKQEAgLTcwMDMsNyArNzAw
+Myw3IEBAIHN0YXRpYyB2b2lkIGlsa19jcnRjX2VuYWJsZShzdHJ1Y3QgaW50ZWxfYXRvbWljX3N0
+YXRlICpzdGF0ZSwKIAlpZiAoaW50ZWxfY3J0Y19oYXNfZHBfZW5jb2RlcihuZXdfY3J0Y19zdGF0
+ZSkpCiAJCWludGVsX2RwX3NldF9tX24obmV3X2NydGNfc3RhdGUsIE0xX04xKTsKIAotCWludGVs
+X3NldF9waXBlX3RpbWluZ3MobmV3X2NydGNfc3RhdGUpOworCWludGVsX3NldF90cmFuc2NvZGVy
+X3RpbWluZ3MobmV3X2NydGNfc3RhdGUpOwogCWludGVsX3NldF9waXBlX3NyY19zaXplKG5ld19j
+cnRjX3N0YXRlKTsKIAogCWlmIChuZXdfY3J0Y19zdGF0ZS0+aGFzX3BjaF9lbmNvZGVyKQpAQCAt
+NzE0OCw3ICs3MTQ4LDcgQEAgc3RhdGljIHZvaWQgaHN3X2NydGNfZW5hYmxlKHN0cnVjdCBpbnRl
+bF9hdG9taWNfc3RhdGUgKnN0YXRlLAogCWludGVsX2VuY29kZXJzX3ByZV9lbmFibGUoc3RhdGUs
+IGNydGMpOwogCiAJaWYgKCF0cmFuc2NvZGVyX2lzX2RzaShjcHVfdHJhbnNjb2RlcikpCi0JCWlu
+dGVsX3NldF9waXBlX3RpbWluZ3MobmV3X2NydGNfc3RhdGUpOworCQlpbnRlbF9zZXRfdHJhbnNj
+b2Rlcl90aW1pbmdzKG5ld19jcnRjX3N0YXRlKTsKIAogCWludGVsX3NldF9waXBlX3NyY19zaXpl
+KG5ld19jcnRjX3N0YXRlKTsKIApAQCAtNzU0Myw3ICs3NTQzLDcgQEAgc3RhdGljIHZvaWQgdmFs
+bGV5dmlld19jcnRjX2VuYWJsZShzdHJ1Y3QgaW50ZWxfYXRvbWljX3N0YXRlICpzdGF0ZSwKIAlp
+ZiAoaW50ZWxfY3J0Y19oYXNfZHBfZW5jb2RlcihuZXdfY3J0Y19zdGF0ZSkpCiAJCWludGVsX2Rw
+X3NldF9tX24obmV3X2NydGNfc3RhdGUsIE0xX04xKTsKIAotCWludGVsX3NldF9waXBlX3RpbWlu
+Z3MobmV3X2NydGNfc3RhdGUpOworCWludGVsX3NldF90cmFuc2NvZGVyX3RpbWluZ3MobmV3X2Ny
+dGNfc3RhdGUpOwogCWludGVsX3NldF9waXBlX3NyY19zaXplKG5ld19jcnRjX3N0YXRlKTsKIAog
+CWlmIChJU19DSEVSUllWSUVXKGRldl9wcml2KSAmJiBwaXBlID09IFBJUEVfQikgewpAQCAtNzYx
+MSw3ICs3NjExLDcgQEAgc3RhdGljIHZvaWQgaTl4eF9jcnRjX2VuYWJsZShzdHJ1Y3QgaW50ZWxf
+YXRvbWljX3N0YXRlICpzdGF0ZSwKIAlpZiAoaW50ZWxfY3J0Y19oYXNfZHBfZW5jb2RlcihuZXdf
+Y3J0Y19zdGF0ZSkpCiAJCWludGVsX2RwX3NldF9tX24obmV3X2NydGNfc3RhdGUsIE0xX04xKTsK
+IAotCWludGVsX3NldF9waXBlX3RpbWluZ3MobmV3X2NydGNfc3RhdGUpOworCWludGVsX3NldF90
+cmFuc2NvZGVyX3RpbWluZ3MobmV3X2NydGNfc3RhdGUpOwogCWludGVsX3NldF9waXBlX3NyY19z
+aXplKG5ld19jcnRjX3N0YXRlKTsKIAogCWk5eHhfc2V0X3BpcGVjb25mKG5ld19jcnRjX3N0YXRl
+KTsKQEAgLTg4NjUsNyArODg2NSw3IEBAIHN0YXRpYyB2b2lkIGk4eHhfY29tcHV0ZV9kcGxsKHN0
+cnVjdCBpbnRlbF9jcnRjICpjcnRjLAogCWNydGNfc3RhdGUtPmRwbGxfaHdfc3RhdGUuZHBsbCA9
+IGRwbGw7CiB9CiAKLXN0YXRpYyB2b2lkIGludGVsX3NldF9waXBlX3RpbWluZ3MoY29uc3Qgc3Ry
+dWN0IGludGVsX2NydGNfc3RhdGUgKmNydGNfc3RhdGUpCitzdGF0aWMgdm9pZCBpbnRlbF9zZXRf
+dHJhbnNjb2Rlcl90aW1pbmdzKGNvbnN0IHN0cnVjdCBpbnRlbF9jcnRjX3N0YXRlICpjcnRjX3N0
+YXRlKQogewogCXN0cnVjdCBpbnRlbF9jcnRjICpjcnRjID0gdG9faW50ZWxfY3J0YyhjcnRjX3N0
+YXRlLT51YXBpLmNydGMpOwogCXN0cnVjdCBkcm1faTkxNV9wcml2YXRlICpkZXZfcHJpdiA9IHRv
+X2k5MTUoY3J0Yy0+YmFzZS5kZXYpOwpAQCAtODk1MSw4ICs4OTUxLDggQEAgc3RhdGljIGJvb2wg
+aW50ZWxfcGlwZV9pc19pbnRlcmxhY2VkKGNvbnN0IHN0cnVjdCBpbnRlbF9jcnRjX3N0YXRlICpj
+cnRjX3N0YXRlKQogCQlyZXR1cm4gaW50ZWxfZGVfcmVhZChkZXZfcHJpdiwgUElQRUNPTkYoY3B1
+X3RyYW5zY29kZXIpKSAmIFBJUEVDT05GX0lOVEVSTEFDRV9NQVNLOwogfQogCi1zdGF0aWMgdm9p
+ZCBpbnRlbF9nZXRfcGlwZV90aW1pbmdzKHN0cnVjdCBpbnRlbF9jcnRjICpjcnRjLAotCQkJCSAg
+IHN0cnVjdCBpbnRlbF9jcnRjX3N0YXRlICpwaXBlX2NvbmZpZykKK3N0YXRpYyB2b2lkIGludGVs
+X2dldF90cmFuc2NvZGVyX3RpbWluZ3Moc3RydWN0IGludGVsX2NydGMgKmNydGMsCisJCQkJCSBz
+dHJ1Y3QgaW50ZWxfY3J0Y19zdGF0ZSAqcGlwZV9jb25maWcpCiB7CiAJc3RydWN0IGRybV9kZXZp
+Y2UgKmRldiA9IGNydGMtPmJhc2UuZGV2OwogCXN0cnVjdCBkcm1faTkxNV9wcml2YXRlICpkZXZf
+cHJpdiA9IHRvX2k5MTUoZGV2KTsKQEAgLTk1NzUsNyArOTU3NSw3IEBAIHN0YXRpYyBib29sIGk5
+eHhfZ2V0X3BpcGVfY29uZmlnKHN0cnVjdCBpbnRlbF9jcnRjICpjcnRjLAogCWlmIChJTlRFTF9H
+RU4oZGV2X3ByaXYpIDwgNCkKIAkJcGlwZV9jb25maWctPmRvdWJsZV93aWRlID0gdG1wICYgUElQ
+RUNPTkZfRE9VQkxFX1dJREU7CiAKLQlpbnRlbF9nZXRfcGlwZV90aW1pbmdzKGNydGMsIHBpcGVf
+Y29uZmlnKTsKKwlpbnRlbF9nZXRfdHJhbnNjb2Rlcl90aW1pbmdzKGNydGMsIHBpcGVfY29uZmln
+KTsKIAlpbnRlbF9nZXRfcGlwZV9zcmNfc2l6ZShjcnRjLCBwaXBlX2NvbmZpZyk7CiAKIAlpOXh4
+X2dldF9wZml0X2NvbmZpZyhwaXBlX2NvbmZpZyk7CkBAIC0xMDg1Niw3ICsxMDg1Niw3IEBAIHN0
+YXRpYyBib29sIGlsa19nZXRfcGlwZV9jb25maWcoc3RydWN0IGludGVsX2NydGMgKmNydGMsCiAJ
+CXBpcGVfY29uZmlnLT5waXhlbF9tdWx0aXBsaWVyID0gMTsKIAl9CiAKLQlpbnRlbF9nZXRfcGlw
+ZV90aW1pbmdzKGNydGMsIHBpcGVfY29uZmlnKTsKKwlpbnRlbF9nZXRfdHJhbnNjb2Rlcl90aW1p
+bmdzKGNydGMsIHBpcGVfY29uZmlnKTsKIAlpbnRlbF9nZXRfcGlwZV9zcmNfc2l6ZShjcnRjLCBw
+aXBlX2NvbmZpZyk7CiAKIAlpbGtfZ2V0X3BmaXRfY29uZmlnKHBpcGVfY29uZmlnKTsKQEAgLTEx
+MjczLDcgKzExMjczLDcgQEAgc3RhdGljIGJvb2wgaHN3X2dldF9waXBlX2NvbmZpZyhzdHJ1Y3Qg
+aW50ZWxfY3J0YyAqY3J0YywKIAlpZiAoIXRyYW5zY29kZXJfaXNfZHNpKHBpcGVfY29uZmlnLT5j
+cHVfdHJhbnNjb2RlcikgfHwKIAkgICAgSU5URUxfR0VOKGRldl9wcml2KSA+PSAxMSkgewogCQlo
+c3dfZ2V0X2RkaV9wb3J0X3N0YXRlKGNydGMsIHBpcGVfY29uZmlnKTsKLQkJaW50ZWxfZ2V0X3Bp
+cGVfdGltaW5ncyhjcnRjLCBwaXBlX2NvbmZpZyk7CisJCWludGVsX2dldF90cmFuc2NvZGVyX3Rp
+bWluZ3MoY3J0YywgcGlwZV9jb25maWcpOwogCX0KIAogCWludGVsX2dldF9waXBlX3NyY19zaXpl
+KGNydGMsIHBpcGVfY29uZmlnKTsKLS0gCjIuMTkuMQoKX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRlbC1nZnhA
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
+YW4vbGlzdGluZm8vaW50ZWwtZ2Z4Cg==
