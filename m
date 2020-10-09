@@ -2,63 +2,42 @@ Return-Path: <SRS0=e7jk=DQ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
+X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4A1CDC433DF
-	for <intel-gfx@archiver.kernel.org>; Fri,  9 Oct 2020 16:16:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C3524C433E7
+	for <intel-gfx@archiver.kernel.org>; Fri,  9 Oct 2020 16:22:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 09D842225D
-	for <intel-gfx@archiver.kernel.org>; Fri,  9 Oct 2020 16:16:22 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="Pa6UEJP5"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 09D842225D
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	by mail.kernel.org (Postfix) with ESMTPS id 224572225D
+	for <intel-gfx@archiver.kernel.org>; Fri,  9 Oct 2020 16:22:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 224572225D
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8838D6ED37;
-	Fri,  9 Oct 2020 16:16:19 +0000 (UTC)
-Received: from mail-oi1-x242.google.com (mail-oi1-x242.google.com
- [IPv6:2607:f8b0:4864:20::242])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 550516ED37
- for <intel-gfx@lists.freedesktop.org>; Fri,  9 Oct 2020 16:16:18 +0000 (UTC)
-Received: by mail-oi1-x242.google.com with SMTP id z26so10680179oih.12
- for <intel-gfx@lists.freedesktop.org>; Fri, 09 Oct 2020 09:16:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=0TKO1QZIarI70K6cZoF68pspwQUVYEaavEmzd50eUOk=;
- b=Pa6UEJP51kESAj15HVL5n7uMjXZPWSzT9yIHpzCSHD7ncnOQuyqykbVMuk9s0xUT3M
- hoYkTj1xLbh8gxPLjByQ1/9BHZRjxRgCbDlL/0ebSPOu47Ex/XsUGp248dDZDTNE5MX2
- +MPW2LnUpljwY5Tn46z1V3WGq+uKV8LBLv++k=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=0TKO1QZIarI70K6cZoF68pspwQUVYEaavEmzd50eUOk=;
- b=BwpiK0Y13l515FPGlGwxLCDVm3L7Of8vBaW2r1MBoTFD48VS7jxs+EOzg2chIZ6eYR
- Qm8WjZNLn92Bj1HxA1cHbO86WyYcFBJty5/tCpWhzzf3OUzwjh8npzvk6kXHeUFwyyWz
- IKf4YXX0JCfldGs3+gG7GvUdHl5Y86H6e6TT0GUHY2aqfGPs47WSWE3Rm1WJaunFRYFg
- uFkvPm/SUscMvs/FcpFPhYQW1hLHPCG4oBuunW7cURkoggU9AhlscWusoCmHUXCmwdOu
- kgal8X08VEvAUf6McSxc+6lZx30pI00va2t2ZTwYn31X31yZ8jyNO7EbhKFxNP8RmpSr
- Cw6w==
-X-Gm-Message-State: AOAM533LhoVjAhUwDOtDXfguA+k4FWuJNF3zXsduh1pawicA4nhr/CRn
- uySLvGmAKXM2Qp8fvJrG7Vd8ON00tEXLSKM+031jvg==
-X-Google-Smtp-Source: ABdhPJxkqtwDh11zJABk1CirCDj6ozFXY7QF5CF18Cg5XhARarFhn8Gj01pmlEbyxhGBKcCOeLf39L/pWMTBPFX2HMc=
-X-Received: by 2002:aca:cc01:: with SMTP id c1mr1203127oig.128.1602260177526; 
- Fri, 09 Oct 2020 09:16:17 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 325396ED38;
+	Fri,  9 Oct 2020 16:22:15 +0000 (UTC)
+Received: from fireflyinternet.com (unknown [77.68.26.236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4B2386ED38;
+ Fri,  9 Oct 2020 16:22:14 +0000 (UTC)
+X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
+ x-ip-name=78.156.65.138; 
+Received: from haswell.alporthouse.com (unverified [78.156.65.138]) 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22670686-1500050 
+ for multiple; Fri, 09 Oct 2020 17:22:08 +0100
+From: Chris Wilson <chris@chris-wilson.co.uk>
+To: intel-gfx@lists.freedesktop.org
+Date: Fri,  9 Oct 2020 17:22:06 +0100
+Message-Id: <20201009162206.1661402-3-chris@chris-wilson.co.uk>
+X-Mailer: git-send-email 2.28.0
+In-Reply-To: <20201009162206.1661402-1-chris@chris-wilson.co.uk>
+References: <20201009162206.1661402-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-References: <20201009102132.22770-1-chris@chris-wilson.co.uk>
-In-Reply-To: <20201009102132.22770-1-chris@chris-wilson.co.uk>
-From: Daniel Vetter <daniel@ffwll.ch>
-Date: Fri, 9 Oct 2020 18:16:06 +0200
-Message-ID: <CAKMK7uG51_t9988vTen2rK+gbwwjN0tLphpVhMd2nbsFTNi+GQ@mail.gmail.com>
-To: Chris Wilson <chris@chris-wilson.co.uk>
-Subject: Re: [Intel-gfx] [PATCH] drm/vgem: Replace vgem_object_funcs with
- the common drm shmem helper
+Subject: [Intel-gfx] [PATCH i-g-t 3/3] i915/gem_exec_balancer: Check
+ interactions between bonds and userptr
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,426 +50,166 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx <intel-gfx@lists.freedesktop.org>,
- dri-devel <dri-devel@lists.freedesktop.org>
+Cc: igt-dev@lists.freedesktop.org, Chris Wilson <chris@chris-wilson.co.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Oct 9, 2020 at 12:21 PM Chris Wilson <chris@chris-wilson.co.uk> wrote:
->
-> vgem is a minimalistic driver that provides shmemfs objects to
-> userspace that may then be used as an in-memory surface and transported
-> across dma-buf to other drivers. Since it's introduction,
-> drm_gem_shmem_helper now provides the same shmemfs facilities and so we
-> can trim vgem to wrap the helper.
->
-> Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-> ---
->  drivers/gpu/drm/Kconfig         |   1 +
->  drivers/gpu/drm/vgem/vgem_drv.c | 281 ++------------------------------
->  drivers/gpu/drm/vgem/vgem_drv.h |  11 --
->  3 files changed, 13 insertions(+), 280 deletions(-)
+Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+---
+ tests/i915/gem_exec_balancer.c | 46 +++++++++++++++++++++++-----------
+ 1 file changed, 31 insertions(+), 15 deletions(-)
 
-Nice diffstat :-)
-
-Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
-
->
-> diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
-> index 147d61b9674e..db2ff76638cd 100644
-> --- a/drivers/gpu/drm/Kconfig
-> +++ b/drivers/gpu/drm/Kconfig
-> @@ -278,6 +278,7 @@ source "drivers/gpu/drm/i915/Kconfig"
->  config DRM_VGEM
->         tristate "Virtual GEM provider"
->         depends on DRM
-> +       select DRM_GEM_SHMEM_HELPER
->         help
->           Choose this option to get a virtual graphics memory manager,
->           as used by Mesa's software renderer for enhanced performance.
-> diff --git a/drivers/gpu/drm/vgem/vgem_drv.c b/drivers/gpu/drm/vgem/vgem_drv.c
-> index fa54a6d1403d..73cb17c4f7a8 100644
-> --- a/drivers/gpu/drm/vgem/vgem_drv.c
-> +++ b/drivers/gpu/drm/vgem/vgem_drv.c
-> @@ -38,6 +38,7 @@
->
->  #include <drm/drm_drv.h>
->  #include <drm/drm_file.h>
-> +#include <drm/drm_gem_shmem_helper.h>
->  #include <drm/drm_ioctl.h>
->  #include <drm/drm_managed.h>
->  #include <drm/drm_prime.h>
-> @@ -50,87 +51,11 @@
->  #define DRIVER_MAJOR   1
->  #define DRIVER_MINOR   0
->
-> -static const struct drm_gem_object_funcs vgem_gem_object_funcs;
-> -
->  static struct vgem_device {
->         struct drm_device drm;
->         struct platform_device *platform;
->  } *vgem_device;
->
-> -static void vgem_gem_free_object(struct drm_gem_object *obj)
-> -{
-> -       struct drm_vgem_gem_object *vgem_obj = to_vgem_bo(obj);
-> -
-> -       kvfree(vgem_obj->pages);
-> -       mutex_destroy(&vgem_obj->pages_lock);
-> -
-> -       if (obj->import_attach)
-> -               drm_prime_gem_destroy(obj, vgem_obj->table);
-> -
-> -       drm_gem_object_release(obj);
-> -       kfree(vgem_obj);
-> -}
-> -
-> -static vm_fault_t vgem_gem_fault(struct vm_fault *vmf)
-> -{
-> -       struct vm_area_struct *vma = vmf->vma;
-> -       struct drm_vgem_gem_object *obj = vma->vm_private_data;
-> -       /* We don't use vmf->pgoff since that has the fake offset */
-> -       unsigned long vaddr = vmf->address;
-> -       vm_fault_t ret = VM_FAULT_SIGBUS;
-> -       loff_t num_pages;
-> -       pgoff_t page_offset;
-> -       page_offset = (vaddr - vma->vm_start) >> PAGE_SHIFT;
-> -
-> -       num_pages = DIV_ROUND_UP(obj->base.size, PAGE_SIZE);
-> -
-> -       if (page_offset >= num_pages)
-> -               return VM_FAULT_SIGBUS;
-> -
-> -       mutex_lock(&obj->pages_lock);
-> -       if (obj->pages) {
-> -               get_page(obj->pages[page_offset]);
-> -               vmf->page = obj->pages[page_offset];
-> -               ret = 0;
-> -       }
-> -       mutex_unlock(&obj->pages_lock);
-> -       if (ret) {
-> -               struct page *page;
-> -
-> -               page = shmem_read_mapping_page(
-> -                                       file_inode(obj->base.filp)->i_mapping,
-> -                                       page_offset);
-> -               if (!IS_ERR(page)) {
-> -                       vmf->page = page;
-> -                       ret = 0;
-> -               } else switch (PTR_ERR(page)) {
-> -                       case -ENOSPC:
-> -                       case -ENOMEM:
-> -                               ret = VM_FAULT_OOM;
-> -                               break;
-> -                       case -EBUSY:
-> -                               ret = VM_FAULT_RETRY;
-> -                               break;
-> -                       case -EFAULT:
-> -                       case -EINVAL:
-> -                               ret = VM_FAULT_SIGBUS;
-> -                               break;
-> -                       default:
-> -                               WARN_ON(PTR_ERR(page));
-> -                               ret = VM_FAULT_SIGBUS;
-> -                               break;
-> -               }
-> -
-> -       }
-> -       return ret;
-> -}
-> -
-> -static const struct vm_operations_struct vgem_gem_vm_ops = {
-> -       .fault = vgem_gem_fault,
-> -       .open = drm_gem_vm_open,
-> -       .close = drm_gem_vm_close,
-> -};
-> -
->  static int vgem_open(struct drm_device *dev, struct drm_file *file)
->  {
->         struct vgem_file *vfile;
-> @@ -159,41 +84,25 @@ static void vgem_postclose(struct drm_device *dev, struct drm_file *file)
->         kfree(vfile);
->  }
->
-> -static struct drm_vgem_gem_object *__vgem_gem_create(struct drm_device *dev,
-> +static struct drm_gem_shmem_object *__vgem_gem_create(struct drm_device *dev,
->                                                 unsigned long size)
->  {
-> -       struct drm_vgem_gem_object *obj;
-> -       int ret;
-> -
-> -       obj = kzalloc(sizeof(*obj), GFP_KERNEL);
-> -       if (!obj)
-> -               return ERR_PTR(-ENOMEM);
-> +       struct drm_gem_shmem_object *obj;
->
-> -       obj->base.funcs = &vgem_gem_object_funcs;
-> -
-> -       ret = drm_gem_object_init(dev, &obj->base, roundup(size, PAGE_SIZE));
-> -       if (ret) {
-> -               kfree(obj);
-> -               return ERR_PTR(ret);
-> -       }
-> -
-> -       mutex_init(&obj->pages_lock);
-> +       obj = drm_gem_shmem_create(dev, round_up(size, PAGE_SIZE));
-> +       if (IS_ERR(obj))
-> +               return obj;
->
-> +       obj->map_cached = true;
->         return obj;
->  }
->
-> -static void __vgem_gem_destroy(struct drm_vgem_gem_object *obj)
-> -{
-> -       drm_gem_object_release(&obj->base);
-> -       kfree(obj);
-> -}
-> -
->  static struct drm_gem_object *vgem_gem_create(struct drm_device *dev,
->                                               struct drm_file *file,
->                                               unsigned int *handle,
->                                               unsigned long size)
->  {
-> -       struct drm_vgem_gem_object *obj;
-> +       struct drm_gem_shmem_object *obj;
->         int ret;
->
->         obj = __vgem_gem_create(dev, size);
-> @@ -239,96 +148,9 @@ static struct drm_ioctl_desc vgem_ioctls[] = {
->         DRM_IOCTL_DEF_DRV(VGEM_FENCE_SIGNAL, vgem_fence_signal_ioctl, DRM_RENDER_ALLOW),
->  };
->
-> -static int vgem_mmap(struct file *filp, struct vm_area_struct *vma)
-> -{
-> -       unsigned long flags = vma->vm_flags;
-> -       int ret;
-> -
-> -       ret = drm_gem_mmap(filp, vma);
-> -       if (ret)
-> -               return ret;
-> -
-> -       /* Keep the WC mmaping set by drm_gem_mmap() but our pages
-> -        * are ordinary and not special.
-> -        */
-> -       vma->vm_flags = flags | VM_DONTEXPAND | VM_DONTDUMP;
-> -       return 0;
-> -}
-> -
-> -static const struct file_operations vgem_driver_fops = {
-> -       .owner          = THIS_MODULE,
-> -       .open           = drm_open,
-> -       .mmap           = vgem_mmap,
-> -       .poll           = drm_poll,
-> -       .read           = drm_read,
-> -       .unlocked_ioctl = drm_ioctl,
-> -       .compat_ioctl   = drm_compat_ioctl,
-> -       .release        = drm_release,
-> -};
-> -
-> -static struct page **vgem_pin_pages(struct drm_vgem_gem_object *bo)
-> -{
-> -       mutex_lock(&bo->pages_lock);
-> -       if (bo->pages_pin_count++ == 0) {
-> -               struct page **pages;
-> -
-> -               pages = drm_gem_get_pages(&bo->base);
-> -               if (IS_ERR(pages)) {
-> -                       bo->pages_pin_count--;
-> -                       mutex_unlock(&bo->pages_lock);
-> -                       return pages;
-> -               }
-> -
-> -               bo->pages = pages;
-> -       }
-> -       mutex_unlock(&bo->pages_lock);
-> -
-> -       return bo->pages;
-> -}
-> -
-> -static void vgem_unpin_pages(struct drm_vgem_gem_object *bo)
-> -{
-> -       mutex_lock(&bo->pages_lock);
-> -       if (--bo->pages_pin_count == 0) {
-> -               drm_gem_put_pages(&bo->base, bo->pages, true, true);
-> -               bo->pages = NULL;
-> -       }
-> -       mutex_unlock(&bo->pages_lock);
-> -}
-> -
-> -static int vgem_prime_pin(struct drm_gem_object *obj)
-> -{
-> -       struct drm_vgem_gem_object *bo = to_vgem_bo(obj);
-> -       long n_pages = obj->size >> PAGE_SHIFT;
-> -       struct page **pages;
-> +DEFINE_DRM_GEM_FOPS(vgem_driver_fops);
->
-> -       pages = vgem_pin_pages(bo);
-> -       if (IS_ERR(pages))
-> -               return PTR_ERR(pages);
-> -
-> -       /* Flush the object from the CPU cache so that importers can rely
-> -        * on coherent indirect access via the exported dma-address.
-> -        */
-> -       drm_clflush_pages(pages, n_pages);
-> -
-> -       return 0;
-> -}
-> -
-> -static void vgem_prime_unpin(struct drm_gem_object *obj)
-> -{
-> -       struct drm_vgem_gem_object *bo = to_vgem_bo(obj);
-> -
-> -       vgem_unpin_pages(bo);
-> -}
-> -
-> -static struct sg_table *vgem_prime_get_sg_table(struct drm_gem_object *obj)
-> -{
-> -       struct drm_vgem_gem_object *bo = to_vgem_bo(obj);
-> -
-> -       return drm_prime_pages_to_sg(obj->dev, bo->pages, bo->base.size >> PAGE_SHIFT);
-> -}
-> -
-> -static struct drm_gem_object* vgem_prime_import(struct drm_device *dev,
-> +static struct drm_gem_object *vgem_prime_import(struct drm_device *dev,
->                                                 struct dma_buf *dma_buf)
->  {
->         struct vgem_device *vgem = container_of(dev, typeof(*vgem), drm);
-> @@ -336,85 +158,6 @@ static struct drm_gem_object* vgem_prime_import(struct drm_device *dev,
->         return drm_gem_prime_import_dev(dev, dma_buf, &vgem->platform->dev);
->  }
->
-> -static struct drm_gem_object *vgem_prime_import_sg_table(struct drm_device *dev,
-> -                       struct dma_buf_attachment *attach, struct sg_table *sg)
-> -{
-> -       struct drm_vgem_gem_object *obj;
-> -       int npages;
-> -
-> -       obj = __vgem_gem_create(dev, attach->dmabuf->size);
-> -       if (IS_ERR(obj))
-> -               return ERR_CAST(obj);
-> -
-> -       npages = PAGE_ALIGN(attach->dmabuf->size) / PAGE_SIZE;
-> -
-> -       obj->table = sg;
-> -       obj->pages = kvmalloc_array(npages, sizeof(struct page *), GFP_KERNEL);
-> -       if (!obj->pages) {
-> -               __vgem_gem_destroy(obj);
-> -               return ERR_PTR(-ENOMEM);
-> -       }
-> -
-> -       obj->pages_pin_count++; /* perma-pinned */
-> -       drm_prime_sg_to_page_addr_arrays(obj->table, obj->pages, NULL,
-> -                                       npages);
-> -       return &obj->base;
-> -}
-> -
-> -static void *vgem_prime_vmap(struct drm_gem_object *obj)
-> -{
-> -       struct drm_vgem_gem_object *bo = to_vgem_bo(obj);
-> -       long n_pages = obj->size >> PAGE_SHIFT;
-> -       struct page **pages;
-> -
-> -       pages = vgem_pin_pages(bo);
-> -       if (IS_ERR(pages))
-> -               return NULL;
-> -
-> -       return vmap(pages, n_pages, 0, pgprot_writecombine(PAGE_KERNEL));
-> -}
-> -
-> -static void vgem_prime_vunmap(struct drm_gem_object *obj, void *vaddr)
-> -{
-> -       struct drm_vgem_gem_object *bo = to_vgem_bo(obj);
-> -
-> -       vunmap(vaddr);
-> -       vgem_unpin_pages(bo);
-> -}
-> -
-> -static int vgem_prime_mmap(struct drm_gem_object *obj,
-> -                          struct vm_area_struct *vma)
-> -{
-> -       int ret;
-> -
-> -       if (obj->size < vma->vm_end - vma->vm_start)
-> -               return -EINVAL;
-> -
-> -       if (!obj->filp)
-> -               return -ENODEV;
-> -
-> -       ret = call_mmap(obj->filp, vma);
-> -       if (ret)
-> -               return ret;
-> -
-> -       fput(vma->vm_file);
-> -       vma->vm_file = get_file(obj->filp);
-> -       vma->vm_flags |= VM_DONTEXPAND | VM_DONTDUMP;
-> -       vma->vm_page_prot = pgprot_writecombine(vm_get_page_prot(vma->vm_flags));
-> -
-> -       return 0;
-> -}
-> -
-> -static const struct drm_gem_object_funcs vgem_gem_object_funcs = {
-> -       .free = vgem_gem_free_object,
-> -       .pin = vgem_prime_pin,
-> -       .unpin = vgem_prime_unpin,
-> -       .get_sg_table = vgem_prime_get_sg_table,
-> -       .vmap = vgem_prime_vmap,
-> -       .vunmap = vgem_prime_vunmap,
-> -       .vm_ops = &vgem_gem_vm_ops,
-> -};
-> -
->  static struct drm_driver vgem_driver = {
->         .driver_features                = DRIVER_GEM | DRIVER_RENDER,
->         .open                           = vgem_open,
-> @@ -428,8 +171,8 @@ static struct drm_driver vgem_driver = {
->         .prime_handle_to_fd = drm_gem_prime_handle_to_fd,
->         .prime_fd_to_handle = drm_gem_prime_fd_to_handle,
->         .gem_prime_import = vgem_prime_import,
-> -       .gem_prime_import_sg_table = vgem_prime_import_sg_table,
-> -       .gem_prime_mmap = vgem_prime_mmap,
-> +       .gem_prime_import_sg_table = drm_gem_shmem_prime_import_sg_table,
-> +       .gem_prime_mmap = drm_gem_prime_mmap,
->
->         .name   = DRIVER_NAME,
->         .desc   = DRIVER_DESC,
-> diff --git a/drivers/gpu/drm/vgem/vgem_drv.h b/drivers/gpu/drm/vgem/vgem_drv.h
-> index 0ed300317f87..34cf63e6fb3d 100644
-> --- a/drivers/gpu/drm/vgem/vgem_drv.h
-> +++ b/drivers/gpu/drm/vgem/vgem_drv.h
-> @@ -39,17 +39,6 @@ struct vgem_file {
->         struct mutex fence_mutex;
->  };
->
-> -#define to_vgem_bo(x) container_of(x, struct drm_vgem_gem_object, base)
-> -struct drm_vgem_gem_object {
-> -       struct drm_gem_object base;
-> -
-> -       struct page **pages;
-> -       unsigned int pages_pin_count;
-> -       struct mutex pages_lock;
-> -
-> -       struct sg_table *table;
-> -};
-> -
->  int vgem_fence_open(struct vgem_file *file);
->  int vgem_fence_attach_ioctl(struct drm_device *dev,
->                             void *data,
-> --
-> 2.20.1
->
-> _______________________________________________
-> Intel-gfx mailing list
-> Intel-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-
-
-
+diff --git a/tests/i915/gem_exec_balancer.c b/tests/i915/gem_exec_balancer.c
+index 35a032ccb..0ccb94ba1 100644
+--- a/tests/i915/gem_exec_balancer.c
++++ b/tests/i915/gem_exec_balancer.c
+@@ -34,6 +34,10 @@
+ 
+ IGT_TEST_DESCRIPTION("Exercise in-kernel load-balancing");
+ 
++#define CORK		(1ul << 0)
++#define VIRTUAL_ENGINE	(1ul << 1)
++#define USERPTR		(1ul << 2)
++
+ #define MI_SEMAPHORE_WAIT		(0x1c << 23)
+ #define   MI_SEMAPHORE_POLL             (1 << 15)
+ #define   MI_SEMAPHORE_SAD_GT_SDD       (0 << 12)
+@@ -578,7 +582,6 @@ static void individual(int i915)
+ }
+ 
+ static void bonded(int i915, unsigned int flags)
+-#define CORK 0x1
+ {
+ 	I915_DEFINE_CONTEXT_ENGINES_BOND(bonds[16], 1);
+ 	struct i915_engine_class_instance *master_engines;
+@@ -660,13 +663,15 @@ static void bonded(int i915, unsigned int flags)
+ 				plug = __igt_spin_new(i915,
+ 						      .ctx = master,
+ 						      .engine = bond,
+-						      .dependency = igt_cork_plug(&cork, i915));
++						      .dependency = igt_cork_plug(&cork, i915),
++						      .flags = (flags & USERPTR ? IGT_SPIN_USERPTR : 0));
+ 			}
+ 
+ 			spin = __igt_spin_new(i915,
+ 					      .ctx = master,
+ 					      .engine = bond,
+-					      .flags = IGT_SPIN_FENCE_OUT);
++					      .flags = IGT_SPIN_FENCE_OUT |
++					      (flags & USERPTR ? IGT_SPIN_USERPTR : 0));
+ 
+ 			eb = spin->execbuf;
+ 			eb.rsvd1 = ctx;
+@@ -717,8 +722,6 @@ static void bonded(int i915, unsigned int flags)
+ 	gem_context_destroy(i915, master);
+ }
+ 
+-#define VIRTUAL_ENGINE (1u << 0)
+-
+ static unsigned int offset_in_page(void *addr)
+ {
+ 	return (uintptr_t)addr & 4095;
+@@ -1057,7 +1060,8 @@ static void bonded_chain(int i915)
+ 
+ static void __bonded_sema(int i915, uint32_t ctx,
+ 			  const struct i915_engine_class_instance *siblings,
+-			  unsigned int count)
++			  unsigned int count,
++			  unsigned long flags)
+ {
+ 	const int priorities[] = { -1023, 0, 1023 };
+ 	struct drm_i915_gem_exec_object2 batch = {
+@@ -1074,7 +1078,8 @@ static void __bonded_sema(int i915, uint32_t ctx,
+ 		/* A: spin forever on seperate render engine */
+ 		spin = igt_spin_new(i915,
+ 				    .flags = (IGT_SPIN_POLL_RUN |
+-					      IGT_SPIN_FENCE_OUT));
++					      IGT_SPIN_FENCE_OUT |
++					      (flags & USERPTR ? IGT_SPIN_USERPTR : 0)));
+ 		igt_spin_busywait_until_started(spin);
+ 
+ 		/*
+@@ -1128,7 +1133,7 @@ static void __bonded_sema(int i915, uint32_t ctx,
+ 	gem_close(i915, batch.handle);
+ }
+ 
+-static void bonded_semaphore(int i915)
++static void bonded_semaphore(int i915, unsigned long flags)
+ {
+ 	uint32_t ctx;
+ 
+@@ -1149,7 +1154,7 @@ static void bonded_semaphore(int i915)
+ 
+ 		siblings = list_engines(i915, 1u << class, &count);
+ 		if (count > 1)
+-			__bonded_sema(i915, ctx, siblings, count);
++			__bonded_sema(i915, ctx, siblings, count, flags);
+ 		free(siblings);
+ 	}
+ 
+@@ -1839,7 +1844,7 @@ static void __bonded_early(int i915, uint32_t ctx,
+ 	spin = igt_spin_new(i915,
+ 			    .ctx = ctx,
+ 			    .engine = (flags & VIRTUAL_ENGINE) ? 0 : 1,
+-			    .flags = IGT_SPIN_NO_PREEMPTION);
++			    .flags = IGT_SPIN_NO_PREEMPTION | (flags & USERPTR ? IGT_SPIN_USERPTR : 0));
+ 
+ 	/* B: runs after A on engine 1 */
+ 	execbuf.flags = I915_EXEC_FENCE_OUT;
+@@ -1882,7 +1887,7 @@ static void __bonded_early(int i915, uint32_t ctx,
+ 	igt_spin_free(i915, spin);
+ }
+ 
+-static void bonded_early(int i915)
++static void bonded_early(int i915, unsigned long flags)
+ {
+ 	uint32_t ctx;
+ 
+@@ -1909,8 +1914,8 @@ static void bonded_early(int i915)
+ 
+ 		siblings = list_engines(i915, 1u << class, &count);
+ 		if (count > 1) {
+-			__bonded_early(i915, ctx, siblings, count, 0);
+-			__bonded_early(i915, ctx, siblings, count, VIRTUAL_ENGINE);
++			__bonded_early(i915, ctx, siblings, count, flags);
++			__bonded_early(i915, ctx, siblings, count, flags | VIRTUAL_ENGINE);
+ 		}
+ 		free(siblings);
+ 	}
+@@ -2876,7 +2881,16 @@ igt_main
+ 			bonded(i915, CORK);
+ 
+ 		igt_subtest("bonded-early")
+-			bonded_early(i915);
++			bonded_early(i915, 0);
++
++		igt_subtest("u-bonded-imm")
++			bonded(i915, USERPTR);
++
++		igt_subtest("u-bonded-cork")
++			bonded(i915, CORK | USERPTR);
++
++		igt_subtest("u-bonded-early")
++			bonded_early(i915, USERPTR);
+ 	}
+ 
+ 	igt_subtest("bonded-slice")
+@@ -2886,7 +2900,9 @@ igt_main
+ 		bonded_chain(i915);
+ 
+ 	igt_subtest("bonded-semaphore")
+-		bonded_semaphore(i915);
++		bonded_semaphore(i915, 0);
++	igt_subtest("u-bonded-semaphore")
++		bonded_semaphore(i915, USERPTR);
+ 
+ 	igt_subtest("bonded-pair")
+ 		bonded_runner(i915, __bonded_pair);
 -- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+2.28.0
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
