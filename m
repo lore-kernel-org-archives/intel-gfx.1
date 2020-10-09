@@ -2,57 +2,49 @@ Return-Path: <SRS0=e7jk=DQ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.6 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,NICE_REPLY_A,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.2 required=3.0 tests=BAYES_00,DATE_IN_PAST_06_12,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_GIT autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 85229C433E7
-	for <intel-gfx@archiver.kernel.org>; Fri,  9 Oct 2020 09:38:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E94E5C433DF
+	for <intel-gfx@archiver.kernel.org>; Fri,  9 Oct 2020 09:41:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1B5982225A
-	for <intel-gfx@archiver.kernel.org>; Fri,  9 Oct 2020 09:38:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1B5982225A
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 8714B22258
+	for <intel-gfx@archiver.kernel.org>; Fri,  9 Oct 2020 09:41:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8714B22258
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 82A036EC8E;
-	Fri,  9 Oct 2020 09:38:12 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B76A46EC8B;
- Fri,  9 Oct 2020 09:38:10 +0000 (UTC)
-IronPort-SDR: A6+7+VYHAakXSeO+/YR/slasccr1tOeGpOvq6TflkvCCOhQX93fkQ9ppDTDlTod6hRn79f2mr0
- wuttmxCLQ8oA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9768"; a="164675106"
-X-IronPort-AV: E=Sophos;i="5.77,354,1596524400"; d="scan'208";a="164675106"
+	by gabe.freedesktop.org (Postfix) with ESMTP id A96C96EC94;
+	Fri,  9 Oct 2020 09:41:51 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B04496EC92;
+ Fri,  9 Oct 2020 09:41:49 +0000 (UTC)
+IronPort-SDR: rXq7Lbh9HG8UhuF6Cp6Nq2G/zCOTgkdYhYop2XRu+4ESJBT1olmin/vinRpjsvhUS09Kbz+YvR
+ RfQ2QaEBoc7A==
+X-IronPort-AV: E=McAfee;i="6000,8403,9768"; a="152384164"
+X-IronPort-AV: E=Sophos;i="5.77,354,1596524400"; d="scan'208";a="152384164"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Oct 2020 02:38:10 -0700
-IronPort-SDR: mfQ1WXDv4KOXGj2YoueYRVbNdWQE8gHCHzH43FBX3kYF5qePcPIUwI3r7vjjiJK/tSzy+w4pO8
- Eg1+Ib4fyWfw==
-X-IronPort-AV: E=Sophos;i="5.77,354,1596524400"; d="scan'208";a="528858490"
-Received: from assafbab-mobl2.ger.corp.intel.com (HELO [10.255.196.109])
- ([10.255.196.109])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Oct 2020 02:38:07 -0700
-To: Chris Wilson <chris@chris-wilson.co.uk>, intel-gfx@lists.freedesktop.org
-References: <20201008221334.1478509-1-chris@chris-wilson.co.uk>
- <20201008230303.1560301-1-chris@chris-wilson.co.uk>
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Organization: Intel Corporation UK Plc
-Message-ID: <478fbc5e-0d54-8fd9-bf76-a8a431a54148@linux.intel.com>
-Date: Fri, 9 Oct 2020 10:38:04 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-MIME-Version: 1.0
-In-Reply-To: <20201008230303.1560301-1-chris@chris-wilson.co.uk>
-Content-Language: en-US
-Subject: Re: [Intel-gfx] [igt-dev] [PATCH i-g-t v3] prime_vgem: Check that
- we wrap the vgem mmap with userptr
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Oct 2020 02:41:48 -0700
+IronPort-SDR: tZwaRP5XQyNyNkRCG1TY7nDR3yyV5QWvVZngrMf+++0IyrLfzACDLjhafyR3Fm52LoHL1ou/R2
+ WWuMmeDPkTuA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.77,354,1596524400"; d="scan'208";a="316982600"
+Received: from unknown (HELO xzhan34-mobl2.bj.intel.com) ([10.238.154.62])
+ by orsmga006.jf.intel.com with ESMTP; 09 Oct 2020 02:41:46 -0700
+From: Xiaolin Zhang <xiaolin.zhang@intel.com>
+To: intel-gvt-dev@lists.freedesktop.org,
+	intel-gfx@lists.freedesktop.org
+Date: Fri,  9 Oct 2020 08:04:31 +0800
+Message-Id: <1602201883-27829-1-git-send-email-xiaolin.zhang@intel.com>
+X-Mailer: git-send-email 2.7.4
+Subject: [Intel-gfx] [PATCH v2 00/12] enhanced i915 vgpu with PV feature
+ support
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,99 +57,98 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: igt-dev@lists.freedesktop.org, "Lahtinen,
- Joonas" <joonas.lahtinen@intel.com>, "Graunke,
- Kenneth W" <kenneth.w.graunke@intel.com>, "Kondapally,
- Kalyan" <kalyan.kondapally@intel.com>
+Cc: chris@chris-wilson.co.uk, zhiyuan.lv@intel.com
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+This is new i915 VGPU PV design based on the last year proposal [1].
 
-On 09/10/2020 00:03, Chris Wilson wrote:
-> This came up in a discussion about importing virtio dma-buf, which are
-> themselves plain shmemfs objects and so not only backed by struct pages,
-> but wrappable by userptr. vgem share the same properties and so should
-> serve as a useful proxy for testing.
-> 
-> Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-> Cc: "Graunke, Kenneth W" <kenneth.w.graunke@intel.com>,
-> Cc: "Lahtinen, Joonas" <joonas.lahtinen@intel.com>
-> Cc: "Kondapally, Kalyan" <kalyan.kondapally@intel.com>
-> ---
->   tests/intel-ci/fast-feedback.testlist |  1 +
->   tests/prime_vgem.c                    | 31 +++++++++++++++++++++++++++
->   2 files changed, 32 insertions(+)
-> 
-> diff --git a/tests/intel-ci/fast-feedback.testlist b/tests/intel-ci/fast-feedback.testlist
-> index aa2eb3295..982d25834 100644
-> --- a/tests/intel-ci/fast-feedback.testlist
-> +++ b/tests/intel-ci/fast-feedback.testlist
-> @@ -143,6 +143,7 @@ igt@prime_vgem@basic-fence-read
->   igt@prime_vgem@basic-gtt
->   igt@prime_vgem@basic-read
->   igt@prime_vgem@basic-write
-> +igt@prime_vgem@basic-userptr
->   igt@vgem_basic@setversion
->   igt@vgem_basic@create
->   igt@vgem_basic@debugfs
-> diff --git a/tests/prime_vgem.c b/tests/prime_vgem.c
-> index 38e2026aa..bc74d6844 100644
-> --- a/tests/prime_vgem.c
-> +++ b/tests/prime_vgem.c
-> @@ -287,6 +287,34 @@ static void test_write(int vgem, int i915)
->   	munmap(ptr, scratch.size);
->   }
->   
-> +static void test_userptr(int vgem, int i915)
-> +{
-> +	struct vgem_bo scratch;
-> +	struct drm_i915_gem_exec_object2 obj = {};
-> +	struct drm_i915_gem_execbuffer2 execbuf = {
-> +		.buffers_ptr = to_user_pointer(&obj),
-> +		.buffer_count = 1,
-> +	};
-> +	uint32_t *ptr;
-> +
-> +	scratch.width = 1024;
-> +	scratch.height = 1024;
-> +	scratch.bpp = 32;
-> +	vgem_create(vgem, &scratch);
-> +
-> +	ptr = vgem_mmap(vgem, &scratch, PROT_WRITE);
-> +	gem_close(vgem, scratch.handle);
-> +	*ptr = MI_BATCH_BUFFER_END;
-> +
-> +	gem_userptr(i915, ptr, scratch.size, 0, 0, &obj.handle);
-> +	gem_set_caching(i915, obj.handle, I915_CACHING_NONE); /* for exec */
-> +
-> +	gem_execbuf(i915, &execbuf);
-> +	gem_close(i915, obj.handle);
-> +
-> +	munmap(ptr, scratch.size);
-> +}
-> +
->   static void test_gtt(int vgem, int i915)
->   {
->   	struct vgem_bo scratch;
-> @@ -1038,6 +1066,9 @@ igt_main
->   	igt_subtest("basic-write")
->   		test_write(vgem, i915);
->   
-> +	igt_subtest("basic-userptr")
-> +		test_userptr(vgem, i915);
-> +
->   	igt_subtest("basic-gtt") {
->   		gem_require_mappable_ggtt(i915);
->   		test_gtt(vgem, i915);
-> 
+This is a new series of patch set and discontiued the old series of
+patch set due to this new design.
 
-Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+To improve vgpu performance, it could implement some PV optimizations
+in different gpu resource domain to reduce the data access overhead
+or complexity modeling.
 
-Regards,
+In this patch set, PPGTT and GGTT are identifed as PV optimization from
+VGPU memory resource point of view and workloa submisison is identifed
+as PV optimization from VGPU compute resource point of view. so 3 PV
+features (PV PPGTT, PV GGTT and PV submisison) are designed and implemented
+to support VGPU model better. 
 
-Tvrtko
+To provide the mechanism for PV feature development and implementation,
+A simple PV framework is implemented and consisted of 3 sub items:
+a. PV capability: it indicateds what kind of PV capability provided by both
+guest system and host GVTg subsystem.
+b. PV shared memory: this memory is allocated in guest and shared between
+guest and host for data exchange, PV command & PV data communication.
+c. PV command transport protocol: on top of PV shared memory, it defines
+the communication protocol & channel between guest and host to circulate
+PV command and PV command data. 
+
+for PV PPGTT, to improve efficiency and reduce the complexity of ppgtt
+support, vgpu ppgtt page table operations are implemented in pv fashion
+with pv version of bind/unbind for ppgtt vma ops. The pv version of 
+ppgtt vma ops use the CTB protocol to communicate pv ppgtt command along 
+with data struct pv_vma from guest to GVT and then GVT implement command
+handler of PV_CMD_BIND_PPGTT and PV_CMD_UBIND_PPGTT to achieve GVA->HPA
+address translation.
+
+for PV GGTT, it is similar with PV PPGGT instead to use PV_CMD_BIND_GGTT
+and PV_CMD_UNBIND_GGTT pv command. 
+
+for PV workload submisison, a pv version of workload submission backend
+implemented with engine submission data in the shared memory and meanwhile
+eliminating execlists csb process and context switch interrupt in
+submisision routine to improve efficiency and reduce complexity.
+
+Based on the experiment, small workloads such as glmark2 and Antutu 3D 
+benchmark can get benefit for these PV featuers at least 10% performance
+gain. for large workload such as media and 3D, it get some benefit,
+but not much. 
+
+[1]: https://patchwork.kernel.org/cover/11148059/
+
+v2: addressed v1 comment from Jani Nikula and dim checkpatch issues.
+
+Xiaolin Zhang (12):
+  drm/i915: introduced vgpu pv capability
+  drm/i915: vgpu shared memory setup for pv support
+  drm/i915: vgpu pv command buffer transport protocol
+  drm/i915: vgpu ppgtt page table pv support
+  drm/i915: vgpu ggtt page table pv support
+  drm/i915: vgpu workload submisison pv support
+  drm/i915/gvt: GVTg expose pv_caps PVINFO register
+  drm/i915/gvt: GVTg handle guest shared_page setup
+  drm/i915/gvt: GVTg support vgpu pv CTB protocol
+  drm/i915/gvt: GVTg support ppgtt pv operations
+  drm/i915/gvt: GVTg support ggtt pv operations
+  drm/i915/gvt: GVTg support pv workload submssion
+
+ drivers/gpu/drm/i915/Makefile              |   2 +-
+ drivers/gpu/drm/i915/gt/gen8_ppgtt.c       |   4 +-
+ drivers/gpu/drm/i915/gt/intel_lrc.c        |   2 +
+ drivers/gpu/drm/i915/gvt/gtt.c             | 258 ++++++++++++++
+ drivers/gpu/drm/i915/gvt/gtt.h             |   4 +
+ drivers/gpu/drm/i915/gvt/gvt.h             |  19 +-
+ drivers/gpu/drm/i915/gvt/handlers.c        | 274 ++++++++++++++-
+ drivers/gpu/drm/i915/gvt/vgpu.c            |  49 +++
+ drivers/gpu/drm/i915/i915_drv.c            |   2 +
+ drivers/gpu/drm/i915/i915_drv.h            |   3 +
+ drivers/gpu/drm/i915/i915_gem.c            |   4 +-
+ drivers/gpu/drm/i915/i915_pvinfo.h         |   9 +-
+ drivers/gpu/drm/i915/i915_vgpu.c           | 543 ++++++++++++++++++++++++++++-
+ drivers/gpu/drm/i915/i915_vgpu.h           | 125 +++++++
+ drivers/gpu/drm/i915/intel_pv_submission.c | 325 +++++++++++++++++
+ 15 files changed, 1616 insertions(+), 7 deletions(-)
+ create mode 100644 drivers/gpu/drm/i915/intel_pv_submission.c
+
+-- 
+2.7.4
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
