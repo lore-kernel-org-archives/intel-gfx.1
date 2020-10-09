@@ -2,75 +2,55 @@ Return-Path: <SRS0=e7jk=DQ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-11.5 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2E65BC433E7
-	for <intel-gfx@archiver.kernel.org>; Fri,  9 Oct 2020 21:15:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 92BC2C433E7
+	for <intel-gfx@archiver.kernel.org>; Fri,  9 Oct 2020 21:43:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DB2EF22282
-	for <intel-gfx@archiver.kernel.org>; Fri,  9 Oct 2020 21:15:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DB2EF22282
+	by mail.kernel.org (Postfix) with ESMTPS id 40C7522251
+	for <intel-gfx@archiver.kernel.org>; Fri,  9 Oct 2020 21:43:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 40C7522251
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4FBE26EE0D;
-	Fri,  9 Oct 2020 21:15:17 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 98E8C6EE0D
- for <intel-gfx@lists.freedesktop.org>; Fri,  9 Oct 2020 21:15:16 +0000 (UTC)
-IronPort-SDR: XijbpalMuVIkDinQHvaJjovYIoyUk71Cue4ZXzSvw9IzW0wZZNPgKwhS4mSN1mv6A+meDOodam
- AM9Blg75dWHg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9769"; a="144857783"
-X-IronPort-AV: E=Sophos;i="5.77,356,1596524400"; d="scan'208";a="144857783"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9ABC26EE21;
+	Fri,  9 Oct 2020 21:43:54 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 633736EE21
+ for <Intel-GFX@lists.freedesktop.org>; Fri,  9 Oct 2020 21:43:53 +0000 (UTC)
+IronPort-SDR: 23zMHdP6Ooy7DsnNZilpbjq3rcZVSwT5FHzheLjsrjTw8NCPlfEtPdhyeiHSKgjmwuyL2oL/yo
+ If14MWcjyOTQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9769"; a="153373221"
+X-IronPort-AV: E=Sophos;i="5.77,356,1596524400"; d="scan'208";a="153373221"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Oct 2020 14:15:15 -0700
-IronPort-SDR: kuWylZ+nfeXacPcUa2C2yDpaNUie8FEAgN2agOmDvEJKP2IElPP6pWwJZpYCaoe8HO7WzgS0oW
- b+Exq4mfEeuQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.77,356,1596524400"; d="scan'208";a="529077305"
-Received: from orsmsx604.amr.corp.intel.com ([10.22.229.17])
- by orsmga005.jf.intel.com with ESMTP; 09 Oct 2020 14:15:15 -0700
-Received: from orsmsx612.amr.corp.intel.com (10.22.229.25) by
- ORSMSX604.amr.corp.intel.com (10.22.229.17) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1713.5; Fri, 9 Oct 2020 14:15:15 -0700
-Received: from orsmsx610.amr.corp.intel.com (10.22.229.23) by
- ORSMSX612.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1713.5; Fri, 9 Oct 2020 14:15:14 -0700
-Received: from orsmsx610.amr.corp.intel.com ([10.22.229.23]) by
- ORSMSX610.amr.corp.intel.com ([10.22.229.23]) with mapi id 15.01.1713.004;
- Fri, 9 Oct 2020 14:15:14 -0700
-From: "Souza, Jose" <jose.souza@intel.com>
-To: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
-Thread-Topic: =?utf-8?B?4pyTIEZpLkNJLklHVDogc3VjY2VzcyBmb3Igc2VyaWVzIHN0YXJ0aW5nIHdp?=
- =?utf-8?B?dGggW3YzLDEvM10gZHJtL2k5MTUvdmJ0OiBGaXggYmFja2xpZ2h0IHBhcnNp?=
- =?utf-8?Q?ng_for_VBT_234+?=
-Thread-Index: AQHWndUMQf/Wj21J70qdijNOzAIwwamQPTaA
-Date: Fri, 9 Oct 2020 21:15:14 +0000
-Message-ID: <adfd8b4ed6e41b7bf0d09ce31aab3c198bf043a7.camel@intel.com>
-References: <20201008211932.24989-1-jose.souza@intel.com>
- <160220413737.1828.7929347175059857829@emeril.freedesktop.org>
-In-Reply-To: <160220413737.1828.7929347175059857829@emeril.freedesktop.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.22.254.132]
-Content-ID: <4865568A7212FE4183028D2097FC138B@intel.com>
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Oct 2020 14:43:52 -0700
+IronPort-SDR: 4NYKH3sIKtwnk45naPf9azjznBg0JYnljP0bWObVaN7xlnCbHMCYMTsIKy/2MIIoCkMiOW3RKJ
+ P34yB2ms234g==
+X-IronPort-AV: E=Sophos;i="5.77,356,1596524400"; d="scan'208";a="529084262"
+Received: from dceraolo-mobl.amr.corp.intel.com (HELO [10.212.197.87])
+ ([10.212.197.87])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Oct 2020 14:43:51 -0700
+To: John.C.Harrison@Intel.com, Intel-GFX@Lists.FreeDesktop.Org
+References: <20200925232637.1968039-1-John.C.Harrison@Intel.com>
+ <20200925232637.1968039-4-John.C.Harrison@Intel.com>
+From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+Message-ID: <c5477b1a-2827-2499-ac54-b3f0b57314fa@intel.com>
+Date: Fri, 9 Oct 2020 14:43:42 -0700
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.1
 MIME-Version: 1.0
-Subject: Re: [Intel-gfx] 
- =?utf-8?b?4pyTIEZpLkNJLklHVDogc3VjY2VzcyBmb3Igc2Vy?=
- =?utf-8?q?ies_starting_with_=5Bv3=2C1/3=5D_drm/i915/vbt=3A_Fix_backlight_?=
- =?utf-8?q?parsing_for_VBT_234+?=
+In-Reply-To: <20200925232637.1968039-4-John.C.Harrison@Intel.com>
+Content-Language: en-US
+Subject: Re: [Intel-gfx] [PATCH 3/4] drm/i915/guc: Clear pointers on free
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,90 +63,63 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-T24gRnJpLCAyMDIwLTEwLTA5IGF0IDAwOjQyICswMDAwLCBQYXRjaHdvcmsgd3JvdGU6DQo+IFBh
-dGNoIERldGFpbHMNCj4gU2VyaWVzOiBzZXJpZXMgc3RhcnRpbmcgd2l0aCBbdjMsMS8zXSBkcm0v
-aTkxNS92YnQ6IEZpeCBiYWNrbGlnaHQgcGFyc2luZyBmb3IgVkJUIDIzNCsgVVJMOiBodHRwczov
-L3BhdGNod29yay5mcmVlZGVza3RvcC5vcmcvc2VyaWVzLzgyNDgyLyBTdGF0ZToNCj4gc3VjY2Vz
-cyBEZXRhaWxzOiBodHRwczovL2ludGVsLWdmeC1jaS4wMS5vcmcvdHJlZS9kcm0tdGlwL1BhdGNo
-d29ya18xODY2MS9pbmRleC5odG1sIA0KPiBDSSBCdWcgTG9nIC0gY2hhbmdlcyBmcm9tIENJX0RS
-TV85MTEzX2Z1bGwgLT4gUGF0Y2h3b3JrXzE4NjYxX2Z1bGxTdW1tYXJ5U1VDQ0VTUw0KPiBObyBy
-ZWdyZXNzaW9ucyBmb3VuZC4NCg0KUHVzaGVkIHRvIGRpbnEsIHRoYW5rcyBmb3IgdGhlIHJldmll
-dy4NCg0KPiBLbm93biBpc3N1ZXNIZXJlIGFyZSB0aGUgY2hhbmdlcyBmb3VuZCBpbiBQYXRjaHdv
-cmtfMTg2NjFfZnVsbCB0aGF0IGNvbWUgZnJvbSBrbm93biBpc3N1ZXM6DQo+IElHVCBjaGFuZ2Vz
-SXNzdWVzIGhpdCAqIGlndEBnZW45X2V4ZWNfcGFyc2VAYWxsb3dlZC1zaW5nbGU6c2hhcmQtc2ts
-OiBQQVNTIC0+IERNRVNHLVdBUk4gKGk5MTUjMTQzNiAvIGk5MTUjNzE2KQ0KPiDCoCogaWd0QGk5
-MTVfbW9kdWxlX2xvYWRAcmVsb2FkOnNoYXJkLWhzdzogUEFTUyAtPiBETUVTRy1XQVJOIChpOTE1
-IzE5ODIpDQo+IMKgKiBpZ3RAaTkxNV9wbV9kY0BkYzYtcHNyOnNoYXJkLXNrbDogUEFTUyAtPiBG
-QUlMIChpOTE1IzQ1NCkNCj4gwqAqIGlndEBpOTE1X3N1c3BlbmRAZmVuY2UtcmVzdG9yZS11bnRp
-bGVkOnNoYXJkLXNrbDogUEFTUyAtPiBJTkNPTVBMRVRFIChpOTE1IzE5OCkNCj4gwqAqIGlndEBr
-bXNfY3Vyc29yX2xlZ2FjeUAyeC1sb25nLWZsaXAtdnMtY3Vyc29yLWF0b21pYzpzaGFyZC1nbGs6
-IFBBU1MgLT4gRkFJTCAoaTkxNSM3MikNCj4gwqAqIGlndEBrbXNfZmxpcEBmbGlwLXZzLWJsb2Nr
-aW5nLXdmLXZibGFua0BhLWRwMTpzaGFyZC1rYmw6IFBBU1MgLT4gRE1FU0ctV0FSTiAoaTkxNSMx
-OTgyKSArMSBzaW1pbGFyIGlzc3VlDQo+IMKgKiBpZ3RAa21zX2ZsaXBAZmxpcC12cy1ibG9ja2lu
-Zy13Zi12YmxhbmtAYS1lZHAxOnNoYXJkLXNrbDogUEFTUyAtPiBETUVTRy1XQVJOIChpOTE1IzE5
-ODIpICs1IHNpbWlsYXIgaXNzdWVzDQo+IMKgKiBpZ3RAa21zX2ZsaXBAZmxpcC12cy1leHBpcmVk
-LXZibGFuay1pbnRlcnJ1cHRpYmxlQGMtaGRtaS1hMTpzaGFyZC1nbGs6IFBBU1MgLT4gRkFJTCAo
-aTkxNSM3OSkNCj4gwqAqIGlndEBrbXNfZmxpcEBmbGlwLXZzLWV4cGlyZWQtdmJsYW5rQGEtZWRw
-MTpzaGFyZC1za2w6IFBBU1MgLT4gRkFJTCAoaTkxNSM3OSkgKzEgc2ltaWxhciBpc3N1ZQ0KPiDC
-oCogaWd0QGttc19mbGlwQGZsaXAtdnMtc3VzcGVuZEBhLWRwMTpzaGFyZC1rYmw6IFBBU1MgLT4g
-SU5DT01QTEVURSAoaTkxNSMxNTUpDQo+IMKgKiBpZ3RAa21zX2Zyb250YnVmZmVyX3RyYWNraW5n
-QGZiYy1zdHJpZGVjaGFuZ2U6c2hhcmQtdGdsYjogUEFTUyAtPiBETUVTRy1XQVJOIChpOTE1IzE5
-ODIpICsyIHNpbWlsYXIgaXNzdWVzc2hhcmQtZ2xrOiBQQVNTIC0+IERNRVNHLVdBUk4NCj4gKGk5
-MTUjMTk4MikgKzEgc2ltaWxhciBpc3N1ZQ0KPiDCoCogaWd0QGttc19wbGFuZV9hbHBoYV9ibGVu
-ZEBwaXBlLWMtY292ZXJhZ2UtN2VmYzpzaGFyZC1za2w6IFBBU1MgLT4gRkFJTCAoZmRvIzEwODE0
-NSAvIGk5MTUjMjY1KQ0KPiDCoCogaWd0QGttc19wc3JAcHNyMl9zcHJpdGVfbW1hcF9jcHU6c2hh
-cmQtaWNsYjogUEFTUyAtPiBTS0lQIChmZG8jMTA5NDQxKSArMSBzaW1pbGFyIGlzc3VlDQo+IMKg
-KiBpZ3RAa21zX3NldG1vZGVAYmFzaWM6c2hhcmQtZ2xrOiBQQVNTIC0+IEZBSUwgKGk5MTUjMzEp
-DQo+IMKgKiBpZ3RAa21zX3ZibGFua0BwaXBlLWEtdHMtY29udGludWF0aW9uLXN1c3BlbmQ6c2hh
-cmQta2JsOiBQQVNTIC0+IERNRVNHLVdBUk4gKGk5MTUjMTgwKSArNSBzaW1pbGFyIGlzc3Vlcw0K
-PiBQb3NzaWJsZSBmaXhlcyAqIHtpZ3RAZ2VtX2V4ZWNfY2FwdHVyZUBwaUByY3MwfTpzaGFyZC1z
-a2w6IElOQ09NUExFVEUgLT4gUEFTU3NoYXJkLWdsazogSU5DT01QTEVURSAtPiBQQVNTDQo+IMKg
-KiBpZ3RAZ2VtX21tYXBfZ3R0QGJhc2ljLXNtYWxsLWJvOnNoYXJkLWhzdzogSU5DT01QTEVURSAt
-PiBQQVNTDQo+IMKgKiBpZ3RAaTkxNV9wbV9ycG1Ac3lzdGVtLXN1c3BlbmQ6c2hhcmQtc2tsOiBJ
-TkNPTVBMRVRFIChpOTE1IzE1MSkgLT4gUEFTUw0KPiDCoCogaWd0QGk5MTVfc2VsZnRlc3RAbGl2
-ZUBndF9oZWFydGJlYXQ6c2hhcmQtc2tsOiBETUVTRy1GQUlMIChpOTE1IzU0MSkgLT4gUEFTUw0K
-PiDCoCoge2lndEBrbXNfYXN5bmNfZmxpcHNAYWx0ZXJuYXRlLXN5bmMtYXN5bmMtZmxpcH06c2hh
-cmQta2JsOiBGQUlMIChpOTE1IzI1MjEpIC0+IFBBU1MNCj4gwqAqIHtpZ3RAa21zX2FzeW5jX2Zs
-aXBzQGFzeW5jLWZsaXAtd2l0aC1wYWdlLWZsaXAtZXZlbnRzfTpzaGFyZC1nbGs6IEZBSUwgKGk5
-MTUjMjUyMSkgLT4gUEFTUw0KPiDCoCogaWd0QGttc19jdXJzb3JfbGVnYWN5QGN1cnNvci12cy1m
-bGlwLXZhcnlpbmctc2l6ZTpzaGFyZC1oc3c6IEZBSUwgKGk5MTUjMjM3MCkgLT4gUEFTUw0KPiDC
-oCogaWd0QGttc19mbGlwQDJ4LWRwbXMtdnMtdmJsYW5rLXJhY2VAYWItdmdhMS1oZG1pLWExOnNo
-YXJkLWhzdzogRE1FU0ctV0FSTiAoaTkxNSMxOTgyKSAtPiBQQVNTDQo+IMKgKiBpZ3RAa21zX2Zs
-aXBfdGlsaW5nQGZsaXAtY2hhbmdlcy10aWxpbmc6c2hhcmQtc2tsOiBGQUlMIChpOTE1IzY5OSkg
-LT4gUEFTUw0KPiDCoCogaWd0QGttc19mcm9udGJ1ZmZlcl90cmFja2luZ0BmYmMtZmFyZnJvbWZl
-bmNlOnNoYXJkLWdsazogRkFJTCAoaTkxNSM0OSkgLT4gUEFTUw0KPiDCoCogaWd0QGttc19mcm9u
-dGJ1ZmZlcl90cmFja2luZ0BmYmNwc3ItMXAtb2Zmc2NyZW4tcHJpLXNocmZiLWRyYXctcHdyaXRl
-OnNoYXJkLXRnbGI6IERNRVNHLVdBUk4gKGk5MTUjMTk4MikgLT4gUEFTUw0KPiDCoCogaWd0QGtt
-c19mcm9udGJ1ZmZlcl90cmFja2luZ0Bwc3ItMXAtcHJpbXNjcm4tY3VyLWluZGZiLWRyYXctcmVu
-ZGVyOnNoYXJkLXNrbDogRkFJTCAoaTkxNSM0OSkgLT4gUEFTUw0KPiDCoCogaWd0QGttc19wbGFu
-ZUBwbGFuZS1wb3NpdGlvbi1jb3ZlcmVkLXBpcGUtYi1wbGFuZXM6c2hhcmQtc2tsOiBETUVTRy1X
-QVJOIChpOTE1IzE5ODIpIC0+IFBBU1MgKzMgc2ltaWxhciBpc3N1ZXMNCj4gwqAqIGlndEBrbXNf
-cGxhbmVfYWxwaGFfYmxlbmRAcGlwZS1hLWNvdmVyYWdlLTdlZmM6c2hhcmQtc2tsOiBGQUlMIChm
-ZG8jMTA4MTQ1IC8gaTkxNSMyNjUpIC0+IFBBU1MNCj4gwqAqIGlndEBwcmltZV92Z2VtQHN5bmNA
-cmNzMDpzaGFyZC1pY2xiOiBJTkNPTVBMRVRFIChpOTE1IzQwOSkgLT4gUEFTUw0KPiBXYXJuaW5n
-cyAqIGlndEBpOTE1X3BtX2RjQGRjNS1wc3I6c2hhcmQtdGdsYjogRE1FU0ctV0FSTiAoaTkxNSMy
-NDExKSAtPiBGQUlMIChpOTE1IzE4OTkpDQo+IMKgKiBpZ3RAa21zX2N1cnNvcl9sZWdhY3lAZmxp
-cC12cy1jdXJzb3ItYXRvbWljOnNoYXJkLXNrbDogRE1FU0ctV0FSTiAoaTkxNSMxOTgyKSAtPiBE
-TUVTRy1GQUlMIChpOTE1IzE5ODIpDQo+IMKgKiBpZ3RAcnVubmVyQGFib3J0ZWQ6c2hhcmQtc2ts
-OiBGQUlMIChpOTE1IzI0MzkpIC0+IEZBSUwgKGk5MTUjMTQzNikNCj4ge25hbWV9OiBUaGlzIGVs
-ZW1lbnQgaXMgc3VwcHJlc3NlZC4gVGhpcyBtZWFucyBpdCBpcyBpZ25vcmVkIHdoZW4gY29tcHV0
-aW5nDQo+IMKgdGhlIHN0YXR1cyBvZiB0aGUgZGlmZmVyZW5jZSAoU1VDQ0VTUywgV0FSTklORywg
-b3IgRkFJTFVSRSkuDQo+IFBhcnRpY2lwYXRpbmcgaG9zdHMgKDExIC0+IDExKU5vIGNoYW5nZXMg
-aW4gcGFydGljaXBhdGluZyBob3N0cw0KPiBCdWlsZCBjaGFuZ2VzICogTGludXg6IENJX0RSTV85
-MTEzIC0+IFBhdGNod29ya18xODY2MQ0KPiBDSS0yMDE5MDUyOTogMjAxOTA1MjkNCj4gwqBDSV9E
-Uk1fOTExMzogNDEyZmYxNWYyYjlhOTdiZDBhYjMyZjU2MmVjYjdlZmM4NDgzNzg4MSBAIGdpdDov
-L2Fub25naXQuZnJlZWRlc2t0b3Aub3JnL2dmeC1jaS9saW51eA0KPiDCoElHVF81ODA1OiA5Y2U1
-MGZmZWQ4OWE0NmZhMWJjOThlZTJjZmUyMjcxYzQ5ODAxMDc5IEAgZ2l0Oi8vYW5vbmdpdC5mcmVl
-ZGVza3RvcC5vcmcveG9yZy9hcHAvaW50ZWwtZ3B1LXRvb2xzDQo+IMKgUGF0Y2h3b3JrXzE4NjYx
-OiBlY2QzMjBhN2ZjYTg2MDcxNTRjODM3ZTk0ZmYzNjAyNGRlNTZjNjBmIEAgZ2l0Oi8vYW5vbmdp
-dC5mcmVlZGVza3RvcC5vcmcvZ2Z4LWNpL2xpbnV4DQo+IMKgcGlnbGl0XzQ1MDk6IGZkYzVhNGNh
-MTExMjRhYjg0MTNjNzk4ODg5NmVlYzRjOTczMzY2OTQgQCBnaXQ6Ly9hbm9uZ2l0LmZyZWVkZXNr
-dG9wLm9yZy9waWdsaXQNCg0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRlbC1nZnhAbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vaW50
-ZWwtZ2Z4Cg==
+
+
+On 9/25/2020 4:26 PM, John.C.Harrison@Intel.com wrote:
+> From: John Harrison <John.C.Harrison@Intel.com>
+>
+> Was hitting null pointers and similar issues when running various
+> module load/unload and inject failure type tests. So clear those
+> pointers down when the objects have been de-allocated.
+
+Had a quick chat with John about the incorrect pointer access, since the 
+cleanup wouldn't fix the fact we're accessing a pointer after the 
+relevant object was deallocated. None of the errors he hit are actually 
+in the tree at the moment, the cleanup is just to make the errors 
+slightly clearer in case we accidentally introduce new ones.
+With a reworded commit message to better explain the above:
+
+Reviewed-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+
+Daniele
+
+> Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
+> ---
+>   drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c | 1 +
+>   drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c  | 1 +
+>   2 files changed, 2 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
+> index 7950d28beb8c..5212ff844292 100644
+> --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
+> +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
+> @@ -220,6 +220,7 @@ int intel_guc_ads_create(struct intel_guc *guc)
+>   void intel_guc_ads_destroy(struct intel_guc *guc)
+>   {
+>   	i915_vma_unpin_and_release(&guc->ads_vma, I915_VMA_RELEASE_MAP);
+> +	guc->ads_blob = NULL;
+>   }
+>   
+>   static void guc_ads_private_data_reset(struct intel_guc *guc)
+> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+> index 11742fca0e9e..fa9e048cc65f 100644
+> --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+> +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+> @@ -210,6 +210,7 @@ void intel_guc_ct_fini(struct intel_guc_ct *ct)
+>   	GEM_BUG_ON(ct->enabled);
+>   
+>   	i915_vma_unpin_and_release(&ct->vma, I915_VMA_RELEASE_MAP);
+> +	memset(ct, 0, sizeof(*ct));
+>   }
+>   
+>   /**
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
