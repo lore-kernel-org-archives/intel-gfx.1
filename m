@@ -2,52 +2,51 @@ Return-Path: <SRS0=uIVS=DT=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7B01CC43467
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Oct 2020 21:30:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 56BC5C4363A
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Oct 2020 21:30:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2556D2145D
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Oct 2020 21:30:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2556D2145D
+	by mail.kernel.org (Postfix) with ESMTPS id 0FF972145D
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Oct 2020 21:30:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0FF972145D
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E8D826E7DD;
-	Mon, 12 Oct 2020 21:30:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F3E76E7E5;
+	Mon, 12 Oct 2020 21:30:57 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BEDF56E7DA
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 001A56E7DA
  for <intel-gfx@lists.freedesktop.org>; Mon, 12 Oct 2020 21:30:55 +0000 (UTC)
-IronPort-SDR: vUbUsl1blQ7vFMfd5Jq5IfUPzUse2zuvGDpXf4bP8YT45ieNihavDEFRmw0dkYiytmAoQhowSJ
- Moxr9Bn7x+XQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9772"; a="163169617"
-X-IronPort-AV: E=Sophos;i="5.77,368,1596524400"; d="scan'208";a="163169617"
+IronPort-SDR: lfEARyKPJhMdNQ9LcL5BkOq8O7ff7DbEpgn8As0uSnsx01cEzAKufWNoVUx8iCnvmTvbzLRn4z
+ jcU1Cd/Dogjw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9772"; a="163169619"
+X-IronPort-AV: E=Sophos;i="5.77,368,1596524400"; d="scan'208";a="163169619"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  12 Oct 2020 14:30:55 -0700
-IronPort-SDR: dNbAWxavFzr4ttVuDPEDCcQi7ZDJ7VReFjKiP1cE4tASU7FZcEkXFS7HORDEdzcDuJ2RB1vMAd
- kHRgkUI3yahw==
-X-IronPort-AV: E=Sophos;i="5.77,368,1596524400"; d="scan'208";a="463244986"
+IronPort-SDR: 9ELSHWMvlEQmi5qH+wbL9jfQBM05NVnbongHuat2k2C+ZmCei94OjrwgdlBZuH29FAeiK0sb7S
+ 227PCt7+67mw==
+X-IronPort-AV: E=Sophos;i="5.77,368,1596524400"; d="scan'208";a="463244978"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.202])
  by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  12 Oct 2020 14:30:54 -0700
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 12 Oct 2020 14:29:51 -0700
-Message-Id: <20201012212959.871513-8-lucas.demarchi@intel.com>
+Date: Mon, 12 Oct 2020 14:29:48 -0700
+Message-Id: <20201012212959.871513-5-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20201012212959.871513-1-lucas.demarchi@intel.com>
 References: <20201012212959.871513-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v7 07/15] drm/i915/dg1: add hpd interrupt
- handling
+Subject: [Intel-gfx] [PATCH v7 04/15] drm/i915/dg1: Add DPLL macros for DG1
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,127 +59,97 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-REcxIGhhcyBvbmUgbW9yZSBjb21ibyBwaHkgcG9ydCwgbm8gVEMgYW5kIGFsbCBpcnEgaGFuZGxp
-bmcgZ29lcyB0aHJvdWdoClNERSwgbGlrZSBmb3IgTUNDLgoKdjI6IEFsc28gY2hhbmdlIGludGVs
-X2hwZF9waW5fZGVmYXVsdCgpIHRvIGluY2x1ZGUgREcxIG1hcHBpbmcKdjM6IFJlYmFzZSBvbiBo
-cGQgcmVmYWN0b3IKCkNjOiBWaWxsZSBTeXJqw6Rsw6QgPHZpbGxlLnN5cmphbGFAbGludXguaW50
-ZWwuY29tPgpDYzogQW5zaHVtYW4gR3VwdGEgPGFuc2h1bWFuLmd1cHRhQGludGVsLmNvbT4KQ2M6
-IEpvc8OpIFJvYmVydG8gZGUgU291emEgPGpvc2Uuc291emFAaW50ZWwuY29tPgpDYzogSW1yZSBE
-ZWFrIDxpbXJlLmRlYWtAaW50ZWwuY29tPgpTaWduZWQtb2ZmLWJ5OiBMdWNhcyBEZSBNYXJjaGkg
-PGx1Y2FzLmRlbWFyY2hpQGludGVsLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1
-X2lycS5jIHwgNTggKysrKysrKysrKysrKysrKysrKysrKysrKysrKystLS0tCiBkcml2ZXJzL2dw
-dS9kcm0vaTkxNS9pOTE1X3JlZy5oIHwgIDggKysrKysKIDIgZmlsZXMgY2hhbmdlZCwgNTkgaW5z
-ZXJ0aW9ucygrKSwgNyBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
-aTkxNS9pOTE1X2lycS5jIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV9pcnEuYwppbmRleCBi
-NzUzYzc3YzlhNzcuLjBkNmU0ODk0YjUwNSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5
-MTUvaTkxNV9pcnEuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X2lycS5jCkBAIC0x
-NTIsNiArMTUyLDEzIEBAIHN0YXRpYyBjb25zdCB1MzIgaHBkX2ljcFtIUERfTlVNX1BJTlNdID0g
-ewogCVtIUERfUE9SVF9UQzZdID0gU0RFX1RDX0hPVFBMVUdfSUNQKFBPUlRfVEM2KSwKIH07CiAK
-K3N0YXRpYyBjb25zdCB1MzIgaHBkX2RnMV9zZGVbSFBEX05VTV9QSU5TXSA9IHsKKwlbSFBEX1BP
-UlRfQV0gPSBTREVfRERJX0hPVFBMVUdfSUNQKFBIWV9BKSwKKwlbSFBEX1BPUlRfQl0gPSBTREVf
-RERJX0hPVFBMVUdfSUNQKFBIWV9CKSwKKwlbSFBEX1BPUlRfRF0gPSBTREVfRERJX0hPVFBMVUdf
-SUNQKFBIWV9DKSwKKwlbSFBEX1BPUlRfRV0gPSBTREVfRERJX0hPVFBMVUdfSUNQKFBIWV9EKSwK
-K307CisKIHN0YXRpYyB2b2lkIGludGVsX2hwZF9pbml0X3BpbnMoc3RydWN0IGRybV9pOTE1X3By
-aXZhdGUgKmRldl9wcml2KQogewogCXN0cnVjdCBpOTE1X2hvdHBsdWcgKmhwZCA9ICZkZXZfcHJp
-di0+aG90cGx1ZzsKQEAgLTE3NiwxMSArMTgzLDE0IEBAIHN0YXRpYyB2b2lkIGludGVsX2hwZF9p
-bml0X3BpbnMoc3RydWN0IGRybV9pOTE1X3ByaXZhdGUgKmRldl9wcml2KQogCWVsc2UKIAkJaHBk
-LT5ocGQgPSBocGRfaWxrOwogCi0JaWYgKCFIQVNfUENIX1NQTElUKGRldl9wcml2KSB8fCBIQVNf
-UENIX05PUChkZXZfcHJpdikpCisJaWYgKChJTlRFTF9QQ0hfVFlQRShkZXZfcHJpdikgPCBQQ0hf
-REcxKSAmJgorCSAgICAoIUhBU19QQ0hfU1BMSVQoZGV2X3ByaXYpIHx8IEhBU19QQ0hfTk9QKGRl
-dl9wcml2KSkpCiAJCXJldHVybjsKIAotCWlmIChIQVNfUENIX1RHUChkZXZfcHJpdikgfHwgSEFT
-X1BDSF9KU1AoZGV2X3ByaXYpIHx8Ci0JICAgIEhBU19QQ0hfSUNQKGRldl9wcml2KSB8fCBIQVNf
-UENIX01DQyhkZXZfcHJpdikpCisJaWYgKEhBU19QQ0hfREcxKGRldl9wcml2KSkKKwkJaHBkLT5w
-Y2hfaHBkID0gaHBkX2RnMV9zZGU7CisJZWxzZSBpZiAoSEFTX1BDSF9UR1AoZGV2X3ByaXYpIHx8
-IEhBU19QQ0hfSlNQKGRldl9wcml2KSB8fAorCQkgSEFTX1BDSF9JQ1AoZGV2X3ByaXYpIHx8IEhB
-U19QQ0hfTUNDKGRldl9wcml2KSkKIAkJaHBkLT5wY2hfaHBkID0gaHBkX2ljcDsKIAllbHNlIGlm
-IChIQVNfUENIX0NOUChkZXZfcHJpdikgfHwgSEFTX1BDSF9TUFQoZGV2X3ByaXYpKQogCQlocGQt
-PnBjaF9ocGQgPSBocGRfc3B0OwpAQCAtMTA3OSw2ICsxMDg5LDIyIEBAIHN0YXRpYyBib29sIGlj
-cF9kZGlfcG9ydF9ob3RwbHVnX2xvbmdfZGV0ZWN0KGVudW0gaHBkX3BpbiBwaW4sIHUzMiB2YWwp
-CiAJfQogfQogCitzdGF0aWMgYm9vbCBkZzFfZGRpX3BvcnRfaG90cGx1Z19sb25nX2RldGVjdChl
-bnVtIGhwZF9waW4gcGluLCB1MzIgdmFsKQoreworCXN3aXRjaCAocGluKSB7CisJY2FzZSBIUERf
-UE9SVF9BOgorCQlyZXR1cm4gdmFsICYgU0hPVFBMVUdfQ1RMX0RESV9IUERfTE9OR19ERVRFQ1Qo
-UE9SVF9BKTsKKwljYXNlIEhQRF9QT1JUX0I6CisJCXJldHVybiB2YWwgJiBTSE9UUExVR19DVExf
-RERJX0hQRF9MT05HX0RFVEVDVChQT1JUX0IpOworCWNhc2UgSFBEX1BPUlRfRDoKKwkJcmV0dXJu
-IHZhbCAmIFNIT1RQTFVHX0NUTF9ERElfSFBEX0xPTkdfREVURUNUKFBPUlRfQyk7CisJY2FzZSBI
-UERfUE9SVF9FOgorCQlyZXR1cm4gdmFsICYgU0hPVFBMVUdfQ1RMX0RESV9IUERfTE9OR19ERVRF
-Q1QoUE9SVF9EKTsKKwlkZWZhdWx0OgorCQlyZXR1cm4gZmFsc2U7CisJfQorfQorCiBzdGF0aWMg
-Ym9vbCBpY3BfdGNfcG9ydF9ob3RwbHVnX2xvbmdfZGV0ZWN0KGVudW0gaHBkX3BpbiBwaW4sIHUz
-MiB2YWwpCiB7CiAJc3dpdGNoIChwaW4pIHsKQEAgLTE4NjMsMTIgKzE4ODksMTkgQEAgc3RhdGlj
-IHZvaWQgaWNwX2lycV9oYW5kbGVyKHN0cnVjdCBkcm1faTkxNV9wcml2YXRlICpkZXZfcHJpdiwg
-dTMyIHBjaF9paXIpCiB7CiAJdTMyIGRkaV9ob3RwbHVnX3RyaWdnZXIsIHRjX2hvdHBsdWdfdHJp
-Z2dlcjsKIAl1MzIgcGluX21hc2sgPSAwLCBsb25nX21hc2sgPSAwOworCWJvb2wgKCpkZGlfcG9y
-dF9ob3RwbHVnX2xvbmdfZGV0ZWN0KShlbnVtIGhwZF9waW4gcGluLCB1MzIgdmFsKTsKIAotCWlm
-IChIQVNfUENIX1RHUChkZXZfcHJpdikpIHsKKwlpZiAoSEFTX1BDSF9ERzEoZGV2X3ByaXYpKSB7
-CisJCWRkaV9ob3RwbHVnX3RyaWdnZXIgPSBwY2hfaWlyICYgU0RFX0RESV9NQVNLX0RHMTsKKwkJ
-ZGRpX3BvcnRfaG90cGx1Z19sb25nX2RldGVjdCA9IGRnMV9kZGlfcG9ydF9ob3RwbHVnX2xvbmdf
-ZGV0ZWN0OworCQl0Y19ob3RwbHVnX3RyaWdnZXIgPSAwOworCX0gZWxzZSBpZiAoSEFTX1BDSF9U
-R1AoZGV2X3ByaXYpKSB7CiAJCWRkaV9ob3RwbHVnX3RyaWdnZXIgPSBwY2hfaWlyICYgU0RFX0RE
-SV9NQVNLX1RHUDsKKwkJZGRpX3BvcnRfaG90cGx1Z19sb25nX2RldGVjdCA9IGljcF9kZGlfcG9y
-dF9ob3RwbHVnX2xvbmdfZGV0ZWN0OwogCQl0Y19ob3RwbHVnX3RyaWdnZXIgPSBwY2hfaWlyICYg
-U0RFX1RDX01BU0tfVEdQOwogCX0gZWxzZSBpZiAoSEFTX1BDSF9KU1AoZGV2X3ByaXYpKSB7CiAJ
-CWRkaV9ob3RwbHVnX3RyaWdnZXIgPSBwY2hfaWlyICYgU0RFX0RESV9NQVNLX1RHUDsKKwkJZGRp
-X3BvcnRfaG90cGx1Z19sb25nX2RldGVjdCA9IGljcF9kZGlfcG9ydF9ob3RwbHVnX2xvbmdfZGV0
-ZWN0OwogCQl0Y19ob3RwbHVnX3RyaWdnZXIgPSAwOwogCX0gZWxzZSBpZiAoSEFTX1BDSF9NQ0Mo
-ZGV2X3ByaXYpKSB7CiAJCWRkaV9ob3RwbHVnX3RyaWdnZXIgPSBwY2hfaWlyICYgU0RFX0RESV9N
-QVNLX0lDUDsKQEAgLTE4NzksNiArMTkxMiw3IEBAIHN0YXRpYyB2b2lkIGljcF9pcnFfaGFuZGxl
-cihzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqZGV2X3ByaXYsIHUzMiBwY2hfaWlyKQogCQkJIElO
-VEVMX1BDSF9UWVBFKGRldl9wcml2KSk7CiAKIAkJZGRpX2hvdHBsdWdfdHJpZ2dlciA9IHBjaF9p
-aXIgJiBTREVfRERJX01BU0tfSUNQOworCQlkZGlfcG9ydF9ob3RwbHVnX2xvbmdfZGV0ZWN0ID0g
-aWNwX2RkaV9wb3J0X2hvdHBsdWdfbG9uZ19kZXRlY3Q7CiAJCXRjX2hvdHBsdWdfdHJpZ2dlciA9
-IHBjaF9paXIgJiBTREVfVENfTUFTS19JQ1A7CiAJfQogCkBAIC0xODkxLDcgKzE5MjUsNyBAQCBz
-dGF0aWMgdm9pZCBpY3BfaXJxX2hhbmRsZXIoc3RydWN0IGRybV9pOTE1X3ByaXZhdGUgKmRldl9w
-cml2LCB1MzIgcGNoX2lpcikKIAkJaW50ZWxfZ2V0X2hwZF9waW5zKGRldl9wcml2LCAmcGluX21h
-c2ssICZsb25nX21hc2ssCiAJCQkJICAgZGRpX2hvdHBsdWdfdHJpZ2dlciwgZGlnX2hvdHBsdWdf
-cmVnLAogCQkJCSAgIGRldl9wcml2LT5ob3RwbHVnLnBjaF9ocGQsCi0JCQkJICAgaWNwX2RkaV9w
-b3J0X2hvdHBsdWdfbG9uZ19kZXRlY3QpOworCQkJCSAgIGRkaV9wb3J0X2hvdHBsdWdfbG9uZ19k
-ZXRlY3QpOwogCX0KIAogCWlmICh0Y19ob3RwbHVnX3RyaWdnZXIpIHsKQEAgLTMyNTIsNiArMzI4
-NiwxMiBAQCBzdGF0aWMgdm9pZCBqc3BfaHBkX2lycV9zZXR1cChzdHJ1Y3QgZHJtX2k5MTVfcHJp
-dmF0ZSAqZGV2X3ByaXYpCiAJCQkgIFRHUF9ERElfSFBEX0VOQUJMRV9NQVNLLCAwKTsKIH0KIAor
-c3RhdGljIHZvaWQgZGcxX2hwZF9pcnFfc2V0dXAoc3RydWN0IGRybV9pOTE1X3ByaXZhdGUgKmRl
-dl9wcml2KQoreworCWljcF9ocGRfaXJxX3NldHVwKGRldl9wcml2LAorCQkJICBERzFfRERJX0hQ
-RF9FTkFCTEVfTUFTSywgMCk7Cit9CisKIHN0YXRpYyB2b2lkIGdlbjExX2hwZF9kZXRlY3Rpb25f
-c2V0dXAoc3RydWN0IGRybV9pOTE1X3ByaXZhdGUgKmRldl9wcml2KQogewogCXUzMiBob3RwbHVn
-OwpAQCAtMzY0NSw3ICszNjg1LDkgQEAgc3RhdGljIHZvaWQgaWNwX2lycV9wb3N0aW5zdGFsbChz
-dHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqZGV2X3ByaXYpCiAJZ2VuM19hc3NlcnRfaWlyX2lzX3pl
-cm8oJmRldl9wcml2LT51bmNvcmUsIFNERUlJUik7CiAJSTkxNV9XUklURShTREVJTVIsIH5tYXNr
-KTsKIAotCWlmIChIQVNfUENIX1RHUChkZXZfcHJpdikpIHsKKwlpZiAoSEFTX1BDSF9ERzEoZGV2
-X3ByaXYpKQorCQlpY3BfZGRpX2hwZF9kZXRlY3Rpb25fc2V0dXAoZGV2X3ByaXYsIERHMV9ERElf
-SFBEX0VOQUJMRV9NQVNLKTsKKwllbHNlIGlmIChIQVNfUENIX1RHUChkZXZfcHJpdikpIHsKIAkJ
-aWNwX2RkaV9ocGRfZGV0ZWN0aW9uX3NldHVwKGRldl9wcml2LCBUR1BfRERJX0hQRF9FTkFCTEVf
-TUFTSyk7CiAJCWljcF90Y19ocGRfZGV0ZWN0aW9uX3NldHVwKGRldl9wcml2LCBUR1BfVENfSFBE
-X0VOQUJMRV9NQVNLKTsKIAl9IGVsc2UgaWYgKEhBU19QQ0hfSlNQKGRldl9wcml2KSkgewpAQCAt
-NDE2Miw3ICs0MjA0LDkgQEAgdm9pZCBpbnRlbF9pcnFfaW5pdChzdHJ1Y3QgZHJtX2k5MTVfcHJp
-dmF0ZSAqZGV2X3ByaXYpCiAJCWlmIChJOTE1X0hBU19IT1RQTFVHKGRldl9wcml2KSkKIAkJCWRl
-dl9wcml2LT5kaXNwbGF5LmhwZF9pcnFfc2V0dXAgPSBpOTE1X2hwZF9pcnFfc2V0dXA7CiAJfSBl
-bHNlIHsKLQkJaWYgKEhBU19QQ0hfSlNQKGRldl9wcml2KSkKKwkJaWYgKEhBU19QQ0hfREcxKGRl
-dl9wcml2KSkKKwkJCWRldl9wcml2LT5kaXNwbGF5LmhwZF9pcnFfc2V0dXAgPSBkZzFfaHBkX2ly
-cV9zZXR1cDsKKwkJZWxzZSBpZiAoSEFTX1BDSF9KU1AoZGV2X3ByaXYpKQogCQkJZGV2X3ByaXYt
-PmRpc3BsYXkuaHBkX2lycV9zZXR1cCA9IGpzcF9ocGRfaXJxX3NldHVwOwogCQllbHNlIGlmIChI
-QVNfUENIX01DQyhkZXZfcHJpdikpCiAJCQlkZXZfcHJpdi0+ZGlzcGxheS5ocGRfaXJxX3NldHVw
-ID0gbWNjX2hwZF9pcnFfc2V0dXA7CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9p
-OTE1X3JlZy5oIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV9yZWcuaAppbmRleCA0OTk0NWUz
-M2Y1NzMuLmU3ZjFhYWM1NTNkMCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkx
-NV9yZWcuaAorKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X3JlZy5oCkBAIC04MjMwLDYg
-KzgyMzAsMTAgQEAgZW51bSB7CiAJCQkJCSBTREVfVENfSE9UUExVR19JQ1AoUE9SVF9UQzMpIHwg
-XAogCQkJCQkgU0RFX1RDX0hPVFBMVUdfSUNQKFBPUlRfVEMyKSB8IFwKIAkJCQkJIFNERV9UQ19I
-T1RQTFVHX0lDUChQT1JUX1RDMSkpCisjZGVmaW5lIFNERV9ERElfTUFTS19ERzEJCShTREVfRERJ
-X0hPVFBMVUdfSUNQKFBPUlRfRCkgfCBcCisJCQkJCSBTREVfRERJX0hPVFBMVUdfSUNQKFBPUlRf
-QykgfCBcCisJCQkJCSBTREVfRERJX0hPVFBMVUdfSUNQKFBPUlRfQikgfCBcCisJCQkJCSBTREVf
-RERJX0hPVFBMVUdfSUNQKFBPUlRfQSkpCiAKICNkZWZpbmUgU0RFSVNSICBfTU1JTygweGM0MDAw
-KQogI2RlZmluZSBTREVJTVIgIF9NTUlPKDB4YzQwMDQpCkBAIC04NDI5LDYgKzg0MzMsMTAgQEAg
-ZW51bSB7CiAjZGVmaW5lIFRHUF9UQ19IUERfRU5BQkxFX01BU0sJCShJQ1BfVENfSFBEX0VOQUJM
-RShQT1JUX1RDNikgfCBcCiAJCQkJCSBJQ1BfVENfSFBEX0VOQUJMRShQT1JUX1RDNSkgfCBcCiAJ
-CQkJCSBJQ1BfVENfSFBEX0VOQUJMRV9NQVNLKQorI2RlZmluZSBERzFfRERJX0hQRF9FTkFCTEVf
-TUFTSwkJKFNIT1RQTFVHX0NUTF9ERElfSFBEX0VOQUJMRShQT1JUX0QpIHwgXAorCQkJCQkgU0hP
-VFBMVUdfQ1RMX0RESV9IUERfRU5BQkxFKFBPUlRfQykgfCBcCisJCQkJCSBTSE9UUExVR19DVExf
-RERJX0hQRF9FTkFCTEUoUE9SVF9CKSB8IFwKKwkJCQkJIFNIT1RQTFVHX0NUTF9ERElfSFBEX0VO
-QUJMRShQT1JUX0EpKQogCiAjZGVmaW5lIF9QQ0hfRFBMTF9BICAgICAgICAgICAgICAweGM2MDE0
-CiAjZGVmaW5lIF9QQ0hfRFBMTF9CICAgICAgICAgICAgICAweGM2MDE4Ci0tIAoyLjI4LjAKCl9f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkludGVsLWdmeCBt
-YWlsaW5nIGxpc3QKSW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3Rz
-LmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ludGVsLWdmeAo=
+From: Aditya Swarup <aditya.swarup@intel.com>
+
+DG1 has 4 DPLLs where DPLL0 and DPLL1 drive DDIA/B and
+DPLL2 and DPLL3 drive DDI-TC1/DDI-TC2.
+
+Introduce DG1_DPLL_CFCRx() helper macros to configure
+DPLL registers.
+
+Bspec: 50288, 50299
+
+Cc: Matt Roper <matthew.d.roper@intel.com>
+Signed-off-by: Aditya Swarup <aditya.swarup@intel.com>
+Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_dpll_mgr.h | 17 +++++++++++++++++
+ drivers/gpu/drm/i915/i915_reg.h               | 17 ++++++++++++++++-
+ 2 files changed, 33 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_dpll_mgr.h b/drivers/gpu/drm/i915/display/intel_dpll_mgr.h
+index 5d9a2bc371e7..205542fb8dc7 100644
+--- a/drivers/gpu/drm/i915/display/intel_dpll_mgr.h
++++ b/drivers/gpu/drm/i915/display/intel_dpll_mgr.h
+@@ -154,6 +154,23 @@ enum intel_dpll_id {
+ 	 * @DPLL_ID_TGL_MGPLL6: TGL TC PLL port 6 (TC6)
+ 	 */
+ 	DPLL_ID_TGL_MGPLL6 = 8,
++
++	/**
++	 * @DPLL_ID_DG1_DPLL0: DG1 combo PHY DPLL0
++	 */
++	DPLL_ID_DG1_DPLL0 = 0,
++	/**
++	 * @DPLL_ID_DG1_DPLL1: DG1 combo PHY DPLL1
++	 */
++	DPLL_ID_DG1_DPLL1 = 1,
++	/**
++	 * @DPLL_ID_DG1_DPLL2: DG1 combo PHY DPLL2
++	 */
++	DPLL_ID_DG1_DPLL2 = 2,
++	/**
++	 * @DPLL_ID_DG1_DPLL3: DG1 combo PHY DPLL3
++	 */
++	DPLL_ID_DG1_DPLL3 = 3,
+ };
+ 
+ #define I915_NUM_PLLS 9
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index 04c966a524ce..0b67c868c51d 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -242,7 +242,8 @@ static inline bool i915_mmio_reg_valid(i915_reg_t reg)
+ #define _MMIO_PIPE3(pipe, a, b, c)	_MMIO(_PICK(pipe, a, b, c))
+ #define _MMIO_PORT3(pipe, a, b, c)	_MMIO(_PICK(pipe, a, b, c))
+ #define _MMIO_PHY3(phy, a, b, c)	_MMIO(_PHY3(phy, a, b, c))
+-#define _MMIO_PLL3(pll, a, b, c)	_MMIO(_PICK(pll, a, b, c))
++#define _MMIO_PLL3(pll, ...)		_MMIO(_PICK(pll, __VA_ARGS__))
++
+ 
+ /*
+  * Device info offset array based helpers for groups of registers with unevenly
+@@ -10531,6 +10532,20 @@ enum skl_power_gate {
+ #define RKL_DPLL_CFGCR1(pll)		_MMIO_PLL(pll, _TGL_DPLL0_CFGCR1, \
+ 						  _TGL_DPLL1_CFGCR1)
+ 
++#define _DG1_DPLL2_CFGCR0		0x16C284
++#define _DG1_DPLL3_CFGCR0		0x16C28C
++#define DG1_DPLL_CFGCR0(pll)		_MMIO_PLL3(pll, _TGL_DPLL0_CFGCR0, \
++						   _TGL_DPLL1_CFGCR0, \
++						   _DG1_DPLL2_CFGCR0, \
++						   _DG1_DPLL3_CFGCR0)
++
++#define _DG1_DPLL2_CFGCR1               0x16C288
++#define _DG1_DPLL3_CFGCR1               0x16C290
++#define DG1_DPLL_CFGCR1(pll)            _MMIO_PLL3(pll, _TGL_DPLL0_CFGCR1, \
++						   _TGL_DPLL1_CFGCR1, \
++						   _DG1_DPLL2_CFGCR1, \
++						   _DG1_DPLL3_CFGCR1)
++
+ #define _DKL_PHY1_BASE			0x168000
+ #define _DKL_PHY2_BASE			0x169000
+ #define _DKL_PHY3_BASE			0x16A000
+-- 
+2.28.0
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
