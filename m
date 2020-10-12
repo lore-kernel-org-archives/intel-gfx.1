@@ -2,77 +2,125 @@ Return-Path: <SRS0=uIVS=DT=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.0 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-9.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS autolearn=unavailable autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 728A8C433DF
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Oct 2020 16:01:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A65D7C43457
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Oct 2020 16:01:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 151212074A
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Oct 2020 16:01:10 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 2B0CE2074A
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Oct 2020 16:01:12 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=hpe.com header.i=@hpe.com header.b="KJeoLXYt"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 151212074A
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=hpe.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=wdc.com header.i=@wdc.com header.b="Wo2jgwJa";
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=sharedspace.onmicrosoft.com header.i=@sharedspace.onmicrosoft.com header.b="bu3NZ6nE"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2B0CE2074A
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=wdc.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 00B8E6E529;
-	Mon, 12 Oct 2020 16:01:04 +0000 (UTC)
-X-Greylist: delayed 831 seconds by postgrey-1.36 at gabe;
- Sat, 10 Oct 2020 20:25:04 UTC
-Received: from mx0a-002e3701.pphosted.com (mx0a-002e3701.pphosted.com
- [148.163.147.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E4C66E055
- for <intel-gfx@lists.freedesktop.org>; Sat, 10 Oct 2020 20:25:04 +0000 (UTC)
-Received: from pps.filterd (m0134420.ppops.net [127.0.0.1])
- by mx0b-002e3701.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 09AK8WI3012344
- for <intel-gfx@lists.freedesktop.org>; Sat, 10 Oct 2020 20:11:12 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hpe.com;
- h=date : from : to : cc :
- subject : message-id : reply-to : content-type : mime-version; s=pps0720;
- bh=Md6qIhIHovte9YdOGvPU2rRM4qhhZ5eplt15/Ax2MCs=;
- b=KJeoLXYthQ+lawMsWMbieNPU7SVE6xQEaQbp5blP4zWD/SkwqEbwvK4lXvjnhKnZZk5z
- 42PrhWgiY+f/SKJCSwNyJeMTvpOi2tLy0ej+tHXagG6OCFMrN7+mPAh3FVND70CtiE0e
- hFXwTtivTgHyaMTFULNw8uBA0N8bQmp79Hssiprk+NEF/j0n7XuGyyzlqlBfx3JMgj8G
- hF2poLICsarUl6oTFunRThiTzMBe5YMlCUenXfavZKuCztxKMmQPgVfSqDcrol2NUBa7
- 0InfGnjUDqCyE1LK/fKrCmYgOnJq/ewWEtncYOjW5cNvQrxTDJFmEBaB2qA0JGCplBTj /g== 
-Received: from g9t5009.houston.hpe.com (g9t5009.houston.hpe.com [15.241.48.73])
- by mx0b-002e3701.pphosted.com with ESMTP id 3432b242y5-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <intel-gfx@lists.freedesktop.org>; Sat, 10 Oct 2020 20:11:12 +0000
-Received: from g4t3433.houston.hpecorp.net (g4t3433.houston.hpecorp.net
- [16.208.49.245])
- by g9t5009.houston.hpe.com (Postfix) with ESMTP id 9DBDD5B
- for <intel-gfx@lists.freedesktop.org>; Sat, 10 Oct 2020 20:11:10 +0000 (UTC)
-Received: from rfwz62 (rfwz62.americas.hpqcorp.net [10.33.237.8])
- by g4t3433.houston.hpecorp.net (Postfix) with ESMTP id 9332045;
- Sat, 10 Oct 2020 20:11:10 +0000 (UTC)
-Date: Sat, 10 Oct 2020 14:11:10 -0600
-From: rwright@hpe.com
-To: intel-gfx@lists.freedesktop.org
-Message-ID: <20201010201110.GA12600@rfwz62>
-Content-Disposition: inline
-User-Agent: Mutt/1.9.4 (2018-02-28)
-X-Proofpoint-UnRewURL: 0 URL was un-rewritten
+	by gabe.freedesktop.org (Postfix) with ESMTP id ECA4D6E526;
+	Mon, 12 Oct 2020 16:01:03 +0000 (UTC)
+X-Greylist: delayed 426 seconds by postgrey-1.36 at gabe;
+ Mon, 12 Oct 2020 02:37:31 UTC
+Received: from esa6.hgst.iphmx.com (esa6.hgst.iphmx.com [216.71.154.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B14896E405;
+ Mon, 12 Oct 2020 02:37:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=wdc.com; i=@wdc.com; q=dns/txt; s=dkim.wdc.com;
+ t=1602470252; x=1634006252;
+ h=from:to:cc:subject:date:message-id:references:
+ content-transfer-encoding:mime-version;
+ bh=B2H/dL/4Tk6ifO229+CDbwJhsi61Ae0kMhbusFZSfYA=;
+ b=Wo2jgwJaMZecgVRicoyZ7AtxSIf2OU+jF2isdF5G79jpUOygmnK+UZgw
+ GcSgxJDBHjHByAZ2e5upwkuzzhb3X3skZX56O8n/VK1Wn48XRHwFc8W2f
+ c7bcCnehUwnpEJ6OWUwhId0t5dUxS551KLvGWhOlte4M+aNxdj/AJbFFg
+ /RyXlPpqmbmLquZEjMFVpEYy4Ug0wJ3P5z3qQo9PErVA2lMIBl3A5u4ZP
+ brtVw94AhKqNeyC0+49SEEoMjf/U+XOqhb2mmGxFrHyaC6/nPlINrpmwy
+ 9HNQeS7vgZzMmjxPrbtgdVKYV324OQmhOaW5PRB4JZCFgBQUeuOO2xxoz Q==;
+IronPort-SDR: otNXfCl468GV2kaRfPMurNEzzb+5DTvHbKamj2s+8BDLocQWr4zuQ3M3i+IKAljLE0jNxd9VpM
+ cO+rQZXBC3hCB4USGfnGA9ogfGdhVarakItuizW2Gy++p8Z+M6RlhT6/ZGAyh4Bb4soyndVApS
+ t1CbgZ/xItk8xcO9aKd2ojIIDU+T0Z2LVw84K7kBp34/4Smmy1km93xm3x16vuxVWJ3+pskOv3
+ siKun/r5wc2+puveLQmD3LIou+hiTE8AMRzhJ76wz/XN32b0xaH0DxtBNrPj7bQ2z+DqpFhCU+
+ uec=
+X-IronPort-AV: E=Sophos;i="5.77,365,1596470400"; d="scan'208";a="150813290"
+Received: from mail-bn8nam12lp2169.outbound.protection.outlook.com (HELO
+ NAM12-BN8-obe.outbound.protection.outlook.com) ([104.47.55.169])
+ by ob1.hgst.iphmx.com with ESMTP; 12 Oct 2020 10:30:21 +0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=gx/LTHF9rvHW8Oe8ILITCqr1oekN0sSJJn9RkpcHF8rIin2//JVyW6AgAlQAeO/v1EowEo57pZXHLTZIAy/oh4sgxpcSGZDKN5oz0Qe5qPK5ALqfSLuBJmsV9AjLyCrQw4LfNvVHA5X/BDt9kKApbyWTlvE/mChWEAeK2jwUV+avUBnk6VOQeR5wnt5ri1PntjTXlIuGOC1C+wB/9l2juXZbCJp4Pz4p8f7Fz7xkvRrQ4+eJwlbmv6boTHlg5Kw8lXE/1AjnM4ZgS0AFsifxbxuSIjOVAxEndjwMb+y3JcGsuVp5FkLwRs65TutRE74FFvIf22sxhDPzR40XvIfT3g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=nSbIdboq5PT4g9q0YvKJz3kaJMX2RtABGp66gEoNwmc=;
+ b=Kok+1aaGCiSZfqW1wmfB+kHe79JMm2f0m4TbxYf9iF9O5G/ZXp38pxI6FEhdVvJczC1oxUEx0BiWJ/jH1cJTKJ7qsq1BJbVSGcJTsAorroGNrYmYM+t+8l7Wbh5IWvJ0VGXdwladeVfJOpcoqinFt4xiAnbhaH0uGewPXN4kRMuNmUGT0t/etLda3IPoUpK7rFgAL7ObgaolOSF9YiV1tKcRYfXVoLRA9X+eXZQtAEs4qBuZHPYEZf91PR0dFaLSXlnkDhV3/6JNvTP1YcC6arSVI+ByCj2IBl8Uhj9qBZ+KZZJ487Embj0mtjbFITcETuHh+wrsFcIy0nDYldJobg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=wdc.com; dmarc=pass action=none header.from=wdc.com; dkim=pass
+ header.d=wdc.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=sharedspace.onmicrosoft.com; s=selector2-sharedspace-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=nSbIdboq5PT4g9q0YvKJz3kaJMX2RtABGp66gEoNwmc=;
+ b=bu3NZ6nEIRGWvcX7BdK5F82a2Su5/ALOZX5mADuG3ixHeWl8vkyQlIEiI35HkhS1z2iLz2dIGt5v/ks6P0iyAim2GKOXOJDRdbUJuqpyR6LOJWHd5LzT+oOasYNyetl+MyoT9N0v8T1iC7HL9CruXmyPts3iLmme8nvBuhJdvlI=
+Received: from BL0PR04MB6514.namprd04.prod.outlook.com (2603:10b6:208:1ca::23)
+ by MN2PR04MB6928.namprd04.prod.outlook.com (2603:10b6:208:1e3::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3455.24; Mon, 12 Oct
+ 2020 02:30:19 +0000
+Received: from BL0PR04MB6514.namprd04.prod.outlook.com
+ ([fe80::4c3e:2b29:1dc5:1a85]) by BL0PR04MB6514.namprd04.prod.outlook.com
+ ([fe80::4c3e:2b29:1dc5:1a85%6]) with mapi id 15.20.3455.029; Mon, 12 Oct 2020
+ 02:30:19 +0000
+From: Damien Le Moal <Damien.LeMoal@wdc.com>
+To: "ira.weiny@intel.com" <ira.weiny@intel.com>, Andrew Morton
+ <akpm@linux-foundation.org>, Thomas Gleixner <tglx@linutronix.de>, Ingo
+ Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, Andy Lutomirski
+ <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>
+Thread-Topic: [PATCH RFC PKS/PMEM 26/58] fs/zonefs: Utilize new kmap_thread()
+Thread-Index: AQHWnnW5LYLzak05pEGSI1gzotA84w==
+Date: Mon, 12 Oct 2020 02:30:18 +0000
+Message-ID: <BL0PR04MB65146627753E6A8125C30044E7070@BL0PR04MB6514.namprd04.prod.outlook.com>
+References: <20201009195033.3208459-1-ira.weiny@intel.com>
+ <20201009195033.3208459-27-ira.weiny@intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: intel.com; dkim=none (message not signed)
+ header.d=none;intel.com; dmarc=none action=none header.from=wdc.com;
+x-originating-ip: [2400:2411:43c0:6000:dbd:ddb3:86a4:b7da]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: 2d8e38c9-c661-47b4-955c-08d86e56c300
+x-ms-traffictypediagnostic: MN2PR04MB6928:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <MN2PR04MB69281462D64954D72F6383A1E7070@MN2PR04MB6928.namprd04.prod.outlook.com>
+wdcipoutbound: EOP-TRUE
+x-ms-oob-tlc-oobclassifiers: OLM:2089;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: nb7ZZkrOcnI45uzu82g63ZPDCw/m4UEa+T14BlRir04UDAmgqTKjBKFQ/1tq3q95aFreC/myPH7bQVuOZygHUtANTgMCUzT/Pyur4q2rkZgxQjgu2tK2/9wVp2h2SQ2PIehISfjlFkUmEohfWX26Cg+7Fw+ncYVUGCA3GBq/iNQrWxbeF5GIkE4ciKI2Ta+JMFg530FWmVV/3MNOdO5PIr93+nS5dgdzR8tDl4fNZNcda6K0U+RBmBhAF6G4PiHCwu4dLKAqHtEtpN1w+lsxrk7joY78vLDxPGvR8dOWqU93TlxExhLGaLZNWnYKeI3pA3QpzCWmAeR04Ul6/pWdYg==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL0PR04MB6514.namprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(396003)(39860400002)(346002)(136003)(376002)(366004)(8936002)(71200400001)(86362001)(186003)(91956017)(4326008)(66446008)(64756008)(66556008)(76116006)(7366002)(52536014)(8676002)(4744005)(5660300002)(33656002)(6506007)(7406005)(7416002)(478600001)(66946007)(66476007)(9686003)(53546011)(55016002)(7696005)(316002)(110136005)(54906003)(2906002)(83380400001);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata: jjLBIa8rzP8PSUzUPRNNjZPO+F9m4B6rNx2BP5Hxn4hovZp8mG8VwNQRMnSFbWOz3vIBGGbrlwmZ2h/rrQ3LAnV478QA8TsJeEWgnROLCLR26e3M2EbbogZuJfrd8ZHepR6teHHrbin/rSSMJcyuivIccqO+Io91CjJtVLKGT+IxxyJeBxmaC3EM+JLu8Rm3Kx8m967TzWpRyeGTzqzgeKyG0yThTif6ugu1X+cS2L5ObX1F/fl2leT5khZ92kjaRHmV42QjfDSDQBRJ5T2sWkjLqL6qZdGMf2A7TG8LiEhWaSnE+PmptdxY4alKupBmftgWegPnh18eZ3klScKVzKqPJWtLa3seT93Q56fQAqIthA5+kX5qt7UatZBhg0gKm0KkBt+EXNCPEi6hfwJXTcKfMhrLXdmO4xo5z+sSfQStIvDc5rcmkS1pZ7oYknbDJlJtS3SQSqbBQQUJPafcSH0MKoCCaLHQYYEZElvKn9S/oXh/zKwEQ9/zN4tqic4ypaC6xgod9dW89WUn6IRtPbzsXwH70beu1D6sABibklUQzTXk4zAezxU4pLpXOEpjFmzQIZ8wo7n5pOvKphLu99Aqpkh/XR9us5YFAynE0SXyaG0lSyNOUkHX4czg41/a9jardublYq7n+2PgYlLtR3YEH/hKmOGAbSLFeveqJxrdOEFzmYAfv7w/UdGZFRYD9O0jto4jXaOrMeEBD/8QJw==
 MIME-Version: 1.0
-X-HPE-SCL: -1
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
- definitions=2020-10-10_07:2020-10-09,
- 2020-10-10 signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 phishscore=0
- mlxscore=0 impostorscore=0 lowpriorityscore=0 suspectscore=0
- malwarescore=0 bulkscore=0 clxscore=1015 mlxlogscore=999 spamscore=0
- priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2009150000 definitions=main-2010100189
+X-OriginatorOrg: wdc.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BL0PR04MB6514.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2d8e38c9-c661-47b4-955c-08d86e56c300
+X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Oct 2020 02:30:18.8981 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b61c8803-16f3-4c35-9b17-6f65f441df86
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: FtNVgLbLUqLnCuOwFgwFyh+Wo2k/+4LOuBCyiRJEYABushz8+FxnNx4RRBUxLG0y9/lhxKLevLpPI63mq8apww==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR04MB6928
 X-Mailman-Approved-At: Mon, 12 Oct 2020 16:01:02 +0000
-Subject: [Intel-gfx] [RFC] drm/i915/gt: reduce context clear batch size to
- avoid gpu hang (rev2)
+Subject: Re: [Intel-gfx] [PATCH RFC PKS/PMEM 26/58] fs/zonefs: Utilize new
+ kmap_thread()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,86 +133,103 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: rwright@hpe.com
-Cc: rwright@hpe.com
+Cc: "linux-aio@kvack.org" <linux-aio@kvack.org>,
+ "linux-efi@vger.kernel.org" <linux-efi@vger.kernel.org>,
+ "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
+ "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+ "kexec@lists.infradead.org" <kexec@lists.infradead.org>,
+ Dave Hansen <dave.hansen@linux.intel.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-mm@kvack.org" <linux-mm@kvack.org>,
+ "target-devel@vger.kernel.org" <target-devel@vger.kernel.org>,
+ "linux-mtd@lists.infradead.org" <linux-mtd@lists.infradead.org>,
+ "linux-kselftest@vger.kernel.org" <linux-kselftest@vger.kernel.org>,
+ "samba-technical@lists.samba.org" <samba-technical@lists.samba.org>,
+ "ceph-devel@vger.kernel.org" <ceph-devel@vger.kernel.org>,
+ "drbd-dev@lists.linbit.com" <drbd-dev@lists.linbit.com>,
+ Naohiro Aota <Naohiro.Aota@wdc.com>,
+ "linux-cifs@vger.kernel.org" <linux-cifs@vger.kernel.org>,
+ "linux-nilfs@vger.kernel.org" <linux-nilfs@vger.kernel.org>,
+ "linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>,
+ "linux-nvdimm@lists.01.org" <linux-nvdimm@lists.01.org>,
+ "linux-rdma@vger.kernel.org" <linux-rdma@vger.kernel.org>,
+ "x86@kernel.org" <x86@kernel.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "linux-afs@lists.infradead.org" <linux-afs@lists.infradead.org>,
+ "cluster-devel@redhat.com" <cluster-devel@redhat.com>,
+ "linux-cachefs@redhat.com" <linux-cachefs@redhat.com>,
+ "intel-wired-lan@lists.osuosl.org" <intel-wired-lan@lists.osuosl.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "linux-ext4@vger.kernel.org" <linux-ext4@vger.kernel.org>,
+ Fenghua Yu <fenghua.yu@intel.com>,
+ "devel@driverdev.osuosl.org" <devel@driverdev.osuosl.org>,
+ "linux-um@lists.infradead.org" <linux-um@lists.infradead.org>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "ecryptfs@vger.kernel.org" <ecryptfs@vger.kernel.org>,
+ "linux-erofs@lists.ozlabs.org" <linux-erofs@lists.ozlabs.org>,
+ "reiserfs-devel@vger.kernel.org" <reiserfs-devel@vger.kernel.org>,
+ "linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
+ "linux-bcache@vger.kernel.org" <linux-bcache@vger.kernel.org>,
+ Dan Williams <dan.j.williams@intel.com>,
+ "io-uring@vger.kernel.org" <io-uring@vger.kernel.org>,
+ "linux-nfs@vger.kernel.org" <linux-nfs@vger.kernel.org>,
+ "linux-ntfs-dev@lists.sourceforge.net" <linux-ntfs-dev@lists.sourceforge.net>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-f2fs-devel@lists.sourceforge.net"
+ <linux-f2fs-devel@lists.sourceforge.net>,
+ "linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
+ "bpf@vger.kernel.org" <bpf@vger.kernel.org>,
+ "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>,
+ "linux-btrfs@vger.kernel.org" <linux-btrfs@vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The first version of this RFC patch caused a build error when - to my
-suprise - it was automatically built.  I had presumed an RFC message
-would be for comment only, and so I had pasted part of the patch,
-thereby breaking whitespace.  In this version, I have directly included
-the patch without pasting, so it should apply.  I also
-included a drm_dbg message omitted from v1.
+On 2020/10/10 4:52, ira.weiny@intel.com wrote:
+> From: Ira Weiny <ira.weiny@intel.com>
+> 
+> The kmap() calls in this FS are localized to a single thread.  To avoid
+> the over head of global PKRS updates use the new kmap_thread() call.
+> 
+> Cc: Damien Le Moal <damien.lemoal@wdc.com>
+> Cc: Naohiro Aota <naohiro.aota@wdc.com>
+> Signed-off-by: Ira Weiny <ira.weiny@intel.com>
+> ---
+>  fs/zonefs/super.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/fs/zonefs/super.c b/fs/zonefs/super.c
+> index 8ec7c8f109d7..2fd6c86beee1 100644
+> --- a/fs/zonefs/super.c
+> +++ b/fs/zonefs/super.c
+> @@ -1297,7 +1297,7 @@ static int zonefs_read_super(struct super_block *sb)
+>  	if (ret)
+>  		goto free_page;
+>  
+> -	super = kmap(page);
+> +	super = kmap_thread(page);
+>  
+>  	ret = -EINVAL;
+>  	if (le32_to_cpu(super->s_magic) != ZONEFS_MAGIC)
+> @@ -1349,7 +1349,7 @@ static int zonefs_read_super(struct super_block *sb)
+>  	ret = 0;
+>  
+>  unmap:
+> -	kunmap(page);
+> +	kunmap_thread(page);
+>  free_page:
+>  	__free_page(page);
+>  
+> 
 
-For several months, I've been experiencing GPU hangs when  starting
-Cinnamon on an HP Pavilion Mini 300-020 if I try to run an upstream
-kernel.  I reported this recently in
-https://gitlab.freedesktop.org/drm/intel/-/issues/2413 where I have
-attached the requested evidence including the state collected from
-/sys/class/drm/card0/error and debug output from dmesg.
+acked-by: Damien Le Moal <damien.lemoal@wdc.com>
 
-I got around to running a bisect to find the problem, which indicates:
-
-  [47f8253d2b8947d79fd3196bf96c1959c0f25f20] drm/i915/gen7: Clear all EU/L3 residual contexts
-
-While I'm experienced in several areas of the Linux kernel, I'm really
-nothing but an end user of the graphics drivers.  But the nature of that
-troublesome commit suggested to me that reducing the batch size used in
-the context clear operation might help this relatively low-powered
-system to avoid the hang.... and it did!  I simply forced this system to
-take the smaller batch length that is already used for non-Haswell
-systems.
-
-I'm calling this patch an RFC because this version is quick-and-dirty,
-affecting only one file.  If this makes sense, I have a cleaner version
-that keys off of a proper quirk, but let's discuss the idea first before
-looking at that.   Maybe it doesn't need a new quirk?  Maybe there is
-already something distinctive on which the decision could be made?
-
-Signed-off-by: Randy Wright <rwright@hpe.com>
----
- drivers/gpu/drm/i915/gt/gen7_renderclear.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/i915/gt/gen7_renderclear.c b/drivers/gpu/drm/i915/gt/gen7_renderclear.c
-index d93d85cd3027..96bc09bc41f2 100644
---- a/drivers/gpu/drm/i915/gt/gen7_renderclear.c
-+++ b/drivers/gpu/drm/i915/gt/gen7_renderclear.c
-@@ -49,7 +49,11 @@ struct batch_vals {
- static void
- batch_get_defaults(struct drm_i915_private *i915, struct batch_vals *bv)
- {
--	if (IS_HASWELL(i915)) {
-+	struct pci_dev *d = i915->drm.pdev;
-+	int force_reduced = (d->subsystem_vendor == PCI_VENDOR_ID_HP
-+			  && d->subsystem_device == 0x2b38);
-+
-+	if (IS_HASWELL(i915) && !force_reduced) {
- 		bv->max_primitives = 280;
- 		bv->max_urb_entries = MAX_URB_ENTRIES;
- 		bv->surface_height = 16 * 16;
-@@ -60,6 +64,8 @@ batch_get_defaults(struct drm_i915_private *i915, struct batch_vals *bv)
- 		bv->surface_height = 16 * 8;
- 		bv->surface_width = 32 * 16;
- 	}
-+	drm_dbg(&i915->drm, "force_reduced=%d max_primitives=%d\n",
-+			     force_reduced, bv->max_primitives);
- 	bv->cmd_size = bv->max_primitives * 4096;
- 	bv->state_size = STATE_SIZE;
- 	bv->state_start = bv->cmd_size;
 -- 
-2.25.1
-
-
-
---
-Randy Wright            Usmail: Hewlett Packard Enterprise
-Email: rwright@hpe.com          Servers Linux Enablement
-Phone: (970) 898-0998           3404 E. Harmony Rd, Mailstop 36
-                                Fort Collins, CO 80528-9599 
+Damien Le Moal
+Western Digital Research
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
