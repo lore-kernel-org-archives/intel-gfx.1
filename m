@@ -7,32 +7,32 @@ X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2C9EDC2D0A3
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Oct 2020 14:47:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 61385C43457
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Oct 2020 14:47:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id ECA112080A
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Oct 2020 14:47:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org ECA112080A
+	by mail.kernel.org (Postfix) with ESMTPS id 2B0722067C
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Oct 2020 14:47:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2B0722067C
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BDE606E4FE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C6C9B6E504;
 	Mon, 12 Oct 2020 14:47:30 +0000 (UTC)
 Received: from mblankhorst.nl (mblankhorst.nl [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8D4946E4E8
- for <intel-gfx@lists.freedesktop.org>; Mon, 12 Oct 2020 14:47:14 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E111B6E4CB
+ for <intel-gfx@lists.freedesktop.org>; Mon, 12 Oct 2020 14:47:13 +0000 (UTC)
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 12 Oct 2020 16:46:46 +0200
-Message-Id: <20201012144706.555345-42-maarten.lankhorst@linux.intel.com>
+Date: Mon, 12 Oct 2020 16:46:41 +0200
+Message-Id: <20201012144706.555345-37-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20201012144706.555345-1-maarten.lankhorst@linux.intel.com>
 References: <20201012144706.555345-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v2 41/61] drm/i915/selftests: Prepare client
- blit for obj->mm.lock removal.
+Subject: [Intel-gfx] [PATCH v2 36/61] drm/i915: Add ww locking to dma-buf
+ ops.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,53 +50,103 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Straightforward conversion, just convert a bunch of calls to
-unlocked versions.
+vmap is using pin_pages, but needs to use ww locking,
+add pin_pages_unlocked to correctly lock the mapping.
+
+Also add ww locking to begin/end cpu access.
 
 Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 ---
- drivers/gpu/drm/i915/gem/selftests/i915_gem_client_blt.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c | 60 ++++++++++++----------
+ 1 file changed, 33 insertions(+), 27 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_client_blt.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_client_blt.c
-index 4e36d4897ea6..cc782569765f 100644
---- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_client_blt.c
-+++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_client_blt.c
-@@ -47,7 +47,7 @@ static int __igt_client_fill(struct intel_engine_cs *engine)
- 			goto err_flush;
- 		}
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c b/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
+index 131ec53d8521..dfd483147b73 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
+@@ -82,7 +82,7 @@ static int i915_gem_dmabuf_vmap(struct dma_buf *dma_buf, struct dma_buf_map *map
+ 	struct drm_i915_gem_object *obj = dma_buf_to_obj(dma_buf);
+ 	void *vaddr;
  
--		vaddr = i915_gem_object_pin_map(obj, I915_MAP_WB);
-+		vaddr = i915_gem_object_pin_map_unlocked(obj, I915_MAP_WB);
- 		if (IS_ERR(vaddr)) {
- 			err = PTR_ERR(vaddr);
- 			goto err_put;
-@@ -159,7 +159,7 @@ static int prepare_blit(const struct tiled_blits *t,
- 	u32 src_pitch, dst_pitch;
- 	u32 cmd, *cs;
- 
--	cs = i915_gem_object_pin_map(batch, I915_MAP_WC);
-+	cs = i915_gem_object_pin_map_unlocked(batch, I915_MAP_WC);
- 	if (IS_ERR(cs))
- 		return PTR_ERR(cs);
- 
-@@ -379,7 +379,7 @@ static int verify_buffer(const struct tiled_blits *t,
- 	y = i915_prandom_u32_max_state(t->height, prng);
- 	p = y * t->width + x;
- 
--	vaddr = i915_gem_object_pin_map(buf->vma->obj, I915_MAP_WC);
-+	vaddr = i915_gem_object_pin_map_unlocked(buf->vma->obj, I915_MAP_WC);
+-	vaddr = i915_gem_object_pin_map(obj, I915_MAP_WB);
++	vaddr = i915_gem_object_pin_map_unlocked(obj, I915_MAP_WB);
  	if (IS_ERR(vaddr))
  		return PTR_ERR(vaddr);
  
-@@ -566,7 +566,7 @@ static int tiled_blits_prepare(struct tiled_blits *t,
+@@ -124,42 +124,48 @@ static int i915_gem_begin_cpu_access(struct dma_buf *dma_buf, enum dma_data_dire
+ {
+ 	struct drm_i915_gem_object *obj = dma_buf_to_obj(dma_buf);
+ 	bool write = (direction == DMA_BIDIRECTIONAL || direction == DMA_TO_DEVICE);
++	struct i915_gem_ww_ctx ww;
  	int err;
- 	int i;
  
--	map = i915_gem_object_pin_map(t->scratch.vma->obj, I915_MAP_WC);
-+	map = i915_gem_object_pin_map_unlocked(t->scratch.vma->obj, I915_MAP_WC);
- 	if (IS_ERR(map))
- 		return PTR_ERR(map);
+-	err = i915_gem_object_pin_pages(obj);
+-	if (err)
+-		return err;
+-
+-	err = i915_gem_object_lock_interruptible(obj, NULL);
+-	if (err)
+-		goto out;
+-
+-	err = i915_gem_object_set_to_cpu_domain(obj, write);
+-	i915_gem_object_unlock(obj);
+-
+-out:
+-	i915_gem_object_unpin_pages(obj);
++	i915_gem_ww_ctx_init(&ww, true);
++retry:
++	err = i915_gem_object_lock(obj, &ww);
++	if (!err)
++		err = i915_gem_object_pin_pages(obj);
++	if (!err) {
++		err = i915_gem_object_set_to_cpu_domain(obj, write);
++		i915_gem_object_unpin_pages(obj);
++	}
++	if (err == -EDEADLK) {
++		err = i915_gem_ww_ctx_backoff(&ww);
++		if (!err)
++			goto retry;
++	}
++	i915_gem_ww_ctx_fini(&ww);
+ 	return err;
+ }
+ 
+ static int i915_gem_end_cpu_access(struct dma_buf *dma_buf, enum dma_data_direction direction)
+ {
+ 	struct drm_i915_gem_object *obj = dma_buf_to_obj(dma_buf);
++	struct i915_gem_ww_ctx ww;
+ 	int err;
+ 
+-	err = i915_gem_object_pin_pages(obj);
+-	if (err)
+-		return err;
+-
+-	err = i915_gem_object_lock_interruptible(obj, NULL);
+-	if (err)
+-		goto out;
+-
+-	err = i915_gem_object_set_to_gtt_domain(obj, false);
+-	i915_gem_object_unlock(obj);
+-
+-out:
+-	i915_gem_object_unpin_pages(obj);
++	i915_gem_ww_ctx_init(&ww, true);
++retry:
++	err = i915_gem_object_lock(obj, &ww);
++	if (!err)
++		err = i915_gem_object_pin_pages(obj);
++	if (!err) {
++		err = i915_gem_object_set_to_gtt_domain(obj, false);
++		i915_gem_object_unpin_pages(obj);
++	}
++	if (err == -EDEADLK) {
++		err = i915_gem_ww_ctx_backoff(&ww);
++		if (!err)
++			goto retry;
++	}
++	i915_gem_ww_ctx_fini(&ww);
+ 	return err;
+ }
  
 -- 
 2.28.0
