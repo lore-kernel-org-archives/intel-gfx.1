@@ -2,37 +2,37 @@ Return-Path: <SRS0=uIVS=DT=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-9.9 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 68D2CC4363A
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Oct 2020 14:47:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 46F83C04EBE
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Oct 2020 14:47:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 342AC2067C
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Oct 2020 14:47:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 342AC2067C
+	by mail.kernel.org (Postfix) with ESMTPS id 0EFFA20838
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Oct 2020 14:47:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0EFFA20838
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 25F0C6E4F9;
-	Mon, 12 Oct 2020 14:47:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4EC996E4B5;
+	Mon, 12 Oct 2020 14:47:28 +0000 (UTC)
 Received: from mblankhorst.nl (mblankhorst.nl [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 015006E4AD
- for <intel-gfx@lists.freedesktop.org>; Mon, 12 Oct 2020 14:47:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9BCAB6E4AA
+ for <intel-gfx@lists.freedesktop.org>; Mon, 12 Oct 2020 14:47:13 +0000 (UTC)
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 12 Oct 2020 16:46:14 +0200
-Message-Id: <20201012144706.555345-10-maarten.lankhorst@linux.intel.com>
+Date: Mon, 12 Oct 2020 16:46:22 +0200
+Message-Id: <20201012144706.555345-18-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20201012144706.555345-1-maarten.lankhorst@linux.intel.com>
 References: <20201012144706.555345-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v2 09/61] drm/i915: make lockdep slightly
- happier about execbuf.
+Subject: [Intel-gfx] [PATCH v2 17/61] drm/i915: Populate logical context
+ during first pin.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,161 +50,199 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-As soon as we install fences, we should stop allocating memory
-in order to prevent any potential deadlocks.
-
-This is required later on, when we start adding support for
-dma-fence annotations.
+This allows us to remove pin_map from state allocation, which saves
+us a few retry loops. We won't need this until first pin, anyway.
 
 Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 ---
- .../gpu/drm/i915/gem/i915_gem_execbuffer.c    | 24 ++++++++++++++-----
- drivers/gpu/drm/i915/i915_active.c            | 20 ++++++++--------
- drivers/gpu/drm/i915/i915_vma.c               |  8 ++++---
- drivers/gpu/drm/i915/i915_vma.h               |  3 +++
- 4 files changed, 36 insertions(+), 19 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_context_types.h |  13 ++-
+ drivers/gpu/drm/i915/gt/intel_lrc.c           | 107 +++++++++---------
+ 2 files changed, 62 insertions(+), 58 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-index 2fbe6fbe043a..ea2242f1b5b8 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-@@ -49,11 +49,12 @@ enum {
- #define DBG_FORCE_RELOC 0 /* choose one of the above! */
- };
+diff --git a/drivers/gpu/drm/i915/gt/intel_context_types.h b/drivers/gpu/drm/i915/gt/intel_context_types.h
+index 552cb57a2e8c..bebf52868563 100644
+--- a/drivers/gpu/drm/i915/gt/intel_context_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_context_types.h
+@@ -64,12 +64,13 @@ struct intel_context {
+ 	unsigned long flags;
+ #define CONTEXT_BARRIER_BIT		0
+ #define CONTEXT_ALLOC_BIT		1
+-#define CONTEXT_VALID_BIT		2
+-#define CONTEXT_CLOSED_BIT		3
+-#define CONTEXT_USE_SEMAPHORES		4
+-#define CONTEXT_BANNED			5
+-#define CONTEXT_FORCE_SINGLE_SUBMISSION	6
+-#define CONTEXT_NOPREEMPT		7
++#define CONTEXT_INIT_BIT		2
++#define CONTEXT_VALID_BIT		3
++#define CONTEXT_CLOSED_BIT		4
++#define CONTEXT_USE_SEMAPHORES		5
++#define CONTEXT_BANNED			6
++#define CONTEXT_FORCE_SINGLE_SUBMISSION	7
++#define CONTEXT_NOPREEMPT		8
  
--#define __EXEC_OBJECT_HAS_PIN		BIT(31)
--#define __EXEC_OBJECT_HAS_FENCE		BIT(30)
--#define __EXEC_OBJECT_NEEDS_MAP		BIT(29)
--#define __EXEC_OBJECT_NEEDS_BIAS	BIT(28)
--#define __EXEC_OBJECT_INTERNAL_FLAGS	(~0u << 28) /* all of the above */
-+/* __EXEC_OBJECT_NO_RESERVE is BIT(31), defined in i915_vma.h */
-+#define __EXEC_OBJECT_HAS_PIN		BIT(30)
-+#define __EXEC_OBJECT_HAS_FENCE		BIT(29)
-+#define __EXEC_OBJECT_NEEDS_MAP		BIT(28)
-+#define __EXEC_OBJECT_NEEDS_BIAS	BIT(27)
-+#define __EXEC_OBJECT_INTERNAL_FLAGS	(~0u << 27) /* all of the above + */
- #define __EXEC_OBJECT_RESERVED (__EXEC_OBJECT_HAS_PIN | __EXEC_OBJECT_HAS_FENCE)
- 
- #define __EXEC_HAS_RELOC	BIT(31)
-@@ -925,6 +926,12 @@ static int eb_validate_vmas(struct i915_execbuffer *eb)
- 			}
- 		}
- 
-+		if (!(ev->flags & EXEC_OBJECT_WRITE)) {
-+			err = dma_resv_reserve_shared(vma->resv, 1);
-+			if (err)
-+				return err;
-+		}
-+
- 		GEM_BUG_ON(drm_mm_node_allocated(&vma->node) &&
- 			   eb_vma_misplaced(&eb->exec[i], vma, ev->flags));
+ 	u32 *lrc_reg_state;
+ 	union {
+diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
+index 287537089c77..39cb45ccb506 100644
+--- a/drivers/gpu/drm/i915/gt/intel_lrc.c
++++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
+@@ -3525,9 +3525,39 @@ __execlists_update_reg_state(const struct intel_context *ce,
  	}
-@@ -2190,7 +2197,8 @@ static int eb_move_to_gpu(struct i915_execbuffer *eb)
- 		}
- 
- 		if (err == 0)
--			err = i915_vma_move_to_active(vma, eb->request, flags);
-+			err = i915_vma_move_to_active(vma, eb->request,
-+						      flags | __EXEC_OBJECT_NO_RESERVE);
- 	}
- 
- 	if (unlikely(err))
-@@ -2442,6 +2450,10 @@ static int eb_parse_pipeline(struct i915_execbuffer *eb,
- 	if (err)
- 		goto err_commit;
- 
-+	err = dma_resv_reserve_shared(shadow->resv, 1);
-+	if (err)
-+		goto err_commit;
-+
- 	/* Wait for all writes (and relocs) into the batch to complete */
- 	err = i915_sw_fence_await_reservation(&pw->base.chain,
- 					      pw->batch->resv, NULL, false,
-diff --git a/drivers/gpu/drm/i915/i915_active.c b/drivers/gpu/drm/i915/i915_active.c
-index b0a6522be3d1..2bf1e444dda7 100644
---- a/drivers/gpu/drm/i915/i915_active.c
-+++ b/drivers/gpu/drm/i915/i915_active.c
-@@ -296,18 +296,13 @@ static struct active_node *__active_lookup(struct i915_active *ref, u64 idx)
- static struct i915_active_fence *
- active_instance(struct i915_active *ref, u64 idx)
- {
--	struct active_node *node, *prealloc;
-+	struct active_node *node;
- 	struct rb_node **p, *parent;
- 
- 	node = __active_lookup(ref, idx);
- 	if (likely(node))
- 		return &node->base;
- 
--	/* Preallocate a replacement, just in case */
--	prealloc = kmem_cache_alloc(global.slab_cache, GFP_KERNEL);
--	if (!prealloc)
--		return NULL;
--
- 	spin_lock_irq(&ref->tree_lock);
- 	GEM_BUG_ON(i915_active_is_idle(ref));
- 
-@@ -317,10 +312,8 @@ active_instance(struct i915_active *ref, u64 idx)
- 		parent = *p;
- 
- 		node = rb_entry(parent, struct active_node, node);
--		if (node->timeline == idx) {
--			kmem_cache_free(global.slab_cache, prealloc);
-+		if (node->timeline == idx)
- 			goto out;
--		}
- 
- 		if (node->timeline < idx)
- 			p = &parent->rb_right;
-@@ -328,7 +321,14 @@ active_instance(struct i915_active *ref, u64 idx)
- 			p = &parent->rb_left;
- 	}
- 
--	node = prealloc;
-+	/*
-+	 * XXX: We should preallocate this before i915_active_ref() is ever
-+	 *  called, but we cannot call into fs_reclaim() anyway, so use GFP_ATOMIC.
-+	 */
-+	node = kmem_cache_alloc(global.slab_cache, GFP_ATOMIC);
-+	if (!node)
-+		goto out;
-+
- 	__i915_active_fence_init(&node->base, NULL, node_retire);
- 	node->ref = ref;
- 	node->timeline = idx;
-diff --git a/drivers/gpu/drm/i915/i915_vma.c b/drivers/gpu/drm/i915/i915_vma.c
-index 4ead74c5142b..f50250c8685a 100644
---- a/drivers/gpu/drm/i915/i915_vma.c
-+++ b/drivers/gpu/drm/i915/i915_vma.c
-@@ -1245,9 +1245,11 @@ int i915_vma_move_to_active(struct i915_vma *vma,
- 		obj->write_domain = I915_GEM_DOMAIN_RENDER;
- 		obj->read_domains = 0;
- 	} else {
--		err = dma_resv_reserve_shared(vma->resv, 1);
--		if (unlikely(err))
--			return err;
-+		if (!(flags & __EXEC_OBJECT_NO_RESERVE)) {
-+			err = dma_resv_reserve_shared(vma->resv, 1);
-+			if (unlikely(err))
-+				return err;
-+		}
- 
- 		dma_resv_add_shared_fence(vma->resv, &rq->fence);
- 		obj->write_domain = 0;
-diff --git a/drivers/gpu/drm/i915/i915_vma.h b/drivers/gpu/drm/i915/i915_vma.h
-index 838bbbeb11cc..3c951d5428cf 100644
---- a/drivers/gpu/drm/i915/i915_vma.h
-+++ b/drivers/gpu/drm/i915/i915_vma.h
-@@ -52,6 +52,9 @@ static inline bool i915_vma_is_active(const struct i915_vma *vma)
- 	return !i915_active_is_idle(&vma->active);
  }
  
-+/* do not reserve memory to prevent deadlocks */
-+#define __EXEC_OBJECT_NO_RESERVE BIT(31)
++static void populate_lr_context(struct intel_context *ce,
++				struct intel_engine_cs *engine,
++				void *vaddr)
++{
++	bool inhibit = true;
++	struct drm_i915_gem_object *ctx_obj = ce->state->obj;
 +
- int __must_check __i915_vma_move_to_active(struct i915_vma *vma,
- 					   struct i915_request *rq);
- int __must_check i915_vma_move_to_active(struct i915_vma *vma,
++	set_redzone(vaddr, engine);
++
++	if (engine->default_state) {
++		shmem_read(engine->default_state, 0,
++			   vaddr, engine->context_size);
++		__set_bit(CONTEXT_VALID_BIT, &ce->flags);
++		inhibit = false;
++	}
++
++	/* Clear the ppHWSP (inc. per-context counters) */
++	memset(vaddr, 0, PAGE_SIZE);
++
++	/*
++	 * The second page of the context object contains some registers which
++	 * must be set up prior to the first execution.
++	 */
++	execlists_init_reg_state(vaddr + LRC_STATE_OFFSET,
++				 ce, engine, ce->ring, inhibit);
++
++	__i915_gem_object_flush_map(ctx_obj, 0, engine->context_size);
++}
++
+ static int
+-execlists_context_pre_pin(struct intel_context *ce,
+-			  struct i915_gem_ww_ctx *ww, void **vaddr)
++__execlists_context_pre_pin(struct intel_context *ce,
++			    struct intel_engine_cs *engine,
++			    struct i915_gem_ww_ctx *ww, void **vaddr)
+ {
+ 	GEM_BUG_ON(!ce->state);
+ 	GEM_BUG_ON(!i915_vma_is_pinned(ce->state));
+@@ -3535,8 +3565,20 @@ execlists_context_pre_pin(struct intel_context *ce,
+ 	*vaddr = i915_gem_object_pin_map(ce->state->obj,
+ 					i915_coherent_map_type(ce->engine->i915) |
+ 					I915_MAP_OVERRIDE);
++	if (IS_ERR(*vaddr))
++		return PTR_ERR(*vaddr);
++
++	if (!__test_and_set_bit(CONTEXT_INIT_BIT, &ce->flags))
++		populate_lr_context(ce, engine, *vaddr);
++
++	return 0;
++}
+ 
+-	return PTR_ERR_OR_ZERO(*vaddr);
++static int
++execlists_context_pre_pin(struct intel_context *ce,
++			  struct i915_gem_ww_ctx *ww, void **vaddr)
++{
++	return __execlists_context_pre_pin(ce, ce->engine, ww, vaddr);
+ }
+ 
+ static int
+@@ -5331,45 +5373,6 @@ static void execlists_init_reg_state(u32 *regs,
+ 	__reset_stop_ring(regs, engine);
+ }
+ 
+-static int
+-populate_lr_context(struct intel_context *ce,
+-		    struct drm_i915_gem_object *ctx_obj,
+-		    struct intel_engine_cs *engine,
+-		    struct intel_ring *ring)
+-{
+-	bool inhibit = true;
+-	void *vaddr;
+-
+-	vaddr = i915_gem_object_pin_map(ctx_obj, I915_MAP_WB);
+-	if (IS_ERR(vaddr)) {
+-		drm_dbg(&engine->i915->drm, "Could not map object pages!\n");
+-		return PTR_ERR(vaddr);
+-	}
+-
+-	set_redzone(vaddr, engine);
+-
+-	if (engine->default_state) {
+-		shmem_read(engine->default_state, 0,
+-			   vaddr, engine->context_size);
+-		__set_bit(CONTEXT_VALID_BIT, &ce->flags);
+-		inhibit = false;
+-	}
+-
+-	/* Clear the ppHWSP (inc. per-context counters) */
+-	memset(vaddr, 0, PAGE_SIZE);
+-
+-	/*
+-	 * The second page of the context object contains some registers which
+-	 * must be set up prior to the first execution.
+-	 */
+-	execlists_init_reg_state(vaddr + LRC_STATE_OFFSET,
+-				 ce, engine, ring, inhibit);
+-
+-	__i915_gem_object_flush_map(ctx_obj, 0, engine->context_size);
+-	i915_gem_object_unpin_map(ctx_obj);
+-	return 0;
+-}
+-
+ static struct intel_timeline *pinned_timeline(struct intel_context *ce)
+ {
+ 	struct intel_timeline *tl = fetch_and_zero(&ce->timeline);
+@@ -5433,20 +5436,11 @@ static int __execlists_context_alloc(struct intel_context *ce,
+ 		goto error_deref_obj;
+ 	}
+ 
+-	ret = populate_lr_context(ce, ctx_obj, engine, ring);
+-	if (ret) {
+-		drm_dbg(&engine->i915->drm,
+-			"Failed to populate LRC: %d\n", ret);
+-		goto error_ring_free;
+-	}
+-
+ 	ce->ring = ring;
+ 	ce->state = vma;
+ 
+ 	return 0;
+ 
+-error_ring_free:
+-	intel_ring_put(ring);
+ error_deref_obj:
+ 	i915_gem_object_put(ctx_obj);
+ 	return ret;
+@@ -5524,6 +5518,15 @@ static int virtual_context_alloc(struct intel_context *ce)
+ 	return __execlists_context_alloc(ce, ve->siblings[0]);
+ }
+ 
++static int
++virtual_context_pre_pin(struct intel_context *ce,
++			  struct i915_gem_ww_ctx *ww, void **vaddr)
++{
++	struct virtual_engine *ve = container_of(ce, typeof(*ve), context);
++
++	return __execlists_context_pre_pin(ce, ve->siblings[0], ww, vaddr);
++}
++
+ static int virtual_context_pin(struct intel_context *ce, void *vaddr)
+ {
+ 	struct virtual_engine *ve = container_of(ce, typeof(*ve), context);
+@@ -5557,7 +5560,7 @@ static void virtual_context_exit(struct intel_context *ce)
+ static const struct intel_context_ops virtual_context_ops = {
+ 	.alloc = virtual_context_alloc,
+ 
+-	.pre_pin = execlists_context_pre_pin,
++	.pre_pin = virtual_context_pre_pin,
+ 	.pin = virtual_context_pin,
+ 	.unpin = execlists_context_unpin,
+ 	.post_unpin = execlists_context_post_unpin,
 -- 
 2.28.0
 
