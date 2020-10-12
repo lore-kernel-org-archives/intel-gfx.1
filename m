@@ -7,32 +7,32 @@ X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E0DB0C43467
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1B623C433E7
 	for <intel-gfx@archiver.kernel.org>; Mon, 12 Oct 2020 14:47:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 98F612067C
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Oct 2020 14:47:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 98F612067C
+	by mail.kernel.org (Postfix) with ESMTPS id D07E82067C
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Oct 2020 14:47:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D07E82067C
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 85DC66E4DE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 417806E4CF;
 	Mon, 12 Oct 2020 14:47:14 +0000 (UTC)
 Received: from mblankhorst.nl (mblankhorst.nl [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 425C76E4AD
- for <intel-gfx@lists.freedesktop.org>; Mon, 12 Oct 2020 14:47:13 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A550E6E4AD
+ for <intel-gfx@lists.freedesktop.org>; Mon, 12 Oct 2020 14:47:10 +0000 (UTC)
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 12 Oct 2020 16:46:31 +0200
-Message-Id: <20201012144706.555345-27-maarten.lankhorst@linux.intel.com>
+Date: Mon, 12 Oct 2020 16:46:10 +0200
+Message-Id: <20201012144706.555345-6-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20201012144706.555345-1-maarten.lankhorst@linux.intel.com>
 References: <20201012144706.555345-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v2 26/61] drm/i915: Make __engine_unpark()
- compatible with ww locking.
+Subject: [Intel-gfx] [PATCH v2 05/61] drm/i915: Add gem object locking to
+ madvise.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,38 +50,42 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Take the ww lock around engine_unpark. Because of the
-many many places where rpm is used, I chose the safest option
-and used a trylock to opportunistically take this lock for
-__engine_unpark.
+Doesn't need the full ww lock, only checking if pages are bound.
 
 Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_engine_pm.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/i915_gem.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_pm.c b/drivers/gpu/drm/i915/gt/intel_engine_pm.c
-index f7b2e07e2229..1ab9597a5c70 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_pm.c
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_pm.c
-@@ -33,7 +33,8 @@ static int __engine_unpark(struct intel_wakeref *wf)
- 		GEM_BUG_ON(test_bit(CONTEXT_VALID_BIT, &ce->flags));
+diff --git a/drivers/gpu/drm/i915/i915_gem.c b/drivers/gpu/drm/i915/i915_gem.c
+index bb0c12975f38..30af7e4b71ab 100644
+--- a/drivers/gpu/drm/i915/i915_gem.c
++++ b/drivers/gpu/drm/i915/i915_gem.c
+@@ -1071,10 +1071,14 @@ i915_gem_madvise_ioctl(struct drm_device *dev, void *data,
+ 	if (!obj)
+ 		return -ENOENT;
  
- 		/* First poison the image to verify we never fully trust it */
--		if (IS_ENABLED(CONFIG_DRM_I915_DEBUG_GEM) && ce->state) {
-+		if (IS_ENABLED(CONFIG_DRM_I915_DEBUG_GEM) && ce->state &&
-+		    i915_gem_object_trylock(ce->state->obj)) {
- 			struct drm_i915_gem_object *obj = ce->state->obj;
- 			int type = i915_coherent_map_type(engine->i915);
- 			void *map;
-@@ -44,6 +45,7 @@ static int __engine_unpark(struct intel_wakeref *wf)
- 				i915_gem_object_flush_map(obj);
- 				i915_gem_object_unpin_map(obj);
- 			}
-+			i915_gem_object_unlock(obj);
- 		}
+-	err = mutex_lock_interruptible(&obj->mm.lock);
++	err = i915_gem_object_lock_interruptible(obj, NULL);
+ 	if (err)
+ 		goto out;
  
- 		ce->ops->reset(ce);
++	err = mutex_lock_interruptible(&obj->mm.lock);
++	if (err)
++		goto out_ww;
++
+ 	if (i915_gem_object_has_pages(obj) &&
+ 	    i915_gem_object_is_tiled(obj) &&
+ 	    i915->quirks & QUIRK_PIN_SWIZZLED_PAGES) {
+@@ -1119,6 +1123,8 @@ i915_gem_madvise_ioctl(struct drm_device *dev, void *data,
+ 	args->retained = obj->mm.madv != __I915_MADV_PURGED;
+ 	mutex_unlock(&obj->mm.lock);
+ 
++out_ww:
++	i915_gem_object_unlock(obj);
+ out:
+ 	i915_gem_object_put(obj);
+ 	return err;
 -- 
 2.28.0
 
