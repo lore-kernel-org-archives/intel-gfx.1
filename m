@@ -2,51 +2,52 @@ Return-Path: <SRS0=uIVS=DT=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
-	version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5EF17C433DF
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Oct 2020 21:31:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 292FBC433E7
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Oct 2020 21:31:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9D6872145D
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Oct 2020 21:31:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9D6872145D
+	by mail.kernel.org (Postfix) with ESMTPS id CBF502145D
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Oct 2020 21:31:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CBF502145D
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 04B4B6E7E6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 54DB86E7EF;
 	Mon, 12 Oct 2020 21:31:01 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A555D6E7DD
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D9E266E7DD
  for <intel-gfx@lists.freedesktop.org>; Mon, 12 Oct 2020 21:30:55 +0000 (UTC)
-IronPort-SDR: dGqdzxGuPkWH1aBor42Y1x0/P6Ln4qHiP9uoRt9cgssTP8o2SqgHxMSTjmoA8d9BSMPgQw43Ca
- L/dg+YlM2VeQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9772"; a="163169616"
-X-IronPort-AV: E=Sophos;i="5.77,368,1596524400"; d="scan'208";a="163169616"
+IronPort-SDR: OjNNM0lYspkhboE+xNRR3580/CCP5i411L0MedD+q9VHL4UnvV3oHWRAgCaMIcZN5gd2crJ4p/
+ O9A5JFKfZIcA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9772"; a="163169618"
+X-IronPort-AV: E=Sophos;i="5.77,368,1596524400"; d="scan'208";a="163169618"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  12 Oct 2020 14:30:55 -0700
-IronPort-SDR: 05zA13ZQOn3SgDRN+O2g0OAJwz16Ku7LskgxK92hRt4fRPUlmAhH0AQS7QRv/2oidX+miuWf7D
- 1GLDrcwQ54cQ==
-X-IronPort-AV: E=Sophos;i="5.77,368,1596524400"; d="scan'208";a="463244981"
+IronPort-SDR: KVvilntGnsAVQ4bkG72/8QxqmJ99sitCEuyoVxkgm6h2EvU26pvqjdLcaG60SkCKhDIZSjKeCz
+ 0cTsMTUBXqHA==
+X-IronPort-AV: E=Sophos;i="5.77,368,1596524400"; d="scan'208";a="463244975"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.202])
  by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  12 Oct 2020 14:30:54 -0700
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 12 Oct 2020 14:29:50 -0700
-Message-Id: <20201012212959.871513-7-lucas.demarchi@intel.com>
+Date: Mon, 12 Oct 2020 14:29:45 -0700
+Message-Id: <20201012212959.871513-2-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20201012212959.871513-1-lucas.demarchi@intel.com>
 References: <20201012212959.871513-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v7 06/15] drm/i915/dg1: Enable DPLL for DG1
+Subject: [Intel-gfx] [PATCH v7 01/15] drm/i915/display: allow to skip
+ certain power wells
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,66 +65,79 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add DG1 DPLL Enable register macro and use the macro to enable the
-correct DPLL based on PLL id. Although we use
-_MG_PLL1_ENABLE/_MG_PLL2_ENABLE these are rather combo phys.
+From: Aditya Swarup <aditya.swarup@intel.com>
 
-While at it, fix coding style: wrong newlines and use if/else chain
+This allows us to skip power wells on a platform allowing it to re-use
+the table from another one instead of having to create a new table from
+scratch that is basically a copy with a few removals.
 
-v2: Rewrite original patch from Aditya Swarup based on refactors
-upstream
-
-Bspec: 49443, 49206
-
-Cc: Clinton Taylor <Clinton.A.Taylor@intel.com>
-Cc: Matt Roper <matthew.d.roper@intel.com>
-Cc: Aditya Swarup <aditya.swarup@intel.com>
+Cc: Imre Deak <imre.deak@intel.com>
+Suggested-by: Matt Roper <matthew.d.roper@intel.com>
+Signed-off-by: Aditya Swarup <aditya.swarup@intel.com>
+[ Adapt to base ignore logic on pw id rather than adding a new field,
+  as suggested by Imre ]
 Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dpll_mgr.c | 12 ++++++------
- drivers/gpu/drm/i915/i915_reg.h               |  4 ++++
- 2 files changed, 10 insertions(+), 6 deletions(-)
+ .../drm/i915/display/intel_display_power.c    | 24 ++++++++++++++-----
+ 1 file changed, 18 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-index 6f093e4e6b43..298321cb2bbc 100644
---- a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-+++ b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-@@ -151,14 +151,14 @@ static i915_reg_t
- intel_combo_pll_enable_reg(struct drm_i915_private *i915,
- 			   struct intel_shared_dpll *pll)
+diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
+index 7277e58b01f1..5b7f2b67791e 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_power.c
++++ b/drivers/gpu/drm/i915/display/intel_display_power.c
+@@ -4554,13 +4554,18 @@ static u32 get_allowed_dc_mask(const struct drm_i915_private *dev_priv,
+ static int
+ __set_power_wells(struct i915_power_domains *power_domains,
+ 		  const struct i915_power_well_desc *power_well_descs,
+-		  int power_well_count)
++		  int power_well_descs_sz, u64 skip_mask)
  {
--
--	if (IS_ELKHARTLAKE(i915) && (pll->info->id == DPLL_ID_EHL_DPLL4))
-+	if (IS_DG1(i915))
-+		return DG1_DPLL_ENABLE(pll->info->id);
-+	else if (IS_ELKHARTLAKE(i915) && (pll->info->id == DPLL_ID_EHL_DPLL4))
- 		return MG_PLL_ENABLE(0);
--
--	return CNL_DPLL_ENABLE(pll->info->id);
--
--
-+	else
-+		return CNL_DPLL_ENABLE(pll->info->id);
- }
+ 	struct drm_i915_private *i915 = container_of(power_domains,
+ 						     struct drm_i915_private,
+ 						     power_domains);
+ 	u64 power_well_ids = 0;
+-	int i;
++	int power_well_count = 0;
++	int i, plt_idx = 0;
 +
- /**
-  * intel_prepare_shared_dpll - call a dpll's prepare hook
-  * @crtc_state: CRTC, and its state, which has a shared dpll
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 0b67c868c51d..49945e33f573 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -10316,6 +10316,10 @@ enum skl_power_gate {
- #define MG_PLL_ENABLE(tc_port)	_MMIO_PORT((tc_port), _MG_PLL1_ENABLE, \
- 					   _MG_PLL2_ENABLE)
++	for (i = 0; i < power_well_descs_sz; i++)
++		if (!(BIT_ULL(power_well_descs[i].id) & skip_mask))
++			power_well_count++;
  
-+/* DG1 PLL */
-+#define DG1_DPLL_ENABLE(pll)    _MMIO_PLL3(pll, DPLL0_ENABLE, DPLL1_ENABLE, \
-+					   _MG_PLL1_ENABLE, _MG_PLL2_ENABLE)
+ 	power_domains->power_well_count = power_well_count;
+ 	power_domains->power_wells =
+@@ -4570,10 +4575,14 @@ __set_power_wells(struct i915_power_domains *power_domains,
+ 	if (!power_domains->power_wells)
+ 		return -ENOMEM;
+ 
+-	for (i = 0; i < power_well_count; i++) {
++	for (i = 0; i < power_well_descs_sz; i++) {
+ 		enum i915_power_well_id id = power_well_descs[i].id;
+ 
+-		power_domains->power_wells[i].desc = &power_well_descs[i];
++		if (BIT_ULL(id) & skip_mask)
++			continue;
 +
- #define _MG_REFCLKIN_CTL_PORT1				0x16892C
- #define _MG_REFCLKIN_CTL_PORT2				0x16992C
- #define _MG_REFCLKIN_CTL_PORT3				0x16A92C
++		power_domains->power_wells[plt_idx++].desc =
++			&power_well_descs[i];
+ 
+ 		if (id == DISP_PW_ID_NONE)
+ 			continue;
+@@ -4586,9 +4595,12 @@ __set_power_wells(struct i915_power_domains *power_domains,
+ 	return 0;
+ }
+ 
+-#define set_power_wells(power_domains, __power_well_descs) \
++#define set_power_wells_mask(power_domains, __power_well_descs, skip_mask) \
+ 	__set_power_wells(power_domains, __power_well_descs, \
+-			  ARRAY_SIZE(__power_well_descs))
++			  ARRAY_SIZE(__power_well_descs), skip_mask)
++
++#define set_power_wells(power_domains, __power_well_descs) \
++	set_power_wells_mask(power_domains, __power_well_descs, 0)
+ 
+ /**
+  * intel_power_domains_init - initializes the power domain structures
 -- 
 2.28.0
 
