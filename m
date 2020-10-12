@@ -2,56 +2,42 @@ Return-Path: <SRS0=uIVS=DT=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-6.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5920DC433E7
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Oct 2020 09:09:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BCE47C433DF
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Oct 2020 10:49:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E56712076D
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Oct 2020 09:09:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E56712076D
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 166EB206B6
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Oct 2020 10:49:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 166EB206B6
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 074F56E0CE;
-	Mon, 12 Oct 2020 09:09:26 +0000 (UTC)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E0B1B6E0CE
- for <intel-gfx@lists.freedesktop.org>; Mon, 12 Oct 2020 09:09:23 +0000 (UTC)
-IronPort-SDR: w1st96hWHN2cZWiXHol2WilZbBSf+HvCUEqK/mwx7wXDwPH0YBOp9PbkB48Ng0v1BPjFHFIfRe
- GgeuDxyNtkIw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9771"; a="227356780"
-X-IronPort-AV: E=Sophos;i="5.77,366,1596524400"; d="scan'208";a="227356780"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Oct 2020 02:09:22 -0700
-IronPort-SDR: w4aYr32z32iliPcvV9yPrwM0htx7dAEO0A9vyBsyUHqk/PGyxNBsDcoCgYclNAm0J9dRsqkrqS
- kaDA9WLFxIbA==
-X-IronPort-AV: E=Sophos;i="5.77,366,1596524400"; d="scan'208";a="463034226"
-Received: from chunt1x-mobl.ger.corp.intel.com (HELO localhost)
- ([10.252.18.170])
- by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Oct 2020 02:09:20 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: "20200828061941.17051-2-jani.nikula\@intel.com"
- <20200828061941.17051-2-jani.nikula@intel.com>,
- "intel-gfx\@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "Shankar\, Uma" <uma.shankar@intel.com>
-In-Reply-To: <BY5PR11MB4307E5790B466389CE00D68AA3070@BY5PR11MB4307.namprd11.prod.outlook.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <BY5PR11MB4307E5790B466389CE00D68AA3070@BY5PR11MB4307.namprd11.prod.outlook.com>
-Date: Mon, 12 Oct 2020 12:09:17 +0300
-Message-ID: <87362jdd4y.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3D92B6E255;
+	Mon, 12 Oct 2020 10:49:10 +0000 (UTC)
+Received: from fireflyinternet.com (unknown [77.68.26.236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D75E76E255;
+ Mon, 12 Oct 2020 10:49:08 +0000 (UTC)
+X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
+ x-ip-name=78.156.65.138; 
+Received: from localhost (unverified [78.156.65.138]) 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP (TLS) id
+ 22689608-1500050 for multiple; Mon, 12 Oct 2020 11:49:05 +0100
 MIME-Version: 1.0
-Subject: Re: [Intel-gfx] [PATCH 2/2] drm/i915/dp: use opregion mailbox #5
- EDID for eDP, if available
+In-Reply-To: <CAKMK7uG51_t9988vTen2rK+gbwwjN0tLphpVhMd2nbsFTNi+GQ@mail.gmail.com>
+References: <20201009102132.22770-1-chris@chris-wilson.co.uk>
+ <CAKMK7uG51_t9988vTen2rK+gbwwjN0tLphpVhMd2nbsFTNi+GQ@mail.gmail.com>
+From: Chris Wilson <chris@chris-wilson.co.uk>
+To: Daniel Vetter <daniel@ffwll.ch>
+Date: Mon, 12 Oct 2020 11:49:03 +0100
+Message-ID: <160249974352.30484.764236348954464063@build.alporthouse.com>
+User-Agent: alot/0.9
+Subject: Re: [Intel-gfx] [PATCH] drm/vgem: Replace vgem_object_funcs with
+ the common drm shmem helper
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,81 +50,40 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: intel-gfx <intel-gfx@lists.freedesktop.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 12 Oct 2020, "Lee, Shawn C" <shawn.c.lee@intel.com> wrote:
-> On Fri, Aug 28, 2020 at 06:19AM, Shankar Uma wrote:
->>> -----Original Message-----
->>> From: Jani Nikula <jani.nikula@intel.com>
->>> Sent: Friday, August 28, 2020 11:50 AM
->>> To: intel-gfx@lists.freedesktop.org
->>> Cc: Nikula, Jani <jani.nikula@intel.com>; Shankar, Uma
->>> <uma.shankar@intel.com>
->>> Subject: [PATCH 2/2] drm/i915/dp: use opregion mailbox #5 EDID for eDP, if
->>> available
->>>
->>> If a panel's EDID is broken, there may be an override EDID set in the ACPI
->>> OpRegion mailbox #5. Use it if available.
->>
->>Looks Good to me.
->>Reviewed-by: Uma Shankar <uma.shankar@intel.com>
->>
->>> Cc: Uma Shankar <uma.shankar@intel.com>
->>> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
->>> ---
->>>  drivers/gpu/drm/i915/display/intel_dp.c | 3 +++
->>>  1 file changed, 3 insertions(+)
->>>
->>> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c
->>> b/drivers/gpu/drm/i915/display/intel_dp.c
->>> index c57ac83bf563..d1307be196a2 100644
->>> --- a/drivers/gpu/drm/i915/display/intel_dp.c
->>> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
->>> @@ -8114,6 +8114,9 @@ static bool intel_edp_init_connector(struct intel_dp
->>> *intel_dp,
->>>  goto out_vdd_off;
->>>  }
->>>
->>> +/* Set up override EDID, if any, from ACPI OpRegion */
->>> +intel_opregion_edid_override(intel_connector);
->>> +
->
-> Customer report DUT still get EDID from eDP panel instead of mailbox #5.
-> After some investigations, this change can retrieve EDID from mailbox #5 properly.
-> But driver still used panel's EDID to enable eDP display. This is because of drm_get_edid()
-> was executed after intel_opregion_edid_override(). drm_get_edid() return panel's EDID
-> and overwrite mailbox #5's.
+Quoting Daniel Vetter (2020-10-09 17:16:06)
+> On Fri, Oct 9, 2020 at 12:21 PM Chris Wilson <chris@chris-wilson.co.uk> wrote:
+> >
+> > vgem is a minimalistic driver that provides shmemfs objects to
+> > userspace that may then be used as an in-memory surface and transported
+> > across dma-buf to other drivers. Since it's introduction,
+> > drm_gem_shmem_helper now provides the same shmemfs facilities and so we
+> > can trim vgem to wrap the helper.
+> >
+> > Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+> > ---
+> >  drivers/gpu/drm/Kconfig         |   1 +
+> >  drivers/gpu/drm/vgem/vgem_drv.c | 281 ++------------------------------
+> >  drivers/gpu/drm/vgem/vgem_drv.h |  11 --
+> >  3 files changed, 13 insertions(+), 280 deletions(-)
+> 
+> Nice diffstat :-)
+> 
+> Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
 
-In recent kernels, drm_get_edid() respects EDID override, and calling
-drm_get_edid() will return the override EDID from mailbox #5 instead of
-retrieving the actual EDID.
-
-Check the kernel version they're using and the drm_get_edid()
-implementation.
-
-BR,
-Jani.
-
-
->
-> We try to move drm_get_edid() before intel_opregion_edid_override().
-> The test result is positive, mailbox #5 EDID will substitute for panel's.
-> It seems we may need some additional change for this patch. Thanks!
->
-> Best regards,
-> Shawn
->
->>>  mutex_lock(&dev->mode_config.mutex);
->>>  edid = drm_get_edid(connector, &intel_dp->aux.ddc);
->>>  if (edid) {
->>> --
->>> 2.20.1
-
--- 
-Jani Nikula, Intel Open Source Graphics Center
+Unfortunately I had to drop the drm_gem_prime_mmap() since the existing
+expectation is that we hand the faulthandler off to shmemfs so we can
+release the module while the memory is exported. The other issue happens
+to be for arch/x86 where just setting PAT=WC on the PTE does not flush
+the cache for that page, and the CPU will preferentially use the cache.
+That has caught us out more than once.
+-Chris
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
