@@ -4,55 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 09F01C433DF
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Oct 2020 19:00:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 909BDC433E7
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Oct 2020 19:01:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C1EEB208B8
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Oct 2020 19:00:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C1EEB208B8
+	by mail.kernel.org (Postfix) with ESMTPS id 279512087D
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Oct 2020 19:01:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 279512087D
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1AC176E570;
-	Mon, 12 Oct 2020 19:00:39 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 943946E570;
- Mon, 12 Oct 2020 19:00:37 +0000 (UTC)
-IronPort-SDR: tFu/hfpckrIGqGbXS9/qLOpTRQqfKNnE0mLh8kAIXfSPTjvz9F8fjIK46syOR1SuEKxoYPWNKT
- zy3zaOkEbTog==
-X-IronPort-AV: E=McAfee;i="6000,8403,9772"; a="183254761"
-X-IronPort-AV: E=Sophos;i="5.77,367,1596524400"; d="scan'208";a="183254761"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 979196E580;
+	Mon, 12 Oct 2020 19:01:07 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA2A46E57A;
+ Mon, 12 Oct 2020 19:01:05 +0000 (UTC)
+IronPort-SDR: zOKTbUdT0ZA8rpOuwLR9l3FQY2vvU6W3R2ucX1Btde4p/t5lrOBwJ4Bou3pi4hO4/2EVnEPt8N
+ /Gpz2z6IGubA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9772"; a="165004467"
+X-IronPort-AV: E=Sophos;i="5.77,367,1596524400"; d="scan'208";a="165004467"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Oct 2020 12:00:37 -0700
-IronPort-SDR: yUgnt74yiy+iz0ILqb7iDIz4Tuysm6xhwLJh6DfwUA7rUAyckvNkLKrtZRoOqUI5fxoza0iInS
- M5eP0aiyoEBQ==
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Oct 2020 12:01:05 -0700
+IronPort-SDR: 6meBXllXs5SYUB3axEm5gZ4RpmEZilZPlJ3CW63O78RTW5zIYJApY9bfOdKkquqJM5TLeHa/C/
+ fbhqMbkfQVgQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.77,367,1596524400"; d="scan'208";a="344989758"
+X-IronPort-AV: E=Sophos;i="5.77,367,1596524400"; d="scan'208";a="344989980"
 Received: from plaxmina-desktop.iind.intel.com ([10.145.162.62])
- by fmsmga004.fm.intel.com with ESMTP; 12 Oct 2020 12:00:33 -0700
+ by fmsmga004.fm.intel.com with ESMTP; 12 Oct 2020 12:00:58 -0700
 From: Pankaj Bharadiya <pankaj.laxminarayan.bharadiya@intel.com>
 To: jani.nikula@linux.intel.com, daniel@ffwll.ch,
  intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  ville.syrjala@linux.intel.com, daniels@collabora.com,
  sameer.lattannavar@intel.com,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@linux.ie>
-Date: Tue, 13 Oct 2020 00:11:28 +0530
-Message-Id: <20201012184130.937-4-pankaj.laxminarayan.bharadiya@intel.com>
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@linux.ie>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>,
+ Pankaj Bharadiya <pankaj.laxminarayan.bharadiya@intel.com>,
+ Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>,
+ Manasi Navare <manasi.d.navare@intel.com>,
+ Wambui Karuga <wambui.karugax@gmail.com>, Imre Deak <imre.deak@intel.com>,
+ Ramalingam C <ramalingam.c@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>, Sean Paul <sean@poorly.run>,
+ Uma Shankar <uma.shankar@intel.com>,
+ Matt Roper <matthew.d.roper@intel.com>,
+ Dhinakaran Pandiyan <dhinakaran.pandiyan@intel.com>
+Date: Tue, 13 Oct 2020 00:11:30 +0530
+Message-Id: <20201012184130.937-6-pankaj.laxminarayan.bharadiya@intel.com>
 X-Mailer: git-send-email 2.23.0
 In-Reply-To: <20201012184130.937-1-pankaj.laxminarayan.bharadiya@intel.com>
 References: <20201012184130.937-1-pankaj.laxminarayan.bharadiya@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v6 3/5] drm/i915: Introduce scaling filter
- related registers and bit fields
+Subject: [Intel-gfx] [PATCH v6 5/5] drm/i915: Enable scaling filter for
+ plane and CRTC
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,83 +82,168 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Introduce scaler registers and bit fields needed to configure the
-scaling filter in prgrammed mode and configure scaling filter
-coefficients.
+GEN >= 10 hardware supports the programmable scaler filter.
+
+Attach scaling filter property for CRTC and plane for GEN >= 10
+hardwares and program scaler filter based on the selected filter
+type.
 
 changes since v3:
 * None
 changes since v2:
-* Change macro names to CNL_* and  use +(set)*8 instead of adding
-  another trip through _PICK_EVEN (Ville).
+* Use updated functions
+* Add ps_ctrl var to contain the full PS_CTRL register value (Ville)
+* Duplicate the scaling filter in crtc and plane hw state (Ville)
 changes since v1:
 * None
-changes since RFC:
-* Parametrize scaler coeffient macros by 'set' (Ville)
+Changes since RFC:
+* Enable properties for GEN >= 10 platforms (Ville)
+* Do not round off the crtc co-ordinate (Danial Stone, Ville)
+* Add new functions to handle scaling filter setup (Ville)
+* Remove coefficient set 0 hardcoding.
 
 Reviewed-by: Uma Shankar <uma.shankar@intel.com>
 Signed-off-by: Shashank Sharma <shashank.sharma@intel.com>
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 Signed-off-by: Pankaj Bharadiya <pankaj.laxminarayan.bharadiya@intel.com>
 ---
- drivers/gpu/drm/i915/i915_reg.h | 22 ++++++++++++++++++++++
- 1 file changed, 22 insertions(+)
+ .../gpu/drm/i915/display/intel_atomic_plane.c  |  1 +
+ drivers/gpu/drm/i915/display/intel_display.c   | 18 ++++++++++++++++--
+ .../gpu/drm/i915/display/intel_display_types.h |  2 ++
+ drivers/gpu/drm/i915/display/intel_sprite.c    | 15 +++++++++++++--
+ 4 files changed, 32 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 04c966a524ce..5819dc39d227 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -7380,6 +7380,7 @@ enum {
- #define PS_PLANE_SEL(plane) (((plane) + 1) << 25)
- #define PS_FILTER_MASK         (3 << 23)
- #define PS_FILTER_MEDIUM       (0 << 23)
-+#define PS_FILTER_PROGRAMMED   (1 << 23)
- #define PS_FILTER_EDGE_ENHANCE (2 << 23)
- #define PS_FILTER_BILINEAR     (3 << 23)
- #define PS_VERT3TAP            (1 << 21)
-@@ -7394,6 +7395,10 @@ enum {
- #define PS_VADAPT_MODE_MOST_ADAPT  (3 << 5)
- #define PS_PLANE_Y_SEL_MASK  (7 << 5)
- #define PS_PLANE_Y_SEL(plane) (((plane) + 1) << 5)
-+#define PS_Y_VERT_FILTER_SELECT(set)   ((set) << 4)
-+#define PS_Y_HORZ_FILTER_SELECT(set)   ((set) << 3)
-+#define PS_UV_VERT_FILTER_SELECT(set)  ((set) << 2)
-+#define PS_UV_HORZ_FILTER_SELECT(set)  ((set) << 1)
+diff --git a/drivers/gpu/drm/i915/display/intel_atomic_plane.c b/drivers/gpu/drm/i915/display/intel_atomic_plane.c
+index 6bd8e6cdd477..3334ff253600 100644
+--- a/drivers/gpu/drm/i915/display/intel_atomic_plane.c
++++ b/drivers/gpu/drm/i915/display/intel_atomic_plane.c
+@@ -262,6 +262,7 @@ void intel_plane_copy_uapi_to_hw_state(struct intel_plane_state *plane_state,
+ 	plane_state->hw.rotation = from_plane_state->uapi.rotation;
+ 	plane_state->hw.color_encoding = from_plane_state->uapi.color_encoding;
+ 	plane_state->hw.color_range = from_plane_state->uapi.color_range;
++	plane_state->hw.scaling_filter = from_plane_state->uapi.scaling_filter;
+ }
  
- #define _PS_PWR_GATE_1A     0x68160
- #define _PS_PWR_GATE_2A     0x68260
-@@ -7456,6 +7461,17 @@ enum {
- #define _PS_ECC_STAT_2B     0x68AD0
- #define _PS_ECC_STAT_1C     0x691D0
+ void intel_plane_set_invisible(struct intel_crtc_state *crtc_state,
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 871a1f44a2bd..0b2c462d6dfd 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -6404,6 +6404,7 @@ static void skl_pfit_enable(const struct intel_crtc_state *crtc_state)
+ 	int hscale, vscale;
+ 	unsigned long irqflags;
+ 	int id;
++	u32 ps_ctrl;
  
-+#define _PS_COEF_SET0_INDEX_1A	   0x68198
-+#define _PS_COEF_SET0_INDEX_2A	   0x68298
-+#define _PS_COEF_SET0_INDEX_1B	   0x68998
-+#define _PS_COEF_SET0_INDEX_2B	   0x68A98
-+#define PS_COEE_INDEX_AUTO_INC	   (1 << 10)
+ 	if (!crtc_state->pch_pfit.enabled)
+ 		return;
+@@ -6420,10 +6421,16 @@ static void skl_pfit_enable(const struct intel_crtc_state *crtc_state)
+ 
+ 	id = scaler_state->scaler_id;
+ 
++	ps_ctrl = skl_scaler_get_filter_select(crtc_state->hw.scaling_filter, 0);
++	ps_ctrl |=  PS_SCALER_EN | scaler_state->scalers[id].mode;
 +
-+#define _PS_COEF_SET0_DATA_1A	   0x6819C
-+#define _PS_COEF_SET0_DATA_2A	   0x6829C
-+#define _PS_COEF_SET0_DATA_1B	   0x6899C
-+#define _PS_COEF_SET0_DATA_2B	   0x68A9C
-+
- #define _ID(id, a, b) _PICK_EVEN(id, a, b)
- #define SKL_PS_CTRL(pipe, id) _MMIO_PIPE(pipe,        \
- 			_ID(id, _PS_1A_CTRL, _PS_2A_CTRL),       \
-@@ -7484,7 +7500,13 @@ enum {
- #define SKL_PS_ECC_STAT(pipe, id)  _MMIO_PIPE(pipe,     \
- 			_ID(id, _PS_ECC_STAT_1A, _PS_ECC_STAT_2A),   \
- 			_ID(id, _PS_ECC_STAT_1B, _PS_ECC_STAT_2B))
-+#define CNL_PS_COEF_INDEX_SET(pipe, id, set)  _MMIO_PIPE(pipe,    \
-+			_ID(id, _PS_COEF_SET0_INDEX_1A, _PS_COEF_SET0_INDEX_2A) + (set) * 8, \
-+			_ID(id, _PS_COEF_SET0_INDEX_1B, _PS_COEF_SET0_INDEX_2B) + (set) * 8)
+ 	spin_lock_irqsave(&dev_priv->uncore.lock, irqflags);
  
-+#define CNL_PS_COEF_DATA_SET(pipe, id, set)  _MMIO_PIPE(pipe,     \
-+			_ID(id, _PS_COEF_SET0_DATA_1A, _PS_COEF_SET0_DATA_2A) + (set) * 8, \
-+			_ID(id, _PS_COEF_SET0_DATA_1B, _PS_COEF_SET0_DATA_2B) + (set) * 8)
- /* legacy palette */
- #define _LGC_PALETTE_A           0x4a000
- #define _LGC_PALETTE_B           0x4a800
+-	intel_de_write_fw(dev_priv, SKL_PS_CTRL(pipe, id), PS_SCALER_EN |
+-			  PS_FILTER_MEDIUM | scaler_state->scalers[id].mode);
++	skl_scaler_setup_filter(dev_priv, pipe, id, 0,
++				crtc_state->hw.scaling_filter);
++
++	intel_de_write_fw(dev_priv, SKL_PS_CTRL(pipe, id), ps_ctrl);
++
+ 	intel_de_write_fw(dev_priv, SKL_PS_VPHASE(pipe, id),
+ 			  PS_Y_PHASE(0) | PS_UV_RGB_PHASE(uv_rgb_vphase));
+ 	intel_de_write_fw(dev_priv, SKL_PS_HPHASE(pipe, id),
+@@ -13457,6 +13464,7 @@ intel_crtc_copy_uapi_to_hw_state(struct intel_crtc_state *crtc_state)
+ 	crtc_state->hw.active = crtc_state->uapi.active;
+ 	crtc_state->hw.mode = crtc_state->uapi.mode;
+ 	crtc_state->hw.adjusted_mode = crtc_state->uapi.adjusted_mode;
++	crtc_state->hw.scaling_filter = crtc_state->uapi.scaling_filter;
+ 	intel_crtc_copy_uapi_to_hw_state_nomodeset(crtc_state);
+ }
+ 
+@@ -13468,6 +13476,7 @@ static void intel_crtc_copy_hw_to_uapi_state(struct intel_crtc_state *crtc_state
+ 		    drm_atomic_set_mode_for_crtc(&crtc_state->uapi, &crtc_state->hw.mode) < 0);
+ 
+ 	crtc_state->uapi.adjusted_mode = crtc_state->hw.adjusted_mode;
++	crtc_state->uapi.scaling_filter = crtc_state->hw.scaling_filter;
+ 
+ 	/* copy color blobs to uapi */
+ 	drm_property_replace_blob(&crtc_state->uapi.degamma_lut,
+@@ -17062,6 +17071,11 @@ static int intel_crtc_init(struct drm_i915_private *dev_priv, enum pipe pipe)
+ 		dev_priv->plane_to_crtc_mapping[i9xx_plane] = crtc;
+ 	}
+ 
++	if (INTEL_GEN(dev_priv) >= 10)
++		drm_crtc_create_scaling_filter_property(&crtc->base,
++						BIT(DRM_SCALING_FILTER_DEFAULT) |
++						BIT(DRM_SCALING_FILTER_NEAREST_NEIGHBOR));
++
+ 	intel_color_init(crtc);
+ 
+ 	intel_crtc_crc_init(crtc);
+diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
+index b6b1ecfca652..cc63d549185b 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_types.h
++++ b/drivers/gpu/drm/i915/display/intel_display_types.h
+@@ -535,6 +535,7 @@ struct intel_plane_state {
+ 		unsigned int rotation;
+ 		enum drm_color_encoding color_encoding;
+ 		enum drm_color_range color_range;
++		enum drm_scaling_filter scaling_filter;
+ 	} hw;
+ 
+ 	struct i915_ggtt_view view;
+@@ -825,6 +826,7 @@ struct intel_crtc_state {
+ 		bool active, enable;
+ 		struct drm_property_blob *degamma_lut, *gamma_lut, *ctm;
+ 		struct drm_display_mode mode, adjusted_mode;
++		enum drm_scaling_filter scaling_filter;
+ 	} hw;
+ 
+ 	/**
+diff --git a/drivers/gpu/drm/i915/display/intel_sprite.c b/drivers/gpu/drm/i915/display/intel_sprite.c
+index 3ae7470c1b8b..52448c53a33a 100644
+--- a/drivers/gpu/drm/i915/display/intel_sprite.c
++++ b/drivers/gpu/drm/i915/display/intel_sprite.c
+@@ -444,6 +444,7 @@ skl_program_scaler(struct intel_plane *plane,
+ 	u16 y_hphase, uv_rgb_hphase;
+ 	u16 y_vphase, uv_rgb_vphase;
+ 	int hscale, vscale;
++	u32 ps_ctrl;
+ 
+ 	hscale = drm_rect_calc_hscale(&plane_state->uapi.src,
+ 				      &plane_state->uapi.dst,
+@@ -470,8 +471,13 @@ skl_program_scaler(struct intel_plane *plane,
+ 		uv_rgb_vphase = skl_scaler_calc_phase(1, vscale, false);
+ 	}
+ 
+-	intel_de_write_fw(dev_priv, SKL_PS_CTRL(pipe, scaler_id),
+-			  PS_SCALER_EN | PS_PLANE_SEL(plane->id) | scaler->mode);
++	ps_ctrl = skl_scaler_get_filter_select(plane_state->hw.scaling_filter, 0);
++	ps_ctrl |= PS_SCALER_EN | PS_PLANE_SEL(plane->id) | scaler->mode;
++
++	skl_scaler_setup_filter(dev_priv, pipe, scaler_id, 0,
++				plane_state->hw.scaling_filter);
++
++	intel_de_write_fw(dev_priv, SKL_PS_CTRL(pipe, scaler_id), ps_ctrl);
+ 	intel_de_write_fw(dev_priv, SKL_PS_VPHASE(pipe, scaler_id),
+ 			  PS_Y_PHASE(y_vphase) | PS_UV_RGB_PHASE(uv_rgb_vphase));
+ 	intel_de_write_fw(dev_priv, SKL_PS_HPHASE(pipe, scaler_id),
+@@ -3205,6 +3211,11 @@ skl_universal_plane_create(struct drm_i915_private *dev_priv,
+ 	if (INTEL_GEN(dev_priv) >= 12)
+ 		drm_plane_enable_fb_damage_clips(&plane->base);
+ 
++	if (INTEL_GEN(dev_priv) >= 10)
++		drm_plane_create_scaling_filter_property(&plane->base,
++						BIT(DRM_SCALING_FILTER_DEFAULT) |
++						BIT(DRM_SCALING_FILTER_NEAREST_NEIGHBOR));
++
+ 	drm_plane_helper_add(&plane->base, &intel_plane_helper_funcs);
+ 
+ 	return plane;
 -- 
 2.23.0
 
