@@ -7,32 +7,32 @@ X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C74F5C43457
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Oct 2020 14:47:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CA298C43467
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Oct 2020 14:47:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 94C132067C
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Oct 2020 14:47:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 94C132067C
+	by mail.kernel.org (Postfix) with ESMTPS id 831452067C
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Oct 2020 14:47:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 831452067C
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B60166E4D7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A33F56E4B0;
 	Mon, 12 Oct 2020 14:47:15 +0000 (UTC)
 Received: from mblankhorst.nl (mblankhorst.nl [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 593CF6E4AF
- for <intel-gfx@lists.freedesktop.org>; Mon, 12 Oct 2020 14:47:13 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 959B56E4AA
+ for <intel-gfx@lists.freedesktop.org>; Mon, 12 Oct 2020 14:47:10 +0000 (UTC)
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 12 Oct 2020 16:46:18 +0200
-Message-Id: <20201012144706.555345-14-maarten.lankhorst@linux.intel.com>
+Date: Mon, 12 Oct 2020 16:46:06 +0200
+Message-Id: <20201012144706.555345-2-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20201012144706.555345-1-maarten.lankhorst@linux.intel.com>
 References: <20201012144706.555345-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v2 13/61] drm/i915: Reject UNSYNCHRONIZED for
- userptr
+Subject: [Intel-gfx] [PATCH v2 01/61] drm/i915: Move cmd parser pinning to
+ execbuffer
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,249 +50,486 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-We should not allow this any more, as it will break with the new userptr
-implementation, it could still be made to work, but there's no point in
-doing so.
+We need to get rid of allocations in the cmd parser, because it needs
+to be called from a signaling context, first move all pinning to
+execbuf, where we already hold all locks.
+
+Allocate jump_whitelist in the execbuffer, and add annotations around
+intel_engine_cmd_parser(), to ensure we only call the command parser
+without allocating any memory, or taking any locks we're not supposed to.
+
+Because i915_gem_object_get_page() may also allocate memory, add a
+path to i915_gem_object_get_sg() that prevents memory allocations,
+and walk the sg list manually. It should be similarly fast.
+
+This has the added benefit of being able to catch all memory allocation
+errors before the point of no return, and return -ENOMEM safely to the
+execbuf submitter.
 
 Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 ---
- .../gpu/drm/i915/gem/i915_gem_execbuffer.c    |  2 +
- drivers/gpu/drm/i915/gem/i915_gem_object.h    |  4 ++
- .../gpu/drm/i915/gem/i915_gem_object_types.h  |  2 +
- drivers/gpu/drm/i915/gem/i915_gem_userptr.c   | 64 ++++++-------------
- drivers/gpu/drm/i915/i915_drv.h               |  2 +
- 5 files changed, 31 insertions(+), 43 deletions(-)
+ .../gpu/drm/i915/gem/i915_gem_execbuffer.c    |  74 ++++++++++++-
+ drivers/gpu/drm/i915/gem/i915_gem_object.h    |  10 +-
+ drivers/gpu/drm/i915/gem/i915_gem_pages.c     |  21 +++-
+ drivers/gpu/drm/i915/gt/intel_ggtt.c          |   2 +-
+ drivers/gpu/drm/i915/i915_cmd_parser.c        | 104 ++++++++----------
+ drivers/gpu/drm/i915/i915_drv.h               |   7 +-
+ drivers/gpu/drm/i915/i915_memcpy.c            |   2 +-
+ drivers/gpu/drm/i915/i915_memcpy.h            |   2 +-
+ 8 files changed, 142 insertions(+), 80 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-index ea2242f1b5b8..c30fa5790a47 100644
+index 4b09bcd70cf4..63e2f16204da 100644
 --- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
 +++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-@@ -1966,8 +1966,10 @@ static noinline int eb_relocate_parse_slow(struct i915_execbuffer *eb,
- 		err = 0;
+@@ -27,6 +27,7 @@
+ #include "i915_sw_fence_work.h"
+ #include "i915_trace.h"
+ #include "i915_user_extensions.h"
++#include "i915_memcpy.h"
+ 
+ struct eb_vma {
+ 	struct i915_vma *vma;
+@@ -2269,24 +2270,45 @@ struct eb_parse_work {
+ 	struct i915_vma *trampoline;
+ 	unsigned long batch_offset;
+ 	unsigned long batch_length;
++	unsigned long *jump_whitelist;
++	const void *batch_map;
++	void *shadow_map;
+ };
+ 
+ static int __eb_parse(struct dma_fence_work *work)
+ {
+ 	struct eb_parse_work *pw = container_of(work, typeof(*pw), base);
++	int ret;
++	bool cookie;
+ 
+-	return intel_engine_cmd_parser(pw->engine,
+-				       pw->batch,
+-				       pw->batch_offset,
+-				       pw->batch_length,
+-				       pw->shadow,
+-				       pw->trampoline);
++	cookie = dma_fence_begin_signalling();
++	ret = intel_engine_cmd_parser(pw->engine,
++				      pw->batch,
++				      pw->batch_offset,
++				      pw->batch_length,
++				      pw->shadow,
++				      pw->jump_whitelist,
++				      pw->shadow_map,
++				      pw->batch_map);
++	dma_fence_end_signalling(cookie);
++
++	return ret;
+ }
+ 
+ static void __eb_parse_release(struct dma_fence_work *work)
+ {
+ 	struct eb_parse_work *pw = container_of(work, typeof(*pw), base);
+ 
++	if (!IS_ERR_OR_NULL(pw->jump_whitelist))
++		kfree(pw->jump_whitelist);
++
++	if (pw->batch_map)
++		i915_gem_object_unpin_map(pw->batch->obj);
++	else
++		i915_gem_object_unpin_pages(pw->batch->obj);
++
++	i915_gem_object_unpin_map(pw->shadow->obj);
++
+ 	if (pw->trampoline)
+ 		i915_active_release(&pw->trampoline->active);
+ 	i915_active_release(&pw->shadow->active);
+@@ -2336,6 +2358,8 @@ static int eb_parse_pipeline(struct i915_execbuffer *eb,
+ 			     struct i915_vma *trampoline)
+ {
+ 	struct eb_parse_work *pw;
++	struct drm_i915_gem_object *batch = eb->batch->vma->obj;
++	bool needs_clflush;
+ 	int err;
+ 
+ 	GEM_BUG_ON(overflows_type(eb->batch_start_offset, pw->batch_offset));
+@@ -2359,6 +2383,34 @@ static int eb_parse_pipeline(struct i915_execbuffer *eb,
+ 			goto err_shadow;
  	}
  
-+#ifdef CONFIG_MMU_NOTIFIER
- 	if (!err)
- 		flush_workqueue(eb->i915->mm.userptr_wq);
-+#endif
++	pw->shadow_map = i915_gem_object_pin_map(shadow->obj, I915_MAP_FORCE_WB);
++	if (IS_ERR(pw->shadow_map)) {
++		err = PTR_ERR(pw->shadow_map);
++		goto err_trampoline;
++	}
++
++	needs_clflush =
++		!(batch->cache_coherent & I915_BO_CACHE_COHERENT_FOR_READ);
++
++	pw->batch_map = ERR_PTR(-ENODEV);
++	if (needs_clflush && i915_has_memcpy_from_wc())
++		pw->batch_map = i915_gem_object_pin_map(batch, I915_MAP_WC);
++
++	if (IS_ERR(pw->batch_map)) {
++		err = i915_gem_object_pin_pages(batch);
++		if (err)
++			goto err_unmap_shadow;
++		pw->batch_map = NULL;
++	}
++
++	pw->jump_whitelist =
++		intel_engine_cmd_parser_alloc_jump_whitelist(eb->batch_len,
++							     trampoline);
++	if (IS_ERR(pw->jump_whitelist)) {
++		err = PTR_ERR(pw->jump_whitelist);
++		goto err_unmap_batch;
++	}
++
+ 	dma_fence_work_init(&pw->base, &eb_parse_ops);
  
- err_relock:
- 	i915_gem_ww_ctx_init(&eb->ww, true);
+ 	pw->engine = eb->engine;
+@@ -2398,6 +2450,16 @@ static int eb_parse_pipeline(struct i915_execbuffer *eb,
+ 	dma_fence_work_commit_imm(&pw->base);
+ 	return err;
+ 
++err_unmap_batch:
++	if (pw->batch_map)
++		i915_gem_object_unpin_map(batch);
++	else
++		i915_gem_object_unpin_pages(batch);
++err_unmap_shadow:
++	i915_gem_object_unpin_map(shadow->obj);
++err_trampoline:
++	if (trampoline)
++		i915_active_release(&trampoline->active);
+ err_shadow:
+ 	i915_active_release(&shadow->active);
+ err_batch:
 diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.h b/drivers/gpu/drm/i915/gem/i915_gem_object.h
-index 436ff0d4951f..a3774e80aedd 100644
+index be14486f63a7..99b18ba0c48d 100644
 --- a/drivers/gpu/drm/i915/gem/i915_gem_object.h
 +++ b/drivers/gpu/drm/i915/gem/i915_gem_object.h
-@@ -531,7 +531,11 @@ void __i915_gem_object_invalidate_frontbuffer(struct drm_i915_gem_object *obj,
- static inline bool
- i915_gem_object_is_userptr(struct drm_i915_gem_object *obj)
+@@ -275,22 +275,22 @@ struct scatterlist *
+ __i915_gem_object_get_sg(struct drm_i915_gem_object *obj,
+ 			 struct i915_gem_object_page_iter *iter,
+ 			 unsigned int n,
+-			 unsigned int *offset);
++			 unsigned int *offset, bool allow_alloc);
+ 
+ static inline struct scatterlist *
+ i915_gem_object_get_sg(struct drm_i915_gem_object *obj,
+ 		       unsigned int n,
+-		       unsigned int *offset)
++		       unsigned int *offset, bool allow_alloc)
  {
-+#ifdef CONFIG_MMU_NOTIFIER
- 	return obj->userptr.mm;
-+#else
-+	return false;
-+#endif
+-	return __i915_gem_object_get_sg(obj, &obj->mm.get_page, n, offset);
++	return __i915_gem_object_get_sg(obj, &obj->mm.get_page, n, offset, allow_alloc);
  }
  
- static inline void
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
-index e84b279bfee6..1f729e63867c 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
-@@ -289,6 +289,7 @@ struct drm_i915_gem_object {
- 	unsigned long *bit_17;
+ static inline struct scatterlist *
+ i915_gem_object_get_sg_dma(struct drm_i915_gem_object *obj,
+ 			   unsigned int n,
+-			   unsigned int *offset)
++			   unsigned int *offset, bool allow_alloc)
+ {
+-	return __i915_gem_object_get_sg(obj, &obj->mm.get_dma_page, n, offset);
++	return __i915_gem_object_get_sg(obj, &obj->mm.get_dma_page, n, offset, allow_alloc);
+ }
  
- 	union {
-+#ifdef CONFIG_MMU_NOTIFIER
- 		struct i915_gem_userptr {
- 			uintptr_t ptr;
+ struct page *
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_pages.c b/drivers/gpu/drm/i915/gem/i915_gem_pages.c
+index 256e69f4eb5a..2e89ba5133eb 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_pages.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_pages.c
+@@ -457,7 +457,8 @@ struct scatterlist *
+ __i915_gem_object_get_sg(struct drm_i915_gem_object *obj,
+ 			 struct i915_gem_object_page_iter *iter,
+ 			 unsigned int n,
+-			 unsigned int *offset)
++			 unsigned int *offset,
++			 bool allow_alloc)
+ {
+ 	const bool dma = iter == &obj->mm.get_dma_page;
+ 	struct scatterlist *sg;
+@@ -479,6 +480,9 @@ __i915_gem_object_get_sg(struct drm_i915_gem_object *obj,
+ 	if (n < READ_ONCE(iter->sg_idx))
+ 		goto lookup;
  
-@@ -296,6 +297,7 @@ struct drm_i915_gem_object {
- 			struct i915_mmu_object *mmu_object;
- 			struct work_struct *work;
- 		} userptr;
-+#endif
- 
- 		unsigned long scratch;
- 		u64 encode;
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_userptr.c b/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
-index 3fd63fdd7466..a2b7f6db2f1a 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
-@@ -15,6 +15,8 @@
- #include "i915_gem_object.h"
- #include "i915_scatterlist.h"
- 
-+#if defined(CONFIG_MMU_NOTIFIER)
++	if (!allow_alloc)
++		goto manual_lookup;
 +
- struct i915_mm_struct {
- 	struct mm_struct *mm;
- 	struct drm_i915_private *i915;
-@@ -24,7 +26,6 @@ struct i915_mm_struct {
- 	struct rcu_work work;
- };
+ 	mutex_lock(&iter->lock);
  
--#if defined(CONFIG_MMU_NOTIFIER)
- #include <linux/interval_tree.h>
+ 	/* We prefer to reuse the last sg so that repeated lookup of this
+@@ -528,7 +532,16 @@ __i915_gem_object_get_sg(struct drm_i915_gem_object *obj,
+ 	if (unlikely(n < idx)) /* insertion completed by another thread */
+ 		goto lookup;
  
- struct i915_mmu_notifier {
-@@ -217,15 +218,11 @@ i915_mmu_notifier_find(struct i915_mm_struct *mm)
- }
- 
- static int
--i915_gem_userptr_init__mmu_notifier(struct drm_i915_gem_object *obj,
--				    unsigned flags)
-+i915_gem_userptr_init__mmu_notifier(struct drm_i915_gem_object *obj)
- {
- 	struct i915_mmu_notifier *mn;
- 	struct i915_mmu_object *mo;
- 
--	if (flags & I915_USERPTR_UNSYNCHRONIZED)
--		return capable(CAP_SYS_ADMIN) ? 0 : -EPERM;
--
- 	if (GEM_WARN_ON(!obj->userptr.mm))
- 		return -EINVAL;
- 
-@@ -258,38 +255,6 @@ i915_mmu_notifier_free(struct i915_mmu_notifier *mn,
- 	kfree(mn);
- }
- 
--#else
--
--static void
--__i915_gem_userptr_set_active(struct drm_i915_gem_object *obj, bool value)
--{
--}
--
--static void
--i915_gem_userptr_release__mmu_notifier(struct drm_i915_gem_object *obj)
--{
--}
--
--static int
--i915_gem_userptr_init__mmu_notifier(struct drm_i915_gem_object *obj,
--				    unsigned flags)
--{
--	if ((flags & I915_USERPTR_UNSYNCHRONIZED) == 0)
--		return -ENODEV;
--
--	if (!capable(CAP_SYS_ADMIN))
--		return -EPERM;
--
--	return 0;
--}
--
--static void
--i915_mmu_notifier_free(struct i915_mmu_notifier *mn,
--		       struct mm_struct *mm)
--{
--}
--
--#endif
- 
- static struct i915_mm_struct *
- __i915_mm_struct_find(struct drm_i915_private *i915, struct mm_struct *real)
-@@ -731,6 +696,8 @@ static const struct drm_i915_gem_object_ops i915_gem_userptr_ops = {
- 	.release = i915_gem_userptr_release,
- };
- 
-+#endif
+-	/* In case we failed to insert the entry into the radixtree, we need
++	goto manual_walk;
 +
- /*
-  * Creates a new mm object that wraps some normal memory from the process
-  * context - user memory.
-@@ -771,12 +738,12 @@ i915_gem_userptr_ioctl(struct drm_device *dev,
- 		       void *data,
- 		       struct drm_file *file)
++manual_lookup:
++	idx = 0;
++	sg = obj->mm.pages->sgl;
++	count = __sg_page_count(sg);
++
++manual_walk:
++	/*
++	 * In case we failed to insert the entry into the radixtree, we need
+ 	 * to look beyond the current sg.
+ 	 */
+ 	while (idx + count <= n) {
+@@ -575,7 +588,7 @@ i915_gem_object_get_page(struct drm_i915_gem_object *obj, unsigned int n)
+ 
+ 	GEM_BUG_ON(!i915_gem_object_has_struct_page(obj));
+ 
+-	sg = i915_gem_object_get_sg(obj, n, &offset);
++	sg = i915_gem_object_get_sg(obj, n, &offset, true);
+ 	return nth_page(sg_page(sg), offset);
+ }
+ 
+@@ -601,7 +614,7 @@ i915_gem_object_get_dma_address_len(struct drm_i915_gem_object *obj,
+ 	struct scatterlist *sg;
+ 	unsigned int offset;
+ 
+-	sg = i915_gem_object_get_sg_dma(obj, n, &offset);
++	sg = i915_gem_object_get_sg_dma(obj, n, &offset, true);
+ 
+ 	if (len)
+ 		*len = sg_dma_len(sg) - (offset << PAGE_SHIFT);
+diff --git a/drivers/gpu/drm/i915/gt/intel_ggtt.c b/drivers/gpu/drm/i915/gt/intel_ggtt.c
+index cf94525be2c1..60bd2c8ed8b0 100644
+--- a/drivers/gpu/drm/i915/gt/intel_ggtt.c
++++ b/drivers/gpu/drm/i915/gt/intel_ggtt.c
+@@ -1383,7 +1383,7 @@ intel_partial_pages(const struct i915_ggtt_view *view,
+ 	if (ret)
+ 		goto err_sg_alloc;
+ 
+-	iter = i915_gem_object_get_sg_dma(obj, view->partial.offset, &offset);
++	iter = i915_gem_object_get_sg_dma(obj, view->partial.offset, &offset, true);
+ 	GEM_BUG_ON(!iter);
+ 
+ 	sg = st->sgl;
+diff --git a/drivers/gpu/drm/i915/i915_cmd_parser.c b/drivers/gpu/drm/i915/i915_cmd_parser.c
+index 93265951fdbb..8883a7d4964f 100644
+--- a/drivers/gpu/drm/i915/i915_cmd_parser.c
++++ b/drivers/gpu/drm/i915/i915_cmd_parser.c
+@@ -1136,38 +1136,19 @@ find_reg(const struct intel_engine_cs *engine, u32 addr)
+ /* Returns a vmap'd pointer to dst_obj, which the caller must unmap */
+ static u32 *copy_batch(struct drm_i915_gem_object *dst_obj,
+ 		       struct drm_i915_gem_object *src_obj,
+-		       unsigned long offset, unsigned long length)
++		       unsigned long offset, unsigned long length,
++		       void *dst, const void *src)
  {
--	static struct lock_class_key lock_class;
-+	static struct lock_class_key __maybe_unused lock_class;
- 	struct drm_i915_private *dev_priv = to_i915(dev);
- 	struct drm_i915_gem_userptr *args = data;
--	struct drm_i915_gem_object *obj;
+-	bool needs_clflush;
+-	void *dst, *src;
 -	int ret;
--	u32 handle;
-+	struct drm_i915_gem_object __maybe_unused *obj;
-+	int __maybe_unused ret;
-+	u32 __maybe_unused handle;
+-
+-	dst = i915_gem_object_pin_map(dst_obj, I915_MAP_FORCE_WB);
+-	if (IS_ERR(dst))
+-		return dst;
+-
+-	ret = i915_gem_object_pin_pages(src_obj);
+-	if (ret) {
+-		i915_gem_object_unpin_map(dst_obj);
+-		return ERR_PTR(ret);
+-	}
+-
+-	needs_clflush =
++	bool needs_clflush =
+ 		!(src_obj->cache_coherent & I915_BO_CACHE_COHERENT_FOR_READ);
  
- 	if (!HAS_LLC(dev_priv) && !HAS_SNOOP(dev_priv)) {
- 		/* We cannot support coherent userptr objects on hw without
-@@ -815,6 +782,9 @@ i915_gem_userptr_ioctl(struct drm_device *dev,
- 	if (!access_ok((char __user *)(unsigned long)args->user_ptr, args->user_size))
- 		return -EFAULT;
+-	src = ERR_PTR(-ENODEV);
+-	if (needs_clflush && i915_has_memcpy_from_wc()) {
+-		src = i915_gem_object_pin_map(src_obj, I915_MAP_WC);
+-		if (!IS_ERR(src)) {
+-			i915_unaligned_memcpy_from_wc(dst,
+-						      src + offset,
+-						      length);
+-			i915_gem_object_unpin_map(src_obj);
+-		}
+-	}
+-	if (IS_ERR(src)) {
+-		unsigned long x, n;
++	if (src) {
++		GEM_BUG_ON(!needs_clflush);
++		i915_unaligned_memcpy_from_wc(dst, src + offset, length);
++	} else {
++		struct scatterlist *sg;
+ 		void *ptr;
++		unsigned int x, sg_ofs;
  
-+	if (args->flags & I915_USERPTR_UNSYNCHRONIZED)
-+		return -ENODEV;
-+
- 	if (args->flags & I915_USERPTR_READ_ONLY) {
  		/*
- 		 * On almost all of the older hw, we cannot tell the GPU that
-@@ -824,6 +794,7 @@ i915_gem_userptr_ioctl(struct drm_device *dev,
- 			return -ENODEV;
+ 		 * We can avoid clflushing partial cachelines before the write
+@@ -1183,23 +1164,32 @@ static u32 *copy_batch(struct drm_i915_gem_object *dst_obj,
+ 
+ 		ptr = dst;
+ 		x = offset_in_page(offset);
+-		for (n = offset >> PAGE_SHIFT; length; n++) {
+-			int len = min(length, PAGE_SIZE - x);
+-
+-			src = kmap_atomic(i915_gem_object_get_page(src_obj, n));
+-			if (needs_clflush)
+-				drm_clflush_virt_range(src + x, len);
+-			memcpy(ptr, src + x, len);
+-			kunmap_atomic(src);
+-
+-			ptr += len;
+-			length -= len;
+-			x = 0;
++
++		sg = i915_gem_object_get_sg(src_obj, offset >> PAGE_SHIFT, &sg_ofs, false);
++
++		while (length) {
++			unsigned long sg_max = sg->length >> PAGE_SHIFT;
++
++			for (; length && sg_ofs < sg_max; sg_ofs++) {
++				unsigned long len = min(length, PAGE_SIZE - x);
++				void *map;
++
++				map = kmap_atomic(nth_page(sg_page(sg), sg_ofs));
++				if (needs_clflush)
++					drm_clflush_virt_range(map + x, len);
++				memcpy(ptr, map + x, len);
++				kunmap_atomic(map);
++
++				ptr += len;
++				length -= len;
++				x = 0;
++			}
++
++			sg_ofs = 0;
++			sg = sg_next(sg);
+ 		}
  	}
  
-+#ifdef CONFIG_MMU_NOTIFIER
- 	obj = i915_gem_object_alloc();
- 	if (obj == NULL)
- 		return -ENOMEM;
-@@ -845,7 +816,7 @@ i915_gem_userptr_ioctl(struct drm_device *dev,
- 	 */
- 	ret = i915_gem_userptr_init__mm_struct(obj);
- 	if (ret == 0)
--		ret = i915_gem_userptr_init__mmu_notifier(obj, args->flags);
-+		ret = i915_gem_userptr_init__mmu_notifier(obj);
- 	if (ret == 0)
- 		ret = drm_gem_handle_create(file, &obj->base, &handle);
- 
-@@ -856,10 +827,14 @@ i915_gem_userptr_ioctl(struct drm_device *dev,
- 
- 	args->handle = handle;
- 	return 0;
-+#else
-+	return -ENODEV;
-+#endif
+-	i915_gem_object_unpin_pages(src_obj);
+-
+ 	/* dst_obj is returned with vmap pinned */
+ 	return dst;
  }
+@@ -1359,9 +1349,6 @@ static int check_bbstart(u32 *cmd, u32 offset, u32 length,
+ 	if (target_cmd_index == offset)
+ 		return 0;
  
- int i915_gem_init_userptr(struct drm_i915_private *dev_priv)
- {
-+#ifdef CONFIG_MMU_NOTIFIER
- 	spin_lock_init(&dev_priv->mm_lock);
- 	hash_init(dev_priv->mm_structs);
- 
-@@ -869,11 +844,14 @@ int i915_gem_init_userptr(struct drm_i915_private *dev_priv)
- 				0);
- 	if (!dev_priv->mm.userptr_wq)
- 		return -ENOMEM;
-+#endif
- 
+-	if (IS_ERR(jump_whitelist))
+-		return PTR_ERR(jump_whitelist);
+-
+ 	if (!test_bit(target_cmd_index, jump_whitelist)) {
+ 		DRM_DEBUG("CMD: BB_START to 0x%llx not a previously executed cmd\n",
+ 			  jump_target);
+@@ -1371,10 +1358,14 @@ static int check_bbstart(u32 *cmd, u32 offset, u32 length,
  	return 0;
  }
  
- void i915_gem_cleanup_userptr(struct drm_i915_private *dev_priv)
+-static unsigned long *alloc_whitelist(u32 batch_length)
++unsigned long *intel_engine_cmd_parser_alloc_jump_whitelist(u32 batch_length,
++							    bool trampoline)
  {
-+#ifdef CONFIG_MMU_NOTIFIER
- 	destroy_workqueue(dev_priv->mm.userptr_wq);
-+#endif
+ 	unsigned long *jmp;
+ 
++	if (trampoline)
++		return NULL;
++
+ 	/*
+ 	 * We expect batch_length to be less than 256KiB for known users,
+ 	 * i.e. we need at most an 8KiB bitmap allocation which should be
+@@ -1417,14 +1408,16 @@ int intel_engine_cmd_parser(struct intel_engine_cs *engine,
+ 			    unsigned long batch_offset,
+ 			    unsigned long batch_length,
+ 			    struct i915_vma *shadow,
+-			    bool trampoline)
++			    unsigned long *jump_whitelist,
++			    void *shadow_map,
++			    const void *batch_map)
+ {
+ 	u32 *cmd, *batch_end, offset = 0;
+ 	struct drm_i915_cmd_descriptor default_desc = noop_desc;
+ 	const struct drm_i915_cmd_descriptor *desc = &default_desc;
+-	unsigned long *jump_whitelist;
+ 	u64 batch_addr, shadow_addr;
+ 	int ret = 0;
++	bool trampoline = !jump_whitelist;
+ 
+ 	GEM_BUG_ON(!IS_ALIGNED(batch_offset, sizeof(*cmd)));
+ 	GEM_BUG_ON(!IS_ALIGNED(batch_length, sizeof(*cmd)));
+@@ -1432,16 +1425,8 @@ int intel_engine_cmd_parser(struct intel_engine_cs *engine,
+ 				     batch->size));
+ 	GEM_BUG_ON(!batch_length);
+ 
+-	cmd = copy_batch(shadow->obj, batch->obj, batch_offset, batch_length);
+-	if (IS_ERR(cmd)) {
+-		DRM_DEBUG("CMD: Failed to copy batch\n");
+-		return PTR_ERR(cmd);
+-	}
+-
+-	jump_whitelist = NULL;
+-	if (!trampoline)
+-		/* Defer failure until attempted use */
+-		jump_whitelist = alloc_whitelist(batch_length);
++	cmd = copy_batch(shadow->obj, batch->obj, batch_offset, batch_length,
++			 shadow_map, batch_map);
+ 
+ 	shadow_addr = gen8_canonical_addr(shadow->node.start);
+ 	batch_addr = gen8_canonical_addr(batch->node.start + batch_offset);
+@@ -1549,9 +1534,6 @@ int intel_engine_cmd_parser(struct intel_engine_cs *engine,
+ 		drm_clflush_virt_range(ptr, (void *)(cmd + 1) - ptr);
+ 	}
+ 
+-	if (!IS_ERR_OR_NULL(jump_whitelist))
+-		kfree(jump_whitelist);
+-	i915_gem_object_unpin_map(shadow->obj);
+ 	return ret;
  }
+ 
 diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index f519b072b21a..56636e72776b 100644
+index 9c2672c56cc1..f519b072b21a 100644
 --- a/drivers/gpu/drm/i915/i915_drv.h
 +++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -589,12 +589,14 @@ struct i915_gem_mm {
- 	struct notifier_block vmap_notifier;
- 	struct shrinker shrinker;
+@@ -1948,12 +1948,17 @@ const char *i915_cache_level_str(struct drm_i915_private *i915, int type);
+ int i915_cmd_parser_get_version(struct drm_i915_private *dev_priv);
+ void intel_engine_init_cmd_parser(struct intel_engine_cs *engine);
+ void intel_engine_cleanup_cmd_parser(struct intel_engine_cs *engine);
++unsigned long *intel_engine_cmd_parser_alloc_jump_whitelist(u32 batch_length,
++							    bool trampoline);
++
+ int intel_engine_cmd_parser(struct intel_engine_cs *engine,
+ 			    struct i915_vma *batch,
+ 			    unsigned long batch_offset,
+ 			    unsigned long batch_length,
+ 			    struct i915_vma *shadow,
+-			    bool trampoline);
++			    unsigned long *jump_whitelist,
++			    void *shadow_map,
++			    const void *batch_map);
+ #define I915_CMD_PARSER_TRAMPOLINE_SIZE 8
  
-+#ifdef CONFIG_MMU_NOTIFIER
- 	/**
- 	 * Workqueue to fault in userptr pages, flushed by the execbuf
- 	 * when required but otherwise left to userspace to try again
- 	 * on EAGAIN.
- 	 */
- 	struct workqueue_struct *userptr_wq;
-+#endif
+ /* intel_device_info.c */
+diff --git a/drivers/gpu/drm/i915/i915_memcpy.c b/drivers/gpu/drm/i915/i915_memcpy.c
+index 7b3b83bd5ab8..1b021a4902de 100644
+--- a/drivers/gpu/drm/i915/i915_memcpy.c
++++ b/drivers/gpu/drm/i915/i915_memcpy.c
+@@ -135,7 +135,7 @@ bool i915_memcpy_from_wc(void *dst, const void *src, unsigned long len)
+  * accepts that its arguments may not be aligned, but are valid for the
+  * potential 16-byte read past the end.
+  */
+-void i915_unaligned_memcpy_from_wc(void *dst, void *src, unsigned long len)
++void i915_unaligned_memcpy_from_wc(void *dst, const void *src, unsigned long len)
+ {
+ 	unsigned long addr;
  
- 	/* shrinker accounting, also useful for userland debugging */
- 	u64 shrink_memory;
+diff --git a/drivers/gpu/drm/i915/i915_memcpy.h b/drivers/gpu/drm/i915/i915_memcpy.h
+index e36d30edd987..3df063a3293b 100644
+--- a/drivers/gpu/drm/i915/i915_memcpy.h
++++ b/drivers/gpu/drm/i915/i915_memcpy.h
+@@ -13,7 +13,7 @@ struct drm_i915_private;
+ void i915_memcpy_init_early(struct drm_i915_private *i915);
+ 
+ bool i915_memcpy_from_wc(void *dst, const void *src, unsigned long len);
+-void i915_unaligned_memcpy_from_wc(void *dst, void *src, unsigned long len);
++void i915_unaligned_memcpy_from_wc(void *dst, const void *src, unsigned long len);
+ 
+ /* The movntdqa instructions used for memcpy-from-wc require 16-byte alignment,
+  * as well as SSE4.1 support. i915_memcpy_from_wc() will report if it cannot
 -- 
 2.28.0
 
