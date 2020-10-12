@@ -7,32 +7,32 @@ X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E549CC433DF
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Oct 2020 14:47:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C74F5C43457
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Oct 2020 14:47:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AC97E2067C
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Oct 2020 14:47:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AC97E2067C
+	by mail.kernel.org (Postfix) with ESMTPS id 94C132067C
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Oct 2020 14:47:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 94C132067C
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E91E86E4B3;
-	Mon, 12 Oct 2020 14:47:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B60166E4D7;
+	Mon, 12 Oct 2020 14:47:15 +0000 (UTC)
 Received: from mblankhorst.nl (mblankhorst.nl [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 30F266E4AD
- for <intel-gfx@lists.freedesktop.org>; Mon, 12 Oct 2020 14:47:12 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 593CF6E4AF
+ for <intel-gfx@lists.freedesktop.org>; Mon, 12 Oct 2020 14:47:13 +0000 (UTC)
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 12 Oct 2020 16:46:23 +0200
-Message-Id: <20201012144706.555345-19-maarten.lankhorst@linux.intel.com>
+Date: Mon, 12 Oct 2020 16:46:18 +0200
+Message-Id: <20201012144706.555345-14-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20201012144706.555345-1-maarten.lankhorst@linux.intel.com>
 References: <20201012144706.555345-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v2 18/61] drm/i915: Make ring submission
- compatible with obj->mm.lock removal, v2.
+Subject: [Intel-gfx] [PATCH v2 13/61] drm/i915: Reject UNSYNCHRONIZED for
+ userptr
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,299 +45,254 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dan Carpenter <dan.carpenter@oracle.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-We map the initial context during first pin.
-
-This allows us to remove pin_map from state allocation, which saves
-us a few retry loops. We won't need this until first pin anyway.
-
-intel_ring_submission_setup() is also reworked slightly to do all
-pinning in a single ww loop.
-
-Changes since v1:
-- Handle -EDEADLK backoff in intel_ring_submission_setup() better.
-- Handle smatch errors reported by Dan and testbot.
+We should not allow this any more, as it will break with the new userptr
+implementation, it could still be made to work, but there's no point in
+doing so.
 
 Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Reported-by: kernel test robot <lkp@intel.com>
-Reported-by: Dan Carpenter <dan.carpenter@oracle.com>
 ---
- .../gpu/drm/i915/gt/intel_ring_submission.c   | 184 +++++++++++-------
- 1 file changed, 118 insertions(+), 66 deletions(-)
+ .../gpu/drm/i915/gem/i915_gem_execbuffer.c    |  2 +
+ drivers/gpu/drm/i915/gem/i915_gem_object.h    |  4 ++
+ .../gpu/drm/i915/gem/i915_gem_object_types.h  |  2 +
+ drivers/gpu/drm/i915/gem/i915_gem_userptr.c   | 64 ++++++-------------
+ drivers/gpu/drm/i915/i915_drv.h               |  2 +
+ 5 files changed, 31 insertions(+), 43 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_ring_submission.c b/drivers/gpu/drm/i915/gt/intel_ring_submission.c
-index a41b43f445b8..6b280904db43 100644
---- a/drivers/gpu/drm/i915/gt/intel_ring_submission.c
-+++ b/drivers/gpu/drm/i915/gt/intel_ring_submission.c
-@@ -478,6 +478,26 @@ static void ring_context_destroy(struct kref *ref)
- 	intel_context_free(ce);
- }
- 
-+static int ring_context_init_default_state(struct intel_context *ce,
-+					   struct i915_gem_ww_ctx *ww)
-+{
-+	struct drm_i915_gem_object *obj = ce->state->obj;
-+	void *vaddr;
-+
-+	vaddr = i915_gem_object_pin_map(obj, I915_MAP_WB);
-+	if (IS_ERR(vaddr))
-+		return PTR_ERR(vaddr);
-+
-+	shmem_read(ce->engine->default_state, 0,
-+		   vaddr, ce->engine->context_size);
-+
-+	i915_gem_object_flush_map(obj);
-+	__i915_gem_object_release_map(obj);
-+
-+	__set_bit(CONTEXT_VALID_BIT, &ce->flags);
-+	return 0;
-+}
-+
- static int ring_context_pre_pin(struct intel_context *ce,
- 				struct i915_gem_ww_ctx *ww,
- 				void **unused)
-@@ -485,6 +505,13 @@ static int ring_context_pre_pin(struct intel_context *ce,
- 	struct i915_address_space *vm;
- 	int err = 0;
- 
-+	if (ce->engine->default_state &&
-+	    !test_bit(CONTEXT_VALID_BIT, &ce->flags)) {
-+		err = ring_context_init_default_state(ce, ww);
-+		if (err)
-+			return err;
-+	}
-+
- 	vm = vm_alias(ce->vm);
- 	if (vm)
- 		err = gen6_ppgtt_pin(i915_vm_to_ppgtt((vm)), ww);
-@@ -540,22 +567,6 @@ alloc_context_vma(struct intel_engine_cs *engine)
- 	if (IS_IVYBRIDGE(i915))
- 		i915_gem_object_set_cache_coherency(obj, I915_CACHE_L3_LLC);
- 
--	if (engine->default_state) {
--		void *vaddr;
--
--		vaddr = i915_gem_object_pin_map(obj, I915_MAP_WB);
--		if (IS_ERR(vaddr)) {
--			err = PTR_ERR(vaddr);
--			goto err_obj;
--		}
--
--		shmem_read(engine->default_state, 0,
--			   vaddr, engine->context_size);
--
--		i915_gem_object_flush_map(obj);
--		__i915_gem_object_release_map(obj);
--	}
--
- 	vma = i915_vma_instance(obj, &engine->gt->ggtt->vm, NULL);
- 	if (IS_ERR(vma)) {
- 		err = PTR_ERR(vma);
-@@ -587,8 +598,6 @@ static int ring_context_alloc(struct intel_context *ce)
- 			return PTR_ERR(vma);
- 
- 		ce->state = vma;
--		if (engine->default_state)
--			__set_bit(CONTEXT_VALID_BIT, &ce->flags);
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+index ea2242f1b5b8..c30fa5790a47 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+@@ -1966,8 +1966,10 @@ static noinline int eb_relocate_parse_slow(struct i915_execbuffer *eb,
+ 		err = 0;
  	}
  
- 	return 0;
-@@ -1184,37 +1193,15 @@ static int gen7_ctx_switch_bb_setup(struct intel_engine_cs * const engine,
- 	return gen7_setup_clear_gpr_bb(engine, vma);
++#ifdef CONFIG_MMU_NOTIFIER
+ 	if (!err)
+ 		flush_workqueue(eb->i915->mm.userptr_wq);
++#endif
+ 
+ err_relock:
+ 	i915_gem_ww_ctx_init(&eb->ww, true);
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.h b/drivers/gpu/drm/i915/gem/i915_gem_object.h
+index 436ff0d4951f..a3774e80aedd 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_object.h
++++ b/drivers/gpu/drm/i915/gem/i915_gem_object.h
+@@ -531,7 +531,11 @@ void __i915_gem_object_invalidate_frontbuffer(struct drm_i915_gem_object *obj,
+ static inline bool
+ i915_gem_object_is_userptr(struct drm_i915_gem_object *obj)
+ {
++#ifdef CONFIG_MMU_NOTIFIER
+ 	return obj->userptr.mm;
++#else
++	return false;
++#endif
  }
  
--static int gen7_ctx_switch_bb_init(struct intel_engine_cs *engine)
-+static int gen7_ctx_switch_bb_init(struct intel_engine_cs *engine,
-+				   struct i915_gem_ww_ctx *ww,
-+				   struct i915_vma *vma)
+ static inline void
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
+index e84b279bfee6..1f729e63867c 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
++++ b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
+@@ -289,6 +289,7 @@ struct drm_i915_gem_object {
+ 	unsigned long *bit_17;
+ 
+ 	union {
++#ifdef CONFIG_MMU_NOTIFIER
+ 		struct i915_gem_userptr {
+ 			uintptr_t ptr;
+ 
+@@ -296,6 +297,7 @@ struct drm_i915_gem_object {
+ 			struct i915_mmu_object *mmu_object;
+ 			struct work_struct *work;
+ 		} userptr;
++#endif
+ 
+ 		unsigned long scratch;
+ 		u64 encode;
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_userptr.c b/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
+index 3fd63fdd7466..a2b7f6db2f1a 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
+@@ -15,6 +15,8 @@
+ #include "i915_gem_object.h"
+ #include "i915_scatterlist.h"
+ 
++#if defined(CONFIG_MMU_NOTIFIER)
++
+ struct i915_mm_struct {
+ 	struct mm_struct *mm;
+ 	struct drm_i915_private *i915;
+@@ -24,7 +26,6 @@ struct i915_mm_struct {
+ 	struct rcu_work work;
+ };
+ 
+-#if defined(CONFIG_MMU_NOTIFIER)
+ #include <linux/interval_tree.h>
+ 
+ struct i915_mmu_notifier {
+@@ -217,15 +218,11 @@ i915_mmu_notifier_find(struct i915_mm_struct *mm)
+ }
+ 
+ static int
+-i915_gem_userptr_init__mmu_notifier(struct drm_i915_gem_object *obj,
+-				    unsigned flags)
++i915_gem_userptr_init__mmu_notifier(struct drm_i915_gem_object *obj)
  {
+ 	struct i915_mmu_notifier *mn;
+ 	struct i915_mmu_object *mo;
+ 
+-	if (flags & I915_USERPTR_UNSYNCHRONIZED)
+-		return capable(CAP_SYS_ADMIN) ? 0 : -EPERM;
+-
+ 	if (GEM_WARN_ON(!obj->userptr.mm))
+ 		return -EINVAL;
+ 
+@@ -258,38 +255,6 @@ i915_mmu_notifier_free(struct i915_mmu_notifier *mn,
+ 	kfree(mn);
+ }
+ 
+-#else
+-
+-static void
+-__i915_gem_userptr_set_active(struct drm_i915_gem_object *obj, bool value)
+-{
+-}
+-
+-static void
+-i915_gem_userptr_release__mmu_notifier(struct drm_i915_gem_object *obj)
+-{
+-}
+-
+-static int
+-i915_gem_userptr_init__mmu_notifier(struct drm_i915_gem_object *obj,
+-				    unsigned flags)
+-{
+-	if ((flags & I915_USERPTR_UNSYNCHRONIZED) == 0)
+-		return -ENODEV;
+-
+-	if (!capable(CAP_SYS_ADMIN))
+-		return -EPERM;
+-
+-	return 0;
+-}
+-
+-static void
+-i915_mmu_notifier_free(struct i915_mmu_notifier *mn,
+-		       struct mm_struct *mm)
+-{
+-}
+-
+-#endif
+ 
+ static struct i915_mm_struct *
+ __i915_mm_struct_find(struct drm_i915_private *i915, struct mm_struct *real)
+@@ -731,6 +696,8 @@ static const struct drm_i915_gem_object_ops i915_gem_userptr_ops = {
+ 	.release = i915_gem_userptr_release,
+ };
+ 
++#endif
++
+ /*
+  * Creates a new mm object that wraps some normal memory from the process
+  * context - user memory.
+@@ -771,12 +738,12 @@ i915_gem_userptr_ioctl(struct drm_device *dev,
+ 		       void *data,
+ 		       struct drm_file *file)
+ {
+-	static struct lock_class_key lock_class;
++	static struct lock_class_key __maybe_unused lock_class;
+ 	struct drm_i915_private *dev_priv = to_i915(dev);
+ 	struct drm_i915_gem_userptr *args = data;
 -	struct drm_i915_gem_object *obj;
--	struct i915_vma *vma;
--	int size;
- 	int err;
+-	int ret;
+-	u32 handle;
++	struct drm_i915_gem_object __maybe_unused *obj;
++	int __maybe_unused ret;
++	u32 __maybe_unused handle;
  
--	size = gen7_ctx_switch_bb_setup(engine, NULL /* probe size */);
--	if (size <= 0)
--		return size;
--
--	size = ALIGN(size, PAGE_SIZE);
--	obj = i915_gem_object_create_internal(engine->i915, size);
--	if (IS_ERR(obj))
--		return PTR_ERR(obj);
--
--	vma = i915_vma_instance(obj, engine->gt->vm, NULL);
--	if (IS_ERR(vma)) {
--		err = PTR_ERR(vma);
--		goto err_obj;
--	}
--
--	vma->private = intel_context_create(engine); /* dummy residuals */
--	if (IS_ERR(vma->private)) {
--		err = PTR_ERR(vma->private);
--		goto err_obj;
--	}
--
--	err = i915_vma_pin(vma, 0, 0, PIN_USER | PIN_HIGH);
-+	err = i915_vma_pin_ww(vma, ww, 0, 0, PIN_USER | PIN_HIGH);
- 	if (err)
--		goto err_private;
-+		return err;
+ 	if (!HAS_LLC(dev_priv) && !HAS_SNOOP(dev_priv)) {
+ 		/* We cannot support coherent userptr objects on hw without
+@@ -815,6 +782,9 @@ i915_gem_userptr_ioctl(struct drm_device *dev,
+ 	if (!access_ok((char __user *)(unsigned long)args->user_ptr, args->user_size))
+ 		return -EFAULT;
  
- 	err = i915_vma_sync(vma);
- 	if (err)
-@@ -1229,17 +1216,53 @@ static int gen7_ctx_switch_bb_init(struct intel_engine_cs *engine)
++	if (args->flags & I915_USERPTR_UNSYNCHRONIZED)
++		return -ENODEV;
++
+ 	if (args->flags & I915_USERPTR_READ_ONLY) {
+ 		/*
+ 		 * On almost all of the older hw, we cannot tell the GPU that
+@@ -824,6 +794,7 @@ i915_gem_userptr_ioctl(struct drm_device *dev,
+ 			return -ENODEV;
+ 	}
  
- err_unpin:
- 	i915_vma_unpin(vma);
--err_private:
--	intel_context_put(vma->private);
--err_obj:
--	i915_gem_object_put(obj);
- 	return err;
++#ifdef CONFIG_MMU_NOTIFIER
+ 	obj = i915_gem_object_alloc();
+ 	if (obj == NULL)
+ 		return -ENOMEM;
+@@ -845,7 +816,7 @@ i915_gem_userptr_ioctl(struct drm_device *dev,
+ 	 */
+ 	ret = i915_gem_userptr_init__mm_struct(obj);
+ 	if (ret == 0)
+-		ret = i915_gem_userptr_init__mmu_notifier(obj, args->flags);
++		ret = i915_gem_userptr_init__mmu_notifier(obj);
+ 	if (ret == 0)
+ 		ret = drm_gem_handle_create(file, &obj->base, &handle);
+ 
+@@ -856,10 +827,14 @@ i915_gem_userptr_ioctl(struct drm_device *dev,
+ 
+ 	args->handle = handle;
+ 	return 0;
++#else
++	return -ENODEV;
++#endif
  }
  
-+static struct i915_vma *gen7_ctx_vma(struct intel_engine_cs *engine)
-+{
-+	struct drm_i915_gem_object *obj;
-+	struct i915_vma *vma;
-+	int size, err;
-+
-+	if (!IS_HASWELL(engine->i915) || engine->class != RENDER_CLASS)
-+		return 0;
-+
-+	err = gen7_ctx_switch_bb_setup(engine, NULL /* probe size */);
-+	if (err < 0)
-+		return ERR_PTR(err);
-+	if (!err)
-+		return NULL;
-+
-+	size = ALIGN(err, PAGE_SIZE);
-+
-+	obj = i915_gem_object_create_internal(engine->i915, size);
-+	if (IS_ERR(obj))
-+		return ERR_CAST(obj);
-+
-+	vma = i915_vma_instance(obj, engine->gt->vm, NULL);
-+	if (IS_ERR(vma)) {
-+		i915_gem_object_put(obj);
-+		return ERR_CAST(vma);
-+	}
-+
-+	vma->private = intel_context_create(engine); /* dummy residuals */
-+	if (IS_ERR(vma->private)) {
-+		err = PTR_ERR(vma->private);
-+		vma->private = NULL;
-+		i915_gem_object_put(obj);
-+		return ERR_PTR(err);
-+	}
-+
-+	return vma;
-+}
-+
- int intel_ring_submission_setup(struct intel_engine_cs *engine)
+ int i915_gem_init_userptr(struct drm_i915_private *dev_priv)
  {
-+	struct i915_gem_ww_ctx ww;
- 	struct intel_timeline *timeline;
- 	struct intel_ring *ring;
-+	struct i915_vma *gen7_wa_vma;
- 	int err;
++#ifdef CONFIG_MMU_NOTIFIER
+ 	spin_lock_init(&dev_priv->mm_lock);
+ 	hash_init(dev_priv->mm_structs);
  
- 	setup_common(engine);
-@@ -1270,43 +1293,72 @@ int intel_ring_submission_setup(struct intel_engine_cs *engine)
- 	}
- 	GEM_BUG_ON(timeline->has_initial_breadcrumb);
- 
--	err = intel_timeline_pin(timeline, NULL);
--	if (err)
--		goto err_timeline;
--
- 	ring = intel_engine_create_ring(engine, SZ_16K);
- 	if (IS_ERR(ring)) {
- 		err = PTR_ERR(ring);
--		goto err_timeline_unpin;
-+		goto err_timeline;
- 	}
- 
--	err = intel_ring_pin(ring, NULL);
--	if (err)
--		goto err_ring;
--
- 	GEM_BUG_ON(engine->legacy.ring);
- 	engine->legacy.ring = ring;
- 	engine->legacy.timeline = timeline;
- 
--	GEM_BUG_ON(timeline->hwsp_ggtt != engine->status_page.vma);
-+	gen7_wa_vma = gen7_ctx_vma(engine);
-+	if (IS_ERR(gen7_wa_vma)) {
-+		err = PTR_ERR(gen7_wa_vma);
-+		goto err_ring;
-+	}
- 
--	if (IS_HASWELL(engine->i915) && engine->class == RENDER_CLASS) {
--		err = gen7_ctx_switch_bb_init(engine);
-+	i915_gem_ww_ctx_init(&ww, false);
-+
-+retry:
-+	err = i915_gem_object_lock(timeline->hwsp_ggtt->obj, &ww);
-+	if (!err && gen7_wa_vma)
-+		err = i915_gem_object_lock(gen7_wa_vma->obj, &ww);
-+	if (!err && engine->legacy.ring->vma->obj)
-+		err = i915_gem_object_lock(engine->legacy.ring->vma->obj, &ww);
-+	if (!err)
-+		err = intel_timeline_pin(timeline, &ww);
-+	if (!err) {
-+		err = intel_ring_pin(ring, &ww);
- 		if (err)
--			goto err_ring_unpin;
-+			intel_timeline_unpin(timeline);
- 	}
-+	if (err)
-+		goto out;
-+
-+	GEM_BUG_ON(timeline->hwsp_ggtt != engine->status_page.vma);
-+
-+	if (gen7_wa_vma) {
-+		err = gen7_ctx_switch_bb_init(engine, &ww, gen7_wa_vma);
-+		if (err) {
-+			intel_ring_unpin(ring);
-+			intel_timeline_unpin(timeline);
-+		}
-+	}
-+
-+out:
-+	if (err == -EDEADLK) {
-+		err = i915_gem_ww_ctx_backoff(&ww);
-+		if (!err)
-+			goto retry;
-+	}
-+	i915_gem_ww_ctx_fini(&ww);
-+	if (err)
-+		goto err_gen7_put;
- 
- 	/* Finally, take ownership and responsibility for cleanup! */
- 	engine->release = ring_release;
+@@ -869,11 +844,14 @@ int i915_gem_init_userptr(struct drm_i915_private *dev_priv)
+ 				0);
+ 	if (!dev_priv->mm.userptr_wq)
+ 		return -ENOMEM;
++#endif
  
  	return 0;
+ }
  
--err_ring_unpin:
--	intel_ring_unpin(ring);
-+err_gen7_put:
-+	if (gen7_wa_vma) {
-+		intel_context_put(gen7_wa_vma->private);
-+		i915_gem_object_put(gen7_wa_vma->obj);
-+	}
- err_ring:
- 	intel_ring_put(ring);
--err_timeline_unpin:
--	intel_timeline_unpin(timeline);
- err_timeline:
- 	intel_timeline_put(timeline);
- err:
+ void i915_gem_cleanup_userptr(struct drm_i915_private *dev_priv)
+ {
++#ifdef CONFIG_MMU_NOTIFIER
+ 	destroy_workqueue(dev_priv->mm.userptr_wq);
++#endif
+ }
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index f519b072b21a..56636e72776b 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -589,12 +589,14 @@ struct i915_gem_mm {
+ 	struct notifier_block vmap_notifier;
+ 	struct shrinker shrinker;
+ 
++#ifdef CONFIG_MMU_NOTIFIER
+ 	/**
+ 	 * Workqueue to fault in userptr pages, flushed by the execbuf
+ 	 * when required but otherwise left to userspace to try again
+ 	 * on EAGAIN.
+ 	 */
+ 	struct workqueue_struct *userptr_wq;
++#endif
+ 
+ 	/* shrinker accounting, also useful for userland debugging */
+ 	u64 shrink_memory;
 -- 
 2.28.0
 
