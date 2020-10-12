@@ -2,67 +2,40 @@ Return-Path: <SRS0=uIVS=DT=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	NICE_REPLY_A,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 42152C433E7
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Oct 2020 16:01:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 76F84C43467
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Oct 2020 16:01:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E4AC52076E
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Oct 2020 16:01:08 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=nvidia.com header.i=@nvidia.com header.b="edx7xet+"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E4AC52076E
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=nvidia.com
+	by mail.kernel.org (Postfix) with ESMTPS id 1A7542074A
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Oct 2020 16:01:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1A7542074A
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=crapouillou.net
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C6E916E525;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E40046E51C;
 	Mon, 12 Oct 2020 16:01:03 +0000 (UTC)
-Received: from hqnvemgate24.nvidia.com (hqnvemgate24.nvidia.com
- [216.228.121.143])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D8F876EE69;
- Sat, 10 Oct 2020 02:53:12 +0000 (UTC)
-Received: from hqmail.nvidia.com (Not Verified[216.228.121.13]) by
- hqnvemgate24.nvidia.com (using TLS: TLSv1.2, AES256-SHA)
- id <B5f8121a50000>; Fri, 09 Oct 2020 19:51:17 -0700
-Received: from [10.2.51.144] (10.124.1.5) by HQMAIL107.nvidia.com
- (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Sat, 10 Oct
- 2020 02:53:07 +0000
-To: <ira.weiny@intel.com>, Andrew Morton <akpm@linux-foundation.org>, "Thomas
- Gleixner" <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, "Borislav
- Petkov" <bp@alien8.de>, Andy Lutomirski <luto@kernel.org>, Peter Zijlstra
- <peterz@infradead.org>
-References: <20201009195033.3208459-1-ira.weiny@intel.com>
- <20201009195033.3208459-58-ira.weiny@intel.com>
-From: John Hubbard <jhubbard@nvidia.com>
-Message-ID: <bd3f5ece-0e7b-4c15-abbc-1b3b943334dc@nvidia.com>
-Date: Fri, 9 Oct 2020 19:53:07 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+X-Greylist: delayed 393 seconds by postgrey-1.36 at gabe;
+ Mon, 12 Oct 2020 10:22:17 UTC
+Received: from aposti.net (aposti.net [89.234.176.197])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BAB386E249
+ for <intel-gfx@lists.freedesktop.org>; Mon, 12 Oct 2020 10:22:17 +0000 (UTC)
+Date: Mon, 12 Oct 2020 12:15:31 +0200
+From: Paul Cercueil <paul@crapouillou.net>
+To: Stephen Rothwell <sfr@canb.auug.org.au>
+Message-Id: <V533IQ.G4C1EIUTGQYU3@crapouillou.net>
+In-Reply-To: <20201012152452.432c4867@canb.auug.org.au>
+References: <20201008140903.12a411b8@canb.auug.org.au>
+ <20201008154202.175fbec7@canb.auug.org.au>
+ <20201012152452.432c4867@canb.auug.org.au>
 MIME-Version: 1.0
-In-Reply-To: <20201009195033.3208459-58-ira.weiny@intel.com>
-Content-Language: en-US
-X-Originating-IP: [10.124.1.5]
-X-ClientProxiedBy: HQMAIL105.nvidia.com (172.20.187.12) To
- HQMAIL107.nvidia.com (172.20.187.13)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
- t=1602298277; bh=hKwlK3WolBLUufkeWDHCi6j+X4NXa8gQFiKyGjbOY3s=;
- h=Subject:To:CC:References:From:Message-ID:Date:User-Agent:
- MIME-Version:In-Reply-To:Content-Type:Content-Language:
- Content-Transfer-Encoding:X-Originating-IP:X-ClientProxiedBy;
- b=edx7xet+HWktPTMH7LfazMaeZj84i5/Le7BE3m/9xNKYA9bmh246jZEvn48F/uMcW
- RRn8BggXdwK6EgYw84fvX6LW3WH/wQjijcVtcfekd8K6KkJdzgyiWWhhWRHsAgsUWu
- ErO3rgTi0L/NWozRhmjxim3aejVQ7k0j+Xmczu6ahvjgHQEdG1f6IxukspiHHh4eDZ
- vXW13vRjbU9kKvq3xSMRRweChxuwg1Gt9UWgcBiwICYzh7lbhEKe0zR7+e8y/8iSgu
- 9o2Hr0ioZGbS1OLU7+SDtKlkAPg/fZiUxFefl5DnOwU2H5+VRhK6GCiKvAXlVbpTMd
- H8SS1utYxNiTQ==
 X-Mailman-Approved-At: Mon, 12 Oct 2020 16:01:02 +0000
-Subject: Re: [Intel-gfx] [PATCH RFC PKS/PMEM 57/58] nvdimm/pmem: Stray
- access protection for pmem->virt_addr
+Subject: Re: [Intel-gfx] linux-next: build failure after merge of the
+ drm-misc tree
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,77 +48,246 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-aio@kvack.org, linux-efi@vger.kernel.org, kvm@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-mmc@vger.kernel.org,
- Dave Hansen <dave.hansen@linux.intel.com>, dri-devel@lists.freedesktop.org,
- linux-mm@kvack.org, target-devel@vger.kernel.org,
- linux-mtd@lists.infradead.org, linux-kselftest@vger.kernel.org,
- samba-technical@lists.samba.org, ceph-devel@vger.kernel.org,
- drbd-dev@lists.linbit.com, devel@driverdev.osuosl.org,
- linux-cifs@vger.kernel.org, linux-nilfs@vger.kernel.org,
- linux-scsi@vger.kernel.org, linux-nvdimm@lists.01.org,
- linux-rdma@vger.kernel.org, x86@kernel.org, amd-gfx@lists.freedesktop.org,
- linux-afs@lists.infradead.org, cluster-devel@redhat.com,
- linux-cachefs@redhat.com, intel-wired-lan@lists.osuosl.org,
- xen-devel@lists.xenproject.org, linux-ext4@vger.kernel.org,
- Fenghua Yu <fenghua.yu@intel.com>, linux-um@lists.infradead.org,
- intel-gfx@lists.freedesktop.org, ecryptfs@vger.kernel.org,
- linux-erofs@lists.ozlabs.org, reiserfs-devel@vger.kernel.org,
- linux-block@vger.kernel.org, linux-bcache@vger.kernel.org,
- Dan Williams <dan.j.williams@intel.com>, io-uring@vger.kernel.org,
- linux-nfs@vger.kernel.org, linux-ntfs-dev@lists.sourceforge.net,
- netdev@vger.kernel.org, kexec@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
- linux-fsdevel@vger.kernel.org, bpf@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, linux-btrfs@vger.kernel.org
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Cc: Dave Airlie <airlied@linux.ie>, Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Intel Graphics <intel-gfx@lists.freedesktop.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ DRI <dri-devel@lists.freedesktop.org>, linux-next@vger.kernel.org,
+ Sam Ravnborg <sam@ravnborg.org>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="iso-8859-1"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 10/9/20 12:50 PM, ira.weiny@intel.com wrote:
-> From: Ira Weiny <ira.weiny@intel.com>
-> 
-> The pmem driver uses a cached virtual address to access its memory
-> directly.  Because the nvdimm driver is well aware of the special
-> protections it has mapped memory with, we call dev_access_[en|dis]able()
-> around the direct pmem->virt_addr (pmem_addr) usage instead of the
-> unnecessary overhead of trying to get a page to kmap.
-> 
-> Signed-off-by: Ira Weiny <ira.weiny@intel.com>
-> ---
->   drivers/nvdimm/pmem.c | 4 ++++
->   1 file changed, 4 insertions(+)
-> 
-> diff --git a/drivers/nvdimm/pmem.c b/drivers/nvdimm/pmem.c
-> index fab29b514372..e4dc1ae990fc 100644
-> --- a/drivers/nvdimm/pmem.c
-> +++ b/drivers/nvdimm/pmem.c
-> @@ -148,7 +148,9 @@ static blk_status_t pmem_do_read(struct pmem_device *pmem,
->   	if (unlikely(is_bad_pmem(&pmem->bb, sector, len)))
->   		return BLK_STS_IOERR;
->   
-> +	dev_access_enable(false);
->   	rc = read_pmem(page, page_off, pmem_addr, len);
-> +	dev_access_disable(false);
+Hi Stephen,
 
-Hi Ira!
+Le lun. 12 oct. 2020 =E0 15:24, Stephen Rothwell <sfr@canb.auug.org.au> =
 
-The APIs should be tweaked to use a symbol (GLOBAL, PER_THREAD), instead of
-true/false. Try reading the above and you'll see that it sounds like it's
-doing the opposite of what it is ("enable_this(false)" sounds like a clumsy
-API design to *disable*, right?). And there is no hint about the scope.
+a =E9crit :
+> Hi all,
+> =
 
-And it *could* be so much more readable like this:
+> On Thu, 8 Oct 2020 15:42:02 +1100 Stephen Rothwell =
 
-     dev_access_enable(DEV_ACCESS_THIS_THREAD);
+> <sfr@canb.auug.org.au> wrote:
+>> =
+
+>>  On Thu, 8 Oct 2020 14:09:03 +1100 Stephen Rothwell =
+
+>> <sfr@canb.auug.org.au> wrote:
+>>  >
+>>  > After merging the drm-misc tree, today's linux-next build (x86_64
+>>  > allmodconfig) failed like this:
+>> =
+
+>>  In file included from include/linux/clk.h:13,
+>>                   from drivers/gpu/drm/ingenic/ingenic-drm-drv.c:10:
+>>  drivers/gpu/drm/ingenic/ingenic-drm-drv.c: In function =
+
+>> 'ingenic_drm_update_palette':
+>>  drivers/gpu/drm/ingenic/ingenic-drm-drv.c:448:35: error: 'struct =
+
+>> ingenic_drm' has no member named 'dma_hwdescs'; did you mean =
+
+>> 'dma_hwdesc_f0'?
+>>    448 |  for (i =3D 0; i < ARRAY_SIZE(priv->dma_hwdescs->palette); =
+
+>> i++) {
+>>        |                                   ^~~~~~~~~~~
+>>  include/linux/kernel.h:47:33: note: in definition of macro =
+
+>> 'ARRAY_SIZE'
+>>     47 | #define ARRAY_SIZE(arr) (sizeof(arr) / sizeof((arr)[0]) + =
+
+>> __must_be_array(arr))
+>>        |                                 ^~~
+>>  drivers/gpu/drm/ingenic/ingenic-drm-drv.c:448:35: error: 'struct =
+
+>> ingenic_drm' has no member named 'dma_hwdescs'; did you mean =
+
+>> 'dma_hwdesc_f0'?
+>>    448 |  for (i =3D 0; i < ARRAY_SIZE(priv->dma_hwdescs->palette); =
+
+>> i++) {
+>>        |                                   ^~~~~~~~~~~
+>>  include/linux/kernel.h:47:48: note: in definition of macro =
+
+>> 'ARRAY_SIZE'
+>>     47 | #define ARRAY_SIZE(arr) (sizeof(arr) / sizeof((arr)[0]) + =
+
+>> __must_be_array(arr))
+>>        |                                                ^~~
+>>  In file included from include/linux/bits.h:22,
+>>                   from include/linux/bitops.h:5,
+>>                   from drivers/gpu/drm/ingenic/ingenic-drm.h:10,
+>>                   from drivers/gpu/drm/ingenic/ingenic-drm-drv.c:7:
+>>  drivers/gpu/drm/ingenic/ingenic-drm-drv.c:448:35: error: 'struct =
+
+>> ingenic_drm' has no member named 'dma_hwdescs'; did you mean =
+
+>> 'dma_hwdesc_f0'?
+>>    448 |  for (i =3D 0; i < ARRAY_SIZE(priv->dma_hwdescs->palette); =
+
+>> i++) {
+>>        |                                   ^~~~~~~~~~~
+>>  include/linux/build_bug.h:16:62: note: in definition of macro =
+
+>> 'BUILD_BUG_ON_ZERO'
+>>     16 | #define BUILD_BUG_ON_ZERO(e) ((int)(sizeof(struct { =
+
+>> int:(-!!(e)); })))
+>>        |                                                             =
+
+>>  ^
+>>  include/linux/compiler.h:224:46: note: in expansion of macro =
+
+>> '__same_type'
+>>    224 | #define __must_be_array(a) =
+
+>> BUILD_BUG_ON_ZERO(__same_type((a), &(a)[0]))
+>>        |                                              ^~~~~~~~~~~
+>>  include/linux/kernel.h:47:59: note: in expansion of macro =
+
+>> '__must_be_array'
+>>     47 | #define ARRAY_SIZE(arr) (sizeof(arr) / sizeof((arr)[0]) + =
+
+>> __must_be_array(arr))
+>>        |                                                           =
+
+>> ^~~~~~~~~~~~~~~
+>>  drivers/gpu/drm/ingenic/ingenic-drm-drv.c:448:18: note: in =
+
+>> expansion of macro 'ARRAY_SIZE'
+>>    448 |  for (i =3D 0; i < ARRAY_SIZE(priv->dma_hwdescs->palette); =
+
+>> i++) {
+>>        |                  ^~~~~~~~~~
+>>  drivers/gpu/drm/ingenic/ingenic-drm-drv.c:448:35: error: 'struct =
+
+>> ingenic_drm' has no member named 'dma_hwdescs'; did you mean =
+
+>> 'dma_hwdesc_f0'?
+>>    448 |  for (i =3D 0; i < ARRAY_SIZE(priv->dma_hwdescs->palette); =
+
+>> i++) {
+>>        |                                   ^~~~~~~~~~~
+>>  include/linux/build_bug.h:16:62: note: in definition of macro =
+
+>> 'BUILD_BUG_ON_ZERO'
+>>     16 | #define BUILD_BUG_ON_ZERO(e) ((int)(sizeof(struct { =
+
+>> int:(-!!(e)); })))
+>>        |                                                             =
+
+>>  ^
+>>  include/linux/compiler.h:224:46: note: in expansion of macro =
+
+>> '__same_type'
+>>    224 | #define __must_be_array(a) =
+
+>> BUILD_BUG_ON_ZERO(__same_type((a), &(a)[0]))
+>>        |                                              ^~~~~~~~~~~
+>>  include/linux/kernel.h:47:59: note: in expansion of macro =
+
+>> '__must_be_array'
+>>     47 | #define ARRAY_SIZE(arr) (sizeof(arr) / sizeof((arr)[0]) + =
+
+>> __must_be_array(arr))
+>>        |                                                           =
+
+>> ^~~~~~~~~~~~~~~
+>>  drivers/gpu/drm/ingenic/ingenic-drm-drv.c:448:18: note: in =
+
+>> expansion of macro 'ARRAY_SIZE'
+>>    448 |  for (i =3D 0; i < ARRAY_SIZE(priv->dma_hwdescs->palette); =
+
+>> i++) {
+>>        |                  ^~~~~~~~~~
+>>  include/linux/build_bug.h:16:51: error: bit-field '<anonymous>' =
+
+>> width not an integer constant
+>>     16 | #define BUILD_BUG_ON_ZERO(e) ((int)(sizeof(struct { =
+
+>> int:(-!!(e)); })))
+>>        |                                                   ^
+>>  include/linux/compiler.h:224:28: note: in expansion of macro =
+
+>> 'BUILD_BUG_ON_ZERO'
+>>    224 | #define __must_be_array(a) =
+
+>> BUILD_BUG_ON_ZERO(__same_type((a), &(a)[0]))
+>>        |                            ^~~~~~~~~~~~~~~~~
+>>  include/linux/kernel.h:47:59: note: in expansion of macro =
+
+>> '__must_be_array'
+>>     47 | #define ARRAY_SIZE(arr) (sizeof(arr) / sizeof((arr)[0]) + =
+
+>> __must_be_array(arr))
+>>        |                                                           =
+
+>> ^~~~~~~~~~~~~~~
+>>  drivers/gpu/drm/ingenic/ingenic-drm-drv.c:448:18: note: in =
+
+>> expansion of macro 'ARRAY_SIZE'
+>>    448 |  for (i =3D 0; i < ARRAY_SIZE(priv->dma_hwdescs->palette); =
+
+>> i++) {
+>>        |                  ^~~~~~~~~~
+>>  drivers/gpu/drm/ingenic/ingenic-drm-drv.c:453:9: error: 'struct =
+
+>> ingenic_drm' has no member named 'dma_hwdescs'; did you mean =
+
+>> 'dma_hwdesc_f0'?
+>>    453 |   priv->dma_hwdescs->palette[i] =3D color;
+>>        |         ^~~~~~~~~~~
+>>        |         dma_hwdesc_f0
+>>  drivers/gpu/drm/ingenic/ingenic-drm-drv.c: In function =
+
+>> 'ingenic_drm_plane_atomic_update':
+>>  drivers/gpu/drm/ingenic/ingenic-drm-drv.c:467:3: error: =
+
+>> 'crtc_state' undeclared (first use in this function); did you mean =
+
+>> 'ctx_state'?
+>>    467 |   crtc_state =3D state->crtc->state;
+>>        |   ^~~~~~~~~~
+>>        |   ctx_state
+>>  drivers/gpu/drm/ingenic/ingenic-drm-drv.c:467:3: note: each =
+
+>> undeclared identifier is reported only once for each function it =
+
+>> appears in
+>>  At top level:
+>>  drivers/gpu/drm/ingenic/ingenic-drm-drv.c:443:13: warning: =
+
+>> 'ingenic_drm_update_palette' defined but not used [-Wunused-function]
+>>    443 | static void ingenic_drm_update_palette(struct ingenic_drm =
+
+>> *priv,
+>>        |             ^~~~~~~~~~~~~~~~~~~~~~~~~~
+>> =
+
+>>  > I noticed that the ingenic driver revert I had been waiting for =
+
+>> appeared
+>>  > in hte drm-misc tree, so I removed the BROKEN dependency for it, =
+
+>> but it
+>>  > produced the above errors, so I have marked it BROKEN again.
+> =
+
+> Any progress on this?  I am still marking CONFIG_DRM_INGENIC as BROKEN
+> in the drm and drm-misc trees.
+
+Ugh, that doesn't look good. I'll send a fix ASAP.
+
+(I was having email problems last week and the original email bounced, =
+
+sorry about that)
+
+Cheers,
+-Paul
 
 
-
-thanks,
--- 
-John Hubbard
-NVIDIA
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
