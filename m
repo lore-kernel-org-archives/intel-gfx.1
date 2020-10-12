@@ -2,37 +2,37 @@ Return-Path: <SRS0=uIVS=DT=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.9 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F1FACC433DF
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Oct 2020 14:47:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D16E1C433E7
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Oct 2020 14:47:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C4EE92067C
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Oct 2020 14:47:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C4EE92067C
+	by mail.kernel.org (Postfix) with ESMTPS id 9E3842080A
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Oct 2020 14:47:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9E3842080A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D7A36E503;
-	Mon, 12 Oct 2020 14:47:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 27EF76E4AB;
+	Mon, 12 Oct 2020 14:47:28 +0000 (UTC)
 Received: from mblankhorst.nl (mblankhorst.nl [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 41CB46E4AB
- for <intel-gfx@lists.freedesktop.org>; Mon, 12 Oct 2020 14:47:13 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E69A6E4EA
+ for <intel-gfx@lists.freedesktop.org>; Mon, 12 Oct 2020 14:47:14 +0000 (UTC)
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 12 Oct 2020 16:46:30 +0200
-Message-Id: <20201012144706.555345-26-maarten.lankhorst@linux.intel.com>
+Date: Mon, 12 Oct 2020 16:46:45 +0200
+Message-Id: <20201012144706.555345-41-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20201012144706.555345-1-maarten.lankhorst@linux.intel.com>
 References: <20201012144706.555345-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v2 25/61] drm/i915: Make
- intel_init_workaround_bb more compatible with ww locking.
+Subject: [Intel-gfx] [PATCH v2 40/61] drm/i915/selftests: Prepare huge_pages
+ testcases for obj->mm.lock removal.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,118 +50,155 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Make creation separate from pinning, in order to take the lock only
-once, and pin the mapping with the lock held.
+Straightforward conversion, just convert a bunch of calls to
+unlocked versions.
 
 Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_lrc.c | 43 ++++++++++++++++++++++-------
- 1 file changed, 33 insertions(+), 10 deletions(-)
+ .../gpu/drm/i915/gem/selftests/huge_pages.c   | 28 ++++++++++++++-----
+ 1 file changed, 21 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
-index 39cb45ccb506..b6892b405829 100644
---- a/drivers/gpu/drm/i915/gt/intel_lrc.c
-+++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
-@@ -3972,7 +3972,7 @@ gen10_init_indirectctx_bb(struct intel_engine_cs *engine, u32 *batch)
+diff --git a/drivers/gpu/drm/i915/gem/selftests/huge_pages.c b/drivers/gpu/drm/i915/gem/selftests/huge_pages.c
+index a7d5f7785f32..34f248c205ca 100644
+--- a/drivers/gpu/drm/i915/gem/selftests/huge_pages.c
++++ b/drivers/gpu/drm/i915/gem/selftests/huge_pages.c
+@@ -568,7 +568,7 @@ static int igt_mock_ppgtt_misaligned_dma(void *arg)
+ 			goto out_put;
+ 		}
  
- #define CTX_WA_BB_OBJ_SIZE (PAGE_SIZE)
+-		err = i915_gem_object_pin_pages(obj);
++		err = i915_gem_object_pin_pages_unlocked(obj);
+ 		if (err)
+ 			goto out_put;
  
--static int lrc_setup_wa_ctx(struct intel_engine_cs *engine)
-+static int lrc_init_wa_ctx(struct intel_engine_cs *engine)
- {
- 	struct drm_i915_gem_object *obj;
- 	struct i915_vma *vma;
-@@ -3988,10 +3988,6 @@ static int lrc_setup_wa_ctx(struct intel_engine_cs *engine)
- 		goto err;
+@@ -632,15 +632,19 @@ static int igt_mock_ppgtt_misaligned_dma(void *arg)
+ 				break;
+ 		}
+ 
++		i915_gem_object_lock(obj, NULL);
+ 		i915_gem_object_unpin_pages(obj);
+ 		__i915_gem_object_put_pages(obj);
++		i915_gem_object_unlock(obj);
+ 		i915_gem_object_put(obj);
  	}
  
--	err = i915_ggtt_pin(vma, NULL, 0, PIN_HIGH);
--	if (err)
--		goto err;
--
- 	engine->wa_ctx.vma = vma;
  	return 0;
  
-@@ -4000,9 +3996,16 @@ static int lrc_setup_wa_ctx(struct intel_engine_cs *engine)
- 	return err;
+ out_unpin:
++	i915_gem_object_lock(obj, NULL);
+ 	i915_gem_object_unpin_pages(obj);
++	i915_gem_object_unlock(obj);
+ out_put:
+ 	i915_gem_object_put(obj);
+ 
+@@ -654,8 +658,10 @@ static void close_object_list(struct list_head *objects,
+ 
+ 	list_for_each_entry_safe(obj, on, objects, st_link) {
+ 		list_del(&obj->st_link);
++		i915_gem_object_lock(obj, NULL);
+ 		i915_gem_object_unpin_pages(obj);
+ 		__i915_gem_object_put_pages(obj);
++		i915_gem_object_unlock(obj);
+ 		i915_gem_object_put(obj);
+ 	}
  }
+@@ -692,7 +698,7 @@ static int igt_mock_ppgtt_huge_fill(void *arg)
+ 			break;
+ 		}
  
--static void lrc_destroy_wa_ctx(struct intel_engine_cs *engine)
-+static void lrc_destroy_wa_ctx(struct intel_engine_cs *engine, bool unpin)
- {
--	i915_vma_unpin_and_release(&engine->wa_ctx.vma, 0);
-+	if (!engine->wa_ctx.vma)
-+		return;
-+
-+	if (unpin)
-+		i915_vma_unpin(engine->wa_ctx.vma);
-+
-+	i915_vma_put(engine->wa_ctx.vma);
-+	engine->wa_ctx.vma = NULL;
- }
+-		err = i915_gem_object_pin_pages(obj);
++		err = i915_gem_object_pin_pages_unlocked(obj);
+ 		if (err) {
+ 			i915_gem_object_put(obj);
+ 			break;
+@@ -868,7 +874,7 @@ static int igt_mock_ppgtt_64K(void *arg)
+ 			if (IS_ERR(obj))
+ 				return PTR_ERR(obj);
  
- typedef u32 *(*wa_bb_func_t)(struct intel_engine_cs *engine, u32 *batch);
-@@ -4014,6 +4017,7 @@ static int intel_init_workaround_bb(struct intel_engine_cs *engine)
- 					    &wa_ctx->per_ctx };
- 	wa_bb_func_t wa_bb_fn[2];
- 	void *batch, *batch_ptr;
-+	struct i915_gem_ww_ctx ww;
- 	unsigned int i;
- 	int ret;
+-			err = i915_gem_object_pin_pages(obj);
++			err = i915_gem_object_pin_pages_unlocked(obj);
+ 			if (err)
+ 				goto out_object_put;
  
-@@ -4041,13 +4045,21 @@ static int intel_init_workaround_bb(struct intel_engine_cs *engine)
- 		return 0;
+@@ -922,8 +928,10 @@ static int igt_mock_ppgtt_64K(void *arg)
+ 			}
+ 
+ 			i915_vma_unpin(vma);
++			i915_gem_object_lock(obj, NULL);
+ 			i915_gem_object_unpin_pages(obj);
+ 			__i915_gem_object_put_pages(obj);
++			i915_gem_object_unlock(obj);
+ 			i915_gem_object_put(obj);
+ 		}
+ 	}
+@@ -933,7 +941,9 @@ static int igt_mock_ppgtt_64K(void *arg)
+ out_vma_unpin:
+ 	i915_vma_unpin(vma);
+ out_object_unpin:
++	i915_gem_object_lock(obj, NULL);
+ 	i915_gem_object_unpin_pages(obj);
++	i915_gem_object_unlock(obj);
+ out_object_put:
+ 	i915_gem_object_put(obj);
+ 
+@@ -1003,7 +1013,7 @@ static int __cpu_check_vmap(struct drm_i915_gem_object *obj, u32 dword, u32 val)
+ 	if (err)
+ 		return err;
+ 
+-	ptr = i915_gem_object_pin_map(obj, I915_MAP_WC);
++	ptr = i915_gem_object_pin_map_unlocked(obj, I915_MAP_WC);
+ 	if (IS_ERR(ptr))
+ 		return PTR_ERR(ptr);
+ 
+@@ -1283,7 +1293,7 @@ static int igt_ppgtt_smoke_huge(void *arg)
+ 			return err;
+ 		}
+ 
+-		err = i915_gem_object_pin_pages(obj);
++		err = i915_gem_object_pin_pages_unlocked(obj);
+ 		if (err) {
+ 			if (err == -ENXIO || err == -E2BIG) {
+ 				i915_gem_object_put(obj);
+@@ -1306,8 +1316,10 @@ static int igt_ppgtt_smoke_huge(void *arg)
+ 			       __func__, size, i);
+ 		}
+ out_unpin:
++		i915_gem_object_lock(obj, NULL);
+ 		i915_gem_object_unpin_pages(obj);
+ 		__i915_gem_object_put_pages(obj);
++		i915_gem_object_unlock(obj);
+ out_put:
+ 		i915_gem_object_put(obj);
+ 
+@@ -1380,7 +1392,7 @@ static int igt_ppgtt_sanity_check(void *arg)
+ 				return err;
+ 			}
+ 
+-			err = i915_gem_object_pin_pages(obj);
++			err = i915_gem_object_pin_pages_unlocked(obj);
+ 			if (err) {
+ 				i915_gem_object_put(obj);
+ 				goto out;
+@@ -1394,8 +1406,10 @@ static int igt_ppgtt_sanity_check(void *arg)
+ 
+ 			err = igt_write_huge(ctx, obj);
+ 
++			i915_gem_object_lock(obj, NULL);
+ 			i915_gem_object_unpin_pages(obj);
+ 			__i915_gem_object_put_pages(obj);
++			i915_gem_object_unlock(obj);
+ 			i915_gem_object_put(obj);
+ 
+ 			if (err) {
+@@ -1440,7 +1454,7 @@ static int igt_tmpfs_fallback(void *arg)
+ 		goto out_restore;
  	}
  
--	ret = lrc_setup_wa_ctx(engine);
-+	ret = lrc_init_wa_ctx(engine);
- 	if (ret) {
- 		drm_dbg(&engine->i915->drm,
- 			"Failed to setup context WA page: %d\n", ret);
- 		return ret;
- 	}
- 
-+	i915_gem_ww_ctx_init(&ww, true);
-+retry:
-+	ret = i915_gem_object_lock(wa_ctx->vma->obj, &ww);
-+	if (!ret)
-+		ret = i915_ggtt_pin(wa_ctx->vma, &ww, 0, PIN_HIGH);
-+	if (ret)
-+		goto err;
-+
- 	batch = i915_gem_object_pin_map(wa_ctx->vma->obj, I915_MAP_WB);
- 
- 	/*
-@@ -4071,8 +4083,19 @@ static int intel_init_workaround_bb(struct intel_engine_cs *engine)
- 
- 	__i915_gem_object_flush_map(wa_ctx->vma->obj, 0, batch_ptr - batch);
- 	__i915_gem_object_release_map(wa_ctx->vma->obj);
-+
-+	if (ret)
-+		i915_vma_unpin(wa_ctx->vma);
-+
-+err:
-+	if (ret == -EDEADLK) {
-+		ret = i915_gem_ww_ctx_backoff(&ww);
-+		if (!ret)
-+			goto retry;
-+	}
-+	i915_gem_ww_ctx_fini(&ww);
- 	if (ret)
--		lrc_destroy_wa_ctx(engine);
-+		lrc_destroy_wa_ctx(engine, false);
- 
- 	return ret;
- }
-@@ -5147,7 +5170,7 @@ static void execlists_release(struct intel_engine_cs *engine)
- 	execlists_shutdown(engine);
- 
- 	intel_engine_cleanup_common(engine);
--	lrc_destroy_wa_ctx(engine);
-+	lrc_destroy_wa_ctx(engine, true);
- }
- 
- static void
+-	vaddr = i915_gem_object_pin_map(obj, I915_MAP_WB);
++	vaddr = i915_gem_object_pin_map_unlocked(obj, I915_MAP_WB);
+ 	if (IS_ERR(vaddr)) {
+ 		err = PTR_ERR(vaddr);
+ 		goto out_put;
 -- 
 2.28.0
 
