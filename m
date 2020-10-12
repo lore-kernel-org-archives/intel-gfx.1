@@ -2,37 +2,37 @@ Return-Path: <SRS0=uIVS=DT=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.9 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 46F83C04EBE
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Oct 2020 14:47:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9FD1FC2D0A4
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Oct 2020 14:47:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0EFFA20838
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Oct 2020 14:47:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0EFFA20838
+	by mail.kernel.org (Postfix) with ESMTPS id 6E0162067C
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Oct 2020 14:47:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6E0162067C
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4EC996E4B5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8523E6E4C1;
 	Mon, 12 Oct 2020 14:47:28 +0000 (UTC)
 Received: from mblankhorst.nl (mblankhorst.nl [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9BCAB6E4AA
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7ED326E4B5
  for <intel-gfx@lists.freedesktop.org>; Mon, 12 Oct 2020 14:47:13 +0000 (UTC)
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 12 Oct 2020 16:46:22 +0200
-Message-Id: <20201012144706.555345-18-maarten.lankhorst@linux.intel.com>
+Date: Mon, 12 Oct 2020 16:46:33 +0200
+Message-Id: <20201012144706.555345-29-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20201012144706.555345-1-maarten.lankhorst@linux.intel.com>
 References: <20201012144706.555345-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v2 17/61] drm/i915: Populate logical context
- during first pin.
+Subject: [Intel-gfx] [PATCH v2 28/61] drm/i915: Defer pin calls in buffer
+ pool until first use by caller.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,199 +50,174 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This allows us to remove pin_map from state allocation, which saves
-us a few retry loops. We won't need this until first pin, anyway.
+We need to take the obj lock to pin pages, so wait until the callers
+have done so, before making the object unshrinkable.
 
 Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_context_types.h |  13 ++-
- drivers/gpu/drm/i915/gt/intel_lrc.c           | 107 +++++++++---------
- 2 files changed, 62 insertions(+), 58 deletions(-)
+ .../gpu/drm/i915/gem/i915_gem_execbuffer.c    |  2 +
+ .../gpu/drm/i915/gem/i915_gem_object_blt.c    |  6 +++
+ .../gpu/drm/i915/gt/intel_gt_buffer_pool.c    | 47 +++++++++----------
+ .../gpu/drm/i915/gt/intel_gt_buffer_pool.h    |  5 ++
+ .../drm/i915/gt/intel_gt_buffer_pool_types.h  |  1 +
+ 5 files changed, 35 insertions(+), 26 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_context_types.h b/drivers/gpu/drm/i915/gt/intel_context_types.h
-index 552cb57a2e8c..bebf52868563 100644
---- a/drivers/gpu/drm/i915/gt/intel_context_types.h
-+++ b/drivers/gpu/drm/i915/gt/intel_context_types.h
-@@ -64,12 +64,13 @@ struct intel_context {
- 	unsigned long flags;
- #define CONTEXT_BARRIER_BIT		0
- #define CONTEXT_ALLOC_BIT		1
--#define CONTEXT_VALID_BIT		2
--#define CONTEXT_CLOSED_BIT		3
--#define CONTEXT_USE_SEMAPHORES		4
--#define CONTEXT_BANNED			5
--#define CONTEXT_FORCE_SINGLE_SUBMISSION	6
--#define CONTEXT_NOPREEMPT		7
-+#define CONTEXT_INIT_BIT		2
-+#define CONTEXT_VALID_BIT		3
-+#define CONTEXT_CLOSED_BIT		4
-+#define CONTEXT_USE_SEMAPHORES		5
-+#define CONTEXT_BANNED			6
-+#define CONTEXT_FORCE_SINGLE_SUBMISSION	7
-+#define CONTEXT_NOPREEMPT		8
- 
- 	u32 *lrc_reg_state;
- 	union {
-diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
-index 287537089c77..39cb45ccb506 100644
---- a/drivers/gpu/drm/i915/gt/intel_lrc.c
-+++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
-@@ -3525,9 +3525,39 @@ __execlists_update_reg_state(const struct intel_context *ce,
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+index cbb686235866..479affa975f1 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+@@ -1332,6 +1332,7 @@ static int __reloc_gpu_alloc(struct i915_execbuffer *eb,
+ 		err = PTR_ERR(cmd);
+ 		goto err_pool;
  	}
++	intel_gt_buffer_pool_mark_used(pool);
+ 
+ 	batch = i915_vma_instance(pool->obj, vma->vm, NULL);
+ 	if (IS_ERR(batch)) {
+@@ -2619,6 +2620,7 @@ static int eb_parse(struct i915_execbuffer *eb)
+ 		err = PTR_ERR(shadow);
+ 		goto err;
+ 	}
++	intel_gt_buffer_pool_mark_used(pool);
+ 	i915_gem_object_set_readonly(shadow->obj);
+ 	shadow->private = pool;
+ 
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object_blt.c b/drivers/gpu/drm/i915/gem/i915_gem_object_blt.c
+index aee7ad3cc3c6..e0b873c3f46a 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_object_blt.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_object_blt.c
+@@ -54,6 +54,9 @@ struct i915_vma *intel_emit_vma_fill_blt(struct intel_context *ce,
+ 	if (unlikely(err))
+ 		goto out_put;
+ 
++	/* we pinned the pool, mark it as such */
++	intel_gt_buffer_pool_mark_used(pool);
++
+ 	cmd = i915_gem_object_pin_map(pool->obj, I915_MAP_WC);
+ 	if (IS_ERR(cmd)) {
+ 		err = PTR_ERR(cmd);
+@@ -276,6 +279,9 @@ struct i915_vma *intel_emit_vma_copy_blt(struct intel_context *ce,
+ 	if (unlikely(err))
+ 		goto out_put;
+ 
++	/* we pinned the pool, mark it as such */
++	intel_gt_buffer_pool_mark_used(pool);
++
+ 	cmd = i915_gem_object_pin_map(pool->obj, I915_MAP_WC);
+ 	if (IS_ERR(cmd)) {
+ 		err = PTR_ERR(cmd);
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_buffer_pool.c b/drivers/gpu/drm/i915/gt/intel_gt_buffer_pool.c
+index 104cb30e8c13..030759305196 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_buffer_pool.c
++++ b/drivers/gpu/drm/i915/gt/intel_gt_buffer_pool.c
+@@ -98,28 +98,6 @@ static void pool_free_work(struct work_struct *wrk)
+ 				      round_jiffies_up_relative(HZ));
  }
  
-+static void populate_lr_context(struct intel_context *ce,
-+				struct intel_engine_cs *engine,
-+				void *vaddr)
-+{
-+	bool inhibit = true;
-+	struct drm_i915_gem_object *ctx_obj = ce->state->obj;
-+
-+	set_redzone(vaddr, engine);
-+
-+	if (engine->default_state) {
-+		shmem_read(engine->default_state, 0,
-+			   vaddr, engine->context_size);
-+		__set_bit(CONTEXT_VALID_BIT, &ce->flags);
-+		inhibit = false;
-+	}
-+
-+	/* Clear the ppHWSP (inc. per-context counters) */
-+	memset(vaddr, 0, PAGE_SIZE);
-+
-+	/*
-+	 * The second page of the context object contains some registers which
-+	 * must be set up prior to the first execution.
-+	 */
-+	execlists_init_reg_state(vaddr + LRC_STATE_OFFSET,
-+				 ce, engine, ce->ring, inhibit);
-+
-+	__i915_gem_object_flush_map(ctx_obj, 0, engine->context_size);
-+}
-+
- static int
--execlists_context_pre_pin(struct intel_context *ce,
--			  struct i915_gem_ww_ctx *ww, void **vaddr)
-+__execlists_context_pre_pin(struct intel_context *ce,
-+			    struct intel_engine_cs *engine,
-+			    struct i915_gem_ww_ctx *ww, void **vaddr)
- {
- 	GEM_BUG_ON(!ce->state);
- 	GEM_BUG_ON(!i915_vma_is_pinned(ce->state));
-@@ -3535,8 +3565,20 @@ execlists_context_pre_pin(struct intel_context *ce,
- 	*vaddr = i915_gem_object_pin_map(ce->state->obj,
- 					i915_coherent_map_type(ce->engine->i915) |
- 					I915_MAP_OVERRIDE);
-+	if (IS_ERR(*vaddr))
-+		return PTR_ERR(*vaddr);
-+
-+	if (!__test_and_set_bit(CONTEXT_INIT_BIT, &ce->flags))
-+		populate_lr_context(ce, engine, *vaddr);
-+
-+	return 0;
-+}
- 
--	return PTR_ERR_OR_ZERO(*vaddr);
-+static int
-+execlists_context_pre_pin(struct intel_context *ce,
-+			  struct i915_gem_ww_ctx *ww, void **vaddr)
-+{
-+	return __execlists_context_pre_pin(ce, ce->engine, ww, vaddr);
- }
- 
- static int
-@@ -5331,45 +5373,6 @@ static void execlists_init_reg_state(u32 *regs,
- 	__reset_stop_ring(regs, engine);
- }
- 
--static int
--populate_lr_context(struct intel_context *ce,
--		    struct drm_i915_gem_object *ctx_obj,
--		    struct intel_engine_cs *engine,
--		    struct intel_ring *ring)
+-static int pool_active(struct i915_active *ref)
 -{
--	bool inhibit = true;
--	void *vaddr;
+-	struct intel_gt_buffer_pool_node *node =
+-		container_of(ref, typeof(*node), active);
+-	struct dma_resv *resv = node->obj->base.resv;
+-	int err;
 -
--	vaddr = i915_gem_object_pin_map(ctx_obj, I915_MAP_WB);
--	if (IS_ERR(vaddr)) {
--		drm_dbg(&engine->i915->drm, "Could not map object pages!\n");
--		return PTR_ERR(vaddr);
+-	if (dma_resv_trylock(resv)) {
+-		dma_resv_add_excl_fence(resv, NULL);
+-		dma_resv_unlock(resv);
 -	}
 -
--	set_redzone(vaddr, engine);
+-	err = i915_gem_object_pin_pages(node->obj);
+-	if (err)
+-		return err;
 -
--	if (engine->default_state) {
--		shmem_read(engine->default_state, 0,
--			   vaddr, engine->context_size);
--		__set_bit(CONTEXT_VALID_BIT, &ce->flags);
--		inhibit = false;
--	}
+-	/* Hide this pinned object from the shrinker until retired */
+-	i915_gem_object_make_unshrinkable(node->obj);
 -
--	/* Clear the ppHWSP (inc. per-context counters) */
--	memset(vaddr, 0, PAGE_SIZE);
--
--	/*
--	 * The second page of the context object contains some registers which
--	 * must be set up prior to the first execution.
--	 */
--	execlists_init_reg_state(vaddr + LRC_STATE_OFFSET,
--				 ce, engine, ring, inhibit);
--
--	__i915_gem_object_flush_map(ctx_obj, 0, engine->context_size);
--	i915_gem_object_unpin_map(ctx_obj);
 -	return 0;
 -}
 -
- static struct intel_timeline *pinned_timeline(struct intel_context *ce)
+ __i915_active_call
+ static void pool_retire(struct i915_active *ref)
  {
- 	struct intel_timeline *tl = fetch_and_zero(&ce->timeline);
-@@ -5433,20 +5436,11 @@ static int __execlists_context_alloc(struct intel_context *ce,
- 		goto error_deref_obj;
- 	}
+@@ -129,10 +107,13 @@ static void pool_retire(struct i915_active *ref)
+ 	struct list_head *list = bucket_for_size(pool, node->obj->base.size);
+ 	unsigned long flags;
  
--	ret = populate_lr_context(ce, ctx_obj, engine, ring);
--	if (ret) {
--		drm_dbg(&engine->i915->drm,
--			"Failed to populate LRC: %d\n", ret);
--		goto error_ring_free;
--	}
--
- 	ce->ring = ring;
- 	ce->state = vma;
+-	i915_gem_object_unpin_pages(node->obj);
++	if (node->pinned) {
++		i915_gem_object_unpin_pages(node->obj);
  
- 	return 0;
+-	/* Return this object to the shrinker pool */
+-	i915_gem_object_make_purgeable(node->obj);
++		/* Return this object to the shrinker pool */
++		i915_gem_object_make_purgeable(node->obj);
++		node->pinned = false;
++	}
  
--error_ring_free:
--	intel_ring_put(ring);
- error_deref_obj:
- 	i915_gem_object_put(ctx_obj);
- 	return ret;
-@@ -5524,6 +5518,15 @@ static int virtual_context_alloc(struct intel_context *ce)
- 	return __execlists_context_alloc(ce, ve->siblings[0]);
+ 	GEM_BUG_ON(node->age);
+ 	spin_lock_irqsave(&pool->lock, flags);
+@@ -144,6 +125,19 @@ static void pool_retire(struct i915_active *ref)
+ 			      round_jiffies_up_relative(HZ));
  }
  
-+static int
-+virtual_context_pre_pin(struct intel_context *ce,
-+			  struct i915_gem_ww_ctx *ww, void **vaddr)
++void intel_gt_buffer_pool_mark_used(struct intel_gt_buffer_pool_node *node)
 +{
-+	struct virtual_engine *ve = container_of(ce, typeof(*ve), context);
++	assert_object_held(node->obj);
 +
-+	return __execlists_context_pre_pin(ce, ve->siblings[0], ww, vaddr);
++	if (node->pinned)
++		return;
++
++	__i915_gem_object_pin_pages(node->obj);
++	/* Hide this pinned object from the shrinker until retired */
++	i915_gem_object_make_unshrinkable(node->obj);
++	node->pinned = true;
 +}
 +
- static int virtual_context_pin(struct intel_context *ce, void *vaddr)
+ static struct intel_gt_buffer_pool_node *
+ node_create(struct intel_gt_buffer_pool *pool, size_t sz)
  {
- 	struct virtual_engine *ve = container_of(ce, typeof(*ve), context);
-@@ -5557,7 +5560,7 @@ static void virtual_context_exit(struct intel_context *ce)
- static const struct intel_context_ops virtual_context_ops = {
- 	.alloc = virtual_context_alloc,
+@@ -158,7 +152,8 @@ node_create(struct intel_gt_buffer_pool *pool, size_t sz)
  
--	.pre_pin = execlists_context_pre_pin,
-+	.pre_pin = virtual_context_pre_pin,
- 	.pin = virtual_context_pin,
- 	.unpin = execlists_context_unpin,
- 	.post_unpin = execlists_context_post_unpin,
+ 	node->age = 0;
+ 	node->pool = pool;
+-	i915_active_init(&node->active, pool_active, pool_retire);
++	node->pinned = false;
++	i915_active_init(&node->active, NULL, pool_retire);
+ 
+ 	obj = i915_gem_object_create_internal(gt->i915, sz);
+ 	if (IS_ERR(obj)) {
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_buffer_pool.h b/drivers/gpu/drm/i915/gt/intel_gt_buffer_pool.h
+index 42cbac003e8a..9878ce9a07ab 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_buffer_pool.h
++++ b/drivers/gpu/drm/i915/gt/intel_gt_buffer_pool.h
+@@ -17,10 +17,15 @@ struct i915_request;
+ struct intel_gt_buffer_pool_node *
+ intel_gt_get_buffer_pool(struct intel_gt *gt, size_t size);
+ 
++void intel_gt_buffer_pool_mark_used(struct intel_gt_buffer_pool_node *node);
++
+ static inline int
+ intel_gt_buffer_pool_mark_active(struct intel_gt_buffer_pool_node *node,
+ 				 struct i915_request *rq)
+ {
++	/* did we call mark_used? */
++	GEM_WARN_ON(!node->pinned);
++
+ 	return i915_active_add_request(&node->active, rq);
+ }
+ 
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_buffer_pool_types.h b/drivers/gpu/drm/i915/gt/intel_gt_buffer_pool_types.h
+index bcf1658c9633..0401825e829d 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_buffer_pool_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_gt_buffer_pool_types.h
+@@ -31,6 +31,7 @@ struct intel_gt_buffer_pool_node {
+ 		struct rcu_head rcu;
+ 	};
+ 	unsigned long age;
++	bool pinned;
+ };
+ 
+ #endif /* INTEL_GT_BUFFER_POOL_TYPES_H */
 -- 
 2.28.0
 
