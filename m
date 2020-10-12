@@ -7,32 +7,32 @@ X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 50330C2D0A4
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Oct 2020 14:47:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AA547C433DF
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Oct 2020 14:47:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1F0EC2067C
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Oct 2020 14:47:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1F0EC2067C
+	by mail.kernel.org (Postfix) with ESMTPS id 752DE2080A
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Oct 2020 14:47:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 752DE2080A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 618F96E4E6;
-	Mon, 12 Oct 2020 14:47:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 26ADF6E508;
+	Mon, 12 Oct 2020 14:47:31 +0000 (UTC)
 Received: from mblankhorst.nl (mblankhorst.nl [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C1166E4AF
- for <intel-gfx@lists.freedesktop.org>; Mon, 12 Oct 2020 14:47:12 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 111D36E4F4
+ for <intel-gfx@lists.freedesktop.org>; Mon, 12 Oct 2020 14:47:15 +0000 (UTC)
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 12 Oct 2020 16:46:24 +0200
-Message-Id: <20201012144706.555345-20-maarten.lankhorst@linux.intel.com>
+Date: Mon, 12 Oct 2020 16:46:40 +0200
+Message-Id: <20201012144706.555345-36-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20201012144706.555345-1-maarten.lankhorst@linux.intel.com>
 References: <20201012144706.555345-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v2 19/61] drm/i915: Handle ww locking in
- init_status_page
+Subject: [Intel-gfx] [PATCH v2 35/61] drm/i915: Lock ww in ucode objects
+ correctly
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,93 +50,129 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Try to pin to ggtt first, and use a full ww loop to handle
-eviction correctly.
+In the ucode functions, the calls are done before userspace runs,
+when debugging using debugfs, or when creating semi-permanent mappings;
+we can safely use the unlocked versions that does the ww dance for us.
+
+Because there is no pin_pages_unlocked yet, add it as convenience function.
+
+This removes possible lockdep splats about missing resv lock for ucode.
 
 Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_engine_cs.c | 37 +++++++++++++++--------
- 1 file changed, 24 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_object.h |  2 ++
+ drivers/gpu/drm/i915/gem/i915_gem_pages.c  | 20 ++++++++++++++++++++
+ drivers/gpu/drm/i915/gt/uc/intel_guc.c     |  2 +-
+ drivers/gpu/drm/i915/gt/uc/intel_guc_log.c |  4 ++--
+ drivers/gpu/drm/i915/gt/uc/intel_huc.c     |  2 +-
+ drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c   |  2 +-
+ 6 files changed, 27 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-index 1985772152bf..66d87ce764e0 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-@@ -615,6 +615,7 @@ static void cleanup_status_page(struct intel_engine_cs *engine)
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.h b/drivers/gpu/drm/i915/gem/i915_gem_object.h
+index a3a701d849bf..e7236224a29c 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_object.h
++++ b/drivers/gpu/drm/i915/gem/i915_gem_object.h
+@@ -336,6 +336,8 @@ i915_gem_object_pin_pages(struct drm_i915_gem_object *obj)
+ 	return __i915_gem_object_get_pages(obj);
  }
  
- static int pin_ggtt_status_page(struct intel_engine_cs *engine,
-+				struct i915_gem_ww_ctx *ww,
- 				struct i915_vma *vma)
++int i915_gem_object_pin_pages_unlocked(struct drm_i915_gem_object *obj);
++
+ static inline bool
+ i915_gem_object_has_pages(struct drm_i915_gem_object *obj)
  {
- 	unsigned int flags;
-@@ -635,12 +636,13 @@ static int pin_ggtt_status_page(struct intel_engine_cs *engine,
- 	else
- 		flags = PIN_HIGH;
- 
--	return i915_ggtt_pin(vma, NULL, 0, flags);
-+	return i915_ggtt_pin(vma, ww, 0, flags);
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_pages.c b/drivers/gpu/drm/i915/gem/i915_gem_pages.c
+index 429ec652c394..81b1b560ad18 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_pages.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_pages.c
+@@ -136,6 +136,26 @@ int __i915_gem_object_get_pages(struct drm_i915_gem_object *obj)
+ 	return err;
  }
  
- static int init_status_page(struct intel_engine_cs *engine)
- {
- 	struct drm_i915_gem_object *obj;
++int i915_gem_object_pin_pages_unlocked(struct drm_i915_gem_object *obj)
++{
 +	struct i915_gem_ww_ctx ww;
- 	struct i915_vma *vma;
- 	void *vaddr;
- 	int ret;
-@@ -664,30 +666,39 @@ static int init_status_page(struct intel_engine_cs *engine)
- 	vma = i915_vma_instance(obj, &engine->gt->ggtt->vm, NULL);
- 	if (IS_ERR(vma)) {
- 		ret = PTR_ERR(vma);
--		goto err;
-+		goto err_put;
- 	}
- 
++	int err;
++
 +	i915_gem_ww_ctx_init(&ww, true);
 +retry:
-+	ret = i915_gem_object_lock(obj, &ww);
-+	if (!ret && !HWS_NEEDS_PHYSICAL(engine->i915))
-+		ret = pin_ggtt_status_page(engine, &ww, vma);
-+	if (ret)
-+		goto err;
++	err = i915_gem_object_lock(obj, &ww);
++	if (!err)
++		err = i915_gem_object_pin_pages(obj);
 +
- 	vaddr = i915_gem_object_pin_map(obj, I915_MAP_WB);
- 	if (IS_ERR(vaddr)) {
- 		ret = PTR_ERR(vaddr);
--		goto err;
-+		goto err_unpin;
- 	}
- 
- 	engine->status_page.addr = memset(vaddr, 0, PAGE_SIZE);
- 	engine->status_page.vma = vma;
- 
--	if (!HWS_NEEDS_PHYSICAL(engine->i915)) {
--		ret = pin_ggtt_status_page(engine, vma);
--		if (ret)
--			goto err_unpin;
--	}
--
--	return 0;
--
- err_unpin:
--	i915_gem_object_unpin_map(obj);
-+	if (ret)
-+		i915_vma_unpin(vma);
- err:
--	i915_gem_object_put(obj);
-+	if (ret == -EDEADLK) {
-+		ret = i915_gem_ww_ctx_backoff(&ww);
-+		if (!ret)
++	if (err == -EDEADLK) {
++		err = i915_gem_ww_ctx_backoff(&ww);
++		if (!err)
 +			goto retry;
 +	}
 +	i915_gem_ww_ctx_fini(&ww);
-+err_put:
-+	if (ret)
-+		i915_gem_object_put(obj);
- 	return ret;
- }
++	return err;
++}
++
+ /* Immediately discard the backing storage */
+ void i915_gem_object_truncate(struct drm_i915_gem_object *obj)
+ {
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.c b/drivers/gpu/drm/i915/gt/uc/intel_guc.c
+index e4aaa5f29796..ecdd3b4f1a32 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.c
+@@ -712,7 +712,7 @@ int intel_guc_allocate_and_map_vma(struct intel_guc *guc, u32 size,
+ 	if (IS_ERR(vma))
+ 		return PTR_ERR(vma);
  
+-	vaddr = i915_gem_object_pin_map(vma->obj, I915_MAP_WB);
++	vaddr = i915_gem_object_pin_map_unlocked(vma->obj, I915_MAP_WB);
+ 	if (IS_ERR(vaddr)) {
+ 		i915_vma_unpin_and_release(&vma, 0);
+ 		return PTR_ERR(vaddr);
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_log.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_log.c
+index 9bbe8a795cb8..8dc8678e7ab0 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_log.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_log.c
+@@ -335,7 +335,7 @@ static int guc_log_map(struct intel_guc_log *log)
+ 	 * buffer pages, so that we can directly get the data
+ 	 * (up-to-date) from memory.
+ 	 */
+-	vaddr = i915_gem_object_pin_map(log->vma->obj, I915_MAP_WC);
++	vaddr = i915_gem_object_pin_map_unlocked(log->vma->obj, I915_MAP_WC);
+ 	if (IS_ERR(vaddr))
+ 		return PTR_ERR(vaddr);
+ 
+@@ -744,7 +744,7 @@ int intel_guc_log_dump(struct intel_guc_log *log, struct drm_printer *p,
+ 	if (!obj)
+ 		return 0;
+ 
+-	map = i915_gem_object_pin_map(obj, I915_MAP_WC);
++	map = i915_gem_object_pin_map_unlocked(obj, I915_MAP_WC);
+ 	if (IS_ERR(map)) {
+ 		DRM_DEBUG("Failed to pin object\n");
+ 		drm_puts(p, "(log data unaccessible)\n");
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_huc.c b/drivers/gpu/drm/i915/gt/uc/intel_huc.c
+index 65eeb44b397d..2126dd81ac38 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_huc.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_huc.c
+@@ -82,7 +82,7 @@ static int intel_huc_rsa_data_create(struct intel_huc *huc)
+ 	if (IS_ERR(vma))
+ 		return PTR_ERR(vma);
+ 
+-	vaddr = i915_gem_object_pin_map(vma->obj, I915_MAP_WB);
++	vaddr = i915_gem_object_pin_map_unlocked(vma->obj, I915_MAP_WB);
+ 	if (IS_ERR(vaddr)) {
+ 		i915_vma_unpin_and_release(&vma, 0);
+ 		return PTR_ERR(vaddr);
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
+index 80e8b6c3bc8c..bf4835a66ad8 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
+@@ -541,7 +541,7 @@ int intel_uc_fw_init(struct intel_uc_fw *uc_fw)
+ 	if (!intel_uc_fw_is_available(uc_fw))
+ 		return -ENOEXEC;
+ 
+-	err = i915_gem_object_pin_pages(uc_fw->obj);
++	err = i915_gem_object_pin_pages_unlocked(uc_fw->obj);
+ 	if (err) {
+ 		DRM_DEBUG_DRIVER("%s fw pin-pages err=%d\n",
+ 				 intel_uc_fw_type_repr(uc_fw->type), err);
 -- 
 2.28.0
 
