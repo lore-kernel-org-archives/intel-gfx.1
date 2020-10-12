@@ -7,32 +7,32 @@ X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7D9C4C2D0AE
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Oct 2020 14:47:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1088FC35257
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Oct 2020 14:47:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 49F462080A
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Oct 2020 14:47:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 49F462080A
+	by mail.kernel.org (Postfix) with ESMTPS id D25432080A
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Oct 2020 14:47:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D25432080A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E133B6E4E8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D54F6E4EC;
 	Mon, 12 Oct 2020 14:47:29 +0000 (UTC)
 Received: from mblankhorst.nl (mblankhorst.nl [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 71D346E50C
- for <intel-gfx@lists.freedesktop.org>; Mon, 12 Oct 2020 14:47:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CCA386E4F3
+ for <intel-gfx@lists.freedesktop.org>; Mon, 12 Oct 2020 14:47:14 +0000 (UTC)
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 12 Oct 2020 16:46:51 +0200
-Message-Id: <20201012144706.555345-47-maarten.lankhorst@linux.intel.com>
+Date: Mon, 12 Oct 2020 16:46:38 +0200
+Message-Id: <20201012144706.555345-34-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20201012144706.555345-1-maarten.lankhorst@linux.intel.com>
 References: <20201012144706.555345-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v2 46/61] drm/i915/selftests: Prepare mman
- testcases for obj->mm.lock removal.
+Subject: [Intel-gfx] [PATCH v2 33/61] drm/i915: Add ww locking around
+ vm_access()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,64 +50,66 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Ensure we hold the lock around put_pages, and use the unlocked wrappers
-for pinning pages and mappings.
+i915_gem_object_pin_map potentially needs a ww context, so ensure we
+have one we can revoke.
 
 Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 ---
- drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_mman.c | 24 ++++++++++++++++++++++--
+ 1 file changed, 22 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
-index 3ac7628f3bc4..85fff8bed08c 100644
---- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
-+++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
-@@ -321,7 +321,7 @@ static int igt_partial_tiling(void *arg)
- 	if (IS_ERR(obj))
- 		return PTR_ERR(obj);
- 
--	err = i915_gem_object_pin_pages(obj);
-+	err = i915_gem_object_pin_pages_unlocked(obj);
- 	if (err) {
- 		pr_err("Failed to allocate %u pages (%lu total), err=%d\n",
- 		       nreal, obj->base.size / PAGE_SIZE, err);
-@@ -458,7 +458,7 @@ static int igt_smoke_tiling(void *arg)
- 	if (IS_ERR(obj))
- 		return PTR_ERR(obj);
- 
--	err = i915_gem_object_pin_pages(obj);
-+	err = i915_gem_object_pin_pages_unlocked(obj);
- 	if (err) {
- 		pr_err("Failed to allocate %u pages (%lu total), err=%d\n",
- 		       nreal, obj->base.size / PAGE_SIZE, err);
-@@ -797,7 +797,7 @@ static int wc_set(struct drm_i915_gem_object *obj)
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_mman.c b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
+index ba8e9ef6943d..1361eabea966 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_mman.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
+@@ -421,7 +421,9 @@ vm_access(struct vm_area_struct *area, unsigned long addr,
  {
+ 	struct i915_mmap_offset *mmo = area->vm_private_data;
+ 	struct drm_i915_gem_object *obj = mmo->obj;
++	struct i915_gem_ww_ctx ww;
  	void *vaddr;
++	int err = 0;
  
--	vaddr = i915_gem_object_pin_map(obj, I915_MAP_WC);
-+	vaddr = i915_gem_object_pin_map_unlocked(obj, I915_MAP_WC);
- 	if (IS_ERR(vaddr))
- 		return PTR_ERR(vaddr);
+ 	if (i915_gem_object_is_readonly(obj) && write)
+ 		return -EACCES;
+@@ -430,10 +432,18 @@ vm_access(struct vm_area_struct *area, unsigned long addr,
+ 	if (addr >= obj->base.size)
+ 		return -EINVAL;
  
-@@ -813,7 +813,7 @@ static int wc_check(struct drm_i915_gem_object *obj)
- 	void *vaddr;
- 	int err = 0;
++	i915_gem_ww_ctx_init(&ww, true);
++retry:
++	err = i915_gem_object_lock(obj, &ww);
++	if (err)
++		goto out;
++
+ 	/* As this is primarily for debugging, let's focus on simplicity */
+ 	vaddr = i915_gem_object_pin_map(obj, I915_MAP_FORCE_WC);
+-	if (IS_ERR(vaddr))
+-		return PTR_ERR(vaddr);
++	if (IS_ERR(vaddr)) {
++		err = PTR_ERR(vaddr);
++		goto out;
++	}
  
--	vaddr = i915_gem_object_pin_map(obj, I915_MAP_WC);
-+	vaddr = i915_gem_object_pin_map_unlocked(obj, I915_MAP_WC);
- 	if (IS_ERR(vaddr))
- 		return PTR_ERR(vaddr);
- 
-@@ -1315,7 +1315,9 @@ static int __igt_mmap_revoke(struct drm_i915_private *i915,
+ 	if (write) {
+ 		memcpy(vaddr + addr, buf, len);
+@@ -443,6 +453,16 @@ vm_access(struct vm_area_struct *area, unsigned long addr,
  	}
  
- 	if (type != I915_MMAP_TYPE_GTT) {
-+		i915_gem_object_lock(obj, NULL);
- 		__i915_gem_object_put_pages(obj);
-+		i915_gem_object_unlock(obj);
- 		if (i915_gem_object_has_pages(obj)) {
- 			pr_err("Failed to put-pages object!\n");
- 			err = -EINVAL;
+ 	i915_gem_object_unpin_map(obj);
++out:
++	if (err == -EDEADLK) {
++		err = i915_gem_ww_ctx_backoff(&ww);
++		if (!err)
++			goto retry;
++	}
++	i915_gem_ww_ctx_fini(&ww);
++
++	if (err)
++		return err;
+ 
+ 	return len;
+ }
 -- 
 2.28.0
 
