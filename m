@@ -2,58 +2,38 @@ Return-Path: <SRS0=Vt61=DU=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.2 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-9.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
-	autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AC110C433DF
-	for <intel-gfx@archiver.kernel.org>; Tue, 13 Oct 2020 13:39:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 88B94C433DF
+	for <intel-gfx@archiver.kernel.org>; Tue, 13 Oct 2020 13:54:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2F6AC2472C
-	for <intel-gfx@archiver.kernel.org>; Tue, 13 Oct 2020 13:39:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2F6AC2472C
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 1E17F2476F
+	for <intel-gfx@archiver.kernel.org>; Tue, 13 Oct 2020 13:54:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1E17F2476F
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=crapouillou.net
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5623D6E8E2;
-	Tue, 13 Oct 2020 13:39:23 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E3B2A6E8E2
- for <intel-gfx@lists.freedesktop.org>; Tue, 13 Oct 2020 13:39:22 +0000 (UTC)
-IronPort-SDR: TYhHqEmwDchMFVJ/srgSgeaJDWc0kZDSoXcj0UiLqx89Lre3dEa2UYBKdTwFfpcPZK5K7Zflbq
- Z5qW9+ijKFlw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9772"; a="162445824"
-X-IronPort-AV: E=Sophos;i="5.77,370,1596524400"; d="scan'208";a="162445824"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Oct 2020 06:39:22 -0700
-IronPort-SDR: 5kjsXEZirzOYcrpJ0nsJbQnfgC+QhrHzAIRieDGqHD/jKrE2RaWZAr8mvvRecAxnxjCqVww/zN
- 4BlKMfT2KVyQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.77,370,1596524400"; d="scan'208";a="318288941"
-Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.174])
- by orsmga006.jf.intel.com with SMTP; 13 Oct 2020 06:39:20 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Tue, 13 Oct 2020 16:39:19 +0300
-Date: Tue, 13 Oct 2020 16:39:19 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Imre Deak <imre.deak@intel.com>
-Message-ID: <20201013133919.GB6112@intel.com>
-References: <20201006185809.4655-1-ville.syrjala@linux.intel.com>
- <20201007192241.10241-1-ville.syrjala@linux.intel.com>
- <20201012193645.GA2349678@ideak-desk.fi.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 274046E051;
+	Tue, 13 Oct 2020 13:54:09 +0000 (UTC)
+Received: from aposti.net (aposti.net [89.234.176.197])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E1F16E591;
+ Mon, 12 Oct 2020 19:14:06 +0000 (UTC)
+Date: Mon, 12 Oct 2020 21:13:53 +0200
+From: Paul Cercueil <paul@crapouillou.net>
+To: Daniel Vetter <daniel@ffwll.ch>
+Message-Id: <53S3IQ.YMG1AT14NTR93@crapouillou.net>
+In-Reply-To: <20201012141041.GU438822@phenom.ffwll.local>
+References: <20201012152452.432c4867@canb.auug.org.au>
+ <20201012102509.10690-1-paul@crapouillou.net>
+ <20201012141041.GU438822@phenom.ffwll.local>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20201012193645.GA2349678@ideak-desk.fi.intel.com>
-X-Patchwork-Hint: comment
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Subject: Re: [Intel-gfx] [PATCH v2 1/3] drm/i915: Reorder hpd init vs.
- display resume
+X-Mailman-Approved-At: Tue, 13 Oct 2020 13:54:08 +0000
+Subject: Re: [Intel-gfx] [PATCH] drm/ingenic: Fix bad revert
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,366 +46,132 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="iso-8859-1"
+Cc: Stephen Rothwell <sfr@canb.auug.org.au>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Intel Graphics <intel-gfx@lists.freedesktop.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ DRI <dri-devel@lists.freedesktop.org>, linux-next@vger.kernel.org,
+ Sam Ravnborg <sam@ravnborg.org>
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="iso-8859-1"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Oct 12, 2020 at 10:36:45PM +0300, Imre Deak wrote:
-> On Wed, Oct 07, 2020 at 10:22:41PM +0300, Ville Syrjala wrote:
-> > From: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
-> > =
 
-> > Currently we call .hpd_irq_setup() directly just before display
-> > resume, and follow it with another call via intel_hpd_init()
-> > just afterwards. Assuming the hpd pins are marked as enabled
-> > during the open-coded call these two things do exactly the
-> > same thing (ie. enable HPD interrupts). Which even makes sense
-> > since we definitely need working HPD interrupts for MST sideband
-> > during the display resume.
-> > =
 
-> > So let's nuke the open-coded call and move the intel_hpd_init()
-> > call earlier. However we need to leave the poll_init_work stuff
-> > behind after the display resume as that will trigger display
-> > detection while we're resuming. We don't want that trampling over
-> > the display resume process. To make this a bit more symmetric
-> > we turn this into a intel_hpd_poll_{enable,disable}() pair.
-> > So we end up with the following transformation:
-> > intel_hpd_poll_init() -> intel_hpd_poll_enable()
-> > lone intel_hpd_init() -> intel_hpd_init()+intel_hpd_poll_disable()
-> > .hpd_irq_setup()+resume+intel_hpd_init() -> intel_hpd_init()+resume+int=
-el_hpd_poll_disable()
-> > =
+Le lun. 12 oct. 2020 =E0 16:10, Daniel Vetter <daniel@ffwll.ch> a =E9crit =
 
-> > If we really would like to prevent all *long* HPD processing during
-> > display resume we'd need some kind of software mechanism to simply
-> > ignore all long HPDs. Currently we appear to have that just for
-> > fbdev via ifbdev->hpd_suspended. Since we aren't exploding left and
-> > right all the time I guess that's mostly sufficient.
-> > =
+:
+> On Mon, Oct 12, 2020 at 12:25:09PM +0200, Paul Cercueil wrote:
+>>  Fix a badly reverted commit. The revert commit was cherry-picked =
 
-> > For a bit of history on this, we first got a mechanism to block
-> > hotplug processing during suspend in commit 15239099d7a7 ("drm/i915:
-> > enable irqs earlier when resuming") on account of moving the irq enable
-> > earlier. This then got removed in commit 50c3dc970a09 ("drm/fb-helper:
-> > Fix hpd vs. initial config races") because the fdev initial config
-> > got pushed to a later point. The second ad-hoc hpd_irq_setup() for
-> > resume was added in commit 0e32b39ceed6 ("drm/i915: add DP 1.2 MST
-> > support (v0.7)") to be able to do MST sideband during the resume.
-> > And finally we got a partial resurrection of the hpd blocking
-> > mechanism in commit e8a8fedd57fd ("drm/i915: Block fbdev HPD
-> > processing during suspend"), but this time it only prevent fbdev
-> > from handling hpd while resuming.
-> > =
+>> from
+>>  drm-misc-next to drm-misc-next-fixes, and in the process some =
 
-> > v2: Leave the poll_init_work behind
-> > =
+>> unrelated
+>>  code was added.
+>> =
 
-> > Cc: Lyude Paul <lyude@redhat.com>
-> > Signed-off-by: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
-> > ---
-> >  drivers/gpu/drm/i915/display/intel_display.c  |  9 ++--
-> >  .../drm/i915/display/intel_display_power.c    |  3 +-
-> >  drivers/gpu/drm/i915/display/intel_hotplug.c  | 42 ++++++++++++++-----
-> >  drivers/gpu/drm/i915/display/intel_hotplug.h  |  3 +-
-> >  drivers/gpu/drm/i915/i915_drv.c               | 23 ++++------
-> >  5 files changed, 46 insertions(+), 34 deletions(-)
-> > =
+>>  Fixes: a3fb64c00d44 "Revert "gpu/drm: ingenic: Add option to mmap =
 
-> > diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu=
-/drm/i915/display/intel_display.c
-> > index 907e1d155443..0d5607ae97c4 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_display.c
-> > +++ b/drivers/gpu/drm/i915/display/intel_display.c
-> > @@ -5036,18 +5036,15 @@ void intel_finish_reset(struct drm_i915_private=
- *dev_priv)
-> >  		intel_pps_unlock_regs_wa(dev_priv);
-> >  		intel_modeset_init_hw(dev_priv);
-> >  		intel_init_clock_gating(dev_priv);
-> > -
-> > -		spin_lock_irq(&dev_priv->irq_lock);
-> > -		if (dev_priv->display.hpd_irq_setup)
-> > -			dev_priv->display.hpd_irq_setup(dev_priv);
-> > -		spin_unlock_irq(&dev_priv->irq_lock);
-> > +		intel_hpd_init(dev_priv);
-> > +		intel_hpd_poll_disable(dev_priv);
-> >  =
-
-> >  		ret =3D __intel_display_resume(dev, state, ctx);
-> >  		if (ret)
-> >  			drm_err(&dev_priv->drm,
-> >  				"Restoring old state failed with %i\n", ret);
-> >  =
-
-> > -		intel_hpd_init(dev_priv);
-> > +		intel_hpd_poll_disable(dev_priv);
+>> GEM buffers cached""
+>>  Signed-off-by: Paul Cercueil <paul@crapouillou.net>
 > =
 
-> This call is the needed one (to re-probe the connectors) and the above
-> call is not.
+> Acked-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+
+I applied the patch to drm-misc-next-fixes.
+
+Thanks,
+-Paul
+
+> And yes if you use git cherry-pick it'll do a 3 way merge, and
+> occasionally it's very tricky to resolve that properly. Especially =
+
+> when
+> you're not used to it.
 > =
 
-> >  	}
-> >  =
+> What I tend to do to double check cerry-picks is git show both =
 
-> >  	drm_atomic_state_put(state);
-> > diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drive=
-rs/gpu/drm/i915/display/intel_display_power.c
-> > index 7277e58b01f1..20ddc54298cb 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_display_power.c
-> > +++ b/drivers/gpu/drm/i915/display/intel_display_power.c
-> > @@ -1424,6 +1424,7 @@ static void vlv_display_power_well_init(struct dr=
-m_i915_private *dev_priv)
-> >  		return;
-> >  =
+> commits,
+> and compare the entire diff line-by-line to make sure I didn't =
 
-> >  	intel_hpd_init(dev_priv);
-> > +	intel_hpd_poll_disable(dev_priv);
-> >  =
-
-> >  	/* Re-enable the ADPA, if we have one */
-> >  	for_each_intel_encoder(&dev_priv->drm, encoder) {
-> > @@ -1449,7 +1450,7 @@ static void vlv_display_power_well_deinit(struct =
-drm_i915_private *dev_priv)
-> >  =
-
-> >  	/* Prevent us from re-enabling polling on accident in late suspend */
-> >  	if (!dev_priv->drm.dev->power.is_suspended)
-> > -		intel_hpd_poll_init(dev_priv);
-> > +		intel_hpd_poll_enable(dev_priv);
-> >  }
-> >  =
-
-> >  static void vlv_display_power_well_enable(struct drm_i915_private *dev=
-_priv,
-> > diff --git a/drivers/gpu/drm/i915/display/intel_hotplug.c b/drivers/gpu=
-/drm/i915/display/intel_hotplug.c
-> > index 5c58c1ed6493..30bd4c86d146 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_hotplug.c
-> > +++ b/drivers/gpu/drm/i915/display/intel_hotplug.c
-> > @@ -584,7 +584,7 @@ void intel_hpd_irq_handler(struct drm_i915_private =
-*dev_priv,
-> >   * This is a separate step from interrupt enabling to simplify the loc=
-king rules
-> >   * in the driver load and resume code.
-> >   *
-> > - * Also see: intel_hpd_poll_init(), which enables connector polling
-> > + * Also see: intel_hpd_poll_enable() and intel_hpd_poll_disable().
-> >   */
-> >  void intel_hpd_init(struct drm_i915_private *dev_priv)
-> >  {
-> > @@ -595,9 +595,6 @@ void intel_hpd_init(struct drm_i915_private *dev_pr=
-iv)
-> >  		dev_priv->hotplug.stats[i].state =3D HPD_ENABLED;
-> >  	}
-> >  =
-
-> > -	WRITE_ONCE(dev_priv->hotplug.poll_enabled, false);
-> > -	schedule_work(&dev_priv->hotplug.poll_init_work);
-> > -
-> >  	/*
-> >  	 * Interrupt setup is already guaranteed to be single-threaded, this =
-is
-> >  	 * just to make the assert_spin_locked checks happy.
-> > @@ -654,12 +651,12 @@ static void i915_hpd_poll_init_work(struct work_s=
-truct *work)
-> >  }
-> >  =
-
-> >  /**
-> > - * intel_hpd_poll_init - enables/disables polling for connectors with =
-hpd
-> > + * intel_hpd_poll_enable - enable polling for connectors with hpd
-> >   * @dev_priv: i915 device instance
-> >   *
-> > - * This function enables polling for all connectors, regardless of whe=
-ther or
-> > - * not they support hotplug detection. Under certain conditions HPD ma=
-y not be
-> > - * functional. On most Intel GPUs, this happens when we enter runtime =
-suspend.
-> > + * This function enables polling for all connectors which support HPD.
-> > + * Under certain conditions HPD may not be functional. On most Intel G=
-PUs,
-> > + * this happens when we enter runtime suspend.
-> >   * On Valleyview and Cherryview systems, this also happens when we shu=
-t off all
-> >   * of the powerwells.
-> >   *
-> > @@ -667,9 +664,9 @@ static void i915_hpd_poll_init_work(struct work_str=
-uct *work)
-> >   * dev->mode_config.mutex, we do the actual hotplug enabling in a sepe=
-rate
-> >   * worker.
-> >   *
-> > - * Also see: intel_hpd_init(), which restores hpd handling.
-> > + * Also see: intel_hpd_init() and intel_hpd_poll_disable().
-> >   */
-> > -void intel_hpd_poll_init(struct drm_i915_private *dev_priv)
-> > +void intel_hpd_poll_enable(struct drm_i915_private *dev_priv)
-> >  {
-> >  	WRITE_ONCE(dev_priv->hotplug.poll_enabled, true);
-> >  =
-
-> > @@ -682,6 +679,31 @@ void intel_hpd_poll_init(struct drm_i915_private *=
-dev_priv)
-> >  	schedule_work(&dev_priv->hotplug.poll_init_work);
-> >  }
-> >  =
-
-> > +/**
-> > + * intel_hpd_poll_disable - disable polling for connectors with hpd
-> > + * @dev_priv: i915 device instance
-> > + *
-> > + * This function disables polling for all connectors which support HPD.
-> > + * Under certain conditions HPD may not be functional. On most Intel G=
-PUs,
-> > + * this happens when we enter runtime suspend.
-> > + * On Valleyview and Cherryview systems, this also happens when we shu=
-t off all
-> > + * of the powerwells.
-> > + *
-> > + * Since this function can get called in contexts where we're already =
-holding
-> > + * dev->mode_config.mutex, we do the actual hotplug enabling in a sepe=
-rate
-> > + * worker.
-> > + *
-> > + * Also used during driver init to initialize connector->polled
-> > + * appropriately for all connectors.
-> > + *
-> > + * Also see: intel_hpd_init() and intel_hpd_poll_enable().
-> > + */
-> > +void intel_hpd_poll_disable(struct drm_i915_private *dev_priv)
-> > +{
-> > +	WRITE_ONCE(dev_priv->hotplug.poll_enabled, false);
-> > +	schedule_work(&dev_priv->hotplug.poll_init_work);
-> > +}
-> > +
-> >  void intel_hpd_init_work(struct drm_i915_private *dev_priv)
-> >  {
-> >  	INIT_DELAYED_WORK(&dev_priv->hotplug.hotplug_work,
-> > diff --git a/drivers/gpu/drm/i915/display/intel_hotplug.h b/drivers/gpu=
-/drm/i915/display/intel_hotplug.h
-> > index a704d7c94d16..b87e95d606e6 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_hotplug.h
-> > +++ b/drivers/gpu/drm/i915/display/intel_hotplug.h
-> > @@ -14,7 +14,8 @@ struct intel_digital_port;
-> >  struct intel_encoder;
-> >  enum port;
-> >  =
-
-> > -void intel_hpd_poll_init(struct drm_i915_private *dev_priv);
-> > +void intel_hpd_poll_enable(struct drm_i915_private *dev_priv);
-> > +void intel_hpd_poll_disable(struct drm_i915_private *dev_priv);
-> >  enum intel_hotplug_state intel_encoder_hotplug(struct intel_encoder *e=
-ncoder,
-> >  					       struct intel_connector *connector);
-> >  void intel_hpd_irq_handler(struct drm_i915_private *dev_priv,
-> > diff --git a/drivers/gpu/drm/i915/i915_drv.c b/drivers/gpu/drm/i915/i91=
-5_drv.c
-> > index ebc15066d108..3fc7b996fc48 100644
-> > --- a/drivers/gpu/drm/i915/i915_drv.c
-> > +++ b/drivers/gpu/drm/i915/i915_drv.c
-> > @@ -1226,26 +1226,15 @@ static int i915_drm_resume(struct drm_device *d=
-ev)
-> >  =
-
-> >  	intel_modeset_init_hw(dev_priv);
-> >  	intel_init_clock_gating(dev_priv);
-> > +	intel_hpd_init(dev_priv);
-> >  =
-
-> > -	spin_lock_irq(&dev_priv->irq_lock);
-> > -	if (dev_priv->display.hpd_irq_setup)
-> > -		dev_priv->display.hpd_irq_setup(dev_priv);
-> > -	spin_unlock_irq(&dev_priv->irq_lock);
-> > -
-> > +	/* MST sideband requires HPD interrupts enabled */
+> misplace
+> anything.
 > =
 
-> The above is a comment for intel_hpd_init().
+> Another trick is to use the raw patch instead of cherry-pick, since =
 
-I meant it more as "here be the point where we start to depend on HPD
-interrupts".
+> that
+> won't do a 3 way merge where you might get confused with other =
+
+> context and
+> fun stuff like that.
+> =
+
+> Cheers, Daniel
+>>  ---
+>>   drivers/gpu/drm/ingenic/ingenic-drm-drv.c | 16 ----------------
+>>   1 file changed, 16 deletions(-)
+>> =
+
+>>  diff --git a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c =
+
+>> b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
+>>  index 1be1235bd546..a3d1617d7c67 100644
+>>  --- a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
+>>  +++ b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
+>>  @@ -440,20 +440,6 @@ void ingenic_drm_plane_config(struct device =
+
+>> *dev,
+>>   	}
+>>   }
+>> =
+
+>>  -static void ingenic_drm_update_palette(struct ingenic_drm *priv,
+>>  -				       const struct drm_color_lut *lut)
+>>  -{
+>>  -	unsigned int i;
+>>  -
+>>  -	for (i =3D 0; i < ARRAY_SIZE(priv->dma_hwdescs->palette); i++) {
+>>  -		u16 color =3D drm_color_lut_extract(lut[i].red, 5) << 11
+>>  -			| drm_color_lut_extract(lut[i].green, 6) << 5
+>>  -			| drm_color_lut_extract(lut[i].blue, 5);
+>>  -
+>>  -		priv->dma_hwdescs->palette[i] =3D color;
+>>  -	}
+>>  -}
+>>  -
+>>   static void ingenic_drm_plane_atomic_update(struct drm_plane =
+
+>> *plane,
+>>   					    struct drm_plane_state *oldstate)
+>>   {
+>>  @@ -464,8 +450,6 @@ static void =
+
+>> ingenic_drm_plane_atomic_update(struct drm_plane *plane,
+>>   	dma_addr_t addr;
+>> =
+
+>>   	if (state && state->fb) {
+>>  -		crtc_state =3D state->crtc->state;
+>>  -
+>>   		addr =3D drm_fb_cma_get_gem_addr(state->fb, state, 0);
+>>   		width =3D state->src_w >> 16;
+>>   		height =3D state->src_h >> 16;
+>>  --
+>>  2.28.0
+>> =
 
 > =
 
-> intel_modeset_init() also calls intel_hpd_init(), looks like that
-> guarantees the explicit connector probing during driver loading. Do we
-> need to call intel_hpd_poll_disable() somewhere on that path too? (Maybe
-> only from i915_driver_register().)
+> --
+> Daniel Vetter
+> Software Engineer, Intel Corporation
+> http://blog.ffwll.ch
 
-Argh. Must have been some rebase failure. Even reflog remembers me
-adding that call, but apparently it never made it into the version I
-posted.
 
-> =
-
-> >  	intel_dp_mst_resume(dev_priv);
-> > -
-> >  	intel_display_resume(dev);
-> >  =
-
-> > +	intel_hpd_poll_disable(dev_priv);
-> >  	drm_kms_helper_poll_enable(dev);
-> >  =
-
-> > -	/*
-> > -	 * ... but also need to make sure that hotplug processing
-> > -	 * doesn't cause havoc. Like in the driver load code we don't
-> > -	 * bother with the tiny race here where we might lose hotplug
-> > -	 * notifications.
-> > -	 * */
-> > -	intel_hpd_init(dev_priv);
-> > -
-> >  	intel_opregion_resume(dev_priv);
-> >  =
-
-> >  	intel_fbdev_set_suspend(dev, FBINFO_STATE_RUNNING, false);
-> > @@ -1557,7 +1546,7 @@ static int intel_runtime_suspend(struct device *k=
-dev)
-> >  	assert_forcewakes_inactive(&dev_priv->uncore);
-> >  =
-
-> >  	if (!IS_VALLEYVIEW(dev_priv) && !IS_CHERRYVIEW(dev_priv))
-> > -		intel_hpd_poll_init(dev_priv);
-> > +		intel_hpd_poll_enable(dev_priv);
-> >  =
-
-> >  	drm_dbg_kms(&dev_priv->drm, "Device suspended\n");
-> >  	return 0;
-> > @@ -1602,8 +1591,10 @@ static int intel_runtime_resume(struct device *k=
-dev)
-> >  	 * power well, so hpd is reinitialized from there. For
-> >  	 * everyone else do it here.
-> >  	 */
-> > -	if (!IS_VALLEYVIEW(dev_priv) && !IS_CHERRYVIEW(dev_priv))
-> > +	if (!IS_VALLEYVIEW(dev_priv) && !IS_CHERRYVIEW(dev_priv)) {
-> >  		intel_hpd_init(dev_priv);
-> > +		intel_hpd_poll_disable(dev_priv);
-> > +	}
-> >  =
-
-> >  	intel_enable_ipc(dev_priv);
-> >  =
-
-> > -- =
-
-> > 2.26.2
-> > =
-
-> > _______________________________________________
-> > Intel-gfx mailing list
-> > Intel-gfx@lists.freedesktop.org
-> > https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-
--- =
-
-Ville Syrj=E4l=E4
-Intel
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
