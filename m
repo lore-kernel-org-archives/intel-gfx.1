@@ -2,49 +2,52 @@ Return-Path: <SRS0=Vt61=DU=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.9 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	UNWANTED_LANGUAGE_BODY,URIBL_BLOCKED,USER_AGENT_GIT autolearn=no
+X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6A029C43457
-	for <intel-gfx@archiver.kernel.org>; Tue, 13 Oct 2020 07:31:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B51CDC433E7
+	for <intel-gfx@archiver.kernel.org>; Tue, 13 Oct 2020 07:31:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0D27D20E65
-	for <intel-gfx@archiver.kernel.org>; Tue, 13 Oct 2020 07:31:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0D27D20E65
+	by mail.kernel.org (Postfix) with ESMTPS id 7A07A20872
+	for <intel-gfx@archiver.kernel.org>; Tue, 13 Oct 2020 07:31:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7A07A20872
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B48F6E8A5;
-	Tue, 13 Oct 2020 07:31:17 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9901C6E8AA
- for <intel-gfx@lists.freedesktop.org>; Tue, 13 Oct 2020 07:31:15 +0000 (UTC)
-IronPort-SDR: JPgEf/UZGb/3Q9mnHVNmfEhuDF5HbHxphPMqKvMX65UVEIwQtAeU95GF2CvncpJ+/Ab2eOfCpC
- GdxZrrQWPnag==
-X-IronPort-AV: E=McAfee;i="6000,8403,9772"; a="153697671"
-X-IronPort-AV: E=Sophos;i="5.77,369,1596524400"; d="scan'208";a="153697671"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 161296E8AA;
+	Tue, 13 Oct 2020 07:31:29 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C3B9C6E8AA
+ for <intel-gfx@lists.freedesktop.org>; Tue, 13 Oct 2020 07:31:27 +0000 (UTC)
+IronPort-SDR: BCBxtaqJPaMz2UavdVj/oxnsGXC+y6USIc+rZm+u+ZsupVSzXdhiD5ZE0P7FjYaz4dJtwXMEaX
+ QeEo9S9KXnyg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9772"; a="165927658"
+X-IronPort-AV: E=Sophos;i="5.77,369,1596524400"; d="scan'208";a="165927658"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Oct 2020 00:31:14 -0700
-IronPort-SDR: z37QFOxEiGyrtbMR6oA89dgylxEzePiwITOkJUFRNl1Za6DhTjZNh13g0PjqcMXQsoD+M1gLwO
- XuV5dgOSVWzQ==
-X-IronPort-AV: E=Sophos;i="5.77,369,1596524400"; d="scan'208";a="313712133"
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Oct 2020 00:31:27 -0700
+IronPort-SDR: 9Pk2qn7xRhlUWSiZoFkefNESgQFIoqykq8byteuaIvhh63qr7Cw3ukFdEaz3bY9SYAUFYXDWgc
+ D0wAyM9Ni1RA==
+X-IronPort-AV: E=Sophos;i="5.77,369,1596524400"; d="scan'208";a="313712146"
 Received: from genxfsim-desktop.iind.intel.com ([10.223.74.178])
  by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Oct 2020 00:31:12 -0700
+ 13 Oct 2020 00:31:15 -0700
 From: Anshuman Gupta <anshuman.gupta@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 13 Oct 2020 12:50:42 +0530
-Message-Id: <20201013072044.7278-1-anshuman.gupta@intel.com>
+Date: Tue, 13 Oct 2020 12:50:43 +0530
+Message-Id: <20201013072044.7278-2-anshuman.gupta@intel.com>
 X-Mailer: git-send-email 2.26.2
+In-Reply-To: <20201013072044.7278-1-anshuman.gupta@intel.com>
+References: <20201013072044.7278-1-anshuman.gupta@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 0/2] HDCP over DP-MST misc
+Subject: [Intel-gfx] [PATCH 1/2] drm/i915/hdcp: Update CP property in
+ update_pipe
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,16 +66,38 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-These Misc patches requires to work HDCP over DP-MST.
+When crtc state need_modeset is true it is not necessary
+it is going to be a real modeset, it can turns to be a
+update_pipe instead of modeset.
+This turns content protection property to be DESIRED and hdcp
+update_pipe left with property to be in DESIRED state but
+actually hdcp->value was ENABLED.
+This caught with DP MST setup, when disabling HDCP on a connector
+sets the crtc state need_modeset to true for all crtc driving
+the other DP-MST topology connectors.
 
-Anshuman Gupta (2):
-  drm/i915/hdcp: Update CP property in update_pipe
-  drm/i915/hotplug: Handle CP_IRQ for DP-MST
+Fixes: 33f9a623bfc6 ("drm/i915/hdcp: Update CP as per the kernel internal state")
+Cc: Ramalingam C <ramalingam.c@intel.com>
+Signed-off-by: Anshuman Gupta <anshuman.gupta@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_hdcp.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
- drivers/gpu/drm/i915/display/intel_dp.c   | 14 +++++++++++++-
- drivers/gpu/drm/i915/display/intel_hdcp.c |  4 ++++
- 2 files changed, 17 insertions(+), 1 deletion(-)
-
+diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.c b/drivers/gpu/drm/i915/display/intel_hdcp.c
+index b2a4bbcfdcd2..cbe3ee661bb7 100644
+--- a/drivers/gpu/drm/i915/display/intel_hdcp.c
++++ b/drivers/gpu/drm/i915/display/intel_hdcp.c
+@@ -2220,6 +2220,10 @@ void intel_hdcp_update_pipe(struct intel_atomic_state *state,
+ 		/* Avoid enabling hdcp, if it already ENABLED */
+ 		desired_and_not_enabled =
+ 			hdcp->value != DRM_MODE_CONTENT_PROTECTION_ENABLED;
++
++		if (!desired_and_not_enabled && !content_protection_type_changed)
++			schedule_work(&hdcp->prop_work);
++
+ 		mutex_unlock(&hdcp->mutex);
+ 	}
+ 
 -- 
 2.26.2
 
