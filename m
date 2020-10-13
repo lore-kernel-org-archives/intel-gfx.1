@@ -2,41 +2,57 @@ Return-Path: <SRS0=Vt61=DU=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CAAE5C433DF
-	for <intel-gfx@archiver.kernel.org>; Tue, 13 Oct 2020 11:58:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1F9FBC433DF
+	for <intel-gfx@archiver.kernel.org>; Tue, 13 Oct 2020 12:03:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 27A4E2080A
-	for <intel-gfx@archiver.kernel.org>; Tue, 13 Oct 2020 11:58:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 27A4E2080A
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
+	by mail.kernel.org (Postfix) with ESMTPS id B1C4220870
+	for <intel-gfx@archiver.kernel.org>; Tue, 13 Oct 2020 12:03:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B1C4220870
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=emersion.fr
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4BC2B6E8CC;
-	Tue, 13 Oct 2020 11:58:36 +0000 (UTC)
-Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 028326E8CC
- for <intel-gfx@lists.freedesktop.org>; Tue, 13 Oct 2020 11:58:34 +0000 (UTC)
-X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
- x-ip-name=78.156.65.138; 
-Received: from localhost (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP (TLS) id
- 22701516-1500050 for multiple; Tue, 13 Oct 2020 12:58:31 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 20DAB6E8D5;
+	Tue, 13 Oct 2020 12:03:47 +0000 (UTC)
+Received: from mail-41104.protonmail.ch (mail-41104.protonmail.ch
+ [185.70.41.104])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B23B6E8D5
+ for <intel-gfx@lists.freedesktop.org>; Tue, 13 Oct 2020 12:03:45 +0000 (UTC)
+Received: from mail-03.mail-europe.com (mail-03.mail-europe.com
+ [91.134.188.129])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits))
+ (No client certificate requested)
+ by mail-41104.protonmail.ch (Postfix) with ESMTPS id 9D9272002C93
+ for <intel-gfx@lists.freedesktop.org>; Tue, 13 Oct 2020 12:03:43 +0000 (UTC)
+Authentication-Results: mail-41104.protonmail.ch;
+ dkim=pass (2048-bit key) header.d=emersion.fr header.i=@emersion.fr
+ header.b="dW0FUHzm"
+Date: Tue, 13 Oct 2020 12:03:34 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
+ s=protonmail2; t=1602590619;
+ bh=xJSyQzG/wc/eo2ONFO3MxyEkoIOfZSkrghLMbcUyQAg=;
+ h=Date:To:From:Cc:Reply-To:Subject:In-Reply-To:References:From;
+ b=dW0FUHzmf4SQsmiETrMSH4Av2aeAGeg0ShH+Bd4aGcc4Xwt69ocpvsOcKx7BWpczu
+ i+o71u7MBa8iuJDnoAVyBXAmJ6raRLt2jM8fqucX41jDc6gJhbuIyXmI0LaVWavZO2
+ SKtLFZWQ3vrpd2y9D9sFK3IqA3pVBieLXXv62uP5osjeGokhrnqC1FiBLG0BCIdu20
+ DvIjoHZz2uT88BBZXWaxOk1R4P9+TjcSdYaTIf7094vNJ4t6GXL3v8NZSLD0g3HvCy
+ LncPhPvtx2GDCkwIGeUPSdznJcRz/vfqckgukjnK8yo4meFtEzXCL3TuHEJKEBMVs0
+ Kikz7jSugC8pA==
+To: Pankaj Bharadiya <pankaj.laxminarayan.bharadiya@intel.com>
+From: Simon Ser <contact@emersion.fr>
+Message-ID: <5OoxGqCN-WPshwwU1WctxYhcJ3OqwLmph6wWhq-ZgTfKPhz1WQLGJlZZN1p2oM082DxSn0cv-nUP9bLJcdtoaK8FLvaXxoa5TB2N0LEy3LI=@emersion.fr>
+In-Reply-To: <20201012184130.937-2-pankaj.laxminarayan.bharadiya@intel.com>
+References: <20201012184130.937-1-pankaj.laxminarayan.bharadiya@intel.com>
+ <20201012184130.937-2-pankaj.laxminarayan.bharadiya@intel.com>
 MIME-Version: 1.0
-In-Reply-To: <20201013111839.96637-1-matthew.auld@intel.com>
-References: <20201013111839.96637-1-matthew.auld@intel.com>
-From: Chris Wilson <chris@chris-wilson.co.uk>
-To: Matthew Auld <matthew.auld@intel.com>, intel-gfx@lists.freedesktop.org
-Date: Tue, 13 Oct 2020 12:58:31 +0100
-Message-ID: <160259031106.2946.5754638300794869595@build.alporthouse.com>
-User-Agent: alot/0.9
-Subject: Re: [Intel-gfx] [PATCH] drm/i915/execbuf: don't allow zero batch_len
+Subject: Re: [Intel-gfx] [PATCH v6 1/5] drm: Introduce plane and CRTC
+ scaling filter properties
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,71 +65,38 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: Simon Ser <contact@emersion.fr>
+Cc: Maxime Ripard <mripard@kernel.org>,
+ "daniels@collabora.com" <daniels@collabora.com>,
+ David Airlie <airlied@linux.ie>, Thomas Zimmermann <tzimmermann@suse.de>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "lorusak@gmail.com" <lorusak@gmail.com>,
+ "themagnificentmrg@gmail.com" <themagnificentmrg@gmail.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Quoting Matthew Auld (2020-10-13 12:18:39)
-> As per the ABI batch_len is u32, however if the batch_len is left unset,
-> then the kernel will just assume batch_len is the size of the whole
-> batch object, however since the vma->size is u64, while the batch_len is
-> just u32 we can end up with batch_len = 0 if we are given too large batch
-> object(e.g 1ULL << 32), which doesn't look the intended behaviour and
-> probably leads to explosions on some HW.
-> 
-> Testcase: igt/gem_exec_params/larger-than-life-batch
-> Fixes: 0b5372727be3 ("drm/i915/cmdparser: Use cached vmappings")
+> +/**
+> + * DOC: Plane scaling filter property
+> + *
+> + * SCALING_FILTER:
+> + *
+> + *	Indicates scaling filter to be used for plane scaler
+> + *
+> + *	The value of this property can be one of the following:
+> + *	Default:
+> + *		Driver's default scaling filter
+> + *	Nearest Neighbor:
+> + *		Nearest Neighbor scaling filter
+> + *
+> + * Drivers can set up this property for a plane by calling
+> + * drm_plane_create_scaling_filter_property
+> + */
 
-Nah. That's setting exec_len used for dispatch, not for parsing, which
-is still using 
+Similarily, this can be moved in "Plane Composition Properties".
 
-i915_gem_execbuffer_parse(engine, &shadow_exec_entry,
-			  params->batch->obj,
-			  eb,
-			  args->batch_start_offset,
-			  args->batch_len,
-			  drm_is_current_master(file));
-(and args->batch_len is straight from userspace and passed onwards)
-
-It's right up until 435e8fc059db ("drm/i915: Allow parsing of unsized batches")
-where we are using the user value of batch_len for allocating the shadow
-object and parsing.
-
-Fixes: 435e8fc059db ("drm/i915: Allow parsing of unsized batches")
-
-> Signed-off-by: Matthew Auld <matthew.auld@intel.com>
-> Cc: Chris Wilson <chris@chris-wilson.co.uk>
-> ---
->  drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c | 7 ++++++-
->  1 file changed, 6 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-> index 4b09bcd70cf4..80c738c72e6e 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-> @@ -869,8 +869,13 @@ static int eb_lookup_vmas(struct i915_execbuffer *eb)
->                 return -EINVAL;
->         }
->  
-> -       if (eb->batch_len == 0)
-> +       if (eb->batch_len == 0) {
->                 eb->batch_len = eb->batch->vma->size - eb->batch_start_offset;
-
-if (overflows_type(eb->batch->vma->size - eb->batch_start_offset, eb->batch_len))
-
-It should not have caused the cmdparser any trouble though, it should
-have been quite happy to copy nothing and reject the batch for reaching
-the end too early (with a very slim chance of a stale
-MI_BATCH_BUFFER_END to the rescue).
-
-intel_gt_get_buffer_pool() looks suspect given a size of 0, it will
-either give the largest object it has cached or break upon
-creating/allocating internal pages.
-
-In terms of HW fail, only gen2 used the parameter and it has a very
-limited batch/GTT size.
--Chris
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
