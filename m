@@ -2,38 +2,55 @@ Return-Path: <SRS0=Vt61=DU=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 88B94C433DF
-	for <intel-gfx@archiver.kernel.org>; Tue, 13 Oct 2020 13:54:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B61D1C43457
+	for <intel-gfx@archiver.kernel.org>; Tue, 13 Oct 2020 13:54:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1E17F2476F
-	for <intel-gfx@archiver.kernel.org>; Tue, 13 Oct 2020 13:54:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1E17F2476F
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=crapouillou.net
+	by mail.kernel.org (Postfix) with ESMTPS id 117E124779
+	for <intel-gfx@archiver.kernel.org>; Tue, 13 Oct 2020 13:54:12 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="a/Sp1GZZ"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 117E124779
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 274046E051;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 338756E107;
 	Tue, 13 Oct 2020 13:54:09 +0000 (UTC)
-Received: from aposti.net (aposti.net [89.234.176.197])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E1F16E591;
- Mon, 12 Oct 2020 19:14:06 +0000 (UTC)
-Date: Mon, 12 Oct 2020 21:13:53 +0200
-From: Paul Cercueil <paul@crapouillou.net>
-To: Daniel Vetter <daniel@ffwll.ch>
-Message-Id: <53S3IQ.YMG1AT14NTR93@crapouillou.net>
-In-Reply-To: <20201012141041.GU438822@phenom.ffwll.local>
-References: <20201012152452.432c4867@canb.auug.org.au>
- <20201012102509.10690-1-paul@crapouillou.net>
- <20201012141041.GU438822@phenom.ffwll.local>
+Received: from casper.infradead.org (casper.infradead.org
+ [IPv6:2001:8b0:10b:1236::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C42A76E2D5;
+ Tue, 13 Oct 2020 11:26:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description;
+ bh=ap+vugPRXoOSJhloW5EJc9FGxy9ZwiLwbnG+7+pEMhA=; b=a/Sp1GZZiVtkIrsbDZFKKgQTkQ
+ FS+JHTt9pp+5vCrBdk0ac5b7U8ZgZGFScrKiULCJv4PZD4wWqOSzzq06ZoGh/8vFLI33VuvYYBdii
+ wZ4VlXJvl5fnmlD+q4pIJJmvrTs/0jX/FIDmEAYUX2+Mt6vIwB3sAbRYRgWIA8hB4i4EWyZuWPFOQ
+ rIaV+GwSaVBgBLKvO/SsFSj7I46VHFxg38PLmJQ+Oh1DkRIQcIx5NIWLGcWnDXshQ14JMdlpURiF2
+ LxyBxRGv+1Wkfh31jf6dzRr+U4xHgvz3PsshAxeZoaF0OQPY6Fl5VA2XZOxLonra6CTBCfgsfUBp/
+ 6eTYHzgA==;
+Received: from hch by casper.infradead.org with local (Exim 4.92.3 #3 (Red Hat
+ Linux)) id 1kSIR6-0001VK-7P; Tue, 13 Oct 2020 11:25:44 +0000
+Date: Tue, 13 Oct 2020 12:25:44 +0100
+From: Christoph Hellwig <hch@infradead.org>
+To: ira.weiny@intel.com
+Message-ID: <20201013112544.GA5249@infradead.org>
+References: <20201009195033.3208459-1-ira.weiny@intel.com>
+ <20201009195033.3208459-25-ira.weiny@intel.com>
 MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20201009195033.3208459-25-ira.weiny@intel.com>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
+ casper.infradead.org. See http://www.infradead.org/rpr.html
 X-Mailman-Approved-At: Tue, 13 Oct 2020 13:54:08 +0000
-Subject: Re: [Intel-gfx] [PATCH] drm/ingenic: Fix bad revert
+Subject: Re: [Intel-gfx] [PATCH RFC PKS/PMEM 24/58] fs/freevxfs: Utilize new
+ kmap_thread()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,132 +63,52 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Stephen Rothwell <sfr@canb.auug.org.au>,
- Daniel Vetter <daniel.vetter@ffwll.ch>,
- Intel Graphics <intel-gfx@lists.freedesktop.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- DRI <dri-devel@lists.freedesktop.org>, linux-next@vger.kernel.org,
- Sam Ravnborg <sam@ravnborg.org>
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="iso-8859-1"; Format="flowed"
+Cc: linux-aio@kvack.org, linux-efi@vger.kernel.org, kvm@vger.kernel.org,
+ linux-doc@vger.kernel.org, Peter Zijlstra <peterz@infradead.org>,
+ linux-mmc@vger.kernel.org, Dave Hansen <dave.hansen@linux.intel.com>,
+ dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
+ target-devel@vger.kernel.org, linux-mtd@lists.infradead.org,
+ linux-kselftest@vger.kernel.org, samba-technical@lists.samba.org,
+ Thomas Gleixner <tglx@linutronix.de>, drbd-dev@lists.linbit.com,
+ devel@driverdev.osuosl.org, cluster-devel@redhat.com,
+ linux-nilfs@vger.kernel.org, linux-scsi@vger.kernel.org,
+ linux-nvdimm@lists.01.org, linux-rdma@vger.kernel.org, x86@kernel.org,
+ ceph-devel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ io-uring@vger.kernel.org, Christoph Hellwig <hch@infradead.org>,
+ Ingo Molnar <mingo@redhat.com>, intel-wired-lan@lists.osuosl.org,
+ xen-devel@lists.xenproject.org, linux-ext4@vger.kernel.org,
+ Fenghua Yu <fenghua.yu@intel.com>, linux-afs@lists.infradead.org,
+ linux-cifs@vger.kernel.org, linux-um@lists.infradead.org,
+ intel-gfx@lists.freedesktop.org, ecryptfs@vger.kernel.org,
+ linux-erofs@lists.ozlabs.org, reiserfs-devel@vger.kernel.org,
+ linux-block@vger.kernel.org, linux-bcache@vger.kernel.org,
+ Borislav Petkov <bp@alien8.de>, Andy Lutomirski <luto@kernel.org>,
+ Dan Williams <dan.j.williams@intel.com>,
+ Andrew Morton <akpm@linux-foundation.org>, linux-cachefs@redhat.com,
+ linux-nfs@vger.kernel.org, linux-ntfs-dev@lists.sourceforge.net,
+ netdev@vger.kernel.org, kexec@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
+ linux-fsdevel@vger.kernel.org, bpf@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, linux-btrfs@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+> -	kaddr = kmap(pp);
+> +	kaddr = kmap_thread(pp);
+>  	memcpy(kaddr, vip->vii_immed.vi_immed + offset, PAGE_SIZE);
+> -	kunmap(pp);
+> +	kunmap_thread(pp);
 
+You only Cced me on this particular patch, which means I have absolutely
+no idea what kmap_thread and kunmap_thread actually do, and thus can't
+provide an informed review.
 
-Le lun. 12 oct. 2020 =E0 16:10, Daniel Vetter <daniel@ffwll.ch> a =E9crit =
-
-:
-> On Mon, Oct 12, 2020 at 12:25:09PM +0200, Paul Cercueil wrote:
->>  Fix a badly reverted commit. The revert commit was cherry-picked =
-
->> from
->>  drm-misc-next to drm-misc-next-fixes, and in the process some =
-
->> unrelated
->>  code was added.
->> =
-
->>  Fixes: a3fb64c00d44 "Revert "gpu/drm: ingenic: Add option to mmap =
-
->> GEM buffers cached""
->>  Signed-off-by: Paul Cercueil <paul@crapouillou.net>
-> =
-
-> Acked-by: Daniel Vetter <daniel.vetter@ffwll.ch>
-
-I applied the patch to drm-misc-next-fixes.
-
-Thanks,
--Paul
-
-> And yes if you use git cherry-pick it'll do a 3 way merge, and
-> occasionally it's very tricky to resolve that properly. Especially =
-
-> when
-> you're not used to it.
-> =
-
-> What I tend to do to double check cerry-picks is git show both =
-
-> commits,
-> and compare the entire diff line-by-line to make sure I didn't =
-
-> misplace
-> anything.
-> =
-
-> Another trick is to use the raw patch instead of cherry-pick, since =
-
-> that
-> won't do a 3 way merge where you might get confused with other =
-
-> context and
-> fun stuff like that.
-> =
-
-> Cheers, Daniel
->>  ---
->>   drivers/gpu/drm/ingenic/ingenic-drm-drv.c | 16 ----------------
->>   1 file changed, 16 deletions(-)
->> =
-
->>  diff --git a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c =
-
->> b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
->>  index 1be1235bd546..a3d1617d7c67 100644
->>  --- a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
->>  +++ b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
->>  @@ -440,20 +440,6 @@ void ingenic_drm_plane_config(struct device =
-
->> *dev,
->>   	}
->>   }
->> =
-
->>  -static void ingenic_drm_update_palette(struct ingenic_drm *priv,
->>  -				       const struct drm_color_lut *lut)
->>  -{
->>  -	unsigned int i;
->>  -
->>  -	for (i =3D 0; i < ARRAY_SIZE(priv->dma_hwdescs->palette); i++) {
->>  -		u16 color =3D drm_color_lut_extract(lut[i].red, 5) << 11
->>  -			| drm_color_lut_extract(lut[i].green, 6) << 5
->>  -			| drm_color_lut_extract(lut[i].blue, 5);
->>  -
->>  -		priv->dma_hwdescs->palette[i] =3D color;
->>  -	}
->>  -}
->>  -
->>   static void ingenic_drm_plane_atomic_update(struct drm_plane =
-
->> *plane,
->>   					    struct drm_plane_state *oldstate)
->>   {
->>  @@ -464,8 +450,6 @@ static void =
-
->> ingenic_drm_plane_atomic_update(struct drm_plane *plane,
->>   	dma_addr_t addr;
->> =
-
->>   	if (state && state->fb) {
->>  -		crtc_state =3D state->crtc->state;
->>  -
->>   		addr =3D drm_fb_cma_get_gem_addr(state->fb, state, 0);
->>   		width =3D state->src_w >> 16;
->>   		height =3D state->src_h >> 16;
->>  --
->>  2.28.0
->> =
-
-> =
-
-> --
-> Daniel Vetter
-> Software Engineer, Intel Corporation
-> http://blog.ffwll.ch
-
-
+That being said I think your life would be a lot easier if you add
+helpers for the above code sequence and its counterpart that copies
+to a potential hughmem page first, as that hides the implementation
+details from most users.
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
