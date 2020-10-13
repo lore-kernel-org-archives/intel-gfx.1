@@ -2,51 +2,53 @@ Return-Path: <SRS0=Vt61=DU=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CF69EC433E7
-	for <intel-gfx@archiver.kernel.org>; Tue, 13 Oct 2020 23:01:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 20D61C43457
+	for <intel-gfx@archiver.kernel.org>; Tue, 13 Oct 2020 23:01:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7E64520B1F
-	for <intel-gfx@archiver.kernel.org>; Tue, 13 Oct 2020 23:01:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7E64520B1F
+	by mail.kernel.org (Postfix) with ESMTPS id D6C8220B1F
+	for <intel-gfx@archiver.kernel.org>; Tue, 13 Oct 2020 23:01:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D6C8220B1F
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=Intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B249F6E47A;
-	Tue, 13 Oct 2020 23:01:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0951D6E981;
+	Tue, 13 Oct 2020 23:01:32 +0000 (UTC)
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9372C6E981
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C7986E47A
  for <Intel-GFX@lists.freedesktop.org>; Tue, 13 Oct 2020 23:01:30 +0000 (UTC)
-IronPort-SDR: ZqhCeQ2hD/X5fRivgJEW/uIdvZ8iNefa+wsiiCZARI/bF4NxAaBku2Y7yCbmYFv6XTBylubM8n
- QmcCEHk0C0SQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9773"; a="230176804"
-X-IronPort-AV: E=Sophos;i="5.77,372,1596524400"; d="scan'208";a="230176804"
+IronPort-SDR: jwWMrY15LFK1KoL2I2BFLb3y0zXbR/hyGAhqd4Qm5BikDqAwtMeijgEJIOD+5ZPFo0YwnZ1C3V
+ MmyMXLX3csnA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9773"; a="230176807"
+X-IronPort-AV: E=Sophos;i="5.77,372,1596524400"; d="scan'208";a="230176807"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  13 Oct 2020 16:01:29 -0700
-IronPort-SDR: WPWjwzrkTlSxLd9QMdhPI47bKPfuwpsagTDjovrnEViVu+HTfYnlF/pQbzrztydQHgsnyj6AOY
- OC6C2GRWsGgQ==
+IronPort-SDR: ONHZkzcf+SSgSBsFXp2kpQXaz0hY5UPTDe9z2cF0AAQ4qefGb+mTIjJtTLV8srbUIewxlmGFY9
+ nQk8G7x7tTmg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.77,372,1596524400"; d="scan'208";a="390471182"
+X-IronPort-AV: E=Sophos;i="5.77,372,1596524400"; d="scan'208";a="390471190"
 Received: from relo-linux-5.jf.intel.com ([10.165.21.134])
  by orsmga001.jf.intel.com with ESMTP; 13 Oct 2020 16:01:29 -0700
 From: John.C.Harrison@Intel.com
 To: Intel-GFX@Lists.FreeDesktop.Org
-Date: Tue, 13 Oct 2020 16:01:26 -0700
-Message-Id: <20201013230129.2596998-1-John.C.Harrison@Intel.com>
+Date: Tue, 13 Oct 2020 16:01:29 -0700
+Message-Id: <20201013230129.2596998-4-John.C.Harrison@Intel.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20201013230129.2596998-1-John.C.Harrison@Intel.com>
+References: <20201013230129.2596998-1-John.C.Harrison@Intel.com>
 MIME-Version: 1.0
 Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
  Swindon SN3 1RJ
-Subject: [Intel-gfx] [PATCH v2 0/3] drm/i915/guc: Update to GuC v49
+Subject: [Intel-gfx] [PATCH v2 3/3] drm/i915/guc: Clear pointers on free
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,32 +68,39 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: John Harrison <John.C.Harrison@Intel.com>
 
-Update to the latest GuC firmware
-
-v2: Rebase to newer tree, updated a commit message (review feedback
-from Daniele) and dropped the patch to enable GuC/HuC loading by
-default as apparently this is not allowed.
+Clear out some pointers when objects have been de-allocated. This
+makes it much easier to track down use-after-free type issues.
 
 Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
+---
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c | 1 +
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c  | 1 +
+ 2 files changed, 2 insertions(+)
 
-
-John Harrison (3):
-  drm/i915/guc: Update to use firmware v49.0.1
-  drm/i915/guc: Improved reporting when GuC fails to load
-  drm/i915/guc: Clear pointers on free
-
- drivers/gpu/drm/i915/gt/intel_engine_cs.c    |   3 +-
- drivers/gpu/drm/i915/gt/uc/intel_guc.c       |  18 ---
- drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c   | 132 +++++++++++++++----
- drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c    |   1 +
- drivers/gpu/drm/i915/gt/uc/intel_guc_fw.c    |  31 +++--
- drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h  |  80 +++++------
- drivers/gpu/drm/i915/gt/uc/intel_guc_reg.h   |   5 +
- drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c     |  27 ++--
- drivers/gpu/drm/i915/gt/uc/intel_uc_fw.h     |   2 +
- drivers/gpu/drm/i915/gt/uc/intel_uc_fw_abi.h |   6 +-
- 10 files changed, 200 insertions(+), 105 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
+index 7950d28beb8c..5212ff844292 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
+@@ -220,6 +220,7 @@ int intel_guc_ads_create(struct intel_guc *guc)
+ void intel_guc_ads_destroy(struct intel_guc *guc)
+ {
+ 	i915_vma_unpin_and_release(&guc->ads_vma, I915_VMA_RELEASE_MAP);
++	guc->ads_blob = NULL;
+ }
+ 
+ static void guc_ads_private_data_reset(struct intel_guc *guc)
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+index 11742fca0e9e..fa9e048cc65f 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+@@ -210,6 +210,7 @@ void intel_guc_ct_fini(struct intel_guc_ct *ct)
+ 	GEM_BUG_ON(ct->enabled);
+ 
+ 	i915_vma_unpin_and_release(&ct->vma, I915_VMA_RELEASE_MAP);
++	memset(ct, 0, sizeof(*ct));
+ }
+ 
+ /**
 -- 
 2.25.1
 
