@@ -2,56 +2,44 @@ Return-Path: <SRS0=eTAM=DV=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.0 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,NICE_REPLY_A,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D714CC43457
-	for <intel-gfx@archiver.kernel.org>; Wed, 14 Oct 2020 09:06:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EDD23C43457
+	for <intel-gfx@archiver.kernel.org>; Wed, 14 Oct 2020 09:09:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5F73620B1F
-	for <intel-gfx@archiver.kernel.org>; Wed, 14 Oct 2020 09:06:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5F73620B1F
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 4BD9120878
+	for <intel-gfx@archiver.kernel.org>; Wed, 14 Oct 2020 09:09:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4BD9120878
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7CC646E427;
-	Wed, 14 Oct 2020 09:06:15 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D31A66E427
- for <intel-gfx@lists.freedesktop.org>; Wed, 14 Oct 2020 09:06:14 +0000 (UTC)
-IronPort-SDR: /20TEiAiSRzvmZEiqAZfLpt05MZbFztOAMnCPTi1t4SR+3EeEXt64eui3ISAIfyTzAkHZiaTnH
- Akg6acNktSYw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9773"; a="166189877"
-X-IronPort-AV: E=Sophos;i="5.77,374,1596524400"; d="scan'208";a="166189877"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Oct 2020 02:06:14 -0700
-IronPort-SDR: QFpxYtJK8xCQf8LtR5QiTV+x80yXw9bsm8xS40ADbLZGzlfbBRLSGkGM5W2lBiVg7K+FyUdhD7
- WeTN2pRON4SA==
-X-IronPort-AV: E=Sophos;i="5.77,374,1596524400"; d="scan'208";a="530748082"
-Received: from abrahabi-mobl.ger.corp.intel.com (HELO [10.249.36.244])
- ([10.249.36.244])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Oct 2020 02:06:13 -0700
-To: Chris Wilson <chris@chris-wilson.co.uk>, intel-gfx@lists.freedesktop.org
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7128F6EA2D;
+	Wed, 14 Oct 2020 09:09:49 +0000 (UTC)
+Received: from fireflyinternet.com (unknown [77.68.26.236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E15EF6EA2C
+ for <intel-gfx@lists.freedesktop.org>; Wed, 14 Oct 2020 09:09:47 +0000 (UTC)
+X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
+ x-ip-name=78.156.65.138; 
+Received: from localhost (unverified [78.156.65.138]) 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP (TLS) id
+ 22710266-1500050 for multiple; Wed, 14 Oct 2020 10:09:45 +0100
+MIME-Version: 1.0
+In-Reply-To: <f2794841-c430-0ea7-f55b-7de3ff30b6db@linux.intel.com>
 References: <20201013153506.4215-1-chris@chris-wilson.co.uk>
  <475985b5-8e4d-81f3-5f00-58eecbbdf865@linux.intel.com>
  <160266499092.7159.8106976190790917919@build.alporthouse.com>
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Organization: Intel Corporation UK Plc
-Message-ID: <f2794841-c430-0ea7-f55b-7de3ff30b6db@linux.intel.com>
-Date: Wed, 14 Oct 2020 10:06:11 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-MIME-Version: 1.0
-In-Reply-To: <160266499092.7159.8106976190790917919@build.alporthouse.com>
-Content-Language: en-US
+ <f2794841-c430-0ea7-f55b-7de3ff30b6db@linux.intel.com>
+From: Chris Wilson <chris@chris-wilson.co.uk>
+To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ intel-gfx@lists.freedesktop.org
+Date: Wed, 14 Oct 2020 10:09:43 +0100
+Message-ID: <160266658388.7159.9238806468281352754@build.alporthouse.com>
+User-Agent: alot/0.9
 Subject: Re: [Intel-gfx] [PATCH] drm/i915/gt: Confirm the context survives
  execution
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -66,84 +54,84 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-
-On 14/10/2020 09:43, Chris Wilson wrote:
-> Quoting Tvrtko Ursulin (2020-10-14 09:36:08)
->>
->> On 13/10/2020 16:35, Chris Wilson wrote:
->>> Repeat our sanitychecks from before execution to after execution. One
->>> expects that if we were to see these, the gpu would already be on fire,
->>> but the timing may be informative.
->>>
->>> Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
->>> ---
->>>    drivers/gpu/drm/i915/gt/intel_lrc.c | 10 +++++++---
->>>    1 file changed, 7 insertions(+), 3 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
->>> index 287537089c77..3dbdd5d0cb60 100644
->>> --- a/drivers/gpu/drm/i915/gt/intel_lrc.c
->>> +++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
->>> @@ -1216,7 +1216,8 @@ static void intel_engine_context_out(struct intel_engine_cs *engine)
->>>    
->>>    static void
->>>    execlists_check_context(const struct intel_context *ce,
->>> -                     const struct intel_engine_cs *engine)
->>> +                     const struct intel_engine_cs *engine,
->>> +                     const char *when)
->>>    {
->>>        const struct intel_ring *ring = ce->ring;
->>>        u32 *regs = ce->lrc_reg_state;
->>> @@ -1251,7 +1252,7 @@ execlists_check_context(const struct intel_context *ce,
->>>                valid = false;
->>>        }
->>>    
->>> -     WARN_ONCE(!valid, "Invalid lrc state found before submission\n");
->>> +     WARN_ONCE(!valid, "Invalid lrc state found %s submission\n", when);
->>>    }
->>>    
->>>    static void restore_default_state(struct intel_context *ce,
->>> @@ -1347,7 +1348,7 @@ __execlists_schedule_in(struct i915_request *rq)
->>>                reset_active(rq, engine);
->>>    
->>>        if (IS_ENABLED(CONFIG_DRM_I915_DEBUG_GEM))
->>> -             execlists_check_context(ce, engine);
->>> +             execlists_check_context(ce, engine, "before");
->>>    
->>>        if (ce->tag) {
->>>                /* Use a fixed tag for OA and friends */
->>> @@ -1418,6 +1419,9 @@ __execlists_schedule_out(struct i915_request *rq,
->>>         * refrain from doing non-trivial work here.
->>>         */
->>>    
->>> +     if (IS_ENABLED(CONFIG_DRM_I915_DEBUG_GEM))
->>> +             execlists_check_context(ce, engine, "after");
->>> +
->>
->> CI failures here are either something super scary or a simple mistake
->> which I cannot see. Or is engine retire, possible queued up before,
->> racing with current schedule_out?
+Quoting Tvrtko Ursulin (2020-10-14 10:06:11)
 > 
-> It's the unpark while the process_csb is not yet flushed, so we scrub
-> the kernel_context before it is scheduled-out. It could in theory be a
-> real problem with our scrubbing to simulate an issue causing an issue,
-> but the timing is quite slim.
+> On 14/10/2020 09:43, Chris Wilson wrote:
+> > Quoting Tvrtko Ursulin (2020-10-14 09:36:08)
+> >>
+> >> On 13/10/2020 16:35, Chris Wilson wrote:
+> >>> Repeat our sanitychecks from before execution to after execution. One
+> >>> expects that if we were to see these, the gpu would already be on fire,
+> >>> but the timing may be informative.
+> >>>
+> >>> Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+> >>> ---
+> >>>    drivers/gpu/drm/i915/gt/intel_lrc.c | 10 +++++++---
+> >>>    1 file changed, 7 insertions(+), 3 deletions(-)
+> >>>
+> >>> diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
+> >>> index 287537089c77..3dbdd5d0cb60 100644
+> >>> --- a/drivers/gpu/drm/i915/gt/intel_lrc.c
+> >>> +++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
+> >>> @@ -1216,7 +1216,8 @@ static void intel_engine_context_out(struct intel_engine_cs *engine)
+> >>>    
+> >>>    static void
+> >>>    execlists_check_context(const struct intel_context *ce,
+> >>> -                     const struct intel_engine_cs *engine)
+> >>> +                     const struct intel_engine_cs *engine,
+> >>> +                     const char *when)
+> >>>    {
+> >>>        const struct intel_ring *ring = ce->ring;
+> >>>        u32 *regs = ce->lrc_reg_state;
+> >>> @@ -1251,7 +1252,7 @@ execlists_check_context(const struct intel_context *ce,
+> >>>                valid = false;
+> >>>        }
+> >>>    
+> >>> -     WARN_ONCE(!valid, "Invalid lrc state found before submission\n");
+> >>> +     WARN_ONCE(!valid, "Invalid lrc state found %s submission\n", when);
+> >>>    }
+> >>>    
+> >>>    static void restore_default_state(struct intel_context *ce,
+> >>> @@ -1347,7 +1348,7 @@ __execlists_schedule_in(struct i915_request *rq)
+> >>>                reset_active(rq, engine);
+> >>>    
+> >>>        if (IS_ENABLED(CONFIG_DRM_I915_DEBUG_GEM))
+> >>> -             execlists_check_context(ce, engine);
+> >>> +             execlists_check_context(ce, engine, "before");
+> >>>    
+> >>>        if (ce->tag) {
+> >>>                /* Use a fixed tag for OA and friends */
+> >>> @@ -1418,6 +1419,9 @@ __execlists_schedule_out(struct i915_request *rq,
+> >>>         * refrain from doing non-trivial work here.
+> >>>         */
+> >>>    
+> >>> +     if (IS_ENABLED(CONFIG_DRM_I915_DEBUG_GEM))
+> >>> +             execlists_check_context(ce, engine, "after");
+> >>> +
+> >>
+> >> CI failures here are either something super scary or a simple mistake
+> >> which I cannot see. Or is engine retire, possible queued up before,
+> >> racing with current schedule_out?
+> > 
+> > It's the unpark while the process_csb is not yet flushed, so we scrub
+> > the kernel_context before it is scheduled-out. It could in theory be a
+> > real problem with our scrubbing to simulate an issue causing an issue,
+> > but the timing is quite slim.
+> 
+> Unpark with unflushed process_csb? I thought maybe you meant park, but 
+> poisoning is indeed in unpark. Put pending process_csb means engine is 
+> supposed to be unparked already. Or you are saying it went through the 
+> parked-unparked cycle all with pending process_csb?
 
-Unpark with unflushed process_csb? I thought maybe you meant park, but 
-poisoning is indeed in unpark. Put pending process_csb means engine is 
-supposed to be unparked already. Or you are saying it went through the 
-parked-unparked cycle all with pending process_csb?
-
-Regards,
-
-Tvrtko
-
-
+Yes. A pending CSB has a GT wakeref (for the interrupt) not an engine
+wakeref, which boils down to that we use the engine parking to force the
+context switch with one last submission.
+-Chris
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
