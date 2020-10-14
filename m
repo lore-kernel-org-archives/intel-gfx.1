@@ -7,45 +7,46 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3D91DC4363A
-	for <intel-gfx@archiver.kernel.org>; Wed, 14 Oct 2020 19:21:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 80C64C43457
+	for <intel-gfx@archiver.kernel.org>; Wed, 14 Oct 2020 19:21:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E96D52078A
+	by mail.kernel.org (Postfix) with ESMTPS id 202C42078A
 	for <intel-gfx@archiver.kernel.org>; Wed, 14 Oct 2020 19:21:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E96D52078A
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 202C42078A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 725586EB38;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E85336EB36;
 	Wed, 14 Oct 2020 19:20:55 +0000 (UTC)
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A1196EB3C
- for <intel-gfx@lists.freedesktop.org>; Wed, 14 Oct 2020 19:20:51 +0000 (UTC)
-IronPort-SDR: 3JoYOklARiBbh1e0uHAMeVOO9SsoMd7y00ch0u0QT76WWOXEag/TUjKgfYpvFRyIfI9rKbJ7Wp
- hIFX3qHnFVtg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9774"; a="183703011"
-X-IronPort-AV: E=Sophos;i="5.77,375,1596524400"; d="scan'208";a="183703011"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA71A6EB37
+ for <intel-gfx@lists.freedesktop.org>; Wed, 14 Oct 2020 19:20:50 +0000 (UTC)
+IronPort-SDR: QvJ8giF5Mg4kY9/WeDGtdS5no7aoiqLtpHgtp2uLBksD3F3Ua5JVmi2+R7XbLfWR2RKCCyWD5c
+ legX5fJ5RjqQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9774"; a="183703013"
+X-IronPort-AV: E=Sophos;i="5.77,375,1596524400"; d="scan'208";a="183703013"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Oct 2020 12:20:43 -0700
-IronPort-SDR: R1YlljDdNNvGeDUPuficoeX1Uv03zzHwUkVSmVgJG9pEIFa1+WuIpn0aE7t8m7owvMKN7yIYoi
- yDbV/rq4d5XQ==
-X-IronPort-AV: E=Sophos;i="5.77,375,1596524400"; d="scan'208";a="345781230"
+ 14 Oct 2020 12:20:44 -0700
+IronPort-SDR: n1eBI+K8/uO1AQTzoxRPrqVall9pbpxQKzIsXj0G/xIbP33ofOy+k8MqL4tGhsOuz+xvHQCt9e
+ UECaznQuP/mQ==
+X-IronPort-AV: E=Sophos;i="5.77,375,1596524400"; d="scan'208";a="345781236"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.202])
  by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  14 Oct 2020 12:20:43 -0700
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 14 Oct 2020 12:19:27 -0700
-Message-Id: <20201014191937.1266226-1-lucas.demarchi@intel.com>
+Date: Wed, 14 Oct 2020 12:19:29 -0700
+Message-Id: <20201014191937.1266226-3-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.28.0
+In-Reply-To: <20201014191937.1266226-1-lucas.demarchi@intel.com>
+References: <20201014191937.1266226-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [CI 01/11] drm/i915/display: allow to skip certain
- power wells
+Subject: [Intel-gfx] [CI 03/11] drm/i915/dg1: Add DG1 power wells
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,80 +64,60 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Aditya Swarup <aditya.swarup@intel.com>
+TGL power wells can be re-used for DG1 with the exception of the fake
+power well for TC_COLD.
 
-This allows us to skip power wells on a platform allowing it to re-use
-the table from another one instead of having to create a new table from
-scratch that is basically a copy with a few removals.
+v2: use logic to skip power wells while copying instead of duplicating
+the definition of TGL power wells (Matt Roper)
 
-Cc: Imre Deak <imre.deak@intel.com>
-Suggested-by: Matt Roper <matthew.d.roper@intel.com>
-Signed-off-by: Aditya Swarup <aditya.swarup@intel.com>
-[ Adapt ignore logic to be based on pw id rather than adding a new
-  field, as suggested by Imre ]
+Bspec: 49182
+
+Cc: Matt Roper <matthew.d.roper@intel.com>
+Cc: Anshuman Gupta <anshuman.gupta@intel.com>
 Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
 Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
 ---
- .../drm/i915/display/intel_display_power.c    | 24 ++++++++++++++-----
- 1 file changed, 18 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display_power.c | 7 +++++--
+ drivers/gpu/drm/i915/display/intel_display_power.h | 1 +
+ 2 files changed, 6 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
-index 7277e58b01f1..5b7f2b67791e 100644
+index 7437c7a79e5f..4934c89882b1 100644
 --- a/drivers/gpu/drm/i915/display/intel_display_power.c
 +++ b/drivers/gpu/drm/i915/display/intel_display_power.c
-@@ -4554,13 +4554,18 @@ static u32 get_allowed_dc_mask(const struct drm_i915_private *dev_priv,
- static int
- __set_power_wells(struct i915_power_domains *power_domains,
- 		  const struct i915_power_well_desc *power_well_descs,
--		  int power_well_count)
-+		  int power_well_descs_sz, u64 skip_mask)
- {
- 	struct drm_i915_private *i915 = container_of(power_domains,
- 						     struct drm_i915_private,
- 						     power_domains);
- 	u64 power_well_ids = 0;
--	int i;
-+	int power_well_count = 0;
-+	int i, plt_idx = 0;
-+
-+	for (i = 0; i < power_well_descs_sz; i++)
-+		if (!(BIT_ULL(power_well_descs[i].id) & skip_mask))
-+			power_well_count++;
+@@ -4150,7 +4150,7 @@ static const struct i915_power_well_desc tgl_power_wells[] = {
+ 		.name = "TC cold off",
+ 		.domains = TGL_TC_COLD_OFF_POWER_DOMAINS,
+ 		.ops = &tgl_tc_cold_off_ops,
+-		.id = DISP_PW_ID_NONE,
++		.id = TGL_DISP_PW_TC_COLD_OFF,
+ 	},
+ 	{
+ 		.name = "AUX A",
+@@ -4634,7 +4634,10 @@ int intel_power_domains_init(struct drm_i915_private *dev_priv)
+ 	 * The enabling order will be from lower to higher indexed wells,
+ 	 * the disabling order is reversed.
+ 	 */
+-	if (IS_ROCKETLAKE(dev_priv)) {
++	if (IS_DG1(dev_priv)) {
++		err = set_power_wells_mask(power_domains, tgl_power_wells,
++					   BIT_ULL(TGL_DISP_PW_TC_COLD_OFF));
++	} else if (IS_ROCKETLAKE(dev_priv)) {
+ 		err = set_power_wells(power_domains, rkl_power_wells);
+ 	} else if (IS_GEN(dev_priv, 12)) {
+ 		err = set_power_wells(power_domains, tgl_power_wells);
+diff --git a/drivers/gpu/drm/i915/display/intel_display_power.h b/drivers/gpu/drm/i915/display/intel_display_power.h
+index 824590c5401f..4aa0a09cf14f 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_power.h
++++ b/drivers/gpu/drm/i915/display/intel_display_power.h
+@@ -105,6 +105,7 @@ enum i915_power_well_id {
+ 	CNL_DISP_PW_DDI_F_AUX,
+ 	ICL_DISP_PW_3,
+ 	SKL_DISP_DC_OFF,
++	TGL_DISP_PW_TC_COLD_OFF,
+ };
  
- 	power_domains->power_well_count = power_well_count;
- 	power_domains->power_wells =
-@@ -4570,10 +4575,14 @@ __set_power_wells(struct i915_power_domains *power_domains,
- 	if (!power_domains->power_wells)
- 		return -ENOMEM;
- 
--	for (i = 0; i < power_well_count; i++) {
-+	for (i = 0; i < power_well_descs_sz; i++) {
- 		enum i915_power_well_id id = power_well_descs[i].id;
- 
--		power_domains->power_wells[i].desc = &power_well_descs[i];
-+		if (BIT_ULL(id) & skip_mask)
-+			continue;
-+
-+		power_domains->power_wells[plt_idx++].desc =
-+			&power_well_descs[i];
- 
- 		if (id == DISP_PW_ID_NONE)
- 			continue;
-@@ -4586,9 +4595,12 @@ __set_power_wells(struct i915_power_domains *power_domains,
- 	return 0;
- }
- 
--#define set_power_wells(power_domains, __power_well_descs) \
-+#define set_power_wells_mask(power_domains, __power_well_descs, skip_mask) \
- 	__set_power_wells(power_domains, __power_well_descs, \
--			  ARRAY_SIZE(__power_well_descs))
-+			  ARRAY_SIZE(__power_well_descs), skip_mask)
-+
-+#define set_power_wells(power_domains, __power_well_descs) \
-+	set_power_wells_mask(power_domains, __power_well_descs, 0)
- 
- /**
-  * intel_power_domains_init - initializes the power domain structures
+ #define POWER_DOMAIN_PIPE(pipe) ((pipe) + POWER_DOMAIN_PIPE_A)
 -- 
 2.28.0
 
