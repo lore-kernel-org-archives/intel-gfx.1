@@ -2,48 +2,51 @@ Return-Path: <SRS0=eTAM=DV=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_GIT autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.9 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 23A7EC433DF
-	for <intel-gfx@archiver.kernel.org>; Wed, 14 Oct 2020 05:03:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 70F8CC43457
+	for <intel-gfx@archiver.kernel.org>; Wed, 14 Oct 2020 05:03:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BA8C220B1F
-	for <intel-gfx@archiver.kernel.org>; Wed, 14 Oct 2020 05:03:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BA8C220B1F
+	by mail.kernel.org (Postfix) with ESMTPS id 0E3E220B1F
+	for <intel-gfx@archiver.kernel.org>; Wed, 14 Oct 2020 05:03:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0E3E220B1F
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E3496E9C4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 389FA6E9C2;
 	Wed, 14 Oct 2020 05:03:34 +0000 (UTC)
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B2B86E9C2
- for <intel-gfx@lists.freedesktop.org>; Wed, 14 Oct 2020 05:03:30 +0000 (UTC)
-IronPort-SDR: 7v7XAvRGEc5JC/1+HU+s3rXO46kaLrzUk7H67edHSbgUntj+07PmgHDKT4vskwZ/XmhxqdiY72
- ozShsy08GhfA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9773"; a="166099949"
-X-IronPort-AV: E=Sophos;i="5.77,373,1596524400"; d="scan'208";a="166099949"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F5976E9C4
+ for <intel-gfx@lists.freedesktop.org>; Wed, 14 Oct 2020 05:03:31 +0000 (UTC)
+IronPort-SDR: Pg7X8oTA0J0DQCz5kCfzvw2TrMGgKuTi+SD4JusEJo1lQKiehl4NLz/zVhppyb90ggu99AAhlo
+ BhbZTC/YDckw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9773"; a="166099956"
+X-IronPort-AV: E=Sophos;i="5.77,373,1596524400"; d="scan'208";a="166099956"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Oct 2020 22:03:27 -0700
-IronPort-SDR: JIxcJR7KDgLx/zZs41v0WuuPNalJVdx2Ky5MTpl1FjWGanj6UYn6xHoKYPX9vMQmzmEYWtTG6d
- khLnVT1X5fbw==
-X-IronPort-AV: E=Sophos;i="5.77,373,1596524400"; d="scan'208";a="351376293"
+ 13 Oct 2020 22:03:31 -0700
+IronPort-SDR: gCcBY/EYRWlDD4jLRqTm1U/22Urvt+jWbX9NXslZxaIvMms/pe4Eqta7hrYIOgoCBOuqLaIwqP
+ BuaZjflFeWhA==
+X-IronPort-AV: E=Sophos;i="5.77,373,1596524400"; d="scan'208";a="351376316"
 Received: from genxfsim-desktop.iind.intel.com ([10.223.74.178])
  by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Oct 2020 22:03:24 -0700
+ 13 Oct 2020 22:03:28 -0700
 From: Anshuman Gupta <anshuman.gupta@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 14 Oct 2020 10:22:39 +0530
-Message-Id: <20201014045252.13608-1-anshuman.gupta@intel.com>
+Date: Wed, 14 Oct 2020 10:22:41 +0530
+Message-Id: <20201014045252.13608-3-anshuman.gupta@intel.com>
 X-Mailer: git-send-email 2.26.2
+In-Reply-To: <20201014045252.13608-1-anshuman.gupta@intel.com>
+References: <20201014045252.13608-1-anshuman.gupta@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 00/13] HDCP 2.2 DP MST Support
+Subject: [Intel-gfx] [PATCH 02/13] drm/i915/hotplug: Handle CP_IRQ for DP-MST
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,56 +60,37 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: seanpaul@chromium.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This series has been tested with IGT changes to do
-a single commit to enable HDCP on all DP-MST connector.
-HDCP 2.2 support over DP MST actually starts
-from patch [PATCH 07/13] Pass dig_port to intel_hdcp_init
-
-Other patches of this series has already floated for
-Gen12 HDCP 1.4 DP MST support
-(https://patchwork.freedesktop.org/series/81289/)
-and HDCP over MST misc series.
-(https://patchwork.freedesktop.org/series/82605/)
-
-
-Anshuman Gupta (13):
-  drm/i915/hdcp: Update CP property in update_pipe
-  drm/i915/hotplug: Handle CP_IRQ for DP-MST
-  drm/i915/hdcp: DP MST transcoder for link and stream
-  drm/i915/hdcp: Move HDCP enc status timeout to header
-  drm/i915/hdcp: HDCP stream encryption support
-  drm/i915/hdcp: Enable Gen12 HDCP 1.4 DP MST support
-  drm/i915/hdcp: Pass dig_port to intel_hdcp_init
-  drm/i915/hdcp: Encapsulate hdcp_port_data to dig_port
-  drm/i915/hdcp: mst streams support in hdcp port_data
-  drm/i915/hdcp: Pass connector to check_2_2_link
-  drm/i915/hdcp: Add HDCP 2.2 stream register
-  drm/i915/hdcp: Support for HDCP 2.2 MST shim callbacks
-  drm/i915/hdcp: Enable HDCP 2.2 MST support
-
- drivers/gpu/drm/i915/display/intel_ddi.c      |  12 +-
- drivers/gpu/drm/i915/display/intel_ddi.h      |   6 +-
- .../drm/i915/display/intel_display_types.h    |  20 +-
- drivers/gpu/drm/i915/display/intel_dp.c       |  14 +-
- drivers/gpu/drm/i915/display/intel_dp_hdcp.c  | 168 +++++++++--
- drivers/gpu/drm/i915/display/intel_dp_mst.c   |  12 +-
- drivers/gpu/drm/i915/display/intel_hdcp.c     | 267 ++++++++++++++----
- drivers/gpu/drm/i915/display/intel_hdcp.h     |   8 +-
- drivers/gpu/drm/i915/display/intel_hdmi.c     |  19 +-
- drivers/gpu/drm/i915/i915_reg.h               |  31 ++
- drivers/misc/mei/hdcp/mei_hdcp.c              |   3 +-
- include/drm/drm_hdcp.h                        |   8 +-
- 12 files changed, 448 insertions(+), 120 deletions(-)
-
--- 
-2.26.2
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+SGFuZGxlIENQX0lSUSBpbiBERVZJQ0VfU0VSVklDRV9JUlFfVkVDVE9SX0VTSTAKSXQgcmVxdWly
+ZXMgdG8gY2FsbCBpbnRlbF9oZGNwX2hhbmRsZV9jcF9pcnEoKSBpbiBjYXNlCm9mIENQX0lSUSBp
+cyB0cmlnZ2VyZWQgYnkgYSBzaW5rIGluIERQLU1TVCB0b3BvbG9neS4KCkNjOiAiVmlsbGUgU3ly
+asOkbMOkIiA8dmlsbGUuc3lyamFsYUBsaW51eC5pbnRlbC5jb20+CkNjOiBSYW1hbGluZ2FtIEMg
+PHJhbWFsaW5nYW0uY0BpbnRlbC5jb20+ClNpZ25lZC1vZmYtYnk6IEFuc2h1bWFuIEd1cHRhIDxh
+bnNodW1hbi5ndXB0YUBpbnRlbC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxh
+eS9pbnRlbF9kcC5jIHwgMTQgKysrKysrKysrKysrKy0KIDEgZmlsZSBjaGFuZ2VkLCAxMyBpbnNl
+cnRpb25zKCspLCAxIGRlbGV0aW9uKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5
+MTUvZGlzcGxheS9pbnRlbF9kcC5jIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRl
+bF9kcC5jCmluZGV4IDRmODI2NmMzZWQ0My4uZWFhN2RlMDQ0NTM0IDEwMDY0NAotLS0gYS9kcml2
+ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2RwLmMKKysrIGIvZHJpdmVycy9ncHUvZHJt
+L2k5MTUvZGlzcGxheS9pbnRlbF9kcC5jCkBAIC01Njc0LDYgKzU2NzQsMTcgQEAgc3RhdGljIHZv
+aWQgaW50ZWxfZHBfaGFuZGxlX3Rlc3RfcmVxdWVzdChzdHJ1Y3QgaW50ZWxfZHAgKmludGVsX2Rw
+KQogCQkJICAgICJDb3VsZCBub3Qgd3JpdGUgdGVzdCByZXNwb25zZSB0byBzaW5rXG4iKTsKIH0K
+IAorc3RhdGljIHZvaWQKK2ludGVsX2RwX21zdF9ocGRfaXJxKHN0cnVjdCBpbnRlbF9kcCAqaW50
+ZWxfZHAsIHU4ICplc2ksIGJvb2wgKmhhbmRsZWQpCit7CisJCWRybV9kcF9tc3RfaHBkX2lycSgm
+aW50ZWxfZHAtPm1zdF9tZ3IsIGVzaSwgaGFuZGxlZCk7CisKKwkJaWYgKGVzaVsxXSAmIERQX0NQ
+X0lSUSkgeworCQkJaW50ZWxfaGRjcF9oYW5kbGVfY3BfaXJxKGludGVsX2RwLT5hdHRhY2hlZF9j
+b25uZWN0b3IpOworCQkJKmhhbmRsZWQgPSB0cnVlOworCQl9Cit9CisKIC8qKgogICogaW50ZWxf
+ZHBfY2hlY2tfbXN0X3N0YXR1cyAtIHNlcnZpY2UgYW55IHBlbmRpbmcgTVNUIGludGVycnVwdHMs
+IGNoZWNrIGxpbmsgc3RhdHVzCiAgKiBAaW50ZWxfZHA6IEludGVsIERQIHN0cnVjdApAQCAtNTcx
+OCw3ICs1NzI5LDggQEAgaW50ZWxfZHBfY2hlY2tfbXN0X3N0YXR1cyhzdHJ1Y3QgaW50ZWxfZHAg
+KmludGVsX2RwKQogCiAJCWRybV9kYmdfa21zKCZpOTE1LT5kcm0sICJnb3QgZXNpICUzcGhcbiIs
+IGVzaSk7CiAKLQkJZHJtX2RwX21zdF9ocGRfaXJxKCZpbnRlbF9kcC0+bXN0X21nciwgZXNpLCAm
+aGFuZGxlZCk7CisJCWludGVsX2RwX21zdF9ocGRfaXJxKGludGVsX2RwLCBlc2ksICZoYW5kbGVk
+KTsKKwogCQlpZiAoIWhhbmRsZWQpCiAJCQlicmVhazsKIAotLSAKMi4yNi4yCgpfX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpJbnRlbC1nZnggbWFpbGluZyBs
+aXN0CkludGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVz
+a3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9pbnRlbC1nZngK
