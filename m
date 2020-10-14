@@ -7,47 +7,47 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C4B66C43457
-	for <intel-gfx@archiver.kernel.org>; Wed, 14 Oct 2020 05:03:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0BD80C433DF
+	for <intel-gfx@archiver.kernel.org>; Wed, 14 Oct 2020 05:03:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7EAE020B1F
-	for <intel-gfx@archiver.kernel.org>; Wed, 14 Oct 2020 05:03:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7EAE020B1F
+	by mail.kernel.org (Postfix) with ESMTPS id C0EA420B1F
+	for <intel-gfx@archiver.kernel.org>; Wed, 14 Oct 2020 05:03:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C0EA420B1F
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2EDEF6E9C7;
-	Wed, 14 Oct 2020 05:03:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 70B3C6E9C6;
+	Wed, 14 Oct 2020 05:03:41 +0000 (UTC)
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5EDF66E9C2
- for <intel-gfx@lists.freedesktop.org>; Wed, 14 Oct 2020 05:03:33 +0000 (UTC)
-IronPort-SDR: IAZg2XSx04/b/Q3emqpqeEQ2llMdMIROsbUsKdUN3zCJ3R5mrJluKcUw8FAtjfloxEb/Ixq6Ay
- Xf4ut2iWxD5Q==
-X-IronPort-AV: E=McAfee;i="6000,8403,9773"; a="166099959"
-X-IronPort-AV: E=Sophos;i="5.77,373,1596524400"; d="scan'208";a="166099959"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 92EC06E9C6
+ for <intel-gfx@lists.freedesktop.org>; Wed, 14 Oct 2020 05:03:39 +0000 (UTC)
+IronPort-SDR: BQZoQVSRtiBua8JaMswnQKwCMeuBoANhgsgh03kUvRhfqx6rtYhE9rLsal1pemgfIuB2VrOJFC
+ t8Z1uHs+eTeQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9773"; a="166099973"
+X-IronPort-AV: E=Sophos;i="5.77,373,1596524400"; d="scan'208";a="166099973"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Oct 2020 22:03:33 -0700
-IronPort-SDR: 7wvRwJWTuR+UZcKfsDfxrAx5IehOjL+X+TESzGdjrvpCi4dE++COqQarTegy+VFnXy2H8A1LEK
- lIJkz3QPyNTQ==
-X-IronPort-AV: E=Sophos;i="5.77,373,1596524400"; d="scan'208";a="351376323"
+ 13 Oct 2020 22:03:39 -0700
+IronPort-SDR: YEwnML0rwbol05PNSMSmsgHdeDiDyEr4uGE6uVU3rndZchgAmeOa+L+OPSzx5BjDUFF1EtTlJZ
+ wvzE5wZ/t3Zw==
+X-IronPort-AV: E=Sophos;i="5.77,373,1596524400"; d="scan'208";a="351376354"
 Received: from genxfsim-desktop.iind.intel.com ([10.223.74.178])
  by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Oct 2020 22:03:31 -0700
+ 13 Oct 2020 22:03:35 -0700
 From: Anshuman Gupta <anshuman.gupta@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 14 Oct 2020 10:22:42 +0530
-Message-Id: <20201014045252.13608-4-anshuman.gupta@intel.com>
+Date: Wed, 14 Oct 2020 10:22:44 +0530
+Message-Id: <20201014045252.13608-6-anshuman.gupta@intel.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20201014045252.13608-1-anshuman.gupta@intel.com>
 References: <20201014045252.13608-1-anshuman.gupta@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 03/13] drm/i915/hdcp: DP MST transcoder for link
- and stream
+Subject: [Intel-gfx] [PATCH 05/13] drm/i915/hdcp: HDCP stream encryption
+ support
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,120 +66,251 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Gen12 has H/W delta with respect to HDCP{1.x,2.x} display engine
-instances lies in Transcoder instead of DDI as in Gen11.
+Both HDCP_{1.x,2.x} requires to select/deselect Multistream HDCP bit
+in TRANS_DDI_FUNC_CTL in order to enable/disable stream HDCP
+encryption over DP MST Transport Link.
 
-This requires hdcp driver to use mst_master_transcoder for link
-authentication and stream transcoder for stream encryption
-separately.
+HDCP 1.4 stream encryption requires to validate the stream encryption
+status in HDCP_STATUS_{TRANSCODER,PORT} register driving that link
+in order to enable/disable the stream encryption.
 
-This will be used for both HDCP 1.4 and HDCP 2.2 over DP MST
-on Gen12.
+Both of above requirement are same for all Gen with respect to
+B.Spec Documentation.
 
 Cc: Ramalingam C <ramalingam.c@intel.com>
 Signed-off-by: Anshuman Gupta <anshuman.gupta@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_ddi.c          |  2 +-
- .../gpu/drm/i915/display/intel_display_types.h    |  2 ++
- drivers/gpu/drm/i915/display/intel_dp_mst.c       |  2 +-
- drivers/gpu/drm/i915/display/intel_hdcp.c         | 15 +++++++++++----
- drivers/gpu/drm/i915/display/intel_hdcp.h         |  2 +-
- 5 files changed, 16 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/i915/display/intel_ddi.c      | 10 +--
+ drivers/gpu/drm/i915/display/intel_ddi.h      |  6 +-
+ .../drm/i915/display/intel_display_types.h    |  4 +
+ drivers/gpu/drm/i915/display/intel_dp_hdcp.c  | 80 ++++++++++++++++---
+ drivers/gpu/drm/i915/display/intel_hdmi.c     | 14 ++--
+ drivers/gpu/drm/i915/i915_reg.h               |  1 +
+ 6 files changed, 90 insertions(+), 25 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-index 35edbd826443..d4c4afcfce99 100644
+index d4c4afcfce99..c3de4afc1fc4 100644
 --- a/drivers/gpu/drm/i915/display/intel_ddi.c
 +++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-@@ -4059,7 +4059,7 @@ static void intel_enable_ddi(struct intel_atomic_state *state,
- 	if (conn_state->content_protection ==
- 	    DRM_MODE_CONTENT_PROTECTION_DESIRED)
- 		intel_hdcp_enable(to_intel_connector(conn_state->connector),
--				  crtc_state->cpu_transcoder,
-+				  crtc_state,
- 				  (u8)conn_state->hdcp_content_type);
+@@ -1948,9 +1948,9 @@ void intel_ddi_disable_transcoder_func(const struct intel_crtc_state *crtc_state
+ 	}
  }
  
+-int intel_ddi_toggle_hdcp_signalling(struct intel_encoder *intel_encoder,
+-				     enum transcoder cpu_transcoder,
+-				     bool enable)
++int intel_ddi_toggle_hdcp_bits(struct intel_encoder *intel_encoder,
++			       enum transcoder cpu_transcoder,
++			       bool enable, u32 hdcp_mask)
+ {
+ 	struct drm_device *dev = intel_encoder->base.dev;
+ 	struct drm_i915_private *dev_priv = to_i915(dev);
+@@ -1965,9 +1965,9 @@ int intel_ddi_toggle_hdcp_signalling(struct intel_encoder *intel_encoder,
+ 
+ 	tmp = intel_de_read(dev_priv, TRANS_DDI_FUNC_CTL(cpu_transcoder));
+ 	if (enable)
+-		tmp |= TRANS_DDI_HDCP_SIGNALLING;
++		tmp |= hdcp_mask;
+ 	else
+-		tmp &= ~TRANS_DDI_HDCP_SIGNALLING;
++		tmp &= ~hdcp_mask;
+ 	intel_de_write(dev_priv, TRANS_DDI_FUNC_CTL(cpu_transcoder), tmp);
+ 	intel_display_power_put(dev_priv, intel_encoder->power_domain, wakeref);
+ 	return ret;
+diff --git a/drivers/gpu/drm/i915/display/intel_ddi.h b/drivers/gpu/drm/i915/display/intel_ddi.h
+index dcc711cfe4fe..a4dd815c0000 100644
+--- a/drivers/gpu/drm/i915/display/intel_ddi.h
++++ b/drivers/gpu/drm/i915/display/intel_ddi.h
+@@ -50,9 +50,9 @@ u32 bxt_signal_levels(struct intel_dp *intel_dp,
+ 		      const struct intel_crtc_state *crtc_state);
+ u32 ddi_signal_levels(struct intel_dp *intel_dp,
+ 		      const struct intel_crtc_state *crtc_state);
+-int intel_ddi_toggle_hdcp_signalling(struct intel_encoder *intel_encoder,
+-				     enum transcoder cpu_transcoder,
+-				     bool enable);
++int intel_ddi_toggle_hdcp_bits(struct intel_encoder *intel_encoder,
++			       enum transcoder cpu_transcoder,
++			       bool enable, u32 hdcp_mask);
+ void icl_sanitize_encoder_pll_mapping(struct intel_encoder *encoder);
+ 
+ #endif /* __INTEL_DDI_H__ */
 diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-index 0b5df8e44966..bd4cd34d1923 100644
+index bd4cd34d1923..83a9690964a1 100644
 --- a/drivers/gpu/drm/i915/display/intel_display_types.h
 +++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-@@ -432,6 +432,8 @@ struct intel_hdcp {
- 	 * Hence caching the transcoder here.
- 	 */
- 	enum transcoder cpu_transcoder;
-+	/* Only used for DP MST stream encryption */
-+	enum transcoder stream_transcoder;
+@@ -339,6 +339,10 @@ struct intel_hdcp_shim {
+ 				 enum transcoder cpu_transcoder,
+ 				 bool enable);
+ 
++	/* Enable/Disable stream encryption on DP MST Transport Link */
++	int (*stream_encryption)(struct intel_digital_port *dig_port,
++				 bool enable);
++
+ 	/* Ensures the link is still protected */
+ 	bool (*check_link)(struct intel_digital_port *dig_port,
+ 			   struct intel_connector *connector);
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_hdcp.c b/drivers/gpu/drm/i915/display/intel_dp_hdcp.c
+index 03424d20e9f7..652d4645f255 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_hdcp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_hdcp.c
+@@ -16,6 +16,30 @@
+ #include "intel_dp.h"
+ #include "intel_hdcp.h"
+ 
++static unsigned int transcoder_to_stream_enc_status(enum transcoder cpu_transcoder)
++{
++	u32 stream_enc_mask;
++
++	switch (cpu_transcoder) {
++	case TRANSCODER_A:
++		stream_enc_mask = HDCP_STATUS_STREAM_A_ENC;
++		break;
++	case TRANSCODER_B:
++		stream_enc_mask = HDCP_STATUS_STREAM_B_ENC;
++		break;
++	case TRANSCODER_C:
++		stream_enc_mask = HDCP_STATUS_STREAM_C_ENC;
++		break;
++	case TRANSCODER_D:
++		stream_enc_mask = HDCP_STATUS_STREAM_D_ENC;
++		break;
++	default:
++		stream_enc_mask = 0;
++	}
++
++	return stream_enc_mask;
++}
++
+ static void intel_dp_hdcp_wait_for_cp_irq(struct intel_hdcp *hdcp, int timeout)
+ {
+ 	long ret;
+@@ -622,24 +646,57 @@ static const struct intel_hdcp_shim intel_dp_hdcp_shim = {
  };
  
- struct intel_connector {
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-index e948aacbd4ab..23da9902c300 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-@@ -568,7 +568,7 @@ static void intel_mst_enable_dp(struct intel_atomic_state *state,
- 	if (conn_state->content_protection ==
- 	    DRM_MODE_CONTENT_PROTECTION_DESIRED)
- 		intel_hdcp_enable(to_intel_connector(conn_state->connector),
--				  pipe_config->cpu_transcoder,
-+				  pipe_config,
- 				  (u8)conn_state->hdcp_content_type);
- }
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.c b/drivers/gpu/drm/i915/display/intel_hdcp.c
-index cbe3ee661bb7..29ac60d5e70e 100644
---- a/drivers/gpu/drm/i915/display/intel_hdcp.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdcp.c
-@@ -2095,7 +2095,7 @@ int intel_hdcp_init(struct intel_connector *connector,
- }
- 
- int intel_hdcp_enable(struct intel_connector *connector,
--		      enum transcoder cpu_transcoder, u8 content_type)
-+		      const struct intel_crtc_state *pipe_config, u8 content_type)
+ static int
+-intel_dp_mst_hdcp_toggle_signalling(struct intel_digital_port *dig_port,
+-				    enum transcoder cpu_transcoder,
+-				    bool enable)
++intel_dp_mst_toggle_select_hdcp_stream(struct intel_digital_port *dig_port,
++				       bool enable)
  {
- 	struct drm_i915_private *dev_priv = to_i915(connector->base.dev);
- 	struct intel_digital_port *dig_port = intel_attached_dig_port(connector);
-@@ -2111,10 +2111,17 @@ int intel_hdcp_enable(struct intel_connector *connector,
- 	drm_WARN_ON(&dev_priv->drm,
- 		    hdcp->value == DRM_MODE_CONTENT_PROTECTION_ENABLED);
- 	hdcp->content_type = content_type;
--	hdcp->cpu_transcoder = cpu_transcoder;
-+
-+	if (intel_crtc_has_type(pipe_config, INTEL_OUTPUT_DP_MST)) {
-+		hdcp->cpu_transcoder = pipe_config->mst_master_transcoder;
-+		hdcp->stream_transcoder = pipe_config->cpu_transcoder;
-+	} else {
-+		hdcp->cpu_transcoder = pipe_config->cpu_transcoder;
-+		hdcp->stream_transcoder = INVALID_TRANSCODER;
-+	}
+ 	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
++	struct intel_dp *dp = &dig_port->dp;
++	struct intel_hdcp *hdcp = &dp->attached_connector->hdcp;
+ 	int ret;
  
- 	if (INTEL_GEN(dev_priv) >= 12)
--		hdcp->port_data.fw_tc = intel_get_mei_fw_tc(cpu_transcoder);
-+		hdcp->port_data.fw_tc = intel_get_mei_fw_tc(hdcp->cpu_transcoder);
- 
- 	/*
- 	 * Considering that HDCP2.2 is more secure than HDCP1.4, If the setup
-@@ -2229,7 +2236,7 @@ void intel_hdcp_update_pipe(struct intel_atomic_state *state,
- 
- 	if (desired_and_not_enabled || content_protection_type_changed)
- 		intel_hdcp_enable(connector,
--				  crtc_state->cpu_transcoder,
-+				  crtc_state,
- 				  (u8)conn_state->hdcp_content_type);
+-	if (!enable)
+-		usleep_range(6, 60); /* Bspec says >= 6us */
+-
+-	ret = intel_ddi_toggle_hdcp_signalling(&dig_port->base,
+-					       cpu_transcoder, enable);
++	ret = intel_ddi_toggle_hdcp_bits(&dig_port->base,
++					 hdcp->stream_transcoder, enable,
++					 TRANS_DDI_HDCP_SELECT);
+ 	if (ret)
+-		drm_dbg_kms(&i915->drm, "%s HDCP signalling failed (%d)\n",
+-			      enable ? "Enable" : "Disable", ret);
++		drm_err(&i915->drm, "%s Multistream HDCP select failed (%d)\n",
++			enable ? "Enable" : "Disable", ret);
+ 	return ret;
  }
  
-diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.h b/drivers/gpu/drm/i915/display/intel_hdcp.h
-index 1bbf5b67ed0a..bc51c1e9b481 100644
---- a/drivers/gpu/drm/i915/display/intel_hdcp.h
-+++ b/drivers/gpu/drm/i915/display/intel_hdcp.h
-@@ -25,7 +25,7 @@ void intel_hdcp_atomic_check(struct drm_connector *connector,
- int intel_hdcp_init(struct intel_connector *connector, enum port port,
- 		    const struct intel_hdcp_shim *hdcp_shim);
- int intel_hdcp_enable(struct intel_connector *connector,
--		      enum transcoder cpu_transcoder, u8 content_type);
-+		      const struct intel_crtc_state *pipe_config, u8 content_type);
- int intel_hdcp_disable(struct intel_connector *connector);
- void intel_hdcp_update_pipe(struct intel_atomic_state *state,
- 			    struct intel_encoder *encoder,
++static int
++intel_dp_mst_hdcp_strem_encryption(struct intel_digital_port *dig_port,
++				   bool enable)
++{
++	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
++	struct intel_dp *dp = &dig_port->dp;
++	struct intel_hdcp *hdcp = &dp->attached_connector->hdcp;
++	enum port port = dig_port->base.port;
++	enum transcoder cpu_transcoder = hdcp->cpu_transcoder;
++	u32 stream_enc_status;
++	int ret;
++
++	ret = intel_dp_mst_toggle_select_hdcp_stream(dig_port, enable);
++	if (ret)
++		return ret;
++
++	stream_enc_status =  transcoder_to_stream_enc_status(hdcp->stream_transcoder);
++	if (!stream_enc_status)
++		return -EINVAL;
++
++	/* Wait for encryption confirmation */
++	if (intel_de_wait_for_register(i915,
++				       HDCP_STATUS(i915, cpu_transcoder, port),
++				       stream_enc_status,
++				       enable ? stream_enc_status : 0,
++				       HDCP_ENCRYPT_STATUS_CHANGE_TIMEOUT_MS)) {
++		drm_err(&i915->drm, "Timed out waiting for stream encryption %s\n",
++			enable ? "enabled" : "disabled");
++		return -ETIMEDOUT;
++	}
++
++	return 0;
++}
++
+ static
+ bool intel_dp_mst_hdcp_check_link(struct intel_digital_port *dig_port,
+ 				  struct intel_connector *connector)
+@@ -673,7 +730,8 @@ static const struct intel_hdcp_shim intel_dp_mst_hdcp_shim = {
+ 	.read_ksv_ready = intel_dp_hdcp_read_ksv_ready,
+ 	.read_ksv_fifo = intel_dp_hdcp_read_ksv_fifo,
+ 	.read_v_prime_part = intel_dp_hdcp_read_v_prime_part,
+-	.toggle_signalling = intel_dp_mst_hdcp_toggle_signalling,
++	.toggle_signalling = intel_dp_hdcp_toggle_signalling,
++	.stream_encryption = intel_dp_mst_hdcp_strem_encryption,
+ 	.check_link = intel_dp_mst_hdcp_check_link,
+ 	.hdcp_capable = intel_dp_hdcp_capable,
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
+index f90838bc74fb..f58469226694 100644
+--- a/drivers/gpu/drm/i915/display/intel_hdmi.c
++++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
+@@ -1495,15 +1495,16 @@ static int kbl_repositioning_enc_en_signal(struct intel_connector *connector,
+ 		usleep_range(25, 50);
+ 	}
+ 
+-	ret = intel_ddi_toggle_hdcp_signalling(&dig_port->base, cpu_transcoder,
+-					       false);
++	ret = intel_ddi_toggle_hdcp_bits(&dig_port->base, cpu_transcoder,
++					 false, TRANS_DDI_HDCP_SIGNALLING);
+ 	if (ret) {
+ 		drm_err(&dev_priv->drm,
+ 			"Disable HDCP signalling failed (%d)\n", ret);
+ 		return ret;
+ 	}
+-	ret = intel_ddi_toggle_hdcp_signalling(&dig_port->base, cpu_transcoder,
+-					       true);
++
++	ret = intel_ddi_toggle_hdcp_bits(&dig_port->base, cpu_transcoder,
++					 true, TRANS_DDI_HDCP_SIGNALLING);
+ 	if (ret) {
+ 		drm_err(&dev_priv->drm,
+ 			"Enable HDCP signalling failed (%d)\n", ret);
+@@ -1526,8 +1527,9 @@ int intel_hdmi_hdcp_toggle_signalling(struct intel_digital_port *dig_port,
+ 	if (!enable)
+ 		usleep_range(6, 60); /* Bspec says >= 6us */
+ 
+-	ret = intel_ddi_toggle_hdcp_signalling(&dig_port->base, cpu_transcoder,
+-					       enable);
++	ret = intel_ddi_toggle_hdcp_bits(&dig_port->base,
++					 cpu_transcoder, enable,
++					 TRANS_DDI_HDCP_SIGNALLING);
+ 	if (ret) {
+ 		drm_err(&dev_priv->drm, "%s HDCP signalling failed (%d)\n",
+ 			enable ? "Enable" : "Disable", ret);
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index 04c966a524ce..050d7307ebc4 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -9939,6 +9939,7 @@ enum skl_power_gate {
+ #define  TRANS_DDI_DP_VC_PAYLOAD_ALLOC	(1 << 8)
+ #define  TRANS_DDI_HDMI_SCRAMBLER_CTS_ENABLE (1 << 7)
+ #define  TRANS_DDI_HDMI_SCRAMBLER_RESET_FREQ (1 << 6)
++#define  TRANS_DDI_HDCP_SELECT		REG_BIT(5)
+ #define  TRANS_DDI_BFI_ENABLE		(1 << 4)
+ #define  TRANS_DDI_HIGH_TMDS_CHAR_RATE	(1 << 4)
+ #define  TRANS_DDI_HDMI_SCRAMBLING	(1 << 0)
 -- 
 2.26.2
 
