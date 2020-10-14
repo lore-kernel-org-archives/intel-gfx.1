@@ -2,42 +2,56 @@ Return-Path: <SRS0=eTAM=DV=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+X-Spam-Status: No, score=-8.3 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C7D2EC433DF
-	for <intel-gfx@archiver.kernel.org>; Wed, 14 Oct 2020 10:41:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 69508C433E7
+	for <intel-gfx@archiver.kernel.org>; Wed, 14 Oct 2020 10:43:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7A13820878
-	for <intel-gfx@archiver.kernel.org>; Wed, 14 Oct 2020 10:41:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7A13820878
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
+	by mail.kernel.org (Postfix) with ESMTPS id 105D222202
+	for <intel-gfx@archiver.kernel.org>; Wed, 14 Oct 2020 10:43:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 105D222202
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EBD396EA38;
-	Wed, 14 Oct 2020 10:41:03 +0000 (UTC)
-Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C77ED6EA38;
- Wed, 14 Oct 2020 10:40:50 +0000 (UTC)
-X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
- x-ip-name=78.156.65.138; 
-Received: from haswell.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22711496-1500050 
- for multiple; Wed, 14 Oct 2020 11:40:41 +0100
-From: Chris Wilson <chris@chris-wilson.co.uk>
-To: igt-dev@lists.freedesktop.org
-Date: Wed, 14 Oct 2020 11:40:36 +0100
-Message-Id: <20201014104038.2554985-8-chris@chris-wilson.co.uk>
-X-Mailer: git-send-email 2.28.0
-In-Reply-To: <20201014104038.2554985-1-chris@chris-wilson.co.uk>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A2636EA3A;
+	Wed, 14 Oct 2020 10:43:54 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 534AC89C99;
+ Wed, 14 Oct 2020 10:43:52 +0000 (UTC)
+IronPort-SDR: aioUmkV2fbnmOy2poLXx2ahYWwegLlndTLzNqFTfuUMUmNd/a5B8Ep0+RYBDPCuqAB66VI6IB5
+ y13x6a/LLwYQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9773"; a="165292129"
+X-IronPort-AV: E=Sophos;i="5.77,374,1596524400"; d="scan'208";a="165292129"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Oct 2020 03:43:51 -0700
+IronPort-SDR: I3wigCh8INXyEwnd6iFHfQ+7fmly/lVlyWMFUG93vj+z3TCJKRHT/unpyOhHRY6v+3wy2kEI8J
+ 6blXKEU9bwfw==
+X-IronPort-AV: E=Sophos;i="5.77,374,1596524400"; d="scan'208";a="463836993"
+Received: from hvanhaar-mobl1.ger.corp.intel.com (HELO [10.252.4.86])
+ ([10.252.4.86])
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Oct 2020 03:43:50 -0700
+To: Chris Wilson <chris@chris-wilson.co.uk>, igt-dev@lists.freedesktop.org
 References: <20201014104038.2554985-1-chris@chris-wilson.co.uk>
+ <20201014104038.2554985-3-chris@chris-wilson.co.uk>
+From: Matthew Auld <matthew.auld@intel.com>
+Message-ID: <27f4ac94-cf2e-f17d-e23f-29e6e976fd01@intel.com>
+Date: Wed, 14 Oct 2020 11:43:48 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.3.1
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH i-g-t 08/10] lib: Use unsigned gen for forward
- compatible tests
+In-Reply-To: <20201014104038.2554985-3-chris@chris-wilson.co.uk>
+Content-Language: en-GB
+Subject: Re: [Intel-gfx] [PATCH i-g-t 03/10] i915/gen9_exec_parse: Check
+ oversized batch with length==0
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,72 +64,20 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, Chris Wilson <chris@chris-wilson.co.uk>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: intel-gfx@lists.freedesktop.org
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-VW5rbm93biwgc28gZnV0dXJlLCBnZW4gYXJlIG1hcmtlZCBhcyAtMSB3aGljaCB3ZSB3YW50IHRv
-IHRyZWF0IGFzIC0xdQpzbyB0aGF0IGFsd2F5cyBwYXNzID49IGdlbiBjaGVja3MuCgpDbG9zZXM6
-IGh0dHBzOi8vZ2l0bGFiLmZyZWVkZXNrdG9wLm9yZy9kcm0vaW50ZWwvLS9pc3N1ZXMvMjI5OApT
-aWduZWQtb2ZmLWJ5OiBDaHJpcyBXaWxzb24gPGNocmlzQGNocmlzLXdpbHNvbi5jby51az4KQ2M6
-IFpiaWduaWV3IEtlbXBjennFhHNraSA8emJpZ25pZXcua2VtcGN6eW5za2lAaW50ZWwuY29tPgot
-LS0KIGxpYi9pbnRlbF9iYXRjaGJ1ZmZlci5jIHwgMTAgKysrKystLS0tLQogbGliL2ludGVsX2Jh
-dGNoYnVmZmVyLmggfCAxMCArKysrKystLS0tCiAyIGZpbGVzIGNoYW5nZWQsIDExIGluc2VydGlv
-bnMoKyksIDkgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvbGliL2ludGVsX2JhdGNoYnVmZmVy
-LmMgYi9saWIvaW50ZWxfYmF0Y2hidWZmZXIuYwppbmRleCA2MGRiZmUyNjEuLmZjNzM0OTVjMCAx
-MDA2NDQKLS0tIGEvbGliL2ludGVsX2JhdGNoYnVmZmVyLmMKKysrIGIvbGliL2ludGVsX2JhdGNo
-YnVmZmVyLmMKQEAgLTQxNCw3ICs0MTQsNyBAQCBpbnRlbF9ibHRfY29weShzdHJ1Y3QgaW50ZWxf
-YmF0Y2hidWZmZXIgKmJhdGNoLAogCSAgICAgICBkcm1faW50ZWxfYm8gKmRzdF9ibywgaW50IGRz
-dF94MSwgaW50IGRzdF95MSwgaW50IGRzdF9waXRjaCwKIAkgICAgICAgaW50IHdpZHRoLCBpbnQg
-aGVpZ2h0LCBpbnQgYnBwKQogewotCWNvbnN0IGludCBnZW4gPSBiYXRjaC0+Z2VuOworCWNvbnN0
-IHVuc2lnbmVkIGludCBnZW4gPSBiYXRjaC0+Z2VuOwogCXVpbnQzMl90IHNyY190aWxpbmcsIGRz
-dF90aWxpbmcsIHN3aXp6bGU7CiAJdWludDMyX3QgY21kX2JpdHMgPSAwOwogCXVpbnQzMl90IGJy
-MTNfYml0czsKQEAgLTU1Myw3ICs1NTMsNyBAQCB1bnNpZ25lZCBpZ3RfYnVmX2hlaWdodChjb25z
-dCBzdHJ1Y3QgaWd0X2J1ZiAqYnVmKQogICogUmV0dXJuczoKICAqIFRoZSB3aWR0aCBvZiB0aGUg
-Y2NzIGJ1ZmZlciBkYXRhLgogICovCi11bnNpZ25lZCBpbnQgaWd0X2J1Zl9pbnRlbF9jY3Nfd2lk
-dGgoaW50IGdlbiwgY29uc3Qgc3RydWN0IGlndF9idWYgKmJ1ZikKK3Vuc2lnbmVkIGludCBpZ3Rf
-YnVmX2ludGVsX2Njc193aWR0aCh1bnNpZ25lZCBpbnQgZ2VuLCBjb25zdCBzdHJ1Y3QgaWd0X2J1
-ZiAqYnVmKQogewogCS8qCiAJICogR0VOMTIrOiBUaGUgQ0NTIHVuaXQgc2l6ZSBpcyA2NCBieXRl
-cyBtYXBwaW5nIDQgbWFpbiBzdXJmYWNlCkBAIC01NzYsNyArNTc2LDcgQEAgdW5zaWduZWQgaW50
-IGlndF9idWZfaW50ZWxfY2NzX3dpZHRoKGludCBnZW4sIGNvbnN0IHN0cnVjdCBpZ3RfYnVmICpi
-dWYpCiAgKiBSZXR1cm5zOgogICogVGhlIGhlaWdodCBvZiB0aGUgY2NzIGJ1ZmZlciBkYXRhLgog
-ICovCi11bnNpZ25lZCBpbnQgaWd0X2J1Zl9pbnRlbF9jY3NfaGVpZ2h0KGludCBnZW4sIGNvbnN0
-IHN0cnVjdCBpZ3RfYnVmICpidWYpCit1bnNpZ25lZCBpbnQgaWd0X2J1Zl9pbnRlbF9jY3NfaGVp
-Z2h0KHVuc2lnbmVkIGludCBnZW4sIGNvbnN0IHN0cnVjdCBpZ3RfYnVmICpidWYpCiB7CiAJLyoK
-IAkgKiBHRU4xMis6IFRoZSBDQ1MgdW5pdCBzaXplIGlzIDY0IGJ5dGVzIG1hcHBpbmcgNCBtYWlu
-IHN1cmZhY2UKQEAgLTcwMyw3ICs3MDMsNyBAQCBmaWxsX29iamVjdChzdHJ1Y3QgZHJtX2k5MTVf
-Z2VtX2V4ZWNfb2JqZWN0MiAqb2JqLCB1aW50MzJfdCBnZW1faGFuZGxlLAogCiBzdGF0aWMgdm9p
-ZCBleGVjX2JsaXQoaW50IGZkLAogCQkgICAgICBzdHJ1Y3QgZHJtX2k5MTVfZ2VtX2V4ZWNfb2Jq
-ZWN0MiAqb2JqcywgdWludDMyX3QgY291bnQsCi0JCSAgICAgIGludCBnZW4pCisJCSAgICAgIHVu
-c2lnbmVkIGludCBnZW4pCiB7CiAJc3RydWN0IGRybV9pOTE1X2dlbV9leGVjYnVmZmVyMiBleGVj
-ID0gewogCQkuYnVmZmVyc19wdHIgPSB0b191c2VyX3BvaW50ZXIob2JqcyksCkBAIC0yNDE2LDcg
-KzI0MTYsNyBAQCB2b2lkIGludGVsX2JiX2VtaXRfYmx0X2NvcHkoc3RydWN0IGludGVsX2JiICpp
-YmIsCiAJCQkgICAgaW50IGRzdF94MSwgaW50IGRzdF95MSwgaW50IGRzdF9waXRjaCwKIAkJCSAg
-ICBpbnQgd2lkdGgsIGludCBoZWlnaHQsIGludCBicHApCiB7Ci0JY29uc3QgaW50IGdlbiA9IGli
-Yi0+Z2VuOworCWNvbnN0IHVuc2lnbmVkIGludCBnZW4gPSBpYmItPmdlbjsKIAl1aW50MzJfdCBj
-bWRfYml0cyA9IDA7CiAJdWludDMyX3QgYnIxM19iaXRzOwogCXVpbnQzMl90IG1hc2s7CmRpZmYg
-LS1naXQgYS9saWIvaW50ZWxfYmF0Y2hidWZmZXIuaCBiL2xpYi9pbnRlbF9iYXRjaGJ1ZmZlci5o
-CmluZGV4IGQyMGI0ZTY2YS4uYWIxYjBjMjg2IDEwMDY0NAotLS0gYS9saWIvaW50ZWxfYmF0Y2hi
-dWZmZXIuaAorKysgYi9saWIvaW50ZWxfYmF0Y2hidWZmZXIuaApAQCAtMTUsNyArMTUsNyBAQAog
-c3RydWN0IGludGVsX2JhdGNoYnVmZmVyIHsKIAlkcm1faW50ZWxfYnVmbWdyICpidWZtZ3I7CiAJ
-dWludDMyX3QgZGV2aWQ7Ci0JaW50IGdlbjsKKwl1bnNpZ25lZCBpbnQgZ2VuOwogCiAJZHJtX2lu
-dGVsX2NvbnRleHQgKmN0eDsKIAlkcm1faW50ZWxfYm8gKmJvOwpAQCAtMjYzLDggKzI2MywxMCBA
-QCBzdGF0aWMgaW5saW5lIGJvb2wgaWd0X2J1Zl9jb21wcmVzc2VkKGNvbnN0IHN0cnVjdCBpZ3Rf
-YnVmICpidWYpCiAKIHVuc2lnbmVkIGlndF9idWZfd2lkdGgoY29uc3Qgc3RydWN0IGlndF9idWYg
-KmJ1Zik7CiB1bnNpZ25lZCBpZ3RfYnVmX2hlaWdodChjb25zdCBzdHJ1Y3QgaWd0X2J1ZiAqYnVm
-KTsKLXVuc2lnbmVkIGludCBpZ3RfYnVmX2ludGVsX2Njc193aWR0aChpbnQgZ2VuLCBjb25zdCBz
-dHJ1Y3QgaWd0X2J1ZiAqYnVmKTsKLXVuc2lnbmVkIGludCBpZ3RfYnVmX2ludGVsX2Njc19oZWln
-aHQoaW50IGdlbiwgY29uc3Qgc3RydWN0IGlndF9idWYgKmJ1Zik7Cit1bnNpZ25lZCBpbnQgaWd0
-X2J1Zl9pbnRlbF9jY3Nfd2lkdGgodW5zaWduZWQgaW50IGdlbiwKKwkJCQkgICAgIGNvbnN0IHN0
-cnVjdCBpZ3RfYnVmICpidWYpOwordW5zaWduZWQgaW50IGlndF9idWZfaW50ZWxfY2NzX2hlaWdo
-dCh1bnNpZ25lZCBpbnQgZ2VuLAorCQkJCSAgICAgIGNvbnN0IHN0cnVjdCBpZ3RfYnVmICpidWYp
-OwogCiB2b2lkIGlndF9ibGl0dGVyX3NyY19jb3B5KGludCBmZCwKIAkJCSAgLyogc3JjICovCkBA
-IC00MzQsNyArNDM2LDcgQEAgaWd0X21lZGlhX3NwaW5mdW5jX3QgaWd0X2dldF9tZWRpYV9zcGlu
-ZnVuYyhpbnQgZGV2aWQpOwogICovCiBzdHJ1Y3QgaW50ZWxfYmIgewogCWludCBpOTE1OwotCWlu
-dCBnZW47CisJdW5zaWduZWQgaW50IGdlbjsKIAlib29sIGRlYnVnOwogCWJvb2wgZHVtcF9iYXNl
-NjQ7CiAJYm9vbCBlbmZvcmNlX3JlbG9jczsKLS0gCjIuMjguMAoKX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRl
-bC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-L21haWxtYW4vbGlzdGluZm8vaW50ZWwtZ2Z4Cg==
+On 14/10/2020 11:40, Chris Wilson wrote:
+> Include the implicit eb.batch_len=0 into the mix of various offsets and
+> lengths.
+> 
+> Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+> Cc: Matthew Auld <matthew.auld@intel.com>
+Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
