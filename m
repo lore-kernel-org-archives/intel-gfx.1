@@ -7,35 +7,37 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5EF25C43457
-	for <intel-gfx@archiver.kernel.org>; Wed, 14 Oct 2020 10:40:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6081BC433E7
+	for <intel-gfx@archiver.kernel.org>; Wed, 14 Oct 2020 10:40:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EC4C320878
-	for <intel-gfx@archiver.kernel.org>; Wed, 14 Oct 2020 10:40:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EC4C320878
+	by mail.kernel.org (Postfix) with ESMTPS id E581020878
+	for <intel-gfx@archiver.kernel.org>; Wed, 14 Oct 2020 10:40:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E581020878
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D0F456EA3F;
-	Wed, 14 Oct 2020 10:40:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 26EF96EA43;
+	Wed, 14 Oct 2020 10:40:53 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C0F476EA38;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C16AE6EA39;
  Wed, 14 Oct 2020 10:40:47 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from haswell.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22711488-1500050 
- for multiple; Wed, 14 Oct 2020 11:40:40 +0100
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22711492-1500050 
+ for multiple; Wed, 14 Oct 2020 11:40:41 +0100
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: igt-dev@lists.freedesktop.org
-Date: Wed, 14 Oct 2020 11:40:29 +0100
-Message-Id: <20201014104038.2554985-1-chris@chris-wilson.co.uk>
+Date: Wed, 14 Oct 2020 11:40:33 +0100
+Message-Id: <20201014104038.2554985-5-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.28.0
+In-Reply-To: <20201014104038.2554985-1-chris@chris-wilson.co.uk>
+References: <20201014104038.2554985-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH i-g-t 01/10] i915/gem_userptr_blits: Tighten
- has_userptr()
+Subject: [Intel-gfx] [PATCH i-g-t 05/10] i915/gem_exec_balancer: Check
+ interactions between bonds and userptr
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,55 +56,157 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-We use has_userptr() to determine if the different flags are supported,
-so it helps not to override the flags inside the test.
-
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 ---
- tests/i915/gem_userptr_blits.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ tests/i915/gem_exec_balancer.c | 46 +++++++++++++++++++++++-----------
+ 1 file changed, 31 insertions(+), 15 deletions(-)
 
-diff --git a/tests/i915/gem_userptr_blits.c b/tests/i915/gem_userptr_blits.c
-index 268423dcd..01498edad 100644
---- a/tests/i915/gem_userptr_blits.c
-+++ b/tests/i915/gem_userptr_blits.c
-@@ -71,8 +71,7 @@
- #define PAGE_SIZE 4096
- #endif
+diff --git a/tests/i915/gem_exec_balancer.c b/tests/i915/gem_exec_balancer.c
+index 0c334b91b..adba776e7 100644
+--- a/tests/i915/gem_exec_balancer.c
++++ b/tests/i915/gem_exec_balancer.c
+@@ -34,6 +34,10 @@
  
--static uint32_t userptr_flags = I915_USERPTR_UNSYNCHRONIZED;
--
-+static uint32_t userptr_flags;
- static bool *can_mmap;
+ IGT_TEST_DESCRIPTION("Exercise in-kernel load-balancing");
  
- #define WIDTH 512
-@@ -504,14 +503,11 @@ static int has_userptr(int fd)
++#define CORK		(1ul << 0)
++#define VIRTUAL_ENGINE	(1ul << 1)
++#define USERPTR		(1ul << 2)
++
+ #define MI_SEMAPHORE_WAIT		(0x1c << 23)
+ #define   MI_SEMAPHORE_POLL             (1 << 15)
+ #define   MI_SEMAPHORE_SAD_GT_SDD       (0 << 12)
+@@ -578,7 +582,6 @@ static void individual(int i915)
+ }
+ 
+ static void bonded(int i915, unsigned int flags)
+-#define CORK 0x1
  {
- 	uint32_t handle = 0;
- 	void *ptr;
--	uint32_t oldflags;
- 	int ret;
+ 	I915_DEFINE_CONTEXT_ENGINES_BOND(bonds[16], 1);
+ 	struct i915_engine_class_instance *master_engines;
+@@ -660,13 +663,15 @@ static void bonded(int i915, unsigned int flags)
+ 				plug = __igt_spin_new(i915,
+ 						      .ctx = master,
+ 						      .engine = bond,
+-						      .dependency = igt_cork_plug(&cork, i915));
++						      .dependency = igt_cork_plug(&cork, i915),
++						      .flags = (flags & USERPTR ? IGT_SPIN_USERPTR : 0));
+ 			}
  
- 	igt_assert(posix_memalign(&ptr, PAGE_SIZE, PAGE_SIZE) == 0);
--	oldflags = userptr_flags;
--	gem_userptr_test_unsynchronized();
- 	ret = __gem_userptr(fd, ptr, PAGE_SIZE, 0, userptr_flags, &handle);
--	userptr_flags = oldflags;
-+	errno = 0;
- 	if (ret != 0) {
- 		free(ptr);
- 		return 0;
-@@ -2112,6 +2108,10 @@ igt_main_args("c:", NULL, help_str, opt_handler, NULL)
+ 			spin = __igt_spin_new(i915,
+ 					      .ctx = master,
+ 					      .engine = bond,
+-					      .flags = IGT_SPIN_FENCE_OUT);
++					      .flags = IGT_SPIN_FENCE_OUT |
++					      (flags & USERPTR ? IGT_SPIN_USERPTR : 0));
  
- 	igt_subtest_group {
- 		igt_fixture {
-+			/* Either mode will do for parameter checking */
-+			gem_userptr_test_synchronized();
-+			if (!has_userptr(fd))
-+				gem_userptr_test_unsynchronized();
- 			igt_require(has_userptr(fd));
+ 			eb = spin->execbuf;
+ 			eb.rsvd1 = ctx;
+@@ -717,8 +722,6 @@ static void bonded(int i915, unsigned int flags)
+ 	gem_context_destroy(i915, master);
+ }
+ 
+-#define VIRTUAL_ENGINE (1u << 0)
+-
+ static unsigned int offset_in_page(void *addr)
+ {
+ 	return (uintptr_t)addr & 4095;
+@@ -1057,7 +1060,8 @@ static void bonded_chain(int i915)
+ 
+ static void __bonded_sema(int i915, uint32_t ctx,
+ 			  const struct i915_engine_class_instance *siblings,
+-			  unsigned int count)
++			  unsigned int count,
++			  unsigned long flags)
+ {
+ 	const int priorities[] = { -1023, 0, 1023 };
+ 	struct drm_i915_gem_exec_object2 batch = {
+@@ -1074,7 +1078,8 @@ static void __bonded_sema(int i915, uint32_t ctx,
+ 		/* A: spin forever on seperate render engine */
+ 		spin = igt_spin_new(i915,
+ 				    .flags = (IGT_SPIN_POLL_RUN |
+-					      IGT_SPIN_FENCE_OUT));
++					      IGT_SPIN_FENCE_OUT |
++					      (flags & USERPTR ? IGT_SPIN_USERPTR : 0)));
+ 		igt_spin_busywait_until_started(spin);
+ 
+ 		/*
+@@ -1128,7 +1133,7 @@ static void __bonded_sema(int i915, uint32_t ctx,
+ 	gem_close(i915, batch.handle);
+ }
+ 
+-static void bonded_semaphore(int i915)
++static void bonded_semaphore(int i915, unsigned long flags)
+ {
+ 	uint32_t ctx;
+ 
+@@ -1149,7 +1154,7 @@ static void bonded_semaphore(int i915)
+ 
+ 		siblings = list_engines(i915, 1u << class, &count);
+ 		if (count > 1)
+-			__bonded_sema(i915, ctx, siblings, count);
++			__bonded_sema(i915, ctx, siblings, count, flags);
+ 		free(siblings);
+ 	}
+ 
+@@ -1839,7 +1844,7 @@ static void __bonded_early(int i915, uint32_t ctx,
+ 	spin = igt_spin_new(i915,
+ 			    .ctx = ctx,
+ 			    .engine = (flags & VIRTUAL_ENGINE) ? 0 : 1,
+-			    .flags = IGT_SPIN_NO_PREEMPTION);
++			    .flags = IGT_SPIN_NO_PREEMPTION | (flags & USERPTR ? IGT_SPIN_USERPTR : 0));
+ 
+ 	/* B: runs after A on engine 1 */
+ 	execbuf.flags = I915_EXEC_FENCE_OUT;
+@@ -1882,7 +1887,7 @@ static void __bonded_early(int i915, uint32_t ctx,
+ 	igt_spin_free(i915, spin);
+ }
+ 
+-static void bonded_early(int i915)
++static void bonded_early(int i915, unsigned long flags)
+ {
+ 	uint32_t ctx;
+ 
+@@ -1909,8 +1914,8 @@ static void bonded_early(int i915)
+ 
+ 		siblings = list_engines(i915, 1u << class, &count);
+ 		if (count > 1) {
+-			__bonded_early(i915, ctx, siblings, count, 0);
+-			__bonded_early(i915, ctx, siblings, count, VIRTUAL_ENGINE);
++			__bonded_early(i915, ctx, siblings, count, flags);
++			__bonded_early(i915, ctx, siblings, count, flags | VIRTUAL_ENGINE);
  		}
+ 		free(siblings);
+ 	}
+@@ -2882,7 +2887,16 @@ igt_main
+ 			bonded(i915, CORK);
  
+ 		igt_subtest("bonded-early")
+-			bonded_early(i915);
++			bonded_early(i915, 0);
++
++		igt_subtest("u-bonded-imm")
++			bonded(i915, USERPTR);
++
++		igt_subtest("u-bonded-cork")
++			bonded(i915, CORK | USERPTR);
++
++		igt_subtest("u-bonded-early")
++			bonded_early(i915, USERPTR);
+ 	}
+ 
+ 	igt_subtest("bonded-slice")
+@@ -2892,7 +2906,9 @@ igt_main
+ 		bonded_chain(i915);
+ 
+ 	igt_subtest("bonded-semaphore")
+-		bonded_semaphore(i915);
++		bonded_semaphore(i915, 0);
++	igt_subtest("u-bonded-semaphore")
++		bonded_semaphore(i915, USERPTR);
+ 
+ 	igt_subtest("bonded-pair")
+ 		bonded_runner(i915, __bonded_pair);
 -- 
 2.28.0
 
