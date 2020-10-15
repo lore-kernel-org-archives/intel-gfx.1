@@ -7,32 +7,32 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 993A9C43457
-	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 11:27:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D65E6C4363A
+	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 11:26:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 407022080A
-	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 11:27:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 407022080A
+	by mail.kernel.org (Postfix) with ESMTPS id 821F12080A
+	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 11:26:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 821F12080A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C39DA6EC8F;
-	Thu, 15 Oct 2020 11:26:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 75F886EC70;
+	Thu, 15 Oct 2020 11:26:47 +0000 (UTC)
 Received: from mblankhorst.nl (mblankhorst.nl [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A11ED6EC6F
- for <intel-gfx@lists.freedesktop.org>; Thu, 15 Oct 2020 11:26:40 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A3496EC70
+ for <intel-gfx@lists.freedesktop.org>; Thu, 15 Oct 2020 11:26:38 +0000 (UTC)
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 15 Oct 2020 13:26:25 +0200
-Message-Id: <20201015112627.1142745-62-maarten.lankhorst@linux.intel.com>
+Date: Thu, 15 Oct 2020 13:26:02 +0200
+Message-Id: <20201015112627.1142745-39-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20201015112627.1142745-1-maarten.lankhorst@linux.intel.com>
 References: <20201015112627.1142745-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v3 61/63] drm/i915: Keep userpointer bindings if
- seqcount is unchanged, v2.
+Subject: [Intel-gfx] [PATCH v3 38/63] drm/i915: Fix ww locking in
+ shmem_create_from_object
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,68 +45,31 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dan Carpenter <dan.carpenter@oracle.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Instead of force unbinding and rebinding every time, we try to check
-if our notifier seqcount is still correct when pages are bound. This
-way we only rebind userptr when we need to, and prevent stalls.
-
-Changes since v1:
-- Missing mutex_unlock, reported by kbuild.
-
-Reported-by: kernel test robot <lkp@intel.com>
-Reported-by: Dan Carpenter <dan.carpenter@oracle.com>
+Quick fix, just use the unlocked version.
 
 Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_userptr.c | 27 ++++++++++++++++++---
- 1 file changed, 24 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/gt/shmem_utils.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_userptr.c b/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
-index fccf131d2b62..b0c1cc5fa917 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
-@@ -263,12 +263,33 @@ int i915_gem_object_userptr_submit_init(struct drm_i915_gem_object *obj)
- 	if (ret)
- 		return ret;
+diff --git a/drivers/gpu/drm/i915/gt/shmem_utils.c b/drivers/gpu/drm/i915/gt/shmem_utils.c
+index 43c7acbdc79d..8c8dfa41e032 100644
+--- a/drivers/gpu/drm/i915/gt/shmem_utils.c
++++ b/drivers/gpu/drm/i915/gt/shmem_utils.c
+@@ -39,7 +39,7 @@ struct file *shmem_create_from_object(struct drm_i915_gem_object *obj)
+ 		return file;
+ 	}
  
--	/* Make sure userptr is unbound for next attempt, so we don't use stale pages. */
--	ret = i915_gem_object_userptr_unbind(obj, false);
-+	/* optimistically try to preserve current pages while unlocked */
-+	if (i915_gem_object_has_pages(obj) &&
-+	    !mmu_interval_check_retry(&obj->userptr.notifier,
-+				      obj->userptr.notifier_seq)) {
-+		spin_lock(&i915->mm.notifier_lock);
-+		if (obj->userptr.pvec &&
-+		    !mmu_interval_read_retry(&obj->userptr.notifier,
-+					     obj->userptr.notifier_seq)) {
-+			obj->userptr.page_ref++;
-+
-+			/* We can keep using the current binding, this is the fastpath */
-+			ret = 1;
-+		}
-+		spin_unlock(&i915->mm.notifier_lock);
-+	}
-+
-+	if (!ret) {
-+		/* Make sure userptr is unbound for next attempt, so we don't use stale pages. */
-+		ret = i915_gem_object_userptr_unbind(obj, false);
-+	}
- 	i915_gem_object_unlock(obj);
--	if (ret)
-+	if (ret < 0)
- 		return ret;
+-	ptr = i915_gem_object_pin_map(obj, I915_MAP_WB);
++	ptr = i915_gem_object_pin_map_unlocked(obj, I915_MAP_WB);
+ 	if (IS_ERR(ptr))
+ 		return ERR_CAST(ptr);
  
-+	if (ret > 0)
-+		return 0;
-+
- 	notifier_seq = mmu_interval_read_begin(&obj->userptr.notifier);
- 
- 	pvec = kvmalloc_array(num_pages, sizeof(struct page *), GFP_KERNEL);
 -- 
 2.28.0
 
