@@ -7,47 +7,47 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4B021C43467
-	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 23:15:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id ECCCCC433E7
+	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 23:15:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EEDEA207DE
-	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 23:15:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EEDEA207DE
+	by mail.kernel.org (Postfix) with ESMTPS id 98BF620797
+	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 23:15:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 98BF620797
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1DA4D6E3F0;
-	Thu, 15 Oct 2020 23:15:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1EC0C6E3F2;
+	Thu, 15 Oct 2020 23:15:30 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB4ED6E3E5
- for <intel-gfx@lists.freedesktop.org>; Thu, 15 Oct 2020 23:15:22 +0000 (UTC)
-IronPort-SDR: YdRKnP+0OBKKJ+yJHHM7tHLIT4mtE4rCOjpMXczBy85hLC8qJHpm1sap9QR318A1ZUQvA0Tmtx
- R8cYLGW/1MMA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9775"; a="163010322"
-X-IronPort-AV: E=Sophos;i="5.77,380,1596524400"; d="scan'208";a="163010322"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D5036E3F2
+ for <intel-gfx@lists.freedesktop.org>; Thu, 15 Oct 2020 23:15:28 +0000 (UTC)
+IronPort-SDR: SaqBLAzlnbdchAJBsLkM1bKt151poDrRnLpJULirs06V+KOEtEesOaluIslMdKvJNgEE5TSYZN
+ j8FeH2dpfIAw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9775"; a="163010332"
+X-IronPort-AV: E=Sophos;i="5.77,380,1596524400"; d="scan'208";a="163010332"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Oct 2020 16:15:22 -0700
-IronPort-SDR: ap70tSJ3eL7KrgkE7YA8fBSnKRUI+WUZCRAzdrYEnvSknBV4QiX1VyvXgVRhyvfmGWkKCOEV++
- UoYX74QALRnw==
-X-IronPort-AV: E=Sophos;i="5.77,380,1596524400"; d="scan'208";a="531450452"
+ 15 Oct 2020 16:15:27 -0700
+IronPort-SDR: HhzD6G55qi6/c5jaGBoHxM4jfHOkxscRMo3B5DUq3wkumoZwqfZJXCCJOecWLegDgpbJlsmc6u
+ 72oXffYdKtfg==
+X-IronPort-AV: E=Sophos;i="5.77,380,1596524400"; d="scan'208";a="531450522"
 Received: from linux-desktop.iind.intel.com ([10.223.34.173])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Oct 2020 16:15:21 -0700
+ 15 Oct 2020 16:15:26 -0700
 From: Uma Shankar <uma.shankar@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 16 Oct 2020 05:18:59 +0530
-Message-Id: <20201015234902.7134-10-uma.shankar@intel.com>
+Date: Fri, 16 Oct 2020 05:19:02 +0530
+Message-Id: <20201015234902.7134-13-uma.shankar@intel.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20201015234902.7134-1-uma.shankar@intel.com>
 References: <20201015234902.7134-1-uma.shankar@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [v8 09/12] drm/i915/display: Implement DRM infoframe
- read for LSPCON
+Subject: [Intel-gfx] [v8 12/12] drm/i915/display: [NOT FOR MERGE] Reduce
+ blanking to support 4k60@10bpp for LSPCON
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,71 +65,62 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Implement Read back of HDR metadata infoframes i.e Dynamic Range
-and Mastering Infoframe for LSPCON devices.
+Blanking needs to be reduced to incorporate DP and HDMI timing/link
+bandwidth limitations for CEA modes (4k@60 at 10 bpp). DP can drive
+17.28Gbs while 4k modes (VIC97 etc) at 10 bpp required 17.8 Gbps.
+This will cause mode to blank out. Reduced Htotal by shortening the
+back porch and front porch within permissible limits.
 
-v2: Added proper bitmask of enabled infoframes as per Ville's
-recommendation.
+Note: This is for reference for userspace, not to be merged in kernel.
 
-v3: Dropped a redundant wrapper as per Ville's comment.
+v2: This is marked as Not for merge and the responsibilty to program
+these custom timings will be on userspace. This patch is just for
+reference purposes. This is based on Ville's recommendation.
+
+v3: updated commit message.
 
 Signed-off-by: Uma Shankar <uma.shankar@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_hdmi.c   | 7 +++----
- drivers/gpu/drm/i915/display/intel_lspcon.c | 7 ++++++-
- drivers/gpu/drm/i915/display/intel_lspcon.h | 4 ++++
- 3 files changed, 13 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp.c | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
-index f1a927cdf798..81dabffbb3e6 100644
---- a/drivers/gpu/drm/i915/display/intel_hdmi.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
-@@ -555,10 +555,9 @@ void hsw_write_infoframe(struct intel_encoder *encoder,
- 	intel_de_posting_read(dev_priv, ctl_reg);
- }
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 1eea514c62b3..fc9522b224aa 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -708,8 +708,10 @@ intel_dp_mode_valid(struct drm_connector *connector,
+ {
+ 	struct intel_dp *intel_dp = intel_attached_dp(to_intel_connector(connector));
+ 	struct intel_connector *intel_connector = to_intel_connector(connector);
++	struct intel_encoder *intel_encoder = intel_attached_encoder(intel_connector);
+ 	struct drm_display_mode *fixed_mode = intel_connector->panel.fixed_mode;
+ 	struct drm_i915_private *dev_priv = to_i915(connector->dev);
++	struct intel_lspcon *lspcon = enc_to_intel_lspcon(intel_encoder);
+ 	int target_clock = mode->clock;
+ 	int max_rate, mode_rate, max_lanes, max_link_clock;
+ 	int max_dotclk = dev_priv->max_dotclk_freq;
+@@ -730,6 +732,21 @@ intel_dp_mode_valid(struct drm_connector *connector,
+ 		target_clock = fixed_mode->clock;
+ 	}
  
--static void hsw_read_infoframe(struct intel_encoder *encoder,
--			       const struct intel_crtc_state *crtc_state,
--			       unsigned int type,
--			       void *frame, ssize_t len)
-+void hsw_read_infoframe(struct intel_encoder *encoder,
-+			const struct intel_crtc_state *crtc_state,
-+			unsigned int type, void *frame, ssize_t len)
- {
- 	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
- 	enum transcoder cpu_transcoder = crtc_state->cpu_transcoder;
-diff --git a/drivers/gpu/drm/i915/display/intel_lspcon.c b/drivers/gpu/drm/i915/display/intel_lspcon.c
-index 9685be1991ca..d81a615ff9ac 100644
---- a/drivers/gpu/drm/i915/display/intel_lspcon.c
-+++ b/drivers/gpu/drm/i915/display/intel_lspcon.c
-@@ -501,7 +501,12 @@ void lspcon_read_infoframe(struct intel_encoder *encoder,
- 			   unsigned int type,
- 			   void *frame, ssize_t len)
- {
--	/* FIXME implement this */
-+	/* FIXME implement for AVI Infoframe as well */
-+	if (type == HDMI_PACKET_TYPE_GAMUT_METADATA) {
-+		drm_dbg_kms(encoder->base.dev, "Read HDR metadata for lspcon\n");
-+		hsw_read_infoframe(encoder, crtc_state, type,
-+				   frame, len);
++	/*
++	 * Reducing Blanking to incorporate DP and HDMI timing/link bandwidth
++	 * limitations for CEA modes (4k@60 at 10 bpp). DP can drive 17.28Gbs
++	 * while 4k modes (VIC97 etc) at 10 bpp required 17.8 Gbps. This will
++	 * cause mode to blank out. Reduced Htotal by shortening the back porch
++	 * and front porch within permissible limits.
++	 */
++	if (lspcon->active && lspcon->hdr_supported &&
++	    mode->clock > 570000) {
++		mode->clock = 570000;
++		mode->htotal -= 180;
++		mode->hsync_start -= 72;
++		mode->hsync_end -= 72;
 +	}
- }
++
+ 	max_link_clock = intel_dp_max_link_rate(intel_dp);
+ 	max_lanes = intel_dp_max_lane_count(intel_dp);
  
- void lspcon_set_infoframes(struct intel_encoder *encoder,
-diff --git a/drivers/gpu/drm/i915/display/intel_lspcon.h b/drivers/gpu/drm/i915/display/intel_lspcon.h
-index 972afa3b2168..15965c77b43a 100644
---- a/drivers/gpu/drm/i915/display/intel_lspcon.h
-+++ b/drivers/gpu/drm/i915/display/intel_lspcon.h
-@@ -39,5 +39,9 @@ void hsw_write_infoframe(struct intel_encoder *encoder,
- 			 const struct intel_crtc_state *crtc_state,
- 			 unsigned int type,
- 			const void *frame, ssize_t len);
-+void hsw_read_infoframe(struct intel_encoder *encoder,
-+			const struct intel_crtc_state *crtc_state,
-+			unsigned int type,
-+			void *frame, ssize_t len);
- 
- #endif /* __INTEL_LSPCON_H__ */
 -- 
 2.26.2
 
