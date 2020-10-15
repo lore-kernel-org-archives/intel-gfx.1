@@ -2,55 +2,53 @@ Return-Path: <SRS0=RgPZ=DW=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.3 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_2 autolearn=ham
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E31A2C433E7
-	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 08:48:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BCEF4C433DF
+	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 08:53:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 56851218AC
-	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 08:48:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 56851218AC
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 54C5420BED
+	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 08:53:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 54C5420BED
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DCE736EC24;
-	Thu, 15 Oct 2020 08:48:44 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4564E6EC24;
- Thu, 15 Oct 2020 08:48:43 +0000 (UTC)
-IronPort-SDR: aNTlQcA7lT7sGU63st4Or+tXz30BwfF6NDRy1sNrs4NMgh3lfSsoLkBAH54dFzuj2nodEcPua7
- 58AMHQjS3u1Q==
-X-IronPort-AV: E=McAfee;i="6000,8403,9774"; a="153230183"
-X-IronPort-AV: E=Sophos;i="5.77,378,1596524400"; d="scan'208";a="153230183"
+	by gabe.freedesktop.org (Postfix) with ESMTP id C39A66EC43;
+	Thu, 15 Oct 2020 08:53:10 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 85FF56EC41;
+ Thu, 15 Oct 2020 08:53:09 +0000 (UTC)
+IronPort-SDR: HavbmwytOMHOd6IBd8TSsQeHCTO51AuJbuYN7i2XBC6k4ilagp2d6LEodt82dAKMj0TeUQYiC9
+ 2ye+5cM/sNiQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9774"; a="145612619"
+X-IronPort-AV: E=Sophos;i="5.77,378,1596524400"; d="scan'208";a="145612619"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Oct 2020 01:48:42 -0700
-IronPort-SDR: HasDGGV7UsXSU7FBgmvVzD/NqcCpjbvjc0yldnHUlYKD7pPcJCEPbicop2y5pFGYDuzMUIfhll
- 1lQhi9Zg+pjw==
-X-IronPort-AV: E=Sophos;i="5.77,378,1596524400"; d="scan'208";a="520704005"
-Received: from mbernato-z370.igk.intel.com ([10.102.30.7])
- by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Oct 2020 01:48:41 -0700
-Message-ID: <80c901a14b3e4976fa670b410b96926cd97b370d.camel@linux.intel.com>
-From: Marcin Bernatowicz <marcin.bernatowicz@linux.intel.com>
-To: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>, 
- igt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-Date: Thu, 15 Oct 2020 09:40:01 +0200
-In-Reply-To: <20201014165535.25668-1-janusz.krzysztofik@linux.intel.com>
-References: <20201014165535.25668-1-janusz.krzysztofik@linux.intel.com>
-Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173,
- 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316
-X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
-Mime-Version: 1.0
-Subject: Re: [Intel-gfx] [igt-dev] [PATCH i-g-t] tests/core_hotunplug: Take
- care of closing fences before failing
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Oct 2020 01:53:09 -0700
+IronPort-SDR: bdnfNu0T62PzVnBP3VeL77ci3296aetWlFbBqyizTBkfZjC2E4INbFcAXJGbl1iAF331OzFFeB
+ Nneijoj8hLDg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.77,378,1596524400"; d="scan'208";a="356920768"
+Received: from gtax-ubuntu-2004.fm.intel.com ([10.105.23.61])
+ by FMSMGA003.fm.intel.com with ESMTP; 15 Oct 2020 01:53:09 -0700
+From: Kamati Srinivas <srinivasx.k@intel.com>
+To: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ james.ausmus@intel.com, matthew.d.roper@intel.com, jose.souza@intel.com,
+ rodrigo.vivi@intel.com, hariom.pandey@intel.com,
+ tejaskumarx.surendrakumar.upadhyay@intel.com
+Date: Thu, 15 Oct 2020 08:53:08 +0000
+Message-Id: <20201015085308.3492-1-srinivasx.k@intel.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+Subject: [Intel-gfx] [PATCH] drm/i915/jsl: Remove require_force_probe
+ protection
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,135 +61,35 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Chris Wilson <chris@chris-wilson.co.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 2020-10-14 at 18:55 +0200, Janusz Krzysztofik wrote:
-> The test was designed to keep track of open device file descriptors
-> for safe driver unbind on recovery from a failed subtest.  In that
-> context, fences introduced by commit 1fbd127bd4e1 ("core_hotplug:
-> Teach the healthcheck how to check execution status") can affect
-> device
-> recovery as much as an open device file if not closed before unbind.
-> 
-> Moreover, forced GPU reset which used to be applied on recovery from
-> a
-> failed i915 GPU health check is no longer reachable since a GPU hang
-> hopefully detected by the new health check algorithm can now break
-> the
-> whole recovery procedure prematurely.
-> 
-> Refactor local_i915_healthcheck() so it takes care of closing fences
-> and returns a result to its caller instead of long jumping on
-> failures
-> believed to be recoverable.  While avoiding use of igt_assert() and
-> friends, report actual source and error code of failures via
-> igt_warn_on_f().
-> 
-> Signed-off-by: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com
-> >
-> Cc: Chris Wilson <chris@chris-wilson.co.uk>
-> ---
->  tests/core_hotunplug.c | 46 ++++++++++++++++++++++++++++++++------
-> ----
->  1 file changed, 35 insertions(+), 11 deletions(-)
-> 
-> diff --git a/tests/core_hotunplug.c b/tests/core_hotunplug.c
-> index 70669c590..d6db02bad 100644
-> --- a/tests/core_hotunplug.c
-> +++ b/tests/core_hotunplug.c
-> @@ -233,9 +233,9 @@ static int merge_fences(int old, int new)
->  		return new;
->  
->  	merge = sync_fence_merge(old, new);
-> -	igt_assert(merge != -1);
-> -	close(old);
-> -	close(new);
-> +	/* Assume fence close errors don't affect device close status
-> */
-> +	igt_ignore_warn(local_close(old, "old fence close failed"));
-> +	igt_ignore_warn(local_close(new, "new fence close failed"));
->  
->  	return merge;
->  }
-> @@ -249,29 +249,53 @@ static int local_i915_healthcheck(int i915,
-> const char *prefix)
->  		.buffer_count = 1,
->  	};
->  	const struct intel_execution_engine2 *engine;
-> -	int fence = -1;
-> +	int fence = -1, err = 0, status = 1;
->  
->  	local_debug("%s%s\n", prefix, "running i915 GPU healthcheck");
-> -	if (local_i915_is_wedged(i915))
-> +	if (igt_warn_on_f(local_i915_is_wedged(i915), "GPU found
-> wedged\n"))
->  		return -EIO;
->  
-> +	/* Assume gem_create()/gem_write() failures are unrecoverable
-> */
->  	obj.handle = gem_create(i915, 4096);
->  	gem_write(i915, obj.handle, 0, &bbe, sizeof(bbe));
->  
-> +	/* As soon as a fence is open, don't fail before closing it */
->  	__for_each_physical_engine(i915, engine) {
->  		execbuf.flags = engine->flags | I915_EXEC_FENCE_OUT;
-> -		gem_execbuf_wr(i915, &execbuf);
-> +		err = __gem_execbuf_wr(i915, &execbuf);
-> +		if (igt_warn_on_f(err < 0, "__gem_execbuf_wr() returned
-> %d\n",
-> +				  err))
-> +			break;
->  
->  		fence = merge_fences(fence, execbuf.rsvd2 >> 32);
-> +		if (igt_warn_on_f(fence < 0, "merge_fences() returned
-> %d\n",
-> +				  fence)) {
-> +			err = fence;
-> +			break;
-> +		}
-> +	}
-> +	if (fence >= 0) {
-> +		status = sync_fence_wait(fence, -1);
-> +		if (igt_warn_on_f(status < 0, "sync_fence_wait()
-> returned %d\n",
-> +				  status))
-> +			err = status;
-> +		if (!err)
-> +			status = sync_fence_status(fence);
-> +
-> +		/* Assume fence close errors don't affect device close
-> status */
-> +		igt_ignore_warn(local_close(fence, "fence close
-> failed"));
->  	}
-> -	igt_assert(fence != -1);
-> +
-> +	/* Assume gem_close() failure is unrecoverable */
->  	gem_close(i915, obj.handle);
->  
-> -	igt_assert_eq(sync_fence_wait(fence, -1), 0);
-> -	igt_assert_eq(sync_fence_status(fence), 1);
-> -	close(fence);
-> +	if (err < 0)
-> +		return err;
-> +	if (igt_warn_on_f(status != 1, "sync_fence_status() returned
-> %d\n",
-> +			  status))
-> +		return -1;
->  
-> -	if (local_i915_is_wedged(i915))
-> +	if (igt_warn_on_f(local_i915_is_wedged(i915), "GPU turned
-> wedged\n"))
->  		return -EIO;
-LGTM,
-Reviewed-by: Marcin Bernatowicz <marcin.bernatowicz@linux.intel.com>
+Removing force probe protection from JSL platform. Did
+not observe warnings, errors, flickering or any visual
+defects while doing ordinary tasks like browsing and
+editing documents in a two monitor setup.
 
->  
->  	return 0;
+Signed-off-by: Kamati Srinivas <srinivasx.k@intel.com>
+---
+ drivers/gpu/drm/i915/i915_pci.c | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
+index 16d4e72bed09..a61195a1883a 100644
+--- a/drivers/gpu/drm/i915/i915_pci.c
++++ b/drivers/gpu/drm/i915/i915_pci.c
+@@ -849,7 +849,6 @@ static const struct intel_device_info ehl_info = {
+ static const struct intel_device_info jsl_info = {
+ 	GEN11_FEATURES,
+ 	PLATFORM(INTEL_JASPERLAKE),
+-	.require_force_probe = 1,
+ 	.platform_engine_mask = BIT(RCS0) | BIT(BCS0) | BIT(VCS0) | BIT(VECS0),
+ 	.ppgtt_size = 36,
+ };
+-- 
+2.25.1
 
 _______________________________________________
 Intel-gfx mailing list
