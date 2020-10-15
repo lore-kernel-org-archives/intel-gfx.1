@@ -3,53 +3,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
 X-Spam-Status: No, score=-9.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
 	SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A8E7BC433E7
-	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 18:29:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 81AC5C433DF
+	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 18:29:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4AE4B20760
-	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 18:29:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4AE4B20760
+	by mail.kernel.org (Postfix) with ESMTPS id 1F0A6206B6
+	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 18:29:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1F0A6206B6
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=Intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D9306E077;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C3236E1A2;
 	Thu, 15 Oct 2020 18:29:04 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5ACB96E077
- for <Intel-GFX@lists.freedesktop.org>; Thu, 15 Oct 2020 18:29:03 +0000 (UTC)
-IronPort-SDR: 1mokOJ/UzUlO/pb/eRX5OGt9kJGomI/eh0aQwMmn9zell89twl0atQcujoIdarnPE6iFkZxIB0
- fzSkGtkqrMiA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9775"; a="163805182"
-X-IronPort-AV: E=Sophos;i="5.77,380,1596524400"; d="scan'208";a="163805182"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D86C06E077
+ for <Intel-GFX@lists.freedesktop.org>; Thu, 15 Oct 2020 18:29:02 +0000 (UTC)
+IronPort-SDR: y5lNRrPCLhHBTzJ3L1zYcV0L23+pepBQuqUAkqW9KiQVAju4W2oiwYk4GwrVna2QxZgrQI+ZKO
+ o6mrHixTl4zA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9775"; a="163805175"
+X-IronPort-AV: E=Sophos;i="5.77,380,1596524400"; d="scan'208";a="163805175"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  15 Oct 2020 11:29:02 -0700
-IronPort-SDR: /L1uo9t0WGGfuPF99K0eWGFa+l4wLRbbISMcnVRNEX5QIvgcGJyiy8vF9wiS7DME0yuc+Dauyo
- 3EbSx3YL5NRA==
+IronPort-SDR: 0uQv5xQHdavdHKB4G68GH58AeNKsp7DJYzRgFp2AYbW3bl6nwEveyPqOS49iGzHqu0yAbJvsUp
+ ngn4dk217aLw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.77,380,1596524400"; d="scan'208";a="531364122"
+X-IronPort-AV: E=Sophos;i="5.77,380,1596524400"; d="scan'208";a="531364109"
 Received: from relo-linux-5.jf.intel.com ([10.165.21.134])
- by orsmga005.jf.intel.com with ESMTP; 15 Oct 2020 11:29:02 -0700
+ by orsmga005.jf.intel.com with ESMTP; 15 Oct 2020 11:29:01 -0700
 From: John.C.Harrison@Intel.com
 To: Intel-GFX@Lists.FreeDesktop.Org
-Date: Thu, 15 Oct 2020 11:29:01 -0700
-Message-Id: <20201015182901.3197788-5-John.C.Harrison@Intel.com>
+Date: Thu, 15 Oct 2020 11:28:57 -0700
+Message-Id: <20201015182901.3197788-1-John.C.Harrison@Intel.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20201015182901.3197788-1-John.C.Harrison@Intel.com>
-References: <20201015182901.3197788-1-John.C.Harrison@Intel.com>
 MIME-Version: 1.0
 Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
  Swindon SN3 1RJ
-Subject: [Intel-gfx] [PATCH CI v2 4/4] CI: turn on GuC/HuC auto mode by
- default
+Subject: [Intel-gfx] [PATCH CI v2 0/4] drm/i915/guc: Update to GuC v49
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,25 +66,34 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: John Harrison <John.C.Harrison@Intel.com>
 
-Enable Guc/HuC loading by default for Gen11+ platforms in order to get
-a CI run.
----
- drivers/gpu/drm/i915/i915_params.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Update to the latest GuC firmware
 
-diff --git a/drivers/gpu/drm/i915/i915_params.h b/drivers/gpu/drm/i915/i915_params.h
-index 330c03e2b4f7..7bdbd8f6ed30 100644
---- a/drivers/gpu/drm/i915/i915_params.h
-+++ b/drivers/gpu/drm/i915/i915_params.h
-@@ -58,7 +58,7 @@ struct drm_printer;
- 	param(int, disable_power_well, -1, 0400) \
- 	param(int, enable_ips, 1, 0600) \
- 	param(int, invert_brightness, 0, 0600) \
--	param(int, enable_guc, 0, 0400) \
-+	param(int, enable_guc, -1, 0400) \
- 	param(int, guc_log_level, -1, 0400) \
- 	param(char *, guc_firmware_path, NULL, 0400) \
- 	param(char *, huc_firmware_path, NULL, 0400) \
+v2: Rebase to newer tree, updated a commit message (review feedback
+from Daniele) and dropped the patch to enable GuC/HuC loading by
+default as apparently this is not allowed.
+
+Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
+
+
+John Harrison (4):
+  drm/i915/guc: Update to use firmware v49.0.1
+  drm/i915/guc: Improved reporting when GuC fails to load
+  drm/i915/guc: Clear pointers on free
+  CI: turn on GuC/HuC auto mode by default
+
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c    |   3 +-
+ drivers/gpu/drm/i915/gt/uc/intel_guc.c       |  18 ---
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c   | 132 +++++++++++++++----
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c    |   1 +
+ drivers/gpu/drm/i915/gt/uc/intel_guc_fw.c    |  31 +++--
+ drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h  |  80 +++++------
+ drivers/gpu/drm/i915/gt/uc/intel_guc_reg.h   |   5 +
+ drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c     |  29 ++--
+ drivers/gpu/drm/i915/gt/uc/intel_uc_fw.h     |   2 +
+ drivers/gpu/drm/i915/gt/uc/intel_uc_fw_abi.h |   6 +-
+ drivers/gpu/drm/i915/i915_params.h           |   2 +-
+ 11 files changed, 202 insertions(+), 107 deletions(-)
+
 -- 
 2.25.1
 
