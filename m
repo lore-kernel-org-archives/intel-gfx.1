@@ -4,50 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 92A3FC43457
-	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 11:00:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7394AC43467
+	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 11:00:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 331A8212CC
-	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 11:00:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 331A8212CC
+	by mail.kernel.org (Postfix) with ESMTPS id 141FA212CC
+	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 11:00:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 141FA212CC
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BECD86EC5C;
-	Thu, 15 Oct 2020 11:00:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A84526EC62;
+	Thu, 15 Oct 2020 11:00:23 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B2016EC5D;
- Thu, 15 Oct 2020 11:00:17 +0000 (UTC)
-IronPort-SDR: 1ChGFR+nyxyXd/MrtvtdxDQT2vKUhZnZBK2//xl5nKcagxFc12digTg+3O6U40MTMbV8T8urcu
- wldpwb9oyzkg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9774"; a="163686092"
-X-IronPort-AV: E=Sophos;i="5.77,378,1596524400"; d="scan'208";a="163686092"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B7816EC60;
+ Thu, 15 Oct 2020 11:00:21 +0000 (UTC)
+IronPort-SDR: 94Fk3dh2mOmMeku1dX4CoZK+4Q8n3jdfPaPweeyR3R702WvuAGSbTjsobIChFINylikxhf+gl9
+ StdAK422CHAg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9774"; a="163686100"
+X-IronPort-AV: E=Sophos;i="5.77,378,1596524400"; d="scan'208";a="163686100"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Oct 2020 04:00:16 -0700
-IronPort-SDR: hDJzkSvCQdFnIJD5NZ/j9jNWYntE2yzaWUMvncgSG/5pLhY+/fphGsKIU1QlyZNjlHATFYsiC5
- 5YLjq/1Xms7g==
+ 15 Oct 2020 04:00:21 -0700
+IronPort-SDR: 8mwHoA2dxHmtPnLokHpMdEnTCVLt6E8JBpRrivljaR9lZbYUf77tF4UsQqCoMRAbM7WdFuUJ9z
+ pJZvUSmz6m3Q==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.77,378,1596524400"; d="scan'208";a="356949682"
+X-IronPort-AV: E=Sophos;i="5.77,378,1596524400"; d="scan'208";a="356949711"
 Received: from linux-akn.iind.intel.com ([10.223.34.148])
- by FMSMGA003.fm.intel.com with ESMTP; 15 Oct 2020 04:00:15 -0700
+ by FMSMGA003.fm.intel.com with ESMTP; 15 Oct 2020 04:00:19 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 15 Oct 2020 16:22:53 +0530
-Message-Id: <20201015105259.27934-8-ankit.k.nautiyal@intel.com>
+Date: Thu, 15 Oct 2020 16:22:55 +0530
+Message-Id: <20201015105259.27934-10-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20201015105259.27934-1-ankit.k.nautiyal@intel.com>
 References: <20201015105259.27934-1-ankit.k.nautiyal@intel.com>
-MIME-Version: 1.0
-Subject: [Intel-gfx] [RFC 07/13] drm/dp_helper: Add support for link status
- and link recovery
+Subject: [Intel-gfx] [RFC 09/13] drm/edid: Parse DSC1.2 cap fields from
+ HFVSDB block
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,79 +60,104 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-RnJvbTogU3dhdGkgU2hhcm1hIDxzd2F0aTIuc2hhcm1hQGludGVsLmNvbT4KClRoaXMgcGF0Y2gg
-YWRkcyBzdXBwb3J0IGZvciBsaW5rIHN0YXR1cyBhbmQgbGluayByZWNvdmVyeS4gVGhlcmUKYXJl
-IHNwZWNpZmljIERQQ0TigJlzIGRlZmluZWQgZm9yIGxpbmsgc3RhdHVzIGNoZWNrIGFuZCByZWNv
-dmVyeSBpbgpjYXNlIG9mIGFueSBpc3N1ZXMuIFBDT04gd2lsbCBjb21tdW5pY2F0ZSB0aGUgc2Ft
-ZSB1c2luZyBhbiBJUlFfSFBECnRvIHNvdXJjZS4gSERNSSBzaW5rIHdvdWxkIGhhdmUgaW5kaWNh
-dGVkIHRoZSBzYW1lIHRvIFBDT04gdXNpbmcKU0NEQyBpbnRlcnJ1cHQgbWVjaGFuaXNtLiBXaGls
-ZSBzb3VyY2UgY2FuIGFsd2F5cyByZWFkIGZpbmFsIEhETUkKc2lua+KAmXMgc3RhdHVzIHVzaW5n
-IEkyQyBvdmVyIEFVWCwgaXTigJlzIGVhc2llciBhbmQgZmFzdGVyIHRvIHJlYWQKdGhlIFBDT07i
-gJlzIGFscmVhZHkgcmVhZCBIRE1JIHNpbmvigJlzIHN0YXR1cyByZWdpc3RlcnMuCgpTaWduZWQt
-b2ZmLWJ5OiBTd2F0aSBTaGFybWEgPHN3YXRpMi5zaGFybWFAaW50ZWwuY29tPgpTaWduZWQtb2Zm
-LWJ5OiBBbmtpdCBOYXV0aXlhbCA8YW5raXQuay5uYXV0aXlhbEBpbnRlbC5jb20+Ci0tLQogZHJp
-dmVycy9ncHUvZHJtL2RybV9kcF9oZWxwZXIuYyB8IDMzICsrKysrKysrKysrKysrKysrKysrKysr
-KysrKysrKysrKwogaW5jbHVkZS9kcm0vZHJtX2RwX2hlbHBlci5oICAgICB8IDE2ICsrKysrKysr
-KysrKysrKysKIDIgZmlsZXMgY2hhbmdlZCwgNDkgaW5zZXJ0aW9ucygrKQoKZGlmZiAtLWdpdCBh
-L2RyaXZlcnMvZ3B1L2RybS9kcm1fZHBfaGVscGVyLmMgYi9kcml2ZXJzL2dwdS9kcm0vZHJtX2Rw
-X2hlbHBlci5jCmluZGV4IGRmODU4NTMzZGJmNy4uMzNhNGFjMmZiMjI1IDEwMDY0NAotLS0gYS9k
-cml2ZXJzL2dwdS9kcm0vZHJtX2RwX2hlbHBlci5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9kcm1f
-ZHBfaGVscGVyLmMKQEAgLTI4OTYsMyArMjg5NiwzNiBAQCBpbnQgZHJtX2RwX3Bjb25faGRtaV9s
-aW5rX21vZGUoc3RydWN0IGRybV9kcF9hdXggKmF1eCwgdTggKmZybF90cmFpbmVkX21hc2spCiAJ
-cmV0dXJuIG1vZGU7CiB9CiBFWFBPUlRfU1lNQk9MKGRybV9kcF9wY29uX2hkbWlfbGlua19tb2Rl
-KTsKKwordm9pZCBkcm1fZHBfcGNvbl9oZG1pX2ZybF9saW5rX2Vycm9yX2NvdW50KHN0cnVjdCBk
-cm1fZHBfYXV4ICphdXgsCisJCQkJCSAgIHN0cnVjdCBkcm1fY29ubmVjdG9yICpjb25uZWN0b3Ip
-Cit7CisJdTggYnVmLCBlcnJvcl9jb3VudDsKKwlpbnQgaSwgbnVtX2Vycm9yOworCXN0cnVjdCBk
-cm1faGRtaV9pbmZvICpoZG1pID0gJmNvbm5lY3Rvci0+ZGlzcGxheV9pbmZvLmhkbWk7CisKKwlm
-b3IgKGkgPSAwOyBpIDwgaGRtaS0+bWF4X2xhbmVzOyBpKyspCisJeworCQlpZiAoZHJtX2RwX2Rw
-Y2RfcmVhZGIoYXV4LCBEUF9QQ09OX0hETUlfRVJST1JfU1RBVFVTX0xOMCArIGkgLCAmYnVmKSA8
-IDApCisJCQlyZXR1cm47CisKKwkJZXJyb3JfY291bnQgPSBidWYgJiBEUF9QQ09OX0hETUlfRVJS
-T1JfQ09VTlRfTUFTSzsKKworCXN3aXRjaChlcnJvcl9jb3VudCkgeworCWNhc2UgRFBfUENPTl9I
-RE1JX0VSUk9SX0NPVU5UX0hVTkRSRURfUExVUzoKKwkJbnVtX2Vycm9yID0gMTAwOworCQlicmVh
-azsKKwljYXNlIERQX1BDT05fSERNSV9FUlJPUl9DT1VOVF9URU5fUExVUzoKKwkJbnVtX2Vycm9y
-ID0gMTA7CisJCWJyZWFrOworCWNhc2UgRFBfUENPTl9IRE1JX0VSUk9SX0NPVU5UX1RIUkVFX1BM
-VVM6CisJCW51bV9lcnJvciA9IDM7CisJCWJyZWFrOworCWRlZmF1bHQ6CisJCW51bV9lcnJvciA9
-IDA7CisJfQorCisJCURSTV9FUlJPUigiTW9yZSB0aGFuICVkIGVycm9ycyBzaW5jZSB0aGUgbGFz
-dCByZWFkIGZvciBsYW5lICVkIiwgbnVtX2Vycm9yLCBpKTsKKwl9Cit9CitFWFBPUlRfU1lNQk9M
-KGRybV9kcF9wY29uX2hkbWlfZnJsX2xpbmtfZXJyb3JfY291bnQpOwpkaWZmIC0tZ2l0IGEvaW5j
-bHVkZS9kcm0vZHJtX2RwX2hlbHBlci5oIGIvaW5jbHVkZS9kcm0vZHJtX2RwX2hlbHBlci5oCmlu
-ZGV4IGQ2Zjc5YjJkMTI4Ny4uZWIyNmM4NmRjOGNhIDEwMDY0NAotLS0gYS9pbmNsdWRlL2RybS9k
-cm1fZHBfaGVscGVyLmgKKysrIGIvaW5jbHVkZS9kcm0vZHJtX2RwX2hlbHBlci5oCkBAIC05NDYs
-NiArOTQ2LDExIEBAIHN0cnVjdCBkcm1fZGV2aWNlOwogIyBkZWZpbmUgRFBfQ0VDX0lSUSAgICAg
-ICAgICAgICAgICAgICAgICAgICAgKDEgPDwgMikKIAogI2RlZmluZSBEUF9MSU5LX1NFUlZJQ0Vf
-SVJRX1ZFQ1RPUl9FU0kwICAgICAweDIwMDUgICAvKiAxLjIgKi8KKyMgZGVmaW5lIFJYX0NBUF9D
-SEFOR0VEICAgICAgICAgICAgICAgICAgICAgICgxIDw8IDApCisjIGRlZmluZSBMSU5LX1NUQVRV
-U19DSEFOR0VEICAgICAgICAgICAgICAgICAoMSA8PCAxKQorIyBkZWZpbmUgU1RSRUFNX1NUQVRV
-U19DSEFOR0VEICAgICAgICAgICAgICAgKDEgPDwgMikKKyMgZGVmaW5lIEhETUlfTElOS19TVEFU
-VVNfQ0hBTkdFRCAgICAgICAgICAgICgxIDw8IDMpCisjIGRlZmluZSBDT05ORUNURURfT0ZGX0VO
-VFJZX1JFUVVFU1RFRCAgICAgICAoMSA8PCA0KQogCiAjZGVmaW5lIERQX1BTUl9FUlJPUl9TVEFU
-VVMgICAgICAgICAgICAgICAgIDB4MjAwNiAgLyogWFhYIDEuMj8gKi8KICMgZGVmaW5lIERQX1BT
-Ul9MSU5LX0NSQ19FUlJPUiAgICAgICAgICAgICAgKDEgPDwgMCkKQEAgLTExMzAsNiArMTEzNSwx
-NiBAQCBzdHJ1Y3QgZHJtX2RldmljZTsKICNkZWZpbmUgRFBfUFJPVE9DT0xfQ09OVkVSVEVSX0NP
-TlRST0xfMgkJMHgzMDUyIC8qIERQIDEuMyAqLwogIyBkZWZpbmUgRFBfQ09OVkVSU0lPTl9UT19Z
-Q0JDUjQyMl9FTkFCTEUJKDEgPDwgMCkgLyogRFAgMS4zICovCiAKKy8qIFBDT04gRG93bnN0cmVh
-bSBIRE1JIEVSUk9SIFN0YXR1cyBwZXIgTGFuZSAqLworI2RlZmluZSBEUF9QQ09OX0hETUlfRVJS
-T1JfU1RBVFVTX0xOMCAgICAgICAgICAweDMwMzcKKyNkZWZpbmUgRFBfUENPTl9IRE1JX0VSUk9S
-X1NUQVRVU19MTjEgICAgICAgICAgMHgzMDM4CisjZGVmaW5lIERQX1BDT05fSERNSV9FUlJPUl9T
-VEFUVVNfTE4yICAgICAgICAgIDB4MzAzOQorI2RlZmluZSBEUF9QQ09OX0hETUlfRVJST1JfU1RB
-VFVTX0xOMyAgICAgICAgICAweDMwM0EKKyMgZGVmaW5lIERQX1BDT05fSERNSV9FUlJPUl9DT1VO
-VF9NQVNLICAgICAgICAgKDB4NyA8PCAwKQorIyBkZWZpbmUgRFBfUENPTl9IRE1JX0VSUk9SX0NP
-VU5UX1RIUkVFX1BMVVMgICAoMSA8PCAwKQorIyBkZWZpbmUgRFBfUENPTl9IRE1JX0VSUk9SX0NP
-VU5UX1RFTl9QTFVTICAgICAoMSA8PCAxKQorIyBkZWZpbmUgRFBfUENPTl9IRE1JX0VSUk9SX0NP
-VU5UX0hVTkRSRURfUExVUyAoMSA8PCAyKQorCiAvKiBIRENQIDEuMyBhbmQgSERDUCAyLjIgKi8K
-ICNkZWZpbmUgRFBfQVVYX0hEQ1BfQktTVgkJMHg2ODAwMAogI2RlZmluZSBEUF9BVVhfSERDUF9S
-SV9QUklNRQkJMHg2ODAwNQpAQCAtMjA0Nyw0ICsyMDYyLDUgQEAgaW50IGRybV9kcF9wY29uX2Zy
-bF9lbmFibGUoc3RydWN0IGRybV9kcF9hdXggKmF1eCk7CiAKIGJvb2wgZHJtX2RwX3Bjb25faGRt
-aV9saW5rX2FjdGl2ZShzdHJ1Y3QgZHJtX2RwX2F1eCAqYXV4KTsKIGludCBkcm1fZHBfcGNvbl9o
-ZG1pX2xpbmtfbW9kZShzdHJ1Y3QgZHJtX2RwX2F1eCAqYXV4LCB1OCAqZnJsX3RyYWluZWRfbWFz
-ayk7Cit2b2lkIGRybV9kcF9wY29uX2hkbWlfZnJsX2xpbmtfZXJyb3JfY291bnQoc3RydWN0IGRy
-bV9kcF9hdXggKmF1eCwgc3RydWN0IGRybV9jb25uZWN0b3IgKmNvbm5lY3Rvcik7CiAjZW5kaWYg
-LyogX0RSTV9EUF9IRUxQRVJfSF8gKi8KLS0gCjIuMTcuMQoKX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRlbC1n
-ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
-aWxtYW4vbGlzdGluZm8vaW50ZWwtZ2Z4Cg==
+This patch parses HFVSDB fields for DSC1.2 capabilities of an
+HDMI2.1 sink. These fields are required by a source to understand the
+DSC capability of the sink, to set appropriate PPS parameters,
+before transmitting compressed data stream.
+
+Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+---
+ drivers/gpu/drm/drm_edid.c  | 19 +++++++++++++++++++
+ include/drm/drm_connector.h | 32 ++++++++++++++++++++++++++++++++
+ 2 files changed, 51 insertions(+)
+
+diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+index 8afb136e73f5..feee19657a7a 100644
+--- a/drivers/gpu/drm/drm_edid.c
++++ b/drivers/gpu/drm/drm_edid.c
+@@ -4889,10 +4889,29 @@ static void drm_parse_hdmi_21_additional_fields(struct drm_connector *connector,
+ {
+ 	struct drm_hdmi_info *hdmi = &connector->display_info.hdmi;
+ 	u8 max_frl_rate;
++	u8 dsc_max_frl_rate;
+ 
+ 	max_frl_rate = db[7] & DRM_EDID_MAX_FRL_RATE_MASK;
+ 	drm_get_max_frl_rate(max_frl_rate, &hdmi->max_lanes,
+ 			     &hdmi->max_frl_rate_per_lane);
++
++	hdmi->dsc_1p2 = db[11] & DRM_EDID_DSC_1P2;
++        hdmi->dsc_native_420 = db[11] & DRM_EDID_DSC_NATIVE_420;
++	hdmi->dsc_all_bpp = db[11] & DRM_EDID_DSC_ALL_BPP;
++
++	if (db[11] & DRM_EDID_DSC_16BPC)
++		hdmi->dsc_bpc_supported = 16;
++	else if (db[11] & DRM_EDID_DSC_12BPC)
++		hdmi->dsc_bpc_supported = 12;
++	else if (db[11] & DRM_EDID_DSC_10BPC)
++		hdmi->dsc_bpc_supported = 10;
++	else
++		hdmi->dsc_bpc_supported = 0;
++
++	dsc_max_frl_rate = db[12] & DRM_EDID_DSC_MAX_FRL_RATE;
++	drm_get_max_frl_rate(dsc_max_frl_rate, &hdmi->dsc_max_lanes,
++			     &hdmi->dsc_max_frl_rate_per_lane);
++	hdmi->dsc_total_chunk_kbytes = db[13] & DRM_EDID_DSC_TOTAL_CHUNK_KBYTES;
+ }
+ 
+ static void drm_parse_ycbcr420_deep_color_info(struct drm_connector *connector,
+diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+index f351bf10c076..7100012f9c0f 100644
+--- a/include/drm/drm_connector.h
++++ b/include/drm/drm_connector.h
+@@ -213,6 +213,38 @@ struct drm_hdmi_info {
+ 
+ 	/** @max_lanes: supported by sink */
+ 	u8 max_lanes;
++
++	/** @dsc_1p2: flag for dsc1.2 support by sink */
++	bool dsc_1p2;
++
++	/** @dsc_native_420: Does sink support DSC with 4:2:0 compression */
++	bool dsc_native_420;
++
++	/**
++	 * @dsc_all_bpp: Does sink support all bpp with 4:4:4: or 4:2:2
++	 * compressed formats
++	 */
++	bool dsc_all_bpp;
++
++	/**
++	 * @dsc_bpc_supported: compressed bpc supported by sink : 10, 12 or 16 bpc
++	 */
++	u8 dsc_bpc_supported;
++
++	/** @dsc_max_slices: maximum number of Horizontal slices supported by */
++	u8 dsc_max_slices;
++
++	/** @dsc_clk_per_slice : max pixel clock in MHz supported per slice */
++	u8 dsc_clk_per_slice;
++
++	/** @dsc_max_lanes : dsc max lanes supported for Fixed rate Link training */
++	u8 dsc_max_lanes;
++
++	/** @dsc_max_frl_rate_per_lane : maximum frl rate with DSC per lane */
++	u8 dsc_max_frl_rate_per_lane;
++
++	/** @dsc_total_chunk_kbytes: max size of chunks in KBs supported per line*/
++	u8 dsc_total_chunk_kbytes;
+ };
+ 
+ /**
+-- 
+2.17.1
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
