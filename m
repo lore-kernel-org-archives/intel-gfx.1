@@ -7,32 +7,34 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BE989C433E7
-	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 11:58:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4CEF3C433DF
+	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 12:00:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BE498212CC
-	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 11:58:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BE498212CC
+	by mail.kernel.org (Postfix) with ESMTPS id 9F1CF212CC
+	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 12:00:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9F1CF212CC
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E51816ECB9;
-	Thu, 15 Oct 2020 11:58:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9538C6ECD7;
+	Thu, 15 Oct 2020 12:00:09 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 64B7D6ECB4
- for <intel-gfx@lists.freedesktop.org>; Thu, 15 Oct 2020 11:58:34 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F3826ECC4
+ for <intel-gfx@lists.freedesktop.org>; Thu, 15 Oct 2020 12:00:08 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22723879-1500050 
- for multiple; Thu, 15 Oct 2020 12:58:21 +0100
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22723896-1500050 
+ for multiple; Thu, 15 Oct 2020 12:59:55 +0100
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 15 Oct 2020 12:58:20 +0100
-Message-Id: <20201015115820.665-1-chris@chris-wilson.co.uk>
+Date: Thu, 15 Oct 2020 12:59:54 +0100
+Message-Id: <20201015115954.871-1-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20201015115820.665-1-chris@chris-wilson.co.uk>
+References: <20201015115820.665-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
 Subject: [Intel-gfx] [PATCH] drm/i915/gem: Support parsing of oversize
  batches
@@ -48,7 +50,8 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Chris Wilson <chris@chris-wilson.co.uk>
+Cc: Matthew Auld <matthew.auld@intel.com>,
+ Chris Wilson <chris@chris-wilson.co.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
@@ -56,16 +59,17 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 Matthew Auld noted that on more recent systems (such as the parser for
 gen9) we may have objects that are larger than expected by the GEM uAPI
-(i.e. greater than u32). These objects would have incorrect implicit batch
-lengths, causing the parser to reject them for being incomplete.
+(i.e. greater than u32). These objects would have incorrect implicit
+batch lengths, causing the parser to reject them for being incomplete,
+or worse.
 
 Based on a patch by Matthew Auld.
 
-Reported-by: Matthew Auld <matthew.auld@intel.com
+Reported-by: Matthew Auld <matthew.auld@intel.com>
 Fixes: 435e8fc059db ("drm/i915: Allow parsing of unsized batches")
 Testcase: igt/gem_exec_params/larger-than-life-batch
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-Cc: Matthew Auld <matthew.auld@intel.com
+Cc: Matthew Auld <matthew.auld@intel.com>
 Cc: Mika Kuoppala <mika.kuoppala@linux.intel.com>
 Cc: Jon Bloomfield <jon.bloomfield@intel.com>
 ---
