@@ -7,32 +7,32 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 01C41C35268
-	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 11:27:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1B36DC35257
+	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 11:27:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 98F1B2080A
-	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 11:27:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 98F1B2080A
+	by mail.kernel.org (Postfix) with ESMTPS id B8E9B2080A
+	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 11:26:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B8E9B2080A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F03686ECAC;
-	Thu, 15 Oct 2020 11:27:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C87E96EC7A;
+	Thu, 15 Oct 2020 11:26:47 +0000 (UTC)
 Received: from mblankhorst.nl (mblankhorst.nl [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A97956EC87
- for <intel-gfx@lists.freedesktop.org>; Thu, 15 Oct 2020 11:26:38 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C58DE6EC72
+ for <intel-gfx@lists.freedesktop.org>; Thu, 15 Oct 2020 11:26:37 +0000 (UTC)
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 15 Oct 2020 13:26:04 +0200
-Message-Id: <20201015112627.1142745-41-maarten.lankhorst@linux.intel.com>
+Date: Thu, 15 Oct 2020 13:26:07 +0200
+Message-Id: <20201015112627.1142745-44-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20201015112627.1142745-1-maarten.lankhorst@linux.intel.com>
 References: <20201015112627.1142745-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v3 40/63] drm/i915/selftests: Prepare huge_pages
- testcases for obj->mm.lock removal.
+Subject: [Intel-gfx] [PATCH v3 43/63] drm/i915/selftests: Prepare context
+ tests for obj->mm.lock removal.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,150 +55,58 @@ unlocked versions.
 
 Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 ---
- .../gpu/drm/i915/gem/selftests/huge_pages.c   | 28 ++++++++++++++-----
- 1 file changed, 21 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/selftests/huge_pages.c b/drivers/gpu/drm/i915/gem/selftests/huge_pages.c
-index a7d5f7785f32..34f248c205ca 100644
---- a/drivers/gpu/drm/i915/gem/selftests/huge_pages.c
-+++ b/drivers/gpu/drm/i915/gem/selftests/huge_pages.c
-@@ -568,7 +568,7 @@ static int igt_mock_ppgtt_misaligned_dma(void *arg)
- 			goto out_put;
- 		}
+diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
+index d3f87dc4eda3..5fef592390cb 100644
+--- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
++++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
+@@ -1094,7 +1094,7 @@ __read_slice_count(struct intel_context *ce,
+ 	if (ret < 0)
+ 		return ret;
  
--		err = i915_gem_object_pin_pages(obj);
-+		err = i915_gem_object_pin_pages_unlocked(obj);
+-	buf = i915_gem_object_pin_map(obj, I915_MAP_WB);
++	buf = i915_gem_object_pin_map_unlocked(obj, I915_MAP_WB);
+ 	if (IS_ERR(buf)) {
+ 		ret = PTR_ERR(buf);
+ 		return ret;
+@@ -1511,7 +1511,7 @@ static int write_to_scratch(struct i915_gem_context *ctx,
+ 	if (IS_ERR(obj))
+ 		return PTR_ERR(obj);
+ 
+-	cmd = i915_gem_object_pin_map(obj, I915_MAP_WB);
++	cmd = i915_gem_object_pin_map_unlocked(obj, I915_MAP_WB);
+ 	if (IS_ERR(cmd)) {
+ 		err = PTR_ERR(cmd);
+ 		goto out;
+@@ -1622,7 +1622,7 @@ static int read_from_scratch(struct i915_gem_context *ctx,
  		if (err)
- 			goto out_put;
+ 			goto out_vm;
  
-@@ -632,15 +632,19 @@ static int igt_mock_ppgtt_misaligned_dma(void *arg)
- 				break;
- 		}
+-		cmd = i915_gem_object_pin_map(obj, I915_MAP_WB);
++		cmd = i915_gem_object_pin_map_unlocked(obj, I915_MAP_WB);
+ 		if (IS_ERR(cmd)) {
+ 			err = PTR_ERR(cmd);
+ 			goto out;
+@@ -1658,7 +1658,7 @@ static int read_from_scratch(struct i915_gem_context *ctx,
+ 		if (err)
+ 			goto out_vm;
  
-+		i915_gem_object_lock(obj, NULL);
- 		i915_gem_object_unpin_pages(obj);
- 		__i915_gem_object_put_pages(obj);
-+		i915_gem_object_unlock(obj);
- 		i915_gem_object_put(obj);
- 	}
- 
- 	return 0;
- 
- out_unpin:
-+	i915_gem_object_lock(obj, NULL);
- 	i915_gem_object_unpin_pages(obj);
-+	i915_gem_object_unlock(obj);
- out_put:
- 	i915_gem_object_put(obj);
- 
-@@ -654,8 +658,10 @@ static void close_object_list(struct list_head *objects,
- 
- 	list_for_each_entry_safe(obj, on, objects, st_link) {
- 		list_del(&obj->st_link);
-+		i915_gem_object_lock(obj, NULL);
- 		i915_gem_object_unpin_pages(obj);
- 		__i915_gem_object_put_pages(obj);
-+		i915_gem_object_unlock(obj);
- 		i915_gem_object_put(obj);
- 	}
- }
-@@ -692,7 +698,7 @@ static int igt_mock_ppgtt_huge_fill(void *arg)
- 			break;
- 		}
- 
--		err = i915_gem_object_pin_pages(obj);
-+		err = i915_gem_object_pin_pages_unlocked(obj);
- 		if (err) {
- 			i915_gem_object_put(obj);
- 			break;
-@@ -868,7 +874,7 @@ static int igt_mock_ppgtt_64K(void *arg)
- 			if (IS_ERR(obj))
- 				return PTR_ERR(obj);
- 
--			err = i915_gem_object_pin_pages(obj);
-+			err = i915_gem_object_pin_pages_unlocked(obj);
- 			if (err)
- 				goto out_object_put;
- 
-@@ -922,8 +928,10 @@ static int igt_mock_ppgtt_64K(void *arg)
- 			}
- 
- 			i915_vma_unpin(vma);
-+			i915_gem_object_lock(obj, NULL);
- 			i915_gem_object_unpin_pages(obj);
- 			__i915_gem_object_put_pages(obj);
-+			i915_gem_object_unlock(obj);
- 			i915_gem_object_put(obj);
- 		}
- 	}
-@@ -933,7 +941,9 @@ static int igt_mock_ppgtt_64K(void *arg)
- out_vma_unpin:
- 	i915_vma_unpin(vma);
- out_object_unpin:
-+	i915_gem_object_lock(obj, NULL);
- 	i915_gem_object_unpin_pages(obj);
-+	i915_gem_object_unlock(obj);
- out_object_put:
- 	i915_gem_object_put(obj);
- 
-@@ -1003,7 +1013,7 @@ static int __cpu_check_vmap(struct drm_i915_gem_object *obj, u32 dword, u32 val)
+-		cmd = i915_gem_object_pin_map(obj, I915_MAP_WB);
++		cmd = i915_gem_object_pin_map_unlocked(obj, I915_MAP_WB);
+ 		if (IS_ERR(cmd)) {
+ 			err = PTR_ERR(cmd);
+ 			goto out;
+@@ -1715,7 +1715,7 @@ static int read_from_scratch(struct i915_gem_context *ctx,
  	if (err)
- 		return err;
+ 		goto out_vm;
  
--	ptr = i915_gem_object_pin_map(obj, I915_MAP_WC);
-+	ptr = i915_gem_object_pin_map_unlocked(obj, I915_MAP_WC);
- 	if (IS_ERR(ptr))
- 		return PTR_ERR(ptr);
- 
-@@ -1283,7 +1293,7 @@ static int igt_ppgtt_smoke_huge(void *arg)
- 			return err;
- 		}
- 
--		err = i915_gem_object_pin_pages(obj);
-+		err = i915_gem_object_pin_pages_unlocked(obj);
- 		if (err) {
- 			if (err == -ENXIO || err == -E2BIG) {
- 				i915_gem_object_put(obj);
-@@ -1306,8 +1316,10 @@ static int igt_ppgtt_smoke_huge(void *arg)
- 			       __func__, size, i);
- 		}
- out_unpin:
-+		i915_gem_object_lock(obj, NULL);
- 		i915_gem_object_unpin_pages(obj);
- 		__i915_gem_object_put_pages(obj);
-+		i915_gem_object_unlock(obj);
- out_put:
- 		i915_gem_object_put(obj);
- 
-@@ -1380,7 +1392,7 @@ static int igt_ppgtt_sanity_check(void *arg)
- 				return err;
- 			}
- 
--			err = i915_gem_object_pin_pages(obj);
-+			err = i915_gem_object_pin_pages_unlocked(obj);
- 			if (err) {
- 				i915_gem_object_put(obj);
- 				goto out;
-@@ -1394,8 +1406,10 @@ static int igt_ppgtt_sanity_check(void *arg)
- 
- 			err = igt_write_huge(ctx, obj);
- 
-+			i915_gem_object_lock(obj, NULL);
- 			i915_gem_object_unpin_pages(obj);
- 			__i915_gem_object_put_pages(obj);
-+			i915_gem_object_unlock(obj);
- 			i915_gem_object_put(obj);
- 
- 			if (err) {
-@@ -1440,7 +1454,7 @@ static int igt_tmpfs_fallback(void *arg)
- 		goto out_restore;
- 	}
- 
--	vaddr = i915_gem_object_pin_map(obj, I915_MAP_WB);
-+	vaddr = i915_gem_object_pin_map_unlocked(obj, I915_MAP_WB);
- 	if (IS_ERR(vaddr)) {
- 		err = PTR_ERR(vaddr);
- 		goto out_put;
+-	cmd = i915_gem_object_pin_map(obj, I915_MAP_WB);
++	cmd = i915_gem_object_pin_map_unlocked(obj, I915_MAP_WB);
+ 	if (IS_ERR(cmd)) {
+ 		err = PTR_ERR(cmd);
+ 		goto out_vm;
 -- 
 2.28.0
 
