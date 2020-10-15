@@ -7,32 +7,32 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F1D02C04EBE
-	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 11:26:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 62AAEC433E7
+	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 11:26:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 981B62080A
+	by mail.kernel.org (Postfix) with ESMTPS id 0AC5D20878
 	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 11:26:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 981B62080A
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0AC5D20878
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA1CC6EC7C;
-	Thu, 15 Oct 2020 11:26:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B3826EC8D;
+	Thu, 15 Oct 2020 11:26:49 +0000 (UTC)
 Received: from mblankhorst.nl (mblankhorst.nl [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 381D76EC7A
- for <intel-gfx@lists.freedesktop.org>; Thu, 15 Oct 2020 11:26:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 707FE6EC6F
+ for <intel-gfx@lists.freedesktop.org>; Thu, 15 Oct 2020 11:26:34 +0000 (UTC)
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 15 Oct 2020 13:25:54 +0200
-Message-Id: <20201015112627.1142745-31-maarten.lankhorst@linux.intel.com>
+Date: Thu, 15 Oct 2020 13:25:29 +0200
+Message-Id: <20201015112627.1142745-6-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20201015112627.1142745-1-maarten.lankhorst@linux.intel.com>
 References: <20201015112627.1142745-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v3 30/63] drm/i915: Fix workarounds selftest,
- part 1
+Subject: [Intel-gfx] [PATCH v3 05/63] drm/i915: Ensure we hold the object
+ mutex in pin correctly.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,246 +50,77 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-pin_map needs the ww lock, so ensure we pin both before submission.
+Currently we have a lot of places where we hold the gem object lock,
+but haven't yet been converted to the ww dance. Complain loudly about
+those places.
+
+i915_vma_pin shouldn't have the obj lock held, so we can do a ww dance,
+while i915_vma_pin_ww should.
 
 Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_object.h    |  3 +
- drivers/gpu/drm/i915/gem/i915_gem_pages.c     | 12 +++
- .../gpu/drm/i915/gt/selftest_workarounds.c    | 76 ++++++++++++-------
- 3 files changed, 64 insertions(+), 27 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_renderstate.c |  2 +-
+ drivers/gpu/drm/i915/i915_vma.c             | 11 ++++++++++-
+ drivers/gpu/drm/i915/i915_vma.h             |  3 +++
+ 3 files changed, 14 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.h b/drivers/gpu/drm/i915/gem/i915_gem_object.h
-index 9e87a2547b0d..8db84ce09d9f 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_object.h
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_object.h
-@@ -389,6 +389,9 @@ enum i915_map_type {
- void *__must_check i915_gem_object_pin_map(struct drm_i915_gem_object *obj,
- 					   enum i915_map_type type);
- 
-+void *__must_check i915_gem_object_pin_map_unlocked(struct drm_i915_gem_object *obj,
-+						    enum i915_map_type type);
-+
- void __i915_gem_object_flush_map(struct drm_i915_gem_object *obj,
- 				 unsigned long offset,
- 				 unsigned long size);
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_pages.c b/drivers/gpu/drm/i915/gem/i915_gem_pages.c
-index 00ce88c609f9..ef1d5fabd077 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_pages.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_pages.c
-@@ -409,6 +409,18 @@ void *i915_gem_object_pin_map(struct drm_i915_gem_object *obj,
- 	goto out_unlock;
- }
- 
-+void *i915_gem_object_pin_map_unlocked(struct drm_i915_gem_object *obj,
-+				       enum i915_map_type type)
-+{
-+	void *ret;
-+
-+	i915_gem_object_lock(obj, NULL);
-+	ret = i915_gem_object_pin_map(obj, type);
-+	i915_gem_object_unlock(obj);
-+
-+	return ret;
-+}
-+
- void __i915_gem_object_flush_map(struct drm_i915_gem_object *obj,
- 				 unsigned long offset,
- 				 unsigned long size)
-diff --git a/drivers/gpu/drm/i915/gt/selftest_workarounds.c b/drivers/gpu/drm/i915/gt/selftest_workarounds.c
-index 810ab026a55e..69da2147ed3b 100644
---- a/drivers/gpu/drm/i915/gt/selftest_workarounds.c
-+++ b/drivers/gpu/drm/i915/gt/selftest_workarounds.c
-@@ -111,7 +111,7 @@ read_nonprivs(struct i915_gem_context *ctx, struct intel_engine_cs *engine)
- 
- 	i915_gem_object_set_cache_coherency(result, I915_CACHE_LLC);
- 
--	cs = i915_gem_object_pin_map(result, I915_MAP_WB);
-+	cs = i915_gem_object_pin_map_unlocked(result, I915_MAP_WB);
- 	if (IS_ERR(cs)) {
- 		err = PTR_ERR(cs);
- 		goto err_obj;
-@@ -217,7 +217,7 @@ static int check_whitelist(struct i915_gem_context *ctx,
- 	i915_gem_object_lock(results, NULL);
- 	intel_wedge_on_timeout(&wedge, engine->gt, HZ / 5) /* safety net! */
- 		err = i915_gem_object_set_to_cpu_domain(results, false);
--	i915_gem_object_unlock(results);
-+
- 	if (intel_gt_is_wedged(engine->gt))
- 		err = -EIO;
+diff --git a/drivers/gpu/drm/i915/gt/intel_renderstate.c b/drivers/gpu/drm/i915/gt/intel_renderstate.c
+index ea2a77c7b469..a68e5c23a67c 100644
+--- a/drivers/gpu/drm/i915/gt/intel_renderstate.c
++++ b/drivers/gpu/drm/i915/gt/intel_renderstate.c
+@@ -196,7 +196,7 @@ int intel_renderstate_init(struct intel_renderstate *so,
  	if (err)
-@@ -245,6 +245,7 @@ static int check_whitelist(struct i915_gem_context *ctx,
+ 		goto err_context;
  
- 	i915_gem_object_unpin_map(results);
- out_put:
-+	i915_gem_object_unlock(results);
- 	i915_gem_object_put(results);
- 	return err;
+-	err = i915_vma_pin(so->vma, 0, 0, PIN_GLOBAL | PIN_HIGH);
++	err = i915_vma_pin_ww(so->vma, &so->ww, 0, 0, PIN_GLOBAL | PIN_HIGH);
+ 	if (err)
+ 		goto err_context;
+ 
+diff --git a/drivers/gpu/drm/i915/i915_vma.c b/drivers/gpu/drm/i915/i915_vma.c
+index ffb5287e055a..4ead74c5142b 100644
+--- a/drivers/gpu/drm/i915/i915_vma.c
++++ b/drivers/gpu/drm/i915/i915_vma.c
+@@ -863,6 +863,8 @@ int i915_vma_pin_ww(struct i915_vma *vma, struct i915_gem_ww_ctx *ww,
+ #ifdef CONFIG_PROVE_LOCKING
+ 	if (debug_locks && lockdep_is_held(&vma->vm->i915->drm.struct_mutex))
+ 		WARN_ON(!ww);
++	if (debug_locks && ww && vma->resv)
++		assert_vma_held(vma);
+ #endif
+ 
+ 	BUILD_BUG_ON(PIN_GLOBAL != I915_VMA_GLOBAL_BIND);
+@@ -1018,8 +1020,15 @@ int i915_ggtt_pin(struct i915_vma *vma, struct i915_gem_ww_ctx *ww,
+ 
+ 	GEM_BUG_ON(!i915_vma_is_ggtt(vma));
+ 
++#ifdef CONFIG_LOCKDEP
++	WARN_ON(!ww && vma->resv && dma_resv_held(vma->resv));
++#endif
++
+ 	do {
+-		err = i915_vma_pin_ww(vma, ww, 0, align, flags | PIN_GLOBAL);
++		if (ww)
++			err = i915_vma_pin_ww(vma, ww, 0, align, flags | PIN_GLOBAL);
++		else
++			err = i915_vma_pin(vma, 0, align, flags | PIN_GLOBAL);
+ 		if (err != -ENOSPC) {
+ 			if (!err) {
+ 				err = i915_vma_wait_for_bind(vma);
+diff --git a/drivers/gpu/drm/i915/i915_vma.h b/drivers/gpu/drm/i915/i915_vma.h
+index 5b3a3c653454..838bbbeb11cc 100644
+--- a/drivers/gpu/drm/i915/i915_vma.h
++++ b/drivers/gpu/drm/i915/i915_vma.h
+@@ -243,6 +243,9 @@ i915_vma_pin_ww(struct i915_vma *vma, struct i915_gem_ww_ctx *ww,
+ static inline int __must_check
+ i915_vma_pin(struct i915_vma *vma, u64 size, u64 alignment, u64 flags)
+ {
++#ifdef CONFIG_LOCKDEP
++	WARN_ON_ONCE(vma->resv && dma_resv_held(vma->resv));
++#endif
+ 	return i915_vma_pin_ww(vma, NULL, size, alignment, flags);
  }
-@@ -520,6 +521,7 @@ static int check_dirty_whitelist(struct intel_context *ce)
  
- 	for (i = 0; i < engine->whitelist.count; i++) {
- 		u32 reg = i915_mmio_reg_offset(engine->whitelist.list[i].reg);
-+		struct i915_gem_ww_ctx ww;
- 		u64 addr = scratch->node.start;
- 		struct i915_request *rq;
- 		u32 srm, lrm, rsvd;
-@@ -535,6 +537,29 @@ static int check_dirty_whitelist(struct intel_context *ce)
- 
- 		ro_reg = ro_register(reg);
- 
-+		i915_gem_ww_ctx_init(&ww, false);
-+retry:
-+		cs = NULL;
-+		err = i915_gem_object_lock(scratch->obj, &ww);
-+		if (!err)
-+			err = i915_gem_object_lock(batch->obj, &ww);
-+		if (!err)
-+			err = intel_context_pin_ww(ce, &ww);
-+		if (err)
-+			goto out;
-+
-+		cs = i915_gem_object_pin_map(batch->obj, I915_MAP_WC);
-+		if (IS_ERR(cs)) {
-+			err = PTR_ERR(cs);
-+			goto out_ctx;
-+		}
-+
-+		results = i915_gem_object_pin_map(scratch->obj, I915_MAP_WB);
-+		if (IS_ERR(results)) {
-+			err = PTR_ERR(results);
-+			goto out_unmap_batch;
-+		}
-+
- 		/* Clear non priv flags */
- 		reg &= RING_FORCE_TO_NONPRIV_ADDRESS_MASK;
- 
-@@ -546,12 +571,6 @@ static int check_dirty_whitelist(struct intel_context *ce)
- 		pr_debug("%s: Writing garbage to %x\n",
- 			 engine->name, reg);
- 
--		cs = i915_gem_object_pin_map(batch->obj, I915_MAP_WC);
--		if (IS_ERR(cs)) {
--			err = PTR_ERR(cs);
--			goto out_batch;
--		}
--
- 		/* SRM original */
- 		*cs++ = srm;
- 		*cs++ = reg;
-@@ -598,11 +617,12 @@ static int check_dirty_whitelist(struct intel_context *ce)
- 		i915_gem_object_flush_map(batch->obj);
- 		i915_gem_object_unpin_map(batch->obj);
- 		intel_gt_chipset_flush(engine->gt);
-+		cs = NULL;
- 
--		rq = intel_context_create_request(ce);
-+		rq = i915_request_create(ce);
- 		if (IS_ERR(rq)) {
- 			err = PTR_ERR(rq);
--			goto out_batch;
-+			goto out_unmap_scratch;
- 		}
- 
- 		if (engine->emit_init_breadcrumb) { /* Be nice if we hang */
-@@ -611,20 +631,16 @@ static int check_dirty_whitelist(struct intel_context *ce)
- 				goto err_request;
- 		}
- 
--		i915_vma_lock(batch);
- 		err = i915_request_await_object(rq, batch->obj, false);
- 		if (err == 0)
- 			err = i915_vma_move_to_active(batch, rq, 0);
--		i915_vma_unlock(batch);
- 		if (err)
- 			goto err_request;
- 
--		i915_vma_lock(scratch);
- 		err = i915_request_await_object(rq, scratch->obj, true);
- 		if (err == 0)
- 			err = i915_vma_move_to_active(scratch, rq,
- 						      EXEC_OBJECT_WRITE);
--		i915_vma_unlock(scratch);
- 		if (err)
- 			goto err_request;
- 
-@@ -640,13 +656,7 @@ static int check_dirty_whitelist(struct intel_context *ce)
- 			pr_err("%s: Futzing %x timedout; cancelling test\n",
- 			       engine->name, reg);
- 			intel_gt_set_wedged(engine->gt);
--			goto out_batch;
--		}
--
--		results = i915_gem_object_pin_map(scratch->obj, I915_MAP_WB);
--		if (IS_ERR(results)) {
--			err = PTR_ERR(results);
--			goto out_batch;
-+			goto out_unmap_scratch;
- 		}
- 
- 		GEM_BUG_ON(values[ARRAY_SIZE(values) - 1] != 0xffffffff);
-@@ -657,7 +667,7 @@ static int check_dirty_whitelist(struct intel_context *ce)
- 				pr_err("%s: Unable to write to whitelisted register %x\n",
- 				       engine->name, reg);
- 				err = -EINVAL;
--				goto out_unpin;
-+				goto out_unmap_scratch;
- 			}
- 		} else {
- 			rsvd = 0;
-@@ -723,15 +733,27 @@ static int check_dirty_whitelist(struct intel_context *ce)
- 
- 			err = -EINVAL;
- 		}
--out_unpin:
-+out_unmap_scratch:
- 		i915_gem_object_unpin_map(scratch->obj);
-+out_unmap_batch:
-+		if (cs)
-+			i915_gem_object_unpin_map(batch->obj);
-+out_ctx:
-+		intel_context_unpin(ce);
-+out:
-+		if (err == -EDEADLK) {
-+			err = i915_gem_ww_ctx_backoff(&ww);
-+			if (!err)
-+				goto retry;
-+		}
-+		i915_gem_ww_ctx_fini(&ww);
- 		if (err)
- 			break;
- 	}
- 
- 	if (igt_flush_test(engine->i915))
- 		err = -EIO;
--out_batch:
-+
- 	i915_vma_unpin_and_release(&batch, 0);
- out_scratch:
- 	i915_vma_unpin_and_release(&scratch, 0);
-@@ -868,7 +890,7 @@ static int scrub_whitelisted_registers(struct i915_gem_context *ctx,
- 	if (IS_ERR(batch))
- 		return PTR_ERR(batch);
- 
--	cs = i915_gem_object_pin_map(batch->obj, I915_MAP_WC);
-+	cs = i915_gem_object_pin_map_unlocked(batch->obj, I915_MAP_WC);
- 	if (IS_ERR(cs)) {
- 		err = PTR_ERR(cs);
- 		goto err_batch;
-@@ -1003,11 +1025,11 @@ check_whitelisted_registers(struct intel_engine_cs *engine,
- 	u32 *a, *b;
- 	int i, err;
- 
--	a = i915_gem_object_pin_map(A->obj, I915_MAP_WB);
-+	a = i915_gem_object_pin_map_unlocked(A->obj, I915_MAP_WB);
- 	if (IS_ERR(a))
- 		return PTR_ERR(a);
- 
--	b = i915_gem_object_pin_map(B->obj, I915_MAP_WB);
-+	b = i915_gem_object_pin_map_unlocked(B->obj, I915_MAP_WB);
- 	if (IS_ERR(b)) {
- 		err = PTR_ERR(b);
- 		goto err_a;
 -- 
 2.28.0
 
