@@ -7,46 +7,47 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 541BFC433E7
-	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 23:15:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B3383C433DF
+	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 23:15:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0035020797
-	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 23:15:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0035020797
+	by mail.kernel.org (Postfix) with ESMTPS id 5D13120797
+	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 23:15:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5D13120797
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC9706E28A;
-	Thu, 15 Oct 2020 23:15:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D3E5A6E2F2;
+	Thu, 15 Oct 2020 23:15:21 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3858D6E2B6
- for <intel-gfx@lists.freedesktop.org>; Thu, 15 Oct 2020 23:15:16 +0000 (UTC)
-IronPort-SDR: P08e+FjhPVT3cLqApcUrKGugX2EZKjZBd68xwj4U3IEDvZYIlCSUNfFNUcfciIYrdp6ZtBfATr
- Y7Sp+rRoRupA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9775"; a="163010301"
-X-IronPort-AV: E=Sophos;i="5.77,380,1596524400"; d="scan'208";a="163010301"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 914B76E3EF
+ for <intel-gfx@lists.freedesktop.org>; Thu, 15 Oct 2020 23:15:19 +0000 (UTC)
+IronPort-SDR: RvQPRjFEDWg63dlg2CO1cdm/q2xnjYDg4UEdfczp0razjCY2rZFeQLi3V58uMOo9It+WBBFD1J
+ zkPaSD+nBkuQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9775"; a="163010311"
+X-IronPort-AV: E=Sophos;i="5.77,380,1596524400"; d="scan'208";a="163010311"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Oct 2020 16:15:15 -0700
-IronPort-SDR: th6zGMcn2bea6xp6hc7C9+FClpIRWH+5XfRGYdCKn20Xy3pdai9LOyxRpys4KpmLQFtn+IGkRm
- x+f1PVYrYgng==
-X-IronPort-AV: E=Sophos;i="5.77,380,1596524400"; d="scan'208";a="531450384"
+ 15 Oct 2020 16:15:19 -0700
+IronPort-SDR: M9T2BRtnrkunRzHvGEovbIUXlWuI9debhYLWc2moYY0CNTkAOZBNR92fNIosZJoE5FcdFGsACM
+ oxAXwO4i1nig==
+X-IronPort-AV: E=Sophos;i="5.77,380,1596524400"; d="scan'208";a="531450412"
 Received: from linux-desktop.iind.intel.com ([10.223.34.173])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Oct 2020 16:15:14 -0700
+ 15 Oct 2020 16:15:17 -0700
 From: Uma Shankar <uma.shankar@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 16 Oct 2020 05:18:55 +0530
-Message-Id: <20201015234902.7134-6-uma.shankar@intel.com>
+Date: Fri, 16 Oct 2020 05:18:57 +0530
+Message-Id: <20201015234902.7134-8-uma.shankar@intel.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20201015234902.7134-1-uma.shankar@intel.com>
 References: <20201015234902.7134-1-uma.shankar@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [v8 05/12] drm/i915/display: Nuke bogus lspcon check
+Subject: [Intel-gfx] [v8 07/12] drm/i915/display: Enable HDR for Parade
+ based lspcon
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,35 +60,72 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Vipin Anand <vipin.anand@intel.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-RHJvcHBlZCBhIGlycmVsZXZhbnQgbHNwY29uIGNoZWNrIGZyb20gaW50ZWxfaGRtaV9hZGRfcHJv
-cGVydGllcwpmdW5jdGlvbi4KClN1Z2dlc3RlZC1ieTogVmlsbGUgU3lyasOkbMOkIiAgPHZpbGxl
-LnN5cmphbGFAbGludXguaW50ZWwuY29tPgpTaWduZWQtb2ZmLWJ5OiBVbWEgU2hhbmthciA8dW1h
-LnNoYW5rYXJAaW50ZWwuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50
-ZWxfaGRtaS5jIHwgMTAgKy0tLS0tLS0tLQogMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCsp
-LCA5IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3Bs
-YXkvaW50ZWxfaGRtaS5jIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9oZG1p
-LmMKaW5kZXggOGU0YjgyMGI3MTVhLi5mMWE5MjdjZGY3OTggMTAwNjQ0Ci0tLSBhL2RyaXZlcnMv
-Z3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfaGRtaS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9p
-OTE1L2Rpc3BsYXkvaW50ZWxfaGRtaS5jCkBAIC0yOTUwLDIwICsyOTUwLDEyIEBAIHN0YXRpYyB2
-b2lkCiBpbnRlbF9oZG1pX2FkZF9wcm9wZXJ0aWVzKHN0cnVjdCBpbnRlbF9oZG1pICppbnRlbF9o
-ZG1pLCBzdHJ1Y3QgZHJtX2Nvbm5lY3RvciAqY29ubmVjdG9yKQogewogCXN0cnVjdCBkcm1faTkx
-NV9wcml2YXRlICpkZXZfcHJpdiA9IHRvX2k5MTUoY29ubmVjdG9yLT5kZXYpOwotCXN0cnVjdCBp
-bnRlbF9kaWdpdGFsX3BvcnQgKmRpZ19wb3J0ID0KLQkJCQloZG1pX3RvX2RpZ19wb3J0KGludGVs
-X2hkbWkpOwogCiAJaW50ZWxfYXR0YWNoX2ZvcmNlX2F1ZGlvX3Byb3BlcnR5KGNvbm5lY3Rvcik7
-CiAJaW50ZWxfYXR0YWNoX2Jyb2FkY2FzdF9yZ2JfcHJvcGVydHkoY29ubmVjdG9yKTsKIAlpbnRl
-bF9hdHRhY2hfYXNwZWN0X3JhdGlvX3Byb3BlcnR5KGNvbm5lY3Rvcik7CiAKLQkvKgotCSAqIEF0
-dGFjaCBDb2xvcnNwYWNlIHByb3BlcnR5IGZvciBOb24gTFNQQ09OIGJhc2VkIGRldmljZQotCSAq
-IFRvRG86IFRoaXMgbmVlZHMgdG8gYmUgZXh0ZW5kZWQgZm9yIExTUENPTiBpbXBsZW1lbnRhdGlv
-bgotCSAqIGFzIHdlbGwuIFdpbGwgYmUgaW1wbGVtZW50ZWQgc2VwYXJhdGVseS4KLQkgKi8KLQlp
-ZiAoIWRpZ19wb3J0LT5sc3Bjb24uYWN0aXZlKQotCQlpbnRlbF9hdHRhY2hfY29sb3JzcGFjZV9w
-cm9wZXJ0eShjb25uZWN0b3IpOworCWludGVsX2F0dGFjaF9jb2xvcnNwYWNlX3Byb3BlcnR5KGNv
-bm5lY3Rvcik7CiAKIAlkcm1fY29ubmVjdG9yX2F0dGFjaF9jb250ZW50X3R5cGVfcHJvcGVydHko
-Y29ubmVjdG9yKTsKIAotLSAKMi4yNi4yCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fXwpJbnRlbC1nZnggbWFpbGluZyBsaXN0CkludGVsLWdmeEBsaXN0cy5m
-cmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
-aW5mby9pbnRlbC1nZngK
+Enable HDR for LSPCON based on Parade along with MCA.
+
+v2: Added a helper for status reg as suggested by Ville.
+
+Signed-off-by: Uma Shankar <uma.shankar@intel.com>
+Signed-off-by: Vipin Anand <vipin.anand@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_lspcon.c | 19 +++++++++++++------
+ 1 file changed, 13 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_lspcon.c b/drivers/gpu/drm/i915/display/intel_lspcon.c
+index 2467e3e95985..be59cbde9413 100644
+--- a/drivers/gpu/drm/i915/display/intel_lspcon.c
++++ b/drivers/gpu/drm/i915/display/intel_lspcon.c
+@@ -36,6 +36,7 @@
+ #define LSPCON_VENDOR_MCA_OUI 0x0060AD
+ 
+ #define DPCD_MCA_LSPCON_HDR_STATUS	0x70003
++#define DPCD_PARADE_LSPCON_HDR_STATUS	0x00511
+ 
+ /* AUX addresses to write MCA AVI IF */
+ #define LSPCON_MCA_AVI_IF_WRITE_OFFSET 0x5C0
+@@ -106,21 +107,27 @@ static bool lspcon_detect_vendor(struct intel_lspcon *lspcon)
+ 	return true;
+ }
+ 
++static u32 get_hdr_status_reg(struct intel_lspcon *lspcon)
++{
++	if (lspcon->vendor == LSPCON_VENDOR_MCA)
++		return DPCD_MCA_LSPCON_HDR_STATUS;
++	else
++		return DPCD_PARADE_LSPCON_HDR_STATUS;
++}
++
+ void lspcon_detect_hdr_capability(struct intel_lspcon *lspcon)
+ {
+ 	struct intel_digital_port *dig_port =
+ 		container_of(lspcon, struct intel_digital_port, lspcon);
+ 	struct drm_device *dev = dig_port->base.base.dev;
+ 	struct intel_dp *dp = lspcon_to_intel_dp(lspcon);
++	u32 lspcon_hdr_status_reg;
+ 	u8 hdr_caps;
+ 	int ret;
+ 
+-	/* Enable HDR for MCA based LSPCON devices */
+-	if (lspcon->vendor == LSPCON_VENDOR_MCA)
+-		ret = drm_dp_dpcd_read(&dp->aux, DPCD_MCA_LSPCON_HDR_STATUS,
+-				       &hdr_caps, 1);
+-	else
+-		return;
++	lspcon_hdr_status_reg = get_hdr_status_reg(lspcon);
++	ret = drm_dp_dpcd_read(&dp->aux, lspcon_hdr_status_reg,
++			       &hdr_caps, 1);
+ 
+ 	if (ret < 0) {
+ 		drm_dbg_kms(dev, "hdr capability detection failed\n");
+-- 
+2.26.2
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
