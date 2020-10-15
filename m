@@ -7,47 +7,47 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2432FC433DF
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4B021C43467
 	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 23:15:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BE0E320797
+	by mail.kernel.org (Postfix) with ESMTPS id EEDEA207DE
 	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 23:15:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BE0E320797
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EEDEA207DE
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F2BC96E329;
-	Thu, 15 Oct 2020 23:15:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1DA4D6E3F0;
+	Thu, 15 Oct 2020 23:15:27 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E7436E329
- for <intel-gfx@lists.freedesktop.org>; Thu, 15 Oct 2020 23:15:26 +0000 (UTC)
-IronPort-SDR: IZMB8KZsrU7uXQzNKbGIgPHsNvVDwMPWFpAyagsNTf+HR7RVtty9n9BLPzrNx3IoCF2wUHKyQd
- qnorKdLYbxcw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9775"; a="163010331"
-X-IronPort-AV: E=Sophos;i="5.77,380,1596524400"; d="scan'208";a="163010331"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB4ED6E3E5
+ for <intel-gfx@lists.freedesktop.org>; Thu, 15 Oct 2020 23:15:22 +0000 (UTC)
+IronPort-SDR: YdRKnP+0OBKKJ+yJHHM7tHLIT4mtE4rCOjpMXczBy85hLC8qJHpm1sap9QR318A1ZUQvA0Tmtx
+ R8cYLGW/1MMA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9775"; a="163010322"
+X-IronPort-AV: E=Sophos;i="5.77,380,1596524400"; d="scan'208";a="163010322"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Oct 2020 16:15:26 -0700
-IronPort-SDR: O+1eB/Sj6eIp99JbZosheIw7djj6/SB7RXo528xIppPq9tC35Von1QVtkMzmA3MhLPy0b9FU8m
- i3vKCPDfl81Q==
-X-IronPort-AV: E=Sophos;i="5.77,380,1596524400"; d="scan'208";a="531450501"
+ 15 Oct 2020 16:15:22 -0700
+IronPort-SDR: ap70tSJ3eL7KrgkE7YA8fBSnKRUI+WUZCRAzdrYEnvSknBV4QiX1VyvXgVRhyvfmGWkKCOEV++
+ UoYX74QALRnw==
+X-IronPort-AV: E=Sophos;i="5.77,380,1596524400"; d="scan'208";a="531450452"
 Received: from linux-desktop.iind.intel.com ([10.223.34.173])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Oct 2020 16:15:24 -0700
+ 15 Oct 2020 16:15:21 -0700
 From: Uma Shankar <uma.shankar@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 16 Oct 2020 05:19:01 +0530
-Message-Id: <20201015234902.7134-12-uma.shankar@intel.com>
+Date: Fri, 16 Oct 2020 05:18:59 +0530
+Message-Id: <20201015234902.7134-10-uma.shankar@intel.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20201015234902.7134-1-uma.shankar@intel.com>
 References: <20201015234902.7134-1-uma.shankar@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [v8 11/12] drm/i915/lspcon: Do not send DRM infoframes
- to non-HDMI sinks
+Subject: [Intel-gfx] [v8 09/12] drm/i915/display: Implement DRM infoframe
+ read for LSPCON
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,42 +65,71 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Non-HDMI sinks shouldn't be sent Dynamic Range and Mastering infoframes.
-Check for that when using LSPCON.
+Implement Read back of HDR metadata infoframes i.e Dynamic Range
+and Mastering Infoframe for LSPCON devices.
+
+v2: Added proper bitmask of enabled infoframes as per Ville's
+recommendation.
+
+v3: Dropped a redundant wrapper as per Ville's comment.
 
 Signed-off-by: Uma Shankar <uma.shankar@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_ddi.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_hdmi.c   | 7 +++----
+ drivers/gpu/drm/i915/display/intel_lspcon.c | 7 ++++++-
+ drivers/gpu/drm/i915/display/intel_lspcon.h | 4 ++++
+ 3 files changed, 13 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-index ca99b94b4cbf..b7032df47f69 100644
---- a/drivers/gpu/drm/i915/display/intel_ddi.c
-+++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-@@ -3938,6 +3938,7 @@ static void intel_enable_ddi_dp(struct intel_atomic_state *state,
+diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
+index f1a927cdf798..81dabffbb3e6 100644
+--- a/drivers/gpu/drm/i915/display/intel_hdmi.c
++++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
+@@ -555,10 +555,9 @@ void hsw_write_infoframe(struct intel_encoder *encoder,
+ 	intel_de_posting_read(dev_priv, ctl_reg);
+ }
+ 
+-static void hsw_read_infoframe(struct intel_encoder *encoder,
+-			       const struct intel_crtc_state *crtc_state,
+-			       unsigned int type,
+-			       void *frame, ssize_t len)
++void hsw_read_infoframe(struct intel_encoder *encoder,
++			const struct intel_crtc_state *crtc_state,
++			unsigned int type, void *frame, ssize_t len)
  {
  	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
- 	struct intel_dp *intel_dp = enc_to_intel_dp(encoder);
-+	struct intel_digital_port *dig_port = enc_to_dig_port(encoder);
- 	enum port port = encoder->port;
- 
- 	if (port == PORT_A && INTEL_GEN(dev_priv) < 9)
-@@ -3945,7 +3946,14 @@ static void intel_enable_ddi_dp(struct intel_atomic_state *state,
- 
- 	intel_edp_backlight_on(crtc_state, conn_state);
- 	intel_psr_enable(intel_dp, crtc_state, conn_state);
--	intel_dp_set_infoframes(encoder, true, crtc_state, conn_state);
-+
-+	if (dig_port->lspcon.active) {
-+		if (dig_port->dp.has_hdmi_sink)
-+			intel_dp_set_infoframes(encoder, true, crtc_state, conn_state);
-+	} else {
-+		intel_dp_set_infoframes(encoder, true, crtc_state, conn_state);
+ 	enum transcoder cpu_transcoder = crtc_state->cpu_transcoder;
+diff --git a/drivers/gpu/drm/i915/display/intel_lspcon.c b/drivers/gpu/drm/i915/display/intel_lspcon.c
+index 9685be1991ca..d81a615ff9ac 100644
+--- a/drivers/gpu/drm/i915/display/intel_lspcon.c
++++ b/drivers/gpu/drm/i915/display/intel_lspcon.c
+@@ -501,7 +501,12 @@ void lspcon_read_infoframe(struct intel_encoder *encoder,
+ 			   unsigned int type,
+ 			   void *frame, ssize_t len)
+ {
+-	/* FIXME implement this */
++	/* FIXME implement for AVI Infoframe as well */
++	if (type == HDMI_PACKET_TYPE_GAMUT_METADATA) {
++		drm_dbg_kms(encoder->base.dev, "Read HDR metadata for lspcon\n");
++		hsw_read_infoframe(encoder, crtc_state, type,
++				   frame, len);
 +	}
-+
- 	intel_edp_drrs_enable(intel_dp, crtc_state);
+ }
  
- 	if (crtc_state->has_audio)
+ void lspcon_set_infoframes(struct intel_encoder *encoder,
+diff --git a/drivers/gpu/drm/i915/display/intel_lspcon.h b/drivers/gpu/drm/i915/display/intel_lspcon.h
+index 972afa3b2168..15965c77b43a 100644
+--- a/drivers/gpu/drm/i915/display/intel_lspcon.h
++++ b/drivers/gpu/drm/i915/display/intel_lspcon.h
+@@ -39,5 +39,9 @@ void hsw_write_infoframe(struct intel_encoder *encoder,
+ 			 const struct intel_crtc_state *crtc_state,
+ 			 unsigned int type,
+ 			const void *frame, ssize_t len);
++void hsw_read_infoframe(struct intel_encoder *encoder,
++			const struct intel_crtc_state *crtc_state,
++			unsigned int type,
++			void *frame, ssize_t len);
+ 
+ #endif /* __INTEL_LSPCON_H__ */
 -- 
 2.26.2
 
