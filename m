@@ -7,31 +7,31 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1B36DC35257
-	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 11:27:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 745BEC35271
+	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 11:27:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B8E9B2080A
-	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 11:26:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B8E9B2080A
+	by mail.kernel.org (Postfix) with ESMTPS id 214822080A
+	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 11:27:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 214822080A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C87E96EC7A;
-	Thu, 15 Oct 2020 11:26:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC1866ECA9;
+	Thu, 15 Oct 2020 11:27:06 +0000 (UTC)
 Received: from mblankhorst.nl (mblankhorst.nl [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C58DE6EC72
- for <intel-gfx@lists.freedesktop.org>; Thu, 15 Oct 2020 11:26:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC8746EC8D
+ for <intel-gfx@lists.freedesktop.org>; Thu, 15 Oct 2020 11:26:38 +0000 (UTC)
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 15 Oct 2020 13:26:07 +0200
-Message-Id: <20201015112627.1142745-44-maarten.lankhorst@linux.intel.com>
+Date: Thu, 15 Oct 2020 13:26:06 +0200
+Message-Id: <20201015112627.1142745-43-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20201015112627.1142745-1-maarten.lankhorst@linux.intel.com>
 References: <20201015112627.1142745-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v3 43/63] drm/i915/selftests: Prepare context
+Subject: [Intel-gfx] [PATCH v3 42/63] drm/i915/selftests: Prepare coherency
  tests for obj->mm.lock removal.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -55,58 +55,31 @@ unlocked versions.
 
 Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 ---
- drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/i915/gem/selftests/i915_gem_coherency.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
-index d3f87dc4eda3..5fef592390cb 100644
---- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
-+++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
-@@ -1094,7 +1094,7 @@ __read_slice_count(struct intel_context *ce,
- 	if (ret < 0)
- 		return ret;
- 
--	buf = i915_gem_object_pin_map(obj, I915_MAP_WB);
-+	buf = i915_gem_object_pin_map_unlocked(obj, I915_MAP_WB);
- 	if (IS_ERR(buf)) {
- 		ret = PTR_ERR(buf);
- 		return ret;
-@@ -1511,7 +1511,7 @@ static int write_to_scratch(struct i915_gem_context *ctx,
- 	if (IS_ERR(obj))
- 		return PTR_ERR(obj);
- 
--	cmd = i915_gem_object_pin_map(obj, I915_MAP_WB);
-+	cmd = i915_gem_object_pin_map_unlocked(obj, I915_MAP_WB);
- 	if (IS_ERR(cmd)) {
- 		err = PTR_ERR(cmd);
- 		goto out;
-@@ -1622,7 +1622,7 @@ static int read_from_scratch(struct i915_gem_context *ctx,
- 		if (err)
- 			goto out_vm;
- 
--		cmd = i915_gem_object_pin_map(obj, I915_MAP_WB);
-+		cmd = i915_gem_object_pin_map_unlocked(obj, I915_MAP_WB);
- 		if (IS_ERR(cmd)) {
- 			err = PTR_ERR(cmd);
- 			goto out;
-@@ -1658,7 +1658,7 @@ static int read_from_scratch(struct i915_gem_context *ctx,
- 		if (err)
- 			goto out_vm;
- 
--		cmd = i915_gem_object_pin_map(obj, I915_MAP_WB);
-+		cmd = i915_gem_object_pin_map_unlocked(obj, I915_MAP_WB);
- 		if (IS_ERR(cmd)) {
- 			err = PTR_ERR(cmd);
- 			goto out;
-@@ -1715,7 +1715,7 @@ static int read_from_scratch(struct i915_gem_context *ctx,
+diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_coherency.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_coherency.c
+index 2e439bb269d6..42aa3c5e0621 100644
+--- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_coherency.c
++++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_coherency.c
+@@ -159,7 +159,7 @@ static int wc_set(struct context *ctx, unsigned long offset, u32 v)
  	if (err)
- 		goto out_vm;
+ 		return err;
  
--	cmd = i915_gem_object_pin_map(obj, I915_MAP_WB);
-+	cmd = i915_gem_object_pin_map_unlocked(obj, I915_MAP_WB);
- 	if (IS_ERR(cmd)) {
- 		err = PTR_ERR(cmd);
- 		goto out_vm;
+-	map = i915_gem_object_pin_map(ctx->obj, I915_MAP_WC);
++	map = i915_gem_object_pin_map_unlocked(ctx->obj, I915_MAP_WC);
+ 	if (IS_ERR(map))
+ 		return PTR_ERR(map);
+ 
+@@ -182,7 +182,7 @@ static int wc_get(struct context *ctx, unsigned long offset, u32 *v)
+ 	if (err)
+ 		return err;
+ 
+-	map = i915_gem_object_pin_map(ctx->obj, I915_MAP_WC);
++	map = i915_gem_object_pin_map_unlocked(ctx->obj, I915_MAP_WC);
+ 	if (IS_ERR(map))
+ 		return PTR_ERR(map);
+ 
 -- 
 2.28.0
 
