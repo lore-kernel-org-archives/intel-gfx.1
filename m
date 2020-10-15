@@ -2,48 +2,51 @@ Return-Path: <SRS0=RgPZ=DW=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_GIT autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A2CF4C433E7
-	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 11:00:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BF3B6C43457
+	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 11:00:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3DCE8212CC
-	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 11:00:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3DCE8212CC
+	by mail.kernel.org (Postfix) with ESMTPS id 53B3A212CC
+	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 11:00:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 53B3A212CC
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D0BC89AA7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF92789B69;
 	Thu, 15 Oct 2020 11:00:08 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1CDAA89A72;
- Thu, 15 Oct 2020 11:00:04 +0000 (UTC)
-IronPort-SDR: fj6QoAV5z9ieGKK7GAdGxcmoEX/uTtf3vyXEWxCqUTbQnlJcuzfiV7GA1r6XKtGq/gKYLBgZg6
- wFe2eLSFtt6A==
-X-IronPort-AV: E=McAfee;i="6000,8403,9774"; a="163686054"
-X-IronPort-AV: E=Sophos;i="5.77,378,1596524400"; d="scan'208";a="163686054"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 42EE689AA7;
+ Thu, 15 Oct 2020 11:00:06 +0000 (UTC)
+IronPort-SDR: KI8eqGPr+19bp4lOHb2Mck4Ez9T0RjRRgLF7hEyGAGUSlS+U0/EPF0bysrOKVPsIfcWdpGBFRn
+ t1UP1rTdHB8A==
+X-IronPort-AV: E=McAfee;i="6000,8403,9774"; a="163686065"
+X-IronPort-AV: E=Sophos;i="5.77,378,1596524400"; d="scan'208";a="163686065"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Oct 2020 04:00:02 -0700
-IronPort-SDR: 5J0iBQvWFN4G8BZxaQFD9qkdW+hyL018cBEy/qbNpBVcEE1sojvoZLlXuRS2qD2OVqnk/+vQjw
- dzuNeRg2Nmlg==
+ 15 Oct 2020 04:00:06 -0700
+IronPort-SDR: p2C2lGaEWnVNXM7O/1zATvtg0/0iPv+5yJiQX3hWwMg7Rp5h5/ys2X3ErXlru8pcBx+Z/pxYHM
+ 2oJ30OU7QM4Q==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.77,378,1596524400"; d="scan'208";a="356949538"
+X-IronPort-AV: E=Sophos;i="5.77,378,1596524400"; d="scan'208";a="356949612"
 Received: from linux-akn.iind.intel.com ([10.223.34.148])
- by FMSMGA003.fm.intel.com with ESMTP; 15 Oct 2020 03:59:59 -0700
+ by FMSMGA003.fm.intel.com with ESMTP; 15 Oct 2020 04:00:04 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 15 Oct 2020 16:22:46 +0530
-Message-Id: <20201015105259.27934-1-ankit.k.nautiyal@intel.com>
+Date: Thu, 15 Oct 2020 16:22:48 +0530
+Message-Id: <20201015105259.27934-3-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.17.1
-MIME-Version: 1.0
-Subject: [Intel-gfx] [RFC 00/13] Add support for DP-HDMI2.1 PCON
+In-Reply-To: <20201015105259.27934-1-ankit.k.nautiyal@intel.com>
+References: <20201015105259.27934-1-ankit.k.nautiyal@intel.com>
+Subject: [Intel-gfx] [RFC 02/13] drm/edid: Parse MAX_FRL field from HFVSDB
+ block
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,83 +60,112 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: dri-devel@lists.freedesktop.org
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This patch series attempts to add support for a DP-HDMI2.1 Protocol
-Convertor. The VESA spec for the HDMI2.1 PCON are proposed in Errata
-E5 to DisplayPort_v2.0:
-https://vesa.org/join-vesamemberships/member-downloads/?action=stamp&fileid=42299
-The details are mentioned in DP to HDMI2.1 PCON Enum/Config
-improvement slide decks:
-https://groups.vesa.org/wg/DP/document/folder/1316
+From: Swati Sharma <swati2.sharma@intel.com>
 
-This RFC series starts with adding support for FRL (Fixed Rate Link)
-Training between the PCON and HDMI2.1 sink.
-As per HDMI2.1 specification, a new data-channel or lane is added in
-FRL mode, by repurposing the TMDS clock Channel. Through FRL, higher
-bit-rate can be supported, ie. up to 12 Gbps/lane (48 Gbps over 4
-lanes).
+This patch parses MAX_FRL field to get the MAX rate in Gbps that
+the HDMI 2.1 panel can support in FRL mode. Source need this
+field to determine the optimal rate between the source and sink
+during FRL training.
 
-With these patches, the HDMI2.1 PCON can be configured to achieve FRL
-training based on the maximum FRL rate supported by the panel, source
-and the PCON.
-The approach is to add the support for FRL training between PCON and
-HDMI2.1 sink and gradually add other blocks for supporting higher
-resolutions and other HDMI2.1 features, that can be supported by pcon
-for the sources that do not natively support HDMI2.1.
+Signed-off-by: Sharma, Swati2 <swati2.sharma@intel.com>
+Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+---
+ drivers/gpu/drm/drm_edid.c  | 51 +++++++++++++++++++++++++++++++++++++
+ include/drm/drm_connector.h |  6 +++++
+ 2 files changed, 57 insertions(+)
 
-This is done before the DP Link training between the source and PCON
-is started. In case of FRL training is not achieved, the PCON will
-work in the regular TMDS mode, without HDMI2.1 feature support.
-Any interruption in FRL training between the PCON and HDMI2.1 sink is
-notified through IRQ_HPD. On receiving the IRQ_HPD the concerned DPCD
-registers are read and FRL training is re-attempted.
-
-Currently, we have tested the FRL training and are able to enable 4K
-display with TGL Platform + Realtek PCON RTD2173 with HDMI2.1 supporting
-panel.
-
-v2: Added patch to capture the PCON FRL caps in downstream facing port
-cap structure.
-
-v3: Added patches for getting DSC capabilities of the PCON DSC encoder
-and HDMI decoder. Added support to configure PCON for DSC1.1 decoding
-and DSC1.2 encoding.
-
-Ankit Nautiyal (9):
-  drm/dp_helper: Add FRL training support for a DP-HDMI2.1 PCON
-  drm/i915: Capture max frl rate for PCON in dfp cap structure
-  drm/i915: Add support for starting FRL training for HDMI2.1 via PCON
-  drm/i915: Check for FRL training before DP Link training
-  drm/edid: Parse DSC1.2 cap fields from HFVSDB block
-  drm/dp_helper: Add support for Configuring DSC for HDMI2.1 Pcon
-  drm/i915: Read DSC capabilities of the HDMI2.1 PCON encoder
-  drm/i915: Add helper functions for calculating DSC parameters for
-    HDMI2.1
-  drm/i915: Configure PCON for DSC1.1 to DSC1.2 encoding
-
-Swati Sharma (4):
-  drm/edid: Add additional HFVSDB fields for HDMI2.1
-  drm/edid: Parse MAX_FRL field from HFVSDB block
-  drm/dp_helper: Add support for link status and link recovery
-  drm/i915: Add support for enabling link status and recovery
-
- drivers/gpu/drm/drm_dp_helper.c               | 431 +++++++++++++
- drivers/gpu/drm/drm_edid.c                    |  70 +++
- drivers/gpu/drm/i915/display/intel_ddi.c      |   2 +
- .../drm/i915/display/intel_display_types.h    |  24 +
- drivers/gpu/drm/i915/display/intel_dp.c       | 576 +++++++++++++++++-
- drivers/gpu/drm/i915/display/intel_dp.h       |   4 +
- drivers/gpu/drm/i915/display/intel_hdmi.c     | 171 ++++++
- drivers/gpu/drm/i915/display/intel_hdmi.h     |   7 +
- include/drm/drm_connector.h                   |  38 ++
- include/drm/drm_dp_helper.h                   | 205 +++++++
- include/drm/drm_edid.h                        |  30 +
- 11 files changed, 1553 insertions(+), 5 deletions(-)
-
+diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+index 631125b46e04..8afb136e73f5 100644
+--- a/drivers/gpu/drm/drm_edid.c
++++ b/drivers/gpu/drm/drm_edid.c
+@@ -4849,6 +4849,52 @@ static void drm_parse_vcdb(struct drm_connector *connector, const u8 *db)
+ 		info->rgb_quant_range_selectable = true;
+ }
+ 
++static
++void drm_get_max_frl_rate(int max_frl_rate, u8 *max_lanes, u8 *max_rate_per_lane)
++{
++	switch(max_frl_rate) {
++	case 1:
++		*max_lanes = 3;
++		*max_rate_per_lane = 3;
++		break;
++	case 2:
++		*max_lanes = 3;
++		*max_rate_per_lane = 6;
++		break;
++	case 3:
++		*max_lanes = 4;
++		*max_rate_per_lane = 6;
++		break;
++	case 4:
++		*max_lanes = 4;
++		*max_rate_per_lane = 8;
++		break;
++	case 5:
++		*max_lanes = 4;
++		*max_rate_per_lane = 10;
++		break;
++	case 6:
++		*max_lanes = 4;
++		*max_rate_per_lane = 12;
++		break;
++	case 0:
++	default:
++		*max_lanes = 0;
++		*max_rate_per_lane = 0;
++	}
++}
++
++static void drm_parse_hdmi_21_additional_fields(struct drm_connector *connector,
++						const u8 *db)
++{
++	struct drm_hdmi_info *hdmi = &connector->display_info.hdmi;
++	u8 max_frl_rate;
++
++	max_frl_rate = db[7] & DRM_EDID_MAX_FRL_RATE_MASK;
++	drm_get_max_frl_rate(max_frl_rate, &hdmi->max_lanes,
++			     &hdmi->max_frl_rate_per_lane);
++}
++
+ static void drm_parse_ycbcr420_deep_color_info(struct drm_connector *connector,
+ 					       const u8 *db)
+ {
+@@ -4902,6 +4948,11 @@ static void drm_parse_hdmi_forum_vsdb(struct drm_connector *connector,
+ 		}
+ 	}
+ 
++	if (hf_vsdb[7]) {
++		    DRM_DEBUG_KMS("hdmi_21 sink detected. parsing edid\n");
++		    drm_parse_hdmi_21_additional_fields(connector, hf_vsdb);
++	}
++
+ 	drm_parse_ycbcr420_deep_color_info(connector, hf_vsdb);
+ }
+ 
+diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+index 928136556174..f351bf10c076 100644
+--- a/include/drm/drm_connector.h
++++ b/include/drm/drm_connector.h
+@@ -207,6 +207,12 @@ struct drm_hdmi_info {
+ 
+ 	/** @y420_dc_modes: bitmap of deep color support index */
+ 	u8 y420_dc_modes;
++
++	/** @max_frl_rate_per_lane: support fixed rate link */
++	u8 max_frl_rate_per_lane;
++
++	/** @max_lanes: supported by sink */
++	u8 max_lanes;
+ };
+ 
+ /**
 -- 
 2.17.1
 
