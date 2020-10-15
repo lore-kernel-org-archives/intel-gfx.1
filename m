@@ -7,32 +7,32 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 84328C2D0A4
-	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 11:26:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7F926C433E7
+	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 11:26:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 242B52080A
-	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 11:26:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 242B52080A
+	by mail.kernel.org (Postfix) with ESMTPS id 1465F2080A
+	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 11:26:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1465F2080A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 202996EC81;
-	Thu, 15 Oct 2020 11:26:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6EA3D6EC71;
+	Thu, 15 Oct 2020 11:26:36 +0000 (UTC)
 Received: from mblankhorst.nl (mblankhorst.nl [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 091366EC69
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3574D6EC6F
  for <intel-gfx@lists.freedesktop.org>; Thu, 15 Oct 2020 11:26:33 +0000 (UTC)
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 15 Oct 2020 13:25:26 +0200
-Message-Id: <20201015112627.1142745-3-maarten.lankhorst@linux.intel.com>
+Date: Thu, 15 Oct 2020 13:25:30 +0200
+Message-Id: <20201015112627.1142745-7-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20201015112627.1142745-1-maarten.lankhorst@linux.intel.com>
 References: <20201015112627.1142745-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v3 02/63] drm/i915: Add missing -EDEADLK
- handling to execbuf pinning
+Subject: [Intel-gfx] [PATCH v3 06/63] drm/i915: Add gem object locking to
+ madvise.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,75 +50,42 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-i915_vma_pin may fail with -EDEADLK when we start locking page tables,
-so ensure we handle this correctly.
+Doesn't need the full ww lock, only checking if pages are bound.
 
 Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 ---
- .../gpu/drm/i915/gem/i915_gem_execbuffer.c    | 23 +++++++++++++++----
- 1 file changed, 18 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/i915/i915_gem.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-index 63e2f16204da..2fbe6fbe043a 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-@@ -419,13 +419,14 @@ static u64 eb_pin_flags(const struct drm_i915_gem_exec_object2 *entry,
- 	return pin_flags;
- }
+diff --git a/drivers/gpu/drm/i915/i915_gem.c b/drivers/gpu/drm/i915/i915_gem.c
+index bb0c12975f38..30af7e4b71ab 100644
+--- a/drivers/gpu/drm/i915/i915_gem.c
++++ b/drivers/gpu/drm/i915/i915_gem.c
+@@ -1071,10 +1071,14 @@ i915_gem_madvise_ioctl(struct drm_device *dev, void *data,
+ 	if (!obj)
+ 		return -ENOENT;
  
--static inline bool
-+static inline int
- eb_pin_vma(struct i915_execbuffer *eb,
- 	   const struct drm_i915_gem_exec_object2 *entry,
- 	   struct eb_vma *ev)
- {
- 	struct i915_vma *vma = ev->vma;
- 	u64 pin_flags;
-+	int err;
+-	err = mutex_lock_interruptible(&obj->mm.lock);
++	err = i915_gem_object_lock_interruptible(obj, NULL);
+ 	if (err)
+ 		goto out;
  
- 	if (vma->node.size)
- 		pin_flags = vma->node.start;
-@@ -438,16 +439,24 @@ eb_pin_vma(struct i915_execbuffer *eb,
- 
- 	/* Attempt to reuse the current location if available */
- 	/* TODO: Add -EDEADLK handling here */
--	if (unlikely(i915_vma_pin_ww(vma, &eb->ww, 0, 0, pin_flags))) {
-+	err = i915_vma_pin_ww(vma, &eb->ww, 0, 0, pin_flags);
-+	if (err == -EDEADLK)
-+		return err;
++	err = mutex_lock_interruptible(&obj->mm.lock);
++	if (err)
++		goto out_ww;
 +
-+	if (unlikely(err)) {
- 		if (entry->flags & EXEC_OBJECT_PINNED)
- 			return false;
+ 	if (i915_gem_object_has_pages(obj) &&
+ 	    i915_gem_object_is_tiled(obj) &&
+ 	    i915->quirks & QUIRK_PIN_SWIZZLED_PAGES) {
+@@ -1119,6 +1123,8 @@ i915_gem_madvise_ioctl(struct drm_device *dev, void *data,
+ 	args->retained = obj->mm.madv != __I915_MADV_PURGED;
+ 	mutex_unlock(&obj->mm.lock);
  
- 		/* Failing that pick any _free_ space if suitable */
--		if (unlikely(i915_vma_pin_ww(vma, &eb->ww,
-+		err = i915_vma_pin_ww(vma, &eb->ww,
- 					     entry->pad_to_size,
- 					     entry->alignment,
- 					     eb_pin_flags(entry, ev->flags) |
--					     PIN_USER | PIN_NOEVICT)))
-+					     PIN_USER | PIN_NOEVICT);
-+		if (err == -EDEADLK)
-+			return err;
-+
-+		if (unlikely(err))
- 			return false;
- 	}
- 
-@@ -896,7 +905,11 @@ static int eb_validate_vmas(struct i915_execbuffer *eb)
- 		if (err)
- 			return err;
- 
--		if (eb_pin_vma(eb, entry, ev)) {
-+		err = eb_pin_vma(eb, entry, ev);
-+		if (err < 0)
-+			return err;
-+
-+		if (err > 0) {
- 			if (entry->offset != vma->node.start) {
- 				entry->offset = vma->node.start | UPDATE;
- 				eb->args->flags |= __EXEC_HAS_RELOC;
++out_ww:
++	i915_gem_object_unlock(obj);
+ out:
+ 	i915_gem_object_put(obj);
+ 	return err;
 -- 
 2.28.0
 
