@@ -7,32 +7,32 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 59F95C2D0A4
-	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 11:26:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BE003C2D0AE
+	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 11:26:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 090F22080A
+	by mail.kernel.org (Postfix) with ESMTPS id 695CD2080A
 	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 11:26:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 090F22080A
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 695CD2080A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CFCF76EC85;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 901586EC84;
 	Thu, 15 Oct 2020 11:26:48 +0000 (UTC)
 Received: from mblankhorst.nl (mblankhorst.nl [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D40E26EC8E
- for <intel-gfx@lists.freedesktop.org>; Thu, 15 Oct 2020 11:26:38 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E1E696EC6F
+ for <intel-gfx@lists.freedesktop.org>; Thu, 15 Oct 2020 11:26:36 +0000 (UTC)
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 15 Oct 2020 13:26:18 +0200
-Message-Id: <20201015112627.1142745-55-maarten.lankhorst@linux.intel.com>
+Date: Thu, 15 Oct 2020 13:26:01 +0200
+Message-Id: <20201015112627.1142745-38-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20201015112627.1142745-1-maarten.lankhorst@linux.intel.com>
 References: <20201015112627.1142745-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v3 54/63] drm/i915/selftests: Prepare ring
- submission for obj->mm.lock removal
+Subject: [Intel-gfx] [PATCH v3 37/63] drm/i915: Add missing ww lock in
+ intel_dsb_prepare.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,35 +50,29 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Use unlocked versions when the ww lock is not held.
+Because of the long lifetime of the mapping, we cannot wrap this in a
+simple limited ww lock. Just use the unlocked version of pin_map,
+because we'll likely release the mapping a lot later, in a different
+thread.
 
 Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 ---
- drivers/gpu/drm/i915/gt/selftest_ring_submission.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dsb.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/selftest_ring_submission.c b/drivers/gpu/drm/i915/gt/selftest_ring_submission.c
-index 3350e7c995bc..99609271c3a7 100644
---- a/drivers/gpu/drm/i915/gt/selftest_ring_submission.c
-+++ b/drivers/gpu/drm/i915/gt/selftest_ring_submission.c
-@@ -35,7 +35,7 @@ static struct i915_vma *create_wally(struct intel_engine_cs *engine)
- 		return ERR_PTR(err);
+diff --git a/drivers/gpu/drm/i915/display/intel_dsb.c b/drivers/gpu/drm/i915/display/intel_dsb.c
+index 566fa72427b3..857126822a88 100644
+--- a/drivers/gpu/drm/i915/display/intel_dsb.c
++++ b/drivers/gpu/drm/i915/display/intel_dsb.c
+@@ -293,7 +293,7 @@ void intel_dsb_prepare(struct intel_crtc_state *crtc_state)
+ 		goto out;
  	}
  
--	cs = i915_gem_object_pin_map(obj, I915_MAP_WC);
-+	cs = i915_gem_object_pin_map_unlocked(obj, I915_MAP_WC);
- 	if (IS_ERR(cs)) {
- 		i915_gem_object_put(obj);
- 		return ERR_CAST(cs);
-@@ -212,7 +212,7 @@ static int __live_ctx_switch_wa(struct intel_engine_cs *engine)
- 	if (IS_ERR(bb))
- 		return PTR_ERR(bb);
- 
--	result = i915_gem_object_pin_map(bb->obj, I915_MAP_WC);
-+	result = i915_gem_object_pin_map_unlocked(bb->obj, I915_MAP_WC);
- 	if (IS_ERR(result)) {
- 		intel_context_put(bb->private);
- 		i915_vma_unpin_and_release(&bb, 0);
+-	buf = i915_gem_object_pin_map(vma->obj, I915_MAP_WC);
++	buf = i915_gem_object_pin_map_unlocked(vma->obj, I915_MAP_WC);
+ 	if (IS_ERR(buf)) {
+ 		drm_err(&i915->drm, "Command buffer creation failed\n");
+ 		i915_vma_unpin_and_release(&vma, I915_VMA_RELEASE_MAP);
 -- 
 2.28.0
 
