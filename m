@@ -7,32 +7,32 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0607EC4363A
-	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 11:26:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E4EE5C3279D
+	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 11:26:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9D5882080A
-	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 11:26:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9D5882080A
+	by mail.kernel.org (Postfix) with ESMTPS id 8E2A42080A
+	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 11:26:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8E2A42080A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 320216EC69;
-	Thu, 15 Oct 2020 11:26:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 185546EC7E;
+	Thu, 15 Oct 2020 11:26:48 +0000 (UTC)
 Received: from mblankhorst.nl (mblankhorst.nl [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9CCB96EC85
- for <intel-gfx@lists.freedesktop.org>; Thu, 15 Oct 2020 11:26:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 640A76EC93
+ for <intel-gfx@lists.freedesktop.org>; Thu, 15 Oct 2020 11:26:39 +0000 (UTC)
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 15 Oct 2020 13:25:57 +0200
-Message-Id: <20201015112627.1142745-34-maarten.lankhorst@linux.intel.com>
+Date: Thu, 15 Oct 2020 13:26:12 +0200
+Message-Id: <20201015112627.1142745-49-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20201015112627.1142745-1-maarten.lankhorst@linux.intel.com>
 References: <20201015112627.1142745-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v3 33/63] drm/i915: Add ww locking around
- vm_access()
+Subject: [Intel-gfx] [PATCH v3 48/63] drm/i915/selftests: Prepare object
+ blit tests for obj->mm.lock removal.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,66 +50,44 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-i915_gem_object_pin_map potentially needs a ww context, so ensure we
-have one we can revoke.
+Use some unlocked versions where we're not holding the ww lock.
 
 Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_mman.c | 24 ++++++++++++++++++++++--
- 1 file changed, 22 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/gem/selftests/i915_gem_object_blt.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_mman.c b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
-index ba8e9ef6943d..1361eabea966 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_mman.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
-@@ -421,7 +421,9 @@ vm_access(struct vm_area_struct *area, unsigned long addr,
- {
- 	struct i915_mmap_offset *mmo = area->vm_private_data;
- 	struct drm_i915_gem_object *obj = mmo->obj;
-+	struct i915_gem_ww_ctx ww;
- 	void *vaddr;
-+	int err = 0;
+diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_object_blt.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_object_blt.c
+index 23b6e11bbc3e..ee9496f3d11d 100644
+--- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_object_blt.c
++++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_object_blt.c
+@@ -262,7 +262,7 @@ static int igt_fill_blt_thread(void *arg)
+ 			goto err_flush;
+ 		}
  
- 	if (i915_gem_object_is_readonly(obj) && write)
- 		return -EACCES;
-@@ -430,10 +432,18 @@ vm_access(struct vm_area_struct *area, unsigned long addr,
- 	if (addr >= obj->base.size)
- 		return -EINVAL;
+-		vaddr = i915_gem_object_pin_map(obj, I915_MAP_WB);
++		vaddr = i915_gem_object_pin_map_unlocked(obj, I915_MAP_WB);
+ 		if (IS_ERR(vaddr)) {
+ 			err = PTR_ERR(vaddr);
+ 			goto err_put;
+@@ -380,7 +380,7 @@ static int igt_copy_blt_thread(void *arg)
+ 			goto err_flush;
+ 		}
  
-+	i915_gem_ww_ctx_init(&ww, true);
-+retry:
-+	err = i915_gem_object_lock(obj, &ww);
-+	if (err)
-+		goto out;
-+
- 	/* As this is primarily for debugging, let's focus on simplicity */
- 	vaddr = i915_gem_object_pin_map(obj, I915_MAP_FORCE_WC);
--	if (IS_ERR(vaddr))
--		return PTR_ERR(vaddr);
-+	if (IS_ERR(vaddr)) {
-+		err = PTR_ERR(vaddr);
-+		goto out;
-+	}
+-		vaddr = i915_gem_object_pin_map(src, I915_MAP_WB);
++		vaddr = i915_gem_object_pin_map_unlocked(src, I915_MAP_WB);
+ 		if (IS_ERR(vaddr)) {
+ 			err = PTR_ERR(vaddr);
+ 			goto err_put_src;
+@@ -400,7 +400,7 @@ static int igt_copy_blt_thread(void *arg)
+ 			goto err_put_src;
+ 		}
  
- 	if (write) {
- 		memcpy(vaddr + addr, buf, len);
-@@ -443,6 +453,16 @@ vm_access(struct vm_area_struct *area, unsigned long addr,
- 	}
- 
- 	i915_gem_object_unpin_map(obj);
-+out:
-+	if (err == -EDEADLK) {
-+		err = i915_gem_ww_ctx_backoff(&ww);
-+		if (!err)
-+			goto retry;
-+	}
-+	i915_gem_ww_ctx_fini(&ww);
-+
-+	if (err)
-+		return err;
- 
- 	return len;
- }
+-		vaddr = i915_gem_object_pin_map(dst, I915_MAP_WB);
++		vaddr = i915_gem_object_pin_map_unlocked(dst, I915_MAP_WB);
+ 		if (IS_ERR(vaddr)) {
+ 			err = PTR_ERR(vaddr);
+ 			goto err_put_dst;
 -- 
 2.28.0
 
