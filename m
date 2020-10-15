@@ -2,50 +2,54 @@ Return-Path: <SRS0=RgPZ=DW=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PULL_REQUEST,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AF1EFC433DF
-	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 18:13:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 07E31C433E7
+	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 18:24:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4F65220878
-	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 18:13:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4F65220878
+	by mail.kernel.org (Postfix) with ESMTPS id 9A8FF20848
+	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 18:23:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9A8FF20848
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B9EC86E1DE;
-	Thu, 15 Oct 2020 18:13:10 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 088EE6E04E;
- Thu, 15 Oct 2020 18:13:08 +0000 (UTC)
-IronPort-SDR: l6tkwMMeKIKxJtpJxDeFbSxoICpxPJevfJqof8WKs8Wkh1ZFmgrPqZ48yMQAJpzeqx9hXN5gvV
- 032Viu5oNC+w==
-X-IronPort-AV: E=McAfee;i="6000,8403,9775"; a="166538713"
-X-IronPort-AV: E=Sophos;i="5.77,379,1596524400"; d="scan'208";a="166538713"
+	by gabe.freedesktop.org (Postfix) with ESMTP id F413F6E209;
+	Thu, 15 Oct 2020 18:23:58 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B1A086E207;
+ Thu, 15 Oct 2020 18:23:57 +0000 (UTC)
+IronPort-SDR: D/F+OnZUNHFu49CXrZnPru+PmzpbxBGmcXc47Q+xrVhG27ujt68KV6uIe8ut2TKNjdksQR2A1+
+ NiABoa0QQJVg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9775"; a="163804562"
+X-IronPort-AV: E=Sophos;i="5.77,379,1596524400"; d="scan'208";a="163804562"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Oct 2020 11:13:08 -0700
-IronPort-SDR: +bj52lYTgWY1yAzANFCeLhywHSXyl6qHbTx+LEUQsrcH7bowuPwqNSn9W5lMC9qwIYoqMoVfzh
- NvjlzAsfGkgA==
-X-IronPort-AV: E=Sophos;i="5.77,379,1596524400"; d="scan'208";a="464392747"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Oct 2020 11:23:57 -0700
+IronPort-SDR: e50qo+P6RG8MjztVp6acCwhEEEFKq3UXXq0w+mz0DSx9S3H83r3F2BG+zosibmSLnxROfHQioM
+ gO0MUncPLjyw==
+X-IronPort-AV: E=Sophos;i="5.77,379,1596524400"; d="scan'208";a="421234189"
 Received: from rdvivi-losangeles.jf.intel.com (HELO intel.com)
  ([10.165.21.201])
- by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Oct 2020 11:13:08 -0700
-Date: Thu, 15 Oct 2020 14:14:53 -0400
+ by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Oct 2020 11:23:56 -0700
+Date: Thu, 15 Oct 2020 14:25:42 -0400
 From: Rodrigo Vivi <rodrigo.vivi@intel.com>
-To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel.vetter@ffwll.ch>
-Message-ID: <20201015181453.GA2905280@intel.com>
+To: Lyude Paul <lyude@redhat.com>
+Message-ID: <20201015182542.GB2616619@intel.com>
+References: <20200916171855.129511-1-lyude@redhat.com>
+ <20200916171855.129511-2-lyude@redhat.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-Subject: [Intel-gfx] [PULL] drm-intel-next-fixes
+In-Reply-To: <20200916171855.129511-2-lyude@redhat.com>
+Subject: Re: [Intel-gfx] [RFC v2 1/8] drm/i915/dp: Program source OUI on eDP
+ panels
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,47 +62,111 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dim-tools@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Maxime Ripard <mripard@kernel.org>, intel-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Cc: David Airlie <airlied@linux.ie>, intel-gfx@lists.freedesktop.org,
+ open list <linux-kernel@vger.kernel.org>, dri-devel@lists.freedesktop.org,
+ Vasily Khoruzhick <anarsoul@gmail.com>, Sean Paul <seanpaul@chromium.org>,
+ Wambui Karuga <wambui.karugax@gmail.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Dave and Daniel,
+On Wed, Sep 16, 2020 at 01:18:48PM -0400, Lyude Paul wrote:
+> Since we're about to start adding support for Intel's magic HDR
+> backlight interface over DPCD, we need to ensure we're properly
+> programming this field so that Intel specific sink services are exposed.
+> Otherwise, 0x300-0x3ff will just read zeroes.
+> 
+> We also take care not to reprogram the source OUI if it already matches
+> what we expect. This is just to be careful so that we don't accidentally
+> take the panel out of any backlight control modes we found it in.
+> 
+> v2:
+> * Add careful parameter to intel_edp_init_source_oui() to avoid
+>   re-writing the source OUI if it's already been set during driver
+>   initialization
+> 
+> Signed-off-by: Lyude Paul <lyude@redhat.com>
+> Cc: thaytan@noraisin.net
+> Cc: Vasily Khoruzhick <anarsoul@gmail.com>
+> ---
+>  drivers/gpu/drm/i915/display/intel_dp.c | 33 +++++++++++++++++++++++++
+>  1 file changed, 33 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+> index 4bd10456ad188..7db2b6a3cd52e 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+> @@ -3424,6 +3424,29 @@ void intel_dp_sink_set_decompression_state(struct intel_dp *intel_dp,
+>  			    enable ? "enable" : "disable");
+>  }
+>  
+> +static void
+> +intel_edp_init_source_oui(struct intel_dp *intel_dp, bool careful)
+> +{
+> +	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
+> +	u8 oui[] = { 0x00, 0xaa, 0x01 };
+> +	u8 buf[3] = { 0 };
+> +
+> +	/*
+> +	 * During driver init, we want to be careful and avoid changing the source OUI if it's
+> +	 * already set to what we want, so as to avoid clearing any state by accident
+> +	 */
+> +	if (careful) {
 
-here goes couple display fixes for this last round of fixes before -rc1
+my first reaction here is why the problem described on the commit message doesn't
+appear during the init, and setting it to the same shouldn't be a problem... but
+yeap, I agree the risk of taking panel down is high... let's move with the careful approach
 
-drm-intel-next-fixes-2020-10-15:
-- Set all unused color plane offsets to ~0xfff again (Ville)
-- Fix TGL DKL PHY DP vswing handling (Ville)
-The following changes since commit c60b93cd4862d108214a14e655358ea714d7a12a:
 
-  drm/i915: Avoid mixing integer types during batch copies (2020-09-30 14:2=
-4:54 -0400)
+Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
 
-are available in the Git repository at:
 
-  git://anongit.freedesktop.org/drm/drm-intel tags/drm-intel-next-fixes-202=
-0-10-15
-
-for you to fetch changes up to 214bba50616f65264dfc30d095daef3ab7500f52:
-
-  drm/i915: Set all unused color plane offsets to ~0xfff again (2020-10-12 =
-14:23:22 -0400)
-
-----------------------------------------------------------------
-- Set all unused color plane offsets to ~0xfff again (Ville)
-- Fix TGL DKL PHY DP vswing handling (Ville)
-
-----------------------------------------------------------------
-Ville Syrj=E4l=E4 (2):
-      drm/i915: Fix TGL DKL PHY DP vswing handling
-      drm/i915: Set all unused color plane offsets to ~0xfff again
-
- drivers/gpu/drm/i915/display/intel_ddi.c     |  2 +-
- drivers/gpu/drm/i915/display/intel_display.c | 17 +++++------------
- 2 files changed, 6 insertions(+), 13 deletions(-)
+> +		if (drm_dp_dpcd_read(&intel_dp->aux, DP_SOURCE_OUI, buf, sizeof(buf)) < 0)
+> +			drm_err(&i915->drm, "Failed to read source OUI\n");
+> +
+> +		if (memcmp(oui, buf, sizeof(oui)) == 0)
+> +			return;
+> +	}
+> +
+> +	if (drm_dp_dpcd_write(&intel_dp->aux, DP_SOURCE_OUI, oui, sizeof(oui)) < 0)
+> +		drm_err(&i915->drm, "Failed to write source OUI\n");
+> +}
+> +
+>  /* If the sink supports it, try to set the power state appropriately */
+>  void intel_dp_sink_dpms(struct intel_dp *intel_dp, int mode)
+>  {
+> @@ -3443,6 +3466,10 @@ void intel_dp_sink_dpms(struct intel_dp *intel_dp, int mode)
+>  	} else {
+>  		struct intel_lspcon *lspcon = dp_to_lspcon(intel_dp);
+>  
+> +		/* Write the source OUI as early as possible */
+> +		if (intel_dp_is_edp(intel_dp))
+> +			intel_edp_init_source_oui(intel_dp, false);
+> +
+>  		/*
+>  		 * When turning on, we need to retry for 1ms to give the sink
+>  		 * time to wake up.
+> @@ -4607,6 +4634,12 @@ intel_edp_init_dpcd(struct intel_dp *intel_dp)
+>  	if (INTEL_GEN(dev_priv) >= 10 || IS_GEMINILAKE(dev_priv))
+>  		intel_dp_get_dsc_sink_cap(intel_dp);
+>  
+> +	/*
+> +	 * If needed, program our source OUI so we can make various Intel-specific AUX services
+> +	 * available (such as HDR backlight controls)
+> +	 */
+> +	intel_edp_init_source_oui(intel_dp, true);
+> +
+>  	return true;
+>  }
+>  
+> -- 
+> 2.26.2
+> 
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
