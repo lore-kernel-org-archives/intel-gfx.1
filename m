@@ -7,32 +7,31 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9C29CC04EBE
-	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 11:27:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7CA19C4363D
+	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 11:27:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4BE942073A
-	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 11:27:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4BE942073A
+	by mail.kernel.org (Postfix) with ESMTPS id 297652073A
+	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 11:27:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 297652073A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A6546ECA6;
-	Thu, 15 Oct 2020 11:27:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 905F46EC9B;
+	Thu, 15 Oct 2020 11:27:43 +0000 (UTC)
 Received: from mblankhorst.nl (mblankhorst.nl [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0CA946EC7F
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 96EE36EC84
  for <intel-gfx@lists.freedesktop.org>; Thu, 15 Oct 2020 11:26:37 +0000 (UTC)
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 15 Oct 2020 13:26:03 +0200
-Message-Id: <20201015112627.1142745-40-maarten.lankhorst@linux.intel.com>
+Date: Thu, 15 Oct 2020 13:25:58 +0200
+Message-Id: <20201015112627.1142745-35-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20201015112627.1142745-1-maarten.lankhorst@linux.intel.com>
 References: <20201015112627.1142745-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v3 39/63] drm/i915: Use a single page table lock
- for each gtt.
+Subject: [Intel-gfx] [PATCH v3 34/63] drm/i915: Increase ww locking for perf.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,209 +49,143 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-We may create page table objects on the fly, but we may need to
-wait with the ww lock held. Instead of waiting on a freed obj
-lock, ensure we have the same lock for each object to keep
--EDEADLK working. This ensures that i915_vma_pin_ww can lock
-the page tables when required.
+We need to lock a few more objects, some temporarily,
+add ww lock where needed.
 
 Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_ggtt.c  |  8 +++++-
- drivers/gpu/drm/i915/gt/intel_gtt.c   | 38 ++++++++++++++++++++++++++-
- drivers/gpu/drm/i915/gt/intel_gtt.h   |  5 ++++
- drivers/gpu/drm/i915/gt/intel_ppgtt.c |  3 ++-
- drivers/gpu/drm/i915/i915_vma.c       |  5 ++++
- 5 files changed, 56 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/i915_perf.c | 56 ++++++++++++++++++++++++--------
+ 1 file changed, 43 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_ggtt.c b/drivers/gpu/drm/i915/gt/intel_ggtt.c
-index 60bd2c8ed8b0..17ecaef1834d 100644
---- a/drivers/gpu/drm/i915/gt/intel_ggtt.c
-+++ b/drivers/gpu/drm/i915/gt/intel_ggtt.c
-@@ -615,7 +615,9 @@ static int init_aliasing_ppgtt(struct i915_ggtt *ggtt)
- 	if (err)
- 		goto err_ppgtt;
+diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
+index e94976976571..281af1fdf514 100644
+--- a/drivers/gpu/drm/i915/i915_perf.c
++++ b/drivers/gpu/drm/i915/i915_perf.c
+@@ -1579,7 +1579,7 @@ static int alloc_oa_buffer(struct i915_perf_stream *stream)
+ 	stream->oa_buffer.vma = vma;
  
-+	i915_gem_object_lock(ppgtt->vm.scratch[0], NULL);
- 	err = i915_vm_pin_pt_stash(&ppgtt->vm, &stash);
-+	i915_gem_object_unlock(ppgtt->vm.scratch[0]);
- 	if (err)
- 		goto err_stash;
+ 	stream->oa_buffer.vaddr =
+-		i915_gem_object_pin_map(bo, I915_MAP_WB);
++		i915_gem_object_pin_map_unlocked(bo, I915_MAP_WB);
+ 	if (IS_ERR(stream->oa_buffer.vaddr)) {
+ 		ret = PTR_ERR(stream->oa_buffer.vaddr);
+ 		goto err_unpin;
+@@ -1632,6 +1632,7 @@ static int alloc_noa_wait(struct i915_perf_stream *stream)
+ 	const u32 base = stream->engine->mmio_base;
+ #define CS_GPR(x) GEN8_RING_CS_GPR(base, x)
+ 	u32 *batch, *ts0, *cs, *jump;
++	struct i915_gem_ww_ctx ww;
+ 	int ret, i;
+ 	enum {
+ 		START_TS,
+@@ -1649,15 +1650,21 @@ static int alloc_noa_wait(struct i915_perf_stream *stream)
+ 		return PTR_ERR(bo);
+ 	}
  
-@@ -702,6 +704,7 @@ static void ggtt_cleanup_hw(struct i915_ggtt *ggtt)
- 
- 	mutex_unlock(&ggtt->vm.mutex);
- 	i915_address_space_fini(&ggtt->vm);
-+	dma_resv_fini(&ggtt->vm.resv);
- 
- 	arch_phys_wc_del(ggtt->mtrr);
- 
-@@ -1078,6 +1081,7 @@ static int ggtt_probe_hw(struct i915_ggtt *ggtt, struct intel_gt *gt)
- 	ggtt->vm.gt = gt;
- 	ggtt->vm.i915 = i915;
- 	ggtt->vm.dma = &i915->drm.pdev->dev;
-+	dma_resv_init(&ggtt->vm.resv);
- 
- 	if (INTEL_GEN(i915) <= 5)
- 		ret = i915_gmch_probe(ggtt);
-@@ -1085,8 +1089,10 @@ static int ggtt_probe_hw(struct i915_ggtt *ggtt, struct intel_gt *gt)
- 		ret = gen6_gmch_probe(ggtt);
- 	else
- 		ret = gen8_gmch_probe(ggtt);
--	if (ret)
-+	if (ret) {
-+		dma_resv_fini(&ggtt->vm.resv);
- 		return ret;
-+	}
- 
- 	if ((ggtt->vm.total - 1) >> 32) {
- 		drm_err(&i915->drm,
-diff --git a/drivers/gpu/drm/i915/gt/intel_gtt.c b/drivers/gpu/drm/i915/gt/intel_gtt.c
-index 3f1114b58b01..567a2f875088 100644
---- a/drivers/gpu/drm/i915/gt/intel_gtt.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gtt.c
-@@ -13,16 +13,36 @@
- 
- struct drm_i915_gem_object *alloc_pt_dma(struct i915_address_space *vm, int sz)
- {
-+	struct drm_i915_gem_object *obj;
++	i915_gem_ww_ctx_init(&ww, true);
++retry:
++	ret = i915_gem_object_lock(bo, &ww);
++	if (ret)
++		goto out_ww;
 +
- 	if (I915_SELFTEST_ONLY(should_fail(&vm->fault_attr, 1)))
- 		i915_gem_shrink_all(vm->i915);
+ 	/*
+ 	 * We pin in GGTT because we jump into this buffer now because
+ 	 * multiple OA config BOs will have a jump to this address and it
+ 	 * needs to be fixed during the lifetime of the i915/perf stream.
+ 	 */
+-	vma = i915_gem_object_ggtt_pin(bo, NULL, 0, 0, PIN_HIGH);
++	vma = i915_gem_object_ggtt_pin_ww(bo, &ww, NULL, 0, 0, PIN_HIGH);
+ 	if (IS_ERR(vma)) {
+ 		ret = PTR_ERR(vma);
+-		goto err_unref;
++		goto out_ww;
+ 	}
  
--	return i915_gem_object_create_internal(vm->i915, sz);
-+	obj = i915_gem_object_create_internal(vm->i915, sz);
-+	/* ensure all dma objects have the same reservation class */
-+	if (!IS_ERR(obj))
-+		obj->base.resv = &vm->resv;
-+	return obj;
+ 	batch = cs = i915_gem_object_pin_map(bo, I915_MAP_WB);
+@@ -1791,12 +1798,19 @@ static int alloc_noa_wait(struct i915_perf_stream *stream)
+ 	__i915_gem_object_release_map(bo);
+ 
+ 	stream->noa_wait = vma;
+-	return 0;
++	goto out_ww;
+ 
+ err_unpin:
+ 	i915_vma_unpin_and_release(&vma, 0);
+-err_unref:
+-	i915_gem_object_put(bo);
++out_ww:
++	if (ret == -EDEADLK) {
++		ret = i915_gem_ww_ctx_backoff(&ww);
++		if (!ret)
++			goto retry;
++	}
++	i915_gem_ww_ctx_fini(&ww);
++	if (ret)
++		i915_gem_object_put(bo);
+ 	return ret;
  }
  
- int pin_pt_dma(struct i915_address_space *vm, struct drm_i915_gem_object *obj)
+@@ -1839,6 +1853,7 @@ alloc_oa_config_buffer(struct i915_perf_stream *stream,
  {
+ 	struct drm_i915_gem_object *obj;
+ 	struct i915_oa_config_bo *oa_bo;
++	struct i915_gem_ww_ctx ww;
+ 	size_t config_length = 0;
+ 	u32 *cs;
  	int err;
+@@ -1859,10 +1874,16 @@ alloc_oa_config_buffer(struct i915_perf_stream *stream,
+ 		goto err_free;
+ 	}
  
-+	i915_gem_object_lock(obj, NULL);
-+	err = i915_gem_object_pin_pages(obj);
-+	i915_gem_object_unlock(obj);
++	i915_gem_ww_ctx_init(&ww, true);
++retry:
++	err = i915_gem_object_lock(obj, &ww);
 +	if (err)
-+		return err;
++		goto out_ww;
 +
-+	i915_gem_object_make_unshrinkable(obj);
-+	return 0;
-+}
-+
-+int pin_pt_dma_locked(struct i915_address_space *vm, struct drm_i915_gem_object *obj)
-+{
-+	int err;
-+
- 	err = i915_gem_object_pin_pages(obj);
- 	if (err)
- 		return err;
-@@ -56,6 +76,20 @@ void __i915_vm_close(struct i915_address_space *vm)
- 	mutex_unlock(&vm->mutex);
- }
+ 	cs = i915_gem_object_pin_map(obj, I915_MAP_WB);
+ 	if (IS_ERR(cs)) {
+ 		err = PTR_ERR(cs);
+-		goto err_oa_bo;
++		goto out_ww;
+ 	}
  
-+/* lock the vm into the current ww, if we lock one, we lock all */
-+int i915_vm_lock_objects(struct i915_address_space *vm,
-+			 struct i915_gem_ww_ctx *ww)
-+{
-+	if (vm->scratch[0]->base.resv == &vm->resv) {
-+		return i915_gem_object_lock(vm->scratch[0], ww);
-+	} else {
-+		struct i915_ppgtt *ppgtt = i915_vm_to_ppgtt(vm);
-+
-+		/* We borrowed the scratch page from ggtt, take the top level object */
-+		return i915_gem_object_lock(ppgtt->pd->pt.base, ww);
+ 	cs = write_cs_mi_lri(cs,
+@@ -1890,19 +1911,28 @@ alloc_oa_config_buffer(struct i915_perf_stream *stream,
+ 				       NULL);
+ 	if (IS_ERR(oa_bo->vma)) {
+ 		err = PTR_ERR(oa_bo->vma);
+-		goto err_oa_bo;
++		goto out_ww;
+ 	}
+ 
+ 	oa_bo->oa_config = i915_oa_config_get(oa_config);
+ 	llist_add(&oa_bo->node, &stream->oa_config_bos);
+ 
+-	return oa_bo;
++out_ww:
++	if (err == -EDEADLK) {
++		err = i915_gem_ww_ctx_backoff(&ww);
++		if (!err)
++			goto retry;
 +	}
-+}
-+
- void i915_address_space_fini(struct i915_address_space *vm)
- {
- 	drm_mm_takedown(&vm->mm);
-@@ -69,6 +103,7 @@ static void __i915_vm_release(struct work_struct *work)
++	i915_gem_ww_ctx_fini(&ww);
  
- 	vm->cleanup(vm);
- 	i915_address_space_fini(vm);
-+	dma_resv_fini(&vm->resv);
- 
- 	kfree(vm);
+-err_oa_bo:
+-	i915_gem_object_put(obj);
++	if (err)
++		i915_gem_object_put(obj);
+ err_free:
+-	kfree(oa_bo);
+-	return ERR_PTR(err);
++	if (err) {
++		kfree(oa_bo);
++		return ERR_PTR(err);
++	}
++	return oa_bo;
  }
-@@ -98,6 +133,7 @@ void i915_address_space_init(struct i915_address_space *vm, int subclass)
- 	mutex_init(&vm->mutex);
- 	lockdep_set_subclass(&vm->mutex, subclass);
- 	i915_gem_shrinker_taints_mutex(vm->i915, &vm->mutex);
-+	dma_resv_init(&vm->resv);
  
- 	GEM_BUG_ON(!vm->total);
- 	drm_mm_init(&vm->mm, 0, vm->total);
-diff --git a/drivers/gpu/drm/i915/gt/intel_gtt.h b/drivers/gpu/drm/i915/gt/intel_gtt.h
-index 8a33940a71f3..16063b2f0119 100644
---- a/drivers/gpu/drm/i915/gt/intel_gtt.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gtt.h
-@@ -238,6 +238,7 @@ struct i915_address_space {
- 	atomic_t open;
- 
- 	struct mutex mutex; /* protects vma and our lists */
-+	struct dma_resv resv; /* reservation lock for all pd objects, and buffer pool */
- #define VM_CLASS_GGTT 0
- #define VM_CLASS_PPGTT 1
- 
-@@ -346,6 +347,9 @@ struct i915_ppgtt {
- 
- #define i915_is_ggtt(vm) ((vm)->is_ggtt)
- 
-+int __must_check
-+i915_vm_lock_objects(struct i915_address_space *vm, struct i915_gem_ww_ctx *ww);
-+
- static inline bool
- i915_vm_is_4lvl(const struct i915_address_space *vm)
- {
-@@ -522,6 +526,7 @@ struct i915_page_directory *alloc_pd(struct i915_address_space *vm);
- struct i915_page_directory *__alloc_pd(int npde);
- 
- int pin_pt_dma(struct i915_address_space *vm, struct drm_i915_gem_object *obj);
-+int pin_pt_dma_locked(struct i915_address_space *vm, struct drm_i915_gem_object *obj);
- 
- void free_px(struct i915_address_space *vm,
- 	     struct i915_page_table *pt, int lvl);
-diff --git a/drivers/gpu/drm/i915/gt/intel_ppgtt.c b/drivers/gpu/drm/i915/gt/intel_ppgtt.c
-index 46d9aceda64c..f3ac47702aee 100644
---- a/drivers/gpu/drm/i915/gt/intel_ppgtt.c
-+++ b/drivers/gpu/drm/i915/gt/intel_ppgtt.c
-@@ -262,7 +262,7 @@ int i915_vm_pin_pt_stash(struct i915_address_space *vm,
- 
- 	for (n = 0; n < ARRAY_SIZE(stash->pt); n++) {
- 		for (pt = stash->pt[n]; pt; pt = pt->stash) {
--			err = pin_pt_dma(vm, pt->base);
-+			err = pin_pt_dma_locked(vm, pt->base);
- 			if (err)
- 				return err;
- 		}
-@@ -304,6 +304,7 @@ void ppgtt_init(struct i915_ppgtt *ppgtt, struct intel_gt *gt)
- 	ppgtt->vm.dma = &i915->drm.pdev->dev;
- 	ppgtt->vm.total = BIT_ULL(INTEL_INFO(i915)->ppgtt_size);
- 
-+	dma_resv_init(&ppgtt->vm.resv);
- 	i915_address_space_init(&ppgtt->vm, VM_CLASS_PPGTT);
- 
- 	ppgtt->vm.vma_ops.bind_vma    = ppgtt_bind_vma;
-diff --git a/drivers/gpu/drm/i915/i915_vma.c b/drivers/gpu/drm/i915/i915_vma.c
-index ed6cf4529d5d..4106b10ac651 100644
---- a/drivers/gpu/drm/i915/i915_vma.c
-+++ b/drivers/gpu/drm/i915/i915_vma.c
-@@ -882,6 +882,11 @@ int i915_vma_pin_ww(struct i915_vma *vma, struct i915_gem_ww_ctx *ww,
- 		wakeref = intel_runtime_pm_get(&vma->vm->i915->runtime_pm);
- 
- 	if (flags & vma->vm->bind_async_flags) {
-+		/* lock VM */
-+		err = i915_vm_lock_objects(vma->vm, ww);
-+		if (err)
-+			goto err_rpm;
-+
- 		work = i915_vma_work();
- 		if (!work) {
- 			err = -ENOMEM;
+ static struct i915_vma *
 -- 
 2.28.0
 
