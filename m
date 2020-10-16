@@ -2,37 +2,37 @@ Return-Path: <SRS0=PmWI=DX=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.9 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 82D82C433E7
-	for <intel-gfx@archiver.kernel.org>; Fri, 16 Oct 2020 10:45:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8DB68C433DF
+	for <intel-gfx@archiver.kernel.org>; Fri, 16 Oct 2020 10:45:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1F457207F7
-	for <intel-gfx@archiver.kernel.org>; Fri, 16 Oct 2020 10:45:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1F457207F7
+	by mail.kernel.org (Postfix) with ESMTPS id 3078A207F7
+	for <intel-gfx@archiver.kernel.org>; Fri, 16 Oct 2020 10:45:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3078A207F7
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E091E6EB22;
-	Fri, 16 Oct 2020 10:44:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0BEB46EC37;
+	Fri, 16 Oct 2020 10:45:03 +0000 (UTC)
 Received: from mblankhorst.nl (mblankhorst.nl [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 48C7B6EB1B
- for <intel-gfx@lists.freedesktop.org>; Fri, 16 Oct 2020 10:44:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 27A336EAC2
+ for <intel-gfx@lists.freedesktop.org>; Fri, 16 Oct 2020 10:44:53 +0000 (UTC)
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 16 Oct 2020 12:44:08 +0200
-Message-Id: <20201016104444.1492028-26-maarten.lankhorst@linux.intel.com>
+Date: Fri, 16 Oct 2020 12:44:24 +0200
+Message-Id: <20201016104444.1492028-42-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20201016104444.1492028-1-maarten.lankhorst@linux.intel.com>
 References: <20201016104444.1492028-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v4 25/61] drm/i915: Make
- intel_init_workaround_bb more compatible with ww locking.
+Subject: [Intel-gfx] [PATCH v4 41/61] drm/i915/selftests: Prepare client
+ blit for obj->mm.lock removal.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,118 +50,54 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Make creation separate from pinning, in order to take the lock only
-once, and pin the mapping with the lock held.
+Straightforward conversion, just convert a bunch of calls to
+unlocked versions.
 
 Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_lrc.c | 43 ++++++++++++++++++++++-------
- 1 file changed, 33 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/i915/gem/selftests/i915_gem_client_blt.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
-index 7e256b144c68..7e34417e61ea 100644
---- a/drivers/gpu/drm/i915/gt/intel_lrc.c
-+++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
-@@ -3974,7 +3974,7 @@ gen10_init_indirectctx_bb(struct intel_engine_cs *engine, u32 *batch)
+diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_client_blt.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_client_blt.c
+index 4e36d4897ea6..cc782569765f 100644
+--- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_client_blt.c
++++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_client_blt.c
+@@ -47,7 +47,7 @@ static int __igt_client_fill(struct intel_engine_cs *engine)
+ 			goto err_flush;
+ 		}
  
- #define CTX_WA_BB_OBJ_SIZE (PAGE_SIZE)
+-		vaddr = i915_gem_object_pin_map(obj, I915_MAP_WB);
++		vaddr = i915_gem_object_pin_map_unlocked(obj, I915_MAP_WB);
+ 		if (IS_ERR(vaddr)) {
+ 			err = PTR_ERR(vaddr);
+ 			goto err_put;
+@@ -159,7 +159,7 @@ static int prepare_blit(const struct tiled_blits *t,
+ 	u32 src_pitch, dst_pitch;
+ 	u32 cmd, *cs;
  
--static int lrc_setup_wa_ctx(struct intel_engine_cs *engine)
-+static int lrc_init_wa_ctx(struct intel_engine_cs *engine)
- {
- 	struct drm_i915_gem_object *obj;
- 	struct i915_vma *vma;
-@@ -3990,10 +3990,6 @@ static int lrc_setup_wa_ctx(struct intel_engine_cs *engine)
- 		goto err;
- 	}
+-	cs = i915_gem_object_pin_map(batch, I915_MAP_WC);
++	cs = i915_gem_object_pin_map_unlocked(batch, I915_MAP_WC);
+ 	if (IS_ERR(cs))
+ 		return PTR_ERR(cs);
  
--	err = i915_ggtt_pin(vma, NULL, 0, PIN_HIGH);
--	if (err)
--		goto err;
--
- 	engine->wa_ctx.vma = vma;
- 	return 0;
+@@ -379,7 +379,7 @@ static int verify_buffer(const struct tiled_blits *t,
+ 	y = i915_prandom_u32_max_state(t->height, prng);
+ 	p = y * t->width + x;
  
-@@ -4002,9 +3998,16 @@ static int lrc_setup_wa_ctx(struct intel_engine_cs *engine)
- 	return err;
- }
+-	vaddr = i915_gem_object_pin_map(buf->vma->obj, I915_MAP_WC);
++	vaddr = i915_gem_object_pin_map_unlocked(buf->vma->obj, I915_MAP_WC);
+ 	if (IS_ERR(vaddr))
+ 		return PTR_ERR(vaddr);
  
--static void lrc_destroy_wa_ctx(struct intel_engine_cs *engine)
-+static void lrc_destroy_wa_ctx(struct intel_engine_cs *engine, bool unpin)
- {
--	i915_vma_unpin_and_release(&engine->wa_ctx.vma, 0);
-+	if (!engine->wa_ctx.vma)
-+		return;
-+
-+	if (unpin)
-+		i915_vma_unpin(engine->wa_ctx.vma);
-+
-+	i915_vma_put(engine->wa_ctx.vma);
-+	engine->wa_ctx.vma = NULL;
- }
+@@ -566,7 +566,7 @@ static int tiled_blits_prepare(struct tiled_blits *t,
+ 	int err;
+ 	int i;
  
- typedef u32 *(*wa_bb_func_t)(struct intel_engine_cs *engine, u32 *batch);
-@@ -4016,6 +4019,7 @@ static int intel_init_workaround_bb(struct intel_engine_cs *engine)
- 					    &wa_ctx->per_ctx };
- 	wa_bb_func_t wa_bb_fn[2];
- 	void *batch, *batch_ptr;
-+	struct i915_gem_ww_ctx ww;
- 	unsigned int i;
- 	int ret;
+-	map = i915_gem_object_pin_map(t->scratch.vma->obj, I915_MAP_WC);
++	map = i915_gem_object_pin_map_unlocked(t->scratch.vma->obj, I915_MAP_WC);
+ 	if (IS_ERR(map))
+ 		return PTR_ERR(map);
  
-@@ -4043,13 +4047,21 @@ static int intel_init_workaround_bb(struct intel_engine_cs *engine)
- 		return 0;
- 	}
- 
--	ret = lrc_setup_wa_ctx(engine);
-+	ret = lrc_init_wa_ctx(engine);
- 	if (ret) {
- 		drm_dbg(&engine->i915->drm,
- 			"Failed to setup context WA page: %d\n", ret);
- 		return ret;
- 	}
- 
-+	i915_gem_ww_ctx_init(&ww, true);
-+retry:
-+	ret = i915_gem_object_lock(wa_ctx->vma->obj, &ww);
-+	if (!ret)
-+		ret = i915_ggtt_pin(wa_ctx->vma, &ww, 0, PIN_HIGH);
-+	if (ret)
-+		goto err;
-+
- 	batch = i915_gem_object_pin_map(wa_ctx->vma->obj, I915_MAP_WB);
- 
- 	/*
-@@ -4073,8 +4085,19 @@ static int intel_init_workaround_bb(struct intel_engine_cs *engine)
- 
- 	__i915_gem_object_flush_map(wa_ctx->vma->obj, 0, batch_ptr - batch);
- 	__i915_gem_object_release_map(wa_ctx->vma->obj);
-+
-+	if (ret)
-+		i915_vma_unpin(wa_ctx->vma);
-+
-+err:
-+	if (ret == -EDEADLK) {
-+		ret = i915_gem_ww_ctx_backoff(&ww);
-+		if (!ret)
-+			goto retry;
-+	}
-+	i915_gem_ww_ctx_fini(&ww);
- 	if (ret)
--		lrc_destroy_wa_ctx(engine);
-+		lrc_destroy_wa_ctx(engine, false);
- 
- 	return ret;
- }
-@@ -5149,7 +5172,7 @@ static void execlists_release(struct intel_engine_cs *engine)
- 	execlists_shutdown(engine);
- 
- 	intel_engine_cleanup_common(engine);
--	lrc_destroy_wa_ctx(engine);
-+	lrc_destroy_wa_ctx(engine, true);
- }
- 
- static void
 -- 
 2.28.0
 
