@@ -7,33 +7,32 @@ X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6E54AC433DF
-	for <intel-gfx@archiver.kernel.org>; Fri, 16 Oct 2020 10:45:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 34798C433E7
+	for <intel-gfx@archiver.kernel.org>; Fri, 16 Oct 2020 10:45:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0EBFE207F7
+	by mail.kernel.org (Postfix) with ESMTPS id AEBEC2084C
 	for <intel-gfx@archiver.kernel.org>; Fri, 16 Oct 2020 10:45:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0EBFE207F7
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AEBEC2084C
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E0AF86EB14;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C70096EAC9;
 	Fri, 16 Oct 2020 10:44:57 +0000 (UTC)
-Received: from mblankhorst.nl (mblankhorst.nl
- [IPv6:2a02:2308::216:3eff:fe92:dfa3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AFA016EABC
- for <intel-gfx@lists.freedesktop.org>; Fri, 16 Oct 2020 10:44:53 +0000 (UTC)
+Received: from mblankhorst.nl (mblankhorst.nl [141.105.120.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C5D4E6EAC3
+ for <intel-gfx@lists.freedesktop.org>; Fri, 16 Oct 2020 10:44:52 +0000 (UTC)
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 16 Oct 2020 12:44:28 +0200
-Message-Id: <20201016104444.1492028-46-maarten.lankhorst@linux.intel.com>
+Date: Fri, 16 Oct 2020 12:44:21 +0200
+Message-Id: <20201016104444.1492028-39-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20201016104444.1492028-1-maarten.lankhorst@linux.intel.com>
 References: <20201016104444.1492028-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v4 45/61] drm/i915/selftests: Prepare execbuf
- tests for obj->mm.lock removal.
+Subject: [Intel-gfx] [PATCH v4 38/61] drm/i915: Fix ww locking in
+ shmem_create_from_object
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,26 +50,26 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Also quite simple, a single call needs to use the unlocked version.
+Quick fix, just use the unlocked version.
 
 Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 ---
- drivers/gpu/drm/i915/gem/selftests/i915_gem_execbuffer.c | 2 +-
+ drivers/gpu/drm/i915/gt/shmem_utils.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_execbuffer.c
-index e1d50a5a1477..4df505e4c53a 100644
---- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_execbuffer.c
-+++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_execbuffer.c
-@@ -116,7 +116,7 @@ static int igt_gpu_reloc(void *arg)
- 	if (IS_ERR(scratch))
- 		return PTR_ERR(scratch);
+diff --git a/drivers/gpu/drm/i915/gt/shmem_utils.c b/drivers/gpu/drm/i915/gt/shmem_utils.c
+index 43c7acbdc79d..8c8dfa41e032 100644
+--- a/drivers/gpu/drm/i915/gt/shmem_utils.c
++++ b/drivers/gpu/drm/i915/gt/shmem_utils.c
+@@ -39,7 +39,7 @@ struct file *shmem_create_from_object(struct drm_i915_gem_object *obj)
+ 		return file;
+ 	}
  
--	map = i915_gem_object_pin_map(scratch, I915_MAP_WC);
-+	map = i915_gem_object_pin_map_unlocked(scratch, I915_MAP_WC);
- 	if (IS_ERR(map)) {
- 		err = PTR_ERR(map);
- 		goto err_scratch;
+-	ptr = i915_gem_object_pin_map(obj, I915_MAP_WB);
++	ptr = i915_gem_object_pin_map_unlocked(obj, I915_MAP_WB);
+ 	if (IS_ERR(ptr))
+ 		return ERR_CAST(ptr);
+ 
 -- 
 2.28.0
 
