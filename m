@@ -7,32 +7,32 @@ X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D1C32C43457
-	for <intel-gfx@archiver.kernel.org>; Fri, 16 Oct 2020 10:45:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7DBFAC2D0AE
+	for <intel-gfx@archiver.kernel.org>; Fri, 16 Oct 2020 10:45:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 74FC9207F7
-	for <intel-gfx@archiver.kernel.org>; Fri, 16 Oct 2020 10:45:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 74FC9207F7
+	by mail.kernel.org (Postfix) with ESMTPS id 20F2B207F7
+	for <intel-gfx@archiver.kernel.org>; Fri, 16 Oct 2020 10:45:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 20F2B207F7
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B39876EB97;
-	Fri, 16 Oct 2020 10:45:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 418056EB25;
+	Fri, 16 Oct 2020 10:45:00 +0000 (UTC)
 Received: from mblankhorst.nl (mblankhorst.nl [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 83E4E6EB0C
- for <intel-gfx@lists.freedesktop.org>; Fri, 16 Oct 2020 10:44:49 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F3E16EAC3
+ for <intel-gfx@lists.freedesktop.org>; Fri, 16 Oct 2020 10:44:54 +0000 (UTC)
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 16 Oct 2020 12:43:49 +0200
-Message-Id: <20201016104444.1492028-7-maarten.lankhorst@linux.intel.com>
+Date: Fri, 16 Oct 2020 12:44:31 +0200
+Message-Id: <20201016104444.1492028-49-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20201016104444.1492028-1-maarten.lankhorst@linux.intel.com>
 References: <20201016104444.1492028-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v4 06/61] drm/i915: Add gem object locking to
- madvise.
+Subject: [Intel-gfx] [PATCH v4 48/61] drm/i915/selftests: Prepare object
+ blit tests for obj->mm.lock removal.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,42 +50,44 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Doesn't need the full ww lock, only checking if pages are bound.
+Use some unlocked versions where we're not holding the ww lock.
 
 Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 ---
- drivers/gpu/drm/i915/i915_gem.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/gem/selftests/i915_gem_object_blt.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_gem.c b/drivers/gpu/drm/i915/i915_gem.c
-index bb0c12975f38..30af7e4b71ab 100644
---- a/drivers/gpu/drm/i915/i915_gem.c
-+++ b/drivers/gpu/drm/i915/i915_gem.c
-@@ -1071,10 +1071,14 @@ i915_gem_madvise_ioctl(struct drm_device *dev, void *data,
- 	if (!obj)
- 		return -ENOENT;
+diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_object_blt.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_object_blt.c
+index 23b6e11bbc3e..ee9496f3d11d 100644
+--- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_object_blt.c
++++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_object_blt.c
+@@ -262,7 +262,7 @@ static int igt_fill_blt_thread(void *arg)
+ 			goto err_flush;
+ 		}
  
--	err = mutex_lock_interruptible(&obj->mm.lock);
-+	err = i915_gem_object_lock_interruptible(obj, NULL);
- 	if (err)
- 		goto out;
+-		vaddr = i915_gem_object_pin_map(obj, I915_MAP_WB);
++		vaddr = i915_gem_object_pin_map_unlocked(obj, I915_MAP_WB);
+ 		if (IS_ERR(vaddr)) {
+ 			err = PTR_ERR(vaddr);
+ 			goto err_put;
+@@ -380,7 +380,7 @@ static int igt_copy_blt_thread(void *arg)
+ 			goto err_flush;
+ 		}
  
-+	err = mutex_lock_interruptible(&obj->mm.lock);
-+	if (err)
-+		goto out_ww;
-+
- 	if (i915_gem_object_has_pages(obj) &&
- 	    i915_gem_object_is_tiled(obj) &&
- 	    i915->quirks & QUIRK_PIN_SWIZZLED_PAGES) {
-@@ -1119,6 +1123,8 @@ i915_gem_madvise_ioctl(struct drm_device *dev, void *data,
- 	args->retained = obj->mm.madv != __I915_MADV_PURGED;
- 	mutex_unlock(&obj->mm.lock);
+-		vaddr = i915_gem_object_pin_map(src, I915_MAP_WB);
++		vaddr = i915_gem_object_pin_map_unlocked(src, I915_MAP_WB);
+ 		if (IS_ERR(vaddr)) {
+ 			err = PTR_ERR(vaddr);
+ 			goto err_put_src;
+@@ -400,7 +400,7 @@ static int igt_copy_blt_thread(void *arg)
+ 			goto err_put_src;
+ 		}
  
-+out_ww:
-+	i915_gem_object_unlock(obj);
- out:
- 	i915_gem_object_put(obj);
- 	return err;
+-		vaddr = i915_gem_object_pin_map(dst, I915_MAP_WB);
++		vaddr = i915_gem_object_pin_map_unlocked(dst, I915_MAP_WB);
+ 		if (IS_ERR(vaddr)) {
+ 			err = PTR_ERR(vaddr);
+ 			goto err_put_dst;
 -- 
 2.28.0
 
