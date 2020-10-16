@@ -7,32 +7,32 @@ X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EC01EC43467
-	for <intel-gfx@archiver.kernel.org>; Fri, 16 Oct 2020 10:45:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id ABCBEC43457
+	for <intel-gfx@archiver.kernel.org>; Fri, 16 Oct 2020 10:45:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 81C682084C
-	for <intel-gfx@archiver.kernel.org>; Fri, 16 Oct 2020 10:45:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 81C682084C
+	by mail.kernel.org (Postfix) with ESMTPS id 4CED5207F7
+	for <intel-gfx@archiver.kernel.org>; Fri, 16 Oct 2020 10:45:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4CED5207F7
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C5A686EB20;
-	Fri, 16 Oct 2020 10:44:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CCBED6EB9A;
+	Fri, 16 Oct 2020 10:45:01 +0000 (UTC)
 Received: from mblankhorst.nl (mblankhorst.nl [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C9F736EACC
- for <intel-gfx@lists.freedesktop.org>; Fri, 16 Oct 2020 10:44:49 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E3AA6EAC2
+ for <intel-gfx@lists.freedesktop.org>; Fri, 16 Oct 2020 10:44:52 +0000 (UTC)
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 16 Oct 2020 12:43:53 +0200
-Message-Id: <20201016104444.1492028-11-maarten.lankhorst@linux.intel.com>
+Date: Fri, 16 Oct 2020 12:44:16 +0200
+Message-Id: <20201016104444.1492028-34-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20201016104444.1492028-1-maarten.lankhorst@linux.intel.com>
 References: <20201016104444.1492028-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v4 10/61] drm/i915: make lockdep slightly
- happier about execbuf.
+Subject: [Intel-gfx] [PATCH v4 33/61] drm/i915: Add ww locking around
+ vm_access()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,161 +50,66 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-As soon as we install fences, we should stop allocating memory
-in order to prevent any potential deadlocks.
-
-This is required later on, when we start adding support for
-dma-fence annotations.
+i915_gem_object_pin_map potentially needs a ww context, so ensure we
+have one we can revoke.
 
 Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 ---
- .../gpu/drm/i915/gem/i915_gem_execbuffer.c    | 24 ++++++++++++++-----
- drivers/gpu/drm/i915/i915_active.c            | 20 ++++++++--------
- drivers/gpu/drm/i915/i915_vma.c               |  8 ++++---
- drivers/gpu/drm/i915/i915_vma.h               |  3 +++
- 4 files changed, 36 insertions(+), 19 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_mman.c | 24 ++++++++++++++++++++++--
+ 1 file changed, 22 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-index 0f5efced0b87..9a44d9a6b5ed 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-@@ -49,11 +49,12 @@ enum {
- #define DBG_FORCE_RELOC 0 /* choose one of the above! */
- };
- 
--#define __EXEC_OBJECT_HAS_PIN		BIT(31)
--#define __EXEC_OBJECT_HAS_FENCE		BIT(30)
--#define __EXEC_OBJECT_NEEDS_MAP		BIT(29)
--#define __EXEC_OBJECT_NEEDS_BIAS	BIT(28)
--#define __EXEC_OBJECT_INTERNAL_FLAGS	(~0u << 28) /* all of the above */
-+/* __EXEC_OBJECT_NO_RESERVE is BIT(31), defined in i915_vma.h */
-+#define __EXEC_OBJECT_HAS_PIN		BIT(30)
-+#define __EXEC_OBJECT_HAS_FENCE		BIT(29)
-+#define __EXEC_OBJECT_NEEDS_MAP		BIT(28)
-+#define __EXEC_OBJECT_NEEDS_BIAS	BIT(27)
-+#define __EXEC_OBJECT_INTERNAL_FLAGS	(~0u << 27) /* all of the above + */
- #define __EXEC_OBJECT_RESERVED (__EXEC_OBJECT_HAS_PIN | __EXEC_OBJECT_HAS_FENCE)
- 
- #define __EXEC_HAS_RELOC	BIT(31)
-@@ -929,6 +930,12 @@ static int eb_validate_vmas(struct i915_execbuffer *eb)
- 			}
- 		}
- 
-+		if (!(ev->flags & EXEC_OBJECT_WRITE)) {
-+			err = dma_resv_reserve_shared(vma->resv, 1);
-+			if (err)
-+				return err;
-+		}
-+
- 		GEM_BUG_ON(drm_mm_node_allocated(&vma->node) &&
- 			   eb_vma_misplaced(&eb->exec[i], vma, ev->flags));
- 	}
-@@ -2194,7 +2201,8 @@ static int eb_move_to_gpu(struct i915_execbuffer *eb)
- 		}
- 
- 		if (err == 0)
--			err = i915_vma_move_to_active(vma, eb->request, flags);
-+			err = i915_vma_move_to_active(vma, eb->request,
-+						      flags | __EXEC_OBJECT_NO_RESERVE);
- 	}
- 
- 	if (unlikely(err))
-@@ -2446,6 +2454,10 @@ static int eb_parse_pipeline(struct i915_execbuffer *eb,
- 	if (err)
- 		goto err_commit;
- 
-+	err = dma_resv_reserve_shared(shadow->resv, 1);
-+	if (err)
-+		goto err_commit;
-+
- 	/* Wait for all writes (and relocs) into the batch to complete */
- 	err = i915_sw_fence_await_reservation(&pw->base.chain,
- 					      pw->batch->resv, NULL, false,
-diff --git a/drivers/gpu/drm/i915/i915_active.c b/drivers/gpu/drm/i915/i915_active.c
-index b0a6522be3d1..2bf1e444dda7 100644
---- a/drivers/gpu/drm/i915/i915_active.c
-+++ b/drivers/gpu/drm/i915/i915_active.c
-@@ -296,18 +296,13 @@ static struct active_node *__active_lookup(struct i915_active *ref, u64 idx)
- static struct i915_active_fence *
- active_instance(struct i915_active *ref, u64 idx)
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_mman.c b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
+index ba8e9ef6943d..1361eabea966 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_mman.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
+@@ -421,7 +421,9 @@ vm_access(struct vm_area_struct *area, unsigned long addr,
  {
--	struct active_node *node, *prealloc;
-+	struct active_node *node;
- 	struct rb_node **p, *parent;
+ 	struct i915_mmap_offset *mmo = area->vm_private_data;
+ 	struct drm_i915_gem_object *obj = mmo->obj;
++	struct i915_gem_ww_ctx ww;
+ 	void *vaddr;
++	int err = 0;
  
- 	node = __active_lookup(ref, idx);
- 	if (likely(node))
- 		return &node->base;
+ 	if (i915_gem_object_is_readonly(obj) && write)
+ 		return -EACCES;
+@@ -430,10 +432,18 @@ vm_access(struct vm_area_struct *area, unsigned long addr,
+ 	if (addr >= obj->base.size)
+ 		return -EINVAL;
  
--	/* Preallocate a replacement, just in case */
--	prealloc = kmem_cache_alloc(global.slab_cache, GFP_KERNEL);
--	if (!prealloc)
--		return NULL;
--
- 	spin_lock_irq(&ref->tree_lock);
- 	GEM_BUG_ON(i915_active_is_idle(ref));
- 
-@@ -317,10 +312,8 @@ active_instance(struct i915_active *ref, u64 idx)
- 		parent = *p;
- 
- 		node = rb_entry(parent, struct active_node, node);
--		if (node->timeline == idx) {
--			kmem_cache_free(global.slab_cache, prealloc);
-+		if (node->timeline == idx)
- 			goto out;
--		}
- 
- 		if (node->timeline < idx)
- 			p = &parent->rb_right;
-@@ -328,7 +321,14 @@ active_instance(struct i915_active *ref, u64 idx)
- 			p = &parent->rb_left;
- 	}
- 
--	node = prealloc;
-+	/*
-+	 * XXX: We should preallocate this before i915_active_ref() is ever
-+	 *  called, but we cannot call into fs_reclaim() anyway, so use GFP_ATOMIC.
-+	 */
-+	node = kmem_cache_alloc(global.slab_cache, GFP_ATOMIC);
-+	if (!node)
++	i915_gem_ww_ctx_init(&ww, true);
++retry:
++	err = i915_gem_object_lock(obj, &ww);
++	if (err)
 +		goto out;
 +
- 	__i915_active_fence_init(&node->base, NULL, node_retire);
- 	node->ref = ref;
- 	node->timeline = idx;
-diff --git a/drivers/gpu/drm/i915/i915_vma.c b/drivers/gpu/drm/i915/i915_vma.c
-index 4ead74c5142b..f50250c8685a 100644
---- a/drivers/gpu/drm/i915/i915_vma.c
-+++ b/drivers/gpu/drm/i915/i915_vma.c
-@@ -1245,9 +1245,11 @@ int i915_vma_move_to_active(struct i915_vma *vma,
- 		obj->write_domain = I915_GEM_DOMAIN_RENDER;
- 		obj->read_domains = 0;
- 	} else {
--		err = dma_resv_reserve_shared(vma->resv, 1);
--		if (unlikely(err))
--			return err;
-+		if (!(flags & __EXEC_OBJECT_NO_RESERVE)) {
-+			err = dma_resv_reserve_shared(vma->resv, 1);
-+			if (unlikely(err))
-+				return err;
-+		}
+ 	/* As this is primarily for debugging, let's focus on simplicity */
+ 	vaddr = i915_gem_object_pin_map(obj, I915_MAP_FORCE_WC);
+-	if (IS_ERR(vaddr))
+-		return PTR_ERR(vaddr);
++	if (IS_ERR(vaddr)) {
++		err = PTR_ERR(vaddr);
++		goto out;
++	}
  
- 		dma_resv_add_shared_fence(vma->resv, &rq->fence);
- 		obj->write_domain = 0;
-diff --git a/drivers/gpu/drm/i915/i915_vma.h b/drivers/gpu/drm/i915/i915_vma.h
-index 838bbbeb11cc..3c951d5428cf 100644
---- a/drivers/gpu/drm/i915/i915_vma.h
-+++ b/drivers/gpu/drm/i915/i915_vma.h
-@@ -52,6 +52,9 @@ static inline bool i915_vma_is_active(const struct i915_vma *vma)
- 	return !i915_active_is_idle(&vma->active);
- }
+ 	if (write) {
+ 		memcpy(vaddr + addr, buf, len);
+@@ -443,6 +453,16 @@ vm_access(struct vm_area_struct *area, unsigned long addr,
+ 	}
  
-+/* do not reserve memory to prevent deadlocks */
-+#define __EXEC_OBJECT_NO_RESERVE BIT(31)
+ 	i915_gem_object_unpin_map(obj);
++out:
++	if (err == -EDEADLK) {
++		err = i915_gem_ww_ctx_backoff(&ww);
++		if (!err)
++			goto retry;
++	}
++	i915_gem_ww_ctx_fini(&ww);
 +
- int __must_check __i915_vma_move_to_active(struct i915_vma *vma,
- 					   struct i915_request *rq);
- int __must_check i915_vma_move_to_active(struct i915_vma *vma,
++	if (err)
++		return err;
+ 
+ 	return len;
+ }
 -- 
 2.28.0
 
