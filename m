@@ -7,33 +7,33 @@ X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3D10FC433DF
-	for <intel-gfx@archiver.kernel.org>; Fri, 16 Oct 2020 10:45:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EC8B9C2BD0C
+	for <intel-gfx@archiver.kernel.org>; Fri, 16 Oct 2020 10:45:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C20E4207F7
-	for <intel-gfx@archiver.kernel.org>; Fri, 16 Oct 2020 10:45:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C20E4207F7
+	by mail.kernel.org (Postfix) with ESMTPS id 928812084C
+	for <intel-gfx@archiver.kernel.org>; Fri, 16 Oct 2020 10:45:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 928812084C
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0730E6EB8E;
-	Fri, 16 Oct 2020 10:45:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 95DA76EB2A;
+	Fri, 16 Oct 2020 10:45:00 +0000 (UTC)
 Received: from mblankhorst.nl (mblankhorst.nl
  [IPv6:2a02:2308::216:3eff:fe92:dfa3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 01D196EABC
- for <intel-gfx@lists.freedesktop.org>; Fri, 16 Oct 2020 10:44:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A2C1F6EAC3
+ for <intel-gfx@lists.freedesktop.org>; Fri, 16 Oct 2020 10:44:54 +0000 (UTC)
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 16 Oct 2020 12:44:02 +0200
-Message-Id: <20201016104444.1492028-20-maarten.lankhorst@linux.intel.com>
+Date: Fri, 16 Oct 2020 12:44:35 +0200
+Message-Id: <20201016104444.1492028-53-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20201016104444.1492028-1-maarten.lankhorst@linux.intel.com>
 References: <20201016104444.1492028-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v4 19/61] drm/i915: Handle ww locking in
- init_status_page
+Subject: [Intel-gfx] [PATCH v4 52/61] drm/i915/selftests: Prepare execlists
+ for obj->mm.lock removal
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,93 +51,160 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Try to pin to ggtt first, and use a full ww loop to handle
-eviction correctly.
+Convert normal functions to unlocked versions where needed.
 
 Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_engine_cs.c | 37 +++++++++++++++--------
- 1 file changed, 24 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/i915/gt/selftest_lrc.c | 34 +++++++++++++-------------
+ 1 file changed, 17 insertions(+), 17 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-index 1985772152bf..66d87ce764e0 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-@@ -615,6 +615,7 @@ static void cleanup_status_page(struct intel_engine_cs *engine)
- }
- 
- static int pin_ggtt_status_page(struct intel_engine_cs *engine,
-+				struct i915_gem_ww_ctx *ww,
- 				struct i915_vma *vma)
- {
- 	unsigned int flags;
-@@ -635,12 +636,13 @@ static int pin_ggtt_status_page(struct intel_engine_cs *engine,
- 	else
- 		flags = PIN_HIGH;
- 
--	return i915_ggtt_pin(vma, NULL, 0, flags);
-+	return i915_ggtt_pin(vma, ww, 0, flags);
- }
- 
- static int init_status_page(struct intel_engine_cs *engine)
- {
- 	struct drm_i915_gem_object *obj;
-+	struct i915_gem_ww_ctx ww;
- 	struct i915_vma *vma;
- 	void *vaddr;
- 	int ret;
-@@ -664,30 +666,39 @@ static int init_status_page(struct intel_engine_cs *engine)
- 	vma = i915_vma_instance(obj, &engine->gt->ggtt->vm, NULL);
- 	if (IS_ERR(vma)) {
- 		ret = PTR_ERR(vma);
--		goto err;
-+		goto err_put;
+diff --git a/drivers/gpu/drm/i915/gt/selftest_lrc.c b/drivers/gpu/drm/i915/gt/selftest_lrc.c
+index 95d41c01d0e0..124011f6fb51 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_lrc.c
++++ b/drivers/gpu/drm/i915/gt/selftest_lrc.c
+@@ -1007,7 +1007,7 @@ static int live_timeslice_preempt(void *arg)
+ 		goto err_obj;
  	}
  
-+	i915_gem_ww_ctx_init(&ww, true);
-+retry:
-+	ret = i915_gem_object_lock(obj, &ww);
-+	if (!ret && !HWS_NEEDS_PHYSICAL(engine->i915))
-+		ret = pin_ggtt_status_page(engine, &ww, vma);
-+	if (ret)
-+		goto err;
-+
- 	vaddr = i915_gem_object_pin_map(obj, I915_MAP_WB);
+-	vaddr = i915_gem_object_pin_map(obj, I915_MAP_WC);
++	vaddr = i915_gem_object_pin_map_unlocked(obj, I915_MAP_WC);
  	if (IS_ERR(vaddr)) {
- 		ret = PTR_ERR(vaddr);
--		goto err;
-+		goto err_unpin;
+ 		err = PTR_ERR(vaddr);
+ 		goto err_obj;
+@@ -1315,7 +1315,7 @@ static int live_timeslice_queue(void *arg)
+ 		goto err_obj;
  	}
  
- 	engine->status_page.addr = memset(vaddr, 0, PAGE_SIZE);
- 	engine->status_page.vma = vma;
+-	vaddr = i915_gem_object_pin_map(obj, I915_MAP_WC);
++	vaddr = i915_gem_object_pin_map_unlocked(obj, I915_MAP_WC);
+ 	if (IS_ERR(vaddr)) {
+ 		err = PTR_ERR(vaddr);
+ 		goto err_obj;
+@@ -1562,7 +1562,7 @@ static int live_busywait_preempt(void *arg)
+ 		goto err_ctx_lo;
+ 	}
  
--	if (!HWS_NEEDS_PHYSICAL(engine->i915)) {
--		ret = pin_ggtt_status_page(engine, vma);
--		if (ret)
--			goto err_unpin;
--	}
--
--	return 0;
--
- err_unpin:
--	i915_gem_object_unpin_map(obj);
-+	if (ret)
-+		i915_vma_unpin(vma);
- err:
--	i915_gem_object_put(obj);
-+	if (ret == -EDEADLK) {
-+		ret = i915_gem_ww_ctx_backoff(&ww);
-+		if (!ret)
-+			goto retry;
-+	}
-+	i915_gem_ww_ctx_fini(&ww);
-+err_put:
-+	if (ret)
-+		i915_gem_object_put(obj);
- 	return ret;
- }
+-	map = i915_gem_object_pin_map(obj, I915_MAP_WC);
++	map = i915_gem_object_pin_map_unlocked(obj, I915_MAP_WC);
+ 	if (IS_ERR(map)) {
+ 		err = PTR_ERR(map);
+ 		goto err_obj;
+@@ -2678,7 +2678,7 @@ static int create_gang(struct intel_engine_cs *engine,
+ 	if (err)
+ 		goto err_obj;
  
+-	cs = i915_gem_object_pin_map(obj, I915_MAP_WC);
++	cs = i915_gem_object_pin_map_unlocked(obj, I915_MAP_WC);
+ 	if (IS_ERR(cs))
+ 		goto err_obj;
+ 
+@@ -2960,7 +2960,7 @@ static int live_preempt_gang(void *arg)
+ 		 * it will terminate the next lowest spinner until there
+ 		 * are no more spinners and the gang is complete.
+ 		 */
+-		cs = i915_gem_object_pin_map(rq->batch->obj, I915_MAP_WC);
++		cs = i915_gem_object_pin_map_unlocked(rq->batch->obj, I915_MAP_WC);
+ 		if (!IS_ERR(cs)) {
+ 			*cs = 0;
+ 			i915_gem_object_unpin_map(rq->batch->obj);
+@@ -3025,7 +3025,7 @@ create_gpr_user(struct intel_engine_cs *engine,
+ 		return ERR_PTR(err);
+ 	}
+ 
+-	cs = i915_gem_object_pin_map(obj, I915_MAP_WC);
++	cs = i915_gem_object_pin_map_unlocked(obj, I915_MAP_WC);
+ 	if (IS_ERR(cs)) {
+ 		i915_vma_put(vma);
+ 		return ERR_CAST(cs);
+@@ -3235,7 +3235,7 @@ static int live_preempt_user(void *arg)
+ 	if (IS_ERR(global))
+ 		return PTR_ERR(global);
+ 
+-	result = i915_gem_object_pin_map(global->obj, I915_MAP_WC);
++	result = i915_gem_object_pin_map_unlocked(global->obj, I915_MAP_WC);
+ 	if (IS_ERR(result)) {
+ 		i915_vma_unpin_and_release(&global, 0);
+ 		return PTR_ERR(result);
+@@ -3628,7 +3628,7 @@ static int live_preempt_smoke(void *arg)
+ 		goto err_free;
+ 	}
+ 
+-	cs = i915_gem_object_pin_map(smoke.batch, I915_MAP_WB);
++	cs = i915_gem_object_pin_map_unlocked(smoke.batch, I915_MAP_WB);
+ 	if (IS_ERR(cs)) {
+ 		err = PTR_ERR(cs);
+ 		goto err_batch;
+@@ -4231,7 +4231,7 @@ static int preserved_virtual_engine(struct intel_gt *gt,
+ 		goto out_end;
+ 	}
+ 
+-	cs = i915_gem_object_pin_map(scratch->obj, I915_MAP_WB);
++	cs = i915_gem_object_pin_map_unlocked(scratch->obj, I915_MAP_WB);
+ 	if (IS_ERR(cs)) {
+ 		err = PTR_ERR(cs);
+ 		goto out_end;
+@@ -5259,7 +5259,7 @@ static int __live_lrc_gpr(struct intel_engine_cs *engine,
+ 		goto err_rq;
+ 	}
+ 
+-	cs = i915_gem_object_pin_map(scratch->obj, I915_MAP_WB);
++	cs = i915_gem_object_pin_map_unlocked(scratch->obj, I915_MAP_WB);
+ 	if (IS_ERR(cs)) {
+ 		err = PTR_ERR(cs);
+ 		goto err_rq;
+@@ -5553,7 +5553,7 @@ store_context(struct intel_context *ce, struct i915_vma *scratch)
+ 	if (IS_ERR(batch))
+ 		return batch;
+ 
+-	cs = i915_gem_object_pin_map(batch->obj, I915_MAP_WC);
++	cs = i915_gem_object_pin_map_unlocked(batch->obj, I915_MAP_WC);
+ 	if (IS_ERR(cs)) {
+ 		i915_vma_put(batch);
+ 		return ERR_CAST(cs);
+@@ -5717,7 +5717,7 @@ static struct i915_vma *load_context(struct intel_context *ce, u32 poison)
+ 	if (IS_ERR(batch))
+ 		return batch;
+ 
+-	cs = i915_gem_object_pin_map(batch->obj, I915_MAP_WC);
++	cs = i915_gem_object_pin_map_unlocked(batch->obj, I915_MAP_WC);
+ 	if (IS_ERR(cs)) {
+ 		i915_vma_put(batch);
+ 		return ERR_CAST(cs);
+@@ -5831,29 +5831,29 @@ static int compare_isolation(struct intel_engine_cs *engine,
+ 	u32 *defaults;
+ 	int err = 0;
+ 
+-	A[0] = i915_gem_object_pin_map(ref[0]->obj, I915_MAP_WC);
++	A[0] = i915_gem_object_pin_map_unlocked(ref[0]->obj, I915_MAP_WC);
+ 	if (IS_ERR(A[0]))
+ 		return PTR_ERR(A[0]);
+ 
+-	A[1] = i915_gem_object_pin_map(ref[1]->obj, I915_MAP_WC);
++	A[1] = i915_gem_object_pin_map_unlocked(ref[1]->obj, I915_MAP_WC);
+ 	if (IS_ERR(A[1])) {
+ 		err = PTR_ERR(A[1]);
+ 		goto err_A0;
+ 	}
+ 
+-	B[0] = i915_gem_object_pin_map(result[0]->obj, I915_MAP_WC);
++	B[0] = i915_gem_object_pin_map_unlocked(result[0]->obj, I915_MAP_WC);
+ 	if (IS_ERR(B[0])) {
+ 		err = PTR_ERR(B[0]);
+ 		goto err_A1;
+ 	}
+ 
+-	B[1] = i915_gem_object_pin_map(result[1]->obj, I915_MAP_WC);
++	B[1] = i915_gem_object_pin_map_unlocked(result[1]->obj, I915_MAP_WC);
+ 	if (IS_ERR(B[1])) {
+ 		err = PTR_ERR(B[1]);
+ 		goto err_B0;
+ 	}
+ 
+-	lrc = i915_gem_object_pin_map(ce->state->obj,
++	lrc = i915_gem_object_pin_map_unlocked(ce->state->obj,
+ 				      i915_coherent_map_type(engine->i915));
+ 	if (IS_ERR(lrc)) {
+ 		err = PTR_ERR(lrc);
 -- 
 2.28.0
 
