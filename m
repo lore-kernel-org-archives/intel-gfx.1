@@ -2,42 +2,61 @@ Return-Path: <SRS0=PmWI=DX=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.9 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-11.5 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2C3A2C433E7
-	for <intel-gfx@archiver.kernel.org>; Fri, 16 Oct 2020 11:34:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E98D9C43457
+	for <intel-gfx@archiver.kernel.org>; Fri, 16 Oct 2020 11:39:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B30F220848
-	for <intel-gfx@archiver.kernel.org>; Fri, 16 Oct 2020 11:34:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B30F220848
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
+	by mail.kernel.org (Postfix) with ESMTPS id 79C4D20FC3
+	for <intel-gfx@archiver.kernel.org>; Fri, 16 Oct 2020 11:39:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 79C4D20FC3
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1915A6EDAA;
-	Fri, 16 Oct 2020 11:34:08 +0000 (UTC)
-Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E88726EDA8
- for <intel-gfx@lists.freedesktop.org>; Fri, 16 Oct 2020 11:34:04 +0000 (UTC)
-X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
- x-ip-name=78.156.65.138; 
-Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22734485-1500050 
- for multiple; Fri, 16 Oct 2020 12:33:54 +0100
-From: Chris Wilson <chris@chris-wilson.co.uk>
-To: intel-gfx@lists.freedesktop.org
-Date: Fri, 16 Oct 2020 12:33:50 +0100
-Message-Id: <20201016113350.6806-2-chris@chris-wilson.co.uk>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20201016113350.6806-1-chris@chris-wilson.co.uk>
-References: <20201016113350.6806-1-chris@chris-wilson.co.uk>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4551A89A20;
+	Fri, 16 Oct 2020 11:39:24 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1AA12898E1;
+ Fri, 16 Oct 2020 11:39:23 +0000 (UTC)
+IronPort-SDR: CDJbjdoIUjrC3jVNtxVZXJXdXnUjUvjuComzyINLlA+hb+ysUFkV0LFsuqmMxjwHLXUPoMH33y
+ xL7JSGNZYWMw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9775"; a="166693849"
+X-IronPort-AV: E=Sophos;i="5.77,382,1596524400"; d="scan'208";a="166693849"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Oct 2020 04:39:22 -0700
+IronPort-SDR: qc70nCaL8I4qSUNatahe7hnuf8AczGCnYsG2EVrtahjhOHQ0xDZviYlCFrzVgpVg7eSoau95Bd
+ NFtzAG89LsxA==
+X-IronPort-AV: E=Sophos;i="5.77,382,1596524400"; d="scan'208";a="531684889"
+Received: from wpross-mobl1.ger.corp.intel.com (HELO [10.249.36.186])
+ ([10.249.36.186])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Oct 2020 04:39:18 -0700
+To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+References: <cover.1602589096.git.mchehab+huawei@kernel.org>
+ <52a0dd42d3730d35b3ecd00d20a0601793e443e6.1602589096.git.mchehab+huawei@kernel.org>
+ <160284606673.11659.11178759979047002902@jlahtine-mobl.ger.corp.intel.com>
+ <20201016133724.1d578006@coco.lan>
+From: Lionel Landwerlin <lionel.g.landwerlin@intel.com>
+Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
+ Swindon SN3 1RJ
+Message-ID: <8dce8bc0-c83b-c256-aa35-229d4d583f74@intel.com>
+Date: Fri, 16 Oct 2020 14:39:16 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.3.2
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 2/2] drm/i915: Exclude low pages (128KiB) of
- stolen from use
+In-Reply-To: <20201016133724.1d578006@coco.lan>
+Content-Language: en-US
+Subject: Re: [Intel-gfx] [PATCH v6 44/80] docs: gpu: i915.rst: Fix several C
+ duplication warnings
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,146 +69,222 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stable@vger.kernel.org, Chris Wilson <chris@chris-wilson.co.uk>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Thomas Zimmermann <tzimmermann@suse.de>, Jonathan Corbet <corbet@lwn.net>,
+ David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org,
+ Linux Doc Mailing List <linux-doc@vger.kernel.org>,
+ linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>,
+ intel-gfx@lists.freedesktop.org
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-VGhlIEdQVSBpcyB0cmFzaGluZyB0aGUgbG93IHBhZ2VzIG9mIGl0cyByZXNlcnZlZCBtZW1vcnkg
-dXBvbiByZXNldC4gSWYKd2UgYXJlIHVzaW5nIHRoaXMgbWVtb3J5IGZvciByaW5nYnVmZmVycywg
-dGhlbiB3ZSB3aWxsIGR1dGlmdWwgcmVzdWJtaXQKdGhlIHRyYXNoZWQgcmluZ3MgYWZ0ZXIgdGhl
-IHJlc2V0IGNhdXNpbmcgZnVydGhlciByZXNldHMsIGFuZCB3b3JzZS4gV2UKbXVzdCBleGNsdWRl
-IHRoaXMgcmFuZ2UgZnJvbSBvdXIgb3duIHVzZS4gVGhlIHZhbHVlIG9mIDEyOEtpQiB3YXMgZm91
-bmQKYnkgZW1waXJpY2FsIG1lYXN1cmVtZW50IChhbmQgdmVyaWZpZWQgbm93IHdpdGggYSBzZWxm
-dGVzdCkgb24gZ2VuOS4KClNpZ25lZC1vZmYtYnk6IENocmlzIFdpbHNvbiA8Y2hyaXNAY2hyaXMt
-d2lsc29uLmNvLnVrPgpDYzogc3RhYmxlQHZnZXIua2VybmVsLm9yZwotLS0KIGRyaXZlcnMvZ3B1
-L2RybS9pOTE1L0tjb25maWcuZGVidWcgICAgICAgICB8ICAgMSArCiBkcml2ZXJzL2dwdS9kcm0v
-aTkxNS9nZW0vaTkxNV9nZW1fc3RvbGVuLmMgfCAgIDYgKy0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1
-L2dlbS9pOTE1X2dlbV9zdG9sZW4uaCB8ICAgMiArCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9ndC9z
-ZWxmdGVzdF9yZXNldC5jICAgfCAxOTYgKysrKysrKysrKysrKysrKysrKysrCiA0IGZpbGVzIGNo
-YW5nZWQsIDIwMyBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2Ry
-aXZlcnMvZ3B1L2RybS9pOTE1L0tjb25maWcuZGVidWcgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9L
-Y29uZmlnLmRlYnVnCmluZGV4IDIwNjg4MmUxNTRiYy4uMGZiN2ZkMGVmNzE3IDEwMDY0NAotLS0g
-YS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9LY29uZmlnLmRlYnVnCisrKyBiL2RyaXZlcnMvZ3B1L2Ry
-bS9pOTE1L0tjb25maWcuZGVidWcKQEAgLTE2Miw2ICsxNjIsNyBAQCBjb25maWcgRFJNX0k5MTVf
-U0VMRlRFU1QKIAlzZWxlY3QgRFJNX0VYUE9SVF9GT1JfVEVTVFMgaWYgbQogCXNlbGVjdCBGQVVM
-VF9JTkpFQ1RJT04KIAlzZWxlY3QgUFJJTUVfTlVNQkVSUworCXNlbGVjdCBDUkMzMgogCWhlbHAK
-IAkgIENob29zZSB0aGlzIG9wdGlvbiB0byBhbGxvdyB0aGUgZHJpdmVyIHRvIHBlcmZvcm0gc2Vs
-ZnRlc3RzIHVwb24KIAkgIGxvYWRpbmc7IGFsc28gcmVxdWlyZXMgdGhlIGk5MTUuc2VsZnRlc3Q9
-MSBtb2R1bGUgcGFyYW1ldGVyLiBUbwpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUv
-Z2VtL2k5MTVfZ2VtX3N0b2xlbi5jIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ2VtL2k5MTVfZ2Vt
-X3N0b2xlbi5jCmluZGV4IDM5NTRlYzk5ODFmMC4uNGY5MjNiOGM0M2ZiIDEwMDY0NAotLS0gYS9k
-cml2ZXJzL2dwdS9kcm0vaTkxNS9nZW0vaTkxNV9nZW1fc3RvbGVuLmMKKysrIGIvZHJpdmVycy9n
-cHUvZHJtL2k5MTUvZ2VtL2k5MTVfZ2VtX3N0b2xlbi5jCkBAIC01Myw4ICs1MywxMCBAQCBpbnQg
-aTkxNV9nZW1fc3RvbGVuX2luc2VydF9ub2RlKHN0cnVjdCBkcm1faTkxNV9wcml2YXRlICppOTE1
-LAogCQkJCXN0cnVjdCBkcm1fbW1fbm9kZSAqbm9kZSwgdTY0IHNpemUsCiAJCQkJdW5zaWduZWQg
-YWxpZ25tZW50KQogewotCXJldHVybiBpOTE1X2dlbV9zdG9sZW5faW5zZXJ0X25vZGVfaW5fcmFu
-Z2UoaTkxNSwgbm9kZSwgc2l6ZSwKLQkJCQkJCSAgICBhbGlnbm1lbnQsIDAsIFU2NF9NQVgpOwor
-CXJldHVybiBpOTE1X2dlbV9zdG9sZW5faW5zZXJ0X25vZGVfaW5fcmFuZ2UoaTkxNSwgbm9kZSwK
-KwkJCQkJCSAgICBzaXplLCBhbGlnbm1lbnQsCisJCQkJCQkgICAgSTkxNV9HRU1fU1RPTEVOX0JJ
-QVMsCisJCQkJCQkgICAgVTY0X01BWCk7CiB9CiAKIHZvaWQgaTkxNV9nZW1fc3RvbGVuX3JlbW92
-ZV9ub2RlKHN0cnVjdCBkcm1faTkxNV9wcml2YXRlICppOTE1LApkaWZmIC0tZ2l0IGEvZHJpdmVy
-cy9ncHUvZHJtL2k5MTUvZ2VtL2k5MTVfZ2VtX3N0b2xlbi5oIGIvZHJpdmVycy9ncHUvZHJtL2k5
-MTUvZ2VtL2k5MTVfZ2VtX3N0b2xlbi5oCmluZGV4IGUxNWMwYWRhZDhhZi4uNjFlMDI4MDYzZjlm
-IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9nZW0vaTkxNV9nZW1fc3RvbGVuLmgK
-KysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ2VtL2k5MTVfZ2VtX3N0b2xlbi5oCkBAIC0zMCw0
-ICszMCw2IEBAIGk5MTVfZ2VtX29iamVjdF9jcmVhdGVfc3RvbGVuX2Zvcl9wcmVhbGxvY2F0ZWQo
-c3RydWN0IGRybV9pOTE1X3ByaXZhdGUgKmRldl9wcml2CiAJCQkJCSAgICAgICByZXNvdXJjZV9z
-aXplX3Qgc3RvbGVuX29mZnNldCwKIAkJCQkJICAgICAgIHJlc291cmNlX3NpemVfdCBzaXplKTsK
-IAorI2RlZmluZSBJOTE1X0dFTV9TVE9MRU5fQklBUyBTWl8xMjhLCisKICNlbmRpZiAvKiBfX0k5
-MTVfR0VNX1NUT0xFTl9IX18gKi8KZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2d0
-L3NlbGZ0ZXN0X3Jlc2V0LmMgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9ndC9zZWxmdGVzdF9yZXNl
-dC5jCmluZGV4IDM1NDA2ZWNkZjBiMi4uNzJkYzY1NDAxYjY0IDEwMDY0NAotLS0gYS9kcml2ZXJz
-L2dwdS9kcm0vaTkxNS9ndC9zZWxmdGVzdF9yZXNldC5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9p
-OTE1L2d0L3NlbGZ0ZXN0X3Jlc2V0LmMKQEAgLTMsOSArMywyMDMgQEAKICAqIENvcHlyaWdodCDC
-qSAyMDE4IEludGVsIENvcnBvcmF0aW9uCiAgKi8KIAorI2luY2x1ZGUgPGxpbnV4L2NyYzMyLmg+
-CisKKyNpbmNsdWRlICJnZW0vaTkxNV9nZW1fc3RvbGVuLmgiCisKKyNpbmNsdWRlICJpOTE1X21l
-bWNweS5oIgogI2luY2x1ZGUgImk5MTVfc2VsZnRlc3QuaCIKICNpbmNsdWRlICJzZWxmdGVzdHMv
-aWd0X3Jlc2V0LmgiCiAjaW5jbHVkZSAic2VsZnRlc3RzL2lndF9hdG9taWMuaCIKKyNpbmNsdWRl
-ICJzZWxmdGVzdHMvaWd0X3NwaW5uZXIuaCIKKworc3RhdGljIGludAorX19pZ3RfcmVzZXRfc3Rv
-bGVuKHN0cnVjdCBpbnRlbF9ndCAqZ3QsCisJCSAgIGludGVsX2VuZ2luZV9tYXNrX3QgbWFzaywK
-KwkJICAgY29uc3QgY2hhciAqbXNnKQoreworCXN0cnVjdCBpOTE1X2dndHQgKmdndHQgPSAmZ3Qt
-Pmk5MTUtPmdndHQ7CisJY29uc3Qgc3RydWN0IHJlc291cmNlICpkc20gPSAmZ3QtPmk5MTUtPmRz
-bTsKKwlyZXNvdXJjZV9zaXplX3QgbnVtX3BhZ2VzLCBwYWdlOworCXN0cnVjdCBpbnRlbF9lbmdp
-bmVfY3MgKmVuZ2luZTsKKwlpbnRlbF93YWtlcmVmX3Qgd2FrZXJlZjsKKwllbnVtIGludGVsX2Vu
-Z2luZV9pZCBpZDsKKwlzdHJ1Y3QgaWd0X3NwaW5uZXIgc3BpbjsKKwlsb25nIG1heCwgY291bnQ7
-CisJdm9pZCAqdG1wOworCXUzMiAqY3JjOworCWludCBlcnI7CisKKwlpZiAoIWRybV9tbV9ub2Rl
-X2FsbG9jYXRlZCgmZ2d0dC0+ZXJyb3JfY2FwdHVyZSkpCisJCXJldHVybiAwOworCisJbnVtX3Bh
-Z2VzID0gcmVzb3VyY2Vfc2l6ZShkc20pID4+IFBBR0VfU0hJRlQ7CisJaWYgKCFudW1fcGFnZXMp
-CisJCXJldHVybiAwOworCisJY3JjID0ga21hbGxvY19hcnJheShudW1fcGFnZXMsIHNpemVvZih1
-MzIpLCBHRlBfS0VSTkVMKTsKKwlpZiAoIWNyYykKKwkJcmV0dXJuIC1FTk9NRU07CisKKwl0bXAg
-PSBrbWFsbG9jKFBBR0VfU0laRSwgR0ZQX0tFUk5FTCk7CisJaWYgKCF0bXApIHsKKwkJZXJyID0g
-LUVOT01FTTsKKwkJZ290byBlcnJfY3JjOworCX0KKworCWlndF9nbG9iYWxfcmVzZXRfbG9jayhn
-dCk7CisJd2FrZXJlZiA9IGludGVsX3J1bnRpbWVfcG1fZ2V0KGd0LT51bmNvcmUtPnJwbSk7CisK
-KwllcnIgPSBpZ3Rfc3Bpbm5lcl9pbml0KCZzcGluLCBndCk7CisJaWYgKGVycikKKwkJZ290byBl
-cnJfbG9jazsKKworCWZvcl9lYWNoX2VuZ2luZShlbmdpbmUsIGd0LCBpZCkgeworCQlzdHJ1Y3Qg
-aW50ZWxfY29udGV4dCAqY2U7CisJCXN0cnVjdCBpOTE1X3JlcXVlc3QgKnJxOworCisJCWlmICgh
-KG1hc2sgJiBlbmdpbmUtPm1hc2spKQorCQkJY29udGludWU7CisKKwkJaWYgKCFpbnRlbF9lbmdp
-bmVfY2FuX3N0b3JlX2R3b3JkKGVuZ2luZSkpCisJCQljb250aW51ZTsKKworCQljZSA9IGludGVs
-X2NvbnRleHRfY3JlYXRlKGVuZ2luZSk7CisJCWlmIChJU19FUlIoY2UpKSB7CisJCQllcnIgPSBQ
-VFJfRVJSKGNlKTsKKwkJCWdvdG8gZXJyX3NwaW47CisJCX0KKwkJcnEgPSBpZ3Rfc3Bpbm5lcl9j
-cmVhdGVfcmVxdWVzdCgmc3BpbiwgY2UsIDB4YzNjM2MzYzMpOworCQlpbnRlbF9jb250ZXh0X3B1
-dChjZSk7CisJCWlmIChJU19FUlIocnEpKSB7CisJCQllcnIgPSBQVFJfRVJSKHJxKTsKKwkJCWdv
-dG8gZXJyX3NwaW47CisJCX0KKwkJaTkxNV9yZXF1ZXN0X2FkZChycSk7CisJfQorCisJZm9yIChw
-YWdlID0gMDsgcGFnZSA8IG51bV9wYWdlczsgcGFnZSsrKSB7CisJCWRtYV9hZGRyX3QgZG1hID0g
-KGRtYV9hZGRyX3QpZHNtLT5zdGFydCArIChwYWdlIDw8IFBBR0VfU0hJRlQpOworCQl2b2lkIF9f
-aW9tZW0gKnM7CisJCXZvaWQgKmluOworCisJCWdndHQtPnZtLmluc2VydF9wYWdlKCZnZ3R0LT52
-bSwgZG1hLAorCQkJCSAgICAgZ2d0dC0+ZXJyb3JfY2FwdHVyZS5zdGFydCwKKwkJCQkgICAgIEk5
-MTVfQ0FDSEVfTk9ORSwgMCk7CisJCW1iKCk7CisKKwkJcyA9IGlvX21hcHBpbmdfbWFwX3djKCZn
-Z3R0LT5pb21hcCwKKwkJCQkgICAgICBnZ3R0LT5lcnJvcl9jYXB0dXJlLnN0YXJ0LAorCQkJCSAg
-ICAgIFBBR0VfU0laRSk7CisKKwkJaWYgKCFfX2RybV9tbV9pbnRlcnZhbF9maXJzdCgmZ3QtPmk5
-MTUtPm1tLnN0b2xlbiwKKwkJCQkJICAgICBwYWdlIDw8IFBBR0VfU0hJRlQsCisJCQkJCSAgICAg
-KChwYWdlICsgMSkgPDwgUEFHRV9TSElGVCkgLSAxKSkKKwkJCW1lbXNldDMyKHMsIFNUQUNLX01B
-R0lDLCBQQUdFX1NJWkUgLyBzaXplb2YodTMyKSk7CisKKwkJaW4gPSBzOworCQlpZiAoaTkxNV9t
-ZW1jcHlfZnJvbV93Yyh0bXAsIHMsIFBBR0VfU0laRSkpCisJCQlpbiA9IHRtcDsKKwkJY3JjW3Bh
-Z2VdID0gY3JjMzJfbGUoMCwgaW4sIFBBR0VfU0laRSk7CisKKwkJaW9fbWFwcGluZ191bm1hcChz
-KTsKKwl9CisJbWIoKTsKKwlnZ3R0LT52bS5jbGVhcl9yYW5nZSgmZ2d0dC0+dm0sIGdndHQtPmVy
-cm9yX2NhcHR1cmUuc3RhcnQsIFBBR0VfU0laRSk7CisKKwlpZiAobWFzayA9PSBBTExfRU5HSU5F
-UykgeworCQlpbnRlbF9ndF9yZXNldChndCwgbWFzaywgTlVMTCk7CisJfSBlbHNlIHsKKwkJZm9y
-X2VhY2hfZW5naW5lKGVuZ2luZSwgZ3QsIGlkKSB7CisJCQlpZiAobWFzayAmIGVuZ2luZS0+bWFz
-aykKKwkJCQlpbnRlbF9lbmdpbmVfcmVzZXQoZW5naW5lLCBOVUxMKTsKKwkJfQorCX0KKworCW1h
-eCA9IC0xOworCWNvdW50ID0gMDsKKwlmb3IgKHBhZ2UgPSAwOyBwYWdlIDwgbnVtX3BhZ2VzOyBw
-YWdlKyspIHsKKwkJZG1hX2FkZHJfdCBkbWEgPSAoZG1hX2FkZHJfdClkc20tPnN0YXJ0ICsgKHBh
-Z2UgPDwgUEFHRV9TSElGVCk7CisJCXZvaWQgX19pb21lbSAqczsKKwkJdm9pZCAqaW47CisJCXUz
-MiB4OworCisJCWdndHQtPnZtLmluc2VydF9wYWdlKCZnZ3R0LT52bSwgZG1hLAorCQkJCSAgICAg
-Z2d0dC0+ZXJyb3JfY2FwdHVyZS5zdGFydCwKKwkJCQkgICAgIEk5MTVfQ0FDSEVfTk9ORSwgMCk7
-CisJCW1iKCk7CisKKwkJcyA9IGlvX21hcHBpbmdfbWFwX3djKCZnZ3R0LT5pb21hcCwKKwkJCQkg
-ICAgICBnZ3R0LT5lcnJvcl9jYXB0dXJlLnN0YXJ0LAorCQkJCSAgICAgIFBBR0VfU0laRSk7CisK
-KwkJaW4gPSBzOworCQlpZiAoaTkxNV9tZW1jcHlfZnJvbV93Yyh0bXAsIHMsIFBBR0VfU0laRSkp
-CisJCQlpbiA9IHRtcDsKKwkJeCA9IGNyYzMyX2xlKDAsIGluLCBQQUdFX1NJWkUpOworCisJCWlm
-ICh4ICE9IGNyY1twYWdlXSAmJgorCQkgICAgIV9fZHJtX21tX2ludGVydmFsX2ZpcnN0KCZndC0+
-aTkxNS0+bW0uc3RvbGVuLAorCQkJCQkgICAgIHBhZ2UgPDwgUEFHRV9TSElGVCwKKwkJCQkJICAg
-ICAoKHBhZ2UgKyAxKSA8PCBQQUdFX1NISUZUKSAtIDEpKSB7CisJCQlwcl9kZWJ1ZygidW51c2Vk
-IHN0b2xlbiBwYWdlICVwYSBtb2RpZmllZCBieSBHUFUgcmVzZXRcbiIsCisJCQkJICZwYWdlKTsK
-KwkJCWlmIChjb3VudCsrID09IDApCisJCQkJaWd0X2hleGR1bXAoaW4sIFBBR0VfU0laRSk7CisJ
-CQltYXggPSBwYWdlOworCQl9CisKKwkJaW9fbWFwcGluZ191bm1hcChzKTsKKwl9CisJbWIoKTsK
-KwlnZ3R0LT52bS5jbGVhcl9yYW5nZSgmZ2d0dC0+dm0sIGdndHQtPmVycm9yX2NhcHR1cmUuc3Rh
-cnQsIFBBR0VfU0laRSk7CisKKwlpZiAoY291bnQgPiAwKSB7CisJCXByX2luZm8oIiVzIHJlc2V0
-IGNsb2JiZXJlZCAlbGQgcGFnZXMgb2Ygc3RvbGVuLCBsYXN0IGNsb2JiZXIgYXQgcGFnZSAlbGRc
-biIsCisJCQltc2csIGNvdW50LCBtYXgpOworCX0KKwlpZiAobWF4ID49IEk5MTVfR0VNX1NUT0xF
-Tl9CSUFTID4+IFBBR0VfU0hJRlQpIHsKKwkJcHJfZXJyKCIlcyByZXNldCBjbG9iYmVyZWQgdW5y
-ZXNlcnZlZCBhcmVhIFthYm92ZSAleF0gb2Ygc3RvbGVuOyBtYXkgY2F1c2Ugc2V2ZXJlIGZhdWx0
-c1xuIiwKKwkJICAgICAgIG1zZywgSTkxNV9HRU1fU1RPTEVOX0JJQVMpOworCQllcnIgPSAtRUlO
-VkFMOworCX0KKworZXJyX3NwaW46CisJaWd0X3NwaW5uZXJfZmluaSgmc3Bpbik7CisKK2Vycl9s
-b2NrOgorCWludGVsX3J1bnRpbWVfcG1fcHV0KGd0LT51bmNvcmUtPnJwbSwgd2FrZXJlZik7CisJ
-aWd0X2dsb2JhbF9yZXNldF91bmxvY2soZ3QpOworCisJa2ZyZWUodG1wKTsKK2Vycl9jcmM6CisJ
-a2ZyZWUoY3JjKTsKKwlyZXR1cm4gZXJyOworfQorCitzdGF0aWMgaW50IGlndF9yZXNldF9kZXZp
-Y2Vfc3RvbGVuKHZvaWQgKmFyZykKK3sKKwlyZXR1cm4gX19pZ3RfcmVzZXRfc3RvbGVuKGFyZywg
-QUxMX0VOR0lORVMsICJkZXZpY2UiKTsKK30KKworc3RhdGljIGludCBpZ3RfcmVzZXRfZW5naW5l
-c19zdG9sZW4odm9pZCAqYXJnKQoreworCXN0cnVjdCBpbnRlbF9ndCAqZ3QgPSBhcmc7CisJc3Ry
-dWN0IGludGVsX2VuZ2luZV9jcyAqZW5naW5lOworCWVudW0gaW50ZWxfZW5naW5lX2lkIGlkOwor
-CWludCBlcnI7CisKKwlpZiAoIWludGVsX2hhc19yZXNldF9lbmdpbmUoZ3QpKQorCQlyZXR1cm4g
-MDsKKworCWZvcl9lYWNoX2VuZ2luZShlbmdpbmUsIGd0LCBpZCkgeworCQllcnIgPSBfX2lndF9y
-ZXNldF9zdG9sZW4oZ3QsIGVuZ2luZS0+bWFzaywgZW5naW5lLT5uYW1lKTsKKwkJaWYgKGVycikK
-KwkJCXJldHVybiBlcnI7CisJfQorCisJcmV0dXJuIDA7Cit9CiAKIHN0YXRpYyBpbnQgaWd0X2ds
-b2JhbF9yZXNldCh2b2lkICphcmcpCiB7CkBAIC0xNjQsNiArMzU4LDggQEAgaW50IGludGVsX3Jl
-c2V0X2xpdmVfc2VsZnRlc3RzKHN0cnVjdCBkcm1faTkxNV9wcml2YXRlICppOTE1KQogewogCXN0
-YXRpYyBjb25zdCBzdHJ1Y3QgaTkxNV9zdWJ0ZXN0IHRlc3RzW10gPSB7CiAJCVNVQlRFU1QoaWd0
-X2dsb2JhbF9yZXNldCksIC8qIGF0dGVtcHQgdG8gcmVjb3ZlciBHUFUgZmlyc3QgKi8KKwkJU1VC
-VEVTVChpZ3RfcmVzZXRfZGV2aWNlX3N0b2xlbiksCisJCVNVQlRFU1QoaWd0X3Jlc2V0X2VuZ2lu
-ZXNfc3RvbGVuKSwKIAkJU1VCVEVTVChpZ3Rfd2VkZ2VkX3Jlc2V0KSwKIAkJU1VCVEVTVChpZ3Rf
-YXRvbWljX3Jlc2V0KSwKIAkJU1VCVEVTVChpZ3RfYXRvbWljX2VuZ2luZV9yZXNldCksCi0tIAoy
-LjIwLjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCklu
-dGVsLWdmeCBtYWlsaW5nIGxpc3QKSW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRw
-czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ludGVsLWdmeAo=
+On 16/10/2020 14:37, Mauro Carvalho Chehab wrote:
+> Em Fri, 16 Oct 2020 14:01:07 +0300
+> Joonas Lahtinen <joonas.lahtinen@linux.intel.com> escreveu:
+>
+>> + Lionel
+>>
+>> Can you please take a look at best resolving the below problem.
+>>
+>> Maybe we should eliminate the duplicate declarations? Updating such
+>> a list manually seems error prone to me.
+> For Kernel 5.10, IMO the best is to apply this patch as-is, as any
+> other thing would need to be postponed, and we want 5.10 free of
+> doc warnings.
+
+
+That's odd... Most of the functions are documented. Is it that we're 
+missing the "()" after the function name maybe?
+
+
+-Lionel
+
+
+>
+> Yet, when I wrote this one, I almost took a different approach:
+> to implement something like @*group (or \*group) directives that
+> exists on doxygen:
+>
+> 	https://www.doxygen.nl/manual/grouping.html
+>
+> If something like that gets added to kernel-doc syntax, then
+> one could do something like:
+>
+> 	/**
+> 	 * DOC: some foo description
+> 	 * @group foo
+> 	 */
+>   
+> 	/**
+> 	 * foo1 - do some foo things
+> 	 * @group foo
+> 	...
+> 	 */
+>
+> 	/**
+> 	 * foo2 - do some other foo things
+> 	 * @group foo
+> 	...
+> 	 */
+>
+> 	/**
+> 	 * bar - do bar things
+> 	 * @group bar
+> 	...
+> 	 */
+>
+>
+> And then, at kernel-doc markup:
+>
+> 	FOO
+> 	===
+>
+> 	.. kernel-doc:: drivers/gpu/drm/i915/i915_perf.c
+> 		:group: foo
+>
+>
+> 	BAR
+> 	===
+> 	.. kernel-doc:: drivers/gpu/drm/i915/i915_perf.c
+> 		:group: bar
+>
+>
+> I suspect that something like that would be a lot easier to maintain.
+>
+> Once having someone like that implemented, it should be easy to also
+> have something like this:
+>
+> 	OTHERS
+> 	======
+> 	.. kernel-doc:: drivers/gpu/drm/i915/i915_perf.c
+> 		:export:
+> 		:not-grouped:
+>
+> in order to pick other functions that aren't grouped.
+>
+> I suspect that implementing something like that at kernel-doc.pl
+> won't be hard.
+>
+> Regards,
+> Mauro
+>
+>> Regards, Joonas
+>>
+>> Quoting Mauro Carvalho Chehab (2020-10-13 14:53:59)
+>>> As reported by Sphinx:
+>>>
+>>>          ./Documentation/gpu/i915:646: ./drivers/gpu/drm/i915/i915_perf.c:1147: WARNING: Duplicate C declaration, also defined in 'gpu/i915'.
+>>>          Declaration is 'i915_oa_wait_unlocked'.
+>>>          ./Documentation/gpu/i915:646: ./drivers/gpu/drm/i915/i915_perf.c:1169: WARNING: Duplicate C declaration, also defined in 'gpu/i915'.
+>>>          Declaration is 'i915_oa_poll_wait'.
+>>>          ./Documentation/gpu/i915:646: ./drivers/gpu/drm/i915/i915_perf.c:1189: WARNING: Duplicate C declaration, also defined in 'gpu/i915'.
+>>>          Declaration is 'i915_oa_read'.
+>>>          ./Documentation/gpu/i915:646: ./drivers/gpu/drm/i915/i915_perf.c:2669: WARNING: Duplicate C declaration, also defined in 'gpu/i915'.
+>>>          Declaration is 'i915_oa_stream_enable'.
+>>>          ./Documentation/gpu/i915:646: ./drivers/gpu/drm/i915/i915_perf.c:2734: WARNING: Duplicate C declaration, also defined in 'gpu/i915'.
+>>>          Declaration is 'i915_oa_stream_disable'.
+>>>          ./Documentation/gpu/i915:646: ./drivers/gpu/drm/i915/i915_perf.c:2820: WARNING: Duplicate C declaration, also defined in 'gpu/i915'.
+>>>          Declaration is 'i915_oa_stream_init'.
+>>>          ./Documentation/gpu/i915:646: ./drivers/gpu/drm/i915/i915_perf.c:3010: WARNING: Duplicate C declaration, also defined in 'gpu/i915'.
+>>>          Declaration is 'i915_perf_read'.
+>>>          ./Documentation/gpu/i915:646: ./drivers/gpu/drm/i915/i915_perf.c:3098: WARNING: Duplicate C declaration, also defined in 'gpu/i915'.
+>>>          Declaration is 'i915_perf_poll_locked'.
+>>>          ./Documentation/gpu/i915:646: ./drivers/gpu/drm/i915/i915_perf.c:3129: WARNING: Duplicate C declaration, also defined in 'gpu/i915'.
+>>>          Declaration is 'i915_perf_poll'.
+>>>          ./Documentation/gpu/i915:646: ./drivers/gpu/drm/i915/i915_perf.c:3152: WARNING: Duplicate C declaration, also defined in 'gpu/i915'.
+>>>          Declaration is 'i915_perf_enable_locked'.
+>>>          ./Documentation/gpu/i915:646: ./drivers/gpu/drm/i915/i915_perf.c:3181: WARNING: Duplicate C declaration, also defined in 'gpu/i915'.
+>>>          Declaration is 'i915_perf_disable_locked'.
+>>>          ./Documentation/gpu/i915:646: ./drivers/gpu/drm/i915/i915_perf.c:3273: WARNING: Duplicate C declaration, also defined in 'gpu/i915'.
+>>>          Declaration is 'i915_perf_ioctl'.
+>>>          ./Documentation/gpu/i915:646: ./drivers/gpu/drm/i915/i915_perf.c:3296: WARNING: Duplicate C declaration, also defined in 'gpu/i915'.
+>>>          Declaration is 'i915_perf_destroy_locked'.
+>>>          ./Documentation/gpu/i915:646: ./drivers/gpu/drm/i915/i915_perf.c:3321: WARNING: Duplicate C declaration, also defined in 'gpu/i915'.
+>>>          Declaration is 'i915_perf_release'.
+>>>          ./Documentation/gpu/i915:646: ./drivers/gpu/drm/i915/i915_perf.c:3379: WARNING: Duplicate C declaration, also defined in 'gpu/i915'.
+>>>          Declaration is 'i915_perf_open_ioctl_locked'.
+>>>          ./Documentation/gpu/i915:646: ./drivers/gpu/drm/i915/i915_perf.c:3534: WARNING: Duplicate C declaration, also defined in 'gpu/i915'.
+>>>          Declaration is 'read_properties_unlocked'.
+>>>          ./Documentation/gpu/i915:646: ./drivers/gpu/drm/i915/i915_perf.c:3717: WARNING: Duplicate C declaration, also defined in 'gpu/i915'.
+>>>          Declaration is 'i915_perf_open_ioctl'.
+>>>          ./Documentation/gpu/i915:646: ./drivers/gpu/drm/i915/i915_perf.c:3760: WARNING: Duplicate C declaration, also defined in 'gpu/i915'.
+>>>          Declaration is 'i915_perf_register'.
+>>>          ./Documentation/gpu/i915:646: ./drivers/gpu/drm/i915/i915_perf.c:3789: WARNING: Duplicate C declaration, also defined in 'gpu/i915'.
+>>>          Declaration is 'i915_perf_unregister'.
+>>>          ./Documentation/gpu/i915:646: ./drivers/gpu/drm/i915/i915_perf.c:4009: WARNING: Duplicate C declaration, also defined in 'gpu/i915'.
+>>>          Declaration is 'i915_perf_add_config_ioctl'.
+>>>          ./Documentation/gpu/i915:646: ./drivers/gpu/drm/i915/i915_perf.c:4162: WARNING: Duplicate C declaration, also defined in 'gpu/i915'.
+>>>          Declaration is 'i915_perf_remove_config_ioctl'.
+>>>          ./Documentation/gpu/i915:646: ./drivers/gpu/drm/i915/i915_perf.c:4260: WARNING: Duplicate C declaration, also defined in 'gpu/i915'.
+>>>          Declaration is 'i915_perf_init'.
+>>>          ./Documentation/gpu/i915:646: ./drivers/gpu/drm/i915/i915_perf.c:4423: WARNING: Duplicate C declaration, also defined in 'gpu/i915'.
+>>>          Declaration is 'i915_perf_fini'.
+>>>
+>>> With Sphinx 3, C declarations can't be duplicated anymore,
+>>> so let's exclude those from the other internals found on
+>>> i915_perf.c file.
+>>>
+>>> Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+>>> ---
+>>>   Documentation/gpu/i915.rst | 29 +++++++++++++++++++++++++----
+>>>   1 file changed, 25 insertions(+), 4 deletions(-)
+>>>
+>>> diff --git a/Documentation/gpu/i915.rst b/Documentation/gpu/i915.rst
+>>> index 33cc6ddf8f64..cff1f154b473 100644
+>>> --- a/Documentation/gpu/i915.rst
+>>> +++ b/Documentation/gpu/i915.rst
+>>> @@ -636,15 +636,36 @@ i915 Perf Observation Architecture Stream
+>>>   .. kernel-doc:: drivers/gpu/drm/i915/i915_perf.c
+>>>      :functions: i915_oa_poll_wait
+>>>   
+>>> -All i915 Perf Internals
+>>> ------------------------
+>>> +Other i915 Perf Internals
+>>> +-------------------------
+>>>   
+>>> -This section simply includes all currently documented i915 perf internals, in
+>>> -no particular order, but may include some more minor utilities or platform
+>>> +This section simply includes all other currently documented i915 perf internals,
+>>> +in no particular order, but may include some more minor utilities or platform
+>>>   specific details than found in the more high-level sections.
+>>>   
+>>>   .. kernel-doc:: drivers/gpu/drm/i915/i915_perf.c
+>>>      :internal:
+>>> +   :no-identifiers:
+>>> +       i915_perf_init
+>>> +       i915_perf_fini
+>>> +       i915_perf_register
+>>> +       i915_perf_unregister
+>>> +       i915_perf_open_ioctl
+>>> +       i915_perf_release
+>>> +       i915_perf_add_config_ioctl
+>>> +       i915_perf_remove_config_ioctl
+>>> +       read_properties_unlocked
+>>> +       i915_perf_open_ioctl_locked
+>>> +       i915_perf_destroy_locked
+>>> +       i915_perf_read i915_perf_ioctl
+>>> +       i915_perf_enable_locked
+>>> +       i915_perf_disable_locked
+>>> +       i915_perf_poll i915_perf_poll_locked
+>>> +       i915_oa_stream_init i915_oa_read
+>>> +       i915_oa_stream_enable
+>>> +       i915_oa_stream_disable
+>>> +       i915_oa_wait_unlocked
+>>> +       i915_oa_poll_wait
+>>>   
+>>>   Style
+>>>   =====
+>>> -- 
+>>> 2.26.2
+>>>    
+>
+>
+> Thanks,
+> Mauro
+
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
