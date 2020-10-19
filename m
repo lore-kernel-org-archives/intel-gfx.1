@@ -2,58 +2,55 @@ Return-Path: <SRS0=HG+d=D2=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.2 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.2 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D3120C43457
-	for <intel-gfx@archiver.kernel.org>; Mon, 19 Oct 2020 09:58:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D63D9C433E7
+	for <intel-gfx@archiver.kernel.org>; Mon, 19 Oct 2020 10:12:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 51EE522257
-	for <intel-gfx@archiver.kernel.org>; Mon, 19 Oct 2020 09:58:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 51EE522257
+	by mail.kernel.org (Postfix) with ESMTPS id 4178F22268
+	for <intel-gfx@archiver.kernel.org>; Mon, 19 Oct 2020 10:12:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4178F22268
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C50EC6E902;
-	Mon, 19 Oct 2020 09:58:26 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 23ABB6E902
- for <intel-gfx@lists.freedesktop.org>; Mon, 19 Oct 2020 09:58:25 +0000 (UTC)
-IronPort-SDR: bEjf1gN/eFT9DW3WO01ufmVVH9oYO6tSzO/9Rc2hhMy+6hv0oMgebZzclh95PXXK75m96DUf00
- Uhlg5cLGhOBQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9778"; a="166222502"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 825066E908;
+	Mon, 19 Oct 2020 10:12:32 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 083906E908;
+ Mon, 19 Oct 2020 10:12:31 +0000 (UTC)
+IronPort-SDR: lMQxmViRERj5z1Wa5HXJe0ZdT6Xoa4HVVPwd6KOvuM+TnNziJWn7icXKuNaBuaw7oopv2LwJjH
+ 4woJy0sPAJtw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9778"; a="167077833"
 X-IronPort-AV: E=Sophos;i="5.77,394,1596524400"; 
- d="asc'?scan'208";a="166222502"
+ d="asc'?scan'208";a="167077833"
 X-Amp-Result: UNKNOWN
 X-Amp-Original-Verdict: FILE UNKNOWN
 X-Amp-File-Uploaded: False
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Oct 2020 02:58:24 -0700
-IronPort-SDR: PeKQ49Wa9AC+E0zLpYxptvh64WpjCbnxMF/XOgCpyHrwYkxFvg5cjF8XeaGSQTC0XL+9ADvsJh
- cquLR2adWh9g==
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Oct 2020 03:12:31 -0700
+IronPort-SDR: QAkhykOynkRPNmOtZtcFg+mxpnuKty8IksG3Fe2wADXJqyyGG9TbdIsI9NIy2It7HTl2v6s8vq
+ QV9qS45c6kAw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="5.77,394,1596524400"; 
- d="asc'?scan'208";a="347377470"
+ d="asc'?scan'208";a="347380690"
 Received: from zhen-hp.sh.intel.com (HELO zhen-hp) ([10.239.160.147])
- by fmsmga004.fm.intel.com with ESMTP; 19 Oct 2020 02:58:23 -0700
-Date: Mon, 19 Oct 2020 17:37:38 +0800
+ by fmsmga004.fm.intel.com with ESMTP; 19 Oct 2020 03:12:29 -0700
+Date: Mon, 19 Oct 2020 17:51:44 +0800
 From: Zhenyu Wang <zhenyuw@linux.intel.com>
 To: Chris Wilson <chris@chris-wilson.co.uk>
-Message-ID: <20201019093738.GS27141@zhen-hp.sh.intel.com>
-References: <20200811030209.21058-1-yan.y.zhao@intel.com>
- <20200811092532.13753-1-chris@chris-wilson.co.uk>
- <20200812020631.GP27035@zhen-hp.sh.intel.com>
- <20200819083259.GD32450@zhen-hp.sh.intel.com>
+Message-ID: <20201019095143.GT27141@zhen-hp.sh.intel.com>
+References: <alpine.DEB.2.21.2010161716270.29164@manul.sfritsch.de>
+ <20201019091909.GQ27141@zhen-hp.sh.intel.com>
+ <160310145891.29774.10656325770923178249@build.alporthouse.com>
 MIME-Version: 1.0
-In-Reply-To: <20200819083259.GD32450@zhen-hp.sh.intel.com>
+In-Reply-To: <160310145891.29774.10656325770923178249@build.alporthouse.com>
 User-Agent: Mutt/1.10.0 (2018-05-17)
-Subject: Re: [Intel-gfx] [PATCH] drm/i915: Drop runtime-pm assert from vgpu
- io accessors
+Subject: Re: [Intel-gfx] drm/i915: Detecting Vt-d when running as guest os
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,156 +64,113 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Reply-To: Zhenyu Wang <zhenyuw@linux.intel.com>
-Cc: intel-gfx@lists.freedesktop.org, Yan Zhao <yan.y.zhao@intel.com>
-Content-Type: multipart/mixed; boundary="===============1152829852=="
+Cc: intel-gvt-dev <intel-gvt-dev@lists.freedesktop.org>,
+ intel-gfx@lists.freedesktop.org, Stefan Fritsch <sf@sfritsch.de>
+Content-Type: multipart/mixed; boundary="===============1900075677=="
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 
---===============1152829852==
+--===============1900075677==
 Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="yPSgZSQ6mfPWgZ9n"
+	protocol="application/pgp-signature"; boundary="wc6dtGz1CZgs+5WP"
 Content-Disposition: inline
 
 
---yPSgZSQ6mfPWgZ9n
+--wc6dtGz1CZgs+5WP
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-
-Hi, Chris
-
-Looks this one is still missed to push? Could you help?
-
-Thanks
-
-On 2020.08.19 16:32:59 +0800, Zhenyu Wang wrote:
->=20
-> ping for committing?
->=20
-> On 2020.08.12 10:06:31 +0800, Zhenyu Wang wrote:
-> > On 2020.08.11 10:25:32 +0100, Chris Wilson wrote:
-> > > The "mmio" writes into vgpu registers are simple memory traps from the
-> > > guest into the host. We do not need to assert in the guest that the
-> > > device is awake for the io as we do not write to the device itself.
+On 2020.10.19 10:57:38 +0100, Chris Wilson wrote:
+> Quoting Zhenyu Wang (2020-10-19 10:19:09)
+> > On 2020.10.16 17:19:19 +0200, Stefan Fritsch wrote:
+> > > Hi,
 > > >=20
-> > > However, over time we have refactored all the mmio accessors with the
-> > > result that the vgpu reuses the gen2 accessors and so inherits the
-> > > assert for runtime-pm of the native device. The assert though has
-> > > actually been there since commit 3be0bf5acca6 ("drm/i915: Create vGPU
-> > > specific MMIO operations to reduce traps").
+> > > if Linux is running as a guest and the host is doing igd-pass-thorugh=
+ with=20
+> > > VT-d enabled, the i915 driver does not work all that great. The most=
+=20
+> > > obvious problem is that there are dozens of 'Fault errors on pipe A'=
+=20
+> > > errrors logged per second, but depending on the hardware there can be=
+=20
+> > > other issues, too. I will send a patch to rate-limit that message in =
+a=20
+> > > separate mail.
 > > >=20
-> > > References: 3be0bf5acca6 ("drm/i915: Create vGPU specific MMIO operat=
-ions to reduce traps")
-> > > Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-> > > Cc: Yan Zhao <yan.y.zhao@intel.com>
-> > > Cc: Zhenyu Wang <zhenyuw@linux.intel.com>
-> > > ---
-> >=20
-> > Reviewed-by: Zhenyu Wang <zhenyuw@linux.intel.com>
-> >=20
-> > Thanks!
-> >=20
-> > >  drivers/gpu/drm/i915/intel_uncore.c | 27 ++++++++++++++++++++++++++-
-> > >  1 file changed, 26 insertions(+), 1 deletion(-)
-> > >=20
-> > > diff --git a/drivers/gpu/drm/i915/intel_uncore.c b/drivers/gpu/drm/i9=
-15/intel_uncore.c
-> > > index f5edee17902a..6d3310794d0f 100644
-> > > --- a/drivers/gpu/drm/i915/intel_uncore.c
-> > > +++ b/drivers/gpu/drm/i915/intel_uncore.c
-> > > @@ -1209,6 +1209,18 @@ unclaimed_reg_debug(struct intel_uncore *uncor=
-e,
-> > >  		spin_unlock(&uncore->debug->lock);
-> > >  }
-> > > =20
-> > > +#define __vgpu_read(x) \
-> > > +static u##x \
-> > > +vgpu_read##x(struct intel_uncore *uncore, i915_reg_t reg, bool trace=
-) { \
-> > > +	u##x val =3D __raw_uncore_read##x(uncore, reg); \
-> > > +	trace_i915_reg_rw(false, reg, val, sizeof(val), trace); \
-> > > +	return val; \
-> > > +}
-> > > +__vgpu_read(8)
-> > > +__vgpu_read(16)
-> > > +__vgpu_read(32)
-> > > +__vgpu_read(64)
-> > > +
-> > >  #define GEN2_READ_HEADER(x) \
-> > >  	u##x val =3D 0; \
-> > >  	assert_rpm_wakelock_held(uncore->rpm);
-> > > @@ -1414,6 +1426,16 @@ __gen_reg_write_funcs(gen8);
-> > >  #undef GEN6_WRITE_FOOTER
-> > >  #undef GEN6_WRITE_HEADER
-> > > =20
-> > > +#define __vgpu_write(x) \
-> > > +static void \
-> > > +vgpu_write##x(struct intel_uncore *uncore, i915_reg_t reg, u##x val,=
- bool trace) { \
-> > > +	trace_i915_reg_rw(true, reg, val, sizeof(val), trace); \
-> > > +	__raw_uncore_write##x(uncore, reg, val); \
-> > > +}
-> > > +__vgpu_write(8)
-> > > +__vgpu_write(16)
-> > > +__vgpu_write(32)
-> > > +
-> > >  #define ASSIGN_RAW_WRITE_MMIO_VFUNCS(uncore, x) \
-> > >  do { \
-> > >  	(uncore)->funcs.mmio_writeb =3D x##_write8; \
-> > > @@ -1735,7 +1757,10 @@ static void uncore_raw_init(struct intel_uncor=
-e *uncore)
-> > >  {
-> > >  	GEM_BUG_ON(intel_uncore_has_forcewake(uncore));
-> > > =20
-> > > -	if (IS_GEN(uncore->i915, 5)) {
-> > > +	if (intel_vgpu_active(uncore->i915)) {
-> > > +		ASSIGN_RAW_WRITE_MMIO_VFUNCS(uncore, vgpu);
-> > > +		ASSIGN_RAW_READ_MMIO_VFUNCS(uncore, vgpu);
-> > > +	} else if (IS_GEN(uncore->i915, 5)) {
-> > >  		ASSIGN_RAW_WRITE_MMIO_VFUNCS(uncore, gen5);
-> > >  		ASSIGN_RAW_READ_MMIO_VFUNCS(uncore, gen5);
-> > >  	} else {
-> > > --=20
-> > > 2.20.1
+> > > The i915 has various quirks for VT-d and these should be enabled even=
+ if=20
+> > > Linux is running as a guest and does itself have iommu enabled. I hav=
+e=20
+> > > checked that making intel_vtd_active() form i915_drv.h return true ma=
+kes=20
+> > > the error messages go away.  How could Linux detect this situation? M=
+aybe=20
+> > > simply check the Hypervisor cpuid bit? Or would you prefer a module=
+=20
+> > > parameter, or a combination of both? Or is there another way to detec=
+t=20
+> > > that VT-d is enabled for the igd device?
 > > >=20
 > >=20
-> > --=20
-> >=20
-> > $gpg --keyserver wwwkeys.pgp.net --recv-keys 4D781827
+> > I think that's right, although I haven't tried to force intel_vtd_activ=
+e()
+> > for guest, but I did see those fault errors on some machine. You can use
+> > hypervisor cpuid bit, and need to seperate case for GVT which is detect=
+ed by
+> > intel_vgpu_active(), but I'm not sure if this should be taken in nested=
+ case,
+> > suppose those quirks should still work?
 >=20
->=20
->=20
-> > _______________________________________________
-> > Intel-gfx mailing list
-> > Intel-gfx@lists.freedesktop.org
-> > https://lists.freedesktop.org/mailman/listinfo/intel-gfx
->=20
->=20
-> --=20
->=20
-> $gpg --keyserver wwwkeys.pgp.net --recv-keys 4D781827
+> Do we need it for gvt since the guest has no access to HW, so the host
+> should be doing all the vt'd w/a. (In particular, the scanout overfetch
+> causing the problems here.) E.g. in gvt, the guest framebuffer is
+> transported via magics to the host, and the host creates a GGTT entry
+> for it.
 
+GVT doesn't require vt-d at all. Current gvt display is fully virtualized,
+so if by any way that map guest framebuffer directly on host display, it
+should still be handled by i915 with possible vt-d workaround for alignment.
+And looks some other vt-d w/a just brings unnecessary actions for gvt guest.
+So I think we should stick with real vt-d case.
 
+>=20
+> For detecting a hypervisor, following on from the KVM_CPUID_SIGNATURE
+> hint, we find arch/x86 does detect_hypervisor_platform() at load which
+> populates EXPORT_SYMBOL(x86_hyper_type)
+>=20
+> So something like,
+>=20
+> #include <asm/hypervisor.h>
+> @@ -1764,7 +1766,7 @@ static inline bool intel_vtd_active(void)
+>         if (intel_iommu_gfx_mapped)
+>                 return true;
+>  #endif
+> -       return false;
+> +       return x86_hyper_type !=3D X86_HYPER_NATIVE;
+>  }
+>=20
+> should work.
+> -Chris
 
 --=20
 
 $gpg --keyserver wwwkeys.pgp.net --recv-keys 4D781827
 
---yPSgZSQ6mfPWgZ9n
+--wc6dtGz1CZgs+5WP
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iF0EARECAB0WIQTXuabgHDW6LPt9CICxBBozTXgYJwUCX41eYgAKCRCxBBozTXgY
-JxP8AJ0SQBHMq+h/nlyIbmuvTHIU9t6vvwCgjIILAAGxy6za44SQDjpLcXekPKE=
-=vlkH
+iF0EARECAB0WIQTXuabgHDW6LPt9CICxBBozTXgYJwUCX41hrwAKCRCxBBozTXgY
+JwPZAJ9WGmbRqdCeqiAbDOwJmxfWXH3ChACbB2vMbNGGMXZRAexPUNv7O/OPZ7U=
+=D2Sl
 -----END PGP SIGNATURE-----
 
---yPSgZSQ6mfPWgZ9n--
+--wc6dtGz1CZgs+5WP--
 
---===============1152829852==
+--===============1900075677==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -227,4 +181,4 @@ Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
 
---===============1152829852==--
+--===============1900075677==--
