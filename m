@@ -2,49 +2,55 @@ Return-Path: <SRS0=qNAp=D3=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D5291C4363A
-	for <intel-gfx@archiver.kernel.org>; Tue, 20 Oct 2020 18:10:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 63CE5C4363A
+	for <intel-gfx@archiver.kernel.org>; Tue, 20 Oct 2020 18:32:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B54CE20770
-	for <intel-gfx@archiver.kernel.org>; Tue, 20 Oct 2020 18:10:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B54CE20770
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=emersion.fr
+	by mail.kernel.org (Postfix) with ESMTPS id BDB4321D7B
+	for <intel-gfx@archiver.kernel.org>; Tue, 20 Oct 2020 18:32:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BDB4321D7B
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E7EB6ED07;
-	Tue, 20 Oct 2020 18:09:59 +0000 (UTC)
-X-Greylist: delayed 16570 seconds by postgrey-1.36 at gabe;
- Tue, 20 Oct 2020 18:09:57 UTC
-Received: from mail-40133.protonmail.ch (mail-40133.protonmail.ch
- [185.70.40.133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E7926ECF9
- for <intel-gfx@lists.freedesktop.org>; Tue, 20 Oct 2020 18:09:57 +0000 (UTC)
-Date: Tue, 20 Oct 2020 18:09:46 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
- s=protonmail2; t=1603217395;
- bh=1f6jBppJKscJJn1xROKe6AWEI0Cne3tqfefXgDy95uo=;
- h=Date:To:From:Cc:Reply-To:Subject:In-Reply-To:References:From;
- b=MzznOoY/xCkUT0wCmahzgSIcslQFPNbM+5TU8f5XGVUordYYgSpec2aGCJmNkTy2B
- fY7SqNRPamjKfHAuRwOTgkJINE68lXBrEhB1qPSsLzhDbKDqrHlto2PJNl+kTSJVTs
- VHWALIfOjN3xAtWoMIWw1OhHX5JPWuYbMB3WsC3dqWnO0azDNSwdVVQnpJreIelKQt
- o0QOq/Aa1WLmJukbywEGJYgz2SSfq3Iq2wKGaAYelufcg8rhesObVJdxhFlktK3ATg
- 9o+2AzB29NSeF5R/GPe4mAmrmzH9AWZjflhNm1rMcpkiHjtUOLhh19H0kzhkxmxUpi
- 1APTcMv1VseNA==
-To: Pankaj Bharadiya <pankaj.laxminarayan.bharadiya@intel.com>
-From: Simon Ser <contact@emersion.fr>
-Message-ID: <K04u1xTGpYeMzDUUMi5_UJ3oB-sv3KiG76J5ovQ5RuQCnyIm594KncQxp-oT5kibk6U1bzHuvaoK4nVqASe0GV-u98bZTpAS1sYNpDMUmo0=@emersion.fr>
-In-Reply-To: <20201020161427.6941-2-pankaj.laxminarayan.bharadiya@intel.com>
-References: <20201020161427.6941-1-pankaj.laxminarayan.bharadiya@intel.com>
- <20201020161427.6941-2-pankaj.laxminarayan.bharadiya@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A50CB6E1DE;
+	Tue, 20 Oct 2020 18:32:54 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6901D6E1DE;
+ Tue, 20 Oct 2020 18:32:53 +0000 (UTC)
+IronPort-SDR: H1rXi39z+BjMRix7vYCdlsKlV6ok9VSYA8JDrUOfdnpXkxxfChkwrsrmRLsEMMux9d7Ym94cM2
+ xh9xdGcxG2Aw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9780"; a="167349535"
+X-IronPort-AV: E=Sophos;i="5.77,398,1596524400"; d="scan'208";a="167349535"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Oct 2020 11:32:52 -0700
+IronPort-SDR: O+ao1XLyMqF7meys6cFitEnpTLQsHk8SCt/qvldyRR9Xg2LCNO1ABynvkHNNm00OuRdH+EdxGm
+ ggCv6hxUTT6Q==
+X-IronPort-AV: E=Sophos;i="5.77,398,1596524400"; d="scan'208";a="533180686"
+Received: from bneville-mobl5.ger.corp.intel.com (HELO localhost)
+ ([10.252.6.14])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Oct 2020 11:32:50 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: Anshuman Gupta <anshuman.gupta@intel.com>, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+In-Reply-To: <20201020133906.23710-10-anshuman.gupta@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20201020133906.23710-1-anshuman.gupta@intel.com>
+ <20201020133906.23710-10-anshuman.gupta@intel.com>
+Date: Tue, 20 Oct 2020 21:32:46 +0300
+Message-ID: <87tuuo929d.fsf@intel.com>
 MIME-Version: 1.0
-Subject: Re: [Intel-gfx] [PATCH v7 1/4] drm: Introduce plane and CRTC
- scaling filter properties
+Subject: Re: [Intel-gfx] [PATCH v2 09/15] misc/mei/hdcp: Fix AUTH_STREAM_REQ
+ cmd buffer len
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,20 +63,48 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Simon Ser <contact@emersion.fr>
-Cc: Maxime Ripard <mripard@kernel.org>,
- "daniels@collabora.com" <daniels@collabora.com>,
- David Airlie <airlied@linux.ie>, Thomas Zimmermann <tzimmermann@suse.de>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
+Cc: Tomas Winkler <tomas.winkler@intel.com>, seanpaul@chromium.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-For the docs:
+On Tue, 20 Oct 2020, Anshuman Gupta <anshuman.gupta@intel.com> wrote:
+> Fix the size of WIRED_REPEATER_AUTH_STREAM_REQ cmd buffer size.
+> It is based upon the actual number of MST streams and size
+> of wired_cmd_repeater_auth_stream_req_in.
+> Excluding the size of hdcp_cmd_header.
+>
+> Cc: Tomas Winkler <tomas.winkler@intel.com>
+> Cc: Ramalingam C <ramalingam.c@intel.com>
+> Signed-off-by: Anshuman Gupta <anshuman.gupta@intel.com>
 
-Acked-by: Simon Ser <contact@emersion.fr>
+Tomas, ack to merge this via drm-intel?
+
+Thanks,
+Jani.
+
+> ---
+>  drivers/misc/mei/hdcp/mei_hdcp.c | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
+>
+> diff --git a/drivers/misc/mei/hdcp/mei_hdcp.c b/drivers/misc/mei/hdcp/mei_hdcp.c
+> index 9ae9669e46ea..b10d266fb60a 100644
+> --- a/drivers/misc/mei/hdcp/mei_hdcp.c
+> +++ b/drivers/misc/mei/hdcp/mei_hdcp.c
+> @@ -569,8 +569,7 @@ static int mei_hdcp_verify_mprime(struct device *dev,
+>  	verify_mprime_in->header.api_version = HDCP_API_VERSION;
+>  	verify_mprime_in->header.command_id = WIRED_REPEATER_AUTH_STREAM_REQ;
+>  	verify_mprime_in->header.status = ME_HDCP_STATUS_SUCCESS;
+> -	verify_mprime_in->header.buffer_len =
+> -			WIRED_CMD_BUF_LEN_REPEATER_AUTH_STREAM_REQ_MIN_IN;
+> +	verify_mprime_in->header.buffer_len = cmd_size  - sizeof(struct hdcp_cmd_header);
+>  
+>  	verify_mprime_in->port.integrated_port_type = data->port_type;
+>  	verify_mprime_in->port.physical_port = (u8)data->fw_ddi;
+
+-- 
+Jani Nikula, Intel Open Source Graphics Center
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
