@@ -2,57 +2,53 @@ Return-Path: <SRS0=qNAp=D3=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.2 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D3B4BC43457
-	for <intel-gfx@archiver.kernel.org>; Tue, 20 Oct 2020 09:48:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E86C3C433E7
+	for <intel-gfx@archiver.kernel.org>; Tue, 20 Oct 2020 10:08:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 677D02223C
-	for <intel-gfx@archiver.kernel.org>; Tue, 20 Oct 2020 09:48:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 677D02223C
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 7C02122253
+	for <intel-gfx@archiver.kernel.org>; Tue, 20 Oct 2020 10:08:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7C02122253
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC6D56EC32;
-	Tue, 20 Oct 2020 09:48:55 +0000 (UTC)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 86B096EC2E;
- Tue, 20 Oct 2020 09:48:54 +0000 (UTC)
-IronPort-SDR: z6tBvEHGj0wxGxvFwCK0rdpc6pRWQ6y8UIXTOqusUjazPZmlHWGpa49S87Ni1bq2mx43ZrA5Ai
- 9pjXGGPjJALg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9779"; a="228814540"
-X-IronPort-AV: E=Sophos;i="5.77,396,1596524400"; d="scan'208";a="228814540"
+	by gabe.freedesktop.org (Postfix) with ESMTP id AA7BB6EC3D;
+	Tue, 20 Oct 2020 10:08:31 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 887156EC3D
+ for <Intel-gfx@lists.freedesktop.org>; Tue, 20 Oct 2020 10:08:30 +0000 (UTC)
+IronPort-SDR: xwS3srs7G0zUJdyCN/GYckaGJoIjhAyPBfGk6jUNnKn1qKCclZhMyMBDhmTOqMx653hJIO2aB5
+ fwV43kTBRZxQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9779"; a="147042067"
+X-IronPort-AV: E=Sophos;i="5.77,396,1596524400"; d="scan'208";a="147042067"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Oct 2020 02:48:53 -0700
-IronPort-SDR: BdKH1d3V4U9yeou6vSHhHEMV5NU6D8VMe+qMVfEAu9FUFAEOLfY2QUc8V8KHU1kuorQS2sHzjt
- DYBsR9+q/Exw==
-X-IronPort-AV: E=Sophos;i="5.77,396,1596524400"; d="scan'208";a="465874987"
-Received: from genxfsim-desktop.iind.intel.com (HELO intel.com)
- ([10.223.74.178])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Oct 2020 03:08:30 -0700
+IronPort-SDR: /ZTpuH9NYrPDF4jpg6GMATJnfjjLzUQ7PzmapPEXpqxeZ/tfgDO3V8wvLCbWfz4fzIj/QjTOyn
+ 525v8+8heACg==
+X-IronPort-AV: E=Sophos;i="5.77,396,1596524400"; d="scan'208";a="465879920"
+Received: from bszymanx-mobl.ger.corp.intel.com (HELO localhost.localdomain)
+ ([10.252.55.244])
  by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Oct 2020 02:48:51 -0700
-Date: Tue, 20 Oct 2020 15:08:42 +0530
-From: Anshuman Gupta <anshuman.gupta@intel.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>
-Message-ID: <20201020093841.GY25390@intel.com>
-References: <20201014045252.13608-10-anshuman.gupta@intel.com>
- <20201019102041.26178-1-anshuman.gupta@intel.com>
- <878sc19u3a.fsf@intel.com> <20201020083059.GW25390@intel.com>
- <875z759qyv.fsf@intel.com>
+ 20 Oct 2020 03:08:28 -0700
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+To: Intel-gfx@lists.freedesktop.org
+Date: Tue, 20 Oct 2020 11:08:22 +0100
+Message-Id: <20201020100822.543332-2-tvrtko.ursulin@linux.intel.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20201020100822.543332-1-tvrtko.ursulin@linux.intel.com>
+References: <20201020100822.543332-1-tvrtko.ursulin@linux.intel.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <875z759qyv.fsf@intel.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Subject: Re: [Intel-gfx] [PATCH 09/13] drm/i915/hdcp: mst streams support in
- hdcp port_data
+Subject: [Intel-gfx] [PATCH 2/2] drm/i915/pmu: Fix CPU hotplug with multiple
+ GPUs
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,103 +61,202 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, seanpaul@chromium.org,
- Tomas Winkler <tomas.winkler@intel.com>, dri-devel@lists.freedesktop.org
+Cc: Daniel Vetter <daniel.vetter@intel.com>,
+ Chris Wilson <chris@chris-wilson.co.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 2020-10-20 at 12:39:04 +0300, Jani Nikula wrote:
-> On Tue, 20 Oct 2020, Anshuman Gupta <anshuman.gupta@intel.com> wrote:
-> > On 2020-10-20 at 11:31:37 +0300, Jani Nikula wrote:
-> >> On Mon, 19 Oct 2020, Anshuman Gupta <anshuman.gupta@intel.com> wrote:
-> >> > Add support for multiple mst stream in hdcp port data
-> >> > which will be used by RepeaterAuthStreamManage msg and
-> >> > HDCP 2.2 security f/w for m' validation.
-> >> >
-> >> > v2:
-> >> > Init the hdcp port data k for HDMI/DP SST strem.
-> >> >
-> >> > Cc: Ramalingam C <ramalingam.c@intel.com>
-> >> > Signed-off-by: Anshuman Gupta <anshuman.gupta@intel.com>
-> >> > ---
-> >> >  .../drm/i915/display/intel_display_types.h    |  4 +-
-> >> >  drivers/gpu/drm/i915/display/intel_hdcp.c     | 92 ++++++++++++++++---
-> >> >  drivers/misc/mei/hdcp/mei_hdcp.c              |  3 +-
-> >> >  include/drm/drm_hdcp.h                        |  8 +-
-> >> 
-> >> ...
-> >> 
-> >> > diff --git a/drivers/misc/mei/hdcp/mei_hdcp.c b/drivers/misc/mei/hdcp/mei_hdcp.c
-> >> > index 9ae9669e46ea..b10d266fb60a 100644
-> >> > --- a/drivers/misc/mei/hdcp/mei_hdcp.c
-> >> > +++ b/drivers/misc/mei/hdcp/mei_hdcp.c
-> >> > @@ -569,8 +569,7 @@ static int mei_hdcp_verify_mprime(struct device *dev,
-> >> >  	verify_mprime_in->header.api_version = HDCP_API_VERSION;
-> >> >  	verify_mprime_in->header.command_id = WIRED_REPEATER_AUTH_STREAM_REQ;
-> >> >  	verify_mprime_in->header.status = ME_HDCP_STATUS_SUCCESS;
-> >> > -	verify_mprime_in->header.buffer_len =
-> >> > -			WIRED_CMD_BUF_LEN_REPEATER_AUTH_STREAM_REQ_MIN_IN;
-> >> > +	verify_mprime_in->header.buffer_len = cmd_size  - sizeof(struct hdcp_cmd_header);
-> >> >  
-> >> >  	verify_mprime_in->port.integrated_port_type = data->port_type;
-> >> >  	verify_mprime_in->port.physical_port = (u8)data->fw_ddi;
-> >> > diff --git a/include/drm/drm_hdcp.h b/include/drm/drm_hdcp.h
-> >> > index fe58dbb46962..c8a37bb406b2 100644
-> >> > --- a/include/drm/drm_hdcp.h
-> >> > +++ b/include/drm/drm_hdcp.h
-> >> > @@ -101,11 +101,11 @@
-> >> >  
-> >> >  /* Following Macros take a byte at a time for bit(s) masking */
-> >> >  /*
-> >> > - * TODO: This has to be changed for DP MST, as multiple stream on
-> >> > - * same port is possible.
-> >> > - * For HDCP2.2 on HDMI and DP SST this value is always 1.
-> >> > + * TODO: This is based upon actual H/W  MST streams capacity.
-> >> > + *
-> >> > + * This is should be moved out to platform specific header.
-> >> >   */
-> >> > -#define HDCP_2_2_MAX_CONTENT_STREAMS_CNT	1
-> >> > +#define HDCP_2_2_MAX_CONTENT_STREAMS_CNT	4
-> >> >  #define HDCP_2_2_TXCAP_MASK_LEN			2
-> >> >  #define HDCP_2_2_RXCAPS_LEN			3
-> >> >  #define HDCP_2_2_RX_REPEATER(x)			((x) & BIT(0))
-> >> 
-> >> These two hunk should probably be separate changes... would be easier to
-> >> record the changes (as they're not mentioned in the commit message at
-> >> all!) and the acks from other maintainers.
-> > Thanks Jani for comment, as this need to sens DRI too, so I formatted a
-> > separate patch to avoid other related HDCP noise. 
-> > https://patchwork.freedesktop.org/series/82806/
-> > Based upon ack of maintainers i will rebase my this series.
-> 
-> I see the mei change as more important to be split out to be honest, and
-> I'd prefer all of these to be retained in the same *series* albeit as
-> separate patches. We'll want to get the acks to merge via drm-intel as
-> dependencies, instead of them being merged directly in their trees and
-> then waiting for weeks for merges and backmerges.
-Sure i will do that this with same series.
-> 
-> BR,
-> Jani.
-> 
-> 
-> > Thanks,
-> > Anshuman Gupta.
-> >> 
-> >> Cc: Tomas.
-> >> 
-> >> 
-> >> BR,
-> >> Jani.
-> >> 
-> >> 
-> >> -- 
-> >> Jani Nikula, Intel Open Source Graphics Center
-> 
-> -- 
-> Jani Nikula, Intel Open Source Graphics Center
+From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+
+Since we keep a driver global mask of online CPUs and base the decision
+whether PMU needs to be migrated upon it, we need to make sure the
+migration is done for all registered PMUs (so GPUs).
+
+To do this we need to track the current CPU for each PMU and base the
+decision on whether to migrate on a comparison between global and local
+state.
+
+At the same time, since dynamic CPU hotplug notification slots are a
+scarce resource and given how we already register the multi instance type
+state, we can and should add multiple instance of the i915 PMU to this
+same state and not allocate a new one for every GPU.
+
+v2:
+ * Use pr_notice. (Chris)
+
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+Suggested-by: Daniel Vetter <daniel.vetter@intel.com> # dynamic slot optimisation
+Cc: Chris Wilson <chris@chris-wilson.co.uk>
+---
+ drivers/gpu/drm/i915/i915_pci.c |  7 ++++-
+ drivers/gpu/drm/i915/i915_pmu.c | 50 ++++++++++++++++++++-------------
+ drivers/gpu/drm/i915/i915_pmu.h |  6 +++-
+ 3 files changed, 41 insertions(+), 22 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
+index 27964ac0638a..a384f51c91c1 100644
+--- a/drivers/gpu/drm/i915/i915_pci.c
++++ b/drivers/gpu/drm/i915/i915_pci.c
+@@ -1150,9 +1150,13 @@ static int __init i915_init(void)
+ 		return 0;
+ 	}
+ 
++	i915_pmu_init();
++
+ 	err = pci_register_driver(&i915_pci_driver);
+-	if (err)
++	if (err) {
++		i915_pmu_exit();
+ 		return err;
++	}
+ 
+ 	i915_perf_sysctl_register();
+ 	return 0;
+@@ -1166,6 +1170,7 @@ static void __exit i915_exit(void)
+ 	i915_perf_sysctl_unregister();
+ 	pci_unregister_driver(&i915_pci_driver);
+ 	i915_globals_exit();
++	i915_pmu_exit();
+ }
+ 
+ module_init(i915_init);
+diff --git a/drivers/gpu/drm/i915/i915_pmu.c b/drivers/gpu/drm/i915/i915_pmu.c
+index 51ed7d0efcdc..0d6c0945621e 100644
+--- a/drivers/gpu/drm/i915/i915_pmu.c
++++ b/drivers/gpu/drm/i915/i915_pmu.c
+@@ -30,6 +30,7 @@
+ #define ENGINE_SAMPLE_BITS (1 << I915_PMU_SAMPLE_BITS)
+ 
+ static cpumask_t i915_pmu_cpumask;
++static unsigned int i915_pmu_target_cpu = -1;
+ 
+ static u8 engine_config_sample(u64 config)
+ {
+@@ -1049,25 +1050,32 @@ static int i915_pmu_cpu_online(unsigned int cpu, struct hlist_node *node)
+ static int i915_pmu_cpu_offline(unsigned int cpu, struct hlist_node *node)
+ {
+ 	struct i915_pmu *pmu = hlist_entry_safe(node, typeof(*pmu), cpuhp.node);
+-	unsigned int target;
++	unsigned int target = i915_pmu_target_cpu;
+ 
+ 	GEM_BUG_ON(!pmu->base.event_init);
+ 
+ 	if (cpumask_test_and_clear_cpu(cpu, &i915_pmu_cpumask)) {
+ 		target = cpumask_any_but(topology_sibling_cpumask(cpu), cpu);
++
+ 		/* Migrate events if there is a valid target */
+ 		if (target < nr_cpu_ids) {
+ 			cpumask_set_cpu(target, &i915_pmu_cpumask);
+-			perf_pmu_migrate_context(&pmu->base, cpu, target);
++			i915_pmu_target_cpu = target;
+ 		}
+ 	}
+ 
++	if (target < nr_cpu_ids && target != pmu->cpuhp.cpu) {
++		perf_pmu_migrate_context(&pmu->base, cpu, target);
++		pmu->cpuhp.cpu = target;
++	}
++
+ 	return 0;
+ }
+ 
+-static int i915_pmu_register_cpuhp_state(struct i915_pmu *pmu)
++static enum cpuhp_state cpuhp_slot = CPUHP_INVALID;
++
++void i915_pmu_init(void)
+ {
+-	enum cpuhp_state slot;
+ 	int ret;
+ 
+ 	ret = cpuhp_setup_state_multi(CPUHP_AP_ONLINE_DYN,
+@@ -1075,27 +1083,29 @@ static int i915_pmu_register_cpuhp_state(struct i915_pmu *pmu)
+ 				      i915_pmu_cpu_online,
+ 				      i915_pmu_cpu_offline);
+ 	if (ret < 0)
+-		return ret;
++		pr_notice("Failed to setup cpuhp state for i915 PMU! (%d)\n",
++			  ret);
++	else
++		cpuhp_slot = ret;
++}
+ 
+-	slot = ret;
+-	ret = cpuhp_state_add_instance(slot, &pmu->cpuhp.node);
+-	if (ret) {
+-		cpuhp_remove_multi_state(slot);
+-		return ret;
+-	}
++void i915_pmu_exit(void)
++{
++	if (cpuhp_slot != CPUHP_INVALID)
++		cpuhp_remove_multi_state(cpuhp_slot);
++}
+ 
+-	pmu->cpuhp.slot = slot;
+-	return 0;
++static int i915_pmu_register_cpuhp_state(struct i915_pmu *pmu)
++{
++	if (cpuhp_slot == CPUHP_INVALID)
++		return -EINVAL;
++
++	return cpuhp_state_add_instance(cpuhp_slot, &pmu->cpuhp.node);
+ }
+ 
+ static void i915_pmu_unregister_cpuhp_state(struct i915_pmu *pmu)
+ {
+-	struct drm_i915_private *i915 = container_of(pmu, typeof(*i915), pmu);
+-
+-	drm_WARN_ON(&i915->drm, pmu->cpuhp.slot == CPUHP_INVALID);
+-	drm_WARN_ON(&i915->drm, cpuhp_state_remove_instance(pmu->cpuhp.slot, &pmu->cpuhp.node));
+-	cpuhp_remove_multi_state(pmu->cpuhp.slot);
+-	pmu->cpuhp.slot = CPUHP_INVALID;
++	cpuhp_state_remove_instance(cpuhp_slot, &pmu->cpuhp.node);
+ }
+ 
+ static bool is_igp(struct drm_i915_private *i915)
+@@ -1129,7 +1139,7 @@ void i915_pmu_register(struct drm_i915_private *i915)
+ 	spin_lock_init(&pmu->lock);
+ 	hrtimer_init(&pmu->timer, CLOCK_MONOTONIC, HRTIMER_MODE_REL);
+ 	pmu->timer.function = i915_sample;
+-	pmu->cpuhp.slot = CPUHP_INVALID;
++	pmu->cpuhp.cpu = -1;
+ 
+ 	if (!is_igp(i915)) {
+ 		pmu->name = kasprintf(GFP_KERNEL,
+diff --git a/drivers/gpu/drm/i915/i915_pmu.h b/drivers/gpu/drm/i915/i915_pmu.h
+index 59a0d19afb67..a24885ab415c 100644
+--- a/drivers/gpu/drm/i915/i915_pmu.h
++++ b/drivers/gpu/drm/i915/i915_pmu.h
+@@ -43,7 +43,7 @@ struct i915_pmu {
+ 	 */
+ 	struct {
+ 		struct hlist_node node;
+-		enum cpuhp_state slot;
++		unsigned int cpu;
+ 	} cpuhp;
+ 	/**
+ 	 * @base: PMU base.
+@@ -126,11 +126,15 @@ struct i915_pmu {
+ };
+ 
+ #ifdef CONFIG_PERF_EVENTS
++void i915_pmu_init(void);
++void i915_pmu_exit(void);
+ void i915_pmu_register(struct drm_i915_private *i915);
+ void i915_pmu_unregister(struct drm_i915_private *i915);
+ void i915_pmu_gt_parked(struct drm_i915_private *i915);
+ void i915_pmu_gt_unparked(struct drm_i915_private *i915);
+ #else
++static inline void i915_pmu_init(void) {}
++static inline void i915_pmu_exit(void) {}
+ static inline void i915_pmu_register(struct drm_i915_private *i915) {}
+ static inline void i915_pmu_unregister(struct drm_i915_private *i915) {}
+ static inline void i915_pmu_gt_parked(struct drm_i915_private *i915) {}
+-- 
+2.25.1
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
