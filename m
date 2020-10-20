@@ -4,51 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D3B8EC4363A
-	for <intel-gfx@archiver.kernel.org>; Tue, 20 Oct 2020 13:50:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 63AA0C4363A
+	for <intel-gfx@archiver.kernel.org>; Tue, 20 Oct 2020 13:50:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 68CDC2223C
-	for <intel-gfx@archiver.kernel.org>; Tue, 20 Oct 2020 13:50:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 68CDC2223C
+	by mail.kernel.org (Postfix) with ESMTPS id 100D022249
+	for <intel-gfx@archiver.kernel.org>; Tue, 20 Oct 2020 13:50:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 100D022249
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE2A26ECC8;
-	Tue, 20 Oct 2020 13:50:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC5056ECC9;
+	Tue, 20 Oct 2020 13:50:18 +0000 (UTC)
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2EFCA6ECC4;
- Tue, 20 Oct 2020 13:50:12 +0000 (UTC)
-IronPort-SDR: liPzp1tNBsnOmxQ4MTYLPP0uuGRJXUokGXlBNnKatc/BIt1UFPzTBetaVLOzDCCMF7w4OQlpiQ
- Tfr7pU8MDQDQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9779"; a="184837557"
-X-IronPort-AV: E=Sophos;i="5.77,397,1596524400"; d="scan'208";a="184837557"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 695276ECCA;
+ Tue, 20 Oct 2020 13:50:17 +0000 (UTC)
+IronPort-SDR: aT5ssYHgKSRJAR5nOBDeoRQlPRMHVZz1tjAgwxBgD9fy1y5fzguO8hoW1ST887mU6g4f6w+Ask
+ tsdcOPsHsnNA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9779"; a="184837572"
+X-IronPort-AV: E=Sophos;i="5.77,397,1596524400"; d="scan'208";a="184837572"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Oct 2020 06:50:11 -0700
-IronPort-SDR: DRf2bN10Kg4L8hz5X+tYgQwXrXFum2vFJsjDok9EYgvkzb3u0Lnq7PYlBgVESroDr2IEkn0OKo
- dKBXj2gq+JFQ==
-X-IronPort-AV: E=Sophos;i="5.77,397,1596524400"; d="scan'208";a="465935115"
+ 20 Oct 2020 06:50:17 -0700
+IronPort-SDR: AzieRjfL/jT970AaEmEhAd6gkZzFPtkOl/bit3h2K9mDiLvKLhJup+0wUAoFjkUwDcBiktmiJU
+ QcqPu4zD05QA==
+X-IronPort-AV: E=Sophos;i="5.77,397,1596524400"; d="scan'208";a="465935134"
 Received: from genxfsim-desktop.iind.intel.com ([10.223.74.178])
  by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Oct 2020 06:50:09 -0700
+ 20 Oct 2020 06:50:14 -0700
 From: Anshuman Gupta <anshuman.gupta@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Tue, 20 Oct 2020 19:09:03 +0530
-Message-Id: <20201020133906.23710-13-anshuman.gupta@intel.com>
+Date: Tue, 20 Oct 2020 19:09:05 +0530
+Message-Id: <20201020133906.23710-15-anshuman.gupta@intel.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20201020133906.23710-1-anshuman.gupta@intel.com>
 References: <20201020133906.23710-1-anshuman.gupta@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v2 12/15] drm/i915/hdcp: Pass connector to
- check_2_2_link
+Subject: [Intel-gfx] [PATCH v2 14/15] drm/i915/hdcp: Support for HDCP 2.2
+ MST shim callbacks
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,72 +67,144 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This requires for HDCP 2.2 MST check link.
+Add support for HDCP 2.2 DP MST shim callback.
+This adds existing DP HDCP shim callback for Link Authentication
+and Encryption and HDCP 2.2 stream encryption
+callback.
 
 Cc: Ramalingam C <ramalingam.c@intel.com>
 Signed-off-by: Anshuman Gupta <anshuman.gupta@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display_types.h | 3 ++-
- drivers/gpu/drm/i915/display/intel_dp_hdcp.c       | 3 ++-
- drivers/gpu/drm/i915/display/intel_hdcp.c          | 2 +-
- drivers/gpu/drm/i915/display/intel_hdmi.c          | 3 ++-
- 4 files changed, 7 insertions(+), 4 deletions(-)
+ .../drm/i915/display/intel_display_types.h    |  4 +
+ drivers/gpu/drm/i915/display/intel_dp_hdcp.c  | 81 +++++++++++++++++--
+ 2 files changed, 77 insertions(+), 8 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-index fbdeaac17bc4..5d2c61aba354 100644
+index 5d2c61aba354..d9322783dd26 100644
 --- a/drivers/gpu/drm/i915/display/intel_display_types.h
 +++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-@@ -375,7 +375,8 @@ struct intel_hdcp_shim {
+@@ -374,6 +374,10 @@ struct intel_hdcp_shim {
+ 	int (*config_stream_type)(struct intel_digital_port *dig_port,
  				  bool is_repeater, u8 type);
  
++	/* Enable/Disable HDCP 2.2 stream encryption on DP MST Transport Link */
++	int (*stream_2_2_encryption)(struct intel_digital_port *dig_port,
++				     bool enable);
++
  	/* HDCP2.2 Link Integrity Check */
--	int (*check_2_2_link)(struct intel_digital_port *dig_port);
-+	int (*check_2_2_link)(struct intel_digital_port *dig_port,
-+			      struct intel_connector *connector);
- };
- 
- struct intel_hdcp {
+ 	int (*check_2_2_link)(struct intel_digital_port *dig_port,
+ 			      struct intel_connector *connector);
 diff --git a/drivers/gpu/drm/i915/display/intel_dp_hdcp.c b/drivers/gpu/drm/i915/display/intel_dp_hdcp.c
-index 384e384cb9e2..a0c62e363c39 100644
+index a0c62e363c39..7e45b9964a29 100644
 --- a/drivers/gpu/drm/i915/display/intel_dp_hdcp.c
 +++ b/drivers/gpu/drm/i915/display/intel_dp_hdcp.c
-@@ -585,7 +585,8 @@ int intel_dp_hdcp2_config_stream_type(struct intel_digital_port *dig_port,
+@@ -698,18 +698,14 @@ intel_dp_mst_hdcp_strem_encryption(struct intel_digital_port *dig_port,
+ 	return 0;
  }
  
- static
--int intel_dp_hdcp2_check_link(struct intel_digital_port *dig_port)
-+int intel_dp_hdcp2_check_link(struct intel_digital_port *dig_port,
-+			      struct intel_connector *connector)
+-static
+-bool intel_dp_mst_hdcp_check_link(struct intel_digital_port *dig_port,
+-				  struct intel_connector *connector)
++static bool intel_dp_mst_get_qses_status(struct intel_digital_port *dig_port,
++					 struct intel_connector *connector)
  {
- 	u8 rx_status;
+ 	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
+-	struct intel_dp *intel_dp = &dig_port->dp;
+ 	struct drm_dp_query_stream_enc_status_ack_reply reply;
++	struct intel_dp *intel_dp = &dig_port->dp;
  	int ret;
-diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.c b/drivers/gpu/drm/i915/display/intel_hdcp.c
-index ef0e33cfbe8e..b5e6bcf800aa 100644
---- a/drivers/gpu/drm/i915/display/intel_hdcp.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdcp.c
-@@ -1942,7 +1942,7 @@ static int intel_hdcp2_check_link(struct intel_connector *connector)
- 		goto out;
- 	}
  
--	ret = hdcp->shim->check_2_2_link(dig_port);
-+	ret = hdcp->shim->check_2_2_link(dig_port, connector);
- 	if (ret == HDCP_LINK_PROTECTED) {
- 		if (hdcp->value != DRM_MODE_CONTENT_PROTECTION_UNDESIRED) {
- 			intel_hdcp_update_value(connector,
-diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
-index 0788de04711b..bd0d91101464 100644
---- a/drivers/gpu/drm/i915/display/intel_hdmi.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
-@@ -1734,7 +1734,8 @@ int intel_hdmi_hdcp2_read_msg(struct intel_digital_port *dig_port,
+-	if (!intel_dp_hdcp_check_link(dig_port, connector))
+-		return false;
+-
+ 	ret = drm_dp_send_query_stream_enc_status(&intel_dp->mst_mgr,
+ 						  connector->port, &reply);
+ 	if (ret) {
+@@ -722,6 +718,70 @@ bool intel_dp_mst_hdcp_check_link(struct intel_digital_port *dig_port,
+ 	return reply.auth_completed && reply.encryption_enabled;
  }
  
- static
--int intel_hdmi_hdcp2_check_link(struct intel_digital_port *dig_port)
-+int intel_hdmi_hdcp2_check_link(struct intel_digital_port *dig_port,
-+				struct intel_connector *connector)
- {
- 	u8 rx_status[HDCP_2_2_HDMI_RXSTATUS_LEN];
- 	int ret;
++static
++bool intel_dp_mst_hdcp_check_link(struct intel_digital_port *dig_port,
++				  struct intel_connector *connector)
++{
++	if (!intel_dp_hdcp_check_link(dig_port, connector))
++		return false;
++
++	return intel_dp_mst_get_qses_status(dig_port, connector);
++}
++
++static int
++intel_dp_mst_hdcp2_strem_encryption(struct intel_digital_port *dig_port,
++				    bool enable)
++{
++	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
++	struct intel_dp *dp = &dig_port->dp;
++	struct intel_hdcp *hdcp = &dp->attached_connector->hdcp;
++	enum port port = dig_port->base.port;
++	/* HDCP2.x register uses stream transcoder */
++	enum transcoder cpu_transcoder = hdcp->stream_transcoder;
++	int ret;
++
++	if (enable && (intel_de_read(i915, HDCP2_AUTH_STREAM(i915, cpu_transcoder, port)) &
++	    AUTH_STREAM_TYPE) != hdcp->content_type) {
++		drm_err(&i915->drm, "Seurity f/w didn't set correct auth strem_type\n");
++		return -EINVAL;
++	}
++
++	ret = intel_dp_mst_toggle_select_hdcp_stream(dig_port, enable);
++	if (ret)
++		return ret;
++
++	/* Wait for encryption confirmation */
++	if (intel_de_wait_for_register(i915,
++				       HDCP2_STREAM_STATUS(i915, cpu_transcoder, port),
++				       STREAM_ENCRYPTION_STATUS,
++				       enable ? STREAM_ENCRYPTION_STATUS : 0,
++				       HDCP_ENCRYPT_STATUS_CHANGE_TIMEOUT_MS)) {
++		drm_err(&i915->drm, "Timed out waiting for stream encryption %s\n",
++			enable ? "enabled" : "disabled");
++		return -ETIMEDOUT;
++	}
++
++	return 0;
++}
++
++/*
++ * DP v2.0 I.3.3 ignore the stream signature L' is QSES reply msg reply.
++ * I.3.5 MST source device may use a QSES msg to query downstream status
++ * for a particular stream.
++ */
++static
++int intel_dp_mst_hdcp2_check_link(struct intel_digital_port *dig_port,
++				  struct intel_connector *connector)
++{
++	int ret;
++
++	ret = intel_dp_hdcp2_check_link(dig_port, connector);
++	if (ret)
++		return ret;
++
++	return intel_dp_mst_get_qses_status(dig_port, connector) ? 0 : -EINVAL;
++}
++
+ static const struct intel_hdcp_shim intel_dp_mst_hdcp_shim = {
+ 	.write_an_aksv = intel_dp_hdcp_write_an_aksv,
+ 	.read_bksv = intel_dp_hdcp_read_bksv,
+@@ -735,7 +795,12 @@ static const struct intel_hdcp_shim intel_dp_mst_hdcp_shim = {
+ 	.stream_encryption = intel_dp_mst_hdcp_strem_encryption,
+ 	.check_link = intel_dp_mst_hdcp_check_link,
+ 	.hdcp_capable = intel_dp_hdcp_capable,
+-
++	.write_2_2_msg = intel_dp_hdcp2_write_msg,
++	.read_2_2_msg = intel_dp_hdcp2_read_msg,
++	.config_stream_type = intel_dp_hdcp2_config_stream_type,
++	.stream_2_2_encryption = intel_dp_mst_hdcp2_strem_encryption,
++	.check_2_2_link = intel_dp_mst_hdcp2_check_link,
++	.hdcp_2_2_capable = intel_dp_hdcp2_capable,
+ 	.protocol = HDCP_PROTOCOL_DP,
+ };
+ 
 -- 
 2.26.2
 
