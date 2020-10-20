@@ -2,57 +2,52 @@ Return-Path: <SRS0=qNAp=D3=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+X-Spam-Status: No, score=-11.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6D20BC388F7
-	for <intel-gfx@archiver.kernel.org>; Tue, 20 Oct 2020 16:34:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 383D2C388F9
+	for <intel-gfx@archiver.kernel.org>; Tue, 20 Oct 2020 16:34:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 03E8F2224A
-	for <intel-gfx@archiver.kernel.org>; Tue, 20 Oct 2020 16:34:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 03E8F2224A
+	by mail.kernel.org (Postfix) with ESMTPS id DA75E2224A
+	for <intel-gfx@archiver.kernel.org>; Tue, 20 Oct 2020 16:34:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DA75E2224A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7CE306F446;
-	Tue, 20 Oct 2020 16:33:51 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E6756F43C;
- Tue, 20 Oct 2020 16:33:34 +0000 (UTC)
-IronPort-SDR: 2uIfksc4RLZP7BJFiA1AfZJyKbKssszV3xgMADiStiPLBjy6tPp8TMqOYSIP+/Nk6xqFOzpaQx
- CnJawHf5qGcA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9780"; a="167360348"
-X-IronPort-AV: E=Sophos;i="5.77,397,1596524400"; d="scan'208";a="167360348"
+	by gabe.freedesktop.org (Postfix) with ESMTP id EEF6C6F43C;
+	Tue, 20 Oct 2020 16:33:52 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 69AB86ED72;
+ Tue, 20 Oct 2020 16:33:31 +0000 (UTC)
+IronPort-SDR: YDTYz2sS3r06T9YgLTQzj4xIQjjknZcg5MLihRPDoIxoZAFWg9lgfX6+KXz+0qdP9/Gux5SPO0
+ 1N4bLLR8eGzw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9780"; a="166461995"
+X-IronPort-AV: E=Sophos;i="5.77,397,1596524400"; d="scan'208";a="166461995"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Oct 2020 09:33:33 -0700
-IronPort-SDR: 7DWK4GuV1gRKvndPrVoB3avGU9GCacBSud3QoFjWaHYGfRdpwFiEqMoLOHLyGbSkFMyoRzMHmQ
- MVPSV0ZjmUog==
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Oct 2020 09:33:22 -0700
+IronPort-SDR: ne1ypfFLMOgWSLi3ZmPB1hwYv7vQbBGv9lLnSr5rjN6K/QjbsQZVBPhtr7I7wfDHjmCCkRTQl0
+ f8PiFalBtZoQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.77,397,1596524400"; d="scan'208";a="316083939"
+X-IronPort-AV: E=Sophos;i="5.77,397,1596524400"; d="scan'208";a="316083863"
 Received: from plaxmina-desktop.iind.intel.com ([10.145.162.62])
- by orsmga003.jf.intel.com with ESMTP; 20 Oct 2020 09:33:27 -0700
+ by orsmga003.jf.intel.com with ESMTP; 20 Oct 2020 09:33:17 -0700
 From: Pankaj Bharadiya <pankaj.laxminarayan.bharadiya@intel.com>
 To: jani.nikula@linux.intel.com, daniel@ffwll.ch,
  intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  ville.syrjala@linux.intel.com, daniels@collabora.com,
- sameer.lattannavar@intel.com, contact@emersion.fr,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@linux.ie>
-Date: Tue, 20 Oct 2020 21:44:24 +0530
-Message-Id: <20201020161427.6941-3-pankaj.laxminarayan.bharadiya@intel.com>
+ sameer.lattannavar@intel.com, contact@emersion.fr
+Date: Tue, 20 Oct 2020 21:44:22 +0530
+Message-Id: <20201020161427.6941-1-pankaj.laxminarayan.bharadiya@intel.com>
 X-Mailer: git-send-email 2.23.0
-In-Reply-To: <20201020161427.6941-1-pankaj.laxminarayan.bharadiya@intel.com>
-References: <20201020161427.6941-1-pankaj.laxminarayan.bharadiya@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v7 2/4] drm/i915: Introduce scaling filter
- related registers and bit fields
+Subject: [Intel-gfx] [PATCH v7 0/4] Introduce drm scaling filter property
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,67 +60,70 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-SW50cm9kdWNlIHNjYWxlciByZWdpc3RlcnMgYW5kIGJpdCBmaWVsZHMgbmVlZGVkIHRvIGNvbmZp
-Z3VyZSB0aGUKc2NhbGluZyBmaWx0ZXIgaW4gcHJncmFtbWVkIG1vZGUgYW5kIGNvbmZpZ3VyZSBz
-Y2FsaW5nIGZpbHRlcgpjb2VmZmljaWVudHMuCgpjaGFuZ2VzIHNpbmNlIHYzOgoqIE5vbmUKY2hh
-bmdlcyBzaW5jZSB2MjoKKiBDaGFuZ2UgbWFjcm8gbmFtZXMgdG8gQ05MXyogYW5kICB1c2UgKyhz
-ZXQpKjggaW5zdGVhZCBvZiBhZGRpbmcKICBhbm90aGVyIHRyaXAgdGhyb3VnaCBfUElDS19FVkVO
-IChWaWxsZSkuCmNoYW5nZXMgc2luY2UgdjE6CiogTm9uZQpjaGFuZ2VzIHNpbmNlIFJGQzoKKiBQ
-YXJhbWV0cml6ZSBzY2FsZXIgY29lZmZpZW50IG1hY3JvcyBieSAnc2V0JyAoVmlsbGUpCgpSZXZp
-ZXdlZC1ieTogVmlsbGUgU3lyasOkbMOkIDx2aWxsZS5zeXJqYWxhQGxpbnV4LmludGVsLmNvbT4K
-UmV2aWV3ZWQtYnk6IFVtYSBTaGFua2FyIDx1bWEuc2hhbmthckBpbnRlbC5jb20+ClNpZ25lZC1v
-ZmYtYnk6IFNoYXNoYW5rIFNoYXJtYSA8c2hhc2hhbmsuc2hhcm1hQGludGVsLmNvbT4KU2lnbmVk
-LW9mZi1ieTogQW5raXQgTmF1dGl5YWwgPGFua2l0LmsubmF1dGl5YWxAaW50ZWwuY29tPgpTaWdu
-ZWQtb2ZmLWJ5OiBQYW5rYWogQmhhcmFkaXlhIDxwYW5rYWoubGF4bWluYXJheWFuLmJoYXJhZGl5
-YUBpbnRlbC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV9yZWcuaCB8IDIyICsr
-KysrKysrKysrKysrKysrKysrKysKIDEgZmlsZSBjaGFuZ2VkLCAyMiBpbnNlcnRpb25zKCspCgpk
-aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV9yZWcuaCBiL2RyaXZlcnMvZ3B1
-L2RybS9pOTE1L2k5MTVfcmVnLmgKaW5kZXggYzM4OTAxZTJmODFjLi42MGExMTk1YTA2ZTIgMTAw
-NjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfcmVnLmgKKysrIGIvZHJpdmVycy9n
-cHUvZHJtL2k5MTUvaTkxNV9yZWcuaApAQCAtNzM4Myw2ICs3MzgzLDcgQEAgZW51bSB7CiAjZGVm
-aW5lIFBTX1BMQU5FX1NFTChwbGFuZSkgKCgocGxhbmUpICsgMSkgPDwgMjUpCiAjZGVmaW5lIFBT
-X0ZJTFRFUl9NQVNLICAgICAgICAgKDMgPDwgMjMpCiAjZGVmaW5lIFBTX0ZJTFRFUl9NRURJVU0g
-ICAgICAgKDAgPDwgMjMpCisjZGVmaW5lIFBTX0ZJTFRFUl9QUk9HUkFNTUVEICAgKDEgPDwgMjMp
-CiAjZGVmaW5lIFBTX0ZJTFRFUl9FREdFX0VOSEFOQ0UgKDIgPDwgMjMpCiAjZGVmaW5lIFBTX0ZJ
-TFRFUl9CSUxJTkVBUiAgICAgKDMgPDwgMjMpCiAjZGVmaW5lIFBTX1ZFUlQzVEFQICAgICAgICAg
-ICAgKDEgPDwgMjEpCkBAIC03Mzk3LDYgKzczOTgsMTAgQEAgZW51bSB7CiAjZGVmaW5lIFBTX1ZB
-REFQVF9NT0RFX01PU1RfQURBUFQgICgzIDw8IDUpCiAjZGVmaW5lIFBTX1BMQU5FX1lfU0VMX01B
-U0sgICg3IDw8IDUpCiAjZGVmaW5lIFBTX1BMQU5FX1lfU0VMKHBsYW5lKSAoKChwbGFuZSkgKyAx
-KSA8PCA1KQorI2RlZmluZSBQU19ZX1ZFUlRfRklMVEVSX1NFTEVDVChzZXQpICAgKChzZXQpIDw8
-IDQpCisjZGVmaW5lIFBTX1lfSE9SWl9GSUxURVJfU0VMRUNUKHNldCkgICAoKHNldCkgPDwgMykK
-KyNkZWZpbmUgUFNfVVZfVkVSVF9GSUxURVJfU0VMRUNUKHNldCkgICgoc2V0KSA8PCAyKQorI2Rl
-ZmluZSBQU19VVl9IT1JaX0ZJTFRFUl9TRUxFQ1Qoc2V0KSAgKChzZXQpIDw8IDEpCiAKICNkZWZp
-bmUgX1BTX1BXUl9HQVRFXzFBICAgICAweDY4MTYwCiAjZGVmaW5lIF9QU19QV1JfR0FURV8yQSAg
-ICAgMHg2ODI2MApAQCAtNzQ1OSw2ICs3NDY0LDE3IEBAIGVudW0gewogI2RlZmluZSBfUFNfRUND
-X1NUQVRfMkIgICAgIDB4NjhBRDAKICNkZWZpbmUgX1BTX0VDQ19TVEFUXzFDICAgICAweDY5MUQw
-CiAKKyNkZWZpbmUgX1BTX0NPRUZfU0VUMF9JTkRFWF8xQQkgICAweDY4MTk4CisjZGVmaW5lIF9Q
-U19DT0VGX1NFVDBfSU5ERVhfMkEJICAgMHg2ODI5OAorI2RlZmluZSBfUFNfQ09FRl9TRVQwX0lO
-REVYXzFCCSAgIDB4Njg5OTgKKyNkZWZpbmUgX1BTX0NPRUZfU0VUMF9JTkRFWF8yQgkgICAweDY4
-QTk4CisjZGVmaW5lIFBTX0NPRUVfSU5ERVhfQVVUT19JTkMJICAgKDEgPDwgMTApCisKKyNkZWZp
-bmUgX1BTX0NPRUZfU0VUMF9EQVRBXzFBCSAgIDB4NjgxOUMKKyNkZWZpbmUgX1BTX0NPRUZfU0VU
-MF9EQVRBXzJBCSAgIDB4NjgyOUMKKyNkZWZpbmUgX1BTX0NPRUZfU0VUMF9EQVRBXzFCCSAgIDB4
-Njg5OUMKKyNkZWZpbmUgX1BTX0NPRUZfU0VUMF9EQVRBXzJCCSAgIDB4NjhBOUMKKwogI2RlZmlu
-ZSBfSUQoaWQsIGEsIGIpIF9QSUNLX0VWRU4oaWQsIGEsIGIpCiAjZGVmaW5lIFNLTF9QU19DVFJM
-KHBpcGUsIGlkKSBfTU1JT19QSVBFKHBpcGUsICAgICAgICBcCiAJCQlfSUQoaWQsIF9QU18xQV9D
-VFJMLCBfUFNfMkFfQ1RSTCksICAgICAgIFwKQEAgLTc0ODcsNyArNzUwMywxMyBAQCBlbnVtIHsK
-ICNkZWZpbmUgU0tMX1BTX0VDQ19TVEFUKHBpcGUsIGlkKSAgX01NSU9fUElQRShwaXBlLCAgICAg
-XAogCQkJX0lEKGlkLCBfUFNfRUNDX1NUQVRfMUEsIF9QU19FQ0NfU1RBVF8yQSksICAgXAogCQkJ
-X0lEKGlkLCBfUFNfRUNDX1NUQVRfMUIsIF9QU19FQ0NfU1RBVF8yQikpCisjZGVmaW5lIENOTF9Q
-U19DT0VGX0lOREVYX1NFVChwaXBlLCBpZCwgc2V0KSAgX01NSU9fUElQRShwaXBlLCAgICBcCisJ
-CQlfSUQoaWQsIF9QU19DT0VGX1NFVDBfSU5ERVhfMUEsIF9QU19DT0VGX1NFVDBfSU5ERVhfMkEp
-ICsgKHNldCkgKiA4LCBcCisJCQlfSUQoaWQsIF9QU19DT0VGX1NFVDBfSU5ERVhfMUIsIF9QU19D
-T0VGX1NFVDBfSU5ERVhfMkIpICsgKHNldCkgKiA4KQogCisjZGVmaW5lIENOTF9QU19DT0VGX0RB
-VEFfU0VUKHBpcGUsIGlkLCBzZXQpICBfTU1JT19QSVBFKHBpcGUsICAgICBcCisJCQlfSUQoaWQs
-IF9QU19DT0VGX1NFVDBfREFUQV8xQSwgX1BTX0NPRUZfU0VUMF9EQVRBXzJBKSArIChzZXQpICog
-OCwgXAorCQkJX0lEKGlkLCBfUFNfQ09FRl9TRVQwX0RBVEFfMUIsIF9QU19DT0VGX1NFVDBfREFU
-QV8yQikgKyAoc2V0KSAqIDgpCiAvKiBsZWdhY3kgcGFsZXR0ZSAqLwogI2RlZmluZSBfTEdDX1BB
-TEVUVEVfQSAgICAgICAgICAgMHg0YTAwMAogI2RlZmluZSBfTEdDX1BBTEVUVEVfQiAgICAgICAg
-ICAgMHg0YTgwMAotLSAKMi4yMy4wCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fXwpJbnRlbC1nZnggbWFpbGluZyBsaXN0CkludGVsLWdmeEBsaXN0cy5mcmVl
-ZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
-by9pbnRlbC1nZngK
+Kodi patches are reviewed and accepted for merge now.
+
+Here is the userspace patch series link:
+https://github.com/xbmc/xbmc/pull/18567
+
+Background on Integer scaling:
+
+Integer scaling (IS) is a nearest-neighbor upscaling technique that
+simply scales up the existing pixels by an integer (i.e., whole
+number) multiplier. Nearest-neighbor (NN) interpolation works by
+filling in the missing color values in the upscaled image with that of
+the coordinate-mapped nearest source pixel value.
+
+Both IS and NN preserve the clarity of the original image. In
+contrast, traditional upscaling algorithms, such as bilinear or
+bicubic interpolation, result in blurry upscaled images because they
+employ interpolation techniques that smooth out the transition from
+one pixel to another.  Therefore, integer scaling is particularly
+useful for pixel art games that rely on sharp, blocky images to
+deliver their distinctive look.
+
+Many gaming communities have been asking for integer-mode scaling
+support, some links and background:
+
+https://software.intel.com/en-us/articles/integer-scaling-support-on-intel-graphics
+http://tanalin.com/en/articles/lossless-scaling/
+https://community.amd.com/thread/209107
+https://www.nvidia.com/en-us/geforce/forums/game-ready-drivers/13/1002/feature-request-nonblurry-upscaling-at-integer-rat/
+
+changes since v6:
+* Move property doc to existing "Standard CRTC Properties" and
+  "Plane Composition Properties" doc comments (Simon)
+* Drop 0002 patch
+
+Pankaj Bharadiya (4):
+  drm: Introduce plane and CRTC scaling filter properties
+  drm/i915: Introduce scaling filter related registers and bit fields
+  drm/i915/display: Add Nearest-neighbor based integer scaling support
+  drm/i915: Enable scaling filter for plane and CRTC
+
+ drivers/gpu/drm/drm_atomic_uapi.c             |   8 ++
+ drivers/gpu/drm/drm_blend.c                   |  13 ++
+ drivers/gpu/drm/drm_crtc.c                    |  40 ++++++
+ drivers/gpu/drm/drm_crtc_internal.h           |   3 +
+ drivers/gpu/drm/drm_plane.c                   |  73 +++++++++++
+ .../gpu/drm/i915/display/intel_atomic_plane.c |   1 +
+ drivers/gpu/drm/i915/display/intel_display.c  | 117 +++++++++++++++++-
+ drivers/gpu/drm/i915/display/intel_display.h  |   4 +
+ .../drm/i915/display/intel_display_types.h    |   2 +
+ drivers/gpu/drm/i915/display/intel_sprite.c   |  15 ++-
+ drivers/gpu/drm/i915/i915_reg.h               |  22 ++++
+ include/drm/drm_crtc.h                        |  16 +++
+ include/drm/drm_plane.h                       |  21 ++++
+ 13 files changed, 331 insertions(+), 4 deletions(-)
+
+-- 
+2.23.0
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
