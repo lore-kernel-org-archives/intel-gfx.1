@@ -2,50 +2,41 @@ Return-Path: <SRS0=oW1W=D4=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BB019C56202
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Oct 2020 19:14:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BE13CC4363A
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Oct 2020 19:20:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4903D2415B
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Oct 2020 19:14:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4903D2415B
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 2C36F2415B
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Oct 2020 19:20:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2C36F2415B
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7FE256F4B0;
-	Wed, 21 Oct 2020 19:14:00 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C85D6EE41
- for <intel-gfx@lists.freedesktop.org>; Wed, 21 Oct 2020 19:13:58 +0000 (UTC)
-IronPort-SDR: BB8wahyG19sOAehEsM4PUhbrStxb3COoa0/odFBy7w5EZdgp3EJoRdPZ4l6WREIp++E75oAEvq
- Z0a93cERv5mQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9781"; a="155206505"
-X-IronPort-AV: E=Sophos;i="5.77,401,1596524400"; d="scan'208";a="155206505"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Oct 2020 12:13:57 -0700
-IronPort-SDR: 54k/jwYwEwiP8YFEH2xTaBxroCNSG2LOeI02FIfFytnL1liwFfjO5BHmNhvzN1sg0wBMs3PMCF
- T+AgKYsKKvkw==
-X-IronPort-AV: E=Sophos;i="5.77,401,1596524400"; d="scan'208";a="533651653"
-Received: from dceraolo-linux.fm.intel.com ([10.1.27.145])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Oct 2020 12:13:57 -0700
-From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Wed, 21 Oct 2020 12:14:54 -0700
-Message-Id: <20201021191454.13418-1-daniele.ceraolospurio@intel.com>
-X-Mailer: git-send-email 2.24.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 53B016F4B1;
+	Wed, 21 Oct 2020 19:20:45 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 59C7D6F4B1;
+ Wed, 21 Oct 2020 19:20:43 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 51EF2A00CC;
+ Wed, 21 Oct 2020 19:20:43 +0000 (UTC)
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH] drm/i915/guc: skip disabling CTBs before
- sanitizing the GuC
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Manasi Navare" <manasi.d.navare@intel.com>
+Date: Wed, 21 Oct 2020 19:20:43 -0000
+Message-ID: <160330804330.17471.1786504246072589534@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20201021183252.4765-1-manasi.d.navare@intel.com>
+In-Reply-To: <20201021183252.4765-1-manasi.d.navare@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_drm/i915=3A_Add_hw=2Epipe=5Fmode_to_allow_bigjoiner_pipe/tr?=
+ =?utf-8?q?anscoder_split?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,67 +49,33 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-If we're about to sanitize the GuC, something might have gone wrong
-beforehand, so we should avoid trying to talk to it. Even if GuC is
-still running fine, the sanitize will reset its internal state and clear
-the CTB registration, so there is still no need to explicitly do so.
+== Series Details ==
 
-References: https://gitlab.freedesktop.org/drm/intel/-/issues/2469
-Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-Cc: Michal Wajdeczko <michal.wajdeczko@intel.com>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: John Harrison <John.C.Harrison@Intel.com>
----
- drivers/gpu/drm/i915/gt/uc/intel_uc.c | 8 +-------
- 1 file changed, 1 insertion(+), 7 deletions(-)
+Series: drm/i915: Add hw.pipe_mode to allow bigjoiner pipe/transcoder split
+URL   : https://patchwork.freedesktop.org/series/82931/
+State : warning
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc.c b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
-index 4e6070e95fe9..309eef9313e8 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_uc.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
-@@ -486,7 +486,7 @@ static int __uc_init_hw(struct intel_uc *uc)
- 
- 	ret = intel_guc_sample_forcewake(guc);
- 	if (ret)
--		goto err_communication;
-+		goto err_log_capture;
- 
- 	if (intel_uc_uses_guc_submission(uc))
- 		intel_guc_submission_enable(guc);
-@@ -511,8 +511,6 @@ static int __uc_init_hw(struct intel_uc *uc)
- 	/*
- 	 * We've failed to load the firmware :(
- 	 */
--err_communication:
--	guc_disable_communication(guc);
- err_log_capture:
- 	__uc_capture_load_err_log(uc);
- err_out:
-@@ -540,9 +538,6 @@ static void __uc_fini_hw(struct intel_uc *uc)
- 	if (intel_uc_uses_guc_submission(uc))
- 		intel_guc_submission_disable(guc);
- 
--	if (guc_communication_enabled(guc))
--		guc_disable_communication(guc);
--
- 	__uc_sanitize(uc);
- }
- 
-@@ -559,7 +554,6 @@ void intel_uc_reset_prepare(struct intel_uc *uc)
- 	if (!intel_guc_is_ready(guc))
- 		return;
- 
--	guc_disable_communication(guc);
- 	__uc_sanitize(uc);
- }
- 
--- 
-2.24.1
+== Summary ==
+
+$ dim checkpatch origin/drm-tip
+3060c8151734 drm/i915: Add hw.pipe_mode to allow bigjoiner pipe/transcoder split
+-:7: WARNING:TYPO_SPELLING: 'halfs' may be misspelled - perhaps 'halves'?
+#7: 
+With bigjoiner, there will be 2 pipes driving 2 halfs of 1 transcoder,
+
+-:135: CHECK:MULTIPLE_ASSIGNMENTS: multiple assignments should be avoided
+#135: FILE: drivers/gpu/drm/i915/display/intel_display.c:13457:
++	crtc_state->hw.pipe_mode = crtc_state->hw.adjusted_mode = crtc_state->uapi.adjusted_mode;
+
+total: 0 errors, 1 warnings, 1 checks, 366 lines checked
+
 
 _______________________________________________
 Intel-gfx mailing list
