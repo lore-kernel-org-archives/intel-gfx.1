@@ -2,48 +2,52 @@ Return-Path: <SRS0=0RYq=D5=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_GIT autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7E584C388F9
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 42779C5DF9E
 	for <intel-gfx@archiver.kernel.org>; Thu, 22 Oct 2020 05:41:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 255CC223FB
-	for <intel-gfx@archiver.kernel.org>; Thu, 22 Oct 2020 05:41:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 255CC223FB
+	by mail.kernel.org (Postfix) with ESMTPS id DD0622244C
+	for <intel-gfx@archiver.kernel.org>; Thu, 22 Oct 2020 05:41:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DD0622244C
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E81B66F3AA;
-	Thu, 22 Oct 2020 05:40:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A80DC6F3C2;
+	Thu, 22 Oct 2020 05:40:57 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 622536E199
- for <intel-gfx@lists.freedesktop.org>; Thu, 22 Oct 2020 05:40:53 +0000 (UTC)
-IronPort-SDR: XYGEGWjX2GW8WVQUvts51o6T73fIWggsk3S6aV4bj+nL03BaKKNdLrxw6tsytbHTkLFWNVudpK
- lDcb+dqlzTDg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9781"; a="146768359"
-X-IronPort-AV: E=Sophos;i="5.77,403,1596524400"; d="scan'208";a="146768359"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 627576F3A6
+ for <intel-gfx@lists.freedesktop.org>; Thu, 22 Oct 2020 05:40:54 +0000 (UTC)
+IronPort-SDR: iLcfHs+9qQNQYIxbDRVKxR/dapT3SradnDqwk3sDB7k9ZMpNgre5ymhJ8z5nbl0WipbTTgLLVf
+ KLPGsoTRlrqQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9781"; a="146768367"
+X-IronPort-AV: E=Sophos;i="5.77,403,1596524400"; d="scan'208";a="146768367"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Oct 2020 22:40:53 -0700
-IronPort-SDR: RLJHc6TPijl8lm+JDN2R6qwVoDInHsQKa/vlMYvyXhXOqW98fO1pjtgoU4aklavhnvTOzsFEBC
- uj1kXsbf/PUw==
-X-IronPort-AV: E=Sophos;i="5.77,403,1596524400"; d="scan'208";a="523012876"
+ 21 Oct 2020 22:40:54 -0700
+IronPort-SDR: 7UUwW8PsVbRhprfP+rNsdONJgiC66YYIwuu4NN7PvYbhf7SbZKmefAYdFcukbP7OSjA3l+Sib9
+ 8UohO66tKQuQ==
+X-IronPort-AV: E=Sophos;i="5.77,403,1596524400"; d="scan'208";a="523012896"
 Received: from labuser-z97x-ud5h.jf.intel.com ([10.165.21.211])
  by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-SHA;
- 21 Oct 2020 22:40:52 -0700
+ 21 Oct 2020 22:40:54 -0700
 From: Manasi Navare <manasi.d.navare@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 21 Oct 2020 22:42:11 -0700
-Message-Id: <20201022054223.25071-1-manasi.d.navare@intel.com>
+Date: Wed, 21 Oct 2020 22:42:18 -0700
+Message-Id: <20201022054223.25071-8-manasi.d.navare@intel.com>
 X-Mailer: git-send-email 2.19.1
+In-Reply-To: <20201022054223.25071-1-manasi.d.navare@intel.com>
+References: <20201022054223.25071-1-manasi.d.navare@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v11 00/12] Big joiner enabling
+Subject: [Intel-gfx] [PATCH v11 07/12] drm/i915/dp: Modify VDSC helpers to
+ configure DSC for Bigjoiner slave
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,48 +65,385 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Thsi series has all the previous review commenst addressed
-and Patches split into smaller patches for cleaner bisect.
+Make vdsc work when no output is enabled. The big joiner needs VDSC
+on the slave, so enable it and set the appropriate bits.
+So remove encoder usage from dsc functions.
 
-Maarten Lankhorst (7):
-  HAX to make DSC work on the icelake test system
-  drm/i915: Add hw.pipe_mode to allow bigjoiner pipe/transcoder split
-  drm/i915/dp: Allow big joiner modes in intel_dp_mode_valid(), v3.
-  drm/i915: Try to make bigjoiner work in atomic check
-  drm/i915: Link planes in a bigjoiner configuration, v3.
-  drm/i915: Add bigjoiner aware plane clipping checks
-  drm/i915: Add debugfs dumping for bigjoiner, v3.
+Signed-off-by: Manasi Navare <manasi.d.navare@intel.com>
+---
+ drivers/gpu/drm/i915/display/icl_dsi.c       |   2 +-
+ drivers/gpu/drm/i915/display/intel_ddi.c     |   9 +-
+ drivers/gpu/drm/i915/display/intel_display.c |   3 +
+ drivers/gpu/drm/i915/display/intel_dp.c      |   6 +-
+ drivers/gpu/drm/i915/display/intel_vdsc.c    | 201 ++++++++++---------
+ drivers/gpu/drm/i915/display/intel_vdsc.h    |   6 +-
+ 6 files changed, 110 insertions(+), 117 deletions(-)
 
-Manasi Navare (5):
-  drm/i915/dp: Some reshuffling in mode_valid as prep for bigjoiner
-    modes
-  drm/i915/dp: Prep for bigjoiner atomic check
-  drm/i915/dp: Modify VDSC helpers to configure DSC for Bigjoiner slave
-  drm/i915/dp: Master/Slave enable/disable sequence for bigjoiner
-  drm/i915: HW state readout for Bigjoiner case
-
- drivers/gpu/drm/drm_dp_helper.c               |   4 +-
- drivers/gpu/drm/i915/display/icl_dsi.c        |   2 -
- drivers/gpu/drm/i915/display/intel_atomic.c   |   9 +-
- drivers/gpu/drm/i915/display/intel_atomic.h   |   3 +-
- .../gpu/drm/i915/display/intel_atomic_plane.c | 113 ++-
- .../gpu/drm/i915/display/intel_atomic_plane.h |   7 +-
- drivers/gpu/drm/i915/display/intel_ddi.c      |  68 +-
- drivers/gpu/drm/i915/display/intel_display.c  | 922 ++++++++++++++----
- drivers/gpu/drm/i915/display/intel_display.h  |  23 +-
- .../drm/i915/display/intel_display_debugfs.c  |  29 +-
- .../drm/i915/display/intel_display_types.h    |  32 +-
- drivers/gpu/drm/i915/display/intel_dp.c       | 140 ++-
- drivers/gpu/drm/i915/display/intel_dp_mst.c   |   2 +-
- drivers/gpu/drm/i915/display/intel_dsi.c      |   2 +-
- drivers/gpu/drm/i915/display/intel_hdmi.c     |   2 +-
- drivers/gpu/drm/i915/display/intel_sprite.c   |  21 +-
- drivers/gpu/drm/i915/display/intel_vdsc.c     | 201 ++--
- drivers/gpu/drm/i915/display/intel_vdsc.h     |   6 +-
- drivers/gpu/drm/i915/intel_pm.c               |  96 +-
- include/drm/drm_dp_helper.h                   |   1 +
- 20 files changed, 1245 insertions(+), 438 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/display/icl_dsi.c b/drivers/gpu/drm/i915/display/icl_dsi.c
+index 096652921453..0fecf372be11 100644
+--- a/drivers/gpu/drm/i915/display/icl_dsi.c
++++ b/drivers/gpu/drm/i915/display/icl_dsi.c
+@@ -1492,7 +1492,7 @@ static void gen11_dsi_get_config(struct intel_encoder *encoder,
+ 	struct intel_crtc *crtc = to_intel_crtc(pipe_config->uapi.crtc);
+ 	struct intel_dsi *intel_dsi = enc_to_intel_dsi(encoder);
+ 
+-	intel_dsc_get_config(encoder, pipe_config);
++	intel_dsc_get_config(pipe_config);
+ 
+ 	/* FIXME: adapt icl_ddi_clock_get() for DSI and use that? */
+ 	pipe_config->port_clock = intel_dpll_get_freq(i915,
+diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
+index 09811be08cfe..59db465ea7df 100644
+--- a/drivers/gpu/drm/i915/display/intel_ddi.c
++++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+@@ -2216,13 +2216,6 @@ static void intel_ddi_get_power_domains(struct intel_encoder *encoder,
+ 	    intel_phy_is_tc(dev_priv, phy))
+ 		intel_display_power_get(dev_priv,
+ 					intel_ddi_main_link_aux_domain(dig_port));
+-
+-	/*
+-	 * VDSC power is needed when DSC is enabled
+-	 */
+-	if (crtc_state->dsc.compression_enable)
+-		intel_display_power_get(dev_priv,
+-					intel_dsc_power_domain(crtc_state));
+ }
+ 
+ void intel_ddi_enable_pipe_clock(struct intel_encoder *encoder,
+@@ -4408,7 +4401,7 @@ void intel_ddi_get_config(struct intel_encoder *encoder,
+ 	if (drm_WARN_ON(&dev_priv->drm, transcoder_is_dsi(cpu_transcoder)))
+ 		return;
+ 
+-	intel_dsc_get_config(encoder, pipe_config);
++	intel_dsc_get_config(pipe_config);
+ 
+ 	temp = intel_de_read(dev_priv, TRANS_DDI_FUNC_CTL(cpu_transcoder));
+ 	if (temp & TRANS_DDI_PHSYNC)
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index ffee6afe4ddb..338fa48a144d 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -7602,6 +7602,9 @@ static u64 get_crtc_power_domains(struct intel_crtc_state *crtc_state)
+ 	if (crtc_state->shared_dpll)
+ 		mask |= BIT_ULL(POWER_DOMAIN_DISPLAY_CORE);
+ 
++	if (crtc_state->dsc.compression_enable)
++		mask |= BIT_ULL(intel_dsc_power_domain(crtc_state));
++
+ 	return mask;
+ }
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index cb604899a881..3ce419e71a83 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -2066,12 +2066,10 @@ static bool intel_dp_supports_fec(struct intel_dp *intel_dp,
+ static bool intel_dp_supports_dsc(struct intel_dp *intel_dp,
+ 				  const struct intel_crtc_state *crtc_state)
+ {
+-	struct intel_encoder *encoder = &dp_to_dig_port(intel_dp)->base;
+-
+-	if (!intel_dp_is_edp(intel_dp) && !crtc_state->fec_enable)
++	if (intel_crtc_has_type(crtc_state, INTEL_OUTPUT_DP) && !crtc_state->fec_enable)
+ 		return false;
+ 
+-	return intel_dsc_source_support(encoder, crtc_state) &&
++	return intel_dsc_source_support(crtc_state) &&
+ 		drm_dp_sink_supports_dsc(intel_dp->dsc_dpcd);
+ }
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_vdsc.c b/drivers/gpu/drm/i915/display/intel_vdsc.c
+index c5735c365659..e2716a67b281 100644
+--- a/drivers/gpu/drm/i915/display/intel_vdsc.c
++++ b/drivers/gpu/drm/i915/display/intel_vdsc.c
+@@ -332,11 +332,10 @@ static const struct rc_parameters *get_rc_params(u16 compressed_bpp,
+ 	return &rc_parameters[row_index][column_index];
+ }
+ 
+-bool intel_dsc_source_support(struct intel_encoder *encoder,
+-			      const struct intel_crtc_state *crtc_state)
++bool intel_dsc_source_support(const struct intel_crtc_state *crtc_state)
+ {
+ 	const struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
+-	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
++	struct drm_i915_private *i915 = to_i915(crtc->base.dev);
+ 	enum transcoder cpu_transcoder = crtc_state->cpu_transcoder;
+ 	enum pipe pipe = crtc->pipe;
+ 
+@@ -490,11 +489,10 @@ intel_dsc_power_domain(const struct intel_crtc_state *crtc_state)
+ 		return POWER_DOMAIN_TRANSCODER_VDSC_PW2;
+ }
+ 
+-static void intel_dsc_pps_configure(struct intel_encoder *encoder,
+-				    const struct intel_crtc_state *crtc_state)
++static void intel_dsc_pps_configure(const struct intel_crtc_state *crtc_state)
+ {
+ 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
+-	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
++	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
+ 	const struct drm_dsc_config *vdsc_cfg = &crtc_state->dsc.config;
+ 	enum pipe pipe = crtc->pipe;
+ 	u32 pps_val = 0;
+@@ -503,6 +501,9 @@ static void intel_dsc_pps_configure(struct intel_encoder *encoder,
+ 	u8 num_vdsc_instances = (crtc_state->dsc.dsc_split) ? 2 : 1;
+ 	int i = 0;
+ 
++	if (crtc_state->bigjoiner)
++		num_vdsc_instances *= 2;
++
+ 	/* Populate PICTURE_PARAMETER_SET_0 registers */
+ 	pps_val = DSC_VER_MAJ | vdsc_cfg->dsc_version_minor <<
+ 		DSC_VER_MIN_SHIFT |
+@@ -973,55 +974,6 @@ static void intel_dsc_pps_configure(struct intel_encoder *encoder,
+ 	}
+ }
+ 
+-void intel_dsc_get_config(struct intel_encoder *encoder,
+-			  struct intel_crtc_state *crtc_state)
+-{
+-	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
+-	struct drm_dsc_config *vdsc_cfg = &crtc_state->dsc.config;
+-	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
+-	enum pipe pipe = crtc->pipe;
+-	enum intel_display_power_domain power_domain;
+-	intel_wakeref_t wakeref;
+-	u32 dss_ctl1, dss_ctl2, val;
+-
+-	if (!intel_dsc_source_support(encoder, crtc_state))
+-		return;
+-
+-	power_domain = intel_dsc_power_domain(crtc_state);
+-
+-	wakeref = intel_display_power_get_if_enabled(dev_priv, power_domain);
+-	if (!wakeref)
+-		return;
+-
+-	if (!is_pipe_dsc(crtc_state)) {
+-		dss_ctl1 = intel_de_read(dev_priv, DSS_CTL1);
+-		dss_ctl2 = intel_de_read(dev_priv, DSS_CTL2);
+-	} else {
+-		dss_ctl1 = intel_de_read(dev_priv, ICL_PIPE_DSS_CTL1(pipe));
+-		dss_ctl2 = intel_de_read(dev_priv, ICL_PIPE_DSS_CTL2(pipe));
+-	}
+-
+-	crtc_state->dsc.compression_enable = dss_ctl2 & LEFT_BRANCH_VDSC_ENABLE;
+-	if (!crtc_state->dsc.compression_enable)
+-		goto out;
+-
+-	crtc_state->dsc.dsc_split = (dss_ctl2 & RIGHT_BRANCH_VDSC_ENABLE) &&
+-		(dss_ctl1 & JOINER_ENABLE);
+-
+-	/* FIXME: add more state readout as needed */
+-
+-	/* PPS1 */
+-	if (!is_pipe_dsc(crtc_state))
+-		val = intel_de_read(dev_priv, DSCA_PICTURE_PARAMETER_SET_1);
+-	else
+-		val = intel_de_read(dev_priv,
+-				    ICL_DSC0_PICTURE_PARAMETER_SET_1(pipe));
+-	vdsc_cfg->bits_per_pixel = val;
+-	crtc_state->dsc.compressed_bpp = vdsc_cfg->bits_per_pixel >> 4;
+-out:
+-	intel_display_power_put(dev_priv, power_domain, wakeref);
+-}
+-
+ static void intel_dsc_dsi_pps_write(struct intel_encoder *encoder,
+ 				    const struct intel_crtc_state *crtc_state)
+ {
+@@ -1060,77 +1012,126 @@ static void intel_dsc_dp_pps_write(struct intel_encoder *encoder,
+ 				  sizeof(dp_dsc_pps_sdp));
+ }
+ 
++static i915_reg_t dss_ctl1_reg(const struct intel_crtc_state *crtc_state)
++{
++	enum pipe pipe = to_intel_crtc(crtc_state->uapi.crtc)->pipe;
++
++	if (crtc_state->cpu_transcoder == TRANSCODER_EDP)
++		return DSS_CTL1;
++
++	return ICL_PIPE_DSS_CTL1(pipe);
++}
++
++static i915_reg_t dss_ctl2_reg(const struct intel_crtc_state *crtc_state)
++{
++	enum pipe pipe = to_intel_crtc(crtc_state->uapi.crtc)->pipe;
++
++	if (crtc_state->cpu_transcoder == TRANSCODER_EDP)
++		return DSS_CTL2;
++
++	return ICL_PIPE_DSS_CTL2(pipe);
++}
++
+ void intel_dsc_enable(struct intel_encoder *encoder,
+ 		      const struct intel_crtc_state *crtc_state)
+ {
+ 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
+-	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
+-	enum pipe pipe = crtc->pipe;
+-	i915_reg_t dss_ctl1_reg, dss_ctl2_reg;
++	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
+ 	u32 dss_ctl1_val = 0;
+ 	u32 dss_ctl2_val = 0;
+ 
+ 	if (!crtc_state->dsc.compression_enable)
+ 		return;
+ 
+-	/* Enable Power wells for VDSC/joining */
+-	intel_display_power_get(dev_priv,
+-				intel_dsc_power_domain(crtc_state));
+-
+-	intel_dsc_pps_configure(encoder, crtc_state);
++	intel_dsc_pps_configure(crtc_state);
+ 
+-	if (encoder->type == INTEL_OUTPUT_DSI)
+-		intel_dsc_dsi_pps_write(encoder, crtc_state);
+-	else
+-		intel_dsc_dp_pps_write(encoder, crtc_state);
+-
+-	if (!is_pipe_dsc(crtc_state)) {
+-		dss_ctl1_reg = DSS_CTL1;
+-		dss_ctl2_reg = DSS_CTL2;
+-	} else {
+-		dss_ctl1_reg = ICL_PIPE_DSS_CTL1(pipe);
+-		dss_ctl2_reg = ICL_PIPE_DSS_CTL2(pipe);
++	if (!crtc_state->bigjoiner_slave) {
++		if (intel_crtc_has_type(crtc_state, INTEL_OUTPUT_DSI))
++			intel_dsc_dsi_pps_write(encoder, crtc_state);
++		else
++			intel_dsc_dp_pps_write(encoder, crtc_state);
+ 	}
++
+ 	dss_ctl2_val |= LEFT_BRANCH_VDSC_ENABLE;
+ 	if (crtc_state->dsc.dsc_split) {
+ 		dss_ctl2_val |= RIGHT_BRANCH_VDSC_ENABLE;
+ 		dss_ctl1_val |= JOINER_ENABLE;
+ 	}
+-	intel_de_write(dev_priv, dss_ctl1_reg, dss_ctl1_val);
+-	intel_de_write(dev_priv, dss_ctl2_reg, dss_ctl2_val);
++	if (crtc_state->bigjoiner) {
++		dss_ctl1_val |= BIG_JOINER_ENABLE;
++		if (!crtc_state->bigjoiner_slave)
++			dss_ctl1_val |= MASTER_BIG_JOINER_ENABLE;
++	}
++	intel_de_write(dev_priv, dss_ctl1_reg(crtc_state), dss_ctl1_val);
++	intel_de_write(dev_priv, dss_ctl2_reg(crtc_state), dss_ctl2_val);
+ }
+ 
+ void intel_dsc_disable(const struct intel_crtc_state *old_crtc_state)
+ {
+ 	struct intel_crtc *crtc = to_intel_crtc(old_crtc_state->uapi.crtc);
+ 	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
+-	enum pipe pipe = crtc->pipe;
+-	i915_reg_t dss_ctl1_reg, dss_ctl2_reg;
+-	u32 dss_ctl1_val = 0, dss_ctl2_val = 0;
+ 
+ 	if (!old_crtc_state->dsc.compression_enable)
+ 		return;
+ 
+-	if (!is_pipe_dsc(old_crtc_state)) {
+-		dss_ctl1_reg = DSS_CTL1;
+-		dss_ctl2_reg = DSS_CTL2;
+-	} else {
+-		dss_ctl1_reg = ICL_PIPE_DSS_CTL1(pipe);
+-		dss_ctl2_reg = ICL_PIPE_DSS_CTL2(pipe);
++	intel_de_write(dev_priv, dss_ctl1_reg(old_crtc_state), 0);
++	intel_de_write(dev_priv, dss_ctl2_reg(old_crtc_state), 0);
++}
++
++void intel_dsc_get_config(struct intel_crtc_state *crtc_state)
++{
++	struct drm_dsc_config *vdsc_cfg = &crtc_state->dsc.config;
++	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
++	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
++	enum pipe pipe = crtc->pipe;
++	enum intel_display_power_domain power_domain;
++	intel_wakeref_t wakeref;
++	u32 dss_ctl1, dss_ctl2, val;
++
++	if (!intel_dsc_source_support(crtc_state))
++		return;
++
++	power_domain = intel_dsc_power_domain(crtc_state);
++
++	wakeref = intel_display_power_get_if_enabled(dev_priv, power_domain);
++	if (!wakeref)
++		return;
++
++	dss_ctl1 = intel_de_read(dev_priv, dss_ctl1_reg(crtc_state));
++	dss_ctl2 = intel_de_read(dev_priv, dss_ctl2_reg(crtc_state));
++
++	crtc_state->dsc.compression_enable = dss_ctl2 & LEFT_BRANCH_VDSC_ENABLE;
++	if (!crtc_state->dsc.compression_enable)
++		goto out;
++
++	crtc_state->dsc.dsc_split = (dss_ctl2 & RIGHT_BRANCH_VDSC_ENABLE) &&
++		(dss_ctl1 & JOINER_ENABLE);
++
++	if (dss_ctl1 & BIG_JOINER_ENABLE) {
++		crtc_state->bigjoiner = true;
++
++		if (!(dss_ctl1 & MASTER_BIG_JOINER_ENABLE)) {
++			crtc_state->bigjoiner_slave = true;
++			if (!WARN_ON(crtc->pipe == PIPE_A))
++				crtc_state->bigjoiner_linked_crtc =
++					intel_get_crtc_for_pipe(dev_priv, crtc->pipe - 1);
++		} else {
++			if (!WARN_ON(INTEL_NUM_PIPES(dev_priv) == crtc->pipe + 1))
++				crtc_state->bigjoiner_linked_crtc =
++					intel_get_crtc_for_pipe(dev_priv, crtc->pipe + 1);
++		}
+ 	}
+-	dss_ctl1_val = intel_de_read(dev_priv, dss_ctl1_reg);
+-	if (dss_ctl1_val & JOINER_ENABLE)
+-		dss_ctl1_val &= ~JOINER_ENABLE;
+-	intel_de_write(dev_priv, dss_ctl1_reg, dss_ctl1_val);
+-
+-	dss_ctl2_val = intel_de_read(dev_priv, dss_ctl2_reg);
+-	if (dss_ctl2_val & LEFT_BRANCH_VDSC_ENABLE ||
+-	    dss_ctl2_val & RIGHT_BRANCH_VDSC_ENABLE)
+-		dss_ctl2_val &= ~(LEFT_BRANCH_VDSC_ENABLE |
+-				  RIGHT_BRANCH_VDSC_ENABLE);
+-	intel_de_write(dev_priv, dss_ctl2_reg, dss_ctl2_val);
+-
+-	/* Disable Power wells for VDSC/joining */
+-	intel_display_power_put_unchecked(dev_priv,
+-					  intel_dsc_power_domain(old_crtc_state));
++
++	/* FIXME: add more state readout as needed */
++
++	/* PPS1 */
++	if (!is_pipe_dsc(crtc_state))
++		val = intel_de_read(dev_priv, DSCA_PICTURE_PARAMETER_SET_1);
++	else
++		val = intel_de_read(dev_priv,
++				    ICL_DSC0_PICTURE_PARAMETER_SET_1(pipe));
++	vdsc_cfg->bits_per_pixel = val;
++	crtc_state->dsc.compressed_bpp = vdsc_cfg->bits_per_pixel >> 4;
++out:
++	intel_display_power_put(dev_priv, power_domain, wakeref);
+ }
+diff --git a/drivers/gpu/drm/i915/display/intel_vdsc.h b/drivers/gpu/drm/i915/display/intel_vdsc.h
+index e56a3254c214..65d301c23580 100644
+--- a/drivers/gpu/drm/i915/display/intel_vdsc.h
++++ b/drivers/gpu/drm/i915/display/intel_vdsc.h
+@@ -11,15 +11,13 @@
+ struct intel_encoder;
+ struct intel_crtc_state;
+ 
+-bool intel_dsc_source_support(struct intel_encoder *encoder,
+-			      const struct intel_crtc_state *crtc_state);
++bool intel_dsc_source_support(const struct intel_crtc_state *crtc_state);
+ void intel_dsc_enable(struct intel_encoder *encoder,
+ 		      const struct intel_crtc_state *crtc_state);
+ void intel_dsc_disable(const struct intel_crtc_state *crtc_state);
+ int intel_dsc_compute_params(struct intel_encoder *encoder,
+ 			     struct intel_crtc_state *pipe_config);
+-void intel_dsc_get_config(struct intel_encoder *encoder,
+-			  struct intel_crtc_state *crtc_state);
++void intel_dsc_get_config(struct intel_crtc_state *crtc_state);
+ enum intel_display_power_domain
+ intel_dsc_power_domain(const struct intel_crtc_state *crtc_state);
+ 
 -- 
 2.19.1
 
