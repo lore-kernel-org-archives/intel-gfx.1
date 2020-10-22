@@ -2,48 +2,53 @@ Return-Path: <SRS0=0RYq=D5=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_GIT autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6F84BC388F7
-	for <intel-gfx@archiver.kernel.org>; Thu, 22 Oct 2020 22:26:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 49269C388F7
+	for <intel-gfx@archiver.kernel.org>; Thu, 22 Oct 2020 22:36:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1863024631
-	for <intel-gfx@archiver.kernel.org>; Thu, 22 Oct 2020 22:26:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1863024631
+	by mail.kernel.org (Postfix) with ESMTPS id CC81B24655
+	for <intel-gfx@archiver.kernel.org>; Thu, 22 Oct 2020 22:36:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CC81B24655
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 81BFA6E422;
-	Thu, 22 Oct 2020 22:26:04 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 876226E409
- for <intel-gfx@lists.freedesktop.org>; Thu, 22 Oct 2020 22:25:43 +0000 (UTC)
-IronPort-SDR: gIYwfWICH8xTFsseeuCcG6ESNC9vhooYj6NDkRDF9soOPccwUeT032T56SHxYIvqlfEXNqaYLN
- EFV06Bfk8CHw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9782"; a="155386824"
-X-IronPort-AV: E=Sophos;i="5.77,404,1596524400"; d="scan'208";a="155386824"
+	by gabe.freedesktop.org (Postfix) with ESMTP id EBE2D6E420;
+	Thu, 22 Oct 2020 22:36:46 +0000 (UTC)
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D09B6E420
+ for <intel-gfx@lists.freedesktop.org>; Thu, 22 Oct 2020 22:36:45 +0000 (UTC)
+IronPort-SDR: U64+X/GNWaNJ2tmBctgsjnOGf4e4OHjS+4pl13BSFyuGHalA7MP4Xg28Y3f0AIxkKnomkVwbS8
+ VnLFF6BEvQkQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9782"; a="229237642"
+X-IronPort-AV: E=Sophos;i="5.77,404,1596524400"; d="scan'208";a="229237642"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Oct 2020 15:25:42 -0700
-IronPort-SDR: ufeRGslsLp8HG/ILakOo/fq1odzAGGISh1n7IMAsufgV+BasClHhGtM6Kvy/xFwkuS1isCp9Et
- 5CF7wPOrKpIg==
-X-IronPort-AV: E=Sophos;i="5.77,404,1596524400"; d="scan'208";a="534153974"
-Received: from labuser-z97x-ud5h.jf.intel.com ([10.165.21.211])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-SHA;
- 22 Oct 2020 15:25:42 -0700
-From: Manasi Navare <manasi.d.navare@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Thu, 22 Oct 2020 15:26:58 -0700
-Message-Id: <20201022222709.29386-1-manasi.d.navare@intel.com>
-X-Mailer: git-send-email 2.19.1
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Oct 2020 15:36:44 -0700
+IronPort-SDR: mp4bBQMmkenfhowlRdkWUaCQdQcIFKl8bNwqiSm9JZJkPDu5nttkuCWNZrDcuzBP0RSwkZ8WIe
+ Zen4MEvDQO3A==
+X-IronPort-AV: E=Sophos;i="5.77,404,1596524400"; d="scan'208";a="302569712"
+Received: from mdroper-desk1.fm.intel.com (HELO
+ mdroper-desk1.amr.corp.intel.com) ([10.1.27.168])
+ by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Oct 2020 15:36:44 -0700
+Date: Thu, 22 Oct 2020 15:36:43 -0700
+From: Matt Roper <matthew.d.roper@intel.com>
+To: Lucas De Marchi <lucas.demarchi@intel.com>
+Message-ID: <20201022223643.GP627052@mdroper-desk1.amr.corp.intel.com>
+References: <20201021082034.3170478-1-lucas.demarchi@intel.com>
+ <20201021082034.3170478-2-lucas.demarchi@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 00/11] VRR/Adaptive Sync enabling in i915
+Content-Disposition: inline
+In-Reply-To: <20201021082034.3170478-2-lucas.demarchi@intel.com>
+Subject: Re: [Intel-gfx] [PATCH 1/6] drm/i915/dg1: add hpd interrupt handling
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,50 +61,228 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: intel-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This patch series adds support for DP 1.4 feature of
-Adaptive Sync also called as Variable Refresh rate
-which is used to match the display rate with the render rate
-by stretching or shrinking the blanking time of the frame.
+On Wed, Oct 21, 2020 at 01:20:29AM -0700, Lucas De Marchi wrote:
+> DG1 has one more combo phy port, no TC and all irq handling goes through
+> SDE, like for MCC.
+> =
+
+> v2: Also change intel_hpd_pin_default() to include DG1 mapping
+> v3, v4: Rebase on hpd refactor
+> =
+
+> Cc: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
+> Cc: Anshuman Gupta <anshuman.gupta@intel.com>
+> Cc: Jos=E9 Roberto de Souza <jose.souza@intel.com>
+> Cc: Imre Deak <imre.deak@intel.com>
+> Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+
+Looks good to me.
+
+Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
+
+I sort of wish we'd named hpd->pch_hpd as hpd->sde_hpd (and hpd->hpd as
+hpd->nde_hpd) back when we did that refactor, but it doesn't really
+matter too much.
 
 
-Aditya Swarup (1):
-  drm/i915/display/dp: Attach and set drm connector VRR property
+Matt
 
-Manasi Navare (10):
-  drm/i915: Add REG_FIELD_PREP to VRR register def
-  drm/i915/display/vrr: Create VRR file and add VRR capability check
-  drm/i915/display/dp: Add VRR crtc state variables
-  drm/i915/display/dp: Compute VRR state in atomic_check
-  drm/i915/display/dp: Do not enable PSR if VRR is enabled
-  drm/i915/display/vrr: Configure and enable VRR in modeset enable
-  drm/i915/display/vrr: Send VRR push to flip the frame
-  drm/i915/display/vrr: Disable VRR in modeset disable path
-  drm/i915/display/vrr: Set IGNORE_MSA_PAR state in DP Sink
-  drm/i915/display: Add HW state readout for VRR
+> ---
+>  drivers/gpu/drm/i915/display/intel_ddi.c | 13 ++++++++-
+>  drivers/gpu/drm/i915/i915_irq.c          | 37 ++++++++++++++++++++----
+>  drivers/gpu/drm/i915/i915_reg.h          |  8 +++++
+>  3 files changed, 51 insertions(+), 7 deletions(-)
+> =
 
- drivers/gpu/drm/i915/Makefile                 |   1 +
- drivers/gpu/drm/i915/display/intel_ddi.c      |  32 ++++
- drivers/gpu/drm/i915/display/intel_display.c  |  11 +-
- .../drm/i915/display/intel_display_types.h    |   7 +
- drivers/gpu/drm/i915/display/intel_dp.c       |   9 +
- drivers/gpu/drm/i915/display/intel_dp.h       |   1 +
- drivers/gpu/drm/i915/display/intel_psr.c      |   7 +
- drivers/gpu/drm/i915/display/intel_sprite.c   |   5 +
- drivers/gpu/drm/i915/display/intel_vrr.c      | 160 ++++++++++++++++++
- drivers/gpu/drm/i915/display/intel_vrr.h      |  27 +++
- drivers/gpu/drm/i915/i915_reg.h               |   1 +
- 11 files changed, 260 insertions(+), 1 deletion(-)
- create mode 100644 drivers/gpu/drm/i915/display/intel_vrr.c
- create mode 100644 drivers/gpu/drm/i915/display/intel_vrr.h
+> diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i=
+915/display/intel_ddi.c
+> index bb0b9930958f..3a99f209f1e6 100644
+> --- a/drivers/gpu/drm/i915/display/intel_ddi.c
+> +++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+> @@ -5066,6 +5066,15 @@ static bool hti_uses_phy(struct drm_i915_private *=
+i915, enum phy phy)
+>  		 i915->hti_state & HDPORT_PHY_USED_HDMI(phy));
+>  }
+>  =
 
--- 
-2.19.1
+> +static enum hpd_pin dg1_hpd_pin(struct drm_i915_private *dev_priv,
+> +				enum port port)
+> +{
+> +	if (port >=3D PORT_D)
+> +		return HPD_PORT_C + port - PORT_D;
+> +	else
+> +		return HPD_PORT_A + port - PORT_A;
+> +}
+> +
+>  static enum hpd_pin tgl_hpd_pin(struct drm_i915_private *dev_priv,
+>  				enum port port)
+>  {
+> @@ -5195,7 +5204,9 @@ void intel_ddi_init(struct drm_i915_private *dev_pr=
+iv, enum port port)
+>  	encoder->cloneable =3D 0;
+>  	encoder->pipe_mask =3D ~0;
+>  =
 
+> -	if (IS_ROCKETLAKE(dev_priv))
+> +	if (IS_DG1(dev_priv))
+> +		encoder->hpd_pin =3D dg1_hpd_pin(dev_priv, port);
+> +	else if (IS_ROCKETLAKE(dev_priv))
+>  		encoder->hpd_pin =3D rkl_hpd_pin(dev_priv, port);
+>  	else if (INTEL_GEN(dev_priv) >=3D 12)
+>  		encoder->hpd_pin =3D tgl_hpd_pin(dev_priv, port);
+> diff --git a/drivers/gpu/drm/i915/i915_irq.c b/drivers/gpu/drm/i915/i915_=
+irq.c
+> index b753c77c9a77..b6169fbadb1d 100644
+> --- a/drivers/gpu/drm/i915/i915_irq.c
+> +++ b/drivers/gpu/drm/i915/i915_irq.c
+> @@ -152,6 +152,13 @@ static const u32 hpd_icp[HPD_NUM_PINS] =3D {
+>  	[HPD_PORT_TC6] =3D SDE_TC_HOTPLUG_ICP(PORT_TC6),
+>  };
+>  =
+
+> +static const u32 hpd_sde_dg1[HPD_NUM_PINS] =3D {
+> +	[HPD_PORT_A] =3D SDE_DDI_HOTPLUG_ICP(PORT_A),
+> +	[HPD_PORT_B] =3D SDE_DDI_HOTPLUG_ICP(PORT_B),
+> +	[HPD_PORT_C] =3D SDE_DDI_HOTPLUG_ICP(PORT_C),
+> +	[HPD_PORT_D] =3D SDE_DDI_HOTPLUG_ICP(PORT_D),
+> +};
+> +
+>  static void intel_hpd_init_pins(struct drm_i915_private *dev_priv)
+>  {
+>  	struct i915_hotplug *hpd =3D &dev_priv->hotplug;
+> @@ -176,11 +183,14 @@ static void intel_hpd_init_pins(struct drm_i915_pri=
+vate *dev_priv)
+>  	else
+>  		hpd->hpd =3D hpd_ilk;
+>  =
+
+> -	if (!HAS_PCH_SPLIT(dev_priv) || HAS_PCH_NOP(dev_priv))
+> +	if ((INTEL_PCH_TYPE(dev_priv) < PCH_DG1) &&
+> +	    (!HAS_PCH_SPLIT(dev_priv) || HAS_PCH_NOP(dev_priv)))
+>  		return;
+>  =
+
+> -	if (HAS_PCH_TGP(dev_priv) || HAS_PCH_JSP(dev_priv) ||
+> -	    HAS_PCH_ICP(dev_priv) || HAS_PCH_MCC(dev_priv))
+> +	if (HAS_PCH_DG1(dev_priv))
+> +		hpd->pch_hpd =3D hpd_sde_dg1;
+> +	else if (HAS_PCH_TGP(dev_priv) || HAS_PCH_JSP(dev_priv) ||
+> +		 HAS_PCH_ICP(dev_priv) || HAS_PCH_MCC(dev_priv))
+>  		hpd->pch_hpd =3D hpd_icp;
+>  	else if (HAS_PCH_CNP(dev_priv) || HAS_PCH_SPT(dev_priv))
+>  		hpd->pch_hpd =3D hpd_spt;
+> @@ -1074,6 +1084,8 @@ static bool icp_ddi_port_hotplug_long_detect(enum h=
+pd_pin pin, u32 val)
+>  		return val & SHOTPLUG_CTL_DDI_HPD_LONG_DETECT(PORT_B);
+>  	case HPD_PORT_C:
+>  		return val & SHOTPLUG_CTL_DDI_HPD_LONG_DETECT(PORT_C);
+> +	case HPD_PORT_D:
+> +		return val & SHOTPLUG_CTL_DDI_HPD_LONG_DETECT(PORT_D);
+>  	default:
+>  		return false;
+>  	}
+> @@ -1864,7 +1876,10 @@ static void icp_irq_handler(struct drm_i915_privat=
+e *dev_priv, u32 pch_iir)
+>  	u32 ddi_hotplug_trigger, tc_hotplug_trigger;
+>  	u32 pin_mask =3D 0, long_mask =3D 0;
+>  =
+
+> -	if (HAS_PCH_TGP(dev_priv)) {
+> +	if (HAS_PCH_DG1(dev_priv)) {
+> +		ddi_hotplug_trigger =3D pch_iir & SDE_DDI_MASK_DG1;
+> +		tc_hotplug_trigger =3D 0;
+> +	} else if (HAS_PCH_TGP(dev_priv)) {
+>  		ddi_hotplug_trigger =3D pch_iir & SDE_DDI_MASK_TGP;
+>  		tc_hotplug_trigger =3D pch_iir & SDE_TC_MASK_TGP;
+>  	} else if (HAS_PCH_JSP(dev_priv)) {
+> @@ -3252,6 +3267,12 @@ static void jsp_hpd_irq_setup(struct drm_i915_priv=
+ate *dev_priv)
+>  			  TGP_DDI_HPD_ENABLE_MASK, 0);
+>  }
+>  =
+
+> +static void dg1_hpd_irq_setup(struct drm_i915_private *dev_priv)
+> +{
+> +	icp_hpd_irq_setup(dev_priv,
+> +			  DG1_DDI_HPD_ENABLE_MASK, 0);
+> +}
+> +
+>  static void gen11_hpd_detection_setup(struct drm_i915_private *dev_priv)
+>  {
+>  	u32 hotplug;
+> @@ -3645,7 +3666,9 @@ static void icp_irq_postinstall(struct drm_i915_pri=
+vate *dev_priv)
+>  	gen3_assert_iir_is_zero(&dev_priv->uncore, SDEIIR);
+>  	I915_WRITE(SDEIMR, ~mask);
+>  =
+
+> -	if (HAS_PCH_TGP(dev_priv)) {
+> +	if (HAS_PCH_DG1(dev_priv))
+> +		icp_ddi_hpd_detection_setup(dev_priv, DG1_DDI_HPD_ENABLE_MASK);
+> +	else if (HAS_PCH_TGP(dev_priv)) {
+>  		icp_ddi_hpd_detection_setup(dev_priv, TGP_DDI_HPD_ENABLE_MASK);
+>  		icp_tc_hpd_detection_setup(dev_priv, TGP_TC_HPD_ENABLE_MASK);
+>  	} else if (HAS_PCH_JSP(dev_priv)) {
+> @@ -4162,7 +4185,9 @@ void intel_irq_init(struct drm_i915_private *dev_pr=
+iv)
+>  		if (I915_HAS_HOTPLUG(dev_priv))
+>  			dev_priv->display.hpd_irq_setup =3D i915_hpd_irq_setup;
+>  	} else {
+> -		if (HAS_PCH_JSP(dev_priv))
+> +		if (HAS_PCH_DG1(dev_priv))
+> +			dev_priv->display.hpd_irq_setup =3D dg1_hpd_irq_setup;
+> +		else if (HAS_PCH_JSP(dev_priv))
+>  			dev_priv->display.hpd_irq_setup =3D jsp_hpd_irq_setup;
+>  		else if (HAS_PCH_MCC(dev_priv))
+>  			dev_priv->display.hpd_irq_setup =3D mcc_hpd_irq_setup;
+> diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_=
+reg.h
+> index 6d97e6286c2d..236199891611 100644
+> --- a/drivers/gpu/drm/i915/i915_reg.h
+> +++ b/drivers/gpu/drm/i915/i915_reg.h
+> @@ -8235,6 +8235,10 @@ enum {
+>  					 SDE_TC_HOTPLUG_ICP(PORT_TC3) | \
+>  					 SDE_TC_HOTPLUG_ICP(PORT_TC2) | \
+>  					 SDE_TC_HOTPLUG_ICP(PORT_TC1))
+> +#define SDE_DDI_MASK_DG1		(SDE_DDI_HOTPLUG_ICP(PORT_D) | \
+> +					 SDE_DDI_HOTPLUG_ICP(PORT_C) | \
+> +					 SDE_DDI_HOTPLUG_ICP(PORT_B) | \
+> +					 SDE_DDI_HOTPLUG_ICP(PORT_A))
+>  =
+
+>  #define SDEISR  _MMIO(0xc4000)
+>  #define SDEIMR  _MMIO(0xc4004)
+> @@ -8434,6 +8438,10 @@ enum {
+>  #define TGP_TC_HPD_ENABLE_MASK		(ICP_TC_HPD_ENABLE(PORT_TC6) | \
+>  					 ICP_TC_HPD_ENABLE(PORT_TC5) | \
+>  					 ICP_TC_HPD_ENABLE_MASK)
+> +#define DG1_DDI_HPD_ENABLE_MASK		(SHOTPLUG_CTL_DDI_HPD_ENABLE(PORT_D) | \
+> +					 SHOTPLUG_CTL_DDI_HPD_ENABLE(PORT_C) | \
+> +					 SHOTPLUG_CTL_DDI_HPD_ENABLE(PORT_B) | \
+> +					 SHOTPLUG_CTL_DDI_HPD_ENABLE(PORT_A))
+>  =
+
+>  #define _PCH_DPLL_A              0xc6014
+>  #define _PCH_DPLL_B              0xc6018
+> -- =
+
+> 2.28.0
+> =
+
+
+-- =
+
+Matt Roper
+Graphics Software Engineer
+VTT-OSGC Platform Enablement
+Intel Corporation
+(916) 356-2795
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
