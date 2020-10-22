@@ -2,69 +2,57 @@ Return-Path: <SRS0=0RYq=D5=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+X-Spam-Status: No, score=-11.2 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3F185C388F9
-	for <intel-gfx@archiver.kernel.org>; Thu, 22 Oct 2020 17:22:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2E200C4363A
+	for <intel-gfx@archiver.kernel.org>; Thu, 22 Oct 2020 17:34:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B40E424630
-	for <intel-gfx@archiver.kernel.org>; Thu, 22 Oct 2020 17:22:11 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OO7sm4t4"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B40E424630
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id A30172463B
+	for <intel-gfx@archiver.kernel.org>; Thu, 22 Oct 2020 17:34:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A30172463B
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9215F6F5F4;
-	Thu, 22 Oct 2020 17:22:10 +0000 (UTC)
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
- [IPv6:2a00:1450:4864:20::441])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 29FB16F5F4;
- Thu, 22 Oct 2020 17:22:09 +0000 (UTC)
-Received: by mail-wr1-x441.google.com with SMTP id h7so3438392wre.4;
- Thu, 22 Oct 2020 10:22:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=3SbKtGsD0deWgGwVQ6la/8JOmG1h8qGCr8ZTv5ep8js=;
- b=OO7sm4t4/zsmQdXQSOuAQBxpt3zn/uMPrPLifttyDIUq1DLrvRdxXGQre9CMz8+YBK
- I/K8Ik8pMsaEPFRLr5jXsSKezrgM/rlDmAZmWYhbjKyDo3INJ4SRqjMBovvhCBDxxrk1
- dOQ5NMQjgeaczExu4OPAJEb4CFdE50O3UFTymGe/RztHH11xv66/iJ7tMLrzpT1LIE8g
- arJZG59B1N+sLNpSo8bfry0e2sr1ywvOG56Zl6QVR+ywEbIZ21OWcJS+bKBMpBFENlYD
- +fE4Tz1gDVDmRKFAiMAgVhiVCzOh+hAaO/+CCb/2YgnjX/LxonVAbAbp1FvWyjRZGQ1x
- 881w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=3SbKtGsD0deWgGwVQ6la/8JOmG1h8qGCr8ZTv5ep8js=;
- b=pK0bxcb6/GYUVS1by4oXSmnmSRNaB4mAx4XB3wwtRomS85Gds9pkaBFPVlgWfdBhm/
- cdsGKxJWFms6+xw9LrXvoYRNOiy3vW4f326SHm70lNMtFp+q6UuKMFc4H6WkZ9ZFutwF
- vxyjWEPhhQbunvO+sMhIU6/2foOg6BWSHsSQrHOFFGABpDfutl7ZRWIqOc9bVoPhIrr+
- tFSXf94xrpYIpqRZoWFTJE/Vdfv+ptmKkxN/MWrEwVGKwBmrpHAiv8cszRn2wGYux5hI
- VZYcaO1JwzLtKRdZGBvq/liEwP49oyLsMDfwU/e9vrvibf5/pyF5jRi99PhmS0btomKa
- FFQw==
-X-Gm-Message-State: AOAM533frj+KlZf7dQe3qX8yoHDMBIqld3YoqKwBfEoL9HgcQZ8ZdyDz
- CHjcIB2sTnfLtqzurbOmf56G0LE2m8zkPpARwTI=
-X-Google-Smtp-Source: ABdhPJzeIFqaRFgtHCBVv3UkBvkbJ25pSuQX/PPgOa5jkAnaq+DgqTO5mlTEJC+4oW4om7Rf5pLjaomDHv0aKhmDr+0=
-X-Received: by 2002:adf:c501:: with SMTP id q1mr3593309wrf.147.1603387327777; 
- Thu, 22 Oct 2020 10:22:07 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A6456F5FD;
+	Thu, 22 Oct 2020 17:34:01 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 27E3B6F5FD
+ for <intel-gfx@lists.freedesktop.org>; Thu, 22 Oct 2020 17:34:00 +0000 (UTC)
+IronPort-SDR: GEdv6fDCdrDOUf4LvJUWw7WjzVrck9muVjmxbQjOY7eHjhooipwtxMHr2C56Y4eyAPJ/+no+k1
+ wLvyERL1xYeQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9782"; a="147425111"
+X-IronPort-AV: E=Sophos;i="5.77,404,1596524400"; d="scan'208";a="147425111"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Oct 2020 10:33:46 -0700
+IronPort-SDR: +PpXw+hVoufTnTh2LdeCFlLWYThV6MiXy2D1bzg4XpXijWpJ/SWqDMt3QRrdFH6E0zHGU2SZvV
+ k5KwMx/gC5mg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.77,404,1596524400"; d="scan'208";a="359932435"
+Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.174])
+ by orsmga007.jf.intel.com with SMTP; 22 Oct 2020 10:33:44 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Thu, 22 Oct 2020 20:33:43 +0300
+Date: Thu, 22 Oct 2020 20:33:43 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Chris Wilson <chris@chris-wilson.co.uk>
+Message-ID: <20201022173343.GO6112@intel.com>
+References: <20201022071637.17240-1-chris@chris-wilson.co.uk>
+ <20201022114246.28566-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-References: <20201021163242.1458885-1-daniel.vetter@ffwll.ch>
- <CAF6AEGsHA33RGoX-iX=9mL+EgtxFJgLH4n2xKR9XckBA=SJhBw@mail.gmail.com>
-In-Reply-To: <CAF6AEGsHA33RGoX-iX=9mL+EgtxFJgLH4n2xKR9XckBA=SJhBw@mail.gmail.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Thu, 22 Oct 2020 10:21:56 -0700
-Message-ID: <CAF6AEGta-uZ=YV3aKTatWkp-XD7S1GzrW9Mcdyp=qsFrHibuiQ@mail.gmail.com>
-To: Daniel Vetter <daniel.vetter@ffwll.ch>
-Subject: Re: [Intel-gfx] [PATCH 1/3] drm/atomic-helpers: remove
- legacy_cursor_update hacks
+Content-Disposition: inline
+In-Reply-To: <20201022114246.28566-1-chris@chris-wilson.co.uk>
+X-Patchwork-Hint: comment
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Subject: Re: [Intel-gfx] [PATCH] drm/i915: Reset the interrupt mask on
+ disabling interrupts
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,83 +65,121 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- DRI Development <dri-devel@lists.freedesktop.org>,
- Daniel Vetter <daniel.vetter@intel.com>, mikita.lipski@amd.com,
- Harry Wentland <harry.wentland@amd.com>,
- =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: intel-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-T24gVGh1LCBPY3QgMjIsIDIwMjAgYXQgMTA6MDIgQU0gUm9iIENsYXJrIDxyb2JkY2xhcmtAZ21h
-aWwuY29tPiB3cm90ZToKPgo+IE9uIFdlZCwgT2N0IDIxLCAyMDIwIGF0IDk6MzIgQU0gRGFuaWVs
-IFZldHRlciA8ZGFuaWVsLnZldHRlckBmZndsbC5jaD4gd3JvdGU6Cj4gPgo+ID4gVGhlIHN0dWZm
-IG5ldmVyIHJlYWxseSB3b3JrZWQsIGFuZCBsZWFkcyB0byBsb3RzIG9mIGZ1biBiZWNhdXNlIGl0
-Cj4gPiBvdXQtb2Ytb3JkZXIgZnJlZXMgYXRvbWljIHN0YXRlcy4gV2hpY2ggdXBzZXRzIEtBU0FO
-LCBhbW9uZyBvdGhlcgo+ID4gdGhpbmdzLgo+ID4KPiA+IEZvciBhc3luYyB1cGRhdGVzIHdlIG5v
-dyBoYXZlIGEgbW9yZSBzb2xpZCBzb2x1dGlvbiB3aXRoIHRoZQo+ID4gLT5hdG9taWNfYXN5bmNf
-Y2hlY2sgYW5kIC0+YXRvbWljX2FzeW5jX2NvbW1pdCBob29rcy4gU3VwcG9ydCBmb3IgdGhhdAo+
-ID4gZm9yIG1zbSBhbmQgdmM0IGxhbmRlZC4gbm91dmVhdSBhbmQgaTkxNSBoYXZlIHRoZWlyIG93
-biBjb21taXQKPiA+IHJvdXRpbmVzLCBkb2luZyBzb21ldGhpbmcgc2ltaWxhci4KPiA+Cj4gPiBG
-b3IgZXZlcnlvbmUgZWxzZSBpdCdzIHByb2JhYmx5IGJldHRlciB0byByZW1vdmUgdGhlIHVzZS1h
-ZnRlci1mcmVlCj4gPiBidWcsIGFuZCBlbmNvdXJhZ2UgZm9sa3MgdG8gdXNlIHRoZSBhc3luYyBz
-dXBwb3J0IGluc3RlYWQuIFRoZQo+ID4gYWZmZWN0ZWQgZHJpdmVycyB3aGljaCByZWdpc3RlciBh
-IGxlZ2FjeSBjdXJzb3IgcGxhbmUgYW5kIGRvbid0IGVpdGhlcgo+ID4gdXNlIHRoZSBuZXcgYXN5
-bmMgc3R1ZmYgb3IgdGhlaXIgb3duIGNvbW1pdCByb3V0aW5lIGFyZTogYW1kZ3B1LAo+ID4gYXRt
-ZWwsIG1lZGlhdGVrLCBxeGwsIHJvY2tjaGlwLCBzdGksIHN1bjRpLCB0ZWdyYSwgdmlydGlvLCBh
-bmQgdm13Z2Z4Lgo+ID4KPiA+IEluc3BpcmVkIGJ5IGFuIGFtZGdwdSBidWcgcmVwb3J0Lgo+ID4K
-PiA+IHYyOiBEcm9wIFJGQywgSSB0aGluayB3aXRoIGFtZGdwdSBjb252ZXJ0ZWQgb3ZlciB0byB1
-c2UKPiA+IGF0b21pY19hc3luY19jaGVjay9jb21taXQgZG9uZSBpbgo+ID4KPiA+IGNvbW1pdCA2
-NzRlNzhhY2FlMGRmYjRiZWI1NjEzMmU0MWNiYWU1YjYwZjdkNjYyCj4gPiBBdXRob3I6IE5pY2hv
-bGFzIEthemxhdXNrYXMgPG5pY2hvbGFzLmthemxhdXNrYXNAYW1kLmNvbT4KPiA+IERhdGU6ICAg
-V2VkIERlYyA1IDE0OjU5OjA3IDIwMTggLTA1MDAKPiA+Cj4gPiAgICAgZHJtL2FtZC9kaXNwbGF5
-OiBBZGQgZmFzdCBwYXRoIGZvciBjdXJzb3IgcGxhbmUgdXBkYXRlcwo+ID4KPiA+IHdlIGRvbid0
-IGhhdmUgYW55IGRyaXZlciBhbnltb3JlIHdoZXJlIHdlIGhhdmUgdXNlcnNwYWNlIGV4cGVjdGlu
-Zwo+ID4gc29saWQgbGVnYWN5IGN1cnNvciBzdXBwb3J0IF9hbmRfIHRoZXkgYXJlIHVzaW5nIHRo
-ZSBhdG9taWMgaGVscGVycyBpbgo+ID4gdGhlaXIgZnVsbHkgZ2xvcnkuIFNvIHdlIGNhbiByZXRp
-cmUgdGhpcy4KPiA+Cj4gPiBSZWZlcmVuY2VzOiBodHRwczovL2J1Z3ppbGxhLmtlcm5lbC5vcmcv
-c2hvd19idWcuY2dpP2lkPTE5OTQyNQo+ID4gQ2M6IG1pa2l0YS5saXBza2lAYW1kLmNvbQo+ID4g
-Q2M6IE1pY2hlbCBEw6RuemVyIDxtaWNoZWxAZGFlbnplci5uZXQ+Cj4gPiBDYzogaGFycnkud2Vu
-dGxhbmRAYW1kLmNvbQo+ID4gU2lnbmVkLW9mZi1ieTogRGFuaWVsIFZldHRlciA8ZGFuaWVsLnZl
-dHRlckBpbnRlbC5jb20+Cj4KPiBUaGlzICpjb21wbGV0ZWx5KiBkZXN0cm95cyBmcHMgd2hlbiB0
-aGVyZSBpcyBjdXJzb3IgbW92ZW1lbnQsIGl0IHdvdWxkCj4gYmUgYSBwcmV0dHkgYmFkIHJlZ3Jl
-c3Npb24sIHNvIG5hawoKV2hpY2ggSSAqZ3Vlc3MqIGlzIGR1ZSB0byBkcHUgbm90IHdpcmluZyB1
-cCB0aGUgcGxhbmUtPmFzeW5jXyogZnVuY3MsCmVmZmVjdGl2ZWx5IG1ha2luZyBjdXJzb3IgdXBk
-YXRlcyBzeW5jaHJvbm91cy4uIGJ1dCBpdCB3aWxsIHRha2Ugc29tZQp0aW1lIHRvIHNvcnQgb3V0
-IDotKAoKPiBCUiwKPiAtUgo+Cj4gPiAtLS0KPiA+ICBkcml2ZXJzL2dwdS9kcm0vZHJtX2F0b21p
-Y19oZWxwZXIuYyB8IDEzIC0tLS0tLS0tLS0tLS0KPiA+ICAxIGZpbGUgY2hhbmdlZCwgMTMgZGVs
-ZXRpb25zKC0pCj4gPgo+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9kcm1fYXRvbWlj
-X2hlbHBlci5jIGIvZHJpdmVycy9ncHUvZHJtL2RybV9hdG9taWNfaGVscGVyLmMKPiA+IGluZGV4
-IGE3YmNiNGI0NTg2Yy4uNTQ5YTMxZTYwNDJjIDEwMDY0NAo+ID4gLS0tIGEvZHJpdmVycy9ncHUv
-ZHJtL2RybV9hdG9taWNfaGVscGVyLmMKPiA+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9kcm1fYXRv
-bWljX2hlbHBlci5jCj4gPiBAQCAtMTQ4MSwxMyArMTQ4MSw2IEBAIGRybV9hdG9taWNfaGVscGVy
-X3dhaXRfZm9yX3ZibGFua3Moc3RydWN0IGRybV9kZXZpY2UgKmRldiwKPiA+ICAgICAgICAgaW50
-IGksIHJldDsKPiA+ICAgICAgICAgdW5zaWduZWQgY3J0Y19tYXNrID0gMDsKPiA+Cj4gPiAtICAg
-ICAgICAvKgo+ID4gLSAgICAgICAgICogTGVnYWN5IGN1cnNvciBpb2N0bHMgYXJlIGNvbXBsZXRl
-bHkgdW5zeW5jZWQsIGFuZCB1c2Vyc3BhY2UKPiA+IC0gICAgICAgICAqIHJlbGllcyBvbiB0aGF0
-IChieSBkb2luZyB0b25zIG9mIGN1cnNvciB1cGRhdGVzKS4KPiA+IC0gICAgICAgICAqLwo+ID4g
-LSAgICAgICBpZiAob2xkX3N0YXRlLT5sZWdhY3lfY3Vyc29yX3VwZGF0ZSkKPiA+IC0gICAgICAg
-ICAgICAgICByZXR1cm47Cj4gPiAtCj4gPiAgICAgICAgIGZvcl9lYWNoX29sZG5ld19jcnRjX2lu
-X3N0YXRlKG9sZF9zdGF0ZSwgY3J0Yywgb2xkX2NydGNfc3RhdGUsIG5ld19jcnRjX3N0YXRlLCBp
-KSB7Cj4gPiAgICAgICAgICAgICAgICAgaWYgKCFuZXdfY3J0Y19zdGF0ZS0+YWN0aXZlKQo+ID4g
-ICAgICAgICAgICAgICAgICAgICAgICAgY29udGludWU7Cj4gPiBAQCAtMjEwNiwxMiArMjA5OSw2
-IEBAIGludCBkcm1fYXRvbWljX2hlbHBlcl9zZXR1cF9jb21taXQoc3RydWN0IGRybV9hdG9taWNf
-c3RhdGUgKnN0YXRlLAo+ID4gICAgICAgICAgICAgICAgICAgICAgICAgY29udGludWU7Cj4gPiAg
-ICAgICAgICAgICAgICAgfQo+ID4KPiA+IC0gICAgICAgICAgICAgICAvKiBMZWdhY3kgY3Vyc29y
-IHVwZGF0ZXMgYXJlIGZ1bGx5IHVuc3luY2VkLiAqLwo+ID4gLSAgICAgICAgICAgICAgIGlmIChz
-dGF0ZS0+bGVnYWN5X2N1cnNvcl91cGRhdGUpIHsKPiA+IC0gICAgICAgICAgICAgICAgICAgICAg
-IGNvbXBsZXRlX2FsbCgmY29tbWl0LT5mbGlwX2RvbmUpOwo+ID4gLSAgICAgICAgICAgICAgICAg
-ICAgICAgY29udGludWU7Cj4gPiAtICAgICAgICAgICAgICAgfQo+ID4gLQo+ID4gICAgICAgICAg
-ICAgICAgIGlmICghbmV3X2NydGNfc3RhdGUtPmV2ZW50KSB7Cj4gPiAgICAgICAgICAgICAgICAg
-ICAgICAgICBjb21taXQtPmV2ZW50ID0ga3phbGxvYyhzaXplb2YoKmNvbW1pdC0+ZXZlbnQpLAo+
-ID4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgR0ZQX0tF
-Uk5FTCk7Cj4gPiAtLQo+ID4gMi4yOC4wCj4gPgo+ID4gX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX18KPiA+IEludGVsLWdmeCBtYWlsaW5nIGxpc3QKPiA+IElu
-dGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiA+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnL21haWxtYW4vbGlzdGluZm8vaW50ZWwtZ2Z4Cl9fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fCkludGVsLWdmeCBtYWlsaW5nIGxpc3QKSW50ZWwtZ2Z4
-QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWls
-bWFuL2xpc3RpbmZvL2ludGVsLWdmeAo=
+On Thu, Oct 22, 2020 at 12:42:46PM +0100, Chris Wilson wrote:
+> As we disable the interrupt during suspend, also reset the irq_mask to
+> short-circuit subsystems that later try to turn off their interrupt
+> source.
+> =
+
+> <4>[  101.816730] i915 0000:00:02.0: drm_WARN_ON(!intel_irqs_enabled(dev_=
+priv))
+> <4>[  101.816853] WARNING: CPU: 3 PID: 4241 at drivers/gpu/drm/i915/i915_=
+irq.c:343 ilk_update_display_irq+0xb3/0x130 [i915]
+> =
+
+> v2: Reset irq_mask for i8xx_irq_reset as well, and split patch to focus
+> on only i915->irq_mask
+> =
+
+> Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+> Cc: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
+
+Reviewed-by: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
+
+> ---
+>  drivers/gpu/drm/i915/i915_irq.c | 12 +++++++-----
+>  1 file changed, 7 insertions(+), 5 deletions(-)
+> =
+
+> diff --git a/drivers/gpu/drm/i915/i915_irq.c b/drivers/gpu/drm/i915/i915_=
+irq.c
+> index 09221ca1ffb2..53e67c796d09 100644
+> --- a/drivers/gpu/drm/i915/i915_irq.c
+> +++ b/drivers/gpu/drm/i915/i915_irq.c
+> @@ -337,17 +337,14 @@ void ilk_update_display_irq(struct drm_i915_private=
+ *dev_priv,
+>  	u32 new_val;
+>  =
+
+>  	lockdep_assert_held(&dev_priv->irq_lock);
+> -
+>  	drm_WARN_ON(&dev_priv->drm, enabled_irq_mask & ~interrupt_mask);
+>  =
+
+> -	if (drm_WARN_ON(&dev_priv->drm, !intel_irqs_enabled(dev_priv)))
+> -		return;
+> -
+>  	new_val =3D dev_priv->irq_mask;
+>  	new_val &=3D ~interrupt_mask;
+>  	new_val |=3D (~enabled_irq_mask & interrupt_mask);
+>  =
+
+> -	if (new_val !=3D dev_priv->irq_mask) {
+> +	if (new_val !=3D dev_priv->irq_mask &&
+> +	    !drm_WARN_ON(&dev_priv->drm, !intel_irqs_enabled(dev_priv))) {
+>  		dev_priv->irq_mask =3D new_val;
+>  		I915_WRITE(DEIMR, dev_priv->irq_mask);
+>  		POSTING_READ(DEIMR);
+> @@ -2951,6 +2948,8 @@ static void ilk_irq_reset(struct drm_i915_private *=
+dev_priv)
+>  	struct intel_uncore *uncore =3D &dev_priv->uncore;
+>  =
+
+>  	GEN3_IRQ_RESET(uncore, DE);
+> +	dev_priv->irq_mask =3D ~0u;
+> +
+>  	if (IS_GEN(dev_priv, 7))
+>  		intel_uncore_write(uncore, GEN7_ERR_INT, 0xffffffff);
+>  =
+
+> @@ -3695,6 +3694,7 @@ static void i8xx_irq_reset(struct drm_i915_private =
+*dev_priv)
+>  	i9xx_pipestat_irq_reset(dev_priv);
+>  =
+
+>  	GEN2_IRQ_RESET(uncore);
+> +	dev_priv->irq_mask =3D ~0u;
+>  }
+>  =
+
+>  static void i8xx_irq_postinstall(struct drm_i915_private *dev_priv)
+> @@ -3864,6 +3864,7 @@ static void i915_irq_reset(struct drm_i915_private =
+*dev_priv)
+>  	i9xx_pipestat_irq_reset(dev_priv);
+>  =
+
+>  	GEN3_IRQ_RESET(uncore, GEN2_);
+> +	dev_priv->irq_mask =3D ~0u;
+>  }
+>  =
+
+>  static void i915_irq_postinstall(struct drm_i915_private *dev_priv)
+> @@ -3970,6 +3971,7 @@ static void i965_irq_reset(struct drm_i915_private =
+*dev_priv)
+>  	i9xx_pipestat_irq_reset(dev_priv);
+>  =
+
+>  	GEN3_IRQ_RESET(uncore, GEN2_);
+> +	dev_priv->irq_mask =3D ~0u;
+>  }
+>  =
+
+>  static void i965_irq_postinstall(struct drm_i915_private *dev_priv)
+> -- =
+
+> 2.20.1
+
+-- =
+
+Ville Syrj=E4l=E4
+Intel
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
