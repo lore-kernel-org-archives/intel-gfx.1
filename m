@@ -2,52 +2,43 @@ Return-Path: <SRS0=0RYq=D5=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-6.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A4109C4363A
-	for <intel-gfx@archiver.kernel.org>; Thu, 22 Oct 2020 17:34:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A21BAC388F9
+	for <intel-gfx@archiver.kernel.org>; Thu, 22 Oct 2020 18:48:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3A1252463B
-	for <intel-gfx@archiver.kernel.org>; Thu, 22 Oct 2020 17:34:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3A1252463B
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id D2D7E24630
+	for <intel-gfx@archiver.kernel.org>; Thu, 22 Oct 2020 18:48:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D2D7E24630
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9608D6F5FE;
-	Thu, 22 Oct 2020 17:34:06 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 38E296F5FE
- for <intel-gfx@lists.freedesktop.org>; Thu, 22 Oct 2020 17:34:05 +0000 (UTC)
-IronPort-SDR: +FQIrqm3Wgl6fNDkZ5fYa15wOEAYkhceiif52SpqemSwdA5p9E1AlxIVxIYI+qD8Appz/VC6Pa
- l9KLDG7vt6hA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9782"; a="146858945"
-X-IronPort-AV: E=Sophos;i="5.77,404,1596524400"; d="scan'208";a="146858945"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Oct 2020 10:31:04 -0700
-IronPort-SDR: UliNlfLY09awj0Z71bJMgL6EuuFVgOE+ffmdkW1JYOUiYI3AzHxRqPaNUf8SDJcSP6Dc701jRb
- f0ypZah0utLA==
-X-IronPort-AV: E=Sophos;i="5.77,404,1596524400"; d="scan'208";a="359330041"
-Received: from gtax-ubuntu-2004.fm.intel.com ([10.105.23.106])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Oct 2020 10:31:04 -0700
-Date: Thu, 22 Oct 2020 17:30:59 +0000
-From: Matthew Brost <matthew.brost@intel.com>
-To: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-Message-ID: <20201022173059.GA36422@gtax-ubuntu-2004.fm.intel.com>
-References: <20201021191454.13418-1-daniele.ceraolospurio@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id C246D6F609;
+	Thu, 22 Oct 2020 18:48:40 +0000 (UTC)
+Received: from fireflyinternet.com (unknown [77.68.26.236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F4C36F609
+ for <intel-gfx@lists.freedesktop.org>; Thu, 22 Oct 2020 18:48:38 +0000 (UTC)
+X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
+ x-ip-name=78.156.65.138; 
+Received: from localhost (unverified [78.156.65.138]) 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP (TLS) id
+ 22778415-1500050 for multiple; Thu, 22 Oct 2020 19:48:32 +0100
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20201021191454.13418-1-daniele.ceraolospurio@intel.com>
-Subject: Re: [Intel-gfx] [PATCH] drm/i915/guc: skip disabling CTBs before
- sanitizing the GuC
+In-Reply-To: <20201022173343.GO6112@intel.com>
+References: <20201022071637.17240-1-chris@chris-wilson.co.uk>
+ <20201022114246.28566-1-chris@chris-wilson.co.uk>
+ <20201022173343.GO6112@intel.com>
+From: Chris Wilson <chris@chris-wilson.co.uk>
+To: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Date: Thu, 22 Oct 2020 19:48:30 +0100
+Message-ID: <160339251012.18131.738819723089615366@build.alporthouse.com>
+User-Agent: alot/0.9
+Subject: Re: [Intel-gfx] [PATCH] drm/i915: Reset the interrupt mask on
+ disabling interrupts
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,74 +52,26 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: intel-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Oct 21, 2020 at 12:14:54PM -0700, Daniele Ceraolo Spurio wrote:
-> If we're about to sanitize the GuC, something might have gone wrong
-> beforehand, so we should avoid trying to talk to it. Even if GuC is
-> still running fine, the sanitize will reset its internal state and clear
-> the CTB registration, so there is still no need to explicitly do so.
-> 
-> References: https://gitlab.freedesktop.org/drm/intel/-/issues/2469
-> Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-
-Looks good to me.
-Reviewed-by: Matthew Brost <matthew.brost@intel.com>
-
-> Cc: Michal Wajdeczko <michal.wajdeczko@intel.com>
-> Cc: Matthew Brost <matthew.brost@intel.com>
-> Cc: John Harrison <John.C.Harrison@Intel.com>
-> ---
->  drivers/gpu/drm/i915/gt/uc/intel_uc.c | 8 +-------
->  1 file changed, 1 insertion(+), 7 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc.c b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
-> index 4e6070e95fe9..309eef9313e8 100644
-> --- a/drivers/gpu/drm/i915/gt/uc/intel_uc.c
-> +++ b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
-> @@ -486,7 +486,7 @@ static int __uc_init_hw(struct intel_uc *uc)
->  
->  	ret = intel_guc_sample_forcewake(guc);
->  	if (ret)
-> -		goto err_communication;
-> +		goto err_log_capture;
->  
->  	if (intel_uc_uses_guc_submission(uc))
->  		intel_guc_submission_enable(guc);
-> @@ -511,8 +511,6 @@ static int __uc_init_hw(struct intel_uc *uc)
->  	/*
->  	 * We've failed to load the firmware :(
->  	 */
-> -err_communication:
-> -	guc_disable_communication(guc);
->  err_log_capture:
->  	__uc_capture_load_err_log(uc);
->  err_out:
-> @@ -540,9 +538,6 @@ static void __uc_fini_hw(struct intel_uc *uc)
->  	if (intel_uc_uses_guc_submission(uc))
->  		intel_guc_submission_disable(guc);
->  
-> -	if (guc_communication_enabled(guc))
-> -		guc_disable_communication(guc);
-> -
->  	__uc_sanitize(uc);
->  }
->  
-> @@ -559,7 +554,6 @@ void intel_uc_reset_prepare(struct intel_uc *uc)
->  	if (!intel_guc_is_ready(guc))
->  		return;
->  
-> -	guc_disable_communication(guc);
->  	__uc_sanitize(uc);
->  }
->  
-> -- 
-> 2.24.1
-> 
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+UXVvdGluZyBWaWxsZSBTeXJqw6Rsw6QgKDIwMjAtMTAtMjIgMTg6MzM6NDMpCj4gT24gVGh1LCBP
+Y3QgMjIsIDIwMjAgYXQgMTI6NDI6NDZQTSArMDEwMCwgQ2hyaXMgV2lsc29uIHdyb3RlOgo+ID4g
+QXMgd2UgZGlzYWJsZSB0aGUgaW50ZXJydXB0IGR1cmluZyBzdXNwZW5kLCBhbHNvIHJlc2V0IHRo
+ZSBpcnFfbWFzayB0bwo+ID4gc2hvcnQtY2lyY3VpdCBzdWJzeXN0ZW1zIHRoYXQgbGF0ZXIgdHJ5
+IHRvIHR1cm4gb2ZmIHRoZWlyIGludGVycnVwdAo+ID4gc291cmNlLgo+ID4gCj4gPiA8ND5bICAx
+MDEuODE2NzMwXSBpOTE1IDAwMDA6MDA6MDIuMDogZHJtX1dBUk5fT04oIWludGVsX2lycXNfZW5h
+YmxlZChkZXZfcHJpdikpCj4gPiA8ND5bICAxMDEuODE2ODUzXSBXQVJOSU5HOiBDUFU6IDMgUElE
+OiA0MjQxIGF0IGRyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfaXJxLmM6MzQzIGlsa191cGRhdGVf
+ZGlzcGxheV9pcnErMHhiMy8weDEzMCBbaTkxNV0KPiA+IAo+ID4gdjI6IFJlc2V0IGlycV9tYXNr
+IGZvciBpOHh4X2lycV9yZXNldCBhcyB3ZWxsLCBhbmQgc3BsaXQgcGF0Y2ggdG8gZm9jdXMKPiA+
+IG9uIG9ubHkgaTkxNS0+aXJxX21hc2sKPiA+IAo+ID4gU2lnbmVkLW9mZi1ieTogQ2hyaXMgV2ls
+c29uIDxjaHJpc0BjaHJpcy13aWxzb24uY28udWs+Cj4gPiBDYzogVmlsbGUgU3lyasOkbMOkIDx2
+aWxsZS5zeXJqYWxhQGxpbnV4LmludGVsLmNvbT4KPiAKPiBSZXZpZXdlZC1ieTogVmlsbGUgU3ly
+asOkbMOkIDx2aWxsZS5zeXJqYWxhQGxpbnV4LmludGVsLmNvbT4KCkFuZCBmaW5nZXJzIGNyb3Nz
+ZWQgZm9yIGZpLWlsay1tIG1ha2luZyBhIHNwZWVkeSByZWNvdmVyeS4KLUNocmlzCl9fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkludGVsLWdmeCBtYWlsaW5n
+IGxpc3QKSW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVk
+ZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ludGVsLWdmeAo=
