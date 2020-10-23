@@ -7,65 +7,64 @@ X-Spam-Status: No, score=-12.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 553BFC8300A
-	for <intel-gfx@archiver.kernel.org>; Fri, 23 Oct 2020 12:23:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AD108C83016
+	for <intel-gfx@archiver.kernel.org>; Fri, 23 Oct 2020 12:23:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DDD462463C
+	by mail.kernel.org (Postfix) with ESMTPS id 4CFDA2463C
 	for <intel-gfx@archiver.kernel.org>; Fri, 23 Oct 2020 12:23:39 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="J9sWFy2g"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DDD462463C
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="T+brENP5"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4CFDA2463C
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E0C16E570;
-	Fri, 23 Oct 2020 12:22:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B21846E550;
+	Fri, 23 Oct 2020 12:22:46 +0000 (UTC)
 Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
  [IPv6:2a00:1450:4864:20::344])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 01B4D6E50D
- for <intel-gfx@lists.freedesktop.org>; Fri, 23 Oct 2020 12:22:39 +0000 (UTC)
-Received: by mail-wm1-x344.google.com with SMTP id c194so1232393wme.2
- for <intel-gfx@lists.freedesktop.org>; Fri, 23 Oct 2020 05:22:39 -0700 (PDT)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 095906E50E
+ for <intel-gfx@lists.freedesktop.org>; Fri, 23 Oct 2020 12:22:36 +0000 (UTC)
+Received: by mail-wm1-x344.google.com with SMTP id d3so1292965wma.4
+ for <intel-gfx@lists.freedesktop.org>; Fri, 23 Oct 2020 05:22:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=WpciX4s5+nlfIa0YzJ767hWGBGfbGF0VES+27qIdEFs=;
- b=J9sWFy2gzJ1Dok7rcOH6CNe0XN20KAII9MafGe1PS+QJmPZvoSHXniU88wRvt7gw4q
- /1cE/6KF46gTruQUayS7I3BHvSWFM0icO32sKC2GbWQGx1ocVE5DxbzQT/ArCpDCbK2I
- /1ODjBl7GbjcZUBqLnrhaeo8JYHiJBIdd69Qw=
+ bh=1beA0xZZMO6rT4hTwMD+ZW//L5jgxvsKIFlEgidJkWs=;
+ b=T+brENP5fFD7NHy7ItQmL8RDBwst+sl7h3AwWVnBkthi96tDtB1cnb7hsJwrnGTKA+
+ AxdXyqBnV+ifiXyRI9PCu4TCoR/C6jbfIMajxOBwetyIdMYL9lIIO/XQx8FfZ+jsBxn9
+ vV9g7jizc5w2OHPahUi43VUN3IWCoi446GVeE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=WpciX4s5+nlfIa0YzJ767hWGBGfbGF0VES+27qIdEFs=;
- b=Ca5M+d5VPlbLxs38wOB9zqIrDlMZNRZ9FYMqMZG/80GfkL2Ji67c89QKW3LAGBU+w6
- jN6cQC324lnt6VOOYJzwStuk2xBRCcyVqvgHJlXZirWn4c10bFFyeteFti01Xzgyhqed
- nQhSkYegFi6jDNmpa2I5QIJRvCXcgqc9ZbrXMXujvTM7OLlNfw6POIFoIJ0nho6giQES
- 2W9BPSlWvXqc1kbNYGOx/7uZX7LS7nuYsZgX+Qar+PbUpMj5piHxummbx8mgw+wQSejL
- hFCYcVowesQTRkNJt1yEpPiQ1rBJjqSkgsDB6WYsvAWt9MM3lkCMnFPXORSCyBVtFrLR
- GXcg==
-X-Gm-Message-State: AOAM533FOysJE005E1f0Y62J0qkaPKiauhI9ugZ0KK+Qn4Pak7e/i+J9
- Ftw3Wgb13b/wNlhkTUYIzbk/Xw==
-X-Google-Smtp-Source: ABdhPJxlg1hFdch0AxpXEOvF8l5c3kKvsMw0loEoF9U2y4zvlEd/eoB0b+NxK96R9voKKR7YBwl9GQ==
-X-Received: by 2002:a1c:4d05:: with SMTP id o5mr1992355wmh.94.1603455743250;
- Fri, 23 Oct 2020 05:22:23 -0700 (PDT)
+ bh=1beA0xZZMO6rT4hTwMD+ZW//L5jgxvsKIFlEgidJkWs=;
+ b=HVdCWknaIxiranM7wQL9eNkEjKJ8j/V/KTCQRnlp1GbvPlFpHMOnGsEU+aT796qEqW
+ 8v1aFkO6k8ATg440DDUi25BNBCXtGOYaet6eNxSOIsOaC6POoOSCH9BRCr88VzS4OkC5
+ isAqX+4N/taLWSF8GJgIAGUOO0Jb/KB623Fxk1ZIE54iOGRocA6EUWrCr7HU4+qzuNXb
+ D7C6oWmjUx9uWKUQPfIT2e5A4ZG02xq4SRjC/cW0BeMapxWh4iS1d24DFrtXJ+NpI/wi
+ Gk/yUXhRFIzoD/Cg/Gx7uMzGmjNVXpAgWn9AQBtrcpySYnWFFXDgxrPspygaMR4O1Nsi
+ GVIw==
+X-Gm-Message-State: AOAM530npsN75U5MLW0w46wdmx7D+/km4453sUsWaz28GP/aPs/tP3B4
+ HG5NRICtxqSYT8qilVWiFNE8RQ==
+X-Google-Smtp-Source: ABdhPJwutaW8JabkXqJfONMbc8oohdB8fDb+gZU8bM9Ek+H6TeMjxVozMUKhVHj3xaQBAWewFnQWlA==
+X-Received: by 2002:a1c:b389:: with SMTP id c131mr2155029wmf.73.1603455754757; 
+ Fri, 23 Oct 2020 05:22:34 -0700 (PDT)
 Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id y4sm3056484wrp.74.2020.10.23.05.22.22
+ by smtp.gmail.com with ESMTPSA id y4sm3056484wrp.74.2020.10.23.05.22.33
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 23 Oct 2020 05:22:22 -0700 (PDT)
+ Fri, 23 Oct 2020 05:22:34 -0700 (PDT)
 From: Daniel Vetter <daniel.vetter@ffwll.ch>
 To: DRI Development <dri-devel@lists.freedesktop.org>
-Date: Fri, 23 Oct 2020 14:21:13 +0200
-Message-Id: <20201023122216.2373294-2-daniel.vetter@ffwll.ch>
+Date: Fri, 23 Oct 2020 14:21:22 +0200
+Message-Id: <20201023122216.2373294-11-daniel.vetter@ffwll.ch>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20201023122216.2373294-1-daniel.vetter@ffwll.ch>
 References: <20201021163242.1458885-1-daniel.vetter@ffwll.ch>
  <20201023122216.2373294-1-daniel.vetter@ffwll.ch>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 02/65] drm/doc: Document legacy_cursor_update
- better
+Subject: [Intel-gfx] [PATCH 11/65] drm/atmel: Use drm_atomic_helper_commit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,79 +77,232 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, Daniel Vetter <daniel.vetter@ffwll.ch>,
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Boris Brezillon <bbrezillon@kernel.org>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>,
  Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Daniel Vetter <daniel.vetter@intel.com>
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Ludovic Desroches <ludovic.desroches@microchip.com>,
+ Daniel Vetter <daniel.vetter@intel.com>, Sam Ravnborg <sam@ravnborg.org>,
+ linux-arm-kernel@lists.infradead.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-It's the horror and shouldn't be used. Realized we're not clear on
-this in a discussion with Rob about what msm is doing to better
-support async commits.
+One of these drivers that predates the nonblocking support in helpers,
+and hand-rolled its own thing. Entirely not anything specific here, we
+can just delete it all and replace it with the helper version.
 
-v2: Refine existing todo item to include this (Thomas)
+Could also perhaps use the drm_mode_config_helper_suspend/resume
+stuff, for another few lines deleted. But I'm not looking at that
+stuff, I'm just going through all the atomic commit functions and make
+sure they have properly annotated dma-fence critical sections
+everywhere.
 
-Cc: Sean Paul <sean@poorly.run>
-Cc: Rob Clark <robdclark@gmail.com>
+v2:
+- Also delete the workqueue (Sam)
+- drop the @commit kerneldoc, I missed that one.
+
+Reviewed-by: Sam Ravnborg <sam@ravnborg.org>
 Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: David Airlie <airlied@linux.ie>
-Cc: Daniel Vetter <daniel@ffwll.ch>
+Cc: Sam Ravnborg <sam@ravnborg.org>
+Cc: Boris Brezillon <bbrezillon@kernel.org>
+Cc: Nicolas Ferre <nicolas.ferre@microchip.com>
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>
+Cc: Ludovic Desroches <ludovic.desroches@microchip.com>
+Cc: linux-arm-kernel@lists.infradead.org
 ---
- Documentation/gpu/todo.rst |  4 ++++
- include/drm/drm_atomic.h   | 12 +++++++++++-
- 2 files changed, 15 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_dc.c | 107 +------------------
+ drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_dc.h |   7 --
+ 2 files changed, 2 insertions(+), 112 deletions(-)
 
-diff --git a/Documentation/gpu/todo.rst b/Documentation/gpu/todo.rst
-index 700637e25ecd..6b224ef14455 100644
---- a/Documentation/gpu/todo.rst
-+++ b/Documentation/gpu/todo.rst
-@@ -105,6 +105,10 @@ converted over to the new infrastructure.
- One issue with the helpers is that they require that drivers handle completion
- events for atomic commits correctly. But fixing these bugs is good anyway.
+diff --git a/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_dc.c b/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_dc.c
+index 871293d1aeeb..03984932d174 100644
+--- a/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_dc.c
++++ b/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_dc.c
+@@ -557,103 +557,10 @@ static irqreturn_t atmel_hlcdc_dc_irq_handler(int irq, void *data)
+ 	return IRQ_HANDLED;
+ }
  
-+Somewhat related is the legacy_cursor_update hack, which should be replaced with
-+the new atomic_async_check/commit functionality in the helpers in drivers that
-+still look at that flag.
-+
- Contact: Daniel Vetter, respective driver maintainers
+-struct atmel_hlcdc_dc_commit {
+-	struct work_struct work;
+-	struct drm_device *dev;
+-	struct drm_atomic_state *state;
+-};
+-
+-static void
+-atmel_hlcdc_dc_atomic_complete(struct atmel_hlcdc_dc_commit *commit)
+-{
+-	struct drm_device *dev = commit->dev;
+-	struct atmel_hlcdc_dc *dc = dev->dev_private;
+-	struct drm_atomic_state *old_state = commit->state;
+-
+-	/* Apply the atomic update. */
+-	drm_atomic_helper_commit_modeset_disables(dev, old_state);
+-	drm_atomic_helper_commit_planes(dev, old_state, 0);
+-	drm_atomic_helper_commit_modeset_enables(dev, old_state);
+-
+-	drm_atomic_helper_wait_for_vblanks(dev, old_state);
+-
+-	drm_atomic_helper_cleanup_planes(dev, old_state);
+-
+-	drm_atomic_state_put(old_state);
+-
+-	/* Complete the commit, wake up any waiter. */
+-	spin_lock(&dc->commit.wait.lock);
+-	dc->commit.pending = false;
+-	wake_up_all_locked(&dc->commit.wait);
+-	spin_unlock(&dc->commit.wait.lock);
+-
+-	kfree(commit);
+-}
+-
+-static void atmel_hlcdc_dc_atomic_work(struct work_struct *work)
+-{
+-	struct atmel_hlcdc_dc_commit *commit =
+-		container_of(work, struct atmel_hlcdc_dc_commit, work);
+-
+-	atmel_hlcdc_dc_atomic_complete(commit);
+-}
+-
+-static int atmel_hlcdc_dc_atomic_commit(struct drm_device *dev,
+-					struct drm_atomic_state *state,
+-					bool async)
+-{
+-	struct atmel_hlcdc_dc *dc = dev->dev_private;
+-	struct atmel_hlcdc_dc_commit *commit;
+-	int ret;
+-
+-	ret = drm_atomic_helper_prepare_planes(dev, state);
+-	if (ret)
+-		return ret;
+-
+-	/* Allocate the commit object. */
+-	commit = kzalloc(sizeof(*commit), GFP_KERNEL);
+-	if (!commit) {
+-		ret = -ENOMEM;
+-		goto error;
+-	}
+-
+-	INIT_WORK(&commit->work, atmel_hlcdc_dc_atomic_work);
+-	commit->dev = dev;
+-	commit->state = state;
+-
+-	spin_lock(&dc->commit.wait.lock);
+-	ret = wait_event_interruptible_locked(dc->commit.wait,
+-					      !dc->commit.pending);
+-	if (ret == 0)
+-		dc->commit.pending = true;
+-	spin_unlock(&dc->commit.wait.lock);
+-
+-	if (ret)
+-		goto err_free;
+-
+-	/* We have our own synchronization through the commit lock. */
+-	BUG_ON(drm_atomic_helper_swap_state(state, false) < 0);
+-
+-	/* Swap state succeeded, this is the point of no return. */
+-	drm_atomic_state_get(state);
+-	if (async)
+-		queue_work(dc->wq, &commit->work);
+-	else
+-		atmel_hlcdc_dc_atomic_complete(commit);
+-
+-	return 0;
+-
+-err_free:
+-	kfree(commit);
+-error:
+-	drm_atomic_helper_cleanup_planes(dev, state);
+-	return ret;
+-}
+-
+ static const struct drm_mode_config_funcs mode_config_funcs = {
+ 	.fb_create = drm_gem_fb_create,
+ 	.atomic_check = drm_atomic_helper_check,
+-	.atomic_commit = atmel_hlcdc_dc_atomic_commit,
++	.atomic_commit = drm_atomic_helper_commit,
+ };
  
- Level: Advanced
-diff --git a/include/drm/drm_atomic.h b/include/drm/drm_atomic.h
-index d07c851d255b..413fd0ca56a8 100644
---- a/include/drm/drm_atomic.h
-+++ b/include/drm/drm_atomic.h
-@@ -308,7 +308,6 @@ struct __drm_private_objs_state {
-  * struct drm_atomic_state - the global state object for atomic updates
-  * @ref: count of all references to this state (will not be freed until zero)
-  * @dev: parent DRM device
-- * @legacy_cursor_update: hint to enforce legacy cursor IOCTL semantics
-  * @async_update: hint for asynchronous plane update
-  * @planes: pointer to array of structures with per-plane data
-  * @crtcs: pointer to array of CRTC pointers
-@@ -336,6 +335,17 @@ struct drm_atomic_state {
- 	 * drm_atomic_crtc_needs_modeset().
- 	 */
- 	bool allow_modeset : 1;
-+	/**
-+	 * @legacy_cursor_update:
-+	 *
-+	 * Hint to enforce legacy cursor IOCTL semantics.
-+	 *
-+	 * WARNING: This is thoroughly broken and pretty much impossible to
-+	 * implement correctly. Drivers must ignore this and should instead
-+	 * implement &drm_plane_helper_funcs.atomic_async_check and
-+	 * &drm_plane_helper_funcs.atomic_async_commit hooks. New users of this
-+	 * flag are not allowed.
-+	 */
- 	bool legacy_cursor_update : 1;
- 	bool async_update : 1;
- 	/**
+ static int atmel_hlcdc_dc_modeset_init(struct drm_device *dev)
+@@ -712,11 +619,6 @@ static int atmel_hlcdc_dc_load(struct drm_device *dev)
+ 	if (!dc)
+ 		return -ENOMEM;
+ 
+-	dc->wq = alloc_ordered_workqueue("atmel-hlcdc-dc", 0);
+-	if (!dc->wq)
+-		return -ENOMEM;
+-
+-	init_waitqueue_head(&dc->commit.wait);
+ 	dc->desc = match->data;
+ 	dc->hlcdc = dev_get_drvdata(dev->dev->parent);
+ 	dev->dev_private = dc;
+@@ -724,7 +626,7 @@ static int atmel_hlcdc_dc_load(struct drm_device *dev)
+ 	ret = clk_prepare_enable(dc->hlcdc->periph_clk);
+ 	if (ret) {
+ 		dev_err(dev->dev, "failed to enable periph_clk\n");
+-		goto err_destroy_wq;
++		return ret;
+ 	}
+ 
+ 	pm_runtime_enable(dev->dev);
+@@ -761,9 +663,6 @@ static int atmel_hlcdc_dc_load(struct drm_device *dev)
+ 	pm_runtime_disable(dev->dev);
+ 	clk_disable_unprepare(dc->hlcdc->periph_clk);
+ 
+-err_destroy_wq:
+-	destroy_workqueue(dc->wq);
+-
+ 	return ret;
+ }
+ 
+@@ -771,7 +670,6 @@ static void atmel_hlcdc_dc_unload(struct drm_device *dev)
+ {
+ 	struct atmel_hlcdc_dc *dc = dev->dev_private;
+ 
+-	flush_workqueue(dc->wq);
+ 	drm_kms_helper_poll_fini(dev);
+ 	drm_atomic_helper_shutdown(dev);
+ 	drm_mode_config_cleanup(dev);
+@@ -784,7 +682,6 @@ static void atmel_hlcdc_dc_unload(struct drm_device *dev)
+ 
+ 	pm_runtime_disable(dev->dev);
+ 	clk_disable_unprepare(dc->hlcdc->periph_clk);
+-	destroy_workqueue(dc->wq);
+ }
+ 
+ static int atmel_hlcdc_dc_irq_postinstall(struct drm_device *dev)
+diff --git a/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_dc.h b/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_dc.h
+index 469d4507e576..5b5c774e0edf 100644
+--- a/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_dc.h
++++ b/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_dc.h
+@@ -331,9 +331,7 @@ struct atmel_hlcdc_dc_desc {
+  * @crtc: CRTC provided by the display controller
+  * @planes: instantiated planes
+  * @layers: active HLCDC layers
+- * @wq: display controller workqueue
+  * @suspend: used to store the HLCDC state when entering suspend
+- * @commit: used for async commit handling
+  */
+ struct atmel_hlcdc_dc {
+ 	const struct atmel_hlcdc_dc_desc *desc;
+@@ -341,15 +339,10 @@ struct atmel_hlcdc_dc {
+ 	struct atmel_hlcdc *hlcdc;
+ 	struct drm_crtc *crtc;
+ 	struct atmel_hlcdc_layer *layers[ATMEL_HLCDC_MAX_LAYERS];
+-	struct workqueue_struct *wq;
+ 	struct {
+ 		u32 imr;
+ 		struct drm_atomic_state *state;
+ 	} suspend;
+-	struct {
+-		wait_queue_head_t wait;
+-		bool pending;
+-	} commit;
+ };
+ 
+ extern struct atmel_hlcdc_formats atmel_hlcdc_plane_rgb_formats;
 -- 
 2.28.0
 
