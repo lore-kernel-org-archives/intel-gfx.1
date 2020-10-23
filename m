@@ -4,51 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7BA92C4363A
-	for <intel-gfx@archiver.kernel.org>; Fri, 23 Oct 2020 12:35:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 11409C55179
+	for <intel-gfx@archiver.kernel.org>; Fri, 23 Oct 2020 12:35:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 277BE2085B
-	for <intel-gfx@archiver.kernel.org>; Fri, 23 Oct 2020 12:35:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 277BE2085B
+	by mail.kernel.org (Postfix) with ESMTPS id C05F72085B
+	for <intel-gfx@archiver.kernel.org>; Fri, 23 Oct 2020 12:35:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C05F72085B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 38C686F639;
-	Fri, 23 Oct 2020 12:35:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3BF076F632;
+	Fri, 23 Oct 2020 12:35:37 +0000 (UTC)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 886A86F628;
- Fri, 23 Oct 2020 12:35:29 +0000 (UTC)
-IronPort-SDR: Megp7rcaweUu6dH0gpZXSF84LE6l52cQwT9lGX9373h+TGsDJzNAi1WBzMyDqJ501C+n/bvWHa
- SYIOPAyflQ+w==
-X-IronPort-AV: E=McAfee;i="6000,8403,9782"; a="252365645"
-X-IronPort-AV: E=Sophos;i="5.77,408,1596524400"; d="scan'208";a="252365645"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 224A76F63A;
+ Fri, 23 Oct 2020 12:35:35 +0000 (UTC)
+IronPort-SDR: Gc+gALXipp5NWz9KSUGGQrAo/OSiXNmc1uJ+cbUPynsvqhBvu996uu95zeQK2ldtE5GhtnhSIs
+ QzeS5GsgZnAw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9782"; a="252365662"
+X-IronPort-AV: E=Sophos;i="5.77,408,1596524400"; d="scan'208";a="252365662"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Oct 2020 05:35:29 -0700
-IronPort-SDR: uyYlhbb8Gry85fkKPPTTOjGyrPAA5Nj7xZFJ6x2pCy5Iz6OgL05+rKGmyQMe6Jpp42JblCVNoq
- b5YZYLRLRehA==
-X-IronPort-AV: E=Sophos;i="5.77,408,1596524400"; d="scan'208";a="423415728"
+ 23 Oct 2020 05:35:34 -0700
+IronPort-SDR: QEKA+fVe38hl3BB0R3Xuik4eVQygcFx56GQwVx0MMaH2/XTa6Xu7u4AODXQ3PDIn3/t88Hzo24
+ YSPXqoWcMPKw==
+X-IronPort-AV: E=Sophos;i="5.77,408,1596524400"; d="scan'208";a="423415743"
 Received: from genxfsim-desktop.iind.intel.com ([10.223.74.178])
  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Oct 2020 05:35:26 -0700
+ 23 Oct 2020 05:35:32 -0700
 From: Anshuman Gupta <anshuman.gupta@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Fri, 23 Oct 2020 17:51:04 +0530
-Message-Id: <20201023122112.15265-9-anshuman.gupta@intel.com>
+Date: Fri, 23 Oct 2020 17:51:06 +0530
+Message-Id: <20201023122112.15265-11-anshuman.gupta@intel.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20201023122112.15265-1-anshuman.gupta@intel.com>
 References: <20201023122112.15265-1-anshuman.gupta@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v3 08/16] drm/i915/hdcp: Pass dig_port to
- intel_hdcp_init
+Subject: [Intel-gfx] [PATCH v3 10/16] misc/mei/hdcp: Fix AUTH_STREAM_REQ cmd
+ buffer len
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,131 +61,43 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com, seanpaul@chromium.org
+Cc: jani.nikula@intel.com, seanpaul@chromium.org,
+ Tomas Winkler <tomas.winkler@intel.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Pass dig_port as an argument to intel_hdcp_init()
-and intel_hdcp2_init().
-This will be required for HDCP 2.2 stream encryption.
+Fix the size of WIRED_REPEATER_AUTH_STREAM_REQ cmd buffer size.
+It is based upon the actual number of MST streams and size
+of wired_cmd_repeater_auth_stream_req_in.
+Excluding the size of hdcp_cmd_header.
 
+v2:
+hdcp_cmd_header size annotation nitpick. [Tomas]
+
+Cc: Tomas Winkler <tomas.winkler@intel.com>
 Cc: Ramalingam C <ramalingam.c@intel.com>
+Acked-by: Tomas Winkler <tomas.winkler@intel.com>
 Signed-off-by: Anshuman Gupta <anshuman.gupta@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp_hdcp.c |  4 ++--
- drivers/gpu/drm/i915/display/intel_hdcp.c    | 12 +++++++-----
- drivers/gpu/drm/i915/display/intel_hdcp.h    |  4 +++-
- drivers/gpu/drm/i915/display/intel_hdmi.c    |  2 +-
- 4 files changed, 13 insertions(+), 9 deletions(-)
+ drivers/misc/mei/hdcp/mei_hdcp.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_hdcp.c b/drivers/gpu/drm/i915/display/intel_dp_hdcp.c
-index 652d4645f255..384e384cb9e2 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_hdcp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_hdcp.c
-@@ -751,10 +751,10 @@ int intel_dp_init_hdcp(struct intel_digital_port *dig_port,
- 		return 0;
+diff --git a/drivers/misc/mei/hdcp/mei_hdcp.c b/drivers/misc/mei/hdcp/mei_hdcp.c
+index 9ae9669e46ea..3506a3534294 100644
+--- a/drivers/misc/mei/hdcp/mei_hdcp.c
++++ b/drivers/misc/mei/hdcp/mei_hdcp.c
+@@ -569,8 +569,7 @@ static int mei_hdcp_verify_mprime(struct device *dev,
+ 	verify_mprime_in->header.api_version = HDCP_API_VERSION;
+ 	verify_mprime_in->header.command_id = WIRED_REPEATER_AUTH_STREAM_REQ;
+ 	verify_mprime_in->header.status = ME_HDCP_STATUS_SUCCESS;
+-	verify_mprime_in->header.buffer_len =
+-			WIRED_CMD_BUF_LEN_REPEATER_AUTH_STREAM_REQ_MIN_IN;
++	verify_mprime_in->header.buffer_len = cmd_size  - sizeof(verify_mprime_in->header);
  
- 	if (intel_connector->mst_port)
--		return intel_hdcp_init(intel_connector, port,
-+		return intel_hdcp_init(intel_connector, dig_port,
- 				       &intel_dp_mst_hdcp_shim);
- 	else if (!intel_dp_is_edp(intel_dp))
--		return intel_hdcp_init(intel_connector, port,
-+		return intel_hdcp_init(intel_connector, dig_port,
- 				       &intel_dp_hdcp_shim);
- 
- 	return 0;
-diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.c b/drivers/gpu/drm/i915/display/intel_hdcp.c
-index 46c9bd588db1..10770bf0e85e 100644
---- a/drivers/gpu/drm/i915/display/intel_hdcp.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdcp.c
-@@ -1985,12 +1985,13 @@ static enum mei_fw_tc intel_get_mei_fw_tc(enum transcoder cpu_transcoder)
- }
- 
- static int initialize_hdcp_port_data(struct intel_connector *connector,
--				     enum port port,
-+				     struct intel_digital_port *dig_port,
- 				     const struct intel_hdcp_shim *shim)
- {
- 	struct drm_i915_private *dev_priv = to_i915(connector->base.dev);
- 	struct intel_hdcp *hdcp = &connector->hdcp;
- 	struct hdcp_port_data *data = &hdcp->port_data;
-+	enum port port = dig_port->base.port;
- 
- 	if (INTEL_GEN(dev_priv) < 12)
- 		data->fw_ddi = intel_get_mei_fw_ddi_index(port);
-@@ -2063,14 +2064,15 @@ void intel_hdcp_component_init(struct drm_i915_private *dev_priv)
- 	}
- }
- 
--static void intel_hdcp2_init(struct intel_connector *connector, enum port port,
-+static void intel_hdcp2_init(struct intel_connector *connector,
-+			     struct intel_digital_port *dig_port,
- 			     const struct intel_hdcp_shim *shim)
- {
- 	struct drm_i915_private *i915 = to_i915(connector->base.dev);
- 	struct intel_hdcp *hdcp = &connector->hdcp;
- 	int ret;
- 
--	ret = initialize_hdcp_port_data(connector, port, shim);
-+	ret = initialize_hdcp_port_data(connector, dig_port, shim);
- 	if (ret) {
- 		drm_dbg_kms(&i915->drm, "Mei hdcp data init failed\n");
- 		return;
-@@ -2080,7 +2082,7 @@ static void intel_hdcp2_init(struct intel_connector *connector, enum port port,
- }
- 
- int intel_hdcp_init(struct intel_connector *connector,
--		    enum port port,
-+		    struct intel_digital_port *dig_port,
- 		    const struct intel_hdcp_shim *shim)
- {
- 	struct drm_i915_private *dev_priv = to_i915(connector->base.dev);
-@@ -2091,7 +2093,7 @@ int intel_hdcp_init(struct intel_connector *connector,
- 		return -EINVAL;
- 
- 	if (is_hdcp2_supported(dev_priv) && !connector->mst_port)
--		intel_hdcp2_init(connector, port, shim);
-+		intel_hdcp2_init(connector, dig_port, shim);
- 
- 	ret =
- 	drm_connector_attach_content_protection_property(&connector->base,
-diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.h b/drivers/gpu/drm/i915/display/intel_hdcp.h
-index b912a3a0f5b8..8f53b0c7fe5c 100644
---- a/drivers/gpu/drm/i915/display/intel_hdcp.h
-+++ b/drivers/gpu/drm/i915/display/intel_hdcp.h
-@@ -18,13 +18,15 @@ struct intel_connector;
- struct intel_crtc_state;
- struct intel_encoder;
- struct intel_hdcp_shim;
-+struct intel_digital_port;
- enum port;
- enum transcoder;
- 
- void intel_hdcp_atomic_check(struct drm_connector *connector,
- 			     struct drm_connector_state *old_state,
- 			     struct drm_connector_state *new_state);
--int intel_hdcp_init(struct intel_connector *connector, enum port port,
-+int intel_hdcp_init(struct intel_connector *connector,
-+		    struct intel_digital_port *dig_port,
- 		    const struct intel_hdcp_shim *hdcp_shim);
- int intel_hdcp_enable(struct intel_connector *connector,
- 		      const struct intel_crtc_state *pipe_config, u8 content_type);
-diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
-index f58469226694..0788de04711b 100644
---- a/drivers/gpu/drm/i915/display/intel_hdmi.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
-@@ -3302,7 +3302,7 @@ void intel_hdmi_init_connector(struct intel_digital_port *dig_port,
- 	intel_hdmi->attached_connector = intel_connector;
- 
- 	if (is_hdcp_supported(dev_priv, port)) {
--		int ret = intel_hdcp_init(intel_connector, port,
-+		int ret = intel_hdcp_init(intel_connector, dig_port,
- 					  &intel_hdmi_hdcp_shim);
- 		if (ret)
- 			drm_dbg_kms(&dev_priv->drm,
+ 	verify_mprime_in->port.integrated_port_type = data->port_type;
+ 	verify_mprime_in->port.physical_port = (u8)data->fw_ddi;
 -- 
 2.26.2
 
