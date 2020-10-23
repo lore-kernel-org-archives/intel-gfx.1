@@ -7,42 +7,42 @@ X-Spam-Status: No, score=-9.7 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9A5DFC388F9
-	for <intel-gfx@archiver.kernel.org>; Fri, 23 Oct 2020 19:29:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3BFB7C388F9
+	for <intel-gfx@archiver.kernel.org>; Fri, 23 Oct 2020 19:30:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2F6C021582
-	for <intel-gfx@archiver.kernel.org>; Fri, 23 Oct 2020 19:29:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2F6C021582
+	by mail.kernel.org (Postfix) with ESMTPS id A506021582
+	for <intel-gfx@archiver.kernel.org>; Fri, 23 Oct 2020 19:30:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A506021582
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6490B6E81A;
-	Fri, 23 Oct 2020 19:29:41 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C20D6E81A
- for <intel-gfx@lists.freedesktop.org>; Fri, 23 Oct 2020 19:29:39 +0000 (UTC)
-IronPort-SDR: +A+VCXUUymaOfFTzgHXYfTKfU2Sm9tQHPa7frrsZLI+GyzfiR5+wWeVM7m11ABzXoZN9JErUck
- I4bdFoEV9chw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9783"; a="167843912"
-X-IronPort-AV: E=Sophos;i="5.77,409,1596524400"; d="scan'208";a="167843912"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 197816E81B;
+	Fri, 23 Oct 2020 19:30:34 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 71B8B6E81B
+ for <intel-gfx@lists.freedesktop.org>; Fri, 23 Oct 2020 19:30:33 +0000 (UTC)
+IronPort-SDR: 9T6XjY1Aj9M2yFJ9vj/KHW7ykJbsRdqrMGdm79QLANKmWeb+PmtaRGeV3mqomOfgRKAddP/rx4
+ RVv7aRy+cglg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9783"; a="166937584"
+X-IronPort-AV: E=Sophos;i="5.77,409,1596524400"; d="scan'208";a="166937584"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Oct 2020 12:29:39 -0700
-IronPort-SDR: 92lgZUmOpCpxICwZfh5/MOBTNDZgxk0Tu4NUwRBbOnezUkZdrP4lmnMICkqE6RxnDQ3BQn5YW0
- KCD2Py4nBW9A==
-X-IronPort-AV: E=Sophos;i="5.77,409,1596524400"; d="scan'208";a="534515877"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Oct 2020 12:30:17 -0700
+IronPort-SDR: sgMAkjhIK5SRKpwvw5q1qsXUYl3IR6GJ+9iczrxBk5fl9agnroWwG4Tos/zImdkghoTonxm9v/
+ HDF5NcUCQf2Q==
+X-IronPort-AV: E=Sophos;i="5.77,409,1596524400"; d="scan'208";a="524778696"
 Received: from spoase-mobl.amr.corp.intel.com (HELO ldmartin-desk1)
  ([10.212.216.15])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Oct 2020 12:29:38 -0700
-Date: Fri, 23 Oct 2020 12:29:37 -0700
+ by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Oct 2020 12:30:17 -0700
+Date: Fri, 23 Oct 2020 12:30:16 -0700
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: Ville Syrjala <ville.syrjala@linux.intel.com>
-Message-ID: <20201023192937.ikyg7w6rnr3xssvp@ldmartin-desk1>
+Message-ID: <20201023193016.l6dhelmjzmhbhrvt@ldmartin-desk1>
 References: <20201023133420.12039-1-ville.syrjala@linux.intel.com>
  <20201023133420.12039-17-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
@@ -68,6 +68,10 @@ Content-Type: text/plain; charset="iso-8859-1"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+While changing this, may fix the typo on subject: "per-platform"
+
+Lucas De Marchi
+
 On Fri, Oct 23, 2020 at 04:34:17PM +0300, Ville Syrj=E4l=E4 wrote:
 >From: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
 >
@@ -76,10 +80,6 @@ On Fri, Oct 23, 2020 at 04:34:17PM +0300, Ville Syrj=E4l=E4 wrote:
 >IIR.
 >
 >Signed-off-by: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
-
-this patch should come after
-"drm/i915: Enable hpd logic only for ports that are present"
-
 >---
 > drivers/gpu/drm/i915/i915_irq.c | 21 ++-------------------
 > drivers/gpu/drm/i915/i915_reg.h | 10 ++--------
@@ -141,17 +141,6 @@ eg.h
 >+#define SDE_DDI_MASK_ICP		(SDE_DDI_HOTPLUG_ICP(HPD_PORT_C) | \
 > 					 SDE_DDI_HOTPLUG_ICP(HPD_PORT_B) | \
 > 					 SDE_DDI_HOTPLUG_ICP(HPD_PORT_A))
-
-and here is the opportunity to rename this to SDE_DDI_HOTPLUG_MASK_ICP
-or in a separate patch.
-
-with the patch reorder,
-
-
-Reviewed-by: Lucas De Marchi <lucas.demarchi@intel.com>
-
-Lucas De Marchi
-
 >-#define SDE_TC_MASK_TGP			(SDE_TC_HOTPLUG_ICP(HPD_PORT_TC6) | \
 >+#define SDE_TC_MASK_ICP			(SDE_TC_HOTPLUG_ICP(HPD_PORT_TC6) | \
 > 					 SDE_TC_HOTPLUG_ICP(HPD_PORT_TC5) | \
