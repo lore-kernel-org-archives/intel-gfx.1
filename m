@@ -2,55 +2,57 @@ Return-Path: <SRS0=RNxq=D6=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
+X-Spam-Status: No, score=-11.2 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1D5B4C4363A
-	for <intel-gfx@archiver.kernel.org>; Fri, 23 Oct 2020 17:13:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9614EC4363A
+	for <intel-gfx@archiver.kernel.org>; Fri, 23 Oct 2020 17:17:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A65A020E65
-	for <intel-gfx@archiver.kernel.org>; Fri, 23 Oct 2020 17:13:16 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="VUj6i8Y8"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A65A020E65
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
+	by mail.kernel.org (Postfix) with ESMTPS id 19E3120E65
+	for <intel-gfx@archiver.kernel.org>; Fri, 23 Oct 2020 17:17:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 19E3120E65
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F37976E30D;
-	Fri, 23 Oct 2020 17:13:15 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1104A6E145;
- Fri, 23 Oct 2020 16:33:49 +0000 (UTC)
-Received: from mail.kernel.org (ip5f5ad5a3.dynamic.kabel-deutschland.de
- [95.90.213.163])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 9C7AB24688;
- Fri, 23 Oct 2020 16:33:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1603470828;
- bh=Sylq2e9ar6D8YYBJCExBwyy0BcyrCcVrtoDLcGb4uUw=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=VUj6i8Y8HNWPeUNZ1P2n+KaKqel8o67TTEPI8blw1occ/hgvw4kX29dW0eNPMB98F
- D5Jj74KlVqUrMRwMY8oilG0GrzBMJnif1KDrWcfyLxs8MDO4EWXxTAis3kVVTIrr+U
- OuM5zzitEei8v+WFYPJubCiV710gjDlGR4Bzm10s=
-Received: from mchehab by mail.kernel.org with local (Exim 4.94)
- (envelope-from <mchehab@kernel.org>)
- id 1kW00f-002Avm-2w; Fri, 23 Oct 2020 18:33:45 +0200
-From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-To: Linux Doc Mailing List <linux-doc@vger.kernel.org>
-Date: Fri, 23 Oct 2020 18:32:59 +0200
-Message-Id: <67949ee046ffcc9220c6dde4bd34eca5840ef504.1603469755.git.mchehab+huawei@kernel.org>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <cover.1603469755.git.mchehab+huawei@kernel.org>
-References: <cover.1603469755.git.mchehab+huawei@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A8E16E311;
+	Fri, 23 Oct 2020 17:17:13 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3FBD06E311
+ for <intel-gfx@lists.freedesktop.org>; Fri, 23 Oct 2020 17:17:12 +0000 (UTC)
+IronPort-SDR: uzTeVCpOmxt1a7ynS46hLokpwdaIJEEDaCla7vPgTuSNBHjZ09tkFii5MCZbpUxVXf8t3H4gxv
+ NfIjJJ1PyORg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9782"; a="167800989"
+X-IronPort-AV: E=Sophos;i="5.77,409,1596524400"; d="scan'208";a="167800989"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Oct 2020 10:17:11 -0700
+IronPort-SDR: 1XnpC7wRfncpSEIZK26ecRU/WQgCU1YWcCdceguP6DjENZAc1bKYluSgnVqTBUJkXpziwBsPMX
+ Aznd0D243A8A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.77,409,1596524400"; d="scan'208";a="349262006"
+Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.174])
+ by orsmga008.jf.intel.com with SMTP; 23 Oct 2020 10:17:09 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Fri, 23 Oct 2020 20:17:08 +0300
+Date: Fri, 23 Oct 2020 20:17:08 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Manasi Navare <manasi.d.navare@intel.com>
+Message-ID: <20201023171708.GW6112@intel.com>
+References: <20201022054223.25071-1-manasi.d.navare@intel.com>
+ <20201022054223.25071-4-manasi.d.navare@intel.com>
 MIME-Version: 1.0
-X-Mailman-Approved-At: Fri, 23 Oct 2020 17:13:14 +0000
-Subject: [Intel-gfx] [PATCH v3 12/56] drm: fix some kernel-doc markups
+Content-Disposition: inline
+In-Reply-To: <20201022054223.25071-4-manasi.d.navare@intel.com>
+X-Patchwork-Hint: comment
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Subject: Re: [Intel-gfx] [PATCH v11 03/12] drm/i915/dp: Some reshuffling in
+ mode_valid as prep for bigjoiner modes
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,378 +65,80 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, Eric Anholt <eric@anholt.net>,
- Jonathan Corbet <corbet@lwn.net>,
- Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
- Steven Price <steven.price@arm.com>, Peter Zijlstra <peterz@infradead.org>,
- Yintian Tao <yttao@amd.com>, Wambui Karuga <wambui.karugax@gmail.com>,
- Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, intel-gfx@lists.freedesktop.org,
- Maxime Ripard <mripard@kernel.org>, changzhu <Changfeng.Zhu@amd.com>,
- Nirmoy Das <nirmoy.aiemd@gmail.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Lucas Stach <l.stach@pengutronix.de>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: intel-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Some identifiers have different names between their prototypes
-and the kernel-doc markup.
+On Wed, Oct 21, 2020 at 10:42:14PM -0700, Manasi Navare wrote:
+> No functional changes. This patch just moves some mode checks
+> around to prepare for adding bigjoiner related mode validation
+> =
 
-Others need to be fixed, as kernel-doc markups should use this format:
-        identifier - description
+> Cc: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
+> Signed-off-by: Manasi Navare <manasi.d.navare@intel.com>
+> ---
+>  drivers/gpu/drm/i915/display/intel_dp.c | 12 ++++++------
+>  1 file changed, 6 insertions(+), 6 deletions(-)
+> =
 
-Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
----
- drivers/gpu/drm/drm_atomic_state_helper.c     | 2 +-
- drivers/gpu/drm/drm_connector.c               | 3 ++-
- drivers/gpu/drm/drm_dp_helper.c               | 2 +-
- drivers/gpu/drm/drm_framebuffer.c             | 2 +-
- drivers/gpu/drm/drm_gem.c                     | 4 ++--
- drivers/gpu/drm/drm_gem_vram_helper.c         | 2 +-
- drivers/gpu/drm/drm_mode_object.c             | 2 +-
- drivers/gpu/drm/drm_modes.c                   | 4 ++--
- drivers/gpu/drm/drm_scdc_helper.c             | 2 +-
- drivers/gpu/drm/i915/display/intel_dpll_mgr.c | 2 +-
- drivers/gpu/drm/i915/i915_gem_evict.c         | 2 +-
- drivers/gpu/drm/i915/i915_perf.c              | 8 +++++---
- drivers/gpu/drm/scheduler/sched_main.c        | 2 +-
- drivers/gpu/drm/v3d/v3d_sched.c               | 2 +-
- drivers/gpu/drm/vc4/vc4_bo.c                  | 2 +-
- include/drm/drm_atomic_helper.h               | 4 ++--
- include/drm/drm_connector.h                   | 2 +-
- include/drm/drm_device.h                      | 2 +-
- include/drm/drm_dsc.h                         | 3 ++-
- include/drm/drm_gem_vram_helper.h             | 8 ++++----
- 20 files changed, 32 insertions(+), 28 deletions(-)
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i9=
+15/display/intel_dp.c
+> index 818daab252f3..2c29e7f5281b 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+> @@ -721,6 +721,9 @@ intel_dp_mode_valid(struct drm_connector *connector,
+>  	if (mode->flags & DRM_MODE_FLAG_DBLSCAN)
+>  		return MODE_NO_DBLESCAN;
+>  =
 
-diff --git a/drivers/gpu/drm/drm_atomic_state_helper.c b/drivers/gpu/drm/drm_atomic_state_helper.c
-index 9ad74045158e..ddcf5c2c8e6a 100644
---- a/drivers/gpu/drm/drm_atomic_state_helper.c
-+++ b/drivers/gpu/drm/drm_atomic_state_helper.c
-@@ -543,7 +543,7 @@ void drm_atomic_helper_connector_destroy_state(struct drm_connector *connector,
- EXPORT_SYMBOL(drm_atomic_helper_connector_destroy_state);
- 
- /**
-- * __drm_atomic_helper_private_duplicate_state - copy atomic private state
-+ * __drm_atomic_helper_private_obj_duplicate_state - copy atomic private state
-  * @obj: CRTC object
-  * @state: new private object state
-  *
-diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-index 717c4e7271b0..9dde11466cc2 100644
---- a/drivers/gpu/drm/drm_connector.c
-+++ b/drivers/gpu/drm/drm_connector.c
-@@ -1427,7 +1427,8 @@ void drm_hdmi_avi_infoframe_content_type(struct hdmi_avi_infoframe *frame,
- EXPORT_SYMBOL(drm_hdmi_avi_infoframe_content_type);
- 
- /**
-- * drm_mode_attach_tv_margin_properties - attach TV connector margin properties
-+ * drm_connector_attach_tv_margin_properties - attach TV connector margin
-+ * 	properties
-  * @connector: DRM connector
-  *
-  * Called by a driver when it needs to attach TV margin props to a connector.
-diff --git a/drivers/gpu/drm/drm_dp_helper.c b/drivers/gpu/drm/drm_dp_helper.c
-index deeed73f4ed6..485c3e78ba98 100644
---- a/drivers/gpu/drm/drm_dp_helper.c
-+++ b/drivers/gpu/drm/drm_dp_helper.c
-@@ -1084,7 +1084,7 @@ drm_dp_subconnector_type(const u8 dpcd[DP_RECEIVER_CAP_SIZE],
- EXPORT_SYMBOL(drm_dp_subconnector_type);
- 
- /**
-- * drm_mode_set_dp_subconnector_property - set subconnector for DP connector
-+ * drm_dp_set_subconnector_property - set subconnector for DP connector
-  * @connector: connector to set property on
-  * @status: connector status
-  * @dpcd: DisplayPort configuration data
-diff --git a/drivers/gpu/drm/drm_framebuffer.c b/drivers/gpu/drm/drm_framebuffer.c
-index 2f5b0c2bb0fe..aca62ed51e82 100644
---- a/drivers/gpu/drm/drm_framebuffer.c
-+++ b/drivers/gpu/drm/drm_framebuffer.c
-@@ -552,7 +552,7 @@ int drm_mode_getfb(struct drm_device *dev,
- }
- 
- /**
-- * drm_mode_getfb2 - get extended FB info
-+ * drm_mode_getfb2_ioctl - get extended FB info
-  * @dev: drm device for the ioctl
-  * @data: data pointer for the ioctl
-  * @file_priv: drm file for the ioctl call
-diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
-index 19d73868490e..74af32106cae 100644
---- a/drivers/gpu/drm/drm_gem.c
-+++ b/drivers/gpu/drm/drm_gem.c
-@@ -873,7 +873,7 @@ drm_gem_flink_ioctl(struct drm_device *dev, void *data,
- }
- 
- /**
-- * drm_gem_open - implementation of the GEM_OPEN ioctl
-+ * drm_gem_open_ioctl - implementation of the GEM_OPEN ioctl
-  * @dev: drm_device
-  * @data: ioctl data
-  * @file_priv: drm file-private structure
-@@ -918,7 +918,7 @@ drm_gem_open_ioctl(struct drm_device *dev, void *data,
- }
- 
- /**
-- * gem_gem_open - initalizes GEM file-private structures at devnode open time
-+ * drm_gem_open - initalizes GEM file-private structures at devnode open time
-  * @dev: drm_device which is being opened by userspace
-  * @file_private: drm file-private structure to set up
-  *
-diff --git a/drivers/gpu/drm/drm_gem_vram_helper.c b/drivers/gpu/drm/drm_gem_vram_helper.c
-index 50cad0e4a92e..e81f6954d233 100644
---- a/drivers/gpu/drm/drm_gem_vram_helper.c
-+++ b/drivers/gpu/drm/drm_gem_vram_helper.c
-@@ -640,7 +640,7 @@ static void drm_gem_vram_object_free(struct drm_gem_object *gem)
-  */
- 
- /**
-- * drm_gem_vram_driver_create_dumb() - \
-+ * drm_gem_vram_driver_dumb_create() - \
- 	Implements &struct drm_driver.dumb_create
-  * @file:		the DRM file
-  * @dev:		the DRM device
-diff --git a/drivers/gpu/drm/drm_mode_object.c b/drivers/gpu/drm/drm_mode_object.c
-index db05f386a709..b26588b52795 100644
---- a/drivers/gpu/drm/drm_mode_object.c
-+++ b/drivers/gpu/drm/drm_mode_object.c
-@@ -115,7 +115,7 @@ void drm_mode_object_unregister(struct drm_device *dev,
- }
- 
- /**
-- * drm_lease_required - check types which must be leased to be used
-+ * drm_mode_object_lease_required - check types which must be leased to be used
-  * @type: type of object
-  *
-  * Returns whether the provided type of drm_mode_object must
-diff --git a/drivers/gpu/drm/drm_modes.c b/drivers/gpu/drm/drm_modes.c
-index 501b4fe55a3d..33fb2f05ce66 100644
---- a/drivers/gpu/drm/drm_modes.c
-+++ b/drivers/gpu/drm/drm_modes.c
-@@ -1889,7 +1889,7 @@ drm_mode_create_from_cmdline_mode(struct drm_device *dev,
- EXPORT_SYMBOL(drm_mode_create_from_cmdline_mode);
- 
- /**
-- * drm_crtc_convert_to_umode - convert a drm_display_mode into a modeinfo
-+ * drm_mode_convert_to_umode - convert a drm_display_mode into a modeinfo
-  * @out: drm_mode_modeinfo struct to return to the user
-  * @in: drm_display_mode to use
-  *
-@@ -1941,7 +1941,7 @@ void drm_mode_convert_to_umode(struct drm_mode_modeinfo *out,
- }
- 
- /**
-- * drm_crtc_convert_umode - convert a modeinfo into a drm_display_mode
-+ * drm_mode_convert_umode - convert a modeinfo into a drm_display_mode
-  * @dev: drm device
-  * @out: drm_display_mode to return to the user
-  * @in: drm_mode_modeinfo to use
-diff --git a/drivers/gpu/drm/drm_scdc_helper.c b/drivers/gpu/drm/drm_scdc_helper.c
-index 311e71bbba5b..991b8c86d78d 100644
---- a/drivers/gpu/drm/drm_scdc_helper.c
-+++ b/drivers/gpu/drm/drm_scdc_helper.c
-@@ -125,7 +125,7 @@ ssize_t drm_scdc_write(struct i2c_adapter *adapter, u8 offset,
- EXPORT_SYMBOL(drm_scdc_write);
- 
- /**
-- * drm_scdc_check_scrambling_status - what is status of scrambling?
-+ * drm_scdc_get_scrambling_status - what is status of scrambling?
-  * @adapter: I2C adapter for DDC channel
-  *
-  * Reads the scrambler status over SCDC, and checks the
-diff --git a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-index e08684e34078..8abbae8f8808 100644
---- a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-+++ b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-@@ -4531,7 +4531,7 @@ void intel_dpll_sanitize_state(struct drm_i915_private *i915)
- }
- 
- /**
-- * intel_shared_dpll_dump_hw_state - write hw_state to dmesg
-+ * intel_dpll_dump_hw_state - write hw_state to dmesg
-  * @dev_priv: i915 drm device
-  * @hw_state: hw state to be written to the log
-  *
-diff --git a/drivers/gpu/drm/i915/i915_gem_evict.c b/drivers/gpu/drm/i915/i915_gem_evict.c
-index 6501939929d5..e1a66c8245b8 100644
---- a/drivers/gpu/drm/i915/i915_gem_evict.c
-+++ b/drivers/gpu/drm/i915/i915_gem_evict.c
-@@ -238,7 +238,7 @@ i915_gem_evict_something(struct i915_address_space *vm,
- }
- 
- /**
-- * i915_gem_evict_for_vma - Evict vmas to make room for binding a new one
-+ * i915_gem_evict_for_node - Evict vmas to make room for binding a new one
-  * @vm: address space to evict from
-  * @target: range (and color) to evict for
-  * @flags: additional flags to control the eviction algorithm
-diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
-index e94976976571..3ced82820483 100644
---- a/drivers/gpu/drm/i915/i915_perf.c
-+++ b/drivers/gpu/drm/i915/i915_perf.c
-@@ -625,7 +625,8 @@ static int append_oa_sample(struct i915_perf_stream *stream,
- }
- 
- /**
-- * Copies all buffered OA reports into userspace read() buffer.
-+ * gen8_append_oa_reports - Copies all buffered OA reports into
-+ *			    userspace read() buffer.
-  * @stream: An i915-perf stream opened for OA metrics
-  * @buf: destination buffer given by userspace
-  * @count: the number of bytes userspace wants to read
-@@ -917,7 +918,8 @@ static int gen8_oa_read(struct i915_perf_stream *stream,
- }
- 
- /**
-- * Copies all buffered OA reports into userspace read() buffer.
-+ * gen7_append_oa_reports - Copies all buffered OA reports into
-+ *			    userspace read() buffer.
-  * @stream: An i915-perf stream opened for OA metrics
-  * @buf: destination buffer given by userspace
-  * @count: the number of bytes userspace wants to read
-@@ -3227,7 +3229,7 @@ static long i915_perf_config_locked(struct i915_perf_stream *stream,
- }
- 
- /**
-- * i915_perf_ioctl - support ioctl() usage with i915 perf stream FDs
-+ * i915_perf_ioctl_locked - support ioctl() usage with i915 perf stream FDs
-  * @stream: An i915 perf stream
-  * @cmd: the ioctl request
-  * @arg: the ioctl data
-diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
-index 9a0d77a68018..c6332d75025e 100644
---- a/drivers/gpu/drm/scheduler/sched_main.c
-+++ b/drivers/gpu/drm/scheduler/sched_main.c
-@@ -446,7 +446,7 @@ void drm_sched_stop(struct drm_gpu_scheduler *sched, struct drm_sched_job *bad)
- EXPORT_SYMBOL(drm_sched_stop);
- 
- /**
-- * drm_sched_job_recovery - recover jobs after a reset
-+ * drm_sched_start - recover jobs after a reset
-  *
-  * @sched: scheduler instance
-  * @full_recovery: proceed with complete sched restart
-diff --git a/drivers/gpu/drm/v3d/v3d_sched.c b/drivers/gpu/drm/v3d/v3d_sched.c
-index 0747614a78f0..f968f389633a 100644
---- a/drivers/gpu/drm/v3d/v3d_sched.c
-+++ b/drivers/gpu/drm/v3d/v3d_sched.c
-@@ -64,7 +64,7 @@ v3d_job_free(struct drm_sched_job *sched_job)
- }
- 
- /**
-- * Returns the fences that the job depends on, one by one.
-+ * v3d_job_dependency - Returns the fences that the job depends on, one by one.
-  *
-  * If placed in the scheduler's .dependency method, the corresponding
-  * .run_job won't be called until all of them have been signaled.
-diff --git a/drivers/gpu/drm/vc4/vc4_bo.c b/drivers/gpu/drm/vc4/vc4_bo.c
-index 74ceebd62fbc..b8c04c6eb7f9 100644
---- a/drivers/gpu/drm/vc4/vc4_bo.c
-+++ b/drivers/gpu/drm/vc4/vc4_bo.c
-@@ -375,7 +375,7 @@ static struct vc4_bo *vc4_bo_get_from_cache(struct drm_device *dev,
- }
- 
- /**
-- * vc4_gem_create_object - Implementation of driver->gem_create_object.
-+ * vc4_create_object - Implementation of driver->gem_create_object.
-  * @dev: DRM device
-  * @size: Size in bytes of the memory the object will reference
-  *
-diff --git a/include/drm/drm_atomic_helper.h b/include/drm/drm_atomic_helper.h
-index 85df04c8e62f..5f47720440fa 100644
---- a/include/drm/drm_atomic_helper.h
-+++ b/include/drm/drm_atomic_helper.h
-@@ -167,7 +167,7 @@ int drm_atomic_helper_legacy_gamma_set(struct drm_crtc *crtc,
- 	drm_for_each_plane_mask(plane, (crtc)->dev, (crtc)->state->plane_mask)
- 
- /**
-- * drm_crtc_atomic_state_for_each_plane - iterate over attached planes in new state
-+ * drm_atomic_crtc_state_for_each_plane - iterate over attached planes in new state
-  * @plane: the loop cursor
-  * @crtc_state: the incoming CRTC state
-  *
-@@ -180,7 +180,7 @@ int drm_atomic_helper_legacy_gamma_set(struct drm_crtc *crtc,
- 	drm_for_each_plane_mask(plane, (crtc_state)->state->dev, (crtc_state)->plane_mask)
- 
- /**
-- * drm_crtc_atomic_state_for_each_plane_state - iterate over attached planes in new state
-+ * drm_atomic_crtc_state_for_each_plane_state - iterate over attached planes in new state
-  * @plane: the loop cursor
-  * @plane_state: loop cursor for the plane's state, must be const
-  * @crtc_state: the incoming CRTC state
-diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-index 928136556174..fcdc58d8b88b 100644
---- a/include/drm/drm_connector.h
-+++ b/include/drm/drm_connector.h
-@@ -84,7 +84,7 @@ enum drm_connector_status {
- };
- 
- /**
-- * enum drm_connector_registration_status - userspace registration status for
-+ * enum drm_connector_registration_state - userspace registration status for
-  * a &drm_connector
-  *
-  * This enum is used to track the status of initializing a connector and
-diff --git a/include/drm/drm_device.h b/include/drm/drm_device.h
-index f4f68e7a9149..3ae248938305 100644
---- a/include/drm/drm_device.h
-+++ b/include/drm/drm_device.h
-@@ -27,7 +27,7 @@ struct pci_controller;
- 
- 
- /**
-- * enum drm_switch_power - power state of drm device
-+ * enum switch_power_state - power state of drm device
-  */
- 
- enum switch_power_state {
-diff --git a/include/drm/drm_dsc.h b/include/drm/drm_dsc.h
-index 732f32740c86..53c51231b31c 100644
---- a/include/drm/drm_dsc.h
-+++ b/include/drm/drm_dsc.h
-@@ -273,7 +273,8 @@ struct drm_dsc_config {
- };
- 
- /**
-- * struct picture_parameter_set - Represents 128 bytes of Picture Parameter Set
-+ * struct drm_dsc_picture_parameter_set - Represents 128 bytes of
-+ * 	Picture Parameter Set
-  *
-  * The VESA DSC standard defines picture parameter set (PPS) which display
-  * stream compression encoders must communicate to decoders.
-diff --git a/include/drm/drm_gem_vram_helper.h b/include/drm/drm_gem_vram_helper.h
-index 62cc6e6c3a4f..9a67dcca1f4a 100644
---- a/include/drm/drm_gem_vram_helper.h
-+++ b/include/drm/drm_gem_vram_helper.h
-@@ -69,8 +69,8 @@ struct drm_gem_vram_object {
- };
- 
- /**
-- * Returns the container of type &struct drm_gem_vram_object
-- * for field bo.
-+ * drm_gem_vram_of_bo - Returns the container of type
-+ * &struct drm_gem_vram_object for field bo.
-  * @bo:		the VRAM buffer object
-  * Returns:	The containing GEM VRAM object
-  */
-@@ -81,8 +81,8 @@ static inline struct drm_gem_vram_object *drm_gem_vram_of_bo(
- }
- 
- /**
-- * Returns the container of type &struct drm_gem_vram_object
-- * for field gem.
-+ * drm_gem_vram_of_gem - Returns the container of type
-+ * &struct drm_gem_vram_object for field gem.
-  * @gem:	the GEM object
-  * Returns:	The containing GEM VRAM object
-  */
--- 
-2.26.2
+> +	if (mode->flags & DRM_MODE_FLAG_DBLCLK)
+> +		return MODE_H_ILLEGAL;
+> +
+>  	if (intel_dp_is_edp(intel_dp) && fixed_mode) {
+>  		if (mode->hdisplay > fixed_mode->hdisplay)
+>  			return MODE_PANEL;
+> @@ -731,6 +734,9 @@ intel_dp_mode_valid(struct drm_connector *connector,
+>  		target_clock =3D fixed_mode->clock;
+>  	}
+>  =
 
+> +	if (mode->clock < 10000)
+> +		return MODE_CLOCK_LOW;
+> +
+
+No idea what this check is actually trying to achieve, but
+since it was already there no harm in moving it around.
+
+Reviewed-by: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
+
+>  	max_link_clock =3D intel_dp_max_link_rate(intel_dp);
+>  	max_lanes =3D intel_dp_max_lane_count(intel_dp);
+>  =
+
+> @@ -771,12 +777,6 @@ intel_dp_mode_valid(struct drm_connector *connector,
+>  	    target_clock > max_dotclk)
+>  		return MODE_CLOCK_HIGH;
+>  =
+
+> -	if (mode->clock < 10000)
+> -		return MODE_CLOCK_LOW;
+> -
+> -	if (mode->flags & DRM_MODE_FLAG_DBLCLK)
+> -		return MODE_H_ILLEGAL;
+> -
+>  	status =3D intel_dp_mode_valid_downstream(intel_connector,
+>  						mode, target_clock);
+>  	if (status !=3D MODE_OK)
+> -- =
+
+> 2.19.1
+
+-- =
+
+Ville Syrj=E4l=E4
+Intel
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
