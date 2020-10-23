@@ -5,67 +5,66 @@ X-Spam-Level:
 X-Spam-Status: No, score=-12.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BA8A4C8302D
-	for <intel-gfx@archiver.kernel.org>; Fri, 23 Oct 2020 12:23:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1C8F6C8300C
+	for <intel-gfx@archiver.kernel.org>; Fri, 23 Oct 2020 12:23:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7C9B124654
-	for <intel-gfx@archiver.kernel.org>; Fri, 23 Oct 2020 12:23:27 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id B05F124640
+	for <intel-gfx@archiver.kernel.org>; Fri, 23 Oct 2020 12:23:33 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="O7XtUKdU"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7C9B124654
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="jh07aP9H"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B05F124640
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 533666E536;
-	Fri, 23 Oct 2020 12:22:44 +0000 (UTC)
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
- [IPv6:2a00:1450:4864:20::343])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ADC536E50D
- for <intel-gfx@lists.freedesktop.org>; Fri, 23 Oct 2020 12:22:40 +0000 (UTC)
-Received: by mail-wm1-x343.google.com with SMTP id k21so1006469wmi.1
- for <intel-gfx@lists.freedesktop.org>; Fri, 23 Oct 2020 05:22:40 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F0B4A6E563;
+	Fri, 23 Oct 2020 12:22:46 +0000 (UTC)
+Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
+ [IPv6:2a00:1450:4864:20::443])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA7556E558
+ for <intel-gfx@lists.freedesktop.org>; Fri, 23 Oct 2020 12:22:38 +0000 (UTC)
+Received: by mail-wr1-x443.google.com with SMTP id n6so1551786wrm.13
+ for <intel-gfx@lists.freedesktop.org>; Fri, 23 Oct 2020 05:22:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=bzJDwk0UaarTjwek7p43Z5eixveGA653vMI0wrr+vtQ=;
- b=O7XtUKdUBPSf9TjLYloRodYjrCetvjKcziZsGwqdmp+Blvk1kTPVSzDdF53/vbY41S
- rGw2KSNwfdBQw6B+naDwbPdKVdsKnqJsdN3WRk468+ZCIfcysezqIDmR/VSH+MjvDNPk
- Da7owdM++heskVUNzJscqLKTBxQj80xXMID7c=
+ bh=guHCCErCMqoPbxQI9pil+wt2PYB+uT5fZSBV+IuYGoA=;
+ b=jh07aP9HtA5zZ0rExIH5k72dtvWHENezPdTQy80zBiovspyuKBwX2akrt3+ul2MhgD
+ p3We86q8j0ZN3fG9crJVf/Ymn9R3OAAuOHvwblHsFW3q0W3MsbMLNoXk8ahEmLW035nC
+ SfW0gQODnSL2VTXhH4JUVWVTsdeo3h7bI483M=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=bzJDwk0UaarTjwek7p43Z5eixveGA653vMI0wrr+vtQ=;
- b=kTqgglG9QX3YYrYVrcJQZFjw/MLGYiomynbXoRBvnCK5++nuGaCNBuCxexeXuIp/aO
- 26yiB8RUh/3l0MUjDgAtZjZjuzphYNPLy6WIX/WYyLliDKN3d0//G44XHYL0EUdMs5iy
- lNJ2ZHFgb7WhiH7C2o67rcnPTTjDsOvySfxQdCcI/oCDPWl3lXWa5FCGRtpaWiapImqR
- cHHZ5jAsiUlOo6jT/zSZwbaWnuT6fKQs0mXqiK7EEmxIrf+dPKH3uWAuLr+4QV9xEW29
- nnIPRnUUDTi9F1Vwb30YyVEL7mECeHxzshw4UwhalQl1pVJV59msMl7k4SiCdxbycHPf
- zK2Q==
-X-Gm-Message-State: AOAM533wcX6Hp7FuF2VrBQY9wdkZwvWHgo4iCZQllF0G3oJp6H9uvDfE
- WfDHQgC9jsKZIgwEgLIrZmAHFA==
-X-Google-Smtp-Source: ABdhPJyDkgbwbjJTuMMSi0+tdHz3l1gq3xGatm+DQh9W5oe3VMttDmbcRcQlKZBYRGpdXsMMICyaRw==
-X-Received: by 2002:a7b:cb8c:: with SMTP id m12mr2175657wmi.12.1603455759419; 
- Fri, 23 Oct 2020 05:22:39 -0700 (PDT)
+ bh=guHCCErCMqoPbxQI9pil+wt2PYB+uT5fZSBV+IuYGoA=;
+ b=QCIIqXAVrZUgeZ0wfE16JIqeoxDJMG7q71xKWCYF3bpxOkMSthPlW0YvU+Ix7pSsBS
+ 5cOgeV72wdtaqk2GKgWTeG3KA7CB5zhNqFIOcG8iWrxhQ6ehHTfRyUemmU6O6yh+NsqN
+ 70EDsVdo+UfLzJ00PaN+bk+SFWPUn+q7CppI4jjCi7iHd3Ofqw8NIn6kQH4v1Ud25P99
+ r/aRyyuvP6JMVsPKzw/ATrPDLjesyY3RzyS/dWTT6AF7jJOxNcojM6ILHO+aUp/DJgZ6
+ 8yx7AmMFBmb6+kVMDIkrXEHm+P2VSfGHTOgHzfH6MOzxoAEhuw8OsIaeLAMe9lHe83CW
+ tloA==
+X-Gm-Message-State: AOAM5322XYK4xnYBzJo4FfbHSLZmMptengqx4uVCUIgApAxrZ7+aS3DT
+ UOPhRKJlnX3UvMaK+OqhM3+GK1UP7358IRsB
+X-Google-Smtp-Source: ABdhPJzOJi5Bq7RQ+JzlmtBQ4eZOuXPDONkpCj/pAIS1V21cUj3BCeaDSlH9SpbP7OmlqeL4ulNYqg==
+X-Received: by 2002:a5d:6cae:: with SMTP id a14mr2451820wra.187.1603455742060; 
+ Fri, 23 Oct 2020 05:22:22 -0700 (PDT)
 Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id y4sm3056484wrp.74.2020.10.23.05.22.38
+ by smtp.gmail.com with ESMTPSA id y4sm3056484wrp.74.2020.10.23.05.22.21
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 23 Oct 2020 05:22:38 -0700 (PDT)
+ Fri, 23 Oct 2020 05:22:21 -0700 (PDT)
 From: Daniel Vetter <daniel.vetter@ffwll.ch>
 To: DRI Development <dri-devel@lists.freedesktop.org>
-Date: Fri, 23 Oct 2020 14:21:26 +0200
-Message-Id: <20201023122216.2373294-15-daniel.vetter@ffwll.ch>
+Date: Fri, 23 Oct 2020 14:21:12 +0200
+Message-Id: <20201023122216.2373294-1-daniel.vetter@ffwll.ch>
 X-Mailer: git-send-email 2.28.0
-In-Reply-To: <20201023122216.2373294-1-daniel.vetter@ffwll.ch>
+In-Reply-To: <20201021163242.1458885-1-daniel.vetter@ffwll.ch>
 References: <20201021163242.1458885-1-daniel.vetter@ffwll.ch>
- <20201023122216.2373294-1-daniel.vetter@ffwll.ch>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 15/65] drm/tegra: Annotate dma-fence critical
- section in commit path
+Subject: [Intel-gfx] [PATCH 01/65] drm/vc4: Drop legacy_cursor_update
+ override
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,47 +77,41 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>,
+Cc: Eric Anholt <eric@anholt.net>, Daniel Vetter <daniel.vetter@ffwll.ch>,
  Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Jonathan Hunter <jonathanh@nvidia.com>, linux-tegra@vger.kernel.org,
- Daniel Vetter <daniel.vetter@intel.com>
+ Maxime Ripard <mripard@kernel.org>, Daniel Vetter <daniel.vetter@intel.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Again ends just after drm_atomic_helper_commit_hw_done(), but with the
-twist that we need to make sure we're only annotate the custom
-version. And not the other clause which just calls
-drm_atomic_helper_commit_tail_rpm(), which is already annotated.
+With the removal of helper support it doesn't do anything anymore.
+Also, we already have async plane update code in vc4.
 
 Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
-Cc: Thierry Reding <thierry.reding@gmail.com>
-Cc: Jonathan Hunter <jonathanh@nvidia.com>
-Cc: linux-tegra@vger.kernel.org
+Cc: Eric Anholt <eric@anholt.net>
+Cc: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/tegra/drm.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/vc4/vc4_kms.c | 6 ------
+ 1 file changed, 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/tegra/drm.c b/drivers/gpu/drm/tegra/drm.c
-index f0f581cd345e..24f353c1cee8 100644
---- a/drivers/gpu/drm/tegra/drm.c
-+++ b/drivers/gpu/drm/tegra/drm.c
-@@ -65,11 +65,14 @@ static void tegra_atomic_commit_tail(struct drm_atomic_state *old_state)
- 	struct tegra_drm *tegra = drm->dev_private;
+diff --git a/drivers/gpu/drm/vc4/vc4_kms.c b/drivers/gpu/drm/vc4/vc4_kms.c
+index 149825ff5df8..bf0da77ab2e6 100644
+--- a/drivers/gpu/drm/vc4/vc4_kms.c
++++ b/drivers/gpu/drm/vc4/vc4_kms.c
+@@ -353,12 +353,6 @@ static int vc4_atomic_commit(struct drm_device *dev,
+ 		return 0;
+ 	}
  
- 	if (tegra->hub) {
-+		bool fence_cookie = dma_fence_begin_signalling();
-+
- 		drm_atomic_helper_commit_modeset_disables(drm, old_state);
- 		tegra_display_hub_atomic_commit(drm, old_state);
- 		drm_atomic_helper_commit_planes(drm, old_state, 0);
- 		drm_atomic_helper_commit_modeset_enables(drm, old_state);
- 		drm_atomic_helper_commit_hw_done(old_state);
-+		dma_fence_end_signalling(fence_cookie);
- 		drm_atomic_helper_wait_for_vblanks(drm, old_state);
- 		drm_atomic_helper_cleanup_planes(drm, old_state);
- 	} else {
+-	/* We know for sure we don't want an async update here. Set
+-	 * state->legacy_cursor_update to false to prevent
+-	 * drm_atomic_helper_setup_commit() from auto-completing
+-	 * commit->flip_done.
+-	 */
+-	state->legacy_cursor_update = false;
+ 	ret = drm_atomic_helper_setup_commit(state, nonblock);
+ 	if (ret)
+ 		return ret;
 -- 
 2.28.0
 
