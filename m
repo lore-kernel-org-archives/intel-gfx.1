@@ -7,65 +7,64 @@ X-Spam-Status: No, score=-12.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E4D62C83027
-	for <intel-gfx@archiver.kernel.org>; Fri, 23 Oct 2020 12:24:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 085ACC83024
+	for <intel-gfx@archiver.kernel.org>; Fri, 23 Oct 2020 12:24:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 78D9221527
-	for <intel-gfx@archiver.kernel.org>; Fri, 23 Oct 2020 12:24:04 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id A4B8221527
+	for <intel-gfx@archiver.kernel.org>; Fri, 23 Oct 2020 12:24:30 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="NbbqlkrQ"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 78D9221527
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="I4RFwd2e"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A4B8221527
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC2646E5CD;
-	Fri, 23 Oct 2020 12:22:58 +0000 (UTC)
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
- [IPv6:2a00:1450:4864:20::442])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC41A6E5B0
- for <intel-gfx@lists.freedesktop.org>; Fri, 23 Oct 2020 12:22:51 +0000 (UTC)
-Received: by mail-wr1-x442.google.com with SMTP id h5so1574519wrv.7
- for <intel-gfx@lists.freedesktop.org>; Fri, 23 Oct 2020 05:22:51 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 597F46F618;
+	Fri, 23 Oct 2020 12:23:12 +0000 (UTC)
+Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
+ [IPv6:2a00:1450:4864:20::341])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C09FE6E5C5
+ for <intel-gfx@lists.freedesktop.org>; Fri, 23 Oct 2020 12:23:01 +0000 (UTC)
+Received: by mail-wm1-x341.google.com with SMTP id e2so1304991wme.1
+ for <intel-gfx@lists.freedesktop.org>; Fri, 23 Oct 2020 05:23:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=xQPq+yAA8AW/svlJ9AY1HOlvb3EW8VTS4T+GBR6wLrU=;
- b=NbbqlkrQtu0CB8BYCG4gn7RuzIui8JESMpqzF0eOWNi7WRWNJsMD67jNJ/wTMkx80t
- dHejKFxffPPJcYZQ5OPid41hRwZwXJIpXBjPuiO9kFq/IVZWKe8WcsaP/i3jxoMxdCp5
- 3SKI/6UoxcqWqPY5Z7UgEnhEd3hKOFis+lAKk=
+ bh=fm+L1OZ5vnKeOGH1XwjpH65CAXQE2qGCwQHeV0BfCbo=;
+ b=I4RFwd2eW9iNL5qH7GC2GN+bOEbVbW0io2ha60AXzDjB/0yYw4W1JK6yrbHeRAL0iY
+ ISW+gqIaC+vP2a2lhS4YPj3Em5r0tFkHvuJ7lEUT60inNY0XgrlVSxFy5WXKshps7csM
+ du6jwmFk8hHJwEqDf96AP/6FrBQrEHzL9do1E=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=xQPq+yAA8AW/svlJ9AY1HOlvb3EW8VTS4T+GBR6wLrU=;
- b=FVF2pKkllW45DIBd09P9HetKz1H0GuOherSh2OdFFnWlklBM+TX4Jpacl8CaoTnwFX
- 4vekVo12fpuB7xWL1pLTuYBLvO2TiIzkFn9ZDtKM8jEdlX7W+DnTuLhgL+vapN46Z/LO
- QTbwtxsFBm+OARsrOlaiTqNFO/iKt9Ngn9tf1Jj/soqR/NUrrfn3E9IIOmmJLCV4DY7K
- IHFw1dWcVVvdoteayB+Kr8D8JsFW7lCd/ec/a9PlrL4yueO1B9WvetSKRcLjl6lZkVVC
- AlyogKwYCEuy5jjruetz+gFGTf2FiC4fUz+4PPcwTm+GYTyQW2CplWJpCOWVidu/+GYw
- TrVg==
-X-Gm-Message-State: AOAM531qOZXbMMIOuJ2gzEHubaI7Ob1d6l2SZfLQ9vdbVdxa2ymxyVjo
- 4gYUGYkGlXhFocWqcW29aX0y9A==
-X-Google-Smtp-Source: ABdhPJzSQqrDw6b5+z+eaZhTT8mvZTxmEyqPgiuTUkvBgDnQP2YTPSXTYeqNjOlv1o0+3jz665V43Q==
-X-Received: by 2002:adf:e8c7:: with SMTP id k7mr2367177wrn.102.1603455770631; 
- Fri, 23 Oct 2020 05:22:50 -0700 (PDT)
+ bh=fm+L1OZ5vnKeOGH1XwjpH65CAXQE2qGCwQHeV0BfCbo=;
+ b=h/IiZg6rrMn/11TxoToX3Du1JISXnMRHfwNZjTpJCjvy8eQSjRWqOph7lLu/ZJ5vf/
+ 9Fedi8E/VmnO9rtEnVuvkcRLxVggr65jkR5SZCS3/dneu1uA4nGgCdDcTY14MTuN9x1h
+ BvPuhd44RW4xFF7QfP3WQE4bES+9sWKro1VekGXqJF2hmAGONwK5hKryA5vvVrAWg/3B
+ XcsdAIT1cV9zrFlXzUhFh5NvOBB5C63TSdEpU4L0N7jmcLHi3ENic5Rtydr6B3gyetBB
+ 82mpX/cshi2R/WDXGbT7mgKb7h1Peei8wpNJq6XdgFTdYmJzbXCpjwUJzwFrfoyoqdbf
+ oCnA==
+X-Gm-Message-State: AOAM530jvlU+LqMskZKQIgmAoB2klSBpkXTK3RKXgvbI6ZbCbtgoDmma
+ Fojgjod3c0ahjB3VEHdrq2jXs+jQi2X6FoCD
+X-Google-Smtp-Source: ABdhPJyGjziGYIZ7LCrUaPvnmjitFLFb8BHzU6RIkZE3cezG0NmOKu92ESUHVoVpHKIYbtJBpxbBNA==
+X-Received: by 2002:a1c:7409:: with SMTP id p9mr1939536wmc.167.1603455780340; 
+ Fri, 23 Oct 2020 05:23:00 -0700 (PDT)
 Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id y4sm3056484wrp.74.2020.10.23.05.22.49
+ by smtp.gmail.com with ESMTPSA id y4sm3056484wrp.74.2020.10.23.05.22.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 23 Oct 2020 05:22:50 -0700 (PDT)
+ Fri, 23 Oct 2020 05:22:59 -0700 (PDT)
 From: Daniel Vetter <daniel.vetter@ffwll.ch>
 To: DRI Development <dri-devel@lists.freedesktop.org>
-Date: Fri, 23 Oct 2020 14:21:36 +0200
-Message-Id: <20201023122216.2373294-25-daniel.vetter@ffwll.ch>
+Date: Fri, 23 Oct 2020 14:21:44 +0200
+Message-Id: <20201023122216.2373294-33-daniel.vetter@ffwll.ch>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20201023122216.2373294-1-daniel.vetter@ffwll.ch>
 References: <20201021163242.1458885-1-daniel.vetter@ffwll.ch>
  <20201023122216.2373294-1-daniel.vetter@ffwll.ch>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 25/65] drm/nouveau: Drop mutex_lock_nested for
- atomic
+Subject: [Intel-gfx] [PATCH 33/65] misc/habana: Use FOLL_LONGTERM for userptr
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,71 +77,50 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Maarten Lankhorst <m.b.lankhorst@gmail.com>,
- Daniel Vetter <daniel.vetter@ffwll.ch>,
+Cc: Oded Gabbay <oded.gabbay@gmail.com>, linux-samsung-soc@vger.kernel.org,
+ Jan Kara <jack@suse.cz>, linux-mm@kvack.org,
+ Pawel Piskorski <ppiskorski@habana.ai>, Daniel Vetter <daniel.vetter@ffwll.ch>,
  Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Ben Skeggs <bskeggs@redhat.com>, nouveau@lists.freedesktop.org,
- Daniel Vetter <daniel.vetter@intel.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Ofir Bitton <obitton@habana.ai>, Jason Gunthorpe <jgg@ziepe.ca>,
+ =?UTF-8?q?J=C3=A9r=C3=B4me=20Glisse?= <jglisse@redhat.com>,
+ Tomer Tayar <ttayar@habana.ai>, Omer Shpigelman <oshpigelman@habana.ai>,
+ John Hubbard <jhubbard@nvidia.com>, Daniel Vetter <daniel.vetter@intel.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Moti Haimovski <mhaimovski@habana.ai>, Dan Williams <dan.j.williams@intel.com>,
+ linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Purely conjecture, but I think the original locking inversion with the
-legacy page flip code between flipping and ttm's bo move function
-shoudn't exist anymore with atomic: With atomic the bo pinning and
-actual modeset commit is completely separated in the code patsh.
-
-This annotation was originally added in
-
-commit 060810d7abaabcab282e062c595871d661561400
-Author: Ben Skeggs <bskeggs@redhat.com>
-Date:   Mon Jul 8 14:15:51 2013 +1000
-
-    drm/nouveau: fix locking issues in page flipping paths
-
-due to
-
-commit b580c9e2b7ba5030a795aa2fb73b796523d65a78
-Author: Maarten Lankhorst <m.b.lankhorst@gmail.com>
-Date:   Thu Jun 27 13:48:18 2013 +0200
-
-    drm/nouveau: make flipping lockdep safe
-
-Reviewed-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
-Cc: Maarten Lankhorst <m.b.lankhorst@gmail.com>
-Cc: Ben Skeggs <bskeggs@redhat.com>
-Cc: Dave Airlie <airlied@gmail.com>
-Cc: nouveau@lists.freedesktop.org
----
-I might be totally wrong, so this definitely needs testing :-)
-
-Cheers, Daniel
----
- drivers/gpu/drm/nouveau/nouveau_bo.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/nouveau/nouveau_bo.c b/drivers/gpu/drm/nouveau/nouveau_bo.c
-index 70b6f3b1ae85..c04a808664f8 100644
---- a/drivers/gpu/drm/nouveau/nouveau_bo.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_bo.c
-@@ -775,7 +775,10 @@ nouveau_bo_move_m2mf(struct ttm_buffer_object *bo, int evict,
- 			return ret;
- 	}
- 
--	mutex_lock_nested(&cli->mutex, SINGLE_DEPTH_NESTING);
-+	if (drm_drv_uses_atomic_modeset(drm->dev))
-+		mutex_lock(&cli->mutex);
-+	else
-+		mutex_lock_nested(&cli->mutex, SINGLE_DEPTH_NESTING);
- 	ret = nouveau_fence_sync(nouveau_bo(bo), chan, true, ctx->interruptible);
- 	if (ret == 0) {
- 		ret = drm->ttm.move(chan, bo, &bo->mem, new_reg);
--- 
-2.28.0
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+VGhlc2UgYXJlIHBlcnNpc3RlbnQsIG5vdCBqdXN0IGZvciB0aGUgZHVyYXRpb24gb2YgYSBkbWEg
+b3BlcmF0aW9uLgoKU2lnbmVkLW9mZi1ieTogRGFuaWVsIFZldHRlciA8ZGFuaWVsLnZldHRlckBp
+bnRlbC5jb20+CkNjOiBKYXNvbiBHdW50aG9ycGUgPGpnZ0B6aWVwZS5jYT4KQ2M6IEFuZHJldyBN
+b3J0b24gPGFrcG1AbGludXgtZm91bmRhdGlvbi5vcmc+CkNjOiBKb2huIEh1YmJhcmQgPGpodWJi
+YXJkQG52aWRpYS5jb20+CkNjOiBKw6lyw7RtZSBHbGlzc2UgPGpnbGlzc2VAcmVkaGF0LmNvbT4K
+Q2M6IEphbiBLYXJhIDxqYWNrQHN1c2UuY3o+CkNjOiBEYW4gV2lsbGlhbXMgPGRhbi5qLndpbGxp
+YW1zQGludGVsLmNvbT4KQ2M6IGxpbnV4LW1tQGt2YWNrLm9yZwpDYzogbGludXgtYXJtLWtlcm5l
+bEBsaXN0cy5pbmZyYWRlYWQub3JnCkNjOiBsaW51eC1zYW1zdW5nLXNvY0B2Z2VyLmtlcm5lbC5v
+cmcKQ2M6IGxpbnV4LW1lZGlhQHZnZXIua2VybmVsLm9yZwpDYzogT2RlZCBHYWJiYXkgPG9kZWQu
+Z2FiYmF5QGdtYWlsLmNvbT4KQ2M6IE9tZXIgU2hwaWdlbG1hbiA8b3NocGlnZWxtYW5AaGFiYW5h
+LmFpPgpDYzogT2ZpciBCaXR0b24gPG9iaXR0b25AaGFiYW5hLmFpPgpDYzogVG9tZXIgVGF5YXIg
+PHR0YXlhckBoYWJhbmEuYWk+CkNjOiBNb3RpIEhhaW1vdnNraSA8bWhhaW1vdnNraUBoYWJhbmEu
+YWk+CkNjOiBEYW5pZWwgVmV0dGVyIDxkYW5pZWwudmV0dGVyQGZmd2xsLmNoPgpDYzogR3JlZyBL
+cm9haC1IYXJ0bWFuIDxncmVna2hAbGludXhmb3VuZGF0aW9uLm9yZz4KQ2M6IFBhd2VsIFBpc2tv
+cnNraSA8cHBpc2tvcnNraUBoYWJhbmEuYWk+ClNpZ25lZC1vZmYtYnk6IERhbmllbCBWZXR0ZXIg
+PGRhbmllbC52ZXR0ZXJAZmZ3bGwuY2g+Ci0tLQogZHJpdmVycy9taXNjL2hhYmFuYWxhYnMvY29t
+bW9uL21lbW9yeS5jIHwgMyArKy0KIDEgZmlsZSBjaGFuZ2VkLCAyIGluc2VydGlvbnMoKyksIDEg
+ZGVsZXRpb24oLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL21pc2MvaGFiYW5hbGFicy9jb21tb24v
+bWVtb3J5LmMgYi9kcml2ZXJzL21pc2MvaGFiYW5hbGFicy9jb21tb24vbWVtb3J5LmMKaW5kZXgg
+MzI3YjY0NDc5Zjk3Li43NjdkMzY0NGMwMzMgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvbWlzYy9oYWJh
+bmFsYWJzL2NvbW1vbi9tZW1vcnkuYworKysgYi9kcml2ZXJzL21pc2MvaGFiYW5hbGFicy9jb21t
+b24vbWVtb3J5LmMKQEAgLTEyODgsNyArMTI4OCw4IEBAIHN0YXRpYyBpbnQgZ2V0X3VzZXJfbWVt
+b3J5KHN0cnVjdCBobF9kZXZpY2UgKmhkZXYsIHU2NCBhZGRyLCB1NjQgc2l6ZSwKIAkJcmV0dXJu
+IC1FTk9NRU07CiAJfQogCi0JcmMgPSBwaW5fdXNlcl9wYWdlc19mYXN0KHN0YXJ0LCBucGFnZXMs
+IEZPTExfRk9SQ0UgfCBGT0xMX1dSSVRFLAorCXJjID0gcGluX3VzZXJfcGFnZXNfZmFzdChzdGFy
+dCwgbnBhZ2VzLAorCQkJCSBGT0xMX0ZPUkNFIHwgRk9MTF9XUklURSB8IEZPTExfTE9OR1RFUk0s
+CiAJCQkJIHVzZXJwdHItPnBhZ2VzKTsKIAogCWlmIChyYyAhPSBucGFnZXMpIHsKLS0gCjIuMjgu
+MAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KSW50ZWwt
+Z2Z4IG1haWxpbmcgbGlzdApJbnRlbC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8v
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vaW50ZWwtZ2Z4Cg==
