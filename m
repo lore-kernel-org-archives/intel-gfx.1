@@ -2,82 +2,47 @@ Return-Path: <SRS0=RNxq=D6=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-8.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AD3C0C4363A
-	for <intel-gfx@archiver.kernel.org>; Fri, 23 Oct 2020 15:13:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D3BA2C4363A
+	for <intel-gfx@archiver.kernel.org>; Fri, 23 Oct 2020 15:14:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 67B4021D47
-	for <intel-gfx@archiver.kernel.org>; Fri, 23 Oct 2020 15:13:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 67B4021D47
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=cerno.tech
+	by mail.kernel.org (Postfix) with ESMTPS id A5016208B6
+	for <intel-gfx@archiver.kernel.org>; Fri, 23 Oct 2020 15:14:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A5016208B6
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=emersion.fr
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C7766F89C;
-	Fri, 23 Oct 2020 15:13:17 +0000 (UTC)
-Received: from new4-smtp.messagingengine.com (new4-smtp.messagingengine.com
- [66.111.4.230])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 652A76F89C;
- Fri, 23 Oct 2020 15:13:15 +0000 (UTC)
-Received: from compute6.internal (compute6.nyi.internal [10.202.2.46])
- by mailnew.nyi.internal (Postfix) with ESMTP id 97C1258021E;
- Fri, 23 Oct 2020 11:13:14 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute6.internal (MEProxy); Fri, 23 Oct 2020 11:13:14 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
- date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=fm1; bh=yHUcAmJW2I9T3l6rNG9J/PGMT7A
- ONxqRp4Me/z+CyMI=; b=QHSU0VkXkO9RlO2AiXsgNqtJsfqEDmLJ4jP7OK/pZr1
- 2hFvx/h45pissJNVcqIudrN/qPAZdBKj9RVGeuA5Fyf5TBH14R3L4eqmxQ71fH0m
- /74UieKdM+aKOxapRCjPCiWxQ6dElOQ7RCZJWJZvyxUgdXZqWxj4Do7JOaaayqDu
- wj11zrGCGoy7ZSWo+eOO7uAkJ6+OLmlgEyYpvCklS3n8r2Gb53CyAJd4KS34fB2M
- BNthsMPt2datZbhgTjTY9kcJd+5yqZnMA9xi6ITLj6t14Z9ZPAfZsMe40q3QeGW7
- yaW1Q6Ul6wRxnHJBgKGjZp1xex6cgw0qBQ0dQjUj3uA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=yHUcAm
- JW2I9T3l6rNG9J/PGMT7AONxqRp4Me/z+CyMI=; b=pASw2KLZ5pcvAmmrCSqIyh
- Sd6G8y7lbNeMnrBAVKiyCwxi5NvfkA9MUJITwOX7mikdN/YTZHtPAbSnhrVA9pZ/
- XcE9i8Lx9Y80YiNE4BBOOmmaLY+acxVxz9pcCV7c6ZxCJb0+05MiRYdKlghDGeUy
- mhyIpkmdgF+GuZ4QzyeyWHMhPraT9SgWo4Dcqxu0R24i53d1nISkK6L4zmRYGk4K
- ZRIYk1rM51NTM6OoV6n7zAQHa/TN8TyCCJVUNQrvH68L/qLLZmn/l9qBgFKT60s/
- 0jw/3frCPOV4gcM4R2sxmphsFrhMCdnlXMP9SmO/ZGK4pFZMQpjPKKCmANq3Fvbg
- ==
-X-ME-Sender: <xms:CPOSX5HPL-cq5fatPsGiygXdo8TS5zTFgeY8hCvxhWJou0zmrrNZNA>
- <xme:CPOSX-XCecNMSivmX3PH59bx0ywNy5EyaqQhCzXHe1FPInAhDTMSmC9akHv4KLy41
- Z2XXtrt62LoNIYh71g>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedujedrkedtgdekiecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpeffhffvuffkfhggtggujgesghdtreertddtudenucfhrhhomhepofgrgihimhgv
- ucftihhprghrugcuoehmrgigihhmvgestggvrhhnohdrthgvtghhqeenucggtffrrghtth
- gvrhhnpeduvdduhfekkeehgffftefflefgffdtheffudffgeevteffheeuiedvvdejvdfg
- veenucfkphepledtrdekledrieekrdejieenucevlhhushhtvghrufhiiigvpedtnecurf
- grrhgrmhepmhgrihhlfhhrohhmpehmrgigihhmvgestggvrhhnohdrthgvtghh
-X-ME-Proxy: <xmx:CPOSX7IRbth7Y-6TS_z_DfTmCYy5HucDpSfoePZ_CY_dNkuY01CCbg>
- <xmx:CPOSX_Hgvvvmh1B3eZdcTiSpkZec8o1gXMd_hbqefzzaQUnn-CABGw>
- <xmx:CPOSX_UQzkZGPbssURz5QLTaffUDZ0EgHbAKqqcYcJPMZuXd1W7T8Q>
- <xmx:CvOSXyP0DxljUcctKZUHHzsqsvVw2F4qSodqdYrd7rL3gqQa2jByeg>
-Received: from localhost (lfbn-tou-1-1502-76.w90-89.abo.wanadoo.fr
- [90.89.68.76])
- by mail.messagingengine.com (Postfix) with ESMTPA id 7D69D328005D;
- Fri, 23 Oct 2020 11:13:12 -0400 (EDT)
-Date: Fri, 23 Oct 2020 17:13:11 +0200
-From: Maxime Ripard <maxime@cerno.tech>
-To: Daniel Vetter <daniel.vetter@ffwll.ch>
-Message-ID: <20201023151311.dd246rt5chohjw57@gilmour.lan>
-References: <20201023122811.2374118-1-daniel.vetter@ffwll.ch>
- <20201023122811.2374118-5-daniel.vetter@ffwll.ch>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0289289256;
+	Fri, 23 Oct 2020 15:14:33 +0000 (UTC)
+Received: from mail-40134.protonmail.ch (mail-40134.protonmail.ch
+ [185.70.40.134])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B2C3B6E051
+ for <intel-gfx@lists.freedesktop.org>; Fri, 23 Oct 2020 15:14:31 +0000 (UTC)
+Date: Fri, 23 Oct 2020 15:14:20 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
+ s=protonmail2; t=1603466069;
+ bh=fpfmanFgqlU/lzWtOZ6sJt9HDyNApPI+OcMiQ1jU2Q8=;
+ h=Date:To:From:Cc:Reply-To:Subject:In-Reply-To:References:From;
+ b=kIDxE14QEkaab3DTVkhGSAm0Ss7xK3j7CsyJ5mOtzoqIfPmmgCVWRXnbm297kmrD/
+ CjHX777iIfuy6oMkDbm+0N6W9LN9V/fN44t4vjKaXngxyNZUeMmMgkjEq+r3LsT4+K
+ bD3IR6FMLBYLV3rk7NKQ1IV9p+OxJYhiWmWXTSqwJlCavw9Kctkxy4+VE9zYCmQ4h0
+ bHaPNdqcAQR5/hqMcYr5N0CcB5k22sLWqvDqdKFIa4xdF3AnRlKIi8AUkFM83RPo6i
+ UYzNlD5ezvMF79e099tP36ZH4tm8xIkRSVXtj1JGc+S7QBtMyoJh8Z7q1iwzLr9ki1
+ VOeAxdvce0hSA==
+To: =?utf-8?Q?Ville_Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>
+From: Simon Ser <contact@emersion.fr>
+Message-ID: <BaLsmzqZNUi-nVbYiLstRgspKGlLahAI8vM2_NPfos2PxM0N9lycj-Zn5TdqNtEHB-jeWgmzw9EHJxq4H5552tVi4bAZXTLnP0y1QsTPFtY=@emersion.fr>
+In-Reply-To: <20201022101423.GI6112@intel.com>
+References: <47527cdb-2eda-b5a3-d77c-3855b91a0b61@infradead.org>
+ <20201022101423.GI6112@intel.com>
 MIME-Version: 1.0
-In-Reply-To: <20201023122811.2374118-5-daniel.vetter@ffwll.ch>
-Subject: Re: [Intel-gfx] [PATCH 5/5] drm/<drivers>: Constify struct
- drm_driver
+Subject: Re: [Intel-gfx] drm_modes: signed integer overflow
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,87 +55,33 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Leo Li <sunpeng.li@amd.com>, nouveau@lists.freedesktop.org,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- DRI Development <dri-devel@lists.freedesktop.org>,
- virtualization@lists.linux-foundation.org, Eric Anholt <eric@anholt.net>,
- Gerd Hoffmann <kraxel@redhat.com>, Daniel Vetter <daniel.vetter@intel.com>,
- Alex Deucher <alexander.deucher@amd.com>, Dave Airlie <airlied@redhat.com>,
- Harry Wentland <harry.wentland@amd.com>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- Ben Skeggs <bskeggs@redhat.com>
-Content-Type: multipart/mixed; boundary="===============0460546326=="
+Reply-To: Simon Ser <contact@emersion.fr>
+Cc: David Airlie <airlied@linux.ie>,
+ intel-gfx <intel-gfx@lists.freedesktop.org>,
+ Randy Dunlap <rdunlap@infradead.org>, LKML <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Pekka Paalanen <ppaalanen@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-
---===============0460546326==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="v4ipol7ndp77sm72"
-Content-Disposition: inline
-
-
---v4ipol7ndp77sm72
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Fri, Oct 23, 2020 at 02:28:11PM +0200, Daniel Vetter wrote:
-> Only the following drivers aren't converted:
-> - amdgpu, because of the driver_feature mangling due to virt support
-> - nouveau, because DRIVER_ATOMIC uapi is still not the default on the
->   platforms where it's supported (i.e. again driver_feature mangling)
-> - vc4, again because of driver_feature mangling
-> - qxl, because the ioctl table is somewhere else and moving that is
->   maybe a bit too much, hence the num_ioctls assignment prevents a
->   const driver structure.
->=20
-> Note that for armada I also went ahead and made the ioctl array const.
->=20
-> Only cc'ing the driver people who've not been converted (everyone else
-> is way too much).
->=20
-> Signed-off-by: Daniel Vetter <daniel.vetter@ffwll.ch>
-> Cc: Dave Airlie <airlied@redhat.com>
-> Cc: Gerd Hoffmann <kraxel@redhat.com>
-> Cc: virtualization@lists.linux-foundation.org
-> Cc: Harry Wentland <harry.wentland@amd.com>
-> Cc: Leo Li <sunpeng.li@amd.com>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Christian K=F6nig <christian.koenig@amd.com>
-> Cc: Eric Anholt <eric@anholt.net>
-> Cc: Maxime Ripard <mripard@kernel.org>
-> Cc: Ben Skeggs <bskeggs@redhat.com>
-> Cc: nouveau@lists.freedesktop.org
-> Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
-
-
-Acked-by: Maxime Ripard <mripard@kernel.org>
-
-Maxime
-
---v4ipol7ndp77sm72
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCX5LzBwAKCRDj7w1vZxhR
-xQeYAP90dRsz0KSJ0nih77xgZfEUElpITJItnWR67S1ZmoKEwwEAoNThieyWwPHB
-68gdd7FrdMZXhjQv8Q+AZTU3S7CBZg8=
-=rHUD
------END PGP SIGNATURE-----
-
---v4ipol7ndp77sm72--
-
---===============0460546326==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-
---===============0460546326==--
+T24gVGh1cnNkYXksIE9jdG9iZXIgMjIsIDIwMjAgMTI6MTQgUE0sIFZpbGxlIFN5cmrDpGzDpCA8
+dmlsbGUuc3lyamFsYUBsaW51eC5pbnRlbC5jb20+IHdyb3RlOgoKPiBPbiBXZWQsIE9jdCAyMSwg
+MjAyMCBhdCAwODoxMzo0M1BNIC0wNzAwLCBSYW5keSBEdW5sYXAgd3JvdGU6Cj4KPiA+IEhpLAo+
+ID4gV2l0aCBsaW51eC1uZXh0IDIwMjAxMDIxLCB3aGVuIGJvb3RpbmcgdXAsIEkgYW0gc2VlaW5n
+IHRoaXM6Cj4gPiBbIDAuNTYwODk2XSBVQlNBTjogc2lnbmVkLWludGVnZXItb3ZlcmZsb3cgaW4g
+Li4vZHJpdmVycy9ncHUvZHJtL2RybV9tb2Rlcy5jOjc2NToyMAo+ID4gWyAwLjU2MDkwM10gMjM3
+NjAwMCAqIDEwMDAgY2Fubm90IGJlIHJlcHJlc2VudGVkIGluIHR5cGUgJ2ludCcKPgo+IERhbmcu
+IERpZG4ndCByZWFsaXplIHRoZXNlIG5ldyBjcmF6eSA+OGsgbW9kZXMgaGF2ZSBkb3RjbG9ja3Mg
+cmVhY2hpbmcKPiBhbG1vc3QgNiBHSHosIHdoaWNoIHdvdWxkIG92ZXJmbG93IGV2ZW4gdTMyLiBJ
+IGd1ZXNzIHdlJ2xsIHN3aXRjaCB0bwo+IDY0Yml0IG1hdGhzLiBOb3cgSSB3b25kZXIgaG93IG1h
+bnkgb3RoZXIgcGxhY2VzIGNhbiBoaXQgdGhpcyBvdmVyZmxvdwo+IGluIHByYWN0aWNlLi4uCgpD
+YW4geW91IHByb3ZpZGUgYW4gZXhhbXBsZSBvZiBhIGZ1bGwgY3JhenkgPjhrIG1vZGU/IEknbSB0
+cnlpbmcgdG8gZ2V0CmEgZml4IGZvciBteSB1c2VyLXNwYWNlIFsxXSwgYW5kIEknbSB3b25kZXJp
+bmcgaWYgaW50MzJfdCBpcyBlbm91Z2gKYWZ0ZXIgZGl2aWRpbmcgYnkgbW9kZS0+aHRvdGFsLgoK
+Q0MgUGVra2EsIGp1c3QgRllJIChJIHRoaW5rIFdlc3RvbiBoYXMgc2ltaWxhciBjb2RlKS4KClsx
+XTogaHR0cHM6Ly9naXRodWIuY29tL3N3YXl3bS93bHJvb3RzL3B1bGwvMjQ1MApfX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpJbnRlbC1nZnggbWFpbGluZyBs
+aXN0CkludGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVz
+a3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9pbnRlbC1nZngK
