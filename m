@@ -7,64 +7,66 @@ X-Spam-Status: No, score=-12.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AD108C83016
-	for <intel-gfx@archiver.kernel.org>; Fri, 23 Oct 2020 12:23:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BE54FC83038
+	for <intel-gfx@archiver.kernel.org>; Fri, 23 Oct 2020 12:23:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4CFDA2463C
-	for <intel-gfx@archiver.kernel.org>; Fri, 23 Oct 2020 12:23:39 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 6EB582168B
+	for <intel-gfx@archiver.kernel.org>; Fri, 23 Oct 2020 12:23:43 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="T+brENP5"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4CFDA2463C
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="NXRWzX+f"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6EB582168B
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B21846E550;
-	Fri, 23 Oct 2020 12:22:46 +0000 (UTC)
-Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
- [IPv6:2a00:1450:4864:20::344])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 095906E50E
- for <intel-gfx@lists.freedesktop.org>; Fri, 23 Oct 2020 12:22:36 +0000 (UTC)
-Received: by mail-wm1-x344.google.com with SMTP id d3so1292965wma.4
- for <intel-gfx@lists.freedesktop.org>; Fri, 23 Oct 2020 05:22:35 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4BCD56E59B;
+	Fri, 23 Oct 2020 12:22:48 +0000 (UTC)
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
+ [IPv6:2a00:1450:4864:20::444])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 17A2B6E50D
+ for <intel-gfx@lists.freedesktop.org>; Fri, 23 Oct 2020 12:22:45 +0000 (UTC)
+Received: by mail-wr1-x444.google.com with SMTP id j7so1562238wrt.9
+ for <intel-gfx@lists.freedesktop.org>; Fri, 23 Oct 2020 05:22:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=1beA0xZZMO6rT4hTwMD+ZW//L5jgxvsKIFlEgidJkWs=;
- b=T+brENP5fFD7NHy7ItQmL8RDBwst+sl7h3AwWVnBkthi96tDtB1cnb7hsJwrnGTKA+
- AxdXyqBnV+ifiXyRI9PCu4TCoR/C6jbfIMajxOBwetyIdMYL9lIIO/XQx8FfZ+jsBxn9
- vV9g7jizc5w2OHPahUi43VUN3IWCoi446GVeE=
+ bh=XJ633h4wxlhAhAPHZ0cgOENHyn8crds9DoKAsmETQdY=;
+ b=NXRWzX+f27c5mLWSBbXv3t/s+HOpVOJMSfj43lC7wtwyQ0sNjxQe/5gdW8X+eqKEih
+ sTztwRjWJVIq89lcKZxO3E4hXo85pvlb4M1L91yA5wLRe1PHPncXn7uGl3/ZxammiFHv
+ brSTcO8r0ks2c6CuwTrumQKrDrUClLq4lH/Yw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=1beA0xZZMO6rT4hTwMD+ZW//L5jgxvsKIFlEgidJkWs=;
- b=HVdCWknaIxiranM7wQL9eNkEjKJ8j/V/KTCQRnlp1GbvPlFpHMOnGsEU+aT796qEqW
- 8v1aFkO6k8ATg440DDUi25BNBCXtGOYaet6eNxSOIsOaC6POoOSCH9BRCr88VzS4OkC5
- isAqX+4N/taLWSF8GJgIAGUOO0Jb/KB623Fxk1ZIE54iOGRocA6EUWrCr7HU4+qzuNXb
- D7C6oWmjUx9uWKUQPfIT2e5A4ZG02xq4SRjC/cW0BeMapxWh4iS1d24DFrtXJ+NpI/wi
- Gk/yUXhRFIzoD/Cg/Gx7uMzGmjNVXpAgWn9AQBtrcpySYnWFFXDgxrPspygaMR4O1Nsi
- GVIw==
-X-Gm-Message-State: AOAM530npsN75U5MLW0w46wdmx7D+/km4453sUsWaz28GP/aPs/tP3B4
- HG5NRICtxqSYT8qilVWiFNE8RQ==
-X-Google-Smtp-Source: ABdhPJwutaW8JabkXqJfONMbc8oohdB8fDb+gZU8bM9Ek+H6TeMjxVozMUKhVHj3xaQBAWewFnQWlA==
-X-Received: by 2002:a1c:b389:: with SMTP id c131mr2155029wmf.73.1603455754757; 
- Fri, 23 Oct 2020 05:22:34 -0700 (PDT)
+ bh=XJ633h4wxlhAhAPHZ0cgOENHyn8crds9DoKAsmETQdY=;
+ b=Yfn7W4JLkYinAtAYB7eynqatgSwFOIRTj5a8ZZ9TeGex5wDYvQ+oL2IGSuJjWeoegt
+ T1BWOVY63lMzPaMphIkLnAkTTJa6e37cq9oqrlaxXFRdRf5kopTAocx387JtaGgCv1DC
+ CeskeqgNrkjnft5mtOls2ObuG80+AgcbhE8D5q1YVxO0m03JthzcDIJZAYfFnVaHzKor
+ mKM2CyrUR1/OXcnm3ec7PuP/9HrrRCTAAZR/w4f5A1LAjhbLDvX7Z9W3srbqZp0VhlPJ
+ TA5PuRnoejfWYtqIxcFS0NFnLUabo2TtXdLs45eTZXe45JW3jwnPj7eqddXKB1e7Ecq/
+ xJjg==
+X-Gm-Message-State: AOAM53153GshX5dQdrOLGdPRM/BAyW7KAIhV20f41/5yTS8G2V3DDzSn
+ idKm4yFypDbKCysA+CI5QBe1jA==
+X-Google-Smtp-Source: ABdhPJwcF2clDMCt70ko8y66TM4vU0KRO3am4a0vWyGSDSz/G+LltJn7Wxasz4t10w4zbpKLQ7S82Q==
+X-Received: by 2002:a05:6000:10cd:: with SMTP id
+ b13mr2256558wrx.4.1603455763781; 
+ Fri, 23 Oct 2020 05:22:43 -0700 (PDT)
 Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id y4sm3056484wrp.74.2020.10.23.05.22.33
+ by smtp.gmail.com with ESMTPSA id y4sm3056484wrp.74.2020.10.23.05.22.42
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 23 Oct 2020 05:22:34 -0700 (PDT)
+ Fri, 23 Oct 2020 05:22:43 -0700 (PDT)
 From: Daniel Vetter <daniel.vetter@ffwll.ch>
 To: DRI Development <dri-devel@lists.freedesktop.org>
-Date: Fri, 23 Oct 2020 14:21:22 +0200
-Message-Id: <20201023122216.2373294-11-daniel.vetter@ffwll.ch>
+Date: Fri, 23 Oct 2020 14:21:30 +0200
+Message-Id: <20201023122216.2373294-19-daniel.vetter@ffwll.ch>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20201023122216.2373294-1-daniel.vetter@ffwll.ch>
 References: <20201021163242.1458885-1-daniel.vetter@ffwll.ch>
  <20201023122216.2373294-1-daniel.vetter@ffwll.ch>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 11/65] drm/atmel: Use drm_atomic_helper_commit
+Subject: [Intel-gfx] [PATCH 19/65] drm/amdgpu: s/GFP_KERNEL/GFP_ATOMIC in
+ scheduler code
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,236 +79,79 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Boris Brezillon <bbrezillon@kernel.org>,
- Daniel Vetter <daniel.vetter@ffwll.ch>,
+Cc: linux-rdma@vger.kernel.org, Daniel Vetter <daniel.vetter@ffwll.ch>,
  Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Ludovic Desroches <ludovic.desroches@microchip.com>,
- Daniel Vetter <daniel.vetter@intel.com>, Sam Ravnborg <sam@ravnborg.org>,
- linux-arm-kernel@lists.infradead.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+ amd-gfx@lists.freedesktop.org, Chris Wilson <chris@chris-wilson.co.uk>,
+ linaro-mm-sig@lists.linaro.org, Daniel Vetter <daniel.vetter@intel.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ linux-media@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-One of these drivers that predates the nonblocking support in helpers,
-and hand-rolled its own thing. Entirely not anything specific here, we
-can just delete it all and replace it with the helper version.
-
-Could also perhaps use the drm_mode_config_helper_suspend/resume
-stuff, for another few lines deleted. But I'm not looking at that
-stuff, I'm just going through all the atomic commit functions and make
-sure they have properly annotated dma-fence critical sections
-everywhere.
-
-v2:
-- Also delete the workqueue (Sam)
-- drop the @commit kerneldoc, I missed that one.
-
-Reviewed-by: Sam Ravnborg <sam@ravnborg.org>
-Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
-Cc: Sam Ravnborg <sam@ravnborg.org>
-Cc: Boris Brezillon <bbrezillon@kernel.org>
-Cc: Nicolas Ferre <nicolas.ferre@microchip.com>
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>
-Cc: Ludovic Desroches <ludovic.desroches@microchip.com>
-Cc: linux-arm-kernel@lists.infradead.org
----
- drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_dc.c | 107 +------------------
- drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_dc.h |   7 --
- 2 files changed, 2 insertions(+), 112 deletions(-)
-
-diff --git a/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_dc.c b/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_dc.c
-index 871293d1aeeb..03984932d174 100644
---- a/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_dc.c
-+++ b/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_dc.c
-@@ -557,103 +557,10 @@ static irqreturn_t atmel_hlcdc_dc_irq_handler(int irq, void *data)
- 	return IRQ_HANDLED;
- }
- 
--struct atmel_hlcdc_dc_commit {
--	struct work_struct work;
--	struct drm_device *dev;
--	struct drm_atomic_state *state;
--};
--
--static void
--atmel_hlcdc_dc_atomic_complete(struct atmel_hlcdc_dc_commit *commit)
--{
--	struct drm_device *dev = commit->dev;
--	struct atmel_hlcdc_dc *dc = dev->dev_private;
--	struct drm_atomic_state *old_state = commit->state;
--
--	/* Apply the atomic update. */
--	drm_atomic_helper_commit_modeset_disables(dev, old_state);
--	drm_atomic_helper_commit_planes(dev, old_state, 0);
--	drm_atomic_helper_commit_modeset_enables(dev, old_state);
--
--	drm_atomic_helper_wait_for_vblanks(dev, old_state);
--
--	drm_atomic_helper_cleanup_planes(dev, old_state);
--
--	drm_atomic_state_put(old_state);
--
--	/* Complete the commit, wake up any waiter. */
--	spin_lock(&dc->commit.wait.lock);
--	dc->commit.pending = false;
--	wake_up_all_locked(&dc->commit.wait);
--	spin_unlock(&dc->commit.wait.lock);
--
--	kfree(commit);
--}
--
--static void atmel_hlcdc_dc_atomic_work(struct work_struct *work)
--{
--	struct atmel_hlcdc_dc_commit *commit =
--		container_of(work, struct atmel_hlcdc_dc_commit, work);
--
--	atmel_hlcdc_dc_atomic_complete(commit);
--}
--
--static int atmel_hlcdc_dc_atomic_commit(struct drm_device *dev,
--					struct drm_atomic_state *state,
--					bool async)
--{
--	struct atmel_hlcdc_dc *dc = dev->dev_private;
--	struct atmel_hlcdc_dc_commit *commit;
--	int ret;
--
--	ret = drm_atomic_helper_prepare_planes(dev, state);
--	if (ret)
--		return ret;
--
--	/* Allocate the commit object. */
--	commit = kzalloc(sizeof(*commit), GFP_KERNEL);
--	if (!commit) {
--		ret = -ENOMEM;
--		goto error;
--	}
--
--	INIT_WORK(&commit->work, atmel_hlcdc_dc_atomic_work);
--	commit->dev = dev;
--	commit->state = state;
--
--	spin_lock(&dc->commit.wait.lock);
--	ret = wait_event_interruptible_locked(dc->commit.wait,
--					      !dc->commit.pending);
--	if (ret == 0)
--		dc->commit.pending = true;
--	spin_unlock(&dc->commit.wait.lock);
--
--	if (ret)
--		goto err_free;
--
--	/* We have our own synchronization through the commit lock. */
--	BUG_ON(drm_atomic_helper_swap_state(state, false) < 0);
--
--	/* Swap state succeeded, this is the point of no return. */
--	drm_atomic_state_get(state);
--	if (async)
--		queue_work(dc->wq, &commit->work);
--	else
--		atmel_hlcdc_dc_atomic_complete(commit);
--
--	return 0;
--
--err_free:
--	kfree(commit);
--error:
--	drm_atomic_helper_cleanup_planes(dev, state);
--	return ret;
--}
--
- static const struct drm_mode_config_funcs mode_config_funcs = {
- 	.fb_create = drm_gem_fb_create,
- 	.atomic_check = drm_atomic_helper_check,
--	.atomic_commit = atmel_hlcdc_dc_atomic_commit,
-+	.atomic_commit = drm_atomic_helper_commit,
- };
- 
- static int atmel_hlcdc_dc_modeset_init(struct drm_device *dev)
-@@ -712,11 +619,6 @@ static int atmel_hlcdc_dc_load(struct drm_device *dev)
- 	if (!dc)
- 		return -ENOMEM;
- 
--	dc->wq = alloc_ordered_workqueue("atmel-hlcdc-dc", 0);
--	if (!dc->wq)
--		return -ENOMEM;
--
--	init_waitqueue_head(&dc->commit.wait);
- 	dc->desc = match->data;
- 	dc->hlcdc = dev_get_drvdata(dev->dev->parent);
- 	dev->dev_private = dc;
-@@ -724,7 +626,7 @@ static int atmel_hlcdc_dc_load(struct drm_device *dev)
- 	ret = clk_prepare_enable(dc->hlcdc->periph_clk);
- 	if (ret) {
- 		dev_err(dev->dev, "failed to enable periph_clk\n");
--		goto err_destroy_wq;
-+		return ret;
- 	}
- 
- 	pm_runtime_enable(dev->dev);
-@@ -761,9 +663,6 @@ static int atmel_hlcdc_dc_load(struct drm_device *dev)
- 	pm_runtime_disable(dev->dev);
- 	clk_disable_unprepare(dc->hlcdc->periph_clk);
- 
--err_destroy_wq:
--	destroy_workqueue(dc->wq);
--
- 	return ret;
- }
- 
-@@ -771,7 +670,6 @@ static void atmel_hlcdc_dc_unload(struct drm_device *dev)
- {
- 	struct atmel_hlcdc_dc *dc = dev->dev_private;
- 
--	flush_workqueue(dc->wq);
- 	drm_kms_helper_poll_fini(dev);
- 	drm_atomic_helper_shutdown(dev);
- 	drm_mode_config_cleanup(dev);
-@@ -784,7 +682,6 @@ static void atmel_hlcdc_dc_unload(struct drm_device *dev)
- 
- 	pm_runtime_disable(dev->dev);
- 	clk_disable_unprepare(dc->hlcdc->periph_clk);
--	destroy_workqueue(dc->wq);
- }
- 
- static int atmel_hlcdc_dc_irq_postinstall(struct drm_device *dev)
-diff --git a/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_dc.h b/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_dc.h
-index 469d4507e576..5b5c774e0edf 100644
---- a/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_dc.h
-+++ b/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_dc.h
-@@ -331,9 +331,7 @@ struct atmel_hlcdc_dc_desc {
-  * @crtc: CRTC provided by the display controller
-  * @planes: instantiated planes
-  * @layers: active HLCDC layers
-- * @wq: display controller workqueue
-  * @suspend: used to store the HLCDC state when entering suspend
-- * @commit: used for async commit handling
-  */
- struct atmel_hlcdc_dc {
- 	const struct atmel_hlcdc_dc_desc *desc;
-@@ -341,15 +339,10 @@ struct atmel_hlcdc_dc {
- 	struct atmel_hlcdc *hlcdc;
- 	struct drm_crtc *crtc;
- 	struct atmel_hlcdc_layer *layers[ATMEL_HLCDC_MAX_LAYERS];
--	struct workqueue_struct *wq;
- 	struct {
- 		u32 imr;
- 		struct drm_atomic_state *state;
- 	} suspend;
--	struct {
--		wait_queue_head_t wait;
--		bool pending;
--	} commit;
- };
- 
- extern struct atmel_hlcdc_formats atmel_hlcdc_plane_rgb_formats;
--- 
-2.28.0
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+TXkgZG1hLWZlbmNlIGxvY2tkZXAgYW5ub3RhdGlvbnMgY2F1Z2h0IGFuIGludmVyc2lvbiBiZWNh
+dXNlIHdlCmFsbG9jYXRlIG1lbW9yeSB3aGVyZSB3ZSByZWFsbHkgc2hvdWxkbid0OgoKCWttZW1f
+Y2FjaGVfYWxsb2MrMHgyYi8weDZkMAoJYW1kZ3B1X2ZlbmNlX2VtaXQrMHgzMC8weDMzMCBbYW1k
+Z3B1XQoJYW1kZ3B1X2liX3NjaGVkdWxlKzB4MzA2LzB4NTUwIFthbWRncHVdCglhbWRncHVfam9i
+X3J1bisweDEwZi8weDI2MCBbYW1kZ3B1XQoJZHJtX3NjaGVkX21haW4rMHgxYjkvMHg0OTAgW2dw
+dV9zY2hlZF0KCWt0aHJlYWQrMHgxMmUvMHgxNTAKClRyb3VibGUgcmlnaHQgbm93IGlzIHRoYXQg
+bG9ja2RlcCBvbmx5IHZhbGlkYXRlcyBhZ2FpbnN0IEdGUF9GUywgd2hpY2gKd291bGQgYmUgZ29v
+ZCBlbm91Z2ggZm9yIHNocmlua2Vycy4gQnV0IGZvciBtbXVfbm90aWZpZXJzIHdlIGFjdHVhbGx5
+Cm5lZWQgIUdGUF9BVE9NSUMsIHNpbmNlIHRoZXkgY2FuIGJlIGNhbGxlZCBmcm9tIGFueSBwYWdl
+IGxhdW5kZXJpbmcsCmV2ZW4gaWYgR0ZQX05PRlMgb3IgR0ZQX05PSU8gYXJlIHNldC4KCkkgZ3Vl
+c3Mgd2Ugc2hvdWxkIGltcHJvdmUgdGhlIGxvY2tkZXAgYW5ub3RhdGlvbnMgZm9yCmZzX3JlY2xh
+aW1fYWNxdWlyZS9yZWxlYXNlLgoKT2ZjIHJlYWwgZml4IGlzIHRvIHByb3Blcmx5IHByZWFsbG9j
+YXRlIHRoaXMgZmVuY2UgYW5kIHN0dWZmIGl0IGludG8KdGhlIGFtZGdwdSBqb2Igc3RydWN0dXJl
+LiBCdXQgR0ZQX0FUT01JQyBnZXRzIHRoZSBsb2NrZGVwIHNwbGF0IG91dCBvZgp0aGUgd2F5LgoK
+djI6IFR3byBtb3JlIGFsbG9jYXRpb25zIGluIHNjaGVkdWxlciBwYXRocy4KCkZyaXN0IG9uZToK
+CglfX2ttYWxsb2MrMHg1OC8weDcyMAoJYW1kZ3B1X3ZtaWRfZ3JhYisweDEwMC8weGNhMCBbYW1k
+Z3B1XQoJYW1kZ3B1X2pvYl9kZXBlbmRlbmN5KzB4ZjkvMHgxMjAgW2FtZGdwdV0KCWRybV9zY2hl
+ZF9lbnRpdHlfcG9wX2pvYisweDNmLzB4NDQwIFtncHVfc2NoZWRdCglkcm1fc2NoZWRfbWFpbisw
+eGY5LzB4NDkwIFtncHVfc2NoZWRdCgpTZWNvbmQgb25lOgoKCWttZW1fY2FjaGVfYWxsb2MrMHgy
+Yi8weDZkMAoJYW1kZ3B1X3N5bmNfZmVuY2UrMHg3ZS8weDExMCBbYW1kZ3B1XQoJYW1kZ3B1X3Zt
+aWRfZ3JhYisweDg2Yi8weGNhMCBbYW1kZ3B1XQoJYW1kZ3B1X2pvYl9kZXBlbmRlbmN5KzB4Zjkv
+MHgxMjAgW2FtZGdwdV0KCWRybV9zY2hlZF9lbnRpdHlfcG9wX2pvYisweDNmLzB4NDQwIFtncHVf
+c2NoZWRdCglkcm1fc2NoZWRfbWFpbisweGY5LzB4NDkwIFtncHVfc2NoZWRdCgpDYzogbGludXgt
+bWVkaWFAdmdlci5rZXJuZWwub3JnCkNjOiBsaW5hcm8tbW0tc2lnQGxpc3RzLmxpbmFyby5vcmcK
+Q2M6IGxpbnV4LXJkbWFAdmdlci5rZXJuZWwub3JnCkNjOiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
+dG9wLm9yZwpDYzogaW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpDYzogQ2hyaXMgV2ls
+c29uIDxjaHJpc0BjaHJpcy13aWxzb24uY28udWs+CkNjOiBNYWFydGVuIExhbmtob3JzdCA8bWFh
+cnRlbi5sYW5raG9yc3RAbGludXguaW50ZWwuY29tPgpDYzogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hy
+aXN0aWFuLmtvZW5pZ0BhbWQuY29tPgpTaWduZWQtb2ZmLWJ5OiBEYW5pZWwgVmV0dGVyIDxkYW5p
+ZWwudmV0dGVyQGludGVsLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
+cHVfZmVuY2UuYyB8IDIgKy0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9pZHMu
+YyAgIHwgMiArLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3N5bmMuYyAgfCAy
+ICstCiAzIGZpbGVzIGNoYW5nZWQsIDMgaW5zZXJ0aW9ucygrKSwgMyBkZWxldGlvbnMoLSkKCmRp
+ZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZmVuY2UuYyBiL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9mZW5jZS5jCmluZGV4IGZlMmQ0OTVkMDhh
+Yi4uMDk2MTRiMzI1YjVmIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
+bWRncHVfZmVuY2UuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZmVu
+Y2UuYwpAQCAtMTQzLDcgKzE0Myw3IEBAIGludCBhbWRncHVfZmVuY2VfZW1pdChzdHJ1Y3QgYW1k
+Z3B1X3JpbmcgKnJpbmcsIHN0cnVjdCBkbWFfZmVuY2UgKipmLAogCXVpbnQzMl90IHNlcTsKIAlp
+bnQgcjsKIAotCWZlbmNlID0ga21lbV9jYWNoZV9hbGxvYyhhbWRncHVfZmVuY2Vfc2xhYiwgR0ZQ
+X0tFUk5FTCk7CisJZmVuY2UgPSBrbWVtX2NhY2hlX2FsbG9jKGFtZGdwdV9mZW5jZV9zbGFiLCBH
+RlBfQVRPTUlDKTsKIAlpZiAoZmVuY2UgPT0gTlVMTCkKIAkJcmV0dXJuIC1FTk9NRU07CiAKZGlm
+ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9pZHMuYyBiL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9pZHMuYwppbmRleCA3NTIxZjRhYjU1ZGUuLjJh
+NGNkZTdjZDc0NiAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X2lkcy5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9pZHMuYwpAQCAt
+MjA4LDcgKzIwOCw3IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X3ZtaWRfZ3JhYl9pZGxlKHN0cnVjdCBh
+bWRncHVfdm0gKnZtLAogCWlmIChyaW5nLT52bWlkX3dhaXQgJiYgIWRtYV9mZW5jZV9pc19zaWdu
+YWxlZChyaW5nLT52bWlkX3dhaXQpKQogCQlyZXR1cm4gYW1kZ3B1X3N5bmNfZmVuY2Uoc3luYywg
+cmluZy0+dm1pZF93YWl0KTsKIAotCWZlbmNlcyA9IGttYWxsb2NfYXJyYXkoc2l6ZW9mKHZvaWQg
+KiksIGlkX21nci0+bnVtX2lkcywgR0ZQX0tFUk5FTCk7CisJZmVuY2VzID0ga21hbGxvY19hcnJh
+eShzaXplb2Yodm9pZCAqKSwgaWRfbWdyLT5udW1faWRzLCBHRlBfQVRPTUlDKTsKIAlpZiAoIWZl
+bmNlcykKIAkJcmV0dXJuIC1FTk9NRU07CiAKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2FtZGdwdV9zeW5jLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
+cHVfc3luYy5jCmluZGV4IDhlYTZjNDk1MjllNy4uYWYyMmI1MjZjZWM5IDEwMDY0NAotLS0gYS9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfc3luYy5jCisrKyBiL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9zeW5jLmMKQEAgLTE2MCw3ICsxNjAsNyBAQCBpbnQgYW1k
+Z3B1X3N5bmNfZmVuY2Uoc3RydWN0IGFtZGdwdV9zeW5jICpzeW5jLCBzdHJ1Y3QgZG1hX2ZlbmNl
+ICpmKQogCWlmIChhbWRncHVfc3luY19hZGRfbGF0ZXIoc3luYywgZikpCiAJCXJldHVybiAwOwog
+Ci0JZSA9IGttZW1fY2FjaGVfYWxsb2MoYW1kZ3B1X3N5bmNfc2xhYiwgR0ZQX0tFUk5FTCk7CisJ
+ZSA9IGttZW1fY2FjaGVfYWxsb2MoYW1kZ3B1X3N5bmNfc2xhYiwgR0ZQX0FUT01JQyk7CiAJaWYg
+KCFlKQogCQlyZXR1cm4gLUVOT01FTTsKIAotLSAKMi4yOC4wCgpfX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fXwpJbnRlbC1nZnggbWFpbGluZyBsaXN0CkludGVs
+LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
+bWFpbG1hbi9saXN0aW5mby9pbnRlbC1nZngK
