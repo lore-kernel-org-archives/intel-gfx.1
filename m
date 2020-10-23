@@ -7,65 +7,65 @@ X-Spam-Status: No, score=-12.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9F64DC83019
-	for <intel-gfx@archiver.kernel.org>; Fri, 23 Oct 2020 12:24:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 624F5C61DD8
+	for <intel-gfx@archiver.kernel.org>; Fri, 23 Oct 2020 12:23:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 40B5724248
-	for <intel-gfx@archiver.kernel.org>; Fri, 23 Oct 2020 12:24:00 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 064762168B
+	for <intel-gfx@archiver.kernel.org>; Fri, 23 Oct 2020 12:23:44 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="J13iDv9v"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 40B5724248
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="QRe2K4ND"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 064762168B
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB8A86E5C3;
-	Fri, 23 Oct 2020 12:22:57 +0000 (UTC)
-Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
- [IPv6:2a00:1450:4864:20::443])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D81B56E5A5
- for <intel-gfx@lists.freedesktop.org>; Fri, 23 Oct 2020 12:22:53 +0000 (UTC)
-Received: by mail-wr1-x443.google.com with SMTP id y12so1579079wrp.6
- for <intel-gfx@lists.freedesktop.org>; Fri, 23 Oct 2020 05:22:53 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 587766E5A0;
+	Fri, 23 Oct 2020 12:22:48 +0000 (UTC)
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
+ [IPv6:2a00:1450:4864:20::344])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D0B236E50D
+ for <intel-gfx@lists.freedesktop.org>; Fri, 23 Oct 2020 12:22:42 +0000 (UTC)
+Received: by mail-wm1-x344.google.com with SMTP id k18so1286342wmj.5
+ for <intel-gfx@lists.freedesktop.org>; Fri, 23 Oct 2020 05:22:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=lv9iWimFOIGDRW4jGGjVyXNYdiUYfLpQCq4yXKzlM3Y=;
- b=J13iDv9v54dIwMzbh/MuNDh+Zp/4YqjJp0rkrkG98/nK1P+p/gDP2TEtzeggqntesC
- U1WOWEuQZFl4O3W9v0ew2NanBpZzNvQHusSumq38mFs8Y4Fb7RPQ5JQDppdtV0zc8pIO
- MUx3JFQ04hL0G4AoJjPnAnOvL57ZGIMLUUS8I=
+ bh=Oo+WCqNcRY4hz8ARHU44AzglCk3LcvfnVh+Q+d4r9RU=;
+ b=QRe2K4NDzMa3XvVHnklPYEQBWwaTYYKSqPpSchH+IzdO7uoZMOJmLrYKxFyPuFedgt
+ hBGRQ8jSDsXFVPkf4tno5kbL04YE1J5uETPopMp2haTMemX81cxn8GM2SG8tLS8LW1Tq
+ 3bmfMo7wGggEbrwFcrXY/XzlIA2yGcA0FzNrU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=lv9iWimFOIGDRW4jGGjVyXNYdiUYfLpQCq4yXKzlM3Y=;
- b=Oy/zJR8Puawk6/LZ3Z0Y+CMD96CEd0cPm4ERnNOeDpH5wCEBdNABR3BED+45NtMLgS
- mByJ0l8RmZKiMoktNyO0NzEXhZuWMQNQ11zlF4pyXdG7boqwnvReP3lnVtrV4bGJkc/6
- BdcQ7JZ7otZiEYJf/5oh4E0TVVU/PrMlp3KeOye7qK8BhZMLmfwFyhH1ZJ1ztOSUQRHq
- fo4lGqDh5Hy9qRm1ZbiNZ9UGAN9wL8htCjGQLx2iBVPoGTePv2GgcxPOUjpiHU4I3aVe
- ebzXxSSh2kqWGR2N/z90w81hqJ2cqQhtTzWf/ScYqTRShnJKBHURTcfBgkV/1llHcfIe
- M+SA==
-X-Gm-Message-State: AOAM53051bOBli06LnCuacIpI6rX5B93Zrsd7quKXWIn4mV6GeW0L0H0
- +7LNfKjvlddksCQ/wjfz7hyAoYtAjFK1SkWY
-X-Google-Smtp-Source: ABdhPJxFv1wOmoOA2eJ4PnscSORJp//ItclSTMxFgw9LbqTDP/utYU+s+sJ8ToPR+S83pVmwGQ93LQ==
-X-Received: by 2002:adf:dfc7:: with SMTP id q7mr2272630wrn.382.1603455772550; 
- Fri, 23 Oct 2020 05:22:52 -0700 (PDT)
+ bh=Oo+WCqNcRY4hz8ARHU44AzglCk3LcvfnVh+Q+d4r9RU=;
+ b=KCpxfnqw2gCHG4IXpHfYsawMIU/IcvulfUY6dKnofQKUjcHcWIJNrK4M15ZTR05foi
+ VYhgW84eCYtHWovg+CTOUCEOVu/uPVBi5VIZtYNxl5KaUuWP9SI8i3Glx0M8xYHWd2Gw
+ PggY+LwTElzWyQQ1cIuD8WROcE2vEYkPe9FB2J6+95nPkkbkWLfWLJHykdzjOzJWjNm5
+ DGMNdxRlmQiS3BATcAR6wrRoB6PMdkZjaQD78ehIl5Kr7uSCZz4pWCHIS4MUzFqTQONy
+ LIWnU9BlAD5NRHxY0FGf2ivQslFUa48YUOjt0oXGT20UENz22O8USKgHXbV2XrQeAPRX
+ 6NIg==
+X-Gm-Message-State: AOAM533m3UQVL4zShRVTNFDgtnQsIshK8zxO/B4A6TnDPf951r80LkFl
+ XxQQHaXPwcFkkcGBxD5v8Zyb6A==
+X-Google-Smtp-Source: ABdhPJxmIrYyotlMUykKvZ8yFRoXhmXv4OuqQiJQL/V4ipGjIXJX6Lq0IMzK4dvfWtQS6XzUEHIJNg==
+X-Received: by 2002:a7b:c401:: with SMTP id k1mr2023294wmi.120.1603455761598; 
+ Fri, 23 Oct 2020 05:22:41 -0700 (PDT)
 Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id y4sm3056484wrp.74.2020.10.23.05.22.51
+ by smtp.gmail.com with ESMTPSA id y4sm3056484wrp.74.2020.10.23.05.22.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 23 Oct 2020 05:22:52 -0700 (PDT)
+ Fri, 23 Oct 2020 05:22:41 -0700 (PDT)
 From: Daniel Vetter <daniel.vetter@ffwll.ch>
 To: DRI Development <dri-devel@lists.freedesktop.org>
-Date: Fri, 23 Oct 2020 14:21:38 +0200
-Message-Id: <20201023122216.2373294-27-daniel.vetter@ffwll.ch>
+Date: Fri, 23 Oct 2020 14:21:28 +0200
+Message-Id: <20201023122216.2373294-17-daniel.vetter@ffwll.ch>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20201023122216.2373294-1-daniel.vetter@ffwll.ch>
 References: <20201021163242.1458885-1-daniel.vetter@ffwll.ch>
  <20201023122216.2373294-1-daniel.vetter@ffwll.ch>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 27/65] drm/vmwgfx: Always evict vram _before_
- disabling it
+Subject: [Intel-gfx] [PATCH 17/65] drm/scheduler: use dma-fence annotations
+ in main thread
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,42 +78,44 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>,
+Cc: linux-rdma@vger.kernel.org, Daniel Vetter <daniel.vetter@ffwll.ch>,
  Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Daniel Vetter <daniel.vetter@intel.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+ amd-gfx@lists.freedesktop.org, Chris Wilson <chris@chris-wilson.co.uk>,
+ linaro-mm-sig@lists.linaro.org, Daniel Vetter <daniel.vetter@intel.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ linux-media@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Other way round is a bit inconsistent (but not buggy in any kind).
-This is prep work so that ttm_resource_manager_set_used can assert
-that the resource manager is empty.
-
-Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
----
- drivers/gpu/drm/vmwgfx/vmwgfx_drv.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c b/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
-index 6ecdd1df311b..68206d0a1237 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
-@@ -1255,9 +1255,9 @@ void vmw_svga_disable(struct vmw_private *dev_priv)
- 	vmw_kms_lost_device(dev_priv->dev);
- 	ttm_write_lock(&dev_priv->reservation_sem, false);
- 	if (ttm_resource_manager_used(man)) {
--		ttm_resource_manager_set_used(man, false);
- 		if (ttm_resource_manager_evict_all(&dev_priv->bdev, man))
- 			DRM_ERROR("Failed evicting VRAM buffers.\n");
-+		ttm_resource_manager_set_used(man, false);
- 		vmw_write(dev_priv, SVGA_REG_ENABLE,
- 			  SVGA_REG_ENABLE_HIDE |
- 			  SVGA_REG_ENABLE_ENABLE);
--- 
-2.28.0
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+SWYgdGhlIHNjaGVkdWxlciBydCB0aHJlYWQgZ2V0cyBzdHVjayBvbiBhIG11dGV4IHRoYXQgd2Un
+cmUgaG9sZGluZwp3aGlsZSB3YWl0aW5nIGZvciBncHUgd29ya2xvYWRzIHRvIGNvbXBsZXRlLCB3
+ZSBoYXZlIGEgcHJvYmxlbS4KCkFkZCBkbWEtZmVuY2UgYW5ub3RhdGlvbnMgc28gdGhhdCBsb2Nr
+ZGVwIGNhbiBjaGVjayB0aGlzIGZvciB1cy4KCkkndmUgdHJpZWQgdG8gcXVpdGUgY2FyZWZ1bGx5
+IHJldmlldyB0aGlzLCBhbmQgSSB0aGluayBpdCdzIGF0IHRoZQpyaWdodCBzcG90LiBCdXQgb2J2
+aW9zbHkgbm8gZXhwZXJ0IG9uIGRybSBzY2hlZHVsZXIuCgpDYzogbGludXgtbWVkaWFAdmdlci5r
+ZXJuZWwub3JnCkNjOiBsaW5hcm8tbW0tc2lnQGxpc3RzLmxpbmFyby5vcmcKQ2M6IGxpbnV4LXJk
+bWFAdmdlci5rZXJuZWwub3JnCkNjOiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpDYzog
+aW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpDYzogQ2hyaXMgV2lsc29uIDxjaHJpc0Bj
+aHJpcy13aWxzb24uY28udWs+CkNjOiBNYWFydGVuIExhbmtob3JzdCA8bWFhcnRlbi5sYW5raG9y
+c3RAbGludXguaW50ZWwuY29tPgpDYzogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5p
+Z0BhbWQuY29tPgpTaWduZWQtb2ZmLWJ5OiBEYW5pZWwgVmV0dGVyIDxkYW5pZWwudmV0dGVyQGlu
+dGVsLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vc2NoZWR1bGVyL3NjaGVkX21haW4uYyB8IDYg
+KysrKysrCiAxIGZpbGUgY2hhbmdlZCwgNiBpbnNlcnRpb25zKCspCgpkaWZmIC0tZ2l0IGEvZHJp
+dmVycy9ncHUvZHJtL3NjaGVkdWxlci9zY2hlZF9tYWluLmMgYi9kcml2ZXJzL2dwdS9kcm0vc2No
+ZWR1bGVyL3NjaGVkX21haW4uYwppbmRleCA5YTBkNzdhNjgwMTguLmY2OWFiYzRlNzBkMyAxMDA2
+NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL3NjaGVkdWxlci9zY2hlZF9tYWluLmMKKysrIGIvZHJp
+dmVycy9ncHUvZHJtL3NjaGVkdWxlci9zY2hlZF9tYWluLmMKQEAgLTc2NCw5ICs3NjQsMTIgQEAg
+c3RhdGljIGludCBkcm1fc2NoZWRfbWFpbih2b2lkICpwYXJhbSkKIHsKIAlzdHJ1Y3QgZHJtX2dw
+dV9zY2hlZHVsZXIgKnNjaGVkID0gKHN0cnVjdCBkcm1fZ3B1X3NjaGVkdWxlciAqKXBhcmFtOwog
+CWludCByOworCWJvb2wgZmVuY2VfY29va2llOwogCiAJc2NoZWRfc2V0X2ZpZm9fbG93KGN1cnJl
+bnQpOwogCisJZmVuY2VfY29va2llID0gZG1hX2ZlbmNlX2JlZ2luX3NpZ25hbGxpbmcoKTsKKwog
+CXdoaWxlICgha3RocmVhZF9zaG91bGRfc3RvcCgpKSB7CiAJCXN0cnVjdCBkcm1fc2NoZWRfZW50
+aXR5ICplbnRpdHkgPSBOVUxMOwogCQlzdHJ1Y3QgZHJtX3NjaGVkX2ZlbmNlICpzX2ZlbmNlOwpA
+QCAtODI0LDYgKzgyNyw5IEBAIHN0YXRpYyBpbnQgZHJtX3NjaGVkX21haW4odm9pZCAqcGFyYW0p
+CiAKIAkJd2FrZV91cCgmc2NoZWQtPmpvYl9zY2hlZHVsZWQpOwogCX0KKworCWRtYV9mZW5jZV9l
+bmRfc2lnbmFsbGluZyhmZW5jZV9jb29raWUpOworCiAJcmV0dXJuIDA7CiB9CiAKLS0gCjIuMjgu
+MAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KSW50ZWwt
+Z2Z4IG1haWxpbmcgbGlzdApJbnRlbC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8v
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vaW50ZWwtZ2Z4Cg==
