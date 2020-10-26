@@ -7,42 +7,42 @@ X-Spam-Status: No, score=-8.4 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,URIBL_BLOCKED,USER_AGENT_SANE_1
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AC200C4363A
-	for <intel-gfx@archiver.kernel.org>; Mon, 26 Oct 2020 22:32:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 04751C4363A
+	for <intel-gfx@archiver.kernel.org>; Mon, 26 Oct 2020 22:39:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5C831206F4
-	for <intel-gfx@archiver.kernel.org>; Mon, 26 Oct 2020 22:32:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5C831206F4
+	by mail.kernel.org (Postfix) with ESMTPS id 9C25920878
+	for <intel-gfx@archiver.kernel.org>; Mon, 26 Oct 2020 22:39:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9C25920878
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D706C6EA81;
-	Mon, 26 Oct 2020 22:32:26 +0000 (UTC)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C40B36EA81
- for <intel-gfx@lists.freedesktop.org>; Mon, 26 Oct 2020 22:32:25 +0000 (UTC)
-IronPort-SDR: pUxuS6mN+s+JUfwJLfkR+fzK6LCM8hYaDYCiXnUjHCzOMmGAowDTcX1jBlfaciVaOos6+mjhi0
- rr4x0yrbbyJw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9786"; a="229633038"
-X-IronPort-AV: E=Sophos;i="5.77,421,1596524400"; d="scan'208";a="229633038"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E8FD6EA82;
+	Mon, 26 Oct 2020 22:39:58 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B78C6EA82
+ for <intel-gfx@lists.freedesktop.org>; Mon, 26 Oct 2020 22:39:57 +0000 (UTC)
+IronPort-SDR: dLs3sXzP/LexflPRciFlwQbiBfplfu3USd2mVZ6SO0JZRC7a/J58QCfOW1PWz/eSZalgWZPxQ0
+ hojvI4xowrnw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9786"; a="232185244"
+X-IronPort-AV: E=Sophos;i="5.77,421,1596524400"; d="scan'208";a="232185244"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Oct 2020 15:32:25 -0700
-IronPort-SDR: RGFUZ7Q1sfCSx7AhZsKlHwlgmeO4K4VwELDT49/iKtE9HUkIKs1+lnFvtunxAK3+bmIGW+XSmG
- Yqbe3+HFJQEQ==
-X-IronPort-AV: E=Sophos;i="5.77,421,1596524400"; d="scan'208";a="322704627"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Oct 2020 15:39:56 -0700
+IronPort-SDR: EwHXYhEzdHYhC4meF1/iP5+sBYE0siiixPuf3yRbXt29rXCpTVzPdFQo1CSj7kHntbMYow4kmw
+ G6daEWw7h1CQ==
+X-IronPort-AV: E=Sophos;i="5.77,421,1596524400"; d="scan'208";a="468082551"
 Received: from labuser-z97x-ud5h.jf.intel.com (HELO labuser-Z97X-UD5H)
  ([10.165.21.211])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Oct 2020 15:32:25 -0700
-Date: Mon, 26 Oct 2020 15:34:17 -0700
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Oct 2020 15:39:56 -0700
+Date: Mon, 26 Oct 2020 15:41:48 -0700
 From: "Navare, Manasi" <manasi.d.navare@intel.com>
 To: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-Message-ID: <20201026223417.GE25941@labuser-Z97X-UD5H>
+Message-ID: <20201026224148.GF25941@labuser-Z97X-UD5H>
 References: <20201022054223.25071-1-manasi.d.navare@intel.com>
  <20201022054223.25071-11-manasi.d.navare@intel.com>
  <20201026201854.GL6112@intel.com>
@@ -69,10 +69,6 @@ Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-
-@Ville, assuming no comments or concerns as a Ack By you on this
-
-Manasi
 
 On Mon, Oct 26, 2020 at 10:18:54PM +0200, Ville Syrj=E4l=E4 wrote:
 > On Wed, Oct 21, 2020 at 10:42:21PM -0700, Manasi Navare wrote:
@@ -327,7 +323,13 @@ e);
 
 > somewhere before we do the plane->check() stuff. I guess start
 > of intel_atomic_check_planes() could be the right spot.
-> =
+>
+
+Yes may be but honestly I leave this optimization/change to the original
+author Maarten or you as a follow up
+
+Manasi
+ =
 
 > > +	}
 > > +	return 0;
