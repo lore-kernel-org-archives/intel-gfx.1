@@ -2,53 +2,52 @@ Return-Path: <SRS0=9UyP=EC=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.0 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,URIBL_BLOCKED autolearn=ham
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 14159C4363A
-	for <intel-gfx@archiver.kernel.org>; Tue, 27 Oct 2020 04:35:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 87958C4363A
+	for <intel-gfx@archiver.kernel.org>; Tue, 27 Oct 2020 04:46:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 79597217A0
-	for <intel-gfx@archiver.kernel.org>; Tue, 27 Oct 2020 04:35:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 79597217A0
+	by mail.kernel.org (Postfix) with ESMTPS id 364BA20795
+	for <intel-gfx@archiver.kernel.org>; Tue, 27 Oct 2020 04:46:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 364BA20795
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D6FA46E185;
-	Tue, 27 Oct 2020 04:35:12 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F28B26E185
- for <intel-gfx@lists.freedesktop.org>; Tue, 27 Oct 2020 04:35:10 +0000 (UTC)
-IronPort-SDR: oqFxTJGE2jJrHHZ6dVUfUd/J9fCnz2mwCMnGN4KL3o090KDM/Lp9nEHxFjiuG1J+pE9zDEQCW9
- mAbvp1XybQBA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9786"; a="165435191"
-X-IronPort-AV: E=Sophos;i="5.77,422,1596524400"; d="scan'208";a="165435191"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D2966EAC8;
+	Tue, 27 Oct 2020 04:46:40 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 57D606EAC8
+ for <intel-gfx@lists.freedesktop.org>; Tue, 27 Oct 2020 04:46:39 +0000 (UTC)
+IronPort-SDR: GVJ0cBVs1PII/mue9BsWv14LndmoJs6UZG74bg0CON7ro10+bDjQ7gJZ5PchcftCoWapdV0PFl
+ tsU9vOvDlN8g==
+X-IronPort-AV: E=McAfee;i="6000,8403,9786"; a="168126425"
+X-IronPort-AV: E=Sophos;i="5.77,422,1596524400"; d="scan'208";a="168126425"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Oct 2020 21:35:10 -0700
-IronPort-SDR: Qmk9knG7/upSJ/4R5NsQTBwJntxQTNyk6+REziw6htJ6+0jsnQSJ/RTOSJyt8ilIiC9OQ8VdOy
- TF4wCicsxxTQ==
-X-IronPort-AV: E=Sophos;i="5.77,422,1596524400"; d="scan'208";a="334260739"
-Received: from rle-mobl1.amr.corp.intel.com (HELO ldmartin-desk1)
- ([10.212.245.84])
- by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Oct 2020 21:35:10 -0700
-Date: Mon, 26 Oct 2020 21:35:09 -0700
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Oct 2020 21:46:38 -0700
+IronPort-SDR: UxFo4z5WzgF+zypyPIbX90GjTVbHpp3rxM1ef/6tzvsl78HsKnwBmcUIZRIOf93nSAUHuGnVEk
+ wg41nvQN2yqQ==
+X-IronPort-AV: E=Sophos;i="5.77,422,1596524400"; d="scan'208";a="360619889"
+Received: from lucas-s2600cw.jf.intel.com ([10.165.21.202])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Oct 2020 21:46:38 -0700
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Message-ID: <20201027043509.xd54q2tkldc4ybyo@ldmartin-desk1>
-X-Patchwork-Hint: comment
-References: <20201027043228.696518-1-lucas.demarchi@intel.com>
+Date: Mon, 26 Oct 2020 21:46:17 -0700
+Message-Id: <20201027044618.719064-2-lucas.demarchi@intel.com>
+X-Mailer: git-send-email 2.29.0
+In-Reply-To: <20201027044618.719064-1-lucas.demarchi@intel.com>
+References: <20201027044618.719064-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20201027043228.696518-1-lucas.demarchi@intel.com>
-Subject: Re: [Intel-gfx] [PATCH 1/3] drm/i915/dg1: map/unmap pll clocks
+Subject: [Intel-gfx] [PATCH 2/3] drm/i915/display: remove debug message from
+ error path
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,306 +60,44 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="iso-8859-1"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Oct 26, 2020 at 09:32:26PM -0700, Lucas De Marchi wrote:
->DG1 uses 2 registers for the ddi clock mapping, with PHY A and B using
->DPCLKA_CFGCR0 and PHY C and D using DPCLKA1_CFGCR0. Hide this behind a
->single macro that chooses the correct register according to the phy
->being accessed, use the correct bitfields for each pll/phy and implement
->separate functions for DG1 since it doesn't share much with ICL/TGL
->anymore.
->
->The previous values were correct for PHY A and B since they were using
->the same register as before and the bitfields were matching.
->
->v2: Add comment and try to simplify DG1_DPCLKA* macros by reusing
->previous ones
->
->Cc: Jos=E9 Roberto de Souza <jose.souza@intel.com>
->Cc: Clinton Taylor <Clinton.A.Taylor@intel.com>
->Cc: Matt Roper <matthew.d.roper@intel.com>
->Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+First check in the function is if swsci() is supported. All the error
+paths are easy to figure out the reason, so remove the extra debug
+message: it's normal not to support swsci() e.g. in dgfx.
 
-Matt, you had given you R-b but since I changed the macros considerably,
-please take a look if it still stands.
+v2: Rather than special case dgfx, just remove the debug message
+    (from Ville)
 
-thanks
-Lucas De Marchi
+Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_opregion.c | 6 +-----
+ 1 file changed, 1 insertion(+), 5 deletions(-)
 
->---
-> drivers/gpu/drm/i915/display/intel_ddi.c     | 92 +++++++++++++++++++-
-> drivers/gpu/drm/i915/display/intel_display.c | 25 +++++-
-> drivers/gpu/drm/i915/i915_reg.h              | 23 +++++
-> 3 files changed, 136 insertions(+), 4 deletions(-)
->
->diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i9=
-15/display/intel_ddi.c
->index 63380b166c25..f6343a950b3a 100644
->--- a/drivers/gpu/drm/i915/display/intel_ddi.c
->+++ b/drivers/gpu/drm/i915/display/intel_ddi.c
->@@ -2970,6 +2970,38 @@ static u32 icl_dpclka_cfgcr0_clk_off(struct drm_i91=
-5_private *dev_priv,
-> 	return 0;
-> }
->
->+static void dg1_map_plls_to_ports(struct intel_encoder *encoder,
->+				  const struct intel_crtc_state *crtc_state)
->+{
->+	struct drm_i915_private *dev_priv =3D to_i915(encoder->base.dev);
->+	struct intel_shared_dpll *pll =3D crtc_state->shared_dpll;
->+	enum phy phy =3D intel_port_to_phy(dev_priv, encoder->port);
->+	u32 val;
->+
->+	/*
->+	 * If we fail this, something went very wrong: first 2 PLLs should be
->+	 * used by first 2 phys and last 2 PLLs by last phys
->+	 */
->+	if (WARN_ON((pll->info->id < DPLL_ID_DG1_DPLL2 && phy >=3D PHY_C) ||
->+		    (pll->info->id >=3D DPLL_ID_DG1_DPLL2 && phy < PHY_C)))
->+		return;
->+
->+	mutex_lock(&dev_priv->dpll.lock);
->+
->+	val =3D intel_de_read(dev_priv, DG1_DPCLKA_CFGCR0(phy));
->+	WARN_ON((val & DG1_DPCLKA_CFGCR0_DDI_CLK_OFF(phy)) =3D=3D 0);
->+
->+	val &=3D ~DG1_DPCLKA_CFGCR0_DDI_CLK_SEL_MASK(phy);
->+	val |=3D DG1_DPCLKA_CFGCR0_DDI_CLK_SEL(pll->info->id, phy);
->+	intel_de_write(dev_priv, DG1_DPCLKA_CFGCR0(phy), val);
->+	intel_de_posting_read(dev_priv, DG1_DPCLKA_CFGCR0(phy));
->+
->+	val &=3D ~DG1_DPCLKA_CFGCR0_DDI_CLK_OFF(phy);
->+	intel_de_write(dev_priv, DG1_DPCLKA_CFGCR0(phy), val);
->+
->+	mutex_unlock(&dev_priv->dpll.lock);
->+}
->+
-> static void icl_map_plls_to_ports(struct intel_encoder *encoder,
-> 				  const struct intel_crtc_state *crtc_state)
-> {
->@@ -3017,6 +3049,19 @@ static void icl_map_plls_to_ports(struct intel_enco=
-der *encoder,
-> 	mutex_unlock(&dev_priv->dpll.lock);
-> }
->
->+static void dg1_unmap_plls_to_ports(struct intel_encoder *encoder)
->+{
->+	struct drm_i915_private *dev_priv =3D to_i915(encoder->base.dev);
->+	enum phy phy =3D intel_port_to_phy(dev_priv, encoder->port);
->+
->+	mutex_lock(&dev_priv->dpll.lock);
->+
->+	intel_de_rmw(dev_priv, DG1_DPCLKA_CFGCR0(phy), 0,
->+		     DG1_DPCLKA_CFGCR0_DDI_CLK_OFF(phy));
->+
->+	mutex_unlock(&dev_priv->dpll.lock);
->+}
->+
-> static void icl_unmap_plls_to_ports(struct intel_encoder *encoder)
-> {
-> 	struct drm_i915_private *dev_priv =3D to_i915(encoder->base.dev);
->@@ -3032,6 +3077,40 @@ static void icl_unmap_plls_to_ports(struct intel_en=
-coder *encoder)
-> 	mutex_unlock(&dev_priv->dpll.lock);
-> }
->
->+static void dg1_sanitize_port_clk_off(struct drm_i915_private *dev_priv,
->+				      u32 port_mask, bool ddi_clk_needed)
->+{
->+	enum port port;
->+	u32 val;
->+
->+	for_each_port_masked(port, port_mask) {
->+		enum phy phy =3D intel_port_to_phy(dev_priv, port);
->+		bool ddi_clk_off;
->+
->+		val =3D intel_de_read(dev_priv, DG1_DPCLKA_CFGCR0(phy));
->+		ddi_clk_off =3D val & DG1_DPCLKA_CFGCR0_DDI_CLK_OFF(phy);
->+
->+		if (ddi_clk_needed =3D=3D !ddi_clk_off)
->+			continue;
->+
->+		/*
->+		 * Punt on the case now where clock is gated, but it would
->+		 * be needed by the port. Something else is really broken then.
->+		 */
->+		if (ddi_clk_needed) {
->+			WARN(1, "ddi_clk_needed=3D%u ddi_clk_off=3D%u phy=3D%u\n",
->+			     ddi_clk_needed, ddi_clk_off, phy);
->+			continue;
->+		}
->+
->+		DRM_NOTE("PHY %c is disabled/in DSI mode with an ungated DDI clock, gat=
-e it\n",
->+			 phy_name(phy));
->+
->+		val |=3D DG1_DPCLKA_CFGCR0_DDI_CLK_OFF(phy);
->+		intel_de_write(dev_priv, DG1_DPCLKA_CFGCR0(phy), val);
->+	}
->+}
->+
-> static void icl_sanitize_port_clk_off(struct drm_i915_private *dev_priv,
-> 				      u32 port_mask, bool ddi_clk_needed)
-> {
->@@ -3114,7 +3193,10 @@ void icl_sanitize_encoder_pll_mapping(struct intel_=
-encoder *encoder)
-> 		ddi_clk_needed =3D false;
-> 	}
->
->-	icl_sanitize_port_clk_off(dev_priv, port_mask, ddi_clk_needed);
->+	if (IS_DG1(dev_priv))
->+		dg1_sanitize_port_clk_off(dev_priv, port_mask, ddi_clk_needed);
->+	else
->+		icl_sanitize_port_clk_off(dev_priv, port_mask, ddi_clk_needed);
-> }
->
-> static void intel_ddi_clk_select(struct intel_encoder *encoder,
->@@ -3666,7 +3748,9 @@ static void intel_ddi_pre_enable(struct intel_atomic=
-_state *state,
->
-> 	drm_WARN_ON(&dev_priv->drm, crtc_state->has_pch_encoder);
->
->-	if (INTEL_GEN(dev_priv) >=3D 11)
->+	if (IS_DG1(dev_priv))
->+		dg1_map_plls_to_ports(encoder, crtc_state);
->+	else if (INTEL_GEN(dev_priv) >=3D 11)
-> 		icl_map_plls_to_ports(encoder, crtc_state);
->
-> 	intel_set_cpu_fifo_underrun_reporting(dev_priv, pipe, true);
->@@ -3848,7 +3932,9 @@ static void intel_ddi_post_disable(struct intel_atom=
-ic_state *state,
-> 		intel_ddi_post_disable_dp(state, encoder, old_crtc_state,
-> 					  old_conn_state);
->
->-	if (INTEL_GEN(dev_priv) >=3D 11)
->+	if (IS_DG1(dev_priv))
->+		dg1_unmap_plls_to_ports(encoder);
->+	else if (INTEL_GEN(dev_priv) >=3D 11)
-> 		icl_unmap_plls_to_ports(encoder);
->
-> 	if (intel_crtc_has_dp_encoder(old_crtc_state) || is_tc_port)
->diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/dr=
-m/i915/display/intel_display.c
->index f41b6f8b5618..97c14d187a83 100644
->--- a/drivers/gpu/drm/i915/display/intel_display.c
->+++ b/drivers/gpu/drm/i915/display/intel_display.c
->@@ -11003,6 +11003,27 @@ static int hsw_crtc_compute_clock(struct intel_cr=
-tc *crtc,
-> 	return 0;
-> }
->
->+static void dg1_get_ddi_pll(struct drm_i915_private *dev_priv, enum port =
-port,
->+			    struct intel_crtc_state *pipe_config)
->+{
->+	enum icl_port_dpll_id port_dpll_id =3D ICL_PORT_DPLL_DEFAULT;
->+	enum phy phy =3D intel_port_to_phy(dev_priv, port);
->+	enum intel_dpll_id id;
->+	u32 val;
->+
->+	val =3D intel_de_read(dev_priv, DG1_DPCLKA_CFGCR0(phy))
->+		& DG1_DPCLKA_CFGCR0_DDI_CLK_SEL_MASK(phy);
->+	id =3D DG1_DPCLKA_CFGCR0_DDI_CLK_SEL_TO_PLL_ID(val, phy);
->+
->+	if (WARN_ON(id > DPLL_ID_DG1_DPLL3))
->+		return;
->+
->+	pipe_config->icl_port_dplls[port_dpll_id].pll =3D
->+		intel_get_shared_dpll_by_id(dev_priv, id);
->+
->+	icl_set_active_port_dpll(pipe_config, port_dpll_id);
->+}
->+
-> static void cnl_get_ddi_pll(struct drm_i915_private *dev_priv, enum port =
-port,
-> 			    struct intel_crtc_state *pipe_config)
-> {
->@@ -11311,7 +11332,9 @@ static void hsw_get_ddi_port_state(struct intel_cr=
-tc *crtc,
-> 			port =3D TRANS_DDI_FUNC_CTL_VAL_TO_PORT(tmp);
-> 	}
->
->-	if (INTEL_GEN(dev_priv) >=3D 11)
->+	if (IS_DG1(dev_priv))
->+		dg1_get_ddi_pll(dev_priv, port, pipe_config);
->+	else if (INTEL_GEN(dev_priv) >=3D 11)
-> 		icl_get_ddi_pll(dev_priv, port, pipe_config);
-> 	else if (IS_CANNONLAKE(dev_priv))
-> 		cnl_get_ddi_pll(dev_priv, port, pipe_config);
->diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_r=
-eg.h
->index 8b021f77cb1f..99c749787541 100644
->--- a/drivers/gpu/drm/i915/i915_reg.h
->+++ b/drivers/gpu/drm/i915/i915_reg.h
->@@ -230,12 +230,14 @@ static inline bool i915_mmio_reg_valid(i915_reg_t re=
-g)
-> #define _TRANS(tran, a, b)		_PICK_EVEN(tran, a, b)
-> #define _PORT(port, a, b)		_PICK_EVEN(port, a, b)
-> #define _PLL(pll, a, b)			_PICK_EVEN(pll, a, b)
->+#define _PHY(phy, a, b)			_PICK_EVEN(phy, a, b)
->
-> #define _MMIO_PIPE(pipe, a, b)		_MMIO(_PIPE(pipe, a, b))
-> #define _MMIO_PLANE(plane, a, b)	_MMIO(_PLANE(plane, a, b))
-> #define _MMIO_TRANS(tran, a, b)		_MMIO(_TRANS(tran, a, b))
-> #define _MMIO_PORT(port, a, b)		_MMIO(_PORT(port, a, b))
-> #define _MMIO_PLL(pll, a, b)		_MMIO(_PLL(pll, a, b))
->+#define _MMIO_PHY(phy, a, b)		_MMIO(_PHY(phy, a, b))
->
-> #define _PHY3(phy, ...)			_PICK(phy, __VA_ARGS__)
->
->@@ -10324,6 +10326,7 @@ enum skl_power_gate {
-> #define  DPCLKA_CFGCR0_DDI_CLK_SEL_MASK(port)	(3 << DPCLKA_CFGCR0_DDI_CLK=
-_SEL_SHIFT(port))
-> #define  DPCLKA_CFGCR0_DDI_CLK_SEL(pll, port)	((pll) << DPCLKA_CFGCR0_DDI=
-_CLK_SEL_SHIFT(port))
->
->+/* ICL Clocks */
-> #define ICL_DPCLKA_CFGCR0			_MMIO(0x164280)
-> #define  ICL_DPCLKA_CFGCR0_DDI_CLK_OFF(phy)	(1 << _PICK(phy, 10, 11, 24))
-> #define  RKL_DPCLKA_CFGCR0_DDI_CLK_OFF(phy)	REG_BIT((phy) + 10)
->@@ -10339,6 +10342,26 @@ enum skl_power_gate {
-> #define  RKL_DPCLKA_CFGCR0_DDI_CLK_SEL(pll, phy) \
-> 	((pll) << RKL_DPCLKA_CFGCR0_DDI_CLK_SEL_SHIFT(phy))
->
->+/*
->+ * DG1 Clocks
->+ * First registers controls the first A and B, while the second register
->+ * controls the phy C and D. The bits on these registers are the
->+ * same, but refer to different phys
->+ */
->+#define _DG1_DPCLKA_CFGCR0				0x164280
->+#define _DG1_DPCLKA1_CFGCR0				0x16C280
->+#define _DG1_DPCLKA_PHY_IDX(phy)			((phy) % 2)
->+#define _DG1_DPCLKA_PLL_IDX(pll)			((pll) % 2)
->+#define DG1_DPCLKA_CFGCR0(phy)				_MMIO_PHY((phy) / 2, \
->+								  _DG1_DPCLKA_CFGCR0, \
->+								  _DG1_DPCLKA1_CFGCR0)
->+#define   DG1_DPCLKA_CFGCR0_DDI_CLK_OFF(phy)		REG_BIT(_DG1_DPCLKA_PHY_IDX=
-(phy) + 10)
->+#define   DG1_DPCLKA_CFGCR0_DDI_CLK_SEL(pll, phy)	(_DG1_DPCLKA_PLL_IDX(pl=
-l) << (_DG1_DPCLKA_PHY_IDX(phy) * 2))
->+#define   DG1_DPCLKA_CFGCR0_DDI_CLK_SEL_MASK(phy)	DG1_DPCLKA_CFGCR0_DDI_C=
-LK_SEL(0x3, phy)
->+#define   DG1_DPCLKA_CFGCR0_DDI_CLK_SEL_TO_PLL_ID(val, phy) \
->+	((((val) & DG1_DPCLKA_CFGCR0_DDI_CLK_SEL_MASK(phy)) >> (_DG1_DPCLKA_PHY_=
-IDX(phy) * 2)) + \
->+	 ((phy) >=3D PHY_C ? DPLL_ID_DG1_DPLL2 : DPLL_ID_DG1_DPLL0))
->+
-> /* CNL PLL */
-> #define DPLL0_ENABLE		0x46010
-> #define DPLL1_ENABLE		0x46014
->-- =
+diff --git a/drivers/gpu/drm/i915/display/intel_opregion.c b/drivers/gpu/drm/i915/display/intel_opregion.c
+index de995362f428..4f77cf849171 100644
+--- a/drivers/gpu/drm/i915/display/intel_opregion.c
++++ b/drivers/gpu/drm/i915/display/intel_opregion.c
+@@ -1007,12 +1007,8 @@ intel_opregion_get_panel_type(struct drm_i915_private *dev_priv)
+ 	int ret;
+ 
+ 	ret = swsci(dev_priv, SWSCI_GBDA_PANEL_DETAILS, 0x0, &panel_details);
+-	if (ret) {
+-		drm_dbg_kms(&dev_priv->drm,
+-			    "Failed to get panel details from OpRegion (%d)\n",
+-			    ret);
++	if (ret)
+ 		return ret;
+-	}
+ 
+ 	ret = (panel_details >> 8) & 0xff;
+ 	if (ret > 0x10) {
+-- 
+2.29.0
 
->2.29.0
->
->_______________________________________________
->Intel-gfx mailing list
->Intel-gfx@lists.freedesktop.org
->https://lists.freedesktop.org/mailman/listinfo/intel-gfx
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
