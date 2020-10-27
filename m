@@ -2,72 +2,52 @@ Return-Path: <SRS0=9UyP=EC=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PULL_REQUEST,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.9 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 74E6CC388F9
-	for <intel-gfx@archiver.kernel.org>; Tue, 27 Oct 2020 21:33:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4ED2AC388F9
+	for <intel-gfx@archiver.kernel.org>; Tue, 27 Oct 2020 22:11:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 03364221FB
-	for <intel-gfx@archiver.kernel.org>; Tue, 27 Oct 2020 21:33:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 03364221FB
+	by mail.kernel.org (Postfix) with ESMTPS id DA72F21D24
+	for <intel-gfx@archiver.kernel.org>; Tue, 27 Oct 2020 22:11:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DA72F21D24
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2CB316E0EB;
-	Tue, 27 Oct 2020 21:33:25 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B1FC6E0EB
- for <intel-gfx@lists.freedesktop.org>; Tue, 27 Oct 2020 21:33:23 +0000 (UTC)
-IronPort-SDR: 4he4sw3PDu11qdqRml9EsqPLCF0bf5IIlV6zhV935WHs3I35tCcjjruCYbmdBFJ9RP9mBX7esx
- wsY93wKkCuyA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9787"; a="232349959"
-X-IronPort-AV: E=Sophos;i="5.77,424,1596524400"; d="scan'208";a="232349959"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 221E66E20A;
+	Tue, 27 Oct 2020 22:11:25 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 558FB6E20A
+ for <intel-gfx@lists.freedesktop.org>; Tue, 27 Oct 2020 22:11:24 +0000 (UTC)
+IronPort-SDR: uRqVzqco0z50JPi+CdZvgOXhEfe1dN8OLG5BO20OLiroVYogCQI5BnHt0mnqCeRhtBdI6BdIqu
+ swTrczbSeeEg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9787"; a="168299463"
+X-IronPort-AV: E=Sophos;i="5.77,424,1596524400"; d="scan'208";a="168299463"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Oct 2020 14:33:22 -0700
-IronPort-SDR: A1haXKy0dHeoMGOaDGk5u8TrcS8qSB7ICFlFJ/Z2bljFtZOgwf2+Qi0gSgRuIjwkRYwetY0vZ3
- KYANvyCwD8kw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.77,424,1596524400"; d="scan'208";a="323100591"
-Received: from fmsmsx603.amr.corp.intel.com ([10.18.126.83])
- by orsmga006.jf.intel.com with ESMTP; 27 Oct 2020 14:33:22 -0700
-Received: from fmsmsx612.amr.corp.intel.com (10.18.126.92) by
- fmsmsx603.amr.corp.intel.com (10.18.126.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1713.5; Tue, 27 Oct 2020 14:33:22 -0700
-Received: from fmsmsx611.amr.corp.intel.com (10.18.126.91) by
- fmsmsx612.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1713.5; Tue, 27 Oct 2020 14:33:21 -0700
-Received: from fmsmsx611.amr.corp.intel.com ([10.18.126.91]) by
- fmsmsx611.amr.corp.intel.com ([10.18.126.91]) with mapi id 15.01.1713.004;
- Tue, 27 Oct 2020 14:33:21 -0700
-From: "Srivatsa, Anusha" <anusha.srivatsa@intel.com>
-To: Josh Boyer <jwboyer@kernel.org>
-Thread-Topic: i915 Update : DG1 DMC
-Thread-Index: Adaea4W6Jtrfz8J7RqGJot9NVZc0zQLAvXsAAM6Q1zA=
-Date: Tue, 27 Oct 2020 21:33:21 +0000
-Message-ID: <9bd49e7ab68c4ef0b17173cfc9d4ecfa@intel.com>
-References: <3997663f047e4ab68fca41e3c8a05671@intel.com>
- <CA+5PVA4tEqub_1KmA9WeRa3WZ4OpDejdBn2FDxZ-LESfFD1Vnw@mail.gmail.com>
-In-Reply-To: <CA+5PVA4tEqub_1KmA9WeRa3WZ4OpDejdBn2FDxZ-LESfFD1Vnw@mail.gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-dlp-version: 11.5.1.3
-dlp-product: dlpe-windows
-dlp-reaction: no-action
-x-originating-ip: [10.22.254.132]
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Oct 2020 15:11:23 -0700
+IronPort-SDR: SHsAh2x1wD4Xb9G41jgtYVcMtAPES5IYu22iatN6d4qub2yV02pyCQaoqLm+S+ino22Co8EGQo
+ gew+WfLKy0HQ==
+X-IronPort-AV: E=Sophos;i="5.77,424,1596524400"; d="scan'208";a="323114119"
+Received: from labuser-z97x-ud5h.jf.intel.com ([10.165.21.211])
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-SHA;
+ 27 Oct 2020 15:11:23 -0700
+From: Manasi Navare <manasi.d.navare@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Tue, 27 Oct 2020 15:13:11 -0700
+Message-Id: <20201027221312.16518-4-manasi.d.navare@intel.com>
+X-Mailer: git-send-email 2.19.1
+In-Reply-To: <20201027221312.16518-1-manasi.d.navare@intel.com>
+References: <20201027221312.16518-1-manasi.d.navare@intel.com>
 MIME-Version: 1.0
-Subject: Re: [Intel-gfx] i915 Update : DG1 DMC
+Subject: [Intel-gfx] [PATCH v2 4/5] drm/i915/dp: Prep for bigjoiner atomic
+ check
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,93 +60,103 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-List-Id: <linux-firmware.lore.kernel.org>
-Cc: Kyle McMartin <kyle@mcmartin.ca>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "ben@decadent.org.uk" <ben@decadent.org.uk>,
- "linux-firmware@kernel.org" <linux-firmware@kernel.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-
-
-> -----Original Message-----
-> From: Josh Boyer <jwboyer@kernel.org>
-> Sent: Friday, October 23, 2020 4:58 AM
-> To: Srivatsa, Anusha <anusha.srivatsa@intel.com>
-> Cc: linux-firmware@kernel.org; Kyle McMartin <kyle@mcmartin.ca>;
-> ben@decadent.org.uk; intel-gfx@lists.freedesktop.org
-> Subject: Re: i915 Update : DG1 DMC
-> 
-> Pulled and pushed out.
-> 
-> josh
->
-Thanks Josh.
-
-> On Fri, Oct 9, 2020 at 2:41 PM Srivatsa, Anusha
-> <anusha.srivatsa@intel.com> wrote:
-> >
-> > Hi Kyle, Ben,
-> >
-> >
-> >
-> > Please add the i915 updates to linux-firmware from branch
-> > dg1_dmc_v2_02
-> >
-> >
-> >
-> > The following changes since commit
-> 58d41d0facca2478d3e45f6321224361519aee96:
-> >
-> >
-> >
-> >   ice: Add comms package file for Intel E800 series driver (2020-10-05
-> > 08:09:03 -0400)
-> >
-> >
-> >
-> > are available in the Git repository at: dg1_dmc_v2_02
-> >
-> >
-> >
-> >   git://anongit.freedesktop.org/drm/drm-firmware dg1_dmc_v2_02
-> >
-> >
-> >
-> > for you to fetch changes up to
-> a140ef3eb3746aba2c897db16e02ffb5ffa9e7a2:
-> >
-> >
-> >
-> >   i915: Add DG1 DMC v2.02 (2020-10-08 12:13:33 -0700)
-> >
-> >
-> >
-> > ----------------------------------------------------------------
-> >
-> > Anusha Srivatsa (1):
-> >
-> >       i915: Add DG1 DMC v2.02
-> >
-> >
-> >
-> > WHENCE                   |   2 ++
-> >
-> > i915/dg1_dmc_ver2_02.bin | Bin 0 -> 16624 bytes
-> >
-> > 2 files changed, 2 insertions(+)
-> >
-> > create mode 100644 i915/dg1_dmc_ver2_02.bin
-> >
-> >
-> >
-> > Thanks,
-> >
-> > Anusha
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+Tm8gZnVuY3Rpb25hbCBjaGFuZ2VzIGhlcmUuIEp1c3QgcGFzcyBpbnRlbF9hdG9taWNfc3RhdGUK
+YWxvbmcgd2l0aCBjcnRjX3N0YXRlIHRvIGNlcnRhaW4gYXRvbWljX2NoZWNrIGZ1bmN0aW9ucy4K
+VGhpcyB3aWxsIGxheSB0aGUgZm91bmRhdGlvbiBmb3IgYWRkaW5nIGJpZ2pvaW5lciBtYXN0ZXIv
+c2xhdmUKc3RhdGVzIGluIGF0b21pYyBjaGVjay4KCnYyOgoqIE1vcmUgcHJlcCB3aXRoIGludGVs
+X2F0b21pY19zdGF0ZSAoVmlsbGUpCgpDYzogVmlsbGUgU3lyasOkbMOkIDx2aWxsZS5zeXJqYWxh
+QGxpbnV4LmludGVsLmNvbT4KU2lnbmVkLW9mZi1ieTogTWFuYXNpIE5hdmFyZSA8bWFuYXNpLmQu
+bmF2YXJlQGludGVsLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVs
+X2F0b21pYy5jICB8ICA5ICsrKysrLS0tLQogZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9p
+bnRlbF9hdG9taWMuaCAgfCAgMyArKy0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50
+ZWxfZGlzcGxheS5jIHwgMjEgKysrKysrKysrKysrLS0tLS0tLS0KIDMgZmlsZXMgY2hhbmdlZCwg
+MjAgaW5zZXJ0aW9ucygrKSwgMTMgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
+cHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9hdG9taWMuYyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1
+L2Rpc3BsYXkvaW50ZWxfYXRvbWljLmMKaW5kZXggODZiZTAzMmJjZjk2Li5lMjQzY2U5N2I1MzQg
+MTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfYXRvbWljLmMK
+KysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9hdG9taWMuYwpAQCAtMjcw
+LDE0ICsyNzAsMTUgQEAgdm9pZCBpbnRlbF9jcnRjX2ZyZWVfaHdfc3RhdGUoc3RydWN0IGludGVs
+X2NydGNfc3RhdGUgKmNydGNfc3RhdGUpCiAJaW50ZWxfY3J0Y19wdXRfY29sb3JfYmxvYnMoY3J0
+Y19zdGF0ZSk7CiB9CiAKLXZvaWQgaW50ZWxfY3J0Y19jb3B5X2NvbG9yX2Jsb2JzKHN0cnVjdCBp
+bnRlbF9jcnRjX3N0YXRlICpjcnRjX3N0YXRlKQordm9pZCBpbnRlbF9jcnRjX2NvcHlfY29sb3Jf
+YmxvYnMoc3RydWN0IGludGVsX2NydGNfc3RhdGUgKmNydGNfc3RhdGUsCisJCQkJIGNvbnN0IHN0
+cnVjdCBpbnRlbF9jcnRjX3N0YXRlICpmcm9tX2NydGNfc3RhdGUpCiB7CiAJZHJtX3Byb3BlcnR5
+X3JlcGxhY2VfYmxvYigmY3J0Y19zdGF0ZS0+aHcuZGVnYW1tYV9sdXQsCi0JCQkJICBjcnRjX3N0
+YXRlLT51YXBpLmRlZ2FtbWFfbHV0KTsKKwkJCQkgIGZyb21fY3J0Y19zdGF0ZS0+dWFwaS5kZWdh
+bW1hX2x1dCk7CiAJZHJtX3Byb3BlcnR5X3JlcGxhY2VfYmxvYigmY3J0Y19zdGF0ZS0+aHcuZ2Ft
+bWFfbHV0LAotCQkJCSAgY3J0Y19zdGF0ZS0+dWFwaS5nYW1tYV9sdXQpOworCQkJCSAgZnJvbV9j
+cnRjX3N0YXRlLT51YXBpLmdhbW1hX2x1dCk7CiAJZHJtX3Byb3BlcnR5X3JlcGxhY2VfYmxvYigm
+Y3J0Y19zdGF0ZS0+aHcuY3RtLAotCQkJCSAgY3J0Y19zdGF0ZS0+dWFwaS5jdG0pOworCQkJCSAg
+ZnJvbV9jcnRjX3N0YXRlLT51YXBpLmN0bSk7CiB9CiAKIC8qKgpkaWZmIC0tZ2l0IGEvZHJpdmVy
+cy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9hdG9taWMuaCBiL2RyaXZlcnMvZ3B1L2RybS9p
+OTE1L2Rpc3BsYXkvaW50ZWxfYXRvbWljLmgKaW5kZXggMjg1ZGUwNzAxMWRjLi42MmEzMzY1ZWQ1
+ZTYgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfYXRvbWlj
+LmgKKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9hdG9taWMuaApAQCAt
+NDMsNyArNDMsOCBAQCBzdHJ1Y3QgZHJtX2NydGNfc3RhdGUgKmludGVsX2NydGNfZHVwbGljYXRl
+X3N0YXRlKHN0cnVjdCBkcm1fY3J0YyAqY3J0Yyk7CiB2b2lkIGludGVsX2NydGNfZGVzdHJveV9z
+dGF0ZShzdHJ1Y3QgZHJtX2NydGMgKmNydGMsCiAJCQkgICAgICAgc3RydWN0IGRybV9jcnRjX3N0
+YXRlICpzdGF0ZSk7CiB2b2lkIGludGVsX2NydGNfZnJlZV9od19zdGF0ZShzdHJ1Y3QgaW50ZWxf
+Y3J0Y19zdGF0ZSAqY3J0Y19zdGF0ZSk7Ci12b2lkIGludGVsX2NydGNfY29weV9jb2xvcl9ibG9i
+cyhzdHJ1Y3QgaW50ZWxfY3J0Y19zdGF0ZSAqY3J0Y19zdGF0ZSk7Cit2b2lkIGludGVsX2NydGNf
+Y29weV9jb2xvcl9ibG9icyhzdHJ1Y3QgaW50ZWxfY3J0Y19zdGF0ZSAqY3J0Y19zdGF0ZSwKKwkJ
+CQkgY29uc3Qgc3RydWN0IGludGVsX2NydGNfc3RhdGUgKmZyb21fY3J0Y19zdGF0ZSk7CiBzdHJ1
+Y3QgZHJtX2F0b21pY19zdGF0ZSAqaW50ZWxfYXRvbWljX3N0YXRlX2FsbG9jKHN0cnVjdCBkcm1f
+ZGV2aWNlICpkZXYpOwogdm9pZCBpbnRlbF9hdG9taWNfc3RhdGVfZnJlZShzdHJ1Y3QgZHJtX2F0
+b21pY19zdGF0ZSAqc3RhdGUpOwogdm9pZCBpbnRlbF9hdG9taWNfc3RhdGVfY2xlYXIoc3RydWN0
+IGRybV9hdG9taWNfc3RhdGUgKnN0YXRlKTsKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9p
+OTE1L2Rpc3BsYXkvaW50ZWxfZGlzcGxheS5jIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxh
+eS9pbnRlbF9kaXNwbGF5LmMKaW5kZXggMzk2ZGRjYmIxNTIwLi45NjJmMTUwODVhMDYgMTAwNjQ0
+Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGlzcGxheS5jCisrKyBi
+L2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGlzcGxheS5jCkBAIC0xMzQ0Niwx
+MyArMTM0NDYsMTcgQEAgc3RhdGljIGJvb2wgY2hlY2tfZGlnaXRhbF9wb3J0X2NvbmZsaWN0cyhz
+dHJ1Y3QgaW50ZWxfYXRvbWljX3N0YXRlICpzdGF0ZSkKIH0KIAogc3RhdGljIHZvaWQKLWludGVs
+X2NydGNfY29weV91YXBpX3RvX2h3X3N0YXRlX25vbW9kZXNldChzdHJ1Y3QgaW50ZWxfY3J0Y19z
+dGF0ZSAqY3J0Y19zdGF0ZSkKK2ludGVsX2NydGNfY29weV91YXBpX3RvX2h3X3N0YXRlX25vbW9k
+ZXNldChzdHJ1Y3QgaW50ZWxfYXRvbWljX3N0YXRlICpzdGF0ZSwKKwkJCQkJICAgc3RydWN0IGlu
+dGVsX2NydGNfc3RhdGUgKmNydGNfc3RhdGUpCiB7Ci0JaW50ZWxfY3J0Y19jb3B5X2NvbG9yX2Js
+b2JzKGNydGNfc3RhdGUpOworCWNvbnN0IHN0cnVjdCBpbnRlbF9jcnRjX3N0YXRlICpmcm9tX2Ny
+dGNfc3RhdGUgPSBjcnRjX3N0YXRlOworCisJaW50ZWxfY3J0Y19jb3B5X2NvbG9yX2Jsb2JzKGNy
+dGNfc3RhdGUsIGZyb21fY3J0Y19zdGF0ZSk7CiB9CiAKIHN0YXRpYyB2b2lkCi1pbnRlbF9jcnRj
+X2NvcHlfdWFwaV90b19od19zdGF0ZShzdHJ1Y3QgaW50ZWxfY3J0Y19zdGF0ZSAqY3J0Y19zdGF0
+ZSkKK2ludGVsX2NydGNfY29weV91YXBpX3RvX2h3X3N0YXRlKHN0cnVjdCBpbnRlbF9hdG9taWNf
+c3RhdGUgKnN0YXRlLAorCQkJCSBzdHJ1Y3QgaW50ZWxfY3J0Y19zdGF0ZSAqY3J0Y19zdGF0ZSkK
+IHsKIAljcnRjX3N0YXRlLT5ody5lbmFibGUgPSBjcnRjX3N0YXRlLT51YXBpLmVuYWJsZTsKIAlj
+cnRjX3N0YXRlLT5ody5hY3RpdmUgPSBjcnRjX3N0YXRlLT51YXBpLmFjdGl2ZTsKQEAgLTEzNDYw
+LDcgKzEzNDY0LDcgQEAgaW50ZWxfY3J0Y19jb3B5X3VhcGlfdG9faHdfc3RhdGUoc3RydWN0IGlu
+dGVsX2NydGNfc3RhdGUgKmNydGNfc3RhdGUpCiAJY3J0Y19zdGF0ZS0+aHcucGlwZV9tb2RlID0g
+Y3J0Y19zdGF0ZS0+aHcuYWRqdXN0ZWRfbW9kZSA9IGNydGNfc3RhdGUtPnVhcGkuYWRqdXN0ZWRf
+bW9kZTsKIAljcnRjX3N0YXRlLT5ody5zY2FsaW5nX2ZpbHRlciA9IGNydGNfc3RhdGUtPnVhcGku
+c2NhbGluZ19maWx0ZXI7CiAKLQlpbnRlbF9jcnRjX2NvcHlfdWFwaV90b19od19zdGF0ZV9ub21v
+ZGVzZXQoY3J0Y19zdGF0ZSk7CisJaW50ZWxfY3J0Y19jb3B5X3VhcGlfdG9faHdfc3RhdGVfbm9t
+b2Rlc2V0KHN0YXRlLCBjcnRjX3N0YXRlKTsKIH0KIAogc3RhdGljIHZvaWQgaW50ZWxfY3J0Y19j
+b3B5X2h3X3RvX3VhcGlfc3RhdGUoc3RydWN0IGludGVsX2NydGNfc3RhdGUgKmNydGNfc3RhdGUp
+CkBAIC0xMzQ4Myw3ICsxMzQ4Nyw4IEBAIHN0YXRpYyB2b2lkIGludGVsX2NydGNfY29weV9od190
+b191YXBpX3N0YXRlKHN0cnVjdCBpbnRlbF9jcnRjX3N0YXRlICpjcnRjX3N0YXRlCiB9CiAKIHN0
+YXRpYyBpbnQKLWludGVsX2NydGNfcHJlcGFyZV9jbGVhcmVkX3N0YXRlKHN0cnVjdCBpbnRlbF9j
+cnRjX3N0YXRlICpjcnRjX3N0YXRlKQoraW50ZWxfY3J0Y19wcmVwYXJlX2NsZWFyZWRfc3RhdGUo
+c3RydWN0IGludGVsX2F0b21pY19zdGF0ZSAqc3RhdGUsCisJCQkJIHN0cnVjdCBpbnRlbF9jcnRj
+X3N0YXRlICpjcnRjX3N0YXRlKQogewogCXN0cnVjdCBpbnRlbF9jcnRjICpjcnRjID0gdG9faW50
+ZWxfY3J0YyhjcnRjX3N0YXRlLT51YXBpLmNydGMpOwogCXN0cnVjdCBkcm1faTkxNV9wcml2YXRl
+ICpkZXZfcHJpdiA9IHRvX2k5MTUoY3J0Yy0+YmFzZS5kZXYpOwpAQCAtMTM1MTUsNyArMTM1MjAs
+NyBAQCBpbnRlbF9jcnRjX3ByZXBhcmVfY2xlYXJlZF9zdGF0ZShzdHJ1Y3QgaW50ZWxfY3J0Y19z
+dGF0ZSAqY3J0Y19zdGF0ZSkKIAltZW1jcHkoY3J0Y19zdGF0ZSwgc2F2ZWRfc3RhdGUsIHNpemVv
+ZigqY3J0Y19zdGF0ZSkpOwogCWtmcmVlKHNhdmVkX3N0YXRlKTsKIAotCWludGVsX2NydGNfY29w
+eV91YXBpX3RvX2h3X3N0YXRlKGNydGNfc3RhdGUpOworCWludGVsX2NydGNfY29weV91YXBpX3Rv
+X2h3X3N0YXRlKHN0YXRlLCBjcnRjX3N0YXRlKTsKIAogCXJldHVybiAwOwogfQpAQCAtMTUyMTYs
+MTIgKzE1MjIxLDEyIEBAIHN0YXRpYyBpbnQgaW50ZWxfYXRvbWljX2NoZWNrKHN0cnVjdCBkcm1f
+ZGV2aWNlICpkZXYsCiAJCQkJCSAgICBuZXdfY3J0Y19zdGF0ZSwgaSkgewogCQlpZiAoIW5lZWRz
+X21vZGVzZXQobmV3X2NydGNfc3RhdGUpKSB7CiAJCQkvKiBMaWdodCBjb3B5ICovCi0JCQlpbnRl
+bF9jcnRjX2NvcHlfdWFwaV90b19od19zdGF0ZV9ub21vZGVzZXQobmV3X2NydGNfc3RhdGUpOwor
+CQkJaW50ZWxfY3J0Y19jb3B5X3VhcGlfdG9faHdfc3RhdGVfbm9tb2Rlc2V0KHN0YXRlLCBuZXdf
+Y3J0Y19zdGF0ZSk7CiAKIAkJCWNvbnRpbnVlOwogCQl9CiAKLQkJcmV0ID0gaW50ZWxfY3J0Y19w
+cmVwYXJlX2NsZWFyZWRfc3RhdGUobmV3X2NydGNfc3RhdGUpOworCQlyZXQgPSBpbnRlbF9jcnRj
+X3ByZXBhcmVfY2xlYXJlZF9zdGF0ZShzdGF0ZSwgbmV3X2NydGNfc3RhdGUpOwogCQlpZiAocmV0
+KQogCQkJZ290byBmYWlsOwogCi0tIAoyLjE5LjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fCkludGVsLWdmeCBtYWlsaW5nIGxpc3QKSW50ZWwtZ2Z4QGxp
+c3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFu
+L2xpc3RpbmZvL2ludGVsLWdmeAo=
