@@ -2,54 +2,51 @@ Return-Path: <SRS0=9UyP=EC=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.2 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PULL_REQUEST,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B6A02C4363A
-	for <intel-gfx@archiver.kernel.org>; Tue, 27 Oct 2020 03:38:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 35240C4363A
+	for <intel-gfx@archiver.kernel.org>; Tue, 27 Oct 2020 04:32:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6A829207C3
-	for <intel-gfx@archiver.kernel.org>; Tue, 27 Oct 2020 03:38:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6A829207C3
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id E324121556
+	for <intel-gfx@archiver.kernel.org>; Tue, 27 Oct 2020 04:32:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E324121556
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 84F196EAC0;
-	Tue, 27 Oct 2020 03:38:47 +0000 (UTC)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E7F926EAC0;
- Tue, 27 Oct 2020 03:38:45 +0000 (UTC)
-IronPort-SDR: kzcPYB4aFwiRVkfmVt3//cMlhFZ+9doQl7EiX4vuCNNVK6hrXVRLIXBFUJnu4y3PsiJ+YvWBd5
- MdCqMUuOr0HQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9786"; a="229658689"
-X-IronPort-AV: E=Sophos;i="5.77,422,1596524400"; 
- d="asc'?scan'208";a="229658689"
-X-Amp-Result: UNKNOWN
-X-Amp-Original-Verdict: FILE UNKNOWN
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D0516E08A;
+	Tue, 27 Oct 2020 04:32:50 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EA75F6E08A
+ for <intel-gfx@lists.freedesktop.org>; Tue, 27 Oct 2020 04:32:49 +0000 (UTC)
+IronPort-SDR: DYcqnmxj8g/KUeVujZit6vx8VBGrQs7m+vKvPlPo7JxZt8cYv1kLFJtAWBKOnvNnbW+3iLjdM5
+ BC6MegLTJFDQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9786"; a="165435006"
+X-IronPort-AV: E=Sophos;i="5.77,422,1596524400"; d="scan'208";a="165435006"
+X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Oct 2020 20:38:45 -0700
-IronPort-SDR: rYD4q+/uRuUXv5zFXvVKuiTb7Fa9yBDAXG5PSLUWxFsjiSbwpdjhY010vMf/+lOn3VUHKLTDil
- Yq3S4MkizPpQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.77,422,1596524400"; 
- d="asc'?scan'208";a="350127270"
-Received: from zhen-hp.sh.intel.com (HELO zhen-hp) ([10.239.160.147])
- by orsmga008.jf.intel.com with ESMTP; 26 Oct 2020 20:38:43 -0700
-Date: Tue, 27 Oct 2020 11:17:40 +0800
-From: Zhenyu Wang <zhenyuw@linux.intel.com>
-To: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- "Vivi, Rodrigo" <rodrigo.vivi@intel.com>,
- Jani Nikula <jani.nikula@intel.com>
-Message-ID: <20201027031740.GA27141@zhen-hp.sh.intel.com>
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Oct 2020 21:32:49 -0700
+IronPort-SDR: RibWUcKUZXgFQEQ7KfSBlVn0JFfLiKr3WDdyv0R5euyCT4ymuxuuH+Sx2GovyXfKFybMD6ya0E
+ Uy7tO8wHrb/Q==
+X-IronPort-AV: E=Sophos;i="5.77,422,1596524400"; d="scan'208";a="361244353"
+Received: from lucas-s2600cw.jf.intel.com ([10.165.21.202])
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Oct 2020 21:32:48 -0700
+From: Lucas De Marchi <lucas.demarchi@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Mon, 26 Oct 2020 21:32:27 -0700
+Message-Id: <20201027043228.696518-2-lucas.demarchi@intel.com>
+X-Mailer: git-send-email 2.29.0
+In-Reply-To: <20201027043228.696518-1-lucas.demarchi@intel.com>
+References: <20201027043228.696518-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
-User-Agent: Mutt/1.10.0 (2018-05-17)
-Subject: [Intel-gfx] [PULL] gvt-fixes
+Subject: [Intel-gfx] [PATCH 2/3] drm/i915/dg1: Enable ports
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,95 +59,84 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Zhenyu Wang <zhenyuw@linux.intel.com>
-Cc: intel-gfx <intel-gfx@lists.freedesktop.org>,
- intel-gvt-dev <intel-gvt-dev@lists.freedesktop.org>, "Lv,
- Zhiyuan" <zhiyuan.lv@intel.com>, "Yuan, Hang" <hang.yuan@intel.com>
-Content-Type: multipart/mixed; boundary="===============0733687189=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+From: Aditya Swarup <aditya.swarup@intel.com>
 
---===============0733687189==
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="ri7MIv52hxsKkbzo"
-Content-Disposition: inline
+For DG1 we have a little of mix up wrt to DDI/port names and indexes.
+Bspec refers to the ports as DDIA, DDIB, DDI USBC1 and DDI USBC2
+(besides the DDIA, DDIB, DDIC, DDID), but the previous naming is the
+most unambiguous one. This means that for any register on Display Engine
+we should use the index of A, B, D and E. However in some places this is
+not true:
 
+- VBT: uses C and D and have to be mapped to D/E
 
---ri7MIv52hxsKkbzo
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+- IO/Combo: uses C and D, but we already differentiate those when
+  we created the phy vs port distinction.
 
+This additional mapping for VBT and phy are already covered in previous
+patches, so now we can initialize all the DDIs as A, B, D and E.
 
-Hi,
+v2: Squash previous patch enabling just ports A and B since most of the
+pumbling code is already merged now
 
-Here's first gvt fixes for 5.10 which includes more vGPU
-suspend/resume fix in HWSP reset handling, and also fix for host i915
-suspend regression when vGPU is created (not need to be active), and
-one workaround for APL guest hang issue.
+Cc: Matt Roper <matthew.d.roper@intel.com>
+Cc: Clinton Taylor <Clinton.A.Taylor@intel.com>
+Signed-off-by: Aditya Swarup <aditya.swarup@intel.com>
+Reviewed-by: Lucas De Marchi <lucas.demarchi@intel.com>
+Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_display.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-Thanks
---
-The following changes since commit 16cce04cdb200ba905d1241b425ac48da5a9ace5:
-
-  drm/i915/selftests: Push the fake iommu device from the stack to data (20=
-20-09-23 10:15:46 +0300)
-
-are available in the Git repository at:
-
-  https://github.com/intel/gvt-linux tags/gvt-fixes-2020-10-27
-
-for you to fetch changes up to 401ccfa87856656b874c737522ea92721394a348:
-
-  drm/i915/gvt: Only pin/unpin intel_context along with workload (2020-10-1=
-9 16:54:28 +0800)
-
-----------------------------------------------------------------
-gvt-fixes-2020-10-27
-
-- Fix HWSP reset handling during vGPU suspend/resume (Colin)
-- Apply flush workaround on APL now for possible guest hang (Colin)
-- Fix vGPU context pin/unpin also for host suspend regression with
-  vGPU created (Colin)
-
-----------------------------------------------------------------
-Colin Xu (3):
-      drm/i915/gvt: Allow zero out HWSP addr on hws_pga_write
-      drm/i915/gvt: Set SNOOP for PAT3 on BXT/APL to workaround GPU BB hang
-      drm/i915/gvt: Only pin/unpin intel_context along with workload
-
- drivers/gpu/drm/i915/gvt/handlers.c  | 35 ++++++++++++++++++++++++++++++++=
-+--
- drivers/gpu/drm/i915/gvt/scheduler.c | 15 ++++++++-------
- 2 files changed, 41 insertions(+), 9 deletions(-)
-
-
---=20
-
-$gpg --keyserver wwwkeys.pgp.net --recv-keys 4D781827
-
---ri7MIv52hxsKkbzo
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iF0EARECAB0WIQTXuabgHDW6LPt9CICxBBozTXgYJwUCX5eRVAAKCRCxBBozTXgY
-JwBpAJ9w/PhFwAJCfEEnYz4/3zmGBHGpKwCfWW+ILCCfAYFQiNYp5YAD3iToAk8=
-=+trd
------END PGP SIGNATURE-----
-
---ri7MIv52hxsKkbzo--
-
---===============0733687189==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 97c14d187a83..f4b0fae15dde 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -7439,7 +7439,7 @@ bool intel_phy_is_combo(struct drm_i915_private *dev_priv, enum phy phy)
+ {
+ 	if (phy == PHY_NONE)
+ 		return false;
+-	else if (IS_ROCKETLAKE(dev_priv))
++	else if (IS_DG1(dev_priv) || IS_ROCKETLAKE(dev_priv))
+ 		return phy <= PHY_D;
+ 	else if (IS_JSL_EHL(dev_priv))
+ 		return phy <= PHY_C;
+@@ -7451,7 +7451,7 @@ bool intel_phy_is_combo(struct drm_i915_private *dev_priv, enum phy phy)
+ 
+ bool intel_phy_is_tc(struct drm_i915_private *dev_priv, enum phy phy)
+ {
+-	if (IS_ROCKETLAKE(dev_priv))
++	if (IS_DG1(dev_priv) || IS_ROCKETLAKE(dev_priv))
+ 		return false;
+ 	else if (INTEL_GEN(dev_priv) >= 12)
+ 		return phy >= PHY_D && phy <= PHY_I;
+@@ -7463,7 +7463,7 @@ bool intel_phy_is_tc(struct drm_i915_private *dev_priv, enum phy phy)
+ 
+ enum phy intel_port_to_phy(struct drm_i915_private *i915, enum port port)
+ {
+-	if (IS_ROCKETLAKE(i915) && port >= PORT_D)
++	if ((IS_DG1(i915) || IS_ROCKETLAKE(i915)) && port >= PORT_D)
+ 		return (enum phy)port - 1;
+ 	else if (IS_JSL_EHL(i915) && port == PORT_D)
+ 		return PHY_A;
+@@ -17236,7 +17236,7 @@ static void intel_setup_outputs(struct drm_i915_private *dev_priv)
+ 	if (!HAS_DISPLAY(dev_priv))
+ 		return;
+ 
+-	if (IS_ROCKETLAKE(dev_priv)) {
++	if (IS_DG1(dev_priv) || IS_ROCKETLAKE(dev_priv)) {
+ 		intel_ddi_init(dev_priv, PORT_A);
+ 		intel_ddi_init(dev_priv, PORT_B);
+ 		intel_ddi_init(dev_priv, PORT_D);	/* DDI TC1 */
+-- 
+2.29.0
 
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-
---===============0733687189==--
