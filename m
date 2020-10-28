@@ -2,53 +2,40 @@ Return-Path: <SRS0=YXNx=ED=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A71EFC55178
-	for <intel-gfx@archiver.kernel.org>; Wed, 28 Oct 2020 14:58:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5C5C9C55179
+	for <intel-gfx@archiver.kernel.org>; Wed, 28 Oct 2020 15:09:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4B91B24724
-	for <intel-gfx@archiver.kernel.org>; Wed, 28 Oct 2020 14:58:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4B91B24724
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=Intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 00D87247B1
+	for <intel-gfx@archiver.kernel.org>; Wed, 28 Oct 2020 15:09:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 00D87247B1
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F7626E566;
-	Wed, 28 Oct 2020 14:58:29 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7B3366E0F0
- for <Intel-GFX@lists.freedesktop.org>; Wed, 28 Oct 2020 14:58:27 +0000 (UTC)
-IronPort-SDR: pVeesZpPYRWXgwcMoMlncCS1CgTrw5sRJxjyR83A1eX9xYLPzjWB+5JvLEONgmg3xjDwb3YJD5
- tjAE+u2VXfFQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9788"; a="156045988"
-X-IronPort-AV: E=Sophos;i="5.77,426,1596524400"; d="scan'208";a="156045988"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Oct 2020 07:58:26 -0700
-IronPort-SDR: brEY/bsmPP7ShfemgPFDLtX/lDrSaUxb9i8lqspMeO6KQ81NSTkKER4uI4Mupg1EWFo/xHDbGe
- fPoSIWwa1fjQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.77,426,1596524400"; d="scan'208";a="350635325"
-Received: from relo-linux-5.jf.intel.com ([10.165.21.134])
- by orsmga008.jf.intel.com with ESMTP; 28 Oct 2020 07:58:26 -0700
-From: John.C.Harrison@Intel.com
-To: Intel-GFX@Lists.FreeDesktop.Org
-Date: Wed, 28 Oct 2020 07:58:26 -0700
-Message-Id: <20201028145826.2949180-4-John.C.Harrison@Intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20201028145826.2949180-1-John.C.Harrison@Intel.com>
-References: <20201028145826.2949180-1-John.C.Harrison@Intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 534486E55E;
+	Wed, 28 Oct 2020 15:09:47 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 437C06E558;
+ Wed, 28 Oct 2020 15:09:46 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 3B64CA47E1;
+ Wed, 28 Oct 2020 15:09:46 +0000 (UTC)
 MIME-Version: 1.0
-Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
- Swindon SN3 1RJ
-Subject: [Intel-gfx] [PATCH v3 3/3] drm/i915/guc: Clear pointers on free
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Lee Shawn C" <shawn.c.lee@intel.com>
+Date: Wed, 28 Oct 2020 15:09:46 -0000
+Message-ID: <160389778624.21340.16682863293183792899@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20201028144312.12520-1-shawn.c.lee@intel.com>
+In-Reply-To: <20201028144312.12520-1-shawn.c.lee@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBk?=
+ =?utf-8?q?rm/i915/rkl=3A_new_rkl_ddc_map_for_different_PCH?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,49 +48,36 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: John Harrison <John.C.Harrison@Intel.com>
+== Series Details ==
 
-Clear out some pointers when objects have been de-allocated. This
-makes it much easier to track down use-after-free type issues.
+Series: drm/i915/rkl: new rkl ddc map for different PCH
+URL   : https://patchwork.freedesktop.org/series/83154/
+State : failure
 
-Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
-Reviewed-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
----
- drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c | 1 +
- drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c  | 1 +
- 2 files changed, 2 insertions(+)
+== Summary ==
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-index 7950d28beb8c..5212ff844292 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-@@ -220,6 +220,7 @@ int intel_guc_ads_create(struct intel_guc *guc)
- void intel_guc_ads_destroy(struct intel_guc *guc)
- {
- 	i915_vma_unpin_and_release(&guc->ads_vma, I915_VMA_RELEASE_MAP);
-+	guc->ads_blob = NULL;
- }
- 
- static void guc_ads_private_data_reset(struct intel_guc *guc)
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-index 11742fca0e9e..fa9e048cc65f 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-@@ -210,6 +210,7 @@ void intel_guc_ct_fini(struct intel_guc_ct *ct)
- 	GEM_BUG_ON(ct->enabled);
- 
- 	i915_vma_unpin_and_release(&ct->vma, I915_VMA_RELEASE_MAP);
-+	memset(ct, 0, sizeof(*ct));
- }
- 
- /**
--- 
-2.25.1
+Applying: drm/i915/rkl: new rkl ddc map for different PCH
+Using index info to reconstruct a base tree...
+M	drivers/gpu/drm/i915/display/intel_bios.c
+M	drivers/gpu/drm/i915/display/intel_vbt_defs.h
+Falling back to patching base and 3-way merge...
+Auto-merging drivers/gpu/drm/i915/display/intel_vbt_defs.h
+Auto-merging drivers/gpu/drm/i915/display/intel_bios.c
+CONFLICT (content): Merge conflict in drivers/gpu/drm/i915/display/intel_bios.c
+error: Failed to merge in the changes.
+hint: Use 'git am --show-current-patch=diff' to see the failed patch
+Patch failed at 0001 drm/i915/rkl: new rkl ddc map for different PCH
+When you have resolved this problem, run "git am --continue".
+If you prefer to skip this patch, run "git am --skip" instead.
+To restore the original branch and stop patching, run "git am --abort".
+
 
 _______________________________________________
 Intel-gfx mailing list
