@@ -2,51 +2,54 @@ Return-Path: <SRS0=YXNx=ED=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8F405C388F7
-	for <intel-gfx@archiver.kernel.org>; Wed, 28 Oct 2020 14:58:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C7A48C55179
+	for <intel-gfx@archiver.kernel.org>; Wed, 28 Oct 2020 14:58:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1251424724
-	for <intel-gfx@archiver.kernel.org>; Wed, 28 Oct 2020 14:58:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1251424724
+	by mail.kernel.org (Postfix) with ESMTPS id 6CC2E24724
+	for <intel-gfx@archiver.kernel.org>; Wed, 28 Oct 2020 14:58:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6CC2E24724
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=Intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B2B86E0F0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B41B86E55C;
 	Wed, 28 Oct 2020 14:58:28 +0000 (UTC)
 Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4085F6E0F0
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5C8986E0C6
  for <Intel-GFX@lists.freedesktop.org>; Wed, 28 Oct 2020 14:58:27 +0000 (UTC)
-IronPort-SDR: DEDJURd4FztZ5K5kN2NB/+cRP7GvWCtQRKujIfqzNJ+4Oj53mllgYwG/4vOVPo3vm/Pif4tiwm
- 4V1IntCmq6sA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9788"; a="156045984"
-X-IronPort-AV: E=Sophos;i="5.77,426,1596524400"; d="scan'208";a="156045984"
+IronPort-SDR: l/FtLTZ9YkD9vp/Aij2m0TL0cURFv8pW5dSOqBdqcWMaMFBztlx1vYWb/duDmnwWkQgf+EovJG
+ dFX5mlVHBXMw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9788"; a="156045987"
+X-IronPort-AV: E=Sophos;i="5.77,426,1596524400"; d="scan'208";a="156045987"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  28 Oct 2020 07:58:26 -0700
-IronPort-SDR: eg6cMTNbdaItaoqx5mLFigP3eRBgcKCa4vcZyfZIvjsVIcVRsBmRiq2hu7Dm0ncBbnUmmzf5or
- wF5G69N/fXRw==
+IronPort-SDR: M3gQGVOA6iWVL6OvdbA151UkvxYisibBbzGf1hLswY4G2wmPLkyQSIdo2L+3spdNWntgSiY18O
+ nWF3V0ttHeUQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.77,426,1596524400"; d="scan'208";a="350635317"
+X-IronPort-AV: E=Sophos;i="5.77,426,1596524400"; d="scan'208";a="350635323"
 Received: from relo-linux-5.jf.intel.com ([10.165.21.134])
  by orsmga008.jf.intel.com with ESMTP; 28 Oct 2020 07:58:26 -0700
 From: John.C.Harrison@Intel.com
 To: Intel-GFX@Lists.FreeDesktop.Org
-Date: Wed, 28 Oct 2020 07:58:23 -0700
-Message-Id: <20201028145826.2949180-1-John.C.Harrison@Intel.com>
+Date: Wed, 28 Oct 2020 07:58:25 -0700
+Message-Id: <20201028145826.2949180-3-John.C.Harrison@Intel.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20201028145826.2949180-1-John.C.Harrison@Intel.com>
+References: <20201028145826.2949180-1-John.C.Harrison@Intel.com>
 MIME-Version: 1.0
 Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
  Swindon SN3 1RJ
-Subject: [Intel-gfx] [PATCH v3 0/3] drm/i915/guc: Update to GuC v49
+Subject: [Intel-gfx] [PATCH v3 2/3] drm/i915/guc: Improved reporting when
+ GuC fails to load
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,35 +69,64 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: John Harrison <John.C.Harrison@Intel.com>
 
-Update to the latest GuC firmware
-
-v2: Rebase to newer tree, updated a commit message (review feedback
-from Daniele) and dropped the patch to enable GuC/HuC loading by
-default as apparently this is not allowed.
-
-v3: Rebase to drm-intel-gt-next which is apparently missing the
-patch to explicitly add Jasperlake FW.
+Rather than just saying 'GuC failed to load: -110', actually print out
+the GuC status register and break it down into the individual fields.
 
 Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
+Reviewed-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+---
+ drivers/gpu/drm/i915/gt/uc/intel_guc_fw.c | 31 ++++++++++++++++-------
+ 1 file changed, 22 insertions(+), 9 deletions(-)
 
-
-John Harrison (3):
-  drm/i915/guc: Update to use firmware v49.0.1
-  drm/i915/guc: Improved reporting when GuC fails to load
-  drm/i915/guc: Clear pointers on free
-
- drivers/gpu/drm/i915/gt/intel_engine_cs.c    |   3 +-
- drivers/gpu/drm/i915/gt/uc/intel_guc.c       |  18 ---
- drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c   | 132 +++++++++++++++----
- drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c    |   1 +
- drivers/gpu/drm/i915/gt/uc/intel_guc_fw.c    |  31 +++--
- drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h  |  80 +++++------
- drivers/gpu/drm/i915/gt/uc/intel_guc_reg.h   |   5 +
- drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c     |  27 ++--
- drivers/gpu/drm/i915/gt/uc/intel_uc_fw.h     |   2 +
- drivers/gpu/drm/i915/gt/uc/intel_uc_fw_abi.h |   6 +-
- 10 files changed, 200 insertions(+), 105 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_fw.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_fw.c
+index d4a87f4c9421..f9d0907ea1a5 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_fw.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_fw.c
+@@ -76,6 +76,7 @@ static inline bool guc_ready(struct intel_uncore *uncore, u32 *status)
+ 
+ static int guc_wait_ucode(struct intel_uncore *uncore)
+ {
++	struct drm_device *drm = &uncore->i915->drm;
+ 	u32 status;
+ 	int ret;
+ 
+@@ -90,15 +91,27 @@ static int guc_wait_ucode(struct intel_uncore *uncore)
+ 	ret = wait_for(guc_ready(uncore, &status), 100);
+ 	DRM_DEBUG_DRIVER("GuC status %#x\n", status);
+ 
+-	if ((status & GS_BOOTROM_MASK) == GS_BOOTROM_RSA_FAILED) {
+-		DRM_ERROR("GuC firmware signature verification failed\n");
+-		ret = -ENOEXEC;
+-	}
+-
+-	if ((status & GS_UKERNEL_MASK) == GS_UKERNEL_EXCEPTION) {
+-		DRM_ERROR("GuC firmware exception. EIP: %#x\n",
+-			  intel_uncore_read(uncore, SOFT_SCRATCH(13)));
+-		ret = -ENXIO;
++	if (ret) {
++		drm_err(drm, "GuC load failed: status = 0x%08X\n", status);
++		drm_err(drm, "GuC load failed: status: Reset = %d, "
++			"BootROM = 0x%02X, UKernel = 0x%02X, "
++			"MIA = 0x%02X, Auth = 0x%02X\n",
++			REG_FIELD_GET(GS_MIA_IN_RESET, status),
++			REG_FIELD_GET(GS_BOOTROM_MASK, status),
++			REG_FIELD_GET(GS_UKERNEL_MASK, status),
++			REG_FIELD_GET(GS_MIA_MASK, status),
++			REG_FIELD_GET(GS_AUTH_STATUS_MASK, status));
++
++		if ((status & GS_BOOTROM_MASK) == GS_BOOTROM_RSA_FAILED) {
++			drm_err(drm, "GuC firmware signature verification failed\n");
++			ret = -ENOEXEC;
++		}
++
++		if ((status & GS_UKERNEL_MASK) == GS_UKERNEL_EXCEPTION) {
++			drm_err(drm, "GuC firmware exception. EIP: %#x\n",
++				intel_uncore_read(uncore, SOFT_SCRATCH(13)));
++			ret = -ENXIO;
++		}
+ 	}
+ 
+ 	return ret;
 -- 
 2.25.1
 
