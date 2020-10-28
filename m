@@ -7,47 +7,45 @@ X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 47D68C388F7
-	for <intel-gfx@archiver.kernel.org>; Wed, 28 Oct 2020 21:40:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A7F81C4363A
+	for <intel-gfx@archiver.kernel.org>; Wed, 28 Oct 2020 21:40:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D930024680
-	for <intel-gfx@archiver.kernel.org>; Wed, 28 Oct 2020 21:40:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D930024680
+	by mail.kernel.org (Postfix) with ESMTPS id 4C06624680
+	for <intel-gfx@archiver.kernel.org>; Wed, 28 Oct 2020 21:40:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4C06624680
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 56E436E5C1;
-	Wed, 28 Oct 2020 21:40:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 90C5B6E5CA;
+	Wed, 28 Oct 2020 21:40:47 +0000 (UTC)
 Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C8DD36E5C0
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 680F36E5C0
  for <intel-gfx@lists.freedesktop.org>; Wed, 28 Oct 2020 21:40:44 +0000 (UTC)
-IronPort-SDR: fSXkeaJ2HHSeBVXFRacsaluroabEDYI9p79nRGxw9ik/NadhKSwgrQtdhtCpGh8bdDzziTOJkp
- lyHjn3dm7JnA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9788"; a="156115074"
-X-IronPort-AV: E=Sophos;i="5.77,428,1596524400"; d="scan'208";a="156115074"
+IronPort-SDR: 9jKeSZ8vUNdr5UkZhFisQoVWAsgXFOlsk9uZimqG1OMFGChGVCAyRSJFsty58sNlu1eiTq+P6n
+ dSqNAQUEO3xg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9788"; a="156115073"
+X-IronPort-AV: E=Sophos;i="5.77,428,1596524400"; d="scan'208";a="156115073"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  28 Oct 2020 14:40:43 -0700
-IronPort-SDR: ZHd2V5TfXOYX6zengF4gZsnnz3IRq02i1btG6goHNv6B7+7EDAcPjtLxu5UO337Tuw3PZ7eHhR
- t4VaIVbtWxmg==
-X-IronPort-AV: E=Sophos;i="5.77,428,1596524400"; d="scan'208";a="351171544"
+IronPort-SDR: F5oRfQZkTwpoEC6DqsN9N17YskuwEaRVcJhrMAH5En1bvXXMTRRdkZd5iGbdDMS17nCwyhV1ga
+ yqfzvtRdtvOA==
+X-IronPort-AV: E=Sophos;i="5.77,428,1596524400"; d="scan'208";a="351171541"
 Received: from labuser-z97x-ud5h.jf.intel.com ([10.165.21.211])
  by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-SHA;
- 28 Oct 2020 14:40:43 -0700
+ 28 Oct 2020 14:40:42 -0700
 From: Manasi Navare <manasi.d.navare@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 28 Oct 2020 14:42:30 -0700
-Message-Id: <20201028214232.5631-4-manasi.d.navare@intel.com>
+Date: Wed, 28 Oct 2020 14:42:27 -0700
+Message-Id: <20201028214232.5631-1-manasi.d.navare@intel.com>
 X-Mailer: git-send-email 2.19.1
-In-Reply-To: <20201028214232.5631-1-manasi.d.navare@intel.com>
-References: <20201028214232.5631-1-manasi.d.navare@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v3 4/6] drm/i915: Pass intel_atomic_state
- instead of drm_atomic_state
+Subject: [Intel-gfx] [PATCH v3 1/6] drm/i915/dp: Some reshuffling in
+ mode_valid as prep for bigjoiner modes
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,87 +58,40 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-No functional changes, to align with previous cleanups pass
-intel_atomic_state instead of drm_atomic_state.
-Also pass this intel_atomic_state with crtc_state to
-some of the atomic_check functions.
-
-Signed-off-by: Manasi Navare <manasi.d.navare@intel.com>
----
- drivers/gpu/drm/i915/display/intel_display.c | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 50522c8a6ff0..78708552095a 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -12671,7 +12671,7 @@ static bool encoders_cloneable(const struct intel_encoder *a,
- 			  b->cloneable & (1 << a->type));
- }
- 
--static bool check_single_encoder_cloning(struct drm_atomic_state *state,
-+static bool check_single_encoder_cloning(struct intel_atomic_state *state,
- 					 struct intel_crtc *crtc,
- 					 struct intel_encoder *encoder)
- {
-@@ -12680,7 +12680,7 @@ static bool check_single_encoder_cloning(struct drm_atomic_state *state,
- 	struct drm_connector_state *connector_state;
- 	int i;
- 
--	for_each_new_connector_in_state(state, connector, connector_state, i) {
-+	for_each_new_connector_in_state(&state->base, connector, connector_state, i) {
- 		if (connector_state->crtc != &crtc->base)
- 			continue;
- 
-@@ -13531,10 +13531,10 @@ intel_crtc_prepare_cleared_state(struct intel_crtc_state *crtc_state)
- }
- 
- static int
--intel_modeset_pipe_config(struct intel_crtc_state *pipe_config)
-+intel_modeset_pipe_config(struct intel_atomic_state *state,
-+			  struct intel_crtc_state *pipe_config)
- {
- 	struct drm_crtc *crtc = pipe_config->uapi.crtc;
--	struct drm_atomic_state *state = pipe_config->uapi.state;
- 	struct drm_i915_private *i915 = to_i915(pipe_config->uapi.crtc->dev);
- 	struct drm_connector *connector;
- 	struct drm_connector_state *connector_state;
-@@ -13576,7 +13576,7 @@ intel_modeset_pipe_config(struct intel_crtc_state *pipe_config)
- 			       &pipe_config->pipe_src_w,
- 			       &pipe_config->pipe_src_h);
- 
--	for_each_new_connector_in_state(state, connector, connector_state, i) {
-+	for_each_new_connector_in_state(&state->base, connector, connector_state, i) {
- 		struct intel_encoder *encoder =
- 			to_intel_encoder(connector_state->best_encoder);
- 
-@@ -13614,7 +13614,7 @@ intel_modeset_pipe_config(struct intel_crtc_state *pipe_config)
- 	 * adjust it according to limitations or connector properties, and also
- 	 * a chance to reject the mode entirely.
- 	 */
--	for_each_new_connector_in_state(state, connector, connector_state, i) {
-+	for_each_new_connector_in_state(&state->base, connector, connector_state, i) {
- 		struct intel_encoder *encoder =
- 			to_intel_encoder(connector_state->best_encoder);
- 
-@@ -15238,7 +15238,7 @@ static int intel_atomic_check(struct drm_device *dev,
- 		if (!new_crtc_state->hw.enable)
- 			continue;
- 
--		ret = intel_modeset_pipe_config(new_crtc_state);
-+		ret = intel_modeset_pipe_config(state, new_crtc_state);
- 		if (ret)
- 			goto fail;
- 	}
--- 
-2.19.1
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+Tm8gZnVuY3Rpb25hbCBjaGFuZ2VzLiBUaGlzIHBhdGNoIGp1c3QgbW92ZXMgc29tZSBtb2RlIGNo
+ZWNrcwphcm91bmQgdG8gcHJlcGFyZSBmb3IgYWRkaW5nIGJpZ2pvaW5lciByZWxhdGVkIG1vZGUg
+dmFsaWRhdGlvbgoKQ2M6IFZpbGxlIFN5cmrDpGzDpCA8dmlsbGUuc3lyamFsYUBsaW51eC5pbnRl
+bC5jb20+ClNpZ25lZC1vZmYtYnk6IE1hbmFzaSBOYXZhcmUgPG1hbmFzaS5kLm5hdmFyZUBpbnRl
+bC5jb20+ClJldmlld2VkLWJ5OiBWaWxsZSBTeXJqw6Rsw6QgPHZpbGxlLnN5cmphbGFAbGludXgu
+aW50ZWwuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZHAuYyB8
+IDEyICsrKysrKy0tLS0tLQogMSBmaWxlIGNoYW5nZWQsIDYgaW5zZXJ0aW9ucygrKSwgNiBkZWxl
+dGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVs
+X2RwLmMgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2RwLmMKaW5kZXggODE4
+ZGFhYjI1MmYzLi4yYzI5ZTdmNTI4MWIgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1
+L2Rpc3BsYXkvaW50ZWxfZHAuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2lu
+dGVsX2RwLmMKQEAgLTcyMSw2ICs3MjEsOSBAQCBpbnRlbF9kcF9tb2RlX3ZhbGlkKHN0cnVjdCBk
+cm1fY29ubmVjdG9yICpjb25uZWN0b3IsCiAJaWYgKG1vZGUtPmZsYWdzICYgRFJNX01PREVfRkxB
+R19EQkxTQ0FOKQogCQlyZXR1cm4gTU9ERV9OT19EQkxFU0NBTjsKIAorCWlmIChtb2RlLT5mbGFn
+cyAmIERSTV9NT0RFX0ZMQUdfREJMQ0xLKQorCQlyZXR1cm4gTU9ERV9IX0lMTEVHQUw7CisKIAlp
+ZiAoaW50ZWxfZHBfaXNfZWRwKGludGVsX2RwKSAmJiBmaXhlZF9tb2RlKSB7CiAJCWlmIChtb2Rl
+LT5oZGlzcGxheSA+IGZpeGVkX21vZGUtPmhkaXNwbGF5KQogCQkJcmV0dXJuIE1PREVfUEFORUw7
+CkBAIC03MzEsNiArNzM0LDkgQEAgaW50ZWxfZHBfbW9kZV92YWxpZChzdHJ1Y3QgZHJtX2Nvbm5l
+Y3RvciAqY29ubmVjdG9yLAogCQl0YXJnZXRfY2xvY2sgPSBmaXhlZF9tb2RlLT5jbG9jazsKIAl9
+CiAKKwlpZiAobW9kZS0+Y2xvY2sgPCAxMDAwMCkKKwkJcmV0dXJuIE1PREVfQ0xPQ0tfTE9XOwor
+CiAJbWF4X2xpbmtfY2xvY2sgPSBpbnRlbF9kcF9tYXhfbGlua19yYXRlKGludGVsX2RwKTsKIAlt
+YXhfbGFuZXMgPSBpbnRlbF9kcF9tYXhfbGFuZV9jb3VudChpbnRlbF9kcCk7CiAKQEAgLTc3MSwx
+MiArNzc3LDYgQEAgaW50ZWxfZHBfbW9kZV92YWxpZChzdHJ1Y3QgZHJtX2Nvbm5lY3RvciAqY29u
+bmVjdG9yLAogCSAgICB0YXJnZXRfY2xvY2sgPiBtYXhfZG90Y2xrKQogCQlyZXR1cm4gTU9ERV9D
+TE9DS19ISUdIOwogCi0JaWYgKG1vZGUtPmNsb2NrIDwgMTAwMDApCi0JCXJldHVybiBNT0RFX0NM
+T0NLX0xPVzsKLQotCWlmIChtb2RlLT5mbGFncyAmIERSTV9NT0RFX0ZMQUdfREJMQ0xLKQotCQly
+ZXR1cm4gTU9ERV9IX0lMTEVHQUw7Ci0KIAlzdGF0dXMgPSBpbnRlbF9kcF9tb2RlX3ZhbGlkX2Rv
+d25zdHJlYW0oaW50ZWxfY29ubmVjdG9yLAogCQkJCQkJbW9kZSwgdGFyZ2V0X2Nsb2NrKTsKIAlp
+ZiAoc3RhdHVzICE9IE1PREVfT0spCi0tIAoyLjE5LjEKCl9fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fCkludGVsLWdmeCBtYWlsaW5nIGxpc3QKSW50ZWwtZ2Z4
+QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWls
+bWFuL2xpc3RpbmZvL2ludGVsLWdmeAo=
