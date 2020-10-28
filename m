@@ -2,46 +2,55 @@ Return-Path: <SRS0=YXNx=ED=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EAD65C4363A
-	for <intel-gfx@archiver.kernel.org>; Wed, 28 Oct 2020 21:47:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4623EC55179
+	for <intel-gfx@archiver.kernel.org>; Wed, 28 Oct 2020 21:47:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 760BE246CD
-	for <intel-gfx@archiver.kernel.org>; Wed, 28 Oct 2020 21:47:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 760BE246CD
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
+	by mail.kernel.org (Postfix) with ESMTPS id E0DCC2064C
+	for <intel-gfx@archiver.kernel.org>; Wed, 28 Oct 2020 21:47:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E0DCC2064C
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C692F6E5D2;
-	Wed, 28 Oct 2020 21:47:19 +0000 (UTC)
-Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 035E86E5D2;
- Wed, 28 Oct 2020 21:47:17 +0000 (UTC)
-X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
- x-ip-name=78.156.65.138; 
-Received: from localhost (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP (TLS) id
- 22829710-1500050 for multiple; Wed, 28 Oct 2020 21:46:45 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 242DD6E5CD;
+	Wed, 28 Oct 2020 21:47:54 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 420C16E5CD
+ for <intel-gfx@lists.freedesktop.org>; Wed, 28 Oct 2020 21:47:52 +0000 (UTC)
+IronPort-SDR: hWyeJ06k0fwiD6iAIPF71C9vzO7Igynlv+GWBWe1jCkx3d6zqUmT1+eOMjloTxAhNx+5t7aixz
+ t5CP3OKN/q6g==
+X-IronPort-AV: E=McAfee;i="6000,8403,9788"; a="168442572"
+X-IronPort-AV: E=Sophos;i="5.77,428,1596524400"; d="scan'208";a="168442572"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Oct 2020 14:47:51 -0700
+IronPort-SDR: Xr8lZqk4pwzHF3ho+QWgGZMIcTooPS91qVtkKcQPyIRt3n9o06fZkkYZpi0pJ9Kz8dTWdGENxq
+ KfbQ9pVVYoug==
+X-IronPort-AV: E=Sophos;i="5.77,428,1596524400"; d="scan'208";a="536404373"
+Received: from nsato-mobl.amr.corp.intel.com (HELO ldmartin-desk1)
+ ([10.254.182.129])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Oct 2020 14:47:50 -0700
+Date: Wed, 28 Oct 2020 14:47:50 -0700
+From: Lucas De Marchi <lucas.demarchi@intel.com>
+To: Ville Syrjala <ville.syrjala@linux.intel.com>
+Message-ID: <20201028214750.mk3rovnzh2lv5wma@ldmartin-desk1>
+X-Patchwork-Hint: comment
+References: <20201028213323.5423-1-ville.syrjala@linux.intel.com>
+ <20201028213323.5423-15-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
-In-Reply-To: <20201029082823.5607849a@canb.auug.org.au>
-References: <20201029082823.5607849a@canb.auug.org.au>
-From: Chris Wilson <chris@chris-wilson.co.uk>
-To: DRI <dri-devel@lists.freedesktop.org>,
- Daniel Vetter <daniel.vetter@ffwll.ch>,
- Intel Graphics <intel-gfx@lists.freedesktop.org>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Stephen Rothwell <sfr@canb.auug.org.au>
-Date: Wed, 28 Oct 2020 21:46:42 +0000
-Message-ID: <160392160276.31966.3847690661999837078@build.alporthouse.com>
-User-Agent: alot/0.9
-Subject: Re: [Intel-gfx] linux-next: Signed-off-by missing for commit in the
- drm-intel-fixes tree
+Content-Disposition: inline
+In-Reply-To: <20201028213323.5423-15-ville.syrjala@linux.intel.com>
+Subject: Re: [Intel-gfx] [PATCH v3 14/19] drm/i915: Don't enable hpd
+ detection logic from irq_postinstall()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,27 +63,144 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Peter Zijlstra <peterz@infradead.org>,
- Linux Next Mailing List <linux-next@vger.kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: intel-gfx@lists.freedesktop.org
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="iso-8859-1"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Quoting Stephen Rothwell (2020-10-28 21:28:23)
-> Hi all,
-> 
-> Commit
-> 
->   d13208a88f41 ("lockdep: Fix nr_unused_locks")
-> 
-> is missing a Signed-off-by from its author.
-> 
-> Also, the author's email name is missing the leading 'P'.
+On Wed, Oct 28, 2020 at 11:33:18PM +0200, Ville Syrj=E4l=E4 wrote:
+>From: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
+>
+>No reason that I can see why we should enable the hpd detection logic
+>already during irq postinstall phase. We don't even do this on all
+>the platforms. We just need it before we actually enable the hotplug
+>interrupts in .hpd_irq_setup(), and in fact we already do it there as
+>well. Let's just eliminate the redundant early setup.
 
-And it shouldn't be in the drm-intel-fixes tree.
--Chris
+yep, it makes sense. If CI is happy and doesn't explode in something
+neither of us antecipated, I'm happy too.
+
+
+Reviewed-by: Lucas De Marchi <lucas.demarchi@intel.com>
+
+Lucas De Marchi
+
+>
+>Signed-off-by: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
+>---
+> drivers/gpu/drm/i915/i915_irq.c | 40 +++------------------------------
+> 1 file changed, 3 insertions(+), 37 deletions(-)
+>
+>diff --git a/drivers/gpu/drm/i915/i915_irq.c b/drivers/gpu/drm/i915/i915_i=
+rq.c
+>index 43e3e7f70c14..3ff5747e755d 100644
+>--- a/drivers/gpu/drm/i915/i915_irq.c
+>+++ b/drivers/gpu/drm/i915/i915_irq.c
+>@@ -3407,8 +3407,8 @@ static void ilk_hpd_irq_setup(struct drm_i915_privat=
+e *dev_priv)
+> 	ibx_hpd_irq_setup(dev_priv);
+> }
+>
+>-static void __bxt_hpd_detection_setup(struct drm_i915_private *dev_priv,
+>-				      u32 enabled_irqs)
+>+static void bxt_hpd_detection_setup(struct drm_i915_private *dev_priv,
+>+				    u32 enabled_irqs)
+> {
+> 	u32 hotplug;
+>
+>@@ -3439,11 +3439,6 @@ static void __bxt_hpd_detection_setup(struct drm_i9=
+15_private *dev_priv,
+> 	I915_WRITE(PCH_PORT_HOTPLUG, hotplug);
+> }
+>
+>-static void bxt_hpd_detection_setup(struct drm_i915_private *dev_priv)
+>-{
+>-	__bxt_hpd_detection_setup(dev_priv, BXT_DE_PORT_HOTPLUG_MASK);
+>-}
+>-
+> static void bxt_hpd_irq_setup(struct drm_i915_private *dev_priv)
+> {
+> 	u32 hotplug_irqs, enabled_irqs;
+>@@ -3453,7 +3448,7 @@ static void bxt_hpd_irq_setup(struct drm_i915_privat=
+e *dev_priv)
+>
+> 	bdw_update_port_irq(dev_priv, hotplug_irqs, enabled_irqs);
+>
+>-	__bxt_hpd_detection_setup(dev_priv, enabled_irqs);
+>+	bxt_hpd_detection_setup(dev_priv, enabled_irqs);
+> }
+>
+> static void ibx_irq_postinstall(struct drm_i915_private *dev_priv)
+>@@ -3472,12 +3467,6 @@ static void ibx_irq_postinstall(struct drm_i915_pri=
+vate *dev_priv)
+>
+> 	gen3_assert_iir_is_zero(&dev_priv->uncore, SDEIIR);
+> 	I915_WRITE(SDEIMR, ~mask);
+>-
+>-	if (HAS_PCH_IBX(dev_priv) || HAS_PCH_CPT(dev_priv) ||
+>-	    HAS_PCH_LPT(dev_priv))
+>-		ibx_hpd_detection_setup(dev_priv);
+>-	else
+>-		spt_hpd_detection_setup(dev_priv);
+> }
+>
+> static void ilk_irq_postinstall(struct drm_i915_private *dev_priv)
+>@@ -3517,8 +3506,6 @@ static void ilk_irq_postinstall(struct drm_i915_priv=
+ate *dev_priv)
+> 	GEN3_IRQ_INIT(uncore, DE, dev_priv->irq_mask,
+> 		      display_mask | extra_mask);
+>
+>-	ilk_hpd_detection_setup(dev_priv);
+>-
+> 	ibx_irq_postinstall(dev_priv);
+> }
+>
+>@@ -3639,12 +3626,6 @@ static void gen8_de_irq_postinstall(struct drm_i915=
+_private *dev_priv)
+>
+> 		GEN3_IRQ_INIT(uncore, GEN11_DE_HPD_, ~de_hpd_masked,
+> 			      de_hpd_enables);
+>-		gen11_tc_hpd_detection_setup(dev_priv);
+>-		gen11_tbt_hpd_detection_setup(dev_priv);
+>-	} else if (IS_GEN9_LP(dev_priv)) {
+>-		bxt_hpd_detection_setup(dev_priv);
+>-	} else if (IS_BROADWELL(dev_priv)) {
+>-		ilk_hpd_detection_setup(dev_priv);
+> 	}
+> }
+>
+>@@ -3672,21 +3653,6 @@ static void icp_irq_postinstall(struct drm_i915_pri=
+vate *dev_priv)
+>
+> 	gen3_assert_iir_is_zero(&dev_priv->uncore, SDEIIR);
+> 	I915_WRITE(SDEIMR, ~mask);
+>-
+>-	if (HAS_PCH_DG1(dev_priv))
+>-		icp_ddi_hpd_detection_setup(dev_priv, DG1_DDI_HPD_ENABLE_MASK);
+>-	else if (HAS_PCH_TGP(dev_priv)) {
+>-		icp_ddi_hpd_detection_setup(dev_priv, TGP_DDI_HPD_ENABLE_MASK);
+>-		icp_tc_hpd_detection_setup(dev_priv, TGP_TC_HPD_ENABLE_MASK);
+>-	} else if (HAS_PCH_JSP(dev_priv)) {
+>-		icp_ddi_hpd_detection_setup(dev_priv, TGP_DDI_HPD_ENABLE_MASK);
+>-	} else if (HAS_PCH_MCC(dev_priv)) {
+>-		icp_ddi_hpd_detection_setup(dev_priv, ICP_DDI_HPD_ENABLE_MASK);
+>-		icp_tc_hpd_detection_setup(dev_priv, ICP_TC_HPD_ENABLE(HPD_PORT_TC1));
+>-	} else {
+>-		icp_ddi_hpd_detection_setup(dev_priv, ICP_DDI_HPD_ENABLE_MASK);
+>-		icp_tc_hpd_detection_setup(dev_priv, ICP_TC_HPD_ENABLE_MASK);
+>-	}
+> }
+>
+> static void gen11_irq_postinstall(struct drm_i915_private *dev_priv)
+>-- =
+
+>2.26.2
+>
+>_______________________________________________
+>Intel-gfx mailing list
+>Intel-gfx@lists.freedesktop.org
+>https://lists.freedesktop.org/mailman/listinfo/intel-gfx
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
