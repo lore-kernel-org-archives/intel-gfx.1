@@ -2,42 +2,52 @@ Return-Path: <SRS0=ieU+=EE=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.5 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
+X-Spam-Status: No, score=-9.9 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3A4DDC4363A
-	for <intel-gfx@archiver.kernel.org>; Thu, 29 Oct 2020 19:18:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D296CC2D0A3
+	for <intel-gfx@archiver.kernel.org>; Thu, 29 Oct 2020 19:35:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AFFAC20838
-	for <intel-gfx@archiver.kernel.org>; Thu, 29 Oct 2020 19:18:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AFFAC20838
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
+	by mail.kernel.org (Postfix) with ESMTPS id 45C1621D7D
+	for <intel-gfx@archiver.kernel.org>; Thu, 29 Oct 2020 19:35:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 45C1621D7D
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4411A6E8F0;
-	Thu, 29 Oct 2020 19:18:01 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E2F26E8F2;
- Thu, 29 Oct 2020 19:17:59 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 14F06AD6B;
- Thu, 29 Oct 2020 19:17:58 +0000 (UTC)
-To: Daniel Vetter <daniel.vetter@ffwll.ch>,
- DRI Development <dri-devel@lists.freedesktop.org>
-References: <20201029101428.4058311-1-daniel.vetter@ffwll.ch>
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Message-ID: <db410f40-955a-da24-8994-c4f8140ff453@suse.de>
-Date: Thu, 29 Oct 2020 20:17:56 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.3.3
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3475C6E8E9;
+	Thu, 29 Oct 2020 19:35:02 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC47A6E8EF
+ for <intel-gfx@lists.freedesktop.org>; Thu, 29 Oct 2020 19:35:00 +0000 (UTC)
+IronPort-SDR: MotESH4nP3WkF6eH1XhONCizXRZLV90ZfFBhsIcXHoL7gcvbOtU+AwnQDx+s1Yririk1im0IRM
+ WN5bR3pjB8wQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9789"; a="156272321"
+X-IronPort-AV: E=Sophos;i="5.77,430,1596524400"; d="scan'208";a="156272321"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Oct 2020 12:34:49 -0700
+IronPort-SDR: BVGrlZMF19i3nMyOAMG3sb7wO1av+DKnSntw4goZe//qRO4lj8ujlOIWGfGA9GEjESP1/NBJWo
+ a+3hnaQBa8+A==
+X-IronPort-AV: E=Sophos;i="5.77,430,1596524400"; d="scan'208";a="323820143"
+Received: from labuser-z97x-ud5h.jf.intel.com ([10.165.21.211])
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-SHA;
+ 29 Oct 2020 12:34:49 -0700
+From: Manasi Navare <manasi.d.navare@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Thu, 29 Oct 2020 12:36:41 -0700
+Message-Id: <20201029193641.23199-6-manasi.d.navare@intel.com>
+X-Mailer: git-send-email 2.19.1
+In-Reply-To: <20201029193641.23199-1-manasi.d.navare@intel.com>
+References: <20201029193641.23199-1-manasi.d.navare@intel.com>
 MIME-Version: 1.0
-In-Reply-To: <20201029101428.4058311-1-daniel.vetter@ffwll.ch>
-Subject: Re: [Intel-gfx] [PATCH 1/3] fbcon: Disable accelerated scrolling
+Subject: [Intel-gfx] [PATCH v4 6/6] drm/i915/dp: Allow big joiner modes in
+ intel_dp_mode_valid(), v3.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,399 +60,321 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jiri Slaby <jirislaby@kernel.org>,
- Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
- Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>,
- Linus Torvalds <torvalds@linux-foundation.org>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- Peilin Ye <yepeilin.cs@gmail.com>, George Kennedy <george.kennedy@oracle.com>,
- Tomi Valkeinen <tomi.valkeinen@ti.com>, Ben Skeggs <bskeggs@redhat.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, nouveau@lists.freedesktop.org,
- Daniel Vetter <daniel.vetter@intel.com>,
- Nathan Chancellor <natechancellor@gmail.com>, Sam Ravnborg <sam@ravnborg.org>,
- Peter Rosin <peda@axentia.se>
-Content-Type: multipart/mixed; boundary="===============2133075250=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============2133075250==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="YUFoqzJUldQQyKBkIpXsbAIlZEEXkH39E"
+From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---YUFoqzJUldQQyKBkIpXsbAIlZEEXkH39E
-Content-Type: multipart/mixed; boundary="RRm5C0uGtMkV7H940wdCPnlbpXwupjX6h";
- protected-headers="v1"
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: Daniel Vetter <daniel.vetter@ffwll.ch>,
- DRI Development <dri-devel@lists.freedesktop.org>
-Cc: George Kennedy <george.kennedy@oracle.com>,
- Sam Ravnborg <sam@ravnborg.org>,
- Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
- Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>, Peter Rosin
- <peda@axentia.se>, Linus Torvalds <torvalds@linux-foundation.org>,
- Tomi Valkeinen <tomi.valkeinen@ti.com>, Ben Skeggs <bskeggs@redhat.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- nouveau@lists.freedesktop.org, Daniel Vetter <daniel.vetter@intel.com>,
- Nathan Chancellor <natechancellor@gmail.com>,
- Jiri Slaby <jirislaby@kernel.org>, Peilin Ye <yepeilin.cs@gmail.com>
-Message-ID: <db410f40-955a-da24-8994-c4f8140ff453@suse.de>
-Subject: Re: [PATCH 1/3] fbcon: Disable accelerated scrolling
-References: <20201029101428.4058311-1-daniel.vetter@ffwll.ch>
-In-Reply-To: <20201029101428.4058311-1-daniel.vetter@ffwll.ch>
+Small changes to intel_dp_mode_valid(), allow listing modes that
+can only be supported in the bigjoiner configuration, which is
+not supported yet.
 
---RRm5C0uGtMkV7H940wdCPnlbpXwupjX6h
-Content-Type: multipart/mixed;
- boundary="------------48DBD59B2D3DA9B3F1157A8C"
-Content-Language: en-US
+v12:
+* slice_count logic simplify (Ville)
+* Fix unnecessary changes in downstream_mode_valid (Ville)
+v11:
+* Make intel_dp_can_bigjoiner non static
+so it can be used in intel_display (Manasi)
+v10:
+* Simplify logic (Ville)
+* Allow bigjoiner on edp (Ville)
+v9:
+* Restric Bigjoiner on PORT A (Ville)
+v8:
+* use source dotclock for max dotclock (Manasi)
+v7:
+* Add can_bigjoiner() helper (Ville)
+* Pass bigjoiner to plane_size validation (Ville)
+v6:
+* Rebase after dp_downstream mode valid changes (Manasi)
+v5:
+* Increase max plane width to support 8K with bigjoiner (Maarten)
+v4:
+* Rebase (Manasi)
 
-This is a multi-part message in MIME format.
---------------48DBD59B2D3DA9B3F1157A8C
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Changes since v1:
+- Disallow bigjoiner on eDP.
+Changes since v2:
+- Rename intel_dp_downstream_max_dotclock to intel_dp_max_dotclock,
+  and split off the downstream and source checking to its own function.
+  (Ville)
+v3:
+* Rebase (Manasi)
 
+Signed-off-by: Manasi Navare <manasi.d.navare@intel.com>
+Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_display.c |  5 +-
+ drivers/gpu/drm/i915/display/intel_display.h |  3 +-
+ drivers/gpu/drm/i915/display/intel_dp.c      | 77 ++++++++++++++++----
+ drivers/gpu/drm/i915/display/intel_dp.h      |  1 +
+ drivers/gpu/drm/i915/display/intel_dp_mst.c  |  2 +-
+ drivers/gpu/drm/i915/display/intel_dsi.c     |  2 +-
+ drivers/gpu/drm/i915/display/intel_hdmi.c    |  2 +-
+ 7 files changed, 72 insertions(+), 20 deletions(-)
 
-
-Am 29.10.20 um 11:14 schrieb Daniel Vetter:
-> So ever since syzbot discovered fbcon, we have solid proof that it's
-> full of bugs. And often the solution is to just delete code and remove
-> features, e.g.  50145474f6ef ("fbcon: remove soft scrollback code").
->=20
-> Now the problem is that most modern-ish drivers really only treat
-> fbcon as an dumb kernel console until userspace takes over, and Oops
-> printer for some emergencies. Looking at drm drivers and the basic
-> vesa/efi fbdev drivers shows that only 3 drivers support any kind of
-> acceleration:
->=20
-> - nouveau, seems to be enabled by default
-> - omapdrm, when a DMM remapper exists using remapper rewriting for
->   y/xpanning
-> - gma500, but that is getting deleted now for the GTT remapper trick,
->   and the accelerated copyarea never set the FBINFO_HWACCEL_COPYAREA
->   flag, so unused (and could be deleted already I think).
->=20
-> No other driver supportes accelerated fbcon. And fbcon is the only
-> user of this accel code (it's not exposed as uapi through ioctls),
-> which means we could garbage collect fairly enormous amounts of code
-> if we kill this.
->=20
-> Plus because syzbot only runs on virtual hardware, and none of the
-> drivers for that have acceleration, we'd remove a huge gap in testing.
-> And there's no other even remotely comprehensive testing aside from
-> syzbot.
->=20
-> This patch here just disables the acceleration code by always
-> redrawing when scrolling. The plan is that once this has been merged
-> for well over a year in released kernels, we can start to go around
-> and delete a lot of code.
->=20
-> v2:
-> - Drop a few more unused local variables, somehow I missed the
-> compiler warnings (Sam)
-> - Fix typo in comment (Jiri)
-> - add a todo entry for the cleanup (Thomas)
-
-Thanks :)
-
->=20
-> Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> Acked-by: Sam Ravnborg <sam@ravnborg.org>
-> Cc: Jiri Slaby <jirislaby@kernel.org>
-> Cc: Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>
-> Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> Cc: Linus Torvalds <torvalds@linux-foundation.org>
-> Cc: Ben Skeggs <bskeggs@redhat.com>
-> Cc: nouveau@lists.freedesktop.org
-> Cc: Tomi Valkeinen <tomi.valkeinen@ti.com>
-> Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
-> Cc: Jiri Slaby <jirislaby@kernel.org>
-> Cc: "Gustavo A. R. Silva" <gustavoars@kernel.org>
-> Cc: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
-> Cc: Peilin Ye <yepeilin.cs@gmail.com>
-> Cc: George Kennedy <george.kennedy@oracle.com>
-> Cc: Nathan Chancellor <natechancellor@gmail.com>
-> Cc: Peter Rosin <peda@axentia.se>
-> Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
-> ---
->  Documentation/gpu/todo.rst       | 18 ++++++++++++++
->  drivers/video/fbdev/core/fbcon.c | 42 ++++++--------------------------=
-
->  2 files changed, 25 insertions(+), 35 deletions(-)
->=20
-> diff --git a/Documentation/gpu/todo.rst b/Documentation/gpu/todo.rst
-> index 6b224ef14455..bec99341a904 100644
-> --- a/Documentation/gpu/todo.rst
-> +++ b/Documentation/gpu/todo.rst
-> @@ -277,6 +277,24 @@ Contact: Daniel Vetter, Noralf Tronnes
-> =20
->  Level: Advanced
-> =20
-> +Garbage collect fbdev scrolling acceleration
-> +--------------------------------------------
-> +
-> +Scroll acceleration is disabled in fbcon by hard-wiring p->scrollmode =
-=3D
-> +SCROLL_REDRAW. There's a ton of code this will allow us to remove:
-> +- lots of code in fbcon.c
-> +- a bunch of the hooks in fbcon_ops, maybe the remaining hooks could b=
-e called
-> +  directly instead of the function table (with a switch on p->rotate)
-> +- fb_copyarea is unused after this, and can be deleted from all driver=
-s
-> +
-> +Note that not all acceleration code can be deleted, since clearing and=
- cursor
-> +support is still accelerated, which might be good candidates for furth=
-er
-> +deletion projects.
-> +
-> +Contact: Daniel Vetter
-> +
-> +Level: Intermediate
-> +
->  idr_init_base()
->  ---------------
-> =20
-> diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/cor=
-e/fbcon.c
-> index cef437817b0d..a68253485244 100644
-> --- a/drivers/video/fbdev/core/fbcon.c
-> +++ b/drivers/video/fbdev/core/fbcon.c
-> @@ -1147,11 +1147,13 @@ static void fbcon_init(struct vc_data *vc, int =
-init)
-> =20
->  	ops->graphics =3D 0;
-> =20
-> -	if ((cap & FBINFO_HWACCEL_COPYAREA) &&
-> -	    !(cap & FBINFO_HWACCEL_DISABLED))
-> -		p->scrollmode =3D SCROLL_MOVE;
-> -	else /* default to something safe */
-> -		p->scrollmode =3D SCROLL_REDRAW;
-> +	/*
-> +	 * No more hw acceleration for fbcon.
-> +	 *
-> +	 * FIXME: Garbage collect all the now dead code after sufficient time=
-
-> +	 * has passed.
-> +	 */
-> +	p->scrollmode =3D SCROLL_REDRAW;
-> =20
->  	/*
->  	 *  ++guenther: console.c:vc_allocate() relies on initializing
-> @@ -1961,45 +1963,15 @@ static void updatescrollmode(struct fbcon_displ=
-ay *p,
->  {
->  	struct fbcon_ops *ops =3D info->fbcon_par;
->  	int fh =3D vc->vc_font.height;
-> -	int cap =3D info->flags;
-> -	u16 t =3D 0;
-> -	int ypan =3D FBCON_SWAP(ops->rotate, info->fix.ypanstep,
-> -				  info->fix.xpanstep);
-> -	int ywrap =3D FBCON_SWAP(ops->rotate, info->fix.ywrapstep, t);
->  	int yres =3D FBCON_SWAP(ops->rotate, info->var.yres, info->var.xres);=
-
->  	int vyres =3D FBCON_SWAP(ops->rotate, info->var.yres_virtual,
->  				   info->var.xres_virtual);
-> -	int good_pan =3D (cap & FBINFO_HWACCEL_YPAN) &&
-> -		divides(ypan, vc->vc_font.height) && vyres > yres;
-> -	int good_wrap =3D (cap & FBINFO_HWACCEL_YWRAP) &&
-> -		divides(ywrap, vc->vc_font.height) &&
-> -		divides(vc->vc_font.height, vyres) &&
-> -		divides(vc->vc_font.height, yres);
-> -	int reading_fast =3D cap & FBINFO_READS_FAST;
-> -	int fast_copyarea =3D (cap & FBINFO_HWACCEL_COPYAREA) &&
-> -		!(cap & FBINFO_HWACCEL_DISABLED);
-> -	int fast_imageblit =3D (cap & FBINFO_HWACCEL_IMAGEBLIT) &&
-> -		!(cap & FBINFO_HWACCEL_DISABLED);
-> =20
->  	p->vrows =3D vyres/fh;
->  	if (yres > (fh * (vc->vc_rows + 1)))
->  		p->vrows -=3D (yres - (fh * vc->vc_rows)) / fh;
->  	if ((yres % fh) && (vyres % fh < yres % fh))
->  		p->vrows--;
-> -
-> -	if (good_wrap || good_pan) {
-> -		if (reading_fast || fast_copyarea)
-> -			p->scrollmode =3D good_wrap ?
-> -				SCROLL_WRAP_MOVE : SCROLL_PAN_MOVE;
-> -		else
-> -			p->scrollmode =3D good_wrap ? SCROLL_REDRAW :
-> -				SCROLL_PAN_REDRAW;
-> -	} else {
-> -		if (reading_fast || (fast_copyarea && !fast_imageblit))
-> -			p->scrollmode =3D SCROLL_MOVE;
-> -		else
-> -			p->scrollmode =3D SCROLL_REDRAW;
-> -	}
->  }
-> =20
->  #define PITCH(w) (((w) + 7) >> 3)
->=20
-
---=20
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Maxfeldstr. 5, 90409 N=C3=BCrnberg, Germany
-(HRB 36809, AG N=C3=BCrnberg)
-Gesch=C3=A4ftsf=C3=BChrer: Felix Imend=C3=B6rffer
-
---------------48DBD59B2D3DA9B3F1157A8C
-Content-Type: application/pgp-keys;
- name="OpenPGP_0x680DC11D530B7A23.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Disposition: attachment;
- filename="OpenPGP_0x680DC11D530B7A23.asc"
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdgX=
-H47
-fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0BeB5B=
-bqP
-5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4YchdHm3bkPj=
-z9E
-ErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB9GluwvIhSezPg=
-nEm
-imZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEBAAHNKFRob21hcyBaa=
-W1t
-ZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmNvbT7CwI4EEwEIADgCGwMFCwkIBwIGFQoJCAsCB=
-BYC
-AwECHgECF4AWIQRyF/usjOnPY0ShaOVoDcEdUwt6IwUCXvxIWAAKCRBoDcEdUwt6I+aZB/9ih=
-Onf
-G4Lgf1L87cvoXh95/bnaJ6aQhP6/ZeRleuCXflnyDajlm3c9loQr0r2bQUi7JeYwUKbBab2QS=
-GJm
-DMRGlLMnmzWB8mHmZ6bHAu+2Sth8SraE42p6BB9d8dlYEID+dl/D/xUBeulfkck5rloGtYqDi=
-+1Q
-DfkEZJaxVSZ6FFkXuQi/G9qcI4iklN2nv02iQ7mZe8WYAysix6s/6vIobhirEBreclSNxXqis=
-p8n
-91+v855JC11EgRdUXMRK81IAaCKXP8zLx3ixku7mvP9Om61yerHSbeU2HZbIggZYQlFh6llJm=
-zF1
-CjCWgPTJyk4t4kMTcNOw5ykD47vU/KW+wl0EEBECAB0WIQQn6OOmnzvP/7ktjmoud6EwEfXTw=
-gUC
-WzodVwAKCRAud6EwEfXTwidvAKDkOADDHfI0QNXqAZcg6i1kOndAYACeLXHBwpjnumkPSyoab=
-IiL
-+he8r3zCwHMEEAEIAB0WIQQeXZghmQijlU7YzFiqUDvJrg9HpwUCWznxsQAKCRCqUDvJrg9Hp=
-42f
-CADIvsZcAd04PDFclRltHr2huy6s7+ZZA6PgYlMblEBh4bJA+dNPBTvzpJ7FJv/bmHOa+phWy=
-Urj
-EpfFGuOKGuWAfzgVAEu52fMrW3/mm+O26z1AKIu8hiZ/x9OAe4AM71ZO2lZrV1/53ZdzWnRuO=
-45N
-GQcotU8oeVfT9okAfmozmWMmIMq7Q0K6bV8W3qiD5XfDNxjr2caxc/9WX1bZPUo3n0H23MNaA=
-Tpy
-Oz732UtDh6sKUAB1RfzBBd/REbjHD7+quwJGAdRScyDRncX1vNb2+wihy0ipA69XY3bkhR5iD=
-u5r
-A9enuiMe6J1IBMI1PZh+vOufB/M6cd2D9RULIJaJwsBzBBABCAAdFiEEuyNtt7Ge78bIRx1op=
-/N8
-GYw5MYEFAls6MrsACgkQp/N8GYw5MYEnLQf/dwqlDJVQL2q+i8FFaqTMAm0n9jLRV6pN8JxFH=
-j0g
-voyWUOnQuNdAFgtKd26ZhN8NkLoSMO8E19eBPfLoBIFK5yNNVmRHAZm07MzGbA0uNWINJhmdR=
-bZM
-RMh0nneXjcEU/IvUmd8TPFTAd24X2mbzHgcaHMLJSVx1ohd4alRJXHIqDobKmiVwekyPnInJn=
-zWw
-iuZUkIotTkQple1PT/dF3S+KtPXBL6ldQ4NkAeCjsz4wnzSa9+VKOxEhiHM0PMzXSbkCMP+4m=
-Xy9
-RMplBw9Dm9hN2PSouBPifIrSodiiSWZYXOEkzLiBAB0frCKR63Dnx9kvjCD9Pz5wLd/70rjqI=
-c0n
-VGhvbWFzIFppbW1lcm1hbm4gPHR6aW1tZXJtYW5uQHN1c2UuZGU+wsCOBBMBCAA4AhsDBQsJC=
-AcC
-BhUKCQgLAgQWAgMBAh4BAheAFiEEchf7rIzpz2NEoWjlaA3BHVMLeiMFAl78SF4ACgkQaA3BH=
-VML
-eiOpGAgAih6C1OnWms/N8eBMC4Q93y/nyywe5vCL22Dr1rwgn6Iw2jOGziJSi7zhY4sEk2NKJ=
-5cd
-lFrx8mP//b+xO4AGffwBD0Vwpf38Hj2Gt0KjpzRYccqqU+tJPO5c0pjI52ZIV3+kOEFvYGfkN=
-PHE
-flE+b81T8L2dSXCLtj4WAGUM1rmHn3bCYl+/RwkB+8XnoL5AvrmMcU4Uhb3FJpM4DHExccYkd=
-eSL
-ojBppOCztBCUpBx3le+8QPVvAvJDuur4wRmjk3sjKClAwzeqoYyUKcN3JDdb3mt3QcJal9rSh=
-VEI
-7B25IvfmEbs42oGm8GPzPkaNJu3gcska+l5PSTfurNETGsJdBBARAgAdFiEEJ+jjpp87z/+5L=
-Y5q
-LnehMBH108IFAls6HVcACgkQLnehMBH108LTkACgjLQdDYMENi6BDjY/gd/LF9lMi8oAnR+o0=
-FwE
-Vb1K1tEMQ/1x+k1U6/xgwsBzBBABCAAdFiEEHl2YIZkIo5VO2MxYqlA7ya4PR6cFAls58bMAC=
-gkQ
-qlA7ya4PR6cvTAgAzY1N5QMKh8ECRtYcZNmilyV59uHTEY9hAR+203JqWnSGfUKtU7s6xfl5O=
-NGq
-DI5rULk4Cw2CEIzg9Sat+/lxn36w2f1tEznS5Vb0gVGWrzDAFjj7tB6MnmCzsNb/S1kgxnqJM=
-Yor
-RYQ7uB3Yr2Fdp08FJxN0ipd5YfzaZ6KoSWcRAv4r1R4ZQGuS77URAg7HDOIrBMOVO+HIn7GYQ=
-qPS
-5ZFw5yXbvEtL1c5Y8Zdw1AG2VmEXx78TWQVG3kI8/lQF1QI3yrJ1Rp2x5eK9I0OJihv13IlIW=
-3sb
-QGrj9pxF63kA20ZFaynzFglBGiyxExYvTD0/xKIhzYhj8mtCunPb2cLAcwQQAQgAHRYhBLsjb=
-bex
-nu/GyEcdaKfzfBmMOTGBBQJbOjLAAAoJEKfzfBmMOTGBBoMIALIW4EtBY28tPwZMOpN/+ARPO=
-a2g
-Qzpivw7iNtiDTnGIXMCoxly1CybfMdqTHYmuKbEO9AlFAlDOnkgInsn8E65IvgUTVI95Ah+Ob=
-iPI
-FkYc/9a+AexPl7f5kI9489k77eKtqtMpWFpo/vROmRroSw4JnM7ovwPq1QOSHExfTKbLunzD1=
-i3V
-4PShSZ6bGsp1LW6Wk0lRMHDuAk3xsyjBWfJwSbrCe3E6OsLG7BuQqEUt2fR6NxdDRSR9tQUp9=
-Tri
-AYG5LndmUzxeU6FAQjD8Wt1ezOFH5ODcCDXfRyYmE6uCGA4EvO8l9R3o68NPlUjPRAZsCbxJa=
-UAg
-iazX1nyQGwvOwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHU=
-E9e
-osYbT6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+q=
-bU6
-3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWWG=
-KdD
-egUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lvhFXod=
-NFM
-AgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsAEQEAAcLAf=
-AQY
-AQgAJhYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJbOdLgAhsMBQkDwmcAAAoJEGgNwR1TC3ojp=
-fcI
-AInwP5OlcEKokTnHCiDTz4Ony4GnHRP2fXATQZCKxmu4AJY2h9ifw9Nf2TjCZ6AMvC3thAN0r=
-FDj
-55N9l4s1CpaDo4J+0fkrHuyNacnT206CeJV1E7NYntxUn+LSiRrOdywn6erjxRi9EYTVLCHcD=
-hBE
-jKmFZfg4AM4GZMWX1lg0+eHbd5oL1as28WvvI/uIaMyV8RbyXot1r/8QLlWldU3NrTF5p7TMU=
-2y3
-ZH2mf5suSKHAMtbE4jKJ8ZHFOo3GhLgjVrBWHE9JXO08xKkgD+w6v83+nomsEuf6C6LYrqY/t=
-sZv
-yEX6zN8CtirPdPWu/VXNRYAl/lat7lSI3H26qrE=3D
-=3DmxFq
------END PGP PUBLIC KEY BLOCK-----
-
---------------48DBD59B2D3DA9B3F1157A8C--
-
---RRm5C0uGtMkV7H940wdCPnlbpXwupjX6h--
-
---YUFoqzJUldQQyKBkIpXsbAIlZEEXkH39E
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEchf7rIzpz2NEoWjlaA3BHVMLeiMFAl+bFWQFAwAAAAAACgkQaA3BHVMLeiOm
-qgf/djlp+xvwqtfbovjoe3Y03Sod5v49Z/8BGQc3+CPAXReqHdhcG7zRfYPiHh81YzwAYkFwCOTv
-jyTjlEXMXvC8bPqZp6MrZfBjG9CfzOLPGAdGJo6HCEDLNylsQKUwJteptGB9Exy8m4FU9p/KmCs6
-NW+fFDuxkInXRwd6PhBqZUSdRs0bVCHDjX3XKihozOQGcF/G3ltljHzBrR/qyAQMErgQOZNikdfo
-BgUkeTZ+L7KvakH7JvXRCEDa7tB5EF4zwxg8M4caBvMEV8+Ga0XzgzuSxeKh99dyYv1vN1wqusa3
-O+ohto2hp1WSyTSUPZRLsYKztoTN44Vyj/0Xu5SCuw==
-=k1Ed
------END PGP SIGNATURE-----
-
---YUFoqzJUldQQyKBkIpXsbAIlZEEXkH39E--
-
---===============2133075250==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 233bd894c5c3..45d8deafe89a 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -17770,7 +17770,8 @@ intel_mode_valid(struct drm_device *dev,
+ 
+ enum drm_mode_status
+ intel_mode_valid_max_plane_size(struct drm_i915_private *dev_priv,
+-				const struct drm_display_mode *mode)
++				const struct drm_display_mode *mode,
++				bool bigjoiner)
+ {
+ 	int plane_width_max, plane_height_max;
+ 
+@@ -17787,7 +17788,7 @@ intel_mode_valid_max_plane_size(struct drm_i915_private *dev_priv,
+ 	 * too big for that.
+ 	 */
+ 	if (INTEL_GEN(dev_priv) >= 11) {
+-		plane_width_max = 5120;
++		plane_width_max = 5120 << bigjoiner;
+ 		plane_height_max = 4320;
+ 	} else {
+ 		plane_width_max = 5120;
+diff --git a/drivers/gpu/drm/i915/display/intel_display.h b/drivers/gpu/drm/i915/display/intel_display.h
+index 1b946209e06b..4f8dee9dfb4d 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.h
++++ b/drivers/gpu/drm/i915/display/intel_display.h
+@@ -497,7 +497,8 @@ u32 intel_plane_fb_max_stride(struct drm_i915_private *dev_priv,
+ bool intel_plane_can_remap(const struct intel_plane_state *plane_state);
+ enum drm_mode_status
+ intel_mode_valid_max_plane_size(struct drm_i915_private *dev_priv,
+-				const struct drm_display_mode *mode);
++				const struct drm_display_mode *mode,
++				bool bigjoiner);
+ enum phy intel_port_to_phy(struct drm_i915_private *i915, enum port port);
+ bool is_trans_port_sync_mode(const struct intel_crtc_state *state);
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 2c29e7f5281b..2336b204a3e9 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -254,6 +254,17 @@ intel_dp_max_data_rate(int max_link_clock, int max_lanes)
+ 	return max_link_clock * max_lanes;
+ }
+ 
++bool intel_dp_can_bigjoiner(struct intel_dp *intel_dp)
++{
++	struct intel_digital_port *intel_dig_port = dp_to_dig_port(intel_dp);
++	struct intel_encoder *encoder = &intel_dig_port->base;
++	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
++
++	return INTEL_GEN(dev_priv) >= 12 ||
++		(INTEL_GEN(dev_priv) == 11 &&
++		 encoder->port != PORT_A);
++}
++
+ static int cnl_max_source_rate(struct intel_dp *intel_dp)
+ {
+ 	struct intel_digital_port *dig_port = dp_to_dig_port(intel_dp);
+@@ -519,7 +530,8 @@ small_joiner_ram_size_bits(struct drm_i915_private *i915)
+ 
+ static u16 intel_dp_dsc_get_output_bpp(struct drm_i915_private *i915,
+ 				       u32 link_clock, u32 lane_count,
+-				       u32 mode_clock, u32 mode_hdisplay)
++				       u32 mode_clock, u32 mode_hdisplay,
++				       bool bigjoiner)
+ {
+ 	u32 bits_per_pixel, max_bpp_small_joiner_ram;
+ 	int i;
+@@ -537,6 +549,10 @@ static u16 intel_dp_dsc_get_output_bpp(struct drm_i915_private *i915,
+ 	/* Small Joiner Check: output bpp <= joiner RAM (bits) / Horiz. width */
+ 	max_bpp_small_joiner_ram = small_joiner_ram_size_bits(i915) /
+ 		mode_hdisplay;
++
++	if (bigjoiner)
++		max_bpp_small_joiner_ram *= 2;
++
+ 	drm_dbg_kms(&i915->drm, "Max small joiner bpp: %u\n",
+ 		    max_bpp_small_joiner_ram);
+ 
+@@ -546,6 +562,15 @@ static u16 intel_dp_dsc_get_output_bpp(struct drm_i915_private *i915,
+ 	 */
+ 	bits_per_pixel = min(bits_per_pixel, max_bpp_small_joiner_ram);
+ 
++	if (bigjoiner) {
++		u32 max_bpp_bigjoiner =
++			i915->max_cdclk_freq * 48 /
++			intel_dp_mode_to_fec_clock(mode_clock);
++
++		DRM_DEBUG_KMS("Max big joiner bpp: %u\n", max_bpp_bigjoiner);
++		bits_per_pixel = min(bits_per_pixel, max_bpp_bigjoiner);
++	}
++
+ 	/* Error out if the max bpp is less than smallest allowed valid bpp */
+ 	if (bits_per_pixel < valid_dsc_bpp[0]) {
+ 		drm_dbg_kms(&i915->drm, "Unsupported BPP %u, min %u\n",
+@@ -568,7 +593,8 @@ static u16 intel_dp_dsc_get_output_bpp(struct drm_i915_private *i915,
+ }
+ 
+ static u8 intel_dp_dsc_get_slice_count(struct intel_dp *intel_dp,
+-				       int mode_clock, int mode_hdisplay)
++				       int mode_clock, int mode_hdisplay,
++				       bool bigjoiner)
+ {
+ 	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
+ 	u8 min_slice_count, i;
+@@ -595,12 +621,18 @@ static u8 intel_dp_dsc_get_slice_count(struct intel_dp *intel_dp,
+ 
+ 	/* Find the closest match to the valid slice count values */
+ 	for (i = 0; i < ARRAY_SIZE(valid_dsc_slicecount); i++) {
+-		if (valid_dsc_slicecount[i] >
+-		    drm_dp_dsc_sink_max_slice_count(intel_dp->dsc_dpcd,
+-						    false))
++		u8 test_slice_count = valid_dsc_slicecount[i] << bigjoiner;
++
++		if (test_slice_count >
++		    drm_dp_dsc_sink_max_slice_count(intel_dp->dsc_dpcd, false))
+ 			break;
+-		if (min_slice_count  <= valid_dsc_slicecount[i])
+-			return valid_dsc_slicecount[i];
++
++		/* big joiner needs small joiner to be enabled */
++		if (bigjoiner && test_slice_count < 4)
++			continue;
++
++		if (min_slice_count <= test_slice_count)
++			return test_slice_count;
+ 	}
+ 
+ 	drm_dbg_kms(&i915->drm, "Unsupported Slice Count %d\n",
+@@ -717,6 +749,7 @@ intel_dp_mode_valid(struct drm_connector *connector,
+ 	u16 dsc_max_output_bpp = 0;
+ 	u8 dsc_slice_count = 0;
+ 	enum drm_mode_status status;
++	bool dsc = false, bigjoiner = false;
+ 
+ 	if (mode->flags & DRM_MODE_FLAG_DBLSCAN)
+ 		return MODE_NO_DBLESCAN;
+@@ -737,6 +770,13 @@ intel_dp_mode_valid(struct drm_connector *connector,
+ 	if (mode->clock < 10000)
+ 		return MODE_CLOCK_LOW;
+ 
++	if (target_clock > max_dotclk && intel_dp_can_bigjoiner(intel_dp)) {
++		bigjoiner = true;
++		max_dotclk *= 2;
++	}
++	if (target_clock > max_dotclk)
++		return MODE_CLOCK_HIGH;
++
+ 	max_link_clock = intel_dp_max_link_rate(intel_dp);
+ 	max_lanes = intel_dp_max_lane_count(intel_dp);
+ 
+@@ -765,16 +805,23 @@ intel_dp_mode_valid(struct drm_connector *connector,
+ 							    max_link_clock,
+ 							    max_lanes,
+ 							    target_clock,
+-							    mode->hdisplay) >> 4;
++							    mode->hdisplay,
++							    bigjoiner) >> 4;
+ 			dsc_slice_count =
+ 				intel_dp_dsc_get_slice_count(intel_dp,
+ 							     target_clock,
+-							     mode->hdisplay);
++							     mode->hdisplay,
++							     bigjoiner);
+ 		}
++
++		dsc = dsc_max_output_bpp && dsc_slice_count;
+ 	}
+ 
+-	if ((mode_rate > max_rate && !(dsc_max_output_bpp && dsc_slice_count)) ||
+-	    target_clock > max_dotclk)
++	/* big joiner configuration needs DSC */
++	if (bigjoiner && !dsc)
++		return MODE_CLOCK_HIGH;
++
++	if (mode_rate > max_rate && !dsc)
+ 		return MODE_CLOCK_HIGH;
+ 
+ 	status = intel_dp_mode_valid_downstream(intel_connector,
+@@ -782,7 +829,7 @@ intel_dp_mode_valid(struct drm_connector *connector,
+ 	if (status != MODE_OK)
+ 		return status;
+ 
+-	return intel_mode_valid_max_plane_size(dev_priv, mode);
++	return intel_mode_valid_max_plane_size(dev_priv, mode, bigjoiner);
+ }
+ 
+ u32 intel_dp_pack_aux(const u8 *src, int src_bytes)
+@@ -2297,11 +2344,13 @@ static int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
+ 						    pipe_config->port_clock,
+ 						    pipe_config->lane_count,
+ 						    adjusted_mode->crtc_clock,
+-						    adjusted_mode->crtc_hdisplay);
++						    adjusted_mode->crtc_hdisplay,
++						    false);
+ 		dsc_dp_slice_count =
+ 			intel_dp_dsc_get_slice_count(intel_dp,
+ 						     adjusted_mode->crtc_clock,
+-						     adjusted_mode->crtc_hdisplay);
++						     adjusted_mode->crtc_hdisplay,
++						     false);
+ 		if (!dsc_max_output_bpp || !dsc_dp_slice_count) {
+ 			drm_dbg_kms(&dev_priv->drm,
+ 				    "Compressed BPP/Slice Count not supported\n");
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.h b/drivers/gpu/drm/i915/display/intel_dp.h
+index 3f862b4fd34f..b871a09b6901 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.h
++++ b/drivers/gpu/drm/i915/display/intel_dp.h
+@@ -106,6 +106,7 @@ bool intel_dp_source_supports_hbr3(struct intel_dp *intel_dp);
+ bool intel_dp_get_colorimetry_status(struct intel_dp *intel_dp);
+ int intel_dp_link_required(int pixel_clock, int bpp);
+ int intel_dp_max_data_rate(int max_link_clock, int max_lanes);
++bool intel_dp_can_bigjoiner(struct intel_dp *intel_dp);
+ bool intel_dp_needs_vsc_sdp(const struct intel_crtc_state *crtc_state,
+ 			    const struct drm_connector_state *conn_state);
+ void intel_dp_compute_psr_vsc_sdp(struct intel_dp *intel_dp,
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+index c8fcec4d0788..0c8684634fca 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+@@ -714,7 +714,7 @@ intel_dp_mst_mode_valid_ctx(struct drm_connector *connector,
+ 		return 0;
+ 	}
+ 
+-	*status = intel_mode_valid_max_plane_size(dev_priv, mode);
++	*status = intel_mode_valid_max_plane_size(dev_priv, mode, false);
+ 	return 0;
+ }
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_dsi.c b/drivers/gpu/drm/i915/display/intel_dsi.c
+index afa4e6817e8c..f453ceb8d149 100644
+--- a/drivers/gpu/drm/i915/display/intel_dsi.c
++++ b/drivers/gpu/drm/i915/display/intel_dsi.c
+@@ -75,7 +75,7 @@ enum drm_mode_status intel_dsi_mode_valid(struct drm_connector *connector,
+ 			return MODE_CLOCK_HIGH;
+ 	}
+ 
+-	return intel_mode_valid_max_plane_size(dev_priv, mode);
++	return intel_mode_valid_max_plane_size(dev_priv, mode, false);
+ }
+ 
+ struct intel_dsi_host *intel_dsi_host_init(struct intel_dsi *intel_dsi,
+diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
+index f90838bc74fb..82674a8853c6 100644
+--- a/drivers/gpu/drm/i915/display/intel_hdmi.c
++++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
+@@ -2274,7 +2274,7 @@ intel_hdmi_mode_valid(struct drm_connector *connector,
+ 	if (status != MODE_OK)
+ 		return status;
+ 
+-	return intel_mode_valid_max_plane_size(dev_priv, mode);
++	return intel_mode_valid_max_plane_size(dev_priv, mode, false);
+ }
+ 
+ bool intel_hdmi_deep_color_possible(const struct intel_crtc_state *crtc_state,
+-- 
+2.19.1
 
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-
---===============2133075250==--
