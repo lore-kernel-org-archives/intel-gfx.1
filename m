@@ -7,52 +7,52 @@ X-Spam-Status: No, score=-8.5 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 18321C00A89
-	for <intel-gfx@archiver.kernel.org>; Fri, 30 Oct 2020 08:31:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 82AFEC55179
+	for <intel-gfx@archiver.kernel.org>; Fri, 30 Oct 2020 08:34:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A4C2B20739
-	for <intel-gfx@archiver.kernel.org>; Fri, 30 Oct 2020 08:31:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A4C2B20739
+	by mail.kernel.org (Postfix) with ESMTPS id 15E4520739
+	for <intel-gfx@archiver.kernel.org>; Fri, 30 Oct 2020 08:34:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 15E4520739
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1DFFD6ED04;
-	Fri, 30 Oct 2020 08:31:38 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 46E926ED04
- for <intel-gfx@lists.freedesktop.org>; Fri, 30 Oct 2020 08:31:36 +0000 (UTC)
-IronPort-SDR: WmRz8EH0E/sFspkdu3jHL86iArt2eyXT0V7G/fFeWQyqvowBBzE74xEFa3Cv5up+0df3QaWN7g
- l8xNLt7MQH1A==
-X-IronPort-AV: E=McAfee;i="6000,8403,9789"; a="167795088"
-X-IronPort-AV: E=Sophos;i="5.77,432,1596524400"; d="scan'208";a="167795088"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4AB5F6ED0D;
+	Fri, 30 Oct 2020 08:34:33 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BABA66ED0D
+ for <intel-gfx@lists.freedesktop.org>; Fri, 30 Oct 2020 08:34:31 +0000 (UTC)
+IronPort-SDR: BUZ3UZ3Pgk1mVvYCR1hEuPz+47DJDFzN4okpdmIduQIFJ/G9UbhBv04aauWMlJVptle3R2an/z
+ vxqMisWMqEGg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9789"; a="168673363"
+X-IronPort-AV: E=Sophos;i="5.77,432,1596524400"; d="scan'208";a="168673363"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Oct 2020 01:31:35 -0700
-IronPort-SDR: BPc7g/lsOHGg9ueuK+adijo1yVsVMZ92k5Kf1SyNNydOGVVyBLTPdWBzk35piGWUkfX32W0qYD
- d4S5rkJlwn/A==
-X-IronPort-AV: E=Sophos;i="5.77,432,1596524400"; d="scan'208";a="351790522"
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Oct 2020 01:34:31 -0700
+IronPort-SDR: h/yd4oji1cZipllDsygEG+cRGWrqCUAit+E+I6TNHnI1bGp3T2tZ6tCdncSERn7NVEyUltt+Eg
+ bG2+7FEAiXkg==
+X-IronPort-AV: E=Sophos;i="5.77,432,1596524400"; d="scan'208";a="351791119"
 Received: from oc5mblwhs02.amr.corp.intel.com (HELO
  Win10-45-1tb161.SSPE.ch.intel.com) ([10.249.254.155])
  by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Oct 2020 01:31:35 -0700
+ 30 Oct 2020 01:34:30 -0700
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  intel-gfx@lists.freedesktop.org
 References: <20201016104444.1492028-1-maarten.lankhorst@linux.intel.com>
- <20201016104444.1492028-8-maarten.lankhorst@linux.intel.com>
+ <20201016104444.1492028-9-maarten.lankhorst@linux.intel.com>
 From: =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas.hellstrom@linux.intel.com>
-Message-ID: <a1d7eccd-12ff-5d5b-b08d-c40f36d9a3df@linux.intel.com>
-Date: Fri, 30 Oct 2020 09:31:32 +0100
+Message-ID: <58eb90b3-aeb1-eae2-a412-70247971e2a1@linux.intel.com>
+Date: Fri, 30 Oct 2020 09:34:28 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.3.1
 MIME-Version: 1.0
-In-Reply-To: <20201016104444.1492028-8-maarten.lankhorst@linux.intel.com>
+In-Reply-To: <20201016104444.1492028-9-maarten.lankhorst@linux.intel.com>
 Content-Language: en-US
-Subject: Re: [Intel-gfx] [PATCH v4 07/61] drm/i915: Move HAS_STRUCT_PAGE to
- obj->flags
+Subject: Re: [Intel-gfx] [PATCH v4 08/61] drm/i915: Rework struct phys
+ attachment handling
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,14 +70,14 @@ Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Ck9uIDEwLzE2LzIwIDEyOjQzIFBNLCBNYWFydGVuIExhbmtob3JzdCB3cm90ZToKPiBXZSB3YW50
-IHRvIHJlbW92ZSB0aGUgY2hhbmdpbmcgb2Ygb3BzIHN0cnVjdHVyZSBmb3IgYXR0YWNoaW5nCj4g
-cGh5cyBwYWdlcywgc28gd2UgbmVlZCB0byBraWxsIG9mZiBIQVNfU1RSVUNUX1BBR0UgZnJvbSBv
-cHMtPmZsYWdzLAo+IGFuZCBwdXQgaXQgaW4gdGhlIGJvLgo+Cj4gVGhpcyB3aWxsIHJlbW92ZSBh
-IHBvdGVudGlhbCByYWNlIG9mIGRlcmVmZXJlbmNpbmcgdGhlIHdyb25nIG9iai0+b3BzCj4gd2l0
-aG91dCB3dyBtdXRleCBoZWxkLgo+Cj4gU2lnbmVkLW9mZi1ieTogTWFhcnRlbiBMYW5raG9yc3Qg
-PG1hYXJ0ZW4ubGFua2hvcnN0QGxpbnV4LmludGVsLmNvbT4KClJldmlld2VkLWJ5OiBUaG9tYXMg
-SGVsbHN0csO2bSA8dGhvbWFzLmhlbGxzdHJvbUBsaW51eC5pbnRlbC5jb20+CgoKX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcg
-bGlzdApJbnRlbC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vaW50ZWwtZ2Z4Cg==
+Ck9uIDEwLzE2LzIwIDEyOjQzIFBNLCBNYWFydGVuIExhbmtob3JzdCB3cm90ZToKPiBJbnN0ZWFk
+IG9mIGNyZWF0aW5nIGEgc2VwYXJhdGUgb2JqZWN0IHR5cGUsIHdlIG1ha2UgY2hhbmdlcyB0bwo+
+IHRoZSBzaG1lbSB0eXBlLCB0byBjbGVhciBzdHJ1Y3QgcGFnZSBiYWNraW5nLiBUaGlzIHdpbGwg
+YWxsb3cgdXMgdG8KPiBlbnN1cmUgd2UgbmV2ZXIgcnVuIGludG8gYSByYWNlIHdoZW4gd2UgZXhj
+aGFuZ2Ugb2JqLT5vcHMgd2l0aCBvdGhlcgo+IGZ1bmN0aW9uIHBvaW50ZXJzLgo+Cj4gU2lnbmVk
+LW9mZi1ieTogTWFhcnRlbiBMYW5raG9yc3QgPG1hYXJ0ZW4ubGFua2hvcnN0QGxpbnV4LmludGVs
+LmNvbT4KClJldmlld2VkLWJ5OiBUaG9tYXMgSGVsbHN0csO2bSA8dGhvbWFzLmhlbGxzdHJvbUBs
+aW51eC5pbnRlbC5jb20+CgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRlbC1nZnhAbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vaW50
+ZWwtZ2Z4Cg==
