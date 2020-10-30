@@ -2,39 +2,51 @@ Return-Path: <SRS0=RQjs=EF=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-9.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3E7A7C00A89
-	for <intel-gfx@archiver.kernel.org>; Fri, 30 Oct 2020 15:32:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C701BC55178
+	for <intel-gfx@archiver.kernel.org>; Fri, 30 Oct 2020 16:05:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5B8F220704
-	for <intel-gfx@archiver.kernel.org>; Fri, 30 Oct 2020 15:32:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5B8F220704
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
+	by mail.kernel.org (Postfix) with ESMTPS id 678A820724
+	for <intel-gfx@archiver.kernel.org>; Fri, 30 Oct 2020 16:05:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 678A820724
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 82F6A6EDFB;
-	Fri, 30 Oct 2020 15:32:21 +0000 (UTC)
-Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E6E686EDFE
- for <intel-gfx@lists.freedesktop.org>; Fri, 30 Oct 2020 15:32:19 +0000 (UTC)
-X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
- x-ip-name=78.156.65.138; 
-Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22846146-1500050 
- for multiple; Fri, 30 Oct 2020 15:32:10 +0000
-From: Chris Wilson <chris@chris-wilson.co.uk>
-To: intel-gfx@lists.freedesktop.org
-Date: Fri, 30 Oct 2020 15:32:09 +0000
-Message-Id: <20201030153209.14808-1-chris@chris-wilson.co.uk>
-X-Mailer: git-send-email 2.20.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id B02BC6E9B3;
+	Fri, 30 Oct 2020 16:05:14 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 657476E9B3
+ for <intel-gfx@lists.freedesktop.org>; Fri, 30 Oct 2020 16:05:13 +0000 (UTC)
+IronPort-SDR: vjOOCat23Frhj9KpSiLl9+gpE3n3SJuHLMXU2280u/bZR1t1Ff+krXE5brQsvar/zivqWJwJVo
+ GvTgzEKKgwIQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9790"; a="168723798"
+X-IronPort-AV: E=Sophos;i="5.77,433,1596524400"; d="scan'208";a="168723798"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Oct 2020 09:05:12 -0700
+IronPort-SDR: Lj/qbzAJpo7LOkQxFx04JSAt3QWs3XjoSga0Dj2YDQ0q55wBRxw91j+7XVH5A6pk7pqrjqQubV
+ wXsI8OmH2VFA==
+X-IronPort-AV: E=Sophos;i="5.77,433,1596524400"; d="scan'208";a="537112767"
+Received: from ideak-desk.fi.intel.com ([10.237.68.141])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Oct 2020 09:05:11 -0700
+Date: Fri, 30 Oct 2020 18:05:08 +0200
+From: Imre Deak <imre.deak@intel.com>
+To: Chris Wilson <chris@chris-wilson.co.uk>
+Message-ID: <20201030160508.GB3811545@ideak-desk.fi.intel.com>
+References: <20201030153209.14808-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH] drm/i915: Reduce severity for fixing up
+Content-Disposition: inline
+In-Reply-To: <20201030153209.14808-1-chris@chris-wilson.co.uk>
+Subject: Re: [Intel-gfx] [PATCH] drm/i915: Reduce severity for fixing up
  mistaken VBT tc->legacy_port
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -48,46 +60,57 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Chris Wilson <chris@chris-wilson.co.uk>
+Reply-To: imre.deak@intel.com
+Cc: intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-If the VBT assigned tc->legacy_port mismatches the live_status indicator
-for the connector, we ignore the VBT directive and switch over to the HW
-setting. This is not a driver error, unless we happen to misparse the
-VBT or the live_status registers. However, for the system in CI where
-the error is only reported on 1 port out of 4, the evidence indicates
-the VBT is wrong. Stop flaging this as an error since the cause is
-beyond our control, fixup the mistake and continue on.
+On Fri, Oct 30, 2020 at 03:32:09PM +0000, Chris Wilson wrote:
+> If the VBT assigned tc->legacy_port mismatches the live_status indicator
+> for the connector, we ignore the VBT directive and switch over to the HW
+> setting. This is not a driver error, unless we happen to misparse the
+> VBT or the live_status registers. However, for the system in CI where
+> the error is only reported on 1 port out of 4, the evidence indicates
+> the VBT is wrong. Stop flaging this as an error since the cause is
+> beyond our control, fixup the mistake and continue on.
+> 
+> Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+> Cc: Imre Deak <imre.deak@intel.com>
 
-Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-Cc: Imre Deak <imre.deak@intel.com>
----
- drivers/gpu/drm/i915/display/intel_tc.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+My intention was to keep this as an error so BIOS etc. team would have
+more motivation to act on it. But it didn't work out, so yes no need
+to add noise:
 
-diff --git a/drivers/gpu/drm/i915/display/intel_tc.c b/drivers/gpu/drm/i915/display/intel_tc.c
-index 8f67aef18b2d..6155ea6127a4 100644
---- a/drivers/gpu/drm/i915/display/intel_tc.c
-+++ b/drivers/gpu/drm/i915/display/intel_tc.c
-@@ -228,9 +228,9 @@ static void tc_port_fixup_legacy_flag(struct intel_digital_port *dig_port,
- 		return;
- 
- 	/* If live status mismatches the VBT flag, trust the live status. */
--	drm_err(&i915->drm,
--		"Port %s: live status %08x mismatches the legacy port flag, fix flag\n",
--		dig_port->tc_port_name, live_status_mask);
-+	drm_dbg_kms(&i915->drm,
-+		    "Port %s: live status %08x mismatches the legacy port flag %08x, fixing flag\n",
-+		    dig_port->tc_port_name, live_status_mask, valid_hpd_mask);
- 
- 	dig_port->tc_legacy_port = !dig_port->tc_legacy_port;
- }
--- 
-2.20.1
+Reviewed-by: Imre Deak <imre.deak@intel.com>
 
+The rule could be then to never add errors for known BIOS issues.
+
+> ---
+>  drivers/gpu/drm/i915/display/intel_tc.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_tc.c b/drivers/gpu/drm/i915/display/intel_tc.c
+> index 8f67aef18b2d..6155ea6127a4 100644
+> --- a/drivers/gpu/drm/i915/display/intel_tc.c
+> +++ b/drivers/gpu/drm/i915/display/intel_tc.c
+> @@ -228,9 +228,9 @@ static void tc_port_fixup_legacy_flag(struct intel_digital_port *dig_port,
+>  		return;
+>  
+>  	/* If live status mismatches the VBT flag, trust the live status. */
+> -	drm_err(&i915->drm,
+> -		"Port %s: live status %08x mismatches the legacy port flag, fix flag\n",
+> -		dig_port->tc_port_name, live_status_mask);
+> +	drm_dbg_kms(&i915->drm,
+> +		    "Port %s: live status %08x mismatches the legacy port flag %08x, fixing flag\n",
+> +		    dig_port->tc_port_name, live_status_mask, valid_hpd_mask);
+>  
+>  	dig_port->tc_legacy_port = !dig_port->tc_legacy_port;
+>  }
+> -- 
+> 2.20.1
+> 
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
