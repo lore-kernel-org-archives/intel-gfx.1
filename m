@@ -2,58 +2,69 @@ Return-Path: <SRS0=RQjs=EF=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.5 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9CFA1C6379D
-	for <intel-gfx@archiver.kernel.org>; Fri, 30 Oct 2020 10:10:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 16BAEC00A89
+	for <intel-gfx@archiver.kernel.org>; Fri, 30 Oct 2020 10:11:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3413521734
-	for <intel-gfx@archiver.kernel.org>; Fri, 30 Oct 2020 10:10:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3413521734
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 9BCE522227
+	for <intel-gfx@archiver.kernel.org>; Fri, 30 Oct 2020 10:11:13 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="cyuvye3f"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9BCE522227
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9445E6E9A2;
-	Fri, 30 Oct 2020 10:10:54 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7B1906E062
- for <intel-gfx@lists.freedesktop.org>; Fri, 30 Oct 2020 10:10:53 +0000 (UTC)
-IronPort-SDR: mrqGsGg9fwco7h1VxtXMxls4gHkC3f9wiEMmdgLdO2J240HPRzrs/R0nMSX424BLrtnucUS8Eu
- G9bj+KqLrhZw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9789"; a="155560711"
-X-IronPort-AV: E=Sophos;i="5.77,432,1596524400"; d="scan'208";a="155560711"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Oct 2020 03:10:52 -0700
-IronPort-SDR: /FODTiUXcH/4i8e8a1+TuFhL6Lk2A4dfsZTUAKiNEJdFAWuQ6S5vY7EIicBPaUs/PDtzwF1ZoX
- eZRF2MxJLFKQ==
-X-IronPort-AV: E=Sophos;i="5.77,432,1596524400"; d="scan'208";a="527067541"
-Received: from bmurphy-mobl.ger.corp.intel.com (HELO [10.249.41.199])
- ([10.249.41.199])
- by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Oct 2020 03:10:51 -0700
-To: =?UTF-8?Q?Thomas_Hellstr=c3=b6m_=28Intel=29?= <thomas_os@shipmail.org>,
- intel-gfx@lists.freedesktop.org
-References: <20201016104444.1492028-1-maarten.lankhorst@linux.intel.com>
- <20201016104444.1492028-15-maarten.lankhorst@linux.intel.com>
- <02b0d2c2-5687-03b1-7741-34a3c2c819ac@shipmail.org>
-From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Message-ID: <c327ca8c-2fcd-ff90-381c-16f414f0df3a@linux.intel.com>
-Date: Fri, 30 Oct 2020 11:10:50 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.4.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id E01616ED9C;
+	Fri, 30 Oct 2020 10:11:12 +0000 (UTC)
+Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
+ [IPv6:2a00:1450:4864:20::342])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2359F6ED9B
+ for <intel-gfx@lists.freedesktop.org>; Fri, 30 Oct 2020 10:11:12 +0000 (UTC)
+Received: by mail-wm1-x342.google.com with SMTP id c16so2406703wmd.2
+ for <intel-gfx@lists.freedesktop.org>; Fri, 30 Oct 2020 03:11:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=VDn+J8ngV47strrQhclt1Bp8IV8eJ4QSc1r+a3zx4GU=;
+ b=cyuvye3fZ5WgsQZpTjtBis3v6jomeoLZ9j2JMnM87VCsi48ogh4TSXyIJecVGrMHA/
+ p/JMBEO8id/6+NCsy7vvqHdl+QhsenoWkMmgkbBGxWGaaq0/ExeQCeR583Mmem96mtUY
+ PS2zf/A+cUEuH5LnEXmdSGISnkUUJk9bl0cyM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=VDn+J8ngV47strrQhclt1Bp8IV8eJ4QSc1r+a3zx4GU=;
+ b=myhJ5NtwJHSW5/ZazqADTcPq/f7jJG1HIuPAfPQQBGNQm+WqZjgkAYiIpTpTWQK0MR
+ qGIZv6g3gy5JgkxNsbma/uReJ6dfb7v9mHR9AQZpOKGPSUiO27gXbkYzjMGr3UeNK6Jx
+ stTtaOq23OrscHcWQxANvHOWmozshG6roJ/vZd6IwYz/Yq4FWin2/421t2YyeRm061qG
+ 8r7l4LAxcJ0OgRYst2JhS4wm8Yc56RkGC+9Gw+6gQVTuXBWTuBHshvRvitggmLx0ItQm
+ pC2lq20GPk2OMm8bVfS7sw7NVGaSlu94SHo+6bh3l93vUu/rDDwgyxs7rxZ5yHbm0AGp
+ P1uQ==
+X-Gm-Message-State: AOAM531bOK74MK+ylx0Ui118mTVcycCGUIloZTgFH/NXzVueyfD6G+UK
+ 6o9GDYwccSJQWIWFEaWoNOyw3w==
+X-Google-Smtp-Source: ABdhPJz+l6JBUPW6MTliHPs9PuNY1eaSt2tcrMkFeqDuQ/Pj0DQzoNDkZFSZr7sUdq609E1L4A+Dgg==
+X-Received: by 2002:a7b:c384:: with SMTP id s4mr1755255wmj.77.1604052670821;
+ Fri, 30 Oct 2020 03:11:10 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id q10sm9735769wrp.83.2020.10.30.03.11.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 30 Oct 2020 03:11:10 -0700 (PDT)
+From: Daniel Vetter <daniel.vetter@ffwll.ch>
+To: DRI Development <dri-devel@lists.freedesktop.org>
+Date: Fri, 30 Oct 2020 11:11:01 +0100
+Message-Id: <20201030101104.2503-2-daniel.vetter@ffwll.ch>
+X-Mailer: git-send-email 2.28.0
+In-Reply-To: <20201030101104.2503-1-daniel.vetter@ffwll.ch>
+References: <20201030101104.2503-1-daniel.vetter@ffwll.ch>
 MIME-Version: 1.0
-In-Reply-To: <02b0d2c2-5687-03b1-7741-34a3c2c819ac@shipmail.org>
-Content-Language: en-US
-Subject: Re: [Intel-gfx] [PATCH v4 14/61] drm/i915: Reject UNSYNCHRONIZED
- for userptr
+Subject: [Intel-gfx] [PATCH 2/5] drm: Compile out legacy chunks from struct
+ drm_device
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,23 +77,126 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: David Airlie <airlied@linux.ie>, Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Daniel Vetter <daniel.vetter@intel.com>, Sam Ravnborg <sam@ravnborg.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-T3AgMzAtMTAtMjAyMCBvbSAxMDoyNiBzY2hyZWVmIFRob21hcyBIZWxsc3Ryw7ZtIChJbnRlbCk6
-Cj4KPiBPbiAxMC8xNi8yMCAxMjo0MyBQTSwgTWFhcnRlbiBMYW5raG9yc3Qgd3JvdGU6Cj4+IFdl
-IHNob3VsZCBub3QgYWxsb3cgdGhpcyBhbnkgbW9yZSwgYXMgaXQgd2lsbCBicmVhayB3aXRoIHRo
-ZSBuZXcgdXNlcnB0cgo+PiBpbXBsZW1lbnRhdGlvbiwgaXQgY291bGQgc3RpbGwgYmUgbWFkZSB0
-byB3b3JrLCBidXQgdGhlcmUncyBubyBwb2ludCBpbgo+PiBkb2luZyBzby4KPj4KPj4gU2lnbmVk
-LW9mZi1ieTogTWFhcnRlbiBMYW5raG9yc3QgPG1hYXJ0ZW4ubGFua2hvcnN0QGxpbnV4LmludGVs
-LmNvbT4KPgo+IElmZGVmcyBkb24ndCBhcHBlYXIgY29uc2lzdGVudCB3aXRoIHRoZSBjb21taXQg
-bWVzc2FnZS4gV3JvbmcgcGF0Y2ggb3Igc2VwYXJhdGUgcGF0Y2g/Cj4KPiBBbHNvIHBsZWFzZSBh
-ZGQgYSBkaXNjdXNzaW9uIHdoYXQgaW1wYWN0IHRoaXMgaGFzIG9uIGV4aXN0aW5nIHVzZXItc3Bh
-Y2UuCj4KPgpJbXBhY3Qgc2hvdWxkIGJlIGxvdywgeGY4Ni12aWRlby1pbnRlbCB3aXRoIFNOQSB3
-YXMgdXNpbmcgdW5zeW5jaHJvbml6ZWQsIGJ1dCB3aWxsIGZhbGwgYmFjayB0byBzeW5jaHJvbml6
-ZWQgaWYgbm90IGF2YWlsYWJsZS4KCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fCkludGVsLWdmeCBtYWlsaW5nIGxpc3QKSW50ZWwtZ2Z4QGxpc3RzLmZyZWVk
-ZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZv
-L2ludGVsLWdmeAo=
+This means some very few #ifdef in code, but it allows us to
+enlist the compiler to make sure this stuff isn't used anymore.
+
+More important, only legacy drivers change drm_device (for the
+legacy_dev_list shadow attach management), therefore this is
+prep to allow modern drivers to have a const driver struct. Which
+is nice, because there's a ton of function pointers in there.
+
+Acked-by: Maxime Ripard <mripard@kernel.org>
+Reviewed-by: Sam Ravnborg <sam@ravnborg.org>
+Review-by: Thomas Zimmermann <tzimmermann@suse.de>
+Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
+Cc: Sam Ravnborg <sam@ravnborg.org>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: David Airlie <airlied@linux.ie>
+Cc: Daniel Vetter <daniel@ffwll.ch>
+Signed-off-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+---
+ drivers/gpu/drm/drm_file.c   |  2 ++
+ drivers/gpu/drm/drm_vblank.c | 15 ++++++++++++---
+ include/drm/drm_drv.h        |  2 ++
+ 3 files changed, 16 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
+index 0ac4566ae3f4..b50380fa80ce 100644
+--- a/drivers/gpu/drm/drm_file.c
++++ b/drivers/gpu/drm/drm_file.c
+@@ -258,9 +258,11 @@ void drm_file_free(struct drm_file *file)
+ 		  (long)old_encode_dev(file->minor->kdev->devt),
+ 		  atomic_read(&dev->open_count));
+ 
++#ifdef CONFIG_DRM_LEGACY
+ 	if (drm_core_check_feature(dev, DRIVER_LEGACY) &&
+ 	    dev->driver->preclose)
+ 		dev->driver->preclose(dev, file);
++#endif
+ 
+ 	if (drm_core_check_feature(dev, DRIVER_LEGACY))
+ 		drm_legacy_lock_release(dev, file->filp);
+diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/drm_vblank.c
+index ba7e741764aa..15e5ea436434 100644
+--- a/drivers/gpu/drm/drm_vblank.c
++++ b/drivers/gpu/drm/drm_vblank.c
+@@ -210,9 +210,12 @@ static u32 __get_vblank_counter(struct drm_device *dev, unsigned int pipe)
+ 
+ 		if (crtc->funcs->get_vblank_counter)
+ 			return crtc->funcs->get_vblank_counter(crtc);
+-	} else if (dev->driver->get_vblank_counter) {
++	}
++#ifdef CONFIG_DRM_LEGACY
++	else if (dev->driver->get_vblank_counter) {
+ 		return dev->driver->get_vblank_counter(dev, pipe);
+ 	}
++#endif
+ 
+ 	return drm_vblank_no_hw_counter(dev, pipe);
+ }
+@@ -430,9 +433,12 @@ static void __disable_vblank(struct drm_device *dev, unsigned int pipe)
+ 
+ 		if (crtc->funcs->disable_vblank)
+ 			crtc->funcs->disable_vblank(crtc);
+-	} else {
++	}
++#ifdef CONFIG_DRM_LEGACY
++	else {
+ 		dev->driver->disable_vblank(dev, pipe);
+ 	}
++#endif
+ }
+ 
+ /*
+@@ -1097,9 +1103,12 @@ static int __enable_vblank(struct drm_device *dev, unsigned int pipe)
+ 
+ 		if (crtc->funcs->enable_vblank)
+ 			return crtc->funcs->enable_vblank(crtc);
+-	} else if (dev->driver->enable_vblank) {
++	}
++#ifdef CONFIG_DRM_LEGACY
++	else if (dev->driver->enable_vblank) {
+ 		return dev->driver->enable_vblank(dev, pipe);
+ 	}
++#endif
+ 
+ 	return -EINVAL;
+ }
+diff --git a/include/drm/drm_drv.h b/include/drm/drm_drv.h
+index c6d17550efc9..7af220226a25 100644
+--- a/include/drm/drm_drv.h
++++ b/include/drm/drm_drv.h
+@@ -498,6 +498,7 @@ struct drm_driver {
+ 	 */
+ 	const struct file_operations *fops;
+ 
++#ifdef CONFIG_DRM_LEGACY
+ 	/* Everything below here is for legacy driver, never use! */
+ 	/* private: */
+ 
+@@ -512,6 +513,7 @@ struct drm_driver {
+ 	int (*enable_vblank)(struct drm_device *dev, unsigned int pipe);
+ 	void (*disable_vblank)(struct drm_device *dev, unsigned int pipe);
+ 	int dev_priv_size;
++#endif
+ };
+ 
+ void *__devm_drm_dev_alloc(struct device *parent, struct drm_driver *driver,
+-- 
+2.28.0
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
