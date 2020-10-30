@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7E4E9C4363A
-	for <intel-gfx@archiver.kernel.org>; Fri, 30 Oct 2020 11:10:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BC7BBC00A89
+	for <intel-gfx@archiver.kernel.org>; Fri, 30 Oct 2020 11:10:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E62E920728
-	for <intel-gfx@archiver.kernel.org>; Fri, 30 Oct 2020 11:10:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E62E920728
+	by mail.kernel.org (Postfix) with ESMTPS id 170DE20728
+	for <intel-gfx@archiver.kernel.org>; Fri, 30 Oct 2020 11:10:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 170DE20728
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F30AA6EDAE;
-	Fri, 30 Oct 2020 11:10:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 267456EDB3;
+	Fri, 30 Oct 2020 11:10:14 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C46D76EDAE
- for <intel-gfx@lists.freedesktop.org>; Fri, 30 Oct 2020 11:10:11 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4950C6EDAE
+ for <intel-gfx@lists.freedesktop.org>; Fri, 30 Oct 2020 11:10:10 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22842913-1500050 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22842915-1500050 
  for multiple; Fri, 30 Oct 2020 11:10:03 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 30 Oct 2020 11:09:58 +0000
-Message-Id: <20201030111001.7685-4-chris@chris-wilson.co.uk>
+Date: Fri, 30 Oct 2020 11:10:00 +0000
+Message-Id: <20201030111001.7685-6-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201030111001.7685-1-chris@chris-wilson.co.uk>
 References: <20201030111001.7685-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 4/7] drm/i915/gt: Expose more parameters for
- emitting writes into the ring
+Subject: [Intel-gfx] [PATCH 6/7] drm/i915/selftests: Exercise relative
+ timeline modes
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,103 +56,117 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add another lower level to emit_ggtt_write so that the GGTT nature of
-the write is not hardcoded into the emitter.
+A quick test to verify that the backend accepts each type of timeline
+and can use them to track and control request emission.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 ---
- drivers/gpu/drm/i915/gt/intel_engine.h | 55 ++++++++++++++++----------
- 1 file changed, 35 insertions(+), 20 deletions(-)
+ drivers/gpu/drm/i915/gt/selftest_timeline.c | 89 +++++++++++++++++++++
+ 1 file changed, 89 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine.h b/drivers/gpu/drm/i915/gt/intel_engine.h
-index 7c3a1012e702..760fefdfe392 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine.h
-+++ b/drivers/gpu/drm/i915/gt/intel_engine.h
-@@ -245,22 +245,14 @@ static inline u32 *gen12_emit_pipe_control(u32 *batch, u32 flags0, u32 flags1, u
+diff --git a/drivers/gpu/drm/i915/gt/selftest_timeline.c b/drivers/gpu/drm/i915/gt/selftest_timeline.c
+index 6dafd335101a..b469a3248198 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_timeline.c
++++ b/drivers/gpu/drm/i915/gt/selftest_timeline.c
+@@ -1365,9 +1365,98 @@ static int live_hwsp_recycle(void *arg)
+ 	return err;
  }
  
- static inline u32 *
--__gen8_emit_ggtt_write_rcs(u32 *cs, u32 value, u32 gtt_offset, u32 flags0, u32 flags1)
-+__gen8_emit_write_rcs(u32 *cs, u32 value, u32 offset, u32 flags0, u32 flags1)
- {
--	/* We're using qword write, offset should be aligned to 8 bytes. */
--	GEM_BUG_ON(!IS_ALIGNED(gtt_offset, 8));
--
--	/* w/a for post sync ops following a GPGPU operation we
--	 * need a prior CS_STALL, which is emitted by the flush
--	 * following the batch.
--	 */
- 	*cs++ = GFX_OP_PIPE_CONTROL(6) | flags0;
--	*cs++ = flags1 | PIPE_CONTROL_QW_WRITE | PIPE_CONTROL_GLOBAL_GTT_IVB;
--	*cs++ = gtt_offset;
-+	*cs++ = flags1 | PIPE_CONTROL_QW_WRITE;
-+	*cs++ = offset;
- 	*cs++ = 0;
- 	*cs++ = value;
--	/* We're thrashing one dword of HWS. */
--	*cs++ = 0;
-+	*cs++ = 0; /* We're thrashing one extra dword. */
- 
- 	return cs;
- }
-@@ -268,13 +260,38 @@ __gen8_emit_ggtt_write_rcs(u32 *cs, u32 value, u32 gtt_offset, u32 flags0, u32 f
- static inline u32*
- gen8_emit_ggtt_write_rcs(u32 *cs, u32 value, u32 gtt_offset, u32 flags)
- {
--	return __gen8_emit_ggtt_write_rcs(cs, value, gtt_offset, 0, flags);
-+	/* We're using qword write, offset should be aligned to 8 bytes. */
-+	GEM_BUG_ON(!IS_ALIGNED(gtt_offset, 8));
++static int live_hwsp_relative(void *arg)
++{
++	struct intel_gt *gt = arg;
++	struct intel_engine_cs *engine;
++	enum intel_engine_id id;
 +
-+	return __gen8_emit_write_rcs(cs,
-+				     value,
-+				     gtt_offset,
-+				     0,
-+				     flags | PIPE_CONTROL_GLOBAL_GTT_IVB);
- }
- 
- static inline u32*
- gen12_emit_ggtt_write_rcs(u32 *cs, u32 value, u32 gtt_offset, u32 flags0, u32 flags1)
- {
--	return __gen8_emit_ggtt_write_rcs(cs, value, gtt_offset, flags0, flags1);
-+	/* We're using qword write, offset should be aligned to 8 bytes. */
-+	GEM_BUG_ON(!IS_ALIGNED(gtt_offset, 8));
++	/*
++	 * Check backed support for different timeline modes.
++	 */
 +
-+	return __gen8_emit_write_rcs(cs,
-+				     value,
-+				     gtt_offset,
-+				     flags0,
-+				     flags1 | PIPE_CONTROL_GLOBAL_GTT_IVB);
++	for_each_engine(engine, gt, id) {
++		enum intel_timeline_mode mode;
++
++		if (!engine->schedule)
++			continue;
++
++		for (mode = INTEL_TIMELINE_ABSOLUTE;
++		     mode <= INTEL_TIMELINE_GLOBAL;
++		     mode++) {
++			struct intel_timeline *tl;
++			struct i915_request *rq;
++			struct intel_context *ce;
++			const char *msg;
++			int err;
++
++			ce = intel_context_create(engine);
++			if (IS_ERR(ce))
++				return PTR_ERR(ce);
++
++			err = intel_context_alloc_state(ce);
++			if (err) {
++				intel_context_put(ce);
++				return err;
++			}
++
++			switch (mode) {
++			case INTEL_TIMELINE_ABSOLUTE:
++				tl = intel_timeline_create(gt);
++				msg = "local";
++				break;
++
++			case INTEL_TIMELINE_CONTEXT:
++				tl = __intel_timeline_create(gt,
++							     ce->state,
++							     256 | INTEL_TIMELINE_CONTEXT);
++				msg = "ppHWSP";
++				break;
++
++			case INTEL_TIMELINE_GLOBAL:
++				tl = __intel_timeline_create(gt,
++							     engine->status_page.vma,
++							     256);
++				msg = "HWSP";
++				break;
++			}
++			if (IS_ERR(tl)) {
++				intel_context_put(ce);
++				return PTR_ERR(tl);
++			}
++
++			pr_info("Testing %s timeline on %s\n",
++				msg, engine->name);
++
++			intel_timeline_put(ce->timeline);
++			ce->timeline = tl;
++
++			rq = intel_context_create_request(ce);
++			intel_context_put(ce);
++			if (IS_ERR(rq))
++				return PTR_ERR(rq);
++
++			GEM_BUG_ON(rcu_access_pointer(rq->timeline) != tl);
++
++			i915_request_get(rq);
++			i915_request_add(rq);
++
++			if (i915_request_wait(rq, 0, HZ / 5) < 0) {
++				i915_request_put(rq);
++				return -EIO;
++			}
++
++			i915_request_put(rq);
++		}
++	}
++
++	return 0;
 +}
 +
-+static inline u32 *
-+__gen8_emit_flush_dw(u32 *cs, u32 value, u32 gtt_offset, u32 flags)
-+{
-+	*cs++ = (MI_FLUSH_DW + 1) | flags;
-+	*cs++ = gtt_offset;
-+	*cs++ = 0;
-+	*cs++ = value;
-+
-+	return cs;
- }
- 
- static inline u32 *
-@@ -285,12 +302,10 @@ gen8_emit_ggtt_write(u32 *cs, u32 value, u32 gtt_offset, u32 flags)
- 	/* Offset should be aligned to 8 bytes for both (QW/DW) write types */
- 	GEM_BUG_ON(!IS_ALIGNED(gtt_offset, 8));
- 
--	*cs++ = (MI_FLUSH_DW + 1) | MI_FLUSH_DW_OP_STOREDW | flags;
--	*cs++ = gtt_offset | MI_FLUSH_DW_USE_GTT;
--	*cs++ = 0;
--	*cs++ = value;
--
--	return cs;
-+	return __gen8_emit_flush_dw(cs,
-+				    value,
-+				    gtt_offset | MI_FLUSH_DW_USE_GTT,
-+				    flags | MI_FLUSH_DW_OP_STOREDW);
- }
- 
- static inline void __intel_engine_reset(struct intel_engine_cs *engine,
+ int intel_timeline_live_selftests(struct drm_i915_private *i915)
+ {
+ 	static const struct i915_subtest tests[] = {
++		SUBTEST(live_hwsp_relative),
+ 		SUBTEST(live_hwsp_recycle),
+ 		SUBTEST(live_hwsp_engine),
+ 		SUBTEST(live_hwsp_alternate),
 -- 
 2.20.1
 
