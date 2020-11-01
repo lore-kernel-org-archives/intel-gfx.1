@@ -2,50 +2,50 @@ Return-Path: <SRS0=fe42=EH=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EFD09C2D0A3
-	for <intel-gfx@archiver.kernel.org>; Sun,  1 Nov 2020 10:13:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3A3F6C2D0A3
+	for <intel-gfx@archiver.kernel.org>; Sun,  1 Nov 2020 10:14:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B5D452080A
-	for <intel-gfx@archiver.kernel.org>; Sun,  1 Nov 2020 10:13:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B5D452080A
+	by mail.kernel.org (Postfix) with ESMTPS id 0A7A820719
+	for <intel-gfx@archiver.kernel.org>; Sun,  1 Nov 2020 10:14:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0A7A820719
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6295C6EA86;
-	Sun,  1 Nov 2020 10:13:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1311D6EA8C;
+	Sun,  1 Nov 2020 10:13:53 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4180E6EA86;
- Sun,  1 Nov 2020 10:13:49 +0000 (UTC)
-IronPort-SDR: 4ux6YpPUlxo2klwQKHu9fo97keAmev7mUByB76dMuQB5Riv5BNWFUgC0NjzAosL2MJfLCj0TuT
- BiPyi9A3dy7w==
-X-IronPort-AV: E=McAfee;i="6000,8403,9791"; a="166190488"
-X-IronPort-AV: E=Sophos;i="5.77,441,1596524400"; d="scan'208";a="166190488"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1E6ED6EA87;
+ Sun,  1 Nov 2020 10:13:51 +0000 (UTC)
+IronPort-SDR: V5R1uJKbNiu9h+gXYYAnQLMR/zYCyBnxJeAkPVW1REIwPCsxM6asvYFMD29xItps++0/vAaCZ1
+ djOVWAY31gqQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9791"; a="166190491"
+X-IronPort-AV: E=Sophos;i="5.77,441,1596524400"; d="scan'208";a="166190491"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Nov 2020 02:13:49 -0800
-IronPort-SDR: P4ALAKkUPgu2/tE4hFopn+RC3Pz1x4yRZufC+AQoOYKcH87JXJ5tkT5MYIgHwEdQ6Opb/a34+u
- lCmGL4A/mh5g==
+ 01 Nov 2020 02:13:50 -0800
+IronPort-SDR: 3uKBX6QfrU45mOCFRKjV19LHl8amJGGioT4v0+68jAd5aRwCNLS0o98mk8yOA36pjOjp9y93h+
+ cmNbsED5tPqw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.77,441,1596524400"; d="scan'208";a="425738554"
+X-IronPort-AV: E=Sophos;i="5.77,441,1596524400"; d="scan'208";a="425738562"
 Received: from linux-akn.iind.intel.com ([10.223.34.148])
- by fmsmga001.fm.intel.com with ESMTP; 01 Nov 2020 02:13:47 -0800
+ by fmsmga001.fm.intel.com with ESMTP; 01 Nov 2020 02:13:49 -0800
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Sun,  1 Nov 2020 15:36:46 +0530
-Message-Id: <20201101100657.12087-3-ankit.k.nautiyal@intel.com>
+Date: Sun,  1 Nov 2020 15:36:47 +0530
+Message-Id: <20201101100657.12087-4-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20201101100657.12087-1-ankit.k.nautiyal@intel.com>
 References: <20201101100657.12087-1-ankit.k.nautiyal@intel.com>
-Subject: [Intel-gfx] [PATCH v2 02/13] drm/edid: Parse MAX_FRL field from
+Subject: [Intel-gfx] [PATCH v2 03/13] drm/edid: Parse DSC1.2 cap fields from
  HFVSDB block
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,98 +66,154 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Swati Sharma <swati2.sharma@intel.com>
+This patch parses HFVSDB fields for DSC1.2 capabilities of an
+HDMI2.1 sink. These fields are required by a source to understand the
+DSC capability of the sink, to set appropriate PPS parameters,
+before transmitting compressed data stream.
 
-This patch parses MAX_FRL field to get the MAX rate in Gbps that
-the HDMI 2.1 panel can support in FRL mode. Source need this
-field to determine the optimal rate between the source and sink
-during FRL training.
+v2: Addressed following issues as suggested by Uma Shankar:
+-Added a new struct for hdmi dsc cap
+-Fixed bugs in macros usage.
 
-v2: Fixed minor bugs, and removed extra wrapper function (Uma Shankar)
-
-Signed-off-by: Sharma, Swati2 <swati2.sharma@intel.com>
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- drivers/gpu/drm/drm_edid.c  | 44 +++++++++++++++++++++++++++++++++++++
- include/drm/drm_connector.h |  6 +++++
- 2 files changed, 50 insertions(+)
+ drivers/gpu/drm/drm_edid.c  | 59 +++++++++++++++++++++++++++++++++++++
+ include/drm/drm_connector.h | 43 +++++++++++++++++++++++++++
+ 2 files changed, 102 insertions(+)
 
 diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index 631125b46e04..26797868ea5b 100644
+index 26797868ea5b..feaf2d7659a4 100644
 --- a/drivers/gpu/drm/drm_edid.c
 +++ b/drivers/gpu/drm/drm_edid.c
-@@ -4849,6 +4849,41 @@ static void drm_parse_vcdb(struct drm_connector *connector, const u8 *db)
- 		info->rgb_quant_range_selectable = true;
- }
+@@ -4939,11 +4939,70 @@ static void drm_parse_hdmi_forum_vsdb(struct drm_connector *connector,
  
-+static
-+void drm_get_max_frl_rate(int max_frl_rate, u8 *max_lanes, u8 *max_rate_per_lane)
-+{
-+	switch (max_frl_rate) {
-+	case 1:
-+		*max_lanes = 3;
-+		*max_rate_per_lane = 3;
-+		break;
-+	case 2:
-+		*max_lanes = 3;
-+		*max_rate_per_lane = 6;
-+		break;
-+	case 3:
-+		*max_lanes = 4;
-+		*max_rate_per_lane = 6;
-+		break;
-+	case 4:
-+		*max_lanes = 4;
-+		*max_rate_per_lane = 8;
-+		break;
-+	case 5:
-+		*max_lanes = 4;
-+		*max_rate_per_lane = 10;
-+		break;
-+	case 6:
-+		*max_lanes = 4;
-+		*max_rate_per_lane = 12;
-+		break;
-+	case 0:
-+	default:
-+		*max_lanes = 0;
-+		*max_rate_per_lane = 0;
-+	}
-+}
+ 	if (hf_vsdb[7]) {
+ 		u8 max_frl_rate;
++		u8 dsc_max_frl_rate;
++		u8 dsc_max_slices;
++		struct drm_hdmi_dsc_cap *hdmi_dsc = &hdmi->dsc_cap;
+ 
+ 		DRM_DEBUG_KMS("hdmi_21 sink detected. parsing edid\n");
+ 		max_frl_rate = (hf_vsdb[7] & DRM_EDID_MAX_FRL_RATE_MASK) >> 4;
+ 		drm_get_max_frl_rate(max_frl_rate, &hdmi->max_lanes,
+ 				&hdmi->max_frl_rate_per_lane);
++		hdmi_dsc->v_1p2 = hf_vsdb[11] & DRM_EDID_DSC_1P2;
 +
- static void drm_parse_ycbcr420_deep_color_info(struct drm_connector *connector,
- 					       const u8 *db)
- {
-@@ -4902,6 +4937,15 @@ static void drm_parse_hdmi_forum_vsdb(struct drm_connector *connector,
- 		}
++		if (hdmi_dsc->v_1p2) {
++			hdmi_dsc->native_420 = hf_vsdb[11] & DRM_EDID_DSC_NATIVE_420;
++			hdmi_dsc->all_bpp = hf_vsdb[11] & DRM_EDID_DSC_ALL_BPP;
++
++			if (hf_vsdb[11] & DRM_EDID_DSC_16BPC)
++				hdmi_dsc->bpc_supported = 16;
++			else if (hf_vsdb[11] & DRM_EDID_DSC_12BPC)
++				hdmi_dsc->bpc_supported = 12;
++			else if (hf_vsdb[11] & DRM_EDID_DSC_10BPC)
++				hdmi_dsc->bpc_supported = 10;
++			else
++				hdmi_dsc->bpc_supported = 0;
++
++			dsc_max_frl_rate = (hf_vsdb[12] & DRM_EDID_DSC_MAX_FRL_RATE_MASK) >> 4;
++			drm_get_max_frl_rate(dsc_max_frl_rate, &hdmi_dsc->max_lanes,
++					&hdmi_dsc->max_frl_rate_per_lane);
++			hdmi_dsc->total_chunk_kbytes = hf_vsdb[13] & DRM_EDID_DSC_TOTAL_CHUNK_KBYTES;
++
++			dsc_max_slices = hf_vsdb[12] & DRM_EDID_DSC_MAX_SLICES;
++			switch (dsc_max_slices) {
++			case 1:
++				hdmi_dsc->max_slices = 1;
++				hdmi_dsc->clk_per_slice = 340;
++				break;
++			case 2:
++				hdmi_dsc->max_slices = 2;
++				hdmi_dsc->clk_per_slice = 340;
++				break;
++			case 3:
++				hdmi_dsc->max_slices = 4;
++				hdmi_dsc->clk_per_slice = 340;
++				break;
++			case 4:
++				hdmi_dsc->max_slices = 8;
++				hdmi_dsc->clk_per_slice = 340;
++				break;
++			case 5:
++				hdmi_dsc->max_slices = 8;
++				hdmi_dsc->clk_per_slice = 400;
++				break;
++			case 6:
++				hdmi_dsc->max_slices = 12;
++				hdmi_dsc->clk_per_slice = 400;
++				break;
++			case 7:
++				hdmi_dsc->max_slices = 16;
++				hdmi_dsc->clk_per_slice = 400;
++				break;
++			case 0:
++			default:
++				hdmi_dsc->max_slices = 0;
++				hdmi_dsc->clk_per_slice = 0;
++			}
++		}
  	}
  
-+	if (hf_vsdb[7]) {
-+		u8 max_frl_rate;
-+
-+		DRM_DEBUG_KMS("hdmi_21 sink detected. parsing edid\n");
-+		max_frl_rate = (hf_vsdb[7] & DRM_EDID_MAX_FRL_RATE_MASK) >> 4;
-+		drm_get_max_frl_rate(max_frl_rate, &hdmi->max_lanes,
-+				&hdmi->max_frl_rate_per_lane);
-+	}
-+
  	drm_parse_ycbcr420_deep_color_info(connector, hf_vsdb);
- }
- 
 diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-index 928136556174..f351bf10c076 100644
+index f351bf10c076..06d24e36268e 100644
 --- a/include/drm/drm_connector.h
 +++ b/include/drm/drm_connector.h
-@@ -207,6 +207,12 @@ struct drm_hdmi_info {
+@@ -175,6 +175,46 @@ struct drm_scdc {
+ 	struct drm_scrambling scrambling;
+ };
  
- 	/** @y420_dc_modes: bitmap of deep color support index */
- 	u8 y420_dc_modes;
++/**
++ * struct drm_hdmi_dsc_cap - DSC capabilities of HDMI sink
++ *
++ * Describes the DSC support provided by HDMI 2.1 sink.
++ * The information is fetched fom additional HFVSDB blocks defined
++ * for HDMI 2.1.
++ */
++struct drm_hdmi_dsc_cap {
++	/** @v_1p2: flag for dsc1.2 version support by sink */
++	bool v_1p2;
 +
-+	/** @max_frl_rate_per_lane: support fixed rate link */
++	/** @native_420: Does sink support DSC with 4:2:0 compression */
++	bool native_420;
++
++	/**
++	 * @all_bpp: Does sink support all bpp with 4:4:4: or 4:2:2
++	 * compressed formats
++	 */
++	bool all_bpp;
++
++	/**
++	 * @bpc_supported: compressed bpc supported by sink : 10, 12 or 16 bpc
++	 */
++	u8 bpc_supported;
++
++	/** @max_slices: maximum number of Horizontal slices supported by */
++	u8 max_slices;
++
++	/** @clk_per_slice : max pixel clock in MHz supported per slice */
++	int clk_per_slice;
++
++	/** @max_lanes : dsc max lanes supported for Fixed rate Link training */
++	u8 max_lanes;
++
++	/** @max_frl_rate_per_lane : maximum frl rate with DSC per lane */
 +	u8 max_frl_rate_per_lane;
 +
-+	/** @max_lanes: supported by sink */
-+	u8 max_lanes;
++	/** @total_chunk_kbytes: max size of chunks in KBs supported per line*/
++	u8 total_chunk_kbytes;
++};
+ 
+ /**
+  * struct drm_hdmi_info - runtime information about the connected HDMI sink
+@@ -213,6 +253,9 @@ struct drm_hdmi_info {
+ 
+ 	/** @max_lanes: supported by sink */
+ 	u8 max_lanes;
++
++	/** @dsc_cap: DSC capabilities of the sink */
++	struct drm_hdmi_dsc_cap dsc_cap;
  };
  
  /**
