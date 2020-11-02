@@ -2,56 +2,52 @@ Return-Path: <SRS0=yb3L=EI=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.2 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,
+	DATE_IN_FUTURE_06_12,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0A43AC00A89
-	for <intel-gfx@archiver.kernel.org>; Mon,  2 Nov 2020 10:06:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 90FFBC00A89
+	for <intel-gfx@archiver.kernel.org>; Mon,  2 Nov 2020 10:06:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 805102225E
-	for <intel-gfx@archiver.kernel.org>; Mon,  2 Nov 2020 10:06:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 805102225E
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 2ADA0223AB
+	for <intel-gfx@archiver.kernel.org>; Mon,  2 Nov 2020 10:06:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2ADA0223AB
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AC6CC6E471;
-	Mon,  2 Nov 2020 10:06:18 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 170D86E484
- for <intel-gfx@lists.freedesktop.org>; Mon,  2 Nov 2020 10:06:17 +0000 (UTC)
-IronPort-SDR: yzt531uvBYLWj1odDOoxa6zuOHSvQmNi4b+m2N6ccu8G+g9gm2sM5MpZfI/+1D7o0b77Qw5Wx3
- gBeLHBoT30VA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9792"; a="148144153"
-X-IronPort-AV: E=Sophos;i="5.77,444,1596524400"; d="scan'208";a="148144153"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C0F06E463;
+	Mon,  2 Nov 2020 10:06:30 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A6F526E463
+ for <intel-gfx@lists.freedesktop.org>; Mon,  2 Nov 2020 10:06:29 +0000 (UTC)
+IronPort-SDR: 3L9hZ9NPjcqHnBTPOp2Z+YnAdjBnXteCDrfJrIL5GteSu5ZvuZ/uujuAeVewJO3bOSWOOWhtHK
+ Ww0LhhdQsPOQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9792"; a="186692422"
+X-IronPort-AV: E=Sophos;i="5.77,444,1596524400"; d="scan'208";a="186692422"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Nov 2020 02:06:04 -0800
-IronPort-SDR: NFH9HOGguGDkuK9uZmZXuTWCVAjeEXV4SLmf729XIB/3tmnzISZfTTuj9fvQr3lAp3QtRjpcB9
- XQ47VpegyGPg==
-X-IronPort-AV: E=Sophos;i="5.77,444,1596524400"; d="scan'208";a="537960711"
-Received: from vanderss-mobl1.ger.corp.intel.com (HELO
- W10-45-itb-67.SSPE.ch.intel.com) ([10.249.254.196])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Nov 2020 02:06:03 -0800
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- intel-gfx@lists.freedesktop.org
-References: <20201016104444.1492028-1-maarten.lankhorst@linux.intel.com>
- <20201016104444.1492028-31-maarten.lankhorst@linux.intel.com>
-From: =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas.hellstrom@linux.intel.com>
-Message-ID: <5e0ae808-2a0a-c853-b2be-2b42341017dd@linux.intel.com>
-Date: Mon, 2 Nov 2020 11:06:00 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.3.1
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Nov 2020 02:06:28 -0800
+IronPort-SDR: dOcdvCG/tii0EzWUK+yCLhpjz/Z99X5uQxcVBlpB+z/PyrSQ+5MNTAlzS3z2R9arPLoXhtVH3D
+ /RFj2QOzDdTA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.77,444,1596524400"; d="scan'208";a="336121710"
+Received: from cfl-host.sh.intel.com ([10.239.158.142])
+ by orsmga002.jf.intel.com with ESMTP; 02 Nov 2020 02:06:26 -0800
+From: Fred Gao <fred.gao@intel.com>
+To: kvm@vger.kernel.org,
+	intel-gfx@lists.freedesktop.org
+Date: Tue,  3 Nov 2020 02:01:20 +0800
+Message-Id: <20201102180120.25319-1-fred.gao@intel.com>
+X-Mailer: git-send-email 2.24.1.1.gb6d4d82bd5
+In-Reply-To: <20200929161038.15465-1-fred.gao@intel.com>
+References: <20200929161038.15465-1-fred.gao@intel.com>
 MIME-Version: 1.0
-In-Reply-To: <20201016104444.1492028-31-maarten.lankhorst@linux.intel.com>
-Content-Language: en-US
-Subject: Re: [Intel-gfx] [PATCH v4 30/61] drm/i915: Fix workarounds selftest, part 1
+Subject: [Intel-gfx] [PATCH v3] vfio/pci: Bypass IGD init in case of -ENODEV
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,20 +60,47 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: Fred Gao <fred.gao@intel.com>, Hang Yuan <hang.yuan@linux.intel.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Ck9uIDEwLzE2LzIwIDEyOjQ0IFBNLCBNYWFydGVuIExhbmtob3JzdCB3cm90ZToKPiBwaW5fbWFw
-IG5lZWRzIHRoZSB3dyBsb2NrLCBzbyBlbnN1cmUgd2UgcGluIGJvdGggYmVmb3JlIHN1Ym1pc3Np
-b24uCj4KPiBTaWduZWQtb2ZmLWJ5OiBNYWFydGVuIExhbmtob3JzdCA8bWFhcnRlbi5sYW5raG9y
-c3RAbGludXguaW50ZWwuY29tPgo+IC0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL2k5MTUvZ2VtL2k5
-MTVfZ2VtX29iamVjdC5oICAgIHwgIDMgKwo+ICAgZHJpdmVycy9ncHUvZHJtL2k5MTUvZ2VtL2k5
-MTVfZ2VtX3BhZ2VzLmMgICAgIHwgMTIgKysrCj4gICAuLi4vZ3B1L2RybS9pOTE1L2d0L3NlbGZ0
-ZXN0X3dvcmthcm91bmRzLmMgICAgfCA3NiArKysrKysrKysrKystLS0tLS0tCj4gICAzIGZpbGVz
-IGNoYW5nZWQsIDY0IGluc2VydGlvbnMoKyksIDI3IGRlbGV0aW9ucygtKQoKUmV2aWV3ZWQtYnk6
-IFRob21hcyBIZWxsc3Ryw7ZtIDx0aG9tYXMuaGVsbHN0cm9tQGxpbnV4LmludGVsLmNvbT4KCl9f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkludGVsLWdmeCBt
-YWlsaW5nIGxpc3QKSW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3Rz
-LmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ludGVsLWdmeAo=
+Bypass the IGD initialization when -ENODEV returns,
+that should be the case if opregion is not available for IGD
+or within discrete graphics device's option ROM,
+or host/lpc bridge is not found.
+
+Then use of -ENODEV here means no special device resources found
+which needs special care for VFIO, but we still allow other normal
+device resource access.
+
+Cc: Zhenyu Wang <zhenyuw@linux.intel.com>
+Cc: Xiong Zhang <xiong.y.zhang@intel.com>
+Cc: Hang Yuan <hang.yuan@linux.intel.com>
+Cc: Stuart Summers <stuart.summers@intel.com>
+Signed-off-by: Fred Gao <fred.gao@intel.com>
+---
+ drivers/vfio/pci/vfio_pci.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/vfio/pci/vfio_pci.c b/drivers/vfio/pci/vfio_pci.c
+index f634c81998bb..c88cf9937469 100644
+--- a/drivers/vfio/pci/vfio_pci.c
++++ b/drivers/vfio/pci/vfio_pci.c
+@@ -341,7 +341,7 @@ static int vfio_pci_enable(struct vfio_pci_device *vdev)
+ 	    pdev->vendor == PCI_VENDOR_ID_INTEL &&
+ 	    IS_ENABLED(CONFIG_VFIO_PCI_IGD)) {
+ 		ret = vfio_pci_igd_init(vdev);
+-		if (ret) {
++		if (ret && ret != -ENODEV) {
+ 			pci_warn(pdev, "Failed to setup Intel IGD regions\n");
+ 			goto disable_exit;
+ 		}
+-- 
+2.24.1.1.gb6d4d82bd5
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
