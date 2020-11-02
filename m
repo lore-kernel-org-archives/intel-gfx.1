@@ -2,56 +2,75 @@ Return-Path: <SRS0=yb3L=EI=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-9.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 450D5C00A89
-	for <intel-gfx@archiver.kernel.org>; Mon,  2 Nov 2020 06:12:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 50B71C00A89
+	for <intel-gfx@archiver.kernel.org>; Mon,  2 Nov 2020 07:45:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B5CDF221FF
-	for <intel-gfx@archiver.kernel.org>; Mon,  2 Nov 2020 06:12:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B5CDF221FF
+	by mail.kernel.org (Postfix) with ESMTPS id E9A8A2223C
+	for <intel-gfx@archiver.kernel.org>; Mon,  2 Nov 2020 07:45:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E9A8A2223C
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE0DA89A60;
-	Mon,  2 Nov 2020 06:12:31 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2328C89A60
- for <intel-gfx@lists.freedesktop.org>; Mon,  2 Nov 2020 06:12:30 +0000 (UTC)
-IronPort-SDR: sThw+pHvmNeyAP1jkG4CNMhO7PURpMXtlvIPAw8dW32yCS2A6zWVdgdXTve/fEXA9VbwJmT34L
- C4Xa4LP2+8oQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9792"; a="156618958"
-X-IronPort-AV: E=Sophos;i="5.77,444,1596524400"; d="scan'208";a="156618958"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 183276E372;
+	Mon,  2 Nov 2020 07:45:09 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D3076E372;
+ Mon,  2 Nov 2020 07:45:08 +0000 (UTC)
+IronPort-SDR: /sjdp67yU3YlryuNc1tOeFyA96R68JSpZaDBYPRvlSxGU2dm1JO6yu0JZPF3cQOds2/ershUYi
+ 2RGZKxMhntiQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9792"; a="186677923"
+X-IronPort-AV: E=Sophos;i="5.77,444,1596524400"; d="scan'208";a="186677923"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Nov 2020 22:12:25 -0800
-IronPort-SDR: XUv+Je/0ORsN7Srsl+D5vt/Gw5ISbSC0/8ylopLo6m0iAiTwKLprTx7AHHTut/WDy07CzL7s0Y
- J4wMidWRO8/w==
-X-IronPort-AV: E=Sophos;i="5.77,444,1596524400"; d="scan'208";a="526575569"
-Received: from mdroper-desk1.fm.intel.com (HELO
- mdroper-desk1.amr.corp.intel.com) ([10.1.27.168])
- by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Nov 2020 22:12:24 -0800
-Date: Sun, 1 Nov 2020 22:12:23 -0800
-From: Matt Roper <matthew.d.roper@intel.com>
-To: "20201030134137.30867-1-shawn.c.lee@intel.com"
- <20201030134137.30867-1-shawn.c.lee@intel.com>
-Message-ID: <20201102061223.GS627052@mdroper-desk1.amr.corp.intel.com>
-References: <20201028144312.12520-1-shawn.c.lee@intel.com>
- <20201030134137.30867-1-shawn.c.lee@intel.com>
- <20201030173530.GO627052@mdroper-desk1.amr.corp.intel.com>
- <BY5PR11MB43074CA0CF93E3C6608FC83CA3120@BY5PR11MB4307.namprd11.prod.outlook.com>
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Nov 2020 23:45:07 -0800
+IronPort-SDR: Oc7Q1HmUABtMr9yhbk6hxAlNQOxHrlv9wZlz9WHt0Q7JNJMFHytGecb5KY5uf1z6pQAs/M54Nr
+ 56FRhG+u6WSQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.77,444,1596524400"; d="scan'208";a="351928181"
+Received: from fmsmsx604.amr.corp.intel.com ([10.18.126.84])
+ by orsmga008.jf.intel.com with ESMTP; 01 Nov 2020 23:45:07 -0800
+Received: from bgsmsx604.gar.corp.intel.com (10.67.234.6) by
+ fmsmsx604.amr.corp.intel.com (10.18.126.84) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.1713.5; Sun, 1 Nov 2020 23:45:06 -0800
+Received: from bgsmsx604.gar.corp.intel.com (10.67.234.6) by
+ BGSMSX604.gar.corp.intel.com (10.67.234.6) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.1713.5; Mon, 2 Nov 2020 13:15:04 +0530
+Received: from bgsmsx604.gar.corp.intel.com ([10.67.234.6]) by
+ BGSMSX604.gar.corp.intel.com ([10.67.234.6]) with mapi id 15.01.1713.004;
+ Mon, 2 Nov 2020 13:15:03 +0530
+From: "Shankar, Uma" <uma.shankar@intel.com>
+To: "Gupta, Anshuman" <anshuman.gupta@intel.com>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
+Thread-Topic: [PATCH v4 01/16] drm/i915/hdcp: Update CP property in update_pipe
+Thread-Index: AQHWrIIOZ3bWs4Tv/kKcY+GJjlJ/JKm0fu3Q
+Date: Mon, 2 Nov 2020 07:45:03 +0000
+Message-ID: <e662833055df4b8cacf999b2f6ec603b@intel.com>
+References: <20201027164208.10026-1-anshuman.gupta@intel.com>
+ <20201027164208.10026-2-anshuman.gupta@intel.com>
+In-Reply-To: <20201027164208.10026-2-anshuman.gupta@intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+dlp-product: dlpe-windows
+dlp-reaction: no-action
+dlp-version: 11.5.1.3
+x-originating-ip: [10.223.10.1]
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <BY5PR11MB43074CA0CF93E3C6608FC83CA3120@BY5PR11MB4307.namprd11.prod.outlook.com>
-Subject: Re: [Intel-gfx] [PATCH v2] drm/i915/rkl: new rkl ddc map for
- different PCH
+Subject: Re: [Intel-gfx] [PATCH v4 01/16] drm/i915/hdcp: Update CP property
+ in update_pipe
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,198 +83,84 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Chiou, Cooper" <cooper.chiou@intel.com>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
+Cc: "Nikula, Jani" <jani.nikula@intel.com>,
+ "seanpaul@chromium.org" <seanpaul@chromium.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Oct 30, 2020 at 07:55:35PM -0700, Lee, Shawn C wrote:
+
+
+> -----Original Message-----
+> From: Anshuman Gupta <anshuman.gupta@intel.com>
+> Sent: Tuesday, October 27, 2020 10:12 PM
+> To: intel-gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org
+> Cc: seanpaul@chromium.org; Nikula, Jani <jani.nikula@intel.com>; C,
+> Ramalingam <ramalingam.c@intel.com>; Li, Juston <juston.li@intel.com>;
+> Shankar, Uma <uma.shankar@intel.com>; Gupta, Anshuman
+> <anshuman.gupta@intel.com>
+> Subject: [PATCH v4 01/16] drm/i915/hdcp: Update CP property in update_pipe
 > 
-> On Fri, Oct. 30, 2020, 5:35 p.m., Matt Roper wrote:
-> >On Fri, Oct 30, 2020 at 09:41:37PM +0800, Lee Shawn C wrote:
-> >> After boot into kernel. Driver configured ddc pin mapping based on
-> >> predefined table in parse_ddi_port(). Now driver configure rkl ddc pin
-> >> mapping depends on icp_ddc_pin_map[]. Then this table will give
-> >> incorrect gmbus port number to cause HDMI can't work.
-> >>
-> >> Refer to commit d0a89527d06 ("drm/i915/rkl: Add DDC pin mapping").
-> >> Create two ddc pin table for rkl TGP and CMP pch. Then HDMI can works
-> >> properly on rkl.
-> >>
-> >> v2: update patch based on latest dinq branch.
-> >>
-> >> Cc: Matt Roper <matthew.d.roper@intel.com>
-> >> Cc: Aditya Swarup <aditya.swarup@intel.com>
-> >> Cc: Anusha Srivatsa <anusha.srivatsa@intel.com>
-> >> Cc: Jani Nikula <jani.nikula@linux.intel.com>
-> >> Cc: Cooper Chiou <cooper.chiou@intel.com>
-> >> Cc: Khaled Almahallawy <khaled.almahallawy@intel.com>
-> >> Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/2577
-> >> Signed-off-by: Lee Shawn C <shawn.c.lee@intel.com>
-> >> ---
-> >>  drivers/gpu/drm/i915/display/intel_bios.c     | 20 +++++++++++++++++++
-> >>  drivers/gpu/drm/i915/display/intel_vbt_defs.h |  4 ++++
-> >>  2 files changed, 24 insertions(+)
-> >>
-> >> diff --git a/drivers/gpu/drm/i915/display/intel_bios.c
-> >> b/drivers/gpu/drm/i915/display/intel_bios.c
-> >> index 0a309645fe06..ca9426e1768a 100644
-> >> --- a/drivers/gpu/drm/i915/display/intel_bios.c
-> >> +++ b/drivers/gpu/drm/i915/display/intel_bios.c
-> >> @@ -1623,6 +1623,18 @@ static const u8 icp_ddc_pin_map[] = {
-> >>  [TGL_DDC_BUS_PORT_6] = GMBUS_PIN_14_TC6_TGP,  };
-> >>
-> >> +static const u8 rkl_pch_tgp_ddc_pin_map[] = {
-> >> +[RKL_DDC_BUS_DDI_B] = GMBUS_PIN_2_BXT,
-> >> +[RKL_DDC_BUS_DDI_D] = GMBUS_PIN_9_TC1_ICP,
-> >> +[RKL_DDC_BUS_DDI_E] = GMBUS_PIN_10_TC2_ICP, };
-> >> +
-> >> +static const u8 rkl_pch_cmp_ddc_pin_map[] = {
-> >> +[RKL_DDC_BUS_DDI_B] = GMBUS_PIN_2_BXT,
-> >> +[RKL_DDC_BUS_DDI_D] = GMBUS_PIN_3_BXT,
-> >> +[RKL_DDC_BUS_DDI_E] = GMBUS_PIN_4_CNP, };
-> >> +
-> >>  static u8 map_ddc_pin(struct drm_i915_private *dev_priv, u8 vbt_pin)
-> >> {
-> >>  const u8 *ddc_pin_map;
-> >> @@ -1630,6 +1642,14 @@ static u8 map_ddc_pin(struct drm_i915_private
-> >> *dev_priv, u8 vbt_pin)
-> >>
-> >>  if (INTEL_PCH_TYPE(dev_priv) >= PCH_DG1) {
-> >>  return vbt_pin;
-> >> +} else if (IS_ROCKETLAKE(dev_priv)) {
-> >> +if (INTEL_PCH_TYPE(dev_priv) >= PCH_TGP) {
-> >> +ddc_pin_map = rkl_pch_tgp_ddc_pin_map;
-> >> +n_entries = ARRAY_SIZE(rkl_pch_tgp_ddc_pin_map);
-> >> +} else {
-> >> +ddc_pin_map = rkl_pch_cmp_ddc_pin_map;
-> >> +n_entries = ARRAY_SIZE(rkl_pch_cmp_ddc_pin_map);
-> >> +}
-> >>  } else if (INTEL_PCH_TYPE(dev_priv) >= PCH_ICP) {
-> >>  ddc_pin_map = icp_ddc_pin_map;
-> >>  n_entries = ARRAY_SIZE(icp_ddc_pin_map); diff --git
-> >> a/drivers/gpu/drm/i915/display/intel_vbt_defs.h
-> >> b/drivers/gpu/drm/i915/display/intel_vbt_defs.h
-> >> index 49b4b5fca941..2df009996128 100644
-> >> --- a/drivers/gpu/drm/i915/display/intel_vbt_defs.h
-> >> +++ b/drivers/gpu/drm/i915/display/intel_vbt_defs.h
-> >> @@ -319,6 +319,10 @@ enum vbt_gmbus_ddi {
-> >>  ICL_DDC_BUS_DDI_A = 0x1,
-> >>  ICL_DDC_BUS_DDI_B,
-> >>  TGL_DDC_BUS_DDI_C,
-> >> +RKL_DDC_BUS_DDI_B = 0x1,
-> >> +RKL_DDC_BUS_DDI_C,
-> >> +RKL_DDC_BUS_DDI_D,
-> >> +RKL_DDC_BUS_DDI_E,
-> >
-> >These definitions don't really make sense; according to the VBT definition in the bspec (20124), the symbolic names map to different VBT input values depending on which PCH is paired with RKL.  E.g., VBT value of "2" refers to PHY-C when using a CMP PCH, but refers to PHY-B when using a TGP PCH.
-> >
-> >From what I can see, RKL+TGP is already handled properly today in the code and doesn't need any special handling.  The patch here would actually break it, because it would associate the wrong pins to outputs (and fail to associate anything at all with PHY-B [vbt value 2]).
-> >
-> >For RKL+CMP, we do need a change to the code to pick valid output pins in the range 1-4 rather than 1,2,9,A, but it doesn't look like the mapping being added here is quite right for that either.  CMP is a derivative of CNP, so I believe we should be following the "CNL-PCH"
-> >column of the VBT definition.
-> >
-> >
-> >Matt
-> >
+> When crtc state need_modeset is true it is not necessary it is going to be a real
+> modeset, it can turns to be a fastset instead of modeset.
+> This turns content protection property to be DESIRED and hdcp update_pipe left
+> with property to be in DESIRED state but actual hdcp->value was ENABLED.
 > 
-> Hi Matt,
+> This issue is caught with DP MST setup, where we have multiple connector in
+> same DP_MST topology. When disabling HDCP on one of DP MST connector leads
+> to set the crtc state need_modeset to true for all other crtc driving the other DP-
+> MST topology connectors.
+> This turns up other DP MST connectors CP property to be DESIRED despite the
+> actual hdcp->value is ENABLED.
+> Above scenario fails the DP MST HDCP IGT test, disabling HDCP on one MST
+> stream should not cause to disable HDCP on another MST stream on same DP
+> MST topology.
 > 
-> Thanks for your comments! Below is EFP configuration from vbt. And we
-> know there is no real port "C" on physical hardware with TGP-PCH.
+> v2:
+> Fix WARN_ON(connector->base.registration_state ==
+> DRM_CONNECTOR_REGISTERED)
+> v3:
+> Commit log improvement. [Uma]
+> Added a comment before scheduling prop_work. [Uma]
 
-The terminology gets somewhat confusing, so just for clarity, the
-outputs on RKL in general are:
-
-          DDI-A (aka PORT-A) <-> PHY-A
-          DDI-B (aka PORT-B) <-> PHY-B
-        DDI-TC1 (aka PORT-D) <-> PHY-C
-        DDI-TC2 (aka PORT-E) <-> PHY-D
-
-Note that on recent platforms where the DDI and PHY are separate blocks
-we try to use the term "port" to refer to the DDI.  And based on their
-register offsets, we treat DDI-TC1 and DDI-TC2 as ports D and E in i915,
-even though that's not something the bspec does.
-
-It looks like the proper table for RKL+TGP should actually be:
-
-        static const u8 rkl_pch_tgp_ddc_pin_map[] = {
-                [1] = GMBUS_PIN_1_BXT,
-                [2] = GMBUS_PIN_2_BXT,
-                [3] = GMBUS_PIN_9_TC1_ICP,
-                [4] = GMBUS_PIN_10_TC2_ICP,
-        }
-
-i.e., basically the same as what you had, but we do need to handle the
-input value '1' too since we can legitimately drive HDMI on all four of
-the outputs when using a TGP PCH.
-
-When we're instead working on a RKL+CMP platform DDI-A output (if
-present) will always be eDP; there's no support for HDMI in that case.
-So for RKL+CMP the gmbus pin mapping needs to be
-
-        0x1 (DDI-B) -> 0x1
-        0x2 (DDI-C) -> 0x2
-        0x3 (DDI-D) -> 0x4
-
-The cnp_ddc_pin_map[] table that we already have in the code should
-handle that properly, so there's no need for special RKL+CMP handling;
-we can just let it fall through to the existing HAS_PCH_CNP() branch.
-However I think rkl_port_to_ddc_pin() is off by one for the values it's
-returning on CMP; we need to fix that so that cases where the VBT
-doesn't specify a valid DDC pin.
-
-
-Matt
-
-> EFP1 : DisplayPort-B
-> EFP2 : HDMI-C
-> EFP3 : HDMI-D
-> EFP4 : no device
+Looks Good to me.
+Reviewed-by: Uma Shankar <uma.shankar@intel.com>
+ 
+> Fixes: 33f9a623bfc6 ("drm/i915/hdcp: Update CP as per the kernel internal
+> state")
+> Cc: Ramalingam C <ramalingam.c@intel.com>
+> Signed-off-by: Anshuman Gupta <anshuman.gupta@intel.com>
+> ---
+>  drivers/gpu/drm/i915/display/intel_hdcp.c | 8 ++++++++
+>  1 file changed, 8 insertions(+)
 > 
-> Below messages came from customer board with latest drm-tip kernel (5.10.0-rc1+). Port D/E will be mapped to ddc pin 0x3/0x9 according to icp_ddc_pin_map[].
-> But port D/E should map to 0x9/0xa on TGP-PCH.
-> Oct 23 18:39:14 ubuntu kernel: i915 0000:00:02.0: [drm:intel_bios_port_aux_ch [i915]] using AUX D for port D (platform default)
-> Oct 23 18:39:14 ubuntu kernel: i915 0000:00:02.0: [drm:intel_hdmi_init_connector [i915]] Adding HDMI connector on [ENCODER:201:DDI D]
-> Oct 23 18:39:14 ubuntu kernel: i915 0000:00:02.0: [drm:intel_hdmi_init_connector [i915]] Using DDC pin 0x3 for port D (VBT)
-> Oct 23 18:39:14 ubuntu kernel: i915 0000:00:02.0: [drm:intel_bios_port_aux_ch [i915]] using AUX E for port E (platform default)
-> Oct 23 18:39:14 ubuntu kernel: i915 0000:00:02.0: [drm:intel_hdmi_init_connector [i915]] Adding HDMI connector on [ENCODER:205:DDI E]
-> Oct 23 18:39:14 ubuntu kernel: i915 0000:00:02.0: [drm:intel_hdmi_init_connector [i915]] Using DDC pin 0x9 for port E (VBT)
+> diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.c
+> b/drivers/gpu/drm/i915/display/intel_hdcp.c
+> index b2a4bbcfdcd2..eee8263405b9 100644
+> --- a/drivers/gpu/drm/i915/display/intel_hdcp.c
+> +++ b/drivers/gpu/drm/i915/display/intel_hdcp.c
+> @@ -2221,6 +2221,14 @@ void intel_hdcp_update_pipe(struct
+> intel_atomic_state *state,
+>  		desired_and_not_enabled =
+>  			hdcp->value !=
+> DRM_MODE_CONTENT_PROTECTION_ENABLED;
+>  		mutex_unlock(&hdcp->mutex);
+> +		/*
+> +		 * If HDCP already ENABLED and CP property is DESIRED, schedule
+> +		 * prop_work to update correct CP property to user space.
+> +		 */
+> +		if (!desired_and_not_enabled &&
+> !content_protection_type_changed) {
+> +			drm_connector_get(&connector->base);
+> +			schedule_work(&hdcp->prop_work);
+> +		}
+>  	}
 > 
-> This is what we got after applied this change.
-> Oct 28 18:18:47 ubuntu kernel: i915 0000:00:02.0: [drm:intel_bios_port_aux_ch [i915]] using AUX D for port D (platform default)
-> Oct 28 18:18:47 ubuntu kernel: i915 0000:00:02.0: [drm:intel_hdmi_init_connector [i915]] Adding HDMI connector on [ENCODER:201:DDI D]
-> Oct 28 18:18:47 ubuntu kernel: i915 0000:00:02.0: [drm:intel_hdmi_init_connector [i915]] Using DDC pin 0x9 for port D (VBT)
-> Oct 28 18:18:47 ubuntu kernel: i915 0000:00:02.0: [drm:intel_bios_port_aux_ch [i915]] using AUX E for port E (platform default)
-> Oct 28 18:18:47 ubuntu kernel: i915 0000:00:02.0: [drm:intel_hdmi_init_connector [i915]] Adding HDMI connector on [ENCODER:205:DDI E]
-> Oct 28 18:18:47 ubuntu kernel: i915 0000:00:02.0: [drm:intel_hdmi_init_connector [i915]] Using DDC pin 0xa for port E (VBT)
-> 
-> Best regards,
-> Shawn
-> 
-> >>  ICL_DDC_BUS_PORT_1 = 0x4,
-> >>  ICL_DDC_BUS_PORT_2,
-> >>  ICL_DDC_BUS_PORT_3,
-> >> --
-> >> 2.28.0
-> >>
-> >
-> >--
-> >Matt Roper
-> >Graphics Software Engineer
-> >VTT-OSGC Platform Enablement
-> >Intel Corporation
-> >(916) 356-2795
-> >
+>  	if (desired_and_not_enabled || content_protection_type_changed)
+> --
+> 2.26.2
 
--- 
-Matt Roper
-Graphics Software Engineer
-VTT-OSGC Platform Enablement
-Intel Corporation
-(916) 356-2795
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
