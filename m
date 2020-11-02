@@ -2,51 +2,41 @@ Return-Path: <SRS0=yb3L=EI=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E9453C00A89
-	for <intel-gfx@archiver.kernel.org>; Mon,  2 Nov 2020 13:52:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8272BC00A89
+	for <intel-gfx@archiver.kernel.org>; Mon,  2 Nov 2020 14:12:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 93C25208B6
-	for <intel-gfx@archiver.kernel.org>; Mon,  2 Nov 2020 13:52:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 93C25208B6
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id E9DA8223FB
+	for <intel-gfx@archiver.kernel.org>; Mon,  2 Nov 2020 14:12:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E9DA8223FB
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF0876E112;
-	Mon,  2 Nov 2020 13:52:36 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 26C576E112
- for <intel-gfx@lists.freedesktop.org>; Mon,  2 Nov 2020 13:52:35 +0000 (UTC)
-IronPort-SDR: l7pe/DLQGpTlU/kAy6iwP+8CzmSAp270XMfbpx8CnJwDC4z14g66RCNzdJs/ZzPApD6ulvvH+j
- u0QeQkPYnecw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9792"; a="166293575"
-X-IronPort-AV: E=Sophos;i="5.77,445,1596524400"; d="scan'208";a="166293575"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Nov 2020 05:52:34 -0800
-IronPort-SDR: ldMpM7ykIaSD2m3p8pNcPwvqR7Cugo/SmXabYKs09if/963VbTTf/6fFS1pH2z5cDWocbUPHBp
- XLBHMgrQkrMw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.77,445,1596524400"; d="scan'208";a="357329534"
-Received: from shawnle1-build-machine.itwn.intel.com ([10.5.253.9])
- by fmsmga002.fm.intel.com with ESMTP; 02 Nov 2020 05:52:33 -0800
-From: Lee Shawn C <shawn.c.lee@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Mon,  2 Nov 2020 21:56:14 +0800
-Message-Id: <20201102135614.857-1-shawn.c.lee@intel.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20201028144312.12520-1-shawn.c.lee@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A7656E519;
+	Mon,  2 Nov 2020 14:12:21 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 1F8DB6E084;
+ Mon,  2 Nov 2020 14:12:20 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 17F1CA0019;
+ Mon,  2 Nov 2020 14:12:20 +0000 (UTC)
+MIME-Version: 1.0
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Lee Shawn C" <shawn.c.lee@intel.com>
+Date: Mon, 02 Nov 2020 14:12:20 -0000
+Message-ID: <160432634006.26393.5208248854022425103@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
 References: <20201028144312.12520-1-shawn.c.lee@intel.com>
-Subject: [Intel-gfx] [PATCH v3] drm/i915/rkl: new rkl ddc map for different
- PCH
+In-Reply-To: <20201028144312.12520-1-shawn.c.lee@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_drm/i915/rkl=3A_new_rkl_ddc_map_for_different_PCH_=28rev3?=
+ =?utf-8?q?=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,88 +49,29 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Cooper Chiou <cooper.chiou@intel.com>
-MIME-Version: 1.0
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-After boot into kernel. Driver configured ddc pin mapping based on
-predefined table in parse_ddi_port(). Now driver configure rkl
-ddc pin mapping depends on icp_ddc_pin_map[]. Then this table will
-give incorrect gmbus port number to cause HDMI can't work.
+== Series Details ==
 
+Series: drm/i915/rkl: new rkl ddc map for different PCH (rev3)
+URL   : https://patchwork.freedesktop.org/series/83154/
+State : warning
+
+== Summary ==
+
+$ dim checkpatch origin/drm-tip
+c0a38bfa9c23 drm/i915/rkl: new rkl ddc map for different PCH
+-:11: WARNING:UNKNOWN_COMMIT_ID: Unknown commit id 'd0a89527d06', maybe rebased or not pulled?
+#11: 
 Refer to commit d0a89527d06 ("drm/i915/rkl: Add DDC pin mapping").
-Create two ddc pin table for rkl TGP and CMP pch. Then HDMI can
-works properly on rkl.
 
-v2: update patch based on latest dinq branch.
-v3: update ddc table for RKL+TGP sku.
-    RKL+CNP sku will load cnp_ddc_pin_map[] setting.
+total: 0 errors, 1 warnings, 0 checks, 36 lines checked
 
-Cc: Matt Roper <matthew.d.roper@intel.com>
-Cc: Aditya Swarup <aditya.swarup@intel.com>
-Cc: Anusha Srivatsa <anusha.srivatsa@intel.com>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Cooper Chiou <cooper.chiou@intel.com>
-Cc: Khaled Almahallawy <khaled.almahallawy@intel.com>
-Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/2577
-Signed-off-by: Lee Shawn C <shawn.c.lee@intel.com>
----
- drivers/gpu/drm/i915/display/intel_bios.c     | 16 ++++++++++++++--
- drivers/gpu/drm/i915/display/intel_vbt_defs.h |  2 ++
- 2 files changed, 16 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
-index 4cc949b228f2..4de991bafd10 100644
---- a/drivers/gpu/drm/i915/display/intel_bios.c
-+++ b/drivers/gpu/drm/i915/display/intel_bios.c
-@@ -1623,6 +1623,13 @@ static const u8 icp_ddc_pin_map[] = {
- 	[TGL_DDC_BUS_PORT_6] = GMBUS_PIN_14_TC6_TGP,
- };
- 
-+static const u8 rkl_pch_tgp_ddc_pin_map[] = {
-+	[ICL_DDC_BUS_DDI_A] = GMBUS_PIN_1_BXT,
-+	[ICL_DDC_BUS_DDI_B] = GMBUS_PIN_2_BXT,
-+	[RKL_DDC_BUS_DDI_D] = GMBUS_PIN_9_TC1_ICP,
-+	[RKL_DDC_BUS_DDI_E] = GMBUS_PIN_10_TC2_ICP,
-+};
-+
- static u8 map_ddc_pin(struct drm_i915_private *dev_priv, u8 vbt_pin)
- {
- 	const u8 *ddc_pin_map;
-@@ -1631,8 +1638,13 @@ static u8 map_ddc_pin(struct drm_i915_private *dev_priv, u8 vbt_pin)
- 	if (INTEL_PCH_TYPE(dev_priv) >= PCH_DG1) {
- 		return vbt_pin;
- 	} else if (INTEL_PCH_TYPE(dev_priv) >= PCH_ICP) {
--		ddc_pin_map = icp_ddc_pin_map;
--		n_entries = ARRAY_SIZE(icp_ddc_pin_map);
-+		if (IS_ROCKETLAKE(dev_priv)) {
-+			ddc_pin_map = rkl_pch_tgp_ddc_pin_map;
-+			n_entries = ARRAY_SIZE(rkl_pch_tgp_ddc_pin_map);
-+		} else {
-+			ddc_pin_map = icp_ddc_pin_map;
-+			n_entries = ARRAY_SIZE(icp_ddc_pin_map);
-+		}
- 	} else if (HAS_PCH_CNP(dev_priv)) {
- 		ddc_pin_map = cnp_ddc_pin_map;
- 		n_entries = ARRAY_SIZE(cnp_ddc_pin_map);
-diff --git a/drivers/gpu/drm/i915/display/intel_vbt_defs.h b/drivers/gpu/drm/i915/display/intel_vbt_defs.h
-index 49b4b5fca941..187ec573de59 100644
---- a/drivers/gpu/drm/i915/display/intel_vbt_defs.h
-+++ b/drivers/gpu/drm/i915/display/intel_vbt_defs.h
-@@ -319,6 +319,8 @@ enum vbt_gmbus_ddi {
- 	ICL_DDC_BUS_DDI_A = 0x1,
- 	ICL_DDC_BUS_DDI_B,
- 	TGL_DDC_BUS_DDI_C,
-+	RKL_DDC_BUS_DDI_D = 0x3,
-+	RKL_DDC_BUS_DDI_E,
- 	ICL_DDC_BUS_PORT_1 = 0x4,
- 	ICL_DDC_BUS_PORT_2,
- 	ICL_DDC_BUS_PORT_3,
--- 
-2.17.1
 
 _______________________________________________
 Intel-gfx mailing list
