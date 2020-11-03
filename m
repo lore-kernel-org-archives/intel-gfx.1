@@ -7,51 +7,52 @@ X-Spam-Status: No, score=-6.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 651D1C83012
-	for <intel-gfx@archiver.kernel.org>; Tue,  3 Nov 2020 10:33:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DA76EC8301F
+	for <intel-gfx@archiver.kernel.org>; Tue,  3 Nov 2020 10:34:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 07F4622409
-	for <intel-gfx@archiver.kernel.org>; Tue,  3 Nov 2020 10:33:51 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 807132242A
+	for <intel-gfx@archiver.kernel.org>; Tue,  3 Nov 2020 10:34:00 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="1s+HyF/F";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="pmC0VAx7"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 07F4622409
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="1VOEfDVF";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="k835MHfI"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 807132242A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linutronix.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 76C686EC27;
-	Tue,  3 Nov 2020 10:33:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0205F6EC59;
+	Tue,  3 Nov 2020 10:34:00 +0000 (UTC)
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1D7B46EC6F;
- Tue,  3 Nov 2020 10:33:48 +0000 (UTC)
-Message-Id: <20201103095858.422094352@linutronix.de>
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D390A6EC73;
+ Tue,  3 Nov 2020 10:33:56 +0000 (UTC)
+Message-Id: <20201103095858.928160966@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1604399625;
+ s=2020; t=1604399631;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:  references:references;
- bh=smrPH5soON645xyx9VRl+21drBOTiCV7paBhp6VDF7c=;
- b=1s+HyF/FYJ/rgPZaWI+m83inHucd+bq/quSZGod6llIFmqowzQ5Uj534Dp2bA5XqxHpczy
- 5PbeanQRfDz1AuX8kinkfWMXcS8BmJk+fThow4mOsKbqg60U1tglzYZirczwEafzmV304k
- vWL7Lw90rdS3zi+ezQm23RGH6jkCbJwsDDz9S70OXSyQOVtLVy3YhkIhceubZ5L2mtPL5D
- XeFeNSZCmuHE7+4H3i4/EJ1oonlJIFtOzN4einmFJgZE+tRVlreGH2pa/fMfqFTEA+imSe
- wIFE4YW6BPWkrcSVgyukWdBcDSRT5ns4ro16iCnklveIoZw2mTe9Ka8l6/ODCA==
+ bh=Sj7ujMQG8Pikgi1SaAA6FKKi3J+PrOgKR0lWBRPpqX0=;
+ b=1VOEfDVFZmx2aRF7NIXJWbldvpbKmvKykyskU6rtkXPPBe5nnNLskI8lCCnqQNLk1P1c91
+ 566zbE5metNSU87SvaJqZdO2LL+dj1GNHv5VXLRmIMhdOUP3rj4Dx8qV0B13wmRK1bFNxQ
+ 4PLxmsGJ9vvRmK4Uu88EHppz5O8hwHizE5bXQlmqSNqaoNPB1luLQDZpvqOg9BqxoBPr/5
+ K47wWQw+mNgWsMEn8ZxOVqc5BZXlwl6iZ6HvsxgxfqP3zKGi811pnavdbB0LYfzRw8LVQR
+ 1EhOmQs8gjK34B0JgnnXR1HkV23Xx7Jf4rfwhSI5drdF0IeiHwORw9Crw3R5Ng==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1604399625;
+ s=2020e; t=1604399631;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:  references:references;
- bh=smrPH5soON645xyx9VRl+21drBOTiCV7paBhp6VDF7c=;
- b=pmC0VAx7QxdaAMBVLJ1q/DEtO4tuXlK2LCYdUzolfC2B3Ot24ygRPNuRwFLcA00qeEWN6y
- xpi9fS63JrzH88CQ==
-Date: Tue, 03 Nov 2020 10:27:30 +0100
+ bh=Sj7ujMQG8Pikgi1SaAA6FKKi3J+PrOgKR0lWBRPpqX0=;
+ b=k835MHfI+zh7GQNJZBNkAIxMhS3d2ArgKIVieRXtccdpV7cLYn2RAMdfkD3wEmSj1touvr
+ 5EH/hsWNFwf+bWAw==
+Date: Tue, 03 Nov 2020 10:27:35 +0100
 From: Thomas Gleixner <tglx@linutronix.de>
 To: LKML <linux-kernel@vger.kernel.org>
 References: <20201103092712.714480842@linutronix.de>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [patch V3 18/37] highmem: Get rid of kmap_types.h
+Subject: [Intel-gfx] [patch V3 23/37] sched: Make migrate_disable/enable()
+ independent of RT
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,18 +72,17 @@ Cc: Juri Lelli <juri.lelli@redhat.com>, linux-aio@kvack.org,
  dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
  Ben Segall <bsegall@google.com>, Chris Mason <clm@fb.com>,
  Huang Rui <ray.huang@amd.com>, Paul Mackerras <paulus@samba.org>,
- Gerd Hoffmann <kraxel@redhat.com>,
- Daniel Bristot de Oliveira <bristot@redhat.com>, sparclinux@vger.kernel.org,
- Vincent Chen <deanbo422@gmail.com>, Christoph Hellwig <hch@lst.de>,
- Paul McKenney <paulmck@kernel.org>, Max Filippov <jcmvbkbc@gmail.com>,
+ Gerd Hoffmann <kraxel@redhat.com>, sparclinux@vger.kernel.org,
+ Vincent Chen <deanbo422@gmail.com>, Ingo Molnar <mingo@kernel.org>,
+ Arnd Bergmann <arnd@arndb.de>, Max Filippov <jcmvbkbc@gmail.com>,
  Michael Ellerman <mpe@ellerman.id.au>, x86@kernel.org,
  Russell King <linux@armlinux.org.uk>, linux-csky@vger.kernel.org,
- Ingo Molnar <mingo@kernel.org>, David Airlie <airlied@linux.ie>,
+ Christoph Hellwig <hch@lst.de>, David Airlie <airlied@linux.ie>,
  VMware Graphics <linux-graphics-maintainer@vmware.com>,
  Mel Gorman <mgorman@suse.de>, nouveau@lists.freedesktop.org,
  Dave Airlie <airlied@redhat.com>, linux-snps-arc@lists.infradead.org,
  Ben Skeggs <bskeggs@redhat.com>, linux-xtensa@linux-xtensa.org,
- Arnd Bergmann <arnd@arndb.de>, intel-gfx@lists.freedesktop.org,
+ Paul McKenney <paulmck@kernel.org>, intel-gfx@lists.freedesktop.org,
  Roland Scheidegger <sroland@vmware.com>, Josef Bacik <josef@toxicpanda.com>,
  Steven Rostedt <rostedt@goodmis.org>,
  Linus Torvalds <torvalds@linuxfoundation.org>,
@@ -92,167 +92,288 @@ Cc: Juri Lelli <juri.lelli@redhat.com>, linux-aio@kvack.org,
  Michal Simek <monstr@monstr.eu>,
  Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
  Nick Hu <nickhu@andestech.com>, linux-mm@kvack.org,
- Vineet Gupta <vgupta@synopsys.com>, linux-mips@vger.kernel.org,
- Christian Koenig <christian.koenig@amd.com>, Benjamin LaHaise <bcrl@kvack.org>,
- linux-fsdevel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
- linuxppc-dev@lists.ozlabs.org, "David S. Miller" <davem@davemloft.net>,
- linux-btrfs@vger.kernel.org, Greentime Hu <green.hu@gmail.com>
+ Vineet Gupta <vgupta@synopsys.com>, linuxppc-dev@lists.ozlabs.org,
+ linux-mips@vger.kernel.org, Christian Koenig <christian.koenig@amd.com>,
+ Benjamin LaHaise <bcrl@kvack.org>, linux-fsdevel@vger.kernel.org,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Daniel Bristot de Oliveira <bristot@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-btrfs@vger.kernel.org,
+ Greentime Hu <green.hu@gmail.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The header is not longer used and on alpha, ia64, openrisc, parisc and um
-it was completely unused anyway as these architectures have no highmem
-support.
+Now that the scheduler can deal with migrate disable properly, there is no
+real compelling reason to make it only available for RT.
+
+There are quite some code pathes which needlessly disable preemption in
+order to prevent migration and some constructs like kmap_atomic() enforce
+it implicitly.
+
+Making it available independent of RT allows to provide a preemptible
+variant of kmap_atomic() and makes the code more consistent in general.
+
+FIXME: Rework the comment in preempt.h
 
 Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
+Cc: Peter Zijlstra <peterz@infradead.org>
+Cc: Ingo Molnar <mingo@kernel.org>
+Cc: Juri Lelli <juri.lelli@redhat.com>
+Cc: Vincent Guittot <vincent.guittot@linaro.org>
+Cc: Dietmar Eggemann <dietmar.eggemann@arm.com>
+Cc: Steven Rostedt <rostedt@goodmis.org>
+Cc: Ben Segall <bsegall@google.com>
+Cc: Mel Gorman <mgorman@suse.de>
+Cc: Daniel Bristot de Oliveira <bristot@redhat.com>
 ---
-V3: New patch
----
- arch/alpha/include/asm/kmap_types.h  |   15 ---------------
- arch/ia64/include/asm/kmap_types.h   |   13 -------------
- arch/openrisc/mm/init.c              |    1 -
- arch/openrisc/mm/ioremap.c           |    1 -
- arch/parisc/include/asm/kmap_types.h |   13 -------------
- arch/um/include/asm/fixmap.h         |    1 -
- arch/um/include/asm/kmap_types.h     |   13 -------------
- include/asm-generic/Kbuild           |    1 -
- include/asm-generic/kmap_types.h     |   11 -----------
- include/linux/highmem.h              |    2 --
- 10 files changed, 71 deletions(-)
+ include/linux/kernel.h  |   21 ++++++++++++++-------
+ include/linux/preempt.h |   38 +++-----------------------------------
+ include/linux/sched.h   |    2 +-
+ kernel/sched/core.c     |   45 +++++++++++++++++++++++++++++++++++----------
+ kernel/sched/sched.h    |    4 ++--
+ lib/smp_processor_id.c  |    2 +-
+ 6 files changed, 56 insertions(+), 56 deletions(-)
 
---- a/arch/alpha/include/asm/kmap_types.h
-+++ /dev/null
-@@ -1,15 +0,0 @@
--/* SPDX-License-Identifier: GPL-2.0 */
--#ifndef _ASM_KMAP_TYPES_H
--#define _ASM_KMAP_TYPES_H
--
--/* Dummy header just to define km_type. */
--
--#ifdef CONFIG_DEBUG_HIGHMEM
--#define  __WITH_KM_FENCE
--#endif
--
--#include <asm-generic/kmap_types.h>
--
--#undef __WITH_KM_FENCE
--
--#endif
---- a/arch/ia64/include/asm/kmap_types.h
-+++ /dev/null
-@@ -1,13 +0,0 @@
--/* SPDX-License-Identifier: GPL-2.0 */
--#ifndef _ASM_IA64_KMAP_TYPES_H
--#define _ASM_IA64_KMAP_TYPES_H
--
--#ifdef CONFIG_DEBUG_HIGHMEM
--#define  __WITH_KM_FENCE
--#endif
--
--#include <asm-generic/kmap_types.h>
--
--#undef __WITH_KM_FENCE
--
--#endif /* _ASM_IA64_KMAP_TYPES_H */
---- a/arch/openrisc/mm/init.c
-+++ b/arch/openrisc/mm/init.c
-@@ -33,7 +33,6 @@
- #include <asm/io.h>
- #include <asm/tlb.h>
- #include <asm/mmu_context.h>
--#include <asm/kmap_types.h>
- #include <asm/fixmap.h>
- #include <asm/tlbflush.h>
- #include <asm/sections.h>
---- a/arch/openrisc/mm/ioremap.c
-+++ b/arch/openrisc/mm/ioremap.c
-@@ -15,7 +15,6 @@
- #include <linux/io.h>
- #include <linux/pgtable.h>
- #include <asm/pgalloc.h>
--#include <asm/kmap_types.h>
- #include <asm/fixmap.h>
- #include <asm/bug.h>
- #include <linux/sched.h>
---- a/arch/parisc/include/asm/kmap_types.h
-+++ /dev/null
-@@ -1,13 +0,0 @@
--/* SPDX-License-Identifier: GPL-2.0 */
--#ifndef _ASM_KMAP_TYPES_H
--#define _ASM_KMAP_TYPES_H
--
--#ifdef CONFIG_DEBUG_HIGHMEM
--#define  __WITH_KM_FENCE
--#endif
--
--#include <asm-generic/kmap_types.h>
--
--#undef __WITH_KM_FENCE
--
--#endif
---- a/arch/um/include/asm/fixmap.h
-+++ b/arch/um/include/asm/fixmap.h
-@@ -3,7 +3,6 @@
- #define __UM_FIXMAP_H
+--- a/include/linux/kernel.h
++++ b/include/linux/kernel.h
+@@ -204,6 +204,7 @@ extern int _cond_resched(void);
+ extern void ___might_sleep(const char *file, int line, int preempt_offset);
+ extern void __might_sleep(const char *file, int line, int preempt_offset);
+ extern void __cant_sleep(const char *file, int line, int preempt_offset);
++extern void __cant_migrate(const char *file, int line);
  
- #include <asm/processor.h>
--#include <asm/kmap_types.h>
- #include <asm/archparam.h>
- #include <asm/page.h>
- #include <linux/threads.h>
---- a/arch/um/include/asm/kmap_types.h
-+++ /dev/null
-@@ -1,13 +0,0 @@
--/* SPDX-License-Identifier: GPL-2.0 */
--/* 
-- * Copyright (C) 2002 Jeff Dike (jdike@karaya.com)
-- */
--
--#ifndef __UM_KMAP_TYPES_H
--#define __UM_KMAP_TYPES_H
--
--/* No more #include "asm/arch/kmap_types.h" ! */
--
--#define KM_TYPE_NR 14
--
--#endif
---- a/include/asm-generic/Kbuild
-+++ b/include/asm-generic/Kbuild
-@@ -30,7 +30,6 @@ mandatory-y += irq.h
- mandatory-y += irq_regs.h
- mandatory-y += irq_work.h
- mandatory-y += kdebug.h
--mandatory-y += kmap_types.h
- mandatory-y += kmap_size.h
- mandatory-y += kprobes.h
- mandatory-y += linkage.h
---- a/include/asm-generic/kmap_types.h
-+++ /dev/null
-@@ -1,11 +0,0 @@
--/* SPDX-License-Identifier: GPL-2.0 */
--#ifndef _ASM_GENERIC_KMAP_TYPES_H
--#define _ASM_GENERIC_KMAP_TYPES_H
--
--#ifdef __WITH_KM_FENCE
--# define KM_TYPE_NR 41
+ /**
+  * might_sleep - annotation for functions that can sleep
+@@ -227,6 +228,18 @@ extern void __cant_sleep(const char *fil
+ # define cant_sleep() \
+ 	do { __cant_sleep(__FILE__, __LINE__, 0); } while (0)
+ # define sched_annotate_sleep()	(current->task_state_change = 0)
++
++/**
++ * cant_migrate - annotation for functions that cannot migrate
++ *
++ * Will print a stack trace if executed in code which is migratable
++ */
++# define cant_migrate()							\
++	do {								\
++		if (IS_ENABLED(CONFIG_SMP))				\
++			__cant_migrate(__FILE__, __LINE__);		\
++	} while (0)
++
+ /**
+  * non_block_start - annotate the start of section where sleeping is prohibited
+  *
+@@ -251,6 +264,7 @@ extern void __cant_sleep(const char *fil
+ 				   int preempt_offset) { }
+ # define might_sleep() do { might_resched(); } while (0)
+ # define cant_sleep() do { } while (0)
++# define cant_migrate()		do { } while (0)
+ # define sched_annotate_sleep() do { } while (0)
+ # define non_block_start() do { } while (0)
+ # define non_block_end() do { } while (0)
+@@ -258,13 +272,6 @@ extern void __cant_sleep(const char *fil
+ 
+ #define might_sleep_if(cond) do { if (cond) might_sleep(); } while (0)
+ 
+-#ifndef CONFIG_PREEMPT_RT
+-# define cant_migrate()		cant_sleep()
 -#else
--# define KM_TYPE_NR 20
+-  /* Placeholder for now */
+-# define cant_migrate()		do { } while (0)
 -#endif
 -
--#endif
---- a/include/linux/highmem.h
-+++ b/include/linux/highmem.h
-@@ -29,8 +29,6 @@ static inline void invalidate_kernel_vma
- }
+ /**
+  * abs - return absolute value of an argument
+  * @x: the value.  If it is unsigned type, it is converted to signed type first.
+--- a/include/linux/preempt.h
++++ b/include/linux/preempt.h
+@@ -322,7 +322,7 @@ static inline void preempt_notifier_init
+ 
  #endif
  
--#include <asm/kmap_types.h>
+-#if defined(CONFIG_SMP) && defined(CONFIG_PREEMPT_RT)
++#ifdef CONFIG_SMP
+ 
+ /*
+  * Migrate-Disable and why it is undesired.
+@@ -382,43 +382,11 @@ static inline void preempt_notifier_init
+ extern void migrate_disable(void);
+ extern void migrate_enable(void);
+ 
+-#elif defined(CONFIG_PREEMPT_RT)
++#else
+ 
+ static inline void migrate_disable(void) { }
+ static inline void migrate_enable(void) { }
+ 
+-#else /* !CONFIG_PREEMPT_RT */
+-
+-/**
+- * migrate_disable - Prevent migration of the current task
+- *
+- * Maps to preempt_disable() which also disables preemption. Use
+- * migrate_disable() to annotate that the intent is to prevent migration,
+- * but not necessarily preemption.
+- *
+- * Can be invoked nested like preempt_disable() and needs the corresponding
+- * number of migrate_enable() invocations.
+- */
+-static __always_inline void migrate_disable(void)
+-{
+-	preempt_disable();
+-}
+-
+-/**
+- * migrate_enable - Allow migration of the current task
+- *
+- * Counterpart to migrate_disable().
+- *
+- * As migrate_disable() can be invoked nested, only the outermost invocation
+- * reenables migration.
+- *
+- * Currently mapped to preempt_enable().
+- */
+-static __always_inline void migrate_enable(void)
+-{
+-	preempt_enable();
+-}
+-
+-#endif /* CONFIG_SMP && CONFIG_PREEMPT_RT */
++#endif /* CONFIG_SMP */
+ 
+ #endif /* __LINUX_PREEMPT_H */
+--- a/include/linux/sched.h
++++ b/include/linux/sched.h
+@@ -715,7 +715,7 @@ struct task_struct {
+ 	const cpumask_t			*cpus_ptr;
+ 	cpumask_t			cpus_mask;
+ 	void				*migration_pending;
+-#if defined(CONFIG_SMP) && defined(CONFIG_PREEMPT_RT)
++#ifdef CONFIG_SMP
+ 	unsigned short			migration_disabled;
+ #endif
+ 	unsigned short			migration_flags;
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -1696,8 +1696,6 @@ void check_preempt_curr(struct rq *rq, s
+ 
+ #ifdef CONFIG_SMP
+ 
+-#ifdef CONFIG_PREEMPT_RT
+-
+ static void
+ __do_set_cpus_allowed(struct task_struct *p, const struct cpumask *new_mask, u32 flags);
+ 
+@@ -1772,8 +1770,6 @@ static inline bool rq_has_pinned_tasks(s
+ 	return rq->nr_pinned;
+ }
+ 
+-#endif
 -
  /*
-  * Outside of CONFIG_HIGHMEM to support X86 32bit iomap_atomic() cruft.
-  */
+  * Per-CPU kthreads are allowed to run on !active && online CPUs, see
+  * __set_cpus_allowed_ptr() and select_fallback_rq().
+@@ -2841,7 +2837,7 @@ void sched_set_stop_task(int cpu, struct
+ 	}
+ }
+ 
+-#else
++#else /* CONFIG_SMP */
+ 
+ static inline int __set_cpus_allowed_ptr(struct task_struct *p,
+ 					 const struct cpumask *new_mask,
+@@ -2850,10 +2846,6 @@ static inline int __set_cpus_allowed_ptr
+ 	return set_cpus_allowed_ptr(p, new_mask);
+ }
+ 
+-#endif /* CONFIG_SMP */
+-
+-#if !defined(CONFIG_SMP) || !defined(CONFIG_PREEMPT_RT)
+-
+ static inline void migrate_disable_switch(struct rq *rq, struct task_struct *p) { }
+ 
+ static inline bool rq_has_pinned_tasks(struct rq *rq)
+@@ -2861,7 +2853,7 @@ static inline bool rq_has_pinned_tasks(s
+ 	return false;
+ }
+ 
+-#endif
++#endif /* !CONFIG_SMP */
+ 
+ static void
+ ttwu_stat(struct task_struct *p, int cpu, int wake_flags)
+@@ -7883,6 +7875,39 @@ void __cant_sleep(const char *file, int
+ 	add_taint(TAINT_WARN, LOCKDEP_STILL_OK);
+ }
+ EXPORT_SYMBOL_GPL(__cant_sleep);
++
++#ifdef CONFIG_SMP
++void __cant_migrate(const char *file, int line)
++{
++	static unsigned long prev_jiffy;
++
++	if (irqs_disabled())
++		return;
++
++	if (is_migration_disabled(current))
++		return;
++
++	if (!IS_ENABLED(CONFIG_PREEMPT_COUNT))
++		return;
++
++	if (preempt_count() > 0)
++		return;
++
++	if (time_before(jiffies, prev_jiffy + HZ) && prev_jiffy)
++		return;
++	prev_jiffy = jiffies;
++
++	pr_err("BUG: assuming non migratable context at %s:%d\n", file, line);
++	pr_err("in_atomic(): %d, irqs_disabled(): %d, migration_disabled() %u pid: %d, name: %s\n",
++	       in_atomic(), irqs_disabled(), is_migration_disabled(current),
++	       current->pid, current->comm);
++
++	debug_show_held_locks(current);
++	dump_stack();
++	add_taint(TAINT_WARN, LOCKDEP_STILL_OK);
++}
++EXPORT_SYMBOL_GPL(__cant_migrate);
++#endif
+ #endif
+ 
+ #ifdef CONFIG_MAGIC_SYSRQ
+--- a/kernel/sched/sched.h
++++ b/kernel/sched/sched.h
+@@ -1056,7 +1056,7 @@ struct rq {
+ 	struct cpuidle_state	*idle_state;
+ #endif
+ 
+-#if defined(CONFIG_PREEMPT_RT) && defined(CONFIG_SMP)
++#ifdef CONFIG_SMP
+ 	unsigned int		nr_pinned;
+ #endif
+ 	unsigned int		push_busy;
+@@ -1092,7 +1092,7 @@ static inline int cpu_of(struct rq *rq)
+ 
+ static inline bool is_migration_disabled(struct task_struct *p)
+ {
+-#if defined(CONFIG_SMP) && defined(CONFIG_PREEMPT_RT)
++#ifdef CONFIG_SMP
+ 	return p->migration_disabled;
+ #else
+ 	return false;
+--- a/lib/smp_processor_id.c
++++ b/lib/smp_processor_id.c
+@@ -26,7 +26,7 @@ unsigned int check_preemption_disabled(c
+ 	if (current->nr_cpus_allowed == 1)
+ 		goto out;
+ 
+-#if defined(CONFIG_SMP) && defined(CONFIG_PREEMPT_RT)
++#ifdef CONFIG_SMP
+ 	if (current->migration_disabled)
+ 		goto out;
+ #endif
 
 _______________________________________________
 Intel-gfx mailing list
