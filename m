@@ -7,51 +7,52 @@ X-Spam-Status: No, score=-6.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 80377C8303C
-	for <intel-gfx@archiver.kernel.org>; Tue,  3 Nov 2020 10:34:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5E9A1C82603
+	for <intel-gfx@archiver.kernel.org>; Tue,  3 Nov 2020 10:34:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2209D22404
-	for <intel-gfx@archiver.kernel.org>; Tue,  3 Nov 2020 10:34:17 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id E688921D40
+	for <intel-gfx@archiver.kernel.org>; Tue,  3 Nov 2020 10:34:22 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="tqX0huA3";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="oAcSNmei"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2209D22404
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="4s8omJJm";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="U4tn/+pk"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E688921D40
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linutronix.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C0186EC76;
-	Tue,  3 Nov 2020 10:34:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 62D8489C1B;
+	Tue,  3 Nov 2020 10:34:22 +0000 (UTC)
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB0316EC4F;
- Tue,  3 Nov 2020 10:34:13 +0000 (UTC)
-Message-Id: <20201103095859.948321621@linutronix.de>
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7153689C69;
+ Tue,  3 Nov 2020 10:34:19 +0000 (UTC)
+Message-Id: <20201103095900.254775994@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1604399644;
+ s=2020; t=1604399648;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:  references:references;
- bh=pWTP+ffmxbdbKgw8Fs16NN7GUZ4c2XuBXkTON+k89eo=;
- b=tqX0huA3F2bRZGg5joppInMsd89JdtzQORLsBqdOU/cOQ9uNazXTFF+fXnrg9Lvo7UTQF+
- tfAXAlY98Cp8E88kX5FSfcVehbIuu4gCGdKyQusY7s2vKR/fc+WwwKprFg+uuIuaKZ5Vs8
- tKvRO99KWGPJB1qnu00RadM9QOpIAe9bUxTUpY6xhr58iPpUqU/8ypCk+UtFww7a2Z6+tD
- K81IrB+KPrJf49nwV583/mEA7Vp083clJTvWvydIml0VZ1RUr3o1iEnFm1LMpQ5ZYUJH5y
- l0wYvNWdqV1o7YOuE3FLp/1v36bpWI8ig5M02Fceplah92aoUhFNnt3+SDlY+Q==
+ bh=fathe5XQH1prv3cOh0IbfIOri3L6Dlenv7hGYFbTtOw=;
+ b=4s8omJJmBJxpmEg2QlzSO+2D4D00kouw94LPizFXKTom4HVYkN1o6VhUYVjXFczGJZXWt6
+ jcuI7M/Stlt9YLFWcRG639AknE1v3UGJre9Df69eIwRjf9YTAiuZlQltsoKHicCYv0XkOB
+ tMyxElLRYReGvN4Pcl2amdoIzJ+WqApLJqAyPzA/Jqs47Dn+PWf6iFzctqWQ01kgsVlEs+
+ 1Ko7pw79T/pa0E4i3nSMi+6A0K8qzsp3/0oy+zVV4I8gfR55e/p9Uu4ya2uNvVxk7sYui2
+ P+3BfUUa3cw0srOaWKmfe2rDqSUUj9AU19r7OCFMjiYKDFXVXEhQ3iKBruwOYA==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1604399644;
+ s=2020e; t=1604399648;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:  references:references;
- bh=pWTP+ffmxbdbKgw8Fs16NN7GUZ4c2XuBXkTON+k89eo=;
- b=oAcSNmeianVANBdkJfMq3VEfmfk7zPkjo1SytIi26JtOQ/F/yxC+2+XTfAnYi8jPc8tJbo
- D8mVfP2UZfQ3SJBw==
-Date: Tue, 03 Nov 2020 10:27:45 +0100
+ bh=fathe5XQH1prv3cOh0IbfIOri3L6Dlenv7hGYFbTtOw=;
+ b=U4tn/+pk9QVOKUfGcyx1nvemACltstypD2THWsG3wL3LXLx1tDAUzM/HpmYQmwhLMtJxEk
+ hA08G13TeSVN0TDg==
+Date: Tue, 03 Nov 2020 10:27:48 +0100
 From: Thomas Gleixner <tglx@linutronix.de>
 To: LKML <linux-kernel@vger.kernel.org>
 References: <20201103092712.714480842@linutronix.de>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [patch V3 33/37] highmem: Remove kmap_atomic_prot()
+Subject: [Intel-gfx] [patch V3 36/37] drm/i915: Replace
+ io_mapping_map_atomic_wc()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,81 +70,197 @@ Cc: Juri Lelli <juri.lelli@redhat.com>, linux-aio@kvack.org,
  Benjamin Herrenschmidt <benh@kernel.crashing.org>,
  Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
  dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
- Ben Segall <bsegall@google.com>, Chris Mason <clm@fb.com>,
+ Ben Segall <bsegall@google.com>, linux-mm@kvack.org,
  Huang Rui <ray.huang@amd.com>, Paul Mackerras <paulus@samba.org>,
  Gerd Hoffmann <kraxel@redhat.com>,
  Daniel Bristot de Oliveira <bristot@redhat.com>, sparclinux@vger.kernel.org,
- Vincent Chen <deanbo422@gmail.com>, Christoph Hellwig <hch@lst.de>,
- Paul McKenney <paulmck@kernel.org>, Max Filippov <jcmvbkbc@gmail.com>,
- Michael Ellerman <mpe@ellerman.id.au>, x86@kernel.org,
- Russell King <linux@armlinux.org.uk>, linux-csky@vger.kernel.org,
- Ingo Molnar <mingo@kernel.org>, David Airlie <airlied@linux.ie>,
- VMware Graphics <linux-graphics-maintainer@vmware.com>,
+ Dave Airlie <airlied@redhat.com>, Vincent Chen <deanbo422@gmail.com>,
+ Christoph Hellwig <hch@lst.de>, Arnd Bergmann <arnd@arndb.de>,
+ Max Filippov <jcmvbkbc@gmail.com>, Michael Ellerman <mpe@ellerman.id.au>,
+ x86@kernel.org, Russell King <linux@armlinux.org.uk>,
+ linux-csky@vger.kernel.org, Ingo Molnar <mingo@kernel.org>,
+ David Airlie <airlied@linux.ie>, Steven Rostedt <rostedt@goodmis.org>,
  Mel Gorman <mgorman@suse.de>, nouveau@lists.freedesktop.org,
- Dave Airlie <airlied@redhat.com>, linux-snps-arc@lists.infradead.org,
- Ben Skeggs <bskeggs@redhat.com>, linux-xtensa@linux-xtensa.org,
- Arnd Bergmann <arnd@arndb.de>, intel-gfx@lists.freedesktop.org,
- Roland Scheidegger <sroland@vmware.com>, Josef Bacik <josef@toxicpanda.com>,
- Steven Rostedt <rostedt@goodmis.org>,
+ VMware Graphics <linux-graphics-maintainer@vmware.com>,
+ linux-snps-arc@lists.infradead.org, Ben Skeggs <bskeggs@redhat.com>,
+ linux-xtensa@linux-xtensa.org, Paul McKenney <paulmck@kernel.org>,
+ intel-gfx@lists.freedesktop.org, Roland Scheidegger <sroland@vmware.com>,
+ Josef Bacik <josef@toxicpanda.com>,
  Linus Torvalds <torvalds@linuxfoundation.org>,
- Alexander Viro <viro@zeniv.linux.org.uk>, spice-devel@lists.freedesktop.org,
- David Sterba <dsterba@suse.com>, Dietmar Eggemann <dietmar.eggemann@arm.com>,
+ Alexander Viro <viro@zeniv.linux.org.uk>, David Sterba <dsterba@suse.com>,
+ Dietmar Eggemann <dietmar.eggemann@arm.com>,
  linux-arm-kernel@lists.infradead.org, Chris Zankel <chris@zankel.net>,
  Michal Simek <monstr@monstr.eu>,
  Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
- Nick Hu <nickhu@andestech.com>, linux-mm@kvack.org,
+ Nick Hu <nickhu@andestech.com>, Chris Mason <clm@fb.com>,
  Vineet Gupta <vgupta@synopsys.com>, linux-mips@vger.kernel.org,
  Christian Koenig <christian.koenig@amd.com>, Benjamin LaHaise <bcrl@kvack.org>,
- linux-fsdevel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
- linuxppc-dev@lists.ozlabs.org, "David S. Miller" <davem@davemloft.net>,
- linux-btrfs@vger.kernel.org, Greentime Hu <green.hu@gmail.com>
+ spice-devel@lists.freedesktop.org, linux-fsdevel@vger.kernel.org,
+ Andrew Morton <akpm@linux-foundation.org>, linuxppc-dev@lists.ozlabs.org,
+ "David S. Miller" <davem@davemloft.net>, linux-btrfs@vger.kernel.org,
+ Greentime Hu <green.hu@gmail.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-No more users.
+None of these mapping requires the side effect of disabling pagefaults and
+preemption.
+
+Use io_mapping_map_local_wc() instead, and clean up gtt_user_read() and
+gtt_user_write() to use a plain copy_from_user() as the local maps are not
+disabling pagefaults.
 
 Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: David Airlie <airlied@linux.ie>
+Cc: Daniel Vetter <daniel@ffwll.ch>
+Cc: intel-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
 ---
 V3: New patch
 ---
- include/linux/highmem-internal.h |   14 ++------------
- 1 file changed, 2 insertions(+), 12 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c |    7 +---
+ drivers/gpu/drm/i915/i915_gem.c                |   40 ++++++++-----------------
+ drivers/gpu/drm/i915/selftests/i915_gem.c      |    4 +-
+ drivers/gpu/drm/i915/selftests/i915_gem_gtt.c  |    8 ++---
+ 4 files changed, 22 insertions(+), 37 deletions(-)
 
---- a/include/linux/highmem-internal.h
-+++ b/include/linux/highmem-internal.h
-@@ -87,16 +87,11 @@ static inline void __kunmap_local(void *
- 	kunmap_local_indexed(vaddr);
- }
+--- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+@@ -1081,7 +1081,7 @@ static void reloc_cache_reset(struct rel
+ 		struct i915_ggtt *ggtt = cache_to_ggtt(cache);
  
--static inline void *kmap_atomic_prot(struct page *page, pgprot_t prot)
-+static inline void *kmap_atomic(struct page *page)
+ 		intel_gt_flush_ggtt_writes(ggtt->vm.gt);
+-		io_mapping_unmap_atomic((void __iomem *)vaddr);
++		io_mapping_unmap_local((void __iomem *)vaddr);
+ 
+ 		if (drm_mm_node_allocated(&cache->node)) {
+ 			ggtt->vm.clear_range(&ggtt->vm,
+@@ -1147,7 +1147,7 @@ static void *reloc_iomap(struct drm_i915
+ 
+ 	if (cache->vaddr) {
+ 		intel_gt_flush_ggtt_writes(ggtt->vm.gt);
+-		io_mapping_unmap_atomic((void __force __iomem *) unmask_page(cache->vaddr));
++		io_mapping_unmap_local((void __force __iomem *) unmask_page(cache->vaddr));
+ 	} else {
+ 		struct i915_vma *vma;
+ 		int err;
+@@ -1195,8 +1195,7 @@ static void *reloc_iomap(struct drm_i915
+ 		offset += page << PAGE_SHIFT;
+ 	}
+ 
+-	vaddr = (void __force *)io_mapping_map_atomic_wc(&ggtt->iomap,
+-							 offset);
++	vaddr = (void __force *)io_mapping_map_local_wc(&ggtt->iomap, offset);
+ 	cache->page = page;
+ 	cache->vaddr = (unsigned long)vaddr;
+ 
+--- a/drivers/gpu/drm/i915/i915_gem.c
++++ b/drivers/gpu/drm/i915/i915_gem.c
+@@ -379,22 +379,15 @@ gtt_user_read(struct io_mapping *mapping
+ 	      char __user *user_data, int length)
  {
- 	preempt_disable();
- 	pagefault_disable();
--	return __kmap_local_page_prot(page, prot);
--}
--
--static inline void *kmap_atomic(struct page *page)
--{
--	return kmap_atomic_prot(page, kmap_prot);
-+	return __kmap_local_page_prot(page, kmap_prot);
+ 	void __iomem *vaddr;
+-	unsigned long unwritten;
++	bool fail = false;
+ 
+ 	/* We can use the cpu mem copy function because this is X86. */
+-	vaddr = io_mapping_map_atomic_wc(mapping, base);
+-	unwritten = __copy_to_user_inatomic(user_data,
+-					    (void __force *)vaddr + offset,
+-					    length);
+-	io_mapping_unmap_atomic(vaddr);
+-	if (unwritten) {
+-		vaddr = io_mapping_map_wc(mapping, base, PAGE_SIZE);
+-		unwritten = copy_to_user(user_data,
+-					 (void __force *)vaddr + offset,
+-					 length);
+-		io_mapping_unmap(vaddr);
+-	}
+-	return unwritten;
++	vaddr = io_mapping_map_local_wc(mapping, base);
++	if (copy_to_user(user_data, (void __force *)vaddr + offset, length))
++		fail = true;
++	io_mapping_unmap_local(vaddr);
++
++	return fail;
  }
  
- static inline void __kunmap_atomic(void *addr)
-@@ -181,11 +176,6 @@ static inline void *kmap_atomic(struct p
- 	return page_address(page);
- }
- 
--static inline void *kmap_atomic_prot(struct page *page, pgprot_t prot)
--{
--	return kmap_atomic(page);
--}
--
- static inline void __kunmap_atomic(void *addr)
+ static int
+@@ -557,21 +550,14 @@ ggtt_write(struct io_mapping *mapping,
+ 	   char __user *user_data, int length)
  {
- #ifdef ARCH_HAS_FLUSH_ON_KUNMAP
+ 	void __iomem *vaddr;
+-	unsigned long unwritten;
++	bool fail = false;
+ 
+ 	/* We can use the cpu mem copy function because this is X86. */
+-	vaddr = io_mapping_map_atomic_wc(mapping, base);
+-	unwritten = __copy_from_user_inatomic_nocache((void __force *)vaddr + offset,
+-						      user_data, length);
+-	io_mapping_unmap_atomic(vaddr);
+-	if (unwritten) {
+-		vaddr = io_mapping_map_wc(mapping, base, PAGE_SIZE);
+-		unwritten = copy_from_user((void __force *)vaddr + offset,
+-					   user_data, length);
+-		io_mapping_unmap(vaddr);
+-	}
+-
+-	return unwritten;
++	vaddr = io_mapping_map_local_wc(mapping, base);
++	if (copy_from_user((void __force *)vaddr + offset, user_data, length))
++		fail = true;
++	io_mapping_unmap_local(vaddr);
++	return fail;
+ }
+ 
+ /**
+--- a/drivers/gpu/drm/i915/selftests/i915_gem.c
++++ b/drivers/gpu/drm/i915/selftests/i915_gem.c
+@@ -57,12 +57,12 @@ static void trash_stolen(struct drm_i915
+ 
+ 		ggtt->vm.insert_page(&ggtt->vm, dma, slot, I915_CACHE_NONE, 0);
+ 
+-		s = io_mapping_map_atomic_wc(&ggtt->iomap, slot);
++		s = io_mapping_map_local_wc(&ggtt->iomap, slot);
+ 		for (x = 0; x < PAGE_SIZE / sizeof(u32); x++) {
+ 			prng = next_pseudo_random32(prng);
+ 			iowrite32(prng, &s[x]);
+ 		}
+-		io_mapping_unmap_atomic(s);
++		io_mapping_unmap_local(s);
+ 	}
+ 
+ 	ggtt->vm.clear_range(&ggtt->vm, slot, PAGE_SIZE);
+--- a/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
++++ b/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
+@@ -1200,9 +1200,9 @@ static int igt_ggtt_page(void *arg)
+ 		u64 offset = tmp.start + order[n] * PAGE_SIZE;
+ 		u32 __iomem *vaddr;
+ 
+-		vaddr = io_mapping_map_atomic_wc(&ggtt->iomap, offset);
++		vaddr = io_mapping_map_local_wc(&ggtt->iomap, offset);
+ 		iowrite32(n, vaddr + n);
+-		io_mapping_unmap_atomic(vaddr);
++		io_mapping_unmap_local(vaddr);
+ 	}
+ 	intel_gt_flush_ggtt_writes(ggtt->vm.gt);
+ 
+@@ -1212,9 +1212,9 @@ static int igt_ggtt_page(void *arg)
+ 		u32 __iomem *vaddr;
+ 		u32 val;
+ 
+-		vaddr = io_mapping_map_atomic_wc(&ggtt->iomap, offset);
++		vaddr = io_mapping_map_local_wc(&ggtt->iomap, offset);
+ 		val = ioread32(vaddr + n);
+-		io_mapping_unmap_atomic(vaddr);
++		io_mapping_unmap_local(vaddr);
+ 
+ 		if (val != n) {
+ 			pr_err("insert page failed: found %d, expected %d\n",
 
 _______________________________________________
 Intel-gfx mailing list
