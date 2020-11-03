@@ -7,52 +7,51 @@ X-Spam-Status: No, score=-6.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 161D1C83029
-	for <intel-gfx@archiver.kernel.org>; Tue,  3 Nov 2020 10:34:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EB7D4C55179
+	for <intel-gfx@archiver.kernel.org>; Tue,  3 Nov 2020 10:34:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AB6EB22464
-	for <intel-gfx@archiver.kernel.org>; Tue,  3 Nov 2020 10:34:06 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 8C2D122453
+	for <intel-gfx@archiver.kernel.org>; Tue,  3 Nov 2020 10:34:10 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="uf64q9LX";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="9UUmg4St"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AB6EB22464
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="KJf8zms3";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="VFptQlcV"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8C2D122453
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linutronix.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BDB6E6EC64;
-	Tue,  3 Nov 2020 10:34:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A6306EC74;
+	Tue,  3 Nov 2020 10:34:10 +0000 (UTC)
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 192F86EC70;
- Tue,  3 Nov 2020 10:34:04 +0000 (UTC)
-Message-Id: <20201103095859.429620021@linutronix.de>
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F41556EC7B;
+ Tue,  3 Nov 2020 10:34:08 +0000 (UTC)
+Message-Id: <20201103095859.632601906@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1604399638;
+ s=2020; t=1604399640;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:  references:references;
- bh=K8tv6h9J8+1UjPWtbytb7n5SLceTF9zssV9oZox9W+U=;
- b=uf64q9LXpQapNhFORU08nfOObcnFcEm4O++QW3WS6I7k3PJKYg+0B5NUxZRCRpxpJWSJho
- 6xCfQbqF5SWvLd2UYygGAALn2A2cjEifSfE4kf1+lKthwGt5ShPb/JyjRiq2V4kL9NKneV
- tvQ85atLaLObNYw1Jsdictp7672OClv95UAV+BsfoahjIYRt6P7B73zNvPr/RXHjqQjiYX
- vqMn0VJZZuCLL83EiOOEEIiubdkjOyq0xQINIUxnhAvI+2Q8C2Ufm8JbRZw6Epe6CCDO+G
- IFnnudgMnXS/B/7Pn2ZHYkeEolyKh/60lfi2O9rR4T7flfqnXTUrlacqqg4vtA==
+ bh=BkU+tnLkRKR9tWKe3hevtehunqdIqgczXq1AHqpv3q4=;
+ b=KJf8zms3zcTUg/g/XiQKKwBV2+EGVfb2u6h4vllDaW1ez/6EBzhuUPcV5jYjkgK7/2tTNT
+ qa9meb2s93/KBKnvJtf7CaHAT8ZFpd7v/uDOmyc6h4+65DvAL8nMOPTgxeMwXec71wKviC
+ gz+l4oJdNdRF681hb02MgaZ8n1LTFM12pOX0R3Y6kTHEtlSnwJNnKuWAQNeTkLaIi8i7t3
+ B7yCZDHpTZLzl/MKlFABrQ2M+t1vry/EDo/Dfbd7n6CnEj3z8AhqyHdXDUxHJtlLsKb9Iy
+ +K2WT76685XP/mxAZ6mzKSlMAP/ZbKhBPVY2/azsvsrUQ/qHyD8kIOTXSXqhkQ==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1604399638;
+ s=2020e; t=1604399640;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:  references:references;
- bh=K8tv6h9J8+1UjPWtbytb7n5SLceTF9zssV9oZox9W+U=;
- b=9UUmg4StD1+gf6xD44eY0tbCb4Wv9S+7TAD5110OmAjL1mF4moT3f8RAipzm2mr9CGQRvT
- 96qYqMQSY/G9MBCw==
-Date: Tue, 03 Nov 2020 10:27:40 +0100
+ bh=BkU+tnLkRKR9tWKe3hevtehunqdIqgczXq1AHqpv3q4=;
+ b=VFptQlcVWRmmzZcgWUr7xM35WWw+Igz4v/KmNvEZ7Y4AvSm9gz9Y19AW04WlVkG++aOR3h
+ ADLKc+FsTUi0cTDA==
+Date: Tue, 03 Nov 2020 10:27:42 +0100
 From: Thomas Gleixner <tglx@linutronix.de>
 To: LKML <linux-kernel@vger.kernel.org>
 References: <20201103092712.714480842@linutronix.de>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [patch V3 28/37] mips/crashdump: Simplify
- copy_oldmem_page()
+Subject: [Intel-gfx] [patch V3 30/37] highmem: Remove kmap_atomic_pfn()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,91 +102,43 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Replace kmap_atomic_pfn() with kmap_local_pfn() which is preemptible and
-can take page faults.
-
-Remove the indirection of the dump page and the related cruft which is not
-longer required.
+No more users.
 
 Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
-Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-Cc: linux-mips@vger.kernel.org
 ---
 V3: New patch
 ---
- arch/mips/kernel/crash_dump.c |   42 +++++++-----------------------------------
- 1 file changed, 7 insertions(+), 35 deletions(-)
+ include/linux/highmem-internal.h |   12 ------------
+ 1 file changed, 12 deletions(-)
 
---- a/arch/mips/kernel/crash_dump.c
-+++ b/arch/mips/kernel/crash_dump.c
-@@ -5,8 +5,6 @@
- #include <linux/uaccess.h>
- #include <linux/slab.h>
- 
--static void *kdump_buf_page;
--
- /**
-  * copy_oldmem_page - copy one page from "oldmem"
-  * @pfn: page frame number to be copied
-@@ -17,51 +15,25 @@ static void *kdump_buf_page;
-  * @userbuf: if set, @buf is in user address space, use copy_to_user(),
-  *	otherwise @buf is in kernel address space, use memcpy().
-  *
-- * Copy a page from "oldmem". For this page, there is no pte mapped
-+ * Copy a page from "oldmem". For this page, there might be no pte mapped
-  * in the current kernel.
-- *
-- * Calling copy_to_user() in atomic context is not desirable. Hence first
-- * copying the data to a pre-allocated kernel page and then copying to user
-- * space in non-atomic context.
-  */
--ssize_t copy_oldmem_page(unsigned long pfn, char *buf,
--			 size_t csize, unsigned long offset, int userbuf)
-+ssize_t copy_oldmem_page(unsigned long pfn, char *buf, size_t csize,
-+			 unsigned long offset, int userbuf)
- {
- 	void  *vaddr;
- 
- 	if (!csize)
- 		return 0;
- 
--	vaddr = kmap_atomic_pfn(pfn);
-+	vaddr = kmap_local_pfn(pfn);
- 
- 	if (!userbuf) {
--		memcpy(buf, (vaddr + offset), csize);
--		kunmap_atomic(vaddr);
-+		memcpy(buf, vaddr + offset, csize);
- 	} else {
--		if (!kdump_buf_page) {
--			pr_warn("Kdump: Kdump buffer page not allocated\n");
--
--			return -EFAULT;
--		}
--		copy_page(kdump_buf_page, vaddr);
--		kunmap_atomic(vaddr);
--		if (copy_to_user(buf, (kdump_buf_page + offset), csize))
--			return -EFAULT;
-+		if (copy_to_user(buf, vaddr + offset, csize))
-+			csize = -EFAULT;
- 	}
- 
- 	return csize;
+--- a/include/linux/highmem-internal.h
++++ b/include/linux/highmem-internal.h
+@@ -99,13 +99,6 @@ static inline void *kmap_atomic(struct p
+ 	return kmap_atomic_prot(page, kmap_prot);
  }
--
--static int __init kdump_buf_page_init(void)
+ 
+-static inline void *kmap_atomic_pfn(unsigned long pfn)
 -{
--	int ret = 0;
--
--	kdump_buf_page = kmalloc(PAGE_SIZE, GFP_KERNEL);
--	if (!kdump_buf_page) {
--		pr_warn("Kdump: Failed to allocate kdump buffer page\n");
--		ret = -ENOMEM;
--	}
--
--	return ret;
+-	preempt_disable();
+-	pagefault_disable();
+-	return __kmap_local_pfn_prot(pfn, kmap_prot);
 -}
--arch_initcall(kdump_buf_page_init);
+-
+ static inline void __kunmap_atomic(void *addr)
+ {
+ 	kunmap_local_indexed(addr);
+@@ -193,11 +186,6 @@ static inline void *kmap_atomic_prot(str
+ 	return kmap_atomic(page);
+ }
+ 
+-static inline void *kmap_atomic_pfn(unsigned long pfn)
+-{
+-	return kmap_atomic(pfn_to_page(pfn));
+-}
+-
+ static inline void __kunmap_atomic(void *addr)
+ {
+ #ifdef ARCH_HAS_FLUSH_ON_KUNMAP
 
 _______________________________________________
 Intel-gfx mailing list
