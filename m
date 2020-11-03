@@ -7,52 +7,52 @@ X-Spam-Status: No, score=-6.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E2C41C6379F
-	for <intel-gfx@archiver.kernel.org>; Tue,  3 Nov 2020 10:33:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0B4D8C83027
+	for <intel-gfx@archiver.kernel.org>; Tue,  3 Nov 2020 10:34:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7EBA321D40
-	for <intel-gfx@archiver.kernel.org>; Tue,  3 Nov 2020 10:33:43 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 78F9D2242B
+	for <intel-gfx@archiver.kernel.org>; Tue,  3 Nov 2020 10:34:05 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="3vRHayQH";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="cMpwA14t"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7EBA321D40
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="EFq00YaC";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="MNJFQ16T"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 78F9D2242B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linutronix.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 39E9B6EC49;
-	Tue,  3 Nov 2020 10:33:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E1B16EC6E;
+	Tue,  3 Nov 2020 10:34:04 +0000 (UTC)
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 81DC36EC49;
- Tue,  3 Nov 2020 10:33:40 +0000 (UTC)
-Message-Id: <20201103095857.885321106@linutronix.de>
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D76406EC73;
+ Tue,  3 Nov 2020 10:34:02 +0000 (UTC)
+Message-Id: <20201103095859.335366302@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1604399619;
+ s=2020; t=1604399636;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:  references:references;
- bh=kIU8mE8cIMxt7HdcaYjAxqCl6OgglnUDNaPoJJkieik=;
- b=3vRHayQH6aMh+hAkR5udU6nvhLSigt/vofHCpg28n6tJ7ncJLkKSX/+B0fY+KHlPQTxHBM
- Z5oZvM1+yr17K88jGTZjKl9HfvKiw5paOIqhEJXDcaTQ4spL/1kJpkm2339FbE+6JNWLTR
- MeHd6e0o23EHfV6kEyc2kAqbqhhCVgio8/SYL5GgFQrlW7kRDNJZxtjYUqpBu01I4JlaOq
- 5fiMSnibVKdZD3iEI+V5SnV+lSsoiI36LHud/O3JrZkiIg1+L2hMYbBu0B1D2NifwMJIfQ
- 0x4GMxcIJdc3/yItQhHmHiZQAIXkRAwQZd4p0ANPvVTseAqvd3AGpoALeG6IiQ==
+ bh=A9fIQi2MIxDLlGKHATeOlK6WSHzl9bMxA6Vy6WK4kFg=;
+ b=EFq00YaC2cfZ3tRBXG1AYeQj6Sgd3q/sRky5nMpbjN5ek1aWLKVPUv+JvoHWa6vjJFl3Ww
+ awzO+FzbND5FKjPGN7gNTnp5Mb1tq9qO15q652V8S0pc9Ce+oaGECW/jZPsmCvsiKGY+B3
+ KwlcTL/aSMXp1KJx2nFOb6gxG+DhM4n5p7kt5iTVZXpFOkBEw1cbStLJ+/3gWYcjPH26QY
+ Sbv7PLzlBaetuHp8ai5dMyYUIWrRveb5P6ybl5UfTZhOpH3MacNEiFaKtx28E2gAmPiYft
+ OZoB88IwwamuMjukOjyOm6rKIPayv2itPmrCw7QTvAcv81mGKSLdYHUqSDcl3Q==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1604399619;
+ s=2020e; t=1604399636;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:  references:references;
- bh=kIU8mE8cIMxt7HdcaYjAxqCl6OgglnUDNaPoJJkieik=;
- b=cMpwA14tnMdsPseMKHpm31g8L4mhbGqu6Qa8dh2fFxqo+adO15rx0TWaTsfp9yg3/fl1iJ
- gOg1e1DIUFkpsICQ==
-Date: Tue, 03 Nov 2020 10:27:25 +0100
+ bh=A9fIQi2MIxDLlGKHATeOlK6WSHzl9bMxA6Vy6WK4kFg=;
+ b=MNJFQ16TWMWokWTa10gHMVVbsQOpiB2QfbpOViNefBGxmMK6yL/K8NxBWEF2+7F4dQI9lX
+ SBoVS11NJaJ9FoCQ==
+Date: Tue, 03 Nov 2020 10:27:39 +0100
 From: Thomas Gleixner <tglx@linutronix.de>
 To: LKML <linux-kernel@vger.kernel.org>
 References: <20201103092712.714480842@linutronix.de>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [patch V3 13/37] mips/mm/highmem: Switch to generic
- kmap atomic
+Subject: [Intel-gfx] [patch V3 27/37] x86/crashdump/32: Simplify
+ copy_oldmem_page()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,203 +103,95 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-No reason having the same code in every architecture
+Replace kmap_atomic_pfn() with kmap_local_pfn() which is preemptible and
+can take page faults.
+
+Remove the indirection of the dump page and the related cruft which is not
+longer required.
 
 Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
-Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-Cc: linux-mips@vger.kernel.org
 ---
-V3: Remove the kmap types cruft
+V3: New patch
 ---
- arch/mips/Kconfig                  |    1 
- arch/mips/include/asm/fixmap.h     |    4 -
- arch/mips/include/asm/highmem.h    |    6 +-
- arch/mips/include/asm/kmap_types.h |   13 ------
- arch/mips/mm/highmem.c             |   77 -------------------------------------
- arch/mips/mm/init.c                |    4 -
- 6 files changed, 6 insertions(+), 99 deletions(-)
+ arch/x86/kernel/crash_dump_32.c |   48 ++++++++--------------------------------
+ 1 file changed, 10 insertions(+), 38 deletions(-)
 
---- a/arch/mips/Kconfig
-+++ b/arch/mips/Kconfig
-@@ -2719,6 +2719,7 @@ config WAR_MIPS34K_MISSED_ITLB
- config HIGHMEM
- 	bool "High Memory Support"
- 	depends on 32BIT && CPU_SUPPORTS_HIGHMEM && SYS_SUPPORTS_HIGHMEM && !CPU_MIPS32_3_5_EVA
-+	select KMAP_LOCAL
+--- a/arch/x86/kernel/crash_dump_32.c
++++ b/arch/x86/kernel/crash_dump_32.c
+@@ -13,8 +13,6 @@
  
- config CPU_SUPPORTS_HIGHMEM
- 	bool
---- a/arch/mips/include/asm/fixmap.h
-+++ b/arch/mips/include/asm/fixmap.h
-@@ -17,7 +17,7 @@
- #include <spaces.h>
- #ifdef CONFIG_HIGHMEM
- #include <linux/threads.h>
--#include <asm/kmap_types.h>
-+#include <asm/kmap_size.h>
- #endif
- 
- /*
-@@ -52,7 +52,7 @@ enum fixed_addresses {
- #ifdef CONFIG_HIGHMEM
- 	/* reserved pte's for temporary kernel mappings */
- 	FIX_KMAP_BEGIN = FIX_CMAP_END + 1,
--	FIX_KMAP_END = FIX_KMAP_BEGIN+(KM_TYPE_NR*NR_CPUS)-1,
-+	FIX_KMAP_END = FIX_KMAP_BEGIN + (KM_MAX_IDX * NR_CPUS) - 1,
- #endif
- 	__end_of_fixed_addresses
- };
---- a/arch/mips/include/asm/highmem.h
-+++ b/arch/mips/include/asm/highmem.h
-@@ -24,7 +24,7 @@
- #include <linux/interrupt.h>
  #include <linux/uaccess.h>
- #include <asm/cpu-features.h>
--#include <asm/kmap_types.h>
-+#include <asm/kmap_size.h>
  
- /* declarations for highmem.c */
- extern unsigned long highstart_pfn, highend_pfn;
-@@ -48,11 +48,11 @@ extern pte_t *pkmap_page_table;
+-static void *kdump_buf_page;
+-
+ static inline bool is_crashed_pfn_valid(unsigned long pfn)
+ {
+ #ifndef CONFIG_X86_PAE
+@@ -41,15 +39,11 @@ static inline bool is_crashed_pfn_valid(
+  * @userbuf: if set, @buf is in user address space, use copy_to_user(),
+  *	otherwise @buf is in kernel address space, use memcpy().
+  *
+- * Copy a page from "oldmem". For this page, there is no pte mapped
+- * in the current kernel. We stitch up a pte, similar to kmap_atomic.
+- *
+- * Calling copy_to_user() in atomic context is not desirable. Hence first
+- * copying the data to a pre-allocated kernel page and then copying to user
+- * space in non-atomic context.
++ * Copy a page from "oldmem". For this page, there might be no pte mapped
++ * in the current kernel.
+  */
+-ssize_t copy_oldmem_page(unsigned long pfn, char *buf,
+-                               size_t csize, unsigned long offset, int userbuf)
++ssize_t copy_oldmem_page(unsigned long pfn, char *buf, size_t csize,
++			 unsigned long offset, int userbuf)
+ {
+ 	void  *vaddr;
  
- #define ARCH_HAS_KMAP_FLUSH_TLB
- extern void kmap_flush_tlb(unsigned long addr);
--extern void *kmap_atomic_pfn(unsigned long pfn);
+@@ -59,38 +53,16 @@ ssize_t copy_oldmem_page(unsigned long p
+ 	if (!is_crashed_pfn_valid(pfn))
+ 		return -EFAULT;
  
- #define flush_cache_kmaps()	BUG_ON(cpu_has_dc_aliases)
+-	vaddr = kmap_atomic_pfn(pfn);
++	vaddr = kmap_local_pfn(pfn);
  
--extern void kmap_init(void);
-+#define arch_kmap_local_post_map(vaddr, pteval)	local_flush_tlb_one(vaddr)
-+#define arch_kmap_local_post_unmap(vaddr)	local_flush_tlb_one(vaddr)
+ 	if (!userbuf) {
+-		memcpy(buf, (vaddr + offset), csize);
+-		kunmap_atomic(vaddr);
++		memcpy(buf, vaddr + offset, csize);
+ 	} else {
+-		if (!kdump_buf_page) {
+-			printk(KERN_WARNING "Kdump: Kdump buffer page not"
+-				" allocated\n");
+-			kunmap_atomic(vaddr);
+-			return -EFAULT;
+-		}
+-		copy_page(kdump_buf_page, vaddr);
+-		kunmap_atomic(vaddr);
+-		if (copy_to_user(buf, (kdump_buf_page + offset), csize))
+-			return -EFAULT;
++		if (copy_to_user(buf, vaddr + offset, csize))
++			csize = -EFAULT;
+ 	}
  
- #endif /* __KERNEL__ */
- 
---- a/arch/mips/include/asm/kmap_types.h
-+++ /dev/null
-@@ -1,13 +0,0 @@
--/* SPDX-License-Identifier: GPL-2.0 */
--#ifndef _ASM_KMAP_TYPES_H
--#define _ASM_KMAP_TYPES_H
--
--#ifdef CONFIG_DEBUG_HIGHMEM
--#define	 __WITH_KM_FENCE
--#endif
--
--#include <asm-generic/kmap_types.h>
--
--#undef __WITH_KM_FENCE
--
--#endif
---- a/arch/mips/mm/highmem.c
-+++ b/arch/mips/mm/highmem.c
-@@ -8,8 +8,6 @@
- #include <asm/fixmap.h>
- #include <asm/tlbflush.h>
- 
--static pte_t *kmap_pte;
--
- unsigned long highstart_pfn, highend_pfn;
- 
- void kmap_flush_tlb(unsigned long addr)
-@@ -17,78 +15,3 @@ void kmap_flush_tlb(unsigned long addr)
- 	flush_tlb_one(addr);
- }
- EXPORT_SYMBOL(kmap_flush_tlb);
--
--void *kmap_atomic_high_prot(struct page *page, pgprot_t prot)
--{
--	unsigned long vaddr;
--	int idx, type;
--
--	type = kmap_atomic_idx_push();
--	idx = type + KM_TYPE_NR*smp_processor_id();
--	vaddr = __fix_to_virt(FIX_KMAP_BEGIN + idx);
--#ifdef CONFIG_DEBUG_HIGHMEM
--	BUG_ON(!pte_none(*(kmap_pte - idx)));
--#endif
--	set_pte(kmap_pte-idx, mk_pte(page, prot));
--	local_flush_tlb_one((unsigned long)vaddr);
--
--	return (void*) vaddr;
+-	return csize;
 -}
--EXPORT_SYMBOL(kmap_atomic_high_prot);
--
--void kunmap_atomic_high(void *kvaddr)
++	kunmap_local(vaddr);
+ 
+-static int __init kdump_buf_page_init(void)
 -{
--	unsigned long vaddr = (unsigned long) kvaddr & PAGE_MASK;
--	int type __maybe_unused;
+-	int ret = 0;
 -
--	if (vaddr < FIXADDR_START)
--		return;
--
--	type = kmap_atomic_idx();
--#ifdef CONFIG_DEBUG_HIGHMEM
--	{
--		int idx = type + KM_TYPE_NR * smp_processor_id();
--
--		BUG_ON(vaddr != __fix_to_virt(FIX_KMAP_BEGIN + idx));
--
--		/*
--		 * force other mappings to Oops if they'll try to access
--		 * this pte without first remap it
--		 */
--		pte_clear(&init_mm, vaddr, kmap_pte-idx);
--		local_flush_tlb_one(vaddr);
+-	kdump_buf_page = kmalloc(PAGE_SIZE, GFP_KERNEL);
+-	if (!kdump_buf_page) {
+-		printk(KERN_WARNING "Kdump: Failed to allocate kdump buffer"
+-			 " page\n");
+-		ret = -ENOMEM;
 -	}
--#endif
--	kmap_atomic_idx_pop();
--}
--EXPORT_SYMBOL(kunmap_atomic_high);
 -
--/*
-- * This is the same as kmap_atomic() but can map memory that doesn't
-- * have a struct page associated with it.
-- */
--void *kmap_atomic_pfn(unsigned long pfn)
--{
--	unsigned long vaddr;
--	int idx, type;
--
--	preempt_disable();
--	pagefault_disable();
--
--	type = kmap_atomic_idx_push();
--	idx = type + KM_TYPE_NR*smp_processor_id();
--	vaddr = __fix_to_virt(FIX_KMAP_BEGIN + idx);
--	set_pte(kmap_pte-idx, pfn_pte(pfn, PAGE_KERNEL));
--	flush_tlb_one(vaddr);
--
--	return (void*) vaddr;
--}
--
--void __init kmap_init(void)
--{
--	unsigned long kmap_vstart;
--
--	/* cache the first kmap pte */
--	kmap_vstart = __fix_to_virt(FIX_KMAP_BEGIN);
--	kmap_pte = virt_to_kpte(kmap_vstart);
--}
---- a/arch/mips/mm/init.c
-+++ b/arch/mips/mm/init.c
-@@ -36,7 +36,6 @@
- #include <asm/cachectl.h>
- #include <asm/cpu.h>
- #include <asm/dma.h>
--#include <asm/kmap_types.h>
- #include <asm/maar.h>
- #include <asm/mmu_context.h>
- #include <asm/sections.h>
-@@ -402,9 +401,6 @@ void __init paging_init(void)
- 
- 	pagetable_init();
- 
--#ifdef CONFIG_HIGHMEM
--	kmap_init();
--#endif
- #ifdef CONFIG_ZONE_DMA
- 	max_zone_pfns[ZONE_DMA] = MAX_DMA_PFN;
- #endif
+-	return ret;
++	return csize;
+ }
+-arch_initcall(kdump_buf_page_init);
 
 _______________________________________________
 Intel-gfx mailing list
