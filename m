@@ -6,37 +6,36 @@ X-Spam-Status: No, score=-3.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D818AC388F9
-	for <intel-gfx@archiver.kernel.org>; Tue,  3 Nov 2020 13:57:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AAF14C388F9
+	for <intel-gfx@archiver.kernel.org>; Tue,  3 Nov 2020 14:04:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 796C222243
-	for <intel-gfx@archiver.kernel.org>; Tue,  3 Nov 2020 13:57:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 796C222243
+	by mail.kernel.org (Postfix) with ESMTPS id 41EF922243
+	for <intel-gfx@archiver.kernel.org>; Tue,  3 Nov 2020 14:04:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 41EF922243
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BEB926ECAE;
-	Tue,  3 Nov 2020 13:57:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6AA096ECA9;
+	Tue,  3 Nov 2020 14:04:54 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
  [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 155F26ECAD;
- Tue,  3 Nov 2020 13:57:54 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 9352D6E0A6;
+ Tue,  3 Nov 2020 14:04:53 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 0E59BA0BA8;
- Tue,  3 Nov 2020 13:57:54 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id 8C593A0091;
+ Tue,  3 Nov 2020 14:04:53 +0000 (UTC)
 MIME-Version: 1.0
 From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Thomas Gleixner" <tglx@linutronix.de>
-Date: Tue, 03 Nov 2020 13:57:54 -0000
-Message-ID: <160441187403.25741.15080670031737330882@emeril.freedesktop.org>
+To: "Tejas Upadhyay" <tejaskumarx.surendrakumar.upadhyay@intel.com>
+Date: Tue, 03 Nov 2020 14:04:53 -0000
+Message-ID: <160441229354.25742.15354184225197224097@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
-References: <20201103092712.714480842@linutronix.de>
-In-Reply-To: <20201103092712.714480842@linutronix.de>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBt?=
- =?utf-8?q?m/highmem=3A_Preemptible_variant_of_kmap=5Fatomic_=26_friends_?=
- =?utf-8?b?KHJldjIp?=
+References: <20201103134651.165527-1-tejaskumarx.surendrakumar.upadhyay@intel.com>
+In-Reply-To: <20201103134651.165527-1-tejaskumarx.surendrakumar.upadhyay@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_drm/i915/ehl=3A_Implement_W/A_22010492432_=28rev2=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,42 +57,20 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 == Series Details ==
 
-Series: mm/highmem: Preemptible variant of kmap_atomic & friends (rev2)
-URL   : https://patchwork.freedesktop.org/series/83421/
-State : failure
+Series: drm/i915/ehl: Implement W/A 22010492432 (rev2)
+URL   : https://patchwork.freedesktop.org/series/83135/
+State : warning
 
 == Summary ==
 
-Applying: mm/highmem: Un-EXPORT __kmap_atomic_idx()
-Applying: highmem: Remove unused functions
-Applying: fs: Remove asm/kmap_types.h includes
-Applying: sh/highmem: Remove all traces of unused cruft
-Applying: asm-generic: Provide kmap_size.h
-Applying: highmem: Provide generic variant of kmap_atomic*
-Applying: highmem: Make DEBUG_HIGHMEM functional
-Applying: x86/mm/highmem: Use generic kmap atomic implementation
-Applying: arc/mm/highmem: Use generic kmap atomic implementation
-Applying: ARM: highmem: Switch to generic kmap atomic
-Applying: csky/mm/highmem: Switch to generic kmap atomic
-Applying: microblaze/mm/highmem: Switch to generic kmap atomic
-Applying: mips/mm/highmem: Switch to generic kmap atomic
-Applying: nds32/mm/highmem: Switch to generic kmap atomic
-Applying: powerpc/mm/highmem: Switch to generic kmap atomic
-Applying: sparc/mm/highmem: Switch to generic kmap atomic
-Applying: xtensa/mm/highmem: Switch to generic kmap atomic
-Applying: highmem: Get rid of kmap_types.h
-Applying: mm/highmem: Remove the old kmap_atomic cruft
-Applying: io-mapping: Cleanup atomic iomap
-Applying: Documentation/io-mapping: Remove outdated blurb
-Applying: highmem: High implementation details and document API
-Applying: sched: Make migrate_disable/enable() independent of RT
-error: sha1 information is lacking or useless (include/linux/kernel.h).
-error: could not build fake ancestor
-hint: Use 'git am --show-current-patch=diff' to see the failed patch
-Patch failed at 0023 sched: Make migrate_disable/enable() independent of RT
-When you have resolved this problem, run "git am --continue".
-If you prefer to skip this patch, run "git am --skip" instead.
-To restore the original branch and stop patching, run "git am --abort".
+$ dim checkpatch origin/drm-tip
+003c5f8bf5bd drm/i915/ehl: Implement W/A 22010492432
+-:34: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#34: FILE: drivers/gpu/drm/i915/display/intel_dpll_mgr.c:2646:
++	return ((IS_PLATFORM(i915, INTEL_ELKHARTLAKE) &&
++		IS_JSL_EHL_REVID(i915, EHL_REVID_B0, EHL_REVID_B0)) ||
+
+total: 0 errors, 0 warnings, 1 checks, 42 lines checked
 
 
 _______________________________________________
