@@ -2,52 +2,52 @@ Return-Path: <SRS0=aXtb=EJ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-9.9 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 31223C388F2
-	for <intel-gfx@archiver.kernel.org>; Tue,  3 Nov 2020 00:17:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A3E5EC61DD8
+	for <intel-gfx@archiver.kernel.org>; Tue,  3 Nov 2020 00:17:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EE9692225E
-	for <intel-gfx@archiver.kernel.org>; Tue,  3 Nov 2020 00:17:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EE9692225E
+	by mail.kernel.org (Postfix) with ESMTPS id 55DD02231B
+	for <intel-gfx@archiver.kernel.org>; Tue,  3 Nov 2020 00:17:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 55DD02231B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C4256E5B2;
-	Tue,  3 Nov 2020 00:17:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AFCDD6E5BB;
+	Tue,  3 Nov 2020 00:17:40 +0000 (UTC)
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 722536E563
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F209B6E59D
  for <intel-gfx@lists.freedesktop.org>; Tue,  3 Nov 2020 00:17:34 +0000 (UTC)
-IronPort-SDR: 5D6H9fQB6jY3sYBjJy76Nseb8Yt0+CiIMWdOFBucRcVvCAAdiFpG+yoKxgDUDOfF3YQGzrS3lD
- TPNcC5RzguUA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9793"; a="155962137"
-X-IronPort-AV: E=Sophos;i="5.77,446,1596524400"; d="scan'208";a="155962137"
+IronPort-SDR: PSKskw2AtX3vwchhCLst/pwyxHKBQ6EbW6Avvr+8yeXNoRD/TJPrR5htolRrfTWHgu+7Dnuh2s
+ E7B9s84xh8jg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9793"; a="155962131"
+X-IronPort-AV: E=Sophos;i="5.77,446,1596524400"; d="scan'208";a="155962131"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  02 Nov 2020 16:17:33 -0800
-IronPort-SDR: q668+HIWyRQXQVnzNyuJE//LYRvHUxaPNaj6E5vdQSGd6Zb4Z50FzsrWo+49D7mhrF5PrrsKTy
- Y2Gc5hgtdhRA==
-X-IronPort-AV: E=Sophos;i="5.77,446,1596524400"; d="scan'208";a="470573478"
+IronPort-SDR: 3kwVbM0cDpnSaVxNsRqP3MxVm/EiN77ucvjehRtQhUksgl8yI+tCRQlCE6Heg/iWwoBcnlGOKm
+ GtVr9IhwhpGg==
+X-IronPort-AV: E=Sophos;i="5.77,446,1596524400"; d="scan'208";a="470573458"
 Received: from labuser-z97x-ud5h.jf.intel.com ([10.165.21.211])
  by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-SHA;
  02 Nov 2020 16:17:32 -0800
 From: Manasi Navare <manasi.d.navare@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon,  2 Nov 2020 16:19:31 -0800
-Message-Id: <20201103001932.11286-13-manasi.d.navare@intel.com>
+Date: Mon,  2 Nov 2020 16:19:25 -0800
+Message-Id: <20201103001932.11286-7-manasi.d.navare@intel.com>
 X-Mailer: git-send-email 2.19.1
 In-Reply-To: <20201103001932.11286-1-manasi.d.navare@intel.com>
 References: <20201103001932.11286-1-manasi.d.navare@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v14 12/13] drm/i915: Add bigjoiner aware plane
- clipping checks
+Subject: [Intel-gfx] [PATCH v14 06/13] drm/i915/dp: Allow big joiner modes
+ in intel_dp_mode_valid(), v3.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,202 +67,310 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 
-We need to look at hw.fb for the framebuffer, and add the translation
-for the slave_plane_state. With these changes we set the correct
-rectangle on the bigjoiner slave, and don't set incorrect
-src/dst/visibility on the slave plane.
+Small changes to intel_dp_mode_valid(), allow listing modes that
+can only be supported in the bigjoiner configuration, which is
+not supported yet.
 
-v2:
-* Manual rebase (Manasi)
+v12:
+* slice_count logic simplify (Ville)
+* Fix unnecessary changes in downstream_mode_valid (Ville)
+v11:
+* Make intel_dp_can_bigjoiner non static
+so it can be used in intel_display (Manasi)
+v10:
+* Simplify logic (Ville)
+* Allow bigjoiner on edp (Ville)
+v9:
+* Restric Bigjoiner on PORT A (Ville)
+v8:
+* use source dotclock for max dotclock (Manasi)
+v7:
+* Add can_bigjoiner() helper (Ville)
+* Pass bigjoiner to plane_size validation (Ville)
+v6:
+* Rebase after dp_downstream mode valid changes (Manasi)
+v5:
+* Increase max plane width to support 8K with bigjoiner (Maarten)
+v4:
+* Rebase (Manasi)
 
+Changes since v1:
+- Disallow bigjoiner on eDP.
+Changes since v2:
+- Rename intel_dp_downstream_max_dotclock to intel_dp_max_dotclock,
+  and split off the downstream and source checking to its own function.
+  (Ville)
 v3:
-* hw.rotation instead of uapi.rotation (Ville)
+* Rebase (Manasi)
 
-Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 Signed-off-by: Manasi Navare <manasi.d.navare@intel.com>
+Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 ---
- .../gpu/drm/i915/display/intel_atomic_plane.c | 60 +++++++++++++++++++
- .../gpu/drm/i915/display/intel_atomic_plane.h |  4 ++
- drivers/gpu/drm/i915/display/intel_display.c  | 19 +++---
- drivers/gpu/drm/i915/display/intel_sprite.c   | 21 +++----
- 4 files changed, 80 insertions(+), 24 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display.c |  5 +-
+ drivers/gpu/drm/i915/display/intel_display.h |  3 +-
+ drivers/gpu/drm/i915/display/intel_dp.c      | 77 ++++++++++++++++----
+ drivers/gpu/drm/i915/display/intel_dp.h      |  1 +
+ drivers/gpu/drm/i915/display/intel_dp_mst.c  |  2 +-
+ drivers/gpu/drm/i915/display/intel_dsi.c     |  2 +-
+ drivers/gpu/drm/i915/display/intel_hdmi.c    |  2 +-
+ 7 files changed, 72 insertions(+), 20 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_atomic_plane.c b/drivers/gpu/drm/i915/display/intel_atomic_plane.c
-index 5df928f8f322..32a013798836 100644
---- a/drivers/gpu/drm/i915/display/intel_atomic_plane.c
-+++ b/drivers/gpu/drm/i915/display/intel_atomic_plane.c
-@@ -268,6 +268,9 @@ void intel_plane_copy_uapi_to_hw_state(const struct intel_crtc_state *crtc_state
- 	plane_state->hw.color_encoding = from_plane_state->uapi.color_encoding;
- 	plane_state->hw.color_range = from_plane_state->uapi.color_range;
- 	plane_state->hw.scaling_filter = from_plane_state->uapi.scaling_filter;
-+
-+	plane_state->uapi.src = drm_plane_state_src(&from_plane_state->uapi);
-+	plane_state->uapi.dst = drm_plane_state_dest(&from_plane_state->uapi);
- }
- 
- void intel_plane_set_invisible(struct intel_crtc_state *crtc_state,
-@@ -520,6 +523,63 @@ void i9xx_update_planes_on_crtc(struct intel_atomic_state *state,
- 	}
- }
- 
-+int intel_atomic_plane_check_clipping(struct intel_plane_state *plane_state,
-+				      struct intel_crtc_state *crtc_state,
-+				      int min_scale, int max_scale,
-+				      bool can_position)
-+{
-+	struct drm_framebuffer *fb = plane_state->hw.fb;
-+	struct drm_rect *src = &plane_state->uapi.src;
-+	struct drm_rect *dst = &plane_state->uapi.dst;
-+	unsigned int rotation = plane_state->hw.rotation;
-+	struct drm_rect clip = {};
-+	int hscale, vscale;
-+
-+	if (!fb) {
-+		plane_state->uapi.visible = false;
-+		return 0;
-+	}
-+
-+	drm_rect_rotate(src, fb->width << 16, fb->height << 16, rotation);
-+
-+	/* Check scaling */
-+	hscale = drm_rect_calc_hscale(src, dst, min_scale, max_scale);
-+	vscale = drm_rect_calc_vscale(src, dst, min_scale, max_scale);
-+	if (hscale < 0 || vscale < 0) {
-+		DRM_DEBUG_KMS("Invalid scaling of plane\n");
-+		drm_rect_debug_print("src: ", src, true);
-+		drm_rect_debug_print("dst: ", dst, false);
-+		return -ERANGE;
-+	}
-+
-+	if (crtc_state->hw.enable) {
-+		clip.x2 = crtc_state->pipe_src_w;
-+		clip.y2 = crtc_state->pipe_src_h;
-+	}
-+
-+	/* right side of the image is on the slave crtc, adjust dst to match */
-+	if (crtc_state->bigjoiner_slave)
-+		drm_rect_translate(dst, -crtc_state->pipe_src_w, 0);
-+
-+	/*
-+	 * FIXME: This might need further adjustment for seamless scaling
-+	 * with phase information, for the 2p2 and 2p1 scenarios.
-+	 */
-+	plane_state->uapi.visible = drm_rect_clip_scaled(src, dst, &clip);
-+
-+	drm_rect_rotate_inv(src, fb->width << 16, fb->height << 16, rotation);
-+
-+	if (!can_position && plane_state->uapi.visible &&
-+	    !drm_rect_equals(dst, &clip)) {
-+		DRM_DEBUG_KMS("Plane must cover entire CRTC\n");
-+		drm_rect_debug_print("dst: ", dst, false);
-+		drm_rect_debug_print("clip: ", &clip, false);
-+		return -EINVAL;
-+	}
-+
-+	return 0;
-+}
-+
- const struct drm_plane_helper_funcs intel_plane_helper_funcs = {
- 	.prepare_fb = intel_prepare_plane_fb,
- 	.cleanup_fb = intel_cleanup_plane_fb,
-diff --git a/drivers/gpu/drm/i915/display/intel_atomic_plane.h b/drivers/gpu/drm/i915/display/intel_atomic_plane.h
-index c2a1e7c86e6c..d0a599d00ecd 100644
---- a/drivers/gpu/drm/i915/display/intel_atomic_plane.h
-+++ b/drivers/gpu/drm/i915/display/intel_atomic_plane.h
-@@ -53,6 +53,10 @@ int intel_plane_atomic_calc_changes(const struct intel_crtc_state *old_crtc_stat
- int intel_plane_calc_min_cdclk(struct intel_atomic_state *state,
- 			       struct intel_plane *plane,
- 			       bool *need_cdclk_calc);
-+int intel_atomic_plane_check_clipping(struct intel_plane_state *plane_state,
-+				      struct intel_crtc_state *crtc_state,
-+				      int min_scale, int max_scale,
-+				      bool can_position);
- void intel_plane_set_invisible(struct intel_crtc_state *crtc_state,
- 			       struct intel_plane_state *plane_state);
- 
 diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 71140494d728..dc3a6107dcdf 100644
+index c59d9c2bd473..73bd9721c1a8 100644
 --- a/drivers/gpu/drm/i915/display/intel_display.c
 +++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -4414,12 +4414,10 @@ i9xx_plane_check(struct intel_crtc_state *crtc_state,
- 	if (ret)
- 		return ret;
+@@ -17779,7 +17779,8 @@ intel_mode_valid(struct drm_device *dev,
  
--	ret = drm_atomic_helper_check_plane_state(&plane_state->uapi,
--						  &crtc_state->uapi,
--						  DRM_PLANE_HELPER_NO_SCALING,
--						  DRM_PLANE_HELPER_NO_SCALING,
--						  i9xx_plane_has_windowing(plane),
--						  true);
-+	ret = intel_atomic_plane_check_clipping(plane_state, crtc_state,
-+						DRM_PLANE_HELPER_NO_SCALING,
-+						DRM_PLANE_HELPER_NO_SCALING,
-+						i9xx_plane_has_windowing(plane));
- 	if (ret)
- 		return ret;
+ enum drm_mode_status
+ intel_mode_valid_max_plane_size(struct drm_i915_private *dev_priv,
+-				const struct drm_display_mode *mode)
++				const struct drm_display_mode *mode,
++				bool bigjoiner)
+ {
+ 	int plane_width_max, plane_height_max;
  
-@@ -11703,11 +11701,10 @@ static int intel_check_cursor(struct intel_crtc_state *crtc_state,
- 		return -EINVAL;
+@@ -17796,7 +17797,7 @@ intel_mode_valid_max_plane_size(struct drm_i915_private *dev_priv,
+ 	 * too big for that.
+ 	 */
+ 	if (INTEL_GEN(dev_priv) >= 11) {
+-		plane_width_max = 5120;
++		plane_width_max = 5120 << bigjoiner;
+ 		plane_height_max = 4320;
+ 	} else {
+ 		plane_width_max = 5120;
+diff --git a/drivers/gpu/drm/i915/display/intel_display.h b/drivers/gpu/drm/i915/display/intel_display.h
+index be774f216065..d24077df1711 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.h
++++ b/drivers/gpu/drm/i915/display/intel_display.h
+@@ -513,7 +513,8 @@ u32 intel_plane_fb_max_stride(struct drm_i915_private *dev_priv,
+ bool intel_plane_can_remap(const struct intel_plane_state *plane_state);
+ enum drm_mode_status
+ intel_mode_valid_max_plane_size(struct drm_i915_private *dev_priv,
+-				const struct drm_display_mode *mode);
++				const struct drm_display_mode *mode,
++				bool bigjoiner);
+ enum phy intel_port_to_phy(struct drm_i915_private *i915, enum port port);
+ bool is_trans_port_sync_mode(const struct intel_crtc_state *state);
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index ca4d4a8122d9..fb5d5a36f606 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -254,6 +254,17 @@ intel_dp_max_data_rate(int max_link_clock, int max_lanes)
+ 	return max_link_clock * max_lanes;
+ }
+ 
++bool intel_dp_can_bigjoiner(struct intel_dp *intel_dp)
++{
++	struct intel_digital_port *intel_dig_port = dp_to_dig_port(intel_dp);
++	struct intel_encoder *encoder = &intel_dig_port->base;
++	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
++
++	return INTEL_GEN(dev_priv) >= 12 ||
++		(INTEL_GEN(dev_priv) == 11 &&
++		 encoder->port != PORT_A);
++}
++
+ static int cnl_max_source_rate(struct intel_dp *intel_dp)
+ {
+ 	struct intel_digital_port *dig_port = dp_to_dig_port(intel_dp);
+@@ -519,7 +530,8 @@ small_joiner_ram_size_bits(struct drm_i915_private *i915)
+ 
+ static u16 intel_dp_dsc_get_output_bpp(struct drm_i915_private *i915,
+ 				       u32 link_clock, u32 lane_count,
+-				       u32 mode_clock, u32 mode_hdisplay)
++				       u32 mode_clock, u32 mode_hdisplay,
++				       bool bigjoiner)
+ {
+ 	u32 bits_per_pixel, max_bpp_small_joiner_ram;
+ 	int i;
+@@ -537,6 +549,10 @@ static u16 intel_dp_dsc_get_output_bpp(struct drm_i915_private *i915,
+ 	/* Small Joiner Check: output bpp <= joiner RAM (bits) / Horiz. width */
+ 	max_bpp_small_joiner_ram = small_joiner_ram_size_bits(i915) /
+ 		mode_hdisplay;
++
++	if (bigjoiner)
++		max_bpp_small_joiner_ram *= 2;
++
+ 	drm_dbg_kms(&i915->drm, "Max small joiner bpp: %u\n",
+ 		    max_bpp_small_joiner_ram);
+ 
+@@ -546,6 +562,15 @@ static u16 intel_dp_dsc_get_output_bpp(struct drm_i915_private *i915,
+ 	 */
+ 	bits_per_pixel = min(bits_per_pixel, max_bpp_small_joiner_ram);
+ 
++	if (bigjoiner) {
++		u32 max_bpp_bigjoiner =
++			i915->max_cdclk_freq * 48 /
++			intel_dp_mode_to_fec_clock(mode_clock);
++
++		DRM_DEBUG_KMS("Max big joiner bpp: %u\n", max_bpp_bigjoiner);
++		bits_per_pixel = min(bits_per_pixel, max_bpp_bigjoiner);
++	}
++
+ 	/* Error out if the max bpp is less than smallest allowed valid bpp */
+ 	if (bits_per_pixel < valid_dsc_bpp[0]) {
+ 		drm_dbg_kms(&i915->drm, "Unsupported BPP %u, min %u\n",
+@@ -568,7 +593,8 @@ static u16 intel_dp_dsc_get_output_bpp(struct drm_i915_private *i915,
+ }
+ 
+ static u8 intel_dp_dsc_get_slice_count(struct intel_dp *intel_dp,
+-				       int mode_clock, int mode_hdisplay)
++				       int mode_clock, int mode_hdisplay,
++				       bool bigjoiner)
+ {
+ 	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
+ 	u8 min_slice_count, i;
+@@ -595,12 +621,18 @@ static u8 intel_dp_dsc_get_slice_count(struct intel_dp *intel_dp,
+ 
+ 	/* Find the closest match to the valid slice count values */
+ 	for (i = 0; i < ARRAY_SIZE(valid_dsc_slicecount); i++) {
+-		if (valid_dsc_slicecount[i] >
+-		    drm_dp_dsc_sink_max_slice_count(intel_dp->dsc_dpcd,
+-						    false))
++		u8 test_slice_count = valid_dsc_slicecount[i] << bigjoiner;
++
++		if (test_slice_count >
++		    drm_dp_dsc_sink_max_slice_count(intel_dp->dsc_dpcd, false))
+ 			break;
+-		if (min_slice_count  <= valid_dsc_slicecount[i])
+-			return valid_dsc_slicecount[i];
++
++		/* big joiner needs small joiner to be enabled */
++		if (bigjoiner && test_slice_count < 4)
++			continue;
++
++		if (min_slice_count <= test_slice_count)
++			return test_slice_count;
  	}
  
--	ret = drm_atomic_helper_check_plane_state(&plane_state->uapi,
--						  &crtc_state->uapi,
--						  DRM_PLANE_HELPER_NO_SCALING,
--						  DRM_PLANE_HELPER_NO_SCALING,
--						  true, true);
-+	ret = intel_atomic_plane_check_clipping(plane_state, crtc_state,
-+						DRM_PLANE_HELPER_NO_SCALING,
-+						DRM_PLANE_HELPER_NO_SCALING,
-+						true);
- 	if (ret)
- 		return ret;
+ 	drm_dbg_kms(&i915->drm, "Unsupported Slice Count %d\n",
+@@ -717,6 +749,7 @@ intel_dp_mode_valid(struct drm_connector *connector,
+ 	u16 dsc_max_output_bpp = 0;
+ 	u8 dsc_slice_count = 0;
+ 	enum drm_mode_status status;
++	bool dsc = false, bigjoiner = false;
  
-diff --git a/drivers/gpu/drm/i915/display/intel_sprite.c b/drivers/gpu/drm/i915/display/intel_sprite.c
-index b6deeb338477..172453821b64 100644
---- a/drivers/gpu/drm/i915/display/intel_sprite.c
-+++ b/drivers/gpu/drm/i915/display/intel_sprite.c
-@@ -2059,10 +2059,8 @@ g4x_sprite_check(struct intel_crtc_state *crtc_state,
+ 	if (mode->flags & DRM_MODE_FLAG_DBLSCAN)
+ 		return MODE_NO_DBLESCAN;
+@@ -737,6 +770,13 @@ intel_dp_mode_valid(struct drm_connector *connector,
+ 	if (mode->clock < 10000)
+ 		return MODE_CLOCK_LOW;
+ 
++	if (target_clock > max_dotclk && intel_dp_can_bigjoiner(intel_dp)) {
++		bigjoiner = true;
++		max_dotclk *= 2;
++	}
++	if (target_clock > max_dotclk)
++		return MODE_CLOCK_HIGH;
++
+ 	max_link_clock = intel_dp_max_link_rate(intel_dp);
+ 	max_lanes = intel_dp_max_lane_count(intel_dp);
+ 
+@@ -765,16 +805,23 @@ intel_dp_mode_valid(struct drm_connector *connector,
+ 							    max_link_clock,
+ 							    max_lanes,
+ 							    target_clock,
+-							    mode->hdisplay) >> 4;
++							    mode->hdisplay,
++							    bigjoiner) >> 4;
+ 			dsc_slice_count =
+ 				intel_dp_dsc_get_slice_count(intel_dp,
+ 							     target_clock,
+-							     mode->hdisplay);
++							     mode->hdisplay,
++							     bigjoiner);
  		}
++
++		dsc = dsc_max_output_bpp && dsc_slice_count;
  	}
  
--	ret = drm_atomic_helper_check_plane_state(&plane_state->uapi,
--						  &crtc_state->uapi,
--						  min_scale, max_scale,
--						  true, true);
-+	ret = intel_atomic_plane_check_clipping(plane_state, crtc_state,
-+						min_scale, max_scale, true);
- 	if (ret)
- 		return ret;
+-	if ((mode_rate > max_rate && !(dsc_max_output_bpp && dsc_slice_count)) ||
+-	    target_clock > max_dotclk)
++	/* big joiner configuration needs DSC */
++	if (bigjoiner && !dsc)
++		return MODE_CLOCK_HIGH;
++
++	if (mode_rate > max_rate && !dsc)
+ 		return MODE_CLOCK_HIGH;
  
-@@ -2117,11 +2115,10 @@ vlv_sprite_check(struct intel_crtc_state *crtc_state,
- 	if (ret)
- 		return ret;
+ 	status = intel_dp_mode_valid_downstream(intel_connector,
+@@ -782,7 +829,7 @@ intel_dp_mode_valid(struct drm_connector *connector,
+ 	if (status != MODE_OK)
+ 		return status;
  
--	ret = drm_atomic_helper_check_plane_state(&plane_state->uapi,
--						  &crtc_state->uapi,
--						  DRM_PLANE_HELPER_NO_SCALING,
--						  DRM_PLANE_HELPER_NO_SCALING,
--						  true, true);
-+	ret = intel_atomic_plane_check_clipping(plane_state, crtc_state,
-+						DRM_PLANE_HELPER_NO_SCALING,
-+						DRM_PLANE_HELPER_NO_SCALING,
-+						true);
- 	if (ret)
- 		return ret;
+-	return intel_mode_valid_max_plane_size(dev_priv, mode);
++	return intel_mode_valid_max_plane_size(dev_priv, mode, bigjoiner);
+ }
  
-@@ -2328,10 +2325,8 @@ static int skl_plane_check(struct intel_crtc_state *crtc_state,
- 		max_scale = skl_plane_max_scale(dev_priv, fb);
+ u32 intel_dp_pack_aux(const u8 *src, int src_bytes)
+@@ -2351,11 +2398,13 @@ static int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
+ 						    pipe_config->port_clock,
+ 						    pipe_config->lane_count,
+ 						    adjusted_mode->crtc_clock,
+-						    adjusted_mode->crtc_hdisplay);
++						    adjusted_mode->crtc_hdisplay,
++						    false);
+ 		dsc_dp_slice_count =
+ 			intel_dp_dsc_get_slice_count(intel_dp,
+ 						     adjusted_mode->crtc_clock,
+-						     adjusted_mode->crtc_hdisplay);
++						     adjusted_mode->crtc_hdisplay,
++						     false);
+ 		if (!dsc_max_output_bpp || !dsc_dp_slice_count) {
+ 			drm_dbg_kms(&dev_priv->drm,
+ 				    "Compressed BPP/Slice Count not supported\n");
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.h b/drivers/gpu/drm/i915/display/intel_dp.h
+index 3f862b4fd34f..b871a09b6901 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.h
++++ b/drivers/gpu/drm/i915/display/intel_dp.h
+@@ -106,6 +106,7 @@ bool intel_dp_source_supports_hbr3(struct intel_dp *intel_dp);
+ bool intel_dp_get_colorimetry_status(struct intel_dp *intel_dp);
+ int intel_dp_link_required(int pixel_clock, int bpp);
+ int intel_dp_max_data_rate(int max_link_clock, int max_lanes);
++bool intel_dp_can_bigjoiner(struct intel_dp *intel_dp);
+ bool intel_dp_needs_vsc_sdp(const struct intel_crtc_state *crtc_state,
+ 			    const struct drm_connector_state *conn_state);
+ void intel_dp_compute_psr_vsc_sdp(struct intel_dp *intel_dp,
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+index c8fcec4d0788..0c8684634fca 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+@@ -714,7 +714,7 @@ intel_dp_mst_mode_valid_ctx(struct drm_connector *connector,
+ 		return 0;
  	}
  
--	ret = drm_atomic_helper_check_plane_state(&plane_state->uapi,
--						  &crtc_state->uapi,
--						  min_scale, max_scale,
--						  true, true);
-+	ret = intel_atomic_plane_check_clipping(plane_state, crtc_state,
-+						min_scale, max_scale, true);
- 	if (ret)
- 		return ret;
+-	*status = intel_mode_valid_max_plane_size(dev_priv, mode);
++	*status = intel_mode_valid_max_plane_size(dev_priv, mode, false);
+ 	return 0;
+ }
  
+diff --git a/drivers/gpu/drm/i915/display/intel_dsi.c b/drivers/gpu/drm/i915/display/intel_dsi.c
+index afa4e6817e8c..f453ceb8d149 100644
+--- a/drivers/gpu/drm/i915/display/intel_dsi.c
++++ b/drivers/gpu/drm/i915/display/intel_dsi.c
+@@ -75,7 +75,7 @@ enum drm_mode_status intel_dsi_mode_valid(struct drm_connector *connector,
+ 			return MODE_CLOCK_HIGH;
+ 	}
+ 
+-	return intel_mode_valid_max_plane_size(dev_priv, mode);
++	return intel_mode_valid_max_plane_size(dev_priv, mode, false);
+ }
+ 
+ struct intel_dsi_host *intel_dsi_host_init(struct intel_dsi *intel_dsi,
+diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
+index f90838bc74fb..82674a8853c6 100644
+--- a/drivers/gpu/drm/i915/display/intel_hdmi.c
++++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
+@@ -2274,7 +2274,7 @@ intel_hdmi_mode_valid(struct drm_connector *connector,
+ 	if (status != MODE_OK)
+ 		return status;
+ 
+-	return intel_mode_valid_max_plane_size(dev_priv, mode);
++	return intel_mode_valid_max_plane_size(dev_priv, mode, false);
+ }
+ 
+ bool intel_hdmi_deep_color_possible(const struct intel_crtc_state *crtc_state,
 -- 
 2.19.1
 
