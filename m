@@ -7,51 +7,51 @@ X-Spam-Status: No, score=-6.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D336BC83038
-	for <intel-gfx@archiver.kernel.org>; Tue,  3 Nov 2020 10:34:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AE8E0C71155
+	for <intel-gfx@archiver.kernel.org>; Tue,  3 Nov 2020 10:34:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5DFB322453
-	for <intel-gfx@archiver.kernel.org>; Tue,  3 Nov 2020 10:34:14 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 273A222450
+	for <intel-gfx@archiver.kernel.org>; Tue,  3 Nov 2020 10:34:08 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="cAh//GKs";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="FQTjFZ+Z"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5DFB322453
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="UCiLeToK";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="iNcZKx8F"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 273A222450
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linutronix.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CFF816EC6D;
-	Tue,  3 Nov 2020 10:34:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 703C76EC7A;
+	Tue,  3 Nov 2020 10:34:07 +0000 (UTC)
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3AD2A6EC5E;
- Tue,  3 Nov 2020 10:34:11 +0000 (UTC)
-Message-Id: <20201103095859.836711767@linutronix.de>
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF5CE6EC70;
+ Tue,  3 Nov 2020 10:34:05 +0000 (UTC)
+Message-Id: <20201103095859.538827102@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1604399643;
+ s=2020; t=1604399639;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:  references:references;
- bh=yUxHC0cakBFRwhud8xMOIDvuAaJvgwuFtrBz27XdsEs=;
- b=cAh//GKsz39P8xqXnJcqDaA3W/edzWVdAqwjKoXA5Js/x368VRmdM0h2fj6bQZPAll8hmr
- yl8q8CcCNvb+2SfFaIo7cnx8vW2iPoTlWRNGNB06KJ1ERTQlqVwbp+qakHsf3DKm3O66rB
- +8+R2pAlCb2SMbZCBSyvPjBwiK1AVT7Wn6TtWs6GsMiR2cmkq8EcpYI90/EI8cGq7Q0K6k
- PWjm7m4uZQ4xtBGqzKEndSPHHSWqIlOOUtSiYkKMXa6yxfM8jl2K7omhkCJJofz/LjfJ5M
- Q/MfbNPI/NbAKfCFzA8vjy9XJtarFWdneKuOU4n/OP2w4gxAPRJI0FNbRKwq8Q==
+ bh=37l2/9hMoX995irJwwZT0VNkjmk/OwZo72GhT72QTX4=;
+ b=UCiLeToK4AIC+9Dmx7LG5rV2mjuvYVd6Coif2Sdjhi7Si2K86UL165usKvCu+1M57a5ZTs
+ 3lGdAzYJonKcTuvyMgrOXNx+UrIY8LVcTVNso2JLtpbkE1oygEe/wl748JnAW6AS6EsTrD
+ c2VWZi0Trd4Jp1S58g19SzXtzA+u8eA2qRCth6y4qBL25KfIk14Y8/pIC7Pk9xx9opLe+Y
+ fYTupCtZR4FQC2/b1qBabqi8Jfeh2ZKqUrq+V0zmNc17uiUhxxjlvxwBR152OCIcLA02mF
+ vb+4tkvTlRO1TXdeUxGxjDkLW4Yer0R+EYHQyA+pAWiyVIPp/wbrw75o+T0ZJw==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1604399643;
+ s=2020e; t=1604399639;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:  references:references;
- bh=yUxHC0cakBFRwhud8xMOIDvuAaJvgwuFtrBz27XdsEs=;
- b=FQTjFZ+ZYdRELu4iTMN0YYBNgOsOxBJVlxyxuynko9bscI/OxppLps2A/EThS2XSvqYRg0
- nAwEXgV5JRubDDDA==
-Date: Tue, 03 Nov 2020 10:27:44 +0100
+ bh=37l2/9hMoX995irJwwZT0VNkjmk/OwZo72GhT72QTX4=;
+ b=iNcZKx8Fg9QYlTcIp7Z3u6IBgHA5T+EwXNMLuSSTvrJb/3r4DH72OAUwbFyp58bawCPYfQ
+ dJ5wikkjaG3JOhAw==
+Date: Tue, 03 Nov 2020 10:27:41 +0100
 From: Thomas Gleixner <tglx@linutronix.de>
 To: LKML <linux-kernel@vger.kernel.org>
 References: <20201103092712.714480842@linutronix.de>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [patch V3 32/37] drm/vmgfx: Replace kmap_atomic()
+Subject: [Intel-gfx] [patch V3 29/37] ARM: mm: Replace kmap_atomic_pfn()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,12 +69,12 @@ Cc: Juri Lelli <juri.lelli@redhat.com>, linux-aio@kvack.org,
  Benjamin Herrenschmidt <benh@kernel.crashing.org>,
  Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
  dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
- Ben Segall <bsegall@google.com>, linux-mm@kvack.org,
+ Ben Segall <bsegall@google.com>, Chris Mason <clm@fb.com>,
  Huang Rui <ray.huang@amd.com>, Paul Mackerras <paulus@samba.org>,
  Gerd Hoffmann <kraxel@redhat.com>,
  Daniel Bristot de Oliveira <bristot@redhat.com>, sparclinux@vger.kernel.org,
  Vincent Chen <deanbo422@gmail.com>, Christoph Hellwig <hch@lst.de>,
- Arnd Bergmann <arnd@arndb.de>, Max Filippov <jcmvbkbc@gmail.com>,
+ Paul McKenney <paulmck@kernel.org>, Max Filippov <jcmvbkbc@gmail.com>,
  Michael Ellerman <mpe@ellerman.id.au>, x86@kernel.org,
  Russell King <linux@armlinux.org.uk>, linux-csky@vger.kernel.org,
  Ingo Molnar <mingo@kernel.org>, David Airlie <airlied@linux.ie>,
@@ -82,7 +82,7 @@ Cc: Juri Lelli <juri.lelli@redhat.com>, linux-aio@kvack.org,
  Mel Gorman <mgorman@suse.de>, nouveau@lists.freedesktop.org,
  Dave Airlie <airlied@redhat.com>, linux-snps-arc@lists.infradead.org,
  Ben Skeggs <bskeggs@redhat.com>, linux-xtensa@linux-xtensa.org,
- Paul McKenney <paulmck@kernel.org>, intel-gfx@lists.freedesktop.org,
+ Arnd Bergmann <arnd@arndb.de>, intel-gfx@lists.freedesktop.org,
  Roland Scheidegger <sroland@vmware.com>, Josef Bacik <josef@toxicpanda.com>,
  Steven Rostedt <rostedt@goodmis.org>,
  Linus Torvalds <torvalds@linuxfoundation.org>,
@@ -91,7 +91,7 @@ Cc: Juri Lelli <juri.lelli@redhat.com>, linux-aio@kvack.org,
  linux-arm-kernel@lists.infradead.org, Chris Zankel <chris@zankel.net>,
  Michal Simek <monstr@monstr.eu>,
  Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
- Nick Hu <nickhu@andestech.com>, Chris Mason <clm@fb.com>,
+ Nick Hu <nickhu@andestech.com>, linux-mm@kvack.org,
  Vineet Gupta <vgupta@synopsys.com>, linux-mips@vger.kernel.org,
  Christian Koenig <christian.koenig@amd.com>, Benjamin LaHaise <bcrl@kvack.org>,
  linux-fsdevel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
@@ -102,100 +102,65 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-There is no reason to disable pagefaults and preemption as a side effect of
-kmap_atomic_prot().
+There is no requirement to disable pagefaults and preemption for these
+cache management mappings.
 
-Use kmap_local_page_prot() instead and document the reasoning for the
-mapping usage with the given pgprot.
-
-Remove the NULL pointer check for the map. These functions return a valid
-address for valid pages and the return was bogus anyway as it would have
-left preemption and pagefaults disabled.
+Replace kmap_atomic_pfn() with kmap_local_pfn(). This allows to remove
+kmap_atomic_pfn() in the next step.
 
 Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
-Cc: VMware Graphics <linux-graphics-maintainer@vmware.com>
-Cc: Roland Scheidegger <sroland@vmware.com>
-Cc: David Airlie <airlied@linux.ie>
-Cc: Daniel Vetter <daniel@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org
+Cc: Russell King <linux@armlinux.org.uk>
+Cc: linux-arm-kernel@lists.infradead.org
 ---
 V3: New patch
 ---
- drivers/gpu/drm/vmwgfx/vmwgfx_blit.c |   30 ++++++++++++------------------
- 1 file changed, 12 insertions(+), 18 deletions(-)
+ arch/arm/mm/cache-feroceon-l2.c |    6 +++---
+ arch/arm/mm/cache-xsc3l2.c      |    4 ++--
+ 2 files changed, 5 insertions(+), 5 deletions(-)
 
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_blit.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_blit.c
-@@ -375,12 +375,12 @@ static int vmw_bo_cpu_blit_line(struct v
- 		copy_size = min_t(u32, copy_size, PAGE_SIZE - src_page_offset);
- 
- 		if (unmap_src) {
--			kunmap_atomic(d->src_addr);
-+			kunmap_local(d->src_addr);
- 			d->src_addr = NULL;
- 		}
- 
- 		if (unmap_dst) {
--			kunmap_atomic(d->dst_addr);
-+			kunmap_local(d->dst_addr);
- 			d->dst_addr = NULL;
- 		}
- 
-@@ -388,12 +388,8 @@ static int vmw_bo_cpu_blit_line(struct v
- 			if (WARN_ON_ONCE(dst_page >= d->dst_num_pages))
- 				return -EINVAL;
- 
--			d->dst_addr =
--				kmap_atomic_prot(d->dst_pages[dst_page],
--						 d->dst_prot);
--			if (!d->dst_addr)
--				return -ENOMEM;
--
-+			d->dst_addr = kmap_local_page_prot(d->dst_pages[dst_page],
-+							   d->dst_prot);
- 			d->mapped_dst = dst_page;
- 		}
- 
-@@ -401,12 +397,8 @@ static int vmw_bo_cpu_blit_line(struct v
- 			if (WARN_ON_ONCE(src_page >= d->src_num_pages))
- 				return -EINVAL;
- 
--			d->src_addr =
--				kmap_atomic_prot(d->src_pages[src_page],
--						 d->src_prot);
--			if (!d->src_addr)
--				return -ENOMEM;
--
-+			d->src_addr = kmap_local_page_prot(d->src_pages[src_page],
-+							   d->src_prot);
- 			d->mapped_src = src_page;
- 		}
- 		diff->do_cpy(diff, d->dst_addr + dst_page_offset,
-@@ -436,8 +428,10 @@ static int vmw_bo_cpu_blit_line(struct v
-  *
-  * Performs a CPU blit from one buffer object to another avoiding a full
-  * bo vmap which may exhaust- or fragment vmalloc space.
-- * On supported architectures (x86), we're using kmap_atomic which avoids
-- * cross-processor TLB- and cache flushes and may, on non-HIGHMEM systems
-+ *
-+ * On supported architectures (x86), we're using kmap_local_prot() which
-+ * avoids cross-processor TLB- and cache flushes. kmap_local_prot() will
-+ * either map a highmem page with the proper pgprot on HIGHMEM=y systems or
-  * reference already set-up mappings.
-  *
-  * Neither of the buffer objects may be placed in PCI memory
-@@ -500,9 +494,9 @@ int vmw_bo_cpu_blit(struct ttm_buffer_ob
- 	}
- out:
- 	if (d.src_addr)
--		kunmap_atomic(d.src_addr);
-+		kunmap_local(d.src_addr);
- 	if (d.dst_addr)
--		kunmap_atomic(d.dst_addr);
-+		kunmap_local(d.dst_addr);
- 
- 	return ret;
+--- a/arch/arm/mm/cache-feroceon-l2.c
++++ b/arch/arm/mm/cache-feroceon-l2.c
+@@ -49,9 +49,9 @@ static inline unsigned long l2_get_va(un
+ 	 * we simply install a virtual mapping for it only for the
+ 	 * TLB lookup to occur, hence no need to flush the untouched
+ 	 * memory mapping afterwards (note: a cache flush may happen
+-	 * in some circumstances depending on the path taken in kunmap_atomic).
++	 * in some circumstances depending on the path taken in kunmap_local).
+ 	 */
+-	void *vaddr = kmap_atomic_pfn(paddr >> PAGE_SHIFT);
++	void *vaddr = kmap_local_pfn(paddr >> PAGE_SHIFT);
+ 	return (unsigned long)vaddr + (paddr & ~PAGE_MASK);
+ #else
+ 	return __phys_to_virt(paddr);
+@@ -61,7 +61,7 @@ static inline unsigned long l2_get_va(un
+ static inline void l2_put_va(unsigned long vaddr)
+ {
+ #ifdef CONFIG_HIGHMEM
+-	kunmap_atomic((void *)vaddr);
++	kunmap_local((void *)vaddr);
+ #endif
  }
+ 
+--- a/arch/arm/mm/cache-xsc3l2.c
++++ b/arch/arm/mm/cache-xsc3l2.c
+@@ -59,7 +59,7 @@ static inline void l2_unmap_va(unsigned
+ {
+ #ifdef CONFIG_HIGHMEM
+ 	if (va != -1)
+-		kunmap_atomic((void *)va);
++		kunmap_local((void *)va);
+ #endif
+ }
+ 
+@@ -75,7 +75,7 @@ static inline unsigned long l2_map_va(un
+ 		 * in place for it.
+ 		 */
+ 		l2_unmap_va(prev_va);
+-		va = (unsigned long)kmap_atomic_pfn(pa >> PAGE_SHIFT);
++		va = (unsigned long)kmap_local_pfn(pa >> PAGE_SHIFT);
+ 	}
+ 	return va + (pa_offset >> (32 - PAGE_SHIFT));
+ #else
 
 _______________________________________________
 Intel-gfx mailing list
