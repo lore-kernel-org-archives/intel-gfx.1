@@ -7,47 +7,47 @@ X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D68F0C56201
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 31223C388F2
 	for <intel-gfx@archiver.kernel.org>; Tue,  3 Nov 2020 00:17:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9E82B22275
-	for <intel-gfx@archiver.kernel.org>; Tue,  3 Nov 2020 00:17:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9E82B22275
+	by mail.kernel.org (Postfix) with ESMTPS id EE9692225E
+	for <intel-gfx@archiver.kernel.org>; Tue,  3 Nov 2020 00:17:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EE9692225E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D1DE6E5B9;
-	Tue,  3 Nov 2020 00:17:40 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC1A66E59D
- for <intel-gfx@lists.freedesktop.org>; Tue,  3 Nov 2020 00:17:33 +0000 (UTC)
-IronPort-SDR: VhwAzZf+m1/JjDeVBl2Qu9THsGGVzNWHVjxEUcRU8F1tMsRr8ONkei8Vy64Qs1OWKkg5lzQS3s
- atYcR960btpw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9793"; a="186814888"
-X-IronPort-AV: E=Sophos;i="5.77,446,1596524400"; d="scan'208";a="186814888"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C4256E5B2;
+	Tue,  3 Nov 2020 00:17:38 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 722536E563
+ for <intel-gfx@lists.freedesktop.org>; Tue,  3 Nov 2020 00:17:34 +0000 (UTC)
+IronPort-SDR: 5D6H9fQB6jY3sYBjJy76Nseb8Yt0+CiIMWdOFBucRcVvCAAdiFpG+yoKxgDUDOfF3YQGzrS3lD
+ TPNcC5RzguUA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9793"; a="155962137"
+X-IronPort-AV: E=Sophos;i="5.77,446,1596524400"; d="scan'208";a="155962137"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  02 Nov 2020 16:17:33 -0800
-IronPort-SDR: IYIGqym6O2mM+cllED7u3L2aJ6paPfxSZZlH3VG0/Pb0TUa1/v2prBYYDJHsXbJZlDN7iOZ+93
- NnNKVP585v3A==
-X-IronPort-AV: E=Sophos;i="5.77,446,1596524400"; d="scan'208";a="470573447"
+IronPort-SDR: q668+HIWyRQXQVnzNyuJE//LYRvHUxaPNaj6E5vdQSGd6Zb4Z50FzsrWo+49D7mhrF5PrrsKTy
+ Y2Gc5hgtdhRA==
+X-IronPort-AV: E=Sophos;i="5.77,446,1596524400"; d="scan'208";a="470573478"
 Received: from labuser-z97x-ud5h.jf.intel.com ([10.165.21.211])
  by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-SHA;
  02 Nov 2020 16:17:32 -0800
 From: Manasi Navare <manasi.d.navare@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon,  2 Nov 2020 16:19:23 -0800
-Message-Id: <20201103001932.11286-5-manasi.d.navare@intel.com>
+Date: Mon,  2 Nov 2020 16:19:31 -0800
+Message-Id: <20201103001932.11286-13-manasi.d.navare@intel.com>
 X-Mailer: git-send-email 2.19.1
 In-Reply-To: <20201103001932.11286-1-manasi.d.navare@intel.com>
 References: <20201103001932.11286-1-manasi.d.navare@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v14 04/13] drm/i915: Pass intel_atomic_state
- instead of drm_atomic_state
+Subject: [Intel-gfx] [PATCH v14 12/13] drm/i915: Add bigjoiner aware plane
+ clipping checks
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,78 +65,204 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-No functional changes, to align with previous cleanups pass
-intel_atomic_state instead of drm_atomic_state.
-Also pass this intel_atomic_state with crtc_state to
-some of the atomic_check functions.
+From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 
+We need to look at hw.fb for the framebuffer, and add the translation
+for the slave_plane_state. With these changes we set the correct
+rectangle on the bigjoiner slave, and don't set incorrect
+src/dst/visibility on the slave plane.
+
+v2:
+* Manual rebase (Manasi)
+
+v3:
+* hw.rotation instead of uapi.rotation (Ville)
+
+Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 Signed-off-by: Manasi Navare <manasi.d.navare@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+ .../gpu/drm/i915/display/intel_atomic_plane.c | 60 +++++++++++++++++++
+ .../gpu/drm/i915/display/intel_atomic_plane.h |  4 ++
+ drivers/gpu/drm/i915/display/intel_display.c  | 19 +++---
+ drivers/gpu/drm/i915/display/intel_sprite.c   | 21 +++----
+ 4 files changed, 80 insertions(+), 24 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/display/intel_atomic_plane.c b/drivers/gpu/drm/i915/display/intel_atomic_plane.c
+index 5df928f8f322..32a013798836 100644
+--- a/drivers/gpu/drm/i915/display/intel_atomic_plane.c
++++ b/drivers/gpu/drm/i915/display/intel_atomic_plane.c
+@@ -268,6 +268,9 @@ void intel_plane_copy_uapi_to_hw_state(const struct intel_crtc_state *crtc_state
+ 	plane_state->hw.color_encoding = from_plane_state->uapi.color_encoding;
+ 	plane_state->hw.color_range = from_plane_state->uapi.color_range;
+ 	plane_state->hw.scaling_filter = from_plane_state->uapi.scaling_filter;
++
++	plane_state->uapi.src = drm_plane_state_src(&from_plane_state->uapi);
++	plane_state->uapi.dst = drm_plane_state_dest(&from_plane_state->uapi);
+ }
+ 
+ void intel_plane_set_invisible(struct intel_crtc_state *crtc_state,
+@@ -520,6 +523,63 @@ void i9xx_update_planes_on_crtc(struct intel_atomic_state *state,
+ 	}
+ }
+ 
++int intel_atomic_plane_check_clipping(struct intel_plane_state *plane_state,
++				      struct intel_crtc_state *crtc_state,
++				      int min_scale, int max_scale,
++				      bool can_position)
++{
++	struct drm_framebuffer *fb = plane_state->hw.fb;
++	struct drm_rect *src = &plane_state->uapi.src;
++	struct drm_rect *dst = &plane_state->uapi.dst;
++	unsigned int rotation = plane_state->hw.rotation;
++	struct drm_rect clip = {};
++	int hscale, vscale;
++
++	if (!fb) {
++		plane_state->uapi.visible = false;
++		return 0;
++	}
++
++	drm_rect_rotate(src, fb->width << 16, fb->height << 16, rotation);
++
++	/* Check scaling */
++	hscale = drm_rect_calc_hscale(src, dst, min_scale, max_scale);
++	vscale = drm_rect_calc_vscale(src, dst, min_scale, max_scale);
++	if (hscale < 0 || vscale < 0) {
++		DRM_DEBUG_KMS("Invalid scaling of plane\n");
++		drm_rect_debug_print("src: ", src, true);
++		drm_rect_debug_print("dst: ", dst, false);
++		return -ERANGE;
++	}
++
++	if (crtc_state->hw.enable) {
++		clip.x2 = crtc_state->pipe_src_w;
++		clip.y2 = crtc_state->pipe_src_h;
++	}
++
++	/* right side of the image is on the slave crtc, adjust dst to match */
++	if (crtc_state->bigjoiner_slave)
++		drm_rect_translate(dst, -crtc_state->pipe_src_w, 0);
++
++	/*
++	 * FIXME: This might need further adjustment for seamless scaling
++	 * with phase information, for the 2p2 and 2p1 scenarios.
++	 */
++	plane_state->uapi.visible = drm_rect_clip_scaled(src, dst, &clip);
++
++	drm_rect_rotate_inv(src, fb->width << 16, fb->height << 16, rotation);
++
++	if (!can_position && plane_state->uapi.visible &&
++	    !drm_rect_equals(dst, &clip)) {
++		DRM_DEBUG_KMS("Plane must cover entire CRTC\n");
++		drm_rect_debug_print("dst: ", dst, false);
++		drm_rect_debug_print("clip: ", &clip, false);
++		return -EINVAL;
++	}
++
++	return 0;
++}
++
+ const struct drm_plane_helper_funcs intel_plane_helper_funcs = {
+ 	.prepare_fb = intel_prepare_plane_fb,
+ 	.cleanup_fb = intel_cleanup_plane_fb,
+diff --git a/drivers/gpu/drm/i915/display/intel_atomic_plane.h b/drivers/gpu/drm/i915/display/intel_atomic_plane.h
+index c2a1e7c86e6c..d0a599d00ecd 100644
+--- a/drivers/gpu/drm/i915/display/intel_atomic_plane.h
++++ b/drivers/gpu/drm/i915/display/intel_atomic_plane.h
+@@ -53,6 +53,10 @@ int intel_plane_atomic_calc_changes(const struct intel_crtc_state *old_crtc_stat
+ int intel_plane_calc_min_cdclk(struct intel_atomic_state *state,
+ 			       struct intel_plane *plane,
+ 			       bool *need_cdclk_calc);
++int intel_atomic_plane_check_clipping(struct intel_plane_state *plane_state,
++				      struct intel_crtc_state *crtc_state,
++				      int min_scale, int max_scale,
++				      bool can_position);
+ void intel_plane_set_invisible(struct intel_crtc_state *crtc_state,
+ 			       struct intel_plane_state *plane_state);
+ 
 diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index c045ef0ac801..cd872e9e7d92 100644
+index 71140494d728..dc3a6107dcdf 100644
 --- a/drivers/gpu/drm/i915/display/intel_display.c
 +++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -12673,7 +12673,7 @@ static bool encoders_cloneable(const struct intel_encoder *a,
- 			  b->cloneable & (1 << a->type));
- }
+@@ -4414,12 +4414,10 @@ i9xx_plane_check(struct intel_crtc_state *crtc_state,
+ 	if (ret)
+ 		return ret;
  
--static bool check_single_encoder_cloning(struct drm_atomic_state *state,
-+static bool check_single_encoder_cloning(struct intel_atomic_state *state,
- 					 struct intel_crtc *crtc,
- 					 struct intel_encoder *encoder)
- {
-@@ -12682,7 +12682,7 @@ static bool check_single_encoder_cloning(struct drm_atomic_state *state,
- 	struct drm_connector_state *connector_state;
- 	int i;
+-	ret = drm_atomic_helper_check_plane_state(&plane_state->uapi,
+-						  &crtc_state->uapi,
+-						  DRM_PLANE_HELPER_NO_SCALING,
+-						  DRM_PLANE_HELPER_NO_SCALING,
+-						  i9xx_plane_has_windowing(plane),
+-						  true);
++	ret = intel_atomic_plane_check_clipping(plane_state, crtc_state,
++						DRM_PLANE_HELPER_NO_SCALING,
++						DRM_PLANE_HELPER_NO_SCALING,
++						i9xx_plane_has_windowing(plane));
+ 	if (ret)
+ 		return ret;
  
--	for_each_new_connector_in_state(state, connector, connector_state, i) {
-+	for_each_new_connector_in_state(&state->base, connector, connector_state, i) {
- 		if (connector_state->crtc != &crtc->base)
- 			continue;
- 
-@@ -13536,10 +13536,10 @@ intel_crtc_prepare_cleared_state(struct intel_crtc_state *crtc_state)
- }
- 
- static int
--intel_modeset_pipe_config(struct intel_crtc_state *pipe_config)
-+intel_modeset_pipe_config(struct intel_atomic_state *state,
-+			  struct intel_crtc_state *pipe_config)
- {
- 	struct drm_crtc *crtc = pipe_config->uapi.crtc;
--	struct drm_atomic_state *state = pipe_config->uapi.state;
- 	struct drm_i915_private *i915 = to_i915(pipe_config->uapi.crtc->dev);
- 	struct drm_connector *connector;
- 	struct drm_connector_state *connector_state;
-@@ -13581,7 +13581,7 @@ intel_modeset_pipe_config(struct intel_crtc_state *pipe_config)
- 			       &pipe_config->pipe_src_w,
- 			       &pipe_config->pipe_src_h);
- 
--	for_each_new_connector_in_state(state, connector, connector_state, i) {
-+	for_each_new_connector_in_state(&state->base, connector, connector_state, i) {
- 		struct intel_encoder *encoder =
- 			to_intel_encoder(connector_state->best_encoder);
- 
-@@ -13619,7 +13619,7 @@ intel_modeset_pipe_config(struct intel_crtc_state *pipe_config)
- 	 * adjust it according to limitations or connector properties, and also
- 	 * a chance to reject the mode entirely.
- 	 */
--	for_each_new_connector_in_state(state, connector, connector_state, i) {
-+	for_each_new_connector_in_state(&state->base, connector, connector_state, i) {
- 		struct intel_encoder *encoder =
- 			to_intel_encoder(connector_state->best_encoder);
- 
-@@ -15247,7 +15247,7 @@ static int intel_atomic_check(struct drm_device *dev,
- 		if (!new_crtc_state->hw.enable)
- 			continue;
- 
--		ret = intel_modeset_pipe_config(new_crtc_state);
-+		ret = intel_modeset_pipe_config(state, new_crtc_state);
- 		if (ret)
- 			goto fail;
+@@ -11703,11 +11701,10 @@ static int intel_check_cursor(struct intel_crtc_state *crtc_state,
+ 		return -EINVAL;
  	}
+ 
+-	ret = drm_atomic_helper_check_plane_state(&plane_state->uapi,
+-						  &crtc_state->uapi,
+-						  DRM_PLANE_HELPER_NO_SCALING,
+-						  DRM_PLANE_HELPER_NO_SCALING,
+-						  true, true);
++	ret = intel_atomic_plane_check_clipping(plane_state, crtc_state,
++						DRM_PLANE_HELPER_NO_SCALING,
++						DRM_PLANE_HELPER_NO_SCALING,
++						true);
+ 	if (ret)
+ 		return ret;
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_sprite.c b/drivers/gpu/drm/i915/display/intel_sprite.c
+index b6deeb338477..172453821b64 100644
+--- a/drivers/gpu/drm/i915/display/intel_sprite.c
++++ b/drivers/gpu/drm/i915/display/intel_sprite.c
+@@ -2059,10 +2059,8 @@ g4x_sprite_check(struct intel_crtc_state *crtc_state,
+ 		}
+ 	}
+ 
+-	ret = drm_atomic_helper_check_plane_state(&plane_state->uapi,
+-						  &crtc_state->uapi,
+-						  min_scale, max_scale,
+-						  true, true);
++	ret = intel_atomic_plane_check_clipping(plane_state, crtc_state,
++						min_scale, max_scale, true);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -2117,11 +2115,10 @@ vlv_sprite_check(struct intel_crtc_state *crtc_state,
+ 	if (ret)
+ 		return ret;
+ 
+-	ret = drm_atomic_helper_check_plane_state(&plane_state->uapi,
+-						  &crtc_state->uapi,
+-						  DRM_PLANE_HELPER_NO_SCALING,
+-						  DRM_PLANE_HELPER_NO_SCALING,
+-						  true, true);
++	ret = intel_atomic_plane_check_clipping(plane_state, crtc_state,
++						DRM_PLANE_HELPER_NO_SCALING,
++						DRM_PLANE_HELPER_NO_SCALING,
++						true);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -2328,10 +2325,8 @@ static int skl_plane_check(struct intel_crtc_state *crtc_state,
+ 		max_scale = skl_plane_max_scale(dev_priv, fb);
+ 	}
+ 
+-	ret = drm_atomic_helper_check_plane_state(&plane_state->uapi,
+-						  &crtc_state->uapi,
+-						  min_scale, max_scale,
+-						  true, true);
++	ret = intel_atomic_plane_check_clipping(plane_state, crtc_state,
++						min_scale, max_scale, true);
+ 	if (ret)
+ 		return ret;
+ 
 -- 
 2.19.1
 
