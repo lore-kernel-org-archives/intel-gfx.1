@@ -7,52 +7,52 @@ X-Spam-Status: No, score=-6.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 15D59C83022
-	for <intel-gfx@archiver.kernel.org>; Tue,  3 Nov 2020 10:34:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4CD15C64E7D
+	for <intel-gfx@archiver.kernel.org>; Tue,  3 Nov 2020 10:33:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A87DE2242A
-	for <intel-gfx@archiver.kernel.org>; Tue,  3 Nov 2020 10:34:02 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id E6DCB22409
+	for <intel-gfx@archiver.kernel.org>; Tue,  3 Nov 2020 10:33:40 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="Sm4ABGoP";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="Eh0ljo4B"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A87DE2242A
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="JFMhUSy5";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="NUYcywDh"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E6DCB22409
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linutronix.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1FD136EC51;
-	Tue,  3 Nov 2020 10:34:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B9806EC6B;
+	Tue,  3 Nov 2020 10:33:39 +0000 (UTC)
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D1726EC73;
- Tue,  3 Nov 2020 10:33:59 +0000 (UTC)
-Message-Id: <20201103095859.038791330@linutronix.de>
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 36A6E6EC41;
+ Tue,  3 Nov 2020 10:33:38 +0000 (UTC)
+Message-Id: <20201103095857.582196476@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1604399633;
+ s=2020; t=1604399615;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:  references:references;
- bh=tCYMT9sD42/kNcpgoljL8m6JeBtj259te8UuGpYvQG8=;
- b=Sm4ABGoPMJOkLZBj1oVzZ+HnTK7YHGuOEI4Uv2BAl9tmABdR62AcRa74ZjyaD3g8HF6yE/
- ujL7vDS+VbIVxa4azdnI30MCkRLY0w3+iA6y+v0lLn/hfMN7KyOQP2XFb/CZpLDXkKmTyl
- f26twI/m8lAwqaFavkF8uD2q0Xr1Pbaw2A+wroGedPRw0Da2kmybXpLfXusfnQwWtHBB1I
- iuSV1rT2FNiYZx27pq14hXXiwjBqQkoD6pSUP8A4IzwwBvhrT54UsaTOloj2S2Ln2kjBtP
- QStY+9c8EOnKLxVwKZKoWFgK9hrkcjG9zP6PReTPOZonWa9L41tknuThX1hNkQ==
+ bh=dZfU5WvA7bT8kKOcQdwTPZyFVOxz/HVbc1gjCkahXR4=;
+ b=JFMhUSy54MI+jHIQIKjZSSAmW2SZMQKBSJTNDRkZ7wKd1SlTkxs9Mc7tHsX7XUAa1zDs6T
+ bHiWrPqTdhpVLkn080h0V6s14ZD7ZCgYeBGaguu0z3ubNPLloc0ihmwd8kMq0OhVZomojj
+ K5Zl8BY2mhYkg9xLSyC4eC1/Jhplv+fXLxoke6g3+VU/zCL3vpjqX++2MTaO9ATdo+4pDg
+ pfDK7THpXHeK8k4gsPOo0xXoBnpw+k1VA5unzS9gLu4Eys0+I/rKgCEC7V2aXDU046/XWh
+ OCsfmjePuS1i8ANNGtAdmg9MeaguWhSBSj94XGYphJgGx1tbE9+28Su2iHugjg==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1604399633;
+ s=2020e; t=1604399615;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:  references:references;
- bh=tCYMT9sD42/kNcpgoljL8m6JeBtj259te8UuGpYvQG8=;
- b=Eh0ljo4BQlFahZvKHoH95zp8UlUpxfPJ5Oq+6DntBRNC1Z4InsLEvewUzqX4RaGxoO/QVw
- sBRfP7YwA3GExYDg==
-Date: Tue, 03 Nov 2020 10:27:36 +0100
+ bh=dZfU5WvA7bT8kKOcQdwTPZyFVOxz/HVbc1gjCkahXR4=;
+ b=NUYcywDhlX06ORkIQCkflIkutfZxVFAkFqAS5HD9DXoWKhi+k+uMgYZhBPjmXE1kBLC1Ns
+ oKpVYSVqJ76AjhCg==
+Date: Tue, 03 Nov 2020 10:27:22 +0100
 From: Thomas Gleixner <tglx@linutronix.de>
 To: LKML <linux-kernel@vger.kernel.org>
 References: <20201103092712.714480842@linutronix.de>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [patch V3 24/37] sched: highmem: Store local kmaps in
- task struct
+Subject: [Intel-gfx] [patch V3 10/37] ARM: highmem: Switch to generic kmap
+ atomic
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,295 +103,252 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Instead of storing the map per CPU provide and use per task storage. That
-prepares for local kmaps which are preemptible.
-
-The context switch code is preparatory and not yet in use because
-kmap_atomic() runs with preemption disabled. Will be made usable in the
-next step.
-
-The context switch logic is safe even when an interrupt happens after
-clearing or before restoring the kmaps. The kmap index in task struct is
-not modified so any nesting kmap in an interrupt will use unused indices
-and on return the counter is the same as before.
-
-Also add an assert into the return to user space code. Going back to user
-space with an active kmap local is a nono.
+No reason having the same code in every architecture.
 
 Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
+Cc: Russell King <linux@armlinux.org.uk>
+Cc: Arnd Bergmann <arnd@arndb.de>
+Cc: linux-arm-kernel@lists.infradead.org
 ---
-V3: Handle the debug case correctly
+V3: Remove the kmap types cruft
 ---
- include/linux/highmem-internal.h |   10 +++
- include/linux/sched.h            |    9 +++
- kernel/entry/common.c            |    2 
- kernel/fork.c                    |    1 
- kernel/sched/core.c              |   18 +++++++
- mm/highmem.c                     |   99 +++++++++++++++++++++++++++++++++++----
- 6 files changed, 129 insertions(+), 10 deletions(-)
+ arch/arm/Kconfig                  |    1 
+ arch/arm/include/asm/fixmap.h     |    4 -
+ arch/arm/include/asm/highmem.h    |   33 +++++++---
+ arch/arm/include/asm/kmap_types.h |   10 ---
+ arch/arm/mm/Makefile              |    1 
+ arch/arm/mm/highmem.c             |  121 --------------------------------------
+ 6 files changed, 26 insertions(+), 144 deletions(-)
 
---- a/include/linux/highmem-internal.h
-+++ b/include/linux/highmem-internal.h
-@@ -9,6 +9,16 @@
- void *__kmap_local_pfn_prot(unsigned long pfn, pgprot_t prot);
- void *__kmap_local_page_prot(struct page *page, pgprot_t prot);
- void kunmap_local_indexed(void *vaddr);
-+void kmap_local_fork(struct task_struct *tsk);
-+void __kmap_local_sched_out(void);
-+void __kmap_local_sched_in(void);
-+static inline void kmap_assert_nomap(void)
-+{
-+	DEBUG_LOCKS_WARN_ON(current->kmap_ctrl.idx);
-+}
-+#else
-+static inline void kmap_local_fork(struct task_struct *tsk) { }
-+static inline void kmap_assert_nomap(void) { }
- #endif
+--- a/arch/arm/Kconfig
++++ b/arch/arm/Kconfig
+@@ -1498,6 +1498,7 @@ config HAVE_ARCH_PFN_VALID
+ config HIGHMEM
+ 	bool "High Memory Support"
+ 	depends on MMU
++	select KMAP_LOCAL
+ 	help
+ 	  The address space of ARM processors is only 4 Gigabytes large
+ 	  and it has to accommodate user address space, kernel address
+--- a/arch/arm/include/asm/fixmap.h
++++ b/arch/arm/include/asm/fixmap.h
+@@ -7,14 +7,14 @@
+ #define FIXADDR_TOP		(FIXADDR_END - PAGE_SIZE)
  
- #ifdef CONFIG_HIGHMEM
---- a/include/linux/sched.h
-+++ b/include/linux/sched.h
-@@ -34,6 +34,7 @@
- #include <linux/rseq.h>
- #include <linux/seqlock.h>
- #include <linux/kcsan.h>
+ #include <linux/pgtable.h>
+-#include <asm/kmap_types.h>
 +#include <asm/kmap_size.h>
  
- /* task_struct member predeclarations (sorted alphabetically): */
- struct audit_context;
-@@ -629,6 +630,13 @@ struct wake_q_node {
- 	struct wake_q_node *next;
- };
+ enum fixed_addresses {
+ 	FIX_EARLYCON_MEM_BASE,
+ 	__end_of_permanent_fixed_addresses,
  
-+struct kmap_ctrl {
-+#ifdef CONFIG_KMAP_LOCAL
-+	int				idx;
-+	pte_t				pteval[KM_TYPE_NR];
-+#endif
-+};
+ 	FIX_KMAP_BEGIN = __end_of_permanent_fixed_addresses,
+-	FIX_KMAP_END = FIX_KMAP_BEGIN + (KM_TYPE_NR * NR_CPUS) - 1,
++	FIX_KMAP_END = FIX_KMAP_BEGIN + (KM_MAX_IDX * NR_CPUS) - 1,
+ 
+ 	/* Support writing RO kernel text via kprobes, jump labels, etc. */
+ 	FIX_TEXT_POKE0,
+--- a/arch/arm/include/asm/highmem.h
++++ b/arch/arm/include/asm/highmem.h
+@@ -2,7 +2,7 @@
+ #ifndef _ASM_HIGHMEM_H
+ #define _ASM_HIGHMEM_H
+ 
+-#include <asm/kmap_types.h>
++#include <asm/kmap_size.h>
+ 
+ #define PKMAP_BASE		(PAGE_OFFSET - PMD_SIZE)
+ #define LAST_PKMAP		PTRS_PER_PTE
+@@ -46,19 +46,32 @@ extern pte_t *pkmap_page_table;
+ 
+ #ifdef ARCH_NEEDS_KMAP_HIGH_GET
+ extern void *kmap_high_get(struct page *page);
+-#else
 +
- struct task_struct {
- #ifdef CONFIG_THREAD_INFO_IN_TASK
- 	/*
-@@ -1294,6 +1302,7 @@ struct task_struct {
- 	unsigned int			sequential_io;
- 	unsigned int			sequential_io_avg;
- #endif
-+	struct kmap_ctrl		kmap_ctrl;
- #ifdef CONFIG_DEBUG_ATOMIC_SLEEP
- 	unsigned long			task_state_change;
- #endif
---- a/kernel/entry/common.c
-+++ b/kernel/entry/common.c
-@@ -2,6 +2,7 @@
- 
- #include <linux/context_tracking.h>
- #include <linux/entry-common.h>
-+#include <linux/highmem.h>
- #include <linux/livepatch.h>
- #include <linux/audit.h>
- 
-@@ -194,6 +195,7 @@ static void exit_to_user_mode_prepare(st
- 
- 	/* Ensure that the address limit is intact and no locks are held */
- 	addr_limit_user_check();
-+	kmap_assert_nomap();
- 	lockdep_assert_irqs_disabled();
- 	lockdep_sys_exit();
- }
---- a/kernel/fork.c
-+++ b/kernel/fork.c
-@@ -930,6 +930,7 @@ static struct task_struct *dup_task_stru
- 	account_kernel_stack(tsk, 1);
- 
- 	kcov_task_init(tsk);
-+	kmap_local_fork(tsk);
- 
- #ifdef CONFIG_FAULT_INJECTION
- 	tsk->fail_nth = 0;
---- a/kernel/sched/core.c
-+++ b/kernel/sched/core.c
-@@ -4053,6 +4053,22 @@ static inline void finish_lock_switch(st
- # define finish_arch_post_lock_switch()	do { } while (0)
- #endif
- 
-+static inline void kmap_local_sched_out(void)
++static inline void *arch_kmap_local_high_get(struct page *page)
 +{
-+#ifdef CONFIG_KMAP_LOCAL
-+	if (unlikely(current->kmap_ctrl.idx))
-+		__kmap_local_sched_out();
-+#endif
++	if (IS_ENABLED(CONFIG_DEBUG_HIGHMEM) && !cache_is_vivt())
++		return NULL;
++	return kmap_high_get(page);
 +}
++#define arch_kmap_local_high_get arch_kmap_local_high_get
 +
-+static inline void kmap_local_sched_in(void)
-+{
-+#ifdef CONFIG_KMAP_LOCAL
-+	if (unlikely(current->kmap_ctrl.idx))
-+		__kmap_local_sched_in();
-+#endif
-+}
-+
- /**
-  * prepare_task_switch - prepare to switch tasks
-  * @rq: the runqueue preparing to switch
-@@ -4075,6 +4091,7 @@ prepare_task_switch(struct rq *rq, struc
- 	perf_event_task_sched_out(prev, next);
- 	rseq_preempt(prev);
- 	fire_sched_out_preempt_notifiers(prev, next);
-+	kmap_local_sched_out();
- 	prepare_task(next);
- 	prepare_arch_switch(next);
- }
-@@ -4141,6 +4158,7 @@ static struct rq *finish_task_switch(str
- 	finish_lock_switch(rq);
- 	finish_arch_post_lock_switch();
- 	kcov_finish_switch(current);
-+	kmap_local_sched_in();
- 
- 	fire_sched_in_preempt_notifiers(current);
- 	/*
---- a/mm/highmem.c
-+++ b/mm/highmem.c
-@@ -365,8 +365,6 @@ EXPORT_SYMBOL(kunmap_high);
- 
- #include <asm/kmap_size.h>
- 
--static DEFINE_PER_CPU(int, __kmap_local_idx);
--
- /*
-  * With DEBUG_HIGHMEM the stack depth is doubled and every second
-  * slot is unused which acts as a guard page
-@@ -379,23 +377,21 @@ static DEFINE_PER_CPU(int, __kmap_local_
- 
- static inline int kmap_local_idx_push(void)
++#else /* ARCH_NEEDS_KMAP_HIGH_GET */
+ static inline void *kmap_high_get(struct page *page)
  {
--	int idx = __this_cpu_add_return(__kmap_local_idx, KM_INCR) - 1;
--
- 	WARN_ON_ONCE(in_irq() && !irqs_disabled());
--	BUG_ON(idx >= KM_MAX_IDX);
--	return idx;
-+	current->kmap_ctrl.idx += KM_INCR;
-+	BUG_ON(current->kmap_ctrl.idx >= KM_TYPE_NR);
-+	return current->kmap_ctrl.idx - 1;
+ 	return NULL;
  }
+-#endif
++#endif /* !ARCH_NEEDS_KMAP_HIGH_GET */
  
- static inline int kmap_local_idx(void)
- {
--	return __this_cpu_read(__kmap_local_idx) - 1;
-+	return current->kmap_ctrl.idx - 1;
- }
+-/*
+- * The following functions are already defined by <linux/highmem.h>
+- * when CONFIG_HIGHMEM is not set.
+- */
+-#ifdef CONFIG_HIGHMEM
+-extern void *kmap_atomic_pfn(unsigned long pfn);
+-#endif
++#define arch_kmap_local_post_map(vaddr, pteval)				\
++	local_flush_tlb_kernel_page(vaddr)
++
++#define arch_kmap_local_pre_unmap(vaddr)				\
++do {									\
++	if (cache_is_vivt())						\
++		__cpuc_flush_dcache_area((void *)vaddr, PAGE_SIZE);	\
++} while (0)
++
++#define arch_kmap_local_post_unmap(vaddr)				\
++	local_flush_tlb_kernel_page(vaddr)
  
- static inline void kmap_local_idx_pop(void)
- {
--	int idx = __this_cpu_sub_return(__kmap_local_idx, KM_INCR);
--
--	BUG_ON(idx < 0);
-+	current->kmap_ctrl.idx -= KM_INCR;
-+	BUG_ON(current->kmap_ctrl.idx < 0);
- }
- 
- #ifndef arch_kmap_local_post_map
-@@ -461,6 +457,7 @@ void *__kmap_local_pfn_prot(unsigned lon
- 	pteval = pfn_pte(pfn, prot);
- 	set_pte_at(&init_mm, vaddr, kmap_pte - idx, pteval);
- 	arch_kmap_local_post_map(vaddr, pteval);
-+	current->kmap_ctrl.pteval[kmap_local_idx()] = pteval;
- 	preempt_enable();
- 
- 	return (void *)vaddr;
-@@ -505,10 +502,92 @@ void kunmap_local_indexed(void *vaddr)
- 	arch_kmap_local_pre_unmap(addr);
- 	pte_clear(&init_mm, addr, kmap_pte - idx);
- 	arch_kmap_local_post_unmap(addr);
-+	current->kmap_ctrl.pteval[kmap_local_idx()] = __pte(0);
- 	kmap_local_idx_pop();
- 	preempt_enable();
- }
- EXPORT_SYMBOL(kunmap_local_indexed);
-+
-+/*
-+ * Invoked before switch_to(). This is safe even when during or after
-+ * clearing the maps an interrupt which needs a kmap_local happens because
-+ * the task::kmap_ctrl.idx is not modified by the unmapping code so a
-+ * nested kmap_local will use the next unused index and restore the index
-+ * on unmap. The already cleared kmaps of the outgoing task are irrelevant
-+ * because the interrupt context does not know about them. The same applies
-+ * when scheduling back in for an interrupt which happens before the
-+ * restore is complete.
-+ */
-+void __kmap_local_sched_out(void)
-+{
-+	struct task_struct *tsk = current;
-+	pte_t *kmap_pte = kmap_get_pte();
-+	int i;
-+
-+	/* Clear kmaps */
-+	for (i = 0; i < tsk->kmap_ctrl.idx; i++) {
-+		pte_t pteval = tsk->kmap_ctrl.pteval[i];
-+		unsigned long addr;
-+		int idx;
-+
-+		/* With debug all even slots are unmapped and act as guard */
-+		if (IS_ENABLED(CONFIG_DEBUG_HIGHMEM) && !(i & 0x01)) {
-+			WARN_ON_ONCE(!pte_none(pteval));
-+			continue;
-+		}
-+		if (WARN_ON_ONCE(pte_none(pteval)))
-+			continue;
-+
-+		/*
-+		 * This is a horrible hack for XTENSA to calculate the
-+		 * coloured PTE index. Uses the PFN encoded into the pteval
-+		 * and the map index calculation because the actual mapped
-+		 * virtual address is not stored in task::kmap_ctrl.
-+		 * For any sane architecture this is optimized out.
-+		 */
-+		idx = arch_kmap_local_map_idx(i, pte_pfn(pteval));
-+
-+		addr = __fix_to_virt(FIX_KMAP_BEGIN + idx);
-+		arch_kmap_local_pre_unmap(addr);
-+		pte_clear(&init_mm, addr, kmap_pte - idx);
-+		arch_kmap_local_post_unmap(addr);
-+	}
-+}
-+
-+void __kmap_local_sched_in(void)
-+{
-+	struct task_struct *tsk = current;
-+	pte_t *kmap_pte = kmap_get_pte();
-+	int i;
-+
-+	/* Restore kmaps */
-+	for (i = 0; i < tsk->kmap_ctrl.idx; i++) {
-+		pte_t pteval = tsk->kmap_ctrl.pteval[i];
-+		unsigned long addr;
-+		int idx;
-+
-+		/* With debug all even slots are unmapped and act as guard */
-+		if (IS_ENABLED(CONFIG_DEBUG_HIGHMEM) && !(i & 0x01)) {
-+			WARN_ON_ONCE(!pte_none(pteval));
-+			continue;
-+		}
-+		if (WARN_ON_ONCE(pte_none(pteval)))
-+			continue;
-+
-+		/* See comment in __kmap_local_sched_out() */
-+		idx = arch_kmap_local_map_idx(i, pte_pfn(pteval));
-+		addr = __fix_to_virt(FIX_KMAP_BEGIN + idx);
-+		set_pte_at(&init_mm, addr, kmap_pte - idx, pteval);
-+		arch_kmap_local_post_map(addr, pteval);
-+	}
-+}
-+
-+void kmap_local_fork(struct task_struct *tsk)
-+{
-+	if (WARN_ON_ONCE(tsk->kmap_ctrl.idx))
-+		memset(&tsk->kmap_ctrl, 0, sizeof(tsk->kmap_ctrl));
-+}
-+
  #endif
+--- a/arch/arm/include/asm/kmap_types.h
++++ /dev/null
+@@ -1,10 +0,0 @@
+-/* SPDX-License-Identifier: GPL-2.0 */
+-#ifndef __ARM_KMAP_TYPES_H
+-#define __ARM_KMAP_TYPES_H
+-
+-/*
+- * This is the "bare minimum".  AIO seems to require this.
+- */
+-#define KM_TYPE_NR 16
+-
+-#endif
+--- a/arch/arm/mm/Makefile
++++ b/arch/arm/mm/Makefile
+@@ -19,7 +19,6 @@ obj-$(CONFIG_MODULES)		+= proc-syms.o
+ obj-$(CONFIG_DEBUG_VIRTUAL)	+= physaddr.o
  
- #if defined(HASHED_PAGE_VIRTUAL)
+ obj-$(CONFIG_ALIGNMENT_TRAP)	+= alignment.o
+-obj-$(CONFIG_HIGHMEM)		+= highmem.o
+ obj-$(CONFIG_HUGETLB_PAGE)	+= hugetlbpage.o
+ obj-$(CONFIG_ARM_PV_FIXUP)	+= pv-fixup-asm.o
+ 
+--- a/arch/arm/mm/highmem.c
++++ /dev/null
+@@ -1,121 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0-only
+-/*
+- * arch/arm/mm/highmem.c -- ARM highmem support
+- *
+- * Author:	Nicolas Pitre
+- * Created:	september 8, 2008
+- * Copyright:	Marvell Semiconductors Inc.
+- */
+-
+-#include <linux/module.h>
+-#include <linux/highmem.h>
+-#include <linux/interrupt.h>
+-#include <asm/fixmap.h>
+-#include <asm/cacheflush.h>
+-#include <asm/tlbflush.h>
+-#include "mm.h"
+-
+-static inline void set_fixmap_pte(int idx, pte_t pte)
+-{
+-	unsigned long vaddr = __fix_to_virt(idx);
+-	pte_t *ptep = virt_to_kpte(vaddr);
+-
+-	set_pte_ext(ptep, pte, 0);
+-	local_flush_tlb_kernel_page(vaddr);
+-}
+-
+-static inline pte_t get_fixmap_pte(unsigned long vaddr)
+-{
+-	pte_t *ptep = virt_to_kpte(vaddr);
+-
+-	return *ptep;
+-}
+-
+-void *kmap_atomic_high_prot(struct page *page, pgprot_t prot)
+-{
+-	unsigned int idx;
+-	unsigned long vaddr;
+-	void *kmap;
+-	int type;
+-
+-#ifdef CONFIG_DEBUG_HIGHMEM
+-	/*
+-	 * There is no cache coherency issue when non VIVT, so force the
+-	 * dedicated kmap usage for better debugging purposes in that case.
+-	 */
+-	if (!cache_is_vivt())
+-		kmap = NULL;
+-	else
+-#endif
+-		kmap = kmap_high_get(page);
+-	if (kmap)
+-		return kmap;
+-
+-	type = kmap_atomic_idx_push();
+-
+-	idx = FIX_KMAP_BEGIN + type + KM_TYPE_NR * smp_processor_id();
+-	vaddr = __fix_to_virt(idx);
+-#ifdef CONFIG_DEBUG_HIGHMEM
+-	/*
+-	 * With debugging enabled, kunmap_atomic forces that entry to 0.
+-	 * Make sure it was indeed properly unmapped.
+-	 */
+-	BUG_ON(!pte_none(get_fixmap_pte(vaddr)));
+-#endif
+-	/*
+-	 * When debugging is off, kunmap_atomic leaves the previous mapping
+-	 * in place, so the contained TLB flush ensures the TLB is updated
+-	 * with the new mapping.
+-	 */
+-	set_fixmap_pte(idx, mk_pte(page, prot));
+-
+-	return (void *)vaddr;
+-}
+-EXPORT_SYMBOL(kmap_atomic_high_prot);
+-
+-void kunmap_atomic_high(void *kvaddr)
+-{
+-	unsigned long vaddr = (unsigned long) kvaddr & PAGE_MASK;
+-	int idx, type;
+-
+-	if (kvaddr >= (void *)FIXADDR_START) {
+-		type = kmap_atomic_idx();
+-		idx = FIX_KMAP_BEGIN + type + KM_TYPE_NR * smp_processor_id();
+-
+-		if (cache_is_vivt())
+-			__cpuc_flush_dcache_area((void *)vaddr, PAGE_SIZE);
+-#ifdef CONFIG_DEBUG_HIGHMEM
+-		BUG_ON(vaddr != __fix_to_virt(idx));
+-		set_fixmap_pte(idx, __pte(0));
+-#else
+-		(void) idx;  /* to kill a warning */
+-#endif
+-		kmap_atomic_idx_pop();
+-	} else if (vaddr >= PKMAP_ADDR(0) && vaddr < PKMAP_ADDR(LAST_PKMAP)) {
+-		/* this address was obtained through kmap_high_get() */
+-		kunmap_high(pte_page(pkmap_page_table[PKMAP_NR(vaddr)]));
+-	}
+-}
+-EXPORT_SYMBOL(kunmap_atomic_high);
+-
+-void *kmap_atomic_pfn(unsigned long pfn)
+-{
+-	unsigned long vaddr;
+-	int idx, type;
+-	struct page *page = pfn_to_page(pfn);
+-
+-	preempt_disable();
+-	pagefault_disable();
+-	if (!PageHighMem(page))
+-		return page_address(page);
+-
+-	type = kmap_atomic_idx_push();
+-	idx = FIX_KMAP_BEGIN + type + KM_TYPE_NR * smp_processor_id();
+-	vaddr = __fix_to_virt(idx);
+-#ifdef CONFIG_DEBUG_HIGHMEM
+-	BUG_ON(!pte_none(get_fixmap_pte(vaddr)));
+-#endif
+-	set_fixmap_pte(idx, pfn_pte(pfn, kmap_prot));
+-
+-	return (void *)vaddr;
+-}
 
 _______________________________________________
 Intel-gfx mailing list
