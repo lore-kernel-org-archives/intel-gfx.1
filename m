@@ -2,49 +2,44 @@ Return-Path: <SRS0=aXtb=EJ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.2 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 59B4AC55178
-	for <intel-gfx@archiver.kernel.org>; Tue,  3 Nov 2020 14:10:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5F290C2D0A3
+	for <intel-gfx@archiver.kernel.org>; Tue,  3 Nov 2020 14:16:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F065622264
-	for <intel-gfx@archiver.kernel.org>; Tue,  3 Nov 2020 14:10:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F065622264
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=arm.com
+	by mail.kernel.org (Postfix) with ESMTPS id 63A2622226
+	for <intel-gfx@archiver.kernel.org>; Tue,  3 Nov 2020 14:16:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 63A2622226
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 71BAF6ECAC;
-	Tue,  3 Nov 2020 14:10:38 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 62EF26E5BF
- for <Intel-gfx@lists.freedesktop.org>; Tue,  3 Nov 2020 12:00:41 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B5DA4106F;
- Tue,  3 Nov 2020 04:00:40 -0800 (PST)
-Received: from [10.57.54.223] (unknown [10.57.54.223])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id AF3CC3F718;
- Tue,  3 Nov 2020 04:00:38 -0800 (PST)
-To: Lu Baolu <baolu.lu@linux.intel.com>, Joerg Roedel <joro@8bytes.org>,
- Tom Murphy <murphyt7@tcd.ie>, David Woodhouse <dwmw2@infradead.org>,
- Christoph Hellwig <hch@infradead.org>
-References: <20200927063437.13988-1-baolu.lu@linux.intel.com>
- <20200927063437.13988-5-baolu.lu@linux.intel.com>
-From: Robin Murphy <robin.murphy@arm.com>
-Message-ID: <281f22ed-8b36-fc20-4b08-27ef168f941d@arm.com>
-Date: Tue, 3 Nov 2020 12:00:33 +0000
-User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:78.0) Gecko/20100101
- Thunderbird/78.4.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0428F6ECB2;
+	Tue,  3 Nov 2020 14:16:06 +0000 (UTC)
+Received: from fireflyinternet.com (unknown [77.68.26.236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7DD106ECB2
+ for <intel-gfx@lists.freedesktop.org>; Tue,  3 Nov 2020 14:16:04 +0000 (UTC)
+X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
+ x-ip-name=78.156.65.138; 
+Received: from localhost (unverified [78.156.65.138]) 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP (TLS) id
+ 22881066-1500050 for multiple; Tue, 03 Nov 2020 14:16:03 +0000
 MIME-Version: 1.0
-In-Reply-To: <20200927063437.13988-5-baolu.lu@linux.intel.com>
-Content-Language: en-GB
-X-Mailman-Approved-At: Tue, 03 Nov 2020 14:10:35 +0000
-Subject: Re: [Intel-gfx] [PATCH v4 4/7] iommu: Add quirk for Intel graphic
- devices in map_sg
+In-Reply-To: <87361qfw3e.fsf@gaia.fi.intel.com>
+References: <20201102221057.29626-1-chris@chris-wilson.co.uk>
+ <20201102221057.29626-2-chris@chris-wilson.co.uk>
+ <87361qfw3e.fsf@gaia.fi.intel.com>
+From: Chris Wilson <chris@chris-wilson.co.uk>
+To: Mika Kuoppala <mika.kuoppala@linux.intel.com>,
+ intel-gfx@lists.freedesktop.org
+Date: Tue, 03 Nov 2020 14:16:00 +0000
+Message-ID: <160441296035.21466.9227014206344926879@build.alporthouse.com>
+User-Agent: alot/0.9
+Subject: Re: [Intel-gfx] [PATCH 2/2] drm/i915/gt: Flush xcs before tgl
+ breadcrumbs
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,74 +52,31 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Intel-gfx@lists.freedesktop.org, Ashok Raj <ashok.raj@intel.com>,
- iommu@lists.linux-foundation.org, linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 2020-09-27 07:34, Lu Baolu wrote:
-> Combining the sg segments exposes a bug in the Intel i915 driver which
-> causes visual artifacts and the screen to freeze. This is most likely
-> because of how the i915 handles the returned list. It probably doesn't
-> respect the returned value specifying the number of elements in the list
-> and instead depends on the previous behaviour of the Intel iommu driver
-> which would return the same number of elements in the output list as in
-> the input list.
+Quoting Mika Kuoppala (2020-11-03 12:44:53)
+> Chris Wilson <chris@chris-wilson.co.uk> writes:
 > 
-> Signed-off-by: Tom Murphy <murphyt7@tcd.ie>
-> Signed-off-by: Lu Baolu <baolu.lu@linux.intel.com>
-> ---
->   drivers/iommu/dma-iommu.c | 27 +++++++++++++++++++++++++++
->   1 file changed, 27 insertions(+)
+> > In a simple test case that writes to scratch and then busy-waits for the
+> > batch to be signaled, we observe that the signal is before the write is
+> > posted. That is bad news.
+> >
+> > Splitting the flush + write_dword into two separate flush_dw prevents
+> > the issue from being reproduced, we can presume the post-sync op is not
+> > so post-sync.
+> >
 > 
-> diff --git a/drivers/iommu/dma-iommu.c b/drivers/iommu/dma-iommu.c
-> index 3526db774611..e7e4d758f51a 100644
-> --- a/drivers/iommu/dma-iommu.c
-> +++ b/drivers/iommu/dma-iommu.c
-> @@ -879,6 +879,33 @@ static int __finalise_sg(struct device *dev, struct scatterlist *sg, int nents,
->   	unsigned int cur_len = 0, max_len = dma_get_max_seg_size(dev);
->   	int i, count = 0;
->   
-> +	/*
-> +	 * The Intel graphic driver is used to assume that the returned
-> +	 * sg list is not combound. This blocks the efforts of converting
-> +	 * Intel IOMMU driver to dma-iommu api's. Add this quirk to make the
-> +	 * device driver work and should be removed once it's fixed in i915
-> +	 * driver.
-> +	 */
-> +	if (IS_ENABLED(CONFIG_DRM_I915) && dev_is_pci(dev) &&
-> +	    to_pci_dev(dev)->vendor == PCI_VENDOR_ID_INTEL &&
-> +	    (to_pci_dev(dev)->class >> 16) == PCI_BASE_CLASS_DISPLAY) {
-> +		for_each_sg(sg, s, nents, i) {
-> +			unsigned int s_iova_off = sg_dma_address(s);
-> +			unsigned int s_length = sg_dma_len(s);
-> +			unsigned int s_iova_len = s->length;
-> +
-> +			s->offset += s_iova_off;
-> +			s->length = s_length;
-> +			sg_dma_address(s) = dma_addr + s_iova_off;
-> +			sg_dma_len(s) = s_length;
-> +			dma_addr += s_iova_len;
-> +
-> +			pr_info_once("sg combining disabled due to i915 driver\n");
-> +		}
-> +
-> +		return nents;
-> +	}
+> Only thing that is mildly surpricing is that first one doesnt
+> need postop write.
 
-BTW, a much less invasive workaround would be to simply override 
-seg_mask to 0. That's enough to make sure that no segment looks eligible 
-for merging.
-
-Robin.
-
-> +
->   	for_each_sg(sg, s, nents, i) {
->   		/* Restore this segment's original unaligned fields first */
->   		unsigned int s_iova_off = sg_dma_address(s);
-> 
+The MI_FLUSH_DW is stalling, so the second will^W should wait for the
+first to complete. (And we don't want to do the write from the first as
+we observe that write is too early.)
+-Chris
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
