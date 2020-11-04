@@ -2,43 +2,52 @@ Return-Path: <SRS0=5tEz=EK=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1D7FDC2D0A3
-	for <intel-gfx@archiver.kernel.org>; Wed,  4 Nov 2020 12:34:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 396C8C2D0A3
+	for <intel-gfx@archiver.kernel.org>; Wed,  4 Nov 2020 13:02:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 629662236F
-	for <intel-gfx@archiver.kernel.org>; Wed,  4 Nov 2020 12:34:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 629662236F
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
+	by mail.kernel.org (Postfix) with ESMTPS id C3366221F8
+	for <intel-gfx@archiver.kernel.org>; Wed,  4 Nov 2020 13:02:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C3366221F8
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC5D46ED00;
-	Wed,  4 Nov 2020 12:34:00 +0000 (UTC)
-Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F7756ED00
- for <Intel-gfx@lists.freedesktop.org>; Wed,  4 Nov 2020 12:33:59 +0000 (UTC)
-X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
- x-ip-name=78.156.65.138; 
-Received: from localhost (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP (TLS) id
- 22891666-1500050 for multiple; Wed, 04 Nov 2020 12:33:55 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B37A6ECF4;
+	Wed,  4 Nov 2020 13:02:22 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1E17A6ECF4
+ for <intel-gfx@lists.freedesktop.org>; Wed,  4 Nov 2020 13:02:21 +0000 (UTC)
+IronPort-SDR: GGFaIrEyUIbRjcbYjqlru0vAxK2l5czX1QqgnvpzY3XV8vmoFfZYHy9wRbMVjUZ8K3PhBiZx9x
+ 6IbNA2Hv0JUg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9794"; a="187070963"
+X-IronPort-AV: E=Sophos;i="5.77,450,1596524400"; d="scan'208";a="187070963"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Nov 2020 05:02:19 -0800
+IronPort-SDR: +r4yK1fzinNUPRiOeI4xL33UvpWOhCU8GahxaV3be7OQ2fGgKm7q2C/SLDM1BMOs5ElDqJBguC
+ FeRSz34dnLhA==
+X-IronPort-AV: E=Sophos;i="5.77,451,1596524400"; d="scan'208";a="538913519"
+Received: from helsinki.fi.intel.com ([10.237.66.162])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Nov 2020 05:02:15 -0800
+From: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Wed,  4 Nov 2020 15:01:59 +0200
+Message-Id: <20201104130159.200874-2-gwan-gyeong.mun@intel.com>
+X-Mailer: git-send-email 2.25.0
+In-Reply-To: <20201104130159.200874-1-gwan-gyeong.mun@intel.com>
+References: <20201104130159.200874-1-gwan-gyeong.mun@intel.com>
 MIME-Version: 1.0
-In-Reply-To: <20201104122043.876567-2-tvrtko.ursulin@linux.intel.com>
-References: <20201104122043.876567-1-tvrtko.ursulin@linux.intel.com>
- <20201104122043.876567-2-tvrtko.ursulin@linux.intel.com>
-From: Chris Wilson <chris@chris-wilson.co.uk>
-To: Intel-gfx@lists.freedesktop.org,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Date: Wed, 04 Nov 2020 12:33:52 +0000
-Message-ID: <160449323247.15691.17140244371195703868@build.alporthouse.com>
-User-Agent: alot/0.9
-Subject: Re: [Intel-gfx] [RFC 2/2] drm/i915: Use user engine names in error
- state ecode
+Subject: [Intel-gfx] [PATCH v3 2/2] drm/i915/display: Support Multiple
+ Transcoders' PSR status on debugfs
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,26 +60,46 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Quoting Tvrtko Ursulin (2020-11-04 12:20:43)
-> From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-> 
-> Instead of printing out the internal engine mask, which can change between
-> kernel versions making it difficult to map to actual engines, list user
-> friendly engine names in the ecode string. For example:
-
-Nah. It's a nonsense number, just exists for quick and futile discrimination.
-Trying to interpret it is pointless.
-
-There's very little value to be gained from it, it should just serve as a
-tale-tell that we have captured an error state. The action and impact of
-the reset should be separately recorded.
--Chris
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+SW4gb3JkZXIgdG8gc3VwcG9ydCB0aGUgUFNSIHN0YXRlIG9mIGVhY2ggdHJhbnNjb2RlciwgaXQg
+YWRkcwppOTE1X3Bzcl9zdGF0dXMgdG8gc3ViLWRpcmVjdG9yeSBvZiBlYWNoIHRyYW5zY29kZXIu
+Cgp2MjogQ2hhbmdlIHVzaW5nIG9mIFN5bWJvbGljIHBlcm1pc3Npb25zICdTX0lSVUdPJyB0byB1
+c2luZyBvZiBvY3RhbAogICAgcGVybWlzc2lvbnMgJzA0NDQnCgpTaWduZWQtb2ZmLWJ5OiBHd2Fu
+LWd5ZW9uZyBNdW4gPGd3YW4tZ3llb25nLm11bkBpbnRlbC5jb20+CkNjOiBKb3PDqSBSb2JlcnRv
+IGRlIFNvdXphIDxqb3NlLnNvdXphQGludGVsLmNvbT4KLS0tCiAuLi4vZHJtL2k5MTUvZGlzcGxh
+eS9pbnRlbF9kaXNwbGF5X2RlYnVnZnMuYyAgfCAyMyArKysrKysrKysrKysrKysrKysrCiAxIGZp
+bGUgY2hhbmdlZCwgMjMgaW5zZXJ0aW9ucygrKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2Ry
+bS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGlzcGxheV9kZWJ1Z2ZzLmMgYi9kcml2ZXJzL2dwdS9kcm0v
+aTkxNS9kaXNwbGF5L2ludGVsX2Rpc3BsYXlfZGVidWdmcy5jCmluZGV4IDg0MDJlNmFjOWY3Ni4u
+Mzc4MDU2MTVhMjIxIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2lu
+dGVsX2Rpc3BsYXlfZGVidWdmcy5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkv
+aW50ZWxfZGlzcGxheV9kZWJ1Z2ZzLmMKQEAgLTIwOTMsNiArMjA5MywyMyBAQCBzdGF0aWMgaW50
+IGk5MTVfaGRjcF9zaW5rX2NhcGFiaWxpdHlfc2hvdyhzdHJ1Y3Qgc2VxX2ZpbGUgKm0sIHZvaWQg
+KmRhdGEpCiB9CiBERUZJTkVfU0hPV19BVFRSSUJVVEUoaTkxNV9oZGNwX3NpbmtfY2FwYWJpbGl0
+eSk7CiAKK3N0YXRpYyBpbnQgaTkxNV9wc3Jfc3RhdHVzX3Nob3coc3RydWN0IHNlcV9maWxlICpt
+LCB2b2lkICpkYXRhKQoreworCXN0cnVjdCBkcm1fY29ubmVjdG9yICpjb25uZWN0b3IgPSBtLT5w
+cml2YXRlOworCXN0cnVjdCBpbnRlbF9kcCAqaW50ZWxfZHAgPQorCQlpbnRlbF9hdHRhY2hlZF9k
+cCh0b19pbnRlbF9jb25uZWN0b3IoY29ubmVjdG9yKSk7CisJc3RydWN0IGRybV9pOTE1X3ByaXZh
+dGUgKmRldl9wcml2ID0gZHBfdG9faTkxNShpbnRlbF9kcCk7CisKKwlpZiAoY29ubmVjdG9yLT5z
+dGF0dXMgIT0gY29ubmVjdG9yX3N0YXR1c19jb25uZWN0ZWQpCisJCXJldHVybiAtRU5PREVWOwor
+CisJaWYgKCFIQVNfUFNSKGRldl9wcml2KSkKKwkJcmV0dXJuIC1FTk9ERVY7CisKKwlyZXR1cm4g
+aW50ZWxfcHNyX3N0YXR1cyhtLCBpbnRlbF9kcCk7Cit9CitERUZJTkVfU0hPV19BVFRSSUJVVEUo
+aTkxNV9wc3Jfc3RhdHVzKTsKKwogI2RlZmluZSBMUFNQX0NBUEFCTEUoQ09ORCkgKENPTkQgPyBz
+ZXFfcHV0cyhtLCAiTFBTUDogY2FwYWJsZVxuIikgOiBcCiAJCQkJc2VxX3B1dHMobSwgIkxQU1A6
+IGluY2FwYWJsZVxuIikpCiAKQEAgLTIyNjgsNiArMjI4NSwxMiBAQCBpbnQgaW50ZWxfY29ubmVj
+dG9yX2RlYnVnZnNfYWRkKHN0cnVjdCBkcm1fY29ubmVjdG9yICpjb25uZWN0b3IpCiAJCQkJICAg
+IGNvbm5lY3RvciwgJmk5MTVfcHNyX3Npbmtfc3RhdHVzX2ZvcHMpOwogCX0KIAorCWlmIChJTlRF
+TF9HRU4oZGV2X3ByaXYpID49IDEyICYmCisJICAgIGNvbm5lY3Rvci0+Y29ubmVjdG9yX3R5cGUg
+PT0gRFJNX01PREVfQ09OTkVDVE9SX2VEUCkgeworCQlkZWJ1Z2ZzX2NyZWF0ZV9maWxlKCJpOTE1
+X3Bzcl9zdGF0dXMiLCAwNDQ0LCByb290LAorCQkJCSAgICBjb25uZWN0b3IsICZpOTE1X3Bzcl9z
+dGF0dXNfZm9wcyk7CisJfQorCiAJaWYgKGNvbm5lY3Rvci0+Y29ubmVjdG9yX3R5cGUgPT0gRFJN
+X01PREVfQ09OTkVDVE9SX0Rpc3BsYXlQb3J0IHx8CiAJICAgIGNvbm5lY3Rvci0+Y29ubmVjdG9y
+X3R5cGUgPT0gRFJNX01PREVfQ09OTkVDVE9SX0hETUlBIHx8CiAJICAgIGNvbm5lY3Rvci0+Y29u
+bmVjdG9yX3R5cGUgPT0gRFJNX01PREVfQ09OTkVDVE9SX0hETUlCKSB7Ci0tIAoyLjI1LjAKCl9f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkludGVsLWdmeCBt
+YWlsaW5nIGxpc3QKSW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3Rz
+LmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ludGVsLWdmeAo=
