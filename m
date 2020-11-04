@@ -2,77 +2,42 @@ Return-Path: <SRS0=5tEz=EK=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F0832C2D0A3
-	for <intel-gfx@archiver.kernel.org>; Wed,  4 Nov 2020 17:38:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EF90FC388F9
+	for <intel-gfx@archiver.kernel.org>; Wed,  4 Nov 2020 18:03:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7DD812067D
-	for <intel-gfx@archiver.kernel.org>; Wed,  4 Nov 2020 17:38:27 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="D8ncMu08"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7DD812067D
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 4C5A0206F4
+	for <intel-gfx@archiver.kernel.org>; Wed,  4 Nov 2020 18:03:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4C5A0206F4
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DD00D6E217;
-	Wed,  4 Nov 2020 17:38:26 +0000 (UTC)
-Received: from mail-pf1-x442.google.com (mail-pf1-x442.google.com
- [IPv6:2607:f8b0:4864:20::442])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB87689E11;
- Wed,  4 Nov 2020 15:03:47 +0000 (UTC)
-Received: by mail-pf1-x442.google.com with SMTP id j18so17513728pfa.0;
- Wed, 04 Nov 2020 07:03:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:mime-version:content-disposition;
- bh=Cpcyf2os5AGZUKltjzw6mmvdqbBSobD8RORnek/XVyo=;
- b=D8ncMu08T1OvGeBwqUDALGzrifbn52YuhJiLosvBbOamy07+NM4aRofAi6wpZhFu7o
- h6+vsSgcuCac+V2pdkw8jQUXQO4fMMNMHJJYkr1bwJqmmZZICd+PzKySiGcaGb2iIoVr
- OBL0dalld+I48UA6Fx5fpYfVGzZ+KxU9rUqlwKfiRqWvuX2vZLeEDrl4vLNaHUYCvLhj
- DcCQXPJTYd0UjGjzrFXenLrwgbyNDEncChAJ31m+CXLgt6Kbx6vYJZa5FkLttq8S07Lk
- ySRi1mkBE+5tARxbwx6uKCIV9dFa2jCUNVrB2IpckikzQVS81JiZdJvQO7401/mfHR/8
- vWPA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:mime-version
- :content-disposition;
- bh=Cpcyf2os5AGZUKltjzw6mmvdqbBSobD8RORnek/XVyo=;
- b=p23rT2Qb9xRwV+9tNZsQRWlLbBRYdnBfdIFQEyAyWRh7VO6XSl0Np9mbJyNlInS/Qz
- hRbWUL4AuWPcJ914K20uDCWL4LHoooHz6u0+w6lw9gZ5ESXcdS2f0JRX+mCvRqvVvI1R
- U0mJhNXpR+qfB8ZXEqpXwLUaq8XZ9LvfCKfUuLKgBR0JGax0EBxGjtieLxiF/3IcLhpX
- /5+D5SWmtYZq5CtiM3Ul+cRpBqfMxu9I1zT46iFOOalI2nXSDdg2BErAtEeUoctQOdIT
- ld8QS1ShaJK+4XM0gil5gCGjjrnmJ6jOSxLKOZBmmkrHWR4eFt46bQBkl6FnvEMpTj55
- Eq8A==
-X-Gm-Message-State: AOAM530nVpJdSW8BbFjvjEdJWL40NfGt6m0ZZgj7T6+ygXXum8AV/khb
- XL5XcHrJFeaMgwNFTpkGBPE=
-X-Google-Smtp-Source: ABdhPJwAnv8VuhxZLOh69pT/O6WNOFA7xnF9jPLzCeTgfTiii/Zr65gXy4oBF1C/+g76XjU5+oip1w==
-X-Received: by 2002:a17:90b:30d2:: with SMTP id
- hi18mr4834398pjb.186.1604502227223; 
- Wed, 04 Nov 2020 07:03:47 -0800 (PST)
-Received: from localhost ([160.202.157.3])
- by smtp.gmail.com with ESMTPSA id 21sm2831827pfv.122.2020.11.04.07.03.43
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 04 Nov 2020 07:03:46 -0800 (PST)
-Date: Wed, 4 Nov 2020 20:33:39 +0530
-From: Deepak R Varma <mh12gx2825@gmail.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Message-ID: <20201104150339.GA68663@localhost>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A6E7A6E175;
+	Wed,  4 Nov 2020 18:03:56 +0000 (UTC)
+Received: from fireflyinternet.com (unknown [77.68.26.236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 633466E175
+ for <intel-gfx@lists.freedesktop.org>; Wed,  4 Nov 2020 18:03:55 +0000 (UTC)
+X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
+ x-ip-name=78.156.65.138; 
+Received: from build.alporthouse.com (unverified [78.156.65.138]) 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22894368-1500050 
+ for multiple; Wed, 04 Nov 2020 18:03:50 +0000
+From: Chris Wilson <chris@chris-wilson.co.uk>
+To: intel-gfx@lists.freedesktop.org
+Date: Wed,  4 Nov 2020 18:03:47 +0000
+Message-Id: <20201104180347.16065-2-chris@chris-wilson.co.uk>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20201104180347.16065-1-chris@chris-wilson.co.uk>
+References: <20201104180347.16065-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Content-Disposition: inline
-X-Mailman-Approved-At: Wed, 04 Nov 2020 17:38:25 +0000
-Subject: [Intel-gfx] [PATCH] drm/i915/perf: replace idr_init() by
- idr_init_base()
+Subject: [Intel-gfx] [PATCH 2/2] drm/i915/gem: Pull phys pread/pwrite
+ implementations to the backend
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,38 +50,140 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: mh12gx2825@gmail.com
+Cc: Chris Wilson <chris@chris-wilson.co.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-idr_init() uses base 0 which is an invalid identifier. The new function
-idr_init_base allows IDR to set the ID lookup from base 1. This avoids
-all lookups that otherwise starts from 0 since 0 is always unused.
+More the specialised interation with the physical GEM object from the
+pread/pwrite ioctl handler into the phys backend.
 
-References: commit 6ce711f27500 ("idr: Make 1-based IDRs more efficient")
-
-Signed-off-by: Deepak R Varma <mh12gx2825@gmail.com>
+Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 ---
- drivers/gpu/drm/i915/i915_perf.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/i915/gem/i915_gem_phys.c | 55 ++++++++++++++++++++++++
+ drivers/gpu/drm/i915/i915_gem.c          | 26 -----------
+ 2 files changed, 55 insertions(+), 26 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
-index e94976976571..2d033255b7cf 100644
---- a/drivers/gpu/drm/i915/i915_perf.c
-+++ b/drivers/gpu/drm/i915/i915_perf.c
-@@ -4367,7 +4367,7 @@ void i915_perf_init(struct drm_i915_private *i915)
- 			RUNTIME_INFO(i915)->cs_timestamp_frequency_hz / 2;
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_phys.c b/drivers/gpu/drm/i915/gem/i915_gem_phys.c
+index 28147aab47b9..3a4dfe2ef1da 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_phys.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_phys.c
+@@ -134,6 +134,58 @@ i915_gem_object_put_pages_phys(struct drm_i915_gem_object *obj,
+ 			  vaddr, dma);
+ }
  
- 		mutex_init(&perf->metrics_lock);
--		idr_init(&perf->metrics_idr);
-+		idr_init_base(&perf->metrics_idr, 1);
++static int
++phys_pwrite(struct drm_i915_gem_object *obj,
++	    const struct drm_i915_gem_pwrite *args)
++{
++	void *vaddr = sg_page(obj->mm.pages->sgl) + args->offset;
++	char __user *user_data = u64_to_user_ptr(args->data_ptr);
++	int err;
++
++	err = i915_gem_object_wait(obj,
++				   I915_WAIT_INTERRUPTIBLE |
++				   I915_WAIT_ALL,
++				   MAX_SCHEDULE_TIMEOUT);
++	if (err)
++		return err;
++
++	/*
++	 * We manually control the domain here and pretend that it
++	 * remains coherent i.e. in the GTT domain, like shmem_pwrite.
++	 */
++	i915_gem_object_invalidate_frontbuffer(obj, ORIGIN_CPU);
++
++	if (copy_from_user(vaddr, user_data, args->size))
++		return -EFAULT;
++
++	drm_clflush_virt_range(vaddr, args->size);
++	intel_gt_chipset_flush(&to_i915(obj->base.dev)->gt);
++
++	i915_gem_object_flush_frontbuffer(obj, ORIGIN_CPU);
++	return 0;
++}
++
++static int
++phys_pread(struct drm_i915_gem_object *obj,
++	   const struct drm_i915_gem_pread *args)
++{
++	void *vaddr = sg_page(obj->mm.pages->sgl) + args->offset;
++	char __user *user_data = u64_to_user_ptr(args->data_ptr);
++	int err;
++
++	err = i915_gem_object_wait(obj,
++				   I915_WAIT_INTERRUPTIBLE,
++				   MAX_SCHEDULE_TIMEOUT);
++	if (err)
++		return err;
++
++	drm_clflush_virt_range(vaddr, args->size);
++	if (copy_to_user(user_data, vaddr, args->size))
++		return -EFAULT;
++
++	return 0;
++}
++
+ static void phys_release(struct drm_i915_gem_object *obj)
+ {
+ 	fput(obj->base.filp);
+@@ -144,6 +196,9 @@ static const struct drm_i915_gem_object_ops i915_gem_phys_ops = {
+ 	.get_pages = i915_gem_object_get_pages_phys,
+ 	.put_pages = i915_gem_object_put_pages_phys,
  
- 		/* We set up some ratelimit state to potentially throttle any
- 		 * _NOTES about spurious, invalid OA reports which we don't
++	.pread  = phys_pread,
++	.pwrite = phys_pwrite,
++
+ 	.release = phys_release,
+ };
+ 
+diff --git a/drivers/gpu/drm/i915/i915_gem.c b/drivers/gpu/drm/i915/i915_gem.c
+index d58fe1ddc3e1..58276694c848 100644
+--- a/drivers/gpu/drm/i915/i915_gem.c
++++ b/drivers/gpu/drm/i915/i915_gem.c
+@@ -179,30 +179,6 @@ int i915_gem_object_unbind(struct drm_i915_gem_object *obj,
+ 	return ret;
+ }
+ 
+-static int
+-i915_gem_phys_pwrite(struct drm_i915_gem_object *obj,
+-		     struct drm_i915_gem_pwrite *args,
+-		     struct drm_file *file)
+-{
+-	void *vaddr = sg_page(obj->mm.pages->sgl) + args->offset;
+-	char __user *user_data = u64_to_user_ptr(args->data_ptr);
+-
+-	/*
+-	 * We manually control the domain here and pretend that it
+-	 * remains coherent i.e. in the GTT domain, like shmem_pwrite.
+-	 */
+-	i915_gem_object_invalidate_frontbuffer(obj, ORIGIN_CPU);
+-
+-	if (copy_from_user(vaddr, user_data, args->size))
+-		return -EFAULT;
+-
+-	drm_clflush_virt_range(vaddr, args->size);
+-	intel_gt_chipset_flush(&to_i915(obj->base.dev)->gt);
+-
+-	i915_gem_object_flush_frontbuffer(obj, ORIGIN_CPU);
+-	return 0;
+-}
+-
+ static int
+ i915_gem_create(struct drm_file *file,
+ 		struct intel_memory_region *mr,
+@@ -872,8 +848,6 @@ i915_gem_pwrite_ioctl(struct drm_device *dev, void *data,
+ 	if (ret == -EFAULT || ret == -ENOSPC) {
+ 		if (i915_gem_object_has_struct_page(obj))
+ 			ret = i915_gem_shmem_pwrite(obj, args);
+-		else
+-			ret = i915_gem_phys_pwrite(obj, args, file);
+ 	}
+ 
+ 	i915_gem_object_unpin_pages(obj);
 -- 
-2.25.1
+2.20.1
 
 _______________________________________________
 Intel-gfx mailing list
