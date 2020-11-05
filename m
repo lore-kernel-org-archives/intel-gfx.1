@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DE2DFC5517A
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 10:12:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 59795C56202
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 10:12:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7A7A72087D
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 10:12:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7A7A72087D
+	by mail.kernel.org (Postfix) with ESMTPS id E2A962087D
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 10:12:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E2A962087D
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3303B6EA0E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F2666EA47;
 	Thu,  5 Nov 2020 10:11:49 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D0B8F6E188
- for <intel-gfx@lists.freedesktop.org>; Thu,  5 Nov 2020 10:11:45 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D3906E1D7
+ for <intel-gfx@lists.freedesktop.org>; Thu,  5 Nov 2020 10:11:47 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22900155-1500050 
- for multiple; Thu, 05 Nov 2020 10:11:41 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22900139-1500050 
+ for multiple; Thu, 05 Nov 2020 10:11:38 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu,  5 Nov 2020 10:11:34 +0000
-Message-Id: <20201105101134.19716-22-chris@chris-wilson.co.uk>
+Date: Thu,  5 Nov 2020 10:11:18 +0000
+Message-Id: <20201105101134.19716-6-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201105101134.19716-1-chris@chris-wilson.co.uk>
 References: <20201105101134.19716-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 22/22] drm/i915/gt: Simplify virtual engine
- handling for execlists_hold()
+Subject: [Intel-gfx] [PATCH 06/22] drm/i915/gt: Track signaled breadcrumbs
+ outside of the breadcrumb spinlock
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,61 +56,143 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Now that the tasklet completely controls scheduling of the requests, and
-we postpone scheduling out the old requests, we can keep a hanging
-virtual request bound to the engine on which it hung, and remove it from
-te queue. On release, it will be returned to the same engine and remain
-in its queue until it is scheduled; after which point it will become
-eligible for transfer to a sibling. Instead, we could opt to resubmit the
-request along the virtual engine on unhold, making it eligible for load
-balancing immediately -- but that seems like a pointless optimisation
-for a hanging context.
+Make b->signaled_requests a lockless-list so that we can manipulate it
+outside of the b->irq_lock.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_lrc.c | 29 -----------------------------
- 1 file changed, 29 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_breadcrumbs.c   | 34 ++++++++++++-------
+ .../gpu/drm/i915/gt/intel_breadcrumbs_types.h |  2 +-
+ drivers/gpu/drm/i915/i915_request.h           |  6 +++-
+ 3 files changed, 28 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
-index 75289211d2c6..2440c9667364 100644
---- a/drivers/gpu/drm/i915/gt/intel_lrc.c
-+++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
-@@ -2862,35 +2862,6 @@ static bool execlists_hold(struct intel_engine_cs *engine,
- 		goto unlock;
+diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
+index 8d85683314e1..43cfabb102ea 100644
+--- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
++++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
+@@ -173,26 +173,34 @@ static void add_retire(struct intel_breadcrumbs *b, struct intel_timeline *tl)
+ 		intel_engine_add_retire(b->irq_engine, tl);
+ }
+ 
+-static bool __signal_request(struct i915_request *rq, struct list_head *signals)
++static bool __signal_request(struct i915_request *rq)
+ {
+-	clear_bit(I915_FENCE_FLAG_SIGNAL, &rq->fence.flags);
+-
+ 	if (!__dma_fence_signal(&rq->fence)) {
+ 		i915_request_put(rq);
+ 		return false;
  	}
  
--	if (rq->engine != engine) { /* preempted virtual engine */
--		struct virtual_engine *ve = to_virtual_engine(rq->engine);
+-	list_add_tail(&rq->signal_link, signals);
+ 	return true;
+ }
+ 
++static struct llist_node *
++slist_add(struct llist_node *node, struct llist_node *head)
++{
++	node->next = head;
++	return node;
++}
++
+ static void signal_irq_work(struct irq_work *work)
+ {
+ 	struct intel_breadcrumbs *b = container_of(work, typeof(*b), irq_work);
+ 	const ktime_t timestamp = ktime_get();
++	struct llist_node *signal, *sn;
+ 	struct intel_context *ce, *cn;
+ 	struct list_head *pos, *next;
+-	LIST_HEAD(signal);
++
++	signal = NULL;
++	if (unlikely(!llist_empty(&b->signaled_requests)))
++		signal = llist_del_all(&b->signaled_requests);
+ 
+ 	spin_lock(&b->irq_lock);
+ 
+@@ -224,8 +232,6 @@ static void signal_irq_work(struct irq_work *work)
+ 	if (b->irq_armed && list_empty(&b->signalers))
+ 		__intel_breadcrumbs_disarm_irq(b);
+ 
+-	list_splice_init(&b->signaled_requests, &signal);
 -
--		/*
--		 * intel_context_inflight() is only protected by virtue
--		 * of process_csb() being called only by the tasklet (or
--		 * directly from inside reset while the tasklet is suspended).
--		 * Assert that neither of those are allowed to run while we
--		 * poke at the request queues.
--		 */
--		GEM_BUG_ON(!reset_in_progress(&engine->execlists));
--
--		/*
--		 * An unsubmitted request along a virtual engine will
--		 * remain on the active (this) engine until we are able
--		 * to process the context switch away (and so mark the
--		 * context as no longer in flight). That cannot have happened
--		 * yet, otherwise we would not be hanging!
--		 */
--		spin_lock(&ve->base.active.lock);
--		GEM_BUG_ON(intel_context_inflight(rq->context) != engine);
--		GEM_BUG_ON(ve->request != rq);
--		ve->request = NULL;
--		spin_unlock(&ve->base.active.lock);
--		i915_request_put(rq);
--
--		rq->engine = engine;
--	}
--
+ 	list_for_each_entry_safe(ce, cn, &b->signalers, signal_link) {
+ 		GEM_BUG_ON(list_empty(&ce->signals));
+ 
+@@ -242,7 +248,10 @@ static void signal_irq_work(struct irq_work *work)
+ 			 * spinlock as the callback chain may end up adding
+ 			 * more signalers to the same context or engine.
+ 			 */
+-			__signal_request(rq, &signal);
++			clear_bit(I915_FENCE_FLAG_SIGNAL, &rq->fence.flags);
++			if (__signal_request(rq))
++				/* We own signal_node now, xfer to local list */
++				signal = slist_add(&rq->signal_node, signal);
+ 		}
+ 
+ 		/*
+@@ -262,9 +271,9 @@ static void signal_irq_work(struct irq_work *work)
+ 
+ 	spin_unlock(&b->irq_lock);
+ 
+-	list_for_each_safe(pos, next, &signal) {
++	llist_for_each_safe(signal, sn, signal) {
+ 		struct i915_request *rq =
+-			list_entry(pos, typeof(*rq), signal_link);
++			llist_entry(signal, typeof(*rq), signal_node);
+ 		struct list_head cb_list;
+ 
+ 		spin_lock(&rq->lock);
+@@ -291,7 +300,7 @@ intel_breadcrumbs_create(struct intel_engine_cs *irq_engine)
+ 
+ 	spin_lock_init(&b->irq_lock);
+ 	INIT_LIST_HEAD(&b->signalers);
+-	INIT_LIST_HEAD(&b->signaled_requests);
++	init_llist_head(&b->signaled_requests);
+ 
+ 	init_irq_work(&b->irq_work, signal_irq_work);
+ 
+@@ -355,7 +364,8 @@ static void insert_breadcrumb(struct i915_request *rq,
+ 	 * its signal completion.
+ 	 */
+ 	if (__request_completed(rq)) {
+-		if (__signal_request(rq, &b->signaled_requests))
++		if (__signal_request(rq) &&
++		    llist_add(&rq->signal_node, &b->signaled_requests))
+ 			irq_work_queue(&b->irq_work);
+ 		return;
+ 	}
+diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h b/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h
+index 8e53b9942695..3fa19820b37a 100644
+--- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h
+@@ -35,7 +35,7 @@ struct intel_breadcrumbs {
+ 	struct intel_engine_cs *irq_engine;
+ 
+ 	struct list_head signalers;
+-	struct list_head signaled_requests;
++	struct llist_head signaled_requests;
+ 
+ 	struct irq_work irq_work; /* for use from inside irq_lock */
+ 
+diff --git a/drivers/gpu/drm/i915/i915_request.h b/drivers/gpu/drm/i915/i915_request.h
+index 16b721080195..874af6db6103 100644
+--- a/drivers/gpu/drm/i915/i915_request.h
++++ b/drivers/gpu/drm/i915/i915_request.h
+@@ -176,7 +176,11 @@ struct i915_request {
+ 	struct intel_context *context;
+ 	struct intel_ring *ring;
+ 	struct intel_timeline __rcu *timeline;
+-	struct list_head signal_link;
++
++	union {
++		struct list_head signal_link;
++		struct llist_node signal_node;
++	};
+ 
  	/*
- 	 * Transfer this request onto the hold queue to prevent it
- 	 * being resumbitted to HW (and potentially completed) before we have
+ 	 * The rcu epoch of when this request was allocated. Used to judiciously
 -- 
 2.20.1
 
