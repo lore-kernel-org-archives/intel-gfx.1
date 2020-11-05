@@ -7,37 +7,35 @@ X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E9688C2D0A3
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 00:21:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B0C5CC4741F
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 00:21:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 17631206B5
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 00:21:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 17631206B5
+	by mail.kernel.org (Postfix) with ESMTPS id 1B6A9206B5
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 00:21:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1B6A9206B5
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4BCF36E0EE;
-	Thu,  5 Nov 2020 00:21:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F9426E850;
+	Thu,  5 Nov 2020 00:21:34 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 465016E0EE;
- Thu,  5 Nov 2020 00:21:31 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 46E626E850;
+ Thu,  5 Nov 2020 00:21:32 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from haswell.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22896870-1500050 
- for multiple; Thu, 05 Nov 2020 00:21:27 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22896869-1500050 
+ for multiple; Thu, 05 Nov 2020 00:21:26 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu,  5 Nov 2020 00:21:24 +0000
-Message-Id: <20201105002124.37888-2-chris@chris-wilson.co.uk>
+Date: Thu,  5 Nov 2020 00:21:23 +0000
+Message-Id: <20201105002124.37888-1-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.29.2
-In-Reply-To: <20201105002124.37888-1-chris@chris-wilson.co.uk>
-References: <20201105002124.37888-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH i-g-t 2/2] i915/gem_ctx_thrash: Reopen the same
- device
+Subject: [Intel-gfx] [PATCH i-g-t 1/2] i915/gem_exec_whisper: Reopen
+ existing device
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,27 +54,51 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Use gem_reopen_driver() to always reopen the same device without relying
-on the filtering in drm_open_driver().
+Reopen the existing device, rather than relying on the filtering in
+drm_open_driver().
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 ---
- tests/i915/gem_ctx_thrash.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ tests/i915/gem_exec_whisper.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/tests/i915/gem_ctx_thrash.c b/tests/i915/gem_ctx_thrash.c
-index d32619d5d..d9ddd6689 100644
---- a/tests/i915/gem_ctx_thrash.c
-+++ b/tests/i915/gem_ctx_thrash.c
-@@ -250,7 +250,7 @@ static void processes(void)
- 	fds = malloc(num_ctx * sizeof(int));
- 	igt_assert(fds);
- 	for (unsigned n = 0; n < num_ctx; n++) {
--		fds[n] = drm_open_driver(DRIVER_INTEL);
-+		fds[n] = gem_reopen_driver(fd);
- 		if (fds[n] == -1) {
- 			int err = errno;
- 			for (unsigned i = n; i--; )
+diff --git a/tests/i915/gem_exec_whisper.c b/tests/i915/gem_exec_whisper.c
+index 9acf6c306..b63d791d1 100644
+--- a/tests/i915/gem_exec_whisper.c
++++ b/tests/i915/gem_exec_whisper.c
+@@ -87,12 +87,12 @@ struct hang {
+ 	int fd;
+ };
+ 
+-static void init_hang(struct hang *h)
++static void init_hang(struct hang *h, int fd)
+ {
+ 	uint32_t *batch;
+ 	int i, gen;
+ 
+-	h->fd = drm_open_driver(DRIVER_INTEL);
++	h->fd = gem_reopen_driver(fd);
+ 	igt_allow_hang(h->fd, 0, 0);
+ 
+ 	gen = intel_gen(intel_get_drm_devid(h->fd));
+@@ -224,7 +224,7 @@ static void whisper(int fd, unsigned engine, unsigned flags)
+ 		igt_require(gem_has_queues(fd));
+ 
+ 	if (flags & HANG)
+-		init_hang(&hang);
++		init_hang(&hang, fd);
+ 
+ 	nchild = 1;
+ 	if (flags & FORKED)
+@@ -304,7 +304,7 @@ static void whisper(int fd, unsigned engine, unsigned flags)
+ 		}
+ 		if (flags & FDS) {
+ 			for (n = 0; n < 64; n++)
+-				fds[n] = drm_open_driver(DRIVER_INTEL);
++				fds[n] = gem_reopen_driver(fd);
+ 		}
+ 
+ 		memset(batches, 0, sizeof(batches));
 -- 
 2.29.2
 
