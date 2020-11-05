@@ -2,73 +2,53 @@ Return-Path: <SRS0=eU4y=EL=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.7 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-11.2 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9C53CC61DD8
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 16:07:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A916DC4741F
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 16:09:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4083120729
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 16:07:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4083120729
+	by mail.kernel.org (Postfix) with ESMTPS id 51B3120786
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 16:09:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 51B3120786
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 93DF46EDA6;
-	Thu,  5 Nov 2020 16:07:51 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 45AE26EDA6
- for <intel-gfx@lists.freedesktop.org>; Thu,  5 Nov 2020 16:07:50 +0000 (UTC)
-IronPort-SDR: pEC0LkTDh8D2cVhFG75Yf4qqiw3+1sKLqSCmB+JCrruJ2U9KazTO/eQXxJ5uIKsr/jg106wFb+
- 6GuAnohbnEcw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9795"; a="148687734"
-X-IronPort-AV: E=Sophos;i="5.77,453,1596524400"; d="scan'208";a="148687734"
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE3A36EDBC;
+	Thu,  5 Nov 2020 16:09:08 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 00A076EDB5;
+ Thu,  5 Nov 2020 16:09:07 +0000 (UTC)
+IronPort-SDR: pSYT/2OX22jXwx+ZHkiGJZ9SWm/7RhRZiyVkOqqYFmyqrV/3WK5KxQdOGxXvy7UiKoW+eAOswA
+ mEo0/rG1fLNw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9795"; a="166817103"
+X-IronPort-AV: E=Sophos;i="5.77,453,1596524400"; d="scan'208";a="166817103"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Nov 2020 08:07:49 -0800
-IronPort-SDR: ghYcKIUa5pp1VUC8DX6XrwXniuG2lJ112WsBbjDgjLm3T14VQGP9uhh7tVNJHf8xfJ78QH3JJR
- o+Rxr8PH/Yzw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.77,453,1596524400"; d="scan'208";a="529471920"
-Received: from fmsmsx602.amr.corp.intel.com ([10.18.126.82])
- by fmsmga005.fm.intel.com with ESMTP; 05 Nov 2020 08:07:49 -0800
-Received: from bgsmsx605.gar.corp.intel.com (10.67.234.7) by
- fmsmsx602.amr.corp.intel.com (10.18.126.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1713.5; Thu, 5 Nov 2020 08:07:48 -0800
-Received: from orsmsx610.amr.corp.intel.com (10.22.229.23) by
- BGSMSX605.gar.corp.intel.com (10.67.234.7) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1713.5; Thu, 5 Nov 2020 21:37:45 +0530
-Received: from orsmsx610.amr.corp.intel.com ([10.22.229.23]) by
- ORSMSX610.amr.corp.intel.com ([10.22.229.23]) with mapi id 15.01.1713.004;
- Thu, 5 Nov 2020 08:07:43 -0800
-From: "Souza, Jose" <jose.souza@intel.com>
-To: "Shankar, Uma" <uma.shankar@intel.com>, "intel-gfx@lists.freedesktop.org"
- <intel-gfx@lists.freedesktop.org>
-Thread-Topic: [Intel-gfx] [PATCH 1/2] drm/i915/display/tgl: Disable FBC with
- PSR2
-Thread-Index: AQHWst/Ov/Zo+jvH20qTW9gpW/9sL6m6O+iA
-Date: Thu, 5 Nov 2020 16:07:43 +0000
-Message-ID: <e878e9da4dc6ff8cd139d661ac5ba7d2469f7745.camel@intel.com>
-References: <20201104195604.3334-1-uma.shankar@intel.com>
- <20201104195604.3334-2-uma.shankar@intel.com>
-In-Reply-To: <20201104195604.3334-2-uma.shankar@intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.22.254.132]
-Content-ID: <20F6BB09550F924DB380F3C68993662A@intel.com>
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Nov 2020 08:09:07 -0800
+IronPort-SDR: 580Ot6emEN0qOejmFNes11EHVqtR4IVv6DjThri/5MiE32SzujW24IqhU5hyTOFApxk9i6JJWJ
+ Ms4S9tMuWwCA==
+X-IronPort-AV: E=Sophos;i="5.77,453,1596524400"; d="scan'208";a="364392699"
+Received: from unknown (HELO intel.com) ([10.99.66.154])
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Nov 2020 08:09:04 -0800
+Date: Thu, 5 Nov 2020 21:39:48 +0530
+From: Ramalingam C <ramalingam.c@intel.com>
+To: Anshuman Gupta <anshuman.gupta@intel.com>
+Message-ID: <20201105160947.GJ3242@intel.com>
+References: <20201027164208.10026-1-anshuman.gupta@intel.com>
+ <20201027164208.10026-12-anshuman.gupta@intel.com>
 MIME-Version: 1.0
-Subject: Re: [Intel-gfx] [PATCH 1/2] drm/i915/display/tgl: Disable FBC with
- PSR2
+Content-Disposition: inline
+In-Reply-To: <20201027164208.10026-12-anshuman.gupta@intel.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Subject: Re: [Intel-gfx] [PATCH v4 11/16] drm/hdcp: Max MST content streams
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,31 +61,53 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: jani.nikula@intel.com, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, seanpaul@chromium.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-T24gVGh1LCAyMDIwLTExLTA1IGF0IDAxOjI2ICswNTMwLCBVbWEgU2hhbmthciB3cm90ZToNCj4g
-VGhlcmUgYXJlIHNvbWUgY29ybmVyIGNhc2VzIHdydCB1bmRlcnJ1biB3aGVuIHdlIGVuYWJsZQ0K
-PiBGQkMgd2l0aCBQU1IyIG9uIFRHTC4gUmVjb21tZW5kYXRpb24gZnJvbSBoYXJkd2FyZSBpcyB0
-bw0KPiBrZWVwIHRoaXMgY29tYmluYXRpb24gZGlzYWJsZWQuDQoNCkRvIHlvdSBoYXZlIGFueSBy
-ZWZlcmVuY2VzIHRvIHRoaXM/IEhTRD8gQlNwZWM/DQoNCj4gDQo+IFNpZ25lZC1vZmYtYnk6IFVt
-YSBTaGFua2FyIDx1bWEuc2hhbmthckBpbnRlbC5jb20+DQo+IC0tLQ0KPiDCoGRyaXZlcnMvZ3B1
-L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZmJjLmMgfCA2ICsrKysrKw0KPiDCoDEgZmlsZSBjaGFu
-Z2VkLCA2IGluc2VydGlvbnMoKykNCj4gDQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
-aTkxNS9kaXNwbGF5L2ludGVsX2ZiYy5jIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9p
-bnRlbF9mYmMuYw0KPiBpbmRleCBhNWIwNzI4MTZhN2IuLjMyYzQxMTQxNDkwOCAxMDA2NDQNCj4g
-LS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9mYmMuYw0KPiArKysgYi9k
-cml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2ZiYy5jDQo+IEBAIC03OTksNiArNzk5
-LDEyIEBAIHN0YXRpYyBib29sIGludGVsX2ZiY19jYW5fYWN0aXZhdGUoc3RydWN0IGludGVsX2Ny
-dGMgKmNydGMpDQo+IMKgCXN0cnVjdCBpbnRlbF9mYmMgKmZiYyA9ICZkZXZfcHJpdi0+ZmJjOw0K
-PiDCoAlzdHJ1Y3QgaW50ZWxfZmJjX3N0YXRlX2NhY2hlICpjYWNoZSA9ICZmYmMtPnN0YXRlX2Nh
-Y2hlOw0KPiDCoA0KPiANCj4gDQo+IA0KPiArCWlmIChkZXZfcHJpdi0+cHNyLnNpbmtfcHNyMl9z
-dXBwb3J0ICYmDQo+ICsJICAgIElTX1RJR0VSTEFLRShkZXZfcHJpdikpIHsNCj4gKwkJZmJjLT5u
-b19mYmNfcmVhc29uID0gIm5vdCBzdXBwb3J0ZWQgd2l0aCBQU1IyIjsNCj4gKwkJcmV0dXJuIGZh
-bHNlOw0KPiArCX0NCj4gKw0KPiDCoAlpZiAoIWludGVsX2ZiY19jYW5fZW5hYmxlKGRldl9wcml2
-KSkNCj4gwqAJCXJldHVybiBmYWxzZTsNCj4gwqANCj4gDQo+IA0KPiANCg0KX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlz
-dApJbnRlbC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnL21haWxtYW4vbGlzdGluZm8vaW50ZWwtZ2Z4Cg==
+On 2020-10-27 at 22:12:03 +0530, Anshuman Gupta wrote:
+> Let's define Maximum MST content streams up to four
+> generically which can be supported by modern display
+> controllers.
+> 
+> Cc: Sean Paul <seanpaul@chromium.org>
+> Cc: Ramalingam C <ramalingam.c@intel.com>
+> Acked-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> Reviewed-by: Uma Shankar <uma.shankar@intel.com>
+> Signed-off-by: Anshuman Gupta <anshuman.gupta@intel.com>
+> ---
+>  include/drm/drm_hdcp.h | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
+> 
+> diff --git a/include/drm/drm_hdcp.h b/include/drm/drm_hdcp.h
+> index fe58dbb46962..ac22c246542a 100644
+> --- a/include/drm/drm_hdcp.h
+> +++ b/include/drm/drm_hdcp.h
+> @@ -101,11 +101,11 @@
+>  
+>  /* Following Macros take a byte at a time for bit(s) masking */
+>  /*
+> - * TODO: This has to be changed for DP MST, as multiple stream on
+> - * same port is possible.
+> - * For HDCP2.2 on HDMI and DP SST this value is always 1.
+> + * TODO: HDCP_2_2_MAX_CONTENT_STREAMS_CNT is based upon actual
+> + * H/W MST streams capacity.
+> + * This required to be moved out to platform specific header.
+>   */
+> -#define HDCP_2_2_MAX_CONTENT_STREAMS_CNT	1
+> +#define HDCP_2_2_MAX_CONTENT_STREAMS_CNT	4
+Reviewed-by: Ramalingam C <ramalingam.c@intel.com>
+
+>  #define HDCP_2_2_TXCAP_MASK_LEN			2
+>  #define HDCP_2_2_RXCAPS_LEN			3
+>  #define HDCP_2_2_RX_REPEATER(x)			((x) & BIT(0))
+> -- 
+> 2.26.2
+> 
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
