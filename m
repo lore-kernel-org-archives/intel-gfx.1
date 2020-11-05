@@ -2,42 +2,78 @@ Return-Path: <SRS0=eU4y=EL=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PULL_REQUEST,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F2BC9C4742C
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 10:12:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B75BFC00A89
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 10:14:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 90FFA2087D
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 10:12:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 90FFA2087D
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
+	by mail.kernel.org (Postfix) with ESMTPS id 89A832087D
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 10:14:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 89A832087D
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=cerno.tech
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 85BFB6E1D7;
-	Thu,  5 Nov 2020 10:11:49 +0000 (UTC)
-Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F37E76E9FC
- for <intel-gfx@lists.freedesktop.org>; Thu,  5 Nov 2020 10:11:45 +0000 (UTC)
-X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
- x-ip-name=78.156.65.138; 
-Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22900152-1500050 
- for multiple; Thu, 05 Nov 2020 10:11:40 +0000
-From: Chris Wilson <chris@chris-wilson.co.uk>
-To: intel-gfx@lists.freedesktop.org
-Date: Thu,  5 Nov 2020 10:11:31 +0000
-Message-Id: <20201105101134.19716-19-chris@chris-wilson.co.uk>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20201105101134.19716-1-chris@chris-wilson.co.uk>
-References: <20201105101134.19716-1-chris@chris-wilson.co.uk>
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA6E56EA35;
+	Thu,  5 Nov 2020 10:14:02 +0000 (UTC)
+Received: from wnew4-smtp.messagingengine.com (wnew4-smtp.messagingengine.com
+ [64.147.123.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F09EC6EA04;
+ Thu,  5 Nov 2020 10:14:00 +0000 (UTC)
+Received: from compute6.internal (compute6.nyi.internal [10.202.2.46])
+ by mailnew.west.internal (Postfix) with ESMTP id E3616811;
+ Thu,  5 Nov 2020 05:13:57 -0500 (EST)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute6.internal (MEProxy); Thu, 05 Nov 2020 05:13:58 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
+ date:from:to:cc:subject:message-id:mime-version:content-type; s=
+ fm1; bh=4PrZwtt4VxXefiHt47zgF6e1i7xKLCoHBl/W05l305s=; b=EH09o/bo
+ hYntFSataeC204o6+s6T9iWo+IFsMCXGDyF8LVkcYpi+UGbg34H9Fj3GjRuqPFbG
+ VjeAwTjgNkoKBqbAx1d04tRq2ZuNgBMjsX5DMQA3VHEj6LIf2MTXZaiDxJTx3mAL
+ k+jJI9DmXfgPxXuAr9hqYTdZmEHzP3BE+C9ILmgJit8uqCILoGsGioeWxtuOz24N
+ mOKA61v5cj0QdXpusYDy7FHPx1V1eUU/NshE//C+cmdBDbS8VWygPJecjtmwu2hX
+ SD5sEWwl33j+jFOJSN4y3tXrUadcGcEju1Pzh6khyz0opG/w+j0H0G2LIOLJJVc/
+ 9NeYcZhrTAt/oQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:message-id
+ :mime-version:subject:to:x-me-proxy:x-me-proxy:x-me-sender
+ :x-me-sender:x-sasl-enc; s=fm1; bh=4PrZwtt4VxXefiHt47zgF6e1i7xKL
+ CoHBl/W05l305s=; b=JuG6aIFk69T2hBm/fhlDihDD5qXEhj4mLZeKO0Pozz3p6
+ m1Gbq7mtqNH3zbA09EH37Xw9wvJDVqTXYzN6TslJ4Z9CVee0RaYcSarwS4iFHmJF
+ ereDXI5X9egrSvLzUUltnA6lD2qD36WHBPB3re3eQKhgw97Q370MjOsUdy4bdNx3
+ DgLAsrfGBw+pLDck7U9CPR47o3yGhbWplDAg9KsJN06yE79wqDYvYKlzcSX2+dHz
+ 5VKM5/Q7GS4uTy430yXtwfEhkA21JamIYgqlkzWO0uqF+zfJgRPSMLNdeRiQsTji
+ Cl1vKIii/Dw6RjwtNivbe3WAWk622QJuTionyd9Bg==
+X-ME-Sender: <xms:ZNCjX8TmQBSBmXoibk0SDbu1ZS0VF7w_yNGocLWDgByyD7KNMJeWuA>
+ <xme:ZNCjX5x1nOtzWPvil8yLOeOFbFrrFacx_qy6IIqjuG6iPyVQx_TzmdZZF217-osny
+ UBA2V8Wi-LfPwqQYC0>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedujedruddtjedgudefucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepfffhvffukfggtggusehgtderredttddvnecuhfhrohhmpeforgigihhmvgcu
+ tfhiphgrrhguuceomhgrgihimhgvsegtvghrnhhordhtvggthheqnecuggftrfgrthhtvg
+ hrnhepgeeuvddtheeggeehhfeigeetffeufeelveeggfekveegieevudeljeeugedviefg
+ necuffhomhgrihhnpehfrhgvvgguvghskhhtohhprdhorhhgnecukfhppeeltddrkeelrd
+ eikedrjeeinecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhho
+ mhepmhgrgihimhgvsegtvghrnhhordhtvggthh
+X-ME-Proxy: <xmx:ZNCjX52TeI61BXTzF4Kdid04_w4tSYEzfXwcVObkUHPSHi70S8c2Og>
+ <xmx:ZNCjXwBUlX0wWDxACGk_N4LJq-3It2Gw0dv9dZcGaVj-fSylRufvjQ>
+ <xmx:ZNCjX1iIUE5g15zxSNAnL66H7BSiqh0v5IQ8h8docJQAkB3bu54YwA>
+ <xmx:ZdCjX2WdlxiIZZTMXf45NJ2RMaW5w2Lhc4yKswi4u7D8kBaH8JjIrYGNUI0>
+Received: from localhost (lfbn-tou-1-1502-76.w90-89.abo.wanadoo.fr
+ [90.89.68.76])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 2384A328037B;
+ Thu,  5 Nov 2020 05:13:56 -0500 (EST)
+Date: Thu, 5 Nov 2020 11:13:54 +0100
+From: Maxime Ripard <maxime@cerno.tech>
+To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel.vetter@ffwll.ch>
+Message-ID: <20201105101354.socyu26jwyns7lfj@gilmour.lan>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 19/22] drm/i915/gt: Remove virtual breadcrumb
- before transfer
+Subject: [Intel-gfx] [PULL] drm-misc-fixes
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,80 +86,118 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Chris Wilson <chris@chris-wilson.co.uk>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: dim-tools@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Maxime Ripard <mripard@kernel.org>, intel-gfx@lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============1381883032=="
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The issue with stale virtual breadcrumbs remain. Now we have the problem
-that if the irq-signaler is still referencing the stale breadcrumb as we
-transfer it to a new sibling, the list becomes spaghetti. This is a very
-small window, but that doesn't stop it being hit infrequently. To
-prevent the lists being tangled (the iterator starting on one engine's
-b->signalers but walking onto another list), always decouple the virtual
-breadcrumb on schedule-out and make sure that the walker has stepped out
-of the lists.
 
-Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
----
- drivers/gpu/drm/i915/gt/intel_breadcrumbs.c |  5 +++--
- drivers/gpu/drm/i915/gt/intel_lrc.c         | 15 +++++++++++++++
- 2 files changed, 18 insertions(+), 2 deletions(-)
+--===============1381883032==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="mdzsasxjshtl5frd"
+Content-Disposition: inline
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-index f5f6feed0fa6..5b84f51931d9 100644
---- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-@@ -461,15 +461,16 @@ void i915_request_cancel_breadcrumb(struct i915_request *rq)
- {
- 	struct intel_breadcrumbs *b = READ_ONCE(rq->engine)->breadcrumbs;
- 	struct intel_context *ce = rq->context;
-+	unsigned long flags;
- 	bool release;
- 
- 	if (!test_and_clear_bit(I915_FENCE_FLAG_SIGNAL, &rq->fence.flags))
- 		return;
- 
--	spin_lock(&ce->signal_lock);
-+	spin_lock_irqsave(&ce->signal_lock, flags);
- 	list_del_rcu(&rq->signal_link);
- 	release = remove_signaling_context(b, ce);
--	spin_unlock(&ce->signal_lock);
-+	spin_unlock_irqrestore(&ce->signal_lock, flags);
- 	if (release)
- 		intel_context_put(ce);
- 
-diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
-index ccf7a0f28a4f..2d2f39f151af 100644
---- a/drivers/gpu/drm/i915/gt/intel_lrc.c
-+++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
-@@ -1387,6 +1387,21 @@ static inline void execlists_schedule_in(struct i915_request *rq, int idx)
- static void kick_siblings(struct i915_request *rq, struct intel_context *ce)
- {
- 	struct virtual_engine *ve = container_of(ce, typeof(*ve), context);
-+	struct intel_engine_cs *engine = rq->engine;
-+
-+	/* Flush concurrent rcu iterators in signal_irq_work */
-+	if (test_bit(DMA_FENCE_FLAG_ENABLE_SIGNAL_BIT, &rq->fence.flags)) {
-+		/*
-+		 * After this point, the rq may be transferred to a new
-+		 * sibling, so before we clear ce->inflight make sure that
-+		 * the context has been removed from the b->signalers and
-+		 * furthermore we need to make sure that the concurrent
-+		 * iterator in signal_irq_work is no longer following
-+		 * ce->signal_link.
-+		 */
-+		i915_request_cancel_breadcrumb(rq);
-+		irq_work_sync(&engine->breadcrumbs->irq_work);
-+	}
- 
- 	if (READ_ONCE(ve->request))
- 		tasklet_hi_schedule(&ve->base.execlists.tasklet);
--- 
-2.20.1
+
+--mdzsasxjshtl5frd
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+Hi Dave, Daniel,
+
+Here's this week round of fixes for drm-misc
+
+Thanks!
+Maxime
+
+drm-misc-fixes-2020-11-05:
+Some patches for vc4 to fix some resources cleanup issues, two fixes for
+panfrost for madvise and the shrinker and a constification of fonts
+structure
+The following changes since commit 3cea11cd5e3b00d91caf0b4730194039b45c5891:
+
+  Linux 5.10-rc2 (2020-11-01 14:43:51 -0800)
+
+are available in the Git repository at:
+
+  git://anongit.freedesktop.org/drm/drm-misc tags/drm-misc-fixes-2020-11-05
+
+for you to fetch changes up to 9522750c66c689b739e151fcdf895420dc81efc0:
+
+  Fonts: Replace discarded const qualifier (2020-11-03 10:51:34 +0100)
+
+----------------------------------------------------------------
+Some patches for vc4 to fix some resources cleanup issues, two fixes for
+panfrost for madvise and the shrinker and a constification of fonts
+structure
+
+----------------------------------------------------------------
+Boris Brezillon (1):
+      drm/panfrost: Fix a deadlock between the shrinker and madvise path
+
+Lee Jones (1):
+      Fonts: Replace discarded const qualifier
+
+Maxime Ripard (7):
+      drm/vc4: bo: Add a managed action to cleanup the cache
+      drm/vc4: drv: Use managed drm_mode_config_init
+      drm/vc4: gem: Add a managed action to cleanup the job queue
+      drm/vc4: Use the helper to retrieve vc4_dev when needed
+      drm/vc4: Use devm_drm_dev_alloc
+      drm/vc4: kms: Add functions to create the state objects
+      drm/vc4: drv: Remove unused variable
+
+Steven Price (1):
+      drm/panfrost: Fix module unload
+
+ drivers/gpu/drm/panfrost/panfrost_drv.c          |  5 +-
+ drivers/gpu/drm/panfrost/panfrost_gem.c          |  4 +-
+ drivers/gpu/drm/panfrost/panfrost_gem.h          |  2 +-
+ drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c | 14 ++++-
+ drivers/gpu/drm/vc4/vc4_bo.c                     |  9 +--
+ drivers/gpu/drm/vc4/vc4_drv.c                    | 41 +++++-------
+ drivers/gpu/drm/vc4/vc4_drv.h                    |  9 ++-
+ drivers/gpu/drm/vc4/vc4_gem.c                    | 19 +++---
+ drivers/gpu/drm/vc4/vc4_hvs.c                    |  4 +-
+ drivers/gpu/drm/vc4/vc4_kms.c                    | 80 +++++++++++++++++-------
+ drivers/gpu/drm/vc4/vc4_v3d.c                    | 12 ++--
+ lib/fonts/font_10x18.c                           |  2 +-
+ lib/fonts/font_6x10.c                            |  2 +-
+ lib/fonts/font_6x11.c                            |  2 +-
+ lib/fonts/font_6x8.c                             |  2 +-
+ lib/fonts/font_7x14.c                            |  2 +-
+ lib/fonts/font_8x16.c                            |  2 +-
+ lib/fonts/font_8x8.c                             |  2 +-
+ lib/fonts/font_acorn_8x8.c                       |  2 +-
+ lib/fonts/font_mini_4x6.c                        |  2 +-
+ lib/fonts/font_pearl_8x8.c                       |  2 +-
+ lib/fonts/font_sun12x22.c                        |  2 +-
+ lib/fonts/font_sun8x16.c                         |  2 +-
+ lib/fonts/font_ter16x32.c                        |  2 +-
+ 24 files changed, 128 insertions(+), 97 deletions(-)
+
+--mdzsasxjshtl5frd
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCX6PQYgAKCRDj7w1vZxhR
+xQ6tAQDKp+CVLVkr8vuR/s/u6greiN7e98cmXGTKZxOfHOWKsAEAy53fr8c2324+
+DBwCRnl093tOzPHGYCJ9n9cU2dwBKws=
+=83OT
+-----END PGP SIGNATURE-----
+
+--mdzsasxjshtl5frd--
+
+--===============1381883032==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+
+--===============1381883032==--
