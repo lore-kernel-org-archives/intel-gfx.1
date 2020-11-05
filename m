@@ -4,39 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 54138C388F7
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 10:12:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D065CC61DD8
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 10:12:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EA8652087D
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 10:12:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EA8652087D
+	by mail.kernel.org (Postfix) with ESMTPS id 7718A2087D
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 10:12:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7718A2087D
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B2186EA26;
-	Thu,  5 Nov 2020 10:12:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A4816EA42;
+	Thu,  5 Nov 2020 10:11:50 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DEE716EA38
- for <intel-gfx@lists.freedesktop.org>; Thu,  5 Nov 2020 10:11:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 195116EA35
+ for <intel-gfx@lists.freedesktop.org>; Thu,  5 Nov 2020 10:11:47 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22900136-1500050 
- for multiple; Thu, 05 Nov 2020 10:11:38 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22900146-1500050 
+ for multiple; Thu, 05 Nov 2020 10:11:40 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu,  5 Nov 2020 10:11:15 +0000
-Message-Id: <20201105101134.19716-3-chris@chris-wilson.co.uk>
+Date: Thu,  5 Nov 2020 10:11:25 +0000
+Message-Id: <20201105101134.19716-13-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201105101134.19716-1-chris@chris-wilson.co.uk>
 References: <20201105101134.19716-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 03/22] drm/i915/gt: Limit VFE threads based on GT
+Subject: [Intel-gfx] [PATCH 13/22] drm/i915/gt: Check for a completed last
+ request once
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,112 +50,61 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stable@vger.kernel.org, Chris Wilson <chris@chris-wilson.co.uk>
+Cc: Chris Wilson <chris@chris-wilson.co.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-MEDIA_STATE_VFE only accepts the 'maximum number of threads' in the
-range [0, n-1] where n is #EU * (#threads/EU) with the number of threads
-based on plaform and the number of EU based on the number of slices and
-subslices. This is a fixed number per platform/gt, so appropriately
-limit the number of threads we spawn to match the device.
+Pull the repeated check for the last active request being completed to a
+single spot, when deciding whether or not execlist preemption is
+required.
 
-Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/2024
-Fixes: 47f8253d2b89 ("drm/i915/gen7: Clear all EU/L3 residual contexts")
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-Cc: Mika Kuoppala <mika.kuoppala@linux.intel.com>
-Cc: Prathap Kumar Valsan <prathap.kumar.valsan@intel.com>
-Cc: Akeem G Abodunrin <akeem.g.abodunrin@intel.com>
-Cc: Balestrieri Francesco <francesco.balestrieri@intel.com>
-Cc: Bloomfield Jon <jon.bloomfield@intel.com>
-Cc: stable@vger.kernel.org # v5.7+
 ---
- drivers/gpu/drm/i915/gt/gen7_renderclear.c | 35 +++++++++++++++-------
- 1 file changed, 24 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_lrc.c | 15 ++++-----------
+ 1 file changed, 4 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/gen7_renderclear.c b/drivers/gpu/drm/i915/gt/gen7_renderclear.c
-index d93d85cd3027..f3b8fea6226e 100644
---- a/drivers/gpu/drm/i915/gt/gen7_renderclear.c
-+++ b/drivers/gpu/drm/i915/gt/gen7_renderclear.c
-@@ -7,8 +7,6 @@
- #include "i915_drv.h"
- #include "intel_gpu_commands.h"
+diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
+index 5970090fa6d4..e53d0661ef2d 100644
+--- a/drivers/gpu/drm/i915/gt/intel_lrc.c
++++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
+@@ -2151,12 +2151,9 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
+ 	 */
  
--#define MAX_URB_ENTRIES 64
--#define STATE_SIZE (4 * 1024)
- #define GT3_INLINE_DATA_DELAYS 0x1E00
- #define batch_advance(Y, CS) GEM_BUG_ON((Y)->end != (CS))
- 
-@@ -34,8 +32,7 @@ struct batch_chunk {
- };
- 
- struct batch_vals {
--	u32 max_primitives;
--	u32 max_urb_entries;
-+	u32 max_primitives; /* == number of VFE threads */
- 	u32 cmd_size;
- 	u32 state_size;
- 	u32 state_start;
-@@ -50,18 +47,35 @@ static void
- batch_get_defaults(struct drm_i915_private *i915, struct batch_vals *bv)
- {
- 	if (IS_HASWELL(i915)) {
--		bv->max_primitives = 280;
--		bv->max_urb_entries = MAX_URB_ENTRIES;
-+		switch (INTEL_INFO(i915)->gt) {
-+		default:
-+		case 1:
-+			bv->max_primitives = 70;
-+			break;
-+		case 2:
-+			bv->max_primitives = 140;
-+			break;
-+		case 3:
-+			bv->max_primitives = 280;
-+			break;
-+		}
- 		bv->surface_height = 16 * 16;
- 		bv->surface_width = 32 * 2 * 16;
- 	} else {
--		bv->max_primitives = 128;
--		bv->max_urb_entries = MAX_URB_ENTRIES / 2;
-+		switch (INTEL_INFO(i915)->gt) {
-+		default:
-+		case 1: /* including vlv */
-+			bv->max_primitives = 36;
-+			break;
-+		case 2:
-+			bv->max_primitives = 128;
-+			break;
-+		}
- 		bv->surface_height = 16 * 8;
- 		bv->surface_width = 32 * 16;
- 	}
- 	bv->cmd_size = bv->max_primitives * 4096;
--	bv->state_size = STATE_SIZE;
-+	bv->state_size = SZ_4K;
- 	bv->state_start = bv->cmd_size;
- 	bv->batch_size = bv->cmd_size + bv->state_size;
- 	bv->scratch_size = bv->surface_height * bv->surface_width;
-@@ -244,7 +258,6 @@ gen7_emit_vfe_state(struct batch_chunk *batch,
- 		    u32 urb_size, u32 curbe_size,
- 		    u32 mode)
- {
--	u32 urb_entries = bv->max_urb_entries;
- 	u32 threads = bv->max_primitives - 1;
- 	u32 *cs = batch_alloc_items(batch, 32, 8);
- 
-@@ -254,7 +267,7 @@ gen7_emit_vfe_state(struct batch_chunk *batch,
- 	*cs++ = 0;
- 
- 	/* number of threads & urb entries for GPGPU vs Media Mode */
--	*cs++ = threads << 16 | urb_entries << 8 | mode << 2;
-+	*cs++ = threads << 16 | 1 << 8 | mode << 2;
- 
- 	*cs++ = 0;
- 
+ 	if ((last = *active)) {
+-		if (need_preempt(engine, last, rb)) {
+-			if (i915_request_completed(last)) {
+-				tasklet_hi_schedule(&execlists->tasklet);
+-				return;
+-			}
+-
++		if (i915_request_completed(last)) {
++			goto check_secondary;
++		} else if (need_preempt(engine, last, rb)) {
+ 			ENGINE_TRACE(engine,
+ 				     "preempting last=%llx:%lld, prio=%d, hint=%d\n",
+ 				     last->fence.context,
+@@ -2184,11 +2181,6 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
+ 			last = NULL;
+ 		} else if (need_timeslice(engine, last, rb) &&
+ 			   timeslice_expired(execlists, last)) {
+-			if (i915_request_completed(last)) {
+-				tasklet_hi_schedule(&execlists->tasklet);
+-				return;
+-			}
+-
+ 			ENGINE_TRACE(engine,
+ 				     "expired last=%llx:%lld, prio=%d, hint=%d, yield?=%s\n",
+ 				     last->fence.context,
+@@ -2224,6 +2216,7 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
+ 			 * we hopefully coalesce several updates into a single
+ 			 * submission.
+ 			 */
++check_secondary:
+ 			if (!list_is_last(&last->sched.link,
+ 					  &engine->active.requests)) {
+ 				/*
 -- 
 2.20.1
 
