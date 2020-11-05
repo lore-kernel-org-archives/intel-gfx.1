@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 92CF2C4741F
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 10:11:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A4225C55179
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 10:12:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0DF3D2087D
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 10:11:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0DF3D2087D
+	by mail.kernel.org (Postfix) with ESMTPS id 427CE2087D
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 10:12:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 427CE2087D
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 357046EA39;
+	by gabe.freedesktop.org (Postfix) with ESMTP id ABA936EA07;
 	Thu,  5 Nov 2020 10:11:48 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AEE8E6E188
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C86756E1D7
  for <intel-gfx@lists.freedesktop.org>; Thu,  5 Nov 2020 10:11:46 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22900149-1500050 
- for multiple; Thu, 05 Nov 2020 10:11:40 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22900141-1500050 
+ for multiple; Thu, 05 Nov 2020 10:11:39 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu,  5 Nov 2020 10:11:28 +0000
-Message-Id: <20201105101134.19716-16-chris@chris-wilson.co.uk>
+Date: Thu,  5 Nov 2020 10:11:20 +0000
+Message-Id: <20201105101134.19716-8-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201105101134.19716-1-chris@chris-wilson.co.uk>
 References: <20201105101134.19716-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 16/22] drm/i915/gt: Use virtual_engine during
- execlists_dequeue
+Subject: [Intel-gfx] [PATCH 08/22] drm/i915/gt: Free stale request on
+ destroying the virtual engine
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,360 +56,136 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Rather than going back and forth between the rb_node entry and the
-virtual_engine type, store the ve local and reuse it. As the
-container_of conversion from rb_node to virtual_engine requires a
-variable offset, performing that conversion just once shaves off a bit
-of code.
+Since preempt-to-busy, we may unsubmit a request while it is still on
+the HW and completes asynchronously. That means it may be retired and in
+the process destroy the virtual engine (as the user has closed their
+context), but that engine may still be holding onto the unsubmitted
+compelted request. Therefore we need to potentially cleanup the old
+request on destroying the virtual engine. We also have to keep the
+virtual_engine alive until after the sibling's execlists_dequeue() have
+finished peeking into the virtual engines, for which we serialise with
+RCU.
 
-v2: Keep a single virtual engine lookup, for typical use.
+v2: Be paranoid and flush the tasklet as well.
+v3: And flush the tasklet before the engines, as the tasklet may
+re-attach an rb_node after our removal from the siblings.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_lrc.c | 239 ++++++++++++----------------
- 1 file changed, 105 insertions(+), 134 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_lrc.c | 61 +++++++++++++++++++++++++----
+ 1 file changed, 54 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
-index c284657cc371..5e13fb603963 100644
+index 4f76f64ba7e6..4d45a71d51d7 100644
 --- a/drivers/gpu/drm/i915/gt/intel_lrc.c
 +++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
-@@ -454,9 +454,15 @@ static int queue_prio(const struct intel_engine_execlists *execlists)
- 	return ((p->priority + 1) << I915_USER_PRIORITY_SHIFT) - ffs(p->used);
- }
+@@ -182,6 +182,7 @@
+ struct virtual_engine {
+ 	struct intel_engine_cs base;
+ 	struct intel_context context;
++	struct rcu_work rcu;
  
-+static int virtual_prio(const struct intel_engine_execlists *el)
-+{
-+	struct rb_node *rb = rb_first_cached(&el->virtual);
-+
-+	return rb ? rb_entry(rb, struct ve_node, rb)->prio : INT_MIN;
-+}
-+
- static inline bool need_preempt(const struct intel_engine_cs *engine,
--				const struct i915_request *rq,
--				struct rb_node *rb)
-+				const struct i915_request *rq)
- {
- 	int last_prio;
- 
-@@ -493,25 +499,6 @@ static inline bool need_preempt(const struct intel_engine_cs *engine,
- 	    rq_prio(list_next_entry(rq, sched.link)) > last_prio)
- 		return true;
- 
--	if (rb) {
--		struct virtual_engine *ve =
--			rb_entry(rb, typeof(*ve), nodes[engine->id].rb);
--		bool preempt = false;
--
--		if (engine == ve->siblings[0]) { /* only preempt one sibling */
--			struct i915_request *next;
--
--			rcu_read_lock();
--			next = READ_ONCE(ve->request);
--			if (next)
--				preempt = rq_prio(next) > last_prio;
--			rcu_read_unlock();
--		}
--
--		if (preempt)
--			return preempt;
--	}
--
  	/*
- 	 * If the inflight context did not trigger the preemption, then maybe
- 	 * it was the set of queued requests? Pick the highest priority in
-@@ -522,7 +509,8 @@ static inline bool need_preempt(const struct intel_engine_cs *engine,
- 	 * ELSP[0] or ELSP[1] as, thanks again to PI, if it was the same
- 	 * context, it's priority would not exceed ELSP[0] aka last_prio.
- 	 */
--	return queue_prio(&engine->execlists) > last_prio;
-+	return max(virtual_prio(&engine->execlists),
-+		   queue_prio(&engine->execlists)) > last_prio;
+ 	 * We allow only a single request through the virtual engine at a time
+@@ -5478,44 +5479,90 @@ static struct list_head *virtual_queue(struct virtual_engine *ve)
+ 	return &ve->base.execlists.default_priolist.requests[0];
  }
  
- __maybe_unused static inline bool
-@@ -1808,6 +1796,35 @@ static bool virtual_matches(const struct virtual_engine *ve,
- 	return true;
- }
+-static void virtual_context_destroy(struct kref *kref)
++static void rcu_virtual_context_destroy(struct work_struct *wrk)
+ {
+ 	struct virtual_engine *ve =
+-		container_of(kref, typeof(*ve), context.ref);
++		container_of(wrk, typeof(*ve), rcu.work);
+ 	unsigned int n;
  
-+static struct virtual_engine *
-+first_virtual_engine(struct intel_engine_cs *engine)
-+{
-+	struct intel_engine_execlists *el = &engine->execlists;
-+	struct rb_node *rb = rb_first_cached(&el->virtual);
+-	GEM_BUG_ON(!list_empty(virtual_queue(ve)));
+-	GEM_BUG_ON(ve->request);
+ 	GEM_BUG_ON(ve->context.inflight);
+ 
++	/* Preempt-to-busy may leave a stale request behind. */
++	if (unlikely(ve->request)) {
++		struct i915_request *old;
 +
-+	while (rb) {
-+		struct virtual_engine *ve =
-+			rb_entry(rb, typeof(*ve), nodes[engine->id].rb);
-+		struct i915_request *rq = READ_ONCE(ve->request);
++		spin_lock_irq(&ve->base.active.lock);
 +
-+		/* lazily cleanup after another engine handled rq */
-+		if (!rq) {
-+			rb_erase_cached(rb, &el->virtual);
-+			RB_CLEAR_NODE(rb);
-+			rb = rb_first_cached(&el->virtual);
-+			continue;
++		old = fetch_and_zero(&ve->request);
++		if (old) {
++			GEM_BUG_ON(!i915_request_completed(old));
++			__i915_request_submit(old);
++			i915_request_put(old);
 +		}
 +
-+		if (!virtual_matches(ve, rq, engine)) {
-+			rb = rb_next(rb);
-+			continue;
-+		}
-+		return ve;
++		spin_unlock_irq(&ve->base.active.lock);
 +	}
 +
-+	return NULL;
++	/*
++	 * Flush the tasklet in case it is still running on another core.
++	 *
++	 * This needs to be done before we remove ourselves from the siblings'
++	 * rbtrees as in the case it is running in parallel, it may reinsert
++	 * the rb_node into a sibling.
++	 */
++	tasklet_kill(&ve->base.execlists.tasklet);
++
++	/* Decouple ourselves from the siblings, no more access allowed. */
+ 	for (n = 0; n < ve->num_siblings; n++) {
+ 		struct intel_engine_cs *sibling = ve->siblings[n];
+ 		struct rb_node *node = &ve->nodes[sibling->id].rb;
+-		unsigned long flags;
+ 
+ 		if (RB_EMPTY_NODE(node))
+ 			continue;
+ 
+-		spin_lock_irqsave(&sibling->active.lock, flags);
++		spin_lock_irq(&sibling->active.lock);
+ 
+ 		/* Detachment is lazily performed in the execlists tasklet */
+ 		if (!RB_EMPTY_NODE(node))
+ 			rb_erase_cached(node, &sibling->execlists.virtual);
+ 
+-		spin_unlock_irqrestore(&sibling->active.lock, flags);
++		spin_unlock_irq(&sibling->active.lock);
+ 	}
+ 	GEM_BUG_ON(__tasklet_is_scheduled(&ve->base.execlists.tasklet));
++	GEM_BUG_ON(!list_empty(virtual_queue(ve)));
+ 
+ 	if (ve->context.state)
+ 		__execlists_context_fini(&ve->context);
+ 	intel_context_fini(&ve->context);
+ 
+ 	intel_engine_free_request_pool(&ve->base);
++	intel_breadcrumbs_free(ve->base.breadcrumbs);
+ 
+ 	kfree(ve->bonds);
+ 	kfree(ve);
+ }
+ 
++static void virtual_context_destroy(struct kref *kref)
++{
++	struct virtual_engine *ve =
++		container_of(kref, typeof(*ve), context.ref);
++
++	GEM_BUG_ON(!list_empty(&ve->context.signals));
++
++	/*
++	 * When destroying the virtual engine, we have to be aware that
++	 * it may still be in use from an hardirq/softirq context causing
++	 * the resubmission of a completed request (background completion
++	 * due to preempt-to-busy). Before we can free the engine, we need
++	 * to flush the submission code and tasklets that are still potentially
++	 * accessing the engine. Flushing the tasklets require process context,
++	 * and since we can guard the resubmit onto the engine with an RCU read
++	 * lock, we can delegate the free of the engine to an RCU worker.
++	 */
++	INIT_RCU_WORK(&ve->rcu, rcu_virtual_context_destroy);
++	queue_rcu_work(system_wq, &ve->rcu);
 +}
 +
- static void virtual_xfer_context(struct virtual_engine *ve,
- 				 struct intel_engine_cs *engine)
+ static void virtual_engine_initial_hint(struct virtual_engine *ve)
  {
-@@ -1906,32 +1923,15 @@ static void defer_active(struct intel_engine_cs *engine)
- 
- static bool
- need_timeslice(const struct intel_engine_cs *engine,
--	       const struct i915_request *rq,
--	       const struct rb_node *rb)
-+	       const struct i915_request *rq)
- {
- 	int hint;
- 
- 	if (!intel_engine_has_timeslices(engine))
- 		return false;
- 
--	hint = engine->execlists.queue_priority_hint;
--
--	if (rb) {
--		const struct virtual_engine *ve =
--			rb_entry(rb, typeof(*ve), nodes[engine->id].rb);
--		const struct intel_engine_cs *inflight =
--			intel_context_inflight(&ve->context);
--
--		if (!inflight || inflight == engine) {
--			struct i915_request *next;
--
--			rcu_read_lock();
--			next = READ_ONCE(ve->request);
--			if (next)
--				hint = max(hint, rq_prio(next));
--			rcu_read_unlock();
--		}
--	}
-+	hint = max(engine->execlists.queue_priority_hint,
-+		   virtual_prio(&engine->execlists));
- 
- 	if (!list_is_last(&rq->sched.link, &engine->active.requests))
- 		hint = max(hint, rq_prio(list_next_entry(rq, sched.link)));
-@@ -2078,6 +2078,7 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
- 	struct i915_request **port = execlists->pending;
- 	struct i915_request ** const last_port = port + execlists->port_mask;
- 	struct i915_request *last = *execlists->active;
-+	struct virtual_engine *ve;
- 	struct rb_node *rb;
- 	bool submit = false;
- 
-@@ -2105,26 +2106,6 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
- 
- 	spin_lock(&engine->active.lock);
- 
--	for (rb = rb_first_cached(&execlists->virtual); rb; ) {
--		struct virtual_engine *ve =
--			rb_entry(rb, typeof(*ve), nodes[engine->id].rb);
--		struct i915_request *rq = READ_ONCE(ve->request);
--
--		if (!rq) { /* lazily cleanup after another engine handled rq */
--			rb_erase_cached(rb, &execlists->virtual);
--			RB_CLEAR_NODE(rb);
--			rb = rb_first_cached(&execlists->virtual);
--			continue;
--		}
--
--		if (!virtual_matches(ve, rq, engine)) {
--			rb = rb_next(rb);
--			continue;
--		}
--
--		break;
--	}
--
- 	/*
- 	 * If the queue is higher priority than the last
- 	 * request in the currently active context, submit afresh.
-@@ -2147,7 +2128,7 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
- 	if (last) {
- 		if (i915_request_completed(last)) {
- 			goto check_secondary;
--		} else if (need_preempt(engine, last, rb)) {
-+		} else if (need_preempt(engine, last)) {
- 			ENGINE_TRACE(engine,
- 				     "preempting last=%llx:%lld, prio=%d, hint=%d\n",
- 				     last->fence.context,
-@@ -2173,7 +2154,7 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
- 			__unwind_incomplete_requests(engine);
- 
- 			last = NULL;
--		} else if (need_timeslice(engine, last, rb) &&
-+		} else if (need_timeslice(engine, last) &&
- 			   timeslice_expired(execlists, last)) {
- 			ENGINE_TRACE(engine,
- 				     "expired last=%llx:%lld, prio=%d, hint=%d, yield?=%s\n",
-@@ -2224,96 +2205,86 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
- 		}
- 	}
- 
--	while (rb) { /* XXX virtual is always taking precedence */
--		struct virtual_engine *ve =
--			rb_entry(rb, typeof(*ve), nodes[engine->id].rb);
-+	/* XXX virtual is always taking precedence */
-+	while ((ve = first_virtual_engine(engine))) {
- 		struct i915_request *rq;
- 
- 		spin_lock(&ve->base.active.lock);
- 
- 		rq = ve->request;
--		if (unlikely(!rq)) { /* lost the race to a sibling */
--			spin_unlock(&ve->base.active.lock);
--			rb_erase_cached(rb, &execlists->virtual);
--			RB_CLEAR_NODE(rb);
--			rb = rb_first_cached(&execlists->virtual);
--			continue;
--		}
-+		if (unlikely(!rq)) /* lost the race to a sibling */
-+			goto unlock;
- 
--		GEM_BUG_ON(rq != ve->request);
- 		GEM_BUG_ON(rq->engine != &ve->base);
- 		GEM_BUG_ON(rq->context != &ve->context);
- 
--		if (rq_prio(rq) >= queue_prio(execlists)) {
--			if (!virtual_matches(ve, rq, engine)) {
--				spin_unlock(&ve->base.active.lock);
--				rb = rb_next(rb);
--				continue;
--			}
-+		if (unlikely(rq_prio(rq) < queue_prio(execlists))) {
-+			spin_unlock(&ve->base.active.lock);
-+			break;
-+		}
- 
--			if (last && !can_merge_rq(last, rq)) {
--				spin_unlock(&ve->base.active.lock);
--				spin_unlock(&engine->active.lock);
--				start_timeslice(engine, rq_prio(rq));
--				return; /* leave this for another sibling */
--			}
-+		GEM_BUG_ON(!virtual_matches(ve, rq, engine));
- 
--			ENGINE_TRACE(engine,
--				     "virtual rq=%llx:%lld%s, new engine? %s\n",
--				     rq->fence.context,
--				     rq->fence.seqno,
--				     i915_request_completed(rq) ? "!" :
--				     i915_request_started(rq) ? "*" :
--				     "",
--				     yesno(engine != ve->siblings[0]));
--
--			WRITE_ONCE(ve->request, NULL);
--			WRITE_ONCE(ve->base.execlists.queue_priority_hint,
--				   INT_MIN);
--			rb_erase_cached(rb, &execlists->virtual);
--			RB_CLEAR_NODE(rb);
-+		if (last && !can_merge_rq(last, rq)) {
-+			spin_unlock(&ve->base.active.lock);
-+			spin_unlock(&engine->active.lock);
-+			start_timeslice(engine, rq_prio(rq));
-+			return; /* leave this for another sibling */
-+		}
- 
--			GEM_BUG_ON(!(rq->execution_mask & engine->mask));
--			WRITE_ONCE(rq->engine, engine);
-+		ENGINE_TRACE(engine,
-+			     "virtual rq=%llx:%lld%s, new engine? %s\n",
-+			     rq->fence.context,
-+			     rq->fence.seqno,
-+			     i915_request_completed(rq) ? "!" :
-+			     i915_request_started(rq) ? "*" :
-+			     "",
-+			     yesno(engine != ve->siblings[0]));
- 
--			if (__i915_request_submit(rq)) {
--				/*
--				 * Only after we confirm that we will submit
--				 * this request (i.e. it has not already
--				 * completed), do we want to update the context.
--				 *
--				 * This serves two purposes. It avoids
--				 * unnecessary work if we are resubmitting an
--				 * already completed request after timeslicing.
--				 * But more importantly, it prevents us altering
--				 * ve->siblings[] on an idle context, where
--				 * we may be using ve->siblings[] in
--				 * virtual_context_enter / virtual_context_exit.
--				 */
--				virtual_xfer_context(ve, engine);
--				GEM_BUG_ON(ve->siblings[0] != engine);
-+		WRITE_ONCE(ve->request, NULL);
-+		WRITE_ONCE(ve->base.execlists.queue_priority_hint, INT_MIN);
- 
--				submit = true;
--				last = rq;
--			}
--			i915_request_put(rq);
-+		rb = &ve->nodes[engine->id].rb;
-+		rb_erase_cached(rb, &execlists->virtual);
-+		RB_CLEAR_NODE(rb);
-+
-+		GEM_BUG_ON(!(rq->execution_mask & engine->mask));
-+		WRITE_ONCE(rq->engine, engine);
- 
-+		if (__i915_request_submit(rq)) {
- 			/*
--			 * Hmm, we have a bunch of virtual engine requests,
--			 * but the first one was already completed (thanks
--			 * preempt-to-busy!). Keep looking at the veng queue
--			 * until we have no more relevant requests (i.e.
--			 * the normal submit queue has higher priority).
-+			 * Only after we confirm that we will submit
-+			 * this request (i.e. it has not already
-+			 * completed), do we want to update the context.
-+			 *
-+			 * This serves two purposes. It avoids
-+			 * unnecessary work if we are resubmitting an
-+			 * already completed request after timeslicing.
-+			 * But more importantly, it prevents us altering
-+			 * ve->siblings[] on an idle context, where
-+			 * we may be using ve->siblings[] in
-+			 * virtual_context_enter / virtual_context_exit.
- 			 */
--			if (!submit) {
--				spin_unlock(&ve->base.active.lock);
--				rb = rb_first_cached(&execlists->virtual);
--				continue;
--			}
-+			virtual_xfer_context(ve, engine);
-+			GEM_BUG_ON(ve->siblings[0] != engine);
-+
-+			submit = true;
-+			last = rq;
- 		}
- 
-+		i915_request_put(rq);
-+unlock:
- 		spin_unlock(&ve->base.active.lock);
--		break;
-+
-+		/*
-+		 * Hmm, we have a bunch of virtual engine requests,
-+		 * but the first one was already completed (thanks
-+		 * preempt-to-busy!). Keep looking at the veng queue
-+		 * until we have no more relevant requests (i.e.
-+		 * the normal submit queue has higher priority).
-+		 */
-+		if (submit)
-+			break;
- 	}
- 
- 	while ((rb = rb_first_cached(&execlists->queue))) {
+ 	int swp;
 -- 
 2.20.1
 
