@@ -2,54 +2,50 @@ Return-Path: <SRS0=eU4y=EL=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.4 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,URIBL_BLOCKED,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PULL_REQUEST,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2B5C7C4741F
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 16:46:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AD8FFC55178
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 17:29:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BDFE420756
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 16:46:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BDFE420756
+	by mail.kernel.org (Postfix) with ESMTPS id 46FFE206B6
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 17:29:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 46FFE206B6
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4504A6EDCC;
-	Thu,  5 Nov 2020 16:46:55 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 895666EDCC;
- Thu,  5 Nov 2020 16:46:54 +0000 (UTC)
-IronPort-SDR: iBUsovQtDvSQyooNfprn62s9heU+gyXVppPTMH50qe+JuHoZwE1TYu1eTkawyariArVd7M3T6G
- kXP0A5eW3Txg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9796"; a="157196978"
-X-IronPort-AV: E=Sophos;i="5.77,453,1596524400"; d="scan'208";a="157196978"
+	by gabe.freedesktop.org (Postfix) with ESMTP id E7D696EDD6;
+	Thu,  5 Nov 2020 17:29:07 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CA2816E044;
+ Thu,  5 Nov 2020 17:29:05 +0000 (UTC)
+IronPort-SDR: qhdRp0V8Ap6CvUCoLQrGGBaysMTV9balK6IvvLA72tjIoHSfr2fxkTGMPrD8Sf1WWU1RWi/5j8
+ 8vL6w0hXR3Tw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9796"; a="168644492"
+X-IronPort-AV: E=Sophos;i="5.77,454,1596524400"; d="scan'208";a="168644492"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Nov 2020 08:46:54 -0800
-IronPort-SDR: yLVrxO75Msb2B03iQ1DKOVDppsRQb51XpKnGlh8ITG+fU7KNGFlU4iaG/YWNUgN0P26k5aVdKa
- xkt/kd2GiM9A==
-X-IronPort-AV: E=Sophos;i="5.77,453,1596524400"; d="scan'208";a="326086841"
-Received: from unknown (HELO intel.com) ([10.99.66.154])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Nov 2020 08:46:51 -0800
-Date: Thu, 5 Nov 2020 22:17:35 +0530
-From: Ramalingam C <ramalingam.c@intel.com>
-To: Anshuman Gupta <anshuman.gupta@intel.com>
-Message-ID: <20201105164735.GN3242@intel.com>
-References: <20201027164208.10026-1-anshuman.gupta@intel.com>
- <20201027164208.10026-15-anshuman.gupta@intel.com>
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Nov 2020 09:29:05 -0800
+IronPort-SDR: LufDWyrTC2UGWHsRoSYt5zO5A+F4nwDOopTQxrfioWRwT3ilOZ8LYnPrqNUI0CqgRZw76caLxY
+ YxDKIDOzTVCQ==
+X-IronPort-AV: E=Sophos;i="5.77,454,1596524400"; d="scan'208";a="306925694"
+Received: from rdvivi-losangeles.jf.intel.com (HELO intel.com)
+ ([10.165.21.201])
+ by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Nov 2020 09:29:05 -0800
+Date: Thu, 5 Nov 2020 12:30:26 -0500
+From: Rodrigo Vivi <rodrigo.vivi@intel.com>
+To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel.vetter@ffwll.ch>
+Message-ID: <20201105173026.GA858446@intel.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20201027164208.10026-15-anshuman.gupta@intel.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Subject: Re: [Intel-gfx] [PATCH v4 14/16] drm/i915/hdcp: Add HDCP 2.2 stream
- register
+Subject: [Intel-gfx] [PULL] drm-intel-fixes
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,77 +58,84 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, seanpaul@chromium.org
+Cc: dim-tools@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Maxime Ripard <mripard@kernel.org>, intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 2020-10-27 at 22:12:06 +0530, Anshuman Gupta wrote:
-> Add HDCP 2.2 DP MST HDCP2_STREAM_STATUS
-> and HDCP2_AUTH_STREAM register in i915_reg header.
+Hi Dave and Daniel,
 
-Reviewed-by: Ramalingam C <ramalingam.c@intel.com>
-> 
-> Cc: Ramalingam C <ramalingam.c@intel.com>
-> Reviewed-by: Uma Shankar <uma.shankar@intel.com>
-> Signed-off-by: Anshuman Gupta <anshuman.gupta@intel.com>
-> ---
->  drivers/gpu/drm/i915/i915_reg.h | 30 ++++++++++++++++++++++++++++++
->  1 file changed, 30 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-> index 77461cde6549..c9678c77883d 100644
-> --- a/drivers/gpu/drm/i915/i915_reg.h
-> +++ b/drivers/gpu/drm/i915/i915_reg.h
-> @@ -9894,6 +9894,7 @@ enum skl_power_gate {
->  					  _PORTD_HDCP2_BASE, \
->  					  _PORTE_HDCP2_BASE, \
->  					  _PORTF_HDCP2_BASE) + (x))
-> +
->  #define PORT_HDCP2_AUTH(port)		_PORT_HDCP2_BASE(port, 0x98)
->  #define _TRANSA_HDCP2_AUTH		0x66498
->  #define _TRANSB_HDCP2_AUTH		0x66598
-> @@ -9933,6 +9934,35 @@ enum skl_power_gate {
->  					 TRANS_HDCP2_STATUS(trans) : \
->  					 PORT_HDCP2_STATUS(port))
->  
-> +#define PORT_HDCP2_STREAM_STATUS(port)		_PORT_HDCP2_BASE(port, 0xC0)
-> +#define _TRANSA_HDCP2_STREAM_STATUS		0x664C0
-> +#define _TRANSB_HDCP2_STREAM_STATUS		0x665C0
-> +#define TRANS_HDCP2_STREAM_STATUS(trans)	_MMIO_TRANS(trans, \
-> +						    _TRANSA_HDCP2_STREAM_STATUS, \
-> +						    _TRANSB_HDCP2_STREAM_STATUS)
-> +#define   STREAM_ENCRYPTION_STATUS	BIT(31)
-> +#define   STREAM_TYPE_STATUS		BIT(30)
-> +#define HDCP2_STREAM_STATUS(dev_priv, trans, port) \
-> +					(INTEL_GEN(dev_priv) >= 12 ? \
-> +					 TRANS_HDCP2_STREAM_STATUS(trans) : \
-> +					 PORT_HDCP2_STREAM_STATUS(port))
-> +
-> +#define _PORTA_HDCP2_AUTH_STREAM		0x66F00
-> +#define _PORTB_HDCP2_AUTH_STREAM		0x66F04
-> +#define PORT_HDCP2_AUTH_STREAM(port)	_MMIO_PORT(port, \
-> +						   _PORTA_HDCP2_AUTH_STREAM, \
-> +						   _PORTB_HDCP2_AUTH_STREAM)
-> +#define _TRANSA_HDCP2_AUTH_STREAM		0x66F00
-> +#define _TRANSB_HDCP2_AUTH_STREAM		0x66F04
-> +#define TRANS_HDCP2_AUTH_STREAM(trans)	_MMIO_TRANS(trans, \
-> +						    _TRANSA_HDCP2_AUTH_STREAM, \
-> +						    _TRANSB_HDCP2_AUTH_STREAM)
-> +#define   AUTH_STREAM_TYPE		BIT(31)
-> +#define HDCP2_AUTH_STREAM(dev_priv, trans, port) \
-> +					(INTEL_GEN(dev_priv) >= 12 ? \
-> +					 TRANS_HDCP2_AUTH_STREAM(trans) : \
-> +					 PORT_HDCP2_AUTH_STREAM(port))
-> +
->  /* Per-pipe DDI Function Control */
->  #define _TRANS_DDI_FUNC_CTL_A		0x60400
->  #define _TRANS_DDI_FUNC_CTL_B		0x61400
-> -- 
-> 2.26.2
-> 
+This includes gvt-fixes that had come last week, now with clean tags
+for dim.
+
+Also, 306bb61d6bb3 ("drm/i915/gt: Expose more parameters for emitting writes into the ring") is only a dependency of its following patch.
+
+In summary:
+
+drm-intel-fixes-2020-11-05:
+- GVT fixes including vGPU suspend/resume fixes and workaround for APL guest GPU hang.
+- Fix set domain's cache coherency (Chris)
+- Fixes around breadcrumbs (Chris)
+- Fix encoder lookup during PSR atomic (Imre)
+- Hold onto an explicit ref to i915_vma_work.pinned (Chris)
+
+Thanks,
+Rodrigo.
+
+The following changes since commit 3cea11cd5e3b00d91caf0b4730194039b45c5891:
+
+  Linux 5.10-rc2 (2020-11-01 14:43:51 -0800)
+
+are available in the Git repository at:
+
+  git://anongit.freedesktop.org/drm/drm-intel tags/drm-intel-fixes-2020-11-05
+
+for you to fetch changes up to 537457a979a02a410b555fab289dcb28b588f33b:
+
+  drm/i915: Hold onto an explicit ref to i915_vma_work.pinned (2020-11-03 19:22:42 -0500)
+
+----------------------------------------------------------------
+- GVT fixes including vGPU suspend/resume fixes and workaround for APL guest GPU hang.
+- Fix set domain's cache coherency (Chris)
+- Fixes around breadcrumbs (Chris)
+- Fix encoder lookup during PSR atomic (Imre)
+- Hold onto an explicit ref to i915_vma_work.pinned (Chris)
+
+----------------------------------------------------------------
+Chris Wilson (5):
+      drm/i915/gem: Flush coherency domains on first set-domain-ioctl
+      drm/i915/gt: Use the local HWSP offset during submission
+      drm/i915/gt: Expose more parameters for emitting writes into the ring
+      drm/i915/gt: Flush xcs before tgl breadcrumbs
+      drm/i915: Hold onto an explicit ref to i915_vma_work.pinned
+
+Colin Xu (4):
+      drm/i915/gvt: Allow zero out HWSP addr on hws_pga_write
+      drm/i915/gvt: Set SNOOP for PAT3 on BXT/APL to workaround GPU BB hang
+      drm/i915/gvt: Only pin/unpin intel_context along with workload
+      drm/i915/gvt: Fix mmio handler break on BXT/APL.
+
+Imre Deak (1):
+      drm/i915: Fix encoder lookup during PSR atomic check
+
+Rodrigo Vivi (1):
+      Merge tag 'gvt-fixes-2020-10-30' of https://github.com/intel/gvt-linux into drm-intel-fixes
+
+Zhenyu Wang (1):
+      Merge tag 'drm-intel-fixes-2020-10-29' into gvt-fixes
+
+ drivers/gpu/drm/i915/display/intel_psr.c       |  2 +-
+ drivers/gpu/drm/i915/gem/i915_gem_domain.c     | 28 ++++++-------
+ drivers/gpu/drm/i915/gt/intel_engine.h         | 55 ++++++++++++++++----------
+ drivers/gpu/drm/i915/gt/intel_lrc.c            | 31 ++++++++++-----
+ drivers/gpu/drm/i915/gt/intel_timeline.c       | 18 +++++----
+ drivers/gpu/drm/i915/gt/intel_timeline_types.h |  2 +
+ drivers/gpu/drm/i915/gvt/handlers.c            | 47 ++++++++++++++++++++--
+ drivers/gpu/drm/i915/gvt/scheduler.c           | 15 +++----
+ drivers/gpu/drm/i915/i915_vma.c                |  6 ++-
+ 9 files changed, 139 insertions(+), 65 deletions(-)
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
