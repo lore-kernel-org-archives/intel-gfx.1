@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 79F3BC388F7
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 10:11:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1CB4DC00A89
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 10:11:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CC9E62068D
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 10:11:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CC9E62068D
+	by mail.kernel.org (Postfix) with ESMTPS id 92F0D2087D
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 10:11:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 92F0D2087D
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 20D1F6EA00;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D97F36EA01;
 	Thu,  5 Nov 2020 10:11:46 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F252F6E188
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F44C6E1A3
  for <intel-gfx@lists.freedesktop.org>; Thu,  5 Nov 2020 10:11:44 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22900135-1500050 
- for multiple; Thu, 05 Nov 2020 10:11:37 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22900144-1500050 
+ for multiple; Thu, 05 Nov 2020 10:11:39 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu,  5 Nov 2020 10:11:14 +0000
-Message-Id: <20201105101134.19716-2-chris@chris-wilson.co.uk>
+Date: Thu,  5 Nov 2020 10:11:23 +0000
+Message-Id: <20201105101134.19716-11-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201105101134.19716-1-chris@chris-wilson.co.uk>
 References: <20201105101134.19716-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 02/22] drm/i915/gem: Pull phys pread/pwrite
- implementations to the backend
+Subject: [Intel-gfx] [PATCH 11/22] drm/i915/gt: Move the breadcrumb to the
+ signaler if completed upon cancel
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,132 +56,71 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-More the specialised interation with the physical GEM object from the
-pread/pwrite ioctl handler into the phys backend.
+If while we are cancelling the breadcrumb signaling, we find that the
+request is already completed, move it to the irq signaler and let it be
+signaled.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_phys.c | 55 ++++++++++++++++++++++++
- drivers/gpu/drm/i915/i915_gem.c          | 26 -----------
- 2 files changed, 55 insertions(+), 26 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_breadcrumbs.c | 20 ++++++++++++++++----
+ 1 file changed, 16 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_phys.c b/drivers/gpu/drm/i915/gem/i915_gem_phys.c
-index 28147aab47b9..3a4dfe2ef1da 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_phys.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_phys.c
-@@ -134,6 +134,58 @@ i915_gem_object_put_pages_phys(struct drm_i915_gem_object *obj,
- 			  vaddr, dma);
+diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
+index a24cc1ff08a0..f5f6feed0fa6 100644
+--- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
++++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
+@@ -363,6 +363,14 @@ void intel_breadcrumbs_free(struct intel_breadcrumbs *b)
+ 	kfree(b);
  }
  
-+static int
-+phys_pwrite(struct drm_i915_gem_object *obj,
-+	    const struct drm_i915_gem_pwrite *args)
++static void irq_signal_request(struct i915_request *rq,
++			       struct intel_breadcrumbs *b)
 +{
-+	void *vaddr = sg_page(obj->mm.pages->sgl) + args->offset;
-+	char __user *user_data = u64_to_user_ptr(args->data_ptr);
-+	int err;
-+
-+	err = i915_gem_object_wait(obj,
-+				   I915_WAIT_INTERRUPTIBLE |
-+				   I915_WAIT_ALL,
-+				   MAX_SCHEDULE_TIMEOUT);
-+	if (err)
-+		return err;
-+
-+	/*
-+	 * We manually control the domain here and pretend that it
-+	 * remains coherent i.e. in the GTT domain, like shmem_pwrite.
-+	 */
-+	i915_gem_object_invalidate_frontbuffer(obj, ORIGIN_CPU);
-+
-+	if (copy_from_user(vaddr, user_data, args->size))
-+		return -EFAULT;
-+
-+	drm_clflush_virt_range(vaddr, args->size);
-+	intel_gt_chipset_flush(&to_i915(obj->base.dev)->gt);
-+
-+	i915_gem_object_flush_frontbuffer(obj, ORIGIN_CPU);
-+	return 0;
++	if (__signal_request(rq) &&
++	    llist_add(&rq->signal_node, &b->signaled_requests))
++		irq_work_queue(&b->irq_work);
 +}
 +
-+static int
-+phys_pread(struct drm_i915_gem_object *obj,
-+	   const struct drm_i915_gem_pread *args)
-+{
-+	void *vaddr = sg_page(obj->mm.pages->sgl) + args->offset;
-+	char __user *user_data = u64_to_user_ptr(args->data_ptr);
-+	int err;
-+
-+	err = i915_gem_object_wait(obj,
-+				   I915_WAIT_INTERRUPTIBLE,
-+				   MAX_SCHEDULE_TIMEOUT);
-+	if (err)
-+		return err;
-+
-+	drm_clflush_virt_range(vaddr, args->size);
-+	if (copy_to_user(user_data, vaddr, args->size))
-+		return -EFAULT;
-+
-+	return 0;
-+}
-+
- static void phys_release(struct drm_i915_gem_object *obj)
+ static void insert_breadcrumb(struct i915_request *rq)
  {
- 	fput(obj->base.filp);
-@@ -144,6 +196,9 @@ static const struct drm_i915_gem_object_ops i915_gem_phys_ops = {
- 	.get_pages = i915_gem_object_get_pages_phys,
- 	.put_pages = i915_gem_object_put_pages_phys,
- 
-+	.pread  = phys_pread,
-+	.pwrite = phys_pwrite,
-+
- 	.release = phys_release,
- };
- 
-diff --git a/drivers/gpu/drm/i915/i915_gem.c b/drivers/gpu/drm/i915/i915_gem.c
-index d58fe1ddc3e1..58276694c848 100644
---- a/drivers/gpu/drm/i915/i915_gem.c
-+++ b/drivers/gpu/drm/i915/i915_gem.c
-@@ -179,30 +179,6 @@ int i915_gem_object_unbind(struct drm_i915_gem_object *obj,
- 	return ret;
- }
- 
--static int
--i915_gem_phys_pwrite(struct drm_i915_gem_object *obj,
--		     struct drm_i915_gem_pwrite *args,
--		     struct drm_file *file)
--{
--	void *vaddr = sg_page(obj->mm.pages->sgl) + args->offset;
--	char __user *user_data = u64_to_user_ptr(args->data_ptr);
--
--	/*
--	 * We manually control the domain here and pretend that it
--	 * remains coherent i.e. in the GTT domain, like shmem_pwrite.
--	 */
--	i915_gem_object_invalidate_frontbuffer(obj, ORIGIN_CPU);
--
--	if (copy_from_user(vaddr, user_data, args->size))
--		return -EFAULT;
--
--	drm_clflush_virt_range(vaddr, args->size);
--	intel_gt_chipset_flush(&to_i915(obj->base.dev)->gt);
--
--	i915_gem_object_flush_frontbuffer(obj, ORIGIN_CPU);
--	return 0;
--}
--
- static int
- i915_gem_create(struct drm_file *file,
- 		struct intel_memory_region *mr,
-@@ -872,8 +848,6 @@ i915_gem_pwrite_ioctl(struct drm_device *dev, void *data,
- 	if (ret == -EFAULT || ret == -ENOSPC) {
- 		if (i915_gem_object_has_struct_page(obj))
- 			ret = i915_gem_shmem_pwrite(obj, args);
--		else
--			ret = i915_gem_phys_pwrite(obj, args, file);
+ 	struct intel_breadcrumbs *b = READ_ONCE(rq->engine)->breadcrumbs;
+@@ -380,9 +388,7 @@ static void insert_breadcrumb(struct i915_request *rq)
+ 	 * its signal completion.
+ 	 */
+ 	if (__request_completed(rq)) {
+-		if (__signal_request(rq) &&
+-		    llist_add(&rq->signal_node, &b->signaled_requests))
+-			irq_work_queue(&b->irq_work);
++		irq_signal_request(rq, b);
+ 		return;
  	}
  
- 	i915_gem_object_unpin_pages(obj);
+@@ -453,6 +459,7 @@ bool i915_request_enable_breadcrumb(struct i915_request *rq)
+ 
+ void i915_request_cancel_breadcrumb(struct i915_request *rq)
+ {
++	struct intel_breadcrumbs *b = READ_ONCE(rq->engine)->breadcrumbs;
+ 	struct intel_context *ce = rq->context;
+ 	bool release;
+ 
+@@ -461,11 +468,16 @@ void i915_request_cancel_breadcrumb(struct i915_request *rq)
+ 
+ 	spin_lock(&ce->signal_lock);
+ 	list_del_rcu(&rq->signal_link);
+-	release = remove_signaling_context(rq->engine->breadcrumbs, ce);
++	release = remove_signaling_context(b, ce);
+ 	spin_unlock(&ce->signal_lock);
+ 	if (release)
+ 		intel_context_put(ce);
+ 
++	if (__request_completed(rq)) {
++		irq_signal_request(rq, b);
++		return;
++	}
++
+ 	i915_request_put(rq);
+ }
+ 
 -- 
 2.20.1
 
