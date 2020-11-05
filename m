@@ -4,40 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AE27BC00A89
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 10:12:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 54138C388F7
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 10:12:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 566422087D
+	by mail.kernel.org (Postfix) with ESMTPS id EA8652087D
 	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 10:12:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 566422087D
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EA8652087D
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 042146EA34;
-	Thu,  5 Nov 2020 10:11:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4B2186EA26;
+	Thu,  5 Nov 2020 10:12:00 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D72156EA42
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DEE716EA38
  for <intel-gfx@lists.freedesktop.org>; Thu,  5 Nov 2020 10:11:48 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22900140-1500050 
- for multiple; Thu, 05 Nov 2020 10:11:39 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22900136-1500050 
+ for multiple; Thu, 05 Nov 2020 10:11:38 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu,  5 Nov 2020 10:11:19 +0000
-Message-Id: <20201105101134.19716-7-chris@chris-wilson.co.uk>
+Date: Thu,  5 Nov 2020 10:11:15 +0000
+Message-Id: <20201105101134.19716-3-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201105101134.19716-1-chris@chris-wilson.co.uk>
 References: <20201105101134.19716-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 07/22] drm/i915/gt: Don't cancel the interrupt
- shadow too early
+Subject: [Intel-gfx] [PATCH 03/22] drm/i915/gt: Limit VFE threads based on GT
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,38 +49,112 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Chris Wilson <chris@chris-wilson.co.uk>
+Cc: stable@vger.kernel.org, Chris Wilson <chris@chris-wilson.co.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-We currently want to keep the interrupt enabled until the interrupt after
-which we have no more work to do. This heuristic was broken by us
-kicking the irq-work on adding a completed request without attaching a
-signaler -- hence it appearing to the irq-worker that an interrupt had
-fired when we were idle.
+MEDIA_STATE_VFE only accepts the 'maximum number of threads' in the
+range [0, n-1] where n is #EU * (#threads/EU) with the number of threads
+based on plaform and the number of EU based on the number of slices and
+subslices. This is a fixed number per platform/gt, so appropriately
+limit the number of threads we spawn to match the device.
 
-Fixes: bda4d4db6dd6 ("drm/i915/gt: Replace intel_engine_transfer_stale_breadcrumbs")
+Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/2024
+Fixes: 47f8253d2b89 ("drm/i915/gen7: Clear all EU/L3 residual contexts")
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+Cc: Mika Kuoppala <mika.kuoppala@linux.intel.com>
+Cc: Prathap Kumar Valsan <prathap.kumar.valsan@intel.com>
+Cc: Akeem G Abodunrin <akeem.g.abodunrin@intel.com>
+Cc: Balestrieri Francesco <francesco.balestrieri@intel.com>
+Cc: Bloomfield Jon <jon.bloomfield@intel.com>
+Cc: stable@vger.kernel.org # v5.7+
 ---
- drivers/gpu/drm/i915/gt/intel_breadcrumbs.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/i915/gt/gen7_renderclear.c | 35 +++++++++++++++-------
+ 1 file changed, 24 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-index 43cfabb102ea..cf6e05ea4d8f 100644
---- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-@@ -229,7 +229,7 @@ static void signal_irq_work(struct irq_work *work)
- 	 * interrupt draw less ire from other users of the system and tools
- 	 * like powertop.
- 	 */
--	if (b->irq_armed && list_empty(&b->signalers))
-+	if (!signal && b->irq_armed && list_empty(&b->signalers))
- 		__intel_breadcrumbs_disarm_irq(b);
+diff --git a/drivers/gpu/drm/i915/gt/gen7_renderclear.c b/drivers/gpu/drm/i915/gt/gen7_renderclear.c
+index d93d85cd3027..f3b8fea6226e 100644
+--- a/drivers/gpu/drm/i915/gt/gen7_renderclear.c
++++ b/drivers/gpu/drm/i915/gt/gen7_renderclear.c
+@@ -7,8 +7,6 @@
+ #include "i915_drv.h"
+ #include "intel_gpu_commands.h"
  
- 	list_for_each_entry_safe(ce, cn, &b->signalers, signal_link) {
+-#define MAX_URB_ENTRIES 64
+-#define STATE_SIZE (4 * 1024)
+ #define GT3_INLINE_DATA_DELAYS 0x1E00
+ #define batch_advance(Y, CS) GEM_BUG_ON((Y)->end != (CS))
+ 
+@@ -34,8 +32,7 @@ struct batch_chunk {
+ };
+ 
+ struct batch_vals {
+-	u32 max_primitives;
+-	u32 max_urb_entries;
++	u32 max_primitives; /* == number of VFE threads */
+ 	u32 cmd_size;
+ 	u32 state_size;
+ 	u32 state_start;
+@@ -50,18 +47,35 @@ static void
+ batch_get_defaults(struct drm_i915_private *i915, struct batch_vals *bv)
+ {
+ 	if (IS_HASWELL(i915)) {
+-		bv->max_primitives = 280;
+-		bv->max_urb_entries = MAX_URB_ENTRIES;
++		switch (INTEL_INFO(i915)->gt) {
++		default:
++		case 1:
++			bv->max_primitives = 70;
++			break;
++		case 2:
++			bv->max_primitives = 140;
++			break;
++		case 3:
++			bv->max_primitives = 280;
++			break;
++		}
+ 		bv->surface_height = 16 * 16;
+ 		bv->surface_width = 32 * 2 * 16;
+ 	} else {
+-		bv->max_primitives = 128;
+-		bv->max_urb_entries = MAX_URB_ENTRIES / 2;
++		switch (INTEL_INFO(i915)->gt) {
++		default:
++		case 1: /* including vlv */
++			bv->max_primitives = 36;
++			break;
++		case 2:
++			bv->max_primitives = 128;
++			break;
++		}
+ 		bv->surface_height = 16 * 8;
+ 		bv->surface_width = 32 * 16;
+ 	}
+ 	bv->cmd_size = bv->max_primitives * 4096;
+-	bv->state_size = STATE_SIZE;
++	bv->state_size = SZ_4K;
+ 	bv->state_start = bv->cmd_size;
+ 	bv->batch_size = bv->cmd_size + bv->state_size;
+ 	bv->scratch_size = bv->surface_height * bv->surface_width;
+@@ -244,7 +258,6 @@ gen7_emit_vfe_state(struct batch_chunk *batch,
+ 		    u32 urb_size, u32 curbe_size,
+ 		    u32 mode)
+ {
+-	u32 urb_entries = bv->max_urb_entries;
+ 	u32 threads = bv->max_primitives - 1;
+ 	u32 *cs = batch_alloc_items(batch, 32, 8);
+ 
+@@ -254,7 +267,7 @@ gen7_emit_vfe_state(struct batch_chunk *batch,
+ 	*cs++ = 0;
+ 
+ 	/* number of threads & urb entries for GPGPU vs Media Mode */
+-	*cs++ = threads << 16 | urb_entries << 8 | mode << 2;
++	*cs++ = threads << 16 | 1 << 8 | mode << 2;
+ 
+ 	*cs++ = 0;
+ 
 -- 
 2.20.1
 
