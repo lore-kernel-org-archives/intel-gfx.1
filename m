@@ -2,53 +2,43 @@ Return-Path: <SRS0=eU4y=EL=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6A831C00A89
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 11:38:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8951DC00A89
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 11:42:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C9BFD2078E
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 11:38:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C9BFD2078E
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id CAECA2078E
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 11:42:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CAECA2078E
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E7CA06E0F4;
-	Thu,  5 Nov 2020 11:38:55 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C27AB6E0F4
- for <Intel-gfx@lists.freedesktop.org>; Thu,  5 Nov 2020 11:38:54 +0000 (UTC)
-IronPort-SDR: 27g8u5ylqkfpoAhA/XucgY3wdZ1+mzG5sNLuWDxn1jEEGSyOMxFYriFPu3pDggNn75wnUlDQ5m
- aWsbb1tLhAsA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9795"; a="168585680"
-X-IronPort-AV: E=Sophos;i="5.77,453,1596524400"; d="scan'208";a="168585680"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Nov 2020 03:38:54 -0800
-IronPort-SDR: 0+Sgd8TBLb10cZZtH/EKoTYo97ZWFJ2k6EvMTG9dy/ARcaIp8yYwI9Zmku9dXSzhSgTbpGrYRe
- UmdoOjVS20dQ==
-X-IronPort-AV: E=Sophos;i="5.77,453,1596524400"; d="scan'208";a="471613463"
-Received: from sharonma-mobl.ger.corp.intel.com (HELO localhost.localdomain)
- ([10.214.237.124])
- by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Nov 2020 03:38:52 -0800
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-To: Intel-gfx@lists.freedesktop.org
-Date: Thu,  5 Nov 2020 11:38:42 +0000
-Message-Id: <20201105113842.1395391-1-tvrtko.ursulin@linux.intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20201104134743.916027-2-tvrtko.ursulin@linux.intel.com>
-References: <20201104134743.916027-2-tvrtko.ursulin@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F5496E1ED;
+	Thu,  5 Nov 2020 11:42:19 +0000 (UTC)
+Received: from fireflyinternet.com (unknown [77.68.26.236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E7BCD6E1ED
+ for <Intel-gfx@lists.freedesktop.org>; Thu,  5 Nov 2020 11:42:17 +0000 (UTC)
+X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
+ x-ip-name=78.156.65.138; 
+Received: from localhost (unverified [78.156.65.138]) 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP (TLS) id
+ 22901344-1500050 for multiple; Thu, 05 Nov 2020 11:42:11 +0000
 MIME-Version: 1.0
-Subject: [Intel-gfx] [RFC v2 2/2] drm/i915: Use ABI engine class in error
- state ecode
+In-Reply-To: <20201105113842.1395391-1-tvrtko.ursulin@linux.intel.com>
+References: <20201104134743.916027-2-tvrtko.ursulin@linux.intel.com>
+ <20201105113842.1395391-1-tvrtko.ursulin@linux.intel.com>
+From: Chris Wilson <chris@chris-wilson.co.uk>
+To: Intel-gfx@lists.freedesktop.org,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Date: Thu, 05 Nov 2020 11:42:09 +0000
+Message-ID: <160457652932.19889.3551483397528669579@build.alporthouse.com>
+User-Agent: alot/0.9
+Subject: Re: [Intel-gfx] [RFC v2 2/2] drm/i915: Use ABI engine class in
+ error state ecode
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,62 +56,27 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+Quoting Tvrtko Ursulin (2020-11-05 11:38:42)
+> From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+> 
+> Instead of printing out the internal engine mask, which can change between
+> kernel versions making it difficult to map to actual engines, present a
+> bitmask of hanging engines ABI classes. For example:
+> 
+>   [drm] GPU HANG: ecode 9:8:24dffffd, in gem_exec_schedu [1334]
+> 
+> Engine ABI class is useful to quickly categorize render vs media etc hangs
+> in bug reports. Considering virtual engine even more so than the current
+> scheme.
+> 
+> v2:
+>  * Do not re-order fields. (Chris)
+> 
+> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-Instead of printing out the internal engine mask, which can change between
-kernel versions making it difficult to map to actual engines, present a
-bitmask of hanging engines ABI classes. For example:
-
-  [drm] GPU HANG: ecode 9:8:24dffffd, in gem_exec_schedu [1334]
-
-Engine ABI class is useful to quickly categorize render vs media etc hangs
-in bug reports. Considering virtual engine even more so than the current
-scheme.
-
-v2:
- * Do not re-order fields. (Chris)
-
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
----
- drivers/gpu/drm/i915/i915_gpu_error.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/i915_gpu_error.c b/drivers/gpu/drm/i915/i915_gpu_error.c
-index 857db66cc4a3..d8cac4c5881f 100644
---- a/drivers/gpu/drm/i915/i915_gpu_error.c
-+++ b/drivers/gpu/drm/i915/i915_gpu_error.c
-@@ -1659,17 +1659,16 @@ static u32 generate_ecode(const struct intel_engine_coredump *ee)
- static const char *error_msg(struct i915_gpu_coredump *error)
- {
- 	struct intel_engine_coredump *first = NULL;
-+	unsigned int hung_classes = 0;
- 	struct intel_gt_coredump *gt;
--	intel_engine_mask_t engines;
- 	int len;
- 
--	engines = 0;
- 	for (gt = error->gt; gt; gt = gt->next) {
- 		struct intel_engine_coredump *cs;
- 
- 		for (cs = gt->engine; cs; cs = cs->next) {
- 			if (cs->hung) {
--				engines |= cs->engine->mask;
-+				hung_classes |= BIT(cs->engine->uabi_class);
- 				if (!first)
- 					first = cs;
- 			}
-@@ -1678,7 +1677,7 @@ static const char *error_msg(struct i915_gpu_coredump *error)
- 
- 	len = scnprintf(error->error_msg, sizeof(error->error_msg),
- 			"GPU HANG: ecode %d:%x:%08x",
--			INTEL_GEN(error->i915), engines,
-+			INTEL_GEN(error->i915), hung_classes,
- 			generate_ecode(first));
- 	if (first && first->context.pid) {
- 		/* Just show the first executing process, more is confusing */
--- 
-2.25.1
-
+Both patches look sane, so preemptive
+Reviewed-by: Chris Wilson <chris@chris-wilson.co.uk>
+-Chris
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
