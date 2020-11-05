@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D5E21C388F7
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 10:11:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A8426C388F7
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 10:11:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4CF522087D
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 10:11:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4CF522087D
+	by mail.kernel.org (Postfix) with ESMTPS id 19ADB20A8B
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 10:11:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 19ADB20A8B
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 452056E188;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8330F6E1A3;
 	Thu,  5 Nov 2020 10:11:47 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 209FF6E9FC
- for <intel-gfx@lists.freedesktop.org>; Thu,  5 Nov 2020 10:11:44 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E86C06E1D7
+ for <intel-gfx@lists.freedesktop.org>; Thu,  5 Nov 2020 10:11:45 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22900145-1500050 
- for multiple; Thu, 05 Nov 2020 10:11:39 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22900153-1500050 
+ for multiple; Thu, 05 Nov 2020 10:11:41 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu,  5 Nov 2020 10:11:24 +0000
-Message-Id: <20201105101134.19716-12-chris@chris-wilson.co.uk>
+Date: Thu,  5 Nov 2020 10:11:32 +0000
+Message-Id: <20201105101134.19716-20-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201105101134.19716-1-chris@chris-wilson.co.uk>
 References: <20201105101134.19716-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 12/22] drm/i915/gt: Decouple completed requests
- on unwind
+Subject: [Intel-gfx] [PATCH 20/22] drm/i915/gt: Shrink the critical section
+ for irq signaling
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,52 +56,63 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Since the introduction of preempt-to-busy, requests can complete in the
-background, even while they are not on the engine->active.requests list.
-As such, the engine->active.request list itself is not in strict
-retirement order, and we have to scan the entire list while unwinding to
-not miss any. However, if the request is completed we currently leave it
-on the list [until retirement], but we could just as simply remove it
-and stop treating it as active. We would only have to then traverse it
-once while unwinding in quick succession.
+Let's only wait for the list iterator when decoupling the virtual
+breadcrumb, as the signaling of all the requests may take a long time,
+during which we do not want to keep the tasklet spinning.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 ---
- drivers/gpu/drm/i915/gt/intel_lrc.c | 6 ++++--
- drivers/gpu/drm/i915/i915_request.c | 3 ++-
- 2 files changed, 6 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_breadcrumbs.c       | 2 ++
+ drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h | 1 +
+ drivers/gpu/drm/i915/gt/intel_lrc.c               | 3 ++-
+ 3 files changed, 5 insertions(+), 1 deletion(-)
 
+diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
+index 5b84f51931d9..3e69d6c3b197 100644
+--- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
++++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
+@@ -251,6 +251,7 @@ static void signal_irq_work(struct irq_work *work)
+ 		intel_breadcrumbs_disarm_irq(b);
+ 
+ 	rcu_read_lock();
++	atomic_inc(&b->signaler_active);
+ 	list_for_each_entry_rcu(ce, &b->signalers, signal_link) {
+ 		struct i915_request *rq;
+ 
+@@ -284,6 +285,7 @@ static void signal_irq_work(struct irq_work *work)
+ 			}
+ 		}
+ 	}
++	atomic_dec(&b->signaler_active);
+ 	rcu_read_unlock();
+ 
+ 	llist_for_each_safe(signal, sn, signal) {
+diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h b/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h
+index a74bb3062bd8..f672053d694d 100644
+--- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h
+@@ -35,6 +35,7 @@ struct intel_breadcrumbs {
+ 	spinlock_t signalers_lock; /* protects the list of signalers */
+ 	struct list_head signalers;
+ 	struct llist_head signaled_requests;
++	atomic_t signaler_active;
+ 
+ 	spinlock_t irq_lock; /* protects the interrupt from hardirq context */
+ 	struct irq_work irq_work; /* for use from inside irq_lock */
 diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
-index 4d45a71d51d7..5970090fa6d4 100644
+index 2d2f39f151af..1c95ac01d9af 100644
 --- a/drivers/gpu/drm/i915/gt/intel_lrc.c
 +++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
-@@ -1116,8 +1116,10 @@ __unwind_incomplete_requests(struct intel_engine_cs *engine)
- 	list_for_each_entry_safe_reverse(rq, rn,
- 					 &engine->active.requests,
- 					 sched.link) {
--		if (i915_request_completed(rq))
--			continue; /* XXX */
-+		if (i915_request_completed(rq)) {
-+			list_del_init(&rq->sched.link);
-+			continue;
-+		}
+@@ -1400,7 +1400,8 @@ static void kick_siblings(struct i915_request *rq, struct intel_context *ce)
+ 		 * ce->signal_link.
+ 		 */
+ 		i915_request_cancel_breadcrumb(rq);
+-		irq_work_sync(&engine->breadcrumbs->irq_work);
++		while (atomic_read(&engine->breadcrumbs->signaler_active))
++			cpu_relax();
+ 	}
  
- 		__i915_request_unsubmit(rq);
- 
-diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
-index 0e813819b041..0bfd58f4941f 100644
---- a/drivers/gpu/drm/i915/i915_request.c
-+++ b/drivers/gpu/drm/i915/i915_request.c
-@@ -321,7 +321,8 @@ bool i915_request_retire(struct i915_request *rq)
- 	 * after removing the breadcrumb and signaling it, so that we do not
- 	 * inadvertently attach the breadcrumb to a completed request.
- 	 */
--	remove_from_engine(rq);
-+	if (!list_empty(&rq->sched.link))
-+		remove_from_engine(rq);
- 	GEM_BUG_ON(!llist_empty(&rq->execute_cb));
- 
- 	__list_del_entry(&rq->link); /* poison neither prev/next (RCU walks) */
+ 	if (READ_ONCE(ve->request))
 -- 
 2.20.1
 
