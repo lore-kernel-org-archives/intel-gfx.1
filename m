@@ -2,46 +2,42 @@ Return-Path: <SRS0=eU4y=EL=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.7 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9A996C00A89
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 09:49:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 79F3BC388F7
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 10:11:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C7E182083B
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 09:49:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C7E182083B
+	by mail.kernel.org (Postfix) with ESMTPS id CC9E62068D
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 10:11:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CC9E62068D
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F2636E071;
-	Thu,  5 Nov 2020 09:49:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 20D1F6EA00;
+	Thu,  5 Nov 2020 10:11:46 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ADCC36E071
- for <Intel-gfx@lists.freedesktop.org>; Thu,  5 Nov 2020 09:49:46 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F252F6E188
+ for <intel-gfx@lists.freedesktop.org>; Thu,  5 Nov 2020 10:11:44 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
-Received: from localhost (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP (TLS) id
- 22899810-1500050 for multiple; Thu, 05 Nov 2020 09:49:40 +0000
-MIME-Version: 1.0
-In-Reply-To: <19d84410-f2a9-58a7-a60e-bd03161c4078@linux.intel.com>
-References: <20201104134743.916027-1-tvrtko.ursulin@linux.intel.com>
- <20201104134743.916027-2-tvrtko.ursulin@linux.intel.com>
- <160453261800.17472.1591297091381831846@build.alporthouse.com>
- <19d84410-f2a9-58a7-a60e-bd03161c4078@linux.intel.com>
+Received: from build.alporthouse.com (unverified [78.156.65.138]) 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22900135-1500050 
+ for multiple; Thu, 05 Nov 2020 10:11:37 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
-To: Intel-gfx@lists.freedesktop.org,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Date: Thu, 05 Nov 2020 09:49:37 +0000
-Message-ID: <160456977798.17472.14781835087218905341@build.alporthouse.com>
-User-Agent: alot/0.9
-Subject: Re: [Intel-gfx] [RFC 2/2] drm/i915: Use ABI engine class in error
- state ecode
+To: intel-gfx@lists.freedesktop.org
+Date: Thu,  5 Nov 2020 10:11:14 +0000
+Message-Id: <20201105101134.19716-2-chris@chris-wilson.co.uk>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20201105101134.19716-1-chris@chris-wilson.co.uk>
+References: <20201105101134.19716-1-chris@chris-wilson.co.uk>
+MIME-Version: 1.0
+Subject: [Intel-gfx] [PATCH 02/22] drm/i915/gem: Pull phys pread/pwrite
+ implementations to the backend
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,89 +50,141 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Chris Wilson <chris@chris-wilson.co.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Quoting Tvrtko Ursulin (2020-11-05 09:31:07)
-> 
-> On 04/11/2020 23:30, Chris Wilson wrote:
-> > Quoting Tvrtko Ursulin (2020-11-04 13:47:43)
-> >> From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-> >>
-> >> Instead of printing out the internal engine mask, which can change between
-> >> kernel versions making it difficult to map to actual engines, present a
-> >> bitmask of hanging engines ABI classes. For example:
-> >>
-> >>    [drm] GPU HANG: ecode 9:24dffffd:8, in gem_exec_schedu [1334]
-> >>
-> >> Notice the swapped the order of ecode and bitmask which makes the new
-> >> versus old bug reports are obvious.
-> >>
-> >> Engine ABI class is useful to quickly categorize render vs media etc hangs
-> >> in bug reports. Considering virtual engine even more so than the current
-> >> scheme.
-> >>
-> >> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-> >> ---
-> >>   drivers/gpu/drm/i915/i915_gpu_error.c | 13 +++++++------
-> >>   1 file changed, 7 insertions(+), 6 deletions(-)
-> >>
-> >> diff --git a/drivers/gpu/drm/i915/i915_gpu_error.c b/drivers/gpu/drm/i915/i915_gpu_error.c
-> >> index 857db66cc4a3..e7d9af184d58 100644
-> >> --- a/drivers/gpu/drm/i915/i915_gpu_error.c
-> >> +++ b/drivers/gpu/drm/i915/i915_gpu_error.c
-> >> @@ -1659,17 +1659,16 @@ static u32 generate_ecode(const struct intel_engine_coredump *ee)
-> >>   static const char *error_msg(struct i915_gpu_coredump *error)
-> >>   {
-> >>          struct intel_engine_coredump *first = NULL;
-> >> +       unsigned int hung_classes = 0;
-> >>          struct intel_gt_coredump *gt;
-> >> -       intel_engine_mask_t engines;
-> >>          int len;
-> >>   
-> >> -       engines = 0;
-> >>          for (gt = error->gt; gt; gt = gt->next) {
-> >>                  struct intel_engine_coredump *cs;
-> >>   
-> >>                  for (cs = gt->engine; cs; cs = cs->next) {
-> >>                          if (cs->hung) {
-> >> -                               engines |= cs->engine->mask;
-> >> +                               hung_classes |= BIT(cs->engine->uabi_class);
-> > 
-> > Your argument makes sense.
-> > 
-> >>                                  if (!first)
-> >>                                          first = cs;
-> >>                          }
-> >> @@ -1677,9 +1676,11 @@ static const char *error_msg(struct i915_gpu_coredump *error)
-> >>          }
-> >>   
-> >>          len = scnprintf(error->error_msg, sizeof(error->error_msg),
-> >> -                       "GPU HANG: ecode %d:%x:%08x",
-> >> -                       INTEL_GEN(error->i915), engines,
-> >> -                       generate_ecode(first));
-> >> +                       "GPU HANG: ecode %d:%08x:%x",
-> >> +                       INTEL_GEN(error->i915),
-> >> +                       generate_ecode(first),
-> >> +                       hung_classes);
-> > 
-> > I vote for keeping gen:engines:ecode order, for me that is biggest to
-> > smallest.
-> 
-> It would not be obvious what kind of bits are in the mask then, say 
-> looking from the ecode in maybe bugzilla titles and two different bugs 
-> may be incorrectly marked as duplicate.
+More the specialised interation with the physical GEM object from the
+pread/pwrite ioctl handler into the phys backend.
 
-No one should be marking bugs as duplicate based on this string. It
-really is that useless.
+Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+---
+ drivers/gpu/drm/i915/gem/i915_gem_phys.c | 55 ++++++++++++++++++++++++
+ drivers/gpu/drm/i915/i915_gem.c          | 26 -----------
+ 2 files changed, 55 insertions(+), 26 deletions(-)
 
-> Maybe instead of the order we 
-> could change the separator(s)? Or add prefix/suffix to the mask?
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_phys.c b/drivers/gpu/drm/i915/gem/i915_gem_phys.c
+index 28147aab47b9..3a4dfe2ef1da 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_phys.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_phys.c
+@@ -134,6 +134,58 @@ i915_gem_object_put_pages_phys(struct drm_i915_gem_object *obj,
+ 			  vaddr, dma);
+ }
+ 
++static int
++phys_pwrite(struct drm_i915_gem_object *obj,
++	    const struct drm_i915_gem_pwrite *args)
++{
++	void *vaddr = sg_page(obj->mm.pages->sgl) + args->offset;
++	char __user *user_data = u64_to_user_ptr(args->data_ptr);
++	int err;
++
++	err = i915_gem_object_wait(obj,
++				   I915_WAIT_INTERRUPTIBLE |
++				   I915_WAIT_ALL,
++				   MAX_SCHEDULE_TIMEOUT);
++	if (err)
++		return err;
++
++	/*
++	 * We manually control the domain here and pretend that it
++	 * remains coherent i.e. in the GTT domain, like shmem_pwrite.
++	 */
++	i915_gem_object_invalidate_frontbuffer(obj, ORIGIN_CPU);
++
++	if (copy_from_user(vaddr, user_data, args->size))
++		return -EFAULT;
++
++	drm_clflush_virt_range(vaddr, args->size);
++	intel_gt_chipset_flush(&to_i915(obj->base.dev)->gt);
++
++	i915_gem_object_flush_frontbuffer(obj, ORIGIN_CPU);
++	return 0;
++}
++
++static int
++phys_pread(struct drm_i915_gem_object *obj,
++	   const struct drm_i915_gem_pread *args)
++{
++	void *vaddr = sg_page(obj->mm.pages->sgl) + args->offset;
++	char __user *user_data = u64_to_user_ptr(args->data_ptr);
++	int err;
++
++	err = i915_gem_object_wait(obj,
++				   I915_WAIT_INTERRUPTIBLE,
++				   MAX_SCHEDULE_TIMEOUT);
++	if (err)
++		return err;
++
++	drm_clflush_virt_range(vaddr, args->size);
++	if (copy_to_user(user_data, vaddr, args->size))
++		return -EFAULT;
++
++	return 0;
++}
++
+ static void phys_release(struct drm_i915_gem_object *obj)
+ {
+ 	fput(obj->base.filp);
+@@ -144,6 +196,9 @@ static const struct drm_i915_gem_object_ops i915_gem_phys_ops = {
+ 	.get_pages = i915_gem_object_get_pages_phys,
+ 	.put_pages = i915_gem_object_put_pages_phys,
+ 
++	.pread  = phys_pread,
++	.pwrite = phys_pwrite,
++
+ 	.release = phys_release,
+ };
+ 
+diff --git a/drivers/gpu/drm/i915/i915_gem.c b/drivers/gpu/drm/i915/i915_gem.c
+index d58fe1ddc3e1..58276694c848 100644
+--- a/drivers/gpu/drm/i915/i915_gem.c
++++ b/drivers/gpu/drm/i915/i915_gem.c
+@@ -179,30 +179,6 @@ int i915_gem_object_unbind(struct drm_i915_gem_object *obj,
+ 	return ret;
+ }
+ 
+-static int
+-i915_gem_phys_pwrite(struct drm_i915_gem_object *obj,
+-		     struct drm_i915_gem_pwrite *args,
+-		     struct drm_file *file)
+-{
+-	void *vaddr = sg_page(obj->mm.pages->sgl) + args->offset;
+-	char __user *user_data = u64_to_user_ptr(args->data_ptr);
+-
+-	/*
+-	 * We manually control the domain here and pretend that it
+-	 * remains coherent i.e. in the GTT domain, like shmem_pwrite.
+-	 */
+-	i915_gem_object_invalidate_frontbuffer(obj, ORIGIN_CPU);
+-
+-	if (copy_from_user(vaddr, user_data, args->size))
+-		return -EFAULT;
+-
+-	drm_clflush_virt_range(vaddr, args->size);
+-	intel_gt_chipset_flush(&to_i915(obj->base.dev)->gt);
+-
+-	i915_gem_object_flush_frontbuffer(obj, ORIGIN_CPU);
+-	return 0;
+-}
+-
+ static int
+ i915_gem_create(struct drm_file *file,
+ 		struct intel_memory_region *mr,
+@@ -872,8 +848,6 @@ i915_gem_pwrite_ioctl(struct drm_device *dev, void *data,
+ 	if (ret == -EFAULT || ret == -ENOSPC) {
+ 		if (i915_gem_object_has_struct_page(obj))
+ 			ret = i915_gem_shmem_pwrite(obj, args);
+-		else
+-			ret = i915_gem_phys_pwrite(obj, args, file);
+ 	}
+ 
+ 	i915_gem_object_unpin_pages(obj);
+-- 
+2.20.1
 
-I don't see the point; we've changed the construction several times.
--Chris
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
