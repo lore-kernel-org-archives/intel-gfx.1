@@ -2,41 +2,59 @@ Return-Path: <SRS0=eU4y=EL=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.4 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,URIBL_BLOCKED,USER_AGENT_SANE_1
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5E677C4741F
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 16:11:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C0BABC4741F
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 16:15:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C66802067B
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 16:11:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C66802067B
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id 39BE7206B7
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 16:15:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 39BE7206B7
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 20B0E6EDBE;
-	Thu,  5 Nov 2020 16:11:20 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 2E4AD6ED87;
- Thu,  5 Nov 2020 16:11:19 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 1F3D9A47DB;
- Thu,  5 Nov 2020 16:11:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A76416EB71;
+	Thu,  5 Nov 2020 16:15:16 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E8D196EB71
+ for <intel-gfx@lists.freedesktop.org>; Thu,  5 Nov 2020 16:15:14 +0000 (UTC)
+IronPort-SDR: 29+OD7qau2Z5EW+fPoE8HSuo0Mf+Q1E16gs9i4cmSQ6laCAaPHJQ33cI6rbVLu5Di6cHJdnq6J
+ PqRjKZYjHMFA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9795"; a="156401028"
+X-IronPort-AV: E=Sophos;i="5.77,453,1596524400"; d="scan'208";a="156401028"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Nov 2020 08:15:14 -0800
+IronPort-SDR: VAbewc5j2KBlGTVUa9j5w0Khwfbr1S0aCl6m/ttA//lfnxDu7ZsjujV6kmw4ZsLqjpoMhhpD63
+ NqyD63uX7xIA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.77,453,1596524400"; d="scan'208";a="306560376"
+Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.174])
+ by fmsmga008.fm.intel.com with SMTP; 05 Nov 2020 08:15:12 -0800
+Received: by stinkbox (sSMTP sendmail emulation);
+ Thu, 05 Nov 2020 18:15:11 +0200
+Date: Thu, 5 Nov 2020 18:15:11 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: "Navare, Manasi" <manasi.d.navare@intel.com>
+Message-ID: <20201105161511.GY6112@intel.com>
+References: <20201102211906.4893-3-manasi.d.navare@intel.com>
+ <20201102230400.17404-1-manasi.d.navare@intel.com>
+ <20201105151304.GT6112@intel.com>
+ <20201105160256.GA10754@labuser-Z97X-UD5H>
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Chris Wilson" <chris@chris-wilson.co.uk>
-Date: Thu, 05 Nov 2020 16:11:19 -0000
-Message-ID: <160459267909.14956.2952590917227723561@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20201105150542.11801-1-chris@chris-wilson.co.uk>
-In-Reply-To: <20201105150542.11801-1-chris@chris-wilson.co.uk>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJBVDogZmFpbHVyZSBmb3IgZHJt?=
- =?utf-8?q?/i915/gem=3A_Drop_free=5Fwork_for_GEM_contexts?=
+Content-Disposition: inline
+In-Reply-To: <20201105160256.GA10754@labuser-Z97X-UD5H>
+X-Patchwork-Hint: comment
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Subject: Re: [Intel-gfx] [PATCH v6 3/6] drm/i915: Add hw.pipe_mode to allow
+ bigjoiner pipe/transcoder split
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,502 +67,700 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Cc: intel-gfx@lists.freedesktop.org
-Content-Type: multipart/mixed; boundary="===============0437327552=="
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============0437327552==
-Content-Type: multipart/alternative;
- boundary="===============8573100234337359537=="
+On Thu, Nov 05, 2020 at 08:03:01AM -0800, Navare, Manasi wrote:
+> On Thu, Nov 05, 2020 at 05:13:04PM +0200, Ville Syrj=E4l=E4 wrote:
+> > On Mon, Nov 02, 2020 at 03:04:00PM -0800, Manasi Navare wrote:
+> > > From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> > > =
 
---===============8573100234337359537==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+> > > With bigjoiner, there will be 2 pipes driving 2 halves of 1 transcode=
+r,
+> > > because of this, we need a pipe_mode for various calculations, includ=
+ing
+> > > for example watermarks, plane clipping, etc.
+> > > =
 
-== Series Details ==
+> > > v9:
+> > > * pipe_mode in state dump nd state check (Ville)
+> > > v8:
+> > > * Add pipe_mode in readout in verify_crtc_state (Ville)
+> > > v7:
+> > > * Remove redundant comment (Ville)
+> > > * Just keep mode instead of pipe_mode (Ville)
+> > > v6:
+> > > * renaming in separate function, only pipe_mode here (Ville)
+> > > * Add description (Maarten)
+> > > v5:
+> > > * Rebase (Manasi)
+> > > v4:
+> > > * Manual rebase (Manasi)
+> > > v3:
+> > > * Change state to crtc_state, fix rebase err  (Manasi)
+> > > v2:
+> > > * Manual Rebase (Manasi)
+> > > =
 
-Series: drm/i915/gem: Drop free_work for GEM contexts
-URL   : https://patchwork.freedesktop.org/series/83537/
-State : failure
+> > > Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> > > Signed-off-by: Manasi Navare <manasi.d.navare@intel.com>
+> > > Reviewed-by: Animesh Manna <animesh.manna@intel.com>
+> > > Reviewed-by: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
+> > > ---
+> > >  drivers/gpu/drm/i915/display/intel_display.c  | 51 ++++++++-----
+> > >  .../drm/i915/display/intel_display_types.h    | 11 ++-
+> > >  drivers/gpu/drm/i915/intel_pm.c               | 76 +++++++++--------=
+--
+> > >  3 files changed, 81 insertions(+), 57 deletions(-)
+> > > =
 
-== Summary ==
+> > > diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/g=
+pu/drm/i915/display/intel_display.c
+> > > index e9fbcfe1649e..c045ef0ac801 100644
+> > > --- a/drivers/gpu/drm/i915/display/intel_display.c
+> > > +++ b/drivers/gpu/drm/i915/display/intel_display.c
+> > > @@ -6167,18 +6167,16 @@ skl_update_scaler(struct intel_crtc_state *cr=
+tc_state, bool force_detach,
+> > >  =
 
-CI Bug Log - changes from CI_DRM_9269 -> Patchwork_18860
-====================================================
+> > >  static int skl_update_scaler_crtc(struct intel_crtc_state *crtc_stat=
+e)
+> > >  {
+> > > -	const struct drm_display_mode *adjusted_mode =3D
+> > > -		&crtc_state->hw.adjusted_mode;
+> > > +	const struct drm_display_mode *pipe_mode =3D &crtc_state->hw.pipe_m=
+ode;
+> > >  	int width, height;
+> > >  =
 
-Summary
--------
+> > >  	if (crtc_state->pch_pfit.enabled) {
+> > >  		width =3D drm_rect_width(&crtc_state->pch_pfit.dst);
+> > >  		height =3D drm_rect_height(&crtc_state->pch_pfit.dst);
+> > >  	} else {
+> > > -		width =3D adjusted_mode->crtc_hdisplay;
+> > > -		height =3D adjusted_mode->crtc_vdisplay;
+> > > +		width =3D pipe_mode->crtc_hdisplay;
+> > > +		height =3D pipe_mode->crtc_vdisplay;
+> > >  	}
+> > > -
+> > >  	return skl_update_scaler(crtc_state, !crtc_state->hw.active,
+> > >  				 SKL_CRTC_INDEX,
+> > >  				 &crtc_state->scaler_state.scaler_id,
+> > > @@ -8192,7 +8190,7 @@ static bool intel_crtc_supports_double_wide(con=
+st struct intel_crtc *crtc)
+> > >  =
 
-  **FAILURE**
+> > >  static u32 ilk_pipe_pixel_rate(const struct intel_crtc_state *crtc_s=
+tate)
+> > >  {
+> > > -	u32 pixel_rate =3D crtc_state->hw.adjusted_mode.crtc_clock;
+> > > +	u32 pixel_rate =3D crtc_state->hw.pipe_mode.crtc_clock;
+> > >  	unsigned int pipe_w, pipe_h, pfit_w, pfit_h;
+> > >  =
 
-  Serious unknown changes coming with Patchwork_18860 absolutely need to be
-  verified manually.
-  
-  If you think the reported changes have nothing to do with the changes
-  introduced in Patchwork_18860, please notify your bug team to allow them
-  to document this new failure mode, which will reduce false positives in CI.
+> > >  	/*
+> > > @@ -8225,7 +8223,11 @@ static u32 ilk_pipe_pixel_rate(const struct in=
+tel_crtc_state *crtc_state)
+> > >  static void intel_encoder_get_config(struct intel_encoder *encoder,
+> > >  				     struct intel_crtc_state *crtc_state)
+> > >  {
+> > > +	struct drm_display_mode *pipe_mode =3D &crtc_state->hw.pipe_mode;
+> > > +
+> > >  	encoder->get_config(encoder, crtc_state);
+> > > +
+> > > +	*pipe_mode =3D crtc_state->hw.adjusted_mode;
+> > >  }
+> > >  =
 
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/index.html
+> > >  static void intel_crtc_compute_pixel_rate(struct intel_crtc_state *c=
+rtc_state)
+> > > @@ -8235,7 +8237,7 @@ static void intel_crtc_compute_pixel_rate(struc=
+t intel_crtc_state *crtc_state)
+> > >  	if (HAS_GMCH(dev_priv))
+> > >  		/* FIXME calculate proper pipe pixel rate for GMCH pfit */
+> > >  		crtc_state->pixel_rate =3D
+> > > -			crtc_state->hw.adjusted_mode.crtc_clock;
+> > > +			crtc_state->hw.pipe_mode.crtc_clock;
+> > >  	else
+> > >  		crtc_state->pixel_rate =3D
+> > >  			ilk_pipe_pixel_rate(crtc_state);
+> > > @@ -8245,9 +8247,11 @@ static int intel_crtc_compute_config(struct in=
+tel_crtc *crtc,
+> > >  				     struct intel_crtc_state *pipe_config)
+> > >  {
+> > >  	struct drm_i915_private *dev_priv =3D to_i915(crtc->base.dev);
+> > > -	const struct drm_display_mode *adjusted_mode =3D &pipe_config->hw.a=
+djusted_mode;
+> > > +	struct drm_display_mode *pipe_mode =3D &pipe_config->hw.pipe_mode;
+> > >  	int clock_limit =3D dev_priv->max_dotclk_freq;
+> > >  =
 
-Possible new issues
--------------------
+> > > +	*pipe_mode =3D pipe_config->hw.adjusted_mode;
+> > =
 
-  Here are the unknown changes that may have been introduced in Patchwork_18860:
+> > That will now overwrite whatever the encoder computed in
+> > .compute_config(). Wasn't that where we wanted to do it for actual
+> > bigjoiner, or was that going to be somewhere else?
+> =
 
-### IGT changes ###
+> We compute the pipe mode for bigjoiner in this function:
+> =
 
-#### Possible regressions ####
+> static int intel_crtc_compute_config(struct intel_crtc *crtc,
+>                                      struct intel_crtc_state *pipe_config)
+> {
+>         struct drm_i915_private *dev_priv =3D to_i915(crtc->base.dev);
+>         struct drm_display_mode *pipe_mode =3D &pipe_config->hw.pipe_mode;
+>         int clock_limit =3D dev_priv->max_dotclk_freq;
+> =
 
-  * igt@gem_busy@busy@all:
-    - fi-ilk-650:         [PASS][1] -> [DMESG-WARN][2]
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-ilk-650/igt@gem_busy@busy@all.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-ilk-650/igt@gem_busy@busy@all.html
-    - fi-pnv-d510:        [PASS][3] -> [DMESG-WARN][4]
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-pnv-d510/igt@gem_busy@busy@all.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-pnv-d510/igt@gem_busy@busy@all.html
-    - fi-gdg-551:         [PASS][5] -> [DMESG-WARN][6]
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-gdg-551/igt@gem_busy@busy@all.html
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-gdg-551/igt@gem_busy@busy@all.html
-    - fi-snb-2520m:       [PASS][7] -> [DMESG-WARN][8]
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-snb-2520m/igt@gem_busy@busy@all.html
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-snb-2520m/igt@gem_busy@busy@all.html
-    - fi-bwr-2160:        [PASS][9] -> [DMESG-WARN][10]
-   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-bwr-2160/igt@gem_busy@busy@all.html
-   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-bwr-2160/igt@gem_busy@busy@all.html
-    - fi-hsw-4770:        [PASS][11] -> [DMESG-WARN][12]
-   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-hsw-4770/igt@gem_busy@busy@all.html
-   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-hsw-4770/igt@gem_busy@busy@all.html
-    - fi-kbl-guc:         [PASS][13] -> [DMESG-WARN][14]
-   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-kbl-guc/igt@gem_busy@busy@all.html
-   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-kbl-guc/igt@gem_busy@busy@all.html
-    - fi-snb-2600:        [PASS][15] -> [DMESG-WARN][16]
-   [15]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-snb-2600/igt@gem_busy@busy@all.html
-   [16]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-snb-2600/igt@gem_busy@busy@all.html
-    - fi-ivb-3770:        [PASS][17] -> [DMESG-WARN][18]
-   [17]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-ivb-3770/igt@gem_busy@busy@all.html
-   [18]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-ivb-3770/igt@gem_busy@busy@all.html
-    - fi-byt-j1900:       [PASS][19] -> [DMESG-WARN][20]
-   [19]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-byt-j1900/igt@gem_busy@busy@all.html
-   [20]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-byt-j1900/igt@gem_busy@busy@all.html
-    - fi-elk-e7500:       [PASS][21] -> [DMESG-WARN][22]
-   [21]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-elk-e7500/igt@gem_busy@busy@all.html
-   [22]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-elk-e7500/igt@gem_busy@busy@all.html
-    - fi-skl-6700k2:      [PASS][23] -> [DMESG-WARN][24]
-   [23]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-skl-6700k2/igt@gem_busy@busy@all.html
-   [24]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-skl-6700k2/igt@gem_busy@busy@all.html
-    - fi-tgl-u2:          [PASS][25] -> [DMESG-WARN][26]
-   [25]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-tgl-u2/igt@gem_busy@busy@all.html
-   [26]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-tgl-u2/igt@gem_busy@busy@all.html
-    - fi-blb-e6850:       [PASS][27] -> [DMESG-WARN][28]
-   [27]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-blb-e6850/igt@gem_busy@busy@all.html
-   [28]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-blb-e6850/igt@gem_busy@busy@all.html
+>         *pipe_mode =3D pipe_config->hw.adjusted_mode;
+> =
 
-  * igt@gem_close_race@basic-threads:
-    - fi-skl-6600u:       [PASS][29] -> [DMESG-WARN][30]
-   [29]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-skl-6600u/igt@gem_close_race@basic-threads.html
-   [30]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-skl-6600u/igt@gem_close_race@basic-threads.html
-    - fi-skl-guc:         [PASS][31] -> [DMESG-WARN][32]
-   [31]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-skl-guc/igt@gem_close_race@basic-threads.html
-   [32]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-skl-guc/igt@gem_close_race@basic-threads.html
-    - fi-bdw-5557u:       [PASS][33] -> [DMESG-WARN][34]
-   [33]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-bdw-5557u/igt@gem_close_race@basic-threads.html
-   [34]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-bdw-5557u/igt@gem_close_race@basic-threads.html
-    - fi-icl-y:           [PASS][35] -> [DMESG-WARN][36]
-   [35]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-icl-y/igt@gem_close_race@basic-threads.html
-   [36]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-icl-y/igt@gem_close_race@basic-threads.html
-    - fi-bdw-gvtdvm:      [PASS][37] -> [DMESG-WARN][38]
-   [37]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-bdw-gvtdvm/igt@gem_close_race@basic-threads.html
-   [38]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-bdw-gvtdvm/igt@gem_close_race@basic-threads.html
-    - fi-bsw-nick:        [PASS][39] -> [DMESG-WARN][40]
-   [39]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-bsw-nick/igt@gem_close_race@basic-threads.html
-   [40]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-bsw-nick/igt@gem_close_race@basic-threads.html
-    - fi-kbl-7500u:       [PASS][41] -> [DMESG-WARN][42]
-   [41]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-kbl-7500u/igt@gem_close_race@basic-threads.html
-   [42]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-kbl-7500u/igt@gem_close_race@basic-threads.html
-    - fi-cfl-8109u:       [PASS][43] -> [DMESG-WARN][44]
-   [43]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-cfl-8109u/igt@gem_close_race@basic-threads.html
-   [44]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-cfl-8109u/igt@gem_close_race@basic-threads.html
-    - fi-kbl-r:           [PASS][45] -> [DMESG-WARN][46]
-   [45]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-kbl-r/igt@gem_close_race@basic-threads.html
-   [46]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-kbl-r/igt@gem_close_race@basic-threads.html
-    - fi-bsw-kefka:       [PASS][47] -> [DMESG-WARN][48]
-   [47]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-bsw-kefka/igt@gem_close_race@basic-threads.html
-   [48]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-bsw-kefka/igt@gem_close_race@basic-threads.html
-    - fi-glk-dsi:         [PASS][49] -> [DMESG-WARN][50]
-   [49]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-glk-dsi/igt@gem_close_race@basic-threads.html
-   [50]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-glk-dsi/igt@gem_close_race@basic-threads.html
-    - fi-tgl-y:           [PASS][51] -> [DMESG-WARN][52]
-   [51]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-tgl-y/igt@gem_close_race@basic-threads.html
-   [52]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-tgl-y/igt@gem_close_race@basic-threads.html
-    - fi-kbl-soraka:      [PASS][53] -> [DMESG-WARN][54]
-   [53]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-kbl-soraka/igt@gem_close_race@basic-threads.html
-   [54]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-kbl-soraka/igt@gem_close_race@basic-threads.html
-    - fi-cfl-guc:         [PASS][55] -> [DMESG-WARN][56]
-   [55]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-cfl-guc/igt@gem_close_race@basic-threads.html
-   [56]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-cfl-guc/igt@gem_close_race@basic-threads.html
-    - fi-kbl-x1275:       [PASS][57] -> [DMESG-WARN][58]
-   [57]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-kbl-x1275/igt@gem_close_race@basic-threads.html
-   [58]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-kbl-x1275/igt@gem_close_race@basic-threads.html
-    - fi-cml-s:           [PASS][59] -> [DMESG-WARN][60]
-   [59]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-cml-s/igt@gem_close_race@basic-threads.html
-   [60]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-cml-s/igt@gem_close_race@basic-threads.html
-    - fi-skl-lmem:        [PASS][61] -> [DMESG-WARN][62]
-   [61]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-skl-lmem/igt@gem_close_race@basic-threads.html
-   [62]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-skl-lmem/igt@gem_close_race@basic-threads.html
-    - fi-bsw-n3050:       [PASS][63] -> [DMESG-WARN][64]
-   [63]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-bsw-n3050/igt@gem_close_race@basic-threads.html
-   [64]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-bsw-n3050/igt@gem_close_race@basic-threads.html
-    - fi-icl-u2:          [PASS][65] -> [DMESG-WARN][66]
-   [65]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-icl-u2/igt@gem_close_race@basic-threads.html
-   [66]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-icl-u2/igt@gem_close_race@basic-threads.html
-    - fi-cml-u2:          [PASS][67] -> [DMESG-WARN][68]
-   [67]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-cml-u2/igt@gem_close_race@basic-threads.html
-   [68]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-cml-u2/igt@gem_close_race@basic-threads.html
-    - fi-cfl-8700k:       [PASS][69] -> [DMESG-WARN][70]
-   [69]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-cfl-8700k/igt@gem_close_race@basic-threads.html
-   [70]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-cfl-8700k/igt@gem_close_race@basic-threads.html
+>         /* Adjust pipe_mode for bigjoiner, with half the horizontal mode =
+*/
+>         if (pipe_config->bigjoiner) {
+>                 pipe_mode->crtc_clock /=3D 2;
+>                 pipe_mode->crtc_hdisplay /=3D 2;
+>                 pipe_mode->crtc_hblank_start /=3D 2;
+>                 pipe_mode->crtc_hblank_end /=3D 2;
+>                 pipe_mode->crtc_hsync_start /=3D 2;
+>                 pipe_mode->crtc_hsync_end /=3D 2;
+>                 pipe_mode->crtc_htotal /=3D 2;
+>                 pipe_mode->crtc_hskew /=3D 2;
+>                 pipe_config->pipe_src_w /=3D 2;
+>         }
+> =
 
-  
-#### Suppressed ####
+> So thats why in this patch we just add *pipe_mode =3D pipe_config->hw.adj=
+usted_mode; the actual big joiner stuff gets added
+> in the core big joiner patch : https://patchwork.freedesktop.org/patch/39=
+8457/?series=3D83379&rev=3D1
 
-  The following results come from untrusted machines, tests, or statuses.
-  They do not affect the overall result.
+OK. In that case this seems fine. Just a bit worried we might need
+pipe_mode already before this, in which case doing it earlier would
+be required. But we can cross that bridge if/when we come to it.
 
-  * igt@gem_close_race@basic-threads:
-    - {fi-ehl-1}:         [PASS][71] -> [DMESG-WARN][72]
-   [71]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-ehl-1/igt@gem_close_race@basic-threads.html
-   [72]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-ehl-1/igt@gem_close_race@basic-threads.html
-    - {fi-tgl-dsi}:       [PASS][73] -> [DMESG-WARN][74]
-   [73]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-tgl-dsi/igt@gem_close_race@basic-threads.html
-   [74]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-tgl-dsi/igt@gem_close_race@basic-threads.html
-    - {fi-kbl-7560u}:     [PASS][75] -> [DMESG-WARN][76]
-   [75]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-kbl-7560u/igt@gem_close_race@basic-threads.html
-   [76]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-kbl-7560u/igt@gem_close_race@basic-threads.html
+> =
 
-  
-New tests
----------
+> =
 
-  New tests have been introduced between CI_DRM_9269 and Patchwork_18860:
+> > =
 
-### New CI tests (1) ###
+> > An alternative would be to do this before .compute_config() +
+> > also in intel_fixed_panel_mode() for eDP/etc.
+> > =
 
-  * boot:
-    - Statuses : 41 pass(s)
-    - Exec time: [0.0] s
+> > > +
+> > >  	if (INTEL_GEN(dev_priv) < 4) {
+> > >  		clock_limit =3D dev_priv->max_cdclk_freq * 9 / 10;
+> > >  =
 
-  
+> > > @@ -8256,16 +8260,16 @@ static int intel_crtc_compute_config(struct i=
+ntel_crtc *crtc,
+> > >  		 * is > 90% of the (display) core speed.
+> > >  		 */
+> > >  		if (intel_crtc_supports_double_wide(crtc) &&
+> > > -		    adjusted_mode->crtc_clock > clock_limit) {
+> > > +		    pipe_mode->crtc_clock > clock_limit) {
+> > >  			clock_limit =3D dev_priv->max_dotclk_freq;
+> > >  			pipe_config->double_wide =3D true;
+> > >  		}
+> > >  	}
+> > >  =
 
-Known issues
-------------
+> > > -	if (adjusted_mode->crtc_clock > clock_limit) {
+> > > +	if (pipe_mode->crtc_clock > clock_limit) {
+> > >  		drm_dbg_kms(&dev_priv->drm,
+> > >  			    "requested pixel clock (%d kHz) too high (max: %d kHz, double=
+ wide: %s)\n",
+> > > -			    adjusted_mode->crtc_clock, clock_limit,
+> > > +			    pipe_mode->crtc_clock, clock_limit,
+> > >  			    yesno(pipe_config->double_wide));
+> > >  		return -EINVAL;
+> > >  	}
+> > > @@ -8308,7 +8312,7 @@ static int intel_crtc_compute_config(struct int=
+el_crtc *crtc,
+> > >  	 * WaPruneModeWithIncorrectHsyncOffset:ctg,elk,ilk,snb,ivb,vlv,hsw.
+> > >  	 */
+> > >  	if ((INTEL_GEN(dev_priv) > 4 || IS_G4X(dev_priv)) &&
+> > > -		adjusted_mode->crtc_hsync_start =3D=3D adjusted_mode->crtc_hdispla=
+y)
+> > > +	    pipe_mode->crtc_hsync_start =3D=3D pipe_mode->crtc_hdisplay)
+> > >  		return -EINVAL;
+> > >  =
 
-  Here are the changes found in Patchwork_18860 that come from known issues:
+> > >  	intel_crtc_compute_pixel_rate(pipe_config);
+> > > @@ -12827,15 +12831,15 @@ static bool c8_planes_changed(const struct =
+intel_crtc_state *new_crtc_state)
+> > >  =
 
-### IGT changes ###
+> > >  static u16 hsw_linetime_wm(const struct intel_crtc_state *crtc_state)
+> > >  {
+> > > -	const struct drm_display_mode *adjusted_mode =3D
+> > > -		&crtc_state->hw.adjusted_mode;
+> > > +	const struct drm_display_mode *pipe_mode =3D
+> > > +		&crtc_state->hw.pipe_mode;
+> > >  	int linetime_wm;
+> > >  =
 
-#### Issues hit ####
+> > >  	if (!crtc_state->hw.enable)
+> > >  		return 0;
+> > >  =
 
-  * igt@debugfs_test@read_all_entries:
-    - fi-apl-guc:         [PASS][77] -> [DMESG-WARN][78] ([i915#1635] / [i915#62])
-   [77]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-apl-guc/igt@debugfs_test@read_all_entries.html
-   [78]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-apl-guc/igt@debugfs_test@read_all_entries.html
+> > > -	linetime_wm =3D DIV_ROUND_CLOSEST(adjusted_mode->crtc_htotal * 1000=
+ * 8,
+> > > -					adjusted_mode->crtc_clock);
+> > > +	linetime_wm =3D DIV_ROUND_CLOSEST(pipe_mode->crtc_htotal * 1000 * 8,
+> > > +					pipe_mode->crtc_clock);
+> > >  =
 
-  * igt@gem_close_race@basic-process:
-    - fi-tgl-y:           [PASS][79] -> [DMESG-WARN][80] ([i915#402])
-   [79]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-tgl-y/igt@gem_close_race@basic-process.html
-   [80]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-tgl-y/igt@gem_close_race@basic-process.html
+> > >  	return min(linetime_wm, 0x1ff);
+> > >  }
+> > > @@ -13322,7 +13326,10 @@ static void intel_dump_pipe_config(const str=
+uct intel_crtc_state *pipe_config,
+> > >  	drm_mode_debug_printmodeline(&pipe_config->hw.mode);
+> > >  	drm_dbg_kms(&dev_priv->drm, "adjusted mode:\n");
+> > >  	drm_mode_debug_printmodeline(&pipe_config->hw.adjusted_mode);
+> > > +	drm_dbg_kms(&dev_priv->drm, "pipe mode:\n");
+> > > +	drm_mode_debug_printmodeline(&pipe_config->hw.pipe_mode);
+> > >  	intel_dump_crtc_timings(dev_priv, &pipe_config->hw.adjusted_mode);
+> > > +	intel_dump_crtc_timings(dev_priv, &pipe_config->hw.pipe_mode);
+> > >  	drm_dbg_kms(&dev_priv->drm,
+> > >  		    "port clock: %d, pipe src size: %dx%d, pixel rate %d\n",
+> > >  		    pipe_config->port_clock,
+> > > @@ -13465,8 +13472,9 @@ intel_crtc_copy_uapi_to_hw_state(struct intel=
+_crtc_state *crtc_state)
+> > >  	crtc_state->hw.enable =3D crtc_state->uapi.enable;
+> > >  	crtc_state->hw.active =3D crtc_state->uapi.active;
+> > >  	crtc_state->hw.mode =3D crtc_state->uapi.mode;
+> > > -	crtc_state->hw.adjusted_mode =3D crtc_state->uapi.adjusted_mode;
+> > > +	crtc_state->hw.pipe_mode =3D crtc_state->hw.adjusted_mode =3D crtc_=
+state->uapi.adjusted_mode;
+> > >  	crtc_state->hw.scaling_filter =3D crtc_state->uapi.scaling_filter;
+> > > +
+> > >  	intel_crtc_copy_uapi_to_hw_state_nomodeset(crtc_state);
+> > >  }
+> > >  =
 
-  * igt@gem_close_race@basic-threads:
-    - fi-apl-guc:         [PASS][81] -> [DMESG-WARN][82] ([i915#1635])
-   [81]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-apl-guc/igt@gem_close_race@basic-threads.html
-   [82]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-apl-guc/igt@gem_close_race@basic-threads.html
-    - fi-bxt-dsi:         [PASS][83] -> [DMESG-WARN][84] ([i915#1635])
-   [83]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-bxt-dsi/igt@gem_close_race@basic-threads.html
-   [84]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-bxt-dsi/igt@gem_close_race@basic-threads.html
+> > > @@ -13663,6 +13671,9 @@ intel_modeset_pipe_config(struct intel_crtc_s=
+tate *pipe_config)
+> > >  		    "hw max bpp: %i, pipe bpp: %i, dithering: %i\n",
+> > >  		    base_bpp, pipe_config->pipe_bpp, pipe_config->dither);
+> > >  =
 
-  
-  {name}: This element is suppressed. This means it is ignored when computing
-          the status of the difference (SUCCESS, WARNING, or FAILURE).
+> > > +	/* without bigjoiner, pipe_mode =3D=3D adjusted_mode */
+> > > +	pipe_config->hw.pipe_mode =3D pipe_config->hw.adjusted_mode;
+> > > +
+> > >  	return 0;
+> > >  }
+> > >  =
 
-  [i915#1635]: https://gitlab.freedesktop.org/drm/intel/issues/1635
-  [i915#402]: https://gitlab.freedesktop.org/drm/intel/issues/402
-  [i915#62]: https://gitlab.freedesktop.org/drm/intel/issues/62
+> > > @@ -14071,6 +14082,10 @@ intel_pipe_config_compare(const struct intel=
+_crtc_state *current_config,
+> > >  =
 
+> > >  	PIPE_CONF_CHECK_X(output_types);
+> > >  =
 
-Participating hosts (45 -> 41)
-------------------------------
+> > > +	PIPE_CONF_CHECK_I(hw.pipe_mode.crtc_hdisplay);
+> > > +	PIPE_CONF_CHECK_I(hw.pipe_mode.crtc_hdisplay);
+> > > +	PIPE_CONF_CHECK_I(hw.pipe_mode.crtc_hdisplay);
+> > > +	PIPE_CONF_CHECK_I(hw.pipe_mode.crtc_hdisplay);
+> > >  	PIPE_CONF_CHECK_I(hw.adjusted_mode.crtc_hdisplay);
+> > >  	PIPE_CONF_CHECK_I(hw.adjusted_mode.crtc_htotal);
+> > >  	PIPE_CONF_CHECK_I(hw.adjusted_mode.crtc_hblank_start);
+> > > @@ -18920,6 +18935,8 @@ static void intel_modeset_readout_hw_state(st=
+ruct drm_device *dev)
+> > >  			 */
+> > >  			crtc_state->inherited =3D true;
+> > >  =
 
-  Missing    (4): fi-ctg-p8600 fi-bsw-cyan fi-bdw-samus fi-hsw-4200u 
+> > > +			crtc_state->hw.pipe_mode =3D crtc_state->hw.adjusted_mode;
+> > > +
+> > =
 
+> > Isn't this redundant now?
+> =
 
-Build changes
--------------
+> Why is this redundant? I think we need this because then intel_crtc_compu=
+te_pixel_rate() call actually uses pipe_mode
+> for getting pixel rate.
 
-  * Linux: CI_DRM_9269 -> Patchwork_18860
+intel_encoder_get_config() already did the copy no?
 
-  CI-20190529: 20190529
-  CI_DRM_9269: 27ee0946b657de27f0d6d25264c8a8f335795b95 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_5836: 4c2ec0ad123b82f42f9fe2297e1a41fec73c9229 @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools
-  Patchwork_18860: 1d27e3aff4a313dc64b72cb82fe1010e3fa7ad53 @ git://anongit.freedesktop.org/gfx-ci/linux
+Hmm. But there is the possibility of BIOS enabling pipes w/o
+encoders on older platforms. We may need the extra copy for those.
+IIRC we already have some special handling for that in the
+.get_pipe_config() implementations, so maybe the pipe_mode copy
+should be there as well...
 
-
-== Linux commits ==
-
-1d27e3aff4a3 drm/i915/gem: Drop free_work for GEM contexts
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/index.html
-
---===============8573100234337359537==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/gem: Drop free_work for GEM contexts</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/83537/">https://patchwork.freedesktop.org/series/83537/</a></td></tr>
-<tr><td><b>State:</b></td><td>failure</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/index.html</a></td></tr>
-
-</table>
+Or, maybe we actually want a intel_crtc_get_pipe_config() wrapper
+similar to the intel_encoder_get_config() one you're adding,
+which would also do the same copy for us. This might be the
+cleanest approach.
 
 
-    <h1>CI Bug Log - changes from CI_DRM_9269 -&gt; Patchwork_18860</h1>
-<h2>Summary</h2>
-<p><strong>FAILURE</strong></p>
-<p>Serious unknown changes coming with Patchwork_18860 absolutely need to be<br />
-  verified manually.</p>
-<p>If you think the reported changes have nothing to do with the changes<br />
-  introduced in Patchwork_18860, please notify your bug team to allow them<br />
-  to document this new failure mode, which will reduce false positives in CI.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/index.html</p>
-<h2>Possible new issues</h2>
-<p>Here are the unknown changes that may have been introduced in Patchwork_18860:</p>
-<h3>IGT changes</h3>
-<h4>Possible regressions</h4>
-<ul>
-<li>
-<p>igt@gem_busy@busy@all:</p>
-<ul>
-<li>
-<p>fi-ilk-650:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-ilk-650/igt@gem_busy@busy@all.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-ilk-650/igt@gem_busy@busy@all.html">DMESG-WARN</a></p>
-</li>
-<li>
-<p>fi-pnv-d510:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-pnv-d510/igt@gem_busy@busy@all.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-pnv-d510/igt@gem_busy@busy@all.html">DMESG-WARN</a></p>
-</li>
-<li>
-<p>fi-gdg-551:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-gdg-551/igt@gem_busy@busy@all.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-gdg-551/igt@gem_busy@busy@all.html">DMESG-WARN</a></p>
-</li>
-<li>
-<p>fi-snb-2520m:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-snb-2520m/igt@gem_busy@busy@all.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-snb-2520m/igt@gem_busy@busy@all.html">DMESG-WARN</a></p>
-</li>
-<li>
-<p>fi-bwr-2160:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-bwr-2160/igt@gem_busy@busy@all.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-bwr-2160/igt@gem_busy@busy@all.html">DMESG-WARN</a></p>
-</li>
-<li>
-<p>fi-hsw-4770:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-hsw-4770/igt@gem_busy@busy@all.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-hsw-4770/igt@gem_busy@busy@all.html">DMESG-WARN</a></p>
-</li>
-<li>
-<p>fi-kbl-guc:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-kbl-guc/igt@gem_busy@busy@all.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-kbl-guc/igt@gem_busy@busy@all.html">DMESG-WARN</a></p>
-</li>
-<li>
-<p>fi-snb-2600:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-snb-2600/igt@gem_busy@busy@all.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-snb-2600/igt@gem_busy@busy@all.html">DMESG-WARN</a></p>
-</li>
-<li>
-<p>fi-ivb-3770:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-ivb-3770/igt@gem_busy@busy@all.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-ivb-3770/igt@gem_busy@busy@all.html">DMESG-WARN</a></p>
-</li>
-<li>
-<p>fi-byt-j1900:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-byt-j1900/igt@gem_busy@busy@all.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-byt-j1900/igt@gem_busy@busy@all.html">DMESG-WARN</a></p>
-</li>
-<li>
-<p>fi-elk-e7500:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-elk-e7500/igt@gem_busy@busy@all.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-elk-e7500/igt@gem_busy@busy@all.html">DMESG-WARN</a></p>
-</li>
-<li>
-<p>fi-skl-6700k2:      <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-skl-6700k2/igt@gem_busy@busy@all.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-skl-6700k2/igt@gem_busy@busy@all.html">DMESG-WARN</a></p>
-</li>
-<li>
-<p>fi-tgl-u2:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-tgl-u2/igt@gem_busy@busy@all.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-tgl-u2/igt@gem_busy@busy@all.html">DMESG-WARN</a></p>
-</li>
-<li>
-<p>fi-blb-e6850:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-blb-e6850/igt@gem_busy@busy@all.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-blb-e6850/igt@gem_busy@busy@all.html">DMESG-WARN</a></p>
-</li>
-</ul>
-</li>
-<li>
-<p>igt@gem_close_race@basic-threads:</p>
-<ul>
-<li>
-<p>fi-skl-6600u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-skl-6600u/igt@gem_close_race@basic-threads.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-skl-6600u/igt@gem_close_race@basic-threads.html">DMESG-WARN</a></p>
-</li>
-<li>
-<p>fi-skl-guc:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-skl-guc/igt@gem_close_race@basic-threads.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-skl-guc/igt@gem_close_race@basic-threads.html">DMESG-WARN</a></p>
-</li>
-<li>
-<p>fi-bdw-5557u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-bdw-5557u/igt@gem_close_race@basic-threads.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-bdw-5557u/igt@gem_close_race@basic-threads.html">DMESG-WARN</a></p>
-</li>
-<li>
-<p>fi-icl-y:           <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-icl-y/igt@gem_close_race@basic-threads.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-icl-y/igt@gem_close_race@basic-threads.html">DMESG-WARN</a></p>
-</li>
-<li>
-<p>fi-bdw-gvtdvm:      <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-bdw-gvtdvm/igt@gem_close_race@basic-threads.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-bdw-gvtdvm/igt@gem_close_race@basic-threads.html">DMESG-WARN</a></p>
-</li>
-<li>
-<p>fi-bsw-nick:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-bsw-nick/igt@gem_close_race@basic-threads.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-bsw-nick/igt@gem_close_race@basic-threads.html">DMESG-WARN</a></p>
-</li>
-<li>
-<p>fi-kbl-7500u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-kbl-7500u/igt@gem_close_race@basic-threads.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-kbl-7500u/igt@gem_close_race@basic-threads.html">DMESG-WARN</a></p>
-</li>
-<li>
-<p>fi-cfl-8109u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-cfl-8109u/igt@gem_close_race@basic-threads.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-cfl-8109u/igt@gem_close_race@basic-threads.html">DMESG-WARN</a></p>
-</li>
-<li>
-<p>fi-kbl-r:           <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-kbl-r/igt@gem_close_race@basic-threads.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-kbl-r/igt@gem_close_race@basic-threads.html">DMESG-WARN</a></p>
-</li>
-<li>
-<p>fi-bsw-kefka:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-bsw-kefka/igt@gem_close_race@basic-threads.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-bsw-kefka/igt@gem_close_race@basic-threads.html">DMESG-WARN</a></p>
-</li>
-<li>
-<p>fi-glk-dsi:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-glk-dsi/igt@gem_close_race@basic-threads.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-glk-dsi/igt@gem_close_race@basic-threads.html">DMESG-WARN</a></p>
-</li>
-<li>
-<p>fi-tgl-y:           <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-tgl-y/igt@gem_close_race@basic-threads.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-tgl-y/igt@gem_close_race@basic-threads.html">DMESG-WARN</a></p>
-</li>
-<li>
-<p>fi-kbl-soraka:      <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-kbl-soraka/igt@gem_close_race@basic-threads.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-kbl-soraka/igt@gem_close_race@basic-threads.html">DMESG-WARN</a></p>
-</li>
-<li>
-<p>fi-cfl-guc:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-cfl-guc/igt@gem_close_race@basic-threads.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-cfl-guc/igt@gem_close_race@basic-threads.html">DMESG-WARN</a></p>
-</li>
-<li>
-<p>fi-kbl-x1275:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-kbl-x1275/igt@gem_close_race@basic-threads.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-kbl-x1275/igt@gem_close_race@basic-threads.html">DMESG-WARN</a></p>
-</li>
-<li>
-<p>fi-cml-s:           <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-cml-s/igt@gem_close_race@basic-threads.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-cml-s/igt@gem_close_race@basic-threads.html">DMESG-WARN</a></p>
-</li>
-<li>
-<p>fi-skl-lmem:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-skl-lmem/igt@gem_close_race@basic-threads.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-skl-lmem/igt@gem_close_race@basic-threads.html">DMESG-WARN</a></p>
-</li>
-<li>
-<p>fi-bsw-n3050:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-bsw-n3050/igt@gem_close_race@basic-threads.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-bsw-n3050/igt@gem_close_race@basic-threads.html">DMESG-WARN</a></p>
-</li>
-<li>
-<p>fi-icl-u2:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-icl-u2/igt@gem_close_race@basic-threads.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-icl-u2/igt@gem_close_race@basic-threads.html">DMESG-WARN</a></p>
-</li>
-<li>
-<p>fi-cml-u2:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-cml-u2/igt@gem_close_race@basic-threads.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-cml-u2/igt@gem_close_race@basic-threads.html">DMESG-WARN</a></p>
-</li>
-<li>
-<p>fi-cfl-8700k:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-cfl-8700k/igt@gem_close_race@basic-threads.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-cfl-8700k/igt@gem_close_race@basic-threads.html">DMESG-WARN</a></p>
-</li>
-</ul>
-</li>
-</ul>
-<h4>Suppressed</h4>
-<p>The following results come from untrusted machines, tests, or statuses.<br />
-  They do not affect the overall result.</p>
-<ul>
-<li>
-<p>igt@gem_close_race@basic-threads:</p>
-<ul>
-<li>
-<p>{fi-ehl-1}:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-ehl-1/igt@gem_close_race@basic-threads.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-ehl-1/igt@gem_close_race@basic-threads.html">DMESG-WARN</a></p>
-</li>
-<li>
-<p>{fi-tgl-dsi}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-tgl-dsi/igt@gem_close_race@basic-threads.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-tgl-dsi/igt@gem_close_race@basic-threads.html">DMESG-WARN</a></p>
-</li>
-<li>
-<p>{fi-kbl-7560u}:     <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-kbl-7560u/igt@gem_close_race@basic-threads.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-kbl-7560u/igt@gem_close_race@basic-threads.html">DMESG-WARN</a></p>
-</li>
-</ul>
-</li>
-</ul>
-<h2>New tests</h2>
-<p>New tests have been introduced between CI_DRM_9269 and Patchwork_18860:</p>
-<h3>New CI tests (1)</h3>
-<ul>
-<li>boot:<ul>
-<li>Statuses : 41 pass(s)</li>
-<li>Exec time: [0.0] s</li>
-</ul>
-</li>
-</ul>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_18860 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@debugfs_test@read_all_entries:</p>
-<ul>
-<li>fi-apl-guc:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-apl-guc/igt@debugfs_test@read_all_entries.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-apl-guc/igt@debugfs_test@read_all_entries.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1635">i915#1635</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/62">i915#62</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@gem_close_race@basic-process:</p>
-<ul>
-<li>fi-tgl-y:           <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-tgl-y/igt@gem_close_race@basic-process.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-tgl-y/igt@gem_close_race@basic-process.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/402">i915#402</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@gem_close_race@basic-threads:</p>
-<ul>
-<li>
-<p>fi-apl-guc:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-apl-guc/igt@gem_close_race@basic-threads.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-apl-guc/igt@gem_close_race@basic-threads.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1635">i915#1635</a>)</p>
-</li>
-<li>
-<p>fi-bxt-dsi:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9269/fi-bxt-dsi/igt@gem_close_race@basic-threads.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18860/fi-bxt-dsi/igt@gem_close_race@basic-threads.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1635">i915#1635</a>)</p>
-</li>
-</ul>
-</li>
-</ul>
-<p>{name}: This element is suppressed. This means it is ignored when computing<br />
-          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
-<h2>Participating hosts (45 -&gt; 41)</h2>
-<p>Missing    (4): fi-ctg-p8600 fi-bsw-cyan fi-bdw-samus fi-hsw-4200u </p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_9269 -&gt; Patchwork_18860</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_9269: 27ee0946b657de27f0d6d25264c8a8f335795b95 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_5836: 4c2ec0ad123b82f42f9fe2297e1a41fec73c9229 @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools<br />
-  Patchwork_18860: 1d27e3aff4a313dc64b72cb82fe1010e3fa7ad53 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<p>== Linux commits ==</p>
-<p>1d27e3aff4a3 drm/i915/gem: Drop free_work for GEM contexts</p>
+> =
 
-</body>
-</html>
+> Manasi
+> =
 
---===============8573100234337359537==--
+> =
 
---===============0437327552==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+> > =
 
+> > >  			intel_crtc_compute_pixel_rate(crtc_state);
+> > >  =
+
+> > >  			intel_crtc_update_active_timings(crtc_state);
+> > > diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/dri=
+vers/gpu/drm/i915/display/intel_display_types.h
+> > > index f6f0626649e0..b526afee595c 100644
+> > > --- a/drivers/gpu/drm/i915/display/intel_display_types.h
+> > > +++ b/drivers/gpu/drm/i915/display/intel_display_types.h
+> > > @@ -817,15 +817,22 @@ struct intel_crtc_state {
+> > >  	 * The following members are used to verify the hardware state:
+> > >  	 * - enable
+> > >  	 * - active
+> > > -	 * - mode / adjusted_mode
+> > > +	 * - mode/adjusted_mode
+> > >  	 * - color property blobs.
+> > >  	 *
+> > >  	 * During initial hw readout, they need to be copied to uapi.
+> > > +	 *
+> > > +	 * Bigjoiner will allow a transcoder mode that spans 2 pipes;
+> > > +	 * Use the pipe_mode for calculations like watermarks, pipe
+> > > +	 * scaler, and bandwidth.
+> > > +	 *
+> > > +	 * Use adjusted_mode for things that need to know the full
+> > > +	 * mode on the transcoder, which spans all pipes.
+> > >  	 */
+> > >  	struct {
+> > >  		bool active, enable;
+> > >  		struct drm_property_blob *degamma_lut, *gamma_lut, *ctm;
+> > > -		struct drm_display_mode mode, adjusted_mode;
+> > > +		struct drm_display_mode mode, pipe_mode, adjusted_mode;
+> > >  		enum drm_scaling_filter scaling_filter;
+> > >  	} hw;
+> > >  =
+
+> > > diff --git a/drivers/gpu/drm/i915/intel_pm.c b/drivers/gpu/drm/i915/i=
+ntel_pm.c
+> > > index f54375b11964..9898c257d3e0 100644
+> > > --- a/drivers/gpu/drm/i915/intel_pm.c
+> > > +++ b/drivers/gpu/drm/i915/intel_pm.c
+> > > @@ -899,12 +899,12 @@ static void pnv_update_wm(struct intel_crtc *un=
+used_crtc)
+> > >  =
+
+> > >  	crtc =3D single_enabled_crtc(dev_priv);
+> > >  	if (crtc) {
+> > > -		const struct drm_display_mode *adjusted_mode =3D
+> > > -			&crtc->config->hw.adjusted_mode;
+> > > +		const struct drm_display_mode *pipe_mode =3D
+> > > +			&crtc->config->hw.pipe_mode;
+> > >  		const struct drm_framebuffer *fb =3D
+> > >  			crtc->base.primary->state->fb;
+> > >  		int cpp =3D fb->format->cpp[0];
+> > > -		int clock =3D adjusted_mode->crtc_clock;
+> > > +		int clock =3D pipe_mode->crtc_clock;
+> > >  =
+
+> > >  		/* Display SR */
+> > >  		wm =3D intel_calculate_wm(clock, &pnv_display_wm,
+> > > @@ -1135,8 +1135,8 @@ static u16 g4x_compute_wm(const struct intel_cr=
+tc_state *crtc_state,
+> > >  {
+> > >  	struct intel_plane *plane =3D to_intel_plane(plane_state->uapi.plan=
+e);
+> > >  	struct drm_i915_private *dev_priv =3D to_i915(plane->base.dev);
+> > > -	const struct drm_display_mode *adjusted_mode =3D
+> > > -		&crtc_state->hw.adjusted_mode;
+> > > +	const struct drm_display_mode *pipe_mode =3D
+> > > +		&crtc_state->hw.pipe_mode;
+> > >  	unsigned int latency =3D dev_priv->wm.pri_latency[level] * 10;
+> > >  	unsigned int clock, htotal, cpp, width, wm;
+> > >  =
+
+> > > @@ -1163,8 +1163,8 @@ static u16 g4x_compute_wm(const struct intel_cr=
+tc_state *crtc_state,
+> > >  	    level !=3D G4X_WM_LEVEL_NORMAL)
+> > >  		cpp =3D max(cpp, 4u);
+> > >  =
+
+> > > -	clock =3D adjusted_mode->crtc_clock;
+> > > -	htotal =3D adjusted_mode->crtc_htotal;
+> > > +	clock =3D pipe_mode->crtc_clock;
+> > > +	htotal =3D pipe_mode->crtc_htotal;
+> > >  =
+
+> > >  	width =3D drm_rect_width(&plane_state->uapi.dst);
+> > >  =
+
+> > > @@ -1660,8 +1660,8 @@ static u16 vlv_compute_wm_level(const struct in=
+tel_crtc_state *crtc_state,
+> > >  {
+> > >  	struct intel_plane *plane =3D to_intel_plane(plane_state->uapi.plan=
+e);
+> > >  	struct drm_i915_private *dev_priv =3D to_i915(plane->base.dev);
+> > > -	const struct drm_display_mode *adjusted_mode =3D
+> > > -		&crtc_state->hw.adjusted_mode;
+> > > +	const struct drm_display_mode *pipe_mode =3D
+> > > +		&crtc_state->hw.pipe_mode;
+> > >  	unsigned int clock, htotal, cpp, width, wm;
+> > >  =
+
+> > >  	if (dev_priv->wm.pri_latency[level] =3D=3D 0)
+> > > @@ -1671,8 +1671,8 @@ static u16 vlv_compute_wm_level(const struct in=
+tel_crtc_state *crtc_state,
+> > >  		return 0;
+> > >  =
+
+> > >  	cpp =3D plane_state->hw.fb->format->cpp[0];
+> > > -	clock =3D adjusted_mode->crtc_clock;
+> > > -	htotal =3D adjusted_mode->crtc_htotal;
+> > > +	clock =3D pipe_mode->crtc_clock;
+> > > +	htotal =3D pipe_mode->crtc_htotal;
+> > >  	width =3D crtc_state->pipe_src_w;
+> > >  =
+
+> > >  	if (plane->id =3D=3D PLANE_CURSOR) {
+> > > @@ -2261,12 +2261,12 @@ static void i965_update_wm(struct intel_crtc =
+*unused_crtc)
+> > >  	if (crtc) {
+> > >  		/* self-refresh has much higher latency */
+> > >  		static const int sr_latency_ns =3D 12000;
+> > > -		const struct drm_display_mode *adjusted_mode =3D
+> > > -			&crtc->config->hw.adjusted_mode;
+> > > +		const struct drm_display_mode *pipe_mode =3D
+> > > +			&crtc->config->hw.pipe_mode;
+> > >  		const struct drm_framebuffer *fb =3D
+> > >  			crtc->base.primary->state->fb;
+> > > -		int clock =3D adjusted_mode->crtc_clock;
+> > > -		int htotal =3D adjusted_mode->crtc_htotal;
+> > > +		int clock =3D pipe_mode->crtc_clock;
+> > > +		int htotal =3D pipe_mode->crtc_htotal;
+> > >  		int hdisplay =3D crtc->config->pipe_src_w;
+> > >  		int cpp =3D fb->format->cpp[0];
+> > >  		int entries;
+> > > @@ -2345,8 +2345,8 @@ static void i9xx_update_wm(struct intel_crtc *u=
+nused_crtc)
+> > >  	fifo_size =3D dev_priv->display.get_fifo_size(dev_priv, PLANE_A);
+> > >  	crtc =3D intel_get_crtc_for_plane(dev_priv, PLANE_A);
+> > >  	if (intel_crtc_active(crtc)) {
+> > > -		const struct drm_display_mode *adjusted_mode =3D
+> > > -			&crtc->config->hw.adjusted_mode;
+> > > +		const struct drm_display_mode *pipe_mode =3D
+> > > +			&crtc->config->hw.pipe_mode;
+> > >  		const struct drm_framebuffer *fb =3D
+> > >  			crtc->base.primary->state->fb;
+> > >  		int cpp;
+> > > @@ -2356,7 +2356,7 @@ static void i9xx_update_wm(struct intel_crtc *u=
+nused_crtc)
+> > >  		else
+> > >  			cpp =3D fb->format->cpp[0];
+> > >  =
+
+> > > -		planea_wm =3D intel_calculate_wm(adjusted_mode->crtc_clock,
+> > > +		planea_wm =3D intel_calculate_wm(pipe_mode->crtc_clock,
+> > >  					       wm_info, fifo_size, cpp,
+> > >  					       pessimal_latency_ns);
+> > >  		enabled =3D crtc;
+> > > @@ -2372,8 +2372,8 @@ static void i9xx_update_wm(struct intel_crtc *u=
+nused_crtc)
+> > >  	fifo_size =3D dev_priv->display.get_fifo_size(dev_priv, PLANE_B);
+> > >  	crtc =3D intel_get_crtc_for_plane(dev_priv, PLANE_B);
+> > >  	if (intel_crtc_active(crtc)) {
+> > > -		const struct drm_display_mode *adjusted_mode =3D
+> > > -			&crtc->config->hw.adjusted_mode;
+> > > +		const struct drm_display_mode *pipe_mode =3D
+> > > +			&crtc->config->hw.pipe_mode;
+> > >  		const struct drm_framebuffer *fb =3D
+> > >  			crtc->base.primary->state->fb;
+> > >  		int cpp;
+> > > @@ -2383,7 +2383,7 @@ static void i9xx_update_wm(struct intel_crtc *u=
+nused_crtc)
+> > >  		else
+> > >  			cpp =3D fb->format->cpp[0];
+> > >  =
+
+> > > -		planeb_wm =3D intel_calculate_wm(adjusted_mode->crtc_clock,
+> > > +		planeb_wm =3D intel_calculate_wm(pipe_mode->crtc_clock,
+> > >  					       wm_info, fifo_size, cpp,
+> > >  					       pessimal_latency_ns);
+> > >  		if (enabled =3D=3D NULL)
+> > > @@ -2421,12 +2421,12 @@ static void i9xx_update_wm(struct intel_crtc =
+*unused_crtc)
+> > >  	if (HAS_FW_BLC(dev_priv) && enabled) {
+> > >  		/* self-refresh has much higher latency */
+> > >  		static const int sr_latency_ns =3D 6000;
+> > > -		const struct drm_display_mode *adjusted_mode =3D
+> > > -			&enabled->config->hw.adjusted_mode;
+> > > +		const struct drm_display_mode *pipe_mode =3D
+> > > +			&enabled->config->hw.pipe_mode;
+> > >  		const struct drm_framebuffer *fb =3D
+> > >  			enabled->base.primary->state->fb;
+> > > -		int clock =3D adjusted_mode->crtc_clock;
+> > > -		int htotal =3D adjusted_mode->crtc_htotal;
+> > > +		int clock =3D pipe_mode->crtc_clock;
+> > > +		int htotal =3D pipe_mode->crtc_htotal;
+> > >  		int hdisplay =3D enabled->config->pipe_src_w;
+> > >  		int cpp;
+> > >  		int entries;
+> > > @@ -2474,7 +2474,7 @@ static void i845_update_wm(struct intel_crtc *u=
+nused_crtc)
+> > >  {
+> > >  	struct drm_i915_private *dev_priv =3D to_i915(unused_crtc->base.dev=
+);
+> > >  	struct intel_crtc *crtc;
+> > > -	const struct drm_display_mode *adjusted_mode;
+> > > +	const struct drm_display_mode *pipe_mode;
+> > >  	u32 fwater_lo;
+> > >  	int planea_wm;
+> > >  =
+
+> > > @@ -2482,8 +2482,8 @@ static void i845_update_wm(struct intel_crtc *u=
+nused_crtc)
+> > >  	if (crtc =3D=3D NULL)
+> > >  		return;
+> > >  =
+
+> > > -	adjusted_mode =3D &crtc->config->hw.adjusted_mode;
+> > > -	planea_wm =3D intel_calculate_wm(adjusted_mode->crtc_clock,
+> > > +	pipe_mode =3D &crtc->config->hw.pipe_mode;
+> > > +	planea_wm =3D intel_calculate_wm(pipe_mode->crtc_clock,
+> > >  				       &i845_wm_info,
+> > >  				       dev_priv->display.get_fifo_size(dev_priv, PLANE_A),
+> > >  				       4, pessimal_latency_ns);
+> > > @@ -2573,7 +2573,7 @@ static u32 ilk_compute_pri_wm(const struct inte=
+l_crtc_state *crtc_state,
+> > >  		return method1;
+> > >  =
+
+> > >  	method2 =3D ilk_wm_method2(crtc_state->pixel_rate,
+> > > -				 crtc_state->hw.adjusted_mode.crtc_htotal,
+> > > +				 crtc_state->hw.pipe_mode.crtc_htotal,
+> > >  				 drm_rect_width(&plane_state->uapi.dst),
+> > >  				 cpp, mem_value);
+> > >  =
+
+> > > @@ -2601,7 +2601,7 @@ static u32 ilk_compute_spr_wm(const struct inte=
+l_crtc_state *crtc_state,
+> > >  =
+
+> > >  	method1 =3D ilk_wm_method1(crtc_state->pixel_rate, cpp, mem_value);
+> > >  	method2 =3D ilk_wm_method2(crtc_state->pixel_rate,
+> > > -				 crtc_state->hw.adjusted_mode.crtc_htotal,
+> > > +				 crtc_state->hw.pipe_mode.crtc_htotal,
+> > >  				 drm_rect_width(&plane_state->uapi.dst),
+> > >  				 cpp, mem_value);
+> > >  	return min(method1, method2);
+> > > @@ -2626,7 +2626,7 @@ static u32 ilk_compute_cur_wm(const struct inte=
+l_crtc_state *crtc_state,
+> > >  	cpp =3D plane_state->hw.fb->format->cpp[0];
+> > >  =
+
+> > >  	return ilk_wm_method2(crtc_state->pixel_rate,
+> > > -			      crtc_state->hw.adjusted_mode.crtc_htotal,
+> > > +			      crtc_state->hw.pipe_mode.crtc_htotal,
+> > >  			      drm_rect_width(&plane_state->uapi.dst),
+> > >  			      cpp, mem_value);
+> > >  }
+> > > @@ -3883,7 +3883,7 @@ static bool skl_crtc_can_enable_sagv(const stru=
+ct intel_crtc_state *crtc_state)
+> > >  	if (!crtc_state->hw.active)
+> > >  		return true;
+> > >  =
+
+> > > -	if (crtc_state->hw.adjusted_mode.flags & DRM_MODE_FLAG_INTERLACE)
+> > > +	if (crtc_state->hw.pipe_mode.flags & DRM_MODE_FLAG_INTERLACE)
+> > >  		return false;
+> > >  =
+
+> > >  	intel_atomic_crtc_state_for_each_plane_state(plane, plane_state, cr=
+tc_state) {
+> > > @@ -4174,8 +4174,8 @@ skl_ddb_get_pipe_allocation_limits(struct drm_i=
+915_private *dev_priv,
+> > >  	 */
+> > >  	total_slice_mask =3D dbuf_slice_mask;
+> > >  	for_each_new_intel_crtc_in_state(intel_state, crtc, crtc_state, i) {
+> > > -		const struct drm_display_mode *adjusted_mode =3D
+> > > -			&crtc_state->hw.adjusted_mode;
+> > > +		const struct drm_display_mode *pipe_mode =3D
+> > > +			&crtc_state->hw.pipe_mode;
+> > >  		enum pipe pipe =3D crtc->pipe;
+> > >  		int hdisplay, vdisplay;
+> > >  		u32 pipe_dbuf_slice_mask;
+> > > @@ -4205,7 +4205,7 @@ skl_ddb_get_pipe_allocation_limits(struct drm_i=
+915_private *dev_priv,
+> > >  		if (dbuf_slice_mask !=3D pipe_dbuf_slice_mask)
+> > >  			continue;
+> > >  =
+
+> > > -		drm_mode_get_hv_timing(adjusted_mode, &hdisplay, &vdisplay);
+> > > +		drm_mode_get_hv_timing(pipe_mode, &hdisplay, &vdisplay);
+> > >  =
+
+> > >  		total_width_in_range +=3D hdisplay;
+> > >  =
+
+> > > @@ -5093,7 +5093,7 @@ intel_get_linetime_us(const struct intel_crtc_s=
+tate *crtc_state)
+> > >  	if (drm_WARN_ON(&dev_priv->drm, pixel_rate =3D=3D 0))
+> > >  		return u32_to_fixed16(0);
+> > >  =
+
+> > > -	crtc_htotal =3D crtc_state->hw.adjusted_mode.crtc_htotal;
+> > > +	crtc_htotal =3D crtc_state->hw.pipe_mode.crtc_htotal;
+> > >  	linetime_us =3D div_fixed16(crtc_htotal * 1000, pixel_rate);
+> > >  =
+
+> > >  	return linetime_us;
+> > > @@ -5282,14 +5282,14 @@ static void skl_compute_plane_wm(const struct=
+ intel_crtc_state *crtc_state,
+> > >  	method1 =3D skl_wm_method1(dev_priv, wp->plane_pixel_rate,
+> > >  				 wp->cpp, latency, wp->dbuf_block_size);
+> > >  	method2 =3D skl_wm_method2(wp->plane_pixel_rate,
+> > > -				 crtc_state->hw.adjusted_mode.crtc_htotal,
+> > > +				 crtc_state->hw.pipe_mode.crtc_htotal,
+> > >  				 latency,
+> > >  				 wp->plane_blocks_per_line);
+> > >  =
+
+> > >  	if (wp->y_tiled) {
+> > >  		selected_result =3D max_fixed16(method2, wp->y_tile_minimum);
+> > >  	} else {
+> > > -		if ((wp->cpp * crtc_state->hw.adjusted_mode.crtc_htotal /
+> > > +		if ((wp->cpp * crtc_state->hw.pipe_mode.crtc_htotal /
+> > >  		     wp->dbuf_block_size < 1) &&
+> > >  		     (wp->plane_bytes_per_line / wp->dbuf_block_size < 1)) {
+> > >  			selected_result =3D method2;
+> > > -- =
+
+> > > 2.19.1
+> > > =
+
+> > > _______________________________________________
+> > > Intel-gfx mailing list
+> > > Intel-gfx@lists.freedesktop.org
+> > > https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+> > =
+
+> > -- =
+
+> > Ville Syrj=E4l=E4
+> > Intel
+
+-- =
+
+Ville Syrj=E4l=E4
+Intel
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-
---===============0437327552==--
