@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9B27DC00A89
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 10:11:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A4ED2C55179
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 10:11:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0A2FF2087D
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 10:11:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0A2FF2087D
+	by mail.kernel.org (Postfix) with ESMTPS id 419E92087D
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 10:11:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 419E92087D
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 928246E9FC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED7D16EA23;
 	Thu,  5 Nov 2020 10:11:47 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 15DBF6E1D7
- for <intel-gfx@lists.freedesktop.org>; Thu,  5 Nov 2020 10:11:44 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D1CC96E9FC
+ for <intel-gfx@lists.freedesktop.org>; Thu,  5 Nov 2020 10:11:46 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22900142-1500050 
- for multiple; Thu, 05 Nov 2020 10:11:39 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22900137-1500050 
+ for multiple; Thu, 05 Nov 2020 10:11:38 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu,  5 Nov 2020 10:11:21 +0000
-Message-Id: <20201105101134.19716-9-chris@chris-wilson.co.uk>
+Date: Thu,  5 Nov 2020 10:11:16 +0000
+Message-Id: <20201105101134.19716-4-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201105101134.19716-1-chris@chris-wilson.co.uk>
 References: <20201105101134.19716-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 09/22] drm/i915/gt: Protect context lifetime
- with RCU
+Subject: [Intel-gfx] [PATCH 04/22] drm/i915/gt: Ignore dt==0 for reporting
+ underflows
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,93 +56,38 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Allow a brief period for continued access to a dead intel_context by
-deferring the release of the struct until after an RCU grace period.
-As we are using a dedicated slab cache for the contexts, we can defer
-the release of the slab pages via RCU, with the caveat that individual
-structs may be reused from the freelist within an RCU grace period. To
-handle that, we have to avoid clearing members of the zombie struct.
-
-This is required for a later patch to handle locking around virtual
-requests in the signaler, as those requests may want to move between
-engines and be destroyed while we are holding b->irq_lock on a physical
-engine.
-
-v2: Drop mutex_reinit(), if we never mark the mutex as destroyed we
-don't need to reset the debug code, at the loss of having the mutex
-debug code spot us attempting to destroy a locked mutex.
-v3: As the intended use will remain strongly referenced counted, with
-very little inflight access across reuse, drop the ctor.
-v4: Drop the unrequired change to remove the temporary reference around
-dropping the active context, and add back some more missing ctor
-operations.
-v5: The ctor is back. Tvrtko spotted that ce->signal_lock [introduced
-later] maybe accessed under RCU and so needs special care not to be
-reinitialised.
-v6: Don't mix SLAB_TYPESAFE_BY_RCU and RCU list iteration.
+The presumption was that some time would always elapse between recording
+the start and the finish of a context switch. This turns out to be a
+regular occurrence and emitting a debug statement superfluous.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_context.c       | 12 +++++++++---
- drivers/gpu/drm/i915/gt/intel_context_types.h | 11 ++++++++++-
- 2 files changed, 19 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_lrc.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_context.c b/drivers/gpu/drm/i915/gt/intel_context.c
-index 92a3f25c4006..d3a835212167 100644
---- a/drivers/gpu/drm/i915/gt/intel_context.c
-+++ b/drivers/gpu/drm/i915/gt/intel_context.c
-@@ -25,11 +25,18 @@ static struct intel_context *intel_context_alloc(void)
- 	return kmem_cache_zalloc(global.slab_ce, GFP_KERNEL);
- }
- 
--void intel_context_free(struct intel_context *ce)
-+static void rcu_context_free(struct rcu_head *rcu)
+diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
+index f3eb68a76a25..4f76f64ba7e6 100644
+--- a/drivers/gpu/drm/i915/gt/intel_lrc.c
++++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
+@@ -1307,7 +1307,7 @@ static void reset_active(struct i915_request *rq,
+ static void st_update_runtime_underflow(struct intel_context *ce, s32 dt)
  {
-+	struct intel_context *ce = container_of(rcu, typeof(*ce), rcu);
-+
- 	kmem_cache_free(global.slab_ce, ce);
+ #if IS_ENABLED(CONFIG_DRM_I915_SELFTEST)
+-	ce->runtime.num_underflow += dt < 0;
++	ce->runtime.num_underflow++;
+ 	ce->runtime.max_underflow = max_t(u32, ce->runtime.max_underflow, -dt);
+ #endif
  }
+@@ -1324,7 +1324,7 @@ static void intel_context_update_runtime(struct intel_context *ce)
+ 	ce->runtime.last = intel_context_get_runtime(ce);
+ 	dt = ce->runtime.last - old;
  
-+void intel_context_free(struct intel_context *ce)
-+{
-+	call_rcu(&ce->rcu, rcu_context_free);
-+}
-+
- struct intel_context *
- intel_context_create(struct intel_engine_cs *engine)
- {
-@@ -356,8 +363,7 @@ static int __intel_context_active(struct i915_active *active)
- }
- 
- void
--intel_context_init(struct intel_context *ce,
--		   struct intel_engine_cs *engine)
-+intel_context_init(struct intel_context *ce, struct intel_engine_cs *engine)
- {
- 	GEM_BUG_ON(!engine->cops);
- 	GEM_BUG_ON(!engine->gt->vm);
-diff --git a/drivers/gpu/drm/i915/gt/intel_context_types.h b/drivers/gpu/drm/i915/gt/intel_context_types.h
-index 552cb57a2e8c..20cb5835d1c3 100644
---- a/drivers/gpu/drm/i915/gt/intel_context_types.h
-+++ b/drivers/gpu/drm/i915/gt/intel_context_types.h
-@@ -44,7 +44,16 @@ struct intel_context_ops {
- };
- 
- struct intel_context {
--	struct kref ref;
-+	/*
-+	 * Note: Some fields may be accessed under RCU.
-+	 *
-+	 * Unless otherwise noted a field can safely be assumed to be protected
-+	 * by strong reference counting.
-+	 */
-+	union {
-+		struct kref ref; /* no kref_get_unless_zero()! */
-+		struct rcu_head rcu;
-+	};
- 
- 	struct intel_engine_cs *engine;
- 	struct intel_engine_cs *inflight;
+-	if (unlikely(dt <= 0)) {
++	if (unlikely(dt < 0)) {
+ 		CE_TRACE(ce, "runtime underflow: last=%u, new=%u, delta=%d\n",
+ 			 old, ce->runtime.last, dt);
+ 		st_update_runtime_underflow(ce, dt);
 -- 
 2.20.1
 
