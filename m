@@ -2,52 +2,56 @@ Return-Path: <SRS0=eU4y=EL=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.9 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-9.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AB8E8C5517A
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 22:32:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EC681C388F7
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 23:10:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4F6AB20719
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 22:32:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4F6AB20719
+	by mail.kernel.org (Postfix) with ESMTPS id 8B2AF20715
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 23:10:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8B2AF20715
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 47C676E843;
-	Thu,  5 Nov 2020 22:32:04 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8AA0D6E116
- for <intel-gfx@lists.freedesktop.org>; Thu,  5 Nov 2020 22:31:57 +0000 (UTC)
-IronPort-SDR: Ehz1P+XnAew04zyOMI8U+0VfuDWR9LhAPHMM+e+LFHew3L23lSCSjDbrHYd52KQFNr2ThIlef8
- fvKu3UX1T5Mg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9796"; a="233637450"
-X-IronPort-AV: E=Sophos;i="5.77,454,1596524400"; d="scan'208";a="233637450"
+	by gabe.freedesktop.org (Postfix) with ESMTP id D101E6E870;
+	Thu,  5 Nov 2020 23:10:45 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 06A2A6E870
+ for <intel-gfx@lists.freedesktop.org>; Thu,  5 Nov 2020 23:10:43 +0000 (UTC)
+IronPort-SDR: 9aaYygSLANfhMDW3dmd1Shr9FnW6gVwcyHf9OUc7hokhx5AsqRaHk6AeT/pBuIdTfwFT+xvujF
+ t49sOXuFcWnw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9796"; a="148753510"
+X-IronPort-AV: E=Sophos;i="5.77,454,1596524400"; d="scan'208";a="148753510"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Nov 2020 14:31:56 -0800
-IronPort-SDR: KivxLCymisl8G4hlFrooejgKEPpGWk326zwURL4sjnVVMtFprrsXreLtzJ44X6eoYJS/2Es4EK
- O99OAnurwl2w==
-X-IronPort-AV: E=Sophos;i="5.77,454,1596524400"; d="scan'208";a="321379385"
-Received: from labuser-z97x-ud5h.jf.intel.com ([10.165.21.211])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-SHA;
- 05 Nov 2020 14:31:56 -0800
-From: Manasi Navare <manasi.d.navare@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Thu,  5 Nov 2020 14:33:58 -0800
-Message-Id: <20201105223359.28203-7-manasi.d.navare@intel.com>
-X-Mailer: git-send-email 2.19.1
-In-Reply-To: <20201105223359.28203-1-manasi.d.navare@intel.com>
-References: <20201105223359.28203-1-manasi.d.navare@intel.com>
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Nov 2020 15:10:42 -0800
+IronPort-SDR: 3CtTEEahPCAs4ARN7jtODOvIWsxz6NdtNkxIzu4OcouNJuEDLm2cpVSJyD2cboGAQ9+ZlWld2q
+ ggrcqhlGL5Cw==
+X-IronPort-AV: E=Sophos;i="5.77,454,1596524400"; d="scan'208";a="471845181"
+Received: from msqayyum-mobl1.amr.corp.intel.com (HELO ldmartin-desk1)
+ ([10.212.222.50])
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Nov 2020 15:10:40 -0800
+Date: Thu, 5 Nov 2020 15:10:40 -0800
+From: Lucas De Marchi <lucas.demarchi@intel.com>
+To: Anshuman Gupta <anshuman.gupta@intel.com>
+Message-ID: <20201105231040.ojtxm3vpyoqttbg4@ldmartin-desk1>
+X-Patchwork-Hint: comment
+References: <20201030061658.11435-1-anshuman.gupta@intel.com>
+ <20201103220642.GF30349@intel.com>
+ <20201105051711.GO29526@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v7 6/7] drm/i915/dp: Add from_crtc_state to copy
- color blobs
+Content-Disposition: inline
+In-Reply-To: <20201105051711.GO29526@intel.com>
+Subject: Re: [Intel-gfx] [PATCH] drm/i915: Tweaked Wa_14010685332 for PCHs
+ used on gen11 platforms
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,64 +64,153 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: intel-gfx@lists.freedesktop.org
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Tm8gZnVuY3Rpb25hbCBjaGFuZ2VzIGhlcmUsIGp1c3QgYWRkcyBhIGZyb21fY3J0Y19zdGF0ZQph
-cyBhIHByZXAgZm9yIGJpZ2pvaW5lcgoKdjI6CiogTW9yZSBwcmVwIHdpdGggaW50ZWxfYXRvbWlj
-X3N0YXRlIChWaWxsZSkKCkNjOiBWaWxsZSBTeXJqw6Rsw6QgPHZpbGxlLnN5cmphbGFAbGludXgu
-aW50ZWwuY29tPgpTaWduZWQtb2ZmLWJ5OiBNYW5hc2kgTmF2YXJlIDxtYW5hc2kuZC5uYXZhcmVA
-aW50ZWwuY29tPgpSZXZpZXdlZC1ieTogVmlsbGUgU3lyasOkbMOkIDx2aWxsZS5zeXJqYWxhQGxp
-bnV4LmludGVsLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2F0
-b21pYy5jICB8IDkgKysrKystLS0tCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVs
-X2F0b21pYy5oICB8IDMgKystCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Rp
-c3BsYXkuYyB8IDQgKysrLQogMyBmaWxlcyBjaGFuZ2VkLCAxMCBpbnNlcnRpb25zKCspLCA2IGRl
-bGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50
-ZWxfYXRvbWljLmMgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2F0b21pYy5j
-CmluZGV4IDYzZDhkNjg0MDY1NS4uZTAwZmRjNDdjMGViIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dw
-dS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2F0b21pYy5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9p
-OTE1L2Rpc3BsYXkvaW50ZWxfYXRvbWljLmMKQEAgLTI2OSwxNCArMjY5LDE1IEBAIHZvaWQgaW50
-ZWxfY3J0Y19mcmVlX2h3X3N0YXRlKHN0cnVjdCBpbnRlbF9jcnRjX3N0YXRlICpjcnRjX3N0YXRl
-KQogCWludGVsX2NydGNfcHV0X2NvbG9yX2Jsb2JzKGNydGNfc3RhdGUpOwogfQogCi12b2lkIGlu
-dGVsX2NydGNfY29weV9jb2xvcl9ibG9icyhzdHJ1Y3QgaW50ZWxfY3J0Y19zdGF0ZSAqY3J0Y19z
-dGF0ZSkKK3ZvaWQgaW50ZWxfY3J0Y19jb3B5X2NvbG9yX2Jsb2JzKHN0cnVjdCBpbnRlbF9jcnRj
-X3N0YXRlICpjcnRjX3N0YXRlLAorCQkJCSBjb25zdCBzdHJ1Y3QgaW50ZWxfY3J0Y19zdGF0ZSAq
-ZnJvbV9jcnRjX3N0YXRlKQogewogCWRybV9wcm9wZXJ0eV9yZXBsYWNlX2Jsb2IoJmNydGNfc3Rh
-dGUtPmh3LmRlZ2FtbWFfbHV0LAotCQkJCSAgY3J0Y19zdGF0ZS0+dWFwaS5kZWdhbW1hX2x1dCk7
-CisJCQkJICBmcm9tX2NydGNfc3RhdGUtPnVhcGkuZGVnYW1tYV9sdXQpOwogCWRybV9wcm9wZXJ0
-eV9yZXBsYWNlX2Jsb2IoJmNydGNfc3RhdGUtPmh3LmdhbW1hX2x1dCwKLQkJCQkgIGNydGNfc3Rh
-dGUtPnVhcGkuZ2FtbWFfbHV0KTsKKwkJCQkgIGZyb21fY3J0Y19zdGF0ZS0+dWFwaS5nYW1tYV9s
-dXQpOwogCWRybV9wcm9wZXJ0eV9yZXBsYWNlX2Jsb2IoJmNydGNfc3RhdGUtPmh3LmN0bSwKLQkJ
-CQkgIGNydGNfc3RhdGUtPnVhcGkuY3RtKTsKKwkJCQkgIGZyb21fY3J0Y19zdGF0ZS0+dWFwaS5j
-dG0pOwogfQogCiAvKioKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkv
-aW50ZWxfYXRvbWljLmggYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2F0b21p
-Yy5oCmluZGV4IDI4NWRlMDcwMTFkYy4uNjJhMzM2NWVkNWU2IDEwMDY0NAotLS0gYS9kcml2ZXJz
-L2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2F0b21pYy5oCisrKyBiL2RyaXZlcnMvZ3B1L2Ry
-bS9pOTE1L2Rpc3BsYXkvaW50ZWxfYXRvbWljLmgKQEAgLTQzLDcgKzQzLDggQEAgc3RydWN0IGRy
-bV9jcnRjX3N0YXRlICppbnRlbF9jcnRjX2R1cGxpY2F0ZV9zdGF0ZShzdHJ1Y3QgZHJtX2NydGMg
-KmNydGMpOwogdm9pZCBpbnRlbF9jcnRjX2Rlc3Ryb3lfc3RhdGUoc3RydWN0IGRybV9jcnRjICpj
-cnRjLAogCQkJICAgICAgIHN0cnVjdCBkcm1fY3J0Y19zdGF0ZSAqc3RhdGUpOwogdm9pZCBpbnRl
-bF9jcnRjX2ZyZWVfaHdfc3RhdGUoc3RydWN0IGludGVsX2NydGNfc3RhdGUgKmNydGNfc3RhdGUp
-Owotdm9pZCBpbnRlbF9jcnRjX2NvcHlfY29sb3JfYmxvYnMoc3RydWN0IGludGVsX2NydGNfc3Rh
-dGUgKmNydGNfc3RhdGUpOwordm9pZCBpbnRlbF9jcnRjX2NvcHlfY29sb3JfYmxvYnMoc3RydWN0
-IGludGVsX2NydGNfc3RhdGUgKmNydGNfc3RhdGUsCisJCQkJIGNvbnN0IHN0cnVjdCBpbnRlbF9j
-cnRjX3N0YXRlICpmcm9tX2NydGNfc3RhdGUpOwogc3RydWN0IGRybV9hdG9taWNfc3RhdGUgKmlu
-dGVsX2F0b21pY19zdGF0ZV9hbGxvYyhzdHJ1Y3QgZHJtX2RldmljZSAqZGV2KTsKIHZvaWQgaW50
-ZWxfYXRvbWljX3N0YXRlX2ZyZWUoc3RydWN0IGRybV9hdG9taWNfc3RhdGUgKnN0YXRlKTsKIHZv
-aWQgaW50ZWxfYXRvbWljX3N0YXRlX2NsZWFyKHN0cnVjdCBkcm1fYXRvbWljX3N0YXRlICpzdGF0
-ZSk7CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Rpc3Bs
-YXkuYyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGlzcGxheS5jCmluZGV4
-IGJhZTQwYjQzYWUxZC4uYjY1NzY2ZjY0YWJkIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0v
-aTkxNS9kaXNwbGF5L2ludGVsX2Rpc3BsYXkuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9k
-aXNwbGF5L2ludGVsX2Rpc3BsYXkuYwpAQCAtMTM0NzQsNyArMTM0NzQsOSBAQCBzdGF0aWMgdm9p
-ZAogaW50ZWxfY3J0Y19jb3B5X3VhcGlfdG9faHdfc3RhdGVfbm9tb2Rlc2V0KHN0cnVjdCBpbnRl
-bF9hdG9taWNfc3RhdGUgKnN0YXRlLAogCQkJCQkgICBzdHJ1Y3QgaW50ZWxfY3J0Y19zdGF0ZSAq
-Y3J0Y19zdGF0ZSkKIHsKLQlpbnRlbF9jcnRjX2NvcHlfY29sb3JfYmxvYnMoY3J0Y19zdGF0ZSk7
-CisJY29uc3Qgc3RydWN0IGludGVsX2NydGNfc3RhdGUgKmZyb21fY3J0Y19zdGF0ZSA9IGNydGNf
-c3RhdGU7CisKKwlpbnRlbF9jcnRjX2NvcHlfY29sb3JfYmxvYnMoY3J0Y19zdGF0ZSwgZnJvbV9j
-cnRjX3N0YXRlKTsKIH0KIAogc3RhdGljIHZvaWQKLS0gCjIuMTkuMQoKX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJ
-bnRlbC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnL21haWxtYW4vbGlzdGluZm8vaW50ZWwtZ2Z4Cg==
+On Thu, Nov 05, 2020 at 10:47:15AM +0530, Anshuman Gupta wrote:
+>On 2020-11-03 at 17:06:42 -0500, Rodrigo Vivi wrote:
+>> On Fri, Oct 30, 2020 at 11:46:58AM +0530, Anshuman Gupta wrote:
+>> > From: Bob Paauwe <bob.j.paauwe@intel.com>
+>> >
+>> > The WA specifies that we need to toggle a SDE chicken bit on and then
+>> > off as the final step in preparation for s0ix entry.
+>> >
+>> >     Bspec: 33450
+>> >     Bspec: 8402
+>> >
+>> > However, something is happening after we toggle the bit that causes
+>> > the WA to be invalidated. This makes dispcnlunit1_cp_xosc_clkreq
+>> > active being already in s0ix state i.e SLP_S0 counter incremented.
+>> > Tweaking the Wa_14010685332 by setting the bit on suspend and clearing
+>> > it on resume turns down the dispcnlunit1_cp_xosc_clkreq.
+>> > B.Spec has Documented this tweaked sequence of WA as an alternative.
+>> > Let keep this tweaked WA for Gen11 platforms and keep untweaked WA for
+>> > other platforms which never observed this issue.
+>> >
+>> > v2 (MattR):
+>> >  - Change the comment on the workaround to give PCH names rather than
+>> >    platform names.  Although the bspec is setup to list workarounds by
+>> >    platform, the hardware team has confirmed that the actual issue being
+>> >    worked around here is something that was introduced back in the
+>> >    Cannon Lake PCH and carried forward to subsequent PCH's.
+>> >  - Extend the untweaked version of the workaround to include  PCH_CNP as
+>> >    well.  Note that since PCH_CNP is used to represent CMP, this will
+>> >    apply on CML and some variants of RKL too.
+>> >  - Cap the untweaked version of the workaround so that it won't apply to
+>> >    "fake" PCH's (i.e., DG1).  The issue we're working around really is
+>> >    an issue in the PCH itself, not the South Display, so it shouldn't
+>> >    apply when there isn't a real PCH.
+>> >
+>> > Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+>> > Signed-off-by: Bob Paauwe <bob.j.paauwe@intel.com>
+>> > Signed-off-by: Anshuman Gupta <anshuman.gupta@intel.com>
+>> > Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+>> > ---
+>> >  .../drm/i915/display/intel_display_power.c    | 21 +++++++++++++++++--
+>> >  drivers/gpu/drm/i915/i915_irq.c               |  6 ++++--
+>> >  2 files changed, 23 insertions(+), 4 deletions(-)
+>> >
+>> > diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
+>> > index 689922480661..d2a6518329d7 100644
+>> > --- a/drivers/gpu/drm/i915/display/intel_display_power.c
+>> > +++ b/drivers/gpu/drm/i915/display/intel_display_power.c
+>> > @@ -5858,17 +5858,34 @@ static void intel_power_domains_verify_state(struct drm_i915_private *i915)
+>> >
+>> >  void intel_display_power_suspend_late(struct drm_i915_private *i915)
+>> >  {
+>> > -	if (INTEL_GEN(i915) >= 11 || IS_GEN9_LP(i915))
+>> > +	u32 val;
+>> > +
+>> > +	if (INTEL_GEN(i915) >= 11 || IS_GEN9_LP(i915)) {
+>> >  		bxt_enable_dc9(i915);
+>> > -	else if (IS_HASWELL(i915) || IS_BROADWELL(i915))
+>> > +		/* Tweaked Wa_14010685332:icp,jsp,mcc */
+>> > +		if (INTEL_PCH_TYPE(i915) >= PCH_ICP && INTEL_PCH_TYPE(i915) <= PCH_MCC) {
+>> > +			val = intel_de_read(i915, SOUTH_CHICKEN1);
+>> > +			val |= SBCLK_RUN_REFCLK_DIS;
+>> > +			intel_de_write(i915, SOUTH_CHICKEN1, val);
+>>
+>> could we use intel_de_rmw here?
+>May be i had misunderstod it earlier, i thought it was your recommendation
+>to use manual read, modify write without using intel_uncore_rmw(),
+>Was the actual idea to use intel_de_rmw flavour of API instead of intel_uncore_rmw?
+
+intel_de_rmw() is the exact equivalent of what's done above. As this is
+a PCH register I think it would be appropriate to use intel_de_*
+
+Jani, is intel_de_* meant to be only a shortcut or are we going to
+enforce accessing only DE registers with it?
+
+>Also would it require to use at original Wa in gen11_display_irq_reset as well?
+
+since that file is outside display/ we'd need to be very careful in using
+intel_de_* there.
+
+thanks
+Lucas De Marchi
+
+>Thanks,
+>Anshuman Gupta.
+>>
+>> > +		}
+>> > +	} else if (IS_HASWELL(i915) || IS_BROADWELL(i915)) {
+>> >  		hsw_enable_pc8(i915);
+>> > +	}
+>> >  }
+>> >
+>> >  void intel_display_power_resume_early(struct drm_i915_private *i915)
+>> >  {
+>> > +	u32 val;
+>> > +
+>> >  	if (INTEL_GEN(i915) >= 11 || IS_GEN9_LP(i915)) {
+>> >  		gen9_sanitize_dc_state(i915);
+>> >  		bxt_disable_dc9(i915);
+>> > +		/* Tweaked Wa_14010685332:icp,jsp,mcc */
+>> > +		if (INTEL_PCH_TYPE(i915) >= PCH_ICP && INTEL_PCH_TYPE(i915) <= PCH_MCC) {
+>> > +			val = intel_de_read(i915, SOUTH_CHICKEN1);
+>> > +			val &= ~SBCLK_RUN_REFCLK_DIS;
+>> > +			intel_de_write(i915, SOUTH_CHICKEN1, val);
+>>
+>> and here?
+>>
+>> sorry for not having spotted that sooner.
+>>
+>> > +		}
+>> >  	} else if (IS_HASWELL(i915) || IS_BROADWELL(i915)) {
+>> >  		hsw_disable_pc8(i915);
+>> >  	}
+>> > diff --git a/drivers/gpu/drm/i915/i915_irq.c b/drivers/gpu/drm/i915/i915_irq.c
+>> > index dc33c96d741d..410c03624c6a 100644
+>> > --- a/drivers/gpu/drm/i915/i915_irq.c
+>> > +++ b/drivers/gpu/drm/i915/i915_irq.c
+>> > @@ -3055,8 +3055,10 @@ static void gen11_display_irq_reset(struct drm_i915_private *dev_priv)
+>> >  	if (INTEL_PCH_TYPE(dev_priv) >= PCH_ICP)
+>> >  		GEN3_IRQ_RESET(uncore, SDE);
+>> >
+>> > -	/* Wa_14010685332:icl,jsl,ehl,tgl,rkl */
+>> > -	if (INTEL_PCH_TYPE(dev_priv) >= PCH_ICP) {
+>> > +	/* Wa_14010685332:cnp/cmp,tgp,adp */
+>> > +	if (INTEL_PCH_TYPE(dev_priv) == PCH_CNP ||
+>> > +	    (INTEL_PCH_TYPE(dev_priv) >= PCH_TGP &&
+>> > +	     INTEL_PCH_TYPE(dev_priv) < PCH_DG1)) {
+>> >  		intel_uncore_rmw(uncore, SOUTH_CHICKEN1,
+>> >  				 SBCLK_RUN_REFCLK_DIS, SBCLK_RUN_REFCLK_DIS);
+>> >  		intel_uncore_rmw(uncore, SOUTH_CHICKEN1,
+>> > --
+>> > 2.26.2
+>> >
+>> > _______________________________________________
+>> > Intel-gfx mailing list
+>> > Intel-gfx@lists.freedesktop.org
+>> > https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+>_______________________________________________
+>Intel-gfx mailing list
+>Intel-gfx@lists.freedesktop.org
+>https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
