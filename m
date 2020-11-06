@@ -7,45 +7,47 @@ X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1D801C388F9
-	for <intel-gfx@archiver.kernel.org>; Fri,  6 Nov 2020 22:55:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9F372C55178
+	for <intel-gfx@archiver.kernel.org>; Fri,  6 Nov 2020 22:55:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A611A206D4
-	for <intel-gfx@archiver.kernel.org>; Fri,  6 Nov 2020 22:55:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A611A206D4
+	by mail.kernel.org (Postfix) with ESMTPS id 3CF2E206D4
+	for <intel-gfx@archiver.kernel.org>; Fri,  6 Nov 2020 22:55:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3CF2E206D4
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C5E1B6EB44;
-	Fri,  6 Nov 2020 22:55:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C2DA6EB46;
+	Fri,  6 Nov 2020 22:55:56 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 894116EB40
- for <intel-gfx@lists.freedesktop.org>; Fri,  6 Nov 2020 22:55:53 +0000 (UTC)
-IronPort-SDR: YEcBD6ek/vwmfhQ0HMBm0qxQTG1M0HQr2UI8utAY+iltN2hIySXk3XyBIJL/smtVg98Ea0UP3L
- CVWN2N37K8Rw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9797"; a="167022945"
-X-IronPort-AV: E=Sophos;i="5.77,457,1596524400"; d="scan'208";a="167022945"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B7836EB40
+ for <intel-gfx@lists.freedesktop.org>; Fri,  6 Nov 2020 22:55:54 +0000 (UTC)
+IronPort-SDR: 1LxRSjqXTcT8lvS+4MQgU2NUow+sZBwkzuD2bXC0wqTBbFgsgXOAdIdwUvh5BEDVswhsewBAsi
+ 9gkX/2cmncXA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9797"; a="167022952"
+X-IronPort-AV: E=Sophos;i="5.77,457,1596524400"; d="scan'208";a="167022952"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  06 Nov 2020 14:55:53 -0800
-IronPort-SDR: xk58dtiZFagK/buMYNjdsurwoN5oxf94huSUmdM99AH2/X9uuo7Z9HCYL34+nlDJoDvvKVb+OK
- 6+RPvqjpaU4w==
-X-IronPort-AV: E=Sophos;i="5.77,457,1596524400"; d="scan'208";a="540022737"
+IronPort-SDR: vZqxZNiM2S6JcUREhSb/VNhoiiYEVmwIhzqlP064XL5jD+CAEZuLfnq/xyd2grhN7DIAUGGGQp
+ 3+zlj32wvKfw==
+X-IronPort-AV: E=Sophos;i="5.77,457,1596524400"; d="scan'208";a="540022747"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.202])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  06 Nov 2020 14:55:52 -0800
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri,  6 Nov 2020 14:55:24 -0800
-Message-Id: <20201106225531.920641-1-lucas.demarchi@intel.com>
+Date: Fri,  6 Nov 2020 14:55:27 -0800
+Message-Id: <20201106225531.920641-4-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.29.0
+In-Reply-To: <20201106225531.920641-1-lucas.demarchi@intel.com>
+References: <20201106225531.920641-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 1/8] drm/i915/display: add namespace to
- intel_prepare_reset
+Subject: [Intel-gfx] [PATCH 4/8] drm/i915/display: return earlier from
+ intel_modeset_init() without display
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,64 +60,29 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Jani Nikula <jani.nikula@intel.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Rename intel_prepare_reset to intel_display_prepare_reset, so it's clear
-from gt/ that we are calling out the display code.
-
-Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
----
- drivers/gpu/drm/i915/display/intel_display.c | 2 +-
- drivers/gpu/drm/i915/display/intel_display.h | 2 +-
- drivers/gpu/drm/i915/gt/intel_reset.c        | 2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 6faca1e739c8..4050bc60f632 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -4951,7 +4951,7 @@ static bool gpu_reset_clobbers_display(struct drm_i915_private *dev_priv)
- 		intel_has_gpu_reset(&dev_priv->gt));
- }
- 
--void intel_prepare_reset(struct drm_i915_private *dev_priv)
-+void intel_display_prepare_reset(struct drm_i915_private *dev_priv)
- {
- 	struct drm_device *dev = &dev_priv->drm;
- 	struct drm_modeset_acquire_ctx *ctx = &dev_priv->reset_ctx;
-diff --git a/drivers/gpu/drm/i915/display/intel_display.h b/drivers/gpu/drm/i915/display/intel_display.h
-index be774f216065..30960cc8b8a6 100644
---- a/drivers/gpu/drm/i915/display/intel_display.h
-+++ b/drivers/gpu/drm/i915/display/intel_display.h
-@@ -590,7 +590,7 @@ void vlv_force_pll_off(struct drm_i915_private *dev_priv, enum pipe pipe);
- int lpt_get_iclkip(struct drm_i915_private *dev_priv);
- bool intel_fuzzy_clock_check(int clock1, int clock2);
- 
--void intel_prepare_reset(struct drm_i915_private *dev_priv);
-+void intel_display_prepare_reset(struct drm_i915_private *dev_priv);
- void intel_finish_reset(struct drm_i915_private *dev_priv);
- void intel_dp_get_m_n(struct intel_crtc *crtc,
- 		      struct intel_crtc_state *pipe_config);
-diff --git a/drivers/gpu/drm/i915/gt/intel_reset.c b/drivers/gpu/drm/i915/gt/intel_reset.c
-index 4e5e13dc95da..d71bad8c07b7 100644
---- a/drivers/gpu/drm/i915/gt/intel_reset.c
-+++ b/drivers/gpu/drm/i915/gt/intel_reset.c
-@@ -1191,7 +1191,7 @@ static void intel_gt_reset_global(struct intel_gt *gt,
- 
- 	/* Use a watchdog to ensure that our reset completes */
- 	intel_wedge_on_timeout(&w, gt, 5 * HZ) {
--		intel_prepare_reset(gt->i915);
-+		intel_display_prepare_reset(gt->i915);
- 
- 		/* Flush everyone using a resource about to be clobbered */
- 		synchronize_srcu_expedited(&gt->reset.backoff_srcu);
--- 
-2.29.0
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+RnJvbTogSmFuaSBOaWt1bGEgPGphbmkubmlrdWxhQGludGVsLmNvbT4KCiFIQVNfRElTUExBWSgp
+IGltcGxpZXMgIUhBU19PVkVSTEFZKCksIHNraXBwaW5nIG92ZXJsYXkgc2V0dXAgYW55d2F5LCBz
+bwpyZXR1cm4gZWFybGllciBmcm9tIGludGVsX21vZGVzZXRfaW5pdCgpIGZvciBjbGFyaXR5LgoK
+Q2M6IFZpbGxlIFN5cmrDpGzDpCA8dmlsbGUuc3lyamFsYUBsaW51eC5pbnRlbC5jb20+ClNpZ25l
+ZC1vZmYtYnk6IEphbmkgTmlrdWxhIDxqYW5pLm5pa3VsYUBpbnRlbC5jb20+ClNpZ25lZC1vZmYt
+Ynk6IEx1Y2FzIERlIE1hcmNoaSA8bHVjYXMuZGVtYXJjaGlAaW50ZWwuY29tPgotLS0KIGRyaXZl
+cnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGlzcGxheS5jIHwgNCArKy0tCiAxIGZpbGUg
+Y2hhbmdlZCwgMiBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2Ry
+aXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGlzcGxheS5jIGIvZHJpdmVycy9ncHUv
+ZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kaXNwbGF5LmMKaW5kZXggYjZhOWQ0MWEwNDNlLi5iM2U2
+YzQzZjBjYjIgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxf
+ZGlzcGxheS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGlzcGxh
+eS5jCkBAIC0xODM2NCwxMSArMTgzNjQsMTEgQEAgaW50IGludGVsX21vZGVzZXRfaW5pdChzdHJ1
+Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqaTkxNSkKIHsKIAlpbnQgcmV0OwogCi0JaW50ZWxfb3Zlcmxh
+eV9zZXR1cChpOTE1KTsKLQogCWlmICghSEFTX0RJU1BMQVkoaTkxNSkpCiAJCXJldHVybiAwOwog
+CisJaW50ZWxfb3ZlcmxheV9zZXR1cChpOTE1KTsKKwogCXJldCA9IGludGVsX2ZiZGV2X2luaXQo
+Jmk5MTUtPmRybSk7CiAJaWYgKHJldCkKIAkJcmV0dXJuIHJldDsKLS0gCjIuMjkuMAoKX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KSW50ZWwtZ2Z4IG1haWxp
+bmcgbGlzdApJbnRlbC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vaW50ZWwtZ2Z4Cg==
