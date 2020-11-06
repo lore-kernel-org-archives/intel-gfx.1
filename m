@@ -7,47 +7,47 @@ X-Spam-Status: No, score=-9.9 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B0F67C2D0A3
-	for <intel-gfx@archiver.kernel.org>; Fri,  6 Nov 2020 04:02:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7F96CC56201
+	for <intel-gfx@archiver.kernel.org>; Fri,  6 Nov 2020 04:02:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 406E5206F7
-	for <intel-gfx@archiver.kernel.org>; Fri,  6 Nov 2020 04:02:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 406E5206F7
+	by mail.kernel.org (Postfix) with ESMTPS id 209B9206F7
+	for <intel-gfx@archiver.kernel.org>; Fri,  6 Nov 2020 04:02:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 209B9206F7
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 870966EA41;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4FB016EA3B;
 	Fri,  6 Nov 2020 04:01:57 +0000 (UTC)
 Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0676F6EA2A
- for <intel-gfx@lists.freedesktop.org>; Fri,  6 Nov 2020 04:01:53 +0000 (UTC)
-IronPort-SDR: WrvXYMu8OQuyyw/foCLntA4g6fi3+5fx01q2UM71KdZeKv2N7S9tzT3vXNLQ0HAFasVDOyag24
- guFQA4qbprWA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9796"; a="157278279"
-X-IronPort-AV: E=Sophos;i="5.77,455,1596524400"; d="scan'208";a="157278279"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B5856EA29
+ for <intel-gfx@lists.freedesktop.org>; Fri,  6 Nov 2020 04:01:54 +0000 (UTC)
+IronPort-SDR: pU9t24GJVDow4Zr/5i4oR8ihfdDpRAeod5B5mH8b+SIzhKEj7WdhqtINPytI+vJk86PMXEUu5z
+ bcmWaAy9ei7g==
+X-IronPort-AV: E=McAfee;i="6000,8403,9796"; a="157278288"
+X-IronPort-AV: E=Sophos;i="5.77,455,1596524400"; d="scan'208";a="157278288"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  05 Nov 2020 20:01:52 -0800
-IronPort-SDR: xJgj4TYQ6F1CLlxEuytmJwp7F7rQN4uSLyHSTlDo4SdJVzU9gZn/5MNk2d2P1FGfcGO3jEaJkS
- yJkt2fxVhQEQ==
-X-IronPort-AV: E=Sophos;i="5.77,455,1596524400"; d="scan'208";a="471918702"
+IronPort-SDR: 7PYqzOrC0YAS1pA10B/VIrp9y/u48WqynJU9tZZtmxYYOfXhnjFdIS91PU6ZFtLjgFMTvwZOod
+ PLHvB0G43d1g==
+X-IronPort-AV: E=Sophos;i="5.77,455,1596524400"; d="scan'208";a="471918727"
 Received: from labuser-z97x-ud5h.jf.intel.com ([10.165.21.211])
  by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-SHA;
- 05 Nov 2020 20:01:51 -0800
+ 05 Nov 2020 20:01:52 -0800
 From: Manasi Navare <manasi.d.navare@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu,  5 Nov 2020 20:03:47 -0800
-Message-Id: <20201106040355.12809-7-manasi.d.navare@intel.com>
+Date: Thu,  5 Nov 2020 20:03:55 -0800
+Message-Id: <20201106040355.12809-15-manasi.d.navare@intel.com>
 X-Mailer: git-send-email 2.19.1
 In-Reply-To: <20201106040355.12809-1-manasi.d.navare@intel.com>
 References: <20201106040355.12809-1-manasi.d.navare@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v15 06/14] drm/i915/dp: Add from_crtc_state to
- copy color blobs
+Subject: [Intel-gfx] [PATCH v15 14/14] drm/i915: Add debugfs dumping for
+ bigjoiner, v3.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,64 +60,92 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Tm8gZnVuY3Rpb25hbCBjaGFuZ2VzIGhlcmUsIGp1c3QgYWRkcyBhIGZyb21fY3J0Y19zdGF0ZQph
-cyBhIHByZXAgZm9yIGJpZ2pvaW5lcgoKdjI6CiogTW9yZSBwcmVwIHdpdGggaW50ZWxfYXRvbWlj
-X3N0YXRlIChWaWxsZSkKCkNjOiBWaWxsZSBTeXJqw6Rsw6QgPHZpbGxlLnN5cmphbGFAbGludXgu
-aW50ZWwuY29tPgpTaWduZWQtb2ZmLWJ5OiBNYW5hc2kgTmF2YXJlIDxtYW5hc2kuZC5uYXZhcmVA
-aW50ZWwuY29tPgpSZXZpZXdlZC1ieTogVmlsbGUgU3lyasOkbMOkIDx2aWxsZS5zeXJqYWxhQGxp
-bnV4LmludGVsLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2F0
-b21pYy5jICB8IDkgKysrKystLS0tCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVs
-X2F0b21pYy5oICB8IDMgKystCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Rp
-c3BsYXkuYyB8IDQgKysrLQogMyBmaWxlcyBjaGFuZ2VkLCAxMCBpbnNlcnRpb25zKCspLCA2IGRl
-bGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50
-ZWxfYXRvbWljLmMgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2F0b21pYy5j
-CmluZGV4IDYzZDhkNjg0MDY1NS4uZTAwZmRjNDdjMGViIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dw
-dS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2F0b21pYy5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9p
-OTE1L2Rpc3BsYXkvaW50ZWxfYXRvbWljLmMKQEAgLTI2OSwxNCArMjY5LDE1IEBAIHZvaWQgaW50
-ZWxfY3J0Y19mcmVlX2h3X3N0YXRlKHN0cnVjdCBpbnRlbF9jcnRjX3N0YXRlICpjcnRjX3N0YXRl
-KQogCWludGVsX2NydGNfcHV0X2NvbG9yX2Jsb2JzKGNydGNfc3RhdGUpOwogfQogCi12b2lkIGlu
-dGVsX2NydGNfY29weV9jb2xvcl9ibG9icyhzdHJ1Y3QgaW50ZWxfY3J0Y19zdGF0ZSAqY3J0Y19z
-dGF0ZSkKK3ZvaWQgaW50ZWxfY3J0Y19jb3B5X2NvbG9yX2Jsb2JzKHN0cnVjdCBpbnRlbF9jcnRj
-X3N0YXRlICpjcnRjX3N0YXRlLAorCQkJCSBjb25zdCBzdHJ1Y3QgaW50ZWxfY3J0Y19zdGF0ZSAq
-ZnJvbV9jcnRjX3N0YXRlKQogewogCWRybV9wcm9wZXJ0eV9yZXBsYWNlX2Jsb2IoJmNydGNfc3Rh
-dGUtPmh3LmRlZ2FtbWFfbHV0LAotCQkJCSAgY3J0Y19zdGF0ZS0+dWFwaS5kZWdhbW1hX2x1dCk7
-CisJCQkJICBmcm9tX2NydGNfc3RhdGUtPnVhcGkuZGVnYW1tYV9sdXQpOwogCWRybV9wcm9wZXJ0
-eV9yZXBsYWNlX2Jsb2IoJmNydGNfc3RhdGUtPmh3LmdhbW1hX2x1dCwKLQkJCQkgIGNydGNfc3Rh
-dGUtPnVhcGkuZ2FtbWFfbHV0KTsKKwkJCQkgIGZyb21fY3J0Y19zdGF0ZS0+dWFwaS5nYW1tYV9s
-dXQpOwogCWRybV9wcm9wZXJ0eV9yZXBsYWNlX2Jsb2IoJmNydGNfc3RhdGUtPmh3LmN0bSwKLQkJ
-CQkgIGNydGNfc3RhdGUtPnVhcGkuY3RtKTsKKwkJCQkgIGZyb21fY3J0Y19zdGF0ZS0+dWFwaS5j
-dG0pOwogfQogCiAvKioKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkv
-aW50ZWxfYXRvbWljLmggYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2F0b21p
-Yy5oCmluZGV4IDI4NWRlMDcwMTFkYy4uNjJhMzM2NWVkNWU2IDEwMDY0NAotLS0gYS9kcml2ZXJz
-L2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2F0b21pYy5oCisrKyBiL2RyaXZlcnMvZ3B1L2Ry
-bS9pOTE1L2Rpc3BsYXkvaW50ZWxfYXRvbWljLmgKQEAgLTQzLDcgKzQzLDggQEAgc3RydWN0IGRy
-bV9jcnRjX3N0YXRlICppbnRlbF9jcnRjX2R1cGxpY2F0ZV9zdGF0ZShzdHJ1Y3QgZHJtX2NydGMg
-KmNydGMpOwogdm9pZCBpbnRlbF9jcnRjX2Rlc3Ryb3lfc3RhdGUoc3RydWN0IGRybV9jcnRjICpj
-cnRjLAogCQkJICAgICAgIHN0cnVjdCBkcm1fY3J0Y19zdGF0ZSAqc3RhdGUpOwogdm9pZCBpbnRl
-bF9jcnRjX2ZyZWVfaHdfc3RhdGUoc3RydWN0IGludGVsX2NydGNfc3RhdGUgKmNydGNfc3RhdGUp
-Owotdm9pZCBpbnRlbF9jcnRjX2NvcHlfY29sb3JfYmxvYnMoc3RydWN0IGludGVsX2NydGNfc3Rh
-dGUgKmNydGNfc3RhdGUpOwordm9pZCBpbnRlbF9jcnRjX2NvcHlfY29sb3JfYmxvYnMoc3RydWN0
-IGludGVsX2NydGNfc3RhdGUgKmNydGNfc3RhdGUsCisJCQkJIGNvbnN0IHN0cnVjdCBpbnRlbF9j
-cnRjX3N0YXRlICpmcm9tX2NydGNfc3RhdGUpOwogc3RydWN0IGRybV9hdG9taWNfc3RhdGUgKmlu
-dGVsX2F0b21pY19zdGF0ZV9hbGxvYyhzdHJ1Y3QgZHJtX2RldmljZSAqZGV2KTsKIHZvaWQgaW50
-ZWxfYXRvbWljX3N0YXRlX2ZyZWUoc3RydWN0IGRybV9hdG9taWNfc3RhdGUgKnN0YXRlKTsKIHZv
-aWQgaW50ZWxfYXRvbWljX3N0YXRlX2NsZWFyKHN0cnVjdCBkcm1fYXRvbWljX3N0YXRlICpzdGF0
-ZSk7CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Rpc3Bs
-YXkuYyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGlzcGxheS5jCmluZGV4
-IGJhZTQwYjQzYWUxZC4uYjY1NzY2ZjY0YWJkIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0v
-aTkxNS9kaXNwbGF5L2ludGVsX2Rpc3BsYXkuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9k
-aXNwbGF5L2ludGVsX2Rpc3BsYXkuYwpAQCAtMTM0NzQsNyArMTM0NzQsOSBAQCBzdGF0aWMgdm9p
-ZAogaW50ZWxfY3J0Y19jb3B5X3VhcGlfdG9faHdfc3RhdGVfbm9tb2Rlc2V0KHN0cnVjdCBpbnRl
-bF9hdG9taWNfc3RhdGUgKnN0YXRlLAogCQkJCQkgICBzdHJ1Y3QgaW50ZWxfY3J0Y19zdGF0ZSAq
-Y3J0Y19zdGF0ZSkKIHsKLQlpbnRlbF9jcnRjX2NvcHlfY29sb3JfYmxvYnMoY3J0Y19zdGF0ZSk7
-CisJY29uc3Qgc3RydWN0IGludGVsX2NydGNfc3RhdGUgKmZyb21fY3J0Y19zdGF0ZSA9IGNydGNf
-c3RhdGU7CisKKwlpbnRlbF9jcnRjX2NvcHlfY29sb3JfYmxvYnMoY3J0Y19zdGF0ZSwgZnJvbV9j
-cnRjX3N0YXRlKTsKIH0KIAogc3RhdGljIHZvaWQKLS0gCjIuMTkuMQoKX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJ
-bnRlbC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnL21haWxtYW4vbGlzdGluZm8vaW50ZWwtZ2Z4Cg==
+From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+
+Dump debugfs and planar links as well, this will make it easier to debug
+when things go wrong.
+
+v4:
+* Rebase
+Changes since v1:
+- Report planar slaves as such, now that we have the plane_state switch.
+Changes since v2:
+- Rebase on top of the new plane format dumping
+
+Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Signed-off-by: Manasi Navare <manasi.d.navare@intel.com>
+---
+ .../drm/i915/display/intel_display_debugfs.c  | 29 ++++++++++++++++++-
+ 1 file changed, 28 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_display_debugfs.c b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+index cfb4c1474982..963069b266ab 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_debugfs.c
++++ b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+@@ -755,6 +755,17 @@ static void plane_rotation(char *buf, size_t bufsize, unsigned int rotation)
+ 		 rotation);
+ }
+ 
++static const char *plane_visibility(const struct intel_plane_state *plane_state)
++{
++	if (plane_state->uapi.visible)
++		return "visible";
++
++	if (plane_state->planar_slave)
++		return "planar-slave";
++
++	return "hidden";
++}
++
+ static void intel_plane_uapi_info(struct seq_file *m, struct intel_plane *plane)
+ {
+ 	const struct intel_plane_state *plane_state =
+@@ -773,12 +784,22 @@ static void intel_plane_uapi_info(struct seq_file *m, struct intel_plane *plane)
+ 	plane_rotation(rot_str, sizeof(rot_str),
+ 		       plane_state->uapi.rotation);
+ 
+-	seq_printf(m, "\t\tuapi: fb=%d,%s,%dx%d, src=" DRM_RECT_FP_FMT ", dst=" DRM_RECT_FMT ", rotation=%s\n",
++	seq_printf(m, "\t\tuapi: fb=%d,%s,%dx%d, visible=%s, src=" DRM_RECT_FP_FMT ", dst=" DRM_RECT_FMT ", rotation=%s\n",
+ 		   fb ? fb->base.id : 0, fb ? format_name.str : "n/a",
+ 		   fb ? fb->width : 0, fb ? fb->height : 0,
++		   plane_visibility(plane_state),
+ 		   DRM_RECT_FP_ARG(&src),
+ 		   DRM_RECT_ARG(&dst),
+ 		   rot_str);
++
++	if (plane_state->planar_linked_plane)
++		seq_printf(m, "\t\tplanar: Linked to [PLANE:%d:%s] as a %s\n",
++			   plane_state->planar_linked_plane->base.base.id, plane_state->planar_linked_plane->base.name,
++			   plane_state->planar_slave ? "slave" : "master");
++	if (plane_state->bigjoiner_plane)
++		seq_printf(m, "\t\tbigjoiner: Linked to [PLANE:%d:%s] as a %s\n",
++			   plane_state->bigjoiner_plane->base.base.id, plane_state->bigjoiner_plane->base.name,
++			   plane_state->bigjoiner_slave ? "slave" : "master");
+ }
+ 
+ static void intel_plane_hw_info(struct seq_file *m, struct intel_plane *plane)
+@@ -874,6 +895,12 @@ static void intel_crtc_info(struct seq_file *m, struct intel_crtc *crtc)
+ 		intel_scaler_info(m, crtc);
+ 	}
+ 
++	if (crtc_state->bigjoiner)
++		seq_printf(m, "\tLinked to [CRTC:%d:%s] as a %s\n",
++			   crtc_state->bigjoiner_linked_crtc->base.base.id,
++			   crtc_state->bigjoiner_linked_crtc->base.name,
++			   crtc_state->bigjoiner_slave ? "slave" : "master");
++
+ 	for_each_intel_encoder_mask(&dev_priv->drm, encoder,
+ 				    crtc_state->uapi.encoder_mask)
+ 		intel_encoder_info(m, crtc, encoder);
+-- 
+2.19.1
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
