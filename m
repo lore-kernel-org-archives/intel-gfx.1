@@ -2,52 +2,49 @@ Return-Path: <SRS0=j43y=EM=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_GIT autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 07C16C4741F
-	for <intel-gfx@archiver.kernel.org>; Fri,  6 Nov 2020 04:02:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 90C73C388F2
+	for <intel-gfx@archiver.kernel.org>; Fri,  6 Nov 2020 04:02:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8E392206F7
-	for <intel-gfx@archiver.kernel.org>; Fri,  6 Nov 2020 04:02:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8E392206F7
+	by mail.kernel.org (Postfix) with ESMTPS id EE6A2206F7
+	for <intel-gfx@archiver.kernel.org>; Fri,  6 Nov 2020 04:02:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EE6A2206F7
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5EF0A6EA29;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A348D6EA2E;
 	Fri,  6 Nov 2020 04:01:54 +0000 (UTC)
 Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DEC8F6EA29
- for <intel-gfx@lists.freedesktop.org>; Fri,  6 Nov 2020 04:01:52 +0000 (UTC)
-IronPort-SDR: g+OjsiO1Buz9OZp5Twqcd+oVsVjx0+uo6xWfPPewMVUpgvtxziAIoeROvLE5PvbnQrCgXxlBCv
- NaLUIeaqqxHw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9796"; a="157278275"
-X-IronPort-AV: E=Sophos;i="5.77,455,1596524400"; d="scan'208";a="157278275"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 220C16EA29
+ for <intel-gfx@lists.freedesktop.org>; Fri,  6 Nov 2020 04:01:53 +0000 (UTC)
+IronPort-SDR: PdHAhzgoT6uhBt1DxpCP7FUl21zf+jx3U9NP2CitVsn2Vdfcme2eyCt0kp43uaDQZYV+Cb9MDr
+ 0xGUj1EqIv+Q==
+X-IronPort-AV: E=McAfee;i="6000,8403,9796"; a="157278274"
+X-IronPort-AV: E=Sophos;i="5.77,455,1596524400"; d="scan'208";a="157278274"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  05 Nov 2020 20:01:51 -0800
-IronPort-SDR: 83tLxSmvDAH0HW+p99fVZYx5/ayrM0WdyFHgYNVwXTcTTof794Tjp0ZfDoHWmxuflu+QG9p77T
- P2qQ9QbjCdWg==
-X-IronPort-AV: E=Sophos;i="5.77,455,1596524400"; d="scan'208";a="471918688"
+IronPort-SDR: F56Y9lo4vVXCBRXSITlPNp4ulCalJzmivHNh8JvtD+dnoH/2tKydpZ7+Sv/OIi/iVPl7Xe73wD
+ N+bPNNZoBoQg==
+X-IronPort-AV: E=Sophos;i="5.77,455,1596524400"; d="scan'208";a="471918685"
 Received: from labuser-z97x-ud5h.jf.intel.com ([10.165.21.211])
  by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-SHA;
  05 Nov 2020 20:01:51 -0800
 From: Manasi Navare <manasi.d.navare@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu,  5 Nov 2020 20:03:43 -0800
-Message-Id: <20201106040355.12809-3-manasi.d.navare@intel.com>
+Date: Thu,  5 Nov 2020 20:03:41 -0800
+Message-Id: <20201106040355.12809-1-manasi.d.navare@intel.com>
 X-Mailer: git-send-email 2.19.1
-In-Reply-To: <20201106040355.12809-1-manasi.d.navare@intel.com>
-References: <20201106040355.12809-1-manasi.d.navare@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v15 02/14] drm/i915: Move encoder->get_config to
- a new function
+Subject: [Intel-gfx] [PATCH v15 00/14] Big Joiner End End enabling with
+ 8K@30, 60
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,47 +57,57 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Tm8gZnVuY3Rpb25hbCBjaGFuZ2VzLCBjcmVhdGUgYSBzZXBhcmF0ZSBpbnRlbF9lbmNvZGVyX2dl
-dF9jb25maWcoKQpmdW5jdGlvbiB0aGF0IGNhbGxzIGVuY29kZXItPmdldF9jb25maWcgaG9vay4K
-VGhpcyBpcyBuZWVkZWQgc28gdGhhdCBsYXRlciB3ZSBjYW4gYWRkIGJlaWdqb2llbnIgcmVsYXRl
-ZApyZWFkb3V0IGhlcmUuCgpTaWduZWQtb2ZmLWJ5OiBNYW5hc2kgTmF2YXJlIDxtYW5hc2kuZC5u
-YXZhcmVAaW50ZWwuY29tPgpSZXZpZXdlZC1ieTogVmlsbGUgU3lyasOkbMOkIDx2aWxsZS5zeXJq
-YWxhQGxpbnV4LmludGVsLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2lu
-dGVsX2Rpc3BsYXkuYyB8IDEyICsrKysrKysrKy0tLQogMSBmaWxlIGNoYW5nZWQsIDkgaW5zZXJ0
-aW9ucygrKSwgMyBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkx
-NS9kaXNwbGF5L2ludGVsX2Rpc3BsYXkuYyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkv
-aW50ZWxfZGlzcGxheS5jCmluZGV4IDhjNDY4N2IxOTgxNC4uNjRmYjAyY2M1ZmYxIDEwMDY0NAot
-LS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Rpc3BsYXkuYworKysgYi9k
-cml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Rpc3BsYXkuYwpAQCAtODIyMiw2ICs4
-MjIyLDEyIEBAIHN0YXRpYyB1MzIgaWxrX3BpcGVfcGl4ZWxfcmF0ZShjb25zdCBzdHJ1Y3QgaW50
-ZWxfY3J0Y19zdGF0ZSAqY3J0Y19zdGF0ZSkKIAkJICAgICAgIHBmaXRfdyAqIHBmaXRfaCk7CiB9
-CiAKK3N0YXRpYyB2b2lkIGludGVsX2VuY29kZXJfZ2V0X2NvbmZpZyhzdHJ1Y3QgaW50ZWxfZW5j
-b2RlciAqZW5jb2RlciwKKwkJCQkgICAgIHN0cnVjdCBpbnRlbF9jcnRjX3N0YXRlICpjcnRjX3N0
-YXRlKQoreworCWVuY29kZXItPmdldF9jb25maWcoZW5jb2RlciwgY3J0Y19zdGF0ZSk7Cit9CisK
-IHN0YXRpYyB2b2lkIGludGVsX2NydGNfY29tcHV0ZV9waXhlbF9yYXRlKHN0cnVjdCBpbnRlbF9j
-cnRjX3N0YXRlICpjcnRjX3N0YXRlKQogewogCXN0cnVjdCBkcm1faTkxNV9wcml2YXRlICpkZXZf
-cHJpdiA9IHRvX2k5MTUoY3J0Y19zdGF0ZS0+dWFwaS5jcnRjLT5kZXYpOwpAQCAtMTI0NzUsNyAr
-MTI0ODEsNyBAQCBpbnRlbF9lbmNvZGVyX2N1cnJlbnRfbW9kZShzdHJ1Y3QgaW50ZWxfZW5jb2Rl
-ciAqZW5jb2RlcikKIAkJcmV0dXJuIE5VTEw7CiAJfQogCi0JZW5jb2Rlci0+Z2V0X2NvbmZpZyhl
-bmNvZGVyLCBjcnRjX3N0YXRlKTsKKwlpbnRlbF9lbmNvZGVyX2dldF9jb25maWcoZW5jb2Rlciwg
-Y3J0Y19zdGF0ZSk7CiAKIAlpbnRlbF9tb2RlX2Zyb21fcGlwZV9jb25maWcobW9kZSwgY3J0Y19z
-dGF0ZSk7CiAKQEAgLTE0NTIwLDcgKzE0NTI2LDcgQEAgdmVyaWZ5X2NydGNfc3RhdGUoc3RydWN0
-IGludGVsX2NydGMgKmNydGMsCiAJCQkJcGlwZV9uYW1lKHBpcGUpKTsKIAogCQlpZiAoYWN0aXZl
-KQotCQkJZW5jb2Rlci0+Z2V0X2NvbmZpZyhlbmNvZGVyLCBwaXBlX2NvbmZpZyk7CisJCQlpbnRl
-bF9lbmNvZGVyX2dldF9jb25maWcoZW5jb2RlciwgcGlwZV9jb25maWcpOwogCX0KIAogCWludGVs
-X2NydGNfY29tcHV0ZV9waXhlbF9yYXRlKHBpcGVfY29uZmlnKTsKQEAgLTE4ODMzLDcgKzE4ODM5
-LDcgQEAgc3RhdGljIHZvaWQgaW50ZWxfbW9kZXNldF9yZWFkb3V0X2h3X3N0YXRlKHN0cnVjdCBk
-cm1fZGV2aWNlICpkZXYpCiAJCQljcnRjX3N0YXRlID0gdG9faW50ZWxfY3J0Y19zdGF0ZShjcnRj
-LT5iYXNlLnN0YXRlKTsKIAogCQkJZW5jb2Rlci0+YmFzZS5jcnRjID0gJmNydGMtPmJhc2U7Ci0J
-CQllbmNvZGVyLT5nZXRfY29uZmlnKGVuY29kZXIsIGNydGNfc3RhdGUpOworCQkJaW50ZWxfZW5j
-b2Rlcl9nZXRfY29uZmlnKGVuY29kZXIsIGNydGNfc3RhdGUpOwogCQkJaWYgKGVuY29kZXItPnN5
-bmNfc3RhdGUpCiAJCQkJZW5jb2Rlci0+c3luY19zdGF0ZShlbmNvZGVyLCBjcnRjX3N0YXRlKTsK
-IAkJfSBlbHNlIHsKLS0gCjIuMTkuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRlbC1nZnhAbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
-Zm8vaW50ZWwtZ2Z4Cg==
+
+
+Maarten Lankhorst (6):
+  drm/i915: Add hw.pipe_mode to allow bigjoiner pipe/transcoder split
+  drm/i915/dp: Allow big joiner modes in intel_dp_mode_valid(), v3.
+  drm/i915: Try to make bigjoiner work in atomic check
+  drm/i915: Link planes in a bigjoiner configuration, v3.
+  drm/i915: Add bigjoiner aware plane clipping checks
+  drm/i915: Add debugfs dumping for bigjoiner, v3.
+
+Manasi Navare (8):
+  drm/i915/dp: Some reshuffling in mode_valid as prep for bigjoiner
+    modes
+  drm/i915: Move encoder->get_config to a new function
+  drm/i915/dp: Add a wrapper function around get_pipe_config
+  drm/i915: Pass intel_atomic_state instead of drm_atomic_state
+  drm/i915/dp: Add from_crtc_state to copy color blobs
+  drm/i915/dp: Modify VDSC helpers to configure DSC for Bigjoiner slave
+  drm/i915/dp: Master/Slave enable/disable sequence for bigjoiner
+  drm/i915: HW state readout for Bigjoiner case
+
+ drivers/gpu/drm/i915/display/icl_dsi.c        |   2 -
+ drivers/gpu/drm/i915/display/intel_atomic.c   |   9 +-
+ drivers/gpu/drm/i915/display/intel_atomic.h   |   3 +-
+ .../gpu/drm/i915/display/intel_atomic_plane.c | 113 ++-
+ .../gpu/drm/i915/display/intel_atomic_plane.h |   7 +-
+ drivers/gpu/drm/i915/display/intel_ddi.c      |  69 +-
+ drivers/gpu/drm/i915/display/intel_display.c  | 910 ++++++++++++++----
+ drivers/gpu/drm/i915/display/intel_display.h  |  23 +-
+ .../drm/i915/display/intel_display_debugfs.c  |  29 +-
+ .../drm/i915/display/intel_display_types.h    |  32 +-
+ drivers/gpu/drm/i915/display/intel_dp.c       | 112 ++-
+ drivers/gpu/drm/i915/display/intel_dp.h       |   1 +
+ drivers/gpu/drm/i915/display/intel_dp_mst.c   |   2 +-
+ drivers/gpu/drm/i915/display/intel_dsi.c      |   2 +-
+ drivers/gpu/drm/i915/display/intel_hdmi.c     |   2 +-
+ drivers/gpu/drm/i915/display/intel_sprite.c   |  21 +-
+ drivers/gpu/drm/i915/display/intel_vdsc.c     | 201 ++--
+ drivers/gpu/drm/i915/display/intel_vdsc.h     |   6 +-
+ drivers/gpu/drm/i915/intel_pm.c               |  96 +-
+ 19 files changed, 1216 insertions(+), 424 deletions(-)
+
+-- 
+2.19.1
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
