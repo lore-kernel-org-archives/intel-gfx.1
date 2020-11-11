@@ -2,42 +2,57 @@ Return-Path: <SRS0=4X9/=ER=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.9 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BA24AC388F9
-	for <intel-gfx@archiver.kernel.org>; Wed, 11 Nov 2020 13:50:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 44158C55ABD
+	for <intel-gfx@archiver.kernel.org>; Wed, 11 Nov 2020 13:58:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0A1B82072C
-	for <intel-gfx@archiver.kernel.org>; Wed, 11 Nov 2020 13:50:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0A1B82072C
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
+	by mail.kernel.org (Postfix) with ESMTPS id C643A2072C
+	for <intel-gfx@archiver.kernel.org>; Wed, 11 Nov 2020 13:58:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C643A2072C
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 13A958925A;
-	Wed, 11 Nov 2020 13:50:41 +0000 (UTC)
-Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 549B38925A
- for <intel-gfx@lists.freedesktop.org>; Wed, 11 Nov 2020 13:50:39 +0000 (UTC)
-X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
- x-ip-name=78.156.65.138; 
-Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22962162-1500050 
- for multiple; Wed, 11 Nov 2020 13:50:25 +0000
-From: Chris Wilson <chris@chris-wilson.co.uk>
-To: intel-gfx@lists.freedesktop.org
-Date: Wed, 11 Nov 2020 13:50:24 +0000
-Message-Id: <20201111135024.28794-1-chris@chris-wilson.co.uk>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20201111132525.3751-1-chris@chris-wilson.co.uk>
-References: <20201111132525.3751-1-chris@chris-wilson.co.uk>
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED00689E86;
+	Wed, 11 Nov 2020 13:58:03 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2981A89E86
+ for <intel-gfx@lists.freedesktop.org>; Wed, 11 Nov 2020 13:58:03 +0000 (UTC)
+IronPort-SDR: mW23/75ZYbyeWr/VF60WQ/wGp7UWXhwhjKq1eb3A+GTjhoisOO0mPvr4vsS7PHUIFZ7vQxfdZe
+ 7z5bnjBiZzHQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9801"; a="157926388"
+X-IronPort-AV: E=Sophos;i="5.77,469,1596524400"; d="scan'208";a="157926388"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Nov 2020 05:57:59 -0800
+IronPort-SDR: pk5exVAGDcjvWCR/+3pT2dIH4dsZd4cNiw9AA/X4MHOp4zboPCohQVr6RBjVmBNImGpbGzUNS1
+ KFXHBazhXY5g==
+X-IronPort-AV: E=Sophos;i="5.77,469,1596524400"; d="scan'208";a="531709553"
+Received: from cwatters-mobl.ger.corp.intel.com (HELO localhost)
+ ([10.251.80.153])
+ by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Nov 2020 05:57:57 -0800
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v2] drm/i915/gt: Show all active timelines for
- debugging
+In-Reply-To: <5a9ed343-b73c-34cb-6420-1acdb9aeb202@jguk.org>
+References: <7730fe97-f906-4dd9-df96-9d722ed6ad11@jguk.org>
+ <160405294406.7917.4399095853364861325@jlahtine-mobl.ger.corp.intel.com>
+ <160405303686.7917.12971155325318156066@jlahtine-mobl.ger.corp.intel.com>
+ <160405525007.15070.2337887176301828625@build.alporthouse.com>
+ <5a9ed343-b73c-34cb-6420-1acdb9aeb202@jguk.org>
+From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+To: Chris Wilson <chris@chris-wilson.co.uk>, Jonny Grant <jg@jguk.org>,
+ intel-gfx@lists.freedesktop.org, jani.nikula@linux.intel.com
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Message-ID: <160510307375.12900.12830853398871603700@jlahtine-mobl.ger.corp.intel.com>
+User-Agent: alot/0.8.1
+Date: Wed, 11 Nov 2020 15:57:54 +0200
+Subject: Re: [Intel-gfx] Intel i915 corruption issue Gnome EOG #146
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,179 +65,73 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Chris Wilson <chris@chris-wilson.co.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Include the active timelines for debugfs/i915_engine_info, so that we
-can see which have unready requests inflight which are not shown
-otherwise.
+Quoting Jonny Grant (2020-10-30 16:05:02)
+> 
+> 
+> On 30/10/2020 10:54, Chris Wilson wrote:
+> > Quoting Joonas Lahtinen (2020-10-30 10:17:17)
+> >> + intel-gfx mailing list
+> >>
+> >> Quoting Joonas Lahtinen (2020-10-30 12:15:44)
+> >>> Quoting Jonny Grant (2020-10-27 22:42:19)
+> >>>> Hello Jani, Joonas
+> >>>>
+> >>>> https://gitlab.gnome.org/GNOME/eog/-/issues/146
+> >>>>
+> >>>> Is this issue something you could debug?
+> >>>
+> >>> Can you file a bug according to the instructions here with details
+> >>> about the hardware:
+> >>>
+> >>> https://gitlab.freedesktop.org/drm/intel/-/wikis/How-to-file-i915-bugs
+> >>>
+> >>>> I've got some screenshots
+> >>>>
+> >>>>
+> >>>>
+> >>>> Seems to be above 32bit.
+> >>>>
+> >>>> https://gitlab.gnome.org/GNOME/eog/-/issues/150#note_946421
+> >>>>
+> >>>> If you don't think it is an i915 issue, could you post a comment?
+> >>>> It only reproduces on intel i915 chipset laptops
+> >>>
+> >>> Quite a few components are involved, so it might also be a bug in the
+> >>> Mesa 3D side.
+> >>>
+> >>> An useful excercise would be to figure out the exact pixel width after
+> >>> which the contents is clipped. I noticed one reporting user is using
+> >>> Thinkpad X220, have any users of more modern hardware reported similar
+> >>> issue?
+> > 
+> > Large pixmap support was dropped from glamor, -modesetting can only
+> > support images up to the HW surface limit. It is a functional
+> > regression.
+> > -Chris
+> > 
+> 
+> Hell Chris, Joonas
+> 
+> Thank you for your reply.
+> 
+> May I ask if you can reproduce the issue on one of your developer machines at Intel? so we can rule in/out intel graphics...
 
-Suggested-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
----
- drivers/gpu/drm/i915/gt/intel_timeline.c | 79 ++++++++++++++++++++++++
- drivers/gpu/drm/i915/gt/intel_timeline.h |  8 +++
- drivers/gpu/drm/i915/i915_debugfs.c      | 16 ++---
- 3 files changed, 96 insertions(+), 7 deletions(-)
+Chris's reply indicates that this is a problem in the higher software
+layers. There is a maximum texture size the HW can support, and
+previously it has been overcome by splitting the image into portions.
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_timeline.c b/drivers/gpu/drm/i915/gt/intel_timeline.c
-index 7ea94d201fe6..b0037d09589a 100644
---- a/drivers/gpu/drm/i915/gt/intel_timeline.c
-+++ b/drivers/gpu/drm/i915/gt/intel_timeline.c
-@@ -617,6 +617,85 @@ void intel_gt_fini_timelines(struct intel_gt *gt)
- 	GEM_BUG_ON(!list_empty(&timelines->hwsp_free_list));
- }
- 
-+void intel_gt_show_timelines(struct intel_gt *gt,
-+			     struct drm_printer *m,
-+			     void (*show_request)(struct drm_printer *m,
-+						  struct i915_request *rq,
-+						  const char *prefix))
-+{
-+	struct intel_gt_timelines *timelines = &gt->timelines;
-+	struct intel_timeline *tl, *tn;
-+	LIST_HEAD(free);
-+
-+	spin_lock(&timelines->lock);
-+	list_for_each_entry_safe(tl, tn, &timelines->active_list, link) {
-+		unsigned long count, ready, inflight;
-+		struct i915_request *rq, *rn;
-+		struct dma_fence *fence;
-+
-+		if (!mutex_trylock(&tl->mutex))
-+			continue;
-+
-+		intel_timeline_get(tl);
-+		GEM_BUG_ON(!atomic_read(&tl->active_count));
-+		atomic_inc(&tl->active_count); /* pin the list element */
-+		spin_unlock(&timelines->lock);
-+
-+		count = 0;
-+		ready = 0;
-+		inflight = 0;
-+		list_for_each_entry_safe(rq, rn, &tl->requests, link) {
-+			if (i915_request_completed(rq))
-+				continue;
-+
-+			count++;
-+			if (i915_request_is_ready(rq))
-+				ready++;
-+			if (i915_request_is_active(rq))
-+				inflight++;
-+		}
-+
-+		drm_printf(m, "Timeline %llx: { ", tl->fence_context);
-+		drm_printf(m, "count %lu, ready: %lu, inflight: %lu",
-+			   count, ready, inflight);
-+		drm_printf(m, ", seqno: { current: %d, last: %d }",
-+			   *tl->hwsp_seqno, tl->seqno);
-+		fence = i915_active_fence_get(&tl->last_request);
-+		if (fence) {
-+			drm_printf(m, ", engine: %s",
-+				   to_request(fence)->engine->name);
-+			dma_fence_put(fence);
-+		}
-+		drm_printf(m, " }\n");
-+
-+		if (show_request) {
-+			list_for_each_entry_safe(rq, rn, &tl->requests, link)
-+				show_request(m, rq,
-+					     i915_request_is_active(rq) ? "  E" :
-+					     i915_request_is_ready(rq) ? "  Q" :
-+					     "  U");
-+		}
-+
-+		mutex_unlock(&tl->mutex);
-+		spin_lock(&timelines->lock);
-+
-+		/* Resume list iteration after reacquiring spinlock */
-+		list_safe_reset_next(tl, tn, link);
-+		if (atomic_dec_and_test(&tl->active_count))
-+			list_del(&tl->link);
-+
-+		/* Defer the final release to after the spinlock */
-+		if (refcount_dec_and_test(&tl->kref.refcount)) {
-+			GEM_BUG_ON(atomic_read(&tl->active_count));
-+			list_add(&tl->link, &free);
-+		}
-+	}
-+	spin_unlock(&timelines->lock);
-+
-+	list_for_each_entry_safe(tl, tn, &free, link)
-+		__intel_timeline_free(&tl->kref);
-+}
-+
- #if IS_ENABLED(CONFIG_DRM_I915_SELFTEST)
- #include "gt/selftests/mock_timeline.c"
- #include "gt/selftest_timeline.c"
-diff --git a/drivers/gpu/drm/i915/gt/intel_timeline.h b/drivers/gpu/drm/i915/gt/intel_timeline.h
-index 9882cd911d8e..4a4c9a18e0b4 100644
---- a/drivers/gpu/drm/i915/gt/intel_timeline.h
-+++ b/drivers/gpu/drm/i915/gt/intel_timeline.h
-@@ -31,6 +31,8 @@
- #include "i915_syncmap.h"
- #include "intel_timeline_types.h"
- 
-+struct drm_printer;
-+
- struct intel_timeline *
- __intel_timeline_create(struct intel_gt *gt,
- 			struct i915_vma *global_hwsp,
-@@ -106,4 +108,10 @@ int intel_timeline_read_hwsp(struct i915_request *from,
- void intel_gt_init_timelines(struct intel_gt *gt);
- void intel_gt_fini_timelines(struct intel_gt *gt);
- 
-+void intel_gt_show_timelines(struct intel_gt *gt,
-+			     struct drm_printer *m,
-+			     void (*show_request)(struct drm_printer *m,
-+						  struct i915_request *rq,
-+						  const char *prefix));
-+
- #endif
-diff --git a/drivers/gpu/drm/i915/i915_debugfs.c b/drivers/gpu/drm/i915/i915_debugfs.c
-index 77e76b665098..354b95c438d0 100644
---- a/drivers/gpu/drm/i915/i915_debugfs.c
-+++ b/drivers/gpu/drm/i915/i915_debugfs.c
-@@ -1306,24 +1306,26 @@ static int i915_runtime_pm_status(struct seq_file *m, void *unused)
- 
- static int i915_engine_info(struct seq_file *m, void *unused)
- {
--	struct drm_i915_private *dev_priv = node_to_i915(m->private);
-+	struct drm_i915_private *i915 = node_to_i915(m->private);
- 	struct intel_engine_cs *engine;
- 	intel_wakeref_t wakeref;
- 	struct drm_printer p;
- 
--	wakeref = intel_runtime_pm_get(&dev_priv->runtime_pm);
-+	wakeref = intel_runtime_pm_get(&i915->runtime_pm);
- 
- 	seq_printf(m, "GT awake? %s [%d]\n",
--		   yesno(dev_priv->gt.awake),
--		   atomic_read(&dev_priv->gt.wakeref.count));
-+		   yesno(i915->gt.awake),
-+		   atomic_read(&i915->gt.wakeref.count));
- 	seq_printf(m, "CS timestamp frequency: %u Hz\n",
--		   RUNTIME_INFO(dev_priv)->cs_timestamp_frequency_hz);
-+		   RUNTIME_INFO(i915)->cs_timestamp_frequency_hz);
- 
- 	p = drm_seq_file_printer(m);
--	for_each_uabi_engine(engine, dev_priv)
-+	for_each_uabi_engine(engine, i915)
- 		intel_engine_dump(engine, &p, "%s\n", engine->name);
- 
--	intel_runtime_pm_put(&dev_priv->runtime_pm, wakeref);
-+	intel_gt_show_timelines(&i915->gt, &p, NULL);
-+
-+	intel_runtime_pm_put(&i915->runtime_pm, wakeref);
- 
- 	return 0;
- }
--- 
-2.20.1
+I think such image splitting needs to be re-introduced in the upper
+software layers.
 
+Regards, Joonas
+
+> Let me know if you have a Gnome desktop with EOG. Let me know if you'd like me to email the image
+> Jonny
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
