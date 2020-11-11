@@ -7,34 +7,36 @@ X-Spam-Status: No, score=-9.9 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 65AD2C55ABD
-	for <intel-gfx@archiver.kernel.org>; Wed, 11 Nov 2020 13:25:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BA24AC388F9
+	for <intel-gfx@archiver.kernel.org>; Wed, 11 Nov 2020 13:50:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CFEAD206CA
-	for <intel-gfx@archiver.kernel.org>; Wed, 11 Nov 2020 13:25:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CFEAD206CA
+	by mail.kernel.org (Postfix) with ESMTPS id 0A1B82072C
+	for <intel-gfx@archiver.kernel.org>; Wed, 11 Nov 2020 13:50:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0A1B82072C
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F418088FA0;
-	Wed, 11 Nov 2020 13:25:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 13A958925A;
+	Wed, 11 Nov 2020 13:50:41 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CBD5689FC3
- for <intel-gfx@lists.freedesktop.org>; Wed, 11 Nov 2020 13:25:38 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 549B38925A
+ for <intel-gfx@lists.freedesktop.org>; Wed, 11 Nov 2020 13:50:39 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22961875-1500050 
- for multiple; Wed, 11 Nov 2020 13:25:26 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22962162-1500050 
+ for multiple; Wed, 11 Nov 2020 13:50:25 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 11 Nov 2020 13:25:25 +0000
-Message-Id: <20201111132525.3751-1-chris@chris-wilson.co.uk>
+Date: Wed, 11 Nov 2020 13:50:24 +0000
+Message-Id: <20201111135024.28794-1-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20201111132525.3751-1-chris@chris-wilson.co.uk>
+References: <20201111132525.3751-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH] drm/i915/gt: Show all active timelines for
+Subject: [Intel-gfx] [PATCH v2] drm/i915/gt: Show all active timelines for
  debugging
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -61,16 +63,16 @@ otherwise.
 Suggested-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 ---
- drivers/gpu/drm/i915/gt/intel_timeline.c | 67 ++++++++++++++++++++++++
+ drivers/gpu/drm/i915/gt/intel_timeline.c | 79 ++++++++++++++++++++++++
  drivers/gpu/drm/i915/gt/intel_timeline.h |  8 +++
- drivers/gpu/drm/i915/i915_debugfs.c      | 16 +++---
- 3 files changed, 84 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/i915/i915_debugfs.c      | 16 ++---
+ 3 files changed, 96 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/gt/intel_timeline.c b/drivers/gpu/drm/i915/gt/intel_timeline.c
-index 7ea94d201fe6..77ef99bf6bba 100644
+index 7ea94d201fe6..b0037d09589a 100644
 --- a/drivers/gpu/drm/i915/gt/intel_timeline.c
 +++ b/drivers/gpu/drm/i915/gt/intel_timeline.c
-@@ -617,6 +617,73 @@ void intel_gt_fini_timelines(struct intel_gt *gt)
+@@ -617,6 +617,85 @@ void intel_gt_fini_timelines(struct intel_gt *gt)
  	GEM_BUG_ON(!list_empty(&timelines->hwsp_free_list));
  }
  
@@ -86,8 +88,9 @@ index 7ea94d201fe6..77ef99bf6bba 100644
 +
 +	spin_lock(&timelines->lock);
 +	list_for_each_entry_safe(tl, tn, &timelines->active_list, link) {
++		unsigned long count, ready, inflight;
 +		struct i915_request *rq, *rn;
-+		unsigned long active, ready;
++		struct dma_fence *fence;
 +
 +		if (!mutex_trylock(&tl->mutex))
 +			continue;
@@ -97,21 +100,32 @@ index 7ea94d201fe6..77ef99bf6bba 100644
 +		atomic_inc(&tl->active_count); /* pin the list element */
 +		spin_unlock(&timelines->lock);
 +
++		count = 0;
 +		ready = 0;
-+		active = 0;
++		inflight = 0;
 +		list_for_each_entry_safe(rq, rn, &tl->requests, link) {
 +			if (i915_request_completed(rq))
 +				continue;
 +
-+			active++;
++			count++;
 +			if (i915_request_is_ready(rq))
 +				ready++;
++			if (i915_request_is_active(rq))
++				inflight++;
 +		}
 +
-+		drm_printf(m,
-+			   "Timeline %llx: { active %lu, ready: %lu, current seqno: %d, next seqno: %d }\n",
-+			   tl->fence_context, active, ready,
++		drm_printf(m, "Timeline %llx: { ", tl->fence_context);
++		drm_printf(m, "count %lu, ready: %lu, inflight: %lu",
++			   count, ready, inflight);
++		drm_printf(m, ", seqno: { current: %d, last: %d }",
 +			   *tl->hwsp_seqno, tl->seqno);
++		fence = i915_active_fence_get(&tl->last_request);
++		if (fence) {
++			drm_printf(m, ", engine: %s",
++				   to_request(fence)->engine->name);
++			dma_fence_put(fence);
++		}
++		drm_printf(m, " }\n");
 +
 +		if (show_request) {
 +			list_for_each_entry_safe(rq, rn, &tl->requests, link)
