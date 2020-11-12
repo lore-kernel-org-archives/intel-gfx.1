@@ -2,54 +2,55 @@ Return-Path: <SRS0=k0IE=ES=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.7 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-11.2 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6D2C4C5519F
-	for <intel-gfx@archiver.kernel.org>; Thu, 12 Nov 2020 19:44:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AF4EAC5519F
+	for <intel-gfx@archiver.kernel.org>; Thu, 12 Nov 2020 19:45:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0A1D620759
-	for <intel-gfx@archiver.kernel.org>; Thu, 12 Nov 2020 19:44:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0A1D620759
+	by mail.kernel.org (Postfix) with ESMTPS id 5241720759
+	for <intel-gfx@archiver.kernel.org>; Thu, 12 Nov 2020 19:45:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5241720759
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 81E5F89FDD;
-	Thu, 12 Nov 2020 19:44:38 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B026189FDD
- for <intel-gfx@lists.freedesktop.org>; Thu, 12 Nov 2020 19:44:37 +0000 (UTC)
-IronPort-SDR: I4oUGKW+1DN9GI/g/e7/3aNkyCz/hg5tB5xqrIi/l5TbIaZhtkMnuFRZmLXHyEa+PlnhhbVP7y
- D5ZCOWZ/W3jw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9803"; a="255079576"
-X-IronPort-AV: E=Sophos;i="5.77,472,1596524400"; d="scan'208";a="255079576"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 91C416E406;
+	Thu, 12 Nov 2020 19:45:52 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 829276E406
+ for <intel-gfx@lists.freedesktop.org>; Thu, 12 Nov 2020 19:45:51 +0000 (UTC)
+IronPort-SDR: meTT5N1l4Yg3KKjYy9XnLrWMFwnVlpNfH+H5Q6ID3qSzQn675+jPgPi9UybvYvaD4uwkq6yaLL
+ Mva875Ez9M1A==
+X-IronPort-AV: E=McAfee;i="6000,8403,9803"; a="150219616"
+X-IronPort-AV: E=Sophos;i="5.77,472,1596524400"; d="scan'208";a="150219616"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Nov 2020 11:44:36 -0800
-IronPort-SDR: cMHten9J9aFhFhNsn57I0VFEsf3GGPsEaIGmDqW5Kv23MtSxkZQ4rBuB29hJeApqExlyjx+W9z
- G7puD7aWKZxA==
-X-IronPort-AV: E=Sophos;i="5.77,472,1596524400"; d="scan'208";a="542377862"
-Received: from cwilso3-mobl.fi.intel.com (HELO localhost) ([10.252.35.103])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Nov 2020 11:44:34 -0800
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Nov 2020 11:45:50 -0800
+IronPort-SDR: nCt5B7F8tY23x/3FDymCKTEhIZhtZbMMuw8RJ9Ea5dyezcfoWPl0/zLZ0BNpua6LTaJQIjUaKP
+ BGE0NK3E6DDA==
+X-IronPort-AV: E=Sophos;i="5.77,472,1596524400"; d="scan'208";a="474396816"
+Received: from labuser-z97x-ud5h.jf.intel.com (HELO labuser-Z97X-UD5H)
+ ([10.165.21.211])
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Nov 2020 11:45:50 -0800
+Date: Thu, 12 Nov 2020 11:48:12 -0800
+From: "Navare, Manasi" <manasi.d.navare@intel.com>
+To: Ville Syrjala <ville.syrjala@linux.intel.com>
+Message-ID: <20201112194812.GC15399@labuser-Z97X-UD5H>
+References: <20201112191718.16683-1-ville.syrjala@linux.intel.com>
+ <20201112191718.16683-4-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
-In-Reply-To: <20201010002105.45152-5-umesh.nerlige.ramappa@intel.com>
-References: <20201010002105.45152-1-umesh.nerlige.ramappa@intel.com>
- <20201010002105.45152-5-umesh.nerlige.ramappa@intel.com>
-From: Chris Wilson <chris.p.wilson@intel.com>
-To: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>,
- intel-gfx@lists.freedesktop.org
-Date: Thu, 12 Nov 2020 19:44:32 +0000
-Message-ID: <160521027215.25046.10810273417498100458@build.alporthouse.com>
-User-Agent: alot/0.9
-Subject: Re: [Intel-gfx] [PATCH 4/6] drm/i915/gt: Refactor _wa_add to reuse
- wa_index and wa_list_grow
+Content-Disposition: inline
+In-Reply-To: <20201112191718.16683-4-ville.syrjala@linux.intel.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+Subject: Re: [Intel-gfx] [PATCH 3/6] drm/i915: Move hw.active assignment
+ into intel_crtc_get_pipe_config()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,68 +63,96 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: intel-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Quoting Umesh Nerlige Ramappa (2020-10-10 01:21:03)
-> Switch the search and grow code of the _wa_add to use _wa_index and
-> _wa_list_grow.
-> 
-> Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+On Thu, Nov 12, 2020 at 09:17:15PM +0200, Ville Syrjala wrote:
+> From: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
+> =
+
+> No reason to make the callers of intel_crtc_get_pipe_config()
+> populate hw.active. Let's do it in intel_crtc_get_pipe_config()
+> itself. hw.enable we leave up to the callers since it's slightly
+> different for readout vs. state check.
+> =
+
+> Signed-off-by: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
 > ---
->  drivers/gpu/drm/i915/gt/intel_workarounds.c | 54 +++++++--------------
->  1 file changed, 17 insertions(+), 37 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-> index 801fcb60f46b..e49283bffa33 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
-> +++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-> @@ -174,53 +174,33 @@ static void _wa_remove(struct i915_wa_list *wal, i915_reg_t reg, u32 flags)
->  
->  static void _wa_add(struct i915_wa_list *wal, const struct i915_wa *wa)
->  {
-> -       unsigned int addr = i915_mmio_reg_offset(wa->reg);
-> -       unsigned int start = 0, end = wal->count;
-> +       int index;
->         const unsigned int grow = WA_LIST_CHUNK;
->         struct i915_wa *wa_;
->  
->         GEM_BUG_ON(!is_power_of_2(grow));
->  
-> -       if (IS_ALIGNED(wal->count, grow)) { /* Either uninitialized or full. */
-> -               struct i915_wa *list;
-> -
-> -               list = kmalloc_array(ALIGN(wal->count + 1, grow), sizeof(*wa),
-> -                                    GFP_KERNEL);
-> -               if (!list) {
-> -                       DRM_ERROR("No space for workaround init!\n");
-> +       if (IS_ALIGNED(wal->count, grow)) /* Either uninitialized or full. */
-> +               if (_wa_list_grow(wal, wal->count) < 0)
->                         return;
-> -               }
-> -
-> -               if (wal->list)
-> -                       memcpy(list, wal->list, sizeof(*wa) * wal->count);
->  
-> -               wal->list = list;
+>  drivers/gpu/drm/i915/display/intel_display.c | 14 ++++++++++----
+>  1 file changed, 10 insertions(+), 4 deletions(-)
+> =
 
-An inherited problem, but I'm a little unnerved by the apparent leak of
-wa->list here.
+> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/d=
+rm/i915/display/intel_display.c
+> index a8287414937c..889642bef192 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display.c
+> +++ b/drivers/gpu/drm/i915/display/intel_display.c
+> @@ -11412,7 +11412,12 @@ static bool intel_crtc_get_pipe_config(struct in=
+tel_crtc_state *crtc_state)
+>  	struct intel_crtc *crtc =3D to_intel_crtc(crtc_state->uapi.crtc);
+>  	struct drm_i915_private *i915 =3D to_i915(crtc->base.dev);
+>  =
 
-Paging Tvrtko to see if he can remember if there's a hidden trick.
--Chris
----------------------------------------------------------------------
-Intel Corporation (UK) Limited
-Registered No. 1134945 (England)
-Registered Office: Pipers Way, Swindon SN3 1RJ
-VAT No: 860 2173 47
+> -	return i915->display.get_pipe_config(crtc, crtc_state);
+> +	if (!i915->display.get_pipe_config(crtc, crtc_state))
+> +		return false;
+> +
+> +	crtc_state->hw.active =3D true;
+> +
+> +	return true;
 
-This e-mail and any attachments may contain confidential material for
-the sole use of the intended recipient(s). Any review or distribution
-by others is strictly prohibited. If you are not the intended
-recipient, please contact the sender and delete all copies.
+In that case this function can just return a void right, we are not catchin=
+g the return value in the caller anyways now
+
+With that change
+
+Reviewed-by: Manasi Navare <manasi.d.navare@intel.com>
+
+Manasi
+
+>  }
+>  =
+
+>  static u32 intel_cursor_base(const struct intel_plane_state *plane_state)
+> @@ -14430,7 +14435,7 @@ verify_crtc_state(struct intel_crtc *crtc,
+>  =
+
+>  	pipe_config->hw.enable =3D new_crtc_state->hw.enable;
+>  =
+
+> -	pipe_config->hw.active =3D intel_crtc_get_pipe_config(pipe_config);
+> +	intel_crtc_get_pipe_config(pipe_config);
+>  =
+
+>  	/* we keep both pipes enabled on 830 */
+>  	if (IS_I830(dev_priv) && pipe_config->hw.active)
+> @@ -18742,8 +18747,9 @@ static void intel_modeset_readout_hw_state(struct=
+ drm_device *dev)
+>  		intel_crtc_free_hw_state(crtc_state);
+>  		intel_crtc_state_reset(crtc_state, crtc);
+>  =
+
+> -		crtc_state->hw.active =3D crtc_state->hw.enable =3D
+> -			intel_crtc_get_pipe_config(crtc_state);
+> +		intel_crtc_get_pipe_config(crtc_state);
+> +
+> +		crtc_state->hw.enable =3D crtc_state->hw.active;
+>  =
+
+>  		crtc->base.enabled =3D crtc_state->hw.enable;
+>  		crtc->active =3D crtc_state->hw.active;
+> -- =
+
+> 2.26.2
+> =
+
+> _______________________________________________
+> Intel-gfx mailing list
+> Intel-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/intel-gfx
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
