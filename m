@@ -2,54 +2,55 @@ Return-Path: <SRS0=k0IE=ES=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.7 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-11.2 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CD6D6C2D0E4
-	for <intel-gfx@archiver.kernel.org>; Thu, 12 Nov 2020 19:37:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0DDE5C2D0E4
+	for <intel-gfx@archiver.kernel.org>; Thu, 12 Nov 2020 19:43:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4EF2220A8B
-	for <intel-gfx@archiver.kernel.org>; Thu, 12 Nov 2020 19:37:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4EF2220A8B
+	by mail.kernel.org (Postfix) with ESMTPS id 95C0A20759
+	for <intel-gfx@archiver.kernel.org>; Thu, 12 Nov 2020 19:43:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 95C0A20759
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B6BB16E418;
-	Thu, 12 Nov 2020 19:37:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA9EC6E329;
+	Thu, 12 Nov 2020 19:43:18 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 322FD6E418
- for <intel-gfx@lists.freedesktop.org>; Thu, 12 Nov 2020 19:37:28 +0000 (UTC)
-IronPort-SDR: CGyow1fCofW1VJ4fE9DoTYWw9oY/FtJCfkWTU2bggJwYUllfERL+8zVSsO3S3DGfZ0/wxrlcGf
- 79MhY0xmhsrw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9803"; a="166860739"
-X-IronPort-AV: E=Sophos;i="5.77,472,1596524400"; d="scan'208";a="166860739"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 34FA96E329
+ for <intel-gfx@lists.freedesktop.org>; Thu, 12 Nov 2020 19:43:18 +0000 (UTC)
+IronPort-SDR: bRkBKt/LeE1WzSdlsjSFHnea51+P3PCo1Ib2dP8Rk5mGxyM4sljlsX9VTadwl1u/uCUksDRXdU
+ 6ziXL4RURL8Q==
+X-IronPort-AV: E=McAfee;i="6000,8403,9803"; a="166861547"
+X-IronPort-AV: E=Sophos;i="5.77,472,1596524400"; d="scan'208";a="166861547"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Nov 2020 11:37:27 -0800
-IronPort-SDR: jYoqXS+DhvtxpyJN9+MEj2KBFuoshj/M9LguOgSZEyZKyNKEq8Zg85JL+W/xA5WXc0J5uvbbkC
- 8bdM1xsqtU4Q==
-X-IronPort-AV: E=Sophos;i="5.77,472,1596524400"; d="scan'208";a="542375633"
-Received: from cwilso3-mobl.fi.intel.com (HELO localhost) ([10.252.35.103])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Nov 2020 11:37:26 -0800
+ 12 Nov 2020 11:42:59 -0800
+IronPort-SDR: g+LYVb4CnTd9ModlQ4SdrGIJGp7fZjnrKkSkCUxTpwjMPxM6dAtTyJ7nTwS7/cGKuhcUSt2q+2
+ Y8Jjl2hiXO0Q==
+X-IronPort-AV: E=Sophos;i="5.77,472,1596524400"; d="scan'208";a="474396032"
+Received: from labuser-z97x-ud5h.jf.intel.com (HELO labuser-Z97X-UD5H)
+ ([10.165.21.211])
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Nov 2020 11:42:59 -0800
+Date: Thu, 12 Nov 2020 11:45:21 -0800
+From: "Navare, Manasi" <manasi.d.navare@intel.com>
+To: Ville Syrjala <ville.syrjala@linux.intel.com>
+Message-ID: <20201112194521.GA15399@labuser-Z97X-UD5H>
+References: <20201112191718.16683-1-ville.syrjala@linux.intel.com>
+ <20201112191718.16683-2-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
-In-Reply-To: <20201010002105.45152-3-umesh.nerlige.ramappa@intel.com>
-References: <20201010002105.45152-1-umesh.nerlige.ramappa@intel.com>
- <20201010002105.45152-3-umesh.nerlige.ramappa@intel.com>
-From: Chris Wilson <chris.p.wilson@intel.com>
-To: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>,
- intel-gfx@lists.freedesktop.org
-Date: Thu, 12 Nov 2020 19:37:23 +0000
-Message-ID: <160520984362.25046.13191035584637135557@build.alporthouse.com>
-User-Agent: alot/0.9
-Subject: Re: [Intel-gfx] [PATCH 2/6] drm/i915/gt: Lock
- intel_engine_apply_whitelist with uncore->lock
+Content-Disposition: inline
+In-Reply-To: <20201112191718.16683-2-ville.syrjala@linux.intel.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+Subject: Re: [Intel-gfx] [PATCH 1/6] drm/i915: Move encoder->get_config to a
+ new function
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,124 +63,102 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: intel-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Quoting Umesh Nerlige Ramappa (2020-10-10 01:21:01)
-> Refactor intel_engine_apply_whitelist into locked and unlocked versions
-> so that a caller who already has the lock can apply whitelist.
-> 
-> v2: Fix sparse warning
-> 
-> Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+On Thu, Nov 12, 2020 at 09:17:13PM +0200, Ville Syrjala wrote:
+> From: Manasi Navare <manasi.d.navare@intel.com>
+> =
+
+> No functional changes, create a separate intel_encoder_get_config()
+> function that calls encoder->get_config hook.
+> This is needed so that later we can add beigjoienr related
+> readout here.
+
+bigjoiner misspelled
+
+Other than that
+
+Reviewed-by: Manasi Navare <manasi.d.navare@intel.com>
+
+Manasi
+> =
+
+> Signed-off-by: Manasi Navare <manasi.d.navare@intel.com>
+> [vsyrjala: Move the code around for the future]
+> Signed-off-by: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
 > ---
->  drivers/gpu/drm/i915/gt/intel_workarounds.c | 44 +++++++++++++++------
->  1 file changed, 31 insertions(+), 13 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-> index 6c580d0d9ea8..864194aa6eef 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
-> +++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-> @@ -1295,7 +1295,8 @@ void intel_gt_init_workarounds(struct drm_i915_private *i915)
+>  drivers/gpu/drm/i915/display/intel_display.c | 12 +++++++++---
+>  1 file changed, 9 insertions(+), 3 deletions(-)
+> =
+
+> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/d=
+rm/i915/display/intel_display.c
+> index 9566a8d1f470..110d08f2a5c5 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display.c
+> +++ b/drivers/gpu/drm/i915/display/intel_display.c
+> @@ -8141,6 +8141,12 @@ static void intel_crtc_compute_pixel_rate(struct i=
+ntel_crtc_state *crtc_state)
+>  			ilk_pipe_pixel_rate(crtc_state);
 >  }
->  
->  static enum forcewake_domains
-> -wal_get_fw_for_rmw(struct intel_uncore *uncore, const struct i915_wa_list *wal)
-> +wal_get_fw(struct intel_uncore *uncore, const struct i915_wa_list *wal,
-> +          unsigned int op)
->  {
->         enum forcewake_domains fw = 0;
->         struct i915_wa *wa;
-> @@ -1304,8 +1305,7 @@ wal_get_fw_for_rmw(struct intel_uncore *uncore, const struct i915_wa_list *wal)
->         for (i = 0, wa = wal->list; i < wal->count; i++, wa++)
->                 fw |= intel_uncore_forcewake_for_reg(uncore,
->                                                      wa->reg,
-> -                                                    FW_REG_READ |
-> -                                                    FW_REG_WRITE);
-> +                                                    op);
->  
->         return fw;
->  }
-> @@ -1335,7 +1335,7 @@ wa_list_apply(struct intel_uncore *uncore, const struct i915_wa_list *wal)
->         if (!wal->count)
->                 return;
->  
-> -       fw = wal_get_fw_for_rmw(uncore, wal);
-> +       fw = wal_get_fw(uncore, wal, FW_REG_READ | FW_REG_WRITE);
->  
->         spin_lock_irqsave(&uncore->lock, flags);
->         intel_uncore_forcewake_get__locked(uncore, fw);
-> @@ -1645,27 +1645,45 @@ void intel_engine_init_whitelist(struct intel_engine_cs *engine)
->         wa_init_finish(w);
->  }
->  
-> -void intel_engine_apply_whitelist(struct intel_engine_cs *engine)
-> +static void intel_engine_apply_whitelist_locked(struct intel_engine_cs *engine)
+>  =
 
-Not too bad, but since it remains static, we could drop the prefix (and
-suffix):
-	__engine_apply_whitelist(engine, wal)
-
->  {
->         const struct i915_wa_list *wal = &engine->whitelist;
->         struct intel_uncore *uncore = engine->uncore;
->         const u32 base = engine->mmio_base;
->         struct i915_wa *wa;
->         unsigned int i;
-> +       enum forcewake_domains fw;
-
-(Christmas tree)
-
->  
-> -       if (!wal->count)
-> -               return;
-> +       lockdep_assert_held(&uncore->lock);
-> +
-> +       fw = wal_get_fw(uncore, wal, FW_REG_WRITE);
-> +       intel_uncore_forcewake_get__locked(uncore, fw);
->  
->         for (i = 0, wa = wal->list; i < wal->count; i++, wa++)
-> -               intel_uncore_write(uncore,
-> -                                  RING_FORCE_TO_NONPRIV(base, i),
-> -                                  i915_mmio_reg_offset(wa->reg));
-> +               intel_uncore_write_fw(uncore,
-> +                                     RING_FORCE_TO_NONPRIV(base, i),
-> +                                     i915_mmio_reg_offset(wa->reg));
->  
->         /* And clear the rest just in case of garbage */
->         for (; i < RING_MAX_NONPRIV_SLOTS; i++)
-> -               intel_uncore_write(uncore,
-> -                                  RING_FORCE_TO_NONPRIV(base, i),
-> -                                  i915_mmio_reg_offset(RING_NOPID(base)));
-> +               intel_uncore_write_fw(uncore,
-> +                                     RING_FORCE_TO_NONPRIV(base, i),
-> +                                     i915_mmio_reg_offset(RING_NOPID(base)));
-> +
-> +       intel_uncore_forcewake_put__locked(uncore, fw);
+> +static void intel_encoder_get_config(struct intel_encoder *encoder,
+> +				     struct intel_crtc_state *crtc_state)
+> +{
+> +	encoder->get_config(encoder, crtc_state);
 > +}
 > +
-> +void intel_engine_apply_whitelist(struct intel_engine_cs *engine)
-> +{
-> +       unsigned long flags;
-> +       const struct i915_wa_list *wal = &engine->whitelist;
+>  static int intel_crtc_compute_config(struct intel_crtc *crtc,
+>  				     struct intel_crtc_state *pipe_config)
+>  {
+> @@ -12403,7 +12409,7 @@ intel_encoder_current_mode(struct intel_encoder *=
+encoder)
+>  		return NULL;
+>  	}
+>  =
 
-Longest to shortest variable declaration (if no other reason prevents
-that).
+> -	encoder->get_config(encoder, crtc_state);
+> +	intel_encoder_get_config(encoder, crtc_state);
+>  =
 
-Reviewed-by: Chris Wilson <chris.p.wilson@intel.com>
--Chris
----------------------------------------------------------------------
-Intel Corporation (UK) Limited
-Registered No. 1134945 (England)
-Registered Office: Pipers Way, Swindon SN3 1RJ
-VAT No: 860 2173 47
+>  	intel_mode_from_pipe_config(mode, crtc_state);
+>  =
 
-This e-mail and any attachments may contain confidential material for
-the sole use of the intended recipient(s). Any review or distribution
-by others is strictly prohibited. If you are not the intended
-recipient, please contact the sender and delete all copies.
+> @@ -14448,7 +14454,7 @@ verify_crtc_state(struct intel_crtc *crtc,
+>  				pipe_name(pipe));
+>  =
+
+>  		if (active)
+> -			encoder->get_config(encoder, pipe_config);
+> +			intel_encoder_get_config(encoder, pipe_config);
+>  	}
+>  =
+
+>  	intel_crtc_compute_pixel_rate(pipe_config);
+> @@ -18761,7 +18767,7 @@ static void intel_modeset_readout_hw_state(struct=
+ drm_device *dev)
+>  			crtc_state =3D to_intel_crtc_state(crtc->base.state);
+>  =
+
+>  			encoder->base.crtc =3D &crtc->base;
+> -			encoder->get_config(encoder, crtc_state);
+> +			intel_encoder_get_config(encoder, crtc_state);
+>  			if (encoder->sync_state)
+>  				encoder->sync_state(encoder, crtc_state);
+>  		} else {
+> -- =
+
+> 2.26.2
+> =
+
+> _______________________________________________
+> Intel-gfx mailing list
+> Intel-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/intel-gfx
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
