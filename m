@@ -7,36 +7,35 @@ X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B278EC56202
-	for <intel-gfx@archiver.kernel.org>; Thu, 12 Nov 2020 10:43:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3E76BC55ABD
+	for <intel-gfx@archiver.kernel.org>; Thu, 12 Nov 2020 10:43:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5D07C20674
-	for <intel-gfx@archiver.kernel.org>; Thu, 12 Nov 2020 10:43:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5D07C20674
+	by mail.kernel.org (Postfix) with ESMTPS id 96A6620674
+	for <intel-gfx@archiver.kernel.org>; Thu, 12 Nov 2020 10:43:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 96A6620674
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C00796E1F1;
-	Thu, 12 Nov 2020 10:43:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 018266E1EE;
+	Thu, 12 Nov 2020 10:43:50 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 30C0A6E1ED
- for <intel-gfx@lists.freedesktop.org>; Thu, 12 Nov 2020 10:43:46 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 378BA6E1F1
+ for <intel-gfx@lists.freedesktop.org>; Thu, 12 Nov 2020 10:43:48 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22970254-1500050 
- for multiple; Thu, 12 Nov 2020 10:43:39 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22970251-1500050 
+ for multiple; Thu, 12 Nov 2020 10:43:38 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 12 Nov 2020 10:43:35 +0000
-Message-Id: <20201112104336.20557-4-chris@chris-wilson.co.uk>
+Date: Thu, 12 Nov 2020 10:43:32 +0000
+Message-Id: <20201112104336.20557-1-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20201112104336.20557-1-chris@chris-wilson.co.uk>
-References: <20201112104336.20557-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 4/5] drm/i915: Lift waiter/signaler iterators
+Subject: [Intel-gfx] [PATCH 1/5] drm/i915/gt: Include semaphore status in
+ print_request()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,55 +54,27 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Lift the list iteration defines for traversing the signaler/waiter lists
-into i915_scheduler.h for reuse.
+When pretty-printing the requests for debug, also show the status of any
+semaphore waits as part of its runnable status.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+Reviewed-by: Mika Kuoppala <mika.kuoppala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_lrc.c         | 10 ----------
- drivers/gpu/drm/i915/i915_scheduler_types.h | 10 ++++++++++
- 2 files changed, 10 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
-index 78baa01956f1..7a1fe8c5a907 100644
---- a/drivers/gpu/drm/i915/gt/intel_lrc.c
-+++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
-@@ -1836,16 +1836,6 @@ static void virtual_xfer_context(struct virtual_engine *ve,
- 	}
- }
- 
--#define for_each_waiter(p__, rq__) \
--	list_for_each_entry_lockless(p__, \
--				     &(rq__)->sched.waiters_list, \
--				     wait_link)
--
--#define for_each_signaler(p__, rq__) \
--	list_for_each_entry_rcu(p__, \
--				&(rq__)->sched.signalers_list, \
--				signal_link)
--
- static void defer_request(struct i915_request *rq, struct list_head * const pl)
- {
- 	LIST_HEAD(list);
-diff --git a/drivers/gpu/drm/i915/i915_scheduler_types.h b/drivers/gpu/drm/i915/i915_scheduler_types.h
-index f72e6c397b08..343ed44d5ed4 100644
---- a/drivers/gpu/drm/i915/i915_scheduler_types.h
-+++ b/drivers/gpu/drm/i915/i915_scheduler_types.h
-@@ -81,4 +81,14 @@ struct i915_dependency {
- #define I915_DEPENDENCY_WEAK		BIT(2)
- };
- 
-+#define for_each_waiter(p__, rq__) \
-+	list_for_each_entry_lockless(p__, \
-+				     &(rq__)->sched.waiters_list, \
-+				     wait_link)
-+
-+#define for_each_signaler(p__, rq__) \
-+	list_for_each_entry_rcu(p__, \
-+				&(rq__)->sched.signalers_list, \
-+				signal_link)
-+
- #endif /* _I915_SCHEDULER_TYPES_H_ */
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+index 0b31670343f5..1ed84ee8ce41 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
++++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+@@ -1321,6 +1321,7 @@ static void print_request(struct drm_printer *m,
+ 		   rq->fence.context, rq->fence.seqno,
+ 		   i915_request_completed(rq) ? "!" :
+ 		   i915_request_started(rq) ? "*" :
++		   !i915_sw_fence_signaled(&rq->semaphore) ? "&" :
+ 		   "",
+ 		   test_bit(DMA_FENCE_FLAG_SIGNALED_BIT,
+ 			    &rq->fence.flags) ? "+" :
 -- 
 2.20.1
 
