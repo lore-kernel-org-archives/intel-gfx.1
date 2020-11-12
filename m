@@ -2,54 +2,54 @@ Return-Path: <SRS0=k0IE=ES=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-9.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 60655C2D0E4
-	for <intel-gfx@archiver.kernel.org>; Thu, 12 Nov 2020 19:17:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CD6D6C2D0E4
+	for <intel-gfx@archiver.kernel.org>; Thu, 12 Nov 2020 19:37:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E598720B80
-	for <intel-gfx@archiver.kernel.org>; Thu, 12 Nov 2020 19:17:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E598720B80
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 4EF2220A8B
+	for <intel-gfx@archiver.kernel.org>; Thu, 12 Nov 2020 19:37:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4EF2220A8B
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4BC956E3FE;
-	Thu, 12 Nov 2020 19:17:48 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 191B26E3F4
- for <intel-gfx@lists.freedesktop.org>; Thu, 12 Nov 2020 19:17:47 +0000 (UTC)
-IronPort-SDR: 7NEXcAbRi6ODIV5eMqq5sQxmj+HI2lK3zTIy6g2H65YakoKYhZN1VwAlZeFZrjJb0wl6r+PUsP
- hnaI2a3VigZA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9803"; a="150215755"
-X-IronPort-AV: E=Sophos;i="5.77,472,1596524400"; d="scan'208";a="150215755"
+	by gabe.freedesktop.org (Postfix) with ESMTP id B6BB16E418;
+	Thu, 12 Nov 2020 19:37:28 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 322FD6E418
+ for <intel-gfx@lists.freedesktop.org>; Thu, 12 Nov 2020 19:37:28 +0000 (UTC)
+IronPort-SDR: CGyow1fCofW1VJ4fE9DoTYWw9oY/FtJCfkWTU2bggJwYUllfERL+8zVSsO3S3DGfZ0/wxrlcGf
+ 79MhY0xmhsrw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9803"; a="166860739"
+X-IronPort-AV: E=Sophos;i="5.77,472,1596524400"; d="scan'208";a="166860739"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Nov 2020 11:17:35 -0800
-IronPort-SDR: zdPe7gQz8pFd+uHC8oDWZGRbpJobmGo4efW2ltyhqjTR7AtCujoBlpYF8gibTzpczqFFzJER1T
- YepIxnLrLfhA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.77,472,1596524400"; d="scan'208";a="361086855"
-Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.174])
- by fmsmga002.fm.intel.com with SMTP; 12 Nov 2020 11:17:33 -0800
-Received: by stinkbox (sSMTP sendmail emulation);
- Thu, 12 Nov 2020 21:17:32 +0200
-From: Ville Syrjala <ville.syrjala@linux.intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Thu, 12 Nov 2020 21:17:17 +0200
-Message-Id: <20201112191718.16683-6-ville.syrjala@linux.intel.com>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20201112191718.16683-1-ville.syrjala@linux.intel.com>
-References: <20201112191718.16683-1-ville.syrjala@linux.intel.com>
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Nov 2020 11:37:27 -0800
+IronPort-SDR: jYoqXS+DhvtxpyJN9+MEj2KBFuoshj/M9LguOgSZEyZKyNKEq8Zg85JL+W/xA5WXc0J5uvbbkC
+ 8bdM1xsqtU4Q==
+X-IronPort-AV: E=Sophos;i="5.77,472,1596524400"; d="scan'208";a="542375633"
+Received: from cwilso3-mobl.fi.intel.com (HELO localhost) ([10.252.35.103])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Nov 2020 11:37:26 -0800
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 5/6] drm/i915: Introduce
- intel_crtc_readout_derived_state()
+In-Reply-To: <20201010002105.45152-3-umesh.nerlige.ramappa@intel.com>
+References: <20201010002105.45152-1-umesh.nerlige.ramappa@intel.com>
+ <20201010002105.45152-3-umesh.nerlige.ramappa@intel.com>
+From: Chris Wilson <chris.p.wilson@intel.com>
+To: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>,
+ intel-gfx@lists.freedesktop.org
+Date: Thu, 12 Nov 2020 19:37:23 +0000
+Message-ID: <160520984362.25046.13191035584637135557@build.alporthouse.com>
+User-Agent: alot/0.9
+Subject: Re: [Intel-gfx] [PATCH 2/6] drm/i915/gt: Lock
+ intel_engine_apply_whitelist with uncore->lock
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,69 +62,125 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-RnJvbTogVmlsbGUgU3lyasOkbMOkIDx2aWxsZS5zeXJqYWxhQGxpbnV4LmludGVsLmNvbT4KCkNv
-bGxlY3QgdXAgYSBidW5jaCBvZiBkZXJpdmVkIHN0YXRlICJyZWFkb3V0IiBpbnRvCmEgY29tbW9u
-IGhlbHBlciwgd2hpY2ggd2UgY2FuIGNhbGwgZnJvbSBib3RoCmludGVsX2VuY29kZXJfZ2V0X2Nv
-bmZpZygpIGFuZCBpbnRlbF9jcnRjX2dldF9waXBlX2NvbmZpZygpLgoKU2lnbmVkLW9mZi1ieTog
-VmlsbGUgU3lyasOkbMOkIDx2aWxsZS5zeXJqYWxhQGxpbnV4LmludGVsLmNvbT4KLS0tCiBkcml2
-ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Rpc3BsYXkuYyB8IDM0ICsrKysrKysrKysr
-LS0tLS0tLS0tCiAxIGZpbGUgY2hhbmdlZCwgMTggaW5zZXJ0aW9ucygrKSwgMTYgZGVsZXRpb25z
-KC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kaXNw
-bGF5LmMgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Rpc3BsYXkuYwppbmRl
-eCBlYmY2MjFmZjdlZjYuLjA3YjhkOTQ1YzQxZiAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJt
-L2k5MTUvZGlzcGxheS9pbnRlbF9kaXNwbGF5LmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUv
-ZGlzcGxheS9pbnRlbF9kaXNwbGF5LmMKQEAgLTgxNjIsMTAgKzgxNjIsMjYgQEAgc3RhdGljIHZv
-aWQgaW50ZWxfY3J0Y19jb21wdXRlX3BpeGVsX3JhdGUoc3RydWN0IGludGVsX2NydGNfc3RhdGUg
-KmNydGNfc3RhdGUpCiAJCQlpbGtfcGlwZV9waXhlbF9yYXRlKGNydGNfc3RhdGUpOwogfQogCitz
-dGF0aWMgdm9pZCBpbnRlbF9jcnRjX3JlYWRvdXRfZGVyaXZlZF9zdGF0ZShzdHJ1Y3QgaW50ZWxf
-Y3J0Y19zdGF0ZSAqY3J0Y19zdGF0ZSkKK3sKKwlzdHJ1Y3QgZHJtX2Rpc3BsYXlfbW9kZSAqbW9k
-ZSA9ICZjcnRjX3N0YXRlLT5ody5tb2RlOworCXN0cnVjdCBkcm1fZGlzcGxheV9tb2RlICphZGp1
-c3RlZF9tb2RlID0gJmNydGNfc3RhdGUtPmh3LmFkanVzdGVkX21vZGU7CisKKwlpbnRlbF9tb2Rl
-X2Zyb21fY3J0Y190aW1pbmdzKGFkanVzdGVkX21vZGUsIGFkanVzdGVkX21vZGUpOworCisJaW50
-ZWxfY3J0Y19jb21wdXRlX3BpeGVsX3JhdGUoY3J0Y19zdGF0ZSk7CisKKwlkcm1fbW9kZV9jb3B5
-KG1vZGUsIGFkanVzdGVkX21vZGUpOworCW1vZGUtPmhkaXNwbGF5ID0gY3J0Y19zdGF0ZS0+cGlw
-ZV9zcmNfdzsKKwltb2RlLT52ZGlzcGxheSA9IGNydGNfc3RhdGUtPnBpcGVfc3JjX2g7Cit9CisK
-IHN0YXRpYyB2b2lkIGludGVsX2VuY29kZXJfZ2V0X2NvbmZpZyhzdHJ1Y3QgaW50ZWxfZW5jb2Rl
-ciAqZW5jb2RlciwKIAkJCQkgICAgIHN0cnVjdCBpbnRlbF9jcnRjX3N0YXRlICpjcnRjX3N0YXRl
-KQogewogCWVuY29kZXItPmdldF9jb25maWcoZW5jb2RlciwgY3J0Y19zdGF0ZSk7CisKKwlpbnRl
-bF9jcnRjX3JlYWRvdXRfZGVyaXZlZF9zdGF0ZShjcnRjX3N0YXRlKTsKIH0KIAogc3RhdGljIGlu
-dCBpbnRlbF9jcnRjX2NvbXB1dGVfY29uZmlnKHN0cnVjdCBpbnRlbF9jcnRjICpjcnRjLApAQCAt
-OTA0Niw5ICs5MDYyLDYgQEAgc3RhdGljIHZvaWQgaW50ZWxfZ2V0X3BpcGVfc3JjX3NpemUoc3Ry
-dWN0IGludGVsX2NydGMgKmNydGMsCiAJdG1wID0gaW50ZWxfZGVfcmVhZChkZXZfcHJpdiwgUElQ
-RVNSQyhjcnRjLT5waXBlKSk7CiAJcGlwZV9jb25maWctPnBpcGVfc3JjX2ggPSAodG1wICYgMHhm
-ZmZmKSArIDE7CiAJcGlwZV9jb25maWctPnBpcGVfc3JjX3cgPSAoKHRtcCA+PiAxNikgJiAweGZm
-ZmYpICsgMTsKLQotCXBpcGVfY29uZmlnLT5ody5tb2RlLnZkaXNwbGF5ID0gcGlwZV9jb25maWct
-PnBpcGVfc3JjX2g7Ci0JcGlwZV9jb25maWctPmh3Lm1vZGUuaGRpc3BsYXkgPSBwaXBlX2NvbmZp
-Zy0+cGlwZV9zcmNfdzsKIH0KIAogc3RhdGljIHZvaWQgaTl4eF9zZXRfcGlwZWNvbmYoY29uc3Qg
-c3RydWN0IGludGVsX2NydGNfc3RhdGUgKmNydGNfc3RhdGUpCkBAIC0xMTQxNyw2ICsxMTQzMCw4
-IEBAIHN0YXRpYyBib29sIGludGVsX2NydGNfZ2V0X3BpcGVfY29uZmlnKHN0cnVjdCBpbnRlbF9j
-cnRjX3N0YXRlICpjcnRjX3N0YXRlKQogCiAJY3J0Y19zdGF0ZS0+aHcuYWN0aXZlID0gdHJ1ZTsK
-IAorCWludGVsX2NydGNfcmVhZG91dF9kZXJpdmVkX3N0YXRlKGNydGNfc3RhdGUpOworCiAJcmV0
-dXJuIHRydWU7CiB9CiAKQEAgLTE0NDY5LDggKzE0NDg0LDYgQEAgdmVyaWZ5X2NydGNfc3RhdGUo
-c3RydWN0IGludGVsX2NydGMgKmNydGMsCiAJCQlpbnRlbF9lbmNvZGVyX2dldF9jb25maWcoZW5j
-b2RlciwgcGlwZV9jb25maWcpOwogCX0KIAotCWludGVsX2NydGNfY29tcHV0ZV9waXhlbF9yYXRl
-KHBpcGVfY29uZmlnKTsKLQogCWlmICghbmV3X2NydGNfc3RhdGUtPmh3LmFjdGl2ZSkKIAkJcmV0
-dXJuOwogCkBAIC0xODgzOSwxNSArMTg4NTIsNiBAQCBzdGF0aWMgdm9pZCBpbnRlbF9tb2Rlc2V0
-X3JlYWRvdXRfaHdfc3RhdGUoc3RydWN0IGRybV9kZXZpY2UgKmRldikKIAkJaW50IG1pbl9jZGNs
-ayA9IDA7CiAKIAkJaWYgKGNydGNfc3RhdGUtPmh3LmFjdGl2ZSkgewotCQkJc3RydWN0IGRybV9k
-aXNwbGF5X21vZGUgKm1vZGUgPSAmY3J0Y19zdGF0ZS0+aHcubW9kZTsKLQotCQkJaW50ZWxfbW9k
-ZV9mcm9tX2NydGNfdGltaW5ncygmY3J0Y19zdGF0ZS0+aHcuYWRqdXN0ZWRfbW9kZSwKLQkJCQkJ
-CSAgICAgJmNydGNfc3RhdGUtPmh3LmFkanVzdGVkX21vZGUpOwotCi0JCQkqbW9kZSA9IGNydGNf
-c3RhdGUtPmh3LmFkanVzdGVkX21vZGU7Ci0JCQltb2RlLT5oZGlzcGxheSA9IGNydGNfc3RhdGUt
-PnBpcGVfc3JjX3c7Ci0JCQltb2RlLT52ZGlzcGxheSA9IGNydGNfc3RhdGUtPnBpcGVfc3JjX2g7
-Ci0KIAkJCS8qCiAJCQkgKiBUaGUgaW5pdGlhbCBtb2RlIG5lZWRzIHRvIGJlIHNldCBpbiBvcmRl
-ciB0byBrZWVwCiAJCQkgKiB0aGUgYXRvbWljIGNvcmUgaGFwcHkuIEl0IHdhbnRzIGEgdmFsaWQg
-bW9kZSBpZiB0aGUKQEAgLTE4ODU5LDggKzE4ODYzLDYgQEAgc3RhdGljIHZvaWQgaW50ZWxfbW9k
-ZXNldF9yZWFkb3V0X2h3X3N0YXRlKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYpCiAJCQkgKi8KIAkJ
-CWNydGNfc3RhdGUtPmluaGVyaXRlZCA9IHRydWU7CiAKLQkJCWludGVsX2NydGNfY29tcHV0ZV9w
-aXhlbF9yYXRlKGNydGNfc3RhdGUpOwotCiAJCQlpbnRlbF9jcnRjX3VwZGF0ZV9hY3RpdmVfdGlt
-aW5ncyhjcnRjX3N0YXRlKTsKIAogCQkJaW50ZWxfY3J0Y19jb3B5X2h3X3RvX3VhcGlfc3RhdGUo
-Y3J0Y19zdGF0ZSk7Ci0tIAoyLjI2LjIKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fCkludGVsLWdmeCBtYWlsaW5nIGxpc3QKSW50ZWwtZ2Z4QGxpc3RzLmZy
-ZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3Rp
-bmZvL2ludGVsLWdmeAo=
+Quoting Umesh Nerlige Ramappa (2020-10-10 01:21:01)
+> Refactor intel_engine_apply_whitelist into locked and unlocked versions
+> so that a caller who already has the lock can apply whitelist.
+> 
+> v2: Fix sparse warning
+> 
+> Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+> ---
+>  drivers/gpu/drm/i915/gt/intel_workarounds.c | 44 +++++++++++++++------
+>  1 file changed, 31 insertions(+), 13 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+> index 6c580d0d9ea8..864194aa6eef 100644
+> --- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
+> +++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+> @@ -1295,7 +1295,8 @@ void intel_gt_init_workarounds(struct drm_i915_private *i915)
+>  }
+>  
+>  static enum forcewake_domains
+> -wal_get_fw_for_rmw(struct intel_uncore *uncore, const struct i915_wa_list *wal)
+> +wal_get_fw(struct intel_uncore *uncore, const struct i915_wa_list *wal,
+> +          unsigned int op)
+>  {
+>         enum forcewake_domains fw = 0;
+>         struct i915_wa *wa;
+> @@ -1304,8 +1305,7 @@ wal_get_fw_for_rmw(struct intel_uncore *uncore, const struct i915_wa_list *wal)
+>         for (i = 0, wa = wal->list; i < wal->count; i++, wa++)
+>                 fw |= intel_uncore_forcewake_for_reg(uncore,
+>                                                      wa->reg,
+> -                                                    FW_REG_READ |
+> -                                                    FW_REG_WRITE);
+> +                                                    op);
+>  
+>         return fw;
+>  }
+> @@ -1335,7 +1335,7 @@ wa_list_apply(struct intel_uncore *uncore, const struct i915_wa_list *wal)
+>         if (!wal->count)
+>                 return;
+>  
+> -       fw = wal_get_fw_for_rmw(uncore, wal);
+> +       fw = wal_get_fw(uncore, wal, FW_REG_READ | FW_REG_WRITE);
+>  
+>         spin_lock_irqsave(&uncore->lock, flags);
+>         intel_uncore_forcewake_get__locked(uncore, fw);
+> @@ -1645,27 +1645,45 @@ void intel_engine_init_whitelist(struct intel_engine_cs *engine)
+>         wa_init_finish(w);
+>  }
+>  
+> -void intel_engine_apply_whitelist(struct intel_engine_cs *engine)
+> +static void intel_engine_apply_whitelist_locked(struct intel_engine_cs *engine)
+
+Not too bad, but since it remains static, we could drop the prefix (and
+suffix):
+	__engine_apply_whitelist(engine, wal)
+
+>  {
+>         const struct i915_wa_list *wal = &engine->whitelist;
+>         struct intel_uncore *uncore = engine->uncore;
+>         const u32 base = engine->mmio_base;
+>         struct i915_wa *wa;
+>         unsigned int i;
+> +       enum forcewake_domains fw;
+
+(Christmas tree)
+
+>  
+> -       if (!wal->count)
+> -               return;
+> +       lockdep_assert_held(&uncore->lock);
+> +
+> +       fw = wal_get_fw(uncore, wal, FW_REG_WRITE);
+> +       intel_uncore_forcewake_get__locked(uncore, fw);
+>  
+>         for (i = 0, wa = wal->list; i < wal->count; i++, wa++)
+> -               intel_uncore_write(uncore,
+> -                                  RING_FORCE_TO_NONPRIV(base, i),
+> -                                  i915_mmio_reg_offset(wa->reg));
+> +               intel_uncore_write_fw(uncore,
+> +                                     RING_FORCE_TO_NONPRIV(base, i),
+> +                                     i915_mmio_reg_offset(wa->reg));
+>  
+>         /* And clear the rest just in case of garbage */
+>         for (; i < RING_MAX_NONPRIV_SLOTS; i++)
+> -               intel_uncore_write(uncore,
+> -                                  RING_FORCE_TO_NONPRIV(base, i),
+> -                                  i915_mmio_reg_offset(RING_NOPID(base)));
+> +               intel_uncore_write_fw(uncore,
+> +                                     RING_FORCE_TO_NONPRIV(base, i),
+> +                                     i915_mmio_reg_offset(RING_NOPID(base)));
+> +
+> +       intel_uncore_forcewake_put__locked(uncore, fw);
+> +}
+> +
+> +void intel_engine_apply_whitelist(struct intel_engine_cs *engine)
+> +{
+> +       unsigned long flags;
+> +       const struct i915_wa_list *wal = &engine->whitelist;
+
+Longest to shortest variable declaration (if no other reason prevents
+that).
+
+Reviewed-by: Chris Wilson <chris.p.wilson@intel.com>
+-Chris
+---------------------------------------------------------------------
+Intel Corporation (UK) Limited
+Registered No. 1134945 (England)
+Registered Office: Pipers Way, Swindon SN3 1RJ
+VAT No: 860 2173 47
+
+This e-mail and any attachments may contain confidential material for
+the sole use of the intended recipient(s). Any review or distribution
+by others is strictly prohibited. If you are not the intended
+recipient, please contact the sender and delete all copies.
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
