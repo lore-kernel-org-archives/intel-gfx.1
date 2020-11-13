@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1866FC63777
-	for <intel-gfx@archiver.kernel.org>; Fri, 13 Nov 2020 09:42:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6B486C63697
+	for <intel-gfx@archiver.kernel.org>; Fri, 13 Nov 2020 09:42:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C5CEA22265
-	for <intel-gfx@archiver.kernel.org>; Fri, 13 Nov 2020 09:41:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C5CEA22265
+	by mail.kernel.org (Postfix) with ESMTPS id 09FF122265
+	for <intel-gfx@archiver.kernel.org>; Fri, 13 Nov 2020 09:42:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 09FF122265
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 708BE6E4A5;
-	Fri, 13 Nov 2020 09:41:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F05C6E4AF;
+	Fri, 13 Nov 2020 09:41:45 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0AECD6E46B
- for <intel-gfx@lists.freedesktop.org>; Fri, 13 Nov 2020 09:41:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6711D6E47B
+ for <intel-gfx@lists.freedesktop.org>; Fri, 13 Nov 2020 09:41:43 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22980351-1500050 
- for multiple; Fri, 13 Nov 2020 09:41:32 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22980349-1500050 
+ for multiple; Fri, 13 Nov 2020 09:41:31 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 13 Nov 2020 09:41:05 +0000
-Message-Id: <20201113094128.8740-10-chris@chris-wilson.co.uk>
+Date: Fri, 13 Nov 2020 09:41:03 +0000
+Message-Id: <20201113094128.8740-8-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201113094128.8740-1-chris@chris-wilson.co.uk>
 References: <20201113094128.8740-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 10/33] drm/i915/gt: Track signaled breadcrumbs
- outside of the breadcrumb spinlock
+Subject: [Intel-gfx] [PATCH 08/33] drm/i915/gt: Ignore dt==0 for reporting
+ underflows
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,143 +56,38 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Make b->signaled_requests a lockless-list so that we can manipulate it
-outside of the b->irq_lock.
+The presumption was that some time would always elapse between recording
+the start and the finish of a context switch. This turns out to be a
+regular occurrence and emitting a debug statement superfluous.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_breadcrumbs.c   | 34 ++++++++++++-------
- .../gpu/drm/i915/gt/intel_breadcrumbs_types.h |  2 +-
- drivers/gpu/drm/i915/i915_request.h           |  6 +++-
- 3 files changed, 28 insertions(+), 14 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_lrc.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-index 8d85683314e1..43cfabb102ea 100644
---- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-@@ -173,26 +173,34 @@ static void add_retire(struct intel_breadcrumbs *b, struct intel_timeline *tl)
- 		intel_engine_add_retire(b->irq_engine, tl);
- }
- 
--static bool __signal_request(struct i915_request *rq, struct list_head *signals)
-+static bool __signal_request(struct i915_request *rq)
+diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
+index 7a1fe8c5a907..17cb7060eb29 100644
+--- a/drivers/gpu/drm/i915/gt/intel_lrc.c
++++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
+@@ -1307,7 +1307,7 @@ static void reset_active(struct i915_request *rq,
+ static void st_update_runtime_underflow(struct intel_context *ce, s32 dt)
  {
--	clear_bit(I915_FENCE_FLAG_SIGNAL, &rq->fence.flags);
--
- 	if (!__dma_fence_signal(&rq->fence)) {
- 		i915_request_put(rq);
- 		return false;
- 	}
- 
--	list_add_tail(&rq->signal_link, signals);
- 	return true;
+ #if IS_ENABLED(CONFIG_DRM_I915_SELFTEST)
+-	ce->runtime.num_underflow += dt < 0;
++	ce->runtime.num_underflow++;
+ 	ce->runtime.max_underflow = max_t(u32, ce->runtime.max_underflow, -dt);
+ #endif
  }
+@@ -1324,7 +1324,7 @@ static void intel_context_update_runtime(struct intel_context *ce)
+ 	ce->runtime.last = intel_context_get_runtime(ce);
+ 	dt = ce->runtime.last - old;
  
-+static struct llist_node *
-+slist_add(struct llist_node *node, struct llist_node *head)
-+{
-+	node->next = head;
-+	return node;
-+}
-+
- static void signal_irq_work(struct irq_work *work)
- {
- 	struct intel_breadcrumbs *b = container_of(work, typeof(*b), irq_work);
- 	const ktime_t timestamp = ktime_get();
-+	struct llist_node *signal, *sn;
- 	struct intel_context *ce, *cn;
- 	struct list_head *pos, *next;
--	LIST_HEAD(signal);
-+
-+	signal = NULL;
-+	if (unlikely(!llist_empty(&b->signaled_requests)))
-+		signal = llist_del_all(&b->signaled_requests);
- 
- 	spin_lock(&b->irq_lock);
- 
-@@ -224,8 +232,6 @@ static void signal_irq_work(struct irq_work *work)
- 	if (b->irq_armed && list_empty(&b->signalers))
- 		__intel_breadcrumbs_disarm_irq(b);
- 
--	list_splice_init(&b->signaled_requests, &signal);
--
- 	list_for_each_entry_safe(ce, cn, &b->signalers, signal_link) {
- 		GEM_BUG_ON(list_empty(&ce->signals));
- 
-@@ -242,7 +248,10 @@ static void signal_irq_work(struct irq_work *work)
- 			 * spinlock as the callback chain may end up adding
- 			 * more signalers to the same context or engine.
- 			 */
--			__signal_request(rq, &signal);
-+			clear_bit(I915_FENCE_FLAG_SIGNAL, &rq->fence.flags);
-+			if (__signal_request(rq))
-+				/* We own signal_node now, xfer to local list */
-+				signal = slist_add(&rq->signal_node, signal);
- 		}
- 
- 		/*
-@@ -262,9 +271,9 @@ static void signal_irq_work(struct irq_work *work)
- 
- 	spin_unlock(&b->irq_lock);
- 
--	list_for_each_safe(pos, next, &signal) {
-+	llist_for_each_safe(signal, sn, signal) {
- 		struct i915_request *rq =
--			list_entry(pos, typeof(*rq), signal_link);
-+			llist_entry(signal, typeof(*rq), signal_node);
- 		struct list_head cb_list;
- 
- 		spin_lock(&rq->lock);
-@@ -291,7 +300,7 @@ intel_breadcrumbs_create(struct intel_engine_cs *irq_engine)
- 
- 	spin_lock_init(&b->irq_lock);
- 	INIT_LIST_HEAD(&b->signalers);
--	INIT_LIST_HEAD(&b->signaled_requests);
-+	init_llist_head(&b->signaled_requests);
- 
- 	init_irq_work(&b->irq_work, signal_irq_work);
- 
-@@ -355,7 +364,8 @@ static void insert_breadcrumb(struct i915_request *rq,
- 	 * its signal completion.
- 	 */
- 	if (__request_completed(rq)) {
--		if (__signal_request(rq, &b->signaled_requests))
-+		if (__signal_request(rq) &&
-+		    llist_add(&rq->signal_node, &b->signaled_requests))
- 			irq_work_queue(&b->irq_work);
- 		return;
- 	}
-diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h b/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h
-index 8e53b9942695..3fa19820b37a 100644
---- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h
-+++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h
-@@ -35,7 +35,7 @@ struct intel_breadcrumbs {
- 	struct intel_engine_cs *irq_engine;
- 
- 	struct list_head signalers;
--	struct list_head signaled_requests;
-+	struct llist_head signaled_requests;
- 
- 	struct irq_work irq_work; /* for use from inside irq_lock */
- 
-diff --git a/drivers/gpu/drm/i915/i915_request.h b/drivers/gpu/drm/i915/i915_request.h
-index 09609071b725..571a55d38278 100644
---- a/drivers/gpu/drm/i915/i915_request.h
-+++ b/drivers/gpu/drm/i915/i915_request.h
-@@ -177,7 +177,11 @@ struct i915_request {
- 	struct intel_context *context;
- 	struct intel_ring *ring;
- 	struct intel_timeline __rcu *timeline;
--	struct list_head signal_link;
-+
-+	union {
-+		struct list_head signal_link;
-+		struct llist_node signal_node;
-+	};
- 
- 	/*
- 	 * The rcu epoch of when this request was allocated. Used to judiciously
+-	if (unlikely(dt <= 0)) {
++	if (unlikely(dt < 0)) {
+ 		CE_TRACE(ce, "runtime underflow: last=%u, new=%u, delta=%d\n",
+ 			 old, ce->runtime.last, dt);
+ 		st_update_runtime_underflow(ce, dt);
 -- 
 2.20.1
 
