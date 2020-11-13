@@ -2,76 +2,42 @@ Return-Path: <SRS0=JclI=ET=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.7 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A6ACEC4742C
-	for <intel-gfx@archiver.kernel.org>; Fri, 13 Nov 2020 08:58:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DA167C388F7
+	for <intel-gfx@archiver.kernel.org>; Fri, 13 Nov 2020 09:41:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4882B2076E
-	for <intel-gfx@archiver.kernel.org>; Fri, 13 Nov 2020 08:58:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4882B2076E
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 580BA2078B
+	for <intel-gfx@archiver.kernel.org>; Fri, 13 Nov 2020 09:41:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 580BA2078B
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 49CAB6E446;
-	Fri, 13 Nov 2020 08:58:47 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 673456E446
- for <intel-gfx@lists.freedesktop.org>; Fri, 13 Nov 2020 08:58:45 +0000 (UTC)
-IronPort-SDR: W0HosjWYtefwcFydgePjQSI1XNZyVgBzs7J+1izQYAIGdI9s2DJbPCdpJIw2xhnmi8OTHxf60X
- GZP2H7X79B8w==
-X-IronPort-AV: E=McAfee;i="6000,8403,9803"; a="167865941"
-X-IronPort-AV: E=Sophos;i="5.77,475,1596524400"; d="scan'208";a="167865941"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Nov 2020 00:58:43 -0800
-IronPort-SDR: 0Z0DnjpIZZWMA0c0i4gW9iNQXVYlsIlrKOvB2ucG3MYGmtOow9z92bER7LHlO4x0TPrr3wb6sK
- 68Sf78gh9h6A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.77,475,1596524400"; d="scan'208";a="530987097"
-Received: from orsmsx602.amr.corp.intel.com ([10.22.229.15])
- by fmsmga006.fm.intel.com with ESMTP; 13 Nov 2020 00:58:42 -0800
-Received: from orsmsx610.amr.corp.intel.com (10.22.229.23) by
- ORSMSX602.amr.corp.intel.com (10.22.229.15) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1713.5; Fri, 13 Nov 2020 00:58:41 -0800
-Received: from bgsmsx606.gar.corp.intel.com (10.67.234.8) by
- ORSMSX610.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1713.5; Fri, 13 Nov 2020 00:58:40 -0800
-Received: from bgsmsx606.gar.corp.intel.com ([10.67.234.8]) by
- BGSMSX606.gar.corp.intel.com ([10.67.234.8]) with mapi id 15.01.1713.004;
- Fri, 13 Nov 2020 14:28:37 +0530
-From: "Manna, Animesh" <animesh.manna@intel.com>
-To: "Navare, Manasi D" <manasi.d.navare@intel.com>, Ville Syrjala
- <ville.syrjala@linux.intel.com>
-Thread-Topic: [Intel-gfx] [PATCH 2/6] drm/i915: Add a wrapper function around
- get_pipe_config
-Thread-Index: AQHWuSh/ZvtTk96vREiVZAbnyrROJKnEioSAgAE5S8A=
-Date: Fri, 13 Nov 2020 08:58:37 +0000
-Message-ID: <be2cdf89ba83453592140abda44f7c4b@intel.com>
-References: <20201112191718.16683-1-ville.syrjala@linux.intel.com>
- <20201112191718.16683-3-ville.syrjala@linux.intel.com>
- <20201112194631.GB15399@labuser-Z97X-UD5H>
-In-Reply-To: <20201112194631.GB15399@labuser-Z97X-UD5H>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-dlp-version: 11.5.1.3
-dlp-product: dlpe-windows
-dlp-reaction: no-action
-x-originating-ip: [10.223.10.1]
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8405E6E457;
+	Fri, 13 Nov 2020 09:41:41 +0000 (UTC)
+Received: from fireflyinternet.com (unknown [77.68.26.236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 984346E457
+ for <intel-gfx@lists.freedesktop.org>; Fri, 13 Nov 2020 09:41:39 +0000 (UTC)
+X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
+ x-ip-name=78.156.65.138; 
+Received: from build.alporthouse.com (unverified [78.156.65.138]) 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22980374-1500050 
+ for multiple; Fri, 13 Nov 2020 09:41:35 +0000
+From: Chris Wilson <chris@chris-wilson.co.uk>
+To: intel-gfx@lists.freedesktop.org
+Date: Fri, 13 Nov 2020 09:41:28 +0000
+Message-Id: <20201113094128.8740-33-chris@chris-wilson.co.uk>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20201113094128.8740-1-chris@chris-wilson.co.uk>
+References: <20201113094128.8740-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: Re: [Intel-gfx] [PATCH 2/6] drm/i915: Add a wrapper function around
- get_pipe_config
+Subject: [Intel-gfx] [PATCH 33/33] drm/i915/gt: Use ppHWSP for unshared
+ non-semaphore related timelines
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,108 +50,104 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Cc: Chris Wilson <chris@chris-wilson.co.uk>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+When we are not using semaphores with a context/engine, we can simply
+reuse the same seqno location across wraps, but we still require each
+timeline to have its own address. For LRC submission, each context is
+prefixed by a per-process HWSP, which provides us with a unique location
+for each context-local timeline. A shared timeline that is common to
+multiple contexts will continue to use a separate page.
 
+This enables us to create position invariant contexts should we feel the
+need to relocate them.
 
-> -----Original Message-----
-> From: Intel-gfx <intel-gfx-bounces@lists.freedesktop.org> On Behalf Of Na=
-vare,
-> Manasi
-> Sent: Friday, November 13, 2020 1:17 AM
-> To: Ville Syrjala <ville.syrjala@linux.intel.com>
-> Cc: intel-gfx@lists.freedesktop.org
-> Subject: Re: [Intel-gfx] [PATCH 2/6] drm/i915: Add a wrapper function aro=
-und
-> get_pipe_config
-> =
+Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_lrc.c | 40 ++++++++++++++++++-----------
+ 1 file changed, 25 insertions(+), 15 deletions(-)
 
-> On Thu, Nov 12, 2020 at 09:17:14PM +0200, Ville Syrjala wrote:
-> > From: Manasi Navare <manasi.d.navare@intel.com>
-> >
-> > Create a new function intel_crtc_get_pipe_config() that calls platform
-> > specific hooks for get_pipe_config() No functional change here.
-> >
-> > Suggested-by: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
-> > Signed-off-by: Manasi Navare <manasi.d.navare@intel.com>
-> > [vsyrjala: Conform to modern i915 coding style, fix patch subject]
-> > Signed-off-by: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
-> =
+diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
+index 8765b7d91833..e93ea7e25b08 100644
+--- a/drivers/gpu/drm/i915/gt/intel_lrc.c
++++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
+@@ -5407,6 +5407,14 @@ static struct intel_timeline *pinned_timeline(struct intel_context *ce)
+ 						 page_unmask_bits(tl));
+ }
+ 
++static struct intel_timeline *pphwsp_timeline(struct intel_context *ce,
++					      struct i915_vma *state)
++{
++	return __intel_timeline_create(ce->engine->gt, state,
++				       I915_GEM_HWS_SEQNO_ADDR |
++				       INTEL_TIMELINE_CONTEXT);
++}
++
+ static int __execlists_context_alloc(struct intel_context *ce,
+ 				     struct intel_engine_cs *engine)
+ {
+@@ -5437,6 +5445,19 @@ static int __execlists_context_alloc(struct intel_context *ce,
+ 		goto error_deref_obj;
+ 	}
+ 
++	ring = intel_engine_create_ring(engine, (unsigned long)ce->ring);
++	if (IS_ERR(ring)) {
++		ret = PTR_ERR(ring);
++		goto error_deref_obj;
++	}
++
++	ret = populate_lr_context(ce, ctx_obj, engine, ring);
++	if (ret) {
++		drm_dbg(&engine->i915->drm,
++			"Failed to populate LRC: %d\n", ret);
++		goto error_ring_free;
++	}
++
+ 	if (!page_mask_bits(ce->timeline)) {
+ 		struct intel_timeline *tl;
+ 
+@@ -5446,29 +5467,18 @@ static int __execlists_context_alloc(struct intel_context *ce,
+ 		 */
+ 		if (unlikely(ce->timeline))
+ 			tl = pinned_timeline(ce);
+-		else
++		else if (intel_engine_has_semaphores(engine))
+ 			tl = intel_timeline_create(engine->gt);
++		else
++			tl = pphwsp_timeline(ce, vma);
+ 		if (IS_ERR(tl)) {
+ 			ret = PTR_ERR(tl);
+-			goto error_deref_obj;
++			goto error_ring_free;
+ 		}
+ 
+ 		ce->timeline = tl;
+ 	}
+ 
+-	ring = intel_engine_create_ring(engine, (unsigned long)ce->ring);
+-	if (IS_ERR(ring)) {
+-		ret = PTR_ERR(ring);
+-		goto error_deref_obj;
+-	}
+-
+-	ret = populate_lr_context(ce, ctx_obj, engine, ring);
+-	if (ret) {
+-		drm_dbg(&engine->i915->drm,
+-			"Failed to populate LRC: %d\n", ret);
+-		goto error_ring_free;
+-	}
+-
+ 	ce->ring = ring;
+ 	ce->state = vma;
+ 
+-- 
+2.20.1
 
-> Reviewed-by: Manasi Navare <manasi.d.navare@intel.com>
-
-Reviewed-by: Animesh Manna <animesh.manna@intel.com>
-> =
-
-> > ---
-> >  drivers/gpu/drm/i915/display/intel_display.c | 15 +++++++++++----
-> >  1 file changed, 11 insertions(+), 4 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/i915/display/intel_display.c
-> > b/drivers/gpu/drm/i915/display/intel_display.c
-> > index 110d08f2a5c5..a8287414937c 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_display.c
-> > +++ b/drivers/gpu/drm/i915/display/intel_display.c
-> > @@ -11407,6 +11407,14 @@ static bool hsw_get_pipe_config(struct
-> intel_crtc *crtc,
-> >  	return active;
-> >  }
-> >
-> > +static bool intel_crtc_get_pipe_config(struct intel_crtc_state
-> > +*crtc_state) {
-> > +	struct intel_crtc *crtc =3D to_intel_crtc(crtc_state->uapi.crtc);
-> > +	struct drm_i915_private *i915 =3D to_i915(crtc->base.dev);
-> > +
-> > +	return i915->display.get_pipe_config(crtc, crtc_state); }
-> > +
-> >  static u32 intel_cursor_base(const struct intel_plane_state
-> > *plane_state)  {
-> >  	struct drm_i915_private *dev_priv =3D
-> > @@ -12403,7 +12411,7 @@ intel_encoder_current_mode(struct
-> intel_encoder *encoder)
-> >  		return NULL;
-> >  	}
-> >
-> > -	if (!dev_priv->display.get_pipe_config(crtc, crtc_state)) {
-> > +	if (!intel_crtc_get_pipe_config(crtc_state)) {
-> >  		kfree(crtc_state);
-> >  		kfree(mode);
-> >  		return NULL;
-> > @@ -14422,8 +14430,7 @@ verify_crtc_state(struct intel_crtc *crtc,
-> >
-> >  	pipe_config->hw.enable =3D new_crtc_state->hw.enable;
-> >
-> > -	pipe_config->hw.active =3D
-> > -		dev_priv->display.get_pipe_config(crtc, pipe_config);
-> > +	pipe_config->hw.active =3D intel_crtc_get_pipe_config(pipe_config);
-> >
-> >  	/* we keep both pipes enabled on 830 */
-> >  	if (IS_I830(dev_priv) && pipe_config->hw.active) @@ -18736,7
-> > +18743,7 @@ static void intel_modeset_readout_hw_state(struct drm_device
-> *dev)
-> >  		intel_crtc_state_reset(crtc_state, crtc);
-> >
-> >  		crtc_state->hw.active =3D crtc_state->hw.enable =3D
-> > -			dev_priv->display.get_pipe_config(crtc, crtc_state);
-> > +			intel_crtc_get_pipe_config(crtc_state);
-> >
-> >  		crtc->base.enabled =3D crtc_state->hw.enable;
-> >  		crtc->active =3D crtc_state->hw.active;
-> > --
-> > 2.26.2
-> >
-> > _______________________________________________
-> > Intel-gfx mailing list
-> > Intel-gfx@lists.freedesktop.org
-> > https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-> _______________________________________________
-> Intel-gfx mailing list
-> Intel-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/intel-gfx
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
