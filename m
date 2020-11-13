@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E8563C388F7
-	for <intel-gfx@archiver.kernel.org>; Fri, 13 Nov 2020 09:42:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3F020C6369E
+	for <intel-gfx@archiver.kernel.org>; Fri, 13 Nov 2020 09:42:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2B8532078B
-	for <intel-gfx@archiver.kernel.org>; Fri, 13 Nov 2020 09:41:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2B8532078B
+	by mail.kernel.org (Postfix) with ESMTPS id DFA4A22265
+	for <intel-gfx@archiver.kernel.org>; Fri, 13 Nov 2020 09:42:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DFA4A22265
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0A8AC6E48F;
-	Fri, 13 Nov 2020 09:41:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5ABF36E461;
+	Fri, 13 Nov 2020 09:42:00 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 623056E461
- for <intel-gfx@lists.freedesktop.org>; Fri, 13 Nov 2020 09:41:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F4DB6E4B0
+ for <intel-gfx@lists.freedesktop.org>; Fri, 13 Nov 2020 09:41:45 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22980346-1500050 
- for multiple; Fri, 13 Nov 2020 09:41:31 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22980354-1500050 
+ for multiple; Fri, 13 Nov 2020 09:41:32 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 13 Nov 2020 09:41:00 +0000
-Message-Id: <20201113094128.8740-5-chris@chris-wilson.co.uk>
+Date: Fri, 13 Nov 2020 09:41:08 +0000
+Message-Id: <20201113094128.8740-13-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201113094128.8740-1-chris@chris-wilson.co.uk>
 References: <20201113094128.8740-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 05/33] drm/i915: Show timeline dependencies for
- debug
+Subject: [Intel-gfx] [PATCH 13/33] drm/i915/gt: Protect context lifetime
+ with RCU
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,121 +56,93 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+Allow a brief period for continued access to a dead intel_context by
+deferring the release of the struct until after an RCU grace period.
+As we are using a dedicated slab cache for the contexts, we can defer
+the release of the slab pages via RCU, with the caveat that individual
+structs may be reused from the freelist within an RCU grace period. To
+handle that, we have to avoid clearing members of the zombie struct.
 
-Include the signalers each request in the timeline is waiting on, as a
-means to try and identify the cause of a stall. This can be quite
-verbose, even as for now we only show each request in the timeline and
-its immediate antecedents.
+This is required for a later patch to handle locking around virtual
+requests in the signaler, as those requests may want to move between
+engines and be destroyed while we are holding b->irq_lock on a physical
+engine.
 
-This generates output like:
+v2: Drop mutex_reinit(), if we never mark the mutex as destroyed we
+don't need to reset the debug code, at the loss of having the mutex
+debug code spot us attempting to destroy a locked mutex.
+v3: As the intended use will remain strongly referenced counted, with
+very little inflight access across reuse, drop the ctor.
+v4: Drop the unrequired change to remove the temporary reference around
+dropping the active context, and add back some more missing ctor
+operations.
+v5: The ctor is back. Tvrtko spotted that ce->signal_lock [introduced
+later] maybe accessed under RCU and so needs special care not to be
+reinitialised.
+v6: Don't mix SLAB_TYPESAFE_BY_RCU and RCU list iteration.
 
-Timeline 886: { count 1, ready: 0, inflight: 0, seqno: { current: 664, last: 666 }, engine: rcs0 }
-  U 886:29a-  prio=0 @ 134ms: gem_exec_parall<4621>
-  - U bc1:27a-  prio=0 @ 134ms: gem_exec_parall[4917]
-Timeline 825: { count 1, ready: 0, inflight: 0, seqno: { current: 802, last: 804 }, engine: vcs0 }
-  U 825:324  prio=0 @ 107ms: gem_exec_parall<4518>
-  - U b75:140-  prio=0 @ 110ms: gem_exec_parall<5486>
-Timeline b46: { count 1, ready: 0, inflight: 0, seqno: { current: 782, last: 784 }, engine: vcs0 }
-  U b46:310-  prio=0 @ 70ms: gem_exec_parall<5428>
-  - U c11:170-  prio=0 @ 70ms: gem_exec_parall[5501]
-Timeline 96b: { count 1, ready: 0, inflight: 0, seqno: { current: 632, last: 634 }, engine: vcs0 }
-  U 96b:27a-  prio=0 @ 67ms: gem_exec_parall<4878>
-  - U b75:19e-  prio=0 @ 67ms: gem_exec_parall<5486>
-
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 ---
- drivers/gpu/drm/i915/i915_debugfs.c   |  3 ++-
- drivers/gpu/drm/i915/i915_scheduler.c | 31 +++++++++++++++++++++++++++
- drivers/gpu/drm/i915/i915_scheduler.h |  6 ++++++
- 3 files changed, 39 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/gt/intel_context.c       | 12 +++++++++---
+ drivers/gpu/drm/i915/gt/intel_context_types.h | 11 ++++++++++-
+ 2 files changed, 19 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_debugfs.c b/drivers/gpu/drm/i915/i915_debugfs.c
-index 354b95c438d0..263074c2c097 100644
---- a/drivers/gpu/drm/i915/i915_debugfs.c
-+++ b/drivers/gpu/drm/i915/i915_debugfs.c
-@@ -45,6 +45,7 @@
- #include "i915_debugfs.h"
- #include "i915_debugfs_params.h"
- #include "i915_irq.h"
-+#include "i915_scheduler.h"
- #include "i915_trace.h"
- #include "intel_pm.h"
- #include "intel_sideband.h"
-@@ -1323,7 +1324,7 @@ static int i915_engine_info(struct seq_file *m, void *unused)
- 	for_each_uabi_engine(engine, i915)
- 		intel_engine_dump(engine, &p, "%s\n", engine->name);
- 
--	intel_gt_show_timelines(&i915->gt, &p, NULL);
-+	intel_gt_show_timelines(&i915->gt, &p, i915_request_show_with_schedule);
- 
- 	intel_runtime_pm_put(&i915->runtime_pm, wakeref);
- 
-diff --git a/drivers/gpu/drm/i915/i915_scheduler.c b/drivers/gpu/drm/i915/i915_scheduler.c
-index cbb880b10c65..8837ba672933 100644
---- a/drivers/gpu/drm/i915/i915_scheduler.c
-+++ b/drivers/gpu/drm/i915/i915_scheduler.c
-@@ -504,6 +504,37 @@ void i915_sched_node_fini(struct i915_sched_node *node)
- 	spin_unlock_irq(&schedule_lock);
+diff --git a/drivers/gpu/drm/i915/gt/intel_context.c b/drivers/gpu/drm/i915/gt/intel_context.c
+index 92a3f25c4006..d3a835212167 100644
+--- a/drivers/gpu/drm/i915/gt/intel_context.c
++++ b/drivers/gpu/drm/i915/gt/intel_context.c
+@@ -25,11 +25,18 @@ static struct intel_context *intel_context_alloc(void)
+ 	return kmem_cache_zalloc(global.slab_ce, GFP_KERNEL);
  }
  
-+void i915_request_show_with_schedule(struct drm_printer *m,
-+				     const struct i915_request *rq,
-+				     const char *prefix)
+-void intel_context_free(struct intel_context *ce)
++static void rcu_context_free(struct rcu_head *rcu)
+ {
++	struct intel_context *ce = container_of(rcu, typeof(*ce), rcu);
++
+ 	kmem_cache_free(global.slab_ce, ce);
+ }
+ 
++void intel_context_free(struct intel_context *ce)
 +{
-+	struct i915_dependency *dep;
-+
-+	i915_request_show(m, rq, prefix);
-+	if (i915_request_completed(rq))
-+		return;
-+
-+	rcu_read_lock();
-+	for_each_signaler(dep, rq) {
-+		const struct i915_request *signaler =
-+			node_to_request(dep->signaler);
-+
-+		/* Dependencies along the same timeline are expected. */
-+		if (signaler->timeline == rq->timeline)
-+			continue;
-+
-+		if (i915_request_completed(signaler))
-+			continue;
-+
-+		/* XXX ideally build indent into prefix */
-+		i915_request_show(m, signaler,
-+				  i915_request_is_active(signaler) ? "  - E" :
-+				  i915_request_is_ready(signaler) ? "  - Q" :
-+				  "  - U");
-+	}
-+	rcu_read_unlock();
++	call_rcu(&ce->rcu, rcu_context_free);
 +}
 +
- static void i915_global_scheduler_shrink(void)
+ struct intel_context *
+ intel_context_create(struct intel_engine_cs *engine)
  {
- 	kmem_cache_shrink(global.slab_dependencies);
-diff --git a/drivers/gpu/drm/i915/i915_scheduler.h b/drivers/gpu/drm/i915/i915_scheduler.h
-index 6f0bf00fc569..34cee9a17801 100644
---- a/drivers/gpu/drm/i915/i915_scheduler.h
-+++ b/drivers/gpu/drm/i915/i915_scheduler.h
-@@ -13,6 +13,8 @@
- 
- #include "i915_scheduler_types.h"
- 
-+struct drm_printer;
-+
- #define priolist_for_each_request(it, plist, idx) \
- 	for (idx = 0; idx < ARRAY_SIZE((plist)->requests); idx++) \
- 		list_for_each_entry(it, &(plist)->requests[idx], sched.link)
-@@ -54,4 +56,8 @@ static inline void i915_priolist_free(struct i915_priolist *p)
- 		__i915_priolist_free(p);
+@@ -356,8 +363,7 @@ static int __intel_context_active(struct i915_active *active)
  }
  
-+void i915_request_show_with_schedule(struct drm_printer *m,
-+				     const struct i915_request *rq,
-+				     const char *prefix);
-+
- #endif /* _I915_SCHEDULER_H_ */
+ void
+-intel_context_init(struct intel_context *ce,
+-		   struct intel_engine_cs *engine)
++intel_context_init(struct intel_context *ce, struct intel_engine_cs *engine)
+ {
+ 	GEM_BUG_ON(!engine->cops);
+ 	GEM_BUG_ON(!engine->gt->vm);
+diff --git a/drivers/gpu/drm/i915/gt/intel_context_types.h b/drivers/gpu/drm/i915/gt/intel_context_types.h
+index 552cb57a2e8c..20cb5835d1c3 100644
+--- a/drivers/gpu/drm/i915/gt/intel_context_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_context_types.h
+@@ -44,7 +44,16 @@ struct intel_context_ops {
+ };
+ 
+ struct intel_context {
+-	struct kref ref;
++	/*
++	 * Note: Some fields may be accessed under RCU.
++	 *
++	 * Unless otherwise noted a field can safely be assumed to be protected
++	 * by strong reference counting.
++	 */
++	union {
++		struct kref ref; /* no kref_get_unless_zero()! */
++		struct rcu_head rcu;
++	};
+ 
+ 	struct intel_engine_cs *engine;
+ 	struct intel_engine_cs *inflight;
 -- 
 2.20.1
 
