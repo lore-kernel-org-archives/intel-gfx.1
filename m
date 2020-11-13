@@ -2,54 +2,52 @@ Return-Path: <SRS0=JclI=ET=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.4 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-9.9 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,URIBL_BLOCKED,USER_AGENT_SANE_1
+	SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 32432C388F7
-	for <intel-gfx@archiver.kernel.org>; Fri, 13 Nov 2020 15:26:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 30160C388F7
+	for <intel-gfx@archiver.kernel.org>; Fri, 13 Nov 2020 15:54:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D62FE22264
-	for <intel-gfx@archiver.kernel.org>; Fri, 13 Nov 2020 15:26:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D62FE22264
+	by mail.kernel.org (Postfix) with ESMTPS id DEA2420759
+	for <intel-gfx@archiver.kernel.org>; Fri, 13 Nov 2020 15:54:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DEA2420759
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 56B796E516;
-	Fri, 13 Nov 2020 15:26:15 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9555E6E516
- for <intel-gfx@lists.freedesktop.org>; Fri, 13 Nov 2020 15:26:13 +0000 (UTC)
-IronPort-SDR: 0QmoAXrKzWXeJGU20MmAmr176fWtL10/5b0e6IHDORnMAPu7/Lu7MhoeGU2VjvHSHsaTwSADlZ
- iEqEXvoVDYqw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9803"; a="255196128"
-X-IronPort-AV: E=Sophos;i="5.77,475,1596524400"; d="scan'208";a="255196128"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 52F806E4F9;
+	Fri, 13 Nov 2020 15:54:40 +0000 (UTC)
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC5976E4F9
+ for <intel-gfx@lists.freedesktop.org>; Fri, 13 Nov 2020 15:54:39 +0000 (UTC)
+IronPort-SDR: ZZXkcuobknwMdGa0KOWSn2pD7xZqpy1EeMuYDtxBgVztCJ+gMxAbIk/VLAS9uJqad4DoN0fgNU
+ evV4W0NX62Ew==
+X-IronPort-AV: E=McAfee;i="6000,8403,9804"; a="232107767"
+X-IronPort-AV: E=Sophos;i="5.77,475,1596524400"; d="scan'208";a="232107767"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Nov 2020 07:26:13 -0800
-IronPort-SDR: Hx8GGhatOrp2FU5SqdhVSvwUwKVWGIipsIEcMonoIJ8eZZRXsRvUhlwIfH4FOHD5tHeAVuiE2w
- fsHwOqzbbXEw==
-X-IronPort-AV: E=Sophos;i="5.77,475,1596524400"; d="scan'208";a="309191519"
-Received: from unknown (HELO intel.com) ([10.237.72.91])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Nov 2020 07:26:12 -0800
-Date: Fri, 13 Nov 2020 17:26:54 +0200
-From: "Lisovskiy, Stanislav" <stanislav.lisovskiy@intel.com>
-To: Ville Syrjala <ville.syrjala@linux.intel.com>
-Message-ID: <20201113152654.GB17194@intel.com>
-References: <20201106173042.7534-1-ville.syrjala@linux.intel.com>
- <20201106173042.7534-6-ville.syrjala@linux.intel.com>
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Nov 2020 07:54:39 -0800
+IronPort-SDR: Zc35yxKtyKMMk/XqjPXCew10RbJoYHEs7xy28cz+Bwqg+09IKf1vPLhR1x0aCMq+QbyI80AoGv
+ wouY3yBlZMcA==
+X-IronPort-AV: E=Sophos;i="5.77,475,1596524400"; d="scan'208";a="531079949"
+Received: from labuser-z97x-ud5h.jf.intel.com ([10.165.21.211])
+ by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-SHA;
+ 13 Nov 2020 07:54:38 -0800
+From: Manasi Navare <manasi.d.navare@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Fri, 13 Nov 2020 07:56:55 -0800
+Message-Id: <20201113155656.17630-2-manasi.d.navare@intel.com>
+X-Mailer: git-send-email 2.19.1
+In-Reply-To: <20201113155656.17630-1-manasi.d.navare@intel.com>
+References: <20201113155656.17630-1-manasi.d.navare@intel.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20201106173042.7534-6-ville.syrjala@linux.intel.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Subject: Re: [Intel-gfx] [PATCH 5/6] drm/i915: Store plane relative data
- rate in crtc_state
+Subject: [Intel-gfx] [CI v11 2/3] drm/i915/dp: Add from_crtc_state to copy
+ color blobs
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,255 +60,64 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Nov 06, 2020 at 07:30:41PM +0200, Ville Syrjala wrote:
-> From: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
-> =
-
-> Store the relative data rate for planes in the crtc state
-> so that we don't have to use
-> intel_atomic_crtc_state_for_each_plane_state() to compute
-> it even for the planes that are no part of the current state.
-> =
-
-> Should probably just nuke this stuff entirely an use the normal
-> plane data rate instead. The two are slightly different since this
-> relative data rate doesn't factor in the actual pixel clock, so
-> it's a bit odd thing to even call a "data rate". And since the
-> watermarks are computed based on the actual data rate anyway
-> I don't really see what the point of this relative data rate
-> is. But that's for the future...
-> =
-
-> Signed-off-by: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
-
-Reviewed-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
-
-
-> ---
->  .../drm/i915/display/intel_display_types.h    |  4 +
->  drivers/gpu/drm/i915/intel_pm.c               | 83 ++++++++++---------
->  2 files changed, 50 insertions(+), 37 deletions(-)
-> =
-
-> diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers=
-/gpu/drm/i915/display/intel_display_types.h
-> index 8a0276044832..768bd3dc77dc 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display_types.h
-> +++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-> @@ -1024,6 +1024,10 @@ struct intel_crtc_state {
->  =
-
->  	u32 data_rate[I915_MAX_PLANES];
->  =
-
-> +	/* FIXME unify with data_rate[] */
-> +	u64 plane_data_rate[I915_MAX_PLANES];
-> +	u64 uv_plane_data_rate[I915_MAX_PLANES];
-> +
->  	/* Gamma mode programmed on the pipe */
->  	u32 gamma_mode;
->  =
-
-> diff --git a/drivers/gpu/drm/i915/intel_pm.c b/drivers/gpu/drm/i915/intel=
-_pm.c
-> index b789ad78319b..8865f37d6297 100644
-> --- a/drivers/gpu/drm/i915/intel_pm.c
-> +++ b/drivers/gpu/drm/i915/intel_pm.c
-> @@ -4696,50 +4696,63 @@ skl_plane_relative_data_rate(const struct intel_c=
-rtc_state *crtc_state,
->  }
->  =
-
->  static u64
-> -skl_get_total_relative_data_rate(struct intel_crtc_state *crtc_state,
-> -				 u64 *plane_data_rate,
-> -				 u64 *uv_plane_data_rate)
-> +skl_get_total_relative_data_rate(struct intel_atomic_state *state,
-> +				 struct intel_crtc *crtc)
->  {
-> -	struct intel_plane *plane;
-> +	struct intel_crtc_state *crtc_state =3D
-> +		intel_atomic_get_new_crtc_state(state, crtc);
->  	const struct intel_plane_state *plane_state;
-> +	struct intel_plane *plane;
->  	u64 total_data_rate =3D 0;
-> +	enum plane_id plane_id;
-> +	int i;
->  =
-
->  	/* Calculate and cache data rate for each plane */
-> -	intel_atomic_crtc_state_for_each_plane_state(plane, plane_state, crtc_s=
-tate) {
-> -		enum plane_id plane_id =3D plane->id;
-> -		u64 rate;
-> +	for_each_new_intel_plane_in_state(state, plane, plane_state, i) {
-> +		if (plane->pipe !=3D crtc->pipe)
-> +			continue;
-> +
-> +		plane_id =3D plane->id;
->  =
-
->  		/* packed/y */
-> -		rate =3D skl_plane_relative_data_rate(crtc_state, plane_state, 0);
-> -		plane_data_rate[plane_id] =3D rate;
-> -		total_data_rate +=3D rate;
-> +		crtc_state->plane_data_rate[plane_id] =3D
-> +			skl_plane_relative_data_rate(crtc_state, plane_state, 0);
->  =
-
->  		/* uv-plane */
-> -		rate =3D skl_plane_relative_data_rate(crtc_state, plane_state, 1);
-> -		uv_plane_data_rate[plane_id] =3D rate;
-> -		total_data_rate +=3D rate;
-> +		crtc_state->uv_plane_data_rate[plane_id] =3D
-> +			skl_plane_relative_data_rate(crtc_state, plane_state, 1);
-> +	}
-> +
-> +	for_each_plane_id_on_crtc(crtc, plane_id) {
-> +		total_data_rate +=3D crtc_state->plane_data_rate[plane_id];
-> +		total_data_rate +=3D crtc_state->uv_plane_data_rate[plane_id];
->  	}
->  =
-
->  	return total_data_rate;
->  }
->  =
-
->  static u64
-> -icl_get_total_relative_data_rate(struct intel_crtc_state *crtc_state,
-> -				 u64 *plane_data_rate)
-> +icl_get_total_relative_data_rate(struct intel_atomic_state *state,
-> +				 struct intel_crtc *crtc)
->  {
-> -	struct intel_plane *plane;
-> +	struct intel_crtc_state *crtc_state =3D
-> +		intel_atomic_get_new_crtc_state(state, crtc);
->  	const struct intel_plane_state *plane_state;
-> +	struct intel_plane *plane;
->  	u64 total_data_rate =3D 0;
-> +	enum plane_id plane_id;
-> +	int i;
->  =
-
->  	/* Calculate and cache data rate for each plane */
-> -	intel_atomic_crtc_state_for_each_plane_state(plane, plane_state, crtc_s=
-tate) {
-> -		enum plane_id plane_id =3D plane->id;
-> -		u64 rate;
-> +	for_each_new_intel_plane_in_state(state, plane, plane_state, i) {
-> +		if (plane->pipe !=3D crtc->pipe)
-> +			continue;
-> +
-> +		plane_id =3D plane->id;
->  =
-
->  		if (!plane_state->planar_linked_plane) {
-> -			rate =3D skl_plane_relative_data_rate(crtc_state, plane_state, 0);
-> -			plane_data_rate[plane_id] =3D rate;
-> -			total_data_rate +=3D rate;
-> +			crtc_state->plane_data_rate[plane_id] =3D
-> +				skl_plane_relative_data_rate(crtc_state, plane_state, 0);
->  		} else {
->  			enum plane_id y_plane_id;
->  =
-
-> @@ -4754,17 +4767,18 @@ icl_get_total_relative_data_rate(struct intel_crt=
-c_state *crtc_state,
->  				continue;
->  =
-
->  			/* Y plane rate is calculated on the slave */
-> -			rate =3D skl_plane_relative_data_rate(crtc_state, plane_state, 0);
->  			y_plane_id =3D plane_state->planar_linked_plane->id;
-> -			plane_data_rate[y_plane_id] =3D rate;
-> -			total_data_rate +=3D rate;
-> +			crtc_state->plane_data_rate[y_plane_id] =3D
-> +				skl_plane_relative_data_rate(crtc_state, plane_state, 0);
->  =
-
-> -			rate =3D skl_plane_relative_data_rate(crtc_state, plane_state, 1);
-> -			plane_data_rate[plane_id] =3D rate;
-> -			total_data_rate +=3D rate;
-> +			crtc_state->plane_data_rate[plane_id] =3D
-> +				skl_plane_relative_data_rate(crtc_state, plane_state, 1);
->  		}
->  	}
->  =
-
-> +	for_each_plane_id_on_crtc(crtc, plane_id)
-> +		total_data_rate +=3D crtc_state->plane_data_rate[plane_id];
-> +
->  	return total_data_rate;
->  }
->  =
-
-> @@ -4796,8 +4810,6 @@ skl_allocate_pipe_ddb(struct intel_atomic_state *st=
-ate,
->  	u64 total_data_rate;
->  	enum plane_id plane_id;
->  	int num_active;
-> -	u64 plane_data_rate[I915_MAX_PLANES] =3D {};
-> -	u64 uv_plane_data_rate[I915_MAX_PLANES] =3D {};
->  	u32 blocks;
->  	int level;
->  	int ret;
-> @@ -4837,13 +4849,10 @@ skl_allocate_pipe_ddb(struct intel_atomic_state *=
-state,
->  =
-
->  	if (INTEL_GEN(dev_priv) >=3D 11)
->  		total_data_rate =3D
-> -			icl_get_total_relative_data_rate(crtc_state,
-> -							 plane_data_rate);
-> +			icl_get_total_relative_data_rate(state, crtc);
->  	else
->  		total_data_rate =3D
-> -			skl_get_total_relative_data_rate(crtc_state,
-> -							 plane_data_rate,
-> -							 uv_plane_data_rate);
-> +			skl_get_total_relative_data_rate(state, crtc);
->  =
-
->  	ret =3D skl_ddb_get_pipe_allocation_limits(dev_priv, crtc_state,
->  						 total_data_rate,
-> @@ -4924,7 +4933,7 @@ skl_allocate_pipe_ddb(struct intel_atomic_state *st=
-ate,
->  		if (total_data_rate =3D=3D 0)
->  			break;
->  =
-
-> -		rate =3D plane_data_rate[plane_id];
-> +		rate =3D crtc_state->plane_data_rate[plane_id];
->  		extra =3D min_t(u16, alloc_size,
->  			      DIV64_U64_ROUND_UP(alloc_size * rate,
->  						 total_data_rate));
-> @@ -4935,7 +4944,7 @@ skl_allocate_pipe_ddb(struct intel_atomic_state *st=
-ate,
->  		if (total_data_rate =3D=3D 0)
->  			break;
->  =
-
-> -		rate =3D uv_plane_data_rate[plane_id];
-> +		rate =3D crtc_state->uv_plane_data_rate[plane_id];
->  		extra =3D min_t(u16, alloc_size,
->  			      DIV64_U64_ROUND_UP(alloc_size * rate,
->  						 total_data_rate));
-> -- =
-
-> 2.26.2
-> =
-
-> _______________________________________________
-> Intel-gfx mailing list
-> Intel-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+Tm8gZnVuY3Rpb25hbCBjaGFuZ2VzIGhlcmUsIGp1c3QgYWRkcyBhIGZyb21fY3J0Y19zdGF0ZQph
+cyBhIHByZXAgZm9yIGJpZ2pvaW5lcgoKdjI6CiogTW9yZSBwcmVwIHdpdGggaW50ZWxfYXRvbWlj
+X3N0YXRlIChWaWxsZSkKCkNjOiBWaWxsZSBTeXJqw6Rsw6QgPHZpbGxlLnN5cmphbGFAbGludXgu
+aW50ZWwuY29tPgpTaWduZWQtb2ZmLWJ5OiBNYW5hc2kgTmF2YXJlIDxtYW5hc2kuZC5uYXZhcmVA
+aW50ZWwuY29tPgpSZXZpZXdlZC1ieTogVmlsbGUgU3lyasOkbMOkIDx2aWxsZS5zeXJqYWxhQGxp
+bnV4LmludGVsLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2F0
+b21pYy5jICB8IDkgKysrKystLS0tCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVs
+X2F0b21pYy5oICB8IDMgKystCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Rp
+c3BsYXkuYyB8IDQgKysrLQogMyBmaWxlcyBjaGFuZ2VkLCAxMCBpbnNlcnRpb25zKCspLCA2IGRl
+bGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50
+ZWxfYXRvbWljLmMgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2F0b21pYy5j
+CmluZGV4IDYzZDhkNjg0MDY1NS4uZTAwZmRjNDdjMGViIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dw
+dS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2F0b21pYy5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9p
+OTE1L2Rpc3BsYXkvaW50ZWxfYXRvbWljLmMKQEAgLTI2OSwxNCArMjY5LDE1IEBAIHZvaWQgaW50
+ZWxfY3J0Y19mcmVlX2h3X3N0YXRlKHN0cnVjdCBpbnRlbF9jcnRjX3N0YXRlICpjcnRjX3N0YXRl
+KQogCWludGVsX2NydGNfcHV0X2NvbG9yX2Jsb2JzKGNydGNfc3RhdGUpOwogfQogCi12b2lkIGlu
+dGVsX2NydGNfY29weV9jb2xvcl9ibG9icyhzdHJ1Y3QgaW50ZWxfY3J0Y19zdGF0ZSAqY3J0Y19z
+dGF0ZSkKK3ZvaWQgaW50ZWxfY3J0Y19jb3B5X2NvbG9yX2Jsb2JzKHN0cnVjdCBpbnRlbF9jcnRj
+X3N0YXRlICpjcnRjX3N0YXRlLAorCQkJCSBjb25zdCBzdHJ1Y3QgaW50ZWxfY3J0Y19zdGF0ZSAq
+ZnJvbV9jcnRjX3N0YXRlKQogewogCWRybV9wcm9wZXJ0eV9yZXBsYWNlX2Jsb2IoJmNydGNfc3Rh
+dGUtPmh3LmRlZ2FtbWFfbHV0LAotCQkJCSAgY3J0Y19zdGF0ZS0+dWFwaS5kZWdhbW1hX2x1dCk7
+CisJCQkJICBmcm9tX2NydGNfc3RhdGUtPnVhcGkuZGVnYW1tYV9sdXQpOwogCWRybV9wcm9wZXJ0
+eV9yZXBsYWNlX2Jsb2IoJmNydGNfc3RhdGUtPmh3LmdhbW1hX2x1dCwKLQkJCQkgIGNydGNfc3Rh
+dGUtPnVhcGkuZ2FtbWFfbHV0KTsKKwkJCQkgIGZyb21fY3J0Y19zdGF0ZS0+dWFwaS5nYW1tYV9s
+dXQpOwogCWRybV9wcm9wZXJ0eV9yZXBsYWNlX2Jsb2IoJmNydGNfc3RhdGUtPmh3LmN0bSwKLQkJ
+CQkgIGNydGNfc3RhdGUtPnVhcGkuY3RtKTsKKwkJCQkgIGZyb21fY3J0Y19zdGF0ZS0+dWFwaS5j
+dG0pOwogfQogCiAvKioKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkv
+aW50ZWxfYXRvbWljLmggYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2F0b21p
+Yy5oCmluZGV4IDI4NWRlMDcwMTFkYy4uNjJhMzM2NWVkNWU2IDEwMDY0NAotLS0gYS9kcml2ZXJz
+L2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2F0b21pYy5oCisrKyBiL2RyaXZlcnMvZ3B1L2Ry
+bS9pOTE1L2Rpc3BsYXkvaW50ZWxfYXRvbWljLmgKQEAgLTQzLDcgKzQzLDggQEAgc3RydWN0IGRy
+bV9jcnRjX3N0YXRlICppbnRlbF9jcnRjX2R1cGxpY2F0ZV9zdGF0ZShzdHJ1Y3QgZHJtX2NydGMg
+KmNydGMpOwogdm9pZCBpbnRlbF9jcnRjX2Rlc3Ryb3lfc3RhdGUoc3RydWN0IGRybV9jcnRjICpj
+cnRjLAogCQkJICAgICAgIHN0cnVjdCBkcm1fY3J0Y19zdGF0ZSAqc3RhdGUpOwogdm9pZCBpbnRl
+bF9jcnRjX2ZyZWVfaHdfc3RhdGUoc3RydWN0IGludGVsX2NydGNfc3RhdGUgKmNydGNfc3RhdGUp
+Owotdm9pZCBpbnRlbF9jcnRjX2NvcHlfY29sb3JfYmxvYnMoc3RydWN0IGludGVsX2NydGNfc3Rh
+dGUgKmNydGNfc3RhdGUpOwordm9pZCBpbnRlbF9jcnRjX2NvcHlfY29sb3JfYmxvYnMoc3RydWN0
+IGludGVsX2NydGNfc3RhdGUgKmNydGNfc3RhdGUsCisJCQkJIGNvbnN0IHN0cnVjdCBpbnRlbF9j
+cnRjX3N0YXRlICpmcm9tX2NydGNfc3RhdGUpOwogc3RydWN0IGRybV9hdG9taWNfc3RhdGUgKmlu
+dGVsX2F0b21pY19zdGF0ZV9hbGxvYyhzdHJ1Y3QgZHJtX2RldmljZSAqZGV2KTsKIHZvaWQgaW50
+ZWxfYXRvbWljX3N0YXRlX2ZyZWUoc3RydWN0IGRybV9hdG9taWNfc3RhdGUgKnN0YXRlKTsKIHZv
+aWQgaW50ZWxfYXRvbWljX3N0YXRlX2NsZWFyKHN0cnVjdCBkcm1fYXRvbWljX3N0YXRlICpzdGF0
+ZSk7CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Rpc3Bs
+YXkuYyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGlzcGxheS5jCmluZGV4
+IGVkNWFkNTM3MWE1MS4uMmUxZDlmOThhNGQwIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0v
+aTkxNS9kaXNwbGF5L2ludGVsX2Rpc3BsYXkuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9k
+aXNwbGF5L2ludGVsX2Rpc3BsYXkuYwpAQCAtMTM0MjEsNyArMTM0MjEsOSBAQCBzdGF0aWMgdm9p
+ZAogaW50ZWxfY3J0Y19jb3B5X3VhcGlfdG9faHdfc3RhdGVfbm9tb2Rlc2V0KHN0cnVjdCBpbnRl
+bF9hdG9taWNfc3RhdGUgKnN0YXRlLAogCQkJCQkgICBzdHJ1Y3QgaW50ZWxfY3J0Y19zdGF0ZSAq
+Y3J0Y19zdGF0ZSkKIHsKLQlpbnRlbF9jcnRjX2NvcHlfY29sb3JfYmxvYnMoY3J0Y19zdGF0ZSk7
+CisJY29uc3Qgc3RydWN0IGludGVsX2NydGNfc3RhdGUgKmZyb21fY3J0Y19zdGF0ZSA9IGNydGNf
+c3RhdGU7CisKKwlpbnRlbF9jcnRjX2NvcHlfY29sb3JfYmxvYnMoY3J0Y19zdGF0ZSwgZnJvbV9j
+cnRjX3N0YXRlKTsKIH0KIAogc3RhdGljIHZvaWQKLS0gCjIuMTkuMQoKX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJ
+bnRlbC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnL21haWxtYW4vbGlzdGluZm8vaW50ZWwtZ2Z4Cg==
