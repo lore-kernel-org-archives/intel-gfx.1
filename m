@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0EF13C56202
-	for <intel-gfx@archiver.kernel.org>; Fri, 13 Nov 2020 09:41:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3B238C63699
+	for <intel-gfx@archiver.kernel.org>; Fri, 13 Nov 2020 09:41:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A9F222078B
-	for <intel-gfx@archiver.kernel.org>; Fri, 13 Nov 2020 09:41:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A9F222078B
+	by mail.kernel.org (Postfix) with ESMTPS id D62982078B
+	for <intel-gfx@archiver.kernel.org>; Fri, 13 Nov 2020 09:41:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D62982078B
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A0176E459;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7EE316E483;
 	Fri, 13 Nov 2020 09:41:43 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 16FCC6E459
- for <intel-gfx@lists.freedesktop.org>; Fri, 13 Nov 2020 09:41:40 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EC62E6E463
+ for <intel-gfx@lists.freedesktop.org>; Fri, 13 Nov 2020 09:41:41 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22980368-1500050 
- for multiple; Fri, 13 Nov 2020 09:41:34 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22980353-1500050 
+ for multiple; Fri, 13 Nov 2020 09:41:32 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 13 Nov 2020 09:41:22 +0000
-Message-Id: <20201113094128.8740-27-chris@chris-wilson.co.uk>
+Date: Fri, 13 Nov 2020 09:41:07 +0000
+Message-Id: <20201113094128.8740-12-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201113094128.8740-1-chris@chris-wilson.co.uk>
 References: <20201113094128.8740-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 27/33] drm/i915: Encode fence specific waitqueue
- behaviour into the wait.flags
+Subject: [Intel-gfx] [PATCH 12/33] drm/i915/gt: Free stale request on
+ destroying the virtual engine
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,84 +56,136 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Use the wait_queue_entry.flags to denote the special fence behaviour
-(flattening continuations along fence chains, and for propagating
-errors) rather than trying to detect ordinary waiters by their
-functions.
+Since preempt-to-busy, we may unsubmit a request while it is still on
+the HW and completes asynchronously. That means it may be retired and in
+the process destroy the virtual engine (as the user has closed their
+context), but that engine may still be holding onto the unsubmitted
+compelted request. Therefore we need to potentially cleanup the old
+request on destroying the virtual engine. We also have to keep the
+virtual_engine alive until after the sibling's execlists_dequeue() have
+finished peeking into the virtual engines, for which we serialise with
+RCU.
+
+v2: Be paranoid and flush the tasklet as well.
+v3: And flush the tasklet before the engines, as the tasklet may
+re-attach an rb_node after our removal from the siblings.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 ---
- drivers/gpu/drm/i915/i915_sw_fence.c | 25 +++++++++++++++----------
- 1 file changed, 15 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_lrc.c | 61 +++++++++++++++++++++++++----
+ 1 file changed, 54 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_sw_fence.c b/drivers/gpu/drm/i915/i915_sw_fence.c
-index 038d4c6884c5..2744558f3050 100644
---- a/drivers/gpu/drm/i915/i915_sw_fence.c
-+++ b/drivers/gpu/drm/i915/i915_sw_fence.c
-@@ -18,10 +18,15 @@
- #define I915_SW_FENCE_BUG_ON(expr) BUILD_BUG_ON_INVALID(expr)
- #endif
+diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
+index 17cb7060eb29..c11433884cf6 100644
+--- a/drivers/gpu/drm/i915/gt/intel_lrc.c
++++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
+@@ -182,6 +182,7 @@
+ struct virtual_engine {
+ 	struct intel_engine_cs base;
+ 	struct intel_context context;
++	struct rcu_work rcu;
  
--#define I915_SW_FENCE_FLAG_ALLOC BIT(3) /* after WQ_FLAG_* for safety */
--
- static DEFINE_SPINLOCK(i915_sw_fence_lock);
+ 	/*
+ 	 * We allow only a single request through the virtual engine at a time
+@@ -5470,44 +5471,90 @@ static struct list_head *virtual_queue(struct virtual_engine *ve)
+ 	return &ve->base.execlists.default_priolist.requests[0];
+ }
  
-+#define WQ_FLAG_BITS \
-+	BITS_PER_TYPE(typeof_member(struct wait_queue_entry, flags))
-+
-+/* after WQ_FLAG_* for safety */
-+#define I915_SW_FENCE_FLAG_FENCE BIT(WQ_FLAG_BITS - 1)
-+#define I915_SW_FENCE_FLAG_ALLOC BIT(WQ_FLAG_BITS - 2)
-+
- enum {
- 	DEBUG_FENCE_IDLE = 0,
- 	DEBUG_FENCE_NOTIFY,
-@@ -154,10 +159,10 @@ static void __i915_sw_fence_wake_up_all(struct i915_sw_fence *fence,
- 	spin_lock_irqsave_nested(&x->lock, flags, 1 + !!continuation);
- 	if (continuation) {
- 		list_for_each_entry_safe(pos, next, &x->head, entry) {
--			if (pos->func == autoremove_wake_function)
--				pos->func(pos, TASK_NORMAL, 0, continuation);
--			else
-+			if (pos->flags & I915_SW_FENCE_FLAG_FENCE)
- 				list_move_tail(&pos->entry, continuation);
-+			else
-+				pos->func(pos, TASK_NORMAL, 0, continuation);
- 		}
- 	} else {
- 		LIST_HEAD(extra);
-@@ -166,9 +171,9 @@ static void __i915_sw_fence_wake_up_all(struct i915_sw_fence *fence,
- 			list_for_each_entry_safe(pos, next, &x->head, entry) {
- 				int wake_flags;
- 
--				wake_flags = fence->error;
--				if (pos->func == autoremove_wake_function)
--					wake_flags = 0;
-+				wake_flags = 0;
-+				if (pos->flags & I915_SW_FENCE_FLAG_FENCE)
-+					wake_flags = fence->error;
- 
- 				pos->func(pos, TASK_NORMAL, wake_flags, &extra);
- 			}
-@@ -332,8 +337,8 @@ static int __i915_sw_fence_await_sw_fence(struct i915_sw_fence *fence,
- 					  struct i915_sw_fence *signaler,
- 					  wait_queue_entry_t *wq, gfp_t gfp)
+-static void virtual_context_destroy(struct kref *kref)
++static void rcu_virtual_context_destroy(struct work_struct *wrk)
  {
-+	unsigned int pending;
- 	unsigned long flags;
--	int pending;
+ 	struct virtual_engine *ve =
+-		container_of(kref, typeof(*ve), context.ref);
++		container_of(wrk, typeof(*ve), rcu.work);
+ 	unsigned int n;
  
- 	debug_fence_assert(fence);
- 	might_sleep_if(gfpflags_allow_blocking(gfp));
-@@ -349,7 +354,7 @@ static int __i915_sw_fence_await_sw_fence(struct i915_sw_fence *fence,
- 	if (unlikely(i915_sw_fence_check_if_after(fence, signaler)))
- 		return -EINVAL;
+-	GEM_BUG_ON(!list_empty(virtual_queue(ve)));
+-	GEM_BUG_ON(ve->request);
+ 	GEM_BUG_ON(ve->context.inflight);
  
--	pending = 0;
-+	pending = I915_SW_FENCE_FLAG_FENCE;
- 	if (!wq) {
- 		wq = kmalloc(sizeof(*wq), gfp);
- 		if (!wq) {
++	/* Preempt-to-busy may leave a stale request behind. */
++	if (unlikely(ve->request)) {
++		struct i915_request *old;
++
++		spin_lock_irq(&ve->base.active.lock);
++
++		old = fetch_and_zero(&ve->request);
++		if (old) {
++			GEM_BUG_ON(!i915_request_completed(old));
++			__i915_request_submit(old);
++			i915_request_put(old);
++		}
++
++		spin_unlock_irq(&ve->base.active.lock);
++	}
++
++	/*
++	 * Flush the tasklet in case it is still running on another core.
++	 *
++	 * This needs to be done before we remove ourselves from the siblings'
++	 * rbtrees as in the case it is running in parallel, it may reinsert
++	 * the rb_node into a sibling.
++	 */
++	tasklet_kill(&ve->base.execlists.tasklet);
++
++	/* Decouple ourselves from the siblings, no more access allowed. */
+ 	for (n = 0; n < ve->num_siblings; n++) {
+ 		struct intel_engine_cs *sibling = ve->siblings[n];
+ 		struct rb_node *node = &ve->nodes[sibling->id].rb;
+-		unsigned long flags;
+ 
+ 		if (RB_EMPTY_NODE(node))
+ 			continue;
+ 
+-		spin_lock_irqsave(&sibling->active.lock, flags);
++		spin_lock_irq(&sibling->active.lock);
+ 
+ 		/* Detachment is lazily performed in the execlists tasklet */
+ 		if (!RB_EMPTY_NODE(node))
+ 			rb_erase_cached(node, &sibling->execlists.virtual);
+ 
+-		spin_unlock_irqrestore(&sibling->active.lock, flags);
++		spin_unlock_irq(&sibling->active.lock);
+ 	}
+ 	GEM_BUG_ON(__tasklet_is_scheduled(&ve->base.execlists.tasklet));
++	GEM_BUG_ON(!list_empty(virtual_queue(ve)));
+ 
+ 	if (ve->context.state)
+ 		__execlists_context_fini(&ve->context);
+ 	intel_context_fini(&ve->context);
+ 
+ 	intel_engine_free_request_pool(&ve->base);
++	intel_breadcrumbs_free(ve->base.breadcrumbs);
+ 
+ 	kfree(ve->bonds);
+ 	kfree(ve);
+ }
+ 
++static void virtual_context_destroy(struct kref *kref)
++{
++	struct virtual_engine *ve =
++		container_of(kref, typeof(*ve), context.ref);
++
++	GEM_BUG_ON(!list_empty(&ve->context.signals));
++
++	/*
++	 * When destroying the virtual engine, we have to be aware that
++	 * it may still be in use from an hardirq/softirq context causing
++	 * the resubmission of a completed request (background completion
++	 * due to preempt-to-busy). Before we can free the engine, we need
++	 * to flush the submission code and tasklets that are still potentially
++	 * accessing the engine. Flushing the tasklets require process context,
++	 * and since we can guard the resubmit onto the engine with an RCU read
++	 * lock, we can delegate the free of the engine to an RCU worker.
++	 */
++	INIT_RCU_WORK(&ve->rcu, rcu_virtual_context_destroy);
++	queue_rcu_work(system_wq, &ve->rcu);
++}
++
+ static void virtual_engine_initial_hint(struct virtual_engine *ve)
+ {
+ 	int swp;
 -- 
 2.20.1
 
