@@ -2,42 +2,42 @@ Return-Path: <SRS0=JclI=ET=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.9 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DF271C6379F
-	for <intel-gfx@archiver.kernel.org>; Fri, 13 Nov 2020 09:42:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9B609C388F7
+	for <intel-gfx@archiver.kernel.org>; Fri, 13 Nov 2020 09:42:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8FEAE2078B
-	for <intel-gfx@archiver.kernel.org>; Fri, 13 Nov 2020 09:42:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8FEAE2078B
+	by mail.kernel.org (Postfix) with ESMTPS id 434FF2078B
+	for <intel-gfx@archiver.kernel.org>; Fri, 13 Nov 2020 09:42:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 434FF2078B
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 62E0E6E4B0;
-	Fri, 13 Nov 2020 09:41:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DDFD06E46B;
+	Fri, 13 Nov 2020 09:42:00 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 557186E471
- for <intel-gfx@lists.freedesktop.org>; Fri, 13 Nov 2020 09:41:43 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C11C96E4B5
+ for <intel-gfx@lists.freedesktop.org>; Fri, 13 Nov 2020 09:41:46 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22980372-1500050 
- for multiple; Fri, 13 Nov 2020 09:41:35 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22980362-1500050 
+ for multiple; Fri, 13 Nov 2020 09:41:33 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 13 Nov 2020 09:41:26 +0000
-Message-Id: <20201113094128.8740-31-chris@chris-wilson.co.uk>
+Date: Fri, 13 Nov 2020 09:41:16 +0000
+Message-Id: <20201113094128.8740-21-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201113094128.8740-1-chris@chris-wilson.co.uk>
 References: <20201113094128.8740-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 31/33] drm/i915/gt: Use indices for writing into
- relative timelines
+Subject: [Intel-gfx] [PATCH 21/33] drm/i915/gt: Decouple inflight virtual
+ engines
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,188 +56,103 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Relative timelines are relative to either the global or per-process
-HWSP, and so we can replace the absolute addressing with store-index
-variants for position invariance.
+Once a virtual engine has been bound to a sibling, it will remain bound
+until we finally schedule out the last active request. We can not rebind
+the context to a new sibling while it is inflight as the context save
+will conflict, hence we wait. As we cannot then use any other sibliing
+while the context is inflight, only kick the bound sibling while it
+inflight and upon scheduling out the kick the rest (so that we can swap
+engines on timeslicing if the previously bound engine becomes
+oversubscribed).
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 ---
- drivers/gpu/drm/i915/gt/intel_lrc.c      | 110 +++++++++++++++--------
- drivers/gpu/drm/i915/gt/intel_timeline.h |  12 +++
- 2 files changed, 86 insertions(+), 36 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_lrc.c | 28 ++++++++++++----------------
+ 1 file changed, 12 insertions(+), 16 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
-index cf767b503a1c..8765b7d91833 100644
+index 760449d03462..95b11ce6a67b 100644
 --- a/drivers/gpu/drm/i915/gt/intel_lrc.c
 +++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
-@@ -4923,7 +4923,18 @@ gen8_emit_fini_breadcrumb_tail(struct i915_request *request, u32 *cs)
- 
- static u32 *emit_xcs_breadcrumb(struct i915_request *rq, u32 *cs)
+@@ -1387,9 +1387,8 @@ static inline void execlists_schedule_in(struct i915_request *rq, int idx)
+ static void kick_siblings(struct i915_request *rq, struct intel_context *ce)
  {
--	return gen8_emit_ggtt_write(cs, rq->fence.seqno, hwsp_offset(rq), 0);
-+	struct intel_timeline *tl = rcu_dereference_protected(rq->timeline, 1);
-+	unsigned int flags = MI_FLUSH_DW_OP_STOREDW;
-+	u32 offset = hwsp_offset(rq);
-+
-+	if (intel_timeline_is_relative(tl)) {
-+		offset = offset_in_page(offset);
-+		flags |= MI_FLUSH_DW_STORE_INDEX;
-+	}
-+	if (intel_timeline_is_global(tl))
-+		offset |= MI_FLUSH_DW_USE_GTT;
-+
-+	return __gen8_emit_flush_dw(cs, rq->fence.seqno, offset, flags);
+ 	struct virtual_engine *ve = container_of(ce, typeof(*ve), context);
+-	struct i915_request *next = READ_ONCE(ve->request);
+ 
+-	if (next == rq || (next && next->execution_mask & ~rq->execution_mask))
++	if (READ_ONCE(ve->request))
+ 		tasklet_hi_schedule(&ve->base.execlists.tasklet);
  }
  
- static u32 *gen8_emit_fini_breadcrumb(struct i915_request *rq, u32 *cs)
-@@ -4931,8 +4942,19 @@ static u32 *gen8_emit_fini_breadcrumb(struct i915_request *rq, u32 *cs)
- 	return gen8_emit_fini_breadcrumb_tail(rq, emit_xcs_breadcrumb(rq, cs));
+@@ -1808,17 +1807,13 @@ first_virtual_engine(struct intel_engine_cs *engine)
+ 		struct i915_request *rq = READ_ONCE(ve->request);
+ 
+ 		/* lazily cleanup after another engine handled rq */
+-		if (!rq) {
++		if (!rq || !virtual_matches(ve, rq, engine)) {
+ 			rb_erase_cached(rb, &el->virtual);
+ 			RB_CLEAR_NODE(rb);
+ 			rb = rb_first_cached(&el->virtual);
+ 			continue;
+ 		}
+ 
+-		if (!virtual_matches(ve, rq, engine)) {
+-			rb = rb_next(rb);
+-			continue;
+-		}
+ 		return ve;
+ 	}
+ 
+@@ -5591,7 +5586,6 @@ static void virtual_submission_tasklet(unsigned long data)
+ 	if (unlikely(!mask))
+ 		return;
+ 
+-	local_irq_disable();
+ 	for (n = 0; n < ve->num_siblings; n++) {
+ 		struct intel_engine_cs *sibling = READ_ONCE(ve->siblings[n]);
+ 		struct ve_node * const node = &ve->nodes[sibling->id];
+@@ -5601,20 +5595,19 @@ static void virtual_submission_tasklet(unsigned long data)
+ 		if (!READ_ONCE(ve->request))
+ 			break; /* already handled by a sibling's tasklet */
+ 
++		spin_lock_irq(&sibling->active.lock);
++
+ 		if (unlikely(!(mask & sibling->mask))) {
+ 			if (!RB_EMPTY_NODE(&node->rb)) {
+-				spin_lock(&sibling->active.lock);
+ 				rb_erase_cached(&node->rb,
+ 						&sibling->execlists.virtual);
+ 				RB_CLEAR_NODE(&node->rb);
+-				spin_unlock(&sibling->active.lock);
+ 			}
+-			continue;
+-		}
+ 
+-		spin_lock(&sibling->active.lock);
++			goto unlock_engine;
++		}
+ 
+-		if (!RB_EMPTY_NODE(&node->rb)) {
++		if (unlikely(!RB_EMPTY_NODE(&node->rb))) {
+ 			/*
+ 			 * Cheat and avoid rebalancing the tree if we can
+ 			 * reuse this node in situ.
+@@ -5654,9 +5647,12 @@ static void virtual_submission_tasklet(unsigned long data)
+ 		if (first && prio > sibling->execlists.queue_priority_hint)
+ 			tasklet_hi_schedule(&sibling->execlists.tasklet);
+ 
+-		spin_unlock(&sibling->active.lock);
++unlock_engine:
++		spin_unlock_irq(&sibling->active.lock);
++
++		if (intel_context_inflight(&ve->context))
++			break;
+ 	}
+-	local_irq_enable();
  }
  
--static u32 *gen8_emit_fini_breadcrumb_rcs(struct i915_request *request, u32 *cs)
-+static u32 *gen8_emit_fini_breadcrumb_rcs(struct i915_request *rq, u32 *cs)
- {
-+	struct intel_timeline *tl = rcu_dereference_protected(rq->timeline, 1);
-+	unsigned int flags = PIPE_CONTROL_FLUSH_ENABLE | PIPE_CONTROL_CS_STALL;
-+	u32 offset = hwsp_offset(rq);
-+
-+	if (intel_timeline_is_relative(tl)) {
-+		offset = offset_in_page(offset);
-+		flags |= PIPE_CONTROL_STORE_DATA_INDEX;
-+	}
-+	if (intel_timeline_is_global(tl))
-+		flags |= PIPE_CONTROL_GLOBAL_GTT_IVB;
-+
- 	cs = gen8_emit_pipe_control(cs,
- 				    PIPE_CONTROL_RENDER_TARGET_CACHE_FLUSH |
- 				    PIPE_CONTROL_DEPTH_CACHE_FLUSH |
-@@ -4940,29 +4962,35 @@ static u32 *gen8_emit_fini_breadcrumb_rcs(struct i915_request *request, u32 *cs)
- 				    0);
- 
- 	/* XXX flush+write+CS_STALL all in one upsets gem_concurrent_blt:kbl */
--	cs = gen8_emit_ggtt_write_rcs(cs,
--				      request->fence.seqno,
--				      hwsp_offset(request),
--				      PIPE_CONTROL_FLUSH_ENABLE |
--				      PIPE_CONTROL_CS_STALL);
-+	cs = __gen8_emit_write_rcs(cs, rq->fence.seqno, offset, 0, flags);
- 
--	return gen8_emit_fini_breadcrumb_tail(request, cs);
-+	return gen8_emit_fini_breadcrumb_tail(rq, cs);
- }
- 
- static u32 *
--gen11_emit_fini_breadcrumb_rcs(struct i915_request *request, u32 *cs)
-+gen11_emit_fini_breadcrumb_rcs(struct i915_request *rq, u32 *cs)
- {
--	cs = gen8_emit_ggtt_write_rcs(cs,
--				      request->fence.seqno,
--				      hwsp_offset(request),
--				      PIPE_CONTROL_CS_STALL |
--				      PIPE_CONTROL_TILE_CACHE_FLUSH |
--				      PIPE_CONTROL_RENDER_TARGET_CACHE_FLUSH |
--				      PIPE_CONTROL_DEPTH_CACHE_FLUSH |
--				      PIPE_CONTROL_DC_FLUSH_ENABLE |
--				      PIPE_CONTROL_FLUSH_ENABLE);
-+	struct intel_timeline *tl = rcu_dereference_protected(rq->timeline, 1);
-+	u32 offset = hwsp_offset(rq);
-+	unsigned int flags;
-+
-+	flags = (PIPE_CONTROL_CS_STALL |
-+		 PIPE_CONTROL_TILE_CACHE_FLUSH |
-+		 PIPE_CONTROL_RENDER_TARGET_CACHE_FLUSH |
-+		 PIPE_CONTROL_DEPTH_CACHE_FLUSH |
-+		 PIPE_CONTROL_DC_FLUSH_ENABLE |
-+		 PIPE_CONTROL_FLUSH_ENABLE);
-+
-+	if (intel_timeline_is_relative(tl)) {
-+		offset = offset_in_page(offset);
-+		flags |= PIPE_CONTROL_STORE_DATA_INDEX;
-+	}
-+	if (intel_timeline_is_global(tl))
-+		flags |= PIPE_CONTROL_GLOBAL_GTT_IVB;
-+
-+	cs = __gen8_emit_write_rcs(cs, rq->fence.seqno, offset, 0, flags);
- 
--	return gen8_emit_fini_breadcrumb_tail(request, cs);
-+	return gen8_emit_fini_breadcrumb_tail(rq, cs);
- }
- 
- /*
-@@ -5022,23 +5050,33 @@ static u32 *gen12_emit_fini_breadcrumb(struct i915_request *rq, u32 *cs)
- }
- 
- static u32 *
--gen12_emit_fini_breadcrumb_rcs(struct i915_request *request, u32 *cs)
--{
--	cs = gen12_emit_ggtt_write_rcs(cs,
--				       request->fence.seqno,
--				       hwsp_offset(request),
--				       PIPE_CONTROL0_HDC_PIPELINE_FLUSH,
--				       PIPE_CONTROL_CS_STALL |
--				       PIPE_CONTROL_TILE_CACHE_FLUSH |
--				       PIPE_CONTROL_FLUSH_L3 |
--				       PIPE_CONTROL_RENDER_TARGET_CACHE_FLUSH |
--				       PIPE_CONTROL_DEPTH_CACHE_FLUSH |
--				       /* Wa_1409600907:tgl */
--				       PIPE_CONTROL_DEPTH_STALL |
--				       PIPE_CONTROL_DC_FLUSH_ENABLE |
--				       PIPE_CONTROL_FLUSH_ENABLE);
--
--	return gen12_emit_fini_breadcrumb_tail(request, cs);
-+gen12_emit_fini_breadcrumb_rcs(struct i915_request *rq, u32 *cs)
-+{
-+	struct intel_timeline *tl = rcu_dereference_protected(rq->timeline, 1);
-+	u32 offset = hwsp_offset(rq);
-+	unsigned int flags;
-+
-+	flags = (PIPE_CONTROL_CS_STALL |
-+		 PIPE_CONTROL_TILE_CACHE_FLUSH |
-+		 PIPE_CONTROL_FLUSH_L3 |
-+		 PIPE_CONTROL_RENDER_TARGET_CACHE_FLUSH |
-+		 PIPE_CONTROL_DEPTH_CACHE_FLUSH |
-+		 /* Wa_1409600907:tgl */
-+		 PIPE_CONTROL_DEPTH_STALL |
-+		 PIPE_CONTROL_DC_FLUSH_ENABLE |
-+		 PIPE_CONTROL_FLUSH_ENABLE);
-+
-+	if (intel_timeline_is_relative(tl)) {
-+		offset = offset_in_page(offset);
-+		flags |= PIPE_CONTROL_STORE_DATA_INDEX;
-+	}
-+	if (intel_timeline_is_global(tl))
-+		flags |= PIPE_CONTROL_GLOBAL_GTT_IVB;
-+
-+	cs = __gen8_emit_write_rcs(cs, rq->fence.seqno, offset,
-+				   PIPE_CONTROL0_HDC_PIPELINE_FLUSH, flags);
-+
-+	return gen12_emit_fini_breadcrumb_tail(rq, cs);
- }
- 
- static void execlists_park(struct intel_engine_cs *engine)
-diff --git a/drivers/gpu/drm/i915/gt/intel_timeline.h b/drivers/gpu/drm/i915/gt/intel_timeline.h
-index 064255210209..b6af36293d2f 100644
---- a/drivers/gpu/drm/i915/gt/intel_timeline.h
-+++ b/drivers/gpu/drm/i915/gt/intel_timeline.h
-@@ -72,6 +72,18 @@ intel_timeline_has_initial_breadcrumb(const struct intel_timeline *tl)
- 	return tl->mode == INTEL_TIMELINE_ABSOLUTE;
- }
- 
-+static inline bool
-+intel_timeline_is_relative(const struct intel_timeline *tl)
-+{
-+	return tl->mode != INTEL_TIMELINE_ABSOLUTE;
-+}
-+
-+static inline bool
-+intel_timeline_is_global(const struct intel_timeline *tl)
-+{
-+	return tl->mode != INTEL_TIMELINE_CONTEXT;
-+}
-+
- static inline int __intel_timeline_sync_set(struct intel_timeline *tl,
- 					    u64 context, u32 seqno)
- {
+ static void virtual_submit_request(struct i915_request *rq)
 -- 
 2.20.1
 
