@@ -7,36 +7,37 @@ X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1EFBCC388F7
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 846D4C63697
 	for <intel-gfx@archiver.kernel.org>; Fri, 13 Nov 2020 09:41:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 788AB22265
-	for <intel-gfx@archiver.kernel.org>; Fri, 13 Nov 2020 09:41:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 788AB22265
+	by mail.kernel.org (Postfix) with ESMTPS id BD6172078B
+	for <intel-gfx@archiver.kernel.org>; Fri, 13 Nov 2020 09:41:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BD6172078B
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD7A06E466;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A9DAA6E463;
 	Fri, 13 Nov 2020 09:41:42 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 266D16E463
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7DC9D6E311
  for <intel-gfx@lists.freedesktop.org>; Fri, 13 Nov 2020 09:41:41 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22980342-1500050 
- for multiple; Fri, 13 Nov 2020 09:41:30 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 22980364-1500050 
+ for multiple; Fri, 13 Nov 2020 09:41:34 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 13 Nov 2020 09:40:57 +0000
-Message-Id: <20201113094128.8740-2-chris@chris-wilson.co.uk>
+Date: Fri, 13 Nov 2020 09:41:18 +0000
+Message-Id: <20201113094128.8740-23-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201113094128.8740-1-chris@chris-wilson.co.uk>
 References: <20201113094128.8740-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 02/33] drm/i915: Lift i915_request_show()
+Subject: [Intel-gfx] [PATCH 23/33] drm/i915/gt: Remove virtual breadcrumb
+ before transfer
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,203 +56,70 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Extract i915_request_show for reuse in other request chain pretty
-printers.
+The issue with stale virtual breadcrumbs remain. Now we have the problem
+that if the irq-signaler is still referencing the stale breadcrumb as we
+transfer it to a new sibling, the list becomes spaghetti. This is a very
+small window, but that doesn't stop it being hit infrequently. To
+prevent the lists being tangled (the iterator starting on one engine's
+b->signalers but walking onto another list), always decouple the virtual
+breadcrumb on schedule-out and make sure that the walker has stepped out
+of the lists.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 ---
- drivers/gpu/drm/i915/gt/intel_engine_cs.c | 47 ++---------------------
- drivers/gpu/drm/i915/gt/intel_lrc.c       |  2 +-
- drivers/gpu/drm/i915/gt/intel_lrc.h       |  2 +-
- drivers/gpu/drm/i915/i915_request.c       | 39 +++++++++++++++++++
- drivers/gpu/drm/i915/i915_request.h       |  5 +++
- 5 files changed, 50 insertions(+), 45 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_breadcrumbs.c |  5 +++--
+ drivers/gpu/drm/i915/gt/intel_lrc.c         | 15 +++++++++++++++
+ 2 files changed, 18 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-index 1ed84ee8ce41..c3bb2e9546e6 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-@@ -1294,45 +1294,6 @@ bool intel_engine_can_store_dword(struct intel_engine_cs *engine)
- 	}
- }
- 
--static int print_sched_attr(const struct i915_sched_attr *attr,
--			    char *buf, int x, int len)
--{
--	if (attr->priority == I915_PRIORITY_INVALID)
--		return x;
--
--	x += snprintf(buf + x, len - x,
--		      " prio=%d", attr->priority);
--
--	return x;
--}
--
--static void print_request(struct drm_printer *m,
--			  struct i915_request *rq,
--			  const char *prefix)
--{
--	const char *name = rq->fence.ops->get_timeline_name(&rq->fence);
--	char buf[80] = "";
--	int x = 0;
--
--	x = print_sched_attr(&rq->sched.attr, buf, x, sizeof(buf));
--
--	drm_printf(m, "%s %llx:%llx%s%s %s @ %dms: %s\n",
--		   prefix,
--		   rq->fence.context, rq->fence.seqno,
--		   i915_request_completed(rq) ? "!" :
--		   i915_request_started(rq) ? "*" :
--		   !i915_sw_fence_signaled(&rq->semaphore) ? "&" :
--		   "",
--		   test_bit(DMA_FENCE_FLAG_SIGNALED_BIT,
--			    &rq->fence.flags) ? "+" :
--		   test_bit(DMA_FENCE_FLAG_ENABLE_SIGNAL_BIT,
--			    &rq->fence.flags) ? "-" :
--		   "",
--		   buf,
--		   jiffies_to_msecs(jiffies - rq->emitted_jiffies),
--		   name);
--}
--
- static struct intel_timeline *get_timeline(struct i915_request *rq)
+diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
+index f5f6feed0fa6..5b84f51931d9 100644
+--- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
++++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
+@@ -461,15 +461,16 @@ void i915_request_cancel_breadcrumb(struct i915_request *rq)
  {
- 	struct intel_timeline *tl;
-@@ -1530,7 +1491,7 @@ static void intel_engine_print_registers(struct intel_engine_cs *engine,
- 					intel_context_is_banned(rq->context) ? "*" : "");
- 			len += print_ring(hdr + len, sizeof(hdr) - len, rq);
- 			scnprintf(hdr + len, sizeof(hdr) - len, "rq: ");
--			print_request(m, rq, hdr);
-+			i915_request_show(m, rq, hdr);
- 		}
- 		for (port = execlists->pending; (rq = *port); port++) {
- 			char hdr[160];
-@@ -1544,7 +1505,7 @@ static void intel_engine_print_registers(struct intel_engine_cs *engine,
- 					intel_context_is_banned(rq->context) ? "*" : "");
- 			len += print_ring(hdr + len, sizeof(hdr) - len, rq);
- 			scnprintf(hdr + len, sizeof(hdr) - len, "rq: ");
--			print_request(m, rq, hdr);
-+			i915_request_show(m, rq, hdr);
- 		}
- 		rcu_read_unlock();
- 		execlists_active_unlock_bh(execlists);
-@@ -1688,7 +1649,7 @@ void intel_engine_dump(struct intel_engine_cs *engine,
- 	if (rq) {
- 		struct intel_timeline *tl = get_timeline(rq);
+ 	struct intel_breadcrumbs *b = READ_ONCE(rq->engine)->breadcrumbs;
+ 	struct intel_context *ce = rq->context;
++	unsigned long flags;
+ 	bool release;
  
--		print_request(m, rq, "\t\tactive ");
-+		i915_request_show(m, rq, "\t\tactive ");
+ 	if (!test_and_clear_bit(I915_FENCE_FLAG_SIGNAL, &rq->fence.flags))
+ 		return;
  
- 		drm_printf(m, "\t\tring->start:  0x%08x\n",
- 			   i915_ggtt_offset(rq->ring->vma));
-@@ -1726,7 +1687,7 @@ void intel_engine_dump(struct intel_engine_cs *engine,
- 		drm_printf(m, "\tDevice is asleep; skipping register dump\n");
- 	}
+-	spin_lock(&ce->signal_lock);
++	spin_lock_irqsave(&ce->signal_lock, flags);
+ 	list_del_rcu(&rq->signal_link);
+ 	release = remove_signaling_context(b, ce);
+-	spin_unlock(&ce->signal_lock);
++	spin_unlock_irqrestore(&ce->signal_lock, flags);
+ 	if (release)
+ 		intel_context_put(ce);
  
--	intel_execlists_show_requests(engine, m, print_request, 8);
-+	intel_execlists_show_requests(engine, m, i915_request_show, 8);
- 
- 	drm_printf(m, "HWSP:\n");
- 	hexdump(m, engine->status_page.addr, PAGE_SIZE);
 diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
-index 8a51c1c3a091..78baa01956f1 100644
+index 899452726228..a94daf4c70a3 100644
 --- a/drivers/gpu/drm/i915/gt/intel_lrc.c
 +++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
-@@ -5980,7 +5980,7 @@ int intel_virtual_engine_attach_bond(struct intel_engine_cs *engine,
- void intel_execlists_show_requests(struct intel_engine_cs *engine,
- 				   struct drm_printer *m,
- 				   void (*show_request)(struct drm_printer *m,
--							struct i915_request *rq,
-+							const struct i915_request *rq,
- 							const char *prefix),
- 				   unsigned int max)
+@@ -1387,6 +1387,21 @@ static inline void execlists_schedule_in(struct i915_request *rq, int idx)
+ static void kick_siblings(struct i915_request *rq, struct intel_context *ce)
  {
-diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.h b/drivers/gpu/drm/i915/gt/intel_lrc.h
-index c2d287f25497..32e6e204f544 100644
---- a/drivers/gpu/drm/i915/gt/intel_lrc.h
-+++ b/drivers/gpu/drm/i915/gt/intel_lrc.h
-@@ -106,7 +106,7 @@ void intel_lr_context_reset(struct intel_engine_cs *engine,
- void intel_execlists_show_requests(struct intel_engine_cs *engine,
- 				   struct drm_printer *m,
- 				   void (*show_request)(struct drm_printer *m,
--							struct i915_request *rq,
-+							const struct i915_request *rq,
- 							const char *prefix),
- 				   unsigned int max);
+ 	struct virtual_engine *ve = container_of(ce, typeof(*ve), context);
++	struct intel_engine_cs *engine = rq->engine;
++
++	/* Flush concurrent rcu iterators in signal_irq_work */
++	if (test_bit(DMA_FENCE_FLAG_ENABLE_SIGNAL_BIT, &rq->fence.flags)) {
++		/*
++		 * After this point, the rq may be transferred to a new
++		 * sibling, so before we clear ce->inflight make sure that
++		 * the context has been removed from the b->signalers and
++		 * furthermore we need to make sure that the concurrent
++		 * iterator in signal_irq_work is no longer following
++		 * ce->signal_link.
++		 */
++		i915_request_cancel_breadcrumb(rq);
++		irq_work_sync(&engine->breadcrumbs->irq_work);
++	}
  
-diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
-index 0e813819b041..cebe07a85625 100644
---- a/drivers/gpu/drm/i915/i915_request.c
-+++ b/drivers/gpu/drm/i915/i915_request.c
-@@ -1855,6 +1855,45 @@ long i915_request_wait(struct i915_request *rq,
- 	return timeout;
- }
- 
-+static int print_sched_attr(const struct i915_sched_attr *attr,
-+			    char *buf, int x, int len)
-+{
-+	if (attr->priority == I915_PRIORITY_INVALID)
-+		return x;
-+
-+	x += snprintf(buf + x, len - x,
-+		      " prio=%d", attr->priority);
-+
-+	return x;
-+}
-+
-+void i915_request_show(struct drm_printer *m,
-+		       const struct i915_request *rq,
-+		       const char *prefix)
-+{
-+	const char *name = rq->fence.ops->get_timeline_name((struct dma_fence *)&rq->fence);
-+	char buf[80] = "";
-+	int x = 0;
-+
-+	x = print_sched_attr(&rq->sched.attr, buf, x, sizeof(buf));
-+
-+	drm_printf(m, "%s %llx:%llx%s%s %s @ %dms: %s\n",
-+		   prefix,
-+		   rq->fence.context, rq->fence.seqno,
-+		   i915_request_completed(rq) ? "!" :
-+		   i915_request_started(rq) ? "*" :
-+		   !i915_sw_fence_signaled(&rq->semaphore) ? "&" :
-+		   "",
-+		   test_bit(DMA_FENCE_FLAG_SIGNALED_BIT,
-+			    &rq->fence.flags) ? "+" :
-+		   test_bit(DMA_FENCE_FLAG_ENABLE_SIGNAL_BIT,
-+			    &rq->fence.flags) ? "-" :
-+		   "",
-+		   buf,
-+		   jiffies_to_msecs(jiffies - rq->emitted_jiffies),
-+		   name);
-+}
-+
- #if IS_ENABLED(CONFIG_DRM_I915_SELFTEST)
- #include "selftests/mock_request.c"
- #include "selftests/i915_request.c"
-diff --git a/drivers/gpu/drm/i915/i915_request.h b/drivers/gpu/drm/i915/i915_request.h
-index 16b721080195..09609071b725 100644
---- a/drivers/gpu/drm/i915/i915_request.h
-+++ b/drivers/gpu/drm/i915/i915_request.h
-@@ -43,6 +43,7 @@
- 
- struct drm_file;
- struct drm_i915_gem_object;
-+struct drm_printer;
- struct i915_request;
- 
- struct i915_capture_list {
-@@ -369,6 +370,10 @@ long i915_request_wait(struct i915_request *rq,
- #define I915_WAIT_PRIORITY	BIT(1) /* small priority bump for the request */
- #define I915_WAIT_ALL		BIT(2) /* used by i915_gem_object_wait() */
- 
-+void i915_request_show(struct drm_printer *m,
-+		       const struct i915_request *rq,
-+		       const char *prefix);
-+
- static inline bool i915_request_signaled(const struct i915_request *rq)
- {
- 	/* The request may live longer than its HWSP, so check flags first! */
+ 	if (READ_ONCE(ve->request))
+ 		tasklet_hi_schedule(&ve->base.execlists.tasklet);
 -- 
 2.20.1
 
