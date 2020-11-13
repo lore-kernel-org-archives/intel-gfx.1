@@ -2,49 +2,52 @@ Return-Path: <SRS0=JclI=ET=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3D4CAC55ABD
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CFD23C63697
 	for <intel-gfx@archiver.kernel.org>; Fri, 13 Nov 2020 18:04:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 04103208D5
+	by mail.kernel.org (Postfix) with ESMTPS id 6E616208D5
 	for <intel-gfx@archiver.kernel.org>; Fri, 13 Nov 2020 18:04:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 04103208D5
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6E616208D5
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D14A6E5D3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4FEBB6E598;
 	Fri, 13 Nov 2020 18:04:27 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E8C86E5D3
- for <intel-gfx@lists.freedesktop.org>; Fri, 13 Nov 2020 18:04:26 +0000 (UTC)
-IronPort-SDR: p1GwUlDySvbvQFJmo2qm6pcaMSTvkcekGqnzBkxIOY/Md6Rc4E/BPVuve0RXbhBvixHzbv72mA
- ebuk1tc4TUmQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9804"; a="167931874"
-X-IronPort-AV: E=Sophos;i="5.77,476,1596524400"; d="scan'208";a="167931874"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 04A756E598
+ for <intel-gfx@lists.freedesktop.org>; Fri, 13 Nov 2020 18:04:25 +0000 (UTC)
+IronPort-SDR: ZnSy/cEjmNUQVQxCwvU1lDuRl+djwf49/E8icJgnwvJ/O2w15fvccIiY7NEb+6lFDV5CmONCQ6
+ jzAUpexS4CEg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9804"; a="167931875"
+X-IronPort-AV: E=Sophos;i="5.77,476,1596524400"; d="scan'208";a="167931875"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  13 Nov 2020 10:04:00 -0800
-IronPort-SDR: IQkJ9IsyF9tlVnBE22QGkqqOtUUGBp/x8F/nxiAASYtf+oErNGOpVn1EQ6yOgaY7iDDcpHkd0P
- lar9WO8P1a1A==
-X-IronPort-AV: E=Sophos;i="5.77,476,1596524400"; d="scan'208";a="474752355"
+IronPort-SDR: neqdk+DzYg9FJhuVG3aKpIxG8D+CUYcSBJtg9RWhecMvR0v9qSSVj69OQnroX5W8bdTsI61/TN
+ MgSMkT51wMbQ==
+X-IronPort-AV: E=Sophos;i="5.77,476,1596524400"; d="scan'208";a="474752361"
 Received: from orsosgc001.ra.intel.com ([10.23.184.150])
  by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  13 Nov 2020 10:03:59 -0800
 From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 13 Nov 2020 10:03:52 -0800
-Message-Id: <20201113180359.54410-1-umesh.nerlige.ramappa@intel.com>
+Date: Fri, 13 Nov 2020 10:03:54 -0800
+Message-Id: <20201113180359.54410-3-umesh.nerlige.ramappa@intel.com>
 X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20201113180359.54410-1-umesh.nerlige.ramappa@intel.com>
+References: <20201113180359.54410-1-umesh.nerlige.ramappa@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 0/7] Allow privileged user to map the OA buffer
+Subject: [Intel-gfx] [PATCH 2/7] drm/i915/gt: Lock
+ intel_engine_apply_whitelist with uncore->lock
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,48 +66,108 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Allow user to map the OA buffer and also trigger reports into it.
+Refactor intel_engine_apply_whitelist into locked and unlocked versions
+so that a caller who already has the lock can apply whitelist.
 
-CI fixes:
-v1: Fixes a memory corruption due to addition of OA whitelist on demand.
-v2: Spinlock when applying whitelist
-v3: Use uncore->lock. Do not check for wal->count when applying whitelist.
-v4: Refresh and rerun with newly added test (forked access).
-v5:
-- Split patches into smaller units
-- Grow the wal->list only for the engine that needs it.
-- Bring back the wal->count check when applying whitelist during resume
-v6: Fix checkpatch and sparse warnings
-v7:
-- Fix mem leak
-- Grow wal->list only if wal->count is not aligned to WAL_LIST_CHUNK
+v2: Fix sparse warning
+v3: (Chris)
+- Drop prefix and suffix for static function
+- Use longest to shortest line ordering for variable declaration
 
 Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
-Test-with: 20201002232634.51807-1-umesh.nerlige.ramappa@intel.com
+Reviewed-by: Chris Wilson <chris.p.wilson@intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_workarounds.c | 44 +++++++++++++++------
+ 1 file changed, 31 insertions(+), 13 deletions(-)
 
-Piotr Maciejewski (1):
-  drm/i915/perf: Ensure observation logic is not clock gated
-
-Umesh Nerlige Ramappa (6):
-  drm/i915/gt: Lock intel_engine_apply_whitelist with uncore->lock
-  drm/i915/gt: Add a reference to the engine in i915_wa_list
-  drm/i915/perf: Whitelist OA report trigger registers
-  drm/i915/gt: Refactor _wa_add to reuse wa_index and wa_list_grow
-  drm/i915/perf: Whitelist OA counter and buffer registers
-  drm/i915/perf: Map OA buffer to user space for gen12 performance query
-
- drivers/gpu/drm/i915/gem/i915_gem_mman.c      |   2 +-
- drivers/gpu/drm/i915/gem/i915_gem_mman.h      |   2 +
- drivers/gpu/drm/i915/gt/intel_workarounds.c   | 244 ++++++++++++++----
- drivers/gpu/drm/i915/gt/intel_workarounds.h   |   7 +
- .../gpu/drm/i915/gt/intel_workarounds_types.h |   6 +
- .../gpu/drm/i915/gt/selftest_workarounds.c    |   4 +-
- drivers/gpu/drm/i915/i915_perf.c              | 228 +++++++++++++++-
- drivers/gpu/drm/i915/i915_perf_types.h        |   8 +
- drivers/gpu/drm/i915/i915_reg.h               |  10 +
- include/uapi/drm/i915_drm.h                   |  33 +++
- 10 files changed, 485 insertions(+), 59 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+index fed9503a7c4e..fa8c9d86847d 100644
+--- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
++++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+@@ -1337,7 +1337,8 @@ void intel_gt_init_workarounds(struct drm_i915_private *i915)
+ }
+ 
+ static enum forcewake_domains
+-wal_get_fw_for_rmw(struct intel_uncore *uncore, const struct i915_wa_list *wal)
++wal_get_fw(struct intel_uncore *uncore, const struct i915_wa_list *wal,
++	   unsigned int op)
+ {
+ 	enum forcewake_domains fw = 0;
+ 	struct i915_wa *wa;
+@@ -1346,8 +1347,7 @@ wal_get_fw_for_rmw(struct intel_uncore *uncore, const struct i915_wa_list *wal)
+ 	for (i = 0, wa = wal->list; i < wal->count; i++, wa++)
+ 		fw |= intel_uncore_forcewake_for_reg(uncore,
+ 						     wa->reg,
+-						     FW_REG_READ |
+-						     FW_REG_WRITE);
++						     op);
+ 
+ 	return fw;
+ }
+@@ -1377,7 +1377,7 @@ wa_list_apply(struct intel_uncore *uncore, const struct i915_wa_list *wal)
+ 	if (!wal->count)
+ 		return;
+ 
+-	fw = wal_get_fw_for_rmw(uncore, wal);
++	fw = wal_get_fw(uncore, wal, FW_REG_READ | FW_REG_WRITE);
+ 
+ 	spin_lock_irqsave(&uncore->lock, flags);
+ 	intel_uncore_forcewake_get__locked(uncore, fw);
+@@ -1703,27 +1703,45 @@ void intel_engine_init_whitelist(struct intel_engine_cs *engine)
+ 	wa_init_finish(w);
+ }
+ 
+-void intel_engine_apply_whitelist(struct intel_engine_cs *engine)
++static void __engine_apply_whitelist(struct intel_engine_cs *engine)
+ {
+ 	const struct i915_wa_list *wal = &engine->whitelist;
+ 	struct intel_uncore *uncore = engine->uncore;
+ 	const u32 base = engine->mmio_base;
++	enum forcewake_domains fw;
+ 	struct i915_wa *wa;
+ 	unsigned int i;
+ 
+-	if (!wal->count)
+-		return;
++	lockdep_assert_held(&uncore->lock);
++
++	fw = wal_get_fw(uncore, wal, FW_REG_WRITE);
++	intel_uncore_forcewake_get__locked(uncore, fw);
+ 
+ 	for (i = 0, wa = wal->list; i < wal->count; i++, wa++)
+-		intel_uncore_write(uncore,
+-				   RING_FORCE_TO_NONPRIV(base, i),
+-				   i915_mmio_reg_offset(wa->reg));
++		intel_uncore_write_fw(uncore,
++				      RING_FORCE_TO_NONPRIV(base, i),
++				      i915_mmio_reg_offset(wa->reg));
+ 
+ 	/* And clear the rest just in case of garbage */
+ 	for (; i < RING_MAX_NONPRIV_SLOTS; i++)
+-		intel_uncore_write(uncore,
+-				   RING_FORCE_TO_NONPRIV(base, i),
+-				   i915_mmio_reg_offset(RING_NOPID(base)));
++		intel_uncore_write_fw(uncore,
++				      RING_FORCE_TO_NONPRIV(base, i),
++				      i915_mmio_reg_offset(RING_NOPID(base)));
++
++	intel_uncore_forcewake_put__locked(uncore, fw);
++}
++
++void intel_engine_apply_whitelist(struct intel_engine_cs *engine)
++{
++	const struct i915_wa_list *wal = &engine->whitelist;
++	unsigned long flags;
++
++	if (!wal->count)
++		return;
++
++	spin_lock_irqsave(&engine->uncore->lock, flags);
++	__engine_apply_whitelist(engine);
++	spin_unlock_irqrestore(&engine->uncore->lock, flags);
+ }
+ 
+ static void
 -- 
 2.20.1
 
