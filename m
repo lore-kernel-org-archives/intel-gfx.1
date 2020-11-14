@@ -2,40 +2,52 @@ Return-Path: <SRS0=QofO=EU=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C061DC55ABD
-	for <intel-gfx@archiver.kernel.org>; Sat, 14 Nov 2020 00:14:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DA625C4742C
+	for <intel-gfx@archiver.kernel.org>; Sat, 14 Nov 2020 00:37:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7ADAF221EB
-	for <intel-gfx@archiver.kernel.org>; Sat, 14 Nov 2020 00:14:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7ADAF221EB
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id 84DAB2225E
+	for <intel-gfx@archiver.kernel.org>; Sat, 14 Nov 2020 00:37:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 84DAB2225E
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F0A5C6E88A;
-	Sat, 14 Nov 2020 00:14:45 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id DAF146E88A;
- Sat, 14 Nov 2020 00:14:43 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id D705FA0003;
- Sat, 14 Nov 2020 00:14:43 +0000 (UTC)
-MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Ville Syrjala" <ville.syrjala@linux.intel.com>
-Date: Sat, 14 Nov 2020 00:14:43 -0000
-Message-ID: <160531288387.18246.8084979575671351858@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20201113220358.24794-1-ville.syrjala@linux.intel.com>
-In-Reply-To: <20201113220358.24794-1-ville.syrjala@linux.intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
- =?utf-8?q?drm/i915=3A_Big_bigjoiner_series?=
+	by gabe.freedesktop.org (Postfix) with ESMTP id C4AC66E89C;
+	Sat, 14 Nov 2020 00:37:20 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C3B6B6E898
+ for <Intel-gfx@lists.freedesktop.org>; Sat, 14 Nov 2020 00:37:19 +0000 (UTC)
+IronPort-SDR: m8WXxt5zGPcfMAHOXVtmtF+K5EjmVbipqAPvFvpIwbckL6Zn4meOgfkQvEBTPR+l9SA6wtHh6z
+ 6Q/zfsyyT1Ew==
+X-IronPort-AV: E=McAfee;i="6000,8403,9804"; a="167041289"
+X-IronPort-AV: E=Sophos;i="5.77,477,1596524400"; d="scan'208";a="167041289"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Nov 2020 16:37:19 -0800
+IronPort-SDR: iu48BECZEK5iyJBZkCLnrHDaW06envtFN6upOpkXugQSrn4wNJsiHkSS6z3EWD5xZiGa3RuhoF
+ pAlL8FMNv9Kw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.77,477,1596524400"; d="scan'208";a="474848549"
+Received: from sean-virtualbox.fm.intel.com ([10.105.158.96])
+ by orsmga004.jf.intel.com with ESMTP; 13 Nov 2020 16:37:18 -0800
+From: Sean Z Huang <sean.z.huang@intel.com>
+To: sean.z.huang@intel.com,
+	Intel-gfx@lists.freedesktop.org
+Date: Fri, 13 Nov 2020 16:37:04 -0800
+Message-Id: <20201114003716.4875-15-sean.z.huang@intel.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20201114003716.4875-1-sean.z.huang@intel.com>
+References: <20201114003716.4875-1-sean.z.huang@intel.com>
+Subject: [Intel-gfx] [PXP CLEAN PATCH v06 15/27] drm/i915/pxp: Destroy all
+ type0 sessions upon teardown
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,80 +60,204 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+From: "Huang, Sean Z" <sean.z.huang@intel.com>
 
-Series: drm/i915: Big bigjoiner series
-URL   : https://patchwork.freedesktop.org/series/83837/
-State : warning
+Teardown is triggered when the display topology changes and no
+long meets the secure playback requirement, and hardware trashes
+all the encryption keys for display. So as a result, ring0 PXP
+should handle such case and terminate all the type0 sessions.
 
-== Summary ==
+Signed-off-by: Huang, Sean Z <sean.z.huang@intel.com>
+---
+ drivers/gpu/drm/i915/pxp/intel_pxp.c    |   6 +-
+ drivers/gpu/drm/i915/pxp/intel_pxp_sm.c | 118 ++++++++++++++++++++++++
+ drivers/gpu/drm/i915/pxp/intel_pxp_sm.h |   1 +
+ 3 files changed, 124 insertions(+), 1 deletion(-)
 
-$ dim sparse --fast origin/drm-tip
-Sparse version: v0.6.2
-Fast mode used, each commit won't be checked separately.
--
-+drivers/gpu/drm/i915/gt/intel_reset.c:1312:5: warning: context imbalance in 'intel_gt_reset_trylock' - different lock contexts for basic block
-+drivers/gpu/drm/i915/gt/selftest_reset.c:100:20:    expected void *in
-+drivers/gpu/drm/i915/gt/selftest_reset.c:100:20:    got void [noderef] __iomem *[assigned] s
-+drivers/gpu/drm/i915/gt/selftest_reset.c:100:20: warning: incorrect type in assignment (different address spaces)
-+drivers/gpu/drm/i915/gt/selftest_reset.c:101:46:    expected void const *src
-+drivers/gpu/drm/i915/gt/selftest_reset.c:101:46:    got void [noderef] __iomem *[assigned] s
-+drivers/gpu/drm/i915/gt/selftest_reset.c:101:46: warning: incorrect type in argument 2 (different address spaces)
-+drivers/gpu/drm/i915/gt/selftest_reset.c:136:20:    expected void *in
-+drivers/gpu/drm/i915/gt/selftest_reset.c:136:20:    got void [noderef] __iomem *[assigned] s
-+drivers/gpu/drm/i915/gt/selftest_reset.c:136:20: warning: incorrect type in assignment (different address spaces)
-+drivers/gpu/drm/i915/gt/selftest_reset.c:137:46:    expected void const *src
-+drivers/gpu/drm/i915/gt/selftest_reset.c:137:46:    got void [noderef] __iomem *[assigned] s
-+drivers/gpu/drm/i915/gt/selftest_reset.c:137:46: warning: incorrect type in argument 2 (different address spaces)
-+drivers/gpu/drm/i915/gt/selftest_reset.c:98:34:    expected unsigned int [usertype] *s
-+drivers/gpu/drm/i915/gt/selftest_reset.c:98:34:    got void [noderef] __iomem *[assigned] s
-+drivers/gpu/drm/i915/gt/selftest_reset.c:98:34: warning: incorrect type in argument 1 (different address spaces)
-+drivers/gpu/drm/i915/gvt/mmio.c:290:23: warning: memcpy with byte count of 279040
-+drivers/gpu/drm/i915/i915_perf.c:1440:15: warning: memset with byte count of 16777216
-+drivers/gpu/drm/i915/i915_perf.c:1494:15: warning: memset with byte count of 16777216
-+drivers/gpu/drm/i915/intel_wakeref.c:137:19: warning: context imbalance in 'wakeref_auto_timeout' - unexpected unlock
-+./include/linux/seqlock.h:838:24: warning: trying to copy expression type 31
-+./include/linux/seqlock.h:838:24: warning: trying to copy expression type 31
-+./include/linux/seqlock.h:864:16: warning: trying to copy expression type 31
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'fwtable_read16' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'fwtable_read32' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'fwtable_read64' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'fwtable_read8' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'fwtable_write16' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'fwtable_write32' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'fwtable_write8' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen11_fwtable_read16' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen11_fwtable_read32' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen11_fwtable_read64' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen11_fwtable_read8' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen11_fwtable_write16' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen11_fwtable_write32' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen11_fwtable_write8' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen12_fwtable_read16' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen12_fwtable_read32' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen12_fwtable_read64' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen12_fwtable_read8' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen12_fwtable_write16' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen12_fwtable_write32' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen12_fwtable_write8' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen6_read16' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen6_read32' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen6_read64' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen6_read8' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen6_write16' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen6_write32' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen6_write8' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen8_write16' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen8_write32' - different lock contexts for basic block
-+./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen8_write8' - different lock contexts for basic block
-
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.c b/drivers/gpu/drm/i915/pxp/intel_pxp.c
+index 2121db05fdb6..40728ef70e20 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp.c
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp.c
+@@ -134,6 +134,8 @@ static void intel_pxp_mask_irq(struct intel_gt *gt, u32 mask)
+ 
+ static int intel_pxp_teardown_required_callback(struct drm_i915_private *i915)
+ {
++	int ret;
++
+ 	drm_dbg(&i915->drm, "%s was called\n", __func__);
+ 
+ 	mutex_lock(&i915->pxp.r0ctx->ctx_mutex);
+@@ -141,11 +143,13 @@ static int intel_pxp_teardown_required_callback(struct drm_i915_private *i915)
+ 	i915->pxp.r0ctx->global_state_attacked = true;
+ 	i915->pxp.r0ctx->flag_display_hm_surface_keys = false;
+ 
++	ret = intel_pxp_sm_terminate_all_active_sessions(i915, SESSION_TYPE_TYPE0);
++
+ 	intel_pxp_destroy_r3ctx_list(i915);
+ 
+ 	mutex_unlock(&i915->pxp.r0ctx->ctx_mutex);
+ 
+-	return 0;
++	return ret;
+ }
+ 
+ static int intel_pxp_global_terminate_complete_callback(struct drm_i915_private *i915)
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_sm.c b/drivers/gpu/drm/i915/pxp/intel_pxp_sm.c
+index 994abf5a8d36..37fe2e5af88d 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp_sm.c
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_sm.c
+@@ -893,6 +893,73 @@ static int issue_hw_terminate_for_session(struct drm_i915_private *i915, int ses
+ 	return ret;
+ }
+ 
++static int terminate_all_hw_sessions_with_global_termination(struct drm_i915_private *i915,
++							     int session_type)
++{
++	u32 *cmd = NULL;
++	u32 *cmd_ptr = NULL;
++	int cmd_size_in_dw = 0;
++	int ret;
++	int session_index;
++	const int session_num_max = pxp_session_max(session_type);
++
++	drm_dbg(&i915->drm, ">>> %s session_type=[%d]\n", __func__, session_type);
++
++	if (!i915) {
++		ret = -EINVAL;
++		drm_dbg(&i915->drm, "Failed to %s due to bad params\n", __func__);
++		goto end;
++	}
++
++	/* Calculate how many bytes need to be alloc */
++	for (session_index = 0; session_index < session_num_max; session_index++) {
++		if (is_hw_session_in_play(i915, session_type, session_index)) {
++			cmd_size_in_dw += add_pxp_prolog(i915, NULL, session_type, session_index);
++			cmd_size_in_dw += add_pxp_inline_termination(NULL);
++		}
++	}
++	cmd_size_in_dw += add_pxp_epilog(NULL);
++
++	cmd = kzalloc(cmd_size_in_dw * 4, GFP_KERNEL);
++	if (!cmd) {
++		ret = -ENOMEM;
++		drm_dbg(&i915->drm, "Failed to kzalloc()\n");
++		goto end;
++	}
++
++	/* Program the command */
++	cmd_ptr = cmd;
++	for (session_index = 0; session_index < session_num_max; session_index++) {
++		if (is_hw_session_in_play(i915, session_type, session_index)) {
++			cmd_ptr += add_pxp_prolog(i915, cmd_ptr, session_type, session_index);
++			cmd_ptr += add_pxp_inline_termination(cmd_ptr);
++		}
++	}
++	cmd_ptr += add_pxp_epilog(cmd_ptr);
++
++	if (cmd_size_in_dw != (cmd_ptr - cmd)) {
++		ret = -EINVAL;
++		drm_dbg(&i915->drm, "Failed to %s\n", __func__);
++		goto end;
++	}
++
++	if (drm_debug_enabled(DRM_UT_DRIVER)) {
++		print_hex_dump(KERN_DEBUG, "global termination cmd binaries:",
++			       DUMP_PREFIX_OFFSET, 4, 4, cmd, cmd_size_in_dw * 4, true);
++	}
++
++	ret = pxp_submit_cmd(i915, cmd, cmd_size_in_dw);
++	if (ret) {
++		drm_dbg(&i915->drm, "Failed to pxp_submit_cmd()\n");
++		goto end;
++	}
++
++end:
++	kfree(cmd);
++	drm_dbg(&i915->drm, "<<< %s ret=[%d]\n", __func__, ret);
++	return ret;
++}
++
+ /**
+  * terminate_protected_session - To terminate an active HW session and free its entry.
+  * @i915: i915 device handle.
+@@ -1076,6 +1143,57 @@ int pxp_sm_terminate_protected_session_unsafe(struct drm_i915_private *i915, int
+ 	return ret;
+ }
+ 
++int intel_pxp_sm_destroy_all_sw_sessions(struct drm_i915_private *i915, int session_type)
++{
++	int ret = 0;
++	struct pxp_protected_session *current_session, *n;
++
++	list_for_each_entry_safe(current_session, n, pxp_session_list(i915, session_type), session_list) {
++		ret = pxp_set_pxp_tag(i915, session_type, current_session->session_index, PROTECTION_MODE_NONE);
++		if (ret)
++			drm_dbg(&i915->drm, "Failed to pxp_set_pxp_tag()\n");
++
++		list_del(&current_session->session_list);
++		kfree(current_session);
++	}
++
++	return ret;
++}
++
++/**
++ * intel_pxp_sm_terminate_all_active_sessions - Terminate all active HW sessions and their entries.
++ * @i915: i915 device handle.
++ * @session_type: Type of the sessions to be terminated.
++ *                One of enum pxp_session_types.
++ *
++ * This function is NOT intended to be called from the ioctl, and need to be protected by
++ * ctx_mutex to ensure no SIP change during the call.
++ *
++ * Return: status. 0 means terminate is successful.
++ */
++int intel_pxp_sm_terminate_all_active_sessions(struct drm_i915_private *i915, int session_type)
++{
++	int ret;
++
++	lockdep_assert_held(&i915->pxp.r0ctx->ctx_mutex);
++
++	/* terminate the hw sessions */
++	ret = terminate_all_hw_sessions_with_global_termination(i915, session_type);
++	if (ret) {
++		drm_dbg(&i915->drm, "Failed to terminate_all_hw_sessions_with_global_termination\n");
++		goto end;
++	}
++
++	ret = intel_pxp_sm_destroy_all_sw_sessions(i915, session_type);
++	if (ret) {
++		drm_dbg(&i915->drm, "Failed to intel_pxp_sm_destroy_all_sw_sessions\n");
++		goto end;
++	}
++
++end:
++	return ret;
++}
++
+ int pxp_sm_ioctl_query_pxp_tag(struct drm_i915_private *i915, u32 *session_is_alive, u32 *pxp_tag)
+ {
+ 	int session_type = 0;
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_sm.h b/drivers/gpu/drm/i915/pxp/intel_pxp_sm.h
+index 859f3c1f8c6e..955182a90bfe 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp_sm.h
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_sm.h
+@@ -108,6 +108,7 @@ int pxp_sm_terminate_protected_session_safe(struct drm_i915_private *i915, int c
+ 					    int session_type, int session_id);
+ int pxp_sm_terminate_protected_session_unsafe(struct drm_i915_private *i915, int session_type,
+ 					      int session_id);
++int intel_pxp_sm_terminate_all_active_sessions(struct drm_i915_private *i915, int session_type);
+ int pxp_sm_ioctl_query_pxp_tag(struct drm_i915_private *i915, u32 *session_is_alive, u32 *pxp_tag);
+ int pxp_sm_set_kcr_init_reg(struct drm_i915_private *i915);
+ u32 intel_pxp_get_pxp_tag(struct drm_i915_private *i915, int session_idx,
+-- 
+2.17.1
 
 _______________________________________________
 Intel-gfx mailing list
