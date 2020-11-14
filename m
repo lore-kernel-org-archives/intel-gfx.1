@@ -2,50 +2,52 @@ Return-Path: <SRS0=QofO=EU=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-9.9 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A9C71C6369E
-	for <intel-gfx@archiver.kernel.org>; Sat, 14 Nov 2020 00:37:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 75738C63798
+	for <intel-gfx@archiver.kernel.org>; Sat, 14 Nov 2020 00:37:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7763D2225E
-	for <intel-gfx@archiver.kernel.org>; Sat, 14 Nov 2020 00:37:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7763D2225E
+	by mail.kernel.org (Postfix) with ESMTPS id 3D9E12225E
+	for <intel-gfx@archiver.kernel.org>; Sat, 14 Nov 2020 00:37:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3D9E12225E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5FF376E8A9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 209C36E8AD;
 	Sat, 14 Nov 2020 00:37:32 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 73BF16E8AE
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0DF776E8A1
  for <Intel-gfx@lists.freedesktop.org>; Sat, 14 Nov 2020 00:37:28 +0000 (UTC)
-IronPort-SDR: gO+okiUztYHZeBx+HQVum1yKKVHlwm1GKR4wb5tupma3/65/d6fZoeiFSmDYc/hUxBA5xkeARv
- 7UG3V017OX1w==
-X-IronPort-AV: E=McAfee;i="6000,8403,9804"; a="169768621"
-X-IronPort-AV: E=Sophos;i="5.77,477,1596524400"; d="scan'208";a="169768621"
+IronPort-SDR: IdT+97LVsPTN5hfKK6p8PFUqkYr+JwOaQP6RMO4fuqECPFHVsMltWV1gdn0kn97EHLtB6Pwpdh
+ PhU4URcGWq4A==
+X-IronPort-AV: E=McAfee;i="6000,8403,9804"; a="169768616"
+X-IronPort-AV: E=Sophos;i="5.77,477,1596524400"; d="scan'208";a="169768616"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  13 Nov 2020 16:37:18 -0800
-IronPort-SDR: Y5U/i1QAKelMNebK9lLhLuQrkY3jdEqFJhxKW5zX/kFZsMYPsqDXizexVy7oBA9iuMqgNVol+b
- 9RLVpCFeGLwQ==
+IronPort-SDR: UjP2ewKfEIKqEGDMyFk1GBNX3emWJ33XBmwL1NmlWv/fT5LgeYmMezb2VwpKIrsncm2pIK0qS6
+ RHON78zg8x2A==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.77,477,1596524400"; d="scan'208";a="474848546"
+X-IronPort-AV: E=Sophos;i="5.77,477,1596524400"; d="scan'208";a="474848511"
 Received: from sean-virtualbox.fm.intel.com ([10.105.158.96])
- by orsmga004.jf.intel.com with ESMTP; 13 Nov 2020 16:37:16 -0800
+ by orsmga004.jf.intel.com with ESMTP; 13 Nov 2020 16:37:17 -0800
 From: Sean Z Huang <sean.z.huang@intel.com>
 To: sean.z.huang@intel.com,
 	Intel-gfx@lists.freedesktop.org
-Date: Fri, 13 Nov 2020 16:36:50 -0800
-Message-Id: <20201114003716.4875-1-sean.z.huang@intel.com>
+Date: Fri, 13 Nov 2020 16:36:54 -0800
+Message-Id: <20201114003716.4875-5-sean.z.huang@intel.com>
 X-Mailer: git-send-email 2.17.1
-Subject: [Intel-gfx] [PXP CLEAN PATCH v06 01/27] drm/i915/pxp: Introduce
- Intel PXP component
+In-Reply-To: <20201114003716.4875-1-sean.z.huang@intel.com>
+References: <20201114003716.4875-1-sean.z.huang@intel.com>
+Subject: [Intel-gfx] [PXP CLEAN PATCH v06 05/27] drm/i915/pxp: Enable ioctl
+ action to set the ring3 context
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,157 +68,224 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: "Huang, Sean Z" <sean.z.huang@intel.com>
 
-PXP (Protected Xe Path) is an i915 componment, that
-helps ring3 to establish the hardware protected session and
-manage the status of each alive software session, as well as
-the life cycle of each session.
-
-By design PXP will expose ioctl so allow ring3 to create, set,
-and destroy each session. It will also provide the communication
-chanel to TEE (Trusted Execution Environment) for the protected
-hardware session creation.
+Enable one ioctl action to allow ring3 driver to set its ring3
+context, so ring0 PXP can track the context id through this ring3
+context list.
 
 Signed-off-by: Huang, Sean Z <sean.z.huang@intel.com>
 ---
- drivers/gpu/drm/i915/Makefile        |  4 ++++
- drivers/gpu/drm/i915/i915_drv.c      |  4 ++++
- drivers/gpu/drm/i915/i915_drv.h      |  4 ++++
- drivers/gpu/drm/i915/pxp/intel_pxp.c | 20 ++++++++++++++++++++
- drivers/gpu/drm/i915/pxp/intel_pxp.h | 22 ++++++++++++++++++++++
- include/uapi/drm/i915_drm.h          |  5 +++++
- 6 files changed, 59 insertions(+)
- create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp.c
- create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp.h
+ drivers/gpu/drm/i915/i915_drv.c              |  1 +
+ drivers/gpu/drm/i915/pxp/intel_pxp.c         | 66 ++++++++++++++++++++
+ drivers/gpu/drm/i915/pxp/intel_pxp.h         | 16 +++++
+ drivers/gpu/drm/i915/pxp/intel_pxp_context.c | 34 ++++++++++
+ drivers/gpu/drm/i915/pxp/intel_pxp_context.h |  3 +
+ include/uapi/drm/i915_drm.h                  |  2 +
+ 6 files changed, 122 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
-index e5574e506a5c..8274fea96009 100644
---- a/drivers/gpu/drm/i915/Makefile
-+++ b/drivers/gpu/drm/i915/Makefile
-@@ -254,6 +254,10 @@ i915-y += \
- 
- i915-y += i915_perf.o
- 
-+# Protected execution platform (PXP) support
-+i915-y += \
-+	pxp/intel_pxp.o
-+
- # Post-mortem debug and GPU hang state capture
- i915-$(CONFIG_DRM_I915_CAPTURE_ERROR) += i915_gpu_error.o
- i915-$(CONFIG_DRM_I915_SELFTEST) += \
 diff --git a/drivers/gpu/drm/i915/i915_drv.c b/drivers/gpu/drm/i915/i915_drv.c
-index f2389ba49c69..c8b9c42fcbd6 100644
+index c8b9c42fcbd6..43ea85b5f14b 100644
 --- a/drivers/gpu/drm/i915/i915_drv.c
 +++ b/drivers/gpu/drm/i915/i915_drv.c
-@@ -889,6 +889,8 @@ int i915_driver_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
- 	if (ret)
- 		goto out_cleanup_gem;
+@@ -1761,6 +1761,7 @@ static const struct drm_ioctl_desc i915_ioctls[] = {
+ 	DRM_IOCTL_DEF_DRV(I915_QUERY, i915_query_ioctl, DRM_RENDER_ALLOW),
+ 	DRM_IOCTL_DEF_DRV(I915_GEM_VM_CREATE, i915_gem_vm_create_ioctl, DRM_RENDER_ALLOW),
+ 	DRM_IOCTL_DEF_DRV(I915_GEM_VM_DESTROY, i915_gem_vm_destroy_ioctl, DRM_RENDER_ALLOW),
++	DRM_IOCTL_DEF_DRV(I915_PXP_OPS, i915_pxp_ops_ioctl, DRM_RENDER_ALLOW),
+ };
  
-+	intel_pxp_init(i915);
-+
- 	i915_driver_register(i915);
- 
- 	enable_rpm_wakeref_asserts(&i915->runtime_pm);
-@@ -938,6 +940,8 @@ void i915_driver_remove(struct drm_i915_private *i915)
- 	/* Flush any external code that still may be under the RCU lock */
- 	synchronize_rcu();
- 
-+	intel_pxp_uninit(i915);
-+
- 	i915_gem_suspend(i915);
- 
- 	drm_atomic_helper_shutdown(&i915->drm);
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index 15be8debae54..f34ed07a68ee 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -105,6 +105,8 @@
- 
- #include "intel_region_lmem.h"
- 
-+#include "pxp/intel_pxp.h"
-+
- /* General customization:
-  */
- 
-@@ -1215,6 +1217,8 @@ struct drm_i915_private {
- 	/* Mutex to protect the above hdcp component related values. */
- 	struct mutex hdcp_comp_mutex;
- 
-+	struct intel_pxp pxp;
-+
- 	I915_SELFTEST_DECLARE(struct i915_selftest_stash selftest;)
- 
- 	/*
+ static const struct drm_driver driver = {
 diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.c b/drivers/gpu/drm/i915/pxp/intel_pxp.c
-new file mode 100644
-index 000000000000..a469c55e3e54
---- /dev/null
+index 3a24c2b13b14..a83fa7cd749f 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp.c
 +++ b/drivers/gpu/drm/i915/pxp/intel_pxp.c
-@@ -0,0 +1,20 @@
-+/* SPDX-License-Identifier: MIT */
-+/*
-+ * Copyright(c) 2020 Intel Corporation.
-+ */
-+
-+#include "i915_drv.h"
-+#include "intel_pxp.h"
-+
-+int intel_pxp_init(struct drm_i915_private *i915)
+@@ -8,6 +8,70 @@
+ #include "intel_pxp_context.h"
+ #include "intel_pxp_sm.h"
+ 
++int i915_pxp_ops_ioctl(struct drm_device *dev, void *data, struct drm_file *drmfile)
 +{
 +	int ret;
++	struct pxp_info pxp_info = {0};
++	struct drm_i915_pxp_ops *pxp_ops = data;
++	struct drm_i915_private *i915 = to_i915(dev);
 +
-+	drm_info(&i915->drm, "i915_pxp_init\n");
++	drm_dbg(&i915->drm, ">>> %s\n", __func__);
 +
++	if (!i915 || !drmfile || !pxp_ops || pxp_ops->pxp_info_size != sizeof(pxp_info)) {
++		drm_dbg(&i915->drm, "Failed to %s, invalid params\n", __func__);
++		ret = -EINVAL;
++		goto end;
++	}
++
++	if (copy_from_user(&pxp_info, (void __user *)pxp_ops->pxp_info_ptr, sizeof(pxp_info)) != 0) {
++		ret = -EFAULT;
++		goto end;
++	}
++
++	drm_dbg(&i915->drm, "i915 pxp ioctl call with action=[%d]\n", pxp_info.action);
++
++	mutex_lock(&i915->pxp.r0ctx->ctx_mutex);
++
++	if (i915->pxp.r0ctx->global_state_in_suspend) {
++		drm_dbg(&i915->drm, "Return failure due to state in suspend\n");
++		pxp_info.sm_status = PXP_SM_STATUS_SESSION_NOT_AVAILABLE;
++		ret = 0;
++		goto end;
++	}
++
++	if (i915->pxp.r0ctx->global_state_attacked) {
++		drm_dbg(&i915->drm, "Retry required due to state attacked\n");
++		pxp_info.sm_status = PXP_SM_STATUS_RETRY_REQUIRED;
++		ret = 0;
++		goto end;
++	}
++
++	switch (pxp_info.action) {
++	case PXP_ACTION_SET_R3_CONTEXT:
++	{
++		ret = intel_pxp_set_r3ctx(i915, pxp_info.set_r3ctx);
++		break;
++	}
++	default:
++		drm_dbg(&i915->drm, "Failed to %s due to bad params\n", __func__);
++		ret = -EINVAL;
++		goto end;
++	}
++
++end:
++	mutex_unlock(&i915->pxp.r0ctx->ctx_mutex);
++
++	if (ret == 0)
++		if (copy_to_user((void __user *)pxp_ops->pxp_info_ptr, &pxp_info, sizeof(pxp_info)) != 0)
++			ret = -EFAULT;
++
++	if (ret)
++		dev_err(&dev->pdev->dev, "pid=%d, ret = %d\n", task_pid_nr(current), ret);
++
++	drm_dbg(&i915->drm, "<<< %s\n", __func__);
 +	return ret;
 +}
 +
-+void intel_pxp_uninit(struct drm_i915_private *i915)
-+{
-+}
+ static void intel_pxp_write_irq_mask_reg(struct drm_i915_private *i915, u32 mask)
+ {
+ 	WARN_ON(INTEL_GEN(i915) < 11);
+@@ -39,6 +103,8 @@ static int intel_pxp_teardown_required_callback(struct drm_i915_private *i915)
+ 	i915->pxp.r0ctx->global_state_attacked = true;
+ 	i915->pxp.r0ctx->flag_display_hm_surface_keys = false;
+ 
++	intel_pxp_destroy_r3ctx_list(i915);
++
+ 	mutex_unlock(&i915->pxp.r0ctx->ctx_mutex);
+ 
+ 	return 0;
 diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.h b/drivers/gpu/drm/i915/pxp/intel_pxp.h
-new file mode 100644
-index 000000000000..578f1126bada
---- /dev/null
+index 4dec35bb834d..21a6964fc64e 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp.h
 +++ b/drivers/gpu/drm/i915/pxp/intel_pxp.h
-@@ -0,0 +1,22 @@
-+/* SPDX-License-Identifier: MIT */
-+/*
-+ * Copyright(c) 2020, Intel Corporation. All rights reserved.
-+ */
-+
-+#ifndef __INTEL_PXP_H__
-+#define __INTEL_PXP_H__
-+
-+#include <drm/drm_file.h>
-+
-+struct pxp_context;
-+
-+struct intel_pxp {
-+	struct pxp_context *r0ctx;
-+};
-+
-+struct drm_i915_private;
-+
-+int intel_pxp_init(struct drm_i915_private *i915);
-+void intel_pxp_uninit(struct drm_i915_private *i915);
-+
-+#endif
-diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
-index fa1f3d62f9a6..dc101264176b 100644
---- a/include/uapi/drm/i915_drm.h
-+++ b/include/uapi/drm/i915_drm.h
-@@ -1898,6 +1898,11 @@ struct drm_i915_gem_vm_control {
- 	__u32 vm_id;
+@@ -24,6 +24,21 @@ enum pxp_sm_session_req {
+ 	PXP_SM_REQ_SESSION_TERMINATE
  };
  
-+struct drm_i915_pxp_ops {
-+	__u64 pxp_info_ptr;
-+	__u32 pxp_info_size;
++#define PXP_ACTION_SET_R3_CONTEXT 5
++
++enum pxp_sm_status {
++	PXP_SM_STATUS_SUCCESS,
++	PXP_SM_STATUS_RETRY_REQUIRED,
++	PXP_SM_STATUS_SESSION_NOT_AVAILABLE,
++	PXP_SM_STATUS_ERROR_UNKNOWN
 +};
 +
- struct drm_i915_reg_read {
- 	/*
- 	 * Register offset.
++struct pxp_info {
++	u32 action;
++	u32 sm_status;
++	u32 set_r3ctx;
++} __packed;
++
+ struct pxp_context;
+ 
+ struct intel_pxp {
+@@ -37,6 +52,7 @@ struct intel_pxp {
+ struct intel_gt;
+ struct drm_i915_private;
+ 
++int i915_pxp_ops_ioctl(struct drm_device *dev, void *data, struct drm_file *drmfile);
+ void intel_pxp_irq_handler(struct intel_gt *gt, u16 iir);
+ int i915_pxp_teardown_required_callback(struct drm_i915_private *i915);
+ int i915_pxp_global_terminate_complete_callback(struct drm_i915_private *i915);
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_context.c b/drivers/gpu/drm/i915/pxp/intel_pxp_context.c
+index daa93f9bd595..6512e6e1f11a 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp_context.c
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_context.c
+@@ -50,3 +50,37 @@ void intel_pxp_destroy_r0ctx(struct drm_i915_private *i915)
+ 	kfree(i915->pxp.r0ctx);
+ 	i915->pxp.r0ctx = NULL;
+ }
++
++int intel_pxp_set_r3ctx(struct drm_i915_private *i915, u32 r3ctx_in)
++{
++	struct pxp_r3ctx *r3ctx;
++
++	drm_dbg(&i915->drm, ">>> %s u3ctx_in=[%d]\n", __func__, r3ctx_in);
++
++	r3ctx = kzalloc(sizeof(*r3ctx), GFP_KERNEL);
++	if (!r3ctx) {
++		drm_dbg(&i915->drm, "Failed to kzalloc()\n");
++		return -ENOMEM;
++	}
++
++	r3ctx->r3ctx = r3ctx_in;
++
++	list_add(&r3ctx->listhead, &i915->pxp.r0ctx->r3ctx_list);
++	return 0;
++}
++
++void intel_pxp_destroy_r3ctx_list(struct drm_i915_private *i915)
++{
++	struct pxp_r3ctx *r3ctx, *n;
++
++	drm_dbg(&i915->drm, ">>> %s\n", __func__);
++
++	list_for_each_entry_safe(r3ctx, n, &i915->pxp.r0ctx->r3ctx_list, listhead) {
++		drm_dbg(&i915->drm, "Destroy r3ctx_list u3ctx->r3ctx=[%d]\n", r3ctx->r3ctx);
++
++		list_del(&r3ctx->listhead);
++		kfree(r3ctx);
++	}
++
++	drm_dbg(&i915->drm, "<<< %s\n", __func__);
++}
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_context.h b/drivers/gpu/drm/i915/pxp/intel_pxp_context.h
+index 3111c88c4972..bffef0fe5fd7 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp_context.h
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_context.h
+@@ -39,4 +39,7 @@ struct pxp_r3ctx {
+ struct pxp_context *intel_pxp_create_r0ctx(struct drm_i915_private *i915);
+ void intel_pxp_destroy_r0ctx(struct drm_i915_private *i915);
+ 
++int intel_pxp_set_r3ctx(struct drm_i915_private *i915, u32 r3ctx);
++void intel_pxp_destroy_r3ctx_list(struct drm_i915_private *i915);
++
+ #endif /* __INTEL_PXP_CONTEXT_H__ */
+diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
+index dc101264176b..180f97fd91dc 100644
+--- a/include/uapi/drm/i915_drm.h
++++ b/include/uapi/drm/i915_drm.h
+@@ -359,6 +359,7 @@ typedef struct _drm_i915_sarea {
+ #define DRM_I915_QUERY			0x39
+ #define DRM_I915_GEM_VM_CREATE		0x3a
+ #define DRM_I915_GEM_VM_DESTROY		0x3b
++#define DRM_I915_PXP_OPS		0x3c
+ /* Must be kept compact -- no holes */
+ 
+ #define DRM_IOCTL_I915_INIT		DRM_IOW( DRM_COMMAND_BASE + DRM_I915_INIT, drm_i915_init_t)
+@@ -422,6 +423,7 @@ typedef struct _drm_i915_sarea {
+ #define DRM_IOCTL_I915_QUERY			DRM_IOWR(DRM_COMMAND_BASE + DRM_I915_QUERY, struct drm_i915_query)
+ #define DRM_IOCTL_I915_GEM_VM_CREATE	DRM_IOWR(DRM_COMMAND_BASE + DRM_I915_GEM_VM_CREATE, struct drm_i915_gem_vm_control)
+ #define DRM_IOCTL_I915_GEM_VM_DESTROY	DRM_IOW (DRM_COMMAND_BASE + DRM_I915_GEM_VM_DESTROY, struct drm_i915_gem_vm_control)
++#define DRM_IOCTL_I915_PXP_OPS		DRM_IOWR(DRM_COMMAND_BASE + DRM_I915_PXP_OPS, struct drm_i915_pxp_ops)
+ 
+ /* Allow drivers to submit batchbuffers directly to hardware, relying
+  * on the security mechanisms provided by hardware.
 -- 
 2.17.1
 
