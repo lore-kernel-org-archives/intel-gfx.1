@@ -2,51 +2,50 @@ Return-Path: <SRS0=QofO=EU=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.9 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 562D0C63777
-	for <intel-gfx@archiver.kernel.org>; Sat, 14 Nov 2020 01:45:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1CC6BC63699
+	for <intel-gfx@archiver.kernel.org>; Sat, 14 Nov 2020 01:45:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 183A922273
-	for <intel-gfx@archiver.kernel.org>; Sat, 14 Nov 2020 01:45:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 183A922273
+	by mail.kernel.org (Postfix) with ESMTPS id D163122276
+	for <intel-gfx@archiver.kernel.org>; Sat, 14 Nov 2020 01:45:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D163122276
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E5F3E6E8C7;
-	Sat, 14 Nov 2020 01:45:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A655A6E8A4;
+	Sat, 14 Nov 2020 01:45:47 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 060656E8AC
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3FB8E6E8AC
  for <Intel-gfx@lists.freedesktop.org>; Sat, 14 Nov 2020 01:45:41 +0000 (UTC)
-IronPort-SDR: 06HJy7xiQUOhur8yUipVh1vVuLsR1H7HD5nuSvQNcaKEDptLWbzSkYWIOpEnXiPw0IO7YR0O3j
- fC5Ev+wONWbQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9804"; a="149824100"
-X-IronPort-AV: E=Sophos;i="5.77,477,1596524400"; d="scan'208";a="149824100"
+IronPort-SDR: iUJtbHWywaZgcF9l3MI9clU7LX+LjuSBlklDmW+L40ffhMUfOxYeEbT2jXNLmPuMR5JSzJALBp
+ 6mP2B6w6WlGQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9804"; a="149824102"
+X-IronPort-AV: E=Sophos;i="5.77,477,1596524400"; d="scan'208";a="149824102"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  13 Nov 2020 17:45:40 -0800
-IronPort-SDR: HhxepWA1vsxCy12NaJNuwcoXNB+svVJmyuDGqKAeiJW4cDhY25bJtuv/5YxtURMxDqP4EYRhiw
- +yfheY31g1SA==
+IronPort-SDR: TIZIVtjSgsJ8UBklEiX9OuzqTlznWJ7iT9xMilLoTHsMXI6E1SQu/vAwy8AwTBegEmqj2+GNXw
+ 5Wb6SyoRqdaQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.77,477,1596524400"; d="scan'208";a="361524816"
+X-IronPort-AV: E=Sophos;i="5.77,477,1596524400"; d="scan'208";a="361524821"
 Received: from sean-virtualbox.fm.intel.com ([10.105.158.96])
  by fmsmga002.fm.intel.com with ESMTP; 13 Nov 2020 17:45:38 -0800
 From: Sean Z Huang <sean.z.huang@intel.com>
 To: Intel-gfx@lists.freedesktop.org
-Date: Fri, 13 Nov 2020 17:45:31 -0800
-Message-Id: <20201114014537.25495-21-sean.z.huang@intel.com>
+Date: Fri, 13 Nov 2020 17:45:33 -0800
+Message-Id: <20201114014537.25495-23-sean.z.huang@intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20201114014537.25495-1-sean.z.huang@intel.com>
 References: <20201114014537.25495-1-sean.z.huang@intel.com>
-Subject: [Intel-gfx] [PATCH 21/27] drm/i915/pxp: Add i915 trace logs for PXP
- operations
+Subject: [Intel-gfx] [PATCH 23/27] mei: bus: enable pavp device.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,122 +58,45 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Huang, Sean Z" <sean.z.huang@intel.com>
+Cc: Tomas Winkler <tomas.winkler@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: "Huang, Sean Z" <sean.z.huang@intel.com>
+From: Tomas Winkler <tomas.winkler@intel.com>
 
-Add several i915 trace logs for PXP calls for debugging or
-performance measurement, including:
-(1) PXP ioctl
-(2) PXP teardown callbacks
+Enable protected audio video path client on mei client
+bus.
 
-To trun on this feature, we need to set
-"CONFIG_DRM_I915_LOW_LEVEL_TRACEPOINTS=y" in .config for compiling
-the Linux kernel.
-
-Signed-off-by: Huang, Sean Z <sean.z.huang@intel.com>
+Signed-off-by: Tomas Winkler <tomas.winkler@intel.com>
 ---
- drivers/gpu/drm/i915/i915_trace.h    | 44 ++++++++++++++++++++++++++++
- drivers/gpu/drm/i915/pxp/intel_pxp.c |  5 ++++
- 2 files changed, 49 insertions(+)
+ drivers/misc/mei/bus-fixup.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/i915_trace.h b/drivers/gpu/drm/i915/i915_trace.h
-index a4addcc64978..36470e20dc61 100644
---- a/drivers/gpu/drm/i915/i915_trace.h
-+++ b/drivers/gpu/drm/i915/i915_trace.h
-@@ -1031,6 +1031,50 @@ DEFINE_EVENT(i915_context, i915_context_free,
- 	TP_ARGS(ctx)
- );
+diff --git a/drivers/misc/mei/bus-fixup.c b/drivers/misc/mei/bus-fixup.c
+index 4e30fa98fe7d..042399b397c9 100644
+--- a/drivers/misc/mei/bus-fixup.c
++++ b/drivers/misc/mei/bus-fixup.c
+@@ -33,6 +33,9 @@ static const uuid_le mei_nfc_info_guid = MEI_UUID_NFC_INFO;
+ #define MEI_UUID_HDCP UUID_LE(0xB638AB7E, 0x94E2, 0x4EA2, \
+ 			      0xA5, 0x52, 0xD1, 0xC5, 0x4B, 0x62, 0x7F, 0x04)
  
-+TRACE_EVENT(i915_pxp_ops_ioctl,
-+	    TP_PROTO(struct drm_device *dev, void *data, struct drm_file *file, u32 action),
-+	    TP_ARGS(dev, data, file, action),
++#define MEI_UUID_PAVP UUID_LE(0xfbf6fcf1, 0x96cf, 0x4e2e, 0xA6, \
++			      0xa6, 0x1b, 0xab, 0x8c, 0xbe, 0x36, 0xb1)
 +
-+	    TP_STRUCT__entry(
-+			     __field(struct drm_device *, dev)
-+			     __field(void *, data)
-+			     __field(struct drm_file *, file)
-+			     __field(u32, action)
-+	    ),
-+
-+	    TP_fast_assign(
-+			   __entry->dev = dev;
-+			   __entry->data = data;
-+			   __entry->file = file;
-+			   __entry->action = action;
-+	    ),
-+
-+	    TP_printk("dev=%p, data=%p, file=%p, action=%u",
-+		      __entry->dev, __entry->data, __entry->file, __entry->action)
-+);
-+
-+TRACE_EVENT(i915_pxp_teardown_required_callback,
-+	    TP_PROTO(bool global_state_attacked),
-+	    TP_ARGS(global_state_attacked),
-+
-+	    TP_STRUCT__entry(__field(bool, global_state_attacked)),
-+
-+	    TP_fast_assign(__entry->global_state_attacked = global_state_attacked;),
-+
-+	    TP_printk("global_state_attacked=%s", yesno(__entry->global_state_attacked))
-+);
-+
-+TRACE_EVENT(i915_pxp_global_terminate_complete_callback,
-+	    TP_PROTO(bool global_state_attacked),
-+	    TP_ARGS(global_state_attacked),
-+
-+	    TP_STRUCT__entry(__field(bool, global_state_attacked)),
-+
-+	    TP_fast_assign(__entry->global_state_attacked = global_state_attacked;),
-+
-+	    TP_printk("global_state_attacked=%s", yesno(__entry->global_state_attacked))
-+);
-+
- #endif /* _I915_TRACE_H_ */
+ #define MEI_UUID_ANY NULL_UUID_LE
  
- /* This part must be outside protection */
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.c b/drivers/gpu/drm/i915/pxp/intel_pxp.c
-index 80e632b614f5..23955d7a3c3d 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp.c
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp.c
-@@ -8,6 +8,7 @@
- #include "intel_pxp_context.h"
- #include "intel_pxp_sm.h"
- #include "intel_pxp_tee.h"
-+#include "i915_trace.h"
+ /**
+@@ -488,6 +491,7 @@ static struct mei_fixup {
+ 	MEI_FIXUP(MEI_UUID_MKHIF_FIX, mei_mkhi_fix),
+ 	MEI_FIXUP(MEI_UUID_HDCP, whitelist),
+ 	MEI_FIXUP(MEI_UUID_ANY, vt_support),
++	MEI_FIXUP(MEI_UUID_PAVP, whitelist),
+ };
  
- int i915_pxp_ops_ioctl(struct drm_device *dev, void *data, struct drm_file *drmfile)
- {
-@@ -30,6 +31,7 @@ int i915_pxp_ops_ioctl(struct drm_device *dev, void *data, struct drm_file *drmf
- 	}
- 
- 	drm_dbg(&i915->drm, "i915 pxp ioctl call with action=[%d]\n", pxp_info.action);
-+	trace_i915_pxp_ops_ioctl(dev, data, drmfile, pxp_info.action);
- 
- 	mutex_lock(&i915->pxp.r0ctx->ctx_mutex);
- 
-@@ -219,6 +221,8 @@ static int intel_pxp_teardown_required_callback(struct drm_i915_private *i915)
- 
- 	mutex_unlock(&i915->pxp.r0ctx->ctx_mutex);
- 
-+	trace_i915_pxp_teardown_required_callback(i915->pxp.r0ctx->global_state_attacked);
-+
- 	return ret;
- }
- 
-@@ -243,6 +247,7 @@ static int intel_pxp_global_terminate_complete_callback(struct drm_i915_private
- end:
- 	mutex_unlock(&i915->pxp.r0ctx->ctx_mutex);
- 
-+	trace_i915_pxp_global_terminate_complete_callback(i915->pxp.r0ctx->global_state_attacked);
- 	drm_dbg(&i915->drm, "<<< %s ret=[%d]\n", __func__, ret);
- 
- 	return ret;
+ /**
 -- 
 2.17.1
 
