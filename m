@@ -2,49 +2,51 @@ Return-Path: <SRS0=QofO=EU=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-9.9 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3852DC6369E
-	for <intel-gfx@archiver.kernel.org>; Sat, 14 Nov 2020 01:45:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 562D0C63777
+	for <intel-gfx@archiver.kernel.org>; Sat, 14 Nov 2020 01:45:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id ED49122273
-	for <intel-gfx@archiver.kernel.org>; Sat, 14 Nov 2020 01:45:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org ED49122273
+	by mail.kernel.org (Postfix) with ESMTPS id 183A922273
+	for <intel-gfx@archiver.kernel.org>; Sat, 14 Nov 2020 01:45:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 183A922273
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E374E6E8C6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E5F3E6E8C7;
 	Sat, 14 Nov 2020 01:45:41 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D570B6E884
- for <Intel-gfx@lists.freedesktop.org>; Sat, 14 Nov 2020 01:45:40 +0000 (UTC)
-IronPort-SDR: 2sGfaTykvi62pKIiZ747845NnT4qt17qlFFypcb7A1TEaECVrEwOsZijn5Lsz1mjMNeyeNnoLP
- r46mQm7s9LEw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9804"; a="149824099"
-X-IronPort-AV: E=Sophos;i="5.77,477,1596524400"; d="scan'208";a="149824099"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 060656E8AC
+ for <Intel-gfx@lists.freedesktop.org>; Sat, 14 Nov 2020 01:45:41 +0000 (UTC)
+IronPort-SDR: 06HJy7xiQUOhur8yUipVh1vVuLsR1H7HD5nuSvQNcaKEDptLWbzSkYWIOpEnXiPw0IO7YR0O3j
+ fC5Ev+wONWbQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9804"; a="149824100"
+X-IronPort-AV: E=Sophos;i="5.77,477,1596524400"; d="scan'208";a="149824100"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Nov 2020 17:45:39 -0800
-IronPort-SDR: PXumImgz6TN6KDztbhryyCTD5SJeA+r6TxoeSI3uYY+h48mjeiwxQeXJ6/Bn5cnpJ7vfbk2C6W
- FCZ1gYycBq3Q==
+ 13 Nov 2020 17:45:40 -0800
+IronPort-SDR: HhxepWA1vsxCy12NaJNuwcoXNB+svVJmyuDGqKAeiJW4cDhY25bJtuv/5YxtURMxDqP4EYRhiw
+ +yfheY31g1SA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.77,477,1596524400"; d="scan'208";a="361524814"
+X-IronPort-AV: E=Sophos;i="5.77,477,1596524400"; d="scan'208";a="361524816"
 Received: from sean-virtualbox.fm.intel.com ([10.105.158.96])
- by fmsmga002.fm.intel.com with ESMTP; 13 Nov 2020 17:45:37 -0800
+ by fmsmga002.fm.intel.com with ESMTP; 13 Nov 2020 17:45:38 -0800
 From: Sean Z Huang <sean.z.huang@intel.com>
 To: Intel-gfx@lists.freedesktop.org
-Date: Fri, 13 Nov 2020 17:45:11 -0800
-Message-Id: <20201114014537.25495-1-sean.z.huang@intel.com>
+Date: Fri, 13 Nov 2020 17:45:31 -0800
+Message-Id: <20201114014537.25495-21-sean.z.huang@intel.com>
 X-Mailer: git-send-email 2.17.1
-Subject: [Intel-gfx] [PATCH 01/27] drm/i915/pxp: Introduce Intel PXP
- component
+In-Reply-To: <20201114014537.25495-1-sean.z.huang@intel.com>
+References: <20201114014537.25495-1-sean.z.huang@intel.com>
+Subject: [Intel-gfx] [PATCH 21/27] drm/i915/pxp: Add i915 trace logs for PXP
+ operations
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,157 +68,113 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: "Huang, Sean Z" <sean.z.huang@intel.com>
 
-PXP (Protected Xe Path) is an i915 componment, that
-helps ring3 to establish the hardware protected session and
-manage the status of each alive software session, as well as
-the life cycle of each session.
+Add several i915 trace logs for PXP calls for debugging or
+performance measurement, including:
+(1) PXP ioctl
+(2) PXP teardown callbacks
 
-By design PXP will expose ioctl so allow ring3 to create, set,
-and destroy each session. It will also provide the communication
-chanel to TEE (Trusted Execution Environment) for the protected
-hardware session creation.
+To trun on this feature, we need to set
+"CONFIG_DRM_I915_LOW_LEVEL_TRACEPOINTS=y" in .config for compiling
+the Linux kernel.
 
 Signed-off-by: Huang, Sean Z <sean.z.huang@intel.com>
 ---
- drivers/gpu/drm/i915/Makefile        |  4 ++++
- drivers/gpu/drm/i915/i915_drv.c      |  4 ++++
- drivers/gpu/drm/i915/i915_drv.h      |  4 ++++
- drivers/gpu/drm/i915/pxp/intel_pxp.c | 20 ++++++++++++++++++++
- drivers/gpu/drm/i915/pxp/intel_pxp.h | 22 ++++++++++++++++++++++
- include/uapi/drm/i915_drm.h          |  5 +++++
- 6 files changed, 59 insertions(+)
- create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp.c
- create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp.h
+ drivers/gpu/drm/i915/i915_trace.h    | 44 ++++++++++++++++++++++++++++
+ drivers/gpu/drm/i915/pxp/intel_pxp.c |  5 ++++
+ 2 files changed, 49 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
-index e5574e506a5c..8274fea96009 100644
---- a/drivers/gpu/drm/i915/Makefile
-+++ b/drivers/gpu/drm/i915/Makefile
-@@ -254,6 +254,10 @@ i915-y += \
+diff --git a/drivers/gpu/drm/i915/i915_trace.h b/drivers/gpu/drm/i915/i915_trace.h
+index a4addcc64978..36470e20dc61 100644
+--- a/drivers/gpu/drm/i915/i915_trace.h
++++ b/drivers/gpu/drm/i915/i915_trace.h
+@@ -1031,6 +1031,50 @@ DEFINE_EVENT(i915_context, i915_context_free,
+ 	TP_ARGS(ctx)
+ );
  
- i915-y += i915_perf.o
- 
-+# Protected execution platform (PXP) support
-+i915-y += \
-+	pxp/intel_pxp.o
++TRACE_EVENT(i915_pxp_ops_ioctl,
++	    TP_PROTO(struct drm_device *dev, void *data, struct drm_file *file, u32 action),
++	    TP_ARGS(dev, data, file, action),
 +
- # Post-mortem debug and GPU hang state capture
- i915-$(CONFIG_DRM_I915_CAPTURE_ERROR) += i915_gpu_error.o
- i915-$(CONFIG_DRM_I915_SELFTEST) += \
-diff --git a/drivers/gpu/drm/i915/i915_drv.c b/drivers/gpu/drm/i915/i915_drv.c
-index f2389ba49c69..c8b9c42fcbd6 100644
---- a/drivers/gpu/drm/i915/i915_drv.c
-+++ b/drivers/gpu/drm/i915/i915_drv.c
-@@ -889,6 +889,8 @@ int i915_driver_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
- 	if (ret)
- 		goto out_cleanup_gem;
- 
-+	intel_pxp_init(i915);
++	    TP_STRUCT__entry(
++			     __field(struct drm_device *, dev)
++			     __field(void *, data)
++			     __field(struct drm_file *, file)
++			     __field(u32, action)
++	    ),
 +
- 	i915_driver_register(i915);
- 
- 	enable_rpm_wakeref_asserts(&i915->runtime_pm);
-@@ -938,6 +940,8 @@ void i915_driver_remove(struct drm_i915_private *i915)
- 	/* Flush any external code that still may be under the RCU lock */
- 	synchronize_rcu();
- 
-+	intel_pxp_uninit(i915);
++	    TP_fast_assign(
++			   __entry->dev = dev;
++			   __entry->data = data;
++			   __entry->file = file;
++			   __entry->action = action;
++	    ),
 +
- 	i915_gem_suspend(i915);
- 
- 	drm_atomic_helper_shutdown(&i915->drm);
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index 15be8debae54..f34ed07a68ee 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -105,6 +105,8 @@
- 
- #include "intel_region_lmem.h"
- 
-+#include "pxp/intel_pxp.h"
++	    TP_printk("dev=%p, data=%p, file=%p, action=%u",
++		      __entry->dev, __entry->data, __entry->file, __entry->action)
++);
 +
- /* General customization:
-  */
- 
-@@ -1215,6 +1217,8 @@ struct drm_i915_private {
- 	/* Mutex to protect the above hdcp component related values. */
- 	struct mutex hdcp_comp_mutex;
- 
-+	struct intel_pxp pxp;
++TRACE_EVENT(i915_pxp_teardown_required_callback,
++	    TP_PROTO(bool global_state_attacked),
++	    TP_ARGS(global_state_attacked),
 +
- 	I915_SELFTEST_DECLARE(struct i915_selftest_stash selftest;)
++	    TP_STRUCT__entry(__field(bool, global_state_attacked)),
++
++	    TP_fast_assign(__entry->global_state_attacked = global_state_attacked;),
++
++	    TP_printk("global_state_attacked=%s", yesno(__entry->global_state_attacked))
++);
++
++TRACE_EVENT(i915_pxp_global_terminate_complete_callback,
++	    TP_PROTO(bool global_state_attacked),
++	    TP_ARGS(global_state_attacked),
++
++	    TP_STRUCT__entry(__field(bool, global_state_attacked)),
++
++	    TP_fast_assign(__entry->global_state_attacked = global_state_attacked;),
++
++	    TP_printk("global_state_attacked=%s", yesno(__entry->global_state_attacked))
++);
++
+ #endif /* _I915_TRACE_H_ */
  
- 	/*
+ /* This part must be outside protection */
 diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.c b/drivers/gpu/drm/i915/pxp/intel_pxp.c
-new file mode 100644
-index 000000000000..a469c55e3e54
---- /dev/null
+index 80e632b614f5..23955d7a3c3d 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp.c
 +++ b/drivers/gpu/drm/i915/pxp/intel_pxp.c
-@@ -0,0 +1,20 @@
-+/* SPDX-License-Identifier: MIT */
-+/*
-+ * Copyright(c) 2020 Intel Corporation.
-+ */
-+
-+#include "i915_drv.h"
-+#include "intel_pxp.h"
-+
-+int intel_pxp_init(struct drm_i915_private *i915)
-+{
-+	int ret;
-+
-+	drm_info(&i915->drm, "i915_pxp_init\n");
-+
-+	return ret;
-+}
-+
-+void intel_pxp_uninit(struct drm_i915_private *i915)
-+{
-+}
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.h b/drivers/gpu/drm/i915/pxp/intel_pxp.h
-new file mode 100644
-index 000000000000..578f1126bada
---- /dev/null
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp.h
-@@ -0,0 +1,22 @@
-+/* SPDX-License-Identifier: MIT */
-+/*
-+ * Copyright(c) 2020, Intel Corporation. All rights reserved.
-+ */
-+
-+#ifndef __INTEL_PXP_H__
-+#define __INTEL_PXP_H__
-+
-+#include <drm/drm_file.h>
-+
-+struct pxp_context;
-+
-+struct intel_pxp {
-+	struct pxp_context *r0ctx;
-+};
-+
-+struct drm_i915_private;
-+
-+int intel_pxp_init(struct drm_i915_private *i915);
-+void intel_pxp_uninit(struct drm_i915_private *i915);
-+
-+#endif
-diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
-index fa1f3d62f9a6..dc101264176b 100644
---- a/include/uapi/drm/i915_drm.h
-+++ b/include/uapi/drm/i915_drm.h
-@@ -1898,6 +1898,11 @@ struct drm_i915_gem_vm_control {
- 	__u32 vm_id;
- };
+@@ -8,6 +8,7 @@
+ #include "intel_pxp_context.h"
+ #include "intel_pxp_sm.h"
+ #include "intel_pxp_tee.h"
++#include "i915_trace.h"
  
-+struct drm_i915_pxp_ops {
-+	__u64 pxp_info_ptr;
-+	__u32 pxp_info_size;
-+};
+ int i915_pxp_ops_ioctl(struct drm_device *dev, void *data, struct drm_file *drmfile)
+ {
+@@ -30,6 +31,7 @@ int i915_pxp_ops_ioctl(struct drm_device *dev, void *data, struct drm_file *drmf
+ 	}
+ 
+ 	drm_dbg(&i915->drm, "i915 pxp ioctl call with action=[%d]\n", pxp_info.action);
++	trace_i915_pxp_ops_ioctl(dev, data, drmfile, pxp_info.action);
+ 
+ 	mutex_lock(&i915->pxp.r0ctx->ctx_mutex);
+ 
+@@ -219,6 +221,8 @@ static int intel_pxp_teardown_required_callback(struct drm_i915_private *i915)
+ 
+ 	mutex_unlock(&i915->pxp.r0ctx->ctx_mutex);
+ 
++	trace_i915_pxp_teardown_required_callback(i915->pxp.r0ctx->global_state_attacked);
 +
- struct drm_i915_reg_read {
- 	/*
- 	 * Register offset.
+ 	return ret;
+ }
+ 
+@@ -243,6 +247,7 @@ static int intel_pxp_global_terminate_complete_callback(struct drm_i915_private
+ end:
+ 	mutex_unlock(&i915->pxp.r0ctx->ctx_mutex);
+ 
++	trace_i915_pxp_global_terminate_complete_callback(i915->pxp.r0ctx->global_state_attacked);
+ 	drm_dbg(&i915->drm, "<<< %s ret=[%d]\n", __func__, ret);
+ 
+ 	return ret;
 -- 
 2.17.1
 
