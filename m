@@ -7,45 +7,46 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0E50EC63699
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DB7BAC2D0E4
 	for <intel-gfx@archiver.kernel.org>; Sun, 15 Nov 2020 20:24:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C7EA8238E6
-	for <intel-gfx@archiver.kernel.org>; Sun, 15 Nov 2020 20:24:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C7EA8238E6
+	by mail.kernel.org (Postfix) with ESMTPS id A07A7238E6
+	for <intel-gfx@archiver.kernel.org>; Sun, 15 Nov 2020 20:24:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A07A7238E6
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D8F2C89F2D;
-	Sun, 15 Nov 2020 20:23:52 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 39B5589F2E
- for <Intel-gfx@lists.freedesktop.org>; Sun, 15 Nov 2020 20:23:49 +0000 (UTC)
-IronPort-SDR: 2zvKw5DYEP00WI6WPLylfFfK1mSMr7z8G3samuElDgWdsblJo9oWj84VvK2YE0GeNRVMmPOkmT
- HsaSdB0iqykg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9806"; a="234832207"
-X-IronPort-AV: E=Sophos;i="5.77,481,1596524400"; d="scan'208";a="234832207"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 463E589FA5;
+	Sun, 15 Nov 2020 20:23:53 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C5C189F08
+ for <Intel-gfx@lists.freedesktop.org>; Sun, 15 Nov 2020 20:23:48 +0000 (UTC)
+IronPort-SDR: xGpkpHg60LMvHrwK4rjjmHNk/RaKV4X4krSITv62SeODWQBjYEFIPWdBedz1FLFDlOPPtjNqog
+ vmBgVqCCxizg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9806"; a="167165303"
+X-IronPort-AV: E=Sophos;i="5.77,481,1596524400"; d="scan'208";a="167165303"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  15 Nov 2020 12:23:48 -0800
-IronPort-SDR: 6isvOqIATkO+7eApWT2Mtlpkv4MyDGaaWVEXCmfiHAaA7c7yJ5v10A4Kg1RPbnotl3+2/sb/2a
- BkiDaQybLkEg==
+IronPort-SDR: svyXYghFq60nDt+JpqFersPlXOFcFCjB3+PDruqTO9/WWZTT8H3j0iZ76kK2TU/49ItoAuJ7A9
+ qx5gdq5QTP4g==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.77,481,1596524400"; d="scan'208";a="430005363"
+X-IronPort-AV: E=Sophos;i="5.77,481,1596524400"; d="scan'208";a="430005343"
 Received: from sean-virtualbox.fm.intel.com ([10.105.158.96])
  by fmsmga001.fm.intel.com with ESMTP; 15 Nov 2020 12:23:47 -0800
 From: "Huang, Sean Z" <sean.z.huang@intel.com>
 To: Intel-gfx@lists.freedesktop.org
-Date: Sun, 15 Nov 2020 12:23:43 -0800
-Message-Id: <20201115202347.29224-23-sean.z.huang@intel.com>
+Date: Sun, 15 Nov 2020 12:23:27 -0800
+Message-Id: <20201115202347.29224-7-sean.z.huang@intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20201115202347.29224-1-sean.z.huang@intel.com>
 References: <20201115202347.29224-1-sean.z.huang@intel.com>
-Subject: [Intel-gfx] [PATCH 23/27] mei: bus: enable pavp device.
+Subject: [Intel-gfx] [PATCH 07/27] drm/i915/pxp: Add PXP-related registers
+ into allowlist
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,45 +59,144 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tomas Winkler <tomas.winkler@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Tomas Winkler <tomas.winkler@intel.com>
+Add several PXP-related reg into allowlist to allow
+ring3 driver to read the those register values.
 
-Enable protected audio video path client on mei client
-bus.
-
-Signed-off-by: Tomas Winkler <tomas.winkler@intel.com>
+Signed-off-by: Huang, Sean Z <sean.z.huang@intel.com>
 ---
- drivers/misc/mei/bus-fixup.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/gpu/drm/i915/i915_reg.h     |  8 ++++
+ drivers/gpu/drm/i915/intel_uncore.c | 57 +++++++++++++++++++++--------
+ 2 files changed, 50 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/misc/mei/bus-fixup.c b/drivers/misc/mei/bus-fixup.c
-index 4e30fa98fe7d..042399b397c9 100644
---- a/drivers/misc/mei/bus-fixup.c
-+++ b/drivers/misc/mei/bus-fixup.c
-@@ -33,6 +33,9 @@ static const uuid_le mei_nfc_info_guid = MEI_UUID_NFC_INFO;
- #define MEI_UUID_HDCP UUID_LE(0xB638AB7E, 0x94E2, 0x4EA2, \
- 			      0xA5, 0x52, 0xD1, 0xC5, 0x4B, 0x62, 0x7F, 0x04)
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index faf6b06145fa..5c51c9df8b28 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -12419,4 +12419,12 @@ enum skl_power_gate {
+ #define TGL_ROOT_DEVICE_SKU_ULX		0x2
+ #define TGL_ROOT_DEVICE_SKU_ULT		0x4
  
-+#define MEI_UUID_PAVP UUID_LE(0xfbf6fcf1, 0x96cf, 0x4e2e, 0xA6, \
-+			      0xa6, 0x1b, 0xab, 0x8c, 0xbe, 0x36, 0xb1)
++/* Registers for passlist check */
++#define PXP_REG_01_LOWERBOUND		_MMIO(0x32260)
++#define PXP_REG_01_UPPERBOUND		_MMIO(0x32268)
++#define PXP_REG_02_LOWERBOUND		_MMIO(0x32670)
++#define PXP_REG_02_UPPERBOUND		_MMIO(0x32678)
++#define PXP_REG_03_LOWERBOUND		_MMIO(0x32860)
++#define PXP_REG_03_UPPERBOUND		_MMIO(0x32c7c)
 +
- #define MEI_UUID_ANY NULL_UUID_LE
+ #endif /* _I915_REG_H_ */
+diff --git a/drivers/gpu/drm/i915/intel_uncore.c b/drivers/gpu/drm/i915/intel_uncore.c
+index c9ef0025c60e..670856e095c4 100644
+--- a/drivers/gpu/drm/i915/intel_uncore.c
++++ b/drivers/gpu/drm/i915/intel_uncore.c
+@@ -1990,16 +1990,41 @@ void intel_uncore_fini_mmio(struct intel_uncore *uncore)
+ }
  
- /**
-@@ -488,6 +491,7 @@ static struct mei_fixup {
- 	MEI_FIXUP(MEI_UUID_MKHIF_FIX, mei_mkhi_fix),
- 	MEI_FIXUP(MEI_UUID_HDCP, whitelist),
- 	MEI_FIXUP(MEI_UUID_ANY, vt_support),
-+	MEI_FIXUP(MEI_UUID_PAVP, whitelist),
- };
+ static const struct reg_allowlist {
+-	i915_reg_t offset_ldw;
++	i915_reg_t offset_ldw_lowerbound;
++	i915_reg_t offset_ldw_upperbound;
+ 	i915_reg_t offset_udw;
+ 	u16 gen_mask;
+ 	u8 size;
+-} reg_read_allowlist[] = { {
+-	.offset_ldw = RING_TIMESTAMP(RENDER_RING_BASE),
++} reg_read_allowlist[] = {
++	{
++	.offset_ldw_lowerbound = RING_TIMESTAMP(RENDER_RING_BASE),
++	.offset_ldw_upperbound = RING_TIMESTAMP(RENDER_RING_BASE),
+ 	.offset_udw = RING_TIMESTAMP_UDW(RENDER_RING_BASE),
+ 	.gen_mask = INTEL_GEN_MASK(4, 12),
+ 	.size = 8
+-} };
++	},
++	{
++	.offset_ldw_lowerbound = PXP_REG_01_LOWERBOUND,
++	.offset_ldw_upperbound = PXP_REG_01_UPPERBOUND,
++	.offset_udw = {0},
++	.gen_mask = INTEL_GEN_MASK(4, 12),
++	.size = 4
++	},
++	{
++	.offset_ldw_lowerbound = PXP_REG_02_LOWERBOUND,
++	.offset_ldw_upperbound = PXP_REG_02_UPPERBOUND,
++	.offset_udw = {0},
++	.gen_mask = INTEL_GEN_MASK(4, 12),
++	.size = 4
++	},
++	{
++	.offset_ldw_lowerbound = PXP_REG_03_LOWERBOUND,
++	.offset_ldw_upperbound = PXP_REG_03_UPPERBOUND,
++	.offset_udw = {0},
++	.gen_mask = INTEL_GEN_MASK(4, 12),
++	.size = 4
++	}
++};
  
- /**
+ int i915_reg_read_ioctl(struct drm_device *dev,
+ 			void *data, struct drm_file *file)
+@@ -2012,18 +2037,22 @@ int i915_reg_read_ioctl(struct drm_device *dev,
+ 	unsigned int flags;
+ 	int remain;
+ 	int ret = 0;
++	i915_reg_t offset_ldw;
+ 
+ 	entry = reg_read_allowlist;
+ 	remain = ARRAY_SIZE(reg_read_allowlist);
+ 	while (remain) {
+-		u32 entry_offset = i915_mmio_reg_offset(entry->offset_ldw);
++		u32 entry_offset_lb = i915_mmio_reg_offset(entry->offset_ldw_lowerbound);
++		u32 entry_offset_ub = i915_mmio_reg_offset(entry->offset_ldw_upperbound);
+ 
+ 		GEM_BUG_ON(!is_power_of_2(entry->size));
+ 		GEM_BUG_ON(entry->size > 8);
+-		GEM_BUG_ON(entry_offset & (entry->size - 1));
++		GEM_BUG_ON(entry_offset_lb & (entry->size - 1));
++		GEM_BUG_ON(entry_offset_ub & (entry->size - 1));
+ 
+ 		if (INTEL_INFO(i915)->gen_mask & entry->gen_mask &&
+-		    entry_offset == (reg->offset & -entry->size))
++		    entry_offset_lb <= (reg->offset & -entry->size) &&
++		    (reg->offset & -entry->size) <= entry_offset_ub)
+ 			break;
+ 		entry++;
+ 		remain--;
+@@ -2033,23 +2062,21 @@ int i915_reg_read_ioctl(struct drm_device *dev,
+ 		return -EINVAL;
+ 
+ 	flags = reg->offset & (entry->size - 1);
++	offset_ldw = _MMIO(reg->offset - flags);
+ 
+ 	with_intel_runtime_pm(&i915->runtime_pm, wakeref) {
+ 		if (entry->size == 8 && flags == I915_REG_READ_8B_WA)
+ 			reg->val = intel_uncore_read64_2x32(uncore,
+-							    entry->offset_ldw,
++							    offset_ldw,
+ 							    entry->offset_udw);
+ 		else if (entry->size == 8 && flags == 0)
+-			reg->val = intel_uncore_read64(uncore,
+-						       entry->offset_ldw);
++			reg->val = intel_uncore_read64(uncore, offset_ldw);
+ 		else if (entry->size == 4 && flags == 0)
+-			reg->val = intel_uncore_read(uncore, entry->offset_ldw);
++			reg->val = intel_uncore_read(uncore, offset_ldw);
+ 		else if (entry->size == 2 && flags == 0)
+-			reg->val = intel_uncore_read16(uncore,
+-						       entry->offset_ldw);
++			reg->val = intel_uncore_read16(uncore, offset_ldw);
+ 		else if (entry->size == 1 && flags == 0)
+-			reg->val = intel_uncore_read8(uncore,
+-						      entry->offset_ldw);
++			reg->val = intel_uncore_read8(uncore, offset_ldw);
+ 		else
+ 			ret = -EINVAL;
+ 	}
 -- 
 2.17.1
 
