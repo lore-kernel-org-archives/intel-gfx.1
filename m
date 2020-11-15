@@ -7,46 +7,46 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C19DFC63699
-	for <intel-gfx@archiver.kernel.org>; Sun, 15 Nov 2020 02:02:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 37382C63697
+	for <intel-gfx@archiver.kernel.org>; Sun, 15 Nov 2020 02:02:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 81D12222EA
-	for <intel-gfx@archiver.kernel.org>; Sun, 15 Nov 2020 02:02:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 81D12222EA
+	by mail.kernel.org (Postfix) with ESMTPS id EF848222EA
+	for <intel-gfx@archiver.kernel.org>; Sun, 15 Nov 2020 02:02:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EF848222EA
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9A5776E979;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 82E546E978;
 	Sun, 15 Nov 2020 02:02:22 +0000 (UTC)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 73AA36E974
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C2B016E970
  for <Intel-gfx@lists.freedesktop.org>; Sun, 15 Nov 2020 02:02:18 +0000 (UTC)
-IronPort-SDR: Kdxfg89WrpEe+IAwzJPlWkSnLJTlW6hWS+L1Y8vNr/Qc36Y/GmXlmc88f0W7YdeoPXKPNC/urZ
- Si7D+lUSxevA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9805"; a="255321270"
-X-IronPort-AV: E=Sophos;i="5.77,479,1596524400"; d="scan'208";a="255321270"
+IronPort-SDR: wU4b3rw2rj19Aw77t8wZ41WY74EuqWtwXAEXK/kgxPGycGeW+LNE15a3mWJTVf7yXDvRqM/E8v
+ gidzA1fl7uPA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9805"; a="255321250"
+X-IronPort-AV: E=Sophos;i="5.77,479,1596524400"; d="scan'208";a="255321250"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  14 Nov 2020 18:02:16 -0800
-IronPort-SDR: v9RxNeg3yj+LVYRq+WduOgWaiGYz8csWeiqZKCEpnRYWvDF+bGjfNjfgan9RZNDaJansedx7WO
- /uF4hhXYRpEw==
+IronPort-SDR: V+jO9wNQyakiieIwpd9xDKS5Q0dVUKTLa2XM317RzWOijyVpMVKeBQiMBz5i0IJhdrdI7vuBoV
+ 1s9MUR7AsbYA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.77,479,1596524400"; d="scan'208";a="367120684"
+X-IronPort-AV: E=Sophos;i="5.77,479,1596524400"; d="scan'208";a="367120654"
 Received: from sean-virtualbox.fm.intel.com ([10.105.158.96])
  by FMSMGA003.fm.intel.com with ESMTP; 14 Nov 2020 18:02:16 -0800
 From: "Huang, Sean Z" <sean.z.huang@intel.com>
 To: Intel-gfx@lists.freedesktop.org
-Date: Sat, 14 Nov 2020 18:02:16 -0800
-Message-Id: <20201115020216.17242-27-sean.z.huang@intel.com>
+Date: Sat, 14 Nov 2020 18:01:56 -0800
+Message-Id: <20201115020216.17242-7-sean.z.huang@intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20201115020216.17242-1-sean.z.huang@intel.com>
 References: <20201115020216.17242-1-sean.z.huang@intel.com>
-Subject: [Intel-gfx] [PATCH v2 27/27] drm/i915/pxp: Add plane decryption
- support
+Subject: [Intel-gfx] [PATCH v2 07/27] drm/i915/pxp: Add PXP-related
+ registers into allowlist
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,105 +59,144 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Bommu Krishnaiah <krishnaiah.bommu@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Anshuman Gupta <anshuman.gupta@intel.com>
+Add several PXP-related reg into allowlist to allow
+ring3 driver to read the those register values.
 
-Add support to enable/disable PLANE_SURF Decryption Request bit.
-It requires only to enable plane decryption support when following
-condition met.
-1. PAVP session is enabled.
-2. Buffer object is protected.
-
-v2:
-- Rebased to libva_cp-drm-tip_tgl_cp tree.
-- Used gen fb obj user_flags instead gem_object_metadata. [Krishna]
-
-Cc: Bommu Krishnaiah <krishnaiah.bommu@intel.com>
-Cc: Huang, Sean Z <sean.z.huang@intel.com>
-Signed-off-by: Anshuman Gupta <anshuman.gupta@intel.com>
+Signed-off-by: Huang, Sean Z <sean.z.huang@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_sprite.c | 21 ++++++++++++++++++---
- drivers/gpu/drm/i915/i915_reg.h             |  1 +
- 2 files changed, 19 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/i915_reg.h     |  8 ++++
+ drivers/gpu/drm/i915/intel_uncore.c | 57 +++++++++++++++++++++--------
+ 2 files changed, 50 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_sprite.c b/drivers/gpu/drm/i915/display/intel_sprite.c
-index a3ab44694118..12c549beb05f 100644
---- a/drivers/gpu/drm/i915/display/intel_sprite.c
-+++ b/drivers/gpu/drm/i915/display/intel_sprite.c
-@@ -39,6 +39,8 @@
- #include <drm/drm_plane_helper.h>
- #include <drm/drm_rect.h>
- 
-+#include "pxp/intel_pxp.h"
-+
- #include "i915_drv.h"
- #include "i915_trace.h"
- #include "i915_vgpu.h"
-@@ -752,6 +754,11 @@ icl_program_input_csc(struct intel_plane *plane,
- 			  PLANE_INPUT_CSC_POSTOFF(pipe, plane_id, 2), 0x0);
- }
- 
-+static bool intel_fb_obj_protected(const struct drm_i915_gem_object *obj)
-+{
-+	return obj->user_flags & I915_BO_PROTECTED ? true : false;
-+}
-+
- static void
- skl_plane_async_flip(struct intel_plane *plane,
- 		     const struct intel_crtc_state *crtc_state,
-@@ -788,6 +795,7 @@ skl_program_plane(struct intel_plane *plane,
- 	u32 surf_addr = plane_state->color_plane[color_plane].offset;
- 	u32 stride = skl_plane_stride(plane_state, color_plane);
- 	const struct drm_framebuffer *fb = plane_state->hw.fb;
-+	const struct drm_i915_gem_object *obj = intel_fb_obj(fb);
- 	int aux_plane = intel_main_to_aux_plane(fb, color_plane);
- 	int crtc_x = plane_state->uapi.dst.x1;
- 	int crtc_y = plane_state->uapi.dst.y1;
-@@ -798,7 +806,7 @@ skl_program_plane(struct intel_plane *plane,
- 	u8 alpha = plane_state->hw.alpha >> 8;
- 	u32 plane_color_ctl = 0, aux_dist = 0;
- 	unsigned long irqflags;
--	u32 keymsk, keymax;
-+	u32 keymsk, keymax, plane_surf;
- 	u32 plane_ctl = plane_state->ctl;
- 
- 	plane_ctl |= skl_plane_ctl_crtc(crtc_state);
-@@ -874,8 +882,15 @@ skl_program_plane(struct intel_plane *plane,
- 	 * the control register just before the surface register.
- 	 */
- 	intel_de_write_fw(dev_priv, PLANE_CTL(pipe, plane_id), plane_ctl);
--	intel_de_write_fw(dev_priv, PLANE_SURF(pipe, plane_id),
--			  intel_plane_ggtt_offset(plane_state) + surf_addr);
-+	plane_surf = intel_plane_ggtt_offset(plane_state) + surf_addr;
-+
-+	if (intel_pxp_gem_object_status(dev_priv, obj->user_flags) &&
-+	    intel_fb_obj_protected(obj))
-+		plane_surf |= PLANE_SURF_DECRYPTION_ENABLED;
-+	else
-+		plane_surf &= ~PLANE_SURF_DECRYPTION_ENABLED;
-+
-+	intel_de_write_fw(dev_priv, PLANE_SURF(pipe, plane_id), plane_surf);
- 
- 	if (plane_state->scaler_id >= 0)
- 		skl_program_scaler(plane, crtc_state, plane_state);
 diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 5c51c9df8b28..0ac7678cd6ba 100644
+index faf6b06145fa..5c51c9df8b28 100644
 --- a/drivers/gpu/drm/i915/i915_reg.h
 +++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -7206,6 +7206,7 @@ enum {
- #define _PLANE_SURF_3(pipe)	_PIPE(pipe, _PLANE_SURF_3_A, _PLANE_SURF_3_B)
- #define PLANE_SURF(pipe, plane)	\
- 	_MMIO_PLANE(plane, _PLANE_SURF_1(pipe), _PLANE_SURF_2(pipe))
-+#define   PLANE_SURF_DECRYPTION_ENABLED		REG_BIT(2)
+@@ -12419,4 +12419,12 @@ enum skl_power_gate {
+ #define TGL_ROOT_DEVICE_SKU_ULX		0x2
+ #define TGL_ROOT_DEVICE_SKU_ULT		0x4
  
- #define _PLANE_OFFSET_1_B			0x711a4
- #define _PLANE_OFFSET_2_B			0x712a4
++/* Registers for passlist check */
++#define PXP_REG_01_LOWERBOUND		_MMIO(0x32260)
++#define PXP_REG_01_UPPERBOUND		_MMIO(0x32268)
++#define PXP_REG_02_LOWERBOUND		_MMIO(0x32670)
++#define PXP_REG_02_UPPERBOUND		_MMIO(0x32678)
++#define PXP_REG_03_LOWERBOUND		_MMIO(0x32860)
++#define PXP_REG_03_UPPERBOUND		_MMIO(0x32c7c)
++
+ #endif /* _I915_REG_H_ */
+diff --git a/drivers/gpu/drm/i915/intel_uncore.c b/drivers/gpu/drm/i915/intel_uncore.c
+index c9ef0025c60e..670856e095c4 100644
+--- a/drivers/gpu/drm/i915/intel_uncore.c
++++ b/drivers/gpu/drm/i915/intel_uncore.c
+@@ -1990,16 +1990,41 @@ void intel_uncore_fini_mmio(struct intel_uncore *uncore)
+ }
+ 
+ static const struct reg_allowlist {
+-	i915_reg_t offset_ldw;
++	i915_reg_t offset_ldw_lowerbound;
++	i915_reg_t offset_ldw_upperbound;
+ 	i915_reg_t offset_udw;
+ 	u16 gen_mask;
+ 	u8 size;
+-} reg_read_allowlist[] = { {
+-	.offset_ldw = RING_TIMESTAMP(RENDER_RING_BASE),
++} reg_read_allowlist[] = {
++	{
++	.offset_ldw_lowerbound = RING_TIMESTAMP(RENDER_RING_BASE),
++	.offset_ldw_upperbound = RING_TIMESTAMP(RENDER_RING_BASE),
+ 	.offset_udw = RING_TIMESTAMP_UDW(RENDER_RING_BASE),
+ 	.gen_mask = INTEL_GEN_MASK(4, 12),
+ 	.size = 8
+-} };
++	},
++	{
++	.offset_ldw_lowerbound = PXP_REG_01_LOWERBOUND,
++	.offset_ldw_upperbound = PXP_REG_01_UPPERBOUND,
++	.offset_udw = {0},
++	.gen_mask = INTEL_GEN_MASK(4, 12),
++	.size = 4
++	},
++	{
++	.offset_ldw_lowerbound = PXP_REG_02_LOWERBOUND,
++	.offset_ldw_upperbound = PXP_REG_02_UPPERBOUND,
++	.offset_udw = {0},
++	.gen_mask = INTEL_GEN_MASK(4, 12),
++	.size = 4
++	},
++	{
++	.offset_ldw_lowerbound = PXP_REG_03_LOWERBOUND,
++	.offset_ldw_upperbound = PXP_REG_03_UPPERBOUND,
++	.offset_udw = {0},
++	.gen_mask = INTEL_GEN_MASK(4, 12),
++	.size = 4
++	}
++};
+ 
+ int i915_reg_read_ioctl(struct drm_device *dev,
+ 			void *data, struct drm_file *file)
+@@ -2012,18 +2037,22 @@ int i915_reg_read_ioctl(struct drm_device *dev,
+ 	unsigned int flags;
+ 	int remain;
+ 	int ret = 0;
++	i915_reg_t offset_ldw;
+ 
+ 	entry = reg_read_allowlist;
+ 	remain = ARRAY_SIZE(reg_read_allowlist);
+ 	while (remain) {
+-		u32 entry_offset = i915_mmio_reg_offset(entry->offset_ldw);
++		u32 entry_offset_lb = i915_mmio_reg_offset(entry->offset_ldw_lowerbound);
++		u32 entry_offset_ub = i915_mmio_reg_offset(entry->offset_ldw_upperbound);
+ 
+ 		GEM_BUG_ON(!is_power_of_2(entry->size));
+ 		GEM_BUG_ON(entry->size > 8);
+-		GEM_BUG_ON(entry_offset & (entry->size - 1));
++		GEM_BUG_ON(entry_offset_lb & (entry->size - 1));
++		GEM_BUG_ON(entry_offset_ub & (entry->size - 1));
+ 
+ 		if (INTEL_INFO(i915)->gen_mask & entry->gen_mask &&
+-		    entry_offset == (reg->offset & -entry->size))
++		    entry_offset_lb <= (reg->offset & -entry->size) &&
++		    (reg->offset & -entry->size) <= entry_offset_ub)
+ 			break;
+ 		entry++;
+ 		remain--;
+@@ -2033,23 +2062,21 @@ int i915_reg_read_ioctl(struct drm_device *dev,
+ 		return -EINVAL;
+ 
+ 	flags = reg->offset & (entry->size - 1);
++	offset_ldw = _MMIO(reg->offset - flags);
+ 
+ 	with_intel_runtime_pm(&i915->runtime_pm, wakeref) {
+ 		if (entry->size == 8 && flags == I915_REG_READ_8B_WA)
+ 			reg->val = intel_uncore_read64_2x32(uncore,
+-							    entry->offset_ldw,
++							    offset_ldw,
+ 							    entry->offset_udw);
+ 		else if (entry->size == 8 && flags == 0)
+-			reg->val = intel_uncore_read64(uncore,
+-						       entry->offset_ldw);
++			reg->val = intel_uncore_read64(uncore, offset_ldw);
+ 		else if (entry->size == 4 && flags == 0)
+-			reg->val = intel_uncore_read(uncore, entry->offset_ldw);
++			reg->val = intel_uncore_read(uncore, offset_ldw);
+ 		else if (entry->size == 2 && flags == 0)
+-			reg->val = intel_uncore_read16(uncore,
+-						       entry->offset_ldw);
++			reg->val = intel_uncore_read16(uncore, offset_ldw);
+ 		else if (entry->size == 1 && flags == 0)
+-			reg->val = intel_uncore_read8(uncore,
+-						      entry->offset_ldw);
++			reg->val = intel_uncore_read8(uncore, offset_ldw);
+ 		else
+ 			ret = -EINVAL;
+ 	}
 -- 
 2.17.1
 
