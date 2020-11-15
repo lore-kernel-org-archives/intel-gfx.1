@@ -2,51 +2,51 @@ Return-Path: <SRS0=4f0g=EV=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.9 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 579ACC2D0E4
-	for <intel-gfx@archiver.kernel.org>; Sun, 15 Nov 2020 21:08:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 64A67C61DD8
+	for <intel-gfx@archiver.kernel.org>; Sun, 15 Nov 2020 21:08:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1B2A422447
-	for <intel-gfx@archiver.kernel.org>; Sun, 15 Nov 2020 21:08:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1B2A422447
+	by mail.kernel.org (Postfix) with ESMTPS id 2965322447
+	for <intel-gfx@archiver.kernel.org>; Sun, 15 Nov 2020 21:08:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2965322447
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2BD4A6E9D9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A62A6E9DB;
 	Sun, 15 Nov 2020 21:08:42 +0000 (UTC)
 Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C0786E9C9
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 428016E9CA
  for <Intel-gfx@lists.freedesktop.org>; Sun, 15 Nov 2020 21:08:18 +0000 (UTC)
-IronPort-SDR: wNuDt3a87EvffuGHv+706JQtJuz3f7jjZ+fOYdiO4/t5W2ImUKkUA++xQYYh5tpVGIvbOrvYHX
- zrEa3/zWSIJw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9806"; a="158455853"
-X-IronPort-AV: E=Sophos;i="5.77,481,1596524400"; d="scan'208";a="158455853"
+IronPort-SDR: pdRAdFKsi5RTbcdeZtkNQMX/X9CrPxP2Z3MV9Ht1M+W5RyNzofua+lKW2u8pH/+Qr9mXPLfqER
+ qxnNUbi/3prw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9806"; a="158455854"
+X-IronPort-AV: E=Sophos;i="5.77,481,1596524400"; d="scan'208";a="158455854"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  15 Nov 2020 13:08:16 -0800
-IronPort-SDR: 6/8pBAMgOh/tAfOrWcmJssQKku2CIbYNIeTHhc/8rCgwiQw/lygcKYKcyi9T+Pzmd3BUU9KgNJ
- 3C5ThaG/3p+Q==
+IronPort-SDR: OOk2ZtWH56IMsNVTWUlAXfwyfrBbbMPg6C7zLmKNWp0AsG9OrD0TZAhLatUrWxPLhx0sCJnjRL
+ +pvm4JMIONyQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.77,481,1596524400"; d="scan'208";a="430009572"
+X-IronPort-AV: E=Sophos;i="5.77,481,1596524400"; d="scan'208";a="430009573"
 Received: from sean-virtualbox.fm.intel.com ([10.105.158.96])
  by fmsmga001.fm.intel.com with ESMTP; 15 Nov 2020 13:08:15 -0800
 From: "Huang, Sean Z" <sean.z.huang@intel.com>
 To: Intel-gfx@lists.freedesktop.org
-Date: Sun, 15 Nov 2020 13:08:09 -0800
-Message-Id: <20201115210815.5272-21-sean.z.huang@intel.com>
+Date: Sun, 15 Nov 2020 13:08:10 -0800
+Message-Id: <20201115210815.5272-22-sean.z.huang@intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20201115210815.5272-1-sean.z.huang@intel.com>
 References: <20201115210815.5272-1-sean.z.huang@intel.com>
-Subject: [Intel-gfx] [PATCH 21/27] drm/i915/pxp: Add i915 trace logs for PXP
- operations
+Subject: [Intel-gfx] [PATCH 22/27] drm/i915/pxp: Expose session state for
+ display protection flip
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,113 +65,44 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add several i915 trace logs for PXP calls for debugging or
-performance measurement, including:
-(1) PXP ioctl
-(2) PXP teardown callbacks
-
-To trun on this feature, we need to set
-"CONFIG_DRM_I915_LOW_LEVEL_TRACEPOINTS=y" in .config for compiling
-the Linux kernel.
+Implement the intel_pxp_gem_object_status() to allow ring0 i915
+display querying the current PXP session state. In the design,
+ring0 display should not perform protection flip on the protected
+buffers if there is no PXP session alive.
 
 Signed-off-by: Huang, Sean Z <sean.z.huang@intel.com>
 ---
- drivers/gpu/drm/i915/i915_trace.h    | 44 ++++++++++++++++++++++++++++
- drivers/gpu/drm/i915/pxp/intel_pxp.c |  5 ++++
- 2 files changed, 49 insertions(+)
+ drivers/gpu/drm/i915/pxp/intel_pxp.c | 8 ++++++++
+ drivers/gpu/drm/i915/pxp/intel_pxp.h | 2 ++
+ 2 files changed, 10 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/i915_trace.h b/drivers/gpu/drm/i915/i915_trace.h
-index a4addcc64978..36470e20dc61 100644
---- a/drivers/gpu/drm/i915/i915_trace.h
-+++ b/drivers/gpu/drm/i915/i915_trace.h
-@@ -1031,6 +1031,50 @@ DEFINE_EVENT(i915_context, i915_context_free,
- 	TP_ARGS(ctx)
- );
- 
-+TRACE_EVENT(i915_pxp_ops_ioctl,
-+	    TP_PROTO(struct drm_device *dev, void *data, struct drm_file *file, u32 action),
-+	    TP_ARGS(dev, data, file, action),
-+
-+	    TP_STRUCT__entry(
-+			     __field(struct drm_device *, dev)
-+			     __field(void *, data)
-+			     __field(struct drm_file *, file)
-+			     __field(u32, action)
-+	    ),
-+
-+	    TP_fast_assign(
-+			   __entry->dev = dev;
-+			   __entry->data = data;
-+			   __entry->file = file;
-+			   __entry->action = action;
-+	    ),
-+
-+	    TP_printk("dev=%p, data=%p, file=%p, action=%u",
-+		      __entry->dev, __entry->data, __entry->file, __entry->action)
-+);
-+
-+TRACE_EVENT(i915_pxp_teardown_required_callback,
-+	    TP_PROTO(bool global_state_attacked),
-+	    TP_ARGS(global_state_attacked),
-+
-+	    TP_STRUCT__entry(__field(bool, global_state_attacked)),
-+
-+	    TP_fast_assign(__entry->global_state_attacked = global_state_attacked;),
-+
-+	    TP_printk("global_state_attacked=%s", yesno(__entry->global_state_attacked))
-+);
-+
-+TRACE_EVENT(i915_pxp_global_terminate_complete_callback,
-+	    TP_PROTO(bool global_state_attacked),
-+	    TP_ARGS(global_state_attacked),
-+
-+	    TP_STRUCT__entry(__field(bool, global_state_attacked)),
-+
-+	    TP_fast_assign(__entry->global_state_attacked = global_state_attacked;),
-+
-+	    TP_printk("global_state_attacked=%s", yesno(__entry->global_state_attacked))
-+);
-+
- #endif /* _I915_TRACE_H_ */
- 
- /* This part must be outside protection */
 diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.c b/drivers/gpu/drm/i915/pxp/intel_pxp.c
-index 5251cc628fb0..44d17ae27b94 100644
+index 44d17ae27b94..05fe143675b1 100644
 --- a/drivers/gpu/drm/i915/pxp/intel_pxp.c
 +++ b/drivers/gpu/drm/i915/pxp/intel_pxp.c
-@@ -8,6 +8,7 @@
- #include "intel_pxp_context.h"
- #include "intel_pxp_sm.h"
- #include "intel_pxp_tee.h"
-+#include "i915_trace.h"
- 
- int i915_pxp_ops_ioctl(struct drm_device *dev, void *data, struct drm_file *drmfile)
- {
-@@ -23,6 +24,7 @@ int i915_pxp_ops_ioctl(struct drm_device *dev, void *data, struct drm_file *drmf
- 		return -EFAULT;
- 
- 	drm_dbg(&i915->drm, "i915 pxp ioctl call with action=[%d]\n", pxp_info.action);
-+	trace_i915_pxp_ops_ioctl(dev, data, drmfile, pxp_info.action);
- 
- 	mutex_lock(&i915->pxp.r0ctx->ctx_mutex);
- 
-@@ -212,6 +214,8 @@ static int intel_pxp_teardown_required_callback(struct drm_i915_private *i915)
- 
- 	mutex_unlock(&i915->pxp.r0ctx->ctx_mutex);
- 
-+	trace_i915_pxp_teardown_required_callback(i915->pxp.r0ctx->global_state_attacked);
-+
- 	return ret;
- }
- 
-@@ -236,6 +240,7 @@ static int intel_pxp_global_terminate_complete_callback(struct drm_i915_private
+@@ -334,3 +334,11 @@ void intel_pxp_irq_handler(struct intel_gt *gt, u16 iir)
  end:
- 	mutex_unlock(&i915->pxp.r0ctx->ctx_mutex);
+ 	return;
+ }
++
++bool intel_pxp_gem_object_status(struct drm_i915_private *i915, u64 gem_object_metadata)
++{
++	if (i915->pxp.r0ctx && i915->pxp.r0ctx->flag_display_hm_surface_keys)
++		return true;
++	else
++		return false;
++}
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.h b/drivers/gpu/drm/i915/pxp/intel_pxp.h
+index c0119ccdab08..eb0e548ce434 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp.h
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp.h
+@@ -111,4 +111,6 @@ int i915_pxp_global_terminate_complete_callback(struct drm_i915_private *i915);
+ int intel_pxp_init(struct drm_i915_private *i915);
+ void intel_pxp_uninit(struct drm_i915_private *i915);
  
-+	trace_i915_pxp_global_terminate_complete_callback(i915->pxp.r0ctx->global_state_attacked);
- 	drm_dbg(&i915->drm, "<<< %s ret=[%d]\n", __func__, ret);
- 
- 	return ret;
++bool intel_pxp_gem_object_status(struct drm_i915_private *i915, u64 gem_object_metadata);
++
+ #endif
 -- 
 2.17.1
 
