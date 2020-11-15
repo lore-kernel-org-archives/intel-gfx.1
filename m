@@ -2,41 +2,51 @@ Return-Path: <SRS0=4f0g=EV=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B731DC2D0E4
-	for <intel-gfx@archiver.kernel.org>; Sun, 15 Nov 2020 20:55:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 06B67C2D0E4
+	for <intel-gfx@archiver.kernel.org>; Sun, 15 Nov 2020 21:08:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 646FA223C7
-	for <intel-gfx@archiver.kernel.org>; Sun, 15 Nov 2020 20:55:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 646FA223C7
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id AB6DB22447
+	for <intel-gfx@archiver.kernel.org>; Sun, 15 Nov 2020 21:08:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AB6DB22447
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B7CA16E9BC;
-	Sun, 15 Nov 2020 20:55:01 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id EBBD86E9BC;
- Sun, 15 Nov 2020 20:54:59 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id E478FA7DFF;
- Sun, 15 Nov 2020 20:54:59 +0000 (UTC)
-MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Huang, Sean Z" <sean.z.huang@intel.com>
-Date: Sun, 15 Nov 2020 20:54:59 -0000
-Message-ID: <160547369990.9576.16675544027064925942@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20201115202347.29224-1-sean.z.huang@intel.com>
-In-Reply-To: <20201115202347.29224-1-sean.z.huang@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBz?=
- =?utf-8?q?eries_starting_with_=5B01/27=5D_drm/i915/pxp=3A_Introduce_Intel?=
- =?utf-8?q?_PXP_component?=
+	by gabe.freedesktop.org (Postfix) with ESMTP id 05F4D6E9BD;
+	Sun, 15 Nov 2020 21:08:16 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5FBC089FED
+ for <Intel-gfx@lists.freedesktop.org>; Sun, 15 Nov 2020 21:08:16 +0000 (UTC)
+IronPort-SDR: BJ34NWU8f7iuL0PmYJlIU+LRq49gM833TjcG7Xo0J2wGAYiiiNtfIqeOjPAUjvNwGzC2M/92D1
+ O0d8xFeIaAgw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9806"; a="158455835"
+X-IronPort-AV: E=Sophos;i="5.77,481,1596524400"; d="scan'208";a="158455835"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Nov 2020 13:08:15 -0800
+IronPort-SDR: ymX3Wg032ij7y4PDHYu7xeZdDo+veKfhQ6f8z7Zk5tgWiWiN3cN4dAPxbFTOXspI1IeE45iGGj
+ O7XL8HBftg7Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.77,481,1596524400"; d="scan'208";a="430009552"
+Received: from sean-virtualbox.fm.intel.com ([10.105.158.96])
+ by fmsmga001.fm.intel.com with ESMTP; 15 Nov 2020 13:08:15 -0800
+From: "Huang, Sean Z" <sean.z.huang@intel.com>
+To: Intel-gfx@lists.freedesktop.org
+Date: Sun, 15 Nov 2020 13:07:51 -0800
+Message-Id: <20201115210815.5272-3-sean.z.huang@intel.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20201115210815.5272-1-sean.z.huang@intel.com>
+References: <20201115210815.5272-1-sean.z.huang@intel.com>
+Subject: [Intel-gfx] [PATCH 03/27] drm/i915/pxp: Add PXP context for logical
+ hardware states.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,97 +59,241 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-PT0gU2VyaWVzIERldGFpbHMgPT0KClNlcmllczogc2VyaWVzIHN0YXJ0aW5nIHdpdGggWzAxLzI3
-XSBkcm0vaTkxNS9weHA6IEludHJvZHVjZSBJbnRlbCBQWFAgY29tcG9uZW50ClVSTCAgIDogaHR0
-cHM6Ly9wYXRjaHdvcmsuZnJlZWRlc2t0b3Aub3JnL3Nlcmllcy84Mzg2Mi8KU3RhdGUgOiBmYWls
-dXJlCgo9PSBTdW1tYXJ5ID09CgpDQUxMICAgIHNjcmlwdHMvY2hlY2tzeXNjYWxscy5zaAogIENB
-TEwgICAgc2NyaXB0cy9hdG9taWMvY2hlY2stYXRvbWljcy5zaAogIERFU0NFTkQgIG9ianRvb2wK
-ICBDSEsgICAgIGluY2x1ZGUvZ2VuZXJhdGVkL2NvbXBpbGUuaAogIEhEUlRFU1QgZHJpdmVycy9n
-cHUvZHJtL2k5MTUvcHhwL2ludGVsX3B4cF9zbS5oCkluIGZpbGUgaW5jbHVkZWQgZnJvbSA8Y29t
-bWFuZC1saW5lPjoKLi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9weHAvaW50ZWxfcHhwX3NtLmg6MTA3
-OjQxOiBlcnJvcjog4oCYc3RydWN0IGRybV9pOTE1X3ByaXZhdGXigJkgZGVjbGFyZWQgaW5zaWRl
-IHBhcmFtZXRlciBsaXN0IHdpbGwgbm90IGJlIHZpc2libGUgb3V0c2lkZSBvZiB0aGlzIGRlZmlu
-aXRpb24gb3IgZGVjbGFyYXRpb24gWy1XZXJyb3JdCiBpbnQgaW50ZWxfcHhwX3NtX3Jlc2VydmVf
-c2Vzc2lvbihzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqaTkxNSwgc3RydWN0IGRybV9maWxlICpk
-cm1maWxlLAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF5+fn5+fn5+
-fn5+fn5+fn4KLi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9weHAvaW50ZWxfcHhwX3NtLmg6MTEwOjQ1
-OiBlcnJvcjog4oCYc3RydWN0IGRybV9pOTE1X3ByaXZhdGXigJkgZGVjbGFyZWQgaW5zaWRlIHBh
-cmFtZXRlciBsaXN0IHdpbGwgbm90IGJlIHZpc2libGUgb3V0c2lkZSBvZiB0aGlzIGRlZmluaXRp
-b24gb3IgZGVjbGFyYXRpb24gWy1XZXJyb3JdCiBpbnQgaW50ZWxfcHhwX3NtX3Jlc2VydmVfYXJi
-X3Nlc3Npb24oc3RydWN0IGRybV9pOTE1X3ByaXZhdGUgKmk5MTUsIHUzMiAqcHhwX3RhZyk7CiAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF5+fn5+fn5+fn5+fn5+
-fn4KLi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9weHAvaW50ZWxfcHhwX3NtLmg6MTExOjUwOiBlcnJv
-cjog4oCYc3RydWN0IGRybV9pOTE1X3ByaXZhdGXigJkgZGVjbGFyZWQgaW5zaWRlIHBhcmFtZXRl
-ciBsaXN0IHdpbGwgbm90IGJlIHZpc2libGUgb3V0c2lkZSBvZiB0aGlzIGRlZmluaXRpb24gb3Ig
-ZGVjbGFyYXRpb24gWy1XZXJyb3JdCiBpbnQgcHhwX3NtX21hcmtfcHJvdGVjdGVkX3Nlc3Npb25f
-aW5fcGxheShzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqaTkxNSwgaW50IHNlc3Npb25fdHlwZSwK
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBefn5+fn5+
-fn5+fn5+fn5+Ci4vZHJpdmVycy9ncHUvZHJtL2k5MTUvcHhwL2ludGVsX3B4cF9zbS5oOjExMzo1
-MjogZXJyb3I6IOKAmHN0cnVjdCBkcm1faTkxNV9wcml2YXRl4oCZIGRlY2xhcmVkIGluc2lkZSBw
-YXJhbWV0ZXIgbGlzdCB3aWxsIG5vdCBiZSB2aXNpYmxlIG91dHNpZGUgb2YgdGhpcyBkZWZpbml0
-aW9uIG9yIGRlY2xhcmF0aW9uIFstV2Vycm9yXQogaW50IHB4cF9zbV90ZXJtaW5hdGVfcHJvdGVj
-dGVkX3Nlc3Npb25fc2FmZShzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqaTkxNSwgaW50IGNvbnRl
-eHRfaWQsCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICBefn5+fn5+fn5+fn5+fn5+Ci4vZHJpdmVycy9ncHUvZHJtL2k5MTUvcHhwL2ludGVsX3B4cF9z
-bS5oOjExNTo1NDogZXJyb3I6IOKAmHN0cnVjdCBkcm1faTkxNV9wcml2YXRl4oCZIGRlY2xhcmVk
-IGluc2lkZSBwYXJhbWV0ZXIgbGlzdCB3aWxsIG5vdCBiZSB2aXNpYmxlIG91dHNpZGUgb2YgdGhp
-cyBkZWZpbml0aW9uIG9yIGRlY2xhcmF0aW9uIFstV2Vycm9yXQogaW50IHB4cF9zbV90ZXJtaW5h
-dGVfcHJvdGVjdGVkX3Nlc3Npb25fdW5zYWZlKHN0cnVjdCBkcm1faTkxNV9wcml2YXRlICppOTE1
-LCBpbnQgc2Vzc2lvbl90eXBlLAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICBefn5+fn5+fn5+fn5+fn5+Ci4vZHJpdmVycy9ncHUvZHJtL2k5MTUv
-cHhwL2ludGVsX3B4cF9zbS5oOjExNzo1NTogZXJyb3I6IOKAmHN0cnVjdCBkcm1faTkxNV9wcml2
-YXRl4oCZIGRlY2xhcmVkIGluc2lkZSBwYXJhbWV0ZXIgbGlzdCB3aWxsIG5vdCBiZSB2aXNpYmxl
-IG91dHNpZGUgb2YgdGhpcyBkZWZpbml0aW9uIG9yIGRlY2xhcmF0aW9uIFstV2Vycm9yXQogaW50
-IGludGVsX3B4cF9zbV90ZXJtaW5hdGVfYWxsX2FjdGl2ZV9zZXNzaW9ucyhzdHJ1Y3QgZHJtX2k5
-MTVfcHJpdmF0ZSAqaTkxNSwgaW50IHNlc3Npb25fdHlwZSk7CiAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBefn5+fn5+fn5+fn5+fn5+Ci4vZHJp
-dmVycy9ncHUvZHJtL2k5MTUvcHhwL2ludGVsX3B4cF9zbS5oOjExODozOTogZXJyb3I6IOKAmHN0
-cnVjdCBkcm1faTkxNV9wcml2YXRl4oCZIGRlY2xhcmVkIGluc2lkZSBwYXJhbWV0ZXIgbGlzdCB3
-aWxsIG5vdCBiZSB2aXNpYmxlIG91dHNpZGUgb2YgdGhpcyBkZWZpbml0aW9uIG9yIGRlY2xhcmF0
-aW9uIFstV2Vycm9yXQogaW50IHB4cF9zbV9pb2N0bF9xdWVyeV9weHBfdGFnKHN0cnVjdCBkcm1f
-aTkxNV9wcml2YXRlICppOTE1LCB1MzIgKnNlc3Npb25faXNfYWxpdmUsIHUzMiAqcHhwX3RhZyk7
-CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF5+fn5+fn5+fn5+fn5+fn4K
-Li9kcml2ZXJzL2dwdS9kcm0vaTkxNS9weHAvaW50ZWxfcHhwX3NtLmg6MTE5OjM2OiBlcnJvcjog
-4oCYc3RydWN0IGRybV9pOTE1X3ByaXZhdGXigJkgZGVjbGFyZWQgaW5zaWRlIHBhcmFtZXRlciBs
-aXN0IHdpbGwgbm90IGJlIHZpc2libGUgb3V0c2lkZSBvZiB0aGlzIGRlZmluaXRpb24gb3IgZGVj
-bGFyYXRpb24gWy1XZXJyb3JdCiBpbnQgcHhwX3NtX3NldF9rY3JfaW5pdF9yZWcoc3RydWN0IGRy
-bV9pOTE1X3ByaXZhdGUgKmk5MTUpOwogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICBefn5+fn5+fn5+fn5+fn5+Ci4vZHJpdmVycy9ncHUvZHJtL2k5MTUvcHhwL2ludGVsX3B4cF9z
-bS5oOjEyMDozNDogZXJyb3I6IOKAmHN0cnVjdCBkcm1faTkxNV9wcml2YXRl4oCZIGRlY2xhcmVk
-IGluc2lkZSBwYXJhbWV0ZXIgbGlzdCB3aWxsIG5vdCBiZSB2aXNpYmxlIG91dHNpZGUgb2YgdGhp
-cyBkZWZpbml0aW9uIG9yIGRlY2xhcmF0aW9uIFstV2Vycm9yXQogdTMyIGludGVsX3B4cF9nZXRf
-cHhwX3RhZyhzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqaTkxNSwgaW50IHNlc3Npb25faWR4LAog
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXn5+fn5+fn5+fn5+fn5+fgouL2RyaXZl
-cnMvZ3B1L2RybS9pOTE1L3B4cC9pbnRlbF9weHBfc20uaDoxMjI6NTU6IGVycm9yOiDigJhzdHJ1
-Y3QgZHJtX2k5MTVfcHJpdmF0ZeKAmSBkZWNsYXJlZCBpbnNpZGUgcGFyYW1ldGVyIGxpc3Qgd2ls
-bCBub3QgYmUgdmlzaWJsZSBvdXRzaWRlIG9mIHRoaXMgZGVmaW5pdGlvbiBvciBkZWNsYXJhdGlv
-biBbLVdlcnJvcl0KIGJvb2wgaW50ZWxfcHhwX3NtX2lzX2FueV90eXBlMF9zZXNzaW9uX2luX3Bs
-YXkoc3RydWN0IGRybV9pOTE1X3ByaXZhdGUgKmk5MTUsIGludCBwcm90ZWN0aW9uX21vZGUpOwog
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXn5+
-fn5+fn5+fn5+fn5+fgouL2RyaXZlcnMvZ3B1L2RybS9pOTE1L3B4cC9pbnRlbF9weHBfc20uaDox
-MjM6MzE6IGVycm9yOiDigJhzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZeKAmSBkZWNsYXJlZCBpbnNp
-ZGUgcGFyYW1ldGVyIGxpc3Qgd2lsbCBub3QgYmUgdmlzaWJsZSBvdXRzaWRlIG9mIHRoaXMgZGVm
-aW5pdGlvbiBvciBkZWNsYXJhdGlvbiBbLVdlcnJvcl0KIGludCBpbnRlbF9weHBfc21fY2xvc2Uo
-c3RydWN0IGRybV9pOTE1X3ByaXZhdGUgKmk5MTUsIHN0cnVjdCBkcm1fZmlsZSAqZHJtZmlsZSk7
-CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBefn5+fn5+fn5+fn5+fn5+CmNjMTogYWxs
-IHdhcm5pbmdzIGJlaW5nIHRyZWF0ZWQgYXMgZXJyb3JzCmRyaXZlcnMvZ3B1L2RybS9pOTE1L01h
-a2VmaWxlOjMxMjogcmVjaXBlIGZvciB0YXJnZXQgJ2RyaXZlcnMvZ3B1L2RybS9pOTE1L3B4cC9p
-bnRlbF9weHBfc20uaGRydGVzdCcgZmFpbGVkCm1ha2VbNF06ICoqKiBbZHJpdmVycy9ncHUvZHJt
-L2k5MTUvcHhwL2ludGVsX3B4cF9zbS5oZHJ0ZXN0XSBFcnJvciAxCnNjcmlwdHMvTWFrZWZpbGUu
-YnVpbGQ6NTAwOiByZWNpcGUgZm9yIHRhcmdldCAnZHJpdmVycy9ncHUvZHJtL2k5MTUnIGZhaWxl
-ZAptYWtlWzNdOiAqKiogW2RyaXZlcnMvZ3B1L2RybS9pOTE1XSBFcnJvciAyCnNjcmlwdHMvTWFr
-ZWZpbGUuYnVpbGQ6NTAwOiByZWNpcGUgZm9yIHRhcmdldCAnZHJpdmVycy9ncHUvZHJtJyBmYWls
-ZWQKbWFrZVsyXTogKioqIFtkcml2ZXJzL2dwdS9kcm1dIEVycm9yIDIKc2NyaXB0cy9NYWtlZmls
-ZS5idWlsZDo1MDA6IHJlY2lwZSBmb3IgdGFyZ2V0ICdkcml2ZXJzL2dwdScgZmFpbGVkCm1ha2Vb
-MV06ICoqKiBbZHJpdmVycy9ncHVdIEVycm9yIDIKTWFrZWZpbGU6MTc5OTogcmVjaXBlIGZvciB0
-YXJnZXQgJ2RyaXZlcnMnIGZhaWxlZAptYWtlOiAqKiogW2RyaXZlcnNdIEVycm9yIDIKCgpfX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpJbnRlbC1nZnggbWFp
-bGluZyBsaXN0CkludGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9pbnRlbC1nZngK
+Add PXP context which represents combined view
+of driver and logical HW states.
+
+Signed-off-by: Huang, Sean Z <sean.z.huang@intel.com>
+---
+ drivers/gpu/drm/i915/Makefile                |  3 +-
+ drivers/gpu/drm/i915/pxp/intel_pxp.c         | 32 ++++++++++--
+ drivers/gpu/drm/i915/pxp/intel_pxp.h         |  3 ++
+ drivers/gpu/drm/i915/pxp/intel_pxp_context.c | 51 ++++++++++++++++++++
+ drivers/gpu/drm/i915/pxp/intel_pxp_context.h | 44 +++++++++++++++++
+ 5 files changed, 128 insertions(+), 5 deletions(-)
+ create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_context.c
+ create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_context.h
+
+diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
+index 8274fea96009..831e8ad57560 100644
+--- a/drivers/gpu/drm/i915/Makefile
++++ b/drivers/gpu/drm/i915/Makefile
+@@ -256,7 +256,8 @@ i915-y += i915_perf.o
+ 
+ # Protected execution platform (PXP) support
+ i915-y += \
+-	pxp/intel_pxp.o
++	pxp/intel_pxp.o \
++	pxp/intel_pxp_context.o \
+ 
+ # Post-mortem debug and GPU hang state capture
+ i915-$(CONFIG_DRM_I915_CAPTURE_ERROR) += i915_gpu_error.o
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.c b/drivers/gpu/drm/i915/pxp/intel_pxp.c
+index d98bff4a0fde..6d358f241406 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp.c
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp.c
+@@ -5,6 +5,7 @@
+ 
+ #include "i915_drv.h"
+ #include "intel_pxp.h"
++#include "intel_pxp_context.h"
+ 
+ static void intel_pxp_write_irq_mask_reg(struct drm_i915_private *i915, u32 mask)
+ {
+@@ -32,14 +33,32 @@ static int intel_pxp_teardown_required_callback(struct drm_i915_private *i915)
+ {
+ 	drm_dbg(&i915->drm, "%s was called\n", __func__);
+ 
++	mutex_lock(&i915->pxp.r0ctx->ctx_mutex);
++
++	i915->pxp.r0ctx->global_state_attacked = true;
++	i915->pxp.r0ctx->flag_display_hm_surface_keys = false;
++
++	mutex_unlock(&i915->pxp.r0ctx->ctx_mutex);
++
+ 	return 0;
+ }
+ 
+ static int intel_pxp_global_terminate_complete_callback(struct drm_i915_private *i915)
+ {
++	int ret = 0;
++
+ 	drm_dbg(&i915->drm, ">>> %s\n", __func__);
+ 
+-	return 0;
++	mutex_lock(&i915->pxp.r0ctx->ctx_mutex);
++
++	if (i915->pxp.r0ctx->global_state_attacked)
++		i915->pxp.r0ctx->global_state_attacked = false;
++
++	mutex_unlock(&i915->pxp.r0ctx->ctx_mutex);
++
++	drm_dbg(&i915->drm, "<<< %s ret=[%d]\n", __func__, ret);
++
++	return ret;
+ }
+ 
+ static void intel_pxp_irq_work(struct work_struct *work)
+@@ -68,21 +87,26 @@ static void intel_pxp_irq_work(struct work_struct *work)
+ 
+ int intel_pxp_init(struct drm_i915_private *i915)
+ {
+-	int ret;
+-
+ 	drm_info(&i915->drm, "i915_pxp_init\n");
+ 
++	i915->pxp.r0ctx = intel_pxp_create_r0ctx(i915);
++	if (!i915->pxp.r0ctx) {
++		drm_dbg(&i915->drm, "Failed to create pxp ctx\n");
++		return -EFAULT;
++	}
++
+ 	INIT_WORK(&i915->pxp.irq_work, intel_pxp_irq_work);
+ 
+ 	i915->pxp.handled_irr = (PXP_IRQ_VECTOR_DISPLAY_PXP_STATE_TERMINATED |
+ 				 PXP_IRQ_VECTOR_DISPLAY_APP_TERM_PER_FW_REQ |
+ 				 PXP_IRQ_VECTOR_PXP_DISP_STATE_RESET_COMPLETE);
+ 
+-	return ret;
++	return 0;
+ }
+ 
+ void intel_pxp_uninit(struct drm_i915_private *i915)
+ {
++	intel_pxp_destroy_r0ctx(i915);
+ }
+ 
+ /**
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.h b/drivers/gpu/drm/i915/pxp/intel_pxp.h
+index 620774fc32e2..4dec35bb834d 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp.h
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp.h
+@@ -12,6 +12,9 @@
+ #define PXP_IRQ_VECTOR_DISPLAY_APP_TERM_PER_FW_REQ BIT(2)
+ #define PXP_IRQ_VECTOR_PXP_DISP_STATE_RESET_COMPLETE BIT(3)
+ 
++#define MAX_TYPE0_SESSIONS 16
++#define MAX_TYPE1_SESSIONS 6
++
+ enum pxp_sm_session_req {
+ 	/* Request KMD to allocate session id and move it to IN INIT */
+ 	PXP_SM_REQ_SESSION_ID_INIT = 0x0,
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_context.c b/drivers/gpu/drm/i915/pxp/intel_pxp_context.c
+new file mode 100644
+index 000000000000..692370e758de
+--- /dev/null
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_context.c
+@@ -0,0 +1,51 @@
++/* SPDX-License-Identifier: MIT */
++/*
++ * Copyright(c) 2020, Intel Corporation. All rights reserved.
++ */
++
++#include "intel_pxp_context.h"
++
++/**
++ * intel_pxp_create_ctx - To create a new pxp context.
++ * @i915: i915 device handle.
++ *
++ * Return: pointer to new_ctx, NULL for failure
++ */
++struct pxp_context *intel_pxp_create_r0ctx(struct drm_i915_private *i915)
++{
++	struct pxp_context *new_ctx = NULL;
++
++	drm_dbg(&i915->drm, ">>> %s\n", __func__);
++
++	new_ctx = kzalloc(sizeof(*new_ctx), GFP_KERNEL);
++	if (!new_ctx) {
++		drm_dbg(&i915->drm, "unable to allocate new pxp context!\n");
++		return NULL;
++	}
++
++	get_random_bytes(&new_ctx->r0ctx_id, sizeof(new_ctx->r0ctx_id));
++
++	new_ctx->global_state_attacked = false;
++
++	mutex_init(&new_ctx->ctx_mutex);
++
++	INIT_LIST_HEAD(&new_ctx->active_pxp_type0_sessions);
++	INIT_LIST_HEAD(&new_ctx->active_pxp_type1_sessions);
++	INIT_LIST_HEAD(&new_ctx->r3ctx_list);
++
++	drm_dbg(&i915->drm, "<<< %s r0ctx_id=[0x%08x]\n", __func__, new_ctx->r0ctx_id);
++
++	return new_ctx;
++}
++
++/**
++ * intel_pxp_destroy_ctx - To destroy the pxp context.
++ * @i915: i915 device handle.
++ *
++ * Return: return 0 for success, failure otherwise.
++ */
++void intel_pxp_destroy_r0ctx(struct drm_i915_private *i915)
++{
++	kfree(i915->pxp.r0ctx);
++	i915->pxp.r0ctx = NULL;
++}
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_context.h b/drivers/gpu/drm/i915/pxp/intel_pxp_context.h
+new file mode 100644
+index 000000000000..5de4e68b9dce
+--- /dev/null
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_context.h
+@@ -0,0 +1,44 @@
++/* SPDX-License-Identifier: MIT */
++/*
++ * Copyright(c) 2020, Intel Corporation. All rights reserved.
++ */
++
++#ifndef __INTEL_PXP_CONTEXT_H__
++#define __INTEL_PXP_CONTEXT_H__
++
++#include <linux/list.h>
++#include "i915_drv.h"
++#include "pxp/intel_pxp.h"
++
++/* struct pxp_context - Represents combined view of driver and logical HW states. */
++struct pxp_context {
++	/** @ctx_mutex: mutex to protect the ring0 pxp context */
++	struct mutex ctx_mutex;
++
++	struct list_head active_pxp_type0_sessions;
++	struct list_head active_pxp_type1_sessions;
++
++	struct list_head r3ctx_list;
++
++	u32 type0_session_pxp_tag[MAX_TYPE0_SESSIONS];
++	u32 type1_session_pxp_tag[MAX_TYPE1_SESSIONS];
++
++	int r0ctx_id;
++
++	bool global_state_attacked;
++	bool global_state_in_suspend;
++	bool flag_display_hm_surface_keys;
++};
++
++struct pxp_r3ctx {
++	/** @listhead: linked list infrastructure, do not change its order. */
++	struct list_head listhead;
++
++	/** @r3ctx: ring 3 context id */
++	u32 r3ctx;
++};
++
++struct pxp_context *intel_pxp_create_r0ctx(struct drm_i915_private *i915);
++void intel_pxp_destroy_r0ctx(struct drm_i915_private *i915);
++
++#endif /* __INTEL_PXP_CONTEXT_H__ */
+-- 
+2.17.1
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
