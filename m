@@ -7,46 +7,46 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DA66EC63699
-	for <intel-gfx@archiver.kernel.org>; Sun, 15 Nov 2020 20:24:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7A983C63697
+	for <intel-gfx@archiver.kernel.org>; Sun, 15 Nov 2020 20:24:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A6B28238E6
-	for <intel-gfx@archiver.kernel.org>; Sun, 15 Nov 2020 20:24:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A6B28238E6
+	by mail.kernel.org (Postfix) with ESMTPS id 41AEE238E6
+	for <intel-gfx@archiver.kernel.org>; Sun, 15 Nov 2020 20:24:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 41AEE238E6
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 139AC6E9BB;
-	Sun, 15 Nov 2020 20:24:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D86B96E99A;
+	Sun, 15 Nov 2020 20:24:02 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ACD0389F07
- for <Intel-gfx@lists.freedesktop.org>; Sun, 15 Nov 2020 20:23:48 +0000 (UTC)
-IronPort-SDR: ovFymw3eYN6J4Ahauvgd+rGNfGxnmUQYmWpbhVugi/3TKb1XfNYUALSvwHiwm5q9nXnVaDNogs
- QUa5aLZwO0eQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9806"; a="167165304"
-X-IronPort-AV: E=Sophos;i="5.77,481,1596524400"; d="scan'208";a="167165304"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 90F4289F53
+ for <Intel-gfx@lists.freedesktop.org>; Sun, 15 Nov 2020 20:23:49 +0000 (UTC)
+IronPort-SDR: QP27arXdDBv7Hp0W6xL74GdbSorpAumoI/FUxAGMGLDzVN1v7PiazrLKnDiVX/0hSZAfJsqSvn
+ 6DPEVovhsuWQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9806"; a="167165313"
+X-IronPort-AV: E=Sophos;i="5.77,481,1596524400"; d="scan'208";a="167165313"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  15 Nov 2020 12:23:48 -0800
-IronPort-SDR: qp7/ewbRUkoygr8XadiDyd+FkLCKxkaa7quyDREK/MYDl5qYjiAUZVxN5qvxrEqXU00TKhaixk
- yhC8U9k8y9gA==
+IronPort-SDR: TmHHHjRaEFYKVvvBDIV3yfO8I0fqeYChxucubvQFDwgISPzuXqY0VNYs126mOv3WmToQ6WXgyO
+ JwzZQlvoEO/Q==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.77,481,1596524400"; d="scan'208";a="430005344"
+X-IronPort-AV: E=Sophos;i="5.77,481,1596524400"; d="scan'208";a="430005355"
 Received: from sean-virtualbox.fm.intel.com ([10.105.158.96])
  by fmsmga001.fm.intel.com with ESMTP; 15 Nov 2020 12:23:47 -0800
 From: "Huang, Sean Z" <sean.z.huang@intel.com>
 To: Intel-gfx@lists.freedesktop.org
-Date: Sun, 15 Nov 2020 12:23:28 -0800
-Message-Id: <20201115202347.29224-8-sean.z.huang@intel.com>
+Date: Sun, 15 Nov 2020 12:23:39 -0800
+Message-Id: <20201115202347.29224-19-sean.z.huang@intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20201115202347.29224-1-sean.z.huang@intel.com>
 References: <20201115202347.29224-1-sean.z.huang@intel.com>
-Subject: [Intel-gfx] [PATCH 08/27] drm/i915/pxp: Read register to check
- hardware session state
+Subject: [Intel-gfx] [PATCH 19/27] drm/i915/pxp: Enable ioctl action to send
+ TEE commands
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,286 +65,175 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Implement the functions to check the hardware protected session
-state via reading the hardware register session in play.
+Enable the ioctl action to allow ring3 driver sends TEE commands
+via ring0 PXP ioctl, instead of TEE iotcl. So we can centralize
+those protection operations at ring0 PXP.
 
 Signed-off-by: Huang, Sean Z <sean.z.huang@intel.com>
 ---
- drivers/gpu/drm/i915/pxp/intel_pxp.h    |   3 +
- drivers/gpu/drm/i915/pxp/intel_pxp_sm.c | 176 ++++++++++++++++++++++++
- drivers/gpu/drm/i915/pxp/intel_pxp_sm.h |  51 +++++++
- 3 files changed, 230 insertions(+)
+ drivers/gpu/drm/i915/pxp/intel_pxp.c     | 14 +++++
+ drivers/gpu/drm/i915/pxp/intel_pxp.h     | 18 +++++++
+ drivers/gpu/drm/i915/pxp/intel_pxp_tee.c | 65 ++++++++++++++++++++++++
+ drivers/gpu/drm/i915/pxp/intel_pxp_tee.h |  5 ++
+ 4 files changed, 102 insertions(+)
 
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.c b/drivers/gpu/drm/i915/pxp/intel_pxp.c
+index a17af81a8d54..d0df35d99e37 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp.c
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp.c
+@@ -79,6 +79,20 @@ int i915_pxp_ops_ioctl(struct drm_device *dev, void *data, struct drm_file *drmf
+ 		ret = pxp_sm_ioctl_query_pxp_tag(i915, &params->session_is_alive, &params->pxp_tag);
+ 		break;
+ 	}
++	case PXP_ACTION_TEE_IO_MESSAGE:
++	{
++		struct pxp_tee_io_message_params *params = &pxp_info.tee_io_message;
++
++		ret = pxp_tee_ioctl_io_message(i915,
++					       params->msg_in, params->msg_in_size,
++					       params->msg_out, &params->msg_out_size,
++					       params->msg_out_buf_size);
++		if (ret) {
++			drm_dbg(&i915->drm, "Failed to send TEE IO message\n");
++			ret = -EFAULT;
++		}
++		break;
++	}
+ 	case PXP_ACTION_SET_R3_CONTEXT:
+ 	{
+ 		ret = intel_pxp_set_r3ctx(i915, pxp_info.set_r3ctx);
 diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.h b/drivers/gpu/drm/i915/pxp/intel_pxp.h
-index 21a6964fc64e..95d3deba7ade 100644
+index 3d70b9bab79f..2c16ed0b5c0b 100644
 --- a/drivers/gpu/drm/i915/pxp/intel_pxp.h
 +++ b/drivers/gpu/drm/i915/pxp/intel_pxp.h
-@@ -12,6 +12,9 @@
- #define PXP_IRQ_VECTOR_DISPLAY_APP_TERM_PER_FW_REQ BIT(2)
- #define PXP_IRQ_VECTOR_PXP_DISP_STATE_RESET_COMPLETE BIT(3)
+@@ -33,6 +33,7 @@ enum pxp_sm_session_req {
+ enum pxp_ioctl_action {
+ 	PXP_ACTION_QUERY_PXP_TAG = 0,
+ 	PXP_ACTION_SET_SESSION_STATUS = 1,
++	PXP_ACTION_TEE_IO_MESSAGE = 4,
+ 	PXP_ACTION_SET_R3_CONTEXT = 5,
+ };
  
-+#define pxp_session_list(i915, session_type) (((session_type) == SESSION_TYPE_TYPE0) ? \
-+	&(i915)->pxp.r0ctx->active_pxp_type0_sessions : &(i915)->pxp.r0ctx->active_pxp_type1_sessions)
-+
- #define MAX_TYPE0_SESSIONS 16
- #define MAX_TYPE1_SESSIONS 6
- 
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_sm.c b/drivers/gpu/drm/i915/pxp/intel_pxp_sm.c
-index 763d194c5f4c..68d421976e33 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp_sm.c
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_sm.c
-@@ -10,6 +10,21 @@
- #include "intel_pxp_sm.h"
- #include "intel_pxp_context.h"
- 
-+static int pxp_sm_reg_read(struct drm_i915_private *i915, u32 offset, u32 *regval)
-+{
-+	intel_wakeref_t wakeref;
-+
-+	if (!i915 || !regval)
-+		return -EINVAL;
-+
-+	with_intel_runtime_pm(&i915->runtime_pm, wakeref) {
-+		i915_reg_t reg_offset = {offset};
-+		*regval = intel_uncore_read(&i915->uncore, reg_offset);
-+	}
-+
-+	return 0;
-+}
-+
- static int pxp_reg_write(struct drm_i915_private *i915, u32 offset, u32 regval)
- {
- 	intel_wakeref_t wakeref;
-@@ -26,6 +41,167 @@ static int pxp_reg_write(struct drm_i915_private *i915, u32 offset, u32 regval)
- 	return 0;
- }
+@@ -59,12 +60,29 @@ struct pxp_sm_set_session_status_params {
+ 	u32 req_session_state;
+ };
  
 +/**
-+ * is_sw_session_active - Check if the given sw session id is active.
-+ * @i915: i915 device handle.
-+ * @session_type: Specified session type
-+ * @session_index: Numeric session identifier.
-+ * @is_in_play: Set false to return true if the specified session is active.
-+ *              Set true to also check if the session is active and in_play.
-+ * @protection_mode: get the protection mode of specified session.
-+ *
-+ * The caller needs to use ctx_mutex lock to protect the session_list
-+ * inside this function.
-+ *
-+ * Return : true if session with the same identifier is active (and in_play).
++ * struct pxp_tee_io_message_params - Params to send/receive message to/from TEE.
 + */
-+static bool is_sw_session_active(struct drm_i915_private *i915, int session_type,
-+				 int session_index, bool is_in_play, int *protection_mode)
++struct pxp_tee_io_message_params {
++	/** @msg_in: in - message input from UMD */
++	u8 __user *msg_in;
++	/** @msg_in_size: in - message input size from UMD */
++	u32 msg_in_size;
++	/** @msg_out: in - message output buffer from UMD */
++	u8 __user *msg_out;
++	/** @msg_out_size: out- message output size from TEE */
++	u32 msg_out_size;
++	/** @msg_out_buf_size: in - message output buffer size from UMD */
++	u32 msg_out_buf_size;
++};
++
+ struct pxp_info {
+ 	u32 action;
+ 	u32 sm_status;
+ 	union {
+ 		struct pxp_sm_query_pxp_tag             query_pxp_tag;
+ 		struct pxp_sm_set_session_status_params set_session_status;
++		struct pxp_tee_io_message_params        tee_io_message;
+ 		u32 set_r3ctx;
+ 	};
+ } __packed;
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
+index 88418fbd370e..b83490aaa350 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
+@@ -60,6 +60,71 @@ static int intel_pxp_tee_io_message(struct drm_i915_private *i915,
+ 	return ret;
+ }
+ 
++int pxp_tee_ioctl_io_message(struct drm_i915_private *i915,
++			     void __user *msg_in_user_ptr, u32 msg_in_size,
++			     void __user *msg_out_user_ptr, u32 *msg_out_size_ptr,
++			     u32 msg_out_buf_size)
 +{
-+	struct pxp_protected_session *current_session;
-+
-+	lockdep_assert_held(&i915->pxp.r0ctx->ctx_mutex);
-+
-+	list_for_each_entry(current_session, pxp_session_list(i915, session_type), session_list) {
-+		if (current_session->session_index == session_index) {
-+			if (protection_mode)
-+				*protection_mode = current_session->protection_mode;
-+
-+			if (is_in_play && !current_session->session_is_in_play)
-+				return false;
-+
-+			return true;
-+		}
-+	}
-+
-+	/* session id not found. return false */
-+	return false;
-+}
-+
-+static bool is_hw_type0_session_in_play(struct drm_i915_private *i915, int session_index)
-+{
-+	u32 regval_sip = 0;
-+	u32 reg_session_id_mask;
-+	bool hw_session_is_in_play = false;
-+	int ret = 0;
-+
-+	if (!i915 || session_index < 0 || session_index >= MAX_TYPE0_SESSIONS)
-+		goto end;
-+
-+	ret = pxp_sm_reg_read(i915, GEN12_KCR_SIP.reg, &regval_sip);
-+	if (ret) {
-+		drm_dbg(&i915->drm, "Failed to read()\n");
-+		goto end;
-+	}
-+
-+	reg_session_id_mask = (1 << session_index);
-+	hw_session_is_in_play = (bool)(regval_sip & reg_session_id_mask);
-+end:
-+	return hw_session_is_in_play;
-+}
-+
-+static bool is_hw_type1_session_in_play(struct drm_i915_private *i915, int session_index)
-+{
-+	int ret = 0;
-+	u32 regval_tsip_low = 0;
-+	u32 regval_tsip_high = 0;
-+	u64 reg_session_id_mask;
-+	u64 regval_tsip;
-+	bool hw_session_is_in_play = false;
-+
-+	if (!i915 || session_index < 0 || session_index >= MAX_TYPE1_SESSIONS)
-+		goto end;
-+
-+	ret = pxp_sm_reg_read(i915, GEN12_KCR_TSIP_LOW.reg, &regval_tsip_low);
-+	if (ret) {
-+		drm_dbg(&i915->drm, "Failed to pxp_sm_reg_read()\n");
-+		goto end;
-+	}
-+
-+	ret = pxp_sm_reg_read(i915, GEN12_KCR_TSIP_HIGH.reg, &regval_tsip_high);
-+	if (ret) {
-+		drm_dbg(&i915->drm, "Failed to pxp_sm_reg_read()\n");
-+		goto end;
-+	}
-+
-+	reg_session_id_mask = (1 << session_index);
-+	regval_tsip = ((u64)regval_tsip_high << 32) | regval_tsip_low;
-+	hw_session_is_in_play = (bool)(regval_tsip & reg_session_id_mask);
-+end:
-+	return hw_session_is_in_play;
-+}
-+
-+static bool is_hw_session_in_play(struct drm_i915_private *i915,
-+				  int session_type, int session_index)
-+{
-+	bool is_in_play = false;
-+
-+	if (session_type == SESSION_TYPE_TYPE0)
-+		is_in_play = is_hw_type0_session_in_play(i915, session_index);
-+	else if (session_type == SESSION_TYPE_TYPE1)
-+		is_in_play = is_hw_type1_session_in_play(i915, session_index);
-+	else
-+		drm_dbg(&i915->drm, "Failed to %s invalid session_type=[%d]\n", __func__, session_type);
-+
-+	return is_in_play;
-+}
-+
-+/* check hw session in play reg if match the current sw state */
-+static int sync_hw_sw_state(struct drm_i915_private *i915, int session_index, int session_type)
-+{
-+	const int max_retry = 10;
-+	const int ms_delay = 10;
-+	int retry = 0;
 +	int ret;
++	void *msg_in = NULL;
++	void *msg_out = NULL;
 +
-+	if (!i915 || session_type >= SESSION_TYPE_MAX)
-+		return -EINVAL;
++	drm_dbg(&i915->drm, ">>> %s\n", __func__);
 +
-+	ret = -EINVAL;
-+	for (retry = 0; retry < max_retry; retry++) {
-+		if (is_hw_session_in_play(i915, session_type, session_index) ==
-+		    is_sw_session_active(i915, session_type, session_index, true, NULL)) {
-+			ret = 0;
-+			break;
-+		}
-+
-+		msleep(ms_delay);
++	if (!msg_in_user_ptr || !msg_out_user_ptr || msg_out_buf_size == 0 ||
++	    msg_in_size == 0 || !msg_out_size_ptr) {
++		ret = -EINVAL;
++		drm_dbg(&i915->drm, "Failed to %s, invalid params\n", __func__);
++		goto end;
 +	}
 +
++	msg_in = kzalloc(msg_in_size, GFP_KERNEL);
++	if (!msg_in) {
++		ret = -ENOMEM;
++		drm_dbg(&i915->drm, "Failed to kzalloc\n");
++		goto end;
++	}
++
++	msg_out = kzalloc(msg_out_buf_size, GFP_KERNEL);
++	if (!msg_out) {
++		ret = -ENOMEM;
++		drm_dbg(&i915->drm, "Failed to kzalloc\n");
++		goto end;
++	}
++
++	if (copy_from_user(msg_in, msg_in_user_ptr, msg_in_size) != 0) {
++		ret = -EFAULT;
++		drm_dbg(&i915->drm, "Failed to copy_from_user for TEE message\n");
++		goto end;
++	}
++
++	mutex_lock(&i915->pxp_tee_comp_mutex);
++
++	ret = intel_pxp_tee_io_message(i915,
++				       msg_in, msg_in_size,
++				       msg_out, msg_out_size_ptr,
++				       msg_out_buf_size);
++
++	mutex_unlock(&i915->pxp_tee_comp_mutex);
++
++	if (ret) {
++		drm_dbg(&i915->drm, "Failed to send/receive tee message\n");
++		goto end;
++	}
++
++	if (copy_to_user(msg_out_user_ptr, msg_out, *msg_out_size_ptr) != 0) {
++		ret = -EFAULT;
++		drm_dbg(&i915->drm, "Failed to copy_to_user for TEE message\n");
++		goto end;
++	}
++
++end:
++	kfree(msg_in);
++	kfree(msg_out);
++	drm_dbg(&i915->drm, "<<< %s ret=[%d]\n", __func__, ret);
 +	return ret;
 +}
 +
-+/**
-+ * check_if_protected_type0_sessions_are_attacked - To check if type0 active sessions are attacked.
-+ * @i915: i915 device handle.
-+ *
-+ * Return: true if HW shows protected sessions are attacked, false otherwise.
-+ */
-+static bool check_if_protected_type0_sessions_are_attacked(struct drm_i915_private *i915)
-+{
-+	i915_reg_t kcr_status_reg = KCR_STATUS_1;
-+	u32 reg_value = 0;
-+	u32 mask = 0x80000000;
-+	int ret;
-+
-+	if (!i915)
-+		return false;
-+
-+	if (i915->pxp.r0ctx->global_state_attacked)
-+		return true;
-+
-+	ret = pxp_sm_reg_read(i915, kcr_status_reg.reg, &reg_value);
-+	if (ret) {
-+		drm_dbg(&i915->drm, "Failed to pxp_sm_reg_read\n");
-+		goto end;
-+	}
-+
-+	if (reg_value & mask)
-+		return true;
-+end:
-+	return false;
-+}
-+
- int pxp_sm_set_kcr_init_reg(struct drm_i915_private *i915)
- {
- 	int ret;
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_sm.h b/drivers/gpu/drm/i915/pxp/intel_pxp_sm.h
-index 59ce2394b590..a3149c18c831 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp_sm.h
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_sm.h
-@@ -14,6 +14,57 @@
- /* Setting KCR Init bit is required after system boot */
- #define KCR_INIT_ALLOW_DISPLAY_ME_WRITES (BIT(14) | (BIT(14) << KCR_INIT_MASK_SHIFT))
+ /**
+  * i915_pxp_tee_component_bind - bind funciton to pass the function pointers to pxp_tee
+  * @i915_kdev: pointer to i915 kernel device
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.h b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.h
+index 0d0fbd0ed018..8b1581c2f50f 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.h
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.h
+@@ -11,4 +11,9 @@
+ void intel_pxp_tee_component_init(struct drm_i915_private *i915);
+ void intel_pxp_tee_component_fini(struct drm_i915_private *i915);
  
-+#define KCR_STATUS_1        _MMIO(0x320f4)
-+#define GEN12_KCR_SIP       _MMIO(0x32260)   /* KCR type0 session in play 0-31 */
-+#define GEN12_KCR_TSIP_LOW  _MMIO(0x32264)   /* KCR type1 session in play 0-31 */
-+#define GEN12_KCR_TSIP_HIGH _MMIO(0x32268)   /* KCR type1 session in play 32-63 */
++int pxp_tee_ioctl_io_message(struct drm_i915_private *i915,
++			     void __user *msg_in_user_ptr, u32 msg_in_size,
++			     void __user *msg_out_user_ptr, u32 *msg_out_size_ptr,
++			     u32 msg_out_buf_size);
 +
-+enum pxp_session_types {
-+	SESSION_TYPE_TYPE0 = 0,
-+	SESSION_TYPE_TYPE1 = 1,
-+
-+	SESSION_TYPE_MAX
-+};
-+
-+enum pxp_protection_modes {
-+	PROTECTION_MODE_NONE = 0,
-+	PROTECTION_MODE_LM   = 2,
-+	PROTECTION_MODE_HM   = 3,
-+	PROTECTION_MODE_SM   = 6,
-+
-+	PROTECTION_MODE_ALL
-+};
-+
-+/**
-+ * struct pxp_protected_session - linked list to track all active sessions.
-+ */
-+struct pxp_protected_session {
-+	/** @session_list: linked list infrastructure, do not change its order. */
-+	struct list_head session_list;
-+
-+	/** @session_index: Numeric identifier for this protected session */
-+	int session_index;
-+	/** @session_type: Type of session */
-+	int session_type;
-+	/** @protection_mode: mode of protection requested */
-+	int protection_mode;
-+	/** @context_id: context identifier of the protected session requestor */
-+	int context_id;
-+	/** @pid: pid of this session's creator */
-+	int pid;
-+	/** @drmfile: pointer to drm_file, which is allocated on device file open() call */
-+	struct drm_file *drmfile;
-+
-+	/**
-+	 * @session_is_in_play: indicates whether the session has been established
-+	 *                      in the HW root of trust if this flag is false, it
-+	 *                      indicates an application has reserved this session,
-+	 *                      but has not * established the session in the
-+	 *                      hardware yet.
-+	 */
-+	bool session_is_in_play;
-+};
-+
- int pxp_sm_set_kcr_init_reg(struct drm_i915_private *i915);
- 
- #endif /* __INTEL_PXP_SM_H__ */
+ #endif /* __INTEL_PXP_TEE_H__ */
 -- 
 2.17.1
 
