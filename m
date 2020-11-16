@@ -1,43 +1,53 @@
-Return-Path: <SRS0=4f0g=EV=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
+Return-Path: <SRS0=ME6F=EW=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-9.9 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B504CC2D0E4
-	for <intel-gfx@archiver.kernel.org>; Sun, 15 Nov 2020 22:00:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F1F3CC63697
+	for <intel-gfx@archiver.kernel.org>; Mon, 16 Nov 2020 06:27:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 573902242E
-	for <intel-gfx@archiver.kernel.org>; Sun, 15 Nov 2020 22:00:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 573902242E
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id 7872B22265
+	for <intel-gfx@archiver.kernel.org>; Mon, 16 Nov 2020 06:27:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7872B22265
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A44E189C3B;
-	Sun, 15 Nov 2020 22:00:33 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id DAEA589C27;
- Sun, 15 Nov 2020 22:00:32 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id D2DE1A8169;
- Sun, 15 Nov 2020 22:00:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D12889D4F;
+	Mon, 16 Nov 2020 06:27:32 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C46BA89D4F
+ for <intel-gfx@lists.freedesktop.org>; Mon, 16 Nov 2020 06:27:30 +0000 (UTC)
+IronPort-SDR: uRqjgUCqxWOXQP1bq9Jjmuo6U98GWMuHSBD5529xKpiGJhIKzbuhK4+QJRCHuqidfQVOhEDxcz
+ W5w5xfa9ZPgA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9806"; a="234860640"
+X-IronPort-AV: E=Sophos;i="5.77,481,1596524400"; d="scan'208";a="234860640"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Nov 2020 22:27:28 -0800
+IronPort-SDR: yduT8nH5g9poZaMv0CRIDR6DGERpQ9fXK0nsMsIWrzYJU5x0HvVZJ5CYB9cuEU5JZM9P3WRj4i
+ tplwg6Jy2mdA==
+X-IronPort-AV: E=Sophos;i="5.77,481,1596524400"; d="scan'208";a="543472056"
+Received: from labuser-z97x-ud5h.jf.intel.com ([10.165.21.211])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-SHA;
+ 15 Nov 2020 22:27:27 -0800
+From: Manasi Navare <manasi.d.navare@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Sun, 15 Nov 2020 22:29:48 -0800
+Message-Id: <20201116062948.25052-3-manasi.d.navare@intel.com>
+X-Mailer: git-send-email 2.19.1
+In-Reply-To: <20201116062948.25052-1-manasi.d.navare@intel.com>
+References: <20201116062948.25052-1-manasi.d.navare@intel.com>
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Huang, Sean Z" <sean.z.huang@intel.com>
-Date: Sun, 15 Nov 2020 22:00:32 -0000
-Message-ID: <160547763283.9576.18427972959115775265@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20201115210815.5272-1-sean.z.huang@intel.com>
-In-Reply-To: <20201115210815.5272-1-sean.z.huang@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJBVDogZmFpbHVyZSBmb3Igc2Vy?=
- =?utf-8?q?ies_starting_with_=5B01/27=5D_drm/i915/pxp=3A_Introduce_Intel_P?=
- =?utf-8?q?XP_component?=
+Subject: [Intel-gfx] [CI v2 3/3] drm/i915: Remove
+ skl_adjusted_plane_pixel_rate()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,248 +60,52 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
-Content-Type: multipart/mixed; boundary="===============0519885287=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============0519885287==
-Content-Type: multipart/alternative;
- boundary="===============9170458530611492659=="
-
---===============9170458530611492659==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-== Series Details ==
-
-Series: series starting with [01/27] drm/i915/pxp: Introduce Intel PXP component
-URL   : https://patchwork.freedesktop.org/series/83863/
-State : failure
-
-== Summary ==
-
-CI Bug Log - changes from CI_DRM_9328 -> Patchwork_18910
-====================================================
-
-Summary
--------
-
-  **FAILURE**
-
-  Serious unknown changes coming with Patchwork_18910 absolutely need to be
-  verified manually.
-  
-  If you think the reported changes have nothing to do with the changes
-  introduced in Patchwork_18910, please notify your bug team to allow them
-  to document this new failure mode, which will reduce false positives in CI.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18910/index.html
-
-Possible new issues
--------------------
-
-  Here are the unknown changes that may have been introduced in Patchwork_18910:
-
-### IGT changes ###
-
-#### Possible regressions ####
-
-  * igt@core_hotunplug@unbind-rebind:
-    - fi-kbl-8809g:       [PASS][1] -> [INCOMPLETE][2]
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9328/fi-kbl-8809g/igt@core_hotunplug@unbind-rebind.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18910/fi-kbl-8809g/igt@core_hotunplug@unbind-rebind.html
-    - fi-bsw-nick:        [PASS][3] -> [INCOMPLETE][4]
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9328/fi-bsw-nick/igt@core_hotunplug@unbind-rebind.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18910/fi-bsw-nick/igt@core_hotunplug@unbind-rebind.html
-
-  
-New tests
----------
-
-  New tests have been introduced between CI_DRM_9328 and Patchwork_18910:
-
-### New CI tests (1) ###
-
-  * boot:
-    - Statuses : 5 pass(s)
-    - Exec time: [0.0] s
-
-  
-
-
-
-Participating hosts (5 -> 5)
-------------------------------
-
-  No changes in participating hosts
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_9328 -> Patchwork_18910
-
-  CI-20190529: 20190529
-  CI_DRM_9328: c882f1103d140b7bdbbb7efdd2ca6abd4a3bc4e3 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_5850: 9748a4a0f93d108955d374a866e60cb962da9b5d @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools
-  Patchwork_18910: c968d500ff194648460637aead37a00ca2f57580 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-
-== Linux commits ==
-
-c968d500ff19 drm/i915/pxp: Add plane decryption support
-125fd8d725ba drm/i915/pavp: User interface for Protected buffer
-15401e360d14 drm/i915/uapi: introduce drm_i915_gem_create_ext for TGL
-ea45bdd158e3 mei: pxp: export pavp client to me client bus
-a944bd332fbb mei: bus: enable pavp device.
-dec5cd52eeda drm/i915/pxp: Expose session state for display protection flip
-3d82e578d4c8 drm/i915/pxp: Add i915 trace logs for PXP operations
-a7c6e8e4af8e drm/i915/pxp: Create the arbitrary session after boot
-b68da9355145 drm/i915/pxp: Enable ioctl action to send TEE commands
-12a97546fb0c drm/i915/pxp: Implement funcs to create the TEE channel
-3bab939267e5 drm/i915/pxp: Enable PXP power management
-3270a1c64c4e drm/i915/pxp: Termiante the session upon app crash
-2f7b05c73063 drm/i915/pxp: Destroy all type0 sessions upon teardown
-72b155e8c9fa drm/i915/pxp: Enable ioctl action to query PXP tag
-049827bba4b3 drm/i915/pxp: Enable ioctl action to terminate the session
-429636cac96a drm/i915/pxp: Func to send hardware session termination
-668f4968e125 drm/i915/pxp: Enable ioctl action to set session in play
-333c15e61776 drm/i915/pxp: Enable ioctl action to reserve session slot
-e34ed97f0df9 drm/i915/pxp: Implement funcs to get/set PXP tag
-b8289b5f361b drm/i915/pxp: Read register to check hardware session state
-309be6f34e3c drm/i915/pxp: Add PXP-related registers into allowlist
-e45885b5b387 drm/i915: Rename the whitelist to allowlist
-403845f7ffbd drm/i915/pxp: Enable ioctl action to set the ring3 context
-1414cf460ee9 drm/i915/pxp: set KCR reg init during the boot time
-3dce6e2b5551 drm/i915/pxp: Add PXP context for logical hardware states.
-cedefd9b5595 drm/i915/pxp: Enable PXP irq worker and callback stub
-ec0a75ce495b drm/i915/pxp: Introduce Intel PXP component
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18910/index.html
-
---===============9170458530611492659==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>series starting with [01/27] drm/i915/pxp: Introduce Intel PXP component</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/83863/">https://patchwork.freedesktop.org/series/83863/</a></td></tr>
-<tr><td><b>State:</b></td><td>failure</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18910/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18910/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_9328 -&gt; Patchwork_18910</h1>
-<h2>Summary</h2>
-<p><strong>FAILURE</strong></p>
-<p>Serious unknown changes coming with Patchwork_18910 absolutely need to be<br />
-  verified manually.</p>
-<p>If you think the reported changes have nothing to do with the changes<br />
-  introduced in Patchwork_18910, please notify your bug team to allow them<br />
-  to document this new failure mode, which will reduce false positives in CI.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18910/index.html</p>
-<h2>Possible new issues</h2>
-<p>Here are the unknown changes that may have been introduced in Patchwork_18910:</p>
-<h3>IGT changes</h3>
-<h4>Possible regressions</h4>
-<ul>
-<li>
-<p>igt@core_hotunplug@unbind-rebind:</p>
-<ul>
-<li>
-<p>fi-kbl-8809g:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9328/fi-kbl-8809g/igt@core_hotunplug@unbind-rebind.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18910/fi-kbl-8809g/igt@core_hotunplug@unbind-rebind.html">INCOMPLETE</a></p>
-</li>
-<li>
-<p>fi-bsw-nick:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9328/fi-bsw-nick/igt@core_hotunplug@unbind-rebind.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18910/fi-bsw-nick/igt@core_hotunplug@unbind-rebind.html">INCOMPLETE</a></p>
-</li>
-</ul>
-</li>
-</ul>
-<h2>New tests</h2>
-<p>New tests have been introduced between CI_DRM_9328 and Patchwork_18910:</p>
-<h3>New CI tests (1)</h3>
-<ul>
-<li>boot:<ul>
-<li>Statuses : 5 pass(s)</li>
-<li>Exec time: [0.0] s</li>
-</ul>
-</li>
-</ul>
-<h2>Participating hosts (5 -&gt; 5)</h2>
-<p>No changes in participating hosts</p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_9328 -&gt; Patchwork_18910</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_9328: c882f1103d140b7bdbbb7efdd2ca6abd4a3bc4e3 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_5850: 9748a4a0f93d108955d374a866e60cb962da9b5d @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools<br />
-  Patchwork_18910: c968d500ff194648460637aead37a00ca2f57580 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<p>== Linux commits ==</p>
-<p>c968d500ff19 drm/i915/pxp: Add plane decryption support<br />
-125fd8d725ba drm/i915/pavp: User interface for Protected buffer<br />
-15401e360d14 drm/i915/uapi: introduce drm_i915_gem_create_ext for TGL<br />
-ea45bdd158e3 mei: pxp: export pavp client to me client bus<br />
-a944bd332fbb mei: bus: enable pavp device.<br />
-dec5cd52eeda drm/i915/pxp: Expose session state for display protection flip<br />
-3d82e578d4c8 drm/i915/pxp: Add i915 trace logs for PXP operations<br />
-a7c6e8e4af8e drm/i915/pxp: Create the arbitrary session after boot<br />
-b68da9355145 drm/i915/pxp: Enable ioctl action to send TEE commands<br />
-12a97546fb0c drm/i915/pxp: Implement funcs to create the TEE channel<br />
-3bab939267e5 drm/i915/pxp: Enable PXP power management<br />
-3270a1c64c4e drm/i915/pxp: Termiante the session upon app crash<br />
-2f7b05c73063 drm/i915/pxp: Destroy all type0 sessions upon teardown<br />
-72b155e8c9fa drm/i915/pxp: Enable ioctl action to query PXP tag<br />
-049827bba4b3 drm/i915/pxp: Enable ioctl action to terminate the session<br />
-429636cac96a drm/i915/pxp: Func to send hardware session termination<br />
-668f4968e125 drm/i915/pxp: Enable ioctl action to set session in play<br />
-333c15e61776 drm/i915/pxp: Enable ioctl action to reserve session slot<br />
-e34ed97f0df9 drm/i915/pxp: Implement funcs to get/set PXP tag<br />
-b8289b5f361b drm/i915/pxp: Read register to check hardware session state<br />
-309be6f34e3c drm/i915/pxp: Add PXP-related registers into allowlist<br />
-e45885b5b387 drm/i915: Rename the whitelist to allowlist<br />
-403845f7ffbd drm/i915/pxp: Enable ioctl action to set the ring3 context<br />
-1414cf460ee9 drm/i915/pxp: set KCR reg init during the boot time<br />
-3dce6e2b5551 drm/i915/pxp: Add PXP context for logical hardware states.<br />
-cedefd9b5595 drm/i915/pxp: Enable PXP irq worker and callback stub<br />
-ec0a75ce495b drm/i915/pxp: Introduce Intel PXP component</p>
-
-</body>
-</html>
-
---===============9170458530611492659==--
-
---===============0519885287==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-
---===============0519885287==--
+RnJvbTogVmlsbGUgU3lyasOkbMOkIDx2aWxsZS5zeXJqYWxhQGxpbnV4LmludGVsLmNvbT4KClJl
+cGxhY2Ugc2tsX2FkanVzdGVkX3BsYW5lX3BpeGVsX3JhdGUoKSB3aXRoIHRoZSBnZW5lcmljCmlu
+dGVsX3BsYW5lX3BpeGVsX3JhdGUoKS4gVGhlIHR3byBzaG91bGQgcHJvZHVjZSBpZGVudGljYWwK
+cmVzdWx0cy4KClNpZ25lZC1vZmYtYnk6IFZpbGxlIFN5cmrDpGzDpCA8dmlsbGUuc3lyamFsYUBs
+aW51eC5pbnRlbC5jb20+ClJldmlld2VkLWJ5OiBTdGFuaXNsYXYgTGlzb3Zza2l5IDxzdGFuaXNs
+YXYubGlzb3Zza2l5QGludGVsLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9pbnRlbF9w
+bS5jIHwgMjcgKystLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCiAxIGZpbGUgY2hhbmdlZCwgMiBp
+bnNlcnRpb25zKCspLCAyNSBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
+cm0vaTkxNS9pbnRlbF9wbS5jIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvaW50ZWxfcG0uYwppbmRl
+eCA2Y2NhY2QwN2FiOTQuLmEyMGI1MDUxZjE4YyAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJt
+L2k5MTUvaW50ZWxfcG0uYworKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pbnRlbF9wbS5jCkBA
+IC0zMyw2ICszMyw3IEBACiAjaW5jbHVkZSA8ZHJtL2RybV9wbGFuZV9oZWxwZXIuaD4KIAogI2lu
+Y2x1ZGUgImRpc3BsYXkvaW50ZWxfYXRvbWljLmgiCisjaW5jbHVkZSAiZGlzcGxheS9pbnRlbF9h
+dG9taWNfcGxhbmUuaCIKICNpbmNsdWRlICJkaXNwbGF5L2ludGVsX2J3LmgiCiAjaW5jbHVkZSAi
+ZGlzcGxheS9pbnRlbF9kaXNwbGF5X3R5cGVzLmgiCiAjaW5jbHVkZSAiZGlzcGxheS9pbnRlbF9m
+YmMuaCIKQEAgLTUxMDIsMzAgKzUxMDMsNiBAQCBpbnRlbF9nZXRfbGluZXRpbWVfdXMoY29uc3Qg
+c3RydWN0IGludGVsX2NydGNfc3RhdGUgKmNydGNfc3RhdGUpCiAJcmV0dXJuIGxpbmV0aW1lX3Vz
+OwogfQogCi1zdGF0aWMgdTMyCi1za2xfYWRqdXN0ZWRfcGxhbmVfcGl4ZWxfcmF0ZShjb25zdCBz
+dHJ1Y3QgaW50ZWxfY3J0Y19zdGF0ZSAqY3J0Y19zdGF0ZSwKLQkJCSAgICAgIGNvbnN0IHN0cnVj
+dCBpbnRlbF9wbGFuZV9zdGF0ZSAqcGxhbmVfc3RhdGUpCi17Ci0Jc3RydWN0IGRybV9pOTE1X3By
+aXZhdGUgKmRldl9wcml2ID0gdG9faTkxNShjcnRjX3N0YXRlLT51YXBpLmNydGMtPmRldik7Ci0J
+dTY0IGFkanVzdGVkX3BpeGVsX3JhdGU7Ci0JdWludF9maXhlZF8xNl8xNl90IGRvd25zY2FsZV9h
+bW91bnQ7Ci0KLQkvKiBTaG91bGRuJ3QgcmVhY2ggaGVyZSBvbiBkaXNhYmxlZCBwbGFuZXMuLi4g
+Ki8KLQlpZiAoZHJtX1dBUk5fT04oJmRldl9wcml2LT5kcm0sCi0JCQkhaW50ZWxfd21fcGxhbmVf
+dmlzaWJsZShjcnRjX3N0YXRlLCBwbGFuZV9zdGF0ZSkpKQotCQlyZXR1cm4gMDsKLQotCS8qCi0J
+ICogQWRqdXN0ZWQgcGxhbmUgcGl4ZWwgcmF0ZSBpcyBqdXN0IHRoZSBwaXBlJ3MgYWRqdXN0ZWQg
+cGl4ZWwgcmF0ZQotCSAqIHdpdGggYWRkaXRpb25hbCBhZGp1c3RtZW50cyBmb3IgcGxhbmUtc3Bl
+Y2lmaWMgc2NhbGluZy4KLQkgKi8KLQlhZGp1c3RlZF9waXhlbF9yYXRlID0gY3J0Y19zdGF0ZS0+
+cGl4ZWxfcmF0ZTsKLQlkb3duc2NhbGVfYW1vdW50ID0gc2tsX3BsYW5lX2Rvd25zY2FsZV9hbW91
+bnQoY3J0Y19zdGF0ZSwgcGxhbmVfc3RhdGUpOwotCi0JcmV0dXJuIG11bF9yb3VuZF91cF91MzJf
+Zml4ZWQxNihhZGp1c3RlZF9waXhlbF9yYXRlLAotCQkJCQkgICAgZG93bnNjYWxlX2Ftb3VudCk7
+Ci19Ci0KIHN0YXRpYyBpbnQKIHNrbF9jb21wdXRlX3dtX3BhcmFtcyhjb25zdCBzdHJ1Y3QgaW50
+ZWxfY3J0Y19zdGF0ZSAqY3J0Y19zdGF0ZSwKIAkJICAgICAgaW50IHdpZHRoLCBjb25zdCBzdHJ1
+Y3QgZHJtX2Zvcm1hdF9pbmZvICpmb3JtYXQsCkBAIC01MjM4LDcgKzUyMTUsNyBAQCBza2xfY29t
+cHV0ZV9wbGFuZV93bV9wYXJhbXMoY29uc3Qgc3RydWN0IGludGVsX2NydGNfc3RhdGUgKmNydGNf
+c3RhdGUsCiAJcmV0dXJuIHNrbF9jb21wdXRlX3dtX3BhcmFtcyhjcnRjX3N0YXRlLCB3aWR0aCwK
+IAkJCQkgICAgIGZiLT5mb3JtYXQsIGZiLT5tb2RpZmllciwKIAkJCQkgICAgIHBsYW5lX3N0YXRl
+LT5ody5yb3RhdGlvbiwKLQkJCQkgICAgIHNrbF9hZGp1c3RlZF9wbGFuZV9waXhlbF9yYXRlKGNy
+dGNfc3RhdGUsIHBsYW5lX3N0YXRlKSwKKwkJCQkgICAgIGludGVsX3BsYW5lX3BpeGVsX3JhdGUo
+Y3J0Y19zdGF0ZSwgcGxhbmVfc3RhdGUpLAogCQkJCSAgICAgd3AsIGNvbG9yX3BsYW5lKTsKIH0K
+IAotLSAKMi4xOS4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fXwpJbnRlbC1nZnggbWFpbGluZyBsaXN0CkludGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
+cmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9pbnRlbC1n
+ZngK
