@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 32A36C6379D
-	for <intel-gfx@archiver.kernel.org>; Tue, 17 Nov 2020 11:01:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 61E7EC63798
+	for <intel-gfx@archiver.kernel.org>; Tue, 17 Nov 2020 11:01:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B6DD320773
-	for <intel-gfx@archiver.kernel.org>; Tue, 17 Nov 2020 11:01:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B6DD320773
+	by mail.kernel.org (Postfix) with ESMTPS id DC8CF238E6
+	for <intel-gfx@archiver.kernel.org>; Tue, 17 Nov 2020 11:01:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DC8CF238E6
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 15ABC6E19A;
-	Tue, 17 Nov 2020 11:01:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E5996E199;
+	Tue, 17 Nov 2020 11:01:53 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EAB866E18F
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A59D66E188
  for <intel-gfx@lists.freedesktop.org>; Tue, 17 Nov 2020 11:01:42 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23015804-1500050 
- for multiple; Tue, 17 Nov 2020 11:01:31 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23015801-1500050 
+ for multiple; Tue, 17 Nov 2020 11:01:30 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 17 Nov 2020 11:01:30 +0000
-Message-Id: <20201117110132.22267-6-chris@chris-wilson.co.uk>
+Date: Tue, 17 Nov 2020 11:01:28 +0000
+Message-Id: <20201117110132.22267-4-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201117110132.22267-1-chris@chris-wilson.co.uk>
 References: <20201117110132.22267-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 6/8] drm/i915/perf: Whitelist OA report trigger
- registers
+Subject: [Intel-gfx] [PATCH 4/8] drm/i915/gt: Enable dynamic adjustment of
+ RING_NONPRIV
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,277 +50,376 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Piotr Maciejewski <piotr.maciejewski@intel.com>
+Cc: Chris Wilson <chris@chris-wilson.co.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+The OA subsystem would like to enable its privileged clients access to
+the OA registers from execbuf. This requires temporarily removing the
+HW validation from those registers for the duration of the OA client,
+for which we need to allow OA to dynamically adjust the set of
+RING_NONPRIV.
 
-OA reports can be triggered into the OA buffer by writing into the
-OAREPORTTRIG registers. Whitelist the registers to allow non-privileged
-user to trigger reports.
+Care must still be taken since the RING_NONPRIV are global, so any and
+all contexts that run at the same time as the OA client, will also be
+able to adjust the registers from their execbuf.
 
-Whitelist registers only if perf_stream_paranoid is set to 0. In
-i915_perf_open_ioctl, this setting is checked and the whitelist is
-enabled accordingly. On closing the perf fd, the whitelist is removed.
-
-This ensures that the access to the whitelist is gated by
-perf_stream_paranoid.
-
-v2:
-- Move related change to this patch (Lionel)
-- Bump up perf revision (Lionel)
-
-v3: Pardon whitelisted registers for selftest (Umesh)
-v4: Document supported gens for the feature (Lionel)
-v5: Whitelist registers only if perf_stream_paranoid is set to 0 (Jon)
-v6: Move oa whitelist array to i915_perf (Chris)
-v7: Fix OA writing beyond the wal->list memory (CI)
-v8: Protect write to engine whitelist registers
-
-v9: (Umesh)
-- Use uncore->lock to protect write to forcepriv regs
-- In case wal->count falls to zero on _wa_remove, make sure you still
-  clear the registers. Remove wal->count check when applying whitelist.
-
-v10: (Umesh)
-- Split patches modifying intel_workarounds
-- On some platforms there are no whitelisted regs. intel_engine_resume
-  applies whitelist on these platforms too and the wal->count gates such
-  platforms. Bring back the wal->count check.
-- intel_engine_allow/deny_user_register_access modifies the engine
-  whitelist and the wal->count. Use uncore->lock to serialize it with
-  intel_engine_apply_whitelist.
-- Grow the wal->list when adding whitelist registers after driver load.
-
-v11:
-- Fix memory leak in _wa_list_grow (Chris)
-- Serialize kfree with engine resume using uncore->lock (Umesh)
-- Grow the list only if wal->count is not aligned (Umesh)
-
-Signed-off-by: Piotr Maciejewski <piotr.maciejewski@intel.com>
-Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
-Reviewed-by: Lionel Landwerlin <lionel.g.landwerlin@intel.com>
+Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 ---
- drivers/gpu/drm/i915/i915_perf.c       | 79 +++++++++++++++++++++++++-
- drivers/gpu/drm/i915/i915_perf_types.h |  8 +++
- drivers/gpu/drm/i915/i915_reg.h        | 12 ++--
- 3 files changed, 92 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_workarounds.c   |  59 +++++
+ drivers/gpu/drm/i915/gt/intel_workarounds.h   |   7 +
+ .../gpu/drm/i915/gt/selftest_workarounds.c    | 236 ++++++++++++++++++
+ 3 files changed, 302 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
-index 7bef68874d80..8abd2cfd1c2f 100644
---- a/drivers/gpu/drm/i915/i915_perf.c
-+++ b/drivers/gpu/drm/i915/i915_perf.c
-@@ -1364,12 +1364,56 @@ free_noa_wait(struct i915_perf_stream *stream)
- 	i915_vma_unpin_and_release(&stream->noa_wait, 0);
+diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+index 290aa277ab10..c918739df6a6 100644
+--- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
++++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+@@ -230,6 +230,18 @@ static void _wa_add(struct i915_wa_list *wal, const struct i915_wa *wa)
+ 	__wa_add(wal, wa);
  }
  
-+static const i915_reg_t gen9_oa_wl_regs[] = {
-+	{ __OAREPORTTRIG2 | RING_FORCE_TO_NONPRIV_ACCESS_RW },
-+	{ __OAREPORTTRIG6 | RING_FORCE_TO_NONPRIV_ACCESS_RW },
-+};
-+
-+static const i915_reg_t gen12_oa_wl_regs[] = {
-+	{ __GEN12_OAG_OAREPORTTRIG2 | RING_FORCE_TO_NONPRIV_ACCESS_RW },
-+	{ __GEN12_OAG_OAREPORTTRIG6 | RING_FORCE_TO_NONPRIV_ACCESS_RW },
-+};
-+
-+static int intel_engine_apply_oa_whitelist(struct i915_perf_stream *stream)
++static void _wa_del(struct i915_wa_list *wal, i915_reg_t reg)
 +{
-+	struct intel_engine_cs *engine = stream->engine;
-+	int ret;
++	struct i915_wa *wa = wal->list;
++	int index;
 +
-+	if (i915_perf_stream_paranoid ||
-+	    !(stream->sample_flags & SAMPLE_OA_REPORT) ||
-+	    !stream->perf->oa_wl)
-+		return 0;
-+
-+	ret = intel_engine_allow_user_register_access(engine,
-+						      stream->perf->oa_wl,
-+						      stream->perf->num_oa_wl);
-+	if (ret < 0)
-+		return ret;
-+
-+	stream->oa_whitelisted = true;
-+	return 0;
-+}
-+
-+static void intel_engine_remove_oa_whitelist(struct i915_perf_stream *stream)
-+{
-+	struct intel_engine_cs *engine = stream->engine;
-+
-+	if (!stream->oa_whitelisted)
++	index = wa_index(wal, reg);
++	if (GEM_DEBUG_WARN_ON(index < 0))
 +		return;
 +
-+	intel_engine_deny_user_register_access(engine,
-+					       stream->perf->oa_wl,
-+					       stream->perf->num_oa_wl);
++	memmove(wa + index, wa + index + 1, --wal->count - index);
 +}
 +
- static void i915_oa_stream_destroy(struct i915_perf_stream *stream)
+ static void wa_add(struct i915_wa_list *wal, i915_reg_t reg,
+ 		   u32 clear, u32 set, u32 read_mask)
  {
- 	struct i915_perf *perf = stream->perf;
- 
- 	BUG_ON(stream != perf->exclusive_stream);
- 
-+	intel_engine_remove_oa_whitelist(stream);
-+
- 	/*
- 	 * Unset exclusive_stream first, it will be checked while disabling
- 	 * the metric set on gen8+.
-@@ -1465,7 +1509,8 @@ static void gen8_init_oa_buffer(struct i915_perf_stream *stream)
- 	 *  bit."
- 	 */
- 	intel_uncore_write(uncore, GEN8_OABUFFER, gtt_offset |
--		   OABUFFER_SIZE_16M | GEN8_OABUFFER_MEM_SELECT_GGTT);
-+			   OABUFFER_SIZE_16M | GEN8_OABUFFER_MEM_SELECT_GGTT |
-+			   GEN7_OABUFFER_EDGE_TRIGGER);
- 	intel_uncore_write(uncore, GEN8_OATAILPTR, gtt_offset & GEN8_OATAILPTR_MASK);
- 
- 	/* Mark that we need updated tail pointers to read from... */
-@@ -1518,7 +1563,8 @@ static void gen12_init_oa_buffer(struct i915_perf_stream *stream)
- 	 *  bit."
- 	 */
- 	intel_uncore_write(uncore, GEN12_OAG_OABUFFER, gtt_offset |
--			   OABUFFER_SIZE_16M | GEN8_OABUFFER_MEM_SELECT_GGTT);
-+			   OABUFFER_SIZE_16M | GEN8_OABUFFER_MEM_SELECT_GGTT |
-+			   GEN7_OABUFFER_EDGE_TRIGGER);
- 	intel_uncore_write(uncore, GEN12_OAG_OATAILPTR,
- 			   gtt_offset & GEN12_OAG_OATAILPTR_MASK);
- 
-@@ -3499,6 +3545,20 @@ i915_perf_open_ioctl_locked(struct i915_perf *perf,
- 	if (!(param->flags & I915_PERF_FLAG_DISABLED))
- 		i915_perf_enable_locked(stream);
- 
-+	/*
-+	 * OA whitelist allows non-privileged access to some OA counters for
-+	 * triggering reports into the OA buffer. This is only allowed if
-+	 * perf_stream_paranoid is set to 0 by the sysadmin.
-+	 *
-+	 * We want to make sure this is almost the last thing we do before
-+	 * returning the stream fd. If we do end up checking for errors in code
-+	 * that follows this, we MUST call intel_engine_remove_oa_whitelist in
-+	 * the error handling path to remove the whitelisted registers.
-+	 */
-+	ret = intel_engine_apply_oa_whitelist(stream);
-+	if (ret < 0)
-+		goto err_flags;
-+
- 	/* Take a reference on the driver that will be kept with stream_fd
- 	 * until its release.
- 	 */
-@@ -4325,6 +4385,8 @@ void i915_perf_init(struct drm_i915_private *i915)
- 				perf->ctx_flexeu0_offset = 0x3de;
- 
- 				perf->gen8_valid_ctx_bit = BIT(16);
-+				perf->oa_wl = gen9_oa_wl_regs;
-+				perf->num_oa_wl = ARRAY_SIZE(gen9_oa_wl_regs);
- 			}
- 		} else if (IS_GEN_RANGE(i915, 10, 11)) {
- 			perf->oa_formats = gen8_plus_oa_formats;
-@@ -4342,6 +4404,9 @@ void i915_perf_init(struct drm_i915_private *i915)
- 			perf->ops.disable_metric_set = gen10_disable_metric_set;
- 			perf->ops.oa_hw_tail_read = gen8_oa_hw_tail_read;
- 
-+			perf->oa_wl = gen9_oa_wl_regs;
-+			perf->num_oa_wl = ARRAY_SIZE(gen9_oa_wl_regs);
-+
- 			if (IS_GEN(i915, 10)) {
- 				perf->ctx_oactxctrl_offset = 0x128;
- 				perf->ctx_flexeu0_offset = 0x3de;
-@@ -4368,6 +4433,9 @@ void i915_perf_init(struct drm_i915_private *i915)
- 
- 			perf->ctx_flexeu0_offset = 0;
- 			perf->ctx_oactxctrl_offset = 0x144;
-+
-+			perf->oa_wl = gen12_oa_wl_regs;
-+			perf->num_oa_wl = ARRAY_SIZE(gen12_oa_wl_regs);
- 		}
- 	}
- 
-@@ -4470,8 +4538,13 @@ int i915_perf_ioctl_version(void)
- 	 *
- 	 * 5: Add DRM_I915_PERF_PROP_POLL_OA_PERIOD parameter that controls the
- 	 *    interval for the hrtimer used to check for OA data.
-+	 *
-+	 * 6: Whitelist OATRIGGER registers to allow user to trigger reports
-+	 *    into the OA buffer. This applies only to gen8+. The feature can
-+	 *    only be accessed if perf_stream_paranoid is set to 0 by privileged
-+	 *    user.
- 	 */
--	return 5;
-+	return 6;
+@@ -2116,6 +2128,53 @@ void intel_engine_init_workarounds(struct intel_engine_cs *engine)
+ 	wa_init_finish(wal);
  }
  
- #if IS_ENABLED(CONFIG_DRM_I915_SELFTEST)
-diff --git a/drivers/gpu/drm/i915/i915_perf_types.h b/drivers/gpu/drm/i915/i915_perf_types.h
-index a36a455ae336..f54dabcbfc34 100644
---- a/drivers/gpu/drm/i915/i915_perf_types.h
-+++ b/drivers/gpu/drm/i915/i915_perf_types.h
-@@ -311,6 +311,11 @@ struct i915_perf_stream {
- 	 * buffer should be checked for available data.
- 	 */
- 	u64 poll_oa_period;
++int intel_engine_allow_user_register_access(struct intel_engine_cs *engine,
++					    const i915_reg_t *reg,
++					    unsigned int count)
++{
++	struct i915_wa_list *wal = &engine->whitelist;
++	unsigned long flags;
++	int err;
 +
-+	/**
-+	 * @oa_whitelisted: Indicates that the oa registers are whitelisted.
-+	 */
-+	bool oa_whitelisted;
- };
- 
- /**
-@@ -431,6 +436,9 @@ struct i915_perf {
- 	u32 ctx_oactxctrl_offset;
- 	u32 ctx_flexeu0_offset;
- 
-+	const i915_reg_t *oa_wl;
-+	unsigned int num_oa_wl;
++	if (GEM_DEBUG_WARN_ON(wal->count + count >= RING_MAX_NONPRIV_SLOTS))
++		return -ENOSPC;
 +
- 	/**
- 	 * The RPT_ID/reason field for Gen8+ includes a bit
- 	 * to determine if the CTX ID in the report is valid
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 4137ca9d3315..7d27c271d607 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -875,7 +875,8 @@ static inline bool i915_mmio_reg_valid(i915_reg_t reg)
- #define OAREPORTTRIG1_THRESHOLD_MASK 0xffff
- #define OAREPORTTRIG1_EDGE_LEVEL_TRIGGER_SELECT_MASK 0xffff0000 /* 0=level */
++	spin_lock_irqsave(&engine->uncore->lock, flags);
++
++	err = wa_list_grow(wal, wal->count + count, GFP_ATOMIC | __GFP_NOWARN);
++	if (err)
++		goto out;
++
++	while (count--) {
++		struct i915_wa wa = { .reg = *reg++ };
++
++		__wa_add(wal, &wa);
++	}
++
++	__engine_apply_whitelist(engine);
++
++out:
++	spin_unlock_irqrestore(&engine->uncore->lock, flags);
++	return err;
++}
++
++void intel_engine_deny_user_register_access(struct intel_engine_cs *engine,
++					    const i915_reg_t *reg,
++					    unsigned int count)
++{
++	struct i915_wa_list *wal = &engine->whitelist;
++	unsigned long flags;
++
++	spin_lock_irqsave(&engine->uncore->lock, flags);
++
++	while (count--)
++		_wa_del(wal, *reg++);
++
++	__engine_apply_whitelist(engine);
++
++	spin_unlock_irqrestore(&engine->uncore->lock, flags);
++}
++
+ void intel_engine_apply_workarounds(struct intel_engine_cs *engine)
+ {
+ 	wa_list_apply(engine->uncore, &engine->wa_list);
+diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.h b/drivers/gpu/drm/i915/gt/intel_workarounds.h
+index 8c9c769c2204..9c691493ea56 100644
+--- a/drivers/gpu/drm/i915/gt/intel_workarounds.h
++++ b/drivers/gpu/drm/i915/gt/intel_workarounds.h
+@@ -37,4 +37,11 @@ void intel_engine_apply_workarounds(struct intel_engine_cs *engine);
+ int intel_engine_verify_workarounds(struct intel_engine_cs *engine,
+ 				    const char *from);
  
--#define OAREPORTTRIG2 _MMIO(0x2744)
-+#define __OAREPORTTRIG2 0x2744
-+#define OAREPORTTRIG2 _MMIO(__OAREPORTTRIG2)
- #define OAREPORTTRIG2_INVERT_A_0  (1 << 0)
- #define OAREPORTTRIG2_INVERT_A_1  (1 << 1)
- #define OAREPORTTRIG2_INVERT_A_2  (1 << 2)
-@@ -928,7 +929,8 @@ static inline bool i915_mmio_reg_valid(i915_reg_t reg)
- #define OAREPORTTRIG5_THRESHOLD_MASK 0xffff
- #define OAREPORTTRIG5_EDGE_LEVEL_TRIGGER_SELECT_MASK 0xffff0000 /* 0=level */
++int intel_engine_allow_user_register_access(struct intel_engine_cs *engine,
++					    const i915_reg_t *reg,
++					    unsigned int count);
++void intel_engine_deny_user_register_access(struct intel_engine_cs *engine,
++					    const i915_reg_t *reg,
++					    unsigned int count);
++
+ #endif
+diff --git a/drivers/gpu/drm/i915/gt/selftest_workarounds.c b/drivers/gpu/drm/i915/gt/selftest_workarounds.c
+index 61a0532d0f3d..6f526199a11a 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_workarounds.c
++++ b/drivers/gpu/drm/i915/gt/selftest_workarounds.c
+@@ -1127,6 +1127,241 @@ static int live_isolated_whitelist(void *arg)
+ 	return err;
+ }
  
--#define OAREPORTTRIG6 _MMIO(0x2754)
-+#define __OAREPORTTRIG6 0x2754
-+#define OAREPORTTRIG6 _MMIO(__OAREPORTTRIG6)
- #define OAREPORTTRIG6_INVERT_A_0  (1 << 0)
- #define OAREPORTTRIG6_INVERT_A_1  (1 << 1)
- #define OAREPORTTRIG6_INVERT_A_2  (1 << 2)
-@@ -989,11 +991,13 @@ static inline bool i915_mmio_reg_valid(i915_reg_t reg)
- 
- /* Same layout as OAREPORTTRIGX */
- #define GEN12_OAG_OAREPORTTRIG1 _MMIO(0xd920)
--#define GEN12_OAG_OAREPORTTRIG2 _MMIO(0xd924)
-+#define __GEN12_OAG_OAREPORTTRIG2 0xd924
-+#define GEN12_OAG_OAREPORTTRIG2 _MMIO(__GEN12_OAG_OAREPORTTRIG2)
- #define GEN12_OAG_OAREPORTTRIG3 _MMIO(0xd928)
- #define GEN12_OAG_OAREPORTTRIG4 _MMIO(0xd92c)
- #define GEN12_OAG_OAREPORTTRIG5 _MMIO(0xd930)
--#define GEN12_OAG_OAREPORTTRIG6 _MMIO(0xd934)
-+#define __GEN12_OAG_OAREPORTTRIG6 0xd934
-+#define GEN12_OAG_OAREPORTTRIG6 _MMIO(__GEN12_OAG_OAREPORTTRIG6)
- #define GEN12_OAG_OAREPORTTRIG7 _MMIO(0xd938)
- #define GEN12_OAG_OAREPORTTRIG8 _MMIO(0xd93c)
- 
++static int rmw_reg(struct intel_engine_cs *engine, const i915_reg_t reg)
++{
++	const u32 values[] = {
++		0x00000000,
++		0x01010101,
++		0x10100101,
++		0x03030303,
++		0x30300303,
++		0x05050505,
++		0x50500505,
++		0x0f0f0f0f,
++		0xf00ff00f,
++		0x10101010,
++		0xf0f01010,
++		0x30303030,
++		0xa0a03030,
++		0x50505050,
++		0xc0c05050,
++		0xf0f0f0f0,
++		0x11111111,
++		0x33333333,
++		0x55555555,
++		0x0000ffff,
++		0x00ff00ff,
++		0xff0000ff,
++		0xffff00ff,
++		0xffffffff,
++	};
++	struct i915_vma *vma, *batch;
++	struct intel_context *ce;
++	struct i915_request *rq;
++	u32 srm, lrm, idx;
++	u32 *cs, *results;
++	u64 addr;
++	int err;
++	int v;
++
++	ce = intel_context_create(engine);
++	if (IS_ERR(ce))
++		return PTR_ERR(ce);
++
++	vma = create_scratch(ce->vm, 1);
++	if (IS_ERR(vma)) {
++		err = PTR_ERR(vma);
++		goto out_context;
++	}
++
++	batch = create_batch(ce->vm);
++	if (IS_ERR(batch)) {
++		err = PTR_ERR(batch);
++		goto out_vma;
++	}
++
++	srm = MI_STORE_REGISTER_MEM;
++	lrm = MI_LOAD_REGISTER_MEM;
++	if (INTEL_GEN(ce->vm->i915) >= 8)
++		lrm++, srm++;
++
++	addr = vma->node.start;
++
++	cs = i915_gem_object_pin_map(batch->obj, I915_MAP_WC);
++	if (IS_ERR(cs)) {
++		err = PTR_ERR(cs);
++		goto out_batch;
++	}
++
++	/* SRM original */
++	*cs++ = srm;
++	*cs++ = i915_mmio_reg_offset(reg);
++	*cs++ = lower_32_bits(addr);
++	*cs++ = upper_32_bits(addr);
++
++	idx = 1;
++	for (v = 0; v < ARRAY_SIZE(values); v++) {
++		/* LRI garbage */
++		*cs++ = MI_LOAD_REGISTER_IMM(1);
++		*cs++ = i915_mmio_reg_offset(reg);
++		*cs++ = values[v];
++
++		/* SRM result */
++		*cs++ = srm;
++		*cs++ = i915_mmio_reg_offset(reg);
++		*cs++ = lower_32_bits(addr + sizeof(u32) * idx);
++		*cs++ = upper_32_bits(addr + sizeof(u32) * idx);
++		idx++;
++	}
++	for (v = 0; v < ARRAY_SIZE(values); v++) {
++		/* LRI garbage */
++		*cs++ = MI_LOAD_REGISTER_IMM(1);
++		*cs++ = i915_mmio_reg_offset(reg);
++		*cs++ = ~values[v];
++
++		/* SRM result */
++		*cs++ = srm;
++		*cs++ = i915_mmio_reg_offset(reg);
++		*cs++ = lower_32_bits(addr + sizeof(u32) * idx);
++		*cs++ = upper_32_bits(addr + sizeof(u32) * idx);
++		idx++;
++	}
++
++	/* LRM original -- don't leave garbage in the context! */
++	*cs++ = lrm;
++	*cs++ = i915_mmio_reg_offset(reg);
++	*cs++ = lower_32_bits(addr);
++	*cs++ = upper_32_bits(addr);
++
++	*cs++ = MI_BATCH_BUFFER_END;
++
++	i915_gem_object_flush_map(batch->obj);
++	i915_gem_object_unpin_map(batch->obj);
++	intel_gt_chipset_flush(engine->gt);
++
++	rq = intel_context_create_request(ce);
++	if (IS_ERR(rq)) {
++		err = PTR_ERR(rq);
++		goto out_batch;
++	}
++
++	if (engine->emit_init_breadcrumb) { /* Be nice if we hang */
++		err = engine->emit_init_breadcrumb(rq);
++		if (err)
++			goto err_request;
++	}
++
++	i915_vma_lock(batch);
++	err = i915_request_await_object(rq, batch->obj, false);
++	if (err == 0)
++		err = i915_vma_move_to_active(batch, rq, 0);
++	i915_vma_unlock(batch);
++	if (err)
++		goto err_request;
++
++	i915_vma_lock(vma);
++	err = i915_request_await_object(rq, vma->obj, true);
++	if (err == 0)
++		err = i915_vma_move_to_active(vma, rq, EXEC_OBJECT_WRITE);
++	i915_vma_unlock(vma);
++	if (err)
++		goto err_request;
++
++	err = engine->emit_bb_start(rq, batch->node.start, PAGE_SIZE, 0);
++	if (err)
++		goto err_request;
++
++err_request:
++	err = request_add_sync(rq, err);
++	if (err) {
++		pr_err("%s: Futzing %04x timedout; cancelling test\n",
++		       engine->name, i915_mmio_reg_offset(reg));
++		intel_gt_set_wedged(engine->gt);
++		goto out_batch;
++	}
++
++	results = i915_gem_object_pin_map(vma->obj, I915_MAP_WB);
++	if (IS_ERR(results)) {
++		err = PTR_ERR(results);
++		goto out_batch;
++	}
++
++	for (v = 0, idx = 0; v < 2 * ARRAY_SIZE(values); v++) {
++		if (results[++idx] != results[0]) {
++			err = idx;
++			break;
++		}
++	}
++
++out_batch:
++	i915_vma_put(batch);
++out_vma:
++	i915_vma_put(vma);
++out_context:
++	intel_context_put(ce);
++	return err;
++}
++
++static int live_dynamic_whitelist(void *arg)
++{
++	struct intel_gt *gt = arg;
++	struct intel_engine_cs *engine;
++	enum intel_engine_id id;
++	int err = 0;
++
++	if (INTEL_GEN(gt->i915) < 8)
++		return 0;
++
++	for_each_engine(engine, gt, id) {
++		const i915_reg_t reg = RING_MAX_IDLE(engine->mmio_base);
++
++		err = rmw_reg(engine, reg);
++		if (err < 0)
++			break;
++
++		if (err) {
++			pr_err("%s: Able to write to protected reg:%04x!\n",
++			       engine->name, i915_mmio_reg_offset(reg));
++			err = -EINVAL;
++			break;
++		}
++
++		err = intel_engine_allow_user_register_access(engine, &reg, 1);
++		if (err)
++			break;
++
++		err = rmw_reg(engine, reg);
++		intel_engine_deny_user_register_access(engine, &reg, 1);
++		if (err < 0)
++			break;
++
++		if (!err) {
++			pr_err("%s: Unable to write to allowed reg:%04x!\n",
++			       engine->name, i915_mmio_reg_offset(reg));
++			err = -EINVAL;
++			break;
++		}
++
++		err = rmw_reg(engine, reg);
++		if (err < 0)
++			break;
++
++		if (err) {
++			pr_err("%s: Able to write to denied reg:%04x!\n",
++			       engine->name, i915_mmio_reg_offset(reg));
++			err = -EINVAL;
++			break;
++		}
++
++		err = 0;
++	}
++
++	if (igt_flush_test(gt->i915))
++		err = -EIO;
++
++	return err;
++}
++
+ static bool
+ verify_wa_lists(struct i915_gem_context *ctx, struct wa_lists *lists,
+ 		const char *str)
+@@ -1288,6 +1523,7 @@ int intel_workarounds_live_selftests(struct drm_i915_private *i915)
+ 		SUBTEST(live_dirty_whitelist),
+ 		SUBTEST(live_reset_whitelist),
+ 		SUBTEST(live_isolated_whitelist),
++		SUBTEST(live_dynamic_whitelist),
+ 		SUBTEST(live_gpu_reset_workarounds),
+ 		SUBTEST(live_engine_reset_workarounds),
+ 	};
 -- 
 2.20.1
 
