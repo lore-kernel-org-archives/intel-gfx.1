@@ -2,83 +2,42 @@ Return-Path: <SRS0=Ur01=EX=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 11732C5519F
-	for <intel-gfx@archiver.kernel.org>; Tue, 17 Nov 2020 10:19:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 24ECBC2D0E4
+	for <intel-gfx@archiver.kernel.org>; Tue, 17 Nov 2020 11:01:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 789632222C
-	for <intel-gfx@archiver.kernel.org>; Tue, 17 Nov 2020 10:19:10 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="qTl85RhI";
-	dkim=temperror (0-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="LgRnk9qs"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 789632222C
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=kroah.com
+	by mail.kernel.org (Postfix) with ESMTPS id 8C13020773
+	for <intel-gfx@archiver.kernel.org>; Tue, 17 Nov 2020 11:01:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8C13020773
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E9696E17D;
-	Tue, 17 Nov 2020 10:19:09 +0000 (UTC)
-Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
- [66.111.4.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B45646E040
- for <intel-gfx@lists.freedesktop.org>; Tue, 17 Nov 2020 10:19:08 +0000 (UTC)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 7AEF75C01AE;
- Tue, 17 Nov 2020 05:19:05 -0500 (EST)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute4.internal (MEProxy); Tue, 17 Nov 2020 05:19:05 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=
- date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=fm2; bh=lrBqZxutbQQC0r7tQ5EGoI5qW4I
- F9ABXIiHc5BSaioQ=; b=qTl85RhIqC+SA3u/pSEo+hSR7DriCwSbHf9YLMih4QM
- KSYGzSkE7Z1ndvfRneNhh20qU6zFk75luqgVzs655SQ2Lmd6JSxVooon2YJFG/bp
- iUbNvk9FEa/Yvi4z5FBMtwVwqQdZdu7MM1v5R+Zl7bbemRtZC92EIu6q1kEhzDAO
- 0TU0z57yr1ijmJL2EqzROLA5CGEU6fdP9fQKPwxGXm2bPx8c0vN5vXiByHXTHO05
- tILT/eustv/VTuzrhfw2TumFCVDO5KmuayWjOev3rLK0SFAeWpurAZ81N0a9RBfK
- jO4XO2u3J8D40byo9r47V+zDTXYSxTRycpjM6wDTYZA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=lrBqZx
- utbQQC0r7tQ5EGoI5qW4IF9ABXIiHc5BSaioQ=; b=LgRnk9qsQi+TKjcXyHbEWp
- OYI/IqY622PoHx8RsJ8MRGrvVFjKa5h6sXbcPNpyjFhBKQ1q89elu81jVUWuOegS
- bIY9/tGE6TWn6W7pvrIMrGszScUZCm4eRqaR26ygbwNqQasY0f9Bhz5gYyE8cJmk
- 2FbHYREFUbFJC1+EbNBmKuN45tQxLnLc0NYEzRJTMVqQ0C5xc7WTA6QWPTSqFgFy
- 9SrBcHuZx1FI5NZKUG/cvrB7hMXU6AcO++JJZwjqFJZoInePrJaMPKAC3ODbvLlN
- lswHZz//25YNwjGlYx6NKNW5AJv/gl+7pqCBDfuceYariL7CS09ZSmr09HUGxWVA
- ==
-X-ME-Sender: <xms:maOzXyj-2Gv5zM9NwAD1If4iMdLK6l4F8xbRh4LT_WS1p38jlx3QGg>
- <xme:maOzXzBDkiQs_R21M19UWyS-NixpPJqAW86ysJzYqcBnRb2m7k5I1UOW7tAvw1NM-
- 48LTXihm_wqvg>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedujedrudeffedgudefucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepfffhvffukfhfgggtuggjsehttdertddttddvnecuhfhrohhmpefirhgvghcu
- mffjuceoghhrvghgsehkrhhorghhrdgtohhmqeenucggtffrrghtthgvrhhnpeevueehje
- fgfffgiedvudekvdektdelleelgefhleejieeugeegveeuuddukedvteenucfkphepkeef
- rdekiedrjeegrdeigeenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrih
- hlfhhrohhmpehgrhgvgheskhhrohgrhhdrtghomh
-X-ME-Proxy: <xmx:maOzX6ETRIKkCQXP6HLzn1-N5JASE9S6dol5XQHlqlsXCZ3OI97oqw>
- <xmx:maOzX7Rt7ptZroZhr4oUOYq_FqwSlyY3vWaqxauaPHC-F7bAfhpvyA>
- <xmx:maOzX_wxSBGiDSSB4s65qwtv4FrPhf-VMqFm74BgNCOwE0wq6FYzzg>
- <xmx:maOzX6qwvOrCNhY3LYVwDZUdVxqeL-tukBrvC1KsEwkuC2HGAmW9UQ>
-Received: from localhost (83-86-74-64.cable.dynamic.v4.ziggo.nl [83.86.74.64])
- by mail.messagingengine.com (Postfix) with ESMTPA id CA8373064AB7;
- Tue, 17 Nov 2020 05:19:04 -0500 (EST)
-Date: Tue, 17 Nov 2020 11:19:52 +0100
-From: Greg KH <greg@kroah.com>
-To: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-Message-ID: <X7OjyFVyzNESwPfT@kroah.com>
-References: <20201117000326.3138-1-daniele.ceraolospurio@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A0DA66E18F;
+	Tue, 17 Nov 2020 11:01:43 +0000 (UTC)
+Received: from fireflyinternet.com (unknown [77.68.26.236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1619A6E17E
+ for <intel-gfx@lists.freedesktop.org>; Tue, 17 Nov 2020 11:01:40 +0000 (UTC)
+X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
+ x-ip-name=78.156.65.138; 
+Received: from build.alporthouse.com (unverified [78.156.65.138]) 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23015800-1500050 
+ for multiple; Tue, 17 Nov 2020 11:01:30 +0000
+From: Chris Wilson <chris@chris-wilson.co.uk>
+To: intel-gfx@lists.freedesktop.org
+Date: Tue, 17 Nov 2020 11:01:27 +0000
+Message-Id: <20201117110132.22267-3-chris@chris-wilson.co.uk>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20201117110132.22267-1-chris@chris-wilson.co.uk>
+References: <20201117110132.22267-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20201117000326.3138-1-daniele.ceraolospurio@intel.com>
-Subject: Re: [Intel-gfx] [PATCH stable-5.4] drm/i915: Correctly set SFC
- capability for video engines
+Subject: [Intel-gfx] [PATCH 3/8] drm/i915/gt: Check for conflicting
+ RING_NONPRIV
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,26 +50,141 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, stable@vger.kernel.org,
- Chris Wilson <chris@chris-wilson.co.uk>
+Cc: Chris Wilson <chris@chris-wilson.co.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Nov 16, 2020 at 04:03:26PM -0800, Daniele Ceraolo Spurio wrote:
-> From: Venkata Sandeep Dhanalakota <venkata.s.dhanalakota@intel.com>
-> 
-> Commit 5ce6861d36ed5207aff9e5eead4c7cc38a986586 upstream.
-> 
-> This backport targets stable version 5.4, since the original patch fails
-> to apply there, due to a variable having moved from one struct to another.
-> The only change required for the patch to apply to 5.4 is to use the
-> correct structure:
+Strip the encoded bits from the register offset so that we only use the
+address for looking up the RING_NONPRIV entry.
 
-Now queued up, thanks.
+Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+---
+ drivers/gpu/drm/i915/gt/intel_workarounds.c | 64 +++++++++++++--------
+ 1 file changed, 41 insertions(+), 23 deletions(-)
 
-greg k-h
+diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+index e50c72d2b3f1..290aa277ab10 100644
+--- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
++++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+@@ -111,18 +111,43 @@ static void wa_init_finish(struct i915_wa_list *wal)
+ 			 wal->wa_count, wal->name, wal->engine_name);
+ }
+ 
++static u32 reg_offset(i915_reg_t reg)
++{
++	return i915_mmio_reg_offset(reg) & RING_FORCE_TO_NONPRIV_ADDRESS_MASK;
++}
++
++static u32 reg_flags(i915_reg_t reg)
++{
++	return i915_mmio_reg_offset(reg) & ~RING_FORCE_TO_NONPRIV_ADDRESS_MASK;
++}
++
++static inline bool is_nonpriv_flags_valid(u32 flags)
++{
++	/* Check only valid flag bits are set */
++	if (flags & ~RING_FORCE_TO_NONPRIV_MASK_VALID)
++		return false;
++
++	/* NB: Only 3 out of 4 enum values are valid for access field */
++	if ((flags & RING_FORCE_TO_NONPRIV_ACCESS_MASK) ==
++	    RING_FORCE_TO_NONPRIV_ACCESS_INVALID)
++		return false;
++
++	return true;
++}
++
+ static int wa_index(struct i915_wa_list *wal, i915_reg_t reg)
+ {
+-	unsigned int addr = i915_mmio_reg_offset(reg);
+ 	int start = 0, end = wal->count;
++	u32 addr = reg_offset(reg);
+ 
+ 	/* addr and wal->list[].reg, both include the R/W flags */
+ 	while (start < end) {
+ 		unsigned int mid = start + (end - start) / 2;
++		u32 pos = reg_offset(wal->list[mid].reg);
+ 
+-		if (i915_mmio_reg_offset(wal->list[mid].reg) < addr)
++		if (pos < addr)
+ 			start = mid + 1;
+-		else if (i915_mmio_reg_offset(wal->list[mid].reg) > addr)
++		else if (pos > addr)
+ 			end = mid;
+ 		else
+ 			return mid;
+@@ -148,13 +173,22 @@ static void __wa_add(struct i915_wa_list *wal, const struct i915_wa *wa)
+ 	struct i915_wa *wa_;
+ 	int index;
+ 
++	GEM_BUG_ON(!is_nonpriv_flags_valid(reg_flags(wa->reg)));
++
+ 	index = wa_index(wal, wa->reg);
+ 	if (index >= 0) {
+ 		wa_ = &wal->list[index];
+ 
++		if (i915_mmio_reg_offset(wa->reg) !=
++		    i915_mmio_reg_offset(wa_->reg)) {
++			DRM_ERROR("Discarding incompatible w/a for reg %04x\n",
++				  reg_offset(wa->reg));
++			return;
++		}
++
+ 		if ((wa->clr | wa_->clr) && !(wa->clr & ~wa_->clr)) {
+ 			DRM_ERROR("Discarding overwritten w/a for reg %04x (clear: %08x, set: %08x)\n",
+-				  i915_mmio_reg_offset(wa_->reg),
++				  reg_offset(wa_->reg),
+ 				  wa_->clr, wa_->set);
+ 
+ 			wa_->set &= ~wa->clr;
+@@ -172,10 +206,8 @@ static void __wa_add(struct i915_wa_list *wal, const struct i915_wa *wa)
+ 	*wa_ = *wa;
+ 
+ 	while (wa_-- > wal->list) {
+-		GEM_BUG_ON(i915_mmio_reg_offset(wa_[0].reg) ==
+-			   i915_mmio_reg_offset(wa_[1].reg));
+-		if (i915_mmio_reg_offset(wa_[1].reg) >
+-		    i915_mmio_reg_offset(wa_[0].reg))
++		GEM_BUG_ON(reg_offset(wa_[0].reg) == reg_offset(wa_[1].reg));
++		if (reg_offset(wa_[1].reg) > reg_offset(wa_[0].reg))
+ 			break;
+ 
+ 		swap(wa_[1], wa_[0]);
+@@ -191,7 +223,7 @@ static void _wa_add(struct i915_wa_list *wal, const struct i915_wa *wa)
+ 	if (IS_ALIGNED(wal->count, grow) && /* Either uninitialized or full. */
+ 	    wa_list_grow(wal, ALIGN(wal->count + 1, grow), GFP_KERNEL)) {
+ 		DRM_ERROR("Unable to store w/a for reg %04x\n",
+-			  i915_mmio_reg_offset(wa->reg));
++			  reg_offset(wa->reg));
+ 		return;
+ 	}
+ 
+@@ -1443,20 +1475,6 @@ bool intel_gt_verify_workarounds(struct intel_gt *gt, const char *from)
+ 	return wa_list_verify(gt->uncore, &gt->i915->gt_wa_list, from);
+ }
+ 
+-static inline bool is_nonpriv_flags_valid(u32 flags)
+-{
+-	/* Check only valid flag bits are set */
+-	if (flags & ~RING_FORCE_TO_NONPRIV_MASK_VALID)
+-		return false;
+-
+-	/* NB: Only 3 out of 4 enum values are valid for access field */
+-	if ((flags & RING_FORCE_TO_NONPRIV_ACCESS_MASK) ==
+-	    RING_FORCE_TO_NONPRIV_ACCESS_INVALID)
+-		return false;
+-
+-	return true;
+-}
+-
+ static void
+ whitelist_reg_ext(struct i915_wa_list *wal, i915_reg_t reg, u32 flags)
+ {
+-- 
+2.20.1
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
