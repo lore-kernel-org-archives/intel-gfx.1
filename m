@@ -7,48 +7,48 @@ X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4CE95C64EBC
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B4F00C64E90
 	for <intel-gfx@archiver.kernel.org>; Tue, 17 Nov 2020 18:51:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DCBAA24181
-	for <intel-gfx@archiver.kernel.org>; Tue, 17 Nov 2020 18:51:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DCBAA24181
+	by mail.kernel.org (Postfix) with ESMTPS id 57E81238E6
+	for <intel-gfx@archiver.kernel.org>; Tue, 17 Nov 2020 18:51:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 57E81238E6
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8DB3B6E048;
-	Tue, 17 Nov 2020 18:51:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B2836E04E;
+	Tue, 17 Nov 2020 18:51:10 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8917A89FE8
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B597B89FD4
  for <intel-gfx@lists.freedesktop.org>; Tue, 17 Nov 2020 18:50:53 +0000 (UTC)
-IronPort-SDR: R3cxL8ykIKGMin7SyKmwO/htjPwVCyn1z6psFBOfspT6kIOQjJgheeb6nwOJVSkIev3pgNvgOl
- ByU1dCk9k1BQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9808"; a="168412291"
-X-IronPort-AV: E=Sophos;i="5.77,486,1596524400"; d="scan'208";a="168412291"
+IronPort-SDR: IM1I4/kFtg0peAKF1kcKd7b/s0qDGlVRDGwNjtfHVzKUqxT6wDEEKQtawUG9y6eGZUYuKArTYI
+ PedZObUOvyiQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9808"; a="168412301"
+X-IronPort-AV: E=Sophos;i="5.77,486,1596524400"; d="scan'208";a="168412301"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Nov 2020 10:50:50 -0800
-IronPort-SDR: M9uPClPPmND9v2RoL2+UM88VnxQozPysqd4i7JfAWTbuMU0l0SBVGzfLu5vmdmIC5tCXcE9YVV
- pVnK0l5/jbkQ==
-X-IronPort-AV: E=Sophos;i="5.77,486,1596524400"; d="scan'208";a="340996883"
+ 17 Nov 2020 10:50:53 -0800
+IronPort-SDR: nvjZE+BIFRKLwh+XonuT7wt93vycJwfhSqsCTAYUpcM5oKdR5ewvhfFeqTUN7GUpQ71jALb+tG
+ RZwGvMh9id5A==
+X-IronPort-AV: E=Sophos;i="5.77,486,1596524400"; d="scan'208";a="340996910"
 Received: from ankithac-mobl1.amr.corp.intel.com (HELO
  aswarup-mobl.amr.corp.intel.com) ([10.254.101.215])
  by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Nov 2020 10:50:50 -0800
+ 17 Nov 2020 10:50:53 -0800
 From: Aditya Swarup <aditya.swarup@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 17 Nov 2020 10:50:20 -0800
-Message-Id: <20201117185029.22078-13-aditya.swarup@intel.com>
+Date: Tue, 17 Nov 2020 10:50:26 -0800
+Message-Id: <20201117185029.22078-19-aditya.swarup@intel.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20201117185029.22078-1-aditya.swarup@intel.com>
 References: <20201117185029.22078-1-aditya.swarup@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 12/21] drm/i915/adl_s: Add vbt port and aux
- channel settings for adls
+Subject: [Intel-gfx] [PATCH 18/21] drm/i915/adl_s: Re-use TGL GuC/HuC
+ firmware
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,74 +61,48 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jani Nikula <jani.nikula@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Lucas De Marchi <lucas.demarchi@intel.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-LSBBREwtUyBkcml2ZXIgaW50ZXJuYWwgbWFwcGluZyB1c2VzIFBPUlQgRCwgRSwgRiwgRyBmb3Ig
-Q29tYm8gcGh5IEIsIEMsIEQgYW5kIEUuCi0gQWRkIEFETFMgc3BlY2lmaWMgcG9ydCBtYXBwaW5n
-cyBmb3IgdmJ0IHBvcnQgZHZvIHNldHRpbmdzLgotIFNlbGVjdCBhcHByb3ByaWF0ZSBBVVggQ0gg
-c3BlY2lmaWMgdG8gQURMUyBiYXNlZCBvbiBwb3J0IG1hcHBpbmcuCgpDYzogSmFuaSBOaWt1bGEg
-PGphbmkubmlrdWxhQGludGVsLmNvbT4KQ2M6IFZpbGxlIFN5cmrDpGzDpCA8dmlsbGUuc3lyamFs
-YUBsaW51eC5pbnRlbC5jb20+CkNjOiBJbXJlIERlYWsgPGltcmUuZGVha0BpbnRlbC5jb20+CkNj
-OiBNYXR0IFJvcGVyIDxtYXR0aGV3LmQucm9wZXJAaW50ZWwuY29tPgpDYzogTHVjYXMgRGUgTWFy
-Y2hpIDxsdWNhcy5kZW1hcmNoaUBpbnRlbC5jb20+ClNpZ25lZC1vZmYtYnk6IEFkaXR5YSBTd2Fy
-dXAgPGFkaXR5YS5zd2FydXBAaW50ZWwuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rp
-c3BsYXkvaW50ZWxfYmlvcy5jIHwgNTcgKysrKysrKysrKysrKysrKysrLS0tLS0KIDEgZmlsZSBj
-aGFuZ2VkLCA0NiBpbnNlcnRpb25zKCspLCAxMSBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9k
-cml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Jpb3MuYyBiL2RyaXZlcnMvZ3B1L2Ry
-bS9pOTE1L2Rpc3BsYXkvaW50ZWxfYmlvcy5jCmluZGV4IDcxNmExNWY4NzYzMi4uOWNjNjlmZGQz
-M2VhIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Jpb3Mu
-YworKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Jpb3MuYwpAQCAtMTcw
-OSw4ICsxNzA5LDI2IEBAIHN0YXRpYyBlbnVtIHBvcnQgZHZvX3BvcnRfdG9fcG9ydChzdHJ1Y3Qg
-ZHJtX2k5MTVfcHJpdmF0ZSAqZGV2X3ByaXYsCiAJCVtQT1JUX1RDMV0gPSB7IERWT19QT1JUX0hE
-TUlDLCBEVk9fUE9SVF9EUEMsIC0xIH0sCiAJCVtQT1JUX1RDMl0gPSB7IERWT19QT1JUX0hETUlE
-LCBEVk9fUE9SVF9EUEQsIC0xIH0sCiAJfTsKKwkvKgorCSAqIEFsZGVybGFrZSBTIHBvcnRzIHVz
-ZWQgaW4gdGhlIGRyaXZlciBhcmUgUE9SVF9BLCBQT1JUX0QsIFBPUlRfRSwKKwkgKiBQT1JUX0Yg
-YW5kIFBPUlRfRywgd2UgbmVlZCB0byBtYXAgdGhhdCB0byBjb3JyZWN0IFZCVCBzZWN0aW9ucy4K
-KwkgKi8KKwlzdGF0aWMgY29uc3QgaW50IGFkbHNfcG9ydF9tYXBwaW5nW11bM10gPSB7CisJCVtQ
-T1JUX0FdID0geyBEVk9fUE9SVF9IRE1JQSwgRFZPX1BPUlRfRFBBLCAtMSB9LAorCQlbUE9SVF9C
-XSA9IHsgLTEgfSwKKwkJW1BPUlRfQ10gPSB7IC0xIH0sCisJCVtQT1JUX1RDMV0gPSB7IERWT19Q
-T1JUX0hETUlCLCBEVk9fUE9SVF9EUEIsIC0xIH0sCisJCVtQT1JUX1RDMl0gPSB7IERWT19QT1JU
-X0hETUlDLCBEVk9fUE9SVF9EUEMsIC0xIH0sCisJCVtQT1JUX1RDM10gPSB7IERWT19QT1JUX0hE
-TUlELCBEVk9fUE9SVF9EUEQsIC0xIH0sCisJCVtQT1JUX1RDNF0gPSB7IERWT19QT1JUX0hETUlF
-LCBEVk9fUE9SVF9EUEUsIC0xIH0sCisJfTsKIAotCWlmIChJU19ERzEoZGV2X3ByaXYpIHx8IElT
-X1JPQ0tFVExBS0UoZGV2X3ByaXYpKQorCWlmIChJU19BTERFUkxBS0VfUyhkZXZfcHJpdikpCisJ
-CXJldHVybiBfX2R2b19wb3J0X3RvX3BvcnQoQVJSQVlfU0laRShhZGxzX3BvcnRfbWFwcGluZyks
-CisJCQkJCSAgQVJSQVlfU0laRShhZGxzX3BvcnRfbWFwcGluZ1swXSksCisJCQkJCSAgYWRsc19w
-b3J0X21hcHBpbmcsCisJCQkJCSAgZHZvX3BvcnQpOworCWVsc2UgaWYgKElTX0RHMShkZXZfcHJp
-dikgfHwgSVNfUk9DS0VUTEFLRShkZXZfcHJpdikpCiAJCXJldHVybiBfX2R2b19wb3J0X3RvX3Bv
-cnQoQVJSQVlfU0laRShya2xfcG9ydF9tYXBwaW5nKSwKIAkJCQkJICBBUlJBWV9TSVpFKHJrbF9w
-b3J0X21hcHBpbmdbMF0pLAogCQkJCQkgIHJrbF9wb3J0X21hcHBpbmcsCkBAIC0yNjY3LDI3ICsy
-Njg1LDQ0IEBAIGVudW0gYXV4X2NoIGludGVsX2Jpb3NfcG9ydF9hdXhfY2goc3RydWN0IGRybV9p
-OTE1X3ByaXZhdGUgKmRldl9wcml2LAogCQlyZXR1cm4gYXV4X2NoOwogCX0KIAorCS8qCisJICog
-UktML0RHMSBWQlQgdXNlcyBQSFkgYmFzZWQgbWFwcGluZy4gQ29tYm8gUEhZcyBBLEIsQyxECisJ
-ICogbWFwIHRvIERESSBBLEIsVEMxLFRDMiByZXNwZWN0aXZlbHkuCisJICoKKwkgKiBBREwtUyBW
-QlQgdXNlcyBQSFkgYmFzZWQgbWFwcGluZy4gQ29tYm8gUEhZcyBBLEIsQyxELEUKKwkgKiBtYXAg
-dG8gRERJIEEsVEMxLFRDMixUQzMsVEM0IHJlc3BlY3RpdmVseS4KKwkgKi8KIAlzd2l0Y2ggKGlu
-Zm8tPmFsdGVybmF0ZV9hdXhfY2hhbm5lbCkgewogCWNhc2UgRFBfQVVYX0E6CiAJCWF1eF9jaCA9
-IEFVWF9DSF9BOwogCQlicmVhazsKIAljYXNlIERQX0FVWF9COgotCQlhdXhfY2ggPSBBVVhfQ0hf
-QjsKKwkJaWYgKElTX0FMREVSTEFLRV9TKGRldl9wcml2KSkKKwkJCWF1eF9jaCA9IEFVWF9DSF9V
-U0JDMTsKKwkJZWxzZQorCQkJYXV4X2NoID0gQVVYX0NIX0I7CiAJCWJyZWFrOwogCWNhc2UgRFBf
-QVVYX0M6Ci0JCS8qCi0JCSAqIFJLTC9ERzEgVkJUIHVzZXMgUEhZIGJhc2VkIG1hcHBpbmcuIENv
-bWJvIFBIWXMgQSxCLEMsRAotCQkgKiBtYXAgdG8gRERJIEEsQixUQzEsVEMyIHJlc3BlY3RpdmVs
-eS4KLQkJICovCi0JCWF1eF9jaCA9IChJU19ERzEoZGV2X3ByaXYpIHx8IElTX1JPQ0tFVExBS0Uo
-ZGV2X3ByaXYpKSA/Ci0JCQlBVVhfQ0hfVVNCQzEgOiBBVVhfQ0hfQzsKKwkJaWYgKElTX0FMREVS
-TEFLRV9TKGRldl9wcml2KSkKKwkJCWF1eF9jaCA9IEFVWF9DSF9VU0JDMjsKKwkJZWxzZSBpZiAo
-SVNfREcxKGRldl9wcml2KSB8fCBJU19ST0NLRVRMQUtFKGRldl9wcml2KSkKKwkJCWF1eF9jaCA9
-IEFVWF9DSF9VU0JDMTsKKwkJZWxzZQorCQkJYXV4X2NoID0gQVVYX0NIX0M7CiAJCWJyZWFrOwog
-CWNhc2UgRFBfQVVYX0Q6Ci0JCWF1eF9jaCA9IChJU19ERzEoZGV2X3ByaXYpIHx8IElTX1JPQ0tF
-VExBS0UoZGV2X3ByaXYpKSA/Ci0JCQlBVVhfQ0hfVVNCQzIgOiBBVVhfQ0hfRDsKKwkJaWYgKElT
-X0FMREVSTEFLRV9TKGRldl9wcml2KSkKKwkJCWF1eF9jaCA9IEFVWF9DSF9VU0JDMzsKKwkJZWxz
-ZSBpZiAoSVNfREcxKGRldl9wcml2KSB8fCBJU19ST0NLRVRMQUtFKGRldl9wcml2KSkKKwkJCWF1
-eF9jaCA9IEFVWF9DSF9VU0JDMjsKKwkJZWxzZQorCQkJYXV4X2NoID0gQVVYX0NIX0Q7CiAJCWJy
-ZWFrOwogCWNhc2UgRFBfQVVYX0U6Ci0JCWF1eF9jaCA9IEFVWF9DSF9FOworCQlpZiAoSVNfQUxE
-RVJMQUtFX1MoZGV2X3ByaXYpKQorCQkJYXV4X2NoID0gQVVYX0NIX1VTQkM0OworCQllbHNlCisJ
-CQlhdXhfY2ggPSBBVVhfQ0hfRTsKIAkJYnJlYWs7CiAJY2FzZSBEUF9BVVhfRjoKIAkJYXV4X2No
-ID0gQVVYX0NIX0Y7Ci0tIAoyLjI3LjAKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fCkludGVsLWdmeCBtYWlsaW5nIGxpc3QKSW50ZWwtZ2Z4QGxpc3RzLmZy
-ZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3Rp
-bmZvL2ludGVsLWdmeAo=
+From: Matt Roper <matthew.d.roper@intel.com>
+
+ADL-S, like RKL, uses the same internal device ID for the GuC and HuC as
+TGL did, making them all firmware-compatible.  Let's re-use TGL's
+firmware for ADL-S.
+
+Bspec: 50668
+Cc: John Harrison <John.C.Harrison@intel.com>
+Cc: Lucas De Marchi <lucas.demarchi@intel.com>
+Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+Signed-off-by: Aditya Swarup <aditya.swarup@intel.com>
+---
+ drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
+index 180c23e2e25e..2d123158df0d 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
+@@ -44,9 +44,11 @@ void intel_uc_fw_change_status(struct intel_uc_fw *uc_fw,
+  * List of required GuC and HuC binaries per-platform.
+  * Must be ordered based on platform + revid, from newer to older.
+  *
+- * Note that RKL uses the same firmware as TGL.
++ * Note that RKL and ADL-S have the same GuC/HuC device ID's and use the same
++ * firmware as TGL.
+  */
+ #define INTEL_UC_FIRMWARE_DEFS(fw_def, guc_def, huc_def) \
++	fw_def(ALDERLAKE_S, 0, guc_def(tgl, 49, 0, 1), huc_def(tgl,  7, 5, 0)) \
+ 	fw_def(ROCKETLAKE,  0, guc_def(tgl, 49, 0, 1), huc_def(tgl,  7, 5, 0)) \
+ 	fw_def(TIGERLAKE,   0, guc_def(tgl, 49, 0, 1), huc_def(tgl,  7, 5, 0)) \
+ 	fw_def(JASPERLAKE,  0, guc_def(ehl, 49, 0, 1), huc_def(ehl,  9, 0, 0)) \
+-- 
+2.27.0
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
