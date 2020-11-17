@@ -2,54 +2,52 @@ Return-Path: <SRS0=Ur01=EX=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.2 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3682DC2D0E4
-	for <intel-gfx@archiver.kernel.org>; Tue, 17 Nov 2020 18:14:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 665CAC63697
+	for <intel-gfx@archiver.kernel.org>; Tue, 17 Nov 2020 18:50:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D23622462E
-	for <intel-gfx@archiver.kernel.org>; Tue, 17 Nov 2020 18:14:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D23622462E
+	by mail.kernel.org (Postfix) with ESMTPS id 166B3238E6
+	for <intel-gfx@archiver.kernel.org>; Tue, 17 Nov 2020 18:50:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 166B3238E6
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A54B899B5;
-	Tue, 17 Nov 2020 18:14:08 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A5575899B5
- for <intel-gfx@lists.freedesktop.org>; Tue, 17 Nov 2020 18:14:06 +0000 (UTC)
-IronPort-SDR: C7RwDnBgan7fCDlkiLwTvIOZn79kfGQRuElVPeAGzZaQRlzMupI67t5F1Na3gRbBNJCbtMupUw
- JumnuXhm8+AA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9808"; a="170197564"
-X-IronPort-AV: E=Sophos;i="5.77,486,1596524400"; d="scan'208";a="170197564"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D47C89F06;
+	Tue, 17 Nov 2020 18:50:45 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E7AA89F0A
+ for <intel-gfx@lists.freedesktop.org>; Tue, 17 Nov 2020 18:50:44 +0000 (UTC)
+IronPort-SDR: 0bP3OeYyC9RGS/foWY82AxmZ8GufYXNDnAZ9sOzi/p3y6qZhNuCECP3K2WFfC4AWY/CHULQmJ+
+ O5YSNVl+3+kg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9808"; a="150833835"
+X-IronPort-AV: E=Sophos;i="5.77,486,1596524400"; d="scan'208";a="150833835"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Nov 2020 10:14:01 -0800
-IronPort-SDR: Jj6cWSAirBRL5ogUTTKh+5mJSXSLV9sJ+e7e5xleKpUDQ1mVomfll0hFhZFzR04P3et/PgPezM
- auMOsx5fXoRQ==
-X-IronPort-AV: E=Sophos;i="5.77,486,1596524400"; d="scan'208";a="544150829"
-Received: from orsosgc001.ra.intel.com ([10.23.184.150])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Nov 2020 10:14:00 -0800
-Date: Tue, 17 Nov 2020 10:14:00 -0800
-From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
-To: Chris Wilson <chris@chris-wilson.co.uk>
-Message-ID: <20201117181400.GC47109@orsosgc001.ra.intel.com>
-References: <20201117110132.22267-1-chris@chris-wilson.co.uk>
- <20201117110132.22267-2-chris@chris-wilson.co.uk>
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Nov 2020 10:50:44 -0800
+IronPort-SDR: WYrj6wRkitksZrrnfLPRA7LLy5exU+Ic8tI9Te+2rNk3ax1aTDh7imrWw/uuni401ji+pQb1BV
+ eLlbgenPRdtg==
+X-IronPort-AV: E=Sophos;i="5.77,486,1596524400"; d="scan'208";a="340996810"
+Received: from ankithac-mobl1.amr.corp.intel.com (HELO
+ aswarup-mobl.amr.corp.intel.com) ([10.254.101.215])
+ by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Nov 2020 10:50:43 -0800
+From: Aditya Swarup <aditya.swarup@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Tue, 17 Nov 2020 10:50:09 -0800
+Message-Id: <20201117185029.22078-2-aditya.swarup@intel.com>
+X-Mailer: git-send-email 2.27.0
+In-Reply-To: <20201117185029.22078-1-aditya.swarup@intel.com>
+References: <20201117185029.22078-1-aditya.swarup@intel.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20201117110132.22267-2-chris@chris-wilson.co.uk>
-User-Agent: Mutt/1.12.1 (2019-06-15)
-Subject: Re: [Intel-gfx] [PATCH 2/8] drm/i915/gt: Refactor _wa_add to reuse
- wa_index and wa_list_grow
+Subject: [Intel-gfx] [PATCH 01/21] drm/i915/dg1: Enable ports
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,195 +60,81 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org
+Cc: Lucas De Marchi <lucas.demarchi@intel.com>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This is quite different and much cleane from my original patch :), so 
-you should be the author. With that, this is
+For DG1 we have a little of mix up wrt to DDI/port names and indexes.
+Bspec refers to the ports as DDIA, DDIB, DDI USBC1 and DDI USBC2
+(besides the DDIA, DDIB, DDIC, DDID), but the previous naming is the
+most unambiguous one. This means that for any register on Display Engine
+we should use the index of A, B, D and E. However in some places this is
+not true:
 
-Reviewed-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+- VBT: uses C and D and have to be mapped to D/E
 
-Thanks,
-Umesh
+- IO/Combo: uses C and D, but we already differentiate those when
+  we created the phy vs port distinction.
 
-On Tue, Nov 17, 2020 at 11:01:26AM +0000, Chris Wilson wrote:
->From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
->
->Switch the search and grow code of the _wa_add to use _wa_index and
->_wa_list_grow.
->
->Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
->---
-> drivers/gpu/drm/i915/gt/intel_workarounds.c | 124 +++++++++++---------
-> 1 file changed, 71 insertions(+), 53 deletions(-)
->
->diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
->index c49083957074..e50c72d2b3f1 100644
->--- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
->+++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
->@@ -91,20 +91,19 @@ static void wa_init_start(struct i915_wa_list *wal, const char *name, const char
->
-> #define WA_LIST_CHUNK (1 << 4)
->
->-static void wa_init_finish(struct i915_wa_list *wal)
->+static void wa_trim(struct i915_wa_list *wal, gfp_t gfp)
-> {
->+	struct i915_wa *list;
->+
-> 	/* Trim unused entries. */
->-	if (!IS_ALIGNED(wal->count, WA_LIST_CHUNK)) {
->-		struct i915_wa *list = kmemdup(wal->list,
->-					       wal->count * sizeof(*list),
->-					       GFP_KERNEL);
->-
->-		if (list) {
->-			kfree(wal->list);
->-			wal->list = list;
->-		}
->-	}
->+	list = krealloc(wal->list, wal->count * sizeof(*list), gfp);
->+	if (list)
->+		wal->list = list;
->+}
->
->+static void wa_init_finish(struct i915_wa_list *wal)
->+{
->+	wa_trim(wal, GFP_KERNEL);
-> 	if (!wal->count)
-> 		return;
->
->@@ -112,57 +111,60 @@ static void wa_init_finish(struct i915_wa_list *wal)
-> 			 wal->wa_count, wal->name, wal->engine_name);
-> }
->
->-static void _wa_add(struct i915_wa_list *wal, const struct i915_wa *wa)
->+static int wa_index(struct i915_wa_list *wal, i915_reg_t reg)
-> {
->-	unsigned int addr = i915_mmio_reg_offset(wa->reg);
->-	unsigned int start = 0, end = wal->count;
->-	const unsigned int grow = WA_LIST_CHUNK;
->-	struct i915_wa *wa_;
->+	unsigned int addr = i915_mmio_reg_offset(reg);
->+	int start = 0, end = wal->count;
->
->-	GEM_BUG_ON(!is_power_of_2(grow));
->+	/* addr and wal->list[].reg, both include the R/W flags */
->+	while (start < end) {
->+		unsigned int mid = start + (end - start) / 2;
->
->-	if (IS_ALIGNED(wal->count, grow)) { /* Either uninitialized or full. */
->-		struct i915_wa *list;
->+		if (i915_mmio_reg_offset(wal->list[mid].reg) < addr)
->+			start = mid + 1;
->+		else if (i915_mmio_reg_offset(wal->list[mid].reg) > addr)
->+			end = mid;
->+		else
->+			return mid;
->+	}
->
->-		list = kmalloc_array(ALIGN(wal->count + 1, grow), sizeof(*wa),
->-				     GFP_KERNEL);
->-		if (!list) {
->-			DRM_ERROR("No space for workaround init!\n");
->-			return;
->-		}
->+	return -ENOENT;
->+}
->
->-		if (wal->list) {
->-			memcpy(list, wal->list, sizeof(*wa) * wal->count);
->-			kfree(wal->list);
->-		}
->+static int wa_list_grow(struct i915_wa_list *wal, size_t count, gfp_t gfp)
->+{
->+	struct i915_wa *list;
->
->-		wal->list = list;
->-	}
->+	list = krealloc(wal->list, count * sizeof(*list), gfp);
->+	if (!list)
->+		return -ENOMEM;
->
->-	while (start < end) {
->-		unsigned int mid = start + (end - start) / 2;
->+	wal->list = list;
->+	return 0;
->+}
->
->-		if (i915_mmio_reg_offset(wal->list[mid].reg) < addr) {
->-			start = mid + 1;
->-		} else if (i915_mmio_reg_offset(wal->list[mid].reg) > addr) {
->-			end = mid;
->-		} else {
->-			wa_ = &wal->list[mid];
->-
->-			if ((wa->clr | wa_->clr) && !(wa->clr & ~wa_->clr)) {
->-				DRM_ERROR("Discarding overwritten w/a for reg %04x (clear: %08x, set: %08x)\n",
->-					  i915_mmio_reg_offset(wa_->reg),
->-					  wa_->clr, wa_->set);
->-
->-				wa_->set &= ~wa->clr;
->-			}
->-
->-			wal->wa_count++;
->-			wa_->set |= wa->set;
->-			wa_->clr |= wa->clr;
->-			wa_->read |= wa->read;
->-			return;
->+static void __wa_add(struct i915_wa_list *wal, const struct i915_wa *wa)
->+{
->+	struct i915_wa *wa_;
->+	int index;
->+
->+	index = wa_index(wal, wa->reg);
->+	if (index >= 0) {
->+		wa_ = &wal->list[index];
->+
->+		if ((wa->clr | wa_->clr) && !(wa->clr & ~wa_->clr)) {
->+			DRM_ERROR("Discarding overwritten w/a for reg %04x (clear: %08x, set: %08x)\n",
->+				  i915_mmio_reg_offset(wa_->reg),
->+				  wa_->clr, wa_->set);
->+
->+			wa_->set &= ~wa->clr;
-> 		}
->+
->+		wal->wa_count++;
->+		wa_->set |= wa->set;
->+		wa_->clr |= wa->clr;
->+		wa_->read |= wa->read;
->+		return;
-> 	}
->
-> 	wal->wa_count++;
->@@ -180,6 +182,22 @@ static void _wa_add(struct i915_wa_list *wal, const struct i915_wa *wa)
-> 	}
-> }
->
->+static void _wa_add(struct i915_wa_list *wal, const struct i915_wa *wa)
->+{
->+	const unsigned int grow = WA_LIST_CHUNK;
->+
->+	GEM_BUG_ON(!is_power_of_2(grow));
->+
->+	if (IS_ALIGNED(wal->count, grow) && /* Either uninitialized or full. */
->+	    wa_list_grow(wal, ALIGN(wal->count + 1, grow), GFP_KERNEL)) {
->+		DRM_ERROR("Unable to store w/a for reg %04x\n",
->+			  i915_mmio_reg_offset(wa->reg));
->+		return;
->+	}
->+
->+	__wa_add(wal, wa);
->+}
->+
-> static void wa_add(struct i915_wa_list *wal, i915_reg_t reg,
-> 		   u32 clear, u32 set, u32 read_mask)
-> {
->-- 
->2.20.1
->
+This additional mapping for VBT and phy are already covered in previous
+patches, so now we can initialize all the DDIs as A, B, D and E.
+
+v2: Squash previous patch enabling just ports A and B since most of the
+pumbling code is already merged now
+
+Cc: Matt Roper <matthew.d.roper@intel.com>
+Cc: Clinton Taylor <Clinton.A.Taylor@intel.com>
+Signed-off-by: Aditya Swarup <aditya.swarup@intel.com>
+Reviewed-by: Lucas De Marchi <lucas.demarchi@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_display.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index bc532711470b..e8874cd22abf 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -7343,7 +7343,7 @@ bool intel_phy_is_combo(struct drm_i915_private *dev_priv, enum phy phy)
+ {
+ 	if (phy == PHY_NONE)
+ 		return false;
+-	else if (IS_ROCKETLAKE(dev_priv))
++	else if (IS_DG1(dev_priv) || IS_ROCKETLAKE(dev_priv))
+ 		return phy <= PHY_D;
+ 	else if (IS_JSL_EHL(dev_priv))
+ 		return phy <= PHY_C;
+@@ -7355,7 +7355,7 @@ bool intel_phy_is_combo(struct drm_i915_private *dev_priv, enum phy phy)
+ 
+ bool intel_phy_is_tc(struct drm_i915_private *dev_priv, enum phy phy)
+ {
+-	if (IS_ROCKETLAKE(dev_priv))
++	if (IS_DG1(dev_priv) || IS_ROCKETLAKE(dev_priv))
+ 		return false;
+ 	else if (INTEL_GEN(dev_priv) >= 12)
+ 		return phy >= PHY_D && phy <= PHY_I;
+@@ -7367,7 +7367,7 @@ bool intel_phy_is_tc(struct drm_i915_private *dev_priv, enum phy phy)
+ 
+ enum phy intel_port_to_phy(struct drm_i915_private *i915, enum port port)
+ {
+-	if (IS_ROCKETLAKE(i915) && port >= PORT_TC1)
++	if ((IS_DG1(i915) || IS_ROCKETLAKE(i915)) && port >= PORT_TC1)
+ 		return PHY_C + port - PORT_TC1;
+ 	else if (IS_JSL_EHL(i915) && port == PORT_D)
+ 		return PHY_A;
+@@ -17240,7 +17240,7 @@ static void intel_setup_outputs(struct drm_i915_private *dev_priv)
+ 	if (!HAS_DISPLAY(dev_priv))
+ 		return;
+ 
+-	if (IS_ROCKETLAKE(dev_priv)) {
++	if (IS_DG1(dev_priv) || IS_ROCKETLAKE(dev_priv)) {
+ 		intel_ddi_init(dev_priv, PORT_A);
+ 		intel_ddi_init(dev_priv, PORT_B);
+ 		intel_ddi_init(dev_priv, PORT_TC1);
+-- 
+2.27.0
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
