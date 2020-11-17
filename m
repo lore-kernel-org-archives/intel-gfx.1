@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CE287C6379D
-	for <intel-gfx@archiver.kernel.org>; Tue, 17 Nov 2020 11:31:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C7C05C2D0E4
+	for <intel-gfx@archiver.kernel.org>; Tue, 17 Nov 2020 11:31:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 63FA9206A1
-	for <intel-gfx@archiver.kernel.org>; Tue, 17 Nov 2020 11:31:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 63FA9206A1
+	by mail.kernel.org (Postfix) with ESMTPS id 500F8206A1
+	for <intel-gfx@archiver.kernel.org>; Tue, 17 Nov 2020 11:31:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 500F8206A1
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C42916E1B1;
-	Tue, 17 Nov 2020 11:31:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B4FE6E1D5;
+	Tue, 17 Nov 2020 11:31:17 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E5A3D6E1A7
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0BB046E1B4
  for <intel-gfx@lists.freedesktop.org>; Tue, 17 Nov 2020 11:31:14 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23016333-1500050 
- for multiple; Tue, 17 Nov 2020 11:31:04 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23016340-1500050 
+ for multiple; Tue, 17 Nov 2020 11:31:06 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 17 Nov 2020 11:30:54 +0000
-Message-Id: <20201117113103.21480-19-chris@chris-wilson.co.uk>
+Date: Tue, 17 Nov 2020 11:31:01 +0000
+Message-Id: <20201117113103.21480-26-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201117113103.21480-1-chris@chris-wilson.co.uk>
 References: <20201117113103.21480-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 19/28] drm/i915/gt: Check for a completed last
- request once
+Subject: [Intel-gfx] [PATCH 26/28] drm/i915/gt: Shrink the critical section
+ for irq signaling
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,55 +56,63 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Pull the repeated check for the last active request being completed to a
-single spot, when deciding whether or not execlist preemption is
-required.
+Let's only wait for the list iterator when decoupling the virtual
+breadcrumb, as the signaling of all the requests may take a long time,
+during which we do not want to keep the tasklet spinning.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 ---
- drivers/gpu/drm/i915/gt/intel_lrc.c | 15 ++++-----------
- 1 file changed, 4 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_breadcrumbs.c       | 2 ++
+ drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h | 1 +
+ drivers/gpu/drm/i915/gt/intel_lrc.c               | 3 ++-
+ 3 files changed, 5 insertions(+), 1 deletion(-)
 
+diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
+index 5b84f51931d9..3e69d6c3b197 100644
+--- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
++++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
+@@ -251,6 +251,7 @@ static void signal_irq_work(struct irq_work *work)
+ 		intel_breadcrumbs_disarm_irq(b);
+ 
+ 	rcu_read_lock();
++	atomic_inc(&b->signaler_active);
+ 	list_for_each_entry_rcu(ce, &b->signalers, signal_link) {
+ 		struct i915_request *rq;
+ 
+@@ -284,6 +285,7 @@ static void signal_irq_work(struct irq_work *work)
+ 			}
+ 		}
+ 	}
++	atomic_dec(&b->signaler_active);
+ 	rcu_read_unlock();
+ 
+ 	llist_for_each_safe(signal, sn, signal) {
+diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h b/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h
+index a74bb3062bd8..f672053d694d 100644
+--- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h
+@@ -35,6 +35,7 @@ struct intel_breadcrumbs {
+ 	spinlock_t signalers_lock; /* protects the list of signalers */
+ 	struct list_head signalers;
+ 	struct llist_head signaled_requests;
++	atomic_t signaler_active;
+ 
+ 	spinlock_t irq_lock; /* protects the interrupt from hardirq context */
+ 	struct irq_work irq_work; /* for use from inside irq_lock */
 diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
-index 0bcbd734a11d..7a78ef34ad65 100644
+index a94daf4c70a3..87ede3513e4c 100644
 --- a/drivers/gpu/drm/i915/gt/intel_lrc.c
 +++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
-@@ -2141,12 +2141,9 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
- 	 */
+@@ -1400,7 +1400,8 @@ static void kick_siblings(struct i915_request *rq, struct intel_context *ce)
+ 		 * ce->signal_link.
+ 		 */
+ 		i915_request_cancel_breadcrumb(rq);
+-		irq_work_sync(&engine->breadcrumbs->irq_work);
++		while (atomic_read(&engine->breadcrumbs->signaler_active))
++			cpu_relax();
+ 	}
  
- 	if ((last = *active)) {
--		if (need_preempt(engine, last, rb)) {
--			if (i915_request_completed(last)) {
--				tasklet_hi_schedule(&execlists->tasklet);
--				return;
--			}
--
-+		if (i915_request_completed(last)) {
-+			goto check_secondary;
-+		} else if (need_preempt(engine, last, rb)) {
- 			ENGINE_TRACE(engine,
- 				     "preempting last=%llx:%lld, prio=%d, hint=%d\n",
- 				     last->fence.context,
-@@ -2174,11 +2171,6 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
- 			last = NULL;
- 		} else if (need_timeslice(engine, last, rb) &&
- 			   timeslice_expired(execlists, last)) {
--			if (i915_request_completed(last)) {
--				tasklet_hi_schedule(&execlists->tasklet);
--				return;
--			}
--
- 			ENGINE_TRACE(engine,
- 				     "expired last=%llx:%lld, prio=%d, hint=%d, yield?=%s\n",
- 				     last->fence.context,
-@@ -2214,6 +2206,7 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
- 			 * we hopefully coalesce several updates into a single
- 			 * submission.
- 			 */
-+check_secondary:
- 			if (!list_is_last(&last->sched.link,
- 					  &engine->active.requests)) {
- 				/*
+ 	if (READ_ONCE(ve->request))
 -- 
 2.20.1
 
