@@ -7,37 +7,36 @@ X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 870F1C6379D
-	for <intel-gfx@archiver.kernel.org>; Tue, 17 Nov 2020 11:31:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E6C7CC5519F
+	for <intel-gfx@archiver.kernel.org>; Tue, 17 Nov 2020 11:31:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1741B206A1
-	for <intel-gfx@archiver.kernel.org>; Tue, 17 Nov 2020 11:31:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1741B206A1
+	by mail.kernel.org (Postfix) with ESMTPS id 8D341206A1
+	for <intel-gfx@archiver.kernel.org>; Tue, 17 Nov 2020 11:31:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8D341206A1
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 69FA96E1A3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BEB066E1E8;
 	Tue, 17 Nov 2020 11:31:37 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 12E5B6E1B8
- for <intel-gfx@lists.freedesktop.org>; Tue, 17 Nov 2020 11:31:15 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 116FF6E1D7
+ for <intel-gfx@lists.freedesktop.org>; Tue, 17 Nov 2020 11:31:16 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23016325-1500050 
- for multiple; Tue, 17 Nov 2020 11:31:03 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23016321-1500050 
+ for multiple; Tue, 17 Nov 2020 11:31:02 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 17 Nov 2020 11:30:46 +0000
-Message-Id: <20201117113103.21480-11-chris@chris-wilson.co.uk>
+Date: Tue, 17 Nov 2020 11:30:42 +0000
+Message-Id: <20201117113103.21480-7-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201117113103.21480-1-chris@chris-wilson.co.uk>
 References: <20201117113103.21480-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 11/28] drm/i915/gt: Defer enabling the
- breadcrumb interrupt to after submission
+Subject: [Intel-gfx] [PATCH 07/28] drm/i915: Lift i915_request_show()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,220 +55,203 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Move the register slow register write and readback from out of the
-critical path for execlists submission and delay it until the following
-worker, shaving off around 200us. Note that the same signal_irq_work() is
-allowed to run concurrently on each CPU (but it will only be queued once,
-once running though it can be requeued and reexecuted) so we have to
-remember to lock the global interactions as we cannot rely on the
-signal_irq_work() itself providing the serialisation (in constrast to a
-tasklet).
+Extract i915_request_show for reuse in other request chain pretty
+printers.
 
-By pushing the arm/disarm into the central signaling worker we can close
-the race for disarming the interrupt (and dropping its associated
-GT wakeref) on parking the engine. If we loose the race, that GT wakeref
-may be held indefinitely, preventing the machine from sleeping while
-the GPU is ostensibly idle.
-
-v2: Move the self-arming parking of the signal_irq_work to a flush of
-the irq-work from intel_breadcrumbs_park().
-
-Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/2271
-Fixes: dfeba1ae34c8 ("drm/i915/gt: Hold context/request reference while breadcrumbs are active")
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_breadcrumbs.c | 109 +++++++++++++-------
- 1 file changed, 70 insertions(+), 39 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c | 47 ++---------------------
+ drivers/gpu/drm/i915/gt/intel_lrc.c       |  2 +-
+ drivers/gpu/drm/i915/gt/intel_lrc.h       |  2 +-
+ drivers/gpu/drm/i915/i915_request.c       | 39 +++++++++++++++++++
+ drivers/gpu/drm/i915/i915_request.h       |  5 +++
+ 5 files changed, 50 insertions(+), 45 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-index d8b206e53660..8d85683314e1 100644
---- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-@@ -30,18 +30,21 @@
- #include "i915_trace.h"
- #include "intel_breadcrumbs.h"
- #include "intel_context.h"
-+#include "intel_engine_pm.h"
- #include "intel_gt_pm.h"
- #include "intel_gt_requests.h"
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+index 1ed84ee8ce41..c3bb2e9546e6 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
++++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+@@ -1294,45 +1294,6 @@ bool intel_engine_can_store_dword(struct intel_engine_cs *engine)
+ 	}
+ }
  
--static void irq_enable(struct intel_engine_cs *engine)
-+static bool irq_enable(struct intel_engine_cs *engine)
+-static int print_sched_attr(const struct i915_sched_attr *attr,
+-			    char *buf, int x, int len)
+-{
+-	if (attr->priority == I915_PRIORITY_INVALID)
+-		return x;
+-
+-	x += snprintf(buf + x, len - x,
+-		      " prio=%d", attr->priority);
+-
+-	return x;
+-}
+-
+-static void print_request(struct drm_printer *m,
+-			  struct i915_request *rq,
+-			  const char *prefix)
+-{
+-	const char *name = rq->fence.ops->get_timeline_name(&rq->fence);
+-	char buf[80] = "";
+-	int x = 0;
+-
+-	x = print_sched_attr(&rq->sched.attr, buf, x, sizeof(buf));
+-
+-	drm_printf(m, "%s %llx:%llx%s%s %s @ %dms: %s\n",
+-		   prefix,
+-		   rq->fence.context, rq->fence.seqno,
+-		   i915_request_completed(rq) ? "!" :
+-		   i915_request_started(rq) ? "*" :
+-		   !i915_sw_fence_signaled(&rq->semaphore) ? "&" :
+-		   "",
+-		   test_bit(DMA_FENCE_FLAG_SIGNALED_BIT,
+-			    &rq->fence.flags) ? "+" :
+-		   test_bit(DMA_FENCE_FLAG_ENABLE_SIGNAL_BIT,
+-			    &rq->fence.flags) ? "-" :
+-		   "",
+-		   buf,
+-		   jiffies_to_msecs(jiffies - rq->emitted_jiffies),
+-		   name);
+-}
+-
+ static struct intel_timeline *get_timeline(struct i915_request *rq)
  {
- 	if (!engine->irq_enable)
--		return;
-+		return false;
+ 	struct intel_timeline *tl;
+@@ -1530,7 +1491,7 @@ static void intel_engine_print_registers(struct intel_engine_cs *engine,
+ 					intel_context_is_banned(rq->context) ? "*" : "");
+ 			len += print_ring(hdr + len, sizeof(hdr) - len, rq);
+ 			scnprintf(hdr + len, sizeof(hdr) - len, "rq: ");
+-			print_request(m, rq, hdr);
++			i915_request_show(m, rq, hdr);
+ 		}
+ 		for (port = execlists->pending; (rq = *port); port++) {
+ 			char hdr[160];
+@@ -1544,7 +1505,7 @@ static void intel_engine_print_registers(struct intel_engine_cs *engine,
+ 					intel_context_is_banned(rq->context) ? "*" : "");
+ 			len += print_ring(hdr + len, sizeof(hdr) - len, rq);
+ 			scnprintf(hdr + len, sizeof(hdr) - len, "rq: ");
+-			print_request(m, rq, hdr);
++			i915_request_show(m, rq, hdr);
+ 		}
+ 		rcu_read_unlock();
+ 		execlists_active_unlock_bh(execlists);
+@@ -1688,7 +1649,7 @@ void intel_engine_dump(struct intel_engine_cs *engine,
+ 	if (rq) {
+ 		struct intel_timeline *tl = get_timeline(rq);
  
- 	/* Caller disables interrupts */
- 	spin_lock(&engine->gt->irq_lock);
- 	engine->irq_enable(engine);
- 	spin_unlock(&engine->gt->irq_lock);
+-		print_request(m, rq, "\t\tactive ");
++		i915_request_show(m, rq, "\t\tactive ");
+ 
+ 		drm_printf(m, "\t\tring->start:  0x%08x\n",
+ 			   i915_ggtt_offset(rq->ring->vma));
+@@ -1726,7 +1687,7 @@ void intel_engine_dump(struct intel_engine_cs *engine,
+ 		drm_printf(m, "\tDevice is asleep; skipping register dump\n");
+ 	}
+ 
+-	intel_execlists_show_requests(engine, m, print_request, 8);
++	intel_execlists_show_requests(engine, m, i915_request_show, 8);
+ 
+ 	drm_printf(m, "HWSP:\n");
+ 	hexdump(m, engine->status_page.addr, PAGE_SIZE);
+diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
+index 52b84474f93a..a4b8c20d12a9 100644
+--- a/drivers/gpu/drm/i915/gt/intel_lrc.c
++++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
+@@ -5980,7 +5980,7 @@ int intel_virtual_engine_attach_bond(struct intel_engine_cs *engine,
+ void intel_execlists_show_requests(struct intel_engine_cs *engine,
+ 				   struct drm_printer *m,
+ 				   void (*show_request)(struct drm_printer *m,
+-							struct i915_request *rq,
++							const struct i915_request *rq,
+ 							const char *prefix),
+ 				   unsigned int max)
+ {
+diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.h b/drivers/gpu/drm/i915/gt/intel_lrc.h
+index c2d287f25497..32e6e204f544 100644
+--- a/drivers/gpu/drm/i915/gt/intel_lrc.h
++++ b/drivers/gpu/drm/i915/gt/intel_lrc.h
+@@ -106,7 +106,7 @@ void intel_lr_context_reset(struct intel_engine_cs *engine,
+ void intel_execlists_show_requests(struct intel_engine_cs *engine,
+ 				   struct drm_printer *m,
+ 				   void (*show_request)(struct drm_printer *m,
+-							struct i915_request *rq,
++							const struct i915_request *rq,
+ 							const char *prefix),
+ 				   unsigned int max);
+ 
+diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
+index 0e813819b041..cebe07a85625 100644
+--- a/drivers/gpu/drm/i915/i915_request.c
++++ b/drivers/gpu/drm/i915/i915_request.c
+@@ -1855,6 +1855,45 @@ long i915_request_wait(struct i915_request *rq,
+ 	return timeout;
+ }
+ 
++static int print_sched_attr(const struct i915_sched_attr *attr,
++			    char *buf, int x, int len)
++{
++	if (attr->priority == I915_PRIORITY_INVALID)
++		return x;
 +
-+	return true;
- }
- 
- static void irq_disable(struct intel_engine_cs *engine)
-@@ -57,12 +60,11 @@ static void irq_disable(struct intel_engine_cs *engine)
- 
- static void __intel_breadcrumbs_arm_irq(struct intel_breadcrumbs *b)
- {
--	lockdep_assert_held(&b->irq_lock);
--
--	if (!b->irq_engine || b->irq_armed)
--		return;
--
--	if (!intel_gt_pm_get_if_awake(b->irq_engine->gt))
-+	/*
-+	 * Since we are waiting on a request, the GPU should be busy
-+	 * and should have its own rpm reference.
-+	 */
-+	if (GEM_WARN_ON(!intel_gt_pm_get_if_awake(b->irq_engine->gt)))
- 		return;
- 
- 	/*
-@@ -73,25 +75,24 @@ static void __intel_breadcrumbs_arm_irq(struct intel_breadcrumbs *b)
- 	 */
- 	WRITE_ONCE(b->irq_armed, true);
- 
--	/*
--	 * Since we are waiting on a request, the GPU should be busy
--	 * and should have its own rpm reference. This is tracked
--	 * by i915->gt.awake, we can forgo holding our own wakref
--	 * for the interrupt as before i915->gt.awake is released (when
--	 * the driver is idle) we disarm the breadcrumbs.
--	 */
--
--	if (!b->irq_enabled++)
--		irq_enable(b->irq_engine);
-+	/* Requests may have completed before we could enable the interrupt. */
-+	if (!b->irq_enabled++ && irq_enable(b->irq_engine))
-+		irq_work_queue(&b->irq_work);
- }
- 
--static void __intel_breadcrumbs_disarm_irq(struct intel_breadcrumbs *b)
-+static void intel_breadcrumbs_arm_irq(struct intel_breadcrumbs *b)
- {
--	lockdep_assert_held(&b->irq_lock);
--
--	if (!b->irq_engine || !b->irq_armed)
-+	if (!b->irq_engine)
- 		return;
- 
-+	spin_lock(&b->irq_lock);
-+	if (!b->irq_armed)
-+		__intel_breadcrumbs_arm_irq(b);
-+	spin_unlock(&b->irq_lock);
++	x += snprintf(buf + x, len - x,
++		      " prio=%d", attr->priority);
++
++	return x;
 +}
 +
-+static void __intel_breadcrumbs_disarm_irq(struct intel_breadcrumbs *b)
++void i915_request_show(struct drm_printer *m,
++		       const struct i915_request *rq,
++		       const char *prefix)
 +{
- 	GEM_BUG_ON(!b->irq_enabled);
- 	if (!--b->irq_enabled)
- 		irq_disable(b->irq_engine);
-@@ -105,8 +106,6 @@ static void add_signaling_context(struct intel_breadcrumbs *b,
- {
- 	intel_context_get(ce);
- 	list_add_tail(&ce->signal_link, &b->signalers);
--	if (list_is_first(&ce->signal_link, &b->signalers))
--		__intel_breadcrumbs_arm_irq(b);
- }
- 
- static void remove_signaling_context(struct intel_breadcrumbs *b,
-@@ -197,7 +196,32 @@ static void signal_irq_work(struct irq_work *work)
- 
- 	spin_lock(&b->irq_lock);
- 
--	if (list_empty(&b->signalers))
-+	/*
-+	 * Keep the irq armed until the interrupt after all listeners are gone.
-+	 *
-+	 * Enabling/disabling the interrupt is rather costly, roughly a couple
-+	 * of hundred microseconds. If we are proactive and enable/disable
-+	 * the interrupt around every request that wants a breadcrumb, we
-+	 * quickly drown in the extra orders of magnitude of latency imposed
-+	 * on request submission.
-+	 *
-+	 * So we try to be lazy, and keep the interrupts enabled until no
-+	 * more listeners appear within a breadcrumb interrupt interval (that
-+	 * is until a request completes that no one cares about). The
-+	 * observation is that listeners come in batches, and will often
-+	 * listen to a bunch of requests in succession. Though note on icl+,
-+	 * interrupts are always enabled due to concerns with rc6 being
-+	 * dysfunctional with per-engine interrupt masking.
-+	 *
-+	 * We also try to avoid raising too many interrupts, as they may
-+	 * be generated by userspace batches and it is unfortunately rather
-+	 * too easy to drown the CPU under a flood of GPU interrupts. Thus
-+	 * whenever no one appears to be listening, we turn off the interrupts.
-+	 * Fewer interrupts should conserve power -- at the very least, fewer
-+	 * interrupt draw less ire from other users of the system and tools
-+	 * like powertop.
-+	 */
-+	if (b->irq_armed && list_empty(&b->signalers))
- 		__intel_breadcrumbs_disarm_irq(b);
- 
- 	list_splice_init(&b->signaled_requests, &signal);
-@@ -251,6 +275,9 @@ static void signal_irq_work(struct irq_work *work)
- 
- 		i915_request_put(rq);
- 	}
++	const char *name = rq->fence.ops->get_timeline_name((struct dma_fence *)&rq->fence);
++	char buf[80] = "";
++	int x = 0;
 +
-+	if (!READ_ONCE(b->irq_armed) && !list_empty(&b->signalers))
-+		intel_breadcrumbs_arm_irq(b);
- }
++	x = print_sched_attr(&rq->sched.attr, buf, x, sizeof(buf));
++
++	drm_printf(m, "%s %llx:%llx%s%s %s @ %dms: %s\n",
++		   prefix,
++		   rq->fence.context, rq->fence.seqno,
++		   i915_request_completed(rq) ? "!" :
++		   i915_request_started(rq) ? "*" :
++		   !i915_sw_fence_signaled(&rq->semaphore) ? "&" :
++		   "",
++		   test_bit(DMA_FENCE_FLAG_SIGNALED_BIT,
++			    &rq->fence.flags) ? "+" :
++		   test_bit(DMA_FENCE_FLAG_ENABLE_SIGNAL_BIT,
++			    &rq->fence.flags) ? "-" :
++		   "",
++		   buf,
++		   jiffies_to_msecs(jiffies - rq->emitted_jiffies),
++		   name);
++}
++
+ #if IS_ENABLED(CONFIG_DRM_I915_SELFTEST)
+ #include "selftests/mock_request.c"
+ #include "selftests/i915_request.c"
+diff --git a/drivers/gpu/drm/i915/i915_request.h b/drivers/gpu/drm/i915/i915_request.h
+index 16b721080195..09609071b725 100644
+--- a/drivers/gpu/drm/i915/i915_request.h
++++ b/drivers/gpu/drm/i915/i915_request.h
+@@ -43,6 +43,7 @@
  
- struct intel_breadcrumbs *
-@@ -292,21 +319,22 @@ void intel_breadcrumbs_reset(struct intel_breadcrumbs *b)
+ struct drm_file;
+ struct drm_i915_gem_object;
++struct drm_printer;
+ struct i915_request;
  
- void intel_breadcrumbs_park(struct intel_breadcrumbs *b)
+ struct i915_capture_list {
+@@ -369,6 +370,10 @@ long i915_request_wait(struct i915_request *rq,
+ #define I915_WAIT_PRIORITY	BIT(1) /* small priority bump for the request */
+ #define I915_WAIT_ALL		BIT(2) /* used by i915_gem_object_wait() */
+ 
++void i915_request_show(struct drm_printer *m,
++		       const struct i915_request *rq,
++		       const char *prefix);
++
+ static inline bool i915_request_signaled(const struct i915_request *rq)
  {
--	unsigned long flags;
--
--	if (!READ_ONCE(b->irq_armed))
--		return;
--
--	spin_lock_irqsave(&b->irq_lock, flags);
--	__intel_breadcrumbs_disarm_irq(b);
--	spin_unlock_irqrestore(&b->irq_lock, flags);
--
--	if (!list_empty(&b->signalers))
--		irq_work_queue(&b->irq_work);
-+	/* Kick the work once more to drain the signalers */
-+	irq_work_sync(&b->irq_work);
-+	while (unlikely(READ_ONCE(b->irq_armed))) {
-+		local_irq_disable();
-+		signal_irq_work(&b->irq_work);
-+		local_irq_enable();
-+		cond_resched();
-+	}
-+	GEM_BUG_ON(!list_empty(&b->signalers));
- }
- 
- void intel_breadcrumbs_free(struct intel_breadcrumbs *b)
- {
-+	irq_work_sync(&b->irq_work);
-+	GEM_BUG_ON(!list_empty(&b->signalers));
-+	GEM_BUG_ON(b->irq_armed);
- 	kfree(b);
- }
- 
-@@ -362,9 +390,12 @@ static void insert_breadcrumb(struct i915_request *rq,
- 	GEM_BUG_ON(!check_signal_order(ce, rq));
- 	set_bit(I915_FENCE_FLAG_SIGNAL, &rq->fence.flags);
- 
--	/* Check after attaching to irq, interrupt may have already fired. */
--	if (__request_completed(rq))
--		irq_work_queue(&b->irq_work);
-+	/*
-+	 * Defer enabling the interrupt to after HW submission and recheck
-+	 * the request as it may have completed and raised the interrupt as
-+	 * we were attaching it into the lists.
-+	 */
-+	irq_work_queue(&b->irq_work);
- }
- 
- bool i915_request_enable_breadcrumb(struct i915_request *rq)
+ 	/* The request may live longer than its HWSP, so check flags first! */
 -- 
 2.20.1
 
