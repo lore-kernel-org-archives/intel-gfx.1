@@ -2,42 +2,42 @@ Return-Path: <SRS0=Ur01=EX=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-9.9 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7813CC2D0E4
-	for <intel-gfx@archiver.kernel.org>; Tue, 17 Nov 2020 11:31:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 38210C64E69
+	for <intel-gfx@archiver.kernel.org>; Tue, 17 Nov 2020 11:31:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1FB81206A1
+	by mail.kernel.org (Postfix) with ESMTPS id D2C33206A1
 	for <intel-gfx@archiver.kernel.org>; Tue, 17 Nov 2020 11:31:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1FB81206A1
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D2C33206A1
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ACCA66E1D2;
-	Tue, 17 Nov 2020 11:31:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A82A6E1E0;
+	Tue, 17 Nov 2020 11:31:28 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E8F876E1C0
- for <intel-gfx@lists.freedesktop.org>; Tue, 17 Nov 2020 11:31:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D9D026E1B8
+ for <intel-gfx@lists.freedesktop.org>; Tue, 17 Nov 2020 11:31:17 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23016318-1500050 
- for multiple; Tue, 17 Nov 2020 11:31:01 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23016322-1500050 
+ for multiple; Tue, 17 Nov 2020 11:31:02 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 17 Nov 2020 11:30:39 +0000
-Message-Id: <20201117113103.21480-4-chris@chris-wilson.co.uk>
+Date: Tue, 17 Nov 2020 11:30:43 +0000
+Message-Id: <20201117113103.21480-8-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201117113103.21480-1-chris@chris-wilson.co.uk>
 References: <20201117113103.21480-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 04/28] drm/i915/gt: Ignore dt==0 for reporting
- underflows
+Subject: [Intel-gfx] [PATCH 08/28] drm/i915/gt: Show all active timelines
+ for debugging
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,38 +56,173 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The presumption was that some time would always elapse between recording
-the start and the finish of a context switch. This turns out to be a
-regular occurrence and emitting a debug statement superfluous.
+Include the active timelines for debugfs/i915_engine_info, so that we
+can see which have unready requests inflight which are not shown
+otherwise.
 
+Suggested-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_lrc.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_timeline.c | 79 ++++++++++++++++++++++++
+ drivers/gpu/drm/i915/gt/intel_timeline.h |  8 +++
+ drivers/gpu/drm/i915/i915_debugfs.c      | 18 +++---
+ 3 files changed, 97 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
-index 8a51c1c3a091..52b84474f93a 100644
---- a/drivers/gpu/drm/i915/gt/intel_lrc.c
-+++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
-@@ -1307,7 +1307,7 @@ static void reset_active(struct i915_request *rq,
- static void st_update_runtime_underflow(struct intel_context *ce, s32 dt)
- {
- #if IS_ENABLED(CONFIG_DRM_I915_SELFTEST)
--	ce->runtime.num_underflow += dt < 0;
-+	ce->runtime.num_underflow++;
- 	ce->runtime.max_underflow = max_t(u32, ce->runtime.max_underflow, -dt);
- #endif
+diff --git a/drivers/gpu/drm/i915/gt/intel_timeline.c b/drivers/gpu/drm/i915/gt/intel_timeline.c
+index 7ea94d201fe6..2b4ed4b2b67c 100644
+--- a/drivers/gpu/drm/i915/gt/intel_timeline.c
++++ b/drivers/gpu/drm/i915/gt/intel_timeline.c
+@@ -617,6 +617,85 @@ void intel_gt_fini_timelines(struct intel_gt *gt)
+ 	GEM_BUG_ON(!list_empty(&timelines->hwsp_free_list));
  }
-@@ -1324,7 +1324,7 @@ static void intel_context_update_runtime(struct intel_context *ce)
- 	ce->runtime.last = intel_context_get_runtime(ce);
- 	dt = ce->runtime.last - old;
  
--	if (unlikely(dt <= 0)) {
-+	if (unlikely(dt < 0)) {
- 		CE_TRACE(ce, "runtime underflow: last=%u, new=%u, delta=%d\n",
- 			 old, ce->runtime.last, dt);
- 		st_update_runtime_underflow(ce, dt);
++void intel_gt_show_timelines(struct intel_gt *gt,
++			     struct drm_printer *m,
++			     void (*show_request)(struct drm_printer *m,
++						  const struct i915_request *rq,
++						  const char *prefix))
++{
++	struct intel_gt_timelines *timelines = &gt->timelines;
++	struct intel_timeline *tl, *tn;
++	LIST_HEAD(free);
++
++	spin_lock(&timelines->lock);
++	list_for_each_entry_safe(tl, tn, &timelines->active_list, link) {
++		unsigned long count, ready, inflight;
++		struct i915_request *rq, *rn;
++		struct dma_fence *fence;
++
++		if (!mutex_trylock(&tl->mutex))
++			continue;
++
++		intel_timeline_get(tl);
++		GEM_BUG_ON(!atomic_read(&tl->active_count));
++		atomic_inc(&tl->active_count); /* pin the list element */
++		spin_unlock(&timelines->lock);
++
++		count = 0;
++		ready = 0;
++		inflight = 0;
++		list_for_each_entry_safe(rq, rn, &tl->requests, link) {
++			if (i915_request_completed(rq))
++				continue;
++
++			count++;
++			if (i915_request_is_ready(rq))
++				ready++;
++			if (i915_request_is_active(rq))
++				inflight++;
++		}
++
++		drm_printf(m, "Timeline %llx: { ", tl->fence_context);
++		drm_printf(m, "count %lu, ready: %lu, inflight: %lu",
++			   count, ready, inflight);
++		drm_printf(m, ", seqno: { current: %d, last: %d }",
++			   *tl->hwsp_seqno, tl->seqno);
++		fence = i915_active_fence_get(&tl->last_request);
++		if (fence) {
++			drm_printf(m, ", engine: %s",
++				   to_request(fence)->engine->name);
++			dma_fence_put(fence);
++		}
++		drm_printf(m, " }\n");
++
++		if (show_request) {
++			list_for_each_entry_safe(rq, rn, &tl->requests, link)
++				show_request(m, rq,
++					     i915_request_is_active(rq) ? "  E" :
++					     i915_request_is_ready(rq) ? "  Q" :
++					     "  U");
++		}
++
++		mutex_unlock(&tl->mutex);
++		spin_lock(&timelines->lock);
++
++		/* Resume list iteration after reacquiring spinlock */
++		list_safe_reset_next(tl, tn, link);
++		if (atomic_dec_and_test(&tl->active_count))
++			list_del(&tl->link);
++
++		/* Defer the final release to after the spinlock */
++		if (refcount_dec_and_test(&tl->kref.refcount)) {
++			GEM_BUG_ON(atomic_read(&tl->active_count));
++			list_add(&tl->link, &free);
++		}
++	}
++	spin_unlock(&timelines->lock);
++
++	list_for_each_entry_safe(tl, tn, &free, link)
++		__intel_timeline_free(&tl->kref);
++}
++
+ #if IS_ENABLED(CONFIG_DRM_I915_SELFTEST)
+ #include "gt/selftests/mock_timeline.c"
+ #include "gt/selftest_timeline.c"
+diff --git a/drivers/gpu/drm/i915/gt/intel_timeline.h b/drivers/gpu/drm/i915/gt/intel_timeline.h
+index 9882cd911d8e..9b88f220be2b 100644
+--- a/drivers/gpu/drm/i915/gt/intel_timeline.h
++++ b/drivers/gpu/drm/i915/gt/intel_timeline.h
+@@ -31,6 +31,8 @@
+ #include "i915_syncmap.h"
+ #include "intel_timeline_types.h"
+ 
++struct drm_printer;
++
+ struct intel_timeline *
+ __intel_timeline_create(struct intel_gt *gt,
+ 			struct i915_vma *global_hwsp,
+@@ -106,4 +108,10 @@ int intel_timeline_read_hwsp(struct i915_request *from,
+ void intel_gt_init_timelines(struct intel_gt *gt);
+ void intel_gt_fini_timelines(struct intel_gt *gt);
+ 
++void intel_gt_show_timelines(struct intel_gt *gt,
++			     struct drm_printer *m,
++			     void (*show_request)(struct drm_printer *m,
++						  const struct i915_request *rq,
++						  const char *prefix));
++
+ #endif
+diff --git a/drivers/gpu/drm/i915/i915_debugfs.c b/drivers/gpu/drm/i915/i915_debugfs.c
+index 337293c7bb7d..498c82dcc7e9 100644
+--- a/drivers/gpu/drm/i915/i915_debugfs.c
++++ b/drivers/gpu/drm/i915/i915_debugfs.c
+@@ -1306,26 +1306,28 @@ static int i915_runtime_pm_status(struct seq_file *m, void *unused)
+ 
+ static int i915_engine_info(struct seq_file *m, void *unused)
+ {
+-	struct drm_i915_private *dev_priv = node_to_i915(m->private);
++	struct drm_i915_private *i915 = node_to_i915(m->private);
+ 	struct intel_engine_cs *engine;
+ 	intel_wakeref_t wakeref;
+ 	struct drm_printer p;
+ 
+-	wakeref = intel_runtime_pm_get(&dev_priv->runtime_pm);
++	wakeref = intel_runtime_pm_get(&i915->runtime_pm);
+ 
+ 	seq_printf(m, "GT awake? %s [%d]\n",
+-		   yesno(dev_priv->gt.awake),
+-		   atomic_read(&dev_priv->gt.wakeref.count));
++		   yesno(i915->gt.awake),
++		   atomic_read(&i915->gt.wakeref.count));
+ 	seq_printf(m, "GT busy: %llu ms\n",
+-		   ktime_to_ms(intel_gt_get_busy_time(&dev_priv->gt)));
++		   ktime_to_ms(intel_gt_get_busy_time(&i915->gt)));
+ 	seq_printf(m, "CS timestamp frequency: %u Hz\n",
+-		   RUNTIME_INFO(dev_priv)->cs_timestamp_frequency_hz);
++		   RUNTIME_INFO(i915)->cs_timestamp_frequency_hz);
+ 
+ 	p = drm_seq_file_printer(m);
+-	for_each_uabi_engine(engine, dev_priv)
++	for_each_uabi_engine(engine, i915)
+ 		intel_engine_dump(engine, &p, "%s\n", engine->name);
+ 
+-	intel_runtime_pm_put(&dev_priv->runtime_pm, wakeref);
++	intel_gt_show_timelines(&i915->gt, &p, NULL);
++
++	intel_runtime_pm_put(&i915->runtime_pm, wakeref);
+ 
+ 	return 0;
+ }
 -- 
 2.20.1
 
