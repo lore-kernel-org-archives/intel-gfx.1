@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 549B5C64E69
-	for <intel-gfx@archiver.kernel.org>; Tue, 17 Nov 2020 11:31:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 98B76C64E7A
+	for <intel-gfx@archiver.kernel.org>; Tue, 17 Nov 2020 11:31:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F3361206A1
-	for <intel-gfx@archiver.kernel.org>; Tue, 17 Nov 2020 11:31:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F3361206A1
+	by mail.kernel.org (Postfix) with ESMTPS id 3BCD2206A1
+	for <intel-gfx@archiver.kernel.org>; Tue, 17 Nov 2020 11:31:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3BCD2206A1
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB5FA6EA9D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB9596EA9B;
 	Tue, 17 Nov 2020 11:31:38 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DED016E1A7
- for <intel-gfx@lists.freedesktop.org>; Tue, 17 Nov 2020 11:31:18 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EEB716E1CD
+ for <intel-gfx@lists.freedesktop.org>; Tue, 17 Nov 2020 11:31:16 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23016326-1500050 
- for multiple; Tue, 17 Nov 2020 11:31:03 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23016341-1500050 
+ for multiple; Tue, 17 Nov 2020 11:31:06 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 17 Nov 2020 11:30:47 +0000
-Message-Id: <20201117113103.21480-12-chris@chris-wilson.co.uk>
+Date: Tue, 17 Nov 2020 11:31:02 +0000
+Message-Id: <20201117113103.21480-27-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201117113103.21480-1-chris@chris-wilson.co.uk>
 References: <20201117113103.21480-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 12/28] drm/i915/gt: Track signaled breadcrumbs
- outside of the breadcrumb spinlock
+Subject: [Intel-gfx] [PATCH 27/28] drm/i915/gt: Resubmit the virtual engine
+ on schedule-out
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,143 +56,234 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Make b->signaled_requests a lockless-list so that we can manipulate it
-outside of the b->irq_lock.
+Having recognised that we do not change the sibling until we schedule
+out, we can then defer the decision to resubmit the virtual engine from
+the unwind of the active queue to scheduling out of the virtual context.
+This improves our resilence in virtual engine scheduling, and should
+eliminate the rare cases of gem_exec_balance failing.
 
+By keeping the unwind order intact on the local engine, we can preserve
+data dependency ordering while doing a preempt-to-busy pass until we
+have determined the new ELSP. This means that if we try to timeslice
+between a virtual engine and a data-dependent ordinary request, the pair
+will maintain their relative ordering and we will avoid the
+resubmission, cancelling the timeslicing until further change.
+
+The dilemma though is that we then may end up in a situation where the
+'demotion' of the virtual request to an ordinary request in the engine
+queue results in filling the ELSP[] with virtual requests instead of
+spreading the load across the engines. To compensate for this, we mark
+each virtual request and refuse to resubmit a virtual request in the
+secondary ELSP slots, thus forcing subsequent virtual requests to be
+scheduled out after timeslicing. By delaying the decision until we
+schedule out, we will avoid unnecessary resubmission.
+
+Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/2079
+Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/2098
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_breadcrumbs.c   | 34 ++++++++++++-------
- .../gpu/drm/i915/gt/intel_breadcrumbs_types.h |  2 +-
- drivers/gpu/drm/i915/i915_request.h           |  6 +++-
- 3 files changed, 28 insertions(+), 14 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_lrc.c    | 122 +++++++++++++++----------
+ drivers/gpu/drm/i915/gt/selftest_lrc.c |   2 +-
+ 2 files changed, 77 insertions(+), 47 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-index 8d85683314e1..43cfabb102ea 100644
---- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-@@ -173,26 +173,34 @@ static void add_retire(struct intel_breadcrumbs *b, struct intel_timeline *tl)
- 		intel_engine_add_retire(b->irq_engine, tl);
- }
+diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
+index 87ede3513e4c..5d64295e2a9e 100644
+--- a/drivers/gpu/drm/i915/gt/intel_lrc.c
++++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
+@@ -1111,38 +1111,23 @@ __unwind_incomplete_requests(struct intel_engine_cs *engine)
  
--static bool __signal_request(struct i915_request *rq, struct list_head *signals)
-+static bool __signal_request(struct i915_request *rq)
- {
--	clear_bit(I915_FENCE_FLAG_SIGNAL, &rq->fence.flags);
+ 		__i915_request_unsubmit(rq);
+ 
+-		/*
+-		 * Push the request back into the queue for later resubmission.
+-		 * If this request is not native to this physical engine (i.e.
+-		 * it came from a virtual source), push it back onto the virtual
+-		 * engine so that it can be moved across onto another physical
+-		 * engine as load dictates.
+-		 */
+-		if (likely(rq->execution_mask == engine->mask)) {
+-			GEM_BUG_ON(rq_prio(rq) == I915_PRIORITY_INVALID);
+-			if (rq_prio(rq) != prio) {
+-				prio = rq_prio(rq);
+-				pl = i915_sched_lookup_priolist(engine, prio);
+-			}
+-			GEM_BUG_ON(RB_EMPTY_ROOT(&engine->execlists.queue.rb_root));
 -
- 	if (!__dma_fence_signal(&rq->fence)) {
- 		i915_request_put(rq);
- 		return false;
+-			list_move(&rq->sched.link, pl);
+-			set_bit(I915_FENCE_FLAG_PQUEUE, &rq->fence.flags);
++		GEM_BUG_ON(rq_prio(rq) == I915_PRIORITY_INVALID);
++		if (rq_prio(rq) != prio) {
++			prio = rq_prio(rq);
++			pl = i915_sched_lookup_priolist(engine, prio);
++		}
++		GEM_BUG_ON(RB_EMPTY_ROOT(&engine->execlists.queue.rb_root));
+ 
+-			/* Check in case we rollback so far we wrap [size/2] */
+-			if (intel_ring_direction(rq->ring,
+-						 rq->tail,
+-						 rq->ring->tail + 8) > 0)
+-				rq->context->lrc.desc |= CTX_DESC_FORCE_RESTORE;
++		list_move(&rq->sched.link, pl);
++		set_bit(I915_FENCE_FLAG_PQUEUE, &rq->fence.flags);
+ 
+-			active = rq;
+-		} else {
+-			struct intel_engine_cs *owner = rq->context->engine;
++		/* Check in case we rollback so far we wrap [size/2] */
++		if (intel_ring_direction(rq->ring,
++					 rq->tail,
++					 rq->ring->tail + 8) > 0)
++			rq->context->lrc.desc |= CTX_DESC_FORCE_RESTORE;
+ 
+-			WRITE_ONCE(rq->engine, owner);
+-			owner->submit_request(rq);
+-			active = NULL;
+-		}
++		active = rq;
  	}
  
--	list_add_tail(&rq->signal_link, signals);
- 	return true;
+ 	return active;
+@@ -1384,6 +1369,20 @@ static inline void execlists_schedule_in(struct i915_request *rq, int idx)
+ 	GEM_BUG_ON(intel_context_inflight(ce) != rq->engine);
  }
  
-+static struct llist_node *
-+slist_add(struct llist_node *node, struct llist_node *head)
++static void
++resubmit_virtual_request(struct i915_request *rq, struct virtual_engine *ve)
 +{
-+	node->next = head;
-+	return node;
++	struct intel_engine_cs *engine = rq->engine;
++
++	spin_lock_irq(&engine->active.lock);
++
++	clear_bit(I915_FENCE_FLAG_PQUEUE, &rq->fence.flags);
++	WRITE_ONCE(rq->engine, &ve->base);
++	ve->base.submit_request(rq);
++
++	spin_unlock_irq(&engine->active.lock);
 +}
 +
- static void signal_irq_work(struct irq_work *work)
+ static void kick_siblings(struct i915_request *rq, struct intel_context *ce)
  {
- 	struct intel_breadcrumbs *b = container_of(work, typeof(*b), irq_work);
- 	const ktime_t timestamp = ktime_get();
-+	struct llist_node *signal, *sn;
- 	struct intel_context *ce, *cn;
- 	struct list_head *pos, *next;
--	LIST_HEAD(signal);
-+
-+	signal = NULL;
-+	if (unlikely(!llist_empty(&b->signaled_requests)))
-+		signal = llist_del_all(&b->signaled_requests);
- 
- 	spin_lock(&b->irq_lock);
- 
-@@ -224,8 +232,6 @@ static void signal_irq_work(struct irq_work *work)
- 	if (b->irq_armed && list_empty(&b->signalers))
- 		__intel_breadcrumbs_disarm_irq(b);
- 
--	list_splice_init(&b->signaled_requests, &signal);
--
- 	list_for_each_entry_safe(ce, cn, &b->signalers, signal_link) {
- 		GEM_BUG_ON(list_empty(&ce->signals));
- 
-@@ -242,7 +248,10 @@ static void signal_irq_work(struct irq_work *work)
- 			 * spinlock as the callback chain may end up adding
- 			 * more signalers to the same context or engine.
- 			 */
--			__signal_request(rq, &signal);
-+			clear_bit(I915_FENCE_FLAG_SIGNAL, &rq->fence.flags);
-+			if (__signal_request(rq))
-+				/* We own signal_node now, xfer to local list */
-+				signal = slist_add(&rq->signal_node, signal);
- 		}
- 
- 		/*
-@@ -262,9 +271,9 @@ static void signal_irq_work(struct irq_work *work)
- 
- 	spin_unlock(&b->irq_lock);
- 
--	list_for_each_safe(pos, next, &signal) {
-+	llist_for_each_safe(signal, sn, signal) {
- 		struct i915_request *rq =
--			list_entry(pos, typeof(*rq), signal_link);
-+			llist_entry(signal, typeof(*rq), signal_node);
- 		struct list_head cb_list;
- 
- 		spin_lock(&rq->lock);
-@@ -291,7 +300,7 @@ intel_breadcrumbs_create(struct intel_engine_cs *irq_engine)
- 
- 	spin_lock_init(&b->irq_lock);
- 	INIT_LIST_HEAD(&b->signalers);
--	INIT_LIST_HEAD(&b->signaled_requests);
-+	init_llist_head(&b->signaled_requests);
- 
- 	init_irq_work(&b->irq_work, signal_irq_work);
- 
-@@ -355,7 +364,8 @@ static void insert_breadcrumb(struct i915_request *rq,
- 	 * its signal completion.
- 	 */
- 	if (__request_completed(rq)) {
--		if (__signal_request(rq, &b->signaled_requests))
-+		if (__signal_request(rq) &&
-+		    llist_add(&rq->signal_node, &b->signaled_requests))
- 			irq_work_queue(&b->irq_work);
- 		return;
+ 	struct virtual_engine *ve = container_of(ce, typeof(*ve), context);
+@@ -1404,6 +1403,16 @@ static void kick_siblings(struct i915_request *rq, struct intel_context *ce)
+ 			cpu_relax();
  	}
-diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h b/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h
-index 8e53b9942695..3fa19820b37a 100644
---- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h
-+++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h
-@@ -35,7 +35,7 @@ struct intel_breadcrumbs {
- 	struct intel_engine_cs *irq_engine;
  
- 	struct list_head signalers;
--	struct list_head signaled_requests;
-+	struct llist_head signaled_requests;
- 
- 	struct irq_work irq_work; /* for use from inside irq_lock */
- 
-diff --git a/drivers/gpu/drm/i915/i915_request.h b/drivers/gpu/drm/i915/i915_request.h
-index 09609071b725..571a55d38278 100644
---- a/drivers/gpu/drm/i915/i915_request.h
-+++ b/drivers/gpu/drm/i915/i915_request.h
-@@ -177,7 +177,11 @@ struct i915_request {
- 	struct intel_context *context;
- 	struct intel_ring *ring;
- 	struct intel_timeline __rcu *timeline;
--	struct list_head signal_link;
++	/*
++	 * This engine is now too busy to run this virtual request, so
++	 * see if we can find an alternative engine for it to execute on.
++	 * Once a request has become bonded to this engine, we treat it the
++	 * same as other native request.
++	 */
++	if (i915_request_in_priority_queue(rq) &&
++	    rq->execution_mask != engine->mask)
++		resubmit_virtual_request(rq, ve);
 +
-+	union {
-+		struct list_head signal_link;
-+		struct llist_node signal_node;
-+	};
+ 	if (READ_ONCE(ve->request))
+ 		tasklet_hi_schedule(&ve->base.execlists.tasklet);
+ }
+@@ -1648,6 +1657,20 @@ assert_pending_valid(const struct intel_engine_execlists *execlists,
+ 		}
+ 		sentinel = i915_request_has_sentinel(rq);
  
- 	/*
- 	 * The rcu epoch of when this request was allocated. Used to judiciously
++		/*
++		 * We want virtual requests to only be in the first slot so
++		 * that they are never stuck behind a hog and can be immediately
++		 * transferred onto the next idle engine.
++		 */
++		if (rq->execution_mask != engine->mask &&
++		    port != execlists->pending) {
++			GEM_TRACE_ERR("%s: virtual engine:%llx not in prime position[%zd]\n",
++				      engine->name,
++				      ce->timeline->fence_context,
++				      port - execlists->pending);
++			return false;
++		}
++
+ 		/* Hold tightly onto the lock to prevent concurrent retires! */
+ 		if (!spin_trylock_irqsave(&rq->lock, flags))
+ 			continue;
+@@ -2314,6 +2337,15 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
+ 				if (i915_request_has_sentinel(last))
+ 					goto done;
+ 
++				/*
++				 * We avoid submitting virtual requests into
++				 * the secondary ports so that we can migrate
++				 * the request immediately to another engine
++				 * rather than wait for the primary request.
++				 */
++				if (rq->execution_mask != engine->mask)
++					goto done;
++
+ 				/*
+ 				 * If GVT overrides us we only ever submit
+ 				 * port[0], leaving port[1] empty. Note that we
+@@ -5711,7 +5743,6 @@ static void virtual_submission_tasklet(unsigned long data)
+ static void virtual_submit_request(struct i915_request *rq)
+ {
+ 	struct virtual_engine *ve = to_virtual_engine(rq->engine);
+-	struct i915_request *old;
+ 	unsigned long flags;
+ 
+ 	ENGINE_TRACE(&ve->base, "rq=%llx:%lld\n",
+@@ -5722,28 +5753,27 @@ static void virtual_submit_request(struct i915_request *rq)
+ 
+ 	spin_lock_irqsave(&ve->base.active.lock, flags);
+ 
+-	old = ve->request;
+-	if (old) { /* background completion event from preempt-to-busy */
+-		GEM_BUG_ON(!i915_request_completed(old));
+-		__i915_request_submit(old);
+-		i915_request_put(old);
+-	}
+-
++	/* By the time we resubmit a request, it may be completed */
+ 	if (i915_request_completed(rq)) {
+ 		__i915_request_submit(rq);
++		goto unlock;
++	}
+ 
+-		ve->base.execlists.queue_priority_hint = INT_MIN;
+-		ve->request = NULL;
+-	} else {
+-		ve->base.execlists.queue_priority_hint = rq_prio(rq);
+-		ve->request = i915_request_get(rq);
++	if (ve->request) { /* background completion from preempt-to-busy */
++		GEM_BUG_ON(!i915_request_completed(ve->request));
++		__i915_request_submit(ve->request);
++		i915_request_put(ve->request);
++	}
+ 
+-		GEM_BUG_ON(!list_empty(virtual_queue(ve)));
+-		list_move_tail(&rq->sched.link, virtual_queue(ve));
++	ve->base.execlists.queue_priority_hint = rq_prio(rq);
++	ve->request = i915_request_get(rq);
+ 
+-		tasklet_hi_schedule(&ve->base.execlists.tasklet);
+-	}
++	GEM_BUG_ON(!list_empty(virtual_queue(ve)));
++	list_move_tail(&rq->sched.link, virtual_queue(ve));
+ 
++	tasklet_hi_schedule(&ve->base.execlists.tasklet);
++
++unlock:
+ 	spin_unlock_irqrestore(&ve->base.active.lock, flags);
+ }
+ 
+diff --git a/drivers/gpu/drm/i915/gt/selftest_lrc.c b/drivers/gpu/drm/i915/gt/selftest_lrc.c
+index 37cb51c3f4f6..fbbd8343d7f6 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_lrc.c
++++ b/drivers/gpu/drm/i915/gt/selftest_lrc.c
+@@ -4589,7 +4589,7 @@ static int reset_virtual_engine(struct intel_gt *gt,
+ 	spin_lock_irq(&engine->active.lock);
+ 	__unwind_incomplete_requests(engine);
+ 	spin_unlock_irq(&engine->active.lock);
+-	GEM_BUG_ON(rq->engine != ve->engine);
++	GEM_BUG_ON(rq->engine != engine);
+ 
+ 	/* Reset the engine while keeping our active request on hold */
+ 	execlists_hold(engine, rq);
 -- 
 2.20.1
 
