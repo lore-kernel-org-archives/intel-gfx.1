@@ -2,53 +2,41 @@ Return-Path: <SRS0=Ur01=EX=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 58A6FC6379F
-	for <intel-gfx@archiver.kernel.org>; Tue, 17 Nov 2020 18:51:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7B347C5519F
+	for <intel-gfx@archiver.kernel.org>; Tue, 17 Nov 2020 18:54:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 02C57238E6
-	for <intel-gfx@archiver.kernel.org>; Tue, 17 Nov 2020 18:51:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 02C57238E6
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 3021B24181
+	for <intel-gfx@archiver.kernel.org>; Tue, 17 Nov 2020 18:54:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3021B24181
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D4B196E049;
-	Tue, 17 Nov 2020 18:51:09 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5127C89FD4
- for <intel-gfx@lists.freedesktop.org>; Tue, 17 Nov 2020 18:50:53 +0000 (UTC)
-IronPort-SDR: LRBulascceZ/YCkb+rVQAa0CYn0qZKifpW9KhQBQaOyHfxFVFvFdfvUpom8ASA7d8Oq/RWJkZI
- dUjEJ+9CnEfg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9808"; a="168412294"
-X-IronPort-AV: E=Sophos;i="5.77,486,1596524400"; d="scan'208";a="168412294"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Nov 2020 10:50:51 -0800
-IronPort-SDR: 0bcEKVHxQUgk0v2kwIi1MROCAVEy32EDefnP05sNEyoPvZZWQYshI/Q+QkCmxsHOufHMdG9PF4
- 13rmqBXx5XKA==
-X-IronPort-AV: E=Sophos;i="5.77,486,1596524400"; d="scan'208";a="340996896"
-Received: from ankithac-mobl1.amr.corp.intel.com (HELO
- aswarup-mobl.amr.corp.intel.com) ([10.254.101.215])
- by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Nov 2020 10:50:51 -0800
-From: Aditya Swarup <aditya.swarup@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Tue, 17 Nov 2020 10:50:22 -0800
-Message-Id: <20201117185029.22078-15-aditya.swarup@intel.com>
-X-Mailer: git-send-email 2.27.0
-In-Reply-To: <20201117185029.22078-1-aditya.swarup@intel.com>
-References: <20201117185029.22078-1-aditya.swarup@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B915989F9F;
+	Tue, 17 Nov 2020 18:54:57 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id C6F8189F33;
+ Tue, 17 Nov 2020 18:54:56 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id BE265A0003;
+ Tue, 17 Nov 2020 18:54:56 +0000 (UTC)
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 14/21] drm/i915/adl_s: Update PHY_MISC
- programming
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Chris Wilson" <chris@chris-wilson.co.uk>
+Date: Tue, 17 Nov 2020 18:54:56 -0000
+Message-ID: <160563929675.25709.12340460356339129600@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20201117113103.21480-1-chris@chris-wilson.co.uk>
+In-Reply-To: <20201117113103.21480-1-chris@chris-wilson.co.uk>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_series_starting_with_=5B01/28=5D_drm/i915/selftests=3A_Impr?=
+ =?utf-8?q?ove_granularity_for_mocs_reset_checks?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,39 +49,63 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jani Nikula <jani.nikula@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-RnJvbTogTWF0dCBSb3BlciA8bWF0dGhldy5kLnJvcGVyQGludGVsLmNvbT4KCkFETC1TIHN3aXRj
-aGVzIHVwIHdoaWNoIFBIWXMgYXJlIGNvbnNpZGVyZWQgYSBtYXN0ZXIgdG8gb3RoZXIgUEhZczsK
-UEhZLUMgaXMgbm8gbG9uZ2VyIGEgbWFzdGVyLCBidXQgUEhZLUQgaXMgbm93LgoKQnNwZWM6IDQ5
-MjkxCkNjOiBKYW5pIE5pa3VsYSA8amFuaS5uaWt1bGFAaW50ZWwuY29tPgpDYzogVmlsbGUgU3ly
-asOkbMOkIDx2aWxsZS5zeXJqYWxhQGxpbnV4LmludGVsLmNvbT4KQ2M6IEltcmUgRGVhayA8aW1y
-ZS5kZWFrQGludGVsLmNvbT4KQ2M6IEx1Y2FzIERlIE1hcmNoaSA8bHVjYXMuZGVtYXJjaGlAaW50
-ZWwuY29tPgpTaWduZWQtb2ZmLWJ5OiBNYXR0IFJvcGVyIDxtYXR0aGV3LmQucm9wZXJAaW50ZWwu
-Y29tPgpTaWduZWQtb2ZmLWJ5OiBBZGl0eWEgU3dhcnVwIDxhZGl0eWEuc3dhcnVwQGludGVsLmNv
-bT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2NvbWJvX3BoeS5jIHwg
-MTIgKysrKysrKysrLS0tCiAxIGZpbGUgY2hhbmdlZCwgOSBpbnNlcnRpb25zKCspLCAzIGRlbGV0
-aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxf
-Y29tYm9fcGh5LmMgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2NvbWJvX3Bo
-eS5jCmluZGV4IDU1ZDJkMmQ5ZWZiYi4uNWE3MWFkYmQ3YTRkIDEwMDY0NAotLS0gYS9kcml2ZXJz
-L2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2NvbWJvX3BoeS5jCisrKyBiL2RyaXZlcnMvZ3B1
-L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfY29tYm9fcGh5LmMKQEAgLTE4NywxMCArMTg3LDE2IEBA
-IHN0YXRpYyBib29sIGhhc19waHlfbWlzYyhzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqaTkxNSwg
-ZW51bSBwaHkgcGh5KQogCSAqIFNvbWUgcGxhdGZvcm1zIG9ubHkgZXhwZWN0IFBIWV9NSVNDIHRv
-IGJlIHByb2dyYW1tZWQgZm9yIFBIWS1BIGFuZAogCSAqIFBIWS1CIGFuZCBtYXkgbm90IGV2ZW4g
-aGF2ZSBpbnN0YW5jZXMgb2YgdGhlIHJlZ2lzdGVyIGZvciB0aGUKIAkgKiBvdGhlciBjb21ibyBQ
-SFkncy4KKwkgKgorCSAqIEFETC1TIHRlY2huaWNhbGx5IGhhcyB0aHJlZSBpbnN0YW5jZXMgb2Yg
-UEhZX01JU0MsIGJ1dCBvbmx5IHJlcXVpcmVzCisJICogdGhhdCB3ZSBwcm9ncmFtIGl0IGZvciBQ
-SFkgQS4KIAkgKi8KLQlpZiAoSVNfSlNMX0VITChpOTE1KSB8fAotCSAgICBJU19ST0NLRVRMQUtF
-KGk5MTUpIHx8Ci0JICAgIElTX0RHMShpOTE1KSkKKworCWlmIChJU19BTERFUkxBS0VfUyhpOTE1
-KSkKKwkJcmV0dXJuIHBoeSA9PSBQSFlfQTsKKwllbHNlIGlmIChJU19KU0xfRUhMKGk5MTUpIHx8
-CisJCSBJU19ST0NLRVRMQUtFKGk5MTUpIHx8CisJCSBJU19ERzEoaTkxNSkpCiAJCXJldHVybiBw
-aHkgPCBQSFlfQzsKIAogCXJldHVybiB0cnVlOwotLSAKMi4yNy4wCgpfX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpJbnRlbC1nZnggbWFpbGluZyBsaXN0Cklu
-dGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5v
-cmcvbWFpbG1hbi9saXN0aW5mby9pbnRlbC1nZngK
+== Series Details ==
+
+Series: series starting with [01/28] drm/i915/selftests: Improve granularity for mocs reset checks
+URL   : https://patchwork.freedesktop.org/series/83951/
+State : warning
+
+== Summary ==
+
+$ dim checkpatch origin/drm-tip
+ae32abe5ed3c drm/i915/selftests: Improve granularity for mocs reset checks
+d305f0a2eb8d drm/i915/selftests: Small tweak to put the termination conditions together
+b441a9d6dec3 drm/i915/gem: Drop free_work for GEM contexts
+3d97fa02b2bd drm/i915/gt: Ignore dt==0 for reporting underflows
+f6559ba4c7c5 drm/i915/gt: Track the overall busy time
+40da0fecec81 drm/i915/gt: Include semaphore status in print_request()
+8e85dabc534e drm/i915: Lift i915_request_show()
+38470cc9596c drm/i915/gt: Show all active timelines for debugging
+471c4d05edc2 drm/i915: Lift waiter/signaler iterators
+45a01d0bdc89 drm/i915: Show timeline dependencies for debug
+-:13: WARNING:COMMIT_LOG_LONG_LINE: Possible unwrapped commit description (prefer a maximum 75 chars per line)
+#13: 
+Timeline 886: { count 1, ready: 0, inflight: 0, seqno: { current: 664, last: 666 }, engine: rcs0 }
+
+total: 0 errors, 1 warnings, 0 checks, 68 lines checked
+5ed9a448fb02 drm/i915/gt: Defer enabling the breadcrumb interrupt to after submission
+49b7cb3fb2de drm/i915/gt: Track signaled breadcrumbs outside of the breadcrumb spinlock
+b9ab5ba2ea2d drm/i915/gt: Don't cancel the interrupt shadow too early
+edd68892ac79 drm/i915/gt: Free stale request on destroying the virtual engine
+25ee818fe9c7 drm/i915/gt: Protect context lifetime with RCU
+7ef7a16bb08c drm/i915/gt: Split the breadcrumb spinlock between global and contexts
+-:21: WARNING:COMMIT_LOG_LONG_LINE: Possible unwrapped commit description (prefer a maximum 75 chars per line)
+#21: 
+<4>[  416.208555] list_add corruption. prev->next should be next (ffff8881951d5910), but was dead000000000100. (prev=ffff8882781bb870).
+
+total: 0 errors, 1 warnings, 0 checks, 354 lines checked
+a9d88246410b drm/i915/gt: Move the breadcrumb to the signaler if completed upon cancel
+299dfa2c30b7 drm/i915/gt: Decouple completed requests on unwind
+80ee04c69c11 drm/i915/gt: Check for a completed last request once
+c43eabedf48d drm/i915/gt: Replace direct submit with direct call to tasklet
+414c9d2c58db drm/i915/gt: ce->inflight updates are now serialised
+14776ee687ac drm/i915/gt: Use virtual_engine during execlists_dequeue
+3af258c2b1e2 drm/i915/gt: Decouple inflight virtual engines
+56b37beddaa4 drm/i915/gt: Defer schedule_out until after the next dequeue
+3ed0a652501e drm/i915/gt: Remove virtual breadcrumb before transfer
+063c2759bd5c drm/i915/gt: Shrink the critical section for irq signaling
+5440ca67d640 drm/i915/gt: Resubmit the virtual engine on schedule-out
+239e47e2f688 drm/i915/gt: Simplify virtual engine handling for execlists_hold()
+
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
