@@ -2,49 +2,55 @@ Return-Path: <SRS0=Ur01=EX=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-11.2 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C68E1C2D0E4
-	for <intel-gfx@archiver.kernel.org>; Tue, 17 Nov 2020 08:48:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 64760C2D0E4
+	for <intel-gfx@archiver.kernel.org>; Tue, 17 Nov 2020 08:53:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 743BD2225E
-	for <intel-gfx@archiver.kernel.org>; Tue, 17 Nov 2020 08:48:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 743BD2225E
+	by mail.kernel.org (Postfix) with ESMTPS id 1BCD1222E8
+	for <intel-gfx@archiver.kernel.org>; Tue, 17 Nov 2020 08:53:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1BCD1222E8
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B506C6E138;
-	Tue, 17 Nov 2020 08:48:52 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 136C66E138
- for <intel-gfx@lists.freedesktop.org>; Tue, 17 Nov 2020 08:48:50 +0000 (UTC)
-IronPort-SDR: oF0wuXabbkPnJzzArQuaOkWtA3+01CyfUE+ejbxU6AOIwwisYrAE74PPa24jGdrcGNim/zv0IT
- p34IiMadEvcw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9807"; a="170103342"
-X-IronPort-AV: E=Sophos;i="5.77,485,1596524400"; d="scan'208";a="170103342"
+	by gabe.freedesktop.org (Postfix) with ESMTP id A61A66E15E;
+	Tue, 17 Nov 2020 08:53:16 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8EF3C6E15E
+ for <Intel-gfx@lists.freedesktop.org>; Tue, 17 Nov 2020 08:53:15 +0000 (UTC)
+IronPort-SDR: j0OpFgDyAau5+EErF7nLZpJDAV7HCN1xbpofdBRy8F1PZ2xufu3fA8qZqRx4czUe001izpLzfI
+ kBRLqcCsre3Q==
+X-IronPort-AV: E=McAfee;i="6000,8403,9807"; a="235037024"
+X-IronPort-AV: E=Sophos;i="5.77,485,1596524400"; d="scan'208";a="235037024"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Nov 2020 00:48:50 -0800
-IronPort-SDR: IKCOAIJGx3crUNcdvr73hWu+IVmo+XFFLzYXIEOLH0YETmwQvZH0Wfw9vXvAKwMQ10LoiWwWIX
- Pvhrc8ydaTgw==
-X-IronPort-AV: E=Sophos;i="5.77,485,1596524400"; d="scan'208";a="358814459"
-Received: from lucas-s2600cw.jf.intel.com ([10.165.21.202])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Nov 2020 00:53:14 -0800
+IronPort-SDR: s2Wd7JMhbrXXNH7j+ecwM11GIhlnoCSTiqtDYgyE3zA0ASPESdpGt+AkeUKamvSs8ga0HywlaS
+ EPdR2A9AvuxA==
+X-IronPort-AV: E=Sophos;i="5.77,485,1596524400"; d="scan'208";a="358815623"
+Received: from genxfsim-desktop.iind.intel.com (HELO intel.com)
+ ([10.223.74.178])
  by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Nov 2020 00:48:49 -0800
-From: Lucas De Marchi <lucas.demarchi@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Tue, 17 Nov 2020 00:48:36 -0800
-Message-Id: <20201117084836.2318234-1-lucas.demarchi@intel.com>
-X-Mailer: git-send-email 2.29.2
+ 17 Nov 2020 00:53:11 -0800
+Date: Tue, 17 Nov 2020 14:09:15 +0530
+From: Anshuman Gupta <anshuman.gupta@intel.com>
+To: "Huang, Sean Z" <sean.z.huang@intel.com>
+Message-ID: <20201117083915.GC13853@intel.com>
+References: <20201115210815.5272-1-sean.z.huang@intel.com>
+ <20201115210815.5272-22-sean.z.huang@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [CI] drm/i915/dg1: Enable ports
+Content-Disposition: inline
+In-Reply-To: <20201115210815.5272-22-sean.z.huang@intel.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+Subject: Re: [Intel-gfx] [PATCH 22/27] drm/i915/pxp: Expose session state
+ for display protection flip
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,83 +63,64 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: krishnaiah.bommu@intel.com,
+ "Intel-gfx@lists.freedesktop.org" <Intel-gfx@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Aditya Swarup <aditya.swarup@intel.com>
+On 2020-11-16 at 02:38:10 +0530, Huang, Sean Z wrote:
+> Implement the intel_pxp_gem_object_status() to allow ring0 i915
+> display querying the current PXP session state. In the design,
+> ring0 display should not perform protection flip on the protected
+> buffers if there is no PXP session alive.
+> 
+> Signed-off-by: Huang, Sean Z <sean.z.huang@intel.com>
+> ---
+>  drivers/gpu/drm/i915/pxp/intel_pxp.c | 8 ++++++++
+>  drivers/gpu/drm/i915/pxp/intel_pxp.h | 2 ++
+>  2 files changed, 10 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.c b/drivers/gpu/drm/i915/pxp/intel_pxp.c
+> index 44d17ae27b94..05fe143675b1 100644
+> --- a/drivers/gpu/drm/i915/pxp/intel_pxp.c
+> +++ b/drivers/gpu/drm/i915/pxp/intel_pxp.c
+> @@ -334,3 +334,11 @@ void intel_pxp_irq_handler(struct intel_gt *gt, u16 iir)
+>  end:
+>  	return;
+>  }
+> +
+> +bool intel_pxp_gem_object_status(struct drm_i915_private *i915, u64 gem_object_metadata)
+Currently this api used by Patch 27 of this series, uses gem object user flag (obj->user_flags) to
+pass as gem_object_metadata but it is unused ? why do  we need this gem_object_metadata ?
 
-For DG1 we have a little of mix up wrt to DDI/port names and indexes.
-Bspec refers to the ports as DDIA, DDIB, DDI USBC1 and DDI USBC2
-(besides the DDIA, DDIB, DDIC, DDID), but the previous naming is the
-most unambiguous one. This means that for any register on Display Engine
-we should use the index of A, B, D and E. However in some places this is
-not true:
-
-- VBT: uses C and D and have to be mapped to D/E
-
-- IO/Combo: uses C and D, but we already differentiate those when
-  we created the phy vs port distinction.
-
-This additional mapping for VBT and phy are already covered in previous
-patches, so now we can initialize all the DDIs as A, B, D and E.
-
-v2: Squash previous patch enabling just ports A and B since most of the
-pumbling code is already merged now
-
-Cc: Matt Roper <matthew.d.roper@intel.com>
-Cc: Clinton Taylor <Clinton.A.Taylor@intel.com>
-Signed-off-by: Aditya Swarup <aditya.swarup@intel.com>
-Reviewed-by: Lucas De Marchi <lucas.demarchi@intel.com>
-Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
----
- drivers/gpu/drm/i915/display/intel_display.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 9e4f2575ecf5..2d1ecde16b0c 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -7343,7 +7343,7 @@ bool intel_phy_is_combo(struct drm_i915_private *dev_priv, enum phy phy)
- {
- 	if (phy == PHY_NONE)
- 		return false;
--	else if (IS_ROCKETLAKE(dev_priv))
-+	else if (IS_DG1(dev_priv) || IS_ROCKETLAKE(dev_priv))
- 		return phy <= PHY_D;
- 	else if (IS_JSL_EHL(dev_priv))
- 		return phy <= PHY_C;
-@@ -7355,7 +7355,7 @@ bool intel_phy_is_combo(struct drm_i915_private *dev_priv, enum phy phy)
- 
- bool intel_phy_is_tc(struct drm_i915_private *dev_priv, enum phy phy)
- {
--	if (IS_ROCKETLAKE(dev_priv))
-+	if (IS_DG1(dev_priv) || IS_ROCKETLAKE(dev_priv))
- 		return false;
- 	else if (INTEL_GEN(dev_priv) >= 12)
- 		return phy >= PHY_D && phy <= PHY_I;
-@@ -7367,7 +7367,7 @@ bool intel_phy_is_tc(struct drm_i915_private *dev_priv, enum phy phy)
- 
- enum phy intel_port_to_phy(struct drm_i915_private *i915, enum port port)
- {
--	if (IS_ROCKETLAKE(i915) && port >= PORT_TC1)
-+	if ((IS_DG1(i915) || IS_ROCKETLAKE(i915)) && port >= PORT_TC1)
- 		return PHY_C + port - PORT_TC1;
- 	else if (IS_JSL_EHL(i915) && port == PORT_D)
- 		return PHY_A;
-@@ -17239,7 +17239,7 @@ static void intel_setup_outputs(struct drm_i915_private *dev_priv)
- 	if (!HAS_DISPLAY(dev_priv))
- 		return;
- 
--	if (IS_ROCKETLAKE(dev_priv)) {
-+	if (IS_DG1(dev_priv) || IS_ROCKETLAKE(dev_priv)) {
- 		intel_ddi_init(dev_priv, PORT_A);
- 		intel_ddi_init(dev_priv, PORT_B);
- 		intel_ddi_init(dev_priv, PORT_TC1);
--- 
-2.29.2
-
+Thanks,
+Anshuman Gupta.
+> +{
+> +	if (i915->pxp.r0ctx && i915->pxp.r0ctx->flag_display_hm_surface_keys)
+> +		return true;
+> +	else
+> +		return false;
+> +}
+> diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.h b/drivers/gpu/drm/i915/pxp/intel_pxp.h
+> index c0119ccdab08..eb0e548ce434 100644
+> --- a/drivers/gpu/drm/i915/pxp/intel_pxp.h
+> +++ b/drivers/gpu/drm/i915/pxp/intel_pxp.h
+> @@ -111,4 +111,6 @@ int i915_pxp_global_terminate_complete_callback(struct drm_i915_private *i915);
+>  int intel_pxp_init(struct drm_i915_private *i915);
+>  void intel_pxp_uninit(struct drm_i915_private *i915);
+>  
+> +bool intel_pxp_gem_object_status(struct drm_i915_private *i915, u64 gem_object_metadata);
+> +
+>  #endif
+> -- 
+> 2.17.1
+> 
+> _______________________________________________
+> Intel-gfx mailing list
+> Intel-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/intel-gfx
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
