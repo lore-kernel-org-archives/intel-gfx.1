@@ -7,35 +7,37 @@ X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2FD75C56202
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4BE7BC5519F
 	for <intel-gfx@archiver.kernel.org>; Tue, 17 Nov 2020 11:01:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CA93121534
-	for <intel-gfx@archiver.kernel.org>; Tue, 17 Nov 2020 11:01:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CA93121534
+	by mail.kernel.org (Postfix) with ESMTPS id B564220773
+	for <intel-gfx@archiver.kernel.org>; Tue, 17 Nov 2020 11:01:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B564220773
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A17E56E194;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 347266E192;
 	Tue, 17 Nov 2020 11:01:45 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F3836E17E
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9354E6E185
  for <intel-gfx@lists.freedesktop.org>; Tue, 17 Nov 2020 11:01:42 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23015797-1500050 
- for multiple; Tue, 17 Nov 2020 11:01:30 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23015805-1500050 
+ for multiple; Tue, 17 Nov 2020 11:01:31 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 17 Nov 2020 11:01:25 +0000
-Message-Id: <20201117110132.22267-1-chris@chris-wilson.co.uk>
+Date: Tue, 17 Nov 2020 11:01:31 +0000
+Message-Id: <20201117110132.22267-7-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20201117110132.22267-1-chris@chris-wilson.co.uk>
+References: <20201117110132.22267-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 1/8] drm/i915/gt: Lock
- intel_engine_apply_whitelist with uncore->lock
+Subject: [Intel-gfx] [PATCH 7/8] drm/i915/perf: Whitelist OA counter and
+ buffer registers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,7 +50,7 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Chris Wilson <chris.p.wilson@intel.com>
+Cc: Piotr Maciejewski <piotr.maciejewski@intel.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
@@ -56,108 +58,121 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
 
-Refactor intel_engine_apply_whitelist into locked and unlocked versions
-so that a caller who already has the lock can apply whitelist.
+It is useful to have markers in the OA reports to identify triggered
+reports. Whitelist some OA counters that can be used as markers.
 
-v2: Fix sparse warning
-v3: (Chris)
-- Drop prefix and suffix for static function
-- Use longest to shortest line ordering for variable declaration
+A triggered report can be found faster if we can sample the HW tail and
+head registers when the report was triggered. Whitelist OA buffer
+specific registers.
 
+v2:
+- Bump up the perf revision (Lionel)
+- Use indexing for counters (Lionel)
+- Fix selftest for oa ticking register (Umesh)
+
+v3: Pardon whitelisted registers for selftest (Umesh)
+
+v4:
+- Document whitelisted registers (Lionel)
+- Fix live isolated whitelist for OA regs (Umesh)
+
+v5:
+- Free up whitelist slots. Remove GPU_TICKS and A20 counter (Piotr)
+- Whitelist registers only if perf_stream_paranoid is set to 0 (Jon)
+
+v6: Move oa whitelist array to i915_perf (Chris)
+
+Signed-off-by: Piotr Maciejewski <piotr.maciejewski@intel.com>
 Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
-Reviewed-by: Chris Wilson <chris.p.wilson@intel.com>
+Reviewed-by: Lionel Landwerlin <lionel.g.landwerlin@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_workarounds.c | 44 +++++++++++++++------
- 1 file changed, 31 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/i915/i915_perf.c | 18 +++++++++++++++++-
+ drivers/gpu/drm/i915/i915_reg.h  | 16 ++++++++++++++--
+ 2 files changed, 31 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-index adc9a8ea410a..c49083957074 100644
---- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
-+++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-@@ -1339,7 +1339,8 @@ void intel_gt_init_workarounds(struct drm_i915_private *i915)
+diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
+index 8abd2cfd1c2f..c91f2da84189 100644
+--- a/drivers/gpu/drm/i915/i915_perf.c
++++ b/drivers/gpu/drm/i915/i915_perf.c
+@@ -1367,11 +1367,19 @@ free_noa_wait(struct i915_perf_stream *stream)
+ static const i915_reg_t gen9_oa_wl_regs[] = {
+ 	{ __OAREPORTTRIG2 | RING_FORCE_TO_NONPRIV_ACCESS_RW },
+ 	{ __OAREPORTTRIG6 | RING_FORCE_TO_NONPRIV_ACCESS_RW },
++	{ __OA_PERF_COUNTER_A(18) | (RING_FORCE_TO_NONPRIV_ACCESS_RW |
++				     RING_FORCE_TO_NONPRIV_RANGE_4) },
++	{ __GEN8_OASTATUS | (RING_FORCE_TO_NONPRIV_ACCESS_RD |
++			     RING_FORCE_TO_NONPRIV_RANGE_4) },
+ };
+ 
+ static const i915_reg_t gen12_oa_wl_regs[] = {
+ 	{ __GEN12_OAG_OAREPORTTRIG2 | RING_FORCE_TO_NONPRIV_ACCESS_RW },
+ 	{ __GEN12_OAG_OAREPORTTRIG6 | RING_FORCE_TO_NONPRIV_ACCESS_RW },
++	{ __GEN12_OAG_PERF_COUNTER_A(18) | (RING_FORCE_TO_NONPRIV_ACCESS_RW |
++					    RING_FORCE_TO_NONPRIV_RANGE_4) },
++	{ __GEN12_OAG_OASTATUS | (RING_FORCE_TO_NONPRIV_ACCESS_RD |
++				  RING_FORCE_TO_NONPRIV_RANGE_4) },
+ };
+ 
+ static int intel_engine_apply_oa_whitelist(struct i915_perf_stream *stream)
+@@ -4543,8 +4551,16 @@ int i915_perf_ioctl_version(void)
+ 	 *    into the OA buffer. This applies only to gen8+. The feature can
+ 	 *    only be accessed if perf_stream_paranoid is set to 0 by privileged
+ 	 *    user.
++	 *
++	 * 7: Whitelist below OA registers for user to identify the location of
++	 *    triggered reports in the OA buffer. This applies only to gen8+.
++	 *    The feature can only be accessed if perf_stream_paranoid is set to
++	 *    0 by privileged user.
++	 *
++	 *    - OA buffer head/tail/status/buffer registers for read only
++	 *    - OA counters A18, A19, A20 for read/write
+ 	 */
+-	return 6;
++	return 7;
  }
  
- static enum forcewake_domains
--wal_get_fw_for_rmw(struct intel_uncore *uncore, const struct i915_wa_list *wal)
-+wal_get_fw(struct intel_uncore *uncore, const struct i915_wa_list *wal,
-+	   unsigned int op)
- {
- 	enum forcewake_domains fw = 0;
- 	struct i915_wa *wa;
-@@ -1348,8 +1349,7 @@ wal_get_fw_for_rmw(struct intel_uncore *uncore, const struct i915_wa_list *wal)
- 	for (i = 0, wa = wal->list; i < wal->count; i++, wa++)
- 		fw |= intel_uncore_forcewake_for_reg(uncore,
- 						     wa->reg,
--						     FW_REG_READ |
--						     FW_REG_WRITE);
-+						     op);
+ #if IS_ENABLED(CONFIG_DRM_I915_SELFTEST)
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index 7d27c271d607..479ecbdf4d3a 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -678,7 +678,8 @@ static inline bool i915_mmio_reg_valid(i915_reg_t reg)
+ #define  GEN7_OASTATUS2_HEAD_MASK           0xffffffc0
+ #define  GEN7_OASTATUS2_MEM_SELECT_GGTT     (1 << 0) /* 0: PPGTT, 1: GGTT */
  
- 	return fw;
- }
-@@ -1379,7 +1379,7 @@ wa_list_apply(struct intel_uncore *uncore, const struct i915_wa_list *wal)
- 	if (!wal->count)
- 		return;
+-#define GEN8_OASTATUS _MMIO(0x2b08)
++#define __GEN8_OASTATUS 0x2b08
++#define GEN8_OASTATUS _MMIO(__GEN8_OASTATUS)
+ #define  GEN8_OASTATUS_OVERRUN_STATUS	    (1 << 3)
+ #define  GEN8_OASTATUS_COUNTER_OVERFLOW     (1 << 2)
+ #define  GEN8_OASTATUS_OABUFFER_OVERFLOW    (1 << 1)
+@@ -736,7 +737,8 @@ static inline bool i915_mmio_reg_valid(i915_reg_t reg)
+ #define  GEN12_OAG_OA_DEBUG_DISABLE_GO_1_0_REPORTS     (1 << 2)
+ #define  GEN12_OAG_OA_DEBUG_DISABLE_CTX_SWITCH_REPORTS (1 << 1)
  
--	fw = wal_get_fw_for_rmw(uncore, wal);
-+	fw = wal_get_fw(uncore, wal, FW_REG_READ | FW_REG_WRITE);
+-#define GEN12_OAG_OASTATUS _MMIO(0xdafc)
++#define __GEN12_OAG_OASTATUS 0xdafc
++#define GEN12_OAG_OASTATUS _MMIO(__GEN12_OAG_OASTATUS)
+ #define  GEN12_OAG_OASTATUS_COUNTER_OVERFLOW (1 << 2)
+ #define  GEN12_OAG_OASTATUS_BUFFER_OVERFLOW  (1 << 1)
+ #define  GEN12_OAG_OASTATUS_REPORT_LOST      (1 << 0)
+@@ -979,6 +981,16 @@ static inline bool i915_mmio_reg_valid(i915_reg_t reg)
+ #define OAREPORTTRIG8_NOA_SELECT_6_SHIFT    24
+ #define OAREPORTTRIG8_NOA_SELECT_7_SHIFT    28
  
- 	spin_lock_irqsave(&uncore->lock, flags);
- 	intel_uncore_forcewake_get__locked(uncore, fw);
-@@ -1705,27 +1705,45 @@ void intel_engine_init_whitelist(struct intel_engine_cs *engine)
- 	wa_init_finish(w);
- }
- 
--void intel_engine_apply_whitelist(struct intel_engine_cs *engine)
-+static void __engine_apply_whitelist(struct intel_engine_cs *engine)
- {
- 	const struct i915_wa_list *wal = &engine->whitelist;
- 	struct intel_uncore *uncore = engine->uncore;
- 	const u32 base = engine->mmio_base;
-+	enum forcewake_domains fw;
- 	struct i915_wa *wa;
- 	unsigned int i;
- 
--	if (!wal->count)
--		return;
-+	lockdep_assert_held(&uncore->lock);
++/* Performance counters registers */
++#define __OA_PERF_COUNTER_A(idx)	(0x2800 + 8 * (idx))
++#define OA_PERF_COUNTER_A(idx)		_MMIO(__OA_PERF_COUNTER_A(idx))
++#define OA_PERF_COUNTER_A_UDW(idx)		_MMIO(__OA_PERF_COUNTER_A(idx) + 4)
 +
-+	fw = wal_get_fw(uncore, wal, FW_REG_WRITE);
-+	intel_uncore_forcewake_get__locked(uncore, fw);
- 
- 	for (i = 0, wa = wal->list; i < wal->count; i++, wa++)
--		intel_uncore_write(uncore,
--				   RING_FORCE_TO_NONPRIV(base, i),
--				   i915_mmio_reg_offset(wa->reg));
-+		intel_uncore_write_fw(uncore,
-+				      RING_FORCE_TO_NONPRIV(base, i),
-+				      i915_mmio_reg_offset(wa->reg));
- 
- 	/* And clear the rest just in case of garbage */
- 	for (; i < RING_MAX_NONPRIV_SLOTS; i++)
--		intel_uncore_write(uncore,
--				   RING_FORCE_TO_NONPRIV(base, i),
--				   i915_mmio_reg_offset(RING_NOPID(base)));
-+		intel_uncore_write_fw(uncore,
-+				      RING_FORCE_TO_NONPRIV(base, i),
-+				      i915_mmio_reg_offset(RING_NOPID(base)));
++/* Gen12 Performance counters registers */
++#define __GEN12_OAG_PERF_COUNTER_A(idx)	(0xD980 + 8 * (idx))
++#define GEN12_OAG_PERF_COUNTER_A(idx)	_MMIO(__GEN12_OAG_PERF_COUNTER_A(idx))
++#define GEN12_OAG_PERF_COUNTER_A_UDW(idx) _MMIO(__GEN12_OAG_PERF_COUNTER_A(idx) + 4)
 +
-+	intel_uncore_forcewake_put__locked(uncore, fw);
-+}
-+
-+void intel_engine_apply_whitelist(struct intel_engine_cs *engine)
-+{
-+	const struct i915_wa_list *wal = &engine->whitelist;
-+	unsigned long flags;
-+
-+	if (!wal->count)
-+		return;
-+
-+	spin_lock_irqsave(&engine->uncore->lock, flags);
-+	__engine_apply_whitelist(engine);
-+	spin_unlock_irqrestore(&engine->uncore->lock, flags);
- }
- 
- static void
+ /* Same layout as OASTARTTRIGX */
+ #define GEN12_OAG_OASTARTTRIG1 _MMIO(0xd900)
+ #define GEN12_OAG_OASTARTTRIG2 _MMIO(0xd904)
 -- 
 2.20.1
 
