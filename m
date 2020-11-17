@@ -2,52 +2,50 @@ Return-Path: <SRS0=edJA=EY=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 22A0EC5519F
-	for <intel-gfx@archiver.kernel.org>; Wed, 18 Nov 2020 05:43:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8A936C5519F
+	for <intel-gfx@archiver.kernel.org>; Wed, 18 Nov 2020 06:00:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9840E24698
-	for <intel-gfx@archiver.kernel.org>; Wed, 18 Nov 2020 05:43:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9840E24698
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id EC4F32469D
+	for <intel-gfx@archiver.kernel.org>; Wed, 18 Nov 2020 06:00:40 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="0gbGqcec"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EC4F32469D
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D0F676E2EF;
-	Wed, 18 Nov 2020 05:43:15 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB3BD6E2EF
- for <intel-gfx@lists.freedesktop.org>; Wed, 18 Nov 2020 05:43:14 +0000 (UTC)
-IronPort-SDR: jtAWDPXzN5jyW+nXsc/LZkJbt0Kl2JKtfvJvfMq3eTWlPyVsU/SIg9Kfj/3iLpqbC4/M6Ji0pa
- +Vfl2A62RfBA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9808"; a="189140393"
-X-IronPort-AV: E=Sophos;i="5.77,486,1596524400"; d="scan'208";a="189140393"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Nov 2020 21:43:13 -0800
-IronPort-SDR: CowjJxvmaDnxGawpdoa2th+3kOAGY5RnA1SN1BUGX+fRwaZYVzVWIUHnnDK0XP2Ukz8Hy4F3ML
- +UCwNANzAOiA==
-X-IronPort-AV: E=Sophos;i="5.77,486,1596524400"; d="scan'208";a="330332111"
-Received: from jalame-mobl1.amr.corp.intel.com (HELO ldmartin-desk1)
- ([10.213.166.181])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Nov 2020 21:43:12 -0800
-Date: Tue, 17 Nov 2020 21:43:12 -0800
-From: Lucas De Marchi <lucas.demarchi@intel.com>
-To: Ville Syrjala <ville.syrjala@linux.intel.com>
-Message-ID: <20201118054312.b7b346zo7suwtj6v@ldmartin-desk1>
-References: <20201117154028.8516-1-ville.syrjala@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 291EC6E2E6;
+	Wed, 18 Nov 2020 06:00:40 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 542036E12C;
+ Tue, 17 Nov 2020 22:19:18 +0000 (UTC)
+Received: from kicinski-fedora-PC1C0HJN.hsd1.ca.comcast.net
+ (c-67-180-217-166.hsd1.ca.comcast.net [67.180.217.166])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 17315206B6;
+ Tue, 17 Nov 2020 22:19:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1605651557;
+ bh=GHrSTxL7y3OT9VIhqMi4Mq1l4vD6ZvPCLHA7AVK0P+Q=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=0gbGqcecJOh+OuHZeLlQZ3w2i+xeQKPcOORZrxJCrb/uEJlakRM+cizA6CGkYf6Hr
+ Wji5N+xTP+/p8dUX/3ehUQtUgvOr/0NqFj7YTAjLIkQTaOuH6fljIuYUVsj29DdmRw
+ +Vwr/jq1XwjWyrM1HI/eEAvNkAFeEKOXVLBBoVJM=
+Date: Tue, 17 Nov 2020 14:19:14 -0800
+From: Jakub Kicinski <kuba@kernel.org>
+To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+Message-ID: <20201117141914.73056d1f@kicinski-fedora-PC1C0HJN.hsd1.ca.comcast.net>
+In-Reply-To: <cover.1605521731.git.mchehab+huawei@kernel.org>
+References: <cover.1605521731.git.mchehab+huawei@kernel.org>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20201117154028.8516-1-ville.syrjala@linux.intel.com>
-Subject: Re: [Intel-gfx] [PATCH] drm/i915: Fix the DDI encoder names
+X-Mailman-Approved-At: Wed, 18 Nov 2020 06:00:38 +0000
+Subject: Re: [Intel-gfx] [PATCH v4 00/27]Fix several bad kernel-doc markups
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,87 +58,49 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="iso-8859-1"; Format="flowed"
+Cc: Juri Lelli <juri.lelli@redhat.com>, Andrew Lunn <andrew@lunn.ch>,
+ linux-fbdev@vger.kernel.org,
+ Linux Doc Mailing List <linux-doc@vger.kernel.org>,
+ David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org,
+ Sebastian Reichel <sre@kernel.org>, Ben Segall <bsegall@google.com>,
+ linux-mm@kvack.org, "David S.
+ Miller" <davem@davemloft.net>, linux-kselftest@vger.kernel.org,
+ Evgeniy Polyakov <zbr@ioremap.net>, netdev@vger.kernel.org,
+ Richard Gong <richard.gong@linux.intel.com>, Shuah Khan <shuah@kernel.org>,
+ linux-s390@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
+ linux-rdma@vger.kernel.org, Anton Vorontsov <anton@enomsg.org>,
+ Russell King <linux@armlinux.org.uk>,
+ Trond Myklebust <trond.myklebust@hammerspace.com>,
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Steven Rostedt <rostedt@goodmis.org>, Mel Gorman <mgorman@suse.de>,
+ Matt Porter <mporter@kernel.crashing.org>, linux-ext4@vger.kernel.org,
+ Kees Cook <keescook@chromium.org>, intel-gfx@lists.freedesktop.org,
+ Colin Cross <ccross@android.com>, Maxime Ripard <mripard@kernel.org>,
+ Alexander Viro <viro@zeniv.linux.org.uk>, Will Drewry <wad@chromium.org>,
+ Thomas Gleixner <tglx@linutronix.de>,
+ Dietmar Eggemann <dietmar.eggemann@arm.com>, linux-nfs@vger.kernel.org,
+ Tony Luck <tony.luck@intel.com>, Theodore Ts'o <tytso@mit.edu>,
+ Sudip Mukherjee <sudipm.mukherjee@gmail.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, linux-kernel@vger.kernel.org,
+ Andy Lutomirski <luto@amacapital.net>, Alexandre Bounine <alex.bou9@gmail.com>,
+ target-devel@vger.kernel.org, Jan Kara <jack@suse.com>,
+ linux-fsdevel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
+ Daniel Bristot de Oliveira <bristot@redhat.com>,
+ Anna Schumaker <anna.schumaker@netapp.com>, Mike Rapoport <rppt@kernel.org>,
+ Heiner Kallweit <hkallweit1@gmail.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Nov 17, 2020 at 05:40:28PM +0200, Ville Syrj=E4l=E4 wrote:
->From: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
->
->I totally fumbled the ?: usage when generating the DDI encoder
->names. Reverse the things that need reversing, and to make it
->a bit less messy add a few macros to hide the arithmetic on the
->port enums.
->
->Cc: Jani Nikula <jani.nikula@linux.intel.com>
->Fixes: 2d709a5a624c ("drm/i915: Give DDI encoders even better names")
->Signed-off-by: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
->---
-> drivers/gpu/drm/i915/display/intel_ddi.c | 9 ++++++---
-> 1 file changed, 6 insertions(+), 3 deletions(-)
->
->diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i9=
-15/display/intel_ddi.c
->index 9d80e47e9558..2de2c69db7f2 100644
->--- a/drivers/gpu/drm/i915/display/intel_ddi.c
->+++ b/drivers/gpu/drm/i915/display/intel_ddi.c
->@@ -5295,6 +5295,9 @@ static enum hpd_pin cnl_hpd_pin(struct drm_i915_priv=
-ate *dev_priv,
-> 	return HPD_PORT_A + port - PORT_A;
-> }
->
->+#define port_tc_name(port) ((port) - PORT_TC1 + '1')
->+#define tc_port_name(tc_port) ((tc_port) - TC_PORT_1 + '1')
+On Mon, 16 Nov 2020 11:17:56 +0100 Mauro Carvalho Chehab wrote:
+> Kernel-doc has always be limited to a probably bad documented
+> rule:
+> 
+> The kernel-doc markups should appear *imediatelly before* the
+> function or data structure that it documents.
 
-hopefully we won't have more than 10 ports. Also, not sure "_name" is
-accurate since it's only the string version of the number. Maybe
-port_tc_to_str()/tc_port_to_str() ?
-
-either way,
-
-Reviewed-by: Lucas De Marchi <lucas.demarchi@intel.com>
-
-Lucas De Marchi
-
->+
-> void intel_ddi_init(struct drm_i915_private *dev_priv, enum port port)
-> {
-> 	struct intel_digital_port *dig_port;
->@@ -5350,9 +5353,9 @@ void intel_ddi_init(struct drm_i915_private *dev_pri=
-v, enum port port)
-> 				 DRM_MODE_ENCODER_TMDS,
-> 				 "DDI %s%c/PHY %s%c",
-> 				 port >=3D PORT_TC1 ? "TC" : "",
->-				 port >=3D PORT_TC1 ? port_name(port) : port - PORT_TC1 + '1',
->+				 port >=3D PORT_TC1 ? port_tc_name(port) : port_name(port),
-> 				 tc_port !=3D TC_PORT_NONE ? "TC" : "",
->-				 tc_port !=3D TC_PORT_NONE ? phy_name(phy) : tc_port - TC_PORT_1 + '1=
-');
->+				 tc_port !=3D TC_PORT_NONE ? tc_port_name(tc_port) : phy_name(phy));
-> 	} else if (INTEL_GEN(dev_priv) >=3D 11) {
-> 		enum tc_port tc_port =3D intel_port_to_tc(dev_priv, port);
->
->@@ -5362,7 +5365,7 @@ void intel_ddi_init(struct drm_i915_private *dev_pri=
-v, enum port port)
-> 				 port_name(port),
-> 				 port >=3D PORT_C ? " (TC)" : "",
-> 				 tc_port !=3D TC_PORT_NONE ? "TC" : "",
->-				 tc_port !=3D TC_PORT_NONE ? phy_name(phy) : tc_port - TC_PORT_1 + '1=
-');
->+				 tc_port !=3D TC_PORT_NONE ? tc_port_name(tc_port) : phy_name(phy));
-> 	} else {
-> 		drm_encoder_init(&dev_priv->drm, &encoder->base, &intel_ddi_funcs,
-> 				 DRM_MODE_ENCODER_TMDS,
->-- =
-
->2.26.2
->
->_______________________________________________
->Intel-gfx mailing list
->Intel-gfx@lists.freedesktop.org
->https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+Applied 1-3 to net-next, thanks!
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
