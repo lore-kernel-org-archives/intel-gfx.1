@@ -2,48 +2,52 @@ Return-Path: <SRS0=Ur01=EX=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_GIT autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4336EC63697
-	for <intel-gfx@archiver.kernel.org>; Tue, 17 Nov 2020 19:44:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E642FC63798
+	for <intel-gfx@archiver.kernel.org>; Tue, 17 Nov 2020 19:44:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D7E0E2222E
-	for <intel-gfx@archiver.kernel.org>; Tue, 17 Nov 2020 19:44:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D7E0E2222E
+	by mail.kernel.org (Postfix) with ESMTPS id 8831D2222E
+	for <intel-gfx@archiver.kernel.org>; Tue, 17 Nov 2020 19:44:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8831D2222E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF2CA6E062;
-	Tue, 17 Nov 2020 19:44:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E7A246E06D;
+	Tue, 17 Nov 2020 19:44:57 +0000 (UTC)
 Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0FEC989D53
- for <intel-gfx@lists.freedesktop.org>; Tue, 17 Nov 2020 19:44:54 +0000 (UTC)
-IronPort-SDR: 8Iz7I7A9qDT0ogSGLJFrZsY2serujMAgxvLECHF6oQ1KNdcIkIL3cwOm1Rt6KrfmwPrM9wroIB
- PhfStt+gUffA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9808"; a="232612536"
-X-IronPort-AV: E=Sophos;i="5.77,486,1596524400"; d="scan'208";a="232612536"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2FD476E062
+ for <intel-gfx@lists.freedesktop.org>; Tue, 17 Nov 2020 19:44:55 +0000 (UTC)
+IronPort-SDR: n+YHBzV/z13YYKc1ZN0dXeYKj+lGn7r1+OgbVSHxpQvLa8N3B33OmdyNevDYUx8JVW68kJO2/T
+ R1FA1og51zeg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9808"; a="232612540"
+X-IronPort-AV: E=Sophos;i="5.77,486,1596524400"; d="scan'208";a="232612540"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  17 Nov 2020 11:44:53 -0800
-IronPort-SDR: Q4xYBix8V1ALLa2zLAmkoP++6452rJ/G5p24NOlh2fb2mWXWWuNYNU9zhnlfAkvBOpBdem0m7a
- WIom2G2ZOdcQ==
-X-IronPort-AV: E=Sophos;i="5.77,486,1596524400"; d="scan'208";a="359034195"
+IronPort-SDR: KJQu96cpqHMQBr7+VBpFkkb9FHPzcWpfxUfngCf1DehS3YCwh3Fvk1nFU+znCj1wiuneE/Hr2R
+ LRgsChQZ8LzQ==
+X-IronPort-AV: E=Sophos;i="5.77,486,1596524400"; d="scan'208";a="359034206"
 Received: from labuser-z97x-ud5h.jf.intel.com ([10.165.21.211])
  by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-SHA;
- 17 Nov 2020 11:44:52 -0800
+ 17 Nov 2020 11:44:53 -0800
 From: Manasi Navare <manasi.d.navare@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 17 Nov 2020 11:47:03 -0800
-Message-Id: <20201117194718.11462-1-manasi.d.navare@intel.com>
+Date: Tue, 17 Nov 2020 11:47:14 -0800
+Message-Id: <20201117194718.11462-12-manasi.d.navare@intel.com>
 X-Mailer: git-send-email 2.19.1
+In-Reply-To: <20201117194718.11462-1-manasi.d.navare@intel.com>
+References: <20201117194718.11462-1-manasi.d.navare@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [CI 00/15] Rebased remaining big joiner series
+Subject: [Intel-gfx] [CI 11/15] drm/i915: Add debugfs dumping for bigjoiner,
+ v3.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,45 +60,90 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-CgpNYWFydGVuIExhbmtob3JzdCAoNCk6CiAgZHJtL2k5MTUvZHA6IEFsbG93IGJpZyBqb2luZXIg
-bW9kZXMgaW4gaW50ZWxfZHBfbW9kZV92YWxpZCgpLCB2My4KICBkcm0vaTkxNTogVHJ5IHRvIG1h
-a2UgYmlnam9pbmVyIHdvcmsgaW4gYXRvbWljIGNoZWNrCiAgZHJtL2k5MTU6IEFkZCBiaWdqb2lu
-ZXIgYXdhcmUgcGxhbmUgY2xpcHBpbmcgY2hlY2tzCiAgZHJtL2k5MTU6IEFkZCBkZWJ1Z2ZzIGR1
-bXBpbmcgZm9yIGJpZ2pvaW5lciwgdjMuCgpNYW5hc2kgTmF2YXJlICgzKToKICBkcm0vaTkxNS9k
-cDogTW9kaWZ5IFZEU0MgaGVscGVycyB0byBjb25maWd1cmUgRFNDIGZvciBCaWdqb2luZXIgc2xh
-dmUKICBkcm0vaTkxNS9kcDogTWFzdGVyL1NsYXZlIGVuYWJsZS9kaXNhYmxlIHNlcXVlbmNlIGZv
-ciBiaWdqb2luZXIKICBkcm0vaTkxNTogSFcgc3RhdGUgcmVhZG91dCBmb3IgQmlnam9pbmVyIGNh
-c2UKClZpbGxlIFN5cmrDpGzDpCAoOCk6CiAgZHJtL2k5MTU6IENvcHkgdGhlIHBsYW5lIGh3IHN0
-YXRlIGRpcmVjdGx5IGZvciBZIHBsYW5lcwogIGRybS9pOTE1OiBBZGQgY3J0Y3MgYWZmZWN0ZWQg
-YnkgYmlnam9pbmVyIHRvIHRoZSBzdGF0ZQogIGRybS9pOTE1OiBBZGQgcGxhbmVzIGFmZmVjdGVk
-IGJ5IGJpZ2pvaW5lciB0byB0aGUgc3RhdGUKICBkcm0vaTkxNTogR2V0IHRoZSB1YXBpIHN0YXRl
-IGZyb20gdGhlIGNvcnJlY3QgcGxhbmUgd2hlbiBiaWdqb2luZXIgaXMKICAgIHVzZWQKICBkcm0v
-aTkxNTogRGlzYWJsZSBsZWdhY3kgY3Vyc29yIGZhc3RwYXRoIGZvciBiaWdqb2luZXIKICBkcm0v
-aTkxNTogRml4IGN1cnNvciBzcmMvZHN0IHJlY3RhbmdsZSB3aXRoIGJpZ2pvaW5lcgogIGRybS9p
-OTE1OiBBZGQgYmlnam9pbmVyIHN0YXRlIGR1bXAKICBkcm0vaTkxNTogRW5hYmxlIGJpZ2pvaW5l
-cgoKIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaWNsX2RzaS5jICAgICAgICB8ICAgMiAt
-CiAuLi4vZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfYXRvbWljX3BsYW5lLmMgfCAxMzEgKysr
-LQogLi4uL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2F0b21pY19wbGFuZS5oIHwgICA5ICst
-CiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2RkaS5jICAgICAgfCAgNjkgKy0K
-IGRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGlzcGxheS5jICB8IDY5NiArKysr
-KysrKysrKysrKy0tLS0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGlzcGxh
-eS5oICB8ICAgMyArLQogLi4uL2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGlzcGxheV9kZWJ1Z2Zz
-LmMgIHwgIDI1ICstCiAuLi4vZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kaXNwbGF5X3R5cGVzLmgg
-ICAgfCAgMTAgKwogZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kcC5jICAgICAg
-IHwgMTAwICsrLQogZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kcC5oICAgICAg
-IHwgICAxICsKIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZHBfbXN0LmMgICB8
-ICAgMiArLQogZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kc2kuYyAgICAgIHwg
-ICAyICstCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2hkbWkuYyAgICAgfCAg
-IDIgKy0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfc3ByaXRlLmMgICB8ICAy
-MSArLQogZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF92ZHNjLmMgICAgIHwgMjAx
-ICsrLS0tCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX3Zkc2MuaCAgICAgfCAg
-IDYgKy0KIDE2IGZpbGVzIGNoYW5nZWQsIDk1MyBpbnNlcnRpb25zKCspLCAzMjcgZGVsZXRpb25z
-KC0pCgotLSAKMi4xOS4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fXwpJbnRlbC1nZnggbWFpbGluZyBsaXN0CkludGVsLWdmeEBsaXN0cy5mcmVlZGVza3Rv
-cC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9pbnRl
-bC1nZngK
+From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+
+Dump debugfs and planar links as well, this will make it easier to debug
+when things go wrong.
+
+v4:
+* Rebase
+Changes since v1:
+- Report planar slaves as such, now that we have the plane_state switch.
+Changes since v2:
+- Rebase on top of the new plane format dumping
+
+Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Signed-off-by: Manasi Navare <manasi.d.navare@intel.com>
+Reviewed-by: Animesh Manna <animesh.manna@intel.com>
+---
+ .../drm/i915/display/intel_display_debugfs.c  | 25 ++++++++++++++++++-
+ 1 file changed, 24 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_display_debugfs.c b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+index 00b79593bcef..ca41e8c00ad7 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_debugfs.c
++++ b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+@@ -755,6 +755,17 @@ static void plane_rotation(char *buf, size_t bufsize, unsigned int rotation)
+ 		 rotation);
+ }
+ 
++static const char *plane_visibility(const struct intel_plane_state *plane_state)
++{
++	if (plane_state->uapi.visible)
++		return "visible";
++
++	if (plane_state->planar_slave)
++		return "planar-slave";
++
++	return "hidden";
++}
++
+ static void intel_plane_uapi_info(struct seq_file *m, struct intel_plane *plane)
+ {
+ 	const struct intel_plane_state *plane_state =
+@@ -773,13 +784,19 @@ static void intel_plane_uapi_info(struct seq_file *m, struct intel_plane *plane)
+ 	plane_rotation(rot_str, sizeof(rot_str),
+ 		       plane_state->uapi.rotation);
+ 
+-	seq_printf(m, "\t\tuapi: [FB:%d] %s,0x%llx,%dx%d, src=" DRM_RECT_FP_FMT ", dst=" DRM_RECT_FMT ", rotation=%s\n",
++	seq_printf(m, "\t\tuapi: [FB:%d] %s,0x%llx,%dx%d, visible=%s, src=" DRM_RECT_FP_FMT ", dst=" DRM_RECT_FMT ", rotation=%s\n",
+ 		   fb ? fb->base.id : 0, fb ? format_name.str : "n/a",
+ 		   fb ? fb->modifier : 0,
+ 		   fb ? fb->width : 0, fb ? fb->height : 0,
++		   plane_visibility(plane_state),
+ 		   DRM_RECT_FP_ARG(&src),
+ 		   DRM_RECT_ARG(&dst),
+ 		   rot_str);
++
++	if (plane_state->planar_linked_plane)
++		seq_printf(m, "\t\tplanar: Linked to [PLANE:%d:%s] as a %s\n",
++			   plane_state->planar_linked_plane->base.base.id, plane_state->planar_linked_plane->base.name,
++			   plane_state->planar_slave ? "slave" : "master");
+ }
+ 
+ static void intel_plane_hw_info(struct seq_file *m, struct intel_plane *plane)
+@@ -875,6 +892,12 @@ static void intel_crtc_info(struct seq_file *m, struct intel_crtc *crtc)
+ 		intel_scaler_info(m, crtc);
+ 	}
+ 
++	if (crtc_state->bigjoiner)
++		seq_printf(m, "\tLinked to [CRTC:%d:%s] as a %s\n",
++			   crtc_state->bigjoiner_linked_crtc->base.base.id,
++			   crtc_state->bigjoiner_linked_crtc->base.name,
++			   crtc_state->bigjoiner_slave ? "slave" : "master");
++
+ 	for_each_intel_encoder_mask(&dev_priv->drm, encoder,
+ 				    crtc_state->uapi.encoder_mask)
+ 		intel_encoder_info(m, crtc, encoder);
+-- 
+2.19.1
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
