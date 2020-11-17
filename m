@@ -2,52 +2,54 @@ Return-Path: <SRS0=Ur01=EX=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-15.2 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 92F74C63798
-	for <intel-gfx@archiver.kernel.org>; Tue, 17 Nov 2020 19:45:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 76C37C63697
+	for <intel-gfx@archiver.kernel.org>; Tue, 17 Nov 2020 20:35:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 40B3B2222E
-	for <intel-gfx@archiver.kernel.org>; Tue, 17 Nov 2020 19:45:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 40B3B2222E
+	by mail.kernel.org (Postfix) with ESMTPS id 1AF802225E
+	for <intel-gfx@archiver.kernel.org>; Tue, 17 Nov 2020 20:35:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1AF802225E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 46FFA6E08E;
-	Tue, 17 Nov 2020 19:45:10 +0000 (UTC)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B87A86E06E
- for <intel-gfx@lists.freedesktop.org>; Tue, 17 Nov 2020 19:44:55 +0000 (UTC)
-IronPort-SDR: X5UZ+6KA4fID3YDNn6I+L7KuS7uaYeh4sqkoAruEe10Hl1NuIFre+/gwDW5K+ETdXoOx+QXF+d
- rnwZpXBCwg+A==
-X-IronPort-AV: E=McAfee;i="6000,8403,9808"; a="232612535"
-X-IronPort-AV: E=Sophos;i="5.77,486,1596524400"; d="scan'208";a="232612535"
+	by gabe.freedesktop.org (Postfix) with ESMTP id AA1EC6E071;
+	Tue, 17 Nov 2020 20:35:01 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A5636E090
+ for <intel-gfx@lists.freedesktop.org>; Tue, 17 Nov 2020 20:35:00 +0000 (UTC)
+IronPort-SDR: +gbx/HGZt5l+zov5JWJ1Cl3Q8UKucj9qxZ6yvO3EMIW81E/Eb7BclgAXV7W/KXwXMPF0bBdc7h
+ TCDmsXpfVluA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9808"; a="150276379"
+X-IronPort-AV: E=Sophos;i="5.77,486,1596524400"; d="scan'208";a="150276379"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Nov 2020 11:44:53 -0800
-IronPort-SDR: MNIfUSgGrvwQy3v5349omlRS7UYudQTVVyAuUJ7nHhV9WP7olGrVDDhDFQ7LIJAIXM2z9HJNOn
- T3C33uZpU66A==
-X-IronPort-AV: E=Sophos;i="5.77,486,1596524400"; d="scan'208";a="359034192"
-Received: from labuser-z97x-ud5h.jf.intel.com ([10.165.21.211])
- by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-SHA;
- 17 Nov 2020 11:44:53 -0800
-From: Manasi Navare <manasi.d.navare@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Tue, 17 Nov 2020 11:47:10 -0800
-Message-Id: <20201117194718.11462-8-manasi.d.navare@intel.com>
-X-Mailer: git-send-email 2.19.1
-In-Reply-To: <20201117194718.11462-1-manasi.d.navare@intel.com>
-References: <20201117194718.11462-1-manasi.d.navare@intel.com>
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Nov 2020 12:34:57 -0800
+IronPort-SDR: O7gpNSkkb6yKCG6thlFF2GbCzWHNaYxeQQol/QCaw/Xyq5yYfL3fHACvMki2FVssGp1KSoBrCW
+ TIO3btpGZBOA==
+X-IronPort-AV: E=Sophos;i="5.77,486,1596524400"; d="scan'208";a="544200408"
+Received: from orsosgc001.ra.intel.com ([10.23.184.150])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Nov 2020 12:34:57 -0800
+Date: Tue, 17 Nov 2020 12:34:56 -0800
+From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+To: Chris Wilson <chris@chris-wilson.co.uk>
+Message-ID: <20201117203456.GD47109@orsosgc001.ra.intel.com>
+References: <20201117110132.22267-1-chris@chris-wilson.co.uk>
+ <20201117110132.22267-4-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [CI 07/15] drm/i915: Add crtcs affected by bigjoiner to
- the state
+Content-Disposition: inline
+In-Reply-To: <20201117110132.22267-4-chris@chris-wilson.co.uk>
+User-Agent: Mutt/1.12.1 (2019-06-15)
+Subject: Re: [Intel-gfx] [PATCH 4/8] drm/i915/gt: Enable dynamic adjustment
+ of RING_NONPRIV
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,40 +62,395 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: intel-gfx@lists.freedesktop.org
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-RnJvbTogVmlsbGUgU3lyasOkbMOkIDx2aWxsZS5zeXJqYWxhQGxpbnV4LmludGVsLmNvbT4KCk1h
-a2Ugc3VyZSBib3RoIGNydGNzIHBhcnRpY2lwYXRpbmcgaW4gdGhlIGJpZ2pvaW5lciBzdHVmZgph
-cmUgaW4gdGhlIHN0YXRlLgoKU2lnbmVkLW9mZi1ieTogVmlsbGUgU3lyasOkbMOkIDx2aWxsZS5z
-eXJqYWxhQGxpbnV4LmludGVsLmNvbT4KUmV2aWV3ZWQtYnk6IE1hbmFzaSBOYXZhcmUgPG1hbmFz
-aS5kLm5hdmFyZUBpbnRlbC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9p
-bnRlbF9kaXNwbGF5LmMgfCAyNSArKysrKysrKysrKysrKysrKysrKwogMSBmaWxlIGNoYW5nZWQs
-IDI1IGluc2VydGlvbnMoKykKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNw
-bGF5L2ludGVsX2Rpc3BsYXkuYyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxf
-ZGlzcGxheS5jCmluZGV4IDY4YzRmNmNjYTgyZC4uMDc4NDQ5NWUyMzEwIDEwMDY0NAotLS0gYS9k
-cml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Rpc3BsYXkuYworKysgYi9kcml2ZXJz
-L2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Rpc3BsYXkuYwpAQCAtMTU0NjEsNiArMTU0NjEs
-MjcgQEAgc3RhdGljIGludCBpbnRlbF9hdG9taWNfY2hlY2tfYXN5bmMoc3RydWN0IGludGVsX2F0
-b21pY19zdGF0ZSAqc3RhdGUpCiAJcmV0dXJuIDA7CiB9CiAKK3N0YXRpYyBpbnQgaW50ZWxfYmln
-am9pbmVyX2FkZF9hZmZlY3RlZF9jcnRjcyhzdHJ1Y3QgaW50ZWxfYXRvbWljX3N0YXRlICpzdGF0
-ZSkKK3sKKwljb25zdCBzdHJ1Y3QgaW50ZWxfY3J0Y19zdGF0ZSAqY3J0Y19zdGF0ZTsKKwlzdHJ1
-Y3QgaW50ZWxfY3J0YyAqY3J0YzsKKwlpbnQgaTsKKworCWZvcl9lYWNoX25ld19pbnRlbF9jcnRj
-X2luX3N0YXRlKHN0YXRlLCBjcnRjLCBjcnRjX3N0YXRlLCBpKSB7CisJCXN0cnVjdCBpbnRlbF9j
-cnRjX3N0YXRlICpsaW5rZWRfY3J0Y19zdGF0ZTsKKworCQlpZiAoIWNydGNfc3RhdGUtPmJpZ2pv
-aW5lcikKKwkJCWNvbnRpbnVlOworCisJCWxpbmtlZF9jcnRjX3N0YXRlID0gaW50ZWxfYXRvbWlj
-X2dldF9jcnRjX3N0YXRlKCZzdGF0ZS0+YmFzZSwKKwkJCQkJCQkJY3J0Y19zdGF0ZS0+Ymlnam9p
-bmVyX2xpbmtlZF9jcnRjKTsKKwkJaWYgKElTX0VSUihsaW5rZWRfY3J0Y19zdGF0ZSkpCisJCQly
-ZXR1cm4gUFRSX0VSUihsaW5rZWRfY3J0Y19zdGF0ZSk7CisJfQorCisJcmV0dXJuIDA7Cit9CisK
-IC8qKgogICogaW50ZWxfYXRvbWljX2NoZWNrIC0gdmFsaWRhdGUgc3RhdGUgb2JqZWN0CiAgKiBA
-ZGV2OiBkcm0gZGV2aWNlCkBAIC0xNTQ4Niw2ICsxNTUwNywxMCBAQCBzdGF0aWMgaW50IGludGVs
-X2F0b21pY19jaGVjayhzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LAogCWlmIChyZXQpCiAJCWdvdG8g
-ZmFpbDsKIAorCXJldCA9IGludGVsX2JpZ2pvaW5lcl9hZGRfYWZmZWN0ZWRfY3J0Y3Moc3RhdGUp
-OworCWlmIChyZXQpCisJCWdvdG8gZmFpbDsKKwogCWZvcl9lYWNoX29sZG5ld19pbnRlbF9jcnRj
-X2luX3N0YXRlKHN0YXRlLCBjcnRjLCBvbGRfY3J0Y19zdGF0ZSwKIAkJCQkJICAgIG5ld19jcnRj
-X3N0YXRlLCBpKSB7CiAJCWlmICghbmVlZHNfbW9kZXNldChuZXdfY3J0Y19zdGF0ZSkpIHsKLS0g
-CjIuMTkuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
-SW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRlbC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0
-dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vaW50ZWwtZ2Z4Cg==
+On Tue, Nov 17, 2020 at 11:01:28AM +0000, Chris Wilson wrote:
+>The OA subsystem would like to enable its privileged clients access to
+>the OA registers from execbuf. This requires temporarily removing the
+>HW validation from those registers for the duration of the OA client,
+>for which we need to allow OA to dynamically adjust the set of
+>RING_NONPRIV.
+>
+>Care must still be taken since the RING_NONPRIV are global, so any and
+>all contexts that run at the same time as the OA client, will also be
+>able to adjust the registers from their execbuf.
+>
+>Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+>---
+> drivers/gpu/drm/i915/gt/intel_workarounds.c   |  59 +++++
+> drivers/gpu/drm/i915/gt/intel_workarounds.h   |   7 +
+> .../gpu/drm/i915/gt/selftest_workarounds.c    | 236 ++++++++++++++++++
+> 3 files changed, 302 insertions(+)
+>
+>diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+>index 290aa277ab10..c918739df6a6 100644
+>--- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
+>+++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+>@@ -230,6 +230,18 @@ static void _wa_add(struct i915_wa_list *wal, const struct i915_wa *wa)
+> 	__wa_add(wal, wa);
+> }
+>
+>+static void _wa_del(struct i915_wa_list *wal, i915_reg_t reg)
+>+{
+>+	struct i915_wa *wa = wal->list;
+>+	int index;
+>+
+>+	index = wa_index(wal, reg);
+>+	if (GEM_DEBUG_WARN_ON(index < 0))
+>+		return;
+>+
+>+	memmove(wa + index, wa + index + 1, --wal->count - index);
+
+size to move = (--wal->count - index) * sizeof(*wa)
+
+with that fixed, this is
+
+Reviewed-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+
+Thanks,
+Umesh
+
+>+}
+>+
+> static void wa_add(struct i915_wa_list *wal, i915_reg_t reg,
+> 		   u32 clear, u32 set, u32 read_mask)
+> {
+>@@ -2116,6 +2128,53 @@ void intel_engine_init_workarounds(struct intel_engine_cs *engine)
+> 	wa_init_finish(wal);
+> }
+>
+>+int intel_engine_allow_user_register_access(struct intel_engine_cs *engine,
+>+					    const i915_reg_t *reg,
+>+					    unsigned int count)
+>+{
+>+	struct i915_wa_list *wal = &engine->whitelist;
+>+	unsigned long flags;
+>+	int err;
+>+
+>+	if (GEM_DEBUG_WARN_ON(wal->count + count >= RING_MAX_NONPRIV_SLOTS))
+>+		return -ENOSPC;
+>+
+>+	spin_lock_irqsave(&engine->uncore->lock, flags);
+>+
+>+	err = wa_list_grow(wal, wal->count + count, GFP_ATOMIC | __GFP_NOWARN);
+>+	if (err)
+>+		goto out;
+>+
+>+	while (count--) {
+>+		struct i915_wa wa = { .reg = *reg++ };
+>+
+>+		__wa_add(wal, &wa);
+>+	}
+>+
+>+	__engine_apply_whitelist(engine);
+>+
+>+out:
+>+	spin_unlock_irqrestore(&engine->uncore->lock, flags);
+>+	return err;
+>+}
+>+
+>+void intel_engine_deny_user_register_access(struct intel_engine_cs *engine,
+>+					    const i915_reg_t *reg,
+>+					    unsigned int count)
+>+{
+>+	struct i915_wa_list *wal = &engine->whitelist;
+>+	unsigned long flags;
+>+
+>+	spin_lock_irqsave(&engine->uncore->lock, flags);
+>+
+>+	while (count--)
+>+		_wa_del(wal, *reg++);
+>+
+>+	__engine_apply_whitelist(engine);
+>+
+>+	spin_unlock_irqrestore(&engine->uncore->lock, flags);
+>+}
+>+
+> void intel_engine_apply_workarounds(struct intel_engine_cs *engine)
+> {
+> 	wa_list_apply(engine->uncore, &engine->wa_list);
+>diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.h b/drivers/gpu/drm/i915/gt/intel_workarounds.h
+>index 8c9c769c2204..9c691493ea56 100644
+>--- a/drivers/gpu/drm/i915/gt/intel_workarounds.h
+>+++ b/drivers/gpu/drm/i915/gt/intel_workarounds.h
+>@@ -37,4 +37,11 @@ void intel_engine_apply_workarounds(struct intel_engine_cs *engine);
+> int intel_engine_verify_workarounds(struct intel_engine_cs *engine,
+> 				    const char *from);
+>
+>+int intel_engine_allow_user_register_access(struct intel_engine_cs *engine,
+>+					    const i915_reg_t *reg,
+>+					    unsigned int count);
+>+void intel_engine_deny_user_register_access(struct intel_engine_cs *engine,
+>+					    const i915_reg_t *reg,
+>+					    unsigned int count);
+>+
+> #endif
+>diff --git a/drivers/gpu/drm/i915/gt/selftest_workarounds.c b/drivers/gpu/drm/i915/gt/selftest_workarounds.c
+>index 61a0532d0f3d..6f526199a11a 100644
+>--- a/drivers/gpu/drm/i915/gt/selftest_workarounds.c
+>+++ b/drivers/gpu/drm/i915/gt/selftest_workarounds.c
+>@@ -1127,6 +1127,241 @@ static int live_isolated_whitelist(void *arg)
+> 	return err;
+> }
+>
+>+static int rmw_reg(struct intel_engine_cs *engine, const i915_reg_t reg)
+>+{
+>+	const u32 values[] = {
+>+		0x00000000,
+>+		0x01010101,
+>+		0x10100101,
+>+		0x03030303,
+>+		0x30300303,
+>+		0x05050505,
+>+		0x50500505,
+>+		0x0f0f0f0f,
+>+		0xf00ff00f,
+>+		0x10101010,
+>+		0xf0f01010,
+>+		0x30303030,
+>+		0xa0a03030,
+>+		0x50505050,
+>+		0xc0c05050,
+>+		0xf0f0f0f0,
+>+		0x11111111,
+>+		0x33333333,
+>+		0x55555555,
+>+		0x0000ffff,
+>+		0x00ff00ff,
+>+		0xff0000ff,
+>+		0xffff00ff,
+>+		0xffffffff,
+>+	};
+>+	struct i915_vma *vma, *batch;
+>+	struct intel_context *ce;
+>+	struct i915_request *rq;
+>+	u32 srm, lrm, idx;
+>+	u32 *cs, *results;
+>+	u64 addr;
+>+	int err;
+>+	int v;
+>+
+>+	ce = intel_context_create(engine);
+>+	if (IS_ERR(ce))
+>+		return PTR_ERR(ce);
+>+
+>+	vma = create_scratch(ce->vm, 1);
+>+	if (IS_ERR(vma)) {
+>+		err = PTR_ERR(vma);
+>+		goto out_context;
+>+	}
+>+
+>+	batch = create_batch(ce->vm);
+>+	if (IS_ERR(batch)) {
+>+		err = PTR_ERR(batch);
+>+		goto out_vma;
+>+	}
+>+
+>+	srm = MI_STORE_REGISTER_MEM;
+>+	lrm = MI_LOAD_REGISTER_MEM;
+>+	if (INTEL_GEN(ce->vm->i915) >= 8)
+>+		lrm++, srm++;
+>+
+>+	addr = vma->node.start;
+>+
+>+	cs = i915_gem_object_pin_map(batch->obj, I915_MAP_WC);
+>+	if (IS_ERR(cs)) {
+>+		err = PTR_ERR(cs);
+>+		goto out_batch;
+>+	}
+>+
+>+	/* SRM original */
+>+	*cs++ = srm;
+>+	*cs++ = i915_mmio_reg_offset(reg);
+>+	*cs++ = lower_32_bits(addr);
+>+	*cs++ = upper_32_bits(addr);
+>+
+>+	idx = 1;
+>+	for (v = 0; v < ARRAY_SIZE(values); v++) {
+>+		/* LRI garbage */
+>+		*cs++ = MI_LOAD_REGISTER_IMM(1);
+>+		*cs++ = i915_mmio_reg_offset(reg);
+>+		*cs++ = values[v];
+>+
+>+		/* SRM result */
+>+		*cs++ = srm;
+>+		*cs++ = i915_mmio_reg_offset(reg);
+>+		*cs++ = lower_32_bits(addr + sizeof(u32) * idx);
+>+		*cs++ = upper_32_bits(addr + sizeof(u32) * idx);
+>+		idx++;
+>+	}
+>+	for (v = 0; v < ARRAY_SIZE(values); v++) {
+>+		/* LRI garbage */
+>+		*cs++ = MI_LOAD_REGISTER_IMM(1);
+>+		*cs++ = i915_mmio_reg_offset(reg);
+>+		*cs++ = ~values[v];
+>+
+>+		/* SRM result */
+>+		*cs++ = srm;
+>+		*cs++ = i915_mmio_reg_offset(reg);
+>+		*cs++ = lower_32_bits(addr + sizeof(u32) * idx);
+>+		*cs++ = upper_32_bits(addr + sizeof(u32) * idx);
+>+		idx++;
+>+	}
+>+
+>+	/* LRM original -- don't leave garbage in the context! */
+>+	*cs++ = lrm;
+>+	*cs++ = i915_mmio_reg_offset(reg);
+>+	*cs++ = lower_32_bits(addr);
+>+	*cs++ = upper_32_bits(addr);
+>+
+>+	*cs++ = MI_BATCH_BUFFER_END;
+>+
+>+	i915_gem_object_flush_map(batch->obj);
+>+	i915_gem_object_unpin_map(batch->obj);
+>+	intel_gt_chipset_flush(engine->gt);
+>+
+>+	rq = intel_context_create_request(ce);
+>+	if (IS_ERR(rq)) {
+>+		err = PTR_ERR(rq);
+>+		goto out_batch;
+>+	}
+>+
+>+	if (engine->emit_init_breadcrumb) { /* Be nice if we hang */
+>+		err = engine->emit_init_breadcrumb(rq);
+>+		if (err)
+>+			goto err_request;
+>+	}
+>+
+>+	i915_vma_lock(batch);
+>+	err = i915_request_await_object(rq, batch->obj, false);
+>+	if (err == 0)
+>+		err = i915_vma_move_to_active(batch, rq, 0);
+>+	i915_vma_unlock(batch);
+>+	if (err)
+>+		goto err_request;
+>+
+>+	i915_vma_lock(vma);
+>+	err = i915_request_await_object(rq, vma->obj, true);
+>+	if (err == 0)
+>+		err = i915_vma_move_to_active(vma, rq, EXEC_OBJECT_WRITE);
+>+	i915_vma_unlock(vma);
+>+	if (err)
+>+		goto err_request;
+>+
+>+	err = engine->emit_bb_start(rq, batch->node.start, PAGE_SIZE, 0);
+>+	if (err)
+>+		goto err_request;
+>+
+>+err_request:
+>+	err = request_add_sync(rq, err);
+>+	if (err) {
+>+		pr_err("%s: Futzing %04x timedout; cancelling test\n",
+>+		       engine->name, i915_mmio_reg_offset(reg));
+>+		intel_gt_set_wedged(engine->gt);
+>+		goto out_batch;
+>+	}
+>+
+>+	results = i915_gem_object_pin_map(vma->obj, I915_MAP_WB);
+>+	if (IS_ERR(results)) {
+>+		err = PTR_ERR(results);
+>+		goto out_batch;
+>+	}
+>+
+>+	for (v = 0, idx = 0; v < 2 * ARRAY_SIZE(values); v++) {
+>+		if (results[++idx] != results[0]) {
+>+			err = idx;
+>+			break;
+>+		}
+>+	}
+>+
+>+out_batch:
+>+	i915_vma_put(batch);
+>+out_vma:
+>+	i915_vma_put(vma);
+>+out_context:
+>+	intel_context_put(ce);
+>+	return err;
+>+}
+>+
+>+static int live_dynamic_whitelist(void *arg)
+>+{
+>+	struct intel_gt *gt = arg;
+>+	struct intel_engine_cs *engine;
+>+	enum intel_engine_id id;
+>+	int err = 0;
+>+
+>+	if (INTEL_GEN(gt->i915) < 8)
+>+		return 0;
+>+
+>+	for_each_engine(engine, gt, id) {
+>+		const i915_reg_t reg = RING_MAX_IDLE(engine->mmio_base);
+>+
+>+		err = rmw_reg(engine, reg);
+>+		if (err < 0)
+>+			break;
+>+
+>+		if (err) {
+>+			pr_err("%s: Able to write to protected reg:%04x!\n",
+>+			       engine->name, i915_mmio_reg_offset(reg));
+>+			err = -EINVAL;
+>+			break;
+>+		}
+>+
+>+		err = intel_engine_allow_user_register_access(engine, &reg, 1);
+>+		if (err)
+>+			break;
+>+
+>+		err = rmw_reg(engine, reg);
+>+		intel_engine_deny_user_register_access(engine, &reg, 1);
+>+		if (err < 0)
+>+			break;
+>+
+>+		if (!err) {
+>+			pr_err("%s: Unable to write to allowed reg:%04x!\n",
+>+			       engine->name, i915_mmio_reg_offset(reg));
+>+			err = -EINVAL;
+>+			break;
+>+		}
+>+
+>+		err = rmw_reg(engine, reg);
+>+		if (err < 0)
+>+			break;
+>+
+>+		if (err) {
+>+			pr_err("%s: Able to write to denied reg:%04x!\n",
+>+			       engine->name, i915_mmio_reg_offset(reg));
+>+			err = -EINVAL;
+>+			break;
+>+		}
+>+
+>+		err = 0;
+>+	}
+>+
+>+	if (igt_flush_test(gt->i915))
+>+		err = -EIO;
+>+
+>+	return err;
+>+}
+>+
+> static bool
+> verify_wa_lists(struct i915_gem_context *ctx, struct wa_lists *lists,
+> 		const char *str)
+>@@ -1288,6 +1523,7 @@ int intel_workarounds_live_selftests(struct drm_i915_private *i915)
+> 		SUBTEST(live_dirty_whitelist),
+> 		SUBTEST(live_reset_whitelist),
+> 		SUBTEST(live_isolated_whitelist),
+>+		SUBTEST(live_dynamic_whitelist),
+> 		SUBTEST(live_gpu_reset_workarounds),
+> 		SUBTEST(live_engine_reset_workarounds),
+> 	};
+>-- 
+>2.20.1
+>
+>_______________________________________________
+>Intel-gfx mailing list
+>Intel-gfx@lists.freedesktop.org
+>https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
