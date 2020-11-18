@@ -2,67 +2,52 @@ Return-Path: <SRS0=edJA=EY=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6632DC5519F
-	for <intel-gfx@archiver.kernel.org>; Wed, 18 Nov 2020 12:41:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8BADCC5519F
+	for <intel-gfx@archiver.kernel.org>; Wed, 18 Nov 2020 13:16:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DB8C924180
-	for <intel-gfx@archiver.kernel.org>; Wed, 18 Nov 2020 12:41:08 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Kwunp6IP"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DB8C924180
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
+	by mail.kernel.org (Postfix) with ESMTPS id 07E28241A5
+	for <intel-gfx@archiver.kernel.org>; Wed, 18 Nov 2020 13:16:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 07E28241A5
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C6DC6E3DB;
-	Wed, 18 Nov 2020 12:41:08 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [63.128.21.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BFF9C6E3DB
- for <intel-gfx@lists.freedesktop.org>; Wed, 18 Nov 2020 12:41:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1605703265;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=qcvzA2HWrlTWMMUBjGQsLsdvH9UGLrSB4FxkVME4Fes=;
- b=Kwunp6IP326y5etZOvM2gNAI1hBoUoI79JA/575EYxF0Mvrmkq45Q/ZZFsI4X4TCnvkE+b
- 0M0L+6O3JmXOyP3P45yoes4nRW8fSB/ihzF+3jjTDxcwpQYSLb2Yzj/iKnWAEIAflcPTRG
- kWyEYUJEolh4ONpobV/Qt/BdPxOYii0=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-350-7X2XeQe2OvmR0EzGpZy-HQ-1; Wed, 18 Nov 2020 07:41:02 -0500
-X-MC-Unique: 7X2XeQe2OvmR0EzGpZy-HQ-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
- [10.5.11.12])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 6C54A1075620;
- Wed, 18 Nov 2020 12:41:01 +0000 (UTC)
-Received: from x1.localdomain (ovpn-114-94.ams2.redhat.com [10.36.114.94])
- by smtp.corp.redhat.com (Postfix) with ESMTP id F1AB260C05;
- Wed, 18 Nov 2020 12:40:59 +0000 (UTC)
-From: Hans de Goede <hdegoede@redhat.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>
-Date: Wed, 18 Nov 2020 13:40:58 +0100
-Message-Id: <20201118124058.26021-1-hdegoede@redhat.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A6026E413;
+	Wed, 18 Nov 2020 13:16:45 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7AD126E413
+ for <intel-gfx@lists.freedesktop.org>; Wed, 18 Nov 2020 13:16:43 +0000 (UTC)
+IronPort-SDR: Yw9dx83AikeJO40QsY5yg5l3i0o6XfqfXgOEQ4j2F5Eci7TnWMSKkTm+WQIav1v6CV2laKMYBm
+ a+DncI3tfOUw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9808"; a="235260406"
+X-IronPort-AV: E=Sophos;i="5.77,486,1596524400"; d="scan'208";a="235260406"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Nov 2020 05:16:37 -0800
+IronPort-SDR: PrtBg7hQ4UYvokGSV3WtV2/l6Vii8oqbKHnP1RT9/PcZCCI9ifndTGprazVYe3fU3hxAqiE5YJ
+ /Glnn31rSF3A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.77,486,1596524400"; d="scan'208";a="476349095"
+Received: from shawnle1-build-machine.itwn.intel.com ([10.5.253.9])
+ by orsmga004.jf.intel.com with ESMTP; 18 Nov 2020 05:16:35 -0800
+From: Lee Shawn C <shawn.c.lee@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Wed, 18 Nov 2020 21:21:27 +0800
+Message-Id: <20201118132127.28134-1-shawn.c.lee@intel.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20201116135913.20782-1-shawn.c.lee@intel.com>
+References: <20201116135913.20782-1-shawn.c.lee@intel.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Subject: [Intel-gfx] [PATCH] drm/i915/dsi: Use unconditional msleep for the
- panel_on_delay when there is no reset-deassert MIPI-sequence
+Subject: [Intel-gfx] [PATCH v3] drm/i915/lspcon: enter standby mode to
+ enhance power saving
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,70 +60,99 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx <intel-gfx@lists.freedesktop.org>,
- dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Cooper Chiou <cooper.chiou@intel.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Commit 25b4620ee822 ("drm/i915/dsi: Skip delays for v3 VBTs in vid-mode")
-added an intel_dsi_msleep() helper which skips sleeping if the
-MIPI-sequences have a version of 3 or newer and the panel is in vid-mode;
-and it moved a bunch of msleep-s over to this new helper.
-
-This was based on my reading of the big comment around line 730 which
-starts with "Panel enable/disable sequences from the VBT spec.",
-where the "v3 video mode seq" column does not have any wait t# entries.
-
-Given that this code has been used on a lot of different devices without
-issues until now, it seems that my interpretation of the spec here is
-mostly correct.
-
-But now I have encountered one device, an Acer Aspire Switch 10 E
-SW3-016, where the panel will not light up unless we do actually honor the
-panel_on_delay after exexuting the MIPI_SEQ_PANEL_ON sequence.
-
-What seems to set this model apart is that it is lacking a
-MIPI_SEQ_DEASSERT_RESET sequence, which is where the power-on
-delay usually happens.
-
-Fix the panel not lighting up on this model by using an unconditional
-msleep(panel_on_delay) instead of intel_dsi_msleep() when there is
-no MIPI_SEQ_DEASSERT_RESET sequence.
-
-Fixes: 25b4620ee822 ("drm/i915/dsi: Skip delays for v3 VBTs in vid-mode")
-Signed-off-by: Hans de Goede <hdegoede@redhat.com>
----
- drivers/gpu/drm/i915/display/vlv_dsi.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/display/vlv_dsi.c b/drivers/gpu/drm/i915/display/vlv_dsi.c
-index 194c239ab6b1..ef673277b36d 100644
---- a/drivers/gpu/drm/i915/display/vlv_dsi.c
-+++ b/drivers/gpu/drm/i915/display/vlv_dsi.c
-@@ -816,10 +816,14 @@ static void intel_dsi_pre_enable(struct intel_atomic_state *state,
- 		intel_dsi_prepare(encoder, pipe_config);
- 
- 	intel_dsi_vbt_exec_sequence(intel_dsi, MIPI_SEQ_POWER_ON);
--	intel_dsi_msleep(intel_dsi, intel_dsi->panel_on_delay);
- 
--	/* Deassert reset */
--	intel_dsi_vbt_exec_sequence(intel_dsi, MIPI_SEQ_DEASSERT_RESET);
-+	if (dev_priv->vbt.dsi.sequence[MIPI_SEQ_DEASSERT_RESET]) {
-+		intel_dsi_msleep(intel_dsi, intel_dsi->panel_on_delay);
-+		/* Deassert reset */
-+		intel_dsi_vbt_exec_sequence(intel_dsi, MIPI_SEQ_DEASSERT_RESET);
-+	} else {
-+		msleep(intel_dsi->panel_on_delay);
-+	}
- 
- 	if (IS_GEMINILAKE(dev_priv)) {
- 		glk_cold_boot = glk_dsi_enable_io(encoder);
--- 
-2.28.0
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+QWZ0ZXIgc3lzdGVtIGJvb3QgdXAsIExTUENPTiB3aWxsIGJlIGNvbmZpZ3VyZWQgYXMgUENPTiBt
+b2RlLgpCdXQgaXQgbmV2ZXIgZ28gaW50byBwb3dlciBzYXZpbmcgc3RhdGUuIFNvdXJjZSBkcml2
+ZXIgY2FuCmRvIHRoZSBmb2xsb3dpbmcuIFRoZW4gTFNQQ09OIGNhbiBlbnRlciBzdGFuZGJ5IG1v
+ZGUKYXV0b21hdGljYWxseSB0byBzYXZlIG1vcmUgcG93ZXIuCgoxLiBBdCBQQ09OIG1vZGUsIHNv
+dXJjZSBkcml2ZXIgd3JpdGUgMHgyIHRvIERQQ0QgNjAwaC4KMi4gQXQgTFMgbW9kZSwgdHJ5IHRv
+IGRpc2FibGUgRFBfRFVBTF9NT0RFX1RNRFNfT0VOLgoKdjI6IGZpeCB0eXBvCnYzOiBBZnRlciB0
+dXJuIG1haW4gbGluIG9mZiwgZm91bmQgcGFydGljdWxhciBtb25pdG9yCiAgICB0cmlnZ2VyIEhQ
+RCB0byBMU1BDT04uIFRoZW4gc2hvcnQgSFBEIHdvdWxkIGZvcndhcmQKICAgIHRvIHNvdXJjZS4g
+SWYgZHJpdmVyIGRpZCBub3QgZW5hYmxlIGRpc3BsYXkgb3V0cHV0CiAgICB3aGVuIHJlY2VpdmVk
+IHRoaXMgSFBELiBTb3VyY2Ugc2hvdWxkIHJlcXVlc3QgTFNQQ09OIHRvCiAgICBlbnRlciBzdGFu
+ZGJ5IG1vZGUgYWdhaW4uCgpDYzogVmlsbGUgU3lyasOkbMOkIDx2aWxsZS5zeXJqYWxhQGxpbnV4
+LmludGVsLmNvbT4KQ2M6IEphbmkgTmlrdWxhIDxqYW5pLm5pa3VsYUBsaW51eC5pbnRlbC5jb20+
+CkNjOiBVbWEgU2hhbmthciA8dW1hLnNoYW5rYXJAaW50ZWwuY29tPgpDYzogQ29vcGVyIENoaW91
+IDxjb29wZXIuY2hpb3VAaW50ZWwuY29tPgpDYzogS2hhbGVkIEFsbWFoYWxsYXd5IDxraGFsZWQu
+YWxtYWhhbGxhd3lAaW50ZWwuY29tPgpTaWduZWQtb2ZmLWJ5OiBMZWUgU2hhd24gQyA8c2hhd24u
+Yy5sZWVAaW50ZWwuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxf
+ZHAuYyAgICAgfCAxMSArKysrKysrLQogZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRl
+bF9sc3Bjb24uYyB8IDMwICsrKysrKysrKysrKysrKysrKysrKwogZHJpdmVycy9ncHUvZHJtL2k5
+MTUvZGlzcGxheS9pbnRlbF9sc3Bjb24uaCB8ICAxICsKIDMgZmlsZXMgY2hhbmdlZCwgNDEgaW5z
+ZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9p
+OTE1L2Rpc3BsYXkvaW50ZWxfZHAuYyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50
+ZWxfZHAuYwppbmRleCBlYzgzNTlmMDNhYWYuLjc4NzZkNzg1YjUwZiAxMDA2NDQKLS0tIGEvZHJp
+dmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kcC5jCisrKyBiL2RyaXZlcnMvZ3B1L2Ry
+bS9pOTE1L2Rpc3BsYXkvaW50ZWxfZHAuYwpAQCAtNjE4NCw2ICs2MTg0LDcgQEAgc3RhdGljIGJv
+b2wKIGludGVsX2RwX3Nob3J0X3B1bHNlKHN0cnVjdCBpbnRlbF9kcCAqaW50ZWxfZHApCiB7CiAJ
+c3RydWN0IGRybV9pOTE1X3ByaXZhdGUgKmRldl9wcml2ID0gZHBfdG9faTkxNShpbnRlbF9kcCk7
+CisJc3RydWN0IGludGVsX2xzcGNvbiAqbHNwY29uID0gZHBfdG9fbHNwY29uKGludGVsX2RwKTsK
+IAl1OCBvbGRfc2lua19jb3VudCA9IGludGVsX2RwLT5zaW5rX2NvdW50OwogCWJvb2wgcmV0Owog
+CkBAIC02MjExLDYgKzYyMTIsOSBAQCBpbnRlbF9kcF9zaG9ydF9wdWxzZShzdHJ1Y3QgaW50ZWxf
+ZHAgKmludGVsX2RwKQogCS8qIEhhbmRsZSBDRUMgaW50ZXJydXB0cywgaWYgYW55ICovCiAJZHJt
+X2RwX2NlY19pcnEoJmludGVsX2RwLT5hdXgpOwogCisJaWYgKGxzcGNvbiAmJiBsc3Bjb24tPmFj
+dGl2ZSkKKwkJbHNwY29uX3N0YW5kYnkoZHBfdG9fZGlnX3BvcnQoaW50ZWxfZHApKTsKKwogCS8q
+IGRlZmVyIHRvIHRoZSBob3RwbHVnIHdvcmsgZm9yIGxpbmsgcmV0cmFpbmluZyBpZiBuZWVkZWQg
+Ki8KIAlpZiAoaW50ZWxfZHBfbmVlZHNfbGlua19yZXRyYWluKGludGVsX2RwKSkKIAkJcmV0dXJu
+IGZhbHNlOwpAQCAtNjUzNiw2ICs2NTQwLDcgQEAgaW50ZWxfZHBfZGV0ZWN0KHN0cnVjdCBkcm1f
+Y29ubmVjdG9yICpjb25uZWN0b3IsCiAJc3RydWN0IGRybV9pOTE1X3ByaXZhdGUgKmRldl9wcml2
+ID0gdG9faTkxNShjb25uZWN0b3ItPmRldik7CiAJc3RydWN0IGludGVsX2RwICppbnRlbF9kcCA9
+IGludGVsX2F0dGFjaGVkX2RwKHRvX2ludGVsX2Nvbm5lY3Rvcihjb25uZWN0b3IpKTsKIAlzdHJ1
+Y3QgaW50ZWxfZGlnaXRhbF9wb3J0ICpkaWdfcG9ydCA9IGRwX3RvX2RpZ19wb3J0KGludGVsX2Rw
+KTsKKwlzdHJ1Y3QgaW50ZWxfbHNwY29uICpsc3Bjb24gPSBkcF90b19sc3Bjb24oaW50ZWxfZHAp
+OwogCXN0cnVjdCBpbnRlbF9lbmNvZGVyICplbmNvZGVyID0gJmRpZ19wb3J0LT5iYXNlOwogCWVu
+dW0gZHJtX2Nvbm5lY3Rvcl9zdGF0dXMgc3RhdHVzOwogCkBAIC02NjMyLDkgKzY2MzcsMTMgQEAg
+aW50ZWxfZHBfZGV0ZWN0KHN0cnVjdCBkcm1fY29ubmVjdG9yICpjb25uZWN0b3IsCiAJaW50ZWxf
+ZHBfY2hlY2tfc2VydmljZV9pcnEoaW50ZWxfZHApOwogCiBvdXQ6Ci0JaWYgKHN0YXR1cyAhPSBj
+b25uZWN0b3Jfc3RhdHVzX2Nvbm5lY3RlZCAmJiAhaW50ZWxfZHAtPmlzX21zdCkKKwlpZiAoc3Rh
+dHVzICE9IGNvbm5lY3Rvcl9zdGF0dXNfY29ubmVjdGVkICYmICFpbnRlbF9kcC0+aXNfbXN0KSB7
+CiAJCWludGVsX2RwX3Vuc2V0X2VkaWQoaW50ZWxfZHApOwogCisJCWlmIChsc3Bjb24gJiYgbHNw
+Y29uLT5hY3RpdmUpCisJCQlsc3Bjb25fc3RhbmRieShkcF90b19kaWdfcG9ydChpbnRlbF9kcCkp
+OworCX0KKwogCS8qCiAJICogTWFrZSBzdXJlIHRoZSByZWZzIGZvciBwb3dlciB3ZWxscyBlbmFi
+bGVkIGR1cmluZyBkZXRlY3QgYXJlCiAJICogZHJvcHBlZCB0byBhdm9pZCBhIG5ldyBkZXRlY3Qg
+Y3ljbGUgdHJpZ2dlcmVkIGJ5IEhQRCBwb2xsaW5nLgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
+ZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9sc3Bjb24uYyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rp
+c3BsYXkvaW50ZWxfbHNwY29uLmMKaW5kZXggZTM3ZDQ1ZTUzMWRmLi43MDBmNTYwNGQ5ZjYgMTAw
+NjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfbHNwY29uLmMKKysr
+IGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9sc3Bjb24uYwpAQCAtNTUwLDYg
+KzU1MCwzNiBAQCBzdGF0aWMgYm9vbCBsc3Bjb25faW5pdChzdHJ1Y3QgaW50ZWxfZGlnaXRhbF9w
+b3J0ICpkaWdfcG9ydCkKIAlyZXR1cm4gdHJ1ZTsKIH0KIAordm9pZCBsc3Bjb25fc3RhbmRieShz
+dHJ1Y3QgaW50ZWxfZGlnaXRhbF9wb3J0ICpkaWdfcG9ydCkKK3sKKwlzdHJ1Y3QgaW50ZWxfZHAg
+KmRwID0gJmRpZ19wb3J0LT5kcDsKKwl1OCBhbGlnbl9zdGF0dXMgPSAweGZmLCB0cmFpbmluZ19w
+YXR0ZXJuID0gMHhmZjsKKworCWlmIChkcm1fZHBfZHBjZF9yZWFkYigmZHAtPmF1eCwgRFBfTEFO
+RV9BTElHTl9TVEFUVVNfVVBEQVRFRCwgJmFsaWduX3N0YXR1cykgPD0gMCkgeworCQlEUk1fRVJS
+T1IoIkxTUENPTiBmYWlsZWQgdG8gcmVhZCBhbGlnbiBzdGF0dXNcbiIpOworCQlyZXR1cm47CisJ
+fQorCisJaWYgKGRybV9kcF9kcGNkX3JlYWRiKCZkcC0+YXV4LCBEUF9UUkFJTklOR19QQVRURVJO
+X1NFVCwgJnRyYWluaW5nX3BhdHRlcm4pIDw9IDApIHsKKwkJRFJNX0VSUk9SKCJMU1BDT04gZmFp
+bGVkIHRvIHJlYWQgdHJhaW5pbmcgcGF0dGVybiBzZXRcbiIpOworCQlyZXR1cm47CisJfQorCisJ
+LyoKKwkgKiBJZiBsaW5rIHRyYWluaWcgaXMgb25nb2luZy4gT3Igc2luayB1cGRhdGVkIGxpbmsg
+YWxpZ24gc3RhdHVzLgorCSAqIFNvdXJjZSBkcml2ZXIgc2hvdWxkIG5vdCBzZXQgTFNQQ09OIHBv
+d2VyIHN0YXRlIHRvIEQzLgorCSAqLworCWlmIChhbGlnbl9zdGF0dXMgfHwgdHJhaW5pbmdfcGF0
+dGVybikgeworCQlEUk1fREVCVUdfS01TKCJMU1BDT04gbGluayB0cmFpbmluZyBvciBkaXNwbGF5
+IGlzIHdvcmtpbmdcbiIpOworCQlEUk1fREVCVUdfS01TKCJMU1BDT04gRFBDRCByZWdpc3RlciAw
+MTAyaCA9ICV4LCAwMjA0aCA9IDB4JXhcbiIsCisJCQkgICAgICB0cmFpbmluZ19wYXR0ZXJuLCBh
+bGlnbl9zdGF0dXMpOworCQlyZXR1cm47CisJfQorCisJaWYgKGRybV9kcF9kcGNkX3dyaXRlYigm
+ZHAtPmF1eCwgRFBfU0VUX1BPV0VSLCBEUF9TRVRfUE9XRVJfRDMpIDw9IDApCisJCURSTV9ERUJV
+R19LTVMoIkxTUENPTiBmYWlsZWQgdG8gd3JpdGUgcG93ZXIgc3RhdGUgdG8gRDNcbiIpOworfQor
+CiB2b2lkIGxzcGNvbl9yZXN1bWUoc3RydWN0IGludGVsX2RpZ2l0YWxfcG9ydCAqZGlnX3BvcnQp
+CiB7CiAJc3RydWN0IGludGVsX2xzcGNvbiAqbHNwY29uID0gJmRpZ19wb3J0LT5sc3Bjb247CmRp
+ZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2xzcGNvbi5oIGIv
+ZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9sc3Bjb24uaAppbmRleCBiMDNkY2I3
+MDc2ZDguLjY1OGEyZTViMjJkYiAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlz
+cGxheS9pbnRlbF9sc3Bjb24uaAorKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2lu
+dGVsX2xzcGNvbi5oCkBAIC0xNiw2ICsxNiw3IEBAIHN0cnVjdCBpbnRlbF9lbmNvZGVyOwogc3Ry
+dWN0IGludGVsX2xzcGNvbjsKIAogdm9pZCBsc3Bjb25fcmVzdW1lKHN0cnVjdCBpbnRlbF9kaWdp
+dGFsX3BvcnQgKmRpZ19wb3J0KTsKK3ZvaWQgbHNwY29uX3N0YW5kYnkoc3RydWN0IGludGVsX2Rp
+Z2l0YWxfcG9ydCAqZGlnX3BvcnQpOwogdm9pZCBsc3Bjb25fd2FpdF9wY29uX21vZGUoc3RydWN0
+IGludGVsX2xzcGNvbiAqbHNwY29uKTsKIHZvaWQgbHNwY29uX3dyaXRlX2luZm9mcmFtZShzdHJ1
+Y3QgaW50ZWxfZW5jb2RlciAqZW5jb2RlciwKIAkJCSAgICBjb25zdCBzdHJ1Y3QgaW50ZWxfY3J0
+Y19zdGF0ZSAqY3J0Y19zdGF0ZSwKLS0gCjIuMTcuMQoKX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRlbC1nZnhA
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
+YW4vbGlzdGluZm8vaW50ZWwtZ2Z4Cg==
