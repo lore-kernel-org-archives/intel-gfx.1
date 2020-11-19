@@ -2,54 +2,71 @@ Return-Path: <SRS0=B9tM=E2=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 530BEC63777
-	for <intel-gfx@archiver.kernel.org>; Fri, 20 Nov 2020 17:52:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CBFAEC56201
+	for <intel-gfx@archiver.kernel.org>; Fri, 20 Nov 2020 17:52:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CC42C22240
-	for <intel-gfx@archiver.kernel.org>; Fri, 20 Nov 2020 17:52:40 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 5D4BC22240
+	for <intel-gfx@archiver.kernel.org>; Fri, 20 Nov 2020 17:52:42 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="rnWZuTFn"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CC42C22240
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=mg.codeaurora.org header.i=@mg.codeaurora.org header.b="O9AdKST6"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5D4BC22240
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=codeaurora.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A2F26E8EB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4875A6E8EE;
 	Fri, 20 Nov 2020 17:52:38 +0000 (UTC)
-Received: from casper.infradead.org (casper.infradead.org
- [IPv6:2001:8b0:10b:1236::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8CFD66E505
- for <intel-gfx@lists.freedesktop.org>; Thu, 19 Nov 2020 08:11:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=A8ZpF4d5bM/Bn7Uny5g9ie3oCYKMVaj7Hp1UThvfNmU=; b=rnWZuTFnqtxXLtubdtoPaN5KTU
- s65+X2NkbURKUzUk9wjsooeN8isTyvd/c06IfTwnKrhj1jyYpa1CeHLVOWF2ETyGTNu4KL2r6UJiM
- TwG81gaA8GwlyzrunPWiCvSbl9b6eE+bkKq4cvb5OG9Bu6mKdQH/ciLBNeJrtK+Awl7iEHAtIh9fD
- cxMeIrOPeLnp5Ln29gEzBnBFZ/8KuQfvVf4AucTmqjkxIHW/lXHWGwz3H3uqcISzCjd5ICFih/0Wg
- ca54KUUD2+L+YdDqda1mnp52W4K/TtYlvF98pEI2HE+r4eWit23rPU6QgffBKX/L8Nq/8x9xyveRu
- qWF1/HIQ==;
-Received: from hch by casper.infradead.org with local (Exim 4.92.3 #3 (Red Hat
- Linux)) id 1kff2G-0002Dx-I8; Thu, 19 Nov 2020 08:11:20 +0000
-Date: Thu, 19 Nov 2020 08:11:20 +0000
-From: Christoph Hellwig <hch@infradead.org>
+Received: from m42-4.mailgun.net (m42-4.mailgun.net [69.72.42.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7646C89C1B
+ for <intel-gfx@lists.freedesktop.org>; Thu, 19 Nov 2020 11:40:38 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1605786039; h=Content-Type: MIME-Version: Message-ID:
+ In-Reply-To: Date: References: Subject: Cc: To: From: Sender;
+ bh=TZuoUsP+pVhkkcsYgHVPSePfqLr7Z1daxKU3o4tjMyc=;
+ b=O9AdKST6GUt3tc5BM34gSdRy4rtMLovdBeNpYMYp9efr0tUc4qw3bclxethljjgv3ClG5S+n
+ U+xybVjcqncLbz6UUgxRl19K7Z7xidqtn5No+O48PqZLnQs/YHuWAkCmUnaMEOEP/5De7s64
+ TjcNXAAPgpAyEVfoJqbbHIP3zWU=
+X-Mailgun-Sending-Ip: 69.72.42.4
+X-Mailgun-Sid: WyI5MzZmYyIsICJpbnRlbC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n03.prod.us-east-1.postgun.com with SMTP id
+ 5fb659b3b9b39088ed756693 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Thu, 19 Nov 2020 11:40:35
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 998F9C43460; Thu, 19 Nov 2020 11:40:34 +0000 (UTC)
+Received: from potku.adurom.net (88-114-240-156.elisa-laajakaista.fi
+ [88.114.240.156])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: kvalo)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id EF026C43462;
+ Thu, 19 Nov 2020 11:40:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org EF026C43462
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=kvalo@codeaurora.org
+From: Kalle Valo <kvalo@codeaurora.org>
 To: Jani Nikula <jani.nikula@intel.com>
-Message-ID: <20201119081120.GA6149@infradead.org>
 References: <20201118165320.26829-1-jani.nikula@intel.com>
+ <20201118165320.26829-4-jani.nikula@intel.com>
+ <871rgppu9s.fsf@intel.com>
+Date: Thu, 19 Nov 2020 13:40:30 +0200
+In-Reply-To: <871rgppu9s.fsf@intel.com> (Jani Nikula's message of "Thu, 19 Nov
+ 2020 11:31:43 +0200")
+Message-ID: <87wnyhtw0h.fsf@codeaurora.org>
+User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/24.5 (gnu/linux)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20201118165320.26829-1-jani.nikula@intel.com>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
- casper.infradead.org. See http://www.infradead.org/rpr.html
 X-Mailman-Approved-At: Fri, 20 Nov 2020 17:52:36 +0000
-Subject: Re: [Intel-gfx] [PATCH 1/6] relay: allow the use of const callback
- structs
+Subject: Re: [Intel-gfx] [PATCH 4/6] ath11k: make relay callbacks const
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,48 +79,34 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jens Axboe <axboe@kernel.dk>, intel-gfx@lists.freedesktop.org,
- linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
- ath10k@lists.infradead.org,
- QCA ath9k Development <ath9k-devel@qca.qualcomm.com>,
- linux-block@vger.kernel.org, ath11k@lists.infradead.org,
- Kalle Valo <kvalo@codeaurora.org>
+Cc: intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ ath11k@lists.infradead.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-> +/*
-> + * rchan_callback wrappers. Call the callbacks if available, otherwise fall back
-> + * to default behaviour.
-> + */
+Jani Nikula <jani.nikula@intel.com> writes:
 
-This adds an overly long line.  That being said this behavior is pretty
-normal for kernel APIs, so I'm not even sure we need it at all.
+> On Wed, 18 Nov 2020, Jani Nikula <jani.nikula@intel.com> wrote:
+>> Now that relay_open() accepts const callbacks, make relay callbacks
+>> const.
+>>
+>> Cc: Kalle Valo <kvalo@codeaurora.org>
+>> Cc: ath11k@lists.infradead.org
+>> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+>
+> Kalle, thanks for the acks on the other two ath patches - can I have
+> your ack on this one too please?
 
-> +
-> +/*
-> + * subbuf_start() callback.
-> + */
+Oops, missed that:
 
-and this one is for sure completley useless.  Same for all the other
-similar ones.
+Acked-by: Kalle Valo <kvalo@codeaurora.org>
 
+-- 
+https://patchwork.kernel.org/project/linux-wireless/list/
 
-But taking one step back:  All instances implement create_buf_file
-and remove_buf_file, which makes sense as that is the prime aim
-of these methods.  So there is no point in making those optional.
-subbuf_start_callback is overriden by two instances, so making that
-optional totally makes sense.  buf_mapped and buf_unmapped are
-never overriden, so they should be removed entirely.
-
-More importantly there is no case that passes a NULL rchan_callbacks,
-which makes complete sense as it wouldn't even create a file.  So
-remove that case as well and just replace it with a sanity check in
-relay_open().
-
-Please also add a patch to mark all rchan_callbacks instances const
-while you're at it.
+https://wireless.wiki.kernel.org/en/developers/documentation/submittingpatches
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
