@@ -2,40 +2,75 @@ Return-Path: <SRS0=vAY1=EZ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-13.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1F77AC6369E
-	for <intel-gfx@archiver.kernel.org>; Thu, 19 Nov 2020 11:18:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 32934C6369E
+	for <intel-gfx@archiver.kernel.org>; Thu, 19 Nov 2020 11:19:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 42FAC246B2
-	for <intel-gfx@archiver.kernel.org>; Thu, 19 Nov 2020 11:18:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 42FAC246B2
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
+	by mail.kernel.org (Postfix) with ESMTPS id CEA8822201
+	for <intel-gfx@archiver.kernel.org>; Thu, 19 Nov 2020 11:19:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CEA8822201
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8AFBA89C99;
-	Thu, 19 Nov 2020 11:18:47 +0000 (UTC)
-Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 54A5689C99
- for <intel-gfx@lists.freedesktop.org>; Thu, 19 Nov 2020 11:18:44 +0000 (UTC)
-X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
- x-ip-name=78.156.65.138; 
-Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23040308-1500050 
- for multiple; Thu, 19 Nov 2020 11:18:33 +0000
-From: Chris Wilson <chris@chris-wilson.co.uk>
-To: intel-gfx@lists.freedesktop.org
-Date: Thu, 19 Nov 2020 11:18:31 +0000
-Message-Id: <20201119111831.1236-1-chris@chris-wilson.co.uk>
-X-Mailer: git-send-email 2.20.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id EEB3889CC1;
+	Thu, 19 Nov 2020 11:19:14 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8151789CAF;
+ Thu, 19 Nov 2020 11:19:13 +0000 (UTC)
+IronPort-SDR: 6QcFFaDz+utY6f+Vy8jV+xZ6pR7dg5+m6TXzJgBDGjRnGpmsdeq3N7CR7am7N3Kmh+ccZ/zj0g
+ c9jwm9vLQy0g==
+X-IronPort-AV: E=McAfee;i="6000,8403,9809"; a="189358883"
+X-IronPort-AV: E=Sophos;i="5.77,490,1596524400"; d="scan'208";a="189358883"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Nov 2020 03:19:13 -0800
+IronPort-SDR: gVEP3ZOt1e/71ABITg2nAYCuaxGMIZb/XygCNH6WPKBfo58oPaQseJd7mKlSQ0jrZVKp387Q93
+ I34OJAzjiyHQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.77,490,1596524400"; d="scan'208";a="533139020"
+Received: from fmsmsx601.amr.corp.intel.com ([10.18.126.81])
+ by fmsmga006.fm.intel.com with ESMTP; 19 Nov 2020 03:19:13 -0800
+Received: from bgsmsx602.gar.corp.intel.com (10.109.78.81) by
+ fmsmsx601.amr.corp.intel.com (10.18.126.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.1713.5; Thu, 19 Nov 2020 03:19:11 -0800
+Received: from bgsmsx604.gar.corp.intel.com (10.67.234.6) by
+ BGSMSX602.gar.corp.intel.com (10.109.78.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.1713.5; Thu, 19 Nov 2020 16:49:09 +0530
+Received: from bgsmsx604.gar.corp.intel.com ([10.67.234.6]) by
+ BGSMSX604.gar.corp.intel.com ([10.67.234.6]) with mapi id 15.01.1713.004;
+ Thu, 19 Nov 2020 16:49:09 +0530
+From: "Shankar, Uma" <uma.shankar@intel.com>
+To: "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
+Thread-Topic: [PATCH v2 09/13] drm/i915: Check for FRL training before DP Link
+ training
+Thread-Index: AQHWsDe7iuZ6jTKFmU2VGW8ZdALZB6nPawyQ
+Date: Thu, 19 Nov 2020 11:19:09 +0000
+Message-ID: <af8acf59a08e4e18956f83bb35bf790e@intel.com>
+References: <20201101100657.12087-1-ankit.k.nautiyal@intel.com>
+ <20201101100657.12087-10-ankit.k.nautiyal@intel.com>
+In-Reply-To: <20201101100657.12087-10-ankit.k.nautiyal@intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+dlp-product: dlpe-windows
+dlp-reaction: no-action
+dlp-version: 11.5.1.3
+x-originating-ip: [10.223.10.1]
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH] drm/i915/gt: Update request status flags for
- debug pretty-printer
+Subject: Re: [Intel-gfx] [PATCH v2 09/13] drm/i915: Check for FRL training
+ before DP Link training
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,111 +83,80 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Chris Wilson <chris@chris-wilson.co.uk>
+Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-We plan to expand upon the number of available statuses for when we
-pretty-print the requests along the timelines, and so need a new set of
-flags. We have settled upon:
 
-	Unready [U]
-	  - initial status after being submitted, the request is not
-	    ready for execution as it is waiting for external fences
 
-	Ready [R]
-	  - all fences the request was waiting on have been signaled,
-            and the request is now ready for execution and will be
-	    in a backend queue
+> -----Original Message-----
+> From: Nautiyal, Ankit K <ankit.k.nautiyal@intel.com>
+> Sent: Sunday, November 1, 2020 3:37 PM
+> To: intel-gfx@lists.freedesktop.org
+> Cc: dri-devel@lists.freedesktop.org; Shankar, Uma <uma.shankar@intel.com>;
+> Kulkarni, Vandita <vandita.kulkarni@intel.com>; ville.syrjala@linux.intel.com;
+> Sharma, Swati2 <swati2.sharma@intel.com>
+> Subject: [PATCH v2 09/13] drm/i915: Check for FRL training before DP Link
+> training
+> 
+> This patch calls functions to check FRL training requirements for an HDMI2.1 sink,
+> when connected through PCON.
+> The call is made before the DP link training. In case FRL is not required or failure
+> during FRL training, the TMDS mode is selected for the pcon.
+> 
+> v2: moved check_frl_training() just after FEC READY, before starting DP link
+> training.
 
-	  - a ready request may still need to wait on semaphores
-	    [internal fences]
+Reviewed-by: Uma Shankar <uma.shankar@intel.com>
 
-	Ready/virtual [V]
-	  - same as ready, but queued over multiple backends
-
-	Executing [E]
-	  - the request has been transferred from the backend queue and
-	    submitted for execution on HW
-
-	  - a completed request may still be regarded as executing, its
-	    status may not be updated until it is retired and removed
-	    from the lists
-
-Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
----
- drivers/gpu/drm/i915/gt/intel_lrc.c |  4 ++--
- drivers/gpu/drm/i915/i915_request.c | 30 +++++++++++++++++++++++++++++
- 2 files changed, 32 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
-index b6ab1161942a..3a1b25c0e43e 100644
---- a/drivers/gpu/drm/i915/gt/intel_lrc.c
-+++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
-@@ -6025,7 +6025,7 @@ void intel_execlists_show_requests(struct intel_engine_cs *engine,
- 
- 		priolist_for_each_request(rq, p, i) {
- 			if (count++ < max - 1)
--				show_request(m, rq, "\t\tQ ");
-+				show_request(m, rq, "\t\tR ");
- 			else
- 				last = rq;
- 		}
-@@ -6036,7 +6036,7 @@ void intel_execlists_show_requests(struct intel_engine_cs *engine,
- 				   "\t\t...skipping %d queued requests...\n",
- 				   count - max);
- 		}
--		show_request(m, last, "\t\tQ ");
-+		show_request(m, last, "\t\tR ");
- 	}
- 
- 	last = NULL;
-diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
-index 673991718ae6..d3610418e9ae 100644
---- a/drivers/gpu/drm/i915/i915_request.c
-+++ b/drivers/gpu/drm/i915/i915_request.c
-@@ -1875,6 +1875,36 @@ void i915_request_show(struct drm_printer *m,
- 	char buf[80] = "";
- 	int x = 0;
- 
-+	/*
-+	 * Often the prefix is used to show the queue status,
-+	 * in which case we use the following flags:
-+	 *
-+	 *  Unready [U]
-+	 *    - initial status upon being submitted by the user
-+	 *
-+	 *    - the request is not ready for execution as it is waiting
-+	 *      for external fences
-+	 *
-+	 *  Ready [R]
-+	 *    - all fences the request was waiting on have been signaled,
-+	 *      and the request is now ready for execution and will be
-+	 *      in a backend queue
-+	 *
-+	 *    - a ready request may still need to wait on semaphores
-+	 *      [internal fences]
-+	 *
-+	 *  Ready/virtual [V]
-+	 *    - same as ready, but queued over multiple backends
-+	 *
-+	 *  Executing [E]
-+	 *    - the request has been transferred from the backend queue and
-+	 *      submitted for execution on HW
-+	 *
-+	 *    - a completed request may still be regarded as executing, its
-+	 *      status may not be updated until it is retired and removed
-+	 *      from the lists
-+	 */
-+
- 	x = print_sched_attr(&rq->sched.attr, buf, x, sizeof(buf));
- 
- 	drm_printf(m, "%s %llx:%lld%s%s %s @ %dms: %s\n",
--- 
-2.20.1
+> Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+> ---
+>  drivers/gpu/drm/i915/display/intel_ddi.c | 2 ++
+> drivers/gpu/drm/i915/display/intel_dp.c  | 2 ++
+>  2 files changed, 4 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c
+> b/drivers/gpu/drm/i915/display/intel_ddi.c
+> index 09811be08cfe..3e76fb1117df 100644
+> --- a/drivers/gpu/drm/i915/display/intel_ddi.c
+> +++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+> @@ -3492,6 +3492,8 @@ static void tgl_ddi_pre_enable_dp(struct
+> intel_atomic_state *state,
+>  	 */
+>  	intel_dp_sink_set_fec_ready(intel_dp, crtc_state);
+> 
+> +	intel_dp_check_frl_training(intel_dp);
+> +
+>  	/*
+>  	 * 7.i Follow DisplayPort specification training sequence (see notes for
+>  	 *     failure handling)
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c
+> b/drivers/gpu/drm/i915/display/intel_dp.c
+> index 7feee2adf9b2..9047b620c0d0 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+> @@ -4183,6 +4183,7 @@ static void intel_enable_dp(struct intel_atomic_state
+> *state,
+> 
+>  	intel_dp_set_power(intel_dp, DP_SET_POWER_D0);
+>  	intel_dp_configure_protocol_converter(intel_dp);
+> +	intel_dp_check_frl_training(intel_dp);
+>  	intel_dp_start_link_train(intel_dp, pipe_config);
+>  	intel_dp_stop_link_train(intel_dp, pipe_config);
+> 
+> @@ -6104,6 +6105,7 @@ int intel_dp_retrain_link(struct intel_encoder
+> *encoder,
+>  		    !intel_dp_mst_is_master_trans(crtc_state))
+>  			continue;
+> 
+> +		intel_dp_check_frl_training(intel_dp);
+>  		intel_dp_start_link_train(intel_dp, crtc_state);
+>  		intel_dp_stop_link_train(intel_dp, crtc_state);
+>  		break;
+> --
+> 2.17.1
 
 _______________________________________________
 Intel-gfx mailing list
