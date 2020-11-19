@@ -2,52 +2,56 @@ Return-Path: <SRS0=vAY1=EZ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-18.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,INCLUDES_PULL_REQUEST,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-10.2 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 07C10C2D0E4
-	for <intel-gfx@archiver.kernel.org>; Thu, 19 Nov 2020 06:52:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AF54CC2D0E4
+	for <intel-gfx@archiver.kernel.org>; Thu, 19 Nov 2020 07:06:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 911872224D
-	for <intel-gfx@archiver.kernel.org>; Thu, 19 Nov 2020 06:52:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 911872224D
+	by mail.kernel.org (Postfix) with ESMTPS id 0B036246B0
+	for <intel-gfx@archiver.kernel.org>; Thu, 19 Nov 2020 07:06:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0B036246B0
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B519489CA8;
-	Thu, 19 Nov 2020 06:52:42 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D1D4F89CA8;
- Thu, 19 Nov 2020 06:52:41 +0000 (UTC)
-IronPort-SDR: HAf+JM4DRv7wBtVfJnPQ6/vMlhu5yLyWL5A0TJKDhFrTQvUWIfLLS5W6p7lmxf+lThwnavhPMf
- aiaX+rh8KGUw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9809"; a="171340627"
-X-IronPort-AV: E=Sophos;i="5.77,489,1596524400"; d="scan'208";a="171340627"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2EA9C6E4F3;
+	Thu, 19 Nov 2020 07:06:06 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6196A6E4F3
+ for <intel-gfx@lists.freedesktop.org>; Thu, 19 Nov 2020 07:06:05 +0000 (UTC)
+IronPort-SDR: NpWKnSw4vunvN4pne5Pq+lLKND4nYUiFdqGLHr2tQBEU9nUOYwcwThD9sek6byv4Zsa03umZVT
+ ZDaC7wzuzvmQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9809"; a="150512933"
+X-IronPort-AV: E=Sophos;i="5.77,489,1596524400"; d="scan'208";a="150512933"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Nov 2020 22:52:41 -0800
-IronPort-SDR: bsI3kmsVJUGt9P5VBn6aKchAkHetjmYAbaze6zhMacUPKXhhQAbdYnB5CZKkO/QOJEDNfr21Jz
- HPXj6nYe+jSA==
-X-IronPort-AV: E=Sophos;i="5.77,489,1596524400"; d="scan'208";a="533051502"
-Received: from rdvivi-losangeles.jf.intel.com (HELO intel.com)
- ([10.165.21.201])
- by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Nov 2020 22:52:40 -0800
-Date: Thu, 19 Nov 2020 01:53:46 -0500
-From: Rodrigo Vivi <rodrigo.vivi@intel.com>
-To: Zhenyu Wang <zhenyuw@linux.intel.com>
-Message-ID: <20201119065346.GA1747137@intel.com>
-References: <20201117023918.GB23899@zhen-hp.sh.intel.com>
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Nov 2020 23:06:05 -0800
+IronPort-SDR: dMwpwwAbDsFmjME4k+rOxpbx2OFoZr2n4f3zjdBOL57nmGyJY8HnKibfxYczauYR496aIy8fF/
+ 57P0qH6OULNw==
+X-IronPort-AV: E=Sophos;i="5.77,489,1596524400"; d="scan'208";a="310959751"
+Received: from xsang-optiplex-9020.sh.intel.com (HELO xsang-OptiPlex-9020)
+ ([10.239.159.140])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Nov 2020 23:05:59 -0800
+Date: Thu, 19 Nov 2020 15:20:18 +0800
+From: Oliver Sang <oliver.sang@intel.com>
+To: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Message-ID: <20201119072018.GA15197@xsang-OptiPlex-9020>
+References: <20201111155811.GB24657@xsang-OptiPlex-9020>
+ <160527763346.5566.3471508802857132043@jlahtine-mobl.ger.corp.intel.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20201117023918.GB23899@zhen-hp.sh.intel.com>
-Subject: Re: [Intel-gfx] [PULL] gvt-fixes
+In-Reply-To: <160527763346.5566.3471508802857132043@jlahtine-mobl.ger.corp.intel.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+Subject: Re: [Intel-gfx] [drm/i915/gem] 59dd13ad31:
+ phoronix-test-suite.jxrendermark.RadialGradientPaint.1024x1024.operations_per_second
+ -54.0% regression
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,67 +64,249 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jani Nikula <jani.nikula@intel.com>,
- intel-gfx <intel-gfx@lists.freedesktop.org>, "Yuan,
- Hang" <hang.yuan@intel.com>, "Lv, Zhiyuan" <zhiyuan.lv@intel.com>,
- intel-gvt-dev <intel-gvt-dev@lists.freedesktop.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: feng.tang@intel.com, tiejun.li@intel.com,
+ Chris Wilson <chris@chris-wilson.co.uk>, frank.du@intel.com,
+ guobing.chen@intel.com, jiebin.sun@intel.com, Shuhua.Fan@intel.com,
+ Matthew Auld <matthew.auld@intel.com>, fan.zhao@intel.com,
+ ying.huang@intel.com, shan.kang@intel.com, zhengjun.xing@intel.com,
+ zhengjun.xing@linux.intel.com, Wenhuan.Huang@intel.com,
+ intel-gfx@lists.freedesktop.org, guangli.li@intel.com, gengxin.xie@intel.com,
+ ming.a.chen@intel.com, yu.ma@intel.com, jessica.ji@intel.com, lkp@lists.01.org,
+ wangyang.guo@intel.com, dapeng1.mi@intel.com,
+ LKML <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Nov 17, 2020 at 10:39:18AM +0800, Zhenyu Wang wrote:
-> 
+On Fri, Nov 13, 2020 at 04:27:13PM +0200, Joonas Lahtinen wrote:
 > Hi,
-> 
-> Here's more gvt fixes for 5.10. It temporarily disables VFIO edid
-> feature on BXT/APL until its virtual display is really fixed to make
-> it work properly. And fixes for DPCD 1.2 and error return in taking
-> module reference.
-> 
-> Thanks
-> --
-> The following changes since commit 92010a97098c4c9fd777408cc98064d26b32695b:
-> 
->   drm/i915/gvt: Fix mmio handler break on BXT/APL. (2020-10-30 11:50:06 +0800)
-> 
-> are available in the Git repository at:
-> 
->   https://github.com/intel/gvt-linux tags/gvt-fixes-2020-11-17
-> 
-> for you to fetch changes up to 4ec2b69da5e1544dbadb30cddb49c8df60209b0c:
-> 
->   drm/i915/gvt: return error when failing to take the module reference (2020-11-13 12:16:52 +0800)
-> 
-> ----------------------------------------------------------------
-> gvt-fixes-2020-11-17
-> 
-> - Temporarily disable VFIO edid on BXT/APL (Colin)
-> - Fix emulated DPCD for version 1.2 (Tina)
-> - Fix error return when failing to take module reference (Xiongfeng)
+> =
 
-pulled, thanks!
+> Could you add intel-gfx@lists.freedesktop.org into reports going
+> forward.
+> =
 
-> 
-> ----------------------------------------------------------------
-> Colin Xu (1):
->       drm/i915/gvt: Temporarily disable vfio_edid for BXT/APL
-> 
-> Tina Zhang (1):
->       drm/i915/gvt: Set ENHANCED_FRAME_CAP bit
-> 
-> Xiongfeng Wang (1):
->       drm/i915/gvt: return error when failing to take the module reference
-> 
->  drivers/gpu/drm/i915/gvt/display.c | 2 +-
->  drivers/gpu/drm/i915/gvt/kvmgt.c   | 4 +++-
->  drivers/gpu/drm/i915/gvt/vgpu.c    | 3 ++-
->  3 files changed, 6 insertions(+), 3 deletions(-)
-> 
-> -- 
-> 
-> $gpg --keyserver wwwkeys.pgp.net --recv-keys 4D781827
+> Quoting kernel test robot (2020-11-11 17:58:11)
+> > =
 
+> > Greeting,
+> > =
+
+> > FYI, we noticed a -54.0% regression of phoronix-test-suite.jxrendermark=
+.RadialGradientPaint.1024x1024.operations_per_second due to commit:
+> =
+
+> How many runs are there on the bad version to ensure the bisect is
+> repeatable?
+
+test 4 times.
+zxing@inn:/result/phoronix-test-suite/performance-true-Radial_Gradient_Pain=
+t-1024x1024-jxrendermark-1.2.4-ucode=3D0xd6-monitor=3Dda39a3ee/lkp-cfl-d1/d=
+ebian-x86_64-phoronix/x86_64-rhel-8.3/gcc-9/59dd13ad310793757e34afa489dd6fc=
+8544fc3da$ grep -r "operations_per_second" */stats.json
+0/stats.json: "phoronix-test-suite.jxrendermark.RadialGradientPaint.1024x10=
+24.operations_per_second": 4133.487932,
+1/stats.json: "phoronix-test-suite.jxrendermark.RadialGradientPaint.1024x10=
+24.operations_per_second": 4120.421503,
+2/stats.json: "phoronix-test-suite.jxrendermark.RadialGradientPaint.1024x10=
+24.operations_per_second": 4188.414835,
+3/stats.json: "phoronix-test-suite.jxrendermark.RadialGradientPaint.1024x10=
+24.operations_per_second": 4068.549514,
+
+> =
+
+> According to Chris test has various factors affecting why the result
+> could fluctuate and has been known. Reverting the patch did not have
+> an effect on the benchmark and was not expected to do so, either.
+> =
+
+> Is there some mechanism to queue a re-run?
+> =
+
+> Would it make sense to do further runs before sending out the e-mail
+> to avoid false positives.
+> =
+
+> It could of course be also solved by sticking to tests that have less
+> fluctuation in them.
+> =
+
+> Regards, Joonas
+> =
+
+> > =
+
+> > =
+
+> > commit: 59dd13ad310793757e34afa489dd6fc8544fc3da ("drm/i915/gem: Flush =
+coherency domains on first set-domain-ioctl")
+> > https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git master
+> > =
+
+> > =
+
+> > in testcase: phoronix-test-suite
+> > on test machine: 12 threads Intel(R) Core(TM) i7-8700 CPU @ 3.20GHz wit=
+h 8G memory
+> > with following parameters:
+> > =
+
+> >         need_x: true
+> >         test: jxrendermark-1.2.4
+> >         option_a: Radial Gradient Paint
+> >         option_b: 1024x1024
+> >         cpufreq_governor: performance
+> >         ucode: 0xd6
+> > =
+
+> > test-description: The Phoronix Test Suite is the most comprehensive tes=
+ting and benchmarking platform available that provides an extensible framew=
+ork for which new tests can be easily added.
+> > test-url: http://www.phoronix-test-suite.com/
+> > =
+
+> > =
+
+> > =
+
+> > If you fix the issue, kindly add following tag
+> > Reported-by: kernel test robot <oliver.sang@intel.com>
+> > =
+
+> > =
+
+> > Details are as below:
+> > -----------------------------------------------------------------------=
+--------------------------->
+> > =
+
+> > =
+
+> > To reproduce:
+> > =
+
+> >         git clone https://github.com/intel/lkp-tests.git
+> >         cd lkp-tests
+> >         bin/lkp install job.yaml  # job file is attached in this email
+> >         bin/lkp run     job.yaml
+> > =
+
+> > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> > compiler/cpufreq_governor/kconfig/need_x/option_a/option_b/rootfs/tbox_=
+group/test/testcase/ucode:
+> >   gcc-9/performance/x86_64-rhel-8.3/true/Radial Gradient Paint/1024x102=
+4/debian-x86_64-phoronix/lkp-cfl-d1/jxrendermark-1.2.4/phoronix-test-suite/=
+0xd6
+> > =
+
+> > commit: =
+
+> >   0dccdba51e ("Merge tag 'gvt-fixes-2020-10-30' of https://github.com/i=
+ntel/gvt-linux into drm-intel-fixes")
+> >   59dd13ad31 ("drm/i915/gem: Flush coherency domains on first set-domai=
+n-ioctl")
+> > =
+
+> > 0dccdba51e852271 59dd13ad310793757e34afa489d =
+
+> > ---------------- --------------------------- =
+
+> >          %stddev     %change         %stddev
+> >              \          |                \  =
+
+> >       8980 =B1  2%     -54.0%       4127        phoronix-test-suite.jxr=
+endermark.RadialGradientPaint.1024x1024.operations_per_second
+> >       9.00           +13.9%      10.25 =B1  4%  phoronix-test-suite.tim=
+e.percent_of_cpu_this_job_got
+> > =
+
+> > =
+
+> >                                                                        =
+         =
+
+> >                                                                        =
+         =
+
+> >                                                                        =
+         =
+
+> >   10000 +--------------------------------------------------------------=
+-----+   =
+
+> >         |                                                              =
+     |   =
+
+> >    9000 |-+.+. .+.+.+.+.+.   .+. .+.   .+. .+.+.     .+. .+.   .+. .+.+=
+.   .|   =
+
+> >         |.+   +           +.+   +   +.+   +     +.+.+   +   +.+   +    =
+ +.+ |   =
+
+> >         |                                                              =
+     |   =
+
+> >    8000 |-+                                                            =
+     |   =
+
+> >         |                                                              =
+     |   =
+
+> >    7000 |-+                                                            =
+     |   =
+
+> >         |                                                              =
+     |   =
+
+> >    6000 |-+                                                            =
+     |   =
+
+> >         |                                                              =
+     |   =
+
+> >         |                                                              =
+     |   =
+
+> >    5000 |-+                                                            =
+     |   =
+
+> >         |                                 O                            =
+     |   =
+
+> >    4000 +--------------------------------------------------------------=
+-----+   =
+
+> >                                                                        =
+         =
+
+> >                                                                        =
+         =
+
+> > [*] bisect-good sample
+> > [O] bisect-bad  sample
+> > =
+
+> > =
+
+> > =
+
+> > Disclaimer:
+> > Results have been estimated based on internal Intel analysis and are pr=
+ovided
+> > for informational purposes only. Any difference in system hardware or s=
+oftware
+> > design or configuration may affect actual performance.
+> > =
+
+> > =
+
+> > Thanks,
+> > Oliver Sang
+> > =
 
 _______________________________________________
 Intel-gfx mailing list
