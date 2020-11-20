@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 122E0C63777
-	for <intel-gfx@archiver.kernel.org>; Fri, 20 Nov 2020 14:03:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9D6B2C56201
+	for <intel-gfx@archiver.kernel.org>; Fri, 20 Nov 2020 14:03:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5562720643
-	for <intel-gfx@archiver.kernel.org>; Fri, 20 Nov 2020 14:03:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5562720643
+	by mail.kernel.org (Postfix) with ESMTPS id F02EE20643
+	for <intel-gfx@archiver.kernel.org>; Fri, 20 Nov 2020 14:03:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F02EE20643
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA3DC6E8B6;
-	Fri, 20 Nov 2020 14:03:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 480256E8BA;
+	Fri, 20 Nov 2020 14:03:24 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2DA936E8B7
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0DCA76E8B6
  for <intel-gfx@lists.freedesktop.org>; Fri, 20 Nov 2020 14:03:18 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23055883-1500050 
- for <intel-gfx@lists.freedesktop.org>; Fri, 20 Nov 2020 14:03:15 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23055882-1500050 
+ for <intel-gfx@lists.freedesktop.org>; Fri, 20 Nov 2020 14:03:14 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 20 Nov 2020 14:03:14 +0000
-Message-Id: <20201120140314.24749-3-chris@chris-wilson.co.uk>
+Date: Fri, 20 Nov 2020 14:03:13 +0000
+Message-Id: <20201120140314.24749-2-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201120140314.24749-1-chris@chris-wilson.co.uk>
 References: <20201120140314.24749-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [CI 3/3] drm/i915/selftests: Small tweak to put the
- termination conditions together
+Subject: [Intel-gfx] [CI 2/3] drm/i915/selftests: Improve granularity for
+ mocs reset checks
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,48 +55,80 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-If we run out of ring space, or exceed the desired runtime, we wish to
-stop the subtest. Put these checks together, so that we always keep the
-requests flushed on completion.
+Allow us to validate mocs configurations after reset if we have either
+engine or global reset.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 Reviewed-by: Mika Kuoppala <mika.kuoppala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/gt/selftest_timeline.c | 12 +++++-------
- 1 file changed, 5 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/i915/gt/selftest_mocs.c | 40 +++++++++++++------------
+ 1 file changed, 21 insertions(+), 19 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/selftest_timeline.c b/drivers/gpu/drm/i915/gt/selftest_timeline.c
-index 2edf2b15885f..ef7e3ce8c60c 100644
---- a/drivers/gpu/drm/i915/gt/selftest_timeline.c
-+++ b/drivers/gpu/drm/i915/gt/selftest_timeline.c
-@@ -1090,12 +1090,6 @@ static int live_hwsp_read(void *arg)
- 			}
- 			count++;
+diff --git a/drivers/gpu/drm/i915/gt/selftest_mocs.c b/drivers/gpu/drm/i915/gt/selftest_mocs.c
+index b25eba50c88e..21dcd91cbd62 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_mocs.c
++++ b/drivers/gpu/drm/i915/gt/selftest_mocs.c
+@@ -361,29 +361,34 @@ static int active_engine_reset(struct intel_context *ce,
+ static int __live_mocs_reset(struct live_mocs *mocs,
+ 			     struct intel_context *ce)
+ {
++	struct intel_gt *gt = ce->engine->gt;
+ 	int err;
  
--			if (8 * watcher[1].rq->ring->emit >
--			    3 * watcher[1].rq->ring->size) {
--				i915_request_put(rq);
--				break;
--			}
--
- 			/* Flush the timeline before manually wrapping again */
- 			if (i915_request_wait(rq,
- 					      I915_WAIT_INTERRUPTIBLE,
-@@ -1104,9 +1098,13 @@ static int live_hwsp_read(void *arg)
- 				i915_request_put(rq);
- 				goto out;
- 			}
--
- 			retire_requests(tl);
- 			i915_request_put(rq);
-+
-+			if (8 * watcher[1].rq->ring->emit >
-+			    3 * watcher[1].rq->ring->size)
-+				break;
-+
- 		} while (!__igt_timeout(end_time, NULL));
- 		WRITE_ONCE(*(u32 *)tl->hwsp_seqno, 0xdeadbeef);
+-	err = intel_engine_reset(ce->engine, "mocs");
+-	if (err)
+-		return err;
++	if (intel_has_reset_engine(gt)) {
++		err = intel_engine_reset(ce->engine, "mocs");
++		if (err)
++			return err;
  
+-	err = check_mocs_engine(mocs, ce);
+-	if (err)
+-		return err;
++		err = check_mocs_engine(mocs, ce);
++		if (err)
++			return err;
+ 
+-	err = active_engine_reset(ce, "mocs");
+-	if (err)
+-		return err;
++		err = active_engine_reset(ce, "mocs");
++		if (err)
++			return err;
+ 
+-	err = check_mocs_engine(mocs, ce);
+-	if (err)
+-		return err;
++		err = check_mocs_engine(mocs, ce);
++		if (err)
++			return err;
++	}
+ 
+-	intel_gt_reset(ce->engine->gt, ce->engine->mask, "mocs");
++	if (intel_has_gpu_reset(gt)) {
++		intel_gt_reset(gt, ce->engine->mask, "mocs");
+ 
+-	err = check_mocs_engine(mocs, ce);
+-	if (err)
+-		return err;
++		err = check_mocs_engine(mocs, ce);
++		if (err)
++			return err;
++	}
+ 
+ 	return 0;
+ }
+@@ -398,9 +403,6 @@ static int live_mocs_reset(void *arg)
+ 
+ 	/* Check the mocs setup is retained over per-engine and global resets */
+ 
+-	if (!intel_has_reset_engine(gt))
+-		return 0;
+-
+ 	err = live_mocs_init(&mocs, gt);
+ 	if (err)
+ 		return err;
 -- 
 2.20.1
 
