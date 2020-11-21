@@ -7,46 +7,46 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id ED0F9C63798
-	for <intel-gfx@archiver.kernel.org>; Sat, 21 Nov 2020 00:36:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B9353C56202
+	for <intel-gfx@archiver.kernel.org>; Sat, 21 Nov 2020 00:36:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9AD6323A65
-	for <intel-gfx@archiver.kernel.org>; Sat, 21 Nov 2020 00:36:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9AD6323A65
+	by mail.kernel.org (Postfix) with ESMTPS id 8440C23A65
+	for <intel-gfx@archiver.kernel.org>; Sat, 21 Nov 2020 00:36:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8440C23A65
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C3DEE6E957;
-	Sat, 21 Nov 2020 00:35:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B08DC6E94E;
+	Sat, 21 Nov 2020 00:35:46 +0000 (UTC)
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C09036E943
- for <Intel-gfx@lists.freedesktop.org>; Sat, 21 Nov 2020 00:35:41 +0000 (UTC)
-IronPort-SDR: CpissCGf4X0n7Db7tL96srx7PafNN0ERtfkkGjj7UlaCtiuEUMN14S1GWUyQ41RX9ZrOxYWPUI
- sQ+6uoVaqLtQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9811"; a="189670516"
-X-IronPort-AV: E=Sophos;i="5.78,357,1599548400"; d="scan'208";a="189670516"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B3CB66E94E
+ for <Intel-gfx@lists.freedesktop.org>; Sat, 21 Nov 2020 00:35:43 +0000 (UTC)
+IronPort-SDR: 3XtFqlZ0VoOa2EYNMDqWd6fnIpWsUJiqSARNpuneCqjhPs2L2c0KktNP1HVei3zHUkb7DKKqtQ
+ cdSsXn90MHnA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9811"; a="189670533"
+X-IronPort-AV: E=Sophos;i="5.78,357,1599548400"; d="scan'208";a="189670533"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  20 Nov 2020 16:35:41 -0800
-IronPort-SDR: 6wMx+KelyUZn7cH8PQhk6f7MqlI6gLfgSGHaiIBTVt39tHoNubvorJn9pKK5vQbBj938tfuY5u
- pYOvskW9zpiQ==
+IronPort-SDR: ZA4TPv54y4/iwfyiXqZkkRMI3u1nxA6e2eSxtFo33OeAbRgXxd/5mxhfAH8Wf+xaWF4/ZStubR
+ WZ+U9en/YqVg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.78,357,1599548400"; d="scan'208";a="369352676"
+X-IronPort-AV: E=Sophos;i="5.78,357,1599548400"; d="scan'208";a="369352707"
 Received: from sean-virtualbox.fm.intel.com ([10.105.158.96])
  by FMSMGA003.fm.intel.com with ESMTP; 20 Nov 2020 16:35:40 -0800
 From: "Huang, Sean Z" <sean.z.huang@intel.com>
 To: Intel-gfx@lists.freedesktop.org
-Date: Fri, 20 Nov 2020 16:35:21 -0800
-Message-Id: <20201121003540.24980-8-sean.z.huang@intel.com>
+Date: Fri, 20 Nov 2020 16:35:39 -0800
+Message-Id: <20201121003540.24980-26-sean.z.huang@intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20201121003540.24980-1-sean.z.huang@intel.com>
 References: <20201121003540.24980-1-sean.z.huang@intel.com>
-Subject: [Intel-gfx] [RFC-v2 07/26] drm/i915/pxp: Read register to check
- hardware session state
+Subject: [Intel-gfx] [RFC-v2 25/26] drm/i915/pxp: Add plane decryption
+ support
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,293 +59,105 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Bommu Krishnaiah <krishnaiah.bommu@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Implement the functions to check the hardware protected session
-state via reading the hardware register session in play.
+From: Anshuman Gupta <anshuman.gupta@intel.com>
 
-Signed-off-by: Huang, Sean Z <sean.z.huang@intel.com>
+Add support to enable/disable PLANE_SURF Decryption Request bit.
+It requires only to enable plane decryption support when following
+condition met.
+1. PAVP session is enabled.
+2. Buffer object is protected.
+
+v2:
+- Rebased to libva_cp-drm-tip_tgl_cp tree.
+- Used gen fb obj user_flags instead gem_object_metadata. [Krishna]
+
+Cc: Bommu Krishnaiah <krishnaiah.bommu@intel.com>
+Cc: Huang, Sean Z <sean.z.huang@intel.com>
+Signed-off-by: Anshuman Gupta <anshuman.gupta@intel.com>
 ---
- drivers/gpu/drm/i915/pxp/intel_pxp.h    |   3 +
- drivers/gpu/drm/i915/pxp/intel_pxp_sm.c | 177 ++++++++++++++++++++++++
- drivers/gpu/drm/i915/pxp/intel_pxp_sm.h |  51 +++++++
- 3 files changed, 231 insertions(+)
+ drivers/gpu/drm/i915/display/intel_sprite.c | 21 ++++++++++++++++++---
+ drivers/gpu/drm/i915/i915_reg.h             |  1 +
+ 2 files changed, 19 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.h b/drivers/gpu/drm/i915/pxp/intel_pxp.h
-index a1e83bbeafb7..c9d19d3ee0e7 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp.h
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp.h
-@@ -12,6 +12,9 @@
- #define PXP_IRQ_VECTOR_DISPLAY_APP_TERM_PER_FW_REQ BIT(2)
- #define PXP_IRQ_VECTOR_PXP_DISP_STATE_RESET_COMPLETE BIT(3)
+diff --git a/drivers/gpu/drm/i915/display/intel_sprite.c b/drivers/gpu/drm/i915/display/intel_sprite.c
+index 019a2d6d807a..158c8dea0930 100644
+--- a/drivers/gpu/drm/i915/display/intel_sprite.c
++++ b/drivers/gpu/drm/i915/display/intel_sprite.c
+@@ -39,6 +39,8 @@
+ #include <drm/drm_plane_helper.h>
+ #include <drm/drm_rect.h>
  
-+#define pxp_session_list(i915, session_type) (((session_type) == SESSION_TYPE_TYPE0) ? \
-+	&(i915)->pxp.ctx->active_pxp_type0_sessions : &(i915)->pxp.ctx->active_pxp_type1_sessions)
++#include "pxp/intel_pxp.h"
 +
- #define MAX_TYPE0_SESSIONS 16
- #define MAX_TYPE1_SESSIONS 6
- 
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_sm.c b/drivers/gpu/drm/i915/pxp/intel_pxp_sm.c
-index a2c9c71d2372..6413f401d939 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp_sm.c
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_sm.c
-@@ -10,6 +10,21 @@
- #include "intel_pxp_sm.h"
- #include "intel_pxp_context.h"
- 
-+static int pxp_sm_reg_read(struct drm_i915_private *i915, u32 offset, u32 *regval)
-+{
-+	intel_wakeref_t wakeref;
-+
-+	if (!i915 || !regval)
-+		return -EINVAL;
-+
-+	with_intel_runtime_pm(&i915->runtime_pm, wakeref) {
-+		i915_reg_t reg_offset = {offset};
-+		*regval = intel_uncore_read(&i915->uncore, reg_offset);
-+	}
-+
-+	return 0;
-+}
-+
- static int pxp_reg_write(struct drm_i915_private *i915, u32 offset, u32 regval)
- {
- 	intel_wakeref_t wakeref;
-@@ -26,6 +41,168 @@ static int pxp_reg_write(struct drm_i915_private *i915, u32 offset, u32 regval)
- 	return 0;
+ #include "i915_drv.h"
+ #include "i915_trace.h"
+ #include "i915_vgpu.h"
+@@ -752,6 +754,11 @@ icl_program_input_csc(struct intel_plane *plane,
+ 			  PLANE_INPUT_CSC_POSTOFF(pipe, plane_id, 2), 0x0);
  }
  
-+/**
-+ * is_sw_session_active - Check if the given sw session id is active.
-+ * @i915: i915 device handle.
-+ * @session_type: Specified session type
-+ * @session_index: Numeric session identifier.
-+ * @is_in_play: Set false to return true if the specified session is active.
-+ *              Set true to also check if the session is active and in_play.
-+ * @protection_mode: get the protection mode of specified session.
-+ *
-+ * The caller needs to use ctx_mutex lock to protect the session_list
-+ * inside this function.
-+ *
-+ * Return : true if session with the same identifier is active (and in_play).
-+ */
-+static bool is_sw_session_active(struct drm_i915_private *i915, int session_type,
-+				 int session_index, bool is_in_play, int *protection_mode)
++static bool intel_fb_obj_protected(const struct drm_i915_gem_object *obj)
 +{
-+	struct pxp_protected_session *current_session;
-+
-+	lockdep_assert_held(&i915->pxp.ctx->ctx_mutex);
-+
-+	list_for_each_entry(current_session, pxp_session_list(i915, session_type), session_list) {
-+		if (current_session->session_index == session_index) {
-+			if (protection_mode)
-+				*protection_mode = current_session->protection_mode;
-+
-+			if (is_in_play && !current_session->session_is_in_play)
-+				return false;
-+
-+			return true;
-+		}
-+	}
-+
-+	/* session id not found. return false */
-+	return false;
++	return obj->user_flags & I915_BO_PROTECTED ? true : false;
 +}
 +
-+static bool is_hw_type0_session_in_play(struct drm_i915_private *i915, int session_index)
-+{
-+	u32 regval_sip = 0;
-+	u32 reg_session_id_mask;
-+	bool hw_session_is_in_play = false;
-+	int ret = 0;
+ static void
+ skl_plane_async_flip(struct intel_plane *plane,
+ 		     const struct intel_crtc_state *crtc_state,
+@@ -788,6 +795,7 @@ skl_program_plane(struct intel_plane *plane,
+ 	u32 surf_addr = plane_state->color_plane[color_plane].offset;
+ 	u32 stride = skl_plane_stride(plane_state, color_plane);
+ 	const struct drm_framebuffer *fb = plane_state->hw.fb;
++	const struct drm_i915_gem_object *obj = intel_fb_obj(fb);
+ 	int aux_plane = intel_main_to_aux_plane(fb, color_plane);
+ 	int crtc_x = plane_state->uapi.dst.x1;
+ 	int crtc_y = plane_state->uapi.dst.y1;
+@@ -798,7 +806,7 @@ skl_program_plane(struct intel_plane *plane,
+ 	u8 alpha = plane_state->hw.alpha >> 8;
+ 	u32 plane_color_ctl = 0, aux_dist = 0;
+ 	unsigned long irqflags;
+-	u32 keymsk, keymax;
++	u32 keymsk, keymax, plane_surf;
+ 	u32 plane_ctl = plane_state->ctl;
+ 
+ 	plane_ctl |= skl_plane_ctl_crtc(crtc_state);
+@@ -874,8 +882,15 @@ skl_program_plane(struct intel_plane *plane,
+ 	 * the control register just before the surface register.
+ 	 */
+ 	intel_de_write_fw(dev_priv, PLANE_CTL(pipe, plane_id), plane_ctl);
+-	intel_de_write_fw(dev_priv, PLANE_SURF(pipe, plane_id),
+-			  intel_plane_ggtt_offset(plane_state) + surf_addr);
++	plane_surf = intel_plane_ggtt_offset(plane_state) + surf_addr;
 +
-+	if (!i915 || session_index < 0 || session_index >= MAX_TYPE0_SESSIONS)
-+		goto end;
-+
-+	ret = pxp_sm_reg_read(i915, GEN12_KCR_SIP.reg, &regval_sip);
-+	if (ret) {
-+		drm_err(&i915->drm, "Failed to read()\n");
-+		goto end;
-+	}
-+
-+	reg_session_id_mask = (1 << session_index);
-+	hw_session_is_in_play = (bool)(regval_sip & reg_session_id_mask);
-+end:
-+	return hw_session_is_in_play;
-+}
-+
-+static bool is_hw_type1_session_in_play(struct drm_i915_private *i915, int session_index)
-+{
-+	int ret = 0;
-+	u32 regval_tsip_low = 0;
-+	u32 regval_tsip_high = 0;
-+	u64 reg_session_id_mask;
-+	u64 regval_tsip;
-+	bool hw_session_is_in_play = false;
-+
-+	if (!i915 || session_index < 0 || session_index >= MAX_TYPE1_SESSIONS)
-+		goto end;
-+
-+	ret = pxp_sm_reg_read(i915, GEN12_KCR_TSIP_LOW.reg, &regval_tsip_low);
-+	if (ret) {
-+		drm_err(&i915->drm, "Failed to pxp_sm_reg_read()\n");
-+		goto end;
-+	}
-+
-+	ret = pxp_sm_reg_read(i915, GEN12_KCR_TSIP_HIGH.reg, &regval_tsip_high);
-+	if (ret) {
-+		drm_err(&i915->drm, "Failed to pxp_sm_reg_read()\n");
-+		goto end;
-+	}
-+
-+	reg_session_id_mask = (1 << session_index);
-+	regval_tsip = ((u64)regval_tsip_high << 32) | regval_tsip_low;
-+	hw_session_is_in_play = (bool)(regval_tsip & reg_session_id_mask);
-+end:
-+	return hw_session_is_in_play;
-+}
-+
-+static bool is_hw_session_in_play(struct drm_i915_private *i915,
-+				  int session_type, int session_index)
-+{
-+	bool is_in_play = false;
-+
-+	if (session_type == SESSION_TYPE_TYPE0)
-+		is_in_play = is_hw_type0_session_in_play(i915, session_index);
-+	else if (session_type == SESSION_TYPE_TYPE1)
-+		is_in_play = is_hw_type1_session_in_play(i915, session_index);
++	if (intel_pxp_gem_object_status(dev_priv) &&
++	    intel_fb_obj_protected(obj))
++		plane_surf |= PLANE_SURF_DECRYPTION_ENABLED;
 +	else
-+		drm_err(&i915->drm, "Failed to %s invalid session_type=[%d]\n",
-+			__func__, session_type);
++		plane_surf &= ~PLANE_SURF_DECRYPTION_ENABLED;
 +
-+	return is_in_play;
-+}
-+
-+/* check hw session in play reg if match the current sw state */
-+static int sync_hw_sw_state(struct drm_i915_private *i915, int session_index, int session_type)
-+{
-+	const int max_retry = 10;
-+	const int ms_delay = 10;
-+	int retry = 0;
-+	int ret;
-+
-+	if (!i915 || session_type >= SESSION_TYPE_MAX)
-+		return -EINVAL;
-+
-+	ret = -EINVAL;
-+	for (retry = 0; retry < max_retry; retry++) {
-+		if (is_hw_session_in_play(i915, session_type, session_index) ==
-+		    is_sw_session_active(i915, session_type, session_index, true, NULL)) {
-+			ret = 0;
-+			break;
-+		}
-+
-+		msleep(ms_delay);
-+	}
-+
-+	return ret;
-+}
-+
-+/**
-+ * check_if_protected_type0_sessions_are_attacked - To check if type0 active sessions are attacked.
-+ * @i915: i915 device handle.
-+ *
-+ * Return: true if HW shows protected sessions are attacked, false otherwise.
-+ */
-+static bool check_if_protected_type0_sessions_are_attacked(struct drm_i915_private *i915)
-+{
-+	i915_reg_t kcr_status_reg = KCR_STATUS_1;
-+	u32 reg_value = 0;
-+	u32 mask = 0x80000000;
-+	int ret;
-+
-+	if (!i915)
-+		return false;
-+
-+	if (i915->pxp.ctx->global_state_attacked)
-+		return true;
-+
-+	ret = pxp_sm_reg_read(i915, kcr_status_reg.reg, &reg_value);
-+	if (ret) {
-+		drm_err(&i915->drm, "Failed to pxp_sm_reg_read\n");
-+		goto end;
-+	}
-+
-+	if (reg_value & mask)
-+		return true;
-+end:
-+	return false;
-+}
-+
- int pxp_sm_set_kcr_init_reg(struct drm_i915_private *i915)
- {
- 	int ret;
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_sm.h b/drivers/gpu/drm/i915/pxp/intel_pxp_sm.h
-index d061f395aa16..222a879be96d 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp_sm.h
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_sm.h
-@@ -15,6 +15,57 @@
- /* Setting KCR Init bit is required after system boot */
- #define KCR_INIT_ALLOW_DISPLAY_ME_WRITES (BIT(14) | (BIT(14) << KCR_INIT_MASK_SHIFT))
++	intel_de_write_fw(dev_priv, PLANE_SURF(pipe, plane_id), plane_surf);
  
-+#define KCR_STATUS_1        _MMIO(0x320f4)
-+#define GEN12_KCR_SIP       _MMIO(0x32260)   /* KCR type0 session in play 0-31 */
-+#define GEN12_KCR_TSIP_LOW  _MMIO(0x32264)   /* KCR type1 session in play 0-31 */
-+#define GEN12_KCR_TSIP_HIGH _MMIO(0x32268)   /* KCR type1 session in play 32-63 */
-+
-+enum pxp_session_types {
-+	SESSION_TYPE_TYPE0 = 0,
-+	SESSION_TYPE_TYPE1 = 1,
-+
-+	SESSION_TYPE_MAX
-+};
-+
-+enum pxp_protection_modes {
-+	PROTECTION_MODE_NONE = 0,
-+	PROTECTION_MODE_LM   = 2,
-+	PROTECTION_MODE_HM   = 3,
-+	PROTECTION_MODE_SM   = 6,
-+
-+	PROTECTION_MODE_ALL
-+};
-+
-+/**
-+ * struct pxp_protected_session - linked list to track all active sessions.
-+ */
-+struct pxp_protected_session {
-+	/** @session_list: linked list infrastructure, do not change its order. */
-+	struct list_head session_list;
-+
-+	/** @session_index: Numeric identifier for this protected session */
-+	int session_index;
-+	/** @session_type: Type of session */
-+	int session_type;
-+	/** @protection_mode: mode of protection requested */
-+	int protection_mode;
-+	/** @context_id: context identifier of the protected session requestor */
-+	int context_id;
-+	/** @pid: pid of this session's creator */
-+	int pid;
-+	/** @drmfile: pointer to drm_file, which is allocated on device file open() call */
-+	struct drm_file *drmfile;
-+
-+	/**
-+	 * @session_is_in_play: indicates whether the session has been established
-+	 *                      in the HW root of trust if this flag is false, it
-+	 *                      indicates an application has reserved this session,
-+	 *                      but has not * established the session in the
-+	 *                      hardware yet.
-+	 */
-+	bool session_is_in_play;
-+};
-+
- int pxp_sm_set_kcr_init_reg(struct drm_i915_private *i915);
+ 	if (plane_state->scaler_id >= 0)
+ 		skl_program_scaler(plane, crtc_state, plane_state);
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index 69758935abb8..63d370c38ecd 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -7208,6 +7208,7 @@ enum {
+ #define _PLANE_SURF_3(pipe)	_PIPE(pipe, _PLANE_SURF_3_A, _PLANE_SURF_3_B)
+ #define PLANE_SURF(pipe, plane)	\
+ 	_MMIO_PLANE(plane, _PLANE_SURF_1(pipe), _PLANE_SURF_2(pipe))
++#define   PLANE_SURF_DECRYPTION_ENABLED		REG_BIT(2)
  
- #endif /* __INTEL_PXP_SM_H__ */
+ #define _PLANE_OFFSET_1_B			0x711a4
+ #define _PLANE_OFFSET_2_B			0x712a4
 -- 
 2.17.1
 
