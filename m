@@ -7,46 +7,46 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 56D78C6379D
-	for <intel-gfx@archiver.kernel.org>; Sat, 21 Nov 2020 00:36:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B348CC64E75
+	for <intel-gfx@archiver.kernel.org>; Sat, 21 Nov 2020 00:36:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0096223A65
-	for <intel-gfx@archiver.kernel.org>; Sat, 21 Nov 2020 00:36:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0096223A65
+	by mail.kernel.org (Postfix) with ESMTPS id 75BE423A65
+	for <intel-gfx@archiver.kernel.org>; Sat, 21 Nov 2020 00:36:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 75BE423A65
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 664356E969;
-	Sat, 21 Nov 2020 00:35:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE6DA6E961;
+	Sat, 21 Nov 2020 00:35:48 +0000 (UTC)
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E9256E94A
- for <Intel-gfx@lists.freedesktop.org>; Sat, 21 Nov 2020 00:35:43 +0000 (UTC)
-IronPort-SDR: xY487R7Hl9vwThJhzOnRY2GkWR8gDqojj+nw/CKpnUXpzORT+M3VJF7GtvVWmmWpu9kCJganSv
- eHa0nCV/uS+A==
-X-IronPort-AV: E=McAfee;i="6000,8403,9811"; a="189670526"
-X-IronPort-AV: E=Sophos;i="5.78,357,1599548400"; d="scan'208";a="189670526"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9BFFD6E952
+ for <Intel-gfx@lists.freedesktop.org>; Sat, 21 Nov 2020 00:35:42 +0000 (UTC)
+IronPort-SDR: C9vEA4LQoMwhnvxFHp2COzvqi7HDWhA1HmMH7PStDwW45hZd6u2/WNdUN7WChGkZ+AF/p9pAUj
+ hT30DGwLbkkQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9811"; a="189670521"
+X-IronPort-AV: E=Sophos;i="5.78,357,1599548400"; d="scan'208";a="189670521"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  20 Nov 2020 16:35:41 -0800
-IronPort-SDR: hM4iT7PRtkd6kibf4ZpjlC7ctqITooVjGoXyl63c1Czid7tGsGxg2bjeUuSIpLUY6soXPJKbzl
- Tt5beihXqifA==
+IronPort-SDR: h9BXv5QvS61hdIphIL99cAEB06ka5qlZRV6g/OJ1HeeB9SKKRDt6ZYB9LT+oV17oFQ1WPbDo0x
+ LI4ZFVqKXcWQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.78,357,1599548400"; d="scan'208";a="369352691"
+X-IronPort-AV: E=Sophos;i="5.78,357,1599548400"; d="scan'208";a="369352683"
 Received: from sean-virtualbox.fm.intel.com ([10.105.158.96])
  by FMSMGA003.fm.intel.com with ESMTP; 20 Nov 2020 16:35:40 -0800
 From: "Huang, Sean Z" <sean.z.huang@intel.com>
 To: Intel-gfx@lists.freedesktop.org
-Date: Fri, 20 Nov 2020 16:35:32 -0800
-Message-Id: <20201121003540.24980-19-sean.z.huang@intel.com>
+Date: Fri, 20 Nov 2020 16:35:26 -0800
+Message-Id: <20201121003540.24980-13-sean.z.huang@intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20201121003540.24980-1-sean.z.huang@intel.com>
 References: <20201121003540.24980-1-sean.z.huang@intel.com>
-Subject: [Intel-gfx] [RFC-v2 18/26] drm/i915/pxp: Implement ioctl action to
- send TEE commands
+Subject: [Intel-gfx] [RFC-v2 12/26] drm/i915/pxp: Implement ioctl action to
+ terminate the session
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,165 +65,257 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Implement the ioctl action to allow user space driver sends TEE
-commands via PXP ioctl, instead of TEE iotcl. So we can
-centralize those protection operations at PXP.
+Implement the PXP ioctl action to allow user space driver to
+terminate the hardware session and cleanup its software session
+state. PXP sends the session termination command to GPU once
+receves this ioctl action.
 
 Signed-off-by: Huang, Sean Z <sean.z.huang@intel.com>
 ---
- drivers/gpu/drm/i915/pxp/intel_pxp.c     | 14 ++++++
- drivers/gpu/drm/i915/pxp/intel_pxp.h     | 18 ++++++++
- drivers/gpu/drm/i915/pxp/intel_pxp_tee.c | 55 ++++++++++++++++++++++++
- drivers/gpu/drm/i915/pxp/intel_pxp_tee.h |  5 +++
- 4 files changed, 92 insertions(+)
+ drivers/gpu/drm/i915/pxp/intel_pxp.c    |   7 +
+ drivers/gpu/drm/i915/pxp/intel_pxp_sm.c | 190 ++++++++++++++++++++++++
+ drivers/gpu/drm/i915/pxp/intel_pxp_sm.h |   5 +
+ 3 files changed, 202 insertions(+)
 
 diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.c b/drivers/gpu/drm/i915/pxp/intel_pxp.c
-index 441e57d6c58f..bf95c63e52ff 100644
+index 30bdbcf543e0..91164005e0ff 100644
 --- a/drivers/gpu/drm/i915/pxp/intel_pxp.c
 +++ b/drivers/gpu/drm/i915/pxp/intel_pxp.c
-@@ -77,6 +77,20 @@ int i915_pxp_ops_ioctl(struct drm_device *dev, void *data, struct drm_file *drmf
- 		ret = pxp_sm_ioctl_query_pxp_tag(i915, &params->session_is_alive, &params->pxp_tag);
- 		break;
- 	}
-+	case PXP_ACTION_TEE_IO_MESSAGE:
-+	{
-+		struct pxp_tee_io_message_params *params = &pxp_info.tee_io_message;
-+
-+		ret = pxp_tee_ioctl_io_message(i915,
-+					       params->msg_in, params->msg_in_size,
-+					       params->msg_out, &params->msg_out_size,
-+					       params->msg_out_buf_size);
-+		if (ret) {
-+			drm_err(&i915->drm, "Failed to send TEE IO message\n");
-+			ret = -EFAULT;
-+		}
-+		break;
-+	}
- 	case PXP_ACTION_SET_USER_CONTEXT:
- 	{
- 		ret = intel_pxp_set_user_ctx(i915, pxp_info.set_user_ctx);
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.h b/drivers/gpu/drm/i915/pxp/intel_pxp.h
-index a3a0cf1f12e9..f24e6109eae6 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp.h
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp.h
-@@ -33,6 +33,7 @@ enum pxp_sm_session_req {
- enum pxp_ioctl_action {
- 	PXP_ACTION_QUERY_PXP_TAG = 0,
- 	PXP_ACTION_SET_SESSION_STATUS = 1,
-+	PXP_ACTION_TEE_IO_MESSAGE = 4,
- 	PXP_ACTION_SET_USER_CONTEXT = 5,
- };
+@@ -56,6 +56,13 @@ int i915_pxp_ops_ioctl(struct drm_device *dev, void *data, struct drm_file *drmf
+ 			ret = pxp_sm_mark_protected_session_in_play(i915, params->session_type,
+ 								    params->pxp_tag);
  
-@@ -59,12 +60,29 @@ struct pxp_sm_set_session_status_params {
- 	u32 req_session_state;
- };
- 
-+/**
-+ * struct pxp_tee_io_message_params - Params to send/receive message to/from TEE.
-+ */
-+struct pxp_tee_io_message_params {
-+	/** @msg_in: in - message input from UMD */
-+	u8 __user *msg_in;
-+	/** @msg_in_size: in - message input size from UMD */
-+	u32 msg_in_size;
-+	/** @msg_out: in - message output buffer from UMD */
-+	u8 __user *msg_out;
-+	/** @msg_out_size: out- message output size from TEE */
-+	u32 msg_out_size;
-+	/** @msg_out_buf_size: in - message output buffer size from UMD */
-+	u32 msg_out_buf_size;
-+};
++		} else if (params->req_session_state == PXP_SM_REQ_SESSION_TERMINATE) {
++			ret = pxp_sm_terminate_protected_session_safe(i915, 0,
++								      params->session_type,
++								      params->pxp_tag);
 +
- struct pxp_info {
- 	u32 action;
- 	u32 sm_status;
- 	union {
- 		struct pxp_sm_query_pxp_tag             query_pxp_tag;
- 		struct pxp_sm_set_session_status_params set_session_status;
-+		struct pxp_tee_io_message_params        tee_io_message;
- 		u32 set_user_ctx;
- 	};
- } __attribute__((packed));
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
-index fa617546bdd4..2a28478b092d 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
-@@ -54,6 +54,61 @@ static int intel_pxp_tee_io_message(struct drm_i915_private *i915,
++			if (!intel_pxp_sm_is_any_type0_session_in_play(i915, PROTECTION_MODE_ALL))
++				intel_pxp_destroy_user_ctx_list(i915);
+ 		} else {
+ 			ret = -EINVAL;
+ 			goto end;
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_sm.c b/drivers/gpu/drm/i915/pxp/intel_pxp_sm.c
+index f41e50911688..65b89728251d 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp_sm.c
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_sm.c
+@@ -802,6 +802,174 @@ static int issue_hw_terminate_for_session(struct drm_i915_private *i915, int ses
  	return ret;
  }
  
-+int pxp_tee_ioctl_io_message(struct drm_i915_private *i915,
-+			     void __user *msg_in_user_ptr, u32 msg_in_size,
-+			     void __user *msg_out_user_ptr, u32 *msg_out_size_ptr,
-+			     u32 msg_out_buf_size)
++/**
++ * terminate_protected_session - To terminate an active HW session and free its entry.
++ * @i915: i915 device handle.
++ * @context_id: context identifier of the requestor. only relevant if do_safety_check is true.
++ * @session_type: type of the session to be terminated. One of enum pxp_session_types.
++ * @session_index: session index of the session to be terminated.
++ * @do_safety_check: if enabled the context Id sent by the caller is
++ *                   matched with the one associated with the terminated
++ *                   session entry.
++ *
++ * Return: 0 means terminate is successful, or didn't find the desired session.
++ */
++static int terminate_protected_session(struct drm_i915_private *i915, int context_id,
++				       int session_type, int session_index,
++				       bool do_safety_check)
 +{
 +	int ret;
-+	void *msg_in = NULL;
-+	void *msg_out = NULL;
++	struct pxp_protected_session *current_session, *n;
 +
-+	if (!msg_in_user_ptr || !msg_out_user_ptr || msg_out_buf_size == 0 ||
-+	    msg_in_size == 0 || !msg_out_size_ptr)
++	lockdep_assert_held(&i915->pxp.ctx->ctx_mutex);
++
++	switch (session_type) {
++	case SESSION_TYPE_TYPE0:
++		list_for_each_entry_safe(current_session, n,
++					 pxp_session_list(i915, SESSION_TYPE_TYPE0),
++					 session_list) {
++			if (current_session->session_index == session_index) {
++				if (do_safety_check && current_session->context_id != context_id) {
++					ret = -EPERM;
++					drm_err(&i915->drm, "Failed to %s due to invalid context_id=[%d]\n",
++						__func__, context_id);
++					goto end;
++				}
++
++				ret = issue_hw_terminate_for_session(i915, session_type,
++								     session_index);
++				if (ret) {
++					drm_err(&i915->drm, "Failed to issue_hw_terminate_for_session()\n");
++					goto end;
++				}
++
++				ret = pxp_set_pxp_tag(i915, session_type, session_index,
++						      PROTECTION_MODE_NONE);
++				if (ret) {
++					drm_err(&i915->drm, "Failed to pxp_set_pxp_tag()\n");
++					goto end;
++				}
++
++				list_del(&current_session->session_list);
++				kfree(current_session);
++				return 0;
++			}
++		}
++		return 0;
++
++	case SESSION_TYPE_TYPE1:
++		list_for_each_entry_safe(current_session, n,
++					 pxp_session_list(i915, SESSION_TYPE_TYPE1),
++					 session_list) {
++			if (current_session->session_index == session_index) {
++				if (do_safety_check && current_session->context_id != context_id) {
++					ret = -EPERM;
++					drm_err(&i915->drm, "Failed to %s due to invalid context_id=[%d]\n",
++						__func__, context_id);
++					goto end;
++				}
++
++				ret = issue_hw_terminate_for_session(i915, session_type,
++								     session_index);
++				if (ret) {
++					drm_err(&i915->drm, "Failed to issue_hw_terminate_for_session()\n");
++					goto end;
++				}
++
++				ret = pxp_set_pxp_tag(i915, session_type, session_index,
++						      PROTECTION_MODE_NONE);
++				if (ret) {
++					drm_err(&i915->drm, "Failed to pxp_set_pxp_tag()\n");
++					goto end;
++				}
++
++				list_del(&current_session->session_list);
++				kfree(current_session);
++				return 0;
++			}
++		}
++		return 0;
++
++	default:
 +		return -EINVAL;
-+
-+	msg_in = kzalloc(msg_in_size, GFP_KERNEL);
-+	if (!msg_in)
-+		return -ENOMEM;
-+
-+	msg_out = kzalloc(msg_out_buf_size, GFP_KERNEL);
-+	if (!msg_out) {
-+		ret = -ENOMEM;
-+		goto end;
 +	}
-+
-+	if (copy_from_user(msg_in, msg_in_user_ptr, msg_in_size) != 0) {
-+		ret = -EFAULT;
-+		drm_err(&i915->drm, "Failed to copy_from_user for TEE message\n");
-+		goto end;
-+	}
-+
-+	mutex_lock(&i915->pxp_tee_comp_mutex);
-+
-+	ret = intel_pxp_tee_io_message(i915,
-+				       msg_in, msg_in_size,
-+				       msg_out, msg_out_size_ptr,
-+				       msg_out_buf_size);
-+
-+	mutex_unlock(&i915->pxp_tee_comp_mutex);
-+
-+	if (ret) {
-+		drm_err(&i915->drm, "Failed to send/receive tee message\n");
-+		goto end;
-+	}
-+
-+	if (copy_to_user(msg_out_user_ptr, msg_out, *msg_out_size_ptr) != 0) {
-+		ret = -EFAULT;
-+		drm_err(&i915->drm, "Failed to copy_to_user for TEE message\n");
-+		goto end;
-+	}
-+
 +end:
-+	kfree(msg_in);
-+	kfree(msg_out);
 +	return ret;
 +}
 +
- /**
-  * i915_pxp_tee_component_bind - bind funciton to pass the function pointers to pxp_tee
-  * @i915_kdev: pointer to i915 kernel device
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.h b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.h
-index 0d0fbd0ed018..8b1581c2f50f 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.h
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.h
-@@ -11,4 +11,9 @@
- void intel_pxp_tee_component_init(struct drm_i915_private *i915);
- void intel_pxp_tee_component_fini(struct drm_i915_private *i915);
- 
-+int pxp_tee_ioctl_io_message(struct drm_i915_private *i915,
-+			     void __user *msg_in_user_ptr, u32 msg_in_size,
-+			     void __user *msg_out_user_ptr, u32 *msg_out_size_ptr,
-+			     u32 msg_out_buf_size);
++/**
++ * pxp_sm_terminate_protected_session_safe - to terminate an active HW session and free its entry.
++ * @i915: i915 device handle.
++ * @context_id: context identifier of the requestor.
++ * @session_type: type of the session to be terminated. One of enum pxp_session_types.
++ * @session_id: session id identifier of the session to be terminated.
++ *
++ * For safety, the context Id sent by the caller is matched with the
++ * one associated with the terminated session entry.  * Terminate is
++ * only issued if context Ids match. Rejected otherwise This function
++ * is intended to be called from the ioctl.
++ *
++ * Return: status. 0 means terminate is successful.
++ */
++int pxp_sm_terminate_protected_session_safe(struct drm_i915_private *i915, int context_id,
++					    int session_type, int session_id)
++{
++	int ret;
++	int session_type_in_id;
++	int session_idx;
 +
- #endif /* __INTEL_PXP_TEE_H__ */
++	ret = pxp_get_session_index(i915, session_id, &session_idx, &session_type_in_id);
++	if (ret) {
++		drm_err(&i915->drm, "Failed to pxp_get_session_index\n");
++		return ret;
++	}
++
++	if (session_type != session_type_in_id) {
++		drm_err(&i915->drm, "Failed to session_type and session_type_in_id don't match\n");
++		return -EINVAL;
++	}
++
++	ret = terminate_protected_session(i915, context_id, session_type, session_idx, true);
++
++	return ret;
++}
++
++/**
++ * pxp_sm_terminate_protected_session_unsafe - To terminate an active HW session and free its entry.
++ * @i915: i915 device handle.
++ * @session_type: type of the session to be terminated. One of enum pxp_session_types.
++ * @session_id: session id identifier of the session to be terminated.
++ *
++ * No safety; the context Id sent by the caller is not matched with
++ * the one associated with the terminated session entry. This function
++ * is NOT intended to be called from the ioctl. Kernel administration
++ * purposes only.
++ *
++ * Return: status. 0 means terminate is successful.
++ */
++int pxp_sm_terminate_protected_session_unsafe(struct drm_i915_private *i915, int session_type,
++					      int session_id)
++{
++	int ret;
++	int session_idx;
++	int session_type_in_id;
++
++	ret = pxp_get_session_index(i915, session_id, &session_idx, &session_type_in_id);
++	if (ret) {
++		drm_err(&i915->drm, "Failed to pxp_get_session_index\n");
++		return ret;
++	}
++
++	if (session_type != session_type_in_id) {
++		drm_err(&i915->drm, "Failed to session_type and session_type_in_id don't match\n");
++		return -EINVAL;
++	}
++
++	ret = terminate_protected_session(i915, -1, session_type, session_idx, false);
++
++	return ret;
++}
++
+ int pxp_sm_set_kcr_init_reg(struct drm_i915_private *i915)
+ {
+ 	int ret;
+@@ -812,3 +980,25 @@ int pxp_sm_set_kcr_init_reg(struct drm_i915_private *i915)
+ 
+ 	return ret;
+ }
++
++/**
++ * intel_pxp_sm_is_any_type0_session_in_play - To check if there is a type0 "in play" session.
++ * @i915: i915 device handle.
++ * @protection_mode: check for specified protection mode of the session
++ *
++ * Return: True if at least one alive session in "session in play" state, false otherwise.
++ */
++bool intel_pxp_sm_is_any_type0_session_in_play(struct drm_i915_private *i915, int protection_mode)
++{
++	struct pxp_protected_session *session, *n;
++
++	list_for_each_entry_safe(session, n, pxp_session_list(i915, SESSION_TYPE_TYPE0),
++				 session_list) {
++		if (protection_mode == PROTECTION_MODE_ALL)
++			return true;
++		else if (protection_mode == session->protection_mode)
++			return true;
++	}
++
++	return false;
++}
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_sm.h b/drivers/gpu/drm/i915/pxp/intel_pxp_sm.h
+index 1b3173bca281..a68e1d109437 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp_sm.h
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_sm.h
+@@ -105,6 +105,11 @@ int intel_pxp_sm_reserve_session(struct drm_i915_private *i915, struct drm_file
+ 				 u32 *pxp_tag);
+ int pxp_sm_mark_protected_session_in_play(struct drm_i915_private *i915, int session_type,
+ 					  u32 session_id);
++int pxp_sm_terminate_protected_session_safe(struct drm_i915_private *i915, int context_id,
++					    int session_type, int session_id);
++int pxp_sm_terminate_protected_session_unsafe(struct drm_i915_private *i915, int session_type,
++					      int session_id);
+ int pxp_sm_set_kcr_init_reg(struct drm_i915_private *i915);
++bool intel_pxp_sm_is_any_type0_session_in_play(struct drm_i915_private *i915, int protection_mode);
+ 
+ #endif /* __INTEL_PXP_SM_H__ */
 -- 
 2.17.1
 
