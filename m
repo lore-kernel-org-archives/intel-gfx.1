@@ -6,39 +6,33 @@ X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5BE01C5519F
-	for <intel-gfx@archiver.kernel.org>; Mon, 23 Nov 2020 00:54:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 17A63C2D0E4
+	for <intel-gfx@archiver.kernel.org>; Mon, 23 Nov 2020 04:56:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D35C720771
-	for <intel-gfx@archiver.kernel.org>; Mon, 23 Nov 2020 00:54:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D35C720771
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=perches.com
+	by mail.kernel.org (Postfix) with ESMTPS id A1E4F207FF
+	for <intel-gfx@archiver.kernel.org>; Mon, 23 Nov 2020 04:56:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A1E4F207FF
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=telegraphics.com.au
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C8B1589B3B;
-	Mon, 23 Nov 2020 00:54:07 +0000 (UTC)
-Received: from smtprelay.hostedemail.com (smtprelay0045.hostedemail.com
- [216.40.44.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 39AE589B3B;
- Mon, 23 Nov 2020 00:54:06 +0000 (UTC)
-Received: from filter.hostedemail.com (clb03-v110.bra.tucows.net
- [216.40.38.60])
- by smtprelay05.hostedemail.com (Postfix) with ESMTP id 2D37318029125;
- Mon, 23 Nov 2020 00:54:05 +0000 (UTC)
-X-Session-Marker: 6A6F6540706572636865732E636F6D
-X-HE-Tag: steam95_4513bd127361
-X-Filterd-Recvd-Size: 3177
-Received: from XPS-9350.home (unknown [47.151.128.180])
- (Authenticated sender: joe@perches.com)
- by omf02.hostedemail.com (Postfix) with ESMTPA;
- Mon, 23 Nov 2020 00:53:59 +0000 (UTC)
-Message-ID: <21826b6d513c4d9ccc795179c1edb0df2361d870.camel@perches.com>
-From: Joe Perches <joe@perches.com>
-To: Finn Thain <fthain@telegraphics.com.au>
-Date: Sun, 22 Nov 2020 16:53:58 -0800
-In-Reply-To: <alpine.LNX.2.23.453.2011230810210.7@nippy.intranet>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 220F689B0B;
+	Mon, 23 Nov 2020 04:56:24 +0000 (UTC)
+X-Greylist: delayed 532 seconds by postgrey-1.36 at gabe;
+ Sun, 22 Nov 2020 22:42:53 UTC
+Received: from kvm5.telegraphics.com.au (kvm5.telegraphics.com.au
+ [98.124.60.144])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 59BAB89AC0
+ for <intel-gfx@lists.freedesktop.org>; Sun, 22 Nov 2020 22:42:53 +0000 (UTC)
+Received: from localhost (localhost.localdomain [127.0.0.1])
+ by kvm5.telegraphics.com.au (Postfix) with ESMTP id A588721F21;
+ Sun, 22 Nov 2020 17:33:55 -0500 (EST)
+Date: Mon, 23 Nov 2020 09:33:55 +1100 (AEDT)
+From: Finn Thain <fthain@telegraphics.com.au>
+To: Joe Perches <joe@perches.com>
+In-Reply-To: <dec07021e7fc11a02b14c98b713ae2c6e2a4ca00.camel@perches.com>
+Message-ID: <alpine.LNX.2.23.453.2011230810210.7@nippy.intranet>
 References: <20201121165058.1644182-1-trix@redhat.com>
  <20201122032304.GE4327@casper.infradead.org>
  <ddb08a27-3ca1-fb2e-d51f-4b471f1a56a3@redhat.com>
@@ -46,9 +40,8 @@ References: <20201121165058.1644182-1-trix@redhat.com>
  <0819ce06-c462-d4df-d3d9-14931dc5aefc@redhat.com>
  <751803306cd957d0e7ef6a4fc3dbf12ebceaba92.camel@HansenPartnership.com>
  <dec07021e7fc11a02b14c98b713ae2c6e2a4ca00.camel@perches.com>
- <alpine.LNX.2.23.453.2011230810210.7@nippy.intranet>
-User-Agent: Evolution 3.38.1-1 
 MIME-Version: 1.0
+X-Mailman-Approved-At: Mon, 23 Nov 2020 04:56:23 +0000
 Subject: Re: [Intel-gfx] [RFC] MAINTAINERS tag for cleanup robot
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -85,28 +78,57 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 2020-11-23 at 09:33 +1100, Finn Thain wrote:
-> On Sun, 22 Nov 2020, Joe Perches wrote:
 
-> > But provably correct conversions IMO _should_ be done and IMO churn 
-> > considerations should generally have less importance.
-[]
-> Moreover, the patch review workload for skilled humans is being generated 
-> by the automation, which is completely backwards: the machine is supposed 
-> to be helping.
+On Sun, 22 Nov 2020, Joe Perches wrote:
 
-Which is why the provably correct matters.
+> On Sun, 2020-11-22 at 08:49 -0800, James Bottomley wrote:
+> > We can enforce sysfs_emit going forwards
+> > using tools like checkpatch
+> 
+> It's not really possible for checkpatch to find or warn about
+> sysfs uses of sprintf. checkpatch is really just a trivial
+> line-by-line parser and it has no concept of code intent.
+> 
 
-coccinelle transforms can be, but are not necessarily, provably correct.
+Checkpatch does suffer from the limitations of regular expressions. But 
+that doesn't stop people from using it. Besides, Coccinelle can do 
+analyses that can't be done with regular expressions, so it's moot.
 
-The _show transforms done via the sysfs_emit_dev.cocci script are correct
-as in commit aa838896d87a ("drivers core: Use sysfs_emit and sysfs_emit_at
-for show(device *...) functions")
+> It just can't warn on every use of the sprintf family.
+> There are just too many perfectly valid uses.
+> 
+> > but there's no benefit and a lot of harm to
+> > be done by trying to churn the entire tree
+> 
+> Single uses of sprintf for sysfs is not really any problem.
+> 
+> But likely there are still several possible overrun sprintf/snprintf
+> paths in sysfs.  Some of them are very obscure and unlikely to be
+> found by a robot as the logic for sysfs buf uses can be fairly twisty.
+> 
 
-Worthwhile?  A different question, but I think yes as it reduces the
-overall question space of the existing other sprintf overrun possibilities.
+Logic errors of this kind are susceptible to fuzzing, formal methods, 
+symbolic execution etc. No doubt there are other techniques that I don't 
+know about.
 
+> But provably correct conversions IMO _should_ be done and IMO churn 
+> considerations should generally have less importance.
+> 
 
+Provably equivalent conversions are provably churn. So apparently you're 
+advocating changes that are not provably equivalent.
+
+These are patches for code not that's not been shown to be buggy. Code 
+which, after patching, can be shown to be free of a specific kind of 
+theoretical bug. Hardly "provably correct".
+
+The problem is, the class of theoretical bugs that can be avoided in this 
+way is probably limitless, as is the review cost and the risk of 
+accidental regressions. And the payoff is entirely theoretical.
+
+Moreover, the patch review workload for skilled humans is being generated 
+by the automation, which is completely backwards: the machine is supposed 
+to be helping.
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
