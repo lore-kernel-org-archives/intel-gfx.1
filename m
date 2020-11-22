@@ -2,49 +2,86 @@ Return-Path: <SRS0=Gl+v=E4=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3D726C388F9
-	for <intel-gfx@archiver.kernel.org>; Sun, 22 Nov 2020 03:23:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CFC8BC5519F
+	for <intel-gfx@archiver.kernel.org>; Sun, 22 Nov 2020 14:47:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 45D6E20782
-	for <intel-gfx@archiver.kernel.org>; Sun, 22 Nov 2020 03:23:46 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 62A712076C
+	for <intel-gfx@archiver.kernel.org>; Sun, 22 Nov 2020 14:47:01 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="BCb+FFzp"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 45D6E20782
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="ak5/hZ4J"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 62A712076C
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C95189DDD;
-	Sun, 22 Nov 2020 03:23:45 +0000 (UTC)
-Received: from casper.infradead.org (casper.infradead.org
- [IPv6:2001:8b0:10b:1236::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ECD2289DDD;
- Sun, 22 Nov 2020 03:23:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=t7P1qjxLtvKyLv5lupmc5Zc5j0L3lqaoBXMlGIL9vWk=; b=BCb+FFzpwYCsAL5/GuZs0qQqU7
- 2wigu715rAloO1MXfHFDjsI/DCCkjrJ0RLz4Myz+wD98+zNWw6243kPWNzvqzMn6Tn8JVpmOuQv+x
- 7EKe3xartwVOhq4ran1ZhW92oaIukRN20h1OI3pPMusUrtae1AY4TqDUCPUPtiDgxz6eQOoVcrvcz
- Ara6lCihfF7KrYMxKPcv522GOw1XE7kmR9pLBWd69WCJIf1380JdPIessAMMrwuE8sqCmQUL7YEHL
- BXN0W+EBw/mKx6JrVL7roopk6K2PnHDj+T1EiV35semdke1klNMJQXZf1Gvzraa/TLsC310jvDxAq
- zJ5cWKdw==;
-Received: from willy by casper.infradead.org with local (Exim 4.92.3 #3 (Red
- Hat Linux)) id 1kgfxw-0001fc-2G; Sun, 22 Nov 2020 03:23:04 +0000
-Date: Sun, 22 Nov 2020 03:23:04 +0000
-From: Matthew Wilcox <willy@infradead.org>
-To: trix@redhat.com
-Message-ID: <20201122032304.GE4327@casper.infradead.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF39489D2F;
+	Sun, 22 Nov 2020 14:47:00 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B616089D2F
+ for <intel-gfx@lists.freedesktop.org>; Sun, 22 Nov 2020 14:46:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1606056418;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=apju6gP6XSpkYwp4WdL57a/nFAvNI/QCKhQkuBxc3S8=;
+ b=ak5/hZ4JasuCdubW59huNEFfJdjI0J7gy5Yn8kCv5PTs7PV7aEfZiOa/NpACRi36M0ke9J
+ A4eSPV/Gcjxx8Oi8Rk+FI3bElki0kwQeBytZUV22THTQKGw3YQu7X3VUwAxkZh9tgkn2hL
+ 9kk06BsaFcTeFpX1B2wAM5f2J7s7WQE=
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
+ [209.85.160.200]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-46-9xoKi_nkOA6044F5nu9zeg-1; Sun, 22 Nov 2020 09:46:52 -0500
+X-MC-Unique: 9xoKi_nkOA6044F5nu9zeg-1
+Received: by mail-qt1-f200.google.com with SMTP id z8so11584157qti.17
+ for <intel-gfx@lists.freedesktop.org>; Sun, 22 Nov 2020 06:46:52 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=apju6gP6XSpkYwp4WdL57a/nFAvNI/QCKhQkuBxc3S8=;
+ b=pHiiouLNBlzqk1SDGldYpyxHVmOed3RkbXYZPvUNDxzHuFtrLz/2zqLKeswJ6vn8PO
+ FztpM2tWl/wg/SycX9qpfVwvuGC7zWs4wwtKnKEKJk3BI8V+T8uxR6NtNnA4fgUly51i
+ slC7Zqk2WStv3W33J3qE7cgxXsAmtXVm5LPTvbbr6gsF3DrKg7k7H7eCiinwEJI+ucQZ
+ 7ftxR5z325ubOnbH8VmJRASvWamgEMmd9nH0GDjT5BLVPcshEkXCJWrMN/M2QTQWhK/j
+ jWXFzpSSL0O83/UFIr+5qXUYZywzvGBkF255YnLvCnE2p6SqMwvAUfLF/nzCVgC+/Lp2
+ qhVw==
+X-Gm-Message-State: AOAM532gWihowkU9fUPautY0Us0IHPIXrh2Et6CBQwlQywhbW36oAcuP
+ EDTFBPG1CK/M/D8DZbPJNyzoM992ldtwSKP8Nnd8ZjRtGDLCooeGHL8/t44FupYI59vsXRT6X9q
+ a6kOlusGU/ectmLMnJd4AdEw5GG8N
+X-Received: by 2002:ad4:476b:: with SMTP id d11mr26026193qvx.57.1606056412440; 
+ Sun, 22 Nov 2020 06:46:52 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJyPQ8vJIBgyJxmgPlUVzOaStXFRaD0Z+d8VDmnR7kdLyNkvwByAGPov006wc7+pJBCcgj+/zw==
+X-Received: by 2002:ad4:476b:: with SMTP id d11mr26026152qvx.57.1606056412222; 
+ Sun, 22 Nov 2020 06:46:52 -0800 (PST)
+Received: from trix.remote.csb (075-142-250-213.res.spectrum.com.
+ [75.142.250.213])
+ by smtp.gmail.com with ESMTPSA id x72sm6888242qkb.90.2020.11.22.06.46.47
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 22 Nov 2020 06:46:51 -0800 (PST)
+To: Matthew Wilcox <willy@infradead.org>
 References: <20201121165058.1644182-1-trix@redhat.com>
+ <20201122032304.GE4327@casper.infradead.org>
+From: Tom Rix <trix@redhat.com>
+Message-ID: <ddb08a27-3ca1-fb2e-d51f-4b471f1a56a3@redhat.com>
+Date: Sun, 22 Nov 2020 06:46:46 -0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20201121165058.1644182-1-trix@redhat.com>
+In-Reply-To: <20201122032304.GE4327@casper.infradead.org>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=trix@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
 Subject: Re: [Intel-gfx] [RFC] MAINTAINERS tag for cleanup robot
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -80,19 +117,27 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Sat, Nov 21, 2020 at 08:50:58AM -0800, trix@redhat.com wrote:
-> The fixer review is
-> https://reviews.llvm.org/D91789
-> 
-> A run over allyesconfig for x86_64 finds 62 issues, 5 are false positives.
-> The false positives are caused by macros passed to other macros and by
-> some macro expansions that did not have an extra semicolon.
-> 
-> This cleans up about 1,000 of the current 10,000 -Wextra-semi-stmt
-> warnings in linux-next.
 
-Are any of them not false-positives?  It's all very well to enable
-stricter warnings, but if they don't fix any bugs, they're just churn.
+On 11/21/20 7:23 PM, Matthew Wilcox wrote:
+> On Sat, Nov 21, 2020 at 08:50:58AM -0800, trix@redhat.com wrote:
+>> The fixer review is
+>> https://reviews.llvm.org/D91789
+>>
+>> A run over allyesconfig for x86_64 finds 62 issues, 5 are false positives.
+>> The false positives are caused by macros passed to other macros and by
+>> some macro expansions that did not have an extra semicolon.
+>>
+>> This cleans up about 1,000 of the current 10,000 -Wextra-semi-stmt
+>> warnings in linux-next.
+> Are any of them not false-positives?  It's all very well to enable
+> stricter warnings, but if they don't fix any bugs, they're just churn.
+>
+While enabling additional warnings may be a side effect of this effort
+
+the primary goal is to set up a cleaning robot. After that a refactoring robot.
+
+Tom
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
