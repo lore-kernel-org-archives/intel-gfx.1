@@ -2,66 +2,53 @@ Return-Path: <SRS0=aPMN=E5=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,INCLUDES_PULL_REQUEST,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7867AC2D0E4
-	for <intel-gfx@archiver.kernel.org>; Mon, 23 Nov 2020 04:56:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 157D8C2D0E4
+	for <intel-gfx@archiver.kernel.org>; Mon, 23 Nov 2020 09:20:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 304C2207FF
-	for <intel-gfx@archiver.kernel.org>; Mon, 23 Nov 2020 04:56:33 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="th/UjqVc"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 304C2207FF
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id A3C0D20758
+	for <intel-gfx@archiver.kernel.org>; Mon, 23 Nov 2020 09:20:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A3C0D20758
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6322289B61;
-	Mon, 23 Nov 2020 04:56:25 +0000 (UTC)
-Received: from mail-yb1-xb42.google.com (mail-yb1-xb42.google.com
- [IPv6:2607:f8b0:4864:20::b42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5DAB96E936;
- Fri, 20 Nov 2020 22:21:29 +0000 (UTC)
-Received: by mail-yb1-xb42.google.com with SMTP id k65so9977249ybk.5;
- Fri, 20 Nov 2020 14:21:29 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=29/AaAKKWIjlxKBDiu42mXe16/c3LUzQvTdn0Wctw9g=;
- b=th/UjqVcversiy9gEUr46cKRrhHywr0iTgf9mzUejm+T3/Jtu2c6ftjob7N1dnOe2S
- rGVMit/4Gqy7ZDqW+do8x9wI8RCPt/cmuWncILsoBuux3CBAtfG8gT+eTL8wiBVSM5EH
- rDgxqkIvK+vUXnfhgj71GxYIUQH1hInVNMbCl5+3prik9RGhi+hsmul85xXuf9uJVr2L
- NGLQGWDmOXXHg4l9XujW0HrVyacbE3Q1QSLAkLJ0BjE5AdFqhLyeU3T8/6+nJ9hH0JSR
- o1vAVeqr6Bt+/W6rGIwrn7PuvAvMGRmk1Avx4k6vjCg8etglRiDTMnimrqKcX/KEsNCP
- 0CAw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=29/AaAKKWIjlxKBDiu42mXe16/c3LUzQvTdn0Wctw9g=;
- b=kO4WXw2k7yX3i/6mbZRfhrDQz6eo7Nk2hWgVooFrL5huUn0rMBbBasopYT/GmEyCob
- UDAqYr6DbAGyYHwWwX/+xsbLe7s8A5B3VkfJwJBVWZ8wRp3dc9VG3RKrSbxahciY6bs/
- IbR52U4FfF/6CAEBNszzn7tGJheutBlOSyf9gCdIc3PvWdaXma+of0GJfCJGnNxSAr7y
- NYx9trz/FHUCy2UD4g+b//sjqVkejzZ/tSFV+1BorYpnFUC063Vmp6fypjls6cSQ6X+Y
- i+rpYYXklAk4YOszrHOH6U1UzDrLC/DRfDjxVl3MSRlolaNd00ZcIjVYaTbFBnxoaAEZ
- mDdQ==
-X-Gm-Message-State: AOAM530X448hIOvooZXAP4EtK+rRiNU+vNQiSckr8zdY/0tck9v8/Ce3
- CL9uqi4jP71bGYm0gb+WTuA/OdIZ0rrTkc0wkyw=
-X-Google-Smtp-Source: ABdhPJzYUhkcjTyH5GIcOV5fWMsl+OUdzem471zLY9usW3RhV8izQIRbyESMTmZwFikqgbfOQQqVvSSQCZzBPJX4q90=
-X-Received: by 2002:a5b:40e:: with SMTP id m14mr22113400ybp.33.1605910888617; 
- Fri, 20 Nov 2020 14:21:28 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C9A6689D1D;
+	Mon, 23 Nov 2020 09:20:05 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4CE0B89C80;
+ Mon, 23 Nov 2020 09:20:04 +0000 (UTC)
+IronPort-SDR: 2kyV69qVUBWn3fQCp8anlBuWTrXlPRnsc7D3/sT4Mtlc5ELgXwL4ZFZmIuTqnNzCUlnUDWe3yr
+ oOL4hlxpkV1g==
+X-IronPort-AV: E=McAfee;i="6000,8403,9813"; a="171826202"
+X-IronPort-AV: E=Sophos;i="5.78,363,1599548400"; 
+ d="asc'?scan'208";a="171826202"
+X-Amp-Result: UNKNOWN
+X-Amp-Original-Verdict: FILE UNKNOWN
+X-Amp-File-Uploaded: False
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Nov 2020 01:20:03 -0800
+IronPort-SDR: mOQGr3OS+AH9mEIMqg1bOWIaM6D1LBWv+/5d5DHHd2gN30Yo9KP8YEpZJ+lR/jptb5NAn3JqpN
+ ACVLHgvgi2MQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.78,363,1599548400"; 
+ d="asc'?scan'208";a="536034726"
+Received: from zhen-hp.sh.intel.com (HELO zhen-hp) ([10.239.160.147])
+ by fmsmga005.fm.intel.com with ESMTP; 23 Nov 2020 01:20:01 -0800
+Date: Mon, 23 Nov 2020 17:05:17 +0800
+From: Zhenyu Wang <zhenyuw@linux.intel.com>
+To: Jani Nikula <jani.nikula@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ "Vivi, Rodrigo" <rodrigo.vivi@intel.com>
+Message-ID: <20201123090517.GC16939@zhen-hp.sh.intel.com>
 MIME-Version: 1.0
-References: <cover.1605896059.git.gustavoars@kernel.org>
-In-Reply-To: <cover.1605896059.git.gustavoars@kernel.org>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Fri, 20 Nov 2020 23:21:17 +0100
-Message-ID: <CANiq72=E_gEVvqUUTSqU4zegC2=yZSTM4b=4G-iofp6d3=UgWQ@mail.gmail.com>
-To: "Gustavo A. R. Silva" <gustavoars@kernel.org>
-X-Mailman-Approved-At: Mon, 23 Nov 2020 04:56:23 +0000
-Subject: Re: [Intel-gfx] [PATCH 000/141] Fix fall-through warnings for Clang
+Subject: [Intel-gfx] [PULL] gvt-next
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,71 +61,118 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, linux-atm-general@lists.sourceforge.net,
- reiserfs-devel@vger.kernel.org, linux-iio@vger.kernel.org,
- linux-wireless <linux-wireless@vger.kernel.org>, linux-fbdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
- Nathan Chancellor <natechancellor@gmail.com>, linux-ide@vger.kernel.org,
- dm-devel@redhat.com, keyrings@vger.kernel.org, linux-mtd@lists.infradead.org,
- GR-everest-linux-l2@marvell.com, wcn36xx@lists.infradead.org,
- samba-technical@lists.samba.org, linux-i3c@lists.infradead.org,
- linux1394-devel@lists.sourceforge.net, linux-afs@lists.infradead.org,
- usb-storage@lists.one-eyed-alien.net, drbd-dev@lists.linbit.com,
- devel@driverdev.osuosl.org, linux-cifs@vger.kernel.org,
- rds-devel@oss.oracle.com, Nick Desaulniers <ndesaulniers@google.com>,
- linux-scsi@vger.kernel.org, linux-rdma@vger.kernel.org,
- oss-drivers@netronome.com, bridge@lists.linux-foundation.org,
- linux-security-module@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- linux-stm32@st-md-mailman.stormreply.com, cluster-devel@redhat.com,
- linux-acpi@vger.kernel.org, coreteam@netfilter.org,
- intel-wired-lan@lists.osuosl.org, linux-input <linux-input@vger.kernel.org>,
- Miguel Ojeda <ojeda@kernel.org>, tipc-discussion@lists.sourceforge.net,
- Ext4 Developers List <linux-ext4@vger.kernel.org>,
- Linux Media Mailing List <linux-media@vger.kernel.org>,
- linux-watchdog@vger.kernel.org, selinux@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- linux-geode@lists.infradead.org, linux-can@vger.kernel.org,
- linux-block@vger.kernel.org, linux-gpio@vger.kernel.org,
- op-tee@lists.trustedfirmware.org, linux-mediatek@lists.infradead.org,
- xen-devel@lists.xenproject.org, nouveau@lists.freedesktop.org,
- linux-hams@vger.kernel.org, ceph-devel@vger.kernel.org,
- target-devel@vger.kernel.org, Linux ARM <linux-arm-kernel@lists.infradead.org>,
- linux-hwmon@vger.kernel.org,
- "maintainer:X86 ARCHITECTURE \(32-BIT AND 64-BIT\)" <x86@kernel.org>,
- linux-nfs@vger.kernel.org, GR-Linux-NIC-Dev@marvell.com,
- Kees Cook <keescook@chromium.org>, Linux-MM <linux-mm@kvack.org>,
- Network Development <netdev@vger.kernel.org>,
- linux-decnet-user@lists.sourceforge.net, linux-mmc@vger.kernel.org,
- linux-kernel <linux-kernel@vger.kernel.org>, linux-renesas-soc@vger.kernel.org,
- linux-sctp@vger.kernel.org, linux-usb@vger.kernel.org,
- netfilter-devel@vger.kernel.org,
- Linux Crypto Mailing List <linux-crypto@vger.kernel.org>,
- patches@opensource.cirrus.com, Joe Perches <joe@perches.com>,
- linux-integrity@vger.kernel.org, linux-hardening@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Reply-To: Zhenyu Wang <zhenyuw@linux.intel.com>
+Cc: intel-gfx <intel-gfx@lists.freedesktop.org>,
+ intel-gvt-dev <intel-gvt-dev@lists.freedesktop.org>, "Lv,
+ Zhiyuan" <zhiyuan.lv@intel.com>, "Yuan, Hang" <hang.yuan@intel.com>
+Content-Type: multipart/mixed; boundary="===============1003122541=="
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Gustavo,
 
-On Fri, Nov 20, 2020 at 7:21 PM Gustavo A. R. Silva
-<gustavoars@kernel.org> wrote:
->
-> Hi all,
->
-> This series aims to fix almost all remaining fall-through warnings in
-> order to enable -Wimplicit-fallthrough for Clang.
+--===============1003122541==
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="RASg3xLB4tUQ4RcS"
+Content-Disposition: inline
 
-Thanks for this.
 
-Since this warning is reliable in both/all compilers and we are
-eventually getting rid of all the cases, what about going even further
-and making it an error right after?
+--RASg3xLB4tUQ4RcS
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Cheers,
-Miguel
+
+Hi,
+
+Here's gvt next pull for v5.11. Mostly it's for host suspend/resume
+fix with vGPU active and with some other enhancement as details below.
+Note that this includes some minor i915 driver change to add gvt hook
+in suspend/resume function which has been sent and reviewed on
+intel-gfx list.
+
+I just generated against drm-intel-next-queued-2020-11-03 which this
+tree bases on now. Let me know if there's any issue in merge.
+
+Thanks
+--
+The following changes since commit 139caf7ca2866cd0a45814ff938cb0c33920a266:
+
+  drm/i915: Update DRIVER_DATE to 20201103 (2020-11-03 14:21:25 +0200)
+
+are available in the Git repository at:
+
+  https://github.com/intel/gvt-linux tags/gvt-next-2020-11-23
+
+for you to fetch changes up to 9a3a238b3de97b4210c6de66aa88b2d7021ac086:
+
+  drm/i915/gvt: treat intel_gvt_mpt as const in gvt code (2020-11-23 17:14:=
+20 +0800)
+
+----------------------------------------------------------------
+gvt-next-2020-11-23
+
+- Fix host suspend/resume with vGPU (Colin)
+- optimize idr init (Varma)
+- Change intel_gvt_mpt as const (Julian)
+- One comment error fix (Yan)
+
+----------------------------------------------------------------
+Colin Xu (3):
+      drm/i915/gvt: Save/restore HW status to support GVT suspend/resume
+      drm/i915: Add GVT resume routine to i915
+      drm/i915/gvt: Fix virtual display setup for BXT/APL
+
+Deepak R Varma (1):
+      drm/i915/gvt: replace idr_init() by idr_init_base()
+
+Julian Stecklina (1):
+      drm/i915/gvt: treat intel_gvt_mpt as const in gvt code
+
+Yan Zhao (1):
+      drm/i915/gvt: correct a false comment of flag F_UNALIGN
+
+ drivers/gpu/drm/i915/gvt/display.c  | 179 ++++++++++++++++++++++++++++++++=
+++++
+ drivers/gpu/drm/i915/gvt/gtt.c      |  64 +++++++++++++
+ drivers/gpu/drm/i915/gvt/gtt.h      |   4 +
+ drivers/gpu/drm/i915/gvt/gvt.c      |  13 ++-
+ drivers/gpu/drm/i915/gvt/gvt.h      |   7 +-
+ drivers/gpu/drm/i915/gvt/handlers.c |  44 ++++++++-
+ drivers/gpu/drm/i915/gvt/kvmgt.c    |   2 +-
+ drivers/gpu/drm/i915/gvt/mmio.c     |   5 +
+ drivers/gpu/drm/i915/gvt/mmio.h     |   4 +
+ drivers/gpu/drm/i915/gvt/mpt.h      |   2 +-
+ drivers/gpu/drm/i915/gvt/vgpu.c     |   2 +-
+ drivers/gpu/drm/i915/i915_drv.c     |   2 +
+ drivers/gpu/drm/i915/intel_gvt.c    |  15 +++
+ drivers/gpu/drm/i915/intel_gvt.h    |   5 +
+ 14 files changed, 338 insertions(+), 10 deletions(-)
+
+--=20
+
+$gpg --keyserver wwwkeys.pgp.net --recv-keys 4D781827
+
+--RASg3xLB4tUQ4RcS
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iF0EARECAB0WIQTXuabgHDW6LPt9CICxBBozTXgYJwUCX7t7SAAKCRCxBBozTXgY
+JyNnAJ9nf8Sr3WYtgOwY32tR4WybfjNA0ACgn4EHkV20VZxt5Hjj33haDRTa1sM=
+=yhQx
+-----END PGP SIGNATURE-----
+
+--RASg3xLB4tUQ4RcS--
+
+--===============1003122541==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+
+--===============1003122541==--
