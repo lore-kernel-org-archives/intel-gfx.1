@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EE85EC56201
-	for <intel-gfx@archiver.kernel.org>; Tue, 24 Nov 2020 11:42:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DF156C56202
+	for <intel-gfx@archiver.kernel.org>; Tue, 24 Nov 2020 11:42:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 943852075A
-	for <intel-gfx@archiver.kernel.org>; Tue, 24 Nov 2020 11:42:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 943852075A
+	by mail.kernel.org (Postfix) with ESMTPS id 83E69206D8
+	for <intel-gfx@archiver.kernel.org>; Tue, 24 Nov 2020 11:42:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 83E69206D8
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 80F876E270;
-	Tue, 24 Nov 2020 11:42:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F0996E2C8;
+	Tue, 24 Nov 2020 11:42:46 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2EFAD6E24E
- for <intel-gfx@lists.freedesktop.org>; Tue, 24 Nov 2020 11:42:30 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F99F6E241
+ for <intel-gfx@lists.freedesktop.org>; Tue, 24 Nov 2020 11:42:29 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23090925-1500050 
- for multiple; Tue, 24 Nov 2020 11:42:21 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23090931-1500050 
+ for multiple; Tue, 24 Nov 2020 11:42:22 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 24 Nov 2020 11:42:08 +0000
-Message-Id: <20201124114219.29020-5-chris@chris-wilson.co.uk>
+Date: Tue, 24 Nov 2020 11:42:12 +0000
+Message-Id: <20201124114219.29020-9-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201124114219.29020-1-chris@chris-wilson.co.uk>
 References: <20201124114219.29020-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 05/16] drm/i915/gt: Move the breadcrumb to the
- signaler if completed upon cancel
+Subject: [Intel-gfx] [PATCH 09/16] drm/i915/gt: ce->inflight updates are now
+ serialised
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,71 +56,141 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-If while we are cancelling the breadcrumb signaling, we find that the
-request is already completed, move it to the irq signaler and let it be
-signaled.
+Since schedule-in and schedule-out are now both always under the tasklet
+bitlock, we can reduce the individual atomic operations to simple
+instructions and worry less.
 
+This notably eliminates the race observed with intel_context_inflight in
+__engine_unpark().
+
+Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/2583
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 ---
- drivers/gpu/drm/i915/gt/intel_breadcrumbs.c | 20 ++++++++++++++++----
- 1 file changed, 16 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_lrc.c | 52 ++++++++++++++---------------
+ 1 file changed, 25 insertions(+), 27 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-index a24cc1ff08a0..f5f6feed0fa6 100644
---- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-@@ -363,6 +363,14 @@ void intel_breadcrumbs_free(struct intel_breadcrumbs *b)
- 	kfree(b);
+diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
+index 49a80f940e73..3a6a9539b54e 100644
+--- a/drivers/gpu/drm/i915/gt/intel_lrc.c
++++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
+@@ -1358,11 +1358,11 @@ __execlists_schedule_in(struct i915_request *rq)
+ 		ce->lrc.ccid = ce->tag;
+ 	} else {
+ 		/* We don't need a strict matching tag, just different values */
+-		unsigned int tag = ffs(READ_ONCE(engine->context_tag));
++		unsigned int tag = __ffs(engine->context_tag);
+ 
+-		GEM_BUG_ON(tag == 0 || tag >= BITS_PER_LONG);
+-		clear_bit(tag - 1, &engine->context_tag);
+-		ce->lrc.ccid = tag << (GEN11_SW_CTX_ID_SHIFT - 32);
++		GEM_BUG_ON(tag >= BITS_PER_LONG);
++		__clear_bit(tag, &engine->context_tag);
++		ce->lrc.ccid = (1 + tag) << (GEN11_SW_CTX_ID_SHIFT - 32);
+ 
+ 		BUILD_BUG_ON(BITS_PER_LONG > GEN12_MAX_CONTEXT_HW_ID);
+ 	}
+@@ -1375,6 +1375,8 @@ __execlists_schedule_in(struct i915_request *rq)
+ 	execlists_context_status_change(rq, INTEL_CONTEXT_SCHEDULE_IN);
+ 	intel_engine_context_in(engine);
+ 
++	CE_TRACE(ce, "schedule-in, ccid:%x\n", ce->lrc.ccid);
++
+ 	return engine;
  }
  
-+static void irq_signal_request(struct i915_request *rq,
-+			       struct intel_breadcrumbs *b)
-+{
-+	if (__signal_request(rq) &&
-+	    llist_add(&rq->signal_node, &b->signaled_requests))
-+		irq_work_queue(&b->irq_work);
-+}
-+
- static void insert_breadcrumb(struct i915_request *rq)
+@@ -1386,13 +1388,10 @@ static inline void execlists_schedule_in(struct i915_request *rq, int idx)
+ 	GEM_BUG_ON(!intel_engine_pm_is_awake(rq->engine));
+ 	trace_i915_request_in(rq, idx);
+ 
+-	old = READ_ONCE(ce->inflight);
+-	do {
+-		if (!old) {
+-			WRITE_ONCE(ce->inflight, __execlists_schedule_in(rq));
+-			break;
+-		}
+-	} while (!try_cmpxchg(&ce->inflight, &old, ptr_inc(old)));
++	old = ce->inflight;
++	if (!old)
++		old = __execlists_schedule_in(rq);
++	WRITE_ONCE(ce->inflight, ptr_inc(old));
+ 
+ 	GEM_BUG_ON(intel_context_inflight(ce) != rq->engine);
+ }
+@@ -1406,12 +1405,11 @@ static void kick_siblings(struct i915_request *rq, struct intel_context *ce)
+ 		tasklet_hi_schedule(&ve->base.execlists.tasklet);
+ }
+ 
+-static inline void
+-__execlists_schedule_out(struct i915_request *rq,
+-			 struct intel_engine_cs * const engine,
+-			 unsigned int ccid)
++static inline void __execlists_schedule_out(struct i915_request *rq)
  {
- 	struct intel_breadcrumbs *b = READ_ONCE(rq->engine)->breadcrumbs;
-@@ -380,9 +388,7 @@ static void insert_breadcrumb(struct i915_request *rq)
- 	 * its signal completion.
+ 	struct intel_context * const ce = rq->context;
++	struct intel_engine_cs * const engine = rq->engine;
++	unsigned int ccid;
+ 
+ 	/*
+ 	 * NB process_csb() is not under the engine->active.lock and hence
+@@ -1419,6 +1417,8 @@ __execlists_schedule_out(struct i915_request *rq,
+ 	 * refrain from doing non-trivial work here.
  	 */
- 	if (__request_completed(rq)) {
--		if (__signal_request(rq) &&
--		    llist_add(&rq->signal_node, &b->signaled_requests))
--			irq_work_queue(&b->irq_work);
-+		irq_signal_request(rq, b);
- 		return;
+ 
++	CE_TRACE(ce, "schedule-out, ccid:%x\n", ce->lrc.ccid);
++
+ 	if (IS_ENABLED(CONFIG_DRM_I915_DEBUG_GEM))
+ 		execlists_check_context(ce, engine, "after");
+ 
+@@ -1430,12 +1430,13 @@ __execlists_schedule_out(struct i915_request *rq,
+ 	    i915_request_completed(rq))
+ 		intel_engine_add_retire(engine, ce->timeline);
+ 
++	ccid = ce->lrc.ccid;
+ 	ccid >>= GEN11_SW_CTX_ID_SHIFT - 32;
+ 	ccid &= GEN12_MAX_CONTEXT_HW_ID;
+ 	if (ccid < BITS_PER_LONG) {
+ 		GEM_BUG_ON(ccid == 0);
+ 		GEM_BUG_ON(test_bit(ccid - 1, &engine->context_tag));
+-		set_bit(ccid - 1, &engine->context_tag);
++		__set_bit(ccid - 1, &engine->context_tag);
  	}
  
-@@ -453,6 +459,7 @@ bool i915_request_enable_breadcrumb(struct i915_request *rq)
- 
- void i915_request_cancel_breadcrumb(struct i915_request *rq)
- {
-+	struct intel_breadcrumbs *b = READ_ONCE(rq->engine)->breadcrumbs;
- 	struct intel_context *ce = rq->context;
- 	bool release;
- 
-@@ -461,11 +468,16 @@ void i915_request_cancel_breadcrumb(struct i915_request *rq)
- 
- 	spin_lock(&ce->signal_lock);
- 	list_del_rcu(&rq->signal_link);
--	release = remove_signaling_context(rq->engine->breadcrumbs, ce);
-+	release = remove_signaling_context(b, ce);
- 	spin_unlock(&ce->signal_lock);
- 	if (release)
- 		intel_context_put(ce);
- 
-+	if (__request_completed(rq)) {
-+		irq_signal_request(rq, b);
-+		return;
-+	}
-+
- 	i915_request_put(rq);
+ 	intel_context_update_runtime(ce);
+@@ -1456,26 +1457,23 @@ __execlists_schedule_out(struct i915_request *rq,
+ 	 */
+ 	if (ce->engine != engine)
+ 		kick_siblings(rq, ce);
+-
+-	intel_context_put(ce);
  }
  
+ static inline void
+ execlists_schedule_out(struct i915_request *rq)
+ {
+ 	struct intel_context * const ce = rq->context;
+-	struct intel_engine_cs *cur, *old;
+-	u32 ccid;
+ 
+ 	trace_i915_request_out(rq);
+ 
+-	ccid = rq->context->lrc.ccid;
+-	old = READ_ONCE(ce->inflight);
+-	do
+-		cur = ptr_unmask_bits(old, 2) ? ptr_dec(old) : NULL;
+-	while (!try_cmpxchg(&ce->inflight, &old, cur));
+-	if (!cur)
+-		__execlists_schedule_out(rq, old, ccid);
++	GEM_BUG_ON(!ce->inflight);
++	ce->inflight = ptr_dec(ce->inflight);
++	if (!intel_context_inflight_count(ce)) {
++		GEM_BUG_ON(ce->inflight != rq->engine);
++		__execlists_schedule_out(rq);
++		WRITE_ONCE(ce->inflight, NULL);
++		intel_context_put(ce);
++	}
+ 
+ 	i915_request_put(rq);
+ }
 -- 
 2.20.1
 
