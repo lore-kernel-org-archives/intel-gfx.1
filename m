@@ -2,43 +2,53 @@ Return-Path: <SRS0=tBxe=E6=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 61390C2D0E4
-	for <intel-gfx@archiver.kernel.org>; Tue, 24 Nov 2020 19:30:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D6DF0C2D0E4
+	for <intel-gfx@archiver.kernel.org>; Tue, 24 Nov 2020 19:46:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C506520857
-	for <intel-gfx@archiver.kernel.org>; Tue, 24 Nov 2020 19:30:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C506520857
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
+	by mail.kernel.org (Postfix) with ESMTPS id 805F0206C0
+	for <intel-gfx@archiver.kernel.org>; Tue, 24 Nov 2020 19:46:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 805F0206C0
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B7E786E527;
-	Tue, 24 Nov 2020 19:30:29 +0000 (UTC)
-Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 744126E527
- for <intel-gfx@lists.freedesktop.org>; Tue, 24 Nov 2020 19:30:27 +0000 (UTC)
-X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
- x-ip-name=78.156.65.138; 
-Received: from localhost (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP (TLS) id
- 23096188-1500050 for multiple; Tue, 24 Nov 2020 19:30:25 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id EBCD56E554;
+	Tue, 24 Nov 2020 19:46:32 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D56A6E554
+ for <intel-gfx@lists.freedesktop.org>; Tue, 24 Nov 2020 19:46:31 +0000 (UTC)
+IronPort-SDR: dnvv5fhOT9ubvCPPK8amrWs+qr1O4tZO6Sopzsu7SwWY2+7beeXKoIX7/YQAVt9Xg7+TdAc99y
+ QPLpOrdxIBkw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9815"; a="236144850"
+X-IronPort-AV: E=Sophos;i="5.78,366,1599548400"; d="scan'208";a="236144850"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Nov 2020 11:46:30 -0800
+IronPort-SDR: 98u2aPAVv3SOxEf7T4UlmYt8bdGdtEBjs0RXubMnlKd51YmN1bwMUuHEpRcmb+lq2FZX6Xdb4/
+ HNBCkBwvrsIg==
+X-IronPort-AV: E=Sophos;i="5.78,366,1599548400"; d="scan'208";a="313358360"
+Received: from partheeb-mobl1.amr.corp.intel.com (HELO intel.com)
+ ([10.251.20.252])
+ by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Nov 2020 11:46:30 -0800
+Date: Tue, 24 Nov 2020 11:46:29 -0800
+From: Rodrigo Vivi <rodrigo.vivi@intel.com>
+To: Chris Wilson <chris@chris-wilson.co.uk>
+Message-ID: <20201124194629.GA719740@intel.com>
+References: <20201124183521.28623-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-In-Reply-To: <20201124191316.1660749-4-lucas.demarchi@intel.com>
-References: <20201124191316.1660749-1-lucas.demarchi@intel.com>
- <20201124191316.1660749-4-lucas.demarchi@intel.com>
-From: Chris Wilson <chris@chris-wilson.co.uk>
-To: Lucas De Marchi <lucas.demarchi@intel.com>, intel-gfx@lists.freedesktop.org
-Date: Tue, 24 Nov 2020 19:30:23 +0000
-Message-ID: <160624622389.28476.796785935441752028@build.alporthouse.com>
-User-Agent: alot/0.9
-Subject: Re: [Intel-gfx] [PATCH 3/3] drm/i915/display: move register
- functions to display/
+Content-Disposition: inline
+In-Reply-To: <20201124183521.28623-1-chris@chris-wilson.co.uk>
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/gt: Limit frequency drop to RPe on
+ parking
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,22 +61,69 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: intel-gfx@lists.freedesktop.org, stable@vger.kernel.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Quoting Lucas De Marchi (2020-11-24 19:13:16)
-> Now that all display-related functions are grouped in
-> i915_driver_register(), move them to display/ so we reduce the amount of
-> display calls from the rest of the driver.
+On Tue, Nov 24, 2020 at 06:35:21PM +0000, Chris Wilson wrote:
+> We treat idling the GT (intel_rps_park) as a downclock event, and reduce
+> the frequency we intend to restart the GT with. Since the two workloads
+> are likely related (e.g. a compositor rendering every 16ms), we want to
+> carry the frequency and load information from across the idling.
+> However, we do also need to update the frequencies so that workloads
+> that run for less than 1ms are autotuned by RPS (otherwise we leave
+> compositors running at max clocks, draining excess power). Conversely,
+> if we try to run too slowly, the next workload has to run longer. Since
+> there is a hysteresis in the power graph, below a certain frequency
+> running a short workload for longer consumes more energy than running it
+> slightly higher for less time. The exact balance point is unknown
+> beforehand, but measurements with 30fps media playback indicate that RPe
+> is a better choice.
+> 
+> Reported-by: Edward Baker <edward.baker@intel.com>
+> Fixes: 043cd2d14ede ("drm/i915/gt: Leave rps->cur_freq on unpark")
+> Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+> Cc: Edward Baker <edward.baker@intel.com>
+> Cc: Andi Shyti <andi.shyti@intel.com>
+> Cc: Lyude Paul <lyude@redhat.com>
+> Cc: <stable@vger.kernel.org> # v5.8+
+> ---
+>  drivers/gpu/drm/i915/gt/intel_rps.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/i915/gt/intel_rps.c b/drivers/gpu/drm/i915/gt/intel_rps.c
+> index b13e7845d483..f74d5e09e176 100644
+> --- a/drivers/gpu/drm/i915/gt/intel_rps.c
+> +++ b/drivers/gpu/drm/i915/gt/intel_rps.c
+> @@ -907,6 +907,10 @@ void intel_rps_park(struct intel_rps *rps)
+>  		adj = -2;
+>  	rps->last_adj = adj;
+>  	rps->cur_freq = max_t(int, rps->cur_freq + adj, rps->min_freq);
+> +	if (rps->cur_freq < rps->efficient_freq) {
+> +		rps->cur_freq = rps->efficient_freq;
+> +		rps->last_adj = 0;
 
-dsm and vgaswitcheroo are candidates as well. They are on the fine line
-between platform interface and display specific. acpi_video is under
-display, so dsm seems apt as well.
+this is indeed the smallest fix we can propagate:
 
-Reviewed-by: Chris Wilson <chris@chris-wilson.co.uk>
--Chris
+
+Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+
+but I wonder now if we couldn't simply kill the last_adj now and always go
+with the rpe on park/unpark
+
+> +	}
+>  
+>  	GT_TRACE(rps_to_gt(rps), "park:%x\n", rps->cur_freq);
+>  }
+> -- 
+> 2.20.1
+> 
+> _______________________________________________
+> Intel-gfx mailing list
+> Intel-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/intel-gfx
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
