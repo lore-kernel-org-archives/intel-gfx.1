@@ -2,65 +2,56 @@ Return-Path: <SRS0=tBxe=E6=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
+X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E0FD6C2D0E4
-	for <intel-gfx@archiver.kernel.org>; Tue, 24 Nov 2020 15:03:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 70080C2D0E4
+	for <intel-gfx@archiver.kernel.org>; Tue, 24 Nov 2020 15:12:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6956820757
-	for <intel-gfx@archiver.kernel.org>; Tue, 24 Nov 2020 15:03:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6956820757
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=glidos.net
+	by mail.kernel.org (Postfix) with ESMTPS id D63CF206F9
+	for <intel-gfx@archiver.kernel.org>; Tue, 24 Nov 2020 15:12:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D63CF206F9
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DEDC06E41D;
-	Tue, 24 Nov 2020 15:03:57 +0000 (UTC)
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
- [209.85.128.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 428826E41D
- for <intel-gfx@lists.freedesktop.org>; Tue, 24 Nov 2020 15:03:57 +0000 (UTC)
-Received: by mail-wm1-f43.google.com with SMTP id h21so3204108wmb.2
- for <intel-gfx@lists.freedesktop.org>; Tue, 24 Nov 2020 07:03:57 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=CAaUJ0P0Kks1VZG/gOwRO3Xjw22umLBNPDQChD/VqsU=;
- b=uOY6s0Rmh10byvR8EZ1dDGf1Mu/TJ1+CuA5RFpc+FrS8MQuntBtGDHrIxmkV+03UQb
- BVCEqWYjqjmFgZDhuWZ7O9FT3oy5zSy7Euk7fqgjS49/X8nb6vVqhHpAY8wYmKvjlxVf
- SBcb3qLh6mivVODGK50rYUHRFoi4m6k/y1ddtnT/bdadv59XiPJRTq379z0NIKm5khEK
- Qtdbf5tXA1To1HQqgRH0xcsmTtl15ZkA073r4ytvH8H/J8yFOgN3ppsiGbcEnnDsalhB
- wzIzuFxuNinafQjTv5ypvZrrZ/VaQe+ReHSavHyk0Oeq4J51dVqQTEfFyz24Y74u+ez5
- Dd+w==
-X-Gm-Message-State: AOAM530Q8PeSjaQx3666OBf6XligFKRXeavoSUEtauyxHQcRrDXXEDWB
- wnHpZdppAdPP+VZIcEdPWHZaCD1gojA=
-X-Google-Smtp-Source: ABdhPJw/zgFI+pWUopWUTUl4n69dNQqvjJfsPTar3oxSOQVIW1FTUjOPGyXEKtRm9FN+mguKrJeDaQ==
-X-Received: by 2002:a1c:f717:: with SMTP id v23mr4870654wmh.89.1606230235201; 
- Tue, 24 Nov 2020 07:03:55 -0800 (PST)
-Received: from [10.0.0.21] (smtp.glidos.net. [82.69.85.168])
- by smtp.gmail.com with ESMTPSA id 17sm8177687wma.3.2020.11.24.07.03.54
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 24 Nov 2020 07:03:54 -0800 (PST)
-To: Jani Nikula <jani.nikula@linux.intel.com>, intel-gfx@lists.freedesktop.org
-References: <ac472118-be43-dc8d-87a3-c4d17c9d9f26@glidos.net>
- <87sg98ox2i.fsf@intel.com> <d89b2287-51dc-87a5-4e38-022b0b8da648@glidos.net>
- <87v9dwm4fy.fsf@intel.com>
-From: Paul Gardiner <lists@glidos.net>
-Message-ID: <8705b7e4-9dba-1496-fdbb-15016be15fe6@glidos.net>
-Date: Tue, 24 Nov 2020 15:03:54 +0000
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.5.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3370A6E424;
+	Tue, 24 Nov 2020 15:12:44 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F015A6E424
+ for <intel-gfx@lists.freedesktop.org>; Tue, 24 Nov 2020 15:12:42 +0000 (UTC)
+IronPort-SDR: NIBAmmRBQxxXhjN8wWX/sRgjUsQmFEb8IVHh+RbhJSAUleXBTh3FqnaSrx2Id18a/cwlildkf9
+ kCLA3RRmLdVw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9815"; a="159002376"
+X-IronPort-AV: E=Sophos;i="5.78,366,1599548400"; d="scan'208";a="159002376"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Nov 2020 07:12:42 -0800
+IronPort-SDR: WnatqVi4rapNsIuvQiylY9rtW8g3+dHMK2ZqAv3twUva6/ZY8jn3UTyCsUr2liHuUQKxFbveQ/
+ uexuQfYxyLBw==
+X-IronPort-AV: E=Sophos;i="5.78,366,1599548400"; d="scan'208";a="536502963"
+Received: from ideak-desk.fi.intel.com ([10.237.68.141])
+ by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Nov 2020 07:12:40 -0800
+Date: Tue, 24 Nov 2020 17:12:37 +0200
+From: Imre Deak <imre.deak@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+ Lakshminarayana Vudum <lakshminarayana.vudum@intel.com>
+Message-ID: <20201124151237.GE1750458@ideak-desk.fi.intel.com>
+References: <20201123182631.1740781-1-imre.deak@intel.com>
+ <160616667129.16919.10811690376260413336@emeril.freedesktop.org>
 MIME-Version: 1.0
-In-Reply-To: <87v9dwm4fy.fsf@intel.com>
-Content-Language: en-GB
-Subject: Re: [Intel-gfx] Does the intel driver support faking a connected
- monitor?
+Content-Disposition: inline
+In-Reply-To: <160616667129.16919.10811690376260413336@emeril.freedesktop.org>
+Subject: Re: [Intel-gfx] 
+ =?utf-8?b?4pyXIEZpLkNJLkJBVDogZmFpbHVyZSBmb3Igc2Vy?=
+ =?utf-8?q?ies_starting_with_=5B1/2=5D_drm/framebuffer=3A_Format_modifier_?=
+ =?utf-8?q?for_Intel_Gen_12_render_compression_with_Clear_Color?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,47 +64,160 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: imre.deak@intel.com
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 23/11/2020 16:19, Jani Nikula wrote:
-> On Sat, 21 Nov 2020, Paul Gardiner <lists@glidos.net> wrote:
->> On 17/11/2020 14:52, Jani Nikula wrote:
->>> On Thu, 29 Oct 2020, Paul Gardiner <lists@glidos.net> wrote:
->>>> I use an open source DVR called MythTV. I've just swapped from using
->>>> nvidia graphics to intel graphics. Generally it's working great, but
->>>> I've run into one thing I used to do with the old system that I cannot
->>>> find out how to achieve with the new.
->>>>
->>>> MythTV doesn't currently entirely handle starting without a TV
->>>> connected. With nvidia graphics I could specify, within the X config,
->>>> the "ConnectMonitor" and "CustomEDID" options to fool MythTV into
->>>> thinking there was a TV. With intel graphics I can load EDID, but so far
->>>> I haven't discovered an equivalent of the "ConnectedMonitor" option.
->>>
->>> Sorry for the delay, I seem to have missed this.
->>>
->>> Please try a kernel command-line parameter to force enable the
->>> connector.
->>>
->>> video=TV-1:e
->>>
->>> Assuming the connector name is "TV-1"; replace with whatever you have.
->>
->>
->> Thanks for the reply. I gave that a try, in my case "video=HDMI1:e", but
->> saw no difference. That's KMS, right? Is there anything I might have
->> failed to install or enable that KMS relies on? Are there any logs I
->> should monitor?
-> 
-> I think it should probably be HDMI-1 with the hyphen; is that a typo
-> above or in the command line you used?
+Hi,
 
-Thanks for the continued help. I tried "video=HDMI1:e" because my Xorg 
-log listed outputs HDMI1, HDMI2, DP1 and VIRTUAL1. I've now tried 
-"video=HDMI-1:e", but still no luck.
+On Mon, Nov 23, 2020 at 09:24:31PM +0000, Patchwork wrote:
+> == Series Details ==
+> 
+> Series: series starting with [1/2] drm/framebuffer: Format modifier for Intel Gen 12 render compression with Clear Color
+> URL   : https://patchwork.freedesktop.org/series/84183/
+> State : failure
+> 
+> == Summary ==
+> 
+> CI Bug Log - changes from CI_DRM_9378 -> Patchwork_18961
+> ====================================================
+> 
+> Summary
+> -------
+> 
+>   **FAILURE**
+> 
+>   Serious unknown changes coming with Patchwork_18961 absolutely need to be
+>   verified manually.
+>   
+>   If you think the reported changes have nothing to do with the changes
+>   introduced in Patchwork_18961, please notify your bug team to allow them
+>   to document this new failure mode, which will reduce false positives in CI.
+> 
+>   External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18961/index.html
+> 
+> Possible new issues
+> -------------------
+> 
+>   Here are the unknown changes that may have been introduced in Patchwork_18961:
+> 
+> ### IGT changes ###
+> 
+> #### Possible regressions ####
+> 
+>   * igt@gem_exec_fence@basic-await@rcs0:
+>     - fi-skl-lmem:        [PASS][1] -> [INCOMPLETE][2]
+>    [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9378/fi-skl-lmem/igt@gem_exec_fence@basic-await@rcs0.html
+>    [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18961/fi-skl-lmem/igt@gem_exec_fence@basic-await@rcs0.html
+> 
+>   * igt@kms_chamelium@common-hpd-after-suspend:
+>     - fi-kbl-7500u:       [PASS][3] -> [FAIL][4]
+>    [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9378/fi-kbl-7500u/igt@kms_chamelium@common-hpd-after-suspend.html
+>    [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18961/fi-kbl-7500u/igt@kms_chamelium@common-hpd-after-suspend.html
+
+the patchset adds a new framebuffer modifier used only on TGL, so the
+above two failures happen on unaffected platforms.
+
+> 
+>   
+> New tests
+> ---------
+> 
+>   New tests have been introduced between CI_DRM_9378 and Patchwork_18961:
+> 
+> ### New CI tests (1) ###
+> 
+>   * boot:
+>     - Statuses : 40 pass(s)
+>     - Exec time: [0.0] s
+> 
+>   
+> 
+> Known issues
+> ------------
+> 
+>   Here are the changes found in Patchwork_18961 that come from known issues:
+> 
+> ### IGT changes ###
+> 
+> #### Issues hit ####
+> 
+>   * igt@kms_busy@basic@flip:
+>     - fi-tgl-y:           [PASS][5] -> [DMESG-WARN][6] ([i915#1982]) +1 similar issue
+>    [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9378/fi-tgl-y/igt@kms_busy@basic@flip.html
+>    [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18961/fi-tgl-y/igt@kms_busy@basic@flip.html
+> 
+>   * igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy:
+>     - fi-icl-u2:          [PASS][7] -> [DMESG-WARN][8] ([i915#1982]) +1 similar issue
+>    [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9378/fi-icl-u2/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy.html
+>    [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18961/fi-icl-u2/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy.html
+> 
+>   * igt@prime_self_import@basic-with_one_bo_two_files:
+>     - fi-tgl-y:           [PASS][9] -> [DMESG-WARN][10] ([i915#402]) +1 similar issue
+>    [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9378/fi-tgl-y/igt@prime_self_import@basic-with_one_bo_two_files.html
+>    [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18961/fi-tgl-y/igt@prime_self_import@basic-with_one_bo_two_files.html
+> 
+>   
+> #### Possible fixes ####
+> 
+>   * igt@kms_busy@basic@modeset:
+>     - fi-tgl-y:           [DMESG-WARN][11] ([i915#1982]) -> [PASS][12] +1 similar issue
+>    [11]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9378/fi-tgl-y/igt@kms_busy@basic@modeset.html
+>    [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18961/fi-tgl-y/igt@kms_busy@basic@modeset.html
+> 
+>   * igt@kms_cursor_legacy@basic-busy-flip-before-cursor-atomic:
+>     - fi-byt-j1900:       [DMESG-WARN][13] ([i915#1982]) -> [PASS][14] +1 similar issue
+>    [13]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9378/fi-byt-j1900/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-atomic.html
+>    [14]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18961/fi-byt-j1900/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-atomic.html
+>     - {fi-kbl-7560u}:     [DMESG-WARN][15] ([i915#1982]) -> [PASS][16]
+>    [15]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9378/fi-kbl-7560u/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-atomic.html
+>    [16]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18961/fi-kbl-7560u/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-atomic.html
+> 
+>   * igt@kms_cursor_legacy@basic-flip-after-cursor-legacy:
+>     - fi-icl-u2:          [DMESG-WARN][17] ([i915#1982]) -> [PASS][18]
+>    [17]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9378/fi-icl-u2/igt@kms_cursor_legacy@basic-flip-after-cursor-legacy.html
+>    [18]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18961/fi-icl-u2/igt@kms_cursor_legacy@basic-flip-after-cursor-legacy.html
+> 
+>   * igt@prime_vgem@basic-write:
+>     - fi-tgl-y:           [DMESG-WARN][19] ([i915#402]) -> [PASS][20] +1 similar issue
+>    [19]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9378/fi-tgl-y/igt@prime_vgem@basic-write.html
+>    [20]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18961/fi-tgl-y/igt@prime_vgem@basic-write.html
+> 
+>   
+>   {name}: This element is suppressed. This means it is ignored when computing
+>           the status of the difference (SUCCESS, WARNING, or FAILURE).
+> 
+>   [i915#1982]: https://gitlab.freedesktop.org/drm/intel/issues/1982
+>   [i915#402]: https://gitlab.freedesktop.org/drm/intel/issues/402
+> 
+> 
+> Participating hosts (44 -> 40)
+> ------------------------------
+> 
+>   Missing    (4): fi-ilk-m540 fi-bsw-cyan fi-bdw-samus fi-hsw-4200u 
+> 
+> 
+> Build changes
+> -------------
+> 
+>   * Linux: CI_DRM_9378 -> Patchwork_18961
+> 
+>   CI-20190529: 20190529
+>   CI_DRM_9378: efc7f880143d6fe75922ad393045665c8ea60f57 @ git://anongit.freedesktop.org/gfx-ci/linux
+>   IGT_5868: 36b5fc05c30dbfd9242069fd6e51ebb419b386bc @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools
+>   Patchwork_18961: 0dba847db9d24c6d2d706379ac2f842b8f4a6bdb @ git://anongit.freedesktop.org/gfx-ci/linux
+> 
+> 
+> == Linux commits ==
+> 
+> 0dba847db9d2 drm/i915/tgl: Add Clear Color support for TGL Render Decompression
+> a3b4d1336125 drm/framebuffer: Format modifier for Intel Gen 12 render compression with Clear Color
+> 
+> == Logs ==
+> 
+> For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18961/index.html
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
