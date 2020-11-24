@@ -2,58 +2,35 @@ Return-Path: <SRS0=W/nN=E7=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CF7FBC63798
-	for <intel-gfx@archiver.kernel.org>; Wed, 25 Nov 2020 06:26:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D7BEEC6379D
+	for <intel-gfx@archiver.kernel.org>; Wed, 25 Nov 2020 06:26:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5E8F62075A
-	for <intel-gfx@archiver.kernel.org>; Wed, 25 Nov 2020 06:26:35 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PLHqMkuV"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5E8F62075A
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 69A6C2075A
+	for <intel-gfx@archiver.kernel.org>; Wed, 25 Nov 2020 06:26:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 69A6C2075A
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=telegraphics.com.au
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F43D6E82B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB8E06E822;
 	Wed, 25 Nov 2020 06:26:29 +0000 (UTC)
-Received: from mail-qk1-x741.google.com (mail-qk1-x741.google.com
- [IPv6:2607:f8b0:4864:20::741])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C05A6E7D7;
- Wed, 25 Nov 2020 01:06:01 +0000 (UTC)
-Received: by mail-qk1-x741.google.com with SMTP id n132so1550177qke.1;
- Tue, 24 Nov 2020 17:06:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=44pFzPZOXy9WMyxuVZ4PJwmHwfPvC91GWhNSdpkVBXk=;
- b=PLHqMkuVQ6uE1aGa3jPkk7oL0rd2+0aQGjbXwXCM1BqpOEf5R6gUmrb1tTrj75nDjD
- aG6VHTDP2JdODJ/e29C1vfEMjWhTPlycM3mNfL2JW5BhFtstP0di/Kwb3XYGnsRoKRp5
- 7FVJzAE2cPEDrpLIYX3jwoIfPno8H9ArdOwpkc9HelZA+M7Eq52S4RmPBHauFrK9tfW3
- 8wrBLWN/Mq7Fl9GTodmgwwudDuqrVUSiSILvkeQCl7qFs3/IjbI7/AG3m5iLRdEEw+2H
- RzsA5+EdKfz0DIt5iJKomdRqiV67cH8ZcnWPF2PnARf/ANxCrT7QZJCkY0VU2DrQ9d/L
- oW2A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=44pFzPZOXy9WMyxuVZ4PJwmHwfPvC91GWhNSdpkVBXk=;
- b=qTrX6VNxko+W8fOmAWKwicYaYontSNxZdASRHqaKX7rJ9CpVUzERvFtA42K9l7cM14
- ya9w+Dg+wgjfId1XnPUVGIAJ+VHDCudhwUdfh/4GQzv238W29WS7rVdN0bErOG4LxBWM
- cco3IDBQiurZwCGzB0QzqX4C+YgQA3laeb3ZHcqrbwPax48LKpjvNWV/vgjPCaPzyRRW
- dkKNQoH3g6jL9vQbBR/swrJA9gF8W2nh7+AHjaqkp7zSx8j2DWLknjdneP1+DOjQHfkU
- Hb4JlD2P5B8PlIvhIL2EZQFx8uxMHrxRjbvZN6yOYmfpuQbHAkWHfwUe6WCsPibkcFtS
- CDzQ==
-X-Gm-Message-State: AOAM532PuXLzydXiiisiMW7NLxS7dlQp/TbdsJwJS5RH1IGmFa2ik4sS
- M0DzKUwKkudHWSR5/P/0wO7CPzauSvKGDWzcJJ8=
-X-Google-Smtp-Source: ABdhPJxG2tW9FM1fAqThCcvqKAPI/OeE1R4V2//A8ePZuSketjr0yKUxoxj6t2hcKlYt9sKRSewQcSyhG/w+5cGdzqU=
-X-Received: by 2002:a25:aac5:: with SMTP id t63mr1046305ybi.22.1606266360499; 
- Tue, 24 Nov 2020 17:06:00 -0800 (PST)
-MIME-Version: 1.0
+Received: from kvm5.telegraphics.com.au (kvm5.telegraphics.com.au
+ [98.124.60.144])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 50FAE6E5CA;
+ Tue, 24 Nov 2020 23:53:17 +0000 (UTC)
+Received: from localhost (localhost.localdomain [127.0.0.1])
+ by kvm5.telegraphics.com.au (Postfix) with ESMTP id DCBBC2AA63;
+ Tue, 24 Nov 2020 18:53:13 -0500 (EST)
+Date: Wed, 25 Nov 2020 10:53:13 +1100 (AEDT)
+From: Finn Thain <fthain@telegraphics.com.au>
+To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+In-Reply-To: <CANiq72nUt57u5DG9rH=DB0DzQH7U6-QbG-2Ou+PyCY=p=_Ggag@mail.gmail.com>
+Message-ID: <alpine.LNX.2.23.453.2011251022550.14@nippy.intranet>
 References: <202011201129.B13FDB3C@keescook>
  <20201120115142.292999b2@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
  <202011220816.8B6591A@keescook>
@@ -67,12 +44,7 @@ References: <202011201129.B13FDB3C@keescook>
  <202011241327.BB28F12F6@keescook>
  <alpine.LNX.2.23.453.2011250859290.15@nippy.intranet>
  <CANiq72nUt57u5DG9rH=DB0DzQH7U6-QbG-2Ou+PyCY=p=_Ggag@mail.gmail.com>
- <alpine.LNX.2.23.453.2011251022550.14@nippy.intranet>
-In-Reply-To: <alpine.LNX.2.23.453.2011251022550.14@nippy.intranet>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Wed, 25 Nov 2020 02:05:49 +0100
-Message-ID: <CANiq72m2kGxSy2E9jgYE4_xRV6h9rFqiJP25KXs_5ObYnH_nmA@mail.gmail.com>
-To: Finn Thain <fthain@telegraphics.com.au>
+MIME-Version: 1.0
 X-Mailman-Approved-At: Wed, 25 Nov 2020 06:26:28 +0000
 Subject: Re: [Intel-gfx] [Intel-wired-lan] [PATCH 000/141] Fix fall-through
  warnings for Clang
@@ -138,42 +110,34 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Nov 25, 2020 at 12:53 AM Finn Thain <fthain@telegraphics.com.au> wrote:
->
-> I'm saying that supporting the official language spec makes more sense
-> than attempting to support a multitude of divergent interpretations of the
-> spec (i.e. gcc, clang, coverity etc.)
 
-Making the kernel strictly conforming is a ship that sailed long ago,
-for several reasons. Anyway, supporting several compilers and other
-tools, regardless of extensions, is valuable.
+On Wed, 25 Nov 2020, Miguel Ojeda wrote:
 
-> I'm also saying that the reason why we use -std=gnu89 is that existing
-> code was written in that language, not in ad hoc languages comprised of
-> collections of extensions that change with every release.
+> 
+> The C standard has nothing to do with this. We use compiler extensions 
+> of several kinds, for many years. Even discounting those extensions, the 
+> kernel is not even conforming to C due to e.g. strict aliasing. I am not 
+> sure what you are trying to argue here.
+> 
 
-No, we aren't particularly tied to `gnu89` or anything like that. We
-could actually go for `gnu11` already, since the minimum GCC and Clang
-support it. Even if a bit of code needs fixing, that shouldn't be a
-problem if someone puts the work.
+I'm saying that supporting the official language spec makes more sense 
+than attempting to support a multitude of divergent interpretations of the 
+spec (i.e. gcc, clang, coverity etc.)
 
-In other words, the kernel code is not frozen, nor are the features it
-uses from compilers. They do, in fact, change from time to time.
+I'm also saying that the reason why we use -std=gnu89 is that existing 
+code was written in that language, not in ad hoc languages comprised of 
+collections of extensions that change with every release.
 
-> Thank you for checking. I found a free version that's only 6 weeks old:
+> But, since you insist: yes, the `fallthrough` attribute is in the 
+> current C2x draft.
+> 
 
-You're welcome! There are quite a few new attributes coming, mostly
-following C++ ones.
+Thank you for checking. I found a free version that's only 6 weeks old:
 
-> It will be interesting to see whether 6.7.11.5 changes once the various
-> implementations reach agreement.
+http://www.open-std.org/jtc1/sc22/wg14/www/docs/n2583.pdf
 
-Not sure what you mean. The standard does not evolve through
-implementations' agreement (although standardizing existing practice
-is one of the best arguments to back a change).
-
-Cheers,
-Miguel
+It will be interesting to see whether 6.7.11.5 changes once the various 
+implementations reach agreement.
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
