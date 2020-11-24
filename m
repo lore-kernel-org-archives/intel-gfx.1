@@ -2,56 +2,56 @@ Return-Path: <SRS0=tBxe=E6=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-15.2 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 70080C2D0E4
-	for <intel-gfx@archiver.kernel.org>; Tue, 24 Nov 2020 15:12:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DB890C56201
+	for <intel-gfx@archiver.kernel.org>; Tue, 24 Nov 2020 15:16:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D63CF206F9
-	for <intel-gfx@archiver.kernel.org>; Tue, 24 Nov 2020 15:12:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D63CF206F9
+	by mail.kernel.org (Postfix) with ESMTPS id 6FB84206D5
+	for <intel-gfx@archiver.kernel.org>; Tue, 24 Nov 2020 15:16:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6FB84206D5
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3370A6E424;
-	Tue, 24 Nov 2020 15:12:44 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F015A6E424
- for <intel-gfx@lists.freedesktop.org>; Tue, 24 Nov 2020 15:12:42 +0000 (UTC)
-IronPort-SDR: NIBAmmRBQxxXhjN8wWX/sRgjUsQmFEb8IVHh+RbhJSAUleXBTh3FqnaSrx2Id18a/cwlildkf9
- kCLA3RRmLdVw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9815"; a="159002376"
-X-IronPort-AV: E=Sophos;i="5.78,366,1599548400"; d="scan'208";a="159002376"
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE8C26E3E5;
+	Tue, 24 Nov 2020 15:16:33 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B32156E223;
+ Tue, 24 Nov 2020 15:16:32 +0000 (UTC)
+IronPort-SDR: bNaNksPXpX5RSs8D2BaaJgQcFeZir8joPNVm+SD/bcIC71x7/oEWPpRACZYBbalfrj43HXVDXw
+ cC7nGP3ec+Bw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9815"; a="172058277"
+X-IronPort-AV: E=Sophos;i="5.78,366,1599548400"; d="scan'208";a="172058277"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Nov 2020 07:12:42 -0800
-IronPort-SDR: WnatqVi4rapNsIuvQiylY9rtW8g3+dHMK2ZqAv3twUva6/ZY8jn3UTyCsUr2liHuUQKxFbveQ/
- uexuQfYxyLBw==
-X-IronPort-AV: E=Sophos;i="5.78,366,1599548400"; d="scan'208";a="536502963"
-Received: from ideak-desk.fi.intel.com ([10.237.68.141])
- by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Nov 2020 07:12:40 -0800
-Date: Tue, 24 Nov 2020 17:12:37 +0200
-From: Imre Deak <imre.deak@intel.com>
-To: intel-gfx@lists.freedesktop.org,
- Lakshminarayana Vudum <lakshminarayana.vudum@intel.com>
-Message-ID: <20201124151237.GE1750458@ideak-desk.fi.intel.com>
-References: <20201123182631.1740781-1-imre.deak@intel.com>
- <160616667129.16919.10811690376260413336@emeril.freedesktop.org>
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Nov 2020 07:16:31 -0800
+IronPort-SDR: 5/fS5LVCr5rlANU0+TAPWHPnhmk/wLl5HTEMX5jI3tLc8el784davKgqITkK8SNWQn77JG+Or5
+ osNrTvQVkRtw==
+X-IronPort-AV: E=Sophos;i="5.78,366,1599548400"; d="scan'208";a="534893926"
+Received: from genxfsim-desktop.iind.intel.com (HELO intel.com)
+ ([10.223.74.178])
+ by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Nov 2020 07:16:29 -0800
+Date: Tue, 24 Nov 2020 20:32:43 +0530
+From: Anshuman Gupta <anshuman.gupta@intel.com>
+To: Ramalingam C <ramalingam.c@intel.com>
+Message-ID: <20201124150243.GG13853@intel.com>
+References: <20201111062051.11529-1-anshuman.gupta@intel.com>
+ <20201111062051.11529-9-anshuman.gupta@intel.com>
+ <20201124142017.GB25283@intel.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <160616667129.16919.10811690376260413336@emeril.freedesktop.org>
-Subject: Re: [Intel-gfx] 
- =?utf-8?b?4pyXIEZpLkNJLkJBVDogZmFpbHVyZSBmb3Igc2Vy?=
- =?utf-8?q?ies_starting_with_=5B1/2=5D_drm/framebuffer=3A_Format_modifier_?=
- =?utf-8?q?for_Intel_Gen_12_render_compression_with_Clear_Color?=
+In-Reply-To: <20201124142017.GB25283@intel.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+Subject: Re: [Intel-gfx] [PATCH v5 08/17] drm/i915/hdcp: Enable Gen12 HDCP
+ 1.4 DP MST support
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,160 +64,56 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: imre.deak@intel.com
+Cc: jani.nikula@intel.com, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, seanpaul@chromium.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi,
-
-On Mon, Nov 23, 2020 at 09:24:31PM +0000, Patchwork wrote:
-> == Series Details ==
+On 2020-11-24 at 19:50:17 +0530, Ramalingam C wrote:
+> On 2020-11-11 at 11:50:42 +0530, Anshuman Gupta wrote:
+> > Enable HDCP 1.4 over DP MST for Gen12.
+> > 
+> > Cc: Ramalingam C <ramalingam.c@intel.com>
+> > Signed-off-by: Anshuman Gupta <anshuman.gupta@intel.com>
+> > ---
+> >  drivers/gpu/drm/i915/display/intel_dp_mst.c | 10 +++-------
+> >  1 file changed, 3 insertions(+), 7 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+> > index 16865b200062..f00e12fc83e8 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+> > @@ -826,13 +826,9 @@ static struct drm_connector *intel_dp_add_mst_connector(struct drm_dp_mst_topolo
+> >  	intel_attach_force_audio_property(connector);
+> >  	intel_attach_broadcast_rgb_property(connector);
+> >  
+> > -
+> > -	/* TODO: Figure out how to make HDCP work on GEN12+ */
+> > -	if (INTEL_GEN(dev_priv) < 12) {
+> Just a thought, shouldn't we enable for the platforms that we have
+> tested HDCP? like <= 12. 
 > 
-> Series: series starting with [1/2] drm/framebuffer: Format modifier for Intel Gen 12 render compression with Clear Color
-> URL   : https://patchwork.freedesktop.org/series/84183/
-> State : failure
+> We could keep expanding the list supported.
+thanks for comment, i will keep this as if (INTEL_GEN(dev_priv) < 12)
+Thanks,
+Anshuman
 > 
-> == Summary ==
-> 
-> CI Bug Log - changes from CI_DRM_9378 -> Patchwork_18961
-> ====================================================
-> 
-> Summary
-> -------
-> 
->   **FAILURE**
-> 
->   Serious unknown changes coming with Patchwork_18961 absolutely need to be
->   verified manually.
->   
->   If you think the reported changes have nothing to do with the changes
->   introduced in Patchwork_18961, please notify your bug team to allow them
->   to document this new failure mode, which will reduce false positives in CI.
-> 
->   External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18961/index.html
-> 
-> Possible new issues
-> -------------------
-> 
->   Here are the unknown changes that may have been introduced in Patchwork_18961:
-> 
-> ### IGT changes ###
-> 
-> #### Possible regressions ####
-> 
->   * igt@gem_exec_fence@basic-await@rcs0:
->     - fi-skl-lmem:        [PASS][1] -> [INCOMPLETE][2]
->    [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9378/fi-skl-lmem/igt@gem_exec_fence@basic-await@rcs0.html
->    [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18961/fi-skl-lmem/igt@gem_exec_fence@basic-await@rcs0.html
-> 
->   * igt@kms_chamelium@common-hpd-after-suspend:
->     - fi-kbl-7500u:       [PASS][3] -> [FAIL][4]
->    [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9378/fi-kbl-7500u/igt@kms_chamelium@common-hpd-after-suspend.html
->    [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18961/fi-kbl-7500u/igt@kms_chamelium@common-hpd-after-suspend.html
-
-the patchset adds a new framebuffer modifier used only on TGL, so the
-above two failures happen on unaffected platforms.
-
-> 
->   
-> New tests
-> ---------
-> 
->   New tests have been introduced between CI_DRM_9378 and Patchwork_18961:
-> 
-> ### New CI tests (1) ###
-> 
->   * boot:
->     - Statuses : 40 pass(s)
->     - Exec time: [0.0] s
-> 
->   
-> 
-> Known issues
-> ------------
-> 
->   Here are the changes found in Patchwork_18961 that come from known issues:
-> 
-> ### IGT changes ###
-> 
-> #### Issues hit ####
-> 
->   * igt@kms_busy@basic@flip:
->     - fi-tgl-y:           [PASS][5] -> [DMESG-WARN][6] ([i915#1982]) +1 similar issue
->    [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9378/fi-tgl-y/igt@kms_busy@basic@flip.html
->    [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18961/fi-tgl-y/igt@kms_busy@basic@flip.html
-> 
->   * igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy:
->     - fi-icl-u2:          [PASS][7] -> [DMESG-WARN][8] ([i915#1982]) +1 similar issue
->    [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9378/fi-icl-u2/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy.html
->    [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18961/fi-icl-u2/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy.html
-> 
->   * igt@prime_self_import@basic-with_one_bo_two_files:
->     - fi-tgl-y:           [PASS][9] -> [DMESG-WARN][10] ([i915#402]) +1 similar issue
->    [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9378/fi-tgl-y/igt@prime_self_import@basic-with_one_bo_two_files.html
->    [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18961/fi-tgl-y/igt@prime_self_import@basic-with_one_bo_two_files.html
-> 
->   
-> #### Possible fixes ####
-> 
->   * igt@kms_busy@basic@modeset:
->     - fi-tgl-y:           [DMESG-WARN][11] ([i915#1982]) -> [PASS][12] +1 similar issue
->    [11]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9378/fi-tgl-y/igt@kms_busy@basic@modeset.html
->    [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18961/fi-tgl-y/igt@kms_busy@basic@modeset.html
-> 
->   * igt@kms_cursor_legacy@basic-busy-flip-before-cursor-atomic:
->     - fi-byt-j1900:       [DMESG-WARN][13] ([i915#1982]) -> [PASS][14] +1 similar issue
->    [13]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9378/fi-byt-j1900/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-atomic.html
->    [14]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18961/fi-byt-j1900/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-atomic.html
->     - {fi-kbl-7560u}:     [DMESG-WARN][15] ([i915#1982]) -> [PASS][16]
->    [15]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9378/fi-kbl-7560u/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-atomic.html
->    [16]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18961/fi-kbl-7560u/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-atomic.html
-> 
->   * igt@kms_cursor_legacy@basic-flip-after-cursor-legacy:
->     - fi-icl-u2:          [DMESG-WARN][17] ([i915#1982]) -> [PASS][18]
->    [17]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9378/fi-icl-u2/igt@kms_cursor_legacy@basic-flip-after-cursor-legacy.html
->    [18]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18961/fi-icl-u2/igt@kms_cursor_legacy@basic-flip-after-cursor-legacy.html
-> 
->   * igt@prime_vgem@basic-write:
->     - fi-tgl-y:           [DMESG-WARN][19] ([i915#402]) -> [PASS][20] +1 similar issue
->    [19]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9378/fi-tgl-y/igt@prime_vgem@basic-write.html
->    [20]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18961/fi-tgl-y/igt@prime_vgem@basic-write.html
-> 
->   
->   {name}: This element is suppressed. This means it is ignored when computing
->           the status of the difference (SUCCESS, WARNING, or FAILURE).
-> 
->   [i915#1982]: https://gitlab.freedesktop.org/drm/intel/issues/1982
->   [i915#402]: https://gitlab.freedesktop.org/drm/intel/issues/402
-> 
-> 
-> Participating hosts (44 -> 40)
-> ------------------------------
-> 
->   Missing    (4): fi-ilk-m540 fi-bsw-cyan fi-bdw-samus fi-hsw-4200u 
-> 
-> 
-> Build changes
-> -------------
-> 
->   * Linux: CI_DRM_9378 -> Patchwork_18961
-> 
->   CI-20190529: 20190529
->   CI_DRM_9378: efc7f880143d6fe75922ad393045665c8ea60f57 @ git://anongit.freedesktop.org/gfx-ci/linux
->   IGT_5868: 36b5fc05c30dbfd9242069fd6e51ebb419b386bc @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools
->   Patchwork_18961: 0dba847db9d24c6d2d706379ac2f842b8f4a6bdb @ git://anongit.freedesktop.org/gfx-ci/linux
-> 
-> 
-> == Linux commits ==
-> 
-> 0dba847db9d2 drm/i915/tgl: Add Clear Color support for TGL Render Decompression
-> a3b4d1336125 drm/framebuffer: Format modifier for Intel Gen 12 render compression with Clear Color
-> 
-> == Logs ==
-> 
-> For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_18961/index.html
+> Ram.
+> > -		ret = intel_dp_init_hdcp(dig_port, intel_connector);
+> > -		if (ret)
+> > -			DRM_DEBUG_KMS("HDCP init failed, skipping.\n");
+> > -	}
+> > +	ret = intel_dp_init_hdcp(dig_port, intel_connector);
+> > +	if (ret)
+> > +		drm_dbg_kms(&dev_priv->drm, "HDCP init failed, skipping.\n");
+> >  
+> >  	/*
+> >  	 * Reuse the prop from the SST connector because we're
+> > -- 
+> > 2.26.2
+> > 
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
