@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E3C17C64E7A
-	for <intel-gfx@archiver.kernel.org>; Tue, 24 Nov 2020 11:39:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 60B4DC64E7C
+	for <intel-gfx@archiver.kernel.org>; Tue, 24 Nov 2020 11:39:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 800132083E
-	for <intel-gfx@archiver.kernel.org>; Tue, 24 Nov 2020 11:39:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 800132083E
+	by mail.kernel.org (Postfix) with ESMTPS id 09F33206D8
+	for <intel-gfx@archiver.kernel.org>; Tue, 24 Nov 2020 11:39:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 09F33206D8
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 54DC46E452;
-	Tue, 24 Nov 2020 11:38:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D2B616E448;
+	Tue, 24 Nov 2020 11:38:38 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 385316E284;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DCFE76E334;
  Tue, 24 Nov 2020 11:38:30 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 8DCE0ADC5;
- Tue, 24 Nov 2020 11:38:28 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 5F687AE38;
+ Tue, 24 Nov 2020 11:38:29 +0000 (UTC)
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: airlied@linux.ie,
 	daniel@ffwll.ch
-Date: Tue, 24 Nov 2020 12:38:17 +0100
-Message-Id: <20201124113824.19994-9-tzimmermann@suse.de>
+Date: Tue, 24 Nov 2020 12:38:21 +0100
+Message-Id: <20201124113824.19994-13-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.29.2
 In-Reply-To: <20201124113824.19994-1-tzimmermann@suse.de>
 References: <20201124113824.19994-1-tzimmermann@suse.de>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 08/15] drm/mgag200: Remove references to struct
- drm_device.pdev
+Subject: [Intel-gfx] [PATCH 12/15] drm/vboxvideo: Remove references to
+ struct drm_device.pdev
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,153 +59,153 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Using struct drm_device.pdev is deprecated. Convert mgag200 to struct
+Using struct drm_device.pdev is deprecated. Convert vboxvideo to struct
 drm_device.dev. No functional changes.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Hans de Goede <hdegoede@redhat.com>
 ---
- drivers/gpu/drm/mgag200/mgag200_drv.c | 20 +++++++++++---------
- drivers/gpu/drm/mgag200/mgag200_i2c.c |  2 +-
- drivers/gpu/drm/mgag200/mgag200_mm.c  | 10 ++++++----
- 3 files changed, 18 insertions(+), 14 deletions(-)
+ drivers/gpu/drm/vboxvideo/vbox_drv.c  | 11 ++++++-----
+ drivers/gpu/drm/vboxvideo/vbox_irq.c  |  4 +++-
+ drivers/gpu/drm/vboxvideo/vbox_main.c |  8 ++++++--
+ drivers/gpu/drm/vboxvideo/vbox_ttm.c  |  7 ++++---
+ 4 files changed, 19 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/mgag200/mgag200_drv.c b/drivers/gpu/drm/mgag200/mgag200_drv.c
-index a977c9f49719..4e4c105f9a50 100644
---- a/drivers/gpu/drm/mgag200/mgag200_drv.c
-+++ b/drivers/gpu/drm/mgag200/mgag200_drv.c
-@@ -47,10 +47,11 @@ static const struct drm_driver mgag200_driver = {
- static bool mgag200_has_sgram(struct mga_device *mdev)
+diff --git a/drivers/gpu/drm/vboxvideo/vbox_drv.c b/drivers/gpu/drm/vboxvideo/vbox_drv.c
+index f3eac72cb46e..e534896b6cfd 100644
+--- a/drivers/gpu/drm/vboxvideo/vbox_drv.c
++++ b/drivers/gpu/drm/vboxvideo/vbox_drv.c
+@@ -51,7 +51,6 @@ static int vbox_pci_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+ 	if (IS_ERR(vbox))
+ 		return PTR_ERR(vbox);
+ 
+-	vbox->ddev.pdev = pdev;
+ 	pci_set_drvdata(pdev, vbox);
+ 	mutex_init(&vbox->hw_mutex);
+ 
+@@ -109,15 +108,16 @@ static void vbox_pci_remove(struct pci_dev *pdev)
+ static int vbox_pm_suspend(struct device *dev)
  {
- 	struct drm_device *dev = &mdev->base;
-+	struct pci_dev *pdev = to_pci_dev(dev->dev);
- 	u32 option;
- 	int ret;
+ 	struct vbox_private *vbox = dev_get_drvdata(dev);
++	struct pci_dev *pdev = to_pci_dev(dev);
+ 	int error;
  
--	ret = pci_read_config_dword(dev->pdev, PCI_MGA_OPTION, &option);
-+	ret = pci_read_config_dword(pdev, PCI_MGA_OPTION, &option);
- 	if (drm_WARN(dev, ret, "failed to read PCI config dword: %d\n", ret))
- 		return false;
+ 	error = drm_mode_config_helper_suspend(&vbox->ddev);
+ 	if (error)
+ 		return error;
  
-@@ -60,6 +61,7 @@ static bool mgag200_has_sgram(struct mga_device *mdev)
- static int mgag200_regs_init(struct mga_device *mdev)
+-	pci_save_state(vbox->ddev.pdev);
+-	pci_disable_device(vbox->ddev.pdev);
+-	pci_set_power_state(vbox->ddev.pdev, PCI_D3hot);
++	pci_save_state(pdev);
++	pci_disable_device(pdev);
++	pci_set_power_state(pdev, PCI_D3hot);
+ 
+ 	return 0;
+ }
+@@ -125,8 +125,9 @@ static int vbox_pm_suspend(struct device *dev)
+ static int vbox_pm_resume(struct device *dev)
  {
- 	struct drm_device *dev = &mdev->base;
-+	struct pci_dev *pdev = to_pci_dev(dev->dev);
- 	u32 option, option2;
- 	u8 crtcext3;
+ 	struct vbox_private *vbox = dev_get_drvdata(dev);
++	struct pci_dev *pdev = to_pci_dev(dev);
  
-@@ -99,13 +101,13 @@ static int mgag200_regs_init(struct mga_device *mdev)
- 	}
+-	if (pci_enable_device(vbox->ddev.pdev))
++	if (pci_enable_device(pdev))
+ 		return -EIO;
  
- 	if (option)
--		pci_write_config_dword(dev->pdev, PCI_MGA_OPTION, option);
-+		pci_write_config_dword(pdev, PCI_MGA_OPTION, option);
- 	if (option2)
--		pci_write_config_dword(dev->pdev, PCI_MGA_OPTION2, option2);
-+		pci_write_config_dword(pdev, PCI_MGA_OPTION2, option2);
+ 	return drm_mode_config_helper_resume(&vbox->ddev);
+diff --git a/drivers/gpu/drm/vboxvideo/vbox_irq.c b/drivers/gpu/drm/vboxvideo/vbox_irq.c
+index 631657fa554f..b3ded68603ba 100644
+--- a/drivers/gpu/drm/vboxvideo/vbox_irq.c
++++ b/drivers/gpu/drm/vboxvideo/vbox_irq.c
+@@ -170,10 +170,12 @@ static void vbox_hotplug_worker(struct work_struct *work)
  
- 	/* BAR 1 contains registers */
--	mdev->rmmio_base = pci_resource_start(dev->pdev, 1);
--	mdev->rmmio_size = pci_resource_len(dev->pdev, 1);
-+	mdev->rmmio_base = pci_resource_start(pdev, 1);
-+	mdev->rmmio_size = pci_resource_len(pdev, 1);
- 
- 	if (!devm_request_mem_region(dev->dev, mdev->rmmio_base,
- 				     mdev->rmmio_size, "mgadrmfb_mmio")) {
-@@ -113,7 +115,7 @@ static int mgag200_regs_init(struct mga_device *mdev)
- 		return -ENOMEM;
- 	}
- 
--	mdev->rmmio = pcim_iomap(dev->pdev, 1, 0);
-+	mdev->rmmio = pcim_iomap(pdev, 1, 0);
- 	if (mdev->rmmio == NULL)
- 		return -ENOMEM;
- 
-@@ -218,6 +220,7 @@ static void mgag200_g200_interpret_bios(struct mga_device *mdev,
- static void mgag200_g200_init_refclk(struct mga_device *mdev)
+ int vbox_irq_init(struct vbox_private *vbox)
  {
- 	struct drm_device *dev = &mdev->base;
-+	struct pci_dev *pdev = to_pci_dev(dev->dev);
- 	unsigned char __iomem *rom;
- 	unsigned char *bios;
- 	size_t size;
-@@ -226,7 +229,7 @@ static void mgag200_g200_init_refclk(struct mga_device *mdev)
- 	mdev->model.g200.pclk_max = 230000;
- 	mdev->model.g200.ref_clk = 27050;
++	struct pci_dev *pdev = to_pci_dev(vbox->ddev.dev);
++
+ 	INIT_WORK(&vbox->hotplug_work, vbox_hotplug_worker);
+ 	vbox_update_mode_hints(vbox);
  
--	rom = pci_map_rom(dev->pdev, &size);
-+	rom = pci_map_rom(pdev, &size);
- 	if (!rom)
- 		return;
- 
-@@ -244,7 +247,7 @@ static void mgag200_g200_init_refclk(struct mga_device *mdev)
- 
- 	vfree(bios);
- out:
--	pci_unmap_rom(dev->pdev, rom);
-+	pci_unmap_rom(pdev, rom);
+-	return drm_irq_install(&vbox->ddev, vbox->ddev.pdev->irq);
++	return drm_irq_install(&vbox->ddev, pdev->irq);
  }
  
- static void mgag200_g200se_init_unique_id(struct mga_device *mdev)
-@@ -301,7 +304,6 @@ mgag200_device_create(struct pci_dev *pdev, unsigned long flags)
- 		return mdev;
- 	dev = &mdev->base;
+ void vbox_irq_fini(struct vbox_private *vbox)
+diff --git a/drivers/gpu/drm/vboxvideo/vbox_main.c b/drivers/gpu/drm/vboxvideo/vbox_main.c
+index d68d9bad7674..f28779715ccd 100644
+--- a/drivers/gpu/drm/vboxvideo/vbox_main.c
++++ b/drivers/gpu/drm/vboxvideo/vbox_main.c
+@@ -8,7 +8,9 @@
+  *          Hans de Goede <hdegoede@redhat.com>
+  */
  
--	dev->pdev = pdev;
- 	pci_set_drvdata(pdev, dev);
++#include <linux/pci.h>
+ #include <linux/vbox_err.h>
++
+ #include <drm/drm_fb_helper.h>
+ #include <drm/drm_crtc_helper.h>
+ #include <drm/drm_damage_helper.h>
+@@ -30,6 +32,7 @@ void vbox_report_caps(struct vbox_private *vbox)
  
- 	ret = mgag200_device_init(mdev, flags);
-diff --git a/drivers/gpu/drm/mgag200/mgag200_i2c.c b/drivers/gpu/drm/mgag200/mgag200_i2c.c
-index 09731e614e46..ac8e34eef513 100644
---- a/drivers/gpu/drm/mgag200/mgag200_i2c.c
-+++ b/drivers/gpu/drm/mgag200/mgag200_i2c.c
-@@ -126,7 +126,7 @@ struct mga_i2c_chan *mgag200_i2c_create(struct drm_device *dev)
- 	i2c->clock = clock;
- 	i2c->adapter.owner = THIS_MODULE;
- 	i2c->adapter.class = I2C_CLASS_DDC;
--	i2c->adapter.dev.parent = &dev->pdev->dev;
-+	i2c->adapter.dev.parent = dev->dev;
- 	i2c->dev = dev;
- 	i2c_set_adapdata(&i2c->adapter, i2c);
- 	snprintf(i2c->adapter.name, sizeof(i2c->adapter.name), "mga i2c");
-diff --git a/drivers/gpu/drm/mgag200/mgag200_mm.c b/drivers/gpu/drm/mgag200/mgag200_mm.c
-index 641f1aa992be..b667371b69a4 100644
---- a/drivers/gpu/drm/mgag200/mgag200_mm.c
-+++ b/drivers/gpu/drm/mgag200/mgag200_mm.c
-@@ -78,11 +78,12 @@ static size_t mgag200_probe_vram(struct mga_device *mdev, void __iomem *mem,
- static void mgag200_mm_release(struct drm_device *dev, void *ptr)
+ static int vbox_accel_init(struct vbox_private *vbox)
  {
- 	struct mga_device *mdev = to_mga_device(dev);
-+	struct pci_dev *pdev = to_pci_dev(dev->dev);
++	struct pci_dev *pdev = to_pci_dev(vbox->ddev.dev);
+ 	struct vbva_buffer *vbva;
+ 	unsigned int i;
  
- 	mdev->vram_fb_available = 0;
- 	iounmap(mdev->vram);
--	arch_io_free_memtype_wc(pci_resource_start(dev->pdev, 0),
--				pci_resource_len(dev->pdev, 0));
-+	arch_io_free_memtype_wc(pci_resource_start(pdev, 0),
-+				pci_resource_len(pdev, 0));
- 	arch_phys_wc_del(mdev->fb_mtrr);
- 	mdev->fb_mtrr = 0;
- }
-@@ -90,6 +91,7 @@ static void mgag200_mm_release(struct drm_device *dev, void *ptr)
- int mgag200_mm_init(struct mga_device *mdev)
+@@ -41,7 +44,7 @@ static int vbox_accel_init(struct vbox_private *vbox)
+ 	/* Take a command buffer for each screen from the end of usable VRAM. */
+ 	vbox->available_vram_size -= vbox->num_crtcs * VBVA_MIN_BUFFER_SIZE;
+ 
+-	vbox->vbva_buffers = pci_iomap_range(vbox->ddev.pdev, 0,
++	vbox->vbva_buffers = pci_iomap_range(pdev, 0,
+ 					     vbox->available_vram_size,
+ 					     vbox->num_crtcs *
+ 					     VBVA_MIN_BUFFER_SIZE);
+@@ -106,6 +109,7 @@ bool vbox_check_supported(u16 id)
+ 
+ int vbox_hw_init(struct vbox_private *vbox)
  {
- 	struct drm_device *dev = &mdev->base;
-+	struct pci_dev *pdev = to_pci_dev(dev->dev);
- 	u8 misc;
- 	resource_size_t start, len;
++	struct pci_dev *pdev = to_pci_dev(vbox->ddev.dev);
+ 	int ret = -ENOMEM;
+ 
+ 	vbox->full_vram_size = inl(VBE_DISPI_IOPORT_DATA);
+@@ -115,7 +119,7 @@ int vbox_hw_init(struct vbox_private *vbox)
+ 
+ 	/* Map guest-heap at end of vram */
+ 	vbox->guest_heap =
+-	    pci_iomap_range(vbox->ddev.pdev, 0, GUEST_HEAP_OFFSET(vbox),
++	    pci_iomap_range(pdev, 0, GUEST_HEAP_OFFSET(vbox),
+ 			    GUEST_HEAP_SIZE);
+ 	if (!vbox->guest_heap)
+ 		return -ENOMEM;
+diff --git a/drivers/gpu/drm/vboxvideo/vbox_ttm.c b/drivers/gpu/drm/vboxvideo/vbox_ttm.c
+index f5a06675da43..0066a3c1dfc9 100644
+--- a/drivers/gpu/drm/vboxvideo/vbox_ttm.c
++++ b/drivers/gpu/drm/vboxvideo/vbox_ttm.c
+@@ -15,8 +15,9 @@ int vbox_mm_init(struct vbox_private *vbox)
+ 	struct drm_vram_mm *vmm;
  	int ret;
-@@ -102,8 +104,8 @@ int mgag200_mm_init(struct mga_device *mdev)
- 	WREG8(MGA_MISC_OUT, misc);
+ 	struct drm_device *dev = &vbox->ddev;
++	struct pci_dev *pdev = to_pci_dev(dev->dev);
  
- 	/* BAR 0 is VRAM */
--	start = pci_resource_start(dev->pdev, 0);
--	len = pci_resource_len(dev->pdev, 0);
-+	start = pci_resource_start(pdev, 0);
-+	len = pci_resource_len(pdev, 0);
+-	vmm = drm_vram_helper_alloc_mm(dev, pci_resource_start(dev->pdev, 0),
++	vmm = drm_vram_helper_alloc_mm(dev, pci_resource_start(pdev, 0),
+ 				       vbox->available_vram_size);
+ 	if (IS_ERR(vmm)) {
+ 		ret = PTR_ERR(vmm);
+@@ -24,8 +25,8 @@ int vbox_mm_init(struct vbox_private *vbox)
+ 		return ret;
+ 	}
  
- 	if (!devm_request_mem_region(dev->dev, start, len, "mgadrmfb_vram")) {
- 		drm_err(dev, "can't reserve VRAM\n");
+-	vbox->fb_mtrr = arch_phys_wc_add(pci_resource_start(dev->pdev, 0),
+-					 pci_resource_len(dev->pdev, 0));
++	vbox->fb_mtrr = arch_phys_wc_add(pci_resource_start(pdev, 0),
++					 pci_resource_len(pdev, 0));
+ 	return 0;
+ }
+ 
 -- 
 2.29.2
 
