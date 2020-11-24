@@ -2,55 +2,50 @@ Return-Path: <SRS0=tBxe=E6=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 944DCC63777
-	for <intel-gfx@archiver.kernel.org>; Tue, 24 Nov 2020 18:59:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EF872C2D0E4
+	for <intel-gfx@archiver.kernel.org>; Tue, 24 Nov 2020 19:02:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 222A3204FD
-	for <intel-gfx@archiver.kernel.org>; Tue, 24 Nov 2020 18:59:28 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="i3ortBeZ"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 222A3204FD
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org
+	by mail.kernel.org (Postfix) with ESMTPS id 89C0B204FD
+	for <intel-gfx@archiver.kernel.org>; Tue, 24 Nov 2020 19:02:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 89C0B204FD
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F7E489728;
-	Tue, 24 Nov 2020 18:59:26 +0000 (UTC)
-Received: from casper.infradead.org (casper.infradead.org
- [IPv6:2001:8b0:10b:1236::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 614C189EB8
- for <intel-gfx@lists.freedesktop.org>; Tue, 24 Nov 2020 09:42:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=XrQsdiALGmObA9uvgwwmDB5EeVLjA/XElNTDSKt+EP0=; b=i3ortBeZ87lHuSVV4Yu3uRWhw8
- jhRn3hpaGl3cPSFB/Z0bMrmnxCyrOxGzjqV+DFj0wcFW5GyvFWcI9kdjqf9y1WW5uEyvVFoYZVruj
- K7KJwA6ihkFwQTV8fu8p12XS7JDUc0Kov05rOyUquV75ifLe7l5QIQ2HqFJCo6S5JgerpXhpTiZLD
- 6qjkW0oh3gRTaV7lnGW69Mm7eoFYjLBebRotqlCIs2uMSO8p20JCTonVUoF7N9vrfpDPI6HWNRRRt
- gJqqqSsMMizO0HFncY21rzTtjUChI94vYYhHLYuZis5BwMbsayBHfV7VDJaEmAOzPF17Pk/RS+RK9
- haUKydVA==;
-Received: from hch by casper.infradead.org with local (Exim 4.92.3 #3 (Red Hat
- Linux)) id 1khUqa-0000Rq-Qp; Tue, 24 Nov 2020 09:42:52 +0000
-Date: Tue, 24 Nov 2020 09:42:52 +0000
-From: Christoph Hellwig <hch@infradead.org>
-To: Jani Nikula <jani.nikula@intel.com>
-Message-ID: <20201124094252.GH31963@infradead.org>
-References: <cover.1606153547.git.jani.nikula@intel.com>
- <7db0286c428f3a478dd7544afef04a3b131f1aa0.1606153547.git.jani.nikula@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD4FD6E51B;
+	Tue, 24 Nov 2020 19:02:38 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A37996E51B
+ for <intel-gfx@lists.freedesktop.org>; Tue, 24 Nov 2020 19:02:37 +0000 (UTC)
+IronPort-SDR: 6ssDrIAyacr6GHeq2PMqECmK42s3Mlen0Ers8W8PQDOMzKXBJPRYfPthiz9fh+/OOLkRLPlqhF
+ 8TkuRlq1Y4SA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9815"; a="151840340"
+X-IronPort-AV: E=Sophos;i="5.78,366,1599548400"; d="scan'208";a="151840340"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Nov 2020 11:02:36 -0800
+IronPort-SDR: CdPX6l5lptl6irEoPZ3N5GrKyr1Sez0sGpJoaM1laX+8Gximt0s+aiAyIn8jF7dldlbO6kCA6T
+ f11G02EcL6uw==
+X-IronPort-AV: E=Sophos;i="5.78,366,1599548400"; d="scan'208";a="546946630"
+Received: from lucas-s2600cw.jf.intel.com ([10.165.21.202])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Nov 2020 11:02:36 -0800
+From: Lucas De Marchi <lucas.demarchi@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Tue, 24 Nov 2020 11:02:24 -0800
+Message-Id: <20201124190224.1591757-1-lucas.demarchi@intel.com>
+X-Mailer: git-send-email 2.29.2
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <7db0286c428f3a478dd7544afef04a3b131f1aa0.1606153547.git.jani.nikula@intel.com>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
- casper.infradead.org. See http://www.infradead.org/rpr.html
-X-Mailman-Approved-At: Tue, 24 Nov 2020 18:59:06 +0000
-Subject: Re: [Intel-gfx] [PATCH 8/9] ath9k: make relay callbacks const
+Subject: [Intel-gfx] [CI] drm/i915/tgl, rkl, dg1: Apply WA_1406941453 to TGL,
+ RKL and DG1
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,23 +58,57 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, linux-wireless@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- QCA ath9k Development <ath9k-devel@qca.qualcomm.com>,
- Christoph Hellwig <hch@infradead.org>,
- Andrew Morton <akpm@linux-foundation.org>, Kalle Valo <kvalo@codeaurora.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Nov 23, 2020 at 07:59:28PM +0200, Jani Nikula wrote:
-> Now that relay_open() accepts const callbacks, make relay callbacks
-> const.
+From: Swathi Dhanavanthri <swathi.dhanavanthri@intel.com>
 
-Looks good,
+This workaround is applicable only for tgl,rkl and dg1.
 
-Reviewed-by: Christoph Hellwig <hch@lst.de>
+Bspec: 52890, 53273, 53508.
+
+Signed-off-by: Swathi Dhanavanthri <swathi.dhanavanthri@intel.com>
+Reviewed-by: Clint Taylor <Clinton.A.Taylor@intel.com>
+Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_workarounds.c | 12 +++++-------
+ 1 file changed, 5 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+index a82554baa6ac..7c6b21ced56f 100644
+--- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
++++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+@@ -1778,6 +1778,11 @@ rcs_engine_wa_init(struct intel_engine_cs *engine, struct i915_wa_list *wal)
+ 		wa_masked_en(wal,
+ 			     GEN9_CS_DEBUG_MODE1,
+ 			     FF_DOP_CLOCK_GATE_DISABLE);
++
++		/* Wa_1406941453:tgl,rkl,dg1 */
++		wa_masked_en(wal,
++			     GEN10_SAMPLER_MODE,
++			     ENABLE_SMALLPL);
+ 	}
+ 
+ 	if (IS_DG1_REVID(i915, DG1_REVID_A0, DG1_REVID_A0) ||
+@@ -1808,13 +1813,6 @@ rcs_engine_wa_init(struct intel_engine_cs *engine, struct i915_wa_list *wal)
+ 			     GEN8_RC_SEMA_IDLE_MSG_DISABLE);
+ 	}
+ 
+-	if (IS_GEN(i915, 12)) {
+-		/* Wa_1406941453:gen12 */
+-		wa_masked_en(wal,
+-			     GEN10_SAMPLER_MODE,
+-			     ENABLE_SMALLPL);
+-	}
+-
+ 	if (IS_GEN(i915, 11)) {
+ 		/* This is not an Wa. Enable for better image quality */
+ 		wa_masked_en(wal,
+-- 
+2.29.2
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
