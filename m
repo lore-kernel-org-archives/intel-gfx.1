@@ -5,53 +5,53 @@ X-Spam-Level:
 X-Spam-Status: No, score=-15.2 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2E210C2D0E4
-	for <intel-gfx@archiver.kernel.org>; Tue, 24 Nov 2020 15:19:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7E2C9C63798
+	for <intel-gfx@archiver.kernel.org>; Tue, 24 Nov 2020 15:50:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C4F56206D5
-	for <intel-gfx@archiver.kernel.org>; Tue, 24 Nov 2020 15:19:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C4F56206D5
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 0488E206FA
+	for <intel-gfx@archiver.kernel.org>; Tue, 24 Nov 2020 15:50:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0488E206FA
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C9846E3FE;
-	Tue, 24 Nov 2020 15:19:08 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE6236E3FE;
- Tue, 24 Nov 2020 15:19:06 +0000 (UTC)
-IronPort-SDR: 4chzIZoH44luZqC6hDnX6QSrze2PkGhJc5iUbsSYV8KVuQiAO5ZTsJ34DsfSfLTUMc2U0rjt7O
- M/841Ea1RuGQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9815"; a="151220125"
-X-IronPort-AV: E=Sophos;i="5.78,366,1599548400"; d="scan'208";a="151220125"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B0756E45C;
+	Tue, 24 Nov 2020 15:50:02 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ADA6A6E453;
+ Tue, 24 Nov 2020 15:50:00 +0000 (UTC)
+IronPort-SDR: cpWCsGQbS1whqsGj6vyzbub8msXDVRNgVOoqmFDw6vjs+MYvPcxWdXgVrrLtArBHUS+aIQ19eS
+ DqwYnftCMZQw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9815"; a="151806768"
+X-IronPort-AV: E=Sophos;i="5.78,366,1599548400"; d="scan'208";a="151806768"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Nov 2020 07:19:06 -0800
-IronPort-SDR: NclzXhh8HtagT0JyLUc41gxGA+ltwMnnUWIreBxvfJOEWzJk45EiD52nS1h6KnCiXye6abgwa6
- eOKki05zqQog==
-X-IronPort-AV: E=Sophos;i="5.78,366,1599548400"; d="scan'208";a="370400361"
-Received: from genxfsim-desktop.iind.intel.com (HELO intel.com)
- ([10.223.74.178])
- by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Nov 2020 07:19:03 -0800
-Date: Tue, 24 Nov 2020 20:35:17 +0530
-From: Anshuman Gupta <anshuman.gupta@intel.com>
-To: Ramalingam C <ramalingam.c@intel.com>
-Message-ID: <20201124150517.GH13853@intel.com>
-References: <20201111062051.11529-1-anshuman.gupta@intel.com>
- <20201111062051.11529-8-anshuman.gupta@intel.com>
- <20201124141457.GA25283@intel.com>
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Nov 2020 07:50:00 -0800
+IronPort-SDR: uukol10vZ3/84iSGEtI/4Ge+knvbmS2AgzM3MY6bD35NlsfndOW9MvSf5MzVeic0H2R4KpKub1
+ hUX86Mgn8JJg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.78,366,1599548400"; d="scan'208";a="332602260"
+Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.174])
+ by orsmga006.jf.intel.com with SMTP; 24 Nov 2020 07:49:57 -0800
+Received: by stinkbox (sSMTP sendmail emulation);
+ Tue, 24 Nov 2020 17:49:56 +0200
+Date: Tue, 24 Nov 2020 17:49:56 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Hans de Goede <hdegoede@redhat.com>
+Message-ID: <20201124154956.GL6112@intel.com>
+References: <20201118124058.26021-1-hdegoede@redhat.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20201124141457.GA25283@intel.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Subject: Re: [Intel-gfx] [PATCH v5 07/17] drm/i915/hdcp: Enable HDCP 1.4
- stream encryption
+In-Reply-To: <20201118124058.26021-1-hdegoede@redhat.com>
+X-Patchwork-Hint: comment
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/dsi: Use unconditional msleep for
+ the panel_on_delay when there is no reset-deassert MIPI-sequence
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,133 +64,95 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, seanpaul@chromium.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: intel-gfx <intel-gfx@lists.freedesktop.org>,
+ dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 2020-11-24 at 19:44:59 +0530, Ramalingam C wrote:
-> On 2020-11-11 at 11:50:41 +0530, Anshuman Gupta wrote:
-> > Enable HDCP 1.4 DP MST stream encryption.
-> > 
-> > Enable stream encryption once encryption is enabled on
-> > the DP transport driving the link for each stream which
-> > has requested encryption.
-> > 
-> > Disable stream encryption for each stream that no longer
-> > requires encryption before disabling HDCP encryption on
-> > the link.
-> > 
-> > v2:
-> > - Added debug print for stream encryption.
-> > - Disable the hdcp on port after disabling last stream
-> >   encryption.
-> > v3:
-> > - Cosmetic change, removed the value less comment. [Uma]
-> > v4:
-> > - Split the Gen12 HDCP enablement patch. [Ram]
-> > - Add connector details in drm_err.
-> > 
-> > Cc: Ramalingam C <ramalingam.c@intel.com>
-> > Reviewed-by: Uma Shankar <uma.shankar@intel.com>
-> > Signed-off-by: Anshuman Gupta <anshuman.gupta@intel.com>
-> > ---
-> >  drivers/gpu/drm/i915/display/intel_hdcp.c | 45 ++++++++++++++++-------
-> >  1 file changed, 31 insertions(+), 14 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.c b/drivers/gpu/drm/i915/display/intel_hdcp.c
-> > index 0322a83c151d..e12bd0ac9fb5 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_hdcp.c
-> > +++ b/drivers/gpu/drm/i915/display/intel_hdcp.c
-> > @@ -612,7 +612,12 @@ int intel_hdcp_auth_downstream(struct intel_connector *connector)
-> >  	return ret;
-> >  }
-> >  
-> > -/* Implements Part 1 of the HDCP authorization procedure */
-> > +/*
-> > + * Implements Part 1 of the HDCP authorization procedure.
-> > + * Authentication Part 1 steps for Multi-stream DisplayPort.
-> > + * Step 1. Auth Part 1 sequence on the driving MST Trasport Link.
-> > + * Step 2. Enable encryption for each stream that requires encryption.
-> > +1*/
-> IMO this function is generic for SST and MST. Why do we document only
-> for MST at the top of the function? We can remove them.
-Sure i will remove it.
-> >  static int intel_hdcp_auth(struct intel_connector *connector)
-> >  {
-> >  	struct intel_digital_port *dig_port = intel_attached_dig_port(connector);
-> > @@ -766,10 +771,17 @@ static int intel_hdcp_auth(struct intel_connector *connector)
-> >  		return -ETIMEDOUT;
-> >  	}
-> >  
-> > -	/*
-> > -	 * XXX: If we have MST-connected devices, we need to enable encryption
-> > -	 * on those as well.
-> > -	 */
-> > +	/* DP MST Auth Part 1 Step 2.a and Step 2.b */
-> > +	if (shim->stream_encryption) {
-> > +		ret = shim->stream_encryption(connector, true);
-> > +		if (ret) {
-> > +			drm_err(&dev_priv->drm, "[CONNECTOR:%d:%s] Failed to enable HDCP 1.4 stream enc\n",
-> All the existing error messgae has the %s:%d, why are we changing it
-> here? Could we retain the uniformity?
-Sure i will fix this in entire series.
-> > +				connector->base.base.id, connector->base.name);
-> > +			return ret;
-> > +		}
-> > +		drm_dbg_kms(&dev_priv->drm, "HDCP 1.4 transcoder: %s stream encrypted\n",
-> > +			    transcoder_name(hdcp->stream_transcoder));
-> > +	}
-> >  
-> >  	if (repeater_present)
-> >  		return intel_hdcp_auth_downstream(connector);
-> > @@ -791,18 +803,23 @@ static int _intel_hdcp_disable(struct intel_connector *connector)
-> >  	drm_dbg_kms(&dev_priv->drm, "[%s:%d] HDCP is being disabled...\n",
-> >  		    connector->base.name, connector->base.base.id);
-> >  
-> > +	if (hdcp->shim->stream_encryption) {
-> > +		ret = hdcp->shim->stream_encryption(connector, false);
-> > +		if (ret) {
-> > +			drm_err(&dev_priv->drm, "[CONNECTOR:%d:%s] Failed to disable HDCP 1.4 stream enc\n",
-> same here. remove CONNECTOR ?
-> > +				connector->base.base.id, connector->base.name);
-> > +			return ret;
-> > +		}
-> > +		drm_dbg_kms(&dev_priv->drm, "HDCP 1.4 transcoder: %s stream encryption disabled\n",
-> > +			    transcoder_name(hdcp->stream_transcoder));
-> > +	}
-> > +
-> >  	/*
-> > -	 * If there are other connectors on this port using HDCP, don't disable
-> > -	 * it. Instead, toggle the HDCP signalling off on that particular
-> > -	 * connector/pipe and exit.
-> > +	 * If there are other connectors on this port using HDCP, don't disable it.
-> > +	 * Repeat steps 1-2 for each stream that no longer requires encryption.
-> What is this steps 1-2 here!? Here you are not disabling if other
-> streams are encrpted. May be you want to put something like "Untill all
-> steams of MST stopped encrypting, dont disable the port encryption"
-Sure i will fix this.
-Thanks,
-Anshuman.
-> 
-> -Ram
-> >  	 */
-> > -	if (dig_port->num_hdcp_streams > 0) {
-> > -		ret = hdcp->shim->toggle_signalling(dig_port,
-> > -						    cpu_transcoder, false);
-> > -		if (ret)
-> > -			DRM_ERROR("Failed to disable HDCP signalling\n");
-> > +	if (dig_port->num_hdcp_streams > 0)
-> >  		return ret;
-> > -	}
-> >  
-> >  	hdcp->hdcp_encrypted = false;
-> >  	intel_de_write(dev_priv, HDCP_CONF(dev_priv, cpu_transcoder, port), 0);
-> > -- 
-> > 2.26.2
-> > 
+On Wed, Nov 18, 2020 at 01:40:58PM +0100, Hans de Goede wrote:
+> Commit 25b4620ee822 ("drm/i915/dsi: Skip delays for v3 VBTs in vid-mode")
+> added an intel_dsi_msleep() helper which skips sleeping if the
+> MIPI-sequences have a version of 3 or newer and the panel is in vid-mode;
+> and it moved a bunch of msleep-s over to this new helper.
+> =
+
+> This was based on my reading of the big comment around line 730 which
+> starts with "Panel enable/disable sequences from the VBT spec.",
+> where the "v3 video mode seq" column does not have any wait t# entries.
+> =
+
+> Given that this code has been used on a lot of different devices without
+> issues until now, it seems that my interpretation of the spec here is
+> mostly correct.
+> =
+
+> But now I have encountered one device, an Acer Aspire Switch 10 E
+> SW3-016, where the panel will not light up unless we do actually honor the
+> panel_on_delay after exexuting the MIPI_SEQ_PANEL_ON sequence.
+> =
+
+> What seems to set this model apart is that it is lacking a
+> MIPI_SEQ_DEASSERT_RESET sequence, which is where the power-on
+> delay usually happens.
+> =
+
+> Fix the panel not lighting up on this model by using an unconditional
+> msleep(panel_on_delay) instead of intel_dsi_msleep() when there is
+> no MIPI_SEQ_DEASSERT_RESET sequence.
+> =
+
+> Fixes: 25b4620ee822 ("drm/i915/dsi: Skip delays for v3 VBTs in vid-mode")
+> Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+> ---
+>  drivers/gpu/drm/i915/display/vlv_dsi.c | 10 +++++++---
+>  1 file changed, 7 insertions(+), 3 deletions(-)
+> =
+
+> diff --git a/drivers/gpu/drm/i915/display/vlv_dsi.c b/drivers/gpu/drm/i91=
+5/display/vlv_dsi.c
+> index 194c239ab6b1..ef673277b36d 100644
+> --- a/drivers/gpu/drm/i915/display/vlv_dsi.c
+> +++ b/drivers/gpu/drm/i915/display/vlv_dsi.c
+> @@ -816,10 +816,14 @@ static void intel_dsi_pre_enable(struct intel_atomi=
+c_state *state,
+>  		intel_dsi_prepare(encoder, pipe_config);
+>  =
+
+>  	intel_dsi_vbt_exec_sequence(intel_dsi, MIPI_SEQ_POWER_ON);
+> -	intel_dsi_msleep(intel_dsi, intel_dsi->panel_on_delay);
+>  =
+
+> -	/* Deassert reset */
+> -	intel_dsi_vbt_exec_sequence(intel_dsi, MIPI_SEQ_DEASSERT_RESET);
+> +	if (dev_priv->vbt.dsi.sequence[MIPI_SEQ_DEASSERT_RESET]) {
+> +		intel_dsi_msleep(intel_dsi, intel_dsi->panel_on_delay);
+> +		/* Deassert reset */
+> +		intel_dsi_vbt_exec_sequence(intel_dsi, MIPI_SEQ_DEASSERT_RESET);
+> +	} else {
+> +		msleep(intel_dsi->panel_on_delay);
+> +	}
+
+Could perhaps use a comment ot explain to the reader what's going on.
+
+Looks sane enough to me, and if we get this wrong we just get a bigger
+delay than necessary I guess. So mostly harmless.
+
+Reviewed-by: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
+
+>  =
+
+>  	if (IS_GEMINILAKE(dev_priv)) {
+>  		glk_cold_boot =3D glk_dsi_enable_io(encoder);
+> -- =
+
+> 2.28.0
+
+-- =
+
+Ville Syrj=E4l=E4
+Intel
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
