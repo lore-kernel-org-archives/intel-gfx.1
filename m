@@ -6,31 +6,31 @@ X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D7BEEC6379D
-	for <intel-gfx@archiver.kernel.org>; Wed, 25 Nov 2020 06:26:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0E684C63777
+	for <intel-gfx@archiver.kernel.org>; Wed, 25 Nov 2020 06:26:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 69A6C2075A
-	for <intel-gfx@archiver.kernel.org>; Wed, 25 Nov 2020 06:26:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 69A6C2075A
+	by mail.kernel.org (Postfix) with ESMTPS id 7C23F2075A
+	for <intel-gfx@archiver.kernel.org>; Wed, 25 Nov 2020 06:26:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7C23F2075A
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=telegraphics.com.au
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB8E06E822;
-	Wed, 25 Nov 2020 06:26:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 06BB86E82E;
+	Wed, 25 Nov 2020 06:26:30 +0000 (UTC)
 Received: from kvm5.telegraphics.com.au (kvm5.telegraphics.com.au
  [98.124.60.144])
- by gabe.freedesktop.org (Postfix) with ESMTP id 50FAE6E5CA;
- Tue, 24 Nov 2020 23:53:17 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 8C23F6E3C1;
+ Tue, 24 Nov 2020 22:24:14 +0000 (UTC)
 Received: from localhost (localhost.localdomain [127.0.0.1])
- by kvm5.telegraphics.com.au (Postfix) with ESMTP id DCBBC2AA63;
- Tue, 24 Nov 2020 18:53:13 -0500 (EST)
-Date: Wed, 25 Nov 2020 10:53:13 +1100 (AEDT)
+ by kvm5.telegraphics.com.au (Postfix) with ESMTP id 8A96E22AD6;
+ Tue, 24 Nov 2020 17:24:09 -0500 (EST)
+Date: Wed, 25 Nov 2020 09:24:08 +1100 (AEDT)
 From: Finn Thain <fthain@telegraphics.com.au>
-To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-In-Reply-To: <CANiq72nUt57u5DG9rH=DB0DzQH7U6-QbG-2Ou+PyCY=p=_Ggag@mail.gmail.com>
-Message-ID: <alpine.LNX.2.23.453.2011251022550.14@nippy.intranet>
+To: Kees Cook <keescook@chromium.org>
+In-Reply-To: <202011241327.BB28F12F6@keescook>
+Message-ID: <alpine.LNX.2.23.453.2011250859290.15@nippy.intranet>
 References: <202011201129.B13FDB3C@keescook>
  <20201120115142.292999b2@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
  <202011220816.8B6591A@keescook>
@@ -42,8 +42,6 @@ References: <202011201129.B13FDB3C@keescook>
  <20201123130348.GA3119@embeddedor>
  <8f5611bb015e044fa1c0a48147293923c2d904e4.camel@HansenPartnership.com>
  <202011241327.BB28F12F6@keescook>
- <alpine.LNX.2.23.453.2011250859290.15@nippy.intranet>
- <CANiq72nUt57u5DG9rH=DB0DzQH7U6-QbG-2Ou+PyCY=p=_Ggag@mail.gmail.com>
 MIME-Version: 1.0
 X-Mailman-Approved-At: Wed, 25 Nov 2020 06:26:28 +0000
 Subject: Re: [Intel-gfx] [Intel-wired-lan] [PATCH 000/141] Fix fall-through
@@ -62,10 +60,10 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: alsa-devel@alsa-project.org, bridge@lists.linux-foundation.org,
  target-devel@vger.kernel.org, Greg KH <gregkh@linuxfoundation.org>,
- linux-iio@vger.kernel.org, linux-wireless <linux-wireless@vger.kernel.org>,
+ linux-iio@vger.kernel.org, linux-wireless@vger.kernel.org,
  linux-mmc@vger.kernel.org, linux-fbdev@vger.kernel.org,
  dri-devel@lists.freedesktop.org, "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- James Bottomley <James.Bottomley@hansenpartnership.com>,
+ James Bottomley <James.Bottomley@HansenPartnership.com>,
  linux-ide@vger.kernel.org, dm-devel@redhat.com, keyrings@vger.kernel.org,
  linux-mtd@lists.infradead.org, GR-everest-linux-l2@marvell.com,
  wcn36xx@lists.infradead.org, linux-i3c@lists.infradead.org,
@@ -78,66 +76,66 @@ Cc: alsa-devel@alsa-project.org, bridge@lists.linux-foundation.org,
  amd-gfx@lists.freedesktop.org, linux-stm32@st-md-mailman.stormreply.com,
  cluster-devel@redhat.com, usb-storage@lists.one-eyed-alien.net,
  coreteam@netfilter.org, intel-wired-lan@lists.osuosl.org,
- linux-input <linux-input@vger.kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>,
- Ext4 Developers List <linux-ext4@vger.kernel.org>,
+ linux-input@vger.kernel.org, Miguel Ojeda <ojeda@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, linux-ext4@vger.kernel.org,
  virtualization@lists.linux-foundation.org, netfilter-devel@vger.kernel.org,
- Linux Media Mailing List <linux-media@vger.kernel.org>,
- Kees Cook <keescook@chromium.org>, selinux@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- linux-sctp@vger.kernel.org, reiserfs-devel@vger.kernel.org,
- linux-geode@lists.infradead.org, linux-block@vger.kernel.org,
- linux-gpio@vger.kernel.org, op-tee@lists.trustedfirmware.org,
- linux-mediatek@lists.infradead.org, xen-devel@lists.xenproject.org,
- nouveau@lists.freedesktop.org, linux-hams@vger.kernel.org,
- Nathan Chancellor <natechancellor@gmail.com>, linux-can@vger.kernel.org,
- Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-hwmon@vger.kernel.org,
- Nick Desaulniers <ndesaulniers@google.com>, linux-watchdog@vger.kernel.org,
- GR-Linux-NIC-Dev@marvell.com, Linux-MM <linux-mm@kvack.org>,
- Network Development <netdev@vger.kernel.org>,
- linux-decnet-user@lists.sourceforge.net, samba-technical@lists.samba.org,
- linux-kernel <linux-kernel@vger.kernel.org>, linux-renesas-soc@vger.kernel.org,
- linux-security-module@vger.kernel.org, linux-usb@vger.kernel.org,
- tipc-discussion@lists.sourceforge.net,
- Linux Crypto Mailing List <linux-crypto@vger.kernel.org>,
- Jonathan Cameron <Jonathan.Cameron@huawei.com>, patches@opensource.cirrus.com,
- Joe Perches <joe@perches.com>, linux-integrity@vger.kernel.org,
- linux-nfs@vger.kernel.org,
- "maintainer:X86 ARCHITECTURE \(32-BIT AND 64-BIT\)" <x86@kernel.org>,
+ linux-media@vger.kernel.org, linux-watchdog@vger.kernel.org,
+ selinux@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, linux-sctp@vger.kernel.org,
+ reiserfs-devel@vger.kernel.org, linux-geode@lists.infradead.org,
+ linux-block@vger.kernel.org, linux-gpio@vger.kernel.org,
+ op-tee@lists.trustedfirmware.org, linux-mediatek@lists.infradead.org,
+ xen-devel@lists.xenproject.org, nouveau@lists.freedesktop.org,
+ linux-hams@vger.kernel.org, Nathan Chancellor <natechancellor@gmail.com>,
+ linux-can@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-hwmon@vger.kernel.org, Nick Desaulniers <ndesaulniers@google.com>,
+ linux-nfs@vger.kernel.org, GR-Linux-NIC-Dev@marvell.com, linux-mm@kvack.org,
+ netdev@vger.kernel.org, linux-decnet-user@lists.sourceforge.net,
+ samba-technical@lists.samba.org, linux-kernel@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org, linux-security-module@vger.kernel.org,
+ linux-usb@vger.kernel.org, tipc-discussion@lists.sourceforge.net,
+ linux-crypto@vger.kernel.org, Jonathan Cameron <Jonathan.Cameron@huawei.com>,
+ patches@opensource.cirrus.com, Joe Perches <joe@perches.com>,
+ linux-integrity@vger.kernel.org, x86@kernel.org,
  linux-hardening@vger.kernel.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+On Tue, 24 Nov 2020, Kees Cook wrote:
 
-On Wed, 25 Nov 2020, Miguel Ojeda wrote:
-
+> On Mon, Nov 23, 2020 at 08:31:30AM -0800, James Bottomley wrote:
+> > Really, no ... something which produces no improvement has no value at 
+> > all ... we really shouldn't be wasting maintainer time with it because 
+> > it has a cost to merge.  I'm not sure we understand where the balance 
+> > lies in value vs cost to merge but I am confident in the zero value 
+> > case.
 > 
-> The C standard has nothing to do with this. We use compiler extensions 
-> of several kinds, for many years. Even discounting those extensions, the 
-> kernel is not even conforming to C due to e.g. strict aliasing. I am not 
-> sure what you are trying to argue here.
-> 
-
-I'm saying that supporting the official language spec makes more sense 
-than attempting to support a multitude of divergent interpretations of the 
-spec (i.e. gcc, clang, coverity etc.)
-
-I'm also saying that the reason why we use -std=gnu89 is that existing 
-code was written in that language, not in ad hoc languages comprised of 
-collections of extensions that change with every release.
-
-> But, since you insist: yes, the `fallthrough` attribute is in the 
-> current C2x draft.
+> What? We can't measure how many future bugs aren't introduced because 
+> the kernel requires explicit case flow-control statements for all new 
+> code.
 > 
 
-Thank you for checking. I found a free version that's only 6 weeks old:
+These statements are not "missing" unless you presume that code written 
+before the latest de facto language spec was written should somehow be 
+held to that spec.
 
-http://www.open-std.org/jtc1/sc22/wg14/www/docs/n2583.pdf
+If the 'fallthrough' statement is not part of the latest draft spec then 
+we should ask why not before we embrace it. Being that the kernel still 
+prefers -std=gnu89 you might want to consider what has prevented 
+-std=gnu99 or -std=gnu2x etc.
 
-It will be interesting to see whether 6.7.11.5 changes once the various 
-implementations reach agreement.
+> We already enable -Wimplicit-fallthrough globally, so that's not the 
+> discussion. The issue is that Clang is (correctly) even more strict than 
+> GCC for this, so these are the remaining ones to fix for full Clang 
+> coverage too.
+> 
+
+Seems to me you should be patching the compiler.
+
+When you have consensus among the language lawyers you'll have more 
+credibility with those being subjected to enforcement.
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
