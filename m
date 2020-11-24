@@ -2,42 +2,39 @@ Return-Path: <SRS0=tBxe=E6=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 45498C56202
-	for <intel-gfx@archiver.kernel.org>; Tue, 24 Nov 2020 11:39:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B63BBC63798
+	for <intel-gfx@archiver.kernel.org>; Tue, 24 Nov 2020 11:39:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E1E3F2075A
-	for <intel-gfx@archiver.kernel.org>; Tue, 24 Nov 2020 11:39:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E1E3F2075A
+	by mail.kernel.org (Postfix) with ESMTPS id 599BB206D8
+	for <intel-gfx@archiver.kernel.org>; Tue, 24 Nov 2020 11:39:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 599BB206D8
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C49D6E3B7;
-	Tue, 24 Nov 2020 11:38:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 404686E3D3;
+	Tue, 24 Nov 2020 11:38:33 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B1DD66E22C;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 635AB6E20B;
  Tue, 24 Nov 2020 11:38:28 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 4988EAD21;
- Tue, 24 Nov 2020 11:38:27 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 00416AC2D;
+ Tue, 24 Nov 2020 11:38:26 +0000 (UTC)
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: airlied@linux.ie,
 	daniel@ffwll.ch
-Date: Tue, 24 Nov 2020 12:38:11 +0100
-Message-Id: <20201124113824.19994-3-tzimmermann@suse.de>
+Date: Tue, 24 Nov 2020 12:38:09 +0100
+Message-Id: <20201124113824.19994-1-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.29.2
-In-Reply-To: <20201124113824.19994-1-tzimmermann@suse.de>
-References: <20201124113824.19994-1-tzimmermann@suse.de>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 02/15] drm/ast: Remove references to struct
- drm_device.pdev
+Subject: [Intel-gfx] [PATCH 00/15] drm: Move struct drm_device.pdev to legacy
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,247 +56,179 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Using struct drm_device.pdev is deprecated. Convert ast to struct
-drm_device.dev. No functional changes.
+The pdev field in struct drm_device points to a PCI device structure and
+goes back to UMS-only days when all DRM drivers where for PCI devices.
+Meanwhile we also support USB, SPI and platform devices. Each of those
+uses the generic device stored in struct drm_device.dev.
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
----
- drivers/gpu/drm/ast/ast_drv.c  |  4 ++--
- drivers/gpu/drm/ast/ast_main.c | 25 +++++++++++++------------
- drivers/gpu/drm/ast/ast_mm.c   | 17 +++++++++--------
- drivers/gpu/drm/ast/ast_mode.c |  5 +++--
- drivers/gpu/drm/ast/ast_post.c |  8 +++++---
- 5 files changed, 32 insertions(+), 27 deletions(-)
+To reduce duplications and remove the special case of PCI, this patchset
+converts all modesetting drivers from pdev to dev and makes pdev a field
+for legacy UMS drivers.
 
-diff --git a/drivers/gpu/drm/ast/ast_drv.c b/drivers/gpu/drm/ast/ast_drv.c
-index 667b450606ef..ea8164e7a6dc 100644
---- a/drivers/gpu/drm/ast/ast_drv.c
-+++ b/drivers/gpu/drm/ast/ast_drv.c
-@@ -147,7 +147,7 @@ static int ast_drm_freeze(struct drm_device *dev)
- 	error = drm_mode_config_helper_suspend(dev);
- 	if (error)
- 		return error;
--	pci_save_state(dev->pdev);
-+	pci_save_state(to_pci_dev(dev->dev));
- 	return 0;
- }
- 
-@@ -162,7 +162,7 @@ static int ast_drm_resume(struct drm_device *dev)
- {
- 	int ret;
- 
--	if (pci_enable_device(dev->pdev))
-+	if (pci_enable_device(to_pci_dev(dev->dev)))
- 		return -EIO;
- 
- 	ret = ast_drm_thaw(dev);
-diff --git a/drivers/gpu/drm/ast/ast_main.c b/drivers/gpu/drm/ast/ast_main.c
-index 1b13199858cb..0ac3c2039c4b 100644
---- a/drivers/gpu/drm/ast/ast_main.c
-+++ b/drivers/gpu/drm/ast/ast_main.c
-@@ -67,8 +67,9 @@ uint8_t ast_get_index_reg_mask(struct ast_private *ast,
- 
- static void ast_detect_config_mode(struct drm_device *dev, u32 *scu_rev)
- {
--	struct device_node *np = dev->pdev->dev.of_node;
-+	struct device_node *np = dev->dev->of_node;
- 	struct ast_private *ast = to_ast_private(dev);
-+	struct pci_dev *pdev = to_pci_dev(dev->dev);
- 	uint32_t data, jregd0, jregd1;
- 
- 	/* Defaults */
-@@ -85,7 +86,7 @@ static void ast_detect_config_mode(struct drm_device *dev, u32 *scu_rev)
- 	}
- 
- 	/* Not all families have a P2A bridge */
--	if (dev->pdev->device != PCI_CHIP_AST2000)
-+	if (pdev->device != PCI_CHIP_AST2000)
- 		return;
- 
- 	/*
-@@ -119,6 +120,7 @@ static void ast_detect_config_mode(struct drm_device *dev, u32 *scu_rev)
- static int ast_detect_chip(struct drm_device *dev, bool *need_post)
- {
- 	struct ast_private *ast = to_ast_private(dev);
-+	struct pci_dev *pdev = to_pci_dev(dev->dev);
- 	uint32_t jreg, scu_rev;
- 
- 	/*
-@@ -143,19 +145,19 @@ static int ast_detect_chip(struct drm_device *dev, bool *need_post)
- 	ast_detect_config_mode(dev, &scu_rev);
- 
- 	/* Identify chipset */
--	if (dev->pdev->revision >= 0x50) {
-+	if (pdev->revision >= 0x50) {
- 		ast->chip = AST2600;
- 		drm_info(dev, "AST 2600 detected\n");
--	} else if (dev->pdev->revision >= 0x40) {
-+	} else if (pdev->revision >= 0x40) {
- 		ast->chip = AST2500;
- 		drm_info(dev, "AST 2500 detected\n");
--	} else if (dev->pdev->revision >= 0x30) {
-+	} else if (pdev->revision >= 0x30) {
- 		ast->chip = AST2400;
- 		drm_info(dev, "AST 2400 detected\n");
--	} else if (dev->pdev->revision >= 0x20) {
-+	} else if (pdev->revision >= 0x20) {
- 		ast->chip = AST2300;
- 		drm_info(dev, "AST 2300 detected\n");
--	} else if (dev->pdev->revision >= 0x10) {
-+	} else if (pdev->revision >= 0x10) {
- 		switch (scu_rev & 0x0300) {
- 		case 0x0200:
- 			ast->chip = AST1100;
-@@ -265,7 +267,7 @@ static int ast_detect_chip(struct drm_device *dev, bool *need_post)
- 
- static int ast_get_dram_info(struct drm_device *dev)
- {
--	struct device_node *np = dev->pdev->dev.of_node;
-+	struct device_node *np = dev->dev->of_node;
- 	struct ast_private *ast = to_ast_private(dev);
- 	uint32_t mcr_cfg, mcr_scu_mpll, mcr_scu_strap;
- 	uint32_t denum, num, div, ref_pll, dsel;
-@@ -409,10 +411,9 @@ struct ast_private *ast_device_create(const struct drm_driver *drv,
- 		return ast;
- 	dev = &ast->base;
- 
--	dev->pdev = pdev;
- 	pci_set_drvdata(pdev, dev);
- 
--	ast->regs = pci_iomap(dev->pdev, 1, 0);
-+	ast->regs = pci_iomap(pdev, 1, 0);
- 	if (!ast->regs)
- 		return ERR_PTR(-EIO);
- 
-@@ -421,14 +422,14 @@ struct ast_private *ast_device_create(const struct drm_driver *drv,
- 	 * assume the chip has MMIO enabled by default (rev 0x20
- 	 * and higher).
- 	 */
--	if (!(pci_resource_flags(dev->pdev, 2) & IORESOURCE_IO)) {
-+	if (!(pci_resource_flags(pdev, 2) & IORESOURCE_IO)) {
- 		drm_info(dev, "platform has no IO space, trying MMIO\n");
- 		ast->ioregs = ast->regs + AST_IO_MM_OFFSET;
- 	}
- 
- 	/* "map" IO regs if the above hasn't done so already */
- 	if (!ast->ioregs) {
--		ast->ioregs = pci_iomap(dev->pdev, 2, 0);
-+		ast->ioregs = pci_iomap(pdev, 2, 0);
- 		if (!ast->ioregs)
- 			return ERR_PTR(-EIO);
- 	}
-diff --git a/drivers/gpu/drm/ast/ast_mm.c b/drivers/gpu/drm/ast/ast_mm.c
-index 8392ebde504b..7592f1b9e1f1 100644
---- a/drivers/gpu/drm/ast/ast_mm.c
-+++ b/drivers/gpu/drm/ast/ast_mm.c
-@@ -77,31 +77,32 @@ static u32 ast_get_vram_size(struct ast_private *ast)
- static void ast_mm_release(struct drm_device *dev, void *ptr)
- {
- 	struct ast_private *ast = to_ast_private(dev);
-+	struct pci_dev *pdev = to_pci_dev(dev->dev);
- 
- 	arch_phys_wc_del(ast->fb_mtrr);
--	arch_io_free_memtype_wc(pci_resource_start(dev->pdev, 0),
--				pci_resource_len(dev->pdev, 0));
-+	arch_io_free_memtype_wc(pci_resource_start(pdev, 0),
-+				pci_resource_len(pdev, 0));
- }
- 
- int ast_mm_init(struct ast_private *ast)
- {
- 	struct drm_device *dev = &ast->base;
-+	struct pci_dev *pdev = to_pci_dev(dev->dev);
- 	u32 vram_size;
- 	int ret;
- 
- 	vram_size = ast_get_vram_size(ast);
- 
--	ret = drmm_vram_helper_init(dev, pci_resource_start(dev->pdev, 0),
--				    vram_size);
-+	ret = drmm_vram_helper_init(dev, pci_resource_start(pdev, 0), vram_size);
- 	if (ret) {
- 		drm_err(dev, "Error initializing VRAM MM; %d\n", ret);
- 		return ret;
- 	}
- 
--	arch_io_reserve_memtype_wc(pci_resource_start(dev->pdev, 0),
--				   pci_resource_len(dev->pdev, 0));
--	ast->fb_mtrr = arch_phys_wc_add(pci_resource_start(dev->pdev, 0),
--					pci_resource_len(dev->pdev, 0));
-+	arch_io_reserve_memtype_wc(pci_resource_start(pdev, 0),
-+				   pci_resource_len(pdev, 0));
-+	ast->fb_mtrr = arch_phys_wc_add(pci_resource_start(pdev, 0),
-+					pci_resource_len(pdev, 0));
- 
- 	return drmm_add_action_or_reset(dev, ast_mm_release, NULL);
- }
-diff --git a/drivers/gpu/drm/ast/ast_mode.c b/drivers/gpu/drm/ast/ast_mode.c
-index 9db371f4054f..fd61055001bd 100644
---- a/drivers/gpu/drm/ast/ast_mode.c
-+++ b/drivers/gpu/drm/ast/ast_mode.c
-@@ -1107,6 +1107,7 @@ static const struct drm_mode_config_funcs ast_mode_config_funcs = {
- int ast_mode_config_init(struct ast_private *ast)
- {
- 	struct drm_device *dev = &ast->base;
-+	struct pci_dev *pdev = to_pci_dev(dev->dev);
- 	int ret;
- 
- 	ret = ast_cursor_init(ast);
-@@ -1122,7 +1123,7 @@ int ast_mode_config_init(struct ast_private *ast)
- 	dev->mode_config.min_height = 0;
- 	dev->mode_config.preferred_depth = 24;
- 	dev->mode_config.prefer_shadow = 1;
--	dev->mode_config.fb_base = pci_resource_start(dev->pdev, 0);
-+	dev->mode_config.fb_base = pci_resource_start(pdev, 0);
- 
- 	if (ast->chip == AST2100 ||
- 	    ast->chip == AST2200 ||
-@@ -1259,7 +1260,7 @@ static struct ast_i2c_chan *ast_i2c_create(struct drm_device *dev)
- 
- 	i2c->adapter.owner = THIS_MODULE;
- 	i2c->adapter.class = I2C_CLASS_DDC;
--	i2c->adapter.dev.parent = &dev->pdev->dev;
-+	i2c->adapter.dev.parent = dev->dev;
- 	i2c->dev = dev;
- 	i2c_set_adapdata(&i2c->adapter, i2c);
- 	snprintf(i2c->adapter.name, sizeof(i2c->adapter.name),
-diff --git a/drivers/gpu/drm/ast/ast_post.c b/drivers/gpu/drm/ast/ast_post.c
-index 8902c2f84bf9..0607658dde51 100644
---- a/drivers/gpu/drm/ast/ast_post.c
-+++ b/drivers/gpu/drm/ast/ast_post.c
-@@ -71,6 +71,7 @@ static void
- ast_set_def_ext_reg(struct drm_device *dev)
- {
- 	struct ast_private *ast = to_ast_private(dev);
-+	struct pci_dev *pdev = to_pci_dev(dev->dev);
- 	u8 i, index, reg;
- 	const u8 *ext_reg_info;
- 
-@@ -80,7 +81,7 @@ ast_set_def_ext_reg(struct drm_device *dev)
- 
- 	if (ast->chip == AST2300 || ast->chip == AST2400 ||
- 	    ast->chip == AST2500) {
--		if (dev->pdev->revision >= 0x20)
-+		if (pdev->revision >= 0x20)
- 			ext_reg_info = extreginfo_ast2300;
- 		else
- 			ext_reg_info = extreginfo_ast2300a0;
-@@ -366,11 +367,12 @@ static void ast_init_dram_reg(struct drm_device *dev)
- void ast_post_gpu(struct drm_device *dev)
- {
- 	struct ast_private *ast = to_ast_private(dev);
-+	struct pci_dev *pdev = to_pci_dev(dev->dev);
- 	u32 reg;
- 
--	pci_read_config_dword(dev->pdev, 0x04, &reg);
-+	pci_read_config_dword(pdev, 0x04, &reg);
- 	reg |= 0x3;
--	pci_write_config_dword(dev->pdev, 0x04, reg);
-+	pci_write_config_dword(pdev, 0x04, reg);
- 
- 	ast_enable_vga(dev);
- 	ast_open_key(ast);
--- 
+For PCI devices, the pointer in struct drm_device.dev can be upcasted to
+struct pci_device; or tested for PCI with dev_is_pci(). In several places
+the code can use the dev field directly.
+
+After converting all drivers and the DRM core, the pdev fields becomes
+only relevant for legacy drivers. In a later patchset, we may want to
+convert these as well and remove pdev entirely.
+
+The patchset touches many files, but the individual changes are mostly
+trivial. I suggest to merge each driver's patch through the respective
+tree and later the rest through drm-misc-next.
+
+Thomas Zimmermann (15):
+  drm/amdgpu: Remove references to struct drm_device.pdev
+  drm/ast: Remove references to struct drm_device.pdev
+  drm/bochs: Remove references to struct drm_device.pdev
+  drm/cirrus: Remove references to struct drm_device.pdev
+  drm/gma500: Remove references to struct drm_device.pdev
+  drm/hibmc: Remove references to struct drm_device.pdev
+  drm/i915: Remove references to struct drm_device.pdev
+  drm/mgag200: Remove references to struct drm_device.pdev
+  drm/nouveau: Remove references to struct drm_device.pdev
+  drm/qxl: Remove references to struct drm_device.pdev
+  drm/radeon: Remove references to struct drm_device.pdev
+  drm/vboxvideo: Remove references to struct drm_device.pdev
+  drm/virtgpu: Remove references to struct drm_device.pdev
+  drm/vmwgfx: Remove references to struct drm_device.pdev
+  drm: Upcast struct drm_device.dev to struct pci_device; replace pdev
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    | 23 +++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_display.c   |  3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |  1 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c        |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c       | 10 +--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.c       |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c       | 10 +--
+ drivers/gpu/drm/ast/ast_drv.c                 |  4 +-
+ drivers/gpu/drm/ast/ast_main.c                | 25 +++---
+ drivers/gpu/drm/ast/ast_mm.c                  | 17 ++--
+ drivers/gpu/drm/ast/ast_mode.c                |  5 +-
+ drivers/gpu/drm/ast/ast_post.c                |  8 +-
+ drivers/gpu/drm/bochs/bochs_drv.c             |  1 -
+ drivers/gpu/drm/bochs/bochs_hw.c              |  4 +-
+ drivers/gpu/drm/drm_agpsupport.c              |  9 +-
+ drivers/gpu/drm/drm_bufs.c                    |  4 +-
+ drivers/gpu/drm/drm_edid.c                    |  7 +-
+ drivers/gpu/drm/drm_irq.c                     | 12 +--
+ drivers/gpu/drm/drm_pci.c                     | 26 +++---
+ drivers/gpu/drm/drm_vm.c                      |  2 +-
+ drivers/gpu/drm/gma500/cdv_device.c           | 30 ++++---
+ drivers/gpu/drm/gma500/cdv_intel_crt.c        |  3 +-
+ drivers/gpu/drm/gma500/cdv_intel_lvds.c       |  4 +-
+ drivers/gpu/drm/gma500/framebuffer.c          |  9 +-
+ drivers/gpu/drm/gma500/gma_device.c           |  3 +-
+ drivers/gpu/drm/gma500/gma_display.c          |  4 +-
+ drivers/gpu/drm/gma500/gtt.c                  | 20 +++--
+ drivers/gpu/drm/gma500/intel_bios.c           |  6 +-
+ drivers/gpu/drm/gma500/intel_gmbus.c          |  4 +-
+ drivers/gpu/drm/gma500/intel_i2c.c            |  2 +-
+ drivers/gpu/drm/gma500/mdfld_device.c         |  4 +-
+ drivers/gpu/drm/gma500/mdfld_dsi_dpi.c        |  8 +-
+ drivers/gpu/drm/gma500/mid_bios.c             |  9 +-
+ drivers/gpu/drm/gma500/oaktrail_device.c      |  5 +-
+ drivers/gpu/drm/gma500/oaktrail_lvds.c        |  2 +-
+ drivers/gpu/drm/gma500/oaktrail_lvds_i2c.c    |  2 +-
+ drivers/gpu/drm/gma500/opregion.c             |  3 +-
+ drivers/gpu/drm/gma500/power.c                | 13 +--
+ drivers/gpu/drm/gma500/psb_drv.c              | 16 ++--
+ drivers/gpu/drm/gma500/psb_drv.h              |  8 +-
+ drivers/gpu/drm/gma500/psb_intel_lvds.c       |  6 +-
+ drivers/gpu/drm/gma500/psb_intel_sdvo.c       |  2 +-
+ drivers/gpu/drm/gma500/tc35876x-dsi-lvds.c    | 36 ++++----
+ .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c   | 10 +--
+ .../gpu/drm/hisilicon/hibmc/hibmc_drm_i2c.c   |  2 +-
+ drivers/gpu/drm/hisilicon/hibmc/hibmc_ttm.c   |  4 +-
+ drivers/gpu/drm/i915/display/intel_bios.c     |  2 +-
+ drivers/gpu/drm/i915/display/intel_cdclk.c    | 14 +--
+ drivers/gpu/drm/i915/display/intel_csr.c      |  2 +-
+ drivers/gpu/drm/i915/display/intel_dsi_vbt.c  |  2 +-
+ drivers/gpu/drm/i915/display/intel_fbdev.c    |  2 +-
+ drivers/gpu/drm/i915/display/intel_gmbus.c    |  2 +-
+ .../gpu/drm/i915/display/intel_lpe_audio.c    |  5 +-
+ drivers/gpu/drm/i915/display/intel_opregion.c |  6 +-
+ drivers/gpu/drm/i915/display/intel_overlay.c  |  2 +-
+ drivers/gpu/drm/i915/display/intel_panel.c    |  4 +-
+ drivers/gpu/drm/i915/display/intel_quirks.c   |  2 +-
+ drivers/gpu/drm/i915/display/intel_sdvo.c     |  2 +-
+ drivers/gpu/drm/i915/display/intel_vga.c      |  8 +-
+ drivers/gpu/drm/i915/gem/i915_gem_phys.c      |  6 +-
+ drivers/gpu/drm/i915/gem/i915_gem_shmem.c     |  2 +-
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c     |  2 +-
+ drivers/gpu/drm/i915/gt/intel_ggtt.c          | 10 +--
+ drivers/gpu/drm/i915/gt/intel_ppgtt.c         |  2 +-
+ drivers/gpu/drm/i915/gt/intel_rc6.c           |  4 +-
+ drivers/gpu/drm/i915/gt/intel_reset.c         |  6 +-
+ drivers/gpu/drm/i915/gvt/cfg_space.c          |  5 +-
+ drivers/gpu/drm/i915/gvt/firmware.c           | 10 +--
+ drivers/gpu/drm/i915/gvt/gtt.c                | 12 +--
+ drivers/gpu/drm/i915/gvt/gvt.c                |  6 +-
+ drivers/gpu/drm/i915/gvt/kvmgt.c              |  4 +-
+ drivers/gpu/drm/i915/i915_debugfs.c           |  2 +-
+ drivers/gpu/drm/i915/i915_drv.c               | 20 ++---
+ drivers/gpu/drm/i915/i915_drv.h               |  2 +-
+ drivers/gpu/drm/i915/i915_gem_gtt.c           |  4 +-
+ drivers/gpu/drm/i915/i915_getparam.c          |  5 +-
+ drivers/gpu/drm/i915/i915_gpu_error.c         |  2 +-
+ drivers/gpu/drm/i915/i915_irq.c               |  6 +-
+ drivers/gpu/drm/i915/i915_pmu.c               |  5 +-
+ drivers/gpu/drm/i915/i915_suspend.c           |  4 +-
+ drivers/gpu/drm/i915/i915_switcheroo.c        |  4 +-
+ drivers/gpu/drm/i915/i915_vgpu.c              |  2 +-
+ drivers/gpu/drm/i915/intel_device_info.c      |  2 +-
+ drivers/gpu/drm/i915/intel_region_lmem.c      |  8 +-
+ drivers/gpu/drm/i915/intel_runtime_pm.c       |  2 +-
+ drivers/gpu/drm/i915/intel_uncore.c           |  4 +-
+ .../gpu/drm/i915/selftests/mock_gem_device.c  |  1 -
+ drivers/gpu/drm/i915/selftests/mock_gtt.c     |  2 +-
+ drivers/gpu/drm/mgag200/mgag200_drv.c         | 20 +++--
+ drivers/gpu/drm/mgag200/mgag200_i2c.c         |  2 +-
+ drivers/gpu/drm/mgag200/mgag200_mm.c          | 10 ++-
+ drivers/gpu/drm/nouveau/dispnv04/arb.c        | 12 +--
+ drivers/gpu/drm/nouveau/dispnv04/disp.h       | 14 +--
+ drivers/gpu/drm/nouveau/dispnv04/hw.c         | 10 ++-
+ drivers/gpu/drm/nouveau/nouveau_abi16.c       |  7 +-
+ drivers/gpu/drm/nouveau/nouveau_acpi.c        |  2 +-
+ drivers/gpu/drm/nouveau/nouveau_bios.c        | 11 ++-
+ drivers/gpu/drm/nouveau/nouveau_connector.c   | 10 ++-
+ drivers/gpu/drm/nouveau/nouveau_drm.c         |  5 +-
+ drivers/gpu/drm/nouveau/nouveau_fbcon.c       |  6 +-
+ drivers/gpu/drm/nouveau/nouveau_vga.c         | 20 +++--
+ drivers/gpu/drm/qxl/qxl_drv.c                 |  2 +-
+ drivers/gpu/drm/qxl/qxl_ioctl.c               |  3 +-
+ drivers/gpu/drm/qxl/qxl_irq.c                 |  3 +-
+ drivers/gpu/drm/qxl/qxl_kms.c                 |  1 -
+ drivers/gpu/drm/radeon/atombios_encoders.c    |  6 +-
+ drivers/gpu/drm/radeon/r100.c                 | 27 +++---
+ drivers/gpu/drm/radeon/radeon.h               | 32 +++----
+ drivers/gpu/drm/radeon/radeon_atombios.c      | 89 ++++++++++---------
+ drivers/gpu/drm/radeon/radeon_bios.c          |  6 +-
+ drivers/gpu/drm/radeon/radeon_combios.c       | 55 ++++++------
+ drivers/gpu/drm/radeon/radeon_cs.c            |  3 +-
+ drivers/gpu/drm/radeon/radeon_device.c        | 17 ++--
+ drivers/gpu/drm/radeon/radeon_display.c       |  2 +-
+ drivers/gpu/drm/radeon/radeon_drv.c           |  3 +-
+ drivers/gpu/drm/radeon/radeon_fb.c            |  2 +-
+ drivers/gpu/drm/radeon/radeon_gem.c           |  6 +-
+ drivers/gpu/drm/radeon/radeon_i2c.c           |  2 +-
+ drivers/gpu/drm/radeon/radeon_irq_kms.c       |  2 +-
+ drivers/gpu/drm/radeon/radeon_kms.c           | 20 ++---
+ .../gpu/drm/radeon/radeon_legacy_encoders.c   |  6 +-
+ drivers/gpu/drm/radeon/rs780_dpm.c            |  7 +-
+ drivers/gpu/drm/tiny/cirrus.c                 |  1 -
+ drivers/gpu/drm/vboxvideo/vbox_drv.c          | 11 +--
+ drivers/gpu/drm/vboxvideo/vbox_irq.c          |  4 +-
+ drivers/gpu/drm/vboxvideo/vbox_main.c         |  8 +-
+ drivers/gpu/drm/vboxvideo/vbox_ttm.c          |  7 +-
+ drivers/gpu/drm/virtio/virtgpu_drv.c          |  1 -
+ drivers/gpu/drm/vmwgfx/vmwgfx_cmdbuf.c        |  8 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_drv.c           | 27 +++---
+ drivers/gpu/drm/vmwgfx/vmwgfx_fb.c            |  2 +-
+ include/drm/drm_device.h                      | 12 ++-
+ 132 files changed, 584 insertions(+), 507 deletions(-)
+
+--
 2.29.2
 
 _______________________________________________
