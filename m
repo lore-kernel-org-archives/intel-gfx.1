@@ -7,51 +7,51 @@ X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F0ED7C63777
-	for <intel-gfx@archiver.kernel.org>; Tue, 24 Nov 2020 18:59:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3C2CCC56202
+	for <intel-gfx@archiver.kernel.org>; Tue, 24 Nov 2020 18:59:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 66DBF204FD
-	for <intel-gfx@archiver.kernel.org>; Tue, 24 Nov 2020 18:59:16 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 24FD8204FD
+	for <intel-gfx@archiver.kernel.org>; Tue, 24 Nov 2020 18:59:17 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="ZJSAndn+"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 66DBF204FD
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="TbCvdo4F"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 24FD8204FD
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3DA306E50B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 823996E512;
 	Tue, 24 Nov 2020 18:59:14 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org
  [IPv6:2001:8b0:10b:1236::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 212A189AC2
- for <intel-gfx@lists.freedesktop.org>; Tue, 24 Nov 2020 09:37:21 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F79889AC2
+ for <intel-gfx@lists.freedesktop.org>; Tue, 24 Nov 2020 09:37:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
  References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
  Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=l2WBiCb5duYJRA9nKpihqrJOH1Qjg6utSrFiu8qAdtc=; b=ZJSAndn+5qtPYlK0pS4YJ2j8jQ
- ci2kO4FHy3MiwNhvslulEAEqrmyHuVX9Z/vY1RFqPrfIOEfirMxf9iH/P3Ts4ozdcxroYeeuHqqLZ
- 3+Gvife8Djda1MauEz2ZU5CEt9mDxMauQIm5ct7WojA6HKSFIePbBydkypTW8D4v9bB3+4UndEA44
- ZLqXNOD6rHwb5sPSOhfcrsvwK0DNnsjGFHgvHKEdSIem0T++Oek78o/WT4nFFhHBmwfgF6AMrPvJ6
- 2Jctr6bHMgIhGPVmhffdBjDyalP5aE3JIXEHOWXreT7cFHhm5bgZjpGG/+xHP/BBl1+4duKHFZFlM
- Oehq27ig==;
+ bh=erVBEbSZXU0xKU0/OCceptXO8BMpPV2CdOs+DwG0M+s=; b=TbCvdo4FiP+XH83lk1czbsUuEA
+ OTyCX3rCda0+ppk1biGGK9vHwCEtdw2l5r2hzwbfQhNDIHJfR0sCwpLA+DoNaxYDvK6qe6xCnfHPb
+ lKBJM+WQ0UHQrhWZKyhLKrcjXbpI9XjAeY5gIN0QlLi+NG9OOZuJuwPCke5RBSUW/z6TFkSEg0FAD
+ 1wizpRmJ3u2zDT81oClpAEsX5u7AOH1Aq2STW23L7gdlFx3bFtYO/gq3e5Hya0qvaFalo/KeRZTP7
+ UipqfF9bjU9WbEdfaDI0epSlOQx+reUs5Ob/Mnc0fP3t0jV+v5S1CDzWs1EZUqNYemD6JBN0tgf52
+ hmtJmLDg==;
 Received: from hch by casper.infradead.org with local (Exim 4.92.3 #3 (Red Hat
- Linux)) id 1khUlB-0008PK-1S; Tue, 24 Nov 2020 09:37:17 +0000
-Date: Tue, 24 Nov 2020 09:37:16 +0000
+ Linux)) id 1khUlm-0008Q5-Dm; Tue, 24 Nov 2020 09:37:54 +0000
+Date: Tue, 24 Nov 2020 09:37:54 +0000
 From: Christoph Hellwig <hch@infradead.org>
 To: Jani Nikula <jani.nikula@intel.com>
-Message-ID: <20201124093716.GA31963@infradead.org>
+Message-ID: <20201124093754.GC31963@infradead.org>
 References: <cover.1606153547.git.jani.nikula@intel.com>
- <c69fff6e0cd485563604240bbfcc028434983bec.1606153547.git.jani.nikula@intel.com>
+ <88003c1527386b93036e286e7917f1e33aec84ac.1606153547.git.jani.nikula@intel.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <c69fff6e0cd485563604240bbfcc028434983bec.1606153547.git.jani.nikula@intel.com>
+In-Reply-To: <88003c1527386b93036e286e7917f1e33aec84ac.1606153547.git.jani.nikula@intel.com>
 X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
  casper.infradead.org. See http://www.infradead.org/rpr.html
 X-Mailman-Approved-At: Tue, 24 Nov 2020 18:59:06 +0000
-Subject: Re: [Intel-gfx] [PATCH 1/9] relay: remove unused buf_mapped and
- buf_unmapped callbacks
+Subject: Re: [Intel-gfx] [PATCH 3/9] relay: make create_buf_file and
+ remove_buf_file callbacks mandatory
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,6 +71,13 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
+
+On Mon, Nov 23, 2020 at 07:59:23PM +0200, Jani Nikula wrote:
+> All clients provide create_buf_file and remove_buf_file callbacks, and
+> they're required for relay to make sense. There is no point in them
+> being optional.
+> 
+> Also document whether each callback is mandatory/optional.
 
 Looks good,
 
