@@ -2,84 +2,57 @@ Return-Path: <SRS0=3jid=FE=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.0 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 45D29C64E8A
-	for <intel-gfx@archiver.kernel.org>; Mon, 30 Nov 2020 16:21:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CC51EC71156
+	for <intel-gfx@archiver.kernel.org>; Mon, 30 Nov 2020 16:21:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CD5202073C
-	for <intel-gfx@archiver.kernel.org>; Mon, 30 Nov 2020 16:21:40 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 2ADA3206E3
+	for <intel-gfx@archiver.kernel.org>; Mon, 30 Nov 2020 16:21:42 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cK16XuXE"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CD5202073C
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="RzoY5IZI"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2ADA3206E3
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E6FBE6E554;
-	Mon, 30 Nov 2020 16:21:39 +0000 (UTC)
-Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
- [IPv6:2a00:1450:4864:20::443])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 99DED6E0FD;
- Wed, 25 Nov 2020 23:02:45 +0000 (UTC)
-Received: by mail-wr1-x443.google.com with SMTP id u12so115366wrt.0;
- Wed, 25 Nov 2020 15:02:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=ha42UWMtlXOL8kfvC1XpFKttY73p7G2gxviD5bIo2Ac=;
- b=cK16XuXEr1UlZZi/GgHF7dItPstb+7yZ2QUTp5Dxvdc6OIX52ygirnUAKuRVBOH+dK
- A20pmgUIw2HuGZFFAXCmBSAdjpUAnHlbQW6vzVJQphFFEbO8NHcI7pY1E1IYv6o5k0Qf
- jXWsM0ddqTXTn/1nZTXycpkYVMfbhxZxJ9mV7kOEU+Tec/es0pgNM20lzmzFkZBYIURn
- HK2FiFuW7CXMZxeXIL3yJ5bCH/J8M2hkcorgk3PecLezXYs+oTw3zVRlNq6FEGJfSXMe
- e5NpXkmlA2dB6AmhViUGWqJQAiQop1G/7Q0C0bZUhlLDOGEFt9XX9+Dv47nZ0Rj6T1x/
- IsxA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=ha42UWMtlXOL8kfvC1XpFKttY73p7G2gxviD5bIo2Ac=;
- b=MpSzLbo9DetjBE9mghAR0JsB4LG1AKPCte3xnKq6UvR6k+wVGyYmrpeemvS3FySUJf
- 4FFNVqMEEV84EqqBC6HlCLzdWGPQb3QyNtaez5GTtA47EwuKuzQUDt5dcnWzbzjuvml0
- Xd4HUSOZxToZtsohERLCNhaD+jfkQapCUWJognRanxQ+vvpVGkGxX1JWzKMSvHLHDMku
- orFdljFZHsrH7FWlC//bgcHlIf78azb732luY3CuIKQcJzjt8NPBJM2WZrUcMQ+fOCq6
- ns9adm/HD9q5kvyhUW0z0/RFu7nhbjw3oII6y/szYYP+qGWSncV80zgFwP9LgYE55o99
- ISZA==
-X-Gm-Message-State: AOAM531w4Lo2wTOuJyIro03M+7eP0ai+EOyZFTr2gDznj0OMuavrzILk
- 1xTfpgxGBEC81xX1SiK9Z0Q=
-X-Google-Smtp-Source: ABdhPJzir63ZhkohioP0Ktx42tkGcEWW5m4eKxg+CUjAscHddZDwqHZSdjbm/E0JNHFBggGwkKFODQ==
-X-Received: by 2002:a5d:474b:: with SMTP id o11mr180470wrs.235.1606345364309; 
- Wed, 25 Nov 2020 15:02:44 -0800 (PST)
-Received: from [192.168.1.122]
- (cpc92720-cmbg20-2-0-cust364.5-4.cable.virginm.net. [82.21.83.109])
- by smtp.gmail.com with ESMTPSA id u129sm5552667wme.9.2020.11.25.15.02.41
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 25 Nov 2020 15:02:43 -0800 (PST)
-To: Kees Cook <keescook@chromium.org>,
- Nick Desaulniers <ndesaulniers@google.com>
-References: <cover.1605896059.git.gustavoars@kernel.org>
- <20201120105344.4345c14e@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
- <202011201129.B13FDB3C@keescook>
- <20201120115142.292999b2@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
- <202011220816.8B6591A@keescook>
- <CAKwvOdntVfXj2WRR5n6Kw7BfG7FdKpTeHeh5nPu5AzwVMhOHTg@mail.gmail.com>
- <202011241324.B3439A2@keescook>
-From: Edward Cree <ecree.xilinx@gmail.com>
-Message-ID: <99a9ffd7-6356-b81d-6e08-7ed74b6fb82c@gmail.com>
-Date: Wed, 25 Nov 2020 23:02:40 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.7.2
+	by gabe.freedesktop.org (Postfix) with ESMTP id 28CE06E57E;
+	Mon, 30 Nov 2020 16:21:40 +0000 (UTC)
+Received: from casper.infradead.org (casper.infradead.org
+ [IPv6:2001:8b0:10b:1236::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 091256E8D8;
+ Wed, 25 Nov 2020 18:11:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description;
+ bh=1CkjoPPcNHYHWb6gR85isyRuo3IJhmytJlGs/qonqoo=; b=RzoY5IZIV/03rxcDYeZhkh/y8p
+ 4saU71nEnKmCA+HzHYC3JVg9mdPoihJd8zsuDEpz1YEu50etilsQqKhWvil+oxAWit+vmEca5irjj
+ W/kQLKd00dbvLyZA3+1MBmD8sywSFHW+r21iUnLIMPzMb8pTMe1YHvp1NnwxjiU3bXoF8aWqCdnRS
+ 3YLhe7paif5TuYq10B4b8RSdh/haVKtgh/GEj4C34tz5qHprkcSGtVSafl9LH0L9gfcyodfHuBHLs
+ AKqGQCrZ2VQnPp4S+MSnurWy1wGkrS3zt/XQ5qLgQlZKeBKT14z5LT7iv131my+b/31k1HF17DYg0
+ O3zRxqwQ==;
+Received: from hch by casper.infradead.org with local (Exim 4.92.3 #3 (Red Hat
+ Linux)) id 1khzGL-0001Fj-Jm; Wed, 25 Nov 2020 18:11:29 +0000
+Date: Wed, 25 Nov 2020 18:11:29 +0000
+From: Christoph Hellwig <hch@infradead.org>
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Message-ID: <20201125181129.GA1858@infradead.org>
+References: <20201125162532.1299794-1-daniel.vetter@ffwll.ch>
+ <20201125162532.1299794-5-daniel.vetter@ffwll.ch>
+ <CAKMK7uGXfqaPUtnX=VgA3tFn3S+Gt9GV+kPguakZ6FF_n8LKuA@mail.gmail.com>
+ <20201125180606.GQ5487@ziepe.ca>
 MIME-Version: 1.0
-In-Reply-To: <202011241324.B3439A2@keescook>
-Content-Language: en-GB
+Content-Disposition: inline
+In-Reply-To: <20201125180606.GQ5487@ziepe.ca>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
+ casper.infradead.org. See http://www.infradead.org/rpr.html
 X-Mailman-Approved-At: Mon, 30 Nov 2020 16:21:38 +0000
-Subject: Re: [Intel-gfx] [PATCH 000/141] Fix fall-through warnings for Clang
+Subject: Re: [Intel-gfx] [PATCH] drm/ttm: don't set page->mapping
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,62 +65,47 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, linux-atm-general@lists.sourceforge.net,
- reiserfs-devel@vger.kernel.org, linux-iio@vger.kernel.org,
- linux-wireless <linux-wireless@vger.kernel.org>, linux-fbdev@vger.kernel.org,
- dri-devel <dri-devel@lists.freedesktop.org>,
+Cc: Thomas Hellstrom <thellstrom@vmware.com>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
  LKML <linux-kernel@vger.kernel.org>,
- Nathan Chancellor <natechancellor@gmail.com>, linux-ide@vger.kernel.org,
- dm-devel@redhat.com, keyrings@vger.kernel.org, linux-mtd@lists.infradead.org,
- GR-everest-linux-l2@marvell.com, wcn36xx@lists.infradead.org,
- samba-technical@lists.samba.org, linux-i3c@lists.infradead.org,
- linux1394-devel@lists.sourceforge.net, linux-afs@lists.infradead.org,
- usb-storage@lists.one-eyed-alien.net, drbd-dev@lists.linbit.com,
- devel@driverdev.osuosl.org, linux-cifs@vger.kernel.org,
- rds-devel@oss.oracle.com, linux-scsi@vger.kernel.org,
- linux-rdma@vger.kernel.org, oss-drivers@netronome.com,
- bridge@lists.linux-foundation.org, linux-security-module@vger.kernel.org,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- linux-stm32@st-md-mailman.stormreply.com, cluster-devel@redhat.com,
- linux-acpi@vger.kernel.org, coreteam@netfilter.org,
- intel-wired-lan@lists.osuosl.org, linux-input@vger.kernel.org,
- Miguel Ojeda <ojeda@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- linux-ext4@vger.kernel.org, linux-media@vger.kernel.org,
- linux-watchdog@vger.kernel.org, selinux@vger.kernel.org,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>, intel-gfx@lists.freedesktop.org,
- linux-geode@lists.infradead.org, linux-can@vger.kernel.org,
- linux-block@vger.kernel.org, linux-gpio@vger.kernel.org,
- op-tee@lists.trustedfirmware.org, linux-mediatek@lists.infradead.org,
- xen-devel@lists.xenproject.org, nouveau@lists.freedesktop.org,
- linux-hams@vger.kernel.org, ceph-devel@vger.kernel.org,
- virtualization@lists.linux-foundation.org, target-devel@vger.kernel.org,
- Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-hwmon@vger.kernel.org,
- "maintainer:X86 ARCHITECTURE \(32-BIT AND 64-BIT\)" <x86@kernel.org>,
- linux-nfs@vger.kernel.org, GR-Linux-NIC-Dev@marvell.com,
- tipc-discussion@lists.sourceforge.net,
- Linux Memory Management List <linux-mm@kvack.org>,
- Network Development <netdev@vger.kernel.org>,
- linux-decnet-user@lists.sourceforge.net, linux-mmc@vger.kernel.org,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- Linux-Renesas <linux-renesas-soc@vger.kernel.org>, linux-sctp@vger.kernel.org,
- linux-usb@vger.kernel.org, netfilter-devel@vger.kernel.org,
- "open list:HARDWARE RANDOM NUMBER GENERATOR CORE"
- <linux-crypto@vger.kernel.org>, patches@opensource.cirrus.com,
- Joe Perches <joe@perches.com>, linux-integrity@vger.kernel.org,
- linux-hardening@vger.kernel.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ DRI Development <dri-devel@lists.freedesktop.org>, linux-xfs@vger.kernel.org,
+ Linux MM <linux-mm@kvack.org>, Huang Rui <ray.huang@amd.com>,
+ Brian Paul <brianp@vmware.com>, linux-fsdevel@vger.kernel.org,
+ Daniel Vetter <daniel.vetter@intel.com>,
+ Christian Koenig <christian.koenig@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-T24gMjQvMTEvMjAyMCAyMToyNSwgS2VlcyBDb29rIHdyb3RlOgo+IEkgc3RpbGwgdGhpbmsgdGhp
-cyBpc24ndCByaWdodCAtLSBpdCdzIGEgY2FzZSBzdGF0ZW1lbnQgdGhhdCBydW5zIG9mZgo+IHRo
-ZSBlbmQgd2l0aG91dCBhbiBleHBsaWNpdCBmbG93IGNvbnRyb2wgZGV0ZXJtaW5hdGlvbi4KClBy
-b3ZlcyB0b28gbXVjaCDigJQgZm9yIGluc3RhbmNlCiAgICBjYXNlIGZvbzoKICAgIGNhc2UgYmFy
-OgogICAgICAgIHRoaW5nOwogICAgICAgIGJyZWFrOwogZG9lc24ndCByZXF1aXJlIGEgZmFsbHRo
-cm91Z2g7IGFmdGVyIGNhc2UgZm9vOiwgYW5kIGFmYWlrCiBuby1vbmUgaXMgc3VnZ2VzdGluZyBp
-dCBzaG91bGQuICBZZXQgaXQsIHRvbywgaXMgImEgY2FzZQogc3RhdGVtZW50IHRoYXQgcnVucyBv
-ZmYgdGhlIGVuZCB3aXRob3V0IGFuIGV4cGxpY2l0IGZsb3cKIGNvbnRyb2wgZGV0ZXJtaW5hdGlv
-biIuCgotZWQKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
-SW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRlbC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0
-dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vaW50ZWwtZ2Z4Cg==
+On Wed, Nov 25, 2020 at 02:06:06PM -0400, Jason Gunthorpe wrote:
+> It uses a empty 'cover-letter' commit and automatically transforms it
+> into exactly the right stuff. Keeps track of everything you send in
+> git, and there is a little tool to auto-run git range-diff to help
+> build change logs..
+> 
+> https://github.com/jgunthorpe/Kernel-Maintainer-Tools/blob/master/gj_tools/cmd_send_patches.py
+> 
+> I've been occasionaly wondering if I should suggest Konstantin add a
+> sending side to b4, maybe using some of those ideas..
+> 
+> (careful if you run it, it does autosend without prompting)
+
+The looks pretty fancy.  Here is my trivial patchbomb.sh script
+
+----------------------- snip -----------------------
+#!/bin/sh
+
+COVERLETTER=$1
+PATCHES=$2
+
+git send-email --annotate --to-cover --cc-cover $1 $2
+----------------------- snip -----------------------
+
+still needs the git basecommit..endcommit notation, but it fires
+up the series for review.
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
