@@ -2,62 +2,41 @@ Return-Path: <SRS0=W/nN=E7=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
+X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CCF59C6379D
-	for <intel-gfx@archiver.kernel.org>; Wed, 25 Nov 2020 17:07:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E708EC63798
+	for <intel-gfx@archiver.kernel.org>; Wed, 25 Nov 2020 17:09:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BC8662063A
-	for <intel-gfx@archiver.kernel.org>; Wed, 25 Nov 2020 17:07:15 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=mess.org header.i=@mess.org header.b="SJYLrwiK"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BC8662063A
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=mess.org
+	by mail.kernel.org (Postfix) with ESMTPS id 7FE442063A
+	for <intel-gfx@archiver.kernel.org>; Wed, 25 Nov 2020 17:09:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7FE442063A
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B84DC6EA07;
-	Wed, 25 Nov 2020 17:07:14 +0000 (UTC)
-X-Greylist: delayed 506 seconds by postgrey-1.36 at gabe;
- Wed, 25 Nov 2020 09:09:46 UTC
-Received: from gofer.mess.org (gofer.mess.org [88.97.38.141])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1F6EC89BF8;
- Wed, 25 Nov 2020 09:09:46 +0000 (UTC)
-Received: by gofer.mess.org (Postfix, from userid 1000)
- id C2D44C63FB; Wed, 25 Nov 2020 09:01:14 +0000 (GMT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=mess.org; s=2020;
- t=1606294874; bh=KH9dzgywMXfGPGDwmO8Qm6o//zr8KQDL4nO6EawRuDY=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=SJYLrwiKZrmMRjkeBYo7cqsbs6xljPuQypU3vE6W0mhxhiBNmXN2bqL5RV07d2awA
- Wb5Oa7L0TiIxfU/vxoLt2vFycI3gN8Kh1qdOF59uK2dEnqITAnDV+wsiQw/exDF78D
- hoTz22IC76edW7bl4Xm8hYrqoRAlLOCNTSbizDTKI7x8BBnutJW03OyPsTxurVqfdC
- T9t8y4uSMzXA9L5TYoAbkkzEdR07qHfBTYdhaiYGGYuE1E1bdzLhtRTU2iYu251NBa
- zqIr2827TZMk9I1fNh/951tgkmCQWewUCt5nrmXnkgqHhLp9nxDE6gWAGCUXG6XCXv
- 3mw8Hv064saVQ==
-Date: Wed, 25 Nov 2020 09:01:14 +0000
-From: Sean Young <sean@mess.org>
-To: James Bottomley <James.Bottomley@HansenPartnership.com>
-Message-ID: <20201125090114.GA24274@gofer.mess.org>
-References: <cover.1605896059.git.gustavoars@kernel.org>
- <20201120105344.4345c14e@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
- <202011201129.B13FDB3C@keescook>
- <20201120115142.292999b2@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
- <202011220816.8B6591A@keescook>
- <9b57fd4914b46f38d54087d75e072d6e947cb56d.camel@HansenPartnership.com>
- <CANiq72nZrHWTA4_Msg6MP9snTyenC6-eGfD27CyfNSu7QoVZbw@mail.gmail.com>
- <1c7d7fde126bc0acf825766de64bf2f9b888f216.camel@HansenPartnership.com>
- <CANiq72m22Jb5_+62NnwX8xds2iUdWDMAqD8PZw9cuxdHd95W0A@mail.gmail.com>
- <fc45750b6d0277c401015b7aa11e16cd15f32ab2.camel@HansenPartnership.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id E081F6EA26;
+	Wed, 25 Nov 2020 17:09:26 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id E22AB6EA26;
+ Wed, 25 Nov 2020 17:09:24 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id D9456A363D;
+ Wed, 25 Nov 2020 17:09:24 +0000 (UTC)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <fc45750b6d0277c401015b7aa11e16cd15f32ab2.camel@HansenPartnership.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Mailman-Approved-At: Wed, 25 Nov 2020 17:07:12 +0000
-Subject: Re: [Intel-gfx] [PATCH 000/141] Fix fall-through warnings for Clang
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Daniel Vetter" <daniel.vetter@ffwll.ch>
+Date: Wed, 25 Nov 2020 17:09:24 -0000
+Message-ID: <160632416486.8877.8571070554829982070@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20201125162532.1299794-1-daniel.vetter@ffwll.ch>
+In-Reply-To: <20201125162532.1299794-1-daniel.vetter@ffwll.ch>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_drm/ttm=3A_don=27t_set_page-=3Emapping_=28rev2=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,99 +49,69 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, linux-atm-general@lists.sourceforge.net,
- reiserfs-devel@vger.kernel.org, linux-iio@vger.kernel.org,
- linux-wireless <linux-wireless@vger.kernel.org>, linux-fbdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel <linux-kernel@vger.kernel.org>,
- Nathan Chancellor <natechancellor@gmail.com>, linux-ide@vger.kernel.org,
- dm-devel@redhat.com, keyrings@vger.kernel.org, linux-mtd@lists.infradead.org,
- GR-everest-linux-l2@marvell.com, wcn36xx@lists.infradead.org,
- samba-technical@lists.samba.org, linux-i3c@lists.infradead.org,
- linux1394-devel@lists.sourceforge.net, linux-afs@lists.infradead.org,
- usb-storage@lists.one-eyed-alien.net, drbd-dev@lists.linbit.com,
- devel@driverdev.osuosl.org, linux-cifs@vger.kernel.org,
- rds-devel@oss.oracle.com, Nick Desaulniers <ndesaulniers@google.com>,
- linux-scsi@vger.kernel.org, linux-rdma@vger.kernel.org,
- oss-drivers@netronome.com, bridge@lists.linux-foundation.org,
- linux-security-module@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- linux-stm32@st-md-mailman.stormreply.com, cluster-devel@redhat.com,
- linux-acpi@vger.kernel.org, coreteam@netfilter.org,
- intel-wired-lan@lists.osuosl.org, linux-input <linux-input@vger.kernel.org>,
- Miguel Ojeda <ojeda@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Ext4 Developers List <linux-ext4@vger.kernel.org>,
- Linux Media Mailing List <linux-media@vger.kernel.org>,
- Kees Cook <keescook@chromium.org>, selinux@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- linux-geode@lists.infradead.org, linux-can@vger.kernel.org,
- linux-block@vger.kernel.org, linux-gpio@vger.kernel.org,
- op-tee@lists.trustedfirmware.org, linux-mediatek@lists.infradead.org,
- xen-devel@lists.xenproject.org, nouveau@lists.freedesktop.org,
- linux-hams@vger.kernel.org, ceph-devel@vger.kernel.org,
- virtualization@lists.linux-foundation.org, target-devel@vger.kernel.org,
- Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-hwmon@vger.kernel.org,
- linux-watchdog@vger.kernel.org, linux-nfs@vger.kernel.org,
- GR-Linux-NIC-Dev@marvell.com, tipc-discussion@lists.sourceforge.net,
- Linux-MM <linux-mm@kvack.org>, Network Development <netdev@vger.kernel.org>,
- linux-decnet-user@lists.sourceforge.net, linux-mmc@vger.kernel.org,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- linux-renesas-soc@vger.kernel.org,
- Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>, linux-sctp@vger.kernel.org,
- linux-usb@vger.kernel.org, netfilter-devel@vger.kernel.org,
- Linux Crypto Mailing List <linux-crypto@vger.kernel.org>,
- patches@opensource.cirrus.com, Joe Perches <joe@perches.com>,
- linux-integrity@vger.kernel.org,
- "maintainer:X86 ARCHITECTURE \(32-BIT AND 64-BIT\)" <x86@kernel.org>,
- linux-hardening@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Nov 23, 2020 at 07:58:06AM -0800, James Bottomley wrote:
-> On Mon, 2020-11-23 at 15:19 +0100, Miguel Ojeda wrote:
-> > On Sun, Nov 22, 2020 at 11:36 PM James Bottomley
-> > <James.Bottomley@hansenpartnership.com> wrote:
-> > > It's not about the risk of the changes it's about the cost of
-> > > implementing them.  Even if you discount the producer time (which
-> > > someone gets to pay for, and if I were the engineering manager, I'd
-> > > be unhappy about), the review/merge/rework time is pretty
-> > > significant in exchange for six minor bug fixes.  Fine, when a new
-> > > compiler warning comes along it's certainly reasonable to see if we
-> > > can benefit from it and the fact that the compiler people think
-> > > it's worthwhile is enough evidence to assume this initially.  But
-> > > at some point you have to ask whether that assumption is supported
-> > > by the evidence we've accumulated over the time we've been using
-> > > it.  And if the evidence doesn't support it perhaps it is time to
-> > > stop the experiment.
-> > 
-> > Maintainers routinely review 1-line trivial patches, not to mention
-> > internal API changes, etc.
-> 
-> We're also complaining about the inability to recruit maintainers:
-> 
-> https://www.theregister.com/2020/06/30/hard_to_find_linux_maintainers_says_torvalds/
-> 
-> And burn out:
-> 
-> http://antirez.com/news/129
-> 
-> The whole crux of your argument seems to be maintainers' time isn't
-> important so we should accept all trivial patches ... I'm pushing back
-> on that assumption in two places, firstly the valulessness of the time
-> and secondly that all trivial patches are valuable.
-
-You're assuming burn out or recruitment problems is due to patch workload
-or too many "trivial" patches.
-
-In my experience, "other maintainers" is by far the biggest cause of
-burn out for my kernel maintenance work.
-
-Certainly arguing with a maintainer about some obviously-correct patch
-series must be a good example of this.
-
-
-Sean
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+PT0gU2VyaWVzIERldGFpbHMgPT0KClNlcmllczogZHJtL3R0bTogZG9uJ3Qgc2V0IHBhZ2UtPm1h
+cHBpbmcgKHJldjIpClVSTCAgIDogaHR0cHM6Ly9wYXRjaHdvcmsuZnJlZWRlc2t0b3Aub3JnL3Nl
+cmllcy84NDA5OC8KU3RhdGUgOiB3YXJuaW5nCgo9PSBTdW1tYXJ5ID09CgokIGRpbSBjaGVja3Bh
+dGNoIG9yaWdpbi9kcm0tdGlwCmNhMWYwYjA0ODU5YSBtbTogVHJhY2sgbW11IG5vdGlmaWVycyBp
+biBmc19yZWNsYWltX2FjcXVpcmUvcmVsZWFzZQotOjEyOiBFUlJPUjpHSVRfQ09NTUlUX0lEOiBQ
+bGVhc2UgdXNlIGdpdCBjb21taXQgZGVzY3JpcHRpb24gc3R5bGUgJ2NvbW1pdCA8MTIrIGNoYXJz
+IG9mIHNoYTE+ICgiPHRpdGxlIGxpbmU+IiknIC0gaWU6ICdjb21taXQgMjNiNjgzOTVjN2M3ICgi
+bW0vbW11X25vdGlmaWVyczogYWRkIGEgbG9ja2RlcCBtYXAgZm9yIGludmFsaWRhdGVfcmFuZ2Vf
+c3RhcnQvZW5kIiknCiMxMjogCnJlY3Vyc2lvbnMgd2UgZG8gaGF2ZSBsb2NrZGVwIGFubm90YXRp
+b25zIHNpbmNlIDIzYjY4Mzk1YzdjNwoKLTo0MTogRVJST1I6R0lUX0NPTU1JVF9JRDogUGxlYXNl
+IHVzZSBnaXQgY29tbWl0IGRlc2NyaXB0aW9uIHN0eWxlICdjb21taXQgPDEyKyBjaGFycyBvZiBz
+aGExPiAoIjx0aXRsZSBsaW5lPiIpJyAtIGllOiAnY29tbWl0IDY2MjA0ZjFkMmQxYiAoIm1tL21t
+dV9ub3RpZmllcnM6IHByaW1lIGxvY2tkZXAiKScKIzQxOiAKV2l0aCB0aGlzIHdlIGNhbiBhbHNv
+IHJlbW92ZSB0aGUgbG9ja2RlcCBwcmltaW5nIGFkZGVkIGluIDY2MjA0ZjFkMmQxYgoKLTo1ODog
+V0FSTklORzpCQURfU0lHTl9PRkY6IGVtYWlsIGFkZHJlc3MgJ1Rob21hcyBIZWxsc3Ryw7ZtIChJ
+bnRlbCkgPHRob21hc19vc0BzaGlwbWFpbC5vcmc+JyBtaWdodCBiZSBiZXR0ZXIgYXMgJyJUaG9t
+YXMgSGVsbHN0csO2bSIoSW50ZWwpIDx0aG9tYXNfb3NAc2hpcG1haWwub3JnPicKIzU4OiAKQ2M6
+IFRob21hcyBIZWxsc3Ryw7ZtIChJbnRlbCkgPHRob21hc19vc0BzaGlwbWFpbC5vcmc+CgotOjEz
+ODogQ0hFQ0s6QlJBQ0VTOiBCbGFuayBsaW5lcyBhcmVuJ3QgbmVjZXNzYXJ5IGJlZm9yZSBhIGNs
+b3NlIGJyYWNlICd9JwojMTM4OiBGSUxFOiBtbS9wYWdlX2FsbG9jLmM6NDMwNzoKKworCX0KCi06
+MTU0OiBXQVJOSU5HOkZST01fU0lHTl9PRkZfTUlTTUFUQ0g6IEZyb206L1NpZ25lZC1vZmYtYnk6
+IGVtYWlsIGFkZHJlc3MgbWlzbWF0Y2g6ICdGcm9tOiBEYW5pZWwgVmV0dGVyIDxkYW5pZWwudmV0
+dGVyQGZmd2xsLmNoPicgIT0gJ1NpZ25lZC1vZmYtYnk6IERhbmllbCBWZXR0ZXIgPGRhbmllbC52
+ZXR0ZXJAaW50ZWwuY29tPicKCnRvdGFsOiAyIGVycm9ycywgMiB3YXJuaW5ncywgMSBjaGVja3Ms
+IDc0IGxpbmVzIGNoZWNrZWQKNTZjZTNlNGQwMzI5IG1tOiBFeHRyYWN0IG1pZ2h0X2FsbG9jKCkg
+ZGVidWcgY2hlY2sKLToxMjY6IFdBUk5JTkc6RlJPTV9TSUdOX09GRl9NSVNNQVRDSDogRnJvbTov
+U2lnbmVkLW9mZi1ieTogZW1haWwgYWRkcmVzcyBtaXNtYXRjaDogJ0Zyb206IERhbmllbCBWZXR0
+ZXIgPGRhbmllbC52ZXR0ZXJAZmZ3bGwuY2g+JyAhPSAnU2lnbmVkLW9mZi1ieTogRGFuaWVsIFZl
+dHRlciA8ZGFuaWVsLnZldHRlckBpbnRlbC5jb20+JwoKdG90YWw6IDAgZXJyb3JzLCAxIHdhcm5p
+bmdzLCAwIGNoZWNrcywgNTEgbGluZXMgY2hlY2tlZAoyZTYzNDNiMWM0NzEgbG9ja2luZy9zZWxm
+dGVzdHM6IEFkZCB0ZXN0Y2FzZXMgZm9yIGZzX3JlY2xhaW0KLToxODogV0FSTklORzpCQURfU0lH
+Tl9PRkY6IGVtYWlsIGFkZHJlc3MgJ1Rob21hcyBIZWxsc3Ryw7ZtIChJbnRlbCkgPHRob21hc19v
+c0BzaGlwbWFpbC5vcmc+JyBtaWdodCBiZSBiZXR0ZXIgYXMgJyJUaG9tYXMgSGVsbHN0csO2bSIo
+SW50ZWwpIDx0aG9tYXNfb3NAc2hpcG1haWwub3JnPicKIzE4OiAKQ2M6IFRob21hcyBIZWxsc3Ry
+w7ZtIChJbnRlbCkgPHRob21hc19vc0BzaGlwbWFpbC5vcmc+CgotOjc1OiBXQVJOSU5HOlBSSU5U
+S19XSVRIT1VUX0tFUk5fTEVWRUw6IHByaW50aygpIHNob3VsZCBpbmNsdWRlIEtFUk5fPExFVkVM
+PiBmYWNpbGl0eSBsZXZlbAojNzU6IEZJTEU6IGxpYi9sb2NraW5nLXNlbGZ0ZXN0LmM6MjM4ODoK
+KwlwcmludGsoIiAgLS0tLS0tLS0tLS0tLS0tLS0tLS1cbiIpOwoKLTo3NjogV0FSTklORzpQUklO
+VEtfV0lUSE9VVF9LRVJOX0xFVkVMOiBwcmludGsoKSBzaG91bGQgaW5jbHVkZSBLRVJOXzxMRVZF
+TD4gZmFjaWxpdHkgbGV2ZWwKIzc2OiBGSUxFOiBsaWIvbG9ja2luZy1zZWxmdGVzdC5jOjIzODk6
+CisJcHJpbnRrKCIgIHwgZnNfcmVjbGFpbSB0ZXN0cyB8XG4iKTsKCi06Nzc6IFdBUk5JTkc6UFJJ
+TlRLX1dJVEhPVVRfS0VSTl9MRVZFTDogcHJpbnRrKCkgc2hvdWxkIGluY2x1ZGUgS0VSTl88TEVW
+RUw+IGZhY2lsaXR5IGxldmVsCiM3NzogRklMRTogbGliL2xvY2tpbmctc2VsZnRlc3QuYzoyMzkw
+OgorCXByaW50aygiICAtLS0tLS0tLS0tLS0tLS0tLS0tLVxuIik7CgotOjgxOiBXQVJOSU5HOkxP
+R0dJTkdfQ09OVElOVUFUSU9OOiBBdm9pZCBsb2dnaW5nIGNvbnRpbnVhdGlvbiB1c2VzIHdoZXJl
+IGZlYXNpYmxlCiM4MTogRklMRTogbGliL2xvY2tpbmctc2VsZnRlc3QuYzoyMzk0OgorCXByX2Nv
+bnQoIlxuIik7CgotOjg1OiBXQVJOSU5HOkxPR0dJTkdfQ09OVElOVUFUSU9OOiBBdm9pZCBsb2dn
+aW5nIGNvbnRpbnVhdGlvbiB1c2VzIHdoZXJlIGZlYXNpYmxlCiM4NTogRklMRTogbGliL2xvY2tp
+bmctc2VsZnRlc3QuYzoyMzk4OgorCXByX2NvbnQoIlxuIik7CgotOjg5OiBXQVJOSU5HOkxPR0dJ
+TkdfQ09OVElOVUFUSU9OOiBBdm9pZCBsb2dnaW5nIGNvbnRpbnVhdGlvbiB1c2VzIHdoZXJlIGZl
+YXNpYmxlCiM4OTogRklMRTogbGliL2xvY2tpbmctc2VsZnRlc3QuYzoyNDAyOgorCXByX2NvbnQo
+IlxuIik7CgotOjEwMzogV0FSTklORzpGUk9NX1NJR05fT0ZGX01JU01BVENIOiBGcm9tOi9TaWdu
+ZWQtb2ZmLWJ5OiBlbWFpbCBhZGRyZXNzIG1pc21hdGNoOiAnRnJvbTogRGFuaWVsIFZldHRlciA8
+ZGFuaWVsLnZldHRlckBmZndsbC5jaD4nICE9ICdTaWduZWQtb2ZmLWJ5OiBEYW5pZWwgVmV0dGVy
+IDxkYW5pZWwudmV0dGVyQGludGVsLmNvbT4nCgp0b3RhbDogMCBlcnJvcnMsIDggd2FybmluZ3Ms
+IDAgY2hlY2tzLCA2NSBsaW5lcyBjaGVja2VkCgoKX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRlbC1nZnhAbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4v
+bGlzdGluZm8vaW50ZWwtZ2Z4Cg==
