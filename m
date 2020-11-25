@@ -2,50 +2,47 @@ Return-Path: <SRS0=W/nN=E7=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0E684C63777
-	for <intel-gfx@archiver.kernel.org>; Wed, 25 Nov 2020 06:26:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A08E7C63777
+	for <intel-gfx@archiver.kernel.org>; Wed, 25 Nov 2020 06:26:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7C23F2075A
-	for <intel-gfx@archiver.kernel.org>; Wed, 25 Nov 2020 06:26:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7C23F2075A
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=telegraphics.com.au
+	by mail.kernel.org (Postfix) with ESMTPS id F0B852075A
+	for <intel-gfx@archiver.kernel.org>; Wed, 25 Nov 2020 06:26:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F0B852075A
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=huawei.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 06BB86E82E;
-	Wed, 25 Nov 2020 06:26:30 +0000 (UTC)
-Received: from kvm5.telegraphics.com.au (kvm5.telegraphics.com.au
- [98.124.60.144])
- by gabe.freedesktop.org (Postfix) with ESMTP id 8C23F6E3C1;
- Tue, 24 Nov 2020 22:24:14 +0000 (UTC)
-Received: from localhost (localhost.localdomain [127.0.0.1])
- by kvm5.telegraphics.com.au (Postfix) with ESMTP id 8A96E22AD6;
- Tue, 24 Nov 2020 17:24:09 -0500 (EST)
-Date: Wed, 25 Nov 2020 09:24:08 +1100 (AEDT)
-From: Finn Thain <fthain@telegraphics.com.au>
-To: Kees Cook <keescook@chromium.org>
-In-Reply-To: <202011241327.BB28F12F6@keescook>
-Message-ID: <alpine.LNX.2.23.453.2011250859290.15@nippy.intranet>
-References: <202011201129.B13FDB3C@keescook>
- <20201120115142.292999b2@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
- <202011220816.8B6591A@keescook>
- <9b57fd4914b46f38d54087d75e072d6e947cb56d.camel@HansenPartnership.com>
- <ca071decb87cc7e905411423c05a48f9fd2f58d7.camel@perches.com>
- <0147972a72bc13f3629de8a32dee6f1f308994b5.camel@HansenPartnership.com>
- <d8d1e9add08cdd4158405e77762d4946037208f8.camel@perches.com>
- <dbd2cb703ed9eefa7dde9281ea26ab0f7acc8afe.camel@HansenPartnership.com>
- <20201123130348.GA3119@embeddedor>
- <8f5611bb015e044fa1c0a48147293923c2d904e4.camel@HansenPartnership.com>
- <202011241327.BB28F12F6@keescook>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 34B986E82C;
+	Wed, 25 Nov 2020 06:26:42 +0000 (UTC)
+Received: from szxga05-in.huawei.com (szxga05-in.huawei.com [45.249.212.191])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5613F89FD9;
+ Wed, 25 Nov 2020 01:26:31 +0000 (UTC)
+Received: from DGGEMS405-HUB.china.huawei.com (unknown [172.30.72.60])
+ by szxga05-in.huawei.com (SkyGuard) with ESMTP id 4Cgjrt3Jq7zhc3j;
+ Wed, 25 Nov 2020 09:26:06 +0800 (CST)
+Received: from code-website.localdomain (10.175.127.227) by
+ DGGEMS405-HUB.china.huawei.com (10.3.19.205) with Microsoft SMTP Server id
+ 14.3.487.0; Wed, 25 Nov 2020 09:26:18 +0800
+From: Luo Meng <luomeng12@huawei.com>
+To: <jani.nikula@linux.intel.com>, <joonas.lahtinen@linux.intel.com>,
+ <rodrigo.vivi@intel.com>, <airlied@linux.ie>, <daniel@ffwll.ch>,
+ <chris@chris-wilson.co.uk>, <intel-gfx@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, <luomeng12@huawei.com>
+Date: Wed, 25 Nov 2020 09:29:38 +0800
+Message-ID: <20201125012938.2767821-1-luomeng12@huawei.com>
+X-Mailer: git-send-email 2.25.4
 MIME-Version: 1.0
+X-Originating-IP: [10.175.127.227]
+X-CFilter-Loop: Reflected
 X-Mailman-Approved-At: Wed, 25 Nov 2020 06:26:28 +0000
-Subject: Re: [Intel-gfx] [Intel-wired-lan] [PATCH 000/141] Fix fall-through
- warnings for Clang
+Subject: [Intel-gfx] [PATCH] drm/i915: fix error return code in
+ check_partial_mapping()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,84 +55,41 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, bridge@lists.linux-foundation.org,
- target-devel@vger.kernel.org, Greg KH <gregkh@linuxfoundation.org>,
- linux-iio@vger.kernel.org, linux-wireless@vger.kernel.org,
- linux-mmc@vger.kernel.org, linux-fbdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org, "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- James Bottomley <James.Bottomley@HansenPartnership.com>,
- linux-ide@vger.kernel.org, dm-devel@redhat.com, keyrings@vger.kernel.org,
- linux-mtd@lists.infradead.org, GR-everest-linux-l2@marvell.com,
- wcn36xx@lists.infradead.org, linux-i3c@lists.infradead.org,
- linux1394-devel@lists.sourceforge.net, linux-afs@lists.infradead.org,
- drbd-dev@lists.linbit.com, devel@driverdev.osuosl.org,
- linux-cifs@vger.kernel.org, rds-devel@oss.oracle.com,
- linux-scsi@vger.kernel.org, linux-acpi@vger.kernel.org,
- linux-rdma@vger.kernel.org, oss-drivers@netronome.com,
- linux-atm-general@lists.sourceforge.net, ceph-devel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, linux-stm32@st-md-mailman.stormreply.com,
- cluster-devel@redhat.com, usb-storage@lists.one-eyed-alien.net,
- coreteam@netfilter.org, intel-wired-lan@lists.osuosl.org,
- linux-input@vger.kernel.org, Miguel Ojeda <ojeda@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, linux-ext4@vger.kernel.org,
- virtualization@lists.linux-foundation.org, netfilter-devel@vger.kernel.org,
- linux-media@vger.kernel.org, linux-watchdog@vger.kernel.org,
- selinux@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, linux-sctp@vger.kernel.org,
- reiserfs-devel@vger.kernel.org, linux-geode@lists.infradead.org,
- linux-block@vger.kernel.org, linux-gpio@vger.kernel.org,
- op-tee@lists.trustedfirmware.org, linux-mediatek@lists.infradead.org,
- xen-devel@lists.xenproject.org, nouveau@lists.freedesktop.org,
- linux-hams@vger.kernel.org, Nathan Chancellor <natechancellor@gmail.com>,
- linux-can@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-hwmon@vger.kernel.org, Nick Desaulniers <ndesaulniers@google.com>,
- linux-nfs@vger.kernel.org, GR-Linux-NIC-Dev@marvell.com, linux-mm@kvack.org,
- netdev@vger.kernel.org, linux-decnet-user@lists.sourceforge.net,
- samba-technical@lists.samba.org, linux-kernel@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, linux-security-module@vger.kernel.org,
- linux-usb@vger.kernel.org, tipc-discussion@lists.sourceforge.net,
- linux-crypto@vger.kernel.org, Jonathan Cameron <Jonathan.Cameron@huawei.com>,
- patches@opensource.cirrus.com, Joe Perches <joe@perches.com>,
- linux-integrity@vger.kernel.org, x86@kernel.org,
- linux-hardening@vger.kernel.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 24 Nov 2020, Kees Cook wrote:
+Fix to return a negative error code from the error handling case
+instead of 0 in function check_partial_mapping(), as done elsewhere
+in this function.
 
-> On Mon, Nov 23, 2020 at 08:31:30AM -0800, James Bottomley wrote:
-> > Really, no ... something which produces no improvement has no value at 
-> > all ... we really shouldn't be wasting maintainer time with it because 
-> > it has a cost to merge.  I'm not sure we understand where the balance 
-> > lies in value vs cost to merge but I am confident in the zero value 
-> > case.
-> 
-> What? We can't measure how many future bugs aren't introduced because 
-> the kernel requires explicit case flow-control statements for all new 
-> code.
-> 
+Fixes: 07e98eb0a174 ("drm/i915/selftests: Tighten the timeout testing for partial mmaps")
+Reported-by: Hulk Robot <hulkci@huawei.com>
+Signed-off-by: Luo Meng <luomeng12@huawei.com>
+---
+ drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-These statements are not "missing" unless you presume that code written 
-before the latest de facto language spec was written should somehow be 
-held to that spec.
+diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
+index d27d87a678c8..3f5e7d0a3c53 100644
+--- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
++++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
+@@ -137,8 +137,10 @@ static int check_partial_mapping(struct drm_i915_gem_object *obj,
+ 	i915_vma_unpin_iomap(vma);
+ 
+ 	offset = tiled_offset(tile, page << PAGE_SHIFT);
+-	if (offset >= obj->base.size)
++	if (offset >= obj->base.size) {
++		err = -EINVAL;
+ 		goto out;
++	}
+ 
+ 	intel_gt_flush_ggtt_writes(&to_i915(obj->base.dev)->gt);
+ 
+-- 
+2.25.4
 
-If the 'fallthrough' statement is not part of the latest draft spec then 
-we should ask why not before we embrace it. Being that the kernel still 
-prefers -std=gnu89 you might want to consider what has prevented 
--std=gnu99 or -std=gnu2x etc.
-
-> We already enable -Wimplicit-fallthrough globally, so that's not the 
-> discussion. The issue is that Clang is (correctly) even more strict than 
-> GCC for this, so these are the remaining ones to fix for full Clang 
-> coverage too.
-> 
-
-Seems to me you should be patching the compiler.
-
-When you have consensus among the language lawyers you'll have more 
-credibility with those being subjected to enforcement.
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
