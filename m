@@ -2,37 +2,37 @@ Return-Path: <SRS0=W/nN=E7=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-13.9 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
+	URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 26C21C5519F
-	for <intel-gfx@archiver.kernel.org>; Wed, 25 Nov 2020 10:41:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E561FC83016
+	for <intel-gfx@archiver.kernel.org>; Wed, 25 Nov 2020 10:41:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D02D0206E0
-	for <intel-gfx@archiver.kernel.org>; Wed, 25 Nov 2020 10:41:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D02D0206E0
+	by mail.kernel.org (Postfix) with ESMTPS id 8EE9B20678
+	for <intel-gfx@archiver.kernel.org>; Wed, 25 Nov 2020 10:41:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8EE9B20678
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C094C6E995;
-	Wed, 25 Nov 2020 10:40:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2360A6E93E;
+	Wed, 25 Nov 2020 10:40:39 +0000 (UTC)
 Received: from mblankhorst.nl (mblankhorst.nl [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C2F926E8B2
- for <intel-gfx@lists.freedesktop.org>; Wed, 25 Nov 2020 10:40:26 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 094256E8E5
+ for <intel-gfx@lists.freedesktop.org>; Wed, 25 Nov 2020 10:40:32 +0000 (UTC)
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 25 Nov 2020 11:39:23 +0100
-Message-Id: <20201125104011.606641-16-maarten.lankhorst@linux.intel.com>
+Date: Wed, 25 Nov 2020 11:40:04 +0100
+Message-Id: <20201125104011.606641-57-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.29.2.222.g5d2a92d10f8
 In-Reply-To: <20201125104011.606641-1-maarten.lankhorst@linux.intel.com>
 References: <20201125104011.606641-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v5 15/63] drm/i915: Make compilation of userptr
- code depend on MMU_NOTIFIER.
+Subject: [Intel-gfx] [PATCH v5 56/63] drm/i915/selftests: Prepare timeline
+ tests for obj->mm.lock removal
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,252 +45,57 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Now that unsynchronized mappings are removed, the only time userptr
-works is when the MMU notifier is enabled. Put all of the userptr
-code behind a mmu notifier ifdef.
-
-Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
----
- .../gpu/drm/i915/gem/i915_gem_execbuffer.c    |  2 +
- drivers/gpu/drm/i915/gem/i915_gem_object.h    |  4 ++
- .../gpu/drm/i915/gem/i915_gem_object_types.h  |  2 +
- drivers/gpu/drm/i915/gem/i915_gem_userptr.c   | 58 +++++++------------
- drivers/gpu/drm/i915/i915_drv.h               |  2 +
- 5 files changed, 31 insertions(+), 37 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-index b396e47da0ea..9cf22e179bf7 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-@@ -1970,8 +1970,10 @@ static noinline int eb_relocate_parse_slow(struct i915_execbuffer *eb,
- 		err = 0;
- 	}
- 
-+#ifdef CONFIG_MMU_NOTIFIER
- 	if (!err)
- 		flush_workqueue(eb->i915->mm.userptr_wq);
-+#endif
- 
- err_relock:
- 	i915_gem_ww_ctx_init(&eb->ww, true);
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.h b/drivers/gpu/drm/i915/gem/i915_gem_object.h
-index 2ba6d114182c..dc4f3175550d 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_object.h
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_object.h
-@@ -537,7 +537,11 @@ void __i915_gem_object_invalidate_frontbuffer(struct drm_i915_gem_object *obj,
- static inline bool
- i915_gem_object_is_userptr(struct drm_i915_gem_object *obj)
- {
-+#ifdef CONFIG_MMU_NOTIFIER
- 	return obj->userptr.mm;
-+#else
-+	return false;
-+#endif
- }
- 
- static inline void
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
-index b53e44b06b09..6d3f451c15c6 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
-@@ -289,6 +289,7 @@ struct drm_i915_gem_object {
- 	unsigned long *bit_17;
- 
- 	union {
-+#ifdef CONFIG_MMU_NOTIFIER
- 		struct i915_gem_userptr {
- 			uintptr_t ptr;
- 
-@@ -296,6 +297,7 @@ struct drm_i915_gem_object {
- 			struct i915_mmu_object *mmu_object;
- 			struct work_struct *work;
- 		} userptr;
-+#endif
- 
- 		unsigned long scratch;
- 		u64 encode;
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_userptr.c b/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
-index 241f865077b9..1183b28c084b 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
-@@ -15,6 +15,8 @@
- #include "i915_gem_object.h"
- #include "i915_scatterlist.h"
- 
-+#if defined(CONFIG_MMU_NOTIFIER)
-+
- struct i915_mm_struct {
- 	struct mm_struct *mm;
- 	struct drm_i915_private *i915;
-@@ -24,7 +26,6 @@ struct i915_mm_struct {
- 	struct rcu_work work;
- };
- 
--#if defined(CONFIG_MMU_NOTIFIER)
- #include <linux/interval_tree.h>
- 
- struct i915_mmu_notifier {
-@@ -217,15 +218,11 @@ i915_mmu_notifier_find(struct i915_mm_struct *mm)
- }
- 
- static int
--i915_gem_userptr_init__mmu_notifier(struct drm_i915_gem_object *obj,
--				    unsigned flags)
-+i915_gem_userptr_init__mmu_notifier(struct drm_i915_gem_object *obj)
- {
- 	struct i915_mmu_notifier *mn;
- 	struct i915_mmu_object *mo;
- 
--	if (flags & I915_USERPTR_UNSYNCHRONIZED)
--		return -ENODEV;
--
- 	if (GEM_WARN_ON(!obj->userptr.mm))
- 		return -EINVAL;
- 
-@@ -258,32 +255,6 @@ i915_mmu_notifier_free(struct i915_mmu_notifier *mn,
- 	kfree(mn);
- }
- 
--#else
--
--static void
--__i915_gem_userptr_set_active(struct drm_i915_gem_object *obj, bool value)
--{
--}
--
--static void
--i915_gem_userptr_release__mmu_notifier(struct drm_i915_gem_object *obj)
--{
--}
--
--static int
--i915_gem_userptr_init__mmu_notifier(struct drm_i915_gem_object *obj,
--				    unsigned flags)
--{
--	return -ENODEV;
--}
--
--static void
--i915_mmu_notifier_free(struct i915_mmu_notifier *mn,
--		       struct mm_struct *mm)
--{
--}
--
--#endif
- 
- static struct i915_mm_struct *
- __i915_mm_struct_find(struct drm_i915_private *i915, struct mm_struct *real)
-@@ -725,6 +696,8 @@ static const struct drm_i915_gem_object_ops i915_gem_userptr_ops = {
- 	.release = i915_gem_userptr_release,
- };
- 
-+#endif
-+
- /*
-  * Creates a new mm object that wraps some normal memory from the process
-  * context - user memory.
-@@ -765,12 +738,12 @@ i915_gem_userptr_ioctl(struct drm_device *dev,
- 		       void *data,
- 		       struct drm_file *file)
- {
--	static struct lock_class_key lock_class;
-+	static struct lock_class_key __maybe_unused lock_class;
- 	struct drm_i915_private *dev_priv = to_i915(dev);
- 	struct drm_i915_gem_userptr *args = data;
--	struct drm_i915_gem_object *obj;
--	int ret;
--	u32 handle;
-+	struct drm_i915_gem_object __maybe_unused *obj;
-+	int __maybe_unused ret;
-+	u32 __maybe_unused handle;
- 
- 	if (!HAS_LLC(dev_priv) && !HAS_SNOOP(dev_priv)) {
- 		/* We cannot support coherent userptr objects on hw without
-@@ -809,6 +782,9 @@ i915_gem_userptr_ioctl(struct drm_device *dev,
- 	if (!access_ok((char __user *)(unsigned long)args->user_ptr, args->user_size))
- 		return -EFAULT;
- 
-+	if (args->flags & I915_USERPTR_UNSYNCHRONIZED)
-+		return -ENODEV;
-+
- 	if (args->flags & I915_USERPTR_READ_ONLY) {
- 		/*
- 		 * On almost all of the older hw, we cannot tell the GPU that
-@@ -818,6 +794,7 @@ i915_gem_userptr_ioctl(struct drm_device *dev,
- 			return -ENODEV;
- 	}
- 
-+#ifdef CONFIG_MMU_NOTIFIER
- 	obj = i915_gem_object_alloc();
- 	if (obj == NULL)
- 		return -ENOMEM;
-@@ -839,7 +816,7 @@ i915_gem_userptr_ioctl(struct drm_device *dev,
- 	 */
- 	ret = i915_gem_userptr_init__mm_struct(obj);
- 	if (ret == 0)
--		ret = i915_gem_userptr_init__mmu_notifier(obj, args->flags);
-+		ret = i915_gem_userptr_init__mmu_notifier(obj);
- 	if (ret == 0)
- 		ret = drm_gem_handle_create(file, &obj->base, &handle);
- 
-@@ -850,10 +827,14 @@ i915_gem_userptr_ioctl(struct drm_device *dev,
- 
- 	args->handle = handle;
- 	return 0;
-+#else
-+	return -ENODEV;
-+#endif
- }
- 
- int i915_gem_init_userptr(struct drm_i915_private *dev_priv)
- {
-+#ifdef CONFIG_MMU_NOTIFIER
- 	spin_lock_init(&dev_priv->mm_lock);
- 	hash_init(dev_priv->mm_structs);
- 
-@@ -863,11 +844,14 @@ int i915_gem_init_userptr(struct drm_i915_private *dev_priv)
- 				0);
- 	if (!dev_priv->mm.userptr_wq)
- 		return -ENOMEM;
-+#endif
- 
- 	return 0;
- }
- 
- void i915_gem_cleanup_userptr(struct drm_i915_private *dev_priv)
- {
-+#ifdef CONFIG_MMU_NOTIFIER
- 	destroy_workqueue(dev_priv->mm.userptr_wq);
-+#endif
- }
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index a7e7efafe350..7f788db844cd 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -590,12 +590,14 @@ struct i915_gem_mm {
- 	struct notifier_block vmap_notifier;
- 	struct shrinker shrinker;
- 
-+#ifdef CONFIG_MMU_NOTIFIER
- 	/**
- 	 * Workqueue to fault in userptr pages, flushed by the execbuf
- 	 * when required but otherwise left to userspace to try again
- 	 * on EAGAIN.
- 	 */
- 	struct workqueue_struct *userptr_wq;
-+#endif
- 
- 	/* shrinker accounting, also useful for userland debugging */
- 	u64 shrink_memory;
--- 
-2.29.2.222.g5d2a92d10f8
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+V2UgY2FuIG5vIGxvbmdlciBjYWxsIGludGVsX3RpbWVsaW5lX3BpbiB3aXRoIGEgbnVsbCBhcmd1
+bWVudCwKc28gYWRkIGEgd3cgbG9vcCB0aGF0IGxvY2tzIHRoZSBiYWNraW5nIG9iamVjdC4KClNp
+Z25lZC1vZmYtYnk6IE1hYXJ0ZW4gTGFua2hvcnN0IDxtYWFydGVuLmxhbmtob3JzdEBsaW51eC5p
+bnRlbC5jb20+ClJldmlld2VkLWJ5OiBUaG9tYXMgSGVsbHN0csO2bSA8dGhvbWFzLmhlbGxzdHJv
+bUBsaW51eC5pbnRlbC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3Qvc2VsZnRlc3Rf
+dGltZWxpbmUuYyB8IDMwICsrKysrKysrKysrKysrKysrLS0tLQogMSBmaWxlIGNoYW5nZWQsIDI1
+IGluc2VydGlvbnMoKyksIDUgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
+ZHJtL2k5MTUvZ3Qvc2VsZnRlc3RfdGltZWxpbmUuYyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2d0
+L3NlbGZ0ZXN0X3RpbWVsaW5lLmMKaW5kZXggYzhkNzU1MjUwMWE3Li4xNmNjN2JkM2U3NjAgMTAw
+NjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2d0L3NlbGZ0ZXN0X3RpbWVsaW5lLmMKKysr
+IGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3Qvc2VsZnRlc3RfdGltZWxpbmUuYwpAQCAtMzcsNiAr
+MzcsMjYgQEAgc3RhdGljIHVuc2lnbmVkIGxvbmcgaHdzcF9jYWNoZWxpbmUoc3RydWN0IGludGVs
+X3RpbWVsaW5lICp0bCkKIAlyZXR1cm4gKGFkZHJlc3MgKyBvZmZzZXRfaW5fcGFnZSh0bC0+aHdz
+cF9vZmZzZXQpKSAvIENBQ0hFTElORV9CWVRFUzsKIH0KIAorc3RhdGljIGludCBzZWxmdGVzdF90
+bF9waW4oc3RydWN0IGludGVsX3RpbWVsaW5lICp0bCkKK3sKKwlzdHJ1Y3QgaTkxNV9nZW1fd3df
+Y3R4IHd3OworCWludCBlcnI7CisKKwlpOTE1X2dlbV93d19jdHhfaW5pdCgmd3csIGZhbHNlKTsK
+K3JldHJ5OgorCWVyciA9IGk5MTVfZ2VtX29iamVjdF9sb2NrKHRsLT5od3NwX2dndHQtPm9iaiwg
+Jnd3KTsKKwlpZiAoIWVycikKKwkJZXJyID0gaW50ZWxfdGltZWxpbmVfcGluKHRsLCAmd3cpOwor
+CisJaWYgKGVyciA9PSAtRURFQURMSykgeworCQllcnIgPSBpOTE1X2dlbV93d19jdHhfYmFja29m
+Zigmd3cpOworCQlpZiAoIWVycikKKwkJCWdvdG8gcmV0cnk7CisJfQorCWk5MTVfZ2VtX3d3X2N0
+eF9maW5pKCZ3dyk7CisJcmV0dXJuIGVycjsKK30KKwogI2RlZmluZSBDQUNIRUxJTkVTX1BFUl9Q
+QUdFIChQQUdFX1NJWkUgLyBDQUNIRUxJTkVfQllURVMpCiAKIHN0cnVjdCBtb2NrX2h3c3BfZnJl
+ZWxpc3QgewpAQCAtNzgsNyArOTgsNyBAQCBzdGF0aWMgaW50IF9fbW9ja19od3NwX3RpbWVsaW5l
+KHN0cnVjdCBtb2NrX2h3c3BfZnJlZWxpc3QgKnN0YXRlLAogCQlpZiAoSVNfRVJSKHRsKSkKIAkJ
+CXJldHVybiBQVFJfRVJSKHRsKTsKIAotCQllcnIgPSBpbnRlbF90aW1lbGluZV9waW4odGwsIE5V
+TEwpOworCQllcnIgPSBzZWxmdGVzdF90bF9waW4odGwpOwogCQlpZiAoZXJyKSB7CiAJCQlpbnRl
+bF90aW1lbGluZV9wdXQodGwpOwogCQkJcmV0dXJuIGVycjsKQEAgLTQ2NCw3ICs0ODQsNyBAQCBj
+aGVja2VkX3RsX3dyaXRlKHN0cnVjdCBpbnRlbF90aW1lbGluZSAqdGwsIHN0cnVjdCBpbnRlbF9l
+bmdpbmVfY3MgKmVuZ2luZSwgdTMyCiAJc3RydWN0IGk5MTVfcmVxdWVzdCAqcnE7CiAJaW50IGVy
+cjsKIAotCWVyciA9IGludGVsX3RpbWVsaW5lX3Bpbih0bCwgTlVMTCk7CisJZXJyID0gc2VsZnRl
+c3RfdGxfcGluKHRsKTsKIAlpZiAoZXJyKSB7CiAJCXJxID0gRVJSX1BUUihlcnIpOwogCQlnb3Rv
+IG91dDsKQEAgLTY2NCw3ICs2ODQsNyBAQCBzdGF0aWMgaW50IGxpdmVfaHdzcF93cmFwKHZvaWQg
+KmFyZykKIAlpZiAoIXRsLT5oYXNfaW5pdGlhbF9icmVhZGNydW1iKQogCQlnb3RvIG91dF9mcmVl
+OwogCi0JZXJyID0gaW50ZWxfdGltZWxpbmVfcGluKHRsLCBOVUxMKTsKKwllcnIgPSBzZWxmdGVz
+dF90bF9waW4odGwpOwogCWlmIChlcnIpCiAJCWdvdG8gb3V0X2ZyZWU7CiAKQEAgLTgxMSwxMyAr
+ODMxLDEzIEBAIHN0YXRpYyBpbnQgc2V0dXBfd2F0Y2hlcihzdHJ1Y3QgaHdzcF93YXRjaGVyICp3
+LCBzdHJ1Y3QgaW50ZWxfZ3QgKmd0KQogCWlmIChJU19FUlIob2JqKSkKIAkJcmV0dXJuIFBUUl9F
+UlIob2JqKTsKIAotCXctPm1hcCA9IGk5MTVfZ2VtX29iamVjdF9waW5fbWFwKG9iaiwgSTkxNV9N
+QVBfV0IpOworCXctPm1hcCA9IGk5MTVfZ2VtX29iamVjdF9waW5fbWFwX3VubG9ja2VkKG9iaiwg
+STkxNV9NQVBfV0IpOwogCWlmIChJU19FUlIody0+bWFwKSkgewogCQlpOTE1X2dlbV9vYmplY3Rf
+cHV0KG9iaik7CiAJCXJldHVybiBQVFJfRVJSKHctPm1hcCk7CiAJfQogCi0Jdm1hID0gaTkxNV9n
+ZW1fb2JqZWN0X2dndHRfcGluX3d3KG9iaiwgTlVMTCwgTlVMTCwgMCwgMCwgMCk7CisJdm1hID0g
+aTkxNV9nZW1fb2JqZWN0X2dndHRfcGluKG9iaiwgTlVMTCwgMCwgMCwgMCk7CiAJaWYgKElTX0VS
+Uih2bWEpKSB7CiAJCWk5MTVfZ2VtX29iamVjdF9wdXQob2JqKTsKIAkJcmV0dXJuIFBUUl9FUlIo
+dm1hKTsKLS0gCjIuMjkuMi4yMjIuZzVkMmE5MmQxMGY4CgpfX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fXwpJbnRlbC1nZnggbWFpbGluZyBsaXN0CkludGVsLWdm
+eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
+bG1hbi9saXN0aW5mby9pbnRlbC1nZngK
