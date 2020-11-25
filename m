@@ -2,38 +2,38 @@ Return-Path: <SRS0=W/nN=E7=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.9 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
-	URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0A001C64E7A
-	for <intel-gfx@archiver.kernel.org>; Wed, 25 Nov 2020 10:41:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A5E20C63777
+	for <intel-gfx@archiver.kernel.org>; Wed, 25 Nov 2020 10:41:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A5E2920678
-	for <intel-gfx@archiver.kernel.org>; Wed, 25 Nov 2020 10:41:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A5E2920678
+	by mail.kernel.org (Postfix) with ESMTPS id 4A6112063A
+	for <intel-gfx@archiver.kernel.org>; Wed, 25 Nov 2020 10:41:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4A6112063A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8303D6E96E;
-	Wed, 25 Nov 2020 10:40:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D95886E91C;
+	Wed, 25 Nov 2020 10:40:36 +0000 (UTC)
 Received: from mblankhorst.nl (mblankhorst.nl
  [IPv6:2a02:2308::216:3eff:fe92:dfa3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B9976E89B
- for <intel-gfx@lists.freedesktop.org>; Wed, 25 Nov 2020 10:40:31 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EA70D6E89B
+ for <intel-gfx@lists.freedesktop.org>; Wed, 25 Nov 2020 10:40:32 +0000 (UTC)
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 25 Nov 2020 11:40:01 +0100
-Message-Id: <20201125104011.606641-54-maarten.lankhorst@linux.intel.com>
+Date: Wed, 25 Nov 2020 11:40:10 +0100
+Message-Id: <20201125104011.606641-63-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.29.2.222.g5d2a92d10f8
 In-Reply-To: <20201125104011.606641-1-maarten.lankhorst@linux.intel.com>
 References: <20201125104011.606641-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v5 53/63] drm/i915/selftests: Prepare execlists
- for obj->mm.lock removal
+Subject: [Intel-gfx] [PATCH v5 62/63] drm/i915: Keep userpointer bindings if
+ seqcount is unchanged, v2.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,104 +46,72 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Dan Carpenter <dan.carpenter@oracle.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Q29udmVydCBub3JtYWwgZnVuY3Rpb25zIHRvIHVubG9ja2VkIHZlcnNpb25zIHdoZXJlIG5lZWRl
-ZC4KClNpZ25lZC1vZmYtYnk6IE1hYXJ0ZW4gTGFua2hvcnN0IDxtYWFydGVuLmxhbmtob3JzdEBs
-aW51eC5pbnRlbC5jb20+ClJldmlld2VkLWJ5OiBUaG9tYXMgSGVsbHN0csO2bSA8dGhvbWFzLmhl
-bGxzdHJvbUBsaW51eC5pbnRlbC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3Qvc2Vs
-ZnRlc3RfbHJjLmMgfCAzNCArKysrKysrKysrKysrLS0tLS0tLS0tLS0tLQogMSBmaWxlIGNoYW5n
-ZWQsIDE3IGluc2VydGlvbnMoKyksIDE3IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZl
-cnMvZ3B1L2RybS9pOTE1L2d0L3NlbGZ0ZXN0X2xyYy5jIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUv
-Z3Qvc2VsZnRlc3RfbHJjLmMKaW5kZXggOTVkNDFjMDFkMGUwLi4xMjQwMTFmNmZiNTEgMTAwNjQ0
-Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2d0L3NlbGZ0ZXN0X2xyYy5jCisrKyBiL2RyaXZl
-cnMvZ3B1L2RybS9pOTE1L2d0L3NlbGZ0ZXN0X2xyYy5jCkBAIC0xMDA3LDcgKzEwMDcsNyBAQCBz
-dGF0aWMgaW50IGxpdmVfdGltZXNsaWNlX3ByZWVtcHQodm9pZCAqYXJnKQogCQlnb3RvIGVycl9v
-Ymo7CiAJfQogCi0JdmFkZHIgPSBpOTE1X2dlbV9vYmplY3RfcGluX21hcChvYmosIEk5MTVfTUFQ
-X1dDKTsKKwl2YWRkciA9IGk5MTVfZ2VtX29iamVjdF9waW5fbWFwX3VubG9ja2VkKG9iaiwgSTkx
-NV9NQVBfV0MpOwogCWlmIChJU19FUlIodmFkZHIpKSB7CiAJCWVyciA9IFBUUl9FUlIodmFkZHIp
-OwogCQlnb3RvIGVycl9vYmo7CkBAIC0xMzE1LDcgKzEzMTUsNyBAQCBzdGF0aWMgaW50IGxpdmVf
-dGltZXNsaWNlX3F1ZXVlKHZvaWQgKmFyZykKIAkJZ290byBlcnJfb2JqOwogCX0KIAotCXZhZGRy
-ID0gaTkxNV9nZW1fb2JqZWN0X3Bpbl9tYXAob2JqLCBJOTE1X01BUF9XQyk7CisJdmFkZHIgPSBp
-OTE1X2dlbV9vYmplY3RfcGluX21hcF91bmxvY2tlZChvYmosIEk5MTVfTUFQX1dDKTsKIAlpZiAo
-SVNfRVJSKHZhZGRyKSkgewogCQllcnIgPSBQVFJfRVJSKHZhZGRyKTsKIAkJZ290byBlcnJfb2Jq
-OwpAQCAtMTU2Miw3ICsxNTYyLDcgQEAgc3RhdGljIGludCBsaXZlX2J1c3l3YWl0X3ByZWVtcHQo
-dm9pZCAqYXJnKQogCQlnb3RvIGVycl9jdHhfbG87CiAJfQogCi0JbWFwID0gaTkxNV9nZW1fb2Jq
-ZWN0X3Bpbl9tYXAob2JqLCBJOTE1X01BUF9XQyk7CisJbWFwID0gaTkxNV9nZW1fb2JqZWN0X3Bp
-bl9tYXBfdW5sb2NrZWQob2JqLCBJOTE1X01BUF9XQyk7CiAJaWYgKElTX0VSUihtYXApKSB7CiAJ
-CWVyciA9IFBUUl9FUlIobWFwKTsKIAkJZ290byBlcnJfb2JqOwpAQCAtMjY3OCw3ICsyNjc4LDcg
-QEAgc3RhdGljIGludCBjcmVhdGVfZ2FuZyhzdHJ1Y3QgaW50ZWxfZW5naW5lX2NzICplbmdpbmUs
-CiAJaWYgKGVycikKIAkJZ290byBlcnJfb2JqOwogCi0JY3MgPSBpOTE1X2dlbV9vYmplY3RfcGlu
-X21hcChvYmosIEk5MTVfTUFQX1dDKTsKKwljcyA9IGk5MTVfZ2VtX29iamVjdF9waW5fbWFwX3Vu
-bG9ja2VkKG9iaiwgSTkxNV9NQVBfV0MpOwogCWlmIChJU19FUlIoY3MpKQogCQlnb3RvIGVycl9v
-Ymo7CiAKQEAgLTI5NjAsNyArMjk2MCw3IEBAIHN0YXRpYyBpbnQgbGl2ZV9wcmVlbXB0X2dhbmco
-dm9pZCAqYXJnKQogCQkgKiBpdCB3aWxsIHRlcm1pbmF0ZSB0aGUgbmV4dCBsb3dlc3Qgc3Bpbm5l
-ciB1bnRpbCB0aGVyZQogCQkgKiBhcmUgbm8gbW9yZSBzcGlubmVycyBhbmQgdGhlIGdhbmcgaXMg
-Y29tcGxldGUuCiAJCSAqLwotCQljcyA9IGk5MTVfZ2VtX29iamVjdF9waW5fbWFwKHJxLT5iYXRj
-aC0+b2JqLCBJOTE1X01BUF9XQyk7CisJCWNzID0gaTkxNV9nZW1fb2JqZWN0X3Bpbl9tYXBfdW5s
-b2NrZWQocnEtPmJhdGNoLT5vYmosIEk5MTVfTUFQX1dDKTsKIAkJaWYgKCFJU19FUlIoY3MpKSB7
-CiAJCQkqY3MgPSAwOwogCQkJaTkxNV9nZW1fb2JqZWN0X3VucGluX21hcChycS0+YmF0Y2gtPm9i
-aik7CkBAIC0zMDI1LDcgKzMwMjUsNyBAQCBjcmVhdGVfZ3ByX3VzZXIoc3RydWN0IGludGVsX2Vu
-Z2luZV9jcyAqZW5naW5lLAogCQlyZXR1cm4gRVJSX1BUUihlcnIpOwogCX0KIAotCWNzID0gaTkx
-NV9nZW1fb2JqZWN0X3Bpbl9tYXAob2JqLCBJOTE1X01BUF9XQyk7CisJY3MgPSBpOTE1X2dlbV9v
-YmplY3RfcGluX21hcF91bmxvY2tlZChvYmosIEk5MTVfTUFQX1dDKTsKIAlpZiAoSVNfRVJSKGNz
-KSkgewogCQlpOTE1X3ZtYV9wdXQodm1hKTsKIAkJcmV0dXJuIEVSUl9DQVNUKGNzKTsKQEAgLTMy
-MzUsNyArMzIzNSw3IEBAIHN0YXRpYyBpbnQgbGl2ZV9wcmVlbXB0X3VzZXIodm9pZCAqYXJnKQog
-CWlmIChJU19FUlIoZ2xvYmFsKSkKIAkJcmV0dXJuIFBUUl9FUlIoZ2xvYmFsKTsKIAotCXJlc3Vs
-dCA9IGk5MTVfZ2VtX29iamVjdF9waW5fbWFwKGdsb2JhbC0+b2JqLCBJOTE1X01BUF9XQyk7CisJ
-cmVzdWx0ID0gaTkxNV9nZW1fb2JqZWN0X3Bpbl9tYXBfdW5sb2NrZWQoZ2xvYmFsLT5vYmosIEk5
-MTVfTUFQX1dDKTsKIAlpZiAoSVNfRVJSKHJlc3VsdCkpIHsKIAkJaTkxNV92bWFfdW5waW5fYW5k
-X3JlbGVhc2UoJmdsb2JhbCwgMCk7CiAJCXJldHVybiBQVFJfRVJSKHJlc3VsdCk7CkBAIC0zNjI4
-LDcgKzM2MjgsNyBAQCBzdGF0aWMgaW50IGxpdmVfcHJlZW1wdF9zbW9rZSh2b2lkICphcmcpCiAJ
-CWdvdG8gZXJyX2ZyZWU7CiAJfQogCi0JY3MgPSBpOTE1X2dlbV9vYmplY3RfcGluX21hcChzbW9r
-ZS5iYXRjaCwgSTkxNV9NQVBfV0IpOworCWNzID0gaTkxNV9nZW1fb2JqZWN0X3Bpbl9tYXBfdW5s
-b2NrZWQoc21va2UuYmF0Y2gsIEk5MTVfTUFQX1dCKTsKIAlpZiAoSVNfRVJSKGNzKSkgewogCQll
-cnIgPSBQVFJfRVJSKGNzKTsKIAkJZ290byBlcnJfYmF0Y2g7CkBAIC00MjMxLDcgKzQyMzEsNyBA
-QCBzdGF0aWMgaW50IHByZXNlcnZlZF92aXJ0dWFsX2VuZ2luZShzdHJ1Y3QgaW50ZWxfZ3QgKmd0
-LAogCQlnb3RvIG91dF9lbmQ7CiAJfQogCi0JY3MgPSBpOTE1X2dlbV9vYmplY3RfcGluX21hcChz
-Y3JhdGNoLT5vYmosIEk5MTVfTUFQX1dCKTsKKwljcyA9IGk5MTVfZ2VtX29iamVjdF9waW5fbWFw
-X3VubG9ja2VkKHNjcmF0Y2gtPm9iaiwgSTkxNV9NQVBfV0IpOwogCWlmIChJU19FUlIoY3MpKSB7
-CiAJCWVyciA9IFBUUl9FUlIoY3MpOwogCQlnb3RvIG91dF9lbmQ7CkBAIC01MjU5LDcgKzUyNTks
-NyBAQCBzdGF0aWMgaW50IF9fbGl2ZV9scmNfZ3ByKHN0cnVjdCBpbnRlbF9lbmdpbmVfY3MgKmVu
-Z2luZSwKIAkJZ290byBlcnJfcnE7CiAJfQogCi0JY3MgPSBpOTE1X2dlbV9vYmplY3RfcGluX21h
-cChzY3JhdGNoLT5vYmosIEk5MTVfTUFQX1dCKTsKKwljcyA9IGk5MTVfZ2VtX29iamVjdF9waW5f
-bWFwX3VubG9ja2VkKHNjcmF0Y2gtPm9iaiwgSTkxNV9NQVBfV0IpOwogCWlmIChJU19FUlIoY3Mp
-KSB7CiAJCWVyciA9IFBUUl9FUlIoY3MpOwogCQlnb3RvIGVycl9ycTsKQEAgLTU1NTMsNyArNTU1
-Myw3IEBAIHN0b3JlX2NvbnRleHQoc3RydWN0IGludGVsX2NvbnRleHQgKmNlLCBzdHJ1Y3QgaTkx
-NV92bWEgKnNjcmF0Y2gpCiAJaWYgKElTX0VSUihiYXRjaCkpCiAJCXJldHVybiBiYXRjaDsKIAot
-CWNzID0gaTkxNV9nZW1fb2JqZWN0X3Bpbl9tYXAoYmF0Y2gtPm9iaiwgSTkxNV9NQVBfV0MpOwor
-CWNzID0gaTkxNV9nZW1fb2JqZWN0X3Bpbl9tYXBfdW5sb2NrZWQoYmF0Y2gtPm9iaiwgSTkxNV9N
-QVBfV0MpOwogCWlmIChJU19FUlIoY3MpKSB7CiAJCWk5MTVfdm1hX3B1dChiYXRjaCk7CiAJCXJl
-dHVybiBFUlJfQ0FTVChjcyk7CkBAIC01NzE3LDcgKzU3MTcsNyBAQCBzdGF0aWMgc3RydWN0IGk5
-MTVfdm1hICpsb2FkX2NvbnRleHQoc3RydWN0IGludGVsX2NvbnRleHQgKmNlLCB1MzIgcG9pc29u
-KQogCWlmIChJU19FUlIoYmF0Y2gpKQogCQlyZXR1cm4gYmF0Y2g7CiAKLQljcyA9IGk5MTVfZ2Vt
-X29iamVjdF9waW5fbWFwKGJhdGNoLT5vYmosIEk5MTVfTUFQX1dDKTsKKwljcyA9IGk5MTVfZ2Vt
-X29iamVjdF9waW5fbWFwX3VubG9ja2VkKGJhdGNoLT5vYmosIEk5MTVfTUFQX1dDKTsKIAlpZiAo
-SVNfRVJSKGNzKSkgewogCQlpOTE1X3ZtYV9wdXQoYmF0Y2gpOwogCQlyZXR1cm4gRVJSX0NBU1Qo
-Y3MpOwpAQCAtNTgzMSwyOSArNTgzMSwyOSBAQCBzdGF0aWMgaW50IGNvbXBhcmVfaXNvbGF0aW9u
-KHN0cnVjdCBpbnRlbF9lbmdpbmVfY3MgKmVuZ2luZSwKIAl1MzIgKmRlZmF1bHRzOwogCWludCBl
-cnIgPSAwOwogCi0JQVswXSA9IGk5MTVfZ2VtX29iamVjdF9waW5fbWFwKHJlZlswXS0+b2JqLCBJ
-OTE1X01BUF9XQyk7CisJQVswXSA9IGk5MTVfZ2VtX29iamVjdF9waW5fbWFwX3VubG9ja2VkKHJl
-ZlswXS0+b2JqLCBJOTE1X01BUF9XQyk7CiAJaWYgKElTX0VSUihBWzBdKSkKIAkJcmV0dXJuIFBU
-Ul9FUlIoQVswXSk7CiAKLQlBWzFdID0gaTkxNV9nZW1fb2JqZWN0X3Bpbl9tYXAocmVmWzFdLT5v
-YmosIEk5MTVfTUFQX1dDKTsKKwlBWzFdID0gaTkxNV9nZW1fb2JqZWN0X3Bpbl9tYXBfdW5sb2Nr
-ZWQocmVmWzFdLT5vYmosIEk5MTVfTUFQX1dDKTsKIAlpZiAoSVNfRVJSKEFbMV0pKSB7CiAJCWVy
-ciA9IFBUUl9FUlIoQVsxXSk7CiAJCWdvdG8gZXJyX0EwOwogCX0KIAotCUJbMF0gPSBpOTE1X2dl
-bV9vYmplY3RfcGluX21hcChyZXN1bHRbMF0tPm9iaiwgSTkxNV9NQVBfV0MpOworCUJbMF0gPSBp
-OTE1X2dlbV9vYmplY3RfcGluX21hcF91bmxvY2tlZChyZXN1bHRbMF0tPm9iaiwgSTkxNV9NQVBf
-V0MpOwogCWlmIChJU19FUlIoQlswXSkpIHsKIAkJZXJyID0gUFRSX0VSUihCWzBdKTsKIAkJZ290
-byBlcnJfQTE7CiAJfQogCi0JQlsxXSA9IGk5MTVfZ2VtX29iamVjdF9waW5fbWFwKHJlc3VsdFsx
-XS0+b2JqLCBJOTE1X01BUF9XQyk7CisJQlsxXSA9IGk5MTVfZ2VtX29iamVjdF9waW5fbWFwX3Vu
-bG9ja2VkKHJlc3VsdFsxXS0+b2JqLCBJOTE1X01BUF9XQyk7CiAJaWYgKElTX0VSUihCWzFdKSkg
-ewogCQllcnIgPSBQVFJfRVJSKEJbMV0pOwogCQlnb3RvIGVycl9CMDsKIAl9CiAKLQlscmMgPSBp
-OTE1X2dlbV9vYmplY3RfcGluX21hcChjZS0+c3RhdGUtPm9iaiwKKwlscmMgPSBpOTE1X2dlbV9v
-YmplY3RfcGluX21hcF91bmxvY2tlZChjZS0+c3RhdGUtPm9iaiwKIAkJCQkgICAgICBpOTE1X2Nv
-aGVyZW50X21hcF90eXBlKGVuZ2luZS0+aTkxNSkpOwogCWlmIChJU19FUlIobHJjKSkgewogCQll
-cnIgPSBQVFJfRVJSKGxyYyk7Ci0tIAoyLjI5LjIuMjIyLmc1ZDJhOTJkMTBmOAoKX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcg
-bGlzdApJbnRlbC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vaW50ZWwtZ2Z4Cg==
+Instead of force unbinding and rebinding every time, we try to check
+if our notifier seqcount is still correct when pages are bound. This
+way we only rebind userptr when we need to, and prevent stalls.
+
+Changes since v1:
+- Missing mutex_unlock, reported by kbuild.
+
+Reported-by: kernel test robot <lkp@intel.com>
+Reported-by: Dan Carpenter <dan.carpenter@oracle.com>
+
+Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+---
+ drivers/gpu/drm/i915/gem/i915_gem_userptr.c | 27 ++++++++++++++++++---
+ 1 file changed, 24 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_userptr.c b/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
+index 84c3e8dc1491..44fc0df89784 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
+@@ -274,12 +274,33 @@ int i915_gem_object_userptr_submit_init(struct drm_i915_gem_object *obj)
+ 	if (ret)
+ 		return ret;
+ 
+-	/* Make sure userptr is unbound for next attempt, so we don't use stale pages. */
+-	ret = i915_gem_object_userptr_unbind(obj, false);
++	/* optimistically try to preserve current pages while unlocked */
++	if (i915_gem_object_has_pages(obj) &&
++	    !mmu_interval_check_retry(&obj->userptr.notifier,
++				      obj->userptr.notifier_seq)) {
++		spin_lock(&i915->mm.notifier_lock);
++		if (obj->userptr.pvec &&
++		    !mmu_interval_read_retry(&obj->userptr.notifier,
++					     obj->userptr.notifier_seq)) {
++			obj->userptr.page_ref++;
++
++			/* We can keep using the current binding, this is the fastpath */
++			ret = 1;
++		}
++		spin_unlock(&i915->mm.notifier_lock);
++	}
++
++	if (!ret) {
++		/* Make sure userptr is unbound for next attempt, so we don't use stale pages. */
++		ret = i915_gem_object_userptr_unbind(obj, false);
++	}
+ 	i915_gem_object_unlock(obj);
+-	if (ret)
++	if (ret < 0)
+ 		return ret;
+ 
++	if (ret > 0)
++		return 0;
++
+ 	notifier_seq = mmu_interval_read_begin(&obj->userptr.notifier);
+ 
+ 	pvec = kvmalloc_array(num_pages, sizeof(struct page *), GFP_KERNEL);
+-- 
+2.29.2.222.g5d2a92d10f8
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
