@@ -2,46 +2,54 @@ Return-Path: <SRS0=3jid=FE=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6EAD5C63777
-	for <intel-gfx@archiver.kernel.org>; Mon, 30 Nov 2020 16:21:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E4ABDC63777
+	for <intel-gfx@archiver.kernel.org>; Mon, 30 Nov 2020 16:21:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 873CC206E3
-	for <intel-gfx@archiver.kernel.org>; Mon, 30 Nov 2020 16:21:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 873CC206E3
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
+	by mail.kernel.org (Postfix) with ESMTPS id 7452E206E3
+	for <intel-gfx@archiver.kernel.org>; Mon, 30 Nov 2020 16:21:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7452E206E3
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=telegraphics.com.au
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C3A8C6E4F1;
-	Mon, 30 Nov 2020 16:21:16 +0000 (UTC)
-Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D63A6E4F1
- for <intel-gfx@lists.freedesktop.org>; Mon, 30 Nov 2020 16:21:15 +0000 (UTC)
-X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
- x-ip-name=78.156.65.138; 
-Received: from localhost (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP (TLS) id
- 23164874-1500050 for multiple; Mon, 30 Nov 2020 16:21:12 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id B08836E550;
+	Mon, 30 Nov 2020 16:21:39 +0000 (UTC)
+Received: from kvm5.telegraphics.com.au (kvm5.telegraphics.com.au
+ [98.124.60.144])
+ by gabe.freedesktop.org (Postfix) with ESMTP id D3B5289F47;
+ Wed, 25 Nov 2020 23:21:58 +0000 (UTC)
+Received: from localhost (localhost.localdomain [127.0.0.1])
+ by kvm5.telegraphics.com.au (Postfix) with ESMTP id 414EA2A490;
+ Wed, 25 Nov 2020 18:21:54 -0500 (EST)
+Date: Thu, 26 Nov 2020 10:21:54 +1100 (AEDT)
+From: Finn Thain <fthain@telegraphics.com.au>
+To: Nick Desaulniers <ndesaulniers@google.com>
+In-Reply-To: <CAKwvOdna5Zj_O=sB7Q0jHZX0BJSaakX=ZyftwQ_3=L3-ZB54XQ@mail.gmail.com>
+Message-ID: <alpine.LNX.2.23.453.2011260918510.6@nippy.intranet>
+References: <202011201129.B13FDB3C@keescook>
+ <20201120115142.292999b2@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
+ <202011220816.8B6591A@keescook>
+ <9b57fd4914b46f38d54087d75e072d6e947cb56d.camel@HansenPartnership.com>
+ <ca071decb87cc7e905411423c05a48f9fd2f58d7.camel@perches.com>
+ <0147972a72bc13f3629de8a32dee6f1f308994b5.camel@HansenPartnership.com>
+ <d8d1e9add08cdd4158405e77762d4946037208f8.camel@perches.com>
+ <dbd2cb703ed9eefa7dde9281ea26ab0f7acc8afe.camel@HansenPartnership.com>
+ <20201123130348.GA3119@embeddedor>
+ <8f5611bb015e044fa1c0a48147293923c2d904e4.camel@HansenPartnership.com>
+ <202011241327.BB28F12F6@keescook>
+ <a841536fe65bb33f1c72ce2455a6eb47a0107565.camel@HansenPartnership.com>
+ <CAKwvOdkGBn7nuWTAqrORMeN1G+w3YwBfCqqaRD2nwvoAXKi=Aw@mail.gmail.com>
+ <alpine.LNX.2.23.453.2011260750300.6@nippy.intranet>
+ <CAKwvOdna5Zj_O=sB7Q0jHZX0BJSaakX=ZyftwQ_3=L3-ZB54XQ@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <874d8bb0-b4ab-708d-b307-63687c0498ee@linux.intel.com>
-References: <20201128184040.20150-1-chris@chris-wilson.co.uk>
- <20201128184040.20150-4-chris@chris-wilson.co.uk>
- <f8856a1a-48ad-9a26-3658-bfbcef1c7a95@linux.intel.com>
- <160674359480.9503.7150298801559341502@build.alporthouse.com>
- <874d8bb0-b4ab-708d-b307-63687c0498ee@linux.intel.com>
-From: Chris Wilson <chris@chris-wilson.co.uk>
-To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- intel-gfx@lists.freedesktop.org
-Date: Mon, 30 Nov 2020 16:21:11 +0000
-Message-ID: <160675327116.10401.3831761327207987081@build.alporthouse.com>
-User-Agent: alot/0.9
-Subject: Re: [Intel-gfx] [RFC 4/4] drm/i915/gt: Pipelined page migration
+X-Mailman-Approved-At: Mon, 30 Nov 2020 16:21:38 +0000
+Subject: Re: [Intel-gfx] [Intel-wired-lan] [PATCH 000/141] Fix fall-through
+ warnings for Clang
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,132 +62,95 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: alsa-devel@alsa-project.org, bridge@lists.linux-foundation.org,
+ target-devel@vger.kernel.org, Greg KH <gregkh@linuxfoundation.org>,
+ linux-iio@vger.kernel.org, linux-wireless <linux-wireless@vger.kernel.org>,
+ linux-mmc@vger.kernel.org, linux-fbdev@vger.kernel.org,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ James Bottomley <James.Bottomley@hansenpartnership.com>,
+ linux-ide@vger.kernel.org, dm-devel@redhat.com, keyrings@vger.kernel.org,
+ linux-mtd@lists.infradead.org, GR-everest-linux-l2@marvell.com,
+ wcn36xx@lists.infradead.org, linux-i3c@lists.infradead.org,
+ linux1394-devel@lists.sourceforge.net, linux-afs@lists.infradead.org,
+ drbd-dev@lists.linbit.com, devel@driverdev.osuosl.org,
+ linux-cifs@vger.kernel.org, rds-devel@oss.oracle.com,
+ linux-scsi@vger.kernel.org, linux-acpi@vger.kernel.org,
+ linux-rdma@vger.kernel.org, oss-drivers@netronome.com,
+ linux-atm-general@lists.sourceforge.net, ceph-devel@vger.kernel.org,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ linux-stm32@st-md-mailman.stormreply.com, cluster-devel@redhat.com,
+ usb-storage@lists.one-eyed-alien.net, coreteam@netfilter.org,
+ intel-wired-lan@lists.osuosl.org, linux-input@vger.kernel.org,
+ Miguel Ojeda <ojeda@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ linux-ext4@vger.kernel.org, virtualization@lists.linux-foundation.org,
+ netfilter-devel@vger.kernel.org, linux-media@vger.kernel.org,
+ Kees Cook <keescook@chromium.org>, selinux@vger.kernel.org,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>, intel-gfx@lists.freedesktop.org,
+ linux-sctp@vger.kernel.org, reiserfs-devel@vger.kernel.org,
+ linux-geode@lists.infradead.org, linux-block@vger.kernel.org,
+ linux-gpio@vger.kernel.org, op-tee@lists.trustedfirmware.org,
+ linux-mediatek@lists.infradead.org, xen-devel@lists.xenproject.org,
+ nouveau@lists.freedesktop.org, linux-hams@vger.kernel.org,
+ Nathan Chancellor <natechancellor@gmail.com>, linux-can@vger.kernel.org,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-hwmon@vger.kernel.org,
+ "maintainer:X86 ARCHITECTURE \(32-BIT AND 64-BIT\)" <x86@kernel.org>,
+ linux-watchdog@vger.kernel.org, GR-Linux-NIC-Dev@marvell.com,
+ Linux Memory Management List <linux-mm@kvack.org>,
+ Network Development <netdev@vger.kernel.org>,
+ linux-decnet-user@lists.sourceforge.net, samba-technical@lists.samba.org,
+ LKML <linux-kernel@vger.kernel.org>,
+ Linux-Renesas <linux-renesas-soc@vger.kernel.org>,
+ linux-security-module@vger.kernel.org, linux-usb@vger.kernel.org,
+ tipc-discussion@lists.sourceforge.net,
+ "open list:HARDWARE RANDOM NUMBER GENERATOR CORE"
+ <linux-crypto@vger.kernel.org>, Jonathan Cameron <Jonathan.Cameron@huawei.com>,
+ patches@opensource.cirrus.com, Joe Perches <joe@perches.com>,
+ linux-integrity@vger.kernel.org, linux-nfs@vger.kernel.org,
+ linux-hardening@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-UXVvdGluZyBUdnJ0a28gVXJzdWxpbiAoMjAyMC0xMS0zMCAxNjowNzo0NCkKPiAKPiBPbiAzMC8x
-MS8yMDIwIDEzOjM5LCBDaHJpcyBXaWxzb24gd3JvdGU6Cj4gPiBRdW90aW5nIFR2cnRrbyBVcnN1
-bGluICgyMDIwLTExLTMwIDEzOjEyOjU1KQo+ID4+IE9uIDI4LzExLzIwMjAgMTg6NDAsIENocmlz
-IFdpbHNvbiB3cm90ZToKPiA+Pj4gSWYgd2UgcGlwZWxpbmUgdGhlIFBURSB1cGRhdGVzIGFuZCB0
-aGVuIGRvIHRoZSBjb3B5IG9mIHRob3NlIHBhZ2VzCj4gPj4+IHdpdGhpbiBhIHNpbmdsZSB1bnBy
-ZWVtcHRpYmxlIGNvbW1hbmQgcGFja2V0LCB3ZSBjYW4gc3VibWl0IHRoZSBjb3BpZXMKPiA+Pj4g
-YW5kIGxlYXZlIHRoZW0gdG8gYmUgc2NoZWR1bGVkIHdpdGhvdXQgaGF2aW5nIHRvIHN5bmNocm9u
-b3VzbHkgd2FpdAo+ID4+PiB1bmRlciBhIGdsb2JhbCBsb2NrLgo+ID4+Pgo+ID4+PiBTaWduZWQt
-b2ZmLWJ5OiBDaHJpcyBXaWxzb24gPGNocmlzQGNocmlzLXdpbHNvbi5jby51az4KPiA+Pj4gLS0t
-Cj4gPj4+ICAgIGRyaXZlcnMvZ3B1L2RybS9pOTE1L01ha2VmaWxlICAgICAgICAgICAgICAgICB8
-ICAgMSArCj4gPj4+ICAgIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2d0L2ludGVsX2VuZ2luZS5oICAg
-ICAgICB8ICAgMSArCj4gPj4+ICAgIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2d0L2ludGVsX21pZ3Jh
-dGUuYyAgICAgICB8IDM3MCArKysrKysrKysrKysrKysrKysKPiA+Pj4gICAgZHJpdmVycy9ncHUv
-ZHJtL2k5MTUvZ3QvaW50ZWxfbWlncmF0ZS5oICAgICAgIHwgIDMzICsrCj4gPj4+ICAgIGRyaXZl
-cnMvZ3B1L2RybS9pOTE1L2d0L3NlbGZ0ZXN0X21pZ3JhdGUuYyAgICB8IDEwNSArKysrKwo+ID4+
-PiAgICAuLi4vZHJtL2k5MTUvc2VsZnRlc3RzL2k5MTVfbGl2ZV9zZWxmdGVzdHMuaCAgfCAgIDEg
-Kwo+ID4+PiAgICA2IGZpbGVzIGNoYW5nZWQsIDUxMSBpbnNlcnRpb25zKCspCj4gPj4+ICAgIGNy
-ZWF0ZSBtb2RlIDEwMDY0NCBkcml2ZXJzL2dwdS9kcm0vaTkxNS9ndC9pbnRlbF9taWdyYXRlLmMK
-PiA+Pj4gICAgY3JlYXRlIG1vZGUgMTAwNjQ0IGRyaXZlcnMvZ3B1L2RybS9pOTE1L2d0L2ludGVs
-X21pZ3JhdGUuaAo+ID4+PiAgICBjcmVhdGUgbW9kZSAxMDA2NDQgZHJpdmVycy9ncHUvZHJtL2k5
-MTUvZ3Qvc2VsZnRlc3RfbWlncmF0ZS5jCj4gPj4+Cj4gPj4+IGRpZmYgLS1naXQgYS9kcml2ZXJz
-L2dwdS9kcm0vaTkxNS9NYWtlZmlsZSBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L01ha2VmaWxlCj4g
-Pj4+IGluZGV4IGU1NTc0ZTUwNmE1Yy4uMGIyZTEyYzg3ZjlkIDEwMDY0NAo+ID4+PiAtLS0gYS9k
-cml2ZXJzL2dwdS9kcm0vaTkxNS9NYWtlZmlsZQo+ID4+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0v
-aTkxNS9NYWtlZmlsZQo+ID4+PiBAQCAtMTAzLDYgKzEwMyw3IEBAIGd0LXkgKz0gXAo+ID4+PiAg
-ICAgICAgZ3QvaW50ZWxfZ3R0Lm8gXAo+ID4+PiAgICAgICAgZ3QvaW50ZWxfbGxjLm8gXAo+ID4+
-PiAgICAgICAgZ3QvaW50ZWxfbHJjLm8gXAo+ID4+PiArICAgICBndC9pbnRlbF9taWdyYXRlLm8g
-XAo+ID4+PiAgICAgICAgZ3QvaW50ZWxfbW9jcy5vIFwKPiA+Pj4gICAgICAgIGd0L2ludGVsX3Bw
-Z3R0Lm8gXAo+ID4+PiAgICAgICAgZ3QvaW50ZWxfcmM2Lm8gXAo+ID4+PiBkaWZmIC0tZ2l0IGEv
-ZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3QvaW50ZWxfZW5naW5lLmggYi9kcml2ZXJzL2dwdS9kcm0v
-aTkxNS9ndC9pbnRlbF9lbmdpbmUuaAo+ID4+PiBpbmRleCBhYzU4ZmNkYTQ5MjcuLjA3OWQyNmI0
-N2E5NyAxMDA2NDQKPiA+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3QvaW50ZWxfZW5n
-aW5lLmgKPiA+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3QvaW50ZWxfZW5naW5lLmgK
-PiA+Pj4gQEAgLTE4OCw2ICsxODgsNyBAQCBpbnRlbF93cml0ZV9zdGF0dXNfcGFnZShzdHJ1Y3Qg
-aW50ZWxfZW5naW5lX2NzICplbmdpbmUsIGludCByZWcsIHUzMiB2YWx1ZSkKPiA+Pj4gICAgI2Rl
-ZmluZSBJOTE1X0dFTV9IV1NfUFJFRU1QVF9BRERSICAgKEk5MTVfR0VNX0hXU19QUkVFTVBUICog
-c2l6ZW9mKHUzMikpCj4gPj4+ICAgICNkZWZpbmUgSTkxNV9HRU1fSFdTX1NFUU5PICAgICAgICAg
-IDB4NDAKPiA+Pj4gICAgI2RlZmluZSBJOTE1X0dFTV9IV1NfU0VRTk9fQUREUiAgICAgICAgICAg
-ICAoSTkxNV9HRU1fSFdTX1NFUU5PICogc2l6ZW9mKHUzMikpCj4gPj4+ICsjZGVmaW5lIEk5MTVf
-R0VNX0hXU19NSUdSQVRFICAgICAgICAgKDB4NDIgKiBzaXplb2YodTMyKSkKPiA+Pj4gICAgI2Rl
-ZmluZSBJOTE1X0dFTV9IV1NfU0NSQVRDSCAgICAgICAgICAgICAgICAweDgwCj4gPj4+ICAgIAo+
-ID4+PiAgICAjZGVmaW5lIEk5MTVfSFdTX0NTQl9CVUYwX0lOREVYICAgICAgICAgICAgIDB4MTAK
-PiA+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2d0L2ludGVsX21pZ3JhdGUu
-YyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2d0L2ludGVsX21pZ3JhdGUuYwo+ID4+PiBuZXcgZmls
-ZSBtb2RlIDEwMDY0NAo+ID4+PiBpbmRleCAwMDAwMDAwMDAwMDAuLjRkN2JkMzJlYjhkNAo+ID4+
-PiAtLS0gL2Rldi9udWxsCj4gPj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2d0L2ludGVs
-X21pZ3JhdGUuYwo+ID4+PiBAQCAtMCwwICsxLDM3MCBAQAo+ID4+PiArLy8gU1BEWC1MaWNlbnNl
-LUlkZW50aWZpZXI6IE1JVAo+ID4+PiArLyoKPiA+Pj4gKyAqIENvcHlyaWdodCDCqSAyMDIwIElu
-dGVsIENvcnBvcmF0aW9uCj4gPj4+ICsgKi8KPiA+Pj4gKwo+ID4+PiArI2luY2x1ZGUgImk5MTVf
-ZHJ2LmgiCj4gPj4+ICsjaW5jbHVkZSAiaW50ZWxfY29udGV4dC5oIgo+ID4+PiArI2luY2x1ZGUg
-ImludGVsX2d0LmgiCj4gPj4+ICsjaW5jbHVkZSAiaW50ZWxfZ3R0LmgiCj4gPj4+ICsjaW5jbHVk
-ZSAiaW50ZWxfbHJjLmgiIC8qIHZpcnR1YWwgZW5naW5lICovCj4gPj4+ICsjaW5jbHVkZSAiaW50
-ZWxfbWlncmF0ZS5oIgo+ID4+PiArI2luY2x1ZGUgImludGVsX3JpbmcuaCIKPiA+Pj4gKwo+ID4+
-PiArI2RlZmluZSBDSFVOS19TWiBTWl84TSAvKiB+MW1zIGF0IDhHaUIvcyBwcmVlbXB0aW9uIGRl
-bGF5ICovCj4gPj4+ICsKPiA+Pj4gK3N0YXRpYyB2b2lkIGluc2VydF9wdGUoc3RydWN0IGk5MTVf
-YWRkcmVzc19zcGFjZSAqdm0sCj4gPj4+ICsgICAgICAgICAgICAgICAgICAgIHN0cnVjdCBpOTE1
-X3BhZ2VfdGFibGUgKnB0LAo+ID4+PiArICAgICAgICAgICAgICAgICAgICB2b2lkICpkYXRhKQo+
-ID4+PiArewo+ID4+PiArICAgICB1NjQgKm9mZnNldCA9IGRhdGE7Cj4gPj4+ICsKPiA+Pj4gKyAg
-ICAgdm0tPmluc2VydF9wYWdlKHZtLCBweF9kbWEocHQpLCAqb2Zmc2V0LCBJOTE1X0NBQ0hFX05P
-TkUsIDApOwo+ID4+PiArICAgICAqb2Zmc2V0ICs9IFBBR0VfU0laRTsKPiA+Pj4gK30KPiA+Pj4g
-Kwo+ID4+PiArc3RhdGljIHN0cnVjdCBpOTE1X2FkZHJlc3Nfc3BhY2UgKm1pZ3JhdGVfdm0oc3Ry
-dWN0IGludGVsX2d0ICpndCkKPiA+Pj4gK3sKPiA+Pj4gKyAgICAgc3RydWN0IGk5MTVfdm1fcHRf
-c3Rhc2ggc3Rhc2ggPSB7fTsKPiA+Pj4gKyAgICAgc3RydWN0IGk5MTVfcHBndHQgKnZtOwo+ID4+
-PiArICAgICB1NjQgb2Zmc2V0LCBzejsKPiA+Pj4gKyAgICAgaW50IGVycjsKPiA+Pj4gKwo+ID4+
-PiArICAgICB2bSA9IGk5MTVfcHBndHRfY3JlYXRlKGd0KTsKPiA+Pj4gKyAgICAgaWYgKElTX0VS
-Uih2bSkpCj4gPj4+ICsgICAgICAgICAgICAgcmV0dXJuIEVSUl9DQVNUKHZtKTsKPiA+Pj4gKwo+
-ID4+PiArICAgICBpZiAoIXZtLT52bS5hbGxvY2F0ZV92YV9yYW5nZSB8fCAhdm0tPnZtLmZvcmVh
-Y2gpIHsKPiA+Pj4gKyAgICAgICAgICAgICBlcnIgPSAtRU5PREVWOwo+ID4+PiArICAgICAgICAg
-ICAgIGdvdG8gZXJyX3ZtOwo+ID4+PiArICAgICB9Cj4gPj4+ICsKPiA+Pj4gKyAgICAgLyoKPiA+
-Pj4gKyAgICAgICogV2UgY29weSBpbiA4TWlCIGNodW5rcy4gRWFjaCBQREUgY292ZXJzIDJNaUIs
-IHNvIHdlIG5lZWQKPiA+Pj4gKyAgICAgICogNHgyIHBhZ2UgZGlyZWN0b3JpZXMgZm9yIHNvdXJj
-ZS9kZXN0aW5hdGlvbi4KPiA+Pj4gKyAgICAgICovCj4gPj4+ICsgICAgIHN6ID0gMiAqIENIVU5L
-X1NaOwo+ID4+PiArICAgICBvZmZzZXQgPSBzejsKPiA+Pj4gKwo+ID4+PiArICAgICAvKgo+ID4+
-PiArICAgICAgKiBXZSBuZWVkIGFub3RoZXIgcGFnZSBkaXJlY3Rvcnkgc2V0dXAgc28gdGhhdCB3
-ZSBjYW4gd3JpdGUKPiA+Pj4gKyAgICAgICogdGhlIDh4NTEyIFBURSBpbiBlYWNoIGNodW5rLgo+
-ID4+PiArICAgICAgKi8KPiA+Pj4gKyAgICAgc3ogKz0gKHN6ID4+IDEyKSAqIHNpemVvZih1NjQp
-Owo+ID4+PiArCj4gPj4+ICsgICAgIGVyciA9IGk5MTVfdm1fYWxsb2NfcHRfc3Rhc2goJnZtLT52
-bSwgJnN0YXNoLCBzeik7Cj4gPj4+ICsgICAgIGlmIChlcnIpCj4gPj4+ICsgICAgICAgICAgICAg
-Z290byBlcnJfdm07Cj4gPj4+ICsKPiA+Pj4gKyAgICAgZXJyID0gaTkxNV92bV9waW5fcHRfc3Rh
-c2goJnZtLT52bSwgJnN0YXNoKTsKPiA+Pj4gKyAgICAgaWYgKGVycikgewo+ID4+PiArICAgICAg
-ICAgICAgIGk5MTVfdm1fZnJlZV9wdF9zdGFzaCgmdm0tPnZtLCAmc3Rhc2gpOwo+ID4+PiArICAg
-ICAgICAgICAgIGdvdG8gZXJyX3ZtOwo+ID4+PiArICAgICB9Cj4gPj4+ICsKPiA+Pj4gKyAgICAg
-dm0tPnZtLmFsbG9jYXRlX3ZhX3JhbmdlKCZ2bS0+dm0sICZzdGFzaCwgMCwgc3opOwo+ID4+PiAr
-ICAgICBpOTE1X3ZtX2ZyZWVfcHRfc3Rhc2goJnZtLT52bSwgJnN0YXNoKTsKPiA+Pj4gKwo+ID4+
-PiArICAgICAvKiBOb3cgYWxsb3cgdGhlIEdQVSB0byByZXdyaXRlIHRoZSBQVEUgdmlhIGl0cyBv
-d24gcHBHVFQgKi8KPiA+Pj4gKyAgICAgdm0tPnZtLmZvcmVhY2goJnZtLT52bSwgMCwgc3osIGlu
-c2VydF9wdGUsICZvZmZzZXQpOwo+ID4+Cj4gPj4gVGhpcyBpcyBqdXN0IG1ha2luZyB0aGUgWzAg
-LSBzeikgZ3ZhIHBvaW50IHRvIHRoZSBhbGxvY2F0ZWQgc3ogYnl0ZXMgb2YKPiA+PiBiYWNraW5n
-IHN0b3JlPwo+ID4gCj4gPiBOb3QgcXVpdGUsIHdlIGFyZSBwb2ludGluZyBbb2Zmc2V0LCBzeikg
-dG8gdGhlIHBhZ2UgZGlyZWN0b3JpZXMKPiA+IHRoZW1zZWx2ZXMuIFdoZW4gd2Ugd3JpdGUgaW50
-byB0aGF0IHJhbmdlLCB3ZSBhcmUgbW9kaWZ5aW5nIHRoZSBQVEUgb2YKPiA+IHRoaXMgcHBHVFQu
-IChCcmVha2luZyB0aGUgZm91cnRoIHdhbGwsIGFsbG93aW5nIHRoZSBub24tcHJpdmlsZWdlZAo+
-ID4gY29udGV4dCB0byB1cGRhdGUgaXRzIG93biBwYWdlIHRhYmxlcy4pCj4gCj4gQ29uZnVzaW5n
-LCBzbyBmaXJzdCBzdGVwIGlzIGhlcmUgbWFraW5nIFswLCBzeikgZ3ZhIHB0ZXMgcG9pbnQgdG8g
-cHRlIAo+IGJhY2tpbmcgc3RvcmUuCj4gCj4gV2hpY2ggbWVhbnMgZW1pdF9wdGUgd2hlbiBjYWxs
-ZWQgZnJvbSBpbnRlbF9jb250ZXh0X21pZ3JhdGVfcGFnZXMgaXMgCj4gZW1pdHRpbmcgc2R3IHdo
-aWNoIHdpbGwgd3JpdGUgaW50byBbMCwgc3pdIGd2YSwgZWZmZWN0aXZlbHkgcGxhY2luZyB0aGUg
-Cj4gc3JjIGFuZCBkZXN0IG9iamVjdCBjb250ZW50IGF0IHRob3NlIGxvY2F0aW9uLgo+IAo+IFRo
-ZW4gYmxpdCBjb3BpZXMgdGhlIGRhdGEuCj4gCj4gV2hhdCBoYXBwZW5zIGlmIGNvbnRleHQgaXMg
-cmUtdXNlZD8gR3ZhJ3Mgbm8gbG9uZ2VyIHBvaW50IHRvIFBURXMgc28gCj4gaG93PyBJcyBhIHN0
-ZXAgdG8gcmUtaW5pdGlhbGl6ZSBhZnRlciB1c2UgbWlzc2luZz8gTW9yZSBzZHcgYWZ0ZXIgdGhl
-IAo+IGJsaXQgY29weSB0byBtYWtlIGl0IHBvaW50IGJhY2sgdG8gcHRlcz8KCkV2ZXJ5IGNodW5r
-IHN0YXJ0cyB3aXRoIHdyaXRpbmcgdGhlIFBURXMgdXNlZCBieSB0aGUgY2h1bmsuIFdpdGhpbiB0
-aGUKY2h1bmssIHRoZSBHUFUgY29tbWFuZHMgYXJlIG5vdCBwcmVlbXB0aWJsZSwgc28gdGhlIFBU
-RXMgY2Fubm90IGJlCnJlcGxhY2VkIGJlZm9yZSB0aGV5IGFyZSBjb25zdW1lZC4KCldlIGRvIGxl
-YXZlIHRoZSBQVEUgcG9pbnRpbmcgdG8gc3RhbGUgcGFnZXMgYWZ0ZXIgdGhlIGJsaXQsIGJ1dCBz
-aW5jZQp0aGUgdm0gaXMgb25seSB1c2VkIGJ5IGZpcnN0IHJld3JpdGluZyB0aGUgUFRFLCB0aG9z
-ZSBkYW5nbGluZyBQVEUKc2hvdWxkIG5ldmVyIGJlIGNoYXNlZC4KClNvIGVhY2ggY2h1bmsgZG9l
-cyBhIGZpeGVkIGNvcHkgYmV0d2VlbiB0aGUgc2FtZSBwYWlyIG9mIGFkZHJlc3Nlcwp3aXRoaW4g
-dGhlIHZtOyB0aGUgbWFnaWMgaXMgaW4gcmV3cml0aW5nIHRoZSBQVEUgdG8gcG9pbnQgYXQgdGhl
-IHBhZ2VzCm9mIGludGVyZXN0IGZvciB0aGUgY2h1bmsuCgo+ID4+PiArICAgICAgICAgICAgIGk5
-MTVfcmVxdWVzdF9hZGQocnEpOwo+ID4+PiArICAgICAgICAgICAgIGlmIChpdF9zLnNnKQo+ID4+
-PiArICAgICAgICAgICAgICAgICAgICAgY29uZF9yZXNjaGVkKCk7Cj4gPj4KPiA+PiAgIEZyb20g
-d2hhdCBjb250ZXh0IGRvZXMgdGhpcyBydW4/IE5vIHByZWVtcHRpYmxlPwo+ID4gCj4gPiBIYXMg
-dG8gYmUgcHJvY2VzcyBjb250ZXh0OyBudW1lcm91cyBhbGxvY2F0aW9ucywgaW1wbGljaXQgd2Fp
-dHMgKHRoYXQgd2UKPiA+IHdhbnQgdG8gYXZvaWQgaW4gcHJhY3RpY2UpLCBhbmQgdGhlIHRpbWVs
-aW5lIChwZXItY29udGV4dCkgbXV0ZXggdG8KPiA+IGd1YXJkIGFjY2VzcyB0byB0aGUgcmluZ2J1
-ZmZlci4KPiAKPiBJIGd1ZXNzIG9uIG5vbi1wcmVlbXB0aWJsZSwgb3Igbm90IGZ1bGx5IHByZWVt
-cHRpYmxlIGtlcm5lbCBpdCBpcyB1c2VmdWwuCgpPaCwgdGhlIGNvbmRfcmVzY2hlZCgpIGlzIGFs
-bW9zdCBjZXJ0YWlubHkgb3ZlcmtpbGwuIEJ1dCBwb3RlbnRpYWxseSBhCnZlcnkgbGFyZ2UgbG9v
-cCBzbyB3b3J0aCBiZWluZyBjYXJlZnVsLgotQ2hyaXMKX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRlbC1nZnhA
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
-YW4vbGlzdGluZm8vaW50ZWwtZ2Z4Cg==
+On Wed, 25 Nov 2020, Nick Desaulniers wrote:
+
+> On Wed, Nov 25, 2020 at 1:33 PM Finn Thain <fthain@telegraphics.com.au> 
+> wrote:
+> >
+> > Or do you think that a codebase can somehow satisfy multiple checkers 
+> > and their divergent interpretations of the language spec?
+> 
+> Have we found any cases yet that are divergent? I don't think so.
+
+There are many implementations, so I think you are guaranteed to find more 
+divergence if you look. That's because the spec is full of language like 
+this: "implementations are encouraged not to emit a diagnostic" and 
+"implementations are encouraged to issue a diagnostic".
+
+Some implementations will decide to not emit (under the premise that vast 
+amounts of existing code would have to get patched until the compiler goes 
+quiet) whereas other implementations will decide to emit (under the 
+premise that the author is doing the checking and not the janitor or the 
+packager).
+
+> It sounds to me like GCC's cases it warns for is a subset of Clang's. 
+> Having additional coverage with Clang then should ensure coverage for 
+> both.
+> 
+
+If that claim were true, the solution would be simple. (It's not.)
+
+For the benefit of projects that enable -Werror and projects that 
+nominated gcc as their preferred compiler, clang would simply need a flag 
+to enable conformance with gcc by suppressing those additional warnings 
+that clang would normally produce.
+
+This simple solution is, of course, completely unworkable, since it would 
+force clang to copy some portion of gcc's logic (rewritten under LLVM's 
+unique license) and then to track future changes to that portion of gcc 
+indefinitely.
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
