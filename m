@@ -7,33 +7,33 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C3D69C64E7B
-	for <intel-gfx@archiver.kernel.org>; Wed, 25 Nov 2020 10:41:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 74573C83014
+	for <intel-gfx@archiver.kernel.org>; Wed, 25 Nov 2020 10:41:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 573ED206E0
-	for <intel-gfx@archiver.kernel.org>; Wed, 25 Nov 2020 10:41:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 573ED206E0
+	by mail.kernel.org (Postfix) with ESMTPS id 1800D204EA
+	for <intel-gfx@archiver.kernel.org>; Wed, 25 Nov 2020 10:41:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1800D204EA
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 03C6B6E9BE;
-	Wed, 25 Nov 2020 10:40:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6EE596E98E;
+	Wed, 25 Nov 2020 10:40:40 +0000 (UTC)
 Received: from mblankhorst.nl (mblankhorst.nl
  [IPv6:2a02:2308::216:3eff:fe92:dfa3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 301DD6E89B
- for <intel-gfx@lists.freedesktop.org>; Wed, 25 Nov 2020 10:40:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 302AE6E8FB
+ for <intel-gfx@lists.freedesktop.org>; Wed, 25 Nov 2020 10:40:26 +0000 (UTC)
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 25 Nov 2020 11:40:05 +0100
-Message-Id: <20201125104011.606641-58-maarten.lankhorst@linux.intel.com>
+Date: Wed, 25 Nov 2020 11:39:22 +0100
+Message-Id: <20201125104011.606641-15-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.29.2.222.g5d2a92d10f8
 In-Reply-To: <20201125104011.606641-1-maarten.lankhorst@linux.intel.com>
 References: <20201125104011.606641-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v5 57/63] drm/i915/selftests: Prepare
- i915_request tests for obj->mm.lock removal
+Subject: [Intel-gfx] [PATCH v5 14/63] drm/i915: Reject UNSYNCHRONIZED for
+ userptr, v2.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,44 +46,52 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-U3RyYWlnaHRmb3J3YXJkIGNvbnZlcnNpb24gYnkgdXNpbmcgdW5sb2NrZWQgdmVyc2lvbnMuCgpT
-aWduZWQtb2ZmLWJ5OiBNYWFydGVuIExhbmtob3JzdCA8bWFhcnRlbi5sYW5raG9yc3RAbGludXgu
-aW50ZWwuY29tPgpSZXZpZXdlZC1ieTogVGhvbWFzIEhlbGxzdHLDtm0gPHRob21hcy5oZWxsc3Ry
-b21AbGludXguaW50ZWwuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L3NlbGZ0ZXN0cy9p
-OTE1X3JlcXVlc3QuYyB8IDEwICsrKysrLS0tLS0KIDEgZmlsZSBjaGFuZ2VkLCA1IGluc2VydGlv
-bnMoKyksIDUgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUv
-c2VsZnRlc3RzL2k5MTVfcmVxdWVzdC5jIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvc2VsZnRlc3Rz
-L2k5MTVfcmVxdWVzdC5jCmluZGV4IGU0MjRhNmQxYTY4Yy4uNTE0ZmExMDllNDBmIDEwMDY0NAot
-LS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9zZWxmdGVzdHMvaTkxNV9yZXF1ZXN0LmMKKysrIGIv
-ZHJpdmVycy9ncHUvZHJtL2k5MTUvc2VsZnRlc3RzL2k5MTVfcmVxdWVzdC5jCkBAIC02MTksNyAr
-NjE5LDcgQEAgc3RhdGljIHN0cnVjdCBpOTE1X3ZtYSAqZW1wdHlfYmF0Y2goc3RydWN0IGRybV9p
-OTE1X3ByaXZhdGUgKmk5MTUpCiAJaWYgKElTX0VSUihvYmopKQogCQlyZXR1cm4gRVJSX0NBU1Qo
-b2JqKTsKIAotCWNtZCA9IGk5MTVfZ2VtX29iamVjdF9waW5fbWFwKG9iaiwgSTkxNV9NQVBfV0Ip
-OworCWNtZCA9IGk5MTVfZ2VtX29iamVjdF9waW5fbWFwX3VubG9ja2VkKG9iaiwgSTkxNV9NQVBf
-V0IpOwogCWlmIChJU19FUlIoY21kKSkgewogCQllcnIgPSBQVFJfRVJSKGNtZCk7CiAJCWdvdG8g
-ZXJyOwpAQCAtNzgxLDcgKzc4MSw3IEBAIHN0YXRpYyBzdHJ1Y3QgaTkxNV92bWEgKnJlY3Vyc2l2
-ZV9iYXRjaChzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqaTkxNSkKIAlpZiAoZXJyKQogCQlnb3Rv
-IGVycjsKIAotCWNtZCA9IGk5MTVfZ2VtX29iamVjdF9waW5fbWFwKG9iaiwgSTkxNV9NQVBfV0Mp
-OworCWNtZCA9IGk5MTVfZ2VtX29iamVjdF9waW5fbWFwX3VubG9ja2VkKG9iaiwgSTkxNV9NQVBf
-V0MpOwogCWlmIChJU19FUlIoY21kKSkgewogCQllcnIgPSBQVFJfRVJSKGNtZCk7CiAJCWdvdG8g
-ZXJyOwpAQCAtODE2LDcgKzgxNiw3IEBAIHN0YXRpYyBpbnQgcmVjdXJzaXZlX2JhdGNoX3Jlc29s
-dmUoc3RydWN0IGk5MTVfdm1hICpiYXRjaCkKIHsKIAl1MzIgKmNtZDsKIAotCWNtZCA9IGk5MTVf
-Z2VtX29iamVjdF9waW5fbWFwKGJhdGNoLT5vYmosIEk5MTVfTUFQX1dDKTsKKwljbWQgPSBpOTE1
-X2dlbV9vYmplY3RfcGluX21hcF91bmxvY2tlZChiYXRjaC0+b2JqLCBJOTE1X01BUF9XQyk7CiAJ
-aWYgKElTX0VSUihjbWQpKQogCQlyZXR1cm4gUFRSX0VSUihjbWQpOwogCkBAIC0xMDY5LDggKzEw
-NjksOCBAQCBzdGF0aWMgaW50IGxpdmVfc2VxdWVudGlhbF9lbmdpbmVzKHZvaWQgKmFyZykKIAkJ
-aWYgKCFyZXF1ZXN0W2lkeF0pCiAJCQlicmVhazsKIAotCQljbWQgPSBpOTE1X2dlbV9vYmplY3Rf
-cGluX21hcChyZXF1ZXN0W2lkeF0tPmJhdGNoLT5vYmosCi0JCQkJCSAgICAgIEk5MTVfTUFQX1dD
-KTsKKwkJY21kID0gaTkxNV9nZW1fb2JqZWN0X3Bpbl9tYXBfdW5sb2NrZWQocmVxdWVzdFtpZHhd
-LT5iYXRjaC0+b2JqLAorCQkJCQkJICAgICAgIEk5MTVfTUFQX1dDKTsKIAkJaWYgKCFJU19FUlIo
-Y21kKSkgewogCQkJKmNtZCA9IE1JX0JBVENIX0JVRkZFUl9FTkQ7CiAKLS0gCjIuMjkuMi4yMjIu
-ZzVkMmE5MmQxMGY4CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fXwpJbnRlbC1nZnggbWFpbGluZyBsaXN0CkludGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
-cmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9pbnRlbC1n
-ZngK
+We should not allow this any more, as it will break with the new userptr
+implementation, it could still be made to work, but there's no point in
+doing so.
+
+Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+---
+ drivers/gpu/drm/i915/gem/i915_gem_userptr.c | 10 ++--------
+ 1 file changed, 2 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_userptr.c b/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
+index 64a946d5f753..241f865077b9 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
+@@ -224,7 +224,7 @@ i915_gem_userptr_init__mmu_notifier(struct drm_i915_gem_object *obj,
+ 	struct i915_mmu_object *mo;
+ 
+ 	if (flags & I915_USERPTR_UNSYNCHRONIZED)
+-		return capable(CAP_SYS_ADMIN) ? 0 : -EPERM;
++		return -ENODEV;
+ 
+ 	if (GEM_WARN_ON(!obj->userptr.mm))
+ 		return -EINVAL;
+@@ -274,13 +274,7 @@ static int
+ i915_gem_userptr_init__mmu_notifier(struct drm_i915_gem_object *obj,
+ 				    unsigned flags)
+ {
+-	if ((flags & I915_USERPTR_UNSYNCHRONIZED) == 0)
+-		return -ENODEV;
+-
+-	if (!capable(CAP_SYS_ADMIN))
+-		return -EPERM;
+-
+-	return 0;
++	return -ENODEV;
+ }
+ 
+ static void
+-- 
+2.29.2.222.g5d2a92d10f8
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
