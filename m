@@ -7,52 +7,52 @@ X-Spam-Status: No, score=-0.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 76EEEC5519F
-	for <intel-gfx@archiver.kernel.org>; Wed, 25 Nov 2020 06:26:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CF7FBC63798
+	for <intel-gfx@archiver.kernel.org>; Wed, 25 Nov 2020 06:26:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id ED60F2075A
-	for <intel-gfx@archiver.kernel.org>; Wed, 25 Nov 2020 06:26:33 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 5E8F62075A
+	for <intel-gfx@archiver.kernel.org>; Wed, 25 Nov 2020 06:26:35 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="l+vUmSI7"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org ED60F2075A
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PLHqMkuV"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5E8F62075A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 79E7A6E82A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F43D6E82B;
 	Wed, 25 Nov 2020 06:26:29 +0000 (UTC)
-Received: from mail-qk1-x743.google.com (mail-qk1-x743.google.com
- [IPv6:2607:f8b0:4864:20::743])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 08D276E44A;
- Tue, 24 Nov 2020 23:16:06 +0000 (UTC)
-Received: by mail-qk1-x743.google.com with SMTP id q5so1000755qkc.12;
- Tue, 24 Nov 2020 15:16:05 -0800 (PST)
+Received: from mail-qk1-x741.google.com (mail-qk1-x741.google.com
+ [IPv6:2607:f8b0:4864:20::741])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C05A6E7D7;
+ Wed, 25 Nov 2020 01:06:01 +0000 (UTC)
+Received: by mail-qk1-x741.google.com with SMTP id n132so1550177qke.1;
+ Tue, 24 Nov 2020 17:06:01 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=Jbdr1BEjJUZERXYDOU4Gv/mlbgAbUhdHLiICpsfXV1E=;
- b=l+vUmSI7i0l7fGuVwLPE5fOuxSSHusFrOEG0e9vJ5rcmJlRUOrCYTNMgOLszTPHVi8
- kkm8fDq5tpugZyKejz3uk0cqdmJQS1mRaMRBkOrvbAyI5fs/P/fRtiJLDz+N02sHzTn9
- 5/inSz1Fbn+KfojwxtYTlcXPJfmsrqKqTBJHlwr9t4EjDd547DXA4VcN7evdsnVsuQ6p
- BBfcG3FVJZcSml9If1GSG7EsdjE7zI8hFJDY7AHsK/qRYVzYo+XeozyqqdAfx+vCyNIu
- chiyZGm6NoHt+eS3/xbHVpbDRehhnbGG6wOdrUeu9OVynRP4/UUYeZuXMpT7icG9n0vb
- 4oYg==
+ :cc; bh=44pFzPZOXy9WMyxuVZ4PJwmHwfPvC91GWhNSdpkVBXk=;
+ b=PLHqMkuVQ6uE1aGa3jPkk7oL0rd2+0aQGjbXwXCM1BqpOEf5R6gUmrb1tTrj75nDjD
+ aG6VHTDP2JdODJ/e29C1vfEMjWhTPlycM3mNfL2JW5BhFtstP0di/Kwb3XYGnsRoKRp5
+ 7FVJzAE2cPEDrpLIYX3jwoIfPno8H9ArdOwpkc9HelZA+M7Eq52S4RmPBHauFrK9tfW3
+ 8wrBLWN/Mq7Fl9GTodmgwwudDuqrVUSiSILvkeQCl7qFs3/IjbI7/AG3m5iLRdEEw+2H
+ RzsA5+EdKfz0DIt5iJKomdRqiV67cH8ZcnWPF2PnARf/ANxCrT7QZJCkY0VU2DrQ9d/L
+ oW2A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=Jbdr1BEjJUZERXYDOU4Gv/mlbgAbUhdHLiICpsfXV1E=;
- b=Els6q2E+SF2d8ASIVYRbKtMfg45DHntS0zOaYkklFxV/EdqszrhQ2ASRIHdnhPgq1B
- 7V6NoVnLjhRPzBAowk720C1OVxrtvyvmNfLqa759Y8cdLwFb/L5i85a0Le8kE3tZE/4Z
- Z7PechApfQr0Omve6DUO8FkRNYgHfdUjUG8OK0L7a1/VGs7cCx1MB52gmzywNGyjl3ws
- JPVqUcm10ox7OUewarQkXtpv9IHSt4zH7n/Ie9hA6Ur75XBLtgPBsnp4/Kao3Knj+jGe
- 96rgwUZFEUBvaiHRNNvw1747rLMxozU0WiRh1ZprdKNiBK3ZB5NOaLtCotg/hk9CVGpT
- UDSA==
-X-Gm-Message-State: AOAM530E0wrDwt3XQ1FPlj5GboFABkCeN/fYRM0aJnd5fcTWHNAw4xSo
- ppgf9h2aWjVkixJ/OFvc5ypvuFxzhWX1U3Hv47o=
-X-Google-Smtp-Source: ABdhPJzk8nFL+kqPtl4RF6lmqD43KwMnT4A8Oapd7ArTtvgjfEhtR30+WEgNSraaEzhK8tG/u1tJxvxiaOrV9LODN+o=
-X-Received: by 2002:a25:61c5:: with SMTP id v188mr748702ybb.422.1606259765056; 
- Tue, 24 Nov 2020 15:16:05 -0800 (PST)
+ bh=44pFzPZOXy9WMyxuVZ4PJwmHwfPvC91GWhNSdpkVBXk=;
+ b=qTrX6VNxko+W8fOmAWKwicYaYontSNxZdASRHqaKX7rJ9CpVUzERvFtA42K9l7cM14
+ ya9w+Dg+wgjfId1XnPUVGIAJ+VHDCudhwUdfh/4GQzv238W29WS7rVdN0bErOG4LxBWM
+ cco3IDBQiurZwCGzB0QzqX4C+YgQA3laeb3ZHcqrbwPax48LKpjvNWV/vgjPCaPzyRRW
+ dkKNQoH3g6jL9vQbBR/swrJA9gF8W2nh7+AHjaqkp7zSx8j2DWLknjdneP1+DOjQHfkU
+ Hb4JlD2P5B8PlIvhIL2EZQFx8uxMHrxRjbvZN6yOYmfpuQbHAkWHfwUe6WCsPibkcFtS
+ CDzQ==
+X-Gm-Message-State: AOAM532PuXLzydXiiisiMW7NLxS7dlQp/TbdsJwJS5RH1IGmFa2ik4sS
+ M0DzKUwKkudHWSR5/P/0wO7CPzauSvKGDWzcJJ8=
+X-Google-Smtp-Source: ABdhPJxG2tW9FM1fAqThCcvqKAPI/OeE1R4V2//A8ePZuSketjr0yKUxoxj6t2hcKlYt9sKRSewQcSyhG/w+5cGdzqU=
+X-Received: by 2002:a25:aac5:: with SMTP id t63mr1046305ybi.22.1606266360499; 
+ Tue, 24 Nov 2020 17:06:00 -0800 (PST)
 MIME-Version: 1.0
 References: <202011201129.B13FDB3C@keescook>
  <20201120115142.292999b2@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
@@ -66,10 +66,12 @@ References: <202011201129.B13FDB3C@keescook>
  <8f5611bb015e044fa1c0a48147293923c2d904e4.camel@HansenPartnership.com>
  <202011241327.BB28F12F6@keescook>
  <alpine.LNX.2.23.453.2011250859290.15@nippy.intranet>
-In-Reply-To: <alpine.LNX.2.23.453.2011250859290.15@nippy.intranet>
+ <CANiq72nUt57u5DG9rH=DB0DzQH7U6-QbG-2Ou+PyCY=p=_Ggag@mail.gmail.com>
+ <alpine.LNX.2.23.453.2011251022550.14@nippy.intranet>
+In-Reply-To: <alpine.LNX.2.23.453.2011251022550.14@nippy.intranet>
 From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Wed, 25 Nov 2020 00:15:54 +0100
-Message-ID: <CANiq72nUt57u5DG9rH=DB0DzQH7U6-QbG-2Ou+PyCY=p=_Ggag@mail.gmail.com>
+Date: Wed, 25 Nov 2020 02:05:49 +0100
+Message-ID: <CANiq72m2kGxSy2E9jgYE4_xRV6h9rFqiJP25KXs_5ObYnH_nmA@mail.gmail.com>
 To: Finn Thain <fthain@telegraphics.com.au>
 X-Mailman-Approved-At: Wed, 25 Nov 2020 06:26:28 +0000
 Subject: Re: [Intel-gfx] [Intel-wired-lan] [PATCH 000/141] Fix fall-through
@@ -136,28 +138,39 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Nov 24, 2020 at 11:24 PM Finn Thain <fthain@telegraphics.com.au> wrote:
+On Wed, Nov 25, 2020 at 12:53 AM Finn Thain <fthain@telegraphics.com.au> wrote:
 >
-> These statements are not "missing" unless you presume that code written
-> before the latest de facto language spec was written should somehow be
-> held to that spec.
+> I'm saying that supporting the official language spec makes more sense
+> than attempting to support a multitude of divergent interpretations of the
+> spec (i.e. gcc, clang, coverity etc.)
 
-There is no "language spec" the kernel adheres to. Even if it did,
-kernel code is not frozen. If an improvement is found, it should be
-applied.
+Making the kernel strictly conforming is a ship that sailed long ago,
+for several reasons. Anyway, supporting several compilers and other
+tools, regardless of extensions, is valuable.
 
-> If the 'fallthrough' statement is not part of the latest draft spec then
-> we should ask why not before we embrace it. Being that the kernel still
-> prefers -std=gnu89 you might want to consider what has prevented
-> -std=gnu99 or -std=gnu2x etc.
+> I'm also saying that the reason why we use -std=gnu89 is that existing
+> code was written in that language, not in ad hoc languages comprised of
+> collections of extensions that change with every release.
 
-The C standard has nothing to do with this. We use compiler extensions
-of several kinds, for many years. Even discounting those extensions,
-the kernel is not even conforming to C due to e.g. strict aliasing. I
-am not sure what you are trying to argue here.
+No, we aren't particularly tied to `gnu89` or anything like that. We
+could actually go for `gnu11` already, since the minimum GCC and Clang
+support it. Even if a bit of code needs fixing, that shouldn't be a
+problem if someone puts the work.
 
-But, since you insist: yes, the `fallthrough` attribute is in the
-current C2x draft.
+In other words, the kernel code is not frozen, nor are the features it
+uses from compilers. They do, in fact, change from time to time.
+
+> Thank you for checking. I found a free version that's only 6 weeks old:
+
+You're welcome! There are quite a few new attributes coming, mostly
+following C++ ones.
+
+> It will be interesting to see whether 6.7.11.5 changes once the various
+> implementations reach agreement.
+
+Not sure what you mean. The standard does not evolve through
+implementations' agreement (although standardizing existing practice
+is one of the best arguments to back a change).
 
 Cheers,
 Miguel
