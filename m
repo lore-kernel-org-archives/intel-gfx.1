@@ -2,54 +2,51 @@ Return-Path: <SRS0=GkMm=FA=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.7 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1B223C56202
-	for <intel-gfx@archiver.kernel.org>; Thu, 26 Nov 2020 10:52:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 182ACC63697
+	for <intel-gfx@archiver.kernel.org>; Thu, 26 Nov 2020 10:52:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9635C20DD4
-	for <intel-gfx@archiver.kernel.org>; Thu, 26 Nov 2020 10:52:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9635C20DD4
+	by mail.kernel.org (Postfix) with ESMTPS id A054020DD4
+	for <intel-gfx@archiver.kernel.org>; Thu, 26 Nov 2020 10:52:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A054020DD4
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B3EA56E855;
-	Thu, 26 Nov 2020 10:52:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 003326E88B;
+	Thu, 26 Nov 2020 10:52:10 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8870C6E855;
- Thu, 26 Nov 2020 10:52:07 +0000 (UTC)
-IronPort-SDR: 8NbutCbluEbDdTc9JN4my05JaBoT8lOhQ4Dkw+zGm1OcAkzrb6iLfZOsFXFosbYNT5bnDHkwAl
- l1i/HNwfb2sw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9816"; a="168766386"
-X-IronPort-AV: E=Sophos;i="5.78,371,1599548400"; d="scan'208";a="168766386"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D0906E855
+ for <intel-gfx@lists.freedesktop.org>; Thu, 26 Nov 2020 10:52:08 +0000 (UTC)
+IronPort-SDR: dtiW4INuTOELkgvOnEClRUTVkiS2R8TA8s90V2rlIGmHjLpesIJLKwZVBRCM6hTwCmUj0tQ3U7
+ tvA2LxTyyVjw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9816"; a="168766387"
+X-IronPort-AV: E=Sophos;i="5.78,371,1599548400"; d="scan'208";a="168766387"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  26 Nov 2020 02:52:07 -0800
-IronPort-SDR: 5YJqH7VXGPfJMrrTtrb7gn3s2INDXe4ZESZDJ0xsav8xz6z2aY5ks+FW2U3UNVv77i9PHqfmY+
- fKYlkDcDK9SA==
-X-IronPort-AV: E=Sophos;i="5.78,371,1599548400"; d="scan'208";a="547673952"
-Received: from mpascu-mobl2.ger.corp.intel.com (HELO localhost)
- ([10.249.41.186])
+IronPort-SDR: sh/Mck43CF+dg77FR5uzPMgQZHSf2N2VBNF6qc95Ec+dSHtAwjWnfnVNIy8fXyJim+/LE3S/UN
+ sOxrIOnHn7dg==
+X-IronPort-AV: E=Sophos;i="5.78,371,1599548400"; d="scan'208";a="547673958"
+Received: from gprisant-mobl2.ger.corp.intel.com (HELO
+ delly.ger.corp.intel.com) ([10.249.41.50])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Nov 2020 02:52:01 -0800
-From: Jani Nikula <jani.nikula@intel.com>
-To: Lyude Paul <lyude@redhat.com>, intel-gfx@lists.freedesktop.org
-In-Reply-To: <20200916171855.129511-2-lyude@redhat.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20200916171855.129511-1-lyude@redhat.com>
- <20200916171855.129511-2-lyude@redhat.com>
-Date: Thu, 26 Nov 2020 12:51:58 +0200
-Message-ID: <87v9dsl7ap.fsf@intel.com>
+ 26 Nov 2020 02:52:06 -0800
+From: Lionel Landwerlin <lionel.g.landwerlin@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Thu, 26 Nov 2020 12:51:55 +0200
+Message-Id: <20201126105155.540350-1-lionel.g.landwerlin@intel.com>
+X-Mailer: git-send-email 2.29.2
 MIME-Version: 1.0
-Subject: Re: [Intel-gfx] [RFC v2 1/8] drm/i915/dp: Program source OUI on eDP
- panels
+Subject: [Intel-gfx] [PATCH] drm/i915/perf: also include Gen11 in OATAILPTR
+ workaround
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,114 +59,35 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, open list <linux-kernel@vger.kernel.org>,
- dri-devel@lists.freedesktop.org, Vasily Khoruzhick <anarsoul@gmail.com>,
- Sean Paul <seanpaul@chromium.org>, Wambui Karuga <wambui.karugax@gmail.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 16 Sep 2020, Lyude Paul <lyude@redhat.com> wrote:
-> Since we're about to start adding support for Intel's magic HDR
-> backlight interface over DPCD, we need to ensure we're properly
-> programming this field so that Intel specific sink services are exposed.
-> Otherwise, 0x300-0x3ff will just read zeroes.
->
-> We also take care not to reprogram the source OUI if it already matches
-> what we expect. This is just to be careful so that we don't accidentally
-> take the panel out of any backlight control modes we found it in.
->
-> v2:
-> * Add careful parameter to intel_edp_init_source_oui() to avoid
->   re-writing the source OUI if it's already been set during driver
->   initialization
->
-> Signed-off-by: Lyude Paul <lyude@redhat.com>
-> Cc: thaytan@noraisin.net
-> Cc: Vasily Khoruzhick <anarsoul@gmail.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_dp.c | 33 +++++++++++++++++++++++++
->  1 file changed, 33 insertions(+)
->
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-> index 4bd10456ad188..7db2b6a3cd52e 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-> @@ -3424,6 +3424,29 @@ void intel_dp_sink_set_decompression_state(struct intel_dp *intel_dp,
->  			    enable ? "enable" : "disable");
->  }
->  
-> +static void
-> +intel_edp_init_source_oui(struct intel_dp *intel_dp, bool careful)
-> +{
-> +	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
-> +	u8 oui[] = { 0x00, 0xaa, 0x01 };
+CI shows this workaround is also needed on Gen11.
 
-Nitpick, could be static const.
+Signed-off-by: Lionel Landwerlin <lionel.g.landwerlin@intel.com>
+Fixes: 059a0beb486344 ("drm/i915/perf: workaround register corruption in OATAILPTR")
+---
+ drivers/gpu/drm/i915/i915_perf.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> +	u8 buf[3] = { 0 };
-> +
-> +	/*
-> +	 * During driver init, we want to be careful and avoid changing the source OUI if it's
-> +	 * already set to what we want, so as to avoid clearing any state by accident
-> +	 */
-
-Did you actually observe any ill behaviour with unconditionally writing
-the source OUI?
-
-I mean it's easy to add the "careful" mode afterwards if there are
-concrete issues, but it'll be hard to remove because it'll be a
-functional change potentially causing regressions.
-
-> +	if (careful) {
-> +		if (drm_dp_dpcd_read(&intel_dp->aux, DP_SOURCE_OUI, buf, sizeof(buf)) < 0)
-> +			drm_err(&i915->drm, "Failed to read source OUI\n");
-> +
-> +		if (memcmp(oui, buf, sizeof(oui)) == 0)
-> +			return;
-> +	}
-> +
-> +	if (drm_dp_dpcd_write(&intel_dp->aux, DP_SOURCE_OUI, oui, sizeof(oui)) < 0)
-> +		drm_err(&i915->drm, "Failed to write source OUI\n");
-> +}
-> +
->  /* If the sink supports it, try to set the power state appropriately */
->  void intel_dp_sink_dpms(struct intel_dp *intel_dp, int mode)
->  {
-> @@ -3443,6 +3466,10 @@ void intel_dp_sink_dpms(struct intel_dp *intel_dp, int mode)
->  	} else {
->  		struct intel_lspcon *lspcon = dp_to_lspcon(intel_dp);
->  
-> +		/* Write the source OUI as early as possible */
-> +		if (intel_dp_is_edp(intel_dp))
-> +			intel_edp_init_source_oui(intel_dp, false);
-> +
-
-This hunk conflicts, will need a rebase.
-
-BR,
-Jani.
-
-
->  		/*
->  		 * When turning on, we need to retry for 1ms to give the sink
->  		 * time to wake up.
-> @@ -4607,6 +4634,12 @@ intel_edp_init_dpcd(struct intel_dp *intel_dp)
->  	if (INTEL_GEN(dev_priv) >= 10 || IS_GEMINILAKE(dev_priv))
->  		intel_dp_get_dsc_sink_cap(intel_dp);
->  
-> +	/*
-> +	 * If needed, program our source OUI so we can make various Intel-specific AUX services
-> +	 * available (such as HDR backlight controls)
-> +	 */
-> +	intel_edp_init_source_oui(intel_dp, true);
-> +
->  	return true;
->  }
-
+diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
+index 3640d0e229d2..acdfbe5344a4 100644
+--- a/drivers/gpu/drm/i915/i915_perf.c
++++ b/drivers/gpu/drm/i915/i915_perf.c
+@@ -913,7 +913,7 @@ static int gen8_oa_read(struct i915_perf_stream *stream,
+ 		intel_uncore_rmw(uncore, oastatus_reg,
+ 				 GEN8_OASTATUS_COUNTER_OVERFLOW |
+ 				 GEN8_OASTATUS_REPORT_LOST,
+-				 IS_GEN_RANGE(uncore->i915, 8, 10) ?
++				 IS_GEN_RANGE(uncore->i915, 8, 11) ?
+ 				 (GEN8_OASTATUS_HEAD_POINTER_WRAP |
+ 				  GEN8_OASTATUS_TAIL_POINTER_WRAP) : 0);
+ 	}
 -- 
-Jani Nikula, Intel Open Source Graphics Center
+2.29.2
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
