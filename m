@@ -2,51 +2,54 @@ Return-Path: <SRS0=GkMm=FA=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-13.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 182ACC63697
-	for <intel-gfx@archiver.kernel.org>; Thu, 26 Nov 2020 10:52:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0C7A5C63777
+	for <intel-gfx@archiver.kernel.org>; Thu, 26 Nov 2020 10:54:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A054020DD4
-	for <intel-gfx@archiver.kernel.org>; Thu, 26 Nov 2020 10:52:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A054020DD4
+	by mail.kernel.org (Postfix) with ESMTPS id 96A6E21527
+	for <intel-gfx@archiver.kernel.org>; Thu, 26 Nov 2020 10:54:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 96A6E21527
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 003326E88B;
-	Thu, 26 Nov 2020 10:52:10 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D0906E855
- for <intel-gfx@lists.freedesktop.org>; Thu, 26 Nov 2020 10:52:08 +0000 (UTC)
-IronPort-SDR: dtiW4INuTOELkgvOnEClRUTVkiS2R8TA8s90V2rlIGmHjLpesIJLKwZVBRCM6hTwCmUj0tQ3U7
- tvA2LxTyyVjw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9816"; a="168766387"
-X-IronPort-AV: E=Sophos;i="5.78,371,1599548400"; d="scan'208";a="168766387"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C6EE6E891;
+	Thu, 26 Nov 2020 10:54:18 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 42D0A6E891;
+ Thu, 26 Nov 2020 10:54:17 +0000 (UTC)
+IronPort-SDR: FpU4IkHElYnTO5wUwiwLqYXuPo0D7esLSXmOLuypOgWOELJweXuU6uwaM5Ef1Yclg6R0P0fDMo
+ G0rAYH3VI+/Q==
+X-IronPort-AV: E=McAfee;i="6000,8403,9816"; a="151526603"
+X-IronPort-AV: E=Sophos;i="5.78,371,1599548400"; d="scan'208";a="151526603"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Nov 2020 02:52:07 -0800
-IronPort-SDR: sh/Mck43CF+dg77FR5uzPMgQZHSf2N2VBNF6qc95Ec+dSHtAwjWnfnVNIy8fXyJim+/LE3S/UN
- sOxrIOnHn7dg==
-X-IronPort-AV: E=Sophos;i="5.78,371,1599548400"; d="scan'208";a="547673958"
-Received: from gprisant-mobl2.ger.corp.intel.com (HELO
- delly.ger.corp.intel.com) ([10.249.41.50])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Nov 2020 02:54:16 -0800
+IronPort-SDR: 4AarGaMBF+7BwfCGphXiafVOFaYgPa9JhZDJwwpxqgxNm0IvfnKWcKPbyEF9pzadymUU7iMUBy
+ 3j2MWFG0wQzA==
+X-IronPort-AV: E=Sophos;i="5.78,371,1599548400"; d="scan'208";a="547674503"
+Received: from mpascu-mobl2.ger.corp.intel.com (HELO localhost)
+ ([10.249.41.186])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Nov 2020 02:52:06 -0800
-From: Lionel Landwerlin <lionel.g.landwerlin@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Thu, 26 Nov 2020 12:51:55 +0200
-Message-Id: <20201126105155.540350-1-lionel.g.landwerlin@intel.com>
-X-Mailer: git-send-email 2.29.2
+ 26 Nov 2020 02:54:11 -0800
+From: Jani Nikula <jani.nikula@intel.com>
+To: Lyude Paul <lyude@redhat.com>, intel-gfx@lists.freedesktop.org
+In-Reply-To: <20200916171855.129511-3-lyude@redhat.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20200916171855.129511-1-lyude@redhat.com>
+ <20200916171855.129511-3-lyude@redhat.com>
+Date: Thu, 26 Nov 2020 12:54:08 +0200
+Message-ID: <87sg8wl773.fsf@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH] drm/i915/perf: also include Gen11 in OATAILPTR
- workaround
+Subject: Re: [Intel-gfx] [RFC v2 2/8] drm/i915: Rename pwm_* backlight
+ callbacks to ext_pwm_*
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,35 +62,109 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Arnd Bergmann <arnd@arndb.de>, David Airlie <airlied@linux.ie>,
+ open list <linux-kernel@vger.kernel.org>, dri-devel@lists.freedesktop.org,
+ Chris Wilson <chris@chris-wilson.co.uk>,
+ Vasily Khoruzhick <anarsoul@gmail.com>,
+ Wambui Karuga <wambui.karugax@gmail.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-CI shows this workaround is also needed on Gen11.
+On Wed, 16 Sep 2020, Lyude Paul <lyude@redhat.com> wrote:
+> Since we're going to need to add a set of lower-level PWM backlight
+> control hooks to be shared by normal backlight controls and HDR
+> backlight controls in SDR mode, let's add a prefix to the external PWM
+> backlight functions so that the difference between them and the high
+> level PWM-only backlight functions is a bit more obvious.
+>
+> This introduces no functional changes.
+>
+> Signed-off-by: Lyude Paul <lyude@redhat.com>
+> Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+> Cc: thaytan@noraisin.net
+> Cc: Vasily Khoruzhick <anarsoul@gmail.com>
 
-Signed-off-by: Lionel Landwerlin <lionel.g.landwerlin@intel.com>
-Fixes: 059a0beb486344 ("drm/i915/perf: workaround register corruption in OATAILPTR")
----
- drivers/gpu/drm/i915/i915_perf.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 
-diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
-index 3640d0e229d2..acdfbe5344a4 100644
---- a/drivers/gpu/drm/i915/i915_perf.c
-+++ b/drivers/gpu/drm/i915/i915_perf.c
-@@ -913,7 +913,7 @@ static int gen8_oa_read(struct i915_perf_stream *stream,
- 		intel_uncore_rmw(uncore, oastatus_reg,
- 				 GEN8_OASTATUS_COUNTER_OVERFLOW |
- 				 GEN8_OASTATUS_REPORT_LOST,
--				 IS_GEN_RANGE(uncore->i915, 8, 10) ?
-+				 IS_GEN_RANGE(uncore->i915, 8, 11) ?
- 				 (GEN8_OASTATUS_HEAD_POINTER_WRAP |
- 				  GEN8_OASTATUS_TAIL_POINTER_WRAP) : 0);
- 	}
+> ---
+>  drivers/gpu/drm/i915/display/intel_panel.c | 24 +++++++++++-----------
+>  1 file changed, 12 insertions(+), 12 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/i915/display/intel_panel.c b/drivers/gpu/drm/i915/display/intel_panel.c
+> index 9f23bac0d7924..c0e36244bb07d 100644
+> --- a/drivers/gpu/drm/i915/display/intel_panel.c
+> +++ b/drivers/gpu/drm/i915/display/intel_panel.c
+> @@ -589,7 +589,7 @@ static u32 bxt_get_backlight(struct intel_connector *connector)
+>  			     BXT_BLC_PWM_DUTY(panel->backlight.controller));
+>  }
+>  
+> -static u32 pwm_get_backlight(struct intel_connector *connector)
+> +static u32 ext_pwm_get_backlight(struct intel_connector *connector)
+>  {
+>  	struct intel_panel *panel = &connector->panel;
+>  	struct pwm_state state;
+> @@ -666,7 +666,7 @@ static void bxt_set_backlight(const struct drm_connector_state *conn_state, u32
+>  		       BXT_BLC_PWM_DUTY(panel->backlight.controller), level);
+>  }
+>  
+> -static void pwm_set_backlight(const struct drm_connector_state *conn_state, u32 level)
+> +static void ext_pwm_set_backlight(const struct drm_connector_state *conn_state, u32 level)
+>  {
+>  	struct intel_panel *panel = &to_intel_connector(conn_state->connector)->panel;
+>  
+> @@ -835,7 +835,7 @@ static void cnp_disable_backlight(const struct drm_connector_state *old_conn_sta
+>  		       tmp & ~BXT_BLC_PWM_ENABLE);
+>  }
+>  
+> -static void pwm_disable_backlight(const struct drm_connector_state *old_conn_state)
+> +static void ext_pwm_disable_backlight(const struct drm_connector_state *old_conn_state)
+>  {
+>  	struct intel_connector *connector = to_intel_connector(old_conn_state->connector);
+>  	struct intel_panel *panel = &connector->panel;
+> @@ -1168,8 +1168,8 @@ static void cnp_enable_backlight(const struct intel_crtc_state *crtc_state,
+>  		       pwm_ctl | BXT_BLC_PWM_ENABLE);
+>  }
+>  
+> -static void pwm_enable_backlight(const struct intel_crtc_state *crtc_state,
+> -				 const struct drm_connector_state *conn_state)
+> +static void ext_pwm_enable_backlight(const struct intel_crtc_state *crtc_state,
+> +				     const struct drm_connector_state *conn_state)
+>  {
+>  	struct intel_connector *connector = to_intel_connector(conn_state->connector);
+>  	struct intel_panel *panel = &connector->panel;
+> @@ -1890,8 +1890,8 @@ cnp_setup_backlight(struct intel_connector *connector, enum pipe unused)
+>  	return 0;
+>  }
+>  
+> -static int pwm_setup_backlight(struct intel_connector *connector,
+> -			       enum pipe pipe)
+> +static int ext_pwm_setup_backlight(struct intel_connector *connector,
+> +				   enum pipe pipe)
+>  {
+>  	struct drm_device *dev = connector->base.dev;
+>  	struct drm_i915_private *dev_priv = to_i915(dev);
+> @@ -2065,11 +2065,11 @@ intel_panel_init_backlight_funcs(struct intel_panel *panel)
+>  		panel->backlight.hz_to_pwm = pch_hz_to_pwm;
+>  	} else if (IS_VALLEYVIEW(dev_priv) || IS_CHERRYVIEW(dev_priv)) {
+>  		if (connector->base.connector_type == DRM_MODE_CONNECTOR_DSI) {
+> -			panel->backlight.setup = pwm_setup_backlight;
+> -			panel->backlight.enable = pwm_enable_backlight;
+> -			panel->backlight.disable = pwm_disable_backlight;
+> -			panel->backlight.set = pwm_set_backlight;
+> -			panel->backlight.get = pwm_get_backlight;
+> +			panel->backlight.setup = ext_pwm_setup_backlight;
+> +			panel->backlight.enable = ext_pwm_enable_backlight;
+> +			panel->backlight.disable = ext_pwm_disable_backlight;
+> +			panel->backlight.set = ext_pwm_set_backlight;
+> +			panel->backlight.get = ext_pwm_get_backlight;
+>  		} else {
+>  			panel->backlight.setup = vlv_setup_backlight;
+>  			panel->backlight.enable = vlv_enable_backlight;
+
 -- 
-2.29.2
-
+Jani Nikula, Intel Open Source Graphics Center
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
