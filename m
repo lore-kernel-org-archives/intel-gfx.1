@@ -7,47 +7,47 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E4BE6C64E75
-	for <intel-gfx@archiver.kernel.org>; Thu, 26 Nov 2020 07:41:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AD06AC63777
+	for <intel-gfx@archiver.kernel.org>; Thu, 26 Nov 2020 07:41:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 84A4D206C0
-	for <intel-gfx@archiver.kernel.org>; Thu, 26 Nov 2020 07:41:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 84A4D206C0
+	by mail.kernel.org (Postfix) with ESMTPS id 4BC13206C0
+	for <intel-gfx@archiver.kernel.org>; Thu, 26 Nov 2020 07:41:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4BC13206C0
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 22B9C6E7F5;
-	Thu, 26 Nov 2020 07:41:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 98E8D6E7F1;
+	Thu, 26 Nov 2020 07:41:34 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D53556E5D4
- for <intel-gfx@lists.freedesktop.org>; Thu, 26 Nov 2020 07:41:24 +0000 (UTC)
-IronPort-SDR: qWGdc7RyS54dHGdAvHG9bxdSx5yOoD3IsvFAiixCrqdvalKs9hL3gN9YJuKERdK2hTG1mOVCTp
- RNh/sewuZd+Q==
-X-IronPort-AV: E=McAfee;i="6000,8403,9816"; a="168741356"
-X-IronPort-AV: E=Sophos;i="5.78,371,1599548400"; d="scan'208";a="168741356"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0465B6E7F1
+ for <intel-gfx@lists.freedesktop.org>; Thu, 26 Nov 2020 07:41:28 +0000 (UTC)
+IronPort-SDR: qqBO/Z3ja0I5X2DUbmFUSX82ZO+FAC6jf/ecrhhr/FAZYeCFVdqMq5nnt9y0FqZ59NFIwZL8Sb
+ jr0QSDJ5Y1Qg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9816"; a="168741373"
+X-IronPort-AV: E=Sophos;i="5.78,371,1599548400"; d="scan'208";a="168741373"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Nov 2020 23:41:24 -0800
-IronPort-SDR: AdPcB/4QozWP1nM0bIoXJLdWseuwjH9Xhc01i43kB3B6gcop8GCETAKq0j8IpAu8Q7fUjRkIiw
- Gz8tzRkq56Pg==
-X-IronPort-AV: E=Sophos;i="5.78,371,1599548400"; d="scan'208";a="359448094"
+ 25 Nov 2020 23:41:28 -0800
+IronPort-SDR: zyH745d0EtXkP9iLUre8V6f8WDP7SuoudoNgjb5eryDL3u5DxXslqGizoKYVweYaUhuJLWk67A
+ V6HvSJeVJYPw==
+X-IronPort-AV: E=Sophos;i="5.78,371,1599548400"; d="scan'208";a="359448113"
 Received: from linux-desktop.iind.intel.com ([10.223.34.173])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Nov 2020 23:41:22 -0800
+ 25 Nov 2020 23:41:26 -0800
 From: Uma Shankar <uma.shankar@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 26 Nov 2020 13:44:38 +0530
-Message-Id: <20201126081445.29759-7-uma.shankar@intel.com>
+Date: Thu, 26 Nov 2020 13:44:40 +0530
+Message-Id: <20201126081445.29759-9-uma.shankar@intel.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20201126081445.29759-1-uma.shankar@intel.com>
 References: <20201126081445.29759-1-uma.shankar@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [v11 06/13] drm/i915/display: Attach content type
- property for LSPCON
+Subject: [Intel-gfx] [v11 08/13] drm/i915/display: Enable HDR for Parade
+ based lspcon
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,52 +60,44 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Vipin Anand <vipin.anand@intel.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Content type is supported on HDMI sink devices. Attached the
-property for the same for LSPCON based devices.
-
-v2: Added the content type programming when we are attaching
-the property to connector, as suggested by Ville.
-
-Signed-off-by: Uma Shankar <uma.shankar@intel.com>
----
- drivers/gpu/drm/i915/display/intel_dp.c     | 1 +
- drivers/gpu/drm/i915/display/intel_lspcon.c | 2 ++
- 2 files changed, 3 insertions(+)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 5aaa06d73609..c4bbebc8c23d 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -6803,6 +6803,7 @@ intel_dp_connector_register(struct drm_connector *connector)
- 			drm_object_attach_property(&connector->base,
- 						   connector->dev->mode_config.hdr_output_metadata_property,
- 						   0);
-+		drm_connector_attach_content_type_property(connector);
- 	}
- 
- 	return ret;
-diff --git a/drivers/gpu/drm/i915/display/intel_lspcon.c b/drivers/gpu/drm/i915/display/intel_lspcon.c
-index 9552dfc55e20..0a4c05d67108 100644
---- a/drivers/gpu/drm/i915/display/intel_lspcon.c
-+++ b/drivers/gpu/drm/i915/display/intel_lspcon.c
-@@ -539,6 +539,8 @@ void lspcon_set_infoframes(struct intel_encoder *encoder,
- 		frame.avi.ycc_quantization_range = HDMI_YCC_QUANTIZATION_RANGE_LIMITED;
- 	}
- 
-+	drm_hdmi_avi_infoframe_content_type(&frame.avi, conn_state);
-+
- 	ret = hdmi_infoframe_pack(&frame, buf, sizeof(buf));
- 	if (ret < 0) {
- 		DRM_ERROR("Failed to pack AVI IF\n");
--- 
-2.26.2
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+RW5hYmxlIEhEUiBmb3IgTFNQQ09OIGJhc2VkIG9uIFBhcmFkZSBhbG9uZyB3aXRoIE1DQS4KCnYy
+OiBBZGRlZCBhIGhlbHBlciBmb3Igc3RhdHVzIHJlZyBhcyBzdWdnZXN0ZWQgYnkgVmlsbGUuCgp2
+MzogUmVtb3ZlZCBhIHJlZHVuZGFudCB2YXJpYWJsZSwgYWRkZWQgVmlsbGUncyBSQi4KClNpZ25l
+ZC1vZmYtYnk6IFVtYSBTaGFua2FyIDx1bWEuc2hhbmthckBpbnRlbC5jb20+ClNpZ25lZC1vZmYt
+Ynk6IFZpcGluIEFuYW5kIDx2aXBpbi5hbmFuZEBpbnRlbC5jb20+ClJldmlld2VkLWJ5OiBWaWxs
+ZSBTeXJqw6QgPHZpbGxlLnN5cmphbGFAbGludXguaW50ZWwuY29tPgotLS0KIGRyaXZlcnMvZ3B1
+L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfbHNwY29uLmMgfCAxNyArKysrKysrKysrKy0tLS0tLQog
+MSBmaWxlIGNoYW5nZWQsIDExIGluc2VydGlvbnMoKyksIDYgZGVsZXRpb25zKC0pCgpkaWZmIC0t
+Z2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9sc3Bjb24uYyBiL2RyaXZl
+cnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfbHNwY29uLmMKaW5kZXggZjZmNThhOTkxZTdh
+Li4xZDNkZmZhZGUxNjggMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkv
+aW50ZWxfbHNwY29uLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9s
+c3Bjb24uYwpAQCAtMzYsNiArMzYsNyBAQAogI2RlZmluZSBMU1BDT05fVkVORE9SX01DQV9PVUkg
+MHgwMDYwQUQKIAogI2RlZmluZSBEUENEX01DQV9MU1BDT05fSERSX1NUQVRVUwkweDcwMDAzCisj
+ZGVmaW5lIERQQ0RfUEFSQURFX0xTUENPTl9IRFJfU1RBVFVTCTB4MDA1MTEKIAogLyogQVVYIGFk
+ZHJlc3NlcyB0byB3cml0ZSBNQ0EgQVZJIElGICovCiAjZGVmaW5lIExTUENPTl9NQ0FfQVZJX0lG
+X1dSSVRFX09GRlNFVCAweDVDMApAQCAtMTA2LDYgKzEwNywxNCBAQCBzdGF0aWMgYm9vbCBsc3Bj
+b25fZGV0ZWN0X3ZlbmRvcihzdHJ1Y3QgaW50ZWxfbHNwY29uICpsc3Bjb24pCiAJcmV0dXJuIHRy
+dWU7CiB9CiAKK3N0YXRpYyB1MzIgZ2V0X2hkcl9zdGF0dXNfcmVnKHN0cnVjdCBpbnRlbF9sc3Bj
+b24gKmxzcGNvbikKK3sKKwlpZiAobHNwY29uLT52ZW5kb3IgPT0gTFNQQ09OX1ZFTkRPUl9NQ0Ep
+CisJCXJldHVybiBEUENEX01DQV9MU1BDT05fSERSX1NUQVRVUzsKKwllbHNlCisJCXJldHVybiBE
+UENEX1BBUkFERV9MU1BDT05fSERSX1NUQVRVUzsKK30KKwogdm9pZCBsc3Bjb25fZGV0ZWN0X2hk
+cl9jYXBhYmlsaXR5KHN0cnVjdCBpbnRlbF9sc3Bjb24gKmxzcGNvbikKIHsKIAlzdHJ1Y3QgaW50
+ZWxfZGlnaXRhbF9wb3J0ICpkaWdfcG9ydCA9CkBAIC0xMTUsMTIgKzEyNCw4IEBAIHZvaWQgbHNw
+Y29uX2RldGVjdF9oZHJfY2FwYWJpbGl0eShzdHJ1Y3QgaW50ZWxfbHNwY29uICpsc3Bjb24pCiAJ
+dTggaGRyX2NhcHM7CiAJaW50IHJldDsKIAotCS8qIEVuYWJsZSBIRFIgZm9yIE1DQSBiYXNlZCBM
+U1BDT04gZGV2aWNlcyAqLwotCWlmIChsc3Bjb24tPnZlbmRvciA9PSBMU1BDT05fVkVORE9SX01D
+QSkKLQkJcmV0ID0gZHJtX2RwX2RwY2RfcmVhZCgmZHAtPmF1eCwgRFBDRF9NQ0FfTFNQQ09OX0hE
+Ul9TVEFUVVMsCi0JCQkJICAgICAgICZoZHJfY2FwcywgMSk7Ci0JZWxzZQotCQlyZXR1cm47CisJ
+cmV0ID0gZHJtX2RwX2RwY2RfcmVhZCgmZHAtPmF1eCwgZ2V0X2hkcl9zdGF0dXNfcmVnKGxzcGNv
+biksCisJCQkgICAgICAgJmhkcl9jYXBzLCAxKTsKIAogCWlmIChyZXQgPCAwKSB7CiAJCWRybV9k
+Ymdfa21zKGRldiwgIkhEUiBjYXBhYmlsaXR5IGRldGVjdGlvbiBmYWlsZWRcbiIpOwotLSAKMi4y
+Ni4yCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpJbnRl
+bC1nZnggbWFpbGluZyBsaXN0CkludGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6
+Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9pbnRlbC1nZngK
