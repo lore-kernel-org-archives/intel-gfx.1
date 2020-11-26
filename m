@@ -7,49 +7,50 @@ X-Spam-Status: No, score=-13.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0A6CDC56202
-	for <intel-gfx@archiver.kernel.org>; Thu, 26 Nov 2020 07:20:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D1950C63777
+	for <intel-gfx@archiver.kernel.org>; Thu, 26 Nov 2020 07:37:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7D80C2075A
-	for <intel-gfx@archiver.kernel.org>; Thu, 26 Nov 2020 07:20:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7D80C2075A
+	by mail.kernel.org (Postfix) with ESMTPS id 5FC84206C0
+	for <intel-gfx@archiver.kernel.org>; Thu, 26 Nov 2020 07:37:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5FC84206C0
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 953606E14B;
-	Thu, 26 Nov 2020 07:20:21 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 59C576E14B
- for <intel-gfx@lists.freedesktop.org>; Thu, 26 Nov 2020 07:20:20 +0000 (UTC)
-IronPort-SDR: H0z2NhOKTu0fVow1IDJbXJCq800zOVkI9e/mCqjz/wqYHVFwP/A/sygMiuva7OgiJt0weJvZNf
- 3unPf5kwTL5w==
-X-IronPort-AV: E=McAfee;i="6000,8403,9816"; a="190399805"
-X-IronPort-AV: E=Sophos;i="5.78,371,1599548400"; d="scan'208";a="190399805"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 70ACB6E59F;
+	Thu, 26 Nov 2020 07:37:27 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 019816E59D
+ for <intel-gfx@lists.freedesktop.org>; Thu, 26 Nov 2020 07:37:25 +0000 (UTC)
+IronPort-SDR: qMhPuwdK5u5sqWHh4NS1Cafd8j0GsW/rzuxqVr2xcRunmLxcPmk0y0NQ3gbYBsBp+kHmunondT
+ cfKVHIOe09bQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9816"; a="172348247"
+X-IronPort-AV: E=Sophos;i="5.78,371,1599548400"; d="scan'208";a="172348247"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Nov 2020 23:20:19 -0800
-IronPort-SDR: OOz4VGTAScedrOmqNfFqoSgBKYMmZVXeWUb+YcyV6WUBrSeLHg2v56qzL43iY9c5esEBAggaTP
- r6XS3iI/D1lg==
-X-IronPort-AV: E=Sophos;i="5.78,371,1599548400"; d="scan'208";a="403557454"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Nov 2020 23:37:25 -0800
+IronPort-SDR: NnCfnfg01iHsMEvxKWwhXnpGUhqE3PR1Fqg6qgy0lGUP9ZhCkOJK0/A3fLjSFtpkdmi5EkOBH/
+ EpRNx3tL+aeA==
+X-IronPort-AV: E=Sophos;i="5.78,371,1599548400"; d="scan'208";a="343852093"
 Received: from ryanjamx-mobl1.amr.corp.intel.com (HELO ldmartin-desk1)
  ([10.209.30.192])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Nov 2020 23:20:18 -0800
-Date: Wed, 25 Nov 2020 23:20:18 -0800
+ by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Nov 2020 23:37:25 -0800
+Date: Wed, 25 Nov 2020 23:37:24 -0800
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: Aditya Swarup <aditya.swarup@intel.com>
-Message-ID: <20201126072018.bn2zbqrdy7syh6es@ldmartin-desk1>
+Message-ID: <20201126073724.3tb55cnixyk2lxr2@ldmartin-desk1>
 X-Patchwork-Hint: comment
 References: <20201126070041.369530-1-aditya.swarup@intel.com>
+ <20201126070041.369530-2-aditya.swarup@intel.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20201126070041.369530-1-aditya.swarup@intel.com>
-Subject: Re: [Intel-gfx] [PATCH 1/2] drm/i915/tgl: Fix REVID macros for TGL
- to fetch correct stepping
+In-Reply-To: <20201126070041.369530-2-aditya.swarup@intel.com>
+Subject: Re: [Intel-gfx] [PATCH 2/2] drm/i915/tgl: Add bound checks and
+ simplify TGL REVID macros
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,62 +69,142 @@ Content-Type: text/plain; charset="iso-8859-1"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Nov 25, 2020 at 11:00:40PM -0800, Aditya Swarup wrote:
->Fix TGL REVID macros to fetch correct display/gt stepping based
->on SOC rev id from INTEL_REVID() macro. Previously, we were just
->returning the first element of the revid array instead of using
->the correct index based on SOC rev id.
+On Wed, Nov 25, 2020 at 11:00:41PM -0800, Aditya Swarup wrote:
+>Add bound checks for TGL REV ID array. Since, there might
+>be a possibility of using older kernels on latest platform
+>revisions, resulting in out of bounds access for rev ID array.
+>In this scenario, use the latest rev ID available and apply
+>those WAs.
 >
->Fixes: ("drm/i915/tgl: Fix stepping WA matching")
+>Also, simplify GT macro for TGL rev ID to reuse tgl_revids_get().
+>
 >Cc: Jos=E9 Roberto de Souza <jose.souza@intel.com>
 >Cc: Matt Roper <matthew.d.roper@intel.com>
 >Cc: Lucas De Marchi <lucas.demarchi@intel.com>
 >Cc: Jani Nikula <jani.nikula@intel.com>
 >Cc: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
 >Signed-off-by: Aditya Swarup <aditya.swarup@intel.com>
-
-
-Reviewed-by: Lucas De Marchi <lucas.demarchi@intel.com>
-
-Lucas De Marchi
-
 >---
-> drivers/gpu/drm/i915/i915_drv.h | 12 ++++++------
-> 1 file changed, 6 insertions(+), 6 deletions(-)
+> drivers/gpu/drm/i915/gt/intel_workarounds.c |  8 ++---
+> drivers/gpu/drm/i915/i915_drv.h             | 36 +++++++++++++--------
+> 2 files changed, 26 insertions(+), 18 deletions(-)
 >
+>diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm=
+/i915/gt/intel_workarounds.c
+>index a82554baa6ac..5e2563529b5f 100644
+>--- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
+>+++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+>@@ -1250,13 +1250,13 @@ tgl_gt_workarounds_init(struct drm_i915_private *i=
+915, struct i915_wa_list *wal)
+> 	gen12_gt_workarounds_init(i915, wal);
+>
+> 	/* Wa_1409420604:tgl */
+>-	if (IS_TGL_UY_GT_REVID(i915, TGL_REVID_A0, TGL_REVID_A0))
+>+	if (IS_TGL_GT_REVID(i915, TGL_REVID_A0, TGL_REVID_A0))
+
+not seeing what's preventing this WA to be applied on !(U || Y) sku now.
+See below.
+
+> 		wa_write_or(wal,
+> 			    SUBSLICE_UNIT_LEVEL_CLKGATE2,
+> 			    CPSSUNIT_CLKGATE_DIS);
+>
+> 	/* Wa_1607087056:tgl also know as BUG:1409180338 */
+>-	if (IS_TGL_UY_GT_REVID(i915, TGL_REVID_A0, TGL_REVID_A0))
+>+	if (IS_TGL_GT_REVID(i915, TGL_REVID_A0, TGL_REVID_A0))
+> 		wa_write_or(wal,
+> 			    SLICE_UNIT_LEVEL_CLKGATE,
+> 			    L3_CLKGATE_DIS | L3_CR2X_CLKGATE_DIS);
+>@@ -1734,7 +1734,7 @@ rcs_engine_wa_init(struct intel_engine_cs *engine, s=
+truct i915_wa_list *wal)
+> 	struct drm_i915_private *i915 =3D engine->i915;
+>
+> 	if (IS_DG1_REVID(i915, DG1_REVID_A0, DG1_REVID_A0) ||
+>-	    IS_TGL_UY_GT_REVID(i915, TGL_REVID_A0, TGL_REVID_A0)) {
+>+	    IS_TGL_GT_REVID(i915, TGL_REVID_A0, TGL_REVID_A0)) {
+> 		/*
+> 		 * Wa_1607138336:tgl[a0],dg1[a0]
+> 		 * Wa_1607063988:tgl[a0],dg1[a0]
+>@@ -1744,7 +1744,7 @@ rcs_engine_wa_init(struct intel_engine_cs *engine, s=
+truct i915_wa_list *wal)
+> 			    GEN12_DISABLE_POSH_BUSY_FF_DOP_CG);
+> 	}
+>
+>-	if (IS_TGL_UY_GT_REVID(i915, TGL_REVID_A0, TGL_REVID_A0)) {
+>+	if (IS_TGL_GT_REVID(i915, TGL_REVID_A0, TGL_REVID_A0)) {
+> 		/*
+> 		 * Wa_1606679103:tgl
+> 		 * (see also Wa_1606682166:icl)
 >diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_d=
 rv.h
->index 15be8debae54..0a3ee4f9dc0a 100644
+>index 0a3ee4f9dc0a..3d0ef6b60337 100644
 >--- a/drivers/gpu/drm/i915/i915_drv.h
 >+++ b/drivers/gpu/drm/i915/i915_drv.h
->@@ -1579,9 +1579,9 @@ static inline const struct i915_rev_steppings *
+>@@ -1572,16 +1572,30 @@ enum {
+> 	TGL_REVID_D0,
+> };
+>
+>-extern const struct i915_rev_steppings tgl_uy_revids[];
+>-extern const struct i915_rev_steppings tgl_revids[];
+>+#define TGL_UY_REVIDS_SIZE	4
+>+#define TGL_REVIDS_SIZE		2
+>+
+>+extern const struct i915_rev_steppings tgl_uy_revids[TGL_UY_REVIDS_SIZE];
+>+extern const struct i915_rev_steppings tgl_revids[TGL_REVIDS_SIZE];
+>
+> static inline const struct i915_rev_steppings *
 > tgl_revids_get(struct drm_i915_private *dev_priv)
 > {
-> 	if (IS_TGL_U(dev_priv) || IS_TGL_Y(dev_priv))
->-		return tgl_uy_revids;
->+		return &tgl_uy_revids[INTEL_REVID(dev_priv)];
-> 	else
->-		return tgl_revids;
->+		return &tgl_revids[INTEL_REVID(dev_priv)];
+>-	if (IS_TGL_U(dev_priv) || IS_TGL_Y(dev_priv))
+>-		return &tgl_uy_revids[INTEL_REVID(dev_priv)];
+>-	else
+>-		return &tgl_revids[INTEL_REVID(dev_priv)];
+>+	u8 revid =3D INTEL_REVID(dev_priv);
+>+	u8 size;
+>+	const struct i915_rev_steppings *tgl_revid_tbl;
+>+
+>+	if (IS_TGL_U(dev_priv) || IS_TGL_Y(dev_priv)) {
+>+		tgl_revid_tbl =3D tgl_uy_revids;
+>+		size =3D ARRAY_SIZE(tgl_uy_revids);
+>+	} else {
+>+		tgl_revid_tbl =3D tgl_revids;
+>+		size =3D ARRAY_SIZE(tgl_revids);
+>+	}
+>+
+>+	revid =3D min_t(u8, revid, size - 1);
+>+
+>+	return &tgl_revid_tbl[revid];
 > }
 >
 > #define IS_TGL_DISP_REVID(p, since, until) \
->@@ -1591,14 +1591,14 @@ tgl_revids_get(struct drm_i915_private *dev_priv)
+>@@ -1589,16 +1603,10 @@ tgl_revids_get(struct drm_i915_private *dev_priv)
+> 	 tgl_revids_get(p)->disp_stepping >=3D (since) && \
+> 	 tgl_revids_get(p)->disp_stepping <=3D (until))
 >
-> #define IS_TGL_UY_GT_REVID(p, since, until) \
-> 	((IS_TGL_U(p) || IS_TGL_Y(p)) && \
->-	 tgl_uy_revids->gt_stepping >=3D (since) && \
->-	 tgl_uy_revids->gt_stepping <=3D (until))
->+	 tgl_uy_revids[INTEL_REVID(p)].gt_stepping >=3D (since) && \
->+	 tgl_uy_revids[INTEL_REVID(p)].gt_stepping <=3D (until))
->
+>-#define IS_TGL_UY_GT_REVID(p, since, until) \
+>-	((IS_TGL_U(p) || IS_TGL_Y(p)) && \
+>-	 tgl_uy_revids[INTEL_REVID(p)].gt_stepping >=3D (since) && \
+>-	 tgl_uy_revids[INTEL_REVID(p)].gt_stepping <=3D (until))
+>-
 > #define IS_TGL_GT_REVID(p, since, until) \
 > 	(IS_TIGERLAKE(p) && \
-> 	 !(IS_TGL_U(p) || IS_TGL_Y(p)) && \
->-	 tgl_revids->gt_stepping >=3D (since) && \
->-	 tgl_revids->gt_stepping <=3D (until))
->+	 tgl_revids[INTEL_REVID(p)].gt_stepping >=3D (since) && \
->+	 tgl_revids[INTEL_REVID(p)].gt_stepping <=3D (until))
+>-	 !(IS_TGL_U(p) || IS_TGL_Y(p)) && \
+
+so, previously this check would prevent the WA to be applied if it's not
+U or Y sku. Now, in that case you are going to simply apply it. =
+
+See comment in intel_workarounds.c:
+
+/* Same GT stepping between tgl_uy_revids and tgl_revids don't mean the sam=
+e HW */
+const struct i915_rev_steppings tgl_revids[] =3D {
+
+Lucas De Marchi
+
+>-	 tgl_revids[INTEL_REVID(p)].gt_stepping >=3D (since) && \
+>-	 tgl_revids[INTEL_REVID(p)].gt_stepping <=3D (until))
+>+	 tgl_revids_get(p)->gt_stepping >=3D (since) && \
+>+	 tgl_revids_get(p)->gt_stepping <=3D (until))
 >
 > #define RKL_REVID_A0		0x0
 > #define RKL_REVID_B0		0x1
