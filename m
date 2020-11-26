@@ -2,54 +2,61 @@ Return-Path: <SRS0=GkMm=FA=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.7 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
+X-Spam-Status: No, score=-5.3 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C570FC56202
-	for <intel-gfx@archiver.kernel.org>; Thu, 26 Nov 2020 01:41:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A6018C56202
+	for <intel-gfx@archiver.kernel.org>; Thu, 26 Nov 2020 01:45:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4CD0720B1F
-	for <intel-gfx@archiver.kernel.org>; Thu, 26 Nov 2020 01:41:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4CD0720B1F
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 22D1520B1F
+	for <intel-gfx@archiver.kernel.org>; Thu, 26 Nov 2020 01:45:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 22D1520B1F
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 77ADF6E497;
-	Thu, 26 Nov 2020 01:41:24 +0000 (UTC)
-X-Greylist: delayed 305 seconds by postgrey-1.36 at gabe;
- Thu, 26 Nov 2020 01:41:23 UTC
-Received: from us-smtp-delivery-44.mimecast.com
- (us-smtp-delivery-44.mimecast.com [205.139.111.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5DBFC6E497
- for <intel-gfx@lists.freedesktop.org>; Thu, 26 Nov 2020 01:41:23 +0000 (UTC)
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-321-lJHhVjPLO1Ws81i0jDAgkg-1; Wed, 25 Nov 2020 20:35:09 -0500
-X-MC-Unique: lJHhVjPLO1Ws81i0jDAgkg-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
- [10.5.11.22])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1B46A612A4
- for <intel-gfx@lists.freedesktop.org>; Thu, 26 Nov 2020 01:35:08 +0000 (UTC)
-Received: from dreadlord-bne-redhat-com.bne.redhat.com (unknown [10.64.32.209])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 544D110023AC
- for <intel-gfx@lists.freedesktop.org>; Thu, 26 Nov 2020 01:35:07 +0000 (UTC)
-From: Dave Airlie <airlied@gmail.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Thu, 26 Nov 2020 11:35:06 +1000
-Message-Id: <20201126013506.29402-1-airlied@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A0856E4BB;
+	Thu, 26 Nov 2020 01:45:05 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D4536E4BB
+ for <intel-gfx@lists.freedesktop.org>; Thu, 26 Nov 2020 01:45:04 +0000 (UTC)
+IronPort-SDR: vyDYfTAlHFyY/U2fndE6tl47T2pgoQO0iW9zBv7oMBmlpgN40tqeFg4P1P2quoCuMueX1ZyPHB
+ g0h1xv9og1HQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9816"; a="169663952"
+X-IronPort-AV: E=Sophos;i="5.78,370,1599548400"; d="scan'208";a="169663952"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Nov 2020 17:45:04 -0800
+IronPort-SDR: zJhsZISN6zolVB+cjXsvSs3la757HJkgnz0WqsJXQMDiYcEiSB4G7giyU+C8ptErAFYJjMk15Q
+ H6xKhhySqVSA==
+X-IronPort-AV: E=Sophos;i="5.78,370,1599548400"; d="scan'208";a="479162524"
+Received: from xingzhen-mobl.ccr.corp.intel.com (HELO [10.238.4.68])
+ ([10.238.4.68])
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Nov 2020 17:44:57 -0800
+To: Chris Wilson <chris@chris-wilson.co.uk>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Oliver Sang <oliver.sang@intel.com>
+References: <20201111155811.GB24657@xsang-OptiPlex-9020>
+ <160527763346.5566.3471508802857132043@jlahtine-mobl.ger.corp.intel.com>
+ <20201119072018.GA15197@xsang-OptiPlex-9020>
+ <160625087275.29168.7080737993781611765@build.alporthouse.com>
+From: Xing Zhengjun <zhengjun.xing@linux.intel.com>
+Message-ID: <ab9ebc5a-7d79-8003-c7bc-5cf0923983c6@linux.intel.com>
+Date: Thu, 26 Nov 2020 09:44:55 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.5.0
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: gmail.com
-Subject: [Intel-gfx] [PATCH] drm/i915: refactor panel backlight control
- functions.
+In-Reply-To: <160625087275.29168.7080737993781611765@build.alporthouse.com>
+Content-Language: en-US
+Subject: Re: [Intel-gfx] [drm/i915/gem] 59dd13ad31:
+ phoronix-test-suite.jxrendermark.RadialGradientPaint.1024x1024.operations_per_second
+ -54.0% regression
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,372 +69,91 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: feng.tang@intel.com, tiejun.li@intel.com, guangli.li@intel.com,
+ frank.du@intel.com, guobing.chen@intel.com, jiebin.sun@intel.com,
+ Shuhua.Fan@intel.com, Matthew Auld <matthew.auld@intel.com>,
+ fan.zhao@intel.com, ying.huang@intel.com, shan.kang@intel.com,
+ zhengjun.xing@intel.com, Wenhuan.Huang@intel.com,
+ intel-gfx@lists.freedesktop.org, lkp@lists.01.org, ming.a.chen@intel.com,
+ yu.ma@intel.com, jessica.ji@intel.com, dapeng1.mi@intel.com,
+ wangyang.guo@intel.com, LKML <linux-kernel@vger.kernel.org>,
+ gengxin.xie@intel.com
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Dave Airlie <airlied@redhat.com>
-
-This moves the functions into static const instead of having
-funcs and data in the same struct.
-
-The only problem is the power callback gets overridden in the
-eDP code so deal with that, might be worth seeing if that can be
-done differently.
-
-Signed-off-by: Dave Airlie <airlied@redhat.com>
----
- .../drm/i915/display/intel_display_types.h    |  22 ++-
- .../drm/i915/display/intel_dp_aux_backlight.c |  14 +-
- .../i915/display/intel_dsi_dcs_backlight.c    |  14 +-
- drivers/gpu/drm/i915/display/intel_panel.c    | 154 +++++++++++-------
- 4 files changed, 130 insertions(+), 74 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-index f6f0626649e0..b07a1f0042d7 100644
---- a/drivers/gpu/drm/i915/display/intel_display_types.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-@@ -225,6 +225,18 @@ struct intel_encoder {
- 	const struct drm_connector *audio_connector;
- };
- 
-+struct intel_panel_bl_funcs {
-+	/* Connector and platform specific backlight functions */
-+	int (*setup)(struct intel_connector *connector, enum pipe pipe);
-+	u32 (*get)(struct intel_connector *connector);
-+	void (*set)(const struct drm_connector_state *conn_state, u32 level);
-+	void (*disable)(const struct drm_connector_state *conn_state);
-+	void (*enable)(const struct intel_crtc_state *crtc_state,
-+		       const struct drm_connector_state *conn_state);
-+	u32 (*hz_to_pwm)(struct intel_connector *connector, u32 hz);
-+	void (*power)(struct intel_connector *, bool enable);
-+};
-+
- struct intel_panel {
- 	struct drm_display_mode *fixed_mode;
- 	struct drm_display_mode *downclock_mode;
-@@ -251,15 +263,9 @@ struct intel_panel {
- 
- 		struct backlight_device *device;
- 
--		/* Connector and platform specific backlight functions */
--		int (*setup)(struct intel_connector *connector, enum pipe pipe);
--		u32 (*get)(struct intel_connector *connector);
--		void (*set)(const struct drm_connector_state *conn_state, u32 level);
--		void (*disable)(const struct drm_connector_state *conn_state);
--		void (*enable)(const struct intel_crtc_state *crtc_state,
--			       const struct drm_connector_state *conn_state);
--		u32 (*hz_to_pwm)(struct intel_connector *connector, u32 hz);
-+		/* power can be overriden for edp. */
- 		void (*power)(struct intel_connector *, bool enable);
-+		const struct intel_panel_bl_funcs *funcs;
- 	} backlight;
- };
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-index 51d27fc98d48..4fd536801b14 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-@@ -350,6 +350,14 @@ intel_dp_aux_display_control_capable(struct intel_connector *connector)
- 	return false;
- }
- 
-+static const struct intel_panel_bl_funcs intel_dp_bl_funcs = {
-+	.setup = intel_dp_aux_setup_backlight,
-+	.enable = intel_dp_aux_enable_backlight,
-+	.disable = intel_dp_aux_disable_backlight,
-+	.set = intel_dp_aux_set_backlight,
-+	.get = intel_dp_aux_get_backlight,
-+};
-+
- int intel_dp_aux_init_backlight_funcs(struct intel_connector *intel_connector)
- {
- 	struct intel_panel *panel = &intel_connector->panel;
-@@ -379,11 +387,7 @@ int intel_dp_aux_init_backlight_funcs(struct intel_connector *intel_connector)
- 		return -ENODEV;
- 	}
- 
--	panel->backlight.setup = intel_dp_aux_setup_backlight;
--	panel->backlight.enable = intel_dp_aux_enable_backlight;
--	panel->backlight.disable = intel_dp_aux_disable_backlight;
--	panel->backlight.set = intel_dp_aux_set_backlight;
--	panel->backlight.get = intel_dp_aux_get_backlight;
-+	panel->backlight.funcs = &intel_dp_bl_funcs;
- 
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/i915/display/intel_dsi_dcs_backlight.c b/drivers/gpu/drm/i915/display/intel_dsi_dcs_backlight.c
-index b53c50372918..5c508d51f526 100644
---- a/drivers/gpu/drm/i915/display/intel_dsi_dcs_backlight.c
-+++ b/drivers/gpu/drm/i915/display/intel_dsi_dcs_backlight.c
-@@ -156,6 +156,14 @@ static int dcs_setup_backlight(struct intel_connector *connector,
- 	return 0;
- }
- 
-+static const struct intel_panel_bl_funcs dcs_bl_funcs = {
-+	.setup = dcs_setup_backlight,
-+	.enable = dcs_enable_backlight,
-+	.disable = dcs_disable_backlight,
-+	.set = dcs_set_backlight,
-+	.get = dcs_get_backlight,
-+};
-+
- int intel_dsi_dcs_init_backlight_funcs(struct intel_connector *intel_connector)
- {
- 	struct drm_device *dev = intel_connector->base.dev;
-@@ -169,11 +177,7 @@ int intel_dsi_dcs_init_backlight_funcs(struct intel_connector *intel_connector)
- 	if (drm_WARN_ON(dev, encoder->type != INTEL_OUTPUT_DSI))
- 		return -EINVAL;
- 
--	panel->backlight.setup = dcs_setup_backlight;
--	panel->backlight.enable = dcs_enable_backlight;
--	panel->backlight.disable = dcs_disable_backlight;
--	panel->backlight.set = dcs_set_backlight;
--	panel->backlight.get = dcs_get_backlight;
-+	panel->backlight.funcs = &dcs_bl_funcs;
- 
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/i915/display/intel_panel.c b/drivers/gpu/drm/i915/display/intel_panel.c
-index 9f23bac0d792..f3c97e31929a 100644
---- a/drivers/gpu/drm/i915/display/intel_panel.c
-+++ b/drivers/gpu/drm/i915/display/intel_panel.c
-@@ -684,7 +684,7 @@ intel_panel_actually_set_backlight(const struct drm_connector_state *conn_state,
- 	drm_dbg_kms(&i915->drm, "set backlight PWM = %d\n", level);
- 
- 	level = intel_panel_compute_brightness(connector, level);
--	panel->backlight.set(conn_state, level);
-+	panel->backlight.funcs->set(conn_state, level);
- }
- 
- /* set backlight brightness to level in range [0..max], assuming hw min is
-@@ -870,7 +870,7 @@ void intel_panel_disable_backlight(const struct drm_connector_state *old_conn_st
- 	if (panel->backlight.device)
- 		panel->backlight.device->props.power = FB_BLANK_POWERDOWN;
- 	panel->backlight.enabled = false;
--	panel->backlight.disable(old_conn_state);
-+	panel->backlight.funcs->disable(old_conn_state);
- 
- 	mutex_unlock(&dev_priv->backlight_lock);
- }
-@@ -1198,7 +1198,7 @@ static void __intel_panel_enable_backlight(const struct intel_crtc_state *crtc_s
- 						 panel->backlight.device->props.max_brightness);
- 	}
- 
--	panel->backlight.enable(crtc_state, conn_state);
-+	panel->backlight.funcs->enable(crtc_state, conn_state);
- 	panel->backlight.enabled = true;
- 	if (panel->backlight.device)
- 		panel->backlight.device->props.power = FB_BLANK_UNBLANK;
-@@ -1234,7 +1234,7 @@ static u32 intel_panel_get_backlight(struct intel_connector *connector)
- 	mutex_lock(&dev_priv->backlight_lock);
- 
- 	if (panel->backlight.enabled) {
--		val = panel->backlight.get(connector);
-+		val = panel->backlight.funcs->get(connector);
- 		val = intel_panel_compute_brightness(connector, val);
- 	}
- 
-@@ -1567,13 +1567,13 @@ static u32 get_backlight_max_vbt(struct intel_connector *connector)
- 	u16 pwm_freq_hz = get_vbt_pwm_freq(dev_priv);
- 	u32 pwm;
- 
--	if (!panel->backlight.hz_to_pwm) {
-+	if (!panel->backlight.funcs->hz_to_pwm) {
- 		drm_dbg_kms(&dev_priv->drm,
- 			    "backlight frequency conversion not supported\n");
- 		return 0;
- 	}
- 
--	pwm = panel->backlight.hz_to_pwm(connector, pwm_freq_hz);
-+	pwm = panel->backlight.funcs->hz_to_pwm(connector, pwm_freq_hz);
- 	if (!pwm) {
- 		drm_dbg_kms(&dev_priv->drm,
- 			    "backlight frequency conversion failed\n");
-@@ -1981,12 +1981,12 @@ int intel_panel_setup_backlight(struct drm_connector *connector, enum pipe pipe)
- 	}
- 
- 	/* ensure intel_panel has been initialized first */
--	if (drm_WARN_ON(&dev_priv->drm, !panel->backlight.setup))
-+	if (drm_WARN_ON(&dev_priv->drm, !panel->backlight.funcs))
- 		return -ENODEV;
- 
- 	/* set level and max in panel struct */
- 	mutex_lock(&dev_priv->backlight_lock);
--	ret = panel->backlight.setup(intel_connector, pipe);
-+	ret = panel->backlight.funcs->setup(intel_connector, pipe);
- 	mutex_unlock(&dev_priv->backlight_lock);
- 
- 	if (ret) {
-@@ -2016,6 +2016,86 @@ static void intel_panel_destroy_backlight(struct intel_panel *panel)
- 	panel->backlight.present = false;
- }
- 
-+static const struct intel_panel_bl_funcs bxt_funcs = {
-+	.setup = bxt_setup_backlight,
-+	.enable = bxt_enable_backlight,
-+	.disable = bxt_disable_backlight,
-+	.set = bxt_set_backlight,
-+	.get = bxt_get_backlight,
-+	.hz_to_pwm = bxt_hz_to_pwm,
-+};
-+
-+static const struct intel_panel_bl_funcs cnp_funcs = {
-+	.setup = cnp_setup_backlight,
-+	.enable = cnp_enable_backlight,
-+	.disable = cnp_disable_backlight,
-+	.set = bxt_set_backlight,
-+	.get = bxt_get_backlight,
-+	.hz_to_pwm = cnp_hz_to_pwm,
-+};
-+
-+static const struct intel_panel_bl_funcs lpt_funcs = {
-+	.setup = lpt_setup_backlight,
-+	.enable = lpt_enable_backlight,
-+	.disable = lpt_disable_backlight,
-+	.set = lpt_set_backlight,
-+	.get = lpt_get_backlight,
-+	.hz_to_pwm = lpt_hz_to_pwm,
-+};
-+
-+static const struct intel_panel_bl_funcs spt_funcs = {
-+	.setup = lpt_setup_backlight,
-+	.enable = lpt_enable_backlight,
-+	.disable = lpt_disable_backlight,
-+	.set = lpt_set_backlight,
-+	.get = lpt_get_backlight,
-+	.hz_to_pwm = spt_hz_to_pwm,
-+};
-+
-+static const struct intel_panel_bl_funcs pch_funcs = {
-+	.setup = pch_setup_backlight,
-+	.enable = pch_enable_backlight,
-+	.disable = pch_disable_backlight,
-+	.set = pch_set_backlight,
-+	.get = pch_get_backlight,
-+	.hz_to_pwm = pch_hz_to_pwm,
-+};
-+
-+static const struct intel_panel_bl_funcs pwm_funcs = {
-+	.setup = pwm_setup_backlight,
-+	.enable = pwm_enable_backlight,
-+	.disable = pwm_disable_backlight,
-+	.set = pwm_set_backlight,
-+	.get = pwm_get_backlight,
-+};
-+
-+static const struct intel_panel_bl_funcs vlv_funcs = {
-+	.setup = vlv_setup_backlight,
-+	.enable = vlv_enable_backlight,
-+	.disable = vlv_disable_backlight,
-+	.set = vlv_set_backlight,
-+	.get = vlv_get_backlight,
-+	.hz_to_pwm = vlv_hz_to_pwm,
-+};
-+
-+static const struct intel_panel_bl_funcs i965_funcs = {
-+	.setup = i965_setup_backlight,
-+	.enable = i965_enable_backlight,
-+	.disable = i965_disable_backlight,
-+	.set = i9xx_set_backlight,
-+	.get = i9xx_get_backlight,
-+	.hz_to_pwm = i965_hz_to_pwm,
-+};
-+
-+static const struct intel_panel_bl_funcs i9xx_funcs = {
-+	.setup = i9xx_setup_backlight,
-+	.enable = i9xx_enable_backlight,
-+	.disable = i9xx_disable_backlight,
-+	.set = i9xx_set_backlight,
-+	.get = i9xx_get_backlight,
-+	.hz_to_pwm = i9xx_hz_to_pwm,
-+};
-+
- /* Set up chip specific backlight functions */
- static void
- intel_panel_init_backlight_funcs(struct intel_panel *panel)
-@@ -2033,66 +2113,28 @@ intel_panel_init_backlight_funcs(struct intel_panel *panel)
- 		return;
- 
- 	if (IS_GEN9_LP(dev_priv)) {
--		panel->backlight.setup = bxt_setup_backlight;
--		panel->backlight.enable = bxt_enable_backlight;
--		panel->backlight.disable = bxt_disable_backlight;
--		panel->backlight.set = bxt_set_backlight;
--		panel->backlight.get = bxt_get_backlight;
--		panel->backlight.hz_to_pwm = bxt_hz_to_pwm;
-+		panel->backlight.funcs = &bxt_funcs;
- 	} else if (INTEL_PCH_TYPE(dev_priv) >= PCH_CNP) {
--		panel->backlight.setup = cnp_setup_backlight;
--		panel->backlight.enable = cnp_enable_backlight;
--		panel->backlight.disable = cnp_disable_backlight;
--		panel->backlight.set = bxt_set_backlight;
--		panel->backlight.get = bxt_get_backlight;
--		panel->backlight.hz_to_pwm = cnp_hz_to_pwm;
-+		panel->backlight.funcs = &cnp_funcs;
- 	} else if (INTEL_PCH_TYPE(dev_priv) >= PCH_LPT) {
--		panel->backlight.setup = lpt_setup_backlight;
--		panel->backlight.enable = lpt_enable_backlight;
--		panel->backlight.disable = lpt_disable_backlight;
--		panel->backlight.set = lpt_set_backlight;
--		panel->backlight.get = lpt_get_backlight;
- 		if (HAS_PCH_LPT(dev_priv))
--			panel->backlight.hz_to_pwm = lpt_hz_to_pwm;
-+			panel->backlight.funcs = &lpt_funcs;
- 		else
--			panel->backlight.hz_to_pwm = spt_hz_to_pwm;
-+			panel->backlight.funcs = &spt_funcs;
- 	} else if (HAS_PCH_SPLIT(dev_priv)) {
--		panel->backlight.setup = pch_setup_backlight;
--		panel->backlight.enable = pch_enable_backlight;
--		panel->backlight.disable = pch_disable_backlight;
--		panel->backlight.set = pch_set_backlight;
--		panel->backlight.get = pch_get_backlight;
--		panel->backlight.hz_to_pwm = pch_hz_to_pwm;
-+		panel->backlight.funcs = &pch_funcs;
- 	} else if (IS_VALLEYVIEW(dev_priv) || IS_CHERRYVIEW(dev_priv)) {
- 		if (connector->base.connector_type == DRM_MODE_CONNECTOR_DSI) {
--			panel->backlight.setup = pwm_setup_backlight;
--			panel->backlight.enable = pwm_enable_backlight;
--			panel->backlight.disable = pwm_disable_backlight;
--			panel->backlight.set = pwm_set_backlight;
--			panel->backlight.get = pwm_get_backlight;
-+			panel->backlight.funcs = &pwm_funcs;
- 		} else {
--			panel->backlight.setup = vlv_setup_backlight;
--			panel->backlight.enable = vlv_enable_backlight;
--			panel->backlight.disable = vlv_disable_backlight;
--			panel->backlight.set = vlv_set_backlight;
--			panel->backlight.get = vlv_get_backlight;
--			panel->backlight.hz_to_pwm = vlv_hz_to_pwm;
-+			panel->backlight.funcs = &vlv_funcs;
- 		}
- 	} else if (IS_GEN(dev_priv, 4)) {
--		panel->backlight.setup = i965_setup_backlight;
--		panel->backlight.enable = i965_enable_backlight;
--		panel->backlight.disable = i965_disable_backlight;
--		panel->backlight.set = i9xx_set_backlight;
--		panel->backlight.get = i9xx_get_backlight;
--		panel->backlight.hz_to_pwm = i965_hz_to_pwm;
-+		panel->backlight.funcs = &i965_funcs;
- 	} else {
--		panel->backlight.setup = i9xx_setup_backlight;
--		panel->backlight.enable = i9xx_enable_backlight;
--		panel->backlight.disable = i9xx_disable_backlight;
--		panel->backlight.set = i9xx_set_backlight;
--		panel->backlight.get = i9xx_get_backlight;
--		panel->backlight.hz_to_pwm = i9xx_hz_to_pwm;
-+		panel->backlight.funcs = &i9xx_funcs;
- 	}
-+	panel->backlight.power = panel->backlight.funcs->power;
- }
- 
- enum drm_connector_status
--- 
-2.20.1
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+CgpPbiAxMS8yNS8yMDIwIDQ6NDcgQU0sIENocmlzIFdpbHNvbiB3cm90ZToKPiBRdW90aW5nIE9s
+aXZlciBTYW5nICgyMDIwLTExLTE5IDA3OjIwOjE4KQo+PiBPbiBGcmksIE5vdiAxMywgMjAyMCBh
+dCAwNDoyNzoxM1BNICswMjAwLCBKb29uYXMgTGFodGluZW4gd3JvdGU6Cj4+PiBIaSwKPj4+Cj4+
+PiBDb3VsZCB5b3UgYWRkIGludGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcgaW50byByZXBv
+cnRzIGdvaW5nCj4+PiBmb3J3YXJkLgo+Pj4KPj4+IFF1b3Rpbmcga2VybmVsIHRlc3Qgcm9ib3Qg
+KDIwMjAtMTEtMTEgMTc6NTg6MTEpCj4+Pj4KPj4+PiBHcmVldGluZywKPj4+Pgo+Pj4+IEZZSSwg
+d2Ugbm90aWNlZCBhIC01NC4wJSByZWdyZXNzaW9uIG9mIHBob3Jvbml4LXRlc3Qtc3VpdGUuanhy
+ZW5kZXJtYXJrLlJhZGlhbEdyYWRpZW50UGFpbnQuMTAyNHgxMDI0Lm9wZXJhdGlvbnNfcGVyX3Nl
+Y29uZCBkdWUgdG8gY29tbWl0Ogo+Pj4KPj4+IEhvdyBtYW55IHJ1bnMgYXJlIHRoZXJlIG9uIHRo
+ZSBiYWQgdmVyc2lvbiB0byBlbnN1cmUgdGhlIGJpc2VjdCBpcwo+Pj4gcmVwZWF0YWJsZT8KPj4K
+Pj4gdGVzdCA0IHRpbWVzLgo+PiB6eGluZ0Bpbm46L3Jlc3VsdC9waG9yb25peC10ZXN0LXN1aXRl
+L3BlcmZvcm1hbmNlLXRydWUtUmFkaWFsX0dyYWRpZW50X1BhaW50LTEwMjR4MTAyNC1qeHJlbmRl
+cm1hcmstMS4yLjQtdWNvZGU9MHhkNi1tb25pdG9yPWRhMzlhM2VlL2xrcC1jZmwtZDEvZGViaWFu
+LXg4Nl82NC1waG9yb25peC94ODZfNjQtcmhlbC04LjMvZ2NjLTkvNTlkZDEzYWQzMTA3OTM3NTdl
+MzRhZmE0ODlkZDZmYzg1NDRmYzNkYSQgZ3JlcCAtciAib3BlcmF0aW9uc19wZXJfc2Vjb25kIiAq
+L3N0YXRzLmpzb24KPj4gMC9zdGF0cy5qc29uOiAicGhvcm9uaXgtdGVzdC1zdWl0ZS5qeHJlbmRl
+cm1hcmsuUmFkaWFsR3JhZGllbnRQYWludC4xMDI0eDEwMjQub3BlcmF0aW9uc19wZXJfc2Vjb25k
+IjogNDEzMy40ODc5MzIsCj4+IDEvc3RhdHMuanNvbjogInBob3Jvbml4LXRlc3Qtc3VpdGUuanhy
+ZW5kZXJtYXJrLlJhZGlhbEdyYWRpZW50UGFpbnQuMTAyNHgxMDI0Lm9wZXJhdGlvbnNfcGVyX3Nl
+Y29uZCI6IDQxMjAuNDIxNTAzLAo+PiAyL3N0YXRzLmpzb246ICJwaG9yb25peC10ZXN0LXN1aXRl
+Lmp4cmVuZGVybWFyay5SYWRpYWxHcmFkaWVudFBhaW50LjEwMjR4MTAyNC5vcGVyYXRpb25zX3Bl
+cl9zZWNvbmQiOiA0MTg4LjQxNDgzNSwKPj4gMy9zdGF0cy5qc29uOiAicGhvcm9uaXgtdGVzdC1z
+dWl0ZS5qeHJlbmRlcm1hcmsuUmFkaWFsR3JhZGllbnRQYWludC4xMDI0eDEwMjQub3BlcmF0aW9u
+c19wZXJfc2Vjb25kIjogNDA2OC41NDk1MTQsCj4gCj4gYSB3L28gcmV2ZXJ0IChkcm0tdGlwKQo+
+IGIgdy8gcmV2ZXJ0Cj4gK21CLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSsKPiB8ICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAuLmIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgfAo+IHwgICAgICAgICAgICAgICAgICAgICAgICAgICAgIC4uYi5hYSAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8Cj4gfCAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgLi4uLmEuYSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+IHwKPiB8ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAuLi4uYS5hICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgfAo+IHwgICAgICAgICAgICAgICAgICAgICAgYiAg
+YiAgLi4uLi4uLi5hICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8Cj4g
+fCAgICAgICAgICAgICAgICAgICBiICBiICBiIGIuLi4uLi4uLi4gYSAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgIHwKPiB8ICAgICAgICAgICAgICAgICAgIGIgIGJiIGJiYi4u
+Li4uLi4uLi4uICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfAo+IHxiICAg
+ICAgICAgICAgICAgYWIgYmJhYi5iYi5iLi4uLi4uLi4uLi4uYmEgYiBhIGEgICAgICAgICAgICBh
+YiAgICAgICAgICAgICAgIGF8Cj4gfCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfF9fQV9f
+fCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwKPiB8ICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICB8TUFffCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgfAo+ICstLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0rCj4gICAgICBOICAgICAgICAg
+ICAgICAgIE1pbiAgICAgICAgICAgTWF4ICAgICAgICBNZWRpYW4gICAgICAgICAgIEF2ZyAgICAg
+ICAgU3RkZGV2Cj4gYSAxMjAgICAgICAgICAgMzYyMS44NzYxICAgICA3MzU2LjQ0NDIgICAgIDQ2
+MDYuNzg5NSAgICAgNDYwNy45MTMyICAgICAxNTYuMTc2OTMKPiBiIDEyMCAgICAgICAgICAyNjY0
+LjA1NjMgICAgIDYzNTkuOTY4NiAgICAgNDUxOS41MDM2ICAgICA0NTM0LjQ0NjMgICAgIDk1LjQ3
+MTEyMQo+IAo+IFRoZSBwYXRjaCBpcyBub3QgZXhwZWN0ZWQgdG8gaGF2ZSBhbnkgaW1wYWN0IG9u
+IHRoZSBtYWNoaW5lIHlvdSBhcmUgdGVzdGluZyBvbi4KPiAtQ2hyaXMKPiAKCldoYXQncyB5b3Vy
+IGNvZGUgYmFzZT8KRm9yIG15IHNpZGU6CjEpIHN5bmMgdGhlIGNvZGUgdG8gdGhlIGhlYWQgb2Yg
+TGludXggbWFpbmxpbmUKMikgZ2l0IHJlc2V0IC0taGFyZCA1OWRkMTNhZDMxCjMpIGdpdCByZXZl
+cnQgNTlkZDEzYWQzMTA3CldlIGNvbXBhcmUgdGhlIHRlc3QgcmVzdWx0IG9mIGNvbW1pdCA1OWRk
+MTNhZDMxMDcgKHN0ZXAgMikgYW5kIAoyMDUyODQ3YjA2ZjggKHN0ZXAgMywgcmV2ZXJ0IDU5ZGQx
+M2FkMzEwNyksIHRoZSByZWdyZXNzaW9uIHNob3VsZCAKcmVsYXRlZCB3aXRoIDU5ZGQxM2FkMzEw
+Ny4gRWFjaCB0ZXN0IGNhc2Ugd2UgcnVuIDUgdGltZXMuCj09PT09PT09PT09PT09PT09PT09PT09
+PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
+PT09PT09PT09CnRib3hfZ3JvdXAvdGVzdGNhc2Uvcm9vdGZzL2tjb25maWcvY29tcGlsZXIvbmVl
+ZF94L3Rlc3Qvb3B0aW9uX2Evb3B0aW9uX2IvY3B1ZnJlcV9nb3Zlcm5vci91Y29kZS9kZWJ1Zy1z
+ZXR1cDoKIApsa3AtY2ZsLWQxL3Bob3Jvbml4LXRlc3Qtc3VpdGUvZGViaWFuLXg4Nl82NC1waG9y
+b25peC94ODZfNjQtcmhlbC04LjMvZ2NjLTkvdHJ1ZS9qeHJlbmRlcm1hcmstMS4yLjQvUmFkaWFs
+IApHcmFkaWVudCBQYWludC8xMDI0eDEwMjQvcGVyZm9ybWFuY2UvMHhkZS9yZWdyZXNzaW9uX3Rl
+c3QKCmNvbW1pdDoKICAgMGRjY2RiYTUxZTg1MjI3MWEzZGJjOTM1ODM3NWY0Yzg4MmI4NjNmMgog
+ICA1OWRkMTNhZDMxMDc5Mzc1N2UzNGFmYTQ4OWRkNmZjODU0NGZjM2RhCiAgIDIwNTI4NDdiMDZm
+ODYzYTAyOGY3ZjNiYmM2MjQwMWUwNDNiMzQzMDEgKHJldmVydCA1OWRkMTNhZDMxMDcpCgowZGNj
+ZGJhNTFlODUyMjcxIDU5ZGQxM2FkMzEwNzkzNzU3ZTM0YWZhNDg5ZCAyMDUyODQ3YjA2Zjg2M2Ew
+MjhmN2YzYmJjNjIKLS0tLS0tLS0tLS0tLS0tLSAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0g
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCiAgICAgICAgICAlc3RkZGV2ICAgICAlY2hhbmdl
+ICAgICAgICAgJXN0ZGRldiAgICAgJWNoYW5nZSAgICAgICAgICVzdGRkZXYKICAgICAgICAgICAg
+ICBcICAgICAgICAgIHwgICAgICAgICAgICAgICAgXCAgICAgICAgICB8ICAgICAgICAgICAgICAg
+IFwKICAgICAgIDgxNDUgwrEgIDIlICAgICAtNTMuMSUgICAgICAgMzgxNyDCsSAgMyUgICAgICAt
+MS44JSAgICAgICA3OTk1IAogCnBob3Jvbml4LXRlc3Qtc3VpdGUuanhyZW5kZXJtYXJrLlJhZGlh
+bEdyYWRpZW50UGFpbnQuMTAyNHgxMDI0Lm9wZXJhdGlvbnNfcGVyX3NlY29uZAoKCi0tIApaaGVu
+Z2p1biBYaW5nCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+CkludGVsLWdmeCBtYWlsaW5nIGxpc3QKSW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpo
+dHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ludGVsLWdmeAo=
