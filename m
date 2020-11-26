@@ -2,55 +2,48 @@ Return-Path: <SRS0=GkMm=FA=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D1950C63777
-	for <intel-gfx@archiver.kernel.org>; Thu, 26 Nov 2020 07:37:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2EE9FC56202
+	for <intel-gfx@archiver.kernel.org>; Thu, 26 Nov 2020 07:41:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5FC84206C0
-	for <intel-gfx@archiver.kernel.org>; Thu, 26 Nov 2020 07:37:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5FC84206C0
+	by mail.kernel.org (Postfix) with ESMTPS id B197E206C0
+	for <intel-gfx@archiver.kernel.org>; Thu, 26 Nov 2020 07:41:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B197E206C0
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 70ACB6E59F;
-	Thu, 26 Nov 2020 07:37:27 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 019816E59D
- for <intel-gfx@lists.freedesktop.org>; Thu, 26 Nov 2020 07:37:25 +0000 (UTC)
-IronPort-SDR: qMhPuwdK5u5sqWHh4NS1Cafd8j0GsW/rzuxqVr2xcRunmLxcPmk0y0NQ3gbYBsBp+kHmunondT
- cfKVHIOe09bQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9816"; a="172348247"
-X-IronPort-AV: E=Sophos;i="5.78,371,1599548400"; d="scan'208";a="172348247"
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD53F6E59D;
+	Thu, 26 Nov 2020 07:41:15 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B6AF6E59D
+ for <intel-gfx@lists.freedesktop.org>; Thu, 26 Nov 2020 07:41:14 +0000 (UTC)
+IronPort-SDR: XlvGIPGBvvZJikotufC5oYKfRtXn4iv8KVlHgvGPqQjt3GypcGfya9NP0H5e/nhO48mctCCrHS
+ 5k/XsP7hjiWw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9816"; a="168741334"
+X-IronPort-AV: E=Sophos;i="5.78,371,1599548400"; d="scan'208";a="168741334"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Nov 2020 23:37:25 -0800
-IronPort-SDR: NnCfnfg01iHsMEvxKWwhXnpGUhqE3PR1Fqg6qgy0lGUP9ZhCkOJK0/A3fLjSFtpkdmi5EkOBH/
- EpRNx3tL+aeA==
-X-IronPort-AV: E=Sophos;i="5.78,371,1599548400"; d="scan'208";a="343852093"
-Received: from ryanjamx-mobl1.amr.corp.intel.com (HELO ldmartin-desk1)
- ([10.209.30.192])
- by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Nov 2020 23:37:25 -0800
-Date: Wed, 25 Nov 2020 23:37:24 -0800
-From: Lucas De Marchi <lucas.demarchi@intel.com>
-To: Aditya Swarup <aditya.swarup@intel.com>
-Message-ID: <20201126073724.3tb55cnixyk2lxr2@ldmartin-desk1>
-X-Patchwork-Hint: comment
-References: <20201126070041.369530-1-aditya.swarup@intel.com>
- <20201126070041.369530-2-aditya.swarup@intel.com>
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Nov 2020 23:41:13 -0800
+IronPort-SDR: 0ZGr7cF0ly06u46tddMD9E8WDK0iVdFlAvbYycS8r+zXAZbzdxmMExgP0tutbjnDdZ/A3VXBaf
+ 9Zy/scDAlMwQ==
+X-IronPort-AV: E=Sophos;i="5.78,371,1599548400"; d="scan'208";a="359448043"
+Received: from linux-desktop.iind.intel.com ([10.223.34.173])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Nov 2020 23:41:12 -0800
+From: Uma Shankar <uma.shankar@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Thu, 26 Nov 2020 13:44:32 +0530
+Message-Id: <20201126081445.29759-1-uma.shankar@intel.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20201126070041.369530-2-aditya.swarup@intel.com>
-Subject: Re: [Intel-gfx] [PATCH 2/2] drm/i915/tgl: Add bound checks and
- simplify TGL REVID macros
+Subject: [Intel-gfx] [v11 00/13] Enable HDR on MCA LSPCON based Gen9 devices
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,155 +56,80 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jani Nikula <jani.nikula@intel.com>, intel-gfx@lists.freedesktop.org
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="iso-8859-1"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Nov 25, 2020 at 11:00:41PM -0800, Aditya Swarup wrote:
->Add bound checks for TGL REV ID array. Since, there might
->be a possibility of using older kernels on latest platform
->revisions, resulting in out of bounds access for rev ID array.
->In this scenario, use the latest rev ID available and apply
->those WAs.
->
->Also, simplify GT macro for TGL rev ID to reuse tgl_revids_get().
->
->Cc: Jos=E9 Roberto de Souza <jose.souza@intel.com>
->Cc: Matt Roper <matthew.d.roper@intel.com>
->Cc: Lucas De Marchi <lucas.demarchi@intel.com>
->Cc: Jani Nikula <jani.nikula@intel.com>
->Cc: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
->Signed-off-by: Aditya Swarup <aditya.swarup@intel.com>
->---
-> drivers/gpu/drm/i915/gt/intel_workarounds.c |  8 ++---
-> drivers/gpu/drm/i915/i915_drv.h             | 36 +++++++++++++--------
-> 2 files changed, 26 insertions(+), 18 deletions(-)
->
->diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm=
-/i915/gt/intel_workarounds.c
->index a82554baa6ac..5e2563529b5f 100644
->--- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
->+++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
->@@ -1250,13 +1250,13 @@ tgl_gt_workarounds_init(struct drm_i915_private *i=
-915, struct i915_wa_list *wal)
-> 	gen12_gt_workarounds_init(i915, wal);
->
-> 	/* Wa_1409420604:tgl */
->-	if (IS_TGL_UY_GT_REVID(i915, TGL_REVID_A0, TGL_REVID_A0))
->+	if (IS_TGL_GT_REVID(i915, TGL_REVID_A0, TGL_REVID_A0))
+Gen9 hardware supports HDMI2.0 through LSPCON chips. Extending HDR
+support for MCA and Parade LSPCON based GEN9 devices.
 
-not seeing what's preventing this WA to be applied on !(U || Y) sku now.
-See below.
+SOC will drive LSPCON as DP and send HDR metadata as standard
+DP SDP packets. LSPCON will be set to operate in PCON mode,
+will receive the metadata and create Dynamic Range and
+Mastering Infoframe (DRM packets) and send it to HDR capable
+HDMI sink devices.
 
-> 		wa_write_or(wal,
-> 			    SUBSLICE_UNIT_LEVEL_CLKGATE2,
-> 			    CPSSUNIT_CLKGATE_DIS);
->
-> 	/* Wa_1607087056:tgl also know as BUG:1409180338 */
->-	if (IS_TGL_UY_GT_REVID(i915, TGL_REVID_A0, TGL_REVID_A0))
->+	if (IS_TGL_GT_REVID(i915, TGL_REVID_A0, TGL_REVID_A0))
-> 		wa_write_or(wal,
-> 			    SLICE_UNIT_LEVEL_CLKGATE,
-> 			    L3_CLKGATE_DIS | L3_CR2X_CLKGATE_DIS);
->@@ -1734,7 +1734,7 @@ rcs_engine_wa_init(struct intel_engine_cs *engine, s=
-truct i915_wa_list *wal)
-> 	struct drm_i915_private *i915 =3D engine->i915;
->
-> 	if (IS_DG1_REVID(i915, DG1_REVID_A0, DG1_REVID_A0) ||
->-	    IS_TGL_UY_GT_REVID(i915, TGL_REVID_A0, TGL_REVID_A0)) {
->+	    IS_TGL_GT_REVID(i915, TGL_REVID_A0, TGL_REVID_A0)) {
-> 		/*
-> 		 * Wa_1607138336:tgl[a0],dg1[a0]
-> 		 * Wa_1607063988:tgl[a0],dg1[a0]
->@@ -1744,7 +1744,7 @@ rcs_engine_wa_init(struct intel_engine_cs *engine, s=
-truct i915_wa_list *wal)
-> 			    GEN12_DISABLE_POSH_BUSY_FF_DOP_CG);
-> 	}
->
->-	if (IS_TGL_UY_GT_REVID(i915, TGL_REVID_A0, TGL_REVID_A0)) {
->+	if (IS_TGL_GT_REVID(i915, TGL_REVID_A0, TGL_REVID_A0)) {
-> 		/*
-> 		 * Wa_1606679103:tgl
-> 		 * (see also Wa_1606682166:icl)
->diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_d=
-rv.h
->index 0a3ee4f9dc0a..3d0ef6b60337 100644
->--- a/drivers/gpu/drm/i915/i915_drv.h
->+++ b/drivers/gpu/drm/i915/i915_drv.h
->@@ -1572,16 +1572,30 @@ enum {
-> 	TGL_REVID_D0,
-> };
->
->-extern const struct i915_rev_steppings tgl_uy_revids[];
->-extern const struct i915_rev_steppings tgl_revids[];
->+#define TGL_UY_REVIDS_SIZE	4
->+#define TGL_REVIDS_SIZE		2
->+
->+extern const struct i915_rev_steppings tgl_uy_revids[TGL_UY_REVIDS_SIZE];
->+extern const struct i915_rev_steppings tgl_revids[TGL_REVIDS_SIZE];
->
-> static inline const struct i915_rev_steppings *
-> tgl_revids_get(struct drm_i915_private *dev_priv)
-> {
->-	if (IS_TGL_U(dev_priv) || IS_TGL_Y(dev_priv))
->-		return &tgl_uy_revids[INTEL_REVID(dev_priv)];
->-	else
->-		return &tgl_revids[INTEL_REVID(dev_priv)];
->+	u8 revid =3D INTEL_REVID(dev_priv);
->+	u8 size;
->+	const struct i915_rev_steppings *tgl_revid_tbl;
->+
->+	if (IS_TGL_U(dev_priv) || IS_TGL_Y(dev_priv)) {
->+		tgl_revid_tbl =3D tgl_uy_revids;
->+		size =3D ARRAY_SIZE(tgl_uy_revids);
->+	} else {
->+		tgl_revid_tbl =3D tgl_revids;
->+		size =3D ARRAY_SIZE(tgl_revids);
->+	}
->+
->+	revid =3D min_t(u8, revid, size - 1);
->+
->+	return &tgl_revid_tbl[revid];
-> }
->
-> #define IS_TGL_DISP_REVID(p, since, until) \
->@@ -1589,16 +1603,10 @@ tgl_revids_get(struct drm_i915_private *dev_priv)
-> 	 tgl_revids_get(p)->disp_stepping >=3D (since) && \
-> 	 tgl_revids_get(p)->disp_stepping <=3D (until))
->
->-#define IS_TGL_UY_GT_REVID(p, since, until) \
->-	((IS_TGL_U(p) || IS_TGL_Y(p)) && \
->-	 tgl_uy_revids[INTEL_REVID(p)].gt_stepping >=3D (since) && \
->-	 tgl_uy_revids[INTEL_REVID(p)].gt_stepping <=3D (until))
->-
-> #define IS_TGL_GT_REVID(p, since, until) \
-> 	(IS_TIGERLAKE(p) && \
->-	 !(IS_TGL_U(p) || IS_TGL_Y(p)) && \
+v2: Fixed Ville's review comments. Suppressed some warnings.
+Patch 8 of the series is marked "Not for Merge" and is just for
+reference to userspace people to incorporate in order to support
+10bit content with 4K@60 resolutions.
 
-so, previously this check would prevent the WA to be applied if it's not
-U or Y sku. Now, in that case you are going to simply apply it. =
+v3: Added Infoframe readout support for DRM infoframes.
+Addressed Jani Nikula's review comments.
 
-See comment in intel_workarounds.c:
+v4: Addressed Ville's review comments and added proper bitmask for
+enabled infoframes. Series also incorporates Ville's patch for stopping
+infoframes to be sent to DVI sinks. Extended the same for DRM as well.
 
-/* Same GT stepping between tgl_uy_revids and tgl_revids don't mean the sam=
-e HW */
-const struct i915_rev_steppings tgl_revids[] =3D {
+v5: Created separate helper function for lspcon_infoframes_enabled as per
+Ville's suggestion.
 
-Lucas De Marchi
+v6: Rebase
 
->-	 tgl_revids[INTEL_REVID(p)].gt_stepping >=3D (since) && \
->-	 tgl_revids[INTEL_REVID(p)].gt_stepping <=3D (until))
->+	 tgl_revids_get(p)->gt_stepping >=3D (since) && \
->+	 tgl_revids_get(p)->gt_stepping <=3D (until))
->
-> #define RKL_REVID_A0		0x0
-> #define RKL_REVID_B0		0x1
->-- =
+v7: Addressed Ville's review comments.
 
->2.27.0
->
+v8: Addressed Ville's review comments. Fixed the colorspace handling for
+Pcon and property attachment logic based on new lspcon detetction changes.
+
+v9: Rebase
+
+v10: Fixed one patch for detection
+
+v11: Addressed Ville's review comments and added RB in the respective
+patches.
+
+Thanks Ville for all the suggestions and inputs.
+Note: Patch 13 of the series is for reference to userspace, not to be
+merged to driver.
+
+Uma Shankar (13):
+  drm/i915/display: Add HDR Capability detection for LSPCON
+  drm/i915/display: Enable HDR on gen9 devices with MCA Lspcon
+  drm/i915/display: Attach HDR property for capable Gen9 devices
+  drm/i915/display: Enable quantization range for HDR on LSPCON devices
+  drm/i915/display: Add a WARN for invalid output range and format
+  drm/i915/display: Attach content type property for LSPCON
+  i915/display: Enable BT2020 for HDR on LSPCON devices
+  drm/i915/display: Enable HDR for Parade based lspcon
+  drm/i915/display: Implement infoframes readback for LSPCON
+  drm/i915/display: Implement DRM infoframe read for LSPCON
+  drm/i915/lspcon: Create separate infoframe_enabled helper
+  drm/i915/lspcon: Do not send DRM infoframes to non-HDMI sinks
+  drm/i915/display: [NOT FOR MERGE] Reduce blanking to support
+    4k60@10bpp for LSPCON
+
+ drivers/gpu/drm/i915/display/intel_ddi.c      |  20 +-
+ .../drm/i915/display/intel_display_types.h    |   1 +
+ drivers/gpu/drm/i915/display/intel_dp.c       |  36 ++++
+ drivers/gpu/drm/i915/display/intel_hdmi.c     |  15 +-
+ drivers/gpu/drm/i915/display/intel_lspcon.c   | 177 +++++++++++++++---
+ drivers/gpu/drm/i915/display/intel_lspcon.h   |  12 ++
+ 6 files changed, 226 insertions(+), 35 deletions(-)
+
+-- 
+2.26.2
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
