@@ -7,37 +7,36 @@ X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3497DC63697
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BFE5FC56202
 	for <intel-gfx@archiver.kernel.org>; Thu, 26 Nov 2020 14:04:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B72FC221E2
-	for <intel-gfx@archiver.kernel.org>; Thu, 26 Nov 2020 14:04:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B72FC221E2
+	by mail.kernel.org (Postfix) with ESMTPS id 2F17B2075A
+	for <intel-gfx@archiver.kernel.org>; Thu, 26 Nov 2020 14:04:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2F17B2075A
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AFFB86E97D;
-	Thu, 26 Nov 2020 14:04:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA0726E96C;
+	Thu, 26 Nov 2020 14:04:12 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8D0896E959
- for <intel-gfx@lists.freedesktop.org>; Thu, 26 Nov 2020 14:04:12 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ACDC46E95E
+ for <intel-gfx@lists.freedesktop.org>; Thu, 26 Nov 2020 14:04:11 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23117563-1500050 
- for <intel-gfx@lists.freedesktop.org>; Thu, 26 Nov 2020 14:04:09 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23117561-1500050 
+ for <intel-gfx@lists.freedesktop.org>; Thu, 26 Nov 2020 14:04:08 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 26 Nov 2020 14:04:07 +0000
-Message-Id: <20201126140407.31952-5-chris@chris-wilson.co.uk>
+Date: Thu, 26 Nov 2020 14:04:05 +0000
+Message-Id: <20201126140407.31952-3-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201126140407.31952-1-chris@chris-wilson.co.uk>
 References: <20201126140407.31952-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [CI 5/5] drm/i915/gt: Move the breadcrumb to the
- signaler if completed upon cancel
+Subject: [Intel-gfx] [CI 3/5] drm/i915/gt: Protect context lifetime with RCU
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,126 +54,94 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-If while we are cancelling the breadcrumb signaling, we find that the
-request is already completed, move it to the irq signaler and let it be
-signaled.
+Allow a brief period for continued access to a dead intel_context by
+deferring the release of the struct until after an RCU grace period.
+As we are using a dedicated slab cache for the contexts, we can defer
+the release of the slab pages via RCU, with the caveat that individual
+structs may be reused from the freelist within an RCU grace period. To
+handle that, we have to avoid clearing members of the zombie struct.
 
-v2: Tweak reference counting so that we only acquire a new reference on
-adding to a signal list, as opposed to a hidden i915_request_put of the
-caller's reference.
+This is required for a later patch to handle locking around virtual
+requests in the signaler, as those requests may want to move between
+engines and be destroyed while we are holding b->irq_lock on a physical
+engine.
+
+v2: Drop mutex_reinit(), if we never mark the mutex as destroyed we
+don't need to reset the debug code, at the loss of having the mutex
+debug code spot us attempting to destroy a locked mutex.
+v3: As the intended use will remain strongly referenced counted, with
+very little inflight access across reuse, drop the ctor.
+v4: Drop the unrequired change to remove the temporary reference around
+dropping the active context, and add back some more missing ctor
+operations.
+v5: The ctor is back. Tvrtko spotted that ce->signal_lock [introduced
+later] maybe accessed under RCU and so needs special care not to be
+reinitialised.
+v6: Don't mix SLAB_TYPESAFE_BY_RCU and RCU list iteration.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_breadcrumbs.c | 41 +++++++++++----------
- 1 file changed, 22 insertions(+), 19 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_context.c       | 12 +++++++++---
+ drivers/gpu/drm/i915/gt/intel_context_types.h | 11 ++++++++++-
+ 2 files changed, 19 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-index a24cc1ff08a0..00918300f53f 100644
---- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-@@ -192,18 +192,6 @@ static void add_retire(struct intel_breadcrumbs *b, struct intel_timeline *tl)
- 		intel_engine_add_retire(b->irq_engine, tl);
+diff --git a/drivers/gpu/drm/i915/gt/intel_context.c b/drivers/gpu/drm/i915/gt/intel_context.c
+index 92a3f25c4006..d3a835212167 100644
+--- a/drivers/gpu/drm/i915/gt/intel_context.c
++++ b/drivers/gpu/drm/i915/gt/intel_context.c
+@@ -25,11 +25,18 @@ static struct intel_context *intel_context_alloc(void)
+ 	return kmem_cache_zalloc(global.slab_ce, GFP_KERNEL);
  }
  
--static bool __signal_request(struct i915_request *rq)
--{
--	GEM_BUG_ON(test_bit(I915_FENCE_FLAG_SIGNAL, &rq->fence.flags));
--
--	if (!__dma_fence_signal(&rq->fence)) {
--		i915_request_put(rq);
--		return false;
--	}
--
--	return true;
--}
--
- static struct llist_node *
- slist_add(struct llist_node *node, struct llist_node *head)
+-void intel_context_free(struct intel_context *ce)
++static void rcu_context_free(struct rcu_head *rcu)
  {
-@@ -274,9 +262,11 @@ static void signal_irq_work(struct irq_work *work)
- 			release = remove_signaling_context(b, ce);
- 			spin_unlock(&ce->signal_lock);
- 
--			if (__signal_request(rq))
-+			if (__dma_fence_signal(&rq->fence))
- 				/* We own signal_node now, xfer to local list */
- 				signal = slist_add(&rq->signal_node, signal);
-+			else
-+				i915_request_put(rq);
- 
- 			if (release) {
- 				add_retire(b, ce->timeline);
-@@ -363,6 +353,17 @@ void intel_breadcrumbs_free(struct intel_breadcrumbs *b)
- 	kfree(b);
++	struct intel_context *ce = container_of(rcu, typeof(*ce), rcu);
++
+ 	kmem_cache_free(global.slab_ce, ce);
  }
  
-+static void irq_signal_request(struct i915_request *rq,
-+			       struct intel_breadcrumbs *b)
++void intel_context_free(struct intel_context *ce)
 +{
-+	if (!__dma_fence_signal(&rq->fence))
-+		return;
-+
-+	i915_request_get(rq);
-+	if (llist_add(&rq->signal_node, &b->signaled_requests))
-+		irq_work_queue(&b->irq_work);
++	call_rcu(&ce->rcu, rcu_context_free);
 +}
 +
- static void insert_breadcrumb(struct i915_request *rq)
+ struct intel_context *
+ intel_context_create(struct intel_engine_cs *engine)
  {
- 	struct intel_breadcrumbs *b = READ_ONCE(rq->engine)->breadcrumbs;
-@@ -372,17 +373,13 @@ static void insert_breadcrumb(struct i915_request *rq)
- 	if (test_bit(I915_FENCE_FLAG_SIGNAL, &rq->fence.flags))
- 		return;
- 
--	i915_request_get(rq);
--
- 	/*
- 	 * If the request is already completed, we can transfer it
- 	 * straight onto a signaled list, and queue the irq worker for
- 	 * its signal completion.
- 	 */
- 	if (__request_completed(rq)) {
--		if (__signal_request(rq) &&
--		    llist_add(&rq->signal_node, &b->signaled_requests))
--			irq_work_queue(&b->irq_work);
-+		irq_signal_request(rq, b);
- 		return;
- 	}
- 
-@@ -413,6 +410,8 @@ static void insert_breadcrumb(struct i915_request *rq)
- 				break;
- 		}
- 	}
-+
-+	i915_request_get(rq);
- 	list_add_rcu(&rq->signal_link, pos);
- 	GEM_BUG_ON(!check_signal_order(ce, rq));
- 	GEM_BUG_ON(test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &rq->fence.flags));
-@@ -453,6 +452,7 @@ bool i915_request_enable_breadcrumb(struct i915_request *rq)
- 
- void i915_request_cancel_breadcrumb(struct i915_request *rq)
- {
-+	struct intel_breadcrumbs *b = READ_ONCE(rq->engine)->breadcrumbs;
- 	struct intel_context *ce = rq->context;
- 	bool release;
- 
-@@ -461,11 +461,14 @@ void i915_request_cancel_breadcrumb(struct i915_request *rq)
- 
- 	spin_lock(&ce->signal_lock);
- 	list_del_rcu(&rq->signal_link);
--	release = remove_signaling_context(rq->engine->breadcrumbs, ce);
-+	release = remove_signaling_context(b, ce);
- 	spin_unlock(&ce->signal_lock);
- 	if (release)
- 		intel_context_put(ce);
- 
-+	if (__request_completed(rq))
-+		irq_signal_request(rq, b);
-+
- 	i915_request_put(rq);
+@@ -356,8 +363,7 @@ static int __intel_context_active(struct i915_active *active)
  }
  
+ void
+-intel_context_init(struct intel_context *ce,
+-		   struct intel_engine_cs *engine)
++intel_context_init(struct intel_context *ce, struct intel_engine_cs *engine)
+ {
+ 	GEM_BUG_ON(!engine->cops);
+ 	GEM_BUG_ON(!engine->gt->vm);
+diff --git a/drivers/gpu/drm/i915/gt/intel_context_types.h b/drivers/gpu/drm/i915/gt/intel_context_types.h
+index 552cb57a2e8c..20cb5835d1c3 100644
+--- a/drivers/gpu/drm/i915/gt/intel_context_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_context_types.h
+@@ -44,7 +44,16 @@ struct intel_context_ops {
+ };
+ 
+ struct intel_context {
+-	struct kref ref;
++	/*
++	 * Note: Some fields may be accessed under RCU.
++	 *
++	 * Unless otherwise noted a field can safely be assumed to be protected
++	 * by strong reference counting.
++	 */
++	union {
++		struct kref ref; /* no kref_get_unless_zero()! */
++		struct rcu_head rcu;
++	};
+ 
+ 	struct intel_engine_cs *engine;
+ 	struct intel_engine_cs *inflight;
 -- 
 2.20.1
 
