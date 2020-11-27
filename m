@@ -2,53 +2,54 @@ Return-Path: <SRS0=emkq=FB=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-13.9 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
+	URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EBB6FC64E7D
-	for <intel-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 12:12:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 89E1CC71156
+	for <intel-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 12:12:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AB91C21D93
-	for <intel-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 12:12:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AB91C21D93
+	by mail.kernel.org (Postfix) with ESMTPS id 28439221F1
+	for <intel-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 12:12:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 28439221F1
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6BD4F6ECB3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A2A8F6ECAF;
 	Fri, 27 Nov 2020 12:10:17 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A4E96ECA3;
- Fri, 27 Nov 2020 12:10:04 +0000 (UTC)
-IronPort-SDR: wVVf/KdQiAQ6CCv5nyMKskDGflXvTtlTezNY9mgmvt+qnBn9SikoNLgr0D56s6AFmFITq3ohv/
- NE/uTKnK5dhA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9817"; a="172540755"
-X-IronPort-AV: E=Sophos;i="5.78,374,1599548400"; d="scan'208";a="172540755"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F3C526ECAC;
+ Fri, 27 Nov 2020 12:10:10 +0000 (UTC)
+IronPort-SDR: b4ESUb2iD8dMDG4UPqiOWOuGElVRykoE5LujW0OX1E0K3glA50prNWPY/tTpELxsyHyI7u5KL9
+ gcnpcNOyuPmQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9817"; a="172540777"
+X-IronPort-AV: E=Sophos;i="5.78,374,1599548400"; d="scan'208";a="172540777"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Nov 2020 04:10:04 -0800
-IronPort-SDR: Kq+jI+VBK+EOLqtHxM9rSe6KWlG/ixHoaSYAQmYv/gOTYuBpcKhXijkTP7gKG2NSMjjSNpcFM4
- hnN+NuslMiTw==
-X-IronPort-AV: E=Sophos;i="5.78,374,1599548400"; d="scan'208";a="548029202"
+ 27 Nov 2020 04:10:10 -0800
+IronPort-SDR: AK0KaPDz9Qc5Zna0Eube34T2XQMn9LlMMcJ/yn90vyH/mv7ATP1DIjyXQ88a0ApQZUhmRgvI2Z
+ oK/x3obFvTxQ==
+X-IronPort-AV: E=Sophos;i="5.78,374,1599548400"; d="scan'208";a="548029260"
 Received: from mjgleeso-mobl.ger.corp.intel.com (HELO
  mwauld-desk1.ger.corp.intel.com) ([10.251.85.2])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Nov 2020 04:10:02 -0800
+ 27 Nov 2020 04:10:07 -0800
 From: Matthew Auld <matthew.auld@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 27 Nov 2020 12:06:01 +0000
-Message-Id: <20201127120718.454037-86-matthew.auld@intel.com>
+Date: Fri, 27 Nov 2020 12:06:04 +0000
+Message-Id: <20201127120718.454037-89-matthew.auld@intel.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20201127120718.454037-1-matthew.auld@intel.com>
 References: <20201127120718.454037-1-matthew.auld@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [RFC PATCH 085/162] drm/i915/region: support basic
- eviction
+Subject: [Intel-gfx] [RFC PATCH 088/162] drm/i915: support basic object
+ migration
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,283 +69,452 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Support basic eviction for regions.
+We are going want to able to move objects between different regions
+like system memory and local memory. In the future everything should
+be just another region.
 
-Signed-off-by: Matthew Auld <matthew.auld@intel.com>
+Cc: Abdiel Janulgue <abdiel.janulgue@linux.intel.com>
+Cc: Sudeep Dutt <sudeep.dutt@intel.com>
+Cc: Matthew Auld <matthew.auld@intel.com>
 Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
 Cc: Abdiel Janulgue <abdiel.janulgue@linux.intel.com>
+Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+Cc: Prathap Kumar Valsan <prathap.kumar.valsan@intel.com>
+Cc: CQ Tang <cq.tang@intel.com>
+Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+Signed-off-by: Matthew Auld <matthew.auld@intel.com>
 ---
- .../gpu/drm/i915/gem/i915_gem_object_types.h  |  1 +
- drivers/gpu/drm/i915/gem/i915_gem_shrinker.c  | 59 ++++++++++++++
- drivers/gpu/drm/i915/gem/i915_gem_shrinker.h  |  4 +
- drivers/gpu/drm/i915/i915_gem.c               | 17 +++++
- drivers/gpu/drm/i915/intel_memory_region.c    | 24 +++++-
- .../drm/i915/selftests/intel_memory_region.c  | 76 +++++++++++++++++++
- 6 files changed, 178 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_mman.c      |  13 ++
+ drivers/gpu/drm/i915/gem/i915_gem_mman.h      |   2 +
+ drivers/gpu/drm/i915/gem/i915_gem_object.c    | 125 +++++++++++++
+ drivers/gpu/drm/i915/gem/i915_gem_object.h    |   9 +
+ drivers/gpu/drm/i915/gem/i915_gem_pages.c     |   2 +-
+ .../drm/i915/selftests/intel_memory_region.c  | 174 +++++++++++++++++-
+ 6 files changed, 322 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
-index b172e8cc53ab..6d101275bc9d 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
-@@ -226,6 +226,7 @@ struct drm_i915_gem_object {
- 		 * region->obj_lock.
- 		 */
- 		struct list_head region_link;
-+		struct list_head tmp_link;
- 
- 		struct sg_table *pages;
- 		void *mapping;
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shrinker.c b/drivers/gpu/drm/i915/gem/i915_gem_shrinker.c
-index e42192834c88..4d346df8fd5b 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_shrinker.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_shrinker.c
-@@ -16,6 +16,7 @@
- #include "gt/intel_gt_requests.h"
- 
- #include "i915_trace.h"
-+#include "gt/intel_gt_requests.h"
- 
- static bool swap_available(void)
- {
-@@ -271,6 +272,64 @@ unsigned long i915_gem_shrink_all(struct drm_i915_private *i915)
- 	return freed;
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_mman.c b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
+index 2561a2f1e54f..4e8a05c35252 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_mman.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
+@@ -546,6 +546,19 @@ void i915_gem_object_release_mmap_offset(struct drm_i915_gem_object *obj)
+ 	spin_unlock(&obj->mmo.lock);
  }
  
-+int i915_gem_shrink_memory_region(struct intel_memory_region *mem,
-+				  resource_size_t target)
++/**
++ * i915_gem_object_release_mmap - remove physical page mappings
++ * @obj: obj in question
++ *
++ * Preserve the reservation of the mmapping with the DRM core code, but
++ * relinquish ownership of the pages back to the system.
++ */
++void i915_gem_object_release_mmap(struct drm_i915_gem_object *obj)
 +{
-+	struct drm_i915_private *i915 = mem->i915;
-+	struct drm_i915_gem_object *obj;
-+	resource_size_t purged;
-+	LIST_HEAD(purgeable);
-+	int err = -ENOSPC;
++	i915_gem_object_release_mmap_gtt(obj);
++	i915_gem_object_release_mmap_offset(obj);
++}
++
+ static struct i915_mmap_offset *
+ lookup_mmo(struct drm_i915_gem_object *obj,
+ 	   enum i915_mmap_type mmap_type)
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_mman.h b/drivers/gpu/drm/i915/gem/i915_gem_mman.h
+index efee9e0d2508..7c5ccdf59359 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_mman.h
++++ b/drivers/gpu/drm/i915/gem/i915_gem_mman.h
+@@ -24,6 +24,8 @@ int i915_gem_dumb_mmap_offset(struct drm_file *file_priv,
+ 			      struct drm_device *dev,
+ 			      u32 handle, u64 *offset);
+ 
++void i915_gem_object_release_mmap(struct drm_i915_gem_object *obj);
++
+ void __i915_gem_object_release_mmap_gtt(struct drm_i915_gem_object *obj);
+ void i915_gem_object_release_mmap_gtt(struct drm_i915_gem_object *obj);
+ 
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.c b/drivers/gpu/drm/i915/gem/i915_gem_object.c
+index 5326b4b5a9f7..7ff430503497 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_object.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_object.c
+@@ -26,11 +26,14 @@
+ 
+ #include "display/intel_frontbuffer.h"
+ #include "gt/intel_gt.h"
++#include "gt/intel_gt_requests.h"
+ #include "i915_drv.h"
+ #include "i915_gem_clflush.h"
+ #include "i915_gem_context.h"
+ #include "i915_gem_mman.h"
+ #include "i915_gem_object.h"
++#include "i915_gem_object_blt.h"
++#include "i915_gem_region.h"
+ #include "i915_globals.h"
+ #include "i915_trace.h"
+ 
+@@ -311,6 +314,128 @@ static void i915_gem_free_object(struct drm_gem_object *gem_obj)
+ 		queue_work(i915->wq, &i915->mm.free_work);
+ }
+ 
++int i915_gem_object_prepare_move(struct drm_i915_gem_object *obj)
++{
++	int err;
++
++	assert_object_held(obj);
++
++	if (obj->mm.madv != I915_MADV_WILLNEED)
++		return -EINVAL;
++
++	if (i915_gem_object_needs_bit17_swizzle(obj))
++		return -EINVAL;
++
++	if (i915_gem_object_is_framebuffer(obj))
++		return -EBUSY;
++
++	i915_gem_object_release_mmap(obj);
++
++	GEM_BUG_ON(obj->mm.mapping);
++	GEM_BUG_ON(obj->base.filp && mapping_mapped(obj->base.filp->f_mapping));
++
++	err = i915_gem_object_wait(obj,
++				   I915_WAIT_INTERRUPTIBLE |
++				   I915_WAIT_ALL,
++				   MAX_SCHEDULE_TIMEOUT);
++	if (err)
++		return err;
++
++	return i915_gem_object_unbind(obj,
++				      I915_GEM_OBJECT_UNBIND_ACTIVE);
++}
++
++int i915_gem_object_migrate(struct drm_i915_gem_object *obj,
++			    struct i915_gem_ww_ctx *ww,
++			    struct intel_context *ce,
++			    enum intel_region_id id)
++{
++	struct drm_i915_private *i915 = to_i915(obj->base.dev);
++	struct drm_i915_gem_object *donor;
++	struct intel_memory_region *mem;
++	struct sg_table *pages = NULL;
++	unsigned int page_sizes;
++	int err = 0;
++
++	assert_object_held(obj);
++	GEM_BUG_ON(id >= INTEL_REGION_UNKNOWN);
++	GEM_BUG_ON(obj->mm.madv != I915_MADV_WILLNEED);
++	if (obj->mm.region->id == id)
++		return 0;
++
++	mem = i915->mm.regions[id];
++
++	donor = i915_gem_object_create_region(mem, obj->base.size, 0);
++	if (IS_ERR(donor)) {
++		err = PTR_ERR(donor);
++		return err;
++	}
++
++	err = i915_gem_object_lock(donor, ww);
++	if (err)
++		goto err_put_donor;
++
++	/* Copy backing-pages if we have to */
++	if (i915_gem_object_has_pages(obj) ||
++	    obj->base.filp) {
++		err = i915_gem_object_ww_copy_blt(obj, donor, ww, ce);
++		if (err)
++			goto unlock_donor;
++	}
++
++	err = i915_gem_object_set_to_cpu_domain(donor, false);
++	if (err)
++		goto unlock_donor;
 +
 +	intel_gt_retire_requests(&i915->gt);
 +
-+	purged = 0;
++	i915_gem_object_unbind(donor, 0);
++	err = i915_gem_object_unbind(obj, 0);
++	if (err)
++		goto unlock_donor;
 +
-+	mutex_lock(&mem->objects.lock);
++	pages = __i915_gem_object_unset_pages(obj);
++	if (pages)
++		obj->ops->put_pages(obj, pages);
 +
-+	while ((obj = list_first_entry_or_null(&mem->objects.purgeable,
-+					       typeof(*obj),
-+					       mm.region_link))) {
-+		list_move_tail(&obj->mm.region_link, &purgeable);
++	page_sizes = donor->mm.page_sizes.phys;
++	pages = __i915_gem_object_unset_pages(donor);
 +
-+		if (!i915_gem_object_has_pages(obj))
-+			continue;
++	if (obj->ops->release)
++		obj->ops->release(obj);
 +
-+		if (i915_gem_object_is_framebuffer(obj))
-+			continue;
-+
-+		if (!kref_get_unless_zero(&obj->base.refcount))
-+			continue;
-+
-+		mutex_unlock(&mem->objects.lock);
-+
-+		if (!i915_gem_object_unbind(obj, I915_GEM_OBJECT_UNBIND_ACTIVE)) {
-+			if (i915_gem_object_trylock(obj)) {
-+				__i915_gem_object_put_pages(obj);
-+				if (!i915_gem_object_has_pages(obj)) {
-+					purged += obj->base.size;
-+					if (!i915_gem_object_is_volatile(obj))
-+						obj->mm.madv = __I915_MADV_PURGED;
-+				}
-+				i915_gem_object_unlock(obj);
-+			}
-+		}
-+
-+		i915_gem_object_put(obj);
-+
-+		mutex_lock(&mem->objects.lock);
-+
-+		if (purged >= target) {
-+			err = 0;
-+			break;
-+		}
++	/* We need still need a little special casing for shmem */
++	if (obj->base.filp)
++		fput(fetch_and_zero(&obj->base.filp));
++	else if (donor->base.filp) {
++		atomic_long_inc(&donor->base.filp->f_count);
++		obj->base.filp = donor->base.filp;
 +	}
 +
-+	list_splice_tail(&purgeable, &mem->objects.purgeable);
-+	mutex_unlock(&mem->objects.lock);
++	obj->base.size = donor->base.size;
++	obj->mm.region = intel_memory_region_get(mem);
++	obj->flags = donor->flags;
++	obj->ops = donor->ops;
++	obj->cache_level = donor->cache_level;
++	obj->cache_coherent = donor->cache_coherent;
++	obj->cache_dirty = donor->cache_dirty;
++
++	list_replace_init(&donor->mm.blocks, &obj->mm.blocks);
++
++	/* set pages after migrated */
++	if (pages)
++		__i915_gem_object_set_pages(obj, pages, page_sizes);
++
++	GEM_BUG_ON(i915_gem_object_has_pages(donor));
++	GEM_BUG_ON(i915_gem_object_has_pinned_pages(donor));
++unlock_donor:
++	i915_gem_ww_unlock_single(donor);
++err_put_donor:
++	i915_gem_object_put(donor);
++
 +	return err;
 +}
 +
- static unsigned long
- i915_gem_shrinker_count(struct shrinker *shrinker, struct shrink_control *sc)
+ static bool gpu_write_needs_clflush(struct drm_i915_gem_object *obj)
  {
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shrinker.h b/drivers/gpu/drm/i915/gem/i915_gem_shrinker.h
-index 8512470f6fd6..c945f3b587d6 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_shrinker.h
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_shrinker.h
-@@ -7,10 +7,12 @@
- #define __I915_GEM_SHRINKER_H__
+ 	return !(obj->cache_level == I915_CACHE_NONE ||
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.h b/drivers/gpu/drm/i915/gem/i915_gem_object.h
+index c6c7ab181a65..1a1aa71a4494 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_object.h
++++ b/drivers/gpu/drm/i915/gem/i915_gem_object.h
+@@ -51,8 +51,17 @@ void i915_gem_object_put_pages_phys(struct drm_i915_gem_object *obj,
+ 				    struct sg_table *pages);
  
- #include <linux/bits.h>
-+#include <linux/types.h>
  
- struct drm_i915_private;
- struct i915_gem_ww_ctx;
- struct mutex;
-+struct intel_memory_region;
- 
- /* i915_gem_shrinker.c */
- unsigned long i915_gem_shrink(struct i915_gem_ww_ctx *ww,
-@@ -29,5 +31,7 @@ void i915_gem_driver_register__shrinker(struct drm_i915_private *i915);
- void i915_gem_driver_unregister__shrinker(struct drm_i915_private *i915);
- void i915_gem_shrinker_taints_mutex(struct drm_i915_private *i915,
- 				    struct mutex *mutex);
-+int i915_gem_shrink_memory_region(struct intel_memory_region *mem,
-+				  resource_size_t target);
- 
- #endif /* __I915_GEM_SHRINKER_H__ */
-diff --git a/drivers/gpu/drm/i915/i915_gem.c b/drivers/gpu/drm/i915/i915_gem.c
-index 2662d679db6e..ef2124c17a7f 100644
---- a/drivers/gpu/drm/i915/i915_gem.c
-+++ b/drivers/gpu/drm/i915/i915_gem.c
-@@ -1104,6 +1104,23 @@ i915_gem_madvise_ioctl(struct drm_device *dev, void *data,
- 	    !i915_gem_object_has_pages(obj))
- 		i915_gem_object_truncate(obj);
- 
-+	if (obj->mm.region && i915_gem_object_has_pages(obj)) {
-+		mutex_lock(&obj->mm.region->objects.lock);
++enum intel_region_id;
++int i915_gem_object_prepare_move(struct drm_i915_gem_object *obj);
++int i915_gem_object_migrate(struct drm_i915_gem_object *obj,
++			    struct i915_gem_ww_ctx *ww,
++			    struct intel_context *ce,
++			    enum intel_region_id id);
 +
-+		switch (obj->mm.madv) {
-+		case I915_MADV_WILLNEED:
-+			list_move(&obj->mm.region_link,
-+				  &obj->mm.region->objects.list);
-+			break;
-+		default:
-+			list_move(&obj->mm.region_link,
-+				  &obj->mm.region->objects.purgeable);
-+			break;
-+		}
-+
-+		mutex_unlock(&obj->mm.region->objects.lock);
-+	}
-+
- 	args->retained = obj->mm.madv != __I915_MADV_PURGED;
+ void i915_gem_flush_free_objects(struct drm_i915_private *i915);
  
- 	i915_gem_object_unlock(obj);
-diff --git a/drivers/gpu/drm/i915/intel_memory_region.c b/drivers/gpu/drm/i915/intel_memory_region.c
-index b326993a1026..308f89b87834 100644
---- a/drivers/gpu/drm/i915/intel_memory_region.c
-+++ b/drivers/gpu/drm/i915/intel_memory_region.c
-@@ -97,7 +97,8 @@ __intel_memory_region_get_pages_buddy(struct intel_memory_region *mem,
- 	do {
- 		struct i915_buddy_block *block;
- 		unsigned int order;
--
-+		bool retry = true;
-+retry:
- 		order = fls(n_pages) - 1;
- 		GEM_BUG_ON(order > mem->mm.max_order);
- 		GEM_BUG_ON(order < min_order);
-@@ -107,8 +108,25 @@ __intel_memory_region_get_pages_buddy(struct intel_memory_region *mem,
- 			if (!IS_ERR(block))
- 				break;
- 
--			if (order-- == min_order)
--				goto err_free_blocks;
-+			if (order-- == min_order) {
-+				resource_size_t target;
-+				int err;
++void __i915_gem_object_reset_page_iter(struct drm_i915_gem_object *obj);
 +
-+				if (!retry)
-+					goto err_free_blocks;
-+
-+				target = n_pages * mem->mm.chunk_size;
-+
-+				mutex_unlock(&mem->mm_lock);
-+				err = i915_gem_shrink_memory_region(mem,
-+								    target);
-+				mutex_lock(&mem->mm_lock);
-+				if (err)
-+					goto err_free_blocks;
-+
-+				retry = false;
-+				goto retry;
-+			}
- 		} while (1);
- 
- 		n_pages -= BIT(order);
-diff --git a/drivers/gpu/drm/i915/selftests/intel_memory_region.c b/drivers/gpu/drm/i915/selftests/intel_memory_region.c
-index 9c20b7065fc5..84525ddba321 100644
---- a/drivers/gpu/drm/i915/selftests/intel_memory_region.c
-+++ b/drivers/gpu/drm/i915/selftests/intel_memory_region.c
-@@ -848,12 +848,88 @@ static int perf_memcpy(void *arg)
- 	return 0;
+ struct sg_table *
+ __i915_gem_object_unset_pages(struct drm_i915_gem_object *obj);
+ void i915_gem_object_truncate(struct drm_i915_gem_object *obj);
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_pages.c b/drivers/gpu/drm/i915/gem/i915_gem_pages.c
+index eacad971b955..2cdb7cf63383 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_pages.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_pages.c
+@@ -183,7 +183,7 @@ void i915_gem_object_writeback(struct drm_i915_gem_object *obj)
+ 		obj->ops->writeback(obj);
  }
  
-+static void igt_mark_evictable(struct drm_i915_gem_object *obj)
+-static void __i915_gem_object_reset_page_iter(struct drm_i915_gem_object *obj)
++void __i915_gem_object_reset_page_iter(struct drm_i915_gem_object *obj)
+ {
+ 	struct radix_tree_iter iter;
+ 	void __rcu **slot;
+diff --git a/drivers/gpu/drm/i915/selftests/intel_memory_region.c b/drivers/gpu/drm/i915/selftests/intel_memory_region.c
+index 84525ddba321..7acb94e0e5fe 100644
+--- a/drivers/gpu/drm/i915/selftests/intel_memory_region.c
++++ b/drivers/gpu/drm/i915/selftests/intel_memory_region.c
+@@ -14,6 +14,7 @@
+ 
+ #include "gem/i915_gem_context.h"
+ #include "gem/i915_gem_lmem.h"
++#include "gem/i915_gem_object_blt.h"
+ #include "gem/i915_gem_region.h"
+ #include "gem/i915_gem_object_blt.h"
+ #include "gem/selftests/igt_gem_utils.h"
+@@ -476,6 +477,71 @@ static int igt_lmem_create(void *arg)
+ 	return err;
+ }
+ 
++static int igt_smem_create_migrate(void *arg)
 +{
-+	i915_gem_object_unpin_pages(obj);
-+	obj->mm.madv = I915_MADV_DONTNEED;
-+	list_move(&obj->mm.region_link, &obj->mm.region->objects.purgeable);
-+}
-+
-+static int igt_mock_shrink(void *arg)
-+{
-+	struct intel_memory_region *mem = arg;
++	struct drm_i915_private *i915 = arg;
++	struct intel_context *ce = i915->gt.engine[BCS0]->kernel_context;
 +	struct drm_i915_gem_object *obj;
-+	unsigned long n_objects;
-+	LIST_HEAD(objects);
-+	resource_size_t target;
-+	resource_size_t total;
++	struct i915_gem_ww_ctx ww;
 +	int err = 0;
 +
-+	target = mem->mm.chunk_size;
-+	total = resource_size(&mem->region);
-+	n_objects = total / target;
++	/* Switch object backing-store on create */
++	obj = i915_gem_object_create_lmem(i915, PAGE_SIZE, 0);
++	if (IS_ERR(obj))
++		return PTR_ERR(obj);
 +
-+	while (n_objects--) {
-+		obj = i915_gem_object_create_region(mem,
-+						    target,
-+						    0);
-+		if (IS_ERR(obj)) {
-+			err = PTR_ERR(obj);
-+			goto err_close_objects;
-+		}
++	for_i915_gem_ww(&ww, err, true) {
++		err = i915_gem_object_lock(obj, &ww);
++		if (err)
++			continue;
 +
-+		list_add(&obj->st_link, &objects);
++		err = i915_gem_object_migrate(obj, &ww, ce, INTEL_REGION_SMEM);
++		if (err)
++			continue;
 +
 +		err = i915_gem_object_pin_pages(obj);
 +		if (err)
-+			goto err_close_objects;
++			continue;
 +
-+		/*
-+		 * Make half of the region evictable, though do so in a
-+		 * horribly fragmented fashion.
-+		 */
-+		if (n_objects % 2)
-+			igt_mark_evictable(obj);
++		i915_gem_object_unpin_pages(obj);
 +	}
++	i915_gem_object_put(obj);
 +
-+	while (target <= total / 2) {
-+		obj = i915_gem_object_create_region(mem, target, 0);
-+		if (IS_ERR(obj)) {
-+			err = PTR_ERR(obj);
-+			goto err_close_objects;
-+		}
++	return err;
++}
 +
-+		list_add(&obj->st_link, &objects);
++static int igt_lmem_create_migrate(void *arg)
++{
++	struct drm_i915_private *i915 = arg;
++	struct intel_context *ce = i915->gt.engine[BCS0]->kernel_context;
++	struct drm_i915_gem_object *obj;
++	struct i915_gem_ww_ctx ww;
++	int err = 0;
 +
-+		/* Provoke the shrinker to start violently swinging its axe! */
++	/* Switch object backing-store on create */
++	obj = i915_gem_object_create_shmem(i915, PAGE_SIZE);
++	if (IS_ERR(obj))
++		return PTR_ERR(obj);
++
++	for_i915_gem_ww(&ww, err, true) {
++		err = i915_gem_object_lock(obj, &ww);
++		if (err)
++			continue;
++
++		err = i915_gem_object_migrate(obj, &ww, ce, INTEL_REGION_LMEM);
++		if (err)
++			continue;
++
 +		err = i915_gem_object_pin_pages(obj);
-+		if (err) {
-+			pr_err("failed to shrink for target=%pa", &target);
-+			goto err_close_objects;
++		if (err)
++			continue;
++
++		i915_gem_object_unpin_pages(obj);
++	}
++	i915_gem_object_put(obj);
++
++	return err;
++}
+ static int igt_lmem_write_gpu(void *arg)
+ {
+ 	struct drm_i915_private *i915 = arg;
+@@ -880,7 +946,7 @@ static int igt_mock_shrink(void *arg)
+ 
+ 		list_add(&obj->st_link, &objects);
+ 
+-		err = i915_gem_object_pin_pages(obj);
++		err = i915_gem_object_pin_pages_unlocked(obj);
+ 		if (err)
+ 			goto err_close_objects;
+ 
+@@ -902,7 +968,7 @@ static int igt_mock_shrink(void *arg)
+ 		list_add(&obj->st_link, &objects);
+ 
+ 		/* Provoke the shrinker to start violently swinging its axe! */
+-		err = i915_gem_object_pin_pages(obj);
++		err = i915_gem_object_pin_pages_unlocked(obj);
+ 		if (err) {
+ 			pr_err("failed to shrink for target=%pa", &target);
+ 			goto err_close_objects;
+@@ -923,6 +989,107 @@ static int igt_mock_shrink(void *arg)
+ 	return err;
+ }
+ 
++static int lmem_pages_migrate_one(struct i915_gem_ww_ctx *ww,
++				  struct intel_context *ce,
++				  struct drm_i915_gem_object *obj)
++{
++	int err;
++
++	err = i915_gem_object_lock(obj, ww);
++	if (err)
++		return err;
++
++	err = i915_gem_object_wait(obj,
++				   I915_WAIT_INTERRUPTIBLE |
++				   I915_WAIT_PRIORITY |
++				   I915_WAIT_ALL,
++				   MAX_SCHEDULE_TIMEOUT);
++	if (err)
++		return err;
++
++	err = i915_gem_object_prepare_move(obj);
++	if (err)
++		return err;
++
++	if (i915_gem_object_is_lmem(obj)) {
++		err = i915_gem_object_migrate(obj, ww, ce, INTEL_REGION_SMEM);
++		if (err)
++			return err;
++
++		if (i915_gem_object_is_lmem(obj)) {
++			pr_err("object still backed by lmem\n");
++			err = -EINVAL;
 +		}
 +
-+		/* Again, half of the region should remain evictable */
-+		igt_mark_evictable(obj);
++		if (!list_empty(&obj->mm.blocks)) {
++			pr_err("object leaking memory region\n");
++			err = -EINVAL;
++		}
 +
-+		target <<= 1;
++		if (!i915_gem_object_has_struct_page(obj)) {
++			pr_err("object not backed by struct page\n");
++			err = -EINVAL;
++		}
++
++	} else {
++		err = i915_gem_object_migrate(obj, ww, ce, INTEL_REGION_LMEM);
++		if (err)
++			return err;
++
++		if (i915_gem_object_has_struct_page(obj)) {
++			pr_err("object still backed by struct page\n");
++			err = -EINVAL;
++		}
++
++		if (!i915_gem_object_is_lmem(obj)) {
++			pr_err("object not backed by lmem\n");
++			err = -EINVAL;
++		}
 +	}
 +
-+err_close_objects:
-+	close_objects(mem, &objects);
++	return err;
++}
 +
-+	if (err == -ENOMEM)
-+		err = 0;
++static int igt_lmem_pages_migrate(void *arg)
++{
++	struct drm_i915_private *i915 = arg;
++	struct drm_i915_gem_object *obj;
++	struct intel_context *ce;
++	struct i915_gem_ww_ctx ww;
++	int err;
++	int i;
++
++	if (!HAS_ENGINE(&i915->gt, BCS0))
++		return 0;
++
++	ce = i915->gt.engine[BCS0]->kernel_context;
++
++	/* From LMEM to shmem and back again */
++
++	obj = i915_gem_object_create_lmem(i915, SZ_2M, 0);
++	if (IS_ERR(obj))
++		return PTR_ERR(obj);
++
++	err = i915_gem_object_fill_blt(obj, ce, 0);
++	if (err)
++		goto out_put;
++
++	for (i = 1; i <= 4; ++i) {
++		for_i915_gem_ww(&ww, err, true)
++			err = lmem_pages_migrate_one(&ww, ce, obj);
++		if (err)
++			break;
++
++		err = i915_gem_object_fill_blt(obj, ce, 0xdeadbeaf);
++		if (err)
++			break;
++	}
++out_put:
++	i915_gem_object_put(obj);
 +
 +	return err;
 +}
@@ -352,13 +522,16 @@ index 9c20b7065fc5..84525ddba321 100644
  int intel_memory_region_mock_selftests(void)
  {
  	static const struct i915_subtest tests[] = {
- 		SUBTEST(igt_mock_fill),
- 		SUBTEST(igt_mock_contiguous),
- 		SUBTEST(igt_mock_splintered_region),
-+		SUBTEST(igt_mock_shrink),
+@@ -960,6 +1127,9 @@ int intel_memory_region_live_selftests(struct drm_i915_private *i915)
+ 		SUBTEST(igt_lmem_create),
+ 		SUBTEST(igt_lmem_write_cpu),
+ 		SUBTEST(igt_lmem_write_gpu),
++		SUBTEST(igt_smem_create_migrate),
++		SUBTEST(igt_lmem_create_migrate),
++		SUBTEST(igt_lmem_pages_migrate),
  	};
- 	struct intel_memory_region *mem;
- 	struct drm_i915_private *i915;
+ 
+ 	if (!HAS_LMEM(i915)) {
 -- 
 2.26.2
 
