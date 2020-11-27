@@ -2,43 +2,42 @@ Return-Path: <SRS0=emkq=FB=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 48694C3E8C5
-	for <intel-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 19:55:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3CD9CC3E8C5
+	for <intel-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 19:56:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9514A208B3
-	for <intel-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 19:55:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9514A208B3
+	by mail.kernel.org (Postfix) with ESMTPS id E17DE20853
+	for <intel-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 19:56:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E17DE20853
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0A8336F3A1;
-	Fri, 27 Nov 2020 19:55:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 67BC56F3AA;
+	Fri, 27 Nov 2020 19:56:42 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E7B86F3A1;
- Fri, 27 Nov 2020 19:55:54 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 233316F3AA;
+ Fri, 27 Nov 2020 19:56:40 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from localhost (unverified [78.156.65.138]) 
  by fireflyinternet.com (Firefly Internet (M1)) with ESMTP (TLS) id
- 23138784-1500050 for multiple; Fri, 27 Nov 2020 19:55:52 +0000
+ 23138793-1500050 for multiple; Fri, 27 Nov 2020 19:56:39 +0000
 MIME-Version: 1.0
-In-Reply-To: <20201127120718.454037-5-matthew.auld@intel.com>
+In-Reply-To: <20201127120718.454037-6-matthew.auld@intel.com>
 References: <20201127120718.454037-1-matthew.auld@intel.com>
- <20201127120718.454037-5-matthew.auld@intel.com>
+ <20201127120718.454037-6-matthew.auld@intel.com>
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: Matthew Auld <matthew.auld@intel.com>, intel-gfx@lists.freedesktop.org
-Date: Fri, 27 Nov 2020 19:55:50 +0000
-Message-ID: <160650695028.2925.17557556900562582674@build.alporthouse.com>
+Date: Fri, 27 Nov 2020 19:56:37 +0000
+Message-ID: <160650699728.2925.2203675844144641078@build.alporthouse.com>
 User-Agent: alot/0.9
-Subject: Re: [Intel-gfx] [RFC PATCH 004/162] drm/i915/gt: Move move context
- layout registers and offsets to lrc_reg.h
+Subject: Re: [Intel-gfx] [RFC PATCH 005/162] drm/i915/gt: Rename lrc.c to
+ execlists_submission.c
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,138 +56,19 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Quoting Matthew Auld (2020-11-27 12:04:40)
+Quoting Matthew Auld (2020-11-27 12:04:41)
 > From: Chris Wilson <chris@chris-wilson.co.uk>
 > 
-> Cleanup intel_lrc.h by moving some of the residual common register
-> definitions into intel_lrc_reg.h, prior to rebranding and splitting off
-> the submission backends.
+> We want to separate the utility functions for controlling the logical
+> ring context from the execlists submission mechanism (which is an
+> overgrown scheduler).
 > 
-> v2: keep the SCHEDULE enum in the old file, since it is specific to the
-> gvt usage of the execlists submission backend (John)
-> 
-> Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-> Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com> #v2
-> Cc: John Harrison <John.C.Harrison@Intel.com>
-> Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-> ---
->  drivers/gpu/drm/i915/gt/intel_engine_cs.c |  2 +-
->  drivers/gpu/drm/i915/gt/intel_gt_irq.c    |  1 +
->  drivers/gpu/drm/i915/gt/intel_lrc.h       | 39 -----------------------
->  drivers/gpu/drm/i915/gt/intel_lrc_reg.h   | 39 +++++++++++++++++++++++
->  drivers/gpu/drm/i915/gvt/mmio_context.h   |  2 ++
->  5 files changed, 43 insertions(+), 40 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-> index d4e988b2816a..02ea16b29c9f 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-> +++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-> @@ -36,7 +36,7 @@
->  #include "intel_gt.h"
->  #include "intel_gt_requests.h"
->  #include "intel_gt_pm.h"
-> -#include "intel_lrc.h"
-> +#include "intel_lrc_reg.h"
->  #include "intel_reset.h"
->  #include "intel_ring.h"
->  
-> diff --git a/drivers/gpu/drm/i915/gt/intel_gt_irq.c b/drivers/gpu/drm/i915/gt/intel_gt_irq.c
-> index 257063a57101..9830342aa6f4 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_gt_irq.c
-> +++ b/drivers/gpu/drm/i915/gt/intel_gt_irq.c
-> @@ -11,6 +11,7 @@
->  #include "intel_breadcrumbs.h"
->  #include "intel_gt.h"
->  #include "intel_gt_irq.h"
-> +#include "intel_lrc_reg.h"
->  #include "intel_uncore.h"
->  #include "intel_rps.h"
->  
-> diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.h b/drivers/gpu/drm/i915/gt/intel_lrc.h
-> index 802585a308e9..9116b46844a2 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_lrc.h
-> +++ b/drivers/gpu/drm/i915/gt/intel_lrc.h
-> @@ -34,45 +34,6 @@ struct i915_request;
->  struct intel_context;
->  struct intel_engine_cs;
->  
-> -/* Execlists regs */
-> -#define RING_ELSP(base)                                _MMIO((base) + 0x230)
-> -#define RING_EXECLIST_STATUS_LO(base)          _MMIO((base) + 0x234)
-> -#define RING_EXECLIST_STATUS_HI(base)          _MMIO((base) + 0x234 + 4)
-> -#define RING_CONTEXT_CONTROL(base)             _MMIO((base) + 0x244)
-> -#define          CTX_CTRL_INHIBIT_SYN_CTX_SWITCH       (1 << 3)
-> -#define          CTX_CTRL_ENGINE_CTX_RESTORE_INHIBIT   (1 << 0)
-> -#define   CTX_CTRL_RS_CTX_ENABLE               (1 << 1)
-> -#define          CTX_CTRL_ENGINE_CTX_SAVE_INHIBIT      (1 << 2)
-> -#define          GEN12_CTX_CTRL_OAR_CONTEXT_ENABLE     (1 << 8)
-> -#define RING_CONTEXT_STATUS_PTR(base)          _MMIO((base) + 0x3a0)
-> -#define RING_EXECLIST_SQ_CONTENTS(base)                _MMIO((base) + 0x510)
-> -#define RING_EXECLIST_CONTROL(base)            _MMIO((base) + 0x550)
-> -
-> -#define          EL_CTRL_LOAD                          (1 << 0)
-> -
-> -/* The docs specify that the write pointer wraps around after 5h, "After status
-> - * is written out to the last available status QW at offset 5h, this pointer
-> - * wraps to 0."
-> - *
-> - * Therefore, one must infer than even though there are 3 bits available, 6 and
-> - * 7 appear to be * reserved.
-> - */
-> -#define GEN8_CSB_ENTRIES 6
-> -#define GEN8_CSB_PTR_MASK 0x7
-> -#define GEN8_CSB_READ_PTR_MASK (GEN8_CSB_PTR_MASK << 8)
-> -#define GEN8_CSB_WRITE_PTR_MASK (GEN8_CSB_PTR_MASK << 0)
-> -
-> -#define GEN11_CSB_ENTRIES 12
-> -#define GEN11_CSB_PTR_MASK 0xf
-> -#define GEN11_CSB_READ_PTR_MASK (GEN11_CSB_PTR_MASK << 8)
-> -#define GEN11_CSB_WRITE_PTR_MASK (GEN11_CSB_PTR_MASK << 0)
-> -
-> -#define MAX_CONTEXT_HW_ID (1<<21) /* exclusive */
-> -#define MAX_GUC_CONTEXT_HW_ID (1 << 20) /* exclusive */
-> -#define GEN11_MAX_CONTEXT_HW_ID (1<<11) /* exclusive */
-> -/* in Gen12 ID 0x7FF is reserved to indicate idle */
-> -#define GEN12_MAX_CONTEXT_HW_ID        (GEN11_MAX_CONTEXT_HW_ID - 1)
-> -
->  enum {
->         INTEL_CONTEXT_SCHEDULE_IN = 0,
->         INTEL_CONTEXT_SCHEDULE_OUT,
-> diff --git a/drivers/gpu/drm/i915/gt/intel_lrc_reg.h b/drivers/gpu/drm/i915/gt/intel_lrc_reg.h
-> index 1b51f7b9a5c3..b2e03ce35599 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_lrc_reg.h
-> +++ b/drivers/gpu/drm/i915/gt/intel_lrc_reg.h
-> @@ -52,4 +52,43 @@
->  #define GEN8_EXECLISTS_STATUS_BUF 0x370
->  #define GEN11_EXECLISTS_STATUS_BUF2 0x3c0
->  
-> +/* Execlists regs */
-> +#define RING_ELSP(base)                                _MMIO((base) + 0x230)
-> +#define RING_EXECLIST_STATUS_LO(base)          _MMIO((base) + 0x234)
-> +#define RING_EXECLIST_STATUS_HI(base)          _MMIO((base) + 0x234 + 4)
-> +#define RING_CONTEXT_CONTROL(base)             _MMIO((base) + 0x244)
-> +#define          CTX_CTRL_ENGINE_CTX_RESTORE_INHIBIT   REG_BIT(0)
-> +#define   CTX_CTRL_RS_CTX_ENABLE               REG_BIT(1)
-> +#define          CTX_CTRL_ENGINE_CTX_SAVE_INHIBIT      REG_BIT(2)
-> +#define          CTX_CTRL_INHIBIT_SYN_CTX_SWITCH       REG_BIT(3)
-> +#define          GEN12_CTX_CTRL_OAR_CONTEXT_ENABLE     REG_BIT(8)
-> +#define RING_CONTEXT_STATUS_PTR(base)          _MMIO((base) + 0x3a0)
-> +#define RING_EXECLIST_SQ_CONTENTS(base)                _MMIO((base) + 0x510)
-> +#define RING_EXECLIST_CONTROL(base)            _MMIO((base) + 0x550)
-> +#define          EL_CTRL_LOAD                          REG_BIT(0)
-> +
-> +/*
-> + * The docs specify that the write pointer wraps around after 5h, "After status
-> + * is written out to the last available status QW at offset 5h, this pointer
-> + * wraps to 0."
-> + *
-> + * Therefore, one must infer than even though there are 3 bits available, 6 and
-> + * 7 appear to be * reserved.
+> This is similar to Daniele's work to split up the files, but being
+> selfish I wanted to base it after my own changes to intel_lrc.c petered
+> out.
 
-Stray '*'
-
-That's a very weird statement. 6/7 simply do not exist, since the
-ringbuffer doesn't have that many elements.
+Note in accordance with recent intel_ring_submission.c vs
+intel_ring_scheduler.c, this would be intel_execlists_scheduler.c
 -Chris
 _______________________________________________
 Intel-gfx mailing list
