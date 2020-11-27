@@ -5,50 +5,50 @@ X-Spam-Level:
 X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F2ACCC2D0E4
-	for <intel-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 12:12:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 03250C64E75
+	for <intel-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 12:12:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 98BBF208D5
-	for <intel-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 12:12:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 98BBF208D5
+	by mail.kernel.org (Postfix) with ESMTPS id BA625208D5
+	for <intel-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 12:12:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BA625208D5
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A03F6ECD8;
-	Fri, 27 Nov 2020 12:10:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 71B996ECDB;
+	Fri, 27 Nov 2020 12:10:54 +0000 (UTC)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E4E16ECCD;
- Fri, 27 Nov 2020 12:10:49 +0000 (UTC)
-IronPort-SDR: GrIKPUBFLHr6tG5FHW0m4YuRfm0YqqPBaghbPuG01BddLdpJJ3/KuoKe2oAvFvP/6NYDoY2+/d
- Oa33OKGhrcGg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9817"; a="257092800"
-X-IronPort-AV: E=Sophos;i="5.78,374,1599548400"; d="scan'208";a="257092800"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C56AB6ECC7;
+ Fri, 27 Nov 2020 12:10:46 +0000 (UTC)
+IronPort-SDR: uJ40Ey1rTIjxVsGQmj/GNLaMw2lLy6/FZpjm3z24xcQIdJ+DX9cDxF7LGr8wBxfDgikNg5iwLd
+ PJwcmc3Kiv1w==
+X-IronPort-AV: E=McAfee;i="6000,8403,9817"; a="257092782"
+X-IronPort-AV: E=Sophos;i="5.78,374,1599548400"; d="scan'208";a="257092782"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Nov 2020 04:10:41 -0800
-IronPort-SDR: ySW8Y6BziYYz3xRKM1Wb9oz5MzkWn1LIIW5fcWOafI6QeoxkTUlaSnETzDKJE1TcZouAL6PEEW
- JgZWvMOxPK1w==
-X-IronPort-AV: E=Sophos;i="5.78,374,1599548400"; d="scan'208";a="548029476"
+ 27 Nov 2020 04:10:30 -0800
+IronPort-SDR: OWBGh2GZOPmWY/iOIy+sohrSoF/mUHVrsVHja/RCYk4ew6zCJ35CRMw+MSPbyCrbAMgkBNy4Az
+ dDDPmFaQbazg==
+X-IronPort-AV: E=Sophos;i="5.78,374,1599548400"; d="scan'208";a="548029375"
 Received: from mjgleeso-mobl.ger.corp.intel.com (HELO
  mwauld-desk1.ger.corp.intel.com) ([10.251.85.2])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Nov 2020 04:10:39 -0800
+ 27 Nov 2020 04:10:29 -0800
 From: Matthew Auld <matthew.auld@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 27 Nov 2020 12:06:21 +0000
-Message-Id: <20201127120718.454037-106-matthew.auld@intel.com>
+Date: Fri, 27 Nov 2020 12:06:15 +0000
+Message-Id: <20201127120718.454037-100-matthew.auld@intel.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20201127120718.454037-1-matthew.auld@intel.com>
 References: <20201127120718.454037-1-matthew.auld@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [RFC PATCH 105/162] drm/i915: Provide a way to disable
- PCIe relaxed write ordering
+Subject: [Intel-gfx] [RFC PATCH 099/162] drm/i915/gtt/dgfx: place the PD in
+ LMEM
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,69 +61,110 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Abdiel Janulgue <abdiel.janulgue@linux.intel.com>,
- dri-devel@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Abdiel Janulgue <abdiel.janulgue@linux.intel.com>
+It's a requirement that for dgfx we place all the paging structures in
+device local-memory.
 
-For performance writes over PCIe may not be strictly ordered by default.
-This provides an option to expose a kernel configuration option to disable
-relaxed ordering and turn on strict ordering instead for debug purposes.
-
-Signed-off-by: Abdiel Janulgue <abdiel.janulgue@linux.intel.com>
-Signed-off-by: Stuart Summers <stuart.summers@intel.com>
-Cc: Matthew Auld <matthew.auld@intel.com>
+Signed-off-by: Matthew Auld <matthew.auld@intel.com>
 ---
- drivers/gpu/drm/i915/Kconfig.debug         | 11 +++++++++++
- drivers/gpu/drm/i915/intel_memory_region.c | 12 ++++++++++++
- 2 files changed, 23 insertions(+)
+ drivers/gpu/drm/i915/gt/gen8_ppgtt.c |  5 ++++-
+ drivers/gpu/drm/i915/gt/intel_gtt.c  | 27 +++++++++++++++++++++++++--
+ drivers/gpu/drm/i915/gt/intel_gtt.h  |  1 +
+ 3 files changed, 30 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/Kconfig.debug b/drivers/gpu/drm/i915/Kconfig.debug
-index 0fb7fd0ef717..65533cbbcb82 100644
---- a/drivers/gpu/drm/i915/Kconfig.debug
-+++ b/drivers/gpu/drm/i915/Kconfig.debug
-@@ -222,3 +222,14 @@ config DRM_I915_DEBUG_RUNTIME_PM
- 	  driver loading, suspend and resume operations.
+diff --git a/drivers/gpu/drm/i915/gt/gen8_ppgtt.c b/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
+index a3093dd4b86d..f67e0332ccbc 100644
+--- a/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
++++ b/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
+@@ -702,7 +702,10 @@ struct i915_ppgtt *gen8_ppgtt_create(struct intel_gt *gt)
+ 	 */
+ 	ppgtt->vm.has_read_only = !IS_GEN_RANGE(gt->i915, 11, 12);
  
- 	  If in doubt, say "N"
+-	ppgtt->vm.alloc_pt_dma = alloc_pt_dma;
++	if (IS_DGFX(gt->i915))
++		ppgtt->vm.alloc_pt_dma = alloc_pt_lmem;
++	else
++		ppgtt->vm.alloc_pt_dma = alloc_pt_dma;
+ 
+ 	err = gen8_init_scratch(&ppgtt->vm);
+ 	if (err)
+diff --git a/drivers/gpu/drm/i915/gt/intel_gtt.c b/drivers/gpu/drm/i915/gt/intel_gtt.c
+index f3a263f09368..2605bfd39a15 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gtt.c
++++ b/drivers/gpu/drm/i915/gt/intel_gtt.c
+@@ -7,10 +7,23 @@
+ 
+ #include <linux/fault-inject.h>
+ 
++#include "gem/i915_gem_lmem.h"
+ #include "i915_trace.h"
+ #include "intel_gt.h"
+ #include "intel_gtt.h"
+ 
++struct drm_i915_gem_object *alloc_pt_lmem(struct i915_address_space *vm, int sz)
++{
++	struct drm_i915_gem_object *obj;
 +
-+config DRM_I915_PCIE_STRICT_WRITE_ORDERING
-+	bool "Enable PCIe strict ordering "
-+	depends on DRM_I915
-+	default n
-+	help
-+	  Relaxed ordering in writes is enabled by default to improve system
-+	  performance. Strict ordering can be selected instead to assist in
-+	  debugging.
++	obj = i915_gem_object_create_lmem(vm->i915, sz, 0);
 +
-+	  If in doubt, say "N".
-diff --git a/drivers/gpu/drm/i915/intel_memory_region.c b/drivers/gpu/drm/i915/intel_memory_region.c
-index cea44ddebe46..043541d409bd 100644
---- a/drivers/gpu/drm/i915/intel_memory_region.c
-+++ b/drivers/gpu/drm/i915/intel_memory_region.c
-@@ -286,6 +286,18 @@ int intel_memory_regions_hw_probe(struct drm_i915_private *i915)
++	/* ensure all dma objects have the same reservation class */
++	if (!IS_ERR(obj))
++		obj->base.resv = &vm->resv;
++	return obj;
++}
++
+ struct drm_i915_gem_object *alloc_pt_dma(struct i915_address_space *vm, int sz)
  {
- 	int err, i;
+ 	struct drm_i915_gem_object *obj;
+@@ -27,9 +40,14 @@ struct drm_i915_gem_object *alloc_pt_dma(struct i915_address_space *vm, int sz)
  
-+	/* All platforms currently have system memory */
-+	GEM_BUG_ON(!HAS_REGION(i915, REGION_SMEM));
+ int map_pt_dma(struct i915_address_space *vm, struct drm_i915_gem_object *obj)
+ {
++	enum i915_map_type type;
+ 	void *vaddr;
+ 
+-	vaddr = i915_gem_object_pin_map_unlocked(obj, I915_MAP_WB);
++	type = I915_MAP_WB;
++	if (i915_gem_object_is_lmem(obj))
++		type = I915_MAP_WC;
 +
-+	if (IS_DGFX(i915)) {
-+		if (IS_ENABLED(CONFIG_DRM_I915_PCIE_STRICT_WRITE_ORDERING))
-+			pcie_capability_clear_word(i915->drm.pdev, PCI_EXP_DEVCTL,
-+						   PCI_EXP_DEVCTL_RELAX_EN);
-+		else
-+			pcie_capability_set_word(i915->drm.pdev, PCI_EXP_DEVCTL,
-+						 PCI_EXP_DEVCTL_RELAX_EN);
-+	}
++	vaddr = i915_gem_object_pin_map_unlocked(obj, type);
+ 	if (IS_ERR(vaddr))
+ 		return PTR_ERR(vaddr);
+ 
+@@ -39,9 +57,14 @@ int map_pt_dma(struct i915_address_space *vm, struct drm_i915_gem_object *obj)
+ 
+ int map_pt_dma_locked(struct i915_address_space *vm, struct drm_i915_gem_object *obj)
+ {
++	enum i915_map_type type;
+ 	void *vaddr;
+ 
+-	vaddr = i915_gem_object_pin_map(obj, I915_MAP_WB);
++	type = I915_MAP_WB;
++	if (i915_gem_object_is_lmem(obj))
++		type = I915_MAP_WC;
 +
- 	for (i = 0; i < ARRAY_SIZE(i915->mm.regions); i++) {
- 		struct intel_memory_region *mem = ERR_PTR(-ENODEV);
- 		u16 type, instance;
++	vaddr = i915_gem_object_pin_map(obj, type);
+ 	if (IS_ERR(vaddr))
+ 		return PTR_ERR(vaddr);
+ 
+diff --git a/drivers/gpu/drm/i915/gt/intel_gtt.h b/drivers/gpu/drm/i915/gt/intel_gtt.h
+index 5b8ea9c8c654..bdbdfded60cc 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gtt.h
++++ b/drivers/gpu/drm/i915/gt/intel_gtt.h
+@@ -522,6 +522,7 @@ int setup_scratch_page(struct i915_address_space *vm);
+ void free_scratch(struct i915_address_space *vm);
+ 
+ struct drm_i915_gem_object *alloc_pt_dma(struct i915_address_space *vm, int sz);
++struct drm_i915_gem_object *alloc_pt_lmem(struct i915_address_space *vm, int sz);
+ struct i915_page_table *alloc_pt(struct i915_address_space *vm);
+ struct i915_page_directory *alloc_pd(struct i915_address_space *vm);
+ struct i915_page_directory *__alloc_pd(int npde);
 -- 
 2.26.2
 
