@@ -2,42 +2,42 @@ Return-Path: <SRS0=emkq=FB=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id ACE3BC63798
-	for <intel-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 14:07:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5BF2BC63798
+	for <intel-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 14:10:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2235D20679
-	for <intel-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 14:07:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2235D20679
+	by mail.kernel.org (Postfix) with ESMTPS id 13028206D8
+	for <intel-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 14:09:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 13028206D8
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 655206EDD5;
-	Fri, 27 Nov 2020 14:07:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6CC026EDD9;
+	Fri, 27 Nov 2020 14:09:55 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B4F566EDD5;
- Fri, 27 Nov 2020 14:07:11 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C4836EDD4;
+ Fri, 27 Nov 2020 14:09:52 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from localhost (unverified [78.156.65.138]) 
  by fireflyinternet.com (Firefly Internet (M1)) with ESMTP (TLS) id
- 23133993-1500050 for multiple; Fri, 27 Nov 2020 14:07:08 +0000
+ 23134028-1500050 for multiple; Fri, 27 Nov 2020 14:09:49 +0000
 MIME-Version: 1.0
-In-Reply-To: <20201127120718.454037-129-matthew.auld@intel.com>
+In-Reply-To: <20201127120718.454037-134-matthew.auld@intel.com>
 References: <20201127120718.454037-1-matthew.auld@intel.com>
- <20201127120718.454037-129-matthew.auld@intel.com>
+ <20201127120718.454037-134-matthew.auld@intel.com>
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: Matthew Auld <matthew.auld@intel.com>, intel-gfx@lists.freedesktop.org
-Date: Fri, 27 Nov 2020 14:07:07 +0000
-Message-ID: <160648602783.2925.6517069584093958650@build.alporthouse.com>
+Date: Fri, 27 Nov 2020 14:09:48 +0000
+Message-ID: <160648618890.2925.3011863341851416939@build.alporthouse.com>
 User-Agent: alot/0.9
-Subject: Re: [Intel-gfx] [RFC PATCH 128/162] drm/i915/dg1:
- intel_memory_region_evict() changes for eviction
+Subject: Re: [Intel-gfx] [RFC PATCH 133/162] drm/i915/dg1: Track swap in/out
+ stats via debugfs
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,16 +56,20 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Quoting Matthew Auld (2020-11-27 12:06:44)
-> From: CQ Tang <cq.tang@intel.com>
-> 
-> Function i915_gem_shrink_memory_region() is changed to
-> intel_memory_region_evict() and moved from i915_gem_shrinker.c
-> to intel_memory_region.c, this function is used to handle local
-> memory swapping, in addition to evict purgeable objects only.
+Quoting Matthew Auld (2020-11-27 12:06:49)
+> diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+> index 1366b53ac8c9..7b1e95d494e6 100644
+> --- a/drivers/gpu/drm/i915/i915_drv.h
+> +++ b/drivers/gpu/drm/i915/i915_drv.h
+> @@ -1214,6 +1214,9 @@ struct drm_i915_private {
+>          * NOTE: This is the dri1/ums dungeon, don't add stuff here. Your patch
+>          * will be rejected. Instead look for a better place.
+>          */
+> +
+> +       atomic_long_t num_bytes_swapped_out;
+> +       atomic_long_t num_bytes_swapped_in;
 
-We really do not want to conflate the system shrinker with eviction.
-Reservation based eviction looks nothing like the shrinker.
+Enough said. Don't mindlessly add fields.
 -Chris
 _______________________________________________
 Intel-gfx mailing list
