@@ -5,50 +5,50 @@ X-Spam-Level:
 X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 33B5CC63777
-	for <intel-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 12:15:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1905EC64E7A
+	for <intel-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 12:15:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DF56E208D5
-	for <intel-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 12:15:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DF56E208D5
+	by mail.kernel.org (Postfix) with ESMTPS id B64DF208D5
+	for <intel-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 12:15:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B64DF208D5
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3FAD36EDA4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F0096EDA7;
 	Fri, 27 Nov 2020 12:12:51 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E0726ED99;
- Fri, 27 Nov 2020 12:12:49 +0000 (UTC)
-IronPort-SDR: C0YMZUmPHDoldqDT735DnsWBQ7ANqqLrbSwp64jp+NVA3+ahypYpd7OdQR/tw3jZZwQyOBZOa+
- UfTdb5EXbnzg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9817"; a="168883897"
-X-IronPort-AV: E=Sophos;i="5.78,374,1599548400"; d="scan'208";a="168883897"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E3BF96ECE3;
+ Fri, 27 Nov 2020 12:12:47 +0000 (UTC)
+IronPort-SDR: d4TUJGcSyFiSi2BeInKXvDq+vtuWPKWPx+xc+nXG8JBtYXw7YEPEv6ppZ2gnFlJaPs3kaWptpn
+ mb/g9OfBt6fA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9817"; a="168883889"
+X-IronPort-AV: E=Sophos;i="5.78,374,1599548400"; d="scan'208";a="168883889"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Nov 2020 04:12:36 -0800
-IronPort-SDR: 4V6rosJSJouPjnIA8yUUWZ6ne6l+ETLqYYnW3i7QKva+l/CwJEPyqTVjq0r/UKPmkHU8qXAkuV
- ysKq0QXH0ATw==
-X-IronPort-AV: E=Sophos;i="5.78,374,1599548400"; d="scan'208";a="548030085"
+ 27 Nov 2020 04:12:30 -0800
+IronPort-SDR: hJ9uWPKTUe3z2RdeugnykWKbQ25OP9Xtf6/xYS8XCNfgi98e4Zz7GP0mh+X5WksoeQwVcDBXHW
+ 4JMd7gBcDAww==
+X-IronPort-AV: E=Sophos;i="5.78,374,1599548400"; d="scan'208";a="548030070"
 Received: from mjgleeso-mobl.ger.corp.intel.com (HELO
  mwauld-desk1.ger.corp.intel.com) ([10.251.85.2])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Nov 2020 04:12:35 -0800
+ 27 Nov 2020 04:12:29 -0800
 From: Matthew Auld <matthew.auld@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 27 Nov 2020 12:07:17 +0000
-Message-Id: <20201127120718.454037-162-matthew.auld@intel.com>
+Date: Fri, 27 Nov 2020 12:07:14 +0000
+Message-Id: <20201127120718.454037-159-matthew.auld@intel.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20201127120718.454037-1-matthew.auld@intel.com>
 References: <20201127120718.454037-1-matthew.auld@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [RFC PATCH 161/162] drm/i915/dg1: allow pci to auto
- probe
+Subject: [Intel-gfx] [RFC PATCH 158/162] drm/i915: Support ww locks in
+ suspend/resume
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,31 +61,102 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>, dri-devel@lists.freedesktop.org
+Cc: Venkata Ramana Nayana <venkata.ramana.nayana@intel.com>,
+ dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Lucas De Marchi <lucas.demarchi@intel.com>
+From: Venkata Ramana Nayana <venkata.ramana.nayana@intel.com>
 
-Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+Add ww locks during suspend/resume.
+
+Signed-off-by: Venkata Ramana Nayana <venkata.ramana.nayana@intel.com>
 ---
- drivers/gpu/drm/i915/i915_pci.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/i915/i915_drv.c | 33 ++++++++++++++++++---------------
+ 1 file changed, 18 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
-index c3d9b36ef651..603976b9a973 100644
---- a/drivers/gpu/drm/i915/i915_pci.c
-+++ b/drivers/gpu/drm/i915/i915_pci.c
-@@ -1001,6 +1001,7 @@ static const struct pci_device_id pciidlist[] = {
- 	INTEL_JSL_IDS(&jsl_info),
- 	INTEL_TGL_12_IDS(&tgl_info),
- 	INTEL_RKL_IDS(&rkl_info),
-+	INTEL_DG1_IDS(&dg1_info),
- 	{0, 0, 0}
- };
- MODULE_DEVICE_TABLE(pci, pciidlist);
+diff --git a/drivers/gpu/drm/i915/i915_drv.c b/drivers/gpu/drm/i915/i915_drv.c
+index b7d40a9c00bf..c41865d5bf1e 100644
+--- a/drivers/gpu/drm/i915/i915_drv.c
++++ b/drivers/gpu/drm/i915/i915_drv.c
+@@ -1099,7 +1099,7 @@ static int i915_drm_prepare(struct drm_device *dev)
+ 	struct drm_i915_private *i915 = to_i915(dev);
+ 
+ 	if (HAS_LMEM(i915))     {
+-		struct intel_gt *gt= &i915->gt;
++		struct intel_gt *gt = &i915->gt;
+ 		long timeout = I915_GEM_IDLE_TIMEOUT;
+ 		int ret;
+ 
+@@ -1182,7 +1182,8 @@ static int intel_dmem_evict_buffers(struct drm_device *dev, bool in_suspend,
+ 	struct drm_i915_private *i915 = to_i915(dev);
+ 	struct drm_i915_gem_object *obj;
+ 	struct intel_memory_region *mem;
+-	int id, ret = 0;
++	struct i915_gem_ww_ctx ww;
++	int id, ret = 0, err = 0;
+ 
+ 	for_each_memory_region(mem, i915, id) {
+ 		struct list_head still_in_list;
+@@ -1204,19 +1205,20 @@ static int intel_dmem_evict_buffers(struct drm_device *dev, bool in_suspend,
+ 
+ 				mutex_unlock(&mem->objects.lock);
+ 
++				i915_gem_ww_ctx_init (&ww, true);
++retry:
++				err = i915_gem_object_lock(obj, &ww);
++				if (err)
++					goto out_err;
++
+ 				if (in_suspend) {
+ 					obj->swapto = NULL;
+ 					obj->evicted = false;
+ 
+ 					ret = i915_gem_object_unbind(obj, 0);
+ 					if (ret || i915_gem_object_has_pinned_pages(obj)) {
+-						if (!i915_gem_object_trylock(obj)) {
+-							ret = -EBUSY;
+-							goto next;
+-						}
+ 						ret = i915_gem_perma_pinned_object_swapout(obj);
+-						i915_gem_object_unlock(obj);
+-						goto next;
++						goto out_err;
+ 					}
+ 
+ 					obj->do_swapping = true;
+@@ -1228,13 +1230,7 @@ static int intel_dmem_evict_buffers(struct drm_device *dev, bool in_suspend,
+ 						obj->evicted = true;
+ 				} else {
+ 					if (i915_gem_object_has_pinned_pages(obj) && perma_pin) {
+-						if (!i915_gem_object_trylock(obj)) {
+-							ret = -EBUSY;
+-							goto next;
+-						}
+ 						ret = i915_gem_perma_pinned_object_swapin(obj);
+-						/* FIXME: Where is this error message taken care of? */
+-						i915_gem_object_unlock(obj);
+ 					}
+ 
+ 					if (obj->swapto && obj->evicted && !perma_pin) {
+@@ -1247,7 +1243,14 @@ static int intel_dmem_evict_buffers(struct drm_device *dev, bool in_suspend,
+ 						}
+ 					}
+ 				}
+-next:
++out_err:
++				if (err ==  -EDEADLK) {
++					err = i915_gem_ww_ctx_backoff(&ww);
++					if (!err)
++						goto retry;
++				}
++				i915_gem_ww_ctx_fini(&ww);
++
+ 				mutex_lock(&mem->objects.lock);
+ 				if (ret)
+ 					break;
 -- 
 2.26.2
 
