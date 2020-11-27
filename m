@@ -2,43 +2,43 @@ Return-Path: <SRS0=emkq=FB=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B580DC64E75
-	for <intel-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 13:30:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7594DC63798
+	for <intel-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 13:32:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5AC782087C
-	for <intel-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 13:30:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5AC782087C
+	by mail.kernel.org (Postfix) with ESMTPS id 310592087C
+	for <intel-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 13:32:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 310592087C
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D26A6EDB2;
-	Fri, 27 Nov 2020 13:30:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 000B56EDBE;
+	Fri, 27 Nov 2020 13:32:03 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 672F36EDB0;
- Fri, 27 Nov 2020 13:30:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B222A6EDBD;
+ Fri, 27 Nov 2020 13:32:01 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from localhost (unverified [78.156.65.138]) 
  by fireflyinternet.com (Firefly Internet (M1)) with ESMTP (TLS) id
- 23133422-1500050 for multiple; Fri, 27 Nov 2020 13:30:48 +0000
+ 23133447-1500050 for multiple; Fri, 27 Nov 2020 13:31:58 +0000
 MIME-Version: 1.0
-In-Reply-To: <20201127120718.454037-98-matthew.auld@intel.com>
+In-Reply-To: <20201127120718.454037-99-matthew.auld@intel.com>
 References: <20201127120718.454037-1-matthew.auld@intel.com>
- <20201127120718.454037-98-matthew.auld@intel.com>
+ <20201127120718.454037-99-matthew.auld@intel.com>
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: Matthew Auld <matthew.auld@intel.com>, intel-gfx@lists.freedesktop.org
-Date: Fri, 27 Nov 2020 13:30:48 +0000
-Message-ID: <160648384816.2925.16577141354577339264@build.alporthouse.com>
+Date: Fri, 27 Nov 2020 13:31:57 +0000
+Message-ID: <160648391794.2925.9163508633021117030@build.alporthouse.com>
 User-Agent: alot/0.9
-Subject: Re: [Intel-gfx] [RFC PATCH 097/162] drm/i915: Distinction of memory
- regions
+Subject: Re: [Intel-gfx] [RFC PATCH 098/162] drm/i915/gtt: map the PD up
+ front
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,36 +51,26 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Adam Miszczak <adam.miszczak@intel.com>, dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-UXVvdGluZyBNYXR0aGV3IEF1bGQgKDIwMjAtMTEtMjcgMTI6MDY6MTMpCj4gRnJvbTogWmJpZ25p
-ZXcgS2VtcGN6ecWEc2tpIDx6Ymlnbmlldy5rZW1wY3p5bnNraUBpbnRlbC5jb20+Cj4gCj4gSUdU
-cyBzaG91bGQgYmUgYWJsZSB0byBjaG9vc2UgdGVzdGluZyBzdHJhdGVneSBkZXBlbmRpbmcgb24g
-bWVtb3J5Cj4gcmVnaW9ucyBhbmQgaXRzIHNpemVzLiBBZGQgcmVnaW9uIGluc3RhbmNlIG51bWJl
-ciB0byBtYWtlIHRoaXMKPiBlYXNpZXIgYW5kIGRlc2NyaXB0aXZlLgo+IAo+IENjOiBNYXR0aGV3
-IEF1bGQgPG1hdHRoZXcuYXVsZEBpbnRlbC5jb20+Cj4gQ2M6IFJhbWFsaW5nYW0gQyA8cmFtYWxp
-bmdhbS5jQGludGVsLmNvbT4KPiBDYzogVHZydGtvIFVyc3VsaW4gPHR2cnRrby51cnN1bGluQGlu
-dGVsLmNvbT4KPiBDYzogQWRhbSBNaXN6Y3phayA8YWRhbS5taXN6Y3pha0BpbnRlbC5jb20+Cj4g
-U2lnbmVkLW9mZi1ieTogWmJpZ25pZXcgS2VtcGN6ecWEc2tpIDx6Ymlnbmlldy5rZW1wY3p5bnNr
-aUBpbnRlbC5jb20+Cj4gLS0tCj4gIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2ludGVsX21lbW9yeV9y
-ZWdpb24uYyB8IDQgKysrKwo+ICAxIGZpbGUgY2hhbmdlZCwgNCBpbnNlcnRpb25zKCspCj4gCj4g
-ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2ludGVsX21lbW9yeV9yZWdpb24uYyBi
-L2RyaXZlcnMvZ3B1L2RybS9pOTE1L2ludGVsX21lbW9yeV9yZWdpb24uYwo+IGluZGV4IDFmMjZi
-YzA2ZWMyMC4uY2VhNDRkZGViZTQ2IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1
-L2ludGVsX21lbW9yeV9yZWdpb24uYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2ludGVs
-X21lbW9yeV9yZWdpb24uYwo+IEBAIC0zMjksNiArMzI5LDEwIEBAIGludCBpbnRlbF9tZW1vcnlf
-cmVnaW9uc19od19wcm9iZShzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqaTkxNSkKPiAgICAgICAg
-ICAgICAgICAgbWVtLT5pbnN0YW5jZSA9IGluc3RhbmNlOwo+ICAgICAgICAgICAgICAgICBtZW0t
-Pmd0ID0gJmk5MTUtPmd0Owo+ICAKPiArICAgICAgICAgICAgICAgaWYgKEhBU19MTUVNKG1lbS0+
-aTkxNSkgJiYgdHlwZSAhPSBJTlRFTF9NRU1PUllfU1lTVEVNKQo+ICsgICAgICAgICAgICAgICAg
-ICAgICAgIGludGVsX21lbW9yeV9yZWdpb25fc2V0X25hbWUobWVtLCAiJXMldSIsCj4gKyAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBtZW0tPm5hbWUs
-IG1lbS0+aW5zdGFuY2UpOwoKc3ByaW50ZihtZW0tPm5hbWUsICIlcyIsIG1lbS0+bmFtZSkKCmlz
-IHRoYXQgZXZlbiBkZWZpbmVkIGJlaGF2aW91cj8KLUNocmlzCl9fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fCkludGVsLWdmeCBtYWlsaW5nIGxpc3QKSW50ZWwt
-Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
-YWlsbWFuL2xpc3RpbmZvL2ludGVsLWdmeAo=
+Quoting Matthew Auld (2020-11-27 12:06:14)
+> We need to general our accessor for the page directories and tables from
+> using the simple kmap_atomic to support local memory, and this setup
+> must be done on acquisition of the backing storage prior to entering
+> fence execution contexts. Here we replace the kmap with the object
+> maping code that for simple single page shmemfs object will return a
+> plain kmap, that is then kept for the lifetime of the page directory.
+> 
+> Signed-off-by: Matthew Auld <matthew.auld@intel.com>
+> Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+
+We are going to really struggle with this on 32b :(
+-Chris
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
