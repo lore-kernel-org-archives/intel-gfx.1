@@ -5,50 +5,49 @@ X-Spam-Level:
 X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A9914C63777
-	for <intel-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 12:14:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1C063C2D0E4
+	for <intel-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 12:15:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5F263208D5
-	for <intel-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 12:14:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5F263208D5
+	by mail.kernel.org (Postfix) with ESMTPS id CD726208D5
+	for <intel-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 12:15:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CD726208D5
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F5146EDAC;
-	Fri, 27 Nov 2020 12:12:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 532AD6EDBC;
+	Fri, 27 Nov 2020 12:12:34 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C33A56EDBA;
- Fri, 27 Nov 2020 12:12:29 +0000 (UTC)
-IronPort-SDR: 9dDQQspKjrmXH7atu8o3l5fg3yERmfkPzVSQ6IiwYWK4swAKq6UYcv2olex32SfRu1PZTwFKwg
- pxAuWm5XinvQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9817"; a="168883884"
-X-IronPort-AV: E=Sophos;i="5.78,374,1599548400"; d="scan'208";a="168883884"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 568876ED99;
+ Fri, 27 Nov 2020 12:12:24 +0000 (UTC)
+IronPort-SDR: 2uhIygGFZgNGE3oWuCJ7RoTgG4zhjCDJL5VoFOw8ZshgV2PbJCJqnIPf+ZAydkwvOBf2V50x3P
+ wyCsIIznB4lg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9817"; a="168883874"
+X-IronPort-AV: E=Sophos;i="5.78,374,1599548400"; d="scan'208";a="168883874"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Nov 2020 04:12:29 -0800
-IronPort-SDR: nd3KDRjTV6IrYvqYc9KmtDS/WSr4wLN2SdptmaxfjmsSazMbi29AqJUbz25MRECv637HcbF5tU
- 7KicT7r6cFwg==
-X-IronPort-AV: E=Sophos;i="5.78,374,1599548400"; d="scan'208";a="548030065"
+ 27 Nov 2020 04:12:24 -0800
+IronPort-SDR: yKsGyvY10ZZOxNxczYVOZPKqmseGXqD6+4lFSIndT1Hh4jVoWvN9KVCNvR2E/RFuVmx2HAG6Da
+ /wbhFHajsm7A==
+X-IronPort-AV: E=Sophos;i="5.78,374,1599548400"; d="scan'208";a="548030043"
 Received: from mjgleeso-mobl.ger.corp.intel.com (HELO
  mwauld-desk1.ger.corp.intel.com) ([10.251.85.2])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Nov 2020 04:12:27 -0800
+ 27 Nov 2020 04:12:22 -0800
 From: Matthew Auld <matthew.auld@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 27 Nov 2020 12:07:13 +0000
-Message-Id: <20201127120718.454037-158-matthew.auld@intel.com>
+Date: Fri, 27 Nov 2020 12:07:10 +0000
+Message-Id: <20201127120718.454037-155-matthew.auld@intel.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20201127120718.454037-1-matthew.auld@intel.com>
 References: <20201127120718.454037-1-matthew.auld@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [RFC PATCH 157/162] drm/i915: Improve accuracy of
- eviction stats
+Subject: [Intel-gfx] [RFC PATCH 154/162] drm/i915: Support ww eviction
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,353 +60,144 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@intel.com>,
+ dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-
-Current code uses jiffie time to do the accounting and then does:
-
-  diff = jiffies - start;
-  msec = diff * 1000 / HZ;
-  ...
-  atomic_long_add(msec, &i915->time_swap_out_ms);
-
-If we assume jiffie can be as non-granular as 10ms and that the current
-accounting records all evictions faster than one jiffie as infinite speed,
-we can end up over-estimating the reported eviction throughput.
-
-Fix this by accumulating ktime_t and only dividing to more user friendly
-granularity at presentation time (debugfs read).
-
-At the same time consolidate the code a bit and convert from multiple
-atomics to single seqlock per stat.
-
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-Cc: CQ Tang <cq.tang@intel.com>
-Cc: Sudeep Dutt <sudeep.dutt@intel.com>
-Cc: Mika Kuoppala <mika.kuoppala@linux.intel.com>
----
- drivers/gpu/drm/i915/gem/i915_gem_region.c | 67 ++++++++++----------
- drivers/gpu/drm/i915/i915_debugfs.c        | 73 +++++++++++-----------
- drivers/gpu/drm/i915/i915_drv.h            | 25 +++++---
- drivers/gpu/drm/i915/i915_gem.c            |  5 ++
- 4 files changed, 90 insertions(+), 80 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_region.c b/drivers/gpu/drm/i915/gem/i915_gem_region.c
-index 8ec59fbaa3e6..1a390e502d5a 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_region.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_region.c
-@@ -9,14 +9,29 @@
- #include "i915_trace.h"
- #include "i915_gem_mman.h"
- 
-+static void
-+__update_stat(struct i915_mm_swap_stat *stat,
-+	      unsigned long pages,
-+	      ktime_t start)
-+{
-+	if (stat) {
-+		start = ktime_get() - start;
-+
-+		write_seqlock(&stat->lock);
-+		stat->time = ktime_add(stat->time, start);
-+		stat->pages += pages;
-+		write_sequnlock(&stat->lock);
-+	}
-+}
-+
- static int
- i915_gem_object_swapout_pages(struct drm_i915_gem_object *obj,
- 			      struct sg_table *pages, unsigned int sizes)
- {
- 	struct drm_i915_private *i915 = to_i915(obj->base.dev);
-+	struct i915_mm_swap_stat *stat = NULL;
- 	struct drm_i915_gem_object *dst, *src;
--	unsigned long start, diff, msec;
--	bool blt_completed = false;
-+	ktime_t start = ktime_get();
- 	int err = -EINVAL;
- 
- 	GEM_BUG_ON(obj->swapto);
-@@ -26,7 +41,6 @@ i915_gem_object_swapout_pages(struct drm_i915_gem_object *obj,
- 	GEM_BUG_ON(!i915->params.enable_eviction);
- 
- 	assert_object_held(obj);
--	start = jiffies;
- 
- 	/* create a shadow object on smem region */
- 	dst = i915_gem_object_create_shmem(i915, obj->base.size);
-@@ -58,10 +72,14 @@ i915_gem_object_swapout_pages(struct drm_i915_gem_object *obj,
- 	if (i915->params.enable_eviction >= 2) {
- 		err = i915_window_blt_copy(dst, src);
- 		if (!err)
--			blt_completed = true;
-+			stat = &i915->mm.blt_swap_stats.out;
- 	}
--	if (err && i915->params.enable_eviction != 2)
-+
-+	if (err && i915->params.enable_eviction != 2) {
- 		err = i915_gem_object_memcpy(dst, src);
-+		if (!err)
-+			stat = &i915->mm.memcpy_swap_stats.out;
-+	}
- 
- 	__i915_gem_object_unpin_pages(src);
- 	__i915_gem_object_unset_pages(src);
-@@ -73,18 +91,7 @@ i915_gem_object_swapout_pages(struct drm_i915_gem_object *obj,
- 	else
- 		i915_gem_object_put(dst);
- 
--	if (!err) {
--		diff = jiffies - start;
--		msec = diff * 1000 / HZ;
--		if (blt_completed) {
--			atomic_long_add(sizes, &i915->num_bytes_swapped_out);
--			atomic_long_add(msec, &i915->time_swap_out_ms);
--		} else {
--			atomic_long_add(sizes,
--					&i915->num_bytes_swapped_out_memcpy);
--			atomic_long_add(msec, &i915->time_swap_out_ms_memcpy);
--		}
--	}
-+	__update_stat(stat, sizes >> PAGE_SHIFT, start);
- 
- 	return err;
- }
-@@ -94,9 +101,9 @@ i915_gem_object_swapin_pages(struct drm_i915_gem_object *obj,
- 			     struct sg_table *pages, unsigned int sizes)
- {
- 	struct drm_i915_private *i915 = to_i915(obj->base.dev);
-+	struct i915_mm_swap_stat *stat = NULL;
- 	struct drm_i915_gem_object *dst, *src;
--	unsigned long start, diff, msec;
--	bool blt_completed = false;
-+	ktime_t start = ktime_get();
- 	int err = -EINVAL;
- 
- 	GEM_BUG_ON(!obj->swapto);
-@@ -106,7 +113,6 @@ i915_gem_object_swapin_pages(struct drm_i915_gem_object *obj,
- 	GEM_BUG_ON(!i915->params.enable_eviction);
- 
- 	assert_object_held(obj);
--	start = jiffies;
- 
- 	src = obj->swapto;
- 
-@@ -134,10 +140,14 @@ i915_gem_object_swapin_pages(struct drm_i915_gem_object *obj,
- 	if (i915->params.enable_eviction >= 2) {
- 		err = i915_window_blt_copy(dst, src);
- 		if (!err)
--			blt_completed = true;
-+			stat = &i915->mm.blt_swap_stats.in;
- 	}
--	if (err && i915->params.enable_eviction != 2)
-+
-+	if (err && i915->params.enable_eviction != 2) {
- 		err = i915_gem_object_memcpy(dst, src);
-+		if (!err)
-+			stat = &i915->mm.memcpy_swap_stats.in;
-+	}
- 
- 	__i915_gem_object_unpin_pages(dst);
- 	__i915_gem_object_unset_pages(dst);
-@@ -149,18 +159,7 @@ i915_gem_object_swapin_pages(struct drm_i915_gem_object *obj,
- 		i915_gem_object_put(src);
- 	}
- 
--	if (!err) {
--		diff = jiffies - start;
--		msec = diff * 1000 / HZ;
--		if (blt_completed) {
--			atomic_long_add(sizes, &i915->num_bytes_swapped_in);
--			atomic_long_add(msec, &i915->time_swap_in_ms);
--		} else {
--			atomic_long_add(sizes,
--					&i915->num_bytes_swapped_in_memcpy);
--			atomic_long_add(msec, &i915->time_swap_in_ms_memcpy);
--		}
--	}
-+	__update_stat(stat, sizes >> PAGE_SHIFT, start);
- 
- 	return err;
- }
-diff --git a/drivers/gpu/drm/i915/i915_debugfs.c b/drivers/gpu/drm/i915/i915_debugfs.c
-index 983030ac39e1..f06f900b598e 100644
---- a/drivers/gpu/drm/i915/i915_debugfs.c
-+++ b/drivers/gpu/drm/i915/i915_debugfs.c
-@@ -359,12 +359,46 @@ static void print_context_stats(struct seq_file *m,
- 	print_file_stats(m, "[k]contexts", kstats);
- }
- 
-+static void
-+evict_stat(struct seq_file *m,
-+	   const char *name,
-+	   const char *direction,
-+	   struct i915_mm_swap_stat *stat)
-+{
-+	unsigned long pages;
-+	unsigned int seq;
-+	u64 time, rate;
-+	ktime_t ktime;
-+
-+	do {
-+		seq = read_seqbegin(&stat->lock);
-+		pages = stat->pages;
-+		ktime = stat->time;
-+	} while (read_seqretry(&stat->lock, seq));
-+
-+	time = ktime_to_us(ktime);
-+	rate = time ? div64_u64((u64)pages * PAGE_SIZE, time) : 0;
-+	rate = div64_ul(rate * USEC_PER_SEC, 1024 * 1024);
-+
-+	seq_printf(m, "%s swap %s %lu MiB in %llums, %llu MiB/s.\n",
-+		   name, direction, pages * PAGE_SIZE, ktime_to_ms(ktime),
-+		   rate);
-+}
-+
-+static void
-+evict_stats(struct seq_file *m,
-+	    const char *name,
-+	    struct i915_mm_swap_stats *stats)
-+{
-+	evict_stat(m, name, "in", &stats->in);
-+	evict_stat(m, name, "out", &stats->out);
-+}
-+
- static int i915_gem_object_info(struct seq_file *m, void *data)
- {
- 	struct drm_i915_private *i915 = node_to_i915(m->private);
- 	struct intel_memory_region *mr;
- 	enum intel_region_id id;
--	u64 time, bytes, rate;
- 
- 	seq_printf(m, "%u shrinkable [%u free] objects, %llu bytes\n",
- 		   i915->mm.shrink_count,
-@@ -374,41 +408,8 @@ static int i915_gem_object_info(struct seq_file *m, void *data)
- 		seq_printf(m, "%s: total:%pa, available:%pa bytes\n",
- 			   mr->name, &mr->total, &mr->avail);
- 
--	time = atomic_long_read(&i915->time_swap_out_ms);
--	bytes = atomic_long_read(&i915->num_bytes_swapped_out);
--	if (time)
--		rate = div64_u64(bytes * 1000, time * 1024 * 1024);
--	else
--		rate = 0;
--	seq_printf(m, "BLT: swapout %llu Bytes in %llu mSec(%llu MB/Sec)\n",
--		   bytes, time, rate);
--
--	time = atomic_long_read(&i915->time_swap_in_ms);
--	bytes = atomic_long_read(&i915->num_bytes_swapped_in);
--	if (time)
--		rate = div64_u64(bytes * 1000, time * 1024 * 1024);
--	else
--		rate = 0;
--	seq_printf(m, "BLT: swapin %llu Bytes in %llu mSec(%llu MB/Sec)\n",
--		   bytes, time, rate);
--
--	time = atomic_long_read(&i915->time_swap_out_ms_memcpy);
--	bytes = atomic_long_read(&i915->num_bytes_swapped_out_memcpy);
--	if (time)
--		rate = div64_u64(bytes * 1000, time * 1024 * 1024);
--	else
--		rate = 0;
--	seq_printf(m, "Memcpy: swapout %llu Bytes in %llu mSec(%llu MB/Sec)\n",
--		   bytes, time, rate);
--
--	time = atomic_long_read(&i915->time_swap_in_ms_memcpy);
--	bytes = atomic_long_read(&i915->num_bytes_swapped_in_memcpy);
--	if (time)
--		rate = div64_u64(bytes * 1000, time * 1024 * 1024);
--	else
--		rate = 0;
--	seq_printf(m, "Memcpy: swapin %llu Bytes in %llu mSec(%llu MB/Sec)\n",
--		   bytes, time, rate);
-+	evict_stats(m, "Blitter", &i915->mm.blt_swap_stats);
-+	evict_stats(m, "Memcpy", &i915->mm.memcpy_swap_stats);
- 	seq_putc(m, '\n');
- 
- 	print_context_stats(m, i915);
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index 6f0ab363bdee..45511f2d8da0 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -49,6 +49,7 @@
- #include <linux/shmem_fs.h>
- #include <linux/stackdepot.h>
- #include <linux/xarray.h>
-+#include <linux/seqlock.h>
- 
- #include <drm/intel-gtt.h>
- #include <drm/drm_legacy.h> /* for struct drm_dma_handle */
-@@ -548,6 +549,17 @@ struct intel_l3_parity {
- 	int which_slice;
- };
- 
-+struct i915_mm_swap_stat {
-+	seqlock_t lock;
-+	unsigned long pages;
-+	ktime_t time;
-+};
-+
-+struct i915_mm_swap_stats {
-+	struct i915_mm_swap_stat in;
-+	struct i915_mm_swap_stat out;
-+};
-+
- struct i915_gem_mm {
- 	/* Protects bound_list/unbound_list and #drm_i915_gem_object.mm.link */
- 	spinlock_t obj_lock;
-@@ -601,6 +613,9 @@ struct i915_gem_mm {
- 
- 	/* To protect above two set of vmas */
- 	wait_queue_head_t window_queue;
-+
-+	struct i915_mm_swap_stats blt_swap_stats;
-+	struct i915_mm_swap_stats memcpy_swap_stats;
- };
- 
- #define I915_IDLE_ENGINES_TIMEOUT (200) /* in ms */
-@@ -1220,16 +1235,6 @@ struct drm_i915_private {
- 	 * NOTE: This is the dri1/ums dungeon, don't add stuff here. Your patch
- 	 * will be rejected. Instead look for a better place.
- 	 */
--
--	atomic_long_t num_bytes_swapped_out;
--	atomic_long_t num_bytes_swapped_in;
--	atomic_long_t time_swap_out_ms;
--	atomic_long_t time_swap_in_ms;
--
--	atomic_long_t num_bytes_swapped_out_memcpy;
--	atomic_long_t num_bytes_swapped_in_memcpy;
--	atomic_long_t time_swap_out_ms_memcpy;
--	atomic_long_t time_swap_in_ms_memcpy;
- };
- 
- static inline struct drm_i915_private *to_i915(const struct drm_device *dev)
-diff --git a/drivers/gpu/drm/i915/i915_gem.c b/drivers/gpu/drm/i915/i915_gem.c
-index 85cbdb8e2bb8..e94f3f689b30 100644
---- a/drivers/gpu/drm/i915/i915_gem.c
-+++ b/drivers/gpu/drm/i915/i915_gem.c
-@@ -1151,6 +1151,11 @@ static void i915_gem_init__mm(struct drm_i915_private *i915)
- 	INIT_LIST_HEAD(&i915->mm.purge_list);
- 	INIT_LIST_HEAD(&i915->mm.shrink_list);
- 
-+	seqlock_init(&i915->mm.blt_swap_stats.in.lock);
-+	seqlock_init(&i915->mm.blt_swap_stats.out.lock);
-+	seqlock_init(&i915->mm.memcpy_swap_stats.in.lock);
-+	seqlock_init(&i915->mm.memcpy_swap_stats.out.lock);
-+
- 	i915_gem_init__objects(i915);
- }
- 
--- 
-2.26.2
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+RnJvbTogVGhvbWFzIEhlbGxzdHLDtm0gPHRob21hcy5oZWxsc3Ryb21AaW50ZWwuY29tPgoKVXNl
+IHNsZWVwaW5nIHd3IGxvY2tzIGlmIHdlJ3JlIGluIGEgd3cgdHJhbnNhY3Rpb24uClRyeWxvY2sg
+b3RoZXJ3aXNlLgpXZSB1bmxvY2sgdGhlIGV2aWN0ZWQgb2JqZWN0cyBlaXRoZXIgd2hlbiBldmlj
+dGlvbiBmYWlsZWQgb3IKd2hlbiB3ZSd2ZSByZWFjaGVkIHRoZSB0YXJnZXQuIFRoZSB3dyB0aWNr
+ZXQgbG9ja3Mgd2lsbCB0aGVuCmVuc3VyZSB3ZSB3aWxsIGV2ZW50dWFsbHkgc3VjY2VlZCByZWFj
+aGluZyB0aGUgdGFyZ2V0IGlmIHRoZXJlCmlzIGV2aWN0YWJsZSBzcGFjZSBhdmFpbGFibGUuIEhv
+d2V2ZXIgYW5vdGhlciBwcm9jZXNzIG1heSBzdGlsbApzdGVhbCB0aGUgZXZpY3RlZCBtZW1vcnkg
+YmVmb3JlIHdlIGhhdmUgYSBjaGFuY2UgdG8gYWxsb2NhdGUgaXQuClRvIGVuc3VyZSB3ZSBldmVu
+dHVhbGx5IHN1Y2NlZWQgd2UgbmVlZCB0byBtb3ZlIHRoZSBldmljdCB1bmxvY2sKdW50aWwgYWZ0
+ZXIgZ2V0IHBhZ2VzIHN1Y2NlZWRzLiBUaGF0J3MgY29uc2lkZXJlZCBhIFRPRE8gZm9yIG5vdy4K
+ClNpZ25lZC1vZmYtYnk6IFRob21hcyBIZWxsc3Ryw7ZtIDx0aG9tYXMuaGVsbHN0cm9tQGludGVs
+LmNvbT4KQ2M6IE1hdHRoZXcgQXVsZCA8bWF0dGhldy5hdWxkQGludGVsLmNvbT4KLS0tCiBkcml2
+ZXJzL2dwdS9kcm0vaTkxNS9nZW0vaTkxNV9nZW1fcmVnaW9uLmMgfCAgNyArKy0KIGRyaXZlcnMv
+Z3B1L2RybS9pOTE1L2ludGVsX21lbW9yeV9yZWdpb24uYyB8IDU3ICsrKysrKysrKysrKysrKyst
+LS0tLS0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2ludGVsX21lbW9yeV9yZWdpb24uaCB8ICAyICsK
+IDMgZmlsZXMgY2hhbmdlZCwgNDkgaW5zZXJ0aW9ucygrKSwgMTcgZGVsZXRpb25zKC0pCgpkaWZm
+IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ2VtL2k5MTVfZ2VtX3JlZ2lvbi5jIGIvZHJp
+dmVycy9ncHUvZHJtL2k5MTUvZ2VtL2k5MTVfZ2VtX3JlZ2lvbi5jCmluZGV4IDFlYzY1Mjg0OThj
+OC4uOGVjNTlmYmFhM2U2IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9nZW0vaTkx
+NV9nZW1fcmVnaW9uLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ2VtL2k5MTVfZ2VtX3Jl
+Z2lvbi5jCkBAIC0yMDQsNiArMjA0LDcgQEAgaTkxNV9nZW1fb2JqZWN0X2dldF9wYWdlc19idWRk
+eShzdHJ1Y3QgZHJtX2k5MTVfZ2VtX29iamVjdCAqb2JqKQogCXN0cnVjdCBzY2F0dGVybGlzdCAq
+c2c7CiAJdW5zaWduZWQgaW50IHNnX3BhZ2Vfc2l6ZXM7CiAJaW50IHJldDsKKwlzdHJ1Y3QgaTkx
+NV9nZW1fd3dfY3R4ICp3dyA9IGk5MTVfZ2VtX2dldF9sb2NraW5nX2N0eChvYmopOwogCiAJLyog
+WFhYOiBDaGVjayBpZiB3ZSBoYXZlIGFueSBwb3N0LiBUaGlzIGlzIG5hc3R5IGhhY2ssIHNlZSBn
+ZW1fY3JlYXRlICovCiAJaWYgKG9iai0+bW0uZ2VtX2NyZWF0ZV9wb3N0ZWRfZXJyKQpAQCAtMjIy
+LDcgKzIyMyw4IEBAIGk5MTVfZ2VtX29iamVjdF9nZXRfcGFnZXNfYnVkZHkoc3RydWN0IGRybV9p
+OTE1X2dlbV9vYmplY3QgKm9iaikKIAlpZiAob2JqLT5mbGFncyAmIEk5MTVfQk9fQUxMT0NfQ09O
+VElHVU9VUykKIAkJZmxhZ3MgfD0gSTkxNV9BTExPQ19DT05USUdVT1VTOwogCi0JcmV0ID0gX19p
+bnRlbF9tZW1vcnlfcmVnaW9uX2dldF9wYWdlc19idWRkeShtZW0sIHNpemUsIGZsYWdzLCBibG9j
+a3MpOworCXJldCA9IF9faW50ZWxfbWVtb3J5X3JlZ2lvbl9nZXRfcGFnZXNfYnVkZHkobWVtLCB3
+dywgc2l6ZSwgZmxhZ3MsCisJCQkJCQkgICAgYmxvY2tzKTsKIAlpZiAocmV0KQogCQlnb3RvIGVy
+cl9mcmVlX3NnOwogCkBAIC0yNzcsNyArMjc5LDggQEAgaTkxNV9nZW1fb2JqZWN0X2dldF9wYWdl
+c19idWRkeShzdHJ1Y3QgZHJtX2k5MTVfZ2VtX29iamVjdCAqb2JqKQogCQlpZiAocmV0KSB7CiAJ
+CQkvKiBzd2FwaW4gZmFpbGVkLCBmcmVlIHRoZSBwYWdlcyAqLwogCQkJX19pbnRlbF9tZW1vcnlf
+cmVnaW9uX3B1dF9wYWdlc19idWRkeShtZW0sIGJsb2Nrcyk7Ci0JCQlyZXQgPSAtRU5YSU87CisJ
+CQlpZiAocmV0ICE9IC1FREVBRExLICYmIHJldCAhPSAtRUlOVFIpCisJCQkJcmV0ID0gLUVOWElP
+OwogCQkJZ290byBlcnJfZnJlZV9zZzsKIAkJfQogCX0gZWxzZSBpZiAob2JqLT5mbGFncyAmIEk5
+MTVfQk9fQUxMT0NfQ1BVX0NMRUFSKSB7CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkx
+NS9pbnRlbF9tZW1vcnlfcmVnaW9uLmMgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pbnRlbF9tZW1v
+cnlfcmVnaW9uLmMKaW5kZXggNTdmMDFlZjE2NjI4Li42YjI2YjZjZDU5NTggMTAwNjQ0Ci0tLSBh
+L2RyaXZlcnMvZ3B1L2RybS9pOTE1L2ludGVsX21lbW9yeV9yZWdpb24uYworKysgYi9kcml2ZXJz
+L2dwdS9kcm0vaTkxNS9pbnRlbF9tZW1vcnlfcmVnaW9uLmMKQEAgLTk2LDYgKzk2LDcgQEAgX19p
+bnRlbF9tZW1vcnlfcmVnaW9uX3B1dF9ibG9ja19idWRkeShzdHJ1Y3QgaTkxNV9idWRkeV9ibG9j
+ayAqYmxvY2spCiB9CiAKIHN0YXRpYyBpbnQgaW50ZWxfbWVtb3J5X3JlZ2lvbl9ldmljdChzdHJ1
+Y3QgaW50ZWxfbWVtb3J5X3JlZ2lvbiAqbWVtLAorCQkJCSAgICAgc3RydWN0IGk5MTVfZ2VtX3d3
+X2N0eCAqd3csCiAJCQkJICAgICByZXNvdXJjZV9zaXplX3QgdGFyZ2V0KQogewogCXN0cnVjdCBk
+cm1faTkxNV9wcml2YXRlICppOTE1ID0gbWVtLT5pOTE1OwpAQCAtMTA5LDYgKzExMCw3IEBAIHN0
+YXRpYyBpbnQgaW50ZWxfbWVtb3J5X3JlZ2lvbl9ldmljdChzdHJ1Y3QgaW50ZWxfbWVtb3J5X3Jl
+Z2lvbiAqbWVtLAogCXN0cnVjdCBsaXN0X2hlYWQgKipwaGFzZTsKIAlyZXNvdXJjZV9zaXplX3Qg
+Zm91bmQ7CiAJaW50IHBhc3M7CisJaW50IGVyciA9IDA7CiAKIAlpbnRlbF9ndF9yZXRpcmVfcmVx
+dWVzdHMoJmk5MTUtPmd0KTsKIApAQCAtMTI2LDEwICsxMjgsMTEgQEAgc3RhdGljIGludCBpbnRl
+bF9tZW1vcnlfcmVnaW9uX2V2aWN0KHN0cnVjdCBpbnRlbF9tZW1vcnlfcmVnaW9uICptZW0sCiAJ
+CQkJCQltbS5yZWdpb25fbGluaykpKSB7CiAJCWxpc3RfbW92ZV90YWlsKCZvYmotPm1tLnJlZ2lv
+bl9saW5rLCAmc3RpbGxfaW5fbGlzdCk7CiAKLQkJaWYgKCFpOTE1X2dlbV9vYmplY3RfaGFzX3Bh
+Z2VzKG9iaikpCisJCWlmIChpOTE1X2dlbV9vYmplY3RfaXNfZnJhbWVidWZmZXIob2JqKSkKIAkJ
+CWNvbnRpbnVlOwogCi0JCWlmIChpOTE1X2dlbV9vYmplY3RfaXNfZnJhbWVidWZmZXIob2JqKSkK
+KwkJLyogQWxyZWFkeSBsb2NrZWQgdGhpcyBvYmplY3Q/ICovCisJCWlmICh3dyAmJiB3dyA9PSBp
+OTE1X2dlbV9nZXRfbG9ja2luZ19jdHgob2JqKSkKIAkJCWNvbnRpbnVlOwogCiAJCS8qCkBAIC0x
+NDcsMzQgKzE1MCw1MSBAQCBzdGF0aWMgaW50IGludGVsX21lbW9yeV9yZWdpb25fZXZpY3Qoc3Ry
+dWN0IGludGVsX21lbW9yeV9yZWdpb24gKm1lbSwKIAogCQltdXRleF91bmxvY2soJm1lbS0+b2Jq
+ZWN0cy5sb2NrKTsKIAorCQlpZiAod3cpIHsKKwkJCWVyciA9IGk5MTVfZ2VtX29iamVjdF9sb2Nr
+X3RvX2V2aWN0KG9iaiwgd3cpOworCQkJaWYgKGVycikKKwkJCQlnb3RvIHB1dDsKKwkJfSBlbHNl
+IHsKKwkJCWlmICghaTkxNV9nZW1fb2JqZWN0X3RyeWxvY2sob2JqKSkKKwkJCQlnb3RvIHB1dDsK
+KwkJfQorCisJCWlmICghaTkxNV9nZW1fb2JqZWN0X2hhc19wYWdlcyhvYmopKQorCQkJZ290byB1
+bmxvY2s7CisKIAkJLyogdGVsbCBjYWxsZWUgdG8gZG8gc3dhcHBpbmcgKi8KIAkJaWYgKGk5MTVf
+Z2VtX29iamVjdF90eXBlX2hhcyhvYmosIEk5MTVfR0VNX09CSkVDVF9IQVNfSU9NRU0pCiAJCSAg
+ICAmJiBwYXNzID09IDEpCiAJCQlvYmotPmRvX3N3YXBwaW5nID0gdHJ1ZTsKIAogCQlpZiAoIWk5
+MTVfZ2VtX29iamVjdF91bmJpbmQob2JqLCBJOTE1X0dFTV9PQkpFQ1RfVU5CSU5EX0FDVElWRSkp
+IHsKLQkJCWlmIChpOTE1X2dlbV9vYmplY3RfdHJ5bG9jayhvYmopKSB7Ci0JCQkJX19pOTE1X2dl
+bV9vYmplY3RfcHV0X3BhZ2VzKG9iaik7Ci0JCQkJLyogTWF5IGFycml2ZSBmcm9tIGdldF9wYWdl
+cyBvbiBhbm90aGVyIGJvICovCi0JCQkJaWYgKCFpOTE1X2dlbV9vYmplY3RfaGFzX3BhZ2VzKG9i
+aikpIHsKLQkJCQkJZm91bmQgKz0gb2JqLT5iYXNlLnNpemU7Ci0JCQkJCWlmIChvYmotPm1tLm1h
+ZHYgPT0gSTkxNV9NQURWX0RPTlRORUVEKQotCQkJCQkJb2JqLT5tbS5tYWR2ID0gX19JOTE1X01B
+RFZfUFVSR0VEOwotCQkJCX0KLQkJCQlpOTE1X2dlbV9vYmplY3RfdW5sb2NrKG9iaik7CisJCQlf
+X2k5MTVfZ2VtX29iamVjdF9wdXRfcGFnZXMob2JqKTsKKwkJCS8qIE1heSBhcnJpdmUgZnJvbSBn
+ZXRfcGFnZXMgb24gYW5vdGhlciBibyAqLworCisJCQlpZiAoIWk5MTVfZ2VtX29iamVjdF9oYXNf
+cGFnZXMob2JqKSkgeworCQkJCWZvdW5kICs9IG9iai0+YmFzZS5zaXplOworCQkJCWlmIChvYmot
+Pm1tLm1hZHYgPT0gSTkxNV9NQURWX0RPTlRORUVEKQorCQkJCQlvYmotPm1tLm1hZHYgPSBfX0k5
+MTVfTUFEVl9QVVJHRUQ7CiAJCQl9CiAJCX0KIAogCQlvYmotPmRvX3N3YXBwaW5nID0gZmFsc2U7
+Cit1bmxvY2s6CisJCWlmICghd3cpCisJCQlpOTE1X2dlbV9vYmplY3RfdW5sb2NrKG9iaik7Citw
+dXQ6CiAJCWk5MTVfZ2VtX29iamVjdF9wdXQob2JqKTsKIAkJbXV0ZXhfbG9jaygmbWVtLT5vYmpl
+Y3RzLmxvY2spOwogCi0JCWlmIChmb3VuZCA+PSB0YXJnZXQpCisJCWlmIChlcnIgPT0gLUVERUFE
+TEsgfHwgZXJyID09IC1FSU5UUiB8fCBmb3VuZCA+PSB0YXJnZXQpCiAJCQlicmVhazsKIAl9CiAJ
+bGlzdF9zcGxpY2VfdGFpbCgmc3RpbGxfaW5fbGlzdCwgKnBoYXNlKTsKIAltdXRleF91bmxvY2so
+Jm1lbS0+b2JqZWN0cy5sb2NrKTsKIAorCWlmIChlcnIgPT0gLUVERUFETEsgfHwgZXJyID09IC1F
+SU5UUikKKwkJcmV0dXJuIGVycjsKKwogCWlmIChmb3VuZCA8IHRhcmdldCAmJiBpOTE1LT5wYXJh
+bXMuZW5hYmxlX2V2aWN0aW9uKSB7CiAJCXBhc3MrKzsKIAkJcGhhc2UrKzsKQEAgLTE4MiwxMSAr
+MjAyLDE1IEBAIHN0YXRpYyBpbnQgaW50ZWxfbWVtb3J5X3JlZ2lvbl9ldmljdChzdHJ1Y3QgaW50
+ZWxfbWVtb3J5X3JlZ2lvbiAqbWVtLAogCQkJZ290byBuZXh0OwogCX0KIAorCWlmICh3dykKKwkJ
+aTkxNV9nZW1fd3dfY3R4X3VubG9ja19ldmljdGlvbnMod3cpOworCiAJcmV0dXJuIChmb3VuZCA8
+IHRhcmdldCkgPyAtRU5PU1BDIDogMDsKIH0KIAogaW50CiBfX2ludGVsX21lbW9yeV9yZWdpb25f
+Z2V0X3BhZ2VzX2J1ZGR5KHN0cnVjdCBpbnRlbF9tZW1vcnlfcmVnaW9uICptZW0sCisJCQkJICAg
+ICAgc3RydWN0IGk5MTVfZ2VtX3d3X2N0eCAqd3csCiAJCQkJICAgICAgcmVzb3VyY2Vfc2l6ZV90
+IHNpemUsCiAJCQkJICAgICAgdW5zaWduZWQgaW50IGZsYWdzLAogCQkJCSAgICAgIHN0cnVjdCBs
+aXN0X2hlYWQgKmJsb2NrcykKQEAgLTE5NCw2ICsyMTgsNyBAQCBfX2ludGVsX21lbW9yeV9yZWdp
+b25fZ2V0X3BhZ2VzX2J1ZGR5KHN0cnVjdCBpbnRlbF9tZW1vcnlfcmVnaW9uICptZW0sCiAJdW5z
+aWduZWQgaW50IG1pbl9vcmRlciA9IDA7CiAJdW5zaWduZWQgaW50IG1heF9vcmRlcjsKIAl1bnNp
+Z25lZCBsb25nIG5fcGFnZXM7CisJaW50IGVycjsKIAogCUdFTV9CVUdfT04oIUlTX0FMSUdORUQo
+c2l6ZSwgbWVtLT5tbS5jaHVua19zaXplKSk7CiAJR0VNX0JVR19PTighbGlzdF9lbXB0eShibG9j
+a3MpKTsKQEAgLTI0MSwxMiArMjY2LDExIEBAIF9faW50ZWxfbWVtb3J5X3JlZ2lvbl9nZXRfcGFn
+ZXNfYnVkZHkoc3RydWN0IGludGVsX21lbW9yeV9yZWdpb24gKm1lbSwKIAogCQkJaWYgKG9yZGVy
+LS0gPT0gbWluX29yZGVyKSB7CiAJCQkJcmVzb3VyY2Vfc2l6ZV90IHRhcmdldDsKLQkJCQlpbnQg
+ZXJyOwogCiAJCQkJdGFyZ2V0ID0gbl9wYWdlcyAqIG1lbS0+bW0uY2h1bmtfc2l6ZTsKIAogCQkJ
+CW11dGV4X3VubG9jaygmbWVtLT5tbV9sb2NrKTsKLQkJCQllcnIgPSBpbnRlbF9tZW1vcnlfcmVn
+aW9uX2V2aWN0KG1lbSwKKwkJCQllcnIgPSBpbnRlbF9tZW1vcnlfcmVnaW9uX2V2aWN0KG1lbSwg
+d3csCiAJCQkJCQkJCXRhcmdldCk7CiAJCQkJbXV0ZXhfbG9jaygmbWVtLT5tbV9sb2NrKTsKIAkJ
+CQlpZiAoZXJyKQpAQCAtMjcyLDYgKzI5Niw5IEBAIF9faW50ZWxfbWVtb3J5X3JlZ2lvbl9nZXRf
+cGFnZXNfYnVkZHkoc3RydWN0IGludGVsX21lbW9yeV9yZWdpb24gKm1lbSwKIGVycl9mcmVlX2Js
+b2NrczoKIAlpbnRlbF9tZW1vcnlfcmVnaW9uX2ZyZWVfcGFnZXMobWVtLCBibG9ja3MpOwogCW11
+dGV4X3VubG9jaygmbWVtLT5tbV9sb2NrKTsKKwlpZiAoZXJyID09IC1FREVBRExLIHx8IGVyciA9
+PSAtRUlOVFIpCisJCXJldHVybiBlcnI7CisKIAlyZXR1cm4gLUVOWElPOwogfQogCkBAIC0yODQs
+NyArMzExLDcgQEAgX19pbnRlbF9tZW1vcnlfcmVnaW9uX2dldF9ibG9ja19idWRkeShzdHJ1Y3Qg
+aW50ZWxfbWVtb3J5X3JlZ2lvbiAqbWVtLAogCUxJU1RfSEVBRChibG9ja3MpOwogCWludCByZXQ7
+CiAKLQlyZXQgPSBfX2ludGVsX21lbW9yeV9yZWdpb25fZ2V0X3BhZ2VzX2J1ZGR5KG1lbSwgc2l6
+ZSwgZmxhZ3MsICZibG9ja3MpOworCXJldCA9IF9faW50ZWxfbWVtb3J5X3JlZ2lvbl9nZXRfcGFn
+ZXNfYnVkZHkobWVtLCBOVUxMLCBzaXplLCBmbGFncywgJmJsb2Nrcyk7CiAJaWYgKHJldCkKIAkJ
+cmV0dXJuIEVSUl9QVFIocmV0KTsKIApkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUv
+aW50ZWxfbWVtb3J5X3JlZ2lvbi5oIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvaW50ZWxfbWVtb3J5
+X3JlZ2lvbi5oCmluZGV4IDBiZmMxZmEzNmY3NC4uZmYxZDk3NjY3NjE4IDEwMDY0NAotLS0gYS9k
+cml2ZXJzL2dwdS9kcm0vaTkxNS9pbnRlbF9tZW1vcnlfcmVnaW9uLmgKKysrIGIvZHJpdmVycy9n
+cHUvZHJtL2k5MTUvaW50ZWxfbWVtb3J5X3JlZ2lvbi5oCkBAIC0xNiw2ICsxNiw3IEBACiAKICNp
+bmNsdWRlICJpOTE1X2J1ZGR5LmgiCiAKK3N0cnVjdCBpOTE1X2dlbV93d19jdHg7CiBzdHJ1Y3Qg
+ZHJtX2k5MTVfcHJpdmF0ZTsKIHN0cnVjdCBkcm1faTkxNV9nZW1fb2JqZWN0Owogc3RydWN0IGlu
+dGVsX21lbW9yeV9yZWdpb247CkBAIC0xMTYsNiArMTE3LDcgQEAgaW50IGludGVsX21lbW9yeV9y
+ZWdpb25faW5pdF9idWRkeShzdHJ1Y3QgaW50ZWxfbWVtb3J5X3JlZ2lvbiAqbWVtKTsKIHZvaWQg
+aW50ZWxfbWVtb3J5X3JlZ2lvbl9yZWxlYXNlX2J1ZGR5KHN0cnVjdCBpbnRlbF9tZW1vcnlfcmVn
+aW9uICptZW0pOwogCiBpbnQgX19pbnRlbF9tZW1vcnlfcmVnaW9uX2dldF9wYWdlc19idWRkeShz
+dHJ1Y3QgaW50ZWxfbWVtb3J5X3JlZ2lvbiAqbWVtLAorCQkJCQkgIHN0cnVjdCBpOTE1X2dlbV93
+d19jdHggKnd3LAogCQkJCQkgIHJlc291cmNlX3NpemVfdCBzaXplLAogCQkJCQkgIHVuc2lnbmVk
+IGludCBmbGFncywKIAkJCQkJICBzdHJ1Y3QgbGlzdF9oZWFkICpibG9ja3MpOwotLSAKMi4yNi4y
+CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpJbnRlbC1n
+ZnggbWFpbGluZyBsaXN0CkludGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9s
+aXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9pbnRlbC1nZngK
