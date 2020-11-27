@@ -2,43 +2,52 @@ Return-Path: <SRS0=emkq=FB=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.7 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 10223C63798
-	for <intel-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 13:53:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C91F1C2D0E4
+	for <intel-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 13:53:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6EF0322240
-	for <intel-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 13:53:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6EF0322240
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
+	by mail.kernel.org (Postfix) with ESMTPS id 4510522240
+	for <intel-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 13:53:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4510522240
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C8EDC6EDC6;
-	Fri, 27 Nov 2020 13:53:00 +0000 (UTC)
-Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7BBD06EDC6;
- Fri, 27 Nov 2020 13:52:58 +0000 (UTC)
-X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
- x-ip-name=78.156.65.138; 
-Received: from localhost (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP (TLS) id
- 23133764-1500050 for multiple; Fri, 27 Nov 2020 13:52:54 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id C4EDF6EDC8;
+	Fri, 27 Nov 2020 13:53:42 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F1486EDC8
+ for <intel-gfx@lists.freedesktop.org>; Fri, 27 Nov 2020 13:53:41 +0000 (UTC)
+IronPort-SDR: dUUW79pPmTlt0/lsyeEJ3fOoeZPRXBxDaREJyIf2mrVI3Qa0BSZqH5HSZBUZPhDSlGdo3HoMnT
+ wYQJfpFgatfA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9817"; a="190556546"
+X-IronPort-AV: E=Sophos;i="5.78,374,1599548400"; d="scan'208";a="190556546"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Nov 2020 05:53:40 -0800
+IronPort-SDR: X1+dKkF2DVa8cyrtKNqpsQ2LkA9+5Ce3PfFcOZsTaqPkQLgnbTzt4cikOOvCJbiqesTionnXD7
+ NYd75nCtWGOQ==
+X-IronPort-AV: E=Sophos;i="5.78,374,1599548400"; d="scan'208";a="548054360"
+Received: from linux-desktop.iind.intel.com ([10.223.34.173])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Nov 2020 05:53:39 -0800
+From: Uma Shankar <uma.shankar@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Fri, 27 Nov 2020 19:57:15 +0530
+Message-Id: <20201127142715.8456-1-uma.shankar@intel.com>
+X-Mailer: git-send-email 2.26.2
+In-Reply-To: <20201126210314.7882-7-uma.shankar@intel.com>
+References: <20201126210314.7882-7-uma.shankar@intel.com>
 MIME-Version: 1.0
-In-Reply-To: <20201127120718.454037-119-matthew.auld@intel.com>
-References: <20201127120718.454037-1-matthew.auld@intel.com>
- <20201127120718.454037-119-matthew.auld@intel.com>
-From: Chris Wilson <chris@chris-wilson.co.uk>
-To: Matthew Auld <matthew.auld@intel.com>, intel-gfx@lists.freedesktop.org
-Date: Fri, 27 Nov 2020 13:52:54 +0000
-Message-ID: <160648517402.2925.2248861493310859776@build.alporthouse.com>
-User-Agent: alot/0.9
-Subject: Re: [Intel-gfx] [RFC PATCH 118/162] drm/i915/dg1: Reserve first 1MB
- of local memory
+Subject: [Intel-gfx] [v13 06/15] drm/i915/display: Attach content type
+ property for LSPCON
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,76 +60,44 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Quoting Matthew Auld (2020-11-27 12:06:34)
-> From: Imre Deak <imre.deak@intel.com>
-> 
-> On DG1 A0/B0 steppings the first 1MB of local memory must be reserved.
-> One reason for this is that the 0xA0000-0xB0000 range is not accessible
-> by the display, probably since this region is redirected to another
-> memory location for legacy VGA compatibility.
-> 
-> BSpec: 50586
-> Testcase: igt/kms_big_fb/linear-64bpp-rotate-0
-> Signed-off-by: Imre Deak <imre.deak@intel.com>
-> ---
->  drivers/gpu/drm/i915/intel_region_lmem.c | 52 ++++++++++++++++++++++++
->  1 file changed, 52 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/i915/intel_region_lmem.c b/drivers/gpu/drm/i915/intel_region_lmem.c
-> index 939cf0d195a5..eafef7034680 100644
-> --- a/drivers/gpu/drm/i915/intel_region_lmem.c
-> +++ b/drivers/gpu/drm/i915/intel_region_lmem.c
-> @@ -137,6 +137,48 @@ intel_setup_fake_lmem(struct drm_i915_private *i915)
->         return mem;
->  }
->  
-> +static void get_legacy_lowmem_region(struct intel_uncore *uncore,
-> +                                    u64 *start, u32 *size)
-> +{
-> +       *start = 0;
-> +       *size = 0;
-> +
-> +       if (!IS_DG1_REVID(uncore->i915, DG1_REVID_A0, DG1_REVID_B0))
-> +               return;
-> +
-> +       *size = SZ_1M;
-> +
-> +       DRM_DEBUG_DRIVER("LMEM: reserved legacy low-memory [0x%llx-0x%llx]\n",
-> +                        *start, *start + *size);
-> +}
-> +
-> +static int reserve_lowmem_region(struct intel_uncore *uncore,
-> +                                struct intel_memory_region *mem)
-> +{
-> +       u64 reserve_start;
-> +       u64 reserve_end;
-> +       u64 region_start;
-> +       u32 region_size;
-> +       int ret;
-> +
-> +       get_legacy_lowmem_region(uncore, &region_start, &region_size);
-> +       reserve_start = region_start;
-> +       reserve_end = region_start + region_size;
-> +
-> +       if (!reserve_end)
-> +               return 0;
-> +
-> +       DRM_INFO("LMEM: reserving low-memory region [0x%llx-0x%llx]\n",
-> +                reserve_start, reserve_end);
-> +       ret = i915_buddy_alloc_range(&mem->mm, &mem->reserved,
-> +                                    reserve_start,
-> +                                    reserve_end - reserve_start);
-
-Isn't this now relative to the stolen offset? Should this be reserved,
-or excluded like stolen?
--Chris
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+Q29udGVudCB0eXBlIGlzIHN1cHBvcnRlZCBvbiBIRE1JIHNpbmsgZGV2aWNlcy4gQXR0YWNoZWQg
+dGhlCnByb3BlcnR5IGZvciB0aGUgc2FtZSBmb3IgTFNQQ09OIGJhc2VkIGRldmljZXMuCgp2Mjog
+QWRkZWQgdGhlIGNvbnRlbnQgdHlwZSBwcm9ncmFtbWluZyB3aGVuIHdlIGFyZSBhdHRhY2hpbmcK
+dGhlIHByb3BlcnR5IHRvIGNvbm5lY3RvciwgYXMgc3VnZ2VzdGVkIGJ5IFZpbGxlLgoKdjM6IE5l
+ZWQgdG8gYXR0YWNoIGNvbnRlbnQgdHlwZSBvbiBpbnRlbF9kcF9hZGRfcHJvcGVydGllcwphcyBj
+cmVhdGluZyBvZiBuZXcgcHJvcGVydGllcyBpcyBub3QgcG9zc2libGUgYXQgbGF0ZV9yZWdpc3Rl
+ci4KClNpZ25lZC1vZmYtYnk6IFVtYSBTaGFua2FyIDx1bWEuc2hhbmthckBpbnRlbC5jb20+ClJl
+dmlld2VkLWJ5OiBWaWxsZSBTeXJqw6Rsw6QgPHZpbGxlLnN5cmphbGFAbGludXguaW50ZWwuY29t
+PgotLS0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZHAuYyAgICAgfCAzICsr
+KwogZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9sc3Bjb24uYyB8IDIgKysKIDIg
+ZmlsZXMgY2hhbmdlZCwgNSBpbnNlcnRpb25zKCspCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
+ZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kcC5jIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxh
+eS9pbnRlbF9kcC5jCmluZGV4IDVhYWEwNmQ3MzYwOS4uNjlkZTE2M2JlNzc2IDEwMDY0NAotLS0g
+YS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2RwLmMKKysrIGIvZHJpdmVycy9n
+cHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kcC5jCkBAIC03MTk1LDYgKzcxOTUsOSBAQCBpbnRl
+bF9kcF9hZGRfcHJvcGVydGllcyhzdHJ1Y3QgaW50ZWxfZHAgKmludGVsX2RwLCBzdHJ1Y3QgZHJt
+X2Nvbm5lY3RvciAqY29ubmVjdAogCiAJaW50ZWxfYXR0YWNoX2NvbG9yc3BhY2VfcHJvcGVydHko
+Y29ubmVjdG9yKTsKIAorCWlmIChpbnRlbF9iaW9zX2lzX2xzcGNvbl9wcmVzZW50KGRldl9wcml2
+LCBwb3J0KSkKKwkJZHJtX2Nvbm5lY3Rvcl9hdHRhY2hfY29udGVudF90eXBlX3Byb3BlcnR5KGNv
+bm5lY3Rvcik7CisKIAlpZiAoSVNfR0VNSU5JTEFLRShkZXZfcHJpdikgfHwgSU5URUxfR0VOKGRl
+dl9wcml2KSA+PSAxMSkKIAkJZHJtX29iamVjdF9hdHRhY2hfcHJvcGVydHkoJmNvbm5lY3Rvci0+
+YmFzZSwKIAkJCQkJICAgY29ubmVjdG9yLT5kZXYtPm1vZGVfY29uZmlnLmhkcl9vdXRwdXRfbWV0
+YWRhdGFfcHJvcGVydHksCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5
+L2ludGVsX2xzcGNvbi5jIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9sc3Bj
+b24uYwppbmRleCA5NTUyZGZjNTVlMjAuLjBhNGMwNWQ2NzEwOCAxMDA2NDQKLS0tIGEvZHJpdmVy
+cy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9sc3Bjb24uYworKysgYi9kcml2ZXJzL2dwdS9k
+cm0vaTkxNS9kaXNwbGF5L2ludGVsX2xzcGNvbi5jCkBAIC01MzksNiArNTM5LDggQEAgdm9pZCBs
+c3Bjb25fc2V0X2luZm9mcmFtZXMoc3RydWN0IGludGVsX2VuY29kZXIgKmVuY29kZXIsCiAJCWZy
+YW1lLmF2aS55Y2NfcXVhbnRpemF0aW9uX3JhbmdlID0gSERNSV9ZQ0NfUVVBTlRJWkFUSU9OX1JB
+TkdFX0xJTUlURUQ7CiAJfQogCisJZHJtX2hkbWlfYXZpX2luZm9mcmFtZV9jb250ZW50X3R5cGUo
+JmZyYW1lLmF2aSwgY29ubl9zdGF0ZSk7CisKIAlyZXQgPSBoZG1pX2luZm9mcmFtZV9wYWNrKCZm
+cmFtZSwgYnVmLCBzaXplb2YoYnVmKSk7CiAJaWYgKHJldCA8IDApIHsKIAkJRFJNX0VSUk9SKCJG
+YWlsZWQgdG8gcGFjayBBVkkgSUZcbiIpOwotLSAKMi4yNi4yCgpfX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fXwpJbnRlbC1nZnggbWFpbGluZyBsaXN0CkludGVs
+LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
+bWFpbG1hbi9saXN0aW5mby9pbnRlbC1nZngK
