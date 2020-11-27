@@ -5,50 +5,50 @@ X-Spam-Level:
 X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5CC79C2D0E4
-	for <intel-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 12:11:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2C4FEC64E75
+	for <intel-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 12:11:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0492120665
-	for <intel-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 12:11:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0492120665
+	by mail.kernel.org (Postfix) with ESMTPS id E155920665
+	for <intel-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 12:11:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E155920665
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 31F206ECA4;
-	Fri, 27 Nov 2020 12:10:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A7C26ECA9;
+	Fri, 27 Nov 2020 12:10:07 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B05326EC9D;
- Fri, 27 Nov 2020 12:10:02 +0000 (UTC)
-IronPort-SDR: tt/XtOURBOsiOo+65ES/fjNLdo6ukXqfl1SGx6npBmEdEJanhihFtkQ0MRaOcGCaINlNTskPDK
- eXAo18PafQ3w==
-X-IronPort-AV: E=McAfee;i="6000,8403,9817"; a="172540754"
-X-IronPort-AV: E=Sophos;i="5.78,374,1599548400"; d="scan'208";a="172540754"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 628B56EC8C;
+ Fri, 27 Nov 2020 12:09:51 +0000 (UTC)
+IronPort-SDR: R6qZP7JrootS1iuRtDpbScjiq4ig7azsMAkCfMArevifqnin4JH0LIXzxfVlnCrG1ONToba4xA
+ Zf/mNiHpKshw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9817"; a="172540724"
+X-IronPort-AV: E=Sophos;i="5.78,374,1599548400"; d="scan'208";a="172540724"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Nov 2020 04:10:02 -0800
-IronPort-SDR: Z56XARuDDDZZluK4bbKuFsOa/YL2nPXMJYay0yr34rDgQus98WR15NX9ODhKXWn7wKWFTbANhC
- bt5mLfmUSFJw==
-X-IronPort-AV: E=Sophos;i="5.78,374,1599548400"; d="scan'208";a="548029185"
+ 27 Nov 2020 04:09:51 -0800
+IronPort-SDR: 8V+sDq3gsCnIoU9DeD1WrPW7YnDyBMx4z5DEiPHY6ogDfiXpVycSR99rjSK9pOHp1mjXMtKObR
+ A0082ZzGBRqg==
+X-IronPort-AV: E=Sophos;i="5.78,374,1599548400"; d="scan'208";a="548029105"
 Received: from mjgleeso-mobl.ger.corp.intel.com (HELO
  mwauld-desk1.ger.corp.intel.com) ([10.251.85.2])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Nov 2020 04:10:00 -0800
+ 27 Nov 2020 04:09:49 -0800
 From: Matthew Auld <matthew.auld@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 27 Nov 2020 12:06:00 +0000
-Message-Id: <20201127120718.454037-85-matthew.auld@intel.com>
+Date: Fri, 27 Nov 2020 12:05:54 +0000
+Message-Id: <20201127120718.454037-79-matthew.auld@intel.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20201127120718.454037-1-matthew.auld@intel.com>
 References: <20201127120718.454037-1-matthew.auld@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [RFC PATCH 084/162] drm/i915: introduce kernel
- blitter_context
+Subject: [Intel-gfx] [RFC PATCH 078/162] drm/i915: Return error value when
+ bo not in LMEM for discrete
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,131 +61,50 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Abdiel Janulgue <abdiel.janulgue@linux.intel.com>,
+Cc: Mohammed Khajapasha <mohammed.khajapasha@intel.com>,
  dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-We may be without a context to perform various internal blitter
-operations, for example when performing object migration. Piggybacking
-off the kernel_context is probably a bad idea, since it has other uses.
+From: Mohammed Khajapasha <mohammed.khajapasha@intel.com>
 
-Signed-off-by: Matthew Auld <matthew.auld@intel.com>
-Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: Abdiel Janulgue <abdiel.janulgue@linux.intel.com>
+Return EREMOTE value when frame buffer object is not backed by LMEM
+for discrete. If Local memory is supported by hardware the framebuffer
+backing gem objects should be from local memory.
+
+Signed-off-by: Mohammed Khajapasha <mohammed.khajapasha@intel.com>
+Cc: Michael J. Ruhl <michael.j.ruhl@intel.com>
+Cc: Animesh Manna <animesh.manna@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_engine.h       |  2 +
- drivers/gpu/drm/i915/gt/intel_engine_cs.c    | 40 +++++++++++++++++++-
- drivers/gpu/drm/i915/gt/intel_engine_types.h |  1 +
- 3 files changed, 41 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine.h b/drivers/gpu/drm/i915/gt/intel_engine.h
-index 760fefdfe392..188c5ff6dc64 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine.h
-+++ b/drivers/gpu/drm/i915/gt/intel_engine.h
-@@ -186,6 +186,8 @@ intel_write_status_page(struct intel_engine_cs *engine, int reg, u32 value)
- #define I915_GEM_HWS_PREEMPT_ADDR	(I915_GEM_HWS_PREEMPT * sizeof(u32))
- #define I915_GEM_HWS_SEQNO		0x40
- #define I915_GEM_HWS_SEQNO_ADDR		(I915_GEM_HWS_SEQNO * sizeof(u32))
-+#define I915_GEM_HWS_BLITTER		0x42
-+#define I915_GEM_HWS_BLITTER_ADDR	(I915_GEM_HWS_BLITTER * sizeof(u32))
- #define I915_GEM_HWS_SCRATCH		0x80
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 8a7945f55278..95ed1e06ea55 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -18054,11 +18054,20 @@ intel_user_framebuffer_create(struct drm_device *dev,
+ 	struct drm_framebuffer *fb;
+ 	struct drm_i915_gem_object *obj;
+ 	struct drm_mode_fb_cmd2 mode_cmd = *user_mode_cmd;
++	struct drm_i915_private *i915;
  
- #define I915_HWS_CSB_BUF0_INDEX		0x10
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-index 677c97ded81d..0ba020346566 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-@@ -819,6 +819,7 @@ create_pinned_context(struct intel_engine_cs *engine,
- 	int err;
+ 	obj = i915_gem_object_lookup(filp, mode_cmd.handles[0]);
+ 	if (!obj)
+ 		return ERR_PTR(-ENOENT);
  
- 	ce = intel_context_create(engine);
-+
- 	if (IS_ERR(ce))
- 		return ce;
- 
-@@ -851,6 +852,20 @@ create_kernel_context(struct intel_engine_cs *engine)
- 				     &kernel, "kernel_context");
- }
- 
-+static struct intel_context *
-+create_blitter_context(struct intel_engine_cs *engine)
-+{
-+	static struct lock_class_key blitter;
-+	struct intel_context *ce;
-+
-+	ce = create_pinned_context(engine, I915_GEM_HWS_BLITTER_ADDR, &blitter,
-+				   "blitter_context");
-+	if (IS_ERR(ce))
-+		return ce;
-+
-+	return ce;
-+}
-+
- /**
-  * intel_engines_init_common - initialize cengine state which might require hw access
-  * @engine: Engine to initialize.
-@@ -881,17 +896,33 @@ static int engine_init_common(struct intel_engine_cs *engine)
- 	if (IS_ERR(ce))
- 		return PTR_ERR(ce);
- 
-+	engine->kernel_context = ce;
- 	ret = measure_breadcrumb_dw(ce);
- 	if (ret < 0)
- 		goto err_context;
- 
- 	engine->emit_fini_breadcrumb_dw = ret;
--	engine->kernel_context = ce;
-+
-+	/*
-+	 * The blitter context is used to quickly memset or migrate objects
-+	 * in local memory, so it has to always be available.
-+	 */
-+	if (engine->class == COPY_ENGINE_CLASS) {
-+		ce = create_blitter_context(engine);
-+		if (IS_ERR(ce)) {
-+			ret = PTR_ERR(ce);
-+			goto err_unpin;
-+		}
-+
-+		engine->blitter_context = ce;
-+	}
- 
- 	return 0;
- 
-+err_unpin:
-+	intel_context_unpin(engine->kernel_context);
- err_context:
--	intel_context_put(ce);
-+	intel_context_put(engine->kernel_context);
- 	return ret;
- }
- 
-@@ -947,6 +978,11 @@ void intel_engine_cleanup_common(struct intel_engine_cs *engine)
- 	if (engine->default_state)
- 		fput(engine->default_state);
- 
-+	if (engine->blitter_context) {
-+		intel_context_unpin(engine->blitter_context);
-+		intel_context_put(engine->blitter_context);
++	/* object is backed with LMEM for discrete */
++	i915 = to_i915(obj->base.dev);
++	if (HAS_LMEM(i915) && !i915_gem_object_is_lmem(obj)) {
++		/* object is "remote", not in local memory */
++		i915_gem_object_put(obj);
++		return ERR_PTR(-EREMOTE);
 +	}
 +
- 	if (engine->kernel_context) {
- 		intel_context_unpin(engine->kernel_context);
- 		intel_context_put(engine->kernel_context);
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_types.h b/drivers/gpu/drm/i915/gt/intel_engine_types.h
-index ee6312601c56..cb2de4bf86ba 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_types.h
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_types.h
-@@ -347,6 +347,7 @@ struct intel_engine_cs {
- 	struct llist_head barrier_tasks;
- 
- 	struct intel_context *kernel_context; /* pinned */
-+	struct intel_context *blitter_context; /* pinned; exists for BCS only */
- 
- 	intel_engine_mask_t saturated; /* submitting semaphores too late? */
+ 	fb = intel_framebuffer_create(obj, &mode_cmd);
+ 	i915_gem_object_put(obj);
  
 -- 
 2.26.2
