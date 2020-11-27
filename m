@@ -6,38 +6,38 @@ X-Spam-Status: No, score=-3.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B30CDC64E75
-	for <intel-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 13:56:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CE3E7C63798
+	for <intel-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 14:03:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 62D8622240
-	for <intel-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 13:56:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 62D8622240
+	by mail.kernel.org (Postfix) with ESMTPS id 681E2206CA
+	for <intel-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 14:03:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 681E2206CA
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7AAD96EDCC;
-	Fri, 27 Nov 2020 13:56:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A6F7C6EDD1;
+	Fri, 27 Nov 2020 14:03:05 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3989C6ED29;
- Fri, 27 Nov 2020 13:56:02 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 14BE96EDD0;
+ Fri, 27 Nov 2020 14:03:03 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from localhost (unverified [78.156.65.138]) 
  by fireflyinternet.com (Firefly Internet (M1)) with ESMTP (TLS) id
- 23133799-1500050 for multiple; Fri, 27 Nov 2020 13:55:58 +0000
+ 23133898-1500050 for multiple; Fri, 27 Nov 2020 14:02:59 +0000
 MIME-Version: 1.0
-In-Reply-To: <20201127120718.454037-125-matthew.auld@intel.com>
+In-Reply-To: <20201127120718.454037-126-matthew.auld@intel.com>
 References: <20201127120718.454037-1-matthew.auld@intel.com>
- <20201127120718.454037-125-matthew.auld@intel.com>
+ <20201127120718.454037-126-matthew.auld@intel.com>
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: Matthew Auld <matthew.auld@intel.com>, intel-gfx@lists.freedesktop.org
-Date: Fri, 27 Nov 2020 13:55:58 +0000
-Message-ID: <160648535829.2925.3905288434672946602@build.alporthouse.com>
+Date: Fri, 27 Nov 2020 14:02:59 +0000
+Message-ID: <160648577933.2925.4507576113226252282@build.alporthouse.com>
 User-Agent: alot/0.9
-Subject: Re: [Intel-gfx] [RFC PATCH 124/162] drm/i915/lmem: allocate HWSP in
- lmem
+Subject: Re: [Intel-gfx] [RFC PATCH 125/162] drm/i915/lmem: Limit block size
+ to 4G
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,22 +50,33 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Abdiel Janulgue <abdiel.janulgue@linux.intel.com>,
- Michel Thierry <michel.thierry@intel.com>, dri-devel@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Quoting Matthew Auld (2020-11-27 12:06:40)
-> From: Michel Thierry <michel.thierry@intel.com>
+Quoting Matthew Auld (2020-11-27 12:06:41)
+> From: Venkata Sandeep Dhanalakota <venkata.s.dhanalakota@intel.com>
+> 
+> when allocating pages to lmem object of size 4G or greater
+> we allocate memory blocks from buddy system.
 
-Rationale goes here.
+Any lmem object is from the buddy system.
 
-Is this wise? HWSP is very frequently read by the CPU, and expected to
-be cached on the CPU.
+> In this scenario
+> buddy sytem can allocate blocks that can have size >= 4G and
+> these blocks require >32b to represent block size with these
+> blocks we run into an issue with sg list construction because
+> sg->length field is only 32b wide.
 
-What do the performance profiles indicate?
+Just say the when using scatterlist, the maximum segment size is 4G. In
+fact, we can ask sg what the backend maximum is, and use that as our max
+order.
+
+The only question is whether this merits a flag, or we just assume that
+the buddy allocator is only used for objects and so always presented via
+sg?
 -Chris
 _______________________________________________
 Intel-gfx mailing list
