@@ -2,52 +2,42 @@ Return-Path: <SRS0=emkq=FB=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EE592C2D0E4
-	for <intel-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 13:54:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B30CDC64E75
+	for <intel-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 13:56:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8C82E22240
-	for <intel-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 13:54:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8C82E22240
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 62D8622240
+	for <intel-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 13:56:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 62D8622240
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 091DB6ECF0;
-	Fri, 27 Nov 2020 13:54:48 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8BC0C6ECF0
- for <intel-gfx@lists.freedesktop.org>; Fri, 27 Nov 2020 13:54:46 +0000 (UTC)
-IronPort-SDR: hvir4V7BBLrKbc0/iZlz705tfBhxHyC7X7KhMYXguQbqzmBGd8X3OzbhR4IZEC4lwLscbJjy7a
- omz5oioS1oZQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9817"; a="160168149"
-X-IronPort-AV: E=Sophos;i="5.78,374,1599548400"; d="scan'208";a="160168149"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Nov 2020 05:54:45 -0800
-IronPort-SDR: sPmZypavIJubmBLMbGa7Cc1q0K2zPWk7fiFWvy76FntAca8f6+KvPpnYrJvL1DZkAeGMyEjN2C
- of4oPwLBqNQA==
-X-IronPort-AV: E=Sophos;i="5.78,374,1599548400"; d="scan'208";a="548054474"
-Received: from linux-desktop.iind.intel.com ([10.223.34.173])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Nov 2020 05:54:44 -0800
-From: Uma Shankar <uma.shankar@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Fri, 27 Nov 2020 19:58:20 +0530
-Message-Id: <20201127142820.8507-1-uma.shankar@intel.com>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20201126210314.7882-9-uma.shankar@intel.com>
-References: <20201126210314.7882-9-uma.shankar@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7AAD96EDCC;
+	Fri, 27 Nov 2020 13:56:04 +0000 (UTC)
+Received: from fireflyinternet.com (unknown [77.68.26.236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3989C6ED29;
+ Fri, 27 Nov 2020 13:56:02 +0000 (UTC)
+X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
+ x-ip-name=78.156.65.138; 
+Received: from localhost (unverified [78.156.65.138]) 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP (TLS) id
+ 23133799-1500050 for multiple; Fri, 27 Nov 2020 13:55:58 +0000
 MIME-Version: 1.0
-Subject: [Intel-gfx] [v13 08/15] drm/i915/display: Enable colorspace
- programming for LSPCON devices
+In-Reply-To: <20201127120718.454037-125-matthew.auld@intel.com>
+References: <20201127120718.454037-1-matthew.auld@intel.com>
+ <20201127120718.454037-125-matthew.auld@intel.com>
+From: Chris Wilson <chris@chris-wilson.co.uk>
+To: Matthew Auld <matthew.auld@intel.com>, intel-gfx@lists.freedesktop.org
+Date: Fri, 27 Nov 2020 13:55:58 +0000
+Message-ID: <160648535829.2925.3905288434672946602@build.alporthouse.com>
+User-Agent: alot/0.9
+Subject: Re: [Intel-gfx] [RFC PATCH 124/162] drm/i915/lmem: allocate HWSP in
+ lmem
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,55 +50,24 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Abdiel Janulgue <abdiel.janulgue@linux.intel.com>,
+ Michel Thierry <michel.thierry@intel.com>, dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-RW5hYmxlIEhETUkgQ29sb3JzcGFjZSBmb3IgTFNQQ09OIGJhc2VkIGRldmljZXMuIFNlbmRpbmcg
-Q29sb3JpbWV0cnkKZGF0YSBmb3IgSERSIHVzaW5nIEFWSSBpbmZvZnJhbWUuIExTUENPTiBmaXJt
-d2FyZSBleHBlY3RzIHRoaXMgYW5kIHRob3VnaApTT0MgZHJpdmVzIERQLCBmb3IgSERNSSBwYW5l
-bCBBVkkgaW5mb2ZyYW1lIGlzIHNlbnQgdG8gdGhlIExTUENPTiBkZXZpY2UKd2hpY2ggdHJhbnNm
-ZXJzIHRoZSBzYW1lIHRvIEhETUkgc2luay4KCnYyOiBEcm9wcGVkIHN0YXRlIG1hbmFnZWQgaW4g
-ZHJtIGNvcmUgYXMgcGVyIEphbmkgTmlrdWxhJ3Mgc3VnZ2VzdGlvbi4KCnYzOiBBbGlnbmVkIGNv
-bG9yaW1ldHJ5IGhhbmRsaW5nIGZvciBsc3Bjb24gYXMgcGVyIGNvbXB1dGVfYXZpX2luZm9mcmFt
-ZXMsCmFzIHN1Z2dlc3RlZCBieSBWaWxsZS4KCnY0OiBGaW5hbGx5IGZpeGVkIHRoaXMgd2l0aCBW
-aWxsZSdzIGhlbHAsIHJlLXBocmFzZWQgdGhlIGNvbW1pdCBoZWFkZXIKYW5kIGRlc2NyaXB0aW9u
-LgoKdjU6IFJlZ2lzdGVyIEhETUkgY29sb3JzcGFjZSBmb3IgbHNwY29uIGFuZCBtb3ZlIHRoaXMg
-dG8KaW50ZWxfZHBfYWRkX3Byb3BlcnRpZXMgYXMgd2UgY2FuJ3QgY3JlYXRlIHByb3BlcnR5IGF0
-IGxhdGVfcmVnaXN0ZXIuCgpDcmVkaXRzLXRvOiBWaWxsZSBTeXJqw6Rsw6QgPHZpbGxlLnN5cmph
-bGFAbGludXguaW50ZWwuY29tPgpTaWduZWQtb2ZmLWJ5OiBVbWEgU2hhbmthciA8dW1hLnNoYW5r
-YXJAaW50ZWwuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZHAu
-YyAgICAgfCA5ICsrKysrKy0tLQogZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9s
-c3Bjb24uYyB8IDMgKysrCiAyIGZpbGVzIGNoYW5nZWQsIDkgaW5zZXJ0aW9ucygrKSwgMyBkZWxl
-dGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVs
-X2RwLmMgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2RwLmMKaW5kZXggZjA2
-NjAzMWFmMTYyLi4yMWEwY2E2YWUyYTYgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1
-L2Rpc3BsYXkvaW50ZWxfZHAuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2lu
-dGVsX2RwLmMKQEAgLTcxOTMsMTAgKzcxOTMsMTMgQEAgaW50ZWxfZHBfYWRkX3Byb3BlcnRpZXMo
-c3RydWN0IGludGVsX2RwICppbnRlbF9kcCwgc3RydWN0IGRybV9jb25uZWN0b3IgKmNvbm5lY3QK
-IAllbHNlIGlmIChJTlRFTF9HRU4oZGV2X3ByaXYpID49IDUpCiAJCWRybV9jb25uZWN0b3JfYXR0
-YWNoX21heF9icGNfcHJvcGVydHkoY29ubmVjdG9yLCA2LCAxMik7CiAKLQlpbnRlbF9hdHRhY2hf
-ZHBfY29sb3JzcGFjZV9wcm9wZXJ0eShjb25uZWN0b3IpOwotCi0JaWYgKGludGVsX2Jpb3NfaXNf
-bHNwY29uX3ByZXNlbnQoZGV2X3ByaXYsIHBvcnQpKQorCS8qIFJlZ2lzdGVyIEhETUkgY29sb3Jz
-cGFjZSBmb3IgY2FzZSBvZiBsc3Bjb24gKi8KKwlpZiAoaW50ZWxfYmlvc19pc19sc3Bjb25fcHJl
-c2VudChkZXZfcHJpdiwgcG9ydCkpIHsKIAkJZHJtX2Nvbm5lY3Rvcl9hdHRhY2hfY29udGVudF90
-eXBlX3Byb3BlcnR5KGNvbm5lY3Rvcik7CisJCWludGVsX2F0dGFjaF9oZG1pX2NvbG9yc3BhY2Vf
-cHJvcGVydHkoY29ubmVjdG9yKTsKKwl9IGVsc2UgeworCQlpbnRlbF9hdHRhY2hfZHBfY29sb3Jz
-cGFjZV9wcm9wZXJ0eShjb25uZWN0b3IpOworCX0KIAogCWlmIChJU19HRU1JTklMQUtFKGRldl9w
-cml2KSB8fCBJTlRFTF9HRU4oZGV2X3ByaXYpID49IDExKQogCQlkcm1fb2JqZWN0X2F0dGFjaF9w
-cm9wZXJ0eSgmY29ubmVjdG9yLT5iYXNlLApkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5
-MTUvZGlzcGxheS9pbnRlbF9sc3Bjb24uYyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkv
-aW50ZWxfbHNwY29uLmMKaW5kZXggMGE0YzA1ZDY3MTA4Li5jYjc2OGExYWU0YzkgMTAwNjQ0Ci0t
-LSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfbHNwY29uLmMKKysrIGIvZHJp
-dmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9sc3Bjb24uYwpAQCAtNTIzLDYgKzUyMyw5
-IEBAIHZvaWQgbHNwY29uX3NldF9pbmZvZnJhbWVzKHN0cnVjdCBpbnRlbF9lbmNvZGVyICplbmNv
-ZGVyLAogCWVsc2UKIAkJZnJhbWUuYXZpLmNvbG9yc3BhY2UgPSBIRE1JX0NPTE9SU1BBQ0VfUkdC
-OwogCisJLyogU2V0IHRoZSBDb2xvcnNwYWNlIGFzIHBlciB0aGUgSERNSSBzcGVjICovCisJZHJt
-X2hkbWlfYXZpX2luZm9mcmFtZV9jb2xvcnNwYWNlKCZmcmFtZS5hdmksIGNvbm5fc3RhdGUpOwor
-CiAJLyogbm9uc2Vuc2UgY29tYmluYXRpb24gKi8KIAlkcm1fV0FSTl9PTihlbmNvZGVyLT5iYXNl
-LmRldiwgY3J0Y19zdGF0ZS0+bGltaXRlZF9jb2xvcl9yYW5nZSAmJgogCQkgICAgY3J0Y19zdGF0
-ZS0+b3V0cHV0X2Zvcm1hdCAhPSBJTlRFTF9PVVRQVVRfRk9STUFUX1JHQik7Ci0tIAoyLjI2LjIK
-Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkludGVsLWdm
-eCBtYWlsaW5nIGxpc3QKSW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xp
-c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ludGVsLWdmeAo=
+Quoting Matthew Auld (2020-11-27 12:06:40)
+> From: Michel Thierry <michel.thierry@intel.com>
+
+Rationale goes here.
+
+Is this wise? HWSP is very frequently read by the CPU, and expected to
+be cached on the CPU.
+
+What do the performance profiles indicate?
+-Chris
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
