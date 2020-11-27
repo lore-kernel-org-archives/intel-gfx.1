@@ -7,48 +7,48 @@ X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2C4FEC64E75
-	for <intel-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 12:11:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C60A5C2D0E4
+	for <intel-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 12:11:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E155920665
-	for <intel-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 12:11:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E155920665
+	by mail.kernel.org (Postfix) with ESMTPS id 7DF342224A
+	for <intel-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 12:11:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7DF342224A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A7C26ECA9;
-	Fri, 27 Nov 2020 12:10:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 329CE6ECB1;
+	Fri, 27 Nov 2020 12:10:17 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 628B56EC8C;
- Fri, 27 Nov 2020 12:09:51 +0000 (UTC)
-IronPort-SDR: R6qZP7JrootS1iuRtDpbScjiq4ig7azsMAkCfMArevifqnin4JH0LIXzxfVlnCrG1ONToba4xA
- Zf/mNiHpKshw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9817"; a="172540724"
-X-IronPort-AV: E=Sophos;i="5.78,374,1599548400"; d="scan'208";a="172540724"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED0406ECB0;
+ Fri, 27 Nov 2020 12:10:12 +0000 (UTC)
+IronPort-SDR: NnuTJyw2ANgIMq6e02IudyY6b2u0UnJSAvTL4XRLvC19fErJ6YL1QF6h6YLVlpniQ0AIYniE6B
+ PdGMhr4ytuSw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9817"; a="172540780"
+X-IronPort-AV: E=Sophos;i="5.78,374,1599548400"; d="scan'208";a="172540780"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Nov 2020 04:09:51 -0800
-IronPort-SDR: 8V+sDq3gsCnIoU9DeD1WrPW7YnDyBMx4z5DEiPHY6ogDfiXpVycSR99rjSK9pOHp1mjXMtKObR
- A0082ZzGBRqg==
-X-IronPort-AV: E=Sophos;i="5.78,374,1599548400"; d="scan'208";a="548029105"
+ 27 Nov 2020 04:10:12 -0800
+IronPort-SDR: Kb1BCYn1Wm/a6T+laMBsXak+gNh5pafaMXqi/iltkF0zrgwoD+FdtI+qC55yT2sgBoV5sVSoH0
+ xsoYTSnrMzfQ==
+X-IronPort-AV: E=Sophos;i="5.78,374,1599548400"; d="scan'208";a="548029282"
 Received: from mjgleeso-mobl.ger.corp.intel.com (HELO
  mwauld-desk1.ger.corp.intel.com) ([10.251.85.2])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Nov 2020 04:09:49 -0800
+ 27 Nov 2020 04:10:10 -0800
 From: Matthew Auld <matthew.auld@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 27 Nov 2020 12:05:54 +0000
-Message-Id: <20201127120718.454037-79-matthew.auld@intel.com>
+Date: Fri, 27 Nov 2020 12:06:05 +0000
+Message-Id: <20201127120718.454037-90-matthew.auld@intel.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20201127120718.454037-1-matthew.auld@intel.com>
 References: <20201127120718.454037-1-matthew.auld@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [RFC PATCH 078/162] drm/i915: Return error value when
- bo not in LMEM for discrete
+Subject: [Intel-gfx] [RFC PATCH 089/162] drm/i915/dg1: Fix occasional
+ migration error
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,51 +61,53 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Mohammed Khajapasha <mohammed.khajapasha@intel.com>,
- dri-devel@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Mohammed Khajapasha <mohammed.khajapasha@intel.com>
+From: CQ Tang <cq.tang@intel.com>
 
-Return EREMOTE value when frame buffer object is not backed by LMEM
-for discrete. If Local memory is supported by hardware the framebuffer
-backing gem objects should be from local memory.
+We posted blitter copying operation. Then we call
+i915_gem_object_set_to_cpu_domain(), inside this function, we
+call i915_gem_object_wait() with interruptible flag. Sometimes
+this wait call gets interrupted by the blitter copying complete
+interrupt. This will make migration operation to fail.
+So before calling i915_gem_object_set_to_cpu_domain(), we call
+i915_gem_object_wait() with non-interruptible flag to wait for
+the blitter operation to finish.
 
-Signed-off-by: Mohammed Khajapasha <mohammed.khajapasha@intel.com>
-Cc: Michael J. Ruhl <michael.j.ruhl@intel.com>
-Cc: Animesh Manna <animesh.manna@intel.com>
+Signed-off-by: CQ Tang <cq.tang@intel.com>
+Cc: Matthew Auld <matthew.auld@intel.com>
+Cc: Sudeep Dutt <sudeep.dutt@intel.com>
+Cc: Ramalingam C <ramalingam.c@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ drivers/gpu/drm/i915/gem/i915_gem_object.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 8a7945f55278..95ed1e06ea55 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -18054,11 +18054,20 @@ intel_user_framebuffer_create(struct drm_device *dev,
- 	struct drm_framebuffer *fb;
- 	struct drm_i915_gem_object *obj;
- 	struct drm_mode_fb_cmd2 mode_cmd = *user_mode_cmd;
-+	struct drm_i915_private *i915;
- 
- 	obj = i915_gem_object_lookup(filp, mode_cmd.handles[0]);
- 	if (!obj)
- 		return ERR_PTR(-ENOENT);
- 
-+	/* object is backed with LMEM for discrete */
-+	i915 = to_i915(obj->base.dev);
-+	if (HAS_LMEM(i915) && !i915_gem_object_is_lmem(obj)) {
-+		/* object is "remote", not in local memory */
-+		i915_gem_object_put(obj);
-+		return ERR_PTR(-EREMOTE);
-+	}
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.c b/drivers/gpu/drm/i915/gem/i915_gem_object.c
+index 7ff430503497..49935245a4a8 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_object.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_object.c
+@@ -381,6 +381,17 @@ int i915_gem_object_migrate(struct drm_i915_gem_object *obj,
+ 		err = i915_gem_object_ww_copy_blt(obj, donor, ww, ce);
+ 		if (err)
+ 			goto unlock_donor;
 +
- 	fb = intel_framebuffer_create(obj, &mode_cmd);
- 	i915_gem_object_put(obj);
++		/*
++		 * Occasionally i915_gem_object_wait() called inside
++		 * i915_gem_object_set_to_cpu_domain() get interrupted
++		 * and return -ERESTARTSYS, this will make migration
++		 * operation fail. So adding a non-interruptible wait
++		 * before changing the object domain.
++		 */
++		err = i915_gem_object_wait(donor, 0, MAX_SCHEDULE_TIMEOUT);
++		if (err)
++			goto unlock_donor;
+ 	}
  
+ 	err = i915_gem_object_set_to_cpu_domain(donor, false);
 -- 
 2.26.2
 
