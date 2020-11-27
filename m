@@ -2,44 +2,50 @@ Return-Path: <SRS0=emkq=FB=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.7 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BBC3CC2D0E4
-	for <intel-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 10:36:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 917B1C2D0E4
+	for <intel-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 10:52:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2106120679
-	for <intel-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 10:36:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2106120679
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
+	by mail.kernel.org (Postfix) with ESMTPS id 024EE20657
+	for <intel-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 10:52:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 024EE20657
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 99B2C6EB8F;
-	Fri, 27 Nov 2020 10:36:29 +0000 (UTC)
-Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 09CAC6EB8F
- for <Intel-gfx@lists.freedesktop.org>; Fri, 27 Nov 2020 10:36:27 +0000 (UTC)
-X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
- x-ip-name=78.156.65.138; 
-Received: from localhost (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP (TLS) id
- 23130169-1500050 for multiple; Fri, 27 Nov 2020 10:36:20 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E4086EB78;
+	Fri, 27 Nov 2020 10:52:02 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8DDC96EB78
+ for <intel-gfx@lists.freedesktop.org>; Fri, 27 Nov 2020 10:52:00 +0000 (UTC)
+IronPort-SDR: VOzV9lANpMgerf5C728X00AU4+gEEUSMKLP44OpHIW1ggWCCYP8dsB14DCANuEwDLe3Ijwj2uI
+ Q9MJTqbi6UYw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9817"; a="151634273"
+X-IronPort-AV: E=Sophos;i="5.78,374,1599548400"; d="scan'208";a="151634273"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Nov 2020 02:51:08 -0800
+IronPort-SDR: dv97j6GtMhZajtryOOtNk3ocghoGjKx7kVeRQs7VS+IMDwuWhkEOhIyfoc1Ttd/pXBQZWo82Ac
+ cpxbHBjiT3gA==
+X-IronPort-AV: E=Sophos;i="5.78,374,1599548400"; d="scan'208";a="537605094"
+Received: from helsinki.fi.intel.com ([10.237.66.162])
+ by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Nov 2020 02:51:07 -0800
+From: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Fri, 27 Nov 2020 12:50:37 +0200
+Message-Id: <20201127105041.2793779-1-gwan-gyeong.mun@intel.com>
+X-Mailer: git-send-email 2.25.0
 MIME-Version: 1.0
-In-Reply-To: <20201127100109.1968571-1-tvrtko.ursulin@linux.intel.com>
-References: <20201126164703.1578226-1-tvrtko.ursulin@linux.intel.com>
- <20201127100109.1968571-1-tvrtko.ursulin@linux.intel.com>
-From: Chris Wilson <chris@chris-wilson.co.uk>
-To: Intel-gfx@lists.freedesktop.org,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Date: Fri, 27 Nov 2020 10:36:20 +0000
-Message-ID: <160647338038.5755.10632872150961246118@build.alporthouse.com>
-User-Agent: alot/0.9
-Subject: Re: [Intel-gfx] [PATCH v2] drm/i915/pmu: Deprecate I915_PMU_LAST
- and optimize state tracking
+Subject: [Intel-gfx] [PATCH v3 1/5] drm/i915/display/psr: Calculate
+ selective fetch plane registers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,103 +58,78 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Quoting Tvrtko Ursulin (2020-11-27 10:01:09)
-> From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-> 
-> Adding any kinds of "last" abi markers is usually a mistake which I
-> repeated when implementing the PMU because it felt convenient at the time.
-> 
-> This patch marks I915_PMU_LAST as deprecated and stops the internal
-> implementation using it for sizing the event status bitmask and array.
-> 
-> New way of sizing the fields is a bit less elegant, but it omits reserving
-> slots for tracking events we are not interested in, and as such saves some
-> runtime space. Adding sampling events is likely to be a special event and
-> the new plumbing needed will be easily detected in testing. Existing
-> asserts against the bitfield and array sizes are keeping the code safe.
-> 
-> First event which gets the new treatment in this new scheme are the
-> interrupts - which neither needs any tracking in i915 pmu nor needs
-> waking up the GPU to read it.
-> 
-> v2:
->  * Streamline helper names. (Chris)
-> 
-> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-> Cc: Chris Wilson <chris@chris-wilson.co.uk>
-> ---
->  drivers/gpu/drm/i915/i915_pmu.c | 80 ++++++++++++++++++++++++---------
->  drivers/gpu/drm/i915/i915_pmu.h | 35 ++++++++++-----
->  include/uapi/drm/i915_drm.h     |  2 +-
->  3 files changed, 83 insertions(+), 34 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/i915_pmu.c b/drivers/gpu/drm/i915/i915_pmu.c
-> index cd786ad12be7..06dc63bf84d7 100644
-> --- a/drivers/gpu/drm/i915/i915_pmu.c
-> +++ b/drivers/gpu/drm/i915/i915_pmu.c
-> @@ -27,8 +27,6 @@
->          BIT(I915_SAMPLE_WAIT) | \
->          BIT(I915_SAMPLE_SEMA))
->  
-> -#define ENGINE_SAMPLE_BITS (1 << I915_PMU_SAMPLE_BITS)
-> -
->  static cpumask_t i915_pmu_cpumask;
->  static unsigned int i915_pmu_target_cpu = -1;
->  
-> @@ -57,17 +55,38 @@ static bool is_engine_config(u64 config)
->         return config < __I915_PMU_OTHER(0);
->  }
->  
-> -static unsigned int config_enabled_bit(u64 config)
-> +static unsigned int other_bit(const u64 config)
-> +{
-> +       unsigned int val;
-> +
-> +       switch (config) {
-> +       case I915_PMU_ACTUAL_FREQUENCY:
-> +               val =  __I915_PMU_ACTUAL_FREQUENCY_ENABLED;
-> +               break;
-> +       case I915_PMU_REQUESTED_FREQUENCY:
-> +               val = __I915_PMU_REQUESTED_FREQUENCY_ENABLED;
-> +               break;
-> +       case I915_PMU_RC6_RESIDENCY:
-> +               val = __I915_PMU_RC6_RESIDENCY_ENABLED;
-> +               break;
-> +       default:
-
-Should we explicitly list the untracked events?
-
-At least we should put a comment here to remind ourselves what takes
-the default path.
-
-/* Anything that doesn't require event tracking can be ignored */
-
-> +               return -1;
-> +       }
-> +
-> +       return I915_ENGINE_SAMPLE_COUNT + val;
-> +}
-> +
-> +static unsigned int config_bit(const u64 config)
->  {
->         if (is_engine_config(config))
->                 return engine_config_sample(config);
->         else
-> -               return ENGINE_SAMPLE_BITS + (config - __I915_PMU_OTHER(0));
-> +               return other_bit(config);
->  }
-
-Thanks, that reads so much more clearly to me, and complements it use
-well.
-
-Reviewed-by: Chris Wilson <chris@chris-wilson.co.uk>
--Chris
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+RnJvbTogSm9zw6kgUm9iZXJ0byBkZSBTb3V6YSA8am9zZS5zb3V6YUBpbnRlbC5jb20+CgpBZGQg
+dGhlIGNhbGN1bGF0aW9ucyB0byBzZXQgcGxhbmUgc2VsZWN0aXZlIGZldGNoIHJlZ2lzdGVycyBk
+ZXBlbmRpbmcKaW4gdGhlIHZhbHVlIG9mIHRoZSBhcmVhIGRhbWFnZWQuCkl0IGlzIHN0aWxsIHVz
+aW5nIHRoZSB3aG9sZSBwbGFuZSBhcmVhIGFzIGRhbWFnZWQgYnV0IHRoYXQgd2lsbCBjaGFuZ2UK
+aW4gbmV4dCBwYXRjaGVzLgoKdjI6Ci0gZml4ZWQgbmV3X3BsYW5lX3N0YXRlLT51YXBpLmRzdC55
+MiB0eXBvIGluCmludGVsX3BzcjJfc2VsX2ZldGNoX3VwZGF0ZSgpCi0gZG8gbm90IHNoaWZ0aGlu
+ZyBuZXdfcGxhbmVfc3RhdGUtPnVhcGkuZHN0IG9ubHkgc3JjIGlzIGluIDE2LjE2IGZvcm1hdAoK
+QlNwZWM6IDU1MjI5CkNjOiBHd2FuLWd5ZW9uZyBNdW4gPGd3YW4tZ3llb25nLm11bkBpbnRlbC5j
+b20+CkNjOiBWaWxsZSBTeXJqw6Rsw6QgPHZpbGxlLnN5cmphbGFAbGludXguaW50ZWwuY29tPgpT
+aWduZWQtb2ZmLWJ5OiBKb3PDqSBSb2JlcnRvIGRlIFNvdXphIDxqb3NlLnNvdXphQGludGVsLmNv
+bT4KUmV2aWV3ZWQtYnk6IEd3YW4tZ3llb25nIE11biA8Z3dhbi1neWVvbmcubXVuQGludGVsLmNv
+bT4KVGVzdGVkLWJ5OiBHd2FuLWd5ZW9uZyBNdW4gPGd3YW4tZ3llb25nLm11bkBpbnRlbC5jb20+
+Ci0tLQogLi4uL2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGlzcGxheV90eXBlcy5oICAgIHwgIDIg
+KysKIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfcHNyLmMgICAgICB8IDIyICsr
+KysrKysrKysrKysrLS0tLS0KIDIgZmlsZXMgY2hhbmdlZCwgMTggaW5zZXJ0aW9ucygrKSwgNiBk
+ZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2lu
+dGVsX2Rpc3BsYXlfdHlwZXMuaCBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxf
+ZGlzcGxheV90eXBlcy5oCmluZGV4IGNlODJkNjU0ZDBmMi4uM2ExOGFhZjkwN2NjIDEwMDY0NAot
+LS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Rpc3BsYXlfdHlwZXMuaAor
+KysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Rpc3BsYXlfdHlwZXMuaApA
+QCAtNjA0LDYgKzYwNCw4IEBAIHN0cnVjdCBpbnRlbF9wbGFuZV9zdGF0ZSB7CiAJdTMyIHBsYW5h
+cl9zbGF2ZTsKIAogCXN0cnVjdCBkcm1faW50ZWxfc3ByaXRlX2NvbG9ya2V5IGNrZXk7CisKKwlz
+dHJ1Y3QgZHJtX3JlY3QgcHNyMl9zZWxfZmV0Y2hfYXJlYTsKIH07CiAKIHN0cnVjdCBpbnRlbF9p
+bml0aWFsX3BsYW5lX2NvbmZpZyB7CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9k
+aXNwbGF5L2ludGVsX3Bzci5jIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9w
+c3IuYwppbmRleCBiMzYzMWI3MjJkZTMuLmQ5YTM5NWM0ODZkMyAxMDA2NDQKLS0tIGEvZHJpdmVy
+cy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9wc3IuYworKysgYi9kcml2ZXJzL2dwdS9kcm0v
+aTkxNS9kaXNwbGF5L2ludGVsX3Bzci5jCkBAIC0xMTg1LDYgKzExODUsNyBAQCB2b2lkIGludGVs
+X3BzcjJfcHJvZ3JhbV9wbGFuZV9zZWxfZmV0Y2goc3RydWN0IGludGVsX3BsYW5lICpwbGFuZSwK
+IHsKIAlzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqZGV2X3ByaXYgPSB0b19pOTE1KHBsYW5lLT5i
+YXNlLmRldik7CiAJZW51bSBwaXBlIHBpcGUgPSBwbGFuZS0+cGlwZTsKKwljb25zdCBzdHJ1Y3Qg
+ZHJtX3JlY3QgKmNsaXA7CiAJdTMyIHZhbDsKIAogCWlmICghY3J0Y19zdGF0ZS0+ZW5hYmxlX3Bz
+cjJfc2VsX2ZldGNoKQpAQCAtMTE5NiwxNiArMTE5NywyMCBAQCB2b2lkIGludGVsX3BzcjJfcHJv
+Z3JhbV9wbGFuZV9zZWxfZmV0Y2goc3RydWN0IGludGVsX3BsYW5lICpwbGFuZSwKIAlpZiAoIXZh
+bCB8fCBwbGFuZS0+aWQgPT0gUExBTkVfQ1VSU09SKQogCQlyZXR1cm47CiAKLQl2YWwgPSBwbGFu
+ZV9zdGF0ZS0+dWFwaS5kc3QueTEgPDwgMTYgfCBwbGFuZV9zdGF0ZS0+dWFwaS5kc3QueDE7CisJ
+Y2xpcCA9ICZwbGFuZV9zdGF0ZS0+cHNyMl9zZWxfZmV0Y2hfYXJlYTsKKworCXZhbCA9IChjbGlw
+LT55MSArIHBsYW5lX3N0YXRlLT51YXBpLmRzdC55MSkgPDwgMTY7CisJdmFsIHw9IHBsYW5lX3N0
+YXRlLT51YXBpLmRzdC54MTsKIAlpbnRlbF9kZV93cml0ZV9mdyhkZXZfcHJpdiwgUExBTkVfU0VM
+X0ZFVENIX1BPUyhwaXBlLCBwbGFuZS0+aWQpLCB2YWwpOwogCi0JdmFsID0gcGxhbmVfc3RhdGUt
+PmNvbG9yX3BsYW5lW2NvbG9yX3BsYW5lXS55IDw8IDE2OworCS8qIFRPRE86IGNvbnNpZGVyIHRp
+bGluZyBhbmQgYXV4aWxpYXJ5IHN1cmZhY2VzICovCisJdmFsID0gKGNsaXAtPnkxICsgcGxhbmVf
+c3RhdGUtPmNvbG9yX3BsYW5lW2NvbG9yX3BsYW5lXS55KSA8PCAxNjsKIAl2YWwgfD0gcGxhbmVf
+c3RhdGUtPmNvbG9yX3BsYW5lW2NvbG9yX3BsYW5lXS54OwogCWludGVsX2RlX3dyaXRlX2Z3KGRl
+dl9wcml2LCBQTEFORV9TRUxfRkVUQ0hfT0ZGU0VUKHBpcGUsIHBsYW5lLT5pZCksCiAJCQkgIHZh
+bCk7CiAKIAkvKiBTaXplcyBhcmUgMCBiYXNlZCAqLwotCXZhbCA9ICgoZHJtX3JlY3RfaGVpZ2h0
+KCZwbGFuZV9zdGF0ZS0+dWFwaS5zcmMpID4+IDE2KSAtIDEpIDw8IDE2OworCXZhbCA9IChkcm1f
+cmVjdF9oZWlnaHQoY2xpcCkgLSAxKSA8PCAxNjsKIAl2YWwgfD0gKGRybV9yZWN0X3dpZHRoKCZw
+bGFuZV9zdGF0ZS0+dWFwaS5zcmMpID4+IDE2KSAtIDE7CiAJaW50ZWxfZGVfd3JpdGVfZncoZGV2
+X3ByaXYsIFBMQU5FX1NFTF9GRVRDSF9TSVpFKHBpcGUsIHBsYW5lLT5pZCksIHZhbCk7CiB9CkBA
+IC0xMjc5LDcgKzEyODQsNyBAQCBpbnQgaW50ZWxfcHNyMl9zZWxfZmV0Y2hfdXBkYXRlKHN0cnVj
+dCBpbnRlbF9hdG9taWNfc3RhdGUgKnN0YXRlLAogCiAJZm9yX2VhY2hfb2xkbmV3X2ludGVsX3Bs
+YW5lX2luX3N0YXRlKHN0YXRlLCBwbGFuZSwgb2xkX3BsYW5lX3N0YXRlLAogCQkJCQkgICAgIG5l
+d19wbGFuZV9zdGF0ZSwgaSkgewotCQlzdHJ1Y3QgZHJtX3JlY3QgdGVtcDsKKwkJc3RydWN0IGRy
+bV9yZWN0ICpzZWxfZmV0Y2hfYXJlYSwgdGVtcDsKIAogCQlpZiAobmV3X3BsYW5lX3N0YXRlLT51
+YXBpLmNydGMgIT0gY3J0Y19zdGF0ZS0+dWFwaS5jcnRjKQogCQkJY29udGludWU7CkBAIC0xMzAy
+LDggKzEzMDcsMTMgQEAgaW50IGludGVsX3BzcjJfc2VsX2ZldGNoX3VwZGF0ZShzdHJ1Y3QgaW50
+ZWxfYXRvbWljX3N0YXRlICpzdGF0ZSwKIAkJICogRm9yIG5vdyBkb2luZyBhIHNlbGVjdGl2ZSBm
+ZXRjaCBpbiB0aGUgd2hvbGUgcGxhbmUgYXJlYSwKIAkJICogb3B0aW1pemF0aW9ucyB3aWxsIGNv
+bWUgaW4gdGhlIGZ1dHVyZS4KIAkJICovCi0JCXRlbXAueTEgPSBuZXdfcGxhbmVfc3RhdGUtPnVh
+cGkuZHN0LnkxOwotCQl0ZW1wLnkyID0gbmV3X3BsYW5lX3N0YXRlLT51YXBpLmRzdC55MjsKKwkJ
+c2VsX2ZldGNoX2FyZWEgPSAmbmV3X3BsYW5lX3N0YXRlLT5wc3IyX3NlbF9mZXRjaF9hcmVhOwor
+CQlzZWxfZmV0Y2hfYXJlYS0+eTEgPSBuZXdfcGxhbmVfc3RhdGUtPnVhcGkuc3JjLnkxID4+IDE2
+OworCQlzZWxfZmV0Y2hfYXJlYS0+eTIgPSBuZXdfcGxhbmVfc3RhdGUtPnVhcGkuc3JjLnkyID4+
+IDE2OworCisJCXRlbXAgPSAqc2VsX2ZldGNoX2FyZWE7CisJCXRlbXAueTEgKz0gbmV3X3BsYW5l
+X3N0YXRlLT51YXBpLmRzdC55MTsKKwkJdGVtcC55MiArPSBuZXdfcGxhbmVfc3RhdGUtPnVhcGku
+ZHN0LnkyOwogCQljbGlwX2FyZWFfdXBkYXRlKCZwaXBlX2NsaXAsICZ0ZW1wKTsKIAl9CiAKLS0g
+CjIuMjUuMAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
+SW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRlbC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0
+dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vaW50ZWwtZ2Z4Cg==
