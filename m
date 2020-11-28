@@ -2,42 +2,40 @@ Return-Path: <SRS0=eRQi=FC=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4239BC64E7A
-	for <intel-gfx@archiver.kernel.org>; Sat, 28 Nov 2020 18:40:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AF23BC63777
+	for <intel-gfx@archiver.kernel.org>; Sat, 28 Nov 2020 18:40:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 90358222EC
-	for <intel-gfx@archiver.kernel.org>; Sat, 28 Nov 2020 18:40:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 90358222EC
+	by mail.kernel.org (Postfix) with ESMTPS id 12127222EC
+	for <intel-gfx@archiver.kernel.org>; Sat, 28 Nov 2020 18:40:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 12127222EC
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 728F26E06B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C0DBA6ECE2;
 	Sat, 28 Nov 2020 18:40:51 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 03C956ECE6
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E4A1C6E06B
  for <intel-gfx@lists.freedesktop.org>; Sat, 28 Nov 2020 18:40:49 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23146438-1500050 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23146436-1500050 
  for multiple; Sat, 28 Nov 2020 18:40:41 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Sat, 28 Nov 2020 18:40:39 +0000
-Message-Id: <20201128184040.20150-3-chris@chris-wilson.co.uk>
+Date: Sat, 28 Nov 2020 18:40:37 +0000
+Message-Id: <20201128184040.20150-1-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20201128184040.20150-1-chris@chris-wilson.co.uk>
-References: <20201128184040.20150-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [RFC 3/4] drm/i915/gt: Export the pinned context
- constructor
+Subject: [Intel-gfx] [RFC 1/4] drm/i915/gt: Add an insert_entry for
+ gen8_ppgtt
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,83 +54,52 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Allow internal clients to create a pinned context.
+In the next patch, we will want to write a PTE for an explicit
+dma address, outside of the usual vma.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 ---
- drivers/gpu/drm/i915/gt/intel_engine.h    |  8 ++++++++
- drivers/gpu/drm/i915/gt/intel_engine_cs.c | 17 ++++++++++-------
- 2 files changed, 18 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/i915/gt/gen8_ppgtt.c | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine.h b/drivers/gpu/drm/i915/gt/intel_engine.h
-index 760fefdfe392..ac58fcda4927 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine.h
-+++ b/drivers/gpu/drm/i915/gt/intel_engine.h
-@@ -19,7 +19,9 @@
- #include "intel_workarounds.h"
- 
- struct drm_printer;
-+struct intel_context;
- struct intel_gt;
-+struct lock_class_key;
- 
- /* Early gen2 devices have a cacheline of just 32 bytes, using 64 is overkill,
-  * but keeps the logic simple. Indeed, the whole purpose of this macro is just
-@@ -336,6 +338,12 @@ struct i915_request *
- intel_engine_find_active_request(struct intel_engine_cs *engine);
- 
- u32 intel_engine_context_size(struct intel_gt *gt, u8 class);
-+struct intel_context *
-+intel_engine_create_pinned_context(struct intel_engine_cs *engine,
-+				   unsigned int ring_size,
-+				   unsigned int hwsp,
-+				   struct lock_class_key *key,
-+				   const char *name);
- 
- void intel_engine_init_active(struct intel_engine_cs *engine,
- 			      unsigned int subclass);
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-index d4e988b2816a..f37de40f8a4f 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-@@ -796,11 +796,12 @@ intel_engine_init_active(struct intel_engine_cs *engine, unsigned int subclass)
- #endif
+diff --git a/drivers/gpu/drm/i915/gt/gen8_ppgtt.c b/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
+index a37c968ef8f7..1600a654baa8 100644
+--- a/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
++++ b/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
+@@ -556,6 +556,25 @@ static void gen8_ppgtt_insert(struct i915_address_space *vm,
+ 	}
  }
  
--static struct intel_context *
--create_pinned_context(struct intel_engine_cs *engine,
--		      unsigned int hwsp,
--		      struct lock_class_key *key,
--		      const char *name)
-+struct intel_context *
-+intel_engine_create_pinned_context(struct intel_engine_cs *engine,
-+				   unsigned int ring_size,
-+				   unsigned int hwsp,
-+				   struct lock_class_key *key,
-+				   const char *name)
++static void gen8_ppgtt_insert_entry(struct i915_address_space *vm,
++				    dma_addr_t addr,
++				    u64 offset,
++				    enum i915_cache_level level,
++				    u32 flags)
++{
++	u64 idx = offset >> GEN8_PTE_SHIFT;
++	struct i915_page_directory * const pdp =
++		gen8_pdp_for_page_index(vm, idx);
++	struct i915_page_directory *pd =
++		i915_pd_entry(pdp, gen8_pd_index(idx, 2));
++	gen8_pte_t *vaddr;
++
++	vaddr = kmap_atomic_px(i915_pt_entry(pd, gen8_pd_index(idx, 1)));
++	vaddr[gen8_pd_index(idx, 0)] = gen8_pte_encode(addr, level, flags);
++	clflush_cache_range(&vaddr[gen8_pd_index(idx, 0)], sizeof(*vaddr));
++	kunmap_atomic(vaddr);
++}
++
+ static int gen8_init_scratch(struct i915_address_space *vm)
  {
- 	struct intel_context *ce;
- 	int err;
-@@ -811,6 +812,7 @@ create_pinned_context(struct intel_engine_cs *engine,
+ 	int ret;
+@@ -728,6 +747,7 @@ struct i915_ppgtt *gen8_ppgtt_create(struct intel_gt *gt)
  
- 	__set_bit(CONTEXT_BARRIER_BIT, &ce->flags);
- 	ce->timeline = page_pack_bits(NULL, hwsp);
-+	ce->ring = __intel_context_ring_size(ring_size);
+ 	ppgtt->vm.bind_async_flags = I915_VMA_LOCAL_BIND;
+ 	ppgtt->vm.insert_entries = gen8_ppgtt_insert;
++	ppgtt->vm.insert_page = gen8_ppgtt_insert_entry;
+ 	ppgtt->vm.allocate_va_range = gen8_ppgtt_alloc;
+ 	ppgtt->vm.clear_range = gen8_ppgtt_clear;
  
- 	err = intel_context_pin(ce); /* perma-pin so it is always available */
- 	if (err) {
-@@ -834,8 +836,9 @@ create_kernel_context(struct intel_engine_cs *engine)
- {
- 	static struct lock_class_key kernel;
- 
--	return create_pinned_context(engine, I915_GEM_HWS_SEQNO_ADDR,
--				     &kernel, "kernel_context");
-+	return intel_engine_create_pinned_context(engine, SZ_4K,
-+						  I915_GEM_HWS_SEQNO_ADDR,
-+						  &kernel, "kernel_context");
- }
- 
- /**
 -- 
 2.20.1
 
