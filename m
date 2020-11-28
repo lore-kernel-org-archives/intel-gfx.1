@@ -2,53 +2,42 @@ Return-Path: <SRS0=eRQi=FC=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.7 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BCBF1C56201
-	for <intel-gfx@archiver.kernel.org>; Sat, 28 Nov 2020 04:52:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7D6D5C63777
+	for <intel-gfx@archiver.kernel.org>; Sat, 28 Nov 2020 18:40:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5951221534
-	for <intel-gfx@archiver.kernel.org>; Sat, 28 Nov 2020 04:52:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5951221534
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 91714222EC
+	for <intel-gfx@archiver.kernel.org>; Sat, 28 Nov 2020 18:40:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 91714222EC
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E0266EC48;
-	Sat, 28 Nov 2020 04:52:35 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 640876EC48
- for <intel-gfx@lists.freedesktop.org>; Sat, 28 Nov 2020 04:52:34 +0000 (UTC)
-IronPort-SDR: 9oIaaqCxJmXJqxVlxCmSoXQrYQA+MZjanOkqbo7Bv/ebOUGmsi5SYxRG0ehX7C5/YyzpeaNRjy
- DyKOWr6bf0ZQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9818"; a="236585595"
-X-IronPort-AV: E=Sophos;i="5.78,376,1599548400"; d="scan'208";a="236585595"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Nov 2020 20:52:30 -0800
-IronPort-SDR: 4fAaEjqfEdBISvZRDnFYkcGc+xjQVujywvh3+N8sp75A+gzH2OsHn+ZEP3jgK2JjWP7r0+iDUD
- rz1fu/h8Acdw==
-X-IronPort-AV: E=Sophos;i="5.78,376,1599548400"; d="scan'208";a="536238385"
-Received: from pgooneti-mobl2.amr.corp.intel.com (HELO ldmartin-desk1)
- ([10.209.121.133])
- by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Nov 2020 20:52:30 -0800
-Date: Fri, 27 Nov 2020 20:52:29 -0800
-From: Lucas De Marchi <lucas.demarchi@intel.com>
-To: Chris Wilson <chris@chris-wilson.co.uk>
-Message-ID: <20201128045229.kvxiqjin7k67zkod@ldmartin-desk1>
-References: <20201127145748.29491-1-chris@chris-wilson.co.uk>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7BC546ECE1;
+	Sat, 28 Nov 2020 18:40:51 +0000 (UTC)
+Received: from fireflyinternet.com (unknown [77.68.26.236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB0CB6ECE1
+ for <intel-gfx@lists.freedesktop.org>; Sat, 28 Nov 2020 18:40:48 +0000 (UTC)
+X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
+ x-ip-name=78.156.65.138; 
+Received: from build.alporthouse.com (unverified [78.156.65.138]) 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23146437-1500050 
+ for multiple; Sat, 28 Nov 2020 18:40:41 +0000
+From: Chris Wilson <chris@chris-wilson.co.uk>
+To: intel-gfx@lists.freedesktop.org
+Date: Sat, 28 Nov 2020 18:40:38 +0000
+Message-Id: <20201128184040.20150-2-chris@chris-wilson.co.uk>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20201128184040.20150-1-chris@chris-wilson.co.uk>
+References: <20201128184040.20150-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20201127145748.29491-1-chris@chris-wilson.co.uk>
-Subject: Re: [Intel-gfx] [PATCH] Revert "drm/i915: re-order if/else ladder
- for hpd_irq_setup"
+Subject: [Intel-gfx] [RFC 2/4] drm/i915/gt: Add a routine to iterate over
+ the pagetables of a GTT
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,80 +50,109 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="iso-8859-1"; Format="flowed"
+Cc: Chris Wilson <chris@chris-wilson.co.uk>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Nov 27, 2020 at 02:57:48PM +0000, Chris Wilson wrote:
->We now use ilk_hpd_irq_setup for all GMCH platforms that do not have
->hotplug. These are early gen3 and gen2 devices that now explode on boot
->as they try to access non-existent registers.
+In the next patch, we will want to look at the dma addresses of
+individual page tables, so add a routine to iterate over them.
 
-humn... true, my bad. But I don't think a revert is the right fix. It
-would be much better if we would not be setting up the hpd setup
-function at all for platforms that do not have hotplug. I think a
-separate early check for I915_HAS_HOTPLUG() would be deserved.
+Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+---
+ drivers/gpu/drm/i915/gt/gen8_ppgtt.c | 49 ++++++++++++++++++++++++++++
+ drivers/gpu/drm/i915/gt/intel_gtt.h  |  7 ++++
+ 2 files changed, 56 insertions(+)
 
-Lucas De Marchi
+diff --git a/drivers/gpu/drm/i915/gt/gen8_ppgtt.c b/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
+index 1600a654baa8..abf89b0c19da 100644
+--- a/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
++++ b/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
+@@ -357,6 +357,54 @@ static void gen8_ppgtt_alloc(struct i915_address_space *vm,
+ 			   &start, start + length, vm->top);
+ }
+ 
++static void __gen8_ppgtt_foreach(struct i915_address_space *vm,
++				 struct i915_page_directory *pd,
++				 u64 *start, u64 end, int lvl,
++				 void (*fn)(struct i915_address_space *vm,
++					    struct i915_page_table *pt,
++					    void *data),
++				 void *data)
++{
++	unsigned int idx, len;
++
++	len = gen8_pd_range(*start, end, lvl--, &idx);
++
++	spin_lock(&pd->lock);
++	do {
++		struct i915_page_table *pt = pd->entry[idx];
++
++		atomic_inc(&pt->used);
++		spin_unlock(&pd->lock);
++
++		if (lvl) {
++			__gen8_ppgtt_foreach(vm, as_pd(pt), start, end, lvl,
++					     fn, data);
++		} else {
++			fn(vm, pt, data);
++			*start += gen8_pt_count(*start, end);
++		}
++
++		spin_lock(&pd->lock);
++		atomic_dec(&pt->used);
++	} while (idx++, --len);
++	spin_unlock(&pd->lock);
++}
++
++static void gen8_ppgtt_foreach(struct i915_address_space *vm,
++			       u64 start, u64 length,
++			       void (*fn)(struct i915_address_space *vm,
++					  struct i915_page_table *pt,
++					  void *data),
++			       void *data)
++{
++	start >>= GEN8_PTE_SHIFT;
++	length >>= GEN8_PTE_SHIFT;
++
++	__gen8_ppgtt_foreach(vm, i915_vm_to_ppgtt(vm)->pd,
++			     &start, start + length, vm->top,
++			     fn, data);
++}
++
+ static __always_inline u64
+ gen8_ppgtt_insert_pte(struct i915_ppgtt *ppgtt,
+ 		      struct i915_page_directory *pdp,
+@@ -750,6 +798,7 @@ struct i915_ppgtt *gen8_ppgtt_create(struct intel_gt *gt)
+ 	ppgtt->vm.insert_page = gen8_ppgtt_insert_entry;
+ 	ppgtt->vm.allocate_va_range = gen8_ppgtt_alloc;
+ 	ppgtt->vm.clear_range = gen8_ppgtt_clear;
++	ppgtt->vm.foreach = gen8_ppgtt_foreach;
+ 
+ 	ppgtt->vm.pte_encode = gen8_pte_encode;
+ 
+diff --git a/drivers/gpu/drm/i915/gt/intel_gtt.h b/drivers/gpu/drm/i915/gt/intel_gtt.h
+index 8a33940a71f3..f91ad8442f2e 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gtt.h
++++ b/drivers/gpu/drm/i915/gt/intel_gtt.h
+@@ -281,6 +281,13 @@ struct i915_address_space {
+ 			       u32 flags);
+ 	void (*cleanup)(struct i915_address_space *vm);
+ 
++	void (*foreach)(struct i915_address_space *vm,
++			u64 start, u64 length,
++			void (*fn)(struct i915_address_space *vm,
++				   struct i915_page_table *pt,
++				   void *data),
++			void *data);
++
+ 	struct i915_vma_ops vma_ops;
+ 
+ 	I915_SELFTEST_DECLARE(struct fault_attr fault_attr);
+-- 
+2.20.1
 
->
->Fixes: 794d61a19090 ("drm/i915: re-order if/else ladder for hpd_irq_setup")
->Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
->Cc: Lucas De Marchi <lucas.demarchi@intel.com>
->Cc: Jos=E9 Roberto de Souza <jose.souza@intel.com>
->Cc: Jani Nikula <jani.nikula@linux.intel.com>
-
-
->---
-> drivers/gpu/drm/i915/i915_irq.c | 27 +++++++++++++++------------
-> 1 file changed, 15 insertions(+), 12 deletions(-)
->
->diff --git a/drivers/gpu/drm/i915/i915_irq.c b/drivers/gpu/drm/i915/i915_i=
-rq.c
->index dc6febc63f1c..c80eeac53952 100644
->--- a/drivers/gpu/drm/i915/i915_irq.c
->+++ b/drivers/gpu/drm/i915/i915_irq.c
->@@ -4242,18 +4242,21 @@ void intel_irq_init(struct drm_i915_private *dev_p=
-riv)
-> 	 */
-> 	dev_priv->hotplug.hpd_short_storm_enabled =3D !HAS_DP_MST(dev_priv);
->
->-	if (HAS_PCH_DG1(dev_priv))
->-		dev_priv->display.hpd_irq_setup =3D dg1_hpd_irq_setup;
->-	else if (INTEL_GEN(dev_priv) >=3D 11)
->-		dev_priv->display.hpd_irq_setup =3D gen11_hpd_irq_setup;
->-	else if (IS_GEN9_LP(dev_priv))
->-		dev_priv->display.hpd_irq_setup =3D bxt_hpd_irq_setup;
->-	else if (INTEL_PCH_TYPE(dev_priv) >=3D PCH_SPT)
->-		dev_priv->display.hpd_irq_setup =3D spt_hpd_irq_setup;
->-	else if (HAS_GMCH(dev_priv) && I915_HAS_HOTPLUG(dev_priv))
->-		dev_priv->display.hpd_irq_setup =3D i915_hpd_irq_setup;
->-	else
->-		dev_priv->display.hpd_irq_setup =3D ilk_hpd_irq_setup;
->+	if (HAS_GMCH(dev_priv)) {
->+		if (I915_HAS_HOTPLUG(dev_priv))
->+			dev_priv->display.hpd_irq_setup =3D i915_hpd_irq_setup;
->+	} else {
->+		if (HAS_PCH_DG1(dev_priv))
->+			dev_priv->display.hpd_irq_setup =3D dg1_hpd_irq_setup;
->+		else if (INTEL_GEN(dev_priv) >=3D 11)
->+			dev_priv->display.hpd_irq_setup =3D gen11_hpd_irq_setup;
->+		else if (IS_GEN9_LP(dev_priv))
->+			dev_priv->display.hpd_irq_setup =3D bxt_hpd_irq_setup;
->+		else if (INTEL_PCH_TYPE(dev_priv) >=3D PCH_SPT)
->+			dev_priv->display.hpd_irq_setup =3D spt_hpd_irq_setup;
->+		else
->+			dev_priv->display.hpd_irq_setup =3D ilk_hpd_irq_setup;
->+	}
-> }
->
-> /**
->-- =
-
->2.20.1
->
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
