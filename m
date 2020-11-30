@@ -2,75 +2,117 @@ Return-Path: <SRS0=3jid=FE=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4164AC64E7B
-	for <intel-gfx@archiver.kernel.org>; Mon, 30 Nov 2020 20:17:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 17F52C63777
+	for <intel-gfx@archiver.kernel.org>; Mon, 30 Nov 2020 21:00:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DC2FB20725
-	for <intel-gfx@archiver.kernel.org>; Mon, 30 Nov 2020 20:17:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DC2FB20725
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id BAAC52073C
+	for <intel-gfx@archiver.kernel.org>; Mon, 30 Nov 2020 21:00:00 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=vmware.com header.i=@vmware.com header.b="vDizNmFw"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BAAC52073C
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=vmware.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3CBD06E871;
-	Mon, 30 Nov 2020 20:17:13 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E35806E872
- for <intel-gfx@lists.freedesktop.org>; Mon, 30 Nov 2020 20:17:11 +0000 (UTC)
-IronPort-SDR: p8LuwWkYLHaNe2GAUO1Ea4ZsDRduGTEEyn5zCFXTa6soiPOio9qSCGPXoWYrPJXR30J1Qh+lu1
- BTmdpymsIzQA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9821"; a="190893458"
-X-IronPort-AV: E=Sophos;i="5.78,382,1599548400"; d="scan'208";a="190893458"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Nov 2020 12:17:11 -0800
-IronPort-SDR: zi77/uWcA/gqb2/0moBGVM2Z5aXMuzOnjP2PEBSHnqsgxbA/dmhZLsowz2Q7dcCb6aGqgUJFZj
- zWcsJbgWyDAw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.78,382,1599548400"; d="scan'208";a="537145732"
-Received: from fmsmsx605.amr.corp.intel.com ([10.18.126.85])
- by fmsmga006.fm.intel.com with ESMTP; 30 Nov 2020 12:17:11 -0800
-Received: from bgsmsx601.gar.corp.intel.com (10.109.78.80) by
- fmsmsx605.amr.corp.intel.com (10.18.126.85) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1713.5; Mon, 30 Nov 2020 12:17:10 -0800
-Received: from bgsmsx604.gar.corp.intel.com (10.67.234.6) by
- BGSMSX601.gar.corp.intel.com (10.109.78.80) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1713.5; Tue, 1 Dec 2020 01:47:08 +0530
-Received: from bgsmsx604.gar.corp.intel.com ([10.67.234.6]) by
- BGSMSX604.gar.corp.intel.com ([10.67.234.6]) with mapi id 15.01.1713.004;
- Tue, 1 Dec 2020 01:47:08 +0530
-From: "Shankar, Uma" <uma.shankar@intel.com>
-To: =?iso-8859-1?Q?Ville_Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-Thread-Topic: [v13 08/15] drm/i915/display: Enable colorspace programming for
- LSPCON devices
-Thread-Index: AQHWxMTeTmanj+9l40qQ91P0Adr2sKngvoyAgABi6OA=
-Date: Mon, 30 Nov 2020 20:17:07 +0000
-Message-ID: <bddd44cbd750447190945b34581fa136@intel.com>
-References: <20201126210314.7882-9-uma.shankar@intel.com>
- <20201127142820.8507-1-uma.shankar@intel.com>
- <20201130195107.GW6112@intel.com>
-In-Reply-To: <20201130195107.GW6112@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 92A5289D4D;
+	Mon, 30 Nov 2020 20:59:55 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2062.outbound.protection.outlook.com [40.107.237.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B31689CF2;
+ Mon, 30 Nov 2020 20:59:54 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=mbEACLEvQMLiGLZzy4V+7A3TcecZ8i7cBU/sriWaTVFfdeALnSq0N0YSbwygMWQI1cSbKU7Jtm/9sjC+MAEW/QxojggYNytdJgzKqprP0v9ggxp6iVtqR4ddpidKHUQmzbW3HYfFT1CU8Tli8NGq9P5X7X+kcY7II+Mf1kiNB/my11Ib9ABm3kgEb4+g0280pWW9AemCB1yDVMMX5ShiqbYof0wHoA8nwOlCbGne27hc2jjL83HvXFpLdaNoyGX/HevMbjXbFS3igpNO+QRpnlGZYZ4QiBZPcm44fFNS/AwNVV7SthupY9FK3hR98TS5vyAEkMsCNXKqKm+Q1iEGSg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=sU8qXTDuZDWl8ptwgkY0Wk8RC9Ca0AQO3aOswrUCdGo=;
+ b=LmYdxr/Cff0BQNRrgLfbab1lnPoQn9MM+1u2syujdjDvJ5fAkecWHbgUgLPiCcafteqTmMpyJp/6rDM9r0Z+qMcmXxmiUnLeOnGxyvG33VQbbvbwxxxqce3SF2OzBPaLusuTEqxW9VbLRe/Cze2IjX7pVn3xn2ZuRLX7bzsuXO/hje1DHCcDy/0HY+xIph83Rcsen+IUEa7qPmp8dTnOQYCi3YlgeM9LxIfwVEKllOlknWXImsQQUTZOOp/xu2mPaduFW8qBVM7i4+TKbPkLH88YO4scuaIKYfUQyrzMdzAuTXLykiuv6f6kpFWaorrDzvkvqCP7ADM2qu/aEjcAMg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=vmware.com; dmarc=pass action=none header.from=vmware.com;
+ dkim=pass header.d=vmware.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vmware.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=sU8qXTDuZDWl8ptwgkY0Wk8RC9Ca0AQO3aOswrUCdGo=;
+ b=vDizNmFwWwGnFYj3K/RfUogG1E19b1vb7+r/6k9CVOrKPM4o1UlOUJ3K0B7VEPuyHSyt7s/zz4MXCVdW/ogyIotVW6cEPHA8kKmzZt6NviXTMnvGxhNq5915xSHS9exgTkkoFkzQRYHpBLMErzADN5jVnVKVAc+fhMpbYGYYmqo=
+Received: from BL0PR05MB5186.namprd05.prod.outlook.com (2603:10b6:208:8f::18)
+ by BL0PR05MB5588.namprd05.prod.outlook.com (2603:10b6:208:6e::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3632.6; Mon, 30 Nov
+ 2020 20:59:52 +0000
+Received: from BL0PR05MB5186.namprd05.prod.outlook.com
+ ([fe80::59ed:18ca:252d:72f6]) by BL0PR05MB5186.namprd05.prod.outlook.com
+ ([fe80::59ed:18ca:252d:72f6%7]) with mapi id 15.20.3632.016; Mon, 30 Nov 2020
+ 20:59:52 +0000
+From: Zack Rusin <zackr@vmware.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Thread-Topic: [PATCH 14/15] drm/vmwgfx: Remove references to struct
+ drm_device.pdev
+Thread-Index: AQHWwlaG5WlZT6CPxU6T7GsrbIaTjanhMtCA
+Date: Mon, 30 Nov 2020 20:59:52 +0000
+Message-ID: <31E75B1A-AAC0-49E3-985E-2DF5B59CD883@vmware.com>
+References: <20201124113824.19994-1-tzimmermann@suse.de>
+ <20201124113824.19994-15-tzimmermann@suse.de>
+In-Reply-To: <20201124113824.19994-15-tzimmermann@suse.de>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-dlp-product: dlpe-windows
-dlp-reaction: no-action
-dlp-version: 11.5.1.3
-x-originating-ip: [10.223.10.1]
+x-mailer: Apple Mail (2.3608.120.23.2.4)
+authentication-results: suse.de; dkim=none (message not signed)
+ header.d=none;suse.de; dmarc=none action=none header.from=vmware.com;
+x-originating-ip: [71.175.59.246]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 1f0214c3-2da1-4d3b-3b52-08d89572e1e8
+x-ms-traffictypediagnostic: BL0PR05MB5588:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <BL0PR05MB5588E4B29C9638548FE9B5D9CEF50@BL0PR05MB5588.namprd05.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:849;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: iN0W7nqmJ+GRtCOPNL2IJ1GerLvIBkK+KUyM8yaOY7Ecj0rfJTt8WpPKVuEXgVZyJyIyxMxD8joOgrYmYSp3w3+ngJ7a9KXXi3tCmXQuHk03llmnkVG68Bvw/Qr4IYcqxr3cMSbJ7BfPrHlImI8/7RPYAUveQ70CNwSVnRS/vB60JToUo+pPybHt5wYi7g7OpFoZDBabiL3TQOKdjSIbMiEKZtxA5UeYUX5Npd9xbDIuFlX1bw91Y+AtCCcdSJj1ghbKT3q3GYrcJNx8ewQJm5K9HTJmKzSh6OZlRtLqY4IX4GSlXrJ+DyNk61s9Rvmt/Ik0kBCEhEmgpT36Eip4QA==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL0PR05MB5186.namprd05.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(346002)(376002)(136003)(39860400002)(396003)(8676002)(8936002)(6512007)(5660300002)(2906002)(6486002)(2616005)(36756003)(4744005)(66446008)(316002)(54906003)(66556008)(76116006)(64756008)(71200400001)(66476007)(26005)(33656002)(66946007)(186003)(478600001)(7416002)(86362001)(4326008)(6506007)(6916009)(53546011);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata: =?us-ascii?Q?PYtjGb518O0ip1gT/S8MkSKTcfym9HafySjrLzNtj/K9p29AtHi22Nz9bLgs?=
+ =?us-ascii?Q?Xs2tNeuqgD0+AZbNAfkhGKpCvcLYG/h3Yuu16YOAy+/0bHMQyUI+D7Owa1Cz?=
+ =?us-ascii?Q?DN+wygOXlXWzo/srHCn7P8YBPVscfuhkF2UkLsVXGFnQnfJyJeoHQGEUzWIf?=
+ =?us-ascii?Q?+aLOlAaL7+9eoXnjMKE6AYzD1B5+3x5z8Ar413CU1RxpoGbXyHxaJ6KPIo92?=
+ =?us-ascii?Q?RY2hok4hC1HkyTK9W0O1+Eee+8GwC3po3xi8t5qv5brwQJP44gEthr3Nr/an?=
+ =?us-ascii?Q?nB4j1tjpPHTMdBuVvxPfoEWscQ8rd/3Zs5slbJbvpLF/cZCHfQWWZvpboYm6?=
+ =?us-ascii?Q?HGCLNymIy+xrTHdfQ1fugkxP3Ylg2LF0bvo7pXCyD4Ak3GRbfS6ece4N0sNC?=
+ =?us-ascii?Q?mqBVuWqQsLM7B9BWjKzJ97s/+h94ZUw3+0F+8d6hZYP70fVjiCGxCYntRTSH?=
+ =?us-ascii?Q?9dMu8UrmcVGmzd9jZVOAU1K2Q5QJrC2a8c6NUPstyrhY7KPal+3DeKWuk33J?=
+ =?us-ascii?Q?j1nIj+TGjgIzwSeiym25zWAPtkUfYtTesb3yXkhG/LiO2X1THcS6OVQ0BsXO?=
+ =?us-ascii?Q?AUSGci/LQELrlURpnXOKsP4QomhItf3UoUqiYoXcEbRtL2J8ksEpRptm3Ptg?=
+ =?us-ascii?Q?zA4xcgZB22emHi0YiDy+0KKHF83FpIZp42Dd0TEmxINRehIov+EWWLrLvBvB?=
+ =?us-ascii?Q?ryjBRbRIZ3sLUF8tLc1C11D+JBMkFlcx65hrvwyUXPidMLD+u8IZoDntwLGh?=
+ =?us-ascii?Q?Jd3GAt7ml5msPPHCu2Knoq+Kn44Ij34vjpIQylyUC+7ISL7Oz6EiHA21oGv0?=
+ =?us-ascii?Q?cI8mHctWACpva3XBaWptAIcZtstO7r/tW7Hj8l9pEn/g1Et83OtFMLaxLX/p?=
+ =?us-ascii?Q?wQVucnUd4pc1X/ADjMCpT1gzKmnbuE71ueWjTUNWRa/WYgHEe3ogxTUtR+FZ?=
+ =?us-ascii?Q?d6KkxBtaG4W9edqAUHojYKYTjPyI8MEoOOWfqDhXJd0ChFqAxclLAqu4/TTo?=
+ =?us-ascii?Q?swvr?=
+Content-ID: <DA00B6650FD7A948A321344693A5973A@namprd05.prod.outlook.com>
 MIME-Version: 1.0
-Subject: Re: [Intel-gfx] [v13 08/15] drm/i915/display: Enable colorspace
- programming for LSPCON devices
+X-OriginatorOrg: vmware.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BL0PR05MB5186.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1f0214c3-2da1-4d3b-3b52-08d89572e1e8
+X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Nov 2020 20:59:52.0089 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b39138ca-3cee-4b4a-a4d6-cd83d9dd62f0
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: feIN9tRtxBM3IDeKho3X1g0E3JzY61Bh/tu1Qw5z1F1LYdR1Qb/YLWYFjDQuAm1vV1hcvbFSS83OXdj88UXK9Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR05MB5588
+Subject: Re: [Intel-gfx] [PATCH 14/15] drm/vmwgfx: Remove references to
+ struct drm_device.pdev
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,109 +125,39 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Cc: "airlied@linux.ie" <airlied@linux.ie>,
+ "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ Roland Scheidegger <sroland@vmware.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "virtualization@lists.linux-foundation.org"
+ <virtualization@lists.linux-foundation.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "spice-devel@lists.freedesktop.org" <spice-devel@lists.freedesktop.org>,
+ "intel-gvt-dev@lists.freedesktop.org" <intel-gvt-dev@lists.freedesktop.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 
 
-> -----Original Message-----
-> From: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
-> Sent: Tuesday, December 1, 2020 1:21 AM
-> To: Shankar, Uma <uma.shankar@intel.com>
-> Cc: intel-gfx@lists.freedesktop.org
-> Subject: Re: [v13 08/15] drm/i915/display: Enable colorspace programming =
-for
-> LSPCON devices
-> =
+> On Nov 24, 2020, at 06:38, Thomas Zimmermann <tzimmermann@suse.de> wrote:
+> 
+> Using struct drm_device.pdev is deprecated. Convert vmwgfx to struct
+> drm_device.dev. No functional changes.
+> 
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> Cc: Roland Scheidegger <sroland@vmware.com>
+> ---
+> drivers/gpu/drm/vmwgfx/vmwgfx_cmdbuf.c |  8 ++++----
+> drivers/gpu/drm/vmwgfx/vmwgfx_drv.c    | 27 +++++++++++++-------------
+> drivers/gpu/drm/vmwgfx/vmwgfx_fb.c     |  2 +-
 
-> On Fri, Nov 27, 2020 at 07:58:20PM +0530, Uma Shankar wrote:
-> > Enable HDMI Colorspace for LSPCON based devices. Sending Colorimetry
-> > data for HDR using AVI infoframe. LSPCON firmware expects this and
-> > though SOC drives DP, for HDMI panel AVI infoframe is sent to the
-> > LSPCON device which transfers the same to HDMI sink.
-> >
-> > v2: Dropped state managed in drm core as per Jani Nikula's suggestion.
-> >
-> > v3: Aligned colorimetry handling for lspcon as per
-> > compute_avi_infoframes, as suggested by Ville.
-> >
-> > v4: Finally fixed this with Ville's help, re-phrased the commit header
-> > and description.
-> >
-> > v5: Register HDMI colorspace for lspcon and move this to
-> > intel_dp_add_properties as we can't create property at late_register.
-> >
-> > Credits-to: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
-> > Signed-off-by: Uma Shankar <uma.shankar@intel.com>
-> =
+Reviewed-by: Zack Rusin <zackr@vmware.com>
 
-> Reviewed-by: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
+z
 
-Thanks a lot Ville for all your support, review and useful suggestions.
-I have sent out a final version with all your RB's and conditional comments
-addressed. =
-
-
-This series is now ready for merge.
-
-Thanks & Regards,
-Uma Shankar
-
-> > ---
-> >  drivers/gpu/drm/i915/display/intel_dp.c     | 9 ++++++---
-> >  drivers/gpu/drm/i915/display/intel_lspcon.c | 3 +++
-> >  2 files changed, 9 insertions(+), 3 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/i915/display/intel_dp.c
-> > b/drivers/gpu/drm/i915/display/intel_dp.c
-> > index f066031af162..21a0ca6ae2a6 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_dp.c
-> > +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-> > @@ -7193,10 +7193,13 @@ intel_dp_add_properties(struct intel_dp *intel_=
-dp,
-> struct drm_connector *connect
-> >  	else if (INTEL_GEN(dev_priv) >=3D 5)
-> >  		drm_connector_attach_max_bpc_property(connector, 6, 12);
-> >
-> > -	intel_attach_dp_colorspace_property(connector);
-> > -
-> > -	if (intel_bios_is_lspcon_present(dev_priv, port))
-> > +	/* Register HDMI colorspace for case of lspcon */
-> > +	if (intel_bios_is_lspcon_present(dev_priv, port)) {
-> >  		drm_connector_attach_content_type_property(connector);
-> > +		intel_attach_hdmi_colorspace_property(connector);
-> > +	} else {
-> > +		intel_attach_dp_colorspace_property(connector);
-> > +	}
-> >
-> >  	if (IS_GEMINILAKE(dev_priv) || INTEL_GEN(dev_priv) >=3D 11)
-> >  		drm_object_attach_property(&connector->base,
-> > diff --git a/drivers/gpu/drm/i915/display/intel_lspcon.c
-> > b/drivers/gpu/drm/i915/display/intel_lspcon.c
-> > index 0a4c05d67108..cb768a1ae4c9 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_lspcon.c
-> > +++ b/drivers/gpu/drm/i915/display/intel_lspcon.c
-> > @@ -523,6 +523,9 @@ void lspcon_set_infoframes(struct intel_encoder
-> *encoder,
-> >  	else
-> >  		frame.avi.colorspace =3D HDMI_COLORSPACE_RGB;
-> >
-> > +	/* Set the Colorspace as per the HDMI spec */
-> > +	drm_hdmi_avi_infoframe_colorspace(&frame.avi, conn_state);
-> > +
-> >  	/* nonsense combination */
-> >  	drm_WARN_ON(encoder->base.dev, crtc_state->limited_color_range &&
-> >  		    crtc_state->output_format !=3D INTEL_OUTPUT_FORMAT_RGB);
-> > --
-> > 2.26.2
-> =
-
-> --
-> Ville Syrj=E4l=E4
-> Intel
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
