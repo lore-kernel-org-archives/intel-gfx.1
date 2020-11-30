@@ -2,42 +2,55 @@ Return-Path: <SRS0=3jid=FE=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+X-Spam-Status: No, score=-10.3 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
+	NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 76402C64E90
-	for <intel-gfx@archiver.kernel.org>; Mon, 30 Nov 2020 13:19:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 427DCC64E8A
+	for <intel-gfx@archiver.kernel.org>; Mon, 30 Nov 2020 13:24:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0B1F7206F9
-	for <intel-gfx@archiver.kernel.org>; Mon, 30 Nov 2020 13:19:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0B1F7206F9
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
+	by mail.kernel.org (Postfix) with ESMTPS id D5F51206F9
+	for <intel-gfx@archiver.kernel.org>; Mon, 30 Nov 2020 13:24:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D5F51206F9
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 547586E4B1;
-	Mon, 30 Nov 2020 13:19:30 +0000 (UTC)
-Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE8B76E4AD
- for <intel-gfx@lists.freedesktop.org>; Mon, 30 Nov 2020 13:19:19 +0000 (UTC)
-X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
- x-ip-name=78.156.65.138; 
-Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23162378-1500050 
- for multiple; Mon, 30 Nov 2020 13:19:10 +0000
-From: Chris Wilson <chris@chris-wilson.co.uk>
-To: intel-gfx@lists.freedesktop.org
-Date: Mon, 30 Nov 2020 13:19:08 +0000
-Message-Id: <20201130131910.9412-3-chris@chris-wilson.co.uk>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20201130131910.9412-1-chris@chris-wilson.co.uk>
-References: <20201130131910.9412-1-chris@chris-wilson.co.uk>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 178C989C7F;
+	Mon, 30 Nov 2020 13:24:43 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B04289C05
+ for <intel-gfx@lists.freedesktop.org>; Mon, 30 Nov 2020 13:24:41 +0000 (UTC)
+IronPort-SDR: iMuPRKankDfSQnUA+j/2wVLmutAnC/LcZGFxJb9XcplcGlMhqomyoLqcskNi6BCxxtJ+3o73y8
+ hKA5EQOtk+EA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9820"; a="160403907"
+X-IronPort-AV: E=Sophos;i="5.78,381,1599548400"; d="scan'208";a="160403907"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Nov 2020 05:24:39 -0800
+IronPort-SDR: qc5hfKEJ9+ASNA+8MZXJebAcNis5kw2bhaz3hO05x0dfywpgz+y9+cGYWvzVgxUn+Qzs7zSUM8
+ kY39t4536CAw==
+X-IronPort-AV: E=Sophos;i="5.78,381,1599548400"; d="scan'208";a="538593788"
+Received: from ekiperwa-mobl.ger.corp.intel.com (HELO [10.252.22.113])
+ ([10.252.22.113])
+ by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Nov 2020 05:24:38 -0800
+To: Chris Wilson <chris@chris-wilson.co.uk>, intel-gfx@lists.freedesktop.org
+References: <20201127195334.13134-1-chris@chris-wilson.co.uk>
+From: Matthew Auld <matthew.auld@intel.com>
+Message-ID: <099bfb02-f13e-4bab-659f-c3e847aeeed3@intel.com>
+Date: Mon, 30 Nov 2020 13:24:36 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.4.0
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 3/5] drm/i915/gt: Export the pinned context
- constructor
+In-Reply-To: <20201127195334.13134-1-chris@chris-wilson.co.uk>
+Content-Language: en-GB
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/gem: Differentiate oom failures
+ from invalid map types
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,92 +63,22 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Chris Wilson <chris@chris-wilson.co.uk>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Allow internal clients to create a pinned context.
-
-Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
----
- drivers/gpu/drm/i915/gt/intel_engine.h    |  8 ++++++++
- drivers/gpu/drm/i915/gt/intel_engine_cs.c | 17 ++++++++++-------
- 2 files changed, 18 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine.h b/drivers/gpu/drm/i915/gt/intel_engine.h
-index 760fefdfe392..ac58fcda4927 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine.h
-+++ b/drivers/gpu/drm/i915/gt/intel_engine.h
-@@ -19,7 +19,9 @@
- #include "intel_workarounds.h"
- 
- struct drm_printer;
-+struct intel_context;
- struct intel_gt;
-+struct lock_class_key;
- 
- /* Early gen2 devices have a cacheline of just 32 bytes, using 64 is overkill,
-  * but keeps the logic simple. Indeed, the whole purpose of this macro is just
-@@ -336,6 +338,12 @@ struct i915_request *
- intel_engine_find_active_request(struct intel_engine_cs *engine);
- 
- u32 intel_engine_context_size(struct intel_gt *gt, u8 class);
-+struct intel_context *
-+intel_engine_create_pinned_context(struct intel_engine_cs *engine,
-+				   unsigned int ring_size,
-+				   unsigned int hwsp,
-+				   struct lock_class_key *key,
-+				   const char *name);
- 
- void intel_engine_init_active(struct intel_engine_cs *engine,
- 			      unsigned int subclass);
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-index d4e988b2816a..f37de40f8a4f 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-@@ -796,11 +796,12 @@ intel_engine_init_active(struct intel_engine_cs *engine, unsigned int subclass)
- #endif
- }
- 
--static struct intel_context *
--create_pinned_context(struct intel_engine_cs *engine,
--		      unsigned int hwsp,
--		      struct lock_class_key *key,
--		      const char *name)
-+struct intel_context *
-+intel_engine_create_pinned_context(struct intel_engine_cs *engine,
-+				   unsigned int ring_size,
-+				   unsigned int hwsp,
-+				   struct lock_class_key *key,
-+				   const char *name)
- {
- 	struct intel_context *ce;
- 	int err;
-@@ -811,6 +812,7 @@ create_pinned_context(struct intel_engine_cs *engine,
- 
- 	__set_bit(CONTEXT_BARRIER_BIT, &ce->flags);
- 	ce->timeline = page_pack_bits(NULL, hwsp);
-+	ce->ring = __intel_context_ring_size(ring_size);
- 
- 	err = intel_context_pin(ce); /* perma-pin so it is always available */
- 	if (err) {
-@@ -834,8 +836,9 @@ create_kernel_context(struct intel_engine_cs *engine)
- {
- 	static struct lock_class_key kernel;
- 
--	return create_pinned_context(engine, I915_GEM_HWS_SEQNO_ADDR,
--				     &kernel, "kernel_context");
-+	return intel_engine_create_pinned_context(engine, SZ_4K,
-+						  I915_GEM_HWS_SEQNO_ADDR,
-+						  &kernel, "kernel_context");
- }
- 
- /**
--- 
-2.20.1
-
+On 27/11/2020 19:53, Chris Wilson wrote:
+> After a cursory check on the parameters to i915_gem_object_pin_map(),
+> where we return a precise error, if the backend rejects the mapping we
+> always return PTR_ERR(-ENOMEM). Let us also return a more precise error
+> here so we can differentiate between running out of memory and
+> programming errors (or situations where we may be trying different paths
+> and looking for an error from an unsupported map).
+> 
+> Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+> Cc: Matthew Auld <matthew.auld@intel.com>
+Reviewed-by: Matthew Auld <matthew.auld@intel.com>
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
