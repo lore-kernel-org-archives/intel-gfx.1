@@ -2,52 +2,55 @@ Return-Path: <SRS0=3jid=FE=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1DD97C64E8A
-	for <intel-gfx@archiver.kernel.org>; Mon, 30 Nov 2020 09:31:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 95383C71156
+	for <intel-gfx@archiver.kernel.org>; Mon, 30 Nov 2020 10:00:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B22E8208DB
-	for <intel-gfx@archiver.kernel.org>; Mon, 30 Nov 2020 09:31:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B22E8208DB
+	by mail.kernel.org (Postfix) with ESMTPS id 23D36206D5
+	for <intel-gfx@archiver.kernel.org>; Mon, 30 Nov 2020 10:00:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 23D36206D5
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3395A6E413;
-	Mon, 30 Nov 2020 09:31:07 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 22B366E40A
- for <intel-gfx@lists.freedesktop.org>; Mon, 30 Nov 2020 09:31:02 +0000 (UTC)
-IronPort-SDR: 5tSO+CQiFTpKG3TCXF5rRZnZFk/7d3XNgD7A4vF5HpAS7Y7rkc6nCgIxoUgTfAbmWs0mdRX3IB
- vky7EH9Zdpzg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9820"; a="257314886"
-X-IronPort-AV: E=Sophos;i="5.78,381,1599548400"; d="scan'208";a="257314886"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6376D6E442;
+	Mon, 30 Nov 2020 10:00:40 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 93B686E43F;
+ Mon, 30 Nov 2020 10:00:38 +0000 (UTC)
+IronPort-SDR: U2iyBLPZrC8VOcCywRu2j36qK/V2TLibdQwgaZGDXgG0DRFS6THIIJ4e33sp5m7PkMKSlxhArZ
+ sXRza+pCTXiw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9820"; a="151861741"
+X-IronPort-AV: E=Sophos;i="5.78,381,1599548400"; d="scan'208";a="151861741"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Nov 2020 01:31:00 -0800
-IronPort-SDR: msPKbE6RIy/47oIenrtyjT8fB3XjJHxF/MbrvOE3/URxlgQZVIzMiayjXqglIINHthj7yPOxKd
- Dy4mG29rYH8Q==
-X-IronPort-AV: E=Sophos;i="5.78,381,1599548400"; d="scan'208";a="367055050"
-Received: from genxfsim-desktop.iind.intel.com ([10.223.74.178])
- by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Nov 2020 01:30:58 -0800
-From: Anshuman Gupta <anshuman.gupta@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Mon, 30 Nov 2020 14:46:45 +0530
-Message-Id: <20201130091646.25576-2-anshuman.gupta@intel.com>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20201130091646.25576-1-anshuman.gupta@intel.com>
-References: <20201130091646.25576-1-anshuman.gupta@intel.com>
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Nov 2020 02:00:37 -0800
+IronPort-SDR: 6oMN2U2q8HAKiZhpR1uGs0j7UETALvgwCU/iQFbt1vyOEl0QAu9T9M71gJPTV0mJMxUS+MilSm
+ QBec2+Rub7bw==
+X-IronPort-AV: E=Sophos;i="5.78,381,1599548400"; d="scan'208";a="549036835"
+Received: from cshanno1-mobl.ger.corp.intel.com (HELO localhost)
+ ([10.252.44.44])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Nov 2020 02:00:33 -0800
+From: Jani Nikula <jani.nikula@intel.com>
+To: Daniel Vetter <daniel@ffwll.ch>, Imre Deak <imre.deak@intel.com>
+In-Reply-To: <20201127151920.GI401619@phenom.ffwll.local>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20201123182631.1740781-1-imre.deak@intel.com>
+ <20201127143100.GB2144692@ideak-desk.fi.intel.com>
+ <20201127151920.GI401619@phenom.ffwll.local>
+Date: Mon, 30 Nov 2020 12:00:29 +0200
+Message-ID: <877dq3kvuq.fsf@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [RFC 1/2] drm/i915/dp: optimize pps_lock wherever
- required
+Subject: Re: [Intel-gfx] [PATCH 1/2] drm/framebuffer: Format modifier for
+ Intel Gen 12 render compression with Clear Color
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,89 +63,105 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Nanley Chery <nanley.g.chery@intel.com>,
+ Rafael Antognolli <rafael.antognolli@intel.com>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org,
+ Dhinakaran Pandiyan <dhinakaran.pandiyan@intel.com>,
+ Kalyan Kondapally <kalyan.kondapally@intel.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Reading backlight status from PPS register doesn't require
-AUX power on the platform which has South Display Engine on PCH.
-It invokes a unnecessary power well enable/disable noise.
-optimize it wherever is possible.
+On Fri, 27 Nov 2020, Daniel Vetter <daniel@ffwll.ch> wrote:
+> On Fri, Nov 27, 2020 at 04:31:00PM +0200, Imre Deak wrote:
+>> Hi Daniel, Jani,
+>> 
+>> is it ok to merge this patch along with 2/2 via the i915 tree?
+>
+> Ack from mesa (userspace in general, but mesa is kinda mandatory) is
+> missing I think. With that
+>
+> Acked-by: Daniel Vetter <daniel.vetter@ffwll.ch>
 
-Signed-off-by: Anshuman Gupta <anshuman.gupta@intel.com>
----
- drivers/gpu/drm/i915/display/intel_dp.c | 47 +++++++++++++++++++++++--
- 1 file changed, 45 insertions(+), 2 deletions(-)
+With the same conditions,
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 3896d08c4177..37371aa5f7c5 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -892,6 +892,47 @@ pps_unlock(struct intel_dp *intel_dp, intel_wakeref_t wakeref)
- 	return 0;
- }
- 
-+/*
-+ * Platform with PCH based SDE doesn't require to enable AUX power
-+ * for simple PPS register access like whether backlight is enabled.
-+ * use pch_pps_lock()/pch_pps_unlock() wherever we don't require
-+ * aux power to avoid unnecessary power well enable/disable back
-+ * and forth.
-+ */
-+static intel_wakeref_t
-+pch_pps_lock(struct intel_dp *intel_dp)
-+{
-+	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
-+	intel_wakeref_t wakeref;
-+
-+	if (!HAS_PCH_SPLIT(dev_priv))
-+		wakeref = intel_display_power_get(dev_priv,
-+						  intel_aux_power_domain(dp_to_dig_port(intel_dp)));
-+	else
-+		wakeref = intel_runtime_pm_get(&dev_priv->runtime_pm);
-+
-+	mutex_lock(&dev_priv->pps_mutex);
-+
-+	return wakeref;
-+}
-+
-+static intel_wakeref_t
-+pch_pps_unlock(struct intel_dp *intel_dp, intel_wakeref_t wakeref)
-+{
-+	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
-+
-+	mutex_unlock(&dev_priv->pps_mutex);
-+
-+	if (!HAS_PCH_SPLIT(dev_priv))
-+		intel_display_power_put(dev_priv,
-+					intel_aux_power_domain(dp_to_dig_port(intel_dp)),
-+					wakeref);
-+	else
-+		intel_runtime_pm_put(&dev_priv->runtime_pm, wakeref);
-+
-+	return 0;
-+}
-+
- #define with_pps_lock(dp, wf) \
- 	for ((wf) = pps_lock(dp); (wf); (wf) = pps_unlock((dp), (wf)))
- 
-@@ -3449,8 +3490,10 @@ static void intel_edp_backlight_power(struct intel_connector *connector,
- 	bool is_enabled;
- 
- 	is_enabled = false;
--	with_pps_lock(intel_dp, wakeref)
--		is_enabled = ilk_get_pp_control(intel_dp) & EDP_BLC_ENABLE;
-+	wakeref = pch_pps_lock(intel_dp);
-+	is_enabled = ilk_get_pp_control(intel_dp) & EDP_BLC_ENABLE;
-+	pch_pps_unlock(intel_dp, wakeref);
-+
- 	if (is_enabled == enable)
- 		return;
- 
+Acked-by: Jani Nikula <jani.nikula@intel.com>
+
+
+>
+>> 
+>> --Imre
+>> 
+>> On Mon, Nov 23, 2020 at 08:26:30PM +0200, Imre Deak wrote:
+>> > From: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
+>> > 
+>> > Gen12 display can decompress surfaces compressed by render engine with
+>> > Clear Color, add a new modifier as the driver needs to know the surface
+>> > was compressed by render engine.
+>> > 
+>> > V2: Description changes as suggested by Rafael.
+>> > V3: Mention the Clear Color size of 64 bits in the comments(DK)
+>> > v4: Fix trailing whitespaces
+>> > v5: Explain Clear Color in the documentation.
+>> > v6: Documentation Nitpicks(Nanley)
+>> > 
+>> > Cc: Ville Syrjala <ville.syrjala@linux.intel.com>
+>> > Cc: Dhinakaran Pandiyan <dhinakaran.pandiyan@intel.com>
+>> > Cc: Kalyan Kondapally <kalyan.kondapally@intel.com>
+>> > Cc: Rafael Antognolli <rafael.antognolli@intel.com>
+>> > Cc: Nanley Chery <nanley.g.chery@intel.com>
+>> > Signed-off-by: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
+>> > Signed-off-by: Imre Deak <imre.deak@intel.com>
+>> > ---
+>> >  include/uapi/drm/drm_fourcc.h | 19 +++++++++++++++++++
+>> >  1 file changed, 19 insertions(+)
+>> > 
+>> > diff --git a/include/uapi/drm/drm_fourcc.h b/include/uapi/drm/drm_fourcc.h
+>> > index ca48ed0e6bc1..0a1b2c4c4bee 100644
+>> > --- a/include/uapi/drm/drm_fourcc.h
+>> > +++ b/include/uapi/drm/drm_fourcc.h
+>> > @@ -527,6 +527,25 @@ extern "C" {
+>> >   */
+>> >  #define I915_FORMAT_MOD_Y_TILED_GEN12_MC_CCS fourcc_mod_code(INTEL, 7)
+>> >  
+>> > +/*
+>> > + * Intel Color Control Surface with Clear Color (CCS) for Gen-12 render
+>> > + * compression.
+>> > + *
+>> > + * The main surface is Y-tiled and is at plane index 0 whereas CCS is linear
+>> > + * and at index 1. The clear color is stored at index 2, and the pitch should
+>> > + * be ignored. The clear color structure is 256 bits. The first 128 bits
+>> > + * represents Raw Clear Color Red, Green, Blue and Alpha color each represented
+>> > + * by 32 bits. The raw clear color is consumed by the 3d engine and generates
+>> > + * the converted clear color of size 64 bits. The first 32 bits store the Lower
+>> > + * Converted Clear Color value and the next 32 bits store the Higher Converted
+>> > + * Clear Color value when applicable. The Converted Clear Color values are
+>> > + * consumed by the DE. The last 64 bits are used to store Color Discard Enable
+>> > + * and Depth Clear Value Valid which are ignored by the DE. A CCS cache line
+>> > + * corresponds to an area of 4x1 tiles in the main surface. The main surface
+>> > + * pitch is required to be a multiple of 4 tile widths.
+>> > + */
+>> > +#define I915_FORMAT_MOD_Y_TILED_GEN12_RC_CCS_CC fourcc_mod_code(INTEL, 8)
+>> > +
+>> >  /*
+>> >   * Tiled, NV12MT, grouped in 64 (pixels) x 32 (lines) -sized macroblocks
+>> >   *
+>> > -- 
+>> > 2.25.1
+>> > 
+>> > _______________________________________________
+>> > Intel-gfx mailing list
+>> > Intel-gfx@lists.freedesktop.org
+>> > https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+>> _______________________________________________
+>> dri-devel mailing list
+>> dri-devel@lists.freedesktop.org
+>> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+
 -- 
-2.26.2
-
+Jani Nikula, Intel Open Source Graphics Center
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
