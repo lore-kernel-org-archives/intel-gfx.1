@@ -7,47 +7,47 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9B80BC64E8A
-	for <intel-gfx@archiver.kernel.org>; Mon, 30 Nov 2020 21:22:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 306B9C63777
+	for <intel-gfx@archiver.kernel.org>; Mon, 30 Nov 2020 21:22:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4A7442084C
-	for <intel-gfx@archiver.kernel.org>; Mon, 30 Nov 2020 21:22:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4A7442084C
+	by mail.kernel.org (Postfix) with ESMTPS id D7F1E2073C
+	for <intel-gfx@archiver.kernel.org>; Mon, 30 Nov 2020 21:22:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D7F1E2073C
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B57C06E8AC;
-	Mon, 30 Nov 2020 21:22:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 03A886E8B6;
+	Mon, 30 Nov 2020 21:22:11 +0000 (UTC)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 346B66E8B4
- for <intel-gfx@lists.freedesktop.org>; Mon, 30 Nov 2020 21:22:05 +0000 (UTC)
-IronPort-SDR: pbiCGeOlYpuI4dxi2p0YtOPmwNDgKbyjezWNbTLSKS6BFvep6HZS+tOf2UhtJD6tJMMff/aYFx
- eQ0nDpNtkaJg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9821"; a="257424723"
-X-IronPort-AV: E=Sophos;i="5.78,382,1599548400"; d="scan'208";a="257424723"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D8B496E8B5
+ for <intel-gfx@lists.freedesktop.org>; Mon, 30 Nov 2020 21:22:08 +0000 (UTC)
+IronPort-SDR: BBBaNLvSvQ8Nq+sCzNXXNMdJsBmibtnZXfngjsmVy0UOhNw2UC1yEJdfmzpTHIy4H8Jz39FGUH
+ o9XQ6oBlZKnQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9821"; a="257424734"
+X-IronPort-AV: E=Sophos;i="5.78,382,1599548400"; d="scan'208";a="257424734"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Nov 2020 13:22:04 -0800
-IronPort-SDR: VQeY4AG/Gf8AxddrPefRqJCqI1rSIrJrZ2+iNMmKurqsgqOUqitEY8Zt86wLvCHS7r+4KpW+xt
- OEtn3Ro77xxw==
-X-IronPort-AV: E=Sophos;i="5.78,382,1599548400"; d="scan'208";a="480810519"
+ 30 Nov 2020 13:22:08 -0800
+IronPort-SDR: gGcciGz/FIzsmfHxW73D6wJjz20Eg+zpCketQUg5VKm0F1MGIfT2Yvw4iq9aUsRqiH/+3RebUN
+ Y/pjuAt7MW2A==
+X-IronPort-AV: E=Sophos;i="5.78,382,1599548400"; d="scan'208";a="480810548"
 Received: from ideak-desk.fi.intel.com ([10.237.68.141])
  by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Nov 2020 13:22:03 -0800
+ 30 Nov 2020 13:22:07 -0800
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 30 Nov 2020 23:21:52 +0200
-Message-Id: <20201130212200.2811939-2-imre.deak@intel.com>
+Date: Mon, 30 Nov 2020 23:21:55 +0200
+Message-Id: <20201130212200.2811939-5-imre.deak@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20201130212200.2811939-1-imre.deak@intel.com>
 References: <20201130212200.2811939-1-imre.deak@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 1/9] drm/i915: Use CRTC index consistently
- during getting/putting CRTC power domains
+Subject: [Intel-gfx] [PATCH 4/9] drm/i915/ddi: Track power reference taken
+ for encoder DDI IO use
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,31 +66,112 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The for_each_oldnew_intel_crtc_in_state() iterator index does match
-crtc->pipe, but using the same thing as array index when getting and
-putting CRTC power domains makes things clearer.
+Add wakeref tracking for the DDI encoders' DDI_IO display power domain
+references.
 
 Cc: Chris Wilson <chris@chris-wilson.co.uk>
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_ddi.c      | 38 ++++++++++++-------
+ .../drm/i915/display/intel_display_types.h    |  1 +
+ 2 files changed, 25 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index ba26545392bc..d812d7ae5e65 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -16376,8 +16376,8 @@ static void intel_atomic_commit_tail(struct intel_atomic_state *state)
- 	for_each_oldnew_intel_crtc_in_state(state, crtc, old_crtc_state, new_crtc_state, i) {
- 		intel_post_plane_update(state, crtc);
+diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
+index 92940a0c5ef8..9518d298b0f7 100644
+--- a/drivers/gpu/drm/i915/display/intel_ddi.c
++++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+@@ -2285,9 +2285,11 @@ static void intel_ddi_get_power_domains(struct intel_encoder *encoder,
+ 	dig_port = enc_to_dig_port(encoder);
  
--		if (put_domains[i])
--			modeset_put_power_domains(dev_priv, put_domains[i]);
-+		if (put_domains[crtc->pipe])
-+			modeset_put_power_domains(dev_priv, put_domains[crtc->pipe]);
+ 	if (!intel_phy_is_tc(dev_priv, phy) ||
+-	    dig_port->tc_mode != TC_PORT_TBT_ALT)
+-		intel_display_power_get(dev_priv,
+-					dig_port->ddi_io_power_domain);
++	    dig_port->tc_mode != TC_PORT_TBT_ALT) {
++		drm_WARN_ON(&dev_priv->drm, dig_port->ddi_io_wakeref);
++		dig_port->ddi_io_wakeref = intel_display_power_get(dev_priv,
++								   dig_port->ddi_io_power_domain);
++	}
  
- 		intel_modeset_verify_crtc(crtc, state, old_crtc_state, new_crtc_state);
+ 	/*
+ 	 * AUX power is only needed for (e)DP mode, and for HDMI mode on TC
+@@ -3577,9 +3579,11 @@ static void tgl_ddi_pre_enable_dp(struct intel_atomic_state *state,
  
+ 	/* 5. If IO power is controlled through PWR_WELL_CTL, Enable IO Power */
+ 	if (!intel_phy_is_tc(dev_priv, phy) ||
+-	    dig_port->tc_mode != TC_PORT_TBT_ALT)
+-		intel_display_power_get(dev_priv,
+-					dig_port->ddi_io_power_domain);
++	    dig_port->tc_mode != TC_PORT_TBT_ALT) {
++		drm_WARN_ON(&dev_priv->drm, dig_port->ddi_io_wakeref);
++		dig_port->ddi_io_wakeref = intel_display_power_get(dev_priv,
++								   dig_port->ddi_io_power_domain);
++	}
+ 
+ 	/* 6. Program DP_MODE */
+ 	icl_program_mg_dp_mode(dig_port, crtc_state);
+@@ -3698,9 +3702,11 @@ static void hsw_ddi_pre_enable_dp(struct intel_atomic_state *state,
+ 	intel_ddi_clk_select(encoder, crtc_state);
+ 
+ 	if (!intel_phy_is_tc(dev_priv, phy) ||
+-	    dig_port->tc_mode != TC_PORT_TBT_ALT)
+-		intel_display_power_get(dev_priv,
+-					dig_port->ddi_io_power_domain);
++	    dig_port->tc_mode != TC_PORT_TBT_ALT) {
++		drm_WARN_ON(&dev_priv->drm, dig_port->ddi_io_wakeref);
++		dig_port->ddi_io_wakeref = intel_display_power_get(dev_priv,
++								   dig_port->ddi_io_power_domain);
++	}
+ 
+ 	icl_program_mg_dp_mode(dig_port, crtc_state);
+ 
+@@ -3778,7 +3784,9 @@ static void intel_ddi_pre_enable_hdmi(struct intel_atomic_state *state,
+ 	intel_dp_dual_mode_set_tmds_output(intel_hdmi, true);
+ 	intel_ddi_clk_select(encoder, crtc_state);
+ 
+-	intel_display_power_get(dev_priv, dig_port->ddi_io_power_domain);
++	drm_WARN_ON(&dev_priv->drm, dig_port->ddi_io_wakeref);
++	dig_port->ddi_io_wakeref = intel_display_power_get(dev_priv,
++							   dig_port->ddi_io_power_domain);
+ 
+ 	icl_program_mg_dp_mode(dig_port, crtc_state);
+ 
+@@ -3936,8 +3944,9 @@ static void intel_ddi_post_disable_dp(struct intel_atomic_state *state,
+ 
+ 	if (!intel_phy_is_tc(dev_priv, phy) ||
+ 	    dig_port->tc_mode != TC_PORT_TBT_ALT)
+-		intel_display_power_put_unchecked(dev_priv,
+-						  dig_port->ddi_io_power_domain);
++		intel_display_power_put(dev_priv,
++					dig_port->ddi_io_power_domain,
++					fetch_and_zero(&dig_port->ddi_io_wakeref));
+ 
+ 	intel_ddi_clk_disable(encoder);
+ }
+@@ -3958,8 +3967,9 @@ static void intel_ddi_post_disable_hdmi(struct intel_atomic_state *state,
+ 
+ 	intel_disable_ddi_buf(encoder, old_crtc_state);
+ 
+-	intel_display_power_put_unchecked(dev_priv,
+-					  dig_port->ddi_io_power_domain);
++	intel_display_power_put(dev_priv,
++				dig_port->ddi_io_power_domain,
++				fetch_and_zero(&dig_port->ddi_io_wakeref));
+ 
+ 	intel_ddi_clk_disable(encoder);
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
+index 2dcda480b714..91ed5c445150 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_types.h
++++ b/drivers/gpu/drm/i915/display/intel_display_types.h
+@@ -1466,6 +1466,7 @@ struct intel_digital_port {
+ 	/* Used for DP and ICL+ TypeC/DP and TypeC/HDMI ports. */
+ 	enum aux_ch aux_ch;
+ 	enum intel_display_power_domain ddi_io_power_domain;
++	intel_wakeref_t ddi_io_wakeref;
+ 	struct mutex tc_lock;	/* protects the TypeC port mode */
+ 	intel_wakeref_t tc_lock_wakeref;
+ 	int tc_link_refcount;
 -- 
 2.25.1
 
