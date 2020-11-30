@@ -2,44 +2,53 @@ Return-Path: <SRS0=3jid=FE=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0C950C64E8A
-	for <intel-gfx@archiver.kernel.org>; Mon, 30 Nov 2020 14:11:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8633EC64E7B
+	for <intel-gfx@archiver.kernel.org>; Mon, 30 Nov 2020 14:18:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3C85F2076E
-	for <intel-gfx@archiver.kernel.org>; Mon, 30 Nov 2020 14:11:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3C85F2076E
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
+	by mail.kernel.org (Postfix) with ESMTPS id 1C2CC2084C
+	for <intel-gfx@archiver.kernel.org>; Mon, 30 Nov 2020 14:18:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1C2CC2084C
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 638956E40D;
-	Mon, 30 Nov 2020 14:11:57 +0000 (UTC)
-Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F5E86E40D
- for <intel-gfx@lists.freedesktop.org>; Mon, 30 Nov 2020 14:11:55 +0000 (UTC)
-X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
- x-ip-name=78.156.65.138; 
-Received: from localhost (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP (TLS) id
- 23163065-1500050 for multiple; Mon, 30 Nov 2020 14:11:50 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 394456E4BA;
+	Mon, 30 Nov 2020 14:18:36 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F5766E4BA
+ for <intel-gfx@lists.freedesktop.org>; Mon, 30 Nov 2020 14:18:35 +0000 (UTC)
+IronPort-SDR: rf3oB8XOd/BMxMUggdeTZBJEyr1bsFO/ADhGT81MGQyzOrWEyD0Wl2itzZD+l73JwtWlDiDK35
+ 2nhztKNTWQag==
+X-IronPort-AV: E=McAfee;i="6000,8403,9820"; a="160413548"
+X-IronPort-AV: E=Sophos;i="5.78,381,1599548400"; d="scan'208";a="160413548"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Nov 2020 06:18:21 -0800
+IronPort-SDR: EH5RY9Ktrqz5xO6bivWij24x8PWJo+nOk2Ovy6O8tla29cp0DHgPe3n752lTTlvcxrdAoNmleZ
+ is14SVf//94Q==
+X-IronPort-AV: E=Sophos;i="5.78,381,1599548400"; d="scan'208";a="549116085"
+Received: from ekiperwa-mobl.ger.corp.intel.com (HELO
+ mwauld-desk1.ger.corp.intel.com) ([10.252.22.113])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Nov 2020 06:18:20 -0800
+From: Matthew Auld <matthew.auld@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Mon, 30 Nov 2020 14:18:09 +0000
+Message-Id: <20201130141809.65330-2-matthew.auld@intel.com>
+X-Mailer: git-send-email 2.26.2
+In-Reply-To: <20201130141809.65330-1-matthew.auld@intel.com>
+References: <20201130141809.65330-1-matthew.auld@intel.com>
 MIME-Version: 1.0
-In-Reply-To: <160674359480.9503.7150298801559341502@build.alporthouse.com>
-References: <20201128184040.20150-1-chris@chris-wilson.co.uk>
- <20201128184040.20150-4-chris@chris-wilson.co.uk>
- <f8856a1a-48ad-9a26-3658-bfbcef1c7a95@linux.intel.com>
- <160674359480.9503.7150298801559341502@build.alporthouse.com>
-From: Chris Wilson <chris@chris-wilson.co.uk>
-To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- intel-gfx@lists.freedesktop.org
-Date: Mon, 30 Nov 2020 14:11:51 +0000
-Message-ID: <160674551153.9850.7796675329562996590@build.alporthouse.com>
-User-Agent: alot/0.9
-Subject: Re: [Intel-gfx] [RFC 4/4] drm/i915/gt: Pipelined page migration
+Subject: [Intel-gfx] [PATCH 2/2] drm/i915/selftest: assert we get 2M GTT
+ pages
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,82 +66,50 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Quoting Chris Wilson (2020-11-30 13:39:54)
-> Quoting Tvrtko Ursulin (2020-11-30 13:12:55)
-> > 
-> > On 28/11/2020 18:40, Chris Wilson wrote:
-> > > +struct i915_request *
-> > > +intel_context_migrate_pages(struct intel_context *ce,
-> > > +                         struct scatterlist *src,
-> > > +                         struct scatterlist *dst)
-> > > +{
-> > > +     struct sgt_dma it_s = sg_sgt(src), it_d = sg_sgt(dst);
-> > > +     u64 encode = ce->vm->pte_encode(0, I915_CACHE_LLC, 0); /* flags */
-> > > +     struct i915_request *rq;
-> > > +     int len;
-> > > +     int err;
-> > > +
-> > > +     /* GEM_BUG_ON(ce->vm != migrate_vm); */
-> > > +
-> > > +     err = intel_context_pin(ce);
-> > > +     if (err)
-> > > +             return ERR_PTR(err);
-> > > +
-> > > +     GEM_BUG_ON(ce->ring->size < SZ_64K);
-> > > +
-> > > +     do {
-> > > +             rq = i915_request_create(ce);
-> > > +             if (IS_ERR(rq)) {
-> > > +                     err = PTR_ERR(rq);
-> > > +                     goto out_ce;
-> > > +             }
-> > > +
-> > > +             len = emit_pte(rq, &it_s, encode, 0, CHUNK_SZ);
-> > > +             if (len <= 0) {
-> > > +                     err = len;
-> > > +                     goto out_rq;
-> > > +             }
-> > > +
-> > > +             if (emit_pte(rq, &it_d, encode, CHUNK_SZ, len) < len) {
-> > > +                     err = -EINVAL;
-> > > +                     goto out_rq;
-> > > +             }
-> > 
-> > Source and destination PTEs into the reserved [0, sz * 2) area?
-> 
-> Yes.
-> 
-> > 
-> > > +
-> > > +             err = rq->engine->emit_flush(rq, EMIT_INVALIDATE);
-> > > +             if (err)
-> > > +                     goto out_rq;
-> > > +
-> > > +             err = emit_copy(rq, len);
-> > 
-> > Right so copy can use fixed offsets.
-> > 
-> > > +             if (err)
-> > > +                     goto out_rq;
-> > > +
-> > > +             if (!it_s.sg)
-> > > +                     i915_request_get(rq);
-> > > +out_rq:
-> > > +             i915_request_add(rq);
-> > > +             if (it_s.sg)
-> > > +                     cond_resched();
-> > 
-> >  From what context does this run? No preemptible?
-> 
-> Has to be process context; numerous allocations, implicit waits (that we
-> want to avoid in practice), and the timeline (per-context) mutex to
-> guard access to the ringbuffer.
+For the LMEM case if we have suitable alignment and 2M physical pages we
+should always get 2M GTT pages within the constraints of the hugepages
+selftest. If we don't then something might be wrong in our construction
+of the backing pages.
 
-Another thought was to allocate new contexts on the fly; as we can only
-copy about 500MiB before stalling using GPU PTE updates.
+References: 330b7d33056b ("drm/i915/region: fix order when adding blocks")
+Signed-off-by: Matthew Auld <matthew.auld@intel.com>
+---
+ .../gpu/drm/i915/gem/selftests/huge_pages.c   | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
 
-However, I thought reallocations would be worse for the code flow.
--Chris
+diff --git a/drivers/gpu/drm/i915/gem/selftests/huge_pages.c b/drivers/gpu/drm/i915/gem/selftests/huge_pages.c
+index 0bf93947d89d..cecbd2012e9d 100644
+--- a/drivers/gpu/drm/i915/gem/selftests/huge_pages.c
++++ b/drivers/gpu/drm/i915/gem/selftests/huge_pages.c
+@@ -368,6 +368,25 @@ static int igt_check_page_sizes(struct i915_vma *vma)
+ 		err = -EINVAL;
+ 	}
+ 
++	/*
++	 * The dma-api is like a box of chocolates when it comes to the
++	 * alignment of dma addresses, however for LMEM we have total control
++	 * and so can guarantee alignment, likewise when we allocate our blocks
++	 * they should appear in descending order, and if we know that we align
++	 * to the largest page size for the GTT address, we should be able to
++	 * assert that if we see 2M physical pages then we should also get 2M
++	 * GTT pages. If we don't then something might be wrong in our
++	 * construction of the backing pages.
++	 */
++	if (i915_gem_object_is_lmem(obj) &&
++	    IS_ALIGNED(vma->node.start, SZ_2M) &&
++	    vma->page_sizes.sg & SZ_2M &&
++	    vma->page_sizes.gtt < SZ_2M) {
++		pr_err("gtt pages mismatch for LMEM, expected 2M GTT pages, sg(%u), gtt(%u)\n",
++		       vma->page_sizes.sg, vma->page_sizes.gtt);
++		err = -EINVAL;
++	}
++
+ 	if (obj->mm.page_sizes.gtt) {
+ 		pr_err("obj->page_sizes.gtt(%u) should never be set\n",
+ 		       obj->mm.page_sizes.gtt);
+-- 
+2.26.2
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
