@@ -2,41 +2,40 @@ Return-Path: <SRS0=3jid=FE=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 18D49C64E7B
-	for <intel-gfx@archiver.kernel.org>; Mon, 30 Nov 2020 13:18:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 721A5C64E7B
+	for <intel-gfx@archiver.kernel.org>; Mon, 30 Nov 2020 13:19:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4E66F206F9
-	for <intel-gfx@archiver.kernel.org>; Mon, 30 Nov 2020 13:18:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4E66F206F9
+	by mail.kernel.org (Postfix) with ESMTPS id 09F4D206F9
+	for <intel-gfx@archiver.kernel.org>; Mon, 30 Nov 2020 13:19:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 09F4D206F9
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C3626E4AB;
-	Mon, 30 Nov 2020 13:18:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 470376E4B0;
+	Mon, 30 Nov 2020 13:19:20 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E77B86E4AB
- for <intel-gfx@lists.freedesktop.org>; Mon, 30 Nov 2020 13:18:53 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E31836E4AA
+ for <intel-gfx@lists.freedesktop.org>; Mon, 30 Nov 2020 13:19:17 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
-Received: from localhost (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP (TLS) id
- 23162369-1500050 for multiple; Mon, 30 Nov 2020 13:18:49 +0000
-MIME-Version: 1.0
-In-Reply-To: <20201130130843.44334-1-matthew.auld@intel.com>
-References: <20201130130843.44334-1-matthew.auld@intel.com>
+Received: from build.alporthouse.com (unverified [78.156.65.138]) 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23162376-1500050 
+ for multiple; Mon, 30 Nov 2020 13:19:09 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
-To: Matthew Auld <matthew.auld@intel.com>, intel-gfx@lists.freedesktop.org
-Date: Mon, 30 Nov 2020 13:18:49 +0000
-Message-ID: <160674232973.8815.8625041556670650754@build.alporthouse.com>
-User-Agent: alot/0.9
-Subject: Re: [Intel-gfx] [PATCH] drm/i915/lmem: Limit block size to 4G
+To: intel-gfx@lists.freedesktop.org
+Date: Mon, 30 Nov 2020 13:19:06 +0000
+Message-Id: <20201130131910.9412-1-chris@chris-wilson.co.uk>
+X-Mailer: git-send-email 2.20.1
+MIME-Version: 1.0
+Subject: [Intel-gfx] [PATCH 1/5] drm/i915/gt: Add an insert_entry for
+ gen8_ppgtt
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,139 +48,61 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Chris Wilson <chris@chris-wilson.co.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Quoting Matthew Auld (2020-11-30 13:08:43)
-> From: Venkata Sandeep Dhanalakota <venkata.s.dhanalakota@intel.com>
-> 
-> Block sizes are only limited by the largest power-of-two that will fit
-> in the region size, but to construct an object we also require feeding
-> it into an sg list, where the upper limit of the sg entry is at most
-> UINT_MAX. Therefore to prevent issues with allocating blocks that are
-> too large, add the flag I915_ALLOC_MAX_SEGMENT_SIZE which should limit
-> block sizes to the i915_sg_segment_size().
-> 
-> v2: (matt)
->   - query the max segment.
->   - prefer flag to limit block size to 4G, since it's best not to assume
->     the user will feed the blocks into an sg list.
->   - simple selftest so we don't have to guess.
-> 
-> Cc: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
-> Cc: Matthew Auld <matthew.auld@intel.com>
-> Cc: CQ Tang <cq.tang@intel.com>
-> Signed-off-by: Venkata Sandeep Dhanalakota <venkata.s.dhanalakota@intel.com>
-> Signed-off-by: Matthew Auld <matthew.auld@intel.com>
-> ---
->  drivers/gpu/drm/i915/gem/i915_gem_region.c    |  2 +-
->  drivers/gpu/drm/i915/intel_memory_region.c    | 16 +++++-
->  drivers/gpu/drm/i915/intel_memory_region.h    |  5 +-
->  .../drm/i915/selftests/intel_memory_region.c  | 50 +++++++++++++++++++
->  4 files changed, 69 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_region.c b/drivers/gpu/drm/i915/gem/i915_gem_region.c
-> index 1515384d7e0e..e72d78074c9e 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_region.c
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_region.c
-> @@ -42,7 +42,7 @@ i915_gem_object_get_pages_buddy(struct drm_i915_gem_object *obj)
->                 return -ENOMEM;
->         }
->  
-> -       flags = I915_ALLOC_MIN_PAGE_SIZE;
-> +       flags = I915_ALLOC_MIN_PAGE_SIZE | I915_ALLOC_MAX_SEGMENT_SIZE;
->         if (obj->flags & I915_BO_ALLOC_CONTIGUOUS)
->                 flags |= I915_ALLOC_CONTIGUOUS;
->  
-> diff --git a/drivers/gpu/drm/i915/intel_memory_region.c b/drivers/gpu/drm/i915/intel_memory_region.c
-> index b326993a1026..8a376f1b5b3b 100644
-> --- a/drivers/gpu/drm/i915/intel_memory_region.c
-> +++ b/drivers/gpu/drm/i915/intel_memory_region.c
-> @@ -72,6 +72,7 @@ __intel_memory_region_get_pages_buddy(struct intel_memory_region *mem,
->                                       struct list_head *blocks)
->  {
->         unsigned int min_order = 0;
-> +       unsigned int max_order;
->         unsigned long n_pages;
->  
->         GEM_BUG_ON(!IS_ALIGNED(size, mem->mm.chunk_size));
-> @@ -92,13 +93,26 @@ __intel_memory_region_get_pages_buddy(struct intel_memory_region *mem,
->  
->         n_pages = size >> ilog2(mem->mm.chunk_size);
->  
-> +       /*
-> +        * If we going to feed this into an sg list we should limit the block
-> +        * sizes such that we don't exceed the i915_sg_segment_size().
-> +        */
-> +       if (flags & I915_ALLOC_MAX_SEGMENT_SIZE) {
-> +               unsigned int max_segment = i915_sg_segment_size();
-> +
-> +               GEM_BUG_ON(max_segment < mem->mm.chunk_size);
+In the next patch, we will want to write a PTE for an explicit
+dma address, outside of the usual vma.
 
-iirc, the swiotlb segment size can be adjusted by user parameter.
-[Don't ask if swiotlb is compatible with lmem, I suspect not ;]
+Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+---
+ drivers/gpu/drm/i915/gt/gen8_ppgtt.c | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
 
-I think err on the side of safety, just in case the user does find a way
-to adjust the parameter,
+diff --git a/drivers/gpu/drm/i915/gt/gen8_ppgtt.c b/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
+index a37c968ef8f7..1600a654baa8 100644
+--- a/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
++++ b/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
+@@ -556,6 +556,25 @@ static void gen8_ppgtt_insert(struct i915_address_space *vm,
+ 	}
+ }
+ 
++static void gen8_ppgtt_insert_entry(struct i915_address_space *vm,
++				    dma_addr_t addr,
++				    u64 offset,
++				    enum i915_cache_level level,
++				    u32 flags)
++{
++	u64 idx = offset >> GEN8_PTE_SHIFT;
++	struct i915_page_directory * const pdp =
++		gen8_pdp_for_page_index(vm, idx);
++	struct i915_page_directory *pd =
++		i915_pd_entry(pdp, gen8_pd_index(idx, 2));
++	gen8_pte_t *vaddr;
++
++	vaddr = kmap_atomic_px(i915_pt_entry(pd, gen8_pd_index(idx, 1)));
++	vaddr[gen8_pd_index(idx, 0)] = gen8_pte_encode(addr, level, flags);
++	clflush_cache_range(&vaddr[gen8_pd_index(idx, 0)], sizeof(*vaddr));
++	kunmap_atomic(vaddr);
++}
++
+ static int gen8_init_scratch(struct i915_address_space *vm)
+ {
+ 	int ret;
+@@ -728,6 +747,7 @@ struct i915_ppgtt *gen8_ppgtt_create(struct intel_gt *gt)
+ 
+ 	ppgtt->vm.bind_async_flags = I915_VMA_LOCAL_BIND;
+ 	ppgtt->vm.insert_entries = gen8_ppgtt_insert;
++	ppgtt->vm.insert_page = gen8_ppgtt_insert_entry;
+ 	ppgtt->vm.allocate_va_range = gen8_ppgtt_alloc;
+ 	ppgtt->vm.clear_range = gen8_ppgtt_clear;
+ 
+-- 
+2.20.1
 
-if (GEM_WARN_ON(max_segment < mem->mm.chunk_size))
-	max_order = 0;
-else
-	max_order = ilog2(max_segment) - ilog2(mem->mm.chunk_size);
-
-> +               max_order = ilog2(max_segment) - ilog2(mem->mm.chunk_size);
-> +       } else {
-> +               max_order = mem->mm.max_order;
-> +       }
-> +
->         mutex_lock(&mem->mm_lock);
->  
->         do {
->                 struct i915_buddy_block *block;
->                 unsigned int order;
->  
-> -               order = fls(n_pages) - 1;
-> +               order = min_t(u32, (fls(n_pages) - 1), max_order);
-
-Spare () around fls.
-
->                 GEM_BUG_ON(order > mem->mm.max_order);
->                 GEM_BUG_ON(order < min_order);
->  
-> diff --git a/drivers/gpu/drm/i915/intel_memory_region.h b/drivers/gpu/drm/i915/intel_memory_region.h
-> index 232490d89a83..5fb9bcf86b97 100644
-> --- a/drivers/gpu/drm/i915/intel_memory_region.h
-> +++ b/drivers/gpu/drm/i915/intel_memory_region.h
-> @@ -44,8 +44,9 @@ enum intel_region_id {
->  #define MEMORY_TYPE_FROM_REGION(r) (ilog2((r) >> INTEL_MEMORY_TYPE_SHIFT))
->  #define MEMORY_INSTANCE_FROM_REGION(r) (ilog2((r) & 0xffff))
->  
-> -#define I915_ALLOC_MIN_PAGE_SIZE  BIT(0)
-> -#define I915_ALLOC_CONTIGUOUS     BIT(1)
-> +#define I915_ALLOC_MIN_PAGE_SIZE       BIT(0)
-> +#define I915_ALLOC_CONTIGUOUS          BIT(1)
-> +#define I915_ALLOC_MAX_SEGMENT_SIZE    BIT(2)
->  
->  #define for_each_memory_region(mr, i915, id) \
->         for (id = 0; id < ARRAY_SIZE((i915)->mm.regions); id++) \
-> diff --git a/drivers/gpu/drm/i915/selftests/intel_memory_region.c b/drivers/gpu/drm/i915/selftests/intel_memory_region.c
-> index 0aeba8e3af28..cd706c0d9213 100644
-> --- a/drivers/gpu/drm/i915/selftests/intel_memory_region.c
-> +++ b/drivers/gpu/drm/i915/selftests/intel_memory_region.c
-> @@ -337,6 +337,55 @@ static int igt_mock_splintered_region(void *arg)
->         return err;
->  }
->  
-> +#define SZ_8G BIT(33)
-
-BIT_ULL
-
-Otherwise makes sense.
-
-Reviewed-by: Chris Wilson <chris@chris-wilson.co.uk>
--Chris
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
