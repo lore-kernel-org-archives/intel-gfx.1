@@ -2,42 +2,42 @@ Return-Path: <SRS0=1U3p=FF=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.9 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
-	URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C8348C83019
-	for <intel-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 09:07:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B2BF1C83014
+	for <intel-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 09:07:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3F61B22256
-	for <intel-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 09:07:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3F61B22256
+	by mail.kernel.org (Postfix) with ESMTPS id 57AA62223F
+	for <intel-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 09:07:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 57AA62223F
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B364B6E4B7;
-	Tue,  1 Dec 2020 09:07:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D0DD6E4BA;
+	Tue,  1 Dec 2020 09:07:45 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9568189FCE
- for <intel-gfx@lists.freedesktop.org>; Tue,  1 Dec 2020 09:07:39 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 78B6D6E4AF
+ for <intel-gfx@lists.freedesktop.org>; Tue,  1 Dec 2020 09:07:41 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23172177-1500050 
- for multiple; Tue, 01 Dec 2020 09:07:33 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23172169-1500050 
+ for multiple; Tue, 01 Dec 2020 09:07:31 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue,  1 Dec 2020 09:07:29 +0000
-Message-Id: <20201201090729.24777-12-chris@chris-wilson.co.uk>
+Date: Tue,  1 Dec 2020 09:07:21 +0000
+Message-Id: <20201201090729.24777-4-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201201090729.24777-1-chris@chris-wilson.co.uk>
 References: <20201201090729.24777-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 12/12] drm/i915/gt: Export device and
- per-process runtimes via procfs
+Subject: [Intel-gfx] [PATCH 04/12] drm/i915: Update client name on context
+ create
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,95 +51,282 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Chris Wilson <chris@chris-wilson.co.uk>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-UmVnaXN0ZXIgd2l0aCAvcHJvYy9ncHUgdG8gcHJvdmlkZSB0aGUgY2xpZW50IHJ1bnRpbWVzLgoK
-U2lnbmVkLW9mZi1ieTogQ2hyaXMgV2lsc29uIDxjaHJpc0BjaHJpcy13aWxzb24uY28udWs+Ci0t
-LQogZHJpdmVycy9ncHUvZHJtL2k5MTUvTWFrZWZpbGUgICAgICAgICAgICB8ICAxICsKIGRyaXZl
-cnMvZ3B1L2RybS9pOTE1L2d0L2ludGVsX2d0LmMgICAgICAgfCAgNSArKwogZHJpdmVycy9ncHUv
-ZHJtL2k5MTUvZ3QvaW50ZWxfZ3RfcHJvYy5jICB8IDY2ICsrKysrKysrKysrKysrKysrKysrKysr
-KwogZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3QvaW50ZWxfZ3RfcHJvYy5oICB8IDE0ICsrKysrCiBk
-cml2ZXJzL2dwdS9kcm0vaTkxNS9ndC9pbnRlbF9ndF90eXBlcy5oIHwgIDMgKysKIDUgZmlsZXMg
-Y2hhbmdlZCwgODkgaW5zZXJ0aW9ucygrKQogY3JlYXRlIG1vZGUgMTAwNjQ0IGRyaXZlcnMvZ3B1
-L2RybS9pOTE1L2d0L2ludGVsX2d0X3Byb2MuYwogY3JlYXRlIG1vZGUgMTAwNjQ0IGRyaXZlcnMv
-Z3B1L2RybS9pOTE1L2d0L2ludGVsX2d0X3Byb2MuaAoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
-L2RybS9pOTE1L01ha2VmaWxlIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvTWFrZWZpbGUKaW5kZXgg
-MjUwZjAwNGQ5MmJiLi5lZGU5MGEwMzkyYWYgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9p
-OTE1L01ha2VmaWxlCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L01ha2VmaWxlCkBAIC0xMDAs
-NiArMTAwLDcgQEAgZ3QteSArPSBcCiAJZ3QvaW50ZWxfZ3RfaXJxLm8gXAogCWd0L2ludGVsX2d0
-X3BtLm8gXAogCWd0L2ludGVsX2d0X3BtX2lycS5vIFwKKwlndC9pbnRlbF9ndF9wcm9jLm8gXAog
-CWd0L2ludGVsX2d0X3JlcXVlc3RzLm8gXAogCWd0L2ludGVsX2d0dC5vIFwKIAlndC9pbnRlbF9s
-bGMubyBcCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9ndC9pbnRlbF9ndC5jIGIv
-ZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3QvaW50ZWxfZ3QuYwppbmRleCA0NGYxZDUxZTVhZTUuLjc5
-Mjg3ZWUzMTYyNSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3QvaW50ZWxfZ3Qu
-YworKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9ndC9pbnRlbF9ndC5jCkBAIC0xMCw2ICsxMCw3
-IEBACiAjaW5jbHVkZSAiaW50ZWxfZ3RfYnVmZmVyX3Bvb2wuaCIKICNpbmNsdWRlICJpbnRlbF9n
-dF9jbG9ja191dGlscy5oIgogI2luY2x1ZGUgImludGVsX2d0X3BtLmgiCisjaW5jbHVkZSAiaW50
-ZWxfZ3RfcHJvYy5oIgogI2luY2x1ZGUgImludGVsX2d0X3JlcXVlc3RzLmgiCiAjaW5jbHVkZSAi
-aW50ZWxfbW9jcy5oIgogI2luY2x1ZGUgImludGVsX3JjNi5oIgpAQCAtMzMzLDYgKzMzNCw4IEBA
-IHZvaWQgaW50ZWxfZ3RfZHJpdmVyX3JlZ2lzdGVyKHN0cnVjdCBpbnRlbF9ndCAqZ3QpCiAJaW50
-ZWxfcnBzX2RyaXZlcl9yZWdpc3RlcigmZ3QtPnJwcyk7CiAKIAlkZWJ1Z2ZzX2d0X3JlZ2lzdGVy
-KGd0KTsKKworCWludGVsX2d0X2RyaXZlcl9yZWdpc3Rlcl9fcHJvYyhndCk7CiB9CiAKIHN0YXRp
-YyBpbnQgaW50ZWxfZ3RfaW5pdF9zY3JhdGNoKHN0cnVjdCBpbnRlbF9ndCAqZ3QsIHVuc2lnbmVk
-IGludCBzaXplKQpAQCAtNjE2LDYgKzYxOSw4IEBAIHZvaWQgaW50ZWxfZ3RfZHJpdmVyX3VucmVn
-aXN0ZXIoc3RydWN0IGludGVsX2d0ICpndCkKIHsKIAlpbnRlbF93YWtlcmVmX3Qgd2FrZXJlZjsK
-IAorCWludGVsX2d0X2RyaXZlcl91bnJlZ2lzdGVyX19wcm9jKGd0KTsKKwogCWludGVsX3Jwc19k
-cml2ZXJfdW5yZWdpc3RlcigmZ3QtPnJwcyk7CiAKIAkvKgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
-cHUvZHJtL2k5MTUvZ3QvaW50ZWxfZ3RfcHJvYy5jIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3Qv
-aW50ZWxfZ3RfcHJvYy5jCm5ldyBmaWxlIG1vZGUgMTAwNjQ0CmluZGV4IDAwMDAwMDAwMDAwMC4u
-OTc0YTgwYWM0ZjdkCi0tLSAvZGV2L251bGwKKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3Qv
-aW50ZWxfZ3RfcHJvYy5jCkBAIC0wLDAgKzEsNjYgQEAKKy8vIFNQRFgtTGljZW5zZS1JZGVudGlm
-aWVyOiBNSVQKKy8qCisgKiBDb3B5cmlnaHQgwqkgMjAyMCBJbnRlbCBDb3Jwb3JhdGlvbgorICov
-CisKKyNpbmNsdWRlIDxsaW51eC9wcm9jX2dwdS5oPgorCisjaW5jbHVkZSAiaTkxNV9kcm1fY2xp
-ZW50LmgiCisjaW5jbHVkZSAiaTkxNV9kcnYuaCIKKyNpbmNsdWRlICJpbnRlbF9ndC5oIgorI2lu
-Y2x1ZGUgImludGVsX2d0X3BtLmgiCisjaW5jbHVkZSAiaW50ZWxfZ3RfcHJvYy5oIgorCitzdGF0
-aWMgdm9pZCBwcm9jX3J1bnRpbWVfcGlkKHN0cnVjdCBpbnRlbF9ndCAqZ3QsCisJCQkgICAgIHN0
-cnVjdCBwaWQgKnBpZCwKKwkJCSAgICAgc3RydWN0IHByb2NfZ3B1X3J1bnRpbWUgKnJ0KQorewor
-CXN0cnVjdCBpOTE1X2RybV9jbGllbnRzICpjbGllbnRzID0gJmd0LT5pOTE1LT5jbGllbnRzOwor
-CisJQlVJTERfQlVHX09OKE1BWF9FTkdJTkVfQ0xBU1MgPj0gQVJSQVlfU0laRShydC0+Y2hhbm5l
-bCkpOworCisJcnQtPmRldmljZSA9IGk5MTVfZHJtX2NsaWVudHNfZ2V0X3J1bnRpbWUoY2xpZW50
-cywgcGlkLCBydC0+Y2hhbm5lbCk7CisJcnQtPm5jaGFubmVsID0gTUFYX0VOR0lORV9DTEFTUyAr
-IDE7Cit9CisKK3N0YXRpYyB2b2lkIHByb2NfcnVudGltZV9kZXZpY2Uoc3RydWN0IGludGVsX2d0
-ICpndCwKKwkJCQlzdHJ1Y3QgcGlkICpwaWQsCisJCQkJc3RydWN0IHByb2NfZ3B1X3J1bnRpbWUg
-KnJ0KQoreworCXN0cnVjdCBpbnRlbF9lbmdpbmVfY3MgKmVuZ2luZTsKKwllbnVtIGludGVsX2Vu
-Z2luZV9pZCBpZDsKKwlrdGltZV90IGR1bW15OworCisJcnQtPm5jaGFubmVsID0gMDsKKwlmb3Jf
-ZWFjaF9lbmdpbmUoZW5naW5lLCBndCwgaWQpIHsKKwkJcnQtPmNoYW5uZWxbcnQtPm5jaGFubmVs
-KytdID0KKwkJCWludGVsX2VuZ2luZV9nZXRfYnVzeV90aW1lKGVuZ2luZSwgJmR1bW15KTsKKwkJ
-aWYgKHJ0LT5uY2hhbm5lbCA9PSBBUlJBWV9TSVpFKHJ0LT5jaGFubmVsKSkKKwkJCWJyZWFrOwor
-CX0KKwlydC0+ZGV2aWNlID0gaW50ZWxfZ3RfZ2V0X2F3YWtlX3RpbWUoZ3QpOworfQorCitzdGF0
-aWMgdm9pZCBwcm9jX3J1bnRpbWUoc3RydWN0IHByb2NfZ3B1ICpwZywKKwkJCSBzdHJ1Y3QgcGlk
-ICpwaWQsCisJCQkgc3RydWN0IHByb2NfZ3B1X3J1bnRpbWUgKnJ0KQoreworCXN0cnVjdCBpbnRl
-bF9ndCAqZ3QgPSBjb250YWluZXJfb2YocGcsIHR5cGVvZigqZ3QpLCBwcm9jKTsKKworCXN0cmxj
-cHkocnQtPm5hbWUsIGRldl9uYW1lKGd0LT5pOTE1LT5kcm0uZGV2KSwgc2l6ZW9mKHJ0LT5uYW1l
-KSk7CisJaWYgKHBpZCkKKwkJcHJvY19ydW50aW1lX3BpZChndCwgcGlkLCBydCk7CisJZWxzZQor
-CQlwcm9jX3J1bnRpbWVfZGV2aWNlKGd0LCBwaWQsIHJ0KTsKK30KKwordm9pZCBpbnRlbF9ndF9k
-cml2ZXJfcmVnaXN0ZXJfX3Byb2Moc3RydWN0IGludGVsX2d0ICpndCkKK3sKKwlndC0+cHJvYy5m
-biA9IHByb2NfcnVudGltZTsKKwlwcm9jX2dwdV9yZWdpc3RlcigmZ3QtPnByb2MpOworfQorCit2
-b2lkIGludGVsX2d0X2RyaXZlcl91bnJlZ2lzdGVyX19wcm9jKHN0cnVjdCBpbnRlbF9ndCAqZ3Qp
-Cit7CisJcHJvY19ncHVfdW5yZWdpc3RlcigmZ3QtPnByb2MpOworfQpkaWZmIC0tZ2l0IGEvZHJp
-dmVycy9ncHUvZHJtL2k5MTUvZ3QvaW50ZWxfZ3RfcHJvYy5oIGIvZHJpdmVycy9ncHUvZHJtL2k5
-MTUvZ3QvaW50ZWxfZ3RfcHJvYy5oCm5ldyBmaWxlIG1vZGUgMTAwNjQ0CmluZGV4IDAwMDAwMDAw
-MDAwMC4uN2E5YmZmMGZiMDIwCi0tLSAvZGV2L251bGwKKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5
-MTUvZ3QvaW50ZWxfZ3RfcHJvYy5oCkBAIC0wLDAgKzEsMTQgQEAKKy8qIFNQRFgtTGljZW5zZS1J
-ZGVudGlmaWVyOiBNSVQgKi8KKy8qCisgKiBDb3B5cmlnaHQgwqkgMjAyMCBJbnRlbCBDb3Jwb3Jh
-dGlvbgorICovCisKKyNpZm5kZWYgSU5URUxfR1RfUFJPQ19ICisjZGVmaW5lIElOVEVMX0dUX1BS
-T0NfSAorCitzdHJ1Y3QgaW50ZWxfZ3Q7CisKK3ZvaWQgaW50ZWxfZ3RfZHJpdmVyX3JlZ2lzdGVy
-X19wcm9jKHN0cnVjdCBpbnRlbF9ndCAqZ3QpOwordm9pZCBpbnRlbF9ndF9kcml2ZXJfdW5yZWdp
-c3Rlcl9fcHJvYyhzdHJ1Y3QgaW50ZWxfZ3QgKmd0KTsKKworI2VuZGlmIC8qIElOVEVMX0dUX1BS
-T0NfSCAqLwpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3QvaW50ZWxfZ3RfdHlw
-ZXMuaCBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2d0L2ludGVsX2d0X3R5cGVzLmgKaW5kZXggYzdi
-ZGU1MjlmZWFiLi5jOWY3NDg2ZGI5MzQgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1
-L2d0L2ludGVsX2d0X3R5cGVzLmgKKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3QvaW50ZWxf
-Z3RfdHlwZXMuaApAQCAtMTAsNiArMTAsNyBAQAogI2luY2x1ZGUgPGxpbnV4L2xpc3QuaD4KICNp
-bmNsdWRlIDxsaW51eC9tdXRleC5oPgogI2luY2x1ZGUgPGxpbnV4L25vdGlmaWVyLmg+CisjaW5j
-bHVkZSA8bGludXgvcHJvY19ncHUuaD4KICNpbmNsdWRlIDxsaW51eC9zcGlubG9jay5oPgogI2lu
-Y2x1ZGUgPGxpbnV4L3R5cGVzLmg+CiAKQEAgLTEzNCw2ICsxMzUsOCBAQCBzdHJ1Y3QgaW50ZWxf
-Z3QgewogCiAJc3RydWN0IGk5MTVfdm1hICpzY3JhdGNoOwogCisJc3RydWN0IHByb2NfZ3B1IHBy
-b2M7CisKIAlzdHJ1Y3QgaW50ZWxfZ3RfaW5mbyB7CiAJCWludGVsX2VuZ2luZV9tYXNrX3QgZW5n
-aW5lX21hc2s7CiAJCXU4IG51bV9lbmdpbmVzOwotLSAKMi4yMC4xCgpfX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpJbnRlbC1nZnggbWFpbGluZyBsaXN0Cklu
-dGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5v
-cmcvbWFpbG1hbi9saXN0aW5mby9pbnRlbC1nZngK
+From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+
+Some clients have the DRM fd passed to them over a socket by the X server.
+
+Grab the real client and pid when they create their first context and
+update the exposed data for more useful enumeration.
+
+To enable lockless access to client name and pid data from the following
+patches, we also make these fields rcu protected. In this way asynchronous
+code paths where both contexts which remain after the client exit, and
+access to client name and pid as they are getting updated due context
+creation running in parallel with name/pid queries.
+
+v2:
+ * Do not leak the pid reference and borrow context idr_lock. (Chris)
+
+v3:
+ * More avoiding leaks. (Chris)
+
+v4:
+ * Move update completely to drm client. (Chris)
+ * Do not lose previous client data on failure to re-register and simplify
+   update to only touch what it needs.
+
+v5:
+ * Reuse ext_data local. (Chris)
+
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+Reviewed-by: Chris Wilson <chris@chris-wilson.co.uk>
+---
+ drivers/gpu/drm/i915/gem/i915_gem_context.c |  5 ++
+ drivers/gpu/drm/i915/i915_drm_client.c      | 94 +++++++++++++++++----
+ drivers/gpu/drm/i915/i915_drm_client.h      | 16 +++-
+ 3 files changed, 98 insertions(+), 17 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+index 8493af37eb8a..694641aa656b 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+@@ -74,6 +74,7 @@
+ #include "gt/intel_engine_user.h"
+ #include "gt/intel_ring.h"
+ 
++#include "i915_drm_client.h"
+ #include "i915_gem_context.h"
+ #include "i915_globals.h"
+ #include "i915_trace.h"
+@@ -2327,6 +2328,10 @@ int i915_gem_context_create_ioctl(struct drm_device *dev, void *data,
+ 		return -EIO;
+ 	}
+ 
++	ret = i915_drm_client_update(ext_data.fpriv->client, current);
++	if (ret)
++		return ret;
++
+ 	ext_data.ctx = i915_gem_create_context(i915, args->flags);
+ 	if (IS_ERR(ext_data.ctx))
+ 		return PTR_ERR(ext_data.ctx);
+diff --git a/drivers/gpu/drm/i915/i915_drm_client.c b/drivers/gpu/drm/i915/i915_drm_client.c
+index 597829f2c657..3ace17556194 100644
+--- a/drivers/gpu/drm/i915/i915_drm_client.c
++++ b/drivers/gpu/drm/i915/i915_drm_client.c
+@@ -7,7 +7,10 @@
+ #include <linux/slab.h>
+ #include <linux/types.h>
+ 
++#include <drm/drm_print.h>
++
+ #include "i915_drm_client.h"
++#include "i915_drv.h"
+ #include "i915_gem.h"
+ #include "i915_utils.h"
+ 
+@@ -25,10 +28,15 @@ show_client_name(struct device *kdev, struct device_attribute *attr, char *buf)
+ {
+ 	struct i915_drm_client *client =
+ 		container_of(attr, typeof(*client), attr.name);
++	int ret;
+ 
+-	return snprintf(buf, PAGE_SIZE,
+-			READ_ONCE(client->closed) ? "<%s>" : "%s",
+-			client->name);
++	rcu_read_lock();
++	ret = snprintf(buf, PAGE_SIZE,
++		       READ_ONCE(client->closed) ? "<%s>" : "%s",
++		       rcu_dereference(client->name)->name);
++	rcu_read_unlock();
++
++	return ret;
+ }
+ 
+ static ssize_t
+@@ -36,10 +44,15 @@ show_client_pid(struct device *kdev, struct device_attribute *attr, char *buf)
+ {
+ 	struct i915_drm_client *client =
+ 		container_of(attr, typeof(*client), attr.pid);
++	int ret;
++
++	rcu_read_lock();
++	ret = snprintf(buf, PAGE_SIZE,
++		       READ_ONCE(client->closed) ? "<%u>" : "%u",
++		       pid_nr(rcu_dereference(client->name)->pid));
++	rcu_read_unlock();
+ 
+-	return snprintf(buf, PAGE_SIZE,
+-			READ_ONCE(client->closed) ? "<%u>" : "%u",
+-			pid_nr(client->pid));
++	return ret;
+ }
+ 
+ static int __client_register_sysfs(struct i915_drm_client *client)
+@@ -91,20 +104,46 @@ static void __client_unregister_sysfs(struct i915_drm_client *client)
+ 	kobject_put(fetch_and_zero(&client->root));
+ }
+ 
++static struct i915_drm_client_name *get_name(struct i915_drm_client *client,
++					     struct task_struct *task)
++{
++	struct i915_drm_client_name *name;
++	int len = strlen(task->comm);
++
++	name = kmalloc(struct_size(name, name, len + 1), GFP_KERNEL);
++	if (!name)
++		return NULL;
++
++	init_rcu_head(&name->rcu);
++	name->client = client;
++	name->pid = get_task_pid(task, PIDTYPE_PID);
++	memcpy(name->name, task->comm, len + 1);
++
++	return name;
++}
++
++static void free_name(struct rcu_head *rcu)
++{
++	struct i915_drm_client_name *name =
++		container_of(rcu, typeof(*name), rcu);
++
++	put_pid(name->pid);
++	kfree(name);
++}
++
+ static int
+ __i915_drm_client_register(struct i915_drm_client *client,
+ 			   struct task_struct *task)
+ {
+ 	struct i915_drm_clients *clients = client->clients;
+-	char *name;
++	struct i915_drm_client_name *name;
+ 	int ret;
+ 
+-	name = kstrdup(task->comm, GFP_KERNEL);
++	name = get_name(client, task);
+ 	if (!name)
+ 		return -ENOMEM;
+ 
+-	client->pid = get_task_pid(task, PIDTYPE_PID);
+-	client->name = name;
++	RCU_INIT_POINTER(client->name, name);
+ 
+ 	if (!clients->root)
+ 		return 0; /* intel_fbdev_init registers a client before sysfs */
+@@ -116,18 +155,22 @@ __i915_drm_client_register(struct i915_drm_client *client,
+ 	return 0;
+ 
+ err_sysfs:
+-	put_pid(client->pid);
+-	kfree(client->name);
+-
++	RCU_INIT_POINTER(client->name, NULL);
++	call_rcu(&name->rcu, free_name);
+ 	return ret;
+ }
+ 
+ static void __i915_drm_client_unregister(struct i915_drm_client *client)
+ {
++	struct i915_drm_client_name *name;
++
+ 	__client_unregister_sysfs(client);
+ 
+-	put_pid(fetch_and_zero(&client->pid));
+-	kfree(fetch_and_zero(&client->name));
++	mutex_lock(&client->update_lock);
++	name = rcu_replace_pointer(client->name, NULL, true);
++	mutex_unlock(&client->update_lock);
++
++	call_rcu(&name->rcu, free_name);
+ }
+ 
+ static void __rcu_i915_drm_client_free(struct work_struct *wrk)
+@@ -152,6 +195,7 @@ i915_drm_client_add(struct i915_drm_clients *clients, struct task_struct *task)
+ 		return ERR_PTR(-ENOMEM);
+ 
+ 	kref_init(&client->kref);
++	mutex_init(&client->update_lock);
+ 	client->clients = clients;
+ 	INIT_RCU_WORK(&client->rcu, __rcu_i915_drm_client_free);
+ 
+@@ -188,3 +232,23 @@ void i915_drm_client_close(struct i915_drm_client *client)
+ 	WRITE_ONCE(client->closed, true);
+ 	i915_drm_client_put(client);
+ }
++
++int
++i915_drm_client_update(struct i915_drm_client *client,
++		       struct task_struct *task)
++{
++	struct i915_drm_client_name *name;
++
++	name = get_name(client, task);
++	if (!name)
++		return -ENOMEM;
++
++	mutex_lock(&client->update_lock);
++	if (name->pid != rcu_dereference_protected(client->name, true)->pid) {
++		name = rcu_replace_pointer(client->name, name, true);
++	}
++	mutex_unlock(&client->update_lock);
++
++	call_rcu(&name->rcu, free_name);
++	return 0;
++}
+diff --git a/drivers/gpu/drm/i915/i915_drm_client.h b/drivers/gpu/drm/i915/i915_drm_client.h
+index e222864748c7..d4d3c0af5793 100644
+--- a/drivers/gpu/drm/i915/i915_drm_client.h
++++ b/drivers/gpu/drm/i915/i915_drm_client.h
+@@ -9,6 +9,7 @@
+ #include <linux/device.h>
+ #include <linux/kobject.h>
+ #include <linux/kref.h>
++#include <linux/mutex.h>
+ #include <linux/pid.h>
+ #include <linux/rcupdate.h>
+ #include <linux/sched.h>
+@@ -25,14 +26,22 @@ struct i915_drm_clients {
+ 	struct kobject *root;
+ };
+ 
++struct i915_drm_client_name {
++	struct rcu_head rcu;
++	struct i915_drm_client *client;
++	struct pid *pid;
++	char name[];
++};
++
+ struct i915_drm_client {
+ 	struct kref kref;
+ 
+ 	struct rcu_work rcu;
+ 
++	struct mutex update_lock; /* Serializes name and pid updates. */
++
+ 	unsigned int id;
+-	struct pid *pid;
+-	char *name;
++	struct i915_drm_client_name __rcu *name;
+ 	bool closed;
+ 
+ 	struct i915_drm_clients *clients;
+@@ -66,4 +75,7 @@ void i915_drm_client_close(struct i915_drm_client *client);
+ struct i915_drm_client *i915_drm_client_add(struct i915_drm_clients *clients,
+ 					    struct task_struct *task);
+ 
++int i915_drm_client_update(struct i915_drm_client *client,
++			   struct task_struct *task);
++
+ #endif /* !__I915_DRM_CLIENT_H__ */
+-- 
+2.20.1
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
