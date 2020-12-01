@@ -7,46 +7,46 @@ X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1C7F0C64E7A
-	for <intel-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 23:35:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 20AABC71155
+	for <intel-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 23:35:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B09C022250
-	for <intel-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 23:35:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B09C022250
+	by mail.kernel.org (Postfix) with ESMTPS id B6C1D22249
+	for <intel-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 23:35:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B6C1D22249
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B9F96E970;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6873D6E96C;
 	Tue,  1 Dec 2020 23:34:51 +0000 (UTC)
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 06ABE6E977
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BFD666E971
  for <Intel-gfx@lists.freedesktop.org>; Tue,  1 Dec 2020 23:34:49 +0000 (UTC)
-IronPort-SDR: B1P/NzF9GdDuzy9LHmwWN6AfAGFZvvP6yBPP6AObTJxLOeRizENRGRu/33utqwbgQWZrbpeUk4
- WBtusLNnKi5w==
-X-IronPort-AV: E=McAfee;i="6000,8403,9822"; a="173021536"
-X-IronPort-AV: E=Sophos;i="5.78,385,1599548400"; d="scan'208";a="173021536"
+IronPort-SDR: 7eJa2qjpMm+z9B+ifZXJp6Nmp8dIY7ounU+eZ5EEMGAXvwc/39VP9ofDxwxAGBIb92tv358514
+ cN858dztKc4Q==
+X-IronPort-AV: E=McAfee;i="6000,8403,9822"; a="173021533"
+X-IronPort-AV: E=Sophos;i="5.78,385,1599548400"; d="scan'208";a="173021533"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  01 Dec 2020 15:34:48 -0800
-IronPort-SDR: t7eZyY9XXZY0yGVc3Gr4NoYUZm3xQ6vzgDdjELiHzXSKTxm6P/PVcBHM8Zw9HByHaW/oprb1Oo
- AYHgW0kUYfKg==
+IronPort-SDR: qmVmNQQhnYlVXyEx3j6ii0ObsHa4SLcsPIo4jl9CjslUgb17YKOq4tjl34VxtUtgEi5FpB4Fpv
+ Q9SrBzHq7w4Q==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.78,385,1599548400"; d="scan'208";a="537745406"
+X-IronPort-AV: E=Sophos;i="5.78,385,1599548400"; d="scan'208";a="537745400"
 Received: from sean-virtualbox.fm.intel.com ([10.105.158.96])
  by fmsmga006.fm.intel.com with ESMTP; 01 Dec 2020 15:34:45 -0800
 From: "Huang, Sean Z" <sean.z.huang@intel.com>
 To: Intel-gfx@lists.freedesktop.org
-Date: Tue,  1 Dec 2020 15:34:00 -0800
-Message-Id: <20201201233411.21858-16-sean.z.huang@intel.com>
+Date: Tue,  1 Dec 2020 15:33:56 -0800
+Message-Id: <20201201233411.21858-12-sean.z.huang@intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20201201233411.21858-1-sean.z.huang@intel.com>
 References: <20201201233411.21858-1-sean.z.huang@intel.com>
-Subject: [Intel-gfx] [RFC-v3 15/26] drm/i915/pxp: Termiante the session upon
- app crash
+Subject: [Intel-gfx] [RFC-v3 11/26] drm/i915/pxp: Func to send hardware
+ session termination
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,115 +65,356 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-PXP should terminate the hardware session and cleanup the software
-state gracefully when the application has established the
-protection session, but doesn't close the session correctly due to
-some cases like application crash.
+Implement the functions to allow PXP to send a GPU command, in
+order to terminate the hardware session, so hardware can recycle
+this session slot for the next usage.
 
 Signed-off-by: Huang, Sean Z <sean.z.huang@intel.com>
 ---
- drivers/gpu/drm/i915/i915_drv.c         |  2 ++
- drivers/gpu/drm/i915/pxp/intel_pxp.c    | 10 ++++++++++
- drivers/gpu/drm/i915/pxp/intel_pxp.h    |  5 +++++
- drivers/gpu/drm/i915/pxp/intel_pxp_sm.c | 19 +++++++++++++++++++
- drivers/gpu/drm/i915/pxp/intel_pxp_sm.h |  1 +
- 5 files changed, 37 insertions(+)
+ drivers/gpu/drm/i915/pxp/intel_pxp_sm.c | 288 ++++++++++++++++++++++++
+ drivers/gpu/drm/i915/pxp/intel_pxp_sm.h |  16 ++
+ 2 files changed, 304 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/i915_drv.c b/drivers/gpu/drm/i915/i915_drv.c
-index c8b9c42fcbd6..dec3bb96d238 100644
---- a/drivers/gpu/drm/i915/i915_drv.c
-+++ b/drivers/gpu/drm/i915/i915_drv.c
-@@ -1028,6 +1028,8 @@ static void i915_driver_postclose(struct drm_device *dev, struct drm_file *file)
- 
- 	/* Catch up with all the deferred frees from "this" client */
- 	i915_gem_flush_free_objects(to_i915(dev));
-+
-+	intel_pxp_close(to_i915(dev), file);
- }
- 
- static void intel_suspend_encoders(struct drm_i915_private *dev_priv)
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.c b/drivers/gpu/drm/i915/pxp/intel_pxp.c
-index 83024c47da7b..54929335b0f7 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp.c
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp.c
-@@ -101,6 +101,16 @@ int i915_pxp_ops_ioctl(struct drm_device *dev, void *data, struct drm_file *drmf
- 	return ret;
- }
- 
-+void intel_pxp_close(struct drm_i915_private *i915, struct drm_file *drmfile)
-+{
-+	if (!i915 || !i915->pxp.ctx || !drmfile)
-+		return;
-+
-+	mutex_lock(&i915->pxp.ctx->ctx_mutex);
-+	intel_pxp_sm_close(i915, drmfile);
-+	mutex_unlock(&i915->pxp.ctx->ctx_mutex);
-+}
-+
- static void intel_pxp_write_irq_mask_reg(struct drm_i915_private *i915, u32 mask)
- {
- 	/* crypto mask is in bit31-16 (Engine1 Interrupt Mask) */
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.h b/drivers/gpu/drm/i915/pxp/intel_pxp.h
-index 9ba17c620ea2..e6d2b8bac225 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp.h
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp.h
-@@ -89,6 +89,7 @@ struct drm_i915_private;
- 
- #ifdef CONFIG_DRM_I915_PXP
- int i915_pxp_ops_ioctl(struct drm_device *dev, void *data, struct drm_file *drmfile);
-+void intel_pxp_close(struct drm_i915_private *i915, struct drm_file *drmfile);
- void intel_pxp_irq_handler(struct intel_gt *gt, u16 iir);
- int i915_pxp_teardown_required_callback(struct drm_i915_private *i915);
- int i915_pxp_global_terminate_complete_callback(struct drm_i915_private *i915);
-@@ -101,6 +102,10 @@ static inline int i915_pxp_ops_ioctl(struct drm_device *dev, void *data, struct
- 	return 0;
- }
- 
-+static inline void intel_pxp_close(struct drm_i915_private *i915, struct drm_file *drmfile)
-+{
-+}
-+
- static inline void intel_pxp_irq_handler(struct intel_gt *gt, u16 iir)
- {
- }
 diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_sm.c b/drivers/gpu/drm/i915/pxp/intel_pxp_sm.c
-index 32eebdc380e5..6ff347b7b72b 100644
+index b69f5f8bf238..f41e50911688 100644
 --- a/drivers/gpu/drm/i915/pxp/intel_pxp_sm.c
 +++ b/drivers/gpu/drm/i915/pxp/intel_pxp_sm.c
-@@ -1132,3 +1132,22 @@ bool intel_pxp_sm_is_any_type0_session_in_play(struct drm_i915_private *i915, in
+@@ -3,13 +3,163 @@
+  * Copyright(c) 2020, Intel Corporation. All rights reserved.
+  */
  
- 	return false;
- }
-+
-+int intel_pxp_sm_close(struct drm_i915_private *i915, struct drm_file *drmfile)
++#include "gt/intel_gpu_commands.h"
++#include "gt/intel_gt.h"
+ #include "gt/intel_context.h"
++#include "gt/intel_gt_buffer_pool.h"
+ #include "gt/intel_engine_pm.h"
+ 
+ #include "intel_pxp.h"
+ #include "intel_pxp_sm.h"
+ #include "intel_pxp_context.h"
+ 
++static struct i915_vma *pxp_get_batch(struct drm_i915_private *i915,
++				      struct intel_context *ce,
++				      struct intel_gt_buffer_pool_node *pool,
++				      u32 *cmd_buf, int cmd_size_in_dw)
 +{
-+	struct pxp_protected_session *s, *n;
-+	int ret = 0;
++	struct i915_vma *batch = ERR_PTR(-EINVAL);
++	u32 *cmd;
 +
-+	list_for_each_entry_safe(s, n, pxp_session_list(i915, SESSION_TYPE_TYPE0), session_list) {
-+		if (s->drmfile && s->drmfile == drmfile && s->pid == pid_nr(drmfile->pid)) {
-+			ret = terminate_protected_session(i915, 0, s->session_type,
-+							  s->session_index, false);
-+			if (ret) {
-+				drm_err(&i915->drm, "Failed to terminate_protected_session()\n");
-+				return ret;
-+			}
++	if (!ce || !ce->engine || !cmd_buf)
++		return ERR_PTR(-EINVAL);
++
++	if (cmd_size_in_dw * 4 > PAGE_SIZE) {
++		drm_err(&i915->drm, "Failed to %s, invalid cmd_size_id_dw=[%d]\n",
++			__func__, cmd_size_in_dw);
++		return ERR_PTR(-EINVAL);
++	}
++
++	cmd = i915_gem_object_pin_map(pool->obj, I915_MAP_FORCE_WC);
++	if (IS_ERR(cmd)) {
++		drm_err(&i915->drm, "Failed to i915_gem_object_pin_map()\n");
++		return ERR_PTR(-EINVAL);
++	}
++
++	memcpy(cmd, cmd_buf, cmd_size_in_dw * 4);
++
++	if (drm_debug_enabled(DRM_UT_DRIVER)) {
++		print_hex_dump(KERN_DEBUG, "cmd binaries:",
++			       DUMP_PREFIX_OFFSET, 4, 4, cmd, cmd_size_in_dw * 4, true);
++	}
++
++	i915_gem_object_unpin_map(pool->obj);
++
++	batch = i915_vma_instance(pool->obj, ce->vm, NULL);
++	if (IS_ERR(batch)) {
++		drm_err(&i915->drm, "Failed to i915_vma_instance()\n");
++		return batch;
++	}
++
++	return batch;
++}
++
++static int pxp_submit_cmd(struct drm_i915_private *i915, u32 *cmd, int cmd_size_in_dw)
++{
++	int err = -EINVAL;
++	struct i915_vma *batch;
++	struct i915_request *rq;
++	struct intel_context *ce = NULL;
++	bool is_engine_pm_get = false;
++	bool is_batch_vma_pin = false;
++	bool is_skip_req_on_err = false;
++	bool is_engine_get_pool = false;
++	struct intel_gt_buffer_pool_node *pool = NULL;
++	struct intel_gt *gt = NULL;
++
++	if (!i915 || !HAS_ENGINE(&i915->gt, VCS0) ||
++	    !i915->gt.engine[VCS0]->kernel_context) {
++		err = -EINVAL;
++		goto end;
++	}
++
++	if (!cmd || (cmd_size_in_dw * 4) > PAGE_SIZE) {
++		drm_err(&i915->drm, "Failed to %s bad params\n", __func__);
++		return -EINVAL;
++	}
++
++	gt = &i915->gt;
++	ce = i915->gt.engine[VCS0]->kernel_context;
++
++	intel_engine_pm_get(ce->engine);
++	is_engine_pm_get = true;
++
++	pool = intel_gt_get_buffer_pool(gt, PAGE_SIZE);
++	if (IS_ERR(pool)) {
++		drm_err(&i915->drm, "Failed to intel_engine_get_pool()\n");
++		goto end;
++	}
++	is_engine_get_pool = true;
++
++	batch = pxp_get_batch(i915, ce, pool, cmd, cmd_size_in_dw);
++	if (IS_ERR(batch)) {
++		drm_err(&i915->drm, "Failed to pxp_get_batch()\n");
++		goto end;
++	}
++
++	err = i915_vma_pin(batch, 0, 0, PIN_USER);
++	if (err) {
++		drm_err(&i915->drm, "Failed to i915_vma_pin()\n");
++		goto end;
++	}
++	is_batch_vma_pin = true;
++
++	rq = intel_context_create_request(ce);
++	if (IS_ERR(rq)) {
++		drm_err(&i915->drm, "Failed to intel_context_create_request()\n");
++		goto end;
++	}
++	is_skip_req_on_err = true;
++
++	err = intel_gt_buffer_pool_mark_active(pool, rq);
++	if (err) {
++		drm_err(&i915->drm, "Failed to intel_engine_pool_mark_active()\n");
++		goto end;
++	}
++
++	i915_vma_lock(batch);
++	err = i915_request_await_object(rq, batch->obj, false);
++	if (!err)
++		err = i915_vma_move_to_active(batch, rq, 0);
++	i915_vma_unlock(batch);
++	if (err) {
++		drm_err(&i915->drm, "Failed to i915_request_await_object()\n");
++		goto end;
++	}
++
++	if (ce->engine->emit_init_breadcrumb) {
++		err = ce->engine->emit_init_breadcrumb(rq);
++		if (err) {
++			drm_err(&i915->drm, "Failed to emit_init_breadcrumb()\n");
++			goto end;
 +		}
 +	}
 +
++	err = ce->engine->emit_bb_start(rq, batch->node.start,
++		batch->node.size, 0);
++	if (err) {
++		drm_err(&i915->drm, "Failed to emit_bb_start()\n");
++		goto end;
++	}
++
++	i915_request_add(rq);
++
++end:
++	if (unlikely(err) && is_skip_req_on_err)
++		i915_request_set_error_once(rq, err);
++
++	if (is_batch_vma_pin)
++		i915_vma_unpin(batch);
++
++	if (is_engine_get_pool)
++		intel_gt_buffer_pool_put(pool);
++
++	if (is_engine_pm_get)
++		intel_engine_pm_put(ce->engine);
++
++	return err;
++}
++
+ static int pxp_sm_reg_read(struct drm_i915_private *i915, u32 offset, u32 *regval)
+ {
+ 	intel_wakeref_t wakeref;
+@@ -514,6 +664,144 @@ int pxp_sm_mark_protected_session_in_play(struct drm_i915_private *i915, int ses
+ 	return -EINVAL;
+ }
+ 
++static int add_pxp_prolog(struct drm_i915_private *i915, u32 *cmd, int session_type,
++			  int session_index)
++{
++	u32 increased_size_in_dw = 0;
++	u32 *cmd_prolog = cmd;
++	const int cmd_prolog_size_in_dw = 10;
++
++	if (!cmd)
++		return cmd_prolog_size_in_dw;
++
++	/* MFX_WAIT - stall until prior PXP and MFX/HCP/HUC objects are cmopleted */
++	*cmd_prolog++ = (MFX_WAIT | MFX_WAIT_DW0_PXP_SYNC_CONTROL_FLAG |
++			 MFX_WAIT_DW0_MFX_SYNC_CONTROL_FLAG);
++
++	/* MI_FLUSH_DW - pxp off */
++	*cmd_prolog++ = MI_FLUSH_DW;  /* DW0 */
++	*cmd_prolog++ = 0;            /* DW1 */
++	*cmd_prolog++ = 0;            /* DW2 */
++
++	/* MI_SET_APPID */
++	if (session_type == SESSION_TYPE_TYPE1) {
++		if (session_index >= MAX_TYPE1_SESSIONS) {
++			drm_err(&i915->drm, "Failed to %s invalid session_index\n", __func__);
++			goto end;
++		}
++
++		*cmd_prolog++ = (MI_SET_APPID | MI_SET_APPID_TYPE1_APP |
++				 MI_SET_APPID_SESSION_ID(session_index));
++	} else {
++		if (session_index >= MAX_TYPE0_SESSIONS) {
++			drm_err(&i915->drm, "Failed to %s invalid session_index\n", __func__);
++			goto end;
++		}
++
++		*cmd_prolog++ = (MI_SET_APPID | MI_SET_APPID_SESSION_ID(session_index));
++	}
++
++	/* MFX_WAIT */
++	*cmd_prolog++ = (MFX_WAIT | MFX_WAIT_DW0_PXP_SYNC_CONTROL_FLAG |
++			 MFX_WAIT_DW0_MFX_SYNC_CONTROL_FLAG);
++
++	/* MI_FLUSH_DW - pxp on */
++	*cmd_prolog++ = (MI_FLUSH_DW | MI_FLUSH_DW_DW0_PROTECTED_MEMORY_ENABLE); /* DW0 */
++	*cmd_prolog++ = 0;                                                       /* DW1 */
++	*cmd_prolog++ = 0;                                                       /* DW2 */
++
++	/* MFX_WAIT */
++	*cmd_prolog++ = (MFX_WAIT | MFX_WAIT_DW0_PXP_SYNC_CONTROL_FLAG |
++			 MFX_WAIT_DW0_MFX_SYNC_CONTROL_FLAG);
++
++	increased_size_in_dw = (cmd_prolog - cmd);
++end:
++	return increased_size_in_dw;
++}
++
++static int add_pxp_epilog(u32 *cmd)
++{
++	u32 increased_size_in_dw = 0;
++	u32 *cmd_epilog = cmd;
++	const int cmd_epilog_size_in_dw = 5;
++
++	if (!cmd)
++		return cmd_epilog_size_in_dw;
++
++	/* MI_FLUSH_DW - pxp off */
++	*cmd_epilog++ = MI_FLUSH_DW;  /* DW0 */
++	*cmd_epilog++ = 0;            /* DW1 */
++	*cmd_epilog++ = 0;            /* DW2 */
++
++	/* MFX_WAIT - stall until prior PXP and MFX/HCP/HUC objects are cmopleted */
++	*cmd_epilog++ = (MFX_WAIT | MFX_WAIT_DW0_PXP_SYNC_CONTROL_FLAG |
++			 MFX_WAIT_DW0_MFX_SYNC_CONTROL_FLAG);
++
++	/* MI_BATCH_BUFFER_END */
++	*cmd_epilog++ = MI_BATCH_BUFFER_END;
++
++	increased_size_in_dw = (cmd_epilog - cmd);
++	return increased_size_in_dw;
++}
++
++static int add_pxp_inline_termination(u32 *cmd)
++{
++	u32 increased_size_in_dw = 0;
++	u32 *cmd_termin = cmd;
++	const int cmd_termin_size_in_dw = 2;
++
++	if (!cmd)
++		return cmd_termin_size_in_dw;
++
++	/* CRYPTO_KEY_EXCHANGE - session inline termination */
++	*cmd_termin++ = CRYPTO_KEY_EXCHANGE; /* DW0 */
++	*cmd_termin++ = 0;                   /* DW1 */
++
++	increased_size_in_dw = (cmd_termin - cmd);
++	return increased_size_in_dw;
++}
++
++static int issue_hw_terminate_for_session(struct drm_i915_private *i915, int session_type,
++					  int session_index)
++{
++	u32 *cmd = NULL;
++	u32 *cmd_ptr = NULL;
++	int cmd_size_in_dw = 0;
++	int ret;
++
++	if (!i915)
++		return -EINVAL;
++
++	cmd_size_in_dw += add_pxp_prolog(i915, NULL, session_type, session_index);
++	cmd_size_in_dw += add_pxp_inline_termination(NULL);
++	cmd_size_in_dw += add_pxp_epilog(NULL);
++
++	cmd = kzalloc(cmd_size_in_dw * 4, GFP_KERNEL);
++	if (!cmd)
++		return -ENOMEM;
++
++	cmd_ptr = cmd;
++	cmd_ptr += add_pxp_prolog(i915, cmd_ptr, session_type, session_index);
++	cmd_ptr += add_pxp_inline_termination(cmd_ptr);
++	cmd_ptr += add_pxp_epilog(cmd_ptr);
++
++	if (cmd_size_in_dw != (cmd_ptr - cmd)) {
++		ret = -EINVAL;
++		drm_err(&i915->drm, "Failed to %s\n", __func__);
++		goto end;
++	}
++
++	ret = pxp_submit_cmd(i915, cmd, cmd_size_in_dw);
++	if (ret) {
++		drm_err(&i915->drm, "Failed to pxp_submit_cmd()\n");
++		goto end;
++	}
++
++end:
++	kfree(cmd);
 +	return ret;
 +}
++
+ int pxp_sm_set_kcr_init_reg(struct drm_i915_private *i915)
+ {
+ 	int ret;
 diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_sm.h b/drivers/gpu/drm/i915/pxp/intel_pxp_sm.h
-index aee638e70be6..143f024bb0d2 100644
+index 90f7d74cacdf..1b3173bca281 100644
 --- a/drivers/gpu/drm/i915/pxp/intel_pxp_sm.h
 +++ b/drivers/gpu/drm/i915/pxp/intel_pxp_sm.h
-@@ -115,5 +115,6 @@ int pxp_sm_set_kcr_init_reg(struct drm_i915_private *i915);
- u32 intel_pxp_get_pxp_tag(struct drm_i915_private *i915, int session_idx,
- 			  int session_type, u32 *session_is_alive);
- bool intel_pxp_sm_is_any_type0_session_in_play(struct drm_i915_private *i915, int protection_mode);
-+int intel_pxp_sm_close(struct drm_i915_private *i915, struct drm_file *drmfile);
+@@ -23,6 +23,22 @@
+ #define SESSION_TYPE_MASK BIT(7)
+ #define SESSION_ID_MASK (BIT(7) - 1)
  
- #endif /* __INTEL_PXP_SM_H__ */
++/* PXP GPU command definitions */
++
++/* MI_SET_APPID */
++#define   MI_SET_APPID_TYPE1_APP        BIT(7)
++#define   MI_SET_APPID_SESSION_ID(x)    ((x) << 0)
++
++/* MI_FLUSH_DW */
++#define   MI_FLUSH_DW_DW0_PROTECTED_MEMORY_ENABLE   BIT(22)
++
++/* MI_WAIT */
++#define   MFX_WAIT_DW0_PXP_SYNC_CONTROL_FLAG BIT(9)
++#define   MFX_WAIT_DW0_MFX_SYNC_CONTROL_FLAG  BIT(8)
++
++/* CRYPTO_KEY_EXCHANGE */
++#define CRYPTO_KEY_EXCHANGE ((0x3 << 29) | (0x01609 << 16))
++
+ enum pxp_session_types {
+ 	SESSION_TYPE_TYPE0 = 0,
+ 	SESSION_TYPE_TYPE1 = 1,
 -- 
 2.17.1
 
