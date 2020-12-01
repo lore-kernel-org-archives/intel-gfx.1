@@ -2,49 +2,52 @@ Return-Path: <SRS0=1U3p=FF=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C2DF3C64E7A
-	for <intel-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 18:30:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4698FC71155
+	for <intel-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 18:30:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 27A7F20870
-	for <intel-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 18:30:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 27A7F20870
+	by mail.kernel.org (Postfix) with ESMTPS id A6BFB20870
+	for <intel-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 18:30:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A6BFB20870
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 52D3F6E554;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9CC226E86F;
 	Tue,  1 Dec 2020 18:30:33 +0000 (UTC)
 Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E040D6E842
- for <intel-gfx@lists.freedesktop.org>; Tue,  1 Dec 2020 18:30:31 +0000 (UTC)
-IronPort-SDR: 1JOxMCQH5I21B2nSIgJu+hQ2NWb02oE7BJl4KigNeWq1a1dtgDr2E9QoLyb7q1PNEpmwUpnsFR
- fN7x+BDJvh5Q==
-X-IronPort-AV: E=McAfee;i="6000,8403,9822"; a="234487926"
-X-IronPort-AV: E=Sophos;i="5.78,385,1599548400"; d="scan'208";a="234487926"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 489B96E554
+ for <intel-gfx@lists.freedesktop.org>; Tue,  1 Dec 2020 18:30:32 +0000 (UTC)
+IronPort-SDR: mFw6zPfc9F3KA2E/lmb1EmaJ+bw+GuISGpG1NrlesZ1wRdSIsCin7kaYBhH3vJ03yXkJ5HD2Wn
+ +tgJIKBTUQzw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9822"; a="234487939"
+X-IronPort-AV: E=Sophos;i="5.78,385,1599548400"; d="scan'208";a="234487939"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Dec 2020 10:30:28 -0800
-IronPort-SDR: TprUFmMufNn9aT65hiGDHFb1/hVVhjftpxzy3iMGHtAuJyAXdxcFa6gmI07SaSV08SYvqciIcM
- Bu6gunM/d6CQ==
-X-IronPort-AV: E=Sophos;i="5.78,385,1599548400"; d="scan'208";a="405220259"
+ 01 Dec 2020 10:30:32 -0800
+IronPort-SDR: GdWmsqjAZ0RsYQUesBzQ0ZGN54NZ3mLINytqctUhBjKQLMbO0M3e3p1UIfs9/A4cLIlEz0Y87b
+ oaedBMys2HpQ==
+X-IronPort-AV: E=Sophos;i="5.78,385,1599548400"; d="scan'208";a="405220280"
 Received: from linux-desktop.iind.intel.com ([10.223.34.173])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Dec 2020 10:30:26 -0800
+ 01 Dec 2020 10:30:30 -0800
 From: Uma Shankar <uma.shankar@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed,  2 Dec 2020 00:34:04 +0530
-Message-Id: <20201201190406.1752-1-uma.shankar@intel.com>
+Date: Wed,  2 Dec 2020 00:34:06 +0530
+Message-Id: <20201201190406.1752-3-uma.shankar@intel.com>
 X-Mailer: git-send-email 2.26.2
+In-Reply-To: <20201201190406.1752-1-uma.shankar@intel.com>
+References: <20201201190406.1752-1-uma.shankar@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [v6 0/2] Re-enable FBC on TGL
+Subject: [Intel-gfx] [v6 2/2] Revert "drm/i915/display/fbc: Disable fbc by
+ default on TGL"
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,41 +60,30 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-FBC was disabled on TGL due to random underruns. It has
-been determined that FBC will not work reliably with PSR2.
-This series re-enables fbc along with taking care of the
-PSR2 limitations for TGL.
-
-Bspec: 50422 HSD: 14010260002
-
-v2: Addressed review comments and added bspec links
-
-v3: Addressed Ville's review comments
-
-v4: Change the WA as per Jose's recommendation.
-
-v5: Addressed Jose's review comments.
-
-v6: Added Jose and Ville RB's. Fixed a minor review
-comment.
-
-Uma Shankar (2):
-  drm/i915/display/tgl: Disable FBC with PSR2
-  Revert "drm/i915/display/fbc: Disable fbc by default on TGL"
-
- drivers/gpu/drm/i915/display/intel_fbc.c | 19 ++++++++++++-------
- drivers/gpu/drm/i915/i915_drv.h          |  1 +
- 2 files changed, 13 insertions(+), 7 deletions(-)
-
--- 
-2.26.2
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+RkJDIGNhbiBiZSByZS1lbmFibGVkIG9uIFRHTCB3aXRoIFdBIG9mIGtlZXBpbmcgaXQgZGlzYWJs
+ZWQKd2hpbGUgUFNSMiBpcyBlbmFibGVkLgoKVGhpcyByZXZlcnRzIGNvbW1pdCAyOTgyZGVkMmZm
+NWNlMGNmMWE0OWJjMzlhNTI2ZGExODI3ODJiNjY0LgoKU2lnbmVkLW9mZi1ieTogVW1hIFNoYW5r
+YXIgPHVtYS5zaGFua2FyQGludGVsLmNvbT4KUmV2aWV3ZWQtYnk6IEpvc8OpIFJvYmVydG8gZGUg
+U291emEgPGpvc2Uuc291emFAaW50ZWwuY29tPgpSZXZpZXdlZC1ieTogVmlsbGUgU3lyasOkbMOk
+IDx2aWxsZS5zeXJqYWxhQGxpbnV4LmludGVsLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vaTkx
+NS9kaXNwbGF5L2ludGVsX2ZiYy5jIHwgNyAtLS0tLS0tCiAxIGZpbGUgY2hhbmdlZCwgNyBkZWxl
+dGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVs
+X2ZiYy5jIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9mYmMuYwppbmRleCBm
+NWQ1YTY0OGNiMjIuLjMzMjAwYjVjZmFkMCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5
+MTUvZGlzcGxheS9pbnRlbF9mYmMuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5
+L2ludGVsX2ZiYy5jCkBAIC0xNDQ1LDEzICsxNDQ1LDYgQEAgc3RhdGljIGludCBpbnRlbF9zYW5p
+dGl6ZV9mYmNfb3B0aW9uKHN0cnVjdCBkcm1faTkxNV9wcml2YXRlICpkZXZfcHJpdikKIAlpZiAo
+IUhBU19GQkMoZGV2X3ByaXYpKQogCQlyZXR1cm4gMDsKIAotCS8qCi0JICogRmJjIGlzIGNhdXNp
+bmcgcmFuZG9tIHVuZGVycnVucyBpbiBDSSBleGVjdXRpb24gb24gVEdMIHBsYXRmb3Jtcy4KLQkg
+KiBEaXNhYmxpbmcgdGhlIHNhbWUgd2hpbGUgdGhlIHByb2JsZW0gaXMgYmVpbmcgZGVidWdnZWQg
+YW5kIGFuYWx5emVkLgotCSAqLwotCWlmIChJU19USUdFUkxBS0UoZGV2X3ByaXYpKQotCQlyZXR1
+cm4gMDsKLQogCWlmIChJU19CUk9BRFdFTEwoZGV2X3ByaXYpIHx8IElOVEVMX0dFTihkZXZfcHJp
+dikgPj0gOSkKIAkJcmV0dXJuIDE7CiAKLS0gCjIuMjYuMgoKX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRlbC1n
+ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
+aWxtYW4vbGlzdGluZm8vaW50ZWwtZ2Z4Cg==
