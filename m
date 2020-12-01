@@ -7,51 +7,51 @@ X-Spam-Status: No, score=-15.2 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 54C81C71155
-	for <intel-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 22:44:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3577DC64E7A
+	for <intel-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 22:46:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DD168208C3
-	for <intel-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 22:44:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DD168208C3
+	by mail.kernel.org (Postfix) with ESMTPS id A88372067D
+	for <intel-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 22:46:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A88372067D
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 066A46E932;
-	Tue,  1 Dec 2020 22:44:04 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2E4246E932
- for <intel-gfx@lists.freedesktop.org>; Tue,  1 Dec 2020 22:44:03 +0000 (UTC)
-IronPort-SDR: uPqUW+a7weY9anEeREgElq38bYEZn0I1LUqwi8qVI4MkVKozP7SJMTSh0xnM00hTiE8NyClxNa
- ck8HXZBXvA8g==
-X-IronPort-AV: E=McAfee;i="6000,8403,9822"; a="237048606"
-X-IronPort-AV: E=Sophos;i="5.78,385,1599548400"; d="scan'208";a="237048606"
+	by gabe.freedesktop.org (Postfix) with ESMTP id E944B6E948;
+	Tue,  1 Dec 2020 22:46:36 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C0DEB6E948
+ for <intel-gfx@lists.freedesktop.org>; Tue,  1 Dec 2020 22:46:35 +0000 (UTC)
+IronPort-SDR: 1lsiOIaMppluYdwE/+FGZkjaqMWbDM30dZy916RtTlFDFpZY1gNfk0387fd95W66QK+JOQ4YOZ
+ wjR1CHR+bU3A==
+X-IronPort-AV: E=McAfee;i="6000,8403,9822"; a="159975308"
+X-IronPort-AV: E=Sophos;i="5.78,385,1599548400"; d="scan'208";a="159975308"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Dec 2020 14:44:02 -0800
-IronPort-SDR: jtzsaUnaW90+vsVMCBT/aIkOBACOrutOY5/MSy+hr/Lkt6jDST7/FX29MoUEyKuqY2mcRcRJPx
- 62mT8KgWev0A==
-X-IronPort-AV: E=Sophos;i="5.78,385,1599548400"; d="scan'208";a="335291040"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Dec 2020 14:46:34 -0800
+IronPort-SDR: C36dTxwMGb1G4tT2RoSHJaqKWQSCujjSTuEHpblWA5KcljGsQbmoQfKMKDwrubLKIGOwm3gHlO
+ CVEmFbw0ZgOw==
+X-IronPort-AV: E=Sophos;i="5.78,385,1599548400"; d="scan'208";a="364996520"
 Received: from labuser-z97x-ud5h.jf.intel.com (HELO labuser-Z97X-UD5H)
  ([10.165.21.211])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Dec 2020 14:44:02 -0800
-Date: Tue, 1 Dec 2020 14:46:59 -0800
+ by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Dec 2020 14:46:34 -0800
+Date: Tue, 1 Dec 2020 14:49:30 -0800
 From: "Navare, Manasi" <manasi.d.navare@intel.com>
 To: Jani Nikula <jani.nikula@linux.intel.com>
-Message-ID: <20201201224652.GB22608@labuser-Z97X-UD5H>
+Message-ID: <20201201224930.GA22644@labuser-Z97X-UD5H>
 References: <20201022222709.29386-1-manasi.d.navare@intel.com>
- <20201022222709.29386-4-manasi.d.navare@intel.com>
- <87tutxsddo.fsf@intel.com>
+ <20201022222709.29386-5-manasi.d.navare@intel.com>
+ <87r1p1sdch.fsf@intel.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <87tutxsddo.fsf@intel.com>
+In-Reply-To: <87r1p1sdch.fsf@intel.com>
 User-Agent: Mutt/1.5.24 (2015-08-30)
-Subject: Re: [Intel-gfx] [PATCH 03/11] drm/i915/display/dp: Attach and set
- drm connector VRR property
+Subject: Re: [Intel-gfx] [PATCH 04/11] drm/i915/display/dp: Add VRR crtc
+ state variables
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,119 +70,49 @@ Content-Transfer-Encoding: quoted-printable
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Nov 10, 2020 at 12:41:07PM +0200, Jani Nikula wrote:
+On Tue, Nov 10, 2020 at 12:41:50PM +0200, Jani Nikula wrote:
 > On Thu, 22 Oct 2020, Manasi Navare <manasi.d.navare@intel.com> wrote:
-> > From: Aditya Swarup <aditya.swarup@intel.com>
-> >
-> > This function sets the VRR property for connector based
-> > on the platform support, EDID monitor range and DP sink
-> > DPCD capability of outputing video without msa
-> > timing information.
-> >
-> > v7:
-> > * Move the helper to separate file (Manasi)
-> > v6:
-> > * Remove unset of prop
-> > v5:
-> > * Fix the vrr prop not being set in kernel (Manasi)
-> > * Unset the prop on connector disconnect (Manasi)
-> > v4:
-> > * Rebase (Mansi)
-> > v3:
-> > * intel_dp_is_vrr_capable can be used for debugfs, make it
-> > non static (Manasi)
-> > v2:
-> > * Just set this in intel_dp_get_modes instead of new hook (Jani)
-> >
-> > Cc: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
-> > Cc: Jani Nikula <jani.nikula@linux.intel.com>
-> > Signed-off-by: Aditya Swarup <aditya.swarup@intel.com>
-> > Signed-off-by: Manasi Navare <manasi.d.navare@intel.com>
-> > ---
-> >  drivers/gpu/drm/i915/display/intel_dp.c | 8 ++++++++
-> >  drivers/gpu/drm/i915/display/intel_dp.h | 1 +
-> >  2 files changed, 9 insertions(+)
-> >
-> > diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/=
-i915/display/intel_dp.c
-> > index 818daab252f3..3794b8f35edc 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_dp.c
-> > +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-> > @@ -62,6 +62,7 @@
-> >  #include "intel_sideband.h"
-> >  #include "intel_tc.h"
-> >  #include "intel_vdsc.h"
-> > +#include "intel_vrr.h"
-> >  =
-
-> >  #define DP_DPRX_ESI_LEN 14
-> >  =
-
-> > @@ -6622,6 +6623,10 @@ static int intel_dp_get_modes(struct drm_connect=
-or *connector)
-> >  	edid =3D intel_connector->detect_edid;
-> >  	if (edid) {
-> >  		int ret =3D intel_connector_update_modes(connector, edid);
-> > +
-> > +		if (intel_is_vrr_capable(connector))
-> > +			drm_connector_set_vrr_capable_property(connector,
-> > +							       true);
-> >  		if (ret)
-> >  			return ret;
-> >  	}
-> > @@ -7080,6 +7085,9 @@ intel_dp_add_properties(struct intel_dp *intel_dp=
-, struct drm_connector *connect
-> >  		connector->state->scaling_mode =3D DRM_MODE_SCALE_ASPECT;
-> >  =
-
-> >  	}
-> > +
-> > +	if (INTEL_GEN(dev_priv) >=3D 12)
+> > Introduce VRR struct in intel_crtc_state and add
+> > VRR crtc state variables Enable, Vtotalmin and Vtotalmax
+> > to be derived from mode timings and VRR crtc property.
 > =
 
-> I wonder if we should just add a wrapper
-> =
+> I'd squash this to the patch actually using it.
 
-> #define HAS_VRR(i915) (INTEL_GEN(i915) >=3D 12)
-> =
-
-> to be more descriptive. And use it in the previous patch too.
-
-Yea I like the idea of adding this wrapper in intel_vrr.c and have the plat=
-form check in that
-and then use that in intel_vrr_is_capable() ?
-
-> =
-
-> > +		drm_connector_attach_vrr_capable_property(connector);
-> >  }
-> >  =
-
-> >  static void intel_dp_init_panel_power_timestamps(struct intel_dp *inte=
-l_dp)
-> > diff --git a/drivers/gpu/drm/i915/display/intel_dp.h b/drivers/gpu/drm/=
-i915/display/intel_dp.h
-> > index 3f862b4fd34f..aaf0a41582d7 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_dp.h
-> > +++ b/drivers/gpu/drm/i915/display/intel_dp.h
-> > @@ -15,6 +15,7 @@ enum pipe;
-> >  enum port;
-> >  struct drm_connector_state;
-> >  struct drm_encoder;
-> > +struct drm_connector;
-> =
-
-> Unrelated change.
-
-Yea I dont rem now why I added that here probably unrelated will remove
+Okay will squash with Patch 5
 
 Manasi
 
 > =
 
-> >  struct drm_i915_private;
-> >  struct drm_modeset_acquire_ctx;
-> >  struct drm_dp_vsc_sdp;
+> >
+> > Cc: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
+> > Signed-off-by: Manasi Navare <manasi.d.navare@intel.com>
+> > ---
+> >  drivers/gpu/drm/i915/display/intel_display_types.h | 7 +++++++
+> >  1 file changed, 7 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drive=
+rs/gpu/drm/i915/display/intel_display_types.h
+> > index f6f0626649e0..f6f7ec024da7 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_display_types.h
+> > +++ b/drivers/gpu/drm/i915/display/intel_display_types.h
+> > @@ -1092,6 +1092,13 @@ struct intel_crtc_state {
+> >  	struct intel_dsb *dsb;
+> >  =
+
+> >  	u32 psr2_man_track_ctl;
+> > +
+> > +	/* Variable Refresh Rate state */
+> > +	struct {
+> > +		bool enable;
+> > +		u16 vtotalmin;
+> > +		u16 vtotalmax;
+> > +	} vrr;
+> >  };
+> >  =
+
+> >  enum intel_pipe_crc_source {
 > =
 
 > -- =
