@@ -7,35 +7,37 @@ X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DA469C83020
-	for <intel-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 09:07:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 25A1CC71156
+	for <intel-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 09:07:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 77D5220656
-	for <intel-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 09:07:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 77D5220656
+	by mail.kernel.org (Postfix) with ESMTPS id A40EC206CA
+	for <intel-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 09:07:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A40EC206CA
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 48F986E519;
-	Tue,  1 Dec 2020 09:07:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 074AD6E4AF;
+	Tue,  1 Dec 2020 09:07:44 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B2A76E4BA
- for <intel-gfx@lists.freedesktop.org>; Tue,  1 Dec 2020 09:07:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 781C889F89
+ for <intel-gfx@lists.freedesktop.org>; Tue,  1 Dec 2020 09:07:41 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23172165-1500050 
- for multiple; Tue, 01 Dec 2020 09:07:31 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23172173-1500050 
+ for multiple; Tue, 01 Dec 2020 09:07:32 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue,  1 Dec 2020 09:07:18 +0000
-Message-Id: <20201201090729.24777-1-chris@chris-wilson.co.uk>
+Date: Tue,  1 Dec 2020 09:07:25 +0000
+Message-Id: <20201201090729.24777-8-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20201201090729.24777-1-chris@chris-wilson.co.uk>
+References: <20201201090729.24777-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 01/12] drm/i915/gem: Drop free_work for GEM
- contexts
+Subject: [Intel-gfx] [PATCH 08/12] drm/i915: Track context current active
+ time
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,217 +50,327 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Chris Wilson <chris@chris-wilson.co.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The free_list and worker was introduced in commit 5f09a9c8ab6b ("drm/i915:
-Allow contexts to be unreferenced locklessly"), but subsequently made
-redundant by the removal of the last sleeping lock in commit 2935ed5339c4
-("drm/i915: Remove logical HW ID"). As we can now free the GEM context
-immediately from any context, remove the deferral of the free_list
+From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-v2: Lift removing the context from the global list into close().
+Track context active (on hardware) status together with the start
+timestamp.
 
-Suggested-by: Mika Kuoppala <mika.kuoppala@linux.intel.com>
-Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-Cc: Mika Kuoppala <mika.kuoppala@linux.intel.com>
-Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+This will be used to provide better granularity of context
+runtime reporting in conjunction with already tracked pphwsp accumulated
+runtime.
+
+The latter is only updated on context save so does not give us visibility
+to any currently executing work.
+
+As part of the patch the existing runtime tracking data is moved under the
+new ce->stats member and updated under the seqlock. This provides the
+ability to atomically read out accumulated plus active runtime.
+
+v2:
+ * Rename and make __intel_context_get_active_time unlocked.
+
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_context.c   | 59 +++----------------
- drivers/gpu/drm/i915/gem/i915_gem_context.h   |  1 -
- .../gpu/drm/i915/gem/i915_gem_context_types.h |  1 -
- drivers/gpu/drm/i915/i915_drv.h               |  3 -
- drivers/gpu/drm/i915/i915_gem.c               |  2 -
- .../gpu/drm/i915/selftests/mock_gem_device.c  |  2 -
- 6 files changed, 8 insertions(+), 60 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_context.c   |  2 +-
+ drivers/gpu/drm/i915/gt/intel_context.c       | 10 +++-
+ drivers/gpu/drm/i915/gt/intel_context.h       |  6 +-
+ drivers/gpu/drm/i915/gt/intel_context_types.h | 24 +++++---
+ drivers/gpu/drm/i915/gt/intel_lrc.c           | 55 +++++++++++++++----
+ drivers/gpu/drm/i915/gt/selftest_lrc.c        | 10 ++--
+ drivers/gpu/drm/i915/i915_drm_client.c        |  2 +-
+ drivers/gpu/drm/i915/i915_gpu_error.c         |  4 +-
+ 8 files changed, 81 insertions(+), 32 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-index a6299da64de4..8493af37eb8a 100644
+index 26452d7383f4..3756d30fdc85 100644
 --- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
 +++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-@@ -333,13 +333,12 @@ static struct i915_gem_engines *default_engines(struct i915_gem_context *ctx)
- 	return e;
+@@ -272,7 +272,7 @@ static void accumulate_runtime(struct i915_drm_client *client,
+ 		unsigned int class = ce->engine->uabi_class;
+ 
+ 		GEM_BUG_ON(class >= ARRAY_SIZE(client->past_runtime));
+-		atomic64_add(ce->runtime.total,
++		atomic64_add(ce->stats.runtime.total,
+ 			     &client->past_runtime[class]);
+ 	}
+ }
+diff --git a/drivers/gpu/drm/i915/gt/intel_context.c b/drivers/gpu/drm/i915/gt/intel_context.c
+index 349e7fa1488d..cb539d3859ff 100644
+--- a/drivers/gpu/drm/i915/gt/intel_context.c
++++ b/drivers/gpu/drm/i915/gt/intel_context.c
+@@ -375,7 +375,7 @@ intel_context_init(struct intel_context *ce, struct intel_engine_cs *engine)
+ 	ce->sseu = engine->sseu;
+ 	ce->ring = __intel_context_ring_size(SZ_4K);
+ 
+-	ewma_runtime_init(&ce->runtime.avg);
++	ewma_runtime_init(&ce->stats.runtime.avg);
+ 
+ 	ce->vm = i915_vm_get(engine->gt->vm);
+ 
+@@ -384,6 +384,7 @@ intel_context_init(struct intel_context *ce, struct intel_engine_cs *engine)
+ 	INIT_LIST_HEAD(&ce->signals);
+ 
+ 	mutex_init(&ce->pin_mutex);
++	seqlock_init(&ce->stats.lock);
+ 
+ 	i915_active_init(&ce->active,
+ 			 __intel_context_active, __intel_context_retire);
+@@ -501,6 +502,13 @@ struct i915_request *intel_context_create_request(struct intel_context *ce)
+ 	return rq;
  }
  
--static void i915_gem_context_free(struct i915_gem_context *ctx)
-+void i915_gem_context_release(struct kref *ref)
- {
--	GEM_BUG_ON(!i915_gem_context_is_closed(ctx));
-+	struct i915_gem_context *ctx = container_of(ref, typeof(*ctx), ref);
- 
--	spin_lock(&ctx->i915->gem.contexts.lock);
--	list_del(&ctx->link);
--	spin_unlock(&ctx->i915->gem.contexts.lock);
-+	trace_i915_context_free(ctx);
-+	GEM_BUG_ON(!i915_gem_context_is_closed(ctx));
- 
- 	mutex_destroy(&ctx->engines_mutex);
- 	mutex_destroy(&ctx->lut_mutex);
-@@ -353,37 +352,6 @@ static void i915_gem_context_free(struct i915_gem_context *ctx)
- 	kfree_rcu(ctx, rcu);
- }
- 
--static void contexts_free_all(struct llist_node *list)
--{
--	struct i915_gem_context *ctx, *cn;
--
--	llist_for_each_entry_safe(ctx, cn, list, free_link)
--		i915_gem_context_free(ctx);
--}
--
--static void contexts_flush_free(struct i915_gem_contexts *gc)
--{
--	contexts_free_all(llist_del_all(&gc->free_list));
--}
--
--static void contexts_free_worker(struct work_struct *work)
--{
--	struct i915_gem_contexts *gc =
--		container_of(work, typeof(*gc), free_work);
--
--	contexts_flush_free(gc);
--}
--
--void i915_gem_context_release(struct kref *ref)
--{
--	struct i915_gem_context *ctx = container_of(ref, typeof(*ctx), ref);
--	struct i915_gem_contexts *gc = &ctx->i915->gem.contexts;
--
--	trace_i915_context_free(ctx);
--	if (llist_add(&ctx->free_link, &gc->free_list))
--		schedule_work(&gc->free_work);
--}
--
- static inline struct i915_gem_engines *
- __context_engines_static(const struct i915_gem_context *ctx)
- {
-@@ -632,6 +600,10 @@ static void context_close(struct i915_gem_context *ctx)
- 	 */
- 	lut_close(ctx);
- 
-+	spin_lock(&ctx->i915->gem.contexts.lock);
-+	list_del(&ctx->link);
-+	spin_unlock(&ctx->i915->gem.contexts.lock);
++ktime_t __intel_context_get_active_time(struct intel_context *ce)
++{
++	struct intel_context_stats *stats = &ce->stats;
 +
- 	mutex_unlock(&ctx->mutex);
++	return stats->active ? ktime_sub(ktime_get(), stats->start) : 0;
++}
++
+ #if IS_ENABLED(CONFIG_DRM_I915_SELFTEST)
+ #include "selftest_context.c"
+ #endif
+diff --git a/drivers/gpu/drm/i915/gt/intel_context.h b/drivers/gpu/drm/i915/gt/intel_context.h
+index fda2eba81e22..1e76291485ac 100644
+--- a/drivers/gpu/drm/i915/gt/intel_context.h
++++ b/drivers/gpu/drm/i915/gt/intel_context.h
+@@ -251,7 +251,7 @@ static inline u64 intel_context_get_total_runtime_ns(struct intel_context *ce)
+ 	const u32 period =
+ 		RUNTIME_INFO(ce->engine->i915)->cs_timestamp_period_ns;
  
- 	/*
-@@ -849,9 +821,6 @@ i915_gem_create_context(struct drm_i915_private *i915, unsigned int flags)
- 	    !HAS_EXECLISTS(i915))
- 		return ERR_PTR(-EINVAL);
- 
--	/* Reap the stale contexts */
--	contexts_flush_free(&i915->gem.contexts);
--
- 	ctx = __create_context(i915);
- 	if (IS_ERR(ctx))
- 		return ctx;
-@@ -896,9 +865,6 @@ static void init_contexts(struct i915_gem_contexts *gc)
- {
- 	spin_lock_init(&gc->lock);
- 	INIT_LIST_HEAD(&gc->list);
--
--	INIT_WORK(&gc->free_work, contexts_free_worker);
--	init_llist_head(&gc->free_list);
+-	return READ_ONCE(ce->runtime.total) * period;
++	return READ_ONCE(ce->stats.runtime.total) * period;
  }
  
- void i915_gem_init__contexts(struct drm_i915_private *i915)
-@@ -906,12 +872,6 @@ void i915_gem_init__contexts(struct drm_i915_private *i915)
- 	init_contexts(&i915->gem.contexts);
+ static inline u64 intel_context_get_avg_runtime_ns(struct intel_context *ce)
+@@ -259,7 +259,9 @@ static inline u64 intel_context_get_avg_runtime_ns(struct intel_context *ce)
+ 	const u32 period =
+ 		RUNTIME_INFO(ce->engine->i915)->cs_timestamp_period_ns;
+ 
+-	return mul_u32_u32(ewma_runtime_read(&ce->runtime.avg), period);
++	return mul_u32_u32(ewma_runtime_read(&ce->stats.runtime.avg), period);
  }
  
--void i915_gem_driver_release__contexts(struct drm_i915_private *i915)
--{
--	flush_work(&i915->gem.contexts.free_work);
--	rcu_barrier(); /* and flush the left over RCU frees */
--}
--
- static int gem_context_register(struct i915_gem_context *ctx,
- 				struct drm_i915_file_private *fpriv,
- 				u32 *id)
-@@ -985,7 +945,6 @@ int i915_gem_context_open(struct drm_i915_private *i915,
- void i915_gem_context_close(struct drm_file *file)
- {
- 	struct drm_i915_file_private *file_priv = file->driver_priv;
--	struct drm_i915_private *i915 = file_priv->dev_priv;
- 	struct i915_address_space *vm;
- 	struct i915_gem_context *ctx;
- 	unsigned long idx;
-@@ -997,8 +956,6 @@ void i915_gem_context_close(struct drm_file *file)
- 	xa_for_each(&file_priv->vm_xa, idx, vm)
- 		i915_vm_put(vm);
- 	xa_destroy(&file_priv->vm_xa);
--
--	contexts_flush_free(&i915->gem.contexts);
++ktime_t __intel_context_get_active_time(struct intel_context *ce);
++
+ #endif /* __INTEL_CONTEXT_H__ */
+diff --git a/drivers/gpu/drm/i915/gt/intel_context_types.h b/drivers/gpu/drm/i915/gt/intel_context_types.h
+index 52fa9c132746..a9d8f68dcbd0 100644
+--- a/drivers/gpu/drm/i915/gt/intel_context_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_context_types.h
+@@ -12,6 +12,7 @@
+ #include <linux/list.h>
+ #include <linux/mutex.h>
+ #include <linux/types.h>
++#include <linux/seqlock.h>
+ 
+ #include "i915_active_types.h"
+ #include "i915_utils.h"
+@@ -98,14 +99,21 @@ struct intel_context {
+ 	} lrc;
+ 	u32 tag; /* cookie passed to HW to track this context on submission */
+ 
+-	/* Time on GPU as tracked by the hw. */
+-	struct {
+-		struct ewma_runtime avg;
+-		u64 total;
+-		u32 last;
+-		I915_SELFTEST_DECLARE(u32 num_underflow);
+-		I915_SELFTEST_DECLARE(u32 max_underflow);
+-	} runtime;
++	/** stats: Context GPU engine busyness tracking. */
++	struct intel_context_stats {
++		seqlock_t lock;
++		bool active;
++		ktime_t start;
++
++		/* Time on GPU as tracked by the hw. */
++		struct {
++			struct ewma_runtime avg;
++			u64 total;
++			u32 last;
++			I915_SELFTEST_DECLARE(u32 num_underflow);
++			I915_SELFTEST_DECLARE(u32 max_underflow);
++		} runtime;
++	} stats;
+ 
+ 	unsigned int active_count; /* protected by timeline->mutex */
+ 
+diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
+index 43703efb36d1..8dc153a572af 100644
+--- a/drivers/gpu/drm/i915/gt/intel_lrc.c
++++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
+@@ -1265,7 +1265,7 @@ static void restore_default_state(struct intel_context *ce,
+ 	regs = memset(ce->lrc_reg_state, 0, engine->context_size - PAGE_SIZE);
+ 	execlists_init_reg_state(regs, ce, engine, ce->ring, true);
+ 
+-	ce->runtime.last = intel_context_get_runtime(ce);
++	ce->stats.runtime.last = intel_context_get_runtime(ce);
  }
  
- int i915_gem_vm_create_ioctl(struct drm_device *dev, void *data,
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.h b/drivers/gpu/drm/i915/gem/i915_gem_context.h
-index a133f92bbedb..b5c908f3f4f2 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_context.h
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_context.h
-@@ -110,7 +110,6 @@ i915_gem_context_clear_user_engines(struct i915_gem_context *ctx)
+ static void reset_active(struct i915_request *rq,
+@@ -1307,35 +1307,61 @@ static void reset_active(struct i915_request *rq,
+ 	ce->lrc.desc |= CTX_DESC_FORCE_RESTORE;
+ }
  
- /* i915_gem_context.c */
- void i915_gem_init__contexts(struct drm_i915_private *i915);
--void i915_gem_driver_release__contexts(struct drm_i915_private *i915);
- 
- int i915_gem_context_open(struct drm_i915_private *i915,
- 			  struct drm_file *file);
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context_types.h b/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
-index ae14ca24a11f..1449f54924e0 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
-@@ -108,7 +108,6 @@ struct i915_gem_context {
- 
- 	/** link: place with &drm_i915_private.context_list */
- 	struct list_head link;
--	struct llist_node free_link;
- 
- 	/**
- 	 * @ref: reference count
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index 15be8debae54..1a2a1276dd31 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -1172,9 +1172,6 @@ struct drm_i915_private {
- 		struct i915_gem_contexts {
- 			spinlock_t lock; /* locks list */
- 			struct list_head list;
--
--			struct llist_head free_list;
--			struct work_struct free_work;
- 		} contexts;
- 
- 		/*
-diff --git a/drivers/gpu/drm/i915/i915_gem.c b/drivers/gpu/drm/i915/i915_gem.c
-index 58276694c848..17a4636ee542 100644
---- a/drivers/gpu/drm/i915/i915_gem.c
-+++ b/drivers/gpu/drm/i915/i915_gem.c
-@@ -1207,8 +1207,6 @@ void i915_gem_driver_remove(struct drm_i915_private *dev_priv)
- 
- void i915_gem_driver_release(struct drm_i915_private *dev_priv)
+-static void st_update_runtime_underflow(struct intel_context *ce, s32 dt)
++static void
++st_update_runtime_underflow(struct intel_context_stats *stats, s32 dt)
  {
--	i915_gem_driver_release__contexts(dev_priv);
--
- 	intel_gt_driver_release(&dev_priv->gt);
+ #if IS_ENABLED(CONFIG_DRM_I915_SELFTEST)
+-	ce->runtime.num_underflow++;
+-	ce->runtime.max_underflow = max_t(u32, ce->runtime.max_underflow, -dt);
++	stats->runtime.num_underflow++;
++	stats->runtime.max_underflow =
++		max_t(u32, stats->runtime.max_underflow, -dt);
+ #endif
+ }
  
- 	intel_wa_list_free(&dev_priv->gt_wa_list);
-diff --git a/drivers/gpu/drm/i915/selftests/mock_gem_device.c b/drivers/gpu/drm/i915/selftests/mock_gem_device.c
-index e946bd2087d8..0188f877cab2 100644
---- a/drivers/gpu/drm/i915/selftests/mock_gem_device.c
-+++ b/drivers/gpu/drm/i915/selftests/mock_gem_device.c
-@@ -64,8 +64,6 @@ static void mock_device_release(struct drm_device *dev)
- 	mock_device_flush(i915);
- 	intel_gt_driver_remove(&i915->gt);
+ static void intel_context_update_runtime(struct intel_context *ce)
+ {
++	struct intel_context_stats *stats = &ce->stats;
+ 	u32 old;
+ 	s32 dt;
  
--	i915_gem_driver_release__contexts(i915);
--
- 	i915_gem_drain_workqueue(i915);
- 	i915_gem_drain_freed_objects(i915);
+ 	if (intel_context_is_barrier(ce))
+ 		return;
+ 
+-	old = ce->runtime.last;
+-	ce->runtime.last = intel_context_get_runtime(ce);
+-	dt = ce->runtime.last - old;
++	old = stats->runtime.last;
++	stats->runtime.last = intel_context_get_runtime(ce);
++	dt = stats->runtime.last - old;
+ 
+ 	if (unlikely(dt < 0)) {
+ 		CE_TRACE(ce, "runtime underflow: last=%u, new=%u, delta=%d\n",
+-			 old, ce->runtime.last, dt);
+-		st_update_runtime_underflow(ce, dt);
++			 old, stats->runtime.last, dt);
++		st_update_runtime_underflow(stats, dt);
+ 		return;
+ 	}
+ 
+-	ewma_runtime_add(&ce->runtime.avg, dt);
+-	ce->runtime.total += dt;
++	ewma_runtime_add(&stats->runtime.avg, dt);
++	stats->runtime.total += dt;
++}
++
++static void intel_context_stats_start(struct intel_context *ce)
++{
++	struct intel_context_stats *stats = &ce->stats;
++	unsigned long flags;
++
++	write_seqlock_irqsave(&stats->lock, flags);
++	stats->start = ktime_get();
++	stats->active = true;
++	write_sequnlock_irqrestore(&stats->lock, flags);
++}
++
++static void intel_context_stats_stop(struct intel_context *ce)
++{
++	struct intel_context_stats *stats = &ce->stats;
++	unsigned long flags;
++
++	write_seqlock_irqsave(&stats->lock, flags);
++	stats->active = false;
++	stats->start = 0;
++	intel_context_update_runtime(ce);
++	write_sequnlock_irqrestore(&stats->lock, flags);
+ }
+ 
+ static inline struct intel_engine_cs *
+@@ -1442,6 +1468,7 @@ __execlists_schedule_out(struct i915_request *rq,
+ 
+ 	intel_context_update_runtime(ce);
+ 	intel_engine_context_out(engine);
++	intel_context_stats_stop(ce);
+ 	execlists_context_status_change(rq, INTEL_CONTEXT_SCHEDULE_OUT);
+ 	if (engine->fw_domain && !atomic_dec_return(&engine->fw_active))
+ 		intel_uncore_forcewake_put(engine->uncore, engine->fw_domain);
+@@ -1991,15 +2018,19 @@ static unsigned long active_timeslice(const struct intel_engine_cs *engine)
+ 
+ static void set_timeslice(struct intel_engine_cs *engine)
+ {
++	struct intel_engine_execlists * const execlists = &engine->execlists;
+ 	unsigned long duration;
+ 
++	if (*execlists->active)
++		intel_context_stats_start((*execlists->active)->context);
++
+ 	if (!intel_engine_has_timeslices(engine))
+ 		return;
+ 
+ 	duration = active_timeslice(engine);
+ 	ENGINE_TRACE(engine, "bump timeslicing, interval:%lu", duration);
+ 
+-	set_timer_ms(&engine->execlists.timer, duration);
++	set_timer_ms(&execlists->timer, duration);
+ }
+ 
+ static void start_timeslice(struct intel_engine_cs *engine, int prio)
+diff --git a/drivers/gpu/drm/i915/gt/selftest_lrc.c b/drivers/gpu/drm/i915/gt/selftest_lrc.c
+index 95d41c01d0e0..67f8083f40a3 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_lrc.c
++++ b/drivers/gpu/drm/i915/gt/selftest_lrc.c
+@@ -6381,8 +6381,8 @@ static int __live_pphwsp_runtime(struct intel_engine_cs *engine)
+ 	if (IS_ERR(ce))
+ 		return PTR_ERR(ce);
+ 
+-	ce->runtime.num_underflow = 0;
+-	ce->runtime.max_underflow = 0;
++	ce->stats.runtime.num_underflow = 0;
++	ce->stats.runtime.max_underflow = 0;
+ 
+ 	do {
+ 		unsigned int loop = 1024;
+@@ -6420,11 +6420,11 @@ static int __live_pphwsp_runtime(struct intel_engine_cs *engine)
+ 		intel_context_get_avg_runtime_ns(ce));
+ 
+ 	err = 0;
+-	if (ce->runtime.num_underflow) {
++	if (ce->stats.runtime.num_underflow) {
+ 		pr_err("%s: pphwsp underflow %u time(s), max %u cycles!\n",
+ 		       engine->name,
+-		       ce->runtime.num_underflow,
+-		       ce->runtime.max_underflow);
++		       ce->stats.runtime.num_underflow,
++		       ce->stats.runtime.max_underflow);
+ 		GEM_TRACE_DUMP();
+ 		err = -EOVERFLOW;
+ 	}
+diff --git a/drivers/gpu/drm/i915/i915_drm_client.c b/drivers/gpu/drm/i915/i915_drm_client.c
+index 65dd049b1f7d..49bbbc7b7fbf 100644
+--- a/drivers/gpu/drm/i915/i915_drm_client.c
++++ b/drivers/gpu/drm/i915/i915_drm_client.c
+@@ -69,7 +69,7 @@ static u64 pphwsp_busy_add(struct i915_gem_context *ctx, unsigned int class)
+ 
+ 	for_each_gem_engine(ce, engines, it) {
+ 		if (ce->engine->uabi_class == class)
+-			total += ce->runtime.total;
++			total += ce->stats.runtime.total;
+ 	}
+ 
+ 	return total;
+diff --git a/drivers/gpu/drm/i915/i915_gpu_error.c b/drivers/gpu/drm/i915/i915_gpu_error.c
+index e38dab8d2fed..8a38c75df742 100644
+--- a/drivers/gpu/drm/i915/i915_gpu_error.c
++++ b/drivers/gpu/drm/i915/i915_gpu_error.c
+@@ -1286,8 +1286,8 @@ static bool record_context(struct i915_gem_context_coredump *e,
+ 	e->guilty = atomic_read(&ctx->guilty_count);
+ 	e->active = atomic_read(&ctx->active_count);
+ 
+-	e->total_runtime = rq->context->runtime.total;
+-	e->avg_runtime = ewma_runtime_read(&rq->context->runtime.avg);
++	e->total_runtime = rq->context->stats.runtime.total;
++	e->avg_runtime = ewma_runtime_read(&rq->context->stats.runtime.avg);
+ 
+ 	simulated = i915_gem_context_no_error_capture(ctx);
  
 -- 
 2.20.1
