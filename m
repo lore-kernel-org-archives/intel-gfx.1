@@ -2,41 +2,56 @@ Return-Path: <SRS0=1U3p=FF=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-15.2 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E1073C64E7A
-	for <intel-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 22:48:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 88FB4C64E7A
+	for <intel-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 22:50:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 69E7F20C56
-	for <intel-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 22:48:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 69E7F20C56
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id 19F1020C56
+	for <intel-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 22:50:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 19F1020C56
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E9106E94C;
-	Tue,  1 Dec 2020 22:48:49 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 24C1F6E949;
- Tue,  1 Dec 2020 22:48:48 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 1BCAFA0019;
- Tue,  1 Dec 2020 22:48:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F8E16E94F;
+	Tue,  1 Dec 2020 22:50:14 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D5506E94F
+ for <intel-gfx@lists.freedesktop.org>; Tue,  1 Dec 2020 22:50:13 +0000 (UTC)
+IronPort-SDR: FOUkTKWutRSMesKwvP3VQDCsrCxDnIFqWh6S2yQM5IasguiQdxKtgKFUCQLFc/D5pCgffW7Jxg
+ L/WW4/k1TRsw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9822"; a="152749220"
+X-IronPort-AV: E=Sophos;i="5.78,385,1599548400"; d="scan'208";a="152749220"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Dec 2020 14:50:04 -0800
+IronPort-SDR: f6nf1GLYXUmxBneDaN1eVUKqjblVmUzM8mk7opCVqHEVM/M3EJZON3/bglWAZEC2ZxcVdsl9yH
+ rpC+7gIH94DA==
+X-IronPort-AV: E=Sophos;i="5.78,385,1599548400"; d="scan'208";a="539317234"
+Received: from labuser-z97x-ud5h.jf.intel.com (HELO labuser-Z97X-UD5H)
+ ([10.165.21.211])
+ by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Dec 2020 14:50:03 -0800
+Date: Tue, 1 Dec 2020 14:52:59 -0800
+From: "Navare, Manasi" <manasi.d.navare@intel.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Message-ID: <20201201225259.GB22644@labuser-Z97X-UD5H>
+References: <20201022222709.29386-1-manasi.d.navare@intel.com>
+ <20201022222709.29386-6-manasi.d.navare@intel.com>
+ <87o8k5sd2l.fsf@intel.com>
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Chris Wilson" <chris@chris-wilson.co.uk>
-Date: Tue, 01 Dec 2020 22:48:48 -0000
-Message-ID: <160686292810.6991.14896108269661906397@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20201201215441.31900-1-chris@chris-wilson.co.uk>
-In-Reply-To: <20201201215441.31900-1-chris@chris-wilson.co.uk>
-Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZHJt?=
- =?utf-8?q?/i915/gem=3A_Report_error_for_vmap=28=29_failure?=
+Content-Disposition: inline
+In-Reply-To: <87o8k5sd2l.fsf@intel.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+Subject: Re: [Intel-gfx] [PATCH 05/11] drm/i915/display/dp: Compute VRR
+ state in atomic_check
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,260 +64,187 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Cc: intel-gfx@lists.freedesktop.org
-Content-Type: multipart/mixed; boundary="===============0135537072=="
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============0135537072==
-Content-Type: multipart/alternative;
- boundary="===============3876680177593099204=="
+On Tue, Nov 10, 2020 at 12:47:46PM +0200, Jani Nikula wrote:
+> On Thu, 22 Oct 2020, Manasi Navare <manasi.d.navare@intel.com> wrote:
+> > This forces a complete modeset if vrr drm crtc state goes
+> > from enabled to disabled and vice versa.
+> > This patch also computes vrr state variables from the mode timings
+> > and based on the vrr property set by userspace as well as hardware's
+> > vrr capability.
+> >
+> > v2:
+> > *Rebase
+> > v3:
+> > * Vmin =3D max (vtotal, vmin) (Manasi)
+> > v4:
+> > * set crtc_state->vrr.enable =3D 0 for disable request
+> >
+> > Cc: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
+> > Cc: Jani Nikula <jani.nikula@linux.intel.com>
+> > Signed-off-by: Manasi Navare <manasi.d.navare@intel.com>
+> > ---
+> >  drivers/gpu/drm/i915/display/intel_display.c |  7 +++-
+> >  drivers/gpu/drm/i915/display/intel_dp.c      |  1 +
+> >  drivers/gpu/drm/i915/display/intel_vrr.c     | 38 ++++++++++++++++++++
+> >  drivers/gpu/drm/i915/display/intel_vrr.h     |  2 ++
+> >  4 files changed, 47 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu=
+/drm/i915/display/intel_display.c
+> > index f41b6f8b5618..f70cc3b2a1a4 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_display.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_display.c
+> > @@ -14213,6 +14213,10 @@ intel_pipe_config_compare(const struct intel_c=
+rtc_state *current_config,
+> >  =
 
---===============3876680177593099204==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+> >  	PIPE_CONF_CHECK_I(mst_master_transcoder);
+> >  =
 
-== Series Details ==
+> > +	PIPE_CONF_CHECK_BOOL(vrr.enable);
+> > +	PIPE_CONF_CHECK_I(vrr.vtotalmin);
+> > +	PIPE_CONF_CHECK_I(vrr.vtotalmax);
+> > +
+> >  #undef PIPE_CONF_CHECK_X
+> >  #undef PIPE_CONF_CHECK_I
+> >  #undef PIPE_CONF_CHECK_BOOL
+> > @@ -15202,7 +15206,8 @@ static int intel_atomic_check(struct drm_device=
+ *dev,
+> >  =
 
-Series: drm/i915/gem: Report error for vmap() failure
-URL   : https://patchwork.freedesktop.org/series/84467/
-State : success
+> >  	for_each_oldnew_intel_crtc_in_state(state, crtc, old_crtc_state,
+> >  					    new_crtc_state, i) {
+> > -		if (new_crtc_state->inherited !=3D old_crtc_state->inherited)
+> > +		if (new_crtc_state->inherited !=3D old_crtc_state->inherited ||
+> > +		    new_crtc_state->uapi.vrr_enabled !=3D old_crtc_state->uapi.vrr_e=
+nabled)
+> =
 
-== Summary ==
+> Somehow this feels like a really specific check to add considering the
+> abstraction level of the function in general.
 
-CI Bug Log - changes from CI_DRM_9417 -> Patchwork_19030
-====================================================
+Should I then create a separate function to force a full modeset by setting=
+ mode changed =
 
-Summary
--------
+if vrr_enabled changed?
+And call that from intel_atomic_check() ?
 
-  **SUCCESS**
+> =
 
-  No regressions found.
+> >  			new_crtc_state->uapi.mode_changed =3D true;
+> >  	}
+> >  =
 
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19030/index.html
+> > diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/=
+i915/display/intel_dp.c
+> > index 3794b8f35edc..3185c4ca523d 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+> > @@ -2752,6 +2752,7 @@ intel_dp_compute_config(struct intel_encoder *enc=
+oder,
+> >  	if (!HAS_DDI(dev_priv))
+> >  		intel_dp_set_clock(encoder, pipe_config);
+> >  =
 
-New tests
----------
+> > +	intel_vrr_compute_config(intel_dp, pipe_config);
+> >  	intel_psr_compute_config(intel_dp, pipe_config);
+> >  	intel_dp_drrs_compute_config(intel_dp, pipe_config, output_bpp,
+> >  				     constant_n);
+> > diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm=
+/i915/display/intel_vrr.c
+> > index 0c8a91fabb64..56114f535f94 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_vrr.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_vrr.c
+> > @@ -26,3 +26,41 @@ bool intel_is_vrr_capable(struct drm_connector *conn=
+ector)
+> >  		info->monitor_range.max_vfreq - info->monitor_range.min_vfreq > 10;
+> >  }
+> >  =
 
-  New tests have been introduced between CI_DRM_9417 and Patchwork_19030:
+> > +void
+> > +intel_vrr_compute_config(struct intel_dp *intel_dp,
+> > +			 struct intel_crtc_state *crtc_state)
+> > +{
+> > +	struct drm_i915_private *dev_priv =3D dp_to_i915(intel_dp);
+> > +	struct intel_connector *intel_connector =3D intel_dp->attached_connec=
+tor;
+> > +	struct drm_connector *connector =3D &intel_connector->base;
+> > +	struct drm_display_mode *adjusted_mode =3D &crtc_state->hw.adjusted_m=
+ode;
+> > +	const struct drm_display_info *info =3D &connector->display_info;
+> > +
+> > +	if (!intel_is_vrr_capable(connector))
+> > +		return;
+> > +
+> > +	if (!crtc_state->uapi.vrr_enabled) {
+> > +		drm_dbg(&dev_priv->drm,
+> > +			"VRR disable requested by Userspace\n");
+> =
 
-### New CI tests (1) ###
+> drm_dbg_kms, though is this useful information? Quite a bit of log spam
+> I'd think.
 
-  * boot:
-    - Statuses : 1 fail(s) 40 pass(s)
-    - Exec time: [0.0] s
+Yea this one can probably remove
 
-  
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_19030 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@i915_module_load@reload:
-    - fi-tgl-u2:          [PASS][1] -> [DMESG-WARN][2] ([i915#1982] / [k.org#205379])
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9417/fi-tgl-u2/igt@i915_module_load@reload.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19030/fi-tgl-u2/igt@i915_module_load@reload.html
-
-  * igt@i915_selftest@live@gt_heartbeat:
-    - fi-kbl-guc:         [PASS][3] -> [DMESG-FAIL][4] ([i915#2291] / [i915#541])
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9417/fi-kbl-guc/igt@i915_selftest@live@gt_heartbeat.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19030/fi-kbl-guc/igt@i915_selftest@live@gt_heartbeat.html
-
-  * igt@kms_cursor_legacy@basic-busy-flip-before-cursor-atomic:
-    - fi-apl-guc:         [PASS][5] -> [DMESG-WARN][6] ([i915#1982])
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9417/fi-apl-guc/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-atomic.html
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19030/fi-apl-guc/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-atomic.html
-
-  
-#### Possible fixes ####
-
-  * igt@i915_module_load@reload:
-    - fi-byt-j1900:       [DMESG-WARN][7] ([i915#1982]) -> [PASS][8]
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9417/fi-byt-j1900/igt@i915_module_load@reload.html
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19030/fi-byt-j1900/igt@i915_module_load@reload.html
-    - fi-apl-guc:         [DMESG-WARN][9] ([i915#1982]) -> [PASS][10]
-   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9417/fi-apl-guc/igt@i915_module_load@reload.html
-   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19030/fi-apl-guc/igt@i915_module_load@reload.html
-    - fi-bsw-kefka:       [DMESG-WARN][11] ([i915#1982]) -> [PASS][12] +2 similar issues
-   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9417/fi-bsw-kefka/igt@i915_module_load@reload.html
-   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19030/fi-bsw-kefka/igt@i915_module_load@reload.html
-    - fi-icl-y:           [DMESG-WARN][13] ([i915#1982]) -> [PASS][14]
-   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9417/fi-icl-y/igt@i915_module_load@reload.html
-   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19030/fi-icl-y/igt@i915_module_load@reload.html
-
-  * igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy:
-    - fi-icl-u2:          [DMESG-WARN][15] ([i915#1982]) -> [PASS][16]
-   [15]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9417/fi-icl-u2/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy.html
-   [16]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19030/fi-icl-u2/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy.html
-
-  
-  {name}: This element is suppressed. This means it is ignored when computing
-          the status of the difference (SUCCESS, WARNING, or FAILURE).
-
-  [i915#1982]: https://gitlab.freedesktop.org/drm/intel/issues/1982
-  [i915#2291]: https://gitlab.freedesktop.org/drm/intel/issues/2291
-  [i915#541]: https://gitlab.freedesktop.org/drm/intel/issues/541
-  [k.org#205379]: https://bugzilla.kernel.org/show_bug.cgi?id=205379
-
-
-Participating hosts (44 -> 41)
-------------------------------
-
-  Additional (1): fi-tgl-y 
-  Missing    (4): fi-ilk-m540 fi-bsw-cyan fi-bdw-samus fi-hsw-4200u 
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_9417 -> Patchwork_19030
-
-  CI-20190529: 20190529
-  CI_DRM_9417: 4cefeded9d6f34004d7d308c1f5da960ac008b42 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_5878: e96c0d8e6952d892bcbbcdf004999880a4dfb42e @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools
-  Patchwork_19030: e973f9a9742f7a695e587c7b239ffbb9ba69be40 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-
-== Linux commits ==
-
-e973f9a9742f drm/i915/gem: Report error for vmap() failure
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19030/index.html
-
---===============3876680177593099204==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Manasi
 
 
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
+> =
 
+> > +		crtc_state->vrr.enable =3D false;
+> > +		return;
+> > +	}
+> > +
+> > +	crtc_state->vrr.enable =3D true;
+> > +	crtc_state->vrr.vtotalmin =3D
+> > +		max_t(u16, adjusted_mode->crtc_vtotal,
+> > +		      DIV_ROUND_CLOSEST(adjusted_mode->crtc_clock * 1000,
+> > +					adjusted_mode->crtc_htotal *
+> > +					info->monitor_range.max_vfreq));
+> > +	crtc_state->vrr.vtotalmax =3D
+> > +		max_t(u16, adjusted_mode->crtc_vtotal,
+> > +		      DIV_ROUND_UP(adjusted_mode->crtc_clock * 1000,
+> > +				   adjusted_mode->crtc_htotal *
+> > +				   info->monitor_range.min_vfreq));
+> > +
+> > +	drm_dbg(&dev_priv->drm,
+> =
 
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/gem: Report error for vmap() failure</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/84467/">https://patchwork.freedesktop.org/series/84467/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
+> drm_dbg_kms
+> =
 
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19030/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19030/index.html</a></td></tr>
+> > +		"VRR Config: Enable =3D %s Vtotal Min =3D %d Vtotal Max =3D %d\n",
+> > +		 yesno(crtc_state->vrr.enable), crtc_state->vrr.vtotalmin,
+> > +		 crtc_state->vrr.vtotalmax);
+> > +}
+> > +
+> > diff --git a/drivers/gpu/drm/i915/display/intel_vrr.h b/drivers/gpu/drm=
+/i915/display/intel_vrr.h
+> > index 755746c7525c..1e6fe8fe92ec 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_vrr.h
+> > +++ b/drivers/gpu/drm/i915/display/intel_vrr.h
+> > @@ -15,5 +15,7 @@ struct intel_encoder;
+> >  struct intel_dp;
+> >  =
 
-</table>
+> >  bool intel_is_vrr_capable(struct drm_connector *connector);
+> > +void intel_vrr_compute_config(struct intel_dp *intel_dp,
+> > +			      struct intel_crtc_state *crtc_state);
+> >  =
 
+> >  #endif /* __INTEL_VRR_H__ */
+> =
 
-    <h1>CI Bug Log - changes from CI_DRM_9417 -&gt; Patchwork_19030</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19030/index.html</p>
-<h2>New tests</h2>
-<p>New tests have been introduced between CI_DRM_9417 and Patchwork_19030:</p>
-<h3>New CI tests (1)</h3>
-<ul>
-<li>boot:<ul>
-<li>Statuses : 1 fail(s) 40 pass(s)</li>
-<li>Exec time: [0.0] s</li>
-</ul>
-</li>
-</ul>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_19030 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@i915_module_load@reload:</p>
-<ul>
-<li>fi-tgl-u2:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9417/fi-tgl-u2/igt@i915_module_load@reload.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19030/fi-tgl-u2/igt@i915_module_load@reload.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1982">i915#1982</a> / <a href="https://bugzilla.kernel.org/show_bug.cgi?id=205379">k.org#205379</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@gt_heartbeat:</p>
-<ul>
-<li>fi-kbl-guc:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9417/fi-kbl-guc/igt@i915_selftest@live@gt_heartbeat.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19030/fi-kbl-guc/igt@i915_selftest@live@gt_heartbeat.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2291">i915#2291</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/541">i915#541</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_cursor_legacy@basic-busy-flip-before-cursor-atomic:</p>
-<ul>
-<li>fi-apl-guc:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9417/fi-apl-guc/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-atomic.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19030/fi-apl-guc/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-atomic.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1982">i915#1982</a>)</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>
-<p>igt@i915_module_load@reload:</p>
-<ul>
-<li>
-<p>fi-byt-j1900:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9417/fi-byt-j1900/igt@i915_module_load@reload.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1982">i915#1982</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19030/fi-byt-j1900/igt@i915_module_load@reload.html">PASS</a></p>
-</li>
-<li>
-<p>fi-apl-guc:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9417/fi-apl-guc/igt@i915_module_load@reload.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1982">i915#1982</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19030/fi-apl-guc/igt@i915_module_load@reload.html">PASS</a></p>
-</li>
-<li>
-<p>fi-bsw-kefka:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9417/fi-bsw-kefka/igt@i915_module_load@reload.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1982">i915#1982</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19030/fi-bsw-kefka/igt@i915_module_load@reload.html">PASS</a> +2 similar issues</p>
-</li>
-<li>
-<p>fi-icl-y:           <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9417/fi-icl-y/igt@i915_module_load@reload.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1982">i915#1982</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19030/fi-icl-y/igt@i915_module_load@reload.html">PASS</a></p>
-</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy:</p>
-<ul>
-<li>fi-icl-u2:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9417/fi-icl-u2/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1982">i915#1982</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19030/fi-icl-u2/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy.html">PASS</a></li>
-</ul>
-</li>
-</ul>
-<p>{name}: This element is suppressed. This means it is ignored when computing<br />
-          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
-<h2>Participating hosts (44 -&gt; 41)</h2>
-<p>Additional (1): fi-tgl-y <br />
-  Missing    (4): fi-ilk-m540 fi-bsw-cyan fi-bdw-samus fi-hsw-4200u </p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_9417 -&gt; Patchwork_19030</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_9417: 4cefeded9d6f34004d7d308c1f5da960ac008b42 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_5878: e96c0d8e6952d892bcbbcdf004999880a4dfb42e @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools<br />
-  Patchwork_19030: e973f9a9742f7a695e587c7b239ffbb9ba69be40 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<p>== Linux commits ==</p>
-<p>e973f9a9742f drm/i915/gem: Report error for vmap() failure</p>
+> -- =
 
-</body>
-</html>
-
---===============3876680177593099204==--
-
---===============0135537072==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+> Jani Nikula, Intel Open Source Graphics Center
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-
---===============0135537072==--
