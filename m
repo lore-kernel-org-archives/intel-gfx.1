@@ -7,46 +7,35 @@ X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B993AC83014
-	for <intel-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 23:58:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7A292C64E7A
+	for <intel-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 23:58:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 63C45206DF
-	for <intel-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 23:58:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 63C45206DF
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id A8D44206DF
+	for <intel-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 23:58:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A8D44206DF
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D4E66E9C3;
-	Tue,  1 Dec 2020 23:58:29 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1C24B6E99C
- for <Intel-gfx@lists.freedesktop.org>; Tue,  1 Dec 2020 23:58:24 +0000 (UTC)
-IronPort-SDR: PZ6pvS1wFMKXOIPZITyeVr22ruuigpTTTbVpZ3pOvjVNj7eThEaUWbNxsOSUoKpYBbSm8g0Xt4
- ZnCtw02oAoDA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9822"; a="191136817"
-X-IronPort-AV: E=Sophos;i="5.78,385,1599548400"; d="scan'208";a="191136817"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Dec 2020 15:58:22 -0800
-IronPort-SDR: eUQOPm5IAP0X6fObU8slKJLSjDbawGO7TIOZ/+hQGOU0eSHD4g5SAvOVUAJVZpaH1vNg5VGqxI
- JkyYd7CxfZLQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.78,385,1599548400"; d="scan'208";a="315897597"
-Received: from sean-virtualbox.fm.intel.com ([10.105.158.96])
- by fmsmga007.fm.intel.com with ESMTP; 01 Dec 2020 15:58:22 -0800
-From: "Huang, Sean Z" <sean.z.huang@intel.com>
-To: Intel-gfx@lists.freedesktop.org
-Date: Tue,  1 Dec 2020 15:57:42 -0800
-Message-Id: <20201201235747.26017-22-sean.z.huang@intel.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20201201235747.26017-1-sean.z.huang@intel.com>
-References: <20201201235747.26017-1-sean.z.huang@intel.com>
-Subject: [Intel-gfx] [RFC-v3 21/26] drm/i915/pxp: Expose session state for
- display protection flip
+	by gabe.freedesktop.org (Postfix) with ESMTP id 105E16E97B;
+	Tue,  1 Dec 2020 23:58:58 +0000 (UTC)
+Received: from fireflyinternet.com (unknown [77.68.26.236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5AA526E981
+ for <intel-gfx@lists.freedesktop.org>; Tue,  1 Dec 2020 23:58:56 +0000 (UTC)
+X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
+ x-ip-name=78.156.65.138; 
+Received: from build.alporthouse.com (unverified [78.156.65.138]) 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23183534-1500050 
+ for multiple; Tue, 01 Dec 2020 23:58:48 +0000
+From: Chris Wilson <chris@chris-wilson.co.uk>
+To: intel-gfx@lists.freedesktop.org
+Date: Tue,  1 Dec 2020 23:58:46 +0000
+Message-Id: <20201201235847.1860-1-chris@chris-wilson.co.uk>
+X-Mailer: git-send-email 2.20.1
+MIME-Version: 1.0
+Subject: [Intel-gfx] [PATCH 1/2] drm/i915/gem: Limit lmem scatterlist
+ elements to UINT_MAX
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,66 +48,105 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-MIME-Version: 1.0
+Cc: Matthew Auld <matthew.auld@intel.com>,
+ Chris Wilson <chris@chris-wilson.co.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Implement the intel_pxp_gem_object_status() to allow i915 display
-querying the current PXP session state. In the design, display
-should not perform protection flip on the protected buffers if
-there is no PXP session alive.
+Adhere to the i915_sg_max_segment() limit on the lengths of individual
+scatterlist elements, and in doing so split up very large chunks of lmem
+into managable pieces for the dma-mapping backend.
 
-Signed-off-by: Huang, Sean Z <sean.z.huang@intel.com>
+Reported-by: Venkata Sandeep Dhanalakota <venkata.s.dhanalakota@intel.com>
+Suggested-by: Matthew Auld <matthew.auld@intel.com>
+Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+Cc: Venkata Sandeep Dhanalakota <venkata.s.dhanalakota@intel.com>
+Cc: Matthew Auld <matthew.auld@intel.com>
 ---
- drivers/gpu/drm/i915/pxp/intel_pxp.c | 8 ++++++++
- drivers/gpu/drm/i915/pxp/intel_pxp.h | 7 +++++++
- 2 files changed, 15 insertions(+)
+ drivers/gpu/drm/i915/gem/i915_gem_region.c | 42 ++++++++++++----------
+ 1 file changed, 24 insertions(+), 18 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.c b/drivers/gpu/drm/i915/pxp/intel_pxp.c
-index 8134b39c7419..90e6766991c5 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp.c
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp.c
-@@ -326,3 +326,11 @@ void intel_pxp_irq_handler(struct intel_gt *gt, u16 iir)
- 	i915->pxp.current_events |= events;
- 	schedule_work(&i915->pxp.irq_work);
- }
-+
-+bool intel_pxp_gem_object_status(struct drm_i915_private *i915)
-+{
-+	if (i915->pxp.ctx && i915->pxp.ctx->flag_display_hm_surface_keys)
-+		return true;
-+	else
-+		return false;
-+}
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.h b/drivers/gpu/drm/i915/pxp/intel_pxp.h
-index 818e79e9caca..7556ad5c7904 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp.h
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp.h
-@@ -116,6 +116,8 @@ int i915_pxp_global_terminate_complete_callback(struct drm_i915_private *i915);
- 
- int intel_pxp_init(struct drm_i915_private *i915);
- void intel_pxp_uninit(struct drm_i915_private *i915);
-+
-+bool intel_pxp_gem_object_status(struct drm_i915_private *i915);
- #else
- static inline int i915_pxp_ops_ioctl(struct drm_device *dev, void *data, struct drm_file *drmfile)
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_region.c b/drivers/gpu/drm/i915/gem/i915_gem_region.c
+index e72d78074c9e..edb84072f979 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_region.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_region.c
+@@ -22,6 +22,7 @@ i915_gem_object_put_pages_buddy(struct drm_i915_gem_object *obj,
+ int
+ i915_gem_object_get_pages_buddy(struct drm_i915_gem_object *obj)
  {
-@@ -153,6 +155,11 @@ static inline int intel_pxp_init(struct drm_i915_private *i915)
- static inline void intel_pxp_uninit(struct drm_i915_private *i915)
- {
- }
-+
-+static inline bool intel_pxp_gem_object_status(struct drm_i915_private *i915)
-+{
-+	return false;
-+}
- #endif
++	const u64 max_segment = i915_sg_segment_size();
+ 	struct intel_memory_region *mem = obj->mm.region;
+ 	struct list_head *blocks = &obj->mm.blocks;
+ 	resource_size_t size = obj->base.size;
+@@ -37,7 +38,7 @@ i915_gem_object_get_pages_buddy(struct drm_i915_gem_object *obj)
+ 	if (!st)
+ 		return -ENOMEM;
  
- #endif /* __INTEL_PXP_PM_H__ */
+-	if (sg_alloc_table(st, size >> ilog2(mem->mm.chunk_size), GFP_KERNEL)) {
++	if (sg_alloc_table(st, size >> PAGE_SHIFT, GFP_KERNEL)) {
+ 		kfree(st);
+ 		return -ENOMEM;
+ 	}
+@@ -58,33 +59,38 @@ i915_gem_object_get_pages_buddy(struct drm_i915_gem_object *obj)
+ 	prev_end = (resource_size_t)-1;
+ 
+ 	list_for_each_entry(block, blocks, link) {
+-		u64 block_size, offset;
++		u64 block_size, offset, len;
+ 
+ 		block_size = min_t(u64, size,
+ 				   i915_buddy_block_size(&mem->mm, block));
+ 		offset = i915_buddy_block_offset(block);
+ 
+-		GEM_BUG_ON(overflows_type(block_size, sg->length));
++		while (block_size) {
++			if (offset != prev_end || sg->length >= max_segment) {
++				if (st->nents) {
++					sg_page_sizes |= sg->length;
++					sg = __sg_next(sg);
++				}
+ 
+-		if (offset != prev_end ||
+-		    add_overflows_t(typeof(sg->length), sg->length, block_size)) {
+-			if (st->nents) {
+-				sg_page_sizes |= sg->length;
+-				sg = __sg_next(sg);
+-			}
++				len = min(block_size, max_segment);
+ 
+-			sg_dma_address(sg) = mem->region.start + offset;
+-			sg_dma_len(sg) = block_size;
++				sg_dma_address(sg) = mem->region.start + offset;
++				sg_dma_len(sg) = len;
+ 
+-			sg->length = block_size;
++				sg->length = len;
+ 
+-			st->nents++;
+-		} else {
+-			sg->length += block_size;
+-			sg_dma_len(sg) += block_size;
+-		}
++				st->nents++;
++			} else {
++				len = min(block_size, max_segment - sg->length);
++				sg->length += len;
++				sg_dma_len(sg) += len;
++			}
+ 
+-		prev_end = offset + block_size;
++			offset += len;
++			block_size -= len;
++
++			prev_end = offset;
++		}
+ 	}
+ 
+ 	sg_page_sizes |= sg->length;
 -- 
-2.17.1
+2.20.1
 
 _______________________________________________
 Intel-gfx mailing list
