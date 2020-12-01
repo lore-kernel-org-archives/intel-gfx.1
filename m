@@ -2,51 +2,54 @@ Return-Path: <SRS0=1U3p=FF=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-13.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3E030C64E7B
-	for <intel-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 16:14:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D71BFC64E7B
+	for <intel-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 16:16:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D4E932222C
-	for <intel-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 16:14:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D4E932222C
+	by mail.kernel.org (Postfix) with ESMTPS id 7B0A422240
+	for <intel-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 16:16:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7B0A422240
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 396CA89D44;
-	Tue,  1 Dec 2020 16:14:34 +0000 (UTC)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7CE8089B62
- for <intel-gfx@lists.freedesktop.org>; Tue,  1 Dec 2020 16:14:32 +0000 (UTC)
-IronPort-SDR: WqryuMq7/ti2TEdHKWFIzsg26M0m4m3YIhtsI1PnM8/OzP4fRwm2ASaTQjWJKIzlgHkcwy9CSf
- mZbD/TLlo9tA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9822"; a="234459533"
-X-IronPort-AV: E=Sophos;i="5.78,384,1599548400"; d="scan'208";a="234459533"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8EE9E89BC0;
+	Tue,  1 Dec 2020 16:16:43 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B2A7989BC0;
+ Tue,  1 Dec 2020 16:16:42 +0000 (UTC)
+IronPort-SDR: h/PEUK83vTSJDaxNWYtBog7D6qN/BFBiPlVNsSRE7CUYnYBvKBmo0NR7ix7yU1ZJLROmMHHJ/u
+ RoKAtpgnUV/g==
+X-IronPort-AV: E=McAfee;i="6000,8403,9822"; a="169354207"
+X-IronPort-AV: E=Sophos;i="5.78,384,1599548400"; d="scan'208";a="169354207"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Dec 2020 08:14:12 -0800
-IronPort-SDR: oTypTK1eIg2oAOq0s7Spmhwp9ar8TcBT6m47UkyQNm0GqFesaV8fbDeA41DsTBFAJ/s6d4v70U
- L/wEcH1e++oQ==
-X-IronPort-AV: E=Sophos;i="5.78,384,1599548400"; d="scan'208";a="364813629"
-Received: from linux-desktop.iind.intel.com ([10.223.34.173])
- by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Dec 2020 08:14:11 -0800
-From: Uma Shankar <uma.shankar@intel.com>
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Dec 2020 08:16:41 -0800
+IronPort-SDR: aX0hiIXHbE2FBl6ASmw6VCrs+wjew2zRiyABJ0Yi+VdWUW4SVQPbeTWxehmw+RMdjqb7hv32SC
+ +eo1plELL5jA==
+X-IronPort-AV: E=Sophos;i="5.78,384,1599548400"; d="scan'208";a="549631630"
+Received: from ivgeniax-mobl.ger.corp.intel.com (HELO localhost)
+ ([10.249.42.176])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Dec 2020 08:16:38 -0800
+From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue,  1 Dec 2020 22:17:48 +0530
-Message-Id: <20201201164749.32702-2-uma.shankar@intel.com>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20201201164749.32702-1-uma.shankar@intel.com>
-References: <20201201164749.32702-1-uma.shankar@intel.com>
+In-Reply-To: <20201130111601.2817-9-jani.nikula@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20201130111601.2817-1-jani.nikula@intel.com>
+ <20201130111601.2817-9-jani.nikula@intel.com>
+Date: Tue, 01 Dec 2020 18:16:35 +0200
+Message-ID: <87o8jdcxi4.fsf@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [v5 1/2] drm/i915/display/tgl: Disable FBC with PSR2
+Subject: Re: [Intel-gfx] [PATCH v3 09/10] drm/i915/gvt: replace I915_WRITE
+ with intel_uncore_write
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,80 +62,55 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Hang Yuan <hang.yuan@linux.intel.com>, chris@chris-wilson.co.uk,
+ intel-gvt-dev@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-There are some corner cases wrt underrun when we enable
-FBC with PSR2 on TGL. Recommendation from hardware is to
-keep this combination disabled.
+On Mon, 30 Nov 2020, Jani Nikula <jani.nikula@intel.com> wrote:
+> Let's avoid adding new I915_WRITE uses while we try to get rid of them.
+>
+> Fixes: 5f60b12edcd0 ("drm/i915/gvt: Save/restore HW status to support GVT suspend/resume")
+> Cc: Zhenyu Wang <zhenyuw@linux.intel.com>
+> Cc: Hang Yuan <hang.yuan@linux.intel.com>
+> Cc: Colin Xu <colin.xu@intel.com>
+> Cc: Zhi Wang <zhi.a.wang@intel.com>
+> Cc: intel-gvt-dev@lists.freedesktop.org
+> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 
-Bspec: 50422 HSD: 14010260002
+Pushed up to, but *excluding* this patch to dinq. Thanks for the
+reviews.
 
-v2: Added psr2 enabled check from crtc_state (Anshuman)
-Added Bspec link and HSD referneces (Jose)
+Zhenyu, Zhi, may I have your review/ack for merging this one directly
+via dinq to not add a dependency on the gvt tree?
 
-v3: Moved the logic to disable fbc to intel_fbc_update_state_cache
-and removed the crtc->config usages, as per Ville's recommendation.
 
-v4: Introduced a variable in fbc state_cache instead of the earlier
-plane.visible WA, as suggested by Jose.
+BR,
+Jani.
 
-v5: Dropped an extra check for fbc in intel_fbc_enable and addressed
-review comments by Jose.
 
-Signed-off-by: Uma Shankar <uma.shankar@intel.com>
----
- drivers/gpu/drm/i915/display/intel_fbc.c | 12 ++++++++++++
- drivers/gpu/drm/i915/i915_drv.h          |  1 +
- 2 files changed, 13 insertions(+)
+> ---
+>  drivers/gpu/drm/i915/gvt/handlers.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/i915/gvt/handlers.c b/drivers/gpu/drm/i915/gvt/handlers.c
+> index 6f0706e885cb..eba626ba640f 100644
+> --- a/drivers/gpu/drm/i915/gvt/handlers.c
+> +++ b/drivers/gpu/drm/i915/gvt/handlers.c
+> @@ -3693,7 +3693,7 @@ static inline int mmio_pm_restore_handler(struct intel_gvt *gvt,
+>  	struct drm_i915_private *dev_priv = gvt->gt->i915;
+>  
+>  	if (gvt->mmio.mmio_attribute[offset >> 2] & F_PM_SAVE)
+> -		I915_WRITE(_MMIO(offset), vgpu_vreg(vgpu, offset));
+> +		intel_uncore_write(&dev_priv->uncore, _MMIO(offset), vgpu_vreg(vgpu, offset));
+>  
+>  	return 0;
+>  }
 
-diff --git a/drivers/gpu/drm/i915/display/intel_fbc.c b/drivers/gpu/drm/i915/display/intel_fbc.c
-index a5b072816a7b..611cadc5c70a 100644
---- a/drivers/gpu/drm/i915/display/intel_fbc.c
-+++ b/drivers/gpu/drm/i915/display/intel_fbc.c
-@@ -742,6 +742,8 @@ static void intel_fbc_update_state_cache(struct intel_crtc *crtc,
- 		cache->fence_id = plane_state->vma->fence->id;
- 	else
- 		cache->fence_id = -1;
-+
-+	cache->psr2_active = crtc_state->has_psr2;
- }
- 
- static bool intel_fbc_cfb_size_changed(struct drm_i915_private *dev_priv)
-@@ -799,6 +801,16 @@ static bool intel_fbc_can_activate(struct intel_crtc *crtc)
- 	struct intel_fbc *fbc = &dev_priv->fbc;
- 	struct intel_fbc_state_cache *cache = &fbc->state_cache;
- 
-+	/*
-+	 * Tigerlake is not supporting FBC with PSR2.
-+	 * Recommendation is to keep this combination disabled
-+	 * Bspec: 50422 HSD: 14010260002
-+	 */
-+	if (fbc->state_cache.psr2_active && IS_TIGERLAKE(dev_priv)) {
-+		fbc->no_fbc_reason = "not supported with PSR2";
-+		return false;
-+	}
-+
- 	if (!intel_fbc_can_enable(dev_priv))
- 		return false;
- 
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index 15be8debae54..f4e08c1a5867 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -416,6 +416,7 @@ struct intel_fbc {
- 		u16 gen9_wa_cfb_stride;
- 		u16 interval;
- 		s8 fence_id;
-+		bool psr2_active;
- 	} state_cache;
- 
- 	/*
 -- 
-2.26.2
-
+Jani Nikula, Intel Open Source Graphics Center
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
