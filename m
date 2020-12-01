@@ -2,52 +2,49 @@ Return-Path: <SRS0=1U3p=FF=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-11.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 12EA4C64E7A
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CDBC8C64E90
 	for <intel-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 16:14:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8DC622222C
-	for <intel-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 16:14:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8DC622222C
+	by mail.kernel.org (Postfix) with ESMTPS id 5E9652222C
+	for <intel-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 16:14:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5E9652222C
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A0FE589BC0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B4DDF89BFB;
 	Tue,  1 Dec 2020 16:14:33 +0000 (UTC)
 Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB09889BC0
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 36C3089B62
  for <intel-gfx@lists.freedesktop.org>; Tue,  1 Dec 2020 16:14:32 +0000 (UTC)
-IronPort-SDR: xMYmQZRK5uXWp6PvOYdLGlAI9pFwkrZG9iZCQUZ5JwSoJni0YDo9RyNd2oIKDmm5I2fpS0fu6p
- YuvR/NMIfQPA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9822"; a="234459551"
-X-IronPort-AV: E=Sophos;i="5.78,384,1599548400"; d="scan'208";a="234459551"
+IronPort-SDR: X+8kmazVLVz/beGapkv0hP0dJf/XE8xB6T5xYJJ5qDl5l+e0eL7UFcaEkNm3NsZP9+epx12Qcf
+ 5JQFHu06kxgQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9822"; a="234459514"
+X-IronPort-AV: E=Sophos;i="5.78,384,1599548400"; d="scan'208";a="234459514"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Dec 2020 08:14:14 -0800
-IronPort-SDR: 4hPIQYSHEQ/j7LmkL/D0uCroXbPqFPM4MN8KB8LfitBKmUHRuVokcvQySPyLN7Mxo+zE43iufg
- qn5nUFVVZ2nw==
-X-IronPort-AV: E=Sophos;i="5.78,384,1599548400"; d="scan'208";a="364813636"
+ 01 Dec 2020 08:14:11 -0800
+IronPort-SDR: 2btwmBUZRkG2OJEhLvUiwl2KmZY+GAewb7SV1oY2JUWuQI8ZATR42Je9sC1A48k4aVPTZP60XY
+ bnBWZ1KerXPw==
+X-IronPort-AV: E=Sophos;i="5.78,384,1599548400"; d="scan'208";a="364813621"
 Received: from linux-desktop.iind.intel.com ([10.223.34.173])
  by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Dec 2020 08:14:13 -0800
+ 01 Dec 2020 08:14:09 -0800
 From: Uma Shankar <uma.shankar@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue,  1 Dec 2020 22:17:49 +0530
-Message-Id: <20201201164749.32702-3-uma.shankar@intel.com>
+Date: Tue,  1 Dec 2020 22:17:47 +0530
+Message-Id: <20201201164749.32702-1-uma.shankar@intel.com>
 X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20201201164749.32702-1-uma.shankar@intel.com>
-References: <20201201164749.32702-1-uma.shankar@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [v5 2/2] Revert "drm/i915/display/fbc: Disable fbc by
- default on TGL"
+Subject: [Intel-gfx] [v5 0/2] Re-enable FBC on TGL
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,34 +62,29 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-FBC can be re-enabled on TGL with WA of keeping it disabled
-while PSR2 is enabled.
+FBC was disabled on TGL due to random underruns. It has
+been determined that FBC will not work reliably with PSR2.
+This series re-enables fbc along with taking care of the
+PSR2 limitations for TGL.
 
-This reverts commit 2982ded2ff5ce0cf1a49bc39a526da182782b664.
+Bspec: 50422 HSD: 14010260002
 
-Signed-off-by: Uma Shankar <uma.shankar@intel.com>
----
- drivers/gpu/drm/i915/display/intel_fbc.c | 7 -------
- 1 file changed, 7 deletions(-)
+v2: Addressed review comments and added bspec links
 
-diff --git a/drivers/gpu/drm/i915/display/intel_fbc.c b/drivers/gpu/drm/i915/display/intel_fbc.c
-index 611cadc5c70a..415c9d949d36 100644
---- a/drivers/gpu/drm/i915/display/intel_fbc.c
-+++ b/drivers/gpu/drm/i915/display/intel_fbc.c
-@@ -1445,13 +1445,6 @@ static int intel_sanitize_fbc_option(struct drm_i915_private *dev_priv)
- 	if (!HAS_FBC(dev_priv))
- 		return 0;
- 
--	/*
--	 * Fbc is causing random underruns in CI execution on TGL platforms.
--	 * Disabling the same while the problem is being debugged and analyzed.
--	 */
--	if (IS_TIGERLAKE(dev_priv))
--		return 0;
--
- 	if (IS_BROADWELL(dev_priv) || INTEL_GEN(dev_priv) >= 9)
- 		return 1;
- 
+v3: Addressed Ville's review comments
+
+v4: Change the WA as per Jose's recommendation.
+
+v5: Addressed Jose's review comments.
+
+Uma Shankar (2):
+  drm/i915/display/tgl: Disable FBC with PSR2
+  Revert "drm/i915/display/fbc: Disable fbc by default on TGL"
+
+ drivers/gpu/drm/i915/display/intel_fbc.c | 19 ++++++++++++-------
+ drivers/gpu/drm/i915/i915_drv.h          |  1 +
+ 2 files changed, 13 insertions(+), 7 deletions(-)
+
 -- 
 2.26.2
 
