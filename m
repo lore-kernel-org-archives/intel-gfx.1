@@ -7,51 +7,51 @@ X-Spam-Status: No, score=-15.2 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 93E0AC64E7A
-	for <intel-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 22:31:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D29BFC71155
+	for <intel-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 22:38:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 343C320870
-	for <intel-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 22:31:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 343C320870
+	by mail.kernel.org (Postfix) with ESMTPS id 6EEFA22244
+	for <intel-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 22:38:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6EEFA22244
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A3D2F6E934;
-	Tue,  1 Dec 2020 22:31:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AAC2F6E932;
+	Tue,  1 Dec 2020 22:38:28 +0000 (UTC)
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 793186E934
- for <intel-gfx@lists.freedesktop.org>; Tue,  1 Dec 2020 22:31:13 +0000 (UTC)
-IronPort-SDR: SlU+4a4mB4dbVopZfBdzmleQWC8z+miPE/Qh7uShqHt5fRX8fRp/j7n0nscZkIgD3O4sXnGnV3
- PAUQ3xc+GvZw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9822"; a="237047288"
-X-IronPort-AV: E=Sophos;i="5.78,385,1599548400"; d="scan'208";a="237047288"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 841C76E932
+ for <intel-gfx@lists.freedesktop.org>; Tue,  1 Dec 2020 22:38:27 +0000 (UTC)
+IronPort-SDR: 61UZjK61SFC+IVg7RFvqw6dB2wuKDb1h3UYBKEgBf+9Mdqx8AM7YsR3LrfVxD9ukQjBd33WpgQ
+ DM82/094jNGw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9822"; a="237048101"
+X-IronPort-AV: E=Sophos;i="5.78,385,1599548400"; d="scan'208";a="237048101"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Dec 2020 14:31:11 -0800
-IronPort-SDR: QypKGDnofSobw9RhAijxan2eryyAHjXa/hxNzEV8XG2LrA1oGNrLLbjFUwqmsakx6QP0KStbJh
- 3QNTpS3Fw/nA==
-X-IronPort-AV: E=Sophos;i="5.78,385,1599548400"; d="scan'208";a="537712169"
+ 01 Dec 2020 14:38:27 -0800
+IronPort-SDR: rfOGGOl1s3IFaB4yC6oI+Qt1IdLKAK5oPykM2otvTldBHh8doH78fwcNSt7FNC8wjLhCdd6o/7
+ 7oPqsMbyM48w==
+X-IronPort-AV: E=Sophos;i="5.78,385,1599548400"; d="scan'208";a="549768435"
 Received: from labuser-z97x-ud5h.jf.intel.com (HELO labuser-Z97X-UD5H)
  ([10.165.21.211])
- by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Dec 2020 14:31:11 -0800
-Date: Tue, 1 Dec 2020 14:34:07 -0800
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Dec 2020 14:38:27 -0800
+Date: Tue, 1 Dec 2020 14:41:23 -0800
 From: "Navare, Manasi" <manasi.d.navare@intel.com>
 To: Jani Nikula <jani.nikula@linux.intel.com>
-Message-ID: <20201201223401.GA22347@labuser-Z97X-UD5H>
+Message-ID: <20201201224123.GA22608@labuser-Z97X-UD5H>
 References: <20201022222709.29386-1-manasi.d.navare@intel.com>
- <20201022222709.29386-10-manasi.d.navare@intel.com>
- <87d00lscga.fsf@intel.com>
+ <20201022222709.29386-2-manasi.d.navare@intel.com>
+ <87361htt8q.fsf@intel.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <87d00lscga.fsf@intel.com>
+In-Reply-To: <87361htt8q.fsf@intel.com>
 User-Agent: Mutt/1.5.24 (2015-08-30)
-Subject: Re: [Intel-gfx] [PATCH 09/11] drm/i915/display/vrr: Disable VRR in
- modeset disable path
+Subject: Re: [Intel-gfx] [PATCH 01/11] drm/i915: Add REG_FIELD_PREP to VRR
+ register def
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,131 +65,47 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: intel-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Nov 10, 2020 at 01:01:09PM +0200, Jani Nikula wrote:
+On Tue, Nov 10, 2020 at 12:13:09PM +0200, Jani Nikula wrote:
 > On Thu, 22 Oct 2020, Manasi Navare <manasi.d.navare@intel.com> wrote:
-> > This patch disables the VRR enable and VRR PUSH
-> > bits in the HW during commit modeset disable sequence.
-> >
-> > Thsi disable will happen when the port is disabled
-> > or when the userspace sets VRR prop to false and
-> > requests to disable VRR.
-> >
-> > Cc: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
-> > Signed-off-by: Manasi Navare <manasi.d.navare@intel.com>
-> > ---
-> >  drivers/gpu/drm/i915/display/intel_ddi.c |  2 ++
-> >  drivers/gpu/drm/i915/display/intel_vrr.c | 22 ++++++++++++++++++++++
-> >  drivers/gpu/drm/i915/display/intel_vrr.h |  1 +
-> >  3 files changed, 25 insertions(+)
-> >
-> > diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm=
-/i915/display/intel_ddi.c
-> > index 391c51979334..565155af3fb9 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_ddi.c
-> > +++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-> > @@ -3819,6 +3819,8 @@ static void intel_ddi_post_disable(struct intel_a=
-tomic_state *state,
-> >  =
+> > VRR_CTL register onloy had a GENMASK but no field prep
+> > define for TRANS_VRR_CTL_LINE_COUNT field so add that
+> 
+> For the subject, I think mentioning VRR_CTL_LINK_COUNT is more important
+> than REG_FIELD_PREP.
 
-> >  		intel_disable_pipe(old_crtc_state);
-> >  =
-
-> > +		intel_vrr_disable(old_crtc_state);
-> > +
-> >  		intel_ddi_disable_transcoder_func(old_crtc_state);
-> >  =
-
-> >  		intel_dsc_disable(old_crtc_state);
-> > diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm=
-/i915/display/intel_vrr.c
-> > index ec1ce88e869c..5075ecb9b5a7 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_vrr.c
-> > +++ b/drivers/gpu/drm/i915/display/intel_vrr.c
-> > @@ -119,3 +119,25 @@ void intel_vrr_send_push(const struct intel_crtc_s=
-tate *crtc_state)
-> >  		pipe_name(pipe));
-> >  }
-> >  =
-
-> > +void intel_vrr_disable(const struct intel_crtc_state *old_crtc_state)
-> > +{
-> > +	struct intel_crtc *crtc =3D to_intel_crtc(old_crtc_state->uapi.crtc);
-> > +	struct drm_i915_private *dev_priv =3D to_i915(crtc->base.dev);
-> =
-
-> Haven't commented on all patches, but please use i915 instead of
-> dev_priv for new code, throughout.
-> =
-
-> > +	enum pipe pipe =3D crtc->pipe;
-> > +	u32 trans_vrr_ctl =3D 0, trans_push =3D 0;
-> =
-
-> Unnecessary initializations, and in fact unnecessary variables with
-> intel_de_rmw.
->
-
-Okay yes will try using the intel_de_rmw here and use the (VRR_CTL_FLIP_LIN=
-E_EN | VRR_CTL_VRR_ENABLE) directly in the clear field
- =
-
-> > +
-> > +	if (!old_crtc_state->vrr.enable)
-> > +		return;
-> > +
-> > +	trans_vrr_ctl =3D intel_de_read(dev_priv, TRANS_VRR_CTL(pipe));
-> > +	trans_vrr_ctl &=3D ~(VRR_CTL_FLIP_LINE_EN | VRR_CTL_VRR_ENABLE);
-> > +	intel_de_write(dev_priv, TRANS_VRR_CTL(pipe), trans_vrr_ctl);
-> > +
-> > +	trans_push =3D intel_de_read(dev_priv, TRANS_PUSH(pipe));
-> > +	trans_push &=3D ~TRANS_PUSH_EN;
-> > +	intel_de_write(dev_priv, TRANS_PUSH(pipe), trans_push);
-> =
-
-> Please use intel_de_rmw for both.
-> =
-
-> > +
-> > +	drm_dbg(&dev_priv->drm, "Disabling VRR on Pipe (%c)\n",
-> > +		pipe_name(pipe));
-> =
-
-> drm_dbg_kms, "pipe %c" is the convention.
-
-Okay will correct it
-
-Thanks for the above feedback I will fix them in the next rev
+Yes will make that change in the commit message and use your r-b
+Thanks for the review
 
 Manasi
-
-
-> =
-
-> > +}
-> > +
-> > diff --git a/drivers/gpu/drm/i915/display/intel_vrr.h b/drivers/gpu/drm=
-/i915/display/intel_vrr.h
-> > index a6b78e1676cb..8c6fd2d1bee5 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_vrr.h
-> > +++ b/drivers/gpu/drm/i915/display/intel_vrr.h
-> > @@ -20,5 +20,6 @@ void intel_vrr_compute_config(struct intel_dp *intel_=
-dp,
-> >  void intel_vrr_enable(struct intel_encoder *encoder,
-> >  		      const struct intel_crtc_state *crtc_state);
-> >  void intel_vrr_send_push(const struct intel_crtc_state *crtc_state);
-> > +void intel_vrr_disable(const struct intel_crtc_state *old_crtc_state);
-> >  =
-
-> >  #endif /* __INTEL_VRR_H__ */
-> =
-
-> -- =
-
+> 
+> Reviewed-by: Jani Nikula <jani.nikula@intel.com>
+> 
+> >
+> > Cc: Aditya Swarup <aditya.swarup@intel.com>
+> > Signed-off-by: Manasi Navare <manasi.d.navare@intel.com>
+> > ---
+> >  drivers/gpu/drm/i915/i915_reg.h | 1 +
+> >  1 file changed, 1 insertion(+)
+> >
+> > diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+> > index d4952c9875fb..9792c931b4c5 100644
+> > --- a/drivers/gpu/drm/i915/i915_reg.h
+> > +++ b/drivers/gpu/drm/i915/i915_reg.h
+> > @@ -4348,6 +4348,7 @@ enum {
+> >  #define   VRR_CTL_IGN_MAX_SHIFT		REG_BIT(30)
+> >  #define   VRR_CTL_FLIP_LINE_EN		REG_BIT(29)
+> >  #define   VRR_CTL_LINE_COUNT_MASK	REG_GENMASK(10, 3)
+> > +#define   VRR_CTL_LINE_COUNT(x)		REG_FIELD_PREP(VRR_CTL_LINE_COUNT_MASK, (x))
+> >  #define   VRR_CTL_SW_FULLLINE_COUNT	REG_BIT(0)
+> >  
+> >  #define _TRANS_VRR_VMAX_A		0x60424
+> 
+> -- 
 > Jani Nikula, Intel Open Source Graphics Center
 _______________________________________________
 Intel-gfx mailing list
