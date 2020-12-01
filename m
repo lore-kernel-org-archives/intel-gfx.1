@@ -2,42 +2,42 @@ Return-Path: <SRS0=1U3p=FF=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.9 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
-	URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1C3ABC64E8A
-	for <intel-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 09:07:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3EEC9C64E7B
+	for <intel-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 09:07:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 64CE2206CA
-	for <intel-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 09:07:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 64CE2206CA
+	by mail.kernel.org (Postfix) with ESMTPS id B018A206CA
+	for <intel-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 09:07:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B018A206CA
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 36ACA89F3C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F3A689FCE;
 	Tue,  1 Dec 2020 09:07:42 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 941BF89F3C
- for <intel-gfx@lists.freedesktop.org>; Tue,  1 Dec 2020 09:07:39 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB17D6E4B5
+ for <intel-gfx@lists.freedesktop.org>; Tue,  1 Dec 2020 09:07:40 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23172167-1500050 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23172170-1500050 
  for multiple; Tue, 01 Dec 2020 09:07:31 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue,  1 Dec 2020 09:07:19 +0000
-Message-Id: <20201201090729.24777-2-chris@chris-wilson.co.uk>
+Date: Tue,  1 Dec 2020 09:07:22 +0000
+Message-Id: <20201201090729.24777-5-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201201090729.24777-1-chris@chris-wilson.co.uk>
 References: <20201201090729.24777-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 02/12] drm/i915/gt: Track the overall awake/busy
- time
+Subject: [Intel-gfx] [PATCH 05/12] drm/i915: Make GEM contexts track DRM
+ clients
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,246 +56,222 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Since we wake the GT up before executing a request, and go to sleep as
-soon as it is retired, the GT wake time not only represents how long the
-device is powered up, but also provides a summary, albeit an overestimate,
-of the device runtime (i.e. the rc0 time to compare against rc6 time).
+From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-v2: s/busy/awake/
+If we make GEM contexts keep a reference to i915_drm_client for the whole
+of their lifetime, we can consolidate the current task pid and name usage
+by getting it from the client.
 
-Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+v2:
+ * Don't bother supporting selftests contexts from debugfs. (Chris)
+
+v3:
+ * Trivial rebase.
+
+v4:
+ * Fully initialize context before adding to the list. (Lucas)
+
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+Reviewed-by: Chris Wilson <chris@chris-wilson.co.uk>
 ---
- drivers/gpu/drm/i915/gt/debugfs_gt_pm.c  |  5 ++-
- drivers/gpu/drm/i915/gt/intel_gt_pm.c    | 49 ++++++++++++++++++++++++
- drivers/gpu/drm/i915/gt/intel_gt_pm.h    |  2 +
- drivers/gpu/drm/i915/gt/intel_gt_types.h | 24 ++++++++++++
- drivers/gpu/drm/i915/i915_debugfs.c      |  5 ++-
- drivers/gpu/drm/i915/i915_pmu.c          |  6 +++
- include/uapi/drm/i915_drm.h              |  3 +-
- 7 files changed, 90 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_context.c   | 20 +++++++++----
+ .../gpu/drm/i915/gem/i915_gem_context_types.h | 13 ++-------
+ drivers/gpu/drm/i915/i915_debugfs.c           | 29 +++++++------------
+ drivers/gpu/drm/i915/i915_gpu_error.c         | 22 ++++++++------
+ 4 files changed, 40 insertions(+), 44 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/debugfs_gt_pm.c b/drivers/gpu/drm/i915/gt/debugfs_gt_pm.c
-index 174a24553322..8975717ace06 100644
---- a/drivers/gpu/drm/i915/gt/debugfs_gt_pm.c
-+++ b/drivers/gpu/drm/i915/gt/debugfs_gt_pm.c
-@@ -11,6 +11,7 @@
- #include "i915_drv.h"
- #include "intel_gt.h"
- #include "intel_gt_clock_utils.h"
-+#include "intel_gt_pm.h"
- #include "intel_llc.h"
- #include "intel_rc6.h"
- #include "intel_rps.h"
-@@ -558,7 +559,9 @@ static int rps_boost_show(struct seq_file *m, void *data)
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+index 694641aa656b..b0bcfce2a1e4 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+@@ -341,13 +341,14 @@ void i915_gem_context_release(struct kref *ref)
+ 	trace_i915_context_free(ctx);
+ 	GEM_BUG_ON(!i915_gem_context_is_closed(ctx));
  
- 	seq_printf(m, "RPS enabled? %s\n", yesno(intel_rps_is_enabled(rps)));
- 	seq_printf(m, "RPS active? %s\n", yesno(intel_rps_is_active(rps)));
--	seq_printf(m, "GPU busy? %s\n", yesno(gt->awake));
-+	seq_printf(m, "GPU busy? %s, %llums\n",
-+		   yesno(gt->awake),
-+		   ktime_to_ms(intel_gt_get_awake_time(gt)));
- 	seq_printf(m, "Boosts outstanding? %d\n",
- 		   atomic_read(&rps->num_waiters));
- 	seq_printf(m, "Interactive? %d\n", READ_ONCE(rps->power.interactive));
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_pm.c b/drivers/gpu/drm/i915/gt/intel_gt_pm.c
-index 274aa0dd7050..c94e8ac884eb 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_pm.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_pm.c
-@@ -39,6 +39,28 @@ static void user_forcewake(struct intel_gt *gt, bool suspend)
- 	intel_gt_pm_put(gt);
- }
+-	mutex_destroy(&ctx->engines_mutex);
+-	mutex_destroy(&ctx->lut_mutex);
++	if (ctx->client)
++		i915_drm_client_put(ctx->client);
  
-+static void runtime_begin(struct intel_gt *gt)
-+{
-+	local_irq_disable();
-+	write_seqcount_begin(&gt->stats.lock);
-+	gt->stats.start = ktime_get();
-+	gt->stats.active = true;
-+	write_seqcount_end(&gt->stats.lock);
-+	local_irq_enable();
-+}
-+
-+static void runtime_end(struct intel_gt *gt)
-+{
-+	local_irq_disable();
-+	write_seqcount_begin(&gt->stats.lock);
-+	gt->stats.active = false;
-+	gt->stats.total =
-+		ktime_add(gt->stats.total,
-+			  ktime_sub(ktime_get(), gt->stats.start));
-+	write_seqcount_end(&gt->stats.lock);
-+	local_irq_enable();
-+}
-+
- static int __gt_unpark(struct intel_wakeref *wf)
+ 	if (ctx->timeline)
+ 		intel_timeline_put(ctx->timeline);
+ 
+-	put_pid(ctx->pid);
++	mutex_destroy(&ctx->engines_mutex);
++	mutex_destroy(&ctx->lut_mutex);
+ 	mutex_destroy(&ctx->mutex);
+ 
+ 	kfree_rcu(ctx, rcu);
+@@ -878,6 +879,7 @@ static int gem_context_register(struct i915_gem_context *ctx,
+ 				u32 *id)
  {
- 	struct intel_gt *gt = container_of(wf, typeof(*gt), wakeref);
-@@ -67,6 +89,7 @@ static int __gt_unpark(struct intel_wakeref *wf)
- 	i915_pmu_gt_unparked(i915);
+ 	struct drm_i915_private *i915 = ctx->i915;
++	struct i915_drm_client *client;
+ 	struct i915_address_space *vm;
+ 	int ret;
  
- 	intel_gt_unpark_requests(gt);
-+	runtime_begin(gt);
+@@ -889,15 +891,21 @@ static int gem_context_register(struct i915_gem_context *ctx,
+ 		WRITE_ONCE(vm->file, fpriv); /* XXX */
+ 	mutex_unlock(&ctx->mutex);
  
+-	ctx->pid = get_task_pid(current, PIDTYPE_PID);
++	client = i915_drm_client_get(fpriv->client);
++
++	rcu_read_lock();
+ 	snprintf(ctx->name, sizeof(ctx->name), "%s[%d]",
+-		 current->comm, pid_nr(ctx->pid));
++		 rcu_dereference(client->name)->name,
++		 pid_nr(rcu_dereference(client->name)->pid));
++	rcu_read_unlock();
+ 
+ 	/* And finally expose ourselves to userspace via the idr */
+ 	ret = xa_alloc(&fpriv->context_xa, id, ctx, xa_limit_32b, GFP_KERNEL);
+ 	if (ret)
+ 		goto err_pid;
+ 
++	ctx->client = client;
++
+ 	spin_lock(&i915->gem.contexts.lock);
+ 	list_add_tail(&ctx->link, &i915->gem.contexts.list);
+ 	spin_unlock(&i915->gem.contexts.lock);
+@@ -905,7 +913,7 @@ static int gem_context_register(struct i915_gem_context *ctx,
  	return 0;
- }
-@@ -79,6 +102,7 @@ static int __gt_park(struct intel_wakeref *wf)
  
- 	GT_TRACE(gt, "\n");
- 
-+	runtime_end(gt);
- 	intel_gt_park_requests(gt);
- 
- 	i915_vma_parked(gt);
-@@ -106,6 +130,7 @@ static const struct intel_wakeref_ops wf_ops = {
- void intel_gt_pm_init_early(struct intel_gt *gt)
- {
- 	intel_wakeref_init(&gt->wakeref, gt->uncore->rpm, &wf_ops);
-+	seqcount_mutex_init(&gt->stats.lock, &gt->wakeref.mutex);
+ err_pid:
+-	put_pid(fetch_and_zero(&ctx->pid));
++	i915_drm_client_put(client);
+ 	return ret;
  }
  
- void intel_gt_pm_init(struct intel_gt *gt)
-@@ -339,6 +364,30 @@ int intel_gt_runtime_resume(struct intel_gt *gt)
- 	return intel_uc_runtime_resume(&gt->uc);
- }
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context_types.h b/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
+index 1449f54924e0..c47bb45d2110 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
++++ b/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
+@@ -96,19 +96,12 @@ struct i915_gem_context {
+ 	 */
+ 	struct i915_address_space __rcu *vm;
  
-+static ktime_t __intel_gt_get_awake_time(const struct intel_gt *gt)
-+{
-+	ktime_t total = gt->stats.total;
-+
-+	if (gt->stats.active)
-+		total = ktime_add(total,
-+				  ktime_sub(ktime_get(), gt->stats.start));
-+
-+	return total;
-+}
-+
-+ktime_t intel_gt_get_awake_time(const struct intel_gt *gt)
-+{
-+	unsigned int seq;
-+	ktime_t total;
-+
-+	do {
-+		seq = read_seqcount_begin(&gt->stats.lock);
-+		total = __intel_gt_get_awake_time(gt);
-+	} while (read_seqcount_retry(&gt->stats.lock, seq));
-+
-+	return total;
-+}
-+
- #if IS_ENABLED(CONFIG_DRM_I915_SELFTEST)
- #include "selftest_gt_pm.c"
- #endif
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_pm.h b/drivers/gpu/drm/i915/gt/intel_gt_pm.h
-index 60f0e2fbe55c..63846a856e7e 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_pm.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_pm.h
-@@ -58,6 +58,8 @@ int intel_gt_resume(struct intel_gt *gt);
- void intel_gt_runtime_suspend(struct intel_gt *gt);
- int intel_gt_runtime_resume(struct intel_gt *gt);
+-	/**
+-	 * @pid: process id of creator
+-	 *
+-	 * Note that who created the context may not be the principle user,
+-	 * as the context may be shared across a local socket. However,
+-	 * that should only affect the default context, all contexts created
+-	 * explicitly by the client are expected to be isolated.
+-	 */
+-	struct pid *pid;
+-
+ 	/** link: place with &drm_i915_private.context_list */
+ 	struct list_head link;
  
-+ktime_t intel_gt_get_awake_time(const struct intel_gt *gt);
++	/** client: struct i915_drm_client */
++	struct i915_drm_client *client;
 +
- static inline bool is_mock_gt(const struct intel_gt *gt)
- {
- 	return I915_SELFTEST_ONLY(gt->awake == -ENODEV);
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_types.h b/drivers/gpu/drm/i915/gt/intel_gt_types.h
-index 6d39a4a11bf3..c7bde529feab 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_types.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_types.h
-@@ -87,6 +87,30 @@ struct intel_gt {
- 
- 	u32 pm_guc_events;
- 
-+	struct {
-+		bool active;
-+
-+		/**
-+		 * @lock: Lock protecting the below fields.
-+		 */
-+		seqcount_mutex_t lock;
-+
-+		/**
-+		 * @total: Total time this engine was busy.
-+		 *
-+		 * Accumulated time not counting the most recent block in cases
-+		 * where engine is currently busy (active > 0).
-+		 */
-+		ktime_t total;
-+
-+		/**
-+		 * @start: Timestamp of the last idle to active transition.
-+		 *
-+		 * Idle is defined as active == 0, active is active > 0.
-+		 */
-+		ktime_t start;
-+	} stats;
-+
- 	struct intel_engine_cs *engine[I915_NUM_ENGINES];
- 	struct intel_engine_cs *engine_class[MAX_ENGINE_CLASS + 1]
- 					    [MAX_ENGINE_INSTANCE + 1];
+ 	/**
+ 	 * @ref: reference count
+ 	 *
 diff --git a/drivers/gpu/drm/i915/i915_debugfs.c b/drivers/gpu/drm/i915/i915_debugfs.c
-index 263074c2c097..f29487ea4528 100644
+index f29487ea4528..289ee65b669a 100644
 --- a/drivers/gpu/drm/i915/i915_debugfs.c
 +++ b/drivers/gpu/drm/i915/i915_debugfs.c
-@@ -1314,9 +1314,10 @@ static int i915_engine_info(struct seq_file *m, void *unused)
+@@ -333,17 +333,15 @@ static void print_context_stats(struct seq_file *m,
+ 				.vm = rcu_access_pointer(ctx->vm),
+ 			};
+ 			struct drm_file *file = ctx->file_priv->file;
+-			struct task_struct *task;
+ 			char name[80];
  
- 	wakeref = intel_runtime_pm_get(&i915->runtime_pm);
+ 			rcu_read_lock();
++
+ 			idr_for_each(&file->object_idr, per_file_stats, &stats);
+-			rcu_read_unlock();
  
--	seq_printf(m, "GT awake? %s [%d]\n",
-+	seq_printf(m, "GT awake? %s [%d], %llums\n",
- 		   yesno(i915->gt.awake),
--		   atomic_read(&i915->gt.wakeref.count));
-+		   atomic_read(&i915->gt.wakeref.count),
-+		   ktime_to_ms(intel_gt_get_awake_time(&i915->gt)));
- 	seq_printf(m, "CS timestamp frequency: %u Hz\n",
- 		   RUNTIME_INFO(i915)->cs_timestamp_frequency_hz);
+-			rcu_read_lock();
+-			task = pid_task(ctx->pid ?: file->pid, PIDTYPE_PID);
+ 			snprintf(name, sizeof(name), "%s",
+-				 task ? task->comm : "<unknown>");
++				 rcu_dereference(ctx->client->name)->name);
++
+ 			rcu_read_unlock();
  
-diff --git a/drivers/gpu/drm/i915/i915_pmu.c b/drivers/gpu/drm/i915/i915_pmu.c
-index cd786ad12be7..57cd55ceeac6 100644
---- a/drivers/gpu/drm/i915/i915_pmu.c
-+++ b/drivers/gpu/drm/i915/i915_pmu.c
-@@ -488,6 +488,8 @@ config_status(struct drm_i915_private *i915, u64 config)
- 		if (!HAS_RC6(i915))
- 			return -ENODEV;
- 		break;
-+	case I915_PMU_GT_AWAKE:
-+		break;
- 	default:
- 		return -ENOENT;
+ 			print_file_stats(m, name, stats);
+@@ -1075,20 +1073,13 @@ static int i915_context_status(struct seq_file *m, void *unused)
+ 		spin_unlock(&i915->gem.contexts.lock);
+ 
+ 		seq_puts(m, "HW context ");
+-		if (ctx->pid) {
+-			struct task_struct *task;
+-
+-			task = get_pid_task(ctx->pid, PIDTYPE_PID);
+-			if (task) {
+-				seq_printf(m, "(%s [%d]) ",
+-					   task->comm, task->pid);
+-				put_task_struct(task);
+-			}
+-		} else if (IS_ERR(ctx->file_priv)) {
+-			seq_puts(m, "(deleted) ");
+-		} else {
+-			seq_puts(m, "(kernel) ");
+-		}
++
++		rcu_read_lock();
++		seq_printf(m, "(%s [%d]) %s",
++			   rcu_dereference(ctx->client->name)->name,
++			   pid_nr(rcu_dereference(ctx->client->name)->pid),
++			   ctx->client->closed ? "(closed) " : "");
++		rcu_read_unlock();
+ 
+ 		seq_putc(m, ctx->remap_slice ? 'R' : 'r');
+ 		seq_putc(m, '\n');
+diff --git a/drivers/gpu/drm/i915/i915_gpu_error.c b/drivers/gpu/drm/i915/i915_gpu_error.c
+index d8cac4c5881f..e38dab8d2fed 100644
+--- a/drivers/gpu/drm/i915/i915_gpu_error.c
++++ b/drivers/gpu/drm/i915/i915_gpu_error.c
+@@ -1238,7 +1238,9 @@ static void record_request(const struct i915_request *request,
+ 
+ 		ctx = rcu_dereference(request->context->gem_context);
+ 		if (ctx)
+-			erq->pid = pid_nr(ctx->pid);
++			erq->pid = I915_SELFTEST_ONLY(!ctx->client) ?
++				   0 :
++				   pid_nr(rcu_dereference(ctx->client->name)->pid);
  	}
-@@ -595,6 +597,9 @@ static u64 __i915_pmu_event_read(struct perf_event *event)
- 		case I915_PMU_RC6_RESIDENCY:
- 			val = get_rc6(&i915->gt);
- 			break;
-+		case I915_PMU_GT_AWAKE:
-+			val = ktime_to_ns(intel_gt_get_awake_time(&i915->gt));
-+			break;
- 		}
+ 	rcu_read_unlock();
+ }
+@@ -1259,23 +1261,25 @@ static bool record_context(struct i915_gem_context_coredump *e,
+ 			   const struct i915_request *rq)
+ {
+ 	struct i915_gem_context *ctx;
+-	struct task_struct *task;
+ 	bool simulated;
+ 
+ 	rcu_read_lock();
++
+ 	ctx = rcu_dereference(rq->context->gem_context);
+ 	if (ctx && !kref_get_unless_zero(&ctx->ref))
+ 		ctx = NULL;
+-	rcu_read_unlock();
+-	if (!ctx)
++	if (!ctx) {
++		rcu_read_unlock();
+ 		return true;
++	}
+ 
+-	rcu_read_lock();
+-	task = pid_task(ctx->pid, PIDTYPE_PID);
+-	if (task) {
+-		strcpy(e->comm, task->comm);
+-		e->pid = task->pid;
++	if (I915_SELFTEST_ONLY(!ctx->client)) {
++		strcpy(e->comm, "[kernel]");
++	} else {
++		strcpy(e->comm, rcu_dereference(ctx->client->name)->name);
++		e->pid = pid_nr(rcu_dereference(ctx->client->name)->pid);
  	}
++
+ 	rcu_read_unlock();
  
-@@ -898,6 +903,7 @@ create_event_attributes(struct i915_pmu *pmu)
- 		__event(I915_PMU_REQUESTED_FREQUENCY, "requested-frequency", "M"),
- 		__event(I915_PMU_INTERRUPTS, "interrupts", NULL),
- 		__event(I915_PMU_RC6_RESIDENCY, "rc6-residency", "ns"),
-+		__event(I915_PMU_GT_AWAKE, "awake", "ns"),
- 	};
- 	static const struct {
- 		enum drm_i915_pmu_engine_sample sample;
-diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
-index fa1f3d62f9a6..e3b372eaf232 100644
---- a/include/uapi/drm/i915_drm.h
-+++ b/include/uapi/drm/i915_drm.h
-@@ -177,8 +177,9 @@ enum drm_i915_pmu_engine_sample {
- #define I915_PMU_REQUESTED_FREQUENCY	__I915_PMU_OTHER(1)
- #define I915_PMU_INTERRUPTS		__I915_PMU_OTHER(2)
- #define I915_PMU_RC6_RESIDENCY		__I915_PMU_OTHER(3)
-+#define I915_PMU_GT_AWAKE		__I915_PMU_OTHER(4)
- 
--#define I915_PMU_LAST I915_PMU_RC6_RESIDENCY
-+#define I915_PMU_LAST I915_PMU_GT_AWAKE
- 
- /* Each region is a minimum of 16k, and there are at most 255 of them.
-  */
+ 	e->sched_attr = ctx->sched;
 -- 
 2.20.1
 
