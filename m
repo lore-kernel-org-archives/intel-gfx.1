@@ -2,55 +2,51 @@ Return-Path: <SRS0=1U3p=FF=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.2 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-13.9 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
+	URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6DA14C64E7A
-	for <intel-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 22:56:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D8421C64E7A
+	for <intel-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 23:34:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0CE7A20758
-	for <intel-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 22:56:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0CE7A20758
+	by mail.kernel.org (Postfix) with ESMTPS id 63A7622249
+	for <intel-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 23:34:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 63A7622249
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4BBDC6E940;
-	Tue,  1 Dec 2020 22:56:11 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6BAD96E940
- for <intel-gfx@lists.freedesktop.org>; Tue,  1 Dec 2020 22:56:09 +0000 (UTC)
-IronPort-SDR: AXUX8P2JnK4N7Z4HfBZxwckpzwOs9zDTaUGNvWP102xtWua0rylXzSfzdSPIzGbqNgpK9WNZF+
- Rhh1ryF2ZncQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9822"; a="152749720"
-X-IronPort-AV: E=Sophos;i="5.78,385,1599548400"; d="scan'208";a="152749720"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7DA096E96D;
+	Tue,  1 Dec 2020 23:34:49 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA9566E96B
+ for <Intel-gfx@lists.freedesktop.org>; Tue,  1 Dec 2020 23:34:48 +0000 (UTC)
+IronPort-SDR: RY+11OM2pfcn3cDMA/hrrpj4CtNODuF9xKNIhVYdyVIzN9gOMwsrQfK3ORRUvhWlj5zDDHREEb
+ g1X4/8OXwngg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9822"; a="173021530"
+X-IronPort-AV: E=Sophos;i="5.78,385,1599548400"; d="scan'208";a="173021530"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Dec 2020 14:56:08 -0800
-IronPort-SDR: wT3dkSioxLvVP7w/GaMpNo2ZzVEpTz+isYbL4i75r7nvLsOBp+rcFjjW0XKWl9Abw5YHThyR95
- g+4EL+PT1T0w==
-X-IronPort-AV: E=Sophos;i="5.78,385,1599548400"; d="scan'208";a="539318387"
-Received: from labuser-z97x-ud5h.jf.intel.com (HELO labuser-Z97X-UD5H)
- ([10.165.21.211])
- by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Dec 2020 14:56:08 -0800
-Date: Tue, 1 Dec 2020 14:59:05 -0800
-From: "Navare, Manasi" <manasi.d.navare@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Message-ID: <20201201225905.GE22644@labuser-Z97X-UD5H>
-References: <20201022222709.29386-1-manasi.d.navare@intel.com>
- <20201022222709.29386-11-manasi.d.navare@intel.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20201022222709.29386-11-manasi.d.navare@intel.com>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-Subject: Re: [Intel-gfx] [PATCH 10/11] drm/i915/display/vrr: Set
- IGNORE_MSA_PAR state in DP Sink
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Dec 2020 15:34:47 -0800
+IronPort-SDR: Ewk/hWTKBboVXV118o8AwgqL7GvA3S3nVERtlqWdCK/Ces7mylp54gvNBveyABMv6dAjP3BF7Z
+ Txc038XqXmgQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.78,385,1599548400"; d="scan'208";a="537745391"
+Received: from sean-virtualbox.fm.intel.com ([10.105.158.96])
+ by fmsmga006.fm.intel.com with ESMTP; 01 Dec 2020 15:34:45 -0800
+From: "Huang, Sean Z" <sean.z.huang@intel.com>
+To: Intel-gfx@lists.freedesktop.org
+Date: Tue,  1 Dec 2020 15:33:50 -0800
+Message-Id: <20201201233411.21858-6-sean.z.huang@intel.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20201201233411.21858-1-sean.z.huang@intel.com>
+References: <20201201233411.21858-1-sean.z.huang@intel.com>
+Subject: [Intel-gfx] [RFC-v3 05/26] drm/i915/pxp: Implement ioctl action to
+ set the user space context
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,95 +59,196 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-@Jani could you review this as well?
+Implement one ioctl action to allow user space driver to set its
+user space context, so PXP can track the context id through this
+user space context list.
 
-Manasi
+Signed-off-by: Huang, Sean Z <sean.z.huang@intel.com>
+---
+ drivers/gpu/drm/i915/pxp/intel_pxp.c         | 57 ++++++++++++++++++++
+ drivers/gpu/drm/i915/pxp/intel_pxp.h         | 26 +++++++++
+ drivers/gpu/drm/i915/pxp/intel_pxp_context.c | 24 +++++++++
+ drivers/gpu/drm/i915/pxp/intel_pxp_context.h |  3 ++
+ 4 files changed, 110 insertions(+)
 
-
-On Thu, Oct 22, 2020 at 03:27:08PM -0700, Manasi Navare wrote:
-> If VRR is enabled, the sink should ignore MSA parameters
-> and regenerate incoming video stream without depending
-> on these parameters. Hence set the MSA_TIMING_PAR_IGNORE_EN
-> bit if VRR is enabled.
-> Reset this bit on VRR disable.
-> =
-
-> Cc: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
-> Cc: Jani Nikula <jani.nikula@linux.intel.com>
-> Signed-off-by: Manasi Navare <manasi.d.navare@intel.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_ddi.c | 25 ++++++++++++++++++++++++
->  1 file changed, 25 insertions(+)
-> =
-
-> diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i=
-915/display/intel_ddi.c
-> index 565155af3fb9..195449dfec1e 100644
-> --- a/drivers/gpu/drm/i915/display/intel_ddi.c
-> +++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-> @@ -3322,6 +3322,22 @@ i915_reg_t dp_tp_status_reg(struct intel_encoder *=
-encoder,
->  		return DP_TP_STATUS(encoder->port);
->  }
->  =
-
-> +static void intel_dp_sink_set_msa_timing_par_ignore_state(struct intel_d=
-p *intel_dp,
-> +							  const struct intel_crtc_state *crtc_state,
-> +							  bool enable)
-> +{
-> +	struct drm_i915_private *i915 =3D dp_to_i915(intel_dp);
-> +
-> +	if (!crtc_state->vrr.enable)
-> +		return;
-> +
-> +	if (drm_dp_dpcd_writeb(&intel_dp->aux, DP_DOWNSPREAD_CTRL,
-> +			       enable ? DP_MSA_TIMING_PAR_IGNORE_EN : 0) <=3D 0)
-> +		drm_dbg_kms(&i915->drm,
-> +			    "Failed to set MSA_TIMING_PAR_IGNORE %s in the sink\n",
-> +			    enable ? "enable" : "disable");
-> +}
-> +
->  static void intel_dp_sink_set_fec_ready(struct intel_dp *intel_dp,
->  					const struct intel_crtc_state *crtc_state)
->  {
-> @@ -3493,6 +3509,12 @@ static void tgl_ddi_pre_enable_dp(struct intel_ato=
-mic_state *state,
->  	 */
->  	intel_dp_sink_set_fec_ready(intel_dp, crtc_state);
->  =
-
-> +	/*
-> +	 * Sink device should ignore MSA parameters and regenerate
-> +	 * incoming video stream in case of VRR/Adaptive Sync
-> +	 */
-> +	intel_dp_sink_set_msa_timing_par_ignore_state(intel_dp, crtc_state, tru=
-e);
-> +
->  	/*
->  	 * 7.i Follow DisplayPort specification training sequence (see notes for
->  	 *     failure handling)
-> @@ -4089,6 +4111,9 @@ static void intel_disable_ddi_dp(struct intel_atomi=
-c_state *state,
->  	/* Disable the decompression in DP Sink */
->  	intel_dp_sink_set_decompression_state(intel_dp, old_crtc_state,
->  					      false);
-> +	/* Disable Ignore_MSA bit in DP Sink */
-> +	intel_dp_sink_set_msa_timing_par_ignore_state(intel_dp, old_crtc_state,
-> +						      false);
->  }
->  =
-
->  static void intel_disable_ddi_hdmi(struct intel_atomic_state *state,
-> -- =
-
-> 2.19.1
-> =
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.c b/drivers/gpu/drm/i915/pxp/intel_pxp.c
+index d74a32b29716..ba473e1f4dde 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp.c
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp.c
+@@ -8,6 +8,61 @@
+ #include "intel_pxp_context.h"
+ #include "intel_pxp_sm.h"
+ 
++int i915_pxp_ops_ioctl(struct drm_device *dev, void *data, struct drm_file *drmfile)
++{
++	int ret;
++	struct pxp_info pxp_info = {0};
++	struct drm_i915_pxp_ops *pxp_ops = data;
++	struct drm_i915_private *i915 = to_i915(dev);
++
++	if (!i915 || !i915->pxp.ctx || !drmfile || !pxp_ops ||
++	    pxp_ops->info_size != sizeof(pxp_info))
++		return -EINVAL;
++
++	if (copy_from_user(&pxp_info, pxp_ops->info_ptr, sizeof(pxp_info)) != 0)
++		return -EFAULT;
++
++	mutex_lock(&i915->pxp.ctx->ctx_mutex);
++
++	if (i915->pxp.ctx->global_state_in_suspend) {
++		drm_err(&i915->drm, "Return failure due to state in suspend\n");
++		pxp_info.sm_status = PXP_SM_STATUS_SESSION_NOT_AVAILABLE;
++		ret = 0;
++		goto end;
++	}
++
++	if (i915->pxp.ctx->global_state_attacked) {
++		drm_err(&i915->drm, "Retry required due to state attacked\n");
++		pxp_info.sm_status = PXP_SM_STATUS_RETRY_REQUIRED;
++		ret = 0;
++		goto end;
++	}
++
++	switch (pxp_info.action) {
++	case PXP_ACTION_SET_USER_CONTEXT:
++	{
++		ret = intel_pxp_set_user_ctx(i915, pxp_info.set_user_ctx);
++		break;
++	}
++	default:
++		drm_err(&i915->drm, "Failed to %s due to bad params\n", __func__);
++		ret = -EINVAL;
++		goto end;
++	}
++
++end:
++	mutex_unlock(&i915->pxp.ctx->ctx_mutex);
++
++	if (ret == 0)
++		if (copy_to_user(pxp_ops->info_ptr, &pxp_info, sizeof(pxp_info)) != 0)
++			ret = -EFAULT;
++
++	if (ret)
++		dev_err(&dev->pdev->dev, "pid=%d, ret = %d\n", task_pid_nr(current), ret);
++
++	return ret;
++}
++
+ static void intel_pxp_write_irq_mask_reg(struct drm_i915_private *i915, u32 mask)
+ {
+ 	/* crypto mask is in bit31-16 (Engine1 Interrupt Mask) */
+@@ -35,6 +90,8 @@ static int intel_pxp_teardown_required_callback(struct drm_i915_private *i915)
+ 	i915->pxp.ctx->global_state_attacked = true;
+ 	i915->pxp.ctx->flag_display_hm_surface_keys = false;
+ 
++	intel_pxp_destroy_user_ctx_list(i915);
++
+ 	mutex_unlock(&i915->pxp.ctx->ctx_mutex);
+ 
+ 	return 0;
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.h b/drivers/gpu/drm/i915/pxp/intel_pxp.h
+index eb0ec4a07d3d..132aeccf8447 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp.h
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp.h
+@@ -24,6 +24,26 @@ enum pxp_sm_session_req {
+ 	PXP_SM_REQ_SESSION_TERMINATE
+ };
+ 
++#define PXP_ACTION_SET_USER_CONTEXT 5
++
++enum pxp_sm_status {
++	PXP_SM_STATUS_SUCCESS,
++	PXP_SM_STATUS_RETRY_REQUIRED,
++	PXP_SM_STATUS_SESSION_NOT_AVAILABLE,
++	PXP_SM_STATUS_ERROR_UNKNOWN
++};
++
++struct pxp_info {
++	u32 action;
++	u32 sm_status;
++	u32 set_user_ctx;
++} __attribute__((packed));
++
++struct drm_i915_pxp_ops {
++	struct pxp_info __user *info_ptr;
++	__u32 info_size;
++};
++
+ struct pxp_context;
+ 
+ struct intel_pxp {
+@@ -38,6 +58,7 @@ struct intel_gt;
+ struct drm_i915_private;
+ 
+ #ifdef CONFIG_DRM_I915_PXP
++int i915_pxp_ops_ioctl(struct drm_device *dev, void *data, struct drm_file *drmfile);
+ void intel_pxp_irq_handler(struct intel_gt *gt, u16 iir);
+ int i915_pxp_teardown_required_callback(struct drm_i915_private *i915);
+ int i915_pxp_global_terminate_complete_callback(struct drm_i915_private *i915);
+@@ -45,6 +66,11 @@ int i915_pxp_global_terminate_complete_callback(struct drm_i915_private *i915);
+ int intel_pxp_init(struct drm_i915_private *i915);
+ void intel_pxp_uninit(struct drm_i915_private *i915);
+ #else
++static inline int i915_pxp_ops_ioctl(struct drm_device *dev, void *data, struct drm_file *drmfile)
++{
++	return 0;
++}
++
+ static inline void intel_pxp_irq_handler(struct intel_gt *gt, u16 iir)
+ {
+ }
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_context.c b/drivers/gpu/drm/i915/pxp/intel_pxp_context.c
+index c340c375daac..7fc99567b3ac 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp_context.c
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_context.c
+@@ -43,3 +43,27 @@ void intel_pxp_destroy_ctx(struct drm_i915_private *i915)
+ 	kfree(i915->pxp.ctx);
+ 	i915->pxp.ctx = NULL;
+ }
++
++int intel_pxp_set_user_ctx(struct drm_i915_private *i915, u32 user_ctx_in)
++{
++	struct pxp_user_ctx *user_ctx;
++
++	user_ctx = kzalloc(sizeof(*user_ctx), GFP_KERNEL);
++	if (!user_ctx)
++		return -ENOMEM;
++
++	user_ctx->user_ctx = user_ctx_in;
++
++	list_add(&user_ctx->listhead, &i915->pxp.ctx->user_ctx_list);
++	return 0;
++}
++
++void intel_pxp_destroy_user_ctx_list(struct drm_i915_private *i915)
++{
++	struct pxp_user_ctx *user_ctx, *n;
++
++	list_for_each_entry_safe(user_ctx, n, &i915->pxp.ctx->user_ctx_list, listhead) {
++		list_del(&user_ctx->listhead);
++		kfree(user_ctx);
++	}
++}
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_context.h b/drivers/gpu/drm/i915/pxp/intel_pxp_context.h
+index e0794dfb548d..c8b2d89e6548 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp_context.h
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_context.h
+@@ -41,4 +41,7 @@ struct pxp_user_ctx {
+ struct pxp_context *intel_pxp_create_ctx(struct drm_i915_private *i915);
+ void intel_pxp_destroy_ctx(struct drm_i915_private *i915);
+ 
++int intel_pxp_set_user_ctx(struct drm_i915_private *i915, u32 user_ctx);
++void intel_pxp_destroy_user_ctx_list(struct drm_i915_private *i915);
++
+ #endif /* __INTEL_PXP_CONTEXT_H__ */
+-- 
+2.17.1
 
 _______________________________________________
 Intel-gfx mailing list
