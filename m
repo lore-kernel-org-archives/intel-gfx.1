@@ -2,51 +2,51 @@ Return-Path: <SRS0=1U3p=FF=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-13.9 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
+	URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2659DC71155
-	for <intel-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 23:35:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A697DC64E90
+	for <intel-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 23:35:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BEA8522249
-	for <intel-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 23:35:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BEA8522249
+	by mail.kernel.org (Postfix) with ESMTPS id 505A322249
+	for <intel-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 23:35:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 505A322249
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 181756E97F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0AA1A6E99A;
 	Tue,  1 Dec 2020 23:34:55 +0000 (UTC)
 Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C3F06E96C
- for <Intel-gfx@lists.freedesktop.org>; Tue,  1 Dec 2020 23:34:49 +0000 (UTC)
-IronPort-SDR: cCoiqgxPQ8NxSw5YuPCVOzmoGsRS8r3xdSAm8hl3cvRapIzF2ZVRV1Lvh81C+tgZ8Mdhv+BZRr
- M4c2DBL9SFWQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9822"; a="234530808"
-X-IronPort-AV: E=Sophos;i="5.78,385,1599548400"; d="scan'208";a="234530808"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6354F6E970
+ for <Intel-gfx@lists.freedesktop.org>; Tue,  1 Dec 2020 23:34:50 +0000 (UTC)
+IronPort-SDR: inNuoMrovvyUB1d8AfTuMSdorCiCv8MqDoSjegurvzI4nw3taUVTo2hkw3HS8Mg4+n/sNOfcjn
+ jtipUIW1pgWQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9822"; a="234530815"
+X-IronPort-AV: E=Sophos;i="5.78,385,1599548400"; d="scan'208";a="234530815"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Dec 2020 15:34:48 -0800
-IronPort-SDR: N0z+gaUhU/LSKEyrQEXQqrdxso4KSKA2IjnIMmuYo7M1IcfSLQP2bVa8SOZqbV00VxIeikLnqf
- 1coP8hk+KYCw==
+ 01 Dec 2020 15:34:49 -0800
+IronPort-SDR: olNLv5kDD7wZB3UuZ4iQY+AbcL95gjm0h9o6pWpNCk88ayX84faHN9XB7RnNw0eTg59hUsscxE
+ Qo31e+C8ETfg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.78,385,1599548400"; d="scan'208";a="537745395"
+X-IronPort-AV: E=Sophos;i="5.78,385,1599548400"; d="scan'208";a="537745415"
 Received: from sean-virtualbox.fm.intel.com ([10.105.158.96])
- by fmsmga006.fm.intel.com with ESMTP; 01 Dec 2020 15:34:45 -0800
+ by fmsmga006.fm.intel.com with ESMTP; 01 Dec 2020 15:34:46 -0800
 From: "Huang, Sean Z" <sean.z.huang@intel.com>
 To: Intel-gfx@lists.freedesktop.org
-Date: Tue,  1 Dec 2020 15:33:54 -0800
-Message-Id: <20201201233411.21858-10-sean.z.huang@intel.com>
+Date: Tue,  1 Dec 2020 15:34:05 -0800
+Message-Id: <20201201233411.21858-21-sean.z.huang@intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20201201233411.21858-1-sean.z.huang@intel.com>
 References: <20201201233411.21858-1-sean.z.huang@intel.com>
-Subject: [Intel-gfx] [RFC-v3 09/26] drm/i915/pxp: Implement ioctl action to
- reserve session slot
+Subject: [Intel-gfx] [RFC-v3 20/26] drm/i915/pxp: Add i915 trace logs for
+ PXP operations
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,283 +65,114 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-With this ioctl action, user space driver can reserve a specific
-session slot/id assigned by PXP, as the first step of PXP session
-establishment flow. The session info is stored in the session list
-structure.
+Add several i915 trace logs for PXP calls for debugging or
+performance measurement, including:
+(1) PXP ioctl
+(2) PXP teardown callbacks
+
+To trun on this feature, we need to set
+"CONFIG_DRM_I915_LOW_LEVEL_TRACEPOINTS=y" in .config for compiling
+the Linux kernel.
 
 Signed-off-by: Huang, Sean Z <sean.z.huang@intel.com>
 ---
- drivers/gpu/drm/i915/pxp/intel_pxp.c    |  20 ++++
- drivers/gpu/drm/i915/pxp/intel_pxp.h    |  24 +++-
- drivers/gpu/drm/i915/pxp/intel_pxp_sm.c | 149 +++++++++++++++++++++++-
- drivers/gpu/drm/i915/pxp/intel_pxp_sm.h |   3 +
- 4 files changed, 193 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/i915_trace.h    | 44 ++++++++++++++++++++++++++++
+ drivers/gpu/drm/i915/pxp/intel_pxp.c |  6 ++++
+ 2 files changed, 50 insertions(+)
 
+diff --git a/drivers/gpu/drm/i915/i915_trace.h b/drivers/gpu/drm/i915/i915_trace.h
+index a4addcc64978..36470e20dc61 100644
+--- a/drivers/gpu/drm/i915/i915_trace.h
++++ b/drivers/gpu/drm/i915/i915_trace.h
+@@ -1031,6 +1031,50 @@ DEFINE_EVENT(i915_context, i915_context_free,
+ 	TP_ARGS(ctx)
+ );
+ 
++TRACE_EVENT(i915_pxp_ops_ioctl,
++	    TP_PROTO(struct drm_device *dev, void *data, struct drm_file *file, u32 action),
++	    TP_ARGS(dev, data, file, action),
++
++	    TP_STRUCT__entry(
++			     __field(struct drm_device *, dev)
++			     __field(void *, data)
++			     __field(struct drm_file *, file)
++			     __field(u32, action)
++	    ),
++
++	    TP_fast_assign(
++			   __entry->dev = dev;
++			   __entry->data = data;
++			   __entry->file = file;
++			   __entry->action = action;
++	    ),
++
++	    TP_printk("dev=%p, data=%p, file=%p, action=%u",
++		      __entry->dev, __entry->data, __entry->file, __entry->action)
++);
++
++TRACE_EVENT(i915_pxp_teardown_required_callback,
++	    TP_PROTO(bool global_state_attacked),
++	    TP_ARGS(global_state_attacked),
++
++	    TP_STRUCT__entry(__field(bool, global_state_attacked)),
++
++	    TP_fast_assign(__entry->global_state_attacked = global_state_attacked;),
++
++	    TP_printk("global_state_attacked=%s", yesno(__entry->global_state_attacked))
++);
++
++TRACE_EVENT(i915_pxp_global_terminate_complete_callback,
++	    TP_PROTO(bool global_state_attacked),
++	    TP_ARGS(global_state_attacked),
++
++	    TP_STRUCT__entry(__field(bool, global_state_attacked)),
++
++	    TP_fast_assign(__entry->global_state_attacked = global_state_attacked;),
++
++	    TP_printk("global_state_attacked=%s", yesno(__entry->global_state_attacked))
++);
++
+ #endif /* _I915_TRACE_H_ */
+ 
+ /* This part must be outside protection */
 diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.c b/drivers/gpu/drm/i915/pxp/intel_pxp.c
-index ba473e1f4dde..d0d126205b12 100644
+index 766797b7854e..8134b39c7419 100644
 --- a/drivers/gpu/drm/i915/pxp/intel_pxp.c
 +++ b/drivers/gpu/drm/i915/pxp/intel_pxp.c
-@@ -39,6 +39,26 @@ int i915_pxp_ops_ioctl(struct drm_device *dev, void *data, struct drm_file *drmf
- 	}
+@@ -8,6 +8,7 @@
+ #include "intel_pxp_context.h"
+ #include "intel_pxp_sm.h"
+ #include "intel_pxp_tee.h"
++#include "i915_trace.h"
  
- 	switch (pxp_info.action) {
-+	case PXP_ACTION_SET_SESSION_STATUS:
-+	{
-+		struct pxp_sm_set_session_status_params *params = &pxp_info.set_session_status;
-+
-+		if (params->req_session_state == PXP_SM_REQ_SESSION_ID_INIT) {
-+			ret = intel_pxp_sm_reserve_session(i915, drmfile, 0,
-+							   params->session_type,
-+							   params->session_mode,
-+							   &params->pxp_tag);
-+			if (ret == PXP_SM_STATUS_RETRY_REQUIRED ||
-+			    ret == PXP_SM_STATUS_SESSION_NOT_AVAILABLE) {
-+				pxp_info.sm_status = ret;
-+				ret = 0;
-+			}
-+		} else {
-+			ret = -EINVAL;
-+			goto end;
-+		}
-+		break;
-+	}
- 	case PXP_ACTION_SET_USER_CONTEXT:
- 	{
- 		ret = intel_pxp_set_user_ctx(i915, pxp_info.set_user_ctx);
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.h b/drivers/gpu/drm/i915/pxp/intel_pxp.h
-index c781a07bb7d5..ed77630bb7c4 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp.h
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp.h
-@@ -15,6 +15,9 @@
- #define pxp_session_list(i915, session_type) (((session_type) == SESSION_TYPE_TYPE0) ? \
- 	&(i915)->pxp.ctx->active_pxp_type0_sessions : &(i915)->pxp.ctx->active_pxp_type1_sessions)
- 
-+#define pxp_session_max(session_type) (((session_type) == SESSION_TYPE_TYPE0) ? \
-+	MAX_TYPE0_SESSIONS : MAX_TYPE1_SESSIONS)
-+
- #define MAX_TYPE0_SESSIONS 16
- #define MAX_TYPE1_SESSIONS 6
- 
-@@ -27,7 +30,10 @@ enum pxp_sm_session_req {
- 	PXP_SM_REQ_SESSION_TERMINATE
- };
- 
--#define PXP_ACTION_SET_USER_CONTEXT 5
-+enum pxp_ioctl_action {
-+	PXP_ACTION_SET_SESSION_STATUS = 1,
-+	PXP_ACTION_SET_USER_CONTEXT = 5,
-+};
- 
- enum pxp_sm_status {
- 	PXP_SM_STATUS_SUCCESS,
-@@ -36,10 +42,24 @@ enum pxp_sm_status {
- 	PXP_SM_STATUS_ERROR_UNKNOWN
- };
- 
-+struct pxp_sm_set_session_status_params {
-+	/** @pxp_tag: in [optional], for Arbitrator session, out pxp tag */
-+	u32 pxp_tag;
-+	/** @session_type: in, session type */
-+	u32 session_type;
-+	/** @session_mode: in, session mode */
-+	u32 session_mode;
-+	/** @req_session_state: in, new session state */
-+	u32 req_session_state;
-+};
-+
- struct pxp_info {
- 	u32 action;
- 	u32 sm_status;
--	u32 set_user_ctx;
-+	union {
-+		struct pxp_sm_set_session_status_params set_session_status;
-+		u32 set_user_ctx;
-+	};
- } __attribute__((packed));
- 
- struct drm_i915_pxp_ops {
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_sm.c b/drivers/gpu/drm/i915/pxp/intel_pxp_sm.c
-index 469810390c9b..e4218083f7ec 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp_sm.c
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_sm.c
-@@ -145,7 +145,7 @@ static int pxp_set_pxp_tag(struct drm_i915_private *i915, int session_type,
- 	}
- 
- 	pxp_tag->session_id = pxp_get_session_id(session_idx, session_type);
--end:
-+
- 	return 0;
- }
- 
-@@ -298,6 +298,153 @@ static bool check_if_protected_type0_sessions_are_attacked(struct drm_i915_priva
- 	return false;
- }
- 
-+/**
-+ * create_new_session_entry - Create a new session entry with provided info.
-+ * @i915: i915 device handle.
-+ * @drmfile: pointer to drm_file
-+ * @context_id: Numeric identifier of the context created by the caller.
-+ * @session_type: Type of the session requested. One of enum pxp_session_types.
-+ * @protection_mode: Type of protection requested for the session.
-+ *                   One of the enum pxp_protection_modes.
-+ * @session_index: Numeric session identifier.
-+ *
-+ * Return: status. 0 means creation is successful.
-+ */
-+static int create_new_session_entry(struct drm_i915_private *i915, struct drm_file *drmfile,
-+				    int context_id, int session_type, int protection_mode,
-+				    int session_index)
-+{
-+	struct pxp_protected_session *new_session = NULL;
-+	int pid = 0;
-+
-+	if (drmfile)
-+		pid = pid_nr(drmfile->pid);
-+
-+	new_session = kzalloc(sizeof(*new_session), GFP_KERNEL);
-+	if (!new_session)
-+		return -ENOMEM;
-+
-+	new_session->context_id = context_id;
-+	new_session->session_type = session_type;
-+	new_session->protection_mode = protection_mode;
-+	new_session->session_index = session_index;
-+	new_session->session_is_in_play = false;
-+	new_session->drmfile = drmfile;
-+	new_session->pid = pid;
-+
-+	switch (session_type) {
-+	case SESSION_TYPE_TYPE0:
-+		/* check to make sure the session id is within allowed range */
-+		if (session_index < 0 || session_index >= MAX_TYPE0_SESSIONS) {
-+			/* session id out of range.. free the new entry and return error */
-+			kfree(new_session);
-+			drm_err(&i915->drm, "Failed to %s, bad params\n", __func__);
-+			return -EINVAL;
-+		}
-+
-+		list_add(&new_session->session_list, &i915->pxp.ctx->active_pxp_type0_sessions);
-+		break;
-+
-+	case SESSION_TYPE_TYPE1:
-+		/* check to make sure the session id is within allowed range */
-+		if (session_index < 0 || session_index >= MAX_TYPE1_SESSIONS) {
-+			/* session id out of range.. free the new entry and return error */
-+			kfree(new_session);
-+			drm_err(&i915->drm, "Failed to %s, bad params\n", __func__);
-+			return -EINVAL;
-+		}
-+
-+		list_add(&new_session->session_list, &i915->pxp.ctx->active_pxp_type1_sessions);
-+		break;
-+
-+	default:
-+		/* session type is invalid... free new entry and return error. */
-+		kfree(new_session);
-+		drm_err(&i915->drm, "Failed to %s, bad params\n", __func__);
-+		return -EINVAL;
-+	}
-+
-+	return 0;
-+}
-+
-+/**
-+ * intel_pxp_sm_reserve_session - To reserve an available protected session.
-+ * @i915: i915 device handle.
-+ * @drmfile: pointer to drm_file.
-+ * @context_id: Numeric identifier of the context created by the caller.
-+ * @session_type: Type of the session requested. One of enum pxp_session_types.
-+ * @protection_mode: Type of protection requested for the session. One of the
-+ *                   enum pxp_protection_modes.
-+ * @pxp_tag: Numeric session identifier returned back to caller.
-+ *
-+ * Return: status. 0 means reserve is successful.
-+ */
-+int intel_pxp_sm_reserve_session(struct drm_i915_private *i915, struct drm_file *drmfile,
-+				 int context_id, int session_type, int protection_mode,
-+				 u32 *pxp_tag)
-+{
-+	int ret;
-+	int session_index = 0;
-+
-+	if (!pxp_tag || !i915)
-+		return -EINVAL;
-+
-+	if (protection_mode != PROTECTION_MODE_LM && protection_mode != PROTECTION_MODE_HM &&
-+	    protection_mode != PROTECTION_MODE_SM) {
-+		drm_err(&i915->drm, "Failed to %s, invalid session mode=[%d]\n",
-+			__func__, protection_mode);
-+		return -EINVAL;
-+	}
-+
-+	lockdep_assert_held(&i915->pxp.ctx->ctx_mutex);
-+
-+	if (session_type == SESSION_TYPE_TYPE0) {
-+		/*
-+		 * check if sessions are under attack. if so, don't allow creation of
-+		 * new session entries
-+		 */
-+		if (check_if_protected_type0_sessions_are_attacked(i915))
-+			/* protected sessions are under attack. return failure. */
-+			return -EPERM;
-+	}
-+
-+	/*
-+	 * iterate over the active sessions list to find next available open session id
-+	 * Cannot assume that the session entries will be sorted in the linked list
-+	 * as terminates are allowed at any time without re-sorting the linked list.
-+	 * So, the linked list should be walked start to finish to ensure a session is
-+	 * not already active
-+	 */
-+	for (session_index = 0; session_index < pxp_session_max(session_type); session_index++) {
-+		if (!is_sw_session_active(i915, session_type, session_index, false, NULL)) {
-+			ret = sync_hw_sw_state(i915, session_index, session_type);
-+			if (unlikely(ret)) {
-+				ret = PXP_SM_STATUS_RETRY_REQUIRED;
-+				goto end;
-+			}
-+
-+			/*
-+			 * found an available session... create a new session entry
-+			 * with this identifier and return success
-+			 */
-+			ret = create_new_session_entry(i915, drmfile, context_id, session_type,
-+						       protection_mode, session_index);
-+			if (unlikely(ret))
-+				goto end;
-+
-+			ret = pxp_set_pxp_tag(i915, session_type, session_index, protection_mode);
-+			goto end;
-+		}
-+	}
-+
-+	ret = PXP_SM_STATUS_SESSION_NOT_AVAILABLE;
-+end:
-+	if (ret == 0)
-+		*pxp_tag = intel_pxp_get_pxp_tag(i915, session_index, session_type, NULL);
-+
-+	return ret;
-+}
-+
- int pxp_sm_set_kcr_init_reg(struct drm_i915_private *i915)
+ int i915_pxp_ops_ioctl(struct drm_device *dev, void *data, struct drm_file *drmfile)
  {
- 	int ret;
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_sm.h b/drivers/gpu/drm/i915/pxp/intel_pxp_sm.h
-index b5012948f971..5fcf63f804f8 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp_sm.h
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_sm.h
-@@ -84,6 +84,9 @@ struct pxp_protected_session {
- 	bool session_is_in_play;
- };
+@@ -23,6 +24,8 @@ int i915_pxp_ops_ioctl(struct drm_device *dev, void *data, struct drm_file *drmf
+ 	if (copy_from_user(&pxp_info, pxp_ops->info_ptr, sizeof(pxp_info)) != 0)
+ 		return -EFAULT;
  
-+int intel_pxp_sm_reserve_session(struct drm_i915_private *i915, struct drm_file *drmfile,
-+				 int context_id, int session_type, int protection_mode,
-+				 u32 *pxp_tag);
- int pxp_sm_set_kcr_init_reg(struct drm_i915_private *i915);
++	trace_i915_pxp_ops_ioctl(dev, data, drmfile, pxp_info.action);
++
+ 	mutex_lock(&i915->pxp.ctx->ctx_mutex);
  
- #endif /* __INTEL_PXP_SM_H__ */
+ 	if (i915->pxp.ctx->global_state_in_suspend) {
+@@ -198,6 +201,8 @@ static int intel_pxp_teardown_required_callback(struct drm_i915_private *i915)
+ 
+ 	mutex_unlock(&i915->pxp.ctx->ctx_mutex);
+ 
++	trace_i915_pxp_teardown_required_callback(i915->pxp.ctx->global_state_attacked);
++
+ 	return ret;
+ }
+ 
+@@ -220,6 +225,7 @@ static int intel_pxp_global_terminate_complete_callback(struct drm_i915_private
+ end:
+ 	mutex_unlock(&i915->pxp.ctx->ctx_mutex);
+ 
++	trace_i915_pxp_global_terminate_complete_callback(i915->pxp.ctx->global_state_attacked);
+ 	return ret;
+ }
+ 
 -- 
 2.17.1
 
