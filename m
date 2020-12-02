@@ -7,31 +7,31 @@ X-Spam-Status: No, score=-13.9 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
 	URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8CC07C6369E
-	for <intel-gfx@archiver.kernel.org>; Wed,  2 Dec 2020 21:28:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 00E39C64E7C
+	for <intel-gfx@archiver.kernel.org>; Wed,  2 Dec 2020 21:28:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AEA5122206
-	for <intel-gfx@archiver.kernel.org>; Wed,  2 Dec 2020 21:28:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AEA5122206
+	by mail.kernel.org (Postfix) with ESMTPS id 17967208FE
+	for <intel-gfx@archiver.kernel.org>; Wed,  2 Dec 2020 21:28:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 17967208FE
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E07A26EADB;
-	Wed,  2 Dec 2020 21:28:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F22266EADF;
+	Wed,  2 Dec 2020 21:28:25 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D17C16EAE2
- for <intel-gfx@lists.freedesktop.org>; Wed,  2 Dec 2020 21:28:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B2D7A6EB0B
+ for <intel-gfx@lists.freedesktop.org>; Wed,  2 Dec 2020 21:28:23 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23195636-1500050 
- for multiple; Wed, 02 Dec 2020 21:28:11 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23195638-1500050 
+ for multiple; Wed, 02 Dec 2020 21:28:16 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed,  2 Dec 2020 21:28:09 +0000
-Message-Id: <20201202212809.26233-1-chris@chris-wilson.co.uk>
+Date: Wed,  2 Dec 2020 21:28:14 +0000
+Message-Id: <20201202212814.26320-1-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
 Subject: [Intel-gfx] [PATCH v3] drm/i915/display: Record the plane update
