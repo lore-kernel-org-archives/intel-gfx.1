@@ -2,50 +2,44 @@ Return-Path: <SRS0=sbLu=FH=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-18.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,INCLUDES_PULL_REQUEST,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5302CC83016
-	for <intel-gfx@archiver.kernel.org>; Thu,  3 Dec 2020 13:47:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 06425C07318
+	for <intel-gfx@archiver.kernel.org>; Thu,  3 Dec 2020 13:49:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0E1DF20784
-	for <intel-gfx@archiver.kernel.org>; Thu,  3 Dec 2020 13:47:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0E1DF20784
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 23B39206F6
+	for <intel-gfx@archiver.kernel.org>; Thu,  3 Dec 2020 13:49:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 23B39206F6
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 14F4F6EB68;
-	Thu,  3 Dec 2020 13:47:09 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D8886E0C6;
- Thu,  3 Dec 2020 13:47:07 +0000 (UTC)
-IronPort-SDR: Q/XjP2j90MhnwoKteiWUk8UZ+QJNceGkmgmgha9wDP533xTkNFUBlRdPN3ATJHzWvWROb3uVFB
- XfzCwfupncUA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9823"; a="191423565"
-X-IronPort-AV: E=Sophos;i="5.78,389,1599548400"; d="scan'208";a="191423565"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Dec 2020 05:47:07 -0800
-IronPort-SDR: V6nooksqB85zL8OhDDjZez9e2+sodtVNFUUHz09vMLDhy4HIcQ269ykdaC+zuvNsCqjindO7pY
- KtA6FLYDqvfw==
-X-IronPort-AV: E=Sophos;i="5.78,389,1599548400"; d="scan'208";a="435393736"
-Received: from snaskar-mobl.amr.corp.intel.com (HELO intel.com)
- ([10.212.71.168])
- by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Dec 2020 05:47:06 -0800
-Date: Thu, 3 Dec 2020 05:47:05 -0800
-From: Rodrigo Vivi <rodrigo.vivi@intel.com>
-To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel.vetter@ffwll.ch>
-Message-ID: <20201203134705.GA1575873@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 861E96EB6A;
+	Thu,  3 Dec 2020 13:49:20 +0000 (UTC)
+Received: from fireflyinternet.com (unknown [77.68.26.236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 449B86EB6A
+ for <intel-gfx@lists.freedesktop.org>; Thu,  3 Dec 2020 13:49:19 +0000 (UTC)
+X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
+ x-ip-name=78.156.65.138; 
+Received: from localhost (unverified [78.156.65.138]) 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP (TLS) id
+ 23202657-1500050 
+ for <intel-gfx@lists.freedesktop.org>; Thu, 03 Dec 2020 13:49:16 +0000
 MIME-Version: 1.0
-Content-Disposition: inline
-Subject: [Intel-gfx] [PULL] drm-intel-fixes v2
+In-Reply-To: <20201203081616.1645-1-chris@chris-wilson.co.uk>
+References: <20201203081616.1645-1-chris@chris-wilson.co.uk>
+From: Chris Wilson <chris@chris-wilson.co.uk>
+Cc: 
+To: intel-gfx@lists.freedesktop.org
+Date: Thu, 03 Dec 2020 13:49:15 +0000
+Message-ID: <160700335502.22976.13123800660964204143@build.alporthouse.com>
+User-Agent: alot/0.9
+Subject: Re: [Intel-gfx] [PATCH 1/4] drm/i915/gt: Ignore repeated attempts
+ to suspend request flow across reset
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,84 +52,23 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dim-tools@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Maxime Ripard <mripard@kernel.org>, intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Dave and Daniel,
-
-Please ignore the pull request I had sent yesterday and use only this one.
-
-I had missed one patch: 14d1eaf08845 ("drm/i915/gt: Protect context lifetime with RCU").
-
-Also, please notice that the commit 6db58901c2aa ("drm/i915/display: return earlier from
-+intel_modeset_init() without display") was not actually a crucial fix, but it
-+allowed a clean pick of the use-after-free one.
-
-Here goes drm-intel-fixes-2020-12-03:
-Fixes for GPU hang, null dereference, suspend-resume, power consumption, and use-after-free.
-
-- Program mocs:63 for cache eviction on gen9 (Chris)
-- Protect context lifetime with RCU (Chris)
-- Split the breadcrumb spinlock between global and contexts (Chris)
-- Retain default context state across shrinking (Venkata)
-- Limit frequency drop to RPe on parking (Chris)
-- Return earlier from intel_modeset_init() without display (Jani)
-- Defer initial modeset until after GGTT is initialized (Chris)
-
-Thanks,
-Rodrigo.
-
-The following changes since commit b65054597872ce3aefbc6a666385eabdf9e288da:
-
-  Linux 5.10-rc6 (2020-11-29 15:50:50 -0800)
-
-are available in the Git repository at:
-
-  git://anongit.freedesktop.org/drm/drm-intel tags/drm-intel-fixes-2020-12-03
-
-for you to fetch changes up to ccc9e67ab26feda7e62749bb54c05d7abe07dca9:
-
-  drm/i915/display: Defer initial modeset until after GGTT is initialised (2020-12-02 17:05:58 -0800)
-
-----------------------------------------------------------------
-Fixes for GPU hang, null dereference, suspend-resume, power consumption, and use-after-free.
-
-- Program mocs:63 for cache eviction on gen9 (Chris)
-- Protect context lifetime with RCU (Chris)
-- Split the breadcrumb spinlock between global and contexts (Chris)
-- Retain default context state across shrinking (Venkata)
-- Limit frequency drop to RPe on parking (Chris)
-- Return earlier from intel_modeset_init() without display (Jani)
-- Defer initial modeset until after GGTT is initialized (Chris)
-
-----------------------------------------------------------------
-Chris Wilson (5):
-      drm/i915/gt: Program mocs:63 for cache eviction on gen9
-      drm/i915/gt: Protect context lifetime with RCU
-      drm/i915/gt: Split the breadcrumb spinlock between global and contexts
-      drm/i915/gt: Limit frequency drop to RPe on parking
-      drm/i915/display: Defer initial modeset until after GGTT is initialised
-
-Jani Nikula (1):
-      drm/i915/display: return earlier from intel_modeset_init() without display
-
-Venkata Ramana Nayana (1):
-      drm/i915/gt: Retain default context state across shrinking
-
- drivers/gpu/drm/i915/display/intel_display.c      |  24 ++--
- drivers/gpu/drm/i915/gt/intel_breadcrumbs.c       | 168 ++++++++++------------
- drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h |   6 +-
- drivers/gpu/drm/i915/gt/intel_context.c           |  15 +-
- drivers/gpu/drm/i915/gt/intel_context_types.h     |  23 ++-
- drivers/gpu/drm/i915/gt/intel_mocs.c              |  14 +-
- drivers/gpu/drm/i915/gt/intel_rps.c               |   4 +
- drivers/gpu/drm/i915/gt/shmem_utils.c             |   7 +-
- drivers/gpu/drm/i915/i915_request.h               |   6 +-
- 9 files changed, 143 insertions(+), 124 deletions(-)
+Quoting Chris Wilson (2020-12-03 08:16:13)
+> Before reseting the engine, we suspend the execution of the guilty
+> request, so that we can continue execution with a new context while we
+> slowly compress the captured error state for the guilty context. However,
+> if the reset fails, we will promptly attempt to reset the same request
+> again, and discover the ongoing capture. Ignore the second attempt to
+> suspend and capture the same request.
+> 
+> Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/1168
+> Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+Fixes: 32ff621fd744 ("drm/i915/gt: Allow temporary suspension of inflight requests")
+Cc: <stable@vger.kernel.org> # v5.7+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
