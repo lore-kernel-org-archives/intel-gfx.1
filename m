@@ -2,62 +2,52 @@ Return-Path: <SRS0=sbLu=FH=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8D95EC4361A
-	for <intel-gfx@archiver.kernel.org>; Thu,  3 Dec 2020 23:38:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5D72BC4361A
+	for <intel-gfx@archiver.kernel.org>; Thu,  3 Dec 2020 23:51:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2EA6D2223E
-	for <intel-gfx@archiver.kernel.org>; Thu,  3 Dec 2020 23:38:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2EA6D2223E
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
+	by mail.kernel.org (Postfix) with ESMTPS id 041DE22285
+	for <intel-gfx@archiver.kernel.org>; Thu,  3 Dec 2020 23:51:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 041DE22285
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4CAC56E0DB;
-	Thu,  3 Dec 2020 23:38:53 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [216.205.24.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D5D996E0DB
- for <intel-gfx@lists.freedesktop.org>; Thu,  3 Dec 2020 23:38:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1607038730;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=Hli72dy0cTfWhnPynSoKT4NTzeaVrDo6tur3icwmqMo=;
- b=BBFcD+fGbqljUsC8WwdYc26pSRXGZ/sQpCdKcPlqMgI4t0Vr7X80zmPjqfneMIWSrkuxEs
- T1pyuuGDboFaPF2HGKqyRVPFhlmZafBe2tt1ogjOf322Jiz+YxkgCj2f0q8D9GNJJgo4V7
- 00oCq674VZZzTwkG4IIuFI2R+aHzGxE=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-407-96hGfTrJOeWIf2I_ZaQ1-A-1; Thu, 03 Dec 2020 18:38:46 -0500
-X-MC-Unique: 96hGfTrJOeWIf2I_ZaQ1-A-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
- [10.5.11.23])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1EDBC835DE0;
- Thu,  3 Dec 2020 23:38:45 +0000 (UTC)
-Received: from w520.home (ovpn-112-10.phx2.redhat.com [10.3.112.10])
- by smtp.corp.redhat.com (Postfix) with ESMTP id B59301A890;
- Thu,  3 Dec 2020 23:38:44 +0000 (UTC)
-Date: Thu, 3 Dec 2020 16:38:44 -0700
-From: Alex Williamson <alex.williamson@redhat.com>
-To: "Gao, Fred" <fred.gao@intel.com>
-Message-ID: <20201203163844.2bcc4b85@w520.home>
-In-Reply-To: <DM5PR11MB16436AACB3AE89CC8C4ED4199DF20@DM5PR11MB1643.namprd11.prod.outlook.com>
-References: <20201202171249.17083-1-fred.gao@intel.com>
- <20201202115723.27df527b@w520.home>
- <DM5PR11MB16436AACB3AE89CC8C4ED4199DF20@DM5PR11MB1643.namprd11.prod.outlook.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 23A826E0DE;
+	Thu,  3 Dec 2020 23:51:05 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1558D6E0DE
+ for <intel-gfx@lists.freedesktop.org>; Thu,  3 Dec 2020 23:51:04 +0000 (UTC)
+IronPort-SDR: ujSaxAMpfpmX/rIWpZicyYFPH/r3c2eoX8VtAoktY7N86Agiltu2zCA3tn4cxzzNt9QVoFUvAM
+ jQh7YjOLG78Q==
+X-IronPort-AV: E=McAfee;i="6000,8403,9824"; a="161067212"
+X-IronPort-AV: E=Sophos;i="5.78,390,1599548400"; d="scan'208";a="161067212"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Dec 2020 15:51:03 -0800
+IronPort-SDR: TB2tPq018SCv/L2qDthc2m6bNiyOdOYrk9JvW3mYQ1mxiEiZhY69xR1zF9vEqvw0jKxhYk2FAN
+ okfUhB90BmCA==
+X-IronPort-AV: E=Sophos;i="5.78,390,1599548400"; d="scan'208";a="550716511"
+Received: from labuser-z97x-ud5h.jf.intel.com ([10.165.21.211])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-SHA;
+ 03 Dec 2020 15:51:03 -0800
+From: Manasi Navare <manasi.d.navare@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Thu,  3 Dec 2020 15:53:57 -0800
+Message-Id: <20201203235358.18041-8-manasi.d.navare@intel.com>
+X-Mailer: git-send-email 2.19.1
+In-Reply-To: <20201203235358.18041-1-manasi.d.navare@intel.com>
+References: <20201203235358.18041-1-manasi.d.navare@intel.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
-Subject: Re: [Intel-gfx] [PATCH v1] vfio/pci: Add support for opregion v2.0+
+Subject: [Intel-gfx] [PATCH v3 8/9] drm/i915/display/vrr: Set IGNORE_MSA_PAR
+ state in DP Sink
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,179 +60,53 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Fonn, Swee Yee" <swee.yee.fonn@intel.com>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "kvm@vger.kernel.org" <kvm@vger.kernel.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 3 Dec 2020 09:21:03 +0000
-"Gao, Fred" <fred.gao@intel.com> wrote:
-
-> Thanks Alex for the timely review.
-> 
-> > -----Original Message-----
-> > From: Alex Williamson <alex.williamson@redhat.com>
-> > Sent: Thursday, December 3, 2020 2:57 AM
-> > To: Gao, Fred <fred.gao@intel.com>
-> > Cc: kvm@vger.kernel.org; intel-gfx@lists.freedesktop.org; Zhenyu Wang
-> > <zhenyuw@linux.intel.com>; Fonn, Swee Yee <swee.yee.fonn@intel.com>
-> > Subject: Re: [PATCH v1] vfio/pci: Add support for opregion v2.0+
-> > 
-> > On Thu,  3 Dec 2020 01:12:49 +0800
-> > Fred Gao <fred.gao@intel.com> wrote:
-> >   
-> > > When VBT data exceeds 6KB size and cannot be within mailbox #4
-> > > starting from opregion v2.0+, Extended VBT region, next to opregion,
-> > > is used to hold the VBT data, so the total size will be opregion size
-> > > plus extended VBT region size.
-> > >
-> > > For opregion 2.1+: since rvda is relative offset from opregion base,
-> > > rvda as extended VBT start offset should be same as opregion size.
-> > >
-> > > For opregion 2.0: the only difference between opregion 2.0 and 2.1 is
-> > > rvda addressing mode besides the version. since rvda is physical host
-> > > VBT address and cannot be directly used in guest, it is faked into
-> > > opregion 2.1's relative offset.
-> > >
-> > > Cc: Zhenyu Wang <zhenyuw@linux.intel.com>
-> > > Signed-off-by: Swee Yee Fonn <swee.yee.fonn@intel.com>
-> > > Signed-off-by: Fred Gao <fred.gao@intel.com>
-> > > ---
-> > >  drivers/vfio/pci/vfio_pci_igd.c | 44
-> > > +++++++++++++++++++++++++++++++++
-> > >  1 file changed, 44 insertions(+)
-> > >
-> > > diff --git a/drivers/vfio/pci/vfio_pci_igd.c
-> > > b/drivers/vfio/pci/vfio_pci_igd.c index 53d97f459252..78919a289914
-> > > 100644
-> > > --- a/drivers/vfio/pci/vfio_pci_igd.c
-> > > +++ b/drivers/vfio/pci/vfio_pci_igd.c
-> > > @@ -21,6 +21,17 @@
-> > >  #define OPREGION_SIZE		(8 * 1024)
-> > >  #define OPREGION_PCI_ADDR	0xfc
-> > >
-> > > +/*
-> > > + * opregion 2.0: rvda is the physical VBT address.  
-> > 
-> > What's rvda?  What's VBT?  
-> Rvda is a struct member in opregion mailbox 3 ,
->  same definition in i915's struct opregion_asle.
->   I,e  Physical address of raw VBT data (v2.0) or 
-> Relative address from opregion (v2.1).
-> 
-> VBT: video bios table ,
->         the data is  stored in  opregion mailbox 4 before opregion v2.0.
->         After opregion v2.0+ , VBT data is larger than mailbox 4, 
->         so Extended VBT region, next to opregion  is used to hold the data.
-
-
-Are these published anywhere?  I can only find revision 1.0 available.
-
-
-> > > + *
-> > > + * opregion 2.1+: rvda is unsigned, relative offset from
-> > > + * opregion base, and should never point within opregion.
-> > > + */
-> > > +#define OPREGION_RDVA		0x3ba
-> > > +#define OPREGION_RDVS		0x3c2
-> > > +#define OPREGION_VERSION	22  
-> > 
-> > Why is this specified as decimal and the others in hex?  This makes it seem
-> > like the actual version rather than the offset of a version register.  
-> 
-> Yes, it is an offset, will redefine the opregion version offset in hex. 
-> > > +
-> > > +
-> > >  static size_t vfio_pci_igd_rw(struct vfio_pci_device *vdev, char __user  
-> > *buf,  
-> > >  			      size_t count, loff_t *ppos, bool iswrite)  { @@ -  
-> > 58,6 +69,7  
-> > > @@ static int vfio_pci_igd_opregion_init(struct vfio_pci_device *vdev)
-> > >  	u32 addr, size;
-> > >  	void *base;
-> > >  	int ret;
-> > > +	u16 version;
-> > >
-> > >  	ret = pci_read_config_dword(vdev->pdev, OPREGION_PCI_ADDR,  
-> > &addr);  
-> > >  	if (ret)
-> > > @@ -83,6 +95,38 @@ static int vfio_pci_igd_opregion_init(struct
-> > > vfio_pci_device *vdev)
-> > >
-> > >  	size *= 1024; /* In KB */
-> > >
-> > > +	/* Support opregion v2.0+ */
-> > > +	version = le16_to_cpu(*(__le16 *)(base + OPREGION_VERSION));
-> > > +	if (version >= 0x0200) {
-> > > +		u64 rvda;
-> > > +		u32 rvds;
-> > > +
-> > > +		rvda = le64_to_cpu(*(__le64 *)(base + OPREGION_RDVA));
-> > > +		rvds = le32_to_cpu(*(__le32 *)(base + OPREGION_RDVS));
-> > > +		if (rvda && rvds) {
-> > > +			u32 offset;
-> > > +
-> > > +			if (version == 0x0200)
-> > > +				offset = (rvda - (u64)addr);  
-> > 
-> > Unnecessary outer ()  
-> Thx, will remove in new patch.
-> > > +			else
-> > > +				offset = rvda;
-> > > +
-> > > +			pci_WARN(vdev->pdev, offset != size,
-> > > +				"Extended VBT does not follow opregion !\n"
-> > > +				"opregion version 0x%x:offset 0x%x\n",  
-> > version, offset);  
-> > > +
-> > > +			if (version == 0x0200) {
-> > > +				/* opregion version v2.0 faked to v2.1 */
-> > > +				*(__le16 *)(base + OPREGION_VERSION) =
-> > > +					cpu_to_le16(0x0201);
-> > > +				/* rvda faked to relative offset */
-> > > +				(*(__le64 *)(base + OPREGION_RDVA)) =
-> > > +					cpu_to_le64((rvda - (u64)addr));  
-> > 
-> > We're writing to the OpRegion and affecting all future use of it, seems
-> > dangerous.  
-> 
->   from the opregion v2.0+ specification 
-> since there is only RVDA difference between opregion v2.0 and v2.1 besides the version
->   It is the simplest solution and should not impact the future use.
-
-*Should* not, but I'm not so confident without a spec to reference.
-
-
-> > > +			}
-> > > +			size = offset + rvds;  
-> > 
-> > 
-> > We warn about VBT (whatever that is) not immediately following the
-> > OpRegion, but then we go ahead and size the thing that we expose to
-> > userspace to allow read access to everything between the OpRegion and
-> > VBT??  
-> From the specification , there should no hole between opregion and VBT.
-> But I am not sure if some vendor BIOS will make the hole.
-> Can we return the error if this abnormal thing happens ?
-
-It seems rather dangerous to allow a user to have read access to an
-unknown extent of unknown data... right?  Thanks,
-
-Alex
-
-
-> > > +		}
-> > > +	}
-> > > +
-> > >  	if (size != OPREGION_SIZE) {
-> > >  		memunmap(base);
-> > >  		base = memremap(addr, size, MEMREMAP_WB);  
-> 
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+SWYgVlJSIGlzIGVuYWJsZWQsIHRoZSBzaW5rIHNob3VsZCBpZ25vcmUgTVNBIHBhcmFtZXRlcnMK
+YW5kIHJlZ2VuZXJhdGUgaW5jb21pbmcgdmlkZW8gc3RyZWFtIHdpdGhvdXQgZGVwZW5kaW5nCm9u
+IHRoZXNlIHBhcmFtZXRlcnMuIEhlbmNlIHNldCB0aGUgTVNBX1RJTUlOR19QQVJfSUdOT1JFX0VO
+CmJpdCBpZiBWUlIgaXMgZW5hYmxlZC4KUmVzZXQgdGhpcyBiaXQgb24gVlJSIGRpc2FibGUuCgpD
+YzogVmlsbGUgU3lyasOkbMOkIDx2aWxsZS5zeXJqYWxhQGxpbnV4LmludGVsLmNvbT4KQ2M6IEph
+bmkgTmlrdWxhIDxqYW5pLm5pa3VsYUBsaW51eC5pbnRlbC5jb20+ClNpZ25lZC1vZmYtYnk6IE1h
+bmFzaSBOYXZhcmUgPG1hbmFzaS5kLm5hdmFyZUBpbnRlbC5jb20+Ci0tLQogZHJpdmVycy9ncHUv
+ZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kZGkuYyB8IDI1ICsrKysrKysrKysrKysrKysrKysrKysr
+KwogMSBmaWxlIGNoYW5nZWQsIDI1IGluc2VydGlvbnMoKykKCmRpZmYgLS1naXQgYS9kcml2ZXJz
+L2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2RkaS5jIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUv
+ZGlzcGxheS9pbnRlbF9kZGkuYwppbmRleCAwN2ZiNzI5NmM4YzcuLjdkYjQ5YWJkNTk3MyAxMDA2
+NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kZGkuYworKysgYi9k
+cml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2RkaS5jCkBAIC0zNDg2LDYgKzM0ODYs
+MjIgQEAgaTkxNV9yZWdfdCBkcF90cF9zdGF0dXNfcmVnKHN0cnVjdCBpbnRlbF9lbmNvZGVyICpl
+bmNvZGVyLAogCQlyZXR1cm4gRFBfVFBfU1RBVFVTKGVuY29kZXItPnBvcnQpOwogfQogCitzdGF0
+aWMgdm9pZCBpbnRlbF9kcF9zaW5rX3NldF9tc2FfdGltaW5nX3Bhcl9pZ25vcmVfc3RhdGUoc3Ry
+dWN0IGludGVsX2RwICppbnRlbF9kcCwKKwkJCQkJCQkgIGNvbnN0IHN0cnVjdCBpbnRlbF9jcnRj
+X3N0YXRlICpjcnRjX3N0YXRlLAorCQkJCQkJCSAgYm9vbCBlbmFibGUpCit7CisJc3RydWN0IGRy
+bV9pOTE1X3ByaXZhdGUgKmk5MTUgPSBkcF90b19pOTE1KGludGVsX2RwKTsKKworCWlmICghY3J0
+Y19zdGF0ZS0+dnJyLmVuYWJsZSkKKwkJcmV0dXJuOworCisJaWYgKGRybV9kcF9kcGNkX3dyaXRl
+YigmaW50ZWxfZHAtPmF1eCwgRFBfRE9XTlNQUkVBRF9DVFJMLAorCQkJICAgICAgIGVuYWJsZSA/
+IERQX01TQV9USU1JTkdfUEFSX0lHTk9SRV9FTiA6IDApIDw9IDApCisJCWRybV9kYmdfa21zKCZp
+OTE1LT5kcm0sCisJCQkgICAgIkZhaWxlZCB0byBzZXQgTVNBX1RJTUlOR19QQVJfSUdOT1JFICVz
+IGluIHRoZSBzaW5rXG4iLAorCQkJICAgIGVuYWJsZSA/ICJlbmFibGUiIDogImRpc2FibGUiKTsK
+K30KKwogc3RhdGljIHZvaWQgaW50ZWxfZHBfc2lua19zZXRfZmVjX3JlYWR5KHN0cnVjdCBpbnRl
+bF9kcCAqaW50ZWxfZHAsCiAJCQkJCWNvbnN0IHN0cnVjdCBpbnRlbF9jcnRjX3N0YXRlICpjcnRj
+X3N0YXRlKQogewpAQCAtMzY1OSw2ICszNjc1LDEyIEBAIHN0YXRpYyB2b2lkIHRnbF9kZGlfcHJl
+X2VuYWJsZV9kcChzdHJ1Y3QgaW50ZWxfYXRvbWljX3N0YXRlICpzdGF0ZSwKIAkgKi8KIAlpbnRl
+bF9kcF9zaW5rX3NldF9mZWNfcmVhZHkoaW50ZWxfZHAsIGNydGNfc3RhdGUpOwogCisJLyoKKwkg
+KiBTaW5rIGRldmljZSBzaG91bGQgaWdub3JlIE1TQSBwYXJhbWV0ZXJzIGFuZCByZWdlbmVyYXRl
+CisJICogaW5jb21pbmcgdmlkZW8gc3RyZWFtIGluIGNhc2Ugb2YgVlJSL0FkYXB0aXZlIFN5bmMK
+KwkgKi8KKwlpbnRlbF9kcF9zaW5rX3NldF9tc2FfdGltaW5nX3Bhcl9pZ25vcmVfc3RhdGUoaW50
+ZWxfZHAsIGNydGNfc3RhdGUsIHRydWUpOworCiAJLyoKIAkgKiA3LmkgRm9sbG93IERpc3BsYXlQ
+b3J0IHNwZWNpZmljYXRpb24gdHJhaW5pbmcgc2VxdWVuY2UgKHNlZSBub3RlcyBmb3IKIAkgKiAg
+ICAgZmFpbHVyZSBoYW5kbGluZykKQEAgLTQyODYsNiArNDMwOCw5IEBAIHN0YXRpYyB2b2lkIGlu
+dGVsX2Rpc2FibGVfZGRpX2RwKHN0cnVjdCBpbnRlbF9hdG9taWNfc3RhdGUgKnN0YXRlLAogCS8q
+IERpc2FibGUgdGhlIGRlY29tcHJlc3Npb24gaW4gRFAgU2luayAqLwogCWludGVsX2RwX3Npbmtf
+c2V0X2RlY29tcHJlc3Npb25fc3RhdGUoaW50ZWxfZHAsIG9sZF9jcnRjX3N0YXRlLAogCQkJCQkg
+ICAgICBmYWxzZSk7CisJLyogRGlzYWJsZSBJZ25vcmVfTVNBIGJpdCBpbiBEUCBTaW5rICovCisJ
+aW50ZWxfZHBfc2lua19zZXRfbXNhX3RpbWluZ19wYXJfaWdub3JlX3N0YXRlKGludGVsX2RwLCBv
+bGRfY3J0Y19zdGF0ZSwKKwkJCQkJCSAgICAgIGZhbHNlKTsKIH0KIAogc3RhdGljIHZvaWQgaW50
+ZWxfZGlzYWJsZV9kZGlfaGRtaShzdHJ1Y3QgaW50ZWxfYXRvbWljX3N0YXRlICpzdGF0ZSwKLS0g
+CjIuMTkuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
+SW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRlbC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0
+dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vaW50ZWwtZ2Z4Cg==
