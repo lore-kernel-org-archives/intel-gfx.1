@@ -2,78 +2,41 @@ Return-Path: <SRS0=sbLu=FH=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-18.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
-	INCLUDES_PULL_REQUEST,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 731BFC63777
-	for <intel-gfx@archiver.kernel.org>; Thu,  3 Dec 2020 12:59:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 996C8C63777
+	for <intel-gfx@archiver.kernel.org>; Thu,  3 Dec 2020 13:14:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B99EB22245
-	for <intel-gfx@archiver.kernel.org>; Thu,  3 Dec 2020 12:59:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B99EB22245
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=cerno.tech
+	by mail.kernel.org (Postfix) with ESMTPS id E415220872
+	for <intel-gfx@archiver.kernel.org>; Thu,  3 Dec 2020 13:14:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E415220872
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 91D5C6E995;
-	Thu,  3 Dec 2020 12:59:51 +0000 (UTC)
-Received: from new4-smtp.messagingengine.com (new4-smtp.messagingengine.com
- [66.111.4.230])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 14FA989FA5;
- Thu,  3 Dec 2020 12:59:49 +0000 (UTC)
-Received: from compute6.internal (compute6.nyi.internal [10.202.2.46])
- by mailnew.nyi.internal (Postfix) with ESMTP id 5C5EA58041E;
- Thu,  3 Dec 2020 07:59:47 -0500 (EST)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute6.internal (MEProxy); Thu, 03 Dec 2020 07:59:47 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
- date:from:to:cc:subject:message-id:mime-version:content-type; s=
- fm1; bh=XXaaqays4k4y7Whh8IvMz3SH6yY2pfiiN9hKc+1ZNBQ=; b=YkODmNQ9
- Zum4/Xygxm4ncgQOD0LStSbmqKjh1Rc+lN5uCwgvklHsnXIvadnc55ynzZ547fH4
- pgHl3YXPlXSDv+pW+m7Ji+xrNB81gxVANGAbELwLkPK++I4HzFEFBCkmdhXEeInu
- k40vKGokKTzqZm2IbPt+XlmQErEgYZY+FSW80NDJ2Q8nEBtfE6+WHIrt0Mq6WCNF
- TNhwPlYIfs2MPObSuZwpluy6bLS0yT3rc8Q0aUVaHg/dsDKKyYa0BXdTSFj225cL
- aanN6vk5rXnzXKdWuWRmPFBLoKEud/Xta282lj2uN0LkoIw6NXpbQStRqJYjqxF/
- tOWvSMBVUTuPPw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:message-id
- :mime-version:subject:to:x-me-proxy:x-me-proxy:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm1; bh=XXaaqays4k4y7Whh8IvMz3SH6yY2p
- fiiN9hKc+1ZNBQ=; b=AKb5AEaRe2THXjXI+KqXYkGrdKLU+ZwN5lq1ltVQqMRbb
- S98tNBNeXxox+jldO5kWouYkVga5cZaMeUo+krRIz3cVln8Hc+5b7pIITB7dQS3J
- qSqEhPhmxuIOiTwSPFadBmS/V7j9S4HsJU5khnN8ycOQ1+HfpxLgjMHZE57xsTW8
- hBomfQjoGZ7/JZmXIkCAoyWrRLZl5L7cuOJdWbAosFEhAcm9xxXsVIZkSUKkitdN
- 0sme9N89ID3EwCmAYKyVe2K5fMSVmElkpMFIq+1L3xDPOM3g66e+pWBiumrOG+Fl
- MKUdYZppqyHKCt+9noSv6h5or7BeBgoNWHkJLtfaA==
-X-ME-Sender: <xms:QeHIXzIwI8-1MsPefQVBrxVT67ZstbJNVXWxDZoKlzYkj4TXTmO9WA>
- <xme:QeHIX3KNVuFM8aYBvfla6I4Tc-ovKuKhSbTkAHSQqanJXVJo6sojQ8nafiz-QWeKd
- rkUD3YGdQ-uej9vRNw>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedujedrudeiiedggeekucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepfffhvffukfggtggusehgtderredttddunecuhfhrohhmpeforgigihhmvgcu
- tfhiphgrrhguuceomhgrgihimhgvsegtvghrnhhordhtvggthheqnecuggftrfgrthhtvg
- hrnhephfehtefggeekteffueeileekfeegteetfffggfekleehkeffvedvgedtieetvddu
- necuffhomhgrihhnpehfrhgvvgguvghskhhtohhprdhorhhgnecukfhppeeltddrkeelrd
- eikedrjeeinecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhho
- mhepmhgrgihimhgvsegtvghrnhhordhtvggthh
-X-ME-Proxy: <xmx:QeHIX7v9Zu0PDUGUIALh-U2yCif8Rg8f75vj8vB3VtH_NYDVxrDkxw>
- <xmx:QeHIX8Z2F_RLoJpvVhCI9EU50tJZyN25EEcOBhXGhCdpIQ9iLPoM4g>
- <xmx:QeHIX6Y6f3GOjJzotmypKDlw7VOgICPO9y_GYIgRB1S25QxuJEhVZA>
- <xmx:Q-HIXwPLjGWRoHRLksq7K98xZJVrzBCalPe8CBX1KdaJTYeKVa0jfA>
-Received: from localhost (lfbn-tou-1-1502-76.w90-89.abo.wanadoo.fr
- [90.89.68.76])
- by mail.messagingengine.com (Postfix) with ESMTPA id 092941080057;
- Thu,  3 Dec 2020 07:59:44 -0500 (EST)
-Date: Thu, 3 Dec 2020 13:59:43 +0100
-From: Maxime Ripard <maxime@cerno.tech>
-To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel.vetter@ffwll.ch>
-Message-ID: <20201203125943.h2ft2xoywunt5orl@gilmour>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 10B3B6EB6A;
+	Thu,  3 Dec 2020 13:14:00 +0000 (UTC)
+Received: from fireflyinternet.com (unknown [77.68.26.236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F06616E9B8;
+ Thu,  3 Dec 2020 13:13:58 +0000 (UTC)
+X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
+ x-ip-name=78.156.65.138; 
+Received: from localhost (unverified [78.156.65.138]) 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP (TLS) id
+ 23202106-1500050 for multiple; Thu, 03 Dec 2020 13:13:44 +0000
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PULL] drm-misc-fixes
+In-Reply-To: <X8jH5D//XHDsXKtQ@intel.intel>
+References: <X8ilneOcJAjwqU4t@mwanda> <X8jH5D//XHDsXKtQ@intel.intel>
+From: Chris Wilson <chris@chris-wilson.co.uk>
+To: Andi Shyti <andi.shyti@intel.com>, Dan Carpenter <dan.carpenter@oracle.com>
+Date: Thu, 03 Dec 2020 13:13:42 +0000
+Message-ID: <160700122270.3473.6016063697830335784@build.alporthouse.com>
+User-Agent: alot/0.9
+Subject: Re: [Intel-gfx] [PATCH] drm/i915: Check the correct variable
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,104 +49,44 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dim-tools@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Maxime Ripard <mripard@kernel.org>, intel-gfx@lists.freedesktop.org
-Content-Type: multipart/mixed; boundary="===============1902441249=="
+Cc: David Airlie <airlied@linux.ie>, intel-gfx@lists.freedesktop.org, Thomas Hellström <thomas.hellstrom@intel.com>, kernel-janitors@vger.kernel.org, dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+Quoting Andi Shyti (2020-12-03 11:12:24)
+> Hi Dan,
+> 
+> > There is a copy and paste bug in this code.  It's supposed to check
+> > "obj2" instead of checking "obj" a second time.
+> > 
+> > Fixes: 80f0b679d6f0 ("drm/i915: Add an implementation for i915_gem_ww_ctx locking, v2.")
+> > Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
+> > ---
+> >  drivers/gpu/drm/i915/selftests/i915_gem.c | 4 ++--
+> >  1 file changed, 2 insertions(+), 2 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/i915/selftests/i915_gem.c b/drivers/gpu/drm/i915/selftests/i915_gem.c
+> > index 23a6132c5f4e..412e21604a05 100644
+> > --- a/drivers/gpu/drm/i915/selftests/i915_gem.c
+> > +++ b/drivers/gpu/drm/i915/selftests/i915_gem.c
+> > @@ -211,8 +211,8 @@ static int igt_gem_ww_ctx(void *arg)
+> >               return PTR_ERR(obj);
+> >  
+> >       obj2 = i915_gem_object_create_internal(i915, PAGE_SIZE);
+> > -     if (IS_ERR(obj)) {
+> > -             err = PTR_ERR(obj);
+> > +     if (IS_ERR(obj2)) {
+> > +             err = PTR_ERR(obj2);
+> 
+> Reviewed-by: Andi Shyti <andi.shyti@intel.com>
 
---===============1902441249==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="k73hb63skliru4kq"
-Content-Disposition: inline
+I gave up waiting for patchwork to spot the original patch, and pushed.
 
-
---k73hb63skliru4kq
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-Hi Daniel, Dave,
-
-Here's this week round of fixes for drm-misc
-
-Thanks!
-Maxime
-
-drm-misc-fixes-2020-12-03:
-One bridge fix for OMAP, one for a race condition in a panel, two for
-uninitialized variables in rockchip and nouveau, and two fixes for mxsfb
-to fix a regression with modifiers and a fix for a fence synchronization
-issue.
-The following changes since commit 2be65641642ef423f82162c3a5f28c754d1637d2:
-
-  drm/nouveau: fix relocations applying logic and a double-free (2020-11-26=
- 08:04:19 +0100)
-
-are available in the Git repository at:
-
-  git://anongit.freedesktop.org/drm/drm-misc tags/drm-misc-fixes-2020-12-03
-
-for you to fetch changes up to fd4e788e971ce763e50762d7b1a0048992949dd0:
-
-  drm/omap: sdi: fix bridge enable/disable (2020-11-30 11:27:57 +0200)
-
-----------------------------------------------------------------
-One bridge fix for OMAP, one for a race condition in a panel, two for
-uninitialized variables in rockchip and nouveau, and two fixes for mxsfb
-to fix a regression with modifiers and a fix for a fence synchronization
-issue.
-
-----------------------------------------------------------------
-Christian K=F6nig (1):
-      drm/nouveau: make sure ret is initialized in nouveau_ttm_io_mem_reser=
-ve
-
-Daniel Abrecht (1):
-      drm: mxsfb: Implement .format_mod_supported
-
-Lucas Stach (1):
-      drm: mxsfb: fix fence synchronization
-
-Paul Kocialkowski (1):
-      drm/rockchip: Avoid uninitialized use of endpoint id in LVDS
-
-Sebastian Reichel (1):
-      drm/panel: sony-acx565akm: Fix race condition in probe
-
-Tomi Valkeinen (1):
-      drm/omap: sdi: fix bridge enable/disable
-
- drivers/gpu/drm/mxsfb/mxsfb_kms.c            | 11 +++++++++++
- drivers/gpu/drm/nouveau/nouveau_bo.c         |  2 +-
- drivers/gpu/drm/omapdrm/dss/sdi.c            | 10 ++++------
- drivers/gpu/drm/panel/panel-sony-acx565akm.c |  2 +-
- drivers/gpu/drm/rockchip/rockchip_lvds.c     |  2 +-
- 5 files changed, 18 insertions(+), 9 deletions(-)
-
---k73hb63skliru4kq
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCX8jhPwAKCRDj7w1vZxhR
-xfy0AP9S5Ds+/f3sJ4VCJ/5iB+ty1+mw1TPa3vuiaF/BOeMZaQEApWhszc1zTh4w
-Z8vKPW4JFRgfa+CpCzKg83/NKRaYbwQ=
-=zZ9v
------END PGP SIGNATURE-----
-
---k73hb63skliru4kq--
-
---===============1902441249==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+Thanks,
+-Chris
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-
---===============1902441249==--
