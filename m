@@ -2,40 +2,40 @@ Return-Path: <SRS0=sbLu=FH=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 29E90C433FE
-	for <intel-gfx@archiver.kernel.org>; Thu,  3 Dec 2020 21:39:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 35E49C4361A
+	for <intel-gfx@archiver.kernel.org>; Thu,  3 Dec 2020 22:16:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8B48E207C9
-	for <intel-gfx@archiver.kernel.org>; Thu,  3 Dec 2020 21:39:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8B48E207C9
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
+	by mail.kernel.org (Postfix) with ESMTPS id B823E2220F
+	for <intel-gfx@archiver.kernel.org>; Thu,  3 Dec 2020 22:16:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B823E2220F
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B8F456EC38;
-	Thu,  3 Dec 2020 21:39:19 +0000 (UTC)
-Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B15326EC38
- for <intel-gfx@lists.freedesktop.org>; Thu,  3 Dec 2020 21:39:18 +0000 (UTC)
-X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
- x-ip-name=78.156.65.138; 
-Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23207977-1500050 
- for multiple; Thu, 03 Dec 2020 21:39:11 +0000
-From: Chris Wilson <chris@chris-wilson.co.uk>
-To: intel-gfx@lists.freedesktop.org
-Date: Thu,  3 Dec 2020 21:39:10 +0000
-Message-Id: <20201203213910.31495-1-chris@chris-wilson.co.uk>
-X-Mailer: git-send-email 2.20.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC4C56E092;
+	Thu,  3 Dec 2020 22:16:34 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 1E31F6EC3D;
+ Thu,  3 Dec 2020 22:16:34 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 0DE2DA7525;
+ Thu,  3 Dec 2020 22:16:34 +0000 (UTC)
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH] drm/i915/gt: Track all timelines created using
- the HWSP
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Alex Deucher" <alexdeucher@gmail.com>
+Date: Thu, 03 Dec 2020 22:16:34 -0000
+Message-ID: <160703379403.31153.2140266127944374259@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20200211162208.16224-1-ville.syrjala@linux.intel.com>
+In-Reply-To: <20200211162208.16224-1-ville.syrjala@linux.intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBk?=
+ =?utf-8?q?rm=3A_Try_to_fix_encoder_possible=5Fclones/crtc_=28rev4=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,118 +48,42 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Chris Wilson <chris@chris-wilson.co.uk>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-We assume that the contents of the HWSP are lost across suspend, and so
-upon resume we must restore critical values such as the timeline seqno.
-Keep track of every timeline allocated that uses the HWSP as its storage
-and so we can then reset all seqno values by walking that list.
+== Series Details ==
 
-Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
----
- drivers/gpu/drm/i915/gt/intel_engine_cs.c      |  2 ++
- drivers/gpu/drm/i915/gt/intel_engine_types.h   |  1 +
- drivers/gpu/drm/i915/gt/intel_lrc.c            | 10 +++++++++-
- drivers/gpu/drm/i915/gt/intel_timeline.h       | 13 ++++++++++---
- drivers/gpu/drm/i915/gt/intel_timeline_types.h |  2 ++
- 5 files changed, 24 insertions(+), 4 deletions(-)
+Series: drm: Try to fix encoder possible_clones/crtc (rev4)
+URL   : https://patchwork.freedesktop.org/series/63399/
+State : failure
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-index 2ed03b88ec12..94c169e13f2b 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-@@ -647,6 +647,8 @@ static int init_status_page(struct intel_engine_cs *engine)
- 	void *vaddr;
- 	int ret;
- 
-+	INIT_LIST_HEAD(&engine->status_page.timelines);
-+
- 	/*
- 	 * Though the HWS register does support 36bit addresses, historically
- 	 * we have had hangs and corruption reported due to wild writes if
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_types.h b/drivers/gpu/drm/i915/gt/intel_engine_types.h
-index e71eef157231..c28f4e190fe6 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_types.h
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_types.h
-@@ -68,6 +68,7 @@ typedef u8 intel_engine_mask_t;
- #define ALL_ENGINES ((intel_engine_mask_t)~0ul)
- 
- struct intel_hw_status_page {
-+	struct list_head timelines;
- 	struct i915_vma *vma;
- 	u32 *addr;
- };
-diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
-index d5bd537de9b7..26230a6726e6 100644
---- a/drivers/gpu/drm/i915/gt/intel_lrc.c
-+++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
-@@ -4063,6 +4063,14 @@ static void reset_csb_pointers(struct intel_engine_cs *engine)
- 	GEM_BUG_ON(READ_ONCE(*execlists->csb_write) != reset_value);
- }
- 
-+static void sanitize_timelines(struct intel_engine_cs *engine)
-+{
-+	struct intel_timeline *tl;
-+
-+	list_for_each_entry(tl, &engine->status_page.timelines, engine_link)
-+		intel_timeline_reset_seqno(tl);
-+}
-+
- static void execlists_sanitize(struct intel_engine_cs *engine)
- {
- 	GEM_BUG_ON(execlists_active(&engine->execlists));
-@@ -4086,7 +4094,7 @@ static void execlists_sanitize(struct intel_engine_cs *engine)
- 	 * that may be lost on resume/initialisation, and so we need to
- 	 * reset the value in the HWSP.
- 	 */
--	intel_timeline_reset_seqno(engine->kernel_context->timeline);
-+	sanitize_timelines(engine);
- 
- 	/* And scrub the dirty cachelines for the HWSP */
- 	clflush_cache_range(engine->status_page.addr, PAGE_SIZE);
-diff --git a/drivers/gpu/drm/i915/gt/intel_timeline.h b/drivers/gpu/drm/i915/gt/intel_timeline.h
-index 634acebd0c4b..1ee680d31801 100644
---- a/drivers/gpu/drm/i915/gt/intel_timeline.h
-+++ b/drivers/gpu/drm/i915/gt/intel_timeline.h
-@@ -48,9 +48,16 @@ static inline struct intel_timeline *
- intel_timeline_create_from_engine(struct intel_engine_cs *engine,
- 				  unsigned int offset)
- {
--	return __intel_timeline_create(engine->gt,
--				       engine->status_page.vma,
--				       offset);
-+	struct intel_timeline *tl;
-+
-+	tl = __intel_timeline_create(engine->gt,
-+				     engine->status_page.vma,
-+				     offset);
-+	if (IS_ERR(tl))
-+		return tl;
-+
-+	list_add_tail(&tl->engine_link, &engine->status_page.timelines);
-+	return tl;
- }
- 
- static inline struct intel_timeline *
-diff --git a/drivers/gpu/drm/i915/gt/intel_timeline_types.h b/drivers/gpu/drm/i915/gt/intel_timeline_types.h
-index 4474f487f589..e360f50706bf 100644
---- a/drivers/gpu/drm/i915/gt/intel_timeline_types.h
-+++ b/drivers/gpu/drm/i915/gt/intel_timeline_types.h
-@@ -84,6 +84,8 @@ struct intel_timeline {
- 	struct list_head link;
- 	struct intel_gt *gt;
- 
-+	struct list_head engine_link;
-+
- 	struct kref kref;
- 	struct rcu_head rcu;
- };
--- 
-2.20.1
+== Summary ==
+
+Applying: drm: Include the encoder itself in possible_clones
+Using index info to reconstruct a base tree...
+M	drivers/gpu/drm/drm_crtc_internal.h
+M	drivers/gpu/drm/drm_drv.c
+M	drivers/gpu/drm/drm_mode_config.c
+M	include/drm/drm_encoder.h
+Falling back to patching base and 3-way merge...
+Auto-merging include/drm/drm_encoder.h
+CONFLICT (content): Merge conflict in include/drm/drm_encoder.h
+Auto-merging drivers/gpu/drm/drm_mode_config.c
+CONFLICT (content): Merge conflict in drivers/gpu/drm/drm_mode_config.c
+Auto-merging drivers/gpu/drm/drm_drv.c
+CONFLICT (content): Merge conflict in drivers/gpu/drm/drm_drv.c
+Auto-merging drivers/gpu/drm/drm_crtc_internal.h
+error: Failed to merge in the changes.
+hint: Use 'git am --show-current-patch=diff' to see the failed patch
+Patch failed at 0001 drm: Include the encoder itself in possible_clones
+When you have resolved this problem, run "git am --continue".
+If you prefer to skip this patch, run "git am --skip" instead.
+To restore the original branch and stop patching, run "git am --abort".
+
 
 _______________________________________________
 Intel-gfx mailing list
