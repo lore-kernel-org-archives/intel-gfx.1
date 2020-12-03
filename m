@@ -7,45 +7,47 @@ X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 49F6CC4361B
-	for <intel-gfx@archiver.kernel.org>; Thu,  3 Dec 2020 23:51:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AEB09C4361A
+	for <intel-gfx@archiver.kernel.org>; Thu,  3 Dec 2020 23:51:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E8DAB22285
-	for <intel-gfx@archiver.kernel.org>; Thu,  3 Dec 2020 23:51:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E8DAB22285
+	by mail.kernel.org (Postfix) with ESMTPS id 579192245C
+	for <intel-gfx@archiver.kernel.org>; Thu,  3 Dec 2020 23:51:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 579192245C
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B1EB06E0E3;
-	Thu,  3 Dec 2020 23:51:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D2226E0DF;
+	Thu,  3 Dec 2020 23:51:07 +0000 (UTC)
 Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E1F26E0DE
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 41D7E6E0DD
  for <intel-gfx@lists.freedesktop.org>; Thu,  3 Dec 2020 23:51:04 +0000 (UTC)
-IronPort-SDR: cr6jFsk6XYy2V/8Nh0jw/YZF15k/DkSAsUoeP80TzErpt4rbL+leZl01T+ERXSX3VHu5wBnJC/
- dNedZUaT9gaQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9824"; a="161067204"
-X-IronPort-AV: E=Sophos;i="5.78,390,1599548400"; d="scan'208";a="161067204"
+IronPort-SDR: rkj3SZHxmrBsxSbgde0oKSAIjHTTo1PpP30/WENLbPq6glIiJdFTK+coqte1/9Jm1TI01pMVaL
+ hdXfiuJtOyLA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9824"; a="161067213"
+X-IronPort-AV: E=Sophos;i="5.78,390,1599548400"; d="scan'208";a="161067213"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  03 Dec 2020 15:51:03 -0800
-IronPort-SDR: HLGIj796a9ezA+/32c47XNKMpeHTYVAUjWSinAkK/DOfIX68wV1hJ0ekazNB4b80phnl1L+um2
- anQwbKj9qdNQ==
-X-IronPort-AV: E=Sophos;i="5.78,390,1599548400"; d="scan'208";a="550716490"
+IronPort-SDR: XY903eZvL9TUqWmAQuyGgAu1IsgAxFh6SYg9KLF4TlVNgRZvEXLvIKjDA1bsfGMYm7h17ZqysU
+ 4Vi0V22P9XzQ==
+X-IronPort-AV: E=Sophos;i="5.78,390,1599548400"; d="scan'208";a="550716513"
 Received: from labuser-z97x-ud5h.jf.intel.com ([10.165.21.211])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-SHA;
  03 Dec 2020 15:51:03 -0800
 From: Manasi Navare <manasi.d.navare@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu,  3 Dec 2020 15:53:50 -0800
-Message-Id: <20201203235358.18041-1-manasi.d.navare@intel.com>
+Date: Thu,  3 Dec 2020 15:53:58 -0800
+Message-Id: <20201203235358.18041-9-manasi.d.navare@intel.com>
 X-Mailer: git-send-email 2.19.1
+In-Reply-To: <20201203235358.18041-1-manasi.d.navare@intel.com>
+References: <20201203235358.18041-1-manasi.d.navare@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v3 1/9] drm/i915/display/vrr: Create VRR file
- and add VRR capability check
+Subject: [Intel-gfx] [PATCH v3 9/9] drm/i915/display: Add HW state readout
+ for VRR
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,73 +60,89 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jani Nikula <jani.nikula@intel.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-V2UgY3JlYXRlIGEgbmV3IGZpbGUgZm9yIGFsbCBWUlIgcmVsYXRlZCBoZWxwZXJzLgpBbHNvIGFk
-ZCBhIGZ1bmN0aW9uIHRvIGNoZWNrIHZyciBjYXBhYmlsaXR5IGJhc2VkIG9uCnBsYXRmb3JtIHN1
-cHBvcnQsIERQQ0QgYml0cyBhbmQgRURJRCBtb25pdG9yIHJhbmdlLgoKdjI6CiogUmVtb3ZlIGF1
-dGhvciAoSmFuaSBOKQoqIERlZmluZSBIQVNfVlJSIChKYW5pIE4pCiogRW5zdXJlIGludGVsX2Rw
-IGNhbiBiZSBvYnRhaW5lZCBmcm9tIGNvbm4gKEphbmkgTikKCkNjOiBWaWxsZSBTeXJqw6Rsw6Qg
-PHZpbGxlLnN5cmphbGFAbGludXguaW50ZWwuY29tPgpDYzogSmFuaSBOaWt1bGEgPGphbmkubmlr
-dWxhQGludGVsLmNvbT4KU2lnbmVkLW9mZi1ieTogTWFuYXNpIE5hdmFyZSA8bWFuYXNpLmQubmF2
-YXJlQGludGVsLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9NYWtlZmlsZSAgICAgICAg
-ICAgIHwgIDEgKwogZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF92cnIuYyB8IDMy
-ICsrKysrKysrKysrKysrKysrKysrKysrKwogZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9p
-bnRlbF92cnIuaCB8IDE1ICsrKysrKysrKysrCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X2Ry
-di5oICAgICAgICAgIHwgIDIgKysKIDQgZmlsZXMgY2hhbmdlZCwgNTAgaW5zZXJ0aW9ucygrKQog
-Y3JlYXRlIG1vZGUgMTAwNjQ0IGRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfdnJy
-LmMKIGNyZWF0ZSBtb2RlIDEwMDY0NCBkcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVs
-X3Zyci5oCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvTWFrZWZpbGUgYi9kcml2
-ZXJzL2dwdS9kcm0vaTkxNS9NYWtlZmlsZQppbmRleCBlNTU3NGU1MDZhNWMuLjNiZWVhZjUxNzE5
-MSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvTWFrZWZpbGUKKysrIGIvZHJpdmVy
-cy9ncHUvZHJtL2k5MTUvTWFrZWZpbGUKQEAgLTI0OSw2ICsyNDksNyBAQCBpOTE1LXkgKz0gXAog
-CWRpc3BsYXkvaW50ZWxfc2R2by5vIFwKIAlkaXNwbGF5L2ludGVsX3R2Lm8gXAogCWRpc3BsYXkv
-aW50ZWxfdmRzYy5vIFwKKwlkaXNwbGF5L2ludGVsX3Zyci5vIFwKIAlkaXNwbGF5L3Zsdl9kc2ku
-byBcCiAJZGlzcGxheS92bHZfZHNpX3BsbC5vCiAKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2Ry
-bS9pOTE1L2Rpc3BsYXkvaW50ZWxfdnJyLmMgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5
-L2ludGVsX3Zyci5jCm5ldyBmaWxlIG1vZGUgMTAwNjQ0CmluZGV4IDAwMDAwMDAwMDAwMC4uOGE0
-MjdjMTUyMzQxCi0tLSAvZGV2L251bGwKKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxh
-eS9pbnRlbF92cnIuYwpAQCAtMCwwICsxLDMyIEBACisvKiBTUERYLUxpY2Vuc2UtSWRlbnRpZmll
-cjogTUlUICovCisvKgorICogQ29weXJpZ2h0IMKpIDIwMjAgSW50ZWwgQ29ycG9yYXRpb24KKyAq
-CisgKi8KKworI2luY2x1ZGUgImk5MTVfZHJ2LmgiCisjaW5jbHVkZSAiaW50ZWxfZGlzcGxheV90
-eXBlcy5oIgorI2luY2x1ZGUgImludGVsX3Zyci5oIgorCitib29sIGludGVsX3Zycl9pc19jYXBh
-YmxlKHN0cnVjdCBkcm1fY29ubmVjdG9yICpjb25uZWN0b3IpCit7CisJc3RydWN0IGludGVsX2Rw
-ICppbnRlbF9kcDsKKwljb25zdCBzdHJ1Y3QgZHJtX2Rpc3BsYXlfaW5mbyAqaW5mbyA9ICZjb25u
-ZWN0b3ItPmRpc3BsYXlfaW5mbzsKKwlzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqaTkxNSA9IHRv
-X2k5MTUoY29ubmVjdG9yLT5kZXYpOworCisJaWYgKGNvbm5lY3Rvci0+Y29ubmVjdG9yX3R5cGUg
-IT0gRFJNX01PREVfQ09OTkVDVE9SX2VEUCAmJgorCSAgICBjb25uZWN0b3ItPmNvbm5lY3Rvcl90
-eXBlICE9IERSTV9NT0RFX0NPTk5FQ1RPUl9EaXNwbGF5UG9ydCkKKwkJcmV0dXJuIGZhbHNlOwor
-CisJaW50ZWxfZHAgPSBpbnRlbF9hdHRhY2hlZF9kcCh0b19pbnRlbF9jb25uZWN0b3IoY29ubmVj
-dG9yKSk7CisJLyoKKwkgKiBEUCBTaW5rIGlzIGNhcGFibGUgb2YgVmFyaWFibGUgcmVmcmVzaCB2
-aWRlbyB0aW1pbmdzIGlmCisJICogSWdub3JlIE1TQSBiaXQgaXMgc2V0IGluIERQQ0QuCisJICog
-RURJRCBtb25pdG9yIHJhbmdlIGFsc28gc2hvdWxkIGJlIGF0bGVhc3QgMTAgZm9yIHJlYXNvbmFi
-bGUKKwkgKiBBZGFwdGl2ZSBzeW5jLyBWUlIgZW5kIHVzZXIgZXhwZXJpZW5jZS4KKwkgKi8KKwly
-ZXR1cm4gSEFTX1ZSUihpOTE1KSAmJgorCQlkcm1fZHBfc2lua19jYW5fZG9fdmlkZW9fd2l0aG91
-dF90aW1pbmdfbXNhKGludGVsX2RwLT5kcGNkKSAmJgorCQlpbmZvLT5tb25pdG9yX3JhbmdlLm1h
-eF92ZnJlcSAtIGluZm8tPm1vbml0b3JfcmFuZ2UubWluX3ZmcmVxID4gMTA7Cit9CisKZGlmZiAt
-LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfdnJyLmggYi9kcml2ZXJz
-L2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX3Zyci5oCm5ldyBmaWxlIG1vZGUgMTAwNjQ0Cmlu
-ZGV4IDAwMDAwMDAwMDAwMC4uMzcwMGFjZWM1ZDA5Ci0tLSAvZGV2L251bGwKKysrIGIvZHJpdmVy
-cy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF92cnIuaApAQCAtMCwwICsxLDE1IEBACisvKiBT
-UERYLUxpY2Vuc2UtSWRlbnRpZmllcjogTUlUICovCisvKgorICogQ29weXJpZ2h0IMKpIDIwMTkg
-SW50ZWwgQ29ycG9yYXRpb24KKyovCisKKyNpZm5kZWYgX19JTlRFTF9WUlJfSF9fCisjZGVmaW5l
-IF9fSU5URUxfVlJSX0hfXworCisjaW5jbHVkZSA8bGludXgvdHlwZXMuaD4KKworc3RydWN0IGRy
-bV9jb25uZWN0b3I7CisKK2Jvb2wgaW50ZWxfdnJyX2lzX2NhcGFibGUoc3RydWN0IGRybV9jb25u
-ZWN0b3IgKmNvbm5lY3Rvcik7CisKKyNlbmRpZiAvKiBfX0lOVEVMX1ZSUl9IX18gKi8KZGlmZiAt
-LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfZHJ2LmggYi9kcml2ZXJzL2dwdS9kcm0v
-aTkxNS9pOTE1X2Rydi5oCmluZGV4IGZjMTA5MGM2ODg5Yy4uMzg1YWVjNzQ0YTY0IDEwMDY0NAot
-LS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X2Rydi5oCisrKyBiL2RyaXZlcnMvZ3B1L2Ry
-bS9pOTE1L2k5MTVfZHJ2LmgKQEAgLTE3NTMsNiArMTc1Myw4IEBAIHRnbF9yZXZpZHNfZ2V0KHN0
-cnVjdCBkcm1faTkxNV9wcml2YXRlICpkZXZfcHJpdikKIAogI2RlZmluZSBIQVNfRElTUExBWShk
-ZXZfcHJpdikgKElOVEVMX0lORk8oZGV2X3ByaXYpLT5waXBlX21hc2sgIT0gMCkKIAorI2RlZmlu
-ZSBIQVNfVlJSKGk5MTUpCShJTlRFTF9HRU4oaTkxNSkgPj0gMTIpCisKIC8qIE9ubHkgdmFsaWQg
-d2hlbiBIQVNfRElTUExBWSgpIGlzIHRydWUgKi8KICNkZWZpbmUgSU5URUxfRElTUExBWV9FTkFC
-TEVEKGRldl9wcml2KSBcCiAJKGRybV9XQVJOX09OKCYoZGV2X3ByaXYpLT5kcm0sICFIQVNfRElT
-UExBWShkZXZfcHJpdikpLCAhKGRldl9wcml2KS0+cGFyYW1zLmRpc2FibGVfZGlzcGxheSkKLS0g
-CjIuMTkuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
-SW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRlbC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0
-dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vaW50ZWwtZ2Z4Cg==
+This functions gets the VRR config from the VRR registers
+to match the crtc state variables for VRR.
+
+v2:
+* Rebase (Manasi)
+* Use HAS_VRR (Jani N)
+
+Cc: Jani Nikula <jani.nikula@linux.intel.com>
+Signed-off-by: Manasi Navare <manasi.d.navare@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_display.c |  3 +++
+ drivers/gpu/drm/i915/display/intel_vrr.c     | 17 +++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_vrr.h     |  3 +++
+ 3 files changed, 23 insertions(+)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index fa452eb3adb8..d5b934ecb30c 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -11449,6 +11449,9 @@ static bool hsw_get_pipe_config(struct intel_crtc *crtc,
+ 		intel_get_transcoder_timings(crtc, pipe_config);
+ 	}
+ 
++	if (HAS_VRR(dev_priv))
++		intel_vrr_get_config(crtc, pipe_config);
++
+ 	intel_get_pipe_src_size(crtc, pipe_config);
+ 
+ 	if (IS_HASWELL(dev_priv)) {
+diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
+index a3edfadb50f1..9b867f629f86 100644
+--- a/drivers/gpu/drm/i915/display/intel_vrr.c
++++ b/drivers/gpu/drm/i915/display/intel_vrr.c
+@@ -149,3 +149,20 @@ void intel_vrr_disable(const struct intel_crtc_state *old_crtc_state)
+ 	drm_dbg_kms(&dev_priv->drm, "Disabling VRR on pipe %c\n",
+ 		    pipe_name(pipe));
+ }
++
++void intel_vrr_get_config(struct intel_crtc *crtc,
++			  struct intel_crtc_state *pipe_config)
++{
++	struct drm_device *dev = crtc->base.dev;
++	struct drm_i915_private *dev_priv = to_i915(dev);
++	enum pipe pipe = crtc->pipe;
++	u32 trans_vrr_ctl;
++
++	trans_vrr_ctl = intel_de_read(dev_priv, TRANS_VRR_CTL(pipe));
++	pipe_config->vrr.enable = trans_vrr_ctl & VRR_CTL_VRR_ENABLE;
++	if (!pipe_config->vrr.enable)
++		return;
++
++	pipe_config->vrr.vtotalmax = intel_de_read(dev_priv, TRANS_VRR_VMAX(pipe)) + 1;
++	pipe_config->vrr.vtotalmin = intel_de_read(dev_priv, TRANS_VRR_VMIN(pipe)) + 1;
++}
+diff --git a/drivers/gpu/drm/i915/display/intel_vrr.h b/drivers/gpu/drm/i915/display/intel_vrr.h
+index 5d3def024006..ae01eef6947f 100644
+--- a/drivers/gpu/drm/i915/display/intel_vrr.h
++++ b/drivers/gpu/drm/i915/display/intel_vrr.h
+@@ -14,6 +14,7 @@ struct intel_crtc;
+ struct intel_crtc_state;
+ struct intel_dp;
+ struct intel_encoder;
++struct intel_crtc;
+ 
+ bool intel_vrr_is_capable(struct drm_connector *connector);
+ void intel_vrr_check_modeset(struct intel_atomic_state *state);
+@@ -23,5 +24,7 @@ void intel_vrr_enable(struct intel_encoder *encoder,
+ 		      const struct intel_crtc_state *crtc_state);
+ void intel_vrr_send_push(const struct intel_crtc_state *crtc_state);
+ void intel_vrr_disable(const struct intel_crtc_state *old_crtc_state);
++void intel_vrr_get_config(struct intel_crtc *crtc,
++			  struct intel_crtc_state *pipe_config);
+ 
+ #endif /* __INTEL_VRR_H__ */
+-- 
+2.19.1
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
