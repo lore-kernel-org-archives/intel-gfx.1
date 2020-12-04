@@ -2,73 +2,58 @@ Return-Path: <SRS0=5A7x=FI=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-15.3 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B28EAC433FE
-	for <intel-gfx@archiver.kernel.org>; Fri,  4 Dec 2020 14:21:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DE2D2C4361A
+	for <intel-gfx@archiver.kernel.org>; Fri,  4 Dec 2020 14:24:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6B8D422B2B
-	for <intel-gfx@archiver.kernel.org>; Fri,  4 Dec 2020 14:21:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6B8D422B2B
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 89C0922B2C
+	for <intel-gfx@archiver.kernel.org>; Fri,  4 Dec 2020 14:24:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 89C0922B2C
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F17B66E194;
-	Fri,  4 Dec 2020 14:21:28 +0000 (UTC)
-Received: from mail-il1-x144.google.com (mail-il1-x144.google.com
- [IPv6:2607:f8b0:4864:20::144])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D63BC6E12C;
- Fri,  4 Dec 2020 03:53:36 +0000 (UTC)
-Received: by mail-il1-x144.google.com with SMTP id k8so4022073ilr.4;
- Thu, 03 Dec 2020 19:53:36 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=ULTmDl5ODAp5+pGiMlfRgGgqG7bhEVtrrqJo/V0Wv5o=;
- b=IqWzw/7LhLKatX2EcMZ7gPXa4FX987fJvD2fIX7S33kmZPPX9/QQhdFXd18ExVQsKP
- sW/pxBbVFcILY5G+8C0Hd7JrF91UtzuNPSkxy9+moOonfKdGEv38ehQddV13jPK8qZhS
- 5lgBjYtrCsgneZH6Ityt0+U1RYuwDszWp9fQnAf5y1EYCsqnlcy3PHp6yiKYVItjFZc1
- z1/aSSLurV/FbaOfmjYkWwRXL6Mg0jbQ/ow+kszM5s5wHf8YGqfOt8ACPLi+LzM/USzM
- f/rrzkzNiPg2zE2ul+Jwmp2Cfb7HbEMQCOV+sQcBxl9WYyd8o1Y3Ng1IRztDmYk/EqS1
- Ahfg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=ULTmDl5ODAp5+pGiMlfRgGgqG7bhEVtrrqJo/V0Wv5o=;
- b=Lj6NJX2nOP/FyD9birLqMNET9TYtgc3HLOYir7jkxbeV/c5hDbAEKnXO9uFWAROaTC
- 54TVuVnTUQY1DvT7mbjdpNBlfW6e/lfPat+rWD5BaN2wyagXYxxkeC7Jt/F8Im6jR75B
- /gC2jOr2QEtc+yA1Ba9rMPcC5oYJGhxpiz+ALVMSFbIctNwzj513Y5UeEwvP5B9WskZk
- d+5abbpjqnCDxqL42mwNt/Vf8DTW3UNuuCA0MMsl5YtvMh7Apxf4nxeU6HAjm/otHSfX
- r1c2fsLxbKg4MdtRN7G2AtUzrJGGoBOoPM8ALxnMTz7TvHyTGaRWkxLXf0jSa0KnCfwX
- JuRw==
-X-Gm-Message-State: AOAM533gX7O8jh5JMPjB/ZN27g0SYx0y/N7NS7+FHd0AXrHQB8B2w1gy
- Hg6xbeyMR6xZgYiMKhN83XOg/q6dKdFPPg==
-X-Google-Smtp-Source: ABdhPJw/GpPxKvmdLgpe0UZqYix1EOwTWX/EGSHFiJY3r/MukaIIZNjhO1ojAeLgFHMsed0OsIErJA==
-X-Received: by 2002:a92:58cb:: with SMTP id z72mr3406498ilf.104.1607054015671; 
- Thu, 03 Dec 2020 19:53:35 -0800 (PST)
-Received: from frodo.mearth (c-24-9-77-57.hsd1.co.comcast.net. [24.9.77.57])
- by smtp.googlemail.com with ESMTPSA id o12sm671361ilj.55.2020.12.03.19.53.34
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 03 Dec 2020 19:53:35 -0800 (PST)
-From: Jim Cromie <jim.cromie@gmail.com>
-To: dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Date: Thu,  3 Dec 2020 20:53:18 -0700
-Message-Id: <20201204035318.332419-3-jim.cromie@gmail.com>
-X-Mailer: git-send-email 2.28.0
-In-Reply-To: <20201204035318.332419-1-jim.cromie@gmail.com>
-References: <20201204035318.332419-1-jim.cromie@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id EEFA56E195;
+	Fri,  4 Dec 2020 14:24:15 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0FABD6E195
+ for <Intel-gfx@lists.freedesktop.org>; Fri,  4 Dec 2020 14:24:15 +0000 (UTC)
+IronPort-SDR: zH5VwPrI4hmtfnnZ24nSxbyjlQHbrDlsjUjpz1JiUCDprsmWkGmHma9ZoJqsMSl3ma86jk4QVy
+ zhfBqBsChFtA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9824"; a="153204010"
+X-IronPort-AV: E=Sophos;i="5.78,392,1599548400"; d="scan'208";a="153204010"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Dec 2020 06:24:14 -0800
+IronPort-SDR: uIgHiQK0NzqBL0jhYi1Gm4NxRKY2XQcP9Gts7oI9ANu0uhycCo6+Q4kBuvZrrJ0K/7L8FrjVGr
+ SlNasf12SHLg==
+X-IronPort-AV: E=Sophos;i="5.78,392,1599548400"; d="scan'208";a="550966754"
+Received: from azavras-mobl1.ger.corp.intel.com (HELO [10.252.55.3])
+ ([10.252.55.3])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Dec 2020 06:24:13 -0800
+To: "Huang, Sean Z" <sean.z.huang@intel.com>, Intel-gfx@lists.freedesktop.org
+References: <20201202040341.31981-1-sean.z.huang@intel.com>
+ <20201202040341.31981-25-sean.z.huang@intel.com>
+From: Lionel Landwerlin <lionel.g.landwerlin@intel.com>
+Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
+ Swindon SN3 1RJ
+Message-ID: <74a9f7c8-2509-8d7b-771f-132dea1c4bb9@intel.com>
+Date: Fri, 4 Dec 2020 16:24:10 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.5.0
 MIME-Version: 1.0
-X-Mailman-Approved-At: Fri, 04 Dec 2020 14:21:28 +0000
-Subject: [Intel-gfx] [RFC PATCH 2/2] i915: POC use
- dynamic_debug_exec_queries to control pr_debugs in gvt
+In-Reply-To: <20201202040341.31981-25-sean.z.huang@intel.com>
+Content-Language: en-US
+Subject: Re: [Intel-gfx] [RFC-v4 24/26] drm/i915/pxp: User interface for
+ Protected buffer
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,121 +66,224 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jim Cromie <jim.cromie@gmail.com>, intel-gfx@lists.freedesktop.org,
- David Airlie <airlied@linux.ie>, jbaron@akamai.com,
- intel-gvt-dev@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
+Cc: Bommu Krishnaiah <krishnaiah.bommu@intel.com>,
+ Kondapally Kalyan <kalyan.kondapally@intel.com>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The gvt component of this driver has ~120 pr_debugs, in 9 "classes".
-Following model of drm.debug, add a parameter to map bits to these
-classes.
+On 02/12/2020 06:03, Huang, Sean Z wrote:
+> From: Bommu Krishnaiah <krishnaiah.bommu@intel.com>
+>
+> This api allow user mode to create Protected buffer and context creation.
+>
+> Signed-off-by: Bommu Krishnaiah <krishnaiah.bommu@intel.com>
+> Cc: Telukuntla Sreedhar <sreedhar.telukuntla@intel.com>
+> Cc: Kondapally Kalyan <kalyan.kondapally@intel.com>
+> Cc: Gupta Anshuman <Anshuman.Gupta@intel.com>
+> Cc: Huang Sean Z <sean.z.huang@intel.com>
+> ---
+>   drivers/gpu/drm/i915/gem/i915_gem_context.c   | 15 ++++++++++--
+>   drivers/gpu/drm/i915/gem/i915_gem_context.h   | 10 ++++++++
+>   .../gpu/drm/i915/gem/i915_gem_context_types.h |  2 +-
+>   .../gpu/drm/i915/gem/i915_gem_object_types.h  |  5 ++++
+>   drivers/gpu/drm/i915/i915_gem.c               | 23 +++++++++++++++----
+>   include/uapi/drm/i915_drm.h                   | 19 +++++++++++++++
+>   6 files changed, 67 insertions(+), 7 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+> index a6299da64de4..dd5d24a13cb9 100644
+> --- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
+> +++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+> @@ -2060,12 +2060,23 @@ static int ctx_setparam(struct drm_i915_file_private *fpriv,
+>   	case I915_CONTEXT_PARAM_RECOVERABLE:
+>   		if (args->size)
+>   			ret = -EINVAL;
+> -		else if (args->value)
+> -			i915_gem_context_set_recoverable(ctx);
+> +		else if (args->value) {
+> +			if (!i915_gem_context_is_protected(ctx))
+> +				i915_gem_context_set_recoverable(ctx);
+> +			else
+> +				ret = -EPERM;
+> +			}
+>   		else
+>   			i915_gem_context_clear_recoverable(ctx);
+>   		break;
+>   
+> +	case I915_CONTEXT_PARAM_PROTECTED_CONTENT:
+> +		if (args->size)
+> +			ret = -EINVAL;
+> +		else if (args->value)
+> +			i915_gem_context_set_protected(ctx);
+> +		break;
+> +
+>   	case I915_CONTEXT_PARAM_PRIORITY:
+>   		ret = set_priority(ctx, args);
+>   		break;
+> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.h b/drivers/gpu/drm/i915/gem/i915_gem_context.h
+> index a133f92bbedb..5897e7ca11a8 100644
+> --- a/drivers/gpu/drm/i915/gem/i915_gem_context.h
+> +++ b/drivers/gpu/drm/i915/gem/i915_gem_context.h
+> @@ -70,6 +70,16 @@ static inline void i915_gem_context_set_recoverable(struct i915_gem_context *ctx
+>   	set_bit(UCONTEXT_RECOVERABLE, &ctx->user_flags);
+>   }
+>   
+> +static inline void i915_gem_context_set_protected(struct i915_gem_context *ctx)
+> +{
+> +	set_bit(UCONTEXT_PROTECTED, &ctx->user_flags);
+> +}
+> +
+> +static inline bool i915_gem_context_is_protected(struct i915_gem_context *ctx)
+> +{
+> +	return test_bit(UCONTEXT_PROTECTED, &ctx->user_flags);
+> +}
+> +
+>   static inline void i915_gem_context_clear_recoverable(struct i915_gem_context *ctx)
+>   {
+>   	clear_bit(UCONTEXT_RECOVERABLE, &ctx->user_flags);
+> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context_types.h b/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
+> index ae14ca24a11f..81ae94c2be86 100644
+> --- a/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
+> +++ b/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
+> @@ -135,7 +135,7 @@ struct i915_gem_context {
+>   #define UCONTEXT_BANNABLE		2
+>   #define UCONTEXT_RECOVERABLE		3
+>   #define UCONTEXT_PERSISTENCE		4
+> -
+> +#define UCONTEXT_PROTECTED		5
+>   	/**
+>   	 * @flags: small set of booleans
+>   	 */
+> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
+> index e2d9b7e1e152..90ac955463f4 100644
+> --- a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
+> +++ b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
+> @@ -161,6 +161,11 @@ struct drm_i915_gem_object {
+>   	} mmo;
+>   
+>   	I915_SELFTEST_DECLARE(struct list_head st_link);
+> +	/**
+> +	 * @user_flags: small set of booleans set by the user
+> +	 */
+> +	unsigned long user_flags;
+> +#define I915_BO_PROTECTED     BIT(0)
+>   
+>   	unsigned long flags;
+>   #define I915_BO_ALLOC_CONTIGUOUS BIT(0)
+> diff --git a/drivers/gpu/drm/i915/i915_gem.c b/drivers/gpu/drm/i915/i915_gem.c
+> index 41698a823737..6a791fd24eaa 100644
+> --- a/drivers/gpu/drm/i915/i915_gem.c
+> +++ b/drivers/gpu/drm/i915/i915_gem.c
+> @@ -184,7 +184,8 @@ static int
+>   i915_gem_create(struct drm_file *file,
+>   		struct intel_memory_region *mr,
+>   		u64 *size_p,
+> -		u32 *handle_p)
+> +		u32 *handle_p,
+> +		u64 user_flags)
+>   {
+>   	struct drm_i915_gem_object *obj;
+>   	u32 handle;
+> @@ -204,6 +205,8 @@ i915_gem_create(struct drm_file *file,
+>   	if (IS_ERR(obj))
+>   		return PTR_ERR(obj);
+>   
+> +	obj->user_flags = user_flags;
+> +
+>   	ret = drm_gem_handle_create(file, &obj->base, &handle);
+>   	/* drop reference from allocate - handle holds it now */
+>   	i915_gem_object_put(obj);
+> @@ -258,11 +261,12 @@ i915_gem_dumb_create(struct drm_file *file,
+>   	return i915_gem_create(file,
+>   			       intel_memory_region_by_type(to_i915(dev),
+>   							   mem_type),
+> -			       &args->size, &args->handle);
+> +			       &args->size, &args->handle, 0);
+>   }
+>   
+>   struct create_ext {
+> -        struct drm_i915_private *i915;
+> +	struct drm_i915_private *i915;
+> +	unsigned long user_flags;
+>   };
+>   
+>   static int __create_setparam(struct drm_i915_gem_object_param *args,
+> @@ -273,6 +277,17 @@ static int __create_setparam(struct drm_i915_gem_object_param *args,
+>   		return -EINVAL;
+>   	}
+>   
+> +	switch (lower_32_bits(args->param)) {
+> +	case I915_PARAM_PROTECTED_CONTENT:
+> +		if (args->size) {
+> +			return -EINVAL;
+> +		} else if (args->data) {
+> +			ext_data->user_flags = args->data;
+> +			return 0;
+> +		}
+> +	break;
+> +	}
+> +
+>   	return -EINVAL;
+>   }
+>   
+> @@ -318,7 +333,7 @@ i915_gem_create_ioctl(struct drm_device *dev, void *data,
+>   	return i915_gem_create(file,
+>   			       intel_memory_region_by_type(i915,
+>   							   INTEL_MEMORY_SYSTEM),
+> -			       &args->size, &args->handle);
+> +			       &args->size, &args->handle, ext_data.user_flags);
+>   }
+>   
+>   static int
+> diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
+> index 2c1ce2761d55..fab00bfbbdee 100644
+> --- a/include/uapi/drm/i915_drm.h
+> +++ b/include/uapi/drm/i915_drm.h
+> @@ -1715,6 +1715,15 @@ struct drm_i915_gem_context_param {
+>    * Default is 16 KiB.
+>    */
+>   #define I915_CONTEXT_PARAM_RINGSIZE	0xc
+> +
+> +/*
+> + * I915_CONTEXT_PARAM_PROTECTED_CONTENT:
+> + *
+> + * If set to true (1) PAVP content protection is enabled.
+> + * When enabled, the context is marked unrecoverable and may
+> + * become invalid due to PAVP teardown event or other error.
+> + */
+> +#define I915_CONTEXT_PARAM_PROTECTED_CONTENT    0xd
 
-In Makefile, add DYNAMIC_DEBUG_MODULE.  This converts gvt's pr_debugs,
-even if the rest of drm is not using CONFIG_DRM_USE_DYNAMIC_DEBUG.
 
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
----
- drivers/gpu/drm/i915/gvt/Makefile  |  1 +
- drivers/gpu/drm/i915/i915_params.c | 74 ++++++++++++++++++++++++++++++
- 2 files changed, 75 insertions(+)
+This is about protected contexts. It should probably go into its own 
+patch along with the code for the gem_context object.
 
-diff --git a/drivers/gpu/drm/i915/gvt/Makefile b/drivers/gpu/drm/i915/gvt/Makefile
-index ea8324abc784..e38a1eb618bd 100644
---- a/drivers/gpu/drm/i915/gvt/Makefile
-+++ b/drivers/gpu/drm/i915/gvt/Makefile
-@@ -6,4 +6,5 @@ GVT_SOURCE := gvt.o aperture_gm.o handlers.o vgpu.o trace_points.o firmware.o \
- 	fb_decoder.o dmabuf.o page_track.o
- 
- ccflags-y				+= -I $(srctree)/$(src) -I $(srctree)/$(src)/$(GVT_DIR)/
-+ccflags-y				+= -DDYNAMIC_DEBUG_MODULE
- i915-y					+= $(addprefix $(GVT_DIR)/, $(GVT_SOURCE))
-diff --git a/drivers/gpu/drm/i915/i915_params.c b/drivers/gpu/drm/i915/i915_params.c
-index 7f139ea4a90b..ecc825558e00 100644
---- a/drivers/gpu/drm/i915/i915_params.c
-+++ b/drivers/gpu/drm/i915/i915_params.c
-@@ -260,3 +260,77 @@ void i915_params_free(struct i915_params *params)
- 	I915_PARAMS_FOR_EACH(FREE);
- #undef FREE
- }
-+
-+/* POC for callback -> dynamic_debug_exec_queries */
-+unsigned long __gvt_debug;
-+EXPORT_SYMBOL(__gvt_debug);
-+
-+static char *format_prefix_classes[] = {
-+	"gvt: cmd: ",
-+	"gvt: core: ",
-+	"gvt: dpy: ",
-+	"gvt: el: ",
-+	"gvt: irq: ",
-+	"gvt: mm: ",
-+	"gvt: mmio: ",
-+	"gvt: render: ",
-+	"gvt: sched: "
-+};
-+#define NUM_CLASSES	ARRAY_SIZE(format_prefix_classes)
-+#define OUR_QUERY_SIZE	128 /* we need about 20 */
-+
-+#include <linux/module.h>
-+
-+static int param_set_dyndbg(const char *instr, const struct kernel_param *kp)
-+{
-+	unsigned int val;
-+	unsigned long changes, result;
-+	int rc, chgct = 0, totct = 0, bitpos;
-+	char query[OUR_QUERY_SIZE];
-+
-+	rc = kstrtouint(instr, 0, &val);
-+	if (rc) {
-+		pr_err("set_dyndbg: failed\n");
-+		return -EINVAL;
-+	}
-+	result = val;
-+	pr_info("set_dyndbg: result:0x%lx from %s\n", result, instr);
-+
-+	changes = result ^ __gvt_debug;
-+
-+	for_each_set_bit(bitpos, &changes, NUM_CLASSES) {
-+
-+		sprintf(query, "format '^%s' %cp", format_prefix_classes[bitpos],
-+			test_bit(bitpos, &result) ? '+' : '-');
-+
-+		chgct = dynamic_debug_exec_queries(query, "i915");
-+
-+		pr_info("%d changes on: %s\n", chgct, query);
-+		totct += chgct;
-+	}
-+	pr_info("total changes: %d\n", totct);
-+	__gvt_debug = result;
-+	return 0;
-+}
-+static int param_get_dyndbg(char *buffer, const struct kernel_param *kp)
-+{
-+	return scnprintf(buffer, PAGE_SIZE, "%u\n",
-+			 *((unsigned int *)kp->arg));
-+}
-+static const struct kernel_param_ops param_ops_dyndbg = {
-+	.set = param_set_dyndbg,
-+	.get = param_get_dyndbg,
-+};
-+
-+MODULE_PARM_DESC(debug_gvt, " gvt debug categories:"
-+		 "\n\t0x1\t gvt: cmd:"
-+		 "\n\t0x2\t gvt: core:"
-+		 "\n\t0x4\t gvt: dpy:"
-+		 "\n\t0x8\t gvt: el:"
-+		 "\n\t0x10\t gvt: irq:"
-+		 "\n\t0x20\t gvt: mm:"
-+		 "\n\t0x40\t gvt: mmio:"
-+		 "\n\t0x80\t gvt: render:"
-+		 "\n\t0x100\t gvt: sched:" "\n");
-+
-+module_param_cb(debug_gvt, &param_ops_dyndbg, &__gvt_debug, 0644);
--- 
-2.28.0
+
+-Lionel
+
+
+>   /* Must be kept compact -- no holes and well documented */
+>   
+>   	__u64 value;
+> @@ -1734,6 +1743,16 @@ struct drm_i915_gem_object_param {
+>    */
+>   #define I915_OBJECT_PARAM  (1ull<<32)
+>   
+> +/*
+> + * I915_PARAM_PROTECTED_CONTENT:
+> + *
+> + * If set to true (1) buffer contents is expected to be protected by
+> + * PAVP encryption and requires decryption for scan out and processing.
+> + * Protected buffers can only be used in PAVP protected contexts.
+> + * A protected buffer may become invalid as a result of PAVP teardown.
+> + */
+> +#define I915_PARAM_PROTECTED_CONTENT  0x1
+> +
+>   	__u64 param;
+>   
+>   	/* Data value or pointer */
+
 
 _______________________________________________
 Intel-gfx mailing list
