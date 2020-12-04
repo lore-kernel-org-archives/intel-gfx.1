@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2287EC4167B
-	for <intel-gfx@archiver.kernel.org>; Fri,  4 Dec 2020 14:03:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 47D71C4361B
+	for <intel-gfx@archiver.kernel.org>; Fri,  4 Dec 2020 14:03:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BD68122A83
-	for <intel-gfx@archiver.kernel.org>; Fri,  4 Dec 2020 14:03:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BD68122A83
+	by mail.kernel.org (Postfix) with ESMTPS id 0038A22A83
+	for <intel-gfx@archiver.kernel.org>; Fri,  4 Dec 2020 14:03:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0038A22A83
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C61C6E194;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 41A1D6E188;
 	Fri,  4 Dec 2020 14:03:37 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F02326E188
- for <intel-gfx@lists.freedesktop.org>; Fri,  4 Dec 2020 14:03:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E30B06E19C
+ for <intel-gfx@lists.freedesktop.org>; Fri,  4 Dec 2020 14:03:34 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23215326-1500050 
- for multiple; Fri, 04 Dec 2020 14:03:21 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23215333-1500050 
+ for multiple; Fri, 04 Dec 2020 14:03:22 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri,  4 Dec 2020 14:03:08 +0000
-Message-Id: <20201204140315.24341-17-chris@chris-wilson.co.uk>
+Date: Fri,  4 Dec 2020 14:03:15 +0000
+Message-Id: <20201204140315.24341-24-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201204140315.24341-1-chris@chris-wilson.co.uk>
 References: <20201204140315.24341-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 17/24] drm/i915: Encode fence specific waitqueue
- behaviour into the wait.flags
+Subject: [Intel-gfx] [PATCH 24/24] drm/i915/gt: Use ppHWSP for unshared
+ non-semaphore related timelines
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,84 +56,92 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Use the wait_queue_entry.flags to denote the special fence behaviour
-(flattening continuations along fence chains, and for propagating
-errors) rather than trying to detect ordinary waiters by their
-functions.
+When we are not using semaphores with a context/engine, we can simply
+reuse the same seqno location across wraps, but we still require each
+timeline to have its own address. For LRC submission, each context is
+prefixed by a per-process HWSP, which provides us with a unique location
+for each context-local timeline. A shared timeline that is common to
+multiple contexts will continue to use a separate page.
+
+This enables us to create position invariant contexts should we feel the
+need to relocate them.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
 ---
- drivers/gpu/drm/i915/i915_sw_fence.c | 25 +++++++++++++++----------
- 1 file changed, 15 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_lrc.c | 37 +++++++++++++++++------------
+ 1 file changed, 22 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_sw_fence.c b/drivers/gpu/drm/i915/i915_sw_fence.c
-index 038d4c6884c5..2744558f3050 100644
---- a/drivers/gpu/drm/i915/i915_sw_fence.c
-+++ b/drivers/gpu/drm/i915/i915_sw_fence.c
-@@ -18,10 +18,15 @@
- #define I915_SW_FENCE_BUG_ON(expr) BUILD_BUG_ON_INVALID(expr)
- #endif
+diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
+index c7335e325fae..f0e6f79fa0d4 100644
+--- a/drivers/gpu/drm/i915/gt/intel_lrc.c
++++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
+@@ -5429,6 +5429,14 @@ static struct intel_timeline *pinned_timeline(struct intel_context *ce)
+ 						 page_unmask_bits(tl));
+ }
  
--#define I915_SW_FENCE_FLAG_ALLOC BIT(3) /* after WQ_FLAG_* for safety */
--
- static DEFINE_SPINLOCK(i915_sw_fence_lock);
- 
-+#define WQ_FLAG_BITS \
-+	BITS_PER_TYPE(typeof_member(struct wait_queue_entry, flags))
++static struct intel_timeline *pphwsp_timeline(struct intel_context *ce,
++					      struct i915_vma *state)
++{
++	return __intel_timeline_create(ce->engine->gt, state,
++				       I915_GEM_HWS_SEQNO_ADDR |
++				       INTEL_TIMELINE_CONTEXT);
++}
 +
-+/* after WQ_FLAG_* for safety */
-+#define I915_SW_FENCE_FLAG_FENCE BIT(WQ_FLAG_BITS - 1)
-+#define I915_SW_FENCE_FLAG_ALLOC BIT(WQ_FLAG_BITS - 2)
-+
- enum {
- 	DEBUG_FENCE_IDLE = 0,
- 	DEBUG_FENCE_NOTIFY,
-@@ -154,10 +159,10 @@ static void __i915_sw_fence_wake_up_all(struct i915_sw_fence *fence,
- 	spin_lock_irqsave_nested(&x->lock, flags, 1 + !!continuation);
- 	if (continuation) {
- 		list_for_each_entry_safe(pos, next, &x->head, entry) {
--			if (pos->func == autoremove_wake_function)
--				pos->func(pos, TASK_NORMAL, 0, continuation);
--			else
-+			if (pos->flags & I915_SW_FENCE_FLAG_FENCE)
- 				list_move_tail(&pos->entry, continuation);
-+			else
-+				pos->func(pos, TASK_NORMAL, 0, continuation);
- 		}
- 	} else {
- 		LIST_HEAD(extra);
-@@ -166,9 +171,9 @@ static void __i915_sw_fence_wake_up_all(struct i915_sw_fence *fence,
- 			list_for_each_entry_safe(pos, next, &x->head, entry) {
- 				int wake_flags;
- 
--				wake_flags = fence->error;
--				if (pos->func == autoremove_wake_function)
--					wake_flags = 0;
-+				wake_flags = 0;
-+				if (pos->flags & I915_SW_FENCE_FLAG_FENCE)
-+					wake_flags = fence->error;
- 
- 				pos->func(pos, TASK_NORMAL, wake_flags, &extra);
- 			}
-@@ -332,8 +337,8 @@ static int __i915_sw_fence_await_sw_fence(struct i915_sw_fence *fence,
- 					  struct i915_sw_fence *signaler,
- 					  wait_queue_entry_t *wq, gfp_t gfp)
+ static int __execlists_context_alloc(struct intel_context *ce,
+ 				     struct intel_engine_cs *engine)
  {
-+	unsigned int pending;
- 	unsigned long flags;
--	int pending;
+@@ -5459,6 +5467,16 @@ static int __execlists_context_alloc(struct intel_context *ce,
+ 		goto error_deref_obj;
+ 	}
  
- 	debug_fence_assert(fence);
- 	might_sleep_if(gfpflags_allow_blocking(gfp));
-@@ -349,7 +354,7 @@ static int __i915_sw_fence_await_sw_fence(struct i915_sw_fence *fence,
- 	if (unlikely(i915_sw_fence_check_if_after(fence, signaler)))
- 		return -EINVAL;
++	ring = intel_engine_create_ring(engine, (unsigned long)ce->ring);
++	if (IS_ERR(ring)) {
++		ret = PTR_ERR(ring);
++		goto error_deref_obj;
++	}
++
++	ret = populate_lr_context(ce, ctx_obj, engine, ring);
++	if (ret)
++		goto error_ring_free;
++
+ 	if (!page_mask_bits(ce->timeline)) {
+ 		struct intel_timeline *tl;
  
--	pending = 0;
-+	pending = I915_SW_FENCE_FLAG_FENCE;
- 	if (!wq) {
- 		wq = kmalloc(sizeof(*wq), gfp);
- 		if (!wq) {
+@@ -5468,29 +5486,18 @@ static int __execlists_context_alloc(struct intel_context *ce,
+ 		 */
+ 		if (unlikely(ce->timeline))
+ 			tl = pinned_timeline(ce);
+-		else
++		else if (intel_engine_has_semaphores(engine))
+ 			tl = intel_timeline_create(engine->gt);
++		else
++			tl = pphwsp_timeline(ce, vma);
+ 		if (IS_ERR(tl)) {
+ 			ret = PTR_ERR(tl);
+-			goto error_deref_obj;
++			goto error_ring_free;
+ 		}
+ 
+ 		ce->timeline = tl;
+ 	}
+ 
+-	ring = intel_engine_create_ring(engine, (unsigned long)ce->ring);
+-	if (IS_ERR(ring)) {
+-		ret = PTR_ERR(ring);
+-		goto error_deref_obj;
+-	}
+-
+-	ret = populate_lr_context(ce, ctx_obj, engine, ring);
+-	if (ret) {
+-		drm_dbg(&engine->i915->drm,
+-			"Failed to populate LRC: %d\n", ret);
+-		goto error_ring_free;
+-	}
+-
+ 	ce->ring = ring;
+ 	ce->state = vma;
+ 
 -- 
 2.20.1
 
