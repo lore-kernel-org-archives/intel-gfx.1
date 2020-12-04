@@ -7,37 +7,36 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 17EE7C1B087
-	for <intel-gfx@archiver.kernel.org>; Fri,  4 Dec 2020 14:03:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 90FA3C4167B
+	for <intel-gfx@archiver.kernel.org>; Fri,  4 Dec 2020 14:03:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D580B22518
-	for <intel-gfx@archiver.kernel.org>; Fri,  4 Dec 2020 14:03:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D580B22518
+	by mail.kernel.org (Postfix) with ESMTPS id 5B0D022A99
+	for <intel-gfx@archiver.kernel.org>; Fri,  4 Dec 2020 14:03:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5B0D022A99
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 685F16E1B3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 28F866E1B1;
 	Fri,  4 Dec 2020 14:03:38 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EDA0B6E193
- for <intel-gfx@lists.freedesktop.org>; Fri,  4 Dec 2020 14:03:33 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E253C6E19B
+ for <intel-gfx@lists.freedesktop.org>; Fri,  4 Dec 2020 14:03:34 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23215321-1500050 
- for multiple; Fri, 04 Dec 2020 14:03:20 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23215330-1500050 
+ for multiple; Fri, 04 Dec 2020 14:03:22 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri,  4 Dec 2020 14:03:03 +0000
-Message-Id: <20201204140315.24341-12-chris@chris-wilson.co.uk>
+Date: Fri,  4 Dec 2020 14:03:12 +0000
+Message-Id: <20201204140315.24341-21-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201204140315.24341-1-chris@chris-wilson.co.uk>
 References: <20201204140315.24341-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 12/24] drm/i915/gt: Resubmit the virtual engine
- on schedule-out
+Subject: [Intel-gfx] [PATCH 21/24] drm/i915/gt: Add timeline "mode"
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,234 +55,110 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Having recognised that we do not change the sibling until we schedule
-out, we can then defer the decision to resubmit the virtual engine from
-the unwind of the active queue to scheduling out of the virtual context.
-This improves our resilence in virtual engine scheduling, and should
-eliminate the rare cases of gem_exec_balance failing.
+Explicitly differentiate between the absolute and relative timelines,
+and the global HWSP and ppHWSP relative offsets. When using a timeline
+that is relative to a known status page, we can replace the absolute
+addressing in the commands with indexed variants.
 
-By keeping the unwind order intact on the local engine, we can preserve
-data dependency ordering while doing a preempt-to-busy pass until we
-have determined the new ELSP. This means that if we try to timeslice
-between a virtual engine and a data-dependent ordinary request, the pair
-will maintain their relative ordering and we will avoid the
-resubmission, cancelling the timeslicing until further change.
-
-The dilemma though is that we then may end up in a situation where the
-'demotion' of the virtual request to an ordinary request in the engine
-queue results in filling the ELSP[] with virtual requests instead of
-spreading the load across the engines. To compensate for this, we mark
-each virtual request and refuse to resubmit a virtual request in the
-secondary ELSP slots, thus forcing subsequent virtual requests to be
-scheduled out after timeslicing. By delaying the decision until we
-schedule out, we will avoid unnecessary resubmission.
-
-Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/2079
-Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/2098
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_lrc.c    | 122 +++++++++++++++----------
- drivers/gpu/drm/i915/gt/selftest_lrc.c |   2 +-
- 2 files changed, 77 insertions(+), 47 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_timeline.c      | 21 ++++++++++++++++---
+ drivers/gpu/drm/i915/gt/intel_timeline.h      |  2 +-
+ .../gpu/drm/i915/gt/intel_timeline_types.h    | 10 +++++++--
+ 3 files changed, 27 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
-index 35cded25c6c1..efc8edd9e219 100644
---- a/drivers/gpu/drm/i915/gt/intel_lrc.c
-+++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
-@@ -1111,38 +1111,23 @@ __unwind_incomplete_requests(struct intel_engine_cs *engine)
+diff --git a/drivers/gpu/drm/i915/gt/intel_timeline.c b/drivers/gpu/drm/i915/gt/intel_timeline.c
+index cb20fcbb326b..da0a9659557a 100644
+--- a/drivers/gpu/drm/i915/gt/intel_timeline.c
++++ b/drivers/gpu/drm/i915/gt/intel_timeline.c
+@@ -229,7 +229,6 @@ static int intel_timeline_init(struct intel_timeline *timeline,
  
- 		__i915_request_unsubmit(rq);
+ 	timeline->gt = gt;
  
--		/*
--		 * Push the request back into the queue for later resubmission.
--		 * If this request is not native to this physical engine (i.e.
--		 * it came from a virtual source), push it back onto the virtual
--		 * engine so that it can be moved across onto another physical
--		 * engine as load dictates.
--		 */
--		if (likely(rq->execution_mask == engine->mask)) {
--			GEM_BUG_ON(rq_prio(rq) == I915_PRIORITY_INVALID);
--			if (rq_prio(rq) != prio) {
--				prio = rq_prio(rq);
--				pl = i915_sched_lookup_priolist(engine, prio);
--			}
--			GEM_BUG_ON(RB_EMPTY_ROOT(&engine->execlists.queue.rb_root));
--
--			list_move(&rq->sched.link, pl);
--			set_bit(I915_FENCE_FLAG_PQUEUE, &rq->fence.flags);
-+		GEM_BUG_ON(rq_prio(rq) == I915_PRIORITY_INVALID);
-+		if (rq_prio(rq) != prio) {
-+			prio = rq_prio(rq);
-+			pl = i915_sched_lookup_priolist(engine, prio);
-+		}
-+		GEM_BUG_ON(RB_EMPTY_ROOT(&engine->execlists.queue.rb_root));
+-	timeline->has_initial_breadcrumb = !hwsp;
+ 	timeline->hwsp_cacheline = NULL;
  
--			/* Check in case we rollback so far we wrap [size/2] */
--			if (intel_ring_direction(rq->ring,
--						 rq->tail,
--						 rq->ring->tail + 8) > 0)
--				rq->context->lrc.desc |= CTX_DESC_FORCE_RESTORE;
-+		list_move(&rq->sched.link, pl);
-+		set_bit(I915_FENCE_FLAG_PQUEUE, &rq->fence.flags);
- 
--			active = rq;
--		} else {
--			struct intel_engine_cs *owner = rq->context->engine;
-+		/* Check in case we rollback so far we wrap [size/2] */
-+		if (intel_ring_direction(rq->ring,
-+					 rq->tail,
-+					 rq->ring->tail + 8) > 0)
-+			rq->context->lrc.desc |= CTX_DESC_FORCE_RESTORE;
- 
--			WRITE_ONCE(rq->engine, owner);
--			owner->submit_request(rq);
--			active = NULL;
--		}
-+		active = rq;
- 	}
- 
- 	return active;
-@@ -1385,6 +1370,20 @@ static inline void execlists_schedule_in(struct i915_request *rq, int idx)
- 	GEM_BUG_ON(intel_context_inflight(ce) != rq->engine);
- }
- 
-+static void
-+resubmit_virtual_request(struct i915_request *rq, struct virtual_engine *ve)
-+{
-+	struct intel_engine_cs *engine = rq->engine;
-+
-+	spin_lock_irq(&engine->active.lock);
-+
-+	clear_bit(I915_FENCE_FLAG_PQUEUE, &rq->fence.flags);
-+	WRITE_ONCE(rq->engine, &ve->base);
-+	ve->base.submit_request(rq);
-+
-+	spin_unlock_irq(&engine->active.lock);
-+}
-+
- static void kick_siblings(struct i915_request *rq, struct intel_context *ce)
- {
- 	struct virtual_engine *ve = container_of(ce, typeof(*ve), context);
-@@ -1405,6 +1404,16 @@ static void kick_siblings(struct i915_request *rq, struct intel_context *ce)
- 			cpu_relax();
- 	}
- 
-+	/*
-+	 * This engine is now too busy to run this virtual request, so
-+	 * see if we can find an alternative engine for it to execute on.
-+	 * Once a request has become bonded to this engine, we treat it the
-+	 * same as other native request.
-+	 */
-+	if (i915_request_in_priority_queue(rq) &&
-+	    rq->execution_mask != engine->mask)
-+		resubmit_virtual_request(rq, ve);
-+
- 	if (READ_ONCE(ve->request))
- 		tasklet_hi_schedule(&ve->base.execlists.tasklet);
- }
-@@ -1650,6 +1659,20 @@ assert_pending_valid(const struct intel_engine_execlists *execlists,
+ 	if (!hwsp) {
+@@ -246,13 +245,29 @@ static int intel_timeline_init(struct intel_timeline *timeline,
+ 			return PTR_ERR(cl);
  		}
- 		sentinel = i915_request_has_sentinel(rq);
  
-+		/*
-+		 * We want virtual requests to only be in the first slot so
-+		 * that they are never stuck behind a hog and can be immediately
-+		 * transferred onto the next idle engine.
-+		 */
-+		if (rq->execution_mask != engine->mask &&
-+		    port != execlists->pending) {
-+			GEM_TRACE_ERR("%s: virtual engine:%llx not in prime position[%zd]\n",
-+				      engine->name,
-+				      ce->timeline->fence_context,
-+				      port - execlists->pending);
-+			return false;
++		timeline->mode = INTEL_TIMELINE_ABSOLUTE;
+ 		timeline->hwsp_cacheline = cl;
+ 		timeline->hwsp_offset = cacheline * CACHELINE_BYTES;
+ 
+ 		vaddr = page_mask_bits(cl->vaddr);
+ 	} else {
+-		timeline->hwsp_offset = offset;
+-		vaddr = i915_gem_object_pin_map(hwsp->obj, I915_MAP_WB);
++		int preferred;
++
++		if (offset & INTEL_TIMELINE_CONTEXT) {
++			timeline->mode = INTEL_TIMELINE_CONTEXT;
++			timeline->hwsp_offset =
++				offset & ~INTEL_TIMELINE_CONTEXT;
++			preferred = i915_coherent_map_type(gt->i915);
++		} else {
++			timeline->mode = INTEL_TIMELINE_GLOBAL;
++			timeline->hwsp_offset = offset;
++			preferred = I915_MAP_WB;
 +		}
 +
- 		/* Hold tightly onto the lock to prevent concurrent retires! */
- 		if (!spin_trylock_irqsave(&rq->lock, flags))
- 			continue;
-@@ -2316,6 +2339,15 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
- 				if (i915_request_has_sentinel(last))
- 					goto done;
- 
-+				/*
-+				 * We avoid submitting virtual requests into
-+				 * the secondary ports so that we can migrate
-+				 * the request immediately to another engine
-+				 * rather than wait for the primary request.
-+				 */
-+				if (rq->execution_mask != engine->mask)
-+					goto done;
-+
- 				/*
- 				 * If GVT overrides us we only ever submit
- 				 * port[0], leaving port[1] empty. Note that we
-@@ -5723,7 +5755,6 @@ static void virtual_submission_tasklet(unsigned long data)
- static void virtual_submit_request(struct i915_request *rq)
++		vaddr = i915_gem_object_pin_map(hwsp->obj,
++						preferred | I915_MAP_OVERRIDE);
++		if (IS_ERR(vaddr))
++			vaddr = i915_gem_object_pin_map(hwsp->obj, I915_MAP_WC);
+ 		if (IS_ERR(vaddr))
+ 			return PTR_ERR(vaddr);
+ 	}
+diff --git a/drivers/gpu/drm/i915/gt/intel_timeline.h b/drivers/gpu/drm/i915/gt/intel_timeline.h
+index deb71a8dbd43..69250de3a814 100644
+--- a/drivers/gpu/drm/i915/gt/intel_timeline.h
++++ b/drivers/gpu/drm/i915/gt/intel_timeline.h
+@@ -76,7 +76,7 @@ static inline void intel_timeline_put(struct intel_timeline *timeline)
+ static inline bool
+ intel_timeline_has_initial_breadcrumb(const struct intel_timeline *tl)
  {
- 	struct virtual_engine *ve = to_virtual_engine(rq->engine);
--	struct i915_request *old;
- 	unsigned long flags;
- 
- 	ENGINE_TRACE(&ve->base, "rq=%llx:%lld\n",
-@@ -5734,28 +5765,27 @@ static void virtual_submit_request(struct i915_request *rq)
- 
- 	spin_lock_irqsave(&ve->base.active.lock, flags);
- 
--	old = ve->request;
--	if (old) { /* background completion event from preempt-to-busy */
--		GEM_BUG_ON(!i915_request_completed(old));
--		__i915_request_submit(old);
--		i915_request_put(old);
--	}
--
-+	/* By the time we resubmit a request, it may be completed */
- 	if (i915_request_completed(rq)) {
- 		__i915_request_submit(rq);
-+		goto unlock;
-+	}
- 
--		ve->base.execlists.queue_priority_hint = INT_MIN;
--		ve->request = NULL;
--	} else {
--		ve->base.execlists.queue_priority_hint = rq_prio(rq);
--		ve->request = i915_request_get(rq);
-+	if (ve->request) { /* background completion from preempt-to-busy */
-+		GEM_BUG_ON(!i915_request_completed(ve->request));
-+		__i915_request_submit(ve->request);
-+		i915_request_put(ve->request);
-+	}
- 
--		GEM_BUG_ON(!list_empty(virtual_queue(ve)));
--		list_move_tail(&rq->sched.link, virtual_queue(ve));
-+	ve->base.execlists.queue_priority_hint = rq_prio(rq);
-+	ve->request = i915_request_get(rq);
- 
--		tasklet_hi_schedule(&ve->base.execlists.tasklet);
--	}
-+	GEM_BUG_ON(!list_empty(virtual_queue(ve)));
-+	list_move_tail(&rq->sched.link, virtual_queue(ve));
- 
-+	tasklet_hi_schedule(&ve->base.execlists.tasklet);
-+
-+unlock:
- 	spin_unlock_irqrestore(&ve->base.active.lock, flags);
+-	return tl->has_initial_breadcrumb;
++	return tl->mode == INTEL_TIMELINE_ABSOLUTE;
  }
  
-diff --git a/drivers/gpu/drm/i915/gt/selftest_lrc.c b/drivers/gpu/drm/i915/gt/selftest_lrc.c
-index 37cb51c3f4f6..fbbd8343d7f6 100644
---- a/drivers/gpu/drm/i915/gt/selftest_lrc.c
-+++ b/drivers/gpu/drm/i915/gt/selftest_lrc.c
-@@ -4589,7 +4589,7 @@ static int reset_virtual_engine(struct intel_gt *gt,
- 	spin_lock_irq(&engine->active.lock);
- 	__unwind_incomplete_requests(engine);
- 	spin_unlock_irq(&engine->active.lock);
--	GEM_BUG_ON(rq->engine != ve->engine);
-+	GEM_BUG_ON(rq->engine != engine);
+ static inline int __intel_timeline_sync_set(struct intel_timeline *tl,
+diff --git a/drivers/gpu/drm/i915/gt/intel_timeline_types.h b/drivers/gpu/drm/i915/gt/intel_timeline_types.h
+index f187c5aac11c..32c51425a0c4 100644
+--- a/drivers/gpu/drm/i915/gt/intel_timeline_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_timeline_types.h
+@@ -20,6 +20,12 @@ struct i915_syncmap;
+ struct intel_gt;
+ struct intel_timeline_hwsp;
  
- 	/* Reset the engine while keeping our active request on hold */
- 	execlists_hold(engine, rq);
++enum intel_timeline_mode {
++	INTEL_TIMELINE_ABSOLUTE = 0,
++	INTEL_TIMELINE_CONTEXT = BIT(0),
++	INTEL_TIMELINE_GLOBAL = BIT(1),
++};
++
+ struct intel_timeline {
+ 	u64 fence_context;
+ 	u32 seqno;
+@@ -45,6 +51,8 @@ struct intel_timeline {
+ 	atomic_t pin_count;
+ 	atomic_t active_count;
+ 
++	enum intel_timeline_mode mode;
++
+ 	const u32 *hwsp_seqno;
+ 	struct i915_vma *hwsp_ggtt;
+ 	u32 hwsp_offset;
+@@ -52,8 +60,6 @@ struct intel_timeline {
+ 
+ 	struct intel_timeline_cacheline *hwsp_cacheline;
+ 
+-	bool has_initial_breadcrumb;
+-
+ 	/**
+ 	 * List of breadcrumbs associated with GPU requests currently
+ 	 * outstanding.
 -- 
 2.20.1
 
