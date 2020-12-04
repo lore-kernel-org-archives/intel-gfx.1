@@ -2,54 +2,44 @@ Return-Path: <SRS0=5A7x=FI=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.3 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 645D4C433FE
-	for <intel-gfx@archiver.kernel.org>; Fri,  4 Dec 2020 16:05:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C1050C4361A
+	for <intel-gfx@archiver.kernel.org>; Fri,  4 Dec 2020 16:14:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 284DB2223E
-	for <intel-gfx@archiver.kernel.org>; Fri,  4 Dec 2020 16:05:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 284DB2223E
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id E6A8722CB3
+	for <intel-gfx@archiver.kernel.org>; Fri,  4 Dec 2020 16:14:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E6A8722CB3
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A49AC89D7B;
-	Fri,  4 Dec 2020 16:05:08 +0000 (UTC)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 43CF489E05
- for <intel-gfx@lists.freedesktop.org>; Fri,  4 Dec 2020 16:05:07 +0000 (UTC)
-IronPort-SDR: +re+qc6ZguzSGOziYX2bxIvz9orcgqNM7p7gwN8PdXHfTFAZQ/aUTo5i3i5wDEfV1WLLAvvH6h
- nNEBuHyvfaGA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9825"; a="235001574"
-X-IronPort-AV: E=Sophos;i="5.78,393,1599548400"; d="scan'208";a="235001574"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Dec 2020 08:05:06 -0800
-IronPort-SDR: X+NoKo1QugeVrBMgw7pJWvCsfg1PJrSs+ULxdNu73Ly5U6/0rzxW0uRVlkZ83gEX1fjYMmRAhd
- pvIZzvQDizRw==
-X-IronPort-AV: E=Sophos;i="5.78,393,1599548400"; d="scan'208";a="540754477"
-Received: from iweiny-desk2.sc.intel.com (HELO localhost) ([10.3.52.147])
- by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Dec 2020 08:05:05 -0800
-Date: Fri, 4 Dec 2020 08:05:04 -0800
-From: Ira Weiny <ira.weiny@intel.com>
-To: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Message-ID: <20201204160504.GH1563847@iweiny-DESK2.sc.intel.com>
-References: <20201124060755.1405602-1-ira.weiny@intel.com>
- <20201124060755.1405602-4-ira.weiny@intel.com>
- <160648211578.10416.3269409785516897908@jlahtine-mobl.ger.corp.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 85BB16E17F;
+	Fri,  4 Dec 2020 16:14:15 +0000 (UTC)
+Received: from fireflyinternet.com (unknown [77.68.26.236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 97ED76E17F
+ for <intel-gfx@lists.freedesktop.org>; Fri,  4 Dec 2020 16:14:13 +0000 (UTC)
+X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
+ x-ip-name=78.156.65.138; 
+Received: from localhost (unverified [78.156.65.138]) 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP (TLS) id
+ 23216895-1500050 for multiple; Fri, 04 Dec 2020 16:14:07 +0000
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <160648211578.10416.3269409785516897908@jlahtine-mobl.ger.corp.intel.com>
-User-Agent: Mutt/1.11.1 (2018-12-01)
-Subject: Re: [Intel-gfx] [PATCH 03/17] drivers/gpu: Convert to mem*_page()
+In-Reply-To: <X8pdR3wUue1tNhJJ@intel.com>
+References: <20201127220548.3713-1-chris@chris-wilson.co.uk>
+ <20201201160517.GX6112@intel.com>
+ <160686233758.408.13656920081137084390@build.alporthouse.com>
+ <X8pdR3wUue1tNhJJ@intel.com>
+From: Chris Wilson <chris@chris-wilson.co.uk>
+To: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Date: Fri, 04 Dec 2020 16:14:05 +0000
+Message-ID: <160709844559.20460.2447602113685186052@build.alporthouse.com>
+User-Agent: alot/0.9
+Subject: Re: [Intel-gfx] [PATCH] drm/i915: Disable outputs during unregister
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,211 +52,60 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Chao Yu <yuchao0@huawei.com>, Alexei Starovoitov <ast@kernel.org>,
- David Howells <dhowells@redhat.com>, Chris Mason <clm@fb.com>,
- Kirti Wankhede <kwankhede@nvidia.com>, Thomas Gleixner <tglx@linutronix.de>,
- Christoph Hellwig <hch@infradead.org>, Daniel Borkmann <daniel@iogearbox.net>,
- Matthew Wilcox <willy@infradead.org>, Eric Biggers <ebiggers@kernel.org>,
- intel-gfx@lists.freedesktop.org, Josef Bacik <josef@toxicpanda.com>,
- =?iso-8859-1?B?Suly9G1l?= Glisse <jglisse@redhat.com>,
- Brian King <brking@us.ibm.com>, Al Viro <viro@zeniv.linux.org.uk>,
- David Sterba <dsterba@suse.com>, Jaegeuk Kim <jaegeuk@kernel.org>,
- Dan Williams <dan.j.williams@intel.com>,
- "Martin K. Petersen" <martin.petersen@oracle.com>,
- Nicolas Pitre <nico@fluxnic.net>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Dave Hansen <dave.hansen@intel.com>, linux-kernel@vger.kernel.org,
- Steve French <sfrench@samba.org>, Luis Chamberlain <mcgrof@kernel.org>,
- linux-fsdevel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: intel-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Nov 27, 2020 at 03:01:56PM +0200, Joonas Lahtinen wrote:
-> + intel-gfx mailing list
-> 
-> Quoting ira.weiny@intel.com (2020-11-24 08:07:41)
-> > From: Ira Weiny <ira.weiny@intel.com>
-> > 
-> > The pattern of kmap/mem*/kunmap is repeated.  Use the new mem*_page()
-> > calls instead.
-> > 
-> > Cc: Patrik Jakobsson <patrik.r.jakobsson@gmail.com>
-> > Cc: Jani Nikula <jani.nikula@linux.intel.com>
-> > Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-> > Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-> > Signed-off-by: Ira Weiny <ira.weiny@intel.com>
-> > ---
-> >  drivers/gpu/drm/gma500/gma_display.c      | 7 +++----
-> >  drivers/gpu/drm/gma500/mmu.c              | 4 ++--
-> >  drivers/gpu/drm/i915/gem/i915_gem_shmem.c | 6 ++----
-> >  drivers/gpu/drm/i915/gt/intel_gtt.c       | 9 ++-------
-> >  drivers/gpu/drm/i915/gt/shmem_utils.c     | 8 +++-----
-> 
-> Are you looking to merge all these from the same tree, or first merge
-> the first patch and then trickle the rest through their own trees?
-
-I was thinking that they would go through Andrew's tree in bulk.  But as I go
-through all the 'variants' including adding any kmap_atomic() variants it is
-getting to be a pretty big change.  I'm trying to use Coccinelle but I'm not
-100% confident in it working, more precisely in my skill to make it work.
-
-So I think I'm going to submit the base patch to Andrew today (with some
-cleanups per the comments in this thread).
-
-If Andrew could land that then I will can submit separate patches to each
-subsystem which would get full testing...  :-(
-
-That is best.
-
-Thanks for making me think on this,
-Ira
-
-> Our last -next PR was already sent for i915, so I would queue this
-> only for 5.12.
-> 
-> In any case, if you could split the i915 changes to a separate patch
-> (we have multiple sub-trees in drm), those are:
-> 
-> Reviewed-by: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-> 
-> The gma500 changes also appear correct, so feel free to apply the
-> R-b for those, too.
-> 
-> Regards, Joonas
-> 
-> >  5 files changed, 12 insertions(+), 22 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/gma500/gma_display.c b/drivers/gpu/drm/gma500/gma_display.c
-> > index 3df6d6e850f5..f81114594211 100644
-> > --- a/drivers/gpu/drm/gma500/gma_display.c
-> > +++ b/drivers/gpu/drm/gma500/gma_display.c
-> > @@ -9,6 +9,7 @@
-> >  
-> >  #include <linux/delay.h>
-> >  #include <linux/highmem.h>
-> > +#include <linux/pagemap.h>
-> >  
-> >  #include <drm/drm_crtc.h>
-> >  #include <drm/drm_fourcc.h>
-> > @@ -334,7 +335,7 @@ int gma_crtc_cursor_set(struct drm_crtc *crtc,
-> >         struct gtt_range *gt;
-> >         struct gtt_range *cursor_gt = gma_crtc->cursor_gt;
-> >         struct drm_gem_object *obj;
-> > -       void *tmp_dst, *tmp_src;
-> > +       void *tmp_dst;
-> >         int ret = 0, i, cursor_pages;
-> >  
-> >         /* If we didn't get a handle then turn the cursor off */
-> > @@ -400,9 +401,7 @@ int gma_crtc_cursor_set(struct drm_crtc *crtc,
-> >                 /* Copy the cursor to cursor mem */
-> >                 tmp_dst = dev_priv->vram_addr + cursor_gt->offset;
-> >                 for (i = 0; i < cursor_pages; i++) {
-> > -                       tmp_src = kmap(gt->pages[i]);
-> > -                       memcpy(tmp_dst, tmp_src, PAGE_SIZE);
-> > -                       kunmap(gt->pages[i]);
-> > +                       memcpy_from_page(tmp_dst, gt->pages[i], 0, PAGE_SIZE);
-> >                         tmp_dst += PAGE_SIZE;
-> >                 }
-> >  
-> > diff --git a/drivers/gpu/drm/gma500/mmu.c b/drivers/gpu/drm/gma500/mmu.c
-> > index 505044c9a673..8a0856c7f439 100644
-> > --- a/drivers/gpu/drm/gma500/mmu.c
-> > +++ b/drivers/gpu/drm/gma500/mmu.c
-> > @@ -5,6 +5,7 @@
-> >   **************************************************************************/
-> >  
-> >  #include <linux/highmem.h>
-> > +#include <linux/pagemap.h>
-> >  
-> >  #include "mmu.h"
-> >  #include "psb_drv.h"
-> > @@ -204,8 +205,7 @@ struct psb_mmu_pd *psb_mmu_alloc_pd(struct psb_mmu_driver *driver,
-> >  
-> >         kunmap(pd->p);
-> >  
-> > -       clear_page(kmap(pd->dummy_page));
-> > -       kunmap(pd->dummy_page);
-> > +       memzero_page(pd->dummy_page, 0, PAGE_SIZE);
-> >  
-> >         pd->tables = vmalloc_user(sizeof(struct psb_mmu_pt *) * 1024);
-> >         if (!pd->tables)
-> > diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-> > index 75e8b71c18b9..8a25e08edd18 100644
-> > --- a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-> > +++ b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-> > @@ -558,7 +558,7 @@ i915_gem_object_create_shmem_from_data(struct drm_i915_private *dev_priv,
-> >         do {
-> >                 unsigned int len = min_t(typeof(size), size, PAGE_SIZE);
-> >                 struct page *page;
-> > -               void *pgdata, *vaddr;
-> > +               void *pgdata;
-> >  
-> >                 err = pagecache_write_begin(file, file->f_mapping,
-> >                                             offset, len, 0,
-> > @@ -566,9 +566,7 @@ i915_gem_object_create_shmem_from_data(struct drm_i915_private *dev_priv,
-> >                 if (err < 0)
-> >                         goto fail;
-> >  
-> > -               vaddr = kmap(page);
-> > -               memcpy(vaddr, data, len);
-> > -               kunmap(page);
-> > +               memcpy_to_page(page, 0, data, len);
-> >  
-> >                 err = pagecache_write_end(file, file->f_mapping,
-> >                                           offset, len, len,
-> > diff --git a/drivers/gpu/drm/i915/gt/intel_gtt.c b/drivers/gpu/drm/i915/gt/intel_gtt.c
-> > index 3f1114b58b01..f3d7c601d362 100644
-> > --- a/drivers/gpu/drm/i915/gt/intel_gtt.c
-> > +++ b/drivers/gpu/drm/i915/gt/intel_gtt.c
-> > @@ -153,13 +153,8 @@ static void poison_scratch_page(struct drm_i915_gem_object *scratch)
-> >         if (IS_ENABLED(CONFIG_DRM_I915_DEBUG_GEM))
-> >                 val = POISON_FREE;
-> >  
-> > -       for_each_sgt_page(page, sgt, scratch->mm.pages) {
-> > -               void *vaddr;
-> > -
-> > -               vaddr = kmap(page);
-> > -               memset(vaddr, val, PAGE_SIZE);
-> > -               kunmap(page);
-> > -       }
-> > +       for_each_sgt_page(page, sgt, scratch->mm.pages)
-> > +               memset_page(page, val, 0, PAGE_SIZE);
-> >  }
-> >  
-> >  int setup_scratch_page(struct i915_address_space *vm)
-> > diff --git a/drivers/gpu/drm/i915/gt/shmem_utils.c b/drivers/gpu/drm/i915/gt/shmem_utils.c
-> > index f011ea42487e..2d5f1f2e803d 100644
-> > --- a/drivers/gpu/drm/i915/gt/shmem_utils.c
-> > +++ b/drivers/gpu/drm/i915/gt/shmem_utils.c
-> > @@ -95,19 +95,17 @@ static int __shmem_rw(struct file *file, loff_t off,
-> >                 unsigned int this =
-> >                         min_t(size_t, PAGE_SIZE - offset_in_page(off), len);
-> >                 struct page *page;
-> > -               void *vaddr;
-> >  
-> >                 page = shmem_read_mapping_page_gfp(file->f_mapping, pfn,
-> >                                                    GFP_KERNEL);
-> >                 if (IS_ERR(page))
-> >                         return PTR_ERR(page);
-> >  
-> > -               vaddr = kmap(page);
-> >                 if (write)
-> > -                       memcpy(vaddr + offset_in_page(off), ptr, this);
-> > +                       memcpy_to_page(page, offset_in_page(off), ptr, this);
-> >                 else
-> > -                       memcpy(ptr, vaddr + offset_in_page(off), this);
-> > -               kunmap(page);
-> > +                       memcpy_from_page(ptr, page, offset_in_page(off), this);
-> > +
-> >                 put_page(page);
-> >  
-> >                 len -= this;
-> > -- 
-> > 2.28.0.rc0.12.gb6a658bd00c9
-> > 
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+UXVvdGluZyBWaWxsZSBTeXJqw6Rsw6QgKDIwMjAtMTItMDQgMTY6MDE6MTEpCj4gT24gVHVlLCBE
+ZWMgMDEsIDIwMjAgYXQgMTA6Mzg6NTdQTSArMDAwMCwgQ2hyaXMgV2lsc29uIHdyb3RlOgo+ID4g
+UXVvdGluZyBWaWxsZSBTeXJqw6Rsw6QgKDIwMjAtMTItMDEgMTY6MDU6MTcpCj4gPiA+IE9uIEZy
+aSwgTm92IDI3LCAyMDIwIGF0IDEwOjA1OjQ4UE0gKzAwMDAsIENocmlzIFdpbHNvbiB3cm90ZToK
+PiA+ID4gPiBTd2l0Y2ggb2ZmIHRoZSBzY2Fub3V0IGR1cmluZyBkcml2ZXIgdW5yZWdpc3Rlciwg
+c28gd2UgY2FuIHNodXRkb3duIHRoZQo+ID4gPiA+IEhXIGltbWVkaWF0ZWx5IGZvciB1bmJpbmQu
+Cj4gPiA+ID4gCj4gPiA+ID4gU2lnbmVkLW9mZi1ieTogQ2hyaXMgV2lsc29uIDxjaHJpc0BjaHJp
+cy13aWxzb24uY28udWs+Cj4gPiA+ID4gLS0tCj4gPiA+ID4gIGRyaXZlcnMvZ3B1L2RybS9pOTE1
+L2k5MTVfZHJ2LmMgfCAxICsKPiA+ID4gPiAgMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCsp
+Cj4gPiA+ID4gCj4gPiA+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVf
+ZHJ2LmMgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X2Rydi5jCj4gPiA+ID4gaW5kZXggMzIw
+ODU2YjY2NWExLi42MmQxODhlNWNiOGQgMTAwNjQ0Cj4gPiA+ID4gLS0tIGEvZHJpdmVycy9ncHUv
+ZHJtL2k5MTUvaTkxNV9kcnYuYwo+ID4gPiA+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5
+MTVfZHJ2LmMKPiA+ID4gPiBAQCAtNzM4LDYgKzczOCw3IEBAIHN0YXRpYyB2b2lkIGk5MTVfZHJp
+dmVyX3VucmVnaXN0ZXIoc3RydWN0IGRybV9pOTE1X3ByaXZhdGUgKmRldl9wcml2KQo+ID4gPiA+
+ICAgICAgICAqIGV2ZW50cy4KPiA+ID4gPiAgICAgICAgKi8KPiA+ID4gPiAgICAgICBkcm1fa21z
+X2hlbHBlcl9wb2xsX2ZpbmkoJmRldl9wcml2LT5kcm0pOwo+ID4gPiA+ICsgICAgIGRybV9hdG9t
+aWNfaGVscGVyX3NodXRkb3duKCZkZXZfcHJpdi0+ZHJtKTsKPiA+ID4gCj4gPiA+IExvb2tzIGxp
+a2Ugd2UgYWxyZWFkeSBoYXZlIHRoaXMgaW4gcmVtb3ZlKCkuIElzIHRoYXQgdG9vIGxhdGU/Cj4g
+PiAKPiA+IEZvciB0aGUgb3BlcmF0aW9ucyB3ZSBkbyBkdXJpbmcgdW5iaW5kLCB5ZXMuCj4gPiAK
+PiA+IEZvciB0aGUgY29yZV9ob3RwbHVnL3JlYmluZCBkYW5jZSwgd2UgaGF2ZSB0byByZXNldCB0
+aGUgR1BVIHdoaWxlIHdlCj4gPiBzdGlsbCBoYXZlIHJ1bnRpbWUtcG0gb3BlcmF0aW9uYWwgYW5k
+IGhhdmUgcHVzaGVkIHRoZSByZXNldCB0bwo+ID4gdW5yZWdpc3RlciAoZnJvbSBleHBlcmltZW50
+YXRpb24gdGhhdCdzIGFzIGxhdGUgYXMgd2UgY2FuIHB1dCBpdCB3aGVyZQo+ID4gdGhlIEdQVSB3
+b3JrcyBhZnRlciByZWJpbmRpbmcgYW5kIHdlIGRvbid0IGNvcnJ1cHQgdGhlIHN5c3RlbSBvbiB1
+bmJpbmQsCj4gPiB3aXRoIHRoZSBjdXJyZW50IGhvb2tzKS4gWW91IGNhbiBndWVzcyBob3cgd2Vs
+bCBnZW4zIGxpa2VzIHRoYXQuCj4gPiAKPiA+IEJ1dCBJIGRvbid0IHRoaW5rIHRoZSByaWdodCBh
+bnN3ZXIgaXMgdG8gc2tpcCB0aGUgcmVzZXQgZm9yIGdlbjMuCj4gPiBTdXBwb3NlIHdlIGVuYWJs
+ZSBjb250ZXh0IHN1cHBvcnQgZm9yIGdlbjMsIHRoZW4gdGhlIHJlc2V0IHdvdWxkIGJlCj4gPiBy
+ZXF1aXJlZCBhcyB3ZWxsLCBhbmQgc28gd2Ugd291bGQgc3RpbGwgbmVlZCB0aGUgd2hvbGUgZGlz
+cGxheQo+ID4gc2hlbmFuaWdhbnMgdG8gdHVybiBpdCBvZmYuIE1vdmluZyB0aGUgbW9kZXNldCB0
+byB0dXJuIHRoZSBkaXNwbGF5IG9mZgo+ID4gdG8gdGhlIGVuZCBvZiB1c2Vyc3BhY2Ugc2VlbXMg
+cmVhc29uYWJsZS4KPiAKPiBZZWFoLCBqdXN0IGEgYml0IG9kZCB0byBoYXZlIHRoZSBzYW1lIGNh
+bGwgdHdpY2UgaW4gdGhlCj4gc2VxdWVuY2UuIENhbiB3ZSByZW1vdmUgdGhlIHNlY29uZCBjYWxs
+IGF0IGxlYXN0PwoKSSB0aGluayB3ZSBjYW4sIGJ1dCBJIGFtIHN1ZmZpY2llbnRseSBwYXJhbm9p
+ZCB0byBsZWF2ZSBpdC4KSSBwcmVzdW1lIGlmIGl0IGlzIGEgbm8tb3AsIGl0IHdpbGwgcmV0dXJu
+IHdpdGhvdXQgdG91Y2hpbmcgSFc/CiAKPiBBbHNvIGEgYml0IGFubm95aW5nIHRoZSB1bmxvYWQg
+c2VxdWVuY2Ugbm8gbG9uZ2VyIG1hdGNoZXMgdGhlCj4gc3VzcGVuZCBzZXF1ZW5jZS4gV2VsbCwg
+SSBndWVzcyBpdCB3YXMgbmV2ZXIgMTAwJSBhbnl3YXkgYnV0Cj4gSSB0aGluayBpdCB3YXMgYSBi
+aXQgY2xvc2VyIGJlZm9yZSB0aGlzIHBhdGNoLiBCdXQgdGhlIHdob2xlCj4gdGhpbmcgaXMgcmF0
+aGVyIG1lc3N5IGFueXdheSBzbyBJIGd1ZXNzIHQncyBub3Qgc2lnbmlmaWNhbnRseQo+IHdvcnNl
+IGFmdGVyIHRoaXMuCgpZZXMsIEkgZmVlbCB0aGluZ3MgaGF2ZSBiZWVuIHRocm93biBpbnRvIGEg
+Yml0IG9mIGRpc2FycmF5IGJ5CmhhcGhhemFyZGx5IGZpeGluZyB1bmJpbmQuCgpUaGUgbGFzdCog
+cmVtYWluaW5nIGZseSBpbiB0aGUgb2ludG1lbnQgaXMgcmViaW5kaW5nIGlvbW11LiBPbmNlIHdl
+IGhhdmUKdGhhdCBzb2xpZCAoYW5kIHRoZSBzeXN0ZW0gc3RvcHMgcmFuZG9tbHkgZWF0aW5nIGl0
+c2VsZiAxLTEwIG1pbnV0ZXMKYWZ0ZXIgdGhlIHRlc3QgcGFzc2VzKSwgd2Ugc2hvdWxkIGJlIGlu
+IGEgbXVjaCBiZXR0ZXIgc3BvdCB0byBzYWZlbHkKcmVtb3ZlIGR1cGxpY2F0aW9uIGFuZCByZWZp
+bmUgdGhlIGZsb3cuCgoqIHRoYXQgSSBhbSBhd2FyZSBvZi4KLUNocmlzCl9fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkludGVsLWdmeCBtYWlsaW5nIGxpc3QK
+SW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
+Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ludGVsLWdmeAo=
