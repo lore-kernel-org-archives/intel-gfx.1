@@ -2,54 +2,40 @@ Return-Path: <SRS0=5A7x=FI=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A570CC4361A
-	for <intel-gfx@archiver.kernel.org>; Fri,  4 Dec 2020 15:06:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5EA97C4361A
+	for <intel-gfx@archiver.kernel.org>; Fri,  4 Dec 2020 15:12:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5948A22B2D
-	for <intel-gfx@archiver.kernel.org>; Fri,  4 Dec 2020 15:06:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5948A22B2D
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id A2C0D22B3B
+	for <intel-gfx@archiver.kernel.org>; Fri,  4 Dec 2020 15:12:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A2C0D22B3B
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B55136E17F;
-	Fri,  4 Dec 2020 15:06:34 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BD1C46E17F
- for <intel-gfx@lists.freedesktop.org>; Fri,  4 Dec 2020 15:06:33 +0000 (UTC)
-IronPort-SDR: MUD2HiN8kbUxQG2cT78GuBrh6EJPuqqX24QunMHDHy4k2thMacwuAP/tjgUxMnQCLdV+RhZHVc
- cPAstwdVMy0Q==
-X-IronPort-AV: E=McAfee;i="6000,8403,9824"; a="191634002"
-X-IronPort-AV: E=Sophos;i="5.78,393,1599548400"; d="scan'208";a="191634002"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Dec 2020 07:06:32 -0800
-IronPort-SDR: lPZyzBSeP1HcfqEBYs3o/PZMJVGBsu2oUAVZYrR2EI5jp3xRpp5vn9it8b3PIp3yhIK7afg8+z
- AESgQ8aJKA0A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.78,393,1599548400"; d="scan'208";a="346630937"
-Received: from gaia.fi.intel.com ([10.237.72.192])
- by orsmga002.jf.intel.com with ESMTP; 04 Dec 2020 07:06:28 -0800
-Received: by gaia.fi.intel.com (Postfix, from userid 1000)
- id 9ACB35C2069; Fri,  4 Dec 2020 17:04:16 +0200 (EET)
-From: Mika Kuoppala <mika.kuoppala@linux.intel.com>
-To: Chris Wilson <chris@chris-wilson.co.uk>, intel-gfx@lists.freedesktop.org
-In-Reply-To: <20201204140315.24341-3-chris@chris-wilson.co.uk>
-References: <20201204140315.24341-1-chris@chris-wilson.co.uk>
- <20201204140315.24341-3-chris@chris-wilson.co.uk>
-Date: Fri, 04 Dec 2020 17:04:16 +0200
-Message-ID: <874kl1395b.fsf@gaia.fi.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 12FF86E17F;
+	Fri,  4 Dec 2020 15:12:39 +0000 (UTC)
+Received: from fireflyinternet.com (unknown [77.68.26.236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 994886E17F
+ for <intel-gfx@lists.freedesktop.org>; Fri,  4 Dec 2020 15:12:37 +0000 (UTC)
+X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
+ x-ip-name=78.156.65.138; 
+Received: from build.alporthouse.com (unverified [78.156.65.138]) 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23216192-1500050 
+ for <intel-gfx@lists.freedesktop.org>; Fri, 04 Dec 2020 15:12:35 +0000
+From: Chris Wilson <chris@chris-wilson.co.uk>
+To: intel-gfx@lists.freedesktop.org
+Date: Fri,  4 Dec 2020 15:12:31 +0000
+Message-Id: <20201204151234.19729-1-chris@chris-wilson.co.uk>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-Subject: Re: [Intel-gfx] [PATCH 03/24] drm/i915/gt: Cancel the preemption
- timeout on responding to it
+Subject: [Intel-gfx] [CI 1/4] drm/i915/gt: Ignore repeated attempts to
+ suspend request flow across reset
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,55 +48,44 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stable@vger.kernel.org, Chris Wilson <chris@chris-wilson.co.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Chris Wilson <chris@chris-wilson.co.uk> writes:
+Before reseting the engine, we suspend the execution of the guilty
+request, so that we can continue execution with a new context while we
+slowly compress the captured error state for the guilty context. However,
+if the reset fails, we will promptly attempt to reset the same request
+again, and discover the ongoing capture. Ignore the second attempt to
+suspend and capture the same request.
 
-> We currently presume that the engine reset is successful, cancelling the
-> expired preemption timer in the process. However, engine resets can
-> fail, leaving the timeout still pending and we will then respond to the
-> timeout again next time the tasklet fires. What we want is for the
-> failed engine reset to be promoted to a full device reset, which is
-> kicked by the heartbeat once the engine stops processing events.
->
-> Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/1168
-> Fixes: 3a7a92aba8fb ("drm/i915/execlists: Force preemption")
-> Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-> Cc: <stable@vger.kernel.org> # v5.5+
-
+Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/1168
+Fixes: 32ff621fd744 ("drm/i915/gt: Allow temporary suspension of inflight requests")
+Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+Cc: <stable@vger.kernel.org> # v5.7+
 Reviewed-by: Mika Kuoppala <mika.kuoppala@linux.intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_lrc.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-> ---
->  drivers/gpu/drm/i915/gt/intel_lrc.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
-> index 1d209a8a95e8..7f25894e41d5 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_lrc.c
-> +++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
-> @@ -3209,8 +3209,10 @@ static void execlists_submission_tasklet(unsigned long data)
->  		spin_unlock_irqrestore(&engine->active.lock, flags);
->  
->  		/* Recheck after serialising with direct-submission */
-> -		if (unlikely(timeout && preempt_timeout(engine)))
-> +		if (unlikely(timeout && preempt_timeout(engine))) {
-> +			cancel_timer(&engine->execlists.preempt);
->  			execlists_reset(engine, "preemption time out");
-> +		}
->  	}
->  }
->  
-> -- 
-> 2.20.1
->
-> _______________________________________________
-> Intel-gfx mailing list
-> Intel-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
+index 43703efb36d1..1d209a8a95e8 100644
+--- a/drivers/gpu/drm/i915/gt/intel_lrc.c
++++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
+@@ -2823,6 +2823,9 @@ static void __execlists_hold(struct i915_request *rq)
+ static bool execlists_hold(struct intel_engine_cs *engine,
+ 			   struct i915_request *rq)
+ {
++	if (i915_request_on_hold(rq))
++		return false;
++
+ 	spin_lock_irq(&engine->active.lock);
+ 
+ 	if (i915_request_completed(rq)) { /* too late! */
+-- 
+2.20.1
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
