@@ -2,52 +2,54 @@ Return-Path: <SRS0=5A7x=FI=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-15.3 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1D845C4361A
-	for <intel-gfx@archiver.kernel.org>; Fri,  4 Dec 2020 08:32:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 73742C433FE
+	for <intel-gfx@archiver.kernel.org>; Fri,  4 Dec 2020 09:02:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id ADFD222582
-	for <intel-gfx@archiver.kernel.org>; Fri,  4 Dec 2020 08:32:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org ADFD222582
+	by mail.kernel.org (Postfix) with ESMTPS id 0FE432255F
+	for <intel-gfx@archiver.kernel.org>; Fri,  4 Dec 2020 09:02:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0FE432255F
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D7E26E135;
-	Fri,  4 Dec 2020 08:32:46 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E11056E135
- for <intel-gfx@lists.freedesktop.org>; Fri,  4 Dec 2020 08:32:44 +0000 (UTC)
-IronPort-SDR: U1Vh5Bmbmj6TPMfVCJlRMqzJ60M2EyJpssDkKU1V1E7Z985HWHgnaZRI9CzfeCVm5FSngEYcIE
- r7zFToDgcLhQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9824"; a="173442278"
-X-IronPort-AV: E=Sophos;i="5.78,392,1599548400"; d="scan'208";a="173442278"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 519946E135;
+	Fri,  4 Dec 2020 09:02:38 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C76756E135;
+ Fri,  4 Dec 2020 09:02:37 +0000 (UTC)
+IronPort-SDR: J4zrkhhb+FuXTnLtnq2jzYJlFadYSQSta/ZvFHWEEwc8S8X0LIouZeubnWNiWAgaJ/4CumOFwe
+ t18MAGc+4oEA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9824"; a="170781561"
+X-IronPort-AV: E=Sophos;i="5.78,392,1599548400"; d="scan'208";a="170781561"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Dec 2020 00:32:41 -0800
-IronPort-SDR: OuuTcqVoyE2mJBPPRJkKlxDLollGA9hmsxxa/0Q2BOTWKZsZrIJ2PRnJ9/AH9RDg4HnbekbDgp
- ZtH9JW5POmhQ==
-X-IronPort-AV: E=Sophos;i="5.78,392,1599548400"; d="scan'208";a="362110848"
-Received: from genxfsim-desktop.iind.intel.com ([10.223.74.178])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Dec 2020 00:32:39 -0800
-From: Anshuman Gupta <anshuman.gupta@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Fri,  4 Dec 2020 13:48:45 +0530
-Message-Id: <20201204081845.26528-2-anshuman.gupta@intel.com>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20201204081845.26528-1-anshuman.gupta@intel.com>
-References: <20201204081845.26528-1-anshuman.gupta@intel.com>
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Dec 2020 01:02:36 -0800
+IronPort-SDR: 93oqj+yMLNMQ6nd884NHkOlG8oEZ7fcduNJhMBIPxZsM9iPL2giNKQJ/CZOjQMkBesBWV75T0A
+ 1LumlZ9EsPxw==
+X-IronPort-AV: E=Sophos;i="5.78,392,1599548400"; d="scan'208";a="540619939"
+Received: from ramaling-i9x.iind.intel.com (HELO intel.com) ([10.99.66.154])
+ by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Dec 2020 01:02:33 -0800
+Date: Fri, 4 Dec 2020 14:32:16 +0530
+From: Ramalingam C <ramalingam.c@intel.com>
+To: Anshuman Gupta <anshuman.gupta@intel.com>
+Message-ID: <20201204090216.GA5336@intel.com>
+References: <20201126073722.19107-1-anshuman.gupta@intel.com>
+ <20201126073722.19107-5-anshuman.gupta@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 1/1] drm/i915/dp: optimize pps_lock wherever
- required
+Content-Disposition: inline
+In-Reply-To: <20201126073722.19107-5-anshuman.gupta@intel.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Subject: Re: [Intel-gfx] [PATCH v6 04/18] drm/i915/hdcp: No HDCP when
+ encoder is't initialized
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,89 +62,53 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: jani.nikula@intel.com, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, seanpaul@chromium.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Reading backlight status from PPS register doesn't require
-AUX power on the platform which has South Display Engine on PCH.
-It invokes a unnecessary power well enable/disable noise.
-optimize it wherever is possible.
+On 2020-11-26 at 13:07:08 +0530, Anshuman Gupta wrote:
+> There can be situation when DP MST connector is created without
+> mst modeset being done, in those cases connector->encoder will be
+> NULL. MST connector->encoder initializes after modeset.
 
-Signed-off-by: Anshuman Gupta <anshuman.gupta@intel.com>
----
- drivers/gpu/drm/i915/display/intel_dp.c | 47 +++++++++++++++++++++++--
- 1 file changed, 45 insertions(+), 2 deletions(-)
+This patch is to reject the HDCP request on MST connector without
+encoder initialized(modeset). But userspace are not supposed to request hdcp at such
+scenario right?.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 2d4d5e95af84..7e18e4ff50f4 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -892,6 +892,47 @@ pps_unlock(struct intel_dp *intel_dp, intel_wakeref_t wakeref)
- 	return 0;
- }
- 
-+/*
-+ * Platform with PCH based SDE doesn't require to enable AUX power
-+ * for simple PPS register access like whether backlight is enabled.
-+ * use pch_pps_lock()/pch_pps_unlock() wherever we don't require
-+ * aux power to avoid unnecessary power well enable/disable back
-+ * and forth.
-+ */
-+static intel_wakeref_t
-+pch_pps_lock(struct intel_dp *intel_dp)
-+{
-+	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
-+	intel_wakeref_t wakeref;
-+
-+	if (!HAS_PCH_SPLIT(dev_priv))
-+		wakeref = intel_display_power_get(dev_priv,
-+						  intel_aux_power_domain(dp_to_dig_port(intel_dp)));
-+	else
-+		wakeref = intel_runtime_pm_get(&dev_priv->runtime_pm);
-+
-+	mutex_lock(&dev_priv->pps_mutex);
-+
-+	return wakeref;
-+}
-+
-+static intel_wakeref_t
-+pch_pps_unlock(struct intel_dp *intel_dp, intel_wakeref_t wakeref)
-+{
-+	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
-+
-+	mutex_unlock(&dev_priv->pps_mutex);
-+
-+	if (!HAS_PCH_SPLIT(dev_priv))
-+		intel_display_power_put(dev_priv,
-+					intel_aux_power_domain(dp_to_dig_port(intel_dp)),
-+					wakeref);
-+	else
-+		intel_runtime_pm_put(&dev_priv->runtime_pm, wakeref);
-+
-+	return 0;
-+}
-+
- #define with_pps_lock(dp, wf) \
- 	for ((wf) = pps_lock(dp); (wf); (wf) = pps_unlock((dp), (wf)))
- 
-@@ -3453,8 +3494,10 @@ static void intel_edp_backlight_power(struct intel_connector *connector,
- 	bool is_enabled;
- 
- 	is_enabled = false;
--	with_pps_lock(intel_dp, wakeref)
--		is_enabled = ilk_get_pp_control(intel_dp) & EDP_BLC_ENABLE;
-+	wakeref = pch_pps_lock(intel_dp);
-+	is_enabled = ilk_get_pp_control(intel_dp) & EDP_BLC_ENABLE;
-+	pch_pps_unlock(intel_dp, wakeref);
-+
- 	if (is_enabled == enable)
- 		return;
- 
--- 
-2.26.2
+Ram
 
+> Don't enable HDCP in such cases to prevent any crash.
+> 
+> Cc: Ramalingam C <ramalingam.c@intel.com>
+> Cc: Juston Li <juston.li@intel.com>
+> Signed-off-by: Anshuman Gupta <anshuman.gupta@intel.com>
+> ---
+>  drivers/gpu/drm/i915/display/intel_hdcp.c | 6 ++++++
+>  1 file changed, 6 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.c b/drivers/gpu/drm/i915/display/intel_hdcp.c
+> index b9d8825e2bb1..7d63e9495956 100644
+> --- a/drivers/gpu/drm/i915/display/intel_hdcp.c
+> +++ b/drivers/gpu/drm/i915/display/intel_hdcp.c
+> @@ -2106,6 +2106,12 @@ int intel_hdcp_enable(struct intel_connector *connector,
+>  	if (!hdcp->shim)
+>  		return -ENOENT;
+>  
+> +	if (!connector->encoder) {
+> +		drm_err(&dev_priv->drm, "[%s:%d] encoder is not initialized\n",
+> +			connector->base.name, connector->base.base.id);
+> +		return -ENODEV;
+> +	}
+> +
+>  	mutex_lock(&hdcp->mutex);
+>  	mutex_lock(&dig_port->hdcp_mutex);
+>  	drm_WARN_ON(&dev_priv->drm,
+> -- 
+> 2.26.2
+> 
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
