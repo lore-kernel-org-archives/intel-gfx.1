@@ -2,42 +2,73 @@ Return-Path: <SRS0=5A7x=FI=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 432C8C4361A
-	for <intel-gfx@archiver.kernel.org>; Fri,  4 Dec 2020 14:04:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B28EAC433FE
+	for <intel-gfx@archiver.kernel.org>; Fri,  4 Dec 2020 14:21:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0A86B22A99
-	for <intel-gfx@archiver.kernel.org>; Fri,  4 Dec 2020 14:04:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0A86B22A99
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
+	by mail.kernel.org (Postfix) with ESMTPS id 6B8D422B2B
+	for <intel-gfx@archiver.kernel.org>; Fri,  4 Dec 2020 14:21:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6B8D422B2B
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9695A6E1B4;
-	Fri,  4 Dec 2020 14:04:15 +0000 (UTC)
-Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 71E406E1A2
- for <intel-gfx@lists.freedesktop.org>; Fri,  4 Dec 2020 14:04:12 +0000 (UTC)
-X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
- x-ip-name=78.156.65.138; 
-Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23215309-1500050 
- for multiple; Fri, 04 Dec 2020 14:03:18 +0000
-From: Chris Wilson <chris@chris-wilson.co.uk>
-To: intel-gfx@lists.freedesktop.org
-Date: Fri,  4 Dec 2020 14:02:53 +0000
-Message-Id: <20201204140315.24341-2-chris@chris-wilson.co.uk>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20201204140315.24341-1-chris@chris-wilson.co.uk>
-References: <20201204140315.24341-1-chris@chris-wilson.co.uk>
+	by gabe.freedesktop.org (Postfix) with ESMTP id F17B66E194;
+	Fri,  4 Dec 2020 14:21:28 +0000 (UTC)
+Received: from mail-il1-x144.google.com (mail-il1-x144.google.com
+ [IPv6:2607:f8b0:4864:20::144])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D63BC6E12C;
+ Fri,  4 Dec 2020 03:53:36 +0000 (UTC)
+Received: by mail-il1-x144.google.com with SMTP id k8so4022073ilr.4;
+ Thu, 03 Dec 2020 19:53:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=ULTmDl5ODAp5+pGiMlfRgGgqG7bhEVtrrqJo/V0Wv5o=;
+ b=IqWzw/7LhLKatX2EcMZ7gPXa4FX987fJvD2fIX7S33kmZPPX9/QQhdFXd18ExVQsKP
+ sW/pxBbVFcILY5G+8C0Hd7JrF91UtzuNPSkxy9+moOonfKdGEv38ehQddV13jPK8qZhS
+ 5lgBjYtrCsgneZH6Ityt0+U1RYuwDszWp9fQnAf5y1EYCsqnlcy3PHp6yiKYVItjFZc1
+ z1/aSSLurV/FbaOfmjYkWwRXL6Mg0jbQ/ow+kszM5s5wHf8YGqfOt8ACPLi+LzM/USzM
+ f/rrzkzNiPg2zE2ul+Jwmp2Cfb7HbEMQCOV+sQcBxl9WYyd8o1Y3Ng1IRztDmYk/EqS1
+ Ahfg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=ULTmDl5ODAp5+pGiMlfRgGgqG7bhEVtrrqJo/V0Wv5o=;
+ b=Lj6NJX2nOP/FyD9birLqMNET9TYtgc3HLOYir7jkxbeV/c5hDbAEKnXO9uFWAROaTC
+ 54TVuVnTUQY1DvT7mbjdpNBlfW6e/lfPat+rWD5BaN2wyagXYxxkeC7Jt/F8Im6jR75B
+ /gC2jOr2QEtc+yA1Ba9rMPcC5oYJGhxpiz+ALVMSFbIctNwzj513Y5UeEwvP5B9WskZk
+ d+5abbpjqnCDxqL42mwNt/Vf8DTW3UNuuCA0MMsl5YtvMh7Apxf4nxeU6HAjm/otHSfX
+ r1c2fsLxbKg4MdtRN7G2AtUzrJGGoBOoPM8ALxnMTz7TvHyTGaRWkxLXf0jSa0KnCfwX
+ JuRw==
+X-Gm-Message-State: AOAM533gX7O8jh5JMPjB/ZN27g0SYx0y/N7NS7+FHd0AXrHQB8B2w1gy
+ Hg6xbeyMR6xZgYiMKhN83XOg/q6dKdFPPg==
+X-Google-Smtp-Source: ABdhPJw/GpPxKvmdLgpe0UZqYix1EOwTWX/EGSHFiJY3r/MukaIIZNjhO1ojAeLgFHMsed0OsIErJA==
+X-Received: by 2002:a92:58cb:: with SMTP id z72mr3406498ilf.104.1607054015671; 
+ Thu, 03 Dec 2020 19:53:35 -0800 (PST)
+Received: from frodo.mearth (c-24-9-77-57.hsd1.co.comcast.net. [24.9.77.57])
+ by smtp.googlemail.com with ESMTPSA id o12sm671361ilj.55.2020.12.03.19.53.34
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 03 Dec 2020 19:53:35 -0800 (PST)
+From: Jim Cromie <jim.cromie@gmail.com>
+To: dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Date: Thu,  3 Dec 2020 20:53:18 -0700
+Message-Id: <20201204035318.332419-3-jim.cromie@gmail.com>
+X-Mailer: git-send-email 2.28.0
+In-Reply-To: <20201204035318.332419-1-jim.cromie@gmail.com>
+References: <20201204035318.332419-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 02/24] drm/i915/gt: Ignore repeated attempts to
- suspend request flow across reset
+X-Mailman-Approved-At: Fri, 04 Dec 2020 14:21:28 +0000
+Subject: [Intel-gfx] [RFC PATCH 2/2] i915: POC use
+ dynamic_debug_exec_queries to control pr_debugs in gvt
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,43 +81,121 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Chris Wilson <chris@chris-wilson.co.uk>, stable@vger.kernel.org
+Cc: Jim Cromie <jim.cromie@gmail.com>, intel-gfx@lists.freedesktop.org,
+ David Airlie <airlied@linux.ie>, jbaron@akamai.com,
+ intel-gvt-dev@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Before reseting the engine, we suspend the execution of the guilty
-request, so that we can continue execution with a new context while we
-slowly compress the captured error state for the guilty context. However,
-if the reset fails, we will promptly attempt to reset the same request
-again, and discover the ongoing capture. Ignore the second attempt to
-suspend and capture the same request.
+The gvt component of this driver has ~120 pr_debugs, in 9 "classes".
+Following model of drm.debug, add a parameter to map bits to these
+classes.
 
-Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/1168
-Fixes: 32ff621fd744 ("drm/i915/gt: Allow temporary suspension of inflight requests")
-Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-Cc: <stable@vger.kernel.org> # v5.7+
+In Makefile, add DYNAMIC_DEBUG_MODULE.  This converts gvt's pr_debugs,
+even if the rest of drm is not using CONFIG_DRM_USE_DYNAMIC_DEBUG.
+
+Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/gpu/drm/i915/gt/intel_lrc.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/i915/gvt/Makefile  |  1 +
+ drivers/gpu/drm/i915/i915_params.c | 74 ++++++++++++++++++++++++++++++
+ 2 files changed, 75 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
-index 43703efb36d1..1d209a8a95e8 100644
---- a/drivers/gpu/drm/i915/gt/intel_lrc.c
-+++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
-@@ -2823,6 +2823,9 @@ static void __execlists_hold(struct i915_request *rq)
- static bool execlists_hold(struct intel_engine_cs *engine,
- 			   struct i915_request *rq)
- {
-+	if (i915_request_on_hold(rq))
-+		return false;
-+
- 	spin_lock_irq(&engine->active.lock);
+diff --git a/drivers/gpu/drm/i915/gvt/Makefile b/drivers/gpu/drm/i915/gvt/Makefile
+index ea8324abc784..e38a1eb618bd 100644
+--- a/drivers/gpu/drm/i915/gvt/Makefile
++++ b/drivers/gpu/drm/i915/gvt/Makefile
+@@ -6,4 +6,5 @@ GVT_SOURCE := gvt.o aperture_gm.o handlers.o vgpu.o trace_points.o firmware.o \
+ 	fb_decoder.o dmabuf.o page_track.o
  
- 	if (i915_request_completed(rq)) { /* too late! */
+ ccflags-y				+= -I $(srctree)/$(src) -I $(srctree)/$(src)/$(GVT_DIR)/
++ccflags-y				+= -DDYNAMIC_DEBUG_MODULE
+ i915-y					+= $(addprefix $(GVT_DIR)/, $(GVT_SOURCE))
+diff --git a/drivers/gpu/drm/i915/i915_params.c b/drivers/gpu/drm/i915/i915_params.c
+index 7f139ea4a90b..ecc825558e00 100644
+--- a/drivers/gpu/drm/i915/i915_params.c
++++ b/drivers/gpu/drm/i915/i915_params.c
+@@ -260,3 +260,77 @@ void i915_params_free(struct i915_params *params)
+ 	I915_PARAMS_FOR_EACH(FREE);
+ #undef FREE
+ }
++
++/* POC for callback -> dynamic_debug_exec_queries */
++unsigned long __gvt_debug;
++EXPORT_SYMBOL(__gvt_debug);
++
++static char *format_prefix_classes[] = {
++	"gvt: cmd: ",
++	"gvt: core: ",
++	"gvt: dpy: ",
++	"gvt: el: ",
++	"gvt: irq: ",
++	"gvt: mm: ",
++	"gvt: mmio: ",
++	"gvt: render: ",
++	"gvt: sched: "
++};
++#define NUM_CLASSES	ARRAY_SIZE(format_prefix_classes)
++#define OUR_QUERY_SIZE	128 /* we need about 20 */
++
++#include <linux/module.h>
++
++static int param_set_dyndbg(const char *instr, const struct kernel_param *kp)
++{
++	unsigned int val;
++	unsigned long changes, result;
++	int rc, chgct = 0, totct = 0, bitpos;
++	char query[OUR_QUERY_SIZE];
++
++	rc = kstrtouint(instr, 0, &val);
++	if (rc) {
++		pr_err("set_dyndbg: failed\n");
++		return -EINVAL;
++	}
++	result = val;
++	pr_info("set_dyndbg: result:0x%lx from %s\n", result, instr);
++
++	changes = result ^ __gvt_debug;
++
++	for_each_set_bit(bitpos, &changes, NUM_CLASSES) {
++
++		sprintf(query, "format '^%s' %cp", format_prefix_classes[bitpos],
++			test_bit(bitpos, &result) ? '+' : '-');
++
++		chgct = dynamic_debug_exec_queries(query, "i915");
++
++		pr_info("%d changes on: %s\n", chgct, query);
++		totct += chgct;
++	}
++	pr_info("total changes: %d\n", totct);
++	__gvt_debug = result;
++	return 0;
++}
++static int param_get_dyndbg(char *buffer, const struct kernel_param *kp)
++{
++	return scnprintf(buffer, PAGE_SIZE, "%u\n",
++			 *((unsigned int *)kp->arg));
++}
++static const struct kernel_param_ops param_ops_dyndbg = {
++	.set = param_set_dyndbg,
++	.get = param_get_dyndbg,
++};
++
++MODULE_PARM_DESC(debug_gvt, " gvt debug categories:"
++		 "\n\t0x1\t gvt: cmd:"
++		 "\n\t0x2\t gvt: core:"
++		 "\n\t0x4\t gvt: dpy:"
++		 "\n\t0x8\t gvt: el:"
++		 "\n\t0x10\t gvt: irq:"
++		 "\n\t0x20\t gvt: mm:"
++		 "\n\t0x40\t gvt: mmio:"
++		 "\n\t0x80\t gvt: render:"
++		 "\n\t0x100\t gvt: sched:" "\n");
++
++module_param_cb(debug_gvt, &param_ops_dyndbg, &__gvt_debug, 0644);
 -- 
-2.20.1
+2.28.0
 
 _______________________________________________
 Intel-gfx mailing list
