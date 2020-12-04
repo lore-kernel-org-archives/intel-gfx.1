@@ -1,53 +1,42 @@
-Return-Path: <SRS0=sbLu=FH=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
+Return-Path: <SRS0=5A7x=FI=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.9 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
-	URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5A9FAC4167B
-	for <intel-gfx@archiver.kernel.org>; Thu,  3 Dec 2020 23:51:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BBBA5C4361A
+	for <intel-gfx@archiver.kernel.org>; Fri,  4 Dec 2020 00:43:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 03C3022285
-	for <intel-gfx@archiver.kernel.org>; Thu,  3 Dec 2020 23:51:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 03C3022285
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 1F89322482
+	for <intel-gfx@archiver.kernel.org>; Fri,  4 Dec 2020 00:43:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1F89322482
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 672006E0E6;
-	Thu,  3 Dec 2020 23:51:10 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C6B246E0DE
- for <intel-gfx@lists.freedesktop.org>; Thu,  3 Dec 2020 23:51:04 +0000 (UTC)
-IronPort-SDR: 7ciwHQwqnli0Z7mpmnbBPlIwRJAFPdkoM5Ucl90j4RnKav/4T5ghXo0eoJnYpE3Veu6K1a1XgK
- 9frNhYeKISjA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9824"; a="161067210"
-X-IronPort-AV: E=Sophos;i="5.78,390,1599548400"; d="scan'208";a="161067210"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Dec 2020 15:51:03 -0800
-IronPort-SDR: k2ih0vnL7aTaihN14woZr+0tPj562ljw4BBbCIWq+Wony/bzH8WlVJdGcFKTjbOQ3q6ElqFhgI
- vy24N0nvas1w==
-X-IronPort-AV: E=Sophos;i="5.78,390,1599548400"; d="scan'208";a="550716508"
-Received: from labuser-z97x-ud5h.jf.intel.com ([10.165.21.211])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-SHA;
- 03 Dec 2020 15:51:03 -0800
-From: Manasi Navare <manasi.d.navare@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Thu,  3 Dec 2020 15:53:56 -0800
-Message-Id: <20201203235358.18041-7-manasi.d.navare@intel.com>
-X-Mailer: git-send-email 2.19.1
-In-Reply-To: <20201203235358.18041-1-manasi.d.navare@intel.com>
-References: <20201203235358.18041-1-manasi.d.navare@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id E4C3E6E0DF;
+	Fri,  4 Dec 2020 00:43:24 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id C8BC66E0DE;
+ Fri,  4 Dec 2020 00:43:23 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id B9205A363B;
+ Fri,  4 Dec 2020 00:43:23 +0000 (UTC)
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v3 7/9] drm/i915/display/vrr: Disable VRR in
- modeset disable path
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Chris Wilson" <chris@chris-wilson.co.uk>
+Date: Fri, 04 Dec 2020 00:43:23 -0000
+Message-ID: <160704260373.27540.3407056890035635410@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20201203223849.17350-1-chris@chris-wilson.co.uk>
+In-Reply-To: <20201203223849.17350-1-chris@chris-wilson.co.uk>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJBVDogZmFpbHVyZSBmb3IgZHJt?=
+ =?utf-8?q?/i915=3A_Stop_sampling_rc6_from_inside_pmu=5Fenable_=28rev2=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,57 +49,228 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============1646300551=="
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-VGhpcyBwYXRjaCBkaXNhYmxlcyB0aGUgVlJSIGVuYWJsZSBhbmQgVlJSIFBVU0gKYml0cyBpbiB0
-aGUgSFcgZHVyaW5nIGNvbW1pdCBtb2Rlc2V0IGRpc2FibGUgc2VxdWVuY2UuCgpUaHNpIGRpc2Fi
-bGUgd2lsbCBoYXBwZW4gd2hlbiB0aGUgcG9ydCBpcyBkaXNhYmxlZApvciB3aGVuIHRoZSB1c2Vy
-c3BhY2Ugc2V0cyBWUlIgcHJvcCB0byBmYWxzZSBhbmQKcmVxdWVzdHMgdG8gZGlzYWJsZSBWUlIu
-Cgp2MjoKKiBVc2UgaW50ZWxfZGVfcm13IChKYW5pIE4pCgpDYzogVmlsbGUgU3lyasOkbMOkIDx2
-aWxsZS5zeXJqYWxhQGxpbnV4LmludGVsLmNvbT4KU2lnbmVkLW9mZi1ieTogTWFuYXNpIE5hdmFy
-ZSA8bWFuYXNpLmQubmF2YXJlQGludGVsLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9k
-aXNwbGF5L2ludGVsX2RkaS5jIHwgIDIgKysKIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkv
-aW50ZWxfdnJyLmMgfCAxNiArKysrKysrKysrKysrKysrCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9k
-aXNwbGF5L2ludGVsX3Zyci5oIHwgIDEgKwogMyBmaWxlcyBjaGFuZ2VkLCAxOSBpbnNlcnRpb25z
-KCspCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kZGku
-YyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGRpLmMKaW5kZXggNDg0Njdj
-NmFiYjM3Li4wN2ZiNzI5NmM4YzcgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rp
-c3BsYXkvaW50ZWxfZGRpLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRl
-bF9kZGkuYwpAQCAtMzk5NSw2ICszOTk1LDggQEAgc3RhdGljIHZvaWQgaW50ZWxfZGRpX3Bvc3Rf
-ZGlzYWJsZShzdHJ1Y3QgaW50ZWxfYXRvbWljX3N0YXRlICpzdGF0ZSwKIAogCQlpbnRlbF9kaXNh
-YmxlX3BpcGUob2xkX2NydGNfc3RhdGUpOwogCisJCWludGVsX3Zycl9kaXNhYmxlKG9sZF9jcnRj
-X3N0YXRlKTsKKwogCQlpbnRlbF9kZGlfZGlzYWJsZV90cmFuc2NvZGVyX2Z1bmMob2xkX2NydGNf
-c3RhdGUpOwogCiAJCWludGVsX2RzY19kaXNhYmxlKG9sZF9jcnRjX3N0YXRlKTsKZGlmZiAtLWdp
-dCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfdnJyLmMgYi9kcml2ZXJzL2dw
-dS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX3Zyci5jCmluZGV4IDM1OTdhNTM4ODdkZC4uYTNlZGZh
-ZGI1MGYxIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX3Zy
-ci5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfdnJyLmMKQEAgLTEz
-MywzICsxMzMsMTkgQEAgdm9pZCBpbnRlbF92cnJfc2VuZF9wdXNoKGNvbnN0IHN0cnVjdCBpbnRl
-bF9jcnRjX3N0YXRlICpjcnRjX3N0YXRlKQogCWRybV9kYmdfa21zKCZkZXZfcHJpdi0+ZHJtLCAi
-U2VuZGluZyBWUlIgUHVzaCBvbiBwaXBlICVjXG4iLAogCQkgICAgcGlwZV9uYW1lKHBpcGUpKTsK
-IH0KKwordm9pZCBpbnRlbF92cnJfZGlzYWJsZShjb25zdCBzdHJ1Y3QgaW50ZWxfY3J0Y19zdGF0
-ZSAqb2xkX2NydGNfc3RhdGUpCit7CisJc3RydWN0IGludGVsX2NydGMgKmNydGMgPSB0b19pbnRl
-bF9jcnRjKG9sZF9jcnRjX3N0YXRlLT51YXBpLmNydGMpOworCXN0cnVjdCBkcm1faTkxNV9wcml2
-YXRlICpkZXZfcHJpdiA9IHRvX2k5MTUoY3J0Yy0+YmFzZS5kZXYpOworCWVudW0gcGlwZSBwaXBl
-ID0gY3J0Yy0+cGlwZTsKKworCWlmICghb2xkX2NydGNfc3RhdGUtPnZyci5lbmFibGUpCisJCXJl
-dHVybjsKKworCWludGVsX2RlX3JtdyhkZXZfcHJpdiwgVFJBTlNfVlJSX0NUTChwaXBlKSwgVlJS
-X0NUTF9GTElQX0xJTkVfRU4gfCBWUlJfQ1RMX1ZSUl9FTkFCTEUsIDApOworCWludGVsX2RlX3Jt
-dyhkZXZfcHJpdiwgVFJBTlNfUFVTSChwaXBlKSwgVFJBTlNfUFVTSF9FTiwgMCk7CisKKwlkcm1f
-ZGJnX2ttcygmZGV2X3ByaXYtPmRybSwgIkRpc2FibGluZyBWUlIgb24gcGlwZSAlY1xuIiwKKwkJ
-ICAgIHBpcGVfbmFtZShwaXBlKSk7Cit9CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkx
-NS9kaXNwbGF5L2ludGVsX3Zyci5oIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRl
-bF92cnIuaAppbmRleCAxMTJlNDAxNDdlMzUuLjVkM2RlZjAyNDAwNiAxMDA2NDQKLS0tIGEvZHJp
-dmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF92cnIuaAorKysgYi9kcml2ZXJzL2dwdS9k
-cm0vaTkxNS9kaXNwbGF5L2ludGVsX3Zyci5oCkBAIC0yMiw1ICsyMiw2IEBAIHZvaWQgaW50ZWxf
-dnJyX2NvbXB1dGVfY29uZmlnKHN0cnVjdCBpbnRlbF9kcCAqaW50ZWxfZHAsCiB2b2lkIGludGVs
-X3Zycl9lbmFibGUoc3RydWN0IGludGVsX2VuY29kZXIgKmVuY29kZXIsCiAJCSAgICAgIGNvbnN0
-IHN0cnVjdCBpbnRlbF9jcnRjX3N0YXRlICpjcnRjX3N0YXRlKTsKIHZvaWQgaW50ZWxfdnJyX3Nl
-bmRfcHVzaChjb25zdCBzdHJ1Y3QgaW50ZWxfY3J0Y19zdGF0ZSAqY3J0Y19zdGF0ZSk7Cit2b2lk
-IGludGVsX3Zycl9kaXNhYmxlKGNvbnN0IHN0cnVjdCBpbnRlbF9jcnRjX3N0YXRlICpvbGRfY3J0
-Y19zdGF0ZSk7CiAKICNlbmRpZiAvKiBfX0lOVEVMX1ZSUl9IX18gKi8KLS0gCjIuMTkuMQoKX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KSW50ZWwtZ2Z4IG1h
-aWxpbmcgbGlzdApJbnRlbC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vaW50ZWwtZ2Z4Cg==
+--===============1646300551==
+Content-Type: multipart/alternative;
+ boundary="===============0939930525132288036=="
+
+--===============0939930525132288036==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+== Series Details ==
+
+Series: drm/i915: Stop sampling rc6 from inside pmu_enable (rev2)
+URL   : https://patchwork.freedesktop.org/series/84549/
+State : failure
+
+== Summary ==
+
+CI Bug Log - changes from CI_DRM_9439 -> Patchwork_19054
+====================================================
+
+Summary
+-------
+
+  **FAILURE**
+
+  Serious unknown changes coming with Patchwork_19054 absolutely need to be
+  verified manually.
+  
+  If you think the reported changes have nothing to do with the changes
+  introduced in Patchwork_19054, please notify your bug team to allow them
+  to document this new failure mode, which will reduce false positives in CI.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19054/index.html
+
+Possible new issues
+-------------------
+
+  Here are the unknown changes that may have been introduced in Patchwork_19054:
+
+### IGT changes ###
+
+#### Possible regressions ####
+
+  * igt@gem_exec_suspend@basic-s3:
+    - fi-snb-2600:        [PASS][1] -> [INCOMPLETE][2]
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9439/fi-snb-2600/igt@gem_exec_suspend@basic-s3.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19054/fi-snb-2600/igt@gem_exec_suspend@basic-s3.html
+
+  
+New tests
+---------
+
+  New tests have been introduced between CI_DRM_9439 and Patchwork_19054:
+
+### New CI tests (1) ###
+
+  * boot:
+    - Statuses : 1 fail(s) 37 pass(s)
+    - Exec time: [0.0] s
+
+  
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_19054 that come from known issues:
+
+### IGT changes ###
+
+#### Possible fixes ####
+
+  * igt@i915_selftest@live@execlists:
+    - fi-kbl-x1275:       [INCOMPLETE][3] ([i915#1037] / [i915#794]) -> [PASS][4]
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9439/fi-kbl-x1275/igt@i915_selftest@live@execlists.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19054/fi-kbl-x1275/igt@i915_selftest@live@execlists.html
+
+  * igt@i915_selftest@live@gt_timelines:
+    - fi-apl-guc:         [INCOMPLETE][5] -> [PASS][6]
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9439/fi-apl-guc/igt@i915_selftest@live@gt_timelines.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19054/fi-apl-guc/igt@i915_selftest@live@gt_timelines.html
+
+  
+  [i915#1037]: https://gitlab.freedesktop.org/drm/intel/issues/1037
+  [i915#794]: https://gitlab.freedesktop.org/drm/intel/issues/794
+
+
+Participating hosts (42 -> 38)
+------------------------------
+
+  Additional (1): fi-tgl-y 
+  Missing    (5): fi-kbl-soraka fi-ilk-m540 fi-hsw-4200u fi-bsw-cyan fi-bdw-samus 
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_9439 -> Patchwork_19054
+
+  CI-20190529: 20190529
+  CI_DRM_9439: 17ead179a640cc74313ebdd72c51eee3d2d803d6 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_5880: d67bad61dc9a7515f94a7eecadd3bcd6b4f9d49e @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools
+  Patchwork_19054: bc6f455af929894c1be333a41cd397e3c5232829 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+== Linux commits ==
+
+bc6f455af929 drm/i915: Stop sampling rc6 from inside pmu_enable
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19054/index.html
+
+--===============0939930525132288036==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915: Stop sampling rc6 from inside pmu_enable (rev2)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/84549/">https://patchwork.freedesktop.org/series/84549/</a></td></tr>
+<tr><td><b>State:</b></td><td>failure</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19054/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19054/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_9439 -&gt; Patchwork_19054</h1>
+<h2>Summary</h2>
+<p><strong>FAILURE</strong></p>
+<p>Serious unknown changes coming with Patchwork_19054 absolutely need to be<br />
+  verified manually.</p>
+<p>If you think the reported changes have nothing to do with the changes<br />
+  introduced in Patchwork_19054, please notify your bug team to allow them<br />
+  to document this new failure mode, which will reduce false positives in CI.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19054/index.html</p>
+<h2>Possible new issues</h2>
+<p>Here are the unknown changes that may have been introduced in Patchwork_19054:</p>
+<h3>IGT changes</h3>
+<h4>Possible regressions</h4>
+<ul>
+<li>igt@gem_exec_suspend@basic-s3:<ul>
+<li>fi-snb-2600:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9439/fi-snb-2600/igt@gem_exec_suspend@basic-s3.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19054/fi-snb-2600/igt@gem_exec_suspend@basic-s3.html">INCOMPLETE</a></li>
+</ul>
+</li>
+</ul>
+<h2>New tests</h2>
+<p>New tests have been introduced between CI_DRM_9439 and Patchwork_19054:</p>
+<h3>New CI tests (1)</h3>
+<ul>
+<li>boot:<ul>
+<li>Statuses : 1 fail(s) 37 pass(s)</li>
+<li>Exec time: [0.0] s</li>
+</ul>
+</li>
+</ul>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_19054 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@i915_selftest@live@execlists:</p>
+<ul>
+<li>fi-kbl-x1275:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9439/fi-kbl-x1275/igt@i915_selftest@live@execlists.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1037">i915#1037</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/794">i915#794</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19054/fi-kbl-x1275/igt@i915_selftest@live@execlists.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@gt_timelines:</p>
+<ul>
+<li>fi-apl-guc:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9439/fi-apl-guc/igt@i915_selftest@live@gt_timelines.html">INCOMPLETE</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19054/fi-apl-guc/igt@i915_selftest@live@gt_timelines.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<h2>Participating hosts (42 -&gt; 38)</h2>
+<p>Additional (1): fi-tgl-y <br />
+  Missing    (5): fi-kbl-soraka fi-ilk-m540 fi-hsw-4200u fi-bsw-cyan fi-bdw-samus </p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_9439 -&gt; Patchwork_19054</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_9439: 17ead179a640cc74313ebdd72c51eee3d2d803d6 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_5880: d67bad61dc9a7515f94a7eecadd3bcd6b4f9d49e @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools<br />
+  Patchwork_19054: bc6f455af929894c1be333a41cd397e3c5232829 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<p>== Linux commits ==</p>
+<p>bc6f455af929 drm/i915: Stop sampling rc6 from inside pmu_enable</p>
+
+</body>
+</html>
+
+--===============0939930525132288036==--
+
+--===============1646300551==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+
+--===============1646300551==--
