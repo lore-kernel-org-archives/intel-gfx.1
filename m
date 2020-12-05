@@ -7,44 +7,44 @@ X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0C7C7C433FE
-	for <intel-gfx@archiver.kernel.org>; Sat,  5 Dec 2020 09:25:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 41EA0C4361A
+	for <intel-gfx@archiver.kernel.org>; Sat,  5 Dec 2020 09:25:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AE38C22E00
-	for <intel-gfx@archiver.kernel.org>; Sat,  5 Dec 2020 09:25:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AE38C22E00
+	by mail.kernel.org (Postfix) with ESMTPS id DAA3522E00
+	for <intel-gfx@archiver.kernel.org>; Sat,  5 Dec 2020 09:25:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DAA3522E00
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ECB876E417;
-	Sat,  5 Dec 2020 09:25:11 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8867F6E417
- for <intel-gfx@lists.freedesktop.org>; Sat,  5 Dec 2020 09:25:10 +0000 (UTC)
-IronPort-SDR: 0khXChflRVw+GfOOrB/vypuSZ6ITVqQs8jT/IdrOREm4bUCVvLuprsbtzXDb8cKtJn1qI58VoV
- Tsx2EvWqYVog==
-X-IronPort-AV: E=McAfee;i="6000,8403,9825"; a="161269485"
-X-IronPort-AV: E=Sophos;i="5.78,395,1599548400"; d="scan'208";a="161269485"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Dec 2020 01:25:09 -0800
-IronPort-SDR: 8KSasUp4R4nYFE85lNvYMzxkWH7rDPUH1kYuzHaECBrOdpwjDmknJIzoOXN+09+yM4ECGOi0sb
- ZfAhZHfb8h7Q==
-X-IronPort-AV: E=Sophos;i="5.78,395,1599548400"; d="scan'208";a="316391688"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F5266E418;
+	Sat,  5 Dec 2020 09:25:49 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D355B6E41A
+ for <intel-gfx@lists.freedesktop.org>; Sat,  5 Dec 2020 09:25:48 +0000 (UTC)
+IronPort-SDR: cB3X4PIMRoe2+f0SjFDaxuISgCBm34nfT9bQeq0Fy/T4iWSgziMOssAF1+wFHIdHFQrJX6R+MZ
+ BlMBAZkgfpfw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9825"; a="169991259"
+X-IronPort-AV: E=Sophos;i="5.78,395,1599548400"; d="scan'208";a="169991259"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Dec 2020 01:25:48 -0800
+IronPort-SDR: fwGe4Q7a3+4sRwdlJ0AokwHROnOAExgYcolMOEkM0uo8wDg54paNoSJLo1izyWwXWOkAK3eMb4
+ 2NKEBkpblZEw==
+X-IronPort-AV: E=Sophos;i="5.78,395,1599548400"; d="scan'208";a="362441889"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.202])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Dec 2020 01:25:09 -0800
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Dec 2020 01:25:48 -0800
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Sat,  5 Dec 2020 01:24:46 -0800
-Message-Id: <20201205092446.2325265-1-lucas.demarchi@intel.com>
+Date: Sat,  5 Dec 2020 01:25:42 -0800
+Message-Id: <20201205092542.2325477-4-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.29.2
+In-Reply-To: <20201205092542.2325477-1-lucas.demarchi@intel.com>
+References: <20201205092542.2325477-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH] drm/i915/dg1: Update voltage swing tables for DP
+Subject: [Intel-gfx] [PATCH 4/4] drm/i915: remove WA_SET_FIELD_MASKED()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,68 +57,99 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Chris Wilson <chris@chris-wilson.co.uk>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-RnJvbTogTWF0dCBSb3BlciA8bWF0dGhldy5kLnJvcGVyQGludGVsLmNvbT4KCkRHMSdzIHZzd2lu
-ZyB0YWJsZXMgYXJlIHRoZSBzYW1lIGZvciBlRFAgYW5kIEhETUkgYnV0IGhhdmUgc2xpZ2h0CmRp
-ZmZlcmVuY2VzIGZyb20gSUNML1RHTCBmb3IgRFAuCgpCc3BlYzogNDkyOTEKCkNjOiBDbGludG9u
-IFRheWxvciA8Q2xpbnRvbi5BLlRheWxvckBpbnRlbC5jb20+CkNjOiBKb3PDqSBSb2JlcnRvIGRl
-IFNvdXphIDxqb3NlLnNvdXphQGludGVsLmNvbT4KQ2M6IFJhZGhha3Jpc2huYSBTcmlwYWRhIDxy
-YWRoYWtyaXNobmEuc3JpcGFkYUBpbnRlbC5jb20+ClNpZ25lZC1vZmYtYnk6IE1hdHQgUm9wZXIg
-PG1hdHRoZXcuZC5yb3BlckBpbnRlbC5jb20+ClNpZ25lZC1vZmYtYnk6IEx1Y2FzIERlIE1hcmNo
-aSA8bHVjYXMuZGVtYXJjaGlAaW50ZWwuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rp
-c3BsYXkvaW50ZWxfZGRpLmMgfCAzNCArKysrKysrKysrKysrKysrKysrKysrKysKIDEgZmlsZSBj
-aGFuZ2VkLCAzNCBpbnNlcnRpb25zKCspCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5
-MTUvZGlzcGxheS9pbnRlbF9kZGkuYyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50
-ZWxfZGRpLmMKaW5kZXggNTE5MzQ3M2M4MzhjLi4yZjlmYTdiMzlhZWQgMTAwNjQ0Ci0tLSBhL2Ry
-aXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGRpLmMKKysrIGIvZHJpdmVycy9ncHUv
-ZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kZGkuYwpAQCAtNjExLDYgKzYxMSwzNCBAQCBzdGF0aWMg
-Y29uc3Qgc3RydWN0IGNubF9kZGlfYnVmX3RyYW5zIGpzbF9jb21ib19waHlfZGRpX3RyYW5zbGF0
-aW9uc19lZHBfaGJyMltdCiAJeyAweEEsIDB4MzUsIDB4M0YsIDB4MDAsIDB4MDAgfSwgICAgICAg
-IC8qIDM1MCAgIDM1MCAgICAgIDAuMCAgICovCiB9OwogCitzdGF0aWMgY29uc3Qgc3RydWN0IGNu
-bF9kZGlfYnVmX3RyYW5zIGRnMV9jb21ib19waHlfZGRpX3RyYW5zbGF0aW9uc19kcF9oYnJbXSA9
-IHsKKwkJCQkJCS8qIE5UIG1WIFRyYW5zIG1WIGRiICAgICovCisJeyAweEEsIDB4MzIsIDB4M0Ys
-IDB4MDAsIDB4MDAgfSwJLyogMzUwICAgMzUwICAgICAgMC4wICAgKi8KKwl7IDB4QSwgMHg0OCwg
-MHgzNSwgMHgwMCwgMHgwQSB9LAkvKiAzNTAgICA1MDAgICAgICAzLjEgICAqLworCXsgMHhDLCAw
-eDYzLCAweDJGLCAweDAwLCAweDEwIH0sCS8qIDM1MCAgIDcwMCAgICAgIDYuMCAgICovCisJeyAw
-eDYsIDB4N0YsIDB4MkMsIDB4MDAsIDB4MTMgfSwJLyogMzUwICAgOTAwICAgICAgOC4yICAgKi8K
-Kwl7IDB4QSwgMHg0MywgMHgzRiwgMHgwMCwgMHgwMCB9LAkvKiA1MDAgICA1MDAgICAgICAwLjAg
-ICAqLworCXsgMHhDLCAweDYwLCAweDM2LCAweDAwLCAweDA5IH0sCS8qIDUwMCAgIDcwMCAgICAg
-IDIuOSAgICovCisJeyAweDYsIDB4N0YsIDB4MzAsIDB4MDAsIDB4MEYgfSwJLyogNTAwICAgOTAw
-ICAgICAgNS4xICAgKi8KKwl7IDB4QywgMHg2MCwgMHgzRiwgMHgwMCwgMHgwMCB9LAkvKiA2NTAg
-ICA3MDAgICAgICAwLjYgICAqLworCXsgMHg2LCAweDdGLCAweDM3LCAweDAwLCAweDA4IH0sCS8q
-IDYwMCAgIDkwMCAgICAgIDMuNSAgICovCisJeyAweDYsIDB4N0YsIDB4M0YsIDB4MDAsIDB4MDAg
-fSwJLyogOTAwICAgOTAwICAgICAgMC4wICAgKi8KK307CisKK3N0YXRpYyBjb25zdCBzdHJ1Y3Qg
-Y25sX2RkaV9idWZfdHJhbnMgZGcxX2NvbWJvX3BoeV9kZGlfdHJhbnNsYXRpb25zX2RwX2hicjJb
-XSA9IHsKKwkJCQkJCS8qIE5UIG1WIFRyYW5zIG1WIGRiICAgICovCisJeyAweEEsIDB4MzIsIDB4
-M0YsIDB4MDAsIDB4MDAgfSwJLyogMzUwICAgMzUwICAgICAgMC4wICAgKi8KKwl7IDB4QSwgMHg0
-OCwgMHgzNSwgMHgwMCwgMHgwQSB9LAkvKiAzNTAgICA1MDAgICAgICAzLjEgICAqLworCXsgMHhD
-LCAweDYzLCAweDJGLCAweDAwLCAweDEwIH0sCS8qIDM1MCAgIDcwMCAgICAgIDYuMCAgICovCisJ
-eyAweDYsIDB4N0YsIDB4MkMsIDB4MDAsIDB4MTMgfSwJLyogMzUwICAgOTAwICAgICAgOC4yICAg
-Ki8KKwl7IDB4QSwgMHg0MywgMHgzRiwgMHgwMCwgMHgwMCB9LAkvKiA1MDAgICA1MDAgICAgICAw
-LjAgICAqLworCXsgMHhDLCAweDYwLCAweDM2LCAweDAwLCAweDA5IH0sCS8qIDUwMCAgIDcwMCAg
-ICAgIDIuOSAgICovCisJeyAweDYsIDB4N0YsIDB4MzAsIDB4MDAsIDB4MEYgfSwJLyogNTAwICAg
-OTAwICAgICAgNS4xICAgKi8KKwl7IDB4QywgMHg1OCwgMHgzRiwgMHgwMCwgMHgwMCB9LAkvKiA2
-NTAgICA3MDAgICAgICAwLjYgICAqLworCXsgMHg2LCAweDdGLCAweDM1LCAweDAwLCAweDBBIH0s
-CS8qIDYwMCAgIDkwMCAgICAgIDMuNSAgICovCisJeyAweDYsIDB4N0YsIDB4M0YsIDB4MDAsIDB4
-MDAgfSwJLyogOTAwICAgOTAwICAgICAgMC4wICAgKi8KK307CisKIHN0cnVjdCBpY2xfbWdfcGh5
-X2RkaV9idWZfdHJhbnMgewogCXUzMiBjcmlfdHhkZWVtcGhfb3ZlcnJpZGVfMTFfNjsKIAl1MzIg
-Y3JpX3R4ZGVlbXBoX292ZXJyaWRlXzVfMDsKQEAgLTEwOTMsNiArMTEyMSwxMiBAQCBpY2xfZ2V0
-X2NvbWJvX2J1Zl90cmFuc19lZHAoc3RydWN0IGludGVsX2VuY29kZXIgKmVuY29kZXIsCiAJfSBl
-bHNlIGlmIChkZXZfcHJpdi0+dmJ0LmVkcC5sb3dfdnN3aW5nKSB7CiAJCSpuX2VudHJpZXMgPSBB
-UlJBWV9TSVpFKGljbF9jb21ib19waHlfZGRpX3RyYW5zbGF0aW9uc19lZHBfaGJyMik7CiAJCXJl
-dHVybiBpY2xfY29tYm9fcGh5X2RkaV90cmFuc2xhdGlvbnNfZWRwX2hicjI7CisJfSBlbHNlIGlm
-IChJU19ERzEoZGV2X3ByaXYpICYmIGNydGNfc3RhdGUtPnBvcnRfY2xvY2sgPiAyNzAwMDApIHsK
-KwkJKm5fZW50cmllcyA9IEFSUkFZX1NJWkUoZGcxX2NvbWJvX3BoeV9kZGlfdHJhbnNsYXRpb25z
-X2RwX2hicjIpOworCQlyZXR1cm4gZGcxX2NvbWJvX3BoeV9kZGlfdHJhbnNsYXRpb25zX2RwX2hi
-cjI7CisJfSBlbHNlIGlmIChJU19ERzEoZGV2X3ByaXYpKSB7CisJCSpuX2VudHJpZXMgPSBBUlJB
-WV9TSVpFKGRnMV9jb21ib19waHlfZGRpX3RyYW5zbGF0aW9uc19kcF9oYnIpOworCQlyZXR1cm4g
-ZGcxX2NvbWJvX3BoeV9kZGlfdHJhbnNsYXRpb25zX2RwX2hicjsKIAl9CiAKIAlyZXR1cm4gaWNs
-X2dldF9jb21ib19idWZfdHJhbnNfZHAoZW5jb2RlciwgY3J0Y19zdGF0ZSwgbl9lbnRyaWVzKTsK
-LS0gCjIuMjkuMgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRlbC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-Cmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vaW50ZWwtZ2Z4
-Cg==
+Remove the last macro and implement it as a function like the rest of
+the operations that don't assume there is a `wal` list, but rather
+receive it as argument.
+
+Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+Reviewed-by: Chris Wilson <chris@chris-wilson.co.uk>
+---
+ drivers/gpu/drm/i915/gt/intel_workarounds.c | 20 ++++++++++++--------
+ 1 file changed, 12 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+index 0d8ae0096e8c..2db1e68d7464 100644
+--- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
++++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+@@ -229,8 +229,12 @@ wa_masked_dis(struct i915_wa_list *wal, i915_reg_t reg, u32 val)
+ 	wa_add(wal, reg, 0, _MASKED_BIT_DISABLE(val), val);
+ }
+ 
+-#define WA_SET_FIELD_MASKED(addr, mask, value) \
+-	wa_write_masked_or(wal, (addr), 0, _MASKED_FIELD((mask), (value)))
++static void
++wa_masked_field_set(struct i915_wa_list *wal, i915_reg_t reg,
++		    u32 mask, u32 val)
++{
++	wa_write_masked_or(wal, reg, 0, _MASKED_FIELD(mask, val));
++}
+ 
+ static void gen6_ctx_workarounds_init(struct intel_engine_cs *engine,
+ 				      struct i915_wa_list *wal)
+@@ -287,7 +291,7 @@ static void gen8_ctx_workarounds_init(struct intel_engine_cs *engine,
+ 	 * disable bit, which we don't touch here, but it's good
+ 	 * to keep in mind (see 3DSTATE_PS and 3DSTATE_WM).
+ 	 */
+-	WA_SET_FIELD_MASKED(GEN7_GT_MODE,
++	wa_masked_field_set(wal, GEN7_GT_MODE,
+ 			    GEN6_WIZ_HASHING_MASK,
+ 			    GEN6_WIZ_HASHING_16x4);
+ }
+@@ -419,7 +423,7 @@ static void gen9_ctx_workarounds_init(struct intel_engine_cs *engine,
+ 	wa_masked_dis(wal, GEN8_CS_CHICKEN1, GEN9_PREEMPT_3D_OBJECT_LEVEL);
+ 
+ 	/* WaDisableGPGPUMidCmdPreemption:skl,bxt,blk,cfl,[cnl] */
+-	WA_SET_FIELD_MASKED(GEN8_CS_CHICKEN1,
++	wa_masked_field_set(wal, GEN8_CS_CHICKEN1,
+ 			    GEN9_PREEMPT_GPGPU_LEVEL_MASK,
+ 			    GEN9_PREEMPT_GPGPU_COMMAND_LEVEL);
+ 
+@@ -459,7 +463,7 @@ static void skl_tune_iz_hashing(struct intel_engine_cs *engine,
+ 		return;
+ 
+ 	/* Tune IZ hashing. See intel_device_info_runtime_init() */
+-	WA_SET_FIELD_MASKED(GEN7_GT_MODE,
++	wa_masked_field_set(wal, GEN7_GT_MODE,
+ 			    GEN9_IZ_HASHING_MASK(2) |
+ 			    GEN9_IZ_HASHING_MASK(1) |
+ 			    GEN9_IZ_HASHING_MASK(0),
+@@ -551,7 +555,7 @@ static void cnl_ctx_workarounds_init(struct intel_engine_cs *engine,
+ 	wa_masked_dis(wal, GEN8_CS_CHICKEN1, GEN9_PREEMPT_3D_OBJECT_LEVEL);
+ 
+ 	/* WaDisableGPGPUMidCmdPreemption:cnl */
+-	WA_SET_FIELD_MASKED(GEN8_CS_CHICKEN1,
++	wa_masked_field_set(wal, GEN8_CS_CHICKEN1,
+ 			    GEN9_PREEMPT_GPGPU_LEVEL_MASK,
+ 			    GEN9_PREEMPT_GPGPU_COMMAND_LEVEL);
+ 
+@@ -605,7 +609,7 @@ static void icl_ctx_workarounds_init(struct intel_engine_cs *engine,
+ 			   _MASKED_BIT_ENABLE(FLOAT_BLEND_OPTIMIZATION_ENABLE));
+ 
+ 	/* WaDisableGPGPUMidThreadPreemption:icl */
+-	WA_SET_FIELD_MASKED(GEN8_CS_CHICKEN1,
++	wa_masked_field_set(wal, GEN8_CS_CHICKEN1,
+ 			    GEN9_PREEMPT_GPGPU_LEVEL_MASK,
+ 			    GEN9_PREEMPT_GPGPU_THREAD_GROUP_LEVEL);
+ 
+@@ -641,7 +645,7 @@ static void gen12_ctx_workarounds_init(struct intel_engine_cs *engine,
+ 		     GEN12_DISABLE_CPS_AWARE_COLOR_PIPE);
+ 
+ 	/* WaDisableGPGPUMidThreadPreemption:gen12 */
+-	WA_SET_FIELD_MASKED(GEN8_CS_CHICKEN1,
++	wa_masked_field_set(wal, GEN8_CS_CHICKEN1,
+ 			    GEN9_PREEMPT_GPGPU_LEVEL_MASK,
+ 			    GEN9_PREEMPT_GPGPU_THREAD_GROUP_LEVEL);
+ }
+-- 
+2.29.2
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
