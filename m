@@ -2,49 +2,41 @@ Return-Path: <SRS0=rL+1=FJ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 02B49C4361B
-	for <intel-gfx@archiver.kernel.org>; Sat,  5 Dec 2020 09:25:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DA721C4361A
+	for <intel-gfx@archiver.kernel.org>; Sat,  5 Dec 2020 10:17:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AD46722E00
-	for <intel-gfx@archiver.kernel.org>; Sat,  5 Dec 2020 09:25:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AD46722E00
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 48B5222D6F
+	for <intel-gfx@archiver.kernel.org>; Sat,  5 Dec 2020 10:17:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 48B5222D6F
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 900B56E41D;
-	Sat,  5 Dec 2020 09:25:51 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA0186E418
- for <intel-gfx@lists.freedesktop.org>; Sat,  5 Dec 2020 09:25:48 +0000 (UTC)
-IronPort-SDR: y2zUUO7p9XO2SoC3xXrh9AoHKgEmqLpHlJtAHKqpOu8cTCQE4xbrZrPlXJr4UMfFOFOJMiRaX1
- RSoKCE8zRrKA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9825"; a="169991258"
-X-IronPort-AV: E=Sophos;i="5.78,395,1599548400"; d="scan'208";a="169991258"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Dec 2020 01:25:48 -0800
-IronPort-SDR: IjWVK7rHD2GBpURzUlM81H9CtkSRUJsQT2kG4rK77LG6k21BLBoAwFfRuj0H5u/kiWAmpXJyAc
- a8uK8ve87JNw==
-X-IronPort-AV: E=Sophos;i="5.78,395,1599548400"; d="scan'208";a="362441887"
-Received: from lucas-s2600cw.jf.intel.com ([10.165.21.202])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Dec 2020 01:25:48 -0800
-From: Lucas De Marchi <lucas.demarchi@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Sat,  5 Dec 2020 01:25:41 -0800
-Message-Id: <20201205092542.2325477-3-lucas.demarchi@intel.com>
-X-Mailer: git-send-email 2.29.2
-In-Reply-To: <20201205092542.2325477-1-lucas.demarchi@intel.com>
-References: <20201205092542.2325477-1-lucas.demarchi@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 416376E40B;
+	Sat,  5 Dec 2020 10:17:21 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id A1D4B6E40A;
+ Sat,  5 Dec 2020 10:17:19 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 97544A9A42;
+ Sat,  5 Dec 2020 10:17:19 +0000 (UTC)
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 3/4] drm/i915: remove WA_CLR_BIT_MASKED()
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Lucas De Marchi" <lucas.demarchi@intel.com>
+Date: Sat, 05 Dec 2020 10:17:19 -0000
+Message-ID: <160716343959.22629.2858375822209102811@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20201205092446.2325265-1-lucas.demarchi@intel.com>
+In-Reply-To: <20201205092446.2325265-1-lucas.demarchi@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZHJt?=
+ =?utf-8?q?/i915/dg1=3A_Update_voltage_swing_tables_for_DP?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,89 +49,220 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Chris Wilson <chris@chris-wilson.co.uk>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============1407244964=="
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Just ommitting the list it's operating on doesn't save much typing
-and adds another way to do the same thing. Just replace it with
-wa_masked_dis().
+--===============1407244964==
+Content-Type: multipart/alternative;
+ boundary="===============7187247106043354674=="
 
-Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
-Reviewed-by: Chris Wilson <chris@chris-wilson.co.uk>
----
- drivers/gpu/drm/i915/gt/intel_workarounds.c | 17 +++++++----------
- 1 file changed, 7 insertions(+), 10 deletions(-)
+--===============7187247106043354674==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-index b359eaed2da2..0d8ae0096e8c 100644
---- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
-+++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-@@ -229,9 +229,6 @@ wa_masked_dis(struct i915_wa_list *wal, i915_reg_t reg, u32 val)
- 	wa_add(wal, reg, 0, _MASKED_BIT_DISABLE(val), val);
- }
- 
--#define WA_CLR_BIT_MASKED(addr, mask) \
--	wa_masked_dis(wal, (addr), (mask))
--
- #define WA_SET_FIELD_MASKED(addr, mask, value) \
- 	wa_write_masked_or(wal, (addr), 0, _MASKED_FIELD((mask), (value)))
- 
-@@ -277,7 +274,7 @@ static void gen8_ctx_workarounds_init(struct intel_engine_cs *engine,
- 	 *
- 	 * This optimization is off by default for BDW and CHV; turn it on.
- 	 */
--	WA_CLR_BIT_MASKED(CACHE_MODE_0_GEN7, HIZ_RAW_STALL_OPT_DISABLE);
-+	wa_masked_dis(wal, CACHE_MODE_0_GEN7, HIZ_RAW_STALL_OPT_DISABLE);
- 
- 	/* Wa4x4STCOptimizationDisable:bdw,chv */
- 	wa_masked_en(wal, CACHE_MODE_1, GEN8_4x4_STC_OPTIMIZATION_DISABLE);
-@@ -371,8 +368,8 @@ static void gen9_ctx_workarounds_init(struct intel_engine_cs *engine,
- 		     GEN9_PARTIAL_RESOLVE_IN_VC_DISABLE);
- 
- 	/* WaCcsTlbPrefetchDisable:skl,bxt,kbl,glk,cfl */
--	WA_CLR_BIT_MASKED(GEN9_HALF_SLICE_CHICKEN5,
--			  GEN9_CCS_TLB_PREFETCH_ENABLE);
-+	wa_masked_dis(wal, GEN9_HALF_SLICE_CHICKEN5,
-+		      GEN9_CCS_TLB_PREFETCH_ENABLE);
- 
- 	/* WaForceContextSaveRestoreNonCoherent:skl,bxt,kbl,cfl */
- 	wa_masked_en(wal, HDC_CHICKEN0,
-@@ -419,7 +416,7 @@ static void gen9_ctx_workarounds_init(struct intel_engine_cs *engine,
- 	 */
- 
- 	/* WaDisable3DMidCmdPreemption:skl,bxt,glk,cfl,[cnl] */
--	WA_CLR_BIT_MASKED(GEN8_CS_CHICKEN1, GEN9_PREEMPT_3D_OBJECT_LEVEL);
-+	wa_masked_dis(wal, GEN8_CS_CHICKEN1, GEN9_PREEMPT_3D_OBJECT_LEVEL);
- 
- 	/* WaDisableGPGPUMidCmdPreemption:skl,bxt,blk,cfl,[cnl] */
- 	WA_SET_FIELD_MASKED(GEN8_CS_CHICKEN1,
-@@ -551,7 +548,7 @@ static void cnl_ctx_workarounds_init(struct intel_engine_cs *engine,
- 	wa_masked_en(wal, HALF_SLICE_CHICKEN3, CNL_FAST_ANISO_L1_BANKING_FIX);
- 
- 	/* WaDisable3DMidCmdPreemption:cnl */
--	WA_CLR_BIT_MASKED(GEN8_CS_CHICKEN1, GEN9_PREEMPT_3D_OBJECT_LEVEL);
-+	wa_masked_dis(wal, GEN8_CS_CHICKEN1, GEN9_PREEMPT_3D_OBJECT_LEVEL);
- 
- 	/* WaDisableGPGPUMidCmdPreemption:cnl */
- 	WA_SET_FIELD_MASKED(GEN8_CS_CHICKEN1,
-@@ -677,8 +674,8 @@ static void dg1_ctx_workarounds_init(struct intel_engine_cs *engine,
- 	gen12_ctx_workarounds_init(engine, wal);
- 
- 	/* Wa_1409044764 */
--	WA_CLR_BIT_MASKED(GEN11_COMMON_SLICE_CHICKEN3,
--			  DG1_FLOAT_POINT_BLEND_OPT_STRICT_MODE_EN);
-+	wa_masked_dis(wal, GEN11_COMMON_SLICE_CHICKEN3,
-+		      DG1_FLOAT_POINT_BLEND_OPT_STRICT_MODE_EN);
- 
- 	/* Wa_22010493298 */
- 	wa_masked_en(wal, HIZ_CHICKEN,
--- 
-2.29.2
+== Series Details ==
+
+Series: drm/i915/dg1: Update voltage swing tables for DP
+URL   : https://patchwork.freedesktop.org/series/84611/
+State : success
+
+== Summary ==
+
+CI Bug Log - changes from CI_DRM_9445 -> Patchwork_19069
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19069/index.html
+
+New tests
+---------
+
+  New tests have been introduced between CI_DRM_9445 and Patchwork_19069:
+
+### New CI tests (1) ###
+
+  * boot:
+    - Statuses : 1 fail(s) 38 pass(s)
+    - Exec time: [0.0] s
+
+  
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_19069 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@i915_selftest@live@gt_timelines:
+    - fi-apl-guc:         [PASS][1] -> [INCOMPLETE][2] ([i915#2750])
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9445/fi-apl-guc/igt@i915_selftest@live@gt_timelines.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19069/fi-apl-guc/igt@i915_selftest@live@gt_timelines.html
+
+  * igt@vgem_basic@debugfs:
+    - fi-tgl-y:           [PASS][3] -> [DMESG-WARN][4] ([i915#402]) +1 similar issue
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9445/fi-tgl-y/igt@vgem_basic@debugfs.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19069/fi-tgl-y/igt@vgem_basic@debugfs.html
+
+  
+#### Possible fixes ####
+
+  * igt@gem_basic@create-fd-close:
+    - fi-tgl-y:           [DMESG-WARN][5] ([i915#402]) -> [PASS][6] +2 similar issues
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9445/fi-tgl-y/igt@gem_basic@create-fd-close.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19069/fi-tgl-y/igt@gem_basic@create-fd-close.html
+
+  * igt@gem_exec_suspend@basic-s3:
+    - fi-snb-2600:        [INCOMPLETE][7] -> [PASS][8]
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9445/fi-snb-2600/igt@gem_exec_suspend@basic-s3.html
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19069/fi-snb-2600/igt@gem_exec_suspend@basic-s3.html
+
+  
+  [i915#2750]: https://gitlab.freedesktop.org/drm/intel/issues/2750
+  [i915#402]: https://gitlab.freedesktop.org/drm/intel/issues/402
+
+
+Participating hosts (43 -> 39)
+------------------------------
+
+  Missing    (4): fi-ilk-m540 fi-bsw-cyan fi-bdw-samus fi-hsw-4200u 
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_9445 -> Patchwork_19069
+
+  CI-20190529: 20190529
+  CI_DRM_9445: 2e3d245730b4ce190e96d9731a2a6f06bb0ec57a @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_5881: 10d4e2e9177eb747b9f2ab9122e3ab60e91654fb @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools
+  Patchwork_19069: 6a7c8cd024eb5e35af8629cb536b76923c0521f8 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+== Linux commits ==
+
+6a7c8cd024eb drm/i915/dg1: Update voltage swing tables for DP
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19069/index.html
+
+--===============7187247106043354674==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/dg1: Update voltage swing tables for DP</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/84611/">https://patchwork.freedesktop.org/series/84611/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19069/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19069/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_9445 -&gt; Patchwork_19069</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19069/index.html</p>
+<h2>New tests</h2>
+<p>New tests have been introduced between CI_DRM_9445 and Patchwork_19069:</p>
+<h3>New CI tests (1)</h3>
+<ul>
+<li>boot:<ul>
+<li>Statuses : 1 fail(s) 38 pass(s)</li>
+<li>Exec time: [0.0] s</li>
+</ul>
+</li>
+</ul>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_19069 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@i915_selftest@live@gt_timelines:</p>
+<ul>
+<li>fi-apl-guc:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9445/fi-apl-guc/igt@i915_selftest@live@gt_timelines.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19069/fi-apl-guc/igt@i915_selftest@live@gt_timelines.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2750">i915#2750</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@vgem_basic@debugfs:</p>
+<ul>
+<li>fi-tgl-y:           <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9445/fi-tgl-y/igt@vgem_basic@debugfs.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19069/fi-tgl-y/igt@vgem_basic@debugfs.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/402">i915#402</a>) +1 similar issue</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@gem_basic@create-fd-close:</p>
+<ul>
+<li>fi-tgl-y:           <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9445/fi-tgl-y/igt@gem_basic@create-fd-close.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/402">i915#402</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19069/fi-tgl-y/igt@gem_basic@create-fd-close.html">PASS</a> +2 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@gem_exec_suspend@basic-s3:</p>
+<ul>
+<li>fi-snb-2600:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9445/fi-snb-2600/igt@gem_exec_suspend@basic-s3.html">INCOMPLETE</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19069/fi-snb-2600/igt@gem_exec_suspend@basic-s3.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<h2>Participating hosts (43 -&gt; 39)</h2>
+<p>Missing    (4): fi-ilk-m540 fi-bsw-cyan fi-bdw-samus fi-hsw-4200u </p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_9445 -&gt; Patchwork_19069</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_9445: 2e3d245730b4ce190e96d9731a2a6f06bb0ec57a @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_5881: 10d4e2e9177eb747b9f2ab9122e3ab60e91654fb @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools<br />
+  Patchwork_19069: 6a7c8cd024eb5e35af8629cb536b76923c0521f8 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<p>== Linux commits ==</p>
+<p>6a7c8cd024eb drm/i915/dg1: Update voltage swing tables for DP</p>
+
+</body>
+</html>
+
+--===============7187247106043354674==--
+
+--===============1407244964==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+
+--===============1407244964==--
