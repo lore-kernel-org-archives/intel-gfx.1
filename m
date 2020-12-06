@@ -2,41 +2,40 @@ Return-Path: <SRS0=af43=FK=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 36405C4361B
-	for <intel-gfx@archiver.kernel.org>; Sun,  6 Dec 2020 19:50:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C9A56C4361B
+	for <intel-gfx@archiver.kernel.org>; Sun,  6 Dec 2020 19:51:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id ADF5D2310B
-	for <intel-gfx@archiver.kernel.org>; Sun,  6 Dec 2020 19:50:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org ADF5D2310B
+	by mail.kernel.org (Postfix) with ESMTPS id 7056B2310B
+	for <intel-gfx@archiver.kernel.org>; Sun,  6 Dec 2020 19:51:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7056B2310B
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0751589FA9;
-	Sun,  6 Dec 2020 19:50:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0D8B86E0B7;
+	Sun,  6 Dec 2020 19:51:11 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 903A589ECD;
- Sun,  6 Dec 2020 19:50:40 +0000 (UTC)
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id ECEBF89ECD;
+ Sun,  6 Dec 2020 19:51:09 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 7D123A7DFC;
- Sun,  6 Dec 2020 19:50:40 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id E788BA7DFC;
+ Sun,  6 Dec 2020 19:51:09 +0000 (UTC)
 MIME-Version: 1.0
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Thomas Gleixner" <tglx@linutronix.de>
-Date: Sun, 06 Dec 2020 19:50:40 -0000
-Message-ID: <160728424049.16270.11901367596476973333@emeril.freedesktop.org>
+Date: Sun, 06 Dec 2020 19:51:09 -0000
+Message-ID: <160728426994.16272.5167506839606777137@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <20201205014340.148235-1-jsnitsel@redhat.com>
 In-Reply-To: <20201205014340.148235-1-jsnitsel@redhat.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_tpm=5Ftis=3A_Detect_interrupt_storms_=28rev2=29?=
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?tpm=5Ftis=3A_Detect_interrupt_storms_=28rev2=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,18 +63,12 @@ State : warning
 
 == Summary ==
 
-$ dim checkpatch origin/drm-tip
-f8859e000a36 irq: export kstat_irqs
-f275d76d2070 drm/i915/pmu: Use kstat_irqs to get interrupt count
-61225780bab4 tpm_tis: Disable interrupts if interrupt storm detected
--:9: WARNING:COMMIT_LOG_LONG_LINE: Possible unwrapped commit description (prefer a maximum 75 chars per line)
-#9: 
-> @@ -715,9 +717,23 @@ static irqreturn_t tis_int_handler(int dummy, void *dev_id)
-
--:149: ERROR:MISSING_SIGN_OFF: Missing Signed-off-by: line(s)
-
-total: 1 errors, 1 warnings, 0 checks, 41 lines checked
-605edf549fde tpm_tis: Disable Interrupts on the ThinkPad L490
+$ dim sparse --fast origin/drm-tip
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
+-
++drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h:257:49: error: static assertion failed: "amd_sriov_msg_vf2pf_info must be 1 KB"
++drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h:261:49: error: static assertion failed: "amd_sriov_msg_pf2vf_info must be 1 KB"
 
 
 _______________________________________________
