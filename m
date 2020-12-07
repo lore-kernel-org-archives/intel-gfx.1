@@ -2,47 +2,41 @@ Return-Path: <SRS0=NHSF=FL=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.9 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
-	URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4D31CC4361B
-	for <intel-gfx@archiver.kernel.org>; Mon,  7 Dec 2020 10:28:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C50EBC4361B
+	for <intel-gfx@archiver.kernel.org>; Mon,  7 Dec 2020 10:46:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E7CCA2311A
-	for <intel-gfx@archiver.kernel.org>; Mon,  7 Dec 2020 10:28:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E7CCA2311A
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 17BC223339
+	for <intel-gfx@archiver.kernel.org>; Mon,  7 Dec 2020 10:46:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 17BC223339
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4DD9F6E81A;
-	Mon,  7 Dec 2020 10:28:29 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4629F6E5CC
- for <intel-gfx@lists.freedesktop.org>; Mon,  7 Dec 2020 10:28:28 +0000 (UTC)
-IronPort-SDR: Z197C9ZOxMXpAS//L/s1UyBM2JIiu2JtVvOh2PW6t7GSIb7XCz/5s7MdvF52+RpOnYelC2yyXF
- ljNd/LsuTADQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9827"; a="172908541"
-X-IronPort-AV: E=Sophos;i="5.78,399,1599548400"; d="scan'208";a="172908541"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Dec 2020 02:28:27 -0800
-IronPort-SDR: prvV2l0CHHpBdz6WUSH0U0wK9TfBZ6DcTIbaE2HONyeARXJ9+SO7t+rCw6n8WKo/M0LR5SsGkn
- nNz+bTLTV2Fw==
-X-IronPort-AV: E=Sophos;i="5.78,399,1599548400"; d="scan'208";a="363086451"
-Received: from ramaling-i9x.iind.intel.com ([10.99.66.154])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Dec 2020 02:28:25 -0800
-From: Ramalingam C <ramalingam.c@intel.com>
-To: intel-gfx <intel-gfx@lists.freedesktop.org>
-Date: Mon,  7 Dec 2020 15:58:12 +0530
-Message-Id: <20201207102812.29931-1-ramalingam.c@intel.com>
-X-Mailer: git-send-email 2.20.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9747289ED3;
+	Mon,  7 Dec 2020 10:46:50 +0000 (UTC)
+Received: from fireflyinternet.com (unknown [77.68.26.236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA0C689ED3
+ for <intel-gfx@lists.freedesktop.org>; Mon,  7 Dec 2020 10:46:48 +0000 (UTC)
+X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
+ x-ip-name=78.156.65.138; 
+Received: from localhost (unverified [78.156.65.138]) 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP (TLS) id
+ 23239099-1500050 for multiple; Mon, 07 Dec 2020 10:46:45 +0000
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH] drm/i915/gt: Fixing the error handling of
+In-Reply-To: <20201207102812.29931-1-ramalingam.c@intel.com>
+References: <20201207102812.29931-1-ramalingam.c@intel.com>
+From: Chris Wilson <chris@chris-wilson.co.uk>
+To: Ramalingam C <ramalingam.c@intel.com>,
+ intel-gfx <intel-gfx@lists.freedesktop.org>
+Date: Mon, 07 Dec 2020 10:46:44 +0000
+Message-ID: <160733800487.5306.9887780208080081595@build.alporthouse.com>
+User-Agent: alot/0.9
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/gt: Fixing the error handling of
  shmem_pin_map
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -56,39 +50,18 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Chris Wilson <chris@chris-wilson.co.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Since i was size_t, at error handling if i is 0, then --i >= 0.
-Making i as int.
+Quoting Ramalingam C (2020-12-07 10:28:12)
+> Since i was size_t, at error handling if i is 0, then --i >= 0.
+> Making i as int.
 
-Signed-off-by: Ramalingam C <ramalingam.c@intel.com>
-cc: Chris Wilson <chris@chris-wilson.co.uk>
----
- drivers/gpu/drm/i915/gt/shmem_utils.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/i915/gt/shmem_utils.c b/drivers/gpu/drm/i915/gt/shmem_utils.c
-index 463af675fadd..7de5bd15265c 100644
---- a/drivers/gpu/drm/i915/gt/shmem_utils.c
-+++ b/drivers/gpu/drm/i915/gt/shmem_utils.c
-@@ -52,8 +52,9 @@ struct file *shmem_create_from_object(struct drm_i915_gem_object *obj)
- void *shmem_pin_map(struct file *file)
- {
- 	struct page **pages;
--	size_t n_pages, i;
-+	size_t n_pages;
- 	void *vaddr;
-+	int i;
- 
- 	n_pages = file->f_mapping->host->i_size >> PAGE_SHIFT;
- 	pages = kvmalloc_array(n_pages, sizeof(*pages), GFP_KERNEL);
--- 
-2.20.1
-
+The problem here is that size_t is 64b, but int 32b.
+There's a patch by Colin King that does the trick.
+-Chris
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
