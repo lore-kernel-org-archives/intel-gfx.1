@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 89817C0018C
-	for <intel-gfx@archiver.kernel.org>; Mon,  7 Dec 2020 19:38:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4BFBEC1B0D8
+	for <intel-gfx@archiver.kernel.org>; Mon,  7 Dec 2020 19:38:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1937F23877
+	by mail.kernel.org (Postfix) with ESMTPS id E6C5D23877
 	for <intel-gfx@archiver.kernel.org>; Mon,  7 Dec 2020 19:38:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1937F23877
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E6C5D23877
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A5AC76E8B2;
-	Mon,  7 Dec 2020 19:38:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0DF1A6E8B4;
+	Mon,  7 Dec 2020 19:38:43 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A03E26E8AC
- for <intel-gfx@lists.freedesktop.org>; Mon,  7 Dec 2020 19:38:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E5A2B6E8AC
+ for <intel-gfx@lists.freedesktop.org>; Mon,  7 Dec 2020 19:38:39 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23245494-1500050 
- for multiple; Mon, 07 Dec 2020 19:38:29 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23245481-1500050 
+ for multiple; Mon, 07 Dec 2020 19:38:26 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon,  7 Dec 2020 19:38:20 +0000
-Message-Id: <20201207193824.18114-16-chris@chris-wilson.co.uk>
+Date: Mon,  7 Dec 2020 19:38:07 +0000
+Message-Id: <20201207193824.18114-3-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201207193824.18114-1-chris@chris-wilson.co.uk>
 References: <20201207193824.18114-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 16/20] drm/i915/gt: Track timeline GGTT offset
- separately from subpage offset
+Subject: [Intel-gfx] [PATCH 03/20] drm/i915/gt: Use virtual_engine during
+ execlists_dequeue
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,223 +56,360 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Currently we know that the timeline status page is at most a page in
-size, and so we can preserve the lower 12bits of the offset when
-relocating the status page in the GGTT. If we want to use a larger
-object, such as the context state, we may not necessarily use a position
-within the first page and so need more than 12b.
+Rather than going back and forth between the rb_node entry and the
+virtual_engine type, store the ve local and reuse it. As the
+container_of conversion from rb_node to virtual_engine requires a
+variable offset, performing that conversion just once shaves off a bit
+of code.
+
+v2: Keep a single virtual engine lookup, for typical use.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 ---
- drivers/gpu/drm/i915/gt/gen6_engine_cs.c       |  4 ++--
- drivers/gpu/drm/i915/gt/intel_engine_cs.c      |  4 ++--
- drivers/gpu/drm/i915/gt/intel_lrc.c            |  2 +-
- drivers/gpu/drm/i915/gt/intel_timeline.c       | 17 +++++++----------
- drivers/gpu/drm/i915/gt/intel_timeline_types.h |  1 +
- drivers/gpu/drm/i915/gt/selftest_engine_cs.c   |  2 +-
- drivers/gpu/drm/i915/gt/selftest_rc6.c         |  2 +-
- drivers/gpu/drm/i915/gt/selftest_timeline.c    | 16 ++++++++--------
- 8 files changed, 23 insertions(+), 25 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_lrc.c | 239 ++++++++++++----------------
+ 1 file changed, 105 insertions(+), 134 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/gen6_engine_cs.c b/drivers/gpu/drm/i915/gt/gen6_engine_cs.c
-index ce38d1bcaba3..2f59dd3bdc18 100644
---- a/drivers/gpu/drm/i915/gt/gen6_engine_cs.c
-+++ b/drivers/gpu/drm/i915/gt/gen6_engine_cs.c
-@@ -161,7 +161,7 @@ u32 *gen6_emit_breadcrumb_rcs(struct i915_request *rq, u32 *cs)
- 		 PIPE_CONTROL_DC_FLUSH_ENABLE |
- 		 PIPE_CONTROL_QW_WRITE |
- 		 PIPE_CONTROL_CS_STALL);
--	*cs++ = i915_request_active_timeline(rq)->hwsp_offset |
-+	*cs++ = i915_request_active_timeline(rq)->ggtt_offset |
- 		PIPE_CONTROL_GLOBAL_GTT;
- 	*cs++ = rq->fence.seqno;
- 
-@@ -359,7 +359,7 @@ u32 *gen7_emit_breadcrumb_rcs(struct i915_request *rq, u32 *cs)
- 		 PIPE_CONTROL_QW_WRITE |
- 		 PIPE_CONTROL_GLOBAL_GTT_IVB |
- 		 PIPE_CONTROL_CS_STALL);
--	*cs++ = i915_request_active_timeline(rq)->hwsp_offset;
-+	*cs++ = i915_request_active_timeline(rq)->ggtt_offset;
- 	*cs++ = rq->fence.seqno;
- 
- 	*cs++ = MI_USER_INTERRUPT;
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-index 94c169e13f2b..4ccb3068dca1 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-@@ -1334,7 +1334,7 @@ static int print_ring(char *buf, int sz, struct i915_request *rq)
- 		len = scnprintf(buf, sz,
- 				"ring:{start:%08x, hwsp:%08x, seqno:%08x, runtime:%llums}, ",
- 				i915_ggtt_offset(rq->ring->vma),
--				tl ? tl->hwsp_offset : 0,
-+				tl ? tl->ggtt_offset : 0,
- 				hwsp_seqno(rq),
- 				DIV_ROUND_CLOSEST_ULL(intel_context_get_total_runtime_ns(rq->context),
- 						      1000 * 1000));
-@@ -1673,7 +1673,7 @@ void intel_engine_dump(struct intel_engine_cs *engine,
- 
- 		if (tl) {
- 			drm_printf(m, "\t\tring->hwsp:   0x%08x\n",
--				   tl->hwsp_offset);
-+				   tl->ggtt_offset);
- 			intel_timeline_put(tl);
- 		}
- 
 diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
-index 0e87789d95b0..cde86a9ad435 100644
+index c8c0493cb0b1..372b008364cf 100644
 --- a/drivers/gpu/drm/i915/gt/intel_lrc.c
 +++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
-@@ -3578,7 +3578,7 @@ static u32 hwsp_offset(const struct i915_request *rq)
- 	if (cl)
- 		return cl->ggtt_offset;
- 
--	return rcu_dereference_protected(rq->timeline, 1)->hwsp_offset;
-+	return rcu_dereference_protected(rq->timeline, 1)->ggtt_offset;
+@@ -454,9 +454,15 @@ static int queue_prio(const struct intel_engine_execlists *execlists)
+ 	return ((p->priority + 1) << I915_USER_PRIORITY_SHIFT) - ffs(p->used);
  }
  
- static int gen8_emit_init_breadcrumb(struct i915_request *rq)
-diff --git a/drivers/gpu/drm/i915/gt/intel_timeline.c b/drivers/gpu/drm/i915/gt/intel_timeline.c
-index ddc8e1b4f3b8..cb20fcbb326b 100644
---- a/drivers/gpu/drm/i915/gt/intel_timeline.c
-+++ b/drivers/gpu/drm/i915/gt/intel_timeline.c
-@@ -338,13 +338,11 @@ int intel_timeline_pin(struct intel_timeline *tl, struct i915_gem_ww_ctx *ww)
- 	if (err)
- 		return err;
++static int virtual_prio(const struct intel_engine_execlists *el)
++{
++	struct rb_node *rb = rb_first_cached(&el->virtual);
++
++	return rb ? rb_entry(rb, struct ve_node, rb)->prio : INT_MIN;
++}
++
+ static inline bool need_preempt(const struct intel_engine_cs *engine,
+-				const struct i915_request *rq,
+-				struct rb_node *rb)
++				const struct i915_request *rq)
+ {
+ 	int last_prio;
  
--	tl->hwsp_offset =
--		i915_ggtt_offset(tl->hwsp_ggtt) +
--		offset_in_page(tl->hwsp_offset);
-+	tl->ggtt_offset = i915_ggtt_offset(tl->hwsp_ggtt) + tl->hwsp_offset;
- 	GT_TRACE(tl->gt, "timeline:%llx using HWSP offset:%x\n",
--		 tl->fence_context, tl->hwsp_offset);
-+		 tl->fence_context, tl->ggtt_offset);
+@@ -493,25 +499,6 @@ static inline bool need_preempt(const struct intel_engine_cs *engine,
+ 	    rq_prio(list_next_entry(rq, sched.link)) > last_prio)
+ 		return true;
  
--	cacheline_acquire(tl->hwsp_cacheline, tl->hwsp_offset);
-+	cacheline_acquire(tl->hwsp_cacheline, tl->ggtt_offset);
- 	if (atomic_fetch_inc(&tl->pin_count)) {
- 		cacheline_release(tl->hwsp_cacheline);
- 		__i915_vma_unpin(tl->hwsp_ggtt);
-@@ -512,14 +510,13 @@ __intel_timeline_get_seqno(struct intel_timeline *tl,
+-	if (rb) {
+-		struct virtual_engine *ve =
+-			rb_entry(rb, typeof(*ve), nodes[engine->id].rb);
+-		bool preempt = false;
+-
+-		if (engine == ve->siblings[0]) { /* only preempt one sibling */
+-			struct i915_request *next;
+-
+-			rcu_read_lock();
+-			next = READ_ONCE(ve->request);
+-			if (next)
+-				preempt = rq_prio(next) > last_prio;
+-			rcu_read_unlock();
+-		}
+-
+-		if (preempt)
+-			return preempt;
+-	}
+-
+ 	/*
+ 	 * If the inflight context did not trigger the preemption, then maybe
+ 	 * it was the set of queued requests? Pick the highest priority in
+@@ -522,7 +509,8 @@ static inline bool need_preempt(const struct intel_engine_cs *engine,
+ 	 * ELSP[0] or ELSP[1] as, thanks again to PI, if it was the same
+ 	 * context, it's priority would not exceed ELSP[0] aka last_prio.
+ 	 */
+-	return queue_prio(&engine->execlists) > last_prio;
++	return max(virtual_prio(&engine->execlists),
++		   queue_prio(&engine->execlists)) > last_prio;
+ }
  
- 	vaddr = page_mask_bits(cl->vaddr);
- 	tl->hwsp_offset = cacheline * CACHELINE_BYTES;
--	tl->hwsp_seqno =
--		memset(vaddr + tl->hwsp_offset, 0, CACHELINE_BYTES);
-+	tl->hwsp_seqno = memset(vaddr + tl->hwsp_offset, 0, CACHELINE_BYTES);
+ __maybe_unused static inline bool
+@@ -1810,6 +1798,35 @@ static bool virtual_matches(const struct virtual_engine *ve,
+ 	return true;
+ }
  
--	tl->hwsp_offset += i915_ggtt_offset(vma);
-+	tl->ggtt_offset = i915_ggtt_offset(vma) + tl->hwsp_offset;
- 	GT_TRACE(tl->gt, "timeline:%llx using HWSP offset:%x\n",
--		 tl->fence_context, tl->hwsp_offset);
-+		 tl->fence_context, tl->ggtt_offset);
++static struct virtual_engine *
++first_virtual_engine(struct intel_engine_cs *engine)
++{
++	struct intel_engine_execlists *el = &engine->execlists;
++	struct rb_node *rb = rb_first_cached(&el->virtual);
++
++	while (rb) {
++		struct virtual_engine *ve =
++			rb_entry(rb, typeof(*ve), nodes[engine->id].rb);
++		struct i915_request *rq = READ_ONCE(ve->request);
++
++		/* lazily cleanup after another engine handled rq */
++		if (!rq) {
++			rb_erase_cached(rb, &el->virtual);
++			RB_CLEAR_NODE(rb);
++			rb = rb_first_cached(&el->virtual);
++			continue;
++		}
++
++		if (!virtual_matches(ve, rq, engine)) {
++			rb = rb_next(rb);
++			continue;
++		}
++		return ve;
++	}
++
++	return NULL;
++}
++
+ static void virtual_xfer_context(struct virtual_engine *ve,
+ 				 struct intel_engine_cs *engine)
+ {
+@@ -1898,32 +1915,15 @@ static void defer_active(struct intel_engine_cs *engine)
  
--	cacheline_acquire(cl, tl->hwsp_offset);
-+	cacheline_acquire(cl, tl->ggtt_offset);
- 	tl->hwsp_cacheline = cl;
+ static bool
+ need_timeslice(const struct intel_engine_cs *engine,
+-	       const struct i915_request *rq,
+-	       const struct rb_node *rb)
++	       const struct i915_request *rq)
+ {
+ 	int hint;
  
- 	*seqno = timeline_advance(tl);
-diff --git a/drivers/gpu/drm/i915/gt/intel_timeline_types.h b/drivers/gpu/drm/i915/gt/intel_timeline_types.h
-index e360f50706bf..f187c5aac11c 100644
---- a/drivers/gpu/drm/i915/gt/intel_timeline_types.h
-+++ b/drivers/gpu/drm/i915/gt/intel_timeline_types.h
-@@ -48,6 +48,7 @@ struct intel_timeline {
- 	const u32 *hwsp_seqno;
- 	struct i915_vma *hwsp_ggtt;
- 	u32 hwsp_offset;
-+	u32 ggtt_offset;
+ 	if (!intel_engine_has_timeslices(engine))
+ 		return false;
  
- 	struct intel_timeline_cacheline *hwsp_cacheline;
+-	hint = engine->execlists.queue_priority_hint;
+-
+-	if (rb) {
+-		const struct virtual_engine *ve =
+-			rb_entry(rb, typeof(*ve), nodes[engine->id].rb);
+-		const struct intel_engine_cs *inflight =
+-			intel_context_inflight(&ve->context);
+-
+-		if (!inflight || inflight == engine) {
+-			struct i915_request *next;
+-
+-			rcu_read_lock();
+-			next = READ_ONCE(ve->request);
+-			if (next)
+-				hint = max(hint, rq_prio(next));
+-			rcu_read_unlock();
+-		}
+-	}
++	hint = max(engine->execlists.queue_priority_hint,
++		   virtual_prio(&engine->execlists));
  
-diff --git a/drivers/gpu/drm/i915/gt/selftest_engine_cs.c b/drivers/gpu/drm/i915/gt/selftest_engine_cs.c
-index 729c3c7b11e2..0a676d938c15 100644
---- a/drivers/gpu/drm/i915/gt/selftest_engine_cs.c
-+++ b/drivers/gpu/drm/i915/gt/selftest_engine_cs.c
-@@ -53,7 +53,7 @@ static int write_timestamp(struct i915_request *rq, int slot)
- 		cmd++;
- 	*cs++ = cmd;
- 	*cs++ = i915_mmio_reg_offset(RING_TIMESTAMP(rq->engine->mmio_base));
--	*cs++ = i915_request_timeline(rq)->hwsp_offset + slot * sizeof(u32);
-+	*cs++ = i915_request_timeline(rq)->ggtt_offset + slot * sizeof(u32);
- 	*cs++ = 0;
+ 	if (!list_is_last(&rq->sched.link, &engine->active.requests))
+ 		hint = max(hint, rq_prio(list_next_entry(rq, sched.link)));
+@@ -2070,6 +2070,7 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
+ 	struct i915_request **port = execlists->pending;
+ 	struct i915_request ** const last_port = port + execlists->port_mask;
+ 	struct i915_request *last = *execlists->active;
++	struct virtual_engine *ve;
+ 	struct rb_node *rb;
+ 	bool submit = false;
  
- 	intel_ring_advance(rq, cs);
-diff --git a/drivers/gpu/drm/i915/gt/selftest_rc6.c b/drivers/gpu/drm/i915/gt/selftest_rc6.c
-index 64ef5ee5decf..9733f657c265 100644
---- a/drivers/gpu/drm/i915/gt/selftest_rc6.c
-+++ b/drivers/gpu/drm/i915/gt/selftest_rc6.c
-@@ -137,7 +137,7 @@ static const u32 *__live_rc6_ctx(struct intel_context *ce)
+@@ -2097,26 +2098,6 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
  
- 	*cs++ = cmd;
- 	*cs++ = i915_mmio_reg_offset(GEN8_RC6_CTX_INFO);
--	*cs++ = ce->timeline->hwsp_offset + 8;
-+	*cs++ = ce->timeline->ggtt_offset + 8;
- 	*cs++ = 0;
- 	intel_ring_advance(rq, cs);
+ 	spin_lock(&engine->active.lock);
  
-diff --git a/drivers/gpu/drm/i915/gt/selftest_timeline.c b/drivers/gpu/drm/i915/gt/selftest_timeline.c
-index a6ff9d1605aa..6f355c8a4f81 100644
---- a/drivers/gpu/drm/i915/gt/selftest_timeline.c
-+++ b/drivers/gpu/drm/i915/gt/selftest_timeline.c
-@@ -468,7 +468,7 @@ tl_write(struct intel_timeline *tl, struct intel_engine_cs *engine, u32 value)
+-	for (rb = rb_first_cached(&execlists->virtual); rb; ) {
+-		struct virtual_engine *ve =
+-			rb_entry(rb, typeof(*ve), nodes[engine->id].rb);
+-		struct i915_request *rq = READ_ONCE(ve->request);
+-
+-		if (!rq) { /* lazily cleanup after another engine handled rq */
+-			rb_erase_cached(rb, &execlists->virtual);
+-			RB_CLEAR_NODE(rb);
+-			rb = rb_first_cached(&execlists->virtual);
+-			continue;
+-		}
+-
+-		if (!virtual_matches(ve, rq, engine)) {
+-			rb = rb_next(rb);
+-			continue;
+-		}
+-
+-		break;
+-	}
+-
+ 	/*
+ 	 * If the queue is higher priority than the last
+ 	 * request in the currently active context, submit afresh.
+@@ -2139,7 +2120,7 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
+ 	if (last) {
+ 		if (i915_request_completed(last)) {
+ 			goto check_secondary;
+-		} else if (need_preempt(engine, last, rb)) {
++		} else if (need_preempt(engine, last)) {
+ 			ENGINE_TRACE(engine,
+ 				     "preempting last=%llx:%lld, prio=%d, hint=%d\n",
+ 				     last->fence.context,
+@@ -2165,7 +2146,7 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
+ 			__unwind_incomplete_requests(engine);
  
- 	i915_request_get(rq);
- 
--	err = emit_ggtt_store_dw(rq, tl->hwsp_offset, value);
-+	err = emit_ggtt_store_dw(rq, tl->ggtt_offset, value);
- 	i915_request_add(rq);
- 	if (err) {
- 		i915_request_put(rq);
-@@ -564,7 +564,7 @@ static int live_hwsp_engine(void *arg)
- 
- 		if (!err && READ_ONCE(*tl->hwsp_seqno) != n) {
- 			GEM_TRACE_ERR("Invalid seqno:%lu stored in timeline %llu @ %x, found 0x%x\n",
--				      n, tl->fence_context, tl->hwsp_offset, *tl->hwsp_seqno);
-+				      n, tl->fence_context, tl->ggtt_offset, *tl->hwsp_seqno);
- 			GEM_TRACE_DUMP();
- 			err = -EINVAL;
+ 			last = NULL;
+-		} else if (need_timeslice(engine, last, rb) &&
++		} else if (need_timeslice(engine, last) &&
+ 			   timeslice_expired(execlists, last)) {
+ 			ENGINE_TRACE(engine,
+ 				     "expired last=%llx:%lld, prio=%d, hint=%d, yield?=%s\n",
+@@ -2216,96 +2197,86 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
  		}
-@@ -636,7 +636,7 @@ static int live_hwsp_alternate(void *arg)
+ 	}
  
- 		if (!err && READ_ONCE(*tl->hwsp_seqno) != n) {
- 			GEM_TRACE_ERR("Invalid seqno:%lu stored in timeline %llu @ %x, found 0x%x\n",
--				      n, tl->fence_context, tl->hwsp_offset, *tl->hwsp_seqno);
-+				      n, tl->fence_context, tl->ggtt_offset, *tl->hwsp_seqno);
- 			GEM_TRACE_DUMP();
- 			err = -EINVAL;
- 		}
-@@ -696,9 +696,9 @@ static int live_hwsp_wrap(void *arg)
- 			goto out;
- 		}
- 		pr_debug("seqno[0]:%08x, hwsp_offset:%08x\n",
--			 seqno[0], tl->hwsp_offset);
-+			 seqno[0], tl->ggtt_offset);
+-	while (rb) { /* XXX virtual is always taking precedence */
+-		struct virtual_engine *ve =
+-			rb_entry(rb, typeof(*ve), nodes[engine->id].rb);
++	/* XXX virtual is always taking precedence */
++	while ((ve = first_virtual_engine(engine))) {
+ 		struct i915_request *rq;
  
--		err = emit_ggtt_store_dw(rq, tl->hwsp_offset, seqno[0]);
-+		err = emit_ggtt_store_dw(rq, tl->ggtt_offset, seqno[0]);
- 		if (err) {
- 			i915_request_add(rq);
- 			goto out;
-@@ -713,9 +713,9 @@ static int live_hwsp_wrap(void *arg)
- 			goto out;
- 		}
- 		pr_debug("seqno[1]:%08x, hwsp_offset:%08x\n",
--			 seqno[1], tl->hwsp_offset);
-+			 seqno[1], tl->ggtt_offset);
+ 		spin_lock(&ve->base.active.lock);
  
--		err = emit_ggtt_store_dw(rq, tl->hwsp_offset, seqno[1]);
-+		err = emit_ggtt_store_dw(rq, tl->ggtt_offset, seqno[1]);
- 		if (err) {
- 			i915_request_add(rq);
- 			goto out;
-@@ -1343,7 +1343,7 @@ static int live_hwsp_recycle(void *arg)
- 			if (READ_ONCE(*tl->hwsp_seqno) != count) {
- 				GEM_TRACE_ERR("Invalid seqno:%lu stored in timeline %llu @ %x found 0x%x\n",
- 					      count, tl->fence_context,
--					      tl->hwsp_offset, *tl->hwsp_seqno);
-+					      tl->ggtt_offset, *tl->hwsp_seqno);
- 				GEM_TRACE_DUMP();
- 				err = -EINVAL;
- 			}
+ 		rq = ve->request;
+-		if (unlikely(!rq)) { /* lost the race to a sibling */
+-			spin_unlock(&ve->base.active.lock);
+-			rb_erase_cached(rb, &execlists->virtual);
+-			RB_CLEAR_NODE(rb);
+-			rb = rb_first_cached(&execlists->virtual);
+-			continue;
+-		}
++		if (unlikely(!rq)) /* lost the race to a sibling */
++			goto unlock;
+ 
+-		GEM_BUG_ON(rq != ve->request);
+ 		GEM_BUG_ON(rq->engine != &ve->base);
+ 		GEM_BUG_ON(rq->context != &ve->context);
+ 
+-		if (rq_prio(rq) >= queue_prio(execlists)) {
+-			if (!virtual_matches(ve, rq, engine)) {
+-				spin_unlock(&ve->base.active.lock);
+-				rb = rb_next(rb);
+-				continue;
+-			}
++		if (unlikely(rq_prio(rq) < queue_prio(execlists))) {
++			spin_unlock(&ve->base.active.lock);
++			break;
++		}
+ 
+-			if (last && !can_merge_rq(last, rq)) {
+-				spin_unlock(&ve->base.active.lock);
+-				spin_unlock(&engine->active.lock);
+-				start_timeslice(engine, rq_prio(rq));
+-				return; /* leave this for another sibling */
+-			}
++		GEM_BUG_ON(!virtual_matches(ve, rq, engine));
+ 
+-			ENGINE_TRACE(engine,
+-				     "virtual rq=%llx:%lld%s, new engine? %s\n",
+-				     rq->fence.context,
+-				     rq->fence.seqno,
+-				     i915_request_completed(rq) ? "!" :
+-				     i915_request_started(rq) ? "*" :
+-				     "",
+-				     yesno(engine != ve->siblings[0]));
+-
+-			WRITE_ONCE(ve->request, NULL);
+-			WRITE_ONCE(ve->base.execlists.queue_priority_hint,
+-				   INT_MIN);
+-			rb_erase_cached(rb, &execlists->virtual);
+-			RB_CLEAR_NODE(rb);
++		if (last && !can_merge_rq(last, rq)) {
++			spin_unlock(&ve->base.active.lock);
++			spin_unlock(&engine->active.lock);
++			start_timeslice(engine, rq_prio(rq));
++			return; /* leave this for another sibling */
++		}
+ 
+-			GEM_BUG_ON(!(rq->execution_mask & engine->mask));
+-			WRITE_ONCE(rq->engine, engine);
++		ENGINE_TRACE(engine,
++			     "virtual rq=%llx:%lld%s, new engine? %s\n",
++			     rq->fence.context,
++			     rq->fence.seqno,
++			     i915_request_completed(rq) ? "!" :
++			     i915_request_started(rq) ? "*" :
++			     "",
++			     yesno(engine != ve->siblings[0]));
+ 
+-			if (__i915_request_submit(rq)) {
+-				/*
+-				 * Only after we confirm that we will submit
+-				 * this request (i.e. it has not already
+-				 * completed), do we want to update the context.
+-				 *
+-				 * This serves two purposes. It avoids
+-				 * unnecessary work if we are resubmitting an
+-				 * already completed request after timeslicing.
+-				 * But more importantly, it prevents us altering
+-				 * ve->siblings[] on an idle context, where
+-				 * we may be using ve->siblings[] in
+-				 * virtual_context_enter / virtual_context_exit.
+-				 */
+-				virtual_xfer_context(ve, engine);
+-				GEM_BUG_ON(ve->siblings[0] != engine);
++		WRITE_ONCE(ve->request, NULL);
++		WRITE_ONCE(ve->base.execlists.queue_priority_hint, INT_MIN);
+ 
+-				submit = true;
+-				last = rq;
+-			}
+-			i915_request_put(rq);
++		rb = &ve->nodes[engine->id].rb;
++		rb_erase_cached(rb, &execlists->virtual);
++		RB_CLEAR_NODE(rb);
++
++		GEM_BUG_ON(!(rq->execution_mask & engine->mask));
++		WRITE_ONCE(rq->engine, engine);
+ 
++		if (__i915_request_submit(rq)) {
+ 			/*
+-			 * Hmm, we have a bunch of virtual engine requests,
+-			 * but the first one was already completed (thanks
+-			 * preempt-to-busy!). Keep looking at the veng queue
+-			 * until we have no more relevant requests (i.e.
+-			 * the normal submit queue has higher priority).
++			 * Only after we confirm that we will submit
++			 * this request (i.e. it has not already
++			 * completed), do we want to update the context.
++			 *
++			 * This serves two purposes. It avoids
++			 * unnecessary work if we are resubmitting an
++			 * already completed request after timeslicing.
++			 * But more importantly, it prevents us altering
++			 * ve->siblings[] on an idle context, where
++			 * we may be using ve->siblings[] in
++			 * virtual_context_enter / virtual_context_exit.
+ 			 */
+-			if (!submit) {
+-				spin_unlock(&ve->base.active.lock);
+-				rb = rb_first_cached(&execlists->virtual);
+-				continue;
+-			}
++			virtual_xfer_context(ve, engine);
++			GEM_BUG_ON(ve->siblings[0] != engine);
++
++			submit = true;
++			last = rq;
+ 		}
+ 
++		i915_request_put(rq);
++unlock:
+ 		spin_unlock(&ve->base.active.lock);
+-		break;
++
++		/*
++		 * Hmm, we have a bunch of virtual engine requests,
++		 * but the first one was already completed (thanks
++		 * preempt-to-busy!). Keep looking at the veng queue
++		 * until we have no more relevant requests (i.e.
++		 * the normal submit queue has higher priority).
++		 */
++		if (submit)
++			break;
+ 	}
+ 
+ 	while ((rb = rb_first_cached(&execlists->queue))) {
 -- 
 2.20.1
 
