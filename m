@@ -2,49 +2,49 @@ Return-Path: <SRS0=NHSF=FL=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-13.9 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
+	URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5A206C4361B
-	for <intel-gfx@archiver.kernel.org>; Mon,  7 Dec 2020 00:22:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0F1EEC19425
+	for <intel-gfx@archiver.kernel.org>; Mon,  7 Dec 2020 00:22:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 11ADA206B7
+	by mail.kernel.org (Postfix) with ESMTPS id C9CD1206B7
 	for <intel-gfx@archiver.kernel.org>; Mon,  7 Dec 2020 00:22:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 11ADA206B7
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C9CD1206B7
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7272D6E554;
-	Mon,  7 Dec 2020 00:22:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3127C6E566;
+	Mon,  7 Dec 2020 00:22:13 +0000 (UTC)
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D58796E544
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C7E9E6E53E
  for <Intel-gfx@lists.freedesktop.org>; Mon,  7 Dec 2020 00:22:09 +0000 (UTC)
-IronPort-SDR: LysAgZrGzQqmG+71+lHD1rcfPApqY1FgLOYsDaSkqDH5AjvDTdBAJRFfgLl5yvX9zsJbXIBVhr
- ejDNcaxVBQ2g==
-X-IronPort-AV: E=McAfee;i="6000,8403,9827"; a="191889193"
-X-IronPort-AV: E=Sophos;i="5.78,398,1599548400"; d="scan'208";a="191889193"
+IronPort-SDR: 0EDH/aDg7O2hD1iJxrhrLt6YBQScSguk3mQm2MZpazBBcO9HjyPybjkBc5XyWkNxagd52C2tJG
+ QGJNqXUwPkpg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9827"; a="191889203"
+X-IronPort-AV: E=Sophos;i="5.78,398,1599548400"; d="scan'208";a="191889203"
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Dec 2020 16:22:07 -0800
-IronPort-SDR: 7Ix85XtcmLP2h/Bkwrq6z8iy+vi/YZ6NQXu8DE74P3JqUGZD6y5ZZK4C+ndB/tpBymsznaZd7l
- 5j+2s6E+fAZg==
+ 06 Dec 2020 16:22:08 -0800
+IronPort-SDR: HB1HGjTaojAvVAYHq+ArwLGsnP7CDhgcLBa6R5uAYYYV0EP2hHs6obHXJ62ooi0ybQqB7lGk6R
+ myBkF0KoH1Iw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.78,398,1599548400"; d="scan'208";a="369586437"
+X-IronPort-AV: E=Sophos;i="5.78,398,1599548400"; d="scan'208";a="369586451"
 Received: from sean-virtualbox.fm.intel.com ([10.105.158.96])
- by fmsmga002.fm.intel.com with ESMTP; 06 Dec 2020 16:22:07 -0800
+ by fmsmga002.fm.intel.com with ESMTP; 06 Dec 2020 16:22:08 -0800
 From: "Huang, Sean Z" <sean.z.huang@intel.com>
 To: Intel-gfx@lists.freedesktop.org
-Date: Sun,  6 Dec 2020 16:21:23 -0800
-Message-Id: <20201207002134.13731-6-sean.z.huang@intel.com>
+Date: Sun,  6 Dec 2020 16:21:32 -0800
+Message-Id: <20201207002134.13731-15-sean.z.huang@intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20201207002134.13731-1-sean.z.huang@intel.com>
 References: <20201207002134.13731-1-sean.z.huang@intel.com>
-Subject: [Intel-gfx] [RFC-v1 05/16] drm/i915/pxp: Read register to check
- hardware session state
+Subject: [Intel-gfx] [RFC-v1 14/16] drm/i915/uapi: introduce
+ drm_i915_gem_create_ext
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,293 +57,187 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Joonas@freedesktop.org,
+	Bommu Krishnaiah <krishnaiah.bommu@intel.com>,
+	Matthew@freedesktop.org
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Implement the functions to check the hardware protected session
-state via reading the hardware register session in play.
+From: Bommu Krishnaiah <krishnaiah.bommu@intel.com>
 
-Signed-off-by: Huang, Sean Z <sean.z.huang@intel.com>
+Same old gem_create but with now with extensions support. This is needed
+to support various upcoming usecases. For now we use the extensions
+mechanism to support PAVP.
+
+Signed-off-by: Bommu Krishnaiah <krishnaiah.bommu@intel.com>
+Signed-off-by: Matthew Auld <matthew.auld@intel.com>
+Cc: Joonas Lahtinen joonas.lahtinen@linux.intel.com
+Cc: Matthew Auld matthew.auld@intel.com
+Cc: Telukuntla Sreedhar <sreedhar.telukuntla@intel.com>
 ---
- drivers/gpu/drm/i915/pxp/intel_pxp.h    |   3 +
- drivers/gpu/drm/i915/pxp/intel_pxp_sm.c | 177 ++++++++++++++++++++++++
- drivers/gpu/drm/i915/pxp/intel_pxp_sm.h |  51 +++++++
- 3 files changed, 231 insertions(+)
+ drivers/gpu/drm/i915/i915_drv.c |  2 +-
+ drivers/gpu/drm/i915/i915_gem.c | 42 ++++++++++++++++++++++++++++-
+ include/uapi/drm/i915_drm.h     | 47 +++++++++++++++++++++++++++++++++
+ 3 files changed, 89 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.h b/drivers/gpu/drm/i915/pxp/intel_pxp.h
-index eb0ec4a07d3d..308d8d312a6d 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp.h
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp.h
-@@ -12,6 +12,9 @@
- #define PXP_IRQ_VECTOR_DISPLAY_APP_TERM_PER_FW_REQ BIT(2)
- #define PXP_IRQ_VECTOR_PXP_DISP_STATE_RESET_COMPLETE BIT(3)
+diff --git a/drivers/gpu/drm/i915/i915_drv.c b/drivers/gpu/drm/i915/i915_drv.c
+index e0c31c1b0b36..14b0fa04ed14 100644
+--- a/drivers/gpu/drm/i915/i915_drv.c
++++ b/drivers/gpu/drm/i915/i915_drv.c
+@@ -1742,7 +1742,7 @@ static const struct drm_ioctl_desc i915_ioctls[] = {
+ 	DRM_IOCTL_DEF_DRV(I915_GEM_THROTTLE, i915_gem_throttle_ioctl, DRM_RENDER_ALLOW),
+ 	DRM_IOCTL_DEF_DRV(I915_GEM_ENTERVT, drm_noop, DRM_AUTH|DRM_MASTER|DRM_ROOT_ONLY),
+ 	DRM_IOCTL_DEF_DRV(I915_GEM_LEAVEVT, drm_noop, DRM_AUTH|DRM_MASTER|DRM_ROOT_ONLY),
+-	DRM_IOCTL_DEF_DRV(I915_GEM_CREATE, i915_gem_create_ioctl, DRM_RENDER_ALLOW),
++	DRM_IOCTL_DEF_DRV(I915_GEM_CREATE_EXT, i915_gem_create_ioctl, DRM_RENDER_ALLOW),
+ 	DRM_IOCTL_DEF_DRV(I915_GEM_PREAD, i915_gem_pread_ioctl, DRM_RENDER_ALLOW),
+ 	DRM_IOCTL_DEF_DRV(I915_GEM_PWRITE, i915_gem_pwrite_ioctl, DRM_RENDER_ALLOW),
+ 	DRM_IOCTL_DEF_DRV(I915_GEM_MMAP, i915_gem_mmap_ioctl, DRM_RENDER_ALLOW),
+diff --git a/drivers/gpu/drm/i915/i915_gem.c b/drivers/gpu/drm/i915/i915_gem.c
+index 58276694c848..41698a823737 100644
+--- a/drivers/gpu/drm/i915/i915_gem.c
++++ b/drivers/gpu/drm/i915/i915_gem.c
+@@ -53,6 +53,7 @@
+ #include "i915_drv.h"
+ #include "i915_trace.h"
+ #include "i915_vgpu.h"
++#include "i915_user_extensions.h"
  
-+#define pxp_session_list(i915, session_type) (((session_type) == SESSION_TYPE_TYPE0) ? \
-+	&(i915)->pxp.ctx->active_pxp_type0_sessions : &(i915)->pxp.ctx->active_pxp_type1_sessions)
-+
- #define MAX_TYPE0_SESSIONS 16
- #define MAX_TYPE1_SESSIONS 6
+ #include "intel_pm.h"
  
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_sm.c b/drivers/gpu/drm/i915/pxp/intel_pxp_sm.c
-index a2c9c71d2372..6413f401d939 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp_sm.c
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_sm.c
-@@ -10,6 +10,21 @@
- #include "intel_pxp_sm.h"
- #include "intel_pxp_context.h"
- 
-+static int pxp_sm_reg_read(struct drm_i915_private *i915, u32 offset, u32 *regval)
-+{
-+	intel_wakeref_t wakeref;
-+
-+	if (!i915 || !regval)
-+		return -EINVAL;
-+
-+	with_intel_runtime_pm(&i915->runtime_pm, wakeref) {
-+		i915_reg_t reg_offset = {offset};
-+		*regval = intel_uncore_read(&i915->uncore, reg_offset);
-+	}
-+
-+	return 0;
-+}
-+
- static int pxp_reg_write(struct drm_i915_private *i915, u32 offset, u32 regval)
- {
- 	intel_wakeref_t wakeref;
-@@ -26,6 +41,168 @@ static int pxp_reg_write(struct drm_i915_private *i915, u32 offset, u32 regval)
- 	return 0;
+@@ -260,6 +261,35 @@ i915_gem_dumb_create(struct drm_file *file,
+ 			       &args->size, &args->handle);
  }
  
-+/**
-+ * is_sw_session_active - Check if the given sw session id is active.
-+ * @i915: i915 device handle.
-+ * @session_type: Specified session type
-+ * @session_index: Numeric session identifier.
-+ * @is_in_play: Set false to return true if the specified session is active.
-+ *              Set true to also check if the session is active and in_play.
-+ * @protection_mode: get the protection mode of specified session.
-+ *
-+ * The caller needs to use ctx_mutex lock to protect the session_list
-+ * inside this function.
-+ *
-+ * Return : true if session with the same identifier is active (and in_play).
-+ */
-+static bool is_sw_session_active(struct drm_i915_private *i915, int session_type,
-+				 int session_index, bool is_in_play, int *protection_mode)
++struct create_ext {
++        struct drm_i915_private *i915;
++};
++
++static int __create_setparam(struct drm_i915_gem_object_param *args,
++							struct create_ext *ext_data)
 +{
-+	struct pxp_protected_session *current_session;
-+
-+	lockdep_assert_held(&i915->pxp.ctx->ctx_mutex);
-+
-+	list_for_each_entry(current_session, pxp_session_list(i915, session_type), session_list) {
-+		if (current_session->session_index == session_index) {
-+			if (protection_mode)
-+				*protection_mode = current_session->protection_mode;
-+
-+			if (is_in_play && !current_session->session_is_in_play)
-+				return false;
-+
-+			return true;
-+		}
-+	}
-+
-+	/* session id not found. return false */
-+	return false;
-+}
-+
-+static bool is_hw_type0_session_in_play(struct drm_i915_private *i915, int session_index)
-+{
-+	u32 regval_sip = 0;
-+	u32 reg_session_id_mask;
-+	bool hw_session_is_in_play = false;
-+	int ret = 0;
-+
-+	if (!i915 || session_index < 0 || session_index >= MAX_TYPE0_SESSIONS)
-+		goto end;
-+
-+	ret = pxp_sm_reg_read(i915, GEN12_KCR_SIP.reg, &regval_sip);
-+	if (ret) {
-+		drm_err(&i915->drm, "Failed to read()\n");
-+		goto end;
-+	}
-+
-+	reg_session_id_mask = (1 << session_index);
-+	hw_session_is_in_play = (bool)(regval_sip & reg_session_id_mask);
-+end:
-+	return hw_session_is_in_play;
-+}
-+
-+static bool is_hw_type1_session_in_play(struct drm_i915_private *i915, int session_index)
-+{
-+	int ret = 0;
-+	u32 regval_tsip_low = 0;
-+	u32 regval_tsip_high = 0;
-+	u64 reg_session_id_mask;
-+	u64 regval_tsip;
-+	bool hw_session_is_in_play = false;
-+
-+	if (!i915 || session_index < 0 || session_index >= MAX_TYPE1_SESSIONS)
-+		goto end;
-+
-+	ret = pxp_sm_reg_read(i915, GEN12_KCR_TSIP_LOW.reg, &regval_tsip_low);
-+	if (ret) {
-+		drm_err(&i915->drm, "Failed to pxp_sm_reg_read()\n");
-+		goto end;
-+	}
-+
-+	ret = pxp_sm_reg_read(i915, GEN12_KCR_TSIP_HIGH.reg, &regval_tsip_high);
-+	if (ret) {
-+		drm_err(&i915->drm, "Failed to pxp_sm_reg_read()\n");
-+		goto end;
-+	}
-+
-+	reg_session_id_mask = (1 << session_index);
-+	regval_tsip = ((u64)regval_tsip_high << 32) | regval_tsip_low;
-+	hw_session_is_in_play = (bool)(regval_tsip & reg_session_id_mask);
-+end:
-+	return hw_session_is_in_play;
-+}
-+
-+static bool is_hw_session_in_play(struct drm_i915_private *i915,
-+				  int session_type, int session_index)
-+{
-+	bool is_in_play = false;
-+
-+	if (session_type == SESSION_TYPE_TYPE0)
-+		is_in_play = is_hw_type0_session_in_play(i915, session_index);
-+	else if (session_type == SESSION_TYPE_TYPE1)
-+		is_in_play = is_hw_type1_session_in_play(i915, session_index);
-+	else
-+		drm_err(&i915->drm, "Failed to %s invalid session_type=[%d]\n",
-+			__func__, session_type);
-+
-+	return is_in_play;
-+}
-+
-+/* check hw session in play reg if match the current sw state */
-+static int sync_hw_sw_state(struct drm_i915_private *i915, int session_index, int session_type)
-+{
-+	const int max_retry = 10;
-+	const int ms_delay = 10;
-+	int retry = 0;
-+	int ret;
-+
-+	if (!i915 || session_type >= SESSION_TYPE_MAX)
++	if (!(args->param & I915_OBJECT_PARAM)) {
++		DRM_DEBUG("Missing I915_OBJECT_PARAM namespace\n");
 +		return -EINVAL;
-+
-+	ret = -EINVAL;
-+	for (retry = 0; retry < max_retry; retry++) {
-+		if (is_hw_session_in_play(i915, session_type, session_index) ==
-+		    is_sw_session_active(i915, session_type, session_index, true, NULL)) {
-+			ret = 0;
-+			break;
-+		}
-+
-+		msleep(ms_delay);
 +	}
 +
-+	return ret;
++	return -EINVAL;
 +}
 +
-+/**
-+ * check_if_protected_type0_sessions_are_attacked - To check if type0 active sessions are attacked.
-+ * @i915: i915 device handle.
-+ *
-+ * Return: true if HW shows protected sessions are attacked, false otherwise.
-+ */
-+static bool check_if_protected_type0_sessions_are_attacked(struct drm_i915_private *i915)
++static int create_setparam(struct i915_user_extension __user *base, void *data)
 +{
-+	i915_reg_t kcr_status_reg = KCR_STATUS_1;
-+	u32 reg_value = 0;
-+	u32 mask = 0x80000000;
-+	int ret;
++	struct drm_i915_gem_create_ext_setparam ext;
 +
-+	if (!i915)
-+		return false;
++	if (copy_from_user(&ext, base, sizeof(ext)))
++		return -EFAULT;
 +
-+	if (i915->pxp.ctx->global_state_attacked)
-+		return true;
-+
-+	ret = pxp_sm_reg_read(i915, kcr_status_reg.reg, &reg_value);
-+	if (ret) {
-+		drm_err(&i915->drm, "Failed to pxp_sm_reg_read\n");
-+		goto end;
-+	}
-+
-+	if (reg_value & mask)
-+		return true;
-+end:
-+	return false;
++	return __create_setparam(&ext.param, data);
 +}
 +
- int pxp_sm_set_kcr_init_reg(struct drm_i915_private *i915)
++static const i915_user_extension_fn create_extensions[] = {
++	[I915_GEM_CREATE_EXT_SETPARAM] = create_setparam,
++};
++
+ /**
+  * Creates a new mm object and returns a handle to it.
+  * @dev: drm device pointer
+@@ -271,10 +301,20 @@ i915_gem_create_ioctl(struct drm_device *dev, void *data,
+ 		      struct drm_file *file)
  {
- 	int ret;
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_sm.h b/drivers/gpu/drm/i915/pxp/intel_pxp_sm.h
-index d061f395aa16..222a879be96d 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp_sm.h
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_sm.h
-@@ -15,6 +15,57 @@
- /* Setting KCR Init bit is required after system boot */
- #define KCR_INIT_ALLOW_DISPLAY_ME_WRITES (BIT(14) | (BIT(14) << KCR_INIT_MASK_SHIFT))
+ 	struct drm_i915_private *i915 = to_i915(dev);
+-	struct drm_i915_gem_create *args = data;
++	struct create_ext ext_data = { .i915 = i915 };
++	struct drm_i915_gem_create_ext *args = data;
++	int ret;
  
-+#define KCR_STATUS_1        _MMIO(0x320f4)
-+#define GEN12_KCR_SIP       _MMIO(0x32260)   /* KCR type0 session in play 0-31 */
-+#define GEN12_KCR_TSIP_LOW  _MMIO(0x32264)   /* KCR type1 session in play 0-31 */
-+#define GEN12_KCR_TSIP_HIGH _MMIO(0x32268)   /* KCR type1 session in play 32-63 */
+ 	i915_gem_flush_free_objects(i915);
+ 
++	ret = i915_user_extensions(u64_to_user_ptr(args->extensions),
++				   create_extensions,
++				   ARRAY_SIZE(create_extensions),
++				   &ext_data);
++	if (ret)
++		return ret;
 +
-+enum pxp_session_types {
-+	SESSION_TYPE_TYPE0 = 0,
-+	SESSION_TYPE_TYPE1 = 1,
 +
-+	SESSION_TYPE_MAX
-+};
-+
-+enum pxp_protection_modes {
-+	PROTECTION_MODE_NONE = 0,
-+	PROTECTION_MODE_LM   = 2,
-+	PROTECTION_MODE_HM   = 3,
-+	PROTECTION_MODE_SM   = 6,
-+
-+	PROTECTION_MODE_ALL
-+};
-+
-+/**
-+ * struct pxp_protected_session - linked list to track all active sessions.
-+ */
-+struct pxp_protected_session {
-+	/** @session_list: linked list infrastructure, do not change its order. */
-+	struct list_head session_list;
-+
-+	/** @session_index: Numeric identifier for this protected session */
-+	int session_index;
-+	/** @session_type: Type of session */
-+	int session_type;
-+	/** @protection_mode: mode of protection requested */
-+	int protection_mode;
-+	/** @context_id: context identifier of the protected session requestor */
-+	int context_id;
-+	/** @pid: pid of this session's creator */
-+	int pid;
-+	/** @drmfile: pointer to drm_file, which is allocated on device file open() call */
-+	struct drm_file *drmfile;
-+
+ 	return i915_gem_create(file,
+ 			       intel_memory_region_by_type(i915,
+ 							   INTEL_MEMORY_SYSTEM),
+diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
+index fa1f3d62f9a6..2c1ce2761d55 100644
+--- a/include/uapi/drm/i915_drm.h
++++ b/include/uapi/drm/i915_drm.h
+@@ -391,6 +391,7 @@ typedef struct _drm_i915_sarea {
+ #define DRM_IOCTL_I915_GEM_ENTERVT	DRM_IO(DRM_COMMAND_BASE + DRM_I915_GEM_ENTERVT)
+ #define DRM_IOCTL_I915_GEM_LEAVEVT	DRM_IO(DRM_COMMAND_BASE + DRM_I915_GEM_LEAVEVT)
+ #define DRM_IOCTL_I915_GEM_CREATE	DRM_IOWR(DRM_COMMAND_BASE + DRM_I915_GEM_CREATE, struct drm_i915_gem_create)
++#define DRM_IOCTL_I915_GEM_CREATE_EXT   DRM_IOWR(DRM_COMMAND_BASE + DRM_I915_GEM_CREATE, struct drm_i915_gem_create_ext)
+ #define DRM_IOCTL_I915_GEM_PREAD	DRM_IOW (DRM_COMMAND_BASE + DRM_I915_GEM_PREAD, struct drm_i915_gem_pread)
+ #define DRM_IOCTL_I915_GEM_PWRITE	DRM_IOW (DRM_COMMAND_BASE + DRM_I915_GEM_PWRITE, struct drm_i915_gem_pwrite)
+ #define DRM_IOCTL_I915_GEM_MMAP		DRM_IOWR(DRM_COMMAND_BASE + DRM_I915_GEM_MMAP, struct drm_i915_gem_mmap)
+@@ -728,6 +729,27 @@ struct drm_i915_gem_create {
+ 	__u32 pad;
+ };
+ 
++struct drm_i915_gem_create_ext {
 +	/**
-+	 * @session_is_in_play: indicates whether the session has been established
-+	 *                      in the HW root of trust if this flag is false, it
-+	 *                      indicates an application has reserved this session,
-+	 *                      but has not * established the session in the
-+	 *                      hardware yet.
++	 * Requested size for the object.
++	 *
++	 * The (page-aligned) allocated size for the object will be returned.
 +	 */
-+	bool session_is_in_play;
++	__u64 size;
++	/**
++	 * Returned handle for the object.
++	 *
++	 * Object handles are nonzero.
++	 */
++	__u32 handle;
++	__u32 pad;
++#define I915_GEM_CREATE_EXT_SETPARAM (1u << 0)
++#define I915_GEM_CREATE_EXT_FLAGS_UNKNOWN \
++	(-(I915_GEM_CREATE_EXT_SETPARAM << 1))
++	__u64 extensions;
++
 +};
 +
- int pxp_sm_set_kcr_init_reg(struct drm_i915_private *i915);
+ struct drm_i915_gem_pread {
+ 	/** Handle for the object being read. */
+ 	__u32 handle;
+@@ -1698,6 +1720,31 @@ struct drm_i915_gem_context_param {
+ 	__u64 value;
+ };
  
- #endif /* __INTEL_PXP_SM_H__ */
++struct drm_i915_gem_object_param {
++	/* Object handle (0 for I915_GEM_CREATE_EXT_SETPARAM) */
++	__u32 handle;
++
++	/* Data pointer size */
++	__u32 size;
++
++/*
++ * I915_OBJECT_PARAM:
++ *
++ * Select object namespace for the param.
++ */
++#define I915_OBJECT_PARAM  (1ull<<32)
++
++	__u64 param;
++
++	/* Data value or pointer */
++	__u64 data;
++};
++
++struct drm_i915_gem_create_ext_setparam {
++	struct i915_user_extension base;
++	struct drm_i915_gem_object_param param;
++};
++
+ /**
+  * Context SSEU programming
+  *
 -- 
 2.17.1
 
