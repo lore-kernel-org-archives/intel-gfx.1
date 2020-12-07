@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 079ABC4361B
-	for <intel-gfx@archiver.kernel.org>; Mon,  7 Dec 2020 19:38:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6BDD9C433FE
+	for <intel-gfx@archiver.kernel.org>; Mon,  7 Dec 2020 19:38:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4E665238A1
-	for <intel-gfx@archiver.kernel.org>; Mon,  7 Dec 2020 19:38:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4E665238A1
+	by mail.kernel.org (Postfix) with ESMTPS id A4F3D238D7
+	for <intel-gfx@archiver.kernel.org>; Mon,  7 Dec 2020 19:38:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A4F3D238D7
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B407B6E8A9;
-	Mon,  7 Dec 2020 19:38:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EDA656E8B0;
+	Mon,  7 Dec 2020 19:38:37 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 39AAE6E8A9
- for <intel-gfx@lists.freedesktop.org>; Mon,  7 Dec 2020 19:38:34 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DBDC86E8A9
+ for <intel-gfx@lists.freedesktop.org>; Mon,  7 Dec 2020 19:38:35 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23245498-1500050 
- for multiple; Mon, 07 Dec 2020 19:38:29 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23245488-1500050 
+ for multiple; Mon, 07 Dec 2020 19:38:28 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon,  7 Dec 2020 19:38:24 +0000
-Message-Id: <20201207193824.18114-20-chris@chris-wilson.co.uk>
+Date: Mon,  7 Dec 2020 19:38:14 +0000
+Message-Id: <20201207193824.18114-10-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201207193824.18114-1-chris@chris-wilson.co.uk>
 References: <20201207193824.18114-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 20/20] drm/i915/gt: Use ppHWSP for unshared
- non-semaphore related timelines
+Subject: [Intel-gfx] [PATCH 10/20] drm/i915/gt: ce->inflight updates are now
+ serialised
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,92 +56,142 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-When we are not using semaphores with a context/engine, we can simply
-reuse the same seqno location across wraps, but we still require each
-timeline to have its own address. For LRC submission, each context is
-prefixed by a per-process HWSP, which provides us with a unique location
-for each context-local timeline. A shared timeline that is common to
-multiple contexts will continue to use a separate page.
+Since schedule-in and schedule-out are now both always under the tasklet
+bitlock, we can reduce the individual atomic operations to simple
+instructions and worry less.
 
-This enables us to create position invariant contexts should we feel the
-need to relocate them.
+This notably eliminates the race observed with intel_context_inflight in
+__engine_unpark().
 
+Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/2583
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_lrc.c | 37 +++++++++++++++++------------
- 1 file changed, 22 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_lrc.c | 52 ++++++++++++++---------------
+ 1 file changed, 25 insertions(+), 27 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
-index 4f80dd1991f5..67e8997279cb 100644
+index 5f90ecacc22b..d5bd537de9b7 100644
 --- a/drivers/gpu/drm/i915/gt/intel_lrc.c
 +++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
-@@ -5432,6 +5432,14 @@ static struct intel_timeline *pinned_timeline(struct intel_context *ce)
- 						 page_unmask_bits(tl));
+@@ -1331,11 +1331,11 @@ __execlists_schedule_in(struct i915_request *rq)
+ 		ce->lrc.ccid = ce->tag;
+ 	} else {
+ 		/* We don't need a strict matching tag, just different values */
+-		unsigned int tag = ffs(READ_ONCE(engine->context_tag));
++		unsigned int tag = __ffs(engine->context_tag);
+ 
+-		GEM_BUG_ON(tag == 0 || tag >= BITS_PER_LONG);
+-		clear_bit(tag - 1, &engine->context_tag);
+-		ce->lrc.ccid = tag << (GEN11_SW_CTX_ID_SHIFT - 32);
++		GEM_BUG_ON(tag >= BITS_PER_LONG);
++		__clear_bit(tag, &engine->context_tag);
++		ce->lrc.ccid = (1 + tag) << (GEN11_SW_CTX_ID_SHIFT - 32);
+ 
+ 		BUILD_BUG_ON(BITS_PER_LONG > GEN12_MAX_CONTEXT_HW_ID);
+ 	}
+@@ -1348,6 +1348,8 @@ __execlists_schedule_in(struct i915_request *rq)
+ 	execlists_context_status_change(rq, INTEL_CONTEXT_SCHEDULE_IN);
+ 	intel_engine_context_in(engine);
+ 
++	CE_TRACE(ce, "schedule-in, ccid:%x\n", ce->lrc.ccid);
++
+ 	return engine;
  }
  
-+static struct intel_timeline *pphwsp_timeline(struct intel_context *ce,
-+					      struct i915_vma *state)
-+{
-+	return __intel_timeline_create(ce->engine->gt, state,
-+				       I915_GEM_HWS_SEQNO_ADDR |
-+				       INTEL_TIMELINE_CONTEXT);
-+}
-+
- static int __execlists_context_alloc(struct intel_context *ce,
- 				     struct intel_engine_cs *engine)
+@@ -1359,13 +1361,10 @@ static inline void execlists_schedule_in(struct i915_request *rq, int idx)
+ 	GEM_BUG_ON(!intel_engine_pm_is_awake(rq->engine));
+ 	trace_i915_request_in(rq, idx);
+ 
+-	old = READ_ONCE(ce->inflight);
+-	do {
+-		if (!old) {
+-			WRITE_ONCE(ce->inflight, __execlists_schedule_in(rq));
+-			break;
+-		}
+-	} while (!try_cmpxchg(&ce->inflight, &old, ptr_inc(old)));
++	old = ce->inflight;
++	if (!old)
++		old = __execlists_schedule_in(rq);
++	WRITE_ONCE(ce->inflight, ptr_inc(old));
+ 
+ 	GEM_BUG_ON(intel_context_inflight(ce) != rq->engine);
+ }
+@@ -1418,12 +1417,11 @@ static void kick_siblings(struct i915_request *rq, struct intel_context *ce)
+ 		tasklet_hi_schedule(&ve->base.execlists.tasklet);
+ }
+ 
+-static inline void
+-__execlists_schedule_out(struct i915_request *rq,
+-			 struct intel_engine_cs * const engine,
+-			 unsigned int ccid)
++static inline void __execlists_schedule_out(struct i915_request *rq)
  {
-@@ -5462,6 +5470,16 @@ static int __execlists_context_alloc(struct intel_context *ce,
- 		goto error_deref_obj;
+ 	struct intel_context * const ce = rq->context;
++	struct intel_engine_cs * const engine = rq->engine;
++	unsigned int ccid;
+ 
+ 	/*
+ 	 * NB process_csb() is not under the engine->active.lock and hence
+@@ -1431,6 +1429,8 @@ __execlists_schedule_out(struct i915_request *rq,
+ 	 * refrain from doing non-trivial work here.
+ 	 */
+ 
++	CE_TRACE(ce, "schedule-out, ccid:%x\n", ce->lrc.ccid);
++
+ 	if (IS_ENABLED(CONFIG_DRM_I915_DEBUG_GEM))
+ 		execlists_check_context(ce, engine, "after");
+ 
+@@ -1442,12 +1442,13 @@ __execlists_schedule_out(struct i915_request *rq,
+ 	    i915_request_completed(rq))
+ 		intel_engine_add_retire(engine, ce->timeline);
+ 
++	ccid = ce->lrc.ccid;
+ 	ccid >>= GEN11_SW_CTX_ID_SHIFT - 32;
+ 	ccid &= GEN12_MAX_CONTEXT_HW_ID;
+ 	if (ccid < BITS_PER_LONG) {
+ 		GEM_BUG_ON(ccid == 0);
+ 		GEM_BUG_ON(test_bit(ccid - 1, &engine->context_tag));
+-		set_bit(ccid - 1, &engine->context_tag);
++		__set_bit(ccid - 1, &engine->context_tag);
  	}
  
-+	ring = intel_engine_create_ring(engine, (unsigned long)ce->ring);
-+	if (IS_ERR(ring)) {
-+		ret = PTR_ERR(ring);
-+		goto error_deref_obj;
+ 	intel_context_update_runtime(ce);
+@@ -1468,26 +1469,23 @@ __execlists_schedule_out(struct i915_request *rq,
+ 	 */
+ 	if (ce->engine != engine)
+ 		kick_siblings(rq, ce);
+-
+-	intel_context_put(ce);
+ }
+ 
+ static inline void
+ execlists_schedule_out(struct i915_request *rq)
+ {
+ 	struct intel_context * const ce = rq->context;
+-	struct intel_engine_cs *cur, *old;
+-	u32 ccid;
+ 
+ 	trace_i915_request_out(rq);
+ 
+-	ccid = rq->context->lrc.ccid;
+-	old = READ_ONCE(ce->inflight);
+-	do
+-		cur = ptr_unmask_bits(old, 2) ? ptr_dec(old) : NULL;
+-	while (!try_cmpxchg(&ce->inflight, &old, cur));
+-	if (!cur)
+-		__execlists_schedule_out(rq, old, ccid);
++	GEM_BUG_ON(!ce->inflight);
++	ce->inflight = ptr_dec(ce->inflight);
++	if (!intel_context_inflight_count(ce)) {
++		GEM_BUG_ON(ce->inflight != rq->engine);
++		__execlists_schedule_out(rq);
++		WRITE_ONCE(ce->inflight, NULL);
++		intel_context_put(ce);
 +	}
-+
-+	ret = populate_lr_context(ce, ctx_obj, engine, ring);
-+	if (ret)
-+		goto error_ring_free;
-+
- 	if (!page_mask_bits(ce->timeline)) {
- 		struct intel_timeline *tl;
  
-@@ -5471,29 +5489,18 @@ static int __execlists_context_alloc(struct intel_context *ce,
- 		 */
- 		if (unlikely(ce->timeline))
- 			tl = pinned_timeline(ce);
--		else
-+		else if (intel_engine_has_semaphores(engine))
- 			tl = intel_timeline_create(engine->gt);
-+		else
-+			tl = pphwsp_timeline(ce, vma);
- 		if (IS_ERR(tl)) {
- 			ret = PTR_ERR(tl);
--			goto error_deref_obj;
-+			goto error_ring_free;
- 		}
- 
- 		ce->timeline = tl;
- 	}
- 
--	ring = intel_engine_create_ring(engine, (unsigned long)ce->ring);
--	if (IS_ERR(ring)) {
--		ret = PTR_ERR(ring);
--		goto error_deref_obj;
--	}
--
--	ret = populate_lr_context(ce, ctx_obj, engine, ring);
--	if (ret) {
--		drm_dbg(&engine->i915->drm,
--			"Failed to populate LRC: %d\n", ret);
--		goto error_ring_free;
--	}
--
- 	ce->ring = ring;
- 	ce->state = vma;
- 
+ 	i915_request_put(rq);
+ }
 -- 
 2.20.1
 
