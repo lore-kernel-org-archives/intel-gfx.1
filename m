@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 72C67C0018C
-	for <intel-gfx@archiver.kernel.org>; Mon,  7 Dec 2020 19:38:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CDDB2C433FE
+	for <intel-gfx@archiver.kernel.org>; Mon,  7 Dec 2020 19:38:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2A00D23877
-	for <intel-gfx@archiver.kernel.org>; Mon,  7 Dec 2020 19:38:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2A00D23877
+	by mail.kernel.org (Postfix) with ESMTPS id 7434023877
+	for <intel-gfx@archiver.kernel.org>; Mon,  7 Dec 2020 19:38:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7434023877
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 000686E8B3;
-	Mon,  7 Dec 2020 19:38:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F5596E8B7;
+	Mon,  7 Dec 2020 19:38:43 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E2C776E8AE
- for <intel-gfx@lists.freedesktop.org>; Mon,  7 Dec 2020 19:38:38 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C9056E8AF
+ for <intel-gfx@lists.freedesktop.org>; Mon,  7 Dec 2020 19:38:39 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23245487-1500050 
- for multiple; Mon, 07 Dec 2020 19:38:28 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23245484-1500050 
+ for multiple; Mon, 07 Dec 2020 19:38:27 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon,  7 Dec 2020 19:38:13 +0000
-Message-Id: <20201207193824.18114-9-chris@chris-wilson.co.uk>
+Date: Mon,  7 Dec 2020 19:38:10 +0000
+Message-Id: <20201207193824.18114-6-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201207193824.18114-1-chris@chris-wilson.co.uk>
 References: <20201207193824.18114-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 09/20] drm/i915/gt: Simplify virtual engine
- handling for execlists_hold()
+Subject: [Intel-gfx] [PATCH 06/20] drm/i915/gt: Remove virtual breadcrumb
+ before transfer
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,61 +56,70 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Now that the tasklet completely controls scheduling of the requests, and
-we postpone scheduling out the old requests, we can keep a hanging
-virtual request bound to the engine on which it hung, and remove it from
-te queue. On release, it will be returned to the same engine and remain
-in its queue until it is scheduled; after which point it will become
-eligible for transfer to a sibling. Instead, we could opt to resubmit the
-request along the virtual engine on unhold, making it eligible for load
-balancing immediately -- but that seems like a pointless optimisation
-for a hanging context.
+The issue with stale virtual breadcrumbs remain. Now we have the problem
+that if the irq-signaler is still referencing the stale breadcrumb as we
+transfer it to a new sibling, the list becomes spaghetti. This is a very
+small window, but that doesn't stop it being hit infrequently. To
+prevent the lists being tangled (the iterator starting on one engine's
+b->signalers but walking onto another list), always decouple the virtual
+breadcrumb on schedule-out and make sure that the walker has stepped out
+of the lists.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 ---
- drivers/gpu/drm/i915/gt/intel_lrc.c | 29 -----------------------------
- 1 file changed, 29 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_breadcrumbs.c |  5 +++--
+ drivers/gpu/drm/i915/gt/intel_lrc.c         | 15 +++++++++++++++
+ 2 files changed, 18 insertions(+), 2 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
+index 00918300f53f..63900edbde88 100644
+--- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
++++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
+@@ -454,15 +454,16 @@ void i915_request_cancel_breadcrumb(struct i915_request *rq)
+ {
+ 	struct intel_breadcrumbs *b = READ_ONCE(rq->engine)->breadcrumbs;
+ 	struct intel_context *ce = rq->context;
++	unsigned long flags;
+ 	bool release;
+ 
+ 	if (!test_and_clear_bit(I915_FENCE_FLAG_SIGNAL, &rq->fence.flags))
+ 		return;
+ 
+-	spin_lock(&ce->signal_lock);
++	spin_lock_irqsave(&ce->signal_lock, flags);
+ 	list_del_rcu(&rq->signal_link);
+ 	release = remove_signaling_context(b, ce);
+-	spin_unlock(&ce->signal_lock);
++	spin_unlock_irqrestore(&ce->signal_lock, flags);
+ 	if (release)
+ 		intel_context_put(ce);
+ 
 diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
-index efc8edd9e219..5f90ecacc22b 100644
+index 0b7e86240f3b..b3db16b2a5a4 100644
 --- a/drivers/gpu/drm/i915/gt/intel_lrc.c
 +++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
-@@ -2862,35 +2862,6 @@ static bool execlists_hold(struct intel_engine_cs *engine,
- 		goto unlock;
- 	}
+@@ -1388,6 +1388,21 @@ static inline void execlists_schedule_in(struct i915_request *rq, int idx)
+ static void kick_siblings(struct i915_request *rq, struct intel_context *ce)
+ {
+ 	struct virtual_engine *ve = container_of(ce, typeof(*ve), context);
++	struct intel_engine_cs *engine = rq->engine;
++
++	/* Flush concurrent rcu iterators in signal_irq_work */
++	if (test_bit(DMA_FENCE_FLAG_ENABLE_SIGNAL_BIT, &rq->fence.flags)) {
++		/*
++		 * After this point, the rq may be transferred to a new
++		 * sibling, so before we clear ce->inflight make sure that
++		 * the context has been removed from the b->signalers and
++		 * furthermore we need to make sure that the concurrent
++		 * iterator in signal_irq_work is no longer following
++		 * ce->signal_link.
++		 */
++		i915_request_cancel_breadcrumb(rq);
++		irq_work_sync(&engine->breadcrumbs->irq_work);
++	}
  
--	if (rq->engine != engine) { /* preempted virtual engine */
--		struct virtual_engine *ve = to_virtual_engine(rq->engine);
--
--		/*
--		 * intel_context_inflight() is only protected by virtue
--		 * of process_csb() being called only by the tasklet (or
--		 * directly from inside reset while the tasklet is suspended).
--		 * Assert that neither of those are allowed to run while we
--		 * poke at the request queues.
--		 */
--		GEM_BUG_ON(!reset_in_progress(&engine->execlists));
--
--		/*
--		 * An unsubmitted request along a virtual engine will
--		 * remain on the active (this) engine until we are able
--		 * to process the context switch away (and so mark the
--		 * context as no longer in flight). That cannot have happened
--		 * yet, otherwise we would not be hanging!
--		 */
--		spin_lock(&ve->base.active.lock);
--		GEM_BUG_ON(intel_context_inflight(rq->context) != engine);
--		GEM_BUG_ON(ve->request != rq);
--		ve->request = NULL;
--		spin_unlock(&ve->base.active.lock);
--		i915_request_put(rq);
--
--		rq->engine = engine;
--	}
--
- 	/*
- 	 * Transfer this request onto the hold queue to prevent it
- 	 * being resumbitted to HW (and potentially completed) before we have
+ 	if (READ_ONCE(ve->request))
+ 		tasklet_hi_schedule(&ve->base.execlists.tasklet);
 -- 
 2.20.1
 
