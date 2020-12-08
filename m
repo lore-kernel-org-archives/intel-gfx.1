@@ -6,46 +6,46 @@ X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
 	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 04519C433FE
-	for <intel-gfx@archiver.kernel.org>; Wed,  9 Dec 2020 17:11:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 61009C4361B
+	for <intel-gfx@archiver.kernel.org>; Wed,  9 Dec 2020 17:11:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B0F0223C30
-	for <intel-gfx@archiver.kernel.org>; Wed,  9 Dec 2020 17:11:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B0F0223C30
+	by mail.kernel.org (Postfix) with ESMTPS id 195DB23C31
+	for <intel-gfx@archiver.kernel.org>; Wed,  9 Dec 2020 17:11:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 195DB23C31
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 26C736EAA5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 855076EADD;
 	Wed,  9 Dec 2020 17:11:03 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7157789AB7;
- Tue,  8 Dec 2020 17:42:52 +0000 (UTC)
-Date: Tue, 8 Dec 2020 19:42:46 +0200
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8289C89CAF;
+ Tue,  8 Dec 2020 09:54:39 +0000 (UTC)
+Date: Tue, 8 Dec 2020 11:54:32 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1607449372;
- bh=BftUl2M64lQHtLnTxOiHMi7sfSYR5CWaxkC+KmCM7iA=;
+ s=k20201202; t=1607421279;
+ bh=XaAiKY++wv+M/pEQ1YMGklfnktr6P64K75FF//gLABU=;
  h=From:To:Cc:Subject:References:In-Reply-To:From;
- b=CboFcSX9DF/ccKwCw3g3G7AMkHU6RwGXd6EhUwYLarUVQmQqkTTu1hVbbYLlT9Pu4
- 6ol3agoXGVmewMw36lEqKoJV2CxCo7MeHPX6SQIZt76KJ4zyKEtJBRPW/dPshNI1r5
- OIKqh783vTlDFY1ymcE4sZNQ+/omhudZi2YeZJlsOTyERbDfj/+SjNI7ixm/dNByUS
- LV0ahU5geeb5mURgtpNiMSdgO6HExtXNo8W5419tfGmGseHd8v5j9k3Ps0NBsH3SAe
- LoGGh7Ckb8QT9z461GlIqQ9Gxy8zvmI5g2vRz+3KXv5BXZcFOjLKSHU8bpHY1QlW7/
- CU+tRnzAJpCRQ==
+ b=QaB10O3rXRlsz3jL/My6bXO3XK0Nt8oWAtezsz2d6c8xEOp09HWJfMHLPyW47A9o5
+ acD+9HQ8TOhBioB6ICPp8erOZNmu0tqsM0cSLPQxiCXt30p5namEDToHhhfxHygra1
+ ijoy3TJghKlWlRBo20u+fHI8krrFK1qWWBjWmieU090Pk4QglIxsfAzFWEYBXo6zcD
+ ozrHclftiywg7TvFA+UMAEyDRDuc6C2IzCtzf3bucwszo/yl7WU/r0nsxgd9l7kUBe
+ gdFo1qPgEJgJM98lQ5pNlGd8UIwdL+KLpFLA8Y5mBgy/4jmooYgc9ga4jc+IWUTar2
+ KJ9EghZZxxaTQ==
 From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Jason Gunthorpe <jgg@ziepe.ca>
-Message-ID: <20201208174246.GB58213@kernel.org>
+To: Thomas Gleixner <tglx@linutronix.de>
+Message-ID: <20201208095432.GA44672@kernel.org>
 References: <20201205014340.148235-1-jsnitsel@redhat.com>
- <20201205014340.148235-4-jsnitsel@redhat.com>
- <87tusy7n3b.fsf@nanos.tec.linutronix.de>
- <20201207192803.GH5487@ziepe.ca>
+ <20201205014340.148235-3-jsnitsel@redhat.com>
+ <875z5e99ez.fsf@nanos.tec.linutronix.de>
+ <87o8j67h7u.fsf@nanos.tec.linutronix.de>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20201207192803.GH5487@ziepe.ca>
+In-Reply-To: <87o8j67h7u.fsf@nanos.tec.linutronix.de>
 X-Mailman-Approved-At: Wed, 09 Dec 2020 17:11:02 +0000
-Subject: Re: [Intel-gfx] [PATCH v3 3/4] tpm_tis: Disable interrupts if
- interrupt storm detected
+Subject: Re: [Intel-gfx] [PATCH v3 2/4] drm/i915/pmu: Use kstat_irqs to get
+ interrupt count
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,56 +58,50 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, Jerry Snitselaar <jsnitsel@redhat.com>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+Cc: David Airlie <airlied@linux.ie>, Matthew Garrett <mjg59@google.com>,
+ intel-gfx@lists.freedesktop.org, Jerry Snitselaar <jsnitsel@redhat.com>,
+ linux-kernel@vger.kernel.org,
  James Bottomley <James.Bottomley@hansenpartnership.com>,
- Matthew Garrett <mjg59@google.com>, linux-integrity@vger.kernel.org,
- Thomas Gleixner <tglx@linutronix.de>, Peter Huewe <peterhuewe@gmx.de>
+ Jason Gunthorpe <jgg@ziepe.ca>, Peter Zijlstra <peterz@infradead.org>,
+ dri-devel@lists.freedesktop.org, linux-integrity@vger.kernel.org,
+ Peter Huewe <peterhuewe@gmx.de>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Dec 07, 2020 at 03:28:03PM -0400, Jason Gunthorpe wrote:
-> On Sun, Dec 06, 2020 at 08:26:16PM +0100, Thomas Gleixner wrote:
-> > Just as a side note. I was looking at tpm_tis_probe_irq_single() and
-> > that function is leaking the interrupt request if any of the checks
-> > afterwards fails, except for the final interrupt probe check which does
-> > a cleanup. That means on fail before that the interrupt handler stays
-> > requested up to the point where the module is removed. If that's a
-> > shared interrupt and some other device is active on the same line, then
-> > each interrupt from that device will call into the TPM code. Something
-> > like the below is needed.
-> > 
-> > Also the X86 autoprobe mechanism is interesting:
-> > 
-> > 	if (IS_ENABLED(CONFIG_X86))
-> > 		for (i = 3; i <= 15; i++)
-> > 			if (!tpm_tis_probe_irq_single(chip, intmask, 0, i))
-> > 				return;
-> > 
-> > The third argument is 'flags' which is handed to request_irq(). So that
-> > won't ever be able to probe a shared interrupt. But if an interrupt
-> > number > 0 is handed to tpm_tis_core_init() the interrupt is requested
-> > with IRQF_SHARED. Same issue when the chip has an interrupt number in
-> > the register. It's also requested exclusive which is pretty likely
-> > to fail on ancient x86 machines.
+On Sun, Dec 06, 2020 at 10:33:09PM +0100, Thomas Gleixner wrote:
+> On Sun, Dec 06 2020 at 17:38, Thomas Gleixner wrote:
+> > On Fri, Dec 04 2020 at 18:43, Jerry Snitselaar wrote:
+> >> Now that kstat_irqs is exported, get rid of count_interrupts in
+> >> i915_pmu.c
+> >
+> > May I ask why this has been merged in the first place?
+> >
+> > Nothing in a driver has ever to fiddle with the internals of an irq
+> > descriptor. We have functions for properly accessing them. Just because
+> > C allows to fiddle with everything is not a justification. If the
+> > required function is not exported then adding the export with a proper
+> > explanation is not asked too much.
+> >
+> > Also this lacks protection or at least a comment why this can be called
+> > safely and is not subject to a concurrent removal of the irq descriptor.
+> > The same problem exists when calling kstat_irqs(). It's even documented
+> > at the top of the function.
 > 
-> It is very likely none of this works any more, it has been repeatedly
-> reworked over the years and just left behind out of fear someone needs
-> it. I've thought it should be deleted for a while now.
+> And as pointed out vs. that TPM thing this really could have been a
+> trivial
 > 
-> I suppose the original logic was to try and probe without SHARED
-> because a probe would need exclusive access to the interrupt to tell
-> if the TPM was actually the source, not some other device.
+>     i915->irqs++;
 > 
-> It is all very old and very out of step with current thinking, IMHO. I
-> skeptical that TPM interrupts were ever valuable enough to deserve
-> this in the first place.
-> 
-> Jason
+> in the interrupt handler and a read of that instead of iterating over
+> all possible cpus and summing it up. Oh well...
 
-+1 for removing it.
+I'm fine with that. 
+
+> Thanks,
+> 
+>         tglx
 
 /Jarkko
 _______________________________________________
