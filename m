@@ -7,45 +7,45 @@ X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 95D9FC433FE
-	for <intel-gfx@archiver.kernel.org>; Tue,  8 Dec 2020 10:29:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7BD76C433FE
+	for <intel-gfx@archiver.kernel.org>; Tue,  8 Dec 2020 10:29:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4EC9A23AA3
-	for <intel-gfx@archiver.kernel.org>; Tue,  8 Dec 2020 10:29:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4EC9A23AA3
+	by mail.kernel.org (Postfix) with ESMTPS id 3B30823A9D
+	for <intel-gfx@archiver.kernel.org>; Tue,  8 Dec 2020 10:29:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3B30823A9D
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D42426E954;
-	Tue,  8 Dec 2020 10:29:52 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 15BB889DB4;
- Tue,  8 Dec 2020 10:29:51 +0000 (UTC)
-IronPort-SDR: 1BCIYgmPPg54clRfIxPJuJHU4ALUIZk5tD4tuxCVeCniM/JQgD55Nm9F3ziqP45VDl+jmfS35W
- /bEbnY3nBYdg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9828"; a="192151572"
-X-IronPort-AV: E=Sophos;i="5.78,402,1599548400"; d="scan'208";a="192151572"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Dec 2020 02:29:43 -0800
-IronPort-SDR: mHDV87RM6oDn7Lv6e1RJtfeAgi45C+7dxqAz5GuKHOd/oWYhZq+O2/Go7V6q+1h+PDdyP9TSvB
- dT8i26J0UFVw==
-X-IronPort-AV: E=Sophos;i="5.78,402,1599548400"; d="scan'208";a="332472537"
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF3A96E955;
+	Tue,  8 Dec 2020 10:29:54 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9FC906E955;
+ Tue,  8 Dec 2020 10:29:53 +0000 (UTC)
+IronPort-SDR: cFzts1zwUjjW8I2yHgISBA76lJRGZOyyGDXBCHl6GpyVrYwMUu09v4Vr0/DM4ucpH+Ew4ZgKSP
+ BN64gYS+/l/A==
+X-IronPort-AV: E=McAfee;i="6000,8403,9828"; a="258576200"
+X-IronPort-AV: E=Sophos;i="5.78,402,1599548400"; d="scan'208";a="258576200"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Dec 2020 02:29:53 -0800
+IronPort-SDR: J39W4AGSPQB4wCujtE+dvOcIgvJeijQYt55InLfw43/CWHTsk5KgMXy0KMHLWvc6+6vMD8UbDr
+ BilfaYN15fnQ==
+X-IronPort-AV: E=Sophos;i="5.78,402,1599548400"; d="scan'208";a="483588062"
 Received: from mjgleeso-mobl.ger.corp.intel.com (HELO localhost)
  ([10.213.246.199])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Dec 2020 02:29:42 -0800
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Dec 2020 02:29:50 -0800
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gvt-dev@lists.freedesktop.org
-Date: Tue,  8 Dec 2020 12:29:11 +0200
-Message-Id: <979ba0ea394e9589f7332b94e91ac200faf995c5.1607422863.git.jani.nikula@intel.com>
+Date: Tue,  8 Dec 2020 12:29:13 +0200
+Message-Id: <3949d345330155c6223ed947215b54c1285a0db5.1607422863.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <cover.1607422863.git.jani.nikula@intel.com>
 References: <cover.1607422863.git.jani.nikula@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 5/8] drm/i915/gvt: make mmio_context.h
+Subject: [Intel-gfx] [PATCH 7/8] drm/i915/gvt: make scheduler.h
  self-contained
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -70,44 +70,40 @@ compile on its own.
 
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/i915/Makefile           |  1 -
- drivers/gpu/drm/i915/gvt/mmio_context.h | 11 +++++++++++
- 2 files changed, 11 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/Makefile        | 3 +--
+ drivers/gpu/drm/i915/gvt/scheduler.h | 5 +++++
+ 2 files changed, 6 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
-index 082c0629f290..f91b5fd13eff 100644
+index b0045a3faf0e..38c6d8257b0b 100644
 --- a/drivers/gpu/drm/i915/Makefile
 +++ b/drivers/gpu/drm/i915/Makefile
-@@ -285,7 +285,6 @@ obj-$(CONFIG_DRM_I915_GVT_KVMGT) += gvt/kvmgt.o
+@@ -284,8 +284,7 @@ obj-$(CONFIG_DRM_I915_GVT_KVMGT) += gvt/kvmgt.o
+ # exclude some broken headers from the test coverage
  no-header-test := \
  	display/intel_vbt_defs.h \
- 	gvt/gvt.h \
--	gvt/mmio_context.h \
- 	gvt/mpt.h \
- 	gvt/scheduler.h
+-	gvt/mpt.h \
+-	gvt/scheduler.h
++	gvt/mpt.h
  
-diff --git a/drivers/gpu/drm/i915/gvt/mmio_context.h b/drivers/gpu/drm/i915/gvt/mmio_context.h
-index 3b25e7fe32f6..1421d3a70412 100644
---- a/drivers/gpu/drm/i915/gvt/mmio_context.h
-+++ b/drivers/gpu/drm/i915/gvt/mmio_context.h
-@@ -36,6 +36,17 @@
- #ifndef __GVT_RENDER_H__
- #define __GVT_RENDER_H__
+ extra-$(CONFIG_DRM_I915_WERROR) += \
+ 	$(patsubst %.h,%.hdrtest, $(filter-out $(no-header-test), \
+diff --git a/drivers/gpu/drm/i915/gvt/scheduler.h b/drivers/gpu/drm/i915/gvt/scheduler.h
+index 64e7a0b791c3..7c86984a842f 100644
+--- a/drivers/gpu/drm/i915/gvt/scheduler.h
++++ b/drivers/gpu/drm/i915/gvt/scheduler.h
+@@ -36,6 +36,11 @@
+ #ifndef _GVT_SCHEDULER_H_
+ #define _GVT_SCHEDULER_H_
  
-+#include <linux/types.h>
-+
 +#include "gt/intel_engine_types.h"
-+#include "i915_reg.h"
 +
-+struct i915_request;
-+struct intel_context;
-+struct intel_engine_cs;
-+struct intel_gvt;
-+struct intel_vgpu;
++#include "execlist.h"
++#include "interrupt.h"
 +
- struct engine_mmio {
- 	enum intel_engine_id id;
- 	i915_reg_t reg;
+ struct intel_gvt_workload_scheduler {
+ 	struct intel_vgpu *current_vgpu;
+ 	struct intel_vgpu *next_vgpu;
 -- 
 2.20.1
 
