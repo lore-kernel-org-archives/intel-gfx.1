@@ -2,42 +2,40 @@ Return-Path: <SRS0=GdbL=FM=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 83434C4361B
-	for <intel-gfx@archiver.kernel.org>; Tue,  8 Dec 2020 23:18:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 14AD6C433FE
+	for <intel-gfx@archiver.kernel.org>; Tue,  8 Dec 2020 23:18:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E52D622203
-	for <intel-gfx@archiver.kernel.org>; Tue,  8 Dec 2020 23:18:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E52D622203
+	by mail.kernel.org (Postfix) with ESMTPS id 724A5238E5
+	for <intel-gfx@archiver.kernel.org>; Tue,  8 Dec 2020 23:18:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 724A5238E5
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 219476E098;
+	by gabe.freedesktop.org (Postfix) with ESMTP id F2A5E6E1F5;
 	Tue,  8 Dec 2020 23:18:44 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3CEB76E098
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 42CFA6E0A8
  for <intel-gfx@lists.freedesktop.org>; Tue,  8 Dec 2020 23:18:42 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23259511-1500050 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23259509-1500050 
  for multiple; Tue, 08 Dec 2020 23:18:35 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue,  8 Dec 2020 23:18:34 +0000
-Message-Id: <20201208231834.24812-3-chris@chris-wilson.co.uk>
+Date: Tue,  8 Dec 2020 23:18:32 +0000
+Message-Id: <20201208231834.24812-1-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20201208231834.24812-1-chris@chris-wilson.co.uk>
-References: <20201208231834.24812-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 3/3] drm/i915/gt: Remove uninterruptible
- parameter from intel_gt_wait_for_idle
+Subject: [Intel-gfx] [PATCH 1/3] drm/i915: Remove livelock from
+ "do_idle_maps" vtd w/a
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,41 +54,53 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Now that the only user of the uninterruptible wait was eliminated,
-remove the support.
+A call to wait for the GT to idle from inside the put_pages fallback is
+prone to cause an uninterruptible livelock. As it does not provide
+adequate serialisation with new requests, simply fallback to a trial
+sleep.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 ---
- drivers/gpu/drm/i915/gt/intel_gt_requests.c | 7 +------
- 1 file changed, 1 insertion(+), 6 deletions(-)
+ drivers/gpu/drm/i915/i915_gem_gtt.c | 25 ++++++++++---------------
+ 1 file changed, 10 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_requests.c b/drivers/gpu/drm/i915/gt/intel_gt_requests.c
-index 66fcbf9d0fdd..dc06c78c9eeb 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_requests.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_requests.c
-@@ -135,13 +135,8 @@ long intel_gt_retire_requests_timeout(struct intel_gt *gt, long timeout)
- 	struct intel_gt_timelines *timelines = &gt->timelines;
- 	struct intel_timeline *tl, *tn;
- 	unsigned long active_count = 0;
--	bool interruptible;
- 	LIST_HEAD(free);
- 
--	interruptible = true;
--	if (unlikely(timeout < 0))
--		timeout = -timeout, interruptible = false;
+diff --git a/drivers/gpu/drm/i915/i915_gem_gtt.c b/drivers/gpu/drm/i915/i915_gem_gtt.c
+index c5ee1567f3d1..d2350a4c6606 100644
+--- a/drivers/gpu/drm/i915/i915_gem_gtt.c
++++ b/drivers/gpu/drm/i915/i915_gem_gtt.c
+@@ -55,22 +55,17 @@ int i915_gem_gtt_prepare_pages(struct drm_i915_gem_object *obj,
+ void i915_gem_gtt_finish_pages(struct drm_i915_gem_object *obj,
+ 			       struct sg_table *pages)
+ {
+-	struct drm_i915_private *dev_priv = to_i915(obj->base.dev);
+-	struct device *kdev = &dev_priv->drm.pdev->dev;
+-	struct i915_ggtt *ggtt = &dev_priv->ggtt;
 -
- 	flush_submission(gt, timeout); /* kick the ksoftirqd tasklets */
- 	spin_lock(&timelines->lock);
- 	list_for_each_entry_safe(tl, tn, &timelines->active_list, link) {
-@@ -163,7 +158,7 @@ long intel_gt_retire_requests_timeout(struct intel_gt *gt, long timeout)
- 				mutex_unlock(&tl->mutex);
+-	if (unlikely(ggtt->do_idle_maps)) {
+-		/* XXX This does not prevent more requests being submitted! */
+-		if (intel_gt_retire_requests_timeout(ggtt->vm.gt,
+-						     -MAX_SCHEDULE_TIMEOUT)) {
+-			drm_err(&dev_priv->drm,
+-				"Failed to wait for idle; VT'd may hang.\n");
+-			/* Wait a bit, in hopes it avoids the hang */
+-			udelay(10);
+-		}
+-	}
++	struct drm_i915_private *i915 = to_i915(obj->base.dev);
++	struct i915_ggtt *ggtt = &i915->ggtt;
++
++	/* XXX This does not prevent more requests being submitted! */
++	if (unlikely(ggtt->do_idle_maps))
++		/* Wait a bit, in hope it avoids the hang */
++		usleep_range(100, 250);
  
- 				timeout = dma_fence_wait_timeout(fence,
--								 interruptible,
-+								 true,
- 								 timeout);
- 				dma_fence_put(fence);
+-	dma_unmap_sg(kdev, pages->sgl, pages->nents, PCI_DMA_BIDIRECTIONAL);
++	dma_unmap_sg(&i915->drm.pdev->dev,
++		     pages->sgl, pages->nents,
++		     PCI_DMA_BIDIRECTIONAL);
+ }
  
+ /**
 -- 
 2.20.1
 
