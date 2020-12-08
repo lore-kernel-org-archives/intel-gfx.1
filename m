@@ -2,39 +2,40 @@ Return-Path: <SRS0=GdbL=FM=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 11483C433FE
-	for <intel-gfx@archiver.kernel.org>; Tue,  8 Dec 2020 18:57:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F2B0AC433FE
+	for <intel-gfx@archiver.kernel.org>; Tue,  8 Dec 2020 19:04:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6FAA723B54
-	for <intel-gfx@archiver.kernel.org>; Tue,  8 Dec 2020 18:57:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6FAA723B54
+	by mail.kernel.org (Postfix) with ESMTPS id 691F723B28
+	for <intel-gfx@archiver.kernel.org>; Tue,  8 Dec 2020 19:04:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 691F723B28
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 084476E9A9;
-	Tue,  8 Dec 2020 18:57:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E19496E951;
+	Tue,  8 Dec 2020 19:04:31 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 407DD6E9AB
- for <intel-gfx@lists.freedesktop.org>; Tue,  8 Dec 2020 18:57:15 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BDC776E951
+ for <intel-gfx@lists.freedesktop.org>; Tue,  8 Dec 2020 19:04:30 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
-Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23257844-1500050 
- for multiple; Tue, 08 Dec 2020 18:57:03 +0000
+Received: from localhost (unverified [78.156.65.138]) 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP (TLS) id
+ 23257963-1500050 for multiple; Tue, 08 Dec 2020 19:04:27 +0000
+MIME-Version: 1.0
+In-Reply-To: <20201208185702.31852-1-chris@chris-wilson.co.uk>
+References: <20201208185702.31852-1-chris@chris-wilson.co.uk>
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue,  8 Dec 2020 18:57:02 +0000
-Message-Id: <20201208185702.31852-1-chris@chris-wilson.co.uk>
-X-Mailer: git-send-email 2.20.1
-MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH] drm/i915/gt: Disable preparser around
+Date: Tue, 08 Dec 2020 19:04:26 +0000
+Message-ID: <160745426641.31456.12363443172320792891@build.alporthouse.com>
+User-Agent: alot/0.9
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/gt: Disable preparser around
  MI_SEMAPHORE_WAIT
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -48,137 +49,24 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Chris Wilson <chris@chris-wilson.co.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-W/a 1607297627 requires us to prevent new DMA requests once the CS
-enters RDOP. The recommendation is to suspend the CS preparser around
-MI_SEMAPHORE_WAIT.
+Quoting Chris Wilson (2020-12-08 18:57:02)
+> @@ -5015,6 +5010,7 @@ gen11_emit_fini_breadcrumb_rcs(struct i915_request *request, u32 *cs)
+>  
+>  static u32 *gen12_emit_preempt_busywait(struct i915_request *request, u32 *cs)
+>  {
+> +       *cs++ = gen12_preparser_disable(true); /* Wa_1607297627:tgl,dg1,rkl */
+>         *cs++ = MI_SEMAPHORE_WAIT_TOKEN |
+>                 MI_SEMAPHORE_GLOBAL_GTT |
+>                 MI_SEMAPHORE_POLL |
 
-Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-Cc: Mika Kuoppala <mika.kuoppala@linux.intel.com>
----
- drivers/gpu/drm/i915/gt/intel_gpu_commands.h |  5 +++++
- drivers/gpu/drm/i915/gt/intel_lrc.c          | 15 ++++++---------
- drivers/gpu/drm/i915/i915_request.c          |  4 +++-
- 3 files changed, 14 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/gt/intel_gpu_commands.h b/drivers/gpu/drm/i915/gt/intel_gpu_commands.h
-index 534e435f20bc..1982716aeb88 100644
---- a/drivers/gpu/drm/i915/gt/intel_gpu_commands.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gpu_commands.h
-@@ -359,4 +359,9 @@ static inline u32 *__gen6_emit_bb_start(u32 *cs, u32 addr, unsigned int flags)
- 	return cs;
- }
- 
-+static inline u32 gen12_preparser_disable(bool state)
-+{
-+	return MI_ARB_CHECK | 1 << 8 | state;
-+}
-+
- #endif /* _INTEL_GPU_COMMANDS_H_ */
-diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
-index 0c7f1e3dee5c..86495c999f1f 100644
---- a/drivers/gpu/drm/i915/gt/intel_lrc.c
-+++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
-@@ -4723,11 +4723,6 @@ static int gen11_emit_flush_render(struct i915_request *request,
- 	return 0;
- }
- 
--static u32 preparser_disable(bool state)
--{
--	return MI_ARB_CHECK | 1 << 8 | state;
--}
--
- static i915_reg_t aux_inv_reg(const struct intel_engine_cs *engine)
- {
- 	static const i915_reg_t vd[] = {
-@@ -4821,14 +4816,14 @@ static int gen12_emit_flush_render(struct i915_request *request,
- 		 * invalidate and loading a stale page for the batch
- 		 * buffer / request payload.
- 		 */
--		*cs++ = preparser_disable(true);
-+		*cs++ = gen12_preparser_disable(true);
- 
- 		cs = gen8_emit_pipe_control(cs, flags, LRC_PPHWSP_SCRATCH_ADDR);
- 
- 		/* hsdes: 1809175790 */
- 		cs = gen12_emit_aux_table_inv(GEN12_GFX_CCS_AUX_NV, cs);
- 
--		*cs++ = preparser_disable(false);
-+		*cs++ = gen12_preparser_disable(false);
- 		intel_ring_advance(request, cs);
- 	}
- 
-@@ -4853,7 +4848,7 @@ static int gen12_emit_flush(struct i915_request *request, u32 mode)
- 		return PTR_ERR(cs);
- 
- 	if (mode & EMIT_INVALIDATE)
--		*cs++ = preparser_disable(true);
-+		*cs++ = gen12_preparser_disable(true);
- 
- 	cmd = MI_FLUSH_DW + 1;
- 
-@@ -4889,7 +4884,7 @@ static int gen12_emit_flush(struct i915_request *request, u32 mode)
- 	}
- 
- 	if (mode & EMIT_INVALIDATE)
--		*cs++ = preparser_disable(false);
-+		*cs++ = gen12_preparser_disable(false);
- 
- 	intel_ring_advance(request, cs);
- 
-@@ -5015,6 +5010,7 @@ gen11_emit_fini_breadcrumb_rcs(struct i915_request *request, u32 *cs)
- 
- static u32 *gen12_emit_preempt_busywait(struct i915_request *request, u32 *cs)
- {
-+	*cs++ = gen12_preparser_disable(true); /* Wa_1607297627:tgl,dg1,rkl */
- 	*cs++ = MI_SEMAPHORE_WAIT_TOKEN |
- 		MI_SEMAPHORE_GLOBAL_GTT |
- 		MI_SEMAPHORE_POLL |
-@@ -5023,6 +5019,7 @@ static u32 *gen12_emit_preempt_busywait(struct i915_request *request, u32 *cs)
- 	*cs++ = intel_hws_preempt_address(request->engine);
- 	*cs++ = 0;
- 	*cs++ = 0;
-+	*cs++ = gen12_preparser_disable(false);
- 	*cs++ = MI_NOOP;
- 
- 	return cs;
-diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
-index a9db1376b996..84fc31dc61bf 100644
---- a/drivers/gpu/drm/i915/i915_request.c
-+++ b/drivers/gpu/drm/i915/i915_request.c
-@@ -1046,7 +1046,7 @@ __emit_semaphore_wait(struct i915_request *to,
- 	if (err)
- 		return err;
- 
--	len = 4;
-+	len = 6;
- 	if (has_token)
- 		len += 2;
- 
-@@ -1062,6 +1062,7 @@ __emit_semaphore_wait(struct i915_request *to,
- 	 * (post-wrap) values than they were expecting (and so wait
- 	 * forever).
- 	 */
-+	*cs++ = gen12_preparser_disable(true); /* Wa_1607297627:tgl,dg1,rkl */
- 	*cs++ = (MI_SEMAPHORE_WAIT |
- 		 MI_SEMAPHORE_GLOBAL_GTT |
- 		 MI_SEMAPHORE_POLL |
-@@ -1074,6 +1075,7 @@ __emit_semaphore_wait(struct i915_request *to,
- 		*cs++ = 0;
- 		*cs++ = MI_NOOP;
- 	}
-+	*cs++ = gen12_preparser_disable(false);
- 
- 	intel_ring_advance(to, cs);
- 	return 0;
--- 
-2.20.1
-
+I'm wondering if MI_SEMAPHORE_POLL prevents idling & RDOP, so the w/a is
+not required?
+-Chris
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
