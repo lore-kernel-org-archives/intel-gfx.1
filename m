@@ -2,42 +2,49 @@ Return-Path: <SRS0=x7Pm=FN=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 70E17C433FE
-	for <intel-gfx@archiver.kernel.org>; Wed,  9 Dec 2020 05:26:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 58A01C4361B
+	for <intel-gfx@archiver.kernel.org>; Wed,  9 Dec 2020 05:37:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 03F6823B23
-	for <intel-gfx@archiver.kernel.org>; Wed,  9 Dec 2020 05:26:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 03F6823B23
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id 1918923AFE
+	for <intel-gfx@archiver.kernel.org>; Wed,  9 Dec 2020 05:37:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1918923AFE
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 528516E0EF;
-	Wed,  9 Dec 2020 05:26:21 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id E76806E0EF;
- Wed,  9 Dec 2020 05:26:19 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id DA6FDA8835;
- Wed,  9 Dec 2020 05:26:19 +0000 (UTC)
-MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Dave Airlie" <airlied@gmail.com>
-Date: Wed, 09 Dec 2020 05:26:19 -0000
-Message-ID: <160749157987.4255.9374693840204363779@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20201209042144.2281-1-airlied@gmail.com>
-In-Reply-To: <20201209042144.2281-1-airlied@gmail.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3Igc2Vy?=
- =?utf-8?q?ies_starting_with_=5B1/4=5D_drm/i915=3A_refactor_cursor_code_ou?=
- =?utf-8?q?t_of_i915=5Fdisplay=2Ec?=
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D0986E0F4;
+	Wed,  9 Dec 2020 05:37:04 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B81576E0F1
+ for <Intel-gfx@lists.freedesktop.org>; Wed,  9 Dec 2020 05:37:02 +0000 (UTC)
+IronPort-SDR: 94neG+4jKy2MBIszaKlrWwYV8MTduRnrVMPgOa/4pLBCWCUeL6dtG7SPCC67Kpc7hSelaB7wBX
+ XtznhPHT3yRA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9829"; a="171449786"
+X-IronPort-AV: E=Sophos;i="5.78,404,1599548400"; d="scan'208";a="171449786"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Dec 2020 21:37:02 -0800
+IronPort-SDR: LOkAGL33MD4PybtewdWs+u8Rw1xYV9hsEsIjKvwG1YkkL4oBd7hSYFIBERy6xtmCnJydRexRQf
+ PYlttPIfpFXQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.78,404,1599548400"; d="scan'208";a="318670160"
+Received: from sean-virtualbox.fm.intel.com ([10.105.158.96])
+ by fmsmga007.fm.intel.com with ESMTP; 08 Dec 2020 21:37:02 -0800
+From: "Huang, Sean Z" <sean.z.huang@intel.com>
+To: Intel-gfx@lists.freedesktop.org
+Date: Tue,  8 Dec 2020 21:36:17 -0800
+Message-Id: <20201209053628.22584-3-sean.z.huang@intel.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20201209053628.22584-1-sean.z.huang@intel.com>
+References: <20201209053628.22584-1-sean.z.huang@intel.com>
+Subject: [Intel-gfx] [RFC-v2 02/13] drm/i915/pxp: set KCR reg init during
+ the boot time
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,239 +57,77 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
-Content-Type: multipart/mixed; boundary="===============0795150479=="
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============0795150479==
-Content-Type: multipart/alternative;
- boundary="===============1167338984238750910=="
+Set the KCR init during the boot time, which is
+required by hardware, to allow us doing further
+protection operation such as sending commands to
+GPU or TEE.
 
---===============1167338984238750910==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Signed-off-by: Huang, Sean Z <sean.z.huang@intel.com>
+---
+ drivers/gpu/drm/i915/pxp/intel_pxp.c | 8 ++++++++
+ drivers/gpu/drm/i915/pxp/intel_pxp.h | 6 ++++++
+ 2 files changed, 14 insertions(+)
 
-== Series Details ==
-
-Series: series starting with [1/4] drm/i915: refactor cursor code out of i915_display.c
-URL   : https://patchwork.freedesktop.org/series/84712/
-State : success
-
-== Summary ==
-
-CI Bug Log - changes from CI_DRM_9463 -> Patchwork_19086
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19086/index.html
-
-New tests
----------
-
-  New tests have been introduced between CI_DRM_9463 and Patchwork_19086:
-
-### New CI tests (1) ###
-
-  * boot:
-    - Statuses : 1 fail(s) 39 pass(s)
-    - Exec time: [0.0] s
-
-  
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_19086 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@amdgpu/amd_basic@semaphore:
-    - fi-icl-y:           NOTRUN -> [SKIP][1] ([fdo#109315]) +17 similar issues
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19086/fi-icl-y/igt@amdgpu/amd_basic@semaphore.html
-
-  * igt@core_hotunplug@unbind-rebind:
-    - fi-kbl-7500u:       [PASS][2] -> [DMESG-WARN][3] ([i915#2605])
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9463/fi-kbl-7500u/igt@core_hotunplug@unbind-rebind.html
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19086/fi-kbl-7500u/igt@core_hotunplug@unbind-rebind.html
-
-  * igt@prime_vgem@basic-userptr:
-    - fi-tgl-y:           [PASS][4] -> [DMESG-WARN][5] ([i915#402]) +2 similar issues
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9463/fi-tgl-y/igt@prime_vgem@basic-userptr.html
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19086/fi-tgl-y/igt@prime_vgem@basic-userptr.html
-
-  
-#### Possible fixes ####
-
-  * igt@gem_flink_basic@double-flink:
-    - fi-tgl-y:           [DMESG-WARN][6] ([i915#402]) -> [PASS][7] +1 similar issue
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9463/fi-tgl-y/igt@gem_flink_basic@double-flink.html
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19086/fi-tgl-y/igt@gem_flink_basic@double-flink.html
-
-  * igt@i915_selftest@live@execlists:
-    - fi-icl-y:           [INCOMPLETE][8] ([i915#1037] / [i915#2276]) -> [PASS][9]
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9463/fi-icl-y/igt@i915_selftest@live@execlists.html
-   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19086/fi-icl-y/igt@i915_selftest@live@execlists.html
-
-  
-  [fdo#109315]: https://bugs.freedesktop.org/show_bug.cgi?id=109315
-  [i915#1037]: https://gitlab.freedesktop.org/drm/intel/issues/1037
-  [i915#2276]: https://gitlab.freedesktop.org/drm/intel/issues/2276
-  [i915#2605]: https://gitlab.freedesktop.org/drm/intel/issues/2605
-  [i915#402]: https://gitlab.freedesktop.org/drm/intel/issues/402
-
-
-Participating hosts (43 -> 40)
-------------------------------
-
-  Missing    (3): fi-ilk-m540 fi-bdw-samus fi-hsw-4200u 
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_9463 -> Patchwork_19086
-
-  CI-20190529: 20190529
-  CI_DRM_9463: 1c64d5d72bcd4e6ccf2d0ba6e6ab3644497846b5 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_5885: d99f644b1868b9c92435b05ebfafa230721cd677 @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools
-  Patchwork_19086: a10cb379b7b484c1440dfadc8f815447c5ebfb6d @ git://anongit.freedesktop.org/gfx-ci/linux
-
-
-== Linux commits ==
-
-a10cb379b7b4 drm/i915: split fdi code out from intel_display.c
-b45ec2e66b7d drm/i915: refactor pll code out into intel_clock.c
-f86b532a437f drm/i915: refactor some crtc code out of intel display.
-b87be3dc234f drm/i915: refactor cursor code out of i915_display.c
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19086/index.html
-
---===============1167338984238750910==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>series starting with [1/4] drm/i915: refactor cursor code out of i915_display.c</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/84712/">https://patchwork.freedesktop.org/series/84712/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19086/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19086/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_9463 -&gt; Patchwork_19086</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19086/index.html</p>
-<h2>New tests</h2>
-<p>New tests have been introduced between CI_DRM_9463 and Patchwork_19086:</p>
-<h3>New CI tests (1)</h3>
-<ul>
-<li>boot:<ul>
-<li>Statuses : 1 fail(s) 39 pass(s)</li>
-<li>Exec time: [0.0] s</li>
-</ul>
-</li>
-</ul>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_19086 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@amdgpu/amd_basic@semaphore:</p>
-<ul>
-<li>fi-icl-y:           NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19086/fi-icl-y/igt@amdgpu/amd_basic@semaphore.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109315">fdo#109315</a>) +17 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@core_hotunplug@unbind-rebind:</p>
-<ul>
-<li>fi-kbl-7500u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9463/fi-kbl-7500u/igt@core_hotunplug@unbind-rebind.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19086/fi-kbl-7500u/igt@core_hotunplug@unbind-rebind.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2605">i915#2605</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@prime_vgem@basic-userptr:</p>
-<ul>
-<li>fi-tgl-y:           <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9463/fi-tgl-y/igt@prime_vgem@basic-userptr.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19086/fi-tgl-y/igt@prime_vgem@basic-userptr.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/402">i915#402</a>) +2 similar issues</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>
-<p>igt@gem_flink_basic@double-flink:</p>
-<ul>
-<li>fi-tgl-y:           <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9463/fi-tgl-y/igt@gem_flink_basic@double-flink.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/402">i915#402</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19086/fi-tgl-y/igt@gem_flink_basic@double-flink.html">PASS</a> +1 similar issue</li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@execlists:</p>
-<ul>
-<li>fi-icl-y:           <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9463/fi-icl-y/igt@i915_selftest@live@execlists.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1037">i915#1037</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/2276">i915#2276</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19086/fi-icl-y/igt@i915_selftest@live@execlists.html">PASS</a></li>
-</ul>
-</li>
-</ul>
-<h2>Participating hosts (43 -&gt; 40)</h2>
-<p>Missing    (3): fi-ilk-m540 fi-bdw-samus fi-hsw-4200u </p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_9463 -&gt; Patchwork_19086</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_9463: 1c64d5d72bcd4e6ccf2d0ba6e6ab3644497846b5 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_5885: d99f644b1868b9c92435b05ebfafa230721cd677 @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools<br />
-  Patchwork_19086: a10cb379b7b484c1440dfadc8f815447c5ebfb6d @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<p>== Linux commits ==</p>
-<p>a10cb379b7b4 drm/i915: split fdi code out from intel_display.c<br />
-b45ec2e66b7d drm/i915: refactor pll code out into intel_clock.c<br />
-f86b532a437f drm/i915: refactor some crtc code out of intel display.<br />
-b87be3dc234f drm/i915: refactor cursor code out of i915_display.c</p>
-
-</body>
-</html>
-
---===============1167338984238750910==--
-
---===============0795150479==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.c b/drivers/gpu/drm/i915/pxp/intel_pxp.c
+index ba43b2c923c7..c4815950567d 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp.c
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp.c
+@@ -6,6 +6,12 @@
+ #include "intel_pxp.h"
+ #include "intel_pxp_context.h"
+ 
++/* KCR register definitions */
++#define KCR_INIT            _MMIO(0x320f0)
++#define KCR_INIT_MASK_SHIFT (16)
++/* Setting KCR Init bit is required after system boot */
++#define KCR_INIT_ALLOW_DISPLAY_ME_WRITES (BIT(14) | (BIT(14) << KCR_INIT_MASK_SHIFT))
++
+ int intel_pxp_init(struct intel_pxp *pxp)
+ {
+ 	struct intel_gt *gt = container_of(pxp, struct intel_gt, pxp);
+@@ -16,6 +22,8 @@ int intel_pxp_init(struct intel_pxp *pxp)
+ 
+ 	intel_pxp_ctx_init(&pxp->ctx);
+ 
++	intel_uncore_write(gt->uncore, KCR_INIT, KCR_INIT_ALLOW_DISPLAY_ME_WRITES);
++
+ 	drm_info(&gt->i915->drm, "Protected Xe Path (PXP) protected content support initialized\n");
+ 
+ 	return 0;
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.h b/drivers/gpu/drm/i915/pxp/intel_pxp.h
+index 7c3d49a6a3ab..b906bf7dea90 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp.h
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp.h
+@@ -15,6 +15,7 @@ struct intel_pxp {
+ #ifdef CONFIG_DRM_I915_PXP
+ int intel_pxp_init(struct intel_pxp *pxp);
+ void intel_pxp_uninit(struct intel_pxp *pxp);
++int intel_pxp_reg_read(struct intel_pxp *pxp, u32 offset, u32 *regval);
+ #else
+ static inline int intel_pxp_init(struct intel_pxp *pxp)
+ {
+@@ -24,6 +25,11 @@ static inline int intel_pxp_init(struct intel_pxp *pxp)
+ static inline void intel_pxp_uninit(struct intel_pxp *pxp)
+ {
+ }
++
++static inline int intel_pxp_reg_read(struct intel_pxp *pxp, u32 offset, u32 *regval)
++{
++	return 0;
++}
+ #endif
+ 
+ #endif /* __INTEL_PXP_PM_H__ */
+-- 
+2.17.1
 
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-
---===============0795150479==--
