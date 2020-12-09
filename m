@@ -2,47 +2,51 @@ Return-Path: <SRS0=x7Pm=FN=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-15.2 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 25E17C433FE
-	for <intel-gfx@archiver.kernel.org>; Wed,  9 Dec 2020 15:39:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 267DDC4361B
+	for <intel-gfx@archiver.kernel.org>; Wed,  9 Dec 2020 16:06:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AEBD920719
-	for <intel-gfx@archiver.kernel.org>; Wed,  9 Dec 2020 15:39:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AEBD920719
+	by mail.kernel.org (Postfix) with ESMTPS id C92722343B
+	for <intel-gfx@archiver.kernel.org>; Wed,  9 Dec 2020 16:06:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C92722343B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 514FC6EA91;
-	Wed,  9 Dec 2020 15:39:58 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 39EF56EA91
- for <intel-gfx@lists.freedesktop.org>; Wed,  9 Dec 2020 15:39:57 +0000 (UTC)
-IronPort-SDR: k9YDoYMjEMuZNiiU5Lg6vx+KVAYQx8HrK0R74de7xTz4ePdQGKPsHUYxo0ZkzaImLlS2x3M3iW
- vnLvBzfGNVxA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9829"; a="161855490"
-X-IronPort-AV: E=Sophos;i="5.78,405,1599548400"; d="scan'208";a="161855490"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Dec 2020 07:39:56 -0800
-IronPort-SDR: hYbbZ5dGrNvlb10+3dN1Re60bSNasN2s2/sYwuxddtb7GIX0Oa4jStVbFunRZ50SR6BTNou72u
- mmh0U+oK0KOw==
-X-IronPort-AV: E=Sophos;i="5.78,405,1599548400"; d="scan'208";a="408099326"
-Received: from ideak-desk.fi.intel.com ([10.237.68.141])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Dec 2020 07:39:55 -0800
-From: Imre Deak <imre.deak@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Wed,  9 Dec 2020 17:39:52 +0200
-Message-Id: <20201209153952.3397959-1-imre.deak@intel.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 63D496EA7A;
+	Wed,  9 Dec 2020 16:06:32 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 133206EA7A
+ for <intel-gfx@lists.freedesktop.org>; Wed,  9 Dec 2020 16:06:30 +0000 (UTC)
+IronPort-SDR: PMFO7DZYulcNXQgttZSGiMrERvB2SrerF280zEvNMZxmm8SIlKD9TOAVahgYnPawE453mNi09M
+ dEy2HJQEiVew==
+X-IronPort-AV: E=McAfee;i="6000,8403,9829"; a="161150497"
+X-IronPort-AV: E=Sophos;i="5.78,405,1599548400"; d="scan'208";a="161150497"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Dec 2020 08:06:29 -0800
+IronPort-SDR: zFvSuK6gzcuRmik+qQLSvfggTSUaxIRKt5rCuERCbHWFuoeSoXaxJtP26VXQywfiVKVuwmAC/r
+ 8FonCIOvt1QA==
+X-IronPort-AV: E=Sophos;i="5.78,405,1599548400"; d="scan'208";a="318339073"
+Received: from genxfsim-desktop.iind.intel.com (HELO intel.com)
+ ([10.223.74.178])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Dec 2020 08:06:28 -0800
+Date: Wed, 9 Dec 2020 21:23:02 +0530
+From: Anshuman Gupta <anshuman.gupta@intel.com>
+To: Imre Deak <imre.deak@intel.com>
+Message-ID: <20201209155302.GM30377@intel.com>
+References: <20201209153952.3397959-1-imre.deak@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH] drm/i915/icl: Fix initing the DSI DSC power
+Content-Disposition: inline
+In-Reply-To: <20201209153952.3397959-1-imre.deak@intel.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/icl: Fix initing the DSI DSC power
  refcount during HW readout
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -56,42 +60,50 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jani Nikula <jani.nikula@intel.com>
+Cc: "Nikula, Jani" <jani.nikula@intel.com>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-For an enabled DSC during HW readout the corresponding power reference
-is taken along the CRTC power domain references in
-get_crtc_power_domains(). Remove the incorrect get ref from the DSI
-encoder hook.
-
-Cc: Vandita Kulkarni <vandita.kulkarni@intel.com>
-Cc: Jani Nikula <jani.nikula@intel.com>
-Signed-off-by: Imre Deak <imre.deak@intel.com>
----
- drivers/gpu/drm/i915/display/icl_dsi.c | 4 ----
- 1 file changed, 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/display/icl_dsi.c b/drivers/gpu/drm/i915/display/icl_dsi.c
-index a9439b415603..b3533a32f8ba 100644
---- a/drivers/gpu/drm/i915/display/icl_dsi.c
-+++ b/drivers/gpu/drm/i915/display/icl_dsi.c
-@@ -1616,10 +1616,6 @@ static void gen11_dsi_get_power_domains(struct intel_encoder *encoder,
- 
- 	get_dsi_io_power_domains(i915,
- 				 enc_to_intel_dsi(encoder));
--
--	if (crtc_state->dsc.compression_enable)
--		intel_display_power_get(i915,
--					intel_dsc_power_domain(crtc_state));
- }
- 
- static bool gen11_dsi_get_hw_state(struct intel_encoder *encoder,
--- 
-2.25.1
-
+On 2020-12-09 at 21:09:52 +0530, Imre Deak wrote:
+> For an enabled DSC during HW readout the corresponding power reference
+> is taken along the CRTC power domain references in
+> get_crtc_power_domains(). Remove the incorrect get ref from the DSI
+> encoder hook.
+Looks good to me.
+Reviewed-by: Anshuman Gupta <anshuman.gupta@intel.com>
+> 
+> Cc: Vandita Kulkarni <vandita.kulkarni@intel.com>
+> Cc: Jani Nikula <jani.nikula@intel.com>
+> Signed-off-by: Imre Deak <imre.deak@intel.com>
+> ---
+>  drivers/gpu/drm/i915/display/icl_dsi.c | 4 ----
+>  1 file changed, 4 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/icl_dsi.c b/drivers/gpu/drm/i915/display/icl_dsi.c
+> index a9439b415603..b3533a32f8ba 100644
+> --- a/drivers/gpu/drm/i915/display/icl_dsi.c
+> +++ b/drivers/gpu/drm/i915/display/icl_dsi.c
+> @@ -1616,10 +1616,6 @@ static void gen11_dsi_get_power_domains(struct intel_encoder *encoder,
+>  
+>  	get_dsi_io_power_domains(i915,
+>  				 enc_to_intel_dsi(encoder));
+> -
+> -	if (crtc_state->dsc.compression_enable)
+> -		intel_display_power_get(i915,
+> -					intel_dsc_power_domain(crtc_state));
+>  }
+>  
+>  static bool gen11_dsi_get_hw_state(struct intel_encoder *encoder,
+> -- 
+> 2.25.1
+> 
+> _______________________________________________
+> Intel-gfx mailing list
+> Intel-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/intel-gfx
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
