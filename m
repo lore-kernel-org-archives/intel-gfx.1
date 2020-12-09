@@ -2,49 +2,41 @@ Return-Path: <SRS0=x7Pm=FN=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7616EC433FE
-	for <intel-gfx@archiver.kernel.org>; Wed,  9 Dec 2020 04:53:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DCDFFC4167B
+	for <intel-gfx@archiver.kernel.org>; Wed,  9 Dec 2020 04:56:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2C5E2238E9
-	for <intel-gfx@archiver.kernel.org>; Wed,  9 Dec 2020 04:53:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2C5E2238E9
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 7BAFD238EE
+	for <intel-gfx@archiver.kernel.org>; Wed,  9 Dec 2020 04:56:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7BAFD238EE
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF1D36E0E9;
-	Wed,  9 Dec 2020 04:53:11 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8D8CB6E0E8
- for <intel-gfx@lists.freedesktop.org>; Wed,  9 Dec 2020 04:53:07 +0000 (UTC)
-IronPort-SDR: 7I/WHOlWFmGu6QsgIQM5HlxXfvjMOAENCF/L9RiX87D/H/Nrh+6Y4Mpr04vsuyW3hi3ny7tOZ8
- b7+Ui/F0FVYQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9829"; a="171446383"
-X-IronPort-AV: E=Sophos;i="5.78,404,1599548400"; d="scan'208";a="171446383"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Dec 2020 20:53:06 -0800
-IronPort-SDR: vaZ+Jep1ee9cvxDRDiw1HThE9hBeu6yjVwIZTy05MqPeq0qzqQNbzJ1Gz8Ub+b8LUQDu6g4IMO
- 97dmElzU6Csg==
-X-IronPort-AV: E=Sophos;i="5.78,404,1599548400"; d="scan'208";a="363977074"
-Received: from lucas-s2600cw.jf.intel.com ([10.165.21.202])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Dec 2020 20:53:06 -0800
-From: Lucas De Marchi <lucas.demarchi@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Tue,  8 Dec 2020 20:52:45 -0800
-Message-Id: <20201209045246.2905675-2-lucas.demarchi@intel.com>
-X-Mailer: git-send-email 2.29.2
-In-Reply-To: <20201209045246.2905675-1-lucas.demarchi@intel.com>
-References: <20201209045246.2905675-1-lucas.demarchi@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 13F28899B0;
+	Wed,  9 Dec 2020 04:56:06 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 07956899B0;
+ Wed,  9 Dec 2020 04:56:05 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 01F24A0091;
+ Wed,  9 Dec 2020 04:56:05 +0000 (UTC)
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 2/3] drm/i915/gt: rename wa_write_masked_or()
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Dave Airlie" <airlied@gmail.com>
+Date: Wed, 09 Dec 2020 04:56:05 -0000
+Message-ID: <160748976500.4258.12960070285016343683@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20201209042144.2281-1-airlied@gmail.com>
+In-Reply-To: <20201209042144.2281-1-airlied@gmail.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_series_starting_with_=5B1/4=5D_drm/i915=3A_refactor_cursor_?=
+ =?utf-8?q?code_out_of_i915=5Fdisplay=2Ec?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,218 +49,303 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Chris Wilson <chris@chris-wilson.co.uk>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The use of "masked" in this function is due to its history. Once upon a
-time it received a mask and a value as parameter. Since
-commit eeec73f8a4a4 ("drm/i915/gt: Skip rmw for masked registers")
-that is not true anymore and now there is a clear and a set parameter.
-Depending on the case, that can still be thought as a mask and value,
-but there are some subtle differences: what we clear doesn't need to be
-the same bits we are setting, particularly when we are using masked
-registers.
+== Series Details ==
 
-The fact that we also have "masked registers", i.e. registers whose mask
-is stored in the upper 16 bits of the register, makes it even more
-confusing, because "masked" in wa_write_masked_or() has little to do
-with masked registers, but rather refers to the old mask parameter the
-function received (that can also, but not exclusively, be used to write
-to masked register).
+Series: series starting with [1/4] drm/i915: refactor cursor code out of i915_display.c
+URL   : https://patchwork.freedesktop.org/series/84712/
+State : warning
 
-Avoid the ambiguity and misnomer by renaming it to something else,
-hopefully less confusing: wa_write_clr_set(), to designate that we are
-doing both clr and set operations in the register.
+== Summary ==
 
-Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
----
- drivers/gpu/drm/i915/gt/intel_workarounds.c | 88 ++++++++++-----------
- 1 file changed, 44 insertions(+), 44 deletions(-)
+$ dim checkpatch origin/drm-tip
+b87be3dc234f drm/i915: refactor cursor code out of i915_display.c
+-:24: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#24: 
+new file mode 100644
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-index 70d4ca2776a3..fec099f6ae76 100644
---- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
-+++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-@@ -194,7 +194,7 @@ static void wa_add(struct i915_wa_list *wal, i915_reg_t reg,
- }
- 
- static void
--wa_write_masked_or(struct i915_wa_list *wal, i915_reg_t reg, u32 clear, u32 set)
-+wa_write_clr_set(struct i915_wa_list *wal, i915_reg_t reg, u32 clear, u32 set)
- {
- 	wa_add(wal, reg, clear, set, clear);
- }
-@@ -202,19 +202,19 @@ wa_write_masked_or(struct i915_wa_list *wal, i915_reg_t reg, u32 clear, u32 set)
- static void
- wa_write(struct i915_wa_list *wal, i915_reg_t reg, u32 set)
- {
--	wa_write_masked_or(wal, reg, ~0, set);
-+	wa_write_clr_set(wal, reg, ~0, set);
- }
- 
- static void
- wa_write_or(struct i915_wa_list *wal, i915_reg_t reg, u32 set)
- {
--	wa_write_masked_or(wal, reg, set, set);
-+	wa_write_clr_set(wal, reg, set, set);
- }
- 
- static void
- wa_write_clr(struct i915_wa_list *wal, i915_reg_t reg, u32 clr)
- {
--	wa_write_masked_or(wal, reg, clr, 0);
-+	wa_write_clr_set(wal, reg, clr, 0);
- }
- 
- static void
-@@ -603,10 +603,10 @@ static void icl_ctx_workarounds_init(struct intel_engine_cs *engine,
- 			     GEN11_BLEND_EMB_FIX_DISABLE_IN_RCC);
- 
- 	/* WaEnableFloatBlendOptimization:icl */
--	wa_write_masked_or(wal,
--			   GEN10_CACHE_MODE_SS,
--			   0, /* write-only, so skip validation */
--			   _MASKED_BIT_ENABLE(FLOAT_BLEND_OPTIMIZATION_ENABLE));
-+	wa_write_clr_set(wal,
-+			 GEN10_CACHE_MODE_SS,
-+			 0, /* write-only, so skip validation */
-+			 _MASKED_BIT_ENABLE(FLOAT_BLEND_OPTIMIZATION_ENABLE));
- 
- 	/* WaDisableGPGPUMidThreadPreemption:icl */
- 	wa_masked_field_set(wal, GEN8_CS_CHICKEN1,
-@@ -619,9 +619,9 @@ static void icl_ctx_workarounds_init(struct intel_engine_cs *engine,
- 
- 	/* Wa_1604278689:icl,ehl */
- 	wa_write(wal, IVB_FBC_RT_BASE, 0xFFFFFFFF & ~ILK_FBC_RT_VALID);
--	wa_write_masked_or(wal, IVB_FBC_RT_BASE_UPPER,
--			   0, /* write-only register; skip validation */
--			   0xFFFFFFFF);
-+	wa_write_clr_set(wal, IVB_FBC_RT_BASE_UPPER,
-+			 0, /* write-only register; skip validation */
-+			 0xFFFFFFFF);
- 
- 	/* Wa_1406306137:icl,ehl */
- 	wa_masked_en(wal, GEN9_ROW_CHICKEN4, GEN11_DIS_PICK_2ND_EU);
-@@ -881,11 +881,11 @@ ivb_gt_workarounds_init(struct drm_i915_private *i915, struct i915_wa_list *wal)
- 	 * This actually overrides the dispatch
- 	 * mode for all thread types.
- 	 */
--	wa_write_masked_or(wal, GEN7_FF_THREAD_MODE,
--			   GEN7_FF_SCHED_MASK,
--			   GEN7_FF_TS_SCHED_HW |
--			   GEN7_FF_VS_SCHED_HW |
--			   GEN7_FF_DS_SCHED_HW);
-+	wa_write_clr_set(wal, GEN7_FF_THREAD_MODE,
-+			 GEN7_FF_SCHED_MASK,
-+			 GEN7_FF_TS_SCHED_HW |
-+			 GEN7_FF_VS_SCHED_HW |
-+			 GEN7_FF_DS_SCHED_HW);
- 
- 	if (0) { /* causes HiZ corruption on ivb:gt1 */
- 		/* enable HiZ Raw Stall Optimization */
-@@ -933,12 +933,12 @@ vlv_gt_workarounds_init(struct drm_i915_private *i915, struct i915_wa_list *wal)
- 	 * This actually overrides the dispatch
- 	 * mode for all thread types.
- 	 */
--	wa_write_masked_or(wal,
--			   GEN7_FF_THREAD_MODE,
--			   GEN7_FF_SCHED_MASK,
--			   GEN7_FF_TS_SCHED_HW |
--			   GEN7_FF_VS_SCHED_HW |
--			   GEN7_FF_DS_SCHED_HW);
-+	wa_write_clr_set(wal,
-+			 GEN7_FF_THREAD_MODE,
-+			 GEN7_FF_SCHED_MASK,
-+			 GEN7_FF_TS_SCHED_HW |
-+			 GEN7_FF_VS_SCHED_HW |
-+			 GEN7_FF_DS_SCHED_HW);
- 
- 	/*
- 	 * BSpec says this must be set, even though
-@@ -1172,7 +1172,7 @@ wa_init_mcr(struct drm_i915_private *i915, struct i915_wa_list *wal)
- 
- 	drm_dbg(&i915->drm, "MCR slice/subslice = %x\n", mcr);
- 
--	wa_write_masked_or(wal, GEN8_MCR_SELECTOR, mcr_mask, mcr);
-+	wa_write_clr_set(wal, GEN8_MCR_SELECTOR, mcr_mask, mcr);
- }
- 
- static void
-@@ -1197,10 +1197,10 @@ icl_gt_workarounds_init(struct drm_i915_private *i915, struct i915_wa_list *wal)
- 		    GAMT_ECO_ENABLE_IN_PLACE_DECOMPRESS);
- 
- 	/* WaModifyGamTlbPartitioning:icl */
--	wa_write_masked_or(wal,
--			   GEN11_GACB_PERF_CTRL,
--			   GEN11_HASH_CTRL_MASK,
--			   GEN11_HASH_CTRL_BIT0 | GEN11_HASH_CTRL_BIT4);
-+	wa_write_clr_set(wal,
-+			 GEN11_GACB_PERF_CTRL,
-+			 GEN11_HASH_CTRL_MASK,
-+			 GEN11_HASH_CTRL_BIT0 | GEN11_HASH_CTRL_BIT4);
- 
- 	/* Wa_1405766107:icl
- 	 * Formerly known as WaCL2SFHalfMaxAlloc
-@@ -1844,14 +1844,14 @@ rcs_engine_wa_init(struct intel_engine_cs *engine, struct i915_wa_list *wal)
- 		 * Wa_1604223664:icl
- 		 * Formerly known as WaL3BankAddressHashing
- 		 */
--		wa_write_masked_or(wal,
--				   GEN8_GARBCNTL,
--				   GEN11_HASH_CTRL_EXCL_MASK,
--				   GEN11_HASH_CTRL_EXCL_BIT0);
--		wa_write_masked_or(wal,
--				   GEN11_GLBLINVL,
--				   GEN11_BANK_HASH_ADDR_EXCL_MASK,
--				   GEN11_BANK_HASH_ADDR_EXCL_BIT0);
-+		wa_write_clr_set(wal,
-+				 GEN8_GARBCNTL,
-+				 GEN11_HASH_CTRL_EXCL_MASK,
-+				 GEN11_HASH_CTRL_EXCL_BIT0);
-+		wa_write_clr_set(wal,
-+				 GEN11_GLBLINVL,
-+				 GEN11_BANK_HASH_ADDR_EXCL_MASK,
-+				 GEN11_BANK_HASH_ADDR_EXCL_BIT0);
- 
- 		/*
- 		 * Wa_1405733216:icl
-@@ -1880,10 +1880,10 @@ rcs_engine_wa_init(struct intel_engine_cs *engine, struct i915_wa_list *wal)
- 			    GEN7_DISABLE_SAMPLER_PREFETCH);
- 
- 		/* Wa_1409178092:icl */
--		wa_write_masked_or(wal,
--				   GEN11_SCRATCH2,
--				   GEN11_COHERENT_PARTIAL_WRITE_MERGE_ENABLE,
--				   0);
-+		wa_write_clr_set(wal,
-+				 GEN11_SCRATCH2,
-+				 GEN11_COHERENT_PARTIAL_WRITE_MERGE_ENABLE,
-+				 0);
- 
- 		/* WaEnable32PlaneMode:icl */
- 		wa_masked_en(wal, GEN9_CSFE_CHICKEN1_RCS,
-@@ -1957,11 +1957,11 @@ rcs_engine_wa_init(struct intel_engine_cs *engine, struct i915_wa_list *wal)
- 
- 		/* WaProgramL3SqcReg1DefaultForPerf:bxt,glk */
- 		if (IS_GEN9_LP(i915))
--			wa_write_masked_or(wal,
--					   GEN8_L3SQCREG1,
--					   L3_PRIO_CREDITS_MASK,
--					   L3_GENERAL_PRIO_CREDITS(62) |
--					   L3_HIGH_PRIO_CREDITS(2));
-+			wa_write_clr_set(wal,
-+					 GEN8_L3SQCREG1,
-+					 L3_PRIO_CREDITS_MASK,
-+					 L3_GENERAL_PRIO_CREDITS(62) |
-+					 L3_HIGH_PRIO_CREDITS(2));
- 
- 		/* WaOCLCoherentLineFlush:skl,bxt,kbl,cfl */
- 		wa_write_or(wal,
--- 
-2.29.2
+-:534: WARNING:UNSPECIFIED_INT: Prefer 'unsigned int' to bare use of 'unsigned'
+#534: FILE: drivers/gpu/drm/i915/display/intel_cursor.c:506:
++		unsigned width = drm_rect_width(&plane_state->uapi.dst);
+
+-:535: WARNING:UNSPECIFIED_INT: Prefer 'unsigned int' to bare use of 'unsigned'
+#535: FILE: drivers/gpu/drm/i915/display/intel_cursor.c:507:
++		unsigned height = drm_rect_height(&plane_state->uapi.dst);
+
+-:564: WARNING:REPEATED_WORD: Possible repeated word: 'by'
+#564: FILE: drivers/gpu/drm/i915/display/intel_cursor.c:536:
++	 * The other registers are armed by by the CURBASE write
+
+-:791: CHECK:SPACING: No space is necessary after a cast
+#791: FILE: drivers/gpu/drm/i915/display/intel_cursor.c:763:
++	cursor->i9xx_plane = (enum i9xx_plane_id) pipe;
+
+total: 0 errors, 4 warnings, 1 checks, 1692 lines checked
+f86b532a437f drm/i915: refactor some crtc code out of intel display.
+-:26: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#26: 
+new file mode 100644
+
+-:601: CHECK:SPACING: spaces preferred around that '*' (ctx:VxV)
+#601: FILE: drivers/gpu/drm/i915/display/intel_crtc.c:571:
++		return 32*1024;
+ 		         ^
+
+-:604: CHECK:SPACING: spaces preferred around that '*' (ctx:VxV)
+#604: FILE: drivers/gpu/drm/i915/display/intel_crtc.c:574:
++			return 16*1024;
+ 			         ^
+
+-:606: CHECK:SPACING: spaces preferred around that '*' (ctx:VxV)
+#606: FILE: drivers/gpu/drm/i915/display/intel_crtc.c:576:
++			return 32*1024;
+ 			         ^
+
+-:609: CHECK:SPACING: spaces preferred around that '*' (ctx:VxV)
+#609: FILE: drivers/gpu/drm/i915/display/intel_crtc.c:579:
++			return 8*1024;
+ 			        ^
+
+-:611: CHECK:SPACING: spaces preferred around that '*' (ctx:VxV)
+#611: FILE: drivers/gpu/drm/i915/display/intel_crtc.c:581:
++			return 16*1024;
+ 			         ^
+
+-:614: CHECK:SPACING: spaces preferred around that '*' (ctx:VxV)
+#614: FILE: drivers/gpu/drm/i915/display/intel_crtc.c:584:
++			return 4*1024;
+ 			        ^
+
+-:616: CHECK:SPACING: spaces preferred around that '*' (ctx:VxV)
+#616: FILE: drivers/gpu/drm/i915/display/intel_crtc.c:586:
++			return 8*1024;
+ 			        ^
+
+-:663: CHECK:SPACING: No space is necessary after a cast
+#663: FILE: drivers/gpu/drm/i915/display/intel_crtc.c:633:
++		plane->i9xx_plane = (enum i9xx_plane_id) !pipe;
+
+-:665: CHECK:SPACING: No space is necessary after a cast
+#665: FILE: drivers/gpu/drm/i915/display/intel_crtc.c:635:
++		plane->i9xx_plane = (enum i9xx_plane_id) pipe;
+
+-:952: WARNING:AVOID_BUG: Avoid crashing the kernel - try using WARN_ON & recovery code rather than BUG() or BUG_ON()
+#952: FILE: drivers/gpu/drm/i915/display/intel_crtc.c:922:
++	BUG_ON(pipe >= ARRAY_SIZE(dev_priv->pipe_to_crtc_mapping) ||
+
+-:953: CHECK:COMPARISON_TO_NULL: Comparison to NULL could be written "dev_priv->pipe_to_crtc_mapping[pipe]"
+#953: FILE: drivers/gpu/drm/i915/display/intel_crtc.c:923:
++	       dev_priv->pipe_to_crtc_mapping[pipe] != NULL);
+
+-:959: WARNING:AVOID_BUG: Avoid crashing the kernel - try using WARN_ON & recovery code rather than BUG() or BUG_ON()
+#959: FILE: drivers/gpu/drm/i915/display/intel_crtc.c:929:
++		BUG_ON(i9xx_plane >= ARRAY_SIZE(dev_priv->plane_to_crtc_mapping) ||
+
+-:960: CHECK:COMPARISON_TO_NULL: Comparison to NULL could be written "dev_priv->plane_to_crtc_mapping[i9xx_plane]"
+#960: FILE: drivers/gpu/drm/i915/display/intel_crtc.c:930:
++		       dev_priv->plane_to_crtc_mapping[i9xx_plane] != NULL);
+
+-:966: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#966: FILE: drivers/gpu/drm/i915/display/intel_crtc.c:936:
++		drm_crtc_create_scaling_filter_property(&crtc->base,
++						BIT(DRM_SCALING_FILTER_DEFAULT) |
+
+total: 0 errors, 3 warnings, 12 checks, 1969 lines checked
+b45ec2e66b7d drm/i915: refactor pll code out into intel_clock.c
+-:30: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#30: 
+new file mode 100644
+
+-:50: CHECK:LOGICAL_CONTINUATIONS: Logical continuations should be on the previous line
+#50: FILE: drivers/gpu/drm/i915/display/intel_clock.c:16:
++	return dev_priv->vbt.lvds_use_ssc
++		&& !(dev_priv->quirks & QUIRK_LVDS_SSC_DISABLE);
+
+-:63: CHECK:LINE_SPACING: Please use a blank line after function/struct/union/enum declarations
+#63: FILE: drivers/gpu/drm/i915/display/intel_clock.c:29:
++};
++static const struct intel_limit intel_limits_i8xx_dac = {
+
+-:128: CHECK:LINE_SPACING: Please don't use multiple blank lines
+#128: FILE: drivers/gpu/drm/i915/display/intel_clock.c:94:
++
++
+
+-:700: WARNING:LONG_LINE: line length of 103 exceeds 100 columns
+#700: FILE: drivers/gpu/drm/i915/display/intel_clock.c:666:
++				for (clock.m1 = limit->m1.min; clock.m1 <= limit->m1.max; clock.m1++) {
+
+-:771: CHECK:SPACING: spaces preferred around that '/' (ctx:VxV)
+#771: FILE: drivers/gpu/drm/i915/display/intel_clock.c:737:
++			if (m2 > INT_MAX/clock.m1)
+ 			                ^
+
+-:868: CHECK:BRACES: braces {} should be used on all arms of this statement
+#868: FILE: drivers/gpu/drm/i915/display/intel_clock.c:834:
++	if (IS_PINEVIEW(dev_priv))
+[...]
++	else {
+[...]
+
+-:870: CHECK:BRACES: Unbalanced braces around else statement
+#870: FILE: drivers/gpu/drm/i915/display/intel_clock.c:836:
++	else {
+
+-:988: CHECK:LINE_SPACING: Please don't use multiple blank lines
+#988: FILE: drivers/gpu/drm/i915/display/intel_clock.c:954:
++
++
+
+total: 0 errors, 2 warnings, 7 checks, 2895 lines checked
+a10cb379b7b4 drm/i915: split fdi code out from intel_display.c
+-:785: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#785: 
+new file mode 100644
+
+-:880: WARNING:AVOID_BUG: Avoid crashing the kernel - try using WARN_ON & recovery code rather than BUG() or BUG_ON()
+#880: FILE: drivers/gpu/drm/i915/display/intel_fdi.c:91:
++		BUG();
+
+-:885: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#885: FILE: drivers/gpu/drm/i915/display/intel_fdi.c:96:
++int ilk_fdi_compute_config(struct intel_crtc *intel_crtc,
++				  struct intel_crtc_state *pipe_config)
+
+-:917: CHECK:SPACING: spaces preferred around that '*' (ctx:VxV)
+#917: FILE: drivers/gpu/drm/i915/display/intel_fdi.c:128:
++	if (ret == -EINVAL && pipe_config->pipe_bpp > 6*3) {
+ 	                                               ^
+
+-:918: CHECK:SPACING: spaces preferred around that '*' (ctx:VxV)
+#918: FILE: drivers/gpu/drm/i915/display/intel_fdi.c:129:
++		pipe_config->pipe_bpp -= 2*3;
+ 		                          ^
+
+-:967: CHECK:USLEEP_RANGE: usleep_range is preferred over udelay; see Documentation/timers/timers-howto.rst
+#967: FILE: drivers/gpu/drm/i915/display/intel_fdi.c:178:
++	udelay(1000);
+
+-:972: WARNING:LONG_LINE: line length of 103 exceeds 100 columns
+#972: FILE: drivers/gpu/drm/i915/display/intel_fdi.c:183:
++			       intel_de_read(dev_priv, reg) | FDI_FS_ERRC_ENABLE | FDI_FE_ERRC_ENABLE);
+
+-:989: WARNING:BLOCK_COMMENT_STYLE: Block comments use * on subsequent lines
+#989: FILE: drivers/gpu/drm/i915/display/intel_fdi.c:200:
++	/* Train 1: umask FDI RX Interrupt symbol_lock and bit_lock bit
++	   for train result */
+
+-:989: WARNING:BLOCK_COMMENT_STYLE: Block comments use a trailing */ on a separate line
+#989: FILE: drivers/gpu/drm/i915/display/intel_fdi.c:200:
++	   for train result */
+
+-:996: CHECK:USLEEP_RANGE: usleep_range is preferred over udelay; see Documentation/timers/timers-howto.rst
+#996: FILE: drivers/gpu/drm/i915/display/intel_fdi.c:207:
++	udelay(150);
+
+-:1014: CHECK:USLEEP_RANGE: usleep_range is preferred over udelay; see Documentation/timers/timers-howto.rst
+#1014: FILE: drivers/gpu/drm/i915/display/intel_fdi.c:225:
++	udelay(150);
+
+-:1050: CHECK:USLEEP_RANGE: usleep_range is preferred over udelay; see Documentation/timers/timers-howto.rst
+#1050: FILE: drivers/gpu/drm/i915/display/intel_fdi.c:261:
++	udelay(150);
+
+-:1069: CHECK:BRACES: Blank lines aren't necessary before a close brace '}'
+#1069: FILE: drivers/gpu/drm/i915/display/intel_fdi.c:280:
++
++}
+
+-:1089: WARNING:BLOCK_COMMENT_STYLE: Block comments use * on subsequent lines
+#1089: FILE: drivers/gpu/drm/i915/display/intel_fdi.c:300:
++	/* Train 1: umask FDI RX Interrupt symbol_lock and bit_lock bit
++	   for train result */
+
+-:1089: WARNING:BLOCK_COMMENT_STYLE: Block comments use a trailing */ on a separate line
+#1089: FILE: drivers/gpu/drm/i915/display/intel_fdi.c:300:
++	   for train result */
+
+-:1097: CHECK:USLEEP_RANGE: usleep_range is preferred over udelay; see Documentation/timers/timers-howto.rst
+#1097: FILE: drivers/gpu/drm/i915/display/intel_fdi.c:308:
++	udelay(150);
+
+-:1126: CHECK:USLEEP_RANGE: usleep_range is preferred over udelay; see Documentation/timers/timers-howto.rst
+#1126: FILE: drivers/gpu/drm/i915/display/intel_fdi.c:337:
++	udelay(150);
+
+-:1136: CHECK:USLEEP_RANGE: usleep_range is preferred over udelay; see Documentation/timers/timers-howto.rst
+#1136: FILE: drivers/gpu/drm/i915/display/intel_fdi.c:347:
++		udelay(500);
+
+-:1149: CHECK:USLEEP_RANGE: usleep_range is preferred over udelay; see Documentation/timers/timers-howto.rst
+#1149: FILE: drivers/gpu/drm/i915/display/intel_fdi.c:360:
++			udelay(50);
+
+-:1181: CHECK:USLEEP_RANGE: usleep_range is preferred over udelay; see Documentation/timers/timers-howto.rst
+#1181: FILE: drivers/gpu/drm/i915/display/intel_fdi.c:392:
++	udelay(150);
+
+-:1191: CHECK:USLEEP_RANGE: usleep_range is preferred over udelay; see Documentation/timers/timers-howto.rst
+#1191: FILE: drivers/gpu/drm/i915/display/intel_fdi.c:402:
++		udelay(500);
+
+-:1204: CHECK:USLEEP_RANGE: usleep_range is preferred over udelay; see Documentation/timers/timers-howto.rst
+#1204: FILE: drivers/gpu/drm/i915/display/intel_fdi.c:415:
++			udelay(50);
+
+-:1226: WARNING:BLOCK_COMMENT_STYLE: Block comments use * on subsequent lines
+#1226: FILE: drivers/gpu/drm/i915/display/intel_fdi.c:437:
++	/* Train 1: umask FDI RX Interrupt symbol_lock and bit_lock bit
++	   for train result */
+
+-:1226: WARNING:BLOCK_COMMENT_STYLE: Block comments use a trailing */ on a separate line
+#1226: FILE: drivers/gpu/drm/i915/display/intel_fdi.c:437:
++	   for train result */
+
+-:1234: CHECK:USLEEP_RANGE: usleep_range is preferred over udelay; see Documentation/timers/timers-howto.rst
+#1234: FILE: drivers/gpu/drm/i915/display/intel_fdi.c:445:
++	udelay(150);
+
+-:1262: CHECK:SPACING: spaces preferred around that '/' (ctx:VxV)
+#1262: FILE: drivers/gpu/drm/i915/display/intel_fdi.c:473:
++		temp |= snb_b_fdi_train_param[j/2];
+ 		                               ^
+
+-:1358: CHECK:USLEEP_RANGE: usleep_range is preferred over udelay; see Documentation/timers/timers-howto.rst
+#1358: FILE: drivers/gpu/drm/i915/display/intel_fdi.c:569:
++	udelay(200);
+
+-:1365: CHECK:USLEEP_RANGE: usleep_range is preferred over udelay; see Documentation/timers/timers-howto.rst
+#1365: FILE: drivers/gpu/drm/i915/display/intel_fdi.c:576:
++	udelay(200);
+
+-:1374: CHECK:USLEEP_RANGE: usleep_range is preferred over udelay; see Documentation/timers/timers-howto.rst
+#1374: FILE: drivers/gpu/drm/i915/display/intel_fdi.c:585:
++		udelay(100);
+
+-:1397: CHECK:USLEEP_RANGE: usleep_range is preferred over udelay; see Documentation/timers/timers-howto.rst
+#1397: FILE: drivers/gpu/drm/i915/display/intel_fdi.c:608:
++	udelay(100);
+
+-:1405: CHECK:USLEEP_RANGE: usleep_range is preferred over udelay; see Documentation/timers/timers-howto.rst
+#1405: FILE: drivers/gpu/drm/i915/display/intel_fdi.c:616:
++	udelay(100);
+
+-:1428: CHECK:USLEEP_RANGE: usleep_range is preferred over udelay; see Documentation/timers/timers-howto.rst
+#1428: FILE: drivers/gpu/drm/i915/display/intel_fdi.c:639:
++	udelay(100);
+
+-:1457: CHECK:USLEEP_RANGE: usleep_range is preferred over udelay; see Documentation/timers/timers-howto.rst
+#1457: FILE: drivers/gpu/drm/i915/display/intel_fdi.c:668:
++	udelay(100);
+
+total: 0 errors, 9 warnings, 24 checks, 1432 lines checked
+
 
 _______________________________________________
 Intel-gfx mailing list
