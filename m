@@ -2,40 +2,42 @@ Return-Path: <SRS0=x7Pm=FN=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 572C0C4361B
-	for <intel-gfx@archiver.kernel.org>; Wed,  9 Dec 2020 11:16:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E8924C433FE
+	for <intel-gfx@archiver.kernel.org>; Wed,  9 Dec 2020 11:31:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EDBF723407
-	for <intel-gfx@archiver.kernel.org>; Wed,  9 Dec 2020 11:16:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EDBF723407
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id 6911E235F7
+	for <intel-gfx@archiver.kernel.org>; Wed,  9 Dec 2020 11:31:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6911E235F7
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 730186E9F1;
-	Wed,  9 Dec 2020 11:16:27 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id D20316E9EE;
- Wed,  9 Dec 2020 11:16:26 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id C9DA6AA0EB;
- Wed,  9 Dec 2020 11:16:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE5ED6E9FA;
+	Wed,  9 Dec 2020 11:31:17 +0000 (UTC)
+Received: from fireflyinternet.com (unknown [77.68.26.236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F0436E9FA
+ for <intel-gfx@lists.freedesktop.org>; Wed,  9 Dec 2020 11:31:15 +0000 (UTC)
+X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
+ x-ip-name=78.156.65.138; 
+Received: from localhost (unverified [78.156.65.138]) 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP (TLS) id
+ 23266029-1500050 for multiple; Wed, 09 Dec 2020 11:31:12 +0000
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Chris Wilson" <chris@chris-wilson.co.uk>
-Date: Wed, 09 Dec 2020 11:16:26 -0000
-Message-ID: <160751258680.4257.4908848523802412295@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20201209104502.29872-1-chris@chris-wilson.co.uk>
-In-Reply-To: <20201209104502.29872-1-chris@chris-wilson.co.uk>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_drm/i915=3A_Mark_per-engine-reset_as_supported_on_gen6+?=
+In-Reply-To: <20201209045246.2905675-1-lucas.demarchi@intel.com>
+References: <20201209045246.2905675-1-lucas.demarchi@intel.com>
+From: Chris Wilson <chris@chris-wilson.co.uk>
+To: Lucas De Marchi <lucas.demarchi@intel.com>, intel-gfx@lists.freedesktop.org
+Date: Wed, 09 Dec 2020 11:31:11 +0000
+Message-ID: <160751347196.31456.13901907159558018579@build.alporthouse.com>
+User-Agent: alot/0.9
+Subject: Re: [Intel-gfx] [PATCH 1/3] drm/i915/gt: stop ignoring read with
+ wa_masked_field_set
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,30 +50,44 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+Quoting Lucas De Marchi (2020-12-09 04:52:44)
+> When using masked registers, there is nothing to clear since a masked
+> register has the mask in the upper 16b: we can just write to the
+> location we want and use the mask to control what bits we are writing
+> to.
+> 
+> However that doesn't mean we don't want to read back the register and
+> check the value actually matched what we wanted to write, i.e. that
+> the WA stick. That should be an explicit opt-out for registers that are
+> either write-only or that are affected by hardware misbehavior.
+> 
+> Moreover both wa_masked_en() and wa_masked_dis() check the WA stick, so
+> skipping the check just because the field is more than 1 bit is
+> surprising and error-prone.
+> 
+> Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+> ---
+>  drivers/gpu/drm/i915/gt/intel_workarounds.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+> index 2db1e68d7464..70d4ca2776a3 100644
+> --- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
+> +++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+> @@ -233,7 +233,7 @@ static void
+>  wa_masked_field_set(struct i915_wa_list *wal, i915_reg_t reg,
+>                     u32 mask, u32 val)
+>  {
+> -       wa_write_masked_or(wal, reg, 0, _MASKED_FIELD(mask, val));
+> +       wa_add(wal, reg, 0, _MASKED_FIELD(mask, val), mask);
 
-Series: drm/i915: Mark per-engine-reset as supported on gen6+
-URL   : https://patchwork.freedesktop.org/series/84723/
-State : warning
-
-== Summary ==
-
-$ dim checkpatch origin/drm-tip
-d42d397a8997 drm/i915: Mark per-engine-reset as supported on gen6+
--:6: WARNING:TYPO_SPELLING: 'reseting' may be misspelled - perhaps 'resetting'?
-#6: 
-The benefit of only reseting a single engine is that we leave other
-
-total: 0 errors, 1 warnings, 0 checks, 23 lines checked
-
-
+Reviewed-by: Chris Wilson <chris@chris-wilson.co.uk>
+-Chris
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
