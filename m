@@ -2,40 +2,40 @@ Return-Path: <SRS0=CSZM=FO=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 04CF9C433FE
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 14:03:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B6203C4167B
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 14:06:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AF94323C44
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 14:03:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AF94323C44
+	by mail.kernel.org (Postfix) with ESMTPS id 324CF22BF5
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 14:06:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 324CF22BF5
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 03DB26E532;
-	Thu, 10 Dec 2020 14:03:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3EE976E566;
+	Thu, 10 Dec 2020 14:06:40 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
  [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id C9A2A6E530;
- Thu, 10 Dec 2020 14:03:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 59F8C6E53C;
+ Thu, 10 Dec 2020 14:06:39 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id C08DDA47DF;
- Thu, 10 Dec 2020 14:03:04 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id 54F8FA363B;
+ Thu, 10 Dec 2020 14:06:39 +0000 (UTC)
 MIME-Version: 1.0
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Chris Wilson" <chris@chris-wilson.co.uk>
-Date: Thu, 10 Dec 2020 14:03:04 -0000
-Message-ID: <160760898476.19119.12280412207322271171@emeril.freedesktop.org>
+Date: Thu, 10 Dec 2020 14:06:39 -0000
+Message-ID: <160760919932.19116.5299351922887076302@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <20201210120228.19358-1-chris@chris-wilson.co.uk>
 In-Reply-To: <20201210120228.19358-1-chris@chris-wilson.co.uk>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_drm/i915/uc=3A_Squelch_load_failure_error_message?=
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkRPQ1M6IHdhcm5pbmcgZm9yIGRy?=
+ =?utf-8?q?m/i915/uc=3A_Squelch_load_failure_error_message?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,13 +63,9 @@ State : warning
 
 == Summary ==
 
-$ dim checkpatch origin/drm-tip
-42636cbab11e drm/i915/uc: Squelch load failure error message
--:10: WARNING:COMMIT_LOG_LONG_LINE: Possible unwrapped commit description (prefer a maximum 75 chars per line)
-#10: 
-<3> [111.319340] i915 0000:00:02.0: [drm] *ERROR* GuC load failed: status = 0x00000020
-
-total: 0 errors, 1 warnings, 0 checks, 36 lines checked
+$ make htmldocs 2>&1 > /dev/null | grep i915
+Error: Cannot open file ./drivers/gpu/drm/i915/gt/intel_lrc.c
+WARNING: kernel-doc './scripts/kernel-doc -rst -enable-lineno -sphinx-version 1.7.9 -function Logical Rings, Logical Ring Contexts and Execlists ./drivers/gpu/drm/i915/gt/intel_lrc.c' failed with return code 1
 
 
 _______________________________________________
