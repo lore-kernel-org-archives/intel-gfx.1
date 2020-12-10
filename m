@@ -2,52 +2,56 @@ Return-Path: <SRS0=CSZM=FO=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.7 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no
+X-Spam-Status: No, score=-10.7 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6551BC4361B
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 04:18:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7C121C4361B
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 04:18:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1CE0F23A02
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 04:18:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1CE0F23A02
+	by mail.kernel.org (Postfix) with ESMTPS id 24ABB23A02
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 04:18:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 24ABB23A02
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E4296E840;
-	Thu, 10 Dec 2020 04:18:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 58C396E867;
+	Thu, 10 Dec 2020 04:18:05 +0000 (UTC)
 Received: from us-smtp-delivery-44.mimecast.com
- (us-smtp-delivery-44.mimecast.com [205.139.111.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A7E16E840
- for <intel-gfx@lists.freedesktop.org>; Thu, 10 Dec 2020 04:18:02 +0000 (UTC)
+ (us-smtp-delivery-44.mimecast.com [207.211.30.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F50B6E841
+ for <intel-gfx@lists.freedesktop.org>; Thu, 10 Dec 2020 04:18:04 +0000 (UTC)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-184-LDTh5t4eOQ2EtQ3kFVd1tg-1; Wed, 09 Dec 2020 23:17:59 -0500
-X-MC-Unique: LDTh5t4eOQ2EtQ3kFVd1tg-1
+ us-mta-591-8X0Y6VNYPL2OziWLjsRcqQ-1; Wed, 09 Dec 2020 23:18:01 -0500
+X-MC-Unique: 8X0Y6VNYPL2OziWLjsRcqQ-1
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
  [10.5.11.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 87E901922027
- for <intel-gfx@lists.freedesktop.org>; Thu, 10 Dec 2020 04:17:58 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9A75D10054FF
+ for <intel-gfx@lists.freedesktop.org>; Thu, 10 Dec 2020 04:18:00 +0000 (UTC)
 Received: from dreadlord-bne-redhat-com.bne.redhat.com (unknown [10.64.32.209])
- by smtp.corp.redhat.com (Postfix) with ESMTP id ED2115D6A1
- for <intel-gfx@lists.freedesktop.org>; Thu, 10 Dec 2020 04:17:57 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 0C6CD5D6A1
+ for <intel-gfx@lists.freedesktop.org>; Thu, 10 Dec 2020 04:17:59 +0000 (UTC)
 From: Dave Airlie <airlied@gmail.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 10 Dec 2020 14:17:46 +1000
-Message-Id: <20201210041755.29088-1-airlied@gmail.com>
+Date: Thu, 10 Dec 2020 14:17:48 +1000
+Message-Id: <20201210041755.29088-3-airlied@gmail.com>
+In-Reply-To: <20201210041755.29088-1-airlied@gmail.com>
+References: <20201210041755.29088-1-airlied@gmail.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
  auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=airlied@gmail.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: gmail.com
-Subject: [Intel-gfx] [RFC v2] refactor intel display a bit more
+Subject: [Intel-gfx] [PATCH 2/9] drm/i915/display: move to_intel_frontbuffer
+ to header
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,15 +69,51 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The first 3 are just moving some functions to inline and fixing
-a wrong comma, the next 4 are cleaned up from yesterday.
+From: Dave Airlie <airlied@redhat.com>
 
-hsw fdi is definitely a WIP.
+This will be used for some refactoring in other files, so move it
+first.
 
-Skl planes migration is along the lines of what danvet asked for.
+Signed-off-by: Dave Airlie <airlied@redhat.com>
+---
+ drivers/gpu/drm/i915/display/intel_display.c       | 6 ------
+ drivers/gpu/drm/i915/display/intel_display_types.h | 6 ++++++
+ 2 files changed, 6 insertions(+), 6 deletions(-)
 
-Dave.
-
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 80103211f407..62e22d832cab 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -3611,12 +3611,6 @@ static void intel_plane_disable_noatomic(struct intel_crtc *crtc,
+ 	intel_disable_plane(plane, crtc_state);
+ }
+ 
+-static struct intel_frontbuffer *
+-to_intel_frontbuffer(struct drm_framebuffer *fb)
+-{
+-	return fb ? to_intel_framebuffer(fb)->frontbuffer : NULL;
+-}
+-
+ static void
+ intel_find_initial_plane_obj(struct intel_crtc *intel_crtc,
+ 			     struct intel_initial_plane_config *plane_config)
+diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
+index 8c4afad68a44..dfe573c8b5ae 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_types.h
++++ b/drivers/gpu/drm/i915/display/intel_display_types.h
+@@ -1805,4 +1805,10 @@ static inline u32 intel_plane_ggtt_offset(const struct intel_plane_state *state)
+ 	return i915_ggtt_offset(state->vma);
+ }
+ 
++static inline struct intel_frontbuffer *
++to_intel_frontbuffer(struct drm_framebuffer *fb)
++{
++	return fb ? to_intel_framebuffer(fb)->frontbuffer : NULL;
++}
++
+ #endif /*  __INTEL_DISPLAY_TYPES_H__ */
+-- 
+2.27.0
 
 _______________________________________________
 Intel-gfx mailing list
