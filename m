@@ -2,53 +2,45 @@ Return-Path: <SRS0=CSZM=FO=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+X-Spam-Status: No, score=-5.2 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 58F5BC433FE
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 11:02:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 66D5EC433FE
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 11:42:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D044D23B70
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 11:02:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D044D23B70
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 067ED23D56
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 11:42:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 067ED23D56
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D2966E40F;
-	Thu, 10 Dec 2020 11:02:57 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C76CE6E40F
- for <Intel-gfx@lists.freedesktop.org>; Thu, 10 Dec 2020 11:02:55 +0000 (UTC)
-IronPort-SDR: 6lo1jlnSxGgIAu2U0neyYETTgkW0fdpsEv+wCiA1TTjYft700k0LvY02QcAgnyiqXXAfDZjVAX
- jGZpgoo3cN5A==
-X-IronPort-AV: E=McAfee;i="6000,8403,9830"; a="161995056"
-X-IronPort-AV: E=Sophos;i="5.78,408,1599548400"; d="scan'208";a="161995056"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Dec 2020 03:02:55 -0800
-IronPort-SDR: YuF73Hhwtu7iH1c43sp2pu7f3bJKTSRouSmea2bj7B50Jn/VEyeVRFuf2q3fvCKAt5xVWe9ivR
- GekbG4gyeApw==
-X-IronPort-AV: E=Sophos;i="5.78,408,1599548400"; d="scan'208";a="364575415"
-Received: from ggiordax-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.251.87.181])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Dec 2020 03:02:53 -0800
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D46D6EA80;
+	Thu, 10 Dec 2020 11:42:27 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 766266EA7B;
+ Thu, 10 Dec 2020 11:42:25 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id B1475AE47;
+ Thu, 10 Dec 2020 11:42:21 +0000 (UTC)
+To: Jani Nikula <jani.nikula@linux.intel.com>, airlied@linux.ie,
+ daniel@ffwll.ch
+References: <20201201103542.2182-1-tzimmermann@suse.de>
+ <20201201103542.2182-10-tzimmermann@suse.de>
+ <7c9b3127-0e79-fd22-0bba-b3e8430d876a@suse.de> <875z5a9gns.fsf@intel.com>
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Message-ID: <48afe494-eab1-7dac-0f8c-ad1acd31cbfe@suse.de>
+Date: Thu, 10 Dec 2020 10:24:15 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.5.0
 MIME-Version: 1.0
-In-Reply-To: <20201209070307.2304-7-sean.z.huang@intel.com>
-References: <20201209070307.2304-1-sean.z.huang@intel.com>
- <20201209070307.2304-7-sean.z.huang@intel.com>
-From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-To: "Huang, Sean Z" <sean.z.huang@intel.com>, Intel-gfx@lists.freedesktop.org
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Message-ID: <160759817025.5062.9850146367170662117@jlahtine-mobl.ger.corp.intel.com>
-User-Agent: alot/0.8.1
-Date: Thu, 10 Dec 2020 13:02:50 +0200
-Subject: Re: [Intel-gfx] [RFC-v3 06/13] drm/i915/pxp: Enable PXP irq worker
- and callback stub
+In-Reply-To: <875z5a9gns.fsf@intel.com>
+Subject: Re: [Intel-gfx] [PATCH v2 09/20] drm/i915: Remove references to
+ struct drm_device.pdev
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,91 +53,110 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
+ dri-devel@lists.freedesktop.org, spice-devel@lists.freedesktop.org,
+ intel-gvt-dev@lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============0991195532=="
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Quoting Huang, Sean Z (2020-12-09 09:03:00)
-> Create the irq worker that serves as callback handler, those
-> callback stubs should be called while the hardware key teardown
-> occurs.
-> 
-> Signed-off-by: Huang, Sean Z <sean.z.huang@intel.com>
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============0991195532==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="LHeFyx9QqIlGkEMELLBaAod1WWnnwq7bD"
 
-<SNIP>
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--LHeFyx9QqIlGkEMELLBaAod1WWnnwq7bD
+Content-Type: multipart/mixed; boundary="UYNLXYvdyqt1LAH6LX9dVWFS9wYsDJzAN";
+ protected-headers="v1"
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: Jani Nikula <jani.nikula@linux.intel.com>, airlied@linux.ie,
+ daniel@ffwll.ch
+Cc: nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
+ amd-gfx@lists.freedesktop.org, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ spice-devel@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org
+Message-ID: <48afe494-eab1-7dac-0f8c-ad1acd31cbfe@suse.de>
+Subject: Re: [PATCH v2 09/20] drm/i915: Remove references to struct
+ drm_device.pdev
+References: <20201201103542.2182-1-tzimmermann@suse.de>
+ <20201201103542.2182-10-tzimmermann@suse.de>
+ <7c9b3127-0e79-fd22-0bba-b3e8430d876a@suse.de> <875z5a9gns.fsf@intel.com>
+In-Reply-To: <875z5a9gns.fsf@intel.com>
 
-> +static int intel_pxp_global_terminate_complete_callback(struct intel_pxp *pxp)
-> +{
-> +       int ret = 0;
-> +       struct intel_gt *gt = container_of(pxp, typeof(*gt), pxp);
-> +
-> +       mutex_lock(&pxp->ctx.mutex);
-> +
-> +       if (pxp->ctx.global_state_attacked) {
-> +               pxp->ctx.global_state_attacked = false;
+--UYNLXYvdyqt1LAH6LX9dVWFS9wYsDJzAN
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
 
-This software tracking should not be needed.
+Hi
 
-> +
-> +               /* Re-create the arb session after teardown handle complete */
-> +               ret = intel_pxp_arb_create_session(pxp);
-> +               if (ret) {
-> +                       drm_err(&gt->i915->drm, "Failed to create arb session\n");
-> +                       goto end;
-> +               }
-> +       }
-> +end:
-> +       mutex_unlock(&pxp->ctx.mutex);
-> +       return ret;
-> +}
-> +
-> +static void intel_pxp_irq_work(struct work_struct *work)
-> +{
-> +       struct intel_pxp *pxp = container_of(work, typeof(*pxp), irq_work);
-> +       struct intel_gt *gt = container_of(pxp, typeof(*gt), pxp);
-> +       u32 events = 0;
-> +
-> +       spin_lock_irq(&gt->irq_lock);
-> +       events = fetch_and_zero(&pxp->current_events);
+Am 10.12.20 um 10:03 schrieb Jani Nikula:
+> On Tue, 08 Dec 2020, Thomas Zimmermann <tzimmermann@suse.de> wrote:
+>> ping for a review of the i915 patches
+>=20
+> What did you have in mind regarding merging the series? Should we just
+> pick the patches up?
 
-"current_events" is not a great name for variable to be handled by
-irq_work function.
+Originally I thought that individual trees would merge their rsp=20
+patches. I guess the larger drivers could get some minor conflicts.
 
-> +       spin_unlock_irq(&gt->irq_lock);
-> +
-> +       if (events & PXP_IRQ_VECTOR_DISPLAY_PXP_STATE_TERMINATED ||
-> +           events & PXP_IRQ_VECTOR_DISPLAY_APP_TERM_PER_FW_REQ)
-> +               intel_pxp_teardown_required_callback(pxp);
+Amdgpu/radeon devs suggested to put everything into drm-misc-next at=20
+once. I'd prefer that, but ultimately it's up to you.
 
-On this path we should go and invalidate all contexts and buffer objects
-that are created with PROTECTED_CONTENT flag.
+Best regards
+Thomas
 
-We should only track the lack of the single session, and hold off from
-submitting any newly created contexts until the next event.
+>=20
+> BR,
+> Jani.
+>=20
 
-> +
-> +       if (events & PXP_IRQ_VECTOR_PXP_DISP_STATE_RESET_COMPLETE)
-> +               intel_pxp_global_terminate_complete_callback(pxp);
+--=20
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Maxfeldstr. 5, 90409 N=C3=BCrnberg, Germany
+(HRB 36809, AG N=C3=BCrnberg)
+Gesch=C3=A4ftsf=C3=BChrer: Felix Imend=C3=B6rffer
 
-After this, we should be able to proceed with creation/usage of
-PROTECTED_CONTENT flagged items as the session is available.
 
-I only see the session being created and other software tracking I'm not
-following exactly.
+--UYNLXYvdyqt1LAH6LX9dVWFS9wYsDJzAN--
 
-So the only boolean state we should track is if the arb_session is valid
-or is "in play" as the terminology seems to be.
+--LHeFyx9QqIlGkEMELLBaAod1WWnnwq7bD
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
-Regards, Joonas
+-----BEGIN PGP SIGNATURE-----
 
-> +
-> +       spin_lock_irq(&gt->irq_lock);
-> +       intel_pxp_write_irq_mask_reg(gt, 0);
-> +       spin_unlock_irq(&gt->irq_lock);
-> +}
+wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAl/R6T8FAwAAAAAACgkQlh/E3EQov+D+
+yBAAkmsb7v4JGw4GBDqZWXkf5yeRsZn3lzy9FuCJ49HPiWArqivWYnYoWu9O070xkrdvcGcbAsTO
+L/JtiL8Nd5xwyw9A0lRhxes/adNTLIStoJGT/JfLUHLGXO3CiO2OnKxKnOMihtqlB/dUlvmB2B7J
+4mNXjMyo06DEcDvsyFATN3BYRFRj1MFYUkzwXMrLAHQ9QXyvHrBMU6sfBuN/zwnKrXPmy9NevK2w
+SAuSBY8kMiimRwWYSF2ZlaC/TVE9S97iEiTU7jo5CkXetNBVNUABRUOvG3JIlISV2GeJ19MBaPPd
+KcJUyxuCLT/TJU+DPnfw92YWHbb/LGAEpsSCB0wd1S7Uokf3XDiqYfOn9PXRfsqo+m+lYv9AhPEz
+MGpCSuqZFIv4OO9wQsUIeTZlqyNUF0W4jjmGDHvtzkcbQ7laRq+PzxgZ7WiWOxU5N7g2tcHdh7Q7
+8mTfXYiOfZCbgakQ8t8DqW8ZvUtB2CqgfcWVbGkcVKnfR8Wmp9eTpFbTzrFd64/1mhC3DA5QtkRI
+W6XV4PvCD1wLJetvEAXSo09A8d8NXyMG9NxyQ2ySF5w82dA2kswS7LsRSDFUHE3hEk+7HrJZZQkb
+0odsemajAYcKfi5ab5WrszULfTV8IhCxACylTnqyKR4LoFfTk+WjRTwWeV4LYqn8rvmHnc1wXesh
+jbo=
+=uTJr
+-----END PGP SIGNATURE-----
+
+--LHeFyx9QqIlGkEMELLBaAod1WWnnwq7bD--
+
+--===============0991195532==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+
+--===============0991195532==--
