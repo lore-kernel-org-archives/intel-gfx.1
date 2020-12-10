@@ -2,54 +2,55 @@ Return-Path: <SRS0=CSZM=FO=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
-	version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BEE09C4167B
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3437CC4361B
 	for <intel-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 19:42:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6A8C823D3C
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 19:42:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6A8C823D3C
+	by mail.kernel.org (Postfix) with ESMTPS id BC81D23D3C
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 19:42:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BC81D23D3C
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linutronix.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 38FFD6EB39;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0268B6EB34;
 	Thu, 10 Dec 2020 19:42:35 +0000 (UTC)
 Received: from galois.linutronix.de (Galois.linutronix.de
  [IPv6:2a0a:51c0:0:12e:550::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 517476EB1C;
- Thu, 10 Dec 2020 19:42:22 +0000 (UTC)
-Message-Id: <20201210194043.067097663@linutronix.de>
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 96FF26EB3A;
+ Thu, 10 Dec 2020 19:42:32 +0000 (UTC)
+Message-Id: <20201210194043.862572239@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1607629341;
+ s=2020; t=1607629351;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:  references:references;
- bh=an/0SlT10gC/rfGB9cofMBAbBc2y8gDRMVN0GHlSQuQ=;
- b=4P4kE5RTAFQxk4E9p2NZ5tVZaT/fVdqT6FUBVR+n0VlRr8uKLCY6ouByJWK/y9MigmPqnb
- tesyONzFlkjZdJe1WWdFvx3h+r+GXjLB7sIlmHBZwN8ZTN8764SDWmNv/29J0LI/juCzrG
- 5AR2DIz8iI4y5+WrS2Gk+rZPh543USYMAHoeudVHDJ9Wges2zOPIJ3rC2brtEkqswFGEBV
- qoEKpCAHt2vMMptUuKRYjL5+zlSE91zw5P4yyaAjNJTKm8BCJhUlMmWxn/QqILbbs/4fJM
- zRFVwll3IxpXJvkmkahKFPnuLZWACJTleFizSON231iYySZCGseiBRgkWQqHew==
+ bh=JhTeD+U5tH7aZNj19fhxsRS/YgkGW74hooJZTJtUYG8=;
+ b=kakkmibZTWswSOf57jMSc/btXnxa6RB0Oxv9VvloZSQtIG4WkM/MftbHazL1ObfAX1q6u6
+ v9EgNe5gwBKYjRSGkjE0PSwHQU5J90KEPnfCKLss4hKXmA7Bkc/E+T/2WPZaHEkFR4i+UO
+ QdX6JJ+VHkGH1egGtgEd0+oJvfTVSCCs6O0nmczsu900db4+znQu/4DZ0ZqIrtnAutI7sP
+ lL8sGEqmceEeKou2jRcjeSLimqt3xaebgyRNSKG8cou2Ox4v3oxNWhwx9YCjoUSMJE+bd8
+ k+CDY3uhTourxMY6j19wud6jiqrZu7xtNFwliIMKmsBQdSHoUGcZxQdzt+oYyw==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1607629341;
+ s=2020e; t=1607629351;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:  references:references;
- bh=an/0SlT10gC/rfGB9cofMBAbBc2y8gDRMVN0GHlSQuQ=;
- b=0D9iZlJLFfBnhtOaF8MIaZu0T6LGBg7Mhm2UH/Vr6qq568TJA8295HDu2RHkjE+w+f0eVZ
- +xYpdmSgjdKynXCQ==
-Date: Thu, 10 Dec 2020 20:25:41 +0100
+ bh=JhTeD+U5tH7aZNj19fhxsRS/YgkGW74hooJZTJtUYG8=;
+ b=plOxIMbVY4CH/4Uw1Dak+ev4LYX0asa/YH9Oe3KWiQVB69dEiGhbzcOFTb0+Om9wD47q90
+ EKL6tVW8YPmeHADg==
+Date: Thu, 10 Dec 2020 20:25:49 +0100
 From: Thomas Gleixner <tglx@linutronix.de>
 To: LKML <linux-kernel@vger.kernel.org>
 References: <20201210192536.118432146@linutronix.de>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [patch 05/30] genirq: Annotate irq stats data races
+Subject: [Intel-gfx] [patch 13/30] drm/i915/lpe_audio: Remove pointless
+ irq_to_desc() usage
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,8 +70,8 @@ Cc: Mark Rutland <mark.rutland@arm.com>,
  Linus Walleij <linus.walleij@linaro.org>, dri-devel@lists.freedesktop.org,
  Chris Wilson <chris@chris-wilson.co.uk>,
  "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- Saeed Mahameed <saeedm@nvidia.com>, netdev@vger.kernel.org,
- Will Deacon <will@kernel.org>, Michal Simek <michal.simek@xilinx.com>,
+ netdev@vger.kernel.org, Will Deacon <will@kernel.org>,
+ Michal Simek <michal.simek@xilinx.com>, Rob Herring <robh@kernel.org>,
  linux-s390@vger.kernel.org, afzal mohammed <afzal.mohd.ma@gmail.com>,
  Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
  Dave Jiang <dave.jiang@intel.com>, xen-devel@lists.xenproject.org,
@@ -80,60 +81,53 @@ Cc: Mark Rutland <mark.rutland@arm.com>,
  Christian Borntraeger <borntraeger@de.ibm.com>, linux-pci@vger.kernel.org,
  Jakub Kicinski <kuba@kernel.org>, Heiko Carstens <hca@linux.ibm.com>,
  Wambui Karuga <wambui.karugax@gmail.com>, Allen Hubbe <allenbh@gmail.com>,
- Juergen Gross <jgross@suse.com>, Rob Herring <robh@kernel.org>,
- David Airlie <airlied@linux.ie>, linux-gpio@vger.kernel.org,
- Stefano Stabellini <sstabellini@kernel.org>,
+ Juergen Gross <jgross@suse.com>, intel-gfx@lists.freedesktop.org,
+ linux-gpio@vger.kernel.org, Stefano Stabellini <sstabellini@kernel.org>,
  Bjorn Helgaas <bhelgaas@google.com>, Lee Jones <lee.jones@linaro.org>,
  linux-arm-kernel@lists.infradead.org,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, linux-parisc@vger.kernel.org,
- Hou Zhiqiang <Zhiqiang.Hou@nxp.com>, Tariq Toukan <tariqt@nvidia.com>,
- Jon Mason <jdmason@kudzu.us>, linux-ntb@googlegroups.com,
- intel-gfx@lists.freedesktop.org, "David S. Miller" <davem@davemloft.net>
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>, David Airlie <airlied@linux.ie>,
+ linux-parisc@vger.kernel.org, Hou Zhiqiang <Zhiqiang.Hou@nxp.com>,
+ Tariq Toukan <tariqt@nvidia.com>, Jon Mason <jdmason@kudzu.us>,
+ linux-ntb@googlegroups.com, Saeed Mahameed <saeedm@nvidia.com>,
+ "David S. Miller" <davem@davemloft.net>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Both the per cpu stats and the accumulated count are accessed lockless and
-can be concurrently modified. That's intentional and the stats are a rough
-estimate anyway. Annotate them with data_race().
+Nothing uses the result and nothing should ever use it in driver code.
 
 Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: David Airlie <airlied@linux.ie>
+Cc: Daniel Vetter <daniel@ffwll.ch>
+Cc: Pankaj Bharadiya <pankaj.laxminarayan.bharadiya@intel.com>
+Cc: Chris Wilson <chris@chris-wilson.co.uk>
+Cc: Wambui Karuga <wambui.karugax@gmail.com>
+Cc: intel-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
 ---
- kernel/irq/irqdesc.c |    4 ++--
- kernel/irq/proc.c    |    5 +++--
- 2 files changed, 5 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/i915/display/intel_lpe_audio.c |    4 ----
+ 1 file changed, 4 deletions(-)
 
---- a/kernel/irq/irqdesc.c
-+++ b/kernel/irq/irqdesc.c
-@@ -943,10 +943,10 @@ unsigned int kstat_irqs(unsigned int irq
- 	if (!irq_settings_is_per_cpu_devid(desc) &&
- 	    !irq_settings_is_per_cpu(desc) &&
- 	    !irq_is_nmi(desc))
--	    return desc->tot_count;
-+		return data_race(desc->tot_count);
+--- a/drivers/gpu/drm/i915/display/intel_lpe_audio.c
++++ b/drivers/gpu/drm/i915/display/intel_lpe_audio.c
+@@ -297,13 +297,9 @@ int intel_lpe_audio_init(struct drm_i915
+  */
+ void intel_lpe_audio_teardown(struct drm_i915_private *dev_priv)
+ {
+-	struct irq_desc *desc;
+-
+ 	if (!HAS_LPE_AUDIO(dev_priv))
+ 		return;
  
- 	for_each_possible_cpu(cpu)
--		sum += *per_cpu_ptr(desc->kstat_irqs, cpu);
-+		sum += data_race(*per_cpu_ptr(desc->kstat_irqs, cpu));
- 	return sum;
- }
+-	desc = irq_to_desc(dev_priv->lpe_audio.irq);
+-
+ 	lpe_audio_platdev_destroy(dev_priv);
  
---- a/kernel/irq/proc.c
-+++ b/kernel/irq/proc.c
-@@ -488,9 +488,10 @@ int show_interrupts(struct seq_file *p,
- 	if (!desc || irq_settings_is_hidden(desc))
- 		goto outsparse;
- 
--	if (desc->kstat_irqs)
-+	if (desc->kstat_irqs) {
- 		for_each_online_cpu(j)
--			any_count |= *per_cpu_ptr(desc->kstat_irqs, j);
-+			any_count |= data_race(*per_cpu_ptr(desc->kstat_irqs, j));
-+	}
- 
- 	if ((!desc->action || irq_desc_is_chained(desc)) && !any_count)
- 		goto outsparse;
+ 	irq_free_desc(dev_priv->lpe_audio.irq);
 
 _______________________________________________
 Intel-gfx mailing list
