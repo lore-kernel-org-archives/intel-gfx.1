@@ -2,49 +2,49 @@ Return-Path: <SRS0=CSZM=FO=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 70E98C433FE
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 22:39:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2AE30C4361B
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 22:39:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3F1B62332A
+	by mail.kernel.org (Postfix) with ESMTPS id EBA792332A
 	for <intel-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 22:39:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3F1B62332A
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EBA792332A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 524F06EB85;
-	Thu, 10 Dec 2020 22:39:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 44BF36EB84;
+	Thu, 10 Dec 2020 22:39:45 +0000 (UTC)
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6FF5B6EB7C
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 35C3C89D43
  for <Intel-gfx@lists.freedesktop.org>; Thu, 10 Dec 2020 22:39:38 +0000 (UTC)
-IronPort-SDR: xlK3dNveVzzu/9g7c8xnmDr+jz9U8hdBozxXOUh4c02dxI4noCFW38yIdWBlEeeImbHw3gWVNJ
- OPEHRCgIrpRA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9831"; a="192676682"
-X-IronPort-AV: E=Sophos;i="5.78,409,1599548400"; d="scan'208";a="192676682"
+IronPort-SDR: ZMXsXjGv/wFuLnCUocQYmgeOF57Gc6vzJhPfLo+K++1vmaRvrKQc0R7XVc4JHOpEqySjjyZyLq
+ mMXkdMN/S8nQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9831"; a="192676677"
+X-IronPort-AV: E=Sophos;i="5.78,409,1599548400"; d="scan'208";a="192676677"
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  10 Dec 2020 14:39:33 -0800
-IronPort-SDR: 1hPtDazZNo2jkCM5gzqMg0jNAYtOAeQr3E2n2OBvSobIsDBwSyKULnALz15qZO8ysWSKRvL8nq
- 4APIBW/uELRQ==
+IronPort-SDR: XBjkKKovj0JyZBVSiBDYJNsFXr3ETnvhuAwNYilSaTrYN18xbhX35ODt/jCCpM2DHrBZ75AA1m
+ Bl9zyYS9hqHw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.78,409,1599548400"; d="scan'208";a="544017039"
+X-IronPort-AV: E=Sophos;i="5.78,409,1599548400"; d="scan'208";a="544017023"
 Received: from sean-virtualbox.fm.intel.com ([10.105.158.96])
  by fmsmga005.fm.intel.com with ESMTP; 10 Dec 2020 14:39:33 -0800
 From: "Huang, Sean Z" <sean.z.huang@intel.com>
 To: Intel-gfx@lists.freedesktop.org
-Date: Thu, 10 Dec 2020 14:38:58 -0800
-Message-Id: <20201210223859.23882-21-sean.z.huang@intel.com>
+Date: Thu, 10 Dec 2020 14:38:55 -0800
+Message-Id: <20201210223859.23882-18-sean.z.huang@intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20201210223859.23882-1-sean.z.huang@intel.com>
 References: <20201210223859.23882-1-sean.z.huang@intel.com>
-Subject: [Intel-gfx] [RFC-v6 20/21] drm/i915/pxp: Add PXP-related registers
- into allowlist
+Subject: [Intel-gfx] [RFC-v6 17/21] drm/i915/pxp: Implement ioctl action to
+ send TEE commands
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,129 +63,184 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add several PXP-related reg into allowlist to allow user space
-driver to read the those register values.
+Implement the ioctl action to allow userspace driver sends TEE
+commands via PXP ioctl, instead of TEE iotcl. So we can
+centralize those protection operations at PXP.
 
 Signed-off-by: Huang, Sean Z <sean.z.huang@intel.com>
 ---
- drivers/gpu/drm/i915/i915_reg.h     |  6 ++++
- drivers/gpu/drm/i915/intel_uncore.c | 50 ++++++++++++++++++++---------
- 2 files changed, 41 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/i915/pxp/intel_pxp.c     | 48 +++++++++++++++++---
+ drivers/gpu/drm/i915/pxp/intel_pxp_tee.c | 57 ++++++++++++++++++++++++
+ drivers/gpu/drm/i915/pxp/intel_pxp_tee.h |  5 +++
+ 3 files changed, 105 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 0ea7e2a402ae..bcb7eb7a0e3c 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -12425,4 +12425,10 @@ enum skl_power_gate {
- #define TGL_ROOT_DEVICE_SKU_ULX		0x2
- #define TGL_ROOT_DEVICE_SKU_ULT		0x4
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.c b/drivers/gpu/drm/i915/pxp/intel_pxp.c
+index c35011b84f5a..2445af5f763c 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp.c
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp.c
+@@ -16,7 +16,10 @@
+ /* Setting KCR Init bit is required after system boot */
+ #define KCR_INIT_ALLOW_DISPLAY_ME_WRITES (BIT(14) | (BIT(14) << KCR_INIT_MASK_SHIFT))
  
-+/* Registers for allowlist check */
-+#define PXP_REG_01_LOWERBOUND		_MMIO(0x32260)
-+#define PXP_REG_01_UPPERBOUND		_MMIO(0x32268)
-+#define PXP_REG_02_LOWERBOUND		_MMIO(0x32670)
-+#define PXP_REG_02_UPPERBOUND		_MMIO(0x32678)
-+
- #endif /* _I915_REG_H_ */
-diff --git a/drivers/gpu/drm/i915/intel_uncore.c b/drivers/gpu/drm/i915/intel_uncore.c
-index 9ac501bcfdad..dc97ec240571 100644
---- a/drivers/gpu/drm/i915/intel_uncore.c
-+++ b/drivers/gpu/drm/i915/intel_uncore.c
-@@ -1990,16 +1990,34 @@ void intel_uncore_fini_mmio(struct intel_uncore *uncore)
- }
- 
- static const struct reg_whitelist {
--	i915_reg_t offset_ldw;
-+	i915_reg_t offset_ldw_lowerbound;
-+	i915_reg_t offset_ldw_upperbound;
- 	i915_reg_t offset_udw;
- 	u16 gen_mask;
- 	u8 size;
--} reg_read_whitelist[] = { {
--	.offset_ldw = RING_TIMESTAMP(RENDER_RING_BASE),
-+} reg_read_whitelist[] = {
-+	{
-+	.offset_ldw_lowerbound = RING_TIMESTAMP(RENDER_RING_BASE),
-+	.offset_ldw_upperbound = RING_TIMESTAMP(RENDER_RING_BASE),
- 	.offset_udw = RING_TIMESTAMP_UDW(RENDER_RING_BASE),
- 	.gen_mask = INTEL_GEN_MASK(4, 12),
- 	.size = 8
--} };
-+	},
-+	{
-+	.offset_ldw_lowerbound = PXP_REG_01_LOWERBOUND,
-+	.offset_ldw_upperbound = PXP_REG_01_UPPERBOUND,
-+	.offset_udw = {0},
-+	.gen_mask = INTEL_GEN_MASK(4, 12),
-+	.size = 4
-+	},
-+	{
-+	.offset_ldw_lowerbound = PXP_REG_02_LOWERBOUND,
-+	.offset_ldw_upperbound = PXP_REG_02_UPPERBOUND,
-+	.offset_udw = {0},
-+	.gen_mask = INTEL_GEN_MASK(4, 12),
-+	.size = 4
-+	}
+-#define PXP_ACTION_SET_SESSION_STATUS 1
++enum pxp_ioctl_action {
++	PXP_ACTION_SET_SESSION_STATUS = 1,
++	PXP_ACTION_TEE_IO_MESSAGE = 4,
 +};
  
- int i915_reg_read_ioctl(struct drm_device *dev,
- 			void *data, struct drm_file *file)
-@@ -2012,18 +2030,22 @@ int i915_reg_read_ioctl(struct drm_device *dev,
- 	unsigned int flags;
- 	int remain;
- 	int ret = 0;
-+	i915_reg_t offset_ldw;
+ enum pxp_session_req {
+ 	/* Request KMD to allocate session id and move it to IN INIT */
+@@ -38,13 +41,28 @@ struct pxp_set_session_status_params {
+ 	u32 req_session_state; /* in, new session state */
+ };
  
- 	entry = reg_read_whitelist;
- 	remain = ARRAY_SIZE(reg_read_whitelist);
- 	while (remain) {
--		u32 entry_offset = i915_mmio_reg_offset(entry->offset_ldw);
-+		u32 entry_offset_lb = i915_mmio_reg_offset(entry->offset_ldw_lowerbound);
-+		u32 entry_offset_ub = i915_mmio_reg_offset(entry->offset_ldw_upperbound);
++/*
++ * struct pxp_tee_io_message_params - Params to send/receive message to/from TEE.
++ */
++struct pxp_tee_io_message_params {
++	u8 __user *msg_in; /* in - message input */
++	u32 msg_in_size; /* in - message input size */
++	u8 __user *msg_out; /* in - message output buffer */
++	u32 msg_out_size; /* out- message output size from TEE */
++	u32 msg_out_buf_size; /* in - message output buffer size */
++};
++
+ /* struct pxp_info - Params for PXP operation. */
+ struct pxp_info {
+ 	u32 action; /* in - specified action of this operation */
+ 	u32 sm_status; /* out - status output for this operation */
  
- 		GEM_BUG_ON(!is_power_of_2(entry->size));
- 		GEM_BUG_ON(entry->size > 8);
--		GEM_BUG_ON(entry_offset & (entry->size - 1));
-+		GEM_BUG_ON(entry_offset_lb & (entry->size - 1));
-+		GEM_BUG_ON(entry_offset_ub & (entry->size - 1));
+-	/* in - action params to set the PXP session state */
+-	struct pxp_set_session_status_params set_session_status;
++	union {
++		/* in - action params to set the PXP session state */
++		struct pxp_set_session_status_params set_session_status;
++		/* in - action params to send TEE commands */
++		struct pxp_tee_io_message_params tee_io_message;
++	};
+ } __attribute__((packed));
  
- 		if (INTEL_INFO(i915)->gen_mask & entry->gen_mask &&
--		    entry_offset == (reg->offset & -entry->size))
-+		    entry_offset_lb <= (reg->offset & -entry->size) &&
-+		    (reg->offset & -entry->size) <= entry_offset_ub)
- 			break;
- 		entry++;
- 		remain--;
-@@ -2033,23 +2055,21 @@ int i915_reg_read_ioctl(struct drm_device *dev,
- 		return -EINVAL;
- 
- 	flags = reg->offset & (entry->size - 1);
-+	offset_ldw = _MMIO(reg->offset - flags);
- 
- 	with_intel_runtime_pm(&i915->runtime_pm, wakeref) {
- 		if (entry->size == 8 && flags == I915_REG_READ_8B_WA)
- 			reg->val = intel_uncore_read64_2x32(uncore,
--							    entry->offset_ldw,
-+							    offset_ldw,
- 							    entry->offset_udw);
- 		else if (entry->size == 8 && flags == 0)
--			reg->val = intel_uncore_read64(uncore,
--						       entry->offset_ldw);
-+			reg->val = intel_uncore_read64(uncore, offset_ldw);
- 		else if (entry->size == 4 && flags == 0)
--			reg->val = intel_uncore_read(uncore, entry->offset_ldw);
-+			reg->val = intel_uncore_read(uncore, offset_ldw);
- 		else if (entry->size == 2 && flags == 0)
--			reg->val = intel_uncore_read16(uncore,
--						       entry->offset_ldw);
-+			reg->val = intel_uncore_read16(uncore, offset_ldw);
- 		else if (entry->size == 1 && flags == 0)
--			reg->val = intel_uncore_read8(uncore,
--						      entry->offset_ldw);
-+			reg->val = intel_uncore_read8(uncore, offset_ldw);
- 		else
- 			ret = -EINVAL;
+ struct drm_i915_pxp_ops {
+@@ -228,7 +246,9 @@ int i915_pxp_ops_ioctl(struct drm_device *dev, void *data, struct drm_file *drmf
+ 		goto end;
  	}
+ 
+-	if (pxp_info.action == PXP_ACTION_SET_SESSION_STATUS) {
++	switch (pxp_info.action) {
++	case PXP_ACTION_SET_SESSION_STATUS:
++	{
+ 		struct pxp_set_session_status_params *params = &pxp_info.set_session_status;
+ 
+ 		if (params->req_session_state == PXP_REQ_SESSION_ID_INIT) {
+@@ -250,8 +270,26 @@ int i915_pxp_ops_ioctl(struct drm_device *dev, void *data, struct drm_file *drmf
+ 		} else {
+ 			ret = -EINVAL;
+ 		}
+-	} else {
++		break;
++	}
++	case PXP_ACTION_TEE_IO_MESSAGE:
++	{
++		struct pxp_tee_io_message_params *params = &pxp_info.tee_io_message;
++
++		ret = intel_pxp_tee_ioctl_io_message(pxp,
++						     params->msg_in, params->msg_in_size,
++						     params->msg_out, &params->msg_out_size,
++						     params->msg_out_buf_size);
++		if (ret) {
++			drm_err(&i915->drm, "Failed to send TEE IO message\n");
++			ret = -EFAULT;
++		}
++		break;
++	}
++	default:
++		drm_err(&i915->drm, "Failed to %s due to bad params\n", __func__);
+ 		ret = -EINVAL;
++		break;
+ 	}
+ 
+ end:
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
+index 816a6d5a54e4..e0815b2ee9ab 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
+@@ -168,3 +168,60 @@ int intel_pxp_tee_cmd_create_arb_session(struct intel_pxp *pxp)
+ 
+ 	return ret;
+ }
++
++int intel_pxp_tee_ioctl_io_message(struct intel_pxp *pxp,
++				   void __user *msg_in_user_ptr, u32 msg_in_size,
++				   void __user *msg_out_user_ptr, u32 *msg_out_size_ptr,
++				   u32 msg_out_buf_size)
++{
++	int ret;
++	void *msg_in = NULL;
++	void *msg_out = NULL;
++	struct intel_gt *gt = container_of(pxp, typeof(*gt), pxp);
++	struct drm_i915_private *i915 = gt->i915;
++
++	if (!msg_in_user_ptr || !msg_out_user_ptr || msg_out_buf_size == 0 ||
++	    msg_in_size == 0 || !msg_out_size_ptr)
++		return -EINVAL;
++
++	msg_in = kzalloc(msg_in_size, GFP_KERNEL);
++	if (!msg_in)
++		return -ENOMEM;
++
++	msg_out = kzalloc(msg_out_buf_size, GFP_KERNEL);
++	if (!msg_out) {
++		ret = -ENOMEM;
++		goto end;
++	}
++
++	if (copy_from_user(msg_in, msg_in_user_ptr, msg_in_size) != 0) {
++		ret = -EFAULT;
++		drm_err(&i915->drm, "Failed to copy_from_user for TEE message\n");
++		goto end;
++	}
++
++	mutex_lock(&i915->pxp_tee_comp_mutex);
++
++	ret = intel_pxp_tee_io_message(pxp,
++				       msg_in, msg_in_size,
++				       msg_out, msg_out_size_ptr,
++				       msg_out_buf_size);
++
++	mutex_unlock(&i915->pxp_tee_comp_mutex);
++
++	if (ret) {
++		drm_err(&i915->drm, "Failed to send/receive tee message\n");
++		goto end;
++	}
++
++	if (copy_to_user(msg_out_user_ptr, msg_out, *msg_out_size_ptr) != 0) {
++		ret = -EFAULT;
++		drm_err(&i915->drm, "Failed to copy_to_user for TEE message\n");
++		goto end;
++	}
++
++end:
++	kfree(msg_in);
++	kfree(msg_out);
++	return ret;
++}
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.h b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.h
+index 757a54208a4d..d3129786758f 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.h
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.h
+@@ -13,6 +13,11 @@ void intel_pxp_tee_component_fini(struct intel_pxp *pxp);
+ 
+ int intel_pxp_tee_cmd_create_arb_session(struct intel_pxp *pxp);
+ 
++int intel_pxp_tee_ioctl_io_message(struct intel_pxp *pxp,
++				   void __user *msg_in_user_ptr, u32 msg_in_size,
++				   void __user *msg_out_user_ptr, u32 *msg_out_size_ptr,
++				   u32 msg_out_buf_size);
++
+ /* TEE command to create the arbitrary session */
+ #define PXP_TEE_ARB_CMD_BIN {0x00040000, 0x0000001e, 0x00000000, 0x00000008, 0x00000002, 0x0000000f}
+ #define PXP_TEE_ARB_CMD_DW_LEN (6)
 -- 
 2.17.1
 
