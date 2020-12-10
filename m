@@ -2,48 +2,51 @@ Return-Path: <SRS0=CSZM=FO=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 55DBBC4361B
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 06:40:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CF999C4167B
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 06:40:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F365A23B98
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 06:40:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F365A23B98
+	by mail.kernel.org (Postfix) with ESMTPS id 892D123B98
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 06:40:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 892D123B98
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 188826E3DF;
-	Thu, 10 Dec 2020 06:40:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8FE6B6E3E5;
+	Thu, 10 Dec 2020 06:40:29 +0000 (UTC)
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D92B6E3DF;
- Thu, 10 Dec 2020 06:40:24 +0000 (UTC)
-IronPort-SDR: zsDKKgoC+tSHVRVu3IoScBMwcA3CthcSZ6N7NhT02VhYzWvh2x8crMGYWZxtBoxblkLsZ8jElP
- jXd7OWv7AwHQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9830"; a="174322159"
-X-IronPort-AV: E=Sophos;i="5.78,407,1599548400"; d="scan'208";a="174322159"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 336776E3E5;
+ Thu, 10 Dec 2020 06:40:26 +0000 (UTC)
+IronPort-SDR: hJ2VHWxAnSSfjdyfZfqEYeM/v2xfWWOKrwFL5nn0uiMmThwPI/YyzUxc5Pat4C5a6y9O09V3nk
+ lAlxwFmvMC0A==
+X-IronPort-AV: E=McAfee;i="6000,8403,9830"; a="174322165"
+X-IronPort-AV: E=Sophos;i="5.78,407,1599548400"; d="scan'208";a="174322165"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Dec 2020 22:40:22 -0800
-IronPort-SDR: hrZ2qF9N5rJONElZpBz4Vol6T4usZeSQC29VUmOeKM/zG7Aoe3WQyZQv9GIc8DB+7Op4sYFbFF
- XnHuEYKbJ0YA==
-X-IronPort-AV: E=Sophos;i="5.78,407,1599548400"; d="scan'208";a="318854309"
+ 09 Dec 2020 22:40:25 -0800
+IronPort-SDR: hZE3pBaFe/7e4FDB32YrVUoZ1MZp8BtzPcocjYO6zgEkSoIOlY4IIafc3sCzm138OyYCpKoM2M
+ MsuH8Lzr6EPA==
+X-IronPort-AV: E=Sophos;i="5.78,407,1599548400"; d="scan'208";a="318854330"
 Received: from genxfsim-desktop.iind.intel.com ([10.223.74.178])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Dec 2020 22:40:16 -0800
+ 09 Dec 2020 22:40:22 -0800
 From: Anshuman Gupta <anshuman.gupta@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Thu, 10 Dec 2020 11:56:22 +0530
-Message-Id: <20201210062640.11783-1-anshuman.gupta@intel.com>
+Date: Thu, 10 Dec 2020 11:56:24 +0530
+Message-Id: <20201210062640.11783-3-anshuman.gupta@intel.com>
 X-Mailer: git-send-email 2.26.2
+In-Reply-To: <20201210062640.11783-1-anshuman.gupta@intel.com>
+References: <20201210062640.11783-1-anshuman.gupta@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v7 00/18] HDCP 2.2 and HDCP 1.4 Gen12 DP MST
- support
+Subject: [Intel-gfx] [PATCH v7 02/18] drm/i915/hdcp: Get conn while
+ content_type changed
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,56 +65,33 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This is v7 version has added some fixes to below pacthes related to
-gen11 platform.
-[PATCH v7 17/18] drm/i915/hdcp: Support for HDCP 2.2 MST shim
-[PATCH v7 16/18] drm/i915/hdcp: Add HDCP 2.2 stream register
- 
-It has been tested manually with below IGT series on TGL and ICL.
-https://patchwork.freedesktop.org/series/82987/
+Get DRM connector reference count while scheduling a prop work
+to avoid any possible destroy of DRM connector when it is in
+DRM_CONNECTOR_REGISTERED state.
 
-[PATCH v6 12/18] misc/mei/hdcp: Fix AUTH_STREAM_REQ cmd buffer len
-has an Ack from Tomas to merge it via drm-intel.
+Fixes: a6597faa2d59 ("drm/i915: Protect workers against disappearing connectors")
+Cc: Sean Paul <seanpaul@chromium.org>
+Cc: Ramalingam C <ramalingam.c@intel.com>
+Reviewed-by: Uma Shankar <uma.shankar@intel.com>
+Reviewed-by: Ramalingam C <ramalingam.c@intel.com>
+Tested-by: Karthik B S <karthik.b.s@intel.com>
+Signed-off-by: Anshuman Gupta <anshuman.gupta@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_hdcp.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-[PATCH v6 13/18] drm/hdcp: Max MST content streams
-has an Ack from drm-misc maintainer to merge it via drm-intel.
-
-Test-with: 20201126050320.2434-2-karthik.b.s@intel.com
-
-Anshuman Gupta (18):
-  drm/i915/hdcp: Update CP property in update_pipe
-  drm/i915/hdcp: Get conn while content_type changed
-  drm/i915/hotplug: Handle CP_IRQ for DP-MST
-  drm/i915/hdcp: No HDCP when encoder is't initialized
-  drm/i915/hdcp: DP MST transcoder for link and stream
-  drm/i915/hdcp: Move HDCP enc status timeout to header
-  drm/i915/hdcp: HDCP stream encryption support
-  drm/i915/hdcp: Enable HDCP 1.4 stream encryption
-  drm/i915/hdcp: Enable Gen12 HDCP 1.4 DP MST support
-  drm/i915/hdcp: Pass dig_port to intel_hdcp_init
-  drm/i915/hdcp: Encapsulate hdcp_port_data to dig_port
-  misc/mei/hdcp: Fix AUTH_STREAM_REQ cmd buffer len
-  drm/hdcp: Max MST content streams
-  drm/i915/hdcp: MST streams support in hdcp port_data
-  drm/i915/hdcp: Pass connector to check_2_2_link
-  drm/i915/hdcp: Add HDCP 2.2 stream register
-  drm/i915/hdcp: Support for HDCP 2.2 MST shim callbacks
-  drm/i915/hdcp: Enable HDCP 2.2 MST support
-
- drivers/gpu/drm/i915/display/intel_ddi.c      |  14 +-
- drivers/gpu/drm/i915/display/intel_ddi.h      |   6 +-
- .../drm/i915/display/intel_display_types.h    |  20 +-
- drivers/gpu/drm/i915/display/intel_dp.c       |  14 +-
- drivers/gpu/drm/i915/display/intel_dp_hdcp.c  | 186 +++++++++--
- drivers/gpu/drm/i915/display/intel_dp_mst.c   |   8 +-
- drivers/gpu/drm/i915/display/intel_hdcp.c     | 303 ++++++++++++++----
- drivers/gpu/drm/i915/display/intel_hdcp.h     |   8 +-
- drivers/gpu/drm/i915/display/intel_hdmi.c     |  19 +-
- drivers/gpu/drm/i915/i915_reg.h               |  40 +++
- drivers/misc/mei/hdcp/mei_hdcp.c              |   3 +-
- include/drm/drm_hdcp.h                        |   8 +-
- 12 files changed, 509 insertions(+), 120 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.c b/drivers/gpu/drm/i915/display/intel_hdcp.c
+index eee8263405b9..b9d8825e2bb1 100644
+--- a/drivers/gpu/drm/i915/display/intel_hdcp.c
++++ b/drivers/gpu/drm/i915/display/intel_hdcp.c
+@@ -2210,6 +2210,7 @@ void intel_hdcp_update_pipe(struct intel_atomic_state *state,
+ 	if (content_protection_type_changed) {
+ 		mutex_lock(&hdcp->mutex);
+ 		hdcp->value = DRM_MODE_CONTENT_PROTECTION_DESIRED;
++		drm_connector_get(&connector->base);
+ 		schedule_work(&hdcp->prop_work);
+ 		mutex_unlock(&hdcp->mutex);
+ 	}
 -- 
 2.26.2
 
