@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 60AE4C4361B
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 08:03:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 09ECBC433FE
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 08:03:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 09AFD23D4D
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 08:03:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 09AFD23D4D
+	by mail.kernel.org (Postfix) with ESMTPS id A565523D4D
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 08:03:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A565523D4D
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 18A0A6EA0B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A76716EA1A;
 	Thu, 10 Dec 2020 08:03:00 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 565E56E82C
- for <intel-gfx@lists.freedesktop.org>; Thu, 10 Dec 2020 08:02:53 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 62C3F6E9ED
+ for <intel-gfx@lists.freedesktop.org>; Thu, 10 Dec 2020 08:02:54 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23275656-1500050 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23275653-1500050 
  for multiple; Thu, 10 Dec 2020 08:02:41 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 10 Dec 2020 08:02:23 +0000
-Message-Id: <20201210080240.24529-4-chris@chris-wilson.co.uk>
+Date: Thu, 10 Dec 2020 08:02:21 +0000
+Message-Id: <20201210080240.24529-2-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201210080240.24529-1-chris@chris-wilson.co.uk>
 References: <20201210080240.24529-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 04/21] drm/i915/gt: Use virtual_engine during
- execlists_dequeue
+Subject: [Intel-gfx] [PATCH 02/21] drm/i915/gt: Wean workaround selftests
+ off GEM context
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,360 +56,486 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Rather than going back and forth between the rb_node entry and the
-virtual_engine type, store the ve local and reuse it. As the
-container_of conversion from rb_node to virtual_engine requires a
-variable offset, performing that conversion just once shaves off a bit
-of code.
-
-v2: Keep a single virtual engine lookup, for typical use.
+The workarounds are tied to the GT and we should derive the tests local
+to the GT.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 ---
- .../drm/i915/gt/intel_execlists_submission.c  | 239 ++++++++----------
- 1 file changed, 105 insertions(+), 134 deletions(-)
+ .../gpu/drm/i915/gt/selftest_workarounds.c    | 189 ++++++++----------
+ 1 file changed, 88 insertions(+), 101 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-index 157a8f18d41e..8e83e60492af 100644
---- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-+++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-@@ -425,9 +425,15 @@ static int queue_prio(const struct intel_engine_execlists *execlists)
- 	return ((p->priority + 1) << I915_USER_PRIORITY_SHIFT) - ffs(p->used);
+diff --git a/drivers/gpu/drm/i915/gt/selftest_workarounds.c b/drivers/gpu/drm/i915/gt/selftest_workarounds.c
+index 61a0532d0f3d..703b77207a47 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_workarounds.c
++++ b/drivers/gpu/drm/i915/gt/selftest_workarounds.c
+@@ -95,8 +95,9 @@ reference_lists_fini(struct intel_gt *gt, struct wa_lists *lists)
  }
  
-+static int virtual_prio(const struct intel_engine_execlists *el)
-+{
-+	struct rb_node *rb = rb_first_cached(&el->virtual);
-+
-+	return rb ? rb_entry(rb, struct ve_node, rb)->prio : INT_MIN;
-+}
-+
- static inline bool need_preempt(const struct intel_engine_cs *engine,
--				const struct i915_request *rq,
--				struct rb_node *rb)
-+				const struct i915_request *rq)
+ static struct drm_i915_gem_object *
+-read_nonprivs(struct i915_gem_context *ctx, struct intel_engine_cs *engine)
++read_nonprivs(struct intel_context *ce)
  {
- 	int last_prio;
++	struct intel_engine_cs *engine = ce->engine;
+ 	const u32 base = engine->mmio_base;
+ 	struct drm_i915_gem_object *result;
+ 	struct i915_request *rq;
+@@ -130,7 +131,7 @@ read_nonprivs(struct i915_gem_context *ctx, struct intel_engine_cs *engine)
+ 	if (err)
+ 		goto err_obj;
  
-@@ -464,25 +470,6 @@ static inline bool need_preempt(const struct intel_engine_cs *engine,
- 	    rq_prio(list_next_entry(rq, sched.link)) > last_prio)
- 		return true;
+-	rq = igt_request_alloc(ctx, engine);
++	rq = intel_context_create_request(ce);
+ 	if (IS_ERR(rq)) {
+ 		err = PTR_ERR(rq);
+ 		goto err_pin;
+@@ -145,7 +146,7 @@ read_nonprivs(struct i915_gem_context *ctx, struct intel_engine_cs *engine)
+ 		goto err_req;
  
--	if (rb) {
--		struct virtual_engine *ve =
--			rb_entry(rb, typeof(*ve), nodes[engine->id].rb);
--		bool preempt = false;
+ 	srm = MI_STORE_REGISTER_MEM | MI_SRM_LRM_GLOBAL_GTT;
+-	if (INTEL_GEN(ctx->i915) >= 8)
++	if (INTEL_GEN(engine->i915) >= 8)
+ 		srm++;
+ 
+ 	cs = intel_ring_begin(rq, 4 * RING_MAX_NONPRIV_SLOTS);
+@@ -200,16 +201,16 @@ print_results(const struct intel_engine_cs *engine, const u32 *results)
+ 	}
+ }
+ 
+-static int check_whitelist(struct i915_gem_context *ctx,
+-			   struct intel_engine_cs *engine)
++static int check_whitelist(struct intel_context *ce)
+ {
++	struct intel_engine_cs *engine = ce->engine;
+ 	struct drm_i915_gem_object *results;
+ 	struct intel_wedge_me wedge;
+ 	u32 *vaddr;
+ 	int err;
+ 	int i;
+ 
+-	results = read_nonprivs(ctx, engine);
++	results = read_nonprivs(ce);
+ 	if (IS_ERR(results))
+ 		return PTR_ERR(results);
+ 
+@@ -293,8 +294,7 @@ static int check_whitelist_across_reset(struct intel_engine_cs *engine,
+ 					int (*reset)(struct intel_engine_cs *),
+ 					const char *name)
+ {
+-	struct drm_i915_private *i915 = engine->i915;
+-	struct i915_gem_context *ctx, *tmp;
++	struct intel_context *ce, *tmp;
+ 	struct igt_spinner spin;
+ 	intel_wakeref_t wakeref;
+ 	int err;
+@@ -302,15 +302,15 @@ static int check_whitelist_across_reset(struct intel_engine_cs *engine,
+ 	pr_info("Checking %d whitelisted registers on %s (RING_NONPRIV) [%s]\n",
+ 		engine->whitelist.count, engine->name, name);
+ 
+-	ctx = kernel_context(i915);
+-	if (IS_ERR(ctx))
+-		return PTR_ERR(ctx);
++	ce = intel_context_create(engine);
++	if (IS_ERR(ce))
++		return PTR_ERR(ce);
+ 
+ 	err = igt_spinner_init(&spin, engine->gt);
+ 	if (err)
+ 		goto out_ctx;
+ 
+-	err = check_whitelist(ctx, engine);
++	err = check_whitelist(ce);
+ 	if (err) {
+ 		pr_err("Invalid whitelist *before* %s reset!\n", name);
+ 		goto out_spin;
+@@ -330,22 +330,22 @@ static int check_whitelist_across_reset(struct intel_engine_cs *engine,
+ 		goto out_spin;
+ 	}
+ 
+-	err = check_whitelist(ctx, engine);
++	err = check_whitelist(ce);
+ 	if (err) {
+ 		pr_err("Whitelist not preserved in context across %s reset!\n",
+ 		       name);
+ 		goto out_spin;
+ 	}
+ 
+-	tmp = kernel_context(i915);
++	tmp = intel_context_create(engine);
+ 	if (IS_ERR(tmp)) {
+ 		err = PTR_ERR(tmp);
+ 		goto out_spin;
+ 	}
+-	kernel_context_close(ctx);
+-	ctx = tmp;
++	intel_context_put(ce);
++	ce = tmp;
+ 
+-	err = check_whitelist(ctx, engine);
++	err = check_whitelist(ce);
+ 	if (err) {
+ 		pr_err("Invalid whitelist *after* %s reset in fresh context!\n",
+ 		       name);
+@@ -355,7 +355,7 @@ static int check_whitelist_across_reset(struct intel_engine_cs *engine,
+ out_spin:
+ 	igt_spinner_fini(&spin);
+ out_ctx:
+-	kernel_context_close(ctx);
++	intel_context_put(ce);
+ 	return err;
+ }
+ 
+@@ -786,15 +786,15 @@ static int live_reset_whitelist(void *arg)
+ 	return err;
+ }
+ 
+-static int read_whitelisted_registers(struct i915_gem_context *ctx,
+-				      struct intel_engine_cs *engine,
++static int read_whitelisted_registers(struct intel_context *ce,
+ 				      struct i915_vma *results)
+ {
++	struct intel_engine_cs *engine = ce->engine;
+ 	struct i915_request *rq;
+ 	int i, err = 0;
+ 	u32 srm, *cs;
+ 
+-	rq = igt_request_alloc(ctx, engine);
++	rq = intel_context_create_request(ce);
+ 	if (IS_ERR(rq))
+ 		return PTR_ERR(rq);
+ 
+@@ -807,7 +807,7 @@ static int read_whitelisted_registers(struct i915_gem_context *ctx,
+ 		goto err_req;
+ 
+ 	srm = MI_STORE_REGISTER_MEM;
+-	if (INTEL_GEN(ctx->i915) >= 8)
++	if (INTEL_GEN(engine->i915) >= 8)
+ 		srm++;
+ 
+ 	cs = intel_ring_begin(rq, 4 * engine->whitelist.count);
+@@ -834,18 +834,15 @@ static int read_whitelisted_registers(struct i915_gem_context *ctx,
+ 	return request_add_sync(rq, err);
+ }
+ 
+-static int scrub_whitelisted_registers(struct i915_gem_context *ctx,
+-				       struct intel_engine_cs *engine)
++static int scrub_whitelisted_registers(struct intel_context *ce)
+ {
+-	struct i915_address_space *vm;
++	struct intel_engine_cs *engine = ce->engine;
+ 	struct i915_request *rq;
+ 	struct i915_vma *batch;
+ 	int i, err = 0;
+ 	u32 *cs;
+ 
+-	vm = i915_gem_context_get_vm_rcu(ctx);
+-	batch = create_batch(vm);
+-	i915_vm_put(vm);
++	batch = create_batch(ce->vm);
+ 	if (IS_ERR(batch))
+ 		return PTR_ERR(batch);
+ 
+@@ -873,7 +870,7 @@ static int scrub_whitelisted_registers(struct i915_gem_context *ctx,
+ 	i915_gem_object_flush_map(batch->obj);
+ 	intel_gt_chipset_flush(engine->gt);
+ 
+-	rq = igt_request_alloc(ctx, engine);
++	rq = intel_context_create_request(ce);
+ 	if (IS_ERR(rq)) {
+ 		err = PTR_ERR(rq);
+ 		goto err_unpin;
+@@ -1016,7 +1013,6 @@ static int live_isolated_whitelist(void *arg)
+ {
+ 	struct intel_gt *gt = arg;
+ 	struct {
+-		struct i915_gem_context *ctx;
+ 		struct i915_vma *scratch[2];
+ 	} client[2] = {};
+ 	struct intel_engine_cs *engine;
+@@ -1032,61 +1028,55 @@ static int live_isolated_whitelist(void *arg)
+ 		return 0;
+ 
+ 	for (i = 0; i < ARRAY_SIZE(client); i++) {
+-		struct i915_address_space *vm;
+-		struct i915_gem_context *c;
 -
--		if (engine == ve->siblings[0]) { /* only preempt one sibling */
--			struct i915_request *next;
--
--			rcu_read_lock();
--			next = READ_ONCE(ve->request);
--			if (next)
--				preempt = rq_prio(next) > last_prio;
--			rcu_read_unlock();
+-		c = kernel_context(gt->i915);
+-		if (IS_ERR(c)) {
+-			err = PTR_ERR(c);
+-			goto err;
 -		}
 -
--		if (preempt)
--			return preempt;
--	}
+-		vm = i915_gem_context_get_vm_rcu(c);
 -
- 	/*
- 	 * If the inflight context did not trigger the preemption, then maybe
- 	 * it was the set of queued requests? Pick the highest priority in
-@@ -493,7 +480,8 @@ static inline bool need_preempt(const struct intel_engine_cs *engine,
- 	 * ELSP[0] or ELSP[1] as, thanks again to PI, if it was the same
- 	 * context, it's priority would not exceed ELSP[0] aka last_prio.
- 	 */
--	return queue_prio(&engine->execlists) > last_prio;
-+	return max(virtual_prio(&engine->execlists),
-+		   queue_prio(&engine->execlists)) > last_prio;
- }
+-		client[i].scratch[0] = create_scratch(vm, 1024);
++		client[i].scratch[0] = create_scratch(gt->vm, 1024);
+ 		if (IS_ERR(client[i].scratch[0])) {
+ 			err = PTR_ERR(client[i].scratch[0]);
+-			i915_vm_put(vm);
+-			kernel_context_close(c);
+ 			goto err;
+ 		}
  
- __maybe_unused static inline bool
-@@ -1781,6 +1769,35 @@ static bool virtual_matches(const struct virtual_engine *ve,
- 	return true;
- }
+-		client[i].scratch[1] = create_scratch(vm, 1024);
++		client[i].scratch[1] = create_scratch(gt->vm, 1024);
+ 		if (IS_ERR(client[i].scratch[1])) {
+ 			err = PTR_ERR(client[i].scratch[1]);
+ 			i915_vma_unpin_and_release(&client[i].scratch[0], 0);
+-			i915_vm_put(vm);
+-			kernel_context_close(c);
+ 			goto err;
+ 		}
+-
+-		client[i].ctx = c;
+-		i915_vm_put(vm);
+ 	}
  
-+static struct virtual_engine *
-+first_virtual_engine(struct intel_engine_cs *engine)
-+{
-+	struct intel_engine_execlists *el = &engine->execlists;
-+	struct rb_node *rb = rb_first_cached(&el->virtual);
+ 	for_each_engine(engine, gt, id) {
++		struct intel_context *ce[2];
 +
-+	while (rb) {
-+		struct virtual_engine *ve =
-+			rb_entry(rb, typeof(*ve), nodes[engine->id].rb);
-+		struct i915_request *rq = READ_ONCE(ve->request);
-+
-+		/* lazily cleanup after another engine handled rq */
-+		if (!rq) {
-+			rb_erase_cached(rb, &el->virtual);
-+			RB_CLEAR_NODE(rb);
-+			rb = rb_first_cached(&el->virtual);
-+			continue;
+ 		if (!engine->kernel_context->vm)
+ 			continue;
+ 
+ 		if (!whitelist_writable_count(engine))
+ 			continue;
+ 
++		ce[0] = intel_context_create(engine);
++		if (IS_ERR(ce[0])) {
++			err = PTR_ERR(ce[0]);
++			break;
++		}
++		ce[1] = intel_context_create(engine);
++		if (IS_ERR(ce[1])) {
++			err = PTR_ERR(ce[1]);
++			intel_context_put(ce[0]);
++			break;
 +		}
 +
-+		if (!virtual_matches(ve, rq, engine)) {
-+			rb = rb_next(rb);
-+			continue;
-+		}
-+		return ve;
-+	}
-+
-+	return NULL;
-+}
-+
- static void virtual_xfer_context(struct virtual_engine *ve,
- 				 struct intel_engine_cs *engine)
- {
-@@ -1869,32 +1886,15 @@ static void defer_active(struct intel_engine_cs *engine)
+ 		/* Read default values */
+-		err = read_whitelisted_registers(client[0].ctx, engine,
+-						 client[0].scratch[0]);
++		err = read_whitelisted_registers(ce[0], client[0].scratch[0]);
+ 		if (err)
+-			goto err;
++			goto err_ce;
+ 
+ 		/* Try to overwrite registers (should only affect ctx0) */
+-		err = scrub_whitelisted_registers(client[0].ctx, engine);
++		err = scrub_whitelisted_registers(ce[0]);
+ 		if (err)
+-			goto err;
++			goto err_ce;
+ 
+ 		/* Read values from ctx1, we expect these to be defaults */
+-		err = read_whitelisted_registers(client[1].ctx, engine,
+-						 client[1].scratch[0]);
++		err = read_whitelisted_registers(ce[1], client[1].scratch[0]);
+ 		if (err)
+-			goto err;
++			goto err_ce;
+ 
+ 		/* Verify that both reads return the same default values */
+ 		err = check_whitelisted_registers(engine,
+@@ -1094,31 +1084,29 @@ static int live_isolated_whitelist(void *arg)
+ 						  client[1].scratch[0],
+ 						  result_eq);
+ 		if (err)
+-			goto err;
++			goto err_ce;
+ 
+ 		/* Read back the updated values in ctx0 */
+-		err = read_whitelisted_registers(client[0].ctx, engine,
+-						 client[0].scratch[1]);
++		err = read_whitelisted_registers(ce[0], client[0].scratch[1]);
+ 		if (err)
+-			goto err;
++			goto err_ce;
+ 
+ 		/* User should be granted privilege to overwhite regs */
+ 		err = check_whitelisted_registers(engine,
+ 						  client[0].scratch[0],
+ 						  client[0].scratch[1],
+ 						  result_neq);
++err_ce:
++		intel_context_put(ce[1]);
++		intel_context_put(ce[0]);
+ 		if (err)
+-			goto err;
++			break;
+ 	}
+ 
+ err:
+ 	for (i = 0; i < ARRAY_SIZE(client); i++) {
+-		if (!client[i].ctx)
+-			break;
+-
+ 		i915_vma_unpin_and_release(&client[i].scratch[1], 0);
+ 		i915_vma_unpin_and_release(&client[i].scratch[0], 0);
+-		kernel_context_close(client[i].ctx);
+ 	}
+ 
+ 	if (igt_flush_test(gt->i915))
+@@ -1128,18 +1116,21 @@ static int live_isolated_whitelist(void *arg)
+ }
  
  static bool
- need_timeslice(const struct intel_engine_cs *engine,
--	       const struct i915_request *rq,
--	       const struct rb_node *rb)
-+	       const struct i915_request *rq)
+-verify_wa_lists(struct i915_gem_context *ctx, struct wa_lists *lists,
++verify_wa_lists(struct intel_gt *gt, struct wa_lists *lists,
+ 		const char *str)
  {
- 	int hint;
+-	struct drm_i915_private *i915 = ctx->i915;
+-	struct i915_gem_engines_iter it;
+-	struct intel_context *ce;
++	struct intel_engine_cs *engine;
++	enum intel_engine_id id;
+ 	bool ok = true;
  
- 	if (!intel_engine_has_timeslices(engine))
- 		return false;
+-	ok &= wa_list_verify(&i915->uncore, &lists->gt_wa_list, str);
++	ok &= wa_list_verify(gt->uncore, &lists->gt_wa_list, str);
++
++	for_each_engine(engine, gt, id) {
++		struct intel_context *ce;
  
--	hint = engine->execlists.queue_priority_hint;
--
--	if (rb) {
--		const struct virtual_engine *ve =
--			rb_entry(rb, typeof(*ve), nodes[engine->id].rb);
--		const struct intel_engine_cs *inflight =
--			intel_context_inflight(&ve->context);
--
--		if (!inflight || inflight == engine) {
--			struct i915_request *next;
--
--			rcu_read_lock();
--			next = READ_ONCE(ve->request);
--			if (next)
--				hint = max(hint, rq_prio(next));
--			rcu_read_unlock();
--		}
--	}
-+	hint = max(engine->execlists.queue_priority_hint,
-+		   virtual_prio(&engine->execlists));
+-	for_each_gem_engine(ce, i915_gem_context_engines(ctx), it) {
+-		enum intel_engine_id id = ce->engine->id;
++		ce = intel_context_create(engine);
++		if (IS_ERR(ce))
++			return false;
  
- 	if (!list_is_last(&rq->sched.link, &engine->active.requests))
- 		hint = max(hint, rq_prio(list_next_entry(rq, sched.link)));
-@@ -2041,6 +2041,7 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
- 	struct i915_request **port = execlists->pending;
- 	struct i915_request ** const last_port = port + execlists->port_mask;
- 	struct i915_request *last = *execlists->active;
-+	struct virtual_engine *ve;
- 	struct rb_node *rb;
- 	bool submit = false;
- 
-@@ -2068,26 +2069,6 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
- 
- 	spin_lock(&engine->active.lock);
- 
--	for (rb = rb_first_cached(&execlists->virtual); rb; ) {
--		struct virtual_engine *ve =
--			rb_entry(rb, typeof(*ve), nodes[engine->id].rb);
--		struct i915_request *rq = READ_ONCE(ve->request);
--
--		if (!rq) { /* lazily cleanup after another engine handled rq */
--			rb_erase_cached(rb, &execlists->virtual);
--			RB_CLEAR_NODE(rb);
--			rb = rb_first_cached(&execlists->virtual);
--			continue;
--		}
--
--		if (!virtual_matches(ve, rq, engine)) {
--			rb = rb_next(rb);
--			continue;
--		}
--
--		break;
--	}
--
- 	/*
- 	 * If the queue is higher priority than the last
- 	 * request in the currently active context, submit afresh.
-@@ -2110,7 +2091,7 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
- 	if (last) {
- 		if (i915_request_completed(last)) {
- 			goto check_secondary;
--		} else if (need_preempt(engine, last, rb)) {
-+		} else if (need_preempt(engine, last)) {
- 			ENGINE_TRACE(engine,
- 				     "preempting last=%llx:%lld, prio=%d, hint=%d\n",
- 				     last->fence.context,
-@@ -2136,7 +2117,7 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
- 			__unwind_incomplete_requests(engine);
- 
- 			last = NULL;
--		} else if (need_timeslice(engine, last, rb) &&
-+		} else if (need_timeslice(engine, last) &&
- 			   timeslice_expired(execlists, last)) {
- 			ENGINE_TRACE(engine,
- 				     "expired last=%llx:%lld, prio=%d, hint=%d, yield?=%s\n",
-@@ -2187,96 +2168,86 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
- 		}
+ 		ok &= engine_wa_list_verify(ce,
+ 					    &lists->engine[id].wa_list,
+@@ -1148,6 +1139,8 @@ verify_wa_lists(struct i915_gem_context *ctx, struct wa_lists *lists,
+ 		ok &= engine_wa_list_verify(ce,
+ 					    &lists->engine[id].ctx_wa_list,
+ 					    str) == 0;
++
++		intel_context_put(ce);
  	}
  
--	while (rb) { /* XXX virtual is always taking precedence */
--		struct virtual_engine *ve =
--			rb_entry(rb, typeof(*ve), nodes[engine->id].rb);
-+	/* XXX virtual is always taking precedence */
-+	while ((ve = first_virtual_engine(engine))) {
- 		struct i915_request *rq;
+ 	return ok;
+@@ -1157,7 +1150,6 @@ static int
+ live_gpu_reset_workarounds(void *arg)
+ {
+ 	struct intel_gt *gt = arg;
+-	struct i915_gem_context *ctx;
+ 	intel_wakeref_t wakeref;
+ 	struct wa_lists lists;
+ 	bool ok;
+@@ -1165,12 +1157,6 @@ live_gpu_reset_workarounds(void *arg)
+ 	if (!intel_has_gpu_reset(gt))
+ 		return 0;
  
- 		spin_lock(&ve->base.active.lock);
+-	ctx = kernel_context(gt->i915);
+-	if (IS_ERR(ctx))
+-		return PTR_ERR(ctx);
+-
+-	i915_gem_context_lock_engines(ctx);
+-
+ 	pr_info("Verifying after GPU reset...\n");
  
- 		rq = ve->request;
--		if (unlikely(!rq)) { /* lost the race to a sibling */
--			spin_unlock(&ve->base.active.lock);
--			rb_erase_cached(rb, &execlists->virtual);
--			RB_CLEAR_NODE(rb);
--			rb = rb_first_cached(&execlists->virtual);
--			continue;
--		}
-+		if (unlikely(!rq)) /* lost the race to a sibling */
-+			goto unlock;
+ 	igt_global_reset_lock(gt);
+@@ -1178,17 +1164,15 @@ live_gpu_reset_workarounds(void *arg)
  
--		GEM_BUG_ON(rq != ve->request);
- 		GEM_BUG_ON(rq->engine != &ve->base);
- 		GEM_BUG_ON(rq->context != &ve->context);
+ 	reference_lists_init(gt, &lists);
  
--		if (rq_prio(rq) >= queue_prio(execlists)) {
--			if (!virtual_matches(ve, rq, engine)) {
--				spin_unlock(&ve->base.active.lock);
--				rb = rb_next(rb);
--				continue;
--			}
-+		if (unlikely(rq_prio(rq) < queue_prio(execlists))) {
-+			spin_unlock(&ve->base.active.lock);
+-	ok = verify_wa_lists(ctx, &lists, "before reset");
++	ok = verify_wa_lists(gt, &lists, "before reset");
+ 	if (!ok)
+ 		goto out;
+ 
+ 	intel_gt_reset(gt, ALL_ENGINES, "live_workarounds");
+ 
+-	ok = verify_wa_lists(ctx, &lists, "after reset");
++	ok = verify_wa_lists(gt, &lists, "after reset");
+ 
+ out:
+-	i915_gem_context_unlock_engines(ctx);
+-	kernel_context_close(ctx);
+ 	reference_lists_fini(gt, &lists);
+ 	intel_runtime_pm_put(gt->uncore->rpm, wakeref);
+ 	igt_global_reset_unlock(gt);
+@@ -1200,8 +1184,8 @@ static int
+ live_engine_reset_workarounds(void *arg)
+ {
+ 	struct intel_gt *gt = arg;
+-	struct i915_gem_engines_iter it;
+-	struct i915_gem_context *ctx;
++	struct intel_engine_cs *engine;
++	enum intel_engine_id id;
+ 	struct intel_context *ce;
+ 	struct igt_spinner spin;
+ 	struct i915_request *rq;
+@@ -1212,30 +1196,30 @@ live_engine_reset_workarounds(void *arg)
+ 	if (!intel_has_reset_engine(gt))
+ 		return 0;
+ 
+-	ctx = kernel_context(gt->i915);
+-	if (IS_ERR(ctx))
+-		return PTR_ERR(ctx);
+-
+ 	igt_global_reset_lock(gt);
+ 	wakeref = intel_runtime_pm_get(gt->uncore->rpm);
+ 
+ 	reference_lists_init(gt, &lists);
+ 
+-	for_each_gem_engine(ce, i915_gem_context_lock_engines(ctx), it) {
+-		struct intel_engine_cs *engine = ce->engine;
++	for_each_engine(engine, gt, id) {
+ 		bool ok;
+ 
+ 		pr_info("Verifying after %s reset...\n", engine->name);
++		ce = intel_context_create(engine);
++		if (IS_ERR(ce)) {
++			ret = PTR_ERR(ce);
 +			break;
 +		}
  
--			if (last && !can_merge_rq(last, rq)) {
--				spin_unlock(&ve->base.active.lock);
--				spin_unlock(&engine->active.lock);
--				start_timeslice(engine, rq_prio(rq));
--				return; /* leave this for another sibling */
--			}
-+		GEM_BUG_ON(!virtual_matches(ve, rq, engine));
- 
--			ENGINE_TRACE(engine,
--				     "virtual rq=%llx:%lld%s, new engine? %s\n",
--				     rq->fence.context,
--				     rq->fence.seqno,
--				     i915_request_completed(rq) ? "!" :
--				     i915_request_started(rq) ? "*" :
--				     "",
--				     yesno(engine != ve->siblings[0]));
--
--			WRITE_ONCE(ve->request, NULL);
--			WRITE_ONCE(ve->base.execlists.queue_priority_hint,
--				   INT_MIN);
--			rb_erase_cached(rb, &execlists->virtual);
--			RB_CLEAR_NODE(rb);
-+		if (last && !can_merge_rq(last, rq)) {
-+			spin_unlock(&ve->base.active.lock);
-+			spin_unlock(&engine->active.lock);
-+			start_timeslice(engine, rq_prio(rq));
-+			return; /* leave this for another sibling */
-+		}
- 
--			GEM_BUG_ON(!(rq->execution_mask & engine->mask));
--			WRITE_ONCE(rq->engine, engine);
-+		ENGINE_TRACE(engine,
-+			     "virtual rq=%llx:%lld%s, new engine? %s\n",
-+			     rq->fence.context,
-+			     rq->fence.seqno,
-+			     i915_request_completed(rq) ? "!" :
-+			     i915_request_started(rq) ? "*" :
-+			     "",
-+			     yesno(engine != ve->siblings[0]));
- 
--			if (__i915_request_submit(rq)) {
--				/*
--				 * Only after we confirm that we will submit
--				 * this request (i.e. it has not already
--				 * completed), do we want to update the context.
--				 *
--				 * This serves two purposes. It avoids
--				 * unnecessary work if we are resubmitting an
--				 * already completed request after timeslicing.
--				 * But more importantly, it prevents us altering
--				 * ve->siblings[] on an idle context, where
--				 * we may be using ve->siblings[] in
--				 * virtual_context_enter / virtual_context_exit.
--				 */
--				virtual_xfer_context(ve, engine);
--				GEM_BUG_ON(ve->siblings[0] != engine);
-+		WRITE_ONCE(ve->request, NULL);
-+		WRITE_ONCE(ve->base.execlists.queue_priority_hint, INT_MIN);
- 
--				submit = true;
--				last = rq;
--			}
--			i915_request_put(rq);
-+		rb = &ve->nodes[engine->id].rb;
-+		rb_erase_cached(rb, &execlists->virtual);
-+		RB_CLEAR_NODE(rb);
-+
-+		GEM_BUG_ON(!(rq->execution_mask & engine->mask));
-+		WRITE_ONCE(rq->engine, engine);
- 
-+		if (__i915_request_submit(rq)) {
- 			/*
--			 * Hmm, we have a bunch of virtual engine requests,
--			 * but the first one was already completed (thanks
--			 * preempt-to-busy!). Keep looking at the veng queue
--			 * until we have no more relevant requests (i.e.
--			 * the normal submit queue has higher priority).
-+			 * Only after we confirm that we will submit
-+			 * this request (i.e. it has not already
-+			 * completed), do we want to update the context.
-+			 *
-+			 * This serves two purposes. It avoids
-+			 * unnecessary work if we are resubmitting an
-+			 * already completed request after timeslicing.
-+			 * But more importantly, it prevents us altering
-+			 * ve->siblings[] on an idle context, where
-+			 * we may be using ve->siblings[] in
-+			 * virtual_context_enter / virtual_context_exit.
- 			 */
--			if (!submit) {
--				spin_unlock(&ve->base.active.lock);
--				rb = rb_first_cached(&execlists->virtual);
--				continue;
--			}
-+			virtual_xfer_context(ve, engine);
-+			GEM_BUG_ON(ve->siblings[0] != engine);
-+
-+			submit = true;
-+			last = rq;
+-		ok = verify_wa_lists(ctx, &lists, "before reset");
++		ok = verify_wa_lists(gt, &lists, "before reset");
+ 		if (!ok) {
+ 			ret = -ESRCH;
+ 			goto err;
  		}
  
-+		i915_request_put(rq);
-+unlock:
- 		spin_unlock(&ve->base.active.lock);
--		break;
-+
-+		/*
-+		 * Hmm, we have a bunch of virtual engine requests,
-+		 * but the first one was already completed (thanks
-+		 * preempt-to-busy!). Keep looking at the veng queue
-+		 * until we have no more relevant requests (i.e.
-+		 * the normal submit queue has higher priority).
-+		 */
-+		if (submit)
-+			break;
- 	}
+-		intel_engine_reset(engine, "live_workarounds");
++		intel_engine_reset(engine, "live_workarounds:idle");
  
- 	while ((rb = rb_first_cached(&execlists->queue))) {
+-		ok = verify_wa_lists(ctx, &lists, "after idle reset");
++		ok = verify_wa_lists(gt, &lists, "after idle reset");
+ 		if (!ok) {
+ 			ret = -ESRCH;
+ 			goto err;
+@@ -1259,23 +1243,26 @@ live_engine_reset_workarounds(void *arg)
+ 			goto err;
+ 		}
+ 
+-		intel_engine_reset(engine, "live_workarounds");
++		intel_engine_reset(engine, "live_workarounds:active");
+ 
+ 		igt_spinner_end(&spin);
+ 		igt_spinner_fini(&spin);
+ 
+-		ok = verify_wa_lists(ctx, &lists, "after busy reset");
++		ok = verify_wa_lists(gt, &lists, "after busy reset");
+ 		if (!ok) {
+ 			ret = -ESRCH;
+ 			goto err;
+ 		}
+-	}
++
+ err:
+-	i915_gem_context_unlock_engines(ctx);
++		intel_context_put(ce);
++		if (ret)
++			break;
++	}
++
+ 	reference_lists_fini(gt, &lists);
+ 	intel_runtime_pm_put(gt->uncore->rpm, wakeref);
+ 	igt_global_reset_unlock(gt);
+-	kernel_context_close(ctx);
+ 
+ 	igt_flush_test(gt->i915);
+ 
 -- 
 2.20.1
 
