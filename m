@@ -2,55 +2,54 @@ Return-Path: <SRS0=CSZM=FO=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5279EC4167B
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 19:42:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BEE09C4167B
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 19:42:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EBC5023D23
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 19:42:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EBC5023D23
+	by mail.kernel.org (Postfix) with ESMTPS id 6A8C823D3C
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 19:42:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6A8C823D3C
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linutronix.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E66A86EB31;
-	Thu, 10 Dec 2020 19:42:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 38FFD6EB39;
+	Thu, 10 Dec 2020 19:42:35 +0000 (UTC)
 Received: from galois.linutronix.de (Galois.linutronix.de
  [IPv6:2a0a:51c0:0:12e:550::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E1716EB2A;
- Thu, 10 Dec 2020 19:42:31 +0000 (UTC)
-Message-Id: <20201210194043.769108348@linutronix.de>
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 517476EB1C;
+ Thu, 10 Dec 2020 19:42:22 +0000 (UTC)
+Message-Id: <20201210194043.067097663@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1607629349;
+ s=2020; t=1607629341;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:  references:references;
- bh=RkpDEDsz36bMGIvl/YLs0noKGbsbwyBTWfWGyYCIvwI=;
- b=FjXt0gBZbmoGEhW+JUNun0TgRlpWk5UHUbF8b/SYgA73R5qt2FK9Tl9JCUAhz1x+5ISxmb
- 8V7v08WHaUsVznntzV+P4bCrHHh6loow5ZaaQC5qCuEudPhwVHK22AOQesI0Ecsqkh8veP
- Qwn4/oD2Zv3hZttfcTXroXZBKsSviSPS/hfZ0fieRb3ZsJsiILx4Kdfz9zR7w+K2srUSyp
- sVcjXZizv2IhQYS+ESc7LfjgqYgvOCII1d3ugOhi6vPvk7jAG3wwmOOag6qx9YOR3B1IuO
- KQi2Ohrd/6vH+kL/8yvl1XW4GpaahKbPHYgPc32mGshR05m6gXPFbQzdssR1DQ==
+ bh=an/0SlT10gC/rfGB9cofMBAbBc2y8gDRMVN0GHlSQuQ=;
+ b=4P4kE5RTAFQxk4E9p2NZ5tVZaT/fVdqT6FUBVR+n0VlRr8uKLCY6ouByJWK/y9MigmPqnb
+ tesyONzFlkjZdJe1WWdFvx3h+r+GXjLB7sIlmHBZwN8ZTN8764SDWmNv/29J0LI/juCzrG
+ 5AR2DIz8iI4y5+WrS2Gk+rZPh543USYMAHoeudVHDJ9Wges2zOPIJ3rC2brtEkqswFGEBV
+ qoEKpCAHt2vMMptUuKRYjL5+zlSE91zw5P4yyaAjNJTKm8BCJhUlMmWxn/QqILbbs/4fJM
+ zRFVwll3IxpXJvkmkahKFPnuLZWACJTleFizSON231iYySZCGseiBRgkWQqHew==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1607629349;
+ s=2020e; t=1607629341;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:  references:references;
- bh=RkpDEDsz36bMGIvl/YLs0noKGbsbwyBTWfWGyYCIvwI=;
- b=tNp+xNMz1hLFIiRaZEJhoV6X6hTrUYtKO/6Uex9oEhysEt44+COqeNeDA5dBz+L1+ts6Sq
- 70KNBmuAKx0cHoAw==
-Date: Thu, 10 Dec 2020 20:25:48 +0100
+ bh=an/0SlT10gC/rfGB9cofMBAbBc2y8gDRMVN0GHlSQuQ=;
+ b=0D9iZlJLFfBnhtOaF8MIaZu0T6LGBg7Mhm2UH/Vr6qq568TJA8295HDu2RHkjE+w+f0eVZ
+ +xYpdmSgjdKynXCQ==
+Date: Thu, 10 Dec 2020 20:25:41 +0100
 From: Thomas Gleixner <tglx@linutronix.de>
 To: LKML <linux-kernel@vger.kernel.org>
 References: <20201210192536.118432146@linutronix.de>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [patch 12/30] s390/irq: Use irq_desc_kstat_cpu() in
- show_msi_interrupt()
+Subject: [Intel-gfx] [patch 05/30] genirq: Annotate irq stats data races
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,8 +69,8 @@ Cc: Mark Rutland <mark.rutland@arm.com>,
  Linus Walleij <linus.walleij@linaro.org>, dri-devel@lists.freedesktop.org,
  Chris Wilson <chris@chris-wilson.co.uk>,
  "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- netdev@vger.kernel.org, Will Deacon <will@kernel.org>,
- Michal Simek <michal.simek@xilinx.com>, Rob Herring <robh@kernel.org>,
+ Saeed Mahameed <saeedm@nvidia.com>, netdev@vger.kernel.org,
+ Will Deacon <will@kernel.org>, Michal Simek <michal.simek@xilinx.com>,
  linux-s390@vger.kernel.org, afzal mohammed <afzal.mohd.ma@gmail.com>,
  Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
  Dave Jiang <dave.jiang@intel.com>, xen-devel@lists.xenproject.org,
@@ -79,43 +78,62 @@ Cc: Mark Rutland <mark.rutland@arm.com>,
  Marc Zyngier <maz@kernel.org>, Helge Deller <deller@gmx.de>,
  Russell King <linux@armlinux.org.uk>,
  Christian Borntraeger <borntraeger@de.ibm.com>, linux-pci@vger.kernel.org,
- Jakub Kicinski <kuba@kernel.org>, intel-gfx@lists.freedesktop.org,
+ Jakub Kicinski <kuba@kernel.org>, Heiko Carstens <hca@linux.ibm.com>,
  Wambui Karuga <wambui.karugax@gmail.com>, Allen Hubbe <allenbh@gmail.com>,
- Juergen Gross <jgross@suse.com>, Heiko Carstens <hca@linux.ibm.com>,
- linux-gpio@vger.kernel.org, Stefano Stabellini <sstabellini@kernel.org>,
+ Juergen Gross <jgross@suse.com>, Rob Herring <robh@kernel.org>,
+ David Airlie <airlied@linux.ie>, linux-gpio@vger.kernel.org,
+ Stefano Stabellini <sstabellini@kernel.org>,
  Bjorn Helgaas <bhelgaas@google.com>, Lee Jones <lee.jones@linaro.org>,
  linux-arm-kernel@lists.infradead.org,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, David Airlie <airlied@linux.ie>,
- linux-parisc@vger.kernel.org, Hou Zhiqiang <Zhiqiang.Hou@nxp.com>,
- Tariq Toukan <tariqt@nvidia.com>, Jon Mason <jdmason@kudzu.us>,
- linux-ntb@googlegroups.com, Saeed Mahameed <saeedm@nvidia.com>,
- "David S. Miller" <davem@davemloft.net>
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>, linux-parisc@vger.kernel.org,
+ Hou Zhiqiang <Zhiqiang.Hou@nxp.com>, Tariq Toukan <tariqt@nvidia.com>,
+ Jon Mason <jdmason@kudzu.us>, linux-ntb@googlegroups.com,
+ intel-gfx@lists.freedesktop.org, "David S. Miller" <davem@davemloft.net>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The irq descriptor is already there, no need to look it up again.
+Both the per cpu stats and the accumulated count are accessed lockless and
+can be concurrently modified. That's intentional and the stats are a rough
+estimate anyway. Annotate them with data_race().
 
 Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
-Cc: Christian Borntraeger <borntraeger@de.ibm.com>
-Cc: Heiko Carstens <hca@linux.ibm.com>
-Cc: linux-s390@vger.kernel.org
 ---
- arch/s390/kernel/irq.c |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ kernel/irq/irqdesc.c |    4 ++--
+ kernel/irq/proc.c    |    5 +++--
+ 2 files changed, 5 insertions(+), 4 deletions(-)
 
---- a/arch/s390/kernel/irq.c
-+++ b/arch/s390/kernel/irq.c
-@@ -124,7 +124,7 @@ static void show_msi_interrupt(struct se
- 	raw_spin_lock_irqsave(&desc->lock, flags);
- 	seq_printf(p, "%3d: ", irq);
- 	for_each_online_cpu(cpu)
--		seq_printf(p, "%10u ", kstat_irqs_cpu(irq, cpu));
-+		seq_printf(p, "%10u ", irq_desc_kstat_irq(desc, cpu));
+--- a/kernel/irq/irqdesc.c
++++ b/kernel/irq/irqdesc.c
+@@ -943,10 +943,10 @@ unsigned int kstat_irqs(unsigned int irq
+ 	if (!irq_settings_is_per_cpu_devid(desc) &&
+ 	    !irq_settings_is_per_cpu(desc) &&
+ 	    !irq_is_nmi(desc))
+-	    return desc->tot_count;
++		return data_race(desc->tot_count);
  
- 	if (desc->irq_data.chip)
- 		seq_printf(p, " %8s", desc->irq_data.chip->name);
+ 	for_each_possible_cpu(cpu)
+-		sum += *per_cpu_ptr(desc->kstat_irqs, cpu);
++		sum += data_race(*per_cpu_ptr(desc->kstat_irqs, cpu));
+ 	return sum;
+ }
+ 
+--- a/kernel/irq/proc.c
++++ b/kernel/irq/proc.c
+@@ -488,9 +488,10 @@ int show_interrupts(struct seq_file *p,
+ 	if (!desc || irq_settings_is_hidden(desc))
+ 		goto outsparse;
+ 
+-	if (desc->kstat_irqs)
++	if (desc->kstat_irqs) {
+ 		for_each_online_cpu(j)
+-			any_count |= *per_cpu_ptr(desc->kstat_irqs, j);
++			any_count |= data_race(*per_cpu_ptr(desc->kstat_irqs, j));
++	}
+ 
+ 	if ((!desc->action || irq_desc_is_chained(desc)) && !any_count)
+ 		goto outsparse;
 
 _______________________________________________
 Intel-gfx mailing list
