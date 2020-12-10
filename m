@@ -2,52 +2,41 @@ Return-Path: <SRS0=CSZM=FO=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.2 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 60E61C1B0E3
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 18:34:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0F6C3C4361B
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 18:38:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E1F8E23DB4
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 18:34:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E1F8E23DB4
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id AC25D23DC4
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 18:38:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AC25D23DC4
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 593EB6EAC6;
-	Thu, 10 Dec 2020 18:34:11 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9733B6EAC6
- for <intel-gfx@lists.freedesktop.org>; Thu, 10 Dec 2020 18:34:10 +0000 (UTC)
-IronPort-SDR: 9PMih3IKGeobxNQ2qaoTOBYFQ/XkR03wqhGOohnTeOha3e35357xRraAyt4SF597M0DaLoi/yi
- hB1ydmYyJroQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9831"; a="161359925"
-X-IronPort-AV: E=Sophos;i="5.78,409,1599548400"; d="scan'208";a="161359925"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Dec 2020 10:34:09 -0800
-IronPort-SDR: MKNUlfbqk1ut9NgCdaKsknlFwoWdMkU4pFNBzWZkJT+K2qmxSn6/z4n0b3gkN9aH/UOCNOAcGp
- tnMmAoahShMA==
-X-IronPort-AV: E=Sophos;i="5.78,409,1599548400"; d="scan'208";a="348927487"
-Received: from unknown (HELO sdutt-i7) ([10.165.21.147])
- by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Dec 2020 10:34:09 -0800
-Date: Thu, 10 Dec 2020 10:28:23 -0800
-From: Matthew Brost <matthew.brost@intel.com>
-To: Chris Wilson <chris@chris-wilson.co.uk>
-Message-ID: <20201210182823.GA32363@sdutt-i7>
-References: <20201210080240.24529-1-chris@chris-wilson.co.uk>
- <20201210080240.24529-15-chris@chris-wilson.co.uk>
+	by gabe.freedesktop.org (Postfix) with ESMTP id EEB866EAC8;
+	Thu, 10 Dec 2020 18:38:23 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 44B516EAC9;
+ Thu, 10 Dec 2020 18:38:23 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 3F9B7A882F;
+ Thu, 10 Dec 2020 18:38:23 +0000 (UTC)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20201210080240.24529-15-chris@chris-wilson.co.uk>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Subject: Re: [Intel-gfx] [PATCH 15/21] drm/i915/gt: Track all timelines
- created using the HWSP
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Lyude Paul" <lyude@redhat.com>
+Date: Thu, 10 Dec 2020 18:38:23 -0000
+Message-ID: <160762550324.19116.6326662577891107679@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20201210012143.729402-1-lyude@redhat.com>
+In-Reply-To: <20201210012143.729402-1-lyude@redhat.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_drm=3A_Extract_DPCD_backlight_helpers_from_i915=2C_add_supp?=
+ =?utf-8?q?ort_in_nouveau_=28rev2=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,229 +49,46 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Cc: intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Dec 10, 2020 at 08:02:34AM +0000, Chris Wilson wrote:
-> We assume that the contents of the HWSP are lost across suspend, and so
-> upon resume we must restore critical values such as the timeline seqno.
-> Keep track of every timeline allocated that uses the HWSP as its storage
-> and so we can then reset all seqno values by walking that list.
-> 
-> Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+== Series Details ==
 
-Reviewed-by: Matthew Brost <matthew.brost@intel.com>
+Series: drm: Extract DPCD backlight helpers from i915, add support in nouveau (rev2)
+URL   : https://patchwork.freedesktop.org/series/84754/
+State : warning
 
-> ---
->  drivers/gpu/drm/i915/gt/intel_engine_cs.c     |  9 ++++-
->  drivers/gpu/drm/i915/gt/intel_engine_pm.c     |  6 ++++
->  drivers/gpu/drm/i915/gt/intel_engine_types.h  |  1 +
->  .../drm/i915/gt/intel_execlists_submission.c  | 11 ++++--
->  .../gpu/drm/i915/gt/intel_ring_submission.c   | 35 +++++++++++++++++++
->  drivers/gpu/drm/i915/gt/intel_timeline.h      | 13 +++++--
->  .../gpu/drm/i915/gt/intel_timeline_types.h    |  2 ++
->  7 files changed, 71 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-> index 71bd052628f4..6c08e74edcae 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-> +++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-> @@ -648,6 +648,8 @@ static int init_status_page(struct intel_engine_cs *engine)
->  	void *vaddr;
->  	int ret;
->  
-> +	INIT_LIST_HEAD(&engine->status_page.timelines);
-> +
->  	/*
->  	 * Though the HWS register does support 36bit addresses, historically
->  	 * we have had hangs and corruption reported due to wild writes if
-> @@ -936,6 +938,7 @@ void intel_engine_cleanup_common(struct intel_engine_cs *engine)
->  		fput(engine->default_state);
->  
->  	if (engine->kernel_context) {
-> +		list_del(&engine->kernel_context->timeline->engine_link);
->  		intel_context_unpin(engine->kernel_context);
->  		intel_context_put(engine->kernel_context);
->  	}
-> @@ -1281,8 +1284,12 @@ void intel_engines_reset_default_submission(struct intel_gt *gt)
->  	struct intel_engine_cs *engine;
->  	enum intel_engine_id id;
->  
-> -	for_each_engine(engine, gt, id)
-> +	for_each_engine(engine, gt, id) {
-> +		if (engine->sanitize)
-> +			engine->sanitize(engine);
-> +
->  		engine->set_default_submission(engine);
-> +	}
->  }
->  
->  bool intel_engine_can_store_dword(struct intel_engine_cs *engine)
-> diff --git a/drivers/gpu/drm/i915/gt/intel_engine_pm.c b/drivers/gpu/drm/i915/gt/intel_engine_pm.c
-> index 99574378047f..1e5bad0b9a82 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_engine_pm.c
-> +++ b/drivers/gpu/drm/i915/gt/intel_engine_pm.c
-> @@ -60,6 +60,12 @@ static int __engine_unpark(struct intel_wakeref *wf)
->  
->  		/* Scrub the context image after our loss of control */
->  		ce->ops->reset(ce);
-> +
-> +		CE_TRACE(ce, "reset { seqno:%x, *hwsp:%x, ring:%x }\n",
-> +			 ce->timeline->seqno,
-> +			 READ_ONCE(*ce->timeline->hwsp_seqno),
-> +			 ce->ring->emit);
-> +		GEM_BUG_ON(ce->timeline->seqno != *ce->timeline->hwsp_seqno);
->  	}
->  
->  	if (engine->unpark)
-> diff --git a/drivers/gpu/drm/i915/gt/intel_engine_types.h b/drivers/gpu/drm/i915/gt/intel_engine_types.h
-> index e71eef157231..c28f4e190fe6 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_engine_types.h
-> +++ b/drivers/gpu/drm/i915/gt/intel_engine_types.h
-> @@ -68,6 +68,7 @@ typedef u8 intel_engine_mask_t;
->  #define ALL_ENGINES ((intel_engine_mask_t)~0ul)
->  
->  struct intel_hw_status_page {
-> +	struct list_head timelines;
->  	struct i915_vma *vma;
->  	u32 *addr;
->  };
-> diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-> index 8285de82c929..8bff0559a6a9 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-> +++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-> @@ -3508,7 +3508,6 @@ static int execlists_context_alloc(struct intel_context *ce)
->  
->  static void execlists_context_reset(struct intel_context *ce)
->  {
-> -	CE_TRACE(ce, "reset\n");
->  	GEM_BUG_ON(!intel_context_is_pinned(ce));
->  
->  	intel_ring_reset(ce->ring, ce->ring->emit);
-> @@ -3985,6 +3984,14 @@ static void reset_csb_pointers(struct intel_engine_cs *engine)
->  	GEM_BUG_ON(READ_ONCE(*execlists->csb_write) != reset_value);
->  }
->  
-> +static void sanitize_hwsp(struct intel_engine_cs *engine)
-> +{
-> +	struct intel_timeline *tl;
-> +
-> +	list_for_each_entry(tl, &engine->status_page.timelines, engine_link)
-> +		intel_timeline_reset_seqno(tl);
-> +}
-> +
->  static void execlists_sanitize(struct intel_engine_cs *engine)
->  {
->  	GEM_BUG_ON(execlists_active(&engine->execlists));
-> @@ -4008,7 +4015,7 @@ static void execlists_sanitize(struct intel_engine_cs *engine)
->  	 * that may be lost on resume/initialisation, and so we need to
->  	 * reset the value in the HWSP.
->  	 */
-> -	intel_timeline_reset_seqno(engine->kernel_context->timeline);
-> +	sanitize_hwsp(engine);
->  
->  	/* And scrub the dirty cachelines for the HWSP */
->  	clflush_cache_range(engine->status_page.addr, PAGE_SIZE);
-> diff --git a/drivers/gpu/drm/i915/gt/intel_ring_submission.c b/drivers/gpu/drm/i915/gt/intel_ring_submission.c
-> index 1959e3e5b8e9..3848d40ead89 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_ring_submission.c
-> +++ b/drivers/gpu/drm/i915/gt/intel_ring_submission.c
-> @@ -321,6 +321,39 @@ static int xcs_resume(struct intel_engine_cs *engine)
->  	return ret;
->  }
->  
-> +static void sanitize_hwsp(struct intel_engine_cs *engine)
-> +{
-> +	struct intel_timeline *tl;
-> +
-> +	list_for_each_entry(tl, &engine->status_page.timelines, engine_link)
-> +		intel_timeline_reset_seqno(tl);
-> +}
-> +
-> +static void xcs_sanitize(struct intel_engine_cs *engine)
-> +{
-> +	/*
-> +	 * Poison residual state on resume, in case the suspend didn't!
-> +	 *
-> +	 * We have to assume that across suspend/resume (or other loss
-> +	 * of control) that the contents of our pinned buffers has been
-> +	 * lost, replaced by garbage. Since this doesn't always happen,
-> +	 * let's poison such state so that we more quickly spot when
-> +	 * we falsely assume it has been preserved.
-> +	 */
-> +	if (IS_ENABLED(CONFIG_DRM_I915_DEBUG_GEM))
-> +		memset(engine->status_page.addr, POISON_INUSE, PAGE_SIZE);
-> +
-> +	/*
-> +	 * The kernel_context HWSP is stored in the status_page. As above,
-> +	 * that may be lost on resume/initialisation, and so we need to
-> +	 * reset the value in the HWSP.
-> +	 */
-> +	sanitize_hwsp(engine);
-> +
-> +	/* And scrub the dirty cachelines for the HWSP */
-> +	clflush_cache_range(engine->status_page.addr, PAGE_SIZE);
-> +}
-> +
->  static void reset_prepare(struct intel_engine_cs *engine)
->  {
->  	struct intel_uncore *uncore = engine->uncore;
-> @@ -1070,6 +1103,8 @@ static void setup_common(struct intel_engine_cs *engine)
->  	setup_irq(engine);
->  
->  	engine->resume = xcs_resume;
-> +	engine->sanitize = xcs_sanitize;
-> +
->  	engine->reset.prepare = reset_prepare;
->  	engine->reset.rewind = reset_rewind;
->  	engine->reset.cancel = reset_cancel;
-> diff --git a/drivers/gpu/drm/i915/gt/intel_timeline.h b/drivers/gpu/drm/i915/gt/intel_timeline.h
-> index 634acebd0c4b..1ee680d31801 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_timeline.h
-> +++ b/drivers/gpu/drm/i915/gt/intel_timeline.h
-> @@ -48,9 +48,16 @@ static inline struct intel_timeline *
->  intel_timeline_create_from_engine(struct intel_engine_cs *engine,
->  				  unsigned int offset)
->  {
-> -	return __intel_timeline_create(engine->gt,
-> -				       engine->status_page.vma,
-> -				       offset);
-> +	struct intel_timeline *tl;
-> +
-> +	tl = __intel_timeline_create(engine->gt,
-> +				     engine->status_page.vma,
-> +				     offset);
-> +	if (IS_ERR(tl))
-> +		return tl;
-> +
-> +	list_add_tail(&tl->engine_link, &engine->status_page.timelines);
-> +	return tl;
->  }
->  
->  static inline struct intel_timeline *
-> diff --git a/drivers/gpu/drm/i915/gt/intel_timeline_types.h b/drivers/gpu/drm/i915/gt/intel_timeline_types.h
-> index 4474f487f589..e360f50706bf 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_timeline_types.h
-> +++ b/drivers/gpu/drm/i915/gt/intel_timeline_types.h
-> @@ -84,6 +84,8 @@ struct intel_timeline {
->  	struct list_head link;
->  	struct intel_gt *gt;
->  
-> +	struct list_head engine_link;
-> +
->  	struct kref kref;
->  	struct rcu_head rcu;
->  };
-> -- 
-> 2.20.1
-> 
-> _______________________________________________
-> Intel-gfx mailing list
-> Intel-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+== Summary ==
+
+$ dim checkpatch origin/drm-tip
+346d389548f8 drm/nouveau/kms/nv40-/backlight: Assign prop type once
+-:7: WARNING:COMMIT_MESSAGE: Missing commit description - Add an appropriate one
+
+total: 0 errors, 1 warnings, 0 checks, 22 lines checked
+5c960bc872b2 drm/nouveau/kms: Don't probe eDP connectors more then once
+-:6: WARNING:COMMIT_LOG_LONG_LINE: Possible unwrapped commit description (prefer a maximum 75 chars per line)
+#6: 
+eDP doesn't do hotplugging, so there's no reason for us to reprobe it (unless a
+
+-:23: CHECK:CAMELCASE: Avoid CamelCase: <DCB_CONNECTOR_eDP>
+#23: FILE: drivers/gpu/drm/nouveau/nouveau_connector.c:558:
++	if (nv_connector->type == DCB_CONNECTOR_eDP &&
+
+total: 0 errors, 1 warnings, 1 checks, 12 lines checked
+f1d7c4b52e52 drm/i915/dp: Remove redundant AUX backlight frequency calculations
+a50b774542f6 drm/dp: Extract i915's eDP backlight code into DRM helpers
+6f41a076ae11 drm/nouveau/kms/nv50-: Add basic DPCD backlight support for nouveau
+-:247: CHECK:CAMELCASE: Avoid CamelCase: <DCB_CONNECTOR_eDP>
+#247: FILE: drivers/gpu/drm/nouveau/nouveau_backlight.c:299:
++	if (nv_conn->type == DCB_CONNECTOR_eDP) {
+
+total: 0 errors, 0 warnings, 1 checks, 311 lines checked
+
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
