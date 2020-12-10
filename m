@@ -2,51 +2,53 @@ Return-Path: <SRS0=CSZM=FO=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.2 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham
+X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A9170C433FE
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 19:33:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3C5E1C4361B
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 19:42:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4A2F323340
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 19:33:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4A2F323340
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id D38DF23D3C
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 19:42:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D38DF23D3C
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linutronix.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C57476EB0D;
-	Thu, 10 Dec 2020 19:33:53 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 61FA46EB0D
- for <intel-gfx@lists.freedesktop.org>; Thu, 10 Dec 2020 19:33:52 +0000 (UTC)
-IronPort-SDR: mJxQDS9xKzrlB5fdPZkxXxkI/PDj/pTuqTG22bAyoD8G4pznzL2lfjToxagK2uv7LBkEq5oq2X
- ZwVd6MFn/BKQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9831"; a="192648248"
-X-IronPort-AV: E=Sophos;i="5.78,409,1599548400"; d="scan'208";a="192648248"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Dec 2020 11:33:51 -0800
-IronPort-SDR: jp8kMCWV9ssmSiY/g+2bZFK0I6JIkmb8FWcEZxFJw8gRNJ5hhS9L5xaW/6tTlKCiK4tUvJpK4j
- MshmW598vjHQ==
-X-IronPort-AV: E=Sophos;i="5.78,409,1599548400"; d="scan'208";a="378021408"
-Received: from unknown (HELO sdutt-i7) ([10.165.21.147])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Dec 2020 11:33:51 -0800
-Date: Thu, 10 Dec 2020 11:28:06 -0800
-From: Matthew Brost <matthew.brost@intel.com>
-To: Chris Wilson <chris@chris-wilson.co.uk>
-Message-ID: <20201210192806.GB6255@sdutt-i7>
-References: <20201210080240.24529-1-chris@chris-wilson.co.uk>
- <20201210080240.24529-18-chris@chris-wilson.co.uk>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 321536EB1A;
+	Thu, 10 Dec 2020 19:42:18 +0000 (UTC)
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1425A6EB17;
+ Thu, 10 Dec 2020 19:42:17 +0000 (UTC)
+Message-Id: <20201210192536.118432146@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+ s=2020; t=1607629334;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=dqmaBUU1aX3t41xhFMZZXhwmlvXhIHW8LZkxAL3qIuw=;
+ b=h/TAwStAiTk4XvWiKPBPyDEOx218hZJC1vmF2rxVMRIvmco9q+UXf8EllPz4AjaFdOly7G
+ LH+a53gOb/6x23hHUexy7zt6RJrXCLvlfH0RT7UmulMioZYuYNOHYckgeF+NjT2uTUeh+Y
+ x4QOtIuHWxwLs6LKhedv+5hufAepZeedXGgORll6jDA+oynwB+JjiqXx/tgkxTCP8dbJ6L
+ eWUOoe8IS6Z7h2dgCBQQBehNHm1Tfe56GXWt3TBc5qz2bsl6Xo6wT+1/DTPysSy3XD7/6K
+ p0j9T2Hw/f1US+iZCI2FQmyJpu2ijKWYz9OMLgGwEfvXwTDnGAF9V1bHZmS/0A==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+ s=2020e; t=1607629334;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=dqmaBUU1aX3t41xhFMZZXhwmlvXhIHW8LZkxAL3qIuw=;
+ b=njYD6xBoyWobXQbQRXgtO58qqL+V8jLaqaWB6hUvHzVko4O9Y0w527+7oT5RC78ucYDSLL
+ sPAJGjvbV9zCgIAw==
+Date: Thu, 10 Dec 2020 20:25:36 +0100
+From: Thomas Gleixner <tglx@linutronix.de>
+To: LKML <linux-kernel@vger.kernel.org>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20201210080240.24529-18-chris@chris-wilson.co.uk>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Subject: Re: [Intel-gfx] [PATCH 18/21] drm/i915/gt: Add timeline "mode"
+Subject: [Intel-gfx] [patch 00/30] genirq: Treewide hunt for irq descriptor
+ abuse and assorted fixes
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,137 +61,106 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org
+Cc: Mark Rutland <mark.rutland@arm.com>,
+ Karthikeyan Mitran <m.karthikeyan@mobiveil.co.in>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ Linus Walleij <linus.walleij@linaro.org>, dri-devel@lists.freedesktop.org,
+ Chris Wilson <chris@chris-wilson.co.uk>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ Saeed Mahameed <saeedm@nvidia.com>, netdev@vger.kernel.org,
+ Will Deacon <will@kernel.org>, Michal Simek <michal.simek@xilinx.com>,
+ linux-s390@vger.kernel.org, afzal mohammed <afzal.mohd.ma@gmail.com>,
+ Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
+ Dave Jiang <dave.jiang@intel.com>, xen-devel@lists.xenproject.org,
+ Leon Romanovsky <leon@kernel.org>, linux-rdma@vger.kernel.org,
+ Marc Zyngier <maz@kernel.org>, Helge Deller <deller@gmx.de>,
+ Russell King <linux@armlinux.org.uk>,
+ Christian Borntraeger <borntraeger@de.ibm.com>, linux-pci@vger.kernel.org,
+ Jakub Kicinski <kuba@kernel.org>, Heiko Carstens <hca@linux.ibm.com>,
+ Wambui Karuga <wambui.karugax@gmail.com>, Allen Hubbe <allenbh@gmail.com>,
+ Juergen Gross <jgross@suse.com>, Rob Herring <robh@kernel.org>,
+ David Airlie <airlied@linux.ie>, linux-gpio@vger.kernel.org,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>, Lee Jones <lee.jones@linaro.org>,
+ linux-arm-kernel@lists.infradead.org,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>, linux-parisc@vger.kernel.org,
+ Hou Zhiqiang <Zhiqiang.Hou@nxp.com>, Tariq Toukan <tariqt@nvidia.com>,
+ Jon Mason <jdmason@kudzu.us>, linux-ntb@googlegroups.com,
+ intel-gfx@lists.freedesktop.org, "David S. Miller" <davem@davemloft.net>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Dec 10, 2020 at 08:02:37AM +0000, Chris Wilson wrote:
-> Explicitly differentiate between the absolute and relative timelines,
-> and the global HWSP and ppHWSP relative offsets. When using a timeline
-> that is relative to a known status page, we can replace the absolute
-> addressing in the commands with indexed variants.
-> 
-> Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-> ---
->  drivers/gpu/drm/i915/gt/intel_timeline.c      | 21 ++++++++++++++++---
->  drivers/gpu/drm/i915/gt/intel_timeline.h      |  2 +-
->  .../gpu/drm/i915/gt/intel_timeline_types.h    | 10 +++++++--
->  3 files changed, 27 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/gt/intel_timeline.c b/drivers/gpu/drm/i915/gt/intel_timeline.c
-> index cb20fcbb326b..da0a9659557a 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_timeline.c
-> +++ b/drivers/gpu/drm/i915/gt/intel_timeline.c
-> @@ -229,7 +229,6 @@ static int intel_timeline_init(struct intel_timeline *timeline,
->  
->  	timeline->gt = gt;
->  
-> -	timeline->has_initial_breadcrumb = !hwsp;
->  	timeline->hwsp_cacheline = NULL;
->  
->  	if (!hwsp) {
-> @@ -246,13 +245,29 @@ static int intel_timeline_init(struct intel_timeline *timeline,
->  			return PTR_ERR(cl);
->  		}
->  
-> +		timeline->mode = INTEL_TIMELINE_ABSOLUTE;
->  		timeline->hwsp_cacheline = cl;
->  		timeline->hwsp_offset = cacheline * CACHELINE_BYTES;
->  
->  		vaddr = page_mask_bits(cl->vaddr);
->  	} else {
-> -		timeline->hwsp_offset = offset;
-> -		vaddr = i915_gem_object_pin_map(hwsp->obj, I915_MAP_WB);
-> +		int preferred;
-> +
-> +		if (offset & INTEL_TIMELINE_CONTEXT) {
-> +			timeline->mode = INTEL_TIMELINE_CONTEXT;
-> +			timeline->hwsp_offset =
-> +				offset & ~INTEL_TIMELINE_CONTEXT;
-> +			preferred = i915_coherent_map_type(gt->i915);
-> +		} else {
-> +			timeline->mode = INTEL_TIMELINE_GLOBAL;
-> +			timeline->hwsp_offset = offset;
-> +			preferred = I915_MAP_WB;
-> +		}
-> +
-> +		vaddr = i915_gem_object_pin_map(hwsp->obj,
-> +						preferred | I915_MAP_OVERRIDE);
-> +		if (IS_ERR(vaddr))
-> +			vaddr = i915_gem_object_pin_map(hwsp->obj, I915_MAP_WC);
->  		if (IS_ERR(vaddr))
->  			return PTR_ERR(vaddr);
->  	}
-> diff --git a/drivers/gpu/drm/i915/gt/intel_timeline.h b/drivers/gpu/drm/i915/gt/intel_timeline.h
-> index deb71a8dbd43..69250de3a814 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_timeline.h
-> +++ b/drivers/gpu/drm/i915/gt/intel_timeline.h
-> @@ -76,7 +76,7 @@ static inline void intel_timeline_put(struct intel_timeline *timeline)
->  static inline bool
->  intel_timeline_has_initial_breadcrumb(const struct intel_timeline *tl)
->  {
-> -	return tl->has_initial_breadcrumb;
-> +	return tl->mode == INTEL_TIMELINE_ABSOLUTE;
->  }
->  
->  static inline int __intel_timeline_sync_set(struct intel_timeline *tl,
-> diff --git a/drivers/gpu/drm/i915/gt/intel_timeline_types.h b/drivers/gpu/drm/i915/gt/intel_timeline_types.h
-> index f187c5aac11c..32c51425a0c4 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_timeline_types.h
-> +++ b/drivers/gpu/drm/i915/gt/intel_timeline_types.h
-> @@ -20,6 +20,12 @@ struct i915_syncmap;
->  struct intel_gt;
->  struct intel_timeline_hwsp;
->  
-> +enum intel_timeline_mode {
-> +	INTEL_TIMELINE_ABSOLUTE = 0,
-> +	INTEL_TIMELINE_CONTEXT = BIT(0),
-> +	INTEL_TIMELINE_GLOBAL = BIT(1),
-> +};
-> +
+A recent request to export kstat_irqs() pointed to a copy of the same in
+the i915 code, which made me look for further usage of irq descriptors in
+drivers.
 
-Not sure I like these names.
+The usage in drivers ranges from creative to broken in all colours.
 
-How about:
-INTEL_TIMELINE_ABSOLUTE_GGTT
-INTEL_TIMELINE_RELATIVE_PPGTT
-INTEL_TIMELINE_RELATIVE_GGTT
+irqdesc.h clearly says that this is core functionality and the fact C does
+not allow full encapsulation is not a justification to fiddle with it just
+because. It took us a lot of effort to make the core functionality provide
+what drivers need.
 
-Also not convinced we need the 'RELATIVE' modes. See my comments in 'Use
-indices for writing into relative'.
+If there is a shortcoming, it's not asked too much to talk to the relevant
+maintainers instead of going off and fiddling with the guts of interrupt
+descriptors and often enough without understanding lifetime and locking
+rules.
 
-Matt
+As people insist on not respecting boundaries, this series cleans up the
+(ab)use and at the end removes the export of irq_to_desc() to make it at
+least harder. All legitimate users of this are built in.
 
->  struct intel_timeline {
->  	u64 fence_context;
->  	u32 seqno;
-> @@ -45,6 +51,8 @@ struct intel_timeline {
->  	atomic_t pin_count;
->  	atomic_t active_count;
->  
-> +	enum intel_timeline_mode mode;
-> +
->  	const u32 *hwsp_seqno;
->  	struct i915_vma *hwsp_ggtt;
->  	u32 hwsp_offset;
-> @@ -52,8 +60,6 @@ struct intel_timeline {
->  
->  	struct intel_timeline_cacheline *hwsp_cacheline;
->  
-> -	bool has_initial_breadcrumb;
-> -
->  	/**
->  	 * List of breadcrumbs associated with GPU requests currently
->  	 * outstanding.
-> -- 
-> 2.20.1
-> 
-> _______________________________________________
-> Intel-gfx mailing list
-> Intel-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+While at it I stumbled over some other oddities related to interrupt
+counting and cleaned them up as well.
+
+The series applies on top of
+
+   git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git irq/core
+
+and is also available from git:
+
+  git://git.kernel.org/pub/scm/linux/kernel/git/tglx/devel.git genirq
+
+Thanks,
+
+	tglx
+---
+ arch/alpha/kernel/sys_jensen.c                       |    2 
+ arch/arm/kernel/smp.c                                |    2 
+ arch/parisc/kernel/irq.c                             |    7 
+ arch/s390/kernel/irq.c                               |    2 
+ arch/x86/kernel/topology.c                           |    1 
+ arch/arm64/kernel/smp.c                              |    2 
+ drivers/gpu/drm/i915/display/intel_lpe_audio.c       |    4 
+ drivers/gpu/drm/i915/i915_irq.c                      |   34 +++
+ drivers/gpu/drm/i915/i915_pmu.c                      |   18 -
+ drivers/gpu/drm/i915/i915_pmu.h                      |    8 
+ drivers/mfd/ab8500-debugfs.c                         |   16 -
+ drivers/net/ethernet/mellanox/mlx4/en_cq.c           |    8 
+ drivers/net/ethernet/mellanox/mlx4/en_rx.c           |    6 
+ drivers/net/ethernet/mellanox/mlx4/mlx4_en.h         |    3 
+ drivers/net/ethernet/mellanox/mlx5/core/en.h         |    2 
+ drivers/net/ethernet/mellanox/mlx5/core/en_main.c    |    2 
+ drivers/net/ethernet/mellanox/mlx5/core/en_txrx.c    |    6 
+ drivers/ntb/msi.c                                    |    4 
+ drivers/pci/controller/mobiveil/pcie-mobiveil-host.c |    8 
+ drivers/pci/controller/pcie-xilinx-nwl.c             |    8 
+ drivers/pinctrl/nomadik/pinctrl-nomadik.c            |    3 
+ drivers/xen/events/events_base.c                     |  172 +++++++++++--------
+ drivers/xen/evtchn.c                                 |   34 ---
+ include/linux/interrupt.h                            |    1 
+ include/linux/irq.h                                  |    7 
+ include/linux/irqdesc.h                              |   40 +---
+ include/linux/kernel_stat.h                          |    1 
+ kernel/irq/irqdesc.c                                 |   42 ++--
+ kernel/irq/manage.c                                  |   37 ++++
+ kernel/irq/proc.c                                    |    5 
+ 30 files changed, 263 insertions(+), 222 deletions(-)
+
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
