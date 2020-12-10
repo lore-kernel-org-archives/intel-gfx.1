@@ -7,50 +7,49 @@ X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 179E6C0018C
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 19:42:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6B17AC2BB40
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 19:42:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BCFB823E23
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 19:42:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BCFB823E23
+	by mail.kernel.org (Postfix) with ESMTPS id 1AC0C23EB0
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 19:42:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1AC0C23EB0
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linutronix.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 46DAC6EB46;
-	Thu, 10 Dec 2020 19:42:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 56A5D6EB43;
+	Thu, 10 Dec 2020 19:42:46 +0000 (UTC)
 Received: from galois.linutronix.de (Galois.linutronix.de
  [IPv6:2a0a:51c0:0:12e:550::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CEDAE6EB37;
- Thu, 10 Dec 2020 19:42:38 +0000 (UTC)
-Message-Id: <20201210194044.364211860@linutronix.de>
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9BF5D6EB40;
+ Thu, 10 Dec 2020 19:42:43 +0000 (UTC)
+Message-Id: <20201210194044.769458162@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1607629357;
+ s=2020; t=1607629362;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:  references:references;
- bh=KHY7zLB5K6l5lfek87988opcUU+hIDNSDHLcEFMtdbE=;
- b=n90PZIqvfSG+SCpScanG1Bc3HG4388BY/dyhI0EaH1D5VR7ALSrd8Di/XFloXi9hIrAe0N
- 2w3FtiOOS83MM1ENKBnmKIYjMGlFGK+8CqwAWA+3cn+4JTZrOFNQqz1w6/1pfc9dn229g5
- RxyxMUVWrnZNU+m4ITHF184nuNhmqfYSIV87jZv/HzJ2V1oJQzYeMWo1OTElMpaTWpCUk8
- uJoofHd7ipNCSNBQWtvCPnJySQsMZYd1ezWjVgB5vtUTP93BsKFGqlD/7O6EwVQkeOfVvC
- 5nN2twyUqXClogpFmRmB9lY9+05jwyoSoCoyIBMb5KsyzJun61fUTTAt7Pca7g==
+ bh=VOaf/d7D7QtaaC+WU1sXZf5eTJVDFk9LK/s7Au7CufU=;
+ b=ebvAKnU9U5xxsuTyZRRyBD/pSxlAzqV321cu/1PSB+S30uzHIXKjKJyuLWtBWcYVZXlybn
+ NBr9KiI1e9paQHPvIfvkgD6mJDZPhiGb5TN5PvcTekgbiahpQ8LQMlSJSX4xpUxk9f2Ol5
+ F8oNCSe1H+ais24JO9t2IwvShGuXdvh8ES7plOqYyAwLRKf0TojyhsFUMV5kjVjEtAGPaz
+ UOL8zFfw66+Fs8FOPny2ek7maFNW7ZTVUGseqbCjWR7MjO0q/MLzWc7S4CWwTTyNrDt17N
+ pAxkdJedoxJwP4qnw1l3YgNebMwtGsjkmDdMWwXGJEDNlPXObkHeBB1kSiRQpQ==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1607629357;
+ s=2020e; t=1607629362;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:  references:references;
- bh=KHY7zLB5K6l5lfek87988opcUU+hIDNSDHLcEFMtdbE=;
- b=z1bwpMRZ9X4kcUp+yA6PiwjKs/Xplaj9Bs6jEJYC/xJl+CtwyGu1dX/ChX9QURLpfQuyav
- KbgY/emP2bdsj/AQ==
-Date: Thu, 10 Dec 2020 20:25:54 +0100
+ bh=VOaf/d7D7QtaaC+WU1sXZf5eTJVDFk9LK/s7Au7CufU=;
+ b=W/Zofh+C9ibp8KsiLJ6iyTc3jKq0LDlUAeV1W45RXNpyPicUPyvAT+QSfrk4IRw9rtLo2E
+ zAcfM77lXBTE8oDg==
+Date: Thu, 10 Dec 2020 20:25:58 +0100
 From: Thomas Gleixner <tglx@linutronix.de>
 To: LKML <linux-kernel@vger.kernel.org>
 References: <20201210192536.118432146@linutronix.de>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [patch 18/30] PCI: xilinx-nwl: Use
- irq_data_get_irq_chip_data()
+Subject: [Intel-gfx] [patch 22/30] net/mlx5: Replace irq_to_desc() abuse
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,85 +67,88 @@ Cc: Mark Rutland <mark.rutland@arm.com>,
  Peter Zijlstra <peterz@infradead.org>,
  Catalin Marinas <catalin.marinas@arm.com>,
  Linus Walleij <linus.walleij@linaro.org>, dri-devel@lists.freedesktop.org,
- Russell King <linux@armlinux.org.uk>,
+ Chris Wilson <chris@chris-wilson.co.uk>,
  "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- netdev@vger.kernel.org, Will Deacon <will@kernel.org>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, Rob Herring <robh@kernel.org>,
- afzal mohammed <afzal.mohd.ma@gmail.com>,
+ Saeed Mahameed <saeedm@nvidia.com>, netdev@vger.kernel.org,
+ Will Deacon <will@kernel.org>, Michal Simek <michal.simek@xilinx.com>,
+ linux-s390@vger.kernel.org, afzal mohammed <afzal.mohd.ma@gmail.com>,
  Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
  Dave Jiang <dave.jiang@intel.com>, xen-devel@lists.xenproject.org,
  Leon Romanovsky <leon@kernel.org>, linux-rdma@vger.kernel.org,
  Marc Zyngier <maz@kernel.org>, Helge Deller <deller@gmx.de>,
- Michal Simek <michal.simek@xilinx.com>,
+ Russell King <linux@armlinux.org.uk>,
  Christian Borntraeger <borntraeger@de.ibm.com>, linux-pci@vger.kernel.org,
- Jakub Kicinski <kuba@kernel.org>, intel-gfx@lists.freedesktop.org,
+ Jakub Kicinski <kuba@kernel.org>, Heiko Carstens <hca@linux.ibm.com>,
  Wambui Karuga <wambui.karugax@gmail.com>, Allen Hubbe <allenbh@gmail.com>,
- linux-s390@vger.kernel.org, Heiko Carstens <hca@linux.ibm.com>,
- linux-gpio@vger.kernel.org, Stefano Stabellini <sstabellini@kernel.org>,
+ Juergen Gross <jgross@suse.com>, Rob Herring <robh@kernel.org>,
+ David Airlie <airlied@linux.ie>, linux-gpio@vger.kernel.org,
+ Stefano Stabellini <sstabellini@kernel.org>,
  Bjorn Helgaas <bhelgaas@google.com>, Lee Jones <lee.jones@linaro.org>,
- Chris Wilson <chris@chris-wilson.co.uk>, linux-arm-kernel@lists.infradead.org,
- Juergen Gross <jgross@suse.com>, David Airlie <airlied@linux.ie>,
- linux-parisc@vger.kernel.org, Hou Zhiqiang <Zhiqiang.Hou@nxp.com>,
- Tariq Toukan <tariqt@nvidia.com>, Jon Mason <jdmason@kudzu.us>,
- linux-ntb@googlegroups.com, Saeed Mahameed <saeedm@nvidia.com>,
- "David S. Miller" <davem@davemloft.net>
+ linux-arm-kernel@lists.infradead.org,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>, linux-parisc@vger.kernel.org,
+ Hou Zhiqiang <Zhiqiang.Hou@nxp.com>, Tariq Toukan <tariqt@nvidia.com>,
+ Jon Mason <jdmason@kudzu.us>, linux-ntb@googlegroups.com,
+ intel-gfx@lists.freedesktop.org, "David S. Miller" <davem@davemloft.net>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Going through a full irq descriptor lookup instead of just using the proper
-helper function which provides direct access is suboptimal.
+No driver has any business with the internals of an interrupt
+descriptor. Storing a pointer to it just to use yet another helper at the
+actual usage site to retrieve the affinity mask is creative at best. Just
+because C does not allow encapsulation does not mean that the kernel has no
+limits.
 
-In fact it _is_ wrong because the chip callback needs to get the chip data
-which is relevant for the chip while using the irq descriptor variant
-returns the irq chip data of the top level chip of a hierarchy. It does not
-matter in this case because the chip is the top level chip, but that
-doesn't make it more correct.
+Retrieve a pointer to the affinity mask itself and use that. It's still
+using an interface which is usually not for random drivers, but definitely
+less hideous than the previous hack.
 
 Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
-Cc: Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>
-Cc: Rob Herring <robh@kernel.org>
-Cc: Bjorn Helgaas <bhelgaas@google.com>
-Cc: Michal Simek <michal.simek@xilinx.com>
-Cc: linux-pci@vger.kernel.org
-Cc: linux-arm-kernel@lists.infradead.org
 ---
- drivers/pci/controller/pcie-xilinx-nwl.c |    8 ++------
- 1 file changed, 2 insertions(+), 6 deletions(-)
+ drivers/net/ethernet/mellanox/mlx5/core/en.h      |    2 +-
+ drivers/net/ethernet/mellanox/mlx5/core/en_main.c |    2 +-
+ drivers/net/ethernet/mellanox/mlx5/core/en_txrx.c |    6 +-----
+ 3 files changed, 3 insertions(+), 7 deletions(-)
 
---- a/drivers/pci/controller/pcie-xilinx-nwl.c
-+++ b/drivers/pci/controller/pcie-xilinx-nwl.c
-@@ -379,13 +379,11 @@ static void nwl_pcie_msi_handler_low(str
+--- a/drivers/net/ethernet/mellanox/mlx5/core/en.h
++++ b/drivers/net/ethernet/mellanox/mlx5/core/en.h
+@@ -669,7 +669,7 @@ struct mlx5e_channel {
+ 	spinlock_t                 async_icosq_lock;
  
- static void nwl_mask_leg_irq(struct irq_data *data)
+ 	/* data path - accessed per napi poll */
+-	struct irq_desc *irq_desc;
++	const struct cpumask	  *aff_mask;
+ 	struct mlx5e_ch_stats     *stats;
+ 
+ 	/* control */
+--- a/drivers/net/ethernet/mellanox/mlx5/core/en_main.c
++++ b/drivers/net/ethernet/mellanox/mlx5/core/en_main.c
+@@ -1998,7 +1998,7 @@ static int mlx5e_open_channel(struct mlx
+ 	c->num_tc   = params->num_tc;
+ 	c->xdp      = !!params->xdp_prog;
+ 	c->stats    = &priv->channel_stats[ix].ch;
+-	c->irq_desc = irq_to_desc(irq);
++	c->aff_mask = irq_get_affinity_mask(irq);
+ 	c->lag_port = mlx5e_enumerate_lag_port(priv->mdev, ix);
+ 
+ 	netif_napi_add(netdev, &c->napi, mlx5e_napi_poll, 64);
+--- a/drivers/net/ethernet/mellanox/mlx5/core/en_txrx.c
++++ b/drivers/net/ethernet/mellanox/mlx5/core/en_txrx.c
+@@ -40,12 +40,8 @@
+ static inline bool mlx5e_channel_no_affinity_change(struct mlx5e_channel *c)
  {
--	struct irq_desc *desc = irq_to_desc(data->irq);
--	struct nwl_pcie *pcie;
-+	struct nwl_pcie *pcie = irq_data_get_irq_chip_data(data);
- 	unsigned long flags;
- 	u32 mask;
- 	u32 val;
+ 	int current_cpu = smp_processor_id();
+-	const struct cpumask *aff;
+-	struct irq_data *idata;
  
--	pcie = irq_desc_get_chip_data(desc);
- 	mask = 1 << (data->hwirq - 1);
- 	raw_spin_lock_irqsave(&pcie->leg_mask_lock, flags);
- 	val = nwl_bridge_readl(pcie, MSGF_LEG_MASK);
-@@ -395,13 +393,11 @@ static void nwl_mask_leg_irq(struct irq_
+-	idata = irq_desc_get_irq_data(c->irq_desc);
+-	aff = irq_data_get_affinity_mask(idata);
+-	return cpumask_test_cpu(current_cpu, aff);
++	return cpumask_test_cpu(current_cpu, c->aff_mask);
+ }
  
- static void nwl_unmask_leg_irq(struct irq_data *data)
- {
--	struct irq_desc *desc = irq_to_desc(data->irq);
--	struct nwl_pcie *pcie;
-+	struct nwl_pcie *pcie = irq_data_get_irq_chip_data(data);
- 	unsigned long flags;
- 	u32 mask;
- 	u32 val;
- 
--	pcie = irq_desc_get_chip_data(desc);
- 	mask = 1 << (data->hwirq - 1);
- 	raw_spin_lock_irqsave(&pcie->leg_mask_lock, flags);
- 	val = nwl_bridge_readl(pcie, MSGF_LEG_MASK);
+ static void mlx5e_handle_tx_dim(struct mlx5e_txqsq *sq)
 
 _______________________________________________
 Intel-gfx mailing list
