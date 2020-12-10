@@ -2,42 +2,42 @@ Return-Path: <SRS0=CSZM=FO=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-13.9 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
+	URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 55E69C0018C
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 08:03:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1190BC4361B
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 08:03:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1714F23D37
+	by mail.kernel.org (Postfix) with ESMTPS id D249A23D37
 	for <intel-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 08:03:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1714F23D37
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D249A23D37
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 59C6D6E9E8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A0F066EA19;
 	Thu, 10 Dec 2020 08:03:00 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5FF016E9D4
- for <intel-gfx@lists.freedesktop.org>; Thu, 10 Dec 2020 08:02:54 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 70AF86E9E8
+ for <intel-gfx@lists.freedesktop.org>; Thu, 10 Dec 2020 08:02:53 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23275658-1500050 
- for multiple; Thu, 10 Dec 2020 08:02:42 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23275668-1500050 
+ for multiple; Thu, 10 Dec 2020 08:02:43 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 10 Dec 2020 08:02:25 +0000
-Message-Id: <20201210080240.24529-6-chris@chris-wilson.co.uk>
+Date: Thu, 10 Dec 2020 08:02:32 +0000
+Message-Id: <20201210080240.24529-13-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201210080240.24529-1-chris@chris-wilson.co.uk>
 References: <20201210080240.24529-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 06/21] drm/i915/gt: Defer schedule_out until
- after the next dequeue
+Subject: [Intel-gfx] [PATCH 13/21] drm/i915/gt: Track the overall awake/busy
+ time
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,317 +56,243 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Inside schedule_out, we do extra work upon idling the context, such as
-updating the runtime, kicking off retires, kicking virtual engines.
-However, if we are in a series of processing single requests per
-contexts, we may find ourselves scheduling out the context, only to
-immediately schedule it back in during dequeue. This is just extra work
-that we can avoid if we keep the context marked as inflight across the
-dequeue. This becomes more significant later on for minimising virtual
-engine misses.
+Since we wake the GT up before executing a request, and go to sleep as
+soon as it is retired, the GT wake time not only represents how long the
+device is powered up, but also provides a summary, albeit an overestimate,
+of the device runtime (i.e. the rc0 time to compare against rc6 time).
+
+v2: s/busy/awake/
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 ---
- drivers/gpu/drm/i915/gt/intel_context_types.h |   4 +-
- .../drm/i915/gt/intel_execlists_submission.c  | 121 +++++++++++-------
- 2 files changed, 80 insertions(+), 45 deletions(-)
+ drivers/gpu/drm/i915/gt/debugfs_gt_pm.c  |  5 ++-
+ drivers/gpu/drm/i915/gt/intel_gt_pm.c    | 49 ++++++++++++++++++++++++
+ drivers/gpu/drm/i915/gt/intel_gt_pm.h    |  2 +
+ drivers/gpu/drm/i915/gt/intel_gt_types.h | 24 ++++++++++++
+ drivers/gpu/drm/i915/i915_debugfs.c      |  5 ++-
+ drivers/gpu/drm/i915/i915_pmu.c          |  6 +++
+ include/uapi/drm/i915_drm.h              |  1 +
+ 7 files changed, 89 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_context_types.h b/drivers/gpu/drm/i915/gt/intel_context_types.h
-index 52fa9c132746..10830eeab0f7 100644
---- a/drivers/gpu/drm/i915/gt/intel_context_types.h
-+++ b/drivers/gpu/drm/i915/gt/intel_context_types.h
-@@ -58,8 +58,8 @@ struct intel_context {
+diff --git a/drivers/gpu/drm/i915/gt/debugfs_gt_pm.c b/drivers/gpu/drm/i915/gt/debugfs_gt_pm.c
+index 174a24553322..8975717ace06 100644
+--- a/drivers/gpu/drm/i915/gt/debugfs_gt_pm.c
++++ b/drivers/gpu/drm/i915/gt/debugfs_gt_pm.c
+@@ -11,6 +11,7 @@
+ #include "i915_drv.h"
+ #include "intel_gt.h"
+ #include "intel_gt_clock_utils.h"
++#include "intel_gt_pm.h"
+ #include "intel_llc.h"
+ #include "intel_rc6.h"
+ #include "intel_rps.h"
+@@ -558,7 +559,9 @@ static int rps_boost_show(struct seq_file *m, void *data)
  
- 	struct intel_engine_cs *engine;
- 	struct intel_engine_cs *inflight;
--#define intel_context_inflight(ce) ptr_mask_bits(READ_ONCE((ce)->inflight), 2)
--#define intel_context_inflight_count(ce) ptr_unmask_bits(READ_ONCE((ce)->inflight), 2)
-+#define intel_context_inflight(ce) ptr_mask_bits(READ_ONCE((ce)->inflight), 3)
-+#define intel_context_inflight_count(ce) ptr_unmask_bits(READ_ONCE((ce)->inflight), 3)
- 
- 	struct i915_address_space *vm;
- 	struct i915_gem_context __rcu *gem_context;
-diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-index 174c3f5f2e81..d278c4445496 100644
---- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-+++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-@@ -2017,19 +2017,6 @@ static void set_preempt_timeout(struct intel_engine_cs *engine,
- 		     active_preempt_timeout(engine, rq));
+ 	seq_printf(m, "RPS enabled? %s\n", yesno(intel_rps_is_enabled(rps)));
+ 	seq_printf(m, "RPS active? %s\n", yesno(intel_rps_is_active(rps)));
+-	seq_printf(m, "GPU busy? %s\n", yesno(gt->awake));
++	seq_printf(m, "GPU busy? %s, %llums\n",
++		   yesno(gt->awake),
++		   ktime_to_ms(intel_gt_get_awake_time(gt)));
+ 	seq_printf(m, "Boosts outstanding? %d\n",
+ 		   atomic_read(&rps->num_waiters));
+ 	seq_printf(m, "Interactive? %d\n", READ_ONCE(rps->power.interactive));
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_pm.c b/drivers/gpu/drm/i915/gt/intel_gt_pm.c
+index 274aa0dd7050..c94e8ac884eb 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_pm.c
++++ b/drivers/gpu/drm/i915/gt/intel_gt_pm.c
+@@ -39,6 +39,28 @@ static void user_forcewake(struct intel_gt *gt, bool suspend)
+ 	intel_gt_pm_put(gt);
  }
  
--static inline void clear_ports(struct i915_request **ports, int count)
--{
--	memset_p((void **)ports, NULL, count);
--}
--
--static inline void
--copy_ports(struct i915_request **dst, struct i915_request **src, int count)
--{
--	/* A memcpy_p() would be very useful here! */
--	while (count--)
--		WRITE_ONCE(*dst++, *src++); /* avoid write tearing */
--}
--
- static void execlists_dequeue(struct intel_engine_cs *engine)
- {
- 	struct intel_engine_execlists * const execlists = &engine->execlists;
-@@ -2378,18 +2365,32 @@ static void execlists_dequeue_irq(struct intel_engine_cs *engine)
- 	local_irq_enable(); /* flush irq_work (e.g. breadcrumb enabling) */
- }
- 
--static void
--cancel_port_requests(struct intel_engine_execlists * const execlists)
-+static inline void clear_ports(struct i915_request **ports, int count)
++static void runtime_begin(struct intel_gt *gt)
 +{
-+	memset_p((void **)ports, NULL, count);
++	local_irq_disable();
++	write_seqcount_begin(&gt->stats.lock);
++	gt->stats.start = ktime_get();
++	gt->stats.active = true;
++	write_seqcount_end(&gt->stats.lock);
++	local_irq_enable();
 +}
 +
-+static inline void
-+copy_ports(struct i915_request **dst, struct i915_request **src, int count)
++static void runtime_end(struct intel_gt *gt)
 +{
-+	/* A memcpy_p() would be very useful here! */
-+	while (count--)
-+		WRITE_ONCE(*dst++, *src++); /* avoid write tearing */
++	local_irq_disable();
++	write_seqcount_begin(&gt->stats.lock);
++	gt->stats.active = false;
++	gt->stats.total =
++		ktime_add(gt->stats.total,
++			  ktime_sub(ktime_get(), gt->stats.start));
++	write_seqcount_end(&gt->stats.lock);
++	local_irq_enable();
 +}
 +
-+static struct i915_request **
-+cancel_port_requests(struct intel_engine_execlists * const execlists,
-+		     struct i915_request **inactive)
+ static int __gt_unpark(struct intel_wakeref *wf)
  {
- 	struct i915_request * const *port;
+ 	struct intel_gt *gt = container_of(wf, typeof(*gt), wakeref);
+@@ -67,6 +89,7 @@ static int __gt_unpark(struct intel_wakeref *wf)
+ 	i915_pmu_gt_unparked(i915);
  
- 	for (port = execlists->pending; *port; port++)
--		execlists_schedule_out(*port);
-+		*inactive++ = *port;
- 	clear_ports(execlists->pending, ARRAY_SIZE(execlists->pending));
+ 	intel_gt_unpark_requests(gt);
++	runtime_begin(gt);
  
- 	/* Mark the end of active before we overwrite *active */
- 	for (port = xchg(&execlists->active, execlists->pending); *port; port++)
--		execlists_schedule_out(*port);
-+		*inactive++ = *port;
- 	clear_ports(execlists->inflight, ARRAY_SIZE(execlists->inflight));
+ 	return 0;
+ }
+@@ -79,6 +102,7 @@ static int __gt_park(struct intel_wakeref *wf)
  
- 	smp_wmb(); /* complete the seqlock for execlists_active() */
-@@ -2399,6 +2400,8 @@ cancel_port_requests(struct intel_engine_execlists * const execlists)
- 	GEM_BUG_ON(execlists->pending[0]);
- 	cancel_timer(&execlists->timer);
- 	cancel_timer(&execlists->preempt);
-+
-+	return inactive;
+ 	GT_TRACE(gt, "\n");
+ 
++	runtime_end(gt);
+ 	intel_gt_park_requests(gt);
+ 
+ 	i915_vma_parked(gt);
+@@ -106,6 +130,7 @@ static const struct intel_wakeref_ops wf_ops = {
+ void intel_gt_pm_init_early(struct intel_gt *gt)
+ {
+ 	intel_wakeref_init(&gt->wakeref, gt->uncore->rpm, &wf_ops);
++	seqcount_mutex_init(&gt->stats.lock, &gt->wakeref.mutex);
  }
  
- static inline void
-@@ -2526,7 +2529,8 @@ csb_read(const struct intel_engine_cs *engine, u64 * const csb)
- 	return entry;
+ void intel_gt_pm_init(struct intel_gt *gt)
+@@ -339,6 +364,30 @@ int intel_gt_runtime_resume(struct intel_gt *gt)
+ 	return intel_uc_runtime_resume(&gt->uc);
  }
  
--static void process_csb(struct intel_engine_cs *engine)
-+static struct i915_request **
-+process_csb(struct intel_engine_cs *engine, struct i915_request **inactive)
- {
- 	struct intel_engine_execlists * const execlists = &engine->execlists;
- 	u64 * const buf = execlists->csb_status;
-@@ -2555,7 +2559,7 @@ static void process_csb(struct intel_engine_cs *engine)
- 	head = execlists->csb_head;
- 	tail = READ_ONCE(*execlists->csb_write);
- 	if (unlikely(head == tail))
--		return;
-+		return inactive;
- 
- 	/*
- 	 * We will consume all events from HW, or at least pretend to.
-@@ -2635,7 +2639,7 @@ static void process_csb(struct intel_engine_cs *engine)
- 			/* cancel old inflight, prepare for switch */
- 			trace_ports(execlists, "preempted", old);
- 			while (*old)
--				execlists_schedule_out(*old++);
-+				*inactive++ = *old++;
- 
- 			/* switch pending to inflight */
- 			GEM_BUG_ON(!assert_pending_valid(execlists, "promote"));
-@@ -2697,7 +2701,7 @@ static void process_csb(struct intel_engine_cs *engine)
- 					     regs[CTX_RING_TAIL]);
- 			}
- 
--			execlists_schedule_out(*execlists->active++);
-+			*inactive++ = *execlists->active++;
- 
- 			GEM_BUG_ON(execlists->active - execlists->inflight >
- 				   execlists_num_ports(execlists));
-@@ -2718,6 +2722,15 @@ static void process_csb(struct intel_engine_cs *engine)
- 	 * invalidation before.
- 	 */
- 	invalidate_csb_entries(&buf[0], &buf[num_entries - 1]);
++static ktime_t __intel_gt_get_awake_time(const struct intel_gt *gt)
++{
++	ktime_t total = gt->stats.total;
 +
-+	return inactive;
++	if (gt->stats.active)
++		total = ktime_add(total,
++				  ktime_sub(ktime_get(), gt->stats.start));
++
++	return total;
 +}
 +
-+static void post_process_csb(struct i915_request **port,
-+			     struct i915_request **last)
++ktime_t intel_gt_get_awake_time(const struct intel_gt *gt)
 +{
-+	while (port != last)
-+		execlists_schedule_out(*port++);
- }
++	unsigned int seq;
++	ktime_t total;
++
++	do {
++		seq = read_seqcount_begin(&gt->stats.lock);
++		total = __intel_gt_get_awake_time(gt);
++	} while (read_seqcount_retry(&gt->stats.lock, seq));
++
++	return total;
++}
++
+ #if IS_ENABLED(CONFIG_DRM_I915_SELFTEST)
+ #include "selftest_gt_pm.c"
+ #endif
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_pm.h b/drivers/gpu/drm/i915/gt/intel_gt_pm.h
+index 60f0e2fbe55c..63846a856e7e 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_pm.h
++++ b/drivers/gpu/drm/i915/gt/intel_gt_pm.h
+@@ -58,6 +58,8 @@ int intel_gt_resume(struct intel_gt *gt);
+ void intel_gt_runtime_suspend(struct intel_gt *gt);
+ int intel_gt_runtime_resume(struct intel_gt *gt);
  
- static void __execlists_hold(struct i915_request *rq)
-@@ -2993,8 +3006,8 @@ active_context(struct intel_engine_cs *engine, u32 ccid)
- 	for (port = el->active; (rq = *port); port++) {
- 		if (rq->context->lrc.ccid == ccid) {
- 			ENGINE_TRACE(engine,
--				     "ccid found at active:%zd\n",
--				     port - el->active);
-+				     "ccid:%x found at active:%zd\n",
-+				     ccid, port - el->active);
- 			return rq;
++ktime_t intel_gt_get_awake_time(const struct intel_gt *gt);
++
+ static inline bool is_mock_gt(const struct intel_gt *gt)
+ {
+ 	return I915_SELFTEST_ONLY(gt->awake == -ENODEV);
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_types.h b/drivers/gpu/drm/i915/gt/intel_gt_types.h
+index 6d39a4a11bf3..c7bde529feab 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_gt_types.h
+@@ -87,6 +87,30 @@ struct intel_gt {
+ 
+ 	u32 pm_guc_events;
+ 
++	struct {
++		bool active;
++
++		/**
++		 * @lock: Lock protecting the below fields.
++		 */
++		seqcount_mutex_t lock;
++
++		/**
++		 * @total: Total time this engine was busy.
++		 *
++		 * Accumulated time not counting the most recent block in cases
++		 * where engine is currently busy (active > 0).
++		 */
++		ktime_t total;
++
++		/**
++		 * @start: Timestamp of the last idle to active transition.
++		 *
++		 * Idle is defined as active == 0, active is active > 0.
++		 */
++		ktime_t start;
++	} stats;
++
+ 	struct intel_engine_cs *engine[I915_NUM_ENGINES];
+ 	struct intel_engine_cs *engine_class[MAX_ENGINE_CLASS + 1]
+ 					    [MAX_ENGINE_INSTANCE + 1];
+diff --git a/drivers/gpu/drm/i915/i915_debugfs.c b/drivers/gpu/drm/i915/i915_debugfs.c
+index f48df3545e39..c72160e3702f 100644
+--- a/drivers/gpu/drm/i915/i915_debugfs.c
++++ b/drivers/gpu/drm/i915/i915_debugfs.c
+@@ -858,9 +858,10 @@ static int i915_engine_info(struct seq_file *m, void *unused)
+ 
+ 	wakeref = intel_runtime_pm_get(&i915->runtime_pm);
+ 
+-	seq_printf(m, "GT awake? %s [%d]\n",
++	seq_printf(m, "GT awake? %s [%d], %llums\n",
+ 		   yesno(i915->gt.awake),
+-		   atomic_read(&i915->gt.wakeref.count));
++		   atomic_read(&i915->gt.wakeref.count),
++		   ktime_to_ms(intel_gt_get_awake_time(&i915->gt)));
+ 	seq_printf(m, "CS timestamp frequency: %u Hz\n",
+ 		   RUNTIME_INFO(i915)->cs_timestamp_frequency_hz);
+ 
+diff --git a/drivers/gpu/drm/i915/i915_pmu.c b/drivers/gpu/drm/i915/i915_pmu.c
+index 97bb4aaa5236..fc762eec9601 100644
+--- a/drivers/gpu/drm/i915/i915_pmu.c
++++ b/drivers/gpu/drm/i915/i915_pmu.c
+@@ -516,6 +516,8 @@ config_status(struct drm_i915_private *i915, u64 config)
+ 		if (!HAS_RC6(i915))
+ 			return -ENODEV;
+ 		break;
++	case I915_PMU_GT_AWAKE:
++		break;
+ 	default:
+ 		return -ENOENT;
+ 	}
+@@ -623,6 +625,9 @@ static u64 __i915_pmu_event_read(struct perf_event *event)
+ 		case I915_PMU_RC6_RESIDENCY:
+ 			val = get_rc6(&i915->gt);
+ 			break;
++		case I915_PMU_GT_AWAKE:
++			val = ktime_to_ns(intel_gt_get_awake_time(&i915->gt));
++			break;
  		}
  	}
-@@ -3002,8 +3015,8 @@ active_context(struct intel_engine_cs *engine, u32 ccid)
- 	for (port = el->pending; (rq = *port); port++) {
- 		if (rq->context->lrc.ccid == ccid) {
- 			ENGINE_TRACE(engine,
--				     "ccid found at pending:%zd\n",
--				     port - el->pending);
-+				     "ccid:%x found at pending:%zd\n",
-+				     ccid, port - el->pending);
- 			return rq;
- 		}
- 	}
-@@ -3121,8 +3134,11 @@ static bool preempt_timeout(const struct intel_engine_cs *const engine)
- static void execlists_submission_tasklet(unsigned long data)
- {
- 	struct intel_engine_cs * const engine = (struct intel_engine_cs *)data;
-+	struct i915_request *post[2 * EXECLIST_MAX_PORTS];
-+	struct i915_request **inactive;
  
--	process_csb(engine);
-+	inactive = process_csb(engine, post);
-+	GEM_BUG_ON(inactive - post > ARRAY_SIZE(post));
+@@ -938,6 +943,7 @@ create_event_attributes(struct i915_pmu *pmu)
+ 		__event(I915_PMU_REQUESTED_FREQUENCY, "requested-frequency", "M"),
+ 		__event(I915_PMU_INTERRUPTS, "interrupts", NULL),
+ 		__event(I915_PMU_RC6_RESIDENCY, "rc6-residency", "ns"),
++		__event(I915_PMU_GT_AWAKE, "awake", "ns"),
+ 	};
+ 	static const struct {
+ 		enum drm_i915_pmu_engine_sample sample;
+diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
+index 6edcb2b6c708..04abd1ee89bf 100644
+--- a/include/uapi/drm/i915_drm.h
++++ b/include/uapi/drm/i915_drm.h
+@@ -177,6 +177,7 @@ enum drm_i915_pmu_engine_sample {
+ #define I915_PMU_REQUESTED_FREQUENCY	__I915_PMU_OTHER(1)
+ #define I915_PMU_INTERRUPTS		__I915_PMU_OTHER(2)
+ #define I915_PMU_RC6_RESIDENCY		__I915_PMU_OTHER(3)
++#define I915_PMU_GT_AWAKE		__I915_PMU_OTHER(4)
  
- 	if (unlikely(preempt_timeout(engine))) {
- 		cancel_timer(&engine->execlists.preempt);
-@@ -3148,6 +3164,8 @@ static void execlists_submission_tasklet(unsigned long data)
+ #define I915_PMU_LAST /* Deprecated - do not use */ I915_PMU_RC6_RESIDENCY
  
- 	if (!engine->execlists.pending[0])
- 		execlists_dequeue_irq(engine);
-+
-+	post_process_csb(post, inactive);
- }
- 
- static void __execlists_kick(struct intel_engine_execlists *execlists)
-@@ -4044,8 +4062,6 @@ static void enable_execlists(struct intel_engine_cs *engine)
- 	ENGINE_POSTING_READ(engine, RING_HWS_PGA);
- 
- 	enable_error_interrupt(engine);
--
--	engine->context_tag = GENMASK(BITS_PER_LONG - 2, 0);
- }
- 
- static bool unexpected_starting_state(struct intel_engine_cs *engine)
-@@ -4134,22 +4150,29 @@ static void __execlists_reset_reg_state(const struct intel_context *ce,
- 	__reset_stop_ring(regs, engine);
- }
- 
--static void __execlists_reset(struct intel_engine_cs *engine, bool stalled)
-+static struct i915_request **reset_csb(struct intel_engine_cs *engine,
-+				       struct i915_request **inactive)
- {
- 	struct intel_engine_execlists * const execlists = &engine->execlists;
--	struct intel_context *ce;
--	struct i915_request *rq;
--	u32 head;
- 
- 	mb(); /* paranoia: read the CSB pointers from after the reset */
- 	clflush(execlists->csb_write);
- 	mb();
- 
--	process_csb(engine); /* drain preemption events */
-+	inactive = process_csb(engine, inactive); /* drain preemption events */
- 
- 	/* Following the reset, we need to reload the CSB read/write pointers */
- 	reset_csb_pointers(engine);
- 
-+	return inactive;
-+}
-+
-+static void execlists_reset_active(struct intel_engine_cs *engine, bool stalled)
-+{
-+	struct intel_context *ce;
-+	struct i915_request *rq;
-+	u32 head;
-+
- 	/*
- 	 * Save the currently executing context, even if we completed
- 	 * its request, it was still running at the time of the
-@@ -4157,7 +4180,7 @@ static void __execlists_reset(struct intel_engine_cs *engine, bool stalled)
- 	 */
- 	rq = active_context(engine, engine->execlists.reset_ccid);
- 	if (!rq)
--		goto unwind;
-+		return;
- 
- 	ce = rq->context;
- 	GEM_BUG_ON(!i915_vma_is_pinned(ce->state));
-@@ -4220,11 +4243,20 @@ static void __execlists_reset(struct intel_engine_cs *engine, bool stalled)
- 	__execlists_reset_reg_state(ce, engine);
- 	__execlists_update_reg_state(ce, engine, head);
- 	ce->lrc.desc |= CTX_DESC_FORCE_RESTORE; /* paranoid: GPU was reset! */
-+}
- 
--unwind:
--	/* Push back any incomplete requests for replay after the reset. */
--	cancel_port_requests(execlists);
--	__unwind_incomplete_requests(engine);
-+static void execlists_reset_csb(struct intel_engine_cs *engine, bool stalled)
-+{
-+	struct intel_engine_execlists * const execlists = &engine->execlists;
-+	struct i915_request *post[2 * EXECLIST_MAX_PORTS];
-+	struct i915_request **inactive;
-+
-+	inactive = reset_csb(engine, post);
-+
-+	execlists_reset_active(engine, true);
-+
-+	inactive = cancel_port_requests(execlists, inactive);
-+	post_process_csb(post, inactive);
- }
- 
- static void execlists_reset_rewind(struct intel_engine_cs *engine, bool stalled)
-@@ -4233,10 +4265,12 @@ static void execlists_reset_rewind(struct intel_engine_cs *engine, bool stalled)
- 
- 	ENGINE_TRACE(engine, "\n");
- 
--	spin_lock_irqsave(&engine->active.lock, flags);
--
--	__execlists_reset(engine, stalled);
-+	/* Process the csb, find the guilty context and throw away */
-+	execlists_reset_csb(engine, stalled);
- 
-+	/* Push back any incomplete requests for replay after the reset. */
-+	spin_lock_irqsave(&engine->active.lock, flags);
-+	__unwind_incomplete_requests(engine);
- 	spin_unlock_irqrestore(&engine->active.lock, flags);
- }
- 
-@@ -4271,9 +4305,9 @@ static void execlists_reset_cancel(struct intel_engine_cs *engine)
- 	 * submission's irq state, we also wish to remind ourselves that
- 	 * it is irq state.)
- 	 */
--	spin_lock_irqsave(&engine->active.lock, flags);
-+	execlists_reset_csb(engine, true);
- 
--	__execlists_reset(engine, true);
-+	spin_lock_irqsave(&engine->active.lock, flags);
- 
- 	/* Mark all executing requests as skipped. */
- 	list_for_each_entry(rq, &engine->active.requests, sched.link)
-@@ -4540,6 +4574,7 @@ int intel_execlists_submission_setup(struct intel_engine_cs *engine)
- 	else
- 		execlists->csb_size = GEN11_CSB_ENTRIES;
- 
-+	engine->context_tag = GENMASK(BITS_PER_LONG - 2, 0);
- 	if (INTEL_GEN(engine->i915) >= 11) {
- 		execlists->ccid |= engine->instance << (GEN11_ENGINE_INSTANCE_SHIFT - 32);
- 		execlists->ccid |= engine->class << (GEN11_ENGINE_CLASS_SHIFT - 32);
 -- 
 2.20.1
 
