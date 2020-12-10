@@ -2,49 +2,49 @@ Return-Path: <SRS0=CSZM=FO=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 80172C4361B
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 07:25:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 801A5C4167B
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 07:25:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2F8CC23770
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 07:25:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2F8CC23770
+	by mail.kernel.org (Postfix) with ESMTPS id 3783B23D23
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 07:25:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3783B23D23
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D175A6E4A2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB7F26E82D;
 	Thu, 10 Dec 2020 07:25:15 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 231DB6E3E3
- for <Intel-gfx@lists.freedesktop.org>; Thu, 10 Dec 2020 07:25:10 +0000 (UTC)
-IronPort-SDR: 0rzdTOwN8wAWsMRbanaHRbdZuq2Gqo9ldQpNM8zhQlQGrF8sJKFmAZMPgoKucaAsjThxcV2RqC
- 69piCBTGWraA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9830"; a="170701305"
-X-IronPort-AV: E=Sophos;i="5.78,407,1599548400"; d="scan'208";a="170701305"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E4196E54C
+ for <Intel-gfx@lists.freedesktop.org>; Thu, 10 Dec 2020 07:25:11 +0000 (UTC)
+IronPort-SDR: xYn/QZTOl7AxCqd2HqLE9eHadf1tEJkzp0Pn31IJeeQrrUUcWALImlwPh1mTv31bsUqfDcaIsE
+ nQSAmRymG1Mw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9830"; a="170701316"
+X-IronPort-AV: E=Sophos;i="5.78,407,1599548400"; d="scan'208";a="170701316"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Dec 2020 23:25:08 -0800
-IronPort-SDR: 2D2iCS3Hc/pRlPcaX2buDsgKagftYr1II51P8ZQDfdeG96z4w88fzfKZzbRqhfxLn6SVKlfJFC
- A6ojxMHc1FvA==
+ 09 Dec 2020 23:25:09 -0800
+IronPort-SDR: uldHDwRnodCsXdXBNBJ7zp8jgDZrfrd5jLPccCqTmR3oFBy9KIBml4m31pa4iNaTh2Sf2CGwJj
+ zCGGp/XoA9yA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.78,407,1599548400"; d="scan'208";a="318867195"
+X-IronPort-AV: E=Sophos;i="5.78,407,1599548400"; d="scan'208";a="318867218"
 Received: from sean-virtualbox.fm.intel.com ([10.105.158.96])
- by fmsmga008.fm.intel.com with ESMTP; 09 Dec 2020 23:25:08 -0800
+ by fmsmga008.fm.intel.com with ESMTP; 09 Dec 2020 23:25:09 -0800
 From: "Huang, Sean Z" <sean.z.huang@intel.com>
 To: Intel-gfx@lists.freedesktop.org
-Date: Wed,  9 Dec 2020 23:24:23 -0800
-Message-Id: <20201210072435.24066-10-sean.z.huang@intel.com>
+Date: Wed,  9 Dec 2020 23:24:34 -0800
+Message-Id: <20201210072435.24066-21-sean.z.huang@intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20201210072435.24066-1-sean.z.huang@intel.com>
 References: <20201210072435.24066-1-sean.z.huang@intel.com>
-Subject: [Intel-gfx] [RFC-v4 09/21] drm/i915/pxp: Expose session state for
- display protection flip
+Subject: [Intel-gfx] [RFC-v4 20/21] drm/i915/pxp: Add PXP-related registers
+ into allowlist
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,67 +63,129 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Implement the intel_pxp_gem_object_status() to allow i915 display
-querying the current PXP session state. In the design, display
-should not perform protection flip on the protected buffers if
-there is no PXP session alive.
+Add several PXP-related reg into allowlist to allow user space
+driver to read the those register values.
 
 Signed-off-by: Huang, Sean Z <sean.z.huang@intel.com>
 ---
- drivers/gpu/drm/i915/pxp/intel_pxp.c | 9 +++++++++
- drivers/gpu/drm/i915/pxp/intel_pxp.h | 8 ++++++++
- 2 files changed, 17 insertions(+)
+ drivers/gpu/drm/i915/i915_reg.h     |  6 ++++
+ drivers/gpu/drm/i915/intel_uncore.c | 50 ++++++++++++++++++++---------
+ 2 files changed, 41 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.c b/drivers/gpu/drm/i915/pxp/intel_pxp.c
-index 48e926363696..ce3760206b76 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp.c
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp.c
-@@ -143,3 +143,12 @@ void intel_pxp_irq_handler(struct intel_pxp *pxp, u16 iir)
- 	pxp->current_events |= events;
- 	schedule_work(&pxp->irq_work);
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index 0ea7e2a402ae..bcb7eb7a0e3c 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -12425,4 +12425,10 @@ enum skl_power_gate {
+ #define TGL_ROOT_DEVICE_SKU_ULX		0x2
+ #define TGL_ROOT_DEVICE_SKU_ULT		0x4
+ 
++/* Registers for allowlist check */
++#define PXP_REG_01_LOWERBOUND		_MMIO(0x32260)
++#define PXP_REG_01_UPPERBOUND		_MMIO(0x32268)
++#define PXP_REG_02_LOWERBOUND		_MMIO(0x32670)
++#define PXP_REG_02_UPPERBOUND		_MMIO(0x32678)
++
+ #endif /* _I915_REG_H_ */
+diff --git a/drivers/gpu/drm/i915/intel_uncore.c b/drivers/gpu/drm/i915/intel_uncore.c
+index 9ac501bcfdad..dc97ec240571 100644
+--- a/drivers/gpu/drm/i915/intel_uncore.c
++++ b/drivers/gpu/drm/i915/intel_uncore.c
+@@ -1990,16 +1990,34 @@ void intel_uncore_fini_mmio(struct intel_uncore *uncore)
  }
-+
-+bool intel_pxp_gem_object_status(struct drm_i915_private *i915)
-+{
-+	if (i915->gt.pxp.ctx.id != 0 &&
-+	    i915->gt.pxp.ctx.flag_display_hm_surface_keys)
-+		return true;
-+	else
-+		return false;
-+}
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.h b/drivers/gpu/drm/i915/pxp/intel_pxp.h
-index ddcc3faa4ea3..027c0eb84a52 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp.h
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp.h
-@@ -37,6 +37,8 @@ struct intel_pxp {
- 	struct pxp_context ctx;
- };
  
-+struct drm_i915_private;
-+
- #ifdef CONFIG_DRM_I915_PXP
- void intel_pxp_irq_handler(struct intel_pxp *pxp, u16 iir);
- int i915_pxp_teardown_required_callback(struct intel_pxp *pxp);
-@@ -44,6 +46,7 @@ int i915_pxp_global_terminate_complete_callback(struct intel_pxp *pxp);
+ static const struct reg_whitelist {
+-	i915_reg_t offset_ldw;
++	i915_reg_t offset_ldw_lowerbound;
++	i915_reg_t offset_ldw_upperbound;
+ 	i915_reg_t offset_udw;
+ 	u16 gen_mask;
+ 	u8 size;
+-} reg_read_whitelist[] = { {
+-	.offset_ldw = RING_TIMESTAMP(RENDER_RING_BASE),
++} reg_read_whitelist[] = {
++	{
++	.offset_ldw_lowerbound = RING_TIMESTAMP(RENDER_RING_BASE),
++	.offset_ldw_upperbound = RING_TIMESTAMP(RENDER_RING_BASE),
+ 	.offset_udw = RING_TIMESTAMP_UDW(RENDER_RING_BASE),
+ 	.gen_mask = INTEL_GEN_MASK(4, 12),
+ 	.size = 8
+-} };
++	},
++	{
++	.offset_ldw_lowerbound = PXP_REG_01_LOWERBOUND,
++	.offset_ldw_upperbound = PXP_REG_01_UPPERBOUND,
++	.offset_udw = {0},
++	.gen_mask = INTEL_GEN_MASK(4, 12),
++	.size = 4
++	},
++	{
++	.offset_ldw_lowerbound = PXP_REG_02_LOWERBOUND,
++	.offset_ldw_upperbound = PXP_REG_02_UPPERBOUND,
++	.offset_udw = {0},
++	.gen_mask = INTEL_GEN_MASK(4, 12),
++	.size = 4
++	}
++};
  
- int intel_pxp_init(struct intel_pxp *pxp);
- void intel_pxp_uninit(struct intel_pxp *pxp);
-+bool intel_pxp_gem_object_status(struct drm_i915_private *i915);
- #else
- static inline void intel_pxp_irq_handler(struct intel_pxp *pxp, u16 iir)
- {
-@@ -67,6 +70,11 @@ static inline int intel_pxp_init(struct intel_pxp *pxp)
- static inline void intel_pxp_uninit(struct intel_pxp *pxp)
- {
- }
-+
-+static inline bool intel_pxp_gem_object_status(struct drm_i915_private *i915)
-+{
-+	return false;
-+}
- #endif
+ int i915_reg_read_ioctl(struct drm_device *dev,
+ 			void *data, struct drm_file *file)
+@@ -2012,18 +2030,22 @@ int i915_reg_read_ioctl(struct drm_device *dev,
+ 	unsigned int flags;
+ 	int remain;
+ 	int ret = 0;
++	i915_reg_t offset_ldw;
  
- #endif /* __INTEL_PXP_PM_H__ */
+ 	entry = reg_read_whitelist;
+ 	remain = ARRAY_SIZE(reg_read_whitelist);
+ 	while (remain) {
+-		u32 entry_offset = i915_mmio_reg_offset(entry->offset_ldw);
++		u32 entry_offset_lb = i915_mmio_reg_offset(entry->offset_ldw_lowerbound);
++		u32 entry_offset_ub = i915_mmio_reg_offset(entry->offset_ldw_upperbound);
+ 
+ 		GEM_BUG_ON(!is_power_of_2(entry->size));
+ 		GEM_BUG_ON(entry->size > 8);
+-		GEM_BUG_ON(entry_offset & (entry->size - 1));
++		GEM_BUG_ON(entry_offset_lb & (entry->size - 1));
++		GEM_BUG_ON(entry_offset_ub & (entry->size - 1));
+ 
+ 		if (INTEL_INFO(i915)->gen_mask & entry->gen_mask &&
+-		    entry_offset == (reg->offset & -entry->size))
++		    entry_offset_lb <= (reg->offset & -entry->size) &&
++		    (reg->offset & -entry->size) <= entry_offset_ub)
+ 			break;
+ 		entry++;
+ 		remain--;
+@@ -2033,23 +2055,21 @@ int i915_reg_read_ioctl(struct drm_device *dev,
+ 		return -EINVAL;
+ 
+ 	flags = reg->offset & (entry->size - 1);
++	offset_ldw = _MMIO(reg->offset - flags);
+ 
+ 	with_intel_runtime_pm(&i915->runtime_pm, wakeref) {
+ 		if (entry->size == 8 && flags == I915_REG_READ_8B_WA)
+ 			reg->val = intel_uncore_read64_2x32(uncore,
+-							    entry->offset_ldw,
++							    offset_ldw,
+ 							    entry->offset_udw);
+ 		else if (entry->size == 8 && flags == 0)
+-			reg->val = intel_uncore_read64(uncore,
+-						       entry->offset_ldw);
++			reg->val = intel_uncore_read64(uncore, offset_ldw);
+ 		else if (entry->size == 4 && flags == 0)
+-			reg->val = intel_uncore_read(uncore, entry->offset_ldw);
++			reg->val = intel_uncore_read(uncore, offset_ldw);
+ 		else if (entry->size == 2 && flags == 0)
+-			reg->val = intel_uncore_read16(uncore,
+-						       entry->offset_ldw);
++			reg->val = intel_uncore_read16(uncore, offset_ldw);
+ 		else if (entry->size == 1 && flags == 0)
+-			reg->val = intel_uncore_read8(uncore,
+-						      entry->offset_ldw);
++			reg->val = intel_uncore_read8(uncore, offset_ldw);
+ 		else
+ 			ret = -EINVAL;
+ 	}
 -- 
 2.17.1
 
