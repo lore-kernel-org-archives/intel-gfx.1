@@ -2,54 +2,41 @@ Return-Path: <SRS0=CSZM=FO=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.2 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7DDB7C4361B
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 21:57:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BAF67C433FE
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 22:27:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0D0B423DE3
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 21:57:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0D0B423DE3
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 4ED03223E0
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 22:27:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4ED03223E0
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7CB2C6EB6C;
-	Thu, 10 Dec 2020 21:57:21 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 22DF26EB6C
- for <intel-gfx@lists.freedesktop.org>; Thu, 10 Dec 2020 21:57:20 +0000 (UTC)
-IronPort-SDR: MzY7roNxZpFJcvTncLCcWJGISiFVMkh1/AwmLwmcB/C4g1a8NMGEeCO7XmKIjxDVqtiAZne6Uk
- XtRfZWHH2lFA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9831"; a="174453981"
-X-IronPort-AV: E=Sophos;i="5.78,409,1599548400"; d="scan'208";a="174453981"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Dec 2020 13:57:19 -0800
-IronPort-SDR: CHw6SLzRgbv6saUWep//BQLjmolkAcleW+DMebygiPlW5mnUxIGpvggY+yL/BSspJonBXzG7wS
- YUhy6CcRwsuA==
-X-IronPort-AV: E=Sophos;i="5.78,409,1599548400"; d="scan'208";a="378328886"
-Received: from unknown (HELO sdutt-i7) ([10.165.21.147])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Dec 2020 13:57:19 -0800
-Date: Thu, 10 Dec 2020 13:51:33 -0800
-From: Matthew Brost <matthew.brost@intel.com>
-To: Chris Wilson <chris@chris-wilson.co.uk>
-Message-ID: <20201210215133.GB25383@sdutt-i7>
-References: <20201210080240.24529-1-chris@chris-wilson.co.uk>
- <20201210080240.24529-19-chris@chris-wilson.co.uk>
- <20201210191644.GA6255@sdutt-i7>
- <160763434489.21588.6583586596864510610@build.alporthouse.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 676C36EB6F;
+	Thu, 10 Dec 2020 22:27:40 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 1A5256E4D0;
+ Thu, 10 Dec 2020 22:27:39 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 1471BA47DB;
+ Thu, 10 Dec 2020 22:27:39 +0000 (UTC)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <160763434489.21588.6583586596864510610@build.alporthouse.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Subject: Re: [Intel-gfx] [PATCH 19/21] drm/i915/gt: Use indices for writing
- into relative timelines
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Chris Wilson" <chris@chris-wilson.co.uk>
+Date: Thu, 10 Dec 2020 22:27:39 -0000
+Message-ID: <160763925906.19116.5029579618505674555@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20201210011720.26649-1-chris@chris-wilson.co.uk>
+In-Reply-To: <20201210011720.26649-1-chris@chris-wilson.co.uk>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_drm/i915/gt=3A_Split_logical_ring_contexts_from_execlist_su?=
+ =?utf-8?q?bmission_=28rev2=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,40 +49,80 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Cc: intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Dec 10, 2020 at 09:05:44PM +0000, Chris Wilson wrote:
-> Quoting Matthew Brost (2020-12-10 19:16:44)
-> > On Thu, Dec 10, 2020 at 08:02:38AM +0000, Chris Wilson wrote:
-> > > Relative timelines are relative to either the global or per-process
-> > > HWSP, and so we can replace the absolute addressing with store-index
-> > > variants for position invariance.
-> > > 
-> > 
-> > Can you explain the benifit of relative addressing? Why can't we also
-> > use absolute? If we can always use absolute, I don't see the point
-> > complicating the breadcrumb code.
-> 
-> It basically allows a third party to move the contexts between hosts
-> with far less patching of global state. They want us to avoid all fixed
-> GGTT addressing.
-> 
-> The breadcrumbs themselves do not notice at all, it's just the timeline
-> setup and decision to take advantage of the relative commands. The
-> breadcrumb patches in this series are some outstanding fixes from ~6
-> months ago.
+== Series Details ==
 
-By breadcrumbs, I meant the emit code. Relative addressing for GVT makes
-sense.
+Series: drm/i915/gt: Split logical ring contexts from execlist submission (rev2)
+URL   : https://patchwork.freedesktop.org/series/84752/
+State : warning
 
-With that, for this patch:
-Reviewed-by: Matthew Brost <matthew.brost@intel.com>
+== Summary ==
 
-> -Chris
+$ dim checkpatch origin/drm-tip
+454579934182 drm/i915/gt: Split logical ring contexts from execlist submission
+-:1747: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#1747: 
+new file mode 100644
+
+-:1776: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'count' - possible side-effects?
+#1776: FILE: drivers/gpu/drm/i915/gt/intel_lrc.c:25:
++#define LRI(count, flags) ((flags) << 6 | (count) | BUILD_BUG_ON_ZERO(count >= BIT(6)))
+
+-:1778: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'x' - possible side-effects?
+#1778: FILE: drivers/gpu/drm/i915/gt/intel_lrc.c:27:
++#define REG(x) (((x) >> 2) | BUILD_BUG_ON_ZERO(x >= 0x200))
+
+-:1779: ERROR:COMPLEX_MACRO: Macros with complex values should be enclosed in parentheses
+#1779: FILE: drivers/gpu/drm/i915/gt/intel_lrc.c:28:
++#define REG16(x) \
++	(((x) >> 9) | BIT(7) | BUILD_BUG_ON_ZERO(x >= 0x10000)), \
++	(((x) >> 2) & 0x7f)
+
+-:1779: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'x' - possible side-effects?
+#1779: FILE: drivers/gpu/drm/i915/gt/intel_lrc.c:28:
++#define REG16(x) \
++	(((x) >> 9) | BIT(7) | BUILD_BUG_ON_ZERO(x >= 0x10000)), \
++	(((x) >> 2) & 0x7f)
+
+-:1782: ERROR:COMPLEX_MACRO: Macros with complex values should be enclosed in parentheses
+#1782: FILE: drivers/gpu/drm/i915/gt/intel_lrc.c:31:
++#define END(total_state_size) 0, (total_state_size)
+
+-:2426: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#2426: FILE: drivers/gpu/drm/i915/gt/intel_lrc.c:675:
++		lrc_setup_indirect_ctx(regs, engine,
++					    i915_ggtt_offset(wa_ctx->vma) +
+
+-:5754: WARNING:MEMORY_BARRIER: memory barrier without comment
+#5754: FILE: drivers/gpu/drm/i915/gt/selftest_lrc.c:638:
++		wmb();
+
+-:5783: WARNING:MEMORY_BARRIER: memory barrier without comment
+#5783: FILE: drivers/gpu/drm/i915/gt/selftest_lrc.c:667:
++	wmb();
+
+-:5915: WARNING:MEMORY_BARRIER: memory barrier without comment
+#5915: FILE: drivers/gpu/drm/i915/gt/selftest_lrc.c:799:
++		wmb();
+
+-:6463: WARNING:MEMORY_BARRIER: memory barrier without comment
+#6463: FILE: drivers/gpu/drm/i915/gt/selftest_lrc.c:1347:
++	wmb();
+
+-:6877: WARNING:LINE_SPACING: Missing a blank line after declarations
+#6877: FILE: drivers/gpu/drm/i915/gt/selftest_lrc.c:1761:
++	struct i915_request *rq;
++	IGT_TIMEOUT(end_time);
+
+total: 2 errors, 6 warnings, 4 checks, 5153 lines checked
+
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
