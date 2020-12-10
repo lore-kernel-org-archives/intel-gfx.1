@@ -2,49 +2,49 @@ Return-Path: <SRS0=CSZM=FO=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.9 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
-	URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 56801C433FE
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EBB45C4361B
 	for <intel-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 07:25:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0CC4423D23
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 07:25:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0CC4423D23
+	by mail.kernel.org (Postfix) with ESMTPS id B8C6523770
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 07:25:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B8C6523770
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EDD6F6EA1E;
-	Thu, 10 Dec 2020 07:25:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 919996E9E0;
+	Thu, 10 Dec 2020 07:25:16 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 79D5F6E4A2
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C40A6E4B6
  for <Intel-gfx@lists.freedesktop.org>; Thu, 10 Dec 2020 07:25:10 +0000 (UTC)
-IronPort-SDR: fYww1H9nQkiHEGVtwFDr0n9VdwBAlaw0bmMU4xR7z66I7omln66sYeeDdt3THnS9TecGwGQwEN
- QKF7Wxvzjh0g==
-X-IronPort-AV: E=McAfee;i="6000,8403,9830"; a="170701310"
-X-IronPort-AV: E=Sophos;i="5.78,407,1599548400"; d="scan'208";a="170701310"
+IronPort-SDR: kXbjyYFcuFEMO1+57oO+HJt6XhDqdAs5ti9cHRyvDUNIvn9oR9wbGVUWDWb0/PoRm5bJITX2IO
+ eLdCVCcAbT5Q==
+X-IronPort-AV: E=McAfee;i="6000,8403,9830"; a="170701311"
+X-IronPort-AV: E=Sophos;i="5.78,407,1599548400"; d="scan'208";a="170701311"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  09 Dec 2020 23:25:09 -0800
-IronPort-SDR: vbRtj77B5KzxXlTYU+06qSCZfBlwcVeapf99Qbyg05cpKAlsgZ+0qp7iS+zFRbZG/e6/IUP/bJ
- cYRcLs/Pz/Tw==
+IronPort-SDR: prev9+axQo+pUEp4xu+NlYi3HRN7U4jSM4DbZ+iXNttszrk9ZY49lhfdamPO7NkmZHA8M5527N
+ UI/4IRk54zjw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.78,407,1599548400"; d="scan'208";a="318867202"
+X-IronPort-AV: E=Sophos;i="5.78,407,1599548400"; d="scan'208";a="318867213"
 Received: from sean-virtualbox.fm.intel.com ([10.105.158.96])
- by fmsmga008.fm.intel.com with ESMTP; 09 Dec 2020 23:25:08 -0800
+ by fmsmga008.fm.intel.com with ESMTP; 09 Dec 2020 23:25:09 -0800
 From: "Huang, Sean Z" <sean.z.huang@intel.com>
 To: Intel-gfx@lists.freedesktop.org
-Date: Wed,  9 Dec 2020 23:24:25 -0800
-Message-Id: <20201210072435.24066-12-sean.z.huang@intel.com>
+Date: Wed,  9 Dec 2020 23:24:31 -0800
+Message-Id: <20201210072435.24066-18-sean.z.huang@intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20201210072435.24066-1-sean.z.huang@intel.com>
 References: <20201210072435.24066-1-sean.z.huang@intel.com>
-Subject: [Intel-gfx] [RFC-v4 11/21] drm/i915/uapi: introduce
- drm_i915_gem_create_ext
+Subject: [Intel-gfx] [RFC-v4 17/21] drm/i915/pxp: Implement ioctl action to
+ send TEE commands
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,187 +57,190 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Joonas@freedesktop.org,
-	Bommu Krishnaiah <krishnaiah.bommu@intel.com>,
-	Matthew@freedesktop.org
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Bommu Krishnaiah <krishnaiah.bommu@intel.com>
+Implement the ioctl action to allow userspace driver sends TEE
+commands via PXP ioctl, instead of TEE iotcl. So we can
+centralize those protection operations at PXP.
 
-Same old gem_create but with now with extensions support. This is needed
-to support various upcoming usecases. For now we use the extensions
-mechanism to support PAVP.
-
-Signed-off-by: Bommu Krishnaiah <krishnaiah.bommu@intel.com>
-Signed-off-by: Matthew Auld <matthew.auld@intel.com>
-Cc: Joonas Lahtinen joonas.lahtinen@linux.intel.com
-Cc: Matthew Auld matthew.auld@intel.com
-Cc: Telukuntla Sreedhar <sreedhar.telukuntla@intel.com>
+Signed-off-by: Huang, Sean Z <sean.z.huang@intel.com>
 ---
- drivers/gpu/drm/i915/i915_drv.c |  2 +-
- drivers/gpu/drm/i915/i915_gem.c | 42 ++++++++++++++++++++++++++++-
- include/uapi/drm/i915_drm.h     | 47 +++++++++++++++++++++++++++++++++
- 3 files changed, 89 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/pxp/intel_pxp.c     | 48 +++++++++++++++++---
+ drivers/gpu/drm/i915/pxp/intel_pxp_tee.c | 57 ++++++++++++++++++++++++
+ drivers/gpu/drm/i915/pxp/intel_pxp_tee.h |  5 +++
+ 3 files changed, 105 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_drv.c b/drivers/gpu/drm/i915/i915_drv.c
-index af06c85e6ba7..3dbda949bf71 100644
---- a/drivers/gpu/drm/i915/i915_drv.c
-+++ b/drivers/gpu/drm/i915/i915_drv.c
-@@ -1733,7 +1733,7 @@ static const struct drm_ioctl_desc i915_ioctls[] = {
- 	DRM_IOCTL_DEF_DRV(I915_GEM_THROTTLE, i915_gem_throttle_ioctl, DRM_RENDER_ALLOW),
- 	DRM_IOCTL_DEF_DRV(I915_GEM_ENTERVT, drm_noop, DRM_AUTH|DRM_MASTER|DRM_ROOT_ONLY),
- 	DRM_IOCTL_DEF_DRV(I915_GEM_LEAVEVT, drm_noop, DRM_AUTH|DRM_MASTER|DRM_ROOT_ONLY),
--	DRM_IOCTL_DEF_DRV(I915_GEM_CREATE, i915_gem_create_ioctl, DRM_RENDER_ALLOW),
-+	DRM_IOCTL_DEF_DRV(I915_GEM_CREATE_EXT, i915_gem_create_ioctl, DRM_RENDER_ALLOW),
- 	DRM_IOCTL_DEF_DRV(I915_GEM_PREAD, i915_gem_pread_ioctl, DRM_RENDER_ALLOW),
- 	DRM_IOCTL_DEF_DRV(I915_GEM_PWRITE, i915_gem_pwrite_ioctl, DRM_RENDER_ALLOW),
- 	DRM_IOCTL_DEF_DRV(I915_GEM_MMAP, i915_gem_mmap_ioctl, DRM_RENDER_ALLOW),
-diff --git a/drivers/gpu/drm/i915/i915_gem.c b/drivers/gpu/drm/i915/i915_gem.c
-index 58276694c848..41698a823737 100644
---- a/drivers/gpu/drm/i915/i915_gem.c
-+++ b/drivers/gpu/drm/i915/i915_gem.c
-@@ -53,6 +53,7 @@
- #include "i915_drv.h"
- #include "i915_trace.h"
- #include "i915_vgpu.h"
-+#include "i915_user_extensions.h"
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.c b/drivers/gpu/drm/i915/pxp/intel_pxp.c
+index c35011b84f5a..2445af5f763c 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp.c
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp.c
+@@ -16,7 +16,10 @@
+ /* Setting KCR Init bit is required after system boot */
+ #define KCR_INIT_ALLOW_DISPLAY_ME_WRITES (BIT(14) | (BIT(14) << KCR_INIT_MASK_SHIFT))
  
- #include "intel_pm.h"
+-#define PXP_ACTION_SET_SESSION_STATUS 1
++enum pxp_ioctl_action {
++	PXP_ACTION_SET_SESSION_STATUS = 1,
++	PXP_ACTION_TEE_IO_MESSAGE = 4,
++};
  
-@@ -260,6 +261,35 @@ i915_gem_dumb_create(struct drm_file *file,
- 			       &args->size, &args->handle);
- }
+ enum pxp_session_req {
+ 	/* Request KMD to allocate session id and move it to IN INIT */
+@@ -38,13 +41,28 @@ struct pxp_set_session_status_params {
+ 	u32 req_session_state; /* in, new session state */
+ };
  
-+struct create_ext {
-+        struct drm_i915_private *i915;
++/*
++ * struct pxp_tee_io_message_params - Params to send/receive message to/from TEE.
++ */
++struct pxp_tee_io_message_params {
++	u8 __user *msg_in; /* in - message input */
++	u32 msg_in_size; /* in - message input size */
++	u8 __user *msg_out; /* in - message output buffer */
++	u32 msg_out_size; /* out- message output size from TEE */
++	u32 msg_out_buf_size; /* in - message output buffer size */
 +};
 +
-+static int __create_setparam(struct drm_i915_gem_object_param *args,
-+							struct create_ext *ext_data)
+ /* struct pxp_info - Params for PXP operation. */
+ struct pxp_info {
+ 	u32 action; /* in - specified action of this operation */
+ 	u32 sm_status; /* out - status output for this operation */
+ 
+-	/* in - action params to set the PXP session state */
+-	struct pxp_set_session_status_params set_session_status;
++	union {
++		/* in - action params to set the PXP session state */
++		struct pxp_set_session_status_params set_session_status;
++		/* in - action params to send TEE commands */
++		struct pxp_tee_io_message_params tee_io_message;
++	};
+ } __attribute__((packed));
+ 
+ struct drm_i915_pxp_ops {
+@@ -228,7 +246,9 @@ int i915_pxp_ops_ioctl(struct drm_device *dev, void *data, struct drm_file *drmf
+ 		goto end;
+ 	}
+ 
+-	if (pxp_info.action == PXP_ACTION_SET_SESSION_STATUS) {
++	switch (pxp_info.action) {
++	case PXP_ACTION_SET_SESSION_STATUS:
++	{
+ 		struct pxp_set_session_status_params *params = &pxp_info.set_session_status;
+ 
+ 		if (params->req_session_state == PXP_REQ_SESSION_ID_INIT) {
+@@ -250,8 +270,26 @@ int i915_pxp_ops_ioctl(struct drm_device *dev, void *data, struct drm_file *drmf
+ 		} else {
+ 			ret = -EINVAL;
+ 		}
+-	} else {
++		break;
++	}
++	case PXP_ACTION_TEE_IO_MESSAGE:
++	{
++		struct pxp_tee_io_message_params *params = &pxp_info.tee_io_message;
++
++		ret = intel_pxp_tee_ioctl_io_message(pxp,
++						     params->msg_in, params->msg_in_size,
++						     params->msg_out, &params->msg_out_size,
++						     params->msg_out_buf_size);
++		if (ret) {
++			drm_err(&i915->drm, "Failed to send TEE IO message\n");
++			ret = -EFAULT;
++		}
++		break;
++	}
++	default:
++		drm_err(&i915->drm, "Failed to %s due to bad params\n", __func__);
+ 		ret = -EINVAL;
++		break;
+ 	}
+ 
+ end:
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
+index 816a6d5a54e4..e0815b2ee9ab 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
+@@ -168,3 +168,60 @@ int intel_pxp_tee_cmd_create_arb_session(struct intel_pxp *pxp)
+ 
+ 	return ret;
+ }
++
++int intel_pxp_tee_ioctl_io_message(struct intel_pxp *pxp,
++				   void __user *msg_in_user_ptr, u32 msg_in_size,
++				   void __user *msg_out_user_ptr, u32 *msg_out_size_ptr,
++				   u32 msg_out_buf_size)
 +{
-+	if (!(args->param & I915_OBJECT_PARAM)) {
-+		DRM_DEBUG("Missing I915_OBJECT_PARAM namespace\n");
++	int ret;
++	void *msg_in = NULL;
++	void *msg_out = NULL;
++	struct intel_gt *gt = container_of(pxp, typeof(*gt), pxp);
++	struct drm_i915_private *i915 = gt->i915;
++
++	if (!msg_in_user_ptr || !msg_out_user_ptr || msg_out_buf_size == 0 ||
++	    msg_in_size == 0 || !msg_out_size_ptr)
 +		return -EINVAL;
++
++	msg_in = kzalloc(msg_in_size, GFP_KERNEL);
++	if (!msg_in)
++		return -ENOMEM;
++
++	msg_out = kzalloc(msg_out_buf_size, GFP_KERNEL);
++	if (!msg_out) {
++		ret = -ENOMEM;
++		goto end;
 +	}
 +
-+	return -EINVAL;
++	if (copy_from_user(msg_in, msg_in_user_ptr, msg_in_size) != 0) {
++		ret = -EFAULT;
++		drm_err(&i915->drm, "Failed to copy_from_user for TEE message\n");
++		goto end;
++	}
++
++	mutex_lock(&i915->pxp_tee_comp_mutex);
++
++	ret = intel_pxp_tee_io_message(pxp,
++				       msg_in, msg_in_size,
++				       msg_out, msg_out_size_ptr,
++				       msg_out_buf_size);
++
++	mutex_unlock(&i915->pxp_tee_comp_mutex);
++
++	if (ret) {
++		drm_err(&i915->drm, "Failed to send/receive tee message\n");
++		goto end;
++	}
++
++	if (copy_to_user(msg_out_user_ptr, msg_out, *msg_out_size_ptr) != 0) {
++		ret = -EFAULT;
++		drm_err(&i915->drm, "Failed to copy_to_user for TEE message\n");
++		goto end;
++	}
++
++end:
++	kfree(msg_in);
++	kfree(msg_out);
++	return ret;
 +}
-+
-+static int create_setparam(struct i915_user_extension __user *base, void *data)
-+{
-+	struct drm_i915_gem_create_ext_setparam ext;
-+
-+	if (copy_from_user(&ext, base, sizeof(ext)))
-+		return -EFAULT;
-+
-+	return __create_setparam(&ext.param, data);
-+}
-+
-+static const i915_user_extension_fn create_extensions[] = {
-+	[I915_GEM_CREATE_EXT_SETPARAM] = create_setparam,
-+};
-+
- /**
-  * Creates a new mm object and returns a handle to it.
-  * @dev: drm device pointer
-@@ -271,10 +301,20 @@ i915_gem_create_ioctl(struct drm_device *dev, void *data,
- 		      struct drm_file *file)
- {
- 	struct drm_i915_private *i915 = to_i915(dev);
--	struct drm_i915_gem_create *args = data;
-+	struct create_ext ext_data = { .i915 = i915 };
-+	struct drm_i915_gem_create_ext *args = data;
-+	int ret;
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.h b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.h
+index 757a54208a4d..d3129786758f 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.h
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.h
+@@ -13,6 +13,11 @@ void intel_pxp_tee_component_fini(struct intel_pxp *pxp);
  
- 	i915_gem_flush_free_objects(i915);
+ int intel_pxp_tee_cmd_create_arb_session(struct intel_pxp *pxp);
  
-+	ret = i915_user_extensions(u64_to_user_ptr(args->extensions),
-+				   create_extensions,
-+				   ARRAY_SIZE(create_extensions),
-+				   &ext_data);
-+	if (ret)
-+		return ret;
++int intel_pxp_tee_ioctl_io_message(struct intel_pxp *pxp,
++				   void __user *msg_in_user_ptr, u32 msg_in_size,
++				   void __user *msg_out_user_ptr, u32 *msg_out_size_ptr,
++				   u32 msg_out_buf_size);
 +
-+
- 	return i915_gem_create(file,
- 			       intel_memory_region_by_type(i915,
- 							   INTEL_MEMORY_SYSTEM),
-diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
-index 6edcb2b6c708..e918ccc81c74 100644
---- a/include/uapi/drm/i915_drm.h
-+++ b/include/uapi/drm/i915_drm.h
-@@ -391,6 +391,7 @@ typedef struct _drm_i915_sarea {
- #define DRM_IOCTL_I915_GEM_ENTERVT	DRM_IO(DRM_COMMAND_BASE + DRM_I915_GEM_ENTERVT)
- #define DRM_IOCTL_I915_GEM_LEAVEVT	DRM_IO(DRM_COMMAND_BASE + DRM_I915_GEM_LEAVEVT)
- #define DRM_IOCTL_I915_GEM_CREATE	DRM_IOWR(DRM_COMMAND_BASE + DRM_I915_GEM_CREATE, struct drm_i915_gem_create)
-+#define DRM_IOCTL_I915_GEM_CREATE_EXT   DRM_IOWR(DRM_COMMAND_BASE + DRM_I915_GEM_CREATE, struct drm_i915_gem_create_ext)
- #define DRM_IOCTL_I915_GEM_PREAD	DRM_IOW (DRM_COMMAND_BASE + DRM_I915_GEM_PREAD, struct drm_i915_gem_pread)
- #define DRM_IOCTL_I915_GEM_PWRITE	DRM_IOW (DRM_COMMAND_BASE + DRM_I915_GEM_PWRITE, struct drm_i915_gem_pwrite)
- #define DRM_IOCTL_I915_GEM_MMAP		DRM_IOWR(DRM_COMMAND_BASE + DRM_I915_GEM_MMAP, struct drm_i915_gem_mmap)
-@@ -728,6 +729,27 @@ struct drm_i915_gem_create {
- 	__u32 pad;
- };
- 
-+struct drm_i915_gem_create_ext {
-+	/**
-+	 * Requested size for the object.
-+	 *
-+	 * The (page-aligned) allocated size for the object will be returned.
-+	 */
-+	__u64 size;
-+	/**
-+	 * Returned handle for the object.
-+	 *
-+	 * Object handles are nonzero.
-+	 */
-+	__u32 handle;
-+	__u32 pad;
-+#define I915_GEM_CREATE_EXT_SETPARAM (1u << 0)
-+#define I915_GEM_CREATE_EXT_FLAGS_UNKNOWN \
-+	(-(I915_GEM_CREATE_EXT_SETPARAM << 1))
-+	__u64 extensions;
-+
-+};
-+
- struct drm_i915_gem_pread {
- 	/** Handle for the object being read. */
- 	__u32 handle;
-@@ -1698,6 +1720,31 @@ struct drm_i915_gem_context_param {
- 	__u64 value;
- };
- 
-+struct drm_i915_gem_object_param {
-+	/* Object handle (0 for I915_GEM_CREATE_EXT_SETPARAM) */
-+	__u32 handle;
-+
-+	/* Data pointer size */
-+	__u32 size;
-+
-+/*
-+ * I915_OBJECT_PARAM:
-+ *
-+ * Select object namespace for the param.
-+ */
-+#define I915_OBJECT_PARAM  (1ull<<32)
-+
-+	__u64 param;
-+
-+	/* Data value or pointer */
-+	__u64 data;
-+};
-+
-+struct drm_i915_gem_create_ext_setparam {
-+	struct i915_user_extension base;
-+	struct drm_i915_gem_object_param param;
-+};
-+
- /**
-  * Context SSEU programming
-  *
+ /* TEE command to create the arbitrary session */
+ #define PXP_TEE_ARB_CMD_BIN {0x00040000, 0x0000001e, 0x00000000, 0x00000008, 0x00000002, 0x0000000f}
+ #define PXP_TEE_ARB_CMD_DW_LEN (6)
 -- 
 2.17.1
 
