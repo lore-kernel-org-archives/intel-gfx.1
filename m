@@ -2,65 +2,49 @@ Return-Path: <SRS0=CSZM=FO=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 26F54C433FE
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 07:11:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 510FEC4361B
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 07:25:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C845D2332A
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 07:11:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C845D2332A
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id D5C5623770
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 07:25:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D5C5623770
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 494F66E9DE;
-	Thu, 10 Dec 2020 07:11:54 +0000 (UTC)
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [IPv6:2a00:1450:4864:20::62c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1DB506E9DE
- for <intel-gfx@lists.freedesktop.org>; Thu, 10 Dec 2020 07:11:53 +0000 (UTC)
-Received: by mail-ej1-x62c.google.com with SMTP id lt17so5869800ejb.3
- for <intel-gfx@lists.freedesktop.org>; Wed, 09 Dec 2020 23:11:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to;
- bh=HyekjdljxmRoEbDFQy2vKCMoM2IOaYgqJJEmrMWOeEc=;
- b=bwnc8lrQu0X6wUF1+N8EudDAWBoF6tVd9L2Wl1/6duxXA1+FLVX4qw3xiibfHp4RZH
- T+62bZUs+/d5h/wcRposG7aZVwJv6u/089qcRfd+T5IM9Mti5xo8CsCq78E3vg8I/HER
- +3xV6RZ8P4h0qLziQn+AsFVO8DDuFI6G/lhNcYF/puTp831Gq8xHRLxvCgTt4AiQPgEU
- oGb4qovlfC0uNp3dom/YGN1EXOqiJtqVy+XUATXPQdydzf9pLB2Yd34edQrbPYQUCQqd
- j94LCwK1wdIq49KURfzlxpGudsK1HM87hNGQM+vAsRTHrGAIq5TEDtHBSJiX7+hl2PWM
- EapQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to;
- bh=HyekjdljxmRoEbDFQy2vKCMoM2IOaYgqJJEmrMWOeEc=;
- b=B+1wYLO7v9trDZjT4MeMyuNArVblRUHIKakqMQg4BVjZdwaS7DAM1fLc6Qy2IXWya3
- q4d0XxUQFyEfYVi9amjFjWJdnECQxbr9QRDBPQVV6Lxw4al/WNzaidUShD5ylgLp0Qa0
- DnPU+5lo04jFP2s84UMBQW4rpkk4A0uK/YKpQwkhGbQMtN5Ou7gCJgEDFXdo8z63n4V2
- 6u6RNpH+ZOQNjaqWsYAuxLLWzREk06GzPnfhwu4+ADop36dOKY28HYOCpbKY1HQNCqCD
- 9tBXaAj+DWoNozlRP0T7pKvw8dljnsxNrtx2JvSqG1FlaBOVZmadtjQfIiq/v1If6tw/
- xEmQ==
-X-Gm-Message-State: AOAM533SMVJEN5+jlYH7WNLaDKbIk6tNG0dzcB8SpwLR9JpHOt+02gQ0
- IPM7d9SEY9+YE9Pm6dytHwiuAGhXL4L/t4eipey+4kZgsdRuMg==
-X-Google-Smtp-Source: ABdhPJwjAW8+uvqL9aUMWcmg7W4aQREKZR8/UtVzI8AfaIuKPlmmwR0CsdnxGdROR3L+J6T3G0oINSueMyBBFzsx6GQ=
-X-Received: by 2002:a17:906:ae55:: with SMTP id
- lf21mr5151909ejb.101.1607584311559; 
- Wed, 09 Dec 2020 23:11:51 -0800 (PST)
-MIME-Version: 1.0
-References: <20201210041755.29088-1-airlied@gmail.com>
-In-Reply-To: <20201210041755.29088-1-airlied@gmail.com>
-From: Dave Airlie <airlied@gmail.com>
-Date: Thu, 10 Dec 2020 17:11:40 +1000
-Message-ID: <CAPM=9tzo+p318geTdDc3d=6ymO=vGLd-vzPjT3fj7UDhLe-UzQ@mail.gmail.com>
-To: Intel Graphics Development <intel-gfx@lists.freedesktop.org>
-Subject: Re: [Intel-gfx] [RFC v2] refactor intel display a bit more
+	by gabe.freedesktop.org (Postfix) with ESMTP id 335806E364;
+	Thu, 10 Dec 2020 07:25:10 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F1F46E3E3
+ for <Intel-gfx@lists.freedesktop.org>; Thu, 10 Dec 2020 07:25:09 +0000 (UTC)
+IronPort-SDR: 7yRXICB4kwttCkLo5i1mEMzhTmjV7LWe9dBuNScUFSKTQuB99cPj1105Byk8qIBjqqgGxrTe9i
+ FGF6WgbX50nQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9830"; a="170701297"
+X-IronPort-AV: E=Sophos;i="5.78,407,1599548400"; d="scan'208";a="170701297"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Dec 2020 23:25:08 -0800
+IronPort-SDR: fCaSMbk6phHNXnTrOxMlKA2ItFXX2RwUYHA3k0T1R5MzNoG0bWtkOM7Hvz6hGijfPvzwp0euZ9
+ tcN/vrnnWMdw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.78,407,1599548400"; d="scan'208";a="318867187"
+Received: from sean-virtualbox.fm.intel.com ([10.105.158.96])
+ by fmsmga008.fm.intel.com with ESMTP; 09 Dec 2020 23:25:08 -0800
+From: "Huang, Sean Z" <sean.z.huang@intel.com>
+To: Intel-gfx@lists.freedesktop.org
+Date: Wed,  9 Dec 2020 23:24:16 -0800
+Message-Id: <20201210072435.24066-3-sean.z.huang@intel.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20201210072435.24066-1-sean.z.huang@intel.com>
+References: <20201210072435.24066-1-sean.z.huang@intel.com>
+Subject: [Intel-gfx] [RFC-v4 02/21] drm/i915/pxp: set KCR reg init during
+ the boot time
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,37 +57,51 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-There are all in this branch
-https://github.com/airlied/linux/commits/i915-display-refactor
+Set the KCR init during the boot time, which is
+required by hardware, to allow us doing further
+protection operation such as sending commands to
+GPU or TEE.
 
-I moved more code in the skl planes patch and move some pipe code in
-there as well
+Signed-off-by: Huang, Sean Z <sean.z.huang@intel.com>
+---
+ drivers/gpu/drm/i915/pxp/intel_pxp.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-Will repost those tomorrow most likely.
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.c b/drivers/gpu/drm/i915/pxp/intel_pxp.c
+index ba43b2c923c7..c4815950567d 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp.c
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp.c
+@@ -6,6 +6,12 @@
+ #include "intel_pxp.h"
+ #include "intel_pxp_context.h"
+ 
++/* KCR register definitions */
++#define KCR_INIT            _MMIO(0x320f0)
++#define KCR_INIT_MASK_SHIFT (16)
++/* Setting KCR Init bit is required after system boot */
++#define KCR_INIT_ALLOW_DISPLAY_ME_WRITES (BIT(14) | (BIT(14) << KCR_INIT_MASK_SHIFT))
++
+ int intel_pxp_init(struct intel_pxp *pxp)
+ {
+ 	struct intel_gt *gt = container_of(pxp, struct intel_gt, pxp);
+@@ -16,6 +22,8 @@ int intel_pxp_init(struct intel_pxp *pxp)
+ 
+ 	intel_pxp_ctx_init(&pxp->ctx);
+ 
++	intel_uncore_write(gt->uncore, KCR_INIT, KCR_INIT_ALLOW_DISPLAY_ME_WRITES);
++
+ 	drm_info(&gt->i915->drm, "Protected Xe Path (PXP) protected content support initialized\n");
+ 
+ 	return 0;
+-- 
+2.17.1
 
-Dave.
-
-On Thu, 10 Dec 2020 at 14:18, Dave Airlie <airlied@gmail.com> wrote:
->
-> The first 3 are just moving some functions to inline and fixing
-> a wrong comma, the next 4 are cleaned up from yesterday.
->
-> hsw fdi is definitely a WIP.
->
-> Skl planes migration is along the lines of what danvet asked for.
->
-> Dave.
->
->
-> _______________________________________________
-> Intel-gfx mailing list
-> Intel-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/intel-gfx
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
