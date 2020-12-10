@@ -2,53 +2,54 @@ Return-Path: <SRS0=CSZM=FO=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY
-	autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0F008C4167B
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 19:42:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EDFE4C4361B
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 19:42:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B352523D23
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 19:42:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B352523D23
+	by mail.kernel.org (Postfix) with ESMTPS id 9D9F323DC4
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 19:42:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9D9F323DC4
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linutronix.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B75DA6EB2D;
-	Thu, 10 Dec 2020 19:42:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED5AE6EB35;
+	Thu, 10 Dec 2020 19:42:31 +0000 (UTC)
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F25F6EB27;
- Thu, 10 Dec 2020 19:42:26 +0000 (UTC)
-Message-Id: <20201210194043.362094758@linutronix.de>
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA1876EB27;
+ Thu, 10 Dec 2020 19:42:28 +0000 (UTC)
+Message-Id: <20201210194043.546326568@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1607629344;
+ s=2020; t=1607629347;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:  references:references;
- bh=xI8ipC8kVjJGltjSHu5Mwub/dbA42XKOSuIg0xDxbuM=;
- b=D/de10U4HoG38vblr7IeySKjPU1LbUwG6rWRmeGYZrTiPhh//Hh7l/GxJreJ0rFcvzRPJy
- uoauNylV8dWf/MoltroGmVGhvJ2oJ5Y1i1Hdh3B/UY4mD9pwH+y7Dg4V+Vuar0V4FZXmUS
- 6T9k0+65HYvYSEKNJ4TVXxdcFWWUmHXiCvk5q873lejGHd1ZF8kDnbNFZOuvndA/bZ6hqk
- upKi4g8D5MCEBYYTgyELzJKcRa+JlxwqpINFEbwiyouRus62LMleSD5uCsPspz8eEzaopF
- eLafHsQRj846r/5tje8mdg+dCV5YsColFl6docNWF4RiFgqrORcZz2o154ST/Q==
+ bh=5nQTlSWs0aM1JwskkO++sgVx3e7r1A0iUoENDct9w0g=;
+ b=QPllCmzoid7R7QOyZWHCOYQKMI+juGJWW7IXPn4ldqvXap5zOWqeLwIujbfic04O+qhazO
+ 0xgWWwKg3GbwssA1OWCHaW+e3v13fVknyR8JXjPDh7PwNE+Ckpns9v0fFT+ZM3yGQ/k3Vv
+ GCsqZz06V+zRI8tFVRs2T2IovMxYUYd8eD6JafQc5V2xJxNbrsWbTKI93mSM/Ta7w2MVgk
+ H0DCRjstAo+JEpF+kGbxIAfIodj4WQwAN11f4kvj+YdByF1NUUzPqO+eeo3F+Zo17kc0So
+ XSotZsWfd7b5nXWYK0Zyq3GvoLnhjvZlI0o0fsviKiEzV4hSu6MDcZkJycE3/A==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1607629344;
+ s=2020e; t=1607629347;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:  references:references;
- bh=xI8ipC8kVjJGltjSHu5Mwub/dbA42XKOSuIg0xDxbuM=;
- b=uhk8uY0rFu42URnjai4w+dmeZE7ul5z78imfPTBVOwBrf5zNSXRAMP26aad4ZYcrnfPUQU
- IQRkkJ1oiqPOXJDw==
-Date: Thu, 10 Dec 2020 20:25:44 +0100
+ bh=5nQTlSWs0aM1JwskkO++sgVx3e7r1A0iUoENDct9w0g=;
+ b=vR1W3s1vgzWnaT5Q7BZrP5IMwXx2MgiIHJAS9ztGZt4iF+7Bkm46E7nJWgDdHbgllL9/0G
+ km2qINIgPXSFZ2CQ==
+Date: Thu, 10 Dec 2020 20:25:46 +0100
 From: Thomas Gleixner <tglx@linutronix.de>
 To: LKML <linux-kernel@vger.kernel.org>
 References: <20201210192536.118432146@linutronix.de>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [patch 08/30] genirq: Provide kstat_irqdesc_cpu()
+Subject: [Intel-gfx] [patch 10/30] arm64/smp: Use irq_desc_kstat_cpu() in
+ arch_show_interrupts()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,8 +70,8 @@ Cc: Mark Rutland <mark.rutland@arm.com>,
  Chris Wilson <chris@chris-wilson.co.uk>,
  "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
  Saeed Mahameed <saeedm@nvidia.com>, netdev@vger.kernel.org,
- Will Deacon <will@kernel.org>, Michal Simek <michal.simek@xilinx.com>,
- linux-s390@vger.kernel.org, afzal mohammed <afzal.mohd.ma@gmail.com>,
+ afzal mohammed <afzal.mohd.ma@gmail.com>,
+ Michal Simek <michal.simek@xilinx.com>, linux-s390@vger.kernel.org,
  Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
  Dave Jiang <dave.jiang@intel.com>, xen-devel@lists.xenproject.org,
  Leon Romanovsky <leon@kernel.org>, linux-rdma@vger.kernel.org,
@@ -79,9 +80,9 @@ Cc: Mark Rutland <mark.rutland@arm.com>,
  Christian Borntraeger <borntraeger@de.ibm.com>, linux-pci@vger.kernel.org,
  Jakub Kicinski <kuba@kernel.org>, Heiko Carstens <hca@linux.ibm.com>,
  Wambui Karuga <wambui.karugax@gmail.com>, Allen Hubbe <allenbh@gmail.com>,
- Juergen Gross <jgross@suse.com>, Rob Herring <robh@kernel.org>,
- David Airlie <airlied@linux.ie>, linux-gpio@vger.kernel.org,
- Stefano Stabellini <sstabellini@kernel.org>,
+ Juergen Gross <jgross@suse.com>, Will Deacon <will@kernel.org>,
+ Rob Herring <robh@kernel.org>, David Airlie <airlied@linux.ie>,
+ linux-gpio@vger.kernel.org, Stefano Stabellini <sstabellini@kernel.org>,
  Bjorn Helgaas <bhelgaas@google.com>, Lee Jones <lee.jones@linaro.org>,
  linux-arm-kernel@lists.infradead.org,
  Boris Ostrovsky <boris.ostrovsky@oracle.com>, linux-parisc@vger.kernel.org,
@@ -93,49 +94,29 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Most users of kstat_irqs_cpu() have the irq descriptor already. No point in
-calling into the core code and looking it up once more.
-
-Use it in per_cpu_count_show() to start with.
+The irq descriptor is already there, no need to look it up again.
 
 Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
+Cc: Mark Rutland <mark.rutland@arm.com>
+Cc: Catalin Marinas <catalin.marinas@arm.com>
+Cc: Will Deacon <will@kernel.org>
+Cc: Marc Zyngier <maz@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org
 ---
- include/linux/irqdesc.h |    6 ++++++
- kernel/irq/irqdesc.c    |    4 ++--
- 2 files changed, 8 insertions(+), 2 deletions(-)
+ arch/arm64/kernel/smp.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
---- a/include/linux/irqdesc.h
-+++ b/include/linux/irqdesc.h
-@@ -113,6 +113,12 @@ static inline void irq_unlock_sparse(voi
- extern struct irq_desc irq_desc[NR_IRQS];
- #endif
+--- a/arch/arm64/kernel/smp.c
++++ b/arch/arm64/kernel/smp.c
+@@ -809,7 +809,7 @@ int arch_show_interrupts(struct seq_file
+ 		seq_printf(p, "%*s%u:%s", prec - 1, "IPI", i,
+ 			   prec >= 4 ? " " : "");
+ 		for_each_online_cpu(cpu)
+-			seq_printf(p, "%10u ", kstat_irqs_cpu(irq, cpu));
++			seq_printf(p, "%10u ", irq_desc_kstat_cpu(ipi_desc[i], cpu));
+ 		seq_printf(p, "      %s\n", ipi_types[i]);
+ 	}
  
-+static inline unsigned int irq_desc_kstat_cpu(struct irq_desc *desc,
-+					      unsigned int cpu)
-+{
-+	return desc->kstat_irqs ? *per_cpu_ptr(desc->kstat_irqs, cpu) : 0;
-+}
-+
- static inline struct irq_desc *irq_data_to_desc(struct irq_data *data)
- {
- 	return container_of(data->common, struct irq_desc, irq_common_data);
---- a/kernel/irq/irqdesc.c
-+++ b/kernel/irq/irqdesc.c
-@@ -147,12 +147,12 @@ static ssize_t per_cpu_count_show(struct
- 				  struct kobj_attribute *attr, char *buf)
- {
- 	struct irq_desc *desc = container_of(kobj, struct irq_desc, kobj);
--	int cpu, irq = desc->irq_data.irq;
- 	ssize_t ret = 0;
- 	char *p = "";
-+	int cpu;
- 
- 	for_each_possible_cpu(cpu) {
--		unsigned int c = kstat_irqs_cpu(irq, cpu);
-+		unsigned int c = irq_desc_kstat_cpu(desc, cpu);
- 
- 		ret += scnprintf(buf + ret, PAGE_SIZE - ret, "%s%u", p, c);
- 		p = ",";
 
 _______________________________________________
 Intel-gfx mailing list
