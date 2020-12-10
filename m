@@ -7,48 +7,49 @@ X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 45674C1B0E3
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 19:43:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A18B7C4167B
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 19:42:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id ECA5F23D23
+	by mail.kernel.org (Postfix) with ESMTPS id 57F7223DC4
 	for <intel-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 19:42:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org ECA5F23D23
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 57F7223DC4
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linutronix.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 19C246EB3F;
-	Thu, 10 Dec 2020 19:42:59 +0000 (UTC)
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E5C856EB44;
- Thu, 10 Dec 2020 19:42:53 +0000 (UTC)
-Message-Id: <20201210194045.551428291@linutronix.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 722826EB1D;
+	Thu, 10 Dec 2020 19:42:58 +0000 (UTC)
+Received: from galois.linutronix.de (Galois.linutronix.de
+ [IPv6:2a0a:51c0:0:12e:550::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 890626EB2C;
+ Thu, 10 Dec 2020 19:42:52 +0000 (UTC)
+Message-Id: <20201210194045.457218278@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1607629372;
+ s=2020; t=1607629371;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:  references:references;
- bh=MtNO1nEPKIMiQX4klZrvOfUrY/ABsFwlxtMkntNh7CA=;
- b=KaxGnHH1MXTqooatghPE8cM6xpnGF4ig0d4EAWoirBaHpwaLjagwuDN+X7ntrzOWzhHJCE
- Ez3+VuPBK6N8THRx/c/U7BpDe7lSNCEOKsSoZIfAKG42zMl8uOqZUH0n+L+DqNCVrKQYTB
- oVBRlbi3XFzHShM0wZtfud+2wylFkbDbo+6w0T9nxHjXspQdXCx5rbXqQ/f7LVGQLOgMGC
- ENEQVPteM32WIaUIGu6797s46NpYcBHdeeyuJOYmvSReU4vykWzWq+/LUSyXrR2XMumg3x
- 6Lu7jqz9tqhbcJsc0jSPa7puNiljDv9N6eQVXNVG6wM/APWxN3QkWoq0IdHFkw==
+ bh=DeAXpsHXHZePk9yJlBEnvP07GAeQwVu3hbsEAC1KvV4=;
+ b=1ftX1NujPl+Xx3UaWEfCXjp+Nmg07+hPgK1Itu5O9SNBHoe9yl+RQXJ/2O1zp6IsfiLibV
+ HNI3oNJClnToZKNFBhedsy/3BepLS3TXsVRVkXB5G9+wE4lEck2qZ5nIFKfa87g0ab144q
+ Y8XYj/VugkwqMCvECW/TpEV1x4HCWrFdBzkevGfKqOFN0SaDM1/ov3Gwx/TBks3pXmGNrv
+ 6QLKNAZhpAG6K+WVzFwjUhr3/uI//AlEz6mL833Dkg8c8/wOmAQ4fMPk7JfBTna6uA13Ka
+ n+R9468jt6R90wHee6UQ35MxaJ9NecvbD7sk9TpDtngv50OniDJk+BnWh4ozJQ==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1607629372;
+ s=2020e; t=1607629371;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:  references:references;
- bh=MtNO1nEPKIMiQX4klZrvOfUrY/ABsFwlxtMkntNh7CA=;
- b=v3GGn2bgoc9w48TBOZdjXg19jWm2bAJN6nmZaIKef4PpZW9mfQUCKMWPL0d+8SCh8ofn/B
- albFJ36DV6NevuBw==
-Date: Thu, 10 Dec 2020 20:26:06 +0100
+ bh=DeAXpsHXHZePk9yJlBEnvP07GAeQwVu3hbsEAC1KvV4=;
+ b=RL8ukeyN4bqd9Ll57DRL2wfv9LwNl4AYd7GzKiPBhSvQTs7EEhPh2RseLXs/41XjAQfiFB
+ 9Mcn1n8WsG2pJ9Ag==
+Date: Thu, 10 Dec 2020 20:26:05 +0100
 From: Thomas Gleixner <tglx@linutronix.de>
 To: LKML <linux-kernel@vger.kernel.org>
 References: <20201210192536.118432146@linutronix.de>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [patch 30/30] genirq: Remove export of irq_to_desc()
+Subject: [Intel-gfx] [patch 29/30] xen/events: Implement irq distribution
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,22 +70,22 @@ Cc: Mark Rutland <mark.rutland@arm.com>,
  Chris Wilson <chris@chris-wilson.co.uk>,
  "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
  Saeed Mahameed <saeedm@nvidia.com>, netdev@vger.kernel.org,
- Will Deacon <will@kernel.org>, Michal Simek <michal.simek@xilinx.com>,
- linux-s390@vger.kernel.org, afzal mohammed <afzal.mohd.ma@gmail.com>,
- Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
- Dave Jiang <dave.jiang@intel.com>, xen-devel@lists.xenproject.org,
+ Jakub Kicinski <kuba@kernel.org>, Will Deacon <will@kernel.org>,
+ Michal Simek <michal.simek@xilinx.com>, linux-s390@vger.kernel.org,
+ afzal mohammed <afzal.mohd.ma@gmail.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Dave Jiang <dave.jiang@intel.com>,
  Leon Romanovsky <leon@kernel.org>, linux-rdma@vger.kernel.org,
  Marc Zyngier <maz@kernel.org>, Helge Deller <deller@gmx.de>,
  Russell King <linux@armlinux.org.uk>,
  Christian Borntraeger <borntraeger@de.ibm.com>, linux-pci@vger.kernel.org,
- Jakub Kicinski <kuba@kernel.org>, Heiko Carstens <hca@linux.ibm.com>,
+ xen-devel@lists.xenproject.org, Heiko Carstens <hca@linux.ibm.com>,
  Wambui Karuga <wambui.karugax@gmail.com>, Allen Hubbe <allenbh@gmail.com>,
- Juergen Gross <jgross@suse.com>, Rob Herring <robh@kernel.org>,
- David Airlie <airlied@linux.ie>, linux-gpio@vger.kernel.org,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>, Lee Jones <lee.jones@linaro.org>,
- linux-arm-kernel@lists.infradead.org,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, linux-parisc@vger.kernel.org,
+ Rob Herring <robh@kernel.org>, David Airlie <airlied@linux.ie>,
+ linux-gpio@vger.kernel.org, Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ linux-arm-kernel@lists.infradead.org, Juergen Gross <jgross@suse.com>,
+ Lee Jones <lee.jones@linaro.org>, linux-parisc@vger.kernel.org,
  Hou Zhiqiang <Zhiqiang.Hou@nxp.com>, Tariq Toukan <tariqt@nvidia.com>,
  Jon Mason <jdmason@kudzu.us>, linux-ntb@googlegroups.com,
  intel-gfx@lists.freedesktop.org, "David S. Miller" <davem@davemloft.net>
@@ -93,24 +94,153 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-No more (ab)use in modules finally. Remove the export so there won't come
-new ones.
+Keep track of the assignments of event channels to CPUs and select the
+online CPU with the least assigned channels in the affinity mask which is
+handed to irq_chip::irq_set_affinity() from the core code.
 
 Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
+Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Cc: Juergen Gross <jgross@suse.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>
+Cc: xen-devel@lists.xenproject.org
 ---
- kernel/irq/irqdesc.c |    1 -
- 1 file changed, 1 deletion(-)
+ drivers/xen/events/events_base.c |   72 ++++++++++++++++++++++++++++++++++-----
+ 1 file changed, 64 insertions(+), 8 deletions(-)
 
---- a/kernel/irq/irqdesc.c
-+++ b/kernel/irq/irqdesc.c
-@@ -352,7 +352,6 @@ struct irq_desc *irq_to_desc(unsigned in
- {
- 	return radix_tree_lookup(&irq_desc_tree, irq);
- }
--EXPORT_SYMBOL(irq_to_desc);
+--- a/drivers/xen/events/events_base.c
++++ b/drivers/xen/events/events_base.c
+@@ -96,6 +96,7 @@ struct irq_info {
+ 	struct list_head eoi_list;
+ 	short refcnt;
+ 	u8 spurious_cnt;
++	u8 is_accounted;
+ 	enum xen_irq_type type; /* type */
+ 	unsigned irq;
+ 	evtchn_port_t evtchn;   /* event channel */
+@@ -161,6 +162,9 @@ static DEFINE_PER_CPU(int [NR_VIRQS], vi
+ /* IRQ <-> IPI mapping */
+ static DEFINE_PER_CPU(int [XEN_NR_IPIS], ipi_to_irq) = {[0 ... XEN_NR_IPIS-1] = -1};
  
- static void delete_irq_desc(unsigned int irq)
++/* Event channel distribution data */
++static atomic_t channels_on_cpu[NR_CPUS];
++
+ static int **evtchn_to_irq;
+ #ifdef CONFIG_X86
+ static unsigned long *pirq_eoi_map;
+@@ -257,6 +261,32 @@ static void set_info_for_irq(unsigned in
+ 		irq_set_chip_data(irq, info);
+ }
+ 
++/* Per CPU channel accounting */
++static void channels_on_cpu_dec(struct irq_info *info)
++{
++	if (!info->is_accounted)
++		return;
++
++	info->is_accounted = 0;
++
++	if (WARN_ON_ONCE(info->cpu >= nr_cpu_ids))
++		return;
++
++	WARN_ON_ONCE(!atomic_add_unless(&channels_on_cpu[info->cpu], -1 , 0));
++}
++
++static void channels_on_cpu_inc(struct irq_info *info)
++{
++	if (WARN_ON_ONCE(info->cpu >= nr_cpu_ids))
++		return;
++
++	if (WARN_ON_ONCE(!atomic_add_unless(&channels_on_cpu[info->cpu], 1,
++					    INT_MAX)))
++		return;
++
++	info->is_accounted = 1;
++}
++
+ /* Constructors for packed IRQ information. */
+ static int xen_irq_info_common_setup(struct irq_info *info,
+ 				     unsigned irq,
+@@ -339,6 +369,7 @@ static void xen_irq_info_cleanup(struct
  {
+ 	set_evtchn_to_irq(info->evtchn, -1);
+ 	info->evtchn = 0;
++	channels_on_cpu_dec(info);
+ }
+ 
+ /*
+@@ -449,7 +480,9 @@ static void bind_evtchn_to_cpu(evtchn_po
+ 
+ 	xen_evtchn_port_bind_to_cpu(evtchn, cpu, info->cpu);
+ 
++	channels_on_cpu_dec(info);
+ 	info->cpu = cpu;
++	channels_on_cpu_inc(info);
+ }
+ 
+ /**
+@@ -622,11 +655,6 @@ static void xen_irq_init(unsigned irq)
+ {
+ 	struct irq_info *info;
+ 
+-#ifdef CONFIG_SMP
+-	/* By default all event channels notify CPU#0. */
+-	cpumask_copy(irq_get_affinity_mask(irq), cpumask_of(0));
+-#endif
+-
+ 	info = kzalloc(sizeof(*info), GFP_KERNEL);
+ 	if (info == NULL)
+ 		panic("Unable to allocate metadata for IRQ%d\n", irq);
+@@ -1691,10 +1719,34 @@ static int xen_rebind_evtchn_to_cpu(evtc
+ 	return 0;
+ }
+ 
++/*
++ * Find the CPU within @dest mask which has the least number of channels
++ * assigned. This is not precise as the per cpu counts can be modified
++ * concurrently.
++ */
++static unsigned int select_target_cpu(const struct cpumask *dest)
++{
++	unsigned int cpu, best_cpu = UINT_MAX, minch = UINT_MAX;
++
++	for_each_cpu_and(cpu, dest, cpu_online_mask) {
++		unsigned int curch = atomic_read(&channels_on_cpu[cpu]);
++
++		if (curch < minch) {
++			minch = curch;
++			best_cpu = cpu;
++		}
++	}
++
++	/* If this happens accounting is screwed up */
++	if (WARN_ON_ONCE(best_cpu == UINT_MAX))
++		best_cpu = cpumask_first(dest);
++	return best_cpu;
++}
++
+ static int set_affinity_irq(struct irq_data *data, const struct cpumask *dest,
+ 			    bool force)
+ {
+-	unsigned tcpu = cpumask_first_and(dest, cpu_online_mask);
++	unsigned int tcpu = select_target_cpu(dest);
+ 	int ret;
+ 
+ 	ret = xen_rebind_evtchn_to_cpu(evtchn_from_irq(data->irq), tcpu);
+@@ -1922,8 +1974,12 @@ void xen_irq_resume(void)
+ 	xen_evtchn_resume();
+ 
+ 	/* No IRQ <-> event-channel mappings. */
+-	list_for_each_entry(info, &xen_irq_list_head, list)
+-		info->evtchn = 0; /* zap event-channel binding */
++	list_for_each_entry(info, &xen_irq_list_head, list) {
++		/* Zap event-channel binding */
++		info->evtchn = 0;
++		/* Adjust accounting */
++		channels_on_cpu_dec(info);
++	}
+ 
+ 	clear_evtchn_to_irq_all();
+ 
 
 _______________________________________________
 Intel-gfx mailing list
