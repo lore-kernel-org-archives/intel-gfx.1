@@ -2,41 +2,60 @@ Return-Path: <SRS0=6ulK=FP=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3037FC433FE
-	for <intel-gfx@archiver.kernel.org>; Fri, 11 Dec 2020 10:05:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D8926C2BB48
+	for <intel-gfx@archiver.kernel.org>; Fri, 11 Dec 2020 10:13:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CA3E523CD3
-	for <intel-gfx@archiver.kernel.org>; Fri, 11 Dec 2020 10:05:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CA3E523CD3
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id 7CE2122D72
+	for <intel-gfx@archiver.kernel.org>; Fri, 11 Dec 2020 10:13:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7CE2122D72
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linutronix.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 34BAB6ED22;
-	Fri, 11 Dec 2020 10:05:21 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 24B446ED24;
- Fri, 11 Dec 2020 10:05:20 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 1E8AAA41FB;
- Fri, 11 Dec 2020 10:05:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F08DF6ED29;
+	Fri, 11 Dec 2020 10:13:35 +0000 (UTC)
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 550376ED42;
+ Fri, 11 Dec 2020 10:13:34 +0000 (UTC)
+From: Thomas Gleixner <tglx@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+ s=2020; t=1607681612;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=4TDbx5/eRxAHfo/4EOFfTsBBr8/iJ4NkSA5alVnInbw=;
+ b=Ebn4XFcCDWYTM7X6Ch/mHznY5CAClfBbnhfLrO3Y6Kuikr6oFUaWSYQxhfOCU5ekEgEuk5
+ ABxuPFqFDpUr/6fqEOmv/vOsnXIUuOejIYPyy0GJ0t4RBjN90FMlPlJ+tVDpM1qv0p7R8a
+ xeZwcfSm29wJ/oRRI9rOhGLtzHCBhA3bpzeRWeG0Z24sHj1GQq05/L9FR4mQ32JHOYHSXu
+ dDKuIj780YnhAu3jYewZAvLFsgNKDUqY7qYYXiJp4nkUDKsOaT+FgTS0xQYjkM48kJqr48
+ 89TXlGkoZBhTjLzmOxl42qVBK3QR64G1yObP38Wf6bryGtmLISA8jiMWLoDDjQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+ s=2020e; t=1607681612;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=4TDbx5/eRxAHfo/4EOFfTsBBr8/iJ4NkSA5alVnInbw=;
+ b=xExbb1LasawAWe5q2U6DGt3Co7x6OFVa9wgrktZhoDZT1DZdHSUTeF92DjXx94ng108/hg
+ 9efMO3KmpdkXHQDQ==
+To: =?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
+ boris.ostrovsky@oracle.com, LKML <linux-kernel@vger.kernel.org>
+In-Reply-To: <a4bce428-4420-6064-c7cc-7136a7544a52@suse.com>
+References: <20201210192536.118432146@linutronix.de>
+ <20201210194045.250321315@linutronix.de>
+ <7f7af60f-567f-cdef-f8db-8062a44758ce@oracle.com>
+ <a4bce428-4420-6064-c7cc-7136a7544a52@suse.com>
+Date: Fri, 11 Dec 2020 11:13:31 +0100
+Message-ID: <874kksiras.fsf@nanos.tec.linutronix.de>
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Huang, Sean Z" <sean.z.huang@intel.com>
-Date: Fri, 11 Dec 2020 10:05:20 -0000
-Message-ID: <160768112012.16100.5707797146377634487@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20201211090457.32674-1-sean.z.huang@intel.com>
-In-Reply-To: <20201211090457.32674-1-sean.z.huang@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgSW50?=
- =?utf-8?q?roduce_Intel_PXP_component_-_Mesa_single_session_=28rev8=29?=
+Subject: Re: [Intel-gfx] [patch 27/30] xen/events: Only force affinity mask
+ for percpu interrupts
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,228 +68,73 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
-Content-Type: multipart/mixed; boundary="===============0044190812=="
+Cc: Mark Rutland <mark.rutland@arm.com>,
+ Karthikeyan Mitran <m.karthikeyan@mobiveil.co.in>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ Linus Walleij <linus.walleij@linaro.org>, dri-devel@lists.freedesktop.org,
+ Chris Wilson <chris@chris-wilson.co.uk>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ Saeed Mahameed <saeedm@nvidia.com>, netdev@vger.kernel.org,
+ Jakub Kicinski <kuba@kernel.org>, Will Deacon <will@kernel.org>,
+ Michal Simek <michal.simek@xilinx.com>, linux-s390@vger.kernel.org,
+ afzal mohammed <afzal.mohd.ma@gmail.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Dave Jiang <dave.jiang@intel.com>,
+ Leon Romanovsky <leon@kernel.org>, linux-rdma@vger.kernel.org,
+ Marc Zyngier <maz@kernel.org>, Helge Deller <deller@gmx.de>,
+ Russell King <linux@armlinux.org.uk>,
+ Christian Borntraeger <borntraeger@de.ibm.com>, linux-pci@vger.kernel.org,
+ xen-devel@lists.xenproject.org, Heiko Carstens <hca@linux.ibm.com>,
+ Wambui Karuga <wambui.karugax@gmail.com>, Allen Hubbe <allenbh@gmail.com>,
+ Rob Herring <robh@kernel.org>, David Airlie <airlied@linux.ie>,
+ linux-gpio@vger.kernel.org, Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, Lee Jones <lee.jones@linaro.org>,
+ linux-arm-kernel@lists.infradead.org, linux-parisc@vger.kernel.org,
+ Hou Zhiqiang <Zhiqiang.Hou@nxp.com>, Tariq Toukan <tariqt@nvidia.com>,
+ Jon Mason <jdmason@kudzu.us>, linux-ntb@googlegroups.com,
+ intel-gfx@lists.freedesktop.org, "David S. Miller" <davem@davemloft.net>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============0044190812==
-Content-Type: multipart/alternative;
- boundary="===============2969827096236134633=="
-
---===============2969827096236134633==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-== Series Details ==
-
-Series: Introduce Intel PXP component - Mesa single session (rev8)
-URL   : https://patchwork.freedesktop.org/series/84620/
-State : success
-
-== Summary ==
-
-CI Bug Log - changes from CI_DRM_9474 -> Patchwork_19122
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19122/index.html
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_19122 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@i915_selftest@live@gt_heartbeat:
-    - fi-tgl-y:           [PASS][1] -> [DMESG-FAIL][2] ([i915#2601])
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9474/fi-tgl-y/igt@i915_selftest@live@gt_heartbeat.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19122/fi-tgl-y/igt@i915_selftest@live@gt_heartbeat.html
-
-  * igt@prime_self_import@basic-with_two_bos:
-    - fi-tgl-y:           [PASS][3] -> [DMESG-WARN][4] ([i915#402]) +1 similar issue
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9474/fi-tgl-y/igt@prime_self_import@basic-with_two_bos.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19122/fi-tgl-y/igt@prime_self_import@basic-with_two_bos.html
-
-  
-#### Possible fixes ####
-
-  * igt@gem_mmap_gtt@basic:
-    - fi-tgl-y:           [DMESG-WARN][5] ([i915#402]) -> [PASS][6] +2 similar issues
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9474/fi-tgl-y/igt@gem_mmap_gtt@basic.html
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19122/fi-tgl-y/igt@gem_mmap_gtt@basic.html
-
-  
-  [i915#2601]: https://gitlab.freedesktop.org/drm/intel/issues/2601
-  [i915#402]: https://gitlab.freedesktop.org/drm/intel/issues/402
-
-
-Participating hosts (43 -> 39)
-------------------------------
-
-  Missing    (4): fi-ilk-m540 fi-bdw-samus fi-tgl-dsi fi-hsw-4200u 
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_9474 -> Patchwork_19122
-
-  CI-20190529: 20190529
-  CI_DRM_9474: f982ee792667f5f2d70901f49a70021415241c07 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_5888: c79d4e88f4162905da400360b6fa4940122f3a2c @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools
-  Patchwork_19122: 8e852e077594ab190386c155f4428b35dfd08dbb @ git://anongit.freedesktop.org/gfx-ci/linux
-
-
-== Linux commits ==
-
-8e852e077594 drm/i915/pxp: Enable the PXP ioctl for protected session
-bcc9b977b876 mei: pxp: add vtag parameter to mei_pxp_send/receive interface
-b6503a960d6a mei: bus: add vtag support
-7ec0ed17ce84 drm/i915/pxp: Add PXP-related registers into allowlist
-b84477cc8080 drm/i915/pxp: Termiante the session upon app crash
-9b1fa8b3b954 drm/i915/pxp: Implement ioctl action to query PXP tag
-52012be29790 drm/i915/pxp: Implement ioctl action to send TEE commands
-56d25d4e32a4 drm/i915/pxp: Implement ioctl action to terminate the session
-cf7bd29b94d9 drm/i915/pxp: Implement ioctl action to set session in play
-ec0265ec5383 drm/i915/pxp: Implement ioctl action to reserve session slots
-72b03056fdd8 drm/i915/pxp: Add plane decryption support
-7cfdaae63c4e drm/i915/pxp: User interface for Protected buffer
-6f0f2a9fad54 drm/i915/uapi: introduce drm_i915_gem_create_ext
-fe8a87fd99d9 mei: pxp: export pavp client to me client bus
-47d3aeafecbe drm/i915/pxp: Expose session state for display protection flip
-b96bf7e80a28 drm/i915/pxp: Enable PXP power management
-8a0aff60049e drm/i915/pxp: Destroy arb session upon teardown
-9db73c188015 drm/i915/pxp: Enable PXP irq worker and callback stub
-3e513275f2c4 drm/i915/pxp: Func to send hardware session termination
-01a5ed146b56 drm/i915/pxp: Create the arbitrary session after boot
-38e3c5114511 drm/i915/pxp: Implement funcs to create the TEE channel
-bf809419dacc drm/i915/pxp: set KCR reg init during the boot time
-69d2fc1c153b drm/i915/pxp: Introduce Intel PXP component
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19122/index.html
-
---===============2969827096236134633==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>Introduce Intel PXP component - Mesa single session (rev8)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/84620/">https://patchwork.freedesktop.org/series/84620/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19122/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19122/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_9474 -&gt; Patchwork_19122</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19122/index.html</p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_19122 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@i915_selftest@live@gt_heartbeat:</p>
-<ul>
-<li>fi-tgl-y:           <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9474/fi-tgl-y/igt@i915_selftest@live@gt_heartbeat.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19122/fi-tgl-y/igt@i915_selftest@live@gt_heartbeat.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2601">i915#2601</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@prime_self_import@basic-with_two_bos:</p>
-<ul>
-<li>fi-tgl-y:           <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9474/fi-tgl-y/igt@prime_self_import@basic-with_two_bos.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19122/fi-tgl-y/igt@prime_self_import@basic-with_two_bos.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/402">i915#402</a>) +1 similar issue</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>igt@gem_mmap_gtt@basic:<ul>
-<li>fi-tgl-y:           <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9474/fi-tgl-y/igt@gem_mmap_gtt@basic.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/402">i915#402</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19122/fi-tgl-y/igt@gem_mmap_gtt@basic.html">PASS</a> +2 similar issues</li>
-</ul>
-</li>
-</ul>
-<h2>Participating hosts (43 -&gt; 39)</h2>
-<p>Missing    (4): fi-ilk-m540 fi-bdw-samus fi-tgl-dsi fi-hsw-4200u </p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_9474 -&gt; Patchwork_19122</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_9474: f982ee792667f5f2d70901f49a70021415241c07 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_5888: c79d4e88f4162905da400360b6fa4940122f3a2c @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools<br />
-  Patchwork_19122: 8e852e077594ab190386c155f4428b35dfd08dbb @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<p>== Linux commits ==</p>
-<p>8e852e077594 drm/i915/pxp: Enable the PXP ioctl for protected session<br />
-bcc9b977b876 mei: pxp: add vtag parameter to mei_pxp_send/receive interface<br />
-b6503a960d6a mei: bus: add vtag support<br />
-7ec0ed17ce84 drm/i915/pxp: Add PXP-related registers into allowlist<br />
-b84477cc8080 drm/i915/pxp: Termiante the session upon app crash<br />
-9b1fa8b3b954 drm/i915/pxp: Implement ioctl action to query PXP tag<br />
-52012be29790 drm/i915/pxp: Implement ioctl action to send TEE commands<br />
-56d25d4e32a4 drm/i915/pxp: Implement ioctl action to terminate the session<br />
-cf7bd29b94d9 drm/i915/pxp: Implement ioctl action to set session in play<br />
-ec0265ec5383 drm/i915/pxp: Implement ioctl action to reserve session slots<br />
-72b03056fdd8 drm/i915/pxp: Add plane decryption support<br />
-7cfdaae63c4e drm/i915/pxp: User interface for Protected buffer<br />
-6f0f2a9fad54 drm/i915/uapi: introduce drm_i915_gem_create_ext<br />
-fe8a87fd99d9 mei: pxp: export pavp client to me client bus<br />
-47d3aeafecbe drm/i915/pxp: Expose session state for display protection flip<br />
-b96bf7e80a28 drm/i915/pxp: Enable PXP power management<br />
-8a0aff60049e drm/i915/pxp: Destroy arb session upon teardown<br />
-9db73c188015 drm/i915/pxp: Enable PXP irq worker and callback stub<br />
-3e513275f2c4 drm/i915/pxp: Func to send hardware session termination<br />
-01a5ed146b56 drm/i915/pxp: Create the arbitrary session after boot<br />
-38e3c5114511 drm/i915/pxp: Implement funcs to create the TEE channel<br />
-bf809419dacc drm/i915/pxp: set KCR reg init during the boot time<br />
-69d2fc1c153b drm/i915/pxp: Introduce Intel PXP component</p>
-
-</body>
-</html>
-
---===============2969827096236134633==--
-
---===============0044190812==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-
---===============0044190812==--
+T24gRnJpLCBEZWMgMTEgMjAyMCBhdCAwNzoxNywgSsO8cmdlbiBHcm/DnyB3cm90ZToKPiBPbiAx
+MS4xMi4yMCAwMDoyMCwgYm9yaXMub3N0cm92c2t5QG9yYWNsZS5jb20gd3JvdGU6Cj4+IAo+PiBP
+biAxMi8xMC8yMCAyOjI2IFBNLCBUaG9tYXMgR2xlaXhuZXIgd3JvdGU6Cj4+PiBBbGwgZXZlbnQg
+Y2hhbm5lbCBzZXR1cHMgYmluZCB0aGUgaW50ZXJydXB0IG9uIENQVTAgb3IgdGhlIHRhcmdldCBD
+UFUgZm9yCj4+PiBwZXJjcHUgaW50ZXJydXB0cyBhbmQgb3ZlcndyaXRlIHRoZSBhZmZpbml0eSBt
+YXNrIHdpdGggdGhlIGNvcnJlc3BvbmRpbmcKPj4+IGNwdW1hc2suIFRoYXQgZG9lcyBub3QgbWFr
+ZSBzZW5zZS4KPj4+Cj4+PiBUaGUgWEVOIGltcGxlbWVudGF0aW9uIG9mIGlycWNoaXA6OmlycV9z
+ZXRfYWZmaW5pdHkoKSBhbHJlYWR5IHBpY2tzIGEKPj4+IHNpbmdsZSB0YXJnZXQgQ1BVIG91dCBv
+ZiB0aGUgYWZmaW5pdHkgbWFzayBhbmQgdGhlIGFjdHVhbCB0YXJnZXQgaXMgc3RvcmVkCj4+PiBp
+biB0aGUgZWZmZWN0aXZlIENQVSBtYXNrLCBzbyBkZXN0cm95aW5nIHRoZSB1c2VyIGNob3NlbiBh
+ZmZpbml0eSBtYXNrCj4+PiB3aGljaCBtaWdodCBjb250YWluIG1vcmUgdGhhbiBvbmUgQ1BVIGlz
+IHdyb25nLgo+Pj4KPj4+IENoYW5nZSB0aGUgaW1wbGVtZW50YXRpb24gc28gdGhhdCB0aGUgY2hh
+bm5lbCBpcyBib3VuZCB0byBDUFUwIGF0IHRoZSBYRU4KPj4+IGxldmVsIGFuZCBsZWF2ZSB0aGUg
+YWZmaW5pdHkgbWFzayBhbG9uZS4gQXQgc3RhcnR1cCBvZiB0aGUgaW50ZXJydXB0Cj4+PiBhZmZp
+bml0eSB3aWxsIGJlIGFzc2lnbmVkIG91dCBvZiB0aGUgYWZmaW5pdHkgbWFzayBhbmQgdGhlIFhF
+TiBiaW5kaW5nIHdpbGwKPj4+IGJlIHVwZGF0ZWQuCj4+IAo+PiAKPj4gSWYgdGhhdCdzIHRoZSBj
+YXNlIHRoZW4gSSB3b25kZXIgd2hldGhlciB3ZSBuZWVkIHRoaXMgY2FsbCBhdCBhbGwgYW5kIGlu
+c3RlYWQgYmluZCBhdCBzdGFydHVwIHRpbWUuCj4KPiBUaGlzIGJpbmRpbmcgdG8gY3B1MCB3YXMg
+aW50cm9kdWNlZCB3aXRoIGNvbW1pdCA5NzI1M2VlZWI3OTJkNjFlZDIKPiBhbmQgSSBoYXZlIG5v
+IHJlYXNvbiB0byBiZWxpZXZlIHRoZSB1bmRlcmx5aW5nIHByb2JsZW0gaGFzIGJlZW4KPiBlbGlt
+aW5hdGVkLgoKICAgICJUaGUga2VybmVsLXNpZGUgVkNQVSBiaW5kaW5nIHdhcyBub3QgYmVpbmcg
+Y29ycmVjdGx5IHNldCBmb3IgbmV3bHkKICAgICBhbGxvY2F0ZWQgb3IgYm91bmQgaW50ZXJkb21h
+aW4gZXZlbnRzLiAgSW4gQVJNIGd1ZXN0cyB3aGVyZSAyLWxldmVsCiAgICAgZXZlbnRzIHdlcmUg
+dXNlZCwgdGhpcyB3b3VsZCByZXN1bHQgaW4gbm8gaW50ZXJkb21haW4gZXZlbnRzIGJlaW5nCiAg
+ICAgaGFuZGxlZCBiZWNhdXNlIHRoZSBrZXJuZWwtc2lkZSBWQ1BVIG1hc2tzIHdvdWxkIGFsbCBi
+ZSBjbGVhci4KCiAgICAgeDg2IGd1ZXN0cyB3b3VsZCB3b3JrIGJlY2F1c2UgdGhlIGlycSBhZmZp
+bml0eSB3YXMgc2V0IGR1cmluZyBpcnEKICAgICBzZXR1cCBhbmQgdGhpcyB3b3VsZCBzZXQgdGhl
+IGNvcnJlY3Qga2VybmVsLXNpZGUgVkNQVSBiaW5kaW5nLiIKCkknbSBub3QgY29udmluY2VkIHRo
+YXQgdGhpcyBpcyByZWFsbHkgY29ycmVjdGx5IGFuYWx5emVkIGJlY2F1c2UgYWZmaW5pdHkKc2V0
+dGluZyBpcyBkb25lIGF0IGlycSBzdGFydHVwLgoKICAgICAgICAgICAgICAgIHN3aXRjaCAoX19p
+cnFfc3RhcnR1cF9tYW5hZ2VkKGRlc2MsIGFmZiwgZm9yY2UpKSB7CgkgICAgICAgIGNhc2UgSVJR
+X1NUQVJUVVBfTk9STUFMOgoJICAgICAgICAgICAgICAgIHJldCA9IF9faXJxX3N0YXJ0dXAoZGVz
+Yyk7CiAgICAgICAgICAgICAgICAgICAgICAgIGlycV9zZXR1cF9hZmZpbml0eShkZXNjKTsKCQkJ
+YnJlYWs7Cgp3aGljaCBpcyBjb21wbGV0ZWx5IGFyY2hpdGVjdHVyZSBhZ25vc3RpYy4gU28gd2h5
+IHNob3VsZCB0aGlzIG1hZ2ljYWxseQp3b3JrIG9uIHg4NiBhbmQgbm90IG9uIEFSTSBpZiBib3Ro
+IGFyZSB1c2luZyB0aGUgc2FtZSBYRU4gaXJxY2hpcCB3aXRoCnRoZSBzYW1lIGlycWNoaXAgY2Fs
+bGJhY2tzLgoKVGhhbmtzLAoKICAgICAgICB0Z2x4CgoKX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRlbC1nZnhA
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
+YW4vbGlzdGluZm8vaW50ZWwtZ2Z4Cg==
