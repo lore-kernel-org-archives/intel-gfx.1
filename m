@@ -2,49 +2,41 @@ Return-Path: <SRS0=6ulK=FP=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C9435C1B0D9
-	for <intel-gfx@archiver.kernel.org>; Fri, 11 Dec 2020 07:30:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1F4C1C433FE
+	for <intel-gfx@archiver.kernel.org>; Fri, 11 Dec 2020 07:58:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 85FD223B26
-	for <intel-gfx@archiver.kernel.org>; Fri, 11 Dec 2020 07:30:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 85FD223B26
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 9379423B85
+	for <intel-gfx@archiver.kernel.org>; Fri, 11 Dec 2020 07:58:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9379423B85
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E8DA6ECA2;
-	Fri, 11 Dec 2020 07:29:54 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E054C6EC69
- for <Intel-gfx@lists.freedesktop.org>; Fri, 11 Dec 2020 07:29:47 +0000 (UTC)
-IronPort-SDR: s8RWKvAFap9T/qmepYQkU+qW0OFbMWrdDrDanaicRi7S4K8lWRypqTIIgnlXSkvm6QIjH/kVtN
- XaJgdq3C2edg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9831"; a="174506417"
-X-IronPort-AV: E=Sophos;i="5.78,410,1599548400"; d="scan'208";a="174506417"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Dec 2020 23:29:46 -0800
-IronPort-SDR: taNr9dHhI/to6/kRKLbJTXi/QbH8TFz24Fp8C6Qivvu/G1gTudhKV2qJZ4DjOmkAQuBUaumz4U
- 8CbEJ20vN2/A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.78,410,1599548400"; d="scan'208";a="409063311"
-Received: from sean-virtualbox.fm.intel.com ([10.105.158.96])
- by orsmga001.jf.intel.com with ESMTP; 10 Dec 2020 23:29:46 -0800
-From: "Huang, Sean Z" <sean.z.huang@intel.com>
-To: Intel-gfx@lists.freedesktop.org
-Date: Thu, 10 Dec 2020 23:29:11 -0800
-Message-Id: <20201211072911.27403-22-sean.z.huang@intel.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20201211072911.27403-1-sean.z.huang@intel.com>
-References: <20201211072911.27403-1-sean.z.huang@intel.com>
-Subject: [Intel-gfx] [RFC-v7 21/21] drm/i915/pxp: Enable the PXP ioctl for
- protected session
+	by gabe.freedesktop.org (Postfix) with ESMTP id E18A76EC7A;
+	Fri, 11 Dec 2020 07:58:14 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 25AB26EC78;
+ Fri, 11 Dec 2020 07:58:14 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 1719FA7DFE;
+ Fri, 11 Dec 2020 07:58:14 +0000 (UTC)
+MIME-Version: 1.0
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Dave Airlie" <airlied@gmail.com>
+Date: Fri, 11 Dec 2020 07:58:14 -0000
+Message-ID: <160767349407.16102.7671784636508618158@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20201211072922.19101-1-airlied@gmail.com>
+In-Reply-To: <20201211072922.19101-1-airlied@gmail.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBz?=
+ =?utf-8?q?eries_starting_with_=5B01/11=5D_drm/i915/display=3A_move_needs?=
+ =?utf-8?q?=5Fmodeset_to_an_inline_in_header?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,201 +49,37 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-In the previous commits, we have implemented the PXP ioctl
-functions. Now we enable those handlers and expose them as PXP
-ioctl, so allow the userspace driver can establish, set, or
-destory the protected session via this ioctl.
-
-Signed-off-by: Huang, Sean Z <sean.z.huang@intel.com>
----
- drivers/gpu/drm/i915/i915_drv.c      |  1 +
- drivers/gpu/drm/i915/pxp/intel_pxp.c | 53 --------------------
- include/uapi/drm/i915_drm.h          | 72 ++++++++++++++++++++++++++++
- 3 files changed, 73 insertions(+), 53 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/i915_drv.c b/drivers/gpu/drm/i915/i915_drv.c
-index e74201e81369..201550ffb353 100644
---- a/drivers/gpu/drm/i915/i915_drv.c
-+++ b/drivers/gpu/drm/i915/i915_drv.c
-@@ -1766,6 +1766,7 @@ static const struct drm_ioctl_desc i915_ioctls[] = {
- 	DRM_IOCTL_DEF_DRV(I915_QUERY, i915_query_ioctl, DRM_RENDER_ALLOW),
- 	DRM_IOCTL_DEF_DRV(I915_GEM_VM_CREATE, i915_gem_vm_create_ioctl, DRM_RENDER_ALLOW),
- 	DRM_IOCTL_DEF_DRV(I915_GEM_VM_DESTROY, i915_gem_vm_destroy_ioctl, DRM_RENDER_ALLOW),
-+	DRM_IOCTL_DEF_DRV(I915_PXP_OPS, i915_pxp_ops_ioctl, DRM_RENDER_ALLOW),
- };
- 
- static const struct drm_driver driver = {
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.c b/drivers/gpu/drm/i915/pxp/intel_pxp.c
-index 3a49dd97cab2..51e09224d7c6 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp.c
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp.c
-@@ -31,59 +31,6 @@ enum pxp_session_req {
- 	PXP_REQ_SESSION_TERMINATE
- };
- 
--/*
-- * struct pxp_sm_query_pxp_tag - Params to query the PXP tag of specified
-- * session id and whether the session is alive from PXP state machine.
-- */
--struct pxp_sm_query_pxp_tag {
--	u32 session_is_alive;
--	u32 pxp_tag; /* in  - Session ID, out pxp tag */
--};
--
--/*
-- * struct pxp_set_session_status_params - Params to reserved, set or destroy
-- * the session from the PXP state machine.
-- */
--struct pxp_set_session_status_params {
--	u32 pxp_tag; /* in [optional], out pxp tag */
--	u32 session_type; /* in, session type */
--	u32 session_mode; /* in, session mode */
--	u32 req_session_state; /* in, new session state */
--};
--
--/*
-- * struct pxp_tee_io_message_params - Params to send/receive message to/from TEE.
-- */
--struct pxp_tee_io_message_params {
--	u8 __user *msg_in; /* in - message input */
--	u32 msg_in_size; /* in - message input size */
--	u8 __user *msg_out; /* in - message output buffer */
--	u32 msg_out_size; /* out- message output size from TEE */
--	u32 msg_out_buf_size; /* in - message output buffer size */
--};
--
--/* struct pxp_info - Params for PXP operation. */
--struct pxp_info {
--	u32 action; /* in - specified action of this operation */
--	u32 sm_status; /* out - status output for this operation */
--
--	union {
--		/* in - action params to query PXP tag */
--		struct pxp_sm_query_pxp_tag query_pxp_tag;
--		/* in - action params to set the PXP session state */
--		struct pxp_set_session_status_params set_session_status;
--		/* in - action params to send TEE commands */
--		struct pxp_tee_io_message_params tee_io_message;
--	};
--} __attribute__((packed));
--
--struct drm_i915_pxp_ops {
--	/* in - user space pointer to struct pxp_info */
--	struct pxp_info __user *info_ptr;
--	/* in - memory size that info_ptr points to */
--	u32 info_size;
--};
--
- static void intel_pxp_write_irq_mask_reg(struct intel_gt *gt, u32 mask)
- {
- 	lockdep_assert_held(&gt->irq_lock);
-diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
-index d6085a328b2c..17cf25bdc3c4 100644
---- a/include/uapi/drm/i915_drm.h
-+++ b/include/uapi/drm/i915_drm.h
-@@ -359,6 +359,7 @@ typedef struct _drm_i915_sarea {
- #define DRM_I915_QUERY			0x39
- #define DRM_I915_GEM_VM_CREATE		0x3a
- #define DRM_I915_GEM_VM_DESTROY		0x3b
-+#define DRM_I915_PXP_OPS		0x3c
- /* Must be kept compact -- no holes */
- 
- #define DRM_IOCTL_I915_INIT		DRM_IOW( DRM_COMMAND_BASE + DRM_I915_INIT, drm_i915_init_t)
-@@ -423,6 +424,7 @@ typedef struct _drm_i915_sarea {
- #define DRM_IOCTL_I915_QUERY			DRM_IOWR(DRM_COMMAND_BASE + DRM_I915_QUERY, struct drm_i915_query)
- #define DRM_IOCTL_I915_GEM_VM_CREATE	DRM_IOWR(DRM_COMMAND_BASE + DRM_I915_GEM_VM_CREATE, struct drm_i915_gem_vm_control)
- #define DRM_IOCTL_I915_GEM_VM_DESTROY	DRM_IOW (DRM_COMMAND_BASE + DRM_I915_GEM_VM_DESTROY, struct drm_i915_gem_vm_control)
-+#define DRM_IOCTL_I915_PXP_OPS		DRM_IOWR(DRM_COMMAND_BASE + DRM_I915_PXP_OPS, struct drm_i915_pxp_ops)
- 
- /* Allow drivers to submit batchbuffers directly to hardware, relying
-  * on the security mechanisms provided by hardware.
-@@ -1964,6 +1966,76 @@ struct drm_i915_gem_vm_control {
- 	__u32 vm_id;
- };
- 
-+/*
-+ * struct pxp_sm_query_pxp_tag - Params to query the PXP tag of specified
-+ * session id and whether the session is alive from PXP state machine.
-+ */
-+struct pxp_sm_query_pxp_tag {
-+	__u32 session_is_alive;
-+	__u32 pxp_tag; /* in  - Session ID, out pxp tag */
-+};
-+
-+/*
-+ * struct pxp_set_session_status_params - Params to reserved, set or destroy
-+ * the session from the PXP state machine.
-+ */
-+struct pxp_set_session_status_params {
-+	__u32 pxp_tag; /* in [optional], for Arbitrator session, out pxp tag */
-+	__u32 session_type; /* in, session type */
-+	__u32 session_mode; /* in, session mode */
-+	__u32 req_session_state; /* in, new session state */
-+};
-+
-+/*
-+ * struct pxp_tee_io_message_params - Params to send/receive message to/from TEE.
-+ */
-+struct pxp_tee_io_message_params {
-+	__u8 __user *msg_in; /* in - message input */
-+	__u32 msg_in_size; /* in - message input size */
-+	__u8 __user *msg_out; /* in - message output buffer */
-+	__u32 msg_out_size; /* out- message output size from TEE */
-+	__u32 msg_out_buf_size; /* in - message output buffer size */
-+};
-+
-+/*
-+ * struct pxp_info - Params for PXP operation.
-+ */
-+struct pxp_info {
-+	__u32 action; /* in - specified action of this operation */
-+	__u32 sm_status; /* out - status output for this operation */
-+
-+	union {
-+		/* in - action params to query PXP tag */
-+		struct pxp_sm_query_pxp_tag query_pxp_tag;
-+		/* in - action params to set the PXP session state */
-+		struct pxp_set_session_status_params set_session_status;
-+		/* in - action params to send TEE commands */
-+		struct pxp_tee_io_message_params tee_io_message;
-+
-+		/* in - action params to set user space context */
-+		__u32 set_user_ctx;
-+	};
-+} __attribute__((packed));
-+
-+/*
-+ * DRM_I915_PXP_OPS -
-+ *
-+ * PXP is an i915 componment, that helps user space to establish the hardware
-+ * protected session and manage the status of each alive software session,
-+ * as well as the life cycle of each session.
-+ *
-+ * This ioctl is to allow user space driver to create, set, and destroy each
-+ * session. It also provides the communication chanel to TEE (Trusted
-+ * Execution Environment) for the protected hardware session creation.
-+ */
-+struct drm_i915_pxp_ops {
-+	/* in - user space pointer to struct pxp_info */
-+	struct pxp_info __user *info_ptr;
-+
-+	/* in - memory size that info_ptr points to */
-+	__u32 info_size;
-+};
-+
- struct drm_i915_reg_read {
- 	/*
- 	 * Register offset.
--- 
-2.17.1
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+PT0gU2VyaWVzIERldGFpbHMgPT0KClNlcmllczogc2VyaWVzIHN0YXJ0aW5nIHdpdGggWzAxLzEx
+XSBkcm0vaTkxNS9kaXNwbGF5OiBtb3ZlIG5lZWRzX21vZGVzZXQgdG8gYW4gaW5saW5lIGluIGhl
+YWRlcgpVUkwgICA6IGh0dHBzOi8vcGF0Y2h3b3JrLmZyZWVkZXNrdG9wLm9yZy9zZXJpZXMvODQ4
+MTIvClN0YXRlIDogZmFpbHVyZQoKPT0gU3VtbWFyeSA9PQoKQ0FMTCAgICBzY3JpcHRzL2NoZWNr
+c3lzY2FsbHMuc2gKICBDQUxMICAgIHNjcmlwdHMvYXRvbWljL2NoZWNrLWF0b21pY3Muc2gKICBE
+RVNDRU5EICBvYmp0b29sCiAgQ0hLICAgICBpbmNsdWRlL2dlbmVyYXRlZC9jb21waWxlLmgKICBI
+RFJURVNUIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZmRpLmgKSW4gZmlsZSBp
+bmNsdWRlZCBmcm9tIDxjb21tYW5kLWxpbmU+OgouL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3Bs
+YXkvaW50ZWxfZmRpLmg6MjA6MzM6IGVycm9yOiDigJhzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZeKA
+mSBkZWNsYXJlZCBpbnNpZGUgcGFyYW1ldGVyIGxpc3Qgd2lsbCBub3QgYmUgdmlzaWJsZSBvdXRz
+aWRlIG9mIHRoaXMgZGVmaW5pdGlvbiBvciBkZWNsYXJhdGlvbiBbLVdlcnJvcl0KIHZvaWQgaW50
+ZWxfZmRpX2luaXRfaG9vayhzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqZGV2X3ByaXYpOwogICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBefn5+fn5+fn5+fn5+fn5+CmNjMTogYWxsIHdh
+cm5pbmdzIGJlaW5nIHRyZWF0ZWQgYXMgZXJyb3JzCmRyaXZlcnMvZ3B1L2RybS9pOTE1L01ha2Vm
+aWxlOjMxMDogcmVjaXBlIGZvciB0YXJnZXQgJ2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkv
+aW50ZWxfZmRpLmhkcnRlc3QnIGZhaWxlZAptYWtlWzRdOiAqKiogW2RyaXZlcnMvZ3B1L2RybS9p
+OTE1L2Rpc3BsYXkvaW50ZWxfZmRpLmhkcnRlc3RdIEVycm9yIDEKc2NyaXB0cy9NYWtlZmlsZS5i
+dWlsZDo0OTY6IHJlY2lwZSBmb3IgdGFyZ2V0ICdkcml2ZXJzL2dwdS9kcm0vaTkxNScgZmFpbGVk
+Cm1ha2VbM106ICoqKiBbZHJpdmVycy9ncHUvZHJtL2k5MTVdIEVycm9yIDIKc2NyaXB0cy9NYWtl
+ZmlsZS5idWlsZDo0OTY6IHJlY2lwZSBmb3IgdGFyZ2V0ICdkcml2ZXJzL2dwdS9kcm0nIGZhaWxl
+ZAptYWtlWzJdOiAqKiogW2RyaXZlcnMvZ3B1L2RybV0gRXJyb3IgMgpzY3JpcHRzL01ha2VmaWxl
+LmJ1aWxkOjQ5NjogcmVjaXBlIGZvciB0YXJnZXQgJ2RyaXZlcnMvZ3B1JyBmYWlsZWQKbWFrZVsx
+XTogKioqIFtkcml2ZXJzL2dwdV0gRXJyb3IgMgpNYWtlZmlsZToxODA1OiByZWNpcGUgZm9yIHRh
+cmdldCAnZHJpdmVycycgZmFpbGVkCm1ha2U6ICoqKiBbZHJpdmVyc10gRXJyb3IgMgoKCl9fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkludGVsLWdmeCBtYWls
+aW5nIGxpc3QKSW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZy
+ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ludGVsLWdmeAo=
