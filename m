@@ -7,44 +7,44 @@ X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0760DC4361B
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CD38EC4167B
 	for <intel-gfx@archiver.kernel.org>; Fri, 11 Dec 2020 09:05:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B6F8723E1B
-	for <intel-gfx@archiver.kernel.org>; Fri, 11 Dec 2020 09:05:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B6F8723E1B
+	by mail.kernel.org (Postfix) with ESMTPS id 893E923E1B
+	for <intel-gfx@archiver.kernel.org>; Fri, 11 Dec 2020 09:05:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 893E923E1B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 472096ECEE;
-	Fri, 11 Dec 2020 09:05:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 373BA6ECED;
+	Fri, 11 Dec 2020 09:05:39 +0000 (UTC)
 Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A9746ECC5
- for <Intel-gfx@lists.freedesktop.org>; Fri, 11 Dec 2020 09:05:36 +0000 (UTC)
-IronPort-SDR: yroOddawr26iwGRBVvRadcXbO+JbNVODMEN+qakqqq0R1w406DqARcmbuxYLhmn/DWQv1Jl2gy
- P/lBcYzmJtUw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9831"; a="162159119"
-X-IronPort-AV: E=Sophos;i="5.78,410,1599548400"; d="scan'208";a="162159119"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A97806ECC5
+ for <Intel-gfx@lists.freedesktop.org>; Fri, 11 Dec 2020 09:05:35 +0000 (UTC)
+IronPort-SDR: +YEQCSG1wjOsokPotUnD3XZXIgVSEMamAogL3LxuNbW/f3jGVMxbL1pHmONtfn1BAx6l1aaGkN
+ Lx1m7TOaJZAQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9831"; a="162159110"
+X-IronPort-AV: E=Sophos;i="5.78,410,1599548400"; d="scan'208";a="162159110"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Dec 2020 01:05:32 -0800
-IronPort-SDR: bX0NHRWpa4p8JYFNV/4HcbGKuzfEXqv10qrKvTbJPmaKtM+vNZaKnM/yM15TDGjqptfYszc8/b
- TIWZ1BDSWWVQ==
+ 11 Dec 2020 01:05:31 -0800
+IronPort-SDR: ttFS7rdrtgq1iCSQJm03nQG6T4z2MVxOBC0xSHQPLAg9xc47tcASuBomfsqukna0Pk/pRAENRj
+ qrks5W2eLD8g==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.78,410,1599548400"; d="scan'208";a="553804564"
+X-IronPort-AV: E=Sophos;i="5.78,410,1599548400"; d="scan'208";a="553804549"
 Received: from sean-virtualbox.fm.intel.com ([10.105.158.96])
- by orsmga005.jf.intel.com with ESMTP; 11 Dec 2020 01:05:32 -0800
+ by orsmga005.jf.intel.com with ESMTP; 11 Dec 2020 01:05:31 -0800
 From: "Huang, Sean Z" <sean.z.huang@intel.com>
 To: Intel-gfx@lists.freedesktop.org
-Date: Fri, 11 Dec 2020 01:04:56 -0800
-Message-Id: <20201211090457.32674-23-sean.z.huang@intel.com>
+Date: Fri, 11 Dec 2020 01:04:47 -0800
+Message-Id: <20201211090457.32674-14-sean.z.huang@intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20201211090457.32674-1-sean.z.huang@intel.com>
 References: <20201211090457.32674-1-sean.z.huang@intel.com>
-Subject: [Intel-gfx] [RFC-v8 22/23] mei: pxp: add vtag parameter to
- mei_pxp_send/receive interface
+Subject: [Intel-gfx] [RFC-v8 13/23] drm/i915/pxp: Add plane decryption
+ support
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,109 +57,105 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tomas Winkler <tomas.winkler@intel.com>
+Cc: Bommu Krishnaiah <krishnaiah.bommu@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Tomas Winkler <tomas.winkler@intel.com>
+From: Anshuman Gupta <anshuman.gupta@intel.com>
 
-Added vtag parameter to mei_pxp_send_message and
-mei_pxp_receive_message functions.
+Add support to enable/disable PLANE_SURF Decryption Request bit.
+It requires only to enable plane decryption support when following
+condition met.
+1. PAVP session is enabled.
+2. Buffer object is protected.
 
-Signed-off-by: Vitaly Lubart <vitaly.lubart@intel.com>
-Signed-off-by: Tomas Winkler <tomas.winkler@intel.com>
+v2:
+- Rebased to libva_cp-drm-tip_tgl_cp tree.
+- Used gen fb obj user_flags instead gem_object_metadata. [Krishna]
+
+Cc: Bommu Krishnaiah <krishnaiah.bommu@intel.com>
+Cc: Huang, Sean Z <sean.z.huang@intel.com>
+Signed-off-by: Anshuman Gupta <anshuman.gupta@intel.com>
 ---
- drivers/gpu/drm/i915/pxp/intel_pxp_tee.c |  4 ++--
- drivers/misc/mei/pxp/mei_pxp.c           | 10 ++++++----
- include/drm/i915_pxp_tee_interface.h     |  4 ++--
- 3 files changed, 10 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/i915/display/intel_sprite.c | 21 ++++++++++++++++++---
+ drivers/gpu/drm/i915/i915_reg.h             |  1 +
+ 2 files changed, 19 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
-index e0815b2ee9ab..002275ff9c71 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
-@@ -31,13 +31,13 @@ static int intel_pxp_tee_io_message(struct intel_pxp *pxp,
- 		print_hex_dump(KERN_DEBUG, "TEE input message binaries:",
- 			       DUMP_PREFIX_OFFSET, 4, 4, msg_in, msg_in_size, true);
+diff --git a/drivers/gpu/drm/i915/display/intel_sprite.c b/drivers/gpu/drm/i915/display/intel_sprite.c
+index b7e208816074..273bdc031e8d 100644
+--- a/drivers/gpu/drm/i915/display/intel_sprite.c
++++ b/drivers/gpu/drm/i915/display/intel_sprite.c
+@@ -39,6 +39,8 @@
+ #include <drm/drm_plane_helper.h>
+ #include <drm/drm_rect.h>
  
--	ret = pxp_tee_master->ops->send(pxp_tee_master->tee_dev, msg_in, msg_in_size);
-+	ret = pxp_tee_master->ops->send(pxp_tee_master->tee_dev, msg_in, msg_in_size, 1);
- 	if (ret) {
- 		drm_err(&i915->drm, "Failed to send TEE message\n");
- 		return -EFAULT;
- 	}
++#include "pxp/intel_pxp.h"
++
+ #include "i915_drv.h"
+ #include "i915_trace.h"
+ #include "i915_vgpu.h"
+@@ -767,6 +769,11 @@ icl_program_input_csc(struct intel_plane *plane,
+ 			  PLANE_INPUT_CSC_POSTOFF(pipe, plane_id, 2), 0x0);
+ }
  
--	ret = pxp_tee_master->ops->receive(pxp_tee_master->tee_dev, msg_out, msg_out_buf_size);
-+	ret = pxp_tee_master->ops->receive(pxp_tee_master->tee_dev, msg_out, msg_out_buf_size, 1);
- 	if (ret < 0) {
- 		drm_err(&i915->drm, "Failed to receive TEE message\n");
- 		return -EFAULT;
-diff --git a/drivers/misc/mei/pxp/mei_pxp.c b/drivers/misc/mei/pxp/mei_pxp.c
-index 5bd61fe445e3..55d4cb772367 100644
---- a/drivers/misc/mei/pxp/mei_pxp.c
-+++ b/drivers/misc/mei/pxp/mei_pxp.c
-@@ -27,10 +27,11 @@
-  * @dev: device corresponding to the mei_cl_device
-  * @message: a message buffer to send
-  * @size: size of the message
-+ * @vtag: the vtag of the connection (use 0 for default)
-  * Return: 0 on Success, <0 on Failure
-  */
- static int
--mei_pxp_send_message(struct device *dev, const void *message, size_t size)
-+mei_pxp_send_message(struct device *dev, const void *message, size_t size, u8 vtag)
- {
- 	struct mei_cl_device *cldev;
- 	ssize_t byte;
-@@ -41,7 +42,7 @@ mei_pxp_send_message(struct device *dev, const void *message, size_t size)
- 	cldev = to_mei_cl_device(dev);
++static bool intel_fb_obj_protected(const struct drm_i915_gem_object *obj)
++{
++	return obj->user_flags & I915_BO_PROTECTED ? true : false;
++}
++
+ static void
+ skl_plane_async_flip(struct intel_plane *plane,
+ 		     const struct intel_crtc_state *crtc_state,
+@@ -803,6 +810,7 @@ skl_program_plane(struct intel_plane *plane,
+ 	u32 surf_addr = plane_state->color_plane[color_plane].offset;
+ 	u32 stride = skl_plane_stride(plane_state, color_plane);
+ 	const struct drm_framebuffer *fb = plane_state->hw.fb;
++	const struct drm_i915_gem_object *obj = intel_fb_obj(fb);
+ 	int aux_plane = intel_main_to_aux_plane(fb, color_plane);
+ 	int crtc_x = plane_state->uapi.dst.x1;
+ 	int crtc_y = plane_state->uapi.dst.y1;
+@@ -813,7 +821,7 @@ skl_program_plane(struct intel_plane *plane,
+ 	u8 alpha = plane_state->hw.alpha >> 8;
+ 	u32 plane_color_ctl = 0, aux_dist = 0;
+ 	unsigned long irqflags;
+-	u32 keymsk, keymax;
++	u32 keymsk, keymax, plane_surf;
+ 	u32 plane_ctl = plane_state->ctl;
  
- 	/* temporary drop const qualifier till the API is fixed */
--	byte = mei_cldev_send(cldev, (u8 *)message, size);
-+	byte = mei_cldev_send_vtag(cldev, (u8 *)message, size, vtag);
- 	if (byte < 0) {
- 		dev_dbg(dev, "mei_cldev_send failed. %zd\n", byte);
- 		return byte;
-@@ -55,10 +56,11 @@ mei_pxp_send_message(struct device *dev, const void *message, size_t size)
-  * @dev: device corresponding to the mei_cl_device
-  * @buffer: a message buffer to contain the received message
-  * @size: size of the buffer
-+ * @vtag: the vtag of the connection (use 0 for default)
-  * Return: bytes sent on Success, <0 on Failure
-  */
- static int
--mei_pxp_receive_message(struct device *dev, void *buffer, size_t size)
-+mei_pxp_receive_message(struct device *dev, void *buffer, size_t size, u8 vtag)
- {
- 	struct mei_cl_device *cldev;
- 	ssize_t byte;
-@@ -68,7 +70,7 @@ mei_pxp_receive_message(struct device *dev, void *buffer, size_t size)
- 
- 	cldev = to_mei_cl_device(dev);
- 
--	byte = mei_cldev_recv(cldev, buffer, size);
-+	byte = mei_cldev_recv_vtag(cldev, buffer, size, &vtag);
- 	if (byte < 0) {
- 		dev_dbg(dev, "mei_cldev_recv failed. %zd\n", byte);
- 		return byte;
-diff --git a/include/drm/i915_pxp_tee_interface.h b/include/drm/i915_pxp_tee_interface.h
-index 3999e255e145..cacde01058fc 100644
---- a/include/drm/i915_pxp_tee_interface.h
-+++ b/include/drm/i915_pxp_tee_interface.h
-@@ -24,8 +24,8 @@ struct i915_pxp_component_ops {
+ 	plane_ctl |= skl_plane_ctl_crtc(crtc_state);
+@@ -889,8 +897,15 @@ skl_program_plane(struct intel_plane *plane,
+ 	 * the control register just before the surface register.
  	 */
- 	struct module *owner;
+ 	intel_de_write_fw(dev_priv, PLANE_CTL(pipe, plane_id), plane_ctl);
+-	intel_de_write_fw(dev_priv, PLANE_SURF(pipe, plane_id),
+-			  intel_plane_ggtt_offset(plane_state) + surf_addr);
++	plane_surf = intel_plane_ggtt_offset(plane_state) + surf_addr;
++
++	if (intel_pxp_gem_object_status(dev_priv) &&
++	    intel_fb_obj_protected(obj))
++		plane_surf |= PLANE_SURF_DECRYPTION_ENABLED;
++	else
++		plane_surf &= ~PLANE_SURF_DECRYPTION_ENABLED;
++
++	intel_de_write_fw(dev_priv, PLANE_SURF(pipe, plane_id), plane_surf);
  
--	int (*send)(struct device *dev, const void *message, size_t size);
--	int (*receive)(struct device *dev, void *buffer, size_t size);
-+	int (*send)(struct device *dev, const void *message, size_t size, u8 vtag);
-+	int (*receive)(struct device *dev, void *buffer, size_t size, u8 vtag);
- };
+ 	if (plane_state->scaler_id >= 0)
+ 		skl_program_scaler(plane, crtc_state, plane_state);
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index 1e8dfe435ca8..0ea7e2a402ae 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -7209,6 +7209,7 @@ enum {
+ #define _PLANE_SURF_3(pipe)	_PIPE(pipe, _PLANE_SURF_3_A, _PLANE_SURF_3_B)
+ #define PLANE_SURF(pipe, plane)	\
+ 	_MMIO_PLANE(plane, _PLANE_SURF_1(pipe), _PLANE_SURF_2(pipe))
++#define   PLANE_SURF_DECRYPTION_ENABLED		REG_BIT(2)
  
- /**
+ #define _PLANE_OFFSET_1_B			0x711a4
+ #define _PLANE_OFFSET_2_B			0x712a4
 -- 
 2.17.1
 
