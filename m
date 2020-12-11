@@ -2,87 +2,53 @@ Return-Path: <SRS0=6ulK=FP=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no
+X-Spam-Status: No, score=-13.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AD7C2C1B0D8
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DBCF4C2BB48
 	for <intel-gfx@archiver.kernel.org>; Fri, 11 Dec 2020 14:54:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 44CE424687
+	by mail.kernel.org (Postfix) with ESMTPS id 8702A246B4
 	for <intel-gfx@archiver.kernel.org>; Fri, 11 Dec 2020 14:54:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 44CE424687
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=oracle.com
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8702A246B4
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C73A6E8B7;
-	Fri, 11 Dec 2020 14:26:26 +0000 (UTC)
-Received: from aserp2120.oracle.com (aserp2120.oracle.com [141.146.126.78])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2E97F6EB9B;
- Thu, 10 Dec 2020 23:21:51 +0000 (UTC)
-Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
- by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0BANJcxD076282;
- Thu, 10 Dec 2020 23:21:08 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=corp-2020-01-29;
- bh=g9HQMgG8/lH1Xl7UdSJNvDAMRQCo3FWW7Bk60ydYMFM=;
- b=yiiSqUT1ul8LHgAfKjBlIB4yYYSpi+fGANCSKFFlOWkOUouS3Dv2O9HSPvMZHyva2HLa
- t2URiRpBCtd04nx9Lq/bUlqBSfAvdgny9AZ7r99NqQl+3SLxNcNacBmNDpvbnkmq+RJf
- tkHuWp0PFf1OqSZUrQZdo1op9pLE6PCegbVRzlACJRrfsJakcoaM7H+sCwUihUEMr2fQ
- dVrKn7O2B0uCiKt4l0ihiQonSCwdjdrSogLQz8qpbD6/3t1pwKq6cTqj0HVlsjBYL0mf
- j+yxZxQYgeFZOyVTmAVytFe3f0zAIJgGCpXDL4UlTLva10Xtrln9de8y9hZfow66cFAT Dg== 
-Received: from aserp3020.oracle.com (aserp3020.oracle.com [141.146.126.70])
- by aserp2120.oracle.com with ESMTP id 35825mg2bs-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Thu, 10 Dec 2020 23:21:08 +0000
-Received: from pps.filterd (aserp3020.oracle.com [127.0.0.1])
- by aserp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0BANKtw7149340;
- Thu, 10 Dec 2020 23:21:07 GMT
-Received: from aserv0121.oracle.com (aserv0121.oracle.com [141.146.126.235])
- by aserp3020.oracle.com with ESMTP id 358m42f5be-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 10 Dec 2020 23:21:07 +0000
-Received: from abhmp0008.oracle.com (abhmp0008.oracle.com [141.146.116.14])
- by aserv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 0BANKp8g025210;
- Thu, 10 Dec 2020 23:20:51 GMT
-Received: from [10.39.227.125] (/10.39.227.125)
- by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Thu, 10 Dec 2020 15:20:51 -0800
-To: Thomas Gleixner <tglx@linutronix.de>, LKML <linux-kernel@vger.kernel.org>
-References: <20201210192536.118432146@linutronix.de>
- <20201210194045.250321315@linutronix.de>
-From: boris.ostrovsky@oracle.com
-Organization: Oracle Corporation
-Message-ID: <7f7af60f-567f-cdef-f8db-8062a44758ce@oracle.com>
-Date: Thu, 10 Dec 2020 18:20:46 -0500
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.5.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id A4BB56E0AF;
+	Fri, 11 Dec 2020 14:46:04 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0C3DA6E0AF;
+ Fri, 11 Dec 2020 14:46:03 +0000 (UTC)
+IronPort-SDR: gUzMJ1LnKN8ssKYWx+83LYxJefduWlPr+GVSoQDIIxLCtriqJsYVnHXOnNobsYDOYQxTjkJE/V
+ ymI5YdR3giiQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9831"; a="153671941"
+X-IronPort-AV: E=Sophos;i="5.78,411,1599548400"; d="scan'208";a="153671941"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Dec 2020 06:45:52 -0800
+IronPort-SDR: /ngbSrQ1+06qBTxvwHX9Thh+w4yDJG/z1kiOeT2okMe9ZBLH0GEj1D6wvmfD0IQxVHIA+423xX
+ GiKwfX8YMVJw==
+X-IronPort-AV: E=Sophos;i="5.78,411,1599548400"; d="scan'208";a="349481698"
+Received: from dkreft-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.249.158.206])
+ by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Dec 2020 06:45:45 -0800
+From: Jani Nikula <jani.nikula@intel.com>
+To: Lyude Paul <lyude@redhat.com>, dri-devel@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+In-Reply-To: <20201210012143.729402-4-lyude@redhat.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20201210012143.729402-1-lyude@redhat.com>
+ <20201210012143.729402-4-lyude@redhat.com>
+Date: Fri, 11 Dec 2020 16:45:41 +0200
+Message-ID: <87eejw765m.fsf@intel.com>
 MIME-Version: 1.0
-In-Reply-To: <20201210194045.250321315@linutronix.de>
-Content-Language: en-US
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9831
- signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
- malwarescore=0 adultscore=0
- bulkscore=0 phishscore=0 suspectscore=0 mlxscore=0 mlxlogscore=999
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
- definitions=main-2012100149
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9831
- signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
- adultscore=0 bulkscore=0
- phishscore=0 mlxlogscore=999 clxscore=1015 priorityscore=1501 mlxscore=0
- spamscore=0 lowpriorityscore=0 malwarescore=0 impostorscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
- definitions=main-2012100149
-X-Mailman-Approved-At: Fri, 11 Dec 2020 14:26:19 +0000
-Subject: Re: [Intel-gfx] [patch 27/30] xen/events: Only force affinity mask
- for percpu interrupts
+Subject: Re: [Intel-gfx] [RFC 3/5] drm/i915/dp: Remove redundant AUX
+ backlight frequency calculations
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,61 +61,167 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Mark Rutland <mark.rutland@arm.com>,
- Karthikeyan Mitran <m.karthikeyan@mobiveil.co.in>,
- Peter Zijlstra <peterz@infradead.org>,
- Catalin Marinas <catalin.marinas@arm.com>,
- Linus Walleij <linus.walleij@linaro.org>, dri-devel@lists.freedesktop.org,
- Chris Wilson <chris@chris-wilson.co.uk>,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- Saeed Mahameed <saeedm@nvidia.com>, netdev@vger.kernel.org,
- Jakub Kicinski <kuba@kernel.org>, Will Deacon <will@kernel.org>,
- Michal Simek <michal.simek@xilinx.com>, linux-s390@vger.kernel.org,
- afzal mohammed <afzal.mohd.ma@gmail.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Dave Jiang <dave.jiang@intel.com>,
- Leon Romanovsky <leon@kernel.org>, linux-rdma@vger.kernel.org,
- Marc Zyngier <maz@kernel.org>, Helge Deller <deller@gmx.de>,
- Russell King <linux@armlinux.org.uk>,
- Christian Borntraeger <borntraeger@de.ibm.com>, linux-pci@vger.kernel.org,
- xen-devel@lists.xenproject.org, Heiko Carstens <hca@linux.ibm.com>,
- Wambui Karuga <wambui.karugax@gmail.com>, Allen Hubbe <allenbh@gmail.com>,
- Rob Herring <robh@kernel.org>, David Airlie <airlied@linux.ie>,
- linux-gpio@vger.kernel.org, Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
- Bjorn Helgaas <bhelgaas@google.com>, Lee Jones <lee.jones@linaro.org>,
- linux-arm-kernel@lists.infradead.org, Juergen Gross <jgross@suse.com>,
- linux-parisc@vger.kernel.org, Hou Zhiqiang <Zhiqiang.Hou@nxp.com>,
- Tariq Toukan <tariqt@nvidia.com>, Jon Mason <jdmason@kudzu.us>,
- linux-ntb@googlegroups.com, intel-gfx@lists.freedesktop.org,
- "David S. Miller" <davem@davemloft.net>
+Cc: greg.depoire@gmail.com, Lucas De Marchi <lucas.demarchi@intel.com>,
+ open list <linux-kernel@vger.kernel.org>, David Airlie <airlied@linux.ie>,
+ Sean Paul <seanpaul@chromium.org>, Dave Airlie <airlied@redhat.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+On Wed, 09 Dec 2020, Lyude Paul <lyude@redhat.com> wrote:
+> Noticed this while moving all of the VESA backlight code in i915 over to
+> DRM helpers: it would appear that we calculate the frequency value we want
+> to write to DP_EDP_BACKLIGHT_FREQ_SET twice even though this value never
+> actually changes during runtime. So, let's simplify things by just caching
+> this value in intel_panel.backlight, and re-writing it as-needed.
 
-On 12/10/20 2:26 PM, Thomas Gleixner wrote:
-> All event channel setups bind the interrupt on CPU0 or the target CPU for
-> percpu interrupts and overwrite the affinity mask with the corresponding
-> cpumask. That does not make sense.
+This isn't a full review, just something I spotted so far. Please see
+inline.
+
+BR,
+Jani.
+
+
 >
-> The XEN implementation of irqchip::irq_set_affinity() already picks a
-> single target CPU out of the affinity mask and the actual target is stored
-> in the effective CPU mask, so destroying the user chosen affinity mask
-> which might contain more than one CPU is wrong.
+> Signed-off-by: Lyude Paul <lyude@redhat.com>
+> Cc: Jani Nikula <jani.nikula@intel.com>
+> Cc: Dave Airlie <airlied@gmail.com>
+> Cc: greg.depoire@gmail.com
+> ---
+>  .../drm/i915/display/intel_display_types.h    |  1 +
+>  .../drm/i915/display/intel_dp_aux_backlight.c | 64 ++++++-------------
+>  2 files changed, 19 insertions(+), 46 deletions(-)
 >
-> Change the implementation so that the channel is bound to CPU0 at the XEN
-> level and leave the affinity mask alone. At startup of the interrupt
-> affinity will be assigned out of the affinity mask and the XEN binding will
-> be updated. 
+> diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
+> index 5bc5bfbc4551..133c9cb742a7 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display_types.h
+> +++ b/drivers/gpu/drm/i915/display/intel_display_types.h
+> @@ -259,6 +259,7 @@ struct intel_panel {
+>  
+>  		/* DPCD backlight */
+>  		u8 pwmgen_bit_count;
+> +		u8 pwm_freq_pre_divider;
+>  
+>  		struct backlight_device *device;
+>  
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
+> index 4fd536801b14..94ce5ca1affa 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
+> @@ -129,50 +129,6 @@ intel_dp_aux_set_backlight(const struct drm_connector_state *conn_state, u32 lev
+>  	}
+>  }
+>  
+> -/*
+> - * Set PWM Frequency divider to match desired frequency in vbt.
+> - * The PWM Frequency is calculated as 27Mhz / (F x P).
+> - * - Where F = PWM Frequency Pre-Divider value programmed by field 7:0 of the
+> - *             EDP_BACKLIGHT_FREQ_SET register (DPCD Address 00728h)
+> - * - Where P = 2^Pn, where Pn is the value programmed by field 4:0 of the
+> - *             EDP_PWMGEN_BIT_COUNT register (DPCD Address 00724h)
+> - */
+> -static bool intel_dp_aux_set_pwm_freq(struct intel_connector *connector)
+> -{
+> -	struct drm_i915_private *dev_priv = to_i915(connector->base.dev);
+> -	struct intel_dp *intel_dp = intel_attached_dp(connector);
+> -	const u8 pn = connector->panel.backlight.pwmgen_bit_count;
+> -	int freq, fxp, f, fxp_actual, fxp_min, fxp_max;
+> -
+> -	freq = dev_priv->vbt.backlight.pwm_freq_hz;
+> -	if (!freq) {
+> -		drm_dbg_kms(&dev_priv->drm,
+> -			    "Use panel default backlight frequency\n");
+> -		return false;
+> -	}
+> -
+> -	fxp = DIV_ROUND_CLOSEST(KHz(DP_EDP_BACKLIGHT_FREQ_BASE_KHZ), freq);
+> -	f = clamp(DIV_ROUND_CLOSEST(fxp, 1 << pn), 1, 255);
+> -	fxp_actual = f << pn;
+> -
+> -	/* Ensure frequency is within 25% of desired value */
+> -	fxp_min = DIV_ROUND_CLOSEST(fxp * 3, 4);
+> -	fxp_max = DIV_ROUND_CLOSEST(fxp * 5, 4);
+> -
+> -	if (fxp_min > fxp_actual || fxp_actual > fxp_max) {
+> -		drm_dbg_kms(&dev_priv->drm, "Actual frequency out of range\n");
+> -		return false;
+> -	}
+> -
+> -	if (drm_dp_dpcd_writeb(&intel_dp->aux,
+> -			       DP_EDP_BACKLIGHT_FREQ_SET, (u8) f) < 0) {
+> -		drm_dbg_kms(&dev_priv->drm,
+> -			    "Failed to write aux backlight freq\n");
+> -		return false;
+> -	}
+> -	return true;
+> -}
+> -
+>  static void intel_dp_aux_enable_backlight(const struct intel_crtc_state *crtc_state,
+>  					  const struct drm_connector_state *conn_state)
+>  {
+> @@ -213,9 +169,13 @@ static void intel_dp_aux_enable_backlight(const struct intel_crtc_state *crtc_st
+>  		break;
+>  	}
+>  
+> -	if (intel_dp->edp_dpcd[2] & DP_EDP_BACKLIGHT_FREQ_AUX_SET_CAP)
+> -		if (intel_dp_aux_set_pwm_freq(connector))
+> +	if (panel->backlight.pwm_freq_pre_divider) {
+> +		if (drm_dp_dpcd_writeb(&intel_dp->aux, DP_EDP_BACKLIGHT_FREQ_SET,
+> +				       panel->backlight.pwm_freq_pre_divider) == 1)
+>  			new_dpcd_buf |= DP_EDP_BACKLIGHT_FREQ_AUX_SET_ENABLE;
+> +		else
+> +			drm_dbg_kms(&i915->drm, "Failed to write aux backlight frequency\n");
+> +	}
+>  
+>  	if (new_dpcd_buf != dpcd_buf) {
+>  		if (drm_dp_dpcd_writeb(&intel_dp->aux,
+> @@ -236,6 +196,14 @@ static void intel_dp_aux_disable_backlight(const struct drm_connector_state *old
+>  				 false);
+>  }
+>  
+> +/*
+> + * Compute PWM frequency divider value based off the frequency provided to us by the vbt.
+> + * The PWM Frequency is calculated as 27Mhz / (F x P).
+> + * - Where F = PWM Frequency Pre-Divider value programmed by field 7:0 of the
+> + *             EDP_BACKLIGHT_FREQ_SET register (DPCD Address 00728h)
+> + * - Where P = 2^Pn, where Pn is the value programmed by field 4:0 of the
+> + *             EDP_PWMGEN_BIT_COUNT register (DPCD Address 00724h)
+> + */
+>  static u32 intel_dp_aux_calc_max_backlight(struct intel_connector *connector)
+>  {
+>  	struct drm_i915_private *i915 = to_i915(connector->base.dev);
+> @@ -287,8 +255,10 @@ static u32 intel_dp_aux_calc_max_backlight(struct intel_connector *connector)
+>  	pn_min &= DP_EDP_PWMGEN_BIT_COUNT_MASK;
+>  	pn_max &= DP_EDP_PWMGEN_BIT_COUNT_MASK;
+>  
+> +	/* Ensure frequency is within 25% of desired value */
+>  	fxp_min = DIV_ROUND_CLOSEST(fxp * 3, 4);
+>  	fxp_max = DIV_ROUND_CLOSEST(fxp * 5, 4);
+> +
+>  	if (fxp_min < (1 << pn_min) || (255 << pn_max) < fxp_max) {
+>  		drm_dbg_kms(&i915->drm,
+>  			    "VBT defined backlight frequency out of range\n");
+> @@ -309,7 +279,9 @@ static u32 intel_dp_aux_calc_max_backlight(struct intel_connector *connector)
+>  			    "Failed to write aux pwmgen bit count\n");
+>  		return max_backlight;
+>  	}
+> +
+>  	panel->backlight.pwmgen_bit_count = pn;
+> +	panel->backlight.pwm_freq_pre_divider = f;
+
+This should be wrapped in
+
+	if (intel_dp->edp_dpcd[2] & DP_EDP_BACKLIGHT_FREQ_AUX_SET_CAP)
+
+but you do it in the next patch, so this patch is a bit broken.
 
 
-If that's the case then I wonder whether we need this call at all and instead bind at startup time.
+>  
+>  	max_backlight = (1 << pn) - 1;
 
-
--boris
-
-
-> Only keep the enforcement for real percpu interrupts.
+-- 
+Jani Nikula, Intel Open Source Graphics Center
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
