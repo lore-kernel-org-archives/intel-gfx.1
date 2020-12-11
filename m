@@ -2,57 +2,54 @@ Return-Path: <SRS0=6ulK=FP=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-15.2 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 37946C433FE
-	for <intel-gfx@archiver.kernel.org>; Fri, 11 Dec 2020 22:07:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 12C5AC4361B
+	for <intel-gfx@archiver.kernel.org>; Fri, 11 Dec 2020 22:19:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D0FF623D50
-	for <intel-gfx@archiver.kernel.org>; Fri, 11 Dec 2020 22:07:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D0FF623D50
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linutronix.de
+	by mail.kernel.org (Postfix) with ESMTPS id C207223A33
+	for <intel-gfx@archiver.kernel.org>; Fri, 11 Dec 2020 22:19:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C207223A33
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5E02D6ECDC;
-	Fri, 11 Dec 2020 22:07:26 +0000 (UTC)
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 165F56ECDB;
- Fri, 11 Dec 2020 22:07:25 +0000 (UTC)
-From: Thomas Gleixner <tglx@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1607724443;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=uE5KR5qlfz+ztx9s8pbRCB1Be+kxvrwztlDzBEoJCeU=;
- b=upIVkJhj5g1RmAalIreFExmj0QWc7xxC7dfgYyTKQ7/s1CPaLrvswCn2cis9a5ELIHv+rz
- IPyhjuoIqfAMI+60hoe1U1U27IhweRJLvNYpN7cTAqQ0o0KlM2VdD+/ibGw4UCrbJtLWLY
- inuTJUAvrZhdYHuTfLNeogwgdoyl5SGN/dy3kNNRxVqcfza2kw+U/H2LlJBjtaANpZFTIZ
- ptr78MOU90DKS42tb76OuG8X418bmY7SaqmPbyqibyrcTnWO7/ljKjMmuQI0HfaTAZd7Ho
- gSP1o6so90u917yflugfQ7VOzMuRufMAcgTvFJSwBRyBFBjjIC3oXcfJ628ySQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1607724443;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=uE5KR5qlfz+ztx9s8pbRCB1Be+kxvrwztlDzBEoJCeU=;
- b=6l4EGHeIGgEoz1BM8xIprj71LYQ/8TNyn+KsbwNoVJfPjiraGOnwYmma/niMdHbbcB5BbA
- SooB9xEZT4EUdpBw==
-To: Andy Shevchenko <andy.shevchenko@gmail.com>
-In-Reply-To: <87h7osgifc.fsf@nanos.tec.linutronix.de>
-References: <20201210192536.118432146@linutronix.de>
- <20201210194042.860029489@linutronix.de>
- <CAHp75Vc-2OjE2uwvNRiyLMQ8GSN3P7SehKD-yf229_7ocaktiw@mail.gmail.com>
- <87h7osgifc.fsf@nanos.tec.linutronix.de>
-Date: Fri, 11 Dec 2020 23:07:22 +0100
-Message-ID: <87360cgfol.fsf@nanos.tec.linutronix.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A34D8912A;
+	Fri, 11 Dec 2020 22:19:20 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B295A8912A
+ for <intel-gfx@lists.freedesktop.org>; Fri, 11 Dec 2020 22:19:19 +0000 (UTC)
+IronPort-SDR: aWuXzpy1h3DiWpcOAIlD8jxtX0pbE9kdy8681E3nZ431a0djrPnzUCGp9IQ0IL1sMsvURU0sDo
+ eVSjZU2IOXuQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9832"; a="171939773"
+X-IronPort-AV: E=Sophos;i="5.78,412,1599548400"; d="scan'208";a="171939773"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Dec 2020 14:19:19 -0800
+IronPort-SDR: KaaZEQrmdfU4Hn/d/yHEsKSQBRIzkWarbMHNqfqPcmrVZk3obJcf9f1bMHHTm8DEJYxWNLzCKh
+ DBWC/ZqYCM3w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.78,412,1599548400"; d="scan'208";a="334358619"
+Received: from lkp-server01.sh.intel.com (HELO ecc0cebe68d1) ([10.239.97.150])
+ by orsmga003.jf.intel.com with ESMTP; 11 Dec 2020 14:19:18 -0800
+Received: from kbuild by ecc0cebe68d1 with local (Exim 4.92)
+ (envelope-from <lkp@intel.com>)
+ id 1knqkv-00017Q-Bw; Fri, 11 Dec 2020 22:19:17 +0000
+Date: Sat, 12 Dec 2020 06:19:11 +0800
+From: kernel test robot <lkp@intel.com>
+To: Dave Airlie <airlied@gmail.com>, intel-gfx@lists.freedesktop.org
+Message-ID: <20201211221911.GA55742@58efc5df12a6>
+References: <20201211072922.19101-10-airlied@gmail.com>
 MIME-Version: 1.0
-Subject: Re: [Intel-gfx] [patch 03/30] genirq: Move irq_set_lockdep_class()
- to core
+Content-Disposition: inline
+In-Reply-To: <20201211072922.19101-10-airlied@gmail.com>
+X-Patchwork-Hint: ignore
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Subject: [Intel-gfx] [RFC PATCH] drm/i915: skl_plane_ctl_crtc() can be static
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,98 +62,63 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Mark Rutland <mark.rutland@arm.com>,
- Karthikeyan Mitran <m.karthikeyan@mobiveil.co.in>,
- Peter Zijlstra <peterz@infradead.org>,
- Catalin Marinas <catalin.marinas@arm.com>,
- Linus Walleij <linus.walleij@linaro.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Chris Wilson <chris@chris-wilson.co.uk>, "James E.J.
- Bottomley" <James.Bottomley@hansenpartnership.com>,
- Saeed Mahameed <saeedm@nvidia.com>, netdev <netdev@vger.kernel.org>,
- Will Deacon <will@kernel.org>, Michal Simek <michal.simek@xilinx.com>,
- linux-s390@vger.kernel.org, afzal mohammed <afzal.mohd.ma@gmail.com>,
- Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
- Dave Jiang <dave.jiang@intel.com>, xen-devel@lists.xenproject.org,
- Leon Romanovsky <leon@kernel.org>, "open
- list:HFI1 DRIVER" <linux-rdma@vger.kernel.org>, Marc Zyngier <maz@kernel.org>,
- Helge Deller <deller@gmx.de>, Russell King <linux@armlinux.org.uk>,
- Christian Borntraeger <borntraeger@de.ibm.com>,
- linux-pci <linux-pci@vger.kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Heiko Carstens <hca@linux.ibm.com>, Wambui Karuga <wambui.karugax@gmail.com>,
- Allen Hubbe <allenbh@gmail.com>, Juergen Gross <jgross@suse.com>,
- Rob Herring <robh@kernel.org>, David Airlie <airlied@linux.ie>,
- "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>, Lee Jones <lee.jones@linaro.org>,
- linux-arm Mailing List <linux-arm-kernel@lists.infradead.org>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, linux-parisc@vger.kernel.org,
- Hou Zhiqiang <Zhiqiang.Hou@nxp.com>, LKML <linux-kernel@vger.kernel.org>,
- Tariq Toukan <tariqt@nvidia.com>, Jon Mason <jdmason@kudzu.us>,
- linux-ntb@googlegroups.com, intel-gfx <intel-gfx@lists.freedesktop.org>,
- "David S. Miller" <davem@davemloft.net>
+Cc: kbuild-all@lists.01.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Dec 11 2020 at 22:08, Thomas Gleixner wrote:
 
-> On Fri, Dec 11 2020 at 19:53, Andy Shevchenko wrote:
->
->> On Thu, Dec 10, 2020 at 10:14 PM Thomas Gleixner <tglx@linutronix.de> wrote:
->>>
->>> irq_set_lockdep_class() is used from modules and requires irq_to_desc() to
->>> be exported. Move it into the core code which lifts another requirement for
->>> the export.
->>
->> ...
->>
->>> +       if (IS_ENABLED(CONFIG_LOCKDEP))
->>> +               __irq_set_lockdep_class(irq, lock_class, request_class);
->
-> You are right. Let me fix that.
+Reported-by: kernel test robot <lkp@intel.com>
+Signed-off-by: kernel test robot <lkp@intel.com>
+---
+ intel_gen9_plane.c |   12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-No. I have to correct myself. You're wrong.
-
-The inline is evaluated in the compilation units which include that
-header and because the function declaration is unconditional it is
-happy.
-
-Now the optimizer stage makes the whole thing a NOOP if CONFIG_LOCKDEP=n
-and thereby drops the reference to the function which makes it not
-required for linking.
-
-So in the file where the function is implemented:
-
-#ifdef CONFIG_LOCKDEP
-void __irq_set_lockdep_class(....)
-{
-}
-#endif
-
-The whole block is either discarded because CONFIG_LOCKDEP is not
-defined or compile if it is defined which makes it available for the
-linker.
-
-And in the latter case the optimizer keeps the call in the inline (it
-optimizes the condition away because it's always true).
-
-So in both cases the compiler and the linker are happy and everything
-works as expected.
-
-It would fail if the header file had the following:
-
-#ifdef CONFIG_LOCKDEP
-void __irq_set_lockdep_class(....);
-#endif
-
-Because then it would complain about the missing function prototype when
-it evaluates the inline.
-
-Thanks,
-
-        tglx
+diff --git a/drivers/gpu/drm/i915/display/intel_gen9_plane.c b/drivers/gpu/drm/i915/display/intel_gen9_plane.c
+index d547edabb5ce7..8549b262f095e 100644
+--- a/drivers/gpu/drm/i915/display/intel_gen9_plane.c
++++ b/drivers/gpu/drm/i915/display/intel_gen9_plane.c
+@@ -1393,7 +1393,7 @@ static u32 cnl_plane_ctl_flip(unsigned int reflect)
+ 	return 0;
+ }
+ 
+-u32 skl_plane_ctl_crtc(const struct intel_crtc_state *crtc_state)
++static u32 skl_plane_ctl_crtc(const struct intel_crtc_state *crtc_state)
+ {
+ 	struct drm_i915_private *dev_priv = to_i915(crtc_state->uapi.crtc->dev);
+ 	u32 plane_ctl = 0;
+@@ -1413,8 +1413,8 @@ u32 skl_plane_ctl_crtc(const struct intel_crtc_state *crtc_state)
+ 	return plane_ctl;
+ }
+ 
+-u32 skl_plane_ctl(const struct intel_crtc_state *crtc_state,
+-		  const struct intel_plane_state *plane_state)
++static u32 skl_plane_ctl(const struct intel_crtc_state *crtc_state,
++			 const struct intel_plane_state *plane_state)
+ {
+ 	struct drm_i915_private *dev_priv =
+ 		to_i915(plane_state->uapi.plane->dev);
+@@ -1452,7 +1452,7 @@ u32 skl_plane_ctl(const struct intel_crtc_state *crtc_state,
+ 	return plane_ctl;
+ }
+ 
+-u32 glk_plane_color_ctl_crtc(const struct intel_crtc_state *crtc_state)
++static u32 glk_plane_color_ctl_crtc(const struct intel_crtc_state *crtc_state)
+ {
+ 	struct drm_i915_private *dev_priv = to_i915(crtc_state->uapi.crtc->dev);
+ 	u32 plane_color_ctl = 0;
+@@ -1469,8 +1469,8 @@ u32 glk_plane_color_ctl_crtc(const struct intel_crtc_state *crtc_state)
+ 	return plane_color_ctl;
+ }
+ 
+-u32 glk_plane_color_ctl(const struct intel_crtc_state *crtc_state,
+-			const struct intel_plane_state *plane_state)
++static u32 glk_plane_color_ctl(const struct intel_crtc_state *crtc_state,
++			       const struct intel_plane_state *plane_state)
+ {
+ 	struct drm_i915_private *dev_priv =
+ 		to_i915(plane_state->uapi.plane->dev);
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
