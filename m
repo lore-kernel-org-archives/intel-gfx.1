@@ -6,52 +6,56 @@ X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
 	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 37F1CC4361B
-	for <intel-gfx@archiver.kernel.org>; Fri, 11 Dec 2020 21:08:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 455EBC4361B
+	for <intel-gfx@archiver.kernel.org>; Fri, 11 Dec 2020 21:10:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A965E24078
-	for <intel-gfx@archiver.kernel.org>; Fri, 11 Dec 2020 21:08:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A965E24078
+	by mail.kernel.org (Postfix) with ESMTPS id BE27B2405A
+	for <intel-gfx@archiver.kernel.org>; Fri, 11 Dec 2020 21:10:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BE27B2405A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linutronix.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C80CC6E4E8;
-	Fri, 11 Dec 2020 21:08:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B73FA6EC9E;
+	Fri, 11 Dec 2020 21:10:39 +0000 (UTC)
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 10C916E4E8;
- Fri, 11 Dec 2020 21:08:11 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF4EC6EC9E;
+ Fri, 11 Dec 2020 21:10:38 +0000 (UTC)
 From: Thomas Gleixner <tglx@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1607720888;
+ s=2020; t=1607721037;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=HhSZk3JoDjyQOLMPOFgRgzwUyrTACu0UGSGM/7NvY6I=;
- b=ODjND6hv3nPITeDJOTxlIhVMHSqc6z+V97F+ULhmNWUDUg4MeWWcc8/RjfBSpJ+3E7KGvI
- 7u3oIQ1T0blXK7tiZjRPA+EmHIW9gpYRAbWAbVY6gfKBefi2hgLwHuva9Pr5DzcIfb4zGY
- SuyetRvP8eIvO7dEK0SnW5NkAhYPqinzrr4Dc4PuL6rLfSElkjk6Dm5HgGKkZSl8lMyVVb
- GCj6eMo+nj1M3TWtminM7NXFXEDFn7q5iOiTlBNVs+z2wkgYrK9LnDALIH7BFq1ID6L7rE
- ud/rYvRghXbFi0znwvlxBBbwl+qtg9iLqpnrT1m9/JCtlXDnnHPHRcYj9dijAA==
+ bh=Mo2pAYuz+fdW3SgRq/XPKjojssrrAkt+Ucf5porPagA=;
+ b=Jwq6ijv1GHVoieraIz9ydp2q4O6t/9GUc1eMMejV0w+8HMZFh2MudG98dd8dHkmBbtcY23
+ rWBcv8bjhS74ccS+ED0Y2Ffx6+AE3ILOJic4uDyRWA5WOr4daMkBthSaLo/d+kCRNbQOx4
+ /u1tQekXWSXK+tnBOy8SnybwPlOHVa58yu83Wz/vzB6Q7kN2A+/PUNns70l+Y5AN2H5xGf
+ 7iGU6k2Q0hE5HprbYz1Eu3KcHibChvhCzqBaZRj/WCHuBdSDA1VHcJDgDidwq1qqERl/TB
+ s9Q8j4pTrdZ9IKgusBRQ2bAa+V0Lruumrto07aTzrOd30AjJDgps945/dnu+DQ==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1607720888;
+ s=2020e; t=1607721037;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=HhSZk3JoDjyQOLMPOFgRgzwUyrTACu0UGSGM/7NvY6I=;
- b=jd0RTQztrN1EtCKge/4M0pzHQ/MU02TRkL1ocrE3lvW4v9ht90/z6O6t5eEalNoD9uJ0/m
- DmETqLTaJjhHPNAQ==
-To: Andy Shevchenko <andy.shevchenko@gmail.com>
-In-Reply-To: <CAHp75Vc-2OjE2uwvNRiyLMQ8GSN3P7SehKD-yf229_7ocaktiw@mail.gmail.com>
+ bh=Mo2pAYuz+fdW3SgRq/XPKjojssrrAkt+Ucf5porPagA=;
+ b=6/ko850V23KEuDS4nOrh7BVWq2Ew0gOANx75sF2cdzYDioAkFAZKWg5jsxMNTHTfHBIf/A
+ ckLpFAtkm+PHw5Bw==
+To: David Laight <David.Laight@ACULAB.COM>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ LKML <linux-kernel@vger.kernel.org>
+In-Reply-To: <d6cbfa118490459bb0671394f00323fc@AcuMS.aculab.com>
 References: <20201210192536.118432146@linutronix.de>
- <20201210194042.860029489@linutronix.de>
- <CAHp75Vc-2OjE2uwvNRiyLMQ8GSN3P7SehKD-yf229_7ocaktiw@mail.gmail.com>
-Date: Fri, 11 Dec 2020 22:08:07 +0100
-Message-ID: <87h7osgifc.fsf@nanos.tec.linutronix.de>
+ <20201210194043.957046529@linutronix.de>
+ <ad05af1a-5463-2a80-0887-7629721d6863@linux.intel.com>
+ <87y2i4h54i.fsf@nanos.tec.linutronix.de>
+ <d6cbfa118490459bb0671394f00323fc@AcuMS.aculab.com>
+Date: Fri, 11 Dec 2020 22:10:36 +0100
+Message-ID: <87eejwgib7.fsf@nanos.tec.linutronix.de>
 MIME-Version: 1.0
-Subject: Re: [Intel-gfx] [patch 03/30] genirq: Move irq_set_lockdep_class()
- to core
+Subject: Re: [Intel-gfx] [patch 14/30] drm/i915/pmu: Replace open coded
+ kstat_irqs() copy
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,50 +73,67 @@ Cc: Mark Rutland <mark.rutland@arm.com>,
  Peter Zijlstra <peterz@infradead.org>,
  Catalin Marinas <catalin.marinas@arm.com>,
  Linus Walleij <linus.walleij@linaro.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Chris Wilson <chris@chris-wilson.co.uk>, "James E.J.
- Bottomley" <James.Bottomley@hansenpartnership.com>,
- Saeed Mahameed <saeedm@nvidia.com>, netdev <netdev@vger.kernel.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ Chris Wilson <chris@chris-wilson.co.uk>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
  Will Deacon <will@kernel.org>, Michal Simek <michal.simek@xilinx.com>,
- linux-s390@vger.kernel.org, afzal mohammed <afzal.mohd.ma@gmail.com>,
+ "linux-s390@vger.kernel.org" <linux-s390@vger.kernel.org>,
+ afzal mohammed <afzal.mohd.ma@gmail.com>,
  Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
- Dave Jiang <dave.jiang@intel.com>, xen-devel@lists.xenproject.org,
- Leon Romanovsky <leon@kernel.org>, "open
- list:HFI1 DRIVER" <linux-rdma@vger.kernel.org>, Marc Zyngier <maz@kernel.org>,
- Helge Deller <deller@gmx.de>, Russell King <linux@armlinux.org.uk>,
+ Dave Jiang <dave.jiang@intel.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Leon Romanovsky <leon@kernel.org>,
+ "linux-rdma@vger.kernel.org" <linux-rdma@vger.kernel.org>,
+ Marc Zyngier <maz@kernel.org>, Helge Deller <deller@gmx.de>,
+ Russell King <linux@armlinux.org.uk>,
  Christian Borntraeger <borntraeger@de.ibm.com>,
- linux-pci <linux-pci@vger.kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Heiko Carstens <hca@linux.ibm.com>, Wambui Karuga <wambui.karugax@gmail.com>,
- Allen Hubbe <allenbh@gmail.com>, Juergen Gross <jgross@suse.com>,
- Rob Herring <robh@kernel.org>, David Airlie <airlied@linux.ie>,
- "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
+ "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Heiko Carstens <hca@linux.ibm.com>,
+ Wambui Karuga <wambui.karugax@gmail.com>, Allen Hubbe <allenbh@gmail.com>,
+ Juergen Gross <jgross@suse.com>, Rob Herring <robh@kernel.org>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
  Stefano Stabellini <sstabellini@kernel.org>,
  Bjorn Helgaas <bhelgaas@google.com>, Lee Jones <lee.jones@linaro.org>,
- linux-arm Mailing List <linux-arm-kernel@lists.infradead.org>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, linux-parisc@vger.kernel.org,
- Hou Zhiqiang <Zhiqiang.Hou@nxp.com>, LKML <linux-kernel@vger.kernel.org>,
- Tariq Toukan <tariqt@nvidia.com>, Jon Mason <jdmason@kudzu.us>,
- linux-ntb@googlegroups.com, intel-gfx <intel-gfx@lists.freedesktop.org>,
- "David S. Miller" <davem@davemloft.net>
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>, David Airlie <airlied@linux.ie>,
+ "linux-parisc@vger.kernel.org" <linux-parisc@vger.kernel.org>,
+ Hou Zhiqiang <Zhiqiang.Hou@nxp.com>, Tariq Toukan <tariqt@nvidia.com>,
+ Jon Mason <jdmason@kudzu.us>,
+ "linux-ntb@googlegroups.com" <linux-ntb@googlegroups.com>,
+ Saeed Mahameed <saeedm@nvidia.com>, "David S. Miller" <davem@davemloft.net>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Dec 11 2020 at 19:53, Andy Shevchenko wrote:
-
-> On Thu, Dec 10, 2020 at 10:14 PM Thomas Gleixner <tglx@linutronix.de> wrote:
->>
->> irq_set_lockdep_class() is used from modules and requires irq_to_desc() to
->> be exported. Move it into the core code which lifts another requirement for
->> the export.
+On Fri, Dec 11 2020 at 14:19, David Laight wrote:
+> From: Thomas Gleixner
+>> You can't catch that. If this really becomes an issue you need a
+>> sequence counter around it.
 >
-> ...
->
->> +       if (IS_ENABLED(CONFIG_LOCKDEP))
->> +               __irq_set_lockdep_class(irq, lock_class, request_class);
+> Or just two copies of the high word.
+> Provided the accesses are sequenced:
+> writer:
+> 	load high:low
+> 	add small_value,high:low
+> 	store high
+> 	store low
+> 	store high_copy
+> reader:
+> 	load high_copy
+> 	load low
+> 	load high
+> 	if (high != high_copy)
+> 		low = 0;
 
-You are right. Let me fix that.
+And low = 0 is solving what? You need to loop back and retry until it's
+consistent and then it's nothing else than an open coded sequence count.
+
+Thanks,
+
+        tglx
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
