@@ -6,36 +6,36 @@ X-Spam-Status: No, score=-3.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D5CD4C433FE
-	for <intel-gfx@archiver.kernel.org>; Fri, 11 Dec 2020 15:38:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8DCB8C4361B
+	for <intel-gfx@archiver.kernel.org>; Fri, 11 Dec 2020 15:54:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4F30223121
-	for <intel-gfx@archiver.kernel.org>; Fri, 11 Dec 2020 15:38:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4F30223121
+	by mail.kernel.org (Postfix) with ESMTPS id 27CC223B31
+	for <intel-gfx@archiver.kernel.org>; Fri, 11 Dec 2020 15:54:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 27CC223B31
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD2926E8A6;
-	Fri, 11 Dec 2020 15:38:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 680EF6E40D;
+	Fri, 11 Dec 2020 15:54:53 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
  [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 9F0206E40C;
- Fri, 11 Dec 2020 15:38:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 209C36E40C;
+ Fri, 11 Dec 2020 15:54:53 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 99A7DA9F66;
- Fri, 11 Dec 2020 15:38:32 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id 1AB03A882F;
+ Fri, 11 Dec 2020 15:54:53 +0000 (UTC)
 MIME-Version: 1.0
 From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Anshuman Gupta" <anshuman.gupta@intel.com>
-Date: Fri, 11 Dec 2020 15:38:32 -0000
-Message-ID: <160770111262.16103.1861937613172841300@emeril.freedesktop.org>
+To: "Zheng Yongjun" <zhengyongjun3@huawei.com>
+Date: Fri, 11 Dec 2020 15:54:53 -0000
+Message-ID: <160770209308.16103.18348438703810966980@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
-References: <20201211134244.14588-1-anshuman.gupta@intel.com>
-In-Reply-To: <20201211134244.14588-1-anshuman.gupta@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkRPQ1M6IHdhcm5pbmcgZm9yIEhE?=
- =?utf-8?q?CP_2=2E2_and_HDCP_1=2E4_Gen12_DP_MST_support_=28rev7=29?=
+References: <20201211090005.3196-1-zhengyongjun3@huawei.com>
+In-Reply-To: <20201211090005.3196-1-zhengyongjun3@huawei.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkRPQ1M6IHdhcm5pbmcgZm9yIGdw?=
+ =?utf-8?q?u=3A_drm=3A_i915=3A_convert_comma_to_semicolon?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,8 +57,8 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 == Series Details ==
 
-Series: HDCP 2.2 and HDCP 1.4 Gen12 DP MST support (rev7)
-URL   : https://patchwork.freedesktop.org/series/82998/
+Series: gpu: drm: i915: convert comma to semicolon
+URL   : https://patchwork.freedesktop.org/series/84845/
 State : warning
 
 == Summary ==
