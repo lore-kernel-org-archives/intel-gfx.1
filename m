@@ -2,55 +2,50 @@ Return-Path: <SRS0=6ulK=FP=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.7 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+X-Spam-Status: No, score=-13.9 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
+	URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 41BCBC1B0D9
-	for <intel-gfx@archiver.kernel.org>; Fri, 11 Dec 2020 07:29:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C74AEC4167B
+	for <intel-gfx@archiver.kernel.org>; Fri, 11 Dec 2020 07:29:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id ED40123B26
-	for <intel-gfx@archiver.kernel.org>; Fri, 11 Dec 2020 07:29:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org ED40123B26
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 87A4E23B26
+	for <intel-gfx@archiver.kernel.org>; Fri, 11 Dec 2020 07:29:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 87A4E23B26
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A88136EC7F;
-	Fri, 11 Dec 2020 07:29:45 +0000 (UTC)
-Received: from us-smtp-delivery-44.mimecast.com
- (us-smtp-delivery-44.mimecast.com [205.139.111.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 93F226EC6C
- for <intel-gfx@lists.freedesktop.org>; Fri, 11 Dec 2020 07:29:39 +0000 (UTC)
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-348-egwvE8C1PV6KdudqpZGb3g-1; Fri, 11 Dec 2020 02:29:36 -0500
-X-MC-Unique: egwvE8C1PV6KdudqpZGb3g-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
- [10.5.11.13])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id DEE7980ED8B
- for <intel-gfx@lists.freedesktop.org>; Fri, 11 Dec 2020 07:29:35 +0000 (UTC)
-Received: from dreadlord-bne-redhat-com.bne.redhat.com (unknown [10.64.32.209])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 509A760862
- for <intel-gfx@lists.freedesktop.org>; Fri, 11 Dec 2020 07:29:35 +0000 (UTC)
-From: Dave Airlie <airlied@gmail.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Fri, 11 Dec 2020 17:29:21 +1000
-Message-Id: <20201211072922.19101-11-airlied@gmail.com>
-In-Reply-To: <20201211072922.19101-1-airlied@gmail.com>
-References: <20201211072922.19101-1-airlied@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 60D1F6EC69;
+	Fri, 11 Dec 2020 07:29:50 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3C9476EC75
+ for <Intel-gfx@lists.freedesktop.org>; Fri, 11 Dec 2020 07:29:46 +0000 (UTC)
+IronPort-SDR: bXxNTYiOieeKm/hm3ACVdLbc5UBCv9602tw3560wv1EsdFxAngfK31X4j2oCSjTPHhBXx3571T
+ B7TjKVfQUIkw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9831"; a="174506395"
+X-IronPort-AV: E=Sophos;i="5.78,410,1599548400"; d="scan'208";a="174506395"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Dec 2020 23:29:44 -0800
+IronPort-SDR: g+xj8ehOxpXeK5Vz88lyQ9g0q+QUDkudQ2AZI/2DQmiC9zl8YO3OGcWb5fxOp5eiQZFRN2/pRL
+ Alb3uDLI1P9Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.78,410,1599548400"; d="scan'208";a="409063279"
+Received: from sean-virtualbox.fm.intel.com ([10.105.158.96])
+ by orsmga001.jf.intel.com with ESMTP; 10 Dec 2020 23:29:44 -0800
+From: "Huang, Sean Z" <sean.z.huang@intel.com>
+To: Intel-gfx@lists.freedesktop.org
+Date: Thu, 10 Dec 2020 23:28:53 -0800
+Message-Id: <20201211072911.27403-4-sean.z.huang@intel.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20201211072911.27403-1-sean.z.huang@intel.com>
+References: <20201211072911.27403-1-sean.z.huang@intel.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=airlied@gmail.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: gmail.com
-Subject: [Intel-gfx] [PATCH 10/11] drm/i915: move pipe update code into crtc.
+Subject: [Intel-gfx] [RFC-v7 03/21] drm/i915/pxp: Implement funcs to create
+ the TEE channel
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,519 +58,184 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Dave Airlie <airlied@redhat.com>
-
-Daniel suggested this should move here.
-
-Signed-off-by: Dave Airlie <airlied@redhat.com>
----
- drivers/gpu/drm/i915/display/intel_crtc.c   | 230 ++++++++++++++++++++
- drivers/gpu/drm/i915/display/intel_sprite.c | 228 -------------------
- 2 files changed, 230 insertions(+), 228 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_crtc.c b/drivers/gpu/drm/i915/display/intel_crtc.c
-index 0161e18f1a50..9010c55bbc4e 100644
---- a/drivers/gpu/drm/i915/display/intel_crtc.c
-+++ b/drivers/gpu/drm/i915/display/intel_crtc.c
-@@ -10,6 +10,9 @@
- #include <drm/drm_plane.h>
- #include <drm/drm_plane_helper.h>
- 
-+#include "i915_trace.h"
-+#include "i915_vgpu.h"
-+
- #include "intel_atomic.h"
- #include "intel_atomic_plane.h"
- #include "intel_color.h"
-@@ -17,7 +20,9 @@
- #include "intel_cursor.h"
- #include "intel_display_debugfs.h"
- #include "intel_display_types.h"
-+#include "intel_dsi.h"
- #include "intel_pipe_crc.h"
-+#include "intel_psr.h"
- #include "intel_sprite.h"
- 
- /* Primary plane formats for gen <= 3 */
-@@ -955,3 +960,228 @@ int intel_crtc_init(struct drm_i915_private *dev_priv, enum pipe pipe)
- 
- 	return ret;
- }
-+
-+int intel_usecs_to_scanlines(const struct drm_display_mode *adjusted_mode,
-+			     int usecs)
-+{
-+	/* paranoia */
-+	if (!adjusted_mode->crtc_htotal)
-+		return 1;
-+
-+	return DIV_ROUND_UP(usecs * adjusted_mode->crtc_clock,
-+			    1000 * adjusted_mode->crtc_htotal);
-+}
-+
-+/**
-+ * intel_pipe_update_start() - start update of a set of display registers
-+ * @new_crtc_state: the new crtc state
-+ *
-+ * Mark the start of an update to pipe registers that should be updated
-+ * atomically regarding vblank. If the next vblank will happens within
-+ * the next 100 us, this function waits until the vblank passes.
-+ *
-+ * After a successful call to this function, interrupts will be disabled
-+ * until a subsequent call to intel_pipe_update_end(). That is done to
-+ * avoid random delays.
-+ */
-+void intel_pipe_update_start(const struct intel_crtc_state *new_crtc_state)
-+{
-+	struct intel_crtc *crtc = to_intel_crtc(new_crtc_state->uapi.crtc);
-+	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
-+	const struct drm_display_mode *adjusted_mode = &new_crtc_state->hw.adjusted_mode;
-+	long timeout = msecs_to_jiffies_timeout(1);
-+	int scanline, min, max, vblank_start;
-+	wait_queue_head_t *wq = drm_crtc_vblank_waitqueue(&crtc->base);
-+	bool need_vlv_dsi_wa = (IS_VALLEYVIEW(dev_priv) || IS_CHERRYVIEW(dev_priv)) &&
-+		intel_crtc_has_type(new_crtc_state, INTEL_OUTPUT_DSI);
-+	DEFINE_WAIT(wait);
-+	u32 psr_status;
-+
-+	if (new_crtc_state->uapi.async_flip)
-+		return;
-+
-+	vblank_start = adjusted_mode->crtc_vblank_start;
-+	if (adjusted_mode->flags & DRM_MODE_FLAG_INTERLACE)
-+		vblank_start = DIV_ROUND_UP(vblank_start, 2);
-+
-+	/* FIXME needs to be calibrated sensibly */
-+	min = vblank_start - intel_usecs_to_scanlines(adjusted_mode,
-+						      VBLANK_EVASION_TIME_US);
-+	max = vblank_start - 1;
-+
-+	if (min <= 0 || max <= 0)
-+		goto irq_disable;
-+
-+	if (drm_WARN_ON(&dev_priv->drm, drm_crtc_vblank_get(&crtc->base)))
-+		goto irq_disable;
-+
-+	/*
-+	 * Wait for psr to idle out after enabling the VBL interrupts
-+	 * VBL interrupts will start the PSR exit and prevent a PSR
-+	 * re-entry as well.
-+	 */
-+	if (intel_psr_wait_for_idle(new_crtc_state, &psr_status))
-+		drm_err(&dev_priv->drm,
-+			"PSR idle timed out 0x%x, atomic update may fail\n",
-+			psr_status);
-+
-+	local_irq_disable();
-+
-+	crtc->debug.min_vbl = min;
-+	crtc->debug.max_vbl = max;
-+	trace_intel_pipe_update_start(crtc);
-+
-+	for (;;) {
-+		/*
-+		 * prepare_to_wait() has a memory barrier, which guarantees
-+		 * other CPUs can see the task state update by the time we
-+		 * read the scanline.
-+		 */
-+		prepare_to_wait(wq, &wait, TASK_UNINTERRUPTIBLE);
-+
-+		scanline = intel_get_crtc_scanline(crtc);
-+		if (scanline < min || scanline > max)
-+			break;
-+
-+		if (!timeout) {
-+			drm_err(&dev_priv->drm,
-+				"Potential atomic update failure on pipe %c\n",
-+				pipe_name(crtc->pipe));
-+			break;
-+		}
-+
-+		local_irq_enable();
-+
-+		timeout = schedule_timeout(timeout);
-+
-+		local_irq_disable();
-+	}
-+
-+	finish_wait(wq, &wait);
-+
-+	drm_crtc_vblank_put(&crtc->base);
-+
-+	/*
-+	 * On VLV/CHV DSI the scanline counter would appear to
-+	 * increment approx. 1/3 of a scanline before start of vblank.
-+	 * The registers still get latched at start of vblank however.
-+	 * This means we must not write any registers on the first
-+	 * line of vblank (since not the whole line is actually in
-+	 * vblank). And unfortunately we can't use the interrupt to
-+	 * wait here since it will fire too soon. We could use the
-+	 * frame start interrupt instead since it will fire after the
-+	 * critical scanline, but that would require more changes
-+	 * in the interrupt code. So for now we'll just do the nasty
-+	 * thing and poll for the bad scanline to pass us by.
-+	 *
-+	 * FIXME figure out if BXT+ DSI suffers from this as well
-+	 */
-+	while (need_vlv_dsi_wa && scanline == vblank_start)
-+		scanline = intel_get_crtc_scanline(crtc);
-+
-+	crtc->debug.scanline_start = scanline;
-+	crtc->debug.start_vbl_time = ktime_get();
-+	crtc->debug.start_vbl_count = intel_crtc_get_vblank_counter(crtc);
-+
-+	trace_intel_pipe_update_vblank_evaded(crtc);
-+	return;
-+
-+irq_disable:
-+	local_irq_disable();
-+}
-+
-+#if IS_ENABLED(CONFIG_DRM_I915_DEBUG_VBLANK_EVADE)
-+static void dbg_vblank_evade(struct intel_crtc *crtc, ktime_t end)
-+{
-+	u64 delta = ktime_to_ns(ktime_sub(end, crtc->debug.start_vbl_time));
-+	unsigned int h;
-+
-+	h = ilog2(delta >> 9);
-+	if (h >= ARRAY_SIZE(crtc->debug.vbl.times))
-+		h = ARRAY_SIZE(crtc->debug.vbl.times) - 1;
-+	crtc->debug.vbl.times[h]++;
-+
-+	crtc->debug.vbl.sum += delta;
-+	if (!crtc->debug.vbl.min || delta < crtc->debug.vbl.min)
-+		crtc->debug.vbl.min = delta;
-+	if (delta > crtc->debug.vbl.max)
-+		crtc->debug.vbl.max = delta;
-+
-+	if (delta > 1000 * VBLANK_EVASION_TIME_US) {
-+		drm_dbg_kms(crtc->base.dev,
-+			    "Atomic update on pipe (%c) took %lld us, max time under evasion is %u us\n",
-+			    pipe_name(crtc->pipe),
-+			    div_u64(delta, 1000),
-+			    VBLANK_EVASION_TIME_US);
-+		crtc->debug.vbl.over++;
-+	}
-+}
-+#else
-+static void dbg_vblank_evade(struct intel_crtc *crtc, ktime_t end) {}
-+#endif
-+
-+/**
-+ * intel_pipe_update_end() - end update of a set of display registers
-+ * @new_crtc_state: the new crtc state
-+ *
-+ * Mark the end of an update started with intel_pipe_update_start(). This
-+ * re-enables interrupts and verifies the update was actually completed
-+ * before a vblank.
-+ */
-+void intel_pipe_update_end(struct intel_crtc_state *new_crtc_state)
-+{
-+	struct intel_crtc *crtc = to_intel_crtc(new_crtc_state->uapi.crtc);
-+	enum pipe pipe = crtc->pipe;
-+	int scanline_end = intel_get_crtc_scanline(crtc);
-+	u32 end_vbl_count = intel_crtc_get_vblank_counter(crtc);
-+	ktime_t end_vbl_time = ktime_get();
-+	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
-+
-+	if (new_crtc_state->uapi.async_flip)
-+		return;
-+
-+	trace_intel_pipe_update_end(crtc, end_vbl_count, scanline_end);
-+
-+	/*
-+	 * Incase of mipi dsi command mode, we need to set frame update
-+	 * request for every commit.
-+	 */
-+	if (INTEL_GEN(dev_priv) >= 11 &&
-+	    intel_crtc_has_type(new_crtc_state, INTEL_OUTPUT_DSI))
-+		icl_dsi_frame_update(new_crtc_state);
-+
-+	/* We're still in the vblank-evade critical section, this can't race.
-+	 * Would be slightly nice to just grab the vblank count and arm the
-+	 * event outside of the critical section - the spinlock might spin for a
-+	 * while ... */
-+	if (new_crtc_state->uapi.event) {
-+		drm_WARN_ON(&dev_priv->drm,
-+			    drm_crtc_vblank_get(&crtc->base) != 0);
-+
-+		spin_lock(&crtc->base.dev->event_lock);
-+		drm_crtc_arm_vblank_event(&crtc->base,
-+					  new_crtc_state->uapi.event);
-+		spin_unlock(&crtc->base.dev->event_lock);
-+
-+		new_crtc_state->uapi.event = NULL;
-+	}
-+
-+	local_irq_enable();
-+
-+	if (intel_vgpu_active(dev_priv))
-+		return;
-+
-+	if (crtc->debug.start_vbl_count &&
-+	    crtc->debug.start_vbl_count != end_vbl_count) {
-+		drm_err(&dev_priv->drm,
-+			"Atomic update failure on pipe %c (start=%u end=%u) time %lld us, min %d, max %d, scanline start %d, end %d\n",
-+			pipe_name(pipe), crtc->debug.start_vbl_count,
-+			end_vbl_count,
-+			ktime_us_delta(end_vbl_time,
-+				       crtc->debug.start_vbl_time),
-+			crtc->debug.min_vbl, crtc->debug.max_vbl,
-+			crtc->debug.scanline_start, scanline_end);
-+	}
-+
-+	dbg_vblank_evade(crtc, end_vbl_time);
-+}
-diff --git a/drivers/gpu/drm/i915/display/intel_sprite.c b/drivers/gpu/drm/i915/display/intel_sprite.c
-index ab2cd4825e2e..cc3bec42d04c 100644
---- a/drivers/gpu/drm/i915/display/intel_sprite.c
-+++ b/drivers/gpu/drm/i915/display/intel_sprite.c
-@@ -45,236 +45,8 @@
- #include "intel_atomic_plane.h"
- #include "intel_display_types.h"
- #include "intel_frontbuffer.h"
--#include "intel_pm.h"
--#include "intel_psr.h"
--#include "intel_dsi.h"
- #include "intel_sprite.h"
- 
--int intel_usecs_to_scanlines(const struct drm_display_mode *adjusted_mode,
--			     int usecs)
--{
--	/* paranoia */
--	if (!adjusted_mode->crtc_htotal)
--		return 1;
--
--	return DIV_ROUND_UP(usecs * adjusted_mode->crtc_clock,
--			    1000 * adjusted_mode->crtc_htotal);
--}
--
--/**
-- * intel_pipe_update_start() - start update of a set of display registers
-- * @new_crtc_state: the new crtc state
-- *
-- * Mark the start of an update to pipe registers that should be updated
-- * atomically regarding vblank. If the next vblank will happens within
-- * the next 100 us, this function waits until the vblank passes.
-- *
-- * After a successful call to this function, interrupts will be disabled
-- * until a subsequent call to intel_pipe_update_end(). That is done to
-- * avoid random delays.
-- */
--void intel_pipe_update_start(const struct intel_crtc_state *new_crtc_state)
--{
--	struct intel_crtc *crtc = to_intel_crtc(new_crtc_state->uapi.crtc);
--	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
--	const struct drm_display_mode *adjusted_mode = &new_crtc_state->hw.adjusted_mode;
--	long timeout = msecs_to_jiffies_timeout(1);
--	int scanline, min, max, vblank_start;
--	wait_queue_head_t *wq = drm_crtc_vblank_waitqueue(&crtc->base);
--	bool need_vlv_dsi_wa = (IS_VALLEYVIEW(dev_priv) || IS_CHERRYVIEW(dev_priv)) &&
--		intel_crtc_has_type(new_crtc_state, INTEL_OUTPUT_DSI);
--	DEFINE_WAIT(wait);
--	u32 psr_status;
--
--	if (new_crtc_state->uapi.async_flip)
--		return;
--
--	vblank_start = adjusted_mode->crtc_vblank_start;
--	if (adjusted_mode->flags & DRM_MODE_FLAG_INTERLACE)
--		vblank_start = DIV_ROUND_UP(vblank_start, 2);
--
--	/* FIXME needs to be calibrated sensibly */
--	min = vblank_start - intel_usecs_to_scanlines(adjusted_mode,
--						      VBLANK_EVASION_TIME_US);
--	max = vblank_start - 1;
--
--	if (min <= 0 || max <= 0)
--		goto irq_disable;
--
--	if (drm_WARN_ON(&dev_priv->drm, drm_crtc_vblank_get(&crtc->base)))
--		goto irq_disable;
--
--	/*
--	 * Wait for psr to idle out after enabling the VBL interrupts
--	 * VBL interrupts will start the PSR exit and prevent a PSR
--	 * re-entry as well.
--	 */
--	if (intel_psr_wait_for_idle(new_crtc_state, &psr_status))
--		drm_err(&dev_priv->drm,
--			"PSR idle timed out 0x%x, atomic update may fail\n",
--			psr_status);
--
--	local_irq_disable();
--
--	crtc->debug.min_vbl = min;
--	crtc->debug.max_vbl = max;
--	trace_intel_pipe_update_start(crtc);
--
--	for (;;) {
--		/*
--		 * prepare_to_wait() has a memory barrier, which guarantees
--		 * other CPUs can see the task state update by the time we
--		 * read the scanline.
--		 */
--		prepare_to_wait(wq, &wait, TASK_UNINTERRUPTIBLE);
--
--		scanline = intel_get_crtc_scanline(crtc);
--		if (scanline < min || scanline > max)
--			break;
--
--		if (!timeout) {
--			drm_err(&dev_priv->drm,
--				"Potential atomic update failure on pipe %c\n",
--				pipe_name(crtc->pipe));
--			break;
--		}
--
--		local_irq_enable();
--
--		timeout = schedule_timeout(timeout);
--
--		local_irq_disable();
--	}
--
--	finish_wait(wq, &wait);
--
--	drm_crtc_vblank_put(&crtc->base);
--
--	/*
--	 * On VLV/CHV DSI the scanline counter would appear to
--	 * increment approx. 1/3 of a scanline before start of vblank.
--	 * The registers still get latched at start of vblank however.
--	 * This means we must not write any registers on the first
--	 * line of vblank (since not the whole line is actually in
--	 * vblank). And unfortunately we can't use the interrupt to
--	 * wait here since it will fire too soon. We could use the
--	 * frame start interrupt instead since it will fire after the
--	 * critical scanline, but that would require more changes
--	 * in the interrupt code. So for now we'll just do the nasty
--	 * thing and poll for the bad scanline to pass us by.
--	 *
--	 * FIXME figure out if BXT+ DSI suffers from this as well
--	 */
--	while (need_vlv_dsi_wa && scanline == vblank_start)
--		scanline = intel_get_crtc_scanline(crtc);
--
--	crtc->debug.scanline_start = scanline;
--	crtc->debug.start_vbl_time = ktime_get();
--	crtc->debug.start_vbl_count = intel_crtc_get_vblank_counter(crtc);
--
--	trace_intel_pipe_update_vblank_evaded(crtc);
--	return;
--
--irq_disable:
--	local_irq_disable();
--}
--
--#if IS_ENABLED(CONFIG_DRM_I915_DEBUG_VBLANK_EVADE)
--static void dbg_vblank_evade(struct intel_crtc *crtc, ktime_t end)
--{
--	u64 delta = ktime_to_ns(ktime_sub(end, crtc->debug.start_vbl_time));
--	unsigned int h;
--
--	h = ilog2(delta >> 9);
--	if (h >= ARRAY_SIZE(crtc->debug.vbl.times))
--		h = ARRAY_SIZE(crtc->debug.vbl.times) - 1;
--	crtc->debug.vbl.times[h]++;
--
--	crtc->debug.vbl.sum += delta;
--	if (!crtc->debug.vbl.min || delta < crtc->debug.vbl.min)
--		crtc->debug.vbl.min = delta;
--	if (delta > crtc->debug.vbl.max)
--		crtc->debug.vbl.max = delta;
--
--	if (delta > 1000 * VBLANK_EVASION_TIME_US) {
--		drm_dbg_kms(crtc->base.dev,
--			    "Atomic update on pipe (%c) took %lld us, max time under evasion is %u us\n",
--			    pipe_name(crtc->pipe),
--			    div_u64(delta, 1000),
--			    VBLANK_EVASION_TIME_US);
--		crtc->debug.vbl.over++;
--	}
--}
--#else
--static void dbg_vblank_evade(struct intel_crtc *crtc, ktime_t end) {}
--#endif
--
--/**
-- * intel_pipe_update_end() - end update of a set of display registers
-- * @new_crtc_state: the new crtc state
-- *
-- * Mark the end of an update started with intel_pipe_update_start(). This
-- * re-enables interrupts and verifies the update was actually completed
-- * before a vblank.
-- */
--void intel_pipe_update_end(struct intel_crtc_state *new_crtc_state)
--{
--	struct intel_crtc *crtc = to_intel_crtc(new_crtc_state->uapi.crtc);
--	enum pipe pipe = crtc->pipe;
--	int scanline_end = intel_get_crtc_scanline(crtc);
--	u32 end_vbl_count = intel_crtc_get_vblank_counter(crtc);
--	ktime_t end_vbl_time = ktime_get();
--	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
--
--	if (new_crtc_state->uapi.async_flip)
--		return;
--
--	trace_intel_pipe_update_end(crtc, end_vbl_count, scanline_end);
--
--	/*
--	 * Incase of mipi dsi command mode, we need to set frame update
--	 * request for every commit.
--	 */
--	if (INTEL_GEN(dev_priv) >= 11 &&
--	    intel_crtc_has_type(new_crtc_state, INTEL_OUTPUT_DSI))
--		icl_dsi_frame_update(new_crtc_state);
--
--	/* We're still in the vblank-evade critical section, this can't race.
--	 * Would be slightly nice to just grab the vblank count and arm the
--	 * event outside of the critical section - the spinlock might spin for a
--	 * while ... */
--	if (new_crtc_state->uapi.event) {
--		drm_WARN_ON(&dev_priv->drm,
--			    drm_crtc_vblank_get(&crtc->base) != 0);
--
--		spin_lock(&crtc->base.dev->event_lock);
--		drm_crtc_arm_vblank_event(&crtc->base,
--				          new_crtc_state->uapi.event);
--		spin_unlock(&crtc->base.dev->event_lock);
--
--		new_crtc_state->uapi.event = NULL;
--	}
--
--	local_irq_enable();
--
--	if (intel_vgpu_active(dev_priv))
--		return;
--
--	if (crtc->debug.start_vbl_count &&
--	    crtc->debug.start_vbl_count != end_vbl_count) {
--		drm_err(&dev_priv->drm,
--			"Atomic update failure on pipe %c (start=%u end=%u) time %lld us, min %d, max %d, scanline start %d, end %d\n",
--			pipe_name(pipe), crtc->debug.start_vbl_count,
--			end_vbl_count,
--			ktime_us_delta(end_vbl_time,
--				       crtc->debug.start_vbl_time),
--			crtc->debug.min_vbl, crtc->debug.max_vbl,
--			crtc->debug.scanline_start, scanline_end);
--	}
--
--	dbg_vblank_evade(crtc, end_vbl_time);
--}
--
- int intel_plane_check_stride(const struct intel_plane_state *plane_state)
- {
- 	struct intel_plane *plane = to_intel_plane(plane_state->uapi.plane);
--- 
-2.27.0
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+SW1wbGVtZW50IHRoZSBmdW5jcyB0byBjcmVhdGUgdGhlIFRFRSBjaGFubmVsLCBzbyBrZXJuZWwg
+Y2FuCnNlbmQgdGhlIFRFRSBjb21tYW5kcyBkaXJlY3RseSB0byBURUUgZm9yIGNyZWF0aW5nIHRo
+ZSBhcmJpdHJhcnkKKGRlZnVhbHQpIHNlc3Npb24uCgpTaWduZWQtb2ZmLWJ5OiBIdWFuZywgU2Vh
+biBaIDxzZWFuLnouaHVhbmdAaW50ZWwuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L01h
+a2VmaWxlICAgICAgICAgICAgfCAgIDMgKy0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfZHJ2
+LmMgICAgICAgICAgfCAgIDEgKwogZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV9kcnYuaCAgICAg
+ICAgICB8ICAgNiArKwogZHJpdmVycy9ncHUvZHJtL2k5MTUvcHhwL2ludGVsX3B4cC5jICAgICB8
+ICAgNSArCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9weHAvaW50ZWxfcHhwX3RlZS5jIHwgMTMyICsr
+KysrKysrKysrKysrKysrKysrKysrCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9weHAvaW50ZWxfcHhw
+X3RlZS5oIHwgIDE0ICsrKwogaW5jbHVkZS9kcm0vaTkxNV9jb21wb25lbnQuaCAgICAgICAgICAg
+ICB8ICAgMSArCiBpbmNsdWRlL2RybS9pOTE1X3B4cF90ZWVfaW50ZXJmYWNlLmggICAgIHwgIDQ1
+ICsrKysrKysrCiA4IGZpbGVzIGNoYW5nZWQsIDIwNiBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9u
+KC0pCiBjcmVhdGUgbW9kZSAxMDA2NDQgZHJpdmVycy9ncHUvZHJtL2k5MTUvcHhwL2ludGVsX3B4
+cF90ZWUuYwogY3JlYXRlIG1vZGUgMTAwNjQ0IGRyaXZlcnMvZ3B1L2RybS9pOTE1L3B4cC9pbnRl
+bF9weHBfdGVlLmgKIGNyZWF0ZSBtb2RlIDEwMDY0NCBpbmNsdWRlL2RybS9pOTE1X3B4cF90ZWVf
+aW50ZXJmYWNlLmgKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9NYWtlZmlsZSBi
+L2RyaXZlcnMvZ3B1L2RybS9pOTE1L01ha2VmaWxlCmluZGV4IDUzYmUyOWRiYzA3ZC4uNTc0NDc4
+ODdkMzUyIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9NYWtlZmlsZQorKysgYi9k
+cml2ZXJzL2dwdS9kcm0vaTkxNS9NYWtlZmlsZQpAQCAtMjU4LDcgKzI1OCw4IEBAIGk5MTUteSAr
+PSBpOTE1X3BlcmYubwogIyBQcm90ZWN0ZWQgZXhlY3V0aW9uIHBsYXRmb3JtIChQWFApIHN1cHBv
+cnQKIGk5MTUtJChDT05GSUdfRFJNX0k5MTVfUFhQKSArPSBcCiAJcHhwL2ludGVsX3B4cC5vIFwK
+LQlweHAvaW50ZWxfcHhwX2NvbnRleHQubworCXB4cC9pbnRlbF9weHBfY29udGV4dC5vIFwKKwlw
+eHAvaW50ZWxfcHhwX3RlZS5vCiAKICMgUG9zdC1tb3J0ZW0gZGVidWcgYW5kIEdQVSBoYW5nIHN0
+YXRlIGNhcHR1cmUKIGk5MTUtJChDT05GSUdfRFJNX0k5MTVfQ0FQVFVSRV9FUlJPUikgKz0gaTkx
+NV9ncHVfZXJyb3IubwpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV9kcnYu
+YyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfZHJ2LmMKaW5kZXggNTcwOGUxMWQ5MTdiLi45
+Mjk5YTQ1NmFkYjAgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfZHJ2LmMK
+KysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV9kcnYuYwpAQCAtMzIyLDYgKzMyMiw3IEBA
+IHN0YXRpYyBpbnQgaTkxNV9kcml2ZXJfZWFybHlfcHJvYmUoc3RydWN0IGRybV9pOTE1X3ByaXZh
+dGUgKmRldl9wcml2KQogCW11dGV4X2luaXQoJmRldl9wcml2LT53bS53bV9tdXRleCk7CiAJbXV0
+ZXhfaW5pdCgmZGV2X3ByaXYtPnBwc19tdXRleCk7CiAJbXV0ZXhfaW5pdCgmZGV2X3ByaXYtPmhk
+Y3BfY29tcF9tdXRleCk7CisJbXV0ZXhfaW5pdCgmZGV2X3ByaXYtPnB4cF90ZWVfY29tcF9tdXRl
+eCk7CiAKIAlpOTE1X21lbWNweV9pbml0X2Vhcmx5KGRldl9wcml2KTsKIAlpbnRlbF9ydW50aW1l
+X3BtX2luaXRfZWFybHkoJmRldl9wcml2LT5ydW50aW1lX3BtKTsKZGlmZiAtLWdpdCBhL2RyaXZl
+cnMvZ3B1L2RybS9pOTE1L2k5MTVfZHJ2LmggYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X2Ry
+di5oCmluZGV4IDVkMDRiMjgyYzA2MC4uMmU5OTdmNzUzMDU0IDEwMDY0NAotLS0gYS9kcml2ZXJz
+L2dwdS9kcm0vaTkxNS9pOTE1X2Rydi5oCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVf
+ZHJ2LmgKQEAgLTEyMTUsNiArMTIxNSwxMiBAQCBzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZSB7CiAJ
+LyogTXV0ZXggdG8gcHJvdGVjdCB0aGUgYWJvdmUgaGRjcCBjb21wb25lbnQgcmVsYXRlZCB2YWx1
+ZXMuICovCiAJc3RydWN0IG11dGV4IGhkY3BfY29tcF9tdXRleDsKIAorCXN0cnVjdCBpOTE1X3B4
+cF9jb21wX21hc3RlciAqcHhwX3RlZV9tYXN0ZXI7CisJYm9vbCBweHBfdGVlX2NvbXBfYWRkZWQ7
+CisKKwkvKiBNdXRleCB0byBwcm90ZWN0IHRoZSBhYm92ZSBweHBfdGVlIGNvbXBvbmVudCByZWxh
+dGVkIHZhbHVlcy4gKi8KKwlzdHJ1Y3QgbXV0ZXggcHhwX3RlZV9jb21wX211dGV4OworCiAJSTkx
+NV9TRUxGVEVTVF9ERUNMQVJFKHN0cnVjdCBpOTE1X3NlbGZ0ZXN0X3N0YXNoIHNlbGZ0ZXN0OykK
+IAogCS8qCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9weHAvaW50ZWxfcHhwLmMg
+Yi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9weHAvaW50ZWxfcHhwLmMKaW5kZXggYzQ4MTU5NTA1Njdk
+Li40MTA0ZGQ4OWNhN2YgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L3B4cC9pbnRl
+bF9weHAuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9weHAvaW50ZWxfcHhwLmMKQEAgLTUs
+NiArNSw3IEBACiAjaW5jbHVkZSAiaTkxNV9kcnYuaCIKICNpbmNsdWRlICJpbnRlbF9weHAuaCIK
+ICNpbmNsdWRlICJpbnRlbF9weHBfY29udGV4dC5oIgorI2luY2x1ZGUgImludGVsX3B4cF90ZWUu
+aCIKIAogLyogS0NSIHJlZ2lzdGVyIGRlZmluaXRpb25zICovCiAjZGVmaW5lIEtDUl9JTklUICAg
+ICAgICAgICAgX01NSU8oMHgzMjBmMCkKQEAgLTI0LDYgKzI1LDggQEAgaW50IGludGVsX3B4cF9p
+bml0KHN0cnVjdCBpbnRlbF9weHAgKnB4cCkKIAogCWludGVsX3VuY29yZV93cml0ZShndC0+dW5j
+b3JlLCBLQ1JfSU5JVCwgS0NSX0lOSVRfQUxMT1dfRElTUExBWV9NRV9XUklURVMpOwogCisJaW50
+ZWxfcHhwX3RlZV9jb21wb25lbnRfaW5pdChweHApOworCiAJZHJtX2luZm8oJmd0LT5pOTE1LT5k
+cm0sICJQcm90ZWN0ZWQgWGUgUGF0aCAoUFhQKSBwcm90ZWN0ZWQgY29udGVudCBzdXBwb3J0IGlu
+aXRpYWxpemVkXG4iKTsKIAogCXJldHVybiAwOwpAQCAtMzEsNSArMzQsNyBAQCBpbnQgaW50ZWxf
+cHhwX2luaXQoc3RydWN0IGludGVsX3B4cCAqcHhwKQogCiB2b2lkIGludGVsX3B4cF91bmluaXQo
+c3RydWN0IGludGVsX3B4cCAqcHhwKQogeworCWludGVsX3B4cF90ZWVfY29tcG9uZW50X2Zpbmko
+cHhwKTsKKwogCWludGVsX3B4cF9jdHhfZmluaSgmcHhwLT5jdHgpOwogfQpkaWZmIC0tZ2l0IGEv
+ZHJpdmVycy9ncHUvZHJtL2k5MTUvcHhwL2ludGVsX3B4cF90ZWUuYyBiL2RyaXZlcnMvZ3B1L2Ry
+bS9pOTE1L3B4cC9pbnRlbF9weHBfdGVlLmMKbmV3IGZpbGUgbW9kZSAxMDA2NDQKaW5kZXggMDAw
+MDAwMDAwMDAwLi5jYTZiNjEwOTlhZWUKLS0tIC9kZXYvbnVsbAorKysgYi9kcml2ZXJzL2dwdS9k
+cm0vaTkxNS9weHAvaW50ZWxfcHhwX3RlZS5jCkBAIC0wLDAgKzEsMTMyIEBACisvLyBTUERYLUxp
+Y2Vuc2UtSWRlbnRpZmllcjogTUlUCisvKgorICogQ29weXJpZ2h0KGMpIDIwMjAgSW50ZWwgQ29y
+cG9yYXRpb24uCisgKi8KKworI2luY2x1ZGUgPGxpbnV4L2NvbXBvbmVudC5oPgorI2luY2x1ZGUg
+ImRybS9pOTE1X3B4cF90ZWVfaW50ZXJmYWNlLmgiCisjaW5jbHVkZSAiZHJtL2k5MTVfY29tcG9u
+ZW50LmgiCisjaW5jbHVkZSAgImk5MTVfZHJ2LmgiCisjaW5jbHVkZSAiaW50ZWxfcHhwLmgiCisj
+aW5jbHVkZSAiaW50ZWxfcHhwX2NvbnRleHQuaCIKKyNpbmNsdWRlICJpbnRlbF9weHBfdGVlLmgi
+CisKK3N0YXRpYyBpbnQgaW50ZWxfcHhwX3RlZV9pb19tZXNzYWdlKHN0cnVjdCBpbnRlbF9weHAg
+KnB4cCwKKwkJCQkgICAgdm9pZCAqbXNnX2luLCB1MzIgbXNnX2luX3NpemUsCisJCQkJICAgIHZv
+aWQgKm1zZ19vdXQsIHUzMiAqbXNnX291dF9zaXplX3B0ciwKKwkJCQkgICAgdTMyIG1zZ19vdXRf
+YnVmX3NpemUpCit7CisJaW50IHJldDsKKwlzdHJ1Y3QgaW50ZWxfZ3QgKmd0ID0gY29udGFpbmVy
+X29mKHB4cCwgdHlwZW9mKCpndCksIHB4cCk7CisJc3RydWN0IGRybV9pOTE1X3ByaXZhdGUgKmk5
+MTUgPSBndC0+aTkxNTsKKwlzdHJ1Y3QgaTkxNV9weHBfY29tcF9tYXN0ZXIgKnB4cF90ZWVfbWFz
+dGVyID0gaTkxNS0+cHhwX3RlZV9tYXN0ZXI7CisKKwlpZiAoIXB4cF90ZWVfbWFzdGVyIHx8ICFt
+c2dfaW4gfHwgIW1zZ19vdXQgfHwgIW1zZ19vdXRfc2l6ZV9wdHIpCisJCXJldHVybiAtRUlOVkFM
+OworCisJbG9ja2RlcF9hc3NlcnRfaGVsZCgmaTkxNS0+cHhwX3RlZV9jb21wX211dGV4KTsKKwor
+CWlmIChkcm1fZGVidWdfZW5hYmxlZChEUk1fVVRfRFJJVkVSKSkKKwkJcHJpbnRfaGV4X2R1bXAo
+S0VSTl9ERUJVRywgIlRFRSBpbnB1dCBtZXNzYWdlIGJpbmFyaWVzOiIsCisJCQkgICAgICAgRFVN
+UF9QUkVGSVhfT0ZGU0VULCA0LCA0LCBtc2dfaW4sIG1zZ19pbl9zaXplLCB0cnVlKTsKKworCXJl
+dCA9IHB4cF90ZWVfbWFzdGVyLT5vcHMtPnNlbmQocHhwX3RlZV9tYXN0ZXItPnRlZV9kZXYsIG1z
+Z19pbiwgbXNnX2luX3NpemUpOworCWlmIChyZXQpIHsKKwkJZHJtX2VycigmaTkxNS0+ZHJtLCAi
+RmFpbGVkIHRvIHNlbmQgVEVFIG1lc3NhZ2VcbiIpOworCQlyZXR1cm4gLUVGQVVMVDsKKwl9CisK
+KwlyZXQgPSBweHBfdGVlX21hc3Rlci0+b3BzLT5yZWNlaXZlKHB4cF90ZWVfbWFzdGVyLT50ZWVf
+ZGV2LCBtc2dfb3V0LCBtc2dfb3V0X2J1Zl9zaXplKTsKKwlpZiAocmV0IDwgMCkgeworCQlkcm1f
+ZXJyKCZpOTE1LT5kcm0sICJGYWlsZWQgdG8gcmVjZWl2ZSBURUUgbWVzc2FnZVxuIik7CisJCXJl
+dHVybiAtRUZBVUxUOworCX0KKworCWlmIChyZXQgPiBtc2dfb3V0X2J1Zl9zaXplKSB7CisJCWRy
+bV9lcnIoJmk5MTUtPmRybSwgIkZhaWxlZCB0byByZWNlaXZlIFRFRSBtZXNzYWdlIGR1ZSB0byB1
+bmV4cGVjdGVkIG91dHB1dCBzaXplXG4iKTsKKwkJcmV0dXJuIC1FRkFVTFQ7CisJfQorCisJKm1z
+Z19vdXRfc2l6ZV9wdHIgPSByZXQ7CisJcmV0ID0gMDsKKworCWlmIChkcm1fZGVidWdfZW5hYmxl
+ZChEUk1fVVRfRFJJVkVSKSkKKwkJcHJpbnRfaGV4X2R1bXAoS0VSTl9ERUJVRywgIlRFRSBvdXRw
+dXQgbWVzc2FnZSBiaW5hcmllczoiLAorCQkJICAgICAgIERVTVBfUFJFRklYX09GRlNFVCwgNCwg
+NCwgbXNnX291dCwgKm1zZ19vdXRfc2l6ZV9wdHIsIHRydWUpOworCisJcmV0dXJuIHJldDsKK30K
+KworLyoqCisgKiBpOTE1X3B4cF90ZWVfY29tcG9uZW50X2JpbmQgLSBiaW5kIGZ1bmNpdG9uIHRv
+IHBhc3MgdGhlIGZ1bmN0aW9uIHBvaW50ZXJzIHRvIHB4cF90ZWUKKyAqIEBpOTE1X2tkZXY6IHBv
+aW50ZXIgdG8gaTkxNSBrZXJuZWwgZGV2aWNlCisgKiBAdGVlX2tkZXY6IHBvaW50ZXIgdG8gdGVl
+IGtlcm5lbCBkZXZpY2UKKyAqIEBkYXRhOiBwb2ludGVyIHRvIHB4cF90ZWVfbWFzdGVyIGNvbnRh
+aW5pbmcgdGhlIGZ1bmN0aW9uIHBvaW50ZXJzCisgKgorICogVGhpcyBiaW5kIGZ1bmN0aW9uIGlz
+IGNhbGxlZCBkdXJpbmcgdGhlIHN5c3RlbSBib290IG9yIHJlc3VtZSBmcm9tIHN5c3RlbSBzbGVl
+cC4KKyAqCisgKiBSZXR1cm46IHJldHVybiAwIGlmIHN1Y2Nlc3NmdWwuCisgKi8KK3N0YXRpYyBp
+bnQgaTkxNV9weHBfdGVlX2NvbXBvbmVudF9iaW5kKHN0cnVjdCBkZXZpY2UgKmk5MTVfa2RldiwK
+KwkJCQkgICAgICAgc3RydWN0IGRldmljZSAqdGVlX2tkZXYsIHZvaWQgKmRhdGEpCit7CisJc3Ry
+dWN0IGRybV9pOTE1X3ByaXZhdGUgKmk5MTUgPSBrZGV2X3RvX2k5MTUoaTkxNV9rZGV2KTsKKwor
+CWlmICghaTkxNSB8fCAhdGVlX2tkZXYgfHwgIWRhdGEpCisJCXJldHVybiAtRVBFUk07CisKKwlt
+dXRleF9sb2NrKCZpOTE1LT5weHBfdGVlX2NvbXBfbXV0ZXgpOworCWk5MTUtPnB4cF90ZWVfbWFz
+dGVyID0gKHN0cnVjdCBpOTE1X3B4cF9jb21wX21hc3RlciAqKWRhdGE7CisJaTkxNS0+cHhwX3Rl
+ZV9tYXN0ZXItPnRlZV9kZXYgPSB0ZWVfa2RldjsKKwltdXRleF91bmxvY2soJmk5MTUtPnB4cF90
+ZWVfY29tcF9tdXRleCk7CisKKwlyZXR1cm4gMDsKK30KKworc3RhdGljIHZvaWQgaTkxNV9weHBf
+dGVlX2NvbXBvbmVudF91bmJpbmQoc3RydWN0IGRldmljZSAqaTkxNV9rZGV2LAorCQkJCQkgIHN0
+cnVjdCBkZXZpY2UgKnRlZV9rZGV2LCB2b2lkICpkYXRhKQoreworCXN0cnVjdCBkcm1faTkxNV9w
+cml2YXRlICppOTE1ID0ga2Rldl90b19pOTE1KGk5MTVfa2Rldik7CisKKwlpZiAoIWk5MTUgfHwg
+IXRlZV9rZGV2IHx8ICFkYXRhKQorCQlyZXR1cm47CisKKwltdXRleF9sb2NrKCZpOTE1LT5weHBf
+dGVlX2NvbXBfbXV0ZXgpOworCWk5MTUtPnB4cF90ZWVfbWFzdGVyID0gTlVMTDsKKwltdXRleF91
+bmxvY2soJmk5MTUtPnB4cF90ZWVfY29tcF9tdXRleCk7Cit9CisKK3N0YXRpYyBjb25zdCBzdHJ1
+Y3QgY29tcG9uZW50X29wcyBpOTE1X3B4cF90ZWVfY29tcG9uZW50X29wcyA9IHsKKwkuYmluZCAg
+ID0gaTkxNV9weHBfdGVlX2NvbXBvbmVudF9iaW5kLAorCS51bmJpbmQgPSBpOTE1X3B4cF90ZWVf
+Y29tcG9uZW50X3VuYmluZCwKK307CisKK3ZvaWQgaW50ZWxfcHhwX3RlZV9jb21wb25lbnRfaW5p
+dChzdHJ1Y3QgaW50ZWxfcHhwICpweHApCit7CisJaW50IHJldDsKKwlzdHJ1Y3QgaW50ZWxfZ3Qg
+Kmd0ID0gY29udGFpbmVyX29mKHB4cCwgdHlwZW9mKCpndCksIHB4cCk7CisJc3RydWN0IGRybV9p
+OTE1X3ByaXZhdGUgKmk5MTUgPSBndC0+aTkxNTsKKworCXJldCA9IGNvbXBvbmVudF9hZGRfdHlw
+ZWQoaTkxNS0+ZHJtLmRldiwgJmk5MTVfcHhwX3RlZV9jb21wb25lbnRfb3BzLAorCQkJCSAgSTkx
+NV9DT01QT05FTlRfUFhQKTsKKwlpZiAocmV0IDwgMCkgeworCQlkcm1fZXJyKCZpOTE1LT5kcm0s
+ICJGYWlsZWQgYXQgY29tcG9uZW50IGFkZCglZClcbiIsIHJldCk7CisJCXJldHVybjsKKwl9CisK
+KwltdXRleF9sb2NrKCZpOTE1LT5weHBfdGVlX2NvbXBfbXV0ZXgpOworCWk5MTUtPnB4cF90ZWVf
+Y29tcF9hZGRlZCA9IHRydWU7CisJbXV0ZXhfdW5sb2NrKCZpOTE1LT5weHBfdGVlX2NvbXBfbXV0
+ZXgpOworfQorCit2b2lkIGludGVsX3B4cF90ZWVfY29tcG9uZW50X2Zpbmkoc3RydWN0IGludGVs
+X3B4cCAqcHhwKQoreworCXN0cnVjdCBpbnRlbF9ndCAqZ3QgPSBjb250YWluZXJfb2YocHhwLCB0
+eXBlb2YoKmd0KSwgcHhwKTsKKwlzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqaTkxNSA9IGd0LT5p
+OTE1OworCisJbXV0ZXhfbG9jaygmaTkxNS0+cHhwX3RlZV9jb21wX211dGV4KTsKKwlpOTE1LT5w
+eHBfdGVlX2NvbXBfYWRkZWQgPSBmYWxzZTsKKwltdXRleF91bmxvY2soJmk5MTUtPnB4cF90ZWVf
+Y29tcF9tdXRleCk7CisKKwljb21wb25lbnRfZGVsKGk5MTUtPmRybS5kZXYsICZpOTE1X3B4cF90
+ZWVfY29tcG9uZW50X29wcyk7Cit9CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9w
+eHAvaW50ZWxfcHhwX3RlZS5oIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvcHhwL2ludGVsX3B4cF90
+ZWUuaApuZXcgZmlsZSBtb2RlIDEwMDY0NAppbmRleCAwMDAwMDAwMDAwMDAuLjRiNWUzZWRiMWQ5
+YgotLS0gL2Rldi9udWxsCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L3B4cC9pbnRlbF9weHBf
+dGVlLmgKQEAgLTAsMCArMSwxNCBAQAorLyogU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IE1JVCAq
+LworLyoKKyAqIENvcHlyaWdodChjKSAyMDIwLCBJbnRlbCBDb3Jwb3JhdGlvbi4gQWxsIHJpZ2h0
+cyByZXNlcnZlZC4KKyAqLworCisjaWZuZGVmIF9fSU5URUxfUFhQX1RFRV9IX18KKyNkZWZpbmUg
+X19JTlRFTF9QWFBfVEVFX0hfXworCisjaW5jbHVkZSAiaW50ZWxfcHhwLmgiCisKK3ZvaWQgaW50
+ZWxfcHhwX3RlZV9jb21wb25lbnRfaW5pdChzdHJ1Y3QgaW50ZWxfcHhwICpweHApOwordm9pZCBp
+bnRlbF9weHBfdGVlX2NvbXBvbmVudF9maW5pKHN0cnVjdCBpbnRlbF9weHAgKnB4cCk7CisKKyNl
+bmRpZiAvKiBfX0lOVEVMX1BYUF9URUVfSF9fICovCmRpZmYgLS1naXQgYS9pbmNsdWRlL2RybS9p
+OTE1X2NvbXBvbmVudC5oIGIvaW5jbHVkZS9kcm0vaTkxNV9jb21wb25lbnQuaAppbmRleCA1NWMz
+YjEyMzU4MWIuLmMxZTJhNDNkMmQxZSAxMDA2NDQKLS0tIGEvaW5jbHVkZS9kcm0vaTkxNV9jb21w
+b25lbnQuaAorKysgYi9pbmNsdWRlL2RybS9pOTE1X2NvbXBvbmVudC5oCkBAIC0yOSw2ICsyOSw3
+IEBACiBlbnVtIGk5MTVfY29tcG9uZW50X3R5cGUgewogCUk5MTVfQ09NUE9ORU5UX0FVRElPID0g
+MSwKIAlJOTE1X0NPTVBPTkVOVF9IRENQLAorCUk5MTVfQ09NUE9ORU5UX1BYUAogfTsKIAogLyog
+TUFYX1BPUlQgaXMgdGhlIG51bWJlciBvZiBwb3J0CmRpZmYgLS1naXQgYS9pbmNsdWRlL2RybS9p
+OTE1X3B4cF90ZWVfaW50ZXJmYWNlLmggYi9pbmNsdWRlL2RybS9pOTE1X3B4cF90ZWVfaW50ZXJm
+YWNlLmgKbmV3IGZpbGUgbW9kZSAxMDA2NDQKaW5kZXggMDAwMDAwMDAwMDAwLi4zOTk5ZTI1NWUx
+NDUKLS0tIC9kZXYvbnVsbAorKysgYi9pbmNsdWRlL2RybS9pOTE1X3B4cF90ZWVfaW50ZXJmYWNl
+LmgKQEAgLTAsMCArMSw0NSBAQAorLyogU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IE1JVCAqLwor
+LyoKKyAqIENvcHlyaWdodCDCqSAyMDIwIEludGVsIENvcnBvcmF0aW9uCisgKgorICogQXV0aG9y
+czoKKyAqIFZpdGFseSBMdWJhcnQgPHZpdGFseS5sdWJhcnRAaW50ZWwuY29tPgorICovCisKKyNp
+Zm5kZWYgX0k5MTVfUFhQX1RFRV9JTlRFUkZBQ0VfSF8KKyNkZWZpbmUgX0k5MTVfUFhQX1RFRV9J
+TlRFUkZBQ0VfSF8KKworI2luY2x1ZGUgPGxpbnV4L211dGV4Lmg+CisjaW5jbHVkZSA8bGludXgv
+ZGV2aWNlLmg+CisKKy8qKgorICogc3RydWN0IGk5MTVfcHhwX2NvbXBvbmVudF9vcHMgLSBvcHMg
+Zm9yIFBYUCBzZXJ2aWNlcy4KKyAqIEBvd25lcjogTW9kdWxlIHByb3ZpZGluZyB0aGUgb3BzCisg
+KiBAc2VuZDogc2VuZHMgZGF0YSB0byBQWFAKKyAqIEByZWNlaXZlOiByZWNlaXZlcyBkYXRhIGZy
+b20gUFhQCisgKi8KK3N0cnVjdCBpOTE1X3B4cF9jb21wb25lbnRfb3BzIHsKKwkvKioKKwkgKiBA
+b3duZXI6IG93bmVyIG9mIHRoZSBtb2R1bGUgcHJvdmRpbmcgdGhlIG9wcworCSAqLworCXN0cnVj
+dCBtb2R1bGUgKm93bmVyOworCisJaW50ICgqc2VuZCkoc3RydWN0IGRldmljZSAqZGV2LCBjb25z
+dCB2b2lkICptZXNzYWdlLCBzaXplX3Qgc2l6ZSk7CisJaW50ICgqcmVjZWl2ZSkoc3RydWN0IGRl
+dmljZSAqZGV2LCB2b2lkICpidWZmZXIsIHNpemVfdCBzaXplKTsKK307CisKKy8qKgorICogc3Ry
+dWN0IGk5MTVfcHhwX2NvbXBvbmVudF9tYXN0ZXIgLSBVc2VkIGZvciBjb21tdW5pY2F0aW9uIGJl
+dHdlZW4gaTkxNQorICogYW5kIFRFRSBkcml2ZXJzIGZvciB0aGUgUFhQIHNlcnZpY2VzCisgKiBA
+dGVlX2RldjogZGV2aWNlIHRoYXQgcHJvdmlkZSB0aGUgUFhQIHNlcnZpY2UgZnJvbSBURUUgQnVz
+LgorICogQHB4cF9vcHM6IE9wcyBpbXBsZW1lbnRlZCBieSBURUUgZHJpdmVyLCB1c2VkIGJ5IGk5
+MTUgZHJpdmVyLgorICovCitzdHJ1Y3QgaTkxNV9weHBfY29tcF9tYXN0ZXIgeworCXN0cnVjdCBk
+ZXZpY2UgKnRlZV9kZXY7CisJY29uc3Qgc3RydWN0IGk5MTVfcHhwX2NvbXBvbmVudF9vcHMgKm9w
+czsKKworCS8qIFRvIHByb3RlY3QgdGhlIGFib3ZlIG1lbWJlcnMuICovCisJc3RydWN0IG11dGV4
+IG11dGV4OworfTsKKworI2VuZGlmIC8qIF9JOTE1X1RFRV9QWFBfSU5URVJGQUNFX0hfICovCi0t
+IAoyLjE3LjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+CkludGVsLWdmeCBtYWlsaW5nIGxpc3QKSW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpo
+dHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ludGVsLWdmeAo=
