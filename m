@@ -7,44 +7,44 @@ X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 104EBC4167B
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CD4E9C433FE
 	for <intel-gfx@archiver.kernel.org>; Fri, 11 Dec 2020 07:30:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B1F8B23B26
-	for <intel-gfx@archiver.kernel.org>; Fri, 11 Dec 2020 07:30:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B1F8B23B26
+	by mail.kernel.org (Postfix) with ESMTPS id 881BD23B26
+	for <intel-gfx@archiver.kernel.org>; Fri, 11 Dec 2020 07:30:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 881BD23B26
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6EF3F6EC80;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 83ED96EC82;
 	Fri, 11 Dec 2020 07:29:51 +0000 (UTC)
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 010656EC81
- for <Intel-gfx@lists.freedesktop.org>; Fri, 11 Dec 2020 07:29:45 +0000 (UTC)
-IronPort-SDR: ggEQ7PhHHq8Kqj4VxltRL/TDCw/t3klgsicDUwPcki+6qYcIXpsgCcqCtU+KbGysYusIj2pWbN
- lxdyE344qFtw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9831"; a="174506398"
-X-IronPort-AV: E=Sophos;i="5.78,410,1599548400"; d="scan'208";a="174506398"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D98616EC81
+ for <Intel-gfx@lists.freedesktop.org>; Fri, 11 Dec 2020 07:29:46 +0000 (UTC)
+IronPort-SDR: QVbl2K6GGyK+QJS7suk1EYu23P0368tdL2Qt5n7bQaarneNoHHTxoEk/eSU4ugwxFm/ppc2Yta
+ M+srplOGfcpg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9831"; a="174506403"
+X-IronPort-AV: E=Sophos;i="5.78,410,1599548400"; d="scan'208";a="174506403"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Dec 2020 23:29:44 -0800
-IronPort-SDR: 8C0FDf0012lXW3HBIOz77hoKVwbKMCtNl4pqm9ZoxSHRCP4gpUF3ARtd+h9JVHaBdOQkt+ybMU
- 8NzoWBUmmpjA==
+ 10 Dec 2020 23:29:45 -0800
+IronPort-SDR: eBnIvgjioLnrXJxLXUOrE17hNhjvHDm3DBOdbAdvmc9iy07vtg0yBzxtKf9HfSoi058GIUpXoX
+ idNjIYtNcKxg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.78,410,1599548400"; d="scan'208";a="409063282"
+X-IronPort-AV: E=Sophos;i="5.78,410,1599548400"; d="scan'208";a="409063287"
 Received: from sean-virtualbox.fm.intel.com ([10.105.158.96])
  by orsmga001.jf.intel.com with ESMTP; 10 Dec 2020 23:29:44 -0800
 From: "Huang, Sean Z" <sean.z.huang@intel.com>
 To: Intel-gfx@lists.freedesktop.org
-Date: Thu, 10 Dec 2020 23:28:55 -0800
-Message-Id: <20201211072911.27403-6-sean.z.huang@intel.com>
+Date: Thu, 10 Dec 2020 23:28:59 -0800
+Message-Id: <20201211072911.27403-10-sean.z.huang@intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20201211072911.27403-1-sean.z.huang@intel.com>
 References: <20201211072911.27403-1-sean.z.huang@intel.com>
-Subject: [Intel-gfx] [RFC-v7 05/21] drm/i915/pxp: Func to send hardware
- session termination
+Subject: [Intel-gfx] [RFC-v7 09/21] drm/i915/pxp: Expose session state for
+ display protection flip
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,217 +63,67 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Implement the functions to allow PXP to send a GPU command, in
-order to terminate the hardware session, so hardware can recycle
-this session slot for the next usage.
+Implement the intel_pxp_gem_object_status() to allow i915 display
+querying the current PXP session state. In the design, display
+should not perform protection flip on the protected buffers if
+there is no PXP session alive.
 
 Signed-off-by: Huang, Sean Z <sean.z.huang@intel.com>
 ---
- drivers/gpu/drm/i915/Makefile            |   1 +
- drivers/gpu/drm/i915/pxp/intel_pxp_cmd.c | 156 +++++++++++++++++++++++
- drivers/gpu/drm/i915/pxp/intel_pxp_cmd.h |  18 +++
- 3 files changed, 175 insertions(+)
- create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_cmd.c
- create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_cmd.h
+ drivers/gpu/drm/i915/pxp/intel_pxp.c | 9 +++++++++
+ drivers/gpu/drm/i915/pxp/intel_pxp.h | 8 ++++++++
+ 2 files changed, 17 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
-index 2c84f75b41da..abe52189986a 100644
---- a/drivers/gpu/drm/i915/Makefile
-+++ b/drivers/gpu/drm/i915/Makefile
-@@ -259,6 +259,7 @@ i915-y += i915_perf.o
- i915-$(CONFIG_DRM_I915_PXP) += \
- 	pxp/intel_pxp.o \
- 	pxp/intel_pxp_arb.o \
-+	pxp/intel_pxp_cmd.o \
- 	pxp/intel_pxp_context.o \
- 	pxp/intel_pxp_tee.o
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.c b/drivers/gpu/drm/i915/pxp/intel_pxp.c
+index 48e926363696..ce3760206b76 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp.c
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp.c
+@@ -143,3 +143,12 @@ void intel_pxp_irq_handler(struct intel_pxp *pxp, u16 iir)
+ 	pxp->current_events |= events;
+ 	schedule_work(&pxp->irq_work);
+ }
++
++bool intel_pxp_gem_object_status(struct drm_i915_private *i915)
++{
++	if (i915->gt.pxp.ctx.id != 0 &&
++	    i915->gt.pxp.ctx.flag_display_hm_surface_keys)
++		return true;
++	else
++		return false;
++}
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.h b/drivers/gpu/drm/i915/pxp/intel_pxp.h
+index ddcc3faa4ea3..027c0eb84a52 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp.h
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp.h
+@@ -37,6 +37,8 @@ struct intel_pxp {
+ 	struct pxp_context ctx;
+ };
  
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_cmd.c b/drivers/gpu/drm/i915/pxp/intel_pxp_cmd.c
-new file mode 100644
-index 000000000000..e531ea9f3cdc
---- /dev/null
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_cmd.c
-@@ -0,0 +1,156 @@
-+// SPDX-License-Identifier: MIT
-+/*
-+ * Copyright(c) 2020, Intel Corporation. All rights reserved.
-+ */
++struct drm_i915_private;
 +
-+#include "intel_pxp_cmd.h"
-+#include "i915_drv.h"
-+#include "gt/intel_context.h"
-+#include "gt/intel_engine_pm.h"
+ #ifdef CONFIG_DRM_I915_PXP
+ void intel_pxp_irq_handler(struct intel_pxp *pxp, u16 iir);
+ int i915_pxp_teardown_required_callback(struct intel_pxp *pxp);
+@@ -44,6 +46,7 @@ int i915_pxp_global_terminate_complete_callback(struct intel_pxp *pxp);
+ 
+ int intel_pxp_init(struct intel_pxp *pxp);
+ void intel_pxp_uninit(struct intel_pxp *pxp);
++bool intel_pxp_gem_object_status(struct drm_i915_private *i915);
+ #else
+ static inline void intel_pxp_irq_handler(struct intel_pxp *pxp, u16 iir)
+ {
+@@ -67,6 +70,11 @@ static inline int intel_pxp_init(struct intel_pxp *pxp)
+ static inline void intel_pxp_uninit(struct intel_pxp *pxp)
+ {
+ }
 +
-+struct i915_vma *intel_pxp_cmd_get_batch(struct intel_pxp *pxp,
-+					 struct intel_context *ce,
-+					 struct intel_gt_buffer_pool_node *pool,
-+					 u32 *cmd_buf, int cmd_size_in_dw)
++static inline bool intel_pxp_gem_object_status(struct drm_i915_private *i915)
 +{
-+	struct i915_vma *batch = ERR_PTR(-EINVAL);
-+	struct intel_gt *gt = container_of(pxp, struct intel_gt, pxp);
-+	u32 *cmd;
-+
-+	if (!ce || !ce->engine || !cmd_buf)
-+		return ERR_PTR(-EINVAL);
-+
-+	if (cmd_size_in_dw * 4 > PAGE_SIZE) {
-+		drm_err(&gt->i915->drm, "Failed to %s, invalid cmd_size_id_dw=[%d]\n",
-+			__func__, cmd_size_in_dw);
-+		return ERR_PTR(-EINVAL);
-+	}
-+
-+	cmd = i915_gem_object_pin_map(pool->obj, I915_MAP_FORCE_WC);
-+	if (IS_ERR(cmd)) {
-+		drm_err(&gt->i915->drm, "Failed to i915_gem_object_pin_map()\n");
-+		return ERR_PTR(-EINVAL);
-+	}
-+
-+	memcpy(cmd, cmd_buf, cmd_size_in_dw * 4);
-+
-+	if (drm_debug_enabled(DRM_UT_DRIVER)) {
-+		print_hex_dump(KERN_DEBUG, "cmd binaries:",
-+			       DUMP_PREFIX_OFFSET, 4, 4, cmd, cmd_size_in_dw * 4, true);
-+	}
-+
-+	i915_gem_object_unpin_map(pool->obj);
-+
-+	batch = i915_vma_instance(pool->obj, ce->vm, NULL);
-+	if (IS_ERR(batch)) {
-+		drm_err(&gt->i915->drm, "Failed to i915_vma_instance()\n");
-+		return batch;
-+	}
-+
-+	return batch;
++	return false;
 +}
-+
-+int intel_pxp_cmd_submit(struct intel_pxp *pxp, u32 *cmd, int cmd_size_in_dw)
-+{
-+	int err = -EINVAL;
-+	struct i915_vma *batch;
-+	struct i915_request *rq;
-+	struct intel_context *ce = NULL;
-+	bool is_engine_pm_get = false;
-+	bool is_batch_vma_pin = false;
-+	bool is_skip_req_on_err = false;
-+	bool is_engine_get_pool = false;
-+	struct intel_gt_buffer_pool_node *pool = NULL;
-+	struct intel_gt *gt = container_of(pxp, struct intel_gt, pxp);
-+
-+	if (!HAS_ENGINE(gt, VCS0) ||
-+	    !gt->engine[VCS0]->kernel_context) {
-+		err = -EINVAL;
-+		goto end;
-+	}
-+
-+	if (!cmd || (cmd_size_in_dw * 4) > PAGE_SIZE) {
-+		drm_err(&gt->i915->drm, "Failed to %s bad params\n", __func__);
-+		return -EINVAL;
-+	}
-+
-+	ce = gt->engine[VCS0]->kernel_context;
-+
-+	intel_engine_pm_get(ce->engine);
-+	is_engine_pm_get = true;
-+
-+	pool = intel_gt_get_buffer_pool(gt, PAGE_SIZE);
-+	if (IS_ERR(pool)) {
-+		drm_err(&gt->i915->drm, "Failed to intel_engine_get_pool()\n");
-+		goto end;
-+	}
-+	is_engine_get_pool = true;
-+
-+	batch = intel_pxp_cmd_get_batch(pxp, ce, pool, cmd, cmd_size_in_dw);
-+	if (IS_ERR(batch)) {
-+		drm_err(&gt->i915->drm, "Failed to intel_pxp_cmd_get_batch()\n");
-+		goto end;
-+	}
-+
-+	err = i915_vma_pin(batch, 0, 0, PIN_USER);
-+	if (err) {
-+		drm_err(&gt->i915->drm, "Failed to i915_vma_pin()\n");
-+		goto end;
-+	}
-+	is_batch_vma_pin = true;
-+
-+	rq = intel_context_create_request(ce);
-+	if (IS_ERR(rq)) {
-+		drm_err(&gt->i915->drm, "Failed to intel_context_create_request()\n");
-+		goto end;
-+	}
-+	is_skip_req_on_err = true;
-+
-+	err = intel_gt_buffer_pool_mark_active(pool, rq);
-+	if (err) {
-+		drm_err(&gt->i915->drm, "Failed to intel_engine_pool_mark_active()\n");
-+		goto end;
-+	}
-+
-+	i915_vma_lock(batch);
-+	err = i915_request_await_object(rq, batch->obj, false);
-+	if (!err)
-+		err = i915_vma_move_to_active(batch, rq, 0);
-+	i915_vma_unlock(batch);
-+	if (err) {
-+		drm_err(&gt->i915->drm, "Failed to i915_request_await_object()\n");
-+		goto end;
-+	}
-+
-+	if (ce->engine->emit_init_breadcrumb) {
-+		err = ce->engine->emit_init_breadcrumb(rq);
-+		if (err) {
-+			drm_err(&gt->i915->drm, "Failed to emit_init_breadcrumb()\n");
-+			goto end;
-+		}
-+	}
-+
-+	err = ce->engine->emit_bb_start(rq, batch->node.start,
-+		batch->node.size, 0);
-+	if (err) {
-+		drm_err(&gt->i915->drm, "Failed to emit_bb_start()\n");
-+		goto end;
-+	}
-+
-+	i915_request_add(rq);
-+
-+end:
-+	if (unlikely(err) && is_skip_req_on_err)
-+		i915_request_set_error_once(rq, err);
-+
-+	if (is_batch_vma_pin)
-+		i915_vma_unpin(batch);
-+
-+	if (is_engine_get_pool)
-+		intel_gt_buffer_pool_put(pool);
-+
-+	if (is_engine_pm_get)
-+		intel_engine_pm_put(ce->engine);
-+
-+	return err;
-+}
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_cmd.h b/drivers/gpu/drm/i915/pxp/intel_pxp_cmd.h
-new file mode 100644
-index 000000000000..d04463962421
---- /dev/null
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_cmd.h
-@@ -0,0 +1,18 @@
-+/* SPDX-License-Identifier: MIT */
-+/*
-+ * Copyright(c) 2020, Intel Corporation. All rights reserved.
-+ */
-+
-+#ifndef __INTEL_PXP_CMD_H__
-+#define __INTEL_PXP_CMD_H__
-+
-+#include "gt/intel_gt_buffer_pool.h"
-+#include "intel_pxp.h"
-+
-+struct i915_vma *intel_pxp_cmd_get_batch(struct intel_pxp *pxp,
-+					 struct intel_context *ce,
-+					 struct intel_gt_buffer_pool_node *pool,
-+					 u32 *cmd_buf, int cmd_size_in_dw);
-+
-+int intel_pxp_cmd_submit(struct intel_pxp *pxp, u32 *cmd, int cmd_size_in_dw);
-+#endif /* __INTEL_PXP_SM_H__ */
+ #endif
+ 
+ #endif /* __INTEL_PXP_PM_H__ */
 -- 
 2.17.1
 
