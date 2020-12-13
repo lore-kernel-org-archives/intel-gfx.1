@@ -9,70 +9,69 @@ X-Spam-Status: No, score=-12.0 required=3.0 tests=BAYES_00,
 	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C5F9FC4361B
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Dec 2020 15:16:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3FA9EC4361B
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Dec 2020 15:16:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 61AD922A99
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Dec 2020 15:16:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 61AD922A99
+	by mail.kernel.org (Postfix) with ESMTPS id F290322A99
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Dec 2020 15:16:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F290322A99
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C76696E241;
-	Mon, 14 Dec 2020 15:16:30 +0000 (UTC)
-Received: from mail-ej1-x644.google.com (mail-ej1-x644.google.com
- [IPv6:2a00:1450:4864:20::644])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A087E6E0BE;
- Sun, 13 Dec 2020 11:31:33 +0000 (UTC)
-Received: by mail-ej1-x644.google.com with SMTP id q22so877199eja.2;
- Sun, 13 Dec 2020 03:31:33 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3EACC6E288;
+	Mon, 14 Dec 2020 15:16:44 +0000 (UTC)
+Received: from mail-ed1-x544.google.com (mail-ed1-x544.google.com
+ [IPv6:2a00:1450:4864:20::544])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 80D3789C6E;
+ Sun, 13 Dec 2020 11:36:05 +0000 (UTC)
+Received: by mail-ed1-x544.google.com with SMTP id r5so14131788eda.12;
+ Sun, 13 Dec 2020 03:36:05 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=subject:to:cc:references:from:message-id:date:user-agent
  :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=TjWjwM1ceLhbF1IYJl3oWPHfyZ88hbVMXIeiKOfmwOM=;
- b=vPvvh2iQ0r9ZbJoXMCDIftnNA4fETiNQFFFHNFtTvfww3hKWzjIscr3aHAUNvJNsBo
- Ivf0d9Mvb99JMJV9ehcDPkg7swsKEMl7+Y/hUHya1SLUv75EVwMKcVXA4wQhFYugquwI
- v+qVZoFUku+Z4S07otlNJUYYZFwuVftQM+5pKMuoRFtJsCSR2/FO/OAFm9dwXHUCnb0g
- nyevY+rBPRTACXhZ931IzFg7Awoce5sQ06vu7Ya86N9A/av13YTjQRgaXCWsCWUM/pP3
- fYNitfafK87nYGzSZSaCif4DP/TVC+LUGSPprBAe6V1QO0w7yMUKiZ5MZM5KRMECQCql
- 1tPg==
+ bh=yO3vpR//yJ3KukN+tPfw/ullrK0O2qQE7kKjDuWCMp8=;
+ b=c6i+ahBjD9/Rh0qH45as2/C0d/Lv5nDMeI06jod3TPucN2QtiguKTRZxCznQ+jpaBW
+ gvv5i+HN/z0qVNmozmLuRxtFAJ9V7+Ekywb7P9Eyni0NfuaKlPKyK+aL+VAfVSMYk6ET
+ IsS0+k2gRUdseUfqRF/UdU5bAlwQl7B5WJwI1REXIqN2aaNIVtttoMQkfvNoRFm/NQ/2
+ CwmCf0DUfVLjwlDCo2/HXyzoa2xfU2BeyMBSUUM5MgQ4udzSF7fTqhAJZgUGdY3OmduU
+ Wly23cmVni7LPdYQgfxlnoj5hfppXocENHNXxV4IuuZv3YXWmfxmP1sbgWNiQqwcc5pM
+ VImw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:subject:to:cc:references:from:message-id:date
  :user-agent:mime-version:in-reply-to:content-language
  :content-transfer-encoding;
- bh=TjWjwM1ceLhbF1IYJl3oWPHfyZ88hbVMXIeiKOfmwOM=;
- b=dn9iTBYrLO0ZFZmiD3WkVldPdSWXD+nrzZlSUwezcaQpxjXpEyvwotJTxSjuIKZ4Fk
- XjqoCDbSeCtzzuEHRLvYdvWHS3BEzMN76JCY/3wHmKvbkx1LJiE4YnAzvMezVNAr0y0j
- N7lNKgqJ/ZDSemUju6BtW6ALLWBSpxhv2w0sInPskWOLJeVptzGOPNoZd7N20h2qX+cd
- KVJlX5FS/rDImCyFM31QtuGKcAtCAUlNL45w9hBXsG1pLMKqmtTxu9hNzgpd4nw9nGe4
- PvdqdCk+/7jGYQCmaBFHoCWVYL17YngUj6K3ar7xRZoNDMrrF64woOIDgozfhyz/V0Xm
- Zldw==
-X-Gm-Message-State: AOAM532DWFTVINPIzfCuU2HxSu9vnZmRJbPiBLMkp7I/cwk7y17P8ops
- +BsdWb/zccGs7qXxDHDcyfA=
-X-Google-Smtp-Source: ABdhPJyEr8C9Ogdb1mA5xMC+43Vgspphph1JMIeMGN8re3oj2ZBqnM3siDmfQyHHB65lUudEMrQXmA==
-X-Received: by 2002:a17:906:4bc5:: with SMTP id
- x5mr1966810ejv.55.1607859092305; 
- Sun, 13 Dec 2020 03:31:32 -0800 (PST)
+ bh=yO3vpR//yJ3KukN+tPfw/ullrK0O2qQE7kKjDuWCMp8=;
+ b=hJOqVsi9FOlINwjFM4Q/Ey8KYm6YzO2B+c8dvRkuJ+t+QQd4i+abIel22QFoYvEkeL
+ /JePbp4BTcQLGj5v8rwRHSG6EuXMUE1G6bIagkrG+UlzHu0/vzfF/wPeBAOlYpzSEYtu
+ LUIEwOwbGA2kP0CLI4E8XGXbHYVigw7Sibhj2/IPOvbuOYPmctim9XeycWgysX8LZpUm
+ MF/r7mjeTxQskgZdIY+bYMAfXEuuXGLdoBodP/Pl1z74V/FKo1yTcCQ016K7Jaaac008
+ luwbRkQG3ka6NXAhDFi42nFB74oe1/HSWTF3Z8z7to5dI6mR6MsAXu3ENWECAZsYHSGl
+ hlzg==
+X-Gm-Message-State: AOAM531MOS6gXWQv7MiEzCAaoqKF452GXMgwEaKSLs/AnW+b7kiLd+nV
+ zfgip8IrOa7ztmodk1RLVh8=
+X-Google-Smtp-Source: ABdhPJzH+/aSvmgK74NOHKHONm6dhSpADhiv/j9gb2Z3Pv7veSPcdPhRE3SKaG8WhajpgAcAsGPlGw==
+X-Received: by 2002:a50:a6c9:: with SMTP id f9mr20130904edc.158.1607859364213; 
+ Sun, 13 Dec 2020 03:36:04 -0800 (PST)
 Received: from [192.168.0.107] ([77.127.34.194])
- by smtp.gmail.com with ESMTPSA id d6sm11014971ejy.114.2020.12.13.03.31.25
+ by smtp.gmail.com with ESMTPSA id ef11sm11222266ejb.15.2020.12.13.03.35.58
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 13 Dec 2020 03:31:31 -0800 (PST)
+ Sun, 13 Dec 2020 03:36:03 -0800 (PST)
 To: Thomas Gleixner <tglx@linutronix.de>, LKML <linux-kernel@vger.kernel.org>
 References: <20201210192536.118432146@linutronix.de>
- <20201210194044.672935978@linutronix.de>
+ <20201210194044.876342330@linutronix.de>
 From: Tariq Toukan <ttoukan.linux@gmail.com>
-Message-ID: <57c3f9d3-7262-9916-626b-c2234de763f0@gmail.com>
-Date: Sun, 13 Dec 2020 13:31:24 +0200
+Message-ID: <f0a01d6e-0333-e929-eabb-28cb444effe0@gmail.com>
+Date: Sun, 13 Dec 2020 13:35:57 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.5.1
 MIME-Version: 1.0
-In-Reply-To: <20201210194044.672935978@linutronix.de>
+In-Reply-To: <20201210194044.876342330@linutronix.de>
 Content-Language: en-US
 X-Mailman-Approved-At: Mon, 14 Dec 2020 15:16:10 +0000
-Subject: Re: [Intel-gfx] [patch 21/30] net/mlx4: Use effective interrupt
+Subject: Re: [Intel-gfx] [patch 23/30] net/mlx5: Use effective interrupt
  affinity
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -93,10 +92,9 @@ Cc: Mark Rutland <mark.rutland@arm.com>,
  Linus Walleij <linus.walleij@linaro.org>, dri-devel@lists.freedesktop.org,
  Chris Wilson <chris@chris-wilson.co.uk>,
  "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- Will Deacon <will@kernel.org>, Michal Simek <michal.simek@xilinx.com>,
- Rob Herring <robh@kernel.org>, linux-s390@vger.kernel.org,
  afzal mohammed <afzal.mohd.ma@gmail.com>,
- Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
+ Michal Simek <michal.simek@xilinx.com>, Rob Herring <robh@kernel.org>,
+ linux-s390@vger.kernel.org, Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
  Dave Jiang <dave.jiang@intel.com>, xen-devel@lists.xenproject.org,
  Leon Romanovsky <leon@kernel.org>, linux-rdma@vger.kernel.org,
  Marc Zyngier <maz@kernel.org>, Helge Deller <deller@gmx.de>,
@@ -104,9 +102,9 @@ Cc: Mark Rutland <mark.rutland@arm.com>,
  Christian Borntraeger <borntraeger@de.ibm.com>, linux-pci@vger.kernel.org,
  Jakub Kicinski <kuba@kernel.org>, intel-gfx@lists.freedesktop.org,
  Wambui Karuga <wambui.karugax@gmail.com>, Allen Hubbe <allenbh@gmail.com>,
- Juergen Gross <jgross@suse.com>, Heiko Carstens <hca@linux.ibm.com>,
- Jon Mason <jdmason@kudzu.us>, linux-gpio@vger.kernel.org,
- Stefano Stabellini <sstabellini@kernel.org>,
+ Juergen Gross <jgross@suse.com>, Will Deacon <will@kernel.org>,
+ Heiko Carstens <hca@linux.ibm.com>, Jon Mason <jdmason@kudzu.us>,
+ linux-gpio@vger.kernel.org, Stefano Stabellini <sstabellini@kernel.org>,
  Bjorn Helgaas <bhelgaas@google.com>, Lee Jones <lee.jones@linaro.org>,
  linux-arm-kernel@lists.infradead.org,
  Boris Ostrovsky <boris.ostrovsky@oracle.com>, David Airlie <airlied@linux.ie>,
@@ -131,26 +129,27 @@ On 12/10/2020 9:25 PM, Thomas Gleixner wrote:
 > about the actual target CPUs.
 > 
 > Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
-> Cc: Tariq Toukan <tariqt@nvidia.com>
+> Cc: Saeed Mahameed <saeedm@nvidia.com>
+> Cc: Leon Romanovsky <leon@kernel.org>
 > Cc: "David S. Miller" <davem@davemloft.net>
 > Cc: Jakub Kicinski <kuba@kernel.org>
 > Cc: netdev@vger.kernel.org
 > Cc: linux-rdma@vger.kernel.org
 > ---
->   drivers/net/ethernet/mellanox/mlx4/en_cq.c |    2 +-
+>   drivers/net/ethernet/mellanox/mlx5/core/en_main.c |    2 +-
 >   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> --- a/drivers/net/ethernet/mellanox/mlx4/en_cq.c
-> +++ b/drivers/net/ethernet/mellanox/mlx4/en_cq.c
-> @@ -117,7 +117,7 @@ int mlx4_en_activate_cq(struct mlx4_en_p
->   			assigned_eq = true;
->   		}
->   		irq = mlx4_eq_get_irq(mdev->dev, cq->vector);
-> -		cq->aff_mask = irq_get_affinity_mask(irq);
-> +		cq->aff_mask = irq_get_effective_affinity_mask(irq);
->   	} else {
->   		/* For TX we use the same irq per
->   		ring we assigned for the RX    */
+> --- a/drivers/net/ethernet/mellanox/mlx5/core/en_main.c
+> +++ b/drivers/net/ethernet/mellanox/mlx5/core/en_main.c
+> @@ -1998,7 +1998,7 @@ static int mlx5e_open_channel(struct mlx
+>   	c->num_tc   = params->num_tc;
+>   	c->xdp      = !!params->xdp_prog;
+>   	c->stats    = &priv->channel_stats[ix].ch;
+> -	c->aff_mask = irq_get_affinity_mask(irq);
+> +	c->aff_mask = irq_get_effective_affinity_mask(irq);
+>   	c->lag_port = mlx5e_enumerate_lag_port(priv->mdev, ix);
+>   
+>   	netif_napi_add(netdev, &c->napi, mlx5e_napi_poll, 64);
 > 
 
 Reviewed-by: Tariq Toukan <tariqt@nvidia.com>
