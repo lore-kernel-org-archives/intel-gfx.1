@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 72200C2BBCD
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E47BFC1B0D8
 	for <intel-gfx@archiver.kernel.org>; Mon, 14 Dec 2020 10:10:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 23E8E225A9
+	by mail.kernel.org (Postfix) with ESMTPS id AB283225A9
 	for <intel-gfx@archiver.kernel.org>; Mon, 14 Dec 2020 10:10:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 23E8E225A9
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AB283225A9
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 366356E3EB;
-	Mon, 14 Dec 2020 10:10:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 206B86E20B;
+	Mon, 14 Dec 2020 10:10:25 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F26F46E1F7
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5C6E16E1D5
  for <intel-gfx@lists.freedesktop.org>; Mon, 14 Dec 2020 10:10:05 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23317807-1500050 
- for multiple; Mon, 14 Dec 2020 10:09:55 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23317780-1500050 
+ for multiple; Mon, 14 Dec 2020 10:09:51 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 14 Dec 2020 10:09:14 +0000
-Message-Id: <20201214100949.11387-34-chris@chris-wilson.co.uk>
+Date: Mon, 14 Dec 2020 10:08:52 +0000
+Message-Id: <20201214100949.11387-12-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201214100949.11387-1-chris@chris-wilson.co.uk>
 References: <20201214100949.11387-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 34/69] drm/i915/gt: Refactor heartbeat request
- construction and submission
+Subject: [Intel-gfx] [PATCH 12/69] drm/i915/gt: ce->inflight updates are now
+ serialised
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,134 +56,142 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Pull the individual strands of creating a custom heartbeat requests into
-a pair of common functions. This will reduce the number of changes we
-will need to make in future.
+Since schedule-in and schedule-out are now both always under the tasklet
+bitlock, we can reduce the individual atomic operations to simple
+instructions and worry less.
 
+This notably eliminates the race observed with intel_context_inflight in
+__engine_unpark().
+
+Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/2583
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 ---
- .../gpu/drm/i915/gt/intel_engine_heartbeat.c  | 59 +++++++++++++------
- 1 file changed, 41 insertions(+), 18 deletions(-)
+ .../drm/i915/gt/intel_execlists_submission.c  | 52 +++++++++----------
+ 1 file changed, 25 insertions(+), 27 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c b/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
-index 9060385cd69e..d7be2b9339f9 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
-@@ -37,6 +37,18 @@ static bool next_heartbeat(struct intel_engine_cs *engine)
- 	return true;
+diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+index f021e0f4b24b..9f5efff08785 100644
+--- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
++++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+@@ -1302,11 +1302,11 @@ __execlists_schedule_in(struct i915_request *rq)
+ 		ce->lrc.ccid = ce->tag;
+ 	} else {
+ 		/* We don't need a strict matching tag, just different values */
+-		unsigned int tag = ffs(READ_ONCE(engine->context_tag));
++		unsigned int tag = __ffs(engine->context_tag);
+ 
+-		GEM_BUG_ON(tag == 0 || tag >= BITS_PER_LONG);
+-		clear_bit(tag - 1, &engine->context_tag);
+-		ce->lrc.ccid = tag << (GEN11_SW_CTX_ID_SHIFT - 32);
++		GEM_BUG_ON(tag >= BITS_PER_LONG);
++		__clear_bit(tag, &engine->context_tag);
++		ce->lrc.ccid = (1 + tag) << (GEN11_SW_CTX_ID_SHIFT - 32);
+ 
+ 		BUILD_BUG_ON(BITS_PER_LONG > GEN12_MAX_CONTEXT_HW_ID);
+ 	}
+@@ -1319,6 +1319,8 @@ __execlists_schedule_in(struct i915_request *rq)
+ 	execlists_context_status_change(rq, INTEL_CONTEXT_SCHEDULE_IN);
+ 	intel_engine_context_in(engine);
+ 
++	CE_TRACE(ce, "schedule-in, ccid:%x\n", ce->lrc.ccid);
++
+ 	return engine;
  }
  
-+static struct i915_request *
-+heartbeat_create(struct intel_context *ce, gfp_t gfp)
-+{
-+	struct i915_request *rq;
-+
-+	intel_context_enter(ce);
-+	rq = __i915_request_create(ce, gfp);
-+	intel_context_exit(ce);
-+
-+	return rq;
-+}
-+
- static void idle_pulse(struct intel_engine_cs *engine, struct i915_request *rq)
- {
- 	engine->wakeref_serial = READ_ONCE(engine->serial) + 1;
-@@ -45,6 +57,15 @@ static void idle_pulse(struct intel_engine_cs *engine, struct i915_request *rq)
- 		engine->heartbeat.systole = i915_request_get(rq);
+@@ -1330,13 +1332,10 @@ static inline void execlists_schedule_in(struct i915_request *rq, int idx)
+ 	GEM_BUG_ON(!intel_engine_pm_is_awake(rq->engine));
+ 	trace_i915_request_in(rq, idx);
+ 
+-	old = READ_ONCE(ce->inflight);
+-	do {
+-		if (!old) {
+-			WRITE_ONCE(ce->inflight, __execlists_schedule_in(rq));
+-			break;
+-		}
+-	} while (!try_cmpxchg(&ce->inflight, &old, ptr_inc(old)));
++	old = ce->inflight;
++	if (!old)
++		old = __execlists_schedule_in(rq);
++	WRITE_ONCE(ce->inflight, ptr_inc(old));
+ 
+ 	GEM_BUG_ON(intel_context_inflight(ce) != rq->engine);
+ }
+@@ -1389,12 +1388,11 @@ static void kick_siblings(struct i915_request *rq, struct intel_context *ce)
+ 		tasklet_hi_schedule(&ve->base.execlists.tasklet);
  }
  
-+static void heartbeat_commit(struct i915_request *rq,
-+			     const struct i915_sched_attr *attr)
-+{
-+	idle_pulse(rq->engine, rq);
-+
-+	__i915_request_commit(rq);
-+	__i915_request_queue(rq, attr);
-+}
-+
- static void show_heartbeat(const struct i915_request *rq,
- 			   struct intel_engine_cs *engine)
+-static inline void
+-__execlists_schedule_out(struct i915_request *rq,
+-			 struct intel_engine_cs * const engine,
+-			 unsigned int ccid)
++static inline void __execlists_schedule_out(struct i915_request *rq)
  {
-@@ -139,16 +160,11 @@ static void heartbeat(struct work_struct *wrk)
- 		goto out;
+ 	struct intel_context * const ce = rq->context;
++	struct intel_engine_cs * const engine = rq->engine;
++	unsigned int ccid;
+ 
+ 	/*
+ 	 * NB process_csb() is not under the engine->active.lock and hence
+@@ -1402,6 +1400,8 @@ __execlists_schedule_out(struct i915_request *rq,
+ 	 * refrain from doing non-trivial work here.
+ 	 */
+ 
++	CE_TRACE(ce, "schedule-out, ccid:%x\n", ce->lrc.ccid);
++
+ 	if (IS_ENABLED(CONFIG_DRM_I915_DEBUG_GEM))
+ 		execlists_check_context(ce, engine, "after");
+ 
+@@ -1413,12 +1413,13 @@ __execlists_schedule_out(struct i915_request *rq,
+ 	    i915_request_completed(rq))
+ 		intel_engine_add_retire(engine, ce->timeline);
+ 
++	ccid = ce->lrc.ccid;
+ 	ccid >>= GEN11_SW_CTX_ID_SHIFT - 32;
+ 	ccid &= GEN12_MAX_CONTEXT_HW_ID;
+ 	if (ccid < BITS_PER_LONG) {
+ 		GEM_BUG_ON(ccid == 0);
+ 		GEM_BUG_ON(test_bit(ccid - 1, &engine->context_tag));
+-		set_bit(ccid - 1, &engine->context_tag);
++		__set_bit(ccid - 1, &engine->context_tag);
  	}
  
--	intel_context_enter(ce);
--	rq = __i915_request_create(ce, GFP_NOWAIT | __GFP_NOWARN);
--	intel_context_exit(ce);
-+	rq = heartbeat_create(ce, GFP_NOWAIT | __GFP_NOWARN);
- 	if (IS_ERR(rq))
- 		goto unlock;
- 
--	idle_pulse(engine, rq);
+ 	intel_context_update_runtime(ce);
+@@ -1439,26 +1440,23 @@ __execlists_schedule_out(struct i915_request *rq,
+ 	 */
+ 	if (ce->engine != engine)
+ 		kick_siblings(rq, ce);
 -
--	__i915_request_commit(rq);
--	__i915_request_queue(rq, &attr);
-+	heartbeat_commit(rq, &attr);
+-	intel_context_put(ce);
+ }
  
- unlock:
- 	mutex_unlock(&ce->timeline->mutex);
-@@ -187,17 +203,13 @@ static int __intel_engine_pulse(struct intel_engine_cs *engine)
- 	GEM_BUG_ON(!intel_engine_has_preemption(engine));
- 	GEM_BUG_ON(!intel_engine_pm_is_awake(engine));
- 
--	intel_context_enter(ce);
--	rq = __i915_request_create(ce, GFP_NOWAIT | __GFP_NOWARN);
--	intel_context_exit(ce);
-+	rq = heartbeat_create(ce, GFP_NOWAIT | __GFP_NOWARN);
- 	if (IS_ERR(rq))
- 		return PTR_ERR(rq);
- 
- 	__set_bit(I915_FENCE_FLAG_SENTINEL, &rq->fence.flags);
--	idle_pulse(engine, rq);
- 
--	__i915_request_commit(rq);
--	__i915_request_queue(rq, &attr);
-+	heartbeat_commit(rq, &attr);
- 	GEM_BUG_ON(rq->sched.attr.priority < I915_PRIORITY_BARRIER);
- 
- 	return 0;
-@@ -273,8 +285,12 @@ int intel_engine_pulse(struct intel_engine_cs *engine)
- 
- int intel_engine_flush_barriers(struct intel_engine_cs *engine)
+ static inline void
+ execlists_schedule_out(struct i915_request *rq)
  {
-+	struct i915_sched_attr attr = {
-+		.priority = I915_USER_PRIORITY(I915_PRIORITY_MIN),
-+	};
-+	struct intel_context *ce = engine->kernel_context;
- 	struct i915_request *rq;
--	int err = 0;
-+	int err;
+ 	struct intel_context * const ce = rq->context;
+-	struct intel_engine_cs *cur, *old;
+-	u32 ccid;
  
- 	if (llist_empty(&engine->barrier_tasks))
- 		return 0;
-@@ -282,15 +298,22 @@ int intel_engine_flush_barriers(struct intel_engine_cs *engine)
- 	if (!intel_engine_pm_get_if_awake(engine))
- 		return 0;
+ 	trace_i915_request_out(rq);
  
--	rq = i915_request_create(engine->kernel_context);
-+	if (mutex_lock_interruptible(&ce->timeline->mutex)) {
-+		err = -EINTR;
-+		goto out_rpm;
+-	ccid = rq->context->lrc.ccid;
+-	old = READ_ONCE(ce->inflight);
+-	do
+-		cur = ptr_unmask_bits(old, 2) ? ptr_dec(old) : NULL;
+-	while (!try_cmpxchg(&ce->inflight, &old, cur));
+-	if (!cur)
+-		__execlists_schedule_out(rq, old, ccid);
++	GEM_BUG_ON(!ce->inflight);
++	ce->inflight = ptr_dec(ce->inflight);
++	if (!__intel_context_inflight_count(ce->inflight)) {
++		GEM_BUG_ON(ce->inflight != rq->engine);
++		__execlists_schedule_out(rq);
++		WRITE_ONCE(ce->inflight, NULL);
++		intel_context_put(ce);
 +	}
-+
-+	rq = heartbeat_create(ce, GFP_KERNEL);
- 	if (IS_ERR(rq)) {
- 		err = PTR_ERR(rq);
--		goto out_rpm;
-+		goto out_unlock;
- 	}
  
--	idle_pulse(engine, rq);
--	i915_request_add(rq);
-+	heartbeat_commit(rq, &attr);
- 
-+	err = 0;
-+out_unlock:
-+	mutex_unlock(&ce->timeline->mutex);
- out_rpm:
- 	intel_engine_pm_put(engine);
- 	return err;
+ 	i915_request_put(rq);
+ }
 -- 
 2.20.1
 
