@@ -2,126 +2,42 @@ Return-Path: <SRS0=LtMi=FS=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.0 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 55800C4361B
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Dec 2020 10:34:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 36D1BC4361B
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Dec 2020 10:51:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0081020798
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Dec 2020 10:34:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0081020798
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 9AE6322BEF
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Dec 2020 10:51:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9AE6322BEF
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7CB136E194;
-	Mon, 14 Dec 2020 10:34:04 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2088.outbound.protection.outlook.com [40.107.92.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 21B5C6E194;
- Mon, 14 Dec 2020 10:34:03 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=C5joXzG3BgBF6iC+eqMB5wGMJVXuuJV44YxLAmImTmBeH6q0LCIJ8GjivSGFDv8rybN9Hnb1wzKRKCOETeRurPbEHK6at32EtrbUOn4WtFLDY8ld9U2KxNe7dYmw3boTlGEf+vp1Oyn8wZmSwhSxXE3QFGBniLOc0lGmzzX1rxvlE90ljEpGtKylqRWlVb/jU9lRZW5lHiIjxahg0AxjFN+wBbJiiNYV/skO53WPaXY1BQNx1jST6/Hm1D40/C8nAWGI0d2LanWIFy67wovhHdv2CNX8E1SwqzmHERbgm2JolVOOmtGLIwDLEB4nyFEX+usoqnB/Jk79g9kTJakfqA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SBsQgtb9S78xrmqZ8g3zGDuzC0pEU1YXAd0xq++wsrM=;
- b=OYEcQtlmU9RH/7CW16Hhs3qvbbMh6oUf28o8iGs/4W2AG9sqDFp0NM/SFqk/xXsOM21SNJlHv0bs9JSWanL0G9HqDCLKwN6cxDD+/T6iuxbWlKzlFYgEBLSpSmD7x0VzZ4fPXrngDwhMk8++O6S4mO9NURiBBhUbXFYp1pwWy1SARyABAM8J49vxcrWkRvCUL4HQG+5ly+qEqmxVNGjTz/4M3VK6/1JjWv5ZdCFy5owGy/zYId4cOFmSY5eteqdDjtBO1OB6Hr3JWyEaoPKs5mR0KRmH61pzn7MJP9yL4ef4OWgzsrjAM4+IIEg8UeFg0stGRfiwZs+szJ1t9Rl7Gw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SBsQgtb9S78xrmqZ8g3zGDuzC0pEU1YXAd0xq++wsrM=;
- b=IX0TXArhxCc/UsdddAkepdZ4xKCOm0IQDVK2aLbdy0oFW0HWwElNz6LXoIp06bzmY9lT3F+QtliB/5Rhl935W2uK9LvZSK46h/QUqRigK3URVEt6A9IQ7M+11yttIjn/wY1HHaKBk6gHENQhy4HOxR+lCzyU/qphd131xpEI6eA=
-Authentication-Results: lists.linaro.org; dkim=none (message not signed)
- header.d=none;lists.linaro.org; dmarc=none action=none header.from=amd.com;
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com (2603:10b6:208:159::19)
- by MN2PR12MB4390.namprd12.prod.outlook.com (2603:10b6:208:26e::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3654.14; Mon, 14 Dec
- 2020 10:34:01 +0000
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::44f:9f01:ece7:f0e5]) by MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::44f:9f01:ece7:f0e5%3]) with mapi id 15.20.3654.024; Mon, 14 Dec 2020
- 10:34:01 +0000
-To: Daniel Vetter <daniel.vetter@ffwll.ch>,
- DRI Development <dri-devel@lists.freedesktop.org>
-References: <20201211155843.3348718-1-daniel.vetter@ffwll.ch>
- <20201211155843.3348718-3-daniel.vetter@ffwll.ch>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <4241d3ed-3ae5-1d32-476a-71d0886f619a@amd.com>
-Date: Mon, 14 Dec 2020 11:33:56 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-In-Reply-To: <20201211155843.3348718-3-daniel.vetter@ffwll.ch>
-Content-Language: en-US
-X-Originating-IP: [2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
-X-ClientProxiedBy: AM0PR06CA0120.eurprd06.prod.outlook.com
- (2603:10a6:208:ab::25) To MN2PR12MB3775.namprd12.prod.outlook.com
- (2603:10b6:208:159::19)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F3DF6E15A;
+	Mon, 14 Dec 2020 10:51:33 +0000 (UTC)
+Received: from fireflyinternet.com (unknown [77.68.26.236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2FC8C6E1B5;
+ Mon, 14 Dec 2020 10:51:30 +0000 (UTC)
+X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
+ x-ip-name=78.156.65.138; 
+Received: from haswell.alporthouse.com (unverified [78.156.65.138]) 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23318472-1500050 
+ for multiple; Mon, 14 Dec 2020 10:51:22 +0000
+From: Chris Wilson <chris@chris-wilson.co.uk>
+To: intel-gfx@lists.freedesktop.org
+Date: Mon, 14 Dec 2020 10:51:21 +0000
+Message-Id: <20201214105123.542518-2-chris@chris-wilson.co.uk>
+X-Mailer: git-send-email 2.29.2
+In-Reply-To: <20201214105123.542518-1-chris@chris-wilson.co.uk>
+References: <20201214105123.542518-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
- (2a02:908:1252:fb60:be8a:bd56:1f94:86e7) by
- AM0PR06CA0120.eurprd06.prod.outlook.com (2603:10a6:208:ab::25) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3654.12 via Frontend Transport; Mon, 14 Dec 2020 10:34:00 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 02efd938-2073-45c5-9bb4-08d8a01bc5d9
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4390:
-X-Microsoft-Antispam-PRVS: <MN2PR12MB43906A0D8EA46F46D2C45EC183C70@MN2PR12MB4390.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1122;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: dk0ZtDSdzXscXN7DLYTFq4AWplrKZE0UehTgdxAIzAGXq97msprx0sXHaO1vL9ABCftzN+hT4hvQd04LYljzZosDJhehcb3RWN4Q+Owf4HRh3bwc9Ylzw+kWKlOmJQoyu/bqxNzPtPbs1/CekQqcoWgFEnZiynQ2qMMMwKjnpcTqP9Ld/GsxPQvXEWxPyoKVKnIyVvR1g+au+6I5ZiJFvh+voGy4iSR34GhPuiviilytqPbJ2d1mxfHxDHEVEp9L0XH4waKcR332UQdpr8+PtQ5cdtTsqI5xwgPDTUhErCcxOw3sNiAUxZKU3fpm9+Ps51SytgKdpcjp4UOLBQuXVtwNKKwfmyssMqQsn+fh8lIc4qyPrga18VfmZT/ETVYRtDB8M9TtCduoRhpfaiPawAbGQhqja/phsPSvJqsypqURpzAV5bHREHWmQ1M5AQFk
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB3775.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(346002)(366004)(376002)(136003)(5660300002)(4326008)(66556008)(66946007)(66476007)(508600001)(6486002)(2906002)(86362001)(31696002)(52116002)(8676002)(6666004)(16526019)(110136005)(186003)(54906003)(36756003)(66574015)(83380400001)(2616005)(8936002)(31686004)(34490700003)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?b2NTVXRCRFREcGRSdk1PelVvREFVdVJvWG42RzVDS25ySkdUampzVkNWemdk?=
- =?utf-8?B?TWlJNndBSmJLZHg2ODZLWWRRNld1RXgyekJNb2ZsVUplSDMvbEdQcDU2SVBm?=
- =?utf-8?B?S3RsMXR5SXJBOXVVTnk4bTlNaEtSQ01idkdBb2FMZVB2ZWpWQVhaYWVVYjJS?=
- =?utf-8?B?eitHWC9xWldJN01vbXRQODc2QkpIZUNHZlBEc2IyZkhtbWYvT2FmSkUwcVBK?=
- =?utf-8?B?WkNwUTVLdVVoM2luTnpHdEtTWVg5eDAvMWEzdURtVW1GYUdVc0FHK2FPUTc4?=
- =?utf-8?B?QS80M3RIeUFmM05KNjJZMGRXMzkzcG9nQkRGUktnUDlTYk85VjVnQTUreGVk?=
- =?utf-8?B?TTBRdWR0cHZzSDZEMlpCRzdVWlYxU3hlRk0wNUdubVdyclVZOHdTMWhjNHlm?=
- =?utf-8?B?VHYrbkRGbFIxWnhySU5UZmVWWkt5N0NWNHlQWk9UaE9XQ3I5MEh0OHFqV1Uz?=
- =?utf-8?B?YjIxNFRyQUFDdWFHMHA4M1ZzNDRuU0xnL2tkN3JpWDB0Z3MrR0xFZjM4RHJ0?=
- =?utf-8?B?Zlk5VVM0M29ycGxzd2JPMFNKWjc5SjJRcVNCanJiN29icS9IQTFuTXBkN3Ra?=
- =?utf-8?B?M0hoSGEwV3VBbktrVFlpancvWGphWHcyS0kwOUJMZTZtaDBkVHNaa1JwZG5R?=
- =?utf-8?B?VkMrcEx5M29OR3RoQ3ZVekM4WlpaT3Nramd4UnZLbko4emJLTFJFUm9tQStz?=
- =?utf-8?B?akFGaEtFSE44NFZGZVJYZGFHS29LNmRabDZRdkI0WkdFS2tuVHhnS2pRZFM0?=
- =?utf-8?B?aGNxR2R2THppeDBPVjlhVnVMN2VtMWlTajg2U0ZGejc5R2o4dnR0VnR3ZWtV?=
- =?utf-8?B?OE8rY05qazA4K1poVlA3RlQ0M2JCQTVMd3ZPYUp1Vll2RjRYSmVYS0tIV3VN?=
- =?utf-8?B?cEw3OExrRzAzV3RUMFA0WXlqbVVlOWZiaEVFeXJwMHg3OFc1SnFhSkJJRzBr?=
- =?utf-8?B?dm41TWxTZGhLRkhkL2NFb3hlWWFCNGpNYjIvZHRjVGEvL0dhK1JCVFY4a2lj?=
- =?utf-8?B?YkRjcmtYeXhmalB5czlpdTMvZHB4OGsyTXJPQzYvTUR3QXYrZlp6d1BmUXlC?=
- =?utf-8?B?ckgvVUVPeDgrcTFoMTBmNjMzSTBIc1EzL3RCYmFDNFkvUlRYUkdmcjh0M1Uy?=
- =?utf-8?B?MUtNZjlDR1lpbmNjNTYvNTA5dzdGYnVROFhWY243TS9WRm5KSnp4dHNvb0tK?=
- =?utf-8?B?d1NhbDFUcnVoYXVsaDdqQUpZWSt2UFptYnhjbVI2cnNINDdRem4zSGlKQXJn?=
- =?utf-8?B?Y3V6dWlqZ1Y0SU1WQ2VPUW1PbzVyd0VYRTNtbmNHS3J6TExQaWlBb1VtRzQx?=
- =?utf-8?B?R0FLZzB4cm9hMk1BdUlmQzltRjBCekxDeEVSV0tPK3JMNzUwaWxzSERYTVdV?=
- =?utf-8?B?NGtLWklYNEpKbkowRnArRXFlRExqcWxuMVlEUlRKSEZVK2FzbExlUlFpdnBn?=
- =?utf-8?Q?PReHV+pV?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3775.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Dec 2020 10:34:01.5729 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-Network-Message-Id: 02efd938-2073-45c5-9bb4-08d8a01bc5d9
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: d0JNGBPkIiehOkh4rfubLFj+cccqVuCSQ7N5iV7HimUqhOrXhaSMrVN5NJ6cfxA6
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4390
-Subject: Re: [Intel-gfx] [PATCH 3/4] dma-buf: begin/end_cpu might lock the
- dma_resv lock
+Subject: [Intel-gfx] [PATCH i-g-t 2/4] i915/gem_exec_balancer: Measure
+ timeslicing fairness
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,37 +50,196 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- linaro-mm-sig@lists.linaro.org, Thomas Zimmermann <tzimmermann@suse.de>,
- Daniel Vetter <daniel.vetter@intel.com>,
- Sumit Semwal <sumit.semwal@linaro.org>, linux-media@vger.kernel.org
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: igt-dev@lists.freedesktop.org, Chris Wilson <chris@chris-wilson.co.uk>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-QW0gMTEuMTIuMjAgdW0gMTY6NTggc2NocmllYiBEYW5pZWwgVmV0dGVyOgo+IEF0IGxlYXN0IGFt
-ZGdwdSBhbmQgaTkxNSBkbywgc28gbGV0cyBqdXN0IGRvY3VtZW50IHRoaXMgYXMgdGhlIHJ1bGUu
-Cj4KPiBTaWduZWQtb2ZmLWJ5OiBEYW5pZWwgVmV0dGVyIDxkYW5pZWwudmV0dGVyQGludGVsLmNv
-bT4KPiBDYzogVGhvbWFzIFppbW1lcm1hbm4gPHR6aW1tZXJtYW5uQHN1c2UuZGU+Cj4gQ2M6IFN1
-bWl0IFNlbXdhbCA8c3VtaXQuc2Vtd2FsQGxpbmFyby5vcmc+Cj4gQ2M6ICJDaHJpc3RpYW4gS8O2
-bmlnIiA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgo+IENjOiBsaW51eC1tZWRpYUB2Z2VyLmtl
-cm5lbC5vcmcKPiBDYzogbGluYXJvLW1tLXNpZ0BsaXN0cy5saW5hcm8ub3JnCgpSZXZpZXdlZC1i
-eTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgoKPiAtLS0KPiAg
-IGRyaXZlcnMvZG1hLWJ1Zi9kbWEtYnVmLmMgfCA0ICsrKysKPiAgIDEgZmlsZSBjaGFuZ2VkLCA0
-IGluc2VydGlvbnMoKykKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2RtYS1idWYvZG1hLWJ1Zi5j
-IGIvZHJpdmVycy9kbWEtYnVmL2RtYS1idWYuYwo+IGluZGV4IGUxZmE2YzZmMDJjNC4uMDBkNWFm
-ZTkwNGNjIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZG1hLWJ1Zi9kbWEtYnVmLmMKPiArKysgYi9k
-cml2ZXJzL2RtYS1idWYvZG1hLWJ1Zi5jCj4gQEAgLTExMTgsNiArMTExOCw4IEBAIGludCBkbWFf
-YnVmX2JlZ2luX2NwdV9hY2Nlc3Moc3RydWN0IGRtYV9idWYgKmRtYWJ1ZiwKPiAgIAlpZiAoV0FS
-Tl9PTighZG1hYnVmKSkKPiAgIAkJcmV0dXJuIC1FSU5WQUw7Cj4gICAKPiArCW1pZ2h0X2xvY2so
-JmRtYV9idWYtPnJlc3YubG9jayk7Cj4gKwo+ICAgCWlmIChkbWFidWYtPm9wcy0+YmVnaW5fY3B1
-X2FjY2VzcykKPiAgIAkJcmV0ID0gZG1hYnVmLT5vcHMtPmJlZ2luX2NwdV9hY2Nlc3MoZG1hYnVm
-LCBkaXJlY3Rpb24pOwo+ICAgCj4gQEAgLTExNTEsNiArMTE1Myw4IEBAIGludCBkbWFfYnVmX2Vu
-ZF9jcHVfYWNjZXNzKHN0cnVjdCBkbWFfYnVmICpkbWFidWYsCj4gICAKPiAgIAlXQVJOX09OKCFk
-bWFidWYpOwo+ICAgCj4gKwltaWdodF9sb2NrKCZkbWFfYnVmLT5yZXN2LmxvY2spOwo+ICsKPiAg
-IAlpZiAoZG1hYnVmLT5vcHMtPmVuZF9jcHVfYWNjZXNzKQo+ICAgCQlyZXQgPSBkbWFidWYtPm9w
-cy0+ZW5kX2NwdV9hY2Nlc3MoZG1hYnVmLCBkaXJlY3Rpb24pOwo+ICAgCgpfX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpJbnRlbC1nZnggbWFpbGluZyBsaXN0
-CkludGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
-cC5vcmcvbWFpbG1hbi9saXN0aW5mby9pbnRlbC1nZngK
+Oversaturate the virtual engines on the system and check that each
+workload receives a fair share of the available GPU time.
+
+Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+---
+ tests/i915/gem_exec_balancer.c | 154 +++++++++++++++++++++++++++++++++
+ 1 file changed, 154 insertions(+)
+
+diff --git a/tests/i915/gem_exec_balancer.c b/tests/i915/gem_exec_balancer.c
+index 35a032ccb..5efd586ad 100644
+--- a/tests/i915/gem_exec_balancer.c
++++ b/tests/i915/gem_exec_balancer.c
+@@ -2763,6 +2763,157 @@ static void smoketest(int i915, int timeout)
+ 	gem_close(i915, batch[0].handle);
+ }
+ 
++static uint32_t read_ctx_timestamp(int i915, uint32_t ctx)
++{
++	struct drm_i915_gem_relocation_entry reloc;
++	struct drm_i915_gem_exec_object2 obj = {
++		.handle = gem_create(i915, 4096),
++		.offset = 32 << 20,
++		.relocs_ptr = to_user_pointer(&reloc),
++		.relocation_count = 1,
++	};
++	struct drm_i915_gem_execbuffer2 execbuf = {
++		.buffers_ptr = to_user_pointer(&obj),
++		.buffer_count = 1,
++		.rsvd1 = ctx,
++	};
++	uint32_t *map, *cs;
++	uint32_t ts;
++
++	cs = map = gem_mmap__device_coherent(i915, obj.handle,
++					     0, 4096, PROT_WRITE);
++
++	*cs++ = 0x24 << 23 | 1 << 19 | 2; /* relative SRM */
++	*cs++ = 0x3a8; /* CTX_TIMESTAMP */
++	memset(&reloc, 0, sizeof(reloc));
++	reloc.target_handle = obj.handle;
++	reloc.presumed_offset = obj.offset;
++	reloc.offset = offset_in_page(cs);
++	reloc.delta = 4000;
++	*cs++ = obj.offset + 4000;
++	*cs++ = obj.offset >> 32;
++
++	*cs++ = MI_BATCH_BUFFER_END;
++
++	gem_execbuf(i915, &execbuf);
++	gem_sync(i915, obj.handle);
++	gem_close(i915, obj.handle);
++
++	ts = map[1000];
++	munmap(map, 4096);
++
++	return ts;
++}
++
++static int cmp_u32(const void *A, const void *B)
++{
++	const uint32_t *a = A, *b = B;
++
++	if (*a < *b)
++		return -1;
++	else if (*a > *b)
++		return 1;
++	else
++		return 0;
++}
++
++static int read_ctx_timestamp_frequency(int i915)
++{
++	int value = 12500000; /* icl!!! are you feeling alright? CTX vs CS */
++	drm_i915_getparam_t gp = {
++		.value = &value,
++		.param = I915_PARAM_CS_TIMESTAMP_FREQUENCY,
++	};
++	if (intel_gen(intel_get_drm_devid(i915)) != 11)
++		ioctl(i915, DRM_IOCTL_I915_GETPARAM, &gp);
++	return value;
++}
++
++static uint64_t div64_u64_round_up(uint64_t x, uint64_t y)
++{
++	return (x + y - 1) / y;
++}
++
++static uint64_t ticks_to_ns(int i915, uint64_t ticks)
++{
++	return div64_u64_round_up(ticks * NSEC_PER_SEC,
++				  read_ctx_timestamp_frequency(i915));
++}
++
++static void __fairslice(int i915,
++			const struct i915_engine_class_instance *ci,
++			unsigned int count)
++{
++	igt_spin_t *spin = NULL;
++	uint32_t ctx[count + 1];
++	uint32_t ts[count + 1];
++
++	igt_debug("Launching %zd spinners on %s\n",
++		  ARRAY_SIZE(ctx), class_to_str(ci->engine_class));
++	igt_assert(ARRAY_SIZE(ctx) >= 3);
++
++	for (int i = 0; i < ARRAY_SIZE(ctx); i++) {
++		ctx[i] = load_balancer_create(i915, ci, count);
++		if (spin == NULL) {
++			spin = __igt_spin_new(i915, .ctx = ctx[i]);
++		} else {
++			struct drm_i915_gem_execbuffer2 eb = {
++				.buffer_count = 1,
++				.buffers_ptr = to_user_pointer(&spin->obj[IGT_SPIN_BATCH]),
++				.rsvd1 = ctx[i],
++			};
++			gem_execbuf(i915, &eb);
++		}
++	}
++
++	sleep(2); /* over the course of many timeslices */
++
++	igt_assert(gem_bo_busy(i915, spin->handle));
++	igt_spin_end(spin);
++	igt_debug("Cancelled spinners\n");
++
++	for (int i = 0; i < ARRAY_SIZE(ctx); i++)
++		ts[i] = read_ctx_timestamp(i915, ctx[i]);
++
++	for (int i = 0; i < ARRAY_SIZE(ctx); i++)
++		gem_context_destroy(i915, ctx[i]);
++	igt_spin_free(i915, spin);
++
++	qsort(ts, ARRAY_SIZE(ctx), sizeof(*ts), cmp_u32);
++	igt_info("%s: [%.1f, %.1f, %.1f] ms, expect %1.fms\n",
++		 class_to_str(ci->engine_class),
++		 1e-6 * ticks_to_ns(i915, ts[0]),
++		 1e-6 * ticks_to_ns(i915, ts[(count + 1) / 2]),
++		 1e-6 * ticks_to_ns(i915, ts[count]),
++		 2e3 * count / ARRAY_SIZE(ctx));
++
++	igt_assert_f(ts[count], "CTX_TIMESTAMP not reported!\n");
++	igt_assert_f((ts[count] - ts[0]) * 6 < ts[(count + 1) / 2],
++		     "Range of timeslices greater than tolerable: %.2fms > %.2fms; unfair!\n",
++		     1e-6 * ticks_to_ns(i915, ts[count] - ts[0]),
++		     1e-6 * ticks_to_ns(i915, ts[(count  + 1) / 2]) / 6);
++}
++
++static void fairslice(int i915)
++{
++	/* Relative CS mmio */
++	igt_require(intel_gen(intel_get_drm_devid(i915)) >= 11);
++
++	for (int class = 0; class < 32; class++) {
++		struct i915_engine_class_instance *ci;
++		unsigned int count = 0;
++
++		ci = list_engines(i915, 1u << class, &count);
++		if (!ci || count < 2) {
++			free(ci);
++			continue;
++		}
++
++		__fairslice(i915, ci, count);
++		free(ci);
++	}
++}
++
+ static bool has_context_engines(int i915)
+ {
+ 	struct drm_i915_gem_context_param p = {
+@@ -2848,6 +2999,9 @@ igt_main
+ 				full(i915, p->flags);
+ 	}
+ 
++	igt_subtest("fairslice")
++		fairslice(i915);
++
+ 	igt_subtest("nop")
+ 		nop(i915);
+ 
+-- 
+2.29.2
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
