@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1CF5AC2BB48
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A8A4DC2BB40
 	for <intel-gfx@archiver.kernel.org>; Mon, 14 Dec 2020 10:10:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C37E7225A9
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Dec 2020 10:10:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C37E7225A9
+	by mail.kernel.org (Postfix) with ESMTPS id 62F66225A9
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Dec 2020 10:10:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 62F66225A9
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 466416E161;
-	Mon, 14 Dec 2020 10:10:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D8696E218;
+	Mon, 14 Dec 2020 10:10:06 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E39156E153
- for <intel-gfx@lists.freedesktop.org>; Mon, 14 Dec 2020 10:10:02 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 03D2F6E176
+ for <intel-gfx@lists.freedesktop.org>; Mon, 14 Dec 2020 10:10:03 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23317853-1500050 
- for multiple; Mon, 14 Dec 2020 10:09:59 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23317838-1500050 
+ for multiple; Mon, 14 Dec 2020 10:09:57 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 14 Dec 2020 10:09:39 +0000
-Message-Id: <20201214100949.11387-59-chris@chris-wilson.co.uk>
+Date: Mon, 14 Dec 2020 10:09:31 +0000
+Message-Id: <20201214100949.11387-51-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201214100949.11387-1-chris@chris-wilson.co.uk>
 References: <20201214100949.11387-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 59/69] Restore "drm/i915: drop
- engine_pin/unpin_breadcrumbs_irq"
+Subject: [Intel-gfx] [PATCH 51/69] drm/i915: Wrap cmpxchg64 with
+ try_cmpxchg64() helper
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,60 +56,38 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This was removed in commit 478ffad6d690 ("drm/i915: drop
-engine_pin/unpin_breadcrumbs_irq") as the last user had been removed,
-but now there is a promise of a new user in the next patch.
+Wrap cmpxchg64 with a try_cmpxchg()-esque helper. Hiding the old-value
+dance in the helper allows for cleaner code.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-Reviewed-by: Mika Kuoppala <mika.kuoppala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_breadcrumbs.c | 18 ++++++++++++++++++
- drivers/gpu/drm/i915/gt/intel_breadcrumbs.h |  3 +++
- 2 files changed, 21 insertions(+)
+ drivers/gpu/drm/i915/i915_utils.h | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-index ac1e5f6c3c2c..97bcfb957f3d 100644
---- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-@@ -334,6 +334,24 @@ void intel_breadcrumbs_reset(struct intel_breadcrumbs *b)
- 	spin_unlock_irqrestore(&b->irq_lock, flags);
- }
+diff --git a/drivers/gpu/drm/i915/i915_utils.h b/drivers/gpu/drm/i915/i915_utils.h
+index 54773371e6bd..0b5588e59740 100644
+--- a/drivers/gpu/drm/i915/i915_utils.h
++++ b/drivers/gpu/drm/i915/i915_utils.h
+@@ -456,4 +456,19 @@ static inline bool timer_expired(const struct timer_list *t)
+  */
+ #define IS_ACTIVE(config) ((config) != 0)
  
-+void intel_breadcrumbs_pin_irq(struct intel_breadcrumbs *b)
-+{
-+	spin_lock_irq(&b->irq_lock);
-+	if (!b->irq_enabled++)
-+		irq_enable(b->irq_engine);
-+	GEM_BUG_ON(!b->irq_enabled); /* no overflow! */
-+	spin_unlock_irq(&b->irq_lock);
-+}
++#if IS_ENABLED(CONFIG_64BIT)
++#define try_cmpxchg64(_ptr, _pold, _new) try_cmpxchg(_ptr, _pold, _new)
++#else
++#define try_cmpxchg64(_ptr, _pold, _new)				\
++({									\
++	__typeof__(_ptr) _old = (__typeof__(_ptr))(_pold);		\
++	__typeof__(*(_ptr)) __old = *_old;				\
++	__typeof__(*(_ptr)) __cur = cmpxchg64(_ptr, __old, _new);	\
++	bool success = __cur == __old;					\
++	if (unlikely(!success))						\
++		*_old = __cur;						\
++	likely(success);						\
++})
++#endif
 +
-+void intel_breadcrumbs_unpin_irq(struct intel_breadcrumbs *b)
-+{
-+	spin_lock_irq(&b->irq_lock);
-+	GEM_BUG_ON(!b->irq_enabled); /* no underflow! */
-+	if (!--b->irq_enabled)
-+		irq_disable(b->irq_engine);
-+	spin_unlock_irq(&b->irq_lock);
-+}
-+
- void intel_breadcrumbs_park(struct intel_breadcrumbs *b)
- {
- 	/* Kick the work once more to drain the signalers */
-diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.h b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.h
-index ed3d1deabfbd..94400903e1d0 100644
---- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.h
-+++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.h
-@@ -18,6 +18,9 @@ struct intel_breadcrumbs *
- intel_breadcrumbs_create(struct intel_engine_cs *irq_engine);
- void intel_breadcrumbs_free(struct intel_breadcrumbs *b);
- 
-+void intel_breadcrumbs_pin_irq(struct intel_breadcrumbs *b);
-+void intel_breadcrumbs_unpin_irq(struct intel_breadcrumbs *b);
-+
- void intel_breadcrumbs_reset(struct intel_breadcrumbs *b);
- void intel_breadcrumbs_park(struct intel_breadcrumbs *b);
- 
+ #endif /* !__I915_UTILS_H */
 -- 
 2.20.1
 
