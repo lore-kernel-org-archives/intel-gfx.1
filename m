@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 776FBC4361B
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Dec 2020 10:10:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 22698C1B0D8
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Dec 2020 10:10:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2978C22ADC
+	by mail.kernel.org (Postfix) with ESMTPS id CD8B622ADC
 	for <intel-gfx@archiver.kernel.org>; Mon, 14 Dec 2020 10:10:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2978C22ADC
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CD8B622ADC
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B4CE96E28A;
-	Mon, 14 Dec 2020 10:10:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 604BA6E20C;
+	Mon, 14 Dec 2020 10:10:25 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE07E6E20C
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CDC956E212
  for <intel-gfx@lists.freedesktop.org>; Mon, 14 Dec 2020 10:10:06 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23317798-1500050 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23317795-1500050 
  for multiple; Mon, 14 Dec 2020 10:09:53 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 14 Dec 2020 10:09:07 +0000
-Message-Id: <20201214100949.11387-27-chris@chris-wilson.co.uk>
+Date: Mon, 14 Dec 2020 10:09:04 +0000
+Message-Id: <20201214100949.11387-24-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201214100949.11387-1-chris@chris-wilson.co.uk>
 References: <20201214100949.11387-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 27/69] drm/i915: Drop i915_request.lock
- requirement for intel_rps_boost()
+Subject: [Intel-gfx] [PATCH 24/69] drm/i915/gt: Prefer recycling an idle
+ fence
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,69 +56,54 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Since we use a flag within i915_request.flags to indicate when we have
-boosted the request (so that we only apply the boost) once, this can be
-used as the serialisation with i915_request_retire() to avoid having to
-explicitly take the i915_request.lock which is more heavily contended.
+If we want to reuse a fence that is in active use by the GPU, we have to
+wait an uncertain amount of time, but if we reuse an inactive fence, we
+can change it right away. Loop through the list of available fences
+twice, ignoring any active fences on the first pass.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 ---
- drivers/gpu/drm/i915/gt/intel_rps.c | 15 ++++++---------
- drivers/gpu/drm/i915/i915_request.c |  4 +---
- 2 files changed, 7 insertions(+), 12 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_ggtt_fencing.c | 22 ++++++++++++++++++--
+ 1 file changed, 20 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_rps.c b/drivers/gpu/drm/i915/gt/intel_rps.c
-index f74d5e09e176..e1397b8d3586 100644
---- a/drivers/gpu/drm/i915/gt/intel_rps.c
-+++ b/drivers/gpu/drm/i915/gt/intel_rps.c
-@@ -917,17 +917,15 @@ void intel_rps_park(struct intel_rps *rps)
- 
- void intel_rps_boost(struct i915_request *rq)
- {
--	struct intel_rps *rps = &READ_ONCE(rq->engine)->gt->rps;
--	unsigned long flags;
--
--	if (i915_request_signaled(rq) || !intel_rps_is_active(rps))
-+	if (i915_request_signaled(rq) || i915_request_has_waitboost(rq))
- 		return;
- 
- 	/* Serializes with i915_request_retire() */
--	spin_lock_irqsave(&rq->lock, flags);
--	if (!i915_request_has_waitboost(rq) &&
--	    !dma_fence_is_signaled_locked(&rq->fence)) {
--		set_bit(I915_FENCE_FLAG_BOOST, &rq->fence.flags);
-+	if (!test_and_set_bit(I915_FENCE_FLAG_BOOST, &rq->fence.flags)) {
-+		struct intel_rps *rps = &READ_ONCE(rq->engine)->gt->rps;
-+
-+		if (!intel_rps_is_active(rps))
-+			return;
- 
- 		GT_TRACE(rps_to_gt(rps), "boost fence:%llx:%llx\n",
- 			 rq->fence.context, rq->fence.seqno);
-@@ -938,7 +936,6 @@ void intel_rps_boost(struct i915_request *rq)
- 
- 		atomic_inc(&rps->boosts);
- 	}
--	spin_unlock_irqrestore(&rq->lock, flags);
+diff --git a/drivers/gpu/drm/i915/gt/intel_ggtt_fencing.c b/drivers/gpu/drm/i915/gt/intel_ggtt_fencing.c
+index 7fb36b12fe7a..a357bb431815 100644
+--- a/drivers/gpu/drm/i915/gt/intel_ggtt_fencing.c
++++ b/drivers/gpu/drm/i915/gt/intel_ggtt_fencing.c
+@@ -320,13 +320,31 @@ void i915_vma_revoke_fence(struct i915_vma *vma)
+ 		fence_write(fence);
  }
  
- int intel_rps_set(struct intel_rps *rps, u8 val)
-diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
-index 87f59931f2ba..4d886b3c9cd7 100644
---- a/drivers/gpu/drm/i915/i915_request.c
-+++ b/drivers/gpu/drm/i915/i915_request.c
-@@ -306,10 +306,8 @@ bool i915_request_retire(struct i915_request *rq)
- 		spin_unlock_irq(&rq->lock);
- 	}
++static bool fence_is_active(const struct i915_fence_reg *fence)
++{
++	return fence->vma && i915_vma_is_active(fence->vma);
++}
++
+ static struct i915_fence_reg *fence_find(struct i915_ggtt *ggtt)
+ {
+-	struct i915_fence_reg *fence;
++	struct i915_fence_reg *active = NULL;
++	struct i915_fence_reg *fence, *fn;
  
--	if (i915_request_has_waitboost(rq)) {
--		GEM_BUG_ON(!atomic_read(&rq->engine->gt->rps.num_waiters));
-+	if (test_and_set_bit(I915_FENCE_FLAG_BOOST, &rq->fence.flags))
- 		atomic_dec(&rq->engine->gt->rps.num_waiters);
--	}
+-	list_for_each_entry(fence, &ggtt->fence_list, link) {
++	list_for_each_entry_safe(fence, fn, &ggtt->fence_list, link) {
+ 		GEM_BUG_ON(fence->vma && fence->vma->fence != fence);
  
- 	/*
- 	 * We only loosely track inflight requests across preemption,
++		if (fence == active) /* now seen this fence twice */
++			active = ERR_PTR(-EAGAIN);
++
++		/* Prefer idle fences so we do not have to wait on the GPU */
++		if (active != ERR_PTR(-EAGAIN) && fence_is_active(fence)) {
++			if (!active)
++				active = fence;
++
++			list_move_tail(&fence->link, &ggtt->fence_list);
++			continue;
++		}
++
+ 		if (atomic_read(&fence->pin_count))
+ 			continue;
+ 
 -- 
 2.20.1
 
