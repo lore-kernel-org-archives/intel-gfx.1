@@ -6,36 +6,36 @@ X-Spam-Status: No, score=-3.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D9EC9C4361B
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Dec 2020 07:17:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EA4BBC4361B
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Dec 2020 07:19:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4B45B22597
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Dec 2020 07:17:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4B45B22597
+	by mail.kernel.org (Postfix) with ESMTPS id A050C22597
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Dec 2020 07:19:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A050C22597
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF37F6E04E;
-	Mon, 14 Dec 2020 07:17:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F47588249;
+	Mon, 14 Dec 2020 07:19:38 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
  [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id B8FBA6E04E;
- Mon, 14 Dec 2020 07:17:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 49DF06E04E;
+ Mon, 14 Dec 2020 07:19:36 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id B3FECA0094;
- Mon, 14 Dec 2020 07:17:57 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id 47E6FA0094;
+ Mon, 14 Dec 2020 07:19:36 +0000 (UTC)
 MIME-Version: 1.0
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Xiong Zhang" <xiong.y.zhang@intel.com>
-Date: Mon, 14 Dec 2020 07:17:57 -0000
-Message-ID: <160793027773.28166.14911191791428013283@emeril.freedesktop.org>
+Date: Mon, 14 Dec 2020 07:19:36 -0000
+Message-ID: <160793037629.28163.3135436538881981223@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <20201214070113.16177-1-xiong.y.zhang@intel.com>
 In-Reply-To: <20201214070113.16177-1-xiong.y.zhang@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_drm/i915=3A_Try_to_guess_PCH_type_even_without_ISA_bridge?=
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?drm/i915=3A_Try_to_guess_PCH_type_even_without_ISA_bridge?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,20 +63,10 @@ State : warning
 
 == Summary ==
 
-$ dim checkpatch origin/drm-tip
-17c226d01ecc drm/i915: Try to guess PCH type even without ISA bridge
--:93: CHECK:BRACES: braces {} should be used on all arms of this statement
-#93: FILE: drivers/gpu/drm/i915/intel_pch.c:258:
-+		if (run_as_guest()) {
-[...]
-+		} else
-[...]
-
--:96: CHECK:BRACES: Unbalanced braces around else statement
-#96: FILE: drivers/gpu/drm/i915/intel_pch.c:261:
-+		} else
-
-total: 0 errors, 0 warnings, 2 checks, 74 lines checked
+$ dim sparse --fast origin/drm-tip
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
++drivers/gpu/drm/i915/intel_pch.c:187:6: warning: symbol 'intel_detect_pch_virt' was not declared. Should it be static?
 
 
 _______________________________________________
