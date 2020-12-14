@@ -6,37 +6,37 @@ X-Spam-Status: No, score=-3.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 835A2C2BB48
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Dec 2020 14:57:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0E159C4361B
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Dec 2020 15:02:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EC63C22B40
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Dec 2020 14:57:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EC63C22B40
+	by mail.kernel.org (Postfix) with ESMTPS id 4CDBE2253A
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Dec 2020 15:02:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4CDBE2253A
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BFDCF6E2BC;
-	Mon, 14 Dec 2020 14:57:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8215D6E2B6;
+	Mon, 14 Dec 2020 15:02:41 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
  [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 990466E2B8;
- Mon, 14 Dec 2020 14:57:43 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id E3A8C6E22B;
+ Mon, 14 Dec 2020 15:02:39 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 8D13BA008A;
- Mon, 14 Dec 2020 14:57:43 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id D2854AA912;
+ Mon, 14 Dec 2020 15:02:39 +0000 (UTC)
 MIME-Version: 1.0
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Chris Wilson" <chris@chris-wilson.co.uk>
-Date: Mon, 14 Dec 2020 14:57:43 -0000
-Message-ID: <160795786354.28164.6779861443334349483@emeril.freedesktop.org>
+Date: Mon, 14 Dec 2020 15:02:39 -0000
+Message-ID: <160795815983.28166.2334261013390098172@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <20201214123126.9777-1-chris@chris-wilson.co.uk>
 In-Reply-To: <20201214123126.9777-1-chris@chris-wilson.co.uk>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_series_starting_with_=5B1/2=5D_drm/i915=3A_Individual_reque?=
- =?utf-8?q?st_cancellation?=
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkRPQ1M6IHdhcm5pbmcgZm9yIHNl?=
+ =?utf-8?q?ries_starting_with_=5B1/2=5D_drm/i915=3A_Individual_request_can?=
+ =?utf-8?q?cellation?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,32 +64,9 @@ State : warning
 
 == Summary ==
 
-$ dim checkpatch origin/drm-tip
-27629d7496f4 drm/i915: Individual request cancellation
--:318: CHECK:LINE_SPACING: Please don't use multiple blank lines
-#318: FILE: drivers/gpu/drm/i915/selftests/i915_request.c:742:
-+
-+
-
-total: 0 errors, 0 warnings, 1 checks, 323 lines checked
-823a8e9dc249 drm/i915/gem: Allow cancelling an individual fence
--:25: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
-#25: 
-new file mode 100644
-
--:128: WARNING:LONG_LINE: line length of 116 exceeds 100 columns
-#128: FILE: include/uapi/drm/i915_drm.h:426:
-+#define DRM_IOCTL_I915_GEM_CANCEL	DRM_IOW (DRM_COMMAND_BASE + DRM_I915_GEM_CANCEL, struct drm_i915_gem_cancel)
-
--:128: WARNING:SPACING: space prohibited between function name and open parenthesis '('
-#128: FILE: include/uapi/drm/i915_drm.h:426:
-+#define DRM_IOCTL_I915_GEM_CANCEL	DRM_IOW (DRM_COMMAND_BASE + DRM_I915_GEM_CANCEL, struct drm_i915_gem_cancel)
-
--:128: ERROR:COMPLEX_MACRO: Macros with complex values should be enclosed in parentheses
-#128: FILE: include/uapi/drm/i915_drm.h:426:
-+#define DRM_IOCTL_I915_GEM_CANCEL	DRM_IOW (DRM_COMMAND_BASE + DRM_I915_GEM_CANCEL, struct drm_i915_gem_cancel)
-
-total: 1 errors, 3 warnings, 0 checks, 105 lines checked
+$ make htmldocs 2>&1 > /dev/null | grep i915
+Error: Cannot open file ./drivers/gpu/drm/i915/gt/intel_lrc.c
+WARNING: kernel-doc './scripts/kernel-doc -rst -enable-lineno -sphinx-version 1.7.9 -function Logical Rings, Logical Ring Contexts and Execlists ./drivers/gpu/drm/i915/gt/intel_lrc.c' failed with return code 1
 
 
 _______________________________________________
