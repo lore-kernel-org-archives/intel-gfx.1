@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B2A4EC4361B
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Dec 2020 10:10:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 78BB4C2BB48
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Dec 2020 10:10:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 711B0225A9
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Dec 2020 10:10:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 711B0225A9
+	by mail.kernel.org (Postfix) with ESMTPS id 2BC29225A9
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Dec 2020 10:10:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2BC29225A9
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 00FF46E207;
-	Mon, 14 Dec 2020 10:10:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B537F6E169;
+	Mon, 14 Dec 2020 10:10:21 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 58E5D6E204
- for <intel-gfx@lists.freedesktop.org>; Mon, 14 Dec 2020 10:10:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 70E466E241
+ for <intel-gfx@lists.freedesktop.org>; Mon, 14 Dec 2020 10:10:07 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23317801-1500050 
- for multiple; Mon, 14 Dec 2020 10:09:54 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23317774-1500050 
+ for multiple; Mon, 14 Dec 2020 10:09:50 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 14 Dec 2020 10:09:10 +0000
-Message-Id: <20201214100949.11387-30-chris@chris-wilson.co.uk>
+Date: Mon, 14 Dec 2020 10:08:46 +0000
+Message-Id: <20201214100949.11387-6-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201214100949.11387-1-chris@chris-wilson.co.uk>
 References: <20201214100949.11387-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 30/69] drm/i915: Reduce test_and_set_bit to
- set_bit in i915_request_submit()
+Subject: [Intel-gfx] [PATCH 06/69] drm/i915/gt: Decouple inflight virtual
+ engines
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,48 +56,103 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Avoid the full blown memory barrier of test_and_set_bit() by noting the
-completed request and removing it from the lists.
+Once a virtual engine has been bound to a sibling, it will remain bound
+until we finally schedule out the last active request. We can not rebind
+the context to a new sibling while it is inflight as the context save
+will conflict, hence we wait. As we cannot then use any other sibliing
+while the context is inflight, only kick the bound sibling while it
+inflight and upon scheduling out the kick the rest (so that we can swap
+engines on timeslicing if the previously bound engine becomes
+oversubscribed).
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 ---
- drivers/gpu/drm/i915/i915_request.c | 16 +++++++++-------
- 1 file changed, 9 insertions(+), 7 deletions(-)
+ .../drm/i915/gt/intel_execlists_submission.c  | 28 ++++++++-----------
+ 1 file changed, 12 insertions(+), 16 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
-index 4d886b3c9cd7..2a2ec95fed5f 100644
---- a/drivers/gpu/drm/i915/i915_request.c
-+++ b/drivers/gpu/drm/i915/i915_request.c
-@@ -538,8 +538,10 @@ bool __i915_request_submit(struct i915_request *request)
- 	 * dropped upon retiring. (Otherwise if resubmit a *retired*
- 	 * request, this would be a horrible use-after-free.)
- 	 */
--	if (i915_request_completed(request))
--		goto xfer;
-+	if (i915_request_completed(request)) {
-+		list_del_init(&request->sched.link);
-+		goto active;
-+	}
+diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+index 8e83e60492af..174c3f5f2e81 100644
+--- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
++++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+@@ -1359,9 +1359,8 @@ static inline void execlists_schedule_in(struct i915_request *rq, int idx)
+ static void kick_siblings(struct i915_request *rq, struct intel_context *ce)
+ {
+ 	struct virtual_engine *ve = container_of(ce, typeof(*ve), context);
+-	struct i915_request *next = READ_ONCE(ve->request);
  
- 	if (unlikely(intel_context_is_closed(request->context) &&
- 		     !intel_engine_has_heartbeat(engine)))
-@@ -578,11 +580,11 @@ bool __i915_request_submit(struct i915_request *request)
- 	engine->serial++;
- 	result = true;
+-	if (next == rq || (next && next->execution_mask & ~rq->execution_mask))
++	if (READ_ONCE(ve->request))
+ 		tasklet_hi_schedule(&ve->base.execlists.tasklet);
+ }
  
--xfer:
--	if (!test_and_set_bit(I915_FENCE_FLAG_ACTIVE, &request->fence.flags)) {
--		list_move_tail(&request->sched.link, &engine->active.requests);
--		clear_bit(I915_FENCE_FLAG_PQUEUE, &request->fence.flags);
--	}
-+	GEM_BUG_ON(test_bit(I915_FENCE_FLAG_ACTIVE, &request->fence.flags));
-+	list_move_tail(&request->sched.link, &engine->active.requests);
-+active:
-+	clear_bit(I915_FENCE_FLAG_PQUEUE, &request->fence.flags);
-+	set_bit(I915_FENCE_FLAG_ACTIVE, &request->fence.flags);
+@@ -1781,17 +1780,13 @@ first_virtual_engine(struct intel_engine_cs *engine)
+ 		struct i915_request *rq = READ_ONCE(ve->request);
  
- 	/*
- 	 * XXX Rollback bonded-execution on __i915_request_unsubmit()?
+ 		/* lazily cleanup after another engine handled rq */
+-		if (!rq) {
++		if (!rq || !virtual_matches(ve, rq, engine)) {
+ 			rb_erase_cached(rb, &el->virtual);
+ 			RB_CLEAR_NODE(rb);
+ 			rb = rb_first_cached(&el->virtual);
+ 			continue;
+ 		}
+ 
+-		if (!virtual_matches(ve, rq, engine)) {
+-			rb = rb_next(rb);
+-			continue;
+-		}
+ 		return ve;
+ 	}
+ 
+@@ -4968,7 +4963,6 @@ static void virtual_submission_tasklet(unsigned long data)
+ 	if (unlikely(!mask))
+ 		return;
+ 
+-	local_irq_disable();
+ 	for (n = 0; n < ve->num_siblings; n++) {
+ 		struct intel_engine_cs *sibling = READ_ONCE(ve->siblings[n]);
+ 		struct ve_node * const node = &ve->nodes[sibling->id];
+@@ -4978,20 +4972,19 @@ static void virtual_submission_tasklet(unsigned long data)
+ 		if (!READ_ONCE(ve->request))
+ 			break; /* already handled by a sibling's tasklet */
+ 
++		spin_lock_irq(&sibling->active.lock);
++
+ 		if (unlikely(!(mask & sibling->mask))) {
+ 			if (!RB_EMPTY_NODE(&node->rb)) {
+-				spin_lock(&sibling->active.lock);
+ 				rb_erase_cached(&node->rb,
+ 						&sibling->execlists.virtual);
+ 				RB_CLEAR_NODE(&node->rb);
+-				spin_unlock(&sibling->active.lock);
+ 			}
+-			continue;
+-		}
+ 
+-		spin_lock(&sibling->active.lock);
++			goto unlock_engine;
++		}
+ 
+-		if (!RB_EMPTY_NODE(&node->rb)) {
++		if (unlikely(!RB_EMPTY_NODE(&node->rb))) {
+ 			/*
+ 			 * Cheat and avoid rebalancing the tree if we can
+ 			 * reuse this node in situ.
+@@ -5031,9 +5024,12 @@ static void virtual_submission_tasklet(unsigned long data)
+ 		if (first && prio > sibling->execlists.queue_priority_hint)
+ 			tasklet_hi_schedule(&sibling->execlists.tasklet);
+ 
+-		spin_unlock(&sibling->active.lock);
++unlock_engine:
++		spin_unlock_irq(&sibling->active.lock);
++
++		if (intel_context_inflight(&ve->context))
++			break;
+ 	}
+-	local_irq_enable();
+ }
+ 
+ static void virtual_submit_request(struct i915_request *rq)
 -- 
 2.20.1
 
