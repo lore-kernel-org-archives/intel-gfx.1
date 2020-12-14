@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7A042C4361B
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Dec 2020 10:10:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 65170C1B0D8
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Dec 2020 10:10:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 08ABD225A9
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Dec 2020 10:10:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 08ABD225A9
+	by mail.kernel.org (Postfix) with ESMTPS id BF526225A9
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Dec 2020 10:10:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BF526225A9
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A5156E284;
-	Mon, 14 Dec 2020 10:10:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C0E9C6E2BC;
+	Mon, 14 Dec 2020 10:10:08 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1C2536E161
- for <intel-gfx@lists.freedesktop.org>; Mon, 14 Dec 2020 10:10:02 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 21EAE6E153
+ for <intel-gfx@lists.freedesktop.org>; Mon, 14 Dec 2020 10:10:00 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23317867-1500050 
- for multiple; Mon, 14 Dec 2020 10:10:00 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23317842-1500050 
+ for multiple; Mon, 14 Dec 2020 10:09:58 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 14 Dec 2020 10:09:44 +0000
-Message-Id: <20201214100949.11387-64-chris@chris-wilson.co.uk>
+Date: Mon, 14 Dec 2020 10:09:33 +0000
+Message-Id: <20201214100949.11387-53-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201214100949.11387-1-chris@chris-wilson.co.uk>
 References: <20201214100949.11387-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 64/69] drm/i915/gt: Enable busy-stats for
- ring-scheduler
+Subject: [Intel-gfx] [PATCH 53/69] drm/i915/gt: Specify a deadline for the
+ heartbeat
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,53 +56,55 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Couple up the context in/out accounting to record how long each engine
-is busy handling requests. This is exposed to userspace for more accurate
-measurements, and also enables our soft-rps timer.
+As we know when we expect the heartbeat to be checked for completion,
+pass this information along as its deadline. We still do not complain if
+the deadline is missed, at least until we have tried a few times, but it
+will allow for quicker hang detection on systems where deadlines are
+adhered to.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 ---
- drivers/gpu/drm/i915/gt/intel_ring_scheduler.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_ring_scheduler.c b/drivers/gpu/drm/i915/gt/intel_ring_scheduler.c
-index 775f21acd7a8..b9335196b0fa 100644
---- a/drivers/gpu/drm/i915/gt/intel_ring_scheduler.c
-+++ b/drivers/gpu/drm/i915/gt/intel_ring_scheduler.c
-@@ -11,6 +11,7 @@
- #include "intel_breadcrumbs.h"
- #include "intel_context.h"
- #include "intel_engine_pm.h"
-+#include "intel_engine_stats.h"
- #include "intel_gt.h"
- #include "intel_gt_pm.h"
- #include "intel_gt_requests.h"
-@@ -73,6 +74,8 @@ static struct intel_engine_cs *__schedule_in(struct i915_request *rq)
- 	if (engine->fw_domain && !engine->fw_active++)
- 		intel_uncore_forcewake_get(engine->uncore, engine->fw_domain);
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c b/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
+index 495e8d5e2bf4..0eb4a07b29b0 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
++++ b/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
+@@ -66,6 +66,16 @@ static void heartbeat_commit(struct i915_request *rq,
+ 	__i915_request_queue(rq, attr);
+ }
  
-+	intel_engine_context_in(engine);
++static void set_heartbeat_deadline(struct intel_engine_cs *engine,
++				   struct i915_request *rq)
++{
++	unsigned long interval;
 +
- 	CE_TRACE(ce, "schedule-in\n");
- 
- 	return engine;
-@@ -106,6 +109,8 @@ static void __schedule_out(struct i915_request *rq)
- 	else
- 		i915_request_update_deadline(list_next_entry(rq, link));
- 
-+	intel_engine_context_out(engine);
++	interval = READ_ONCE(engine->props.heartbeat_interval_ms);
++	if (interval)
++		i915_request_set_deadline(rq, ktime_get() + (interval << 20));
++}
 +
- 	if (engine->fw_domain && !--engine->fw_active)
- 		intel_uncore_forcewake_put(engine->uncore, engine->fw_domain);
- 	intel_gt_pm_put_async(engine->gt);
-@@ -809,6 +814,7 @@ int intel_ring_scheduler_setup(struct intel_engine_cs *engine)
+ static void show_heartbeat(const struct i915_request *rq,
+ 			   struct intel_engine_cs *engine)
+ {
+@@ -131,6 +141,8 @@ static void heartbeat(struct work_struct *wrk)
  
- 	engine->flags |= I915_ENGINE_HAS_SCHEDULER;
- 	engine->flags |= I915_ENGINE_NEEDS_BREADCRUMB_TASKLET;
-+	engine->flags |= I915_ENGINE_SUPPORTS_STATS;
+ 			local_bh_disable();
+ 			i915_request_set_priority(rq, attr.priority);
++			if (attr.priority == I915_PRIORITY_BARRIER)
++				i915_request_set_deadline(rq, 0);
+ 			local_bh_enable();
+ 		} else {
+ 			if (IS_ENABLED(CONFIG_DRM_I915_DEBUG_GEM))
+@@ -162,6 +174,7 @@ static void heartbeat(struct work_struct *wrk)
+ 	if (IS_ERR(rq))
+ 		goto unlock;
  
- 	/* Finally, take ownership and responsibility for cleanup! */
- 	engine->release = ring_release;
++	set_heartbeat_deadline(engine, rq);
+ 	heartbeat_commit(rq, &attr);
+ 
+ unlock:
 -- 
 2.20.1
 
