@@ -6,37 +6,38 @@ X-Spam-Status: No, score=-3.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 18251C4361B
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Dec 2020 16:28:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 87CA3C4361B
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Dec 2020 16:43:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 84EEC20656
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Dec 2020 16:27:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 84EEC20656
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id CF5B7224D1
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Dec 2020 16:43:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CF5B7224D1
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E43056E2D8;
-	Mon, 14 Dec 2020 16:27:58 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id D821689D57;
- Mon, 14 Dec 2020 16:27:57 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id D1E8AAA912;
- Mon, 14 Dec 2020 16:27:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 216FB89BE8;
+	Mon, 14 Dec 2020 16:43:49 +0000 (UTC)
+Received: from fireflyinternet.com (unknown [77.68.26.236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE72D89BE8;
+ Mon, 14 Dec 2020 16:43:46 +0000 (UTC)
+X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
+ x-ip-name=78.156.65.138; 
+Received: from localhost (unverified [78.156.65.138]) 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP (TLS) id
+ 23322814-1500050 for multiple; Mon, 14 Dec 2020 16:43:41 +0000
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: =?utf-8?b?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Date: Mon, 14 Dec 2020 16:27:57 -0000
-Message-ID: <160796327785.28166.11713361587498578501@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20201207203512.1718-1-ville.syrjala@linux.intel.com>
-In-Reply-To: <20201207203512.1718-1-ville.syrjala@linux.intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkRPQ1M6IHdhcm5pbmcgZm9yIHNl?=
- =?utf-8?q?ries_starting_with_=5B1/2=5D_drm/i915=3A_Fix_ICL_MG_PHY_vswing_?=
- =?utf-8?q?handling_=28rev2=29?=
+In-Reply-To: <5f0cb1c5-f925-8928-c450-a19d1547af8d@intel.com>
+References: <20201208170205.2039137-1-chris@chris-wilson.co.uk>
+ <5f0cb1c5-f925-8928-c450-a19d1547af8d@intel.com>
+From: Chris Wilson <chris@chris-wilson.co.uk>
+To: Matthew Auld <matthew.auld@intel.com>, intel-gfx@lists.freedesktop.org
+Date: Mon, 14 Dec 2020 16:43:42 +0000
+Message-ID: <160796422254.13039.11905877707215718456@build.alporthouse.com>
+User-Agent: alot/0.9
+Subject: Re: [Intel-gfx] [PATCH i-g-t] i915/gem_vm_create: Race vm-destroy
+ against object free
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,26 +50,49 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
+Cc: igt-dev@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+Quoting Matthew Auld (2020-12-14 15:52:06)
+> On 08/12/2020 17:02, Chris Wilson wrote:
+> > Matthew postulated that we should be able to hit a race in
+> > __i915_vm_close() between the RCU object free and vma unbind viz
+> > 
+> >    GEM_BUG_ON(!list_empty(&vm->bound_list));
+> > 
+> > due to the effect of leaving the vma on the list if we are unable to
+> > obtain the kref to the object. Let's try and find that race.
+> 
+> Hmm, what's the idea behind the bound_list stuff in __i915_vm_close(), 
+> from the looks of it vm->open is always > 0 anyway for the lifetime of 
+> the vm(?), so not sure if it's even possible to hit that path, at least 
+> for direct userspace interactions.
 
-Series: series starting with [1/2] drm/i915: Fix ICL MG PHY vswing handling (rev2)
-URL   : https://patchwork.freedesktop.org/series/84651/
-State : warning
+From userspace, the intent was to track vm->open. i.e. we could not
+close the whole vm as it was being used by execbuf. With the individual
+vma holding a reference to the vm to prevent it being freed while still
+active on the GPU.
 
-== Summary ==
+> I guess I was half expecting the 
+> vm_destroy ioctl or similar, to also call i915_vm_close() at some point, 
+> to match vm_create, and not just drop the vm ref.
 
-$ make htmldocs 2>&1 > /dev/null | grep i915
-Error: Cannot open file ./drivers/gpu/drm/i915/gt/intel_lrc.c
-WARNING: kernel-doc './scripts/kernel-doc -rst -enable-lineno -sphinx-version 1.7.9 -function Logical Rings, Logical Ring Contexts and Execlists ./drivers/gpu/drm/i915/gt/intel_lrc.c' failed with return code 1
+Right, each user vm_id is only a reference to a vm, and the user may
+have multiple vm_id to the same vm. So there's an ambiguity that
+prevents us from immediately closing the vm on destroy, and so just
+manage references instead.
 
+> So looks like 
+> __i915_vm_close() is only potentially interesting for kernel internal users?
 
+Hmm. There's a call to i915_vm_close from context_close (and on
+changing the context vm). And there definitely can be vma still bound at
+that point, and those vma still linked into the obj->vma_list. So I
+think the pruning is still relevant for GEM contexts.
+-Chris
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
