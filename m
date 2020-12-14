@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F1E85C1B0D8
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Dec 2020 10:11:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E835CC1B0E3
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Dec 2020 10:11:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B221C22ADC
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Dec 2020 10:11:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B221C22ADC
+	by mail.kernel.org (Postfix) with ESMTPS id 987DA22ADC
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Dec 2020 10:11:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 987DA22ADC
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3ACE16E425;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C640A6E436;
 	Mon, 14 Dec 2020 10:10:29 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 457316E222
- for <intel-gfx@lists.freedesktop.org>; Mon, 14 Dec 2020 10:10:07 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C53C06E210
+ for <intel-gfx@lists.freedesktop.org>; Mon, 14 Dec 2020 10:10:06 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23317779-1500050 
- for multiple; Mon, 14 Dec 2020 10:09:51 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23317796-1500050 
+ for multiple; Mon, 14 Dec 2020 10:09:53 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 14 Dec 2020 10:08:51 +0000
-Message-Id: <20201214100949.11387-11-chris@chris-wilson.co.uk>
+Date: Mon, 14 Dec 2020 10:09:05 +0000
+Message-Id: <20201214100949.11387-25-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201214100949.11387-1-chris@chris-wilson.co.uk>
 References: <20201214100949.11387-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 11/69] drm/i915/gt: Simplify virtual engine
- handling for execlists_hold()
+Subject: [Intel-gfx] [PATCH 25/69] drm/i915/gem: Optimistically prune
+ dma-resv from the shrinker.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,70 +51,71 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Chris Wilson <chris@chris-wilson.co.uk>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Now that the tasklet completely controls scheduling of the requests, and
-we postpone scheduling out the old requests, we can keep a hanging
-virtual request bound to the engine on which it hung, and remove it from
-te queue. On release, it will be returned to the same engine and remain
-in its queue until it is scheduled; after which point it will become
-eligible for transfer to a sibling. Instead, we could opt to resubmit the
-request along the virtual engine on unhold, making it eligible for load
-balancing immediately -- but that seems like a pointless optimisation
-for a hanging context.
-
-Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
----
- .../drm/i915/gt/intel_execlists_submission.c  | 29 -------------------
- 1 file changed, 29 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-index 26d704694c33..f021e0f4b24b 100644
---- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-+++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-@@ -2833,35 +2833,6 @@ static bool execlists_hold(struct intel_engine_cs *engine,
- 		goto unlock;
- 	}
- 
--	if (rq->engine != engine) { /* preempted virtual engine */
--		struct virtual_engine *ve = to_virtual_engine(rq->engine);
--
--		/*
--		 * intel_context_inflight() is only protected by virtue
--		 * of process_csb() being called only by the tasklet (or
--		 * directly from inside reset while the tasklet is suspended).
--		 * Assert that neither of those are allowed to run while we
--		 * poke at the request queues.
--		 */
--		GEM_BUG_ON(!reset_in_progress(&engine->execlists));
--
--		/*
--		 * An unsubmitted request along a virtual engine will
--		 * remain on the active (this) engine until we are able
--		 * to process the context switch away (and so mark the
--		 * context as no longer in flight). That cannot have happened
--		 * yet, otherwise we would not be hanging!
--		 */
--		spin_lock(&ve->base.active.lock);
--		GEM_BUG_ON(intel_context_inflight(rq->context) != engine);
--		GEM_BUG_ON(ve->request != rq);
--		ve->request = NULL;
--		spin_unlock(&ve->base.active.lock);
--		i915_request_put(rq);
--
--		rq->engine = engine;
--	}
--
- 	/*
- 	 * Transfer this request onto the hold queue to prevent it
- 	 * being resumbitted to HW (and potentially completed) before we have
--- 
-2.20.1
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+QXMgd2Ugc2hyaW5rIGFuIG9iamVjdCwgYWxzbyBzZWUgaWYgd2UgY2FuIHBydW5lIHRoZSBkbWEt
+cmVzdiBvZiBpZGxlCmZlbmNlcyBpdCBpcyBtYWludGFpbmluZyBhIHJlZmVyZW5jZSB0by4KClNp
+Z25lZC1vZmYtYnk6IENocmlzIFdpbHNvbiA8Y2hyaXNAY2hyaXMtd2lsc29uLmNvLnVrPgotLS0K
+IGRyaXZlcnMvZ3B1L2RybS9pOTE1L01ha2VmaWxlICAgICAgICAgICAgICAgIHwgIDEgKwogZHJp
+dmVycy9ncHUvZHJtL2k5MTUvZG1hX3Jlc3ZfdXRpbHMuYyAgICAgICAgfCAxNyArKysrKysrKysr
+KysrKysrKwogZHJpdmVycy9ncHUvZHJtL2k5MTUvZG1hX3Jlc3ZfdXRpbHMuaCAgICAgICAgfCAx
+MyArKysrKysrKysrKysrCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9nZW0vaTkxNV9nZW1fc2hyaW5r
+ZXIuYyB8ICAzICsrKwogZHJpdmVycy9ncHUvZHJtL2k5MTUvZ2VtL2k5MTVfZ2VtX3dhaXQuYyAg
+ICAgfCAgOCArKystLS0tLQogNSBmaWxlcyBjaGFuZ2VkLCAzNyBpbnNlcnRpb25zKCspLCA1IGRl
+bGV0aW9ucygtKQogY3JlYXRlIG1vZGUgMTAwNjQ0IGRyaXZlcnMvZ3B1L2RybS9pOTE1L2RtYV9y
+ZXN2X3V0aWxzLmMKIGNyZWF0ZSBtb2RlIDEwMDY0NCBkcml2ZXJzL2dwdS9kcm0vaTkxNS9kbWFf
+cmVzdl91dGlscy5oCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvTWFrZWZpbGUg
+Yi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9NYWtlZmlsZQppbmRleCBmOWVmNTE5OWIxMjQuLmYzMTkz
+MTFiZTkzZSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvTWFrZWZpbGUKKysrIGIv
+ZHJpdmVycy9ncHUvZHJtL2k5MTUvTWFrZWZpbGUKQEAgLTU4LDYgKzU4LDcgQEAgaTkxNS15ICs9
+IGk5MTVfZHJ2Lm8gXAogCiAjIGNvcmUgbGlicmFyeSBjb2RlCiBpOTE1LXkgKz0gXAorCWRtYV9y
+ZXN2X3V0aWxzLm8gXAogCWk5MTVfbWVtY3B5Lm8gXAogCWk5MTVfbW0ubyBcCiAJaTkxNV9zd19m
+ZW5jZS5vIFwKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2RtYV9yZXN2X3V0aWxz
+LmMgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kbWFfcmVzdl91dGlscy5jCm5ldyBmaWxlIG1vZGUg
+MTAwNjQ0CmluZGV4IDAwMDAwMDAwMDAwMC4uOWU1MDhlN2Q0NjI5Ci0tLSAvZGV2L251bGwKKysr
+IGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZG1hX3Jlc3ZfdXRpbHMuYwpAQCAtMCwwICsxLDE3IEBA
+CisvLyBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogTUlUCisvKgorICogQ29weXJpZ2h0IMKpIDIw
+MjAgSW50ZWwgQ29ycG9yYXRpb24KKyAqLworCisjaW5jbHVkZSA8bGludXgvZG1hLXJlc3YuaD4K
+KworI2luY2x1ZGUgImRtYV9yZXN2X3V0aWxzLmgiCisKK3ZvaWQgZG1hX3Jlc3ZfcHJ1bmUoc3Ry
+dWN0IGRtYV9yZXN2ICpyZXN2KQoreworCWlmIChkbWFfcmVzdl90cnlsb2NrKHJlc3YpKSB7CisJ
+CWlmIChkbWFfcmVzdl90ZXN0X3NpZ25hbGVkX3JjdShyZXN2LCB0cnVlKSkKKwkJCWRtYV9yZXN2
+X2FkZF9leGNsX2ZlbmNlKHJlc3YsIE5VTEwpOworCQlkbWFfcmVzdl91bmxvY2socmVzdik7CisJ
+fQorfQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZG1hX3Jlc3ZfdXRpbHMuaCBi
+L2RyaXZlcnMvZ3B1L2RybS9pOTE1L2RtYV9yZXN2X3V0aWxzLmgKbmV3IGZpbGUgbW9kZSAxMDA2
+NDQKaW5kZXggMDAwMDAwMDAwMDAwLi5iOWQ4ZmI1ZjgzNjcKLS0tIC9kZXYvbnVsbAorKysgYi9k
+cml2ZXJzL2dwdS9kcm0vaTkxNS9kbWFfcmVzdl91dGlscy5oCkBAIC0wLDAgKzEsMTMgQEAKKy8q
+IFNQRFgtTGljZW5zZS1JZGVudGlmaWVyOiBNSVQgKi8KKy8qCisgKiBDb3B5cmlnaHQgwqkgMjAy
+MCBJbnRlbCBDb3Jwb3JhdGlvbgorICovCisKKyNpZm5kZWYgRE1BX1JFU1ZfVVRJTFNfSAorI2Rl
+ZmluZSBETUFfUkVTVl9VVElMU19ICisKK3N0cnVjdCBkbWFfcmVzdjsKKwordm9pZCBkbWFfcmVz
+dl9wcnVuZShzdHJ1Y3QgZG1hX3Jlc3YgKnJlc3YpOworCisjZW5kaWYgLyogRE1BX1JFU1ZfVVRJ
+TFNfSCAqLwpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ2VtL2k5MTVfZ2VtX3No
+cmlua2VyLmMgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9nZW0vaTkxNV9nZW1fc2hyaW5rZXIuYwpp
+bmRleCBkYzhmMDUyYTBmZmUuLmMyZGJhMWNkOTUzMiAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUv
+ZHJtL2k5MTUvZ2VtL2k5MTVfZ2VtX3Nocmlua2VyLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5
+MTUvZ2VtL2k5MTVfZ2VtX3Nocmlua2VyLmMKQEAgLTE1LDYgKzE1LDcgQEAKIAogI2luY2x1ZGUg
+Imd0L2ludGVsX2d0X3JlcXVlc3RzLmgiCiAKKyNpbmNsdWRlICJkbWFfcmVzdl91dGlscy5oIgog
+I2luY2x1ZGUgImk5MTVfdHJhY2UuaCIKIAogc3RhdGljIGJvb2wgc3dhcF9hdmFpbGFibGUodm9p
+ZCkKQEAgLTIwOSw2ICsyMTAsOCBAQCBpOTE1X2dlbV9zaHJpbmsoc3RydWN0IGRybV9pOTE1X3By
+aXZhdGUgKmk5MTUsCiAJCQkJbXV0ZXhfdW5sb2NrKCZvYmotPm1tLmxvY2spOwogCQkJfQogCisJ
+CQlkbWFfcmVzdl9wcnVuZShvYmotPmJhc2UucmVzdik7CisKIAkJCXNjYW5uZWQgKz0gb2JqLT5i
+YXNlLnNpemUgPj4gUEFHRV9TSElGVDsKIAkJCWk5MTVfZ2VtX29iamVjdF9wdXQob2JqKTsKIApk
+aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ2VtL2k5MTVfZ2VtX3dhaXQuYyBiL2Ry
+aXZlcnMvZ3B1L2RybS9pOTE1L2dlbS9pOTE1X2dlbV93YWl0LmMKaW5kZXggOGFmNTVjZDNlNjkw
+Li5jMWIxM2FjNTBkMGYgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2dlbS9pOTE1
+X2dlbV93YWl0LmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ2VtL2k5MTVfZ2VtX3dhaXQu
+YwpAQCAtOSw2ICs5LDcgQEAKIAogI2luY2x1ZGUgImd0L2ludGVsX2VuZ2luZS5oIgogCisjaW5j
+bHVkZSAiZG1hX3Jlc3ZfdXRpbHMuaCIKICNpbmNsdWRlICJpOTE1X2dlbV9pb2N0bHMuaCIKICNp
+bmNsdWRlICJpOTE1X2dlbV9vYmplY3QuaCIKIApAQCAtODQsMTEgKzg1LDggQEAgaTkxNV9nZW1f
+b2JqZWN0X3dhaXRfcmVzZXJ2YXRpb24oc3RydWN0IGRtYV9yZXN2ICpyZXN2LAogCSAqIE9wcG9y
+dHVuaXN0aWNhbGx5IHBydW5lIHRoZSBmZW5jZXMgaWZmIHdlIGtub3cgdGhleSBoYXZlICphbGwq
+IGJlZW4KIAkgKiBzaWduYWxlZC4KIAkgKi8KLQlpZiAocHJ1bmVfZmVuY2VzICYmIGRtYV9yZXN2
+X3RyeWxvY2socmVzdikpIHsKLQkJaWYgKGRtYV9yZXN2X3Rlc3Rfc2lnbmFsZWRfcmN1KHJlc3Ys
+IHRydWUpKQotCQkJZG1hX3Jlc3ZfYWRkX2V4Y2xfZmVuY2UocmVzdiwgTlVMTCk7Ci0JCWRtYV9y
+ZXN2X3VubG9jayhyZXN2KTsKLQl9CisJaWYgKHBydW5lX2ZlbmNlcykKKwkJZG1hX3Jlc3ZfcHJ1
+bmUocmVzdik7CiAKIAlyZXR1cm4gdGltZW91dDsKIH0KLS0gCjIuMjAuMQoKX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlz
+dApJbnRlbC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnL21haWxtYW4vbGlzdGluZm8vaW50ZWwtZ2Z4Cg==
