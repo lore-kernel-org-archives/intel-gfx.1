@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 15005C2BB40
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F1E85C1B0D8
 	for <intel-gfx@archiver.kernel.org>; Mon, 14 Dec 2020 10:11:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D063A22ADC
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Dec 2020 10:10:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D063A22ADC
+	by mail.kernel.org (Postfix) with ESMTPS id B221C22ADC
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Dec 2020 10:11:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B221C22ADC
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E4BE76E3AA;
-	Mon, 14 Dec 2020 10:10:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3ACE16E425;
+	Mon, 14 Dec 2020 10:10:29 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 73CEB6E15A
- for <intel-gfx@lists.freedesktop.org>; Mon, 14 Dec 2020 10:10:08 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 457316E222
+ for <intel-gfx@lists.freedesktop.org>; Mon, 14 Dec 2020 10:10:07 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23317792-1500050 
- for multiple; Mon, 14 Dec 2020 10:09:52 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23317779-1500050 
+ for multiple; Mon, 14 Dec 2020 10:09:51 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 14 Dec 2020 10:09:01 +0000
-Message-Id: <20201214100949.11387-21-chris@chris-wilson.co.uk>
+Date: Mon, 14 Dec 2020 10:08:51 +0000
+Message-Id: <20201214100949.11387-11-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201214100949.11387-1-chris@chris-wilson.co.uk>
 References: <20201214100949.11387-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 21/69] drm/i915/gt: Use ppHWSP for unshared
- non-semaphore related timelines
+Subject: [Intel-gfx] [PATCH 11/69] drm/i915/gt: Simplify virtual engine
+ handling for execlists_hold()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,93 +56,61 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-When we are not using semaphores with a context/engine, we can simply
-reuse the same seqno location across wraps, but we still require each
-timeline to have its own address. For LRC submission, each context is
-prefixed by a per-process HWSP, which provides us with a unique location
-for each context-local timeline. A shared timeline that is common to
-multiple contexts will continue to use a separate page.
-
-This enables us to create position invariant contexts should we feel the
-need to relocate them.
+Now that the tasklet completely controls scheduling of the requests, and
+we postpone scheduling out the old requests, we can keep a hanging
+virtual request bound to the engine on which it hung, and remove it from
+te queue. On release, it will be returned to the same engine and remain
+in its queue until it is scheduled; after which point it will become
+eligible for transfer to a sibling. Instead, we could opt to resubmit the
+request along the virtual engine on unhold, making it eligible for load
+balancing immediately -- but that seems like a pointless optimisation
+for a hanging context.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Reviewed-by: Matthew Brost <matthew.brost@intel.com>
 ---
- .../drm/i915/gt/intel_execlists_submission.c  | 37 +++++++++++--------
- 1 file changed, 22 insertions(+), 15 deletions(-)
+ .../drm/i915/gt/intel_execlists_submission.c  | 29 -------------------
+ 1 file changed, 29 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-index c5b013cc10b3..974cca0cfe76 100644
+index 26d704694c33..f021e0f4b24b 100644
 --- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
 +++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-@@ -4749,6 +4749,14 @@ static struct intel_timeline *pinned_timeline(struct intel_context *ce)
- 						 page_unmask_bits(tl));
- }
- 
-+static struct intel_timeline *pphwsp_timeline(struct intel_context *ce,
-+					      struct i915_vma *state)
-+{
-+	return __intel_timeline_create(ce->engine->gt, state,
-+				       I915_GEM_HWS_SEQNO_ADDR |
-+				       INTEL_TIMELINE_RELATIVE_CONTEXT);
-+}
-+
- static int __execlists_context_alloc(struct intel_context *ce,
- 				     struct intel_engine_cs *engine)
- {
-@@ -4779,6 +4787,16 @@ static int __execlists_context_alloc(struct intel_context *ce,
- 		goto error_deref_obj;
+@@ -2833,35 +2833,6 @@ static bool execlists_hold(struct intel_engine_cs *engine,
+ 		goto unlock;
  	}
  
-+	ring = intel_engine_create_ring(engine, (unsigned long)ce->ring);
-+	if (IS_ERR(ring)) {
-+		ret = PTR_ERR(ring);
-+		goto error_deref_obj;
-+	}
-+
-+	ret = populate_lr_context(ce, ctx_obj, engine, ring);
-+	if (ret)
-+		goto error_ring_free;
-+
- 	if (!page_mask_bits(ce->timeline)) {
- 		struct intel_timeline *tl;
- 
-@@ -4788,29 +4806,18 @@ static int __execlists_context_alloc(struct intel_context *ce,
- 		 */
- 		if (unlikely(ce->timeline))
- 			tl = pinned_timeline(ce);
--		else
-+		else if (intel_engine_has_semaphores(engine))
- 			tl = intel_timeline_create(engine->gt);
-+		else
-+			tl = pphwsp_timeline(ce, vma);
- 		if (IS_ERR(tl)) {
- 			ret = PTR_ERR(tl);
--			goto error_deref_obj;
-+			goto error_ring_free;
- 		}
- 
- 		ce->timeline = tl;
- 	}
- 
--	ring = intel_engine_create_ring(engine, (unsigned long)ce->ring);
--	if (IS_ERR(ring)) {
--		ret = PTR_ERR(ring);
--		goto error_deref_obj;
+-	if (rq->engine != engine) { /* preempted virtual engine */
+-		struct virtual_engine *ve = to_virtual_engine(rq->engine);
+-
+-		/*
+-		 * intel_context_inflight() is only protected by virtue
+-		 * of process_csb() being called only by the tasklet (or
+-		 * directly from inside reset while the tasklet is suspended).
+-		 * Assert that neither of those are allowed to run while we
+-		 * poke at the request queues.
+-		 */
+-		GEM_BUG_ON(!reset_in_progress(&engine->execlists));
+-
+-		/*
+-		 * An unsubmitted request along a virtual engine will
+-		 * remain on the active (this) engine until we are able
+-		 * to process the context switch away (and so mark the
+-		 * context as no longer in flight). That cannot have happened
+-		 * yet, otherwise we would not be hanging!
+-		 */
+-		spin_lock(&ve->base.active.lock);
+-		GEM_BUG_ON(intel_context_inflight(rq->context) != engine);
+-		GEM_BUG_ON(ve->request != rq);
+-		ve->request = NULL;
+-		spin_unlock(&ve->base.active.lock);
+-		i915_request_put(rq);
+-
+-		rq->engine = engine;
 -	}
 -
--	ret = populate_lr_context(ce, ctx_obj, engine, ring);
--	if (ret) {
--		drm_dbg(&engine->i915->drm,
--			"Failed to populate LRC: %d\n", ret);
--		goto error_ring_free;
--	}
--
- 	ce->ring = ring;
- 	ce->state = vma;
- 
+ 	/*
+ 	 * Transfer this request onto the hold queue to prevent it
+ 	 * being resumbitted to HW (and potentially completed) before we have
 -- 
 2.20.1
 
