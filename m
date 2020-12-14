@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D109CC4361B
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Dec 2020 10:10:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 78D96C2BB40
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Dec 2020 10:10:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7A55C225A9
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Dec 2020 10:10:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7A55C225A9
+	by mail.kernel.org (Postfix) with ESMTPS id 3D7D1225A9
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Dec 2020 10:10:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3D7D1225A9
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 61C7F6E135;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7CEDC6E151;
 	Mon, 14 Dec 2020 10:10:21 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B4F0C6E151
- for <intel-gfx@lists.freedesktop.org>; Mon, 14 Dec 2020 10:10:03 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 094346E176
+ for <intel-gfx@lists.freedesktop.org>; Mon, 14 Dec 2020 10:10:04 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23317870-1500050 
- for multiple; Mon, 14 Dec 2020 10:10:00 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23317822-1500050 
+ for multiple; Mon, 14 Dec 2020 10:09:56 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 14 Dec 2020 10:09:46 +0000
-Message-Id: <20201214100949.11387-66-chris@chris-wilson.co.uk>
+Date: Mon, 14 Dec 2020 10:09:24 +0000
+Message-Id: <20201214100949.11387-44-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201214100949.11387-1-chris@chris-wilson.co.uk>
 References: <20201214100949.11387-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 66/69] drm/i915/gt: Enable ring scheduling for
- gen6/7
+Subject: [Intel-gfx] [PATCH 44/69] drm/i915/selftests: Exercise priority
+ inheritance around an engine loop
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,71 +56,255 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Switch over from FIFO global submission to the priority-sorted
-topographical scheduler. At the cost of more busy work on the CPU to
-keep the GPU supplied with the next packet of requests, this allows us
-to reorder requests around submission stalls.
-
-This also enables the timer based RPS, with the exception of Valleyview
-whose PCU doesn't take kindly to our interference.
+Exercise rescheduling priority inheritance around a sequence of requests
+that wrap around all the engines.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 ---
- drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c | 2 +-
- drivers/gpu/drm/i915/gt/intel_engine_cs.c             | 2 ++
- drivers/gpu/drm/i915/gt/intel_rps.c                   | 6 ++----
- 3 files changed, 5 insertions(+), 5 deletions(-)
+ .../gpu/drm/i915/selftests/i915_scheduler.c   | 219 ++++++++++++++++++
+ 1 file changed, 219 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
-index d3f87dc4eda3..2246b5c308dc 100644
---- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
-+++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
-@@ -94,7 +94,7 @@ static int live_nop_switch(void *arg)
- 			rq = i915_request_get(this);
- 			i915_request_add(this);
- 		}
--		if (i915_request_wait(rq, 0, HZ / 5) < 0) {
-+		if (i915_request_wait(rq, 0, HZ) < 0) {
- 			pr_err("Failed to populated %d contexts\n", nctx);
- 			intel_gt_set_wedged(&i915->gt);
- 			i915_request_put(rq);
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-index cc7983d14cc0..ff2f8ebb817b 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-@@ -866,6 +866,8 @@ int intel_engines_init(struct intel_gt *gt)
+diff --git a/drivers/gpu/drm/i915/selftests/i915_scheduler.c b/drivers/gpu/drm/i915/selftests/i915_scheduler.c
+index 481549f0ddad..eb85f9731a78 100644
+--- a/drivers/gpu/drm/i915/selftests/i915_scheduler.c
++++ b/drivers/gpu/drm/i915/selftests/i915_scheduler.c
+@@ -6,6 +6,7 @@
+ #include "i915_selftest.h"
  
- 	if (HAS_EXECLISTS(gt->i915))
- 		setup = intel_execlists_submission_setup;
-+	else if (INTEL_GEN(gt->i915) >= 6)
-+		setup = intel_ring_scheduler_setup;
- 	else
- 		setup = intel_ring_submission_setup;
- 
-diff --git a/drivers/gpu/drm/i915/gt/intel_rps.c b/drivers/gpu/drm/i915/gt/intel_rps.c
-index 2b443b735a98..2963ab5a86ff 100644
---- a/drivers/gpu/drm/i915/gt/intel_rps.c
-+++ b/drivers/gpu/drm/i915/gt/intel_rps.c
-@@ -1078,9 +1078,7 @@ static bool gen6_rps_enable(struct intel_rps *rps)
- 	intel_uncore_write_fw(uncore, GEN6_RP_DOWN_TIMEOUT, 50000);
- 	intel_uncore_write_fw(uncore, GEN6_RP_IDLE_HYSTERSIS, 10);
- 
--	rps->pm_events = (GEN6_PM_RP_UP_THRESHOLD |
--			  GEN6_PM_RP_DOWN_THRESHOLD |
--			  GEN6_PM_RP_DOWN_TIMEOUT);
-+	rps->pm_events = GEN6_PM_RP_UP_THRESHOLD | GEN6_PM_RP_DOWN_THRESHOLD;
- 
- 	return rps_reset(rps);
+ #include "gt/intel_context.h"
++#include "gt/intel_ring.h"
+ #include "gt/selftest_engine_heartbeat.h"
+ #include "selftests/igt_spinner.h"
+ #include "selftests/i915_random.h"
+@@ -511,10 +512,228 @@ static int igt_priority_chains(void *arg)
+ 	return igt_schedule_chains(arg, igt_priority);
  }
-@@ -1388,7 +1386,7 @@ void intel_rps_enable(struct intel_rps *rps)
- 	GEM_BUG_ON(rps->efficient_freq < rps->min_freq);
- 	GEM_BUG_ON(rps->efficient_freq > rps->max_freq);
  
--	if (has_busy_stats(rps))
-+	if (has_busy_stats(rps) && !IS_VALLEYVIEW(i915))
- 		intel_rps_set_timer(rps);
- 	else if (INTEL_GEN(i915) >= 6)
- 		intel_rps_set_interrupts(rps);
++static struct i915_request *
++__write_timestamp(struct intel_engine_cs *engine,
++		  struct drm_i915_gem_object *obj,
++		  int slot,
++		  struct i915_request *prev)
++{
++	struct i915_request *rq = ERR_PTR(-EINVAL);
++	struct intel_context *ce;
++	struct i915_vma *vma;
++	int err = 0;
++	u32 *cs;
++
++	ce = intel_context_create(engine);
++	if (IS_ERR(ce))
++		return ERR_CAST(ce);
++
++	vma = i915_vma_instance(obj, ce->vm, NULL);
++	if (IS_ERR(vma)) {
++		err = PTR_ERR(vma);
++		goto out_ce;
++	}
++
++	err = i915_vma_pin(vma, 0, 0, PIN_USER);
++	if (err)
++		goto out_ce;
++
++	rq = intel_context_create_request(ce);
++	if (IS_ERR(rq)) {
++		err = PTR_ERR(rq);
++		goto out_unpin;
++	}
++
++	i915_vma_lock(vma);
++	err = i915_vma_move_to_active(vma, rq, EXEC_OBJECT_WRITE);
++	i915_vma_unlock(vma);
++	if (err)
++		goto out_request;
++
++	if (prev) {
++		err = i915_request_await_dma_fence(rq, &prev->fence);
++		if (err)
++			goto out_request;
++	}
++
++	if (engine->emit_init_breadcrumb) {
++		err = engine->emit_init_breadcrumb(rq);
++		if (err)
++			goto out_request;
++	}
++
++	cs = intel_ring_begin(rq, 4);
++	if (IS_ERR(cs)) {
++		err = PTR_ERR(cs);
++		goto out_request;
++	}
++
++	*cs++ = MI_STORE_REGISTER_MEM_GEN8;
++	*cs++ = i915_mmio_reg_offset(RING_TIMESTAMP(engine->mmio_base));
++	*cs++ = lower_32_bits(vma->node.start) + sizeof(u32) * slot;
++	*cs++ = upper_32_bits(vma->node.start);
++	intel_ring_advance(rq, cs);
++
++	i915_request_get(rq);
++out_request:
++	i915_request_add(rq);
++out_unpin:
++	i915_vma_unpin(vma);
++out_ce:
++	intel_context_put(ce);
++	i915_request_put(prev);
++	return err ? ERR_PTR(err) : rq;
++}
++
++static struct i915_request *create_spinner(struct drm_i915_private *i915,
++					   struct igt_spinner *spin)
++{
++	struct intel_engine_cs *engine;
++
++	for_each_uabi_engine(engine, i915) {
++		struct intel_context *ce;
++		struct i915_request *rq;
++
++		if (igt_spinner_init(spin, engine->gt))
++			return ERR_PTR(-ENOMEM);
++
++		ce = intel_context_create(engine);
++		if (IS_ERR(ce))
++			return ERR_CAST(ce);
++
++		rq = igt_spinner_create_request(spin, ce, MI_NOOP);
++		intel_context_put(ce);
++		if (rq == ERR_PTR(-ENODEV))
++			continue;
++		if (IS_ERR(rq))
++			return rq;
++
++		i915_request_get(rq);
++		i915_request_add(rq);
++		return rq;
++	}
++
++	return ERR_PTR(-ENODEV);
++}
++
++static int __igt_schedule_cycle(struct drm_i915_private *i915,
++				bool (*fn)(struct i915_request *rq,
++					   unsigned long v, unsigned long e))
++{
++	struct intel_engine_cs *engine;
++	struct drm_i915_gem_object *obj;
++	struct igt_spinner spin;
++	struct i915_request *rq;
++	unsigned long count, n;
++	u32 *time, last;
++	int err;
++
++	/*
++	 * Queue a bunch of ordered requests (each waiting on the previous)
++	 * around the engines a couple of times. Each request will write
++	 * the timestamp it executes at into the scratch, with the expectation
++	 * that the timestamp will be in our desired execution order.
++	 */
++
++	if (INTEL_GEN(i915) < 8)
++		return 0;
++
++	obj = i915_gem_object_create_internal(i915, SZ_64K);
++	if (IS_ERR(obj))
++		return PTR_ERR(obj);
++
++	time = i915_gem_object_pin_map(obj, I915_MAP_WC);
++	if (IS_ERR(time)) {
++		err = PTR_ERR(time);
++		goto out_obj;
++	}
++
++	rq = create_spinner(i915, &spin);
++	if (IS_ERR(rq)) {
++		err = PTR_ERR(rq);
++		goto out_obj;
++	}
++
++	err = 0;
++	count = 0;
++	for_each_uabi_engine(engine, i915) {
++		if (!intel_engine_has_scheduler(engine))
++			continue;
++
++		rq = __write_timestamp(engine, obj, count, rq);
++		if (IS_ERR(rq)) {
++			err = PTR_ERR(rq);
++			break;
++		}
++
++		count++;
++	}
++	for_each_uabi_engine(engine, i915) {
++		if (!intel_engine_has_scheduler(engine))
++			continue;
++
++		rq = __write_timestamp(engine, obj, count, rq);
++		if (IS_ERR(rq)) {
++			err = PTR_ERR(rq);
++			break;
++		}
++
++		count++;
++	}
++	GEM_BUG_ON(count * sizeof(u32) > obj->base.size);
++	if (err || !count)
++		goto out_spin;
++
++	fn(rq, count + 1, count);
++	igt_spinner_end(&spin);
++
++	if (i915_request_wait(rq, 0, HZ / 2) < 0) {
++		err = -ETIME;
++		goto out_request;
++	}
++
++	last = time[0];
++	for (n = 1; n < count; n++) {
++		if (i915_seqno_passed(last, time[n])) {
++			pr_err("Timestamp[%lu] %x before previous %x\n",
++			       n, time[n], last);
++			err = -EINVAL;
++			break;
++		}
++		last = time[n];
++	}
++
++out_request:
++	i915_request_put(rq);
++out_spin:
++	igt_spinner_fini(&spin);
++out_obj:
++	i915_gem_object_put(obj);
++	return 0;
++}
++
++static bool noop(struct i915_request *rq, unsigned long v, unsigned long e)
++{
++	return true;
++}
++
++static int igt_schedule_cycle(void *arg)
++{
++	return __igt_schedule_cycle(arg, noop);
++}
++
++static int igt_priority_cycle(void *arg)
++{
++	return __igt_schedule_cycle(arg, igt_priority);
++}
++
+ int i915_scheduler_live_selftests(struct drm_i915_private *i915)
+ {
+ 	static const struct i915_subtest tests[] = {
+ 		SUBTEST(igt_priority_chains),
++
++		SUBTEST(igt_schedule_cycle),
++		SUBTEST(igt_priority_cycle),
+ 	};
+ 
+ 	return i915_subtests(tests, i915);
 -- 
 2.20.1
 
