@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 77D78C1B0D8
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Dec 2020 10:10:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 38683C2BB40
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Dec 2020 10:10:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3DF3422A84
+	by mail.kernel.org (Postfix) with ESMTPS id DF82722ADC
 	for <intel-gfx@archiver.kernel.org>; Mon, 14 Dec 2020 10:10:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3DF3422A84
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DF82722ADC
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 052776E216;
-	Mon, 14 Dec 2020 10:10:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A4F806E1F3;
+	Mon, 14 Dec 2020 10:10:25 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A5DD6E135
- for <intel-gfx@lists.freedesktop.org>; Mon, 14 Dec 2020 10:10:05 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 82FB36E20A
+ for <intel-gfx@lists.freedesktop.org>; Mon, 14 Dec 2020 10:10:06 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23317778-1500050 
- for multiple; Mon, 14 Dec 2020 10:09:50 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23317799-1500050 
+ for multiple; Mon, 14 Dec 2020 10:09:54 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 14 Dec 2020 10:08:50 +0000
-Message-Id: <20201214100949.11387-10-chris@chris-wilson.co.uk>
+Date: Mon, 14 Dec 2020 10:09:08 +0000
+Message-Id: <20201214100949.11387-28-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201214100949.11387-1-chris@chris-wilson.co.uk>
 References: <20201214100949.11387-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 10/69] drm/i915/gt: Resubmit the virtual engine
- on schedule-out
+Subject: [Intel-gfx] [PATCH 28/69] drm/i915/gem: Reduce ctx->engine_mutex
+ for reading the clone source
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,239 +56,98 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Having recognised that we do not change the sibling until we schedule
-out, we can then defer the decision to resubmit the virtual engine from
-the unwind of the active queue to scheduling out of the virtual context.
-This improves our resilence in virtual engine scheduling, and should
-eliminate the rare cases of gem_exec_balance failing.
+When cloning the engines from the source context, we need to ensure that
+the engines are not freed as we copy them, and that the flags we clone
+from the source correspond with the engines we copy across. To do this
+we need only take a reference to the src->engines, rather than hold the
+src->engine_mutex, so long as we verify that nothing changed under the
+read.
 
-By keeping the unwind order intact on the local engine, we can preserve
-data dependency ordering while doing a preempt-to-busy pass until we
-have determined the new ELSP. This means that if we try to timeslice
-between a virtual engine and a data-dependent ordinary request, the pair
-will maintain their relative ordering and we will avoid the
-resubmission, cancelling the timeslicing until further change.
-
-The dilemma though is that we then may end up in a situation where the
-'demotion' of the virtual request to an ordinary request in the engine
-queue results in filling the ELSP[] with virtual requests instead of
-spreading the load across the engines. To compensate for this, we mark
-each virtual request and refuse to resubmit a virtual request in the
-secondary ELSP slots, thus forcing subsequent virtual requests to be
-scheduled out after timeslicing. By delaying the decision until we
-schedule out, we will avoid unnecessary resubmission.
-
-Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/2079
-Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/2098
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 ---
- .../drm/i915/gt/intel_execlists_submission.c  | 126 +++++++++++-------
- drivers/gpu/drm/i915/gt/selftest_execlists.c  |   2 +-
- 2 files changed, 79 insertions(+), 49 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_context.c | 24 +++++++++++++--------
+ 1 file changed, 15 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-index 9dcd650805fa..26d704694c33 100644
---- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-+++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-@@ -1082,38 +1082,23 @@ __unwind_incomplete_requests(struct intel_engine_cs *engine)
- 
- 		__i915_request_unsubmit(rq);
- 
--		/*
--		 * Push the request back into the queue for later resubmission.
--		 * If this request is not native to this physical engine (i.e.
--		 * it came from a virtual source), push it back onto the virtual
--		 * engine so that it can be moved across onto another physical
--		 * engine as load dictates.
--		 */
--		if (likely(rq->execution_mask == engine->mask)) {
--			GEM_BUG_ON(rq_prio(rq) == I915_PRIORITY_INVALID);
--			if (rq_prio(rq) != prio) {
--				prio = rq_prio(rq);
--				pl = i915_sched_lookup_priolist(engine, prio);
--			}
--			GEM_BUG_ON(RB_EMPTY_ROOT(&engine->execlists.queue.rb_root));
-+		GEM_BUG_ON(rq_prio(rq) == I915_PRIORITY_INVALID);
-+		if (rq_prio(rq) != prio) {
-+			prio = rq_prio(rq);
-+			pl = i915_sched_lookup_priolist(engine, prio);
-+		}
-+		GEM_BUG_ON(RB_EMPTY_ROOT(&engine->execlists.queue.rb_root));
- 
--			list_move(&rq->sched.link, pl);
--			set_bit(I915_FENCE_FLAG_PQUEUE, &rq->fence.flags);
-+		list_move(&rq->sched.link, pl);
-+		set_bit(I915_FENCE_FLAG_PQUEUE, &rq->fence.flags);
- 
--			/* Check in case we rollback so far we wrap [size/2] */
--			if (intel_ring_direction(rq->ring,
--						 rq->tail,
--						 rq->ring->tail + 8) > 0)
--				rq->context->lrc.desc |= CTX_DESC_FORCE_RESTORE;
-+		/* Check in case we rollback so far we wrap [size/2] */
-+		if (intel_ring_direction(rq->ring,
-+					 rq->tail,
-+					 rq->ring->tail + 8) > 0)
-+			rq->context->lrc.desc |= CTX_DESC_FORCE_RESTORE;
- 
--			active = rq;
--		} else {
--			struct intel_engine_cs *owner = rq->context->engine;
--
--			WRITE_ONCE(rq->engine, owner);
--			owner->submit_request(rq);
--			active = NULL;
--		}
-+		active = rq;
- 	}
- 
- 	return active;
-@@ -1356,9 +1341,9 @@ static inline void execlists_schedule_in(struct i915_request *rq, int idx)
- 	GEM_BUG_ON(intel_context_inflight(ce) != rq->engine);
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+index 738a07b3583c..e87da2525d0f 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+@@ -713,7 +713,8 @@ __create_context(struct drm_i915_private *i915)
  }
  
--static void kick_siblings(struct i915_request *rq, struct intel_context *ce)
-+static void
-+resubmit_virtual_request(struct i915_request *rq, struct virtual_engine *ve)
+ static inline struct i915_gem_engines *
+-__context_engines_await(const struct i915_gem_context *ctx)
++__context_engines_await(const struct i915_gem_context *ctx,
++			bool *user_engines)
  {
--	struct virtual_engine *ve = container_of(ce, typeof(*ve), context);
- 	struct intel_engine_cs *engine = rq->engine;
+ 	struct i915_gem_engines *engines;
  
- 	/* Flush concurrent rcu iterators in signal_irq_work */
-@@ -1376,6 +1361,30 @@ static void kick_siblings(struct i915_request *rq, struct intel_context *ce)
- 			cpu_relax();
- 	}
+@@ -722,6 +723,10 @@ __context_engines_await(const struct i915_gem_context *ctx)
+ 		engines = rcu_dereference(ctx->engines);
+ 		GEM_BUG_ON(!engines);
  
-+	spin_lock_irq(&engine->active.lock);
++		if (user_engines)
++			*user_engines = i915_gem_context_user_engines(ctx);
 +
-+	clear_bit(I915_FENCE_FLAG_PQUEUE, &rq->fence.flags);
-+	WRITE_ONCE(rq->engine, &ve->base);
-+	ve->base.submit_request(rq);
-+
-+	spin_unlock_irq(&engine->active.lock);
-+}
-+
-+static void kick_siblings(struct i915_request *rq, struct intel_context *ce)
-+{
-+	struct virtual_engine *ve = container_of(ce, typeof(*ve), context);
-+	struct intel_engine_cs *engine = rq->engine;
-+
-+	/*
-+	 * This engine is now too busy to run this virtual request, so
-+	 * see if we can find an alternative engine for it to execute on.
-+	 * Once a request has become bonded to this engine, we treat it the
-+	 * same as other native request.
-+	 */
-+	if (i915_request_in_priority_queue(rq) &&
-+	    rq->execution_mask != engine->mask)
-+		resubmit_virtual_request(rq, ve);
-+
- 	if (READ_ONCE(ve->request))
- 		tasklet_hi_schedule(&ve->base.execlists.tasklet);
- }
-@@ -1621,6 +1630,20 @@ assert_pending_valid(const struct intel_engine_execlists *execlists,
- 		}
- 		sentinel = i915_request_has_sentinel(rq);
- 
-+		/*
-+		 * We want virtual requests to only be in the first slot so
-+		 * that they are never stuck behind a hog and can be immediately
-+		 * transferred onto the next idle engine.
-+		 */
-+		if (rq->execution_mask != engine->mask &&
-+		    port != execlists->pending) {
-+			GEM_TRACE_ERR("%s: virtual engine:%llx not in prime position[%zd]\n",
-+				      engine->name,
-+				      ce->timeline->fence_context,
-+				      port - execlists->pending);
-+			return false;
-+		}
-+
- 		/* Hold tightly onto the lock to prevent concurrent retires! */
- 		if (!spin_trylock_irqsave(&rq->lock, flags))
++		/* successful await => strong mb */
+ 		if (unlikely(!i915_sw_fence_await(&engines->fence)))
  			continue;
-@@ -2287,6 +2310,15 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
- 				if (i915_request_has_sentinel(last))
- 					goto done;
  
-+				/*
-+				 * We avoid submitting virtual requests into
-+				 * the secondary ports so that we can migrate
-+				 * the request immediately to another engine
-+				 * rather than wait for the primary request.
-+				 */
-+				if (rq->execution_mask != engine->mask)
-+					goto done;
-+
- 				/*
- 				 * If GVT overrides us we only ever submit
- 				 * port[0], leaving port[1] empty. Note that we
-@@ -5086,7 +5118,6 @@ static void virtual_submission_tasklet(unsigned long data)
- static void virtual_submit_request(struct i915_request *rq)
+@@ -745,7 +750,7 @@ context_apply_all(struct i915_gem_context *ctx,
+ 	struct intel_context *ce;
+ 	int err = 0;
+ 
+-	e = __context_engines_await(ctx);
++	e = __context_engines_await(ctx, NULL);
+ 	for_each_gem_engine(ce, e, it) {
+ 		err = fn(ce, data);
+ 		if (err)
+@@ -1071,7 +1076,7 @@ static int context_barrier_task(struct i915_gem_context *ctx,
+ 		return err;
+ 	}
+ 
+-	e = __context_engines_await(ctx);
++	e = __context_engines_await(ctx, NULL);
+ 	if (!e) {
+ 		i915_active_release(&cb->base);
+ 		return -ENOENT;
+@@ -2091,11 +2096,14 @@ static int copy_ring_size(struct intel_context *dst,
+ static int clone_engines(struct i915_gem_context *dst,
+ 			 struct i915_gem_context *src)
  {
- 	struct virtual_engine *ve = to_virtual_engine(rq->engine);
--	struct i915_request *old;
- 	unsigned long flags;
+-	struct i915_gem_engines *e = i915_gem_context_lock_engines(src);
+-	struct i915_gem_engines *clone;
++	struct i915_gem_engines *clone, *e;
+ 	bool user_engines;
+ 	unsigned long n;
  
- 	ENGINE_TRACE(&ve->base, "rq=%llx:%lld\n",
-@@ -5097,28 +5128,27 @@ static void virtual_submit_request(struct i915_request *rq)
- 
- 	spin_lock_irqsave(&ve->base.active.lock, flags);
- 
--	old = ve->request;
--	if (old) { /* background completion event from preempt-to-busy */
--		GEM_BUG_ON(!i915_request_completed(old));
--		__i915_request_submit(old);
--		i915_request_put(old);
--	}
--
-+	/* By the time we resubmit a request, it may be completed */
- 	if (i915_request_completed(rq)) {
- 		__i915_request_submit(rq);
-+		goto unlock;
-+	}
- 
--		ve->base.execlists.queue_priority_hint = INT_MIN;
--		ve->request = NULL;
--	} else {
--		ve->base.execlists.queue_priority_hint = rq_prio(rq);
--		ve->request = i915_request_get(rq);
-+	if (ve->request) { /* background completion from preempt-to-busy */
-+		GEM_BUG_ON(!i915_request_completed(ve->request));
-+		__i915_request_submit(ve->request);
-+		i915_request_put(ve->request);
-+	}
- 
--		GEM_BUG_ON(!list_empty(virtual_queue(ve)));
--		list_move_tail(&rq->sched.link, virtual_queue(ve));
-+	ve->base.execlists.queue_priority_hint = rq_prio(rq);
-+	ve->request = i915_request_get(rq);
- 
--		tasklet_hi_schedule(&ve->base.execlists.tasklet);
--	}
-+	GEM_BUG_ON(!list_empty(virtual_queue(ve)));
-+	list_move_tail(&rq->sched.link, virtual_queue(ve));
++	e = __context_engines_await(src, &user_engines);
++	if (!e)
++		return -ENOENT;
 +
-+	tasklet_hi_schedule(&ve->base.execlists.tasklet);
+ 	clone = alloc_engines(e->num_engines);
+ 	if (!clone)
+ 		goto err_unlock;
+@@ -2137,9 +2145,7 @@ static int clone_engines(struct i915_gem_context *dst,
+ 		}
+ 	}
+ 	clone->num_engines = n;
+-
+-	user_engines = i915_gem_context_user_engines(src);
+-	i915_gem_context_unlock_engines(src);
++	i915_sw_fence_complete(&e->fence);
  
-+unlock:
- 	spin_unlock_irqrestore(&ve->base.active.lock, flags);
+ 	/* Serialised by constructor */
+ 	engines_idle_release(dst, rcu_replace_pointer(dst->engines, clone, 1));
+@@ -2150,7 +2156,7 @@ static int clone_engines(struct i915_gem_context *dst,
+ 	return 0;
+ 
+ err_unlock:
+-	i915_gem_context_unlock_engines(src);
++	i915_sw_fence_complete(&e->fence);
+ 	return -ENOMEM;
  }
  
-diff --git a/drivers/gpu/drm/i915/gt/selftest_execlists.c b/drivers/gpu/drm/i915/gt/selftest_execlists.c
-index 37cb51c3f4f6..fbbd8343d7f6 100644
---- a/drivers/gpu/drm/i915/gt/selftest_execlists.c
-+++ b/drivers/gpu/drm/i915/gt/selftest_execlists.c
-@@ -4589,7 +4589,7 @@ static int reset_virtual_engine(struct intel_gt *gt,
- 	spin_lock_irq(&engine->active.lock);
- 	__unwind_incomplete_requests(engine);
- 	spin_unlock_irq(&engine->active.lock);
--	GEM_BUG_ON(rq->engine != ve->engine);
-+	GEM_BUG_ON(rq->engine != engine);
- 
- 	/* Reset the engine while keeping our active request on hold */
- 	execlists_hold(engine, rq);
 -- 
 2.20.1
 
