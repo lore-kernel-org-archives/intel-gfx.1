@@ -6,37 +6,37 @@ X-Spam-Status: No, score=-3.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DEC08C4361B
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Dec 2020 09:56:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9679EC4361B
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Dec 2020 10:00:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 69F9122597
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Dec 2020 09:56:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 69F9122597
+	by mail.kernel.org (Postfix) with ESMTPS id 19ECF22838
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Dec 2020 10:00:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 19ECF22838
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D986B6E150;
-	Mon, 14 Dec 2020 09:56:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F76089D5B;
+	Mon, 14 Dec 2020 10:00:03 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 8AAA16E147;
- Mon, 14 Dec 2020 09:56:25 +0000 (UTC)
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id F2E1789D57;
+ Mon, 14 Dec 2020 10:00:01 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 84587A7DFF;
- Mon, 14 Dec 2020 09:56:25 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id E26DFA0BCB;
+ Mon, 14 Dec 2020 10:00:01 +0000 (UTC)
 MIME-Version: 1.0
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Tvrtko Ursulin" <tvrtko.ursulin@linux.intel.com>
-Date: Mon, 14 Dec 2020 09:56:25 -0000
-Message-ID: <160793978553.28164.708176051451598018@emeril.freedesktop.org>
+Date: Mon, 14 Dec 2020 10:00:01 -0000
+Message-ID: <160794000189.28164.1601580853882848997@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <20201214094349.3563876-1-tvrtko.ursulin@linux.intel.com>
 In-Reply-To: <20201214094349.3563876-1-tvrtko.ursulin@linux.intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_series_starting_with_=5BCI=2C1/3=5D_drm/i915/pmu=3A_Don=27t?=
- =?utf-8?q?_grab_wakeref_when_enabling_events?=
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkRPQ1M6IHdhcm5pbmcgZm9yIHNl?=
+ =?utf-8?q?ries_starting_with_=5BCI=2C1/3=5D_drm/i915/pmu=3A_Don=27t_grab_?=
+ =?utf-8?q?wakeref_when_enabling_events?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,15 +64,9 @@ State : warning
 
 == Summary ==
 
-$ dim checkpatch origin/drm-tip
-5f62030b7d49 drm/i915/pmu: Don't grab wakeref when enabling events
-e28201228e02 drm/i915/pmu: Use raw clock for rc6 estimation
-d781b1a46f9c drm/i915/pmu: Remove !CONFIG_PM code
--:6: ERROR:GIT_COMMIT_ID: Please use git commit description style 'commit <12+ chars of sha1> ("<title line>")' - ie: 'commit 16ffe73c186b ("drm/i915/pmu: Use GT parked for estimating RC6 while asleep")'
-#6: 
-Chris spotted that since 16ffe73c186b ("drm/i915/pmu: Use GT parked for
-
-total: 1 errors, 0 warnings, 0 checks, 26 lines checked
+$ make htmldocs 2>&1 > /dev/null | grep i915
+Error: Cannot open file ./drivers/gpu/drm/i915/gt/intel_lrc.c
+WARNING: kernel-doc './scripts/kernel-doc -rst -enable-lineno -sphinx-version 1.7.9 -function Logical Rings, Logical Ring Contexts and Execlists ./drivers/gpu/drm/i915/gt/intel_lrc.c' failed with return code 1
 
 
 _______________________________________________
