@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 79995C2BB48
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Dec 2020 10:10:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 11A25C4361B
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Dec 2020 10:10:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2AB5322A84
+	by mail.kernel.org (Postfix) with ESMTPS id BBDBE22A84
 	for <intel-gfx@archiver.kernel.org>; Mon, 14 Dec 2020 10:10:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2AB5322A84
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BBDBE22A84
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 712B56E241;
-	Mon, 14 Dec 2020 10:10:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 849066E212;
+	Mon, 14 Dec 2020 10:10:25 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 66E276E23B
- for <intel-gfx@lists.freedesktop.org>; Mon, 14 Dec 2020 10:10:07 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F7546E151
+ for <intel-gfx@lists.freedesktop.org>; Mon, 14 Dec 2020 10:09:59 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23317770-1500050 
- for multiple; Mon, 14 Dec 2020 10:09:49 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23317817-1500050 
+ for multiple; Mon, 14 Dec 2020 10:09:56 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 14 Dec 2020 10:08:42 +0000
-Message-Id: <20201214100949.11387-2-chris@chris-wilson.co.uk>
+Date: Mon, 14 Dec 2020 10:09:21 +0000
+Message-Id: <20201214100949.11387-41-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201214100949.11387-1-chris@chris-wilson.co.uk>
 References: <20201214100949.11387-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 02/69] drm/i915/uc: Squelch load failure error
- message
+Subject: [Intel-gfx] [PATCH 41/69] drm/i915: Teach the i915_dependency to
+ use a double-lock
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,68 +56,209 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The caller determines if the failure is an error or not, so avoid
-warning when we will try again and succeed. For example,
+Currently, we construct and teardown the i915_dependency chains using a
+global spinlock. As the lists are entirely local, it should be possible
+to use an double-lock with an explicit nesting [signaler -> waiter,
+always] and so avoid the costly convenience of a global spinlock.
 
-<7> [111.319321] [drm:intel_guc_fw_upload [i915]] GuC status 0x20
-<3> [111.319340] i915 0000:00:02.0: [drm] *ERROR* GuC load failed: status = 0x00000020
-<3> [111.319606] i915 0000:00:02.0: [drm] *ERROR* GuC load failed: status: Reset = 0, BootROM = 0x10, UKernel = 0x00, MIA = 0x00, Auth = 0x00
-<7> [111.320045] [drm:__uc_init_hw [i915]] GuC fw load failed: -110; will reset and retry 2 more time(s)
-<7> [111.322978] [drm:intel_guc_fw_upload [i915]] GuC status 0x8002f0ec
-
-should not have been reported as a _test_ failure, as the GuC was
-successfully loaded on the second attempt and the system remained
-operational.
-
-Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/2797
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_guc_fw.c | 13 ++++++-------
- 1 file changed, 6 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/i915/i915_request.c         |  2 +-
+ drivers/gpu/drm/i915/i915_scheduler.c       | 63 ++++++++++++++-------
+ drivers/gpu/drm/i915/i915_scheduler.h       |  2 +-
+ drivers/gpu/drm/i915/i915_scheduler_types.h |  2 +
+ 4 files changed, 45 insertions(+), 24 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_fw.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_fw.c
-index f9d0907ea1a5..2270d6b3b272 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_fw.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_fw.c
-@@ -76,7 +76,6 @@ static inline bool guc_ready(struct intel_uncore *uncore, u32 *status)
+diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
+index 914d271b7222..5e1617a3a75d 100644
+--- a/drivers/gpu/drm/i915/i915_request.c
++++ b/drivers/gpu/drm/i915/i915_request.c
+@@ -329,7 +329,7 @@ bool i915_request_retire(struct i915_request *rq)
+ 	intel_context_unpin(rq->context);
  
- static int guc_wait_ucode(struct intel_uncore *uncore)
- {
--	struct drm_device *drm = &uncore->i915->drm;
- 	u32 status;
- 	int ret;
+ 	free_capture_list(rq);
+-	i915_sched_node_fini(&rq->sched);
++	i915_sched_node_retire(&rq->sched);
+ 	i915_request_put(rq);
  
-@@ -89,11 +88,11 @@ static int guc_wait_ucode(struct intel_uncore *uncore)
- 	 * attempt the ucode load again if this happens.)
- 	 */
- 	ret = wait_for(guc_ready(uncore, &status), 100);
--	DRM_DEBUG_DRIVER("GuC status %#x\n", status);
--
- 	if (ret) {
--		drm_err(drm, "GuC load failed: status = 0x%08X\n", status);
--		drm_err(drm, "GuC load failed: status: Reset = %d, "
-+		struct drm_device *drm = &uncore->i915->drm;
+ 	return true;
+diff --git a/drivers/gpu/drm/i915/i915_scheduler.c b/drivers/gpu/drm/i915/i915_scheduler.c
+index 7ce875bacdaa..140c0578eef1 100644
+--- a/drivers/gpu/drm/i915/i915_scheduler.c
++++ b/drivers/gpu/drm/i915/i915_scheduler.c
+@@ -19,6 +19,17 @@ static struct i915_global_scheduler {
+ 
+ static DEFINE_SPINLOCK(schedule_lock);
+ 
++static struct i915_sched_node *node_get(struct i915_sched_node *node)
++{
++	i915_request_get(container_of(node, struct i915_request, sched));
++	return node;
++}
 +
-+		drm_dbg(drm, "GuC load failed: status = 0x%08X\n", status);
-+		drm_dbg(drm, "GuC load failed: status: Reset = %d, "
- 			"BootROM = 0x%02X, UKernel = 0x%02X, "
- 			"MIA = 0x%02X, Auth = 0x%02X\n",
- 			REG_FIELD_GET(GS_MIA_IN_RESET, status),
-@@ -103,12 +102,12 @@ static int guc_wait_ucode(struct intel_uncore *uncore)
- 			REG_FIELD_GET(GS_AUTH_STATUS_MASK, status));
++static void node_put(struct i915_sched_node *node)
++{
++	i915_request_put(container_of(node, struct i915_request, sched));
++}
++
+ static const struct i915_request *
+ node_to_request(const struct i915_sched_node *node)
+ {
+@@ -389,6 +400,8 @@ void i915_request_set_priority(struct i915_request *rq, int prio)
  
- 		if ((status & GS_BOOTROM_MASK) == GS_BOOTROM_RSA_FAILED) {
--			drm_err(drm, "GuC firmware signature verification failed\n");
-+			drm_dbg(drm, "GuC firmware signature verification failed\n");
- 			ret = -ENOEXEC;
- 		}
+ void i915_sched_node_init(struct i915_sched_node *node)
+ {
++	spin_lock_init(&node->lock);
++
+ 	INIT_LIST_HEAD(&node->signalers_list);
+ 	INIT_LIST_HEAD(&node->waiters_list);
+ 	INIT_LIST_HEAD(&node->link);
+@@ -413,10 +426,17 @@ i915_dependency_alloc(void)
+ 	return kmem_cache_alloc(global.slab_dependencies, GFP_KERNEL);
+ }
  
- 		if ((status & GS_UKERNEL_MASK) == GS_UKERNEL_EXCEPTION) {
--			drm_err(drm, "GuC firmware exception. EIP: %#x\n",
-+			drm_dbg(drm, "GuC firmware exception. EIP: %#x\n",
- 				intel_uncore_read(uncore, SOFT_SCRATCH(13)));
- 			ret = -ENXIO;
- 		}
++static void
++rcu_dependency_free(struct rcu_head *rcu)
++{
++	kmem_cache_free(global.slab_dependencies,
++			container_of(rcu, typeof(struct i915_dependency), rcu));
++}
++
+ static void
+ i915_dependency_free(struct i915_dependency *dep)
+ {
+-	kmem_cache_free(global.slab_dependencies, dep);
++	call_rcu(&dep->rcu, rcu_dependency_free);
+ }
+ 
+ bool __i915_sched_node_add_dependency(struct i915_sched_node *node,
+@@ -426,24 +446,27 @@ bool __i915_sched_node_add_dependency(struct i915_sched_node *node,
+ {
+ 	bool ret = false;
+ 
+-	spin_lock_irq(&schedule_lock);
++	/* The signal->lock is always the outer lock in this double-lock. */
++	spin_lock(&signal->lock);
+ 
+ 	if (!node_signaled(signal)) {
+ 		INIT_LIST_HEAD(&dep->dfs_link);
+ 		dep->signaler = signal;
+-		dep->waiter = node;
++		dep->waiter = node_get(node);
+ 		dep->flags = flags;
+ 
+ 		/* All set, now publish. Beware the lockless walkers. */
++		spin_lock_nested(&node->lock, SINGLE_DEPTH_NESTING);
+ 		list_add_rcu(&dep->signal_link, &node->signalers_list);
+ 		list_add_rcu(&dep->wait_link, &signal->waiters_list);
++		spin_unlock(&node->lock);
+ 
+ 		/* Propagate the chains */
+ 		node->flags |= signal->flags;
+ 		ret = true;
+ 	}
+ 
+-	spin_unlock_irq(&schedule_lock);
++	spin_unlock(&signal->lock);
+ 
+ 	return ret;
+ }
+@@ -465,39 +488,36 @@ int i915_sched_node_add_dependency(struct i915_sched_node *node,
+ 	return 0;
+ }
+ 
+-void i915_sched_node_fini(struct i915_sched_node *node)
++void i915_sched_node_retire(struct i915_sched_node *node)
+ {
+ 	struct i915_dependency *dep, *tmp;
+ 
+-	spin_lock_irq(&schedule_lock);
+-
+ 	/*
+ 	 * Everyone we depended upon (the fences we wait to be signaled)
+ 	 * should retire before us and remove themselves from our list.
+ 	 * However, retirement is run independently on each timeline and
+-	 * so we may be called out-of-order.
++	 * so we may be called out-of-order. As we need to avoid taking
++	 * the signaler's lock, just mark up our completion and be wary
++	 * in traversing the signalers->waiters_list.
+ 	 */
+-	list_for_each_entry_safe(dep, tmp, &node->signalers_list, signal_link) {
+-		GEM_BUG_ON(!list_empty(&dep->dfs_link));
+-
+-		list_del_rcu(&dep->wait_link);
+-		if (dep->flags & I915_DEPENDENCY_ALLOC)
+-			i915_dependency_free(dep);
+-	}
+-	INIT_LIST_HEAD(&node->signalers_list);
+ 
+ 	/* Remove ourselves from everyone who depends upon us */
++	spin_lock(&node->lock);
+ 	list_for_each_entry_safe(dep, tmp, &node->waiters_list, wait_link) {
++		struct i915_sched_node *w = dep->waiter;
++
+ 		GEM_BUG_ON(dep->signaler != node);
+-		GEM_BUG_ON(!list_empty(&dep->dfs_link));
+ 
++		spin_lock_nested(&w->lock, SINGLE_DEPTH_NESTING);
+ 		list_del_rcu(&dep->signal_link);
++		spin_unlock(&w->lock);
++		node_put(w);
++
+ 		if (dep->flags & I915_DEPENDENCY_ALLOC)
+ 			i915_dependency_free(dep);
+ 	}
+-	INIT_LIST_HEAD(&node->waiters_list);
+-
+-	spin_unlock_irq(&schedule_lock);
++	INIT_LIST_HEAD_RCU(&node->waiters_list);
++	spin_unlock(&node->lock);
+ }
+ 
+ void i915_request_show_with_schedule(struct drm_printer *m,
+@@ -548,8 +568,7 @@ static struct i915_global_scheduler global = { {
+ int __init i915_global_scheduler_init(void)
+ {
+ 	global.slab_dependencies = KMEM_CACHE(i915_dependency,
+-					      SLAB_HWCACHE_ALIGN |
+-					      SLAB_TYPESAFE_BY_RCU);
++					      SLAB_HWCACHE_ALIGN);
+ 	if (!global.slab_dependencies)
+ 		return -ENOMEM;
+ 
+diff --git a/drivers/gpu/drm/i915/i915_scheduler.h b/drivers/gpu/drm/i915/i915_scheduler.h
+index 1bb4abacfe9d..5b66445cd7d5 100644
+--- a/drivers/gpu/drm/i915/i915_scheduler.h
++++ b/drivers/gpu/drm/i915/i915_scheduler.h
+@@ -33,7 +33,7 @@ int i915_sched_node_add_dependency(struct i915_sched_node *node,
+ 				   struct i915_sched_node *signal,
+ 				   unsigned long flags);
+ 
+-void i915_sched_node_fini(struct i915_sched_node *node);
++void i915_sched_node_retire(struct i915_sched_node *node);
+ 
+ void i915_request_set_priority(struct i915_request *request, int prio);
+ 
+diff --git a/drivers/gpu/drm/i915/i915_scheduler_types.h b/drivers/gpu/drm/i915/i915_scheduler_types.h
+index 343ed44d5ed4..623bf41fcf35 100644
+--- a/drivers/gpu/drm/i915/i915_scheduler_types.h
++++ b/drivers/gpu/drm/i915/i915_scheduler_types.h
+@@ -60,6 +60,7 @@ struct i915_sched_attr {
+  * others.
+  */
+ struct i915_sched_node {
++	spinlock_t lock; /* protect the lists */
+ 	struct list_head signalers_list; /* those before us, we depend upon */
+ 	struct list_head waiters_list; /* those after us, they depend upon us */
+ 	struct list_head link;
+@@ -75,6 +76,7 @@ struct i915_dependency {
+ 	struct list_head signal_link;
+ 	struct list_head wait_link;
+ 	struct list_head dfs_link;
++	struct rcu_head rcu;
+ 	unsigned long flags;
+ #define I915_DEPENDENCY_ALLOC		BIT(0)
+ #define I915_DEPENDENCY_EXTERNAL	BIT(1)
 -- 
 2.20.1
 
