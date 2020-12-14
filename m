@@ -2,77 +2,42 @@ Return-Path: <SRS0=LtMi=FS=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.0 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-5.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3FA9EC4361B
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Dec 2020 15:16:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 97E07C4361B
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Dec 2020 15:27:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F290322A99
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Dec 2020 15:16:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F290322A99
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 2BA2422B2C
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Dec 2020 15:27:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2BA2422B2C
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3EACC6E288;
-	Mon, 14 Dec 2020 15:16:44 +0000 (UTC)
-Received: from mail-ed1-x544.google.com (mail-ed1-x544.google.com
- [IPv6:2a00:1450:4864:20::544])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 80D3789C6E;
- Sun, 13 Dec 2020 11:36:05 +0000 (UTC)
-Received: by mail-ed1-x544.google.com with SMTP id r5so14131788eda.12;
- Sun, 13 Dec 2020 03:36:05 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=yO3vpR//yJ3KukN+tPfw/ullrK0O2qQE7kKjDuWCMp8=;
- b=c6i+ahBjD9/Rh0qH45as2/C0d/Lv5nDMeI06jod3TPucN2QtiguKTRZxCznQ+jpaBW
- gvv5i+HN/z0qVNmozmLuRxtFAJ9V7+Ekywb7P9Eyni0NfuaKlPKyK+aL+VAfVSMYk6ET
- IsS0+k2gRUdseUfqRF/UdU5bAlwQl7B5WJwI1REXIqN2aaNIVtttoMQkfvNoRFm/NQ/2
- CwmCf0DUfVLjwlDCo2/HXyzoa2xfU2BeyMBSUUM5MgQ4udzSF7fTqhAJZgUGdY3OmduU
- Wly23cmVni7LPdYQgfxlnoj5hfppXocENHNXxV4IuuZv3YXWmfxmP1sbgWNiQqwcc5pM
- VImw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=yO3vpR//yJ3KukN+tPfw/ullrK0O2qQE7kKjDuWCMp8=;
- b=hJOqVsi9FOlINwjFM4Q/Ey8KYm6YzO2B+c8dvRkuJ+t+QQd4i+abIel22QFoYvEkeL
- /JePbp4BTcQLGj5v8rwRHSG6EuXMUE1G6bIagkrG+UlzHu0/vzfF/wPeBAOlYpzSEYtu
- LUIEwOwbGA2kP0CLI4E8XGXbHYVigw7Sibhj2/IPOvbuOYPmctim9XeycWgysX8LZpUm
- MF/r7mjeTxQskgZdIY+bYMAfXEuuXGLdoBodP/Pl1z74V/FKo1yTcCQ016K7Jaaac008
- luwbRkQG3ka6NXAhDFi42nFB74oe1/HSWTF3Z8z7to5dI6mR6MsAXu3ENWECAZsYHSGl
- hlzg==
-X-Gm-Message-State: AOAM531MOS6gXWQv7MiEzCAaoqKF452GXMgwEaKSLs/AnW+b7kiLd+nV
- zfgip8IrOa7ztmodk1RLVh8=
-X-Google-Smtp-Source: ABdhPJzH+/aSvmgK74NOHKHONm6dhSpADhiv/j9gb2Z3Pv7veSPcdPhRE3SKaG8WhajpgAcAsGPlGw==
-X-Received: by 2002:a50:a6c9:: with SMTP id f9mr20130904edc.158.1607859364213; 
- Sun, 13 Dec 2020 03:36:04 -0800 (PST)
-Received: from [192.168.0.107] ([77.127.34.194])
- by smtp.gmail.com with ESMTPSA id ef11sm11222266ejb.15.2020.12.13.03.35.58
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 13 Dec 2020 03:36:03 -0800 (PST)
-To: Thomas Gleixner <tglx@linutronix.de>, LKML <linux-kernel@vger.kernel.org>
-References: <20201210192536.118432146@linutronix.de>
- <20201210194044.876342330@linutronix.de>
-From: Tariq Toukan <ttoukan.linux@gmail.com>
-Message-ID: <f0a01d6e-0333-e929-eabb-28cb444effe0@gmail.com>
-Date: Sun, 13 Dec 2020 13:35:57 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.5.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 33CEA6E2C8;
+	Mon, 14 Dec 2020 15:27:20 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id CB0236E2B6;
+ Mon, 14 Dec 2020 15:27:17 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 7B1F1A0019;
+ Mon, 14 Dec 2020 15:27:17 +0000 (UTC)
 MIME-Version: 1.0
-In-Reply-To: <20201210194044.876342330@linutronix.de>
-Content-Language: en-US
-X-Mailman-Approved-At: Mon, 14 Dec 2020 15:16:10 +0000
-Subject: Re: [Intel-gfx] [patch 23/30] net/mlx5: Use effective interrupt
- affinity
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Chris Wilson" <chris@chris-wilson.co.uk>
+Date: Mon, 14 Dec 2020 15:27:17 -0000
+Message-ID: <160795963747.28165.683652234089852367@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20201214123126.9777-1-chris@chris-wilson.co.uk>
+In-Reply-To: <20201214123126.9777-1-chris@chris-wilson.co.uk>
+Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3Igc2Vy?=
+ =?utf-8?q?ies_starting_with_=5B1/2=5D_drm/i915=3A_Individual_request_canc?=
+ =?utf-8?q?ellation?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,77 +50,227 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Mark Rutland <mark.rutland@arm.com>,
- Karthikeyan Mitran <m.karthikeyan@mobiveil.co.in>,
- Peter Zijlstra <peterz@infradead.org>,
- Catalin Marinas <catalin.marinas@arm.com>,
- Linus Walleij <linus.walleij@linaro.org>, dri-devel@lists.freedesktop.org,
- Chris Wilson <chris@chris-wilson.co.uk>,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- afzal mohammed <afzal.mohd.ma@gmail.com>,
- Michal Simek <michal.simek@xilinx.com>, Rob Herring <robh@kernel.org>,
- linux-s390@vger.kernel.org, Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
- Dave Jiang <dave.jiang@intel.com>, xen-devel@lists.xenproject.org,
- Leon Romanovsky <leon@kernel.org>, linux-rdma@vger.kernel.org,
- Marc Zyngier <maz@kernel.org>, Helge Deller <deller@gmx.de>,
- Russell King <linux@armlinux.org.uk>,
- Christian Borntraeger <borntraeger@de.ibm.com>, linux-pci@vger.kernel.org,
- Jakub Kicinski <kuba@kernel.org>, intel-gfx@lists.freedesktop.org,
- Wambui Karuga <wambui.karugax@gmail.com>, Allen Hubbe <allenbh@gmail.com>,
- Juergen Gross <jgross@suse.com>, Will Deacon <will@kernel.org>,
- Heiko Carstens <hca@linux.ibm.com>, Jon Mason <jdmason@kudzu.us>,
- linux-gpio@vger.kernel.org, Stefano Stabellini <sstabellini@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>, Lee Jones <lee.jones@linaro.org>,
- linux-arm-kernel@lists.infradead.org,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, David Airlie <airlied@linux.ie>,
- linux-parisc@vger.kernel.org, netdev@vger.kernel.org,
- Hou Zhiqiang <Zhiqiang.Hou@nxp.com>, Tariq Toukan <tariqt@nvidia.com>,
- linux-ntb@googlegroups.com, Saeed Mahameed <saeedm@nvidia.com>,
- "David S. Miller" <davem@davemloft.net>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============1158259005=="
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+--===============1158259005==
+Content-Type: multipart/alternative;
+ boundary="===============4767708854575483547=="
+
+--===============4767708854575483547==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+== Series Details ==
+
+Series: series starting with [1/2] drm/i915: Individual request cancellation
+URL   : https://patchwork.freedesktop.org/series/84906/
+State : success
+
+== Summary ==
+
+CI Bug Log - changes from CI_DRM_9481 -> Patchwork_19134
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19134/index.html
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_19134 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@debugfs_test@read_all_entries:
+    - fi-tgl-y:           [PASS][1] -> [DMESG-WARN][2] ([i915#402]) +1 similar issue
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9481/fi-tgl-y/igt@debugfs_test@read_all_entries.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19134/fi-tgl-y/igt@debugfs_test@read_all_entries.html
+
+  * igt@kms_addfb_basic@addfb25-y-tiled-small-legacy:
+    - fi-snb-2600:        NOTRUN -> [SKIP][3] ([fdo#109271]) +30 similar issues
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19134/fi-snb-2600/igt@kms_addfb_basic@addfb25-y-tiled-small-legacy.html
+
+  * igt@kms_chamelium@hdmi-crc-fast:
+    - fi-snb-2600:        NOTRUN -> [SKIP][4] ([fdo#109271] / [fdo#111827]) +8 similar issues
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19134/fi-snb-2600/igt@kms_chamelium@hdmi-crc-fast.html
+
+  * igt@kms_flip@basic-plain-flip@c-dp2:
+    - fi-cfl-8109u:       [PASS][5] -> [DMESG-WARN][6] ([i915#165])
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9481/fi-cfl-8109u/igt@kms_flip@basic-plain-flip@c-dp2.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19134/fi-cfl-8109u/igt@kms_flip@basic-plain-flip@c-dp2.html
+
+  
+#### Possible fixes ####
+
+  * igt@gem_exec_suspend@basic-s3:
+    - fi-snb-2600:        [DMESG-WARN][7] -> [PASS][8]
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9481/fi-snb-2600/igt@gem_exec_suspend@basic-s3.html
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19134/fi-snb-2600/igt@gem_exec_suspend@basic-s3.html
+
+  * igt@gem_linear_blits@basic:
+    - fi-tgl-y:           [DMESG-WARN][9] ([i915#402]) -> [PASS][10]
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9481/fi-tgl-y/igt@gem_linear_blits@basic.html
+   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19134/fi-tgl-y/igt@gem_linear_blits@basic.html
+
+  
+  {name}: This element is suppressed. This means it is ignored when computing
+          the status of the difference (SUCCESS, WARNING, or FAILURE).
+
+  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
+  [fdo#111827]: https://bugs.freedesktop.org/show_bug.cgi?id=111827
+  [i915#165]: https://gitlab.freedesktop.org/drm/intel/issues/165
+  [i915#2601]: https://gitlab.freedesktop.org/drm/intel/issues/2601
+  [i915#402]: https://gitlab.freedesktop.org/drm/intel/issues/402
 
 
-On 12/10/2020 9:25 PM, Thomas Gleixner wrote:
-> Using the interrupt affinity mask for checking locality is not really
-> working well on architectures which support effective affinity masks.
-> 
-> The affinity mask is either the system wide default or set by user space,
-> but the architecture can or even must reduce the mask to the effective set,
-> which means that checking the affinity mask itself does not really tell
-> about the actual target CPUs.
-> 
-> Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
-> Cc: Saeed Mahameed <saeedm@nvidia.com>
-> Cc: Leon Romanovsky <leon@kernel.org>
-> Cc: "David S. Miller" <davem@davemloft.net>
-> Cc: Jakub Kicinski <kuba@kernel.org>
-> Cc: netdev@vger.kernel.org
-> Cc: linux-rdma@vger.kernel.org
-> ---
->   drivers/net/ethernet/mellanox/mlx5/core/en_main.c |    2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> --- a/drivers/net/ethernet/mellanox/mlx5/core/en_main.c
-> +++ b/drivers/net/ethernet/mellanox/mlx5/core/en_main.c
-> @@ -1998,7 +1998,7 @@ static int mlx5e_open_channel(struct mlx
->   	c->num_tc   = params->num_tc;
->   	c->xdp      = !!params->xdp_prog;
->   	c->stats    = &priv->channel_stats[ix].ch;
-> -	c->aff_mask = irq_get_affinity_mask(irq);
-> +	c->aff_mask = irq_get_effective_affinity_mask(irq);
->   	c->lag_port = mlx5e_enumerate_lag_port(priv->mdev, ix);
->   
->   	netif_napi_add(netdev, &c->napi, mlx5e_napi_poll, 64);
-> 
+Participating hosts (44 -> 39)
+------------------------------
 
-Reviewed-by: Tariq Toukan <tariqt@nvidia.com>
+  Missing    (5): fi-ilk-m540 fi-hsw-4200u fi-bsw-cyan fi-ctg-p8600 fi-bdw-samus 
 
-Thanks.
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_9481 -> Patchwork_19134
+
+  CI-20190529: 20190529
+  CI_DRM_9481: 968d6b8835487575d68732a7c0a1588795900de4 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_5893: ec4073d30b428aaf199c0f4de6c0a5ebdc1c1c65 @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools
+  Patchwork_19134: 823a8e9dc24952b2566419b3a88670ed1783b65d @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+== Linux commits ==
+
+823a8e9dc249 drm/i915/gem: Allow cancelling an individual fence
+27629d7496f4 drm/i915: Individual request cancellation
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19134/index.html
+
+--===============4767708854575483547==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>series starting with [1/2] drm/i915: Individual request cancellation</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/84906/">https://patchwork.freedesktop.org/series/84906/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19134/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19134/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_9481 -&gt; Patchwork_19134</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19134/index.html</p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_19134 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@debugfs_test@read_all_entries:</p>
+<ul>
+<li>fi-tgl-y:           <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9481/fi-tgl-y/igt@debugfs_test@read_all_entries.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19134/fi-tgl-y/igt@debugfs_test@read_all_entries.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/402">i915#402</a>) +1 similar issue</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_addfb_basic@addfb25-y-tiled-small-legacy:</p>
+<ul>
+<li>fi-snb-2600:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19134/fi-snb-2600/igt@kms_addfb_basic@addfb25-y-tiled-small-legacy.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +30 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_chamelium@hdmi-crc-fast:</p>
+<ul>
+<li>fi-snb-2600:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19134/fi-snb-2600/igt@kms_chamelium@hdmi-crc-fast.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://bugs.freedesktop.org/show_bug.cgi?id=111827">fdo#111827</a>) +8 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_flip@basic-plain-flip@c-dp2:</p>
+<ul>
+<li>fi-cfl-8109u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9481/fi-cfl-8109u/igt@kms_flip@basic-plain-flip@c-dp2.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19134/fi-cfl-8109u/igt@kms_flip@basic-plain-flip@c-dp2.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/165">i915#165</a>)</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@gem_exec_suspend@basic-s3:</p>
+<ul>
+<li>fi-snb-2600:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9481/fi-snb-2600/igt@gem_exec_suspend@basic-s3.html">DMESG-WARN</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19134/fi-snb-2600/igt@gem_exec_suspend@basic-s3.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@gem_linear_blits@basic:</p>
+<ul>
+<li>fi-tgl-y:           <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9481/fi-tgl-y/igt@gem_linear_blits@basic.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/402">i915#402</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19134/fi-tgl-y/igt@gem_linear_blits@basic.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<p>{name}: This element is suppressed. This means it is ignored when computing<br />
+          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
+<h2>Participating hosts (44 -&gt; 39)</h2>
+<p>Missing    (5): fi-ilk-m540 fi-hsw-4200u fi-bsw-cyan fi-ctg-p8600 fi-bdw-samus </p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_9481 -&gt; Patchwork_19134</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_9481: 968d6b8835487575d68732a7c0a1588795900de4 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_5893: ec4073d30b428aaf199c0f4de6c0a5ebdc1c1c65 @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools<br />
+  Patchwork_19134: 823a8e9dc24952b2566419b3a88670ed1783b65d @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<p>== Linux commits ==</p>
+<p>823a8e9dc249 drm/i915/gem: Allow cancelling an individual fence<br />
+27629d7496f4 drm/i915: Individual request cancellation</p>
+
+</body>
+</html>
+
+--===============4767708854575483547==--
+
+--===============1158259005==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+
+--===============1158259005==--
