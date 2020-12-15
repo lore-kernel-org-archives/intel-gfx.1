@@ -7,44 +7,44 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 81081C2BBCA
-	for <intel-gfx@archiver.kernel.org>; Tue, 15 Dec 2020 01:08:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C4E35C4361B
+	for <intel-gfx@archiver.kernel.org>; Tue, 15 Dec 2020 01:08:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4BDE320705
-	for <intel-gfx@archiver.kernel.org>; Tue, 15 Dec 2020 01:08:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4BDE320705
+	by mail.kernel.org (Postfix) with ESMTPS id 87ECF20705
+	for <intel-gfx@archiver.kernel.org>; Tue, 15 Dec 2020 01:08:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 87ECF20705
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 690526E193;
-	Tue, 15 Dec 2020 01:08:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 382866E174;
+	Tue, 15 Dec 2020 01:08:29 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F8116E14F
- for <Intel-gfx@lists.freedesktop.org>; Tue, 15 Dec 2020 01:08:03 +0000 (UTC)
-IronPort-SDR: FIt2UIbXqTHees6owF8SJmi/RbjK+OWIhLi5AoeCTAlxjR0BLtFvbk35lRLupZzmiAt4nQ4Diy
- 1k6M5L8jDHPg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9835"; a="171298000"
-X-IronPort-AV: E=Sophos;i="5.78,420,1599548400"; d="scan'208";a="171298000"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A7CA56E054
+ for <Intel-gfx@lists.freedesktop.org>; Tue, 15 Dec 2020 01:08:02 +0000 (UTC)
+IronPort-SDR: zfsP4CkBtVOguM2nNhqc+gs+sdWh2kGPxJZQHvLru0eQIi0Bf+o4Ul3D9AK2g1rqLAd3xrL3DP
+ Ou7HYI/yfRQg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9835"; a="171297990"
+X-IronPort-AV: E=Sophos;i="5.78,420,1599548400"; d="scan'208";a="171297990"
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  14 Dec 2020 17:08:01 -0800
-IronPort-SDR: QVAKI/7gT4RJxsp+cnigPBR11ylis1P/A/MEB1VIzbT2bW4etjJjjTNI7w2f696TurI5kqo6Kt
- lIIgUq6nZS2Q==
+IronPort-SDR: TQQFmA+Tro8139aJ+r26LFuy9UvNVI+adTh4Syr/LTCh7dWKVY04YfCkZYdgYyTiE7Aw12hXYc
+ 0ARFbr+O8Wbw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.78,420,1599548400"; d="scan'208";a="331861148"
+X-IronPort-AV: E=Sophos;i="5.78,420,1599548400"; d="scan'208";a="331861127"
 Received: from sean-virtualbox.fm.intel.com ([10.105.158.96])
  by fmsmga007.fm.intel.com with ESMTP; 14 Dec 2020 17:08:01 -0800
 From: "Huang, Sean Z" <sean.z.huang@intel.com>
 To: Intel-gfx@lists.freedesktop.org
-Date: Mon, 14 Dec 2020 17:07:20 -0800
-Message-Id: <20201215010726.15898-18-sean.z.huang@intel.com>
+Date: Mon, 14 Dec 2020 17:07:10 -0800
+Message-Id: <20201215010726.15898-8-sean.z.huang@intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20201215010726.15898-1-sean.z.huang@intel.com>
 References: <20201215010726.15898-1-sean.z.huang@intel.com>
-Subject: [Intel-gfx] [RFC-v9 17/23] drm/i915/pxp: Implement ioctl action to
- send TEE commands
+Subject: [Intel-gfx] [RFC-v9 07/23] drm/i915/pxp: Destroy arb session upon
+ teardown
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,184 +63,310 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Implement the ioctl action to allow userspace driver sends TEE
-commands via PXP ioctl, instead of TEE iotcl. So we can
-centralize those protection operations at PXP.
+Teardown is triggered when the display topology changes and no
+long meets the secure playback requirement, and hardware trashes
+all the encryption keys for display. So as a result, PXP should
+handle such case and terminate the type0 sessions, which including
+arb session
 
 Signed-off-by: Huang, Sean Z <sean.z.huang@intel.com>
 ---
- drivers/gpu/drm/i915/pxp/intel_pxp.c     | 48 +++++++++++++++++---
- drivers/gpu/drm/i915/pxp/intel_pxp_tee.c | 57 ++++++++++++++++++++++++
- drivers/gpu/drm/i915/pxp/intel_pxp_tee.h |  5 +++
- 3 files changed, 105 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/i915/pxp/intel_pxp.c     |   3 +
+ drivers/gpu/drm/i915/pxp/intel_pxp_arb.c |  76 +++++++++++++
+ drivers/gpu/drm/i915/pxp/intel_pxp_arb.h |   1 +
+ drivers/gpu/drm/i915/pxp/intel_pxp_cmd.c | 129 ++++++++++++++++++++++-
+ drivers/gpu/drm/i915/pxp/intel_pxp_cmd.h |  12 ++-
+ 5 files changed, 211 insertions(+), 10 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.c b/drivers/gpu/drm/i915/pxp/intel_pxp.c
-index c35011b84f5a..2445af5f763c 100644
+index 9bcb170b34f1..48e926363696 100644
 --- a/drivers/gpu/drm/i915/pxp/intel_pxp.c
 +++ b/drivers/gpu/drm/i915/pxp/intel_pxp.c
-@@ -16,7 +16,10 @@
- /* Setting KCR Init bit is required after system boot */
- #define KCR_INIT_ALLOW_DISPLAY_ME_WRITES (BIT(14) | (BIT(14) << KCR_INIT_MASK_SHIFT))
+@@ -28,6 +28,9 @@ static int intel_pxp_teardown_required_callback(struct intel_pxp *pxp)
+ 	mutex_lock(&pxp->ctx.mutex);
  
--#define PXP_ACTION_SET_SESSION_STATUS 1
-+enum pxp_ioctl_action {
-+	PXP_ACTION_SET_SESSION_STATUS = 1,
-+	PXP_ACTION_TEE_IO_MESSAGE = 4,
-+};
- 
- enum pxp_session_req {
- 	/* Request KMD to allocate session id and move it to IN INIT */
-@@ -38,13 +41,28 @@ struct pxp_set_session_status_params {
- 	u32 req_session_state; /* in, new session state */
- };
- 
-+/*
-+ * struct pxp_tee_io_message_params - Params to send/receive message to/from TEE.
-+ */
-+struct pxp_tee_io_message_params {
-+	u8 __user *msg_in; /* in - message input */
-+	u32 msg_in_size; /* in - message input size */
-+	u8 __user *msg_out; /* in - message output buffer */
-+	u32 msg_out_size; /* out- message output size from TEE */
-+	u32 msg_out_buf_size; /* in - message output buffer size */
-+};
+ 	pxp->ctx.global_state_attacked = true;
++	pxp->ctx.flag_display_hm_surface_keys = false;
 +
- /* struct pxp_info - Params for PXP operation. */
- struct pxp_info {
- 	u32 action; /* in - specified action of this operation */
- 	u32 sm_status; /* out - status output for this operation */
++	ret = intel_pxp_arb_terminate_session(pxp);
  
--	/* in - action params to set the PXP session state */
--	struct pxp_set_session_status_params set_session_status;
-+	union {
-+		/* in - action params to set the PXP session state */
-+		struct pxp_set_session_status_params set_session_status;
-+		/* in - action params to send TEE commands */
-+		struct pxp_tee_io_message_params tee_io_message;
-+	};
- } __attribute__((packed));
+ 	mutex_unlock(&pxp->ctx.mutex);
  
- struct drm_i915_pxp_ops {
-@@ -228,7 +246,9 @@ int i915_pxp_ops_ioctl(struct drm_device *dev, void *data, struct drm_file *drmf
- 		goto end;
- 	}
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_arb.c b/drivers/gpu/drm/i915/pxp/intel_pxp_arb.c
+index 9611cd53d3a4..d94b08fe9190 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp_arb.c
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_arb.c
+@@ -10,6 +10,7 @@
+ #include "intel_pxp.h"
+ #include "intel_pxp_context.h"
+ #include "intel_pxp_tee.h"
++#include "intel_pxp_cmd.h"
  
--	if (pxp_info.action == PXP_ACTION_SET_SESSION_STATUS) {
-+	switch (pxp_info.action) {
-+	case PXP_ACTION_SET_SESSION_STATUS:
-+	{
- 		struct pxp_set_session_status_params *params = &pxp_info.set_session_status;
+ #define GEN12_KCR_SIP _MMIO(0x32260) /* KCR type0 session in play 0-31 */
  
- 		if (params->req_session_state == PXP_REQ_SESSION_ID_INIT) {
-@@ -250,8 +270,26 @@ int i915_pxp_ops_ioctl(struct drm_device *dev, void *data, struct drm_file *drmf
- 		} else {
- 			ret = -EINVAL;
- 		}
--	} else {
-+		break;
-+	}
-+	case PXP_ACTION_TEE_IO_MESSAGE:
-+	{
-+		struct pxp_tee_io_message_params *params = &pxp_info.tee_io_message;
-+
-+		ret = intel_pxp_tee_ioctl_io_message(pxp,
-+						     params->msg_in, params->msg_in_size,
-+						     params->msg_out, &params->msg_out_size,
-+						     params->msg_out_buf_size);
-+		if (ret) {
-+			drm_err(&i915->drm, "Failed to send TEE IO message\n");
-+			ret = -EFAULT;
-+		}
-+		break;
-+	}
-+	default:
-+		drm_err(&i915->drm, "Failed to %s due to bad params\n", __func__);
- 		ret = -EINVAL;
-+		break;
- 	}
- 
+@@ -132,3 +133,78 @@ int intel_pxp_arb_create_session(struct intel_pxp *pxp)
  end:
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
-index 816a6d5a54e4..e0815b2ee9ab 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
-@@ -168,3 +168,60 @@ int intel_pxp_tee_cmd_create_arb_session(struct intel_pxp *pxp)
- 
  	return ret;
  }
 +
-+int intel_pxp_tee_ioctl_io_message(struct intel_pxp *pxp,
-+				   void __user *msg_in_user_ptr, u32 msg_in_size,
-+				   void __user *msg_out_user_ptr, u32 *msg_out_size_ptr,
-+				   u32 msg_out_buf_size)
++static int intel_pxp_arb_session_with_global_termination(struct intel_pxp *pxp)
 +{
++	u32 *cmd = NULL;
++	u32 *cmd_ptr = NULL;
++	int cmd_size_in_dw = 0;
 +	int ret;
-+	void *msg_in = NULL;
-+	void *msg_out = NULL;
 +	struct intel_gt *gt = container_of(pxp, typeof(*gt), pxp);
-+	struct drm_i915_private *i915 = gt->i915;
 +
-+	if (!msg_in_user_ptr || !msg_out_user_ptr || msg_out_buf_size == 0 ||
-+	    msg_in_size == 0 || !msg_out_size_ptr)
-+		return -EINVAL;
++	/* Calculate how many bytes need to be alloc */
++	cmd_size_in_dw += intel_pxp_cmd_add_prolog(pxp, NULL, ARB_SESSION_TYPE, ARB_SESSION_INDEX);
++	cmd_size_in_dw += intel_pxp_cmd_add_inline_termination(NULL);
++	cmd_size_in_dw += intel_pxp_cmd_add_epilog(NULL);
 +
-+	msg_in = kzalloc(msg_in_size, GFP_KERNEL);
-+	if (!msg_in)
++	cmd = kzalloc(cmd_size_in_dw * 4, GFP_KERNEL);
++	if (!cmd)
 +		return -ENOMEM;
 +
-+	msg_out = kzalloc(msg_out_buf_size, GFP_KERNEL);
-+	if (!msg_out) {
-+		ret = -ENOMEM;
++	/* Program the command */
++	cmd_ptr = cmd;
++	cmd_ptr += intel_pxp_cmd_add_prolog(pxp, cmd_ptr, ARB_SESSION_TYPE, ARB_SESSION_INDEX);
++	cmd_ptr += intel_pxp_cmd_add_inline_termination(cmd_ptr);
++	cmd_ptr += intel_pxp_cmd_add_epilog(cmd_ptr);
++
++	if (cmd_size_in_dw != (cmd_ptr - cmd)) {
++		ret = -EINVAL;
++		drm_err(&gt->i915->drm, "Failed to %s\n", __func__);
 +		goto end;
 +	}
 +
-+	if (copy_from_user(msg_in, msg_in_user_ptr, msg_in_size) != 0) {
-+		ret = -EFAULT;
-+		drm_err(&i915->drm, "Failed to copy_from_user for TEE message\n");
-+		goto end;
++	if (drm_debug_enabled(DRM_UT_DRIVER)) {
++		print_hex_dump(KERN_DEBUG, "global termination cmd binaries:",
++			       DUMP_PREFIX_OFFSET, 4, 4, cmd, cmd_size_in_dw * 4, true);
 +	}
 +
-+	mutex_lock(&i915->pxp_tee_comp_mutex);
-+
-+	ret = intel_pxp_tee_io_message(pxp,
-+				       msg_in, msg_in_size,
-+				       msg_out, msg_out_size_ptr,
-+				       msg_out_buf_size);
-+
-+	mutex_unlock(&i915->pxp_tee_comp_mutex);
-+
++	ret = intel_pxp_cmd_submit(pxp, cmd, cmd_size_in_dw);
 +	if (ret) {
-+		drm_err(&i915->drm, "Failed to send/receive tee message\n");
-+		goto end;
-+	}
-+
-+	if (copy_to_user(msg_out_user_ptr, msg_out, *msg_out_size_ptr) != 0) {
-+		ret = -EFAULT;
-+		drm_err(&i915->drm, "Failed to copy_to_user for TEE message\n");
++		drm_err(&gt->i915->drm, "Failed to intel_pxp_cmd_submit()\n");
 +		goto end;
 +	}
 +
 +end:
-+	kfree(msg_in);
-+	kfree(msg_out);
++	kfree(cmd);
 +	return ret;
 +}
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.h b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.h
-index 757a54208a4d..d3129786758f 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.h
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.h
-@@ -13,6 +13,11 @@ void intel_pxp_tee_component_fini(struct intel_pxp *pxp);
- 
- int intel_pxp_tee_cmd_create_arb_session(struct intel_pxp *pxp);
- 
-+int intel_pxp_tee_ioctl_io_message(struct intel_pxp *pxp,
-+				   void __user *msg_in_user_ptr, u32 msg_in_size,
-+				   void __user *msg_out_user_ptr, u32 *msg_out_size_ptr,
-+				   u32 msg_out_buf_size);
 +
- /* TEE command to create the arbitrary session */
- #define PXP_TEE_ARB_CMD_BIN {0x00040000, 0x0000001e, 0x00000000, 0x00000008, 0x00000002, 0x0000000f}
- #define PXP_TEE_ARB_CMD_DW_LEN (6)
++/**
++ * intel_pxp_arb_terminate_session - Terminate the arb hw session and its entries.
++ * @pxp: pointer to pxp struct.
++ *
++ * This function is NOT intended to be called from the ioctl, and need to be protected by
++ * ctx.mutex to ensure no SIP change during the call.
++ *
++ * Return: status. 0 means terminate is successful.
++ */
++int intel_pxp_arb_terminate_session(struct intel_pxp *pxp)
++{
++	int ret;
++	struct intel_gt *gt = container_of(pxp, struct intel_gt, pxp);
++	struct pxp_protected_session *arb = &pxp->ctx.arb_session;
++
++	lockdep_assert_held(&pxp->ctx.mutex);
++
++	/* terminate the hw sessions */
++	ret = intel_pxp_arb_session_with_global_termination(pxp);
++	if (ret) {
++		drm_err(&gt->i915->drm, "Failed to intel_pxp_arb_session_with_global_termination\n");
++		return ret;
++	}
++
++	arb->is_in_play = false;
++
++	return ret;
++}
++
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_arb.h b/drivers/gpu/drm/i915/pxp/intel_pxp_arb.h
+index c6a6000f5be5..d4e33ac7c2bd 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp_arb.h
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_arb.h
+@@ -34,5 +34,6 @@ struct pxp_protected_session {
+ };
+ 
+ int intel_pxp_arb_create_session(struct intel_pxp *pxp);
++int intel_pxp_arb_terminate_session(struct intel_pxp *pxp);
+ 
+ #endif /* __INTEL_PXP_ARB_H__ */
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_cmd.c b/drivers/gpu/drm/i915/pxp/intel_pxp_cmd.c
+index e86d914e7629..ab9c5a1b826c 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp_cmd.c
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_cmd.c
+@@ -8,10 +8,29 @@
+ #include "gt/intel_context.h"
+ #include "gt/intel_engine_pm.h"
+ 
+-struct i915_vma *intel_pxp_cmd_get_batch(struct intel_pxp *pxp,
+-					 struct intel_context *ce,
+-					 struct intel_gt_buffer_pool_node *pool,
+-					 u32 *cmd_buf, int cmd_size_in_dw)
++/* PXP GPU command definitions */
++
++/* MI_SET_APPID */
++#define   MI_SET_APPID_TYPE1_APP        BIT(7)
++#define   MI_SET_APPID_SESSION_ID(x)    ((x) << 0)
++
++/* MI_FLUSH_DW */
++#define   MI_FLUSH_DW_DW0_PROTECTED_MEMORY_ENABLE   BIT(22)
++
++/* MI_WAIT */
++#define   MFX_WAIT_DW0_PXP_SYNC_CONTROL_FLAG BIT(9)
++#define   MFX_WAIT_DW0_MFX_SYNC_CONTROL_FLAG  BIT(8)
++
++/* CRYPTO_KEY_EXCHANGE */
++#define CRYPTO_KEY_EXCHANGE ((0x3 << 29) | (0x01609 << 16))
++
++#define PXP_MAX_TYPE0_SESSIONS 16
++#define PXP_MAX_TYPE1_SESSIONS 6
++
++static struct i915_vma *intel_pxp_cmd_get_batch(struct intel_pxp *pxp,
++						struct intel_context *ce,
++						struct intel_gt_buffer_pool_node *pool,
++						u32 *cmd_buf, int cmd_size_in_dw)
+ {
+ 	struct i915_vma *batch = ERR_PTR(-EINVAL);
+ 	struct intel_gt *gt = container_of(pxp, struct intel_gt, pxp);
+@@ -50,7 +69,8 @@ struct i915_vma *intel_pxp_cmd_get_batch(struct intel_pxp *pxp,
+ 	return batch;
+ }
+ 
+-int intel_pxp_cmd_submit(struct intel_pxp *pxp, u32 *cmd, int cmd_size_in_dw)
++int intel_pxp_cmd_submit(struct intel_pxp *pxp, u32 *cmd,
++			 int cmd_size_in_dw)
+ {
+ 	int err = -EINVAL;
+ 	struct i915_vma *batch;
+@@ -157,3 +177,102 @@ int intel_pxp_cmd_submit(struct intel_pxp *pxp, u32 *cmd, int cmd_size_in_dw)
+ 
+ 	return err;
+ }
++
++int intel_pxp_cmd_add_prolog(struct intel_pxp *pxp, u32 *cmd,
++			     int session_type,
++			     int session_index)
++{
++	u32 increased_size_in_dw = 0;
++	u32 *cmd_prolog = cmd;
++	const int cmd_prolog_size_in_dw = 10;
++	struct intel_gt *gt = container_of(pxp, typeof(*gt), pxp);
++
++	if (!cmd)
++		return cmd_prolog_size_in_dw;
++
++	/* MFX_WAIT - stall until prior PXP and MFX/HCP/HUC objects are cmopleted */
++	*cmd_prolog++ = (MFX_WAIT | MFX_WAIT_DW0_PXP_SYNC_CONTROL_FLAG |
++			 MFX_WAIT_DW0_MFX_SYNC_CONTROL_FLAG);
++
++	/* MI_FLUSH_DW - pxp off */
++	*cmd_prolog++ = MI_FLUSH_DW;  /* DW0 */
++	*cmd_prolog++ = 0;            /* DW1 */
++	*cmd_prolog++ = 0;            /* DW2 */
++
++	/* MI_SET_APPID */
++	if (session_type == SESSION_TYPE_TYPE1) {
++		if (session_index >= PXP_MAX_TYPE1_SESSIONS) {
++			drm_err(&gt->i915->drm, "Failed to %s invalid session_index\n", __func__);
++			goto end;
++		}
++
++		*cmd_prolog++ = (MI_SET_APPID | MI_SET_APPID_TYPE1_APP |
++				 MI_SET_APPID_SESSION_ID(session_index));
++	} else {
++		if (session_index >= PXP_MAX_TYPE0_SESSIONS) {
++			drm_err(&gt->i915->drm, "Failed to %s invalid session_index\n", __func__);
++			goto end;
++		}
++
++		*cmd_prolog++ = (MI_SET_APPID | MI_SET_APPID_SESSION_ID(session_index));
++	}
++
++	/* MFX_WAIT */
++	*cmd_prolog++ = (MFX_WAIT | MFX_WAIT_DW0_PXP_SYNC_CONTROL_FLAG |
++			 MFX_WAIT_DW0_MFX_SYNC_CONTROL_FLAG);
++
++	/* MI_FLUSH_DW - pxp on */
++	*cmd_prolog++ = (MI_FLUSH_DW | MI_FLUSH_DW_DW0_PROTECTED_MEMORY_ENABLE); /* DW0 */
++	*cmd_prolog++ = 0;                                                       /* DW1 */
++	*cmd_prolog++ = 0;                                                       /* DW2 */
++
++	/* MFX_WAIT */
++	*cmd_prolog++ = (MFX_WAIT | MFX_WAIT_DW0_PXP_SYNC_CONTROL_FLAG |
++			 MFX_WAIT_DW0_MFX_SYNC_CONTROL_FLAG);
++
++	increased_size_in_dw = (cmd_prolog - cmd);
++end:
++	return increased_size_in_dw;
++}
++
++int intel_pxp_cmd_add_epilog(u32 *cmd)
++{
++	u32 increased_size_in_dw = 0;
++	u32 *cmd_epilog = cmd;
++	const int cmd_epilog_size_in_dw = 5;
++
++	if (!cmd)
++		return cmd_epilog_size_in_dw;
++
++	/* MI_FLUSH_DW - pxp off */
++	*cmd_epilog++ = MI_FLUSH_DW;  /* DW0 */
++	*cmd_epilog++ = 0;            /* DW1 */
++	*cmd_epilog++ = 0;            /* DW2 */
++
++	/* MFX_WAIT - stall until prior PXP and MFX/HCP/HUC objects are cmopleted */
++	*cmd_epilog++ = (MFX_WAIT | MFX_WAIT_DW0_PXP_SYNC_CONTROL_FLAG |
++			 MFX_WAIT_DW0_MFX_SYNC_CONTROL_FLAG);
++
++	/* MI_BATCH_BUFFER_END */
++	*cmd_epilog++ = MI_BATCH_BUFFER_END;
++
++	increased_size_in_dw = (cmd_epilog - cmd);
++	return increased_size_in_dw;
++}
++
++int intel_pxp_cmd_add_inline_termination(u32 *cmd)
++{
++	u32 increased_size_in_dw = 0;
++	u32 *cmd_termin = cmd;
++	const int cmd_termin_size_in_dw = 2;
++
++	if (!cmd)
++		return cmd_termin_size_in_dw;
++
++	/* CRYPTO_KEY_EXCHANGE - session inline termination */
++	*cmd_termin++ = CRYPTO_KEY_EXCHANGE; /* DW0 */
++	*cmd_termin++ = 0;                   /* DW1 */
++
++	increased_size_in_dw = (cmd_termin - cmd);
++	return increased_size_in_dw;
++}
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_cmd.h b/drivers/gpu/drm/i915/pxp/intel_pxp_cmd.h
+index d04463962421..087f260034c4 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp_cmd.h
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_cmd.h
+@@ -9,10 +9,12 @@
+ #include "gt/intel_gt_buffer_pool.h"
+ #include "intel_pxp.h"
+ 
+-struct i915_vma *intel_pxp_cmd_get_batch(struct intel_pxp *pxp,
+-					 struct intel_context *ce,
+-					 struct intel_gt_buffer_pool_node *pool,
+-					 u32 *cmd_buf, int cmd_size_in_dw);
++int intel_pxp_cmd_submit(struct intel_pxp *pxp, u32 *cmd,
++			 int cmd_size_in_dw);
++int intel_pxp_cmd_add_prolog(struct intel_pxp *pxp, u32 *cmd,
++			     int session_type,
++			     int session_index);
++int intel_pxp_cmd_add_epilog(u32 *cmd);
++int intel_pxp_cmd_add_inline_termination(u32 *cmd);
+ 
+-int intel_pxp_cmd_submit(struct intel_pxp *pxp, u32 *cmd, int cmd_size_in_dw);
+ #endif /* __INTEL_PXP_SM_H__ */
 -- 
 2.17.1
 
