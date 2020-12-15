@@ -7,45 +7,45 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2E455C4361B
-	for <intel-gfx@archiver.kernel.org>; Tue, 15 Dec 2020 07:44:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5A671C2BB48
+	for <intel-gfx@archiver.kernel.org>; Tue, 15 Dec 2020 07:44:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D1DC122273
-	for <intel-gfx@archiver.kernel.org>; Tue, 15 Dec 2020 07:44:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D1DC122273
+	by mail.kernel.org (Postfix) with ESMTPS id 2384722273
+	for <intel-gfx@archiver.kernel.org>; Tue, 15 Dec 2020 07:44:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2384722273
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 555BD6E170;
-	Tue, 15 Dec 2020 07:44:31 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1FFD36E169
- for <intel-gfx@lists.freedesktop.org>; Tue, 15 Dec 2020 07:44:28 +0000 (UTC)
-IronPort-SDR: lWYYJxktYQ7ZE462Jw9OkmMyTnRSo8XxjKNoKXZTAlBRihmYe0mJ26zaV+XqmORPfMF7iqNLKA
- ZTr99jFL3BhA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9835"; a="259567359"
-X-IronPort-AV: E=Sophos;i="5.78,420,1599548400"; d="scan'208";a="259567359"
+	by gabe.freedesktop.org (Postfix) with ESMTP id ABF8A6E174;
+	Tue, 15 Dec 2020 07:44:32 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B3436E170
+ for <intel-gfx@lists.freedesktop.org>; Tue, 15 Dec 2020 07:44:31 +0000 (UTC)
+IronPort-SDR: afV77pyjr18BhV5IEnvz8j8WsMyJ47ffALPIAxMOhY1CnpOFoZedKy1CQhC23NE81zK/N+POzz
+ aDUw3BbB13Sg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9835"; a="172273366"
+X-IronPort-AV: E=Sophos;i="5.78,420,1599548400"; d="scan'208";a="172273366"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Dec 2020 23:44:26 -0800
-IronPort-SDR: QktsXReGW8dB8O9KaYzsaH7KeGb1lzVBtNPEYvNMxXHc/aTvx5wfRPmzPXMKyCNjV4ce3+RnJY
- LtlgEL40Vu2w==
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Dec 2020 23:44:29 -0800
+IronPort-SDR: 9gLy4X5QWhB4lJIMdsQmJhduzXuTX0WdDpqiboWOORGabZvOR1TojCUrgR3IwmxBRozjlBwTnC
+ m7iwIViTPh2g==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.78,420,1599548400"; d="scan'208";a="336593453"
+X-IronPort-AV: E=Sophos;i="5.78,420,1599548400"; d="scan'208";a="336593466"
 Received: from amanna.iind.intel.com ([10.223.74.93])
- by orsmga003.jf.intel.com with ESMTP; 14 Dec 2020 23:44:23 -0800
+ by orsmga003.jf.intel.com with ESMTP; 14 Dec 2020 23:44:27 -0800
 From: Animesh Manna <animesh.manna@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 15 Dec 2020 12:57:10 +0530
-Message-Id: <20201215072712.12723-2-animesh.manna@intel.com>
+Date: Tue, 15 Dec 2020 12:57:12 +0530
+Message-Id: <20201215072712.12723-4-animesh.manna@intel.com>
 X-Mailer: git-send-email 2.26.0
 In-Reply-To: <20201215072712.12723-1-animesh.manna@intel.com>
 References: <20201215072712.12723-1-animesh.manna@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 1/3] drm/i915/dsb: multi dsb instance support in
- prepare() and cleanup()
+Subject: [Intel-gfx] [PATCH 3/3] drm/i915/dsb: multi dsb instance support in
+ dsb-commit()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,226 +65,99 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 Signed-off-by: Animesh Manna <animesh.manna@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_atomic.c   |  9 +-
- drivers/gpu/drm/i915/display/intel_display.c  |  6 +-
- .../drm/i915/display/intel_display_types.h    |  2 +-
- drivers/gpu/drm/i915/display/intel_dsb.c      | 99 ++++++++++---------
- 4 files changed, 65 insertions(+), 51 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dsb.c | 74 +++++++++++++-----------
+ 1 file changed, 39 insertions(+), 35 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_atomic.c b/drivers/gpu/drm/i915/display/intel_atomic.c
-index e00fdc47c0eb..3833f3b4851b 100644
---- a/drivers/gpu/drm/i915/display/intel_atomic.c
-+++ b/drivers/gpu/drm/i915/display/intel_atomic.c
-@@ -226,6 +226,7 @@ intel_crtc_duplicate_state(struct drm_crtc *crtc)
- {
- 	const struct intel_crtc_state *old_crtc_state = to_intel_crtc_state(crtc->state);
- 	struct intel_crtc_state *crtc_state;
-+	int i;
- 
- 	crtc_state = kmemdup(old_crtc_state, sizeof(*crtc_state), GFP_KERNEL);
- 	if (!crtc_state)
-@@ -252,7 +253,9 @@ intel_crtc_duplicate_state(struct drm_crtc *crtc)
- 	crtc_state->wm.need_postvbl_update = false;
- 	crtc_state->fb_bits = 0;
- 	crtc_state->update_planes = 0;
--	crtc_state->dsb = NULL;
-+
-+	for (i = 0; i < MAX_DSB_PER_PIPE; i++)
-+		crtc_state->dsb[i] = NULL;
- 
- 	return &crtc_state->uapi;
- }
-@@ -293,8 +296,10 @@ intel_crtc_destroy_state(struct drm_crtc *crtc,
- 			 struct drm_crtc_state *state)
- {
- 	struct intel_crtc_state *crtc_state = to_intel_crtc_state(state);
-+	int i;
- 
--	drm_WARN_ON(crtc->dev, crtc_state->dsb);
-+	for (i = 0; i < MAX_DSB_PER_PIPE; i++)
-+		drm_WARN_ON(crtc->dev, crtc_state->dsb[i]);
- 
- 	__drm_atomic_helper_crtc_destroy_state(&crtc_state->uapi);
- 	intel_crtc_free_hw_state(crtc_state);
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 761be8deaa9b..e93c602b81e0 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -16256,7 +16256,7 @@ static void intel_atomic_commit_tail(struct intel_atomic_state *state)
- 	struct intel_crtc *crtc;
- 	u64 put_domains[I915_MAX_PIPES] = {};
- 	intel_wakeref_t wakeref = 0;
--	int i;
-+	int i, j;
- 
- 	intel_atomic_commit_fence_wait(state);
- 
-@@ -16386,7 +16386,9 @@ static void intel_atomic_commit_tail(struct intel_atomic_state *state)
- 		 * cleanup. So copy and reset the dsb structure to sync with
- 		 * commit_done and later do dsb cleanup in cleanup_work.
- 		 */
--		old_crtc_state->dsb = fetch_and_zero(&new_crtc_state->dsb);
-+		for (j = 0; j < MAX_DSB_PER_PIPE; j++)
-+			old_crtc_state->dsb[j] =
-+				fetch_and_zero(&new_crtc_state->dsb[j]);
- 	}
- 
- 	/* Underruns don't always raise interrupts, so check manually */
-diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-index 5bc5bfbc4551..06ae7470ab8c 100644
---- a/drivers/gpu/drm/i915/display/intel_display_types.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-@@ -1124,7 +1124,7 @@ struct intel_crtc_state {
- 	enum transcoder mst_master_transcoder;
- 
- 	/* For DSB related info */
--	struct intel_dsb *dsb;
-+	struct intel_dsb *dsb[MAX_DSB_PER_PIPE];
- 
- 	u32 psr2_man_track_ctl;
- };
 diff --git a/drivers/gpu/drm/i915/display/intel_dsb.c b/drivers/gpu/drm/i915/display/intel_dsb.c
-index 566fa72427b3..cef1015cc04f 100644
+index c968c9785484..b3f1cc1652b8 100644
 --- a/drivers/gpu/drm/i915/display/intel_dsb.c
 +++ b/drivers/gpu/drm/i915/display/intel_dsb.c
-@@ -92,7 +92,7 @@ static bool intel_dsb_disable_engine(struct drm_i915_private *i915,
- void intel_dsb_indexed_reg_write(const struct intel_crtc_state *crtc_state,
- 				 i915_reg_t reg, u32 val)
- {
--	struct intel_dsb *dsb = crtc_state->dsb;
-+	struct intel_dsb *dsb = crtc_state->dsb[0];
- 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
- 	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
- 	u32 *buf;
-@@ -174,7 +174,7 @@ void intel_dsb_reg_write(const struct intel_crtc_state *crtc_state,
- 	struct intel_dsb *dsb;
- 	u32 *buf;
- 
--	dsb = crtc_state->dsb;
-+	dsb = crtc_state->dsb[0];
- 	if (!dsb) {
- 		intel_de_write(dev_priv, reg, val);
- 		return;
-@@ -202,7 +202,7 @@ void intel_dsb_reg_write(const struct intel_crtc_state *crtc_state,
-  */
- void intel_dsb_commit(const struct intel_crtc_state *crtc_state)
- {
--	struct intel_dsb *dsb = crtc_state->dsb;
-+	struct intel_dsb *dsb = crtc_state->dsb[0];
- 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
- 	struct drm_device *dev = crtc->base.dev;
+@@ -208,46 +208,50 @@ void intel_dsb_commit(const struct intel_crtc_state *crtc_state)
  	struct drm_i915_private *dev_priv = to_i915(dev);
-@@ -266,49 +266,52 @@ void intel_dsb_prepare(struct intel_crtc_state *crtc_state)
- 	struct i915_vma *vma;
- 	u32 *buf;
- 	intel_wakeref_t wakeref;
+ 	enum pipe pipe = crtc->pipe;
+ 	u32 tail;
 +	int i;
  
- 	if (!HAS_DSB(i915))
- 		return;
- 
--	dsb = kmalloc(sizeof(*dsb), GFP_KERNEL);
--	if (!dsb) {
--		drm_err(&i915->drm, "DSB object creation failed\n");
+-	if (!(dsb && dsb->free_pos))
 -		return;
++	for (i = 0; i < MAX_DSB_PER_PIPE; i++) {
++		dsb = crtc_state->dsb[i];
++		if (!(dsb && dsb->free_pos))
++			continue;
+ 
+-	if (!intel_dsb_enable_engine(dev_priv, pipe, dsb->id))
+-		goto reset;
++		if (!intel_dsb_enable_engine(dev_priv, pipe, dsb->id))
++			goto reset;
+ 
+-	if (is_dsb_busy(dev_priv, pipe, dsb->id)) {
+-		drm_err(&dev_priv->drm,
+-			"HEAD_PTR write failed - dsb engine is busy.\n");
+-		goto reset;
 -	}
+-	intel_de_write(dev_priv, DSB_HEAD(pipe, dsb->id),
+-		       i915_ggtt_offset(dsb->vma));
 -
--	wakeref = intel_runtime_pm_get(&i915->runtime_pm);
+-	tail = ALIGN(dsb->free_pos * 4, CACHELINE_BYTES);
+-	if (tail > dsb->free_pos * 4)
+-		memset(&dsb->cmd_buf[dsb->free_pos], 0,
+-		       (tail - dsb->free_pos * 4));
 -
--	obj = i915_gem_object_create_internal(i915, DSB_BUF_SIZE);
--	if (IS_ERR(obj)) {
--		drm_err(&i915->drm, "Gem object creation failed\n");
--		kfree(dsb);
--		goto out;
+-	if (is_dsb_busy(dev_priv, pipe, dsb->id)) {
+-		drm_err(&dev_priv->drm,
+-			"TAIL_PTR write failed - dsb engine is busy.\n");
+-		goto reset;
 -	}
--
--	vma = i915_gem_object_ggtt_pin(obj, NULL, 0, 0, 0);
--	if (IS_ERR(vma)) {
--		drm_err(&i915->drm, "Vma creation failed\n");
--		i915_gem_object_put(obj);
--		kfree(dsb);
--		goto out;
+-	drm_dbg_kms(&dev_priv->drm,
+-		    "DSB execution started - head 0x%x, tail 0x%x\n",
+-		    i915_ggtt_offset(dsb->vma), tail);
+-	intel_de_write(dev_priv, DSB_TAIL(pipe, dsb->id),
+-		       i915_ggtt_offset(dsb->vma) + tail);
+-	if (wait_for(!is_dsb_busy(dev_priv, pipe, dsb->id), 1)) {
+-		drm_err(&dev_priv->drm,
+-			"Timed out waiting for DSB workload completion.\n");
+-		goto reset;
 -	}
--
--	buf = i915_gem_object_pin_map(vma->obj, I915_MAP_WC);
--	if (IS_ERR(buf)) {
--		drm_err(&i915->drm, "Command buffer creation failed\n");
--		i915_vma_unpin_and_release(&vma, I915_VMA_RELEASE_MAP);
--		kfree(dsb);
--		goto out;
--	}
--
--	dsb->id = DSB1;
--	dsb->vma = vma;
--	dsb->cmd_buf = buf;
++		if (is_dsb_busy(dev_priv, pipe, dsb->id)) {
++			drm_err(&dev_priv->drm,
++				"HEAD_PTR write failed - dsb engine is busy\n");
++			goto reset;
++		}
++		intel_de_write(dev_priv, DSB_HEAD(pipe, dsb->id),
++			       i915_ggtt_offset(dsb->vma));
++
++		tail = ALIGN(dsb->free_pos * 4, CACHELINE_BYTES);
++		if (tail > dsb->free_pos * 4)
++			memset(&dsb->cmd_buf[dsb->free_pos], 0,
++			       (tail - dsb->free_pos * 4));
++
++		if (is_dsb_busy(dev_priv, pipe, dsb->id)) {
++			drm_err(&dev_priv->drm,
++				"TAIL_PTR write failed - dsb engine is busy\n");
++			goto reset;
++		}
++		drm_dbg_kms(&dev_priv->drm,
++			    "DSB execution started - head 0x%x, tail 0x%x\n",
++			    i915_ggtt_offset(dsb->vma), tail);
++		intel_de_write(dev_priv, DSB_TAIL(pipe, dsb->id),
++			       i915_ggtt_offset(dsb->vma) + tail);
++		if (wait_for(!is_dsb_busy(dev_priv, pipe, dsb->id), 1)) {
++			drm_err(&dev_priv->drm,
++				"Timed out waiting for DSB workload completion\n");
++			goto reset;
++		}
+ 
+ reset:
 -	dsb->free_pos = 0;
 -	dsb->ins_start_offset = 0;
--	crtc_state->dsb = dsb;
-+	for (i = 0 ; i < MAX_DSB_PER_PIPE; i++)	{
-+		dsb = kmalloc(sizeof(*dsb), GFP_KERNEL);
-+		if (!dsb) {
-+			drm_err(&i915->drm, "DSB%d obj creation failed\n", i);
-+			continue;
-+		}
-+
-+		wakeref = intel_runtime_pm_get(&i915->runtime_pm);
-+
-+		obj = i915_gem_object_create_internal(i915, DSB_BUF_SIZE);
-+		if (IS_ERR(obj)) {
-+			drm_err(&i915->drm, "Gem object creation failed\n");
-+			kfree(dsb);
-+			goto out;
-+		}
-+
-+		vma = i915_gem_object_ggtt_pin(obj, NULL, 0, 0, 0);
-+		if (IS_ERR(vma)) {
-+			drm_err(&i915->drm, "Vma creation failed\n");
-+			i915_gem_object_put(obj);
-+			kfree(dsb);
-+			goto out;
-+		}
-+
-+		buf = i915_gem_object_pin_map(vma->obj, I915_MAP_WC);
-+		if (IS_ERR(buf)) {
-+			drm_err(&i915->drm, "Command buffer creation failed\n");
-+			i915_vma_unpin_and_release(&vma, I915_VMA_RELEASE_MAP);
-+			kfree(dsb);
-+			goto out;
-+		}
-+
-+		dsb->id = i;
-+		dsb->vma = vma;
-+		dsb->cmd_buf = buf;
+-	intel_dsb_disable_engine(dev_priv, pipe, dsb->id);
 +		dsb->free_pos = 0;
 +		dsb->ins_start_offset = 0;
-+		crtc_state->dsb[i] = dsb;
- out:
--	intel_runtime_pm_put(&i915->runtime_pm, wakeref);
-+		intel_runtime_pm_put(&i915->runtime_pm, wakeref);
++		intel_dsb_disable_engine(dev_priv, pipe, dsb->id);
 +	}
  }
  
  /**
-@@ -320,10 +323,14 @@ void intel_dsb_prepare(struct intel_crtc_state *crtc_state)
-  */
- void intel_dsb_cleanup(struct intel_crtc_state *crtc_state)
- {
--	if (!crtc_state->dsb)
--		return;
-+	int i;
- 
--	i915_vma_unpin_and_release(&crtc_state->dsb->vma, I915_VMA_RELEASE_MAP);
--	kfree(crtc_state->dsb);
--	crtc_state->dsb = NULL;
-+	for (i = 0; i < MAX_DSB_PER_PIPE; i++) {
-+		if (!crtc_state->dsb[i])
-+			continue;
-+
-+		i915_vma_unpin_and_release(&crtc_state->dsb[i]->vma, I915_VMA_RELEASE_MAP);
-+		kfree(crtc_state->dsb[i]);
-+		crtc_state->dsb[i] = NULL;
-+	}
- }
 -- 
 2.26.0
 
