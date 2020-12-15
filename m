@@ -2,49 +2,41 @@ Return-Path: <SRS0=+CuI=FT=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 527AAC4361B
-	for <intel-gfx@archiver.kernel.org>; Tue, 15 Dec 2020 01:08:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5F762C4361B
+	for <intel-gfx@archiver.kernel.org>; Tue, 15 Dec 2020 01:38:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1D71920705
-	for <intel-gfx@archiver.kernel.org>; Tue, 15 Dec 2020 01:08:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1D71920705
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 1CF88221EF
+	for <intel-gfx@archiver.kernel.org>; Tue, 15 Dec 2020 01:38:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1CF88221EF
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE77D6E14F;
-	Tue, 15 Dec 2020 01:08:38 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F9256E0AC
- for <Intel-gfx@lists.freedesktop.org>; Tue, 15 Dec 2020 01:08:03 +0000 (UTC)
-IronPort-SDR: dPZp6Nwmrgp8NJyn5J0vchnnQ5BW6ihSiUKkz2jLG44Hj+6qFwV6R/Pf6NzUgyvBGNylBtVLT0
- Nbhgt4d3xbBg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9835"; a="171297995"
-X-IronPort-AV: E=Sophos;i="5.78,420,1599548400"; d="scan'208";a="171297995"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Dec 2020 17:08:01 -0800
-IronPort-SDR: kCnc1PxrY4iQpNURTpazI1jjdPTWYpJA6cRX2DhyGMqBbgGSd/f8hXqRXPHRBJXDE57DtI2rdP
- vs8akOlbtkzQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.78,420,1599548400"; d="scan'208";a="331861139"
-Received: from sean-virtualbox.fm.intel.com ([10.105.158.96])
- by fmsmga007.fm.intel.com with ESMTP; 14 Dec 2020 17:08:01 -0800
-From: "Huang, Sean Z" <sean.z.huang@intel.com>
-To: Intel-gfx@lists.freedesktop.org
-Date: Mon, 14 Dec 2020 17:07:15 -0800
-Message-Id: <20201215010726.15898-13-sean.z.huang@intel.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20201215010726.15898-1-sean.z.huang@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 95A9D6E045;
+	Tue, 15 Dec 2020 01:38:11 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 0EA946E02C;
+ Tue, 15 Dec 2020 01:38:11 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 06F25A0BCB;
+ Tue, 15 Dec 2020 01:38:11 +0000 (UTC)
+MIME-Version: 1.0
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Huang, Sean Z" <sean.z.huang@intel.com>
+Date: Tue, 15 Dec 2020 01:38:11 -0000
+Message-ID: <160799629100.24781.3171993021968076232@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
 References: <20201215010726.15898-1-sean.z.huang@intel.com>
-Subject: [Intel-gfx] [RFC-v9 12/23] drm/i915/pxp: User interface for
- Protected buffer
+In-Reply-To: <20201215010726.15898-1-sean.z.huang@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_Introduce_Intel_PXP_component_-_Mesa_single_session_=28rev9?=
+ =?utf-8?q?=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,217 +49,143 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Bommu Krishnaiah <krishnaiah.bommu@intel.com>,
- Huang Sean Z <sean.z.huang@intel.com>,
- Kondapally Kalyan <kalyan.kondapally@intel.com>
-MIME-Version: 1.0
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Bommu Krishnaiah <krishnaiah.bommu@intel.com>
+== Series Details ==
 
-This api allow user mode to create Protected buffer and context creation.
+Series: Introduce Intel PXP component - Mesa single session (rev9)
+URL   : https://patchwork.freedesktop.org/series/84620/
+State : warning
 
-Signed-off-by: Bommu Krishnaiah <krishnaiah.bommu@intel.com>
-Cc: Telukuntla Sreedhar <sreedhar.telukuntla@intel.com>
-Cc: Kondapally Kalyan <kalyan.kondapally@intel.com>
-Cc: Gupta Anshuman <Anshuman.Gupta@intel.com>
-Cc: Huang Sean Z <sean.z.huang@intel.com>
----
- drivers/gpu/drm/i915/gem/i915_gem_context.c   | 15 ++++++++++--
- drivers/gpu/drm/i915/gem/i915_gem_context.h   | 10 ++++++++
- .../gpu/drm/i915/gem/i915_gem_context_types.h |  2 +-
- .../gpu/drm/i915/gem/i915_gem_object_types.h  |  5 ++++
- drivers/gpu/drm/i915/i915_gem.c               | 23 +++++++++++++++----
- include/uapi/drm/i915_drm.h                   | 19 +++++++++++++++
- 6 files changed, 67 insertions(+), 7 deletions(-)
+== Summary ==
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-index ad136d009d9b..56cf03cec355 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-@@ -2061,12 +2061,23 @@ static int ctx_setparam(struct drm_i915_file_private *fpriv,
- 	case I915_CONTEXT_PARAM_RECOVERABLE:
- 		if (args->size)
- 			ret = -EINVAL;
--		else if (args->value)
--			i915_gem_context_set_recoverable(ctx);
-+		else if (args->value) {
-+			if (!i915_gem_context_is_protected(ctx))
-+				i915_gem_context_set_recoverable(ctx);
-+			else
-+				ret = -EPERM;
-+			}
- 		else
- 			i915_gem_context_clear_recoverable(ctx);
- 		break;
- 
-+	case I915_CONTEXT_PARAM_PROTECTED_CONTENT:
-+		if (args->size)
-+			ret = -EINVAL;
-+		else if (args->value)
-+			i915_gem_context_set_protected(ctx);
-+		break;
+$ dim checkpatch origin/drm-tip
+9cc153390294 drm/i915/pxp: Introduce Intel PXP component
+-:111: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#111: 
+new file mode 100644
+
+total: 0 errors, 1 warnings, 0 checks, 175 lines checked
+e51f062056e5 drm/i915/pxp: set KCR reg init during the boot time
+5bc3bc0efc8f drm/i915/pxp: Implement funcs to create the TEE channel
+-:8: WARNING:TYPO_SPELLING: 'defualt' may be misspelled - perhaps 'default'?
+#8: 
+(defualt) session.
+
+-:85: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#85: 
+new file mode 100644
+
+total: 0 errors, 2 warnings, 0 checks, 248 lines checked
+ad29af959bfd drm/i915/pxp: Create the arbitrary session after boot
+-:68: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#68: 
+new file mode 100644
+
+total: 0 errors, 1 warnings, 0 checks, 297 lines checked
+eaa6e13dfc23 drm/i915/pxp: Func to send hardware session termination
+-:25: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#25: 
+new file mode 100644
+
+total: 0 errors, 1 warnings, 0 checks, 184 lines checked
+949c9444c351 drm/i915/pxp: Enable PXP irq worker and callback stub
+-:51: WARNING:LONG_LINE_COMMENT: line length of 113 exceeds 100 columns
+#51: FILE: drivers/gpu/drm/i915/i915_reg.h:7970:
++#define GEN11_CRYPTO_INTR_MASK		_MMIO(0x1900f0) /* crypto mask is in bit31-16 (Engine1 Interrupt Mask) */
+
+total: 0 errors, 1 warnings, 0 checks, 210 lines checked
+b1930d67ee22 drm/i915/pxp: Destroy arb session upon teardown
+5f961b501516 drm/i915/pxp: Enable PXP power management
+-:90: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#90: 
+new file mode 100644
+
+total: 0 errors, 1 warnings, 0 checks, 148 lines checked
+3aca4c717f0f drm/i915/pxp: Expose session state for display protection flip
+13c18d614250 mei: pxp: export pavp client to me client bus
+-:32: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#32: 
+new file mode 100644
+
+total: 0 errors, 1 warnings, 0 checks, 277 lines checked
+8607613cdc3c drm/i915/uapi: introduce drm_i915_gem_create_ext
+-:12: ERROR:BAD_SIGN_OFF: Unrecognized email address: 'Joonas Lahtinen joonas.lahtinen@linux.intel.com'
+#12: 
+Cc: Joonas Lahtinen joonas.lahtinen@linux.intel.com
+
+-:13: ERROR:BAD_SIGN_OFF: Unrecognized email address: 'Matthew Auld matthew.auld@intel.com'
+#13: 
+Cc: Matthew Auld matthew.auld@intel.com
+
+-:46: ERROR:CODE_INDENT: code indent should use tabs where possible
+#46: FILE: drivers/gpu/drm/i915/i915_gem.c:265:
++        struct drm_i915_private *i915;$
+
+-:46: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+#46: FILE: drivers/gpu/drm/i915/i915_gem.c:265:
++        struct drm_i915_private *i915;$
+
+-:50: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#50: FILE: drivers/gpu/drm/i915/i915_gem.c:269:
++static int __create_setparam(struct drm_i915_gem_object_param *args,
++							struct create_ext *ext_data)
+
+-:95: CHECK:LINE_SPACING: Please don't use multiple blank lines
+#95: FILE: drivers/gpu/drm/i915/i915_gem.c:317:
 +
- 	case I915_CONTEXT_PARAM_PRIORITY:
- 		ret = set_priority(ctx, args);
- 		break;
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.h b/drivers/gpu/drm/i915/gem/i915_gem_context.h
-index a133f92bbedb..5897e7ca11a8 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_context.h
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_context.h
-@@ -70,6 +70,16 @@ static inline void i915_gem_context_set_recoverable(struct i915_gem_context *ctx
- 	set_bit(UCONTEXT_RECOVERABLE, &ctx->user_flags);
- }
- 
-+static inline void i915_gem_context_set_protected(struct i915_gem_context *ctx)
-+{
-+	set_bit(UCONTEXT_PROTECTED, &ctx->user_flags);
-+}
 +
-+static inline bool i915_gem_context_is_protected(struct i915_gem_context *ctx)
-+{
-+	return test_bit(UCONTEXT_PROTECTED, &ctx->user_flags);
-+}
-+
- static inline void i915_gem_context_clear_recoverable(struct i915_gem_context *ctx)
- {
- 	clear_bit(UCONTEXT_RECOVERABLE, &ctx->user_flags);
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context_types.h b/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
-index ae14ca24a11f..81ae94c2be86 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
-@@ -135,7 +135,7 @@ struct i915_gem_context {
- #define UCONTEXT_BANNABLE		2
- #define UCONTEXT_RECOVERABLE		3
- #define UCONTEXT_PERSISTENCE		4
--
-+#define UCONTEXT_PROTECTED		5
- 	/**
- 	 * @flags: small set of booleans
- 	 */
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
-index e2d9b7e1e152..90ac955463f4 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
-@@ -161,6 +161,11 @@ struct drm_i915_gem_object {
- 	} mmo;
- 
- 	I915_SELFTEST_DECLARE(struct list_head st_link);
-+	/**
-+	 * @user_flags: small set of booleans set by the user
-+	 */
-+	unsigned long user_flags;
-+#define I915_BO_PROTECTED     BIT(0)
- 
- 	unsigned long flags;
- #define I915_BO_ALLOC_CONTIGUOUS BIT(0)
-diff --git a/drivers/gpu/drm/i915/i915_gem.c b/drivers/gpu/drm/i915/i915_gem.c
-index 41698a823737..6a791fd24eaa 100644
---- a/drivers/gpu/drm/i915/i915_gem.c
-+++ b/drivers/gpu/drm/i915/i915_gem.c
-@@ -184,7 +184,8 @@ static int
- i915_gem_create(struct drm_file *file,
- 		struct intel_memory_region *mr,
- 		u64 *size_p,
--		u32 *handle_p)
-+		u32 *handle_p,
-+		u64 user_flags)
- {
- 	struct drm_i915_gem_object *obj;
- 	u32 handle;
-@@ -204,6 +205,8 @@ i915_gem_create(struct drm_file *file,
- 	if (IS_ERR(obj))
- 		return PTR_ERR(obj);
- 
-+	obj->user_flags = user_flags;
-+
- 	ret = drm_gem_handle_create(file, &obj->base, &handle);
- 	/* drop reference from allocate - handle holds it now */
- 	i915_gem_object_put(obj);
-@@ -258,11 +261,12 @@ i915_gem_dumb_create(struct drm_file *file,
- 	return i915_gem_create(file,
- 			       intel_memory_region_by_type(to_i915(dev),
- 							   mem_type),
--			       &args->size, &args->handle);
-+			       &args->size, &args->handle, 0);
- }
- 
- struct create_ext {
--        struct drm_i915_private *i915;
-+	struct drm_i915_private *i915;
-+	unsigned long user_flags;
- };
- 
- static int __create_setparam(struct drm_i915_gem_object_param *args,
-@@ -273,6 +277,17 @@ static int __create_setparam(struct drm_i915_gem_object_param *args,
- 		return -EINVAL;
- 	}
- 
-+	switch (lower_32_bits(args->param)) {
-+	case I915_PARAM_PROTECTED_CONTENT:
-+		if (args->size) {
-+			return -EINVAL;
-+		} else if (args->data) {
-+			ext_data->user_flags = args->data;
-+			return 0;
-+		}
-+	break;
-+	}
-+
- 	return -EINVAL;
- }
- 
-@@ -318,7 +333,7 @@ i915_gem_create_ioctl(struct drm_device *dev, void *data,
- 	return i915_gem_create(file,
- 			       intel_memory_region_by_type(i915,
- 							   INTEL_MEMORY_SYSTEM),
--			       &args->size, &args->handle);
-+			       &args->size, &args->handle, ext_data.user_flags);
- }
- 
- static int
-diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
-index e918ccc81c74..d6085a328b2c 100644
---- a/include/uapi/drm/i915_drm.h
-+++ b/include/uapi/drm/i915_drm.h
-@@ -1715,6 +1715,15 @@ struct drm_i915_gem_context_param {
-  * Default is 16 KiB.
-  */
- #define I915_CONTEXT_PARAM_RINGSIZE	0xc
-+
-+/*
-+ * I915_CONTEXT_PARAM_PROTECTED_CONTENT:
-+ *
-+ * If set to true (1) PAVP content protection is enabled.
-+ * When enabled, the context is marked unrecoverable and may
-+ * become invalid due to PAVP teardown event or other error.
-+ */
-+#define I915_CONTEXT_PARAM_PROTECTED_CONTENT    0xd
- /* Must be kept compact -- no holes and well documented */
- 
- 	__u64 value;
-@@ -1734,6 +1743,16 @@ struct drm_i915_gem_object_param {
-  */
- #define I915_OBJECT_PARAM  (1ull<<32)
- 
-+/*
-+ * I915_PARAM_PROTECTED_CONTENT:
-+ *
-+ * If set to true (1) buffer contents is expected to be protected by
-+ * PAVP encryption and requires decryption for scan out and processing.
-+ * Protected buffers can only be used in PAVP protected contexts.
-+ * A protected buffer may become invalid as a result of PAVP teardown.
-+ */
-+#define I915_PARAM_PROTECTED_CONTENT  0x1
-+
- 	__u64 param;
- 
- 	/* Data value or pointer */
--- 
-2.17.1
+
+-:107: WARNING:LONG_LINE: line length of 120 exceeds 100 columns
+#107: FILE: include/uapi/drm/i915_drm.h:394:
++#define DRM_IOCTL_I915_GEM_CREATE_EXT   DRM_IOWR(DRM_COMMAND_BASE + DRM_I915_GEM_CREATE, struct drm_i915_gem_create_ext)
+
+-:155: CHECK:SPACING: spaces preferred around that '<<' (ctx:VxV)
+#155: FILE: include/uapi/drm/i915_drm.h:1735:
++#define I915_OBJECT_PARAM  (1ull<<32)
+                                 ^
+
+total: 3 errors, 2 warnings, 3 checks, 136 lines checked
+0109d81526e7 drm/i915/pxp: User interface for Protected buffer
+2d4ceab335b8 drm/i915/pxp: Add plane decryption support
+61e2d59046ef drm/i915/pxp: Implement ioctl action to reserve session slots
+-:62: WARNING:PREFER_PACKED: __packed is preferred over __attribute__((packed))
+#62: FILE: drivers/gpu/drm/i915/pxp/intel_pxp.c:39:
++} __attribute__((packed));
+
+-:254: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#254: 
+new file mode 100644
+
+-:345: WARNING:MSLEEP: msleep < 20ms can sleep for up to 20ms; see Documentation/timers/timers-howto.rst
+#345: FILE: drivers/gpu/drm/i915/pxp/intel_pxp_sm.c:87:
++		msleep(10);
+
+total: 0 errors, 3 warnings, 0 checks, 437 lines checked
+0aad847ac03a drm/i915/pxp: Implement ioctl action to set session in play
+7283461e1827 drm/i915/pxp: Implement ioctl action to terminate the session
+f1ec94927f56 drm/i915/pxp: Implement ioctl action to send TEE commands
+e5de6f6bc36d drm/i915/pxp: Implement ioctl action to query PXP tag
+713326f8ee89 drm/i915/pxp: Termiante the session upon app crash
+c1bed68ad38c drm/i915/pxp: Add PXP-related registers into allowlist
+f5dd23fa8e44 mei: bus: add vtag support
+b6e69de09984 mei: pxp: add vtag parameter to mei_pxp_send/receive interface
+2ef214b61382 drm/i915/pxp: Enable the PXP ioctl for protected session
+-:9: WARNING:TYPO_SPELLING: 'destory' may be misspelled - perhaps 'destroy'?
+#9: 
+destory the protected session via this ioctl.
+
+-:105: WARNING:LONG_LINE: line length of 110 exceeds 100 columns
+#105: FILE: include/uapi/drm/i915_drm.h:427:
++#define DRM_IOCTL_I915_PXP_OPS		DRM_IOWR(DRM_COMMAND_BASE + DRM_I915_PXP_OPS, struct drm_i915_pxp_ops)
+
+total: 0 errors, 2 warnings, 0 checks, 156 lines checked
+
 
 _______________________________________________
 Intel-gfx mailing list
