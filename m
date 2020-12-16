@@ -7,44 +7,44 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 75E47C4361B
-	for <intel-gfx@archiver.kernel.org>; Wed, 16 Dec 2020 05:37:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A3585C2BBCA
+	for <intel-gfx@archiver.kernel.org>; Wed, 16 Dec 2020 05:37:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 392B123123
-	for <intel-gfx@archiver.kernel.org>; Wed, 16 Dec 2020 05:37:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 392B123123
+	by mail.kernel.org (Postfix) with ESMTPS id 6CD7723123
+	for <intel-gfx@archiver.kernel.org>; Wed, 16 Dec 2020 05:37:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6CD7723123
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 75E2A89DE5;
-	Wed, 16 Dec 2020 05:37:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E70BD89DCF;
+	Wed, 16 Dec 2020 05:37:53 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6912089D56;
- Wed, 16 Dec 2020 05:37:45 +0000 (UTC)
-IronPort-SDR: xY2+ejGsW+U6wp4sb8dKnsvQ70Na3dun8he9ZgKb/0yHBm59ng/iwKY0quUwAAmBxnYKN4EV0C
- +WyZOjQBZQQg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9836"; a="172437310"
-X-IronPort-AV: E=Sophos;i="5.78,423,1599548400"; d="scan'208";a="172437310"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F99289EAC;
+ Wed, 16 Dec 2020 05:37:50 +0000 (UTC)
+IronPort-SDR: tgzj6HmnKHiJn2c8C9bjXoGRqlqyVBHu3qK4kFelqXwKqZpz5cPcxkZMGlIeM9PrM07q8/8FJC
+ tQci12IrfX7Q==
+X-IronPort-AV: E=McAfee;i="6000,8403,9836"; a="172437321"
+X-IronPort-AV: E=Sophos;i="5.78,423,1599548400"; d="scan'208";a="172437321"
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Dec 2020 21:37:45 -0800
-IronPort-SDR: BJw3ktdoAjGrOR3Hs6HkO8RNyzhTuDiNxE4axxzm2AA9BIRPPKK84ayUfWBtantz8b3mvgk8Hb
- ySt7FZ+Sgaag==
+ 15 Dec 2020 21:37:50 -0800
+IronPort-SDR: ZQfTipHzBUwRKTc9Iz/Ox2URdzccFPjS0Gw1+axB1ue0jr/KnoFtHM8rSDIUsHbIX/F3BYJCeO
+ 7Axi4p8R9AbQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.78,423,1599548400"; d="scan'208";a="556647092"
+X-IronPort-AV: E=Sophos;i="5.78,423,1599548400"; d="scan'208";a="556647111"
 Received: from linux-akn.iind.intel.com ([10.223.34.148])
- by fmsmga006.fm.intel.com with ESMTP; 15 Dec 2020 21:37:42 -0800
+ by fmsmga006.fm.intel.com with ESMTP; 15 Dec 2020 21:37:48 -0800
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 16 Dec 2020 11:01:11 +0530
-Message-Id: <20201216053121.18819-6-ankit.k.nautiyal@intel.com>
+Date: Wed, 16 Dec 2020 11:01:13 +0530
+Message-Id: <20201216053121.18819-8-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20201216053121.18819-1-ankit.k.nautiyal@intel.com>
 References: <20201216053121.18819-1-ankit.k.nautiyal@intel.com>
-Subject: [Intel-gfx] [PATCH v5 05/15] drm/dp_helper: Add support for link
- failure detection
+Subject: [Intel-gfx] [PATCH v5 07/15] drm/dp_helper: Add helpers to
+ configure PCONs RGB-YCbCr Conversion
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,119 +64,144 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Swati Sharma <swati2.sharma@intel.com>
+DP Specification for DP2.0 to HDMI2.1 Pcon specifies support for conversion
+of colorspace from RGB to YCbCr.
+https://groups.vesa.org/wg/DP/document/previewpdf/15651
 
-There are specific DPCDs defined for detecting link failures between
-the PCON and HDMI sink and check the link status. In case of link
-failure, PCON will communicate the same using an IRQ_HPD to source.
-HDMI sink would have indicated the same to PCON using SCDC interrupt
-mechanism. While source can always read final HDMI sink's status using
-I2C over AUX, it is easier and faster to read the PCONs already read
-HDMI sink status registers.
+This patch adds the relavant registers and helper functions to
+get the capability and set the color conversion bits for rgb->ycbcr
+conversion through PCON.
 
-This patch adds the DPCDs required for link failure detection and
-provide a helper function for printing error count/lane which might
-help in debugging the link failure issues.
+v2: As suggested in review comments:
+-Fixed bug in the check condition in a drm_helper as reported by
+ Dan Carpenter and Kernel test robot. (Dan Carepenter)
+-Modified the color-conversion cap helper function, to accomodate
+ BT709 and BT2020 colorspace. (Uma Shankar)
+-Added spec details for the new cap for color conversion. (Uma Shankar)
 
-v2: Addressed comments from Uma Shankar:
--rephrased the commit message, as per the code.
--fixed styling issues
--added documentation for the helper function.
-
-Signed-off-by: Swati Sharma <swati2.sharma@intel.com>
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Reviewed-by: Uma Shankar <uma.shankar@intel.com>
 ---
- drivers/gpu/drm/drm_dp_helper.c | 39 +++++++++++++++++++++++++++++++++
- include/drm/drm_dp_helper.h     | 17 ++++++++++++++
- 2 files changed, 56 insertions(+)
+ drivers/gpu/drm/drm_dp_helper.c | 61 +++++++++++++++++++++++++++++++++
+ include/drm/drm_dp_helper.h     | 19 +++++++++-
+ 2 files changed, 79 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/drm_dp_helper.c b/drivers/gpu/drm/drm_dp_helper.c
-index f501e3890921..a1d518b3a173 100644
+index 689fd0d5f6c5..9abd65c694ab 100644
 --- a/drivers/gpu/drm/drm_dp_helper.c
 +++ b/drivers/gpu/drm/drm_dp_helper.c
-@@ -2859,3 +2859,42 @@ int drm_dp_pcon_hdmi_link_mode(struct drm_dp_aux *aux, u8 *frl_trained_mask)
- 	return mode;
+@@ -949,6 +949,38 @@ bool drm_dp_downstream_444_to_420_conversion(const u8 dpcd[DP_RECEIVER_CAP_SIZE]
  }
- EXPORT_SYMBOL(drm_dp_pcon_hdmi_link_mode);
-+
+ EXPORT_SYMBOL(drm_dp_downstream_444_to_420_conversion);
+ 
 +/**
-+ * drm_dp_pcon_hdmi_frl_link_error_count() - print the error count per lane
-+ * during link failure between PCON and HDMI sink
-+ * @aux: DisplayPort AUX channel
-+ * @connector: DRM connector
-+ * code.
-+ **/
-+
-+void drm_dp_pcon_hdmi_frl_link_error_count(struct drm_dp_aux *aux,
-+					   struct drm_connector *connector)
++ * drm_dp_downstream_rgb_to_ycbcr_conversion() - determine downstream facing port
++ *                                               RGB->YCbCr conversion capability
++ * @dpcd: DisplayPort configuration data
++ * @port_cap: downstream facing port capabilities
++ * @colorspc: Colorspace for which conversion cap is sought
++ *
++ * Returns: whether the downstream facing port can convert RGB->YCbCr for a given
++ * colorspace.
++ */
++bool drm_dp_downstream_rgb_to_ycbcr_conversion(const u8 dpcd[DP_RECEIVER_CAP_SIZE],
++					       const u8 port_cap[4],
++					       u8 color_spc)
 +{
-+	u8 buf, error_count;
-+	int i, num_error;
-+	struct drm_hdmi_info *hdmi = &connector->display_info.hdmi;
++	if (!drm_dp_is_branch(dpcd))
++		return false;
 +
-+	for (i = 0; i < hdmi->max_lanes; i++) {
-+		if (drm_dp_dpcd_readb(aux, DP_PCON_HDMI_ERROR_STATUS_LN0 + i, &buf) < 0)
-+			return;
++	if (dpcd[DP_DPCD_REV] < 0x13)
++		return false;
 +
-+		error_count = buf & DP_PCON_HDMI_ERROR_COUNT_MASK;
-+		switch (error_count) {
-+		case DP_PCON_HDMI_ERROR_COUNT_HUNDRED_PLUS:
-+			num_error = 100;
-+			break;
-+		case DP_PCON_HDMI_ERROR_COUNT_TEN_PLUS:
-+			num_error = 10;
-+			break;
-+		case DP_PCON_HDMI_ERROR_COUNT_THREE_PLUS:
-+			num_error = 3;
-+			break;
-+		default:
-+			num_error = 0;
-+		}
++	switch (port_cap[0] & DP_DS_PORT_TYPE_MASK) {
++	case DP_DS_PORT_TYPE_HDMI:
++		if ((dpcd[DP_DOWNSTREAMPORT_PRESENT] & DP_DETAILED_CAP_INFO_AVAILABLE) == 0)
++			return false;
 +
-+		DRM_ERROR("More than %d errors since the last read for lane %d", num_error, i);
++		return port_cap[3] & color_spc;
++	default:
++		return false;
 +	}
 +}
-+EXPORT_SYMBOL(drm_dp_pcon_hdmi_frl_link_error_count);
++EXPORT_SYMBOL(drm_dp_downstream_rgb_to_ycbcr_conversion);
++
+ /**
+  * drm_dp_downstream_mode() - return a mode for downstream facing port
+  * @dev: DRM device
+@@ -3101,3 +3133,32 @@ int drm_dp_pcon_pps_override_param(struct drm_dp_aux *aux, u8 pps_param[6])
+ 	return 0;
+ }
+ EXPORT_SYMBOL(drm_dp_pcon_pps_override_param);
++
++/*
++ * drm_dp_pcon_convert_rgb_to_ycbcr() - Configure the PCon to convert RGB to Ycbcr
++ * @aux: displayPort AUX channel
++ * @color_spc: Color-space/s for which conversion is to be enabled, 0 for disable.
++ *
++ * Returns 0 on success, else returns negative error code.
++ */
++int drm_dp_pcon_convert_rgb_to_ycbcr(struct drm_dp_aux *aux, u8 color_spc)
++{
++	int ret;
++	u8 buf;
++
++	ret = drm_dp_dpcd_readb(aux, DP_PROTOCOL_CONVERTER_CONTROL_2, &buf);
++	if (ret < 0)
++		return ret;
++
++	if (color_spc & DP_CONVERSION_RGB_YCBCR_MASK)
++		buf |= (color_spc & DP_CONVERSION_RGB_YCBCR_MASK);
++	else
++		buf &= ~DP_CONVERSION_RGB_YCBCR_MASK;
++
++	ret = drm_dp_dpcd_writeb(aux, DP_PROTOCOL_CONVERTER_CONTROL_2, buf);
++	if (ret < 0)
++		return ret;
++
++	return 0;
++}
++EXPORT_SYMBOL(drm_dp_pcon_convert_rgb_to_ycbcr);
 diff --git a/include/drm/drm_dp_helper.h b/include/drm/drm_dp_helper.h
-index c66f570eadc2..871e8c051642 100644
+index baad87fe6b0a..e096ee98842b 100644
 --- a/include/drm/drm_dp_helper.h
 +++ b/include/drm/drm_dp_helper.h
-@@ -946,6 +946,11 @@ struct drm_device;
- # define DP_CEC_IRQ                          (1 << 2)
+@@ -432,6 +432,17 @@ struct drm_device;
+ # define DP_DS_HDMI_YCBCR444_TO_422_CONV    (1 << 3)
+ # define DP_DS_HDMI_YCBCR444_TO_420_CONV    (1 << 4)
  
- #define DP_LINK_SERVICE_IRQ_VECTOR_ESI0     0x2005   /* 1.2 */
-+# define RX_CAP_CHANGED                      (1 << 0)
-+# define LINK_STATUS_CHANGED                 (1 << 1)
-+# define STREAM_STATUS_CHANGED               (1 << 2)
-+# define HDMI_LINK_STATUS_CHANGED            (1 << 3)
-+# define CONNECTED_OFF_ENTRY_REQUESTED       (1 << 4)
- 
- #define DP_PSR_ERROR_STATUS                 0x2006  /* XXX 1.2? */
- # define DP_PSR_LINK_CRC_ERROR              (1 << 0)
-@@ -1120,6 +1125,16 @@ struct drm_device;
- #define DP_PROTOCOL_CONVERTER_CONTROL_2		0x3052 /* DP 1.3 */
- # define DP_CONVERSION_TO_YCBCR422_ENABLE	(1 << 0) /* DP 1.3 */
- 
-+/* PCON Downstream HDMI ERROR Status per Lane */
-+#define DP_PCON_HDMI_ERROR_STATUS_LN0          0x3037
-+#define DP_PCON_HDMI_ERROR_STATUS_LN1          0x3038
-+#define DP_PCON_HDMI_ERROR_STATUS_LN2          0x3039
-+#define DP_PCON_HDMI_ERROR_STATUS_LN3          0x303A
-+# define DP_PCON_HDMI_ERROR_COUNT_MASK         (0x7 << 0)
-+# define DP_PCON_HDMI_ERROR_COUNT_THREE_PLUS   (1 << 0)
-+# define DP_PCON_HDMI_ERROR_COUNT_TEN_PLUS     (1 << 1)
-+# define DP_PCON_HDMI_ERROR_COUNT_HUNDRED_PLUS (1 << 2)
++/*
++ * VESA DP-to-HDMI PCON Specification adds caps for colorspace
++ * conversion in DFP cap DPCD 83h. Sec6.1 Table-3.
++ * Based on the available support the source can enable
++ * color conversion by writing into PROTOCOL_COVERTER_CONTROL_2
++ * DPCD 3052h.
++ */
++# define DP_DS_HDMI_BT601_RGB_YCBCR_CONV    (1 << 5)
++# define DP_DS_HDMI_BT709_RGB_YCBCR_CONV    (1 << 6)
++# define DP_DS_HDMI_BT2020_RGB_YCBCR_CONV   (1 << 7)
 +
- /* HDCP 1.3 and HDCP 2.2 */
- #define DP_AUX_HDCP_BKSV		0x68000
- #define DP_AUX_HDCP_RI_PRIME		0x68005
-@@ -2036,5 +2051,7 @@ int drm_dp_pcon_frl_enable(struct drm_dp_aux *aux);
+ #define DP_MAX_DOWNSTREAM_PORTS		    0x10
  
- bool drm_dp_pcon_hdmi_link_active(struct drm_dp_aux *aux);
- int drm_dp_pcon_hdmi_link_mode(struct drm_dp_aux *aux, u8 *frl_trained_mask);
-+void drm_dp_pcon_hdmi_frl_link_error_count(struct drm_dp_aux *aux,
-+					  struct drm_connector *connector);
+ /* DP Forward error Correction Registers */
+@@ -1207,7 +1218,10 @@ struct drm_device;
+ # define DP_PCON_ENC_PPS_OVERRIDE_DISABLED      0
+ # define DP_PCON_ENC_PPS_OVERRIDE_EN_PARAMS     1
+ # define DP_PCON_ENC_PPS_OVERRIDE_EN_BUFFER     2
+-
++# define DP_CONVERSION_RGB_YCBCR_MASK	       (7 << 4)
++# define DP_CONVERSION_BT601_RGB_YCBCR_ENABLE  (1 << 4)
++# define DP_CONVERSION_BT709_RGB_YCBCR_ENABLE  (1 << 5)
++# define DP_CONVERSION_BT2020_RGB_YCBCR_ENABLE (1 << 6)
+ 
+ /* PCON Downstream HDMI ERROR Status per Lane */
+ #define DP_PCON_HDMI_ERROR_STATUS_LN0          0x3037
+@@ -2167,5 +2181,8 @@ int drm_dp_pcon_dsc_bpp_incr(const u8 pcon_dsc_dpcd[DP_PCON_DSC_ENCODER_CAP_SIZE
+ int drm_dp_pcon_pps_default(struct drm_dp_aux *aux);
+ int drm_dp_pcon_pps_override_buf(struct drm_dp_aux *aux, u8 pps_buf[128]);
+ int drm_dp_pcon_pps_override_param(struct drm_dp_aux *aux, u8 pps_param[6]);
++bool drm_dp_downstream_rgb_to_ycbcr_conversion(const u8 dpcd[DP_RECEIVER_CAP_SIZE],
++					       const u8 port_cap[4], u8 color_spc);
++int drm_dp_pcon_convert_rgb_to_ycbcr(struct drm_dp_aux *aux, u8 color_spc);
  
  #endif /* _DRM_DP_HELPER_H_ */
 -- 
