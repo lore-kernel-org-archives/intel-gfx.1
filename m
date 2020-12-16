@@ -7,45 +7,44 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8E721C0018C
-	for <intel-gfx@archiver.kernel.org>; Wed, 16 Dec 2020 05:38:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2C8A9C4361B
+	for <intel-gfx@archiver.kernel.org>; Wed, 16 Dec 2020 05:38:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5643723123
-	for <intel-gfx@archiver.kernel.org>; Wed, 16 Dec 2020 05:38:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5643723123
+	by mail.kernel.org (Postfix) with ESMTPS id E5E7D23123
+	for <intel-gfx@archiver.kernel.org>; Wed, 16 Dec 2020 05:38:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E5E7D23123
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 35FE189D6C;
-	Wed, 16 Dec 2020 05:38:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7320B89FE6;
+	Wed, 16 Dec 2020 05:38:08 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E8A289EAC;
- Wed, 16 Dec 2020 05:38:01 +0000 (UTC)
-IronPort-SDR: DPe7D9kxMcPZtIAEqsI+mmxOacTV06V1pd6q7TzatSAMCoxxZ/iSGMtQHH/OCM+K8vP5dF97B3
- YSwbIuFRrAuA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9836"; a="172437344"
-X-IronPort-AV: E=Sophos;i="5.78,423,1599548400"; d="scan'208";a="172437344"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5848689FE6;
+ Wed, 16 Dec 2020 05:38:06 +0000 (UTC)
+IronPort-SDR: FcuNgGC4dGAkmfPiI+jMXxOgpzyXQeoLDglJWblbdAEgBu8h2q8Lvc74znDFKeXpuNPDDcNujs
+ kAt42JIm531w==
+X-IronPort-AV: E=McAfee;i="6000,8403,9836"; a="172437352"
+X-IronPort-AV: E=Sophos;i="5.78,423,1599548400"; d="scan'208";a="172437352"
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Dec 2020 21:38:00 -0800
-IronPort-SDR: dAMyB8DGI0SfivhtJlhBq4llXs2xw4vP0rkVTNXUBOVfMQPRaBLPRigYFFlJMPpdkLgmM/QyVX
- KE8TTeb1pRjQ==
+ 15 Dec 2020 21:38:06 -0800
+IronPort-SDR: DLPtxZTeiiSfT6fHHZTYFeEaRlFNO+hzSGdDNTpYF+V9WkeCzOW4eSec9R6XpBBnsjfbiS4GiS
+ hRTmzw1s0G3A==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.78,423,1599548400"; d="scan'208";a="556647150"
+X-IronPort-AV: E=Sophos;i="5.78,423,1599548400"; d="scan'208";a="556647189"
 Received: from linux-akn.iind.intel.com ([10.223.34.148])
- by fmsmga006.fm.intel.com with ESMTP; 15 Dec 2020 21:37:58 -0800
+ by fmsmga006.fm.intel.com with ESMTP; 15 Dec 2020 21:38:03 -0800
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 16 Dec 2020 11:01:17 +0530
-Message-Id: <20201216053121.18819-12-ankit.k.nautiyal@intel.com>
+Date: Wed, 16 Dec 2020 11:01:19 +0530
+Message-Id: <20201216053121.18819-14-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20201216053121.18819-1-ankit.k.nautiyal@intel.com>
 References: <20201216053121.18819-1-ankit.k.nautiyal@intel.com>
-MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v5 11/15] drm/i915: Add support for enabling
- link status and recovery
+Subject: [Intel-gfx] [PATCH v5 13/15] drm/i915: Add helper functions for
+ calculating DSC parameters for HDMI2.1
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,81 +58,293 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: airlied@linux.ie, dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-RnJvbTogU3dhdGkgU2hhcm1hIDxzd2F0aTIuc2hhcm1hQGludGVsLmNvbT4KCkluIHRoaXMgcGF0
-Y2ggZW5hYmxlcyBzdXBwb3J0IGZvciBkZXRlY3RpbmcgbGluayBmYWlsdXJlcyBiZXR3ZWVuClBD
-T04gYW5kIEhETUkgc2luayBpbiBpOTE1IGRyaXZlci4gSERNSSBsaW5rIGxvc3MgaW5kaWNhdGlv
-biB0bwp1cHN0cmVhbSBEUCBzb3VyY2UgaXMgaW5kaWNhdGVkIHZpYSBJUlFfSFBELiBUaGlzIGlz
-IGZvbGxvd2VkIGJ5CnJlYWRpbmcgb2YgSERNSSBsaW5rIGNvbmZpZ3VyYXRpb24gc3RhdHVzIChI
-RE1JX1RYX0xJTktfQUNUSVZFX1NUQVRVUykuCklmIHRoZSBQQ09OIOKGkiBIRE1JIDIuMSBsaW5r
-IHN0YXR1cyBpcyBvZmY7IHJlaW5pdGlhdGUgZnJsIGxpbmsKdHJhaW5pbmcgdG8gcmVjb3Zlci4g
-QWxzbywgcmVwb3J0IEhETUkgRlJMIGxpbmsgZXJyb3IgY291bnQgcmFuZ2UgZm9yCmVhY2ggaW5k
-aXZpZHVhbCBGUkwgYWN0aXZlIGxhbmUgaXMgaW5kaWNhdGVkIGJ5CkRPV05TVFJFQU1fSERNSV9F
-UlJPUl9TVEFUVVNfTE4gcmVnaXN0ZXJzLgoKdjI6IENoZWNrZWQgZm9yIGRwY2QgcmVhZCBhbmQg
-d3JpdGUgZmFpbHVyZXMgYW5kIGFkZGVkIGRlYnVnIG1lc3NhZ2UuCihVbWEgU2hhbmthcikKCnYz
-OiBSZWFycmFuZ2VkIGNvZGUgdG8gcmUtc3RhcnQgRlJMIGxpbmsgdHJhaW5pbmcgb3IgZmFsbCBi
-YWNrIHRvClRNRFMgbW9kZS4KCnY0OiBSZXN1c2VkIGZ1bmN0aW9uIHRvIGNoZWNrIGZybCB3aGlj
-aCBpbnR1cm4gcmVzdGFydHMgRlJMIGFuZApmYWxsYmFjayB0byBUTURTIG1vZGUuCgpTaWduZWQt
-b2ZmLWJ5OiBTd2F0aSBTaGFybWEgPHN3YXRpMi5zaGFybWFAaW50ZWwuY29tPgpTaWduZWQtb2Zm
-LWJ5OiBBbmtpdCBOYXV0aXlhbCA8YW5raXQuay5uYXV0aXlhbEBpbnRlbC5jb20+ClJldmlld2Vk
-LWJ5OiBVbWEgU2hhbmthciA8dW1hLnNoYW5rYXJAaW50ZWwuY29tPiAodjIpCi0tLQogZHJpdmVy
-cy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kcC5jIHwgNTMgKysrKysrKysrKysrKysrKysr
-KysrKystLQogMSBmaWxlIGNoYW5nZWQsIDUwIGluc2VydGlvbnMoKyksIDMgZGVsZXRpb25zKC0p
-CgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kcC5jIGIv
-ZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kcC5jCmluZGV4IDlkMGFkY2UxNDYx
-My4uZGFmMmZhYWE0MGZiIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5
-L2ludGVsX2RwLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kcC5j
-CkBAIC02MDA1LDYgKzYwMDUsMjggQEAgaW50ZWxfZHBfY2hlY2tfbXN0X3N0YXR1cyhzdHJ1Y3Qg
-aW50ZWxfZHAgKmludGVsX2RwKQogCXJldHVybiBsaW5rX29rOwogfQogCitzdGF0aWMgdm9pZAor
-aW50ZWxfZHBfaGFuZGxlX2hkbWlfbGlua19zdGF0dXNfY2hhbmdlKHN0cnVjdCBpbnRlbF9kcCAq
-aW50ZWxfZHApCit7CisJYm9vbCBpc19hY3RpdmU7CisJdTggYnVmID0gMDsKKworCWlzX2FjdGl2
-ZSA9IGRybV9kcF9wY29uX2hkbWlfbGlua19hY3RpdmUoJmludGVsX2RwLT5hdXgpOworCWlmIChp
-bnRlbF9kcC0+ZnJsLmlzX3RyYWluZWQgJiYgIWlzX2FjdGl2ZSkgeworCQlpZiAoZHJtX2RwX2Rw
-Y2RfcmVhZGIoJmludGVsX2RwLT5hdXgsIERQX1BDT05fSERNSV9MSU5LX0NPTkZJR18xLCAmYnVm
-KSA8IDApCisJCQlyZXR1cm47CisKKwkJYnVmICY9ICB+RFBfUENPTl9FTkFCTEVfSERNSV9MSU5L
-OworCQlpZiAoZHJtX2RwX2RwY2Rfd3JpdGViKCZpbnRlbF9kcC0+YXV4LCBEUF9QQ09OX0hETUlf
-TElOS19DT05GSUdfMSwgYnVmKSA8IDApCisJCQlyZXR1cm47CisKKwkJZHJtX2RwX3Bjb25faGRt
-aV9mcmxfbGlua19lcnJvcl9jb3VudCgmaW50ZWxfZHAtPmF1eCwgJmludGVsX2RwLT5hdHRhY2hl
-ZF9jb25uZWN0b3ItPmJhc2UpOworCisJCS8qIFJlc3RhcnQgRlJMIHRyYWluaW5nIG9yIGZhbGwg
-YmFjayB0byBUTURTIG1vZGUgKi8KKwkJaW50ZWxfZHBfY2hlY2tfZnJsX3RyYWluaW5nKGludGVs
-X2RwKTsKKwl9Cit9CisKIHN0YXRpYyBib29sCiBpbnRlbF9kcF9uZWVkc19saW5rX3JldHJhaW4o
-c3RydWN0IGludGVsX2RwICppbnRlbF9kcCkKIHsKQEAgLTYzNzAsNyArNjM5Miw3IEBAIGludGVs
-X2RwX2hvdHBsdWcoc3RydWN0IGludGVsX2VuY29kZXIgKmVuY29kZXIsCiAJcmV0dXJuIHN0YXRl
-OwogfQogCi1zdGF0aWMgdm9pZCBpbnRlbF9kcF9jaGVja19zZXJ2aWNlX2lycShzdHJ1Y3QgaW50
-ZWxfZHAgKmludGVsX2RwKQorc3RhdGljIHZvaWQgaW50ZWxfZHBfY2hlY2tfZGV2aWNlX3NlcnZp
-Y2VfaXJxKHN0cnVjdCBpbnRlbF9kcCAqaW50ZWxfZHApCiB7CiAJc3RydWN0IGRybV9pOTE1X3By
-aXZhdGUgKmk5MTUgPSBkcF90b19pOTE1KGludGVsX2RwKTsKIAl1OCB2YWw7CkBAIC02Mzk0LDYg
-KzY0MTYsMzAgQEAgc3RhdGljIHZvaWQgaW50ZWxfZHBfY2hlY2tfc2VydmljZV9pcnEoc3RydWN0
-IGludGVsX2RwICppbnRlbF9kcCkKIAkJZHJtX2RiZ19rbXMoJmk5MTUtPmRybSwgIlNpbmsgc3Bl
-Y2lmaWMgaXJxIHVuaGFuZGxlZFxuIik7CiB9CiAKK3N0YXRpYyB2b2lkIGludGVsX2RwX2NoZWNr
-X2xpbmtfc2VydmljZV9pcnEoc3RydWN0IGludGVsX2RwICppbnRlbF9kcCkKK3sKKwlzdHJ1Y3Qg
-ZHJtX2k5MTVfcHJpdmF0ZSAqaTkxNSA9IGRwX3RvX2k5MTUoaW50ZWxfZHApOworCXU4IHZhbDsK
-KworCWlmIChpbnRlbF9kcC0+ZHBjZFtEUF9EUENEX1JFVl0gPCAweDExKQorCQlyZXR1cm47CisK
-KwlpZiAoZHJtX2RwX2RwY2RfcmVhZGIoJmludGVsX2RwLT5hdXgsCisJCQkgICAgICBEUF9MSU5L
-X1NFUlZJQ0VfSVJRX1ZFQ1RPUl9FU0kwLCAmdmFsKSAhPSAxIHx8ICF2YWwpIHsKKwkJZHJtX2Ri
-Z19rbXMoJmk5MTUtPmRybSwgIkVycm9yIGluIHJlYWRpbmcgbGluayBzZXJ2aWNlIGlycSB2ZWN0
-b3JcbiIpOworCQlyZXR1cm47CisJfQorCisJaWYgKGRybV9kcF9kcGNkX3dyaXRlYigmaW50ZWxf
-ZHAtPmF1eCwKKwkJCSAgICAgICBEUF9MSU5LX1NFUlZJQ0VfSVJRX1ZFQ1RPUl9FU0kwLCB2YWwp
-ICE9IDEpIHsKKwkJZHJtX2RiZ19rbXMoJmk5MTUtPmRybSwgIkVycm9yIGluIHdyaXRpbmcgbGlu
-ayBzZXJ2aWNlIGlycSB2ZWN0b3JcbiIpOworCQlyZXR1cm47CisJfQorCisJaWYgKHZhbCAmIEhE
-TUlfTElOS19TVEFUVVNfQ0hBTkdFRCkKKwkJaW50ZWxfZHBfaGFuZGxlX2hkbWlfbGlua19zdGF0
-dXNfY2hhbmdlKGludGVsX2RwKTsKK30KKwogLyoKICAqIEFjY29yZGluZyB0byBEUCBzcGVjCiAg
-KiA1LjEuMjoKQEAgLTY0MzMsNyArNjQ3OSw4IEBAIGludGVsX2RwX3Nob3J0X3B1bHNlKHN0cnVj
-dCBpbnRlbF9kcCAqaW50ZWxfZHApCiAJCXJldHVybiBmYWxzZTsKIAl9CiAKLQlpbnRlbF9kcF9j
-aGVja19zZXJ2aWNlX2lycShpbnRlbF9kcCk7CisJaW50ZWxfZHBfY2hlY2tfZGV2aWNlX3NlcnZp
-Y2VfaXJxKGludGVsX2RwKTsKKwlpbnRlbF9kcF9jaGVja19saW5rX3NlcnZpY2VfaXJxKGludGVs
-X2RwKTsKIAogCS8qIEhhbmRsZSBDRUMgaW50ZXJydXB0cywgaWYgYW55ICovCiAJZHJtX2RwX2Nl
-Y19pcnEoJmludGVsX2RwLT5hdXgpOwpAQCAtNjg2Myw3ICs2OTEwLDcgQEAgaW50ZWxfZHBfZGV0
-ZWN0KHN0cnVjdCBkcm1fY29ubmVjdG9yICpjb25uZWN0b3IsCiAJICAgIHRvX2ludGVsX2Nvbm5l
-Y3Rvcihjb25uZWN0b3IpLT5kZXRlY3RfZWRpZCkKIAkJc3RhdHVzID0gY29ubmVjdG9yX3N0YXR1
-c19jb25uZWN0ZWQ7CiAKLQlpbnRlbF9kcF9jaGVja19zZXJ2aWNlX2lycShpbnRlbF9kcCk7CisJ
-aW50ZWxfZHBfY2hlY2tfZGV2aWNlX3NlcnZpY2VfaXJxKGludGVsX2RwKTsKIAogb3V0OgogCWlm
-IChzdGF0dXMgIT0gY29ubmVjdG9yX3N0YXR1c19jb25uZWN0ZWQgJiYgIWludGVsX2RwLT5pc19t
-c3QpCi0tIAoyLjE3LjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fCkludGVsLWdmeCBtYWlsaW5nIGxpc3QKSW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
-Lm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ludGVs
-LWdmeAo=
+The DP-HDMI2.1 PCON spec provides way for a source to set PPS
+parameters: slice height, slice width and bits_per_pixel, based on
+the HDMI2.1 sink capabilities. The DSC encoder of the PCON will
+respect these parameters, while preparing the 128 byte PPS.
+
+This patch adds helper functions to calculate these PPS paremeters as
+per the HDMI2.1 specification.
+
+v2: Addressed review comments given by Uma Shankar:
+-added documentation for functions
+-fixed typos and errors
+
+Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Reviewed-by: Uma Shankar <uma.shankar@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_hdmi.c | 233 ++++++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_hdmi.h |   7 +
+ 2 files changed, 240 insertions(+)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
+index e10fdb369daa..41eb1c175a0e 100644
+--- a/drivers/gpu/drm/i915/display/intel_hdmi.c
++++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
+@@ -3428,3 +3428,236 @@ void intel_hdmi_init(struct drm_i915_private *dev_priv,
+ 	dig_port->aux_ch = intel_bios_port_aux_ch(dev_priv, port);
+ 	intel_hdmi_init_connector(dig_port, intel_connector);
+ }
++
++/*
++ * intel_hdmi_dsc_get_slice_height - get the dsc slice_height
++ * @vactive: Vactive of a display mode
++ *
++ * @return: appropriate dsc slice height for a given mode.
++ */
++int intel_hdmi_dsc_get_slice_height(int vactive)
++{
++	int slice_height;
++
++	/*
++	 * Slice Height determination : HDMI2.1 Section 7.7.5.2
++	 * Select smallest slice height >=96, that results in a valid PPS and
++	 * requires minimum padding lines required for final slice.
++	 *
++	 * Assumption : Vactive is even.
++	 */
++	for (slice_height = 96; slice_height <= vactive; slice_height += 2)
++		if (vactive % slice_height == 0)
++			return slice_height;
++
++	return 0;
++}
++
++/*
++ * intel_hdmi_dsc_get_num_slices - get no. of dsc slices based on dsc encoder
++ * and dsc decoder capabilites
++ *
++ * @crtc_state: intel crtc_state
++ * @src_max_slices: maximum slices supported by the DSC encoder
++ * @src_max_slice_width: maximum slice width supported by DSC encoder
++ * @hdmi_max_slices: maximum slices supported by sink DSC decoder
++ * @hdmi_throughput: maximum clock per slice (MHz) supported by HDMI sink
++ *
++ * @return: num of dsc slices that can be supported by the dsc encoder
++ * and decoder.
++ */
++int
++intel_hdmi_dsc_get_num_slices(const struct intel_crtc_state *crtc_state,
++			      int src_max_slices, int src_max_slice_width,
++			      int hdmi_max_slices, int hdmi_throughput)
++{
++/* Pixel rates in KPixels/sec */
++#define HDMI_DSC_PEAK_PIXEL_RATE		2720000
++/*
++ * Rates at which the source and sink are required to process pixels in each
++ * slice, can be two levels: either atleast 340000KHz or atleast 40000KHz.
++ */
++#define HDMI_DSC_MAX_ENC_THROUGHPUT_0		340000
++#define HDMI_DSC_MAX_ENC_THROUGHPUT_1		400000
++
++/* Spec limits the slice width to 2720 pixels */
++#define MAX_HDMI_SLICE_WIDTH			2720
++	int kslice_adjust;
++	int adjusted_clk_khz;
++	int min_slices;
++	int target_slices;
++	int max_throughput; /* max clock freq. in khz per slice */
++	int max_slice_width;
++	int slice_width;
++	int pixel_clock = crtc_state->hw.adjusted_mode.crtc_clock;
++
++	if (!hdmi_throughput)
++		return 0;
++
++	/*
++	 * Slice Width determination : HDMI2.1 Section 7.7.5.1
++	 * kslice_adjust factor for 4:2:0, and 4:2:2 formats is 0.5, where as
++	 * for 4:4:4 is 1.0. Multiplying these factors by 10 and later
++	 * dividing adjusted clock value by 10.
++	 */
++	if (crtc_state->output_format == INTEL_OUTPUT_FORMAT_YCBCR444 ||
++	    crtc_state->output_format == INTEL_OUTPUT_FORMAT_RGB)
++		kslice_adjust = 10;
++	else
++		kslice_adjust = 5;
++
++	/*
++	 * As per spec, the rate at which the source and the sink process
++	 * the pixels per slice are at two levels: atleast 340Mhz or 400Mhz.
++	 * This depends upon the pixel clock rate and output formats
++	 * (kslice adjust).
++	 * If pixel clock * kslice adjust >= 2720MHz slices can be processed
++	 * at max 340MHz, otherwise they can be processed at max 400MHz.
++	 */
++
++	adjusted_clk_khz = DIV_ROUND_UP(kslice_adjust * pixel_clock, 10);
++
++	if (adjusted_clk_khz <= HDMI_DSC_PEAK_PIXEL_RATE)
++		max_throughput = HDMI_DSC_MAX_ENC_THROUGHPUT_0;
++	else
++		max_throughput = HDMI_DSC_MAX_ENC_THROUGHPUT_1;
++
++	/*
++	 * Taking into account the sink's capability for maximum
++	 * clock per slice (in MHz) as read from HF-VSDB.
++	 */
++	max_throughput = min(max_throughput, hdmi_throughput * 1000);
++
++	min_slices = DIV_ROUND_UP(adjusted_clk_khz, max_throughput);
++	max_slice_width = min(MAX_HDMI_SLICE_WIDTH, src_max_slice_width);
++
++	/*
++	 * Keep on increasing the num of slices/line, starting from min_slices
++	 * per line till we get such a number, for which the slice_width is
++	 * just less than max_slice_width. The slices/line selected should be
++	 * less than or equal to the max horizontal slices that the combination
++	 * of PCON encoder and HDMI decoder can support.
++	 */
++	slice_width = max_slice_width;
++
++	do {
++		if (min_slices <= 1 && src_max_slices >= 1 && hdmi_max_slices >= 1)
++		       target_slices = 1;
++		else if (min_slices <= 2 && src_max_slices >= 2 && hdmi_max_slices >= 2)
++		       target_slices = 2;
++		else if (min_slices <= 4 && src_max_slices >= 4 && hdmi_max_slices >= 4)
++		       target_slices = 4;
++		else if (min_slices <= 8 && src_max_slices >= 8 && hdmi_max_slices >= 8)
++		       target_slices = 8;
++		else if (min_slices <= 12 && src_max_slices >= 12 && hdmi_max_slices >= 12)
++		       target_slices = 12;
++		else if (min_slices <= 16 && src_max_slices >= 16 && hdmi_max_slices >= 16)
++		       target_slices = 16;
++		else
++			return 0;
++
++		slice_width = DIV_ROUND_UP(crtc_state->hw.adjusted_mode.hdisplay, target_slices);
++		if (slice_width >= max_slice_width)
++			min_slices = target_slices + 1;
++	} while (slice_width >= max_slice_width);
++
++	return target_slices;
++}
++
++/*
++ * intel_hdmi_dsc_get_bpp - get the appropriate compressed bits_per_pixel based on
++ * source and sink capabilities.
++ *
++ * @src_fraction_bpp: fractional bpp supported by the source
++ * @slice_width: dsc slice width supported by the source and sink
++ * @num_slices: num of slices supported by the source and sink
++ * @output_format: video output format
++ * @hdmi_all_bpp: sink supports decoding of 1/16th bpp setting
++ * @hdmi_max_chunk_bytes: max bytes in a line of chunks supported by sink
++ *
++ * @return: compressed bits_per_pixel in step of 1/16 of bits_per_pixel
++ */
++int
++intel_hdmi_dsc_get_bpp(int src_fractional_bpp, int slice_width, int num_slices,
++		       int output_format, bool hdmi_all_bpp,
++		       int hdmi_max_chunk_bytes)
++{
++	int max_dsc_bpp, min_dsc_bpp;
++	int target_bytes;
++	bool bpp_found = false;
++	int bpp_decrement_x16;
++	int bpp_target;
++	int bpp_target_x16;
++
++	/*
++	 * Get min bpp and max bpp as per Table 7.23, in HDMI2.1 spec
++	 * Start with the max bpp and keep on decrementing with
++	 * fractional bpp, if supported by PCON DSC encoder
++	 *
++	 * for each bpp we check if no of bytes can be supported by HDMI sink
++	 */
++
++	/* Assuming: bpc as 8*/
++	if (output_format == INTEL_OUTPUT_FORMAT_YCBCR420) {
++		min_dsc_bpp = 6;
++		max_dsc_bpp = 3 * 4; /* 3*bpc/2 */
++	} else if (output_format == INTEL_OUTPUT_FORMAT_YCBCR444 ||
++		   output_format == INTEL_OUTPUT_FORMAT_RGB) {
++		min_dsc_bpp = 8;
++		max_dsc_bpp = 3 * 8; /* 3*bpc */
++	} else {
++		/* Assuming 4:2:2 encoding */
++		min_dsc_bpp = 7;
++		max_dsc_bpp = 2 * 8; /* 2*bpc */
++	}
++
++	/*
++	 * Taking into account if all dsc_all_bpp supported by HDMI2.1 sink
++	 * Section 7.7.34 : Source shall not enable compressed Video
++	 * Transport with bpp_target settings above 12 bpp unless
++	 * DSC_all_bpp is set to 1.
++	 */
++	if (!hdmi_all_bpp)
++		max_dsc_bpp = min(max_dsc_bpp, 12);
++
++	/*
++	 * The Sink has a limit of compressed data in bytes for a scanline,
++	 * as described in max_chunk_bytes field in HFVSDB block of edid.
++	 * The no. of bytes depend on the target bits per pixel that the
++	 * source configures. So we start with the max_bpp and calculate
++	 * the target_chunk_bytes. We keep on decrementing the target_bpp,
++	 * till we get the target_chunk_bytes just less than what the sink's
++	 * max_chunk_bytes, or else till we reach the min_dsc_bpp.
++	 *
++	 * The decrement is according to the fractional support from PCON DSC
++	 * encoder. For fractional BPP we use bpp_target as a multiple of 16.
++	 *
++	 * bpp_target_x16 = bpp_target * 16
++	 * So we need to decrement by {1, 2, 4, 8, 16} for fractional bpps
++	 * {1/16, 1/8, 1/4, 1/2, 1} respectively.
++	 */
++
++	bpp_target = max_dsc_bpp;
++
++	/* src does not support fractional bpp implies decrement by 16 for bppx16 */
++	if (!src_fractional_bpp)
++		src_fractional_bpp = 1;
++	bpp_decrement_x16 = DIV_ROUND_UP(16, src_fractional_bpp);
++	bpp_target_x16 = (bpp_target * 16) - bpp_decrement_x16;
++
++	while (bpp_target_x16 > (min_dsc_bpp * 16)) {
++		int bpp;
++
++		bpp = DIV_ROUND_UP(bpp_target_x16, 16);
++		target_bytes = DIV_ROUND_UP((num_slices * slice_width * bpp), 8);
++		if (target_bytes <= hdmi_max_chunk_bytes) {
++			bpp_found = true;
++			break;
++		}
++		bpp_target_x16 -= bpp_decrement_x16;
++	}
++	if (bpp_found)
++		return bpp_target_x16;
++
++	return 0;
++}
+diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.h b/drivers/gpu/drm/i915/display/intel_hdmi.h
+index 15eb0ccde76e..fa1a9b030850 100644
+--- a/drivers/gpu/drm/i915/display/intel_hdmi.h
++++ b/drivers/gpu/drm/i915/display/intel_hdmi.h
+@@ -50,5 +50,12 @@ bool intel_hdmi_limited_color_range(const struct intel_crtc_state *crtc_state,
+ 				    const struct drm_connector_state *conn_state);
+ bool intel_hdmi_deep_color_possible(const struct intel_crtc_state *crtc_state, int bpc,
+ 				    bool has_hdmi_sink, bool ycbcr420_output);
++int intel_hdmi_dsc_get_bpp(int src_fractional_bpp, int slice_width,
++			   int num_slices, int output_format, bool hdmi_all_bpp,
++			   int hdmi_max_chunk_bytes);
++int intel_hdmi_dsc_get_num_slices(const struct intel_crtc_state *crtc_state,
++				  int src_max_slices, int src_max_slice_width,
++				  int hdmi_max_slices, int hdmi_throughput);
++int intel_hdmi_dsc_get_slice_height(int vactive);
+ 
+ #endif /* __INTEL_HDMI_H__ */
+-- 
+2.17.1
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
