@@ -2,51 +2,73 @@ Return-Path: <SRS0=HG33=FU=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9CF73C4361B
-	for <intel-gfx@archiver.kernel.org>; Wed, 16 Dec 2020 17:48:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 11DB2C4361B
+	for <intel-gfx@archiver.kernel.org>; Wed, 16 Dec 2020 19:15:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5B96E24E06
-	for <intel-gfx@archiver.kernel.org>; Wed, 16 Dec 2020 17:48:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5B96E24E06
+	by mail.kernel.org (Postfix) with ESMTPS id 9460F22D02
+	for <intel-gfx@archiver.kernel.org>; Wed, 16 Dec 2020 19:15:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9460F22D02
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 39674899D4;
-	Wed, 16 Dec 2020 17:48:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CDB5F89C07;
+	Wed, 16 Dec 2020 19:15:44 +0000 (UTC)
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 42FCD899B7
- for <intel-gfx@lists.freedesktop.org>; Wed, 16 Dec 2020 17:48:44 +0000 (UTC)
-IronPort-SDR: ryWClZxMkvyJzOK+aSBiu6mBqu7EhrZSRKKNQ3urQJz0mPHq47AvAx1A9Q/21cUy5dOXGBgav0
- ApmldEginV9Q==
-X-IronPort-AV: E=McAfee;i="6000,8403,9837"; a="162156868"
-X-IronPort-AV: E=Sophos;i="5.78,424,1599548400"; d="scan'208";a="162156868"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 34A8B89BFE;
+ Wed, 16 Dec 2020 19:15:43 +0000 (UTC)
+IronPort-SDR: ST7M/37w+BRzw3d+ZrNEzr7oJnRJhIMtFK2LVykMgiFQdKfLetcfO3OJAu8MXrzfQYYwZFoekn
+ ivC375FYuAZQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9837"; a="162172280"
+X-IronPort-AV: E=Sophos;i="5.78,425,1599548400"; d="scan'208";a="162172280"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Dec 2020 09:48:44 -0800
-IronPort-SDR: DJSfdkVpINfhWdSKex/mNGHh6vvZxWhh28/mNeX2HwwURThcPu7dLTPRV+4ia6cBa2LQdlERgC
- 092wmUBVyCEg==
-X-IronPort-AV: E=Sophos;i="5.78,424,1599548400"; d="scan'208";a="488613669"
-Received: from mhlabrec-mobl1.amr.corp.intel.com (HELO
- josouza-mobl2.intel.com) ([10.255.69.154])
- by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Dec 2020 09:48:42 -0800
-From: =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Wed, 16 Dec 2020 09:48:57 -0800
-Message-Id: <20201216174900.185178-2-jose.souza@intel.com>
-X-Mailer: git-send-email 2.29.2
-In-Reply-To: <20201216174900.185178-1-jose.souza@intel.com>
-References: <20201216174900.185178-1-jose.souza@intel.com>
+ 16 Dec 2020 11:15:42 -0800
+IronPort-SDR: B9Ql2ozU13/LNQhpQp4RqemDQL4xtPrhm/OyuNoIg10ACs19lLsYu1EkdMHqqpjWKHJA5VeveC
+ SUjsPLdgS0cw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.78,425,1599548400"; d="scan'208";a="333494451"
+Received: from fmsmsx601.amr.corp.intel.com ([10.18.126.81])
+ by fmsmga007.fm.intel.com with ESMTP; 16 Dec 2020 11:15:41 -0800
+Received: from bgsmsx603.gar.corp.intel.com (10.109.78.82) by
+ fmsmsx601.amr.corp.intel.com (10.18.126.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.1713.5; Wed, 16 Dec 2020 11:15:40 -0800
+Received: from bgsmsx604.gar.corp.intel.com (10.67.234.6) by
+ BGSMSX603.gar.corp.intel.com (10.109.78.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.1713.5; Thu, 17 Dec 2020 00:45:38 +0530
+Received: from bgsmsx604.gar.corp.intel.com ([10.67.234.6]) by
+ BGSMSX604.gar.corp.intel.com ([10.67.234.6]) with mapi id 15.01.1713.004;
+ Thu, 17 Dec 2020 00:45:38 +0530
+From: "Shankar, Uma" <uma.shankar@intel.com>
+To: "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
+Thread-Topic: [PATCH v5 07/15] drm/dp_helper: Add helpers to configure PCONs
+ RGB-YCbCr Conversion
+Thread-Index: AQHW022ZTUEdZOGlmUSDFJ7sQz68oKn6F9Eg
+Date: Wed, 16 Dec 2020 19:15:38 +0000
+Message-ID: <5d8bccad8ff14659b496129496b4a189@intel.com>
+References: <20201216053121.18819-1-ankit.k.nautiyal@intel.com>
+ <20201216053121.18819-8-ankit.k.nautiyal@intel.com>
+In-Reply-To: <20201216053121.18819-8-ankit.k.nautiyal@intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+dlp-product: dlpe-windows
+dlp-reaction: no-action
+dlp-version: 11.5.1.3
+x-originating-ip: [10.223.10.1]
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v7 2/5] drm/i915/display/psr: Use plane damage
- clips to calculate damaged area
+Subject: Re: [Intel-gfx] [PATCH v5 07/15] drm/dp_helper: Add helpers to
+ configure PCONs RGB-YCbCr Conversion
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,119 +81,185 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: "airlied@linux.ie" <airlied@linux.ie>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Tm93IHVzaW5nIHBsYW5lIGRhbWFnZSBjbGlwcyBwcm9wZXJ0eSB0byBjYWxjdWFsdGUgdGhlIGRh
-bWFnZWQgYXJlYS4KU2VsZWN0aXZlIGZldGNoIG9ubHkgc3VwcG9ydHMgb25lIHJlZ2lvbiB0byBi
-ZSBmZXRjaGVkIHNvIHNvZnR3YXJlCm5lZWRzIHRvIGNhbGN1bGF0ZSBhIGJvdW5kaW5nIGJveCBh
-cm91bmQgYWxsIGRhbWFnZSBjbGlwcy4KCk5vdyB0aGF0IHdlIGFyZSBub3QgY29tcGxldGUgZmV0
-Y2hpbmcgZWFjaCBwbGFuZSwgdGhlcmUgaXMgYW5vdGhlcgpsb29wIG5lZWRlZCBhcyBhbGwgdGhl
-IHBsYW5lIGFyZWFzIHRoYXQgaW50ZXJzZWN0IHdpdGggdGhlIHBpcGUKZGFtYWdlZCBhcmVhIG5l
-ZWRzIHRvIGJlIGZldGNoZWQgZnJvbSBtZW1vcnkgc28gdGhlIGNvbXBsZXRlIGJsZW5kaW5nCm9m
-IGFsbCBwbGFuZXMgY2FuIGhhcHBlbi4KCnYyOgotIGRvIG5vdCBzaGlmdGhpbmcgbmV3X3BsYW5l
-X3N0YXRlLT51YXBpLmRzdCBvbmx5IHNyYyBpcyBpbiAxNi4xNiBmb3JtYXQKCnY0OgotIHNldHRp
-bmcgcGxhbmUgc2VsZWN0aXZlIGZldGNoIGFyZWEgdXNpbmcgdGhlIHdob2xlIHBpcGUgZGFtYWdl
-IGFyZWEKLSBtYXJrIHRoZSB3aG9sZSBwbGFuZSBhcmVhIGRhbWFnZWQgaWYgcGxhbmUgdmlzaWJp
-bGl0eSBvciBhbHBoYQpjaGFuZ2VkCgp2NToKLSB0YWtpbmcgaW4gY29uc2lkZXJhdGlvbiBzcmMu
-eTEgaW4gdGhlIGRhbWFnZSBjb29yZGluYXRlcwotIGFkZGluZyB0byB0aGUgcGlwZSBkYW1hZ2Vk
-IGFyZWEgcGxhbmVzIHRoYXQgd2VyZSB2aXNpYmxlIGJ1dCBhcmUKaW52aXNpYmxlIGluIHRoZSBu
-ZXcgc3RhdGUKCnY2OgotIGNvbnNpZGVyIG9sZCBzdGF0ZSBwbGFuZSBjb29yZGluYXRlcyB3aGVu
-IHZpc2liaWxpdHkgY2hhbmdlcyBvciBpdAptb3ZlZCB0byBjYWxjdWxhdGUgZGFtYWdlZCBhcmVh
-Ci0gcmVtb3ZlIGZyb20gZGFtYWdlZCBhcmVhIHRoZSBwb3J0aW9uIG5vdCBpbiBzcmMgY2xpcAoK
-djc6Ci0gaW50ZXJzZWMgZXZlcnkgZGFtYWdlIGNsaXAgd2l0aCBzcmMgdG8gbWluaW1pemUgZGFt
-YWdlZCBhcmVhCgpDYzogVmlsbGUgU3lyasOkbMOkIDx2aWxsZS5zeXJqYWxhQGxpbnV4LmludGVs
-LmNvbT4KQ2M6IEd3YW4tZ3llb25nIE11biA8Z3dhbi1neWVvbmcubXVuQGludGVsLmNvbT4KU2ln
-bmVkLW9mZi1ieTogSm9zw6kgUm9iZXJ0byBkZSBTb3V6YSA8am9zZS5zb3V6YUBpbnRlbC5jb20+
-Ci0tLQogZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9wc3IuYyB8IDEwMSArKysr
-KysrKysrKysrKysrKysrKy0tLQogMSBmaWxlIGNoYW5nZWQsIDg5IGluc2VydGlvbnMoKyksIDEy
-IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkv
-aW50ZWxfcHNyLmMgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX3Bzci5jCmlu
-ZGV4IGQ5YTM5NWM0ODZkMy4uNGJlZDE4NDIyYzhhIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9k
-cm0vaTkxNS9kaXNwbGF5L2ludGVsX3Bzci5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rp
-c3BsYXkvaW50ZWxfcHNyLmMKQEAgLTEyNjksOCArMTI2OSw4IEBAIGludCBpbnRlbF9wc3IyX3Nl
-bF9mZXRjaF91cGRhdGUoc3RydWN0IGludGVsX2F0b21pY19zdGF0ZSAqc3RhdGUsCiAJCQkJc3Ry
-dWN0IGludGVsX2NydGMgKmNydGMpCiB7CiAJc3RydWN0IGludGVsX2NydGNfc3RhdGUgKmNydGNf
-c3RhdGUgPSBpbnRlbF9hdG9taWNfZ2V0X25ld19jcnRjX3N0YXRlKHN0YXRlLCBjcnRjKTsKKwlz
-dHJ1Y3QgZHJtX3JlY3QgcGlwZV9jbGlwID0geyAueDEgPSAwLCAueTEgPSAtMSwgLngyID0gSU5U
-X01BWCwgLnkyID0gLTEgfTsKIAlzdHJ1Y3QgaW50ZWxfcGxhbmVfc3RhdGUgKm5ld19wbGFuZV9z
-dGF0ZSwgKm9sZF9wbGFuZV9zdGF0ZTsKLQlzdHJ1Y3QgZHJtX3JlY3QgcGlwZV9jbGlwID0geyAu
-eTEgPSAtMSB9OwogCXN0cnVjdCBpbnRlbF9wbGFuZSAqcGxhbmU7CiAJYm9vbCBmdWxsX3VwZGF0
-ZSA9IGZhbHNlOwogCWludCBpLCByZXQ7CkBAIC0xMjgyLDkgKzEyODIsMTcgQEAgaW50IGludGVs
-X3BzcjJfc2VsX2ZldGNoX3VwZGF0ZShzdHJ1Y3QgaW50ZWxfYXRvbWljX3N0YXRlICpzdGF0ZSwK
-IAlpZiAocmV0KQogCQlyZXR1cm4gcmV0OwogCisJLyoKKwkgKiBDYWxjdWxhdGUgbWluaW1hbCBz
-ZWxlY3RpdmUgZmV0Y2ggYXJlYSBvZiBlYWNoIHBsYW5lIGFuZCBjYWxjdWxhdGUKKwkgKiB0aGUg
-cGlwZSBkYW1hZ2VkIGFyZWEuCisJICogSW4gdGhlIG5leHQgbG9vcCB0aGUgcGxhbmUgc2VsZWN0
-aXZlIGZldGNoIGFyZWEgd2lsbCBhY3R1YWxseSBiZSBzZXQKKwkgKiB1c2luZyB3aG9sZSBwaXBl
-IGRhbWFnZWQgYXJlYS4KKwkgKi8KIAlmb3JfZWFjaF9vbGRuZXdfaW50ZWxfcGxhbmVfaW5fc3Rh
-dGUoc3RhdGUsIHBsYW5lLCBvbGRfcGxhbmVfc3RhdGUsCiAJCQkJCSAgICAgbmV3X3BsYW5lX3N0
-YXRlLCBpKSB7Ci0JCXN0cnVjdCBkcm1fcmVjdCAqc2VsX2ZldGNoX2FyZWEsIHRlbXA7CisJCXN0
-cnVjdCBkcm1fcmVjdCBzcmMsIGRhbWFnZWRfYXJlYSA9IHsgLnkxID0gLTEgfTsKKwkJc3RydWN0
-IGRybV9tb2RlX3JlY3QgKmRhbWFnZWRfY2xpcHM7CisJCXUzMiBudW1fY2xpcHMsIGo7CiAKIAkJ
-aWYgKG5ld19wbGFuZV9zdGF0ZS0+dWFwaS5jcnRjICE9IGNydGNfc3RhdGUtPnVhcGkuY3J0YykK
-IAkJCWNvbnRpbnVlOwpAQCAtMTMwMCwyMyArMTMwOCw5MiBAQCBpbnQgaW50ZWxfcHNyMl9zZWxf
-ZmV0Y2hfdXBkYXRlKHN0cnVjdCBpbnRlbF9hdG9taWNfc3RhdGUgKnN0YXRlLAogCQkJYnJlYWs7
-CiAJCX0KIAotCQlpZiAoIW5ld19wbGFuZV9zdGF0ZS0+dWFwaS52aXNpYmxlKQotCQkJY29udGlu
-dWU7CisJCWRybV9yZWN0X2ZwX3RvX2ludCgmc3JjLCAmbmV3X3BsYW5lX3N0YXRlLT51YXBpLnNy
-Yyk7CisJCWRhbWFnZWRfY2xpcHMgPSBkcm1fcGxhbmVfZ2V0X2RhbWFnZV9jbGlwcygmbmV3X3Bs
-YW5lX3N0YXRlLT51YXBpKTsKKwkJbnVtX2NsaXBzID0gZHJtX3BsYW5lX2dldF9kYW1hZ2VfY2xp
-cHNfY291bnQoJm5ld19wbGFuZV9zdGF0ZS0+dWFwaSk7CiAKIAkJLyoKLQkJICogRm9yIG5vdyBk
-b2luZyBhIHNlbGVjdGl2ZSBmZXRjaCBpbiB0aGUgd2hvbGUgcGxhbmUgYXJlYSwKLQkJICogb3B0
-aW1pemF0aW9ucyB3aWxsIGNvbWUgaW4gdGhlIGZ1dHVyZS4KKwkJICogSWYgdmlzaWJpbGl0eSBv
-ciBwbGFuZSBtb3ZlZCwgbWFyayB0aGUgd2hvbGUgcGxhbmUgYXJlYSBhcworCQkgKiBkYW1hZ2Vk
-IGFzIGl0IG5lZWRzIHRvIGJlIGNvbXBsZXRlIHJlZHJhdyBpbiB0aGUgbmV3IGFuZCBvbGQKKwkJ
-ICogcG9zaXRpb24uCiAJCSAqLworCQlpZiAobmV3X3BsYW5lX3N0YXRlLT51YXBpLnZpc2libGUg
-IT0gb2xkX3BsYW5lX3N0YXRlLT51YXBpLnZpc2libGUgfHwKKwkJICAgICFkcm1fcmVjdF9lcXVh
-bHMoJm5ld19wbGFuZV9zdGF0ZS0+dWFwaS5kc3QsCisJCQkJICAgICAmb2xkX3BsYW5lX3N0YXRl
-LT51YXBpLmRzdCkpIHsKKwkJCWRhbWFnZWRfYXJlYS55MSA9IG9sZF9wbGFuZV9zdGF0ZS0+dWFw
-aS5zcmMueTEgPj4gMTY7CisJCQlkYW1hZ2VkX2FyZWEueTEgPSBvbGRfcGxhbmVfc3RhdGUtPnVh
-cGkuc3JjLnkyID4+IDE2OworCQkJZGFtYWdlZF9hcmVhLnkxICs9IG9sZF9wbGFuZV9zdGF0ZS0+
-dWFwaS5kc3QueTE7CisJCQlkYW1hZ2VkX2FyZWEueTIgKz0gb2xkX3BsYW5lX3N0YXRlLT51YXBp
-LmRzdC55MTsKKwkJCWNsaXBfYXJlYV91cGRhdGUoJnBpcGVfY2xpcCwgJmRhbWFnZWRfYXJlYSk7
-CisKKwkJCW51bV9jbGlwcyA9IDA7CisJCQlkYW1hZ2VkX2FyZWEueTEgPSBzcmMueTE7CisJCQlk
-YW1hZ2VkX2FyZWEueTIgPSBzcmMueTI7CisJCX0gZWxzZSBpZiAobmV3X3BsYW5lX3N0YXRlLT51
-YXBpLmFscGhhICE9IG9sZF9wbGFuZV9zdGF0ZS0+dWFwaS5hbHBoYSkgeworCQkJbnVtX2NsaXBz
-ID0gMDsKKwkJCWRhbWFnZWRfYXJlYS55MSA9IHNyYy55MTsKKwkJCWRhbWFnZWRfYXJlYS55MiA9
-IHNyYy55MjsKKwkJfSBlbHNlIGlmICghbnVtX2NsaXBzICYmCisJCQkgICBuZXdfcGxhbmVfc3Rh
-dGUtPnVhcGkuZmIgIT0gb2xkX3BsYW5lX3N0YXRlLT51YXBpLmZiKSB7CisJCQkvKgorCQkJICog
-SWYgdGhlIHBsYW5lIGRvbid0IGhhdmUgZGFtYWdlIGFyZWFzIGJ1dCB0aGUKKwkJCSAqIGZyYW1l
-YnVmZmVyIGNoYW5nZWQsIG1hcmsgdGhlIHdob2xlIHBsYW5lIGFyZWEgYXMKKwkJCSAqIGRhbWFn
-ZWQuCisJCQkgKi8KKwkJCWRhbWFnZWRfYXJlYS55MSA9IHNyYy55MTsKKwkJCWRhbWFnZWRfYXJl
-YS55MiA9IHNyYy55MjsKKwkJfQorCisJCWZvciAoaiA9IDA7IGogPCBudW1fY2xpcHM7IGorKykg
-eworCQkJc3RydWN0IGRybV9yZWN0IGNsaXA7CisKKwkJCWNsaXAueDEgPSBkYW1hZ2VkX2NsaXBz
-W2pdLngxOworCQkJY2xpcC55MSA9IGRhbWFnZWRfY2xpcHNbal0ueTE7CisJCQljbGlwLngyID0g
-ZGFtYWdlZF9jbGlwc1tqXS54MjsKKwkJCWNsaXAueTIgPSBkYW1hZ2VkX2NsaXBzW2pdLnkyOwor
-CQkJaWYgKGRybV9yZWN0X2ludGVyc2VjdCgmY2xpcCwgJnNyYykpCisJCQkJY2xpcF9hcmVhX3Vw
-ZGF0ZSgmZGFtYWdlZF9hcmVhLCAmY2xpcCk7CisJCX0KKworCQlpZiAoZGFtYWdlZF9hcmVhLnkx
-ID09IC0xKQorCQkJY29udGludWU7CisKKwkJZGFtYWdlZF9hcmVhLnkxICs9IG5ld19wbGFuZV9z
-dGF0ZS0+dWFwaS5kc3QueTE7CisJCWRhbWFnZWRfYXJlYS55MiArPSBuZXdfcGxhbmVfc3RhdGUt
-PnVhcGkuZHN0LnkxOworCQljbGlwX2FyZWFfdXBkYXRlKCZwaXBlX2NsaXAsICZkYW1hZ2VkX2Fy
-ZWEpOworCX0KKworCWlmIChmdWxsX3VwZGF0ZSkKKwkJZ290byBza2lwX3NlbF9mZXRjaF9zZXRf
-bG9vcDsKKworCS8qCisJICogTm93IHRoYXQgd2UgaGF2ZSB0aGUgcGlwZSBkYW1hZ2VkIGFyZWEg
-Y2hlY2sgaWYgaXQgaW50ZXJzZWN0IHdpdGgKKwkgKiBldmVyeSBwbGFuZSwgaWYgaXQgZG9lcyBz
-ZXQgdGhlIHBsYW5lIHNlbGVjdGl2ZSBmZXRjaCBhcmVhLgorCSAqLworCWZvcl9lYWNoX29sZG5l
-d19pbnRlbF9wbGFuZV9pbl9zdGF0ZShzdGF0ZSwgcGxhbmUsIG9sZF9wbGFuZV9zdGF0ZSwKKwkJ
-CQkJICAgICBuZXdfcGxhbmVfc3RhdGUsIGkpIHsKKwkJc3RydWN0IGRybV9yZWN0ICpzZWxfZmV0
-Y2hfYXJlYSwgaW50ZXIsIHNyYzsKKworCQlpZiAobmV3X3BsYW5lX3N0YXRlLT51YXBpLmNydGMg
-IT0gY3J0Y19zdGF0ZS0+dWFwaS5jcnRjIHx8CisJCSAgICAhbmV3X3BsYW5lX3N0YXRlLT51YXBp
-LnZpc2libGUpCisJCQljb250aW51ZTsKKworCQlpbnRlciA9IHBpcGVfY2xpcDsKKwkJaWYgKCFk
-cm1fcmVjdF9pbnRlcnNlY3QoJmludGVyLCAmbmV3X3BsYW5lX3N0YXRlLT51YXBpLmRzdCkpCisJ
-CQljb250aW51ZTsKKworCQlkcm1fcmVjdF9mcF90b19pbnQoJnNyYywgJm5ld19wbGFuZV9zdGF0
-ZS0+dWFwaS5zcmMpOworCiAJCXNlbF9mZXRjaF9hcmVhID0gJm5ld19wbGFuZV9zdGF0ZS0+cHNy
-Ml9zZWxfZmV0Y2hfYXJlYTsKLQkJc2VsX2ZldGNoX2FyZWEtPnkxID0gbmV3X3BsYW5lX3N0YXRl
-LT51YXBpLnNyYy55MSA+PiAxNjsKLQkJc2VsX2ZldGNoX2FyZWEtPnkyID0gbmV3X3BsYW5lX3N0
-YXRlLT51YXBpLnNyYy55MiA+PiAxNjsKKwkJc2VsX2ZldGNoX2FyZWEtPnkxID0gaW50ZXIueTEg
-LSBuZXdfcGxhbmVfc3RhdGUtPnVhcGkuZHN0LnkxOworCQlzZWxfZmV0Y2hfYXJlYS0+eTIgPSBp
-bnRlci55MiAtIG5ld19wbGFuZV9zdGF0ZS0+dWFwaS5kc3QueTE7CisJCXNlbF9mZXRjaF9hcmVh
-LT54MSA9IHNyYy54MTsKKwkJc2VsX2ZldGNoX2FyZWEtPngyID0gc3JjLngyOwogCi0JCXRlbXAg
-PSAqc2VsX2ZldGNoX2FyZWE7Ci0JCXRlbXAueTEgKz0gbmV3X3BsYW5lX3N0YXRlLT51YXBpLmRz
-dC55MTsKLQkJdGVtcC55MiArPSBuZXdfcGxhbmVfc3RhdGUtPnVhcGkuZHN0LnkyOwotCQljbGlw
-X2FyZWFfdXBkYXRlKCZwaXBlX2NsaXAsICZ0ZW1wKTsKKwkJZHJtX3JlY3RfaW50ZXJzZWN0KHNl
-bF9mZXRjaF9hcmVhLCAmc3JjKTsKIAl9CiAKK3NraXBfc2VsX2ZldGNoX3NldF9sb29wOgogCXBz
-cjJfbWFuX3Rya19jdGxfY2FsYyhjcnRjX3N0YXRlLCAmcGlwZV9jbGlwLCBmdWxsX3VwZGF0ZSk7
-CiAJcmV0dXJuIDA7CiB9Ci0tIAoyLjI5LjIKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fCkludGVsLWdmeCBtYWlsaW5nIGxpc3QKSW50ZWwtZ2Z4QGxpc3Rz
-LmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xp
-c3RpbmZvL2ludGVsLWdmeAo=
+
+
+> -----Original Message-----
+> From: Nautiyal, Ankit K <ankit.k.nautiyal@intel.com>
+> Sent: Wednesday, December 16, 2020 11:01 AM
+> To: intel-gfx@lists.freedesktop.org
+> Cc: dri-devel@lists.freedesktop.org; Shankar, Uma <uma.shankar@intel.com>;
+> airlied@linux.ie; jani.nikula@linux.intel.com; ville.syrjala@linux.intel.com;
+> Kulkarni, Vandita <vandita.kulkarni@intel.com>; Sharma, Swati2
+> <swati2.sharma@intel.com>
+> Subject: [PATCH v5 07/15] drm/dp_helper: Add helpers to configure PCONs RGB-
+> YCbCr Conversion
+> 
+> DP Specification for DP2.0 to HDMI2.1 Pcon specifies support for conversion of
+> colorspace from RGB to YCbCr.
+> https://groups.vesa.org/wg/DP/document/previewpdf/15651
+> 
+> This patch adds the relavant registers and helper functions to get the capability
+> and set the color conversion bits for rgb->ycbcr conversion through PCON.
+> 
+> v2: As suggested in review comments:
+> -Fixed bug in the check condition in a drm_helper as reported by  Dan Carpenter
+> and Kernel test robot. (Dan Carepenter) -Modified the color-conversion cap
+> helper function, to accomodate
+>  BT709 and BT2020 colorspace. (Uma Shankar) -Added spec details for the new
+> cap for color conversion. (Uma Shankar)
+
+Looks Good to me.
+Reviewed-by: Uma Shankar <uma.shankar@intel.com>
+
+> Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+> ---
+>  drivers/gpu/drm/drm_dp_helper.c | 61 +++++++++++++++++++++++++++++++++
+>  include/drm/drm_dp_helper.h     | 19 +++++++++-
+>  2 files changed, 79 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_dp_helper.c
+> b/drivers/gpu/drm/drm_dp_helper.c index 689fd0d5f6c5..9abd65c694ab 100644
+> --- a/drivers/gpu/drm/drm_dp_helper.c
+> +++ b/drivers/gpu/drm/drm_dp_helper.c
+> @@ -949,6 +949,38 @@ bool
+> drm_dp_downstream_444_to_420_conversion(const u8
+> dpcd[DP_RECEIVER_CAP_SIZE]  }
+> EXPORT_SYMBOL(drm_dp_downstream_444_to_420_conversion);
+> 
+> +/**
+> + * drm_dp_downstream_rgb_to_ycbcr_conversion() - determine downstream
+> facing port
+> + *                                               RGB->YCbCr conversion capability
+> + * @dpcd: DisplayPort configuration data
+> + * @port_cap: downstream facing port capabilities
+> + * @colorspc: Colorspace for which conversion cap is sought
+> + *
+> + * Returns: whether the downstream facing port can convert RGB->YCbCr
+> +for a given
+> + * colorspace.
+> + */
+> +bool drm_dp_downstream_rgb_to_ycbcr_conversion(const u8
+> dpcd[DP_RECEIVER_CAP_SIZE],
+> +					       const u8 port_cap[4],
+> +					       u8 color_spc)
+> +{
+> +	if (!drm_dp_is_branch(dpcd))
+> +		return false;
+> +
+> +	if (dpcd[DP_DPCD_REV] < 0x13)
+> +		return false;
+> +
+> +	switch (port_cap[0] & DP_DS_PORT_TYPE_MASK) {
+> +	case DP_DS_PORT_TYPE_HDMI:
+> +		if ((dpcd[DP_DOWNSTREAMPORT_PRESENT] &
+> DP_DETAILED_CAP_INFO_AVAILABLE) == 0)
+> +			return false;
+> +
+> +		return port_cap[3] & color_spc;
+> +	default:
+> +		return false;
+> +	}
+> +}
+> +EXPORT_SYMBOL(drm_dp_downstream_rgb_to_ycbcr_conversion);
+> +
+>  /**
+>   * drm_dp_downstream_mode() - return a mode for downstream facing port
+>   * @dev: DRM device
+> @@ -3101,3 +3133,32 @@ int drm_dp_pcon_pps_override_param(struct
+> drm_dp_aux *aux, u8 pps_param[6])
+>  	return 0;
+>  }
+>  EXPORT_SYMBOL(drm_dp_pcon_pps_override_param);
+> +
+> +/*
+> + * drm_dp_pcon_convert_rgb_to_ycbcr() - Configure the PCon to convert
+> +RGB to Ycbcr
+> + * @aux: displayPort AUX channel
+> + * @color_spc: Color-space/s for which conversion is to be enabled, 0 for
+> disable.
+> + *
+> + * Returns 0 on success, else returns negative error code.
+> + */
+> +int drm_dp_pcon_convert_rgb_to_ycbcr(struct drm_dp_aux *aux, u8
+> +color_spc) {
+> +	int ret;
+> +	u8 buf;
+> +
+> +	ret = drm_dp_dpcd_readb(aux, DP_PROTOCOL_CONVERTER_CONTROL_2,
+> &buf);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	if (color_spc & DP_CONVERSION_RGB_YCBCR_MASK)
+> +		buf |= (color_spc & DP_CONVERSION_RGB_YCBCR_MASK);
+> +	else
+> +		buf &= ~DP_CONVERSION_RGB_YCBCR_MASK;
+> +
+> +	ret = drm_dp_dpcd_writeb(aux,
+> DP_PROTOCOL_CONVERTER_CONTROL_2, buf);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL(drm_dp_pcon_convert_rgb_to_ycbcr);
+> diff --git a/include/drm/drm_dp_helper.h b/include/drm/drm_dp_helper.h index
+> baad87fe6b0a..e096ee98842b 100644
+> --- a/include/drm/drm_dp_helper.h
+> +++ b/include/drm/drm_dp_helper.h
+> @@ -432,6 +432,17 @@ struct drm_device;
+>  # define DP_DS_HDMI_YCBCR444_TO_422_CONV    (1 << 3)
+>  # define DP_DS_HDMI_YCBCR444_TO_420_CONV    (1 << 4)
+> 
+> +/*
+> + * VESA DP-to-HDMI PCON Specification adds caps for colorspace
+> + * conversion in DFP cap DPCD 83h. Sec6.1 Table-3.
+> + * Based on the available support the source can enable
+> + * color conversion by writing into PROTOCOL_COVERTER_CONTROL_2
+> + * DPCD 3052h.
+> + */
+> +# define DP_DS_HDMI_BT601_RGB_YCBCR_CONV    (1 << 5)
+> +# define DP_DS_HDMI_BT709_RGB_YCBCR_CONV    (1 << 6)
+> +# define DP_DS_HDMI_BT2020_RGB_YCBCR_CONV   (1 << 7)
+> +
+>  #define DP_MAX_DOWNSTREAM_PORTS		    0x10
+> 
+>  /* DP Forward error Correction Registers */ @@ -1207,7 +1218,10 @@ struct
+> drm_device;
+>  # define DP_PCON_ENC_PPS_OVERRIDE_DISABLED      0
+>  # define DP_PCON_ENC_PPS_OVERRIDE_EN_PARAMS     1
+>  # define DP_PCON_ENC_PPS_OVERRIDE_EN_BUFFER     2
+> -
+> +# define DP_CONVERSION_RGB_YCBCR_MASK	       (7 << 4)
+> +# define DP_CONVERSION_BT601_RGB_YCBCR_ENABLE  (1 << 4) # define
+> +DP_CONVERSION_BT709_RGB_YCBCR_ENABLE  (1 << 5) # define
+> +DP_CONVERSION_BT2020_RGB_YCBCR_ENABLE (1 << 6)
+> 
+>  /* PCON Downstream HDMI ERROR Status per Lane */
+>  #define DP_PCON_HDMI_ERROR_STATUS_LN0          0x3037
+> @@ -2167,5 +2181,8 @@ int drm_dp_pcon_dsc_bpp_incr(const u8
+> pcon_dsc_dpcd[DP_PCON_DSC_ENCODER_CAP_SIZE
+>  int drm_dp_pcon_pps_default(struct drm_dp_aux *aux);  int
+> drm_dp_pcon_pps_override_buf(struct drm_dp_aux *aux, u8 pps_buf[128]);  int
+> drm_dp_pcon_pps_override_param(struct drm_dp_aux *aux, u8 pps_param[6]);
+> +bool drm_dp_downstream_rgb_to_ycbcr_conversion(const u8
+> dpcd[DP_RECEIVER_CAP_SIZE],
+> +					       const u8 port_cap[4], u8 color_spc);
+> int
+> +drm_dp_pcon_convert_rgb_to_ycbcr(struct drm_dp_aux *aux, u8 color_spc);
+> 
+>  #endif /* _DRM_DP_HELPER_H_ */
+> --
+> 2.17.1
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
