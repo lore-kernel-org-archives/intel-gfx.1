@@ -2,49 +2,41 @@ Return-Path: <SRS0=HG33=FU=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1C12FC0018C
-	for <intel-gfx@archiver.kernel.org>; Wed, 16 Dec 2020 05:38:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7FE09C0018C
+	for <intel-gfx@archiver.kernel.org>; Wed, 16 Dec 2020 06:07:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E0C8D23123
-	for <intel-gfx@archiver.kernel.org>; Wed, 16 Dec 2020 05:38:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E0C8D23123
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 251132333E
+	for <intel-gfx@archiver.kernel.org>; Wed, 16 Dec 2020 06:07:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 251132333E
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9A87C8985A;
-	Wed, 16 Dec 2020 05:38:18 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A90B6E045;
- Wed, 16 Dec 2020 05:38:11 +0000 (UTC)
-IronPort-SDR: AhxJWhUMg0amj1TZv3MBiJJUYV9r5hCxsOLQujpLawfS28W0ARMcwBw4LV8uusk/P1dHfCaVB0
- hUgZ/D6hjDTw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9836"; a="172437356"
-X-IronPort-AV: E=Sophos;i="5.78,423,1599548400"; d="scan'208";a="172437356"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Dec 2020 21:38:11 -0800
-IronPort-SDR: 31VhT/LAV2N8VPWfYeg58kE09uQAR2N2NYtHcezbQ4FJ1zx61J3YfOaGMEpAUTvvEckSP13SBU
- Wxy0etVBcxqQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.78,423,1599548400"; d="scan'208";a="556647203"
-Received: from linux-akn.iind.intel.com ([10.223.34.148])
- by fmsmga006.fm.intel.com with ESMTP; 15 Dec 2020 21:38:08 -0800
-From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Wed, 16 Dec 2020 11:01:21 +0530
-Message-Id: <20201216053121.18819-16-ankit.k.nautiyal@intel.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20201216053121.18819-1-ankit.k.nautiyal@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 574AD89E3B;
+	Wed, 16 Dec 2020 06:07:40 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 7D1AD89DC1;
+ Wed, 16 Dec 2020 06:07:38 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 7553BA0094;
+ Wed, 16 Dec 2020 06:07:38 +0000 (UTC)
+MIME-Version: 1.0
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Ankit Nautiyal" <ankit.k.nautiyal@intel.com>
+Date: Wed, 16 Dec 2020 06:07:38 -0000
+Message-ID: <160809885845.16510.17776822771148996838@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
 References: <20201216053121.18819-1-ankit.k.nautiyal@intel.com>
-Subject: [Intel-gfx] [PATCH v5 15/15] drm/i915/display: Let PCON convert
- from RGB to YUV if it can
+In-Reply-To: <20201216053121.18819-1-ankit.k.nautiyal@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_Add_support_for_DP-HDMI2=2E1_PCON_=28rev7=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,205 +49,201 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: airlied@linux.ie, dri-devel@lists.freedesktop.org
-MIME-Version: 1.0
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-If PCON has capability to convert RGB->YUV colorspace and also
-to 444->420 downsampling then for any YUV420 only mode, we can
-let the PCON do all the conversion.
+== Series Details ==
 
-v2: As suggested by Uma Shankar, considered case for colorspace
-BT709 and BT2020, and default to BT609. Also appended dir
-'display' in commit message.
+Series: Add support for DP-HDMI2.1 PCON (rev7)
+URL   : https://patchwork.freedesktop.org/series/82098/
+State : warning
 
-Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
----
- drivers/gpu/drm/i915/display/intel_ddi.c      |  3 +-
- .../drm/i915/display/intel_display_types.h    |  1 +
- drivers/gpu/drm/i915/display/intel_dp.c       | 68 +++++++++++++++----
- drivers/gpu/drm/i915/display/intel_dp.h       |  3 +-
- 4 files changed, 58 insertions(+), 17 deletions(-)
+== Summary ==
 
-diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-index fbc07a93504b..17eaa56c5a99 100644
---- a/drivers/gpu/drm/i915/display/intel_ddi.c
-+++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-@@ -3644,6 +3644,7 @@ static void tgl_ddi_pre_enable_dp(struct intel_atomic_state *state,
- 	if (!is_mst)
- 		intel_dp_set_power(intel_dp, DP_SET_POWER_D0);
- 
-+	intel_dp_configure_protocol_converter(intel_dp, crtc_state);
- 	intel_dp_sink_set_decompression_state(intel_dp, crtc_state, true);
- 	/*
- 	 * DDI FEC: "anticipates enabling FEC encoding sets the FEC_READY bit
-@@ -3731,7 +3732,7 @@ static void hsw_ddi_pre_enable_dp(struct intel_atomic_state *state,
- 	intel_ddi_init_dp_buf_reg(encoder, crtc_state);
- 	if (!is_mst)
- 		intel_dp_set_power(intel_dp, DP_SET_POWER_D0);
--	intel_dp_configure_protocol_converter(intel_dp);
-+	intel_dp_configure_protocol_converter(intel_dp, crtc_state);
- 	intel_dp_sink_set_decompression_state(intel_dp, crtc_state,
- 					      true);
- 	intel_dp_sink_set_fec_ready(intel_dp, crtc_state);
-diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-index 4c01c7c23dfd..2009ae9e9678 100644
---- a/drivers/gpu/drm/i915/display/intel_display_types.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-@@ -1460,6 +1460,7 @@ struct intel_dp {
- 		int pcon_max_frl_bw;
- 		u8 max_bpc;
- 		bool ycbcr_444_to_420;
-+		bool rgb_to_ycbcr;
- 	} dfp;
- 
- 	/* Display stream compression testing */
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index abc9b772d1c8..7781245c2afe 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -651,6 +651,10 @@ intel_dp_output_format(struct drm_connector *connector,
- 	    !drm_mode_is_420_only(info, mode))
- 		return INTEL_OUTPUT_FORMAT_RGB;
- 
-+	if (intel_dp->dfp.rgb_to_ycbcr &&
-+	    intel_dp->dfp.ycbcr_444_to_420)
-+		return INTEL_OUTPUT_FORMAT_RGB;
+$ dim checkpatch origin/drm-tip
+b643098d366f drm/edid: Add additional HFVSDB fields for HDMI2.1
+-:61: WARNING:FROM_SIGN_OFF_MISMATCH: From:/Signed-off-by: email name mismatch: 'From: Swati Sharma <swati2.sharma@intel.com>' != 'Signed-off-by: Sharma, Swati2 <swati2.sharma@intel.com>'
+
+total: 0 errors, 1 warnings, 0 checks, 36 lines checked
+2a8d461d1aac drm/edid: Parse MAX_FRL field from HFVSDB block
+-:73: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#73: FILE: drivers/gpu/drm/drm_edid.c:4948:
++		drm_get_max_frl_rate(max_frl_rate, &hdmi->max_lanes,
++				&hdmi->max_frl_rate_per_lane);
+
+-:95: WARNING:FROM_SIGN_OFF_MISMATCH: From:/Signed-off-by: email name mismatch: 'From: Swati Sharma <swati2.sharma@intel.com>' != 'Signed-off-by: Sharma, Swati2 <swati2.sharma@intel.com>'
+
+total: 0 errors, 1 warnings, 1 checks, 68 lines checked
+75eea23aecff drm/edid: Parse DSC1.2 cap fields from HFVSDB block
+-:51: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#51: FILE: drivers/gpu/drm/drm_edid.c:4969:
++			drm_get_max_frl_rate(dsc_max_frl_rate, &hdmi_dsc->max_lanes,
++					&hdmi_dsc->max_frl_rate_per_lane);
+
+-:52: WARNING:LONG_LINE: line length of 101 exceeds 100 columns
+#52: FILE: drivers/gpu/drm/drm_edid.c:4970:
++			hdmi_dsc->total_chunk_kbytes = hf_vsdb[13] & DRM_EDID_DSC_TOTAL_CHUNK_KBYTES;
+
+total: 0 errors, 1 warnings, 1 checks, 125 lines checked
+4e14c826f024 drm/dp_helper: Add Helpers for FRL Link Training support for DP-HDMI2.1 PCON
+62259a4da05e drm/dp_helper: Add support for link failure detection
+-:112: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#112: FILE: include/drm/drm_dp_helper.h:2055:
++void drm_dp_pcon_hdmi_frl_link_error_count(struct drm_dp_aux *aux,
++					  struct drm_connector *connector);
+
+total: 0 errors, 0 warnings, 1 checks, 76 lines checked
+266a0995f989 drm/dp_helper: Add support for Configuring DSC for HDMI2.1 Pcon
+-:15: WARNING:TYPO_SPELLING: 'Convertor' may be misspelled - perhaps 'Converter'?
+#15: 
+v3: Only setting the DSC bits for the Protocol Convertor control
+
+-:165: WARNING:BLOCK_COMMENT_STYLE: Block comments use a trailing */ on a separate line
+#165: FILE: drivers/gpu/drm/drm_dp_helper.c:3037:
++ * */
+
+-:185: WARNING:BLOCK_COMMENT_STYLE: Block comments use a trailing */ on a separate line
+#185: FILE: drivers/gpu/drm/drm_dp_helper.c:3057:
++ * */
+
+-:210: WARNING:BLOCK_COMMENT_STYLE: Block comments use a trailing */ on a separate line
+#210: FILE: drivers/gpu/drm/drm_dp_helper.c:3082:
++ * */
+
+total: 0 errors, 4 warnings, 0 checks, 343 lines checked
+a231438ae8b0 drm/dp_helper: Add helpers to configure PCONs RGB-YCbCr Conversion
+-:18: WARNING:TYPO_SPELLING: 'accomodate' may be misspelled - perhaps 'accommodate'?
+#18: 
+-Modified the color-conversion cap helper function, to accomodate
+
+total: 0 errors, 1 warnings, 0 checks, 106 lines checked
+fda29a86933b drm/i915: Capture max frl rate for PCON in dfp cap structure
+-:13: WARNING:COMMIT_LOG_LONG_LINE: Possible unwrapped commit description (prefer a maximum 75 chars per line)
+#13: 
+-tweaked the comparison of target bw and pcon frl bw to avoid roundup errors.
+
+total: 0 errors, 1 warnings, 0 checks, 60 lines checked
+37563e5e44fd drm/i915: Add support for starting FRL training for HDMI2.1 via PCON
+-:86: CHECK:BRACES: Blank lines aren't necessary after an open brace '{'
+#86: FILE: drivers/gpu/drm/i915/display/intel_dp.c:4005:
++{
 +
- 	if (intel_dp->dfp.ycbcr_444_to_420)
- 		return INTEL_OUTPUT_FORMAT_YCBCR444;
- 	else
-@@ -4311,7 +4315,8 @@ static void intel_dp_enable_port(struct intel_dp *intel_dp,
- 	intel_de_posting_read(dev_priv, intel_dp->output_reg);
- }
- 
--void intel_dp_configure_protocol_converter(struct intel_dp *intel_dp)
-+void intel_dp_configure_protocol_converter(struct intel_dp *intel_dp,
-+					   const struct intel_crtc_state *crtc_state)
- {
- 	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
- 	u8 tmp;
-@@ -4338,14 +4343,34 @@ void intel_dp_configure_protocol_converter(struct intel_dp *intel_dp)
- 		drm_dbg_kms(&i915->drm,
- 			    "Failed to set protocol converter YCbCr 4:2:0 conversion mode to %s\n",
- 			    enableddisabled(intel_dp->dfp.ycbcr_444_to_420));
--
--	tmp = 0;
--
--	if (drm_dp_dpcd_writeb(&intel_dp->aux,
--			       DP_PROTOCOL_CONVERTER_CONTROL_2, tmp) <= 0)
-+	if (intel_dp->dfp.rgb_to_ycbcr) {
-+		bool bt2020, bt709;
+
+-:147: WARNING:LONG_LINE: line length of 101 exceeds 100 columns
+#147: FILE: drivers/gpu/drm/i915/display/intel_dp.c:4066:
++	wait_for(is_active = drm_dp_pcon_is_frl_ready(&intel_dp->aux) == true, TIMEOUT_FRL_READY_MS);
+
+-:166: WARNING:LONG_LINE: line length of 112 exceeds 100 columns
+#166: FILE: drivers/gpu/drm/i915/display/intel_dp.c:4085:
++	wait_for(is_active = drm_dp_pcon_hdmi_link_active(&intel_dp->aux) == true, TIMEOUT_HDMI_LINK_ACTIVE_MS);
+
+-:172: WARNING:LONG_LINE: line length of 101 exceeds 100 columns
+#172: FILE: drivers/gpu/drm/i915/display/intel_dp.c:4091:
++	if (DP_PCON_HDMI_MODE_FRL != drm_dp_pcon_hdmi_link_mode(&intel_dp->aux, &frl_trained_mask)) {
+
+-:172: WARNING:CONSTANT_COMPARISON: Comparisons should place the constant on the right side of the test
+#172: FILE: drivers/gpu/drm/i915/display/intel_dp.c:4091:
++	if (DP_PCON_HDMI_MODE_FRL != drm_dp_pcon_hdmi_link_mode(&intel_dp->aux, &frl_trained_mask)) {
+
+-:176: WARNING:LONG_LINE: line length of 109 exceeds 100 columns
+#176: FILE: drivers/gpu/drm/i915/display/intel_dp.c:4095:
++	drm_dbg(&i915->drm, "MAX_FRL_MASK = %u, FRL_TRAINED_MASK = %u\n", max_frl_bw_mask, frl_trained_mask);
+
+total: 0 errors, 5 warnings, 1 checks, 194 lines checked
+1d97d3ca87bd drm/i915: Check for FRL training before DP Link training
+cdf76e6dd367 drm/i915: Add support for enabling link status and recovery
+-:54: WARNING:LONG_LINE: line length of 107 exceeds 100 columns
+#54: FILE: drivers/gpu/drm/i915/display/intel_dp.c:6031:
++		drm_dp_pcon_hdmi_frl_link_error_count(&intel_dp->aux, &intel_dp->attached_connector->base);
+
+total: 0 errors, 1 warnings, 0 checks, 83 lines checked
+121b50d5c4f9 drm/i915: Read DSC capabilities of the HDMI2.1 PCON encoder
+-:51: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#51: FILE: drivers/gpu/drm/i915/display/intel_dp.c:4000:
++	if (drm_dp_dpcd_read(&intel_dp->aux, DP_PCON_DSC_ENCODER,
++				     intel_dp->pcon_dsc_dpcd,
+
+-:57: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#57: FILE: drivers/gpu/drm/i915/display/intel_dp.c:4006:
++	drm_dbg_kms(&i915->drm, "PCON ENCODER DSC DPCD: %*ph\n",
++		   (int)sizeof(intel_dp->pcon_dsc_dpcd), intel_dp->pcon_dsc_dpcd);
+
+total: 0 errors, 0 warnings, 2 checks, 39 lines checked
+3e0bdb5325f7 drm/i915: Add helper functions for calculating DSC parameters for HDMI2.1
+-:57: WARNING:TYPO_SPELLING: 'capabilites' may be misspelled - perhaps 'capabilities'?
+#57: FILE: drivers/gpu/drm/i915/display/intel_hdmi.c:3458:
++ * and dsc decoder capabilites
+
+-:143: WARNING:SUSPECT_CODE_INDENT: suspect code indent for conditional statements (16, 23)
+#143: FILE: drivers/gpu/drm/i915/display/intel_hdmi.c:3544:
++		if (min_slices <= 1 && src_max_slices >= 1 && hdmi_max_slices >= 1)
++		       target_slices = 1;
+
+-:145: WARNING:SUSPECT_CODE_INDENT: suspect code indent for conditional statements (16, 23)
+#145: FILE: drivers/gpu/drm/i915/display/intel_hdmi.c:3546:
++		else if (min_slices <= 2 && src_max_slices >= 2 && hdmi_max_slices >= 2)
++		       target_slices = 2;
+
+-:147: WARNING:SUSPECT_CODE_INDENT: suspect code indent for conditional statements (16, 23)
+#147: FILE: drivers/gpu/drm/i915/display/intel_hdmi.c:3548:
++		else if (min_slices <= 4 && src_max_slices >= 4 && hdmi_max_slices >= 4)
++		       target_slices = 4;
+
+-:149: WARNING:SUSPECT_CODE_INDENT: suspect code indent for conditional statements (16, 23)
+#149: FILE: drivers/gpu/drm/i915/display/intel_hdmi.c:3550:
++		else if (min_slices <= 8 && src_max_slices >= 8 && hdmi_max_slices >= 8)
++		       target_slices = 8;
+
+-:151: WARNING:SUSPECT_CODE_INDENT: suspect code indent for conditional statements (16, 23)
+#151: FILE: drivers/gpu/drm/i915/display/intel_hdmi.c:3552:
++		else if (min_slices <= 12 && src_max_slices >= 12 && hdmi_max_slices >= 12)
++		       target_slices = 12;
+
+-:153: WARNING:SUSPECT_CODE_INDENT: suspect code indent for conditional statements (16, 23)
+#153: FILE: drivers/gpu/drm/i915/display/intel_hdmi.c:3554:
++		else if (min_slices <= 16 && src_max_slices >= 16 && hdmi_max_slices >= 16)
++		       target_slices = 16;
+
+total: 0 errors, 7 warnings, 0 checks, 248 lines checked
+7b1db3cb9688 drm/i915/display: Configure PCON for DSC1.1 to DSC1.2 encoding
+-:75: CHECK:BRACES: Blank lines aren't necessary after an open brace '{'
+#75: FILE: drivers/gpu/drm/i915/display/intel_dp.c:4171:
++{
 +
+
+-:92: CHECK:LINE_SPACING: Please don't use multiple blank lines
+#92: FILE: drivers/gpu/drm/i915/display/intel_dp.c:4188:
++
++
+
+-:155: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#155: FILE: drivers/gpu/drm/i915/display/intel_dp.c:4251:
++	bits_per_pixel = intel_dp_pcon_dsc_enc_bpp(intel_dp, crtc_state,
++						  num_slices, slice_width);
+
+total: 0 errors, 0 warnings, 3 checks, 157 lines checked
+f1ff1f79d3ed drm/i915/display: Let PCON convert from RGB to YUV if it can
+-:87: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#87: FILE: drivers/gpu/drm/i915/display/intel_dp.c:4358:
 +		bt2020 = drm_dp_downstream_rgb_to_ycbcr_conversion(intel_dp->dpcd,
 +							intel_dp->downstream_ports,
-+							DP_DS_HDMI_BT2020_RGB_YCBCR_CONV);
+
+-:90: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#90: FILE: drivers/gpu/drm/i915/display/intel_dp.c:4361:
 +		bt709 = drm_dp_downstream_rgb_to_ycbcr_conversion(intel_dp->dpcd,
 +							intel_dp->downstream_ports,
-+							DP_DS_HDMI_BT709_RGB_YCBCR_CONV);
-+		switch (crtc_state->infoframes.vsc.colorimetry) {
-+		case DP_COLORIMETRY_BT2020_RGB:
-+		case DP_COLORIMETRY_BT2020_YCC:
-+			tmp = bt2020 ? DP_CONVERSION_BT2020_RGB_YCBCR_ENABLE : 0;
-+			break;
-+		case DP_COLORIMETRY_BT709_YCC:
-+		case DP_COLORIMETRY_XVYCC_709:
-+			tmp = bt709 ? DP_CONVERSION_BT709_RGB_YCBCR_ENABLE : 0;
-+			break;
-+		default:
-+			tmp = DP_CONVERSION_BT601_RGB_YCBCR_ENABLE;
-+		}
-+	} else {
-+		tmp = 0;
-+	}
-+	if (drm_dp_pcon_convert_rgb_to_ycbcr(&intel_dp->aux, tmp) <= 0)
- 		drm_dbg_kms(&i915->drm,
--			    "Failed to set protocol converter YCbCr 4:2:2 conversion mode to %s\n",
--			    enableddisabled(false));
-+			   "Failed to set protocol converter RGB->YCbCr conversion mode to %s\n",
-+			   enableddisabled(tmp ? true : false));
- }
- 
- static void intel_enable_dp(struct intel_atomic_state *state,
-@@ -4385,7 +4410,7 @@ static void intel_enable_dp(struct intel_atomic_state *state,
- 	}
- 
- 	intel_dp_set_power(intel_dp, DP_SET_POWER_D0);
--	intel_dp_configure_protocol_converter(intel_dp);
-+	intel_dp_configure_protocol_converter(intel_dp, pipe_config);
- 	intel_dp_check_frl_training(intel_dp);
- 	intel_dp_pcon_dsc_configure(intel_dp, pipe_config);
- 	intel_dp_start_link_train(intel_dp, pipe_config);
-@@ -6853,7 +6878,7 @@ intel_dp_update_420(struct intel_dp *intel_dp)
- {
- 	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
- 	struct intel_connector *connector = intel_dp->attached_connector;
--	bool is_branch, ycbcr_420_passthrough, ycbcr_444_to_420;
-+	bool is_branch, ycbcr_420_passthrough, ycbcr_444_to_420, rgb_to_ycbcr;
- 
- 	/* No YCbCr output support on gmch platforms */
- 	if (HAS_GMCH(i915))
-@@ -6875,14 +6900,26 @@ intel_dp_update_420(struct intel_dp *intel_dp)
- 		dp_to_dig_port(intel_dp)->lspcon.active ||
- 		drm_dp_downstream_444_to_420_conversion(intel_dp->dpcd,
- 							intel_dp->downstream_ports);
+
+-:139: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#139: FILE: drivers/gpu/drm/i915/display/intel_dp.c:6912:
 +	rgb_to_ycbcr = drm_dp_downstream_rgb_to_ycbcr_conversion(intel_dp->dpcd,
 +							intel_dp->downstream_ports,
-+							DP_DS_HDMI_BT601_RGB_YCBCR_CONV ||
-+							DP_DS_HDMI_BT709_RGB_YCBCR_CONV ||
-+							DP_DS_HDMI_BT2020_RGB_YCBCR_CONV);
- 
- 	if (INTEL_GEN(i915) >= 11) {
-+		/* Let PCON convert from RGB->YCbCr if possible */
-+		if (is_branch && rgb_to_ycbcr && ycbcr_444_to_420) {
-+			intel_dp->dfp.rgb_to_ycbcr = true;
-+			intel_dp->dfp.ycbcr_444_to_420 = true;
-+			connector->base.ycbcr_420_allowed = true;
-+		} else {
- 		/* Prefer 4:2:0 passthrough over 4:4:4->4:2:0 conversion */
--		intel_dp->dfp.ycbcr_444_to_420 =
--			ycbcr_444_to_420 && !ycbcr_420_passthrough;
-+			intel_dp->dfp.ycbcr_444_to_420 =
-+				ycbcr_444_to_420 && !ycbcr_420_passthrough;
- 
--		connector->base.ycbcr_420_allowed =
--			!is_branch || ycbcr_444_to_420 || ycbcr_420_passthrough;
-+			connector->base.ycbcr_420_allowed =
-+				!is_branch || ycbcr_444_to_420 || ycbcr_420_passthrough;
-+		}
- 	} else {
- 		/* 4:4:4->4:2:0 conversion is the only way */
- 		intel_dp->dfp.ycbcr_444_to_420 = ycbcr_444_to_420;
-@@ -6891,8 +6928,9 @@ intel_dp_update_420(struct intel_dp *intel_dp)
- 	}
- 
- 	drm_dbg_kms(&i915->drm,
--		    "[CONNECTOR:%d:%s] YCbCr 4:2:0 allowed? %s, YCbCr 4:4:4->4:2:0 conversion? %s\n",
-+		    "[CONNECTOR:%d:%s] RGB->YcbCr conversion? %s, YCbCr 4:2:0 allowed? %s, YCbCr 4:4:4->4:2:0 conversion? %s\n",
- 		    connector->base.base.id, connector->base.name,
-+		    yesno(intel_dp->dfp.rgb_to_ycbcr),
- 		    yesno(connector->base.ycbcr_420_allowed),
- 		    yesno(intel_dp->dfp.ycbcr_444_to_420));
- }
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.h b/drivers/gpu/drm/i915/display/intel_dp.h
-index 1bfde4f89019..4280a09fd8fd 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.h
-+++ b/drivers/gpu/drm/i915/display/intel_dp.h
-@@ -51,7 +51,8 @@ int intel_dp_get_link_train_fallback_values(struct intel_dp *intel_dp,
- int intel_dp_retrain_link(struct intel_encoder *encoder,
- 			  struct drm_modeset_acquire_ctx *ctx);
- void intel_dp_set_power(struct intel_dp *intel_dp, u8 mode);
--void intel_dp_configure_protocol_converter(struct intel_dp *intel_dp);
-+void intel_dp_configure_protocol_converter(struct intel_dp *intel_dp,
-+					   const struct intel_crtc_state *crtc_state);
- void intel_dp_sink_set_decompression_state(struct intel_dp *intel_dp,
- 					   const struct intel_crtc_state *crtc_state,
- 					   bool enable);
--- 
-2.17.1
+
+total: 0 errors, 0 warnings, 3 checks, 147 lines checked
+
 
 _______________________________________________
 Intel-gfx mailing list
