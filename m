@@ -2,44 +2,50 @@ Return-Path: <SRS0=HG33=FU=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DA8C7C4361B
-	for <intel-gfx@archiver.kernel.org>; Wed, 16 Dec 2020 09:36:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5836AC0018C
+	for <intel-gfx@archiver.kernel.org>; Wed, 16 Dec 2020 09:39:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 72C0423109
-	for <intel-gfx@archiver.kernel.org>; Wed, 16 Dec 2020 09:36:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 72C0423109
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
+	by mail.kernel.org (Postfix) with ESMTPS id F3A8422D04
+	for <intel-gfx@archiver.kernel.org>; Wed, 16 Dec 2020 09:38:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F3A8422D04
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C12C689930;
-	Wed, 16 Dec 2020 09:36:20 +0000 (UTC)
-Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4144189930;
- Wed, 16 Dec 2020 09:36:19 +0000 (UTC)
-X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
- x-ip-name=78.156.65.138; 
-Received: from localhost (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP (TLS) id
- 23340900-1500050 for multiple; Wed, 16 Dec 2020 09:36:13 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 69B8C6E0D8;
+	Wed, 16 Dec 2020 09:38:59 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B62BF6E0D6
+ for <intel-gfx@lists.freedesktop.org>; Wed, 16 Dec 2020 09:38:56 +0000 (UTC)
+IronPort-SDR: Iv216nNArnjG364SfdSvx+6Srj6RJTbCVq7XNulhKMVQ7okj48xae13UamkVaC3XQI275ne7Fe
+ NnuwAw6/JZzA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9836"; a="174263502"
+X-IronPort-AV: E=Sophos;i="5.78,424,1599548400"; d="scan'208";a="174263502"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Dec 2020 01:38:56 -0800
+IronPort-SDR: N45mDPF8EMTndsCr1q8XpE1rRGa/Z9EjYQdwIMKTGbufJTprrbt4U6XfBY6TgHzYng3zi1D3ea
+ HapVKH8RLgBg==
+X-IronPort-AV: E=Sophos;i="5.78,424,1599548400"; d="scan'208";a="368871881"
+Received: from helsinki.fi.intel.com ([10.237.66.162])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Dec 2020 01:38:55 -0800
+From: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Wed, 16 Dec 2020 11:38:25 +0200
+Message-Id: <20201216093825.403689-2-gwan-gyeong.mun@intel.com>
+X-Mailer: git-send-email 2.25.0
+In-Reply-To: <20201216093825.403689-1-gwan-gyeong.mun@intel.com>
+References: <20201216093825.403689-1-gwan-gyeong.mun@intel.com>
 MIME-Version: 1.0
-In-Reply-To: <CAM0jSHOhCKfoFNqZUnHqbsNC-hWXzKQjK8jzH4FB+B4hnSinHA@mail.gmail.com>
-References: <20201215210658.1188718-1-chris@chris-wilson.co.uk>
- <20201215210658.1188718-2-chris@chris-wilson.co.uk>
- <CAM0jSHOhCKfoFNqZUnHqbsNC-hWXzKQjK8jzH4FB+B4hnSinHA@mail.gmail.com>
-From: Chris Wilson <chris@chris-wilson.co.uk>
-To: Matthew Auld <matthew.william.auld@gmail.com>
-Date: Wed, 16 Dec 2020 09:36:14 +0000
-Message-ID: <160811137407.1420.12667858510374604278@build.alporthouse.com>
-User-Agent: alot/0.9
-Subject: Re: [Intel-gfx] [igt-dev] [PATCH i-g-t 2/2] i915/gem_softpin: Check
- full placement control under full-ppgtt
+Subject: [Intel-gfx] [PATCH v6 2/2] drm/i915/display: Support Multiple
+ Transcoders' PSR status on debugfs
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,92 +58,48 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: igt-dev@lists.freedesktop.org,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: jani.nikula@intel.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Quoting Matthew Auld (2020-12-16 09:31:41)
-> On Tue, 15 Dec 2020 at 21:07, Chris Wilson <chris@chris-wilson.co.uk> wrote:
-> >
-> > With full-ppgtt, userspacew has complete control over their GTT. Verify
-> > that we can place an object at the very beginning and the very end of
-> > our GTT.
-> >
-> > Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-> > ---
-> >  tests/i915/gem_softpin.c | 45 ++++++++++++++++++++++++++++++++++++++++
-> >  1 file changed, 45 insertions(+)
-> >
-> > diff --git a/tests/i915/gem_softpin.c b/tests/i915/gem_softpin.c
-> > index fcaf8ef30..a530e89d3 100644
-> > --- a/tests/i915/gem_softpin.c
-> > +++ b/tests/i915/gem_softpin.c
-> > @@ -97,6 +97,47 @@ static void test_invalid(int fd)
-> >         }
-> >  }
-> >
-> > +static uint32_t batch_create(int i915, uint64_t *sz)
-> > +{
-> > +       const uint32_t bbe = MI_BATCH_BUFFER_END;
-> > +       struct drm_i915_gem_create create = {
-> > +               .size = sizeof(bbe),
-> > +       };
-> > +
-> > +       if (igt_ioctl(i915, DRM_IOCTL_I915_GEM_CREATE, &create)) {
-> > +               igt_assert_eq(errno, 0);
-> > +               return 0;
-> > +       }
-> > +
-> > +       gem_write(i915, create.handle, 0, &bbe, sizeof(bbe));
-> > +
-> > +       *sz = create.size;
-> > +       return create.handle;
-> > +}
-> > +
-> > +static void test_zero(int i915)
-> > +{
-> > +       uint64_t sz;
-> > +       struct drm_i915_gem_exec_object2 object = {
-> > +               .handle = batch_create(i915, &sz),
-> > +               .flags = EXEC_OBJECT_PINNED | EXEC_OBJECT_SUPPORTS_48B_ADDRESS,
-> > +       };
-> > +       struct drm_i915_gem_execbuffer2 execbuf = {
-> > +               .buffers_ptr = to_user_pointer(&object),
-> > +               .buffer_count = 1,
-> > +       };
-> > +
-> > +       /* Under full-ppgtt, we have complete control of the GTT */
-> > +
-> > +       object.offset = 0;
-> > +       gem_execbuf(i915, &execbuf);
-> > +
-> > +       object.offset = gem_aperture_size(i915) - sz;
-> > +       gem_close(i915, object.handle);
-> > +
-> > +       gem_close(i915, object.handle);
-> > +}
-> > +
-> >  static void test_softpin(int fd)
-> >  {
-> >         const uint32_t size = 1024 * 1024;
-> > @@ -559,6 +600,10 @@ igt_main
-> >
-> >         igt_subtest("invalid")
-> >                 test_invalid(fd);
-> > +       igt_subtest("zero") {
-> > +               igt_require(gem_uses_full_ppgtt(fd));
-> > +               test_zero(fd);
-> > +       }
-> 
-> Worth adding igt_subtest("full") somewhere, which tries to occupy the
-> entire 48b ppGTT? Maybe using pad_to_size?
-
-No. I'll let you work out why :)
--Chris
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+SW4gb3JkZXIgdG8gc3VwcG9ydCB0aGUgUFNSIHN0YXRlIG9mIGVhY2ggdHJhbnNjb2RlciwgaXQg
+YWRkcwppOTE1X3Bzcl9zdGF0dXMgdG8gc3ViLWRpcmVjdG9yeSBvZiBlYWNoIHRyYW5zY29kZXIu
+Cgp2MjogQ2hhbmdlIHVzaW5nIG9mIFN5bWJvbGljIHBlcm1pc3Npb25zICdTX0lSVUdPJyB0byB1
+c2luZyBvZiBvY3RhbAogICAgcGVybWlzc2lvbnMgJzA0NDQnCnY1OiBBZGRyZXNzZWQgSkphbmkg
+TmlrdWxhJ3MgcmV2aWV3IGNvbW1lbnRzCiAtIFJlbW92ZSBjaGVja2luZyBvZiBHZW4xMiBmb3Ig
+aTkxNV9wc3Jfc3RhdHVzLgogLSBBZGQgY2hlY2sgb2YgSEFTX1BTUigpCiAtIFJlbW92ZSBtZWFu
+aW5nbGVzcyBjaGVjayByb3V0aW5lLgoKU2lnbmVkLW9mZi1ieTogR3dhbi1neWVvbmcgTXVuIDxn
+d2FuLWd5ZW9uZy5tdW5AaW50ZWwuY29tPgpDYzogSm9zw6kgUm9iZXJ0byBkZSBTb3V6YSA8am9z
+ZS5zb3V6YUBpbnRlbC5jb20+CkNjOiBKYW5pIE5pa3VsYSA8amFuaS5uaWt1bGFAaW50ZWwuY29t
+PgpDYzogQW5zaHVtYW4gR3VwdGEgPGFuc2h1bWFuLmd1cHRhQGludGVsLmNvbT4KLS0tCiAuLi4v
+Z3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGlzcGxheV9kZWJ1Z2ZzLmMgfCAxNiArKysrKysr
+KysrKysrKysrCiAxIGZpbGUgY2hhbmdlZCwgMTYgaW5zZXJ0aW9ucygrKQoKZGlmZiAtLWdpdCBh
+L2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGlzcGxheV9kZWJ1Z2ZzLmMgYi9k
+cml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Rpc3BsYXlfZGVidWdmcy5jCmluZGV4
+IDA0MTA1MzE2N2Q3Zi4uZDJkZDYxYzRlZTBiIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0v
+aTkxNS9kaXNwbGF5L2ludGVsX2Rpc3BsYXlfZGVidWdmcy5jCisrKyBiL2RyaXZlcnMvZ3B1L2Ry
+bS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGlzcGxheV9kZWJ1Z2ZzLmMKQEAgLTIyMjQsNiArMjIyNCwx
+NiBAQCBzdGF0aWMgaW50IGk5MTVfaGRjcF9zaW5rX2NhcGFiaWxpdHlfc2hvdyhzdHJ1Y3Qgc2Vx
+X2ZpbGUgKm0sIHZvaWQgKmRhdGEpCiB9CiBERUZJTkVfU0hPV19BVFRSSUJVVEUoaTkxNV9oZGNw
+X3NpbmtfY2FwYWJpbGl0eSk7CiAKK3N0YXRpYyBpbnQgaTkxNV9wc3Jfc3RhdHVzX3Nob3coc3Ry
+dWN0IHNlcV9maWxlICptLCB2b2lkICpkYXRhKQoreworCXN0cnVjdCBkcm1fY29ubmVjdG9yICpj
+b25uZWN0b3IgPSBtLT5wcml2YXRlOworCXN0cnVjdCBpbnRlbF9kcCAqaW50ZWxfZHAgPQorCQlp
+bnRlbF9hdHRhY2hlZF9kcCh0b19pbnRlbF9jb25uZWN0b3IoY29ubmVjdG9yKSk7CisKKwlyZXR1
+cm4gaW50ZWxfcHNyX3N0YXR1cyhtLCBpbnRlbF9kcCk7Cit9CitERUZJTkVfU0hPV19BVFRSSUJV
+VEUoaTkxNV9wc3Jfc3RhdHVzKTsKKwogI2RlZmluZSBMUFNQX0NBUEFCTEUoQ09ORCkgKENPTkQg
+PyBzZXFfcHV0cyhtLCAiTFBTUDogY2FwYWJsZVxuIikgOiBcCiAJCQkJc2VxX3B1dHMobSwgIkxQ
+U1A6IGluY2FwYWJsZVxuIikpCiAKQEAgLTIzOTksNiArMjQwOSwxMiBAQCBpbnQgaW50ZWxfY29u
+bmVjdG9yX2RlYnVnZnNfYWRkKHN0cnVjdCBkcm1fY29ubmVjdG9yICpjb25uZWN0b3IpCiAJCQkJ
+ICAgIGNvbm5lY3RvciwgJmk5MTVfcHNyX3Npbmtfc3RhdHVzX2ZvcHMpOwogCX0KIAorCWlmIChI
+QVNfUFNSKGRldl9wcml2KSAmJgorCSAgICBjb25uZWN0b3ItPmNvbm5lY3Rvcl90eXBlID09IERS
+TV9NT0RFX0NPTk5FQ1RPUl9lRFApIHsKKwkJZGVidWdmc19jcmVhdGVfZmlsZSgiaTkxNV9wc3Jf
+c3RhdHVzIiwgMDQ0NCwgcm9vdCwKKwkJCQkgICAgY29ubmVjdG9yLCAmaTkxNV9wc3Jfc3RhdHVz
+X2ZvcHMpOworCX0KKwogCWlmIChjb25uZWN0b3ItPmNvbm5lY3Rvcl90eXBlID09IERSTV9NT0RF
+X0NPTk5FQ1RPUl9EaXNwbGF5UG9ydCB8fAogCSAgICBjb25uZWN0b3ItPmNvbm5lY3Rvcl90eXBl
+ID09IERSTV9NT0RFX0NPTk5FQ1RPUl9IRE1JQSB8fAogCSAgICBjb25uZWN0b3ItPmNvbm5lY3Rv
+cl90eXBlID09IERSTV9NT0RFX0NPTk5FQ1RPUl9IRE1JQikgewotLSAKMi4yNS4wCgpfX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpJbnRlbC1nZnggbWFpbGlu
+ZyBsaXN0CkludGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVl
+ZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9pbnRlbC1nZngK
