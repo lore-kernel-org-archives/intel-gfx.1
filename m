@@ -7,49 +7,49 @@ X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 10F2BC4361B
-	for <intel-gfx@archiver.kernel.org>; Wed, 16 Dec 2020 11:58:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 44364C4361B
+	for <intel-gfx@archiver.kernel.org>; Wed, 16 Dec 2020 12:11:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 936E22339F
-	for <intel-gfx@archiver.kernel.org>; Wed, 16 Dec 2020 11:58:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 936E22339F
+	by mail.kernel.org (Postfix) with ESMTPS id CBD6923105
+	for <intel-gfx@archiver.kernel.org>; Wed, 16 Dec 2020 12:11:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CBD6923105
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B11D56E19B;
-	Wed, 16 Dec 2020 11:58:32 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1083D6E19B
- for <intel-gfx@lists.freedesktop.org>; Wed, 16 Dec 2020 11:58:32 +0000 (UTC)
-IronPort-SDR: fXlizl11l5+ijFIeexordFRWU39yBjSj0wApgZI6Jlb0ekMrkQRDvecFpXsd7d2WVmVeqLIw0L
- jlr4omwmfn4Q==
-X-IronPort-AV: E=McAfee;i="6000,8403,9836"; a="162102019"
-X-IronPort-AV: E=Sophos;i="5.78,424,1599548400"; d="scan'208";a="162102019"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 278AF898A3;
+	Wed, 16 Dec 2020 12:11:48 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C782B898A3
+ for <intel-gfx@lists.freedesktop.org>; Wed, 16 Dec 2020 12:11:46 +0000 (UTC)
+IronPort-SDR: aI82x48In/i63K4IXYJy++sYFw/qHVil8TTqvOlmgXfgoIYBjVRvvLi19/f1+bDx80v8YtIBcu
+ biCBVgy3ltlA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9836"; a="154859427"
+X-IronPort-AV: E=Sophos;i="5.78,424,1599548400"; d="scan'208";a="154859427"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Dec 2020 03:58:31 -0800
-IronPort-SDR: KZxBcfGmqkykrXYsdSQEDfuB5Ts6zqlsRrkYE1glv1PRNo8ALBwLX5wjl+KVhFSuNbyOm54ZL9
- 3WLMCMCtqbVQ==
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Dec 2020 04:11:46 -0800
+IronPort-SDR: 9vRQsFch/Sv6m6or7wyZmGTfVKnJ8hDnnZm9OU1wHAb1C/XX5duosQpXi6hdHMEJO4pvW5m724
+ gm82giFG7HdQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.78,424,1599548400"; d="scan'208";a="368988503"
+X-IronPort-AV: E=Sophos;i="5.78,424,1599548400"; d="scan'208";a="368992802"
 Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.174])
- by orsmga008.jf.intel.com with SMTP; 16 Dec 2020 03:58:28 -0800
+ by orsmga008.jf.intel.com with SMTP; 16 Dec 2020 04:11:43 -0800
 Received: by stinkbox (sSMTP sendmail emulation);
- Wed, 16 Dec 2020 13:58:28 +0200
-Date: Wed, 16 Dec 2020 13:58:28 +0200
+ Wed, 16 Dec 2020 14:11:43 +0200
+Date: Wed, 16 Dec 2020 14:11:42 +0200
 From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
 To: Jani Nikula <jani.nikula@intel.com>
-Message-ID: <X9n2ZJT+4NzN4tBV@intel.com>
+Message-ID: <X9n5ftGnLhFlF2G/@intel.com>
 References: <cover.1608117676.git.jani.nikula@intel.com>
- <08c0b7cc1371d98e09861cf53a89db927b12b47f.1608117676.git.jani.nikula@intel.com>
+ <bd552745b685888a9137d171b5b6acaab8ac7a99.1608117676.git.jani.nikula@intel.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <08c0b7cc1371d98e09861cf53a89db927b12b47f.1608117676.git.jani.nikula@intel.com>
+In-Reply-To: <bd552745b685888a9137d171b5b6acaab8ac7a99.1608117676.git.jani.nikula@intel.com>
 X-Patchwork-Hint: comment
-Subject: Re: [Intel-gfx] [PATCH v4 06/11] drm/i915: refactor pll code out
- into intel_dpll.c
+Subject: Re: [Intel-gfx] [PATCH v4 09/11] drm/i915: migrate skl planes code
+ new file
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,35 +68,290 @@ Content-Transfer-Encoding: quoted-printable
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Dec 16, 2020 at 01:29:13PM +0200, Jani Nikula wrote:
-<snip>
-> diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers=
-/gpu/drm/i915/display/intel_display_types.h
-> index dfa3966e5fa1..37a9f304cb55 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display_types.h
-> +++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-> @@ -1811,4 +1811,17 @@ to_intel_frontbuffer(struct drm_framebuffer *fb)
->  	return fb ? to_intel_framebuffer(fb)->frontbuffer : NULL;
+On Wed, Dec 16, 2020 at 01:29:16PM +0200, Jani Nikula wrote:
+> From: Dave Airlie <airlied@redhat.com>
+> =
+
+> Rework the plane init calls to do the gen test one level higher.
+> =
+
+> Signed-off-by: Dave Airlie <airlied@redhat.com>
+> [Jani: fixed up sparse warnings.]
+> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+> ---
+>  drivers/gpu/drm/i915/Makefile                 |    1 +
+>  .../gpu/drm/i915/display/intel_atomic_plane.c |   76 -
+>  drivers/gpu/drm/i915/display/intel_crtc.c     |   16 +-
+>  drivers/gpu/drm/i915/display/intel_display.c  | 1410 +-------
+>  drivers/gpu/drm/i915/display/intel_display.h  |   36 +-
+>  .../drm/i915/display/intel_display_types.h    |   21 +
+>  .../gpu/drm/i915/display/intel_gen9_plane.c   | 2832 +++++++++++++++++
+>  drivers/gpu/drm/i915/display/intel_sprite.c   | 1417 +--------
+>  8 files changed, 2931 insertions(+), 2878 deletions(-)
+>  create mode 100644 drivers/gpu/drm/i915/display/intel_gen9_plane.c
+> =
+
+> diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
+> index 42f9c1ca3c08..a4f67c795240 100644
+> --- a/drivers/gpu/drm/i915/Makefile
+> +++ b/drivers/gpu/drm/i915/Makefile
+> @@ -211,6 +211,7 @@ i915-y +=3D \
+>  	display/intel_fifo_underrun.o \
+>  	display/intel_frontbuffer.o \
+>  	display/intel_global_state.o \
+> +	display/intel_gen9_plane.o \
+
+skl_universal_plane.c is what I'd call it.
+
+No corresponding header?
+
+>  	display/intel_hdcp.o \
+>  	display/intel_hotplug.o \
+>  	display/intel_lpe_audio.o \
+> diff --git a/drivers/gpu/drm/i915/display/intel_atomic_plane.c b/drivers/=
+gpu/drm/i915/display/intel_atomic_plane.c
+> index b5e1ee99535c..10197cc158c1 100644
+> --- a/drivers/gpu/drm/i915/display/intel_atomic_plane.c
+> +++ b/drivers/gpu/drm/i915/display/intel_atomic_plane.c
+> @@ -399,50 +399,6 @@ int intel_plane_atomic_check(struct intel_atomic_sta=
+te *state,
+>  						   new_plane_state);
 >  }
 >  =
 
-> +static inline bool intel_panel_use_ssc(struct drm_i915_private *dev_priv)
-> +{
-> +	if (dev_priv->params.panel_use_ssc >=3D 0)
-> +		return dev_priv->params.panel_use_ssc !=3D 0;
-> +	return dev_priv->vbt.lvds_use_ssc
-> +		&& !(dev_priv->quirks & QUIRK_LVDS_SSC_DISABLE);
-> +}
+> -static struct intel_plane *
+> -skl_next_plane_to_commit(struct intel_atomic_state *state,
+> -			 struct intel_crtc *crtc,
+> -			 struct skl_ddb_entry entries_y[I915_MAX_PLANES],
+> -			 struct skl_ddb_entry entries_uv[I915_MAX_PLANES],
+> -			 unsigned int *update_mask)
+> -{
+> -	struct intel_crtc_state *crtc_state =3D
+> -		intel_atomic_get_new_crtc_state(state, crtc);
+> -	struct intel_plane_state *plane_state;
+> -	struct intel_plane *plane;
+> -	int i;
+> -
+> -	if (*update_mask =3D=3D 0)
+> -		return NULL;
+> -
+> -	for_each_new_intel_plane_in_state(state, plane, plane_state, i) {
+> -		enum plane_id plane_id =3D plane->id;
+> -
+> -		if (crtc->pipe !=3D plane->pipe ||
+> -		    !(*update_mask & BIT(plane_id)))
+> -			continue;
+> -
+> -		if (skl_ddb_allocation_overlaps(&crtc_state->wm.skl.plane_ddb_y[plane_=
+id],
+> -						entries_y,
+> -						I915_MAX_PLANES, plane_id) ||
+> -		    skl_ddb_allocation_overlaps(&crtc_state->wm.skl.plane_ddb_uv[plane=
+_id],
+> -						entries_uv,
+> -						I915_MAX_PLANES, plane_id))
+> -			continue;
+> -
+> -		*update_mask &=3D ~BIT(plane_id);
+> -		entries_y[plane_id] =3D crtc_state->wm.skl.plane_ddb_y[plane_id];
+> -		entries_uv[plane_id] =3D crtc_state->wm.skl.plane_ddb_uv[plane_id];
+> -
+> -		return plane;
+> -	}
+> -
+> -	/* should never happen */
+> -	drm_WARN_ON(state->base.dev, 1);
+> -
+> -	return NULL;
+> -}
+> -
+
+I wouldn't bother moving the stuff from intel_atomic_plane.c.
+They're much higher level stuff than the rest of the moved code.
+
+<snip>
+> diff --git a/drivers/gpu/drm/i915/display/intel_display.h b/drivers/gpu/d=
+rm/i915/display/intel_display.h
+> index 376cec71b477..c1ddef60e36e 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display.h
+> +++ b/drivers/gpu/drm/i915/display/intel_display.h
+> @@ -52,6 +52,7 @@ struct intel_crtc_state;
+>  struct intel_digital_port;
+>  struct intel_dp;
+>  struct intel_encoder;
+> +struct intel_initial_plane_config;
+>  struct intel_load_detect_pipe;
+>  struct intel_plane;
+>  struct intel_plane_state;
+> @@ -615,23 +616,12 @@ intel_legacy_aux_to_power_domain(enum aux_ch aux_ch=
+);
+>  void intel_crtc_arm_fifo_underrun(struct intel_crtc *crtc,
+>  				  struct intel_crtc_state *crtc_state);
+>  =
+
+> -u16 skl_scaler_calc_phase(int sub, int scale, bool chroma_center);
+>  void skl_scaler_disable(const struct intel_crtc_state *old_crtc_state);
+> -u32 skl_scaler_get_filter_select(enum drm_scaling_filter filter, int set=
+);
+> -void skl_scaler_setup_filter(struct drm_i915_private *dev_priv, enum pip=
+e pipe,
+> -			     int id, int set, enum drm_scaling_filter filter);
+>  void ilk_pfit_disable(const struct intel_crtc_state *old_crtc_state);
+> -u32 glk_plane_color_ctl(const struct intel_crtc_state *crtc_state,
+> -			const struct intel_plane_state *plane_state);
+> -u32 glk_plane_color_ctl_crtc(const struct intel_crtc_state *crtc_state);
+> -u32 skl_plane_ctl(const struct intel_crtc_state *crtc_state,
+> -		  const struct intel_plane_state *plane_state);
+> -u32 skl_plane_ctl_crtc(const struct intel_crtc_state *crtc_state);
+> -u32 skl_plane_stride(const struct intel_plane_state *plane_state,
+> -		     int plane);
+> -int skl_check_plane_surface(struct intel_plane_state *plane_state);
+> +void skl_detach_scalers(const struct intel_crtc_state *crtc_state);
+>  int i9xx_check_plane_surface(struct intel_plane_state *plane_state);
+>  int skl_format_to_fourcc(int format, bool rgb_order, bool alpha);
+
+We seem to have left a lot of functions as non-static that don't need t
+be.
+
+<snip>
+> diff --git a/drivers/gpu/drm/i915/display/intel_sprite.c b/drivers/gpu/dr=
+m/i915/display/intel_sprite.c
+> index b7e208816074..ab2cd4825e2e 100644
+> --- a/drivers/gpu/drm/i915/display/intel_sprite.c
+> +++ b/drivers/gpu/drm/i915/display/intel_sprite.c
+<snip>
+> -static const u32 icl_sdr_y_plane_formats[] =3D {
+> -	DRM_FORMAT_C8,
+> -	DRM_FORMAT_RGB565,
+> +static const u64 i9xx_plane_format_modifiers[] =3D {
+> +	I915_FORMAT_MOD_X_TILED,
+> +	DRM_FORMAT_MOD_LINEAR,
+> +	DRM_FORMAT_MOD_INVALID
+> +};
 > +
-> +static inline u32 i9xx_dpll_compute_fp(struct dpll *dpll)
-> +{
-> +	return dpll->n << 16 | dpll->m1 << 8 | dpll->m2;
-> +}
+> +static const u32 snb_plane_formats[] =3D {
 
-Was wondering why this is here, but looks like it's the i830 pipe power
-well thing that needs it.
+Have we tried --patience to make this part of the diff legible?
 
-Reviewed-by: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
+>  	DRM_FORMAT_XRGB8888,
+>  	DRM_FORMAT_XBGR8888,
+> -	DRM_FORMAT_ARGB8888,
+> -	DRM_FORMAT_ABGR8888,
+>  	DRM_FORMAT_XRGB2101010,
+>  	DRM_FORMAT_XBGR2101010,
+> -	DRM_FORMAT_ARGB2101010,
+> -	DRM_FORMAT_ABGR2101010,
+> +	DRM_FORMAT_XRGB16161616F,
+> +	DRM_FORMAT_XBGR16161616F,
+>  	DRM_FORMAT_YUYV,
+>  	DRM_FORMAT_YVYU,
+>  	DRM_FORMAT_UYVY,
+>  	DRM_FORMAT_VYUY,
+> -	DRM_FORMAT_Y210,
+> -	DRM_FORMAT_Y212,
+> -	DRM_FORMAT_Y216,
+> -	DRM_FORMAT_XYUV8888,
+> -	DRM_FORMAT_XVYU2101010,
+> -	DRM_FORMAT_XVYU12_16161616,
+> -	DRM_FORMAT_XVYU16161616,
+>  };
+>  =
+
+> -static const u32 icl_sdr_uv_plane_formats[] =3D {
+> +static const u32 vlv_plane_formats[] =3D {
+>  	DRM_FORMAT_C8,
+>  	DRM_FORMAT_RGB565,
+>  	DRM_FORMAT_XRGB8888,
+>  	DRM_FORMAT_XBGR8888,
+>  	DRM_FORMAT_ARGB8888,
+>  	DRM_FORMAT_ABGR8888,
+> -	DRM_FORMAT_XRGB2101010,
+>  	DRM_FORMAT_XBGR2101010,
+> -	DRM_FORMAT_ARGB2101010,
+>  	DRM_FORMAT_ABGR2101010,
+>  	DRM_FORMAT_YUYV,
+>  	DRM_FORMAT_YVYU,
+>  	DRM_FORMAT_UYVY,
+>  	DRM_FORMAT_VYUY,
+> -	DRM_FORMAT_NV12,
+> -	DRM_FORMAT_P010,
+> -	DRM_FORMAT_P012,
+> -	DRM_FORMAT_P016,
+> -	DRM_FORMAT_Y210,
+> -	DRM_FORMAT_Y212,
+> -	DRM_FORMAT_Y216,
+> -	DRM_FORMAT_XYUV8888,
+> -	DRM_FORMAT_XVYU2101010,
+> -	DRM_FORMAT_XVYU12_16161616,
+> -	DRM_FORMAT_XVYU16161616,
+>  };
+>  =
+
+> -static const u32 icl_hdr_plane_formats[] =3D {
+> +static const u32 chv_pipe_b_sprite_formats[] =3D {
+>  	DRM_FORMAT_C8,
+>  	DRM_FORMAT_RGB565,
+>  	DRM_FORMAT_XRGB8888,
+> @@ -2813,60 +1859,10 @@ static const u32 icl_hdr_plane_formats[] =3D {
+>  	DRM_FORMAT_XBGR2101010,
+>  	DRM_FORMAT_ARGB2101010,
+>  	DRM_FORMAT_ABGR2101010,
+> -	DRM_FORMAT_XRGB16161616F,
+> -	DRM_FORMAT_XBGR16161616F,
+> -	DRM_FORMAT_ARGB16161616F,
+> -	DRM_FORMAT_ABGR16161616F,
+>  	DRM_FORMAT_YUYV,
+>  	DRM_FORMAT_YVYU,
+>  	DRM_FORMAT_UYVY,
+>  	DRM_FORMAT_VYUY,
+> -	DRM_FORMAT_NV12,
+> -	DRM_FORMAT_P010,
+> -	DRM_FORMAT_P012,
+> -	DRM_FORMAT_P016,
+> -	DRM_FORMAT_Y210,
+> -	DRM_FORMAT_Y212,
+> -	DRM_FORMAT_Y216,
+> -	DRM_FORMAT_XYUV8888,
+> -	DRM_FORMAT_XVYU2101010,
+> -	DRM_FORMAT_XVYU12_16161616,
+> -	DRM_FORMAT_XVYU16161616,
+> -};
+> -
+> -static const u64 skl_plane_format_modifiers_noccs[] =3D {
+> -	I915_FORMAT_MOD_Yf_TILED,
+> -	I915_FORMAT_MOD_Y_TILED,
+> -	I915_FORMAT_MOD_X_TILED,
+> -	DRM_FORMAT_MOD_LINEAR,
+> -	DRM_FORMAT_MOD_INVALID
+> -};
+> -
+> -static const u64 skl_plane_format_modifiers_ccs[] =3D {
+> -	I915_FORMAT_MOD_Yf_TILED_CCS,
+> -	I915_FORMAT_MOD_Y_TILED_CCS,
+> -	I915_FORMAT_MOD_Yf_TILED,
+> -	I915_FORMAT_MOD_Y_TILED,
+> -	I915_FORMAT_MOD_X_TILED,
+> -	DRM_FORMAT_MOD_LINEAR,
+> -	DRM_FORMAT_MOD_INVALID
+> -};
+> -
+> -static const u64 gen12_plane_format_modifiers_mc_ccs[] =3D {
+> -	I915_FORMAT_MOD_Y_TILED_GEN12_MC_CCS,
+> -	I915_FORMAT_MOD_Y_TILED_GEN12_RC_CCS,
+> -	I915_FORMAT_MOD_Y_TILED,
+> -	I915_FORMAT_MOD_X_TILED,
+> -	DRM_FORMAT_MOD_LINEAR,
+> -	DRM_FORMAT_MOD_INVALID
+> -};
+> -
+> -static const u64 gen12_plane_format_modifiers_rc_ccs[] =3D {
+> -	I915_FORMAT_MOD_Y_TILED_GEN12_RC_CCS,
+> -	I915_FORMAT_MOD_Y_TILED,
+> -	I915_FORMAT_MOD_X_TILED,
+> -	DRM_FORMAT_MOD_LINEAR,
+> -	DRM_FORMAT_MOD_INVALID
+>  };
+>  =
 
 -- =
 
