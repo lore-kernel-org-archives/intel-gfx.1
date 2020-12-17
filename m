@@ -2,42 +2,49 @@ Return-Path: <SRS0=1oYm=FV=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 31098C2BBD4
-	for <intel-gfx@archiver.kernel.org>; Thu, 17 Dec 2020 22:26:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7235FC4361B
+	for <intel-gfx@archiver.kernel.org>; Thu, 17 Dec 2020 22:29:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E3C71233FE
-	for <intel-gfx@archiver.kernel.org>; Thu, 17 Dec 2020 22:26:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E3C71233FE
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id 2AEFD2376F
+	for <intel-gfx@archiver.kernel.org>; Thu, 17 Dec 2020 22:29:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2AEFD2376F
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 79CB2898BF;
-	Thu, 17 Dec 2020 22:26:50 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 82FC989895;
- Thu, 17 Dec 2020 22:26:49 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 7EEFDA8835;
- Thu, 17 Dec 2020 22:26:49 +0000 (UTC)
-MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: =?utf-8?q?Jos=C3=A9_Roberto_de_Souza?= <jose.souza@intel.com>
-Date: Thu, 17 Dec 2020 22:26:49 -0000
-Message-ID: <160824400951.2012.1164897843976018613@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20201217211400.231826-1-jose.souza@intel.com>
-In-Reply-To: <20201217211400.231826-1-jose.souza@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJBVDogZmFpbHVyZSBmb3Igc2Vy?=
- =?utf-8?q?ies_starting_with_=5Bv7=2C1/5=5D_drm=3A_Add_function_to_convert?=
- =?utf-8?q?_rect_in_16=2E16_fixed_format_to_regular_format?=
+	by gabe.freedesktop.org (Postfix) with ESMTP id 630E6898A4;
+	Thu, 17 Dec 2020 22:29:30 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6FAEE89895
+ for <Intel-gfx@lists.freedesktop.org>; Thu, 17 Dec 2020 22:29:29 +0000 (UTC)
+IronPort-SDR: pvAG/WZW5JGx6B8cS+C/Qmd2npLtynTYleWAYHaZ3VatCqH8zkngqVJRyAOjPj+0Sa1GuToy1a
+ FLS1N/Ppd/qQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9838"; a="175485169"
+X-IronPort-AV: E=Sophos;i="5.78,428,1599548400"; d="scan'208";a="175485169"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Dec 2020 14:29:28 -0800
+IronPort-SDR: EVS01Gs/egMukGQQfjqZMm2W9ktbPQVcUNrtQvXE/tfVJ4XCLi0r0uDdadTSYIxxddSEKNYJvZ
+ dGRdEKWDfOeg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.78,428,1599548400"; d="scan'208";a="339892784"
+Received: from sean-virtualbox.fm.intel.com ([10.105.158.96])
+ by fmsmga008.fm.intel.com with ESMTP; 17 Dec 2020 14:29:28 -0800
+From: "Huang, Sean Z" <sean.z.huang@intel.com>
+To: Intel-gfx@lists.freedesktop.org
+Date: Thu, 17 Dec 2020 14:29:17 -0800
+Message-Id: <20201217222928.29117-3-sean.z.huang@intel.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20201217222928.29117-1-sean.z.huang@intel.com>
+References: <20201217222928.29117-1-sean.z.huang@intel.com>
+Subject: [Intel-gfx] [RFC-v12 02/13] drm/i915/pxp: set KCR reg init during
+ the boot time
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,284 +57,52 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
-Content-Type: multipart/mixed; boundary="===============1600905251=="
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============1600905251==
-Content-Type: multipart/alternative;
- boundary="===============2623849665347303584=="
+Set the KCR init during the boot time, which is
+required by hardware, to allow us doing further
+protection operation such as sending commands to
+GPU or TEE.
 
---===============2623849665347303584==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Signed-off-by: Huang, Sean Z <sean.z.huang@intel.com>
+---
+ drivers/gpu/drm/i915/pxp/intel_pxp.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-== Series Details ==
-
-Series: series starting with [v7,1/5] drm: Add function to convert rect in 16.16 fixed format to regular format
-URL   : https://patchwork.freedesktop.org/series/85049/
-State : failure
-
-== Summary ==
-
-CI Bug Log - changes from CI_DRM_9500 -> Patchwork_19169
-====================================================
-
-Summary
--------
-
-  **FAILURE**
-
-  Serious unknown changes coming with Patchwork_19169 absolutely need to be
-  verified manually.
-  
-  If you think the reported changes have nothing to do with the changes
-  introduced in Patchwork_19169, please notify your bug team to allow them
-  to document this new failure mode, which will reduce false positives in CI.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19169/index.html
-
-Possible new issues
--------------------
-
-  Here are the unknown changes that may have been introduced in Patchwork_19169:
-
-### IGT changes ###
-
-#### Possible regressions ####
-
-  * igt@i915_selftest@live@evict:
-    - fi-tgl-y:           [PASS][1] -> [INCOMPLETE][2]
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9500/fi-tgl-y/igt@i915_selftest@live@evict.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19169/fi-tgl-y/igt@i915_selftest@live@evict.html
-
-  * igt@kms_cursor_legacy@basic-busy-flip-before-cursor-atomic:
-    - fi-tgl-y:           [PASS][3] -> [FAIL][4] +3 similar issues
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9500/fi-tgl-y/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-atomic.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19169/fi-tgl-y/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-atomic.html
-
-  * igt@kms_cursor_legacy@basic-flip-before-cursor-legacy:
-    - fi-tgl-u2:          [PASS][5] -> [FAIL][6] +3 similar issues
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9500/fi-tgl-u2/igt@kms_cursor_legacy@basic-flip-before-cursor-legacy.html
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19169/fi-tgl-u2/igt@kms_cursor_legacy@basic-flip-before-cursor-legacy.html
-
-  
-Known issues
-------------
-
-  Here are the changes found in Patchwork_19169 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@gem_mmap_gtt@basic:
-    - fi-tgl-y:           [PASS][7] -> [DMESG-WARN][8] ([i915#402]) +3 similar issues
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9500/fi-tgl-y/igt@gem_mmap_gtt@basic.html
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19169/fi-tgl-y/igt@gem_mmap_gtt@basic.html
-
-  * igt@i915_module_load@reload:
-    - fi-tgl-u2:          [PASS][9] -> [DMESG-WARN][10] ([i915#402] / [k.org#205379])
-   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9500/fi-tgl-u2/igt@i915_module_load@reload.html
-   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19169/fi-tgl-u2/igt@i915_module_load@reload.html
-
-  * igt@i915_selftest@live@reset:
-    - fi-tgl-y:           [PASS][11] -> [INCOMPLETE][12] ([i915#402])
-   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9500/fi-tgl-y/igt@i915_selftest@live@reset.html
-   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19169/fi-tgl-y/igt@i915_selftest@live@reset.html
-
-  * igt@kms_flip@basic-flip-vs-wf_vblank@b-edp1:
-    - fi-tgl-u2:          [PASS][13] -> [DMESG-WARN][14] ([i915#402]) +12 similar issues
-   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9500/fi-tgl-u2/igt@kms_flip@basic-flip-vs-wf_vblank@b-edp1.html
-   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19169/fi-tgl-u2/igt@kms_flip@basic-flip-vs-wf_vblank@b-edp1.html
-
-  * igt@kms_psr@primary_page_flip:
-    - fi-tgl-u2:          [PASS][15] -> [SKIP][16] ([i915#668]) +3 similar issues
-   [15]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9500/fi-tgl-u2/igt@kms_psr@primary_page_flip.html
-   [16]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19169/fi-tgl-u2/igt@kms_psr@primary_page_flip.html
-
-  
-#### Possible fixes ####
-
-  * igt@gem_flink_basic@basic:
-    - fi-tgl-y:           [DMESG-WARN][17] ([i915#402]) -> [PASS][18] +2 similar issues
-   [17]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9500/fi-tgl-y/igt@gem_flink_basic@basic.html
-   [18]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19169/fi-tgl-y/igt@gem_flink_basic@basic.html
-
-  
-  [i915#402]: https://gitlab.freedesktop.org/drm/intel/issues/402
-  [i915#668]: https://gitlab.freedesktop.org/drm/intel/issues/668
-  [k.org#205379]: https://bugzilla.kernel.org/show_bug.cgi?id=205379
-
-
-Participating hosts (43 -> 39)
-------------------------------
-
-  Missing    (4): fi-ilk-m540 fi-bsw-cyan fi-bdw-samus fi-hsw-4200u 
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_9500 -> Patchwork_19169
-
-  CI-20190529: 20190529
-  CI_DRM_9500: b6187a4ba065777110747954d4b46a511b0a6031 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_5907: ff747ef212f95e5a66bef553187e131cf1c53af1 @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools
-  Patchwork_19169: 2cda2f0bfd0804bdcf549958794848a29d1ebef4 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-
-== Linux commits ==
-
-2cda2f0bfd08 HAX/DO_NOT_MERGE_IT: drm/i915/display: Enable PSR2 selective fetch for testing
-8a2bc8b36f10 drm/i915/display/psr: Program plane's calculated offset to plane SF register
-cb713a9df239 drm/i915/display: Split and export main surface calculation from skl_check_main_surface()
-37c173b9a72c drm/i915/display/psr: Use plane damage clips to calculate damaged area
-802c17bdaf1d drm: Add function to convert rect in 16.16 fixed format to regular format
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19169/index.html
-
---===============2623849665347303584==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>series starting with [v7,1/5] drm: Add function to convert rect in 16.16 fixed format to regular format</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/85049/">https://patchwork.freedesktop.org/series/85049/</a></td></tr>
-<tr><td><b>State:</b></td><td>failure</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19169/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19169/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_9500 -&gt; Patchwork_19169</h1>
-<h2>Summary</h2>
-<p><strong>FAILURE</strong></p>
-<p>Serious unknown changes coming with Patchwork_19169 absolutely need to be<br />
-  verified manually.</p>
-<p>If you think the reported changes have nothing to do with the changes<br />
-  introduced in Patchwork_19169, please notify your bug team to allow them<br />
-  to document this new failure mode, which will reduce false positives in CI.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19169/index.html</p>
-<h2>Possible new issues</h2>
-<p>Here are the unknown changes that may have been introduced in Patchwork_19169:</p>
-<h3>IGT changes</h3>
-<h4>Possible regressions</h4>
-<ul>
-<li>
-<p>igt@i915_selftest@live@evict:</p>
-<ul>
-<li>fi-tgl-y:           <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9500/fi-tgl-y/igt@i915_selftest@live@evict.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19169/fi-tgl-y/igt@i915_selftest@live@evict.html">INCOMPLETE</a></li>
-</ul>
-</li>
-<li>
-<p>igt@kms_cursor_legacy@basic-busy-flip-before-cursor-atomic:</p>
-<ul>
-<li>fi-tgl-y:           <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9500/fi-tgl-y/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-atomic.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19169/fi-tgl-y/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-atomic.html">FAIL</a> +3 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_cursor_legacy@basic-flip-before-cursor-legacy:</p>
-<ul>
-<li>fi-tgl-u2:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9500/fi-tgl-u2/igt@kms_cursor_legacy@basic-flip-before-cursor-legacy.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19169/fi-tgl-u2/igt@kms_cursor_legacy@basic-flip-before-cursor-legacy.html">FAIL</a> +3 similar issues</li>
-</ul>
-</li>
-</ul>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_19169 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@gem_mmap_gtt@basic:</p>
-<ul>
-<li>fi-tgl-y:           <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9500/fi-tgl-y/igt@gem_mmap_gtt@basic.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19169/fi-tgl-y/igt@gem_mmap_gtt@basic.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/402">i915#402</a>) +3 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@i915_module_load@reload:</p>
-<ul>
-<li>fi-tgl-u2:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9500/fi-tgl-u2/igt@i915_module_load@reload.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19169/fi-tgl-u2/igt@i915_module_load@reload.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/402">i915#402</a> / <a href="https://bugzilla.kernel.org/show_bug.cgi?id=205379">k.org#205379</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@reset:</p>
-<ul>
-<li>fi-tgl-y:           <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9500/fi-tgl-y/igt@i915_selftest@live@reset.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19169/fi-tgl-y/igt@i915_selftest@live@reset.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/402">i915#402</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_flip@basic-flip-vs-wf_vblank@b-edp1:</p>
-<ul>
-<li>fi-tgl-u2:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9500/fi-tgl-u2/igt@kms_flip@basic-flip-vs-wf_vblank@b-edp1.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19169/fi-tgl-u2/igt@kms_flip@basic-flip-vs-wf_vblank@b-edp1.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/402">i915#402</a>) +12 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_psr@primary_page_flip:</p>
-<ul>
-<li>fi-tgl-u2:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9500/fi-tgl-u2/igt@kms_psr@primary_page_flip.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19169/fi-tgl-u2/igt@kms_psr@primary_page_flip.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/668">i915#668</a>) +3 similar issues</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>igt@gem_flink_basic@basic:<ul>
-<li>fi-tgl-y:           <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9500/fi-tgl-y/igt@gem_flink_basic@basic.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/402">i915#402</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19169/fi-tgl-y/igt@gem_flink_basic@basic.html">PASS</a> +2 similar issues</li>
-</ul>
-</li>
-</ul>
-<h2>Participating hosts (43 -&gt; 39)</h2>
-<p>Missing    (4): fi-ilk-m540 fi-bsw-cyan fi-bdw-samus fi-hsw-4200u </p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_9500 -&gt; Patchwork_19169</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_9500: b6187a4ba065777110747954d4b46a511b0a6031 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_5907: ff747ef212f95e5a66bef553187e131cf1c53af1 @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools<br />
-  Patchwork_19169: 2cda2f0bfd0804bdcf549958794848a29d1ebef4 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<p>== Linux commits ==</p>
-<p>2cda2f0bfd08 HAX/DO_NOT_MERGE_IT: drm/i915/display: Enable PSR2 selective fetch for testing<br />
-8a2bc8b36f10 drm/i915/display/psr: Program plane's calculated offset to plane SF register<br />
-cb713a9df239 drm/i915/display: Split and export main surface calculation from skl_check_main_surface()<br />
-37c173b9a72c drm/i915/display/psr: Use plane damage clips to calculate damaged area<br />
-802c17bdaf1d drm: Add function to convert rect in 16.16 fixed format to regular format</p>
-
-</body>
-</html>
-
---===============2623849665347303584==--
-
---===============1600905251==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.c b/drivers/gpu/drm/i915/pxp/intel_pxp.c
+index 1e757efb7f5f..cf22006222ce 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp.c
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp.c
+@@ -6,6 +6,12 @@
+ #include "intel_pxp.h"
+ #include "intel_pxp_context.h"
+ 
++/* KCR register definitions */
++#define KCR_INIT            _MMIO(0x320f0)
++#define KCR_INIT_MASK_SHIFT (16)
++/* Setting KCR Init bit is required after system boot */
++#define KCR_INIT_ALLOW_DISPLAY_ME_WRITES (BIT(14) | (BIT(14) << KCR_INIT_MASK_SHIFT))
++
+ void intel_pxp_init(struct intel_pxp *pxp)
+ {
+ 	struct intel_gt *gt = container_of(pxp, struct intel_gt, pxp);
+@@ -15,6 +21,8 @@ void intel_pxp_init(struct intel_pxp *pxp)
+ 
+ 	intel_pxp_ctx_init(&pxp->ctx);
+ 
++	intel_uncore_write(gt->uncore, KCR_INIT, KCR_INIT_ALLOW_DISPLAY_ME_WRITES);
++
+ 	drm_info(&gt->i915->drm, "Protected Xe Path (PXP) protected content support initialized\n");
+ }
+ 
+-- 
+2.17.1
 
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-
---===============1600905251==--
