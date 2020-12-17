@@ -2,49 +2,40 @@ Return-Path: <SRS0=1oYm=FV=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.9 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
-	URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2F712C2BBCD
-	for <intel-gfx@archiver.kernel.org>; Thu, 17 Dec 2020 22:29:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 487F7C4361B
+	for <intel-gfx@archiver.kernel.org>; Thu, 17 Dec 2020 23:38:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EB14A2376F
-	for <intel-gfx@archiver.kernel.org>; Thu, 17 Dec 2020 22:29:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EB14A2376F
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id DBB5C23441
+	for <intel-gfx@archiver.kernel.org>; Thu, 17 Dec 2020 23:38:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DBB5C23441
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE15C892BB;
-	Thu, 17 Dec 2020 22:29:49 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 29345898C0
- for <Intel-gfx@lists.freedesktop.org>; Thu, 17 Dec 2020 22:29:31 +0000 (UTC)
-IronPort-SDR: f6WUxAwVoQ1ayGdwuLHnFITorvQtHbPX9T1PnZ+1In/hH0X0QHqaSO9mEFn6QbFmNu82URMybf
- HRJguJzi1SHQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9838"; a="175485179"
-X-IronPort-AV: E=Sophos;i="5.78,428,1599548400"; d="scan'208";a="175485179"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Dec 2020 14:29:29 -0800
-IronPort-SDR: mkvpfcnNMhNxG2YSB2RcuwvgFEcXDqtg0EbL5v+/d8wI9Z0FXgAyuN/Xj/eIvPK/7FUIuFUQys
- V8lJo5Syw3ZA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.78,428,1599548400"; d="scan'208";a="339892800"
-Received: from sean-virtualbox.fm.intel.com ([10.105.158.96])
- by fmsmga008.fm.intel.com with ESMTP; 17 Dec 2020 14:29:28 -0800
-From: "Huang, Sean Z" <sean.z.huang@intel.com>
-To: Intel-gfx@lists.freedesktop.org
-Date: Thu, 17 Dec 2020 14:29:26 -0800
-Message-Id: <20201217222928.29117-12-sean.z.huang@intel.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20201217222928.29117-1-sean.z.huang@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 67E9C8987C;
+	Thu, 17 Dec 2020 23:38:23 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id C7EBB896B5;
+ Thu, 17 Dec 2020 23:38:21 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id C19E8A7DFC;
+ Thu, 17 Dec 2020 23:38:21 +0000 (UTC)
+MIME-Version: 1.0
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Huang, Sean Z" <sean.z.huang@intel.com>
+Date: Thu, 17 Dec 2020 23:38:21 -0000
+Message-ID: <160824830176.2011.5419015888257688391@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
 References: <20201217222928.29117-1-sean.z.huang@intel.com>
-Subject: [Intel-gfx] [RFC-v12 11/13] drm/i915/uapi: introduce
- drm_i915_gem_create_ext
+In-Reply-To: <20201217222928.29117-1-sean.z.huang@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBJ?=
+ =?utf-8?q?ntroduce_Intel_PXP_component_-_Mesa_single_session_=28rev12=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,191 +48,33 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Joonas@freedesktop.org,
-	Bommu Krishnaiah <krishnaiah.bommu@intel.com>,
-	Matthew@freedesktop.org
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Bommu Krishnaiah <krishnaiah.bommu@intel.com>
-
-Same old gem_create but with now with extensions support. This is needed
-to support various upcoming usecases. For now we use the extensions
-mechanism to support PAVP.
-
-Signed-off-by: Bommu Krishnaiah <krishnaiah.bommu@intel.com>
-Signed-off-by: Matthew Auld <matthew.auld@intel.com>
-Cc: Joonas Lahtinen joonas.lahtinen@linux.intel.com
-Cc: Matthew Auld matthew.auld@intel.com
-Cc: Telukuntla Sreedhar <sreedhar.telukuntla@intel.com>
----
- drivers/gpu/drm/i915/i915_drv.c |  2 +-
- drivers/gpu/drm/i915/i915_gem.c | 42 ++++++++++++++++++++++++++++-
- include/uapi/drm/i915_drm.h     | 47 +++++++++++++++++++++++++++++++++
- 3 files changed, 89 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/i915_drv.c b/drivers/gpu/drm/i915/i915_drv.c
-index af06c85e6ba7..3dbda949bf71 100644
---- a/drivers/gpu/drm/i915/i915_drv.c
-+++ b/drivers/gpu/drm/i915/i915_drv.c
-@@ -1733,7 +1733,7 @@ static const struct drm_ioctl_desc i915_ioctls[] = {
- 	DRM_IOCTL_DEF_DRV(I915_GEM_THROTTLE, i915_gem_throttle_ioctl, DRM_RENDER_ALLOW),
- 	DRM_IOCTL_DEF_DRV(I915_GEM_ENTERVT, drm_noop, DRM_AUTH|DRM_MASTER|DRM_ROOT_ONLY),
- 	DRM_IOCTL_DEF_DRV(I915_GEM_LEAVEVT, drm_noop, DRM_AUTH|DRM_MASTER|DRM_ROOT_ONLY),
--	DRM_IOCTL_DEF_DRV(I915_GEM_CREATE, i915_gem_create_ioctl, DRM_RENDER_ALLOW),
-+	DRM_IOCTL_DEF_DRV(I915_GEM_CREATE_EXT, i915_gem_create_ioctl, DRM_RENDER_ALLOW),
- 	DRM_IOCTL_DEF_DRV(I915_GEM_PREAD, i915_gem_pread_ioctl, DRM_RENDER_ALLOW),
- 	DRM_IOCTL_DEF_DRV(I915_GEM_PWRITE, i915_gem_pwrite_ioctl, DRM_RENDER_ALLOW),
- 	DRM_IOCTL_DEF_DRV(I915_GEM_MMAP, i915_gem_mmap_ioctl, DRM_RENDER_ALLOW),
-diff --git a/drivers/gpu/drm/i915/i915_gem.c b/drivers/gpu/drm/i915/i915_gem.c
-index 17a4636ee542..c53b13c02e59 100644
---- a/drivers/gpu/drm/i915/i915_gem.c
-+++ b/drivers/gpu/drm/i915/i915_gem.c
-@@ -53,6 +53,7 @@
- #include "i915_drv.h"
- #include "i915_trace.h"
- #include "i915_vgpu.h"
-+#include "i915_user_extensions.h"
- 
- #include "intel_pm.h"
- 
-@@ -260,6 +261,35 @@ i915_gem_dumb_create(struct drm_file *file,
- 			       &args->size, &args->handle);
- }
- 
-+struct create_ext {
-+        struct drm_i915_private *i915;
-+};
-+
-+static int __create_setparam(struct drm_i915_gem_object_param *args,
-+							struct create_ext *ext_data)
-+{
-+	if (!(args->param & I915_OBJECT_PARAM)) {
-+		DRM_DEBUG("Missing I915_OBJECT_PARAM namespace\n");
-+		return -EINVAL;
-+	}
-+
-+	return -EINVAL;
-+}
-+
-+static int create_setparam(struct i915_user_extension __user *base, void *data)
-+{
-+	struct drm_i915_gem_create_ext_setparam ext;
-+
-+	if (copy_from_user(&ext, base, sizeof(ext)))
-+		return -EFAULT;
-+
-+	return __create_setparam(&ext.param, data);
-+}
-+
-+static const i915_user_extension_fn create_extensions[] = {
-+	[I915_GEM_CREATE_EXT_SETPARAM] = create_setparam,
-+};
-+
- /**
-  * Creates a new mm object and returns a handle to it.
-  * @dev: drm device pointer
-@@ -271,10 +301,20 @@ i915_gem_create_ioctl(struct drm_device *dev, void *data,
- 		      struct drm_file *file)
- {
- 	struct drm_i915_private *i915 = to_i915(dev);
--	struct drm_i915_gem_create *args = data;
-+	struct create_ext ext_data = { .i915 = i915 };
-+	struct drm_i915_gem_create_ext *args = data;
-+	int ret;
- 
- 	i915_gem_flush_free_objects(i915);
- 
-+	ret = i915_user_extensions(u64_to_user_ptr(args->extensions),
-+				   create_extensions,
-+				   ARRAY_SIZE(create_extensions),
-+				   &ext_data);
-+	if (ret)
-+		return ret;
-+
-+
- 	return i915_gem_create(file,
- 			       intel_memory_region_by_type(i915,
- 							   INTEL_MEMORY_SYSTEM),
-diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
-index 6edcb2b6c708..e918ccc81c74 100644
---- a/include/uapi/drm/i915_drm.h
-+++ b/include/uapi/drm/i915_drm.h
-@@ -391,6 +391,7 @@ typedef struct _drm_i915_sarea {
- #define DRM_IOCTL_I915_GEM_ENTERVT	DRM_IO(DRM_COMMAND_BASE + DRM_I915_GEM_ENTERVT)
- #define DRM_IOCTL_I915_GEM_LEAVEVT	DRM_IO(DRM_COMMAND_BASE + DRM_I915_GEM_LEAVEVT)
- #define DRM_IOCTL_I915_GEM_CREATE	DRM_IOWR(DRM_COMMAND_BASE + DRM_I915_GEM_CREATE, struct drm_i915_gem_create)
-+#define DRM_IOCTL_I915_GEM_CREATE_EXT   DRM_IOWR(DRM_COMMAND_BASE + DRM_I915_GEM_CREATE, struct drm_i915_gem_create_ext)
- #define DRM_IOCTL_I915_GEM_PREAD	DRM_IOW (DRM_COMMAND_BASE + DRM_I915_GEM_PREAD, struct drm_i915_gem_pread)
- #define DRM_IOCTL_I915_GEM_PWRITE	DRM_IOW (DRM_COMMAND_BASE + DRM_I915_GEM_PWRITE, struct drm_i915_gem_pwrite)
- #define DRM_IOCTL_I915_GEM_MMAP		DRM_IOWR(DRM_COMMAND_BASE + DRM_I915_GEM_MMAP, struct drm_i915_gem_mmap)
-@@ -728,6 +729,27 @@ struct drm_i915_gem_create {
- 	__u32 pad;
- };
- 
-+struct drm_i915_gem_create_ext {
-+	/**
-+	 * Requested size for the object.
-+	 *
-+	 * The (page-aligned) allocated size for the object will be returned.
-+	 */
-+	__u64 size;
-+	/**
-+	 * Returned handle for the object.
-+	 *
-+	 * Object handles are nonzero.
-+	 */
-+	__u32 handle;
-+	__u32 pad;
-+#define I915_GEM_CREATE_EXT_SETPARAM (1u << 0)
-+#define I915_GEM_CREATE_EXT_FLAGS_UNKNOWN \
-+	(-(I915_GEM_CREATE_EXT_SETPARAM << 1))
-+	__u64 extensions;
-+
-+};
-+
- struct drm_i915_gem_pread {
- 	/** Handle for the object being read. */
- 	__u32 handle;
-@@ -1698,6 +1720,31 @@ struct drm_i915_gem_context_param {
- 	__u64 value;
- };
- 
-+struct drm_i915_gem_object_param {
-+	/* Object handle (0 for I915_GEM_CREATE_EXT_SETPARAM) */
-+	__u32 handle;
-+
-+	/* Data pointer size */
-+	__u32 size;
-+
-+/*
-+ * I915_OBJECT_PARAM:
-+ *
-+ * Select object namespace for the param.
-+ */
-+#define I915_OBJECT_PARAM  (1ull<<32)
-+
-+	__u64 param;
-+
-+	/* Data value or pointer */
-+	__u64 data;
-+};
-+
-+struct drm_i915_gem_create_ext_setparam {
-+	struct i915_user_extension base;
-+	struct drm_i915_gem_object_param param;
-+};
-+
- /**
-  * Context SSEU programming
-  *
--- 
-2.17.1
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+PT0gU2VyaWVzIERldGFpbHMgPT0KClNlcmllczogSW50cm9kdWNlIEludGVsIFBYUCBjb21wb25l
+bnQgLSBNZXNhIHNpbmdsZSBzZXNzaW9uIChyZXYxMikKVVJMICAgOiBodHRwczovL3BhdGNod29y
+ay5mcmVlZGVza3RvcC5vcmcvc2VyaWVzLzg0NjIwLwpTdGF0ZSA6IGZhaWx1cmUKCj09IFN1bW1h
+cnkgPT0KCkNBTEwgICAgc2NyaXB0cy9jaGVja3N5c2NhbGxzLnNoCiAgQ0FMTCAgICBzY3JpcHRz
+L2F0b21pYy9jaGVjay1hdG9taWNzLnNoCiAgREVTQ0VORCAgb2JqdG9vbAogIENISyAgICAgaW5j
+bHVkZS9nZW5lcmF0ZWQvY29tcGlsZS5oCiAgSERSVEVTVCBkcml2ZXJzL2dwdS9kcm0vaTkxNS9w
+eHAvaW50ZWxfcHhwX3R5cGVzLmgKSW4gZmlsZSBpbmNsdWRlZCBmcm9tIDxjb21tYW5kLWxpbmU+
+OgouL2RyaXZlcnMvZ3B1L2RybS9pOTE1L3B4cC9pbnRlbF9weHBfdHlwZXMuaDozNToxNTogZXJy
+b3I6IGZpZWxkIOKAmG11dGV44oCZIGhhcyBpbmNvbXBsZXRlIHR5cGUKICBzdHJ1Y3QgbXV0ZXgg
+bXV0ZXg7CiAgICAgICAgICAgICAgIF5+fn5+CmRyaXZlcnMvZ3B1L2RybS9pOTE1L01ha2VmaWxl
+OjMxNDogcmVjaXBlIGZvciB0YXJnZXQgJ2RyaXZlcnMvZ3B1L2RybS9pOTE1L3B4cC9pbnRlbF9w
+eHBfdHlwZXMuaGRydGVzdCcgZmFpbGVkCm1ha2VbNF06ICoqKiBbZHJpdmVycy9ncHUvZHJtL2k5
+MTUvcHhwL2ludGVsX3B4cF90eXBlcy5oZHJ0ZXN0XSBFcnJvciAxCnNjcmlwdHMvTWFrZWZpbGUu
+YnVpbGQ6NDk2OiByZWNpcGUgZm9yIHRhcmdldCAnZHJpdmVycy9ncHUvZHJtL2k5MTUnIGZhaWxl
+ZAptYWtlWzNdOiAqKiogW2RyaXZlcnMvZ3B1L2RybS9pOTE1XSBFcnJvciAyCnNjcmlwdHMvTWFr
+ZWZpbGUuYnVpbGQ6NDk2OiByZWNpcGUgZm9yIHRhcmdldCAnZHJpdmVycy9ncHUvZHJtJyBmYWls
+ZWQKbWFrZVsyXTogKioqIFtkcml2ZXJzL2dwdS9kcm1dIEVycm9yIDIKc2NyaXB0cy9NYWtlZmls
+ZS5idWlsZDo0OTY6IHJlY2lwZSBmb3IgdGFyZ2V0ICdkcml2ZXJzL2dwdScgZmFpbGVkCm1ha2Vb
+MV06ICoqKiBbZHJpdmVycy9ncHVdIEVycm9yIDIKTWFrZWZpbGU6MTgwNTogcmVjaXBlIGZvciB0
+YXJnZXQgJ2RyaXZlcnMnIGZhaWxlZAptYWtlOiAqKiogW2RyaXZlcnNdIEVycm9yIDIKCgpfX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpJbnRlbC1nZnggbWFp
+bGluZyBsaXN0CkludGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9pbnRlbC1nZngK
