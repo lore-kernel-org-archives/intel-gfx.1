@@ -2,42 +2,54 @@ Return-Path: <SRS0=1oYm=FV=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-14.4 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2B612C4361B
-	for <intel-gfx@archiver.kernel.org>; Thu, 17 Dec 2020 17:39:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 19E7DC4361B
+	for <intel-gfx@archiver.kernel.org>; Thu, 17 Dec 2020 17:45:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BBAC1235DD
-	for <intel-gfx@archiver.kernel.org>; Thu, 17 Dec 2020 17:39:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BBAC1235DD
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
+	by mail.kernel.org (Postfix) with ESMTPS id C6B63235DD
+	for <intel-gfx@archiver.kernel.org>; Thu, 17 Dec 2020 17:45:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C6B63235DD
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D985896E7;
-	Thu, 17 Dec 2020 17:39:49 +0000 (UTC)
-Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 96D74896AF;
- Thu, 17 Dec 2020 17:39:47 +0000 (UTC)
-X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
- x-ip-name=78.156.65.138; 
-Received: from localhost (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP (TLS) id
- 23358112-1500050 for multiple; Thu, 17 Dec 2020 17:39:45 +0000
-MIME-Version: 1.0
-In-Reply-To: <bf6adb3d-f86e-4a51-b0ff-bd1367a3a3f7@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C38489829;
+	Thu, 17 Dec 2020 17:45:13 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 03517897EE;
+ Thu, 17 Dec 2020 17:45:11 +0000 (UTC)
+IronPort-SDR: XYwXjrLSHdggHNKic1UmHPflp51bfwlIXFZm8agReOgHrfOcoVPAxj90Zyvhh1B5bBobksU7+e
+ V34G183BybEA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9838"; a="174524986"
+X-IronPort-AV: E=Sophos;i="5.78,428,1599548400"; d="scan'208";a="174524986"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Dec 2020 09:45:10 -0800
+IronPort-SDR: yjDcHmnQu6kmIfIsR5zk6yM2ZUT75zcagsf2im3jj+G4V9HpweCGI5kSmDTTNKo9/OT/I0K1SB
+ SkwH/pMnn80Q==
+X-IronPort-AV: E=Sophos;i="5.78,428,1599548400"; d="scan'208";a="453307431"
+Received: from acherneg-mobl.ger.corp.intel.com (HELO [10.214.210.48])
+ ([10.214.210.48])
+ by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Dec 2020 09:45:09 -0800
+To: Chris Wilson <chris@chris-wilson.co.uk>, intel-gfx@lists.freedesktop.org
 References: <20201217172618.1637044-1-chris@chris-wilson.co.uk>
  <bf6adb3d-f86e-4a51-b0ff-bd1367a3a3f7@linux.intel.com>
-From: Chris Wilson <chris@chris-wilson.co.uk>
-To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- intel-gfx@lists.freedesktop.org
-Date: Thu, 17 Dec 2020 17:39:43 +0000
-Message-ID: <160822678340.13606.1167891500717793691@build.alporthouse.com>
-User-Agent: alot/0.9
+ <160822678340.13606.1167891500717793691@build.alporthouse.com>
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Organization: Intel Corporation UK Plc
+Message-ID: <a76125ab-09f7-fa7b-5626-0a4f4122aca1@linux.intel.com>
+Date: Thu, 17 Dec 2020 17:45:06 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
+MIME-Version: 1.0
+In-Reply-To: <160822678340.13606.1167891500717793691@build.alporthouse.com>
+Content-Language: en-US
 Subject: Re: [Intel-gfx] [PATCH i-g-t] i915/perf_pmu: Exercise
  I915_PMU_SOFTWARE_GT_AWAKE_TIME
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -53,87 +65,96 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: igt-dev@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Quoting Tvrtko Ursulin (2020-12-17 17:33:05)
-> 
-> On 17/12/2020 17:26, Chris Wilson wrote:
-> > Measure the sample gt-awake time while each engine and every engine is
-> > busy. They should all report the same duration, the elapsed runtime of
-> > the batch.
-> > 
-> > Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-> > Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-> > ---
-> >   include/drm-uapi/i915_drm.h |  3 ++-
-> >   tests/i915/perf_pmu.c       | 42 +++++++++++++++++++++++++++++++++++++
-> >   2 files changed, 44 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/include/drm-uapi/i915_drm.h b/include/drm-uapi/i915_drm.h
-> > index ef696d1a5..bf9ea471c 100644
-> > --- a/include/drm-uapi/i915_drm.h
-> > +++ b/include/drm-uapi/i915_drm.h
-> > @@ -177,8 +177,9 @@ enum drm_i915_pmu_engine_sample {
-> >   #define I915_PMU_REQUESTED_FREQUENCY        __I915_PMU_OTHER(1)
-> >   #define I915_PMU_INTERRUPTS         __I915_PMU_OTHER(2)
-> >   #define I915_PMU_RC6_RESIDENCY              __I915_PMU_OTHER(3)
-> > +#define I915_PMU_SOFTWARE_GT_AWAKE_TIME      __I915_PMU_OTHER(4)
-> >   
-> > -#define I915_PMU_LAST I915_PMU_RC6_RESIDENCY
-> > +#define I915_PMU_LAST /* Deprecated - do not use */ I915_PMU_RC6_RESIDENCY
-> >   
-> >   /* Each region is a minimum of 16k, and there are at most 255 of them.
-> >    */
-> > diff --git a/tests/i915/perf_pmu.c b/tests/i915/perf_pmu.c
-> > index c2b186d39..90182074b 100644
-> > --- a/tests/i915/perf_pmu.c
-> > +++ b/tests/i915/perf_pmu.c
-> > @@ -883,6 +883,42 @@ sema_busy(int gem_fd,
-> >       close(fd[1]);
-> >   }
-> >   
-> > +static void test_awake(int i915)
-> > +{
-> > +     const struct intel_execution_engine2 *e;
-> > +     unsigned long slept;
-> > +     uint64_t val;
-> > +     int fd;
-> > +
-> > +     fd = perf_i915_open(i915, I915_PMU_SOFTWARE_GT_AWAKE_TIME);
-> > +     igt_skip_on(fd < 0);
-> > +
-> > +     /* Check that each engine is captured by the GT wakeref */
-> > +     __for_each_physical_engine(i915, e) {
-> > +             igt_spin_new(i915, .engine = e->flags);
-> > +
-> > +             val = pmu_read_single(fd);
-> > +             slept = measured_usleep(batch_duration_ns / 1000);
-> > +             val = pmu_read_single(fd) - val;
-> > +
-> > +             gem_quiescent_gpu(i915);
-> > +             assert_within_epsilon(val, slept, tolerance);
-> > +     }
-> > +
-> > +     /* And that the total GT wakeref matches walltime not summation */
-> > +     __for_each_physical_engine(i915, e)
-> > +             igt_spin_new(i915, .engine = e->flags);
-> > +
-> > +     val = pmu_read_single(fd);
-> > +     slept = measured_usleep(batch_duration_ns / 1000);
-> > +     val = pmu_read_single(fd) - val;
-> > +
-> > +     gem_quiescent_gpu(i915);
-> > +     assert_within_epsilon(val, slept, tolerance);
-> > +
-> 
-> Erm who terminates all those spinners? :)
 
-gem_quiescent_gpu() calls igt_terminate_spins(). Hmm, I actually thought
-it freed them too, but what's a small leak...
--Chris
+On 17/12/2020 17:39, Chris Wilson wrote:
+> Quoting Tvrtko Ursulin (2020-12-17 17:33:05)
+>>
+>> On 17/12/2020 17:26, Chris Wilson wrote:
+>>> Measure the sample gt-awake time while each engine and every engine is
+>>> busy. They should all report the same duration, the elapsed runtime of
+>>> the batch.
+>>>
+>>> Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+>>> Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+>>> ---
+>>>    include/drm-uapi/i915_drm.h |  3 ++-
+>>>    tests/i915/perf_pmu.c       | 42 +++++++++++++++++++++++++++++++++++++
+>>>    2 files changed, 44 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/include/drm-uapi/i915_drm.h b/include/drm-uapi/i915_drm.h
+>>> index ef696d1a5..bf9ea471c 100644
+>>> --- a/include/drm-uapi/i915_drm.h
+>>> +++ b/include/drm-uapi/i915_drm.h
+>>> @@ -177,8 +177,9 @@ enum drm_i915_pmu_engine_sample {
+>>>    #define I915_PMU_REQUESTED_FREQUENCY        __I915_PMU_OTHER(1)
+>>>    #define I915_PMU_INTERRUPTS         __I915_PMU_OTHER(2)
+>>>    #define I915_PMU_RC6_RESIDENCY              __I915_PMU_OTHER(3)
+>>> +#define I915_PMU_SOFTWARE_GT_AWAKE_TIME      __I915_PMU_OTHER(4)
+>>>    
+>>> -#define I915_PMU_LAST I915_PMU_RC6_RESIDENCY
+>>> +#define I915_PMU_LAST /* Deprecated - do not use */ I915_PMU_RC6_RESIDENCY
+>>>    
+>>>    /* Each region is a minimum of 16k, and there are at most 255 of them.
+>>>     */
+>>> diff --git a/tests/i915/perf_pmu.c b/tests/i915/perf_pmu.c
+>>> index c2b186d39..90182074b 100644
+>>> --- a/tests/i915/perf_pmu.c
+>>> +++ b/tests/i915/perf_pmu.c
+>>> @@ -883,6 +883,42 @@ sema_busy(int gem_fd,
+>>>        close(fd[1]);
+>>>    }
+>>>    
+>>> +static void test_awake(int i915)
+>>> +{
+>>> +     const struct intel_execution_engine2 *e;
+>>> +     unsigned long slept;
+>>> +     uint64_t val;
+>>> +     int fd;
+>>> +
+>>> +     fd = perf_i915_open(i915, I915_PMU_SOFTWARE_GT_AWAKE_TIME);
+>>> +     igt_skip_on(fd < 0);
+>>> +
+>>> +     /* Check that each engine is captured by the GT wakeref */
+>>> +     __for_each_physical_engine(i915, e) {
+>>> +             igt_spin_new(i915, .engine = e->flags);
+>>> +
+>>> +             val = pmu_read_single(fd);
+>>> +             slept = measured_usleep(batch_duration_ns / 1000);
+>>> +             val = pmu_read_single(fd) - val;
+>>> +
+>>> +             gem_quiescent_gpu(i915);
+>>> +             assert_within_epsilon(val, slept, tolerance);
+>>> +     }
+>>> +
+>>> +     /* And that the total GT wakeref matches walltime not summation */
+>>> +     __for_each_physical_engine(i915, e)
+>>> +             igt_spin_new(i915, .engine = e->flags);
+>>> +
+>>> +     val = pmu_read_single(fd);
+>>> +     slept = measured_usleep(batch_duration_ns / 1000);
+>>> +     val = pmu_read_single(fd) - val;
+>>> +
+>>> +     gem_quiescent_gpu(i915);
+>>> +     assert_within_epsilon(val, slept, tolerance);
+>>> +
+>>
+>> Erm who terminates all those spinners? :)
+> 
+> gem_quiescent_gpu() calls igt_terminate_spins(). Hmm, I actually thought
+> it freed them too, but what's a small leak...
+
+Okay, I'm fine with that.
+
+Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+
+Regards,
+
+Tvrtko
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
