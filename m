@@ -7,44 +7,44 @@ X-Spam-Status: No, score=-13.9 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
 	URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D82C0C4361B
-	for <intel-gfx@archiver.kernel.org>; Fri, 18 Dec 2020 18:45:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 60740C2BBD5
+	for <intel-gfx@archiver.kernel.org>; Fri, 18 Dec 2020 18:45:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8543723B01
-	for <intel-gfx@archiver.kernel.org>; Fri, 18 Dec 2020 18:45:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8543723B01
+	by mail.kernel.org (Postfix) with ESMTPS id 0424823B01
+	for <intel-gfx@archiver.kernel.org>; Fri, 18 Dec 2020 18:45:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0424823B01
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 88D5689D2E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D6BCA89D3E;
 	Fri, 18 Dec 2020 18:45:31 +0000 (UTC)
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BAE09898C0
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB92389D44
  for <Intel-gfx@lists.freedesktop.org>; Fri, 18 Dec 2020 18:45:30 +0000 (UTC)
-IronPort-SDR: fB/XfrksikCqc3YNyduUWk2STrb8yHz8GHYiVoZJ7/hKcRwh1SSEM73aTcAaZb7home6qH7se/
- UpxPCMeSKdiQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9839"; a="193894753"
-X-IronPort-AV: E=Sophos;i="5.78,431,1599548400"; d="scan'208";a="193894753"
+IronPort-SDR: a8+jGWQ6D3cKvhTcMycgpf6cR2WwZ1Eo1DSyb9ZypXas5p6hrWUesaz/uIMaCWzstp4T86+TWK
+ HF6BVvUmyxXQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9839"; a="193894757"
+X-IronPort-AV: E=Sophos;i="5.78,431,1599548400"; d="scan'208";a="193894757"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Dec 2020 10:45:20 -0800
-IronPort-SDR: 8zQI4svOk+ddcWQDiu5LcN7kwCa7Ph3hL8SsPW9/IelQiY8Jg8zesey11cNcwyTaEpXsJklUgL
- mkxQUYgo3xXA==
+ 18 Dec 2020 10:45:21 -0800
+IronPort-SDR: e55XV5RV+85Df0mipWiOwhwuzf1I0TPW+tHHCP/w8X4Aa4uNQ/Fx000FwwmLRllKEzm5rQg0iS
+ U6koeU0bIUXw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.78,431,1599548400"; d="scan'208";a="340645788"
+X-IronPort-AV: E=Sophos;i="5.78,431,1599548400"; d="scan'208";a="340645796"
 Received: from sean-virtualbox.fm.intel.com ([10.105.158.96])
  by fmsmga008.fm.intel.com with ESMTP; 18 Dec 2020 10:45:20 -0800
 From: "Huang, Sean Z" <sean.z.huang@intel.com>
 To: Intel-gfx@lists.freedesktop.org
-Date: Fri, 18 Dec 2020 10:45:15 -0800
-Message-Id: <20201218184520.8697-9-sean.z.huang@intel.com>
+Date: Fri, 18 Dec 2020 10:45:18 -0800
+Message-Id: <20201218184520.8697-12-sean.z.huang@intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20201218184520.8697-1-sean.z.huang@intel.com>
 References: <20201218184520.8697-1-sean.z.huang@intel.com>
-Subject: [Intel-gfx] [RFC-v13 08/13] drm/i915/pxp: Enable PXP power
- management
+Subject: [Intel-gfx] [RFC-v13 11/13] drm/i915/uapi: introduce
+ drm_i915_gem_create_ext
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,213 +57,187 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Joonas@freedesktop.org,
+	Bommu Krishnaiah <krishnaiah.bommu@intel.com>,
+	Matthew@freedesktop.org
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-During the power event S3+ sleep/resume, hardware will lose all the
-encryption keys for every hardware session, even though the
-software session state was marked as alive after resume. So to
-handle such case, PXP should terminate all the hardware sessions
-and cleanup all the software states after the power cycle.
+From: Bommu Krishnaiah <krishnaiah.bommu@intel.com>
 
-Signed-off-by: Huang, Sean Z <sean.z.huang@intel.com>
+Same old gem_create but with now with extensions support. This is needed
+to support various upcoming usecases. For now we use the extensions
+mechanism to support PAVP.
+
+Signed-off-by: Bommu Krishnaiah <krishnaiah.bommu@intel.com>
+Signed-off-by: Matthew Auld <matthew.auld@intel.com>
+Cc: Joonas Lahtinen joonas.lahtinen@linux.intel.com
+Cc: Matthew Auld matthew.auld@intel.com
+Cc: Telukuntla Sreedhar <sreedhar.telukuntla@intel.com>
 ---
- drivers/gpu/drm/i915/Makefile              |  1 +
- drivers/gpu/drm/i915/gt/intel_gt_pm.c      |  4 ++
- drivers/gpu/drm/i915/i915_drv.c            |  4 ++
- drivers/gpu/drm/i915/pxp/intel_pxp_pm.c    | 65 ++++++++++++++++++++++
- drivers/gpu/drm/i915/pxp/intel_pxp_pm.h    | 31 +++++++++++
- drivers/gpu/drm/i915/pxp/intel_pxp_types.h |  1 +
- 6 files changed, 106 insertions(+)
- create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_pm.c
- create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_pm.h
+ drivers/gpu/drm/i915/i915_drv.c |  2 +-
+ drivers/gpu/drm/i915/i915_gem.c | 42 ++++++++++++++++++++++++++++-
+ include/uapi/drm/i915_drm.h     | 47 +++++++++++++++++++++++++++++++++
+ 3 files changed, 89 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
-index abe52189986a..d419dfa4923d 100644
---- a/drivers/gpu/drm/i915/Makefile
-+++ b/drivers/gpu/drm/i915/Makefile
-@@ -261,6 +261,7 @@ i915-$(CONFIG_DRM_I915_PXP) += \
- 	pxp/intel_pxp_arb.o \
- 	pxp/intel_pxp_cmd.o \
- 	pxp/intel_pxp_context.o \
-+	pxp/intel_pxp_pm.o \
- 	pxp/intel_pxp_tee.o
- 
- # Post-mortem debug and GPU hang state capture
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_pm.c b/drivers/gpu/drm/i915/gt/intel_gt_pm.c
-index 274aa0dd7050..09a64d0feafe 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_pm.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_pm.c
-@@ -20,6 +20,7 @@
- #include "intel_rc6.h"
- #include "intel_rps.h"
- #include "intel_wakeref.h"
-+#include "pxp/intel_pxp_pm.h"
- 
- static void user_forcewake(struct intel_gt *gt, bool suspend)
- {
-@@ -241,6 +242,8 @@ int intel_gt_resume(struct intel_gt *gt)
- 
- 	intel_uc_resume(&gt->uc);
- 
-+	intel_pxp_pm_resume(&gt->pxp);
-+
- 	user_forcewake(gt, false);
- 
- out_fw:
-@@ -275,6 +278,7 @@ void intel_gt_suspend_prepare(struct intel_gt *gt)
- 	user_forcewake(gt, true);
- 	wait_for_suspend(gt);
- 
-+	intel_pxp_pm_prepare_suspend(&gt->pxp);
- 	intel_uc_suspend(&gt->uc);
- }
- 
 diff --git a/drivers/gpu/drm/i915/i915_drv.c b/drivers/gpu/drm/i915/i915_drv.c
-index 9299a456adb0..af06c85e6ba7 100644
+index af06c85e6ba7..3dbda949bf71 100644
 --- a/drivers/gpu/drm/i915/i915_drv.c
 +++ b/drivers/gpu/drm/i915/i915_drv.c
-@@ -68,6 +68,8 @@
- #include "gt/intel_gt_pm.h"
- #include "gt/intel_rc6.h"
- 
-+#include "pxp/intel_pxp_pm.h"
-+
- #include "i915_debugfs.h"
+@@ -1733,7 +1733,7 @@ static const struct drm_ioctl_desc i915_ioctls[] = {
+ 	DRM_IOCTL_DEF_DRV(I915_GEM_THROTTLE, i915_gem_throttle_ioctl, DRM_RENDER_ALLOW),
+ 	DRM_IOCTL_DEF_DRV(I915_GEM_ENTERVT, drm_noop, DRM_AUTH|DRM_MASTER|DRM_ROOT_ONLY),
+ 	DRM_IOCTL_DEF_DRV(I915_GEM_LEAVEVT, drm_noop, DRM_AUTH|DRM_MASTER|DRM_ROOT_ONLY),
+-	DRM_IOCTL_DEF_DRV(I915_GEM_CREATE, i915_gem_create_ioctl, DRM_RENDER_ALLOW),
++	DRM_IOCTL_DEF_DRV(I915_GEM_CREATE_EXT, i915_gem_create_ioctl, DRM_RENDER_ALLOW),
+ 	DRM_IOCTL_DEF_DRV(I915_GEM_PREAD, i915_gem_pread_ioctl, DRM_RENDER_ALLOW),
+ 	DRM_IOCTL_DEF_DRV(I915_GEM_PWRITE, i915_gem_pwrite_ioctl, DRM_RENDER_ALLOW),
+ 	DRM_IOCTL_DEF_DRV(I915_GEM_MMAP, i915_gem_mmap_ioctl, DRM_RENDER_ALLOW),
+diff --git a/drivers/gpu/drm/i915/i915_gem.c b/drivers/gpu/drm/i915/i915_gem.c
+index 17a4636ee542..c53b13c02e59 100644
+--- a/drivers/gpu/drm/i915/i915_gem.c
++++ b/drivers/gpu/drm/i915/i915_gem.c
+@@ -53,6 +53,7 @@
  #include "i915_drv.h"
- #include "i915_ioc32.h"
-@@ -1344,6 +1346,8 @@ static int i915_drm_resume_early(struct drm_device *dev)
+ #include "i915_trace.h"
+ #include "i915_vgpu.h"
++#include "i915_user_extensions.h"
  
- 	intel_power_domains_resume(dev_priv);
+ #include "intel_pm.h"
  
-+	intel_pxp_pm_resume_early(&dev_priv->gt.pxp);
-+
- 	enable_rpm_wakeref_asserts(&dev_priv->runtime_pm);
+@@ -260,6 +261,35 @@ i915_gem_dumb_create(struct drm_file *file,
+ 			       &args->size, &args->handle);
+ }
  
- 	return ret;
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_pm.c b/drivers/gpu/drm/i915/pxp/intel_pxp_pm.c
-new file mode 100644
-index 000000000000..ebe89262485c
---- /dev/null
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_pm.c
-@@ -0,0 +1,65 @@
-+// SPDX-License-Identifier: MIT
-+/*
-+ * Copyright(c) 2020 Intel Corporation.
-+ */
++struct create_ext {
++        struct drm_i915_private *i915;
++};
 +
-+#include "intel_pxp_context.h"
-+#include "intel_pxp_arb.h"
-+#include "intel_pxp_pm.h"
-+
-+void intel_pxp_pm_prepare_suspend(struct intel_pxp *pxp)
++static int __create_setparam(struct drm_i915_gem_object_param *args,
++							struct create_ext *ext_data)
 +{
-+	if (!pxp->ctx.inited)
-+		return;
-+
-+	mutex_lock(&pxp->ctx.mutex);
-+
-+	/* Disable PXP-IOCTLs */
-+	pxp->ctx.global_state_in_suspend = true;
-+
-+	mutex_unlock(&pxp->ctx.mutex);
-+}
-+
-+void intel_pxp_pm_resume_early(struct intel_pxp *pxp)
-+{
-+	if (!pxp->ctx.inited)
-+		return;
-+
-+	mutex_lock(&pxp->ctx.mutex);
-+
-+	if (pxp->ctx.global_state_in_suspend) {
-+		/* reset the attacked flag even there was a pending */
-+		pxp->ctx.global_state_attacked = false;
-+
-+		pxp->ctx.flag_display_hm_surface_keys = false;
++	if (!(args->param & I915_OBJECT_PARAM)) {
++		DRM_DEBUG("Missing I915_OBJECT_PARAM namespace\n");
++		return -EINVAL;
 +	}
 +
-+	mutex_unlock(&pxp->ctx.mutex);
++	return -EINVAL;
 +}
 +
-+int intel_pxp_pm_resume(struct intel_pxp *pxp)
++static int create_setparam(struct i915_user_extension __user *base, void *data)
 +{
-+	int ret = 0;
-+	struct intel_gt *gt = container_of(pxp, typeof(*gt), pxp);
++	struct drm_i915_gem_create_ext_setparam ext;
 +
-+	if (!pxp->ctx.inited)
-+		return 0;
++	if (copy_from_user(&ext, base, sizeof(ext)))
++		return -EFAULT;
 +
-+	mutex_lock(&pxp->ctx.mutex);
-+
-+	/* Re-enable PXP-IOCTLs */
-+	if (pxp->ctx.global_state_in_suspend) {
-+		ret = intel_pxp_arb_terminate_session(pxp);
-+		if (ret) {
-+			drm_err(&gt->i915->drm, "Failed to terminate the arb session\n");
-+			goto end;
-+		}
-+
-+		pxp->ctx.global_state_in_suspend = false;
-+	}
-+
-+end:
-+	mutex_unlock(&pxp->ctx.mutex);
-+
-+	return ret;
-+}
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_pm.h b/drivers/gpu/drm/i915/pxp/intel_pxp_pm.h
-new file mode 100644
-index 000000000000..135bfb59aaf7
---- /dev/null
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_pm.h
-@@ -0,0 +1,31 @@
-+/* SPDX-License-Identifier: MIT */
-+/*
-+ * Copyright(c) 2020, Intel Corporation. All rights reserved.
-+ */
-+
-+#ifndef __INTEL_PXP_PM_H__
-+#define __INTEL_PXP_PM_H__
-+
-+#include "i915_drv.h"
-+
-+#ifdef CONFIG_DRM_I915_PXP
-+void intel_pxp_pm_prepare_suspend(struct intel_pxp *pxp);
-+
-+void intel_pxp_pm_resume_early(struct intel_pxp *pxp);
-+int intel_pxp_pm_resume(struct intel_pxp *pxp);
-+#else
-+static inline void intel_pxp_pm_prepare_suspend(struct intel_pxp *pxp)
-+{
++	return __create_setparam(&ext.param, data);
 +}
 +
-+static inline void intel_pxp_pm_resume_early(struct intel_pxp *pxp)
-+{
-+}
++static const i915_user_extension_fn create_extensions[] = {
++	[I915_GEM_CREATE_EXT_SETPARAM] = create_setparam,
++};
 +
-+static inline int intel_pxp_pm_resume(struct intel_pxp *pxp)
-+{
-+	return 0;
-+}
-+#endif
-+
-+#endif /* __INTEL_PXP_PM_H__ */
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_types.h b/drivers/gpu/drm/i915/pxp/intel_pxp_types.h
-index 0b140aaeb6ed..13d7b502b7f9 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp_types.h
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_types.h
-@@ -44,6 +44,7 @@ struct pxp_context {
+ /**
+  * Creates a new mm object and returns a handle to it.
+  * @dev: drm device pointer
+@@ -271,10 +301,20 @@ i915_gem_create_ioctl(struct drm_device *dev, void *data,
+ 		      struct drm_file *file)
+ {
+ 	struct drm_i915_private *i915 = to_i915(dev);
+-	struct drm_i915_gem_create *args = data;
++	struct create_ext ext_data = { .i915 = i915 };
++	struct drm_i915_gem_create_ext *args = data;
++	int ret;
  
- 	bool flag_display_hm_surface_keys;
- 	bool global_state_attacked;
-+	bool global_state_in_suspend;
+ 	i915_gem_flush_free_objects(i915);
+ 
++	ret = i915_user_extensions(u64_to_user_ptr(args->extensions),
++				   create_extensions,
++				   ARRAY_SIZE(create_extensions),
++				   &ext_data);
++	if (ret)
++		return ret;
++
++
+ 	return i915_gem_create(file,
+ 			       intel_memory_region_by_type(i915,
+ 							   INTEL_MEMORY_SYSTEM),
+diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
+index 6edcb2b6c708..e918ccc81c74 100644
+--- a/include/uapi/drm/i915_drm.h
++++ b/include/uapi/drm/i915_drm.h
+@@ -391,6 +391,7 @@ typedef struct _drm_i915_sarea {
+ #define DRM_IOCTL_I915_GEM_ENTERVT	DRM_IO(DRM_COMMAND_BASE + DRM_I915_GEM_ENTERVT)
+ #define DRM_IOCTL_I915_GEM_LEAVEVT	DRM_IO(DRM_COMMAND_BASE + DRM_I915_GEM_LEAVEVT)
+ #define DRM_IOCTL_I915_GEM_CREATE	DRM_IOWR(DRM_COMMAND_BASE + DRM_I915_GEM_CREATE, struct drm_i915_gem_create)
++#define DRM_IOCTL_I915_GEM_CREATE_EXT   DRM_IOWR(DRM_COMMAND_BASE + DRM_I915_GEM_CREATE, struct drm_i915_gem_create_ext)
+ #define DRM_IOCTL_I915_GEM_PREAD	DRM_IOW (DRM_COMMAND_BASE + DRM_I915_GEM_PREAD, struct drm_i915_gem_pread)
+ #define DRM_IOCTL_I915_GEM_PWRITE	DRM_IOW (DRM_COMMAND_BASE + DRM_I915_GEM_PWRITE, struct drm_i915_gem_pwrite)
+ #define DRM_IOCTL_I915_GEM_MMAP		DRM_IOWR(DRM_COMMAND_BASE + DRM_I915_GEM_MMAP, struct drm_i915_gem_mmap)
+@@ -728,6 +729,27 @@ struct drm_i915_gem_create {
+ 	__u32 pad;
  };
  
- struct intel_pxp {
++struct drm_i915_gem_create_ext {
++	/**
++	 * Requested size for the object.
++	 *
++	 * The (page-aligned) allocated size for the object will be returned.
++	 */
++	__u64 size;
++	/**
++	 * Returned handle for the object.
++	 *
++	 * Object handles are nonzero.
++	 */
++	__u32 handle;
++	__u32 pad;
++#define I915_GEM_CREATE_EXT_SETPARAM (1u << 0)
++#define I915_GEM_CREATE_EXT_FLAGS_UNKNOWN \
++	(-(I915_GEM_CREATE_EXT_SETPARAM << 1))
++	__u64 extensions;
++
++};
++
+ struct drm_i915_gem_pread {
+ 	/** Handle for the object being read. */
+ 	__u32 handle;
+@@ -1698,6 +1720,31 @@ struct drm_i915_gem_context_param {
+ 	__u64 value;
+ };
+ 
++struct drm_i915_gem_object_param {
++	/* Object handle (0 for I915_GEM_CREATE_EXT_SETPARAM) */
++	__u32 handle;
++
++	/* Data pointer size */
++	__u32 size;
++
++/*
++ * I915_OBJECT_PARAM:
++ *
++ * Select object namespace for the param.
++ */
++#define I915_OBJECT_PARAM  (1ull<<32)
++
++	__u64 param;
++
++	/* Data value or pointer */
++	__u64 data;
++};
++
++struct drm_i915_gem_create_ext_setparam {
++	struct i915_user_extension base;
++	struct drm_i915_gem_object_param param;
++};
++
+ /**
+  * Context SSEU programming
+  *
 -- 
 2.17.1
 
