@@ -7,37 +7,36 @@ X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F38FAC433E0
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Dec 2020 11:13:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EE69EC433E6
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Dec 2020 11:13:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9ECC2222F9
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Dec 2020 11:13:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9ECC2222F9
+	by mail.kernel.org (Postfix) with ESMTPS id AF6E0222F9
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Dec 2020 11:13:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AF6E0222F9
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 14BA66E949;
-	Wed, 23 Dec 2020 11:13:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2988D6E941;
+	Wed, 23 Dec 2020 11:13:33 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D7A5D6E904
- for <intel-gfx@lists.freedesktop.org>; Wed, 23 Dec 2020 11:12:12 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F0C176E933
+ for <intel-gfx@lists.freedesktop.org>; Wed, 23 Dec 2020 11:12:15 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23412207-1500050 
- for multiple; Wed, 23 Dec 2020 11:11:33 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23412240-1500050 
+ for multiple; Wed, 23 Dec 2020 11:11:36 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 23 Dec 2020 11:10:55 +0000
-Message-Id: <20201223111126.3338-31-chris@chris-wilson.co.uk>
+Date: Wed, 23 Dec 2020 11:11:14 +0000
+Message-Id: <20201223111126.3338-50-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201223111126.3338-1-chris@chris-wilson.co.uk>
 References: <20201223111126.3338-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 31/62] drm/i915: Extract request submission from
- execlists
+Subject: [Intel-gfx] [PATCH 50/62] drm/i915/gt: Add timeline "mode"
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,196 +55,111 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-In the process of preparing to reuse the request submission logic for
-other backends, lift it out of the execlists backend. It already
-operates on the common structs, so just a matter of moving and renaming.
+Explicitly differentiate between the absolute and relative timelines,
+and the global HWSP and ppHWSP relative offsets. When using a timeline
+that is relative to a known status page, we can replace the absolute
+addressing in the commands with indexed variants.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+Reviewed-by: Matthew Brost <matthew.brost@intel.com>
 ---
- .../drm/i915/gt/intel_execlists_submission.c  | 55 +------------
- drivers/gpu/drm/i915/i915_scheduler.c         | 82 +++++++++++++++++++
- drivers/gpu/drm/i915/i915_scheduler.h         |  2 +
- 3 files changed, 85 insertions(+), 54 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_timeline.c      | 21 ++++++++++++++++---
+ drivers/gpu/drm/i915/gt/intel_timeline.h      |  2 +-
+ .../gpu/drm/i915/gt/intel_timeline_types.h    | 10 +++++++--
+ 3 files changed, 27 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-index bb462159688b..1ac940fb8846 100644
---- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-+++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-@@ -2345,59 +2345,6 @@ static void execlists_preempt(struct timer_list *timer)
- 	execlists_kick(timer, preempt);
+diff --git a/drivers/gpu/drm/i915/gt/intel_timeline.c b/drivers/gpu/drm/i915/gt/intel_timeline.c
+index 7446c4eb5c8d..c49d088b3541 100644
+--- a/drivers/gpu/drm/i915/gt/intel_timeline.c
++++ b/drivers/gpu/drm/i915/gt/intel_timeline.c
+@@ -227,7 +227,6 @@ static int intel_timeline_init(struct intel_timeline *timeline,
+ 
+ 	timeline->gt = gt;
+ 
+-	timeline->has_initial_breadcrumb = !hwsp;
+ 	timeline->hwsp_cacheline = NULL;
+ 
+ 	if (!hwsp) {
+@@ -244,13 +243,29 @@ static int intel_timeline_init(struct intel_timeline *timeline,
+ 			return PTR_ERR(cl);
+ 		}
+ 
++		timeline->mode = INTEL_TIMELINE_ABSOLUTE;
+ 		timeline->hwsp_cacheline = cl;
+ 		timeline->hwsp_offset = cacheline * CACHELINE_BYTES;
+ 
+ 		vaddr = page_mask_bits(cl->vaddr);
+ 	} else {
+-		timeline->hwsp_offset = offset;
+-		vaddr = i915_gem_object_pin_map(hwsp->obj, I915_MAP_WB);
++		int preferred;
++
++		if (offset & INTEL_TIMELINE_RELATIVE_CONTEXT) {
++			timeline->mode = INTEL_TIMELINE_RELATIVE_CONTEXT;
++			timeline->hwsp_offset =
++				offset & ~INTEL_TIMELINE_RELATIVE_CONTEXT;
++			preferred = i915_coherent_map_type(gt->i915);
++		} else {
++			timeline->mode = INTEL_TIMELINE_RELATIVE_ENGINE;
++			timeline->hwsp_offset = offset;
++			preferred = I915_MAP_WB;
++		}
++
++		vaddr = i915_gem_object_pin_map(hwsp->obj,
++						preferred | I915_MAP_OVERRIDE);
++		if (IS_ERR(vaddr))
++			vaddr = i915_gem_object_pin_map(hwsp->obj, I915_MAP_WC);
+ 		if (IS_ERR(vaddr))
+ 			return PTR_ERR(vaddr);
+ 	}
+diff --git a/drivers/gpu/drm/i915/gt/intel_timeline.h b/drivers/gpu/drm/i915/gt/intel_timeline.h
+index 0e5e9fdade5b..6e738a85beda 100644
+--- a/drivers/gpu/drm/i915/gt/intel_timeline.h
++++ b/drivers/gpu/drm/i915/gt/intel_timeline.h
+@@ -64,7 +64,7 @@ static inline void intel_timeline_put(struct intel_timeline *timeline)
+ static inline bool
+ intel_timeline_has_initial_breadcrumb(const struct intel_timeline *tl)
+ {
+-	return tl->has_initial_breadcrumb;
++	return tl->mode == INTEL_TIMELINE_ABSOLUTE;
  }
  
--static void queue_request(struct intel_engine_cs *engine,
--			  struct i915_request *rq)
--{
--	GEM_BUG_ON(!list_empty(&rq->sched.link));
--	list_add_tail(&rq->sched.link,
--		      i915_sched_lookup_priolist(engine, rq_prio(rq)));
--	set_bit(I915_FENCE_FLAG_PQUEUE, &rq->fence.flags);
--}
--
--static bool submit_queue(struct intel_engine_cs *engine,
--			 const struct i915_request *rq)
--{
--	struct intel_engine_execlists *execlists = &engine->execlists;
--
--	if (rq_prio(rq) <= execlists->queue_priority_hint)
--		return false;
--
--	execlists->queue_priority_hint = rq_prio(rq);
--	return true;
--}
--
--static bool ancestor_on_hold(const struct intel_engine_cs *engine,
--			     const struct i915_request *rq)
--{
--	GEM_BUG_ON(i915_request_on_hold(rq));
--	return !list_empty(&engine->active.hold) && hold_request(rq);
--}
--
--static void execlists_submit_request(struct i915_request *request)
--{
--	struct intel_engine_cs *engine = request->engine;
--	unsigned long flags;
--
--	/* Will be called from irq-context when using foreign fences. */
--	spin_lock_irqsave(&engine->active.lock, flags);
--
--	if (unlikely(ancestor_on_hold(engine, request))) {
--		RQ_TRACE(request, "ancestor on hold\n");
--		list_add_tail(&request->sched.link, &engine->active.hold);
--		i915_request_set_hold(request);
--	} else {
--		queue_request(engine, request);
--
--		GEM_BUG_ON(RB_EMPTY_ROOT(&engine->execlists.queue.rb_root));
--		GEM_BUG_ON(list_empty(&request->sched.link));
--
--		if (submit_queue(engine, request))
--			__execlists_kick(&engine->execlists);
--	}
--
--	spin_unlock_irqrestore(&engine->active.lock, flags);
--}
--
- static int execlists_context_pre_pin(struct intel_context *ce,
- 				     struct i915_gem_ww_ctx *ww,
- 				     void **vaddr)
-@@ -3025,7 +2972,7 @@ static void execlists_park(struct intel_engine_cs *engine)
+ static inline int __intel_timeline_sync_set(struct intel_timeline *tl,
+diff --git a/drivers/gpu/drm/i915/gt/intel_timeline_types.h b/drivers/gpu/drm/i915/gt/intel_timeline_types.h
+index f187c5aac11c..3c1ab901b702 100644
+--- a/drivers/gpu/drm/i915/gt/intel_timeline_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_timeline_types.h
+@@ -20,6 +20,12 @@ struct i915_syncmap;
+ struct intel_gt;
+ struct intel_timeline_hwsp;
  
- void intel_execlists_set_default_submission(struct intel_engine_cs *engine)
- {
--	engine->submit_request = execlists_submit_request;
-+	engine->submit_request = i915_request_enqueue;
- 	engine->execlists.tasklet.func = execlists_submission_tasklet;
++enum intel_timeline_mode {
++	INTEL_TIMELINE_ABSOLUTE = 0,
++	INTEL_TIMELINE_RELATIVE_CONTEXT = BIT(0),
++	INTEL_TIMELINE_RELATIVE_ENGINE  = BIT(1),
++};
++
+ struct intel_timeline {
+ 	u64 fence_context;
+ 	u32 seqno;
+@@ -45,6 +51,8 @@ struct intel_timeline {
+ 	atomic_t pin_count;
+ 	atomic_t active_count;
  
- 	engine->reset.prepare = execlists_reset_prepare;
-diff --git a/drivers/gpu/drm/i915/i915_scheduler.c b/drivers/gpu/drm/i915/i915_scheduler.c
-index c3605da21dec..38dc9f8715bd 100644
---- a/drivers/gpu/drm/i915/i915_scheduler.c
-+++ b/drivers/gpu/drm/i915/i915_scheduler.c
-@@ -446,6 +446,88 @@ void i915_request_set_priority(struct i915_request *rq, int prio)
- 	spin_unlock_irqrestore(&engine->active.lock, flags);
- }
++	enum intel_timeline_mode mode;
++
+ 	const u32 *hwsp_seqno;
+ 	struct i915_vma *hwsp_ggtt;
+ 	u32 hwsp_offset;
+@@ -52,8 +60,6 @@ struct intel_timeline {
  
-+static void queue_request(struct intel_engine_cs *engine,
-+			  struct i915_request *rq)
-+{
-+	GEM_BUG_ON(!list_empty(&rq->sched.link));
-+	list_add_tail(&rq->sched.link,
-+		      i915_sched_lookup_priolist(engine, rq_prio(rq)));
-+	set_bit(I915_FENCE_FLAG_PQUEUE, &rq->fence.flags);
-+}
-+
-+static bool submit_queue(struct intel_engine_cs *engine,
-+			 const struct i915_request *rq)
-+{
-+	struct intel_engine_execlists *execlists = &engine->execlists;
-+
-+	if (rq_prio(rq) <= execlists->queue_priority_hint)
-+		return false;
-+
-+	execlists->queue_priority_hint = rq_prio(rq);
-+	return true;
-+}
-+
-+static bool hold_request(const struct i915_request *rq)
-+{
-+	struct i915_dependency *p;
-+	bool result = false;
-+
-+	/*
-+	 * If one of our ancestors is on hold, we must also be put on hold,
-+	 * otherwise we will bypass it and execute before it.
-+	 */
-+	rcu_read_lock();
-+	for_each_signaler(p, rq) {
-+		const struct i915_request *s =
-+			container_of(p->signaler, typeof(*s), sched);
-+
-+		if (s->engine != rq->engine)
-+			continue;
-+
-+		result = i915_request_on_hold(s);
-+		if (result)
-+			break;
-+	}
-+	rcu_read_unlock();
-+
-+	return result;
-+}
-+
-+static bool ancestor_on_hold(const struct intel_engine_cs *engine,
-+			     const struct i915_request *rq)
-+{
-+	GEM_BUG_ON(i915_request_on_hold(rq));
-+	return unlikely(!list_empty(&engine->active.hold)) && hold_request(rq);
-+}
-+
-+void i915_request_enqueue(struct i915_request *rq)
-+{
-+	struct intel_engine_cs *engine = rq->engine;
-+	unsigned long flags;
-+	bool kick = false;
-+
-+	/* Will be called from irq-context when using foreign fences. */
-+	spin_lock_irqsave(&engine->active.lock, flags);
-+	GEM_BUG_ON(test_bit(I915_FENCE_FLAG_PQUEUE, &rq->fence.flags));
-+
-+	if (unlikely(ancestor_on_hold(engine, rq))) {
-+		RQ_TRACE(rq, "ancestor on hold\n");
-+		list_add_tail(&rq->sched.link, &engine->active.hold);
-+		i915_request_set_hold(rq);
-+	} else {
-+		queue_request(engine, rq);
-+
-+		GEM_BUG_ON(RB_EMPTY_ROOT(&engine->execlists.queue.rb_root));
-+
-+		kick = submit_queue(engine, rq);
-+	}
-+
-+	GEM_BUG_ON(list_empty(&rq->sched.link));
-+	spin_unlock_irqrestore(&engine->active.lock, flags);
-+	if (kick)
-+		tasklet_hi_schedule(&engine->execlists.tasklet);
-+}
-+
- void i915_sched_node_init(struct i915_sched_node *node)
- {
- 	spin_lock_init(&node->lock);
-diff --git a/drivers/gpu/drm/i915/i915_scheduler.h b/drivers/gpu/drm/i915/i915_scheduler.h
-index 5be7f90e7896..c4c086d56f81 100644
---- a/drivers/gpu/drm/i915/i915_scheduler.h
-+++ b/drivers/gpu/drm/i915/i915_scheduler.h
-@@ -39,6 +39,8 @@ void i915_sched_init_ipi(struct i915_sched_ipi *ipi);
+ 	struct intel_timeline_cacheline *hwsp_cacheline;
  
- void i915_request_set_priority(struct i915_request *request, int prio);
- 
-+void i915_request_enqueue(struct i915_request *request);
-+
- struct list_head *
- i915_sched_lookup_priolist(struct intel_engine_cs *engine, int prio);
- 
+-	bool has_initial_breadcrumb;
+-
+ 	/**
+ 	 * List of breadcrumbs associated with GPU requests currently
+ 	 * outstanding.
 -- 
 2.20.1
 
