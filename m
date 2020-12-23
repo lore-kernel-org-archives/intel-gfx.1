@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 48FCBC433E9
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D9C49C433DB
 	for <intel-gfx@archiver.kernel.org>; Wed, 23 Dec 2020 11:12:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0BF3D222F9
+	by mail.kernel.org (Postfix) with ESMTPS id A543C222F9
 	for <intel-gfx@archiver.kernel.org>; Wed, 23 Dec 2020 11:12:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0BF3D222F9
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A543C222F9
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7097C6E932;
-	Wed, 23 Dec 2020 11:12:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 12FE46E93B;
+	Wed, 23 Dec 2020 11:12:17 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 740526E908
- for <intel-gfx@lists.freedesktop.org>; Wed, 23 Dec 2020 11:11:54 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E2516E8FF
+ for <intel-gfx@lists.freedesktop.org>; Wed, 23 Dec 2020 11:11:56 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23412236-1500050 
- for multiple; Wed, 23 Dec 2020 11:11:36 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23412179-1500050 
+ for multiple; Wed, 23 Dec 2020 11:11:27 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 23 Dec 2020 11:11:12 +0000
-Message-Id: <20201223111126.3338-48-chris@chris-wilson.co.uk>
+Date: Wed, 23 Dec 2020 11:10:27 +0000
+Message-Id: <20201223111126.3338-3-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201223111126.3338-1-chris@chris-wilson.co.uk>
 References: <20201223111126.3338-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 48/62] drm/i915/gt: Wrap
- intel_timeline.has_initial_breadcrumb
+Subject: [Intel-gfx] [PATCH 03/62] drm/i915/gt: Decouple inflight virtual
+ engines
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,116 +56,103 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-In preparation for removing the has_initial_breadcrumb field, add a
-helper function for the existing callers.
+Once a virtual engine has been bound to a sibling, it will remain bound
+until we finally schedule out the last active request. We can not rebind
+the context to a new sibling while it is inflight as the context save
+will conflict, hence we wait. As we cannot then use any other sibliing
+while the context is inflight, only kick the bound sibling while it
+inflight and upon scheduling out the kick the rest (so that we can swap
+engines on timeslicing if the previously bound engine becomes
+oversubscribed).
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-Reviewed-by: Mika Kuoppala <mika.kuoppala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/gt/gen8_engine_cs.c        | 2 +-
- drivers/gpu/drm/i915/gt/intel_ring_submission.c | 4 ++--
- drivers/gpu/drm/i915/gt/intel_timeline.c        | 6 +++---
- drivers/gpu/drm/i915/gt/intel_timeline.h        | 6 ++++++
- drivers/gpu/drm/i915/gt/selftest_timeline.c     | 5 +++--
- 5 files changed, 15 insertions(+), 8 deletions(-)
+ .../drm/i915/gt/intel_execlists_submission.c  | 28 ++++++++-----------
+ 1 file changed, 12 insertions(+), 16 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/gen8_engine_cs.c b/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
-index 1972dd5dca00..74f02d857acf 100644
---- a/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
-+++ b/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
-@@ -354,7 +354,7 @@ int gen8_emit_init_breadcrumb(struct i915_request *rq)
- 	u32 *cs;
+diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+index ddfd6b271b3b..fbd0572ed834 100644
+--- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
++++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+@@ -581,9 +581,8 @@ static inline void execlists_schedule_in(struct i915_request *rq, int idx)
+ static void kick_siblings(struct i915_request *rq, struct intel_context *ce)
+ {
+ 	struct virtual_engine *ve = container_of(ce, typeof(*ve), context);
+-	struct i915_request *next = READ_ONCE(ve->request);
  
- 	GEM_BUG_ON(i915_request_has_initial_breadcrumb(rq));
--	if (!i915_request_timeline(rq)->has_initial_breadcrumb)
-+	if (!intel_timeline_has_initial_breadcrumb(i915_request_timeline(rq)))
- 		return 0;
+-	if (next == rq || (next && next->execution_mask & ~rq->execution_mask))
++	if (READ_ONCE(ve->request))
+ 		tasklet_hi_schedule(&ve->base.execlists.tasklet);
+ }
  
- 	cs = intel_ring_begin(rq, 6);
-diff --git a/drivers/gpu/drm/i915/gt/intel_ring_submission.c b/drivers/gpu/drm/i915/gt/intel_ring_submission.c
-index 4ea741f488a8..4bc80c50dbe9 100644
---- a/drivers/gpu/drm/i915/gt/intel_ring_submission.c
-+++ b/drivers/gpu/drm/i915/gt/intel_ring_submission.c
-@@ -979,7 +979,7 @@ static int ring_request_alloc(struct i915_request *request)
- 	int ret;
+@@ -997,17 +996,13 @@ first_virtual_engine(struct intel_engine_cs *engine)
+ 		struct i915_request *rq = READ_ONCE(ve->request);
  
- 	GEM_BUG_ON(!intel_context_is_pinned(request->context));
--	GEM_BUG_ON(i915_request_timeline(request)->has_initial_breadcrumb);
-+	GEM_BUG_ON(intel_timeline_has_initial_breadcrumb(i915_request_timeline(request)));
+ 		/* lazily cleanup after another engine handled rq */
+-		if (!rq) {
++		if (!rq || !virtual_matches(ve, rq, engine)) {
+ 			rb_erase_cached(rb, &el->virtual);
+ 			RB_CLEAR_NODE(rb);
+ 			rb = rb_first_cached(&el->virtual);
+ 			continue;
+ 		}
  
- 	/*
- 	 * Flush enough space to reduce the likelihood of waiting after
-@@ -1304,7 +1304,7 @@ int intel_ring_submission_setup(struct intel_engine_cs *engine)
- 		err = PTR_ERR(timeline);
- 		goto err;
+-		if (!virtual_matches(ve, rq, engine)) {
+-			rb = rb_next(rb);
+-			continue;
+-		}
+ 		return ve;
  	}
--	GEM_BUG_ON(timeline->has_initial_breadcrumb);
-+	GEM_BUG_ON(intel_timeline_has_initial_breadcrumb(timeline));
  
- 	err = intel_timeline_pin(timeline, NULL);
- 	if (err)
-diff --git a/drivers/gpu/drm/i915/gt/intel_timeline.c b/drivers/gpu/drm/i915/gt/intel_timeline.c
-index 7fe05918a76e..3441303d6858 100644
---- a/drivers/gpu/drm/i915/gt/intel_timeline.c
-+++ b/drivers/gpu/drm/i915/gt/intel_timeline.c
-@@ -445,14 +445,14 @@ void intel_timeline_exit(struct intel_timeline *tl)
- static u32 timeline_advance(struct intel_timeline *tl)
- {
- 	GEM_BUG_ON(!atomic_read(&tl->pin_count));
--	GEM_BUG_ON(tl->seqno & tl->has_initial_breadcrumb);
-+	GEM_BUG_ON(tl->seqno & intel_timeline_has_initial_breadcrumb(tl));
+@@ -3435,7 +3430,6 @@ static void virtual_submission_tasklet(unsigned long data)
+ 	if (unlikely(!mask))
+ 		return;
  
--	return tl->seqno += 1 + tl->has_initial_breadcrumb;
-+	return tl->seqno += 1 + intel_timeline_has_initial_breadcrumb(tl);
- }
+-	local_irq_disable();
+ 	for (n = 0; n < ve->num_siblings; n++) {
+ 		struct intel_engine_cs *sibling = READ_ONCE(ve->siblings[n]);
+ 		struct ve_node * const node = &ve->nodes[sibling->id];
+@@ -3445,20 +3439,19 @@ static void virtual_submission_tasklet(unsigned long data)
+ 		if (!READ_ONCE(ve->request))
+ 			break; /* already handled by a sibling's tasklet */
  
- static void timeline_rollback(struct intel_timeline *tl)
- {
--	tl->seqno -= 1 + tl->has_initial_breadcrumb;
-+	tl->seqno -= 1 + intel_timeline_has_initial_breadcrumb(tl);
- }
- 
- static noinline int
-diff --git a/drivers/gpu/drm/i915/gt/intel_timeline.h b/drivers/gpu/drm/i915/gt/intel_timeline.h
-index f502a619843f..0e5e9fdade5b 100644
---- a/drivers/gpu/drm/i915/gt/intel_timeline.h
-+++ b/drivers/gpu/drm/i915/gt/intel_timeline.h
-@@ -61,6 +61,12 @@ static inline void intel_timeline_put(struct intel_timeline *timeline)
- 	kref_put(&timeline->kref, __intel_timeline_free);
- }
- 
-+static inline bool
-+intel_timeline_has_initial_breadcrumb(const struct intel_timeline *tl)
-+{
-+	return tl->has_initial_breadcrumb;
-+}
++		spin_lock_irq(&sibling->active.lock);
 +
- static inline int __intel_timeline_sync_set(struct intel_timeline *tl,
- 					    u64 context, u32 seqno)
- {
-diff --git a/drivers/gpu/drm/i915/gt/selftest_timeline.c b/drivers/gpu/drm/i915/gt/selftest_timeline.c
-index 6f3a3687ef0f..4f47a0535c91 100644
---- a/drivers/gpu/drm/i915/gt/selftest_timeline.c
-+++ b/drivers/gpu/drm/i915/gt/selftest_timeline.c
-@@ -666,7 +666,7 @@ static int live_hwsp_wrap(void *arg)
- 	if (IS_ERR(tl))
- 		return PTR_ERR(tl);
+ 		if (unlikely(!(mask & sibling->mask))) {
+ 			if (!RB_EMPTY_NODE(&node->rb)) {
+-				spin_lock(&sibling->active.lock);
+ 				rb_erase_cached(&node->rb,
+ 						&sibling->execlists.virtual);
+ 				RB_CLEAR_NODE(&node->rb);
+-				spin_unlock(&sibling->active.lock);
+ 			}
+-			continue;
+-		}
  
--	if (!tl->has_initial_breadcrumb || !tl->hwsp_cacheline)
-+	if (!intel_timeline_has_initial_breadcrumb(tl) || !tl->hwsp_cacheline)
- 		goto out_free;
+-		spin_lock(&sibling->active.lock);
++			goto unlock_engine;
++		}
  
- 	err = intel_timeline_pin(tl, NULL);
-@@ -1235,7 +1235,8 @@ static int live_hwsp_rollover_user(void *arg)
- 			goto out;
+-		if (!RB_EMPTY_NODE(&node->rb)) {
++		if (unlikely(!RB_EMPTY_NODE(&node->rb))) {
+ 			/*
+ 			 * Cheat and avoid rebalancing the tree if we can
+ 			 * reuse this node in situ.
+@@ -3498,9 +3491,12 @@ static void virtual_submission_tasklet(unsigned long data)
+ 		if (first && prio > sibling->execlists.queue_priority_hint)
+ 			tasklet_hi_schedule(&sibling->execlists.tasklet);
  
- 		tl = ce->timeline;
--		if (!tl->has_initial_breadcrumb || !tl->hwsp_cacheline)
-+		if (!intel_timeline_has_initial_breadcrumb(tl) ||
-+		    !tl->hwsp_cacheline)
- 			goto out;
+-		spin_unlock(&sibling->active.lock);
++unlock_engine:
++		spin_unlock_irq(&sibling->active.lock);
++
++		if (intel_context_inflight(&ve->context))
++			break;
+ 	}
+-	local_irq_enable();
+ }
  
- 		timeline_rollback(tl);
+ static void virtual_submit_request(struct i915_request *rq)
 -- 
 2.20.1
 
