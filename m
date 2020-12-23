@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 49325C433DB
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Dec 2020 11:12:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 08282C433E0
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Dec 2020 11:12:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 15A0A222F9
+	by mail.kernel.org (Postfix) with ESMTPS id C0721222F9
 	for <intel-gfx@archiver.kernel.org>; Wed, 23 Dec 2020 11:12:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 15A0A222F9
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C0721222F9
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C91D6E934;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D43C96E939;
 	Wed, 23 Dec 2020 11:12:16 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9DE126E90C
- for <intel-gfx@lists.freedesktop.org>; Wed, 23 Dec 2020 11:11:55 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D3BA6E088
+ for <intel-gfx@lists.freedesktop.org>; Wed, 23 Dec 2020 11:11:52 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23412191-1500050 
- for multiple; Wed, 23 Dec 2020 11:11:30 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23412221-1500050 
+ for multiple; Wed, 23 Dec 2020 11:11:34 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 23 Dec 2020 11:10:39 +0000
-Message-Id: <20201223111126.3338-15-chris@chris-wilson.co.uk>
+Date: Wed, 23 Dec 2020 11:11:04 +0000
+Message-Id: <20201223111126.3338-40-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201223111126.3338-1-chris@chris-wilson.co.uk>
 References: <20201223111126.3338-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 15/62] drm/i915/gem: Reduce ctx->engines_mutex
- for get_engines()
+Subject: [Intel-gfx] [PATCH 40/62] drm/i915: Wrap cmpxchg64 with
+ try_cmpxchg64() helper
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,82 +56,55 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Take a snapshot of the ctx->engines, so we can avoid taking the
-ctx->engines_mutex for a mere read in get_engines().
+Wrap cmpxchg64 with a try_cmpxchg()-esque helper. Hiding the old-value
+dance in the helper allows for cleaner code.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_context.c | 39 +++++----------------
- 1 file changed, 8 insertions(+), 31 deletions(-)
+ drivers/gpu/drm/i915/i915_utils.h | 32 +++++++++++++++++++++++++++++++
+ 1 file changed, 32 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-index d117fc039702..db8901cc2c8e 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-@@ -1840,27 +1840,6 @@ set_engines(struct i915_gem_context *ctx,
- 	return 0;
- }
+diff --git a/drivers/gpu/drm/i915/i915_utils.h b/drivers/gpu/drm/i915/i915_utils.h
+index 54773371e6bd..f8addd6d5afa 100644
+--- a/drivers/gpu/drm/i915/i915_utils.h
++++ b/drivers/gpu/drm/i915/i915_utils.h
+@@ -456,4 +456,36 @@ static inline bool timer_expired(const struct timer_list *t)
+  */
+ #define IS_ACTIVE(config) ((config) != 0)
  
--static struct i915_gem_engines *
--__copy_engines(struct i915_gem_engines *e)
--{
--	struct i915_gem_engines *copy;
--	unsigned int n;
--
--	copy = alloc_engines(e->num_engines);
--	if (!copy)
--		return ERR_PTR(-ENOMEM);
--
--	for (n = 0; n < e->num_engines; n++) {
--		if (e->engines[n])
--			copy->engines[n] = intel_context_get(e->engines[n]);
--		else
--			copy->engines[n] = NULL;
--	}
--	copy->num_engines = n;
--
--	return copy;
--}
--
- static int
- get_engines(struct i915_gem_context *ctx,
- 	    struct drm_i915_gem_context_param *args)
-@@ -1868,19 +1847,17 @@ get_engines(struct i915_gem_context *ctx,
- 	struct i915_context_param_engines __user *user;
- 	struct i915_gem_engines *e;
- 	size_t n, count, size;
-+	bool user_engines;
- 	int err = 0;
- 
--	err = mutex_lock_interruptible(&ctx->engines_mutex);
--	if (err)
--		return err;
-+	e = __context_engines_await(ctx, &user_engines);
-+	if (!e)
-+		return -ENOENT;
- 
--	e = NULL;
--	if (i915_gem_context_user_engines(ctx))
--		e = __copy_engines(i915_gem_context_engines(ctx));
--	mutex_unlock(&ctx->engines_mutex);
--	if (IS_ERR_OR_NULL(e)) {
-+	if (!user_engines) {
-+		i915_sw_fence_complete(&e->fence);
- 		args->size = 0;
--		return PTR_ERR_OR_ZERO(e);
-+		return 0;
- 	}
- 
- 	count = e->num_engines;
-@@ -1931,7 +1908,7 @@ get_engines(struct i915_gem_context *ctx,
- 	args->size = size;
- 
- err_free:
--	free_engines(e);
-+	i915_sw_fence_complete(&e->fence);
- 	return err;
- }
- 
++#ifndef try_cmpxchg64
++#if IS_ENABLED(CONFIG_64BIT)
++#define try_cmpxchg64(_ptr, _pold, _new) try_cmpxchg(_ptr, _pold, _new)
++#else
++#define try_cmpxchg64(_ptr, _pold, _new)				\
++({									\
++	__typeof__(_ptr) _old = (__typeof__(_ptr))(_pold);		\
++	__typeof__(*(_ptr)) __old = *_old;				\
++	__typeof__(*(_ptr)) __cur = cmpxchg64(_ptr, __old, _new);	\
++	bool success = __cur == __old;					\
++	if (unlikely(!success))						\
++		*_old = __cur;						\
++	likely(success);						\
++})
++#endif
++#endif
++
++#ifndef xchg64
++#if IS_ENABLED(CONFIG_64BIT)
++#define xchg64(_ptr, _new) xchg(_ptr, _new)
++#else
++#define xchg64(_ptr, _new)						\
++({									\
++	__typeof__(_ptr) __ptr = (_ptr);				\
++	__typeof__(*(_ptr)) __old = *__ptr;				\
++	while (!try_cmpxchg64(__ptr, &__old, (_new)))			\
++		;							\
++	__old;								\
++})
++#endif
++#endif
++
+ #endif /* !__I915_UTILS_H */
 -- 
 2.20.1
 
