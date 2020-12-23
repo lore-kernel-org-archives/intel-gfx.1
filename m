@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 23957C433DB
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9DDC4C433E9
 	for <intel-gfx@archiver.kernel.org>; Wed, 23 Dec 2020 11:12:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E2B6C222F9
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Dec 2020 11:12:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E2B6C222F9
+	by mail.kernel.org (Postfix) with ESMTPS id 6762B222F9
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Dec 2020 11:12:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6762B222F9
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C2F36E933;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DAD936E940;
 	Wed, 23 Dec 2020 11:12:53 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 122676E92A
- for <intel-gfx@lists.freedesktop.org>; Wed, 23 Dec 2020 11:12:14 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 87DF26E8F9
+ for <intel-gfx@lists.freedesktop.org>; Wed, 23 Dec 2020 11:11:47 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23412182-1500050 
- for multiple; Wed, 23 Dec 2020 11:11:28 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23412238-1500050 
+ for multiple; Wed, 23 Dec 2020 11:11:36 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 23 Dec 2020 11:10:30 +0000
-Message-Id: <20201223111126.3338-6-chris@chris-wilson.co.uk>
+Date: Wed, 23 Dec 2020 11:11:13 +0000
+Message-Id: <20201223111126.3338-49-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201223111126.3338-1-chris@chris-wilson.co.uk>
 References: <20201223111126.3338-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 06/62] drm/i915/gt: Shrink the critical section
- for irq signaling
+Subject: [Intel-gfx] [PATCH 49/62] drm/i915/gt: Track timeline GGTT offset
+ separately from subpage offset
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,64 +56,224 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Let's only wait for the list iterator when decoupling the virtual
-breadcrumb, as the signaling of all the requests may take a long time,
-during which we do not want to keep the tasklet spinning.
+Currently we know that the timeline status page is at most a page in
+size, and so we can preserve the lower 12bits of the offset when
+relocating the status page in the GGTT. If we want to use a larger
+object, such as the context state, we may not necessarily use a position
+within the first page and so need more than 12b.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 Reviewed-by: Matthew Brost <matthew.brost@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_breadcrumbs.c          | 2 ++
- drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h    | 1 +
- drivers/gpu/drm/i915/gt/intel_execlists_submission.c | 3 ++-
- 3 files changed, 5 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/gt/gen6_engine_cs.c       |  4 ++--
+ drivers/gpu/drm/i915/gt/gen8_engine_cs.c       |  2 +-
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c      |  4 ++--
+ drivers/gpu/drm/i915/gt/intel_timeline.c       | 17 +++++++----------
+ drivers/gpu/drm/i915/gt/intel_timeline_types.h |  1 +
+ drivers/gpu/drm/i915/gt/selftest_engine_cs.c   |  2 +-
+ drivers/gpu/drm/i915/gt/selftest_rc6.c         |  2 +-
+ drivers/gpu/drm/i915/gt/selftest_timeline.c    | 16 ++++++++--------
+ 8 files changed, 23 insertions(+), 25 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-index 8f7c8595ba08..2eabb9ab5d47 100644
---- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-@@ -234,6 +234,7 @@ static void signal_irq_work(struct irq_work *work)
- 		intel_breadcrumbs_disarm_irq(b);
+diff --git a/drivers/gpu/drm/i915/gt/gen6_engine_cs.c b/drivers/gpu/drm/i915/gt/gen6_engine_cs.c
+index ce38d1bcaba3..2f59dd3bdc18 100644
+--- a/drivers/gpu/drm/i915/gt/gen6_engine_cs.c
++++ b/drivers/gpu/drm/i915/gt/gen6_engine_cs.c
+@@ -161,7 +161,7 @@ u32 *gen6_emit_breadcrumb_rcs(struct i915_request *rq, u32 *cs)
+ 		 PIPE_CONTROL_DC_FLUSH_ENABLE |
+ 		 PIPE_CONTROL_QW_WRITE |
+ 		 PIPE_CONTROL_CS_STALL);
+-	*cs++ = i915_request_active_timeline(rq)->hwsp_offset |
++	*cs++ = i915_request_active_timeline(rq)->ggtt_offset |
+ 		PIPE_CONTROL_GLOBAL_GTT;
+ 	*cs++ = rq->fence.seqno;
  
- 	rcu_read_lock();
-+	atomic_inc(&b->signaler_active);
- 	list_for_each_entry_rcu(ce, &b->signalers, signal_link) {
- 		struct i915_request *rq;
+@@ -359,7 +359,7 @@ u32 *gen7_emit_breadcrumb_rcs(struct i915_request *rq, u32 *cs)
+ 		 PIPE_CONTROL_QW_WRITE |
+ 		 PIPE_CONTROL_GLOBAL_GTT_IVB |
+ 		 PIPE_CONTROL_CS_STALL);
+-	*cs++ = i915_request_active_timeline(rq)->hwsp_offset;
++	*cs++ = i915_request_active_timeline(rq)->ggtt_offset;
+ 	*cs++ = rq->fence.seqno;
  
-@@ -269,6 +270,7 @@ static void signal_irq_work(struct irq_work *work)
- 			}
+ 	*cs++ = MI_USER_INTERRUPT;
+diff --git a/drivers/gpu/drm/i915/gt/gen8_engine_cs.c b/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
+index 74f02d857acf..dcd8786d796d 100644
+--- a/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
++++ b/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
+@@ -346,7 +346,7 @@ static u32 hwsp_offset(const struct i915_request *rq)
+ 	if (cl)
+ 		return cl->ggtt_offset;
+ 
+-	return rcu_dereference_protected(rq->timeline, 1)->hwsp_offset;
++	return rcu_dereference_protected(rq->timeline, 1)->ggtt_offset;
+ }
+ 
+ int gen8_emit_init_breadcrumb(struct i915_request *rq)
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+index f88e367d5201..6d461c2ab671 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
++++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+@@ -1324,7 +1324,7 @@ static int print_ring(char *buf, int sz, struct i915_request *rq)
+ 		len = scnprintf(buf, sz,
+ 				"ring:{start:%08x, hwsp:%08x, seqno:%08x, runtime:%llums}, ",
+ 				i915_ggtt_offset(rq->ring->vma),
+-				tl ? tl->hwsp_offset : 0,
++				tl ? tl->ggtt_offset : 0,
+ 				hwsp_seqno(rq),
+ 				DIV_ROUND_CLOSEST_ULL(intel_context_get_total_runtime_ns(rq->context),
+ 						      1000 * 1000));
+@@ -1663,7 +1663,7 @@ void intel_engine_dump(struct intel_engine_cs *engine,
+ 
+ 		if (tl) {
+ 			drm_printf(m, "\t\tring->hwsp:   0x%08x\n",
+-				   tl->hwsp_offset);
++				   tl->ggtt_offset);
+ 			intel_timeline_put(tl);
  		}
- 	}
-+	atomic_dec(&b->signaler_active);
- 	rcu_read_unlock();
  
- 	llist_for_each_safe(signal, sn, signal) {
-diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h b/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h
-index d85a6f74fb87..3a084ce8ff5e 100644
---- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h
-+++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h
-@@ -34,6 +34,7 @@ struct intel_breadcrumbs {
- 	spinlock_t signalers_lock; /* protects the list of signalers */
- 	struct list_head signalers;
- 	struct llist_head signaled_requests;
-+	atomic_t signaler_active;
+diff --git a/drivers/gpu/drm/i915/gt/intel_timeline.c b/drivers/gpu/drm/i915/gt/intel_timeline.c
+index 3441303d6858..7446c4eb5c8d 100644
+--- a/drivers/gpu/drm/i915/gt/intel_timeline.c
++++ b/drivers/gpu/drm/i915/gt/intel_timeline.c
+@@ -355,13 +355,11 @@ int intel_timeline_pin(struct intel_timeline *tl, struct i915_gem_ww_ctx *ww)
+ 	if (err)
+ 		return err;
  
- 	spinlock_t irq_lock; /* protects the interrupt from hardirq context */
- 	struct irq_work irq_work; /* for use from inside irq_lock */
-diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-index 1f6e9fe5bcc0..ba8229c0c75a 100644
---- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-+++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-@@ -594,7 +594,8 @@ static void kick_siblings(struct i915_request *rq, struct intel_context *ce)
- 		 * ce->signal_link.
- 		 */
- 		i915_request_cancel_breadcrumb(rq);
--		irq_work_sync(&engine->breadcrumbs->irq_work);
-+		while (atomic_read(&engine->breadcrumbs->signaler_active))
-+			cpu_relax();
- 	}
+-	tl->hwsp_offset =
+-		i915_ggtt_offset(tl->hwsp_ggtt) +
+-		offset_in_page(tl->hwsp_offset);
++	tl->ggtt_offset = i915_ggtt_offset(tl->hwsp_ggtt) + tl->hwsp_offset;
+ 	GT_TRACE(tl->gt, "timeline:%llx using HWSP offset:%x\n",
+-		 tl->fence_context, tl->hwsp_offset);
++		 tl->fence_context, tl->ggtt_offset);
  
- 	if (READ_ONCE(ve->request))
+-	cacheline_acquire(tl->hwsp_cacheline, tl->hwsp_offset);
++	cacheline_acquire(tl->hwsp_cacheline, tl->ggtt_offset);
+ 	if (atomic_fetch_inc(&tl->pin_count)) {
+ 		cacheline_release(tl->hwsp_cacheline);
+ 		__i915_vma_unpin(tl->hwsp_ggtt);
+@@ -529,14 +527,13 @@ __intel_timeline_get_seqno(struct intel_timeline *tl,
+ 
+ 	vaddr = page_mask_bits(cl->vaddr);
+ 	tl->hwsp_offset = cacheline * CACHELINE_BYTES;
+-	tl->hwsp_seqno =
+-		memset(vaddr + tl->hwsp_offset, 0, CACHELINE_BYTES);
++	tl->hwsp_seqno = memset(vaddr + tl->hwsp_offset, 0, CACHELINE_BYTES);
+ 
+-	tl->hwsp_offset += i915_ggtt_offset(vma);
++	tl->ggtt_offset = i915_ggtt_offset(vma) + tl->hwsp_offset;
+ 	GT_TRACE(tl->gt, "timeline:%llx using HWSP offset:%x\n",
+-		 tl->fence_context, tl->hwsp_offset);
++		 tl->fence_context, tl->ggtt_offset);
+ 
+-	cacheline_acquire(cl, tl->hwsp_offset);
++	cacheline_acquire(cl, tl->ggtt_offset);
+ 	tl->hwsp_cacheline = cl;
+ 
+ 	*seqno = timeline_advance(tl);
+diff --git a/drivers/gpu/drm/i915/gt/intel_timeline_types.h b/drivers/gpu/drm/i915/gt/intel_timeline_types.h
+index e360f50706bf..f187c5aac11c 100644
+--- a/drivers/gpu/drm/i915/gt/intel_timeline_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_timeline_types.h
+@@ -48,6 +48,7 @@ struct intel_timeline {
+ 	const u32 *hwsp_seqno;
+ 	struct i915_vma *hwsp_ggtt;
+ 	u32 hwsp_offset;
++	u32 ggtt_offset;
+ 
+ 	struct intel_timeline_cacheline *hwsp_cacheline;
+ 
+diff --git a/drivers/gpu/drm/i915/gt/selftest_engine_cs.c b/drivers/gpu/drm/i915/gt/selftest_engine_cs.c
+index 439c8984f5fa..bf4b8973b188 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_engine_cs.c
++++ b/drivers/gpu/drm/i915/gt/selftest_engine_cs.c
+@@ -54,7 +54,7 @@ static int write_timestamp(struct i915_request *rq, int slot)
+ 		cmd++;
+ 	*cs++ = cmd;
+ 	*cs++ = i915_mmio_reg_offset(RING_TIMESTAMP(rq->engine->mmio_base));
+-	*cs++ = i915_request_timeline(rq)->hwsp_offset + slot * sizeof(u32);
++	*cs++ = i915_request_timeline(rq)->ggtt_offset + slot * sizeof(u32);
+ 	*cs++ = 0;
+ 
+ 	intel_ring_advance(rq, cs);
+diff --git a/drivers/gpu/drm/i915/gt/selftest_rc6.c b/drivers/gpu/drm/i915/gt/selftest_rc6.c
+index 61abc0556601..4eb4c627ec44 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_rc6.c
++++ b/drivers/gpu/drm/i915/gt/selftest_rc6.c
+@@ -138,7 +138,7 @@ static const u32 *__live_rc6_ctx(struct intel_context *ce)
+ 
+ 	*cs++ = cmd;
+ 	*cs++ = i915_mmio_reg_offset(GEN8_RC6_CTX_INFO);
+-	*cs++ = ce->timeline->hwsp_offset + 8;
++	*cs++ = ce->timeline->ggtt_offset + 8;
+ 	*cs++ = 0;
+ 	intel_ring_advance(rq, cs);
+ 
+diff --git a/drivers/gpu/drm/i915/gt/selftest_timeline.c b/drivers/gpu/drm/i915/gt/selftest_timeline.c
+index 4f47a0535c91..e44bfceef413 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_timeline.c
++++ b/drivers/gpu/drm/i915/gt/selftest_timeline.c
+@@ -469,7 +469,7 @@ tl_write(struct intel_timeline *tl, struct intel_engine_cs *engine, u32 value)
+ 
+ 	i915_request_get(rq);
+ 
+-	err = emit_ggtt_store_dw(rq, tl->hwsp_offset, value);
++	err = emit_ggtt_store_dw(rq, tl->ggtt_offset, value);
+ 	i915_request_add(rq);
+ 	if (err) {
+ 		i915_request_put(rq);
+@@ -565,7 +565,7 @@ static int live_hwsp_engine(void *arg)
+ 
+ 		if (!err && READ_ONCE(*tl->hwsp_seqno) != n) {
+ 			GEM_TRACE_ERR("Invalid seqno:%lu stored in timeline %llu @ %x, found 0x%x\n",
+-				      n, tl->fence_context, tl->hwsp_offset, *tl->hwsp_seqno);
++				      n, tl->fence_context, tl->ggtt_offset, *tl->hwsp_seqno);
+ 			GEM_TRACE_DUMP();
+ 			err = -EINVAL;
+ 		}
+@@ -637,7 +637,7 @@ static int live_hwsp_alternate(void *arg)
+ 
+ 		if (!err && READ_ONCE(*tl->hwsp_seqno) != n) {
+ 			GEM_TRACE_ERR("Invalid seqno:%lu stored in timeline %llu @ %x, found 0x%x\n",
+-				      n, tl->fence_context, tl->hwsp_offset, *tl->hwsp_seqno);
++				      n, tl->fence_context, tl->ggtt_offset, *tl->hwsp_seqno);
+ 			GEM_TRACE_DUMP();
+ 			err = -EINVAL;
+ 		}
+@@ -697,9 +697,9 @@ static int live_hwsp_wrap(void *arg)
+ 			goto out;
+ 		}
+ 		pr_debug("seqno[0]:%08x, hwsp_offset:%08x\n",
+-			 seqno[0], tl->hwsp_offset);
++			 seqno[0], tl->ggtt_offset);
+ 
+-		err = emit_ggtt_store_dw(rq, tl->hwsp_offset, seqno[0]);
++		err = emit_ggtt_store_dw(rq, tl->ggtt_offset, seqno[0]);
+ 		if (err) {
+ 			i915_request_add(rq);
+ 			goto out;
+@@ -714,9 +714,9 @@ static int live_hwsp_wrap(void *arg)
+ 			goto out;
+ 		}
+ 		pr_debug("seqno[1]:%08x, hwsp_offset:%08x\n",
+-			 seqno[1], tl->hwsp_offset);
++			 seqno[1], tl->ggtt_offset);
+ 
+-		err = emit_ggtt_store_dw(rq, tl->hwsp_offset, seqno[1]);
++		err = emit_ggtt_store_dw(rq, tl->ggtt_offset, seqno[1]);
+ 		if (err) {
+ 			i915_request_add(rq);
+ 			goto out;
+@@ -1344,7 +1344,7 @@ static int live_hwsp_recycle(void *arg)
+ 			if (READ_ONCE(*tl->hwsp_seqno) != count) {
+ 				GEM_TRACE_ERR("Invalid seqno:%lu stored in timeline %llu @ %x found 0x%x\n",
+ 					      count, tl->fence_context,
+-					      tl->hwsp_offset, *tl->hwsp_seqno);
++					      tl->ggtt_offset, *tl->hwsp_seqno);
+ 				GEM_TRACE_DUMP();
+ 				err = -EINVAL;
+ 			}
 -- 
 2.20.1
 
