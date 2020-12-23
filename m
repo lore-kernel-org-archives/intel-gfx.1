@@ -7,36 +7,45 @@ X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EE69EC433E6
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Dec 2020 11:13:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E6C81C433E0
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Dec 2020 11:38:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AF6E0222F9
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Dec 2020 11:13:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AF6E0222F9
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
+	by mail.kernel.org (Postfix) with ESMTPS id 913422079A
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Dec 2020 11:38:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 913422079A
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2988D6E941;
-	Wed, 23 Dec 2020 11:13:33 +0000 (UTC)
-Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F0C176E933
- for <intel-gfx@lists.freedesktop.org>; Wed, 23 Dec 2020 11:12:15 +0000 (UTC)
-X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
- x-ip-name=78.156.65.138; 
-Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23412240-1500050 
- for multiple; Wed, 23 Dec 2020 11:11:36 +0000
-From: Chris Wilson <chris@chris-wilson.co.uk>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A77AF6E088;
+	Wed, 23 Dec 2020 11:38:34 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3AA346E088
+ for <intel-gfx@lists.freedesktop.org>; Wed, 23 Dec 2020 11:38:34 +0000 (UTC)
+IronPort-SDR: rpb5oikyYlb64OdlJ/MsM5ZFZL87wCWw+O50S/7xJk2y6s8TVL88hWBDrUUYg6DSGNdFPSReY6
+ s5PJlHWNYd8g==
+X-IronPort-AV: E=McAfee;i="6000,8403,9843"; a="260735927"
+X-IronPort-AV: E=Sophos;i="5.78,441,1599548400"; d="scan'208";a="260735927"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Dec 2020 03:38:33 -0800
+IronPort-SDR: 0wVZK0v5wOYQmULTkMNPKZduPeSymq/IYL3mREp/iuGgW9l7Zf4F/F7DVEtxnGrto5pz9Pw3fw
+ sHfsoDEkAWPw==
+X-IronPort-AV: E=Sophos;i="5.78,441,1599548400"; d="scan'208";a="373946958"
+Received: from helsinki.fi.intel.com ([10.237.66.162])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Dec 2020 03:38:32 -0800
+From: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 23 Dec 2020 11:11:14 +0000
-Message-Id: <20201223111126.3338-50-chris@chris-wilson.co.uk>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20201223111126.3338-1-chris@chris-wilson.co.uk>
-References: <20201223111126.3338-1-chris@chris-wilson.co.uk>
+Date: Wed, 23 Dec 2020 13:38:03 +0200
+Message-Id: <20201223113803.873717-2-gwan-gyeong.mun@intel.com>
+X-Mailer: git-send-email 2.25.0
+In-Reply-To: <20201223113803.873717-1-gwan-gyeong.mun@intel.com>
+References: <20201223113803.873717-1-gwan-gyeong.mun@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 50/62] drm/i915/gt: Add timeline "mode"
+Subject: [Intel-gfx] [PATCH v8 2/2] drm/i915/display: Support Multiple
+ Transcoders' PSR status on debugfs
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,121 +58,48 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Chris Wilson <chris@chris-wilson.co.uk>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: jani.nikula@intel.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Explicitly differentiate between the absolute and relative timelines,
-and the global HWSP and ppHWSP relative offsets. When using a timeline
-that is relative to a known status page, we can replace the absolute
-addressing in the commands with indexed variants.
-
-Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-Reviewed-by: Matthew Brost <matthew.brost@intel.com>
----
- drivers/gpu/drm/i915/gt/intel_timeline.c      | 21 ++++++++++++++++---
- drivers/gpu/drm/i915/gt/intel_timeline.h      |  2 +-
- .../gpu/drm/i915/gt/intel_timeline_types.h    | 10 +++++++--
- 3 files changed, 27 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/gt/intel_timeline.c b/drivers/gpu/drm/i915/gt/intel_timeline.c
-index 7446c4eb5c8d..c49d088b3541 100644
---- a/drivers/gpu/drm/i915/gt/intel_timeline.c
-+++ b/drivers/gpu/drm/i915/gt/intel_timeline.c
-@@ -227,7 +227,6 @@ static int intel_timeline_init(struct intel_timeline *timeline,
- 
- 	timeline->gt = gt;
- 
--	timeline->has_initial_breadcrumb = !hwsp;
- 	timeline->hwsp_cacheline = NULL;
- 
- 	if (!hwsp) {
-@@ -244,13 +243,29 @@ static int intel_timeline_init(struct intel_timeline *timeline,
- 			return PTR_ERR(cl);
- 		}
- 
-+		timeline->mode = INTEL_TIMELINE_ABSOLUTE;
- 		timeline->hwsp_cacheline = cl;
- 		timeline->hwsp_offset = cacheline * CACHELINE_BYTES;
- 
- 		vaddr = page_mask_bits(cl->vaddr);
- 	} else {
--		timeline->hwsp_offset = offset;
--		vaddr = i915_gem_object_pin_map(hwsp->obj, I915_MAP_WB);
-+		int preferred;
-+
-+		if (offset & INTEL_TIMELINE_RELATIVE_CONTEXT) {
-+			timeline->mode = INTEL_TIMELINE_RELATIVE_CONTEXT;
-+			timeline->hwsp_offset =
-+				offset & ~INTEL_TIMELINE_RELATIVE_CONTEXT;
-+			preferred = i915_coherent_map_type(gt->i915);
-+		} else {
-+			timeline->mode = INTEL_TIMELINE_RELATIVE_ENGINE;
-+			timeline->hwsp_offset = offset;
-+			preferred = I915_MAP_WB;
-+		}
-+
-+		vaddr = i915_gem_object_pin_map(hwsp->obj,
-+						preferred | I915_MAP_OVERRIDE);
-+		if (IS_ERR(vaddr))
-+			vaddr = i915_gem_object_pin_map(hwsp->obj, I915_MAP_WC);
- 		if (IS_ERR(vaddr))
- 			return PTR_ERR(vaddr);
- 	}
-diff --git a/drivers/gpu/drm/i915/gt/intel_timeline.h b/drivers/gpu/drm/i915/gt/intel_timeline.h
-index 0e5e9fdade5b..6e738a85beda 100644
---- a/drivers/gpu/drm/i915/gt/intel_timeline.h
-+++ b/drivers/gpu/drm/i915/gt/intel_timeline.h
-@@ -64,7 +64,7 @@ static inline void intel_timeline_put(struct intel_timeline *timeline)
- static inline bool
- intel_timeline_has_initial_breadcrumb(const struct intel_timeline *tl)
- {
--	return tl->has_initial_breadcrumb;
-+	return tl->mode == INTEL_TIMELINE_ABSOLUTE;
- }
- 
- static inline int __intel_timeline_sync_set(struct intel_timeline *tl,
-diff --git a/drivers/gpu/drm/i915/gt/intel_timeline_types.h b/drivers/gpu/drm/i915/gt/intel_timeline_types.h
-index f187c5aac11c..3c1ab901b702 100644
---- a/drivers/gpu/drm/i915/gt/intel_timeline_types.h
-+++ b/drivers/gpu/drm/i915/gt/intel_timeline_types.h
-@@ -20,6 +20,12 @@ struct i915_syncmap;
- struct intel_gt;
- struct intel_timeline_hwsp;
- 
-+enum intel_timeline_mode {
-+	INTEL_TIMELINE_ABSOLUTE = 0,
-+	INTEL_TIMELINE_RELATIVE_CONTEXT = BIT(0),
-+	INTEL_TIMELINE_RELATIVE_ENGINE  = BIT(1),
-+};
-+
- struct intel_timeline {
- 	u64 fence_context;
- 	u32 seqno;
-@@ -45,6 +51,8 @@ struct intel_timeline {
- 	atomic_t pin_count;
- 	atomic_t active_count;
- 
-+	enum intel_timeline_mode mode;
-+
- 	const u32 *hwsp_seqno;
- 	struct i915_vma *hwsp_ggtt;
- 	u32 hwsp_offset;
-@@ -52,8 +60,6 @@ struct intel_timeline {
- 
- 	struct intel_timeline_cacheline *hwsp_cacheline;
- 
--	bool has_initial_breadcrumb;
--
- 	/**
- 	 * List of breadcrumbs associated with GPU requests currently
- 	 * outstanding.
--- 
-2.20.1
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+SW4gb3JkZXIgdG8gc3VwcG9ydCB0aGUgUFNSIHN0YXRlIG9mIGVhY2ggdHJhbnNjb2RlciwgaXQg
+YWRkcwppOTE1X3Bzcl9zdGF0dXMgdG8gc3ViLWRpcmVjdG9yeSBvZiBlYWNoIHRyYW5zY29kZXIu
+Cgp2MjogQ2hhbmdlIHVzaW5nIG9mIFN5bWJvbGljIHBlcm1pc3Npb25zICdTX0lSVUdPJyB0byB1
+c2luZyBvZiBvY3RhbAogICAgcGVybWlzc2lvbnMgJzA0NDQnCnY1OiBBZGRyZXNzZWQgSkphbmkg
+TmlrdWxhJ3MgcmV2aWV3IGNvbW1lbnRzCiAtIFJlbW92ZSBjaGVja2luZyBvZiBHZW4xMiBmb3Ig
+aTkxNV9wc3Jfc3RhdHVzLgogLSBBZGQgY2hlY2sgb2YgSEFTX1BTUigpCiAtIFJlbW92ZSBtZWFu
+aW5nbGVzcyBjaGVjayByb3V0aW5lLgoKU2lnbmVkLW9mZi1ieTogR3dhbi1neWVvbmcgTXVuIDxn
+d2FuLWd5ZW9uZy5tdW5AaW50ZWwuY29tPgpDYzogSm9zw6kgUm9iZXJ0byBkZSBTb3V6YSA8am9z
+ZS5zb3V6YUBpbnRlbC5jb20+CkNjOiBKYW5pIE5pa3VsYSA8amFuaS5uaWt1bGFAaW50ZWwuY29t
+PgpDYzogQW5zaHVtYW4gR3VwdGEgPGFuc2h1bWFuLmd1cHRhQGludGVsLmNvbT4KLS0tCiAuLi4v
+Z3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGlzcGxheV9kZWJ1Z2ZzLmMgfCAxNiArKysrKysr
+KysrKysrKysrCiAxIGZpbGUgY2hhbmdlZCwgMTYgaW5zZXJ0aW9ucygrKQoKZGlmZiAtLWdpdCBh
+L2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGlzcGxheV9kZWJ1Z2ZzLmMgYi9k
+cml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Rpc3BsYXlfZGVidWdmcy5jCmluZGV4
+IDA0MTA1MzE2N2Q3Zi4uZDJkZDYxYzRlZTBiIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0v
+aTkxNS9kaXNwbGF5L2ludGVsX2Rpc3BsYXlfZGVidWdmcy5jCisrKyBiL2RyaXZlcnMvZ3B1L2Ry
+bS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGlzcGxheV9kZWJ1Z2ZzLmMKQEAgLTIyMjQsNiArMjIyNCwx
+NiBAQCBzdGF0aWMgaW50IGk5MTVfaGRjcF9zaW5rX2NhcGFiaWxpdHlfc2hvdyhzdHJ1Y3Qgc2Vx
+X2ZpbGUgKm0sIHZvaWQgKmRhdGEpCiB9CiBERUZJTkVfU0hPV19BVFRSSUJVVEUoaTkxNV9oZGNw
+X3NpbmtfY2FwYWJpbGl0eSk7CiAKK3N0YXRpYyBpbnQgaTkxNV9wc3Jfc3RhdHVzX3Nob3coc3Ry
+dWN0IHNlcV9maWxlICptLCB2b2lkICpkYXRhKQoreworCXN0cnVjdCBkcm1fY29ubmVjdG9yICpj
+b25uZWN0b3IgPSBtLT5wcml2YXRlOworCXN0cnVjdCBpbnRlbF9kcCAqaW50ZWxfZHAgPQorCQlp
+bnRlbF9hdHRhY2hlZF9kcCh0b19pbnRlbF9jb25uZWN0b3IoY29ubmVjdG9yKSk7CisKKwlyZXR1
+cm4gaW50ZWxfcHNyX3N0YXR1cyhtLCBpbnRlbF9kcCk7Cit9CitERUZJTkVfU0hPV19BVFRSSUJV
+VEUoaTkxNV9wc3Jfc3RhdHVzKTsKKwogI2RlZmluZSBMUFNQX0NBUEFCTEUoQ09ORCkgKENPTkQg
+PyBzZXFfcHV0cyhtLCAiTFBTUDogY2FwYWJsZVxuIikgOiBcCiAJCQkJc2VxX3B1dHMobSwgIkxQ
+U1A6IGluY2FwYWJsZVxuIikpCiAKQEAgLTIzOTksNiArMjQwOSwxMiBAQCBpbnQgaW50ZWxfY29u
+bmVjdG9yX2RlYnVnZnNfYWRkKHN0cnVjdCBkcm1fY29ubmVjdG9yICpjb25uZWN0b3IpCiAJCQkJ
+ICAgIGNvbm5lY3RvciwgJmk5MTVfcHNyX3Npbmtfc3RhdHVzX2ZvcHMpOwogCX0KIAorCWlmIChI
+QVNfUFNSKGRldl9wcml2KSAmJgorCSAgICBjb25uZWN0b3ItPmNvbm5lY3Rvcl90eXBlID09IERS
+TV9NT0RFX0NPTk5FQ1RPUl9lRFApIHsKKwkJZGVidWdmc19jcmVhdGVfZmlsZSgiaTkxNV9wc3Jf
+c3RhdHVzIiwgMDQ0NCwgcm9vdCwKKwkJCQkgICAgY29ubmVjdG9yLCAmaTkxNV9wc3Jfc3RhdHVz
+X2ZvcHMpOworCX0KKwogCWlmIChjb25uZWN0b3ItPmNvbm5lY3Rvcl90eXBlID09IERSTV9NT0RF
+X0NPTk5FQ1RPUl9EaXNwbGF5UG9ydCB8fAogCSAgICBjb25uZWN0b3ItPmNvbm5lY3Rvcl90eXBl
+ID09IERSTV9NT0RFX0NPTk5FQ1RPUl9IRE1JQSB8fAogCSAgICBjb25uZWN0b3ItPmNvbm5lY3Rv
+cl90eXBlID09IERSTV9NT0RFX0NPTk5FQ1RPUl9IRE1JQikgewotLSAKMi4yNS4wCgpfX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpJbnRlbC1nZnggbWFpbGlu
+ZyBsaXN0CkludGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVl
+ZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9pbnRlbC1nZngK
