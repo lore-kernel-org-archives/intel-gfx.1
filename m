@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4EE47C433E0
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5E38DC433E6
 	for <intel-gfx@archiver.kernel.org>; Wed, 23 Dec 2020 11:12:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0A07B222F9
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Dec 2020 11:12:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0A07B222F9
+	by mail.kernel.org (Postfix) with ESMTPS id 0C512223C8
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Dec 2020 11:12:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0C512223C8
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 181016E916;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 54CB26E91D;
 	Wed, 23 Dec 2020 11:12:14 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E0F36E908
- for <intel-gfx@lists.freedesktop.org>; Wed, 23 Dec 2020 11:11:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 918866E088
+ for <intel-gfx@lists.freedesktop.org>; Wed, 23 Dec 2020 11:11:53 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23412192-1500050 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23412195-1500050 
  for multiple; Wed, 23 Dec 2020 11:11:30 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 23 Dec 2020 11:10:40 +0000
-Message-Id: <20201223111126.3338-16-chris@chris-wilson.co.uk>
+Date: Wed, 23 Dec 2020 11:10:43 +0000
+Message-Id: <20201223111126.3338-19-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201223111126.3338-1-chris@chris-wilson.co.uk>
 References: <20201223111126.3338-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 16/62] drm/i915: Reduce test_and_set_bit to
- set_bit in i915_request_submit()
+Subject: [Intel-gfx] [PATCH 19/62] drm/i915/gt: Convert stats.active to
+ plain unsigned int
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,48 +56,136 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Avoid the full blown memory barrier of test_and_set_bit() by noting the
-completed request and removing it from the lists.
+As context-in/out is now always serialised, we do not have to worry
+about concurrent enabling/disable of the busy-stats and can reduce the
+atomic_t active to a plain unsigned int, and the seqlock to a seqcount.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 ---
- drivers/gpu/drm/i915/i915_request.c | 16 +++++++++-------
- 1 file changed, 9 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c    |  8 ++--
+ drivers/gpu/drm/i915/gt/intel_engine_stats.h | 45 ++++++++++++--------
+ drivers/gpu/drm/i915/gt/intel_engine_types.h |  4 +-
+ 3 files changed, 34 insertions(+), 23 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
-index b5de7cf8585b..2ed8cb0d248f 100644
---- a/drivers/gpu/drm/i915/i915_request.c
-+++ b/drivers/gpu/drm/i915/i915_request.c
-@@ -539,8 +539,10 @@ bool __i915_request_submit(struct i915_request *request)
- 	 * dropped upon retiring. (Otherwise if resubmit a *retired*
- 	 * request, this would be a horrible use-after-free.)
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+index dd6c0d67d189..75911dd0483e 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
++++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+@@ -341,7 +341,7 @@ static int intel_engine_setup(struct intel_gt *gt, enum intel_engine_id id)
+ 	engine->schedule = NULL;
+ 
+ 	ewma__engine_latency_init(&engine->latency);
+-	seqlock_init(&engine->stats.lock);
++	seqcount_init(&engine->stats.lock);
+ 
+ 	ATOMIC_INIT_NOTIFIER_HEAD(&engine->context_status_notifier);
+ 
+@@ -1735,7 +1735,7 @@ static ktime_t __intel_engine_get_busy_time(struct intel_engine_cs *engine,
+ 	 * add it to the total.
  	 */
--	if (i915_request_completed(request))
--		goto xfer;
-+	if (i915_request_completed(request)) {
-+		list_del_init(&request->sched.link);
-+		goto active;
-+	}
+ 	*now = ktime_get();
+-	if (atomic_read(&engine->stats.active))
++	if (READ_ONCE(engine->stats.active))
+ 		total = ktime_add(total, ktime_sub(*now, engine->stats.start));
  
- 	if (unlikely(intel_context_is_closed(request->context) &&
- 		     !intel_engine_has_heartbeat(engine)))
-@@ -579,11 +581,11 @@ bool __i915_request_submit(struct i915_request *request)
- 	engine->serial++;
- 	result = true;
+ 	return total;
+@@ -1754,9 +1754,9 @@ ktime_t intel_engine_get_busy_time(struct intel_engine_cs *engine, ktime_t *now)
+ 	ktime_t total;
  
--xfer:
--	if (!test_and_set_bit(I915_FENCE_FLAG_ACTIVE, &request->fence.flags)) {
--		list_move_tail(&request->sched.link, &engine->active.requests);
--		clear_bit(I915_FENCE_FLAG_PQUEUE, &request->fence.flags);
--	}
-+	GEM_BUG_ON(test_bit(I915_FENCE_FLAG_ACTIVE, &request->fence.flags));
-+	list_move_tail(&request->sched.link, &engine->active.requests);
-+active:
-+	clear_bit(I915_FENCE_FLAG_PQUEUE, &request->fence.flags);
-+	set_bit(I915_FENCE_FLAG_ACTIVE, &request->fence.flags);
+ 	do {
+-		seq = read_seqbegin(&engine->stats.lock);
++		seq = read_seqcount_begin(&engine->stats.lock);
+ 		total = __intel_engine_get_busy_time(engine, now);
+-	} while (read_seqretry(&engine->stats.lock, seq));
++	} while (read_seqcount_retry(&engine->stats.lock, seq));
  
- 	/*
- 	 * XXX Rollback bonded-execution on __i915_request_unsubmit()?
+ 	return total;
+ }
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_stats.h b/drivers/gpu/drm/i915/gt/intel_engine_stats.h
+index 58491eae3482..24fbdd94351a 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_stats.h
++++ b/drivers/gpu/drm/i915/gt/intel_engine_stats.h
+@@ -17,33 +17,44 @@ static inline void intel_engine_context_in(struct intel_engine_cs *engine)
+ {
+ 	unsigned long flags;
+ 
+-	if (atomic_add_unless(&engine->stats.active, 1, 0))
++	if (engine->stats.active) {
++		engine->stats.active++;
+ 		return;
+-
+-	write_seqlock_irqsave(&engine->stats.lock, flags);
+-	if (!atomic_add_unless(&engine->stats.active, 1, 0)) {
+-		engine->stats.start = ktime_get();
+-		atomic_inc(&engine->stats.active);
+ 	}
+-	write_sequnlock_irqrestore(&engine->stats.lock, flags);
++
++	/* The writer is serialised; but the pmu reader may be from hardirq */
++	local_irq_save(flags);
++	write_seqcount_begin(&engine->stats.lock);
++
++	engine->stats.start = ktime_get();
++	engine->stats.active++;
++
++	write_seqcount_end(&engine->stats.lock);
++	local_irq_restore(flags);
++
++	GEM_BUG_ON(!engine->stats.active);
+ }
+ 
+ static inline void intel_engine_context_out(struct intel_engine_cs *engine)
+ {
+ 	unsigned long flags;
+ 
+-	GEM_BUG_ON(!atomic_read(&engine->stats.active));
+-
+-	if (atomic_add_unless(&engine->stats.active, -1, 1))
++	GEM_BUG_ON(!engine->stats.active);
++	if (engine->stats.active > 1) {
++		engine->stats.active--;
+ 		return;
+-
+-	write_seqlock_irqsave(&engine->stats.lock, flags);
+-	if (atomic_dec_and_test(&engine->stats.active)) {
+-		engine->stats.total =
+-			ktime_add(engine->stats.total,
+-				  ktime_sub(ktime_get(), engine->stats.start));
+ 	}
+-	write_sequnlock_irqrestore(&engine->stats.lock, flags);
++
++	local_irq_save(flags);
++	write_seqcount_begin(&engine->stats.lock);
++
++	engine->stats.active--;
++	engine->stats.total =
++		ktime_add(engine->stats.total,
++			  ktime_sub(ktime_get(), engine->stats.start));
++
++	write_seqcount_end(&engine->stats.lock);
++	local_irq_restore(flags);
+ }
+ 
+ #endif /* __INTEL_ENGINE_STATS_H__ */
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_types.h b/drivers/gpu/drm/i915/gt/intel_engine_types.h
+index 1fbee35cb5ad..fdec129a6317 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_engine_types.h
+@@ -526,12 +526,12 @@ struct intel_engine_cs {
+ 		/**
+ 		 * @active: Number of contexts currently scheduled in.
+ 		 */
+-		atomic_t active;
++		unsigned int active;
+ 
+ 		/**
+ 		 * @lock: Lock protecting the below fields.
+ 		 */
+-		seqlock_t lock;
++		seqcount_t lock;
+ 
+ 		/**
+ 		 * @total: Total time this engine was busy.
 -- 
 2.20.1
 
