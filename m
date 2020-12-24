@@ -7,37 +7,43 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0B0CBC433DB
-	for <intel-gfx@archiver.kernel.org>; Thu, 24 Dec 2020 13:56:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 13942C433DB
+	for <intel-gfx@archiver.kernel.org>; Thu, 24 Dec 2020 14:35:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B766422287
-	for <intel-gfx@archiver.kernel.org>; Thu, 24 Dec 2020 13:56:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B766422287
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
+	by mail.kernel.org (Postfix) with ESMTPS id BC6E0223DB
+	for <intel-gfx@archiver.kernel.org>; Thu, 24 Dec 2020 14:35:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BC6E0223DB
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1079D89C69;
-	Thu, 24 Dec 2020 13:56:00 +0000 (UTC)
-Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C48A89C69
- for <intel-gfx@lists.freedesktop.org>; Thu, 24 Dec 2020 13:55:50 +0000 (UTC)
-X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
- x-ip-name=78.156.65.138; 
-Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23423427-1500050 
- for <intel-gfx@lists.freedesktop.org>; Thu, 24 Dec 2020 13:55:44 +0000
-From: Chris Wilson <chris@chris-wilson.co.uk>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1351F8961E;
+	Thu, 24 Dec 2020 14:35:14 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F11408961E
+ for <intel-gfx@lists.freedesktop.org>; Thu, 24 Dec 2020 14:35:11 +0000 (UTC)
+IronPort-SDR: cjW2dE2ov4CaMdEIs3CMBI6qTEAUG2lGXqvaZFm8MSm1qhG5n+G7HoH1VHL9m/DDmQAjFMgJZJ
+ 2peyqMJoRaLA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9844"; a="240236010"
+X-IronPort-AV: E=Sophos;i="5.78,444,1599548400"; d="scan'208";a="240236010"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Dec 2020 06:35:11 -0800
+IronPort-SDR: Flvcv3J6OM0MUffON9BDNcU6y6/q7HG4BSXecnpyir6mwTFKIt8Jqxygrm90KIpCL3QYNJqT8D
+ fOJSnwND8egA==
+X-IronPort-AV: E=Sophos;i="5.78,444,1599548400"; d="scan'208";a="374424883"
+Received: from vmangan-mobl.ger.corp.intel.com (HELO
+ mwauld-desk1.ger.corp.intel.com) ([10.252.26.220])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Dec 2020 06:35:10 -0800
+From: Matthew Auld <matthew.auld@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 24 Dec 2020 13:55:40 +0000
-Message-Id: <20201224135544.1713-5-chris@chris-wilson.co.uk>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20201224135544.1713-1-chris@chris-wilson.co.uk>
-References: <20201224135544.1713-1-chris@chris-wilson.co.uk>
+Date: Thu, 24 Dec 2020 14:34:54 +0000
+Message-Id: <20201224143455.387624-1-matthew.auld@intel.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-Subject: [Intel-gfx] [CI 5/9] drm/i915/gt: Remove virtual breadcrumb before
- transfer
+Subject: [Intel-gfx] [PATCH 1/2] drm/i915: clear the shadow batch
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,73 +61,37 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The issue with stale virtual breadcrumbs remain. Now we have the problem
-that if the irq-signaler is still referencing the stale breadcrumb as we
-transfer it to a new sibling, the list becomes spaghetti. This is a very
-small window, but that doesn't stop it being hit infrequently. To
-prevent the lists being tangled (the iterator starting on one engine's
-b->signalers but walking onto another list), always decouple the virtual
-breadcrumb on schedule-out and make sure that the walker has stepped out
-of the lists.
+The shadow batch is an internal object, which doesn't have any page
+clearing, and since the batch_len can be smaller than the object, we
+should take care to clear it.
 
-Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-Reviewed-by: Matthew Brost <matthew.brost@intel.com>
+Testcase: igt/gen9_exec_parse/shadow-peek
+Fixes: 4f7af1948abc ("drm/i915: Support ro ppgtt mapped cmdparser shadow buffers")
+Signed-off-by: Matthew Auld <matthew.auld@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_breadcrumbs.c       |  5 +++--
- .../gpu/drm/i915/gt/intel_execlists_submission.c  | 15 +++++++++++++++
- 2 files changed, 18 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/i915_cmd_parser.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-index f96cd7d9b419..8f7c8595ba08 100644
---- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-@@ -451,15 +451,16 @@ void i915_request_cancel_breadcrumb(struct i915_request *rq)
- {
- 	struct intel_breadcrumbs *b = READ_ONCE(rq->engine)->breadcrumbs;
- 	struct intel_context *ce = rq->context;
-+	unsigned long flags;
- 	bool release;
+diff --git a/drivers/gpu/drm/i915/i915_cmd_parser.c b/drivers/gpu/drm/i915/i915_cmd_parser.c
+index 8d88402387bd..ff3a0b8ccdd5 100644
+--- a/drivers/gpu/drm/i915/i915_cmd_parser.c
++++ b/drivers/gpu/drm/i915/i915_cmd_parser.c
+@@ -1147,6 +1147,13 @@ static u32 *copy_batch(struct drm_i915_gem_object *dst_obj,
+ 	if (IS_ERR(dst))
+ 		return dst;
  
- 	if (!test_and_clear_bit(I915_FENCE_FLAG_SIGNAL, &rq->fence.flags))
- 		return;
- 
--	spin_lock(&ce->signal_lock);
-+	spin_lock_irqsave(&ce->signal_lock, flags);
- 	list_del_rcu(&rq->signal_link);
- 	release = remove_signaling_context(b, ce);
--	spin_unlock(&ce->signal_lock);
-+	spin_unlock_irqrestore(&ce->signal_lock, flags);
- 	if (release)
- 		intel_context_put(ce);
- 
-diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-index b5f256be73dd..1f6e9fe5bcc0 100644
---- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-+++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-@@ -581,6 +581,21 @@ static inline void execlists_schedule_in(struct i915_request *rq, int idx)
- static void kick_siblings(struct i915_request *rq, struct intel_context *ce)
- {
- 	struct virtual_engine *ve = container_of(ce, typeof(*ve), context);
-+	struct intel_engine_cs *engine = rq->engine;
-+
-+	/* Flush concurrent rcu iterators in signal_irq_work */
-+	if (test_bit(DMA_FENCE_FLAG_ENABLE_SIGNAL_BIT, &rq->fence.flags)) {
-+		/*
-+		 * After this point, the rq may be transferred to a new
-+		 * sibling, so before we clear ce->inflight make sure that
-+		 * the context has been removed from the b->signalers and
-+		 * furthermore we need to make sure that the concurrent
-+		 * iterator in signal_irq_work is no longer following
-+		 * ce->signal_link.
-+		 */
-+		i915_request_cancel_breadcrumb(rq);
-+		irq_work_sync(&engine->breadcrumbs->irq_work);
++	if (length < dst_obj->base.size) {
++		memset32(dst + length, 0,
++			 (dst_obj->base.size - length) / sizeof(u32));
++		__i915_gem_object_flush_map(dst_obj, length,
++					    dst_obj->base.size - length);
 +	}
- 
- 	if (READ_ONCE(ve->request))
- 		tasklet_hi_schedule(&ve->base.execlists.tasklet);
++
+ 	ret = i915_gem_object_pin_pages(src_obj);
+ 	if (ret) {
+ 		i915_gem_object_unpin_map(dst_obj);
 -- 
-2.20.1
+2.26.2
 
 _______________________________________________
 Intel-gfx mailing list
