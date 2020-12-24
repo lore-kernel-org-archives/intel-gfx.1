@@ -7,37 +7,36 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 196A0C433E0
-	for <intel-gfx@archiver.kernel.org>; Thu, 24 Dec 2020 13:55:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F2913C433DB
+	for <intel-gfx@archiver.kernel.org>; Thu, 24 Dec 2020 13:55:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7A8EF22287
-	for <intel-gfx@archiver.kernel.org>; Thu, 24 Dec 2020 13:55:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7A8EF22287
+	by mail.kernel.org (Postfix) with ESMTPS id 5C83022287
+	for <intel-gfx@archiver.kernel.org>; Thu, 24 Dec 2020 13:55:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5C83022287
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 008BD89C46;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 538E389C6C;
 	Thu, 24 Dec 2020 13:55:50 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 437AF89C46
- for <intel-gfx@lists.freedesktop.org>; Thu, 24 Dec 2020 13:55:49 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6064189C59
+ for <intel-gfx@lists.freedesktop.org>; Thu, 24 Dec 2020 13:55:47 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23423431-1500050 
- for <intel-gfx@lists.freedesktop.org>; Thu, 24 Dec 2020 13:55:44 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23423425-1500050 
+ for <intel-gfx@lists.freedesktop.org>; Thu, 24 Dec 2020 13:55:43 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 24 Dec 2020 13:55:44 +0000
-Message-Id: <20201224135544.1713-9-chris@chris-wilson.co.uk>
+Date: Thu, 24 Dec 2020 13:55:38 +0000
+Message-Id: <20201224135544.1713-3-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201224135544.1713-1-chris@chris-wilson.co.uk>
 References: <20201224135544.1713-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [CI 9/9] drm/i915/gt: ce->inflight updates are now
- serialised
+Subject: [Intel-gfx] [CI 3/9] drm/i915/gt: Decouple inflight virtual engines
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,142 +54,104 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Since schedule-in and schedule-out are now both always under the tasklet
-bitlock, we can reduce the individual atomic operations to simple
-instructions and worry less.
+Once a virtual engine has been bound to a sibling, it will remain bound
+until we finally schedule out the last active request. We can not rebind
+the context to a new sibling while it is inflight as the context save
+will conflict, hence we wait. As we cannot then use any other sibliing
+while the context is inflight, only kick the bound sibling while it
+inflight and upon scheduling out the kick the rest (so that we can swap
+engines on timeslicing if the previously bound engine becomes
+oversubscribed).
 
-This notably eliminates the race observed with intel_context_inflight in
-__engine_unpark().
-
-Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/2583
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+Reviewed-by: Matthew Auld <matthew.auld@intel.com>
 ---
- .../drm/i915/gt/intel_execlists_submission.c  | 52 +++++++++----------
- 1 file changed, 25 insertions(+), 27 deletions(-)
+ .../drm/i915/gt/intel_execlists_submission.c  | 28 ++++++++-----------
+ 1 file changed, 12 insertions(+), 16 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-index dc1312d862ed..1fae6c6f3868 100644
+index ddfd6b271b3b..fbd0572ed834 100644
 --- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
 +++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-@@ -524,11 +524,11 @@ __execlists_schedule_in(struct i915_request *rq)
- 		ce->lrc.ccid = ce->tag;
- 	} else {
- 		/* We don't need a strict matching tag, just different values */
--		unsigned int tag = ffs(READ_ONCE(engine->context_tag));
-+		unsigned int tag = __ffs(engine->context_tag);
+@@ -581,9 +581,8 @@ static inline void execlists_schedule_in(struct i915_request *rq, int idx)
+ static void kick_siblings(struct i915_request *rq, struct intel_context *ce)
+ {
+ 	struct virtual_engine *ve = container_of(ce, typeof(*ve), context);
+-	struct i915_request *next = READ_ONCE(ve->request);
  
--		GEM_BUG_ON(tag == 0 || tag >= BITS_PER_LONG);
--		clear_bit(tag - 1, &engine->context_tag);
--		ce->lrc.ccid = tag << (GEN11_SW_CTX_ID_SHIFT - 32);
-+		GEM_BUG_ON(tag >= BITS_PER_LONG);
-+		__clear_bit(tag, &engine->context_tag);
-+		ce->lrc.ccid = (1 + tag) << (GEN11_SW_CTX_ID_SHIFT - 32);
- 
- 		BUILD_BUG_ON(BITS_PER_LONG > GEN12_MAX_CONTEXT_HW_ID);
- 	}
-@@ -541,6 +541,8 @@ __execlists_schedule_in(struct i915_request *rq)
- 	execlists_context_status_change(rq, INTEL_CONTEXT_SCHEDULE_IN);
- 	intel_engine_context_in(engine);
- 
-+	CE_TRACE(ce, "schedule-in, ccid:%x\n", ce->lrc.ccid);
-+
- 	return engine;
- }
- 
-@@ -552,13 +554,10 @@ static inline void execlists_schedule_in(struct i915_request *rq, int idx)
- 	GEM_BUG_ON(!intel_engine_pm_is_awake(rq->engine));
- 	trace_i915_request_in(rq, idx);
- 
--	old = READ_ONCE(ce->inflight);
--	do {
--		if (!old) {
--			WRITE_ONCE(ce->inflight, __execlists_schedule_in(rq));
--			break;
--		}
--	} while (!try_cmpxchg(&ce->inflight, &old, ptr_inc(old)));
-+	old = ce->inflight;
-+	if (!old)
-+		old = __execlists_schedule_in(rq);
-+	WRITE_ONCE(ce->inflight, ptr_inc(old));
- 
- 	GEM_BUG_ON(intel_context_inflight(ce) != rq->engine);
- }
-@@ -611,12 +610,11 @@ static void kick_siblings(struct i915_request *rq, struct intel_context *ce)
+-	if (next == rq || (next && next->execution_mask & ~rq->execution_mask))
++	if (READ_ONCE(ve->request))
  		tasklet_hi_schedule(&ve->base.execlists.tasklet);
  }
  
--static inline void
--__execlists_schedule_out(struct i915_request *rq,
--			 struct intel_engine_cs * const engine,
--			 unsigned int ccid)
-+static inline void __execlists_schedule_out(struct i915_request *rq)
- {
- 	struct intel_context * const ce = rq->context;
-+	struct intel_engine_cs * const engine = rq->engine;
-+	unsigned int ccid;
+@@ -997,17 +996,13 @@ first_virtual_engine(struct intel_engine_cs *engine)
+ 		struct i915_request *rq = READ_ONCE(ve->request);
  
- 	/*
- 	 * NB process_csb() is not under the engine->active.lock and hence
-@@ -624,6 +622,8 @@ __execlists_schedule_out(struct i915_request *rq,
- 	 * refrain from doing non-trivial work here.
- 	 */
+ 		/* lazily cleanup after another engine handled rq */
+-		if (!rq) {
++		if (!rq || !virtual_matches(ve, rq, engine)) {
+ 			rb_erase_cached(rb, &el->virtual);
+ 			RB_CLEAR_NODE(rb);
+ 			rb = rb_first_cached(&el->virtual);
+ 			continue;
+ 		}
  
-+	CE_TRACE(ce, "schedule-out, ccid:%x\n", ce->lrc.ccid);
-+
- 	if (IS_ENABLED(CONFIG_DRM_I915_DEBUG_GEM))
- 		lrc_check_regs(ce, engine, "after");
- 
-@@ -635,12 +635,13 @@ __execlists_schedule_out(struct i915_request *rq,
- 	    __i915_request_is_complete(rq))
- 		intel_engine_add_retire(engine, ce->timeline);
- 
-+	ccid = ce->lrc.ccid;
- 	ccid >>= GEN11_SW_CTX_ID_SHIFT - 32;
- 	ccid &= GEN12_MAX_CONTEXT_HW_ID;
- 	if (ccid < BITS_PER_LONG) {
- 		GEM_BUG_ON(ccid == 0);
- 		GEM_BUG_ON(test_bit(ccid - 1, &engine->context_tag));
--		set_bit(ccid - 1, &engine->context_tag);
-+		__set_bit(ccid - 1, &engine->context_tag);
+-		if (!virtual_matches(ve, rq, engine)) {
+-			rb = rb_next(rb);
+-			continue;
+-		}
+ 		return ve;
  	}
  
- 	lrc_update_runtime(ce);
-@@ -661,26 +662,23 @@ __execlists_schedule_out(struct i915_request *rq,
- 	 */
- 	if (ce->engine != engine)
- 		kick_siblings(rq, ce);
--
--	intel_context_put(ce);
+@@ -3435,7 +3430,6 @@ static void virtual_submission_tasklet(unsigned long data)
+ 	if (unlikely(!mask))
+ 		return;
+ 
+-	local_irq_disable();
+ 	for (n = 0; n < ve->num_siblings; n++) {
+ 		struct intel_engine_cs *sibling = READ_ONCE(ve->siblings[n]);
+ 		struct ve_node * const node = &ve->nodes[sibling->id];
+@@ -3445,20 +3439,19 @@ static void virtual_submission_tasklet(unsigned long data)
+ 		if (!READ_ONCE(ve->request))
+ 			break; /* already handled by a sibling's tasklet */
+ 
++		spin_lock_irq(&sibling->active.lock);
++
+ 		if (unlikely(!(mask & sibling->mask))) {
+ 			if (!RB_EMPTY_NODE(&node->rb)) {
+-				spin_lock(&sibling->active.lock);
+ 				rb_erase_cached(&node->rb,
+ 						&sibling->execlists.virtual);
+ 				RB_CLEAR_NODE(&node->rb);
+-				spin_unlock(&sibling->active.lock);
+ 			}
+-			continue;
+-		}
+ 
+-		spin_lock(&sibling->active.lock);
++			goto unlock_engine;
++		}
+ 
+-		if (!RB_EMPTY_NODE(&node->rb)) {
++		if (unlikely(!RB_EMPTY_NODE(&node->rb))) {
+ 			/*
+ 			 * Cheat and avoid rebalancing the tree if we can
+ 			 * reuse this node in situ.
+@@ -3498,9 +3491,12 @@ static void virtual_submission_tasklet(unsigned long data)
+ 		if (first && prio > sibling->execlists.queue_priority_hint)
+ 			tasklet_hi_schedule(&sibling->execlists.tasklet);
+ 
+-		spin_unlock(&sibling->active.lock);
++unlock_engine:
++		spin_unlock_irq(&sibling->active.lock);
++
++		if (intel_context_inflight(&ve->context))
++			break;
+ 	}
+-	local_irq_enable();
  }
  
- static inline void
- execlists_schedule_out(struct i915_request *rq)
- {
- 	struct intel_context * const ce = rq->context;
--	struct intel_engine_cs *cur, *old;
--	u32 ccid;
- 
- 	trace_i915_request_out(rq);
- 
--	ccid = rq->context->lrc.ccid;
--	old = READ_ONCE(ce->inflight);
--	do
--		cur = ptr_unmask_bits(old, 2) ? ptr_dec(old) : NULL;
--	while (!try_cmpxchg(&ce->inflight, &old, cur));
--	if (!cur)
--		__execlists_schedule_out(rq, old, ccid);
-+	GEM_BUG_ON(!ce->inflight);
-+	ce->inflight = ptr_dec(ce->inflight);
-+	if (!__intel_context_inflight_count(ce->inflight)) {
-+		GEM_BUG_ON(ce->inflight != rq->engine);
-+		__execlists_schedule_out(rq);
-+		WRITE_ONCE(ce->inflight, NULL);
-+		intel_context_put(ce);
-+	}
- 
- 	i915_request_put(rq);
- }
+ static void virtual_submit_request(struct i915_request *rq)
 -- 
 2.20.1
 
