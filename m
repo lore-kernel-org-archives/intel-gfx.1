@@ -2,49 +2,41 @@ Return-Path: <SRS0=k0xi=F4=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A8E53C433E0
-	for <intel-gfx@archiver.kernel.org>; Thu, 24 Dec 2020 03:10:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 60DF1C433DB
+	for <intel-gfx@archiver.kernel.org>; Thu, 24 Dec 2020 03:28:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 69844224B1
-	for <intel-gfx@archiver.kernel.org>; Thu, 24 Dec 2020 03:10:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 69844224B1
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id EA800224B0
+	for <intel-gfx@archiver.kernel.org>; Thu, 24 Dec 2020 03:28:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EA800224B0
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E6F9C6E8CB;
-	Thu, 24 Dec 2020 03:10:55 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4978C89F5F
- for <Intel-gfx@lists.freedesktop.org>; Thu, 24 Dec 2020 03:10:28 +0000 (UTC)
-IronPort-SDR: EwM/dn9ZQvHUxbxoLx36Tfal7QxZhc1JJo8/qjEC/sGJN5B2yGR9So+0Bixwki8IKaTO5tlMn/
- m2bn/D1/rC1A==
-X-IronPort-AV: E=McAfee;i="6000,8403,9844"; a="155893682"
-X-IronPort-AV: E=Sophos;i="5.78,444,1599548400"; d="scan'208";a="155893682"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Dec 2020 19:10:27 -0800
-IronPort-SDR: rNwqv4VCBMju1QgxKm1rwmfcYueZD90oQXklbTPlHkNu4z61wC/EjgPYfy/c8IZjUZRrV3z6t2
- RLSzGNwmJ/Yw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.78,444,1599548400"; d="scan'208";a="342496789"
-Received: from sean-virtualbox.fm.intel.com ([10.105.158.96])
- by orsmga003.jf.intel.com with ESMTP; 23 Dec 2020 19:10:27 -0800
-From: "Huang, Sean Z" <sean.z.huang@intel.com>
-To: Intel-gfx@lists.freedesktop.org
-Date: Wed, 23 Dec 2020 19:10:18 -0800
-Message-Id: <20201224031026.7360-6-sean.z.huang@intel.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20201224031026.7360-1-sean.z.huang@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 69E9989C2C;
+	Thu, 24 Dec 2020 03:28:46 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id CFF9E89C2C;
+ Thu, 24 Dec 2020 03:28:44 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id C6AF7A9932;
+ Thu, 24 Dec 2020 03:28:44 +0000 (UTC)
+MIME-Version: 1.0
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Huang, Sean Z" <sean.z.huang@intel.com>
+Date: Thu, 24 Dec 2020 03:28:44 -0000
+Message-ID: <160878052478.23494.16934128920265893878@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
 References: <20201224031026.7360-1-sean.z.huang@intel.com>
-Subject: [Intel-gfx] [RFC-v15 05/13] drm/i915/pxp: Func to send hardware
- session termination
+In-Reply-To: <20201224031026.7360-1-sean.z.huang@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_Introduce_Intel_PXP_component_-_Mesa_single_session_=28rev1?=
+ =?utf-8?q?5=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,279 +49,111 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-MIME-Version: 1.0
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Implement the functions to allow PXP to send a GPU command, in
-order to terminate the hardware session, so hardware can recycle
-this session slot for the next usage.
+== Series Details ==
 
-Signed-off-by: Huang, Sean Z <sean.z.huang@intel.com>
----
- drivers/gpu/drm/i915/Makefile              |   1 +
- drivers/gpu/drm/i915/pxp/intel_pxp.c       |  13 ++
- drivers/gpu/drm/i915/pxp/intel_pxp_cmd.c   | 158 +++++++++++++++++++++
- drivers/gpu/drm/i915/pxp/intel_pxp_cmd.h   |  18 +++
- drivers/gpu/drm/i915/pxp/intel_pxp_types.h |   4 +
- 5 files changed, 194 insertions(+)
- create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_cmd.c
- create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_cmd.h
+Series: Introduce Intel PXP component - Mesa single session (rev15)
+URL   : https://patchwork.freedesktop.org/series/84620/
+State : warning
 
-diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
-index 2c84f75b41da..abe52189986a 100644
---- a/drivers/gpu/drm/i915/Makefile
-+++ b/drivers/gpu/drm/i915/Makefile
-@@ -259,6 +259,7 @@ i915-y += i915_perf.o
- i915-$(CONFIG_DRM_I915_PXP) += \
- 	pxp/intel_pxp.o \
- 	pxp/intel_pxp_arb.o \
-+	pxp/intel_pxp_cmd.o \
- 	pxp/intel_pxp_context.o \
- 	pxp/intel_pxp_tee.o
- 
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.c b/drivers/gpu/drm/i915/pxp/intel_pxp.c
-index 3868e8c697f9..2f63801748f8 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp.c
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp.c
-@@ -17,10 +17,23 @@
- void intel_pxp_init(struct intel_pxp *pxp)
- {
- 	struct intel_gt *gt = container_of(pxp, struct intel_gt, pxp);
-+	int i;
- 
- 	if (INTEL_GEN(gt->i915) < 12)
- 		return;
- 
-+	/* Find the first VCS engine present */
-+	for (i = 0; i < I915_MAX_VCS; i++) {
-+		if (HAS_ENGINE(gt, _VCS(i))) {
-+			pxp->vcs_engine = gt->engine[_VCS(i)];
-+			break;
-+		}
-+	}
-+	if (!pxp->vcs_engine) {
-+		drm_err(&gt->i915->drm, "Could not find a VCS engine\n");
-+		return;
-+	}
-+
- 	intel_pxp_ctx_init(&pxp->ctx);
- 
- 	intel_uncore_write(gt->uncore, KCR_INIT, KCR_INIT_ALLOW_DISPLAY_ME_WRITES);
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_cmd.c b/drivers/gpu/drm/i915/pxp/intel_pxp_cmd.c
+== Summary ==
+
+$ dim checkpatch origin/drm-tip
+dfdab12a4f29 drm/i915/pxp: Introduce Intel PXP component
+-:118: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#118: 
 new file mode 100644
-index 000000000000..d9298cf5e1a7
---- /dev/null
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_cmd.c
-@@ -0,0 +1,158 @@
-+// SPDX-License-Identifier: MIT
-+/*
-+ * Copyright(c) 2020, Intel Corporation. All rights reserved.
-+ */
-+
-+#include "intel_pxp_cmd.h"
-+#include "i915_drv.h"
-+#include "gt/intel_context.h"
-+#include "gt/intel_engine_pm.h"
-+
-+struct i915_vma *intel_pxp_cmd_get_batch(struct intel_pxp *pxp,
-+					 struct intel_context *ce,
-+					 struct intel_gt_buffer_pool_node *pool,
-+					 u32 *cmd_buf, int cmd_size_in_dw)
-+{
-+	struct i915_vma *batch = ERR_PTR(-EINVAL);
-+	struct intel_gt *gt = container_of(pxp, struct intel_gt, pxp);
-+	u32 *cmd;
-+
-+	if (!ce || !ce->engine || !cmd_buf)
-+		return ERR_PTR(-EINVAL);
-+
-+	if (cmd_size_in_dw * 4 > PAGE_SIZE) {
-+		drm_err(&gt->i915->drm, "Failed to %s, invalid cmd_size_id_dw=[%d]\n",
-+			__func__, cmd_size_in_dw);
-+		return ERR_PTR(-EINVAL);
-+	}
-+
-+	cmd = i915_gem_object_pin_map(pool->obj, I915_MAP_FORCE_WC);
-+	if (IS_ERR(cmd)) {
-+		drm_err(&gt->i915->drm, "Failed to i915_gem_object_pin_map()\n");
-+		return ERR_PTR(-EINVAL);
-+	}
-+
-+	memcpy(cmd, cmd_buf, cmd_size_in_dw * 4);
-+
-+	if (drm_debug_enabled(DRM_UT_DRIVER)) {
-+		print_hex_dump(KERN_DEBUG, "cmd binaries:",
-+			       DUMP_PREFIX_OFFSET, 4, 4, cmd, cmd_size_in_dw * 4, true);
-+	}
-+
-+	i915_gem_object_unpin_map(pool->obj);
-+
-+	batch = i915_vma_instance(pool->obj, ce->vm, NULL);
-+	if (IS_ERR(batch)) {
-+		drm_err(&gt->i915->drm, "Failed to i915_vma_instance()\n");
-+		return batch;
-+	}
-+
-+	return batch;
-+}
-+
-+int intel_pxp_cmd_submit(struct intel_pxp *pxp, u32 *cmd, int cmd_size_in_dw)
-+{
-+	int err = -EINVAL;
-+	struct i915_vma *batch;
-+	struct i915_request *rq;
-+	struct intel_context *ce = NULL;
-+	bool is_engine_pm_get = false;
-+	bool is_batch_vma_pin = false;
-+	bool is_skip_req_on_err = false;
-+	bool is_engine_get_pool = false;
-+	struct intel_gt_buffer_pool_node *pool = NULL;
-+	struct intel_gt *gt = container_of(pxp, struct intel_gt, pxp);
-+
-+	ce = pxp->vcs_engine->kernel_context;
-+	if (!ce) {
-+		drm_err(&gt->i915->drm, "VCS engine does not have context\n");
-+		err = -EINVAL;
-+		goto end;
-+	}
-+
-+	if (!cmd || (cmd_size_in_dw * 4) > PAGE_SIZE) {
-+		drm_err(&gt->i915->drm, "Failed to %s bad params\n", __func__);
-+		return -EINVAL;
-+	}
-+
-+	intel_engine_pm_get(ce->engine);
-+	is_engine_pm_get = true;
-+
-+	pool = intel_gt_get_buffer_pool(gt, PAGE_SIZE);
-+	if (IS_ERR(pool)) {
-+		drm_err(&gt->i915->drm, "Failed to intel_engine_get_pool()\n");
-+		err = PTR_ERR(pool);
-+		goto end;
-+	}
-+	is_engine_get_pool = true;
-+
-+	batch = intel_pxp_cmd_get_batch(pxp, ce, pool, cmd, cmd_size_in_dw);
-+	if (IS_ERR(batch)) {
-+		drm_err(&gt->i915->drm, "Failed to intel_pxp_cmd_get_batch()\n");
-+		err = PTR_ERR(batch);
-+		goto end;
-+	}
-+
-+	err = i915_vma_pin(batch, 0, 0, PIN_USER);
-+	if (err) {
-+		drm_err(&gt->i915->drm, "Failed to i915_vma_pin()\n");
-+		goto end;
-+	}
-+	is_batch_vma_pin = true;
-+
-+	rq = intel_context_create_request(ce);
-+	if (IS_ERR(rq)) {
-+		drm_err(&gt->i915->drm, "Failed to intel_context_create_request()\n");
-+		err = PTR_ERR(rq);
-+		goto end;
-+	}
-+	is_skip_req_on_err = true;
-+
-+	err = intel_gt_buffer_pool_mark_active(pool, rq);
-+	if (err) {
-+		drm_err(&gt->i915->drm, "Failed to intel_engine_pool_mark_active()\n");
-+		goto end;
-+	}
-+
-+	i915_vma_lock(batch);
-+	err = i915_request_await_object(rq, batch->obj, false);
-+	if (!err)
-+		err = i915_vma_move_to_active(batch, rq, 0);
-+	i915_vma_unlock(batch);
-+	if (err) {
-+		drm_err(&gt->i915->drm, "Failed to i915_request_await_object()\n");
-+		goto end;
-+	}
-+
-+	if (ce->engine->emit_init_breadcrumb) {
-+		err = ce->engine->emit_init_breadcrumb(rq);
-+		if (err) {
-+			drm_err(&gt->i915->drm, "Failed to emit_init_breadcrumb()\n");
-+			goto end;
-+		}
-+	}
-+
-+	err = ce->engine->emit_bb_start(rq, batch->node.start,
-+		batch->node.size, 0);
-+	if (err) {
-+		drm_err(&gt->i915->drm, "Failed to emit_bb_start()\n");
-+		goto end;
-+	}
-+
-+	i915_request_add(rq);
-+
-+end:
-+	if (unlikely(err) && is_skip_req_on_err)
-+		i915_request_set_error_once(rq, err);
-+
-+	if (is_batch_vma_pin)
-+		i915_vma_unpin(batch);
-+
-+	if (is_engine_get_pool)
-+		intel_gt_buffer_pool_put(pool);
-+
-+	if (is_engine_pm_get)
-+		intel_engine_pm_put(ce->engine);
-+
-+	return err;
-+}
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_cmd.h b/drivers/gpu/drm/i915/pxp/intel_pxp_cmd.h
+
+total: 0 errors, 1 warnings, 0 checks, 193 lines checked
+51cbdc8b2ce1 drm/i915/pxp: set KCR reg init during the boot time
+395008b344e9 drm/i915/pxp: Implement funcs to create the TEE channel
+-:8: WARNING:TYPO_SPELLING: 'defualt' may be misspelled - perhaps 'default'?
+#8: 
+(defualt) session.
+
+-:85: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#85: 
 new file mode 100644
-index 000000000000..d04463962421
---- /dev/null
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_cmd.h
-@@ -0,0 +1,18 @@
-+/* SPDX-License-Identifier: MIT */
-+/*
-+ * Copyright(c) 2020, Intel Corporation. All rights reserved.
-+ */
+
+total: 0 errors, 2 warnings, 0 checks, 248 lines checked
+2b60ee61cae2 drm/i915/pxp: Create the arbitrary session after boot
+-:68: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#68: 
+new file mode 100644
+
+total: 0 errors, 1 warnings, 0 checks, 299 lines checked
+bbfcb811b034 drm/i915/pxp: Func to send hardware session termination
+-:53: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#53: 
+new file mode 100644
+
+total: 0 errors, 1 warnings, 0 checks, 222 lines checked
+3262236ce6ac drm/i915/pxp: Enable PXP irq worker and callback stub
+-:51: WARNING:LONG_LINE_COMMENT: line length of 113 exceeds 100 columns
+#51: FILE: drivers/gpu/drm/i915/i915_reg.h:7970:
++#define GEN11_CRYPTO_INTR_MASK		_MMIO(0x1900f0) /* crypto mask is in bit31-16 (Engine1 Interrupt Mask) */
+
+total: 0 errors, 1 warnings, 0 checks, 230 lines checked
+aad33f4371cc drm/i915/pxp: Destroy arb session upon teardown
+e8420b874553 drm/i915/pxp: Enable PXP power management
+-:78: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#78: 
+new file mode 100644
+
+total: 0 errors, 1 warnings, 0 checks, 148 lines checked
+96c29251fc2c drm/i915/pxp: Expose session state for display protection flip
+166b855c8b3f mei: pxp: export pavp client to me client bus
+-:32: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#32: 
+new file mode 100644
+
+total: 0 errors, 1 warnings, 0 checks, 277 lines checked
+8887af8130db drm/i915/uapi: introduce drm_i915_gem_create_ext
+-:12: ERROR:BAD_SIGN_OFF: Unrecognized email address: 'Joonas Lahtinen joonas.lahtinen@linux.intel.com'
+#12: 
+Cc: Joonas Lahtinen joonas.lahtinen@linux.intel.com
+
+-:13: ERROR:BAD_SIGN_OFF: Unrecognized email address: 'Matthew Auld matthew.auld@intel.com'
+#13: 
+Cc: Matthew Auld matthew.auld@intel.com
+
+-:46: ERROR:CODE_INDENT: code indent should use tabs where possible
+#46: FILE: drivers/gpu/drm/i915/i915_gem.c:265:
++        struct drm_i915_private *i915;$
+
+-:46: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+#46: FILE: drivers/gpu/drm/i915/i915_gem.c:265:
++        struct drm_i915_private *i915;$
+
+-:50: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#50: FILE: drivers/gpu/drm/i915/i915_gem.c:269:
++static int __create_setparam(struct drm_i915_gem_object_param *args,
++							struct create_ext *ext_data)
+
+-:95: CHECK:LINE_SPACING: Please don't use multiple blank lines
+#95: FILE: drivers/gpu/drm/i915/i915_gem.c:317:
 +
-+#ifndef __INTEL_PXP_CMD_H__
-+#define __INTEL_PXP_CMD_H__
 +
-+#include "gt/intel_gt_buffer_pool.h"
-+#include "intel_pxp.h"
-+
-+struct i915_vma *intel_pxp_cmd_get_batch(struct intel_pxp *pxp,
-+					 struct intel_context *ce,
-+					 struct intel_gt_buffer_pool_node *pool,
-+					 u32 *cmd_buf, int cmd_size_in_dw);
-+
-+int intel_pxp_cmd_submit(struct intel_pxp *pxp, u32 *cmd, int cmd_size_in_dw);
-+#endif /* __INTEL_PXP_SM_H__ */
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_types.h b/drivers/gpu/drm/i915/pxp/intel_pxp_types.h
-index 287ba1e0ed9d..f3d9335aee5f 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp_types.h
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_types.h
-@@ -8,6 +8,8 @@
- 
- #include <linux/mutex.h>
- 
-+struct intel_engine_cs;
-+
- /**
-  * struct pxp_protected_session - structure to track all active sessions.
-  */
-@@ -44,6 +46,8 @@ struct pxp_context {
- 
- struct intel_pxp {
- 	struct pxp_context ctx;
-+
-+	struct intel_engine_cs *vcs_engine;
- };
- 
- #endif /* __INTEL_PXP_TYPES_H__ */
--- 
-2.17.1
+
+-:107: WARNING:LONG_LINE: line length of 120 exceeds 100 columns
+#107: FILE: include/uapi/drm/i915_drm.h:395:
++#define DRM_IOCTL_I915_GEM_CREATE_EXT   DRM_IOWR(DRM_COMMAND_BASE + DRM_I915_GEM_CREATE, struct drm_i915_gem_create_ext)
+
+-:155: CHECK:SPACING: spaces preferred around that '<<' (ctx:VxV)
+#155: FILE: include/uapi/drm/i915_drm.h:1736:
++#define I915_OBJECT_PARAM  (1ull<<32)
+                                 ^
+
+total: 3 errors, 2 warnings, 3 checks, 136 lines checked
+f03f8e74dc0b drm/i915/pxp: User interface for Protected buffer
+d394ebccf416 drm/i915/pxp: Add plane decryption support
+
 
 _______________________________________________
 Intel-gfx mailing list
