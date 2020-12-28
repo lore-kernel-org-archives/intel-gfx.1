@@ -7,36 +7,37 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 44A91C433E0
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C197CC4332E
 	for <intel-gfx@archiver.kernel.org>; Mon, 28 Dec 2020 15:53:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E625D206E5
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Dec 2020 15:53:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E625D206E5
+	by mail.kernel.org (Postfix) with ESMTPS id 8799220829
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Dec 2020 15:53:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8799220829
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA80689AAD;
-	Mon, 28 Dec 2020 15:52:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D3F0899D4;
+	Mon, 28 Dec 2020 15:52:56 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 93E43899DC
- for <intel-gfx@lists.freedesktop.org>; Mon, 28 Dec 2020 15:52:53 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AFB618925D
+ for <intel-gfx@lists.freedesktop.org>; Mon, 28 Dec 2020 15:52:52 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23448180-1500050 
- for multiple; Mon, 28 Dec 2020 15:52:32 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23448207-1500050 
+ for multiple; Mon, 28 Dec 2020 15:52:37 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 28 Dec 2020 15:51:38 +0000
-Message-Id: <20201228155229.9516-3-chris@chris-wilson.co.uk>
+Date: Mon, 28 Dec 2020 15:52:03 +0000
+Message-Id: <20201228155229.9516-28-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201228155229.9516-1-chris@chris-wilson.co.uk>
 References: <20201228155229.9516-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 03/54] drm/i915/gem: Peek at the inflight context
+Subject: [Intel-gfx] [PATCH 28/54] drm/i915: Fix the iterative dfs for
+ defering requests
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,84 +56,108 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-If supported by the backend, we can quickly look at the context's
-inflight engine rather than search along the active list to confirm.
+The current implementation of walking the children of a deferred
+requests lacks the backtracking required to reduce the dfs to linear.
+Having pulled it from execlists into the common layer, we can reuse the
+dfs code for priority inheritance.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_context.c          |  3 +++
- drivers/gpu/drm/i915/gt/intel_context.h              | 10 ++++++++++
- drivers/gpu/drm/i915/gt/intel_context_types.h        |  9 +++++----
- drivers/gpu/drm/i915/gt/intel_execlists_submission.c |  1 +
- 4 files changed, 19 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/i915/i915_scheduler.c | 58 +++++++++++++++++++--------
+ 1 file changed, 42 insertions(+), 16 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-index c7363036765a..68f58762d5e3 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-@@ -423,6 +423,9 @@ static struct intel_engine_cs *active_engine(struct intel_context *ce)
- 	struct intel_engine_cs *engine = NULL;
- 	struct i915_request *rq;
+diff --git a/drivers/gpu/drm/i915/i915_scheduler.c b/drivers/gpu/drm/i915/i915_scheduler.c
+index e2ba5d63a8cb..f76e8960d382 100644
+--- a/drivers/gpu/drm/i915/i915_scheduler.c
++++ b/drivers/gpu/drm/i915/i915_scheduler.c
+@@ -452,25 +452,26 @@ void i915_request_set_priority(struct i915_request *rq, int prio)
+ void __intel_engine_defer_request(struct intel_engine_cs *engine,
+ 				  struct i915_request *rq)
+ {
+-	struct list_head *pl;
+-	LIST_HEAD(list);
++	struct list_head *pos = &rq->sched.waiters_list;
++	struct i915_request *rn;
++	LIST_HEAD(dfs);
++	int prio;
  
-+	if (intel_context_has_inflight(ce))
-+		return intel_context_inflight(ce);
+ 	lockdep_assert_held(&engine->active.lock);
+ 	GEM_BUG_ON(!test_bit(I915_FENCE_FLAG_PQUEUE, &rq->fence.flags));
+ 
++	prio = rq_prio(rq);
 +
- 	if (!ce->timeline)
- 		return NULL;
+ 	/*
+ 	 * When we defer a request, we must maintain its order with respect
+ 	 * to those that are waiting upon it. So we traverse its chain of
+ 	 * waiters and move any that are earlier than the request to after it.
+ 	 */
+-	pl = lookup_priolist(engine, rq_prio(rq));
++	rq->sched.dfs.next = NULL;
+ 	do {
+-		struct i915_dependency *p;
+-
+-		GEM_BUG_ON(i915_request_is_active(rq));
+-		list_move_tail(&rq->sched.link, pl);
+-
+-		for_each_waiter(p, rq) {
++		list_for_each_continue(pos, &rq->sched.waiters_list) {
++			struct i915_dependency *p =
++				list_entry(pos, typeof(*p), wait_link);
+ 			struct i915_request *w =
+ 				container_of(p->waiter, typeof(*w), sched);
  
-diff --git a/drivers/gpu/drm/i915/gt/intel_context.h b/drivers/gpu/drm/i915/gt/intel_context.h
-index 2ce2ec639ba2..ecab3a7e4d1d 100644
---- a/drivers/gpu/drm/i915/gt/intel_context.h
-+++ b/drivers/gpu/drm/i915/gt/intel_context.h
-@@ -191,6 +191,16 @@ static inline bool intel_context_is_closed(const struct intel_context *ce)
- 	return test_bit(CONTEXT_CLOSED_BIT, &ce->flags);
+@@ -486,19 +487,44 @@ void __intel_engine_defer_request(struct intel_engine_cs *engine,
+ 				   __i915_request_has_started(w) &&
+ 				   !__i915_request_is_complete(rq));
+ 
+-			GEM_BUG_ON(i915_request_is_active(w));
+-			if (!i915_request_is_ready(w))
++			if (!i915_request_in_priority_queue(w))
+ 				continue;
+ 
+-			if (rq_prio(w) < rq_prio(rq))
++			/*
++			 * We also need to reorder within the same priority.
++			 *
++			 * This is unlike priority-inheritance, where if the
++			 * signaler already has a higher priority [earlier
++			 * deadline] than us, we can ignore as it will be
++			 * scheduled first. If a waiter already has the
++			 * same priority, we still have to push it to the end
++			 * of the list. This unfortunately means we cannot
++			 * use the rq_deadline() itself as a 'visited' bit.
++			 */
++			if (rq_prio(w) < prio)
+ 				continue;
+ 
+-			GEM_BUG_ON(rq_prio(w) > rq_prio(rq));
+-			list_move_tail(&w->sched.link, &list);
++			GEM_BUG_ON(rq_prio(w) != prio);
++
++			/* Remember our position along this branch */
++			rq = stack_push(w, rq, pos);
++			pos = &rq->sched.waiters_list;
+ 		}
+ 
+-		rq = list_first_entry_or_null(&list, typeof(*rq), sched.link);
+-	} while (rq);
++		/* Note list is reversed for waiters wrt signal hierarchy */
++		GEM_BUG_ON(rq->engine != engine);
++		GEM_BUG_ON(!i915_request_in_priority_queue(rq));
++		list_move(&rq->sched.link, &dfs);
++
++		/* Track our visit, and prevent duplicate processing */
++		clear_bit(I915_FENCE_FLAG_PQUEUE, &rq->fence.flags);
++	} while ((rq = stack_pop(rq, &pos)));
++
++	pos = lookup_priolist(engine, prio);
++	list_for_each_entry_safe(rq, rn, &dfs, sched.link) {
++		set_bit(I915_FENCE_FLAG_PQUEUE, &rq->fence.flags);
++		list_add_tail(&rq->sched.link, pos);
++	}
  }
  
-+static inline void intel_context_set_inflight(struct intel_context *ce)
-+{
-+	return __set_bit(CONTEXT_HAS_INFLIGHT, &ce->flags);
-+}
-+
-+static inline bool intel_context_has_inflight(const struct intel_context *ce)
-+{
-+	return test_bit(CONTEXT_HAS_INFLIGHT, &ce->flags);
-+}
-+
- static inline bool intel_context_use_semaphores(const struct intel_context *ce)
- {
- 	return test_bit(CONTEXT_USE_SEMAPHORES, &ce->flags);
-diff --git a/drivers/gpu/drm/i915/gt/intel_context_types.h b/drivers/gpu/drm/i915/gt/intel_context_types.h
-index f7a0fb6f3a2e..679b268f0911 100644
---- a/drivers/gpu/drm/i915/gt/intel_context_types.h
-+++ b/drivers/gpu/drm/i915/gt/intel_context_types.h
-@@ -87,10 +87,11 @@ struct intel_context {
- #define CONTEXT_ALLOC_BIT		1
- #define CONTEXT_VALID_BIT		2
- #define CONTEXT_CLOSED_BIT		3
--#define CONTEXT_USE_SEMAPHORES		4
--#define CONTEXT_BANNED			5
--#define CONTEXT_FORCE_SINGLE_SUBMISSION	6
--#define CONTEXT_NOPREEMPT		7
-+#define CONTEXT_HAS_INFLIGHT		4
-+#define CONTEXT_USE_SEMAPHORES		5
-+#define CONTEXT_BANNED			6
-+#define CONTEXT_FORCE_SINGLE_SUBMISSION	7
-+#define CONTEXT_NOPREEMPT		8
- 
- 	u32 *lrc_reg_state;
- 	union {
-diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-index cdd7606a65d4..5969e688f78e 100644
---- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-+++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-@@ -2532,6 +2532,7 @@ static int __execlists_context_alloc(struct intel_context *ce,
- 	if (err)
- 		goto err_lrc;
- 
-+	intel_context_set_inflight(ce);
- 	return 0;
- 
- err_lrc:
+ static void queue_request(struct intel_engine_cs *engine,
 -- 
 2.20.1
 
