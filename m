@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4029AC433E0
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Dec 2020 15:53:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0D0ADC433DB
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Dec 2020 15:53:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 034AC206E5
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Dec 2020 15:53:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 034AC206E5
+	by mail.kernel.org (Postfix) with ESMTPS id C5389206E5
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Dec 2020 15:53:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C5389206E5
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B480899DC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C9ABA89A1F;
 	Mon, 28 Dec 2020 15:52:56 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 742488925D
- for <intel-gfx@lists.freedesktop.org>; Mon, 28 Dec 2020 15:52:49 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C3F9899DB
+ for <intel-gfx@lists.freedesktop.org>; Mon, 28 Dec 2020 15:52:51 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23448240-1500050 
- for multiple; Mon, 28 Dec 2020 15:52:41 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23448188-1500050 
+ for multiple; Mon, 28 Dec 2020 15:52:34 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 28 Dec 2020 15:52:23 +0000
-Message-Id: <20201228155229.9516-48-chris@chris-wilson.co.uk>
+Date: Mon, 28 Dec 2020 15:51:46 +0000
+Message-Id: <20201228155229.9516-11-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201228155229.9516-1-chris@chris-wilson.co.uk>
 References: <20201228155229.9516-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 48/54] drm/i915/gt: Support creation of
- 'internal' rings
+Subject: [Intel-gfx] [PATCH 11/54] drm/i915/gt: Extract busy-stats for
+ ring-scheduler
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,275 +51,75 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Chris Wilson <chris@chris-wilson.co.uk>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-To support legacy ring buffer scheduling, we want a virtual ringbuffer
-for each client. These rings are purely for holding the requests as they
-are being constructed on the CPU and never accessed by the GPU, so they
-should not be bound into the GGTT, and we can use plain old WB mapped
-pages.
-
-As they are not bound, we need to nerf a few assumptions that a rq->ring
-is in the GGTT.
-
-Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
----
- drivers/gpu/drm/i915/gt/intel_context.c    |  2 +-
- drivers/gpu/drm/i915/gt/intel_engine_cs.c  | 17 +-----
- drivers/gpu/drm/i915/gt/intel_ring.c       | 66 ++++++++++++++--------
- drivers/gpu/drm/i915/gt/intel_ring.h       | 12 +++-
- drivers/gpu/drm/i915/gt/intel_ring_types.h |  2 +
- 5 files changed, 59 insertions(+), 40 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/gt/intel_context.c b/drivers/gpu/drm/i915/gt/intel_context.c
-index b3eb7513659b..d01678c26a91 100644
---- a/drivers/gpu/drm/i915/gt/intel_context.c
-+++ b/drivers/gpu/drm/i915/gt/intel_context.c
-@@ -259,7 +259,7 @@ int __intel_context_do_pin_ww(struct intel_context *ce,
- 		}
- 
- 		CE_TRACE(ce, "pin ring:{start:%08x, head:%04x, tail:%04x}\n",
--			 i915_ggtt_offset(ce->ring->vma),
-+			 intel_ring_address(ce->ring),
- 			 ce->ring->head, ce->ring->tail);
- 
- 		handoff = true;
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-index 0b96007c30f5..befd299cf675 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-@@ -1323,7 +1323,7 @@ static int print_ring(char *buf, int sz, struct i915_request *rq)
- 
- 		len = scnprintf(buf, sz,
- 				"ring:{start:%08x, hwsp:%08x, seqno:%08x, runtime:%llums}, ",
--				i915_ggtt_offset(rq->ring->vma),
-+				intel_ring_address(rq->ring),
- 				tl ? tl->ggtt_offset : 0,
- 				hwsp_seqno(rq),
- 				DIV_ROUND_CLOSEST_ULL(intel_context_get_total_runtime_ns(rq->context),
-@@ -1651,7 +1651,7 @@ void intel_engine_dump(struct intel_engine_cs *engine,
- 		i915_request_show(m, rq, "\t\tactive ", 0);
- 
- 		drm_printf(m, "\t\tring->start:  0x%08x\n",
--			   i915_ggtt_offset(rq->ring->vma));
-+			   intel_ring_address(rq->ring));
- 		drm_printf(m, "\t\tring->head:   0x%08x\n",
- 			   rq->ring->head);
- 		drm_printf(m, "\t\tring->tail:   0x%08x\n",
-@@ -1732,13 +1732,6 @@ ktime_t intel_engine_get_busy_time(struct intel_engine_cs *engine, ktime_t *now)
- 	return total;
- }
- 
--static bool match_ring(struct i915_request *rq)
--{
--	u32 ring = ENGINE_READ(rq->engine, RING_START);
--
--	return ring == i915_ggtt_offset(rq->ring->vma);
--}
--
- struct i915_request *
- intel_engine_find_active_request(struct intel_engine_cs *engine)
- {
-@@ -1778,11 +1771,7 @@ intel_engine_find_active_request(struct intel_engine_cs *engine)
- 			continue;
- 
- 		if (!i915_request_started(request))
--			continue;
--
--		/* More than one preemptible request may match! */
--		if (!match_ring(request))
--			continue;
-+			break;
- 
- 		active = request;
- 		break;
-diff --git a/drivers/gpu/drm/i915/gt/intel_ring.c b/drivers/gpu/drm/i915/gt/intel_ring.c
-index 06385550450c..ea873c2a7d6b 100644
---- a/drivers/gpu/drm/i915/gt/intel_ring.c
-+++ b/drivers/gpu/drm/i915/gt/intel_ring.c
-@@ -32,33 +32,42 @@ void __intel_ring_pin(struct intel_ring *ring)
- int intel_ring_pin(struct intel_ring *ring, struct i915_gem_ww_ctx *ww)
- {
- 	struct i915_vma *vma = ring->vma;
--	unsigned int flags;
- 	void *addr;
- 	int ret;
- 
- 	if (atomic_fetch_inc(&ring->pin_count))
- 		return 0;
- 
--	/* Ring wraparound at offset 0 sometimes hangs. No idea why. */
--	flags = PIN_OFFSET_BIAS | i915_ggtt_pin_bias(vma);
-+	if (!(ring->flags & INTEL_RING_CREATE_INTERNAL)) {
-+		int type = i915_coherent_map_type(vma->vm->i915);
-+		unsigned int pin;
- 
--	if (vma->obj->stolen)
--		flags |= PIN_MAPPABLE;
--	else
--		flags |= PIN_HIGH;
-+		/* Ring wraparound at offset 0 sometimes hangs. No idea why. */
-+		pin |= PIN_OFFSET_BIAS | i915_ggtt_pin_bias(vma);
- 
--	ret = i915_ggtt_pin(vma, ww, 0, flags);
--	if (unlikely(ret))
--		goto err_unpin;
-+		if (vma->obj->stolen)
-+			pin |= PIN_MAPPABLE;
-+		else
-+			pin |= PIN_HIGH;
- 
--	if (i915_vma_is_map_and_fenceable(vma))
--		addr = (void __force *)i915_vma_pin_iomap(vma);
--	else
--		addr = i915_gem_object_pin_map(vma->obj,
--					       i915_coherent_map_type(vma->vm->i915));
--	if (IS_ERR(addr)) {
--		ret = PTR_ERR(addr);
--		goto err_ring;
-+		ret = i915_ggtt_pin(vma, ww, 0, pin);
-+		if (unlikely(ret))
-+			goto err_unpin;
-+
-+		if (i915_vma_is_map_and_fenceable(vma))
-+			addr = (void __force *)i915_vma_pin_iomap(vma);
-+		else
-+			addr = i915_gem_object_pin_map(vma->obj, type);
-+		if (IS_ERR(addr)) {
-+			ret = PTR_ERR(addr);
-+			goto err_ring;
-+		}
-+	} else {
-+		addr = i915_gem_object_pin_map(vma->obj, I915_MAP_WB);
-+		if (IS_ERR(addr)) {
-+			ret = PTR_ERR(addr);
-+			goto err_ring;
-+		}
- 	}
- 
- 	i915_vma_make_unshrinkable(vma);
-@@ -99,10 +108,12 @@ void intel_ring_unpin(struct intel_ring *ring)
- 		i915_gem_object_unpin_map(vma->obj);
- 
- 	i915_vma_make_purgeable(vma);
--	i915_vma_unpin(vma);
-+	if (!(ring->flags & INTEL_RING_CREATE_INTERNAL))
-+		i915_vma_unpin(vma);
- }
- 
--static struct i915_vma *create_ring_vma(struct i915_ggtt *ggtt, int size)
-+static struct i915_vma *
-+create_ring_vma(struct i915_ggtt *ggtt, int size, unsigned int flags)
- {
- 	struct i915_address_space *vm = &ggtt->vm;
- 	struct drm_i915_private *i915 = vm->i915;
-@@ -110,8 +121,10 @@ static struct i915_vma *create_ring_vma(struct i915_ggtt *ggtt, int size)
- 	struct i915_vma *vma;
- 
- 	obj = ERR_PTR(-ENODEV);
--	if (i915_ggtt_has_aperture(ggtt))
--		obj = i915_gem_object_create_stolen(i915, size);
-+	if (!(flags & INTEL_RING_CREATE_INTERNAL)) {
-+		if (i915_ggtt_has_aperture(ggtt))
-+			obj = i915_gem_object_create_stolen(i915, size);
-+	}
- 	if (IS_ERR(obj))
- 		obj = i915_gem_object_create_internal(i915, size);
- 	if (IS_ERR(obj))
-@@ -136,12 +149,14 @@ static struct i915_vma *create_ring_vma(struct i915_ggtt *ggtt, int size)
- }
- 
- struct intel_ring *
--intel_engine_create_ring(struct intel_engine_cs *engine, int size)
-+intel_engine_create_ring(struct intel_engine_cs *engine, unsigned int size)
- {
- 	struct drm_i915_private *i915 = engine->i915;
-+	unsigned int flags = size & GENMASK(11, 0);
- 	struct intel_ring *ring;
- 	struct i915_vma *vma;
- 
-+	size ^= flags;
- 	GEM_BUG_ON(!is_power_of_2(size));
- 	GEM_BUG_ON(RING_CTL_SIZE(size) & ~RING_NR_PAGES);
- 
-@@ -150,8 +165,10 @@ intel_engine_create_ring(struct intel_engine_cs *engine, int size)
- 		return ERR_PTR(-ENOMEM);
- 
- 	kref_init(&ring->ref);
-+
- 	ring->size = size;
- 	ring->wrap = BITS_PER_TYPE(ring->size) - ilog2(size);
-+	ring->flags = flags;
- 
- 	/*
- 	 * Workaround an erratum on the i830 which causes a hang if
-@@ -164,11 +181,12 @@ intel_engine_create_ring(struct intel_engine_cs *engine, int size)
- 
- 	intel_ring_update_space(ring);
- 
--	vma = create_ring_vma(engine->gt->ggtt, size);
-+	vma = create_ring_vma(engine->gt->ggtt, size, flags);
- 	if (IS_ERR(vma)) {
- 		kfree(ring);
- 		return ERR_CAST(vma);
- 	}
-+
- 	ring->vma = vma;
- 
- 	return ring;
-diff --git a/drivers/gpu/drm/i915/gt/intel_ring.h b/drivers/gpu/drm/i915/gt/intel_ring.h
-index 1700579bdc93..5419ac0327f4 100644
---- a/drivers/gpu/drm/i915/gt/intel_ring.h
-+++ b/drivers/gpu/drm/i915/gt/intel_ring.h
-@@ -9,12 +9,14 @@
- 
- #include "i915_gem.h" /* GEM_BUG_ON */
- #include "i915_request.h"
-+#include "i915_vma.h"
- #include "intel_ring_types.h"
- 
- struct intel_engine_cs;
- 
- struct intel_ring *
--intel_engine_create_ring(struct intel_engine_cs *engine, int size);
-+intel_engine_create_ring(struct intel_engine_cs *engine, unsigned int size);
-+#define INTEL_RING_CREATE_INTERNAL BIT(0)
- 
- u32 *intel_ring_begin(struct i915_request *rq, unsigned int num_dwords);
- int intel_ring_cacheline_align(struct i915_request *rq);
-@@ -138,4 +140,12 @@ __intel_ring_space(unsigned int head, unsigned int tail, unsigned int size)
- 	return (head - tail - CACHELINE_BYTES) & (size - 1);
- }
- 
-+static inline u32 intel_ring_address(const struct intel_ring *ring)
-+{
-+	if (ring->flags & INTEL_RING_CREATE_INTERNAL)
-+		return -1;
-+
-+	return i915_ggtt_offset(ring->vma);
-+}
-+
- #endif /* INTEL_RING_H */
-diff --git a/drivers/gpu/drm/i915/gt/intel_ring_types.h b/drivers/gpu/drm/i915/gt/intel_ring_types.h
-index 1a189ea00fd8..d927deafcb33 100644
---- a/drivers/gpu/drm/i915/gt/intel_ring_types.h
-+++ b/drivers/gpu/drm/i915/gt/intel_ring_types.h
-@@ -47,6 +47,8 @@ struct intel_ring {
- 	u32 size;
- 	u32 wrap;
- 	u32 effective_size;
-+
-+	unsigned long flags;
- };
- 
- #endif /* INTEL_RING_TYPES_H */
--- 
-2.20.1
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+TGlmdCB0aGUgYnVzeS1zdGF0cyBjb250ZXh0LWluL291dCBpbXBsZW1lbnRhdGlvbiBvdXQgb2Yg
+aW50ZWxfbHJjLCBzbwp0aGF0IHdlIGNhbiByZXVzZSBpdCBmb3Igb3RoZXIgc2NoZWR1bGVyIGlt
+cGxlbWVudGF0aW9ucy4KClNpZ25lZC1vZmYtYnk6IENocmlzIFdpbHNvbiA8Y2hyaXNAY2hyaXMt
+d2lsc29uLmNvLnVrPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2d0L2ludGVsX2VuZ2luZV9z
+dGF0cy5oICB8IDQ5ICsrKysrKysrKysrKysrKysrKysKIC4uLi9kcm0vaTkxNS9ndC9pbnRlbF9l
+eGVjbGlzdHNfc3VibWlzc2lvbi5jICB8IDM0ICstLS0tLS0tLS0tLS0KIDIgZmlsZXMgY2hhbmdl
+ZCwgNTAgaW5zZXJ0aW9ucygrKSwgMzMgZGVsZXRpb25zKC0pCiBjcmVhdGUgbW9kZSAxMDA2NDQg
+ZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3QvaW50ZWxfZW5naW5lX3N0YXRzLmgKCmRpZmYgLS1naXQg
+YS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9ndC9pbnRlbF9lbmdpbmVfc3RhdHMuaCBiL2RyaXZlcnMv
+Z3B1L2RybS9pOTE1L2d0L2ludGVsX2VuZ2luZV9zdGF0cy5oCm5ldyBmaWxlIG1vZGUgMTAwNjQ0
+CmluZGV4IDAwMDAwMDAwMDAwMC4uNTg0OTFlYWUzNDgyCi0tLSAvZGV2L251bGwKKysrIGIvZHJp
+dmVycy9ncHUvZHJtL2k5MTUvZ3QvaW50ZWxfZW5naW5lX3N0YXRzLmgKQEAgLTAsMCArMSw0OSBA
+QAorLyogU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IE1JVCAqLworLyoKKyAqIENvcHlyaWdodCDC
+qSAyMDIwIEludGVsIENvcnBvcmF0aW9uCisgKi8KKworI2lmbmRlZiBfX0lOVEVMX0VOR0lORV9T
+VEFUU19IX18KKyNkZWZpbmUgX19JTlRFTF9FTkdJTkVfU1RBVFNfSF9fCisKKyNpbmNsdWRlIDxs
+aW51eC9hdG9taWMuaD4KKyNpbmNsdWRlIDxsaW51eC9rdGltZS5oPgorI2luY2x1ZGUgPGxpbnV4
+L3NlcWxvY2suaD4KKworI2luY2x1ZGUgImk5MTVfZ2VtLmgiIC8qIEdFTV9CVUdfT04gKi8KKyNp
+bmNsdWRlICJpbnRlbF9lbmdpbmUuaCIKKworc3RhdGljIGlubGluZSB2b2lkIGludGVsX2VuZ2lu
+ZV9jb250ZXh0X2luKHN0cnVjdCBpbnRlbF9lbmdpbmVfY3MgKmVuZ2luZSkKK3sKKwl1bnNpZ25l
+ZCBsb25nIGZsYWdzOworCisJaWYgKGF0b21pY19hZGRfdW5sZXNzKCZlbmdpbmUtPnN0YXRzLmFj
+dGl2ZSwgMSwgMCkpCisJCXJldHVybjsKKworCXdyaXRlX3NlcWxvY2tfaXJxc2F2ZSgmZW5naW5l
+LT5zdGF0cy5sb2NrLCBmbGFncyk7CisJaWYgKCFhdG9taWNfYWRkX3VubGVzcygmZW5naW5lLT5z
+dGF0cy5hY3RpdmUsIDEsIDApKSB7CisJCWVuZ2luZS0+c3RhdHMuc3RhcnQgPSBrdGltZV9nZXQo
+KTsKKwkJYXRvbWljX2luYygmZW5naW5lLT5zdGF0cy5hY3RpdmUpOworCX0KKwl3cml0ZV9zZXF1
+bmxvY2tfaXJxcmVzdG9yZSgmZW5naW5lLT5zdGF0cy5sb2NrLCBmbGFncyk7Cit9CisKK3N0YXRp
+YyBpbmxpbmUgdm9pZCBpbnRlbF9lbmdpbmVfY29udGV4dF9vdXQoc3RydWN0IGludGVsX2VuZ2lu
+ZV9jcyAqZW5naW5lKQoreworCXVuc2lnbmVkIGxvbmcgZmxhZ3M7CisKKwlHRU1fQlVHX09OKCFh
+dG9taWNfcmVhZCgmZW5naW5lLT5zdGF0cy5hY3RpdmUpKTsKKworCWlmIChhdG9taWNfYWRkX3Vu
+bGVzcygmZW5naW5lLT5zdGF0cy5hY3RpdmUsIC0xLCAxKSkKKwkJcmV0dXJuOworCisJd3JpdGVf
+c2VxbG9ja19pcnFzYXZlKCZlbmdpbmUtPnN0YXRzLmxvY2ssIGZsYWdzKTsKKwlpZiAoYXRvbWlj
+X2RlY19hbmRfdGVzdCgmZW5naW5lLT5zdGF0cy5hY3RpdmUpKSB7CisJCWVuZ2luZS0+c3RhdHMu
+dG90YWwgPQorCQkJa3RpbWVfYWRkKGVuZ2luZS0+c3RhdHMudG90YWwsCisJCQkJICBrdGltZV9z
+dWIoa3RpbWVfZ2V0KCksIGVuZ2luZS0+c3RhdHMuc3RhcnQpKTsKKwl9CisJd3JpdGVfc2VxdW5s
+b2NrX2lycXJlc3RvcmUoJmVuZ2luZS0+c3RhdHMubG9jaywgZmxhZ3MpOworfQorCisjZW5kaWYg
+LyogX19JTlRFTF9FTkdJTkVfU1RBVFNfSF9fICovCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
+cm0vaTkxNS9ndC9pbnRlbF9leGVjbGlzdHNfc3VibWlzc2lvbi5jIGIvZHJpdmVycy9ncHUvZHJt
+L2k5MTUvZ3QvaW50ZWxfZXhlY2xpc3RzX3N1Ym1pc3Npb24uYwppbmRleCA3ODJjNGFmOWMyNTAu
+Ljk2ODUyODk0ZTZmMiAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3QvaW50ZWxf
+ZXhlY2xpc3RzX3N1Ym1pc3Npb24uYworKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9ndC9pbnRl
+bF9leGVjbGlzdHNfc3VibWlzc2lvbi5jCkBAIC0xMTUsNiArMTE1LDcgQEAKICNpbmNsdWRlICJp
+bnRlbF9icmVhZGNydW1icy5oIgogI2luY2x1ZGUgImludGVsX2NvbnRleHQuaCIKICNpbmNsdWRl
+ICJpbnRlbF9lbmdpbmVfcG0uaCIKKyNpbmNsdWRlICJpbnRlbF9lbmdpbmVfc3RhdHMuaCIKICNp
+bmNsdWRlICJpbnRlbF9leGVjbGlzdHNfc3VibWlzc2lvbi5oIgogI2luY2x1ZGUgImludGVsX2d0
+LmgiCiAjaW5jbHVkZSAiaW50ZWxfZ3RfcG0uaCIKQEAgLTQ0MywzOSArNDQ0LDYgQEAgZXhlY2xp
+c3RzX2NvbnRleHRfc3RhdHVzX2NoYW5nZShzdHJ1Y3QgaTkxNV9yZXF1ZXN0ICpycSwgdW5zaWdu
+ZWQgbG9uZyBzdGF0dXMpCiAJCQkJICAgc3RhdHVzLCBycSk7CiB9CiAKLXN0YXRpYyB2b2lkIGlu
+dGVsX2VuZ2luZV9jb250ZXh0X2luKHN0cnVjdCBpbnRlbF9lbmdpbmVfY3MgKmVuZ2luZSkKLXsK
+LQl1bnNpZ25lZCBsb25nIGZsYWdzOwotCi0JaWYgKGF0b21pY19hZGRfdW5sZXNzKCZlbmdpbmUt
+PnN0YXRzLmFjdGl2ZSwgMSwgMCkpCi0JCXJldHVybjsKLQotCXdyaXRlX3NlcWxvY2tfaXJxc2F2
+ZSgmZW5naW5lLT5zdGF0cy5sb2NrLCBmbGFncyk7Ci0JaWYgKCFhdG9taWNfYWRkX3VubGVzcygm
+ZW5naW5lLT5zdGF0cy5hY3RpdmUsIDEsIDApKSB7Ci0JCWVuZ2luZS0+c3RhdHMuc3RhcnQgPSBr
+dGltZV9nZXQoKTsKLQkJYXRvbWljX2luYygmZW5naW5lLT5zdGF0cy5hY3RpdmUpOwotCX0KLQl3
+cml0ZV9zZXF1bmxvY2tfaXJxcmVzdG9yZSgmZW5naW5lLT5zdGF0cy5sb2NrLCBmbGFncyk7Ci19
+Ci0KLXN0YXRpYyB2b2lkIGludGVsX2VuZ2luZV9jb250ZXh0X291dChzdHJ1Y3QgaW50ZWxfZW5n
+aW5lX2NzICplbmdpbmUpCi17Ci0JdW5zaWduZWQgbG9uZyBmbGFnczsKLQotCUdFTV9CVUdfT04o
+IWF0b21pY19yZWFkKCZlbmdpbmUtPnN0YXRzLmFjdGl2ZSkpOwotCi0JaWYgKGF0b21pY19hZGRf
+dW5sZXNzKCZlbmdpbmUtPnN0YXRzLmFjdGl2ZSwgLTEsIDEpKQotCQlyZXR1cm47Ci0KLQl3cml0
+ZV9zZXFsb2NrX2lycXNhdmUoJmVuZ2luZS0+c3RhdHMubG9jaywgZmxhZ3MpOwotCWlmIChhdG9t
+aWNfZGVjX2FuZF90ZXN0KCZlbmdpbmUtPnN0YXRzLmFjdGl2ZSkpIHsKLQkJZW5naW5lLT5zdGF0
+cy50b3RhbCA9Ci0JCQlrdGltZV9hZGQoZW5naW5lLT5zdGF0cy50b3RhbCwKLQkJCQkgIGt0aW1l
+X3N1YihrdGltZV9nZXQoKSwgZW5naW5lLT5zdGF0cy5zdGFydCkpOwotCX0KLQl3cml0ZV9zZXF1
+bmxvY2tfaXJxcmVzdG9yZSgmZW5naW5lLT5zdGF0cy5sb2NrLCBmbGFncyk7Ci19Ci0KIHN0YXRp
+YyB2b2lkIHJlc2V0X2FjdGl2ZShzdHJ1Y3QgaTkxNV9yZXF1ZXN0ICpycSwKIAkJCSBzdHJ1Y3Qg
+aW50ZWxfZW5naW5lX2NzICplbmdpbmUpCiB7Ci0tIAoyLjIwLjEKCl9fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkludGVsLWdmeCBtYWlsaW5nIGxpc3QKSW50
+ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
+Zy9tYWlsbWFuL2xpc3RpbmZvL2ludGVsLWdmeAo=
