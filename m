@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 61DB7C433DB
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Dec 2020 15:52:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4029AC433E0
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Dec 2020 15:53:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2E2E120829
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Dec 2020 15:52:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2E2E120829
+	by mail.kernel.org (Postfix) with ESMTPS id 034AC206E5
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Dec 2020 15:53:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 034AC206E5
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5DC888925D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8B480899DC;
 	Mon, 28 Dec 2020 15:52:56 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 16FFB8999C
- for <intel-gfx@lists.freedesktop.org>; Mon, 28 Dec 2020 15:52:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 742488925D
+ for <intel-gfx@lists.freedesktop.org>; Mon, 28 Dec 2020 15:52:49 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23448206-1500050 
- for multiple; Mon, 28 Dec 2020 15:52:37 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23448240-1500050 
+ for multiple; Mon, 28 Dec 2020 15:52:41 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 28 Dec 2020 15:52:02 +0000
-Message-Id: <20201228155229.9516-27-chris@chris-wilson.co.uk>
+Date: Mon, 28 Dec 2020 15:52:23 +0000
+Message-Id: <20201228155229.9516-48-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201228155229.9516-1-chris@chris-wilson.co.uk>
 References: <20201228155229.9516-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 27/54] drm/i915: Extract the ability to defer
- and rerun a request later
+Subject: [Intel-gfx] [PATCH 48/54] drm/i915/gt: Support creation of
+ 'internal' rings
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,221 +56,266 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Lift the ability to defer a request until later from execlists into the
-common layer.
+To support legacy ring buffer scheduling, we want a virtual ringbuffer
+for each client. These rings are purely for holding the requests as they
+are being constructed on the CPU and never accessed by the GPU, so they
+should not be bound into the GGTT, and we can use plain old WB mapped
+pages.
+
+As they are not bound, we need to nerf a few assumptions that a rq->ring
+is in the GGTT.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 ---
- .../drm/i915/gt/intel_execlists_submission.c  | 55 ++--------------
- drivers/gpu/drm/i915/i915_scheduler.c         | 66 ++++++++++++++++---
- drivers/gpu/drm/i915/i915_scheduler.h         |  5 +-
- 3 files changed, 67 insertions(+), 59 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_context.c    |  2 +-
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c  | 17 +-----
+ drivers/gpu/drm/i915/gt/intel_ring.c       | 66 ++++++++++++++--------
+ drivers/gpu/drm/i915/gt/intel_ring.h       | 12 +++-
+ drivers/gpu/drm/i915/gt/intel_ring_types.h |  2 +
+ 5 files changed, 59 insertions(+), 40 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-index 778aa21523d9..ce65997508f9 100644
---- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-+++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-@@ -995,9 +995,13 @@ static void virtual_xfer_context(struct virtual_engine *ve,
- 	}
+diff --git a/drivers/gpu/drm/i915/gt/intel_context.c b/drivers/gpu/drm/i915/gt/intel_context.c
+index b3eb7513659b..d01678c26a91 100644
+--- a/drivers/gpu/drm/i915/gt/intel_context.c
++++ b/drivers/gpu/drm/i915/gt/intel_context.c
+@@ -259,7 +259,7 @@ int __intel_context_do_pin_ww(struct intel_context *ce,
+ 		}
+ 
+ 		CE_TRACE(ce, "pin ring:{start:%08x, head:%04x, tail:%04x}\n",
+-			 i915_ggtt_offset(ce->ring->vma),
++			 intel_ring_address(ce->ring),
+ 			 ce->ring->head, ce->ring->tail);
+ 
+ 		handoff = true;
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+index 0b96007c30f5..befd299cf675 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
++++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+@@ -1323,7 +1323,7 @@ static int print_ring(char *buf, int sz, struct i915_request *rq)
+ 
+ 		len = scnprintf(buf, sz,
+ 				"ring:{start:%08x, hwsp:%08x, seqno:%08x, runtime:%llums}, ",
+-				i915_ggtt_offset(rq->ring->vma),
++				intel_ring_address(rq->ring),
+ 				tl ? tl->ggtt_offset : 0,
+ 				hwsp_seqno(rq),
+ 				DIV_ROUND_CLOSEST_ULL(intel_context_get_total_runtime_ns(rq->context),
+@@ -1651,7 +1651,7 @@ void intel_engine_dump(struct intel_engine_cs *engine,
+ 		i915_request_show(m, rq, "\t\tactive ", 0);
+ 
+ 		drm_printf(m, "\t\tring->start:  0x%08x\n",
+-			   i915_ggtt_offset(rq->ring->vma));
++			   intel_ring_address(rq->ring));
+ 		drm_printf(m, "\t\tring->head:   0x%08x\n",
+ 			   rq->ring->head);
+ 		drm_printf(m, "\t\tring->tail:   0x%08x\n",
+@@ -1732,13 +1732,6 @@ ktime_t intel_engine_get_busy_time(struct intel_engine_cs *engine, ktime_t *now)
+ 	return total;
  }
  
--static void defer_request(struct i915_request *rq, struct list_head * const pl)
-+static void defer_active(struct intel_engine_cs *engine)
- {
--	LIST_HEAD(list);
-+	struct i915_request *rq;
-+
-+	rq = __intel_engine_rewind_requests(engine);
-+	if (!rq)
-+		return;
- 
- 	/*
- 	 * We want to move the interrupted request to the back of
-@@ -1006,52 +1010,7 @@ static void defer_request(struct i915_request *rq, struct list_head * const pl)
- 	 * flight and were waiting for the interrupted request to
- 	 * be run after it again.
- 	 */
--	do {
--		struct i915_dependency *p;
+-static bool match_ring(struct i915_request *rq)
+-{
+-	u32 ring = ENGINE_READ(rq->engine, RING_START);
 -
--		GEM_BUG_ON(i915_request_is_active(rq));
--		list_move_tail(&rq->sched.link, pl);
--
--		for_each_waiter(p, rq) {
--			struct i915_request *w =
--				container_of(p->waiter, typeof(*w), sched);
--
--			if (p->flags & I915_DEPENDENCY_WEAK)
--				continue;
--
--			/* Leave semaphores spinning on the other engines */
--			if (w->engine != rq->engine)
--				continue;
--
--			/* No waiter should start before its signaler */
--			GEM_BUG_ON(i915_request_has_initial_breadcrumb(w) &&
--				   __i915_request_has_started(w) &&
--				   !__i915_request_is_complete(rq));
--
--			GEM_BUG_ON(i915_request_is_active(w));
--			if (!i915_request_is_ready(w))
--				continue;
--
--			if (rq_prio(w) < rq_prio(rq))
--				continue;
--
--			GEM_BUG_ON(rq_prio(w) > rq_prio(rq));
--			list_move_tail(&w->sched.link, &list);
--		}
--
--		rq = list_first_entry_or_null(&list, typeof(*rq), sched.link);
--	} while (rq);
+-	return ring == i915_ggtt_offset(rq->ring->vma);
 -}
 -
--static void defer_active(struct intel_engine_cs *engine)
--{
--	struct i915_request *rq;
--
--	rq = __intel_engine_rewind_requests(engine);
--	if (!rq)
--		return;
--
--	defer_request(rq, i915_sched_lookup_priolist(engine, rq_prio(rq)));
-+	__intel_engine_defer_request(engine, rq);
- }
- 
- static bool
-diff --git a/drivers/gpu/drm/i915/i915_scheduler.c b/drivers/gpu/drm/i915/i915_scheduler.c
-index db31906ad9ec..e2ba5d63a8cb 100644
---- a/drivers/gpu/drm/i915/i915_scheduler.c
-+++ b/drivers/gpu/drm/i915/i915_scheduler.c
-@@ -171,8 +171,8 @@ static void assert_priolists(struct intel_engine_execlists * const execlists)
- 	}
- }
- 
--struct list_head *
--i915_sched_lookup_priolist(struct intel_engine_cs *engine, int prio)
-+static struct list_head *
-+lookup_priolist(struct intel_engine_cs *engine, int prio)
+ struct i915_request *
+ intel_engine_find_active_request(struct intel_engine_cs *engine)
  {
- 	struct intel_engine_execlists * const execlists = &engine->execlists;
- 	struct i915_priolist *p;
-@@ -324,7 +324,7 @@ static void __i915_request_set_priority(struct i915_request *rq, int prio)
- 	struct list_head *pos = &rq->sched.signalers_list;
- 	struct list_head *plist;
+@@ -1778,11 +1771,7 @@ intel_engine_find_active_request(struct intel_engine_cs *engine)
+ 			continue;
  
--	plist = i915_sched_lookup_priolist(engine, prio);
-+	plist = lookup_priolist(engine, prio);
+ 		if (!i915_request_started(request))
+-			continue;
+-
+-		/* More than one preemptible request may match! */
+-		if (!match_ring(request))
+-			continue;
++			break;
+ 
+ 		active = request;
+ 		break;
+diff --git a/drivers/gpu/drm/i915/gt/intel_ring.c b/drivers/gpu/drm/i915/gt/intel_ring.c
+index 06385550450c..ea873c2a7d6b 100644
+--- a/drivers/gpu/drm/i915/gt/intel_ring.c
++++ b/drivers/gpu/drm/i915/gt/intel_ring.c
+@@ -32,33 +32,42 @@ void __intel_ring_pin(struct intel_ring *ring)
+ int intel_ring_pin(struct intel_ring *ring, struct i915_gem_ww_ctx *ww)
+ {
+ 	struct i915_vma *vma = ring->vma;
+-	unsigned int flags;
+ 	void *addr;
+ 	int ret;
+ 
+ 	if (atomic_fetch_inc(&ring->pin_count))
+ 		return 0;
+ 
+-	/* Ring wraparound at offset 0 sometimes hangs. No idea why. */
+-	flags = PIN_OFFSET_BIAS | i915_ggtt_pin_bias(vma);
++	if (!(ring->flags & INTEL_RING_CREATE_INTERNAL)) {
++		int type = i915_coherent_map_type(vma->vm->i915);
++		unsigned int pin;
+ 
+-	if (vma->obj->stolen)
+-		flags |= PIN_MAPPABLE;
+-	else
+-		flags |= PIN_HIGH;
++		/* Ring wraparound at offset 0 sometimes hangs. No idea why. */
++		pin |= PIN_OFFSET_BIAS | i915_ggtt_pin_bias(vma);
+ 
+-	ret = i915_ggtt_pin(vma, ww, 0, flags);
+-	if (unlikely(ret))
+-		goto err_unpin;
++		if (vma->obj->stolen)
++			pin |= PIN_MAPPABLE;
++		else
++			pin |= PIN_HIGH;
+ 
+-	if (i915_vma_is_map_and_fenceable(vma))
+-		addr = (void __force *)i915_vma_pin_iomap(vma);
+-	else
+-		addr = i915_gem_object_pin_map(vma->obj,
+-					       i915_coherent_map_type(vma->vm->i915));
+-	if (IS_ERR(addr)) {
+-		ret = PTR_ERR(addr);
+-		goto err_ring;
++		ret = i915_ggtt_pin(vma, ww, 0, pin);
++		if (unlikely(ret))
++			goto err_unpin;
++
++		if (i915_vma_is_map_and_fenceable(vma))
++			addr = (void __force *)i915_vma_pin_iomap(vma);
++		else
++			addr = i915_gem_object_pin_map(vma->obj, type);
++		if (IS_ERR(addr)) {
++			ret = PTR_ERR(addr);
++			goto err_ring;
++		}
++	} else {
++		addr = i915_gem_object_pin_map(vma->obj, I915_MAP_WB);
++		if (IS_ERR(addr)) {
++			ret = PTR_ERR(addr);
++			goto err_ring;
++		}
+ 	}
+ 
+ 	i915_vma_make_unshrinkable(vma);
+@@ -99,10 +108,12 @@ void intel_ring_unpin(struct intel_ring *ring)
+ 		i915_gem_object_unpin_map(vma->obj);
+ 
+ 	i915_vma_make_purgeable(vma);
+-	i915_vma_unpin(vma);
++	if (!(ring->flags & INTEL_RING_CREATE_INTERNAL))
++		i915_vma_unpin(vma);
+ }
+ 
+-static struct i915_vma *create_ring_vma(struct i915_ggtt *ggtt, int size)
++static struct i915_vma *
++create_ring_vma(struct i915_ggtt *ggtt, int size, unsigned int flags)
+ {
+ 	struct i915_address_space *vm = &ggtt->vm;
+ 	struct drm_i915_private *i915 = vm->i915;
+@@ -110,8 +121,10 @@ static struct i915_vma *create_ring_vma(struct i915_ggtt *ggtt, int size)
+ 	struct i915_vma *vma;
+ 
+ 	obj = ERR_PTR(-ENODEV);
+-	if (i915_ggtt_has_aperture(ggtt))
+-		obj = i915_gem_object_create_stolen(i915, size);
++	if (!(flags & INTEL_RING_CREATE_INTERNAL)) {
++		if (i915_ggtt_has_aperture(ggtt))
++			obj = i915_gem_object_create_stolen(i915, size);
++	}
+ 	if (IS_ERR(obj))
+ 		obj = i915_gem_object_create_internal(i915, size);
+ 	if (IS_ERR(obj))
+@@ -136,12 +149,14 @@ static struct i915_vma *create_ring_vma(struct i915_ggtt *ggtt, int size)
+ }
+ 
+ struct intel_ring *
+-intel_engine_create_ring(struct intel_engine_cs *engine, int size)
++intel_engine_create_ring(struct intel_engine_cs *engine, unsigned int size)
+ {
+ 	struct drm_i915_private *i915 = engine->i915;
++	unsigned int flags = size & GENMASK(11, 0);
+ 	struct intel_ring *ring;
+ 	struct i915_vma *vma;
+ 
++	size ^= flags;
+ 	GEM_BUG_ON(!is_power_of_2(size));
+ 	GEM_BUG_ON(RING_CTL_SIZE(size) & ~RING_NR_PAGES);
+ 
+@@ -150,8 +165,10 @@ intel_engine_create_ring(struct intel_engine_cs *engine, int size)
+ 		return ERR_PTR(-ENOMEM);
+ 
+ 	kref_init(&ring->ref);
++
+ 	ring->size = size;
+ 	ring->wrap = BITS_PER_TYPE(ring->size) - ilog2(size);
++	ring->flags = flags;
  
  	/*
- 	 * Recursively bump all dependent priorities to match the new request.
-@@ -449,12 +449,63 @@ void i915_request_set_priority(struct i915_request *rq, int prio)
- 	spin_unlock_irqrestore(&engine->active.lock, flags);
+ 	 * Workaround an erratum on the i830 which causes a hang if
+@@ -164,11 +181,12 @@ intel_engine_create_ring(struct intel_engine_cs *engine, int size)
+ 
+ 	intel_ring_update_space(ring);
+ 
+-	vma = create_ring_vma(engine->gt->ggtt, size);
++	vma = create_ring_vma(engine->gt->ggtt, size, flags);
+ 	if (IS_ERR(vma)) {
+ 		kfree(ring);
+ 		return ERR_CAST(vma);
+ 	}
++
+ 	ring->vma = vma;
+ 
+ 	return ring;
+diff --git a/drivers/gpu/drm/i915/gt/intel_ring.h b/drivers/gpu/drm/i915/gt/intel_ring.h
+index 1700579bdc93..5419ac0327f4 100644
+--- a/drivers/gpu/drm/i915/gt/intel_ring.h
++++ b/drivers/gpu/drm/i915/gt/intel_ring.h
+@@ -9,12 +9,14 @@
+ 
+ #include "i915_gem.h" /* GEM_BUG_ON */
+ #include "i915_request.h"
++#include "i915_vma.h"
+ #include "intel_ring_types.h"
+ 
+ struct intel_engine_cs;
+ 
+ struct intel_ring *
+-intel_engine_create_ring(struct intel_engine_cs *engine, int size);
++intel_engine_create_ring(struct intel_engine_cs *engine, unsigned int size);
++#define INTEL_RING_CREATE_INTERNAL BIT(0)
+ 
+ u32 *intel_ring_begin(struct i915_request *rq, unsigned int num_dwords);
+ int intel_ring_cacheline_align(struct i915_request *rq);
+@@ -138,4 +140,12 @@ __intel_ring_space(unsigned int head, unsigned int tail, unsigned int size)
+ 	return (head - tail - CACHELINE_BYTES) & (size - 1);
  }
  
-+void __intel_engine_defer_request(struct intel_engine_cs *engine,
-+				  struct i915_request *rq)
++static inline u32 intel_ring_address(const struct intel_ring *ring)
 +{
-+	struct list_head *pl;
-+	LIST_HEAD(list);
++	if (ring->flags & INTEL_RING_CREATE_INTERNAL)
++		return -1;
 +
-+	lockdep_assert_held(&engine->active.lock);
-+	GEM_BUG_ON(!test_bit(I915_FENCE_FLAG_PQUEUE, &rq->fence.flags));
-+
-+	/*
-+	 * When we defer a request, we must maintain its order with respect
-+	 * to those that are waiting upon it. So we traverse its chain of
-+	 * waiters and move any that are earlier than the request to after it.
-+	 */
-+	pl = lookup_priolist(engine, rq_prio(rq));
-+	do {
-+		struct i915_dependency *p;
-+
-+		GEM_BUG_ON(i915_request_is_active(rq));
-+		list_move_tail(&rq->sched.link, pl);
-+
-+		for_each_waiter(p, rq) {
-+			struct i915_request *w =
-+				container_of(p->waiter, typeof(*w), sched);
-+
-+			if (p->flags & I915_DEPENDENCY_WEAK)
-+				continue;
-+
-+			/* Leave semaphores spinning on the other engines */
-+			if (w->engine != engine)
-+				continue;
-+
-+			/* No waiter should start before its signaler */
-+			GEM_BUG_ON(i915_request_has_initial_breadcrumb(w) &&
-+				   __i915_request_has_started(w) &&
-+				   !__i915_request_is_complete(rq));
-+
-+			GEM_BUG_ON(i915_request_is_active(w));
-+			if (!i915_request_is_ready(w))
-+				continue;
-+
-+			if (rq_prio(w) < rq_prio(rq))
-+				continue;
-+
-+			GEM_BUG_ON(rq_prio(w) > rq_prio(rq));
-+			list_move_tail(&w->sched.link, &list);
-+		}
-+
-+		rq = list_first_entry_or_null(&list, typeof(*rq), sched.link);
-+	} while (rq);
++	return i915_ggtt_offset(ring->vma);
 +}
 +
- static void queue_request(struct intel_engine_cs *engine,
- 			  struct i915_request *rq)
- {
- 	GEM_BUG_ON(!list_empty(&rq->sched.link));
--	list_add_tail(&rq->sched.link,
--		      i915_sched_lookup_priolist(engine, rq_prio(rq)));
-+	list_add_tail(&rq->sched.link, lookup_priolist(engine, rq_prio(rq)));
- 	set_bit(I915_FENCE_FLAG_PQUEUE, &rq->fence.flags);
- }
+ #endif /* INTEL_RING_H */
+diff --git a/drivers/gpu/drm/i915/gt/intel_ring_types.h b/drivers/gpu/drm/i915/gt/intel_ring_types.h
+index 1a189ea00fd8..d927deafcb33 100644
+--- a/drivers/gpu/drm/i915/gt/intel_ring_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_ring_types.h
+@@ -47,6 +47,8 @@ struct intel_ring {
+ 	u32 size;
+ 	u32 wrap;
+ 	u32 effective_size;
++
++	unsigned long flags;
+ };
  
-@@ -553,7 +604,7 @@ __intel_engine_rewind_requests(struct intel_engine_cs *engine)
- 		GEM_BUG_ON(rq_prio(rq) == I915_PRIORITY_INVALID);
- 		if (rq_prio(rq) != prio) {
- 			prio = rq_prio(rq);
--			pl = i915_sched_lookup_priolist(engine, prio);
-+			pl = lookup_priolist(engine, prio);
- 		}
- 		GEM_BUG_ON(RB_EMPTY_ROOT(&engine->execlists.queue.rb_root));
- 
-@@ -658,8 +709,7 @@ void __intel_engine_unhold_request(struct intel_engine_cs *engine,
- 
- 		i915_request_clear_hold(rq);
- 		list_move_tail(&rq->sched.link,
--			       i915_sched_lookup_priolist(rq->engine,
--							  rq_prio(rq)));
-+			       lookup_priolist(rq->engine, rq_prio(rq)));
- 		set_bit(I915_FENCE_FLAG_PQUEUE, &rq->fence.flags);
- 
- 		/* Also release any children on this engine that are ready */
-diff --git a/drivers/gpu/drm/i915/i915_scheduler.h b/drivers/gpu/drm/i915/i915_scheduler.h
-index b4b722982870..152faac61468 100644
---- a/drivers/gpu/drm/i915/i915_scheduler.h
-+++ b/drivers/gpu/drm/i915/i915_scheduler.h
-@@ -43,15 +43,14 @@ void i915_request_enqueue(struct i915_request *request);
- 
- struct i915_request *
- __intel_engine_rewind_requests(struct intel_engine_cs *engine);
-+void __intel_engine_defer_request(struct intel_engine_cs *engine,
-+				  struct i915_request *request);
- 
- bool __intel_engine_hold_request(struct intel_engine_cs *engine,
- 				 struct i915_request *request);
- void __intel_engine_unhold_request(struct intel_engine_cs *engine,
- 				   struct i915_request *request);
- 
--struct list_head *
--i915_sched_lookup_priolist(struct intel_engine_cs *engine, int prio);
--
- void __i915_priolist_free(struct i915_priolist *p);
- static inline void i915_priolist_free(struct i915_priolist *p)
- {
+ #endif /* INTEL_RING_TYPES_H */
 -- 
 2.20.1
 
