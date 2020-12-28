@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C197CC4332E
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Dec 2020 15:53:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 14C59C4361B
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Dec 2020 15:53:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8799220829
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Dec 2020 15:53:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8799220829
+	by mail.kernel.org (Postfix) with ESMTPS id B219022583
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Dec 2020 15:53:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B219022583
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D3F0899D4;
-	Mon, 28 Dec 2020 15:52:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A16089A34;
+	Mon, 28 Dec 2020 15:52:57 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AFB618925D
- for <intel-gfx@lists.freedesktop.org>; Mon, 28 Dec 2020 15:52:52 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C8F9A899DB
+ for <intel-gfx@lists.freedesktop.org>; Mon, 28 Dec 2020 15:52:49 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23448207-1500050 
- for multiple; Mon, 28 Dec 2020 15:52:37 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23448230-1500050 
+ for multiple; Mon, 28 Dec 2020 15:52:40 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 28 Dec 2020 15:52:03 +0000
-Message-Id: <20201228155229.9516-28-chris@chris-wilson.co.uk>
+Date: Mon, 28 Dec 2020 15:52:21 +0000
+Message-Id: <20201228155229.9516-46-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201228155229.9516-1-chris@chris-wilson.co.uk>
 References: <20201228155229.9516-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 28/54] drm/i915: Fix the iterative dfs for
- defering requests
+Subject: [Intel-gfx] [PATCH 46/54] Restore "drm/i915: drop
+ engine_pin/unpin_breadcrumbs_irq"
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,108 +56,66 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The current implementation of walking the children of a deferred
-requests lacks the backtracking required to reduce the dfs to linear.
-Having pulled it from execlists into the common layer, we can reuse the
-dfs code for priority inheritance.
+This was removed in commit 478ffad6d690 ("drm/i915: drop
+engine_pin/unpin_breadcrumbs_irq") as the last user had been removed,
+but now there is a promise of a new user in the next patch.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+Reviewed-by: Mika Kuoppala <mika.kuoppala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/i915_scheduler.c | 58 +++++++++++++++++++--------
- 1 file changed, 42 insertions(+), 16 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_breadcrumbs.c | 24 +++++++++++++++++++++
+ drivers/gpu/drm/i915/gt/intel_breadcrumbs.h |  3 +++
+ 2 files changed, 27 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/i915_scheduler.c b/drivers/gpu/drm/i915/i915_scheduler.c
-index e2ba5d63a8cb..f76e8960d382 100644
---- a/drivers/gpu/drm/i915/i915_scheduler.c
-+++ b/drivers/gpu/drm/i915/i915_scheduler.c
-@@ -452,25 +452,26 @@ void i915_request_set_priority(struct i915_request *rq, int prio)
- void __intel_engine_defer_request(struct intel_engine_cs *engine,
- 				  struct i915_request *rq)
- {
--	struct list_head *pl;
--	LIST_HEAD(list);
-+	struct list_head *pos = &rq->sched.waiters_list;
-+	struct i915_request *rn;
-+	LIST_HEAD(dfs);
-+	int prio;
- 
- 	lockdep_assert_held(&engine->active.lock);
- 	GEM_BUG_ON(!test_bit(I915_FENCE_FLAG_PQUEUE, &rq->fence.flags));
- 
-+	prio = rq_prio(rq);
-+
- 	/*
- 	 * When we defer a request, we must maintain its order with respect
- 	 * to those that are waiting upon it. So we traverse its chain of
- 	 * waiters and move any that are earlier than the request to after it.
- 	 */
--	pl = lookup_priolist(engine, rq_prio(rq));
-+	rq->sched.dfs.next = NULL;
- 	do {
--		struct i915_dependency *p;
--
--		GEM_BUG_ON(i915_request_is_active(rq));
--		list_move_tail(&rq->sched.link, pl);
--
--		for_each_waiter(p, rq) {
-+		list_for_each_continue(pos, &rq->sched.waiters_list) {
-+			struct i915_dependency *p =
-+				list_entry(pos, typeof(*p), wait_link);
- 			struct i915_request *w =
- 				container_of(p->waiter, typeof(*w), sched);
- 
-@@ -486,19 +487,44 @@ void __intel_engine_defer_request(struct intel_engine_cs *engine,
- 				   __i915_request_has_started(w) &&
- 				   !__i915_request_is_complete(rq));
- 
--			GEM_BUG_ON(i915_request_is_active(w));
--			if (!i915_request_is_ready(w))
-+			if (!i915_request_in_priority_queue(w))
- 				continue;
- 
--			if (rq_prio(w) < rq_prio(rq))
-+			/*
-+			 * We also need to reorder within the same priority.
-+			 *
-+			 * This is unlike priority-inheritance, where if the
-+			 * signaler already has a higher priority [earlier
-+			 * deadline] than us, we can ignore as it will be
-+			 * scheduled first. If a waiter already has the
-+			 * same priority, we still have to push it to the end
-+			 * of the list. This unfortunately means we cannot
-+			 * use the rq_deadline() itself as a 'visited' bit.
-+			 */
-+			if (rq_prio(w) < prio)
- 				continue;
- 
--			GEM_BUG_ON(rq_prio(w) > rq_prio(rq));
--			list_move_tail(&w->sched.link, &list);
-+			GEM_BUG_ON(rq_prio(w) != prio);
-+
-+			/* Remember our position along this branch */
-+			rq = stack_push(w, rq, pos);
-+			pos = &rq->sched.waiters_list;
- 		}
- 
--		rq = list_first_entry_or_null(&list, typeof(*rq), sched.link);
--	} while (rq);
-+		/* Note list is reversed for waiters wrt signal hierarchy */
-+		GEM_BUG_ON(rq->engine != engine);
-+		GEM_BUG_ON(!i915_request_in_priority_queue(rq));
-+		list_move(&rq->sched.link, &dfs);
-+
-+		/* Track our visit, and prevent duplicate processing */
-+		clear_bit(I915_FENCE_FLAG_PQUEUE, &rq->fence.flags);
-+	} while ((rq = stack_pop(rq, &pos)));
-+
-+	pos = lookup_priolist(engine, prio);
-+	list_for_each_entry_safe(rq, rn, &dfs, sched.link) {
-+		set_bit(I915_FENCE_FLAG_PQUEUE, &rq->fence.flags);
-+		list_add_tail(&rq->sched.link, pos);
-+	}
+diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
+index b7af8d9cc4dc..dc76b05991e7 100644
+--- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
++++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
+@@ -329,6 +329,30 @@ void intel_breadcrumbs_reset(struct intel_breadcrumbs *b)
+ 	spin_unlock_irqrestore(&b->irq_lock, flags);
  }
  
- static void queue_request(struct intel_engine_cs *engine,
++void intel_breadcrumbs_pin_irq(struct intel_breadcrumbs *b)
++{
++	if (GEM_DEBUG_WARN_ON(!b->irq_engine))
++		return;
++
++	spin_lock_irq(&b->irq_lock);
++	if (!b->irq_enabled++)
++		irq_enable(b->irq_engine);
++	GEM_BUG_ON(!b->irq_enabled); /* no overflow! */
++	spin_unlock_irq(&b->irq_lock);
++}
++
++void intel_breadcrumbs_unpin_irq(struct intel_breadcrumbs *b)
++{
++	if (GEM_DEBUG_WARN_ON(!b->irq_engine))
++		return;
++
++	spin_lock_irq(&b->irq_lock);
++	GEM_BUG_ON(!b->irq_enabled); /* no underflow! */
++	if (!--b->irq_enabled)
++		irq_disable(b->irq_engine);
++	spin_unlock_irq(&b->irq_lock);
++}
++
+ void __intel_breadcrumbs_park(struct intel_breadcrumbs *b)
+ {
+ 	if (!READ_ONCE(b->irq_armed))
+diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.h b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.h
+index 75cc9cff3ae3..d400ac17c733 100644
+--- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.h
++++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.h
+@@ -18,6 +18,9 @@ struct intel_breadcrumbs *
+ intel_breadcrumbs_create(struct intel_engine_cs *irq_engine);
+ void intel_breadcrumbs_free(struct intel_breadcrumbs *b);
+ 
++void intel_breadcrumbs_pin_irq(struct intel_breadcrumbs *b);
++void intel_breadcrumbs_unpin_irq(struct intel_breadcrumbs *b);
++
+ void intel_breadcrumbs_reset(struct intel_breadcrumbs *b);
+ void __intel_breadcrumbs_park(struct intel_breadcrumbs *b);
+ 
 -- 
 2.20.1
 
