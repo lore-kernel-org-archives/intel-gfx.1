@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E6C64C433DB
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Dec 2020 15:54:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 78B9AC433DB
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Dec 2020 15:54:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A4946206E5
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Dec 2020 15:54:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A4946206E5
+	by mail.kernel.org (Postfix) with ESMTPS id 428C1206E5
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Dec 2020 15:54:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 428C1206E5
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2FB8C89BFB;
-	Mon, 28 Dec 2020 15:54:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D4A4A89BF6;
+	Mon, 28 Dec 2020 15:54:31 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A37EA89A0F
- for <intel-gfx@lists.freedesktop.org>; Mon, 28 Dec 2020 15:52:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F18B389AC0
+ for <intel-gfx@lists.freedesktop.org>; Mon, 28 Dec 2020 15:53:16 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23448183-1500050 
- for multiple; Mon, 28 Dec 2020 15:52:33 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23448238-1500050 
+ for multiple; Mon, 28 Dec 2020 15:52:41 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 28 Dec 2020 15:51:41 +0000
-Message-Id: <20201228155229.9516-6-chris@chris-wilson.co.uk>
+Date: Mon, 28 Dec 2020 15:52:22 +0000
+Message-Id: <20201228155229.9516-47-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201228155229.9516-1-chris@chris-wilson.co.uk>
 References: <20201228155229.9516-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 06/54] drm/i915: Drop i915_request.lock
- requirement for intel_rps_boost()
+Subject: [Intel-gfx] [PATCH 47/54] drm/i915/gt: Couple tasklet scheduling
+ for all CS interrupts
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,69 +56,134 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Since we use a flag within i915_request.flags to indicate when we have
-boosted the request (so that we only apply the boost) once, this can be
-used as the serialisation with i915_request_retire() to avoid having to
-explicitly take the i915_request.lock which is more heavily contended.
+If any engine asks for the tasklet to be kicked from the CS interrupt,
+do so. Currently, this is used by the execlists scheduler backends to
+feed in the next request to the HW, and similarly could be used by a
+ring scheduler, as will be seen in the next patch.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+Reviewed-by: Mika Kuoppala <mika.kuoppala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_rps.c | 15 ++++++---------
- drivers/gpu/drm/i915/i915_request.c |  4 +---
- 2 files changed, 7 insertions(+), 12 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_gt_irq.c | 17 ++++++++++++-----
+ drivers/gpu/drm/i915/gt/intel_gt_irq.h |  3 +++
+ drivers/gpu/drm/i915/gt/intel_rps.c    |  2 +-
+ drivers/gpu/drm/i915/i915_irq.c        |  8 ++++----
+ 4 files changed, 20 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_rps.c b/drivers/gpu/drm/i915/gt/intel_rps.c
-index f74d5e09e176..e1397b8d3586 100644
---- a/drivers/gpu/drm/i915/gt/intel_rps.c
-+++ b/drivers/gpu/drm/i915/gt/intel_rps.c
-@@ -917,17 +917,15 @@ void intel_rps_park(struct intel_rps *rps)
- 
- void intel_rps_boost(struct i915_request *rq)
- {
--	struct intel_rps *rps = &READ_ONCE(rq->engine)->gt->rps;
--	unsigned long flags;
--
--	if (i915_request_signaled(rq) || !intel_rps_is_active(rps))
-+	if (i915_request_signaled(rq) || i915_request_has_waitboost(rq))
- 		return;
- 
- 	/* Serializes with i915_request_retire() */
--	spin_lock_irqsave(&rq->lock, flags);
--	if (!i915_request_has_waitboost(rq) &&
--	    !dma_fence_is_signaled_locked(&rq->fence)) {
--		set_bit(I915_FENCE_FLAG_BOOST, &rq->fence.flags);
-+	if (!test_and_set_bit(I915_FENCE_FLAG_BOOST, &rq->fence.flags)) {
-+		struct intel_rps *rps = &READ_ONCE(rq->engine)->gt->rps;
-+
-+		if (!intel_rps_is_active(rps))
-+			return;
- 
- 		GT_TRACE(rps_to_gt(rps), "boost fence:%llx:%llx\n",
- 			 rq->fence.context, rq->fence.seqno);
-@@ -938,7 +936,6 @@ void intel_rps_boost(struct i915_request *rq)
- 
- 		atomic_inc(&rps->boosts);
- 	}
--	spin_unlock_irqrestore(&rq->lock, flags);
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_irq.c b/drivers/gpu/drm/i915/gt/intel_gt_irq.c
+index 2106fb403c3e..dfb2d66e1556 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_irq.c
++++ b/drivers/gpu/drm/i915/gt/intel_gt_irq.c
+@@ -63,6 +63,13 @@ cs_irq_handler(struct intel_engine_cs *engine, u32 iir)
+ 		i915_sched_kick(&engine->active);
  }
  
- int intel_rps_set(struct intel_rps *rps, u8 val)
-diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
-index 2d2882344e40..2a7bad88038b 100644
---- a/drivers/gpu/drm/i915/i915_request.c
-+++ b/drivers/gpu/drm/i915/i915_request.c
-@@ -307,10 +307,8 @@ bool i915_request_retire(struct i915_request *rq)
- 		spin_unlock_irq(&rq->lock);
- 	}
++void gen2_engine_cs_irq(struct intel_engine_cs *engine)
++{
++	intel_engine_signal_breadcrumbs(engine);
++	if (intel_engine_needs_breadcrumb_tasklet(engine))
++		i915_sched_kick(&engine->active);
++}
++
+ static u32
+ gen11_gt_engine_identity(struct intel_gt *gt,
+ 			 const unsigned int bank, const unsigned int bit)
+@@ -276,9 +283,9 @@ void gen11_gt_irq_postinstall(struct intel_gt *gt)
+ void gen5_gt_irq_handler(struct intel_gt *gt, u32 gt_iir)
+ {
+ 	if (gt_iir & GT_RENDER_USER_INTERRUPT)
+-		intel_engine_signal_breadcrumbs(gt->engine_class[RENDER_CLASS][0]);
++		gen2_engine_cs_irq(gt->engine_class[RENDER_CLASS][0]);
+ 	if (gt_iir & ILK_BSD_USER_INTERRUPT)
+-		intel_engine_signal_breadcrumbs(gt->engine_class[VIDEO_DECODE_CLASS][0]);
++		gen2_engine_cs_irq(gt->engine_class[VIDEO_DECODE_CLASS][0]);
+ }
  
--	if (i915_request_has_waitboost(rq)) {
--		GEM_BUG_ON(!atomic_read(&rq->engine->gt->rps.num_waiters));
-+	if (test_and_set_bit(I915_FENCE_FLAG_BOOST, &rq->fence.flags))
- 		atomic_dec(&rq->engine->gt->rps.num_waiters);
--	}
+ static void gen7_parity_error_irq_handler(struct intel_gt *gt, u32 iir)
+@@ -302,11 +309,11 @@ static void gen7_parity_error_irq_handler(struct intel_gt *gt, u32 iir)
+ void gen6_gt_irq_handler(struct intel_gt *gt, u32 gt_iir)
+ {
+ 	if (gt_iir & GT_RENDER_USER_INTERRUPT)
+-		intel_engine_signal_breadcrumbs(gt->engine_class[RENDER_CLASS][0]);
++		gen2_engine_cs_irq(gt->engine_class[RENDER_CLASS][0]);
+ 	if (gt_iir & GT_BSD_USER_INTERRUPT)
+-		intel_engine_signal_breadcrumbs(gt->engine_class[VIDEO_DECODE_CLASS][0]);
++		gen2_engine_cs_irq(gt->engine_class[VIDEO_DECODE_CLASS][0]);
+ 	if (gt_iir & GT_BLT_USER_INTERRUPT)
+-		intel_engine_signal_breadcrumbs(gt->engine_class[COPY_ENGINE_CLASS][0]);
++		gen2_engine_cs_irq(gt->engine_class[COPY_ENGINE_CLASS][0]);
  
- 	/*
- 	 * We only loosely track inflight requests across preemption,
+ 	if (gt_iir & (GT_BLT_CS_ERROR_INTERRUPT |
+ 		      GT_BSD_CS_ERROR_INTERRUPT |
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_irq.h b/drivers/gpu/drm/i915/gt/intel_gt_irq.h
+index 886c5cf408a2..6c69cd563fe1 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_irq.h
++++ b/drivers/gpu/drm/i915/gt/intel_gt_irq.h
+@@ -9,6 +9,7 @@
+ 
+ #include <linux/types.h>
+ 
++struct intel_engine_cs;
+ struct intel_gt;
+ 
+ #define GEN8_GT_IRQS (GEN8_GT_RCS_IRQ | \
+@@ -19,6 +20,8 @@ struct intel_gt;
+ 		      GEN8_GT_PM_IRQ | \
+ 		      GEN8_GT_GUC_IRQ)
+ 
++void gen2_engine_cs_irq(struct intel_engine_cs *engine);
++
+ void gen11_gt_irq_reset(struct intel_gt *gt);
+ void gen11_gt_irq_postinstall(struct intel_gt *gt);
+ void gen11_gt_irq_handler(struct intel_gt *gt, const u32 master_ctl);
+diff --git a/drivers/gpu/drm/i915/gt/intel_rps.c b/drivers/gpu/drm/i915/gt/intel_rps.c
+index e1397b8d3586..2b443b735a98 100644
+--- a/drivers/gpu/drm/i915/gt/intel_rps.c
++++ b/drivers/gpu/drm/i915/gt/intel_rps.c
+@@ -1771,7 +1771,7 @@ void gen6_rps_irq_handler(struct intel_rps *rps, u32 pm_iir)
+ 		return;
+ 
+ 	if (pm_iir & PM_VEBOX_USER_INTERRUPT)
+-		intel_engine_signal_breadcrumbs(gt->engine[VECS0]);
++		gen2_engine_cs_irq(gt->engine[VECS0]);
+ 
+ 	if (pm_iir & PM_VEBOX_CS_ERROR_INTERRUPT)
+ 		DRM_DEBUG("Command parser error, pm_iir 0x%08x\n", pm_iir);
+diff --git a/drivers/gpu/drm/i915/i915_irq.c b/drivers/gpu/drm/i915/i915_irq.c
+index dd1971040bbc..8d15bec36996 100644
+--- a/drivers/gpu/drm/i915/i915_irq.c
++++ b/drivers/gpu/drm/i915/i915_irq.c
+@@ -3941,7 +3941,7 @@ static irqreturn_t i8xx_irq_handler(int irq, void *arg)
+ 		intel_uncore_write16(&dev_priv->uncore, GEN2_IIR, iir);
+ 
+ 		if (iir & I915_USER_INTERRUPT)
+-			intel_engine_signal_breadcrumbs(dev_priv->gt.engine[RCS0]);
++			gen2_engine_cs_irq(dev_priv->gt.engine[RCS0]);
+ 
+ 		if (iir & I915_MASTER_ERROR_INTERRUPT)
+ 			i8xx_error_irq_handler(dev_priv, eir, eir_stuck);
+@@ -4049,7 +4049,7 @@ static irqreturn_t i915_irq_handler(int irq, void *arg)
+ 		intel_uncore_write(&dev_priv->uncore, GEN2_IIR, iir);
+ 
+ 		if (iir & I915_USER_INTERRUPT)
+-			intel_engine_signal_breadcrumbs(dev_priv->gt.engine[RCS0]);
++			gen2_engine_cs_irq(dev_priv->gt.engine[RCS0]);
+ 
+ 		if (iir & I915_MASTER_ERROR_INTERRUPT)
+ 			i9xx_error_irq_handler(dev_priv, eir, eir_stuck);
+@@ -4194,10 +4194,10 @@ static irqreturn_t i965_irq_handler(int irq, void *arg)
+ 		intel_uncore_write(&dev_priv->uncore, GEN2_IIR, iir);
+ 
+ 		if (iir & I915_USER_INTERRUPT)
+-			intel_engine_signal_breadcrumbs(dev_priv->gt.engine[RCS0]);
++			gen2_engine_cs_irq(dev_priv->gt.engine[RCS0]);
+ 
+ 		if (iir & I915_BSD_USER_INTERRUPT)
+-			intel_engine_signal_breadcrumbs(dev_priv->gt.engine[VCS0]);
++			gen2_engine_cs_irq(dev_priv->gt.engine[VCS0]);
+ 
+ 		if (iir & I915_MASTER_ERROR_INTERRUPT)
+ 			i9xx_error_irq_handler(dev_priv, eir, eir_stuck);
 -- 
 2.20.1
 
