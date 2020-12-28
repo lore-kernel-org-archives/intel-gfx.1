@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7F94FC4321A
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Dec 2020 15:53:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AA3D1C43603
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Dec 2020 15:53:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 29687206E5
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Dec 2020 15:53:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 29687206E5
+	by mail.kernel.org (Postfix) with ESMTPS id 6CA77206E5
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Dec 2020 15:53:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6CA77206E5
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B42E589B03;
-	Mon, 28 Dec 2020 15:53:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 24BB489B18;
+	Mon, 28 Dec 2020 15:53:01 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 39CA9899C7
- for <intel-gfx@lists.freedesktop.org>; Mon, 28 Dec 2020 15:52:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B05A489A14
+ for <intel-gfx@lists.freedesktop.org>; Mon, 28 Dec 2020 15:52:50 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23448196-1500050 
- for multiple; Mon, 28 Dec 2020 15:52:35 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23448210-1500050 
+ for multiple; Mon, 28 Dec 2020 15:52:37 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 28 Dec 2020 15:51:53 +0000
-Message-Id: <20201228155229.9516-18-chris@chris-wilson.co.uk>
+Date: Mon, 28 Dec 2020 15:52:06 +0000
+Message-Id: <20201228155229.9516-31-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201228155229.9516-1-chris@chris-wilson.co.uk>
 References: <20201228155229.9516-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 18/54] drm/i915: Replace engine->schedule() with
- a known request operation
+Subject: [Intel-gfx] [PATCH 31/54] drm/i915: Move tasklet from execlists to
+ sched
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,557 +56,715 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Looking to the future, we want to set the scheduling attributes
-explicitly and so replace the generic engine->schedule() with the more
-direct i915_request_set_priority()
-
-What it loses in removing the 'schedule' name from the function, it
-gains in having an explicit entry point with a stated goal.
+Move the scheduling tasklists out of the execlists backend into the
+per-engine scheduling bookkeeping.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 ---
- drivers/gpu/drm/i915/display/intel_display.c  |  9 +----
- .../gpu/drm/i915/gem/i915_gem_execbuffer.c    |  1 -
- drivers/gpu/drm/i915/gem/i915_gem_object.h    |  2 +-
- drivers/gpu/drm/i915/gem/i915_gem_wait.c      | 27 +++++----------
- drivers/gpu/drm/i915/gt/intel_engine_cs.c     |  3 --
- .../gpu/drm/i915/gt/intel_engine_heartbeat.c  |  4 +--
- drivers/gpu/drm/i915/gt/intel_engine_types.h  | 29 ++++++++--------
- drivers/gpu/drm/i915/gt/intel_engine_user.c   |  2 +-
- .../drm/i915/gt/intel_execlists_submission.c  |  3 +-
- drivers/gpu/drm/i915/gt/selftest_execlists.c  | 33 +++++--------------
- drivers/gpu/drm/i915/gt/selftest_hangcheck.c  | 11 +++----
- drivers/gpu/drm/i915/i915_request.c           | 10 +++---
- drivers/gpu/drm/i915/i915_scheduler.c         | 15 +++++----
- drivers/gpu/drm/i915/i915_scheduler.h         |  3 +-
- 14 files changed, 56 insertions(+), 96 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_engine.h        | 14 ----
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c     | 11 ++--
+ drivers/gpu/drm/i915/gt/intel_engine_types.h  |  5 --
+ .../drm/i915/gt/intel_execlists_submission.c  | 64 +++++++++----------
+ drivers/gpu/drm/i915/gt/intel_gt_irq.c        |  2 +-
+ drivers/gpu/drm/i915/gt/selftest_execlists.c  | 16 ++---
+ drivers/gpu/drm/i915/gt/selftest_hangcheck.c  |  2 +-
+ drivers/gpu/drm/i915/gt/selftest_lrc.c        |  6 +-
+ drivers/gpu/drm/i915/gt/selftest_reset.c      |  6 +-
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 14 ++--
+ drivers/gpu/drm/i915/i915_scheduler.c         | 14 ++--
+ drivers/gpu/drm/i915/i915_scheduler.h         | 20 ++++++
+ drivers/gpu/drm/i915/i915_scheduler_types.h   |  6 ++
+ .../gpu/drm/i915/selftests/i915_scheduler.c   | 16 ++---
+ 14 files changed, 99 insertions(+), 97 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 112e3a3d2dab..f25ab2b15ca1 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -15611,13 +15611,6 @@ void intel_plane_unpin_fb(struct intel_plane_state *old_plane_state)
- 		intel_unpin_fb_vma(vma, old_plane_state->flags);
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine.h b/drivers/gpu/drm/i915/gt/intel_engine.h
+index 20974415e7d8..801ae54cf60d 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine.h
++++ b/drivers/gpu/drm/i915/gt/intel_engine.h
+@@ -122,20 +122,6 @@ execlists_active(const struct intel_engine_execlists *execlists)
+ 	return active;
  }
  
--static void fb_obj_bump_render_priority(struct drm_i915_gem_object *obj)
+-static inline void
+-execlists_active_lock_bh(struct intel_engine_execlists *execlists)
 -{
--	struct i915_sched_attr attr = { .priority = I915_PRIORITY_DISPLAY };
--
--	i915_gem_object_wait_priority(obj, 0, &attr);
+-	local_bh_disable(); /* prevent local softirq and lock recursion */
+-	tasklet_lock(&execlists->tasklet);
 -}
 -
- /**
-  * intel_prepare_plane_fb - Prepare fb for usage on plane
-  * @_plane: drm plane to prepare for
-@@ -15694,7 +15687,7 @@ intel_prepare_plane_fb(struct drm_plane *_plane,
- 	if (ret)
- 		return ret;
- 
--	fb_obj_bump_render_priority(obj);
-+	i915_gem_object_wait_priority(obj, 0, I915_PRIORITY_DISPLAY);
- 	i915_gem_object_flush_frontbuffer(obj, ORIGIN_DIRTYFB);
- 
- 	if (!new_plane_state->uapi.fence) { /* implicit fencing */
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-index 19eeb3f8c5e8..dee0e2cbc71c 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-@@ -2653,7 +2653,6 @@ static struct i915_request *eb_pin_engine(struct i915_execbuffer *eb, bool throt
- 	int err;
- 
- 	GEM_BUG_ON(eb->args->flags & __EXEC_ENGINE_PINNED);
+-static inline void
+-execlists_active_unlock_bh(struct intel_engine_execlists *execlists)
+-{
+-	tasklet_unlock(&execlists->tasklet);
+-	local_bh_enable(); /* restore softirq, and kick ksoftirqd! */
+-}
 -
- 	if (unlikely(intel_context_is_banned(ce)))
- 		return ERR_PTR(-EIO);
- 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.h b/drivers/gpu/drm/i915/gem/i915_gem_object.h
-index be14486f63a7..b106bc81c303 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_object.h
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_object.h
-@@ -517,7 +517,7 @@ int i915_gem_object_wait(struct drm_i915_gem_object *obj,
- 			 long timeout);
- int i915_gem_object_wait_priority(struct drm_i915_gem_object *obj,
- 				  unsigned int flags,
--				  const struct i915_sched_attr *attr);
-+				  int prio);
- 
- void __i915_gem_object_flush_frontbuffer(struct drm_i915_gem_object *obj,
- 					 enum fb_op_origin origin);
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_wait.c b/drivers/gpu/drm/i915/gem/i915_gem_wait.c
-index c1b13ac50d0f..a5d7efe67021 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_wait.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_wait.c
-@@ -91,28 +91,17 @@ i915_gem_object_wait_reservation(struct dma_resv *resv,
- 	return timeout;
- }
- 
--static void __fence_set_priority(struct dma_fence *fence,
--				 const struct i915_sched_attr *attr)
-+static void __fence_set_priority(struct dma_fence *fence, int prio)
+ static inline u32
+ intel_read_status_page(const struct intel_engine_cs *engine, int reg)
  {
--	struct i915_request *rq;
--	struct intel_engine_cs *engine;
--
- 	if (dma_fence_is_signaled(fence) || !dma_fence_is_i915(fence))
- 		return;
- 
--	rq = to_request(fence);
--	engine = rq->engine;
--
- 	local_bh_disable();
--	rcu_read_lock(); /* RCU serialisation for set-wedged protection */
--	if (engine->schedule)
--		engine->schedule(rq, attr);
--	rcu_read_unlock();
-+	i915_request_set_priority(to_request(fence), prio);
- 	local_bh_enable(); /* kick the tasklets if queues were reprioritised */
- }
- 
--static void fence_set_priority(struct dma_fence *fence,
--			       const struct i915_sched_attr *attr)
-+static void fence_set_priority(struct dma_fence *fence, int prio)
- {
- 	/* Recurse once into a fence-array */
- 	if (dma_fence_is_array(fence)) {
-@@ -120,16 +109,16 @@ static void fence_set_priority(struct dma_fence *fence,
- 		int i;
- 
- 		for (i = 0; i < array->num_fences; i++)
--			__fence_set_priority(array->fences[i], attr);
-+			__fence_set_priority(array->fences[i], prio);
- 	} else {
--		__fence_set_priority(fence, attr);
-+		__fence_set_priority(fence, prio);
- 	}
- }
- 
- int
- i915_gem_object_wait_priority(struct drm_i915_gem_object *obj,
- 			      unsigned int flags,
--			      const struct i915_sched_attr *attr)
-+			      int prio)
- {
- 	struct dma_fence *excl;
- 
-@@ -144,7 +133,7 @@ i915_gem_object_wait_priority(struct drm_i915_gem_object *obj,
- 			return ret;
- 
- 		for (i = 0; i < count; i++) {
--			fence_set_priority(shared[i], attr);
-+			fence_set_priority(shared[i], prio);
- 			dma_fence_put(shared[i]);
- 		}
- 
-@@ -154,7 +143,7 @@ i915_gem_object_wait_priority(struct drm_i915_gem_object *obj,
- 	}
- 
- 	if (excl) {
--		fence_set_priority(excl, attr);
-+		fence_set_priority(excl, prio);
- 		dma_fence_put(excl);
- 	}
- 	return 0;
 diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-index d2a20e53b080..2f630b47783a 100644
+index db17d9fe3333..eb429a90518e 100644
 --- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
 +++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-@@ -337,9 +337,6 @@ static int intel_engine_setup(struct intel_gt *gt, enum intel_engine_id id)
- 	if (engine->context_size)
- 		DRIVER_CAPS(i915)->has_logical_contexts = true;
+@@ -915,7 +915,6 @@ int intel_engines_init(struct intel_gt *gt)
+ void intel_engine_cleanup_common(struct intel_engine_cs *engine)
+ {
+ 	i915_sched_fini_engine(&engine->active);
+-	tasklet_kill(&engine->execlists.tasklet); /* flush the callback */
  
--	/* Nothing to do here, execute in order of dependencies */
--	engine->schedule = NULL;
--
- 	ewma__engine_latency_init(&engine->latency);
- 	seqcount_init(&engine->stats.lock);
+ 	intel_breadcrumbs_free(engine->breadcrumbs);
  
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c b/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
-index ed03c08737f5..bccbb932a315 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
-@@ -115,7 +115,7 @@ static void heartbeat(struct work_struct *wrk)
- 			 * but all other contexts, including the kernel
- 			 * context are stuck waiting for the signal.
- 			 */
--		} else if (engine->schedule &&
-+		} else if (intel_engine_has_scheduler(engine) &&
- 			   rq->sched.attr.priority < I915_PRIORITY_BARRIER) {
- 			/*
- 			 * Gradually raise the priority of the heartbeat to
-@@ -130,7 +130,7 @@ static void heartbeat(struct work_struct *wrk)
- 				attr.priority = I915_PRIORITY_BARRIER;
+@@ -1189,7 +1188,7 @@ static bool ring_is_idle(struct intel_engine_cs *engine)
  
- 			local_bh_disable();
--			engine->schedule(rq, &attr);
-+			i915_request_set_priority(rq, attr.priority);
- 			local_bh_enable();
- 		} else {
- 			if (IS_ENABLED(CONFIG_DRM_I915_DEBUG_GEM))
+ void __intel_engine_flush_submission(struct intel_engine_cs *engine, bool sync)
+ {
+-	struct tasklet_struct *t = &engine->execlists.tasklet;
++	struct tasklet_struct *t = &engine->active.tasklet;
+ 
+ 	if (!t->func)
+ 		return;
+@@ -1454,8 +1453,8 @@ static void intel_engine_print_registers(struct intel_engine_cs *engine,
+ 
+ 		drm_printf(m, "\tExeclist tasklet queued? %s (%s), preempt? %s, timeslice? %s\n",
+ 			   yesno(test_bit(TASKLET_STATE_SCHED,
+-					  &engine->execlists.tasklet.state)),
+-			   enableddisabled(!atomic_read(&engine->execlists.tasklet.count)),
++					  &engine->active.tasklet.state)),
++			   enableddisabled(!atomic_read(&engine->active.tasklet.count)),
+ 			   repr_timer(&engine->execlists.preempt),
+ 			   repr_timer(&engine->execlists.timer));
+ 
+@@ -1479,7 +1478,7 @@ static void intel_engine_print_registers(struct intel_engine_cs *engine,
+ 				   idx, hws[idx * 2], hws[idx * 2 + 1]);
+ 		}
+ 
+-		execlists_active_lock_bh(execlists);
++		i915_sched_lock_bh(&engine->active);
+ 		rcu_read_lock();
+ 		for (port = execlists->active; (rq = *port); port++) {
+ 			char hdr[160];
+@@ -1510,7 +1509,7 @@ static void intel_engine_print_registers(struct intel_engine_cs *engine,
+ 			i915_request_show(m, rq, hdr, 0);
+ 		}
+ 		rcu_read_unlock();
+-		execlists_active_unlock_bh(execlists);
++		i915_sched_unlock_bh(&engine->active);
+ 	} else if (INTEL_GEN(dev_priv) > 6) {
+ 		drm_printf(m, "\tPP_DIR_BASE: 0x%08x\n",
+ 			   ENGINE_READ(engine, RING_PP_DIR_BASE));
 diff --git a/drivers/gpu/drm/i915/gt/intel_engine_types.h b/drivers/gpu/drm/i915/gt/intel_engine_types.h
-index f850179a583f..08ed958292af 100644
+index a2a49e51b92d..694d2e04ba6a 100644
 --- a/drivers/gpu/drm/i915/gt/intel_engine_types.h
 +++ b/drivers/gpu/drm/i915/gt/intel_engine_types.h
-@@ -454,14 +454,6 @@ struct intel_engine_cs {
- 	void            (*bond_execute)(struct i915_request *rq,
- 					struct dma_fence *signal);
- 
--	/*
--	 * Call when the priority on a request has changed and it and its
--	 * dependencies may need rescheduling. Note the request itself may
--	 * not be ready to run!
+@@ -139,11 +139,6 @@ struct st_preempt_hang {
+  * driver and the hardware state for execlist mode of submission.
+  */
+ struct intel_engine_execlists {
+-	/**
+-	 * @tasklet: softirq tasklet for bottom handler
 -	 */
--	void		(*schedule)(struct i915_request *request,
--				    const struct i915_sched_attr *attr);
+-	struct tasklet_struct tasklet;
 -
- 	void		(*release)(struct intel_engine_cs *engine);
- 
- 	struct intel_engine_execlists execlists;
-@@ -479,13 +471,14 @@ struct intel_engine_cs {
- 
- #define I915_ENGINE_USING_CMD_PARSER BIT(0)
- #define I915_ENGINE_SUPPORTS_STATS   BIT(1)
--#define I915_ENGINE_HAS_PREEMPTION   BIT(2)
--#define I915_ENGINE_HAS_SEMAPHORES   BIT(3)
--#define I915_ENGINE_HAS_TIMESLICES   BIT(4)
--#define I915_ENGINE_NEEDS_BREADCRUMB_TASKLET BIT(5)
--#define I915_ENGINE_IS_VIRTUAL       BIT(6)
--#define I915_ENGINE_HAS_RELATIVE_MMIO BIT(7)
--#define I915_ENGINE_REQUIRES_CMD_PARSER BIT(8)
-+#define I915_ENGINE_HAS_SCHEDULER    BIT(2)
-+#define I915_ENGINE_HAS_PREEMPTION   BIT(3)
-+#define I915_ENGINE_HAS_SEMAPHORES   BIT(4)
-+#define I915_ENGINE_HAS_TIMESLICES   BIT(5)
-+#define I915_ENGINE_NEEDS_BREADCRUMB_TASKLET BIT(6)
-+#define I915_ENGINE_IS_VIRTUAL       BIT(7)
-+#define I915_ENGINE_HAS_RELATIVE_MMIO BIT(8)
-+#define I915_ENGINE_REQUIRES_CMD_PARSER BIT(9)
- 	unsigned int flags;
- 
- 	/*
-@@ -571,6 +564,12 @@ intel_engine_supports_stats(const struct intel_engine_cs *engine)
- 	return engine->flags & I915_ENGINE_SUPPORTS_STATS;
- }
- 
-+static inline bool
-+intel_engine_has_scheduler(const struct intel_engine_cs *engine)
-+{
-+	return engine->flags & I915_ENGINE_HAS_SCHEDULER;
-+}
-+
- static inline bool
- intel_engine_has_preemption(const struct intel_engine_cs *engine)
- {
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_user.c b/drivers/gpu/drm/i915/gt/intel_engine_user.c
-index 34e6096f196e..6b5a4fdc14a0 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_user.c
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_user.c
-@@ -108,7 +108,7 @@ static void set_scheduler_caps(struct drm_i915_private *i915)
- 	for_each_uabi_engine(engine, i915) { /* all engines must agree! */
- 		int i;
- 
--		if (engine->schedule)
-+		if (intel_engine_has_scheduler(engine))
- 			enabled |= (I915_SCHEDULER_CAP_ENABLED |
- 				    I915_SCHEDULER_CAP_PRIORITY);
- 		else
+ 	/**
+ 	 * @timer: kick the current context if its timeslice expires
+ 	 */
 diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-index 1c30107e2c1d..9eaa3dc47af3 100644
+index 5d76a02d945e..2277958aefd9 100644
 --- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
 +++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-@@ -3048,7 +3048,6 @@ static void execlists_park(struct intel_engine_cs *engine)
+@@ -530,7 +530,7 @@ static void kick_siblings(struct i915_request *rq, struct intel_context *ce)
+ 		resubmit_virtual_request(rq, ve);
+ 
+ 	if (READ_ONCE(ve->request))
+-		tasklet_hi_schedule(&ve->base.execlists.tasklet);
++		i915_sched_kick(&ve->base.active);
+ }
+ 
+ static inline void __execlists_schedule_out(struct i915_request *rq)
+@@ -700,9 +700,9 @@ trace_ports(const struct intel_engine_execlists *execlists,
+ }
+ 
+ static inline bool
+-reset_in_progress(const struct intel_engine_execlists *execlists)
++reset_in_progress(const struct intel_engine_cs *engine)
+ {
+-	return unlikely(!__tasklet_is_enabled(&execlists->tasklet));
++	return unlikely(!__tasklet_is_enabled(&engine->active.tasklet));
+ }
+ 
+ static __maybe_unused bool
+@@ -719,7 +719,7 @@ assert_pending_valid(const struct intel_engine_execlists *execlists,
+ 	trace_ports(execlists, msg, execlists->pending);
+ 
+ 	/* We may be messing around with the lists during reset, lalala */
+-	if (reset_in_progress(execlists))
++	if (reset_in_progress(engine))
+ 		return true;
+ 
+ 	if (!execlists->pending[0]) {
+@@ -1086,7 +1086,7 @@ static void start_timeslice(struct intel_engine_cs *engine)
+ 	if (needs_timeslice(engine, *el->active)) {
+ 		if (el->timer.expires) {
+ 			if (!timer_pending(&el->timer))
+-				tasklet_hi_schedule(&engine->execlists.tasklet);
++				i915_sched_kick(&engine->active);
+ 			return;
+ 		}
+ 
+@@ -1650,8 +1650,8 @@ process_csb(struct intel_engine_cs *engine, struct i915_request **inactive)
+ 	 * access. Either we are inside the tasklet, or the tasklet is disabled
+ 	 * and we assume that is only inside the reset paths and so serialised.
+ 	 */
+-	GEM_BUG_ON(!tasklet_is_locked(&execlists->tasklet) &&
+-		   !reset_in_progress(execlists));
++	GEM_BUG_ON(!tasklet_is_locked(&engine->active.tasklet) &&
++		   !reset_in_progress(engine));
+ 	GEM_BUG_ON(!intel_engine_in_execlists_submission_mode(engine));
+ 
+ 	/*
+@@ -2048,13 +2048,13 @@ static void execlists_reset(struct intel_engine_cs *engine, const char *msg)
+ 	ENGINE_TRACE(engine, "reset for %s\n", msg);
+ 
+ 	/* Mark this tasklet as disabled to avoid waiting for it to complete */
+-	tasklet_disable_nosync(&engine->execlists.tasklet);
++	tasklet_disable_nosync(&engine->active.tasklet);
+ 
+ 	ring_set_paused(engine, 1); /* Freeze the current request in place */
+ 	execlists_capture(engine);
+ 	intel_engine_reset(engine, msg);
+ 
+-	tasklet_enable(&engine->execlists.tasklet);
++	tasklet_enable(&engine->active.tasklet);
+ 	clear_and_wake_up_bit(bit, lock);
+ }
+ 
+@@ -2118,8 +2118,10 @@ static void execlists_submission_tasklet(unsigned long data)
+ 
+ static void __execlists_kick(struct intel_engine_execlists *execlists)
+ {
+-	/* Kick the tasklet for some interrupt coalescing and reset handling */
+-	tasklet_hi_schedule(&execlists->tasklet);
++	struct intel_engine_cs *engine =
++		container_of(execlists, typeof(*engine), execlists);
++
++	i915_sched_kick(&engine->active);
+ }
+ 
+ #define execlists_kick(t, member) \
+@@ -2468,10 +2470,8 @@ static int execlists_resume(struct intel_engine_cs *engine)
+ 
+ static void execlists_reset_prepare(struct intel_engine_cs *engine)
+ {
+-	struct intel_engine_execlists * const execlists = &engine->execlists;
+-
+ 	ENGINE_TRACE(engine, "depth<-%d\n",
+-		     atomic_read(&execlists->tasklet.count));
++		     atomic_read(&engine->active.tasklet.count));
+ 
+ 	/*
+ 	 * Prevent request submission to the hardware until we have
+@@ -2482,8 +2482,8 @@ static void execlists_reset_prepare(struct intel_engine_cs *engine)
+ 	 * Turning off the execlists->tasklet until the reset is over
+ 	 * prevents the race.
+ 	 */
+-	__tasklet_disable_sync_once(&execlists->tasklet);
+-	GEM_BUG_ON(!reset_in_progress(execlists));
++	__tasklet_disable_sync_once(&engine->active.tasklet);
++	GEM_BUG_ON(!reset_in_progress(engine));
+ 
+ 	/*
+ 	 * We stop engines, otherwise we might get failed reset and a
+@@ -2717,8 +2717,8 @@ static void execlists_reset_cancel(struct intel_engine_cs *engine)
+ 	execlists->queue_priority_hint = INT_MIN;
+ 	engine->active.queue = RB_ROOT_CACHED;
+ 
+-	GEM_BUG_ON(__tasklet_is_enabled(&execlists->tasklet));
+-	execlists->tasklet.func = nop_submission_tasklet;
++	GEM_BUG_ON(__tasklet_is_enabled(&engine->active.tasklet));
++	engine->active.tasklet.func = nop_submission_tasklet;
+ 
+ 	spin_unlock_irqrestore(&engine->active.lock, flags);
+ 	rcu_read_unlock();
+@@ -2726,22 +2726,20 @@ static void execlists_reset_cancel(struct intel_engine_cs *engine)
+ 
+ static void execlists_reset_finish(struct intel_engine_cs *engine)
+ {
+-	struct intel_engine_execlists * const execlists = &engine->execlists;
+-
+ 	/*
+ 	 * After a GPU reset, we may have requests to replay. Do so now while
+ 	 * we still have the forcewake to be sure that the GPU is not allowed
+ 	 * to sleep before we restart and reload a context.
+ 	 */
+-	GEM_BUG_ON(!reset_in_progress(execlists));
++	GEM_BUG_ON(!reset_in_progress(engine));
+ 	GEM_BUG_ON(engine->execlists.pending[0]);
+ 
+ 	/* And kick in case we missed a new request submission. */
+-	if (__tasklet_enable(&execlists->tasklet))
+-		__execlists_kick(execlists);
++	if (__tasklet_enable(&engine->active.tasklet))
++		i915_sched_kick(&engine->active);
+ 
+ 	ENGINE_TRACE(engine, "depth->%d\n",
+-		     atomic_read(&execlists->tasklet.count));
++		     atomic_read(&engine->active.tasklet.count));
+ }
+ 
+ static void gen8_logical_ring_enable_irq(struct intel_engine_cs *engine)
+@@ -2765,7 +2763,7 @@ static void execlists_park(struct intel_engine_cs *engine)
  void intel_execlists_set_default_submission(struct intel_engine_cs *engine)
  {
- 	engine->submit_request = execlists_submit_request;
--	engine->schedule = i915_schedule;
- 	engine->execlists.tasklet.func = execlists_submission_tasklet;
+ 	engine->submit_request = i915_request_enqueue;
+-	engine->execlists.tasklet.func = execlists_submission_tasklet;
++	engine->active.tasklet.func = execlists_submission_tasklet;
  
  	engine->reset.prepare = execlists_reset_prepare;
-@@ -3059,6 +3058,7 @@ void intel_execlists_set_default_submission(struct intel_engine_cs *engine)
- 	engine->park = execlists_park;
- 	engine->unpark = NULL;
+ 	engine->reset.rewind = execlists_reset_rewind;
+@@ -2800,7 +2798,7 @@ static void execlists_shutdown(struct intel_engine_cs *engine)
+ 	/* Synchronise with residual timers and any softirq they raise */
+ 	del_timer_sync(&engine->execlists.timer);
+ 	del_timer_sync(&engine->execlists.preempt);
+-	tasklet_kill(&engine->execlists.tasklet);
++	tasklet_kill(&engine->active.tasklet);
+ }
  
-+	engine->flags |= I915_ENGINE_HAS_SCHEDULER;
- 	engine->flags |= I915_ENGINE_SUPPORTS_STATS;
- 	if (!intel_vgpu_active(engine->i915)) {
- 		engine->flags |= I915_ENGINE_HAS_SEMAPHORES;
-@@ -3629,7 +3629,6 @@ intel_execlists_create_virtual(struct intel_engine_cs **siblings,
- 	ve->base.cops = &virtual_context_ops;
- 	ve->base.request_alloc = execlists_request_alloc;
+ static void execlists_release(struct intel_engine_cs *engine)
+@@ -2893,7 +2891,7 @@ int intel_execlists_submission_setup(struct intel_engine_cs *engine)
+ 	struct intel_uncore *uncore = engine->uncore;
+ 	u32 base = engine->mmio_base;
  
--	ve->base.schedule = i915_schedule;
- 	ve->base.submit_request = virtual_submit_request;
- 	ve->base.bond_execute = virtual_bond_execute;
+-	tasklet_init(&engine->execlists.tasklet,
++	tasklet_init(&engine->active.tasklet,
+ 		     execlists_submission_tasklet, (unsigned long)engine);
+ 	timer_setup(&engine->execlists.timer, execlists_timeslice, 0);
+ 	timer_setup(&engine->execlists.preempt, execlists_preempt, 0);
+@@ -2982,7 +2980,7 @@ static void rcu_virtual_context_destroy(struct work_struct *wrk)
+ 	 * rbtrees as in the case it is running in parallel, it may reinsert
+ 	 * the rb_node into a sibling.
+ 	 */
+-	tasklet_kill(&ve->base.execlists.tasklet);
++	tasklet_kill(&ve->base.active.tasklet);
  
+ 	/* Decouple ourselves from the siblings, no more access allowed. */
+ 	for (n = 0; n < ve->num_siblings; n++) {
+@@ -3000,7 +2998,7 @@ static void rcu_virtual_context_destroy(struct work_struct *wrk)
+ 
+ 		spin_unlock_irq(&sibling->active.lock);
+ 	}
+-	GEM_BUG_ON(__tasklet_is_scheduled(&ve->base.execlists.tasklet));
++	GEM_BUG_ON(__tasklet_is_scheduled(&ve->base.active.tasklet));
+ 	GEM_BUG_ON(!list_empty(virtual_queue(ve)));
+ 
+ 	lrc_fini(&ve->context);
+@@ -3212,7 +3210,7 @@ static void virtual_submission_tasklet(unsigned long data)
+ 		GEM_BUG_ON(RB_EMPTY_NODE(&node->rb));
+ 		node->prio = prio;
+ 		if (first && prio > sibling->execlists.queue_priority_hint)
+-			tasklet_hi_schedule(&sibling->execlists.tasklet);
++			i915_sched_kick(&sibling->active);
+ 
+ unlock_engine:
+ 		spin_unlock_irq(&sibling->active.lock);
+@@ -3253,7 +3251,7 @@ static void virtual_submit_request(struct i915_request *rq)
+ 	GEM_BUG_ON(!list_empty(virtual_queue(ve)));
+ 	list_move_tail(&rq->sched.link, virtual_queue(ve));
+ 
+-	tasklet_hi_schedule(&ve->base.execlists.tasklet);
++	i915_sched_kick(&ve->base.active);
+ 
+ unlock:
+ 	spin_unlock_irqrestore(&ve->base.active.lock, flags);
+@@ -3351,7 +3349,7 @@ intel_execlists_create_virtual(struct intel_engine_cs **siblings,
+ 
+ 	INIT_LIST_HEAD(virtual_queue(ve));
+ 	ve->base.execlists.queue_priority_hint = INT_MIN;
+-	tasklet_init(&ve->base.execlists.tasklet,
++	tasklet_init(&ve->base.active.tasklet,
+ 		     virtual_submission_tasklet,
+ 		     (unsigned long)ve);
+ 
+@@ -3381,7 +3379,7 @@ intel_execlists_create_virtual(struct intel_engine_cs **siblings,
+ 		 * layering if we handle cloning of the requests and
+ 		 * submitting a copy into each backend.
+ 		 */
+-		if (sibling->execlists.tasklet.func !=
++		if (sibling->active.tasklet.func !=
+ 		    execlists_submission_tasklet) {
+ 			err = -ENODEV;
+ 			goto err_put;
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_irq.c b/drivers/gpu/drm/i915/gt/intel_gt_irq.c
+index 9830342aa6f4..2106fb403c3e 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_irq.c
++++ b/drivers/gpu/drm/i915/gt/intel_gt_irq.c
+@@ -60,7 +60,7 @@ cs_irq_handler(struct intel_engine_cs *engine, u32 iir)
+ 	}
+ 
+ 	if (tasklet)
+-		tasklet_hi_schedule(&engine->execlists.tasklet);
++		i915_sched_kick(&engine->active);
+ }
+ 
+ static u32
 diff --git a/drivers/gpu/drm/i915/gt/selftest_execlists.c b/drivers/gpu/drm/i915/gt/selftest_execlists.c
-index 5152cf3f59a7..0a2952bf1dcb 100644
+index 276743d553a9..291fb04807b9 100644
 --- a/drivers/gpu/drm/i915/gt/selftest_execlists.c
 +++ b/drivers/gpu/drm/i915/gt/selftest_execlists.c
-@@ -269,12 +269,8 @@ static int live_unlite_restore(struct intel_gt *gt, int prio)
- 		i915_request_put(rq[0]);
- 
- 		if (prio) {
--			struct i915_sched_attr attr = {
--				.priority = prio,
--			};
--
- 			/* Alternatively preempt the spinner with ce[1] */
--			engine->schedule(rq[1], &attr);
-+			i915_request_set_priority(rq[1], prio);
- 		}
- 
- 		/* And switch back to ce[0] for good measure */
-@@ -874,9 +870,6 @@ release_queue(struct intel_engine_cs *engine,
- 	      struct i915_vma *vma,
- 	      int idx, int prio)
+@@ -44,7 +44,7 @@ static int wait_for_submit(struct intel_engine_cs *engine,
+ 			   unsigned long timeout)
  {
--	struct i915_sched_attr attr = {
--		.priority = prio,
--	};
- 	struct i915_request *rq;
- 	u32 *cs;
+ 	/* Ignore our own attempts to suppress excess tasklets */
+-	tasklet_hi_schedule(&engine->execlists.tasklet);
++	i915_sched_kick(&engine->active);
  
-@@ -901,7 +894,7 @@ release_queue(struct intel_engine_cs *engine,
- 	i915_request_add(rq);
- 
- 	local_bh_disable();
--	engine->schedule(rq, &attr);
-+	i915_request_set_priority(rq, prio);
- 	local_bh_enable(); /* kick tasklet */
- 
- 	i915_request_put(rq);
-@@ -1308,7 +1301,6 @@ static int live_timeslice_queue(void *arg)
- 		goto err_pin;
- 
- 	for_each_engine(engine, gt, id) {
--		struct i915_sched_attr attr = { .priority = I915_PRIORITY_MAX };
- 		struct i915_request *rq, *nop;
- 
- 		if (!intel_engine_has_preemption(engine))
-@@ -1323,7 +1315,7 @@ static int live_timeslice_queue(void *arg)
- 			err = PTR_ERR(rq);
- 			goto err_heartbeat;
+ 	timeout += jiffies;
+ 	do {
+@@ -603,9 +603,9 @@ static int live_hold_reset(void *arg)
+ 			err = -EBUSY;
+ 			goto out;
  		}
--		engine->schedule(rq, &attr);
-+		i915_request_set_priority(rq, I915_PRIORITY_MAX);
- 		err = wait_for_submit(engine, rq, HZ / 2);
- 		if (err) {
- 			pr_err("%s: Timed out trying to submit semaphores\n",
-@@ -1810,7 +1802,6 @@ static int live_late_preempt(void *arg)
- 	struct i915_gem_context *ctx_hi, *ctx_lo;
- 	struct igt_spinner spin_hi, spin_lo;
- 	struct intel_engine_cs *engine;
--	struct i915_sched_attr attr = {};
- 	enum intel_engine_id id;
- 	int err = -ENOMEM;
+-		tasklet_disable(&engine->execlists.tasklet);
++		tasklet_disable(&engine->active.tasklet);
  
-@@ -1873,8 +1864,7 @@ static int live_late_preempt(void *arg)
- 			goto err_wedged;
+-		engine->execlists.tasklet.func(engine->execlists.tasklet.data);
++		engine->active.tasklet.func(engine->active.tasklet.data);
+ 		GEM_BUG_ON(execlists_active(&engine->execlists) != rq);
+ 
+ 		i915_request_get(rq);
+@@ -615,7 +615,7 @@ static int live_hold_reset(void *arg)
+ 		__intel_engine_reset_bh(engine, NULL);
+ 		GEM_BUG_ON(rq->fence.error != -EIO);
+ 
+-		tasklet_enable(&engine->execlists.tasklet);
++		tasklet_enable(&engine->active.tasklet);
+ 		clear_and_wake_up_bit(I915_RESET_ENGINE + id,
+ 				      &gt->reset.flags);
+ 		local_bh_enable();
+@@ -1174,7 +1174,7 @@ static int live_timeslice_rewind(void *arg)
+ 		while (i915_request_is_active(rq[A2])) { /* semaphore yield! */
+ 			/* Wait for the timeslice to kick in */
+ 			del_timer(&engine->execlists.timer);
+-			tasklet_hi_schedule(&engine->execlists.tasklet);
++			i915_sched_kick(&engine->active);
+ 			intel_engine_flush_submission(engine);
  		}
+ 		/* -> ELSP[] = { { A:rq1 }, { B:rq1 } } */
+@@ -4525,9 +4525,9 @@ static int reset_virtual_engine(struct intel_gt *gt,
+ 		err = -EBUSY;
+ 		goto out_heartbeat;
+ 	}
+-	tasklet_disable(&engine->execlists.tasklet);
++	tasklet_disable(&engine->active.tasklet);
  
--		attr.priority = I915_PRIORITY_MAX;
--		engine->schedule(rq, &attr);
-+		i915_request_set_priority(rq, I915_PRIORITY_MAX);
+-	engine->execlists.tasklet.func(engine->execlists.tasklet.data);
++	engine->active.tasklet.func(engine->active.tasklet.data);
+ 	GEM_BUG_ON(execlists_active(&engine->execlists) != rq);
  
- 		if (!igt_wait_for_spinner(&spin_hi, rq)) {
- 			pr_err("High priority context failed to preempt the low priority context\n");
-@@ -2350,7 +2340,6 @@ static int live_preempt_cancel(void *arg)
+ 	/* Fake a preemption event; failed of course */
+@@ -4544,7 +4544,7 @@ static int reset_virtual_engine(struct intel_gt *gt,
+ 	GEM_BUG_ON(rq->fence.error != -EIO);
  
- static int live_suppress_self_preempt(void *arg)
- {
--	struct i915_sched_attr attr = { .priority = I915_PRIORITY_MAX };
- 	struct intel_gt *gt = arg;
- 	struct intel_engine_cs *engine;
- 	struct preempt_client a, b;
-@@ -2421,7 +2410,7 @@ static int live_suppress_self_preempt(void *arg)
- 			i915_request_add(rq_b);
+ 	/* Release our grasp on the engine, letting CS flow again */
+-	tasklet_enable(&engine->execlists.tasklet);
++	tasklet_enable(&engine->active.tasklet);
+ 	clear_and_wake_up_bit(I915_RESET_ENGINE + engine->id, &gt->reset.flags);
+ 	local_bh_enable();
  
- 			GEM_BUG_ON(i915_request_completed(rq_a));
--			engine->schedule(rq_a, &attr);
-+			i915_request_set_priority(rq_a, I915_PRIORITY_MAX);
- 			igt_spinner_end(&a.spin);
- 
- 			if (!igt_wait_for_spinner(&b.spin, rq_b)) {
-@@ -2489,7 +2478,6 @@ static int live_chain_preempt(void *arg)
- 		goto err_client_hi;
- 
- 	for_each_engine(engine, gt, id) {
--		struct i915_sched_attr attr = { .priority = I915_PRIORITY_MAX };
- 		struct igt_live_test t;
- 		struct i915_request *rq;
- 		int ring_size, count, i;
-@@ -2556,7 +2544,7 @@ static int live_chain_preempt(void *arg)
- 
- 			i915_request_get(rq);
- 			i915_request_add(rq);
--			engine->schedule(rq, &attr);
-+			i915_request_set_priority(rq, I915_PRIORITY_MAX);
- 
- 			igt_spinner_end(&hi.spin);
- 			if (i915_request_wait(rq, 0, HZ / 5) < 0) {
-@@ -2907,14 +2895,12 @@ static int live_preempt_gang(void *arg)
- 			return -EIO;
- 
- 		do {
--			struct i915_sched_attr attr = { .priority = prio++ };
--
- 			err = create_gang(engine, &rq);
- 			if (err)
- 				break;
- 
- 			/* Submit each spinner at increasing priority */
--			engine->schedule(rq, &attr);
-+			i915_request_set_priority(rq, prio++);
- 		} while (prio <= I915_PRIORITY_MAX &&
- 			 !__igt_timeout(end_time, NULL));
- 		pr_debug("%s: Preempt chain of %d requests\n",
-@@ -3135,9 +3121,6 @@ static int preempt_user(struct intel_engine_cs *engine,
- 			struct i915_vma *global,
- 			int id)
- {
--	struct i915_sched_attr attr = {
--		.priority = I915_PRIORITY_MAX
--	};
- 	struct i915_request *rq;
- 	int err = 0;
- 	u32 *cs;
-@@ -3162,7 +3145,7 @@ static int preempt_user(struct intel_engine_cs *engine,
- 	i915_request_get(rq);
- 	i915_request_add(rq);
- 
--	engine->schedule(rq, &attr);
-+	i915_request_set_priority(rq, I915_PRIORITY_MAX);
- 
- 	if (i915_request_wait(rq, 0, HZ / 2) < 0)
- 		err = -ETIME;
 diff --git a/drivers/gpu/drm/i915/gt/selftest_hangcheck.c b/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
-index c28d1fcad673..927d54c702f4 100644
+index 927d54c702f4..cc0120411d62 100644
 --- a/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
 +++ b/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
-@@ -726,12 +726,11 @@ static int active_engine(void *data)
- 		rq[idx] = i915_request_get(new);
- 		i915_request_add(new);
+@@ -1568,7 +1568,7 @@ static int __igt_atomic_reset_engine(struct intel_engine_cs *engine,
+ 				     const struct igt_atomic_section *p,
+ 				     const char *mode)
+ {
+-	struct tasklet_struct * const t = &engine->execlists.tasklet;
++	struct tasklet_struct * const t = &engine->active.tasklet;
+ 	int err;
  
--		if (engine->schedule && arg->flags & TEST_PRIORITY) {
--			struct i915_sched_attr attr = {
--				.priority =
--					i915_prandom_u32_max_state(512, &prng),
--			};
--			engine->schedule(rq[idx], &attr);
-+		if (intel_engine_has_scheduler(engine) &&
-+		    arg->flags & TEST_PRIORITY) {
-+			int prio = i915_prandom_u32_max_state(512, &prng);
-+
-+			i915_request_set_priority(rq[idx], prio);
- 		}
+ 	GEM_TRACE("i915_reset_engine(%s:%s) under %s\n",
+diff --git a/drivers/gpu/drm/i915/gt/selftest_lrc.c b/drivers/gpu/drm/i915/gt/selftest_lrc.c
+index f449c56e0946..e26f7f957468 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_lrc.c
++++ b/drivers/gpu/drm/i915/gt/selftest_lrc.c
+@@ -49,7 +49,7 @@ static int wait_for_submit(struct intel_engine_cs *engine,
+ 			   unsigned long timeout)
+ {
+ 	/* Ignore our own attempts to suppress excess tasklets */
+-	tasklet_hi_schedule(&engine->execlists.tasklet);
++	i915_sched_kick(&engine->active);
  
- 		err = active_request_put(old);
-diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
-index 7c5eec2fd631..5c3b575855f1 100644
---- a/drivers/gpu/drm/i915/i915_request.c
-+++ b/drivers/gpu/drm/i915/i915_request.c
-@@ -1207,7 +1207,7 @@ __i915_request_await_execution(struct i915_request *to,
- 	}
- 
- 	/* Couple the dependency tree for PI on this exposed to->fence */
--	if (to->engine->schedule) {
-+	if (intel_engine_has_scheduler(to->engine)) {
- 		err = i915_sched_node_add_dependency(&to->sched,
- 						     &from->sched,
- 						     I915_DEPENDENCY_WEAK);
-@@ -1348,7 +1348,7 @@ i915_request_await_request(struct i915_request *to, struct i915_request *from)
- 		return 0;
- 	}
- 
--	if (to->engine->schedule) {
-+	if (intel_engine_has_scheduler(to->engine)) {
- 		ret = i915_sched_node_add_dependency(&to->sched,
- 						     &from->sched,
- 						     I915_DEPENDENCY_EXTERNAL);
-@@ -1535,7 +1535,7 @@ __i915_request_add_to_timeline(struct i915_request *rq)
- 			__i915_sw_fence_await_dma_fence(&rq->submit,
- 							&prev->fence,
- 							&rq->dmaq);
--		if (rq->engine->schedule)
-+		if (intel_engine_has_scheduler(rq->engine))
- 			__i915_sched_node_add_dependency(&rq->sched,
- 							 &prev->sched,
- 							 &rq->dep,
-@@ -1607,8 +1607,8 @@ void __i915_request_queue(struct i915_request *rq,
- 	 * decide whether to preempt the entire chain so that it is ready to
- 	 * run at the earliest possible convenience.
- 	 */
--	if (attr && rq->engine->schedule)
--		rq->engine->schedule(rq, attr);
-+	if (attr)
-+		i915_request_set_priority(rq, attr->priority);
+ 	timeout += jiffies;
+ 	do {
+@@ -1608,12 +1608,12 @@ static void garbage_reset(struct intel_engine_cs *engine,
  
  	local_bh_disable();
- 	__i915_request_queue_bh(rq);
+ 	if (!test_and_set_bit(bit, lock)) {
+-		tasklet_disable(&engine->execlists.tasklet);
++		tasklet_disable(&engine->active.tasklet);
+ 
+ 		if (!rq->fence.error)
+ 			__intel_engine_reset_bh(engine, NULL);
+ 
+-		tasklet_enable(&engine->execlists.tasklet);
++		tasklet_enable(&engine->active.tasklet);
+ 		clear_and_wake_up_bit(bit, lock);
+ 	}
+ 	local_bh_enable();
+diff --git a/drivers/gpu/drm/i915/gt/selftest_reset.c b/drivers/gpu/drm/i915/gt/selftest_reset.c
+index 5ec8d4e9983f..2a7059923a01 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_reset.c
++++ b/drivers/gpu/drm/i915/gt/selftest_reset.c
+@@ -321,7 +321,7 @@ static int igt_atomic_engine_reset(void *arg)
+ 		goto out_unlock;
+ 
+ 	for_each_engine(engine, gt, id) {
+-		tasklet_disable(&engine->execlists.tasklet);
++		tasklet_disable(&engine->active.tasklet);
+ 		intel_engine_pm_get(engine);
+ 
+ 		for (p = igt_atomic_phases; p->name; p++) {
+@@ -345,8 +345,8 @@ static int igt_atomic_engine_reset(void *arg)
+ 		}
+ 
+ 		intel_engine_pm_put(engine);
+-		tasklet_enable(&engine->execlists.tasklet);
+-		tasklet_hi_schedule(&engine->execlists.tasklet);
++		tasklet_enable(&engine->active.tasklet);
++		tasklet_hi_schedule(&engine->active.tasklet);
+ 		if (err)
+ 			break;
+ 	}
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+index 6d97b5ad09b5..b9cb6807d101 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+@@ -372,8 +372,6 @@ static void guc_submission_tasklet(unsigned long data)
+ 
+ static void guc_reset_prepare(struct intel_engine_cs *engine)
+ {
+-	struct intel_engine_execlists * const execlists = &engine->execlists;
+-
+ 	ENGINE_TRACE(engine, "\n");
+ 
+ 	/*
+@@ -385,7 +383,7 @@ static void guc_reset_prepare(struct intel_engine_cs *engine)
+ 	 * Turning off the execlists->tasklet until the reset is over
+ 	 * prevents the race.
+ 	 */
+-	__tasklet_disable_sync_once(&execlists->tasklet);
++	__tasklet_disable_sync_once(&engine->active.tasklet);
+ }
+ 
+ static void
+@@ -508,14 +506,12 @@ static void guc_reset_cancel(struct intel_engine_cs *engine)
+ 
+ static void guc_reset_finish(struct intel_engine_cs *engine)
+ {
+-	struct intel_engine_execlists * const execlists = &engine->execlists;
+-
+-	if (__tasklet_enable(&execlists->tasklet))
++	if (__tasklet_enable(&engine->active.tasklet))
+ 		/* And kick in case we missed a new request submission. */
+-		tasklet_hi_schedule(&execlists->tasklet);
++		tasklet_hi_schedule(&engine->active.tasklet);
+ 
+ 	ENGINE_TRACE(engine, "depth->%d\n",
+-		     atomic_read(&execlists->tasklet.count));
++		     atomic_read(&engine->active.tasklet.count));
+ }
+ 
+ /*
+@@ -613,7 +609,7 @@ static void guc_set_default_submission(struct intel_engine_cs *engine)
+ 	 */
+ 	intel_execlists_set_default_submission(engine);
+ 
+-	engine->execlists.tasklet.func = guc_submission_tasklet;
++	engine->active.tasklet.func = guc_submission_tasklet;
+ 
+ 	/* do not use execlists park/unpark */
+ 	engine->park = engine->unpark = NULL;
 diff --git a/drivers/gpu/drm/i915/i915_scheduler.c b/drivers/gpu/drm/i915/i915_scheduler.c
-index a57353191d12..264ed53821d8 100644
+index 61150ba22733..f99d757d4d5c 100644
 --- a/drivers/gpu/drm/i915/i915_scheduler.c
 +++ b/drivers/gpu/drm/i915/i915_scheduler.c
-@@ -216,10 +216,8 @@ static void kick_submission(struct intel_engine_cs *engine,
- 	rcu_read_unlock();
- }
- 
--static void __i915_schedule(struct i915_sched_node *node,
--			    const struct i915_sched_attr *attr)
-+static void __i915_schedule(struct i915_sched_node *node, int prio)
+@@ -125,6 +125,7 @@ void i915_sched_park_engine(struct i915_sched_engine *se)
+ void i915_sched_fini_engine(struct i915_sched_engine *se)
  {
--	const int prio = max(attr->priority, node->attr.priority);
- 	struct intel_engine_cs *engine;
- 	struct i915_dependency *dep, *p;
- 	struct i915_dependency stack;
-@@ -233,6 +231,8 @@ static void __i915_schedule(struct i915_sched_node *node,
- 	if (node_signaled(node))
- 		return;
- 
-+	prio = max(prio, node->attr.priority);
-+
- 	stack.signaler = node;
- 	list_add(&stack.dfs_link, &dfs);
- 
-@@ -286,7 +286,7 @@ static void __i915_schedule(struct i915_sched_node *node,
- 	 */
- 	if (node->attr.priority == I915_PRIORITY_INVALID) {
- 		GEM_BUG_ON(!list_empty(&node->link));
--		node->attr = *attr;
-+		node->attr.priority = prio;
- 
- 		if (stack.dfs_link.next == stack.dfs_link.prev)
- 			return;
-@@ -341,10 +341,13 @@ static void __i915_schedule(struct i915_sched_node *node,
- 	spin_unlock(&engine->active.lock);
+ 	GEM_BUG_ON(!list_empty(&se->requests));
++	tasklet_kill(&se->tasklet); /* flush the callback */
  }
  
--void i915_schedule(struct i915_request *rq, const struct i915_sched_attr *attr)
-+void i915_request_set_priority(struct i915_request *rq, int prio)
+ static void __ipi_add(struct i915_request *rq)
+@@ -339,7 +340,7 @@ static void kick_submission(struct intel_engine_cs *engine,
+ 
+ 	engine->execlists.queue_priority_hint = prio;
+ 	if (need_preempt(prio, rq_prio(inflight)))
+-		tasklet_hi_schedule(&engine->execlists.tasklet);
++		i915_sched_kick(&engine->active);
+ }
+ 
+ static void ipi_priority(struct i915_request *rq, int prio)
+@@ -619,16 +620,17 @@ static bool ancestor_on_hold(const struct intel_engine_cs *engine,
+ void i915_request_enqueue(struct i915_request *rq)
  {
-+	if (!intel_engine_has_scheduler(rq->engine))
-+		return;
-+
- 	spin_lock_irq(&schedule_lock);
--	__i915_schedule(&rq->sched, attr);
-+	__i915_schedule(&rq->sched, prio);
- 	spin_unlock_irq(&schedule_lock);
+ 	struct intel_engine_cs *engine = rq->engine;
++	struct i915_sched_engine *se = &engine->active;
+ 	unsigned long flags;
+ 	bool kick = false;
+ 
+ 	/* Will be called from irq-context when using foreign fences. */
+-	spin_lock_irqsave(&engine->active.lock, flags);
++	spin_lock_irqsave(&se->lock, flags);
+ 	GEM_BUG_ON(test_bit(I915_FENCE_FLAG_PQUEUE, &rq->fence.flags));
+ 
+ 	if (unlikely(ancestor_on_hold(engine, rq))) {
+ 		RQ_TRACE(rq, "ancestor on hold\n");
+-		list_add_tail(&rq->sched.link, &engine->active.hold);
++		list_add_tail(&rq->sched.link, &se->hold);
+ 		i915_request_set_hold(rq);
+ 	} else {
+ 		queue_request(engine, rq);
+@@ -639,9 +641,9 @@ void i915_request_enqueue(struct i915_request *rq)
+ 	}
+ 
+ 	GEM_BUG_ON(list_empty(&rq->sched.link));
+-	spin_unlock_irqrestore(&engine->active.lock, flags);
++	spin_unlock_irqrestore(&se->lock, flags);
+ 	if (kick)
+-		tasklet_hi_schedule(&engine->execlists.tasklet);
++		i915_sched_kick(se);
  }
  
+ struct i915_request *
+@@ -754,7 +756,7 @@ void __intel_engine_unhold_request(struct intel_engine_cs *engine,
+ 
+ 	if (rq_prio(rq) > engine->execlists.queue_priority_hint) {
+ 		engine->execlists.queue_priority_hint = rq_prio(rq);
+-		tasklet_hi_schedule(&engine->execlists.tasklet);
++		i915_sched_kick(&engine->active);
+ 	}
+ 
+ 	/*
 diff --git a/drivers/gpu/drm/i915/i915_scheduler.h b/drivers/gpu/drm/i915/i915_scheduler.h
-index 858a0938f47a..ccee506c9a26 100644
+index 6bb9d8c3519a..a68747d682d2 100644
 --- a/drivers/gpu/drm/i915/i915_scheduler.h
 +++ b/drivers/gpu/drm/i915/i915_scheduler.h
-@@ -35,8 +35,7 @@ int i915_sched_node_add_dependency(struct i915_sched_node *node,
+@@ -74,6 +74,26 @@ i915_sched_is_last_request(const struct i915_sched_engine *se,
+ 	return list_is_last_rcu(&rq->sched.link, &se->requests);
+ }
  
- void i915_sched_node_fini(struct i915_sched_node *node);
++static inline void
++i915_sched_lock_bh(struct i915_sched_engine *se)
++{
++	local_bh_disable(); /* prevent local softirq and lock recursion */
++	tasklet_lock(&se->tasklet);
++}
++
++static inline void
++i915_sched_unlock_bh(struct i915_sched_engine *se)
++{
++	tasklet_unlock(&se->tasklet);
++	local_bh_enable(); /* restore softirq, and kick ksoftirqd! */
++}
++
++static inline void i915_sched_kick(struct i915_sched_engine *se)
++{
++	/* Kick the tasklet for some interrupt coalescing and reset handling */
++	tasklet_hi_schedule(&se->tasklet);
++}
++
+ void i915_request_show_with_schedule(struct drm_printer *m,
+ 				     const struct i915_request *rq,
+ 				     const char *prefix,
+diff --git a/drivers/gpu/drm/i915/i915_scheduler_types.h b/drivers/gpu/drm/i915/i915_scheduler_types.h
+index 1a4cf7e52186..92332fb71b14 100644
+--- a/drivers/gpu/drm/i915/i915_scheduler_types.h
++++ b/drivers/gpu/drm/i915/i915_scheduler_types.h
+@@ -7,6 +7,7 @@
+ #ifndef _I915_SCHEDULER_TYPES_H_
+ #define _I915_SCHEDULER_TYPES_H_
  
--void i915_schedule(struct i915_request *request,
--		   const struct i915_sched_attr *attr);
-+void i915_request_set_priority(struct i915_request *request, int prio);
++#include <linux/interrupt.h>
+ #include <linux/list.h>
+ #include <linux/workqueue.h>
  
- struct list_head *
- i915_sched_lookup_priolist(struct intel_engine_cs *engine, int prio);
+@@ -101,6 +102,11 @@ struct i915_sched_engine {
+ 	 * @no_priolist: priority lists disabled
+ 	 */
+ 	bool no_priolist;
++
++	/**
++	 * @tasklet: softirq tasklet for bottom half
++	 */
++	struct tasklet_struct tasklet;
+ };
+ 
+ struct i915_dependency {
+diff --git a/drivers/gpu/drm/i915/selftests/i915_scheduler.c b/drivers/gpu/drm/i915/selftests/i915_scheduler.c
+index 5c5b574af253..5b1dd227e24e 100644
+--- a/drivers/gpu/drm/i915/selftests/i915_scheduler.c
++++ b/drivers/gpu/drm/i915/selftests/i915_scheduler.c
+@@ -172,12 +172,12 @@ static int __single_chain(struct intel_engine_cs *engine, unsigned long length,
+ 	}
+ 	intel_engine_flush_submission(engine);
+ 
+-	tasklet_disable(&engine->execlists.tasklet);
++	tasklet_disable(&engine->active.tasklet);
+ 	local_bh_disable();
+ 	if (fn(rq, count, count - 1) && !check_context_order(engine))
+ 		err = -EINVAL;
+ 	local_bh_enable();
+-	tasklet_enable(&engine->execlists.tasklet);
++	tasklet_enable(&engine->active.tasklet);
+ 
+ 	igt_spinner_end(&spin);
+ err_context:
+@@ -258,12 +258,12 @@ static int __wide_chain(struct intel_engine_cs *engine, unsigned long width,
+ 	}
+ 	intel_engine_flush_submission(engine);
+ 
+-	tasklet_disable(&engine->execlists.tasklet);
++	tasklet_disable(&engine->active.tasklet);
+ 	local_bh_disable();
+ 	if (fn(rq[i - 1], i, count) && !check_context_order(engine))
+ 		err = -EINVAL;
+ 	local_bh_enable();
+-	tasklet_enable(&engine->execlists.tasklet);
++	tasklet_enable(&engine->active.tasklet);
+ 
+ 	igt_spinner_end(&spin);
+ err_free:
+@@ -348,12 +348,12 @@ static int __inv_chain(struct intel_engine_cs *engine, unsigned long width,
+ 	}
+ 	intel_engine_flush_submission(engine);
+ 
+-	tasklet_disable(&engine->execlists.tasklet);
++	tasklet_disable(&engine->active.tasklet);
+ 	local_bh_disable();
+ 	if (fn(rq[i - 1], i, count) && !check_context_order(engine))
+ 		err = -EINVAL;
+ 	local_bh_enable();
+-	tasklet_enable(&engine->execlists.tasklet);
++	tasklet_enable(&engine->active.tasklet);
+ 
+ 	igt_spinner_end(&spin);
+ err_free:
+@@ -455,12 +455,12 @@ static int __sparse_chain(struct intel_engine_cs *engine, unsigned long width,
+ 	}
+ 	intel_engine_flush_submission(engine);
+ 
+-	tasklet_disable(&engine->execlists.tasklet);
++	tasklet_disable(&engine->active.tasklet);
+ 	local_bh_disable();
+ 	if (fn(rq[i - 1], i, count) && !check_context_order(engine))
+ 		err = -EINVAL;
+ 	local_bh_enable();
+-	tasklet_enable(&engine->execlists.tasklet);
++	tasklet_enable(&engine->active.tasklet);
+ 
+ 	igt_spinner_end(&spin);
+ err_free:
 -- 
 2.20.1
 
