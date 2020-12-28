@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 06F13C433DB
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Dec 2020 15:52:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 68F6CC433E0
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Dec 2020 15:52:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9716E20791
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Dec 2020 15:52:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9716E20791
+	by mail.kernel.org (Postfix) with ESMTPS id E752620791
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Dec 2020 15:52:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E752620791
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C0A9B89254;
-	Mon, 28 Dec 2020 15:52:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9043F899B5;
+	Mon, 28 Dec 2020 15:52:49 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 40D3B89254
- for <intel-gfx@lists.freedesktop.org>; Mon, 28 Dec 2020 15:52:44 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2265789254
+ for <intel-gfx@lists.freedesktop.org>; Mon, 28 Dec 2020 15:52:45 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23448224-1500050 
- for multiple; Mon, 28 Dec 2020 15:52:39 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23448250-1500050 
+ for multiple; Mon, 28 Dec 2020 15:52:42 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 28 Dec 2020 15:52:16 +0000
-Message-Id: <20201228155229.9516-41-chris@chris-wilson.co.uk>
+Date: Mon, 28 Dec 2020 15:52:29 +0000
+Message-Id: <20201228155229.9516-54-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201228155229.9516-1-chris@chris-wilson.co.uk>
 References: <20201228155229.9516-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 41/54] drm/i915/gt: Track timeline GGTT offset
- separately from subpage offset
+Subject: [Intel-gfx] [PATCH 54/54] drm/i915/gt: Limit C-states while waiting
+ for requests
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,230 +50,274 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Chris Wilson <chris@chris-wilson.co.uk>
+Cc: Eero Tamminen <eero.t.tamminen@intel.com>,
+ Chris Wilson <chris@chris-wilson.co.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Currently we know that the timeline status page is at most a page in
-size, and so we can preserve the lower 12bits of the offset when
-relocating the status page in the GGTT. If we want to use a larger
-object, such as the context state, we may not necessarily use a position
-within the first page and so need more than 12b.
+Allow the sysadmin to specify whether we should prevent the CPU from
+entering higher C-states while waiting for the CPU, in order to reduce
+the latency of request completions and so speed up client continuations.
+
+The target dma latency can be adjusted per-engine using,
+
+	/sys/class/drm/card?/engine/*/dma_latency_ns
+
+(For waiting on a virtual engine, the underlying physical engine is used
+for the wait once the request is active, so set all the physical engines
+in the virtual set to the same target dma latency.)
+
+Note that in most cases, the ratelimiting step does not appear to the
+interrupt latency per se, but secondary effects of avoiding additional
+memory latencies while active.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-Reviewed-by: Matthew Brost <matthew.brost@intel.com>
+Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Cc: Eero Tamminen <eero.t.tamminen@intel.com>
+Cc: Francisco Jerez <currojerez@riseup.net>
+Cc: Mika Kuoppala <mika.kuoppala@linux.intel.com>
+Cc: Dmitry Rogozhkin <dmitry.v.rogozhkin@intel.com>
 ---
- drivers/gpu/drm/i915/gt/gen6_engine_cs.c       |  4 ++--
- drivers/gpu/drm/i915/gt/gen8_engine_cs.c       |  2 +-
- drivers/gpu/drm/i915/gt/intel_engine_cs.c      |  4 ++--
- drivers/gpu/drm/i915/gt/intel_timeline.c       | 17 +++++++----------
- drivers/gpu/drm/i915/gt/intel_timeline_types.h |  1 +
- drivers/gpu/drm/i915/gt/selftest_engine_cs.c   |  2 +-
- drivers/gpu/drm/i915/gt/selftest_rc6.c         |  2 +-
- drivers/gpu/drm/i915/gt/selftest_timeline.c    | 16 ++++++++--------
- 8 files changed, 23 insertions(+), 25 deletions(-)
+ drivers/gpu/drm/i915/Kconfig.profile          | 14 ++++++
+ drivers/gpu/drm/i915/gt/intel_breadcrumbs.c   | 45 +++++++++++++++++++
+ .../gpu/drm/i915/gt/intel_breadcrumbs_types.h |  7 +++
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c     |  2 +
+ drivers/gpu/drm/i915/gt/intel_engine_types.h  |  2 +
+ drivers/gpu/drm/i915/gt/sysfs_engines.c       | 43 ++++++++++++++++++
+ 6 files changed, 113 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gt/gen6_engine_cs.c b/drivers/gpu/drm/i915/gt/gen6_engine_cs.c
-index ce38d1bcaba3..2f59dd3bdc18 100644
---- a/drivers/gpu/drm/i915/gt/gen6_engine_cs.c
-+++ b/drivers/gpu/drm/i915/gt/gen6_engine_cs.c
-@@ -161,7 +161,7 @@ u32 *gen6_emit_breadcrumb_rcs(struct i915_request *rq, u32 *cs)
- 		 PIPE_CONTROL_DC_FLUSH_ENABLE |
- 		 PIPE_CONTROL_QW_WRITE |
- 		 PIPE_CONTROL_CS_STALL);
--	*cs++ = i915_request_active_timeline(rq)->hwsp_offset |
-+	*cs++ = i915_request_active_timeline(rq)->ggtt_offset |
- 		PIPE_CONTROL_GLOBAL_GTT;
- 	*cs++ = rq->fence.seqno;
+diff --git a/drivers/gpu/drm/i915/Kconfig.profile b/drivers/gpu/drm/i915/Kconfig.profile
+index 3eacea42b19f..7c996564c92b 100644
+--- a/drivers/gpu/drm/i915/Kconfig.profile
++++ b/drivers/gpu/drm/i915/Kconfig.profile
+@@ -24,6 +24,20 @@ config DRM_I915_USERFAULT_AUTOSUSPEND
+ 	  May be 0 to disable the extra delay and solely use the device level
+ 	  runtime pm autosuspend delay tunable.
  
-@@ -359,7 +359,7 @@ u32 *gen7_emit_breadcrumb_rcs(struct i915_request *rq, u32 *cs)
- 		 PIPE_CONTROL_QW_WRITE |
- 		 PIPE_CONTROL_GLOBAL_GTT_IVB |
- 		 PIPE_CONTROL_CS_STALL);
--	*cs++ = i915_request_active_timeline(rq)->hwsp_offset;
-+	*cs++ = i915_request_active_timeline(rq)->ggtt_offset;
- 	*cs++ = rq->fence.seqno;
++config DRM_I915_DMA_LATENCY
++	int "Target CPU-DMA latency while waiting on active requests (ns)"
++	default -1 # nanoseconds
++	help
++	  Specify a target latency for DMA wakeup, see /dev/cpu_dma_latency,
++	  used while the CPU is waiting for GPU results.
++
++	  This is adjustable via
++	  /sys/class/drm/card?/engine/*/dma_latency_ns
++
++	  May be -1 to prevent specifying a target wakeup and let the CPU
++	  enter powersaving while waiting. Conversely, 0 may be used to
++	  prevent the CPU from entering any C-states while waiting.
++
+ config DRM_I915_HEARTBEAT_INTERVAL
+ 	int "Interval between heartbeat pulses (ms)"
+ 	default 2500 # milliseconds
+diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
+index dc76b05991e7..235f62ca7ae7 100644
+--- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
++++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
+@@ -34,6 +34,40 @@
+ #include "intel_gt_pm.h"
+ #include "intel_gt_requests.h"
  
- 	*cs++ = MI_USER_INTERRUPT;
-diff --git a/drivers/gpu/drm/i915/gt/gen8_engine_cs.c b/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
-index 74f02d857acf..dcd8786d796d 100644
---- a/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
-+++ b/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
-@@ -346,7 +346,7 @@ static u32 hwsp_offset(const struct i915_request *rq)
- 	if (cl)
- 		return cl->ggtt_offset;
++static void __dma_qos_update(struct work_struct *work)
++{
++	struct intel_breadcrumbs_dma_qos *qos =
++		container_of(work, typeof(*qos), update);
++
++	if (cpu_latency_qos_request_active(&qos->req)) {
++		if (qos->latency < 0)
++			cpu_latency_qos_remove_request(&qos->req);
++		else
++			cpu_latency_qos_update_request(&qos->req, qos->latency);
++	} else {
++		if (qos->latency != -1)
++			cpu_latency_qos_add_request(&qos->req, qos->latency);
++	}
++}
++
++static void dma_qos_add(struct intel_breadcrumbs *b, s32 latency)
++{
++	if (latency < 0)
++		return;
++
++	b->qos.latency = latency;
++	queue_work(system_highpri_wq, &b->qos.update);
++}
++
++static void dma_qos_del(struct intel_breadcrumbs *b)
++{
++	if (b->qos.latency < 0)
++		return;
++
++	b->qos.latency = -1;
++	queue_work(system_highpri_wq, &b->qos.update);
++}
++
+ static bool irq_enable(struct intel_engine_cs *engine)
+ {
+ 	if (!engine->irq_enable)
+@@ -74,6 +108,7 @@ static void __intel_breadcrumbs_arm_irq(struct intel_breadcrumbs *b)
+ 	 * the irq.
+ 	 */
+ 	WRITE_ONCE(b->irq_armed, true);
++	dma_qos_add(b, b->irq_engine->props.dma_latency_ns);
  
--	return rcu_dereference_protected(rq->timeline, 1)->hwsp_offset;
-+	return rcu_dereference_protected(rq->timeline, 1)->ggtt_offset;
+ 	/* Requests may have completed before we could enable the interrupt. */
+ 	if (!b->irq_enabled++ && irq_enable(b->irq_engine))
+@@ -97,7 +132,9 @@ static void __intel_breadcrumbs_disarm_irq(struct intel_breadcrumbs *b)
+ 	if (!--b->irq_enabled)
+ 		irq_disable(b->irq_engine);
+ 
++	dma_qos_del(b);
+ 	WRITE_ONCE(b->irq_armed, false);
++
+ 	intel_gt_pm_put_async(b->irq_engine->gt);
  }
  
- int gen8_emit_init_breadcrumb(struct i915_request *rq)
+@@ -306,6 +343,9 @@ intel_breadcrumbs_create(struct intel_engine_cs *irq_engine)
+ 	INIT_LIST_HEAD(&b->signalers);
+ 	init_llist_head(&b->signaled_requests);
+ 
++	b->qos.latency = -1;
++	INIT_WORK(&b->qos.update, __dma_qos_update);
++
+ 	spin_lock_init(&b->irq_lock);
+ 	init_irq_work(&b->irq_work, signal_irq_work);
+ 
+@@ -373,6 +413,11 @@ void intel_breadcrumbs_free(struct intel_breadcrumbs *b)
+ 	irq_work_sync(&b->irq_work);
+ 	GEM_BUG_ON(!list_empty(&b->signalers));
+ 	GEM_BUG_ON(b->irq_armed);
++
++	GEM_BUG_ON(b->qos.latency != -1);
++	flush_work(&b->qos.update);
++	GEM_BUG_ON(cpu_latency_qos_request_active(&b->qos.req));
++
+ 	kfree(b);
+ }
+ 
+diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h b/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h
+index 3a084ce8ff5e..d5ad47f36ba0 100644
+--- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h
+@@ -8,6 +8,7 @@
+ 
+ #include <linux/irq_work.h>
+ #include <linux/list.h>
++#include <linux/pm_qos.h>
+ #include <linux/spinlock.h>
+ #include <linux/types.h>
+ 
+@@ -43,6 +44,12 @@ struct intel_breadcrumbs {
+ 
+ 	/* Not all breadcrumbs are attached to physical HW */
+ 	struct intel_engine_cs *irq_engine;
++
++	struct intel_breadcrumbs_dma_qos {
++		struct pm_qos_request req;
++		struct work_struct update;
++		s32 latency;
++	} qos;
+ };
+ 
+ #endif /* __INTEL_BREADCRUMBS_TYPES__ */
 diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-index 4854a8d15ef4..0b96007c30f5 100644
+index baaf3e8ea70c..6cb0eaf9655c 100644
 --- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
 +++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-@@ -1324,7 +1324,7 @@ static int print_ring(char *buf, int sz, struct i915_request *rq)
- 		len = scnprintf(buf, sz,
- 				"ring:{start:%08x, hwsp:%08x, seqno:%08x, runtime:%llums}, ",
- 				i915_ggtt_offset(rq->ring->vma),
--				tl ? tl->hwsp_offset : 0,
-+				tl ? tl->ggtt_offset : 0,
- 				hwsp_seqno(rq),
- 				DIV_ROUND_CLOSEST_ULL(intel_context_get_total_runtime_ns(rq->context),
- 						      1000 * 1000));
-@@ -1663,7 +1663,7 @@ void intel_engine_dump(struct intel_engine_cs *engine,
+@@ -314,6 +314,8 @@ static int intel_engine_setup(struct intel_gt *gt, enum intel_engine_id id)
+ 	engine->instance = info->instance;
+ 	__sprint_engine_name(engine);
  
- 		if (tl) {
- 			drm_printf(m, "\t\tring->hwsp:   0x%08x\n",
--				   tl->hwsp_offset);
-+				   tl->ggtt_offset);
- 			intel_timeline_put(tl);
- 		}
++	engine->props.dma_latency_ns =
++		CONFIG_DRM_I915_DMA_LATENCY;
+ 	engine->props.heartbeat_interval_ms =
+ 		CONFIG_DRM_I915_HEARTBEAT_INTERVAL;
+ 	engine->props.max_busywait_duration_ns =
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_types.h b/drivers/gpu/drm/i915/gt/intel_engine_types.h
+index a93bef46e455..46f92e3528d2 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_engine_types.h
+@@ -506,6 +506,8 @@ struct intel_engine_cs {
+ 		unsigned long preempt_timeout_ms;
+ 		unsigned long stop_timeout_ms;
+ 		unsigned long timeslice_duration_ms;
++
++		s32 dma_latency_ns;
+ 	} props, defaults;
+ };
  
-diff --git a/drivers/gpu/drm/i915/gt/intel_timeline.c b/drivers/gpu/drm/i915/gt/intel_timeline.c
-index 18b1bda242bd..24cc45777f9d 100644
---- a/drivers/gpu/drm/i915/gt/intel_timeline.c
-+++ b/drivers/gpu/drm/i915/gt/intel_timeline.c
-@@ -355,13 +355,11 @@ int intel_timeline_pin(struct intel_timeline *tl, struct i915_gem_ww_ctx *ww)
- 	if (err)
- 		return err;
+diff --git a/drivers/gpu/drm/i915/gt/sysfs_engines.c b/drivers/gpu/drm/i915/gt/sysfs_engines.c
+index 967031056202..ec49ffa8d9b9 100644
+--- a/drivers/gpu/drm/i915/gt/sysfs_engines.c
++++ b/drivers/gpu/drm/i915/gt/sysfs_engines.c
+@@ -301,6 +301,47 @@ stop_default(struct kobject *kobj, struct kobj_attribute *attr, char *buf)
+ static struct kobj_attribute stop_timeout_def =
+ __ATTR(stop_timeout_ms, 0444, stop_default, NULL);
  
--	tl->hwsp_offset =
--		i915_ggtt_offset(tl->hwsp_ggtt) +
--		offset_in_page(tl->hwsp_offset);
-+	tl->ggtt_offset = i915_ggtt_offset(tl->hwsp_ggtt) + tl->hwsp_offset;
- 	GT_TRACE(tl->gt, "timeline:%llx using HWSP offset:%x\n",
--		 tl->fence_context, tl->hwsp_offset);
-+		 tl->fence_context, tl->ggtt_offset);
- 
--	cacheline_acquire(tl->hwsp_cacheline, tl->hwsp_offset);
-+	cacheline_acquire(tl->hwsp_cacheline, tl->ggtt_offset);
- 	if (atomic_fetch_inc(&tl->pin_count)) {
- 		cacheline_release(tl->hwsp_cacheline);
- 		__i915_vma_unpin(tl->hwsp_ggtt);
-@@ -529,14 +527,13 @@ __intel_timeline_get_seqno(struct intel_timeline *tl,
- 
- 	vaddr = page_mask_bits(cl->vaddr);
- 	tl->hwsp_offset = cacheline * CACHELINE_BYTES;
--	tl->hwsp_seqno =
--		memset(vaddr + tl->hwsp_offset, 0, CACHELINE_BYTES);
-+	tl->hwsp_seqno = memset(vaddr + tl->hwsp_offset, 0, CACHELINE_BYTES);
- 
--	tl->hwsp_offset += i915_ggtt_offset(vma);
-+	tl->ggtt_offset = i915_ggtt_offset(vma) + tl->hwsp_offset;
- 	GT_TRACE(tl->gt, "timeline:%llx using HWSP offset:%x\n",
--		 tl->fence_context, tl->hwsp_offset);
-+		 tl->fence_context, tl->ggtt_offset);
- 
--	cacheline_acquire(cl, tl->hwsp_offset);
-+	cacheline_acquire(cl, tl->ggtt_offset);
- 	tl->hwsp_cacheline = cl;
- 
- 	*seqno = timeline_advance(tl);
-diff --git a/drivers/gpu/drm/i915/gt/intel_timeline_types.h b/drivers/gpu/drm/i915/gt/intel_timeline_types.h
-index e360f50706bf..f187c5aac11c 100644
---- a/drivers/gpu/drm/i915/gt/intel_timeline_types.h
-+++ b/drivers/gpu/drm/i915/gt/intel_timeline_types.h
-@@ -48,6 +48,7 @@ struct intel_timeline {
- 	const u32 *hwsp_seqno;
- 	struct i915_vma *hwsp_ggtt;
- 	u32 hwsp_offset;
-+	u32 ggtt_offset;
- 
- 	struct intel_timeline_cacheline *hwsp_cacheline;
- 
-diff --git a/drivers/gpu/drm/i915/gt/selftest_engine_cs.c b/drivers/gpu/drm/i915/gt/selftest_engine_cs.c
-index 439c8984f5fa..bf4b8973b188 100644
---- a/drivers/gpu/drm/i915/gt/selftest_engine_cs.c
-+++ b/drivers/gpu/drm/i915/gt/selftest_engine_cs.c
-@@ -54,7 +54,7 @@ static int write_timestamp(struct i915_request *rq, int slot)
- 		cmd++;
- 	*cs++ = cmd;
- 	*cs++ = i915_mmio_reg_offset(RING_TIMESTAMP(rq->engine->mmio_base));
--	*cs++ = i915_request_timeline(rq)->hwsp_offset + slot * sizeof(u32);
-+	*cs++ = i915_request_timeline(rq)->ggtt_offset + slot * sizeof(u32);
- 	*cs++ = 0;
- 
- 	intel_ring_advance(rq, cs);
-diff --git a/drivers/gpu/drm/i915/gt/selftest_rc6.c b/drivers/gpu/drm/i915/gt/selftest_rc6.c
-index 61abc0556601..4eb4c627ec44 100644
---- a/drivers/gpu/drm/i915/gt/selftest_rc6.c
-+++ b/drivers/gpu/drm/i915/gt/selftest_rc6.c
-@@ -138,7 +138,7 @@ static const u32 *__live_rc6_ctx(struct intel_context *ce)
- 
- 	*cs++ = cmd;
- 	*cs++ = i915_mmio_reg_offset(GEN8_RC6_CTX_INFO);
--	*cs++ = ce->timeline->hwsp_offset + 8;
-+	*cs++ = ce->timeline->ggtt_offset + 8;
- 	*cs++ = 0;
- 	intel_ring_advance(rq, cs);
- 
-diff --git a/drivers/gpu/drm/i915/gt/selftest_timeline.c b/drivers/gpu/drm/i915/gt/selftest_timeline.c
-index 4f47a0535c91..e44bfceef413 100644
---- a/drivers/gpu/drm/i915/gt/selftest_timeline.c
-+++ b/drivers/gpu/drm/i915/gt/selftest_timeline.c
-@@ -469,7 +469,7 @@ tl_write(struct intel_timeline *tl, struct intel_engine_cs *engine, u32 value)
- 
- 	i915_request_get(rq);
- 
--	err = emit_ggtt_store_dw(rq, tl->hwsp_offset, value);
-+	err = emit_ggtt_store_dw(rq, tl->ggtt_offset, value);
- 	i915_request_add(rq);
- 	if (err) {
- 		i915_request_put(rq);
-@@ -565,7 +565,7 @@ static int live_hwsp_engine(void *arg)
- 
- 		if (!err && READ_ONCE(*tl->hwsp_seqno) != n) {
- 			GEM_TRACE_ERR("Invalid seqno:%lu stored in timeline %llu @ %x, found 0x%x\n",
--				      n, tl->fence_context, tl->hwsp_offset, *tl->hwsp_seqno);
-+				      n, tl->fence_context, tl->ggtt_offset, *tl->hwsp_seqno);
- 			GEM_TRACE_DUMP();
- 			err = -EINVAL;
- 		}
-@@ -637,7 +637,7 @@ static int live_hwsp_alternate(void *arg)
- 
- 		if (!err && READ_ONCE(*tl->hwsp_seqno) != n) {
- 			GEM_TRACE_ERR("Invalid seqno:%lu stored in timeline %llu @ %x, found 0x%x\n",
--				      n, tl->fence_context, tl->hwsp_offset, *tl->hwsp_seqno);
-+				      n, tl->fence_context, tl->ggtt_offset, *tl->hwsp_seqno);
- 			GEM_TRACE_DUMP();
- 			err = -EINVAL;
- 		}
-@@ -697,9 +697,9 @@ static int live_hwsp_wrap(void *arg)
- 			goto out;
- 		}
- 		pr_debug("seqno[0]:%08x, hwsp_offset:%08x\n",
--			 seqno[0], tl->hwsp_offset);
-+			 seqno[0], tl->ggtt_offset);
- 
--		err = emit_ggtt_store_dw(rq, tl->hwsp_offset, seqno[0]);
-+		err = emit_ggtt_store_dw(rq, tl->ggtt_offset, seqno[0]);
- 		if (err) {
- 			i915_request_add(rq);
- 			goto out;
-@@ -714,9 +714,9 @@ static int live_hwsp_wrap(void *arg)
- 			goto out;
- 		}
- 		pr_debug("seqno[1]:%08x, hwsp_offset:%08x\n",
--			 seqno[1], tl->hwsp_offset);
-+			 seqno[1], tl->ggtt_offset);
- 
--		err = emit_ggtt_store_dw(rq, tl->hwsp_offset, seqno[1]);
-+		err = emit_ggtt_store_dw(rq, tl->ggtt_offset, seqno[1]);
- 		if (err) {
- 			i915_request_add(rq);
- 			goto out;
-@@ -1344,7 +1344,7 @@ static int live_hwsp_recycle(void *arg)
- 			if (READ_ONCE(*tl->hwsp_seqno) != count) {
- 				GEM_TRACE_ERR("Invalid seqno:%lu stored in timeline %llu @ %x found 0x%x\n",
- 					      count, tl->fence_context,
--					      tl->hwsp_offset, *tl->hwsp_seqno);
-+					      tl->ggtt_offset, *tl->hwsp_seqno);
- 				GEM_TRACE_DUMP();
- 				err = -EINVAL;
- 			}
++static ssize_t
++dma_latency_store(struct kobject *kobj, struct kobj_attribute *attr,
++		  const char *buf, size_t count)
++{
++	struct intel_engine_cs *engine = kobj_to_engine(kobj);
++	long long latency;
++	int err;
++
++	err = kstrtoll(buf, 0, &latency);
++	if (err)
++		return err;
++
++	if (latency > S32_MAX)
++		return -EINVAL;
++
++	WRITE_ONCE(engine->props.dma_latency_ns, latency);
++	return count;
++}
++
++static ssize_t
++dma_latency_show(struct kobject *kobj, struct kobj_attribute *attr, char *buf)
++{
++	struct intel_engine_cs *engine = kobj_to_engine(kobj);
++
++	return sprintf(buf, "%d\n", engine->props.dma_latency_ns);
++}
++
++static struct kobj_attribute dma_latency_attr =
++__ATTR(dma_latency_ns, 0644, dma_latency_show, dma_latency_store);
++
++static ssize_t
++dma_latency_default(struct kobject *kobj, struct kobj_attribute *attr, char *buf)
++{
++	struct intel_engine_cs *engine = kobj_to_engine(kobj);
++
++	return sprintf(buf, "%d\n", engine->defaults.dma_latency_ns);
++}
++
++static struct kobj_attribute dma_latency_def =
++__ATTR(dma_latency_ns, 0444, dma_latency_default, NULL);
++
+ static ssize_t
+ preempt_timeout_store(struct kobject *kobj, struct kobj_attribute *attr,
+ 		      const char *buf, size_t count)
+@@ -447,6 +488,7 @@ static void add_defaults(struct kobj_engine *parent)
+ 	static const struct attribute *files[] = {
+ 		&max_spin_def.attr,
+ 		&stop_timeout_def.attr,
++		&dma_latency_def.attr,
+ #if CONFIG_DRM_I915_HEARTBEAT_INTERVAL
+ 		&heartbeat_interval_def.attr,
+ #endif
+@@ -489,6 +531,7 @@ void intel_engines_add_sysfs(struct drm_i915_private *i915)
+ 		&all_caps_attr.attr,
+ 		&max_spin_attr.attr,
+ 		&stop_timeout_attr.attr,
++		&dma_latency_attr.attr,
+ #if CONFIG_DRM_I915_HEARTBEAT_INTERVAL
+ 		&heartbeat_interval_attr.attr,
+ #endif
 -- 
 2.20.1
 
