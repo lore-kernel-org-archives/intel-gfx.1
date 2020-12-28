@@ -7,36 +7,36 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 73CF4C433E0
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Dec 2020 15:53:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 45A61C433E9
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Dec 2020 15:53:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 22D6722B3A
+	by mail.kernel.org (Postfix) with ESMTPS id F2678224D2
 	for <intel-gfx@archiver.kernel.org>; Mon, 28 Dec 2020 15:53:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 22D6722B3A
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F2678224D2
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9AE2989A0E;
-	Mon, 28 Dec 2020 15:52:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 045C389A5E;
+	Mon, 28 Dec 2020 15:52:58 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8EFB88999C
- for <intel-gfx@lists.freedesktop.org>; Mon, 28 Dec 2020 15:52:50 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 61B23899DC
+ for <intel-gfx@lists.freedesktop.org>; Mon, 28 Dec 2020 15:52:52 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23448226-1500050 
- for multiple; Mon, 28 Dec 2020 15:52:40 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23448191-1500050 
+ for multiple; Mon, 28 Dec 2020 15:52:34 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 28 Dec 2020 15:52:17 +0000
-Message-Id: <20201228155229.9516-42-chris@chris-wilson.co.uk>
+Date: Mon, 28 Dec 2020 15:51:49 +0000
+Message-Id: <20201228155229.9516-14-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201228155229.9516-1-chris@chris-wilson.co.uk>
 References: <20201228155229.9516-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 42/54] drm/i915/gt: Add timeline "mode"
+Subject: [Intel-gfx] [PATCH 14/54] drm/i915/gt: Remove timeslice suppression
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,111 +55,306 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Explicitly differentiate between the absolute and relative timelines,
-and the global HWSP and ppHWSP relative offsets. When using a timeline
-that is relative to a known status page, we can replace the absolute
-addressing in the commands with indexed variants.
+In the next patch, we remove the strict priority system and continuously
+re-evaluate the relative priority of tasks. As such we need to enable
+the timeslice whenever there is more than one context in the pipeline.
+This simplifies the decision and removes some of the tweaks to suppress
+timeslicing, allowing us to lift the timeslice enabling to a common spot
+at the end of running the submission tasklet.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-Reviewed-by: Matthew Brost <matthew.brost@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_timeline.c      | 21 ++++++++++++++++---
- drivers/gpu/drm/i915/gt/intel_timeline.h      |  2 +-
- .../gpu/drm/i915/gt/intel_timeline_types.h    | 10 +++++++--
- 3 files changed, 27 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_engine_types.h  |  10 --
+ .../drm/i915/gt/intel_execlists_submission.c  | 159 +++++++-----------
+ 2 files changed, 61 insertions(+), 108 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_timeline.c b/drivers/gpu/drm/i915/gt/intel_timeline.c
-index 24cc45777f9d..882b7916bb4a 100644
---- a/drivers/gpu/drm/i915/gt/intel_timeline.c
-+++ b/drivers/gpu/drm/i915/gt/intel_timeline.c
-@@ -227,7 +227,6 @@ static int intel_timeline_init(struct intel_timeline *timeline,
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_types.h b/drivers/gpu/drm/i915/gt/intel_engine_types.h
+index fdec129a6317..f850179a583f 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_engine_types.h
+@@ -238,16 +238,6 @@ struct intel_engine_execlists {
+ 	 */
+ 	unsigned int port_mask;
  
- 	timeline->gt = gt;
- 
--	timeline->has_initial_breadcrumb = !hwsp;
- 	timeline->hwsp_cacheline = NULL;
- 
- 	if (!hwsp) {
-@@ -244,13 +243,29 @@ static int intel_timeline_init(struct intel_timeline *timeline,
- 			return PTR_ERR(cl);
- 		}
- 
-+		timeline->mode = INTEL_TIMELINE_ABSOLUTE;
- 		timeline->hwsp_cacheline = cl;
- 		timeline->hwsp_offset = cacheline * CACHELINE_BYTES;
- 
- 		vaddr = page_mask_bits(cl->vaddr);
- 	} else {
--		timeline->hwsp_offset = offset;
--		vaddr = i915_gem_object_pin_map(hwsp->obj, I915_MAP_WB);
-+		int preferred;
-+
-+		if (offset & INTEL_TIMELINE_RELATIVE_CONTEXT) {
-+			timeline->mode = INTEL_TIMELINE_RELATIVE_CONTEXT;
-+			timeline->hwsp_offset =
-+				offset & ~INTEL_TIMELINE_RELATIVE_CONTEXT;
-+			preferred = i915_coherent_map_type(gt->i915);
-+		} else {
-+			timeline->mode = INTEL_TIMELINE_RELATIVE_ENGINE;
-+			timeline->hwsp_offset = offset;
-+			preferred = I915_MAP_WB;
-+		}
-+
-+		vaddr = i915_gem_object_pin_map(hwsp->obj,
-+						preferred | I915_MAP_OVERRIDE);
-+		if (IS_ERR(vaddr))
-+			vaddr = i915_gem_object_pin_map(hwsp->obj, I915_MAP_WC);
- 		if (IS_ERR(vaddr))
- 			return PTR_ERR(vaddr);
- 	}
-diff --git a/drivers/gpu/drm/i915/gt/intel_timeline.h b/drivers/gpu/drm/i915/gt/intel_timeline.h
-index 0e5e9fdade5b..6e738a85beda 100644
---- a/drivers/gpu/drm/i915/gt/intel_timeline.h
-+++ b/drivers/gpu/drm/i915/gt/intel_timeline.h
-@@ -64,7 +64,7 @@ static inline void intel_timeline_put(struct intel_timeline *timeline)
- static inline bool
- intel_timeline_has_initial_breadcrumb(const struct intel_timeline *tl)
- {
--	return tl->has_initial_breadcrumb;
-+	return tl->mode == INTEL_TIMELINE_ABSOLUTE;
- }
- 
- static inline int __intel_timeline_sync_set(struct intel_timeline *tl,
-diff --git a/drivers/gpu/drm/i915/gt/intel_timeline_types.h b/drivers/gpu/drm/i915/gt/intel_timeline_types.h
-index f187c5aac11c..3c1ab901b702 100644
---- a/drivers/gpu/drm/i915/gt/intel_timeline_types.h
-+++ b/drivers/gpu/drm/i915/gt/intel_timeline_types.h
-@@ -20,6 +20,12 @@ struct i915_syncmap;
- struct intel_gt;
- struct intel_timeline_hwsp;
- 
-+enum intel_timeline_mode {
-+	INTEL_TIMELINE_ABSOLUTE = 0,
-+	INTEL_TIMELINE_RELATIVE_CONTEXT = BIT(0),
-+	INTEL_TIMELINE_RELATIVE_ENGINE  = BIT(1),
-+};
-+
- struct intel_timeline {
- 	u64 fence_context;
- 	u32 seqno;
-@@ -45,6 +51,8 @@ struct intel_timeline {
- 	atomic_t pin_count;
- 	atomic_t active_count;
- 
-+	enum intel_timeline_mode mode;
-+
- 	const u32 *hwsp_seqno;
- 	struct i915_vma *hwsp_ggtt;
- 	u32 hwsp_offset;
-@@ -52,8 +60,6 @@ struct intel_timeline {
- 
- 	struct intel_timeline_cacheline *hwsp_cacheline;
- 
--	bool has_initial_breadcrumb;
+-	/**
+-	 * @switch_priority_hint: Second context priority.
+-	 *
+-	 * We submit multiple contexts to the HW simultaneously and would
+-	 * like to occasionally switch between them to emulate timeslicing.
+-	 * To know when timeslicing is suitable, we track the priority of
+-	 * the context submitted second.
+-	 */
+-	int switch_priority_hint;
 -
  	/**
- 	 * List of breadcrumbs associated with GPU requests currently
- 	 * outstanding.
+ 	 * @queue_priority_hint: Highest pending priority.
+ 	 *
+diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+index 17c0c9d210b2..325da35a3238 100644
+--- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
++++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+@@ -1113,25 +1113,6 @@ static void defer_active(struct intel_engine_cs *engine)
+ 	defer_request(rq, i915_sched_lookup_priolist(engine, rq_prio(rq)));
+ }
+ 
+-static bool
+-need_timeslice(const struct intel_engine_cs *engine,
+-	       const struct i915_request *rq)
+-{
+-	int hint;
+-
+-	if (!intel_engine_has_timeslices(engine))
+-		return false;
+-
+-	hint = max(engine->execlists.queue_priority_hint,
+-		   virtual_prio(&engine->execlists));
+-
+-	if (!list_is_last(&rq->sched.link, &engine->active.requests))
+-		hint = max(hint, rq_prio(list_next_entry(rq, sched.link)));
+-
+-	GEM_BUG_ON(hint >= I915_PRIORITY_UNPREEMPTABLE);
+-	return hint >= effective_prio(rq);
+-}
+-
+ static bool
+ timeslice_yield(const struct intel_engine_execlists *el,
+ 		const struct i915_request *rq)
+@@ -1151,76 +1132,68 @@ timeslice_yield(const struct intel_engine_execlists *el,
+ 	return rq->context->lrc.ccid == READ_ONCE(el->yield);
+ }
+ 
+-static bool
+-timeslice_expired(const struct intel_engine_execlists *el,
+-		  const struct i915_request *rq)
++static bool needs_timeslice(const struct intel_engine_cs *engine,
++			    const struct i915_request *rq)
+ {
+-	return timer_expired(&el->timer) || timeslice_yield(el, rq);
+-}
++	if (!intel_engine_has_timeslices(engine))
++		return false;
+ 
+-static int
+-switch_prio(struct intel_engine_cs *engine, const struct i915_request *rq)
+-{
+-	if (list_is_last(&rq->sched.link, &engine->active.requests))
+-		return engine->execlists.queue_priority_hint;
++	/* If not currently active, or about to switch, wait for next event */
++	if (!rq || __i915_request_is_complete(rq))
++		return false;
+ 
+-	return rq_prio(list_next_entry(rq, sched.link));
+-}
++	/* We do not need to start the timeslice until after the ACK */
++	if (READ_ONCE(engine->execlists.pending[0]))
++		return false;
+ 
+-static inline unsigned long
+-timeslice(const struct intel_engine_cs *engine)
+-{
+-	return READ_ONCE(engine->props.timeslice_duration_ms);
++	/* If ELSP[1] is occupied, always check to see if worth slicing */
++	if (!list_is_last_rcu(&rq->sched.link, &engine->active.requests))
++		return true;
++
++	/* Otherwise, ELSP[0] is by itself, but may be waiting in the queue */
++	if (!RB_EMPTY_ROOT(&engine->execlists.queue.rb_root))
++		return true;
++
++	return !RB_EMPTY_ROOT(&engine->execlists.virtual.rb_root);
+ }
+ 
+-static unsigned long active_timeslice(const struct intel_engine_cs *engine)
++static bool
++timeslice_expired(struct intel_engine_cs *engine, const struct i915_request *rq)
+ {
+-	const struct intel_engine_execlists *execlists = &engine->execlists;
+-	const struct i915_request *rq = *execlists->active;
++	const struct intel_engine_execlists *el = &engine->execlists;
+ 
+-	if (!rq || __i915_request_is_complete(rq))
+-		return 0;
++	if (i915_request_has_nopreempt(rq) && __i915_request_has_started(rq))
++		return false;
+ 
+-	if (READ_ONCE(execlists->switch_priority_hint) < effective_prio(rq))
+-		return 0;
++	if (!needs_timeslice(engine, rq))
++		return false;
+ 
+-	return timeslice(engine);
++	return timer_expired(&el->timer) || timeslice_yield(el, rq);
+ }
+ 
+-static void set_timeslice(struct intel_engine_cs *engine)
++static unsigned long timeslice(const struct intel_engine_cs *engine)
+ {
+-	unsigned long duration;
+-
+-	if (!intel_engine_has_timeslices(engine))
+-		return;
+-
+-	duration = active_timeslice(engine);
+-	ENGINE_TRACE(engine, "bump timeslicing, interval:%lu", duration);
+-
+-	set_timer_ms(&engine->execlists.timer, duration);
++	return READ_ONCE(engine->props.timeslice_duration_ms);
+ }
+ 
+-static void start_timeslice(struct intel_engine_cs *engine, int prio)
++static void start_timeslice(struct intel_engine_cs *engine)
+ {
+-	struct intel_engine_execlists *execlists = &engine->execlists;
++	struct intel_engine_execlists *el = &engine->execlists;
+ 	unsigned long duration;
+ 
+-	if (!intel_engine_has_timeslices(engine))
+-		return;
+-
+-	WRITE_ONCE(execlists->switch_priority_hint, prio);
+-	if (prio == INT_MIN)
+-		return;
+-
+-	if (timer_pending(&execlists->timer))
+-		return;
++	/* Disable the timer if there is nothing to switch to */
++	duration = 0;
++	if (needs_timeslice(engine, *el->active)) {
++		if (el->timer.expires) {
++			if (!timer_pending(&el->timer))
++				tasklet_hi_schedule(&engine->execlists.tasklet);
++			return;
++		}
+ 
+-	duration = timeslice(engine);
+-	ENGINE_TRACE(engine,
+-		     "start timeslicing, prio:%d, interval:%lu",
+-		     prio, duration);
++		duration = timeslice(engine);
++	}
+ 
+-	set_timer_ms(&execlists->timer, duration);
++	set_timer_ms(&el->timer, duration);
+ }
+ 
+ static void record_preemption(struct intel_engine_execlists *execlists)
+@@ -1333,16 +1306,16 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
+ 			__unwind_incomplete_requests(engine);
+ 
+ 			last = NULL;
+-		} else if (need_timeslice(engine, last) &&
+-			   timeslice_expired(execlists, last)) {
++		} else if (timeslice_expired(engine, last)) {
+ 			ENGINE_TRACE(engine,
+-				     "expired last=%llx:%lld, prio=%d, hint=%d, yield?=%s\n",
+-				     last->fence.context,
+-				     last->fence.seqno,
+-				     last->sched.attr.priority,
++				     "expired:%s last=%llx:%lld, prio=%d, hint=%d, yield?=%s\n",
++				     yesno(timer_expired(&execlists->timer)),
++				     last->fence.context, last->fence.seqno,
++				     rq_prio(last),
+ 				     execlists->queue_priority_hint,
+ 				     yesno(timeslice_yield(execlists, last)));
+ 
++			cancel_timer(&execlists->timer);
+ 			ring_set_paused(engine, 1);
+ 			defer_active(engine);
+ 
+@@ -1378,7 +1351,6 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
+ 				 * of timeslices, our queue might be.
+ 				 */
+ 				spin_unlock(&engine->active.lock);
+-				start_timeslice(engine, queue_prio(execlists));
+ 				return;
+ 			}
+ 		}
+@@ -1407,7 +1379,6 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
+ 		if (last && !can_merge_rq(last, rq)) {
+ 			spin_unlock(&ve->base.active.lock);
+ 			spin_unlock(&engine->active.lock);
+-			start_timeslice(engine, rq_prio(rq));
+ 			return; /* leave this for another sibling */
+ 		}
+ 
+@@ -1571,29 +1542,23 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
+ 	execlists->queue_priority_hint = queue_prio(execlists);
+ 	spin_unlock(&engine->active.lock);
+ 
+-	if (submit) {
+-		/*
+-		 * Skip if we ended up with exactly the same set of requests,
+-		 * e.g. trying to timeslice a pair of ordered contexts
+-		 */
+-		if (!memcmp(execlists->active,
+-			    execlists->pending,
+-			    (port - execlists->pending) * sizeof(*port)))
+-			goto skip_submit;
+-
++	/*
++	 * We can skip poking the HW if we ended up with exactly the same set
++	 * of requests as currently running, e.g. trying to timeslice a pair
++	 * of ordered contexts.
++	 */
++	if (submit &&
++	    memcmp(execlists->active,
++		   execlists->pending,
++		   (port - execlists->pending) * sizeof(*port))) {
+ 		*port = NULL;
+ 		while (port-- != execlists->pending)
+ 			execlists_schedule_in(*port, port - execlists->pending);
+ 
+-		execlists->switch_priority_hint =
+-			switch_prio(engine, *execlists->pending);
+-
+ 		WRITE_ONCE(execlists->yield, -1);
+ 		set_preempt_timeout(engine, *execlists->active);
+ 		execlists_submit_ports(engine);
+ 	} else {
+-		start_timeslice(engine, execlists->queue_priority_hint);
+-skip_submit:
+ 		ring_set_paused(engine, 0);
+ 		while (port-- != execlists->pending)
+ 			i915_request_put(*port);
+@@ -1951,8 +1916,6 @@ process_csb(struct intel_engine_cs *engine, struct i915_request **inactive)
+ 		}
+ 	} while (head != tail);
+ 
+-	set_timeslice(engine);
+-
+ 	/*
+ 	 * Gen11 has proven to fail wrt global observation point between
+ 	 * entry and tail update, failing on the ordering and thus
+@@ -1965,6 +1928,7 @@ process_csb(struct intel_engine_cs *engine, struct i915_request **inactive)
+ 	 * invalidation before.
+ 	 */
+ 	invalidate_csb_entries(&buf[0], &buf[num_entries - 1]);
++	cancel_timer(&execlists->timer);
+ 
+ 	return inactive;
+ }
+@@ -2383,8 +2347,10 @@ static void execlists_submission_tasklet(unsigned long data)
+ 		execlists_reset(engine, msg);
+ 	}
+ 
+-	if (!engine->execlists.pending[0])
++	if (!engine->execlists.pending[0]) {
+ 		execlists_dequeue_irq(engine);
++		start_timeslice(engine);
++	}
+ 
+ 	post_process_csb(post, inactive);
+ 	rcu_read_unlock();
+@@ -3861,9 +3827,6 @@ void intel_execlists_show_requests(struct intel_engine_cs *engine,
+ 		show_request(m, last, "\t\t", 0);
+ 	}
+ 
+-	if (execlists->switch_priority_hint != INT_MIN)
+-		drm_printf(m, "\t\tSwitch priority hint: %d\n",
+-			   READ_ONCE(execlists->switch_priority_hint));
+ 	if (execlists->queue_priority_hint != INT_MIN)
+ 		drm_printf(m, "\t\tQueue priority hint: %d\n",
+ 			   READ_ONCE(execlists->queue_priority_hint));
 -- 
 2.20.1
 
