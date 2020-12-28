@@ -7,37 +7,36 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 98465C433DB
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Dec 2020 15:53:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 73CF4C433E0
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Dec 2020 15:53:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4D6E0229C6
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Dec 2020 15:53:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4D6E0229C6
+	by mail.kernel.org (Postfix) with ESMTPS id 22D6722B3A
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Dec 2020 15:53:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 22D6722B3A
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 577D889A67;
-	Mon, 28 Dec 2020 15:52:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9AE2989A0E;
+	Mon, 28 Dec 2020 15:52:56 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 622E8899E7
- for <intel-gfx@lists.freedesktop.org>; Mon, 28 Dec 2020 15:52:52 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8EFB88999C
+ for <intel-gfx@lists.freedesktop.org>; Mon, 28 Dec 2020 15:52:50 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23448228-1500050 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23448226-1500050 
  for multiple; Mon, 28 Dec 2020 15:52:40 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 28 Dec 2020 15:52:19 +0000
-Message-Id: <20201228155229.9516-44-chris@chris-wilson.co.uk>
+Date: Mon, 28 Dec 2020 15:52:17 +0000
+Message-Id: <20201228155229.9516-42-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201228155229.9516-1-chris@chris-wilson.co.uk>
 References: <20201228155229.9516-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 44/54] drm/i915/selftests: Exercise relative
- timeline modes
+Subject: [Intel-gfx] [PATCH 42/54] drm/i915/gt: Add timeline "mode"
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,133 +55,111 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-A quick test to verify that the backend accepts each type of timeline
-and can use them to track and control request emission.
+Explicitly differentiate between the absolute and relative timelines,
+and the global HWSP and ppHWSP relative offsets. When using a timeline
+that is relative to a known status page, we can replace the absolute
+addressing in the commands with indexed variants.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+Reviewed-by: Matthew Brost <matthew.brost@intel.com>
 ---
- drivers/gpu/drm/i915/gt/selftest_timeline.c | 105 ++++++++++++++++++++
- 1 file changed, 105 insertions(+)
+ drivers/gpu/drm/i915/gt/intel_timeline.c      | 21 ++++++++++++++++---
+ drivers/gpu/drm/i915/gt/intel_timeline.h      |  2 +-
+ .../gpu/drm/i915/gt/intel_timeline_types.h    | 10 +++++++--
+ 3 files changed, 27 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/selftest_timeline.c b/drivers/gpu/drm/i915/gt/selftest_timeline.c
-index e44bfceef413..a0a6a5ba09d2 100644
---- a/drivers/gpu/drm/i915/gt/selftest_timeline.c
-+++ b/drivers/gpu/drm/i915/gt/selftest_timeline.c
-@@ -1365,9 +1365,114 @@ static int live_hwsp_recycle(void *arg)
- 	return err;
+diff --git a/drivers/gpu/drm/i915/gt/intel_timeline.c b/drivers/gpu/drm/i915/gt/intel_timeline.c
+index 24cc45777f9d..882b7916bb4a 100644
+--- a/drivers/gpu/drm/i915/gt/intel_timeline.c
++++ b/drivers/gpu/drm/i915/gt/intel_timeline.c
+@@ -227,7 +227,6 @@ static int intel_timeline_init(struct intel_timeline *timeline,
+ 
+ 	timeline->gt = gt;
+ 
+-	timeline->has_initial_breadcrumb = !hwsp;
+ 	timeline->hwsp_cacheline = NULL;
+ 
+ 	if (!hwsp) {
+@@ -244,13 +243,29 @@ static int intel_timeline_init(struct intel_timeline *timeline,
+ 			return PTR_ERR(cl);
+ 		}
+ 
++		timeline->mode = INTEL_TIMELINE_ABSOLUTE;
+ 		timeline->hwsp_cacheline = cl;
+ 		timeline->hwsp_offset = cacheline * CACHELINE_BYTES;
+ 
+ 		vaddr = page_mask_bits(cl->vaddr);
+ 	} else {
+-		timeline->hwsp_offset = offset;
+-		vaddr = i915_gem_object_pin_map(hwsp->obj, I915_MAP_WB);
++		int preferred;
++
++		if (offset & INTEL_TIMELINE_RELATIVE_CONTEXT) {
++			timeline->mode = INTEL_TIMELINE_RELATIVE_CONTEXT;
++			timeline->hwsp_offset =
++				offset & ~INTEL_TIMELINE_RELATIVE_CONTEXT;
++			preferred = i915_coherent_map_type(gt->i915);
++		} else {
++			timeline->mode = INTEL_TIMELINE_RELATIVE_ENGINE;
++			timeline->hwsp_offset = offset;
++			preferred = I915_MAP_WB;
++		}
++
++		vaddr = i915_gem_object_pin_map(hwsp->obj,
++						preferred | I915_MAP_OVERRIDE);
++		if (IS_ERR(vaddr))
++			vaddr = i915_gem_object_pin_map(hwsp->obj, I915_MAP_WC);
+ 		if (IS_ERR(vaddr))
+ 			return PTR_ERR(vaddr);
+ 	}
+diff --git a/drivers/gpu/drm/i915/gt/intel_timeline.h b/drivers/gpu/drm/i915/gt/intel_timeline.h
+index 0e5e9fdade5b..6e738a85beda 100644
+--- a/drivers/gpu/drm/i915/gt/intel_timeline.h
++++ b/drivers/gpu/drm/i915/gt/intel_timeline.h
+@@ -64,7 +64,7 @@ static inline void intel_timeline_put(struct intel_timeline *timeline)
+ static inline bool
+ intel_timeline_has_initial_breadcrumb(const struct intel_timeline *tl)
+ {
+-	return tl->has_initial_breadcrumb;
++	return tl->mode == INTEL_TIMELINE_ABSOLUTE;
  }
  
-+static int live_hwsp_relative(void *arg)
-+{
-+	struct intel_gt *gt = arg;
-+	struct intel_engine_cs *engine;
-+	enum intel_engine_id id;
+ static inline int __intel_timeline_sync_set(struct intel_timeline *tl,
+diff --git a/drivers/gpu/drm/i915/gt/intel_timeline_types.h b/drivers/gpu/drm/i915/gt/intel_timeline_types.h
+index f187c5aac11c..3c1ab901b702 100644
+--- a/drivers/gpu/drm/i915/gt/intel_timeline_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_timeline_types.h
+@@ -20,6 +20,12 @@ struct i915_syncmap;
+ struct intel_gt;
+ struct intel_timeline_hwsp;
+ 
++enum intel_timeline_mode {
++	INTEL_TIMELINE_ABSOLUTE = 0,
++	INTEL_TIMELINE_RELATIVE_CONTEXT = BIT(0),
++	INTEL_TIMELINE_RELATIVE_ENGINE  = BIT(1),
++};
 +
-+	/*
-+	 * Check backend support for different timeline modes.
-+	 */
+ struct intel_timeline {
+ 	u64 fence_context;
+ 	u32 seqno;
+@@ -45,6 +51,8 @@ struct intel_timeline {
+ 	atomic_t pin_count;
+ 	atomic_t active_count;
+ 
++	enum intel_timeline_mode mode;
 +
-+	for_each_engine(engine, gt, id) {
-+		enum intel_timeline_mode mode;
-+
-+		if (!intel_engine_has_scheduler(engine))
-+			continue;
-+
-+		for (mode = INTEL_TIMELINE_ABSOLUTE;
-+		     mode <= INTEL_TIMELINE_RELATIVE_ENGINE;
-+		     mode++) {
-+			struct intel_timeline *tl;
-+			struct i915_request *rq;
-+			struct intel_context *ce;
-+			const char *msg;
-+			int err;
-+
-+			if (mode == INTEL_TIMELINE_RELATIVE_CONTEXT &&
-+			    !HAS_EXECLISTS(gt->i915))
-+				continue;
-+
-+			ce = intel_context_create(engine);
-+			if (IS_ERR(ce))
-+				return PTR_ERR(ce);
-+
-+			err = intel_context_alloc_state(ce);
-+			if (err) {
-+				intel_context_put(ce);
-+				return err;
-+			}
-+
-+			switch (mode) {
-+			case INTEL_TIMELINE_ABSOLUTE:
-+				tl = intel_timeline_create(gt);
-+				msg = "local";
-+				break;
-+
-+			case INTEL_TIMELINE_RELATIVE_CONTEXT:
-+				tl = __intel_timeline_create(gt,
-+							     ce->state,
-+							     INTEL_TIMELINE_RELATIVE_CONTEXT |
-+							     0x400);
-+				msg = "ppHWSP";
-+				break;
-+
-+			case INTEL_TIMELINE_RELATIVE_ENGINE:
-+				tl = __intel_timeline_create(gt,
-+							     engine->status_page.vma,
-+							     0x400);
-+				msg = "HWSP";
-+				break;
-+			default:
-+				continue;
-+			}
-+			if (IS_ERR(tl)) {
-+				intel_context_put(ce);
-+				return PTR_ERR(tl);
-+			}
-+
-+			pr_info("Testing %s timeline on %s\n",
-+				msg, engine->name);
-+
-+			intel_timeline_put(ce->timeline);
-+			ce->timeline = tl;
-+
-+			err = intel_timeline_pin(tl, NULL);
-+			if (err) {
-+				intel_context_put(ce);
-+				return err;
-+			}
-+			tl->seqno = 0xc0000000;
-+			WRITE_ONCE(*(u32 *)tl->hwsp_seqno, tl->seqno);
-+			intel_timeline_unpin(tl);
-+
-+			rq = intel_context_create_request(ce);
-+			intel_context_put(ce);
-+			if (IS_ERR(rq))
-+				return PTR_ERR(rq);
-+
-+			GEM_BUG_ON(rcu_access_pointer(rq->timeline) != tl);
-+
-+			i915_request_get(rq);
-+			i915_request_add(rq);
-+
-+			if (i915_request_wait(rq, 0, HZ / 5) < 0) {
-+				i915_request_put(rq);
-+				return -EIO;
-+			}
-+
-+			i915_request_put(rq);
-+		}
-+	}
-+
-+	return 0;
-+}
-+
- int intel_timeline_live_selftests(struct drm_i915_private *i915)
- {
- 	static const struct i915_subtest tests[] = {
-+		SUBTEST(live_hwsp_relative),
- 		SUBTEST(live_hwsp_recycle),
- 		SUBTEST(live_hwsp_engine),
- 		SUBTEST(live_hwsp_alternate),
+ 	const u32 *hwsp_seqno;
+ 	struct i915_vma *hwsp_ggtt;
+ 	u32 hwsp_offset;
+@@ -52,8 +60,6 @@ struct intel_timeline {
+ 
+ 	struct intel_timeline_cacheline *hwsp_cacheline;
+ 
+-	bool has_initial_breadcrumb;
+-
+ 	/**
+ 	 * List of breadcrumbs associated with GPU requests currently
+ 	 * outstanding.
 -- 
 2.20.1
 
