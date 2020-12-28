@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EBEE5C433E9
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Dec 2020 15:52:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E2D6EC4332B
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Dec 2020 15:52:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9509620791
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Dec 2020 15:52:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9509620791
+	by mail.kernel.org (Postfix) with ESMTPS id 9590820829
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Dec 2020 15:52:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9590820829
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F38BD89A08;
-	Mon, 28 Dec 2020 15:52:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0CB5D8999C;
+	Mon, 28 Dec 2020 15:52:56 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 90C0A89255
- for <intel-gfx@lists.freedesktop.org>; Mon, 28 Dec 2020 15:52:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 82858899DC
+ for <intel-gfx@lists.freedesktop.org>; Mon, 28 Dec 2020 15:52:51 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23448201-1500050 
- for multiple; Mon, 28 Dec 2020 15:52:36 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23448186-1500050 
+ for multiple; Mon, 28 Dec 2020 15:52:33 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 28 Dec 2020 15:51:58 +0000
-Message-Id: <20201228155229.9516-23-chris@chris-wilson.co.uk>
+Date: Mon, 28 Dec 2020 15:51:44 +0000
+Message-Id: <20201228155229.9516-9-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201228155229.9516-1-chris@chris-wilson.co.uk>
 References: <20201228155229.9516-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 23/54] drm/i915: Improve DFS for priority
- inheritance
+Subject: [Intel-gfx] [PATCH 09/54] drm/i915: Reduce test_and_set_bit to
+ set_bit in i915_request_submit()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,137 +56,48 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The core of the scheduling algorithm is that we compute the topological
-order of the fence DAG. Knowing that we have a DAG, we should be able to
-use a DFS to compute the topological sort in linear time. However,
-during the conversion of the recursive algorithm into an iterative one,
-the memorization of how far we had progressed down a branch was
-forgotten.
+Avoid the full blown memory barrier of test_and_set_bit() by noting the
+completed request and removing it from the lists.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 ---
- drivers/gpu/drm/i915/i915_scheduler.c | 58 ++++++++++++++++-----------
- 1 file changed, 34 insertions(+), 24 deletions(-)
+ drivers/gpu/drm/i915/i915_request.c | 16 +++++++++-------
+ 1 file changed, 9 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_scheduler.c b/drivers/gpu/drm/i915/i915_scheduler.c
-index 2cc25923dde7..71edc867e500 100644
---- a/drivers/gpu/drm/i915/i915_scheduler.c
-+++ b/drivers/gpu/drm/i915/i915_scheduler.c
-@@ -234,6 +234,26 @@ void __i915_priolist_free(struct i915_priolist *p)
- 	kmem_cache_free(global.slab_priorities, p);
- }
- 
-+static struct i915_request *
-+stack_push(struct i915_request *rq,
-+	   struct i915_request *stack,
-+	   struct list_head *pos)
-+{
-+	stack->sched.dfs.prev = pos;
-+	rq->sched.dfs.next = (struct list_head *)stack;
-+	return rq;
-+}
-+
-+static struct i915_request *
-+stack_pop(struct i915_request *rq,
-+	  struct list_head **pos)
-+{
-+	rq = (struct i915_request *)rq->sched.dfs.next;
-+	if (rq)
-+		*pos = rq->sched.dfs.prev;
-+	return rq;
-+}
-+
- static inline bool need_preempt(int prio, int active)
- {
- 	/*
-@@ -298,11 +318,10 @@ static void ipi_priority(struct i915_request *rq, int prio)
- static void __i915_request_set_priority(struct i915_request *rq, int prio)
- {
- 	struct intel_engine_cs *engine = rq->engine;
--	struct i915_request *rn;
-+	struct list_head *pos = &rq->sched.signalers_list;
- 	struct list_head *plist;
--	LIST_HEAD(dfs);
- 
--	list_add(&rq->sched.dfs, &dfs);
-+	plist = i915_sched_lookup_priolist(engine, prio);
- 
- 	/*
- 	 * Recursively bump all dependent priorities to match the new request.
-@@ -322,40 +341,31 @@ static void __i915_request_set_priority(struct i915_request *rq, int prio)
- 	 * end result is a topological list of requests in reverse order, the
- 	 * last element in the list is the request we must execute first.
+diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
+index 2a7bad88038b..7c5eec2fd631 100644
+--- a/drivers/gpu/drm/i915/i915_request.c
++++ b/drivers/gpu/drm/i915/i915_request.c
+@@ -540,8 +540,10 @@ bool __i915_request_submit(struct i915_request *request)
+ 	 * dropped upon retiring. (Otherwise if resubmit a *retired*
+ 	 * request, this would be a horrible use-after-free.)
  	 */
--	list_for_each_entry(rq, &dfs, sched.dfs) {
--		struct i915_dependency *p;
--
--		/* Also release any children on this engine that are ready */
--		GEM_BUG_ON(rq->engine != engine);
--
--		for_each_signaler(p, rq) {
-+	rq->sched.dfs.next = NULL;
-+	do {
-+		list_for_each_continue(pos, &rq->sched.signalers_list) {
-+			struct i915_dependency *p =
-+				list_entry(pos, typeof(*p), signal_link);
- 			struct i915_request *s =
- 				container_of(p->signaler, typeof(*s), sched);
+-	if (__i915_request_is_complete(request))
+-		goto xfer;
++	if (__i915_request_is_complete(request)) {
++		list_del_init(&request->sched.link);
++		goto active;
++	}
  
--			GEM_BUG_ON(s == rq);
--
- 			if (rq_prio(s) >= prio)
- 				continue;
+ 	if (unlikely(intel_context_is_banned(request->context)))
+ 		i915_request_set_error_once(request, -EIO);
+@@ -576,11 +578,11 @@ bool __i915_request_submit(struct i915_request *request)
+ 	engine->serial++;
+ 	result = true;
  
- 			if (__i915_request_is_complete(s))
- 				continue;
- 
--			if (s->engine != rq->engine) {
-+			if (s->engine != engine) {
- 				ipi_priority(s, prio);
- 				continue;
- 			}
- 
--			list_move_tail(&s->sched.dfs, &dfs);
-+			/* Remember our position along this branch */
-+			rq = stack_push(s, rq, pos);
-+			pos = &rq->sched.signalers_list;
- 		}
+-xfer:
+-	if (!test_and_set_bit(I915_FENCE_FLAG_ACTIVE, &request->fence.flags)) {
+-		list_move_tail(&request->sched.link, &engine->active.requests);
+-		clear_bit(I915_FENCE_FLAG_PQUEUE, &request->fence.flags);
 -	}
--
--	plist = i915_sched_lookup_priolist(engine, prio);
--
--	/* Fifo and depth-first replacement ensure our deps execute first */
--	list_for_each_entry_safe_reverse(rq, rn, &dfs, sched.dfs) {
--		GEM_BUG_ON(rq->engine != engine);
++	GEM_BUG_ON(test_bit(I915_FENCE_FLAG_ACTIVE, &request->fence.flags));
++	list_move_tail(&request->sched.link, &engine->active.requests);
++active:
++	clear_bit(I915_FENCE_FLAG_PQUEUE, &request->fence.flags);
++	set_bit(I915_FENCE_FLAG_ACTIVE, &request->fence.flags);
  
--		INIT_LIST_HEAD(&rq->sched.dfs);
-+		RQ_TRACE(rq, "set-priority:%d\n", prio);
- 		WRITE_ONCE(rq->sched.attr.priority, prio);
- 
- 		/*
-@@ -369,12 +379,13 @@ static void __i915_request_set_priority(struct i915_request *rq, int prio)
- 		if (!i915_request_is_ready(rq))
- 			continue;
- 
-+		GEM_BUG_ON(rq->engine != engine);
- 		if (i915_request_in_priority_queue(rq))
- 			list_move_tail(&rq->sched.link, plist);
- 
- 		/* Defer (tasklet) submission until after all updates. */
- 		kick_submission(engine, rq, prio);
--	}
-+	} while ((rq = stack_pop(rq, &pos)));
- }
- 
- void i915_request_set_priority(struct i915_request *rq, int prio)
-@@ -442,7 +453,6 @@ void i915_sched_node_init(struct i915_sched_node *node)
- 	INIT_LIST_HEAD(&node->signalers_list);
- 	INIT_LIST_HEAD(&node->waiters_list);
- 	INIT_LIST_HEAD(&node->link);
--	INIT_LIST_HEAD(&node->dfs);
- 
- 	node->ipi_link = NULL;
- 
+ 	/*
+ 	 * XXX Rollback bonded-execution on __i915_request_unsubmit()?
 -- 
 2.20.1
 
