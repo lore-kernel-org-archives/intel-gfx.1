@@ -7,37 +7,36 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id ACF6BC43381
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 293C0C433E9
 	for <intel-gfx@archiver.kernel.org>; Tue, 29 Dec 2020 12:03:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 73464207C9
-	for <intel-gfx@archiver.kernel.org>; Tue, 29 Dec 2020 12:03:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 73464207C9
+	by mail.kernel.org (Postfix) with ESMTPS id DF66A207CC
+	for <intel-gfx@archiver.kernel.org>; Tue, 29 Dec 2020 12:03:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DF66A207CC
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CCBA78947A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 88A19894EA;
 	Tue, 29 Dec 2020 12:02:59 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0704C8914A
- for <intel-gfx@lists.freedesktop.org>; Tue, 29 Dec 2020 12:02:02 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E68389320
+ for <intel-gfx@lists.freedesktop.org>; Tue, 29 Dec 2020 12:02:03 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23455177-1500050 
- for multiple; Tue, 29 Dec 2020 12:01:50 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23455172-1500050 
+ for multiple; Tue, 29 Dec 2020 12:01:49 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 29 Dec 2020 12:01:13 +0000
-Message-Id: <20201229120145.26045-24-chris@chris-wilson.co.uk>
+Date: Tue, 29 Dec 2020 12:01:08 +0000
+Message-Id: <20201229120145.26045-19-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201229120145.26045-1-chris@chris-wilson.co.uk>
 References: <20201229120145.26045-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 24/56] drm/i915/selftests: Exercise priority
- inheritance around an engine loop
+Subject: [Intel-gfx] [PATCH 19/56] drm/i915: Remove I915_USER_PRIORITY_SHIFT
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,255 +55,295 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Exercise rescheduling priority inheritance around a sequence of requests
-that wrap around all the engines.
+As we do not have any internal priority levels, the priority can be set
+directed from the user values.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 ---
- .../gpu/drm/i915/selftests/i915_scheduler.c   | 219 ++++++++++++++++++
- 1 file changed, 219 insertions(+)
+ drivers/gpu/drm/i915/display/intel_display.c  |  4 +-
+ drivers/gpu/drm/i915/gem/i915_gem_context.c   |  6 +--
+ .../i915/gem/selftests/i915_gem_object_blt.c  |  4 +-
+ .../gpu/drm/i915/gt/intel_engine_heartbeat.c  | 10 ++---
+ drivers/gpu/drm/i915/gt/selftest_execlists.c  | 44 +++++++------------
+ drivers/gpu/drm/i915/i915_priolist_types.h    |  3 --
+ drivers/gpu/drm/i915/i915_scheduler.c         |  1 -
+ 7 files changed, 24 insertions(+), 48 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/selftests/i915_scheduler.c b/drivers/gpu/drm/i915/selftests/i915_scheduler.c
-index cb67de304aeb..e6910f4c429d 100644
---- a/drivers/gpu/drm/i915/selftests/i915_scheduler.c
-+++ b/drivers/gpu/drm/i915/selftests/i915_scheduler.c
-@@ -7,6 +7,7 @@
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index f2c48e5cdb43..112e3a3d2dab 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -15613,9 +15613,7 @@ void intel_plane_unpin_fb(struct intel_plane_state *old_plane_state)
  
- #include "gt/intel_context.h"
- #include "gt/intel_gpu_commands.h"
-+#include "gt/intel_ring.h"
- #include "gt/selftest_engine_heartbeat.h"
- #include "selftests/igt_spinner.h"
- #include "selftests/i915_random.h"
-@@ -512,10 +513,228 @@ static int igt_priority_chains(void *arg)
- 	return igt_schedule_chains(arg, igt_priority);
+ static void fb_obj_bump_render_priority(struct drm_i915_gem_object *obj)
+ {
+-	struct i915_sched_attr attr = {
+-		.priority = I915_USER_PRIORITY(I915_PRIORITY_DISPLAY),
+-	};
++	struct i915_sched_attr attr = { .priority = I915_PRIORITY_DISPLAY };
+ 
+ 	i915_gem_object_wait_priority(obj, 0, &attr);
+ }
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+index 4d2f40cf237b..61a7360c4d9a 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+@@ -679,7 +679,7 @@ __create_context(struct drm_i915_private *i915)
+ 
+ 	kref_init(&ctx->ref);
+ 	ctx->i915 = i915;
+-	ctx->sched.priority = I915_USER_PRIORITY(I915_PRIORITY_NORMAL);
++	ctx->sched.priority = I915_PRIORITY_NORMAL;
+ 	mutex_init(&ctx->mutex);
+ 	INIT_LIST_HEAD(&ctx->link);
+ 
+@@ -1959,7 +1959,7 @@ static int set_priority(struct i915_gem_context *ctx,
+ 	    !capable(CAP_SYS_NICE))
+ 		return -EPERM;
+ 
+-	ctx->sched.priority = I915_USER_PRIORITY(priority);
++	ctx->sched.priority = priority;
+ 	context_apply_all(ctx, __apply_priority, ctx);
+ 
+ 	return 0;
+@@ -2463,7 +2463,7 @@ int i915_gem_context_getparam_ioctl(struct drm_device *dev, void *data,
+ 
+ 	case I915_CONTEXT_PARAM_PRIORITY:
+ 		args->size = 0;
+-		args->value = ctx->sched.priority >> I915_USER_PRIORITY_SHIFT;
++		args->value = ctx->sched.priority;
+ 		break;
+ 
+ 	case I915_CONTEXT_PARAM_SSEU:
+diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_object_blt.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_object_blt.c
+index 23b6e11bbc3e..c4c04fb97d14 100644
+--- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_object_blt.c
++++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_object_blt.c
+@@ -220,7 +220,7 @@ static int igt_fill_blt_thread(void *arg)
+ 			return PTR_ERR(ctx);
+ 
+ 		prio = i915_prandom_u32_max_state(I915_PRIORITY_MAX, prng);
+-		ctx->sched.priority = I915_USER_PRIORITY(prio);
++		ctx->sched.priority = prio;
+ 	}
+ 
+ 	ce = i915_gem_context_get_engine(ctx, 0);
+@@ -338,7 +338,7 @@ static int igt_copy_blt_thread(void *arg)
+ 			return PTR_ERR(ctx);
+ 
+ 		prio = i915_prandom_u32_max_state(I915_PRIORITY_MAX, prng);
+-		ctx->sched.priority = I915_USER_PRIORITY(prio);
++		ctx->sched.priority = prio;
+ 	}
+ 
+ 	ce = i915_gem_context_get_engine(ctx, 0);
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c b/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
+index 1732a42e9075..ed03c08737f5 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
++++ b/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
+@@ -81,9 +81,7 @@ static void show_heartbeat(const struct i915_request *rq,
+ 
+ static void heartbeat(struct work_struct *wrk)
+ {
+-	struct i915_sched_attr attr = {
+-		.priority = I915_USER_PRIORITY(I915_PRIORITY_MIN),
+-	};
++	struct i915_sched_attr attr = { .priority = I915_PRIORITY_MIN };
+ 	struct intel_engine_cs *engine =
+ 		container_of(wrk, typeof(*engine), heartbeat.work.work);
+ 	struct intel_context *ce = engine->kernel_context;
+@@ -127,7 +125,7 @@ static void heartbeat(struct work_struct *wrk)
+ 			 */
+ 			attr.priority = 0;
+ 			if (rq->sched.attr.priority >= attr.priority)
+-				attr.priority |= I915_USER_PRIORITY(I915_PRIORITY_HEARTBEAT);
++				attr.priority = I915_PRIORITY_HEARTBEAT;
+ 			if (rq->sched.attr.priority >= attr.priority)
+ 				attr.priority = I915_PRIORITY_BARRIER;
+ 
+@@ -285,9 +283,7 @@ int intel_engine_pulse(struct intel_engine_cs *engine)
+ 
+ int intel_engine_flush_barriers(struct intel_engine_cs *engine)
+ {
+-	struct i915_sched_attr attr = {
+-		.priority = I915_USER_PRIORITY(I915_PRIORITY_MIN),
+-	};
++	struct i915_sched_attr attr = { .priority = I915_PRIORITY_MIN };
+ 	struct intel_context *ce = engine->kernel_context;
+ 	struct i915_request *rq;
+ 	int err;
+diff --git a/drivers/gpu/drm/i915/gt/selftest_execlists.c b/drivers/gpu/drm/i915/gt/selftest_execlists.c
+index 2e49b31be96f..5152cf3f59a7 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_execlists.c
++++ b/drivers/gpu/drm/i915/gt/selftest_execlists.c
+@@ -321,7 +321,7 @@ static int live_unlite_switch(void *arg)
+ 
+ static int live_unlite_preempt(void *arg)
+ {
+-	return live_unlite_restore(arg, I915_USER_PRIORITY(I915_PRIORITY_MAX));
++	return live_unlite_restore(arg, I915_PRIORITY_MAX);
  }
  
-+static struct i915_request *
-+__write_timestamp(struct intel_engine_cs *engine,
-+		  struct drm_i915_gem_object *obj,
-+		  int slot,
-+		  struct i915_request *prev)
-+{
-+	struct i915_request *rq = ERR_PTR(-EINVAL);
-+	struct intel_context *ce;
-+	struct i915_vma *vma;
-+	int err = 0;
-+	u32 *cs;
-+
-+	ce = intel_context_create(engine);
-+	if (IS_ERR(ce))
-+		return ERR_CAST(ce);
-+
-+	vma = i915_vma_instance(obj, ce->vm, NULL);
-+	if (IS_ERR(vma)) {
-+		err = PTR_ERR(vma);
-+		goto out_ce;
-+	}
-+
-+	err = i915_vma_pin(vma, 0, 0, PIN_USER);
-+	if (err)
-+		goto out_ce;
-+
-+	rq = intel_context_create_request(ce);
-+	if (IS_ERR(rq)) {
-+		err = PTR_ERR(rq);
-+		goto out_unpin;
-+	}
-+
-+	i915_vma_lock(vma);
-+	err = i915_vma_move_to_active(vma, rq, EXEC_OBJECT_WRITE);
-+	i915_vma_unlock(vma);
-+	if (err)
-+		goto out_request;
-+
-+	if (prev) {
-+		err = i915_request_await_dma_fence(rq, &prev->fence);
-+		if (err)
-+			goto out_request;
-+	}
-+
-+	if (engine->emit_init_breadcrumb) {
-+		err = engine->emit_init_breadcrumb(rq);
-+		if (err)
-+			goto out_request;
-+	}
-+
-+	cs = intel_ring_begin(rq, 4);
-+	if (IS_ERR(cs)) {
-+		err = PTR_ERR(cs);
-+		goto out_request;
-+	}
-+
-+	*cs++ = MI_STORE_REGISTER_MEM_GEN8;
-+	*cs++ = i915_mmio_reg_offset(RING_TIMESTAMP(engine->mmio_base));
-+	*cs++ = lower_32_bits(vma->node.start) + sizeof(u32) * slot;
-+	*cs++ = upper_32_bits(vma->node.start);
-+	intel_ring_advance(rq, cs);
-+
-+	i915_request_get(rq);
-+out_request:
-+	i915_request_add(rq);
-+out_unpin:
-+	i915_vma_unpin(vma);
-+out_ce:
-+	intel_context_put(ce);
-+	i915_request_put(prev);
-+	return err ? ERR_PTR(err) : rq;
-+}
-+
-+static struct i915_request *create_spinner(struct drm_i915_private *i915,
-+					   struct igt_spinner *spin)
-+{
-+	struct intel_engine_cs *engine;
-+
-+	for_each_uabi_engine(engine, i915) {
-+		struct intel_context *ce;
-+		struct i915_request *rq;
-+
-+		if (igt_spinner_init(spin, engine->gt))
-+			return ERR_PTR(-ENOMEM);
-+
-+		ce = intel_context_create(engine);
-+		if (IS_ERR(ce))
-+			return ERR_CAST(ce);
-+
-+		rq = igt_spinner_create_request(spin, ce, MI_NOOP);
-+		intel_context_put(ce);
-+		if (rq == ERR_PTR(-ENODEV))
-+			continue;
-+		if (IS_ERR(rq))
-+			return rq;
-+
-+		i915_request_get(rq);
-+		i915_request_add(rq);
-+		return rq;
-+	}
-+
-+	return ERR_PTR(-ENODEV);
-+}
-+
-+static int __igt_schedule_cycle(struct drm_i915_private *i915,
-+				bool (*fn)(struct i915_request *rq,
-+					   unsigned long v, unsigned long e))
-+{
-+	struct intel_engine_cs *engine;
-+	struct drm_i915_gem_object *obj;
-+	struct igt_spinner spin;
-+	struct i915_request *rq;
-+	unsigned long count, n;
-+	u32 *time, last;
-+	int err;
-+
-+	/*
-+	 * Queue a bunch of ordered requests (each waiting on the previous)
-+	 * around the engines a couple of times. Each request will write
-+	 * the timestamp it executes at into the scratch, with the expectation
-+	 * that the timestamp will be in our desired execution order.
-+	 */
-+
-+	if (INTEL_GEN(i915) < 8)
-+		return 0;
-+
-+	obj = i915_gem_object_create_internal(i915, SZ_64K);
-+	if (IS_ERR(obj))
-+		return PTR_ERR(obj);
-+
-+	time = i915_gem_object_pin_map(obj, I915_MAP_WC);
-+	if (IS_ERR(time)) {
-+		err = PTR_ERR(time);
-+		goto out_obj;
-+	}
-+
-+	rq = create_spinner(i915, &spin);
-+	if (IS_ERR(rq)) {
-+		err = PTR_ERR(rq);
-+		goto out_obj;
-+	}
-+
-+	err = 0;
-+	count = 0;
-+	for_each_uabi_engine(engine, i915) {
-+		if (!intel_engine_has_scheduler(engine))
-+			continue;
-+
-+		rq = __write_timestamp(engine, obj, count, rq);
-+		if (IS_ERR(rq)) {
-+			err = PTR_ERR(rq);
-+			break;
-+		}
-+
-+		count++;
-+	}
-+	for_each_uabi_engine(engine, i915) {
-+		if (!intel_engine_has_scheduler(engine))
-+			continue;
-+
-+		rq = __write_timestamp(engine, obj, count, rq);
-+		if (IS_ERR(rq)) {
-+			err = PTR_ERR(rq);
-+			break;
-+		}
-+
-+		count++;
-+	}
-+	GEM_BUG_ON(count * sizeof(u32) > obj->base.size);
-+	if (err || !count)
-+		goto out_spin;
-+
-+	fn(rq, count + 1, count);
-+	igt_spinner_end(&spin);
-+
-+	if (i915_request_wait(rq, 0, HZ / 2) < 0) {
-+		err = -ETIME;
-+		goto out_request;
-+	}
-+
-+	last = time[0];
-+	for (n = 1; n < count; n++) {
-+		if (i915_seqno_passed(last, time[n])) {
-+			pr_err("Timestamp[%lu] %x before previous %x\n",
-+			       n, time[n], last);
-+			err = -EINVAL;
-+			break;
-+		}
-+		last = time[n];
-+	}
-+
-+out_request:
-+	i915_request_put(rq);
-+out_spin:
-+	igt_spinner_fini(&spin);
-+out_obj:
-+	i915_gem_object_put(obj);
-+	return 0;
-+}
-+
-+static bool noop(struct i915_request *rq, unsigned long v, unsigned long e)
-+{
-+	return true;
-+}
-+
-+static int igt_schedule_cycle(void *arg)
-+{
-+	return __igt_schedule_cycle(arg, noop);
-+}
-+
-+static int igt_priority_cycle(void *arg)
-+{
-+	return __igt_schedule_cycle(arg, igt_priority);
-+}
-+
- int i915_scheduler_live_selftests(struct drm_i915_private *i915)
- {
- 	static const struct i915_subtest tests[] = {
- 		SUBTEST(igt_priority_chains),
-+
-+		SUBTEST(igt_schedule_cycle),
-+		SUBTEST(igt_priority_cycle),
- 	};
+ static int live_unlite_ring(void *arg)
+@@ -1308,9 +1308,7 @@ static int live_timeslice_queue(void *arg)
+ 		goto err_pin;
  
- 	return i915_subtests(tests, i915);
+ 	for_each_engine(engine, gt, id) {
+-		struct i915_sched_attr attr = {
+-			.priority = I915_USER_PRIORITY(I915_PRIORITY_MAX),
+-		};
++		struct i915_sched_attr attr = { .priority = I915_PRIORITY_MAX };
+ 		struct i915_request *rq, *nop;
+ 
+ 		if (!intel_engine_has_preemption(engine))
+@@ -1525,14 +1523,12 @@ static int live_busywait_preempt(void *arg)
+ 	ctx_hi = kernel_context(gt->i915);
+ 	if (!ctx_hi)
+ 		return -ENOMEM;
+-	ctx_hi->sched.priority =
+-		I915_USER_PRIORITY(I915_CONTEXT_MAX_USER_PRIORITY);
++	ctx_hi->sched.priority = I915_CONTEXT_MAX_USER_PRIORITY;
+ 
+ 	ctx_lo = kernel_context(gt->i915);
+ 	if (!ctx_lo)
+ 		goto err_ctx_hi;
+-	ctx_lo->sched.priority =
+-		I915_USER_PRIORITY(I915_CONTEXT_MIN_USER_PRIORITY);
++	ctx_lo->sched.priority = I915_CONTEXT_MIN_USER_PRIORITY;
+ 
+ 	obj = i915_gem_object_create_internal(gt->i915, PAGE_SIZE);
+ 	if (IS_ERR(obj)) {
+@@ -1735,14 +1731,12 @@ static int live_preempt(void *arg)
+ 	ctx_hi = kernel_context(gt->i915);
+ 	if (!ctx_hi)
+ 		goto err_spin_lo;
+-	ctx_hi->sched.priority =
+-		I915_USER_PRIORITY(I915_CONTEXT_MAX_USER_PRIORITY);
++	ctx_hi->sched.priority = I915_CONTEXT_MAX_USER_PRIORITY;
+ 
+ 	ctx_lo = kernel_context(gt->i915);
+ 	if (!ctx_lo)
+ 		goto err_ctx_hi;
+-	ctx_lo->sched.priority =
+-		I915_USER_PRIORITY(I915_CONTEXT_MIN_USER_PRIORITY);
++	ctx_lo->sched.priority = I915_CONTEXT_MIN_USER_PRIORITY;
+ 
+ 	for_each_engine(engine, gt, id) {
+ 		struct igt_live_test t;
+@@ -1838,7 +1832,7 @@ static int live_late_preempt(void *arg)
+ 		goto err_ctx_hi;
+ 
+ 	/* Make sure ctx_lo stays before ctx_hi until we trigger preemption. */
+-	ctx_lo->sched.priority = I915_USER_PRIORITY(1);
++	ctx_lo->sched.priority = 1;
+ 
+ 	for_each_engine(engine, gt, id) {
+ 		struct igt_live_test t;
+@@ -1879,7 +1873,7 @@ static int live_late_preempt(void *arg)
+ 			goto err_wedged;
+ 		}
+ 
+-		attr.priority = I915_USER_PRIORITY(I915_PRIORITY_MAX);
++		attr.priority = I915_PRIORITY_MAX;
+ 		engine->schedule(rq, &attr);
+ 
+ 		if (!igt_wait_for_spinner(&spin_hi, rq)) {
+@@ -1963,7 +1957,7 @@ static int live_nopreempt(void *arg)
+ 		return -ENOMEM;
+ 	if (preempt_client_init(gt, &b))
+ 		goto err_client_a;
+-	b.ctx->sched.priority = I915_USER_PRIORITY(I915_PRIORITY_MAX);
++	b.ctx->sched.priority = I915_PRIORITY_MAX;
+ 
+ 	for_each_engine(engine, gt, id) {
+ 		struct i915_request *rq_a, *rq_b;
+@@ -2356,11 +2350,9 @@ static int live_preempt_cancel(void *arg)
+ 
+ static int live_suppress_self_preempt(void *arg)
+ {
++	struct i915_sched_attr attr = { .priority = I915_PRIORITY_MAX };
+ 	struct intel_gt *gt = arg;
+ 	struct intel_engine_cs *engine;
+-	struct i915_sched_attr attr = {
+-		.priority = I915_USER_PRIORITY(I915_PRIORITY_MAX)
+-	};
+ 	struct preempt_client a, b;
+ 	enum intel_engine_id id;
+ 	int err = -ENOMEM;
+@@ -2497,9 +2489,7 @@ static int live_chain_preempt(void *arg)
+ 		goto err_client_hi;
+ 
+ 	for_each_engine(engine, gt, id) {
+-		struct i915_sched_attr attr = {
+-			.priority = I915_USER_PRIORITY(I915_PRIORITY_MAX),
+-		};
++		struct i915_sched_attr attr = { .priority = I915_PRIORITY_MAX };
+ 		struct igt_live_test t;
+ 		struct i915_request *rq;
+ 		int ring_size, count, i;
+@@ -2917,9 +2907,7 @@ static int live_preempt_gang(void *arg)
+ 			return -EIO;
+ 
+ 		do {
+-			struct i915_sched_attr attr = {
+-				.priority = I915_USER_PRIORITY(prio++),
+-			};
++			struct i915_sched_attr attr = { .priority = prio++ };
+ 
+ 			err = create_gang(engine, &rq);
+ 			if (err)
+@@ -2955,7 +2943,7 @@ static int live_preempt_gang(void *arg)
+ 					drm_info_printer(engine->i915->drm.dev);
+ 
+ 				pr_err("Failed to flush chain of %d requests, at %d\n",
+-				       prio, rq_prio(rq) >> I915_USER_PRIORITY_SHIFT);
++				       prio, rq_prio(rq));
+ 				intel_engine_dump(engine, &p,
+ 						  "%s\n", engine->name);
+ 
+@@ -3329,14 +3317,12 @@ static int live_preempt_timeout(void *arg)
+ 	ctx_hi = kernel_context(gt->i915);
+ 	if (!ctx_hi)
+ 		goto err_spin_lo;
+-	ctx_hi->sched.priority =
+-		I915_USER_PRIORITY(I915_CONTEXT_MAX_USER_PRIORITY);
++	ctx_hi->sched.priority = I915_CONTEXT_MAX_USER_PRIORITY;
+ 
+ 	ctx_lo = kernel_context(gt->i915);
+ 	if (!ctx_lo)
+ 		goto err_ctx_hi;
+-	ctx_lo->sched.priority =
+-		I915_USER_PRIORITY(I915_CONTEXT_MIN_USER_PRIORITY);
++	ctx_lo->sched.priority = I915_CONTEXT_MIN_USER_PRIORITY;
+ 
+ 	for_each_engine(engine, gt, id) {
+ 		unsigned long saved_timeout;
+diff --git a/drivers/gpu/drm/i915/i915_priolist_types.h b/drivers/gpu/drm/i915/i915_priolist_types.h
+index 9a7657bb002e..bc2fa84f98a8 100644
+--- a/drivers/gpu/drm/i915/i915_priolist_types.h
++++ b/drivers/gpu/drm/i915/i915_priolist_types.h
+@@ -24,9 +24,6 @@ enum {
+ 	I915_PRIORITY_DISPLAY,
+ };
+ 
+-#define I915_USER_PRIORITY_SHIFT 0
+-#define I915_USER_PRIORITY(x) ((x) << I915_USER_PRIORITY_SHIFT)
+-
+ /* Smallest priority value that cannot be bumped. */
+ #define I915_PRIORITY_INVALID (INT_MIN)
+ 
+diff --git a/drivers/gpu/drm/i915/i915_scheduler.c b/drivers/gpu/drm/i915/i915_scheduler.c
+index 1f033eab9a1c..a57353191d12 100644
+--- a/drivers/gpu/drm/i915/i915_scheduler.c
++++ b/drivers/gpu/drm/i915/i915_scheduler.c
+@@ -71,7 +71,6 @@ i915_sched_lookup_priolist(struct intel_engine_cs *engine, int prio)
+ 	lockdep_assert_held(&engine->active.lock);
+ 	assert_priolists(execlists);
+ 
+-	prio >>= I915_USER_PRIORITY_SHIFT;
+ 	if (unlikely(execlists->no_priolist))
+ 		prio = I915_PRIORITY_NORMAL;
+ 
 -- 
 2.20.1
 
