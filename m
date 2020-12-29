@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B590CC433E0
-	for <intel-gfx@archiver.kernel.org>; Tue, 29 Dec 2020 12:02:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6CB14C433DB
+	for <intel-gfx@archiver.kernel.org>; Tue, 29 Dec 2020 12:02:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4310320825
-	for <intel-gfx@archiver.kernel.org>; Tue, 29 Dec 2020 12:02:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4310320825
+	by mail.kernel.org (Postfix) with ESMTPS id 11D78207C9
+	for <intel-gfx@archiver.kernel.org>; Tue, 29 Dec 2020 12:02:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 11D78207C9
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C6698928D;
-	Tue, 29 Dec 2020 12:02:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE7C2892FA;
+	Tue, 29 Dec 2020 12:02:02 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F20389023
- for <intel-gfx@lists.freedesktop.org>; Tue, 29 Dec 2020 12:01:59 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E2D389226
+ for <intel-gfx@lists.freedesktop.org>; Tue, 29 Dec 2020 12:02:00 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23455153-1500050 
- for multiple; Tue, 29 Dec 2020 12:01:47 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23455213-1500050 
+ for multiple; Tue, 29 Dec 2020 12:01:54 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 29 Dec 2020 12:00:53 +0000
-Message-Id: <20201229120145.26045-4-chris@chris-wilson.co.uk>
+Date: Tue, 29 Dec 2020 12:01:38 +0000
+Message-Id: <20201229120145.26045-49-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201229120145.26045-1-chris@chris-wilson.co.uk>
 References: <20201229120145.26045-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 04/56] drm/i915/gt: Pull context closure check
- from request submit to schedule-in
+Subject: [Intel-gfx] [PATCH 49/56] drm/i915/gt: Couple tasklet scheduling
+ for all CS interrupts
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,47 +56,134 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-We only need to evaluate the current status of the context when it is
-scheduled in, we will force a reschedule when the context is closed
-propagating the change to inflight contexts.
+If any engine asks for the tasklet to be kicked from the CS interrupt,
+do so. Currently, this is used by the execlists scheduler backends to
+feed in the next request to the HW, and similarly could be used by a
+ring scheduler, as will be seen in the next patch.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-Cc: Matthew Brost <matthew.brost@intel.com>
+Reviewed-by: Mika Kuoppala <mika.kuoppala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_execlists_submission.c | 4 ++++
- drivers/gpu/drm/i915/i915_request.c                  | 4 ----
- 2 files changed, 4 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_gt_irq.c | 17 ++++++++++++-----
+ drivers/gpu/drm/i915/gt/intel_gt_irq.h |  3 +++
+ drivers/gpu/drm/i915/gt/intel_rps.c    |  2 +-
+ drivers/gpu/drm/i915/i915_irq.c        |  8 ++++----
+ 4 files changed, 20 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-index 18b23a332835..537d182f4a6f 100644
---- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-+++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-@@ -522,6 +522,10 @@ __execlists_schedule_in(struct i915_request *rq)
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_irq.c b/drivers/gpu/drm/i915/gt/intel_gt_irq.c
+index 2106fb403c3e..dfb2d66e1556 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_irq.c
++++ b/drivers/gpu/drm/i915/gt/intel_gt_irq.c
+@@ -63,6 +63,13 @@ cs_irq_handler(struct intel_engine_cs *engine, u32 iir)
+ 		i915_sched_kick(&engine->active);
+ }
  
- 	intel_context_get(ce);
- 
-+	if (unlikely(intel_context_is_closed(ce) &&
-+		     !intel_engine_has_heartbeat(engine)))
-+		intel_context_set_banned(ce);
++void gen2_engine_cs_irq(struct intel_engine_cs *engine)
++{
++	intel_engine_signal_breadcrumbs(engine);
++	if (intel_engine_needs_breadcrumb_tasklet(engine))
++		i915_sched_kick(&engine->active);
++}
 +
- 	if (unlikely(intel_context_is_banned(ce)))
- 		reset_active(rq, engine);
+ static u32
+ gen11_gt_engine_identity(struct intel_gt *gt,
+ 			 const unsigned int bank, const unsigned int bit)
+@@ -276,9 +283,9 @@ void gen11_gt_irq_postinstall(struct intel_gt *gt)
+ void gen5_gt_irq_handler(struct intel_gt *gt, u32 gt_iir)
+ {
+ 	if (gt_iir & GT_RENDER_USER_INTERRUPT)
+-		intel_engine_signal_breadcrumbs(gt->engine_class[RENDER_CLASS][0]);
++		gen2_engine_cs_irq(gt->engine_class[RENDER_CLASS][0]);
+ 	if (gt_iir & ILK_BSD_USER_INTERRUPT)
+-		intel_engine_signal_breadcrumbs(gt->engine_class[VIDEO_DECODE_CLASS][0]);
++		gen2_engine_cs_irq(gt->engine_class[VIDEO_DECODE_CLASS][0]);
+ }
  
-diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
-index 03ac6eead4db..3290e743ba43 100644
---- a/drivers/gpu/drm/i915/i915_request.c
-+++ b/drivers/gpu/drm/i915/i915_request.c
-@@ -546,10 +546,6 @@ bool __i915_request_submit(struct i915_request *request)
- 	if (i915_request_completed(request))
- 		goto xfer;
+ static void gen7_parity_error_irq_handler(struct intel_gt *gt, u32 iir)
+@@ -302,11 +309,11 @@ static void gen7_parity_error_irq_handler(struct intel_gt *gt, u32 iir)
+ void gen6_gt_irq_handler(struct intel_gt *gt, u32 gt_iir)
+ {
+ 	if (gt_iir & GT_RENDER_USER_INTERRUPT)
+-		intel_engine_signal_breadcrumbs(gt->engine_class[RENDER_CLASS][0]);
++		gen2_engine_cs_irq(gt->engine_class[RENDER_CLASS][0]);
+ 	if (gt_iir & GT_BSD_USER_INTERRUPT)
+-		intel_engine_signal_breadcrumbs(gt->engine_class[VIDEO_DECODE_CLASS][0]);
++		gen2_engine_cs_irq(gt->engine_class[VIDEO_DECODE_CLASS][0]);
+ 	if (gt_iir & GT_BLT_USER_INTERRUPT)
+-		intel_engine_signal_breadcrumbs(gt->engine_class[COPY_ENGINE_CLASS][0]);
++		gen2_engine_cs_irq(gt->engine_class[COPY_ENGINE_CLASS][0]);
  
--	if (unlikely(intel_context_is_closed(request->context) &&
--		     !intel_engine_has_heartbeat(engine)))
--		intel_context_set_banned(request->context);
--
- 	if (unlikely(intel_context_is_banned(request->context)))
- 		i915_request_set_error_once(request, -EIO);
+ 	if (gt_iir & (GT_BLT_CS_ERROR_INTERRUPT |
+ 		      GT_BSD_CS_ERROR_INTERRUPT |
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_irq.h b/drivers/gpu/drm/i915/gt/intel_gt_irq.h
+index 886c5cf408a2..6c69cd563fe1 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_irq.h
++++ b/drivers/gpu/drm/i915/gt/intel_gt_irq.h
+@@ -9,6 +9,7 @@
  
+ #include <linux/types.h>
+ 
++struct intel_engine_cs;
+ struct intel_gt;
+ 
+ #define GEN8_GT_IRQS (GEN8_GT_RCS_IRQ | \
+@@ -19,6 +20,8 @@ struct intel_gt;
+ 		      GEN8_GT_PM_IRQ | \
+ 		      GEN8_GT_GUC_IRQ)
+ 
++void gen2_engine_cs_irq(struct intel_engine_cs *engine);
++
+ void gen11_gt_irq_reset(struct intel_gt *gt);
+ void gen11_gt_irq_postinstall(struct intel_gt *gt);
+ void gen11_gt_irq_handler(struct intel_gt *gt, const u32 master_ctl);
+diff --git a/drivers/gpu/drm/i915/gt/intel_rps.c b/drivers/gpu/drm/i915/gt/intel_rps.c
+index e1397b8d3586..2b443b735a98 100644
+--- a/drivers/gpu/drm/i915/gt/intel_rps.c
++++ b/drivers/gpu/drm/i915/gt/intel_rps.c
+@@ -1771,7 +1771,7 @@ void gen6_rps_irq_handler(struct intel_rps *rps, u32 pm_iir)
+ 		return;
+ 
+ 	if (pm_iir & PM_VEBOX_USER_INTERRUPT)
+-		intel_engine_signal_breadcrumbs(gt->engine[VECS0]);
++		gen2_engine_cs_irq(gt->engine[VECS0]);
+ 
+ 	if (pm_iir & PM_VEBOX_CS_ERROR_INTERRUPT)
+ 		DRM_DEBUG("Command parser error, pm_iir 0x%08x\n", pm_iir);
+diff --git a/drivers/gpu/drm/i915/i915_irq.c b/drivers/gpu/drm/i915/i915_irq.c
+index dd1971040bbc..8d15bec36996 100644
+--- a/drivers/gpu/drm/i915/i915_irq.c
++++ b/drivers/gpu/drm/i915/i915_irq.c
+@@ -3941,7 +3941,7 @@ static irqreturn_t i8xx_irq_handler(int irq, void *arg)
+ 		intel_uncore_write16(&dev_priv->uncore, GEN2_IIR, iir);
+ 
+ 		if (iir & I915_USER_INTERRUPT)
+-			intel_engine_signal_breadcrumbs(dev_priv->gt.engine[RCS0]);
++			gen2_engine_cs_irq(dev_priv->gt.engine[RCS0]);
+ 
+ 		if (iir & I915_MASTER_ERROR_INTERRUPT)
+ 			i8xx_error_irq_handler(dev_priv, eir, eir_stuck);
+@@ -4049,7 +4049,7 @@ static irqreturn_t i915_irq_handler(int irq, void *arg)
+ 		intel_uncore_write(&dev_priv->uncore, GEN2_IIR, iir);
+ 
+ 		if (iir & I915_USER_INTERRUPT)
+-			intel_engine_signal_breadcrumbs(dev_priv->gt.engine[RCS0]);
++			gen2_engine_cs_irq(dev_priv->gt.engine[RCS0]);
+ 
+ 		if (iir & I915_MASTER_ERROR_INTERRUPT)
+ 			i9xx_error_irq_handler(dev_priv, eir, eir_stuck);
+@@ -4194,10 +4194,10 @@ static irqreturn_t i965_irq_handler(int irq, void *arg)
+ 		intel_uncore_write(&dev_priv->uncore, GEN2_IIR, iir);
+ 
+ 		if (iir & I915_USER_INTERRUPT)
+-			intel_engine_signal_breadcrumbs(dev_priv->gt.engine[RCS0]);
++			gen2_engine_cs_irq(dev_priv->gt.engine[RCS0]);
+ 
+ 		if (iir & I915_BSD_USER_INTERRUPT)
+-			intel_engine_signal_breadcrumbs(dev_priv->gt.engine[VCS0]);
++			gen2_engine_cs_irq(dev_priv->gt.engine[VCS0]);
+ 
+ 		if (iir & I915_MASTER_ERROR_INTERRUPT)
+ 			i9xx_error_irq_handler(dev_priv, eir, eir_stuck);
 -- 
 2.20.1
 
