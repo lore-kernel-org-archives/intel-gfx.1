@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8A749C433E0
-	for <intel-gfx@archiver.kernel.org>; Tue, 29 Dec 2020 12:02:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2C4FFC433DB
+	for <intel-gfx@archiver.kernel.org>; Tue, 29 Dec 2020 12:02:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 306E8207C9
+	by mail.kernel.org (Postfix) with ESMTPS id E8079207C9
 	for <intel-gfx@archiver.kernel.org>; Tue, 29 Dec 2020 12:02:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 306E8207C9
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E8079207C9
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7983C8914E;
-	Tue, 29 Dec 2020 12:02:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A082892F1;
+	Tue, 29 Dec 2020 12:02:05 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8EFFA89023
- for <intel-gfx@lists.freedesktop.org>; Tue, 29 Dec 2020 12:02:02 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B081891A8
+ for <intel-gfx@lists.freedesktop.org>; Tue, 29 Dec 2020 12:02:00 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23455151-1500050 
- for multiple; Tue, 29 Dec 2020 12:01:46 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23455170-1500050 
+ for multiple; Tue, 29 Dec 2020 12:01:49 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 29 Dec 2020 12:00:51 +0000
-Message-Id: <20201229120145.26045-2-chris@chris-wilson.co.uk>
+Date: Tue, 29 Dec 2020 12:01:06 +0000
+Message-Id: <20201229120145.26045-17-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201229120145.26045-1-chris@chris-wilson.co.uk>
 References: <20201229120145.26045-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 02/56] drm/i915/gt: Only retire on the last
- breadcrumb if the last request
+Subject: [Intel-gfx] [PATCH 17/56] drm/i915/gt: Skip over completed active
+ execlists, again
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,52 +56,98 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-We use the completion of the last active breadcrumb to retire the
-requests along a timeline. This is purely opportunistic as nothing
-guarantees that any particular timeline is terminated by a breadcrumb;
-except for the parking the engine. We explicitly add a breadcrumb to
-parking the engine so that we park quickly and do an explicit retire
-upon signaling to reduce the latency dramatically.
+Now that we are careful to always force-restore contexts upon rewinding
+(where necessary), we can restore our optimisation to skip over
+completed active execlists when dequeuing.
 
-With scheduling, we anticipate retiring completed timelines as a matter
-of course. Performing the same action from inside the breadcrumbs is
-intended to provide similar functionality for legacy ringbuffer
-submission.
-
+Referenecs: 35f3fd8182ba ("drm/i915/execlists: Workaround switching back to a completed context")
+References: 8ab3a3812aa9 ("drm/i915/gt: Incrementally check for rewinding")
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+Cc: Mika Kuoppala <mika.kuoppala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_breadcrumbs.c | 12 +++++++-----
- 1 file changed, 7 insertions(+), 5 deletions(-)
+ .../drm/i915/gt/intel_execlists_submission.c  | 33 ++++++++++---------
+ 1 file changed, 17 insertions(+), 16 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-index 2eabb9ab5d47..d78fdfa91cd7 100644
---- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-@@ -257,17 +257,19 @@ static void signal_irq_work(struct irq_work *work)
- 			list_del_rcu(&rq->signal_link);
- 			release = remove_signaling_context(b, ce);
- 			spin_unlock(&ce->signal_lock);
-+			if (release) {
-+				if (list_is_last_rcu(&rq->link,
-+						     &ce->timeline->requests))
-+					add_retire(b, ce->timeline);
-+
-+				intel_context_put(ce);
-+			}
+diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+index a8544692e7e2..e695852c1f61 100644
+--- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
++++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+@@ -1227,12 +1227,20 @@ static void set_preempt_timeout(struct intel_engine_cs *engine,
+ 		     active_preempt_timeout(engine, rq));
+ }
  
- 			if (__dma_fence_signal(&rq->fence))
- 				/* We own signal_node now, xfer to local list */
- 				signal = slist_add(&rq->signal_node, signal);
- 			else
- 				i915_request_put(rq);
--
--			if (release) {
--				add_retire(b, ce->timeline);
--				intel_context_put(ce);
--			}
- 		}
- 	}
- 	atomic_dec(&b->signaler_active);
++static bool completed(const struct i915_request *rq)
++{
++	if (i915_request_has_sentinel(rq))
++		return false;
++
++	return __i915_request_is_complete(rq);
++}
++
+ static void execlists_dequeue(struct intel_engine_cs *engine)
+ {
+ 	struct intel_engine_execlists * const execlists = &engine->execlists;
+ 	struct i915_request **port = execlists->pending;
+ 	struct i915_request ** const last_port = port + execlists->port_mask;
+-	struct i915_request *last = *execlists->active;
++	struct i915_request *last, * const *active;
+ 	struct virtual_engine *ve;
+ 	struct rb_node *rb;
+ 	bool submit = false;
+@@ -1269,21 +1277,15 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
+ 	 * i.e. we will retrigger preemption following the ack in case
+ 	 * of trouble.
+ 	 *
+-	 * In theory we can skip over completed contexts that have not
+-	 * yet been processed by events (as those events are in flight):
+-	 *
+-	 * while ((last = *active) && i915_request_completed(last))
+-	 *	active++;
+-	 *
+-	 * However, the GPU cannot handle this as it will ultimately
+-	 * find itself trying to jump back into a context it has just
+-	 * completed and barf.
+ 	 */
++	active = execlists->active;
++	while ((last = *active) && completed(last))
++		active++;
+ 
+ 	if (last) {
+-		if (__i915_request_is_complete(last)) {
+-			goto check_secondary;
+-		} else if (need_preempt(engine, last)) {
++		GEM_BUG_ON(!i915_request_is_active(last));
++
++		if (need_preempt(engine, last)) {
+ 			ENGINE_TRACE(engine,
+ 				     "preempting last=%llx:%lld, prio=%d, hint=%d\n",
+ 				     last->fence.context,
+@@ -1346,7 +1348,6 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
+ 			 * we hopefully coalesce several updates into a single
+ 			 * submission.
+ 			 */
+-check_secondary:
+ 			if (!list_is_last(&last->sched.link,
+ 					  &engine->active.requests)) {
+ 				/*
+@@ -1551,7 +1552,7 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
+ 	 * of ordered contexts.
+ 	 */
+ 	if (submit &&
+-	    memcmp(execlists->active,
++	    memcmp(active,
+ 		   execlists->pending,
+ 		   (port - execlists->pending) * sizeof(*port))) {
+ 		*port = NULL;
+@@ -1559,7 +1560,7 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
+ 			execlists_schedule_in(*port, port - execlists->pending);
+ 
+ 		WRITE_ONCE(execlists->yield, -1);
+-		set_preempt_timeout(engine, *execlists->active);
++		set_preempt_timeout(engine, *active);
+ 		execlists_submit_ports(engine);
+ 	} else {
+ 		ring_set_paused(engine, 0);
 -- 
 2.20.1
 
