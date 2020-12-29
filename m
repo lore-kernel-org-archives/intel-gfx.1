@@ -7,36 +7,36 @@ X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,
 	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 890D0C433E0
-	for <intel-gfx@archiver.kernel.org>; Tue, 29 Dec 2020 15:41:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EEB0AC433E0
+	for <intel-gfx@archiver.kernel.org>; Tue, 29 Dec 2020 16:17:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2240E20825
-	for <intel-gfx@archiver.kernel.org>; Tue, 29 Dec 2020 15:41:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2240E20825
+	by mail.kernel.org (Postfix) with ESMTPS id 98006207CF
+	for <intel-gfx@archiver.kernel.org>; Tue, 29 Dec 2020 16:17:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 98006207CF
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ACED8892E7;
-	Tue, 29 Dec 2020 15:41:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 02C6A892FF;
+	Tue, 29 Dec 2020 16:17:18 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
  [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 525F2892E5;
- Tue, 29 Dec 2020 15:41:56 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 2F14189206;
+ Tue, 29 Dec 2020 16:17:17 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 4226DA9A43;
- Tue, 29 Dec 2020 15:41:56 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id 29941A8836;
+ Tue, 29 Dec 2020 16:17:17 +0000 (UTC)
 MIME-Version: 1.0
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Chris Wilson" <chris@chris-wilson.co.uk>
-Date: Tue, 29 Dec 2020 15:41:56 -0000
-Message-ID: <160925651624.17551.5133492108023045410@emeril.freedesktop.org>
+Date: Tue, 29 Dec 2020 16:17:17 -0000
+Message-ID: <160925863714.17551.16952963934843289585@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
-References: <20201229141626.4773-1-chris@chris-wilson.co.uk>
-In-Reply-To: <20201229141626.4773-1-chris@chris-wilson.co.uk>
-Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZHJt?=
- =?utf-8?q?/i915/gt=3A_Taint_the_reset_mutex_with_the_shrinker?=
+References: <20201229144114.31686-1-chris@chris-wilson.co.uk>
+In-Reply-To: <20201229144114.31686-1-chris@chris-wilson.co.uk>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJBVDogZmFpbHVyZSBmb3IgZHJt?=
+ =?utf-8?q?/i915/gem=3A_Peek_at_the_inflight_context?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,97 +51,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Reply-To: intel-gfx@lists.freedesktop.org
 Cc: intel-gfx@lists.freedesktop.org
-Content-Type: multipart/mixed; boundary="===============2136644189=="
+Content-Type: multipart/mixed; boundary="===============0824133203=="
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============2136644189==
+--===============0824133203==
 Content-Type: multipart/alternative;
- boundary="===============2674463565704824314=="
+ boundary="===============7026447776433506830=="
 
---===============2674463565704824314==
+--===============7026447776433506830==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 
 == Series Details ==
 
-Series: drm/i915/gt: Taint the reset mutex with the shrinker
-URL   : https://patchwork.freedesktop.org/series/85297/
-State : success
+Series: drm/i915/gem: Peek at the inflight context
+URL   : https://patchwork.freedesktop.org/series/85298/
+State : failure
 
 == Summary ==
 
-CI Bug Log - changes from CI_DRM_9530 -> Patchwork_19222
+CI Bug Log - changes from CI_DRM_9530 -> Patchwork_19223
 ====================================================
 
 Summary
 -------
 
-  **SUCCESS**
+  **FAILURE**
 
-  No regressions found.
+  Serious unknown changes coming with Patchwork_19223 absolutely need to be
+  verified manually.
+  
+  If you think the reported changes have nothing to do with the changes
+  introduced in Patchwork_19223, please notify your bug team to allow them
+  to document this new failure mode, which will reduce false positives in CI.
 
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19222/index.html
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19223/index.html
 
+Possible new issues
+-------------------
+
+  Here are the unknown changes that may have been introduced in Patchwork_19223:
+
+### IGT changes ###
+
+#### Possible regressions ####
+
+  * igt@gem_exec_suspend@basic-s0:
+    - fi-byt-j1900:       NOTRUN -> [INCOMPLETE][1]
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19223/fi-byt-j1900/igt@gem_exec_suspend@basic-s0.html
+
+  
 Known issues
 ------------
 
-  Here are the changes found in Patchwork_19222 that come from known issues:
+  Here are the changes found in Patchwork_19223 that come from known issues:
 
 ### IGT changes ###
 
 #### Issues hit ####
 
-  * igt@gem_huc_copy@huc-copy:
-    - fi-byt-j1900:       NOTRUN -> [SKIP][1] ([fdo#109271]) +27 similar issues
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19222/fi-byt-j1900/igt@gem_huc_copy@huc-copy.html
+  * igt@amdgpu/amd_prime@i915-to-amd:
+    - fi-kbl-soraka:      NOTRUN -> [SKIP][2] ([fdo#109271]) +1 similar issue
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19223/fi-kbl-soraka/igt@amdgpu/amd_prime@i915-to-amd.html
 
-  * igt@i915_hangman@error-state-basic:
-    - fi-apl-guc:         [PASS][2] -> [DMESG-WARN][3] ([i915#1610])
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9530/fi-apl-guc/igt@i915_hangman@error-state-basic.html
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19222/fi-apl-guc/igt@i915_hangman@error-state-basic.html
+  * igt@i915_selftest@live@active:
+    - fi-apl-guc:         [PASS][3] -> [DMESG-FAIL][4] ([i915#2291] / [i915#666])
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9530/fi-apl-guc/igt@i915_selftest@live@active.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19223/fi-apl-guc/igt@i915_selftest@live@active.html
 
-  * igt@kms_chamelium@hdmi-crc-fast:
-    - fi-byt-j1900:       NOTRUN -> [SKIP][4] ([fdo#109271] / [fdo#111827]) +8 similar issues
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19222/fi-byt-j1900/igt@kms_chamelium@hdmi-crc-fast.html
+  * igt@i915_selftest@live@gt_heartbeat:
+    - fi-bsw-n3050:       [PASS][5] -> [DMESG-FAIL][6] ([i915#2675] / [i915#541])
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9530/fi-bsw-n3050/igt@i915_selftest@live@gt_heartbeat.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19223/fi-bsw-n3050/igt@i915_selftest@live@gt_heartbeat.html
 
-  * igt@prime_vgem@basic-read:
-    - fi-tgl-y:           [PASS][5] -> [DMESG-WARN][6] ([i915#402]) +1 similar issue
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9530/fi-tgl-y/igt@prime_vgem@basic-read.html
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19222/fi-tgl-y/igt@prime_vgem@basic-read.html
-
-  * igt@runner@aborted:
-    - fi-apl-guc:         NOTRUN -> [FAIL][7] ([i915#2426])
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19222/fi-apl-guc/igt@runner@aborted.html
+  * igt@prime_vgem@basic-fence-flip:
+    - fi-tgl-y:           [PASS][7] -> [DMESG-WARN][8] ([i915#402]) +1 similar issue
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9530/fi-tgl-y/igt@prime_vgem@basic-fence-flip.html
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19223/fi-tgl-y/igt@prime_vgem@basic-fence-flip.html
 
   
 #### Possible fixes ####
 
-  * igt@gem_exec_suspend@basic-s3:
-    - fi-tgl-y:           [DMESG-WARN][8] ([i915#2411] / [i915#402]) -> [PASS][9]
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9530/fi-tgl-y/igt@gem_exec_suspend@basic-s3.html
-   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19222/fi-tgl-y/igt@gem_exec_suspend@basic-s3.html
-
   * igt@i915_selftest@live@gt_heartbeat:
-    - fi-bsw-nick:        [DMESG-FAIL][10] ([i915#2675] / [i915#541]) -> [PASS][11]
-   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9530/fi-bsw-nick/igt@i915_selftest@live@gt_heartbeat.html
-   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19222/fi-bsw-nick/igt@i915_selftest@live@gt_heartbeat.html
+    - fi-bsw-nick:        [DMESG-FAIL][9] ([i915#2675] / [i915#541]) -> [PASS][10]
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9530/fi-bsw-nick/igt@i915_selftest@live@gt_heartbeat.html
+   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19223/fi-bsw-nick/igt@i915_selftest@live@gt_heartbeat.html
 
   * igt@prime_vgem@basic-userptr:
-    - fi-tgl-y:           [DMESG-WARN][12] ([i915#402]) -> [PASS][13] +2 similar issues
-   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9530/fi-tgl-y/igt@prime_vgem@basic-userptr.html
-   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19222/fi-tgl-y/igt@prime_vgem@basic-userptr.html
+    - fi-tgl-y:           [DMESG-WARN][11] ([i915#402]) -> [PASS][12] +1 similar issue
+   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9530/fi-tgl-y/igt@prime_vgem@basic-userptr.html
+   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19223/fi-tgl-y/igt@prime_vgem@basic-userptr.html
 
   
+  {name}: This element is suppressed. This means it is ignored when computing
+          the status of the difference (SUCCESS, WARNING, or FAILURE).
+
   [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
-  [fdo#111827]: https://bugs.freedesktop.org/show_bug.cgi?id=111827
-  [i915#1610]: https://gitlab.freedesktop.org/drm/intel/issues/1610
-  [i915#2411]: https://gitlab.freedesktop.org/drm/intel/issues/2411
-  [i915#2426]: https://gitlab.freedesktop.org/drm/intel/issues/2426
+  [i915#2268]: https://gitlab.freedesktop.org/drm/intel/issues/2268
+  [i915#2291]: https://gitlab.freedesktop.org/drm/intel/issues/2291
   [i915#2675]: https://gitlab.freedesktop.org/drm/intel/issues/2675
   [i915#402]: https://gitlab.freedesktop.org/drm/intel/issues/402
   [i915#541]: https://gitlab.freedesktop.org/drm/intel/issues/541
+  [i915#666]: https://gitlab.freedesktop.org/drm/intel/issues/666
 
 
 Participating hosts (39 -> 38)
@@ -154,23 +167,23 @@ Participating hosts (39 -> 38)
 Build changes
 -------------
 
-  * Linux: CI_DRM_9530 -> Patchwork_19222
+  * Linux: CI_DRM_9530 -> Patchwork_19223
 
   CI-20190529: 20190529
   CI_DRM_9530: 4b094e30c7d79e59faef5ce793d6ebbcdbede5a2 @ git://anongit.freedesktop.org/gfx-ci/linux
   IGT_5926: c81567cf1c05050f7becd4d78ebe349dfb2f9520 @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools
-  Patchwork_19222: f3c8a6ea3cd110c323628c42e6d592859cdf3a58 @ git://anongit.freedesktop.org/gfx-ci/linux
+  Patchwork_19223: c50674f105ffbd917a84153f422f2af224c4b98a @ git://anongit.freedesktop.org/gfx-ci/linux
 
 
 == Linux commits ==
 
-f3c8a6ea3cd1 drm/i915/gt: Taint the reset mutex with the shrinker
+c50674f105ff drm/i915/gem: Peek at the inflight context
 
 == Logs ==
 
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19222/index.html
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19223/index.html
 
---===============2674463565704824314==
+--===============7026447776433506830==
 Content-Type: text/html; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -190,97 +203,101 @@ Content-Transfer-Encoding: 7bit
 
 <b>Patch Details</b>
 <table>
-<tr><td><b>Series:</b></td><td>drm/i915/gt: Taint the reset mutex with the shrinker</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/85297/">https://patchwork.freedesktop.org/series/85297/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
+<tr><td><b>Series:</b></td><td>drm/i915/gem: Peek at the inflight context</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/85298/">https://patchwork.freedesktop.org/series/85298/</a></td></tr>
+<tr><td><b>State:</b></td><td>failure</td></tr>
 
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19222/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19222/index.html</a></td></tr>
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19223/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19223/index.html</a></td></tr>
 
 </table>
 
 
-    <h1>CI Bug Log - changes from CI_DRM_9530 -&gt; Patchwork_19222</h1>
+    <h1>CI Bug Log - changes from CI_DRM_9530 -&gt; Patchwork_19223</h1>
 <h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19222/index.html</p>
+<p><strong>FAILURE</strong></p>
+<p>Serious unknown changes coming with Patchwork_19223 absolutely need to be<br />
+  verified manually.</p>
+<p>If you think the reported changes have nothing to do with the changes<br />
+  introduced in Patchwork_19223, please notify your bug team to allow them<br />
+  to document this new failure mode, which will reduce false positives in CI.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19223/index.html</p>
+<h2>Possible new issues</h2>
+<p>Here are the unknown changes that may have been introduced in Patchwork_19223:</p>
+<h3>IGT changes</h3>
+<h4>Possible regressions</h4>
+<ul>
+<li>igt@gem_exec_suspend@basic-s0:<ul>
+<li>fi-byt-j1900:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19223/fi-byt-j1900/igt@gem_exec_suspend@basic-s0.html">INCOMPLETE</a></li>
+</ul>
+</li>
+</ul>
 <h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_19222 that come from known issues:</p>
+<p>Here are the changes found in Patchwork_19223 that come from known issues:</p>
 <h3>IGT changes</h3>
 <h4>Issues hit</h4>
 <ul>
 <li>
-<p>igt@gem_huc_copy@huc-copy:</p>
+<p>igt@amdgpu/amd_prime@i915-to-amd:</p>
 <ul>
-<li>fi-byt-j1900:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19222/fi-byt-j1900/igt@gem_huc_copy@huc-copy.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +27 similar issues</li>
+<li>fi-kbl-soraka:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19223/fi-kbl-soraka/igt@amdgpu/amd_prime@i915-to-amd.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +1 similar issue</li>
 </ul>
 </li>
 <li>
-<p>igt@i915_hangman@error-state-basic:</p>
+<p>igt@i915_selftest@live@active:</p>
 <ul>
-<li>fi-apl-guc:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9530/fi-apl-guc/igt@i915_hangman@error-state-basic.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19222/fi-apl-guc/igt@i915_hangman@error-state-basic.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1610">i915#1610</a>)</li>
+<li>fi-apl-guc:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9530/fi-apl-guc/igt@i915_selftest@live@active.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19223/fi-apl-guc/igt@i915_selftest@live@active.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2291">i915#2291</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/666">i915#666</a>)</li>
 </ul>
 </li>
 <li>
-<p>igt@kms_chamelium@hdmi-crc-fast:</p>
+<p>igt@i915_selftest@live@gt_heartbeat:</p>
 <ul>
-<li>fi-byt-j1900:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19222/fi-byt-j1900/igt@kms_chamelium@hdmi-crc-fast.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://bugs.freedesktop.org/show_bug.cgi?id=111827">fdo#111827</a>) +8 similar issues</li>
+<li>fi-bsw-n3050:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9530/fi-bsw-n3050/igt@i915_selftest@live@gt_heartbeat.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19223/fi-bsw-n3050/igt@i915_selftest@live@gt_heartbeat.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2675">i915#2675</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/541">i915#541</a>)</li>
 </ul>
 </li>
 <li>
-<p>igt@prime_vgem@basic-read:</p>
+<p>igt@prime_vgem@basic-fence-flip:</p>
 <ul>
-<li>fi-tgl-y:           <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9530/fi-tgl-y/igt@prime_vgem@basic-read.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19222/fi-tgl-y/igt@prime_vgem@basic-read.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/402">i915#402</a>) +1 similar issue</li>
-</ul>
-</li>
-<li>
-<p>igt@runner@aborted:</p>
-<ul>
-<li>fi-apl-guc:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19222/fi-apl-guc/igt@runner@aborted.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2426">i915#2426</a>)</li>
+<li>fi-tgl-y:           <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9530/fi-tgl-y/igt@prime_vgem@basic-fence-flip.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19223/fi-tgl-y/igt@prime_vgem@basic-fence-flip.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/402">i915#402</a>) +1 similar issue</li>
 </ul>
 </li>
 </ul>
 <h4>Possible fixes</h4>
 <ul>
 <li>
-<p>igt@gem_exec_suspend@basic-s3:</p>
-<ul>
-<li>fi-tgl-y:           <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9530/fi-tgl-y/igt@gem_exec_suspend@basic-s3.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2411">i915#2411</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/402">i915#402</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19222/fi-tgl-y/igt@gem_exec_suspend@basic-s3.html">PASS</a></li>
-</ul>
-</li>
-<li>
 <p>igt@i915_selftest@live@gt_heartbeat:</p>
 <ul>
-<li>fi-bsw-nick:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9530/fi-bsw-nick/igt@i915_selftest@live@gt_heartbeat.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2675">i915#2675</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/541">i915#541</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19222/fi-bsw-nick/igt@i915_selftest@live@gt_heartbeat.html">PASS</a></li>
+<li>fi-bsw-nick:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9530/fi-bsw-nick/igt@i915_selftest@live@gt_heartbeat.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2675">i915#2675</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/541">i915#541</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19223/fi-bsw-nick/igt@i915_selftest@live@gt_heartbeat.html">PASS</a></li>
 </ul>
 </li>
 <li>
 <p>igt@prime_vgem@basic-userptr:</p>
 <ul>
-<li>fi-tgl-y:           <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9530/fi-tgl-y/igt@prime_vgem@basic-userptr.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/402">i915#402</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19222/fi-tgl-y/igt@prime_vgem@basic-userptr.html">PASS</a> +2 similar issues</li>
+<li>fi-tgl-y:           <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9530/fi-tgl-y/igt@prime_vgem@basic-userptr.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/402">i915#402</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19223/fi-tgl-y/igt@prime_vgem@basic-userptr.html">PASS</a> +1 similar issue</li>
 </ul>
 </li>
 </ul>
+<p>{name}: This element is suppressed. This means it is ignored when computing<br />
+          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
 <h2>Participating hosts (39 -&gt; 38)</h2>
 <p>Additional (1): fi-byt-j1900 <br />
   Missing    (2): fi-bsw-cyan fi-bdw-samus </p>
 <h2>Build changes</h2>
 <ul>
-<li>Linux: CI_DRM_9530 -&gt; Patchwork_19222</li>
+<li>Linux: CI_DRM_9530 -&gt; Patchwork_19223</li>
 </ul>
 <p>CI-20190529: 20190529<br />
   CI_DRM_9530: 4b094e30c7d79e59faef5ce793d6ebbcdbede5a2 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
   IGT_5926: c81567cf1c05050f7becd4d78ebe349dfb2f9520 @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools<br />
-  Patchwork_19222: f3c8a6ea3cd110c323628c42e6d592859cdf3a58 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+  Patchwork_19223: c50674f105ffbd917a84153f422f2af224c4b98a @ git://anongit.freedesktop.org/gfx-ci/linux</p>
 <p>== Linux commits ==</p>
-<p>f3c8a6ea3cd1 drm/i915/gt: Taint the reset mutex with the shrinker</p>
+<p>c50674f105ff drm/i915/gem: Peek at the inflight context</p>
 
 </body>
 </html>
 
---===============2674463565704824314==--
+--===============7026447776433506830==--
 
---===============2136644189==
+--===============0824133203==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -291,4 +308,4 @@ Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
 
---===============2136644189==--
+--===============0824133203==--
