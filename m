@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F1F69C433DB
-	for <intel-gfx@archiver.kernel.org>; Tue, 29 Dec 2020 12:02:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 73477C433E6
+	for <intel-gfx@archiver.kernel.org>; Tue, 29 Dec 2020 12:02:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C07DF207C9
-	for <intel-gfx@archiver.kernel.org>; Tue, 29 Dec 2020 12:02:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C07DF207C9
+	by mail.kernel.org (Postfix) with ESMTPS id 39A74207C9
+	for <intel-gfx@archiver.kernel.org>; Tue, 29 Dec 2020 12:02:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 39A74207C9
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A9E1C89320;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B9C7B89332;
 	Tue, 29 Dec 2020 12:02:37 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F7BB89301
- for <intel-gfx@lists.freedesktop.org>; Tue, 29 Dec 2020 12:02:03 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 589F189336
+ for <intel-gfx@lists.freedesktop.org>; Tue, 29 Dec 2020 12:02:05 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23455168-1500050 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23455163-1500050 
  for multiple; Tue, 29 Dec 2020 12:01:48 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 29 Dec 2020 12:01:04 +0000
-Message-Id: <20201229120145.26045-15-chris@chris-wilson.co.uk>
+Date: Tue, 29 Dec 2020 12:01:00 +0000
+Message-Id: <20201229120145.26045-11-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201229120145.26045-1-chris@chris-wilson.co.uk>
 References: <20201229120145.26045-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 15/56] drm/i915/gt: Do not suspend bonded
- requests if one hangs
+Subject: [Intel-gfx] [PATCH 11/56] drm/i915: Reduce test_and_set_bit to
+ set_bit in i915_request_submit()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,38 +56,48 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Treat the dependency between bonded requests as weak and leave the
-remainder of the pair on the GPU if one hangs.
+Avoid the full blown memory barrier of test_and_set_bit() by noting the
+completed request and removing it from the lists.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 ---
- drivers/gpu/drm/i915/gt/intel_execlists_submission.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/gpu/drm/i915/i915_request.c | 16 +++++++++-------
+ 1 file changed, 9 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-index 0d71f89bb907..c31eb7d6184c 100644
---- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-+++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-@@ -1998,6 +1998,9 @@ static void __execlists_hold(struct i915_request *rq)
- 			struct i915_request *w =
- 				container_of(p->waiter, typeof(*w), sched);
+diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
+index 2a7bad88038b..7c5eec2fd631 100644
+--- a/drivers/gpu/drm/i915/i915_request.c
++++ b/drivers/gpu/drm/i915/i915_request.c
+@@ -540,8 +540,10 @@ bool __i915_request_submit(struct i915_request *request)
+ 	 * dropped upon retiring. (Otherwise if resubmit a *retired*
+ 	 * request, this would be a horrible use-after-free.)
+ 	 */
+-	if (__i915_request_is_complete(request))
+-		goto xfer;
++	if (__i915_request_is_complete(request)) {
++		list_del_init(&request->sched.link);
++		goto active;
++	}
  
-+			if (p->flags & I915_DEPENDENCY_WEAK)
-+				continue;
-+
- 			/* Leave semaphores spinning on the other engines */
- 			if (w->engine != rq->engine)
- 				continue;
-@@ -2096,6 +2099,9 @@ static void __execlists_unhold(struct i915_request *rq)
- 			struct i915_request *w =
- 				container_of(p->waiter, typeof(*w), sched);
+ 	if (unlikely(intel_context_is_banned(request->context)))
+ 		i915_request_set_error_once(request, -EIO);
+@@ -576,11 +578,11 @@ bool __i915_request_submit(struct i915_request *request)
+ 	engine->serial++;
+ 	result = true;
  
-+			if (p->flags & I915_DEPENDENCY_WEAK)
-+				continue;
-+
- 			/* Propagate any change in error status */
- 			if (rq->fence.error)
- 				i915_request_set_error_once(w, rq->fence.error);
+-xfer:
+-	if (!test_and_set_bit(I915_FENCE_FLAG_ACTIVE, &request->fence.flags)) {
+-		list_move_tail(&request->sched.link, &engine->active.requests);
+-		clear_bit(I915_FENCE_FLAG_PQUEUE, &request->fence.flags);
+-	}
++	GEM_BUG_ON(test_bit(I915_FENCE_FLAG_ACTIVE, &request->fence.flags));
++	list_move_tail(&request->sched.link, &engine->active.requests);
++active:
++	clear_bit(I915_FENCE_FLAG_PQUEUE, &request->fence.flags);
++	set_bit(I915_FENCE_FLAG_ACTIVE, &request->fence.flags);
+ 
+ 	/*
+ 	 * XXX Rollback bonded-execution on __i915_request_unsubmit()?
 -- 
 2.20.1
 
