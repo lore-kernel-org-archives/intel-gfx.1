@@ -2,57 +2,45 @@ Return-Path: <SRS0=TENP=GH=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A39F8C433E6
-	for <intel-gfx@archiver.kernel.org>; Mon,  4 Jan 2021 15:16:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AB33BC433DB
+	for <intel-gfx@archiver.kernel.org>; Mon,  4 Jan 2021 15:16:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5E956207BC
-	for <intel-gfx@archiver.kernel.org>; Mon,  4 Jan 2021 15:16:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5E956207BC
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
+	by mail.kernel.org (Postfix) with ESMTPS id 634B2207BC
+	for <intel-gfx@archiver.kernel.org>; Mon,  4 Jan 2021 15:16:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 634B2207BC
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=huawei.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0397789FD3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 006E789F6D;
 	Mon,  4 Jan 2021 15:16:06 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 479F489385;
- Sat,  2 Jan 2021 11:23:37 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 114F6223E4;
- Sat,  2 Jan 2021 11:23:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1609586617;
- bh=QkAtYWKA5NhUKSgBrKt3Um+b8JsODNS1rc7ga3g5SHk=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=HgATpEfsWXamt8ySvK2iYAfXRczn34Y0UgUZBPJY0UgZw985oNTVaoG4BbULlRBIB
- Q9aBTTWNjizwgF6gud7fLYsnjPbMpCKKo6KZLIPRcfdqQtm1tci3FlaHL/vTiPHgcU
- q9ePbNvQj2p4CHa/KmdSuKFzELGx51O1Khdy6YK3xlEa35zO1NpHFmghjWmg8sqh0n
- b36unRniR0uJ3IvEuAJ1+vtDqez7MQzTMUBdUrqL1XPJziunLJU/udGwGAVdZMTFs/
- MHaV6lubp1QvphvWbNLN/elKic4ZLDkPKhvt7TQGlkv93VPrbmOU6yTaltDB4/mOOa
- cCpDL9OIKc0/A==
-Received: by mail-ot1-f51.google.com with SMTP id n42so21704121ota.12;
- Sat, 02 Jan 2021 03:23:37 -0800 (PST)
-X-Gm-Message-State: AOAM532MFVJFRkSps0/9jBc8FX6Pz2sbeJ3q4beQqLQPDZOPM0GtuW9a
- fBSBPCyQcjXX2J8LPLK87HXblgAenOhw/q9gJqw=
-X-Google-Smtp-Source: ABdhPJxtNm2L3E+7cUbGuFw8FJsQ5ZXduzpGG24W4VGko6nC5XeZqvgH+bJbgT94nbPC/zq9Pz+doj4j9bk+F3IDAWg=
-X-Received: by 2002:a05:6830:2413:: with SMTP id
- j19mr49011301ots.251.1609586616367; 
- Sat, 02 Jan 2021 03:23:36 -0800 (PST)
+Received: from szxga04-in.huawei.com (szxga04-in.huawei.com [45.249.212.190])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5450F892FA;
+ Tue, 29 Dec 2020 13:51:51 +0000 (UTC)
+Received: from DGGEMS404-HUB.china.huawei.com (unknown [172.30.72.60])
+ by szxga04-in.huawei.com (SkyGuard) with ESMTP id 4D4wmM2sWFzkxRR;
+ Tue, 29 Dec 2020 21:50:43 +0800 (CST)
+Received: from ubuntu.network (10.175.138.68) by
+ DGGEMS404-HUB.china.huawei.com (10.3.19.204) with Microsoft SMTP Server id
+ 14.3.498.0; Tue, 29 Dec 2020 21:51:34 +0800
+From: Zheng Yongjun <zhengyongjun3@huawei.com>
+To: <airlied@linux.ie>, <daniel@ffwll.ch>, <intel-gfx@lists.freedesktop.org>, 
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+Date: Tue, 29 Dec 2020 21:52:13 +0800
+Message-ID: <20201229135213.23757-1-zhengyongjun3@huawei.com>
+X-Mailer: git-send-email 2.22.0
 MIME-Version: 1.0
-References: <20201230153928.456260-1-arnd@kernel.org>
- <160934377188.21284.5702573697011773996@build.alporthouse.com>
-In-Reply-To: <160934377188.21284.5702573697011773996@build.alporthouse.com>
-From: Arnd Bergmann <arnd@kernel.org>
-Date: Sat, 2 Jan 2021 12:23:20 +0100
-X-Gmail-Original-Message-ID: <CAK8P3a0LWLKs+0quG_OS6EPgg2uSAOM69SKTix47tEUmuZWRdw@mail.gmail.com>
-Message-ID: <CAK8P3a0LWLKs+0quG_OS6EPgg2uSAOM69SKTix47tEUmuZWRdw@mail.gmail.com>
-To: Chris Wilson <chris@chris-wilson.co.uk>
+X-Originating-IP: [10.175.138.68]
+X-CFilter-Loop: Reflected
 X-Mailman-Approved-At: Mon, 04 Jan 2021 15:16:05 +0000
-Subject: Re: [Intel-gfx] [PATCH] i915: fix shift warning
+Subject: [Intel-gfx] [PATCH -next] drm/i915: Use kzalloc for allocating only
+ one thing
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,61 +53,47 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel <dri-devel@lists.freedesktop.org>, Arnd Bergmann <arnd@arndb.de>,
- David Airlie <airlied@linux.ie>,
- Intel Graphics <intel-gfx@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Cc: Zheng Yongjun <zhengyongjun3@huawei.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Dec 30, 2020 at 4:56 PM Chris Wilson <chris@chris-wilson.co.uk> wrote:
->
-> Quoting Arnd Bergmann (2020-12-30 15:39:14)
-> > From: Arnd Bergmann <arnd@arndb.de>
-> >
-> > Randconfig builds on 32-bit machines show lots of warnings for
-> > the i915 driver for incorrect bit masks like:
->
-> mask is a u8.
->
-> VCS0 is 2, I915_MAX_VCS 4
->
-> (u8 & GENMASK(5, 2)) >> 2
+Use kzalloc rather than kcalloc(1,...)
 
-Ah right, I misread the warning then.
+The semantic patch that makes this change is as follows:
+(http://coccinelle.lip6.fr/)
 
-> > drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c:2584:9: error: shift count >= width of type [-Werror,-Wshift-count-overflow]
-> >         return hweight64(VDBOX_MASK(&i915->gt));
-> >                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> > include/asm-generic/bitops/const_hweight.h:29:49: note: expanded from macro 'hweight64'
-> >  #define hweight64(w) (__builtin_constant_p(w) ? __const_hweight64(w) : __arch_hweight64(w))
->
-> So it's upset by hweight64() on the unsigned long?
+// <smpl>
+@@
+@@
 
-I suspect what is going on is that clang once again warns because it performs
-more code checks before dead-code elimination than gcc does. The warning is
-for the __const_hweight64() case, which is not actually used here because the
-input is not a compile-time constant.
+- kcalloc(1,
++ kzalloc(
+          ...)
+// </smpl>
 
-> So hweight_long?
+Signed-off-by: Zheng Yongjun <zhengyongjun3@huawei.com>
+---
+ drivers/gpu/drm/i915/selftests/i915_gem_evict.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-That seems to work, I'll send a new version with that.
+diff --git a/drivers/gpu/drm/i915/selftests/i915_gem_evict.c b/drivers/gpu/drm/i915/selftests/i915_gem_evict.c
+index f88473d396f4..6994b167d0c8 100644
+--- a/drivers/gpu/drm/i915/selftests/i915_gem_evict.c
++++ b/drivers/gpu/drm/i915/selftests/i915_gem_evict.c
+@@ -415,7 +415,7 @@ static int igt_evict_contexts(void *arg)
+ 		struct reserved *r;
+ 
+ 		mutex_unlock(&ggtt->vm.mutex);
+-		r = kcalloc(1, sizeof(*r), GFP_KERNEL);
++		r = kzalloc(sizeof(*r), GFP_KERNEL);
+ 		mutex_lock(&ggtt->vm.mutex);
+ 		if (!r) {
+ 			err = -ENOMEM;
+-- 
+2.22.0
 
-> Or use a cast, hweight8((intel_engine_mask_t)VDMASK())?
->
-> static __always_inline int engine_count(intel_engine_mask_t mask)
-> {
->         return sizeof(mask) == 1 ? hweight8(mask) :
->                 sizeof(mask) == 2 ? hweight16(mask) :
->                 sizeof(mask) == 4 ? hweight32(mask) :
->                 hweight64(mask);
-> }
-
-Fine with me as well. If you prefer that way, I'll let you handle that.
-
-        Arnd
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
