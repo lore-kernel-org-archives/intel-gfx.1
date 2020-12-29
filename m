@@ -7,36 +7,37 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3C469C433E6
-	for <intel-gfx@archiver.kernel.org>; Tue, 29 Dec 2020 12:03:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 813C1C43381
+	for <intel-gfx@archiver.kernel.org>; Tue, 29 Dec 2020 12:03:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 01D10207C9
-	for <intel-gfx@archiver.kernel.org>; Tue, 29 Dec 2020 12:03:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 01D10207C9
+	by mail.kernel.org (Postfix) with ESMTPS id 4D8F8207CC
+	for <intel-gfx@archiver.kernel.org>; Tue, 29 Dec 2020 12:03:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4D8F8207CC
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0026389701;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5013F89715;
 	Tue, 29 Dec 2020 12:03:04 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8AC3889317
- for <intel-gfx@lists.freedesktop.org>; Tue, 29 Dec 2020 12:02:03 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B605892EF
+ for <intel-gfx@lists.freedesktop.org>; Tue, 29 Dec 2020 12:02:02 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23455154-1500050 
- for multiple; Tue, 29 Dec 2020 12:01:47 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23455152-1500050 
+ for multiple; Tue, 29 Dec 2020 12:01:46 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 29 Dec 2020 12:00:54 +0000
-Message-Id: <20201229120145.26045-5-chris@chris-wilson.co.uk>
+Date: Tue, 29 Dec 2020 12:00:52 +0000
+Message-Id: <20201229120145.26045-3-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201229120145.26045-1-chris@chris-wilson.co.uk>
 References: <20201229120145.26045-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 05/56] drm/i915/gem: Peek at the inflight context
+Subject: [Intel-gfx] [PATCH 03/56] drm/i915/gt: Cancel submitted requests
+ upon context reset
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,84 +56,87 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-If supported by the backend, we can quickly look at the context's
-inflight engine rather than search along the active list to confirm.
+Since we process schedule-in of a context after submitting the request,
+if we decide to reset the context at that time, we also have to cancel
+the requets we have marked for submission.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_context.c          |  3 +++
- drivers/gpu/drm/i915/gt/intel_context.h              | 10 ++++++++++
- drivers/gpu/drm/i915/gt/intel_context_types.h        |  9 +++++----
- drivers/gpu/drm/i915/gt/intel_execlists_submission.c |  1 +
- 4 files changed, 19 insertions(+), 4 deletions(-)
+ .../drm/i915/gt/intel_execlists_submission.c  | 22 ++++++++++++++-----
+ drivers/gpu/drm/i915/i915_request.c           |  2 ++
+ 2 files changed, 18 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-index c7363036765a..68f58762d5e3 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-@@ -423,6 +423,9 @@ static struct intel_engine_cs *active_engine(struct intel_context *ce)
- 	struct intel_engine_cs *engine = NULL;
- 	struct i915_request *rq;
- 
-+	if (intel_context_has_inflight(ce))
-+		return intel_context_inflight(ce);
-+
- 	if (!ce->timeline)
- 		return NULL;
- 
-diff --git a/drivers/gpu/drm/i915/gt/intel_context.h b/drivers/gpu/drm/i915/gt/intel_context.h
-index 2ce2ec639ba2..ecab3a7e4d1d 100644
---- a/drivers/gpu/drm/i915/gt/intel_context.h
-+++ b/drivers/gpu/drm/i915/gt/intel_context.h
-@@ -191,6 +191,16 @@ static inline bool intel_context_is_closed(const struct intel_context *ce)
- 	return test_bit(CONTEXT_CLOSED_BIT, &ce->flags);
- }
- 
-+static inline void intel_context_set_inflight(struct intel_context *ce)
-+{
-+	return __set_bit(CONTEXT_HAS_INFLIGHT, &ce->flags);
-+}
-+
-+static inline bool intel_context_has_inflight(const struct intel_context *ce)
-+{
-+	return test_bit(CONTEXT_HAS_INFLIGHT, &ce->flags);
-+}
-+
- static inline bool intel_context_use_semaphores(const struct intel_context *ce)
- {
- 	return test_bit(CONTEXT_USE_SEMAPHORES, &ce->flags);
-diff --git a/drivers/gpu/drm/i915/gt/intel_context_types.h b/drivers/gpu/drm/i915/gt/intel_context_types.h
-index f7a0fb6f3a2e..679b268f0911 100644
---- a/drivers/gpu/drm/i915/gt/intel_context_types.h
-+++ b/drivers/gpu/drm/i915/gt/intel_context_types.h
-@@ -87,10 +87,11 @@ struct intel_context {
- #define CONTEXT_ALLOC_BIT		1
- #define CONTEXT_VALID_BIT		2
- #define CONTEXT_CLOSED_BIT		3
--#define CONTEXT_USE_SEMAPHORES		4
--#define CONTEXT_BANNED			5
--#define CONTEXT_FORCE_SINGLE_SUBMISSION	6
--#define CONTEXT_NOPREEMPT		7
-+#define CONTEXT_HAS_INFLIGHT		4
-+#define CONTEXT_USE_SEMAPHORES		5
-+#define CONTEXT_BANNED			6
-+#define CONTEXT_FORCE_SINGLE_SUBMISSION	7
-+#define CONTEXT_NOPREEMPT		8
- 
- 	u32 *lrc_reg_state;
- 	union {
 diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-index 537d182f4a6f..149c0493d993 100644
+index b79365b5159a..18b23a332835 100644
 --- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
 +++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-@@ -2535,6 +2535,7 @@ static int __execlists_context_alloc(struct intel_context *ce,
- 	if (err)
- 		goto err_lrc;
+@@ -215,22 +215,32 @@ static void mark_eio(struct i915_request *rq)
+ }
  
-+	intel_context_set_inflight(ce);
- 	return 0;
+ static struct i915_request *
+-active_request(const struct intel_timeline * const tl, struct i915_request *rq)
++__active_request(const struct intel_timeline * const tl,
++		 struct i915_request *rq,
++		 int error)
+ {
+ 	struct i915_request *active = rq;
  
- err_lrc:
+-	rcu_read_lock();
+-	list_for_each_entry_continue_reverse(rq, &tl->requests, link) {
++	list_for_each_entry_from_reverse(rq, &tl->requests, link) {
+ 		if (__i915_request_is_complete(rq))
+ 			break;
+ 
++		if (error) {
++			i915_request_set_error_once(rq, error);
++			__i915_request_skip(rq);
++		}
+ 		active = rq;
+ 	}
+-	rcu_read_unlock();
+ 
+ 	return active;
+ }
+ 
++static struct i915_request *
++active_request(const struct intel_timeline * const tl, struct i915_request *rq)
++{
++	return __active_request(tl, rq, 0);
++}
++
+ static inline void
+ ring_set_paused(const struct intel_engine_cs *engine, int state)
+ {
+@@ -487,14 +497,14 @@ static void reset_active(struct i915_request *rq,
+ 	 * remain correctly ordered. And we defer to __i915_request_submit()
+ 	 * so that all asynchronous waits are correctly handled.
+ 	 */
+-	ENGINE_TRACE(engine, "{ rq=%llx:%lld }\n",
++	ENGINE_TRACE(engine, "{ reset rq=%llx:%lld }\n",
+ 		     rq->fence.context, rq->fence.seqno);
+ 
+ 	/* On resubmission of the active request, payload will be scrubbed */
+ 	if (__i915_request_is_complete(rq))
+ 		head = rq->tail;
+ 	else
+-		head = active_request(ce->timeline, rq)->head;
++		head = __active_request(ce->timeline, rq, -EIO)->head;
+ 	head = intel_ring_wrap(ce->ring, head);
+ 
+ 	/* Scrub the context image to prevent replaying the previous batch */
+diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
+index de434697dccd..03ac6eead4db 100644
+--- a/drivers/gpu/drm/i915/i915_request.c
++++ b/drivers/gpu/drm/i915/i915_request.c
+@@ -490,6 +490,8 @@ void __i915_request_skip(struct i915_request *rq)
+ 	if (rq->infix == rq->postfix)
+ 		return;
+ 
++	RQ_TRACE(rq, "error: %d\n", rq->fence.error);
++
+ 	/*
+ 	 * As this request likely depends on state from the lost
+ 	 * context, clear out all the user operations leaving the
 -- 
 2.20.1
 
