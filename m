@@ -2,49 +2,49 @@ Return-Path: <SRS0=Jw1x=GG=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-14.0 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 612B2C433E0
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 27EDDC433DB
 	for <intel-gfx@archiver.kernel.org>; Sun,  3 Jan 2021 05:41:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 18ADE20795
+	by mail.kernel.org (Postfix) with ESMTPS id BA93220784
 	for <intel-gfx@archiver.kernel.org>; Sun,  3 Jan 2021 05:41:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 18ADE20795
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BA93220784
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2088289A7A;
-	Sun,  3 Jan 2021 05:41:37 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 99F8389A62
+	by gabe.freedesktop.org (Postfix) with ESMTP id D633689A62;
+	Sun,  3 Jan 2021 05:41:36 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5EF7A89A62
  for <Intel-gfx@lists.freedesktop.org>; Sun,  3 Jan 2021 05:41:36 +0000 (UTC)
-IronPort-SDR: iVZ/cdUyBUvuPQ/vvEA7qhB/vkPi8Tc+gOhEJmz63aN+HjGaujmc1piyzkn7og+mwe4XdE9Dvm
- T7puamF7JnUQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9852"; a="163916487"
-X-IronPort-AV: E=Sophos;i="5.78,471,1599548400"; d="scan'208";a="163916487"
+IronPort-SDR: SAtunv59/OfuCOxjna2PUdF45BkRuUspfz29KMLJXK7CMLHlXqy/yPCJsmWYJRjlSzeI4mYx0n
+ Dw1maAuE7hqQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9852"; a="173342621"
+X-IronPort-AV: E=Sophos;i="5.78,471,1599548400"; d="scan'208";a="173342621"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Jan 2021 21:41:34 -0800
-IronPort-SDR: se/YRGFBJeRG3qj9TkoAYvMoVcFEgZncYzksCrvf0MoDkxwkyG5JJHtlXnEnxrAvhG6AYa3Ih5
- cHuxHskVnh0g==
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Jan 2021 21:41:35 -0800
+IronPort-SDR: qrUfcl2iQ45irW+Zq/lnEEAYwulbrTqN4SEiHzu3jyBLyX7X/gstFOk/7caDXXGQO4I6iiN8jS
+ wF/bhMmRciEw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.78,471,1599548400"; d="scan'208";a="461562830"
+X-IronPort-AV: E=Sophos;i="5.78,471,1599548400"; d="scan'208";a="461562845"
 Received: from sean-virtualbox.fm.intel.com ([10.105.158.96])
  by fmsmga001.fm.intel.com with ESMTP; 02 Jan 2021 21:41:34 -0800
 From: "Huang, Sean Z" <sean.z.huang@intel.com>
 To: Intel-gfx@lists.freedesktop.org
-Date: Sat,  2 Jan 2021 21:41:23 -0800
-Message-Id: <20210103054134.10148-3-sean.z.huang@intel.com>
+Date: Sat,  2 Jan 2021 21:41:32 -0800
+Message-Id: <20210103054134.10148-12-sean.z.huang@intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20210103054134.10148-1-sean.z.huang@intel.com>
 References: <20210103054134.10148-1-sean.z.huang@intel.com>
-Subject: [Intel-gfx] [RFC-v17 02/13] drm/i915/pxp: set KCR reg init during
- the boot time
+Subject: [Intel-gfx] [RFC-v17 11/13] drm/i915/uapi: introduce
+ drm_i915_gem_create_ext
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,48 +57,187 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Joonas@freedesktop.org,
+	Bommu Krishnaiah <krishnaiah.bommu@intel.com>,
+	Matthew@freedesktop.org
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Set the KCR init during the boot time, which is
-required by hardware, to allow us doing further
-protection operation such as sending commands to
-GPU or TEE.
+From: Bommu Krishnaiah <krishnaiah.bommu@intel.com>
 
-Signed-off-by: Huang, Sean Z <sean.z.huang@intel.com>
+Same old gem_create but with now with extensions support. This is needed
+to support various upcoming usecases. For now we use the extensions
+mechanism to support PAVP.
+
+Signed-off-by: Bommu Krishnaiah <krishnaiah.bommu@intel.com>
+Signed-off-by: Matthew Auld <matthew.auld@intel.com>
+Cc: Joonas Lahtinen joonas.lahtinen@linux.intel.com
+Cc: Matthew Auld matthew.auld@intel.com
+Cc: Telukuntla Sreedhar <sreedhar.telukuntla@intel.com>
 ---
- drivers/gpu/drm/i915/pxp/intel_pxp.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ drivers/gpu/drm/i915/i915_drv.c |  2 +-
+ drivers/gpu/drm/i915/i915_gem.c | 42 ++++++++++++++++++++++++++++-
+ include/uapi/drm/i915_drm.h     | 47 +++++++++++++++++++++++++++++++++
+ 3 files changed, 89 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.c b/drivers/gpu/drm/i915/pxp/intel_pxp.c
-index 9bc3c7e30654..f566a4fda044 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp.c
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp.c
-@@ -6,6 +6,12 @@
- #include "intel_pxp.h"
- #include "intel_pxp_context.h"
+diff --git a/drivers/gpu/drm/i915/i915_drv.c b/drivers/gpu/drm/i915/i915_drv.c
+index af06c85e6ba7..3dbda949bf71 100644
+--- a/drivers/gpu/drm/i915/i915_drv.c
++++ b/drivers/gpu/drm/i915/i915_drv.c
+@@ -1733,7 +1733,7 @@ static const struct drm_ioctl_desc i915_ioctls[] = {
+ 	DRM_IOCTL_DEF_DRV(I915_GEM_THROTTLE, i915_gem_throttle_ioctl, DRM_RENDER_ALLOW),
+ 	DRM_IOCTL_DEF_DRV(I915_GEM_ENTERVT, drm_noop, DRM_AUTH|DRM_MASTER|DRM_ROOT_ONLY),
+ 	DRM_IOCTL_DEF_DRV(I915_GEM_LEAVEVT, drm_noop, DRM_AUTH|DRM_MASTER|DRM_ROOT_ONLY),
+-	DRM_IOCTL_DEF_DRV(I915_GEM_CREATE, i915_gem_create_ioctl, DRM_RENDER_ALLOW),
++	DRM_IOCTL_DEF_DRV(I915_GEM_CREATE_EXT, i915_gem_create_ioctl, DRM_RENDER_ALLOW),
+ 	DRM_IOCTL_DEF_DRV(I915_GEM_PREAD, i915_gem_pread_ioctl, DRM_RENDER_ALLOW),
+ 	DRM_IOCTL_DEF_DRV(I915_GEM_PWRITE, i915_gem_pwrite_ioctl, DRM_RENDER_ALLOW),
+ 	DRM_IOCTL_DEF_DRV(I915_GEM_MMAP, i915_gem_mmap_ioctl, DRM_RENDER_ALLOW),
+diff --git a/drivers/gpu/drm/i915/i915_gem.c b/drivers/gpu/drm/i915/i915_gem.c
+index 17a4636ee542..c53b13c02e59 100644
+--- a/drivers/gpu/drm/i915/i915_gem.c
++++ b/drivers/gpu/drm/i915/i915_gem.c
+@@ -53,6 +53,7 @@
+ #include "i915_drv.h"
+ #include "i915_trace.h"
+ #include "i915_vgpu.h"
++#include "i915_user_extensions.h"
  
-+/* KCR register definitions */
-+#define KCR_INIT            _MMIO(0x320f0)
-+#define KCR_INIT_MASK_SHIFT (16)
-+/* Setting KCR Init bit is required after system boot */
-+#define KCR_INIT_ALLOW_DISPLAY_ME_WRITES (BIT(14) | (BIT(14) << KCR_INIT_MASK_SHIFT))
-+
- void intel_pxp_init(struct intel_pxp *pxp)
- {
- 	struct intel_gt *gt = container_of(pxp, struct intel_gt, pxp);
-@@ -15,6 +21,8 @@ void intel_pxp_init(struct intel_pxp *pxp)
+ #include "intel_pm.h"
  
- 	intel_pxp_ctx_init(&pxp->ctx);
- 
-+	intel_uncore_write(gt->uncore, KCR_INIT, KCR_INIT_ALLOW_DISPLAY_ME_WRITES);
-+
- 	drm_info(&gt->i915->drm, "Protected Xe Path (PXP) protected content support initialized\n");
+@@ -260,6 +261,35 @@ i915_gem_dumb_create(struct drm_file *file,
+ 			       &args->size, &args->handle);
  }
  
++struct create_ext {
++        struct drm_i915_private *i915;
++};
++
++static int __create_setparam(struct drm_i915_gem_object_param *args,
++							struct create_ext *ext_data)
++{
++	if (!(args->param & I915_OBJECT_PARAM)) {
++		DRM_DEBUG("Missing I915_OBJECT_PARAM namespace\n");
++		return -EINVAL;
++	}
++
++	return -EINVAL;
++}
++
++static int create_setparam(struct i915_user_extension __user *base, void *data)
++{
++	struct drm_i915_gem_create_ext_setparam ext;
++
++	if (copy_from_user(&ext, base, sizeof(ext)))
++		return -EFAULT;
++
++	return __create_setparam(&ext.param, data);
++}
++
++static const i915_user_extension_fn create_extensions[] = {
++	[I915_GEM_CREATE_EXT_SETPARAM] = create_setparam,
++};
++
+ /**
+  * Creates a new mm object and returns a handle to it.
+  * @dev: drm device pointer
+@@ -271,10 +301,20 @@ i915_gem_create_ioctl(struct drm_device *dev, void *data,
+ 		      struct drm_file *file)
+ {
+ 	struct drm_i915_private *i915 = to_i915(dev);
+-	struct drm_i915_gem_create *args = data;
++	struct create_ext ext_data = { .i915 = i915 };
++	struct drm_i915_gem_create_ext *args = data;
++	int ret;
+ 
+ 	i915_gem_flush_free_objects(i915);
+ 
++	ret = i915_user_extensions(u64_to_user_ptr(args->extensions),
++				   create_extensions,
++				   ARRAY_SIZE(create_extensions),
++				   &ext_data);
++	if (ret)
++		return ret;
++
++
+ 	return i915_gem_create(file,
+ 			       intel_memory_region_by_type(i915,
+ 							   INTEL_MEMORY_SYSTEM),
+diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
+index 6edcb2b6c708..e918ccc81c74 100644
+--- a/include/uapi/drm/i915_drm.h
++++ b/include/uapi/drm/i915_drm.h
+@@ -391,6 +391,7 @@ typedef struct _drm_i915_sarea {
+ #define DRM_IOCTL_I915_GEM_ENTERVT	DRM_IO(DRM_COMMAND_BASE + DRM_I915_GEM_ENTERVT)
+ #define DRM_IOCTL_I915_GEM_LEAVEVT	DRM_IO(DRM_COMMAND_BASE + DRM_I915_GEM_LEAVEVT)
+ #define DRM_IOCTL_I915_GEM_CREATE	DRM_IOWR(DRM_COMMAND_BASE + DRM_I915_GEM_CREATE, struct drm_i915_gem_create)
++#define DRM_IOCTL_I915_GEM_CREATE_EXT   DRM_IOWR(DRM_COMMAND_BASE + DRM_I915_GEM_CREATE, struct drm_i915_gem_create_ext)
+ #define DRM_IOCTL_I915_GEM_PREAD	DRM_IOW (DRM_COMMAND_BASE + DRM_I915_GEM_PREAD, struct drm_i915_gem_pread)
+ #define DRM_IOCTL_I915_GEM_PWRITE	DRM_IOW (DRM_COMMAND_BASE + DRM_I915_GEM_PWRITE, struct drm_i915_gem_pwrite)
+ #define DRM_IOCTL_I915_GEM_MMAP		DRM_IOWR(DRM_COMMAND_BASE + DRM_I915_GEM_MMAP, struct drm_i915_gem_mmap)
+@@ -728,6 +729,27 @@ struct drm_i915_gem_create {
+ 	__u32 pad;
+ };
+ 
++struct drm_i915_gem_create_ext {
++	/**
++	 * Requested size for the object.
++	 *
++	 * The (page-aligned) allocated size for the object will be returned.
++	 */
++	__u64 size;
++	/**
++	 * Returned handle for the object.
++	 *
++	 * Object handles are nonzero.
++	 */
++	__u32 handle;
++	__u32 pad;
++#define I915_GEM_CREATE_EXT_SETPARAM (1u << 0)
++#define I915_GEM_CREATE_EXT_FLAGS_UNKNOWN \
++	(-(I915_GEM_CREATE_EXT_SETPARAM << 1))
++	__u64 extensions;
++
++};
++
+ struct drm_i915_gem_pread {
+ 	/** Handle for the object being read. */
+ 	__u32 handle;
+@@ -1698,6 +1720,31 @@ struct drm_i915_gem_context_param {
+ 	__u64 value;
+ };
+ 
++struct drm_i915_gem_object_param {
++	/* Object handle (0 for I915_GEM_CREATE_EXT_SETPARAM) */
++	__u32 handle;
++
++	/* Data pointer size */
++	__u32 size;
++
++/*
++ * I915_OBJECT_PARAM:
++ *
++ * Select object namespace for the param.
++ */
++#define I915_OBJECT_PARAM  (1ull<<32)
++
++	__u64 param;
++
++	/* Data value or pointer */
++	__u64 data;
++};
++
++struct drm_i915_gem_create_ext_setparam {
++	struct i915_user_extension base;
++	struct drm_i915_gem_object_param param;
++};
++
+ /**
+  * Context SSEU programming
+  *
 -- 
 2.17.1
 
