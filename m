@@ -1,43 +1,50 @@
-Return-Path: <SRS0=GHld=GF=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
+Return-Path: <SRS0=Jw1x=GG=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 42354C433E0
-	for <intel-gfx@archiver.kernel.org>; Sat,  2 Jan 2021 11:33:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 612B2C433E0
+	for <intel-gfx@archiver.kernel.org>; Sun,  3 Jan 2021 05:41:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 70ABE20857
-	for <intel-gfx@archiver.kernel.org>; Sat,  2 Jan 2021 11:33:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 70ABE20857
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
+	by mail.kernel.org (Postfix) with ESMTPS id 18ADE20795
+	for <intel-gfx@archiver.kernel.org>; Sun,  3 Jan 2021 05:41:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 18ADE20795
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9835B897E4;
-	Sat,  2 Jan 2021 11:33:22 +0000 (UTC)
-Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8EA3E897E4;
- Sat,  2 Jan 2021 11:33:19 +0000 (UTC)
-X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
- x-ip-name=78.156.65.138; 
-Received: from localhost (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP (TLS) id
- 23483380-1500050 for multiple; Sat, 02 Jan 2021 11:32:29 +0000
-MIME-Version: 1.0
-In-Reply-To: <CAK8P3a0LWLKs+0quG_OS6EPgg2uSAOM69SKTix47tEUmuZWRdw@mail.gmail.com>
-References: <20201230153928.456260-1-arnd@kernel.org>
- <160934377188.21284.5702573697011773996@build.alporthouse.com>
- <CAK8P3a0LWLKs+0quG_OS6EPgg2uSAOM69SKTix47tEUmuZWRdw@mail.gmail.com>
-From: Chris Wilson <chris@chris-wilson.co.uk>
-To: Arnd Bergmann <arnd@kernel.org>
-Date: Sat, 02 Jan 2021 11:32:29 +0000
-Message-ID: <160958714929.4402.13745234169318953002@build.alporthouse.com>
-User-Agent: alot/0.9
-Subject: Re: [Intel-gfx] [PATCH] i915: fix shift warning
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2088289A7A;
+	Sun,  3 Jan 2021 05:41:37 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 99F8389A62
+ for <Intel-gfx@lists.freedesktop.org>; Sun,  3 Jan 2021 05:41:36 +0000 (UTC)
+IronPort-SDR: iVZ/cdUyBUvuPQ/vvEA7qhB/vkPi8Tc+gOhEJmz63aN+HjGaujmc1piyzkn7og+mwe4XdE9Dvm
+ T7puamF7JnUQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9852"; a="163916487"
+X-IronPort-AV: E=Sophos;i="5.78,471,1599548400"; d="scan'208";a="163916487"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Jan 2021 21:41:34 -0800
+IronPort-SDR: se/YRGFBJeRG3qj9TkoAYvMoVcFEgZncYzksCrvf0MoDkxwkyG5JJHtlXnEnxrAvhG6AYa3Ih5
+ cHuxHskVnh0g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.78,471,1599548400"; d="scan'208";a="461562830"
+Received: from sean-virtualbox.fm.intel.com ([10.105.158.96])
+ by fmsmga001.fm.intel.com with ESMTP; 02 Jan 2021 21:41:34 -0800
+From: "Huang, Sean Z" <sean.z.huang@intel.com>
+To: Intel-gfx@lists.freedesktop.org
+Date: Sat,  2 Jan 2021 21:41:23 -0800
+Message-Id: <20210103054134.10148-3-sean.z.huang@intel.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20210103054134.10148-1-sean.z.huang@intel.com>
+References: <20210103054134.10148-1-sean.z.huang@intel.com>
+Subject: [Intel-gfx] [RFC-v17 02/13] drm/i915/pxp: set KCR reg init during
+ the boot time
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,62 +57,51 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel <dri-devel@lists.freedesktop.org>, Arnd Bergmann <arnd@arndb.de>,
- David Airlie <airlied@linux.ie>,
- Intel Graphics <intel-gfx@lists.freedesktop.org>, linux-kernel@vger.kernel.org
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Quoting Arnd Bergmann (2021-01-02 11:23:20)
-> On Wed, Dec 30, 2020 at 4:56 PM Chris Wilson <chris@chris-wilson.co.uk> wrote:
-> >
-> > Quoting Arnd Bergmann (2020-12-30 15:39:14)
-> > > From: Arnd Bergmann <arnd@arndb.de>
-> > >
-> > > Randconfig builds on 32-bit machines show lots of warnings for
-> > > the i915 driver for incorrect bit masks like:
-> >
-> > mask is a u8.
-> >
-> > VCS0 is 2, I915_MAX_VCS 4
-> >
-> > (u8 & GENMASK(5, 2)) >> 2
-> 
-> Ah right, I misread the warning then.
-> 
-> > > drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c:2584:9: error: shift count >= width of type [-Werror,-Wshift-count-overflow]
-> > >         return hweight64(VDBOX_MASK(&i915->gt));
-> > >                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> > > include/asm-generic/bitops/const_hweight.h:29:49: note: expanded from macro 'hweight64'
-> > >  #define hweight64(w) (__builtin_constant_p(w) ? __const_hweight64(w) : __arch_hweight64(w))
-> >
-> > So it's upset by hweight64() on the unsigned long?
-> 
-> I suspect what is going on is that clang once again warns because it performs
-> more code checks before dead-code elimination than gcc does. The warning is
-> for the __const_hweight64() case, which is not actually used here because the
-> input is not a compile-time constant.
-> 
-> > So hweight_long?
-> 
-> That seems to work, I'll send a new version with that.
-> 
-> > Or use a cast, hweight8((intel_engine_mask_t)VDMASK())?
-> >
-> > static __always_inline int engine_count(intel_engine_mask_t mask)
-> > {
-> >         return sizeof(mask) == 1 ? hweight8(mask) :
-> >                 sizeof(mask) == 2 ? hweight16(mask) :
-> >                 sizeof(mask) == 4 ? hweight32(mask) :
-> >                 hweight64(mask);
-> > }
-> 
-> Fine with me as well. If you prefer that way, I'll let you handle that.
+Set the KCR init during the boot time, which is
+required by hardware, to allow us doing further
+protection operation such as sending commands to
+GPU or TEE.
 
-While we wait for a generic hweight(), lets use hweight_long() here.
--Chris
+Signed-off-by: Huang, Sean Z <sean.z.huang@intel.com>
+---
+ drivers/gpu/drm/i915/pxp/intel_pxp.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.c b/drivers/gpu/drm/i915/pxp/intel_pxp.c
+index 9bc3c7e30654..f566a4fda044 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp.c
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp.c
+@@ -6,6 +6,12 @@
+ #include "intel_pxp.h"
+ #include "intel_pxp_context.h"
+ 
++/* KCR register definitions */
++#define KCR_INIT            _MMIO(0x320f0)
++#define KCR_INIT_MASK_SHIFT (16)
++/* Setting KCR Init bit is required after system boot */
++#define KCR_INIT_ALLOW_DISPLAY_ME_WRITES (BIT(14) | (BIT(14) << KCR_INIT_MASK_SHIFT))
++
+ void intel_pxp_init(struct intel_pxp *pxp)
+ {
+ 	struct intel_gt *gt = container_of(pxp, struct intel_gt, pxp);
+@@ -15,6 +21,8 @@ void intel_pxp_init(struct intel_pxp *pxp)
+ 
+ 	intel_pxp_ctx_init(&pxp->ctx);
+ 
++	intel_uncore_write(gt->uncore, KCR_INIT, KCR_INIT_ALLOW_DISPLAY_ME_WRITES);
++
+ 	drm_info(&gt->i915->drm, "Protected Xe Path (PXP) protected content support initialized\n");
+ }
+ 
+-- 
+2.17.1
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
