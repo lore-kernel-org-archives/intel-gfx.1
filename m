@@ -2,51 +2,41 @@ Return-Path: <SRS0=TENP=GH=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4364BC4332E
-	for <intel-gfx@archiver.kernel.org>; Mon,  4 Jan 2021 15:16:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 48934C433DB
+	for <intel-gfx@archiver.kernel.org>; Mon,  4 Jan 2021 16:01:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 02108221E5
-	for <intel-gfx@archiver.kernel.org>; Mon,  4 Jan 2021 15:16:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 02108221E5
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
+	by mail.kernel.org (Postfix) with ESMTPS id EE61A2251E
+	for <intel-gfx@archiver.kernel.org>; Mon,  4 Jan 2021 16:01:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EE61A2251E
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8FB726E027;
-	Mon,  4 Jan 2021 15:16:13 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D2D828991A;
- Sun,  3 Jan 2021 13:52:03 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 09EF6208C7;
- Sun,  3 Jan 2021 13:52:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1609681923;
- bh=fXJteWwKPcvYb6lpdOnO34DEgCFpdo7x5opOVSvacyA=;
- h=From:To:Cc:Subject:Date:From;
- b=c2It6IiNUywAUqc2Wbrh9DYinEIocdBARj1O8wMGCaQzFTzYJ2tDYUkhSxBGZUJzK
- PLy1wLaoXsQTSTVJ7rgQQuzY+ygFcola2F3nHH948AMf69o0Rw+jHeyHB/BQSWFyTU
- wHVH7oPeadg7wkXClFJI2sebl1UldkYvFXSPE9A1nKSm1f8DPbxrwOQr7UpDDUGkAs
- wg0nazETESUpM9bMGQspjt2YEKCPEkR3X2MsyeFLxs3krVlF0fg4SzKD8HG8RzZmKA
- jPG4Zj+GUTs59Z+1NZCbISIgCt2iKh7pRwFshqgY9WtsVhOaJ6neu+hYbZ69OZiXjh
- JmipMujqQGpbw==
-From: Arnd Bergmann <arnd@kernel.org>
-To: Chris Wilson <chris@chris-wilson.co.uk>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>
-Date: Sun,  3 Jan 2021 14:51:44 +0100
-Message-Id: <20210103135158.3591442-1-arnd@kernel.org>
-X-Mailer: git-send-email 2.29.2
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A79B6E047;
+	Mon,  4 Jan 2021 16:01:24 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 6BD586E03A;
+ Mon,  4 Jan 2021 16:01:22 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 74708A0091;
+ Mon,  4 Jan 2021 16:01:21 +0000 (UTC)
 MIME-Version: 1.0
-X-Mailman-Approved-At: Mon, 04 Jan 2021 15:16:05 +0000
-Subject: [Intel-gfx] [PATCH] [v2] i915: fix shift warning
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Gwan-gyeong Mun" <gwan-gyeong.mun@intel.com>
+Date: Mon, 04 Jan 2021 16:01:21 -0000
+Message-ID: <160977608147.24932.4694420130694237804@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20210104130720.1151496-1-gwan-gyeong.mun@intel.com>
+In-Reply-To: <20210104130720.1151496-1-gwan-gyeong.mun@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_series_starting_with_=5Bv10=2C1/2=5D_drm/i915/display=3A_Su?=
+ =?utf-8?q?pport_PSR_Multiple_Instances?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,47 +49,30 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Arnd Bergmann <arnd@arndb.de>, intel-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Matthew Auld <matthew.auld@intel.com>, Dave Airlie <airlied@redhat.com>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Arnd Bergmann <arnd@arndb.de>
+== Series Details ==
 
-Randconfig builds on 32-bit machines show lots of warnings for
-the i915 driver for passing a 32-bit value into __const_hweight64():
+Series: series starting with [v10,1/2] drm/i915/display: Support PSR Multiple Instances
+URL   : https://patchwork.freedesktop.org/series/85444/
+State : warning
 
-drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c:2584:9: error: shift count >= width of type [-Werror,-Wshift-count-overflow]
-        return hweight64(VDBOX_MASK(&i915->gt));
-               ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-include/asm-generic/bitops/const_hweight.h:29:49: note: expanded from macro 'hweight64'
- #define hweight64(w) (__builtin_constant_p(w) ? __const_hweight64(w) : __arch_hweight64(w))
+== Summary ==
 
-Change it to hweight_long() to avoid the warning.
+$ dim checkpatch origin/drm-tip
+5338f9b30dac drm/i915/display: Support PSR Multiple Instances
+-:1715: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'intel_dp' - possible side-effects?
+#1715: FILE: drivers/gpu/drm/i915/display/intel_psr.h:21:
++#define CAN_PSR(intel_dp) (HAS_PSR(dp_to_i915(intel_dp)) && intel_dp->psr.sink_support)
 
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
----
- drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+total: 0 errors, 0 warnings, 1 checks, 1737 lines checked
+4d440cc83914 drm/i915/display: Support Multiple Transcoders' PSR status on debugfs
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-index bcc80f428172..43164a0b0023 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-@@ -2581,7 +2581,7 @@ static int eb_submit(struct i915_execbuffer *eb, struct i915_vma *batch)
- 
- static int num_vcs_engines(const struct drm_i915_private *i915)
- {
--	return hweight64(VDBOX_MASK(&i915->gt));
-+	return hweight_long(VDBOX_MASK(&i915->gt));
- }
- 
- /*
--- 
-2.29.2
 
 _______________________________________________
 Intel-gfx mailing list
