@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0F6ABC433DB
-	for <intel-gfx@archiver.kernel.org>; Mon,  4 Jan 2021 11:52:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 37A1AC433E6
+	for <intel-gfx@archiver.kernel.org>; Mon,  4 Jan 2021 11:52:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 95454221F9
-	for <intel-gfx@archiver.kernel.org>; Mon,  4 Jan 2021 11:52:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 95454221F9
+	by mail.kernel.org (Postfix) with ESMTPS id CFE93221F9
+	for <intel-gfx@archiver.kernel.org>; Mon,  4 Jan 2021 11:52:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CFE93221F9
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 299A689B4D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 70B6989CA2;
 	Mon,  4 Jan 2021 11:52:08 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9371089B4D
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD88489D57
  for <intel-gfx@lists.freedesktop.org>; Mon,  4 Jan 2021 11:52:06 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23495868-1500050 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23495866-1500050 
  for multiple; Mon, 04 Jan 2021 11:51:52 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon,  4 Jan 2021 11:51:43 +0000
-Message-Id: <20210104115145.24460-4-chris@chris-wilson.co.uk>
+Date: Mon,  4 Jan 2021 11:51:41 +0000
+Message-Id: <20210104115145.24460-2-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20210104115145.24460-1-chris@chris-wilson.co.uk>
 References: <20210104115145.24460-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 4/6] drm/i915/gt: Check the virtual still
- matches upon locking
+Subject: [Intel-gfx] [PATCH 2/6] drm/i915: Set rawclk earlier during mmio
+ probe
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,50 +56,33 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-If another sibling is able to claim the virtual request, by the time we
-inspect the request under the lock if may no longer match the local
-engine.
-
-Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/2877
+Fixes: f170523a7b8e ("drm/i915/gt: Consolidate the CS timestamp clocks")
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 ---
- drivers/gpu/drm/i915/gt/intel_execlists_submission.c | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/i915/i915_drv.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-index f02e3ae10d28..a5b442683c18 100644
---- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-+++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-@@ -1016,6 +1016,9 @@ static bool virtual_matches(const struct virtual_engine *ve,
- {
- 	const struct intel_engine_cs *inflight;
+diff --git a/drivers/gpu/drm/i915/i915_drv.c b/drivers/gpu/drm/i915/i915_drv.c
+index 249f765993f7..3e504247f2da 100644
+--- a/drivers/gpu/drm/i915/i915_drv.c
++++ b/drivers/gpu/drm/i915/i915_drv.c
+@@ -410,6 +410,7 @@ static int i915_driver_mmio_probe(struct drm_i915_private *dev_priv)
  
-+	if (!rq)
-+		return false;
-+
- 	if (!(rq->execution_mask & engine->mask)) /* We peeked too soon! */
- 		return false;
+ 	/* Try to make sure MCHBAR is enabled before poking at it */
+ 	intel_setup_mchbar(dev_priv);
++	intel_device_info_runtime_init(dev_priv);
  
-@@ -1423,8 +1426,8 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
- 		spin_lock(&ve->base.active.lock);
+ 	ret = intel_gt_init_mmio(&dev_priv->gt);
+ 	if (ret)
+@@ -516,8 +517,6 @@ static int i915_driver_hw_probe(struct drm_i915_private *dev_priv)
+ 	if (i915_inject_probe_failure(dev_priv))
+ 		return -ENODEV;
  
- 		rq = ve->request;
--		if (unlikely(!rq)) /* lost the race to a sibling */
--			goto unlock;
-+		if (unlikely(!virtual_matches(ve, rq, engine)))
-+			goto unlock; /* lost the race to a sibling */
- 
- 		GEM_BUG_ON(rq->engine != &ve->base);
- 		GEM_BUG_ON(rq->context != &ve->context);
-@@ -1434,8 +1437,6 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
- 			break;
- 		}
- 
--		GEM_BUG_ON(!virtual_matches(ve, rq, engine));
+-	intel_device_info_runtime_init(dev_priv);
 -
- 		if (last && !can_merge_rq(last, rq)) {
- 			spin_unlock(&ve->base.active.lock);
- 			spin_unlock(&engine->active.lock);
+ 	if (HAS_PPGTT(dev_priv)) {
+ 		if (intel_vgpu_active(dev_priv) &&
+ 		    !intel_vgpu_has_full_ppgtt(dev_priv)) {
 -- 
 2.20.1
 
