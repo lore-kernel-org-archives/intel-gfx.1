@@ -7,44 +7,44 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B8ED2C433E0
-	for <intel-gfx@archiver.kernel.org>; Mon,  4 Jan 2021 06:01:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E69A3C433DB
+	for <intel-gfx@archiver.kernel.org>; Mon,  4 Jan 2021 06:01:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6B68520DD4
-	for <intel-gfx@archiver.kernel.org>; Mon,  4 Jan 2021 06:01:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6B68520DD4
+	by mail.kernel.org (Postfix) with ESMTPS id 9E27020DD4
+	for <intel-gfx@archiver.kernel.org>; Mon,  4 Jan 2021 06:01:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9E27020DD4
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9556989561;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EDB4989613;
 	Mon,  4 Jan 2021 06:01:37 +0000 (UTC)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE99B89613
- for <Intel-gfx@lists.freedesktop.org>; Mon,  4 Jan 2021 06:01:36 +0000 (UTC)
-IronPort-SDR: c2JdZVSTly62rfxCl+xIO5r1+x/fNnXyFpev6TVS0g9z/FlKf/pnxqIeAnVJMqSumunv8jx8v3
- +1zoODEmhEoQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9853"; a="238465249"
-X-IronPort-AV: E=Sophos;i="5.78,473,1599548400"; d="scan'208";a="238465249"
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E04E894C9
+ for <Intel-gfx@lists.freedesktop.org>; Mon,  4 Jan 2021 06:01:37 +0000 (UTC)
+IronPort-SDR: CKSnKEdSSPAG6ozQYY9eCd1vXv1y8/e9pbJ6zfl4FLYY79DuUh4ccP19U8ch/hSRJvyGRvY1sp
+ lIE7RinFVlBw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9853"; a="176135364"
+X-IronPort-AV: E=Sophos;i="5.78,473,1599548400"; d="scan'208";a="176135364"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Jan 2021 22:01:35 -0800
-IronPort-SDR: Gk7JvUxn/ryGLWJIDHNmDAxi0EBuk+2a/0CWIeHaoK4Qg8C82UuU9E99pJ9njtZdm1icL3vCR+
- +hFaTS/BU4xA==
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Jan 2021 22:01:36 -0800
+IronPort-SDR: 8PjBkefoILi9aZ6SR+y1agv427gLm7q8xqiGK33TVoXAFcaptffMxMjPnwuO91dAKXPlkA7oOQ
+ xqr+8eKB4F8w==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.78,473,1599548400"; d="scan'208";a="461826917"
+X-IronPort-AV: E=Sophos;i="5.78,473,1599548400"; d="scan'208";a="461826925"
 Received: from sean-virtualbox.fm.intel.com ([10.105.158.96])
  by fmsmga001.fm.intel.com with ESMTP; 03 Jan 2021 22:01:35 -0800
 From: "Huang, Sean Z" <sean.z.huang@intel.com>
 To: Intel-gfx@lists.freedesktop.org
-Date: Sun,  3 Jan 2021 22:01:23 -0800
-Message-Id: <20210104060135.3076-2-sean.z.huang@intel.com>
+Date: Sun,  3 Jan 2021 22:01:31 -0800
+Message-Id: <20210104060135.3076-10-sean.z.huang@intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20210104060135.3076-1-sean.z.huang@intel.com>
 References: <20210104060135.3076-1-sean.z.huang@intel.com>
-Subject: [Intel-gfx] [RFC-v18 01/13] drm/i915/pxp: Introduce Intel PXP
- component
+Subject: [Intel-gfx] [RFC-v18 09/13] drm/i915/pxp: Expose session state for
+ display protection flip
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,280 +63,125 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-PXP (Protected Xe Path) is an i915 componment, available on GEN12+,
-that helps to establish the hardware protected session and manage
-the status of the alive software session, as well as its life cycle.
-
-This patch series is to allow the kernel space to create and
-manage a single hardware session (a.k.a default session or
-arbitrary session). So Mesa can allocate the protected buffer,
-which is encrypted with the leverage of the arbitrary hardware
-session.
+Implement the intel_pxp_gem_object_status() to allow i915 display
+querying the current PXP session state. In the design, display
+should not perform protection flip on the protected buffers if
+there is no PXP session alive. And Implement the funciton to set
+the protected flag for gem context.
 
 Signed-off-by: Huang, Sean Z <sean.z.huang@intel.com>
 ---
- drivers/gpu/drm/i915/Kconfig                 | 22 +++++++++++++++
- drivers/gpu/drm/i915/Makefile                |  5 ++++
- drivers/gpu/drm/i915/gt/intel_gt.c           |  4 +++
- drivers/gpu/drm/i915/gt/intel_gt_types.h     |  3 ++
- drivers/gpu/drm/i915/pxp/intel_pxp.c         | 29 ++++++++++++++++++++
- drivers/gpu/drm/i915/pxp/intel_pxp.h         | 25 +++++++++++++++++
- drivers/gpu/drm/i915/pxp/intel_pxp_context.c | 25 +++++++++++++++++
- drivers/gpu/drm/i915/pxp/intel_pxp_context.h | 15 ++++++++++
- drivers/gpu/drm/i915/pxp/intel_pxp_types.h   | 23 ++++++++++++++++
- 9 files changed, 151 insertions(+)
- create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp.c
- create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp.h
- create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_context.c
- create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_context.h
- create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_types.h
+ drivers/gpu/drm/i915/pxp/intel_pxp.c     | 21 +++++++++++++++++++++
+ drivers/gpu/drm/i915/pxp/intel_pxp.h     | 18 ++++++++++++++++++
+ drivers/gpu/drm/i915/pxp/intel_pxp_arb.c |  4 ++--
+ drivers/gpu/drm/i915/pxp/intel_pxp_arb.h |  1 +
+ 4 files changed, 42 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/Kconfig b/drivers/gpu/drm/i915/Kconfig
-index 1e1cb245fca7..594775c11e19 100644
---- a/drivers/gpu/drm/i915/Kconfig
-+++ b/drivers/gpu/drm/i915/Kconfig
-@@ -130,6 +130,28 @@ config DRM_I915_GVT_KVMGT
- 	  Choose this option if you want to enable KVMGT support for
- 	  Intel GVT-g.
- 
-+config DRM_I915_PXP
-+	bool "Enable Intel PXP support for Intel Gen12+ platform"
-+	depends on DRM_I915
-+	select INTEL_MEI
-+	select INTEL_MEI_ME
-+	select INTEL_MEI_TXE
-+	select INTEL_MEI_PXP
-+	default y
-+	help
-+	  This option selects INTEL_MEI_ME if it isn't already selected to
-+	  enabled full PXP Services on Intel platforms.
-+
-+	  PXP (Protected Xe Path) is an i915 componment, available on GEN12+,
-+	  that helps to establish the hardware protected session and manage
-+	  the status of the alive software session, as well as its life cycle.
-+
-+	  This patch series is to allow the kernel space to create and
-+	  manage a single hardware session (a.k.a default session or
-+	  arbitrary session). So Mesa can allocate the protected buffer,
-+	  which is encrypted with the leverage of the arbitrary hardware
-+	  session.
-+
- menu "drm/i915 Debugging"
- depends on DRM_I915
- depends on EXPERT
-diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
-index f1c7c3246226..2a58cbd3e6fe 100644
---- a/drivers/gpu/drm/i915/Makefile
-+++ b/drivers/gpu/drm/i915/Makefile
-@@ -259,6 +259,11 @@ i915-y += \
- 
- i915-y += i915_perf.o
- 
-+# Protected execution platform (PXP) support
-+i915-$(CONFIG_DRM_I915_PXP) += \
-+	pxp/intel_pxp.o \
-+	pxp/intel_pxp_context.o
-+
- # Post-mortem debug and GPU hang state capture
- i915-$(CONFIG_DRM_I915_CAPTURE_ERROR) += i915_gpu_error.o
- i915-$(CONFIG_DRM_I915_SELFTEST) += \
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt/intel_gt.c
-index d8e1ab412634..fb8a4740bb40 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt.c
-@@ -18,6 +18,7 @@
- #include "intel_uncore.h"
- #include "intel_pm.h"
- #include "shmem_utils.h"
-+#include "pxp/intel_pxp.h"
- 
- void intel_gt_init_early(struct intel_gt *gt, struct drm_i915_private *i915)
- {
-@@ -584,6 +585,8 @@ int intel_gt_init(struct intel_gt *gt)
- 	if (err)
- 		goto err_gt;
- 
-+	intel_pxp_init(&gt->pxp);
-+
- 	goto out_fw;
- err_gt:
- 	__intel_gt_disable(gt);
-@@ -638,6 +641,7 @@ void intel_gt_driver_release(struct intel_gt *gt)
- 	if (vm) /* FIXME being called twice on error paths :( */
- 		i915_vm_put(vm);
- 
-+	intel_pxp_fini(&gt->pxp);
- 	intel_gt_pm_fini(gt);
- 	intel_gt_fini_scratch(gt);
- 	intel_gt_fini_buffer_pool(gt);
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_types.h b/drivers/gpu/drm/i915/gt/intel_gt_types.h
-index a83d3e18254d..c4760e2722fd 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_types.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_types.h
-@@ -23,6 +23,7 @@
- #include "intel_rc6_types.h"
- #include "intel_rps_types.h"
- #include "intel_wakeref.h"
-+#include "pxp/intel_pxp_types.h"
- 
- struct drm_i915_private;
- struct i915_ggtt;
-@@ -145,6 +146,8 @@ struct intel_gt {
- 		/* Slice/subslice/EU info */
- 		struct sseu_dev_info sseu;
- 	} info;
-+
-+	struct intel_pxp pxp;
- };
- 
- enum intel_gt_scratch_field {
 diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.c b/drivers/gpu/drm/i915/pxp/intel_pxp.c
-new file mode 100644
-index 000000000000..9bc3c7e30654
---- /dev/null
+index 23d4cfc1fb1f..a28a459532c2 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp.c
 +++ b/drivers/gpu/drm/i915/pxp/intel_pxp.c
-@@ -0,0 +1,29 @@
-+// SPDX-License-Identifier: MIT
-+/*
-+ * Copyright(c) 2020 Intel Corporation.
-+ */
-+#include "i915_drv.h"
-+#include "intel_pxp.h"
-+#include "intel_pxp_context.h"
+@@ -158,3 +158,24 @@ void intel_pxp_irq_handler(struct intel_pxp *pxp, u16 iir)
+ 	pxp->current_events |= events;
+ 	schedule_work(&pxp->irq_work);
+ }
 +
-+void intel_pxp_init(struct intel_pxp *pxp)
++bool intel_pxp_gem_object_status(struct drm_i915_private *i915)
 +{
-+	struct intel_gt *gt = container_of(pxp, struct intel_gt, pxp);
-+
-+	if (INTEL_GEN(gt->i915) < 12)
-+		return;
-+
-+	intel_pxp_ctx_init(&pxp->ctx);
-+
-+	drm_info(&gt->i915->drm, "Protected Xe Path (PXP) protected content support initialized\n");
++	if (i915->gt.pxp.ctx.inited &&
++	    i915->gt.pxp.ctx.flag_display_hm_surface_keys)
++		return true;
++	else
++		return false;
 +}
 +
-+void intel_pxp_fini(struct intel_pxp *pxp)
++int intel_pxp_gem_context_set_protected(struct drm_i915_private *i915,
++					unsigned long *user_flags,
++					u32 protected_bit)
 +{
-+	struct intel_gt *gt = container_of(pxp, struct intel_gt, pxp);
++	if (!user_flags || !protected_bit ||
++	    !intel_pxp_arb_session_is_in_play(&i915->gt.pxp))
++		return -EINVAL;
 +
-+	if (INTEL_GEN(gt->i915) < 12)
-+		return;
-+
-+	intel_pxp_ctx_fini(&pxp->ctx);
++	set_bit(protected_bit, user_flags);
++	return 0;
 +}
 diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.h b/drivers/gpu/drm/i915/pxp/intel_pxp.h
-new file mode 100644
-index 000000000000..f47bc6bea34f
---- /dev/null
+index cdaa6ce6fdca..ff1c1c0e720c 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp.h
 +++ b/drivers/gpu/drm/i915/pxp/intel_pxp.h
-@@ -0,0 +1,25 @@
-+/* SPDX-License-Identifier: MIT */
-+/*
-+ * Copyright(c) 2020, Intel Corporation. All rights reserved.
-+ */
+@@ -29,6 +29,8 @@ enum pxp_protection_modes {
+ 	PROTECTION_MODE_ALL
+ };
+ 
++struct drm_i915_private;
 +
-+#ifndef __INTEL_PXP_H__
-+#define __INTEL_PXP_H__
+ #ifdef CONFIG_DRM_I915_PXP
+ void intel_pxp_irq_handler(struct intel_pxp *pxp, u16 iir);
+ int i915_pxp_teardown_required_callback(struct intel_pxp *pxp);
+@@ -36,6 +38,10 @@ int i915_pxp_global_terminate_complete_callback(struct intel_pxp *pxp);
+ 
+ void intel_pxp_init(struct intel_pxp *pxp);
+ void intel_pxp_fini(struct intel_pxp *pxp);
++bool intel_pxp_gem_object_status(struct drm_i915_private *i915);
++int intel_pxp_gem_context_set_protected(struct drm_i915_private *i915,
++					unsigned long *user_flag,
++					u32 protected_bit);
+ #else
+ static inline void intel_pxp_irq_handler(struct intel_pxp *pxp, u16 iir)
+ {
+@@ -58,6 +64,18 @@ static inline void intel_pxp_init(struct intel_pxp *pxp)
+ static inline void intel_pxp_fini(struct intel_pxp *pxp)
+ {
+ }
 +
-+#include "intel_pxp_types.h"
++static inline bool intel_pxp_gem_object_status(struct drm_i915_private *i915)
++{
++	return false;
++}
 +
-+#ifdef CONFIG_DRM_I915_PXP
-+void intel_pxp_init(struct intel_pxp *pxp);
-+void intel_pxp_fini(struct intel_pxp *pxp);
-+#else
-+static inline void intel_pxp_init(struct intel_pxp *pxp)
++static inline int intel_pxp_gem_context_set_protected(struct drm_i915_private *i915,
++						      unsigned long *user_flag,
++						      u32 protected_bit)
 +{
 +	return 0;
 +}
-+
-+static inline void intel_pxp_fini(struct intel_pxp *pxp)
-+{
-+}
-+#endif
-+
-+#endif /* __INTEL_PXP_H__ */
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_context.c b/drivers/gpu/drm/i915/pxp/intel_pxp_context.c
-new file mode 100644
-index 000000000000..2be6bf2f0d0f
---- /dev/null
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_context.c
-@@ -0,0 +1,25 @@
-+// SPDX-License-Identifier: MIT
-+/*
-+ * Copyright(c) 2020, Intel Corporation. All rights reserved.
-+ */
-+
-+#include "intel_pxp_context.h"
-+
-+/**
-+ * intel_pxp_ctx_init - To init a pxp context.
-+ * @ctx: pointer to ctx structure.
-+ */
-+void intel_pxp_ctx_init(struct pxp_context *ctx)
-+{
-+	mutex_init(&ctx->mutex);
-+	ctx->inited = true;
-+}
-+
-+/**
-+ * intel_pxp_ctx_fini - To finish the pxp context.
-+ * @ctx: pointer to ctx structure.
-+ */
-+void intel_pxp_ctx_fini(struct pxp_context *ctx)
-+{
-+	ctx->inited = false;
-+}
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_context.h b/drivers/gpu/drm/i915/pxp/intel_pxp_context.h
-new file mode 100644
-index 000000000000..f51021c33d45
---- /dev/null
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_context.h
-@@ -0,0 +1,15 @@
-+/* SPDX-License-Identifier: MIT */
-+/*
-+ * Copyright(c) 2020, Intel Corporation. All rights reserved.
-+ */
-+
-+#ifndef __INTEL_PXP_CONTEXT_H__
-+#define __INTEL_PXP_CONTEXT_H__
-+
-+#include <linux/mutex.h>
-+#include "intel_pxp_types.h"
-+
-+void intel_pxp_ctx_init(struct pxp_context *ctx);
-+void intel_pxp_ctx_fini(struct pxp_context *ctx);
-+
-+#endif /* __INTEL_PXP_CONTEXT_H__ */
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_types.h b/drivers/gpu/drm/i915/pxp/intel_pxp_types.h
-new file mode 100644
-index 000000000000..f9b40ea98b1b
---- /dev/null
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_types.h
-@@ -0,0 +1,23 @@
-+/* SPDX-License-Identifier: MIT */
-+/*
-+ * Copyright(c) 2020, Intel Corporation. All rights reserved.
-+ */
-+
-+#ifndef __INTEL_PXP_TYPES_H__
-+#define __INTEL_PXP_TYPES_H__
-+
-+#include <linux/mutex.h>
-+
-+/* struct pxp_context - Represents combined view of driver and logical HW states. */
-+struct pxp_context {
-+	/** @mutex: mutex to protect the pxp context */
-+	struct mutex mutex;
-+
-+	bool inited;
-+};
-+
-+struct intel_pxp {
-+	struct pxp_context ctx;
-+};
-+
-+#endif /* __INTEL_PXP_TYPES_H__ */
+ #endif
+ 
+ #endif /* __INTEL_PXP_H__ */
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_arb.c b/drivers/gpu/drm/i915/pxp/intel_pxp_arb.c
+index 2038d4638711..1d2ec8ffd7ad 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp_arb.c
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_arb.c
+@@ -18,7 +18,7 @@
+ #define ARB_SESSION_INDEX 0xf
+ #define ARB_SESSION_TYPE SESSION_TYPE_TYPE0
+ 
+-static bool is_hw_arb_session_in_play(struct intel_pxp *pxp)
++bool intel_pxp_arb_session_is_in_play(struct intel_pxp *pxp)
+ {
+ 	u32 regval_sip = 0;
+ 	intel_wakeref_t wakeref;
+@@ -42,7 +42,7 @@ static int wait_arb_hw_sw_state(struct intel_pxp *pxp)
+ 
+ 	ret = -EINVAL;
+ 	for (retry = 0; retry < max_retry; retry++) {
+-		if (is_hw_arb_session_in_play(pxp) ==
++		if (intel_pxp_arb_session_is_in_play(pxp) ==
+ 		    arb->is_in_play) {
+ 			ret = 0;
+ 			break;
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_arb.h b/drivers/gpu/drm/i915/pxp/intel_pxp_arb.h
+index c1ed4ab176aa..42261ef33a03 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp_arb.h
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_arb.h
+@@ -12,5 +12,6 @@ struct intel_pxp;
+ 
+ int intel_pxp_arb_create_session(struct intel_pxp *pxp);
+ int intel_pxp_arb_terminate_session(struct intel_pxp *pxp);
++bool intel_pxp_arb_session_is_in_play(struct intel_pxp *pxp);
+ 
+ #endif /* __INTEL_PXP_ARB_H__ */
 -- 
 2.17.1
 
