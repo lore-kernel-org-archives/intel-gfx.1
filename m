@@ -7,33 +7,32 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D8090C433E6
-	for <intel-gfx@archiver.kernel.org>; Tue,  5 Jan 2021 15:46:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9CECFC433DB
+	for <intel-gfx@archiver.kernel.org>; Tue,  5 Jan 2021 15:46:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A6F7022BF3
-	for <intel-gfx@archiver.kernel.org>; Tue,  5 Jan 2021 15:46:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A6F7022BF3
+	by mail.kernel.org (Postfix) with ESMTPS id 62DA922BF3
+	for <intel-gfx@archiver.kernel.org>; Tue,  5 Jan 2021 15:46:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 62DA922BF3
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D8E26E174;
-	Tue,  5 Jan 2021 15:45:47 +0000 (UTC)
-Received: from mblankhorst.nl (mblankhorst.nl
- [IPv6:2a02:2308::216:3eff:fe92:dfa3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D1E7F6E15D
+	by gabe.freedesktop.org (Postfix) with ESMTP id 389206E169;
+	Tue,  5 Jan 2021 15:45:46 +0000 (UTC)
+Received: from mblankhorst.nl (mblankhorst.nl [141.105.120.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A6F46E15E
  for <intel-gfx@lists.freedesktop.org>; Tue,  5 Jan 2021 15:45:41 +0000 (UTC)
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue,  5 Jan 2021 16:35:25 +0100
-Message-Id: <20210105153558.134272-32-maarten.lankhorst@linux.intel.com>
+Date: Tue,  5 Jan 2021 16:34:56 +0100
+Message-Id: <20210105153558.134272-3-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.30.0.rc1
 In-Reply-To: <20210105153558.134272-1-maarten.lankhorst@linux.intel.com>
 References: <20210105153558.134272-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v6 31/64] drm/i915: Fix workarounds selftest,
- part 1
+Subject: [Intel-gfx] [PATCH v6 02/64] drm/i915: Pin timeline map after first
+ timeline pin, v3.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,143 +45,375 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-cGluX21hcCBuZWVkcyB0aGUgd3cgbG9jaywgc28gZW5zdXJlIHdlIHBpbiBib3RoIGJlZm9yZSBz
-dWJtaXNzaW9uLgoKU2lnbmVkLW9mZi1ieTogTWFhcnRlbiBMYW5raG9yc3QgPG1hYXJ0ZW4ubGFu
-a2hvcnN0QGxpbnV4LmludGVsLmNvbT4KUmV2aWV3ZWQtYnk6IFRob21hcyBIZWxsc3Ryw7ZtIDx0
-aG9tYXMuaGVsbHN0cm9tQGxpbnV4LmludGVsLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vaTkx
-NS9nZW0vaTkxNV9nZW1fb2JqZWN0LmggICAgfCAgMyArCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9n
-ZW0vaTkxNV9nZW1fcGFnZXMuYyAgICAgfCAxMiArKysKIC4uLi9ncHUvZHJtL2k5MTUvZ3Qvc2Vs
-ZnRlc3Rfd29ya2Fyb3VuZHMuYyAgICB8IDc2ICsrKysrKysrKysrKy0tLS0tLS0KIDMgZmlsZXMg
-Y2hhbmdlZCwgNjQgaW5zZXJ0aW9ucygrKSwgMjcgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEv
-ZHJpdmVycy9ncHUvZHJtL2k5MTUvZ2VtL2k5MTVfZ2VtX29iamVjdC5oIGIvZHJpdmVycy9ncHUv
-ZHJtL2k5MTUvZ2VtL2k5MTVfZ2VtX29iamVjdC5oCmluZGV4IGZiZDAxZTI1Y2E3MS4uYThlOThh
-Y2RmYzA0IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9nZW0vaTkxNV9nZW1fb2Jq
-ZWN0LmgKKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ2VtL2k5MTVfZ2VtX29iamVjdC5oCkBA
-IC0zOTUsNiArMzk1LDkgQEAgZW51bSBpOTE1X21hcF90eXBlIHsKIHZvaWQgKl9fbXVzdF9jaGVj
-ayBpOTE1X2dlbV9vYmplY3RfcGluX21hcChzdHJ1Y3QgZHJtX2k5MTVfZ2VtX29iamVjdCAqb2Jq
-LAogCQkJCQkgICBlbnVtIGk5MTVfbWFwX3R5cGUgdHlwZSk7CiAKK3ZvaWQgKl9fbXVzdF9jaGVj
-ayBpOTE1X2dlbV9vYmplY3RfcGluX21hcF91bmxvY2tlZChzdHJ1Y3QgZHJtX2k5MTVfZ2VtX29i
-amVjdCAqb2JqLAorCQkJCQkJICAgIGVudW0gaTkxNV9tYXBfdHlwZSB0eXBlKTsKKwogdm9pZCBf
-X2k5MTVfZ2VtX29iamVjdF9mbHVzaF9tYXAoc3RydWN0IGRybV9pOTE1X2dlbV9vYmplY3QgKm9i
-aiwKIAkJCQkgdW5zaWduZWQgbG9uZyBvZmZzZXQsCiAJCQkJIHVuc2lnbmVkIGxvbmcgc2l6ZSk7
-CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9nZW0vaTkxNV9nZW1fcGFnZXMuYyBi
-L2RyaXZlcnMvZ3B1L2RybS9pOTE1L2dlbS9pOTE1X2dlbV9wYWdlcy5jCmluZGV4IGZmYzNjM2M0
-NzRiMS4uZTdlNTg5OGNiMTQzIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9nZW0v
-aTkxNV9nZW1fcGFnZXMuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9nZW0vaTkxNV9nZW1f
-cGFnZXMuYwpAQCAtMzk3LDYgKzM5NywxOCBAQCB2b2lkICppOTE1X2dlbV9vYmplY3RfcGluX21h
-cChzdHJ1Y3QgZHJtX2k5MTVfZ2VtX29iamVjdCAqb2JqLAogCWdvdG8gb3V0X3VubG9jazsKIH0K
-IAordm9pZCAqaTkxNV9nZW1fb2JqZWN0X3Bpbl9tYXBfdW5sb2NrZWQoc3RydWN0IGRybV9pOTE1
-X2dlbV9vYmplY3QgKm9iaiwKKwkJCQkgICAgICAgZW51bSBpOTE1X21hcF90eXBlIHR5cGUpCit7
-CisJdm9pZCAqcmV0OworCisJaTkxNV9nZW1fb2JqZWN0X2xvY2sob2JqLCBOVUxMKTsKKwlyZXQg
-PSBpOTE1X2dlbV9vYmplY3RfcGluX21hcChvYmosIHR5cGUpOworCWk5MTVfZ2VtX29iamVjdF91
-bmxvY2sob2JqKTsKKworCXJldHVybiByZXQ7Cit9CisKIHZvaWQgX19pOTE1X2dlbV9vYmplY3Rf
-Zmx1c2hfbWFwKHN0cnVjdCBkcm1faTkxNV9nZW1fb2JqZWN0ICpvYmosCiAJCQkJIHVuc2lnbmVk
-IGxvbmcgb2Zmc2V0LAogCQkJCSB1bnNpZ25lZCBsb25nIHNpemUpCmRpZmYgLS1naXQgYS9kcml2
-ZXJzL2dwdS9kcm0vaTkxNS9ndC9zZWxmdGVzdF93b3JrYXJvdW5kcy5jIGIvZHJpdmVycy9ncHUv
-ZHJtL2k5MTUvZ3Qvc2VsZnRlc3Rfd29ya2Fyb3VuZHMuYwppbmRleCA3Y2U3OTU1YzQ0ZDQuLjVj
-Yzc4ZWFkYTA5NyAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3Qvc2VsZnRlc3Rf
-d29ya2Fyb3VuZHMuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9ndC9zZWxmdGVzdF93b3Jr
-YXJvdW5kcy5jCkBAIC0xMTIsNyArMTEyLDcgQEAgcmVhZF9ub25wcml2cyhzdHJ1Y3QgaW50ZWxf
-Y29udGV4dCAqY2UpCiAKIAlpOTE1X2dlbV9vYmplY3Rfc2V0X2NhY2hlX2NvaGVyZW5jeShyZXN1
-bHQsIEk5MTVfQ0FDSEVfTExDKTsKIAotCWNzID0gaTkxNV9nZW1fb2JqZWN0X3Bpbl9tYXAocmVz
-dWx0LCBJOTE1X01BUF9XQik7CisJY3MgPSBpOTE1X2dlbV9vYmplY3RfcGluX21hcF91bmxvY2tl
-ZChyZXN1bHQsIEk5MTVfTUFQX1dCKTsKIAlpZiAoSVNfRVJSKGNzKSkgewogCQllcnIgPSBQVFJf
-RVJSKGNzKTsKIAkJZ290byBlcnJfb2JqOwpAQCAtMjE4LDcgKzIxOCw3IEBAIHN0YXRpYyBpbnQg
-Y2hlY2tfd2hpdGVsaXN0KHN0cnVjdCBpbnRlbF9jb250ZXh0ICpjZSkKIAlpOTE1X2dlbV9vYmpl
-Y3RfbG9jayhyZXN1bHRzLCBOVUxMKTsKIAlpbnRlbF93ZWRnZV9vbl90aW1lb3V0KCZ3ZWRnZSwg
-ZW5naW5lLT5ndCwgSFogLyA1KSAvKiBzYWZldHkgbmV0ISAqLwogCQllcnIgPSBpOTE1X2dlbV9v
-YmplY3Rfc2V0X3RvX2NwdV9kb21haW4ocmVzdWx0cywgZmFsc2UpOwotCWk5MTVfZ2VtX29iamVj
-dF91bmxvY2socmVzdWx0cyk7CisKIAlpZiAoaW50ZWxfZ3RfaXNfd2VkZ2VkKGVuZ2luZS0+Z3Qp
-KQogCQllcnIgPSAtRUlPOwogCWlmIChlcnIpCkBAIC0yNDYsNiArMjQ2LDcgQEAgc3RhdGljIGlu
-dCBjaGVja193aGl0ZWxpc3Qoc3RydWN0IGludGVsX2NvbnRleHQgKmNlKQogCiAJaTkxNV9nZW1f
-b2JqZWN0X3VucGluX21hcChyZXN1bHRzKTsKIG91dF9wdXQ6CisJaTkxNV9nZW1fb2JqZWN0X3Vu
-bG9jayhyZXN1bHRzKTsKIAlpOTE1X2dlbV9vYmplY3RfcHV0KHJlc3VsdHMpOwogCXJldHVybiBl
-cnI7CiB9CkBAIC01MDIsNiArNTAzLDcgQEAgc3RhdGljIGludCBjaGVja19kaXJ0eV93aGl0ZWxp
-c3Qoc3RydWN0IGludGVsX2NvbnRleHQgKmNlKQogCiAJZm9yIChpID0gMDsgaSA8IGVuZ2luZS0+
-d2hpdGVsaXN0LmNvdW50OyBpKyspIHsKIAkJdTMyIHJlZyA9IGk5MTVfbW1pb19yZWdfb2Zmc2V0
-KGVuZ2luZS0+d2hpdGVsaXN0Lmxpc3RbaV0ucmVnKTsKKwkJc3RydWN0IGk5MTVfZ2VtX3d3X2N0
-eCB3dzsKIAkJdTY0IGFkZHIgPSBzY3JhdGNoLT5ub2RlLnN0YXJ0OwogCQlzdHJ1Y3QgaTkxNV9y
-ZXF1ZXN0ICpycTsKIAkJdTMyIHNybSwgbHJtLCByc3ZkOwpAQCAtNTE3LDYgKzUxOSwyOSBAQCBz
-dGF0aWMgaW50IGNoZWNrX2RpcnR5X3doaXRlbGlzdChzdHJ1Y3QgaW50ZWxfY29udGV4dCAqY2Up
-CiAKIAkJcm9fcmVnID0gcm9fcmVnaXN0ZXIocmVnKTsKIAorCQlpOTE1X2dlbV93d19jdHhfaW5p
-dCgmd3csIGZhbHNlKTsKK3JldHJ5OgorCQljcyA9IE5VTEw7CisJCWVyciA9IGk5MTVfZ2VtX29i
-amVjdF9sb2NrKHNjcmF0Y2gtPm9iaiwgJnd3KTsKKwkJaWYgKCFlcnIpCisJCQllcnIgPSBpOTE1
-X2dlbV9vYmplY3RfbG9jayhiYXRjaC0+b2JqLCAmd3cpOworCQlpZiAoIWVycikKKwkJCWVyciA9
-IGludGVsX2NvbnRleHRfcGluX3d3KGNlLCAmd3cpOworCQlpZiAoZXJyKQorCQkJZ290byBvdXQ7
-CisKKwkJY3MgPSBpOTE1X2dlbV9vYmplY3RfcGluX21hcChiYXRjaC0+b2JqLCBJOTE1X01BUF9X
-Qyk7CisJCWlmIChJU19FUlIoY3MpKSB7CisJCQllcnIgPSBQVFJfRVJSKGNzKTsKKwkJCWdvdG8g
-b3V0X2N0eDsKKwkJfQorCisJCXJlc3VsdHMgPSBpOTE1X2dlbV9vYmplY3RfcGluX21hcChzY3Jh
-dGNoLT5vYmosIEk5MTVfTUFQX1dCKTsKKwkJaWYgKElTX0VSUihyZXN1bHRzKSkgeworCQkJZXJy
-ID0gUFRSX0VSUihyZXN1bHRzKTsKKwkJCWdvdG8gb3V0X3VubWFwX2JhdGNoOworCQl9CisKIAkJ
-LyogQ2xlYXIgbm9uIHByaXYgZmxhZ3MgKi8KIAkJcmVnICY9IFJJTkdfRk9SQ0VfVE9fTk9OUFJJ
-Vl9BRERSRVNTX01BU0s7CiAKQEAgLTUyOCwxMiArNTUzLDYgQEAgc3RhdGljIGludCBjaGVja19k
-aXJ0eV93aGl0ZWxpc3Qoc3RydWN0IGludGVsX2NvbnRleHQgKmNlKQogCQlwcl9kZWJ1ZygiJXM6
-IFdyaXRpbmcgZ2FyYmFnZSB0byAleFxuIiwKIAkJCSBlbmdpbmUtPm5hbWUsIHJlZyk7CiAKLQkJ
-Y3MgPSBpOTE1X2dlbV9vYmplY3RfcGluX21hcChiYXRjaC0+b2JqLCBJOTE1X01BUF9XQyk7Ci0J
-CWlmIChJU19FUlIoY3MpKSB7Ci0JCQllcnIgPSBQVFJfRVJSKGNzKTsKLQkJCWdvdG8gb3V0X2Jh
-dGNoOwotCQl9Ci0KIAkJLyogU1JNIG9yaWdpbmFsICovCiAJCSpjcysrID0gc3JtOwogCQkqY3Mr
-KyA9IHJlZzsKQEAgLTU4MCwxMSArNTk5LDEyIEBAIHN0YXRpYyBpbnQgY2hlY2tfZGlydHlfd2hp
-dGVsaXN0KHN0cnVjdCBpbnRlbF9jb250ZXh0ICpjZSkKIAkJaTkxNV9nZW1fb2JqZWN0X2ZsdXNo
-X21hcChiYXRjaC0+b2JqKTsKIAkJaTkxNV9nZW1fb2JqZWN0X3VucGluX21hcChiYXRjaC0+b2Jq
-KTsKIAkJaW50ZWxfZ3RfY2hpcHNldF9mbHVzaChlbmdpbmUtPmd0KTsKKwkJY3MgPSBOVUxMOwog
-Ci0JCXJxID0gaW50ZWxfY29udGV4dF9jcmVhdGVfcmVxdWVzdChjZSk7CisJCXJxID0gaTkxNV9y
-ZXF1ZXN0X2NyZWF0ZShjZSk7CiAJCWlmIChJU19FUlIocnEpKSB7CiAJCQllcnIgPSBQVFJfRVJS
-KHJxKTsKLQkJCWdvdG8gb3V0X2JhdGNoOworCQkJZ290byBvdXRfdW5tYXBfc2NyYXRjaDsKIAkJ
-fQogCiAJCWlmIChlbmdpbmUtPmVtaXRfaW5pdF9icmVhZGNydW1iKSB7IC8qIEJlIG5pY2UgaWYg
-d2UgaGFuZyAqLwpAQCAtNTkzLDIwICs2MTMsMTYgQEAgc3RhdGljIGludCBjaGVja19kaXJ0eV93
-aGl0ZWxpc3Qoc3RydWN0IGludGVsX2NvbnRleHQgKmNlKQogCQkJCWdvdG8gZXJyX3JlcXVlc3Q7
-CiAJCX0KIAotCQlpOTE1X3ZtYV9sb2NrKGJhdGNoKTsKIAkJZXJyID0gaTkxNV9yZXF1ZXN0X2F3
-YWl0X29iamVjdChycSwgYmF0Y2gtPm9iaiwgZmFsc2UpOwogCQlpZiAoZXJyID09IDApCiAJCQll
-cnIgPSBpOTE1X3ZtYV9tb3ZlX3RvX2FjdGl2ZShiYXRjaCwgcnEsIDApOwotCQlpOTE1X3ZtYV91
-bmxvY2soYmF0Y2gpOwogCQlpZiAoZXJyKQogCQkJZ290byBlcnJfcmVxdWVzdDsKIAotCQlpOTE1
-X3ZtYV9sb2NrKHNjcmF0Y2gpOwogCQllcnIgPSBpOTE1X3JlcXVlc3RfYXdhaXRfb2JqZWN0KHJx
-LCBzY3JhdGNoLT5vYmosIHRydWUpOwogCQlpZiAoZXJyID09IDApCiAJCQllcnIgPSBpOTE1X3Zt
-YV9tb3ZlX3RvX2FjdGl2ZShzY3JhdGNoLCBycSwKIAkJCQkJCSAgICAgIEVYRUNfT0JKRUNUX1dS
-SVRFKTsKLQkJaTkxNV92bWFfdW5sb2NrKHNjcmF0Y2gpOwogCQlpZiAoZXJyKQogCQkJZ290byBl
-cnJfcmVxdWVzdDsKIApAQCAtNjIyLDEzICs2MzgsNyBAQCBzdGF0aWMgaW50IGNoZWNrX2RpcnR5
-X3doaXRlbGlzdChzdHJ1Y3QgaW50ZWxfY29udGV4dCAqY2UpCiAJCQlwcl9lcnIoIiVzOiBGdXR6
-aW5nICV4IHRpbWVkb3V0OyBjYW5jZWxsaW5nIHRlc3RcbiIsCiAJCQkgICAgICAgZW5naW5lLT5u
-YW1lLCByZWcpOwogCQkJaW50ZWxfZ3Rfc2V0X3dlZGdlZChlbmdpbmUtPmd0KTsKLQkJCWdvdG8g
-b3V0X2JhdGNoOwotCQl9Ci0KLQkJcmVzdWx0cyA9IGk5MTVfZ2VtX29iamVjdF9waW5fbWFwKHNj
-cmF0Y2gtPm9iaiwgSTkxNV9NQVBfV0IpOwotCQlpZiAoSVNfRVJSKHJlc3VsdHMpKSB7Ci0JCQll
-cnIgPSBQVFJfRVJSKHJlc3VsdHMpOwotCQkJZ290byBvdXRfYmF0Y2g7CisJCQlnb3RvIG91dF91
-bm1hcF9zY3JhdGNoOwogCQl9CiAKIAkJR0VNX0JVR19PTih2YWx1ZXNbQVJSQVlfU0laRSh2YWx1
-ZXMpIC0gMV0gIT0gMHhmZmZmZmZmZik7CkBAIC02MzksNyArNjQ5LDcgQEAgc3RhdGljIGludCBj
-aGVja19kaXJ0eV93aGl0ZWxpc3Qoc3RydWN0IGludGVsX2NvbnRleHQgKmNlKQogCQkJCXByX2Vy
-cigiJXM6IFVuYWJsZSB0byB3cml0ZSB0byB3aGl0ZWxpc3RlZCByZWdpc3RlciAleFxuIiwKIAkJ
-CQkgICAgICAgZW5naW5lLT5uYW1lLCByZWcpOwogCQkJCWVyciA9IC1FSU5WQUw7Ci0JCQkJZ290
-byBvdXRfdW5waW47CisJCQkJZ290byBvdXRfdW5tYXBfc2NyYXRjaDsKIAkJCX0KIAkJfSBlbHNl
-IHsKIAkJCXJzdmQgPSAwOwpAQCAtNzA1LDE1ICs3MTUsMjcgQEAgc3RhdGljIGludCBjaGVja19k
-aXJ0eV93aGl0ZWxpc3Qoc3RydWN0IGludGVsX2NvbnRleHQgKmNlKQogCiAJCQllcnIgPSAtRUlO
-VkFMOwogCQl9Ci1vdXRfdW5waW46CitvdXRfdW5tYXBfc2NyYXRjaDoKIAkJaTkxNV9nZW1fb2Jq
-ZWN0X3VucGluX21hcChzY3JhdGNoLT5vYmopOworb3V0X3VubWFwX2JhdGNoOgorCQlpZiAoY3Mp
-CisJCQlpOTE1X2dlbV9vYmplY3RfdW5waW5fbWFwKGJhdGNoLT5vYmopOworb3V0X2N0eDoKKwkJ
-aW50ZWxfY29udGV4dF91bnBpbihjZSk7CitvdXQ6CisJCWlmIChlcnIgPT0gLUVERUFETEspIHsK
-KwkJCWVyciA9IGk5MTVfZ2VtX3d3X2N0eF9iYWNrb2ZmKCZ3dyk7CisJCQlpZiAoIWVycikKKwkJ
-CQlnb3RvIHJldHJ5OworCQl9CisJCWk5MTVfZ2VtX3d3X2N0eF9maW5pKCZ3dyk7CiAJCWlmIChl
-cnIpCiAJCQlicmVhazsKIAl9CiAKIAlpZiAoaWd0X2ZsdXNoX3Rlc3QoZW5naW5lLT5pOTE1KSkK
-IAkJZXJyID0gLUVJTzsKLW91dF9iYXRjaDoKKwogCWk5MTVfdm1hX3VucGluX2FuZF9yZWxlYXNl
-KCZiYXRjaCwgMCk7CiBvdXRfc2NyYXRjaDoKIAlpOTE1X3ZtYV91bnBpbl9hbmRfcmVsZWFzZSgm
-c2NyYXRjaCwgMCk7CkBAIC04NDcsNyArODY5LDcgQEAgc3RhdGljIGludCBzY3J1Yl93aGl0ZWxp
-c3RlZF9yZWdpc3RlcnMoc3RydWN0IGludGVsX2NvbnRleHQgKmNlKQogCWlmIChJU19FUlIoYmF0
-Y2gpKQogCQlyZXR1cm4gUFRSX0VSUihiYXRjaCk7CiAKLQljcyA9IGk5MTVfZ2VtX29iamVjdF9w
-aW5fbWFwKGJhdGNoLT5vYmosIEk5MTVfTUFQX1dDKTsKKwljcyA9IGk5MTVfZ2VtX29iamVjdF9w
-aW5fbWFwX3VubG9ja2VkKGJhdGNoLT5vYmosIEk5MTVfTUFQX1dDKTsKIAlpZiAoSVNfRVJSKGNz
-KSkgewogCQllcnIgPSBQVFJfRVJSKGNzKTsKIAkJZ290byBlcnJfYmF0Y2g7CkBAIC05ODIsMTEg
-KzEwMDQsMTEgQEAgY2hlY2tfd2hpdGVsaXN0ZWRfcmVnaXN0ZXJzKHN0cnVjdCBpbnRlbF9lbmdp
-bmVfY3MgKmVuZ2luZSwKIAl1MzIgKmEsICpiOwogCWludCBpLCBlcnI7CiAKLQlhID0gaTkxNV9n
-ZW1fb2JqZWN0X3Bpbl9tYXAoQS0+b2JqLCBJOTE1X01BUF9XQik7CisJYSA9IGk5MTVfZ2VtX29i
-amVjdF9waW5fbWFwX3VubG9ja2VkKEEtPm9iaiwgSTkxNV9NQVBfV0IpOwogCWlmIChJU19FUlIo
-YSkpCiAJCXJldHVybiBQVFJfRVJSKGEpOwogCi0JYiA9IGk5MTVfZ2VtX29iamVjdF9waW5fbWFw
-KEItPm9iaiwgSTkxNV9NQVBfV0IpOworCWIgPSBpOTE1X2dlbV9vYmplY3RfcGluX21hcF91bmxv
-Y2tlZChCLT5vYmosIEk5MTVfTUFQX1dCKTsKIAlpZiAoSVNfRVJSKGIpKSB7CiAJCWVyciA9IFBU
-Ul9FUlIoYik7CiAJCWdvdG8gZXJyX2E7Ci0tIAoyLjMwLjAucmMxCgpfX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpJbnRlbC1nZnggbWFpbGluZyBsaXN0Cklu
-dGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5v
-cmcvbWFpbG1hbi9saXN0aW5mby9pbnRlbC1nZngK
+We're starting to require the reservation lock for pinning,
+so wait until we have that.
+
+Update the selftests to handle this correctly, and ensure pin is
+called in live_hwsp_rollover_user() and mock_hwsp_freelist().
+
+Changes since v1:
+- Fix NULL + XX arithmatic, use casts. (kbuild)
+Changes since v2:
+- Clear entire cacheline when pinning.
+
+Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Reported-by: kernel test robot <lkp@intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_timeline.c    | 40 +++++++++----
+ drivers/gpu/drm/i915/gt/intel_timeline.h    |  2 +
+ drivers/gpu/drm/i915/gt/mock_engine.c       | 22 ++++++-
+ drivers/gpu/drm/i915/gt/selftest_timeline.c | 63 +++++++++++----------
+ drivers/gpu/drm/i915/i915_selftest.h        |  2 +
+ 5 files changed, 84 insertions(+), 45 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/gt/intel_timeline.c b/drivers/gpu/drm/i915/gt/intel_timeline.c
+index 3d43f15f34f3..7509af471341 100644
+--- a/drivers/gpu/drm/i915/gt/intel_timeline.c
++++ b/drivers/gpu/drm/i915/gt/intel_timeline.c
+@@ -53,14 +53,29 @@ static int __timeline_active(struct i915_active *active)
+ 	return 0;
+ }
+ 
++I915_SELFTEST_EXPORT int
++intel_timeline_pin_map(struct intel_timeline *timeline)
++{
++	struct drm_i915_gem_object *obj = timeline->hwsp_ggtt->obj;
++	u32 ofs = offset_in_page(timeline->hwsp_offset);
++	void *vaddr;
++
++	vaddr = i915_gem_object_pin_map(obj, I915_MAP_WB);
++	if (IS_ERR(vaddr))
++		return PTR_ERR(vaddr);
++
++	timeline->hwsp_map = vaddr;
++	timeline->hwsp_seqno = memset(vaddr + ofs, 0, CACHELINE_BYTES);
++	clflush(vaddr + ofs);
++
++	return 0;
++}
++
+ static int intel_timeline_init(struct intel_timeline *timeline,
+ 			       struct intel_gt *gt,
+ 			       struct i915_vma *hwsp,
+ 			       unsigned int offset)
+ {
+-	void *vaddr;
+-	u32 *seqno;
+-
+ 	kref_init(&timeline->kref);
+ 	atomic_set(&timeline->pin_count, 0);
+ 
+@@ -77,14 +92,8 @@ static int intel_timeline_init(struct intel_timeline *timeline,
+ 		timeline->hwsp_ggtt = hwsp;
+ 	}
+ 
+-	vaddr = i915_gem_object_pin_map(hwsp->obj, I915_MAP_WB);
+-	if (IS_ERR(vaddr))
+-		return PTR_ERR(vaddr);
+-
+-	timeline->hwsp_map = vaddr;
+-	seqno = vaddr + timeline->hwsp_offset;
+-	WRITE_ONCE(*seqno, 0);
+-	timeline->hwsp_seqno = seqno;
++	timeline->hwsp_map = NULL;
++	timeline->hwsp_seqno = (void *)(long)timeline->hwsp_offset;
+ 
+ 	GEM_BUG_ON(timeline->hwsp_offset >= hwsp->size);
+ 
+@@ -114,7 +123,8 @@ static void intel_timeline_fini(struct rcu_head *rcu)
+ 	struct intel_timeline *timeline =
+ 		container_of(rcu, struct intel_timeline, rcu);
+ 
+-	i915_gem_object_unpin_map(timeline->hwsp_ggtt->obj);
++	if (timeline->hwsp_map)
++		i915_gem_object_unpin_map(timeline->hwsp_ggtt->obj);
+ 
+ 	i915_vma_put(timeline->hwsp_ggtt);
+ 	i915_active_fini(&timeline->active);
+@@ -174,6 +184,12 @@ int intel_timeline_pin(struct intel_timeline *tl, struct i915_gem_ww_ctx *ww)
+ 	if (atomic_add_unless(&tl->pin_count, 1, 0))
+ 		return 0;
+ 
++	if (!tl->hwsp_map) {
++		err = intel_timeline_pin_map(tl);
++		if (err)
++			return err;
++	}
++
+ 	err = i915_ggtt_pin(tl->hwsp_ggtt, ww, 0, PIN_HIGH);
+ 	if (err)
+ 		return err;
+diff --git a/drivers/gpu/drm/i915/gt/intel_timeline.h b/drivers/gpu/drm/i915/gt/intel_timeline.h
+index f502a619843f..c50543d3ed5d 100644
+--- a/drivers/gpu/drm/i915/gt/intel_timeline.h
++++ b/drivers/gpu/drm/i915/gt/intel_timeline.h
+@@ -110,4 +110,6 @@ void intel_gt_show_timelines(struct intel_gt *gt,
+ 						  const char *prefix,
+ 						  int indent));
+ 
++I915_SELFTEST_DECLARE(int intel_timeline_pin_map(struct intel_timeline *tl));
++
+ #endif
+diff --git a/drivers/gpu/drm/i915/gt/mock_engine.c b/drivers/gpu/drm/i915/gt/mock_engine.c
+index 2f830017c51d..effbac877eec 100644
+--- a/drivers/gpu/drm/i915/gt/mock_engine.c
++++ b/drivers/gpu/drm/i915/gt/mock_engine.c
+@@ -32,9 +32,20 @@
+ #include "mock_engine.h"
+ #include "selftests/mock_request.h"
+ 
+-static void mock_timeline_pin(struct intel_timeline *tl)
++static int mock_timeline_pin(struct intel_timeline *tl)
+ {
++	int err;
++
++	if (WARN_ON(!i915_gem_object_trylock(tl->hwsp_ggtt->obj)))
++		return -EBUSY;
++
++	err = intel_timeline_pin_map(tl);
++	i915_gem_object_unlock(tl->hwsp_ggtt->obj);
++	if (err)
++		return err;
++
+ 	atomic_inc(&tl->pin_count);
++	return 0;
+ }
+ 
+ static void mock_timeline_unpin(struct intel_timeline *tl)
+@@ -152,6 +163,8 @@ static void mock_context_destroy(struct kref *ref)
+ 
+ static int mock_context_alloc(struct intel_context *ce)
+ {
++	int err;
++
+ 	ce->ring = mock_ring(ce->engine);
+ 	if (!ce->ring)
+ 		return -ENOMEM;
+@@ -162,7 +175,12 @@ static int mock_context_alloc(struct intel_context *ce)
+ 		return PTR_ERR(ce->timeline);
+ 	}
+ 
+-	mock_timeline_pin(ce->timeline);
++	err = mock_timeline_pin(ce->timeline);
++	if (err) {
++		intel_timeline_put(ce->timeline);
++		ce->timeline = NULL;
++		return err;
++	}
+ 
+ 	return 0;
+ }
+diff --git a/drivers/gpu/drm/i915/gt/selftest_timeline.c b/drivers/gpu/drm/i915/gt/selftest_timeline.c
+index 6e32e91cdab4..2e2bea7ac7a5 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_timeline.c
++++ b/drivers/gpu/drm/i915/gt/selftest_timeline.c
+@@ -35,7 +35,7 @@ static unsigned long hwsp_cacheline(struct intel_timeline *tl)
+ {
+ 	unsigned long address = (unsigned long)page_address(hwsp_page(tl));
+ 
+-	return (address + tl->hwsp_offset) / CACHELINE_BYTES;
++	return (address + offset_in_page(tl->hwsp_offset)) / CACHELINE_BYTES;
+ }
+ 
+ #define CACHELINES_PER_PAGE (PAGE_SIZE / CACHELINE_BYTES)
+@@ -59,6 +59,7 @@ static void __mock_hwsp_record(struct mock_hwsp_freelist *state,
+ 	tl = xchg(&state->history[idx], tl);
+ 	if (tl) {
+ 		radix_tree_delete(&state->cachelines, hwsp_cacheline(tl));
++		intel_timeline_unpin(tl);
+ 		intel_timeline_put(tl);
+ 	}
+ }
+@@ -78,6 +79,12 @@ static int __mock_hwsp_timeline(struct mock_hwsp_freelist *state,
+ 		if (IS_ERR(tl))
+ 			return PTR_ERR(tl);
+ 
++		err = intel_timeline_pin(tl, NULL);
++		if (err) {
++			intel_timeline_put(tl);
++			return err;
++		}
++
+ 		cacheline = hwsp_cacheline(tl);
+ 		err = radix_tree_insert(&state->cachelines, cacheline, tl);
+ 		if (err) {
+@@ -85,6 +92,7 @@ static int __mock_hwsp_timeline(struct mock_hwsp_freelist *state,
+ 				pr_err("HWSP cacheline %lu already used; duplicate allocation!\n",
+ 				       cacheline);
+ 			}
++			intel_timeline_unpin(tl);
+ 			intel_timeline_put(tl);
+ 			return err;
+ 		}
+@@ -452,7 +460,7 @@ static int emit_ggtt_store_dw(struct i915_request *rq, u32 addr, u32 value)
+ }
+ 
+ static struct i915_request *
+-tl_write(struct intel_timeline *tl, struct intel_engine_cs *engine, u32 value)
++checked_tl_write(struct intel_timeline *tl, struct intel_engine_cs *engine, u32 value)
+ {
+ 	struct i915_request *rq;
+ 	int err;
+@@ -463,6 +471,13 @@ tl_write(struct intel_timeline *tl, struct intel_engine_cs *engine, u32 value)
+ 		goto out;
+ 	}
+ 
++	if (READ_ONCE(*tl->hwsp_seqno) != tl->seqno) {
++		pr_err("Timeline created with incorrect breadcrumb, found %x, expected %x\n",
++		       *tl->hwsp_seqno, tl->seqno);
++		intel_timeline_unpin(tl);
++		return ERR_PTR(-EINVAL);
++	}
++
+ 	rq = intel_engine_create_kernel_request(engine);
+ 	if (IS_ERR(rq))
+ 		goto out_unpin;
+@@ -484,25 +499,6 @@ tl_write(struct intel_timeline *tl, struct intel_engine_cs *engine, u32 value)
+ 	return rq;
+ }
+ 
+-static struct intel_timeline *
+-checked_intel_timeline_create(struct intel_gt *gt)
+-{
+-	struct intel_timeline *tl;
+-
+-	tl = intel_timeline_create(gt);
+-	if (IS_ERR(tl))
+-		return tl;
+-
+-	if (READ_ONCE(*tl->hwsp_seqno) != tl->seqno) {
+-		pr_err("Timeline created with incorrect breadcrumb, found %x, expected %x\n",
+-		       *tl->hwsp_seqno, tl->seqno);
+-		intel_timeline_put(tl);
+-		return ERR_PTR(-EINVAL);
+-	}
+-
+-	return tl;
+-}
+-
+ static int live_hwsp_engine(void *arg)
+ {
+ #define NUM_TIMELINES 4096
+@@ -535,13 +531,13 @@ static int live_hwsp_engine(void *arg)
+ 			struct intel_timeline *tl;
+ 			struct i915_request *rq;
+ 
+-			tl = checked_intel_timeline_create(gt);
++			tl = intel_timeline_create(gt);
+ 			if (IS_ERR(tl)) {
+ 				err = PTR_ERR(tl);
+ 				break;
+ 			}
+ 
+-			rq = tl_write(tl, engine, count);
++			rq = checked_tl_write(tl, engine, count);
+ 			if (IS_ERR(rq)) {
+ 				intel_timeline_put(tl);
+ 				err = PTR_ERR(rq);
+@@ -608,14 +604,14 @@ static int live_hwsp_alternate(void *arg)
+ 			if (!intel_engine_can_store_dword(engine))
+ 				continue;
+ 
+-			tl = checked_intel_timeline_create(gt);
++			tl = intel_timeline_create(gt);
+ 			if (IS_ERR(tl)) {
+ 				err = PTR_ERR(tl);
+ 				goto out;
+ 			}
+ 
+ 			intel_engine_pm_get(engine);
+-			rq = tl_write(tl, engine, count);
++			rq = checked_tl_write(tl, engine, count);
+ 			intel_engine_pm_put(engine);
+ 			if (IS_ERR(rq)) {
+ 				intel_timeline_put(tl);
+@@ -1258,6 +1254,10 @@ static int live_hwsp_rollover_user(void *arg)
+ 		if (!tl->has_initial_breadcrumb)
+ 			goto out;
+ 
++		err = intel_context_pin(ce);
++		if (err)
++			goto out;
++
+ 		tl->seqno = -4u;
+ 		WRITE_ONCE(*(u32 *)tl->hwsp_seqno, tl->seqno);
+ 
+@@ -1267,7 +1267,7 @@ static int live_hwsp_rollover_user(void *arg)
+ 			this = intel_context_create_request(ce);
+ 			if (IS_ERR(this)) {
+ 				err = PTR_ERR(this);
+-				goto out;
++				goto out_unpin;
+ 			}
+ 
+ 			pr_debug("%s: create fence.seqnp:%d\n",
+@@ -1286,17 +1286,18 @@ static int live_hwsp_rollover_user(void *arg)
+ 		if (i915_request_wait(rq[2], 0, HZ / 5) < 0) {
+ 			pr_err("Wait for timeline wrap timed out!\n");
+ 			err = -EIO;
+-			goto out;
++			goto out_unpin;
+ 		}
+ 
+ 		for (i = 0; i < ARRAY_SIZE(rq); i++) {
+ 			if (!i915_request_completed(rq[i])) {
+ 				pr_err("Pre-wrap request not completed!\n");
+ 				err = -EINVAL;
+-				goto out;
++				goto out_unpin;
+ 			}
+ 		}
+-
++out_unpin:
++		intel_context_unpin(ce);
+ out:
+ 		for (i = 0; i < ARRAY_SIZE(rq); i++)
+ 			i915_request_put(rq[i]);
+@@ -1338,13 +1339,13 @@ static int live_hwsp_recycle(void *arg)
+ 			struct intel_timeline *tl;
+ 			struct i915_request *rq;
+ 
+-			tl = checked_intel_timeline_create(gt);
++			tl = intel_timeline_create(gt);
+ 			if (IS_ERR(tl)) {
+ 				err = PTR_ERR(tl);
+ 				break;
+ 			}
+ 
+-			rq = tl_write(tl, engine, count);
++			rq = checked_tl_write(tl, engine, count);
+ 			if (IS_ERR(rq)) {
+ 				intel_timeline_put(tl);
+ 				err = PTR_ERR(rq);
+diff --git a/drivers/gpu/drm/i915/i915_selftest.h b/drivers/gpu/drm/i915/i915_selftest.h
+index d53d207ab6eb..f54de0499be7 100644
+--- a/drivers/gpu/drm/i915/i915_selftest.h
++++ b/drivers/gpu/drm/i915/i915_selftest.h
+@@ -107,6 +107,7 @@ int __i915_subtests(const char *caller,
+ 
+ #define I915_SELFTEST_DECLARE(x) x
+ #define I915_SELFTEST_ONLY(x) unlikely(x)
++#define I915_SELFTEST_EXPORT
+ 
+ #else /* !IS_ENABLED(CONFIG_DRM_I915_SELFTEST) */
+ 
+@@ -116,6 +117,7 @@ static inline int i915_perf_selftests(struct pci_dev *pdev) { return 0; }
+ 
+ #define I915_SELFTEST_DECLARE(x)
+ #define I915_SELFTEST_ONLY(x) 0
++#define I915_SELFTEST_EXPORT static
+ 
+ #endif
+ 
+-- 
+2.30.0.rc1
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
