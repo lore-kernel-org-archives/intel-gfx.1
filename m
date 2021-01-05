@@ -2,52 +2,40 @@ Return-Path: <SRS0=Zd9y=GI=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,INCLUDES_PULL_REQUEST,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=ham
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F19DCC433E0
-	for <intel-gfx@archiver.kernel.org>; Tue,  5 Jan 2021 08:37:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 42110C433DB
+	for <intel-gfx@archiver.kernel.org>; Tue,  5 Jan 2021 09:35:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 804052065D
-	for <intel-gfx@archiver.kernel.org>; Tue,  5 Jan 2021 08:37:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 804052065D
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id AEA3A2222A
+	for <intel-gfx@archiver.kernel.org>; Tue,  5 Jan 2021 09:35:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AEA3A2222A
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1E6AE6E0A1;
-	Tue,  5 Jan 2021 08:37:04 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 881EC6E094;
- Tue,  5 Jan 2021 08:37:02 +0000 (UTC)
-IronPort-SDR: lZmBlgLcAKKUOc4oOZsflyZtWUaXcoJ4VjOTI9/EBrVIoUqE9GPY0Sywlh32F4eeRPXV8sgGkh
- CCg1Rp9ETW/Q==
-X-IronPort-AV: E=McAfee;i="6000,8403,9854"; a="261837733"
-X-IronPort-AV: E=Sophos;i="5.78,476,1599548400"; d="scan'208";a="261837733"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Jan 2021 00:37:02 -0800
-IronPort-SDR: y7xDEIz1SBFBzpeFi3A/Tnf8OupnvWcK5Wye/8LHIsFuVyOX+oVePcU+W2xLOIIsv9iKBrWG4l
- RmU1vw/c1UbA==
-X-IronPort-AV: E=Sophos;i="5.78,476,1599548400"; d="scan'208";a="378785616"
-Received: from mpaczkow-mobl.ger.corp.intel.com (HELO localhost)
- ([10.252.38.139])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Jan 2021 00:36:58 -0800
-From: Jani Nikula <jani.nikula@intel.com>
-To: Zhenyu Wang <zhenyuw@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-In-Reply-To: <20210105075424.GV16939@zhen-hp.sh.intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20201225022009.GF16939@zhen-hp.sh.intel.com>
- <20210105075424.GV16939@zhen-hp.sh.intel.com>
-Date: Tue, 05 Jan 2021 10:36:54 +0200
-Message-ID: <87ft3f2315.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1096D89F73;
+	Tue,  5 Jan 2021 09:35:48 +0000 (UTC)
+Received: from fireflyinternet.com (unknown [77.68.26.236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D46F789F73
+ for <intel-gfx@lists.freedesktop.org>; Tue,  5 Jan 2021 09:35:45 +0000 (UTC)
+X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
+ x-ip-name=78.156.65.138; 
+Received: from build.alporthouse.com (unverified [78.156.65.138]) 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23504108-1500050 
+ for <intel-gfx@lists.freedesktop.org>; Tue, 05 Jan 2021 09:35:41 +0000
+From: Chris Wilson <chris@chris-wilson.co.uk>
+To: intel-gfx@lists.freedesktop.org
+Date: Tue,  5 Jan 2021 09:35:42 +0000
+Message-Id: <20210105093542.14468-1-chris@chris-wilson.co.uk>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-Subject: Re: [Intel-gfx] [PULL] gvt-next-fixes
+Subject: [Intel-gfx] [CI] drm/i915/gt: Restore ce->signal flush before
+ releasing virtual engine
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,92 +48,88 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx <intel-gfx@lists.freedesktop.org>, "Yuan,
- Hang" <hang.yuan@intel.com>,
- intel-gvt-dev <intel-gvt-dev@lists.freedesktop.org>, "Lv,
- Zhiyuan" <zhiyuan.lv@intel.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 05 Jan 2021, Zhenyu Wang <zhenyuw@linux.intel.com> wrote:
-> Ping...
+Before we mark the virtual engine as no longer inflight, flush any
+ongoing signaling that may be using the ce->signal_link along the
+previous breadcrumbs. On switch to a new physical engine, that link will
+be inserted into the new set of breadcrumbs, causing confusion to an
+ongoing iterator.
 
-I suppose this should be merged to drm-intel-next (or drm-intel-gt-next,
-or both). It was too late for next-fixes, and it's really not the kind
-of fixes we need to queue to v5.11-rc's.
+This patch undoes a last minute mistake introduced into commit
+bab0557c8dca ("drm/i915/gt: Remove virtual breadcrumb before transfer"),
+to simplify later patches whereby instead of unconditionally applying the
+flush, it was only applied if the request itself was going to be reused.
 
-Rodrigo?
+Fixes: bab0557c8dca ("drm/i915/gt: Remove virtual breadcrumb before transfer")
+Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+---
+ .../drm/i915/gt/intel_execlists_submission.c  | 32 ++++++++++---------
+ 1 file changed, 17 insertions(+), 15 deletions(-)
 
-BR,
-Jani.
-
->
-> On 2020.12.25 10:20:09 +0800, Zhenyu Wang wrote:
->> 
->> Hi,
->> 
->> Here's queued fixes from Jani for one useless inline and fix
->> CONFIG_DRM_I915_WERROR for gvt headers.
->> 
->> Thanks and Merry Christmas!
->> --
->> The following changes since commit 9a3a238b3de97b4210c6de66aa88b2d7021ac086:
->> 
->>   drm/i915/gvt: treat intel_gvt_mpt as const in gvt code (2020-11-23 17:14:20 +0800)
->> 
->> are available in the Git repository at:
->> 
->>   https://github.com/intel/gvt-linux tags/gvt-next-fixes-2020-12-25
->> 
->> for you to fetch changes up to e056f669dbf76b8752b6cb0b8edd2f75cbdcabb1:
->> 
->>   drm/i915/gvt: make mpt.h self-contained (2020-12-22 11:41:35 +0800)
->> 
->> ----------------------------------------------------------------
->> gvt-next-fixes-2020-12-25
->> 
->> - Avoid one useless inline (Jani)
->> - make gvt header self-contained, fix CONFIG_DRM_I915_WERROR (Jani)
->> 
->> ----------------------------------------------------------------
->> Jani Nikula (9):
->>       drm/i915/gvt: avoid useless use of inline
->>       drm/i915/gvt: make execlist.h self-contained
->>       drm/i915/gvt: make fb_decoder.h self-contained
->>       drm/i915/gvt: make gtt.h self-contained
->>       drm/i915/gvt: make interrupt.h self-contained
->>       drm/i915/gvt: make mmio_context.h self-contained
->>       drm/i915/gvt: make gvt.h self-contained
->>       drm/i915/gvt: make scheduler.h self-contained
->>       drm/i915/gvt: make mpt.h self-contained
->> 
->>  drivers/gpu/drm/i915/Makefile           | 10 +---------
->>  drivers/gpu/drm/i915/gvt/execlist.h     |  3 ---
->>  drivers/gpu/drm/i915/gvt/fb_decoder.h   |  6 ++++--
->>  drivers/gpu/drm/i915/gvt/gtt.h          | 11 ++++++++++-
->>  drivers/gpu/drm/i915/gvt/gvt.h          |  4 ++++
->>  drivers/gpu/drm/i915/gvt/handlers.c     |  3 +--
->>  drivers/gpu/drm/i915/gvt/interrupt.h    |  5 ++++-
->>  drivers/gpu/drm/i915/gvt/mmio_context.h | 11 +++++++++++
->>  drivers/gpu/drm/i915/gvt/mpt.h          |  2 ++
->>  drivers/gpu/drm/i915/gvt/scheduler.h    |  5 +++++
->>  10 files changed, 42 insertions(+), 18 deletions(-)
->> 
->> -- 
->> 
->> $gpg --keyserver wwwkeys.pgp.net --recv-keys 4D781827
->
->
->
->> _______________________________________________
->> Intel-gfx mailing list
->> Intel-gfx@lists.freedesktop.org
->> https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-
+diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+index a5b442683c18..db208bb59364 100644
+--- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
++++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+@@ -581,21 +581,6 @@ resubmit_virtual_request(struct i915_request *rq, struct virtual_engine *ve)
+ {
+ 	struct intel_engine_cs *engine = rq->engine;
+ 
+-	/* Flush concurrent rcu iterators in signal_irq_work */
+-	if (test_bit(DMA_FENCE_FLAG_ENABLE_SIGNAL_BIT, &rq->fence.flags)) {
+-		/*
+-		 * After this point, the rq may be transferred to a new
+-		 * sibling, so before we clear ce->inflight make sure that
+-		 * the context has been removed from the b->signalers and
+-		 * furthermore we need to make sure that the concurrent
+-		 * iterator in signal_irq_work is no longer following
+-		 * ce->signal_link.
+-		 */
+-		i915_request_cancel_breadcrumb(rq);
+-		while (atomic_read(&engine->breadcrumbs->signaler_active))
+-			cpu_relax();
+-	}
+-
+ 	spin_lock_irq(&engine->active.lock);
+ 
+ 	clear_bit(I915_FENCE_FLAG_PQUEUE, &rq->fence.flags);
+@@ -609,6 +594,19 @@ static void kick_siblings(struct i915_request *rq, struct intel_context *ce)
+ {
+ 	struct virtual_engine *ve = container_of(ce, typeof(*ve), context);
+ 	struct intel_engine_cs *engine = rq->engine;
++	bool signals = !list_empty(&ce->signals);
++
++	/* Flush concurrent rcu iterators in signal_irq_work */
++	if (test_bit(DMA_FENCE_FLAG_ENABLE_SIGNAL_BIT, &rq->fence.flags))
++		/*
++		 * After this point, the rq may be transferred to a new
++		 * sibling, so before we clear ce->inflight make sure that
++		 * the context has been removed from the b->signalers and
++		 * furthermore we need to make sure that the concurrent
++		 * iterator in signal_irq_work is no longer following
++		 * ce->signal_link.
++		 */
++		i915_request_cancel_breadcrumb(rq);
+ 
+ 	/*
+ 	 * This engine is now too busy to run this virtual request, so
+@@ -622,6 +620,10 @@ static void kick_siblings(struct i915_request *rq, struct intel_context *ce)
+ 
+ 	if (READ_ONCE(ve->request))
+ 		tasklet_hi_schedule(&ve->base.execlists.tasklet);
++
++	/* Flush concurrent signal_irq_work before we reuse the link */
++	while (signals && atomic_read(&engine->breadcrumbs->signaler_active))
++		cpu_relax();
+ }
+ 
+ static inline void __execlists_schedule_out(struct i915_request *rq)
 -- 
-Jani Nikula, Intel Open Source Graphics Center
+2.20.1
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
