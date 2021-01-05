@@ -7,32 +7,34 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 66A5EC433DB
-	for <intel-gfx@archiver.kernel.org>; Tue,  5 Jan 2021 22:09:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5CCDCC433DB
+	for <intel-gfx@archiver.kernel.org>; Tue,  5 Jan 2021 22:17:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BB38F22D74
-	for <intel-gfx@archiver.kernel.org>; Tue,  5 Jan 2021 22:09:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BB38F22D74
+	by mail.kernel.org (Postfix) with ESMTPS id C22BD22E03
+	for <intel-gfx@archiver.kernel.org>; Tue,  5 Jan 2021 22:17:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C22BD22E03
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 47AD6897C5;
-	Tue,  5 Jan 2021 22:09:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 195AD6E0E9;
+	Tue,  5 Jan 2021 22:17:01 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CDFA589175;
- Tue,  5 Jan 2021 22:09:52 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED0D56E0E8;
+ Tue,  5 Jan 2021 22:16:58 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from haswell.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23512245-1500050 
- for multiple; Tue, 05 Jan 2021 22:09:43 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23512283-1500050 
+ for multiple; Tue, 05 Jan 2021 22:16:50 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue,  5 Jan 2021 22:09:41 +0000
-Message-Id: <20210105220941.3456706-1-chris@chris-wilson.co.uk>
+Date: Tue,  5 Jan 2021 22:16:48 +0000
+Message-Id: <20210105221648.3456839-1-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.30.0
+In-Reply-To: <20210105220941.3456706-1-chris@chris-wilson.co.uk>
+References: <20210105220941.3456706-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
 Subject: [Intel-gfx] [PATCH i-g-t] i915/gem_ctx_engine: Prerun the spinner
  to bind offsets before use
