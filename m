@@ -7,47 +7,62 @@ X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E3EC2C433E0
-	for <intel-gfx@archiver.kernel.org>; Tue,  5 Jan 2021 01:57:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 96473C433E0
+	for <intel-gfx@archiver.kernel.org>; Tue,  5 Jan 2021 05:19:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A14822226A
-	for <intel-gfx@archiver.kernel.org>; Tue,  5 Jan 2021 01:57:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A14822226A
+	by mail.kernel.org (Postfix) with ESMTPS id 2D71120578
+	for <intel-gfx@archiver.kernel.org>; Tue,  5 Jan 2021 05:19:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2D71120578
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3904389ECB;
-	Tue,  5 Jan 2021 01:57:47 +0000 (UTC)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4AA3D89ECB
- for <intel-gfx@lists.freedesktop.org>; Tue,  5 Jan 2021 01:57:46 +0000 (UTC)
-IronPort-SDR: 4MbazZtVSytL171WI+xkJPOZB5i2ODk6x4/8QXWpuEgO+wMMrmlke4aD4B9sZA563hUpbvj2ma
- ZBqFBj+X9UZg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9854"; a="238588524"
-X-IronPort-AV: E=Sophos;i="5.78,475,1599548400"; d="scan'208";a="238588524"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Jan 2021 17:57:45 -0800
-IronPort-SDR: +2fM2uotYd2x1xmIv/5pMRwD4y4p+Q7j8K9t8NpYW8QtCfLtRt+tEOvXWpI4daMgeSEp4/3T5d
- TRAO459WuQHQ==
-X-IronPort-AV: E=Sophos;i="5.78,475,1599548400"; d="scan'208";a="378662836"
-Received: from wburton-desk1.ger.corp.intel.com (HELO intel.com)
- ([10.252.28.225])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Jan 2021 17:57:44 -0800
-Date: Tue, 5 Jan 2021 03:57:40 +0200
-From: Andi Shyti <andi.shyti@intel.com>
-To: Chris Wilson <chris@chris-wilson.co.uk>
-Message-ID: <X/PHlMjQvN3oy7Z6@intel.intel>
-References: <20210104115145.24460-1-chris@chris-wilson.co.uk>
- <20210104115145.24460-5-chris@chris-wilson.co.uk>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 600C289D61;
+	Tue,  5 Jan 2021 05:19:39 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F81E89D61
+ for <intel-gfx@lists.freedesktop.org>; Tue,  5 Jan 2021 05:19:38 +0000 (UTC)
+IronPort-SDR: OEYnPO/wYwE7KH3bVXEeTqWy+kzbxngZmopJ84jvS0i5pMqo5LUbnUo3W1QpF7amnewalsU/KW
+ LPHgBgFORoUg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9854"; a="177154439"
+X-IronPort-AV: E=Sophos;i="5.78,476,1599548400"; d="scan'208";a="177154439"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Jan 2021 21:19:37 -0800
+IronPort-SDR: lri7wnpgDymNDDMXj2Xj8cG8s5OwKvKipPIgtY4WiPzbkYZEiwcli9DKhzWKIamwmeF2fRA63d
+ f9Enka0EaQvA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.78,476,1599548400"; d="scan'208";a="421639482"
+Received: from irsmsx601.ger.corp.intel.com ([163.33.146.7])
+ by orsmga001.jf.intel.com with ESMTP; 04 Jan 2021 21:19:35 -0800
+Received: from bgsmsx604.gar.corp.intel.com (10.67.234.6) by
+ irsmsx601.ger.corp.intel.com (163.33.146.7) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.1713.5; Tue, 5 Jan 2021 05:19:35 +0000
+Received: from bgsmsx604.gar.corp.intel.com ([10.67.234.6]) by
+ BGSMSX604.gar.corp.intel.com ([10.67.234.6]) with mapi id 15.01.1713.004;
+ Tue, 5 Jan 2021 10:49:34 +0530
+From: "Gupta, Anshuman" <anshuman.gupta@intel.com>
+To: "S, Saichandana" <saichandana.s@intel.com>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
+Thread-Topic: [PATCH v2] drm/i915/debugfs : PM_REQ and PM_RES registers
+Thread-Index: AQHW4oS27rXpqH8mW0GDsFZSePBJQKoYff+Q
+Date: Tue, 5 Jan 2021 05:19:34 +0000
+Message-ID: <f6bf3d48f8ab42d7833aaeed2de1c94f@intel.com>
+References: <20210104103036.1443-1-saichandana.s@intel.com>
+In-Reply-To: <20210104103036.1443-1-saichandana.s@intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+dlp-product: dlpe-windows
+dlp-version: 11.5.1.3
+dlp-reaction: no-action
+x-originating-ip: [10.223.10.1]
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210104115145.24460-5-chris@chris-wilson.co.uk>
-Subject: Re: [Intel-gfx] [PATCH 5/6] drm/i915/gt: Restore ce->signal flush
- before releasing virtual engine
+Subject: Re: [Intel-gfx] [PATCH v2] drm/i915/debugfs : PM_REQ and PM_RES
+ registers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,49 +75,116 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org
+Cc: "Nikula, Jani" <jani.nikula@intel.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Chris,
 
-> Before we mark the virtual engine as no longer inflight, flush any
-> ongoing signaling that may be using the ce->signal_link along the
-> previous breadcrumbs. On switch to a new physical engine, that link will
-> be inserted into the new set of breadcrumbs, causing confusion to an
-> ongoing iterator.
+
+> -----Original Message-----
+> From: S, Saichandana <saichandana.s@intel.com>
+> Sent: Monday, January 4, 2021 4:01 PM
+> To: intel-gfx@lists.freedesktop.org
+> Cc: S, Saichandana <saichandana.s@intel.com>; Nikula, Jani
+> <jani.nikula@intel.com>; Gupta, Anshuman <anshuman.gupta@intel.com>
+> Subject: [PATCH v2] drm/i915/debugfs : PM_REQ and PM_RES registers
 > 
-> This patch undoes a last minute mistake introduced into commit
-> bab0557c8dca ("drm/i915/gt: Remove virtual breadcrumb before transfer"),
-> whereby instead of unconditionally applying the flush, it was only
-> applied if the request itself was going to be reused.
+> From: Saichandana <saichandana.s@intel.com>
 > 
-> Fixes: bab0557c8dca ("drm/i915/gt: Remove virtual breadcrumb before transfer")
-> Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+> PM_REQ register provides the value of the last PM request from PCU to
+> Display Engine.PM_RES register provides the value of the last PM response
+> from Display Engine to PCU.This debugfs will be used by
+> DC9 IGT test to know about "DC9 Ready" status.
+> 
+> B.Spec : 49501, 49502
+Please mention here the review comment u had fixed.
+So it will be easy for review.
+V2:
+Added a functional print to debugs. [Keep name of Reviewer]
+> 
+> Signed-off-by: Saichandana <saichandana.s@intel.com>
 > ---
->  drivers/gpu/drm/i915/gt/intel_execlists_submission.c | 7 +++++--
->  1 file changed, 5 insertions(+), 2 deletions(-)
+>  .../drm/i915/display/intel_display_debugfs.c  | 30
+> +++++++++++++++++++
+>  drivers/gpu/drm/i915/i915_reg.h               |  8 +++++
+>  2 files changed, 38 insertions(+)
 > 
-> diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-> index a5b442683c18..6414dbb124a7 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-> +++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-> @@ -592,8 +592,6 @@ resubmit_virtual_request(struct i915_request *rq, struct virtual_engine *ve)
->  		 * ce->signal_link.
->  		 */
->  		i915_request_cancel_breadcrumb(rq);
-> -		while (atomic_read(&engine->breadcrumbs->signaler_active))
-> -			cpu_relax();
->  	}
-
-As you are at it, you can also remove the braces, with that:
-
-Reviewed-by: Andi Shyti <andi.shyti@intel.com>
-
+> diff --git a/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+> b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+> index cd7e5519ee7d..551fb1a90bb3 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+> +++ b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+> @@ -559,6 +559,36 @@ static int i915_dmc_info(struct seq_file *m, void
+> *unused)
+>  	return 0;
+>  }
+> 
+> +static int i915_pm_req_res_info(struct seq_file *m, void *unused) {
+> +	struct drm_i915_private *dev_priv = node_to_i915(m->private);
+> +	struct intel_csr *csr = &dev_priv->csr;
+> +	const char *status;
+> +
+> +	if (!HAS_CSR(dev_priv))
+> +		return -ENODEV;
+> +	if (!csr->dmc_payload)
+> +		return 0;
+> +	seq_printf(m, "PM debug request 0 (0x45284): 0x%08x\n",
+> +		   intel_de_read(dev_priv, PM_REQ_DBG_0));
+> +	seq_printf(m, "PM debug request 1 (0x45288): 0x%08x\n",
+> +		   intel_de_read(dev_priv, PM_REQ_DBG_1));
+> +	seq_printf(m, "PM debug response 0 (0x4528C): 0x%08x\n",
+> +		   intel_de_read(dev_priv, PM_RSP_DBG_0));
+> +	seq_printf(m, "PM debug response 1 (0x45290): 0x%08x\n",
+> +		   intel_de_read(dev_priv, PM_RSP_DBG_1));
+> +	status = (intel_de_read(dev_priv, PM_RSP_DBG_1) &
+> MASK_DC9_BIT) ?
+> +"yes" : "no";
+You don't need to read the value of register again , please store in a variable
+And use that value.
 Thanks,
-Andi
+Anshuman Gupta.
+> +
+> +	seq_printf(m, "Time to Next Fill = 0x%0x\n",
+> +		   (intel_de_read(dev_priv, PM_RSP_DBG_0) &
+> ~MASK_RSP_0));
+> +	seq_printf(m, "Time to Next VBI = 0x%0x\n",
+> +		   ((intel_de_read(dev_priv, PM_RSP_DBG_0) &
+> MASK_RSP_0)) >> 16);
+> +	seq_printf(m, "Selective Exit Latency = 0x%0x\n",
+> +		   (intel_de_read(dev_priv, PM_RSP_DBG_1) &
+> MASK_RSP_1));
+> +	seq_printf(m, "DC9 Ready = %s\n", status);
+> +	return 0;
+> +}
+> +
+>  static void intel_seq_print_mode(struct seq_file *m, int tabs,
+>  				 const struct drm_display_mode *mode)  {
+> diff --git a/drivers/gpu/drm/i915/i915_reg.h
+> b/drivers/gpu/drm/i915/i915_reg.h index 0023c023f472..3e9ed555f928
+> 100644
+> --- a/drivers/gpu/drm/i915/i915_reg.h
+> +++ b/drivers/gpu/drm/i915/i915_reg.h
+> @@ -371,6 +371,14 @@ static inline bool
+> i915_mmio_reg_valid(i915_reg_t reg)
+>  #define VLV_G3DCTL		_MMIO(0x9024)
+>  #define VLV_GSCKGCTL		_MMIO(0x9028)
+> 
+> +#define PM_REQ_DBG_0		_MMIO(0x45284)
+> +#define PM_REQ_DBG_1		_MMIO(0x45288)
+> +#define PM_RSP_DBG_0		_MMIO(0x4528C)
+> +#define PM_RSP_DBG_1		_MMIO(0x45290)
+> +#define MASK_RSP_0		(0xFFFF << 16)
+> +#define MASK_RSP_1		(7 << 0)
+> +#define MASK_DC9_BIT		(1 << 17)
+> +
+>  #define GEN6_MBCTL		_MMIO(0x0907c)
+>  #define   GEN6_MBCTL_ENABLE_BOOT_FETCH	(1 << 4)
+>  #define   GEN6_MBCTL_CTX_FETCH_NEEDED	(1 << 3)
+> --
+> 2.17.1
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
