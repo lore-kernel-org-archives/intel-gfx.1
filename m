@@ -2,38 +2,41 @@ Return-Path: <SRS0=Zd9y=GI=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 81920C43333
-	for <intel-gfx@archiver.kernel.org>; Tue,  5 Jan 2021 15:46:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4831DC433DB
+	for <intel-gfx@archiver.kernel.org>; Tue,  5 Jan 2021 16:15:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4F1F122BF3
-	for <intel-gfx@archiver.kernel.org>; Tue,  5 Jan 2021 15:46:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4F1F122BF3
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id F354822C9D
+	for <intel-gfx@archiver.kernel.org>; Tue,  5 Jan 2021 16:15:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F354822C9D
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3FB866E199;
-	Tue,  5 Jan 2021 15:46:05 +0000 (UTC)
-Received: from mblankhorst.nl (mblankhorst.nl
- [IPv6:2a02:2308::216:3eff:fe92:dfa3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB7556E198
- for <intel-gfx@lists.freedesktop.org>; Tue,  5 Jan 2021 15:45:43 +0000 (UTC)
-From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Tue,  5 Jan 2021 16:35:14 +0100
-Message-Id: <20210105153558.134272-21-maarten.lankhorst@linux.intel.com>
-X-Mailer: git-send-email 2.30.0.rc1
-In-Reply-To: <20210105153558.134272-1-maarten.lankhorst@linux.intel.com>
-References: <20210105153558.134272-1-maarten.lankhorst@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9595C8945A;
+	Tue,  5 Jan 2021 16:15:07 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id EA43D893EC;
+ Tue,  5 Jan 2021 16:15:05 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id D8D97A47DB;
+ Tue,  5 Jan 2021 16:15:05 +0000 (UTC)
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v6 20/64] drm/i915: Handle ww locking in
- init_status_page
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Chris Wilson" <chris@chris-wilson.co.uk>
+Date: Tue, 05 Jan 2021 16:15:05 -0000
+Message-ID: <160986330586.13807.13754384018171378350@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20210105101309.10881-1-chris@chris-wilson.co.uk>
+In-Reply-To: <20210105101309.10881-1-chris@chris-wilson.co.uk>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_drm/i915/gt=3A_Restore_ce-=3Esignal_flush_before_releasing_?=
+ =?utf-8?q?virtual_engine_=28rev2=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,53 +49,168 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-VHJ5IHRvIHBpbiB0byBnZ3R0IGZpcnN0LCBhbmQgdXNlIGEgZnVsbCB3dyBsb29wIHRvIGhhbmRs
-ZQpldmljdGlvbiBjb3JyZWN0bHkuCgpTaWduZWQtb2ZmLWJ5OiBNYWFydGVuIExhbmtob3JzdCA8
-bWFhcnRlbi5sYW5raG9yc3RAbGludXguaW50ZWwuY29tPgpSZXZpZXdlZC1ieTogVGhvbWFzIEhl
-bGxzdHLDtm0gPHRob21hcy5oZWxsc3Ryb21AbGludXguaW50ZWwuY29tPgotLS0KIGRyaXZlcnMv
-Z3B1L2RybS9pOTE1L2d0L2ludGVsX2VuZ2luZV9jcy5jIHwgMzcgKysrKysrKysrKysrKysrLS0t
-LS0tLS0KIDEgZmlsZSBjaGFuZ2VkLCAyNCBpbnNlcnRpb25zKCspLCAxMyBkZWxldGlvbnMoLSkK
-CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9ndC9pbnRlbF9lbmdpbmVfY3MuYyBi
-L2RyaXZlcnMvZ3B1L2RybS9pOTE1L2d0L2ludGVsX2VuZ2luZV9jcy5jCmluZGV4IDFkYjYwOGQx
-ZjI2Zi4uYWNlNmZjYmQxZjM4IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9ndC9p
-bnRlbF9lbmdpbmVfY3MuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9ndC9pbnRlbF9lbmdp
-bmVfY3MuYwpAQCAtNjE4LDYgKzYxOCw3IEBAIHN0YXRpYyB2b2lkIGNsZWFudXBfc3RhdHVzX3Bh
-Z2Uoc3RydWN0IGludGVsX2VuZ2luZV9jcyAqZW5naW5lKQogfQogCiBzdGF0aWMgaW50IHBpbl9n
-Z3R0X3N0YXR1c19wYWdlKHN0cnVjdCBpbnRlbF9lbmdpbmVfY3MgKmVuZ2luZSwKKwkJCQlzdHJ1
-Y3QgaTkxNV9nZW1fd3dfY3R4ICp3dywKIAkJCQlzdHJ1Y3QgaTkxNV92bWEgKnZtYSkKIHsKIAl1
-bnNpZ25lZCBpbnQgZmxhZ3M7CkBAIC02MzgsMTIgKzYzOSwxMyBAQCBzdGF0aWMgaW50IHBpbl9n
-Z3R0X3N0YXR1c19wYWdlKHN0cnVjdCBpbnRlbF9lbmdpbmVfY3MgKmVuZ2luZSwKIAllbHNlCiAJ
-CWZsYWdzID0gUElOX0hJR0g7CiAKLQlyZXR1cm4gaTkxNV9nZ3R0X3Bpbih2bWEsIE5VTEwsIDAs
-IGZsYWdzKTsKKwlyZXR1cm4gaTkxNV9nZ3R0X3Bpbih2bWEsIHd3LCAwLCBmbGFncyk7CiB9CiAK
-IHN0YXRpYyBpbnQgaW5pdF9zdGF0dXNfcGFnZShzdHJ1Y3QgaW50ZWxfZW5naW5lX2NzICplbmdp
-bmUpCiB7CiAJc3RydWN0IGRybV9pOTE1X2dlbV9vYmplY3QgKm9iajsKKwlzdHJ1Y3QgaTkxNV9n
-ZW1fd3dfY3R4IHd3OwogCXN0cnVjdCBpOTE1X3ZtYSAqdm1hOwogCXZvaWQgKnZhZGRyOwogCWlu
-dCByZXQ7CkBAIC02NjksMzAgKzY3MSwzOSBAQCBzdGF0aWMgaW50IGluaXRfc3RhdHVzX3BhZ2Uo
-c3RydWN0IGludGVsX2VuZ2luZV9jcyAqZW5naW5lKQogCXZtYSA9IGk5MTVfdm1hX2luc3RhbmNl
-KG9iaiwgJmVuZ2luZS0+Z3QtPmdndHQtPnZtLCBOVUxMKTsKIAlpZiAoSVNfRVJSKHZtYSkpIHsK
-IAkJcmV0ID0gUFRSX0VSUih2bWEpOwotCQlnb3RvIGVycjsKKwkJZ290byBlcnJfcHV0OwogCX0K
-IAorCWk5MTVfZ2VtX3d3X2N0eF9pbml0KCZ3dywgdHJ1ZSk7CityZXRyeToKKwlyZXQgPSBpOTE1
-X2dlbV9vYmplY3RfbG9jayhvYmosICZ3dyk7CisJaWYgKCFyZXQgJiYgIUhXU19ORUVEU19QSFlT
-SUNBTChlbmdpbmUtPmk5MTUpKQorCQlyZXQgPSBwaW5fZ2d0dF9zdGF0dXNfcGFnZShlbmdpbmUs
-ICZ3dywgdm1hKTsKKwlpZiAocmV0KQorCQlnb3RvIGVycjsKKwogCXZhZGRyID0gaTkxNV9nZW1f
-b2JqZWN0X3Bpbl9tYXAob2JqLCBJOTE1X01BUF9XQik7CiAJaWYgKElTX0VSUih2YWRkcikpIHsK
-IAkJcmV0ID0gUFRSX0VSUih2YWRkcik7Ci0JCWdvdG8gZXJyOworCQlnb3RvIGVycl91bnBpbjsK
-IAl9CiAKIAllbmdpbmUtPnN0YXR1c19wYWdlLmFkZHIgPSBtZW1zZXQodmFkZHIsIDAsIFBBR0Vf
-U0laRSk7CiAJZW5naW5lLT5zdGF0dXNfcGFnZS52bWEgPSB2bWE7CiAKLQlpZiAoIUhXU19ORUVE
-U19QSFlTSUNBTChlbmdpbmUtPmk5MTUpKSB7Ci0JCXJldCA9IHBpbl9nZ3R0X3N0YXR1c19wYWdl
-KGVuZ2luZSwgdm1hKTsKLQkJaWYgKHJldCkKLQkJCWdvdG8gZXJyX3VucGluOwotCX0KLQotCXJl
-dHVybiAwOwotCiBlcnJfdW5waW46Ci0JaTkxNV9nZW1fb2JqZWN0X3VucGluX21hcChvYmopOwor
-CWlmIChyZXQpCisJCWk5MTVfdm1hX3VucGluKHZtYSk7CiBlcnI6Ci0JaTkxNV9nZW1fb2JqZWN0
-X3B1dChvYmopOworCWlmIChyZXQgPT0gLUVERUFETEspIHsKKwkJcmV0ID0gaTkxNV9nZW1fd3df
-Y3R4X2JhY2tvZmYoJnd3KTsKKwkJaWYgKCFyZXQpCisJCQlnb3RvIHJldHJ5OworCX0KKwlpOTE1
-X2dlbV93d19jdHhfZmluaSgmd3cpOworZXJyX3B1dDoKKwlpZiAocmV0KQorCQlpOTE1X2dlbV9v
-YmplY3RfcHV0KG9iaik7CiAJcmV0dXJuIHJldDsKIH0KIAotLSAKMi4zMC4wLnJjMQoKX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KSW50ZWwtZ2Z4IG1haWxp
-bmcgbGlzdApJbnRlbC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vaW50ZWwtZ2Z4Cg==
+== Series Details ==
+
+Series: drm/i915/gt: Restore ce->signal flush before releasing virtual engine (rev2)
+URL   : https://patchwork.freedesktop.org/series/85493/
+State : warning
+
+== Summary ==
+
+$ dim checkpatch origin/drm-tip
+7ceba4fd2e81 drm/i915/gt: Restore ce->signal flush before releasing virtual engine
+-:14: ERROR:GIT_COMMIT_ID: Please use git commit description style 'commit <12+ chars of sha1> ("<title line>")' - ie: 'commit bab0557c8dca ("drm/i915/gt: Remove virtual breadcrumb before transfer")'
+#14: 
+bab0557c8dca ("drm/i915/gt: Remove virtual breadcrumb before transfer"),
+
+-:34: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+#34: FILE: drivers/gpu/drm/i915/gt/intel_breadcrumbs.c:478:
++       struct i915_request *rq, *rn;$
+
+-:35: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+#35: FILE: drivers/gpu/drm/i915/gt/intel_breadcrumbs.c:479:
++       unsigned long flags;$
+
+-:36: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+#36: FILE: drivers/gpu/drm/i915/gt/intel_breadcrumbs.c:480:
++       bool release;$
+
+-:38: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+#38: FILE: drivers/gpu/drm/i915/gt/intel_breadcrumbs.c:482:
++       if (list_empty(&ce->signals))$
+
+-:38: WARNING:SUSPECT_CODE_INDENT: suspect code indent for conditional statements (7, 15)
+#38: FILE: drivers/gpu/drm/i915/gt/intel_breadcrumbs.c:482:
++       if (list_empty(&ce->signals))
++               return false;
+
+-:39: ERROR:CODE_INDENT: code indent should use tabs where possible
+#39: FILE: drivers/gpu/drm/i915/gt/intel_breadcrumbs.c:483:
++               return false;$
+
+-:39: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+#39: FILE: drivers/gpu/drm/i915/gt/intel_breadcrumbs.c:483:
++               return false;$
+
+-:41: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+#41: FILE: drivers/gpu/drm/i915/gt/intel_breadcrumbs.c:485:
++       spin_lock_irqsave(&ce->signal_lock, flags);$
+
+-:42: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+#42: FILE: drivers/gpu/drm/i915/gt/intel_breadcrumbs.c:486:
++       list_for_each_entry_safe(rq, rn, &ce->signals, signal_link) {$
+
+-:42: WARNING:SUSPECT_CODE_INDENT: suspect code indent for conditional statements (7, 15)
+#42: FILE: drivers/gpu/drm/i915/gt/intel_breadcrumbs.c:486:
++       list_for_each_entry_safe(rq, rn, &ce->signals, signal_link) {
++               GEM_BUG_ON(!__i915_request_is_complete(rq));
+
+-:43: ERROR:CODE_INDENT: code indent should use tabs where possible
+#43: FILE: drivers/gpu/drm/i915/gt/intel_breadcrumbs.c:487:
++               GEM_BUG_ON(!__i915_request_is_complete(rq));$
+
+-:43: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+#43: FILE: drivers/gpu/drm/i915/gt/intel_breadcrumbs.c:487:
++               GEM_BUG_ON(!__i915_request_is_complete(rq));$
+
+-:44: ERROR:CODE_INDENT: code indent should use tabs where possible
+#44: FILE: drivers/gpu/drm/i915/gt/intel_breadcrumbs.c:488:
++               if (!test_and_clear_bit(I915_FENCE_FLAG_SIGNAL,$
+
+-:44: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+#44: FILE: drivers/gpu/drm/i915/gt/intel_breadcrumbs.c:488:
++               if (!test_and_clear_bit(I915_FENCE_FLAG_SIGNAL,$
+
+-:44: WARNING:SUSPECT_CODE_INDENT: suspect code indent for conditional statements (15, 23)
+#44: FILE: drivers/gpu/drm/i915/gt/intel_breadcrumbs.c:488:
++               if (!test_and_clear_bit(I915_FENCE_FLAG_SIGNAL,
+[...]
++                       continue;
+
+-:45: ERROR:CODE_INDENT: code indent should use tabs where possible
+#45: FILE: drivers/gpu/drm/i915/gt/intel_breadcrumbs.c:489:
++                                       &rq->fence.flags))$
+
+-:45: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+#45: FILE: drivers/gpu/drm/i915/gt/intel_breadcrumbs.c:489:
++                                       &rq->fence.flags))$
+
+-:46: ERROR:CODE_INDENT: code indent should use tabs where possible
+#46: FILE: drivers/gpu/drm/i915/gt/intel_breadcrumbs.c:490:
++                       continue;$
+
+-:46: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+#46: FILE: drivers/gpu/drm/i915/gt/intel_breadcrumbs.c:490:
++                       continue;$
+
+-:48: ERROR:CODE_INDENT: code indent should use tabs where possible
+#48: FILE: drivers/gpu/drm/i915/gt/intel_breadcrumbs.c:492:
++               list_del_rcu(&rq->signal_link);$
+
+-:48: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+#48: FILE: drivers/gpu/drm/i915/gt/intel_breadcrumbs.c:492:
++               list_del_rcu(&rq->signal_link);$
+
+-:49: ERROR:CODE_INDENT: code indent should use tabs where possible
+#49: FILE: drivers/gpu/drm/i915/gt/intel_breadcrumbs.c:493:
++               irq_signal_request(rq, b);$
+
+-:49: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+#49: FILE: drivers/gpu/drm/i915/gt/intel_breadcrumbs.c:493:
++               irq_signal_request(rq, b);$
+
+-:50: ERROR:CODE_INDENT: code indent should use tabs where possible
+#50: FILE: drivers/gpu/drm/i915/gt/intel_breadcrumbs.c:494:
++               i915_request_put(rq);$
+
+-:50: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+#50: FILE: drivers/gpu/drm/i915/gt/intel_breadcrumbs.c:494:
++               i915_request_put(rq);$
+
+-:51: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+#51: FILE: drivers/gpu/drm/i915/gt/intel_breadcrumbs.c:495:
++       }$
+
+-:53: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+#53: FILE: drivers/gpu/drm/i915/gt/intel_breadcrumbs.c:497:
++       release = remove_signaling_context(b, ce);$
+
+-:54: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+#54: FILE: drivers/gpu/drm/i915/gt/intel_breadcrumbs.c:498:
++       spin_unlock_irqrestore(&ce->signal_lock, flags);$
+
+-:55: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+#55: FILE: drivers/gpu/drm/i915/gt/intel_breadcrumbs.c:499:
++       if (release)$
+
+-:55: WARNING:SUSPECT_CODE_INDENT: suspect code indent for conditional statements (7, 15)
+#55: FILE: drivers/gpu/drm/i915/gt/intel_breadcrumbs.c:499:
++       if (release)
++               intel_context_put(ce);
+
+-:56: ERROR:CODE_INDENT: code indent should use tabs where possible
+#56: FILE: drivers/gpu/drm/i915/gt/intel_breadcrumbs.c:500:
++               intel_context_put(ce);$
+
+-:56: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+#56: FILE: drivers/gpu/drm/i915/gt/intel_breadcrumbs.c:500:
++               intel_context_put(ce);$
+
+-:58: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+#58: FILE: drivers/gpu/drm/i915/gt/intel_breadcrumbs.c:502:
++       return true;$
+
+total: 10 errors, 24 warnings, 0 checks, 104 lines checked
+
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
