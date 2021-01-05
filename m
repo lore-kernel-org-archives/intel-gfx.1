@@ -7,36 +7,37 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B2922C433E6
-	for <intel-gfx@archiver.kernel.org>; Tue,  5 Jan 2021 00:54:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 49B5EC433DB
+	for <intel-gfx@archiver.kernel.org>; Tue,  5 Jan 2021 00:54:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 46C822253A
-	for <intel-gfx@archiver.kernel.org>; Tue,  5 Jan 2021 00:54:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 46C822253A
+	by mail.kernel.org (Postfix) with ESMTPS id D33652253A
+	for <intel-gfx@archiver.kernel.org>; Tue,  5 Jan 2021 00:54:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D33652253A
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B8E538982D;
-	Tue,  5 Jan 2021 00:54:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 028948800A;
+	Tue,  5 Jan 2021 00:54:52 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF1608982E
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C82798982D
  for <intel-gfx@lists.freedesktop.org>; Tue,  5 Jan 2021 00:54:49 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23501330-1500050 
- for multiple; Tue, 05 Jan 2021 00:54:39 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23501335-1500050 
+ for multiple; Tue, 05 Jan 2021 00:54:40 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue,  5 Jan 2021 00:54:33 +0000
-Message-Id: <20210105005439.18402-2-chris@chris-wilson.co.uk>
+Date: Tue,  5 Jan 2021 00:54:38 +0000
+Message-Id: <20210105005439.18402-7-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20210105005439.18402-1-chris@chris-wilson.co.uk>
 References: <20210105005439.18402-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 2/8] drm/i915/gt: Rearrange ivb workarounds
+Subject: [Intel-gfx] [PATCH 7/8] drm/i915/selftests: Prepare the selftests
+ for engine resets with ring submission
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,192 +56,111 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Some rcs0 workarounds were being incorrectly applied to the GT, and so
-we failed to restore the expected register settings after a reset.
+The engine resets selftests kick the tasklets, safe up until now as only
+execlists supported engine resets.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 ---
- drivers/gpu/drm/i915/gt/intel_workarounds.c | 118 ++++++++------------
- 1 file changed, 47 insertions(+), 71 deletions(-)
+ drivers/gpu/drm/i915/gt/selftest_hangcheck.c | 18 ++++++++++++++----
+ drivers/gpu/drm/i915/gt/selftest_reset.c     | 11 ++++++++---
+ 2 files changed, 22 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-index 3d5122301f64..7c18893f5164 100644
---- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
-+++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-@@ -829,18 +829,6 @@ snb_gt_workarounds_init(struct drm_i915_private *i915, struct i915_wa_list *wal)
- static void
- ivb_gt_workarounds_init(struct drm_i915_private *i915, struct i915_wa_list *wal)
- {
--	/* WaDisableEarlyCull:ivb */
--	wa_masked_en(wal, _3D_CHICKEN3, _3D_CHICKEN_SF_DISABLE_OBJEND_CULL);
--
--	/* WaDisablePSDDualDispatchEnable:ivb */
--	if (IS_IVB_GT1(i915))
--		wa_masked_en(wal,
--			     GEN7_HALF_SLICE_CHICKEN1,
--			     GEN7_PSD_SINGLE_PORT_DISPATCH_ENABLE);
--
--	/* WaDisable_RenderCache_OperationalFlush:ivb */
--	wa_masked_dis(wal, CACHE_MODE_0_GEN7, RC_OP_FLUSH_ENABLE);
--
- 	/* Apply the WaDisableRHWOOptimizationForRenderHang:ivb workaround. */
- 	wa_masked_dis(wal,
- 		      GEN7_COMMON_SLICE_CHICKEN1,
-@@ -852,38 +840,6 @@ ivb_gt_workarounds_init(struct drm_i915_private *i915, struct i915_wa_list *wal)
+diff --git a/drivers/gpu/drm/i915/gt/selftest_hangcheck.c b/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
+index c28d1fcad673..28f71cc2004d 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
++++ b/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
+@@ -560,6 +560,7 @@ static int __igt_reset_engine(struct intel_gt *gt, bool active)
  
- 	/* WaForceL3Serialization:ivb */
- 	wa_write_clr(wal, GEN7_L3SQCREG4, L3SQ_URB_READ_CAM_MATCH_DISABLE);
--
--	/*
--	 * WaVSThreadDispatchOverride:ivb,vlv
--	 *
--	 * This actually overrides the dispatch
--	 * mode for all thread types.
--	 */
--	wa_write_clr_set(wal, GEN7_FF_THREAD_MODE,
--			 GEN7_FF_SCHED_MASK,
--			 GEN7_FF_TS_SCHED_HW |
--			 GEN7_FF_VS_SCHED_HW |
--			 GEN7_FF_DS_SCHED_HW);
--
--	if (0) { /* causes HiZ corruption on ivb:gt1 */
--		/* enable HiZ Raw Stall Optimization */
--		wa_masked_dis(wal, CACHE_MODE_0_GEN7, HIZ_RAW_STALL_OPT_DISABLE);
--	}
--
--	/* WaDisable4x2SubspanOptimization:ivb */
--	wa_masked_en(wal, CACHE_MODE_1, PIXEL_SUBSPAN_COLLECT_OPT_DISABLE);
--
--	/*
--	 * BSpec recommends 8x4 when MSAA is used,
--	 * however in practice 16x4 seems fastest.
--	 *
--	 * Note that PS/WM thread counts depend on the WIZ hashing
--	 * disable bit, which we don't touch here, but it's good
--	 * to keep in mind (see 3DSTATE_PS and 3DSTATE_WM).
--	 */
--	wa_add(wal, GEN7_GT_MODE, 0,
--	       _MASKED_FIELD(GEN6_WIZ_HASHING_MASK, GEN6_WIZ_HASHING_16x4),
--	       GEN6_WIZ_HASHING_16x4);
- }
+ 	for_each_engine(engine, gt, id) {
+ 		unsigned int reset_count, reset_engine_count;
++		unsigned long count;
+ 		IGT_TIMEOUT(end_time);
  
- static void
-@@ -1886,34 +1842,53 @@ rcs_engine_wa_init(struct intel_engine_cs *engine, struct i915_wa_list *wal)
+ 		if (active && !intel_engine_can_store_dword(engine))
+@@ -577,6 +578,7 @@ static int __igt_reset_engine(struct intel_gt *gt, bool active)
  
- 		wa_masked_dis(wal,
- 			      CACHE_MODE_0_GEN7,
--			      /* WaDisable_RenderCache_OperationalFlush:hsw */
--			      RC_OP_FLUSH_ENABLE |
- 			      /* enable HiZ Raw Stall Optimization */
- 			      HIZ_RAW_STALL_OPT_DISABLE);
+ 		st_engine_heartbeat_disable(engine);
+ 		set_bit(I915_RESET_ENGINE + id, &gt->reset.flags);
++		count = 0;
+ 		do {
+ 			if (active) {
+ 				struct i915_request *rq;
+@@ -625,9 +627,13 @@ static int __igt_reset_engine(struct intel_gt *gt, bool active)
+ 				err = -EINVAL;
+ 				break;
+ 			}
++
++			count++;
+ 		} while (time_before(jiffies, end_time));
+ 		clear_bit(I915_RESET_ENGINE + id, &gt->reset.flags);
+ 		st_engine_heartbeat_enable(engine);
++		pr_info("%s: Completed %lu %s resets\n",
++			engine->name, count, active ? "active" : "idle");
  
- 		/* WaDisable4x2SubspanOptimization:hsw */
- 		wa_masked_en(wal, CACHE_MODE_1, PIXEL_SUBSPAN_COLLECT_OPT_DISABLE);
+ 		if (err)
+ 			break;
+@@ -1478,7 +1484,8 @@ static int igt_reset_queue(void *arg)
+ 			prev = rq;
+ 			count++;
+ 		} while (time_before(jiffies, end_time));
+-		pr_info("%s: Completed %d resets\n", engine->name, count);
++		pr_info("%s: Completed %d queued resets\n",
++			engine->name, count);
+ 
+ 		*h.batch = MI_BATCH_BUFFER_END;
+ 		intel_gt_chipset_flush(engine->gt);
+@@ -1575,7 +1582,8 @@ static int __igt_atomic_reset_engine(struct intel_engine_cs *engine,
+ 	GEM_TRACE("i915_reset_engine(%s:%s) under %s\n",
+ 		  engine->name, mode, p->name);
+ 
+-	tasklet_disable(t);
++	if (t->func)
++		tasklet_disable(t);
+ 	if (strcmp(p->name, "softirq"))
+ 		local_bh_disable();
+ 	p->critical_section_begin();
+@@ -1585,8 +1593,10 @@ static int __igt_atomic_reset_engine(struct intel_engine_cs *engine,
+ 	p->critical_section_end();
+ 	if (strcmp(p->name, "softirq"))
+ 		local_bh_enable();
+-	tasklet_enable(t);
+-	tasklet_hi_schedule(t);
++	if (t->func) {
++		tasklet_enable(t);
++		tasklet_hi_schedule(t);
 +	}
+ 
+ 	if (err)
+ 		pr_err("i915_reset_engine(%s:%s) failed under %s\n",
+diff --git a/drivers/gpu/drm/i915/gt/selftest_reset.c b/drivers/gpu/drm/i915/gt/selftest_reset.c
+index 5ec8d4e9983f..07946c33044a 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_reset.c
++++ b/drivers/gpu/drm/i915/gt/selftest_reset.c
+@@ -321,7 +321,10 @@ static int igt_atomic_engine_reset(void *arg)
+ 		goto out_unlock;
+ 
+ 	for_each_engine(engine, gt, id) {
+-		tasklet_disable(&engine->execlists.tasklet);
++		struct tasklet_struct *t = &engine->execlists.tasklet;
 +
-+	if (IS_VALLEYVIEW(i915)) {
-+		/* WaDisableEarlyCull:vlv */
-+		wa_masked_en(wal,
-+			     _3D_CHICKEN3,
-+			     _3D_CHICKEN_SF_DISABLE_OBJEND_CULL);
++		if (t->func)
++			tasklet_disable(t);
+ 		intel_engine_pm_get(engine);
  
- 		/*
--		 * BSpec recommends 8x4 when MSAA is used,
--		 * however in practice 16x4 seems fastest.
-+		 * WaVSThreadDispatchOverride:ivb,vlv
- 		 *
--		 * Note that PS/WM thread counts depend on the WIZ hashing
--		 * disable bit, which we don't touch here, but it's good
--		 * to keep in mind (see 3DSTATE_PS and 3DSTATE_WM).
-+		 * This actually overrides the dispatch
-+		 * mode for all thread types.
- 		 */
--		wa_add(wal, GEN7_GT_MODE, 0,
--		       _MASKED_FIELD(GEN6_WIZ_HASHING_MASK,
--				     GEN6_WIZ_HASHING_16x4),
--		       GEN6_WIZ_HASHING_16x4);
-+		wa_write_clr_set(wal,
-+				 GEN7_FF_THREAD_MODE,
-+				 GEN7_FF_SCHED_MASK,
-+				 GEN7_FF_TS_SCHED_HW |
-+				 GEN7_FF_VS_SCHED_HW |
-+				 GEN7_FF_DS_SCHED_HW);
-+
-+		/* WaPsdDispatchEnable:vlv */
-+		/* WaDisablePSDDualDispatchEnable:vlv */
-+		wa_masked_en(wal,
-+			     GEN7_HALF_SLICE_CHICKEN1,
-+			     GEN7_MAX_PS_THREAD_DEP |
-+			     GEN7_PSD_SINGLE_PORT_DISPATCH_ENABLE);
- 	}
+ 		for (p = igt_atomic_phases; p->name; p++) {
+@@ -345,8 +348,10 @@ static int igt_atomic_engine_reset(void *arg)
+ 		}
  
--	if (IS_VALLEYVIEW(i915)) {
--		/* WaDisableEarlyCull:vlv */
-+	if (IS_IVYBRIDGE(i915)) {
-+		/* WaDisableEarlyCull:ivb */
- 		wa_masked_en(wal,
- 			     _3D_CHICKEN3,
- 			     _3D_CHICKEN_SF_DISABLE_OBJEND_CULL);
- 
-+		if (0) { /* causes HiZ corruption on ivb:gt1 */
-+			/* enable HiZ Raw Stall Optimization */
-+			wa_masked_dis(wal,
-+				      CACHE_MODE_0_GEN7,
-+				      HIZ_RAW_STALL_OPT_DISABLE);
+ 		intel_engine_pm_put(engine);
+-		tasklet_enable(&engine->execlists.tasklet);
+-		tasklet_hi_schedule(&engine->execlists.tasklet);
++		if (t->func) {
++			tasklet_enable(t);
++			tasklet_hi_schedule(t);
 +		}
-+
- 		/*
- 		 * WaVSThreadDispatchOverride:ivb,vlv
- 		 *
-@@ -1927,11 +1902,25 @@ rcs_engine_wa_init(struct intel_engine_cs *engine, struct i915_wa_list *wal)
- 				 GEN7_FF_VS_SCHED_HW |
- 				 GEN7_FF_DS_SCHED_HW);
- 
--		/* WaDisable_RenderCache_OperationalFlush:vlv */
-+		/* WaDisablePSDDualDispatchEnable:ivb */
-+		if (IS_IVB_GT1(i915))
-+			wa_masked_en(wal,
-+				     GEN7_HALF_SLICE_CHICKEN1,
-+				     GEN7_PSD_SINGLE_PORT_DISPATCH_ENABLE);
-+	}
-+
-+	if (IS_GEN(i915, 7)) {
-+		/* WaBCSVCSTlbInvalidationMode:ivb,vlv,hsw */
-+		wa_masked_en(wal,
-+			     GFX_MODE_GEN7,
-+			     GFX_TLB_INVALIDATE_EXPLICIT | GFX_REPLAY_MODE);
-+
-+		/* WaDisable_RenderCache_OperationalFlush:ivb,vlv,hsw */
- 		wa_masked_dis(wal, CACHE_MODE_0_GEN7, RC_OP_FLUSH_ENABLE);
- 
- 		/*
- 		 * BSpec says this must be set, even though
-+		 * WaDisable4x2SubspanOptimization:ivb,hsw
- 		 * WaDisable4x2SubspanOptimization isn't listed for VLV.
- 		 */
- 		wa_masked_en(wal,
-@@ -1950,21 +1939,8 @@ rcs_engine_wa_init(struct intel_engine_cs *engine, struct i915_wa_list *wal)
- 		       _MASKED_FIELD(GEN6_WIZ_HASHING_MASK,
- 				     GEN6_WIZ_HASHING_16x4),
- 		       GEN6_WIZ_HASHING_16x4);
--
--		/* WaPsdDispatchEnable:vlv */
--		/* WaDisablePSDDualDispatchEnable:vlv */
--		wa_masked_en(wal,
--			     GEN7_HALF_SLICE_CHICKEN1,
--			     GEN7_MAX_PS_THREAD_DEP |
--			     GEN7_PSD_SINGLE_PORT_DISPATCH_ENABLE);
+ 		if (err)
+ 			break;
  	}
- 
--	if (IS_GEN(i915, 7))
--		/* WaBCSVCSTlbInvalidationMode:ivb,vlv,hsw */
--		wa_masked_en(wal,
--			     GFX_MODE_GEN7,
--			     GFX_TLB_INVALIDATE_EXPLICIT | GFX_REPLAY_MODE);
--
- 	if (IS_GEN_RANGE(i915, 6, 7))
- 		/*
- 		 * We need to disable the AsyncFlip performance optimisations in
 -- 
 2.20.1
 
