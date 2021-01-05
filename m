@@ -7,31 +7,31 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5CCDCC433DB
-	for <intel-gfx@archiver.kernel.org>; Tue,  5 Jan 2021 22:17:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B80ACC433E0
+	for <intel-gfx@archiver.kernel.org>; Tue,  5 Jan 2021 22:23:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C22BD22E03
-	for <intel-gfx@archiver.kernel.org>; Tue,  5 Jan 2021 22:17:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C22BD22E03
+	by mail.kernel.org (Postfix) with ESMTPS id 65E4222E00
+	for <intel-gfx@archiver.kernel.org>; Tue,  5 Jan 2021 22:23:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 65E4222E00
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 195AD6E0E9;
-	Tue,  5 Jan 2021 22:17:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ABAC56E0E8;
+	Tue,  5 Jan 2021 22:23:31 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ED0D56E0E8;
- Tue,  5 Jan 2021 22:16:58 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 32FD66E0E8;
+ Tue,  5 Jan 2021 22:23:29 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from haswell.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23512283-1500050 
- for multiple; Tue, 05 Jan 2021 22:16:50 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23512305-1500050 
+ for multiple; Tue, 05 Jan 2021 22:23:19 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue,  5 Jan 2021 22:16:48 +0000
-Message-Id: <20210105221648.3456839-1-chris@chris-wilson.co.uk>
+Date: Tue,  5 Jan 2021 22:23:17 +0000
+Message-Id: <20210105222317.3513311-1-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.30.0
 In-Reply-To: <20210105220941.3456706-1-chris@chris-wilson.co.uk>
 References: <20210105220941.3456706-1-chris@chris-wilson.co.uk>
@@ -63,14 +63,14 @@ that we don't antagonise ourselves by fighting over GTT offsets.
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 Cc: Venkata Sandeep Dhanalakota <venkata.s.dhanalakota@intel.com>
 ---
- tests/i915/gem_ctx_engines.c | 24 ++++++++++++++++--------
- 1 file changed, 16 insertions(+), 8 deletions(-)
+ tests/i915/gem_ctx_engines.c | 25 +++++++++++++++++--------
+ 1 file changed, 17 insertions(+), 8 deletions(-)
 
 diff --git a/tests/i915/gem_ctx_engines.c b/tests/i915/gem_ctx_engines.c
-index eab0cc40a..4ce4fdf3e 100644
+index eab0cc40a..6fbd3cdb0 100644
 --- a/tests/i915/gem_ctx_engines.c
 +++ b/tests/i915/gem_ctx_engines.c
-@@ -333,31 +333,37 @@ static void execute_one(int i915)
+@@ -333,31 +333,38 @@ static void execute_one(int i915)
  	};
  	const uint32_t bbe = MI_BATCH_BUFFER_END;
  	const struct intel_execution_engine2 *e;
@@ -110,12 +110,13 @@ index eab0cc40a..4ce4fdf3e 100644
 -					    .engine = 0,
 -					    .flags = (IGT_SPIN_NO_PREEMPTION |
 -						      IGT_SPIN_POLL_RUN));
++			gem_sync(i915, spin->handle);
 +			igt_spin_reset(spin);
 +			gem_execbuf(i915, &spin->execbuf);
  
  			igt_debug("Testing with map of %d engines\n", i + 1);
  			memset(&engines.engines, -1, sizeof(engines.engines));
-@@ -382,7 +388,7 @@ static void execute_one(int i915)
+@@ -382,7 +389,7 @@ static void execute_one(int i915)
  			igt_assert_eq(batch_busy(busy.busy),
  				      i != -1 ? 1 << e->class : 0);
  
@@ -124,7 +125,7 @@ index eab0cc40a..4ce4fdf3e 100644
  
  			gem_sync(i915, obj.handle);
  			do_ioctl(i915, DRM_IOCTL_I915_GEM_BUSY, &busy);
-@@ -396,6 +402,8 @@ static void execute_one(int i915)
+@@ -396,6 +403,8 @@ static void execute_one(int i915)
  	execbuf.flags = 0;
  	gem_execbuf(i915, &execbuf);
  
