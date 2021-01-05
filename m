@@ -2,42 +2,42 @@ Return-Path: <SRS0=Zd9y=GI=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BF700C433E0
-	for <intel-gfx@archiver.kernel.org>; Tue,  5 Jan 2021 11:19:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DF906C433E0
+	for <intel-gfx@archiver.kernel.org>; Tue,  5 Jan 2021 11:21:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E8BAF229C5
-	for <intel-gfx@archiver.kernel.org>; Tue,  5 Jan 2021 11:19:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E8BAF229C5
+	by mail.kernel.org (Postfix) with ESMTPS id 624CF229C7
+	for <intel-gfx@archiver.kernel.org>; Tue,  5 Jan 2021 11:21:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 624CF229C7
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 592D16E0DE;
-	Tue,  5 Jan 2021 11:19:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C9CC06E0DD;
+	Tue,  5 Jan 2021 11:21:44 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 04B306E0DB
- for <intel-gfx@lists.freedesktop.org>; Tue,  5 Jan 2021 11:19:40 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E090A6E0DD
+ for <intel-gfx@lists.freedesktop.org>; Tue,  5 Jan 2021 11:21:43 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
-Received: from haswell.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23505955-1500050 
- for multiple; Tue, 05 Jan 2021 11:19:26 +0000
-From: Chris Wilson <chris@chris-wilson.co.uk>
-To: intel-gfx@lists.freedesktop.org
-Date: Tue,  5 Jan 2021 11:19:27 +0000
-Message-Id: <20210105111927.3284573-2-chris@chris-wilson.co.uk>
-X-Mailer: git-send-email 2.30.0
+Received: from localhost (unverified [78.156.65.138]) 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP (TLS) id
+ 23505973-1500050 for multiple; Tue, 05 Jan 2021 11:21:39 +0000
+MIME-Version: 1.0
 In-Reply-To: <20210105111927.3284573-1-chris@chris-wilson.co.uk>
 References: <20210105111927.3284573-1-chris@chris-wilson.co.uk>
-MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH i-g-t 2/2] i915/gem_ctx_exec: Protect norecovery
- from being banned
+From: Chris Wilson <chris@chris-wilson.co.uk>
+To: intel-gfx@lists.freedesktop.org
+Date: Tue, 05 Jan 2021 11:21:39 +0000
+Message-ID: <160984569979.15859.478677673014267580@build.alporthouse.com>
+User-Agent: alot/0.9
+Subject: Re: [Intel-gfx] [PATCH i-g-t 1/2] i915/gem_ctx_isolation: Protect
+ inject_reset_context() from banning
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,48 +50,38 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Venkata Ramana Nayana <venkata.ramana.nayana@intel.com>,
- Chris Wilson <chris@chris-wilson.co.uk>
+Cc: Venkata Ramana Nayana <venkata.ramana.nayana@intel.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Disable banning as we deliberately inject GPU resets to test norecovery
-handling.
+Quoting Chris Wilson (2021-01-05 11:19:26)
+> Disable banning as we deliberately inject GPU resets to test isolation.
+> 
+> Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+> Cc: Venkata Ramana Nayana <venkata.ramana.nayana@intel.com>
+> ---
+>  tests/i915/gem_ctx_isolation.c | 13 ++++++++++++-
+>  1 file changed, 12 insertions(+), 1 deletion(-)
+> 
+> diff --git a/tests/i915/gem_ctx_isolation.c b/tests/i915/gem_ctx_isolation.c
+> index 58a35b487..4f1742685 100644
+> --- a/tests/i915/gem_ctx_isolation.c
+> +++ b/tests/i915/gem_ctx_isolation.c
+> @@ -762,10 +762,21 @@ static void isolation(int fd,
+>  #define S4 (4 << 8)
+>  #define SLEEP_MASK (0xf << 8)
+>  
+> +static uint32_t create_reset_context(int i915)
+> +{
+> +       struct drm_i915_gem_context_param param = {
+> +               .ctx_id = gem_context_clone_with_engines(i915, 0),
 
-Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-Cc: Venkata Ramana Nayana <venkata.ramana.nayana@intel.com>
----
- tests/i915/gem_ctx_exec.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
-
-diff --git a/tests/i915/gem_ctx_exec.c b/tests/i915/gem_ctx_exec.c
-index 897761856..c80a98473 100644
---- a/tests/i915/gem_ctx_exec.c
-+++ b/tests/i915/gem_ctx_exec.c
-@@ -171,14 +171,16 @@ static void norecovery(int i915)
- 	for (int pass = 1; pass >= 0; pass--) {
- 		struct drm_i915_gem_context_param param = {
- 			.ctx_id = gem_context_create(i915),
--			.param = I915_CONTEXT_PARAM_RECOVERABLE,
--			.value = pass,
-+			.param = I915_CONTEXT_PARAM_BANNABLE,
- 		};
- 		int expect = pass == 0 ? -EIO : 0;
- 		igt_spin_t *spin;
- 
- 		gem_context_set_param(i915, &param);
- 
-+		param.param = I915_CONTEXT_PARAM_RECOVERABLE;
-+		param.value = pass;
-+		gem_context_set_param(i915, &param);
- 		param.value = !pass;
- 		gem_context_get_param(i915, &param);
- 		igt_assert_eq(param.value, pass);
--- 
-2.30.0
-
+An alternative is that we pass CLONE_FLAGS to
+gem_context_clone_with_engines(). Danger is context_clone_with_engines
+is widely used.
+-Chris
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
