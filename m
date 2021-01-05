@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 31D55C433E9
-	for <intel-gfx@archiver.kernel.org>; Tue,  5 Jan 2021 00:55:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 08B2DC433DB
+	for <intel-gfx@archiver.kernel.org>; Tue,  5 Jan 2021 00:55:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E6E582253A
-	for <intel-gfx@archiver.kernel.org>; Tue,  5 Jan 2021 00:54:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E6E582253A
+	by mail.kernel.org (Postfix) with ESMTPS id BD83D2253A
+	for <intel-gfx@archiver.kernel.org>; Tue,  5 Jan 2021 00:55:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BD83D2253A
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 60E4F89206;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD93389226;
 	Tue,  5 Jan 2021 00:54:54 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2097D8989A
- for <intel-gfx@lists.freedesktop.org>; Tue,  5 Jan 2021 00:54:49 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B25D88989A
+ for <intel-gfx@lists.freedesktop.org>; Tue,  5 Jan 2021 00:54:50 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23501336-1500050 
- for multiple; Tue, 05 Jan 2021 00:54:40 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23501332-1500050 
+ for multiple; Tue, 05 Jan 2021 00:54:39 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue,  5 Jan 2021 00:54:39 +0000
-Message-Id: <20210105005439.18402-8-chris@chris-wilson.co.uk>
+Date: Tue,  5 Jan 2021 00:54:35 +0000
+Message-Id: <20210105005439.18402-4-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20210105005439.18402-1-chris@chris-wilson.co.uk>
 References: <20210105005439.18402-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 8/8] drm/i915: Mark per-engine-reset as
- supported on gen7
+Subject: [Intel-gfx] [PATCH 4/8] drm/i915/gt: Reapply ppgtt enabling after
+ engine resets
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,49 +56,66 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The benefit of only resetting a single engine is that we leave other
-streams of userspace work intact across a hang; vital for process
-isolation. We had wired up individual engine resets for gen6, but only
-enabled it from gen8; now let's turn it on for the forgotten gen7. gen6
-is still a mystery as how to unravel some global state that appears to
-be reset along with an engine (in particular the ppgtt enabling in
-GFX_MODE).
+The GFX_MODE is reset along with the engine, turning off ppGTT. We need
+to re-enable it upon resume.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 ---
- drivers/gpu/drm/i915/i915_pci.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/gt/gen6_ppgtt.c            |  9 ---------
+ drivers/gpu/drm/i915/gt/intel_ring_submission.c | 13 ++++++++++---
+ 2 files changed, 10 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
-index 11fe790b1969..91e0092d081e 100644
---- a/drivers/gpu/drm/i915/i915_pci.c
-+++ b/drivers/gpu/drm/i915/i915_pci.c
-@@ -455,6 +455,7 @@ static const struct intel_device_info snb_m_gt2_info = {
- 	.has_llc = 1, \
- 	.has_rc6 = 1, \
- 	.has_rc6p = 1, \
-+	.has_reset_engine = true, \
- 	.has_rps = true, \
- 	.dma_mask_size = 40, \
- 	.ppgtt_type = INTEL_PPGTT_ALIASING, \
-@@ -513,6 +514,7 @@ static const struct intel_device_info vlv_info = {
- 	.cpu_transcoder_mask = BIT(TRANSCODER_A) | BIT(TRANSCODER_B),
- 	.has_runtime_pm = 1,
- 	.has_rc6 = 1,
-+	.has_reset_engine = true,
- 	.has_rps = true,
- 	.display.has_gmch = 1,
- 	.display.has_hotplug = 1,
-@@ -571,8 +573,7 @@ static const struct intel_device_info hsw_gt3_info = {
- 	.dma_mask_size = 39, \
- 	.ppgtt_type = INTEL_PPGTT_FULL, \
- 	.ppgtt_size = 48, \
--	.has_64bit_reloc = 1, \
--	.has_reset_engine = 1
-+	.has_64bit_reloc = 1
+diff --git a/drivers/gpu/drm/i915/gt/gen6_ppgtt.c b/drivers/gpu/drm/i915/gt/gen6_ppgtt.c
+index 680bd9442eb0..0f02afe7f43a 100644
+--- a/drivers/gpu/drm/i915/gt/gen6_ppgtt.c
++++ b/drivers/gpu/drm/i915/gt/gen6_ppgtt.c
+@@ -27,8 +27,6 @@ void gen7_ppgtt_enable(struct intel_gt *gt)
+ {
+ 	struct drm_i915_private *i915 = gt->i915;
+ 	struct intel_uncore *uncore = gt->uncore;
+-	struct intel_engine_cs *engine;
+-	enum intel_engine_id id;
+ 	u32 ecochk;
  
- #define BDW_PLATFORM \
- 	GEN8_FEATURES, \
+ 	intel_uncore_rmw(uncore, GAC_ECO_BITS, 0, ECOBITS_PPGTT_CACHE64B);
+@@ -41,13 +39,6 @@ void gen7_ppgtt_enable(struct intel_gt *gt)
+ 		ecochk &= ~ECOCHK_PPGTT_GFDT_IVB;
+ 	}
+ 	intel_uncore_write(uncore, GAM_ECOCHK, ecochk);
+-
+-	for_each_engine(engine, gt, id) {
+-		/* GFX_MODE is per-ring on gen7+ */
+-		ENGINE_WRITE(engine,
+-			     RING_MODE_GEN7,
+-			     _MASKED_BIT_ENABLE(GFX_PPGTT_ENABLE));
+-	}
+ }
+ 
+ void gen6_ppgtt_enable(struct intel_gt *gt)
+diff --git a/drivers/gpu/drm/i915/gt/intel_ring_submission.c b/drivers/gpu/drm/i915/gt/intel_ring_submission.c
+index 90b483b4ae5d..d794e13610b2 100644
+--- a/drivers/gpu/drm/i915/gt/intel_ring_submission.c
++++ b/drivers/gpu/drm/i915/gt/intel_ring_submission.c
+@@ -188,9 +188,16 @@ static void set_pp_dir(struct intel_engine_cs *engine)
+ {
+ 	struct i915_address_space *vm = vm_alias(engine->gt->vm);
+ 
+-	if (vm) {
+-		ENGINE_WRITE(engine, RING_PP_DIR_DCLV, PP_DIR_DCLV_2G);
+-		ENGINE_WRITE(engine, RING_PP_DIR_BASE, pp_dir(vm));
++	if (!vm)
++		return;
++
++	ENGINE_WRITE(engine, RING_PP_DIR_DCLV, PP_DIR_DCLV_2G);
++	ENGINE_WRITE(engine, RING_PP_DIR_BASE, pp_dir(vm));
++
++	if (INTEL_GEN(engine->i915) >= 7) {
++		ENGINE_WRITE(engine,
++			     RING_MODE_GEN7,
++			     _MASKED_BIT_ENABLE(GFX_PPGTT_ENABLE));
+ 	}
+ }
+ 
 -- 
 2.20.1
 
