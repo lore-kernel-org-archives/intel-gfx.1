@@ -7,32 +7,32 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2E5A0C43381
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 993F3C433E6
 	for <intel-gfx@archiver.kernel.org>; Tue,  5 Jan 2021 15:46:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E7D5D22BF3
-	for <intel-gfx@archiver.kernel.org>; Tue,  5 Jan 2021 15:46:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E7D5D22BF3
+	by mail.kernel.org (Postfix) with ESMTPS id 613AB22BF3
+	for <intel-gfx@archiver.kernel.org>; Tue,  5 Jan 2021 15:46:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 613AB22BF3
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 067106E170;
-	Tue,  5 Jan 2021 15:45:53 +0000 (UTC)
-Received: from mblankhorst.nl (mblankhorst.nl [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 69D956E160
- for <intel-gfx@lists.freedesktop.org>; Tue,  5 Jan 2021 15:45:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 980DA6E15E;
+	Tue,  5 Jan 2021 15:45:51 +0000 (UTC)
+Received: from mblankhorst.nl (mblankhorst.nl
+ [IPv6:2a02:2308::216:3eff:fe92:dfa3])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B2E636E183
+ for <intel-gfx@lists.freedesktop.org>; Tue,  5 Jan 2021 15:45:42 +0000 (UTC)
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue,  5 Jan 2021 16:35:31 +0100
-Message-Id: <20210105153558.134272-38-maarten.lankhorst@linux.intel.com>
+Date: Tue,  5 Jan 2021 16:35:57 +0100
+Message-Id: <20210105153558.134272-64-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.30.0.rc1
 In-Reply-To: <20210105153558.134272-1-maarten.lankhorst@linux.intel.com>
 References: <20210105153558.134272-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v6 37/64] drm/i915: Add ww locking to dma-buf
- ops.
+Subject: [Intel-gfx] [PATCH v6 63/64] drm/i915: Move gt_revoke() slightly
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,62 +45,49 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-dm1hcCBpcyB1c2luZyBwaW5fcGFnZXMsIGJ1dCBuZWVkcyB0byB1c2Ugd3cgbG9ja2luZywKYWRk
-IHBpbl9wYWdlc191bmxvY2tlZCB0byBjb3JyZWN0bHkgbG9jayB0aGUgbWFwcGluZy4KCkFsc28g
-YWRkIHd3IGxvY2tpbmcgdG8gYmVnaW4vZW5kIGNwdSBhY2Nlc3MuCgpTaWduZWQtb2ZmLWJ5OiBN
-YWFydGVuIExhbmtob3JzdCA8bWFhcnRlbi5sYW5raG9yc3RAbGludXguaW50ZWwuY29tPgpSZXZp
-ZXdlZC1ieTogVGhvbWFzIEhlbGxzdHLDtm0gPHRob21hcy5oZWxsc3Ryb21AbGludXguaW50ZWwu
-Y29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2dlbS9pOTE1X2dlbV9kbWFidWYuYyB8IDYw
-ICsrKysrKysrKysrKy0tLS0tLS0tLS0KIDEgZmlsZSBjaGFuZ2VkLCAzMyBpbnNlcnRpb25zKCsp
-LCAyNyBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9nZW0v
-aTkxNV9nZW1fZG1hYnVmLmMgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9nZW0vaTkxNV9nZW1fZG1h
-YnVmLmMKaW5kZXggMzZlM2MyNzY1ZjRjLi5jNGIwMWU4MTk3ODYgMTAwNjQ0Ci0tLSBhL2RyaXZl
-cnMvZ3B1L2RybS9pOTE1L2dlbS9pOTE1X2dlbV9kbWFidWYuYworKysgYi9kcml2ZXJzL2dwdS9k
-cm0vaTkxNS9nZW0vaTkxNV9nZW1fZG1hYnVmLmMKQEAgLTgyLDcgKzgyLDcgQEAgc3RhdGljIGlu
-dCBpOTE1X2dlbV9kbWFidWZfdm1hcChzdHJ1Y3QgZG1hX2J1ZiAqZG1hX2J1Ziwgc3RydWN0IGRt
-YV9idWZfbWFwICptYXAKIAlzdHJ1Y3QgZHJtX2k5MTVfZ2VtX29iamVjdCAqb2JqID0gZG1hX2J1
-Zl90b19vYmooZG1hX2J1Zik7CiAJdm9pZCAqdmFkZHI7CiAKLQl2YWRkciA9IGk5MTVfZ2VtX29i
-amVjdF9waW5fbWFwKG9iaiwgSTkxNV9NQVBfV0IpOworCXZhZGRyID0gaTkxNV9nZW1fb2JqZWN0
-X3Bpbl9tYXBfdW5sb2NrZWQob2JqLCBJOTE1X01BUF9XQik7CiAJaWYgKElTX0VSUih2YWRkcikp
-CiAJCXJldHVybiBQVFJfRVJSKHZhZGRyKTsKIApAQCAtMTIzLDQyICsxMjMsNDggQEAgc3RhdGlj
-IGludCBpOTE1X2dlbV9iZWdpbl9jcHVfYWNjZXNzKHN0cnVjdCBkbWFfYnVmICpkbWFfYnVmLCBl
-bnVtIGRtYV9kYXRhX2RpcmUKIHsKIAlzdHJ1Y3QgZHJtX2k5MTVfZ2VtX29iamVjdCAqb2JqID0g
-ZG1hX2J1Zl90b19vYmooZG1hX2J1Zik7CiAJYm9vbCB3cml0ZSA9IChkaXJlY3Rpb24gPT0gRE1B
-X0JJRElSRUNUSU9OQUwgfHwgZGlyZWN0aW9uID09IERNQV9UT19ERVZJQ0UpOworCXN0cnVjdCBp
-OTE1X2dlbV93d19jdHggd3c7CiAJaW50IGVycjsKIAotCWVyciA9IGk5MTVfZ2VtX29iamVjdF9w
-aW5fcGFnZXMob2JqKTsKLQlpZiAoZXJyKQotCQlyZXR1cm4gZXJyOwotCi0JZXJyID0gaTkxNV9n
-ZW1fb2JqZWN0X2xvY2tfaW50ZXJydXB0aWJsZShvYmosIE5VTEwpOwotCWlmIChlcnIpCi0JCWdv
-dG8gb3V0OwotCi0JZXJyID0gaTkxNV9nZW1fb2JqZWN0X3NldF90b19jcHVfZG9tYWluKG9iaiwg
-d3JpdGUpOwotCWk5MTVfZ2VtX29iamVjdF91bmxvY2sob2JqKTsKLQotb3V0OgotCWk5MTVfZ2Vt
-X29iamVjdF91bnBpbl9wYWdlcyhvYmopOworCWk5MTVfZ2VtX3d3X2N0eF9pbml0KCZ3dywgdHJ1
-ZSk7CityZXRyeToKKwllcnIgPSBpOTE1X2dlbV9vYmplY3RfbG9jayhvYmosICZ3dyk7CisJaWYg
-KCFlcnIpCisJCWVyciA9IGk5MTVfZ2VtX29iamVjdF9waW5fcGFnZXMob2JqKTsKKwlpZiAoIWVy
-cikgeworCQllcnIgPSBpOTE1X2dlbV9vYmplY3Rfc2V0X3RvX2NwdV9kb21haW4ob2JqLCB3cml0
-ZSk7CisJCWk5MTVfZ2VtX29iamVjdF91bnBpbl9wYWdlcyhvYmopOworCX0KKwlpZiAoZXJyID09
-IC1FREVBRExLKSB7CisJCWVyciA9IGk5MTVfZ2VtX3d3X2N0eF9iYWNrb2ZmKCZ3dyk7CisJCWlm
-ICghZXJyKQorCQkJZ290byByZXRyeTsKKwl9CisJaTkxNV9nZW1fd3dfY3R4X2ZpbmkoJnd3KTsK
-IAlyZXR1cm4gZXJyOwogfQogCiBzdGF0aWMgaW50IGk5MTVfZ2VtX2VuZF9jcHVfYWNjZXNzKHN0
-cnVjdCBkbWFfYnVmICpkbWFfYnVmLCBlbnVtIGRtYV9kYXRhX2RpcmVjdGlvbiBkaXJlY3Rpb24p
-CiB7CiAJc3RydWN0IGRybV9pOTE1X2dlbV9vYmplY3QgKm9iaiA9IGRtYV9idWZfdG9fb2JqKGRt
-YV9idWYpOworCXN0cnVjdCBpOTE1X2dlbV93d19jdHggd3c7CiAJaW50IGVycjsKIAotCWVyciA9
-IGk5MTVfZ2VtX29iamVjdF9waW5fcGFnZXMob2JqKTsKLQlpZiAoZXJyKQotCQlyZXR1cm4gZXJy
-OwotCi0JZXJyID0gaTkxNV9nZW1fb2JqZWN0X2xvY2tfaW50ZXJydXB0aWJsZShvYmosIE5VTEwp
-OwotCWlmIChlcnIpCi0JCWdvdG8gb3V0OwotCi0JZXJyID0gaTkxNV9nZW1fb2JqZWN0X3NldF90
-b19ndHRfZG9tYWluKG9iaiwgZmFsc2UpOwotCWk5MTVfZ2VtX29iamVjdF91bmxvY2sob2JqKTsK
-LQotb3V0OgotCWk5MTVfZ2VtX29iamVjdF91bnBpbl9wYWdlcyhvYmopOworCWk5MTVfZ2VtX3d3
-X2N0eF9pbml0KCZ3dywgdHJ1ZSk7CityZXRyeToKKwllcnIgPSBpOTE1X2dlbV9vYmplY3RfbG9j
-ayhvYmosICZ3dyk7CisJaWYgKCFlcnIpCisJCWVyciA9IGk5MTVfZ2VtX29iamVjdF9waW5fcGFn
-ZXMob2JqKTsKKwlpZiAoIWVycikgeworCQllcnIgPSBpOTE1X2dlbV9vYmplY3Rfc2V0X3RvX2d0
-dF9kb21haW4ob2JqLCBmYWxzZSk7CisJCWk5MTVfZ2VtX29iamVjdF91bnBpbl9wYWdlcyhvYmop
-OworCX0KKwlpZiAoZXJyID09IC1FREVBRExLKSB7CisJCWVyciA9IGk5MTVfZ2VtX3d3X2N0eF9i
-YWNrb2ZmKCZ3dyk7CisJCWlmICghZXJyKQorCQkJZ290byByZXRyeTsKKwl9CisJaTkxNV9nZW1f
-d3dfY3R4X2ZpbmkoJnd3KTsKIAlyZXR1cm4gZXJyOwogfQogCi0tIAoyLjMwLjAucmMxCgpfX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpJbnRlbC1nZnggbWFp
-bGluZyBsaXN0CkludGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9pbnRlbC1nZngK
+We get a lockdep splat when the reset mutex is held, because it can be
+taken from fence_wait. This conflicts with the mmu notifier we have,
+because we recurse between reset mutex and mmap lock -> mmu notifier.
+
+Remove this recursion by calling revoke_mmaps before taking the lock.
+
+Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_reset.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/gt/intel_reset.c b/drivers/gpu/drm/i915/gt/intel_reset.c
+index 9d177297db79..3c0807d9a86e 100644
+--- a/drivers/gpu/drm/i915/gt/intel_reset.c
++++ b/drivers/gpu/drm/i915/gt/intel_reset.c
+@@ -975,8 +975,6 @@ static int do_reset(struct intel_gt *gt, intel_engine_mask_t stalled_mask)
+ {
+ 	int err, i;
+ 
+-	gt_revoke(gt);
+-
+ 	err = __intel_gt_reset(gt, ALL_ENGINES);
+ 	for (i = 0; err && i < RESET_MAX_RETRIES; i++) {
+ 		msleep(10 * (i + 1));
+@@ -1031,6 +1029,9 @@ void intel_gt_reset(struct intel_gt *gt,
+ 
+ 	might_sleep();
+ 	GEM_BUG_ON(!test_bit(I915_RESET_BACKOFF, &gt->reset.flags));
++
++	gt_revoke(gt);
++
+ 	mutex_lock(&gt->reset.mutex);
+ 
+ 	/* Clear any previous failed attempts at recovery. Time to try again. */
+-- 
+2.30.0.rc1
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
