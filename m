@@ -7,32 +7,32 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9CECFC433DB
-	for <intel-gfx@archiver.kernel.org>; Tue,  5 Jan 2021 15:46:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 503CCC433E9
+	for <intel-gfx@archiver.kernel.org>; Tue,  5 Jan 2021 15:46:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 62DA922BF3
-	for <intel-gfx@archiver.kernel.org>; Tue,  5 Jan 2021 15:46:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 62DA922BF3
+	by mail.kernel.org (Postfix) with ESMTPS id 1134B22BF3
+	for <intel-gfx@archiver.kernel.org>; Tue,  5 Jan 2021 15:46:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1134B22BF3
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 389206E169;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7897E6E16D;
 	Tue,  5 Jan 2021 15:45:46 +0000 (UTC)
 Received: from mblankhorst.nl (mblankhorst.nl [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A6F46E15E
- for <intel-gfx@lists.freedesktop.org>; Tue,  5 Jan 2021 15:45:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 942386E17A
+ for <intel-gfx@lists.freedesktop.org>; Tue,  5 Jan 2021 15:45:42 +0000 (UTC)
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue,  5 Jan 2021 16:34:56 +0100
-Message-Id: <20210105153558.134272-3-maarten.lankhorst@linux.intel.com>
+Date: Tue,  5 Jan 2021 16:35:36 +0100
+Message-Id: <20210105153558.134272-43-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.30.0.rc1
 In-Reply-To: <20210105153558.134272-1-maarten.lankhorst@linux.intel.com>
 References: <20210105153558.134272-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v6 02/64] drm/i915: Pin timeline map after first
- timeline pin, v3.
+Subject: [Intel-gfx] [PATCH v6 42/64] drm/i915/selftests: Prepare client
+ blit for obj->mm.lock removal.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,375 +45,45 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-We're starting to require the reservation lock for pinning,
-so wait until we have that.
-
-Update the selftests to handle this correctly, and ensure pin is
-called in live_hwsp_rollover_user() and mock_hwsp_freelist().
-
-Changes since v1:
-- Fix NULL + XX arithmatic, use casts. (kbuild)
-Changes since v2:
-- Clear entire cacheline when pinning.
-
-Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Reported-by: kernel test robot <lkp@intel.com>
----
- drivers/gpu/drm/i915/gt/intel_timeline.c    | 40 +++++++++----
- drivers/gpu/drm/i915/gt/intel_timeline.h    |  2 +
- drivers/gpu/drm/i915/gt/mock_engine.c       | 22 ++++++-
- drivers/gpu/drm/i915/gt/selftest_timeline.c | 63 +++++++++++----------
- drivers/gpu/drm/i915/i915_selftest.h        |  2 +
- 5 files changed, 84 insertions(+), 45 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/gt/intel_timeline.c b/drivers/gpu/drm/i915/gt/intel_timeline.c
-index 3d43f15f34f3..7509af471341 100644
---- a/drivers/gpu/drm/i915/gt/intel_timeline.c
-+++ b/drivers/gpu/drm/i915/gt/intel_timeline.c
-@@ -53,14 +53,29 @@ static int __timeline_active(struct i915_active *active)
- 	return 0;
- }
- 
-+I915_SELFTEST_EXPORT int
-+intel_timeline_pin_map(struct intel_timeline *timeline)
-+{
-+	struct drm_i915_gem_object *obj = timeline->hwsp_ggtt->obj;
-+	u32 ofs = offset_in_page(timeline->hwsp_offset);
-+	void *vaddr;
-+
-+	vaddr = i915_gem_object_pin_map(obj, I915_MAP_WB);
-+	if (IS_ERR(vaddr))
-+		return PTR_ERR(vaddr);
-+
-+	timeline->hwsp_map = vaddr;
-+	timeline->hwsp_seqno = memset(vaddr + ofs, 0, CACHELINE_BYTES);
-+	clflush(vaddr + ofs);
-+
-+	return 0;
-+}
-+
- static int intel_timeline_init(struct intel_timeline *timeline,
- 			       struct intel_gt *gt,
- 			       struct i915_vma *hwsp,
- 			       unsigned int offset)
- {
--	void *vaddr;
--	u32 *seqno;
--
- 	kref_init(&timeline->kref);
- 	atomic_set(&timeline->pin_count, 0);
- 
-@@ -77,14 +92,8 @@ static int intel_timeline_init(struct intel_timeline *timeline,
- 		timeline->hwsp_ggtt = hwsp;
- 	}
- 
--	vaddr = i915_gem_object_pin_map(hwsp->obj, I915_MAP_WB);
--	if (IS_ERR(vaddr))
--		return PTR_ERR(vaddr);
--
--	timeline->hwsp_map = vaddr;
--	seqno = vaddr + timeline->hwsp_offset;
--	WRITE_ONCE(*seqno, 0);
--	timeline->hwsp_seqno = seqno;
-+	timeline->hwsp_map = NULL;
-+	timeline->hwsp_seqno = (void *)(long)timeline->hwsp_offset;
- 
- 	GEM_BUG_ON(timeline->hwsp_offset >= hwsp->size);
- 
-@@ -114,7 +123,8 @@ static void intel_timeline_fini(struct rcu_head *rcu)
- 	struct intel_timeline *timeline =
- 		container_of(rcu, struct intel_timeline, rcu);
- 
--	i915_gem_object_unpin_map(timeline->hwsp_ggtt->obj);
-+	if (timeline->hwsp_map)
-+		i915_gem_object_unpin_map(timeline->hwsp_ggtt->obj);
- 
- 	i915_vma_put(timeline->hwsp_ggtt);
- 	i915_active_fini(&timeline->active);
-@@ -174,6 +184,12 @@ int intel_timeline_pin(struct intel_timeline *tl, struct i915_gem_ww_ctx *ww)
- 	if (atomic_add_unless(&tl->pin_count, 1, 0))
- 		return 0;
- 
-+	if (!tl->hwsp_map) {
-+		err = intel_timeline_pin_map(tl);
-+		if (err)
-+			return err;
-+	}
-+
- 	err = i915_ggtt_pin(tl->hwsp_ggtt, ww, 0, PIN_HIGH);
- 	if (err)
- 		return err;
-diff --git a/drivers/gpu/drm/i915/gt/intel_timeline.h b/drivers/gpu/drm/i915/gt/intel_timeline.h
-index f502a619843f..c50543d3ed5d 100644
---- a/drivers/gpu/drm/i915/gt/intel_timeline.h
-+++ b/drivers/gpu/drm/i915/gt/intel_timeline.h
-@@ -110,4 +110,6 @@ void intel_gt_show_timelines(struct intel_gt *gt,
- 						  const char *prefix,
- 						  int indent));
- 
-+I915_SELFTEST_DECLARE(int intel_timeline_pin_map(struct intel_timeline *tl));
-+
- #endif
-diff --git a/drivers/gpu/drm/i915/gt/mock_engine.c b/drivers/gpu/drm/i915/gt/mock_engine.c
-index 2f830017c51d..effbac877eec 100644
---- a/drivers/gpu/drm/i915/gt/mock_engine.c
-+++ b/drivers/gpu/drm/i915/gt/mock_engine.c
-@@ -32,9 +32,20 @@
- #include "mock_engine.h"
- #include "selftests/mock_request.h"
- 
--static void mock_timeline_pin(struct intel_timeline *tl)
-+static int mock_timeline_pin(struct intel_timeline *tl)
- {
-+	int err;
-+
-+	if (WARN_ON(!i915_gem_object_trylock(tl->hwsp_ggtt->obj)))
-+		return -EBUSY;
-+
-+	err = intel_timeline_pin_map(tl);
-+	i915_gem_object_unlock(tl->hwsp_ggtt->obj);
-+	if (err)
-+		return err;
-+
- 	atomic_inc(&tl->pin_count);
-+	return 0;
- }
- 
- static void mock_timeline_unpin(struct intel_timeline *tl)
-@@ -152,6 +163,8 @@ static void mock_context_destroy(struct kref *ref)
- 
- static int mock_context_alloc(struct intel_context *ce)
- {
-+	int err;
-+
- 	ce->ring = mock_ring(ce->engine);
- 	if (!ce->ring)
- 		return -ENOMEM;
-@@ -162,7 +175,12 @@ static int mock_context_alloc(struct intel_context *ce)
- 		return PTR_ERR(ce->timeline);
- 	}
- 
--	mock_timeline_pin(ce->timeline);
-+	err = mock_timeline_pin(ce->timeline);
-+	if (err) {
-+		intel_timeline_put(ce->timeline);
-+		ce->timeline = NULL;
-+		return err;
-+	}
- 
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/i915/gt/selftest_timeline.c b/drivers/gpu/drm/i915/gt/selftest_timeline.c
-index 6e32e91cdab4..2e2bea7ac7a5 100644
---- a/drivers/gpu/drm/i915/gt/selftest_timeline.c
-+++ b/drivers/gpu/drm/i915/gt/selftest_timeline.c
-@@ -35,7 +35,7 @@ static unsigned long hwsp_cacheline(struct intel_timeline *tl)
- {
- 	unsigned long address = (unsigned long)page_address(hwsp_page(tl));
- 
--	return (address + tl->hwsp_offset) / CACHELINE_BYTES;
-+	return (address + offset_in_page(tl->hwsp_offset)) / CACHELINE_BYTES;
- }
- 
- #define CACHELINES_PER_PAGE (PAGE_SIZE / CACHELINE_BYTES)
-@@ -59,6 +59,7 @@ static void __mock_hwsp_record(struct mock_hwsp_freelist *state,
- 	tl = xchg(&state->history[idx], tl);
- 	if (tl) {
- 		radix_tree_delete(&state->cachelines, hwsp_cacheline(tl));
-+		intel_timeline_unpin(tl);
- 		intel_timeline_put(tl);
- 	}
- }
-@@ -78,6 +79,12 @@ static int __mock_hwsp_timeline(struct mock_hwsp_freelist *state,
- 		if (IS_ERR(tl))
- 			return PTR_ERR(tl);
- 
-+		err = intel_timeline_pin(tl, NULL);
-+		if (err) {
-+			intel_timeline_put(tl);
-+			return err;
-+		}
-+
- 		cacheline = hwsp_cacheline(tl);
- 		err = radix_tree_insert(&state->cachelines, cacheline, tl);
- 		if (err) {
-@@ -85,6 +92,7 @@ static int __mock_hwsp_timeline(struct mock_hwsp_freelist *state,
- 				pr_err("HWSP cacheline %lu already used; duplicate allocation!\n",
- 				       cacheline);
- 			}
-+			intel_timeline_unpin(tl);
- 			intel_timeline_put(tl);
- 			return err;
- 		}
-@@ -452,7 +460,7 @@ static int emit_ggtt_store_dw(struct i915_request *rq, u32 addr, u32 value)
- }
- 
- static struct i915_request *
--tl_write(struct intel_timeline *tl, struct intel_engine_cs *engine, u32 value)
-+checked_tl_write(struct intel_timeline *tl, struct intel_engine_cs *engine, u32 value)
- {
- 	struct i915_request *rq;
- 	int err;
-@@ -463,6 +471,13 @@ tl_write(struct intel_timeline *tl, struct intel_engine_cs *engine, u32 value)
- 		goto out;
- 	}
- 
-+	if (READ_ONCE(*tl->hwsp_seqno) != tl->seqno) {
-+		pr_err("Timeline created with incorrect breadcrumb, found %x, expected %x\n",
-+		       *tl->hwsp_seqno, tl->seqno);
-+		intel_timeline_unpin(tl);
-+		return ERR_PTR(-EINVAL);
-+	}
-+
- 	rq = intel_engine_create_kernel_request(engine);
- 	if (IS_ERR(rq))
- 		goto out_unpin;
-@@ -484,25 +499,6 @@ tl_write(struct intel_timeline *tl, struct intel_engine_cs *engine, u32 value)
- 	return rq;
- }
- 
--static struct intel_timeline *
--checked_intel_timeline_create(struct intel_gt *gt)
--{
--	struct intel_timeline *tl;
--
--	tl = intel_timeline_create(gt);
--	if (IS_ERR(tl))
--		return tl;
--
--	if (READ_ONCE(*tl->hwsp_seqno) != tl->seqno) {
--		pr_err("Timeline created with incorrect breadcrumb, found %x, expected %x\n",
--		       *tl->hwsp_seqno, tl->seqno);
--		intel_timeline_put(tl);
--		return ERR_PTR(-EINVAL);
--	}
--
--	return tl;
--}
--
- static int live_hwsp_engine(void *arg)
- {
- #define NUM_TIMELINES 4096
-@@ -535,13 +531,13 @@ static int live_hwsp_engine(void *arg)
- 			struct intel_timeline *tl;
- 			struct i915_request *rq;
- 
--			tl = checked_intel_timeline_create(gt);
-+			tl = intel_timeline_create(gt);
- 			if (IS_ERR(tl)) {
- 				err = PTR_ERR(tl);
- 				break;
- 			}
- 
--			rq = tl_write(tl, engine, count);
-+			rq = checked_tl_write(tl, engine, count);
- 			if (IS_ERR(rq)) {
- 				intel_timeline_put(tl);
- 				err = PTR_ERR(rq);
-@@ -608,14 +604,14 @@ static int live_hwsp_alternate(void *arg)
- 			if (!intel_engine_can_store_dword(engine))
- 				continue;
- 
--			tl = checked_intel_timeline_create(gt);
-+			tl = intel_timeline_create(gt);
- 			if (IS_ERR(tl)) {
- 				err = PTR_ERR(tl);
- 				goto out;
- 			}
- 
- 			intel_engine_pm_get(engine);
--			rq = tl_write(tl, engine, count);
-+			rq = checked_tl_write(tl, engine, count);
- 			intel_engine_pm_put(engine);
- 			if (IS_ERR(rq)) {
- 				intel_timeline_put(tl);
-@@ -1258,6 +1254,10 @@ static int live_hwsp_rollover_user(void *arg)
- 		if (!tl->has_initial_breadcrumb)
- 			goto out;
- 
-+		err = intel_context_pin(ce);
-+		if (err)
-+			goto out;
-+
- 		tl->seqno = -4u;
- 		WRITE_ONCE(*(u32 *)tl->hwsp_seqno, tl->seqno);
- 
-@@ -1267,7 +1267,7 @@ static int live_hwsp_rollover_user(void *arg)
- 			this = intel_context_create_request(ce);
- 			if (IS_ERR(this)) {
- 				err = PTR_ERR(this);
--				goto out;
-+				goto out_unpin;
- 			}
- 
- 			pr_debug("%s: create fence.seqnp:%d\n",
-@@ -1286,17 +1286,18 @@ static int live_hwsp_rollover_user(void *arg)
- 		if (i915_request_wait(rq[2], 0, HZ / 5) < 0) {
- 			pr_err("Wait for timeline wrap timed out!\n");
- 			err = -EIO;
--			goto out;
-+			goto out_unpin;
- 		}
- 
- 		for (i = 0; i < ARRAY_SIZE(rq); i++) {
- 			if (!i915_request_completed(rq[i])) {
- 				pr_err("Pre-wrap request not completed!\n");
- 				err = -EINVAL;
--				goto out;
-+				goto out_unpin;
- 			}
- 		}
--
-+out_unpin:
-+		intel_context_unpin(ce);
- out:
- 		for (i = 0; i < ARRAY_SIZE(rq); i++)
- 			i915_request_put(rq[i]);
-@@ -1338,13 +1339,13 @@ static int live_hwsp_recycle(void *arg)
- 			struct intel_timeline *tl;
- 			struct i915_request *rq;
- 
--			tl = checked_intel_timeline_create(gt);
-+			tl = intel_timeline_create(gt);
- 			if (IS_ERR(tl)) {
- 				err = PTR_ERR(tl);
- 				break;
- 			}
- 
--			rq = tl_write(tl, engine, count);
-+			rq = checked_tl_write(tl, engine, count);
- 			if (IS_ERR(rq)) {
- 				intel_timeline_put(tl);
- 				err = PTR_ERR(rq);
-diff --git a/drivers/gpu/drm/i915/i915_selftest.h b/drivers/gpu/drm/i915/i915_selftest.h
-index d53d207ab6eb..f54de0499be7 100644
---- a/drivers/gpu/drm/i915/i915_selftest.h
-+++ b/drivers/gpu/drm/i915/i915_selftest.h
-@@ -107,6 +107,7 @@ int __i915_subtests(const char *caller,
- 
- #define I915_SELFTEST_DECLARE(x) x
- #define I915_SELFTEST_ONLY(x) unlikely(x)
-+#define I915_SELFTEST_EXPORT
- 
- #else /* !IS_ENABLED(CONFIG_DRM_I915_SELFTEST) */
- 
-@@ -116,6 +117,7 @@ static inline int i915_perf_selftests(struct pci_dev *pdev) { return 0; }
- 
- #define I915_SELFTEST_DECLARE(x)
- #define I915_SELFTEST_ONLY(x) 0
-+#define I915_SELFTEST_EXPORT static
- 
- #endif
- 
--- 
-2.30.0.rc1
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+U3RyYWlnaHRmb3J3YXJkIGNvbnZlcnNpb24sIGp1c3QgY29udmVydCBhIGJ1bmNoIG9mIGNhbGxz
+IHRvCnVubG9ja2VkIHZlcnNpb25zLgoKU2lnbmVkLW9mZi1ieTogTWFhcnRlbiBMYW5raG9yc3Qg
+PG1hYXJ0ZW4ubGFua2hvcnN0QGxpbnV4LmludGVsLmNvbT4KUmV2aWV3ZWQtYnk6IFRob21hcyBI
+ZWxsc3Ryw7ZtIDx0aG9tYXMuaGVsbHN0cm9tQGxpbnV4LmludGVsLmNvbT4KLS0tCiBkcml2ZXJz
+L2dwdS9kcm0vaTkxNS9nZW0vc2VsZnRlc3RzL2k5MTVfZ2VtX2NsaWVudF9ibHQuYyB8IDggKysr
+Ky0tLS0KIDEgZmlsZSBjaGFuZ2VkLCA0IGluc2VydGlvbnMoKyksIDQgZGVsZXRpb25zKC0pCgpk
+aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ2VtL3NlbGZ0ZXN0cy9pOTE1X2dlbV9j
+bGllbnRfYmx0LmMgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9nZW0vc2VsZnRlc3RzL2k5MTVfZ2Vt
+X2NsaWVudF9ibHQuYwppbmRleCA2YTY3NGE3OTk0ZGYuLmQzNjg3Mzg4NWNjMSAxMDA2NDQKLS0t
+IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ2VtL3NlbGZ0ZXN0cy9pOTE1X2dlbV9jbGllbnRfYmx0
+LmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ2VtL3NlbGZ0ZXN0cy9pOTE1X2dlbV9jbGll
+bnRfYmx0LmMKQEAgLTQ1LDcgKzQ1LDcgQEAgc3RhdGljIGludCBfX2lndF9jbGllbnRfZmlsbChz
+dHJ1Y3QgaW50ZWxfZW5naW5lX2NzICplbmdpbmUpCiAJCQlnb3RvIGVycl9mbHVzaDsKIAkJfQog
+Ci0JCXZhZGRyID0gaTkxNV9nZW1fb2JqZWN0X3Bpbl9tYXAob2JqLCBJOTE1X01BUF9XQik7CisJ
+CXZhZGRyID0gaTkxNV9nZW1fb2JqZWN0X3Bpbl9tYXBfdW5sb2NrZWQob2JqLCBJOTE1X01BUF9X
+Qik7CiAJCWlmIChJU19FUlIodmFkZHIpKSB7CiAJCQllcnIgPSBQVFJfRVJSKHZhZGRyKTsKIAkJ
+CWdvdG8gZXJyX3B1dDsKQEAgLTE1Nyw3ICsxNTcsNyBAQCBzdGF0aWMgaW50IHByZXBhcmVfYmxp
+dChjb25zdCBzdHJ1Y3QgdGlsZWRfYmxpdHMgKnQsCiAJdTMyIHNyY19waXRjaCwgZHN0X3BpdGNo
+OwogCXUzMiBjbWQsICpjczsKIAotCWNzID0gaTkxNV9nZW1fb2JqZWN0X3Bpbl9tYXAoYmF0Y2gs
+IEk5MTVfTUFQX1dDKTsKKwljcyA9IGk5MTVfZ2VtX29iamVjdF9waW5fbWFwX3VubG9ja2VkKGJh
+dGNoLCBJOTE1X01BUF9XQyk7CiAJaWYgKElTX0VSUihjcykpCiAJCXJldHVybiBQVFJfRVJSKGNz
+KTsKIApAQCAtMzc3LDcgKzM3Nyw3IEBAIHN0YXRpYyBpbnQgdmVyaWZ5X2J1ZmZlcihjb25zdCBz
+dHJ1Y3QgdGlsZWRfYmxpdHMgKnQsCiAJeSA9IGk5MTVfcHJhbmRvbV91MzJfbWF4X3N0YXRlKHQt
+PmhlaWdodCwgcHJuZyk7CiAJcCA9IHkgKiB0LT53aWR0aCArIHg7CiAKLQl2YWRkciA9IGk5MTVf
+Z2VtX29iamVjdF9waW5fbWFwKGJ1Zi0+dm1hLT5vYmosIEk5MTVfTUFQX1dDKTsKKwl2YWRkciA9
+IGk5MTVfZ2VtX29iamVjdF9waW5fbWFwX3VubG9ja2VkKGJ1Zi0+dm1hLT5vYmosIEk5MTVfTUFQ
+X1dDKTsKIAlpZiAoSVNfRVJSKHZhZGRyKSkKIAkJcmV0dXJuIFBUUl9FUlIodmFkZHIpOwogCkBA
+IC01NjQsNyArNTY0LDcgQEAgc3RhdGljIGludCB0aWxlZF9ibGl0c19wcmVwYXJlKHN0cnVjdCB0
+aWxlZF9ibGl0cyAqdCwKIAlpbnQgZXJyOwogCWludCBpOwogCi0JbWFwID0gaTkxNV9nZW1fb2Jq
+ZWN0X3Bpbl9tYXAodC0+c2NyYXRjaC52bWEtPm9iaiwgSTkxNV9NQVBfV0MpOworCW1hcCA9IGk5
+MTVfZ2VtX29iamVjdF9waW5fbWFwX3VubG9ja2VkKHQtPnNjcmF0Y2gudm1hLT5vYmosIEk5MTVf
+TUFQX1dDKTsKIAlpZiAoSVNfRVJSKG1hcCkpCiAJCXJldHVybiBQVFJfRVJSKG1hcCk7CiAKLS0g
+CjIuMzAuMC5yYzEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fCkludGVsLWdmeCBtYWlsaW5nIGxpc3QKSW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
+ZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ludGVsLWdm
+eAo=
