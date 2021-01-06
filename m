@@ -7,39 +7,39 @@ X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A03ACC433DB
-	for <intel-gfx@archiver.kernel.org>; Wed,  6 Jan 2021 00:58:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7E668C433DB
+	for <intel-gfx@archiver.kernel.org>; Wed,  6 Jan 2021 01:02:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E3AE022838
-	for <intel-gfx@archiver.kernel.org>; Wed,  6 Jan 2021 00:58:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E3AE022838
+	by mail.kernel.org (Postfix) with ESMTPS id E93B422838
+	for <intel-gfx@archiver.kernel.org>; Wed,  6 Jan 2021 01:02:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E93B422838
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F38189916;
-	Wed,  6 Jan 2021 00:58:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8879F89B95;
+	Wed,  6 Jan 2021 01:02:29 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A6FBC89916
- for <intel-gfx@lists.freedesktop.org>; Wed,  6 Jan 2021 00:58:24 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0258689B95
+ for <intel-gfx@lists.freedesktop.org>; Wed,  6 Jan 2021 01:02:27 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from localhost (unverified [78.156.65.138]) 
  by fireflyinternet.com (Firefly Internet (M1)) with ESMTP (TLS) id
- 23512997-1500050 for multiple; Wed, 06 Jan 2021 00:58:22 +0000
+ 23513021-1500050 for multiple; Wed, 06 Jan 2021 01:02:25 +0000
 MIME-Version: 1.0
-In-Reply-To: <20210105231947.31235-3-daniele.ceraolospurio@intel.com>
+In-Reply-To: <20210105231947.31235-5-daniele.ceraolospurio@intel.com>
 References: <20210105231947.31235-1-daniele.ceraolospurio@intel.com>
- <20210105231947.31235-3-daniele.ceraolospurio@intel.com>
+ <20210105231947.31235-5-daniele.ceraolospurio@intel.com>
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>,
  intel-gfx@lists.freedesktop.org
-Date: Wed, 06 Jan 2021 00:58:20 +0000
-Message-ID: <160989470089.14894.2097316461568983303@build.alporthouse.com>
+Date: Wed, 06 Jan 2021 01:02:23 +0000
+Message-ID: <160989494374.14894.15158476900955777220@build.alporthouse.com>
 User-Agent: alot/0.9
-Subject: Re: [Intel-gfx] [PATCH 2/5] drm/i915/guc: do not dump execlists
- state with GuC submission
+Subject: Re: [Intel-gfx] [PATCH 4/5] drm/i915/guc: stop calling
+ execlists_set_default_submission
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,22 +57,21 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Quoting Daniele Ceraolo Spurio (2021-01-05 23:19:44)
-> GuC owns the execlists state and the context IDs used for submission, so
-> the status of the ports and the CSB entries are not something we control
-> or can decode from the i915 side, therefore we can avoid dumping it. A
-> follow-up patch will also stop setting the csb pointers when using GuC
-> submission.
+Quoting Daniele Ceraolo Spurio (2021-01-05 23:19:46)
+> Initialize all required entries from guc_set_default_submission, instead
+> of calling the execlists function. The previously inherited setup has
+> been copied over from the execlist code and simplified by removing the
+> execlists submission-specific parts.
 > 
-> GuC dumps all the required events in the GuC logs when verbosity is set
-> high enough.
-
-Would not be worth including, or is it not very helpful for debugging
-curious engine stalls?
-
 > Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-> Cc: John Harrison <John.C.Harrison@Intel.com>
 > Cc: Matthew Brost <matthew.brost@intel.com>
+> Cc: John Harrison <john.c.harrison@intel.com>
+> ---
+> +       if (INTEL_GEN(engine->i915) >= 12)
+> +               engine->flags |= I915_ENGINE_HAS_RELATIVE_MMIO;
+
+We should probably lift this to intel_engine_setup().
+
 Reviewed-by: Chris Wilson <chris@chris-wilson.co.uk>
 -Chris
 _______________________________________________
