@@ -2,71 +2,42 @@ Return-Path: <SRS0=HSM9=GJ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CB51AC433E0
-	for <intel-gfx@archiver.kernel.org>; Wed,  6 Jan 2021 13:05:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 91B12C433DB
+	for <intel-gfx@archiver.kernel.org>; Wed,  6 Jan 2021 13:30:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 78ACC22CE3
-	for <intel-gfx@archiver.kernel.org>; Wed,  6 Jan 2021 13:05:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 78ACC22CE3
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 43C372311A
+	for <intel-gfx@archiver.kernel.org>; Wed,  6 Jan 2021 13:30:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 43C372311A
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A7EB6E0B9;
-	Wed,  6 Jan 2021 13:05:27 +0000 (UTC)
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [IPv6:2a00:1450:4864:20::62c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8823A6E08E
- for <intel-gfx@lists.freedesktop.org>; Wed,  6 Jan 2021 13:01:50 +0000 (UTC)
-Received: by mail-ej1-x62c.google.com with SMTP id q22so4974346eja.2
- for <intel-gfx@lists.freedesktop.org>; Wed, 06 Jan 2021 05:01:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:mail-followup-to:mime-version
- :content-disposition;
- bh=KNdjAdSU7GXnb7OjjYKzs3OQ1C9o0XD3mOBVZ4EtD7g=;
- b=OhptvGyZkQ8LXgAgerp2Ozpb1RNg5sSlI5w6Uz9b8LdKdsvyj4E5g3w0tKomIzNx7X
- SFeoRhB/K8oOonqyoyiumXBsLQv6jTkva4afbSIM7/LZoVk40T7ksg3btCNNHpe6V2eq
- hGz41inmJheiL4Yy9RC9B3DRhuRzTsaVkaXyp0e1xJ944OPrfDTtcytZ65LWEXCKkzrh
- /xhkiWJYtzr8AGoF3bexaIPEJfjzmGqkqs4b8kAd0hqbA/w/2FYrPryDoMZz2zHK2dxo
- I4NXxnKt4L29nlNqsUsrzb21aWrRuo6HyvSdDWHpA6aoil/pvShIgZf8e6mZGlqykfQJ
- TvLA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id
- :mail-followup-to:mime-version:content-disposition;
- bh=KNdjAdSU7GXnb7OjjYKzs3OQ1C9o0XD3mOBVZ4EtD7g=;
- b=JMofINeQ6LEAA7GtoavdBpiTAOXXdXNlOM3nGXDNeVWWullzSy5IBTLd7KT3ez1QKS
- EJ+dpnWVTigjDVRTy6HXes1uJqoWNXjLuCYMyMiCjO/cKo5kCnt2zJL5fUzYB/2KJNpo
- 1K9iOATCKDgINv9UpJH1DQqdiXorCAw5tga++tr8MHeoCDf+8MGbV/OPnv7cs3giknQq
- aiNUqlNNxDjCpVk+xCH33BIaa1y9dyv/WCggudbS3nDDKkFPSN4z69aOi8d3IAk1vA5A
- dno98Y22FwHaanKbF9hFAnxT3vfjiClm1u3NRZqslZuEsx4DEN6NFGSCQeXWV7OvEkgq
- Qy7A==
-X-Gm-Message-State: AOAM533jFXhHNZC+Bf4RB+Y8XluDeA4nRzn4J8VR96lbAzW4NL2Mzaf9
- RyMEx2G7RzH2jMe89sAMF26BeSOB2j/wzg==
-X-Google-Smtp-Source: ABdhPJwy91eQHOODhc08jZmfLV7JyL1DZce8RuUlp8E2zc5PR2DAx4HnkqPwchRQbarwJ9ykW09SSA==
-X-Received: by 2002:a17:906:b09a:: with SMTP id
- x26mr2902780ejy.199.1609938108971; 
- Wed, 06 Jan 2021 05:01:48 -0800 (PST)
-Received: from raspi.lan (94-21-74-47.pool.digikabel.hu. [94.21.74.47])
- by smtp.gmail.com with ESMTPSA id j25sm1232823ejx.125.2021.01.06.05.01.48
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 06 Jan 2021 05:01:48 -0800 (PST)
-Date: Wed, 6 Jan 2021 14:01:46 +0100
-From: Gabor Gombas <gombasgg@gmail.com>
-To: linux-kernel@vger.kernel.org
-Message-ID: <X/W0ugszWM5OVSMR@lan>
-Mail-Followup-To: linux-kernel@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, alsa-devel@alsa-project.org
+	by gabe.freedesktop.org (Postfix) with ESMTP id AFD756E1A7;
+	Wed,  6 Jan 2021 13:30:28 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id E803189C84;
+ Wed,  6 Jan 2021 13:30:26 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id E313FA47DB;
+ Wed,  6 Jan 2021 13:30:26 +0000 (UTC)
 MIME-Version: 1.0
-Content-Disposition: inline
-X-Mailman-Approved-At: Wed, 06 Jan 2021 13:05:26 +0000
-Subject: [Intel-gfx] 5.10 regression: hang at shutdown, DRM or ALSA suspected
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Chris Wilson" <chris@chris-wilson.co.uk>
+Date: Wed, 06 Jan 2021 13:30:26 -0000
+Message-ID: <160993982690.18708.4309886205328844977@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20210106123939.18435-1-chris@chris-wilson.co.uk>
+In-Reply-To: <20210106123939.18435-1-chris@chris-wilson.co.uk>
+Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3Igc2Vy?=
+ =?utf-8?q?ies_starting_with_=5B1/4=5D_drm/i915/selftests=3A_Break_out_of_?=
+ =?utf-8?q?the_lrc_layout_test_after_register_mismatch?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,337 +50,309 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, alsa-devel@alsa-project.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============1187088502=="
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+--===============1187088502==
+Content-Type: multipart/alternative;
+ boundary="===============4548954266118651313=="
 
-I have an Intel NUC D54250WYK which no longer shuts down properly after
-moving from 5.9.16 to 5.10.4, because systemd hangs. The kernel logs
-make me beleive it is likely a locking issue in either DRM or ALSA or
-both. Relevant messages which I could extract from the journal:
+--===============4548954266118651313==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Jan 05 22:21:38 host systemd[2664]: pulseaudio.service: State 'stop-sigterm' timed out. Killing.
-Jan 05 22:21:38 host systemd[2664]: pulseaudio.service: Killing process 2805 (pulseaudio) with signal SIGKILL.
-Jan 05 22:23:03 host kernel: INFO: task systemd:1 blocked for more than 122 seconds.
-Jan 05 22:23:03 host kernel:       Not tainted 5.10.4 #307
-Jan 05 22:23:03 host kernel: "echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
-Jan 05 22:23:03 host kernel: task:systemd         state:D stack:    0 pid:    1 ppid:     0 flags:0x00004002
-Jan 05 22:23:03 host kernel: Call Trace:
-Jan 05 22:23:03 host kernel:  __schedule+0x27b/0x870
-Jan 05 22:23:03 host kernel:  schedule+0x45/0xe0
-Jan 05 22:23:03 host kernel:  schedule_preempt_disabled+0x14/0x20
-Jan 05 22:23:03 host kernel:  __mutex_lock.constprop.0+0x239/0x500
-Jan 05 22:23:03 host kernel:  drm_fb_helper_restore_fbdev_mode_unlocked+0x41/0x90
-Jan 05 22:23:03 host kernel:  intel_fbdev_restore_mode+0x30/0x80
-Jan 05 22:23:03 host kernel:  drm_release_noglobal+0x69/0xa0
-Jan 05 22:23:03 host kernel:  __fput+0x8e/0x230
-Jan 05 22:23:03 host kernel:  task_work_run+0x5c/0x90
-Jan 05 22:23:03 host kernel:  exit_to_user_mode_prepare+0xe9/0x110
-Jan 05 22:23:03 host kernel:  syscall_exit_to_user_mode+0x22/0x160
-Jan 05 22:23:03 host kernel:  entry_SYSCALL_64_after_hwframe+0x44/0xa9
-Jan 05 22:23:03 host kernel: RIP: 0033:0x7fdc7c9a46eb
-Jan 05 22:23:03 host kernel: RSP: 002b:00007ffd0c397370 EFLAGS: 00000293 ORIG_RAX: 0000000000000003
-Jan 05 22:23:03 host kernel: RAX: 0000000000000000 RBX: 00007fdc7c1d66c8 RCX: 00007fdc7c9a46eb
-Jan 05 22:23:03 host kernel: RDX: 0000000000000000 RSI: 0000000000000007 RDI: 000000000000006f
-Jan 05 22:23:03 host kernel: RBP: 000000000000006f R08: 0000000000000000 R09: 00005613a68cd80a
-Jan 05 22:23:03 host kernel: R10: 0000000000000000 R11: 0000000000000293 R12: 0000000000000000
-Jan 05 22:23:03 host kernel: R13: 0000000000000000 R14: 00005613a68cf050 R15: 00005613a71e5f50
-Jan 05 22:23:03 host kernel: INFO: task systemd-logind:807 blocked for more than 122 seconds.
-Jan 05 22:23:03 host kernel:       Not tainted 5.10.4 #307
-Jan 05 22:23:03 host kernel: "echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
-Jan 05 22:23:03 host kernel: task:systemd-logind  state:D stack:    0 pid:  807 ppid:     1 flags:0x000043a0
-Jan 05 22:23:03 host kernel: Call Trace:
-Jan 05 22:23:03 host kernel:  __schedule+0x27b/0x870
-Jan 05 22:23:03 host kernel:  schedule+0x45/0xe0
-Jan 05 22:23:03 host kernel:  schedule_preempt_disabled+0x14/0x20
-Jan 05 22:23:03 host kernel:  __mutex_lock.constprop.0+0x239/0x500
-Jan 05 22:23:03 host kernel:  sync_eld_via_acomp+0x3f/0x350
-Jan 05 22:23:03 host kernel:  check_presence_and_report+0x57/0x80
-Jan 05 22:23:03 host kernel:  intel_audio_codec_enable+0x11f/0x180
-Jan 05 22:23:03 host kernel:  intel_enable_ddi+0x447/0x5a0
-Jan 05 22:23:03 host kernel:  intel_encoders_enable+0x75/0xa0
-Jan 05 22:23:03 host kernel:  hsw_crtc_enable+0x1bf/0x5c0
-Jan 05 22:23:03 host kernel:  intel_enable_crtc+0x48/0x60
-Jan 05 22:23:03 host kernel:  intel_commit_modeset_enables+0x48/0x70
-Jan 05 22:23:03 host kernel:  intel_atomic_commit_tail+0x2c9/0x1230
-Jan 05 22:23:03 host kernel:  ? complete+0x2f/0x40
-Jan 05 22:23:03 host kernel:  ? _raw_spin_unlock_irqrestore+0x14/0x30
-Jan 05 22:23:03 host kernel:  ? flush_workqueue_prep_pwqs+0x11e/0x130
-Jan 05 22:23:03 host kernel:  ? flush_workqueue+0x178/0x3c0
-Jan 05 22:23:03 host kernel:  intel_atomic_commit+0x318/0x3a0
-Jan 05 22:23:03 host kernel:  drm_client_modeset_commit_atomic+0x1d9/0x220
-Jan 05 22:23:03 host kernel:  drm_client_modeset_commit_locked+0x56/0x150
-Jan 05 22:23:03 host kernel:  drm_fb_helper_set_par+0x75/0xd0
-Jan 05 22:23:03 host kernel:  intel_fbdev_set_par+0x16/0x60
-Jan 05 22:23:03 host kernel:  fb_set_var+0x186/0x330
-Jan 05 22:23:03 host kernel:  ? _raw_spin_unlock_irqrestore+0x14/0x30
-Jan 05 22:23:03 host kernel:  ? __wake_up_common_lock+0x8a/0xc0
-Jan 05 22:23:03 host kernel:  fbcon_blank+0x17a/0x280
-Jan 05 22:23:03 host kernel:  do_unblank_screen+0x9c/0x130
-Jan 05 22:23:03 host kernel:  vt_ioctl+0x1229/0x1550
-Jan 05 22:23:03 host kernel:  ? slab_free_freelist_hook+0xe8/0x110
-Jan 05 22:23:03 host kernel:  ? tty_release+0x346/0x5d0
-Jan 05 22:23:03 host kernel:  ? kfree+0x3b0/0x410
-Jan 05 22:23:03 host kernel:  tty_ioctl+0x395/0x910
-Jan 05 22:23:03 host kernel:  ? tty_unlock+0x1d/0x40
-Jan 05 22:23:03 host kernel:  __x64_sys_ioctl+0x83/0xb0
-Jan 05 22:23:03 host kernel:  do_syscall_64+0x33/0x80
-Jan 05 22:23:03 host kernel:  entry_SYSCALL_64_after_hwframe+0x44/0xa9
-Jan 05 22:23:03 host kernel: RIP: 0033:0x7fa76794ccc7
-Jan 05 22:23:03 host kernel: RSP: 002b:00007ffca85a3038 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-Jan 05 22:23:03 host kernel: RAX: ffffffffffffffda RBX: 0000555ca73da410 RCX: 00007fa76794ccc7
-Jan 05 22:23:03 host kernel: RDX: 0000000000000000 RSI: 0000000000004b3a RDI: 000000000000000a
-Jan 05 22:23:03 host kernel: RBP: 000000000000000a R08: 0000000000000000 R09: 0000000000000000
-Jan 05 22:23:03 host kernel: R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-Jan 05 22:23:03 host kernel: R13: 0000000000000019 R14: 00007ffca85a3188 R15: 00007ffca85a31a0
-Jan 05 22:23:03 host kernel: INFO: task pulseaudio:2805 blocked for more than 122 seconds.
-Jan 05 22:23:03 host kernel:       Not tainted 5.10.4 #307
-Jan 05 22:23:03 host kernel: "echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
-Jan 05 22:23:03 host kernel: task:pulseaudio      state:D stack:    0 pid: 2805 ppid:  2664 flags:0x000003a4
-Jan 05 22:23:03 host kernel: Call Trace:
-Jan 05 22:23:03 host kernel:  __schedule+0x27b/0x870
-Jan 05 22:23:03 host kernel:  schedule+0x45/0xe0
-Jan 05 22:23:03 host kernel:  rwsem_down_write_slowpath+0x263/0x4d0
-Jan 05 22:23:03 host kernel:  snd_ctl_release+0x75/0x120
-Jan 05 22:23:03 host kernel:  __fput+0x8e/0x230
-Jan 05 22:23:03 host kernel:  task_work_run+0x5c/0x90
-Jan 05 22:23:03 host kernel:  exit_to_user_mode_prepare+0xe9/0x110
-Jan 05 22:23:03 host kernel:  syscall_exit_to_user_mode+0x22/0x160
-Jan 05 22:23:03 host kernel:  entry_SYSCALL_64_after_hwframe+0x44/0xa9
-Jan 05 22:23:03 host kernel: RIP: 0033:0x7f1ee209d11b
-Jan 05 22:23:03 host kernel: RSP: 002b:00007ffcb6c726e0 EFLAGS: 00000293 ORIG_RAX: 0000000000000003
-Jan 05 22:23:03 host kernel: RAX: 0000000000000000 RBX: 000055dbcfc2c430 RCX: 00007f1ee209d11b
-Jan 05 22:23:03 host kernel: RDX: 00007f1ee1f2ebe0 RSI: 0000000000000000 RDI: 000000000000000f
-Jan 05 22:23:03 host kernel: RBP: 000055dbcfe1d5c0 R08: 0000000000000000 R09: 00007ffcb6c726b0
-Jan 05 22:23:03 host kernel: R10: 0000000000000001 R11: 0000000000000293 R12: 0000000000000000
-Jan 05 22:23:03 host kernel: R13: 000055dbcfe185f0 R14: 000055dbcfcf8008 R15: 0000000000000019
-Jan 05 22:23:03 host kernel: INFO: task alsactl:24113 blocked for more than 122 seconds.
-Jan 05 22:23:03 host kernel:       Not tainted 5.10.4 #307
-Jan 05 22:23:03 host kernel: "echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
-Jan 05 22:23:03 host kernel: task:alsactl         state:D stack:    0 pid:24113 ppid:     1 flags:0x00000080
-Jan 05 22:23:03 host kernel: Call Trace:
-Jan 05 22:23:03 host kernel:  __schedule+0x27b/0x870
-Jan 05 22:23:03 host kernel:  schedule+0x45/0xe0
-Jan 05 22:23:03 host kernel:  schedule_preempt_disabled+0x14/0x20
-Jan 05 22:23:03 host kernel:  __mutex_lock.constprop.0+0x239/0x500
-Jan 05 22:23:03 host kernel:  ? chrdev_open+0xc2/0x240
-Jan 05 22:23:03 host kernel:  hdmi_eld_ctl_info+0x36/0xa0
-Jan 05 22:23:03 host kernel:  __snd_ctl_elem_info.constprop.0+0x1d/0x110
-Jan 05 22:23:03 host kernel:  snd_ctl_elem_info_user+0x86/0xf0
-Jan 05 22:23:03 host kernel:  snd_ctl_ioctl+0x1ef/0x750
-Jan 05 22:23:03 host kernel:  __x64_sys_ioctl+0x83/0xb0
-Jan 05 22:23:03 host kernel:  do_syscall_64+0x33/0x80
-Jan 05 22:23:03 host kernel:  entry_SYSCALL_64_after_hwframe+0x44/0xa9
-Jan 05 22:23:03 host kernel: RIP: 0033:0x7ffa0105dcc7
-Jan 05 22:23:03 host kernel: RSP: 002b:00007ffeded89848 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-Jan 05 22:23:03 host kernel: RAX: ffffffffffffffda RBX: 000055f392b7a6c0 RCX: 00007ffa0105dcc7
-Jan 05 22:23:03 host kernel: RDX: 00007ffeded89860 RSI: 00000000c1105511 RDI: 0000000000000004
-Jan 05 22:23:03 host kernel: RBP: 00007ffeded8a130 R08: 000055f392b7b9d0 R09: 0000000000000000
-Jan 05 22:23:03 host kernel: R10: 000055f392b7bd40 R11: 0000000000000246 R12: 00007ffeded89860
-Jan 05 22:23:03 host kernel: R13: 00007ffeded89980 R14: 00007ffeded8a140 R15: 000055f392ba6ec0
-Jan 05 22:23:08 host systemd[2664]: pulseaudio.service: Processes still around after SIGKILL. Ignoring.
-Jan 05 22:24:38 host systemd[2664]: pulseaudio.service: State 'final-sigterm' timed out. Killing.
-Jan 05 22:24:38 host systemd[2664]: pulseaudio.service: Killing process 2805 (pulseaudio) with signal SIGKILL.
-Jan 05 22:25:06 host kernel: INFO: task systemd:1 blocked for more than 245 seconds.
-Jan 05 22:25:06 host kernel:       Not tainted 5.10.4 #307
-Jan 05 22:25:06 host kernel: "echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
-Jan 05 22:25:06 host kernel: task:systemd         state:D stack:    0 pid:    1 ppid:     0 flags:0x00004002
-Jan 05 22:25:06 host kernel: Call Trace:
-Jan 05 22:25:06 host kernel:  __schedule+0x27b/0x870
-Jan 05 22:25:06 host kernel:  schedule+0x45/0xe0
-Jan 05 22:25:06 host kernel:  schedule_preempt_disabled+0x14/0x20
-Jan 05 22:25:06 host kernel:  __mutex_lock.constprop.0+0x239/0x500
-Jan 05 22:25:06 host kernel:  drm_fb_helper_restore_fbdev_mode_unlocked+0x41/0x90
-Jan 05 22:25:06 host kernel:  intel_fbdev_restore_mode+0x30/0x80
-Jan 05 22:25:06 host kernel:  drm_release_noglobal+0x69/0xa0
-Jan 05 22:25:06 host kernel:  __fput+0x8e/0x230
-Jan 05 22:25:06 host kernel:  task_work_run+0x5c/0x90
-Jan 05 22:25:06 host kernel:  exit_to_user_mode_prepare+0xe9/0x110
-Jan 05 22:25:06 host kernel:  syscall_exit_to_user_mode+0x22/0x160
-Jan 05 22:25:06 host kernel:  entry_SYSCALL_64_after_hwframe+0x44/0xa9
-Jan 05 22:25:06 host kernel: RIP: 0033:0x7fdc7c9a46eb
-Jan 05 22:25:06 host kernel: RSP: 002b:00007ffd0c397370 EFLAGS: 00000293 ORIG_RAX: 0000000000000003
-Jan 05 22:25:06 host kernel: RAX: 0000000000000000 RBX: 00007fdc7c1d66c8 RCX: 00007fdc7c9a46eb
-Jan 05 22:25:06 host kernel: RDX: 0000000000000000 RSI: 0000000000000007 RDI: 000000000000006f
-Jan 05 22:25:06 host kernel: RBP: 000000000000006f R08: 0000000000000000 R09: 00005613a68cd80a
-Jan 05 22:25:06 host kernel: R10: 0000000000000000 R11: 0000000000000293 R12: 0000000000000000
-Jan 05 22:25:06 host kernel: R13: 0000000000000000 R14: 00005613a68cf050 R15: 00005613a71e5f50
-Jan 05 22:25:06 host kernel: INFO: task systemd-logind:807 blocked for more than 245 seconds.
-Jan 05 22:25:06 host kernel:       Not tainted 5.10.4 #307
-Jan 05 22:25:06 host kernel: "echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
-Jan 05 22:25:06 host kernel: task:systemd-logind  state:D stack:    0 pid:  807 ppid:     1 flags:0x000043a0
-Jan 05 22:25:06 host kernel: Call Trace:
-Jan 05 22:25:06 host kernel:  __schedule+0x27b/0x870
-Jan 05 22:25:06 host kernel:  schedule+0x45/0xe0
-Jan 05 22:25:06 host kernel:  schedule_preempt_disabled+0x14/0x20
-Jan 05 22:25:06 host kernel:  __mutex_lock.constprop.0+0x239/0x500
-Jan 05 22:25:06 host kernel:  sync_eld_via_acomp+0x3f/0x350
-Jan 05 22:25:06 host kernel:  check_presence_and_report+0x57/0x80
-Jan 05 22:25:06 host kernel:  intel_audio_codec_enable+0x11f/0x180
-Jan 05 22:25:06 host kernel:  intel_enable_ddi+0x447/0x5a0
-Jan 05 22:25:06 host kernel:  intel_encoders_enable+0x75/0xa0
-Jan 05 22:25:06 host kernel:  hsw_crtc_enable+0x1bf/0x5c0
-Jan 05 22:25:06 host kernel:  intel_enable_crtc+0x48/0x60
-Jan 05 22:25:06 host kernel:  intel_commit_modeset_enables+0x48/0x70
-Jan 05 22:25:06 host kernel:  intel_atomic_commit_tail+0x2c9/0x1230
-Jan 05 22:25:06 host kernel:  ? complete+0x2f/0x40
-Jan 05 22:25:06 host kernel:  ? _raw_spin_unlock_irqrestore+0x14/0x30
-Jan 05 22:25:06 host kernel:  ? flush_workqueue_prep_pwqs+0x11e/0x130
-Jan 05 22:25:06 host kernel:  ? flush_workqueue+0x178/0x3c0
-Jan 05 22:25:06 host kernel:  intel_atomic_commit+0x318/0x3a0
-Jan 05 22:25:06 host kernel:  drm_client_modeset_commit_atomic+0x1d9/0x220
-Jan 05 22:25:06 host kernel:  drm_client_modeset_commit_locked+0x56/0x150
-Jan 05 22:25:06 host kernel:  drm_fb_helper_set_par+0x75/0xd0
-Jan 05 22:25:06 host kernel:  intel_fbdev_set_par+0x16/0x60
-Jan 05 22:25:06 host kernel:  fb_set_var+0x186/0x330
-Jan 05 22:25:06 host kernel:  ? _raw_spin_unlock_irqrestore+0x14/0x30
-Jan 05 22:25:06 host kernel:  ? __wake_up_common_lock+0x8a/0xc0
-Jan 05 22:25:06 host kernel:  fbcon_blank+0x17a/0x280
-Jan 05 22:25:06 host kernel:  do_unblank_screen+0x9c/0x130
-Jan 05 22:25:06 host kernel:  vt_ioctl+0x1229/0x1550
-Jan 05 22:25:06 host kernel:  ? slab_free_freelist_hook+0xe8/0x110
-Jan 05 22:25:06 host kernel:  ? tty_release+0x346/0x5d0
-Jan 05 22:25:06 host kernel:  ? kfree+0x3b0/0x410
-Jan 05 22:25:06 host kernel:  tty_ioctl+0x395/0x910
-Jan 05 22:25:06 host kernel:  ? tty_unlock+0x1d/0x40
-Jan 05 22:25:06 host kernel:  __x64_sys_ioctl+0x83/0xb0
-Jan 05 22:25:06 host kernel:  do_syscall_64+0x33/0x80
-Jan 05 22:25:06 host kernel:  entry_SYSCALL_64_after_hwframe+0x44/0xa9
-Jan 05 22:25:06 host kernel: RIP: 0033:0x7fa76794ccc7
-Jan 05 22:25:06 host kernel: RSP: 002b:00007ffca85a3038 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-Jan 05 22:25:06 host kernel: RAX: ffffffffffffffda RBX: 0000555ca73da410 RCX: 00007fa76794ccc7
-Jan 05 22:25:06 host kernel: RDX: 0000000000000000 RSI: 0000000000004b3a RDI: 000000000000000a
-Jan 05 22:25:06 host kernel: RBP: 000000000000000a R08: 0000000000000000 R09: 0000000000000000
-Jan 05 22:25:06 host kernel: R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-Jan 05 22:25:06 host kernel: R13: 0000000000000019 R14: 00007ffca85a3188 R15: 00007ffca85a31a0
-Jan 05 22:25:06 host kernel: INFO: task pulseaudio:2805 blocked for more than 245 seconds.
-Jan 05 22:25:06 host kernel:       Not tainted 5.10.4 #307
-Jan 05 22:25:06 host kernel: "echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
-Jan 05 22:25:06 host kernel: task:pulseaudio      state:D stack:    0 pid: 2805 ppid:  2664 flags:0x000003a4
-Jan 05 22:25:06 host kernel: Call Trace:
-Jan 05 22:25:06 host kernel:  __schedule+0x27b/0x870
-Jan 05 22:25:06 host kernel:  schedule+0x45/0xe0
-Jan 05 22:25:06 host kernel:  rwsem_down_write_slowpath+0x263/0x4d0
-Jan 05 22:25:06 host kernel:  snd_ctl_release+0x75/0x120
-Jan 05 22:25:06 host kernel:  __fput+0x8e/0x230
-Jan 05 22:25:06 host kernel:  task_work_run+0x5c/0x90
-Jan 05 22:25:06 host kernel:  exit_to_user_mode_prepare+0xe9/0x110
-Jan 05 22:25:06 host kernel:  syscall_exit_to_user_mode+0x22/0x160
-Jan 05 22:25:06 host kernel:  entry_SYSCALL_64_after_hwframe+0x44/0xa9
-Jan 05 22:25:06 host kernel: RIP: 0033:0x7f1ee209d11b
-Jan 05 22:25:06 host kernel: RSP: 002b:00007ffcb6c726e0 EFLAGS: 00000293 ORIG_RAX: 0000000000000003
-Jan 05 22:25:06 host kernel: RAX: 0000000000000000 RBX: 000055dbcfc2c430 RCX: 00007f1ee209d11b
-Jan 05 22:25:06 host kernel: RDX: 00007f1ee1f2ebe0 RSI: 0000000000000000 RDI: 000000000000000f
-Jan 05 22:25:06 host kernel: RBP: 000055dbcfe1d5c0 R08: 0000000000000000 R09: 00007ffcb6c726b0
-Jan 05 22:25:06 host kernel: R10: 0000000000000001 R11: 0000000000000293 R12: 0000000000000000
-Jan 05 22:25:06 host kernel: R13: 000055dbcfe185f0 R14: 000055dbcfcf8008 R15: 0000000000000019
-Jan 05 22:25:06 host kernel: INFO: task alsactl:24113 blocked for more than 245 seconds.
-Jan 05 22:25:06 host kernel:       Not tainted 5.10.4 #307
-Jan 05 22:25:06 host kernel: "echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
-Jan 05 22:25:06 host kernel: task:alsactl         state:D stack:    0 pid:24113 ppid:     1 flags:0x00000080
-Jan 05 22:25:06 host kernel: Call Trace:
-Jan 05 22:25:06 host kernel:  __schedule+0x27b/0x870
-Jan 05 22:25:06 host kernel:  schedule+0x45/0xe0
-Jan 05 22:25:06 host kernel:  schedule_preempt_disabled+0x14/0x20
-Jan 05 22:25:06 host kernel:  __mutex_lock.constprop.0+0x239/0x500
-Jan 05 22:25:06 host kernel:  ? chrdev_open+0xc2/0x240
-Jan 05 22:25:06 host kernel:  hdmi_eld_ctl_info+0x36/0xa0
-Jan 05 22:25:06 host kernel:  __snd_ctl_elem_info.constprop.0+0x1d/0x110
-Jan 05 22:25:06 host kernel:  snd_ctl_elem_info_user+0x86/0xf0
-Jan 05 22:25:06 host kernel:  snd_ctl_ioctl+0x1ef/0x750
-Jan 05 22:25:06 host kernel:  __x64_sys_ioctl+0x83/0xb0
-Jan 05 22:25:06 host kernel:  do_syscall_64+0x33/0x80
-Jan 05 22:25:06 host kernel:  entry_SYSCALL_64_after_hwframe+0x44/0xa9
-Jan 05 22:25:06 host kernel: RIP: 0033:0x7ffa0105dcc7
-Jan 05 22:25:06 host kernel: RSP: 002b:00007ffeded89848 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-Jan 05 22:25:06 host kernel: RAX: ffffffffffffffda RBX: 000055f392b7a6c0 RCX: 00007ffa0105dcc7
-Jan 05 22:25:06 host kernel: RDX: 00007ffeded89860 RSI: 00000000c1105511 RDI: 0000000000000004
-Jan 05 22:25:06 host kernel: RBP: 00007ffeded8a130 R08: 000055f392b7b9d0 R09: 0000000000000000
-Jan 05 22:25:06 host kernel: R10: 000055f392b7bd40 R11: 0000000000000246 R12: 00007ffeded89860
-Jan 05 22:25:06 host kernel: R13: 00007ffeded89980 R14: 00007ffeded8a140 R15: 000055f392ba6ec0
-Jan 05 22:26:08 host systemd[2664]: pulseaudio.service: Processes still around after final SIGKILL. Entering failed mode.
-Jan 05 22:26:08 host systemd[2664]: pulseaudio.service: Failed with result 'timeout'.
-Jan 05 22:26:08 host systemd[2664]: pulseaudio.service: Unit process 2805 (pulseaudio) remains running after unit stopped.
-Jan 05 22:27:09 host kernel: INFO: task systemd:1 blocked for more than 368 seconds.
-Jan 05 22:27:09 host kernel:       Not tainted 5.10.4 #307
-Jan 05 22:27:09 host kernel: "echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
-Jan 05 22:27:09 host kernel: task:systemd         state:D stack:    0 pid:    1 ppid:     0 flags:0x00004002
-Jan 05 22:27:09 host kernel: Call Trace:
-Jan 05 22:27:09 host kernel:  __schedule+0x27b/0x870
-Jan 05 22:27:09 host kernel:  schedule+0x45/0xe0
-Jan 05 22:27:09 host kernel:  schedule_preempt_disabled+0x14/0x20
-Jan 05 22:27:09 host kernel:  __mutex_lock.constprop.0+0x239/0x500
-Jan 05 22:27:09 host kernel:  drm_fb_helper_restore_fbdev_mode_unlocked+0x41/0x90
-Jan 05 22:27:09 host kernel:  intel_fbdev_restore_mode+0x30/0x80
-Jan 05 22:27:09 host kernel:  drm_release_noglobal+0x69/0xa0
-Jan 05 22:27:09 host kernel:  __fput+0x8e/0x230
-Jan 05 22:27:09 host kernel:  task_work_run+0x5c/0x90
-Jan 05 22:27:09 host kernel:  exit_to_user_mode_prepare+0xe9/0x110
-Jan 05 22:27:09 host kernel:  syscall_exit_to_user_mode+0x22/0x160
-Jan 05 22:27:09 host kernel:  entry_SYSCALL_64_after_hwframe+0x44/0xa9
-Jan 05 22:27:09 host kernel: RIP: 0033:0x7fdc7c9a46eb
-Jan 05 22:27:09 host kernel: RSP: 002b:00007ffd0c397370 EFLAGS: 00000293 ORIG_RAX: 0000000000000003
-Jan 05 22:27:09 host kernel: RAX: 0000000000000000 RBX: 00007fdc7c1d66c8 RCX: 00007fdc7c9a46eb
-Jan 05 22:27:09 host kernel: RDX: 0000000000000000 RSI: 0000000000000007 RDI: 000000000000006f
-Jan 05 22:27:09 host kernel: RBP: 000000000000006f R08: 0000000000000000 R09: 00005613a68cd80a
-Jan 05 22:27:09 host kernel: R10: 0000000000000000 R11: 0000000000000293 R12: 0000000000000000
-Jan 05 22:27:09 host kernel: R13: 0000000000000000 R14: 00005613a68cf050 R15: 00005613a71e5f50
-Jan 05 22:27:09 host kernel: INFO: task systemd-logind:807 blocked for more than 368 seconds.
-Jan 05 22:27:09 host kernel:       Not tainted 5.10.4 #307
-Jan 05 22:27:09 host kernel: "echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
-Jan 05 22:27:09 host kernel: task:systemd-logind  state:D stack:    0 pid:  807 ppid:     1 flags:0x000043a0
-Jan 05 22:27:09 host kernel: Call Trace:
-Jan 05 22:27:09 host kernel:  __schedule+0x27b/0x870
-Jan 05 22:27:09 host kernel:  schedule+0x45/0xe0
-Jan 05 22:27:09 host kernel:  schedule_preempt_disabled+0x14/0x20
-Jan 05 22:27:09 host kernel:  __mutex_lock.constprop.0+0x239/0x500
-Jan 05 22:27:09 host kernel:  sync_eld_via_acomp+0x3f/0x350
-Jan 05 22:27:09 host kernel:  check_presence_and_report+0x57/0x80
-Jan 05 22:27:09 host kernel:  intel_audio_codec_enable+0x11f/0x180
-Jan 05 22:27:09 host kernel:  intel_enable_ddi+0x447/0x5a0
-Jan 05 22:27:09 host kernel:  intel_encoders_enable+0x75/0xa0
-Jan 05 22:27:09 host kernel:  hsw_crtc_enable+0x1bf/0x5c0
-Jan 05 22:27:09 host kernel:  intel_enable_crtc+0x48/0x60
-Jan 05 22:27:09 host kernel:  intel_commit_modeset_enables+0x48/0x70
-Jan 05 22:27:09 host kernel:  intel_atomic_commit_tail+0x2c9/0x1230
-Jan 05 22:27:09 host kernel:  ? complete+0x2f/0x40
-Jan 05 22:27:09 host kernel:  ? _raw_spin_unlock_irqrestore+0x14/0x30
-Jan 05 22:27:09 host kernel:  ? flush_workqueue_prep_pwqs+0x11e/0x130
-Jan 05 22:27:09 host kernel:  ? flush_workqueue+0x178/0x3c0
-Jan 05 22:27:09 host kernel:  intel_atomic_commit+0x318/0x3a0
-Jan 05 22:27:09 host kernel:  drm_client_modeset_commit_atomic+0x1d9/0x220
-Jan 05 22:27:09 host kernel:  drm_client_modeset_commit_locked+0x56/0x150
-Jan 05 22:27:09 host kernel:  drm_fb_helper_set_par+0x75/0xd0
-Jan 05 22:27:09 host kernel:  intel_fbdev_set_par+0x16/0x60
-Jan 05 22:27:09 host kernel:  fb_set_var+0x186/0x330
-Jan 05 22:27:09 host kernel:  ? _raw_spin_unlock_irqrestore+0x14/0x30
-Jan 05 22:27:09 host kernel:  ? __wake_up_common_lock+0x8a/0xc0
-Jan 05 22:27:09 host kernel:  fbcon_blank+0x17a/0x280
-Jan 05 22:27:09 host kernel:  do_unblank_screen+0x9c/0x130
-Jan 05 22:27:09 host kernel:  vt_ioctl+0x1229/0x1550
-Jan 05 22:27:09 host kernel:  ? slab_free_freelist_hook+0xe8/0x110
-Jan 05 22:27:09 host kernel:  ? tty_release+0x346/0x5d0
-Jan 05 22:27:09 host kernel:  ? kfree+0x3b0/0x410
-Jan 05 22:27:09 host kernel:  tty_ioctl+0x395/0x910
-Jan 05 22:27:09 host kernel:  ? tty_unlock+0x1d/0x40
-Jan 05 22:27:09 host kernel:  __x64_sys_ioctl+0x83/0xb0
-Jan 05 22:27:09 host kernel:  do_syscall_64+0x33/0x80
-Jan 05 22:27:09 host kernel:  entry_SYSCALL_64_after_hwframe+0x44/0xa9
-Jan 05 22:27:09 host kernel: RIP: 0033:0x7fa76794ccc7
-Jan 05 22:27:09 host kernel: RSP: 002b:00007ffca85a3038 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-Jan 05 22:27:09 host kernel: RAX: ffffffffffffffda RBX: 0000555ca73da410 RCX: 00007fa76794ccc7
-Jan 05 22:27:09 host kernel: RDX: 0000000000000000 RSI: 0000000000004b3a RDI: 000000000000000a
-Jan 05 22:27:09 host kernel: RBP: 000000000000000a R08: 0000000000000000 R09: 0000000000000000
-Jan 05 22:27:09 host kernel: R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-Jan 05 22:27:09 host kernel: R13: 0000000000000019 R14: 00007ffca85a3188 R15: 00007ffca85a31a0
+== Series Details ==
 
-Regards,
-Gabor
+Series: series starting with [1/4] drm/i915/selftests: Break out of the lrc layout test after register mismatch
+URL   : https://patchwork.freedesktop.org/series/85548/
+State : success
+
+== Summary ==
+
+CI Bug Log - changes from CI_DRM_9549 -> Patchwork_19269
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19269/index.html
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_19269 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@amdgpu/amd_basic@semaphore:
+    - fi-icl-y:           NOTRUN -> [SKIP][1] ([fdo#109315]) +17 similar issues
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19269/fi-icl-y/igt@amdgpu/amd_basic@semaphore.html
+
+  * igt@gem_huc_copy@huc-copy:
+    - fi-icl-y:           NOTRUN -> [SKIP][2] ([i915#2190])
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19269/fi-icl-y/igt@gem_huc_copy@huc-copy.html
+
+  * igt@gem_ringfill@basic-all:
+    - fi-tgl-y:           [PASS][3] -> [DMESG-WARN][4] ([i915#402])
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9549/fi-tgl-y/igt@gem_ringfill@basic-all.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19269/fi-tgl-y/igt@gem_ringfill@basic-all.html
+
+  * igt@i915_pm_rpm@module-reload:
+    - fi-byt-j1900:       [PASS][5] -> [INCOMPLETE][6] ([i915#142] / [i915#2405])
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9549/fi-byt-j1900/igt@i915_pm_rpm@module-reload.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19269/fi-byt-j1900/igt@i915_pm_rpm@module-reload.html
+
+  * igt@kms_chamelium@dp-crc-fast:
+    - fi-icl-y:           NOTRUN -> [SKIP][7] ([fdo#109284] / [fdo#111827]) +8 similar issues
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19269/fi-icl-y/igt@kms_chamelium@dp-crc-fast.html
+
+  * igt@kms_chamelium@hdmi-crc-fast:
+    - fi-kbl-7500u:       [PASS][8] -> [DMESG-WARN][9] ([i915#2868])
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9549/fi-kbl-7500u/igt@kms_chamelium@hdmi-crc-fast.html
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19269/fi-kbl-7500u/igt@kms_chamelium@hdmi-crc-fast.html
+
+  * igt@kms_force_connector_basic@force-load-detect:
+    - fi-icl-y:           NOTRUN -> [SKIP][10] ([fdo#109285])
+   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19269/fi-icl-y/igt@kms_force_connector_basic@force-load-detect.html
+
+  * igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-d:
+    - fi-icl-y:           NOTRUN -> [SKIP][11] ([fdo#109278])
+   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19269/fi-icl-y/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-d.html
+
+  * igt@kms_psr@primary_mmap_gtt:
+    - fi-icl-y:           NOTRUN -> [SKIP][12] ([fdo#110189]) +3 similar issues
+   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19269/fi-icl-y/igt@kms_psr@primary_mmap_gtt.html
+
+  * igt@runner@aborted:
+    - fi-byt-j1900:       NOTRUN -> [FAIL][13] ([i915#1814] / [i915#2505])
+   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19269/fi-byt-j1900/igt@runner@aborted.html
+
+  
+#### Possible fixes ####
+
+  * igt@gem_exec_parallel@engines@fds:
+    - fi-icl-y:           [INCOMPLETE][14] ([i915#2295]) -> [PASS][15]
+   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9549/fi-icl-y/igt@gem_exec_parallel@engines@fds.html
+   [15]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19269/fi-icl-y/igt@gem_exec_parallel@engines@fds.html
+
+  * igt@gem_mmap@basic:
+    - fi-tgl-y:           [DMESG-WARN][16] ([i915#402]) -> [PASS][17]
+   [16]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9549/fi-tgl-y/igt@gem_mmap@basic.html
+   [17]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19269/fi-tgl-y/igt@gem_mmap@basic.html
+
+  * igt@i915_selftest@live@active:
+    - fi-cfl-8109u:       [DMESG-FAIL][18] ([i915#2291] / [i915#666]) -> [PASS][19]
+   [18]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9549/fi-cfl-8109u/igt@i915_selftest@live@active.html
+   [19]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19269/fi-cfl-8109u/igt@i915_selftest@live@active.html
+
+  
+  [fdo#109278]: https://bugs.freedesktop.org/show_bug.cgi?id=109278
+  [fdo#109284]: https://bugs.freedesktop.org/show_bug.cgi?id=109284
+  [fdo#109285]: https://bugs.freedesktop.org/show_bug.cgi?id=109285
+  [fdo#109315]: https://bugs.freedesktop.org/show_bug.cgi?id=109315
+  [fdo#110189]: https://bugs.freedesktop.org/show_bug.cgi?id=110189
+  [fdo#111827]: https://bugs.freedesktop.org/show_bug.cgi?id=111827
+  [i915#142]: https://gitlab.freedesktop.org/drm/intel/issues/142
+  [i915#1814]: https://gitlab.freedesktop.org/drm/intel/issues/1814
+  [i915#2190]: https://gitlab.freedesktop.org/drm/intel/issues/2190
+  [i915#2291]: https://gitlab.freedesktop.org/drm/intel/issues/2291
+  [i915#2295]: https://gitlab.freedesktop.org/drm/intel/issues/2295
+  [i915#2405]: https://gitlab.freedesktop.org/drm/intel/issues/2405
+  [i915#2505]: https://gitlab.freedesktop.org/drm/intel/issues/2505
+  [i915#2868]: https://gitlab.freedesktop.org/drm/intel/issues/2868
+  [i915#402]: https://gitlab.freedesktop.org/drm/intel/issues/402
+  [i915#666]: https://gitlab.freedesktop.org/drm/intel/issues/666
+
+
+Participating hosts (42 -> 37)
+------------------------------
+
+  Missing    (5): fi-ilk-m540 fi-hsw-4200u fi-bsw-cyan fi-ctg-p8600 fi-bdw-samus 
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_9549 -> Patchwork_19269
+
+  CI-20190529: 20190529
+  CI_DRM_9549: 71d1067baaab27385b5fcc81c2b789eb8d1ca92c @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_5944: e230cd8d481ea28ccc11b554d7a34ffca003fb25 @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools
+  Patchwork_19269: 22c93cdd73c1fe518b8f881c07fe384061798d8a @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+== Linux commits ==
+
+22c93cdd73c1 drm/i915/gt: Remove timeslice suppression
+9c4b26ad0411 drm/i915/gt: Restore ce->signal flush before releasing virtual engine
+3a8f3c7e5e40 drm/i915/selftests: Improve handling of iomem around stolen
+df520ae36315 drm/i915/selftests: Break out of the lrc layout test after register mismatch
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19269/index.html
+
+--===============4548954266118651313==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>series starting with [1/4] drm/i915/selftests: Break out of the lrc layout test after register mismatch</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/85548/">https://patchwork.freedesktop.org/series/85548/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19269/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19269/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_9549 -&gt; Patchwork_19269</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19269/index.html</p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_19269 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@amdgpu/amd_basic@semaphore:</p>
+<ul>
+<li>fi-icl-y:           NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19269/fi-icl-y/igt@amdgpu/amd_basic@semaphore.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109315">fdo#109315</a>) +17 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@gem_huc_copy@huc-copy:</p>
+<ul>
+<li>fi-icl-y:           NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19269/fi-icl-y/igt@gem_huc_copy@huc-copy.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2190">i915#2190</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@gem_ringfill@basic-all:</p>
+<ul>
+<li>fi-tgl-y:           <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9549/fi-tgl-y/igt@gem_ringfill@basic-all.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19269/fi-tgl-y/igt@gem_ringfill@basic-all.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/402">i915#402</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_pm_rpm@module-reload:</p>
+<ul>
+<li>fi-byt-j1900:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9549/fi-byt-j1900/igt@i915_pm_rpm@module-reload.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19269/fi-byt-j1900/igt@i915_pm_rpm@module-reload.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/142">i915#142</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/2405">i915#2405</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_chamelium@dp-crc-fast:</p>
+<ul>
+<li>fi-icl-y:           NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19269/fi-icl-y/igt@kms_chamelium@dp-crc-fast.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109284">fdo#109284</a> / <a href="https://bugs.freedesktop.org/show_bug.cgi?id=111827">fdo#111827</a>) +8 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_chamelium@hdmi-crc-fast:</p>
+<ul>
+<li>fi-kbl-7500u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9549/fi-kbl-7500u/igt@kms_chamelium@hdmi-crc-fast.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19269/fi-kbl-7500u/igt@kms_chamelium@hdmi-crc-fast.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2868">i915#2868</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_force_connector_basic@force-load-detect:</p>
+<ul>
+<li>fi-icl-y:           NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19269/fi-icl-y/igt@kms_force_connector_basic@force-load-detect.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109285">fdo#109285</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-d:</p>
+<ul>
+<li>fi-icl-y:           NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19269/fi-icl-y/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-d.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109278">fdo#109278</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_psr@primary_mmap_gtt:</p>
+<ul>
+<li>fi-icl-y:           NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19269/fi-icl-y/igt@kms_psr@primary_mmap_gtt.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=110189">fdo#110189</a>) +3 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@runner@aborted:</p>
+<ul>
+<li>fi-byt-j1900:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19269/fi-byt-j1900/igt@runner@aborted.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1814">i915#1814</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/2505">i915#2505</a>)</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@gem_exec_parallel@engines@fds:</p>
+<ul>
+<li>fi-icl-y:           <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9549/fi-icl-y/igt@gem_exec_parallel@engines@fds.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2295">i915#2295</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19269/fi-icl-y/igt@gem_exec_parallel@engines@fds.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@gem_mmap@basic:</p>
+<ul>
+<li>fi-tgl-y:           <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9549/fi-tgl-y/igt@gem_mmap@basic.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/402">i915#402</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19269/fi-tgl-y/igt@gem_mmap@basic.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@active:</p>
+<ul>
+<li>fi-cfl-8109u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9549/fi-cfl-8109u/igt@i915_selftest@live@active.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2291">i915#2291</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/666">i915#666</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19269/fi-cfl-8109u/igt@i915_selftest@live@active.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<h2>Participating hosts (42 -&gt; 37)</h2>
+<p>Missing    (5): fi-ilk-m540 fi-hsw-4200u fi-bsw-cyan fi-ctg-p8600 fi-bdw-samus </p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_9549 -&gt; Patchwork_19269</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_9549: 71d1067baaab27385b5fcc81c2b789eb8d1ca92c @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_5944: e230cd8d481ea28ccc11b554d7a34ffca003fb25 @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools<br />
+  Patchwork_19269: 22c93cdd73c1fe518b8f881c07fe384061798d8a @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<p>== Linux commits ==</p>
+<p>22c93cdd73c1 drm/i915/gt: Remove timeslice suppression<br />
+9c4b26ad0411 drm/i915/gt: Restore ce-&gt;signal flush before releasing virtual engine<br />
+3a8f3c7e5e40 drm/i915/selftests: Improve handling of iomem around stolen<br />
+df520ae36315 drm/i915/selftests: Break out of the lrc layout test after register mismatch</p>
+
+</body>
+</html>
+
+--===============4548954266118651313==--
+
+--===============1187088502==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+
+--===============1187088502==--
