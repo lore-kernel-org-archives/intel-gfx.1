@@ -2,44 +2,41 @@ Return-Path: <SRS0=HSM9=GJ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AD5F8C433DB
-	for <intel-gfx@archiver.kernel.org>; Wed,  6 Jan 2021 01:05:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 707ABC433E0
+	for <intel-gfx@archiver.kernel.org>; Wed,  6 Jan 2021 01:07:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 01E30221E2
-	for <intel-gfx@archiver.kernel.org>; Wed,  6 Jan 2021 01:05:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 01E30221E2
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
+	by mail.kernel.org (Postfix) with ESMTPS id D97C8221E2
+	for <intel-gfx@archiver.kernel.org>; Wed,  6 Jan 2021 01:07:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D97C8221E2
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8816D89C1C;
-	Wed,  6 Jan 2021 01:05:35 +0000 (UTC)
-Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 78DF189C1C
- for <intel-gfx@lists.freedesktop.org>; Wed,  6 Jan 2021 01:05:33 +0000 (UTC)
-X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
- x-ip-name=78.156.65.138; 
-Received: from localhost (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP (TLS) id
- 23513038-1500050 for multiple; Wed, 06 Jan 2021 01:05:31 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3444289CCE;
+	Wed,  6 Jan 2021 01:07:11 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 588D989CC9;
+ Wed,  6 Jan 2021 01:07:10 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 51E52A363D;
+ Wed,  6 Jan 2021 01:07:10 +0000 (UTC)
 MIME-Version: 1.0
-In-Reply-To: <20210105231947.31235-6-daniele.ceraolospurio@intel.com>
-References: <20210105231947.31235-1-daniele.ceraolospurio@intel.com>
- <20210105231947.31235-6-daniele.ceraolospurio@intel.com>
-From: Chris Wilson <chris@chris-wilson.co.uk>
-To: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>,
- intel-gfx@lists.freedesktop.org
-Date: Wed, 06 Jan 2021 01:05:29 +0000
-Message-ID: <160989512970.14894.1105831112145716869@build.alporthouse.com>
-User-Agent: alot/0.9
-Subject: Re: [Intel-gfx] [PATCH 5/5] drm/i915/guc: enable only the user
- interrupt when using GuC submission
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Chris Wilson" <chris@chris-wilson.co.uk>
+Date: Wed, 06 Jan 2021 01:07:10 -0000
+Message-ID: <160989523033.18709.10428592312758747267@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20210104115145.24460-1-chris@chris-wilson.co.uk>
+In-Reply-To: <20210104115145.24460-1-chris@chris-wilson.co.uk>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_series_starting_with_=5B1/6=5D_drm/i915/selftests=3A_Set_er?=
+ =?utf-8?q?ror_returns_=28rev2=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,60 +49,31 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Quoting Daniele Ceraolo Spurio (2021-01-05 23:19:47)
-> In GuC submission mode the CS is owned by the GuC FW, so all CS status
-> interrupts are handled by it. We only need the user interrupt as that
-> signals request completion.
-> 
-> Since we're now starting the engines directly in GuC submission mode
-> when selected, we can stop switching back and forth between the
-> execlists and the GuC programming and select directly the correct
-> interrupt mask.
-> 
-> Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-> Cc: Matthew Brost <matthew.brost@intel.com>
-> Cc: John Harrison <john.c.harrison@intel.com>
-> Cc: Michal Wajdeczko <michal.wajdeczko@intel.com>
-> ---
->  drivers/gpu/drm/i915/gt/intel_gt_irq.c        | 18 ++++++-----
->  .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 31 -------------------
->  2 files changed, 11 insertions(+), 38 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/gt/intel_gt_irq.c b/drivers/gpu/drm/i915/gt/intel_gt_irq.c
-> index 9830342aa6f4..7b2b8cb2d2be 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_gt_irq.c
-> +++ b/drivers/gpu/drm/i915/gt/intel_gt_irq.c
-> @@ -237,14 +237,18 @@ void gen11_gt_irq_reset(struct intel_gt *gt)
->  
->  void gen11_gt_irq_postinstall(struct intel_gt *gt)
->  {
-> -       const u32 irqs =
-> -               GT_CS_MASTER_ERROR_INTERRUPT |
-> -               GT_RENDER_USER_INTERRUPT |
-> -               GT_CONTEXT_SWITCH_INTERRUPT |
-> -               GT_WAIT_SEMAPHORE_INTERRUPT;
->         struct intel_uncore *uncore = gt->uncore;
-> -       const u32 dmask = irqs << 16 | irqs;
-> -       const u32 smask = irqs << 16;
-> +       u32 irqs = GT_RENDER_USER_INTERRUPT;
-> +       u32 dmask;
-> +       u32 smask;
-> +
-> +       if (!intel_uc_wants_guc_submission(&gt->uc))
-> +               irqs |= GT_CS_MASTER_ERROR_INTERRUPT |
-> +                       GT_CONTEXT_SWITCH_INTERRUPT |
-> +                       GT_WAIT_SEMAPHORE_INTERRUPT;
+== Series Details ==
 
-Since these are all inside the engine mask as well, we can set the GT
-iir with minimal concern. Is there any advantage in having a patch with
-	if (!intel_uc_wants_guc_submission(&gt->uc))
-here at this point in time?
--Chris
+Series: series starting with [1/6] drm/i915/selftests: Set error returns (rev2)
+URL   : https://patchwork.freedesktop.org/series/85440/
+State : warning
+
+== Summary ==
+
+$ dim checkpatch origin/drm-tip
+3f2dd9d777ef drm/i915/gt: Restore ce->signal flush before releasing virtual engine
+-:14: ERROR:GIT_COMMIT_ID: Please use git commit description style 'commit <12+ chars of sha1> ("<title line>")' - ie: 'commit bab0557c8dca ("drm/i915/gt: Remove virtual breadcrumb before transfer")'
+#14: 
+bab0557c8dca ("drm/i915/gt: Remove virtual breadcrumb before transfer"),
+
+total: 1 errors, 0 warnings, 0 checks, 25 lines checked
+1de3499c7f24 drm/i915/gt: Remove timeslice suppression
+
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
