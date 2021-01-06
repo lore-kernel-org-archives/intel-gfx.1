@@ -2,49 +2,49 @@ Return-Path: <SRS0=HSM9=GJ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-13.9 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
+	URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 79C1FC433E6
-	for <intel-gfx@archiver.kernel.org>; Wed,  6 Jan 2021 23:12:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 74B68C433E0
+	for <intel-gfx@archiver.kernel.org>; Wed,  6 Jan 2021 23:12:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3D637225AC
-	for <intel-gfx@archiver.kernel.org>; Wed,  6 Jan 2021 23:12:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3D637225AC
+	by mail.kernel.org (Postfix) with ESMTPS id 3AF9B225AC
+	for <intel-gfx@archiver.kernel.org>; Wed,  6 Jan 2021 23:12:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3AF9B225AC
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D54056E314;
-	Wed,  6 Jan 2021 23:12:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9600F6E30D;
+	Wed,  6 Jan 2021 23:12:26 +0000 (UTC)
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 80CCB6E30D
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BFBB06E321
  for <Intel-gfx@lists.freedesktop.org>; Wed,  6 Jan 2021 23:12:24 +0000 (UTC)
-IronPort-SDR: 8JI79S67D18AzzlBZudkaM/Kb8mmdgC+jmnskqZSKTwbpdICLSZPx8W8K8mCsq9Lz2JWg89hyt
- SivWu9KE2p7A==
-X-IronPort-AV: E=McAfee;i="6000,8403,9856"; a="195900072"
-X-IronPort-AV: E=Sophos;i="5.79,328,1602572400"; d="scan'208";a="195900072"
+IronPort-SDR: Q1lEuvHkUAZE7R6q6uT3TgQIDdHU7rpb0ISnIw7J4ANMiizlpjZoTqpYpo3TMuitv8gHg2Y8Dn
+ jjpKSAM0JJmA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9856"; a="195900076"
+X-IronPort-AV: E=Sophos;i="5.79,328,1602572400"; d="scan'208";a="195900076"
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  06 Jan 2021 15:12:23 -0800
-IronPort-SDR: 08V4P/Rb4+ATvxylcFBbEN/9RQe8Dle2SRfALm6hFxvBbG00FSOfpLpWpY7lhGeV0sO1hsoGXI
- SkPE/SJ+wSRg==
+IronPort-SDR: AclAf1TxGOYcG2M5+NstLbFgvHqQ2NqLSwLYUYmw1eQZcgEpjMicdFrPcdPwOUM2BPr6Y2xQHU
+ YgaEpR8fPZYw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.79,328,1602572400"; d="scan'208";a="567566125"
+X-IronPort-AV: E=Sophos;i="5.79,328,1602572400"; d="scan'208";a="567566134"
 Received: from sean-virtualbox.fm.intel.com ([10.105.158.96])
  by fmsmga006.fm.intel.com with ESMTP; 06 Jan 2021 15:12:23 -0800
 From: "Huang, Sean Z" <sean.z.huang@intel.com>
 To: Intel-gfx@lists.freedesktop.org
-Date: Wed,  6 Jan 2021 15:12:17 -0800
-Message-Id: <20210106231223.8323-8-sean.z.huang@intel.com>
+Date: Wed,  6 Jan 2021 15:12:21 -0800
+Message-Id: <20210106231223.8323-12-sean.z.huang@intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20210106231223.8323-1-sean.z.huang@intel.com>
 References: <20210106231223.8323-1-sean.z.huang@intel.com>
-Subject: [Intel-gfx] [RFC-v19 07/13] drm/i915/pxp: Destroy arb session upon
- teardown
+Subject: [Intel-gfx] [RFC-v19 11/13] drm/i915/uapi: introduce
+ drm_i915_gem_create_ext
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,321 +57,187 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Joonas@freedesktop.org,
+	Bommu Krishnaiah <krishnaiah.bommu@intel.com>,
+	Matthew@freedesktop.org
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Teardown is triggered when the display topology changes and no
-long meets the secure playback requirement, and hardware trashes
-all the encryption keys for display. So as a result, PXP should
-handle such case and terminate the type0 sessions, which including
-arb session
+From: Bommu Krishnaiah <krishnaiah.bommu@intel.com>
 
-Signed-off-by: Huang, Sean Z <sean.z.huang@intel.com>
+Same old gem_create but with now with extensions support. This is needed
+to support various upcoming usecases. For now we use the extensions
+mechanism to support PAVP.
+
+Signed-off-by: Bommu Krishnaiah <krishnaiah.bommu@intel.com>
+Signed-off-by: Matthew Auld <matthew.auld@intel.com>
+Cc: Joonas Lahtinen joonas.lahtinen@linux.intel.com
+Cc: Matthew Auld matthew.auld@intel.com
+Cc: Telukuntla Sreedhar <sreedhar.telukuntla@intel.com>
 ---
- drivers/gpu/drm/i915/pxp/intel_pxp.c     |   3 +
- drivers/gpu/drm/i915/pxp/intel_pxp_arb.c |  76 +++++++++++++
- drivers/gpu/drm/i915/pxp/intel_pxp_arb.h |   1 +
- drivers/gpu/drm/i915/pxp/intel_pxp_cmd.c | 130 ++++++++++++++++++++++-
- drivers/gpu/drm/i915/pxp/intel_pxp_cmd.h |  12 ++-
- 5 files changed, 212 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/i915/i915_drv.c |  2 +-
+ drivers/gpu/drm/i915/i915_gem.c | 42 ++++++++++++++++++++++++++++-
+ include/uapi/drm/i915_drm.h     | 47 +++++++++++++++++++++++++++++++++
+ 3 files changed, 89 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.c b/drivers/gpu/drm/i915/pxp/intel_pxp.c
-index fa15e3ad2f92..23d4cfc1fb1f 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp.c
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp.c
-@@ -28,6 +28,9 @@ static int intel_pxp_teardown_required_callback(struct intel_pxp *pxp)
- 	mutex_lock(&pxp->ctx.mutex);
- 
- 	pxp->ctx.global_state_attacked = true;
-+	pxp->ctx.flag_display_hm_surface_keys = false;
-+
-+	ret = intel_pxp_arb_terminate_session(pxp);
- 
- 	mutex_unlock(&pxp->ctx.mutex);
- 
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_arb.c b/drivers/gpu/drm/i915/pxp/intel_pxp_arb.c
-index 640d7103c04d..1d2ec8ffd7ad 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp_arb.c
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_arb.c
-@@ -10,6 +10,7 @@
- #include "intel_pxp_arb.h"
- #include "intel_pxp.h"
- #include "intel_pxp_tee.h"
-+#include "intel_pxp_cmd.h"
- 
- #define GEN12_KCR_SIP _MMIO(0x32260) /* KCR type0 session in play 0-31 */
- 
-@@ -129,3 +130,78 @@ int intel_pxp_arb_create_session(struct intel_pxp *pxp)
- 
- 	return ret;
- }
-+
-+static int intel_pxp_arb_session_with_global_termination(struct intel_pxp *pxp)
-+{
-+	u32 *cmd = NULL;
-+	u32 *cmd_ptr = NULL;
-+	int cmd_size_in_dw = 0;
-+	int ret;
-+	struct intel_gt *gt = container_of(pxp, typeof(*gt), pxp);
-+
-+	/* Calculate how many bytes need to be alloc */
-+	cmd_size_in_dw += intel_pxp_cmd_add_prolog(pxp, NULL, ARB_SESSION_TYPE, ARB_SESSION_INDEX);
-+	cmd_size_in_dw += intel_pxp_cmd_add_inline_termination(NULL);
-+	cmd_size_in_dw += intel_pxp_cmd_add_epilog(NULL);
-+
-+	cmd = kzalloc(cmd_size_in_dw * 4, GFP_KERNEL);
-+	if (!cmd)
-+		return -ENOMEM;
-+
-+	/* Program the command */
-+	cmd_ptr = cmd;
-+	cmd_ptr += intel_pxp_cmd_add_prolog(pxp, cmd_ptr, ARB_SESSION_TYPE, ARB_SESSION_INDEX);
-+	cmd_ptr += intel_pxp_cmd_add_inline_termination(cmd_ptr);
-+	cmd_ptr += intel_pxp_cmd_add_epilog(cmd_ptr);
-+
-+	if (cmd_size_in_dw != (cmd_ptr - cmd)) {
-+		ret = -EINVAL;
-+		drm_err(&gt->i915->drm, "Failed to %s\n", __func__);
-+		goto end;
-+	}
-+
-+	if (drm_debug_enabled(DRM_UT_DRIVER)) {
-+		print_hex_dump(KERN_DEBUG, "global termination cmd binaries:",
-+			       DUMP_PREFIX_OFFSET, 4, 4, cmd, cmd_size_in_dw * 4, true);
-+	}
-+
-+	ret = intel_pxp_cmd_submit(pxp, cmd, cmd_size_in_dw);
-+	if (ret) {
-+		drm_err(&gt->i915->drm, "Failed to intel_pxp_cmd_submit()\n");
-+		goto end;
-+	}
-+
-+end:
-+	kfree(cmd);
-+	return ret;
-+}
-+
-+/**
-+ * intel_pxp_arb_terminate_session - Terminate the arb hw session and its entries.
-+ * @pxp: pointer to pxp struct.
-+ *
-+ * This function is NOT intended to be called from the ioctl, and need to be protected by
-+ * ctx.mutex to ensure no SIP change during the call.
-+ *
-+ * Return: status. 0 means terminate is successful.
-+ */
-+int intel_pxp_arb_terminate_session(struct intel_pxp *pxp)
-+{
-+	int ret;
-+	struct intel_gt *gt = container_of(pxp, struct intel_gt, pxp);
-+	struct pxp_protected_session *arb = &pxp->ctx.arb_session;
-+
-+	lockdep_assert_held(&pxp->ctx.mutex);
-+
-+	/* terminate the hw sessions */
-+	ret = intel_pxp_arb_session_with_global_termination(pxp);
-+	if (ret) {
-+		drm_err(&gt->i915->drm, "Failed to intel_pxp_arb_session_with_global_termination\n");
-+		return ret;
-+	}
-+
-+	arb->is_in_play = false;
-+
-+	return ret;
-+}
-+
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_arb.h b/drivers/gpu/drm/i915/pxp/intel_pxp_arb.h
-index 2196153dd879..42261ef33a03 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp_arb.h
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_arb.h
-@@ -11,6 +11,7 @@
- struct intel_pxp;
- 
- int intel_pxp_arb_create_session(struct intel_pxp *pxp);
-+int intel_pxp_arb_terminate_session(struct intel_pxp *pxp);
- bool intel_pxp_arb_session_is_in_play(struct intel_pxp *pxp);
- 
- #endif /* __INTEL_PXP_ARB_H__ */
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_cmd.c b/drivers/gpu/drm/i915/pxp/intel_pxp_cmd.c
-index d9298cf5e1a7..ae338ab2e629 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp_cmd.c
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_cmd.c
-@@ -5,13 +5,33 @@
- 
- #include "intel_pxp_cmd.h"
+diff --git a/drivers/gpu/drm/i915/i915_drv.c b/drivers/gpu/drm/i915/i915_drv.c
+index 5923db004d9b..ca526923d9b3 100644
+--- a/drivers/gpu/drm/i915/i915_drv.c
++++ b/drivers/gpu/drm/i915/i915_drv.c
+@@ -1727,7 +1727,7 @@ static const struct drm_ioctl_desc i915_ioctls[] = {
+ 	DRM_IOCTL_DEF_DRV(I915_GEM_THROTTLE, i915_gem_throttle_ioctl, DRM_RENDER_ALLOW),
+ 	DRM_IOCTL_DEF_DRV(I915_GEM_ENTERVT, drm_noop, DRM_AUTH|DRM_MASTER|DRM_ROOT_ONLY),
+ 	DRM_IOCTL_DEF_DRV(I915_GEM_LEAVEVT, drm_noop, DRM_AUTH|DRM_MASTER|DRM_ROOT_ONLY),
+-	DRM_IOCTL_DEF_DRV(I915_GEM_CREATE, i915_gem_create_ioctl, DRM_RENDER_ALLOW),
++	DRM_IOCTL_DEF_DRV(I915_GEM_CREATE_EXT, i915_gem_create_ioctl, DRM_RENDER_ALLOW),
+ 	DRM_IOCTL_DEF_DRV(I915_GEM_PREAD, i915_gem_pread_ioctl, DRM_RENDER_ALLOW),
+ 	DRM_IOCTL_DEF_DRV(I915_GEM_PWRITE, i915_gem_pwrite_ioctl, DRM_RENDER_ALLOW),
+ 	DRM_IOCTL_DEF_DRV(I915_GEM_MMAP, i915_gem_mmap_ioctl, DRM_RENDER_ALLOW),
+diff --git a/drivers/gpu/drm/i915/i915_gem.c b/drivers/gpu/drm/i915/i915_gem.c
+index 17a4636ee542..c53b13c02e59 100644
+--- a/drivers/gpu/drm/i915/i915_gem.c
++++ b/drivers/gpu/drm/i915/i915_gem.c
+@@ -53,6 +53,7 @@
  #include "i915_drv.h"
-+#include "gt/intel_gpu_commands.h"
- #include "gt/intel_context.h"
- #include "gt/intel_engine_pm.h"
+ #include "i915_trace.h"
+ #include "i915_vgpu.h"
++#include "i915_user_extensions.h"
  
--struct i915_vma *intel_pxp_cmd_get_batch(struct intel_pxp *pxp,
--					 struct intel_context *ce,
--					 struct intel_gt_buffer_pool_node *pool,
--					 u32 *cmd_buf, int cmd_size_in_dw)
-+/* PXP GPU command definitions */
-+
-+/* MI_SET_APPID */
-+#define   MI_SET_APPID_TYPE1_APP        BIT(7)
-+#define   MI_SET_APPID_SESSION_ID(x)    ((x) << 0)
-+
-+/* MI_FLUSH_DW */
-+#define   MI_FLUSH_DW_DW0_PROTECTED_MEMORY_ENABLE   BIT(22)
-+
-+/* MI_WAIT */
-+#define   MFX_WAIT_DW0_PXP_SYNC_CONTROL_FLAG BIT(9)
-+#define   MFX_WAIT_DW0_MFX_SYNC_CONTROL_FLAG  BIT(8)
-+
-+/* CRYPTO_KEY_EXCHANGE */
-+#define CRYPTO_KEY_EXCHANGE ((0x3 << 29) | (0x01609 << 16))
-+
-+#define PXP_MAX_TYPE0_SESSIONS 16
-+#define PXP_MAX_TYPE1_SESSIONS 6
-+
-+static struct i915_vma *intel_pxp_cmd_get_batch(struct intel_pxp *pxp,
-+						struct intel_context *ce,
-+						struct intel_gt_buffer_pool_node *pool,
-+						u32 *cmd_buf, int cmd_size_in_dw)
- {
- 	struct i915_vma *batch = ERR_PTR(-EINVAL);
- 	struct intel_gt *gt = container_of(pxp, struct intel_gt, pxp);
-@@ -50,7 +70,8 @@ struct i915_vma *intel_pxp_cmd_get_batch(struct intel_pxp *pxp,
- 	return batch;
+ #include "intel_pm.h"
+ 
+@@ -260,6 +261,35 @@ i915_gem_dumb_create(struct drm_file *file,
+ 			       &args->size, &args->handle);
  }
  
--int intel_pxp_cmd_submit(struct intel_pxp *pxp, u32 *cmd, int cmd_size_in_dw)
-+int intel_pxp_cmd_submit(struct intel_pxp *pxp, u32 *cmd,
-+			 int cmd_size_in_dw)
- {
- 	int err = -EINVAL;
- 	struct i915_vma *batch;
-@@ -156,3 +177,102 @@ int intel_pxp_cmd_submit(struct intel_pxp *pxp, u32 *cmd, int cmd_size_in_dw)
- 
- 	return err;
- }
++struct create_ext {
++        struct drm_i915_private *i915;
++};
 +
-+int intel_pxp_cmd_add_prolog(struct intel_pxp *pxp, u32 *cmd,
-+			     int session_type,
-+			     int session_index)
++static int __create_setparam(struct drm_i915_gem_object_param *args,
++							struct create_ext *ext_data)
 +{
-+	u32 increased_size_in_dw = 0;
-+	u32 *cmd_prolog = cmd;
-+	const int cmd_prolog_size_in_dw = 10;
-+	struct intel_gt *gt = container_of(pxp, typeof(*gt), pxp);
-+
-+	if (!cmd)
-+		return cmd_prolog_size_in_dw;
-+
-+	/* MFX_WAIT - stall until prior PXP and MFX/HCP/HUC objects are cmopleted */
-+	*cmd_prolog++ = (MFX_WAIT | MFX_WAIT_DW0_PXP_SYNC_CONTROL_FLAG |
-+			 MFX_WAIT_DW0_MFX_SYNC_CONTROL_FLAG);
-+
-+	/* MI_FLUSH_DW - pxp off */
-+	*cmd_prolog++ = MI_FLUSH_DW;  /* DW0 */
-+	*cmd_prolog++ = 0;            /* DW1 */
-+	*cmd_prolog++ = 0;            /* DW2 */
-+
-+	/* MI_SET_APPID */
-+	if (session_type == SESSION_TYPE_TYPE1) {
-+		if (session_index >= PXP_MAX_TYPE1_SESSIONS) {
-+			drm_err(&gt->i915->drm, "Failed to %s invalid session_index\n", __func__);
-+			goto end;
-+		}
-+
-+		*cmd_prolog++ = (MI_SET_APPID | MI_SET_APPID_TYPE1_APP |
-+				 MI_SET_APPID_SESSION_ID(session_index));
-+	} else {
-+		if (session_index >= PXP_MAX_TYPE0_SESSIONS) {
-+			drm_err(&gt->i915->drm, "Failed to %s invalid session_index\n", __func__);
-+			goto end;
-+		}
-+
-+		*cmd_prolog++ = (MI_SET_APPID | MI_SET_APPID_SESSION_ID(session_index));
++	if (!(args->param & I915_OBJECT_PARAM)) {
++		DRM_DEBUG("Missing I915_OBJECT_PARAM namespace\n");
++		return -EINVAL;
 +	}
 +
-+	/* MFX_WAIT */
-+	*cmd_prolog++ = (MFX_WAIT | MFX_WAIT_DW0_PXP_SYNC_CONTROL_FLAG |
-+			 MFX_WAIT_DW0_MFX_SYNC_CONTROL_FLAG);
-+
-+	/* MI_FLUSH_DW - pxp on */
-+	*cmd_prolog++ = (MI_FLUSH_DW | MI_FLUSH_DW_DW0_PROTECTED_MEMORY_ENABLE); /* DW0 */
-+	*cmd_prolog++ = 0;                                                       /* DW1 */
-+	*cmd_prolog++ = 0;                                                       /* DW2 */
-+
-+	/* MFX_WAIT */
-+	*cmd_prolog++ = (MFX_WAIT | MFX_WAIT_DW0_PXP_SYNC_CONTROL_FLAG |
-+			 MFX_WAIT_DW0_MFX_SYNC_CONTROL_FLAG);
-+
-+	increased_size_in_dw = (cmd_prolog - cmd);
-+end:
-+	return increased_size_in_dw;
++	return -EINVAL;
 +}
 +
-+int intel_pxp_cmd_add_epilog(u32 *cmd)
++static int create_setparam(struct i915_user_extension __user *base, void *data)
 +{
-+	u32 increased_size_in_dw = 0;
-+	u32 *cmd_epilog = cmd;
-+	const int cmd_epilog_size_in_dw = 5;
++	struct drm_i915_gem_create_ext_setparam ext;
 +
-+	if (!cmd)
-+		return cmd_epilog_size_in_dw;
++	if (copy_from_user(&ext, base, sizeof(ext)))
++		return -EFAULT;
 +
-+	/* MI_FLUSH_DW - pxp off */
-+	*cmd_epilog++ = MI_FLUSH_DW;  /* DW0 */
-+	*cmd_epilog++ = 0;            /* DW1 */
-+	*cmd_epilog++ = 0;            /* DW2 */
-+
-+	/* MFX_WAIT - stall until prior PXP and MFX/HCP/HUC objects are cmopleted */
-+	*cmd_epilog++ = (MFX_WAIT | MFX_WAIT_DW0_PXP_SYNC_CONTROL_FLAG |
-+			 MFX_WAIT_DW0_MFX_SYNC_CONTROL_FLAG);
-+
-+	/* MI_BATCH_BUFFER_END */
-+	*cmd_epilog++ = MI_BATCH_BUFFER_END;
-+
-+	increased_size_in_dw = (cmd_epilog - cmd);
-+	return increased_size_in_dw;
++	return __create_setparam(&ext.param, data);
 +}
 +
-+int intel_pxp_cmd_add_inline_termination(u32 *cmd)
-+{
-+	u32 increased_size_in_dw = 0;
-+	u32 *cmd_termin = cmd;
-+	const int cmd_termin_size_in_dw = 2;
++static const i915_user_extension_fn create_extensions[] = {
++	[I915_GEM_CREATE_EXT_SETPARAM] = create_setparam,
++};
 +
-+	if (!cmd)
-+		return cmd_termin_size_in_dw;
-+
-+	/* CRYPTO_KEY_EXCHANGE - session inline termination */
-+	*cmd_termin++ = CRYPTO_KEY_EXCHANGE; /* DW0 */
-+	*cmd_termin++ = 0;                   /* DW1 */
-+
-+	increased_size_in_dw = (cmd_termin - cmd);
-+	return increased_size_in_dw;
-+}
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_cmd.h b/drivers/gpu/drm/i915/pxp/intel_pxp_cmd.h
-index d04463962421..087f260034c4 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp_cmd.h
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_cmd.h
-@@ -9,10 +9,12 @@
- #include "gt/intel_gt_buffer_pool.h"
- #include "intel_pxp.h"
+ /**
+  * Creates a new mm object and returns a handle to it.
+  * @dev: drm device pointer
+@@ -271,10 +301,20 @@ i915_gem_create_ioctl(struct drm_device *dev, void *data,
+ 		      struct drm_file *file)
+ {
+ 	struct drm_i915_private *i915 = to_i915(dev);
+-	struct drm_i915_gem_create *args = data;
++	struct create_ext ext_data = { .i915 = i915 };
++	struct drm_i915_gem_create_ext *args = data;
++	int ret;
  
--struct i915_vma *intel_pxp_cmd_get_batch(struct intel_pxp *pxp,
--					 struct intel_context *ce,
--					 struct intel_gt_buffer_pool_node *pool,
--					 u32 *cmd_buf, int cmd_size_in_dw);
-+int intel_pxp_cmd_submit(struct intel_pxp *pxp, u32 *cmd,
-+			 int cmd_size_in_dw);
-+int intel_pxp_cmd_add_prolog(struct intel_pxp *pxp, u32 *cmd,
-+			     int session_type,
-+			     int session_index);
-+int intel_pxp_cmd_add_epilog(u32 *cmd);
-+int intel_pxp_cmd_add_inline_termination(u32 *cmd);
+ 	i915_gem_flush_free_objects(i915);
  
--int intel_pxp_cmd_submit(struct intel_pxp *pxp, u32 *cmd, int cmd_size_in_dw);
- #endif /* __INTEL_PXP_SM_H__ */
++	ret = i915_user_extensions(u64_to_user_ptr(args->extensions),
++				   create_extensions,
++				   ARRAY_SIZE(create_extensions),
++				   &ext_data);
++	if (ret)
++		return ret;
++
++
+ 	return i915_gem_create(file,
+ 			       intel_memory_region_by_type(i915,
+ 							   INTEL_MEMORY_SYSTEM),
+diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
+index 1987e2ea79a3..f9a1d26824b6 100644
+--- a/include/uapi/drm/i915_drm.h
++++ b/include/uapi/drm/i915_drm.h
+@@ -392,6 +392,7 @@ typedef struct _drm_i915_sarea {
+ #define DRM_IOCTL_I915_GEM_ENTERVT	DRM_IO(DRM_COMMAND_BASE + DRM_I915_GEM_ENTERVT)
+ #define DRM_IOCTL_I915_GEM_LEAVEVT	DRM_IO(DRM_COMMAND_BASE + DRM_I915_GEM_LEAVEVT)
+ #define DRM_IOCTL_I915_GEM_CREATE	DRM_IOWR(DRM_COMMAND_BASE + DRM_I915_GEM_CREATE, struct drm_i915_gem_create)
++#define DRM_IOCTL_I915_GEM_CREATE_EXT   DRM_IOWR(DRM_COMMAND_BASE + DRM_I915_GEM_CREATE, struct drm_i915_gem_create_ext)
+ #define DRM_IOCTL_I915_GEM_PREAD	DRM_IOW (DRM_COMMAND_BASE + DRM_I915_GEM_PREAD, struct drm_i915_gem_pread)
+ #define DRM_IOCTL_I915_GEM_PWRITE	DRM_IOW (DRM_COMMAND_BASE + DRM_I915_GEM_PWRITE, struct drm_i915_gem_pwrite)
+ #define DRM_IOCTL_I915_GEM_MMAP		DRM_IOWR(DRM_COMMAND_BASE + DRM_I915_GEM_MMAP, struct drm_i915_gem_mmap)
+@@ -729,6 +730,27 @@ struct drm_i915_gem_create {
+ 	__u32 pad;
+ };
+ 
++struct drm_i915_gem_create_ext {
++	/**
++	 * Requested size for the object.
++	 *
++	 * The (page-aligned) allocated size for the object will be returned.
++	 */
++	__u64 size;
++	/**
++	 * Returned handle for the object.
++	 *
++	 * Object handles are nonzero.
++	 */
++	__u32 handle;
++	__u32 pad;
++#define I915_GEM_CREATE_EXT_SETPARAM (1u << 0)
++#define I915_GEM_CREATE_EXT_FLAGS_UNKNOWN \
++	(-(I915_GEM_CREATE_EXT_SETPARAM << 1))
++	__u64 extensions;
++
++};
++
+ struct drm_i915_gem_pread {
+ 	/** Handle for the object being read. */
+ 	__u32 handle;
+@@ -1699,6 +1721,31 @@ struct drm_i915_gem_context_param {
+ 	__u64 value;
+ };
+ 
++struct drm_i915_gem_object_param {
++	/* Object handle (0 for I915_GEM_CREATE_EXT_SETPARAM) */
++	__u32 handle;
++
++	/* Data pointer size */
++	__u32 size;
++
++/*
++ * I915_OBJECT_PARAM:
++ *
++ * Select object namespace for the param.
++ */
++#define I915_OBJECT_PARAM  (1ull<<32)
++
++	__u64 param;
++
++	/* Data value or pointer */
++	__u64 data;
++};
++
++struct drm_i915_gem_create_ext_setparam {
++	struct i915_user_extension base;
++	struct drm_i915_gem_object_param param;
++};
++
+ /**
+  * Context SSEU programming
+  *
 -- 
 2.17.1
 
