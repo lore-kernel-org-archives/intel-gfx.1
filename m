@@ -6,37 +6,37 @@ X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9BA77C433DB
-	for <intel-gfx@archiver.kernel.org>; Wed,  6 Jan 2021 13:01:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DAAA4C433E0
+	for <intel-gfx@archiver.kernel.org>; Wed,  6 Jan 2021 13:03:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 28BEC22EBD
-	for <intel-gfx@archiver.kernel.org>; Wed,  6 Jan 2021 13:01:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 28BEC22EBD
+	by mail.kernel.org (Postfix) with ESMTPS id 883C422CB9
+	for <intel-gfx@archiver.kernel.org>; Wed,  6 Jan 2021 13:03:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 883C422CB9
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 882A46E0CC;
-	Wed,  6 Jan 2021 13:01:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E60E36E0D6;
+	Wed,  6 Jan 2021 13:03:11 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
  [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id EC9A26E08E;
- Wed,  6 Jan 2021 13:01:24 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 2FF3E6E0B9;
+ Wed,  6 Jan 2021 13:03:10 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id E724BA7DFC;
- Wed,  6 Jan 2021 13:01:24 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id 2A990A7DFC;
+ Wed,  6 Jan 2021 13:03:10 +0000 (UTC)
 MIME-Version: 1.0
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Chris Wilson" <chris@chris-wilson.co.uk>
-Date: Wed, 06 Jan 2021 13:01:24 -0000
-Message-ID: <160993808492.18709.17726755561635373482@emeril.freedesktop.org>
+Date: Wed, 06 Jan 2021 13:03:10 -0000
+Message-ID: <160993819017.18711.6523285515219046658@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <20210106123939.18435-1-chris@chris-wilson.co.uk>
 In-Reply-To: <20210106123939.18435-1-chris@chris-wilson.co.uk>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_series_starting_with_=5B1/4=5D_drm/i915/selftests=3A_Break_?=
- =?utf-8?q?out_of_the_lrc_layout_test_after_register_mismatch?=
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?series_starting_with_=5B1/4=5D_drm/i915/selftests=3A_Break_out_?=
+ =?utf-8?q?of_the_lrc_layout_test_after_register_mismatch?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,16 +64,24 @@ State : warning
 
 == Summary ==
 
-$ dim checkpatch origin/drm-tip
-df520ae36315 drm/i915/selftests: Break out of the lrc layout test after register mismatch
-3a8f3c7e5e40 drm/i915/selftests: Improve handling of iomem around stolen
-9c4b26ad0411 drm/i915/gt: Restore ce->signal flush before releasing virtual engine
--:14: ERROR:GIT_COMMIT_ID: Please use git commit description style 'commit <12+ chars of sha1> ("<title line>")' - ie: 'commit bab0557c8dca ("drm/i915/gt: Remove virtual breadcrumb before transfer")'
-#14: 
-bab0557c8dca ("drm/i915/gt: Remove virtual breadcrumb before transfer"),
-
-total: 1 errors, 0 warnings, 0 checks, 90 lines checked
-22c93cdd73c1 drm/i915/gt: Remove timeslice suppression
+$ dim sparse --fast origin/drm-tip
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
+-O:drivers/gpu/drm/i915/gt/selftest_reset.c:101:20:    expected void *in
+-O:drivers/gpu/drm/i915/gt/selftest_reset.c:101:20:    got void [noderef] __iomem *[assigned] s
+-O:drivers/gpu/drm/i915/gt/selftest_reset.c:101:20: warning: incorrect type in assignment (different address spaces)
+-O:drivers/gpu/drm/i915/gt/selftest_reset.c:102:46:    expected void const *src
+-O:drivers/gpu/drm/i915/gt/selftest_reset.c:102:46:    got void [noderef] __iomem *[assigned] s
+-O:drivers/gpu/drm/i915/gt/selftest_reset.c:102:46: warning: incorrect type in argument 2 (different address spaces)
+-O:drivers/gpu/drm/i915/gt/selftest_reset.c:137:20:    expected void *in
+-O:drivers/gpu/drm/i915/gt/selftest_reset.c:137:20:    got void [noderef] __iomem *[assigned] s
+-O:drivers/gpu/drm/i915/gt/selftest_reset.c:137:20: warning: incorrect type in assignment (different address spaces)
+-O:drivers/gpu/drm/i915/gt/selftest_reset.c:138:46:    expected void const *src
+-O:drivers/gpu/drm/i915/gt/selftest_reset.c:138:46:    got void [noderef] __iomem *[assigned] s
+-O:drivers/gpu/drm/i915/gt/selftest_reset.c:138:46: warning: incorrect type in argument 2 (different address spaces)
+-O:drivers/gpu/drm/i915/gt/selftest_reset.c:99:34:    expected unsigned int [usertype] *s
+-O:drivers/gpu/drm/i915/gt/selftest_reset.c:99:34:    got void [noderef] __iomem *[assigned] s
+-O:drivers/gpu/drm/i915/gt/selftest_reset.c:99:34: warning: incorrect type in argument 1 (different address spaces)
 
 
 _______________________________________________
