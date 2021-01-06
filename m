@@ -2,41 +2,54 @@ Return-Path: <SRS0=HSM9=GJ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.5 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,INCLUDES_CR_TRAILER,
+	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A8A7EC433DB
-	for <intel-gfx@archiver.kernel.org>; Wed,  6 Jan 2021 15:17:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 72A93C433E0
+	for <intel-gfx@archiver.kernel.org>; Wed,  6 Jan 2021 15:28:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 325AC2311B
-	for <intel-gfx@archiver.kernel.org>; Wed,  6 Jan 2021 15:17:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 325AC2311B
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
+	by mail.kernel.org (Postfix) with ESMTPS id 100ED22CE3
+	for <intel-gfx@archiver.kernel.org>; Wed,  6 Jan 2021 15:28:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 100ED22CE3
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A97A66E214;
-	Wed,  6 Jan 2021 15:17:12 +0000 (UTC)
-Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3CFF66E214
- for <intel-gfx@lists.freedesktop.org>; Wed,  6 Jan 2021 15:17:10 +0000 (UTC)
-X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
- x-ip-name=78.156.65.138; 
-Received: from localhost (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP (TLS) id
- 23519321-1500050 for multiple; Wed, 06 Jan 2021 15:17:08 +0000
-MIME-Version: 1.0
-In-Reply-To: <8b055b6d-e260-e8df-2ef2-b4898b874dc9@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A0966E202;
+	Wed,  6 Jan 2021 15:28:07 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7B00F6E202
+ for <intel-gfx@lists.freedesktop.org>; Wed,  6 Jan 2021 15:28:05 +0000 (UTC)
+IronPort-SDR: 9epO+LwY3edNzBRqkhEAyc9b4MXOrxjwuLKcuv1fiO1ZVWfdBWNj/l7thJBy30wMa35aocRgby
+ r2+95+Gv5iHA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9855"; a="156480311"
+X-IronPort-AV: E=Sophos;i="5.78,480,1599548400"; d="scan'208";a="156480311"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Jan 2021 07:28:05 -0800
+IronPort-SDR: DfXfa2Z2uLHi7TfynFVUMv0tIR98qTZcEO6X1860v9F6gkQRRO9WJ7k1Vptu2vo717CB2UJ+3k
+ YMu0OFIaXUcA==
+X-IronPort-AV: E=Sophos;i="5.78,480,1599548400"; d="scan'208";a="422197424"
+Received: from vbratanx-mobl.ger.corp.intel.com (HELO [10.252.38.40])
+ ([10.252.38.40])
+ by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Jan 2021 07:28:03 -0800
+To: Chris Wilson <chris@chris-wilson.co.uk>, intel-gfx@lists.freedesktop.org
 References: <20210106123939.18435-1-chris@chris-wilson.co.uk>
  <8b055b6d-e260-e8df-2ef2-b4898b874dc9@linux.intel.com>
-From: Chris Wilson <chris@chris-wilson.co.uk>
-To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- intel-gfx@lists.freedesktop.org
-Date: Wed, 06 Jan 2021 15:17:07 +0000
-Message-ID: <160994622709.14894.1991027418621898869@build.alporthouse.com>
-User-Agent: alot/0.9
+ <160994622709.14894.1991027418621898869@build.alporthouse.com>
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Organization: Intel Corporation UK Plc
+Message-ID: <0b0c4b58-7548-c35d-1f2d-124c37b70979@linux.intel.com>
+Date: Wed, 6 Jan 2021 15:28:01 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.5.0
+MIME-Version: 1.0
+In-Reply-To: <160994622709.14894.1991027418621898869@build.alporthouse.com>
+Content-Language: en-US
 Subject: Re: [Intel-gfx] [PATCH 1/4] drm/i915/selftests: Break out of the
  lrc layout test after register mismatch
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -51,28 +64,39 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Quoting Tvrtko Ursulin (2021-01-06 15:10:02)
-> 
-> On 06/01/2021 12:39, Chris Wilson wrote:
-> > AFter detecting a register mismatch between the protocontext and the
-> > image generated by HW, immediately break out of the double loop.
-> > (Otherwise we end up a second configuing error message.)
-> 
-> s/configuing/confusing/?
-> 
-> No use of dumping all differences? Why it is confusing?
 
-rcs0: Different registers found at dword 2, expected 2244, found 2244
-rcs0: Expected LRI command at dword 2, found 00002244
+On 06/01/2021 15:17, Chris Wilson wrote:
+> Quoting Tvrtko Ursulin (2021-01-06 15:10:02)
+>>
+>> On 06/01/2021 12:39, Chris Wilson wrote:
+>>> AFter detecting a register mismatch between the protocontext and the
+>>> image generated by HW, immediately break out of the double loop.
+>>> (Otherwise we end up a second configuing error message.)
+>>
+>> s/configuing/confusing/?
+>>
+>> No use of dumping all differences? Why it is confusing?
+> 
+> rcs0: Different registers found at dword 2, expected 2244, found 2244
+> rcs0: Expected LRI command at dword 2, found 00002244
+> 
+> We then hexdump the entire page, both HW/SW, so we can try and figure out
+> what went wrong.
 
-We then hexdump the entire page, both HW/SW, so we can try and figure out
-what went wrong.
--Chris
+Right, I see it now.
+
+Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+
+Regards,
+
+Tvrtko
+
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
