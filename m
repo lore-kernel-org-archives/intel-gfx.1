@@ -7,41 +7,41 @@ X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0622CC433E0
-	for <intel-gfx@archiver.kernel.org>; Wed,  6 Jan 2021 03:10:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 505BBC433E0
+	for <intel-gfx@archiver.kernel.org>; Wed,  6 Jan 2021 03:11:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 486E522D6E
-	for <intel-gfx@archiver.kernel.org>; Wed,  6 Jan 2021 03:10:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 486E522D6E
+	by mail.kernel.org (Postfix) with ESMTPS id 90CCC22D6E
+	for <intel-gfx@archiver.kernel.org>; Wed,  6 Jan 2021 03:11:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 90CCC22D6E
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 88538893CD;
-	Wed,  6 Jan 2021 03:10:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 361AF89D64;
+	Wed,  6 Jan 2021 03:11:46 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B4CAC893CD
- for <intel-gfx@lists.freedesktop.org>; Wed,  6 Jan 2021 03:09:59 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E9F8A89D64
+ for <intel-gfx@lists.freedesktop.org>; Wed,  6 Jan 2021 03:11:44 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from localhost (unverified [78.156.65.138]) 
  by fireflyinternet.com (Firefly Internet (M1)) with ESMTP (TLS) id
- 23513427-1500050 for multiple; Wed, 06 Jan 2021 03:09:57 +0000
+ 23513431-1500050 for multiple; Wed, 06 Jan 2021 03:11:42 +0000
 MIME-Version: 1.0
-In-Reply-To: <8010f48e-94cf-699b-b3f2-b3eae3753cdf@intel.com>
+In-Reply-To: <0c89c2d0-fad1-47e8-65cb-bf9ea3c4f43d@intel.com>
 References: <20210105231947.31235-1-daniele.ceraolospurio@intel.com>
- <20210105231947.31235-5-daniele.ceraolospurio@intel.com>
- <160989494374.14894.15158476900955777220@build.alporthouse.com>
- <8010f48e-94cf-699b-b3f2-b3eae3753cdf@intel.com>
+ <20210105231947.31235-2-daniele.ceraolospurio@intel.com>
+ <160989453161.14894.2049892555635163776@build.alporthouse.com>
+ <0c89c2d0-fad1-47e8-65cb-bf9ea3c4f43d@intel.com>
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>,
  intel-gfx@lists.freedesktop.org
-Date: Wed, 06 Jan 2021 03:09:55 +0000
-Message-ID: <160990259521.22606.5618391021082649871@build.alporthouse.com>
+Date: Wed, 06 Jan 2021 03:11:41 +0000
+Message-ID: <160990270114.22606.3882503683077086744@build.alporthouse.com>
 User-Agent: alot/0.9
-Subject: Re: [Intel-gfx] [PATCH 4/5] drm/i915/guc: stop calling
- execlists_set_default_submission
+Subject: Re: [Intel-gfx] [PATCH 1/5] drm/i915/guc: Delete GuC code unused in
+ future patches
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,38 +59,25 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Quoting Daniele Ceraolo Spurio (2021-01-06 02:38:09)
+Quoting Daniele Ceraolo Spurio (2021-01-06 02:28:46)
 > 
 > 
-> On 1/5/2021 5:02 PM, Chris Wilson wrote:
-> > Quoting Daniele Ceraolo Spurio (2021-01-05 23:19:46)
-> >> Initialize all required entries from guc_set_default_submission, instead
-> >> of calling the execlists function. The previously inherited setup has
-> >> been copied over from the execlist code and simplified by removing the
-> >> execlists submission-specific parts.
+> On 1/5/2021 4:55 PM, Chris Wilson wrote:
+> > Quoting Daniele Ceraolo Spurio (2021-01-05 23:19:43)
+> >> From: Matthew Brost <matthew.brost@intel.com>
 > >>
-> >> Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-> >> Cc: Matthew Brost <matthew.brost@intel.com>
-> >> Cc: John Harrison <john.c.harrison@intel.com>
-> >> ---
-> >> +       if (INTEL_GEN(engine->i915) >= 12)
-> >> +               engine->flags |= I915_ENGINE_HAS_RELATIVE_MMIO;
-> > We should probably lift this to intel_engine_setup().
+> >> Delete GuC code unused in future patches that rewrite the GuC interface
+> >> to work with the new firmware. Most of the code deleted relates to
+> >> workqueues or execlist port.
+> > Should we not be complaining if i915.enable_guc=1 is set during this
+> > time? We may already be, if so please mention it so that we know that
+> > nobody can accidentally execute this code.
+> > -Chris
 > 
-> GuC requires a more extensive usage of the relative mmio stuff, given 
-> that it picks which engine to submit to when using virtual engines, so 
-> I'm not sure if the support is going to look exactly the same for both 
-> back-ends. There is an old patch from John H to rework the relative mmio 
-> (https://patchwork.freedesktop.org/patch/332558/), which will have to 
-> land in some form as part of the GuC submission re-enabling. I'd prefer 
-> to wait for that to land before moving this flag.
+> We already do, I'll add a note in the commit message.
 
-Whether or not LR* take the flag is independent of the submission
-backend. As to when to use the flag, I think that patch needs a lot more
-refinement.
-
-I915_ENGINE_HAS_RELATIVE_MMIO is the odd-one-out in the flags atm as it
-reflects HW capability.
+With a quick explanation as to how it can do no harm,
+Reviewed-by: Chris Wilson <chris@chris-wilson.co.uk>
 -Chris
 _______________________________________________
 Intel-gfx mailing list
