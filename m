@@ -7,36 +7,37 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1EE1EC433E0
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BC15FC433E9
 	for <intel-gfx@archiver.kernel.org>; Wed,  6 Jan 2021 13:40:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 695A32226A
-	for <intel-gfx@archiver.kernel.org>; Wed,  6 Jan 2021 13:40:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 695A32226A
+	by mail.kernel.org (Postfix) with ESMTPS id 678942226A
+	for <intel-gfx@archiver.kernel.org>; Wed,  6 Jan 2021 13:40:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 678942226A
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A26C16E1EC;
-	Wed,  6 Jan 2021 13:40:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A33E89BF8;
+	Wed,  6 Jan 2021 13:40:20 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6C92089C2C
- for <intel-gfx@lists.freedesktop.org>; Wed,  6 Jan 2021 13:40:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3EA7F89C7F
+ for <intel-gfx@lists.freedesktop.org>; Wed,  6 Jan 2021 13:40:17 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23518188-1500050 
- for multiple; Wed, 06 Jan 2021 13:40:07 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23518196-1500050 
+ for multiple; Wed, 06 Jan 2021 13:40:08 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed,  6 Jan 2021 13:39:59 +0000
-Message-Id: <20210106134005.10279-2-chris@chris-wilson.co.uk>
+Date: Wed,  6 Jan 2021 13:40:05 +0000
+Message-Id: <20210106134005.10279-8-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20210106134005.10279-1-chris@chris-wilson.co.uk>
 References: <20210106134005.10279-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 2/8] drm/i915/gt: Rearrange ivb workarounds
+Subject: [Intel-gfx] [PATCH 8/8] drm/i915: Mark per-engine-reset as
+ supported on gen7
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,186 +56,49 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Some rcs0 workarounds were being incorrectly applied to the GT, and so
-we failed to restore the expected register settings after a reset.
+The benefit of only resetting a single engine is that we leave other
+streams of userspace work intact across a hang; vital for process
+isolation. We had wired up individual engine resets for gen6, but only
+enabled it from gen8; now let's turn it on for the forgotten gen7. gen6
+is still a mystery as how to unravel some global state that appears to
+be reset along with an engine (in particular the ppgtt enabling in
+GFX_MODE).
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 ---
- drivers/gpu/drm/i915/gt/intel_workarounds.c | 122 ++++++++------------
- 1 file changed, 49 insertions(+), 73 deletions(-)
+ drivers/gpu/drm/i915/i915_pci.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-index 3d5122301f64..7c18893f5164 100644
---- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
-+++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-@@ -829,18 +829,6 @@ snb_gt_workarounds_init(struct drm_i915_private *i915, struct i915_wa_list *wal)
- static void
- ivb_gt_workarounds_init(struct drm_i915_private *i915, struct i915_wa_list *wal)
- {
--	/* WaDisableEarlyCull:ivb */
--	wa_masked_en(wal, _3D_CHICKEN3, _3D_CHICKEN_SF_DISABLE_OBJEND_CULL);
--
--	/* WaDisablePSDDualDispatchEnable:ivb */
--	if (IS_IVB_GT1(i915))
--		wa_masked_en(wal,
--			     GEN7_HALF_SLICE_CHICKEN1,
--			     GEN7_PSD_SINGLE_PORT_DISPATCH_ENABLE);
--
--	/* WaDisable_RenderCache_OperationalFlush:ivb */
--	wa_masked_dis(wal, CACHE_MODE_0_GEN7, RC_OP_FLUSH_ENABLE);
--
- 	/* Apply the WaDisableRHWOOptimizationForRenderHang:ivb workaround. */
- 	wa_masked_dis(wal,
- 		      GEN7_COMMON_SLICE_CHICKEN1,
-@@ -852,38 +840,6 @@ ivb_gt_workarounds_init(struct drm_i915_private *i915, struct i915_wa_list *wal)
+diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
+index 11fe790b1969..91e0092d081e 100644
+--- a/drivers/gpu/drm/i915/i915_pci.c
++++ b/drivers/gpu/drm/i915/i915_pci.c
+@@ -455,6 +455,7 @@ static const struct intel_device_info snb_m_gt2_info = {
+ 	.has_llc = 1, \
+ 	.has_rc6 = 1, \
+ 	.has_rc6p = 1, \
++	.has_reset_engine = true, \
+ 	.has_rps = true, \
+ 	.dma_mask_size = 40, \
+ 	.ppgtt_type = INTEL_PPGTT_ALIASING, \
+@@ -513,6 +514,7 @@ static const struct intel_device_info vlv_info = {
+ 	.cpu_transcoder_mask = BIT(TRANSCODER_A) | BIT(TRANSCODER_B),
+ 	.has_runtime_pm = 1,
+ 	.has_rc6 = 1,
++	.has_reset_engine = true,
+ 	.has_rps = true,
+ 	.display.has_gmch = 1,
+ 	.display.has_hotplug = 1,
+@@ -571,8 +573,7 @@ static const struct intel_device_info hsw_gt3_info = {
+ 	.dma_mask_size = 39, \
+ 	.ppgtt_type = INTEL_PPGTT_FULL, \
+ 	.ppgtt_size = 48, \
+-	.has_64bit_reloc = 1, \
+-	.has_reset_engine = 1
++	.has_64bit_reloc = 1
  
- 	/* WaForceL3Serialization:ivb */
- 	wa_write_clr(wal, GEN7_L3SQCREG4, L3SQ_URB_READ_CAM_MATCH_DISABLE);
--
--	/*
--	 * WaVSThreadDispatchOverride:ivb,vlv
--	 *
--	 * This actually overrides the dispatch
--	 * mode for all thread types.
--	 */
--	wa_write_clr_set(wal, GEN7_FF_THREAD_MODE,
--			 GEN7_FF_SCHED_MASK,
--			 GEN7_FF_TS_SCHED_HW |
--			 GEN7_FF_VS_SCHED_HW |
--			 GEN7_FF_DS_SCHED_HW);
--
--	if (0) { /* causes HiZ corruption on ivb:gt1 */
--		/* enable HiZ Raw Stall Optimization */
--		wa_masked_dis(wal, CACHE_MODE_0_GEN7, HIZ_RAW_STALL_OPT_DISABLE);
--	}
--
--	/* WaDisable4x2SubspanOptimization:ivb */
--	wa_masked_en(wal, CACHE_MODE_1, PIXEL_SUBSPAN_COLLECT_OPT_DISABLE);
--
--	/*
--	 * BSpec recommends 8x4 when MSAA is used,
--	 * however in practice 16x4 seems fastest.
--	 *
--	 * Note that PS/WM thread counts depend on the WIZ hashing
--	 * disable bit, which we don't touch here, but it's good
--	 * to keep in mind (see 3DSTATE_PS and 3DSTATE_WM).
--	 */
--	wa_add(wal, GEN7_GT_MODE, 0,
--	       _MASKED_FIELD(GEN6_WIZ_HASHING_MASK, GEN6_WIZ_HASHING_16x4),
--	       GEN6_WIZ_HASHING_16x4);
- }
- 
- static void
-@@ -1886,26 +1842,11 @@ rcs_engine_wa_init(struct intel_engine_cs *engine, struct i915_wa_list *wal)
- 
- 		wa_masked_dis(wal,
- 			      CACHE_MODE_0_GEN7,
--			      /* WaDisable_RenderCache_OperationalFlush:hsw */
--			      RC_OP_FLUSH_ENABLE |
- 			      /* enable HiZ Raw Stall Optimization */
- 			      HIZ_RAW_STALL_OPT_DISABLE);
- 
- 		/* WaDisable4x2SubspanOptimization:hsw */
- 		wa_masked_en(wal, CACHE_MODE_1, PIXEL_SUBSPAN_COLLECT_OPT_DISABLE);
--
--		/*
--		 * BSpec recommends 8x4 when MSAA is used,
--		 * however in practice 16x4 seems fastest.
--		 *
--		 * Note that PS/WM thread counts depend on the WIZ hashing
--		 * disable bit, which we don't touch here, but it's good
--		 * to keep in mind (see 3DSTATE_PS and 3DSTATE_WM).
--		 */
--		wa_add(wal, GEN7_GT_MODE, 0,
--		       _MASKED_FIELD(GEN6_WIZ_HASHING_MASK,
--				     GEN6_WIZ_HASHING_16x4),
--		       GEN6_WIZ_HASHING_16x4);
- 	}
- 
- 	if (IS_VALLEYVIEW(i915)) {
-@@ -1927,11 +1868,59 @@ rcs_engine_wa_init(struct intel_engine_cs *engine, struct i915_wa_list *wal)
- 				 GEN7_FF_VS_SCHED_HW |
- 				 GEN7_FF_DS_SCHED_HW);
- 
--		/* WaDisable_RenderCache_OperationalFlush:vlv */
-+		/* WaPsdDispatchEnable:vlv */
-+		/* WaDisablePSDDualDispatchEnable:vlv */
-+		wa_masked_en(wal,
-+			     GEN7_HALF_SLICE_CHICKEN1,
-+			     GEN7_MAX_PS_THREAD_DEP |
-+			     GEN7_PSD_SINGLE_PORT_DISPATCH_ENABLE);
-+	}
-+
-+	if (IS_IVYBRIDGE(i915)) {
-+		/* WaDisableEarlyCull:ivb */
-+		wa_masked_en(wal,
-+			     _3D_CHICKEN3,
-+			     _3D_CHICKEN_SF_DISABLE_OBJEND_CULL);
-+
-+		if (0) { /* causes HiZ corruption on ivb:gt1 */
-+			/* enable HiZ Raw Stall Optimization */
-+			wa_masked_dis(wal,
-+				      CACHE_MODE_0_GEN7,
-+				      HIZ_RAW_STALL_OPT_DISABLE);
-+		}
-+
-+		/*
-+		 * WaVSThreadDispatchOverride:ivb,vlv
-+		 *
-+		 * This actually overrides the dispatch
-+		 * mode for all thread types.
-+		 */
-+		wa_write_clr_set(wal,
-+				 GEN7_FF_THREAD_MODE,
-+				 GEN7_FF_SCHED_MASK,
-+				 GEN7_FF_TS_SCHED_HW |
-+				 GEN7_FF_VS_SCHED_HW |
-+				 GEN7_FF_DS_SCHED_HW);
-+
-+		/* WaDisablePSDDualDispatchEnable:ivb */
-+		if (IS_IVB_GT1(i915))
-+			wa_masked_en(wal,
-+				     GEN7_HALF_SLICE_CHICKEN1,
-+				     GEN7_PSD_SINGLE_PORT_DISPATCH_ENABLE);
-+	}
-+
-+	if (IS_GEN(i915, 7)) {
-+		/* WaBCSVCSTlbInvalidationMode:ivb,vlv,hsw */
-+		wa_masked_en(wal,
-+			     GFX_MODE_GEN7,
-+			     GFX_TLB_INVALIDATE_EXPLICIT | GFX_REPLAY_MODE);
-+
-+		/* WaDisable_RenderCache_OperationalFlush:ivb,vlv,hsw */
- 		wa_masked_dis(wal, CACHE_MODE_0_GEN7, RC_OP_FLUSH_ENABLE);
- 
- 		/*
- 		 * BSpec says this must be set, even though
-+		 * WaDisable4x2SubspanOptimization:ivb,hsw
- 		 * WaDisable4x2SubspanOptimization isn't listed for VLV.
- 		 */
- 		wa_masked_en(wal,
-@@ -1950,21 +1939,8 @@ rcs_engine_wa_init(struct intel_engine_cs *engine, struct i915_wa_list *wal)
- 		       _MASKED_FIELD(GEN6_WIZ_HASHING_MASK,
- 				     GEN6_WIZ_HASHING_16x4),
- 		       GEN6_WIZ_HASHING_16x4);
--
--		/* WaPsdDispatchEnable:vlv */
--		/* WaDisablePSDDualDispatchEnable:vlv */
--		wa_masked_en(wal,
--			     GEN7_HALF_SLICE_CHICKEN1,
--			     GEN7_MAX_PS_THREAD_DEP |
--			     GEN7_PSD_SINGLE_PORT_DISPATCH_ENABLE);
- 	}
- 
--	if (IS_GEN(i915, 7))
--		/* WaBCSVCSTlbInvalidationMode:ivb,vlv,hsw */
--		wa_masked_en(wal,
--			     GFX_MODE_GEN7,
--			     GFX_TLB_INVALIDATE_EXPLICIT | GFX_REPLAY_MODE);
--
- 	if (IS_GEN_RANGE(i915, 6, 7))
- 		/*
- 		 * We need to disable the AsyncFlip performance optimisations in
+ #define BDW_PLATFORM \
+ 	GEN8_FEATURES, \
 -- 
 2.20.1
 
