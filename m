@@ -2,48 +2,41 @@ Return-Path: <SRS0=BkXb=GK=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,INCLUDES_PULL_REQUEST,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D338DC433DB
-	for <intel-gfx@archiver.kernel.org>; Thu,  7 Jan 2021 07:50:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DC836C433DB
+	for <intel-gfx@archiver.kernel.org>; Thu,  7 Jan 2021 08:08:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 96DFA23120
-	for <intel-gfx@archiver.kernel.org>; Thu,  7 Jan 2021 07:50:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 96DFA23120
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 9914123133
+	for <intel-gfx@archiver.kernel.org>; Thu,  7 Jan 2021 08:08:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9914123133
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B9046E3F9;
-	Thu,  7 Jan 2021 07:50:38 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E9E06E3F9;
- Thu,  7 Jan 2021 07:50:36 +0000 (UTC)
-IronPort-SDR: 11Xnq13BnXETSpPJtVoaBzwkvnhC0Bb35gbqJpii253EMnq18vDWQHOk9FEml5lTzAtu/Pjg8C
- 46j407G7m/zA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9856"; a="156577808"
-X-IronPort-AV: E=Sophos;i="5.79,329,1602572400"; d="scan'208";a="156577808"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Jan 2021 23:50:36 -0800
-IronPort-SDR: 8c5cw/Si9ja+O1mGgH9NQtF2R0dm+4EdlewNmIEyDPM5Br+xOJ6aoU9Ten0Kz7p/jHou+3Fpok
- 1yMlrORLrTLQ==
-X-IronPort-AV: E=Sophos;i="5.79,329,1602572400"; d="scan'208";a="379622302"
-Received: from muhymini-mobl.amr.corp.intel.com (HELO localhost)
- ([10.213.207.83])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Jan 2021 23:50:31 -0800
-From: Jani Nikula <jani.nikula@intel.com>
-To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel.vetter@ffwll.ch>, 
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Date: Thu, 07 Jan 2021 09:50:28 +0200
-Message-ID: <877dop18zf.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0BC836E40D;
+	Thu,  7 Jan 2021 08:07:59 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C222F89CA8;
+ Thu,  7 Jan 2021 08:07:56 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 22245AE57;
+ Thu,  7 Jan 2021 08:07:55 +0000 (UTC)
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: airlied@linux.ie, daniel@ffwll.ch, jani.nikula@linux.intel.com,
+ joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com
+Date: Thu,  7 Jan 2021 09:07:41 +0100
+Message-Id: <20210107080748.4768-2-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.29.2
+In-Reply-To: <20210107080748.4768-1-tzimmermann@suse.de>
+References: <20210107080748.4768-1-tzimmermann@suse.de>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PULL] drm-intel-fixes
+Subject: [Intel-gfx] [PATCH v3 1/8] drm/amdgpu: Fix trailing whitespaces
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,69 +49,41 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: , dim-tools@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Maxime Ripard <mripard@kernel.org>, intel-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Sam Ravnborg <sam@ravnborg.org>, nouveau@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
+ Alex Deucher <alexander.deucher@amd.com>, intel-gvt-dev@lists.freedesktop.org,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-
-Hi Dave & Daniel -
-
-Pretty quiet still, but here's some cc: stable fixes.
-
-(Well, one doesn't have the explicit stable tag, but the Fixes tag
-points at a commit in v3.9...)
-
-drm-intel-fixes-2021-01-07:
-drm/i915 fixes for v5.11-rc3:
-- Use per-connector PM QoS tracking for DP aux communication
-- GuC firmware fix for older Cometlakes
-- Clear the gpu reloc and shadow batches
-
-BR,
-Jani.
-
-The following changes since commit e71ba9452f0b5b2e8dc8aa5445198cd9214a6a62:
-
-  Linux 5.11-rc2 (2021-01-03 15:55:30 -0800)
-
-are available in the Git repository at:
-
-  git://anongit.freedesktop.org/drm/drm-intel tags/drm-intel-fixes-2021-01-07
-
-for you to fetch changes up to 9397d66212cdf7a21c66523f1583e5d63a609e84:
-
-  drm/i915/dp: Track pm_qos per connector (2021-01-05 10:25:03 +0200)
-
-----------------------------------------------------------------
-drm/i915 fixes for v5.11-rc3:
-- Use per-connector PM QoS tracking for DP aux communication
-- GuC firmware fix for older Cometlakes
-- Clear the gpu reloc and shadow batches
-
-----------------------------------------------------------------
-Chris Wilson (2):
-      drm/i915/gt: Define guc firmware blob for older Cometlakes
-      drm/i915/dp: Track pm_qos per connector
-
-Matthew Auld (2):
-      drm/i915: clear the shadow batch
-      drm/i915: clear the gpu reloc batch
-
- drivers/gpu/drm/i915/display/intel_display_types.h |  3 +++
- drivers/gpu/drm/i915/display/intel_dp.c            |  8 +++++--
- drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c     |  4 +++-
- drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c           |  1 +
- drivers/gpu/drm/i915/i915_cmd_parser.c             | 27 ++++++++--------------
- drivers/gpu/drm/i915/i915_drv.c                    |  5 ----
- drivers/gpu/drm/i915/i915_drv.h                    |  3 ---
- 7 files changed, 22 insertions(+), 29 deletions(-)
-
--- 
-Jani Nikula, Intel Open Source Graphics Center
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+QWRoZXJlIHRvIGtlcm5lbCBjb2Rpbmcgc3R5bGUuCgpTaWduZWQtb2ZmLWJ5OiBUaG9tYXMgWmlt
+bWVybWFubiA8dHppbW1lcm1hbm5Ac3VzZS5kZT4KUmV2aWV3ZWQtYnk6IENocmlzdGlhbiBLw7Zu
+aWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KQWNrZWQtYnk6IEFsZXggRGV1Y2hlciA8YWxl
+eGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KQWNrZWQtYnk6IFNhbSBSYXZuYm9yZyA8c2FtQHJhdm5i
+b3JnLm9yZz4KQ2M6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KQ2M6
+IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KLS0tCiBkcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgfCA2ICsrKy0tLQogMSBmaWxlIGNo
+YW5nZWQsIDMgaW5zZXJ0aW9ucygrKSwgMyBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgYi9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMKaW5kZXggOGY0NTFlODA5MTI3Li43ZDE2Mzk1ZWRl
+MGEgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2Uu
+YworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMKQEAgLTQ5
+NTAsOCArNDk1MCw4IEBAIHBjaV9lcnNfcmVzdWx0X3QgYW1kZ3B1X3BjaV9lcnJvcl9kZXRlY3Rl
+ZChzdHJ1Y3QgcGNpX2RldiAqcGRldiwgcGNpX2NoYW5uZWxfc3RhCiAJY2FzZSBwY2lfY2hhbm5l
+bF9pb19ub3JtYWw6CiAJCXJldHVybiBQQ0lfRVJTX1JFU1VMVF9DQU5fUkVDT1ZFUjsKIAkvKiBG
+YXRhbCBlcnJvciwgcHJlcGFyZSBmb3Igc2xvdCByZXNldCAqLwotCWNhc2UgcGNpX2NoYW5uZWxf
+aW9fZnJvemVuOgkJCi0JCS8qCQkKKwljYXNlIHBjaV9jaGFubmVsX2lvX2Zyb3plbjoKKwkJLyoK
+IAkJICogQ2FuY2VsIGFuZCB3YWl0IGZvciBhbGwgVERScyBpbiBwcm9ncmVzcyBpZiBmYWlsaW5n
+IHRvCiAJCSAqIHNldCAgYWRldi0+aW5fZ3B1X3Jlc2V0IGluIGFtZGdwdV9kZXZpY2VfbG9ja19h
+ZGV2CiAJCSAqCkBAIC01MDQyLDcgKzUwNDIsNyBAQCBwY2lfZXJzX3Jlc3VsdF90IGFtZGdwdV9w
+Y2lfc2xvdF9yZXNldChzdHJ1Y3QgcGNpX2RldiAqcGRldikKIAkJZ290byBvdXQ7CiAJfQogCi0J
+YWRldi0+aW5fcGNpX2Vycl9yZWNvdmVyeSA9IHRydWU7CQorCWFkZXYtPmluX3BjaV9lcnJfcmVj
+b3ZlcnkgPSB0cnVlOwogCXIgPSBhbWRncHVfZGV2aWNlX3ByZV9hc2ljX3Jlc2V0KGFkZXYsIE5V
+TEwsICZuZWVkX2Z1bGxfcmVzZXQpOwogCWFkZXYtPmluX3BjaV9lcnJfcmVjb3ZlcnkgPSBmYWxz
+ZTsKIAlpZiAocikKLS0gCjIuMjkuMgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRlbC1nZnhAbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
+Zm8vaW50ZWwtZ2Z4Cg==
