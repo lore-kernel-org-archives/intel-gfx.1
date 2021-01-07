@@ -2,51 +2,52 @@ Return-Path: <SRS0=BkXb=GK=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-14.0 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
+	URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6C0DEC433E0
-	for <intel-gfx@archiver.kernel.org>; Thu,  7 Jan 2021 17:58:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 54234C433DB
+	for <intel-gfx@archiver.kernel.org>; Thu,  7 Jan 2021 18:20:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 27112223E8
-	for <intel-gfx@archiver.kernel.org>; Thu,  7 Jan 2021 17:58:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 27112223E8
+	by mail.kernel.org (Postfix) with ESMTPS id D9B39207C8
+	for <intel-gfx@archiver.kernel.org>; Thu,  7 Jan 2021 18:20:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D9B39207C8
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA13A6E49C;
-	Thu,  7 Jan 2021 17:58:01 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 592EE6E49C
- for <intel-gfx@lists.freedesktop.org>; Thu,  7 Jan 2021 17:58:00 +0000 (UTC)
-IronPort-SDR: pC5sObXsciR6Xjab2KASlueuhcbrA5wOqBX7Jd4O1HG5d41rTWqhex+pI/XRYTJF9VrL/U1ZxQ
- IXdM9zlbkppw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9857"; a="177616207"
-X-IronPort-AV: E=Sophos;i="5.79,329,1602572400"; d="scan'208";a="177616207"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Jan 2021 09:57:59 -0800
-IronPort-SDR: cG9sGVH4R1mT/MElCUNnGA/Uc4P9OsQsDsW86+5r9p8khsoYANME75YMFMMqu1i5mrbuyW8a8D
- cRKpnKrweyYg==
-X-IronPort-AV: E=Sophos;i="5.79,329,1602572400"; d="scan'208";a="347071936"
-Received: from muhymini-mobl.amr.corp.intel.com (HELO localhost)
- ([10.213.207.83])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Jan 2021 09:57:57 -0800
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Tejas Upadhyay <tejaskumarx.surendrakumar.upadhyay@intel.com>,
- intel-gfx@lists.freedesktop.org, hariom.pandey@intel.com
-In-Reply-To: <20210105113917.54746-1-tejaskumarx.surendrakumar.upadhyay@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20210105113917.54746-1-tejaskumarx.surendrakumar.upadhyay@intel.com>
-Date: Thu, 07 Jan 2021 19:57:54 +0200
-Message-ID: <87pn2gzl25.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 48E6D6E4C7;
+	Thu,  7 Jan 2021 18:20:36 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F2C656E4C7
+ for <intel-gfx@lists.freedesktop.org>; Thu,  7 Jan 2021 18:20:34 +0000 (UTC)
+IronPort-SDR: GGsTDakz9R6ciVh5o6OJI67pyQgxtdqnqJg1z5B4wFyyJ5J/Lr6pbS5R/C6rAoAMFtq5jgDmFr
+ xxp5TpOPxa/w==
+X-IronPort-AV: E=McAfee;i="6000,8403,9857"; a="164542025"
+X-IronPort-AV: E=Sophos;i="5.79,329,1602572400"; d="scan'208";a="164542025"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Jan 2021 10:20:34 -0800
+IronPort-SDR: pSghWP+rl3Nf3vlNvcH0r1D9gZoS7BJ8mrnMVxizjRtH+WFXVP036vw5lGsTzUAgnRDl8FVWBU
+ JPDPkMI09qRg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.79,329,1602572400"; d="scan'208";a="463126546"
+Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.174])
+ by fmsmga001.fm.intel.com with SMTP; 07 Jan 2021 10:20:32 -0800
+Received: by stinkbox (sSMTP sendmail emulation);
+ Thu, 07 Jan 2021 20:20:31 +0200
+From: Ville Syrjala <ville.syrjala@linux.intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Thu,  7 Jan 2021 20:20:26 +0200
+Message-Id: <20210107182026.24848-2-ville.syrjala@linux.intel.com>
+X-Mailer: git-send-email 2.26.2
+In-Reply-To: <20210107182026.24848-1-ville.syrjala@linux.intel.com>
+References: <20210107182026.24848-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
-Subject: Re: [Intel-gfx] [PATCH V3] drm/i915/gen9_bc : Add TGP PCH support
+Subject: [Intel-gfx] [PATCH 2/2] drm: Refactor
+ intel_dp_compute_link_config_*()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,178 +60,90 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 05 Jan 2021, Tejas Upadhyay <tejaskumarx.surendrakumar.upadhyay@intel.com> wrote:
-> We have TGP PCH support for Tigerlake and Rocketlake. Similarly
-> now TGP PCH can be used with Cometlake CPU.
->
-> Changes since V2 :
->         - IS_COMETLAKE replaced with IS_GEN9_BC
->         - VBT ddc pin remapping added
->         - Added dedicated HPD pin and DDC pin handling API
-> Changes since V1 :
->         - Matched HPD Pin mapping for PORT C and PORT D of CML CPU.
->
-> Cc: Matt Roper <matthew.d.roper@intel.com>
-> Signed-off-by: Tejas Upadhyay <tejaskumarx.surendrakumar.upadhyay@intel.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_bios.c    |  9 +++++++++
->  drivers/gpu/drm/i915/display/intel_ddi.c     |  7 +++++--
->  drivers/gpu/drm/i915/display/intel_display.c |  7 ++++---
->  drivers/gpu/drm/i915/display/intel_hdmi.c    | 20 ++++++++++++++++++++
->  drivers/gpu/drm/i915/intel_pch.c             |  3 ++-
->  5 files changed, 40 insertions(+), 6 deletions(-)
->
-> diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
-> index 06c3310446a2..67f9c0d8d1f3 100644
-> --- a/drivers/gpu/drm/i915/display/intel_bios.c
-> +++ b/drivers/gpu/drm/i915/display/intel_bios.c
-> @@ -1623,6 +1623,12 @@ static const u8 icp_ddc_pin_map[] = {
->  	[TGL_DDC_BUS_PORT_6] = GMBUS_PIN_14_TC6_TGP,
->  };
->  
-> +static const u8 gen9bc_tgp_ddc_pin_map[] = {
-> +	[DDC_BUS_DDI_B] = GMBUS_PIN_2_BXT,
-> +	[DDC_BUS_DDI_C] = GMBUS_PIN_9_TC1_ICP,
-> +	[DDC_BUS_DDI_D] = GMBUS_PIN_10_TC2_ICP,
-> +};
-> +
->  static u8 map_ddc_pin(struct drm_i915_private *dev_priv, u8 vbt_pin)
->  {
->  	const u8 *ddc_pin_map;
-> @@ -1630,6 +1636,9 @@ static u8 map_ddc_pin(struct drm_i915_private *dev_priv, u8 vbt_pin)
->  
->  	if (INTEL_PCH_TYPE(dev_priv) >= PCH_DG1) {
->  		return vbt_pin;
-> +	} else if (HAS_PCH_TGP(dev_priv) && IS_GEN9_BC(dev_priv)) {
-> +		ddc_pin_map = gen9bc_tgp_ddc_pin_map;
-> +		n_entries = ARRAY_SIZE(gen9bc_tgp_ddc_pin_map);
->  	} else if (INTEL_PCH_TYPE(dev_priv) >= PCH_ICP) {
->  		ddc_pin_map = icp_ddc_pin_map;
->  		n_entries = ARRAY_SIZE(icp_ddc_pin_map);
-> diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-> index 17eaa56c5a99..55d6329dc9c9 100644
-> --- a/drivers/gpu/drm/i915/display/intel_ddi.c
-> +++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-> @@ -5301,7 +5301,9 @@ static enum hpd_pin dg1_hpd_pin(struct drm_i915_private *dev_priv,
->  static enum hpd_pin tgl_hpd_pin(struct drm_i915_private *dev_priv,
->  				enum port port)
->  {
-> -	if (port >= PORT_TC1)
-> +	if (IS_GEN9_BC(dev_priv) && port >= PORT_C)
-> +		return HPD_PORT_TC1 + port - PORT_C;
-> +	else if (port >= PORT_TC1)
->  		return HPD_PORT_TC1 + port - PORT_TC1;
->  	else
->  		return HPD_PORT_A + port - PORT_A;
-> @@ -5457,7 +5459,8 @@ void intel_ddi_init(struct drm_i915_private *dev_priv, enum port port)
->  		encoder->hpd_pin = dg1_hpd_pin(dev_priv, port);
->  	else if (IS_ROCKETLAKE(dev_priv))
->  		encoder->hpd_pin = rkl_hpd_pin(dev_priv, port);
-> -	else if (INTEL_GEN(dev_priv) >= 12)
-> +	else if (INTEL_GEN(dev_priv) >= 12 || (IS_GEN9_BC(dev_priv) &&
-> +					       HAS_PCH_TGP(dev_priv)))
->  		encoder->hpd_pin = tgl_hpd_pin(dev_priv, port);
->  	else if (IS_JSL_EHL(dev_priv))
->  		encoder->hpd_pin = ehl_hpd_pin(dev_priv, port);
-> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-> index f2c48e5cdb43..5a75ce1f78ac 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display.c
-> +++ b/drivers/gpu/drm/i915/display/intel_display.c
-> @@ -16194,11 +16194,12 @@ static void intel_setup_outputs(struct drm_i915_private *dev_priv)
->  		 * register */
->  		found = intel_de_read(dev_priv, SFUSE_STRAP);
-
-Is it okay to read SFUSE_STRAP if it's not there? Maybe something like
-this instead, with the comment above fixed?
-
-		if (HAS_PCH_TGP(dev_priv)) {
-			found = (SFUSE_STRAP_DDIB_DETECTED |
-				 SFUSE_STRAP_DDIC_DETECTED |
-				 SFUSE_STRAP_DDID_DETECTED);
-		} else {
-			found = intel_de_read(dev_priv, SFUSE_STRAP);
-		}
-
->  
-> -		if (found & SFUSE_STRAP_DDIB_DETECTED)
-> +		/* W/A due to lack of STRAP config on TGP PCH*/
-> +		if (found & SFUSE_STRAP_DDIB_DETECTED || HAS_PCH_TGP(dev_priv))
->  			intel_ddi_init(dev_priv, PORT_B);
-> -		if (found & SFUSE_STRAP_DDIC_DETECTED)
-> +		if (found & SFUSE_STRAP_DDIC_DETECTED || HAS_PCH_TGP(dev_priv))
->  			intel_ddi_init(dev_priv, PORT_C);
-> -		if (found & SFUSE_STRAP_DDID_DETECTED)
-> +		if (found & SFUSE_STRAP_DDID_DETECTED || HAS_PCH_TGP(dev_priv))
->  			intel_ddi_init(dev_priv, PORT_D);
->  		if (found & SFUSE_STRAP_DDIF_DETECTED)
->  			intel_ddi_init(dev_priv, PORT_F);
-> diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
-> index c5959590562b..536b7b0d68f9 100644
-> --- a/drivers/gpu/drm/i915/display/intel_hdmi.c
-> +++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
-> @@ -3130,6 +3130,24 @@ static u8 rkl_port_to_ddc_pin(struct drm_i915_private *dev_priv, enum port port)
->  	return GMBUS_PIN_1_BXT + phy;
->  }
->  
-> +static u8 gen9bc_port_to_ddc_pin(struct drm_i915_private *dev_priv, enum port port)
-
-All new code should use i915 instead of dev_priv.
-
-> +{
-> +	enum phy phy = intel_port_to_phy(dev_priv, port);
-> +
-> +	WARN_ON(port == PORT_A);
-
-drm_WARN_ON(&i915->drm, port == PORT_A);
-
-> +
-> +	/*
-> +	 * Pin mapping for GEN9 BC depends on which PCH is present.  With TGP,
-> +	 * final two outputs use type-c pins, even though they're actually
-> +	 * combo outputs.  With CMP, the traditional DDI A-D pins are used for
-> +	 * all outputs.
-> +	 */
-> +	if (INTEL_PCH_TYPE(dev_priv) >= PCH_TGP && phy >= PHY_C)
-> +		return GMBUS_PIN_9_TC1_ICP + phy - PHY_C;
-> +
-> +	return GMBUS_PIN_1_BXT + phy;
-> +}
-> +
->  static u8 dg1_port_to_ddc_pin(struct drm_i915_private *dev_priv, enum port port)
->  {
->  	return intel_port_to_phy(dev_priv, port) + 1;
-> @@ -3176,6 +3194,8 @@ static u8 intel_hdmi_ddc_pin(struct intel_encoder *encoder)
->  		ddc_pin = dg1_port_to_ddc_pin(dev_priv, port);
->  	else if (IS_ROCKETLAKE(dev_priv))
->  		ddc_pin = rkl_port_to_ddc_pin(dev_priv, port);
-> +	else if (IS_GEN9_BC(dev_priv) && HAS_PCH_TGP(dev_priv))
-> +		ddc_pin = gen9bc_port_to_ddc_pin(dev_priv, port);
->  	else if (HAS_PCH_MCC(dev_priv))
->  		ddc_pin = mcc_port_to_ddc_pin(dev_priv, port);
->  	else if (INTEL_PCH_TYPE(dev_priv) >= PCH_ICP)
-> diff --git a/drivers/gpu/drm/i915/intel_pch.c b/drivers/gpu/drm/i915/intel_pch.c
-> index f31c0dabd0cc..c1bc2d032360 100644
-> --- a/drivers/gpu/drm/i915/intel_pch.c
-> +++ b/drivers/gpu/drm/i915/intel_pch.c
-> @@ -121,7 +121,8 @@ intel_pch_type(const struct drm_i915_private *dev_priv, unsigned short id)
->  	case INTEL_PCH_TGP2_DEVICE_ID_TYPE:
->  		drm_dbg_kms(&dev_priv->drm, "Found Tiger Lake LP PCH\n");
->  		drm_WARN_ON(&dev_priv->drm, !IS_TIGERLAKE(dev_priv) &&
-> -			    !IS_ROCKETLAKE(dev_priv));
-> +			    !IS_ROCKETLAKE(dev_priv) &&
-> +			    !IS_GEN9_BC(dev_priv));
->  		return PCH_TGP;
->  	case INTEL_PCH_JSP_DEVICE_ID_TYPE:
->  	case INTEL_PCH_JSP2_DEVICE_ID_TYPE:
-
--- 
-Jani Nikula, Intel Open Source Graphics Center
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+RnJvbTogVmlsbGUgU3lyasOkbMOkIDx2aWxsZS5zeXJqYWxhQGxpbnV4LmludGVsLmNvbT4KClB1
+bGwgdGhlIGNvbW1vbiBwYXJ0cyBvZiBpbnRlbF9kcF9jb21wdXRlX2xpbmtfY29uZmlnX3dpZGUo
+KQphbmQgaW50ZWxfZHBfY29tcHV0ZV9saW5rX2NvbmZpZ19mYXN0KCkgaW50byBhIHNoYXJlZCBo
+ZWxwZXIKdG8gYXZvaWQgZHVwbGljYXRlZCBjb2RlLgoKU2lnbmVkLW9mZi1ieTogVmlsbGUgU3ly
+asOkbMOkIDx2aWxsZS5zeXJqYWxhQGxpbnV4LmludGVsLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9k
+cm0vaTkxNS9kaXNwbGF5L2ludGVsX2RwLmMgfCA3NCArKysrKysrKysrKysrKy0tLS0tLS0tLS0t
+CiAxIGZpbGUgY2hhbmdlZCwgNDMgaW5zZXJ0aW9ucygrKSwgMzEgZGVsZXRpb25zKC0pCgpkaWZm
+IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kcC5jIGIvZHJpdmVy
+cy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kcC5jCmluZGV4IDU3YzIxNDBjMTMxNi4uZDY4
+MmNmNTdlNDU1IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVs
+X2RwLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kcC5jCkBAIC0y
+MjU5LDM0ICsyMjU5LDQ3IEBAIGludGVsX2RwX2FkanVzdF9jb21wbGlhbmNlX2NvbmZpZyhzdHJ1
+Y3QgaW50ZWxfZHAgKmludGVsX2RwLAogCX0KIH0KIAorc3RhdGljIGJvb2wKK2ludGVsX2RwX2xp
+bmtfY29uZmlnX3ZhbGlkKGNvbnN0IHN0cnVjdCBpbnRlbF9jcnRjX3N0YXRlICpjcnRjX3N0YXRl
+LAorCQkJICAgaW50IGJwcCwgaW50IGxpbmtfY2xvY2ssIGludCBsYW5lX2NvdW50KQoreworCWNv
+bnN0IHN0cnVjdCBkcm1fZGlzcGxheV9tb2RlICphZGp1c3RlZF9tb2RlID0KKwkJJmNydGNfc3Rh
+dGUtPmh3LmFkanVzdGVkX21vZGU7CisJaW50IG91dHB1dF9icHAgPSBpbnRlbF9kcF9vdXRwdXRf
+YnBwKGNydGNfc3RhdGUtPm91dHB1dF9mb3JtYXQsIGJwcCk7CisJaW50IG1vZGVfcmF0ZSA9IGlu
+dGVsX2RwX2xpbmtfcmVxdWlyZWQoYWRqdXN0ZWRfbW9kZS0+Y3J0Y19jbG9jaywKKwkJCQkJICAg
+ICAgIG91dHB1dF9icHApOworCWludCBsaW5rX2F2YWlsID0gaW50ZWxfZHBfbWF4X2RhdGFfcmF0
+ZShsaW5rX2Nsb2NrLCBsYW5lX2NvdW50KTsKKworCXJldHVybiBtb2RlX3JhdGUgPD0gbGlua19h
+dmFpbDsKK30KKwogLyogT3B0aW1pemUgbGluayBjb25maWcgaW4gb3JkZXI6IG1heCBicHAsIG1p
+biBjbG9jaywgbWluIGxhbmVzICovCiBzdGF0aWMgaW50CiBpbnRlbF9kcF9jb21wdXRlX2xpbmtf
+Y29uZmlnX3dpZGUoc3RydWN0IGludGVsX2RwICppbnRlbF9kcCwKLQkJCQkgIHN0cnVjdCBpbnRl
+bF9jcnRjX3N0YXRlICpwaXBlX2NvbmZpZywKKwkJCQkgIHN0cnVjdCBpbnRlbF9jcnRjX3N0YXRl
+ICpjcnRjX3N0YXRlLAogCQkJCSAgY29uc3Qgc3RydWN0IGxpbmtfY29uZmlnX2xpbWl0cyAqbGlt
+aXRzKQogewotCXN0cnVjdCBkcm1fZGlzcGxheV9tb2RlICphZGp1c3RlZF9tb2RlID0gJnBpcGVf
+Y29uZmlnLT5ody5hZGp1c3RlZF9tb2RlOwotCWludCBicHAsIGNsb2NrLCBsYW5lX2NvdW50Owot
+CWludCBtb2RlX3JhdGUsIGxpbmtfY2xvY2ssIGxpbmtfYXZhaWw7CisJaW50IGJwcDsKIAogCWZv
+ciAoYnBwID0gbGltaXRzLT5tYXhfYnBwOyBicHAgPj0gbGltaXRzLT5taW5fYnBwOyBicHAgLT0g
+MiAqIDMpIHsKLQkJaW50IG91dHB1dF9icHAgPSBpbnRlbF9kcF9vdXRwdXRfYnBwKHBpcGVfY29u
+ZmlnLT5vdXRwdXRfZm9ybWF0LCBicHApOworCQlpbnQgY2xvY2s7CiAKLQkJbW9kZV9yYXRlID0g
+aW50ZWxfZHBfbGlua19yZXF1aXJlZChhZGp1c3RlZF9tb2RlLT5jcnRjX2Nsb2NrLAotCQkJCQkJ
+ICAgb3V0cHV0X2JwcCk7CisJCWZvciAoY2xvY2sgPSBsaW1pdHMtPm1pbl9jbG9jazsKKwkJICAg
+ICBjbG9jayA8PSBsaW1pdHMtPm1heF9jbG9jazsKKwkJICAgICBjbG9jaysrKSB7CisJCQlpbnQg
+bGFuZV9jb3VudDsKIAotCQlmb3IgKGNsb2NrID0gbGltaXRzLT5taW5fY2xvY2s7IGNsb2NrIDw9
+IGxpbWl0cy0+bWF4X2Nsb2NrOyBjbG9jaysrKSB7CiAJCQlmb3IgKGxhbmVfY291bnQgPSBsaW1p
+dHMtPm1pbl9sYW5lX2NvdW50OwogCQkJICAgICBsYW5lX2NvdW50IDw9IGxpbWl0cy0+bWF4X2xh
+bmVfY291bnQ7CiAJCQkgICAgIGxhbmVfY291bnQgPDw9IDEpIHsKLQkJCQlsaW5rX2Nsb2NrID0g
+aW50ZWxfZHAtPmNvbW1vbl9yYXRlc1tjbG9ja107Ci0JCQkJbGlua19hdmFpbCA9IGludGVsX2Rw
+X21heF9kYXRhX3JhdGUobGlua19jbG9jaywKLQkJCQkJCQkJICAgIGxhbmVfY291bnQpOworCQkJ
+CWludCBsaW5rX2Nsb2NrID0gaW50ZWxfZHAtPmNvbW1vbl9yYXRlc1tjbG9ja107CiAKLQkJCQlp
+ZiAobW9kZV9yYXRlIDw9IGxpbmtfYXZhaWwpIHsKLQkJCQkJcGlwZV9jb25maWctPmxhbmVfY291
+bnQgPSBsYW5lX2NvdW50OwotCQkJCQlwaXBlX2NvbmZpZy0+cGlwZV9icHAgPSBicHA7Ci0JCQkJ
+CXBpcGVfY29uZmlnLT5wb3J0X2Nsb2NrID0gbGlua19jbG9jazsKKwkJCQlpZiAoaW50ZWxfZHBf
+bGlua19jb25maWdfdmFsaWQoY3J0Y19zdGF0ZSwgYnBwLAorCQkJCQkJCSAgICAgICBsaW5rX2Ns
+b2NrLAorCQkJCQkJCSAgICAgICBsYW5lX2NvdW50KSkgeworCQkJCQljcnRjX3N0YXRlLT5waXBl
+X2JwcCA9IGJwcDsKKwkJCQkJY3J0Y19zdGF0ZS0+cG9ydF9jbG9jayA9IGxpbmtfY2xvY2s7CisJ
+CQkJCWNydGNfc3RhdGUtPmxhbmVfY291bnQgPSBsYW5lX2NvdW50OwogCiAJCQkJCXJldHVybiAw
+OwogCQkJCX0KQEAgLTIzMDAsMzEgKzIzMTMsMzAgQEAgaW50ZWxfZHBfY29tcHV0ZV9saW5rX2Nv
+bmZpZ193aWRlKHN0cnVjdCBpbnRlbF9kcCAqaW50ZWxfZHAsCiAvKiBPcHRpbWl6ZSBsaW5rIGNv
+bmZpZyBpbiBvcmRlcjogbWF4IGJwcCwgbWluIGxhbmVzLCBtaW4gY2xvY2sgKi8KIHN0YXRpYyBp
+bnQKIGludGVsX2RwX2NvbXB1dGVfbGlua19jb25maWdfZmFzdChzdHJ1Y3QgaW50ZWxfZHAgKmlu
+dGVsX2RwLAotCQkJCSAgc3RydWN0IGludGVsX2NydGNfc3RhdGUgKnBpcGVfY29uZmlnLAorCQkJ
+CSAgc3RydWN0IGludGVsX2NydGNfc3RhdGUgKmNydGNfc3RhdGUsCiAJCQkJICBjb25zdCBzdHJ1
+Y3QgbGlua19jb25maWdfbGltaXRzICpsaW1pdHMpCiB7Ci0JY29uc3Qgc3RydWN0IGRybV9kaXNw
+bGF5X21vZGUgKmFkanVzdGVkX21vZGUgPSAmcGlwZV9jb25maWctPmh3LmFkanVzdGVkX21vZGU7
+Ci0JaW50IGJwcCwgY2xvY2ssIGxhbmVfY291bnQ7Ci0JaW50IG1vZGVfcmF0ZSwgbGlua19jbG9j
+aywgbGlua19hdmFpbDsKKwlpbnQgYnBwOwogCiAJZm9yIChicHAgPSBsaW1pdHMtPm1heF9icHA7
+IGJwcCA+PSBsaW1pdHMtPm1pbl9icHA7IGJwcCAtPSAyICogMykgewotCQlpbnQgb3V0cHV0X2Jw
+cCA9IGludGVsX2RwX291dHB1dF9icHAocGlwZV9jb25maWctPm91dHB1dF9mb3JtYXQsIGJwcCk7
+Ci0KLQkJbW9kZV9yYXRlID0gaW50ZWxfZHBfbGlua19yZXF1aXJlZChhZGp1c3RlZF9tb2RlLT5j
+cnRjX2Nsb2NrLAotCQkJCQkJICAgb3V0cHV0X2JwcCk7CisJCWludCBsYW5lX2NvdW50OwogCiAJ
+CWZvciAobGFuZV9jb3VudCA9IGxpbWl0cy0+bWluX2xhbmVfY291bnQ7CiAJCSAgICAgbGFuZV9j
+b3VudCA8PSBsaW1pdHMtPm1heF9sYW5lX2NvdW50OwogCQkgICAgIGxhbmVfY291bnQgPDw9IDEp
+IHsKLQkJCWZvciAoY2xvY2sgPSBsaW1pdHMtPm1pbl9jbG9jazsgY2xvY2sgPD0gbGltaXRzLT5t
+YXhfY2xvY2s7IGNsb2NrKyspIHsKLQkJCQlsaW5rX2Nsb2NrID0gaW50ZWxfZHAtPmNvbW1vbl9y
+YXRlc1tjbG9ja107Ci0JCQkJbGlua19hdmFpbCA9IGludGVsX2RwX21heF9kYXRhX3JhdGUobGlu
+a19jbG9jaywKLQkJCQkJCQkJICAgIGxhbmVfY291bnQpOworCQkJaW50IGNsb2NrOwogCi0JCQkJ
+aWYgKG1vZGVfcmF0ZSA8PSBsaW5rX2F2YWlsKSB7Ci0JCQkJCXBpcGVfY29uZmlnLT5sYW5lX2Nv
+dW50ID0gbGFuZV9jb3VudDsKLQkJCQkJcGlwZV9jb25maWctPnBpcGVfYnBwID0gYnBwOwotCQkJ
+CQlwaXBlX2NvbmZpZy0+cG9ydF9jbG9jayA9IGxpbmtfY2xvY2s7CisJCQlmb3IgKGNsb2NrID0g
+bGltaXRzLT5taW5fY2xvY2s7CisJCQkgICAgIGNsb2NrIDw9IGxpbWl0cy0+bWF4X2Nsb2NrOwor
+CQkJICAgICBjbG9jaysrKSB7CisJCQkJaW50IGxpbmtfY2xvY2sgPSBpbnRlbF9kcC0+Y29tbW9u
+X3JhdGVzW2Nsb2NrXTsKKworCQkJCWlmIChpbnRlbF9kcF9saW5rX2NvbmZpZ192YWxpZChjcnRj
+X3N0YXRlLCBicHAsCisJCQkJCQkJICAgICAgIGxpbmtfY2xvY2ssCisJCQkJCQkJICAgICAgIGxh
+bmVfY291bnQpKSB7CisJCQkJCWNydGNfc3RhdGUtPnBpcGVfYnBwID0gYnBwOworCQkJCQljcnRj
+X3N0YXRlLT5wb3J0X2Nsb2NrID0gbGlua19jbG9jazsKKwkJCQkJY3J0Y19zdGF0ZS0+bGFuZV9j
+b3VudCA9IGxhbmVfY291bnQ7CiAKIAkJCQkJcmV0dXJuIDA7CiAJCQkJfQotLSAKMi4yNi4yCgpf
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpJbnRlbC1nZngg
+bWFpbGluZyBsaXN0CkludGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
+cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9pbnRlbC1nZngK
