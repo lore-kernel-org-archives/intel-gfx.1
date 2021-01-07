@@ -7,56 +7,56 @@ X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 90FE3C433E0
-	for <intel-gfx@archiver.kernel.org>; Thu,  7 Jan 2021 22:52:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DE64CC433E6
+	for <intel-gfx@archiver.kernel.org>; Thu,  7 Jan 2021 22:52:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5A725235FA
-	for <intel-gfx@archiver.kernel.org>; Thu,  7 Jan 2021 22:52:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5A725235FA
+	by mail.kernel.org (Postfix) with ESMTPS id A750B235FA
+	for <intel-gfx@archiver.kernel.org>; Thu,  7 Jan 2021 22:52:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A750B235FA
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4AC726E57A;
-	Thu,  7 Jan 2021 22:52:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C5BA6E578;
+	Thu,  7 Jan 2021 22:52:57 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [63.128.21.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 02A896E578
- for <intel-gfx@lists.freedesktop.org>; Thu,  7 Jan 2021 22:52:46 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D30706E588
+ for <intel-gfx@lists.freedesktop.org>; Thu,  7 Jan 2021 22:52:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1610059966;
+ s=mimecast20190719; t=1610059974;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=uTYztpzpT6zmhzSpN9bjP3FyGSY/wLzGXd5p0nTD8Rw=;
- b=WUSFbtvMABHvlnA7pcMLHOGdecgXZ2nbD1Leu+HETJehoFlNB2kWxRPnauXGdCJXeeEoOm
- 8XzNAGXcSCb3jHstQn1238wbTmMfi3jbzeq2zvQXZjjonh0eIMpK6cni4NS9MkT9EmW1LU
- +WV/ii0Q8uVvvfrR6s3RUIBLtUhr+oc=
+ bh=HDpANMTcyT2Uqd3EIOoZ8Qsh7PbjWNpZHuGhjEweub0=;
+ b=X9IGaIekk2EAARkeGjZt8ZigwWleTjGCSm2XXyIQ5fVfA1s6aS+htsBewxbOxFARJUUvyd
+ SkKKbbmV3a89RNwfZkp2ubDx860C8QnRGBh5QCy0fvY5LjidHv2WvZV6fLO+77AFWVxV1Z
+ D2qc+NEjzlXFnQ9kYDS/5aSVdZzhhc0=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-596-18811bCiPYi5Tk1uXhle0w-1; Thu, 07 Jan 2021 17:52:43 -0500
-X-MC-Unique: 18811bCiPYi5Tk1uXhle0w-1
+ us-mta-472-PVN0m57IPmKudemEtCzu2w-1; Thu, 07 Jan 2021 17:52:51 -0500
+X-MC-Unique: PVN0m57IPmKudemEtCzu2w-1
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
  [10.5.11.11])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B77458027E2;
- Thu,  7 Jan 2021 22:52:36 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9986E107ACE3;
+ Thu,  7 Jan 2021 22:52:47 +0000 (UTC)
 Received: from Ruby.redhat.com (ovpn-118-135.rdu2.redhat.com [10.10.118.135])
- by smtp.corp.redhat.com (Postfix) with ESMTP id CC77D6062F;
- Thu,  7 Jan 2021 22:52:30 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id CF7DB19C81;
+ Thu,  7 Jan 2021 22:52:44 +0000 (UTC)
 From: Lyude Paul <lyude@redhat.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu,  7 Jan 2021 17:52:05 -0500
-Message-Id: <20210107225207.28091-3-lyude@redhat.com>
+Date: Thu,  7 Jan 2021 17:52:07 -0500
+Message-Id: <20210107225207.28091-5-lyude@redhat.com>
 In-Reply-To: <20210107225207.28091-1-lyude@redhat.com>
 References: <20210107225207.28091-1-lyude@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
-Subject: [Intel-gfx] [PATCH v5 2/4] drm/i915/dp: Enable Intel's HDR
- backlight interface (only SDR for now)
+Subject: [Intel-gfx] [PATCH v5 4/4] drm/dp: Revert "drm/dp: Introduce
+ EDID-based quirks"
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,509 +69,321 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
- Arnd Bergmann <arnd@arndb.de>, Jani Nikula <jani.nikula@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- open list <linux-kernel@vger.kernel.org>,
- Chris Wilson <chris@chris-wilson.co.uk>,
- Vasily Khoruzhick <anarsoul@gmail.com>, David Airlie <airlied@linux.ie>,
- Sean Paul <seanpaul@chromium.org>, Dave Airlie <airlied@redhat.com>
+Cc: David Airlie <airlied@linux.ie>, Chris Wilson <chris@chris-wilson.co.uk>,
+ Vasily Khoruzhick <anarsoul@gmail.com>, Dave Airlie <airlied@redhat.com>,
+ Wambui Karuga <wambui.karugax@gmail.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Jani Nikula <jani.nikula@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Sean Paul <seanpaul@chromium.org>,
+ "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
+ open list <linux-kernel@vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-So-recently a bunch of laptops on the market have started using DPCD
-backlight controls instead of the traditional DDI backlight controls.
-Originally we thought we had this handled by adding VESA backlight
-control support to i915, but the story ended up being a lot more
-complicated then that.
+This reverts commit 0883ce8146ed6074c76399f4e70dbed788582e12. Originally
+these quirks were added because of the issues with using the eDP
+backlight interfaces on certain laptop panels, which made it impossible
+to properly probe for DPCD backlight support without having a whitelist
+for panels that we know have working VESA backlight control interfaces
+over DPCD. As well, it should be noted it was impossible to use the
+normal sink OUI for recognizing these panels as none of them actually
+filled out their OUIs, hence needing to resort to checking EDIDs.
 
-Simply put-there's two main backlight interfaces Intel can see in the
-wild. Intel's proprietary HDR backlight interface, and the standard VESA
-backlight interface. Note that many panels have been observed to report
-support for both backlight interfaces, but testing has shown far more
-panels work with the Intel HDR backlight interface at the moment.
-Additionally, the VBT appears to be capable of reporting support for the
-VESA backlight interface but not the Intel HDR interface which needs to
-be probed by setting the right magic OUI.
+At the time we weren't really sure why certain panels had issues with
+DPCD backlight controls, but we eventually figured out that there was a
+second interface that these problematic laptop panels actually did work
+with and advertise properly: Intel's proprietary backlight interface for
+HDR panels. So far the testing we've done hasn't brought any panels to
+light that advertise this interface and don't support it properly, which
+means we finally have a real solution to this problem.
 
-On top of that however, there's also actually two different variants of
-the Intel HDR backlight interface. The first uses the AUX channel for
-controlling the brightness of the screen in both SDR and HDR mode, and
-the second only uses the AUX channel for setting the brightness level in
-HDR mode - relying on PWM for setting the brightness level in SDR mode.
+As a result, we now have no need for the force DPCD backlight quirk, and
+furthermore this also removes the need for any kind of EDID quirk
+checking in DRM. So, let's just revert it for now since we were the only
+driver using this.
 
-For the time being we've been using EDIDs to maintain a list of quirks
-for panels that safely do support the VESA backlight interface. Adding
-support for Intel's HDR backlight interface in addition however, should
-finally allow us to auto-detect eDP backlight controls properly so long
-as we probe like so:
-
-* If the panel's VBT reports VESA backlight support, assume it really
-  does support it
-* If the panel's VBT reports DDI backlight controls:
-  * First probe for Intel's HDR backlight interface
-  * If that fails, probe for VESA's backlight interface
-  * If that fails, assume no DPCD backlight control
-* If the panel's VBT reports any other backlight type: just assume it
-  doesn't have DPCD backlight controls
-
-Changes since v4:
-* Fix checkpatch issues
-Changes since v3:
-* Stop using drm_device and use drm_i915_private instead
-* Don't forget to return from intel_dp_aux_hdr_get_backlight() if we fail
-  to read the current backlight mode from the DPCD
-* s/uint8_t/u8/
-* Remove unneeded parenthesis in intel_dp_aux_hdr_enable_backlight()
-* Use drm_dbg_kms() in intel_dp_aux_init_backlight_funcs()
+v3:
+* Rebase
+v2:
+* Fix indenting error picked up by checkpatch in
+  intel_edp_init_connector()
 
 Signed-off-by: Lyude Paul <lyude@redhat.com>
 Acked-by: Jani Nikula <jani.nikula@intel.com>
 Cc: thaytan@noraisin.net
 Cc: Vasily Khoruzhick <anarsoul@gmail.com>
 ---
- .../drm/i915/display/intel_display_types.h    |   9 +-
- .../drm/i915/display/intel_dp_aux_backlight.c | 248 ++++++++++++++++--
- drivers/gpu/drm/i915/display/intel_panel.c    |  42 ++-
- drivers/gpu/drm/i915/display/intel_panel.h    |   4 +
- 4 files changed, 271 insertions(+), 32 deletions(-)
+ drivers/gpu/drm/drm_dp_helper.c               | 83 +------------------
+ drivers/gpu/drm/drm_dp_mst_topology.c         |  3 +-
+ .../drm/i915/display/intel_display_types.h    |  1 -
+ drivers/gpu/drm/i915/display/intel_dp.c       |  9 +-
+ drivers/gpu/drm/i915/display/intel_dp_mst.c   |  3 +-
+ drivers/gpu/drm/i915/display/intel_psr.c      |  2 +-
+ include/drm/drm_dp_helper.h                   | 21 +----
+ 7 files changed, 9 insertions(+), 113 deletions(-)
 
+diff --git a/drivers/gpu/drm/drm_dp_helper.c b/drivers/gpu/drm/drm_dp_helper.c
+index 3ecde451f523..19dbdeb581cb 100644
+--- a/drivers/gpu/drm/drm_dp_helper.c
++++ b/drivers/gpu/drm/drm_dp_helper.c
+@@ -1236,7 +1236,7 @@ bool drm_dp_read_sink_count_cap(struct drm_connector *connector,
+ 	return connector->connector_type != DRM_MODE_CONNECTOR_eDP &&
+ 		dpcd[DP_DPCD_REV] >= DP_DPCD_REV_11 &&
+ 		dpcd[DP_DOWNSTREAMPORT_PRESENT] & DP_DWN_STRM_PORT_PRESENT &&
+-		!drm_dp_has_quirk(desc, 0, DP_DPCD_QUIRK_NO_SINK_COUNT);
++		!drm_dp_has_quirk(desc, DP_DPCD_QUIRK_NO_SINK_COUNT);
+ }
+ EXPORT_SYMBOL(drm_dp_read_sink_count_cap);
+ 
+@@ -1957,87 +1957,6 @@ drm_dp_get_quirks(const struct drm_dp_dpcd_ident *ident, bool is_branch)
+ #undef DEVICE_ID_ANY
+ #undef DEVICE_ID
+ 
+-struct edid_quirk {
+-	u8 mfg_id[2];
+-	u8 prod_id[2];
+-	u32 quirks;
+-};
+-
+-#define MFG(first, second) { (first), (second) }
+-#define PROD_ID(first, second) { (first), (second) }
+-
+-/*
+- * Some devices have unreliable OUIDs where they don't set the device ID
+- * correctly, and as a result we need to use the EDID for finding additional
+- * DP quirks in such cases.
+- */
+-static const struct edid_quirk edid_quirk_list[] = {
+-	/* Optional 4K AMOLED panel in the ThinkPad X1 Extreme 2nd Generation
+-	 * only supports DPCD backlight controls
+-	 */
+-	{ MFG(0x4c, 0x83), PROD_ID(0x41, 0x41), BIT(DP_QUIRK_FORCE_DPCD_BACKLIGHT) },
+-	/*
+-	 * Some Dell CML 2020 systems have panels support both AUX and PWM
+-	 * backlight control, and some only support AUX backlight control. All
+-	 * said panels start up in AUX mode by default, and we don't have any
+-	 * support for disabling HDR mode on these panels which would be
+-	 * required to switch to PWM backlight control mode (plus, I'm not
+-	 * even sure we want PWM backlight controls over DPCD backlight
+-	 * controls anyway...). Until we have a better way of detecting these,
+-	 * force DPCD backlight mode on all of them.
+-	 */
+-	{ MFG(0x06, 0xaf), PROD_ID(0x9b, 0x32), BIT(DP_QUIRK_FORCE_DPCD_BACKLIGHT) },
+-	{ MFG(0x06, 0xaf), PROD_ID(0xeb, 0x41), BIT(DP_QUIRK_FORCE_DPCD_BACKLIGHT) },
+-	{ MFG(0x4d, 0x10), PROD_ID(0xc7, 0x14), BIT(DP_QUIRK_FORCE_DPCD_BACKLIGHT) },
+-	{ MFG(0x4d, 0x10), PROD_ID(0xe6, 0x14), BIT(DP_QUIRK_FORCE_DPCD_BACKLIGHT) },
+-	{ MFG(0x4c, 0x83), PROD_ID(0x47, 0x41), BIT(DP_QUIRK_FORCE_DPCD_BACKLIGHT) },
+-	{ MFG(0x09, 0xe5), PROD_ID(0xde, 0x08), BIT(DP_QUIRK_FORCE_DPCD_BACKLIGHT) },
+-};
+-
+-#undef MFG
+-#undef PROD_ID
+-
+-/**
+- * drm_dp_get_edid_quirks() - Check the EDID of a DP device to find additional
+- * DP-specific quirks
+- * @edid: The EDID to check
+- *
+- * While OUIDs are meant to be used to recognize a DisplayPort device, a lot
+- * of manufacturers don't seem to like following standards and neglect to fill
+- * the dev-ID in, making it impossible to only use OUIDs for determining
+- * quirks in some cases. This function can be used to check the EDID and look
+- * up any additional DP quirks. The bits returned by this function correspond
+- * to the quirk bits in &drm_dp_quirk.
+- *
+- * Returns: a bitmask of quirks, if any. The driver can check this using
+- * drm_dp_has_quirk().
+- */
+-u32 drm_dp_get_edid_quirks(const struct edid *edid)
+-{
+-	const struct edid_quirk *quirk;
+-	u32 quirks = 0;
+-	int i;
+-
+-	if (!edid)
+-		return 0;
+-
+-	for (i = 0; i < ARRAY_SIZE(edid_quirk_list); i++) {
+-		quirk = &edid_quirk_list[i];
+-		if (memcmp(quirk->mfg_id, edid->mfg_id,
+-			   sizeof(edid->mfg_id)) == 0 &&
+-		    memcmp(quirk->prod_id, edid->prod_code,
+-			   sizeof(edid->prod_code)) == 0)
+-			quirks |= quirk->quirks;
+-	}
+-
+-	DRM_DEBUG_KMS("DP sink: EDID mfg %*phD prod-ID %*phD quirks: 0x%04x\n",
+-		      (int)sizeof(edid->mfg_id), edid->mfg_id,
+-		      (int)sizeof(edid->prod_code), edid->prod_code, quirks);
+-
+-	return quirks;
+-}
+-EXPORT_SYMBOL(drm_dp_get_edid_quirks);
+-
+ /**
+  * drm_dp_read_desc - read sink/branch descriptor from DPCD
+  * @aux: DisplayPort AUX channel
+diff --git a/drivers/gpu/drm/drm_dp_mst_topology.c b/drivers/gpu/drm/drm_dp_mst_topology.c
+index 0401b2f47500..a2e692a0c6c2 100644
+--- a/drivers/gpu/drm/drm_dp_mst_topology.c
++++ b/drivers/gpu/drm/drm_dp_mst_topology.c
+@@ -5824,8 +5824,7 @@ struct drm_dp_aux *drm_dp_mst_dsc_aux_for_port(struct drm_dp_mst_port *port)
+ 	if (drm_dp_read_desc(port->mgr->aux, &desc, true))
+ 		return NULL;
+ 
+-	if (drm_dp_has_quirk(&desc, 0,
+-			     DP_DPCD_QUIRK_DSC_WITHOUT_VIRTUAL_DPCD) &&
++	if (drm_dp_has_quirk(&desc, DP_DPCD_QUIRK_DSC_WITHOUT_VIRTUAL_DPCD) &&
+ 	    port->mgr->dpcd[DP_DPCD_REV] >= DP_DPCD_REV_14 &&
+ 	    port->parent == port->mgr->mst_primary) {
+ 		u8 downstreamport;
 diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-index ee5c2d50b81a..b24d80ffd18b 100644
+index b24d80ffd18b..744bdf39a7b1 100644
 --- a/drivers/gpu/drm/i915/display/intel_display_types.h
 +++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-@@ -261,7 +261,14 @@ struct intel_panel {
- 		struct pwm_state pwm_state;
+@@ -1390,7 +1390,6 @@ struct intel_dp {
+ 	int max_link_rate;
+ 	/* sink or branch descriptor */
+ 	struct drm_dp_desc desc;
+-	u32 edid_quirks;
+ 	struct drm_dp_aux aux;
+ 	u32 aux_busy_last_status;
+ 	u8 train_set[4];
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 8a00e609085f..7fcb8ca10f96 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -162,8 +162,7 @@ static void intel_dp_set_sink_rates(struct intel_dp *intel_dp)
+ 	int i, max_rate;
+ 	int max_lttpr_rate;
  
- 		/* DPCD backlight */
--		u8 pwmgen_bit_count;
-+		union {
-+			struct {
-+				u8 pwmgen_bit_count;
-+			} vesa;
-+			struct {
-+				bool sdr_uses_aux;
-+			} intel;
-+		} edp;
+-	if (drm_dp_has_quirk(&intel_dp->desc, 0,
+-			     DP_DPCD_QUIRK_CAN_DO_MAX_LINK_RATE_3_24_GBPS)) {
++	if (drm_dp_has_quirk(&intel_dp->desc, DP_DPCD_QUIRK_CAN_DO_MAX_LINK_RATE_3_24_GBPS)) {
+ 		/* Needed, e.g., for Apple MBP 2017, 15 inch eDP Retina panel */
+ 		static const int quirk_rates[] = { 162000, 270000, 324000 };
  
- 		struct backlight_device *device;
+@@ -2823,8 +2822,7 @@ intel_dp_compute_config(struct intel_encoder *encoder,
+ 	struct intel_connector *intel_connector = intel_dp->attached_connector;
+ 	struct intel_digital_connector_state *intel_conn_state =
+ 		to_intel_digital_connector_state(conn_state);
+-	bool constant_n = drm_dp_has_quirk(&intel_dp->desc, 0,
+-					   DP_DPCD_QUIRK_CONSTANT_N);
++	bool constant_n = drm_dp_has_quirk(&intel_dp->desc, DP_DPCD_QUIRK_CONSTANT_N);
+ 	int ret = 0, output_bpp;
  
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-index 9775f33d1aac..5e761fb49a14 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-@@ -22,8 +22,26 @@
-  *
-  */
- 
-+/*
-+ * Laptops with Intel GPUs which have panels that support controlling the
-+ * backlight through DP AUX can actually use two different interfaces: Intel's
-+ * proprietary DP AUX backlight interface, and the standard VESA backlight
-+ * interface. Unfortunately, at the time of writing this a lot of laptops will
-+ * advertise support for the standard VESA backlight interface when they
-+ * don't properly support it. However, on these systems the Intel backlight
-+ * interface generally does work properly. Additionally, these systems will
-+ * usually just indicate that they use PWM backlight controls in their VBIOS
-+ * for some reason.
-+ */
-+
- #include "intel_display_types.h"
- #include "intel_dp_aux_backlight.h"
-+#include "intel_panel.h"
-+
-+/* TODO:
-+ * Implement HDR, right now we just implement the bare minimum to bring us back into SDR mode so we
-+ * can make people's backlights work in the mean time
-+ */
- 
- /*
-  * DP AUX registers for Intel's proprietary HDR backlight interface. We define
-@@ -77,6 +95,179 @@
- 
- #define INTEL_EDP_BRIGHTNESS_OPTIMIZATION_1                            0x359
- 
-+/* Intel EDP backlight callbacks */
-+static bool
-+intel_dp_aux_supports_hdr_backlight(struct intel_connector *connector)
-+{
-+	struct drm_i915_private *i915 = to_i915(connector->base.dev);
-+	struct intel_dp *intel_dp = enc_to_intel_dp(connector->encoder);
-+	struct drm_dp_aux *aux = &intel_dp->aux;
-+	struct intel_panel *panel = &connector->panel;
-+	int ret;
-+	u8 tcon_cap[4];
-+
-+	ret = drm_dp_dpcd_read(aux, INTEL_EDP_HDR_TCON_CAP0, tcon_cap, sizeof(tcon_cap));
-+	if (ret < 0)
-+		return false;
-+
-+	if (!(tcon_cap[1] & INTEL_EDP_HDR_TCON_BRIGHTNESS_NITS_CAP))
-+		return false;
-+
-+	if (tcon_cap[0] >= 1) {
-+		drm_dbg_kms(&i915->drm, "Detected Intel HDR backlight interface version %d\n",
-+			    tcon_cap[0]);
-+	} else {
-+		drm_dbg_kms(&i915->drm, "Detected unsupported HDR backlight interface version %d\n",
-+			    tcon_cap[0]);
-+		return false;
-+	}
-+
-+	panel->backlight.edp.intel.sdr_uses_aux =
-+		tcon_cap[2] & INTEL_EDP_SDR_TCON_BRIGHTNESS_AUX_CAP;
-+
-+	return true;
-+}
-+
-+static u32
-+intel_dp_aux_hdr_get_backlight(struct intel_connector *connector)
-+{
-+	struct drm_i915_private *i915 = to_i915(connector->base.dev);
-+	struct intel_panel *panel = &connector->panel;
-+	struct intel_dp *intel_dp = enc_to_intel_dp(connector->encoder);
-+	u8 tmp;
-+	u8 buf[2] = { 0 };
-+
-+	if (drm_dp_dpcd_readb(&intel_dp->aux, INTEL_EDP_HDR_GETSET_CTRL_PARAMS, &tmp) < 0) {
-+		drm_err(&i915->drm, "Failed to read current backlight mode from DPCD\n");
-+		return 0;
-+	}
-+
-+	if (!(tmp & INTEL_EDP_HDR_TCON_BRIGHTNESS_AUX_ENABLE)) {
-+		if (!panel->backlight.edp.intel.sdr_uses_aux) {
-+			u32 pwm_level = panel->backlight.pwm_funcs->get(connector);
-+
-+			return intel_panel_backlight_level_from_pwm(connector, pwm_level);
-+		}
-+
-+		/* Assume 100% brightness if backlight controls aren't enabled yet */
-+		return panel->backlight.max;
-+	}
-+
-+	if (drm_dp_dpcd_read(&intel_dp->aux, INTEL_EDP_BRIGHTNESS_NITS_LSB, buf, sizeof(buf)) < 0) {
-+		drm_err(&i915->drm, "Failed to read brightness from DPCD\n");
-+		return 0;
-+	}
-+
-+	return (buf[1] << 8 | buf[0]);
-+}
-+
-+static void
-+intel_dp_aux_hdr_set_aux_backlight(const struct drm_connector_state *conn_state, u32 level)
-+{
-+	struct intel_connector *connector = to_intel_connector(conn_state->connector);
-+	struct drm_device *dev = connector->base.dev;
-+	struct intel_dp *intel_dp = enc_to_intel_dp(connector->encoder);
-+	u8 buf[4] = { 0 };
-+
-+	buf[0] = level & 0xFF;
-+	buf[1] = (level & 0xFF00) >> 8;
-+
-+	if (drm_dp_dpcd_write(&intel_dp->aux, INTEL_EDP_BRIGHTNESS_NITS_LSB, buf, 4) < 0)
-+		drm_err(dev, "Failed to write brightness level to DPCD\n");
-+}
-+
-+static void
-+intel_dp_aux_hdr_set_backlight(const struct drm_connector_state *conn_state, u32 level)
-+{
-+	struct intel_connector *connector = to_intel_connector(conn_state->connector);
-+	struct intel_panel *panel = &connector->panel;
-+
-+	if (panel->backlight.edp.intel.sdr_uses_aux) {
-+		intel_dp_aux_hdr_set_aux_backlight(conn_state, level);
-+	} else {
-+		const u32 pwm_level = intel_panel_backlight_level_to_pwm(connector, level);
-+
-+		intel_panel_set_pwm_level(conn_state, pwm_level);
-+	}
-+}
-+
-+static void
-+intel_dp_aux_hdr_enable_backlight(const struct intel_crtc_state *crtc_state,
-+				  const struct drm_connector_state *conn_state, u32 level)
-+{
-+	struct intel_connector *connector = to_intel_connector(conn_state->connector);
-+	struct intel_panel *panel = &connector->panel;
-+	struct drm_i915_private *i915 = to_i915(connector->base.dev);
-+	struct intel_dp *intel_dp = enc_to_intel_dp(connector->encoder);
-+	int ret;
-+	u8 old_ctrl, ctrl;
-+
-+	ret = drm_dp_dpcd_readb(&intel_dp->aux, INTEL_EDP_HDR_GETSET_CTRL_PARAMS, &old_ctrl);
-+	if (ret < 0) {
-+		drm_err(&i915->drm, "Failed to read current backlight control mode: %d\n", ret);
-+		return;
-+	}
-+
-+	ctrl = old_ctrl;
-+	if (panel->backlight.edp.intel.sdr_uses_aux) {
-+		ctrl |= INTEL_EDP_HDR_TCON_BRIGHTNESS_AUX_ENABLE;
-+		intel_dp_aux_hdr_set_aux_backlight(conn_state, level);
-+	} else {
-+		u32 pwm_level = intel_panel_backlight_level_to_pwm(connector, level);
-+
-+		panel->backlight.pwm_funcs->enable(crtc_state, conn_state, pwm_level);
-+
-+		ctrl &= ~INTEL_EDP_HDR_TCON_BRIGHTNESS_AUX_ENABLE;
-+	}
-+
-+	if (ctrl != old_ctrl)
-+		if (drm_dp_dpcd_writeb(&intel_dp->aux, INTEL_EDP_HDR_GETSET_CTRL_PARAMS, ctrl) < 0)
-+			drm_err(&i915->drm, "Failed to configure DPCD brightness controls\n");
-+}
-+
-+static void
-+intel_dp_aux_hdr_disable_backlight(const struct drm_connector_state *conn_state, u32 level)
-+{
-+	struct intel_connector *connector = to_intel_connector(conn_state->connector);
-+	struct intel_panel *panel = &connector->panel;
-+
-+	/* Nothing to do for AUX based backlight controls */
-+	if (panel->backlight.edp.intel.sdr_uses_aux)
-+		return;
-+
-+	/* Note we want the actual pwm_level to be 0, regardless of pwm_min */
-+	panel->backlight.pwm_funcs->disable(conn_state,
-+					    intel_panel_sanitize_pwm_level(connector, 0));
-+}
-+
-+static int
-+intel_dp_aux_hdr_setup_backlight(struct intel_connector *connector, enum pipe pipe)
-+{
-+	struct drm_i915_private *i915 = to_i915(connector->base.dev);
-+	struct intel_panel *panel = &connector->panel;
-+	int ret;
-+
-+	if (panel->backlight.edp.intel.sdr_uses_aux) {
-+		drm_dbg_kms(&i915->drm, "SDR backlight is controlled through DPCD\n");
-+	} else {
-+		drm_dbg_kms(&i915->drm, "SDR backlight is controlled through PWM\n");
-+
-+		ret = panel->backlight.pwm_funcs->setup(connector, pipe);
-+		if (ret < 0) {
-+			drm_err(&i915->drm,
-+				"Failed to setup SDR backlight controls through PWM: %d\n", ret);
-+			return ret;
-+		}
-+	}
-+
-+	panel->backlight.max = 512;
-+	panel->backlight.min = 0;
-+	panel->backlight.level = intel_dp_aux_hdr_get_backlight(connector);
-+	panel->backlight.enabled = panel->backlight.level != 0;
-+
-+	return 0;
-+}
-+
- /* VESA backlight callbacks */
- static void set_vesa_backlight_enable(struct intel_dp *intel_dp, bool enable)
- {
-@@ -195,7 +386,7 @@ static bool intel_dp_aux_vesa_set_pwm_freq(struct intel_connector *connector)
- {
- 	struct drm_i915_private *dev_priv = to_i915(connector->base.dev);
- 	struct intel_dp *intel_dp = intel_attached_dp(connector);
--	const u8 pn = connector->panel.backlight.pwmgen_bit_count;
-+	const u8 pn = connector->panel.backlight.edp.vesa.pwmgen_bit_count;
- 	int freq, fxp, f, fxp_actual, fxp_min, fxp_max;
- 
- 	freq = dev_priv->vbt.backlight.pwm_freq_hz;
-@@ -236,6 +427,7 @@ intel_dp_aux_vesa_enable_backlight(const struct intel_crtc_state *crtc_state,
- 	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
- 	struct intel_panel *panel = &connector->panel;
- 	u8 dpcd_buf, new_dpcd_buf, edp_backlight_mode;
-+	u8 pwmgen_bit_count = panel->backlight.edp.vesa.pwmgen_bit_count;
- 
- 	if (drm_dp_dpcd_readb(&intel_dp->aux,
- 			DP_EDP_BACKLIGHT_MODE_SET_REGISTER, &dpcd_buf) != 1) {
-@@ -256,7 +448,7 @@ intel_dp_aux_vesa_enable_backlight(const struct intel_crtc_state *crtc_state,
- 
- 		if (drm_dp_dpcd_writeb(&intel_dp->aux,
- 				       DP_EDP_PWMGEN_BIT_COUNT,
--				       panel->backlight.pwmgen_bit_count) < 0)
-+				       pwmgen_bit_count) < 0)
- 			drm_dbg_kms(&i915->drm,
- 				    "Failed to write aux pwmgen bit count\n");
- 
-@@ -364,7 +556,7 @@ static u32 intel_dp_aux_vesa_calc_max_backlight(struct intel_connector *connecto
- 			    "Failed to write aux pwmgen bit count\n");
- 		return max_backlight;
- 	}
--	panel->backlight.pwmgen_bit_count = pn;
-+	panel->backlight.edp.vesa.pwmgen_bit_count = pn;
- 
- 	max_backlight = (1 << pn) - 1;
- 
-@@ -405,6 +597,14 @@ intel_dp_aux_supports_vesa_backlight(struct intel_connector *connector)
- 	return false;
- }
- 
-+static const struct intel_panel_bl_funcs intel_dp_hdr_bl_funcs = {
-+	.setup = intel_dp_aux_hdr_setup_backlight,
-+	.enable = intel_dp_aux_hdr_enable_backlight,
-+	.disable = intel_dp_aux_hdr_disable_backlight,
-+	.set = intel_dp_aux_hdr_set_backlight,
-+	.get = intel_dp_aux_hdr_get_backlight,
-+};
-+
- static const struct intel_panel_bl_funcs intel_dp_vesa_bl_funcs = {
- 	.setup = intel_dp_aux_vesa_setup_backlight,
- 	.enable = intel_dp_aux_vesa_enable_backlight,
-@@ -413,36 +613,34 @@ static const struct intel_panel_bl_funcs intel_dp_vesa_bl_funcs = {
- 	.get = intel_dp_aux_vesa_get_backlight,
- };
- 
--int intel_dp_aux_init_backlight_funcs(struct intel_connector *intel_connector)
-+int intel_dp_aux_init_backlight_funcs(struct intel_connector *connector)
- {
--	struct intel_panel *panel = &intel_connector->panel;
--	struct intel_dp *intel_dp = enc_to_intel_dp(intel_connector->encoder);
-+	struct drm_device *dev = connector->base.dev;
-+	struct intel_panel *panel = &connector->panel;
-+	struct intel_dp *intel_dp = enc_to_intel_dp(connector->encoder);
- 	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
- 
--	if (i915->params.enable_dpcd_backlight == 0 ||
--	    !intel_dp_aux_supports_vesa_backlight(intel_connector))
-+	if (i915->params.enable_dpcd_backlight == 0)
- 		return -ENODEV;
- 
- 	/*
--	 * There are a lot of machines that don't advertise the backlight
--	 * control interface to use properly in their VBIOS, :\
-+	 * A lot of eDP panels in the wild will report supporting both the
-+	 * Intel proprietary backlight control interface, and the VESA
-+	 * backlight control interface. Many of these panels are liars though,
-+	 * and will only work with the Intel interface. So, always probe for
-+	 * that first.
- 	 */
--	if (i915->vbt.backlight.type !=
--	    INTEL_BACKLIGHT_VESA_EDP_AUX_INTERFACE &&
--	    i915->params.enable_dpcd_backlight != 1 &&
--	    !drm_dp_has_quirk(&intel_dp->desc, intel_dp->edid_quirks,
--			      DP_QUIRK_FORCE_DPCD_BACKLIGHT)) {
--		drm_info(&i915->drm,
--			 "Panel advertises DPCD backlight support, but "
--			 "VBT disagrees. If your backlight controls "
--			 "don't work try booting with "
--			 "i915.enable_dpcd_backlight=1. If your machine "
--			 "needs this, please file a _new_ bug report on "
--			 "drm/i915, see " FDO_BUG_URL " for details.\n");
--		return -ENODEV;
-+	if (intel_dp_aux_supports_hdr_backlight(connector)) {
-+		drm_dbg_kms(dev, "Using Intel proprietary eDP backlight controls\n");
-+		panel->backlight.funcs = &intel_dp_hdr_bl_funcs;
-+		return 0;
+ 	if (HAS_PCH_SPLIT(dev_priv) && !HAS_DDI(dev_priv) && port != PORT_A)
+@@ -7007,7 +7005,6 @@ intel_dp_set_edid(struct intel_dp *intel_dp)
  	}
  
--	panel->backlight.funcs = &intel_dp_vesa_bl_funcs;
-+	if (intel_dp_aux_supports_vesa_backlight(connector)) {
-+		drm_dbg_kms(dev, "Using VESA eDP backlight controls\n");
-+		panel->backlight.funcs = &intel_dp_vesa_bl_funcs;
-+		return 0;
-+	}
- 
--	return 0;
-+	return -ENODEV;
- }
-diff --git a/drivers/gpu/drm/i915/display/intel_panel.c b/drivers/gpu/drm/i915/display/intel_panel.c
-index 8c99bf404a32..f4f3abac3ee4 100644
---- a/drivers/gpu/drm/i915/display/intel_panel.c
-+++ b/drivers/gpu/drm/i915/display/intel_panel.c
-@@ -511,7 +511,7 @@ static u32 scale_hw_to_user(struct intel_connector *connector,
- 		     0, user_max);
+ 	drm_dp_cec_set_edid(&intel_dp->aux, edid);
+-	intel_dp->edid_quirks = drm_dp_get_edid_quirks(edid);
  }
  
--static u32 intel_panel_sanitize_pwm_level(struct intel_connector *connector, u32 val)
-+u32 intel_panel_sanitize_pwm_level(struct intel_connector *connector, u32 val)
- {
- 	struct drm_i915_private *dev_priv = to_i915(connector->base.dev);
- 	struct intel_panel *panel = &connector->panel;
-@@ -529,7 +529,7 @@ static u32 intel_panel_sanitize_pwm_level(struct intel_connector *connector, u32
- 	return val;
- }
+ static void
+@@ -7021,7 +7018,6 @@ intel_dp_unset_edid(struct intel_dp *intel_dp)
  
--static void intel_panel_set_pwm_level(const struct drm_connector_state *conn_state, u32 val)
-+void intel_panel_set_pwm_level(const struct drm_connector_state *conn_state, u32 val)
- {
- 	struct intel_connector *connector = to_intel_connector(conn_state->connector);
+ 	intel_dp->has_hdmi_sink = false;
+ 	intel_dp->has_audio = false;
+-	intel_dp->edid_quirks = 0;
+ 
+ 	intel_dp->dfp.max_bpc = 0;
+ 	intel_dp->dfp.max_dotclock = 0;
+@@ -8425,7 +8421,6 @@ static bool intel_edp_init_connector(struct intel_dp *intel_dp,
+ 	if (edid) {
+ 		if (drm_add_edid_modes(connector, edid)) {
+ 			drm_connector_update_edid_property(connector, edid);
+-			intel_dp->edid_quirks = drm_dp_get_edid_quirks(edid);
+ 		} else {
+ 			kfree(edid);
+ 			edid = ERR_PTR(-EINVAL);
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+index 27f04aed8764..3e7bbf8d6620 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+@@ -53,8 +53,7 @@ static int intel_dp_mst_compute_link_config(struct intel_encoder *encoder,
  	struct drm_i915_private *i915 = to_i915(connector->base.dev);
-@@ -539,6 +539,36 @@ static void intel_panel_set_pwm_level(const struct drm_connector_state *conn_sta
- 	panel->backlight.pwm_funcs->set(conn_state, val);
- }
+ 	const struct drm_display_mode *adjusted_mode =
+ 		&crtc_state->hw.adjusted_mode;
+-	bool constant_n = drm_dp_has_quirk(&intel_dp->desc, 0,
+-					   DP_DPCD_QUIRK_CONSTANT_N);
++	bool constant_n = drm_dp_has_quirk(&intel_dp->desc, DP_DPCD_QUIRK_CONSTANT_N);
+ 	int bpp, slots = -EINVAL;
  
-+u32 intel_panel_backlight_level_to_pwm(struct intel_connector *connector, u32 val)
-+{
-+	struct drm_i915_private *dev_priv = to_i915(connector->base.dev);
-+	struct intel_panel *panel = &connector->panel;
-+
-+	drm_WARN_ON_ONCE(&dev_priv->drm,
-+			 panel->backlight.max == 0 || panel->backlight.pwm_level_max == 0);
-+
-+	val = scale(val, panel->backlight.min, panel->backlight.max,
-+		    panel->backlight.pwm_level_min, panel->backlight.pwm_level_max);
-+
-+	return intel_panel_sanitize_pwm_level(connector, val);
-+}
-+
-+u32 intel_panel_backlight_level_from_pwm(struct intel_connector *connector, u32 val)
-+{
-+	struct drm_i915_private *dev_priv = to_i915(connector->base.dev);
-+	struct intel_panel *panel = &connector->panel;
-+
-+	drm_WARN_ON_ONCE(&dev_priv->drm,
-+			 panel->backlight.max == 0 || panel->backlight.pwm_level_max == 0);
-+
-+	if (dev_priv->params.invert_brightness > 0 ||
-+	    (dev_priv->params.invert_brightness == 0 && dev_priv->quirks & QUIRK_INVERT_BRIGHTNESS))
-+		val = panel->backlight.pwm_level_max - (val - panel->backlight.pwm_level_min);
-+
-+	return scale(val, panel->backlight.pwm_level_min, panel->backlight.pwm_level_max,
-+		     panel->backlight.min, panel->backlight.max);
-+}
-+
- static u32 lpt_get_backlight(struct intel_connector *connector)
- {
- 	struct drm_i915_private *dev_priv = to_i915(connector->base.dev);
-@@ -2133,10 +2163,6 @@ intel_panel_init_backlight_funcs(struct intel_panel *panel)
- 		container_of(panel, struct intel_connector, panel);
- 	struct drm_i915_private *dev_priv = to_i915(connector->base.dev);
+ 	crtc_state->lane_count = limits->max_lane_count;
+diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
+index c24ae69426cf..1e6c1fa59d4a 100644
+--- a/drivers/gpu/drm/i915/display/intel_psr.c
++++ b/drivers/gpu/drm/i915/display/intel_psr.c
+@@ -305,7 +305,7 @@ void intel_psr_init_dpcd(struct intel_dp *intel_dp)
+ 	drm_dbg_kms(&dev_priv->drm, "eDP panel supports PSR version %x\n",
+ 		    intel_dp->psr_dpcd[0]);
  
--	if (connector->base.connector_type == DRM_MODE_CONNECTOR_eDP &&
--	    intel_dp_aux_init_backlight_funcs(connector) == 0)
--		return;
--
- 	if (connector->base.connector_type == DRM_MODE_CONNECTOR_DSI &&
- 	    intel_dsi_dcs_init_backlight_funcs(connector) == 0)
+-	if (drm_dp_has_quirk(&intel_dp->desc, 0, DP_DPCD_QUIRK_NO_PSR)) {
++	if (drm_dp_has_quirk(&intel_dp->desc, DP_DPCD_QUIRK_NO_PSR)) {
+ 		drm_dbg_kms(&dev_priv->drm,
+ 			    "PSR support not currently available for this panel\n");
  		return;
-@@ -2164,6 +2190,10 @@ intel_panel_init_backlight_funcs(struct intel_panel *panel)
- 		panel->backlight.pwm_funcs = &i9xx_pwm_funcs;
- 	}
+diff --git a/include/drm/drm_dp_helper.h b/include/drm/drm_dp_helper.h
+index 6236f212da61..edffd1dcca3e 100644
+--- a/include/drm/drm_dp_helper.h
++++ b/include/drm/drm_dp_helper.h
+@@ -2029,16 +2029,13 @@ struct drm_dp_desc {
  
-+	if (connector->base.connector_type == DRM_MODE_CONNECTOR_eDP &&
-+	    intel_dp_aux_init_backlight_funcs(connector) == 0)
-+		return;
-+
- 	/* We're using a standard PWM backlight interface */
- 	panel->backlight.funcs = &pwm_bl_funcs;
+ int drm_dp_read_desc(struct drm_dp_aux *aux, struct drm_dp_desc *desc,
+ 		     bool is_branch);
+-u32 drm_dp_get_edid_quirks(const struct edid *edid);
+ 
+ /**
+  * enum drm_dp_quirk - Display Port sink/branch device specific quirks
+  *
+  * Display Port sink and branch devices in the wild have a variety of bugs, try
+  * to collect them here. The quirks are shared, but it's up to the drivers to
+- * implement workarounds for them. Note that because some devices have
+- * unreliable OUIDs, the EDID of sinks should also be checked for quirks using
+- * drm_dp_get_edid_quirks().
++ * implement workarounds for them.
+  */
+ enum drm_dp_quirk {
+ 	/**
+@@ -2070,16 +2067,6 @@ enum drm_dp_quirk {
+ 	 * The DSC caps can be read from the physical aux instead.
+ 	 */
+ 	DP_DPCD_QUIRK_DSC_WITHOUT_VIRTUAL_DPCD,
+-	/**
+-	 * @DP_QUIRK_FORCE_DPCD_BACKLIGHT:
+-	 *
+-	 * The device is telling the truth when it says that it uses DPCD
+-	 * backlight controls, even if the system's firmware disagrees. This
+-	 * quirk should be checked against both the ident and panel EDID.
+-	 * When present, the driver should honor the DPCD backlight
+-	 * capabilities advertised.
+-	 */
+-	DP_QUIRK_FORCE_DPCD_BACKLIGHT,
+ 	/**
+ 	 * @DP_DPCD_QUIRK_CAN_DO_MAX_LINK_RATE_3_24_GBPS:
+ 	 *
+@@ -2092,16 +2079,14 @@ enum drm_dp_quirk {
+ /**
+  * drm_dp_has_quirk() - does the DP device have a specific quirk
+  * @desc: Device descriptor filled by drm_dp_read_desc()
+- * @edid_quirks: Optional quirk bitmask filled by drm_dp_get_edid_quirks()
+  * @quirk: Quirk to query for
+  *
+  * Return true if DP device identified by @desc has @quirk.
+  */
+ static inline bool
+-drm_dp_has_quirk(const struct drm_dp_desc *desc, u32 edid_quirks,
+-		 enum drm_dp_quirk quirk)
++drm_dp_has_quirk(const struct drm_dp_desc *desc, enum drm_dp_quirk quirk)
+ {
+-	return (desc->quirks | edid_quirks) & BIT(quirk);
++	return desc->quirks & BIT(quirk);
  }
-diff --git a/drivers/gpu/drm/i915/display/intel_panel.h b/drivers/gpu/drm/i915/display/intel_panel.h
-index 5b813fe90557..a548347a975f 100644
---- a/drivers/gpu/drm/i915/display/intel_panel.h
-+++ b/drivers/gpu/drm/i915/display/intel_panel.h
-@@ -49,6 +49,10 @@ struct drm_display_mode *
- intel_panel_edid_fixed_mode(struct intel_connector *connector);
- struct drm_display_mode *
- intel_panel_vbt_fixed_mode(struct intel_connector *connector);
-+void intel_panel_set_pwm_level(const struct drm_connector_state *conn_state, u32 level);
-+u32 intel_panel_sanitize_pwm_level(struct intel_connector *connector, u32 level);
-+u32 intel_panel_backlight_level_to_pwm(struct intel_connector *connector, u32 level);
-+u32 intel_panel_backlight_level_from_pwm(struct intel_connector *connector, u32 val);
  
- #if IS_ENABLED(CONFIG_BACKLIGHT_CLASS_DEVICE)
- int intel_backlight_device_register(struct intel_connector *connector);
+ #ifdef CONFIG_DRM_DP_CEC
 -- 
 2.29.2
 
