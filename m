@@ -2,52 +2,51 @@ Return-Path: <SRS0=BkXb=GK=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AC42EC433E6
-	for <intel-gfx@archiver.kernel.org>; Thu,  7 Jan 2021 17:15:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7AA10C433E6
+	for <intel-gfx@archiver.kernel.org>; Thu,  7 Jan 2021 17:28:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6C21122C9F
-	for <intel-gfx@archiver.kernel.org>; Thu,  7 Jan 2021 17:15:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6C21122C9F
+	by mail.kernel.org (Postfix) with ESMTPS id 13F6D233CE
+	for <intel-gfx@archiver.kernel.org>; Thu,  7 Jan 2021 17:28:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 13F6D233CE
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E1A9D6E46B;
-	Thu,  7 Jan 2021 17:15:58 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 061CE6E46B
- for <intel-gfx@lists.freedesktop.org>; Thu,  7 Jan 2021 17:15:57 +0000 (UTC)
-IronPort-SDR: 3IvoqCzZn87MSoccHeXgn8AZDaxL0AJ5ANPj45n3Ye8Gno5hLPXvmqEMLymH+auAkf8+luT6o0
- RNlZhCYMonvQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9857"; a="174880919"
-X-IronPort-AV: E=Sophos;i="5.79,329,1602572400"; d="scan'208";a="174880919"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Jan 2021 09:15:57 -0800
-IronPort-SDR: QcLjuau2QSFoI1Hzm5B8ZfSnr4z5nFfbQpHHw96WCUKOOLM69o5eQs2YL0GooPhiQaPLokKINJ
- opWg+MOrAfgg==
-X-IronPort-AV: E=Sophos;i="5.79,329,1602572400"; d="scan'208";a="362038798"
-Received: from unknown (HELO sdutt-i7) ([10.165.21.147])
- by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Jan 2021 09:15:56 -0800
-Date: Thu, 7 Jan 2021 09:10:35 -0800
-From: Matthew Brost <matthew.brost@intel.com>
-To: Chris Wilson <chris@chris-wilson.co.uk>
-Message-ID: <20210107171035.GA9023@sdutt-i7>
-References: <20201229120145.26045-1-chris@chris-wilson.co.uk>
- <20201229120145.26045-36-chris@chris-wilson.co.uk>
- <20210107160507.GA31817@sdutt-i7>
- <161003793126.28368.13767958122371874524@build.alporthouse.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 661D26E4B7;
+	Thu,  7 Jan 2021 17:28:34 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5E5CE6E4B7
+ for <intel-gfx@lists.freedesktop.org>; Thu,  7 Jan 2021 17:28:33 +0000 (UTC)
+IronPort-SDR: OUsHQdC9cdUBlWJobONn4r3VInwbhsnc23ivh92l4zzgMkizaGefSec/jS6YxRRm5Qh68/c4FD
+ UJP+UJYWcw5g==
+X-IronPort-AV: E=McAfee;i="6000,8403,9857"; a="165155107"
+X-IronPort-AV: E=Sophos;i="5.79,329,1602572400"; d="scan'208";a="165155107"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Jan 2021 09:28:32 -0800
+IronPort-SDR: FUhAkRmVUG+tNcn3/t08AR56NYt4ggSbkkCFxIvobEJaD0m8krGOBZDIw7xMdaxKjy+QA3slPB
+ nzgd1Mg4EsLg==
+X-IronPort-AV: E=Sophos;i="5.79,329,1602572400"; d="scan'208";a="422651383"
+Received: from muhymini-mobl.amr.corp.intel.com (HELO localhost)
+ ([10.213.207.83])
+ by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Jan 2021 09:28:30 -0800
+From: Jani Nikula <jani.nikula@intel.com>
+To: Saichandana S <saichandana.s@intel.com>, intel-gfx@lists.freedesktop.org
+In-Reply-To: <20210104103036.1443-1-saichandana.s@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20210104103036.1443-1-saichandana.s@intel.com>
+Date: Thu, 07 Jan 2021 19:28:27 +0200
+Message-ID: <87sg7czmf8.fsf@intel.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <161003793126.28368.13767958122371874524@build.alporthouse.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Subject: Re: [Intel-gfx] [PATCH 36/56] drm/i915: Fair low-latency scheduling
+Subject: Re: [Intel-gfx] [PATCH v2] drm/i915/debugfs : PM_REQ and PM_RES
+ registers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,136 +59,122 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org
+Cc: saichandana.s@intel.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jan 07, 2021 at 04:45:31PM +0000, Chris Wilson wrote:
-> Quoting Matthew Brost (2021-01-07 16:05:07)
-> > On Tue, Dec 29, 2020 at 12:01:25PM +0000, Chris Wilson wrote:
-> > > The first "scheduler" was a topographical sorting of requests into
-> > > priority order. The execution order was deterministic, the earliest
-> > > submitted, highest priority request would be executed first. Priority
-> > > inheritance ensured that inversions were kept at bay, and allowed us to
-> > > dynamically boost priorities (e.g. for interactive pageflips).
-> > > 
-> > > The minimalistic timeslicing scheme was an attempt to introduce fairness
-> > > between long running requests, by evicting the active request at the end
-> > > of a timeslice and moving it to the back of its priority queue (while
-> > > ensuring that dependencies were kept in order). For short running
-> > > requests from many clients of equal priority, the scheme is still very
-> > > much FIFO submission ordering, and as unfair as before.
-> > > 
-> > > To impose fairness, we need an external metric that ensures that clients
-> > > are interpersed, so we don't execute one long chain from client A before
-> > > executing any of client B. This could be imposed by the clients
-> > > themselves by using fences based on an external clock, that is they only
-> > > submit work for a "frame" at frame-intervals, instead of submitting as
-> > > much work as they are able to. The standard SwapBuffers approach is akin
-> > > to double bufferring, where as one frame is being executed, the next is
-> > > being submitted, such that there is always a maximum of two frames per
-> > > client in the pipeline and so ideally maintains consistent input-output
-> > > latency. Even this scheme exhibits unfairness under load as a single
-> > > client will execute two frames back to back before the next, and with
-> > > enough clients, deadlines will be missed.
-> > > 
-> > > The idea introduced by BFS/MuQSS is that fairness is introduced by
-> > > metering with an external clock. Every request, when it becomes ready to
-> > > execute is assigned a virtual deadline, and execution order is then
-> > > determined by earliest deadline. Priority is used as a hint, rather than
-> > > strict ordering, where high priority requests have earlier deadlines,
-> > > but not necessarily earlier than outstanding work. Thus work is executed
-> > > in order of 'readiness', with timeslicing to demote long running work.
-> > > 
-> > > The Achille's heel of this scheduler is its strong preference for
-> > > low-latency and favouring of new queues. Whereas it was easy to dominate
-> > > the old scheduler by flooding it with many requests over a short period
-> > > of time, the new scheduler can be dominated by a 'synchronous' client
-> > > that waits for each of its requests to complete before submitting the
-> > > next. As such a client has no history, it is always considered
-> > > ready-to-run and receives an earlier deadline than the long running
-> > > requests. This is compensated for by refreshing the current execution's
-> > > deadline and by disallowing preemption for timeslice shuffling.
-> > > 
-> > > To check the impact on throughput (often the downfall of latency
-> > > sensitive schedulers), we used gem_wsim to simulate various transcode
-> > > workloads with different load balancers, and varying the number of
-> > > competing [heterogenous] clients.
-> > > 
-> > > +delta%------------------------------------------------------------------+
-> > > |                                a                                       |
-> > > |                                a                                       |
-> > > |                                aa                                      |
-> > > |                                aa                                      |
-> > > |                                aa                                      |
-> > > |                                aa                                      |
-> > > |                               aaa                                      |
-> > > |                              aaaa                                      |
-> > > |                           a  aaaaa                                     |
-> > > |                           a aaaaaa                                     |
-> > > |a              aa   a      aaaaaaaaaa aa               a               a|
-> > > |                                A_|                                     |
-> > > +------------------------------------------------------------------------+
-> > >    N          Min           Max        Median           Avg        Stddev
-> > >  108   -23.982194     28.421527  -0.077474828  -0.072650418    0.16179718
-> > > 
-> > > The impact was on average 0.1% under contention due to the change in
-> > > context execution order and number of context switches. The biggest
-> > > swings are due to the execution ordering favouring one client or another,
-> > > and maybe room for improvement.
-> > > 
-> > 
-> > I haven't dug into this series deeply but it does seem plausible for
-> > execlist submission. However this new scheduler seems completely broken
-> > for Guc submission.
-> 
-> Underneath it's the same topological sort, just with a different key.
-> At worst, that key can be the plain priority again. But that's pretty
-> much immaterial in terms of deciding the order which requests are
-> transferred from one queue to another. Execution order wants to be based
-> on resource prioritisation (beyond request priorisation), ideally we
-> would keep our fine grained scheduling control.
-> 
-
-So maybe just hook for the key?
-
-> I'm not convinced by the state of the fw's scheduler...
+On Mon, 04 Jan 2021, Saichandana S <saichandana.s@intel.com> wrote:
+> From: Saichandana <saichandana.s@intel.com>
 >
-
-Can't really argue here, but I think it would be really helpful if you
-raised your concerns with the fw team so that can be addressed.
- 
-> > The scheduler really isn't used that much with GuC
-> > submission but when it is the old one works perfectly. The vfunc for
-> > the scheduler is deleted in patch #25. I don't think that is good idea
-> > as it appears we are trending to 2 separate schedulers.
-> 
-> You still use the i915_request_set_priority() entry point as the
-> caller into the backend bypass.
+> PM_REQ register provides the value of the last PM request from PCU to
+> Display Engine.PM_RES register provides the value of the last PM
+> response from Display Engine to PCU.This debugfs will be used by
+> DC9 IGT test to know about "DC9 Ready" status.
 >
-
-I thought we want to avoid backend specific branches, hence vfuncs.
-
-> Isn't the current guc.fw a second closed driver for the same HW anyway?
+> B.Spec : 49501, 49502
 >
+> Signed-off-by: Saichandana <saichandana.s@intel.com>
+> ---
+>  .../drm/i915/display/intel_display_debugfs.c  | 30 +++++++++++++++++++
+>  drivers/gpu/drm/i915/i915_reg.h               |  8 +++++
+>  2 files changed, 38 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/i915/display/intel_display_debugfs.c b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+> index cd7e5519ee7d..551fb1a90bb3 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+> +++ b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+> @@ -559,6 +559,36 @@ static int i915_dmc_info(struct seq_file *m, void *unused)
+>  	return 0;
+>  }
+>  
+> +static int i915_pm_req_res_info(struct seq_file *m, void *unused)
+> +{
+> +	struct drm_i915_private *dev_priv = node_to_i915(m->private);
 
-Not sure I follow this.
- 
-> > Lastly this series seems to be on the wrong list, I believe it should be
-> > posted elsewhere first.
-> 
-> It's the right place for upstreaming bug fixes on stable platforms. And
-> after a year of being here, that's a moot point.
+All new code should call the local variable "i915".
 
-Wow, I feel your pain if this has been out here for a year. But still it
-is wrong place. I can help and will help with the reviews if it is in
-the correct spot.
+> +	struct intel_csr *csr = &dev_priv->csr;
+> +	const char *status;
+> +
+> +	if (!HAS_CSR(dev_priv))
+> +		return -ENODEV;
+> +	if (!csr->dmc_payload)
+> +		return 0;
+> +	seq_printf(m, "PM debug request 0 (0x45284): 0x%08x\n",
+> +		   intel_de_read(dev_priv, PM_REQ_DBG_0));
+> +	seq_printf(m, "PM debug request 1 (0x45288): 0x%08x\n",
+> +		   intel_de_read(dev_priv, PM_REQ_DBG_1));
+> +	seq_printf(m, "PM debug response 0 (0x4528C): 0x%08x\n",
+> +		   intel_de_read(dev_priv, PM_RSP_DBG_0));
+> +	seq_printf(m, "PM debug response 1 (0x45290): 0x%08x\n",
+> +		   intel_de_read(dev_priv, PM_RSP_DBG_1));
 
-Matt
+Like I said before [1], do *not* dump the registers. We have userspace
+tools for dumping register contents as-is when you need that for debug
+purposes. And even the userspace tool can do some register content
+parsing. See tools/intel_reg in igt.
 
-> -Chris
+The only reason to have a debugfs file is to provide some other, added
+value that a register dump can't provide.
+
+[1] http://lore.kernel.org/r/87mtyl8vpu.fsf@intel.com
+
+> +	status = (intel_de_read(dev_priv, PM_RSP_DBG_1) & MASK_DC9_BIT) ? "yes" : "no";
+
+See yesno() in i915_utils.h. You probably don't want the local variable
+for the string.
+
+> +
+> +	seq_printf(m, "Time to Next Fill = 0x%0x\n",
+> +		   (intel_de_read(dev_priv, PM_RSP_DBG_0) & ~MASK_RSP_0));
+> +	seq_printf(m, "Time to Next VBI = 0x%0x\n",
+> +		   ((intel_de_read(dev_priv, PM_RSP_DBG_0) & MASK_RSP_0)) >> 16);
+> +	seq_printf(m, "Selective Exit Latency = 0x%0x\n",
+> +		   (intel_de_read(dev_priv, PM_RSP_DBG_1) & MASK_RSP_1));
+
+There's a bunch of unnecessary parenthesis around the 3rd parameter to
+seq_printf.
+
+> +	seq_printf(m, "DC9 Ready = %s\n", status);
+> +	return 0;
+> +}
+> +
+>  static void intel_seq_print_mode(struct seq_file *m, int tabs,
+>  				 const struct drm_display_mode *mode)
+>  {
+> diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+> index 0023c023f472..3e9ed555f928 100644
+> --- a/drivers/gpu/drm/i915/i915_reg.h
+> +++ b/drivers/gpu/drm/i915/i915_reg.h
+> @@ -371,6 +371,14 @@ static inline bool i915_mmio_reg_valid(i915_reg_t reg)
+>  #define VLV_G3DCTL		_MMIO(0x9024)
+>  #define VLV_GSCKGCTL		_MMIO(0x9028)
+>  
+> +#define PM_REQ_DBG_0		_MMIO(0x45284)
+> +#define PM_REQ_DBG_1		_MMIO(0x45288)
+> +#define PM_RSP_DBG_0		_MMIO(0x4528C)
+> +#define PM_RSP_DBG_1		_MMIO(0x45290)
+> +#define MASK_RSP_0		(0xFFFF << 16)
+> +#define MASK_RSP_1		(7 << 0)
+> +#define MASK_DC9_BIT		(1 << 17)
+
+This is a random location in i915_reg.h, out of place.
+
+Please also read the big comment near the top of this file.
+
+BR,
+Jani.
+
+
+> +
+>  #define GEN6_MBCTL		_MMIO(0x0907c)
+>  #define   GEN6_MBCTL_ENABLE_BOOT_FETCH	(1 << 4)
+>  #define   GEN6_MBCTL_CTX_FETCH_NEEDED	(1 << 3)
+
+-- 
+Jani Nikula, Intel Open Source Graphics Center
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
