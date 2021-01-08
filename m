@@ -6,50 +6,36 @@ X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E0527C433DB
-	for <intel-gfx@archiver.kernel.org>; Fri,  8 Jan 2021 11:38:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D2258C433DB
+	for <intel-gfx@archiver.kernel.org>; Fri,  8 Jan 2021 12:10:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7877F22A99
-	for <intel-gfx@archiver.kernel.org>; Fri,  8 Jan 2021 11:38:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7877F22A99
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 38E0D207D0
+	for <intel-gfx@archiver.kernel.org>; Fri,  8 Jan 2021 12:10:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 38E0D207D0
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BACD06E0D9;
-	Fri,  8 Jan 2021 11:38:29 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C3F0B6E0D9
- for <Intel-gfx@lists.freedesktop.org>; Fri,  8 Jan 2021 11:38:28 +0000 (UTC)
-IronPort-SDR: VgInANxJdXvClU+ndbDqPIyoYdoujCdgPl/1366L0kL0klAiPedo8KtyuXyThnMvh+syznnmEU
- Ob4E6hqLjuYQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9857"; a="165270558"
-X-IronPort-AV: E=Sophos;i="5.79,330,1602572400"; d="scan'208";a="165270558"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jan 2021 03:38:27 -0800
-IronPort-SDR: M7HMGgKR6tHrBnj+ka+u/EfdMSaw7p+BiWje+0ZeiQZjqMUplvZdwhuLm1xK4muxWubA0yBZM6
- Z04kIrF99/cw==
-X-IronPort-AV: E=Sophos;i="5.79,330,1602572400"; d="scan'208";a="351650695"
-Received: from smoran5-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.252.27.227])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jan 2021 03:38:26 -0800
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8209B6E808;
+	Fri,  8 Jan 2021 12:10:34 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 4FA946E802;
+ Fri,  8 Jan 2021 12:10:33 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 3EBFDA0118;
+ Fri,  8 Jan 2021 12:10:33 +0000 (UTC)
 MIME-Version: 1.0
-In-Reply-To: <57944d433aed3200910b90e217db21fcd8ca5386.camel@intel.com>
-References: <20210106231223.8323-1-sean.z.huang@intel.com>
- <57944d433aed3200910b90e217db21fcd8ca5386.camel@intel.com>
-To: "Huang, Sean Z" <sean.z.huang@intel.com>,
- "Intel-gfx@lists.freedesktop.org" <Intel-gfx@lists.freedesktop.org>, "Vivi,
- Rodrigo" <rodrigo.vivi@intel.com>
-From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Message-ID: <161010590404.3935.17999664668934582303@jlahtine-mobl.ger.corp.intel.com>
-User-Agent: alot/0.8.1
-Date: Fri, 08 Jan 2021 13:38:24 +0200
-Subject: Re: [Intel-gfx] [RFC-v19 00/13] Introduce Intel PXP component -
- Mesa single session
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Chris Wilson" <chris@chris-wilson.co.uk>
+Date: Fri, 08 Jan 2021 12:10:33 -0000
+Message-ID: <161010783322.334.706053196709312416@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20210108104355.8958-1-chris@chris-wilson.co.uk>
+In-Reply-To: <20210108104355.8958-1-chris@chris-wilson.co.uk>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBS?=
+ =?utf-8?q?FC_drm/i915=3A_Expose_union=28class=29_utililisation?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,100 +48,42 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-UXVvdGluZyBWaXZpLCBSb2RyaWdvICgyMDIxLTAxLTA3IDE3OjQyOjEyKQo+IE9uIFdlZCwgMjAy
-MS0wMS0wNiBhdCAxNToxMiAtMDgwMCwgSHVhbmcsIFNlYW4gWiB3cm90ZToKPiA+IFBYUCAoUHJv
-dGVjdGVkIFhlIFBhdGgpIGlzIGFuIGk5MTUgY29tcG9uZW50LCBhdmFpbGFibGUgb24KPiA+IEdF
-TjEyKyB0aGF0IGhlbHBzIHRvIGVzdGFibGlzaCB0aGUgaGFyZHdhcmUgcHJvdGVjdGVkIHNlc3Np
-b24KPiA+IGFuZCBtYW5hZ2UgdGhlIHN0YXR1cyBvZiB0aGUgYWxpdmUgc29mdHdhcmUgc2Vzc2lv
-biwgYXMgd2VsbAo+ID4gYXMgaXRzIGxpZmUgY3ljbGUuCj4gPiAKPiA+IFRoaXMgcGF0Y2ggc2Vy
-aWVzIGlzIHRvIGFsbG93IHRoZSBrZXJuZWwgc3BhY2UgdG8gY3JlYXRlIGFuZAo+ID4gbWFuYWdl
-IGEgc2luZ2xlIGhhcmR3YXJlIHNlc3Npb24gKGEuay5hLiBkZWZhdWx0IHNlc3Npb24gb3IKPiA+
-IGFyYml0cmFyeSBzZXNzaW9uKS4gU28gdXNlciBjYW4gYWxsb2NhdGUgdGhlIHByb3RlY3RlZCBi
-dWZmZXIsCj4gPiB3aGljaCBpcyBlbmNyeXB0ZWQgd2l0aCB0aGUgbGV2ZXJhZ2Ugb2YgdGhlIGFy
-Yml0cmFyeSBoYXJkd2FyZQo+ID4gc2Vzc2lvbi4KPiA+IAo+ID4gdjI6Cj4gPiDCoMKgwqAgLSBt
-b2RpZmljYXRpb24gYmFzZWQgb24gY29kZSByZXZpZXcgZmVlZGJhY2tzIHJlY2VpdmVkCj4gPiDC
-oMKgwqAgLSBwYXNzaW5nIHB4cCBpbnN0ZWFkIG9mIGk5MTUgYXMgZnVuY3Rpb24gYXJndW1lbnQK
-PiA+IMKgwqDCoCAtIHJlbW92ZSBkZWFkIGNvZGUgb25seSBmb3IgbXVsdGktc2Vzc2lvbgo+ID4g
-wqDCoMKgIC0gbW92ZSB0aGUgcHhwIGluaXQgY2FsbCBmcm9tIGk5MTVfZHJ2LmMgdG8gaW50ZWxf
-Z3QuYwo+ID4gwqDCoMKgIC0gcmVtb3ZlIHRoZSB0YXV0b2xvZ3kgbmFtaW5nCj4gPiAKPiA+IHYz
-Ogo+ID4gwqDCoMKgIC0gcmViYXNlIHRvIGxhdGVzdCBkcm0tdGlwCj4gPiAKPiA+IHY0Ogo+ID4g
-wqDCoMKgIC0gQXBwZW5kIHRoZSBzcGxpdCBub24tbWVzYSBwYXRjaCBzZXJlaXMgKGNvbW1pdCAj
-MTQgLSAjMjEpIGludG8KPiA+IMKgwqDCoMKgwqAgdGhpcyBwYXRjaCBzZXJpZXMKPiA+IAo+ID4g
-djU6Cj4gPiDCoMKgwqAgLSBpbmNsdWRlICJpbnRlbF9weHAuaCIgaW4gaW50ZWxfcHhwX3NtLmgg
-YXQgY29tbWl0ICMxNCB0byBmaXgKPiA+IMKgwqDCoMKgwqAgdGhlIGJ1aWxkIHByb2JsZW0uCj4g
-PiAKPiA+IHY2Ogo+ID4gwqDCoMKgIC0gRml4IHRoZSBudWxsIHBvaW50ZXIgYXJiX3Nlc3Npb24g
-YWNjZXNzIGJ1ZyBpbiBpbnRlbF9weHBfYXJiLmMKPiA+IGluCj4gPiDCoMKgwqDCoMKgICIwNCBb
-UkZDLXY1XSBkcm0vaTkxNS9weHA6IENyZWF0ZSB0aGUgYXJiaXRyYXJ5IHNlc3Npb24gYWZ0ZXIK
-PiA+IMKgwqDCoMKgwqAgYm9vdCIKPiA+IAo+ID4gdjc6Cj4gPiDCoMKgwqAgLSBVc2UgbGlzdF9m
-b3JfZWFjaF9lbnRyeV9zYWZlIGluc3RlYWQgb2YgbGlzdF9mb3JfZWFjaF9lbnRyeQo+ID4gCj4g
-PiB2ODoKPiA+IMKgwqDCoCAtIEFkZCBNRUkgdnRhZyBzdXBwb3J0IGZvciBQWFAgbXVsdGktc2Vz
-c2lvbiB1c2FnZQo+ID4gCj4gPiB2OToKPiA+IMKgwqDCoCAtIEZpeCBlcnJvciBoYW5kbGluZyBi
-dWcgaW4gY29tbWl0ICM1ICJGdW5jIHRvIHNlbmQgaGFyZHdhcmUKPiA+IHNlc3Npb24KPiA+IMKg
-wqDCoMKgwqAgdGVybWluYXRpb24iLiBJbiBpbnRlbF9weHBfY21kLmMsIHdlIHNob3VsZCBwcm9w
-ZXJseSBhc3NpZ24KPiA+IMKgwqDCoMKgwqAgImVyciA9IFBUUl9FUlIoeCkiIGlmIGhpdHRpbmcg
-dGhlIGVycm9yIGNhc2UgIklTX0VSUih4KSIsIHRoaXMKPiA+IGlzCj4gPiDCoMKgwqDCoMKgIHRo
-ZSBvbmx5IGNoYW5nZSBpbiB2OS4KPiA+IAo+ID4gdjEwCj4gPiDCoMKgwqAgLSBSZW1vdmUgdGhl
-IG11bHRpIHNlc3Npb24gY29tbWl0cyAjMTQtIzIxLCBmb3Igbm93IHdlIHdvdWxkIGxpa2UKPiA+
-IHRvCj4gPiDCoMKgwqDCoMKgIGtlZXAgdGhlIG11bHRpIHNlc3Npb24gcGF0Y2hlcyBhcyBkb3du
-c3RyZWFtLgo+ID4gwqDCoMKgIC0gQWRvcHQgdGhlIGNvZGUgcmV2aWV3IHN1Z2dlc3Rpb24gZnJv
-bSBXaWxzb24gaW4gY29tbWl0ICMxCj4gPiAKPiA+IHYxMQo+ID4gwqDCoMKgIC0gSW4gY29tbWl0
-ICMwNSAiZHJtL2k5MTUvcHhwOiBGdW5jIHRvIHNlbmQgaGFyZHdhcmUgc2Vzc2lvbgo+ID4gwqDC
-oMKgwqDCoCB0ZXJtaW5hdGlvbiIsIHdlIHNob3VsZCBub3QgYXNzdW1lIFZDUzAgaXMgYWx3YXlz
-IG9uLgo+ID4gwqDCoMKgwqDCoCBJbnN0ZWFkIHdlIHVzZSBhdmFpbGFibGUgVkNTIywgY291bGQg
-YmUgVkNTMCwgVkNTMiwgZXRjLgo+ID4gCj4gPiB2MTIKPiA+IMKgwqDCoCAtIEFkZCAiI2luY2x1
-ZGUgPGxpbnV4L211dGV4Lmg+IGluICMxIGludGVsX3B4cF90eXBlcy5oCj4gPiAKPiA+IHYxMwo+
-ID4gwqDCoMKgIC0gQWRkICIjaW5jbHVkZSA8bGludXgvbXV0ZXguaD4gaW4gIzEgaW50ZWxfcHhw
-X3R5cGVzLmggKCN2MTIKPiA+IGRpZG4ndAo+ID4gwqDCoMKgwqDCoCBhY3R1YWxseSB1cGRhdGUg
-dGhlIF90eXBlcy5oIGZpbGUuLi4pCj4gPiAKPiA+IHYxNAo+ID4gwqDCoMKgIC0gQWRkICJpZiAo
-SU5URUxfR0VOKGd0LT5pOTE1KSA8IDEyKSByZXR1cm47IiBpbiAjMQo+ID4gwqDCoMKgwqDCoCBp
-bnRlbF9weHBfZmluaSgpLCBqdXN0IHNraXAgZm9yIG5vbiBnZW4xMisgc2t1Cj4gPiAKPiA+IHYx
-NQo+ID4gwqDCoMKgIEluICMwNDoKPiA+IMKgwqDCoCAtIE1ha2UgaW50ZWxfcHhwX2FyYl9yZXNl
-cnZlX3Nlc3Npb24oKSBhcyBzdGF0aWMgZnVuY3Rpb24gdG8gZml4Cj4gPiB0aGUKPiA+IMKgwqDC
-oMKgwqAgc3BhcnNlIHdhcm5pbmcKPiA+IMKgwqDCoCAtIFVwZGF0ZSB2YWx1ZSBvZiBQWFBfVEVF
-X0FSQl9DTURfQklOIAo+ID4gCj4gPiB2MTYKPiA+IMKgwqDCoCBJbiAjMDQ6Cj4gPiDCoMKgwqAg
-LSBSZW1vdmUgdGhlIGJpbmFyeSBmcm9tIHNvdXJjZSBjb2RlIHZpYSBkZWZpbmluZyB0aGUgVEVF
-IGNvbW1hbmQKPiA+IMKgwqDCoMKgwqAgaGVhZGVyCj4gPiAKPiA+IHYxNwo+ID4gwqDCoMKgIC0g
-SW4gIzA0LCBkaXJlY3RseSByZXR1cm4gaW50ZWxfcHhwX3RlZV9jb21wb25lbnRfZmluaSgpIGlm
-Cj4gPiDCoMKgwqDCoMKgIHB4cF90ZWVfY29tcF9hZGRlZCBpcyBvZmYKPiA+IAo+ID4gdjE4Cj4g
-PiDCoMKgwqAgLSBJbiAjMDksIEFkZCBpbnRlbF9weHBfZ2VtX2NvbnRleHRfc2V0X3Byb3RlY3Rl
-ZCgpIHRvIGNoZWNrIHRoZQo+ID4gYXJiCj4gPiDCoMKgwqDCoMKgIHNlc3Npb24gYmVmb3JlIHNl
-dHRpbmcgcHJvdGVjdGVkIGZsYWcgZm9yIGdlbSBjb250ZXh0Cj4gPiAKPiA+IMKgwqDCoCAtIElu
-ICMxMiwgUmVwbGFjZSBpOTE1X2dlbV9jb250ZXh0X3NldF9wcm90ZWN0ZWQoKSB3aXRoCj4gPiDC
-oMKgwqDCoMKgIGludGVsX3B4cF9nZW1fY29udGV4dF9zZXRfcHJvdGVjdGVkKCkgdG8gY2hlY2sg
-d2hldGhlciB0aGUKPiA+IGFyYml0cmFyeQo+ID4gwqDCoMKgwqDCoCBzZXNzaW9uIGlzIGFsaXZl
-Cj4gPiAKPiA+IHYxOQo+ID4gwqDCoMKgIC0gSW4gIzAxLCBwdXQgaW50ZWxfcHhwX2ZpbmkoKSBp
-biBpbnRlbF9ndF9kcml2ZXJfcmVtb3ZlKCkKPiA+IGluc3RlYWQgb2YKPiA+IMKgwqDCoMKgwqAg
-aW50ZWxfZ3RfZHJpdmVyX3JlbGVhc2UoKSBzaW5jZSBpbnRlbF9ndF9kcml2ZXJfcmVsZWFzZSgp
-IGlzCj4gPiB0aGUgbGFzdAo+ID4gwqDCoMKgwqDCoCBzdGFnZSBvZiBpOTE1IHVuYmluZCBhbmQg
-d2Ugc2hvdWxkbid0IGNhbGwgdGhlIGNvbXBvbmVudF9kZWwKPiA+IGhlcmUuCj4gPiAKPiA+IMKg
-wqDCoCAtIEluICMwNCwgY2hlY2sgaWYgYXJiaXRyYXJ5IHNlc3Npb24gaXMgYWxpdmUgYmVmb3Jl
-Cj4gPiDCoMKgwqDCoMKgIGludGVsX3B4cF9hcmJfY3JlYXRlX3Nlc3Npb24oKQo+IAo+IFBsZWFz
-ZSByZWR1Y2UgdGhlIGFtb3VudCBvZiBzZXJpZXMgcmV2aXNpb24gYW5kIHN0YXJ0IHVzaW5nIC0t
-aW4tcmVwbHktCj4gdG8gc28gd2UgY2FuIGVhc2lseSBzZWUgd2hhdCB3YXMgYWRkcmVzc2VkIGZy
-b20gdGhlIHByZXZpb3VzIGNvbW1lbnRzCj4gdmVyc3VzIHdoYXQgaXMgb3Blbi4KCkNJIGRvZXNu
-J3QgYWx3YXlzIHdvcmsgbmljZWx5IHdpdGggLS1pbi1yZXBseS10byA6LwoKVGhlIGNoYW5nZXMg
-bWFkZSB0byBlYWNoIHBhdGNoIHNob3VsZCBiZSBub3RlZCBpbiB0aGUgY29tbWl0IG1lc3NhZ2Ug
-b2YKdGhlIHBhdGNoLCBub3QganVzdCBpbiB0aGUgY292ZXIgbGV0dGVyLiBBbmQgbGV2ZWwgb2Yg
-ZGV0YWlsIG9mIHRoZQpjaGFuZ2VzIGRvZXNuJ3QgbmVlZCB0byBiZSB2ZXJib3NlLgoKVGhhdCB3
-YXkgd2hlbiByZXZpZXdpbmcgdjEwIGFmdGVyIHY5LCByZXZpZXdlciBjYW4gYWxzbyBjYW4gdGhy
-b3VnaApwYXRjaGVzIHdoaWNoIGhhdmUgdjEwIGNoYW5nZSBlbnRyeSBpbiB0aGVtLgoKVXNlIHRy
-eWJvdCBpbnN0ZWFkIG9mIHRoZSBtYWlsaW5nIGxpc3QgdG8gY2F0Y2ggdGhpbmdzIGxpa2UgbWlz
-c2luZwppbmNsdWRlcywgc28gdGhvc2Ugc2hvdWxkIG5vdCByZXN1bHQgaW4gbmV3IHJldmlzaW9u
-cy4gT25seSBzZW5kIHRvIHRoZQptYWlsaW5nIGxpc3QgYSBuZXcgcmV2aXNpb24gdGhhdCB5b3Ug
-aGF2ZSBjaGVja2VkIHRvIGNvbXBpbGUgYW5kIGZ1bGx5CndvcmsuCgpCdXQgbW9zdCBpbXBvcnRh
-bnRseSwgSSBub3RpY2UgcGxlbnR5IG9mIHByZXZpb3VzbHkgZ2l2ZW4gZmVlZGJhY2sgdGhhdApp
-cyB1bmFkZHJlc3NlZCAodHlwZTAvdHlwZTEsIHVubmVjZXNzYXJ5IHZhcmlhYmxlcyBsaWtlIHNl
-c3Npb24gdHlwZQpldGMuIHRoYXQgY2FuIG9ubHkgaGF2ZSBzaW5nbGUgdmFsdWUgaW4gdGhpcyBz
-ZXJpZXMpLiBTbyBhbGwgb2YgdGhlCnByZXZpb3VzIGZlZWRiYWNrIG5lZWRzIGFkZHJlc3Npbmcg
-YmVmb3JlIGNvbnRpbnVpbmcgdGhlIHJldmlldy4KClRoZXJlIGlzIGxvdCB0byBiZSBmaXhlZCBh
-Ym91dCB0aGUgY29kaW5nIHN0eWxlIHRvIG1hdGNoIHN1cnJvdW5kaW5ncywKYnV0IHRoYXQgb25s
-eSBtYWtlcyBzZW5zZSBhcyB0aGUgbGFzdCBzdGVwIGFmdGVyIHRoZSBzZXJpZXMgaXMgb3RoZXJ3
-aXNlCnJlYWR5LgoKUmVnYXJkcywgSm9vbmFzCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fCkludGVsLWdmeCBtYWlsaW5nIGxpc3QKSW50ZWwtZ2Z4QGxpc3Rz
-LmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xp
-c3RpbmZvL2ludGVsLWdmeAo=
+== Series Details ==
+
+Series: RFC drm/i915: Expose union(class) utililisation
+URL   : https://patchwork.freedesktop.org/series/85609/
+State : failure
+
+== Summary ==
+
+Applying: RFC drm/i915: Expose union(class) utililisation
+Using index info to reconstruct a base tree...
+M	drivers/gpu/drm/i915/gt/intel_engine_cs.c
+A	drivers/gpu/drm/i915/gt/intel_engine_stats.h
+M	drivers/gpu/drm/i915/gt/intel_engine_types.h
+M	drivers/gpu/drm/i915/gt/intel_engine_user.c
+Falling back to patching base and 3-way merge...
+Auto-merging drivers/gpu/drm/i915/gt/intel_engine_user.c
+Auto-merging drivers/gpu/drm/i915/gt/intel_engine_types.h
+CONFLICT (modify/delete): drivers/gpu/drm/i915/gt/intel_engine_stats.h deleted in HEAD and modified in RFC drm/i915: Expose union(class) utililisation. Version RFC drm/i915: Expose union(class) utililisation of drivers/gpu/drm/i915/gt/intel_engine_stats.h left in tree.
+Auto-merging drivers/gpu/drm/i915/gt/intel_engine_cs.c
+CONFLICT (content): Merge conflict in drivers/gpu/drm/i915/gt/intel_engine_cs.c
+error: Failed to merge in the changes.
+hint: Use 'git am --show-current-patch=diff' to see the failed patch
+Patch failed at 0001 RFC drm/i915: Expose union(class) utililisation
+When you have resolved this problem, run "git am --continue".
+If you prefer to skip this patch, run "git am --skip" instead.
+To restore the original branch and stop patching, run "git am --abort".
+
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
