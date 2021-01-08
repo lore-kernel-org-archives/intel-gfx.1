@@ -2,68 +2,50 @@ Return-Path: <SRS0=Vm3B=GL=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-18.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
-	INCLUDES_PULL_REQUEST,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 251D4C433E9
-	for <intel-gfx@archiver.kernel.org>; Fri,  8 Jan 2021 09:53:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 62C81C433E0
+	for <intel-gfx@archiver.kernel.org>; Fri,  8 Jan 2021 09:53:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 80605236F9
-	for <intel-gfx@archiver.kernel.org>; Fri,  8 Jan 2021 09:53:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 80605236F9
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	by mail.kernel.org (Postfix) with ESMTPS id 0047623435
+	for <intel-gfx@archiver.kernel.org>; Fri,  8 Jan 2021 09:53:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0047623435
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F1946E7EC;
-	Fri,  8 Jan 2021 09:53:18 +0000 (UTC)
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [IPv6:2a00:1450:4864:20::431])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D63F96E7EC
- for <intel-gfx@lists.freedesktop.org>; Fri,  8 Jan 2021 09:53:16 +0000 (UTC)
-Received: by mail-wr1-x431.google.com with SMTP id t16so8394886wra.3
- for <intel-gfx@lists.freedesktop.org>; Fri, 08 Jan 2021 01:53:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to;
- bh=NVijV9kjYtZixSo+bMIMrjGnd5OL7MvE3LxxyANLHaQ=;
- b=AUfE3uPHl2xXpEaMLbzd9CCCxzbdF+KwM4KrPIVN5SgctfYHKUtpiQOABPZolL5D+w
- zdYS4tSaxWjwwqxE5syWIdUX89EecPohYTb+Xi1FO/q+gerEn4V99ND8drumtD+QLZJe
- jOhLv2qSXZ7yr70EhMiOZ/7wVeXrutx9a5nqI=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to;
- bh=NVijV9kjYtZixSo+bMIMrjGnd5OL7MvE3LxxyANLHaQ=;
- b=O3UUSgB7TWy78cuqJHwNhvJHcmf882i0SXC+1BrkNnx8uoGxvHFmN4JLyXrZtpYqyV
- +FqmimyhfRbK4n60IyTpUVOhuw1aEtRhFpr4BAEzaEIxJtA/aj9Yaskr3tHKcgioGJ6z
- J1o5MCP3BnfTMgY7TC/5366M74iJT8WPQkmpaJ1NxDqEo27KCA9tZG324BTXNqpcBPjB
- 00eBTmCurBO6sUIsCNfYgxo+lhmMF4bamTa6CRra6ORjL7YDWEXLKmtnRuPHSdbx3kvC
- gjL4KbHgvzBIWZa4EJHxk3U7ZfZDrqgbBXgXM93M3de6NFX5LW+50Ea0fJXMjqpTNGfN
- Tcjg==
-X-Gm-Message-State: AOAM530e9/0q5VzPgtp1mr8YyuxwR1LjxuHIL4Xt37Hg1RAPXsyqIxWA
- zFsK9ZxbspOAAOWM9juA47qVCw==
-X-Google-Smtp-Source: ABdhPJx6N0leHlAbHgFIjjgNEvLchchHyHzuqzB+ZaQXeJ8UcVHbbrUEPbKkQZ+UjoqZxDVaNSZ6WA==
-X-Received: by 2002:adf:cc81:: with SMTP id p1mr2745272wrj.339.1610099595570; 
- Fri, 08 Jan 2021 01:53:15 -0800 (PST)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id 125sm11914658wmc.27.2021.01.08.01.53.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 08 Jan 2021 01:53:14 -0800 (PST)
-Date: Fri, 8 Jan 2021 10:53:12 +0100
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Message-ID: <X/griCbZHfyYt6cH@phenom.ffwll.local>
-References: <X/gnKs52t8xUuAlE@linux-uq9g>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6151B6E7DD;
+	Fri,  8 Jan 2021 09:53:44 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC8826E7F1
+ for <intel-gfx@lists.freedesktop.org>; Fri,  8 Jan 2021 09:53:43 +0000 (UTC)
+IronPort-SDR: eTN69NEfoNJ8REz6805QAAHQ4Bgkg1YeWODviid0S4qalx9zfkTwEE74tSoQJ64W/+7KlS9ySP
+ dDCH12FKa9tQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9857"; a="262342621"
+X-IronPort-AV: E=Sophos;i="5.79,330,1602572400"; d="scan'208";a="262342621"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Jan 2021 01:53:43 -0800
+IronPort-SDR: yEo7lSDZaFgZUz3zE57T7AY6kkYiNStVv2HYqqZjl1qNxIcl4Wp9jmlWtwn7mD4uF7Et50q7o9
+ KNMZmqnKSDDw==
+X-IronPort-AV: E=Sophos;i="5.79,330,1602572400"; d="scan'208";a="380073537"
+Received: from helsinki.fi.intel.com ([10.237.66.162])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Jan 2021 01:53:41 -0800
+From: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Fri,  8 Jan 2021 11:53:15 +0200
+Message-Id: <20210108095315.1636814-2-gwan-gyeong.mun@intel.com>
+X-Mailer: git-send-email 2.25.0
+In-Reply-To: <20210108095315.1636814-1-gwan-gyeong.mun@intel.com>
+References: <20210108095315.1636814-1-gwan-gyeong.mun@intel.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <X/gnKs52t8xUuAlE@linux-uq9g>
-X-Operating-System: Linux phenom 5.7.0-1-amd64 
-Subject: Re: [Intel-gfx] [PULL] drm-misc-fixes
+Subject: [Intel-gfx] [PATCH v11 2/2] drm/i915/display: Support Multiple
+ Transcoders' PSR status on debugfs
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,93 +58,49 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dim-tools@lists.freedesktop.org, Daniel Vetter <daniel.vetter@ffwll.ch>,
- dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>,
- intel-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Cc: jani.nikula@intel.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jan 08, 2021 at 10:34:34AM +0100, Thomas Zimmermann wrote:
-> Hi Dave and Daniel,
-> =
-
-> sorry for being a bit late. Here's this week's PR for drm-misc-fixes.
-
-No worries, Dave's out anyway so this is all in time for me to do the pull
-:-)
-
-> =
-
-> Best regards
-> Thomas
-> =
-
-> drm-misc-fixes-2021-01-08:
-> * dma-buf: fix a use-after-free
-> * radeon: don't init the TTM page pool manually
-> * ttm: unexport ttm_pool_{init,fini}()
-> The following changes since commit e71ba9452f0b5b2e8dc8aa5445198cd9214a6a=
-62:
-> =
-
->   Linux 5.11-rc2 (2021-01-03 15:55:30 -0800)
-> =
-
-> are available in the Git repository at:
-> =
-
->   git://anongit.freedesktop.org/drm/drm-misc tags/drm-misc-fixes-2021-01-=
-08
-
-Pulled, thanks.
--Daniel
-
-> =
-
-> for you to fetch changes up to a73858ef4d5e1d425e171f0f6a52864176a6a979:
-> =
-
->   drm/ttm: unexport ttm_pool_init/fini (2021-01-07 14:25:43 +0100)
-> =
-
-> ----------------------------------------------------------------
-> * dma-buf: fix a use-after-free
-> * radeon: don't init the TTM page pool manually
-> * ttm: unexport ttm_pool_{init,fini}()
-> =
-
-> ----------------------------------------------------------------
-> Charan Teja Reddy (1):
->       dmabuf: fix use-after-free of dmabuf's file->f_inode
-> =
-
-> Christian K=F6nig (2):
->       drm/radeon: stop re-init the TTM page pool
->       drm/ttm: unexport ttm_pool_init/fini
-> =
-
->  drivers/dma-buf/dma-buf.c           | 21 +++++++++++++++++----
->  drivers/gpu/drm/radeon/radeon_ttm.c |  3 ---
->  drivers/gpu/drm/ttm/ttm_pool.c      |  2 --
->  3 files changed, 17 insertions(+), 9 deletions(-)
-> =
-
-> --
-> Thomas Zimmermann
-> Graphics Driver Developer
-> SUSE Software Solutions Germany GmbH
-> Maxfeldstr. 5, 90409 N=FCrnberg, Germany
-> (HRB 36809, AG N=FCrnberg)
-> Gesch=E4ftsf=FChrer: Felix Imend=F6rffer
-
--- =
-
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+SW4gb3JkZXIgdG8gc3VwcG9ydCB0aGUgUFNSIHN0YXRlIG9mIGVhY2ggdHJhbnNjb2RlciwgaXQg
+YWRkcwppOTE1X3Bzcl9zdGF0dXMgdG8gc3ViLWRpcmVjdG9yeSBvZiBlYWNoIHRyYW5zY29kZXIu
+Cgp2MjogQ2hhbmdlIHVzaW5nIG9mIFN5bWJvbGljIHBlcm1pc3Npb25zICdTX0lSVUdPJyB0byB1
+c2luZyBvZiBvY3RhbAogICAgcGVybWlzc2lvbnMgJzA0NDQnCnY1OiBBZGRyZXNzZWQgSkphbmkg
+TmlrdWxhJ3MgcmV2aWV3IGNvbW1lbnRzCiAtIFJlbW92ZSBjaGVja2luZyBvZiBHZW4xMiBmb3Ig
+aTkxNV9wc3Jfc3RhdHVzLgogLSBBZGQgY2hlY2sgb2YgSEFTX1BTUigpCiAtIFJlbW92ZSBtZWFu
+aW5nbGVzcyBjaGVjayByb3V0aW5lLgoKU2lnbmVkLW9mZi1ieTogR3dhbi1neWVvbmcgTXVuIDxn
+d2FuLWd5ZW9uZy5tdW5AaW50ZWwuY29tPgpDYzogSm9zw6kgUm9iZXJ0byBkZSBTb3V6YSA8am9z
+ZS5zb3V6YUBpbnRlbC5jb20+CkNjOiBKYW5pIE5pa3VsYSA8amFuaS5uaWt1bGFAaW50ZWwuY29t
+PgpDYzogQW5zaHVtYW4gR3VwdGEgPGFuc2h1bWFuLmd1cHRhQGludGVsLmNvbT4KUmV2aWV3ZWQt
+Ynk6IEFuc2h1bWFuIEd1cHRhIDxhbnNodW1hbi5ndXB0YUBpbnRlbC5jb20+Ci0tLQogLi4uL2dw
+dS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Rpc3BsYXlfZGVidWdmcy5jIHwgMTYgKysrKysrKysr
+KysrKysrKwogMSBmaWxlIGNoYW5nZWQsIDE2IGluc2VydGlvbnMoKykKCmRpZmYgLS1naXQgYS9k
+cml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Rpc3BsYXlfZGVidWdmcy5jIGIvZHJp
+dmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kaXNwbGF5X2RlYnVnZnMuYwppbmRleCAw
+NDEwNTMxNjdkN2YuLmQyZGQ2MWM0ZWUwYiAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5
+MTUvZGlzcGxheS9pbnRlbF9kaXNwbGF5X2RlYnVnZnMuYworKysgYi9kcml2ZXJzL2dwdS9kcm0v
+aTkxNS9kaXNwbGF5L2ludGVsX2Rpc3BsYXlfZGVidWdmcy5jCkBAIC0yMjI0LDYgKzIyMjQsMTYg
+QEAgc3RhdGljIGludCBpOTE1X2hkY3Bfc2lua19jYXBhYmlsaXR5X3Nob3coc3RydWN0IHNlcV9m
+aWxlICptLCB2b2lkICpkYXRhKQogfQogREVGSU5FX1NIT1dfQVRUUklCVVRFKGk5MTVfaGRjcF9z
+aW5rX2NhcGFiaWxpdHkpOwogCitzdGF0aWMgaW50IGk5MTVfcHNyX3N0YXR1c19zaG93KHN0cnVj
+dCBzZXFfZmlsZSAqbSwgdm9pZCAqZGF0YSkKK3sKKwlzdHJ1Y3QgZHJtX2Nvbm5lY3RvciAqY29u
+bmVjdG9yID0gbS0+cHJpdmF0ZTsKKwlzdHJ1Y3QgaW50ZWxfZHAgKmludGVsX2RwID0KKwkJaW50
+ZWxfYXR0YWNoZWRfZHAodG9faW50ZWxfY29ubmVjdG9yKGNvbm5lY3RvcikpOworCisJcmV0dXJu
+IGludGVsX3Bzcl9zdGF0dXMobSwgaW50ZWxfZHApOworfQorREVGSU5FX1NIT1dfQVRUUklCVVRF
+KGk5MTVfcHNyX3N0YXR1cyk7CisKICNkZWZpbmUgTFBTUF9DQVBBQkxFKENPTkQpIChDT05EID8g
+c2VxX3B1dHMobSwgIkxQU1A6IGNhcGFibGVcbiIpIDogXAogCQkJCXNlcV9wdXRzKG0sICJMUFNQ
+OiBpbmNhcGFibGVcbiIpKQogCkBAIC0yMzk5LDYgKzI0MDksMTIgQEAgaW50IGludGVsX2Nvbm5l
+Y3Rvcl9kZWJ1Z2ZzX2FkZChzdHJ1Y3QgZHJtX2Nvbm5lY3RvciAqY29ubmVjdG9yKQogCQkJCSAg
+ICBjb25uZWN0b3IsICZpOTE1X3Bzcl9zaW5rX3N0YXR1c19mb3BzKTsKIAl9CiAKKwlpZiAoSEFT
+X1BTUihkZXZfcHJpdikgJiYKKwkgICAgY29ubmVjdG9yLT5jb25uZWN0b3JfdHlwZSA9PSBEUk1f
+TU9ERV9DT05ORUNUT1JfZURQKSB7CisJCWRlYnVnZnNfY3JlYXRlX2ZpbGUoImk5MTVfcHNyX3N0
+YXR1cyIsIDA0NDQsIHJvb3QsCisJCQkJICAgIGNvbm5lY3RvciwgJmk5MTVfcHNyX3N0YXR1c19m
+b3BzKTsKKwl9CisKIAlpZiAoY29ubmVjdG9yLT5jb25uZWN0b3JfdHlwZSA9PSBEUk1fTU9ERV9D
+T05ORUNUT1JfRGlzcGxheVBvcnQgfHwKIAkgICAgY29ubmVjdG9yLT5jb25uZWN0b3JfdHlwZSA9
+PSBEUk1fTU9ERV9DT05ORUNUT1JfSERNSUEgfHwKIAkgICAgY29ubmVjdG9yLT5jb25uZWN0b3Jf
+dHlwZSA9PSBEUk1fTU9ERV9DT05ORUNUT1JfSERNSUIpIHsKLS0gCjIuMjUuMAoKX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcg
+bGlzdApJbnRlbC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vaW50ZWwtZ2Z4Cg==
