@@ -3,55 +3,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
 X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E9F3CC433DB
-	for <intel-gfx@archiver.kernel.org>; Fri,  8 Jan 2021 17:51:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 08F31C433E0
+	for <intel-gfx@archiver.kernel.org>; Fri,  8 Jan 2021 17:59:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 82F8323A61
-	for <intel-gfx@archiver.kernel.org>; Fri,  8 Jan 2021 17:51:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 82F8323A61
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=etezian.org
+	by mail.kernel.org (Postfix) with ESMTPS id BC8F923877
+	for <intel-gfx@archiver.kernel.org>; Fri,  8 Jan 2021 17:59:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BC8F923877
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E43C96E864;
-	Fri,  8 Jan 2021 17:51:50 +0000 (UTC)
-X-Greylist: delayed 8398 seconds by postgrey-1.36 at gabe;
- Fri, 08 Jan 2021 17:51:48 UTC
-Received: from 3.mo173.mail-out.ovh.net (3.mo173.mail-out.ovh.net
- [46.105.34.1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC9CD6E864
- for <intel-gfx@lists.freedesktop.org>; Fri,  8 Jan 2021 17:51:48 +0000 (UTC)
-Received: from player794.ha.ovh.net (unknown [10.109.146.163])
- by mo173.mail-out.ovh.net (Postfix) with ESMTP id 6A61A15A57A
- for <intel-gfx@lists.freedesktop.org>; Fri,  8 Jan 2021 16:24:39 +0100 (CET)
-Received: from etezian.org (213-243-141-64.bb.dnainternet.fi [213.243.141.64])
- (Authenticated sender: andi@etezian.org)
- by player794.ha.ovh.net (Postfix) with ESMTPSA id AA2D216C16A36;
- Fri,  8 Jan 2021 15:24:37 +0000 (UTC)
-Authentication-Results: garm.ovh; auth=pass
- (GARM-96R0018ca1e0b8-d55b-436a-933d-3d17169521a3,
- 83D1C09382E53F50CE2429AE6C9B6AA8FD9DCB87) smtp.auth=andi@etezian.org
-X-OVh-ClientIp: 213.243.141.64
-Date: Fri, 8 Jan 2021 17:24:36 +0200
-From: Andi Shyti <andi@etezian.org>
-To: Chris Wilson <chris@chris-wilson.co.uk>
-Message-ID: <X/h5NCDoRdxLQp5u@jack.zhora.eu>
-References: <20210107221724.10036-1-chris@chris-wilson.co.uk>
- <20210107221724.10036-4-chris@chris-wilson.co.uk>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0D9996E85F;
+	Fri,  8 Jan 2021 17:59:33 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 860F26E85F
+ for <intel-gfx@lists.freedesktop.org>; Fri,  8 Jan 2021 17:59:31 +0000 (UTC)
+IronPort-SDR: FaIZpFcvKIbiBeCN8Myvz3iwW9SE+8PSZ/E+gPzyC3KuHv4Lc43F+uBfojN75KZ94kzl9zw+T3
+ t51ioo+A5drw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9858"; a="175055267"
+X-IronPort-AV: E=Sophos;i="5.79,332,1602572400"; d="scan'208";a="175055267"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Jan 2021 09:53:34 -0800
+IronPort-SDR: NLcGG3U8T/anfOsm0i1KkmQcyRC+uYAhfnt4tZr8cZk3urRnsaLJJS5Mvowi+R/eqwQMyE7rFY
+ GKCoQy1ICzHA==
+X-IronPort-AV: E=Sophos;i="5.79,332,1602572400"; d="scan'208";a="351751993"
+Received: from rgwhiteh-mobl.ger.corp.intel.com (HELO localhost)
+ ([10.213.205.160])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Jan 2021 09:53:31 -0800
+From: Jani Nikula <jani.nikula@intel.com>
+To: imre.deak@intel.com, Matthew Wilcox <willy@infradead.org>
+In-Reply-To: <20210106172507.GA202232@ideak-desk.fi.intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20201221040758.GA874@casper.infradead.org>
+ <20201229144131.GA4029266@ideak-desk.fi.intel.com>
+ <20210105055041.GB175893@casper.infradead.org>
+ <20210106172507.GA202232@ideak-desk.fi.intel.com>
+Date: Fri, 08 Jan 2021 19:53:28 +0200
+Message-ID: <87a6tjxqlj.fsf@intel.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210107221724.10036-4-chris@chris-wilson.co.uk>
-X-Ovh-Tracer-Id: 8734450006227075593
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedujedrvdeghedgtdekucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhepfffhvffukfhfgggtuggjsehttdertddttddvnecuhfhrohhmpeetnhguihcuufhhhihtihcuoegrnhguihesvghtvgiiihgrnhdrohhrgheqnecuggftrfgrthhtvghrnheptdfgudduhfefueeujeefieehtdeftefggeevhefgueellefhudetgeeikeduieefnecukfhppedtrddtrddtrddtpddvudefrddvgeefrddugedurdeigeenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhhouggvpehsmhhtphdqohhuthdphhgvlhhopehplhgrhigvrhejleegrdhhrgdrohhvhhdrnhgvthdpihhnvghtpedtrddtrddtrddtpdhmrghilhhfrhhomheprghnughisegvthgviihirghnrdhorhhgpdhrtghpthhtohepihhnthgvlhdqghhfgieslhhishhtshdrfhhrvggvuggvshhkthhophdrohhrgh
-Subject: Re: [Intel-gfx] [PATCH 4/5] drm/i915/gt: Only disable preemption on
- gen8 render engines
+Subject: Re: [Intel-gfx] Missing DPPLL case on i7-1165G7
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,23 +67,78 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Chris,
+On Wed, 06 Jan 2021, Imre Deak <imre.deak@intel.com> wrote:
+> On Tue, Jan 05, 2021 at 05:50:41AM +0000, Matthew Wilcox wrote:
+>> On Tue, Dec 29, 2020 at 04:41:31PM +0200, Imre Deak wrote:
+>> > Hi,
+>> > 
+>> > On Mon, Dec 21, 2020 at 04:07:58AM +0000, Matthew Wilcox wrote:
+>> > > 
+>> > > At boot,
+>> > > 
+>> > > [    2.787995] [drm:lspcon_init [i915]] *ERROR* Failed to probe lspcon
+>> > > [    2.788001] i915 0000:00:02.0: [drm] *ERROR* LSPCON init failed on port E
+>> > > [    2.790752] ------------[ cut here ]------------
+>> > > [    2.790753] Missing case (clock == 539440)
+>> > > [    2.790790] WARNING: CPU: 0 PID: 159 at drivers/gpu/drm/i915/display/intel_dpll_mgr.c:2967 icl_get_dplls+0x53a/0xa50 [i915]
+>> > 
+>> > the above warn looks to be due to a missing workaround fixed by
+>> > 
+>> > commit 0e2497e334de42dbaaee8e325241b5b5b34ede7e
+>> > Author: Imre Deak <imre.deak@intel.com>
+>> > Date:   Sat Oct 3 03:18:46 2020 +0300
+>> > 
+>> >     drm/i915/tgl: Fix Combo PHY DPLL fractional divider for 38.4MHz ref clock
+>> > 
+>> > in drm-tip. Could you give it a try?
+>> 
+>> I tried -rc2, which contains that commit, and the problem is gone.  Thank
+>> you!
+>
+> Thanks for testing it, I'll send a patch for the 5.10 stable tree as
+> well.
+>
+>> There is a different problem, which is that the brightness buttons
+>> (on F2 and F3 on this laptop) do not actually increase/decrease the
+>> brightness.  GNOME pops up a graphic that illustrates it is changing
+>> the brightness, but nothing actually changes.
+>> 
+>> xbacklight says "No outputs have backlight property" and using
+>> xrandr --output XWAYLAND0 --brightness 0.0001 doesn't change anything
+>> (for various different values, not just 0.0001).  Using xrandr --prop
+>> --verbose shows the reported value of "Brightness" changing, but nothing
+>> has changed on the screen.
+>> 
+>> I found
+>> /sys/devices/pci0000:00/0000:00:02.0/drm/card0/card0-eDP-1/intel_backlight
+>> and tried setting 'brightness' in there to a few different values (100,
+>> 2000, 19200, 7000) and also nothing changed.
+>> 
+>> Any thoughts?
+>
+> One possibility is that from the different backlight methods (DPCD,
+> direct PWM on a CPU pin) the driver selects the incorrect one. Could you
+> provide a log booting with drm.debug=0x1e adding it to a new ticket at
+>
+> https://gitlab.freedesktop.org/drm/intel/-/issues/new?issue
+>
+> or at least in a reply to this thread?
+>
+> Adding Jani for further ideas.
 
-On Thu, Jan 07, 2021 at 10:17:23PM +0000, Chris Wilson wrote:
-> The reason why we did not enable preemption on Broadwater was due to
-> missing GPGPU workarounds. Since this only applies to rcs0, only
-> restrict rcs0 (and our global capabilities).
-> 
-> While this does not affect exposing a preemption capability to
-> userspace, it does affect our internal decisions on whether to use
-> timeslicing and semaphores between individual engines.
-> 
-> Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+Please try:
 
-Reviewed-by: Andi Shyti <andi.shyti@intel.com>
+1) i915.enable_dpcd_backlight=1 module param
 
-Thanks,
-Andi
+2) https://cgit.freedesktop.org/drm/drm-tip drm-tip branch with patches
+   from Lyude on top https://patchwork.freedesktop.org/series/81702/
+
+BR,
+Jani.
+
+
+-- 
+Jani Nikula, Intel Open Source Graphics Center
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
