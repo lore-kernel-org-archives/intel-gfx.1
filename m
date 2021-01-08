@@ -2,48 +2,50 @@ Return-Path: <SRS0=Vm3B=GL=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CACADC433E0
-	for <intel-gfx@archiver.kernel.org>; Fri,  8 Jan 2021 12:18:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BA6DAC433E0
+	for <intel-gfx@archiver.kernel.org>; Fri,  8 Jan 2021 12:26:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6EF8F23998
-	for <intel-gfx@archiver.kernel.org>; Fri,  8 Jan 2021 12:18:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6EF8F23998
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 4A9F9239EB
+	for <intel-gfx@archiver.kernel.org>; Fri,  8 Jan 2021 12:26:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4A9F9239EB
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA5016E81E;
-	Fri,  8 Jan 2021 12:18:48 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF9226E81E
- for <intel-gfx@lists.freedesktop.org>; Fri,  8 Jan 2021 12:18:47 +0000 (UTC)
-IronPort-SDR: AtySxxp+P45P6ZvaQL/xbpogytmEJYvVGPpxB5AS931P46OGh6ivzU0IFV9/s1r/gtMStjNMs/
- M6/GeZffrE+g==
-X-IronPort-AV: E=McAfee;i="6000,8403,9857"; a="196153415"
-X-IronPort-AV: E=Sophos;i="5.79,330,1602572400"; d="scan'208";a="196153415"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jan 2021 04:18:47 -0800
-IronPort-SDR: 7mklt/dPbTjDhAOpDUkdsHGV+6DSacPy7/3Oce6m9vJamGiHWRwCMSVTJ4OsXbYIsF6rHiXWXx
- atzDfEDwk9FQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.79,330,1602572400"; d="scan'208";a="570740671"
-Received: from tejas-system-product-name.iind.intel.com ([10.145.162.130])
- by fmsmga005.fm.intel.com with ESMTP; 08 Jan 2021 04:18:45 -0800
-From: Tejas Upadhyay <tejaskumarx.surendrakumar.upadhyay@intel.com>
-To: intel-gfx@lists.freedesktop.org, hariom.pandey@intel.com,
- jani.nikula@linux.intel.com, matthew.d.roper@intel.com
-Date: Fri,  8 Jan 2021 17:39:22 +0530
-Message-Id: <20210108120922.88692-1-tejaskumarx.surendrakumar.upadhyay@intel.com>
-X-Mailer: git-send-email 2.30.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8319A6E81B;
+	Fri,  8 Jan 2021 12:26:05 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B4D8E6E81B
+ for <intel-gfx@lists.freedesktop.org>; Fri,  8 Jan 2021 12:26:04 +0000 (UTC)
+IronPort-SDR: IruoR0ymuWbaRLR9BbteUhDhoccpYlu55IJsYOWhfPKH/gPjBvAlpCrtKb36jn8faS9gg2RqYk
+ cCr9gy0bNLxw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9857"; a="176811389"
+X-IronPort-AV: E=Sophos;i="5.79,330,1602572400"; d="scan'208";a="176811389"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Jan 2021 04:26:04 -0800
+IronPort-SDR: PQToyoPoqKHbRrobR7cFpnLXlGzH5LgYkKe2/P7LyY4GZTa8fkhpt7TLNZEkOTqytQQbQWrd4a
+ nz8oOn7WnsfA==
+X-IronPort-AV: E=Sophos;i="5.79,330,1602572400"; d="scan'208";a="422942695"
+Received: from rgwhiteh-mobl.ger.corp.intel.com (HELO localhost)
+ ([10.213.205.160])
+ by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Jan 2021 04:26:02 -0800
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Matt Roper <matthew.d.roper@intel.com>, intel-gfx@lists.freedesktop.org
+In-Reply-To: <20200716220551.2730644-5-matthew.d.roper@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20200716220551.2730644-1-matthew.d.roper@intel.com>
+ <20200716220551.2730644-5-matthew.d.roper@intel.com>
+Date: Fri, 08 Jan 2021 14:25:59 +0200
+Message-ID: <877donzkbs.fsf@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH V4] drm/i915/gen9_bc : Add TGP PCH support
+Subject: Re: [Intel-gfx] [PATCH v8 4/5] drm/i915/rkl: Handle HTI
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,163 +58,38 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Lucas De Marchi <lucas.demarchi@intel.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-We have TGP PCH support for Tigerlake and Rocketlake. Similarly
-now TGP PCH can be used with Cometlake CPU.
+On Thu, 16 Jul 2020, Matt Roper <matthew.d.roper@intel.com> wrote:
+> @@ -17903,6 +17904,13 @@ int intel_modeset_init(struct drm_i915_private *i915)
+>  	if (i915->max_cdclk_freq == 0)
+>  		intel_update_max_cdclk(i915);
+>  
+> +	/*
+> +	 * If the platform has HTI, we need to find out whether it has reserved
+> +	 * any display resources before we create our display outputs.
+> +	 */
+> +	if (INTEL_INFO(i915)->display.has_hti)
+> +		i915->hti_state = intel_de_read(i915, HDPORT_STATE);
+> +
 
-Changes since V3 :
-	- Rebased to top drm-tip commit
-	- dev_priv replaced with i915 for new API
-	- Enable default Port B,C,D detection for TGP && GEN9_BC
-Changes since V2 :
-        - IS_COMETLAKE replaced with IS_GEN9_BC
-        - VBT ddc pin remapping added
-        - Added dedicated HPD pin and DDC pin handling API
-Changes since V1 :
-        - Matched HPD Pin mapping for PORT C and PORT D of CML CPU.
+Just stumbled upon this in code.
 
-Cc: Matt Roper <matthew.d.roper@intel.com>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>
-Signed-off-by: Tejas Upadhyay <tejaskumarx.surendrakumar.upadhyay@intel.com>
----
- drivers/gpu/drm/i915/display/intel_bios.c    |  9 +++++++++
- drivers/gpu/drm/i915/display/intel_ddi.c     |  7 +++++--
- drivers/gpu/drm/i915/display/intel_display.c |  9 ++++++++-
- drivers/gpu/drm/i915/display/intel_hdmi.c    | 20 ++++++++++++++++++++
- drivers/gpu/drm/i915/intel_pch.c             |  3 ++-
- 5 files changed, 44 insertions(+), 4 deletions(-)
+This is supposed to be a high level modeset init function, and basically
+anything doing direct register access here is at a completely wrong
+abstraction layer. Please fix.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
-index 987cf509337f..730b7f45e5d4 100644
---- a/drivers/gpu/drm/i915/display/intel_bios.c
-+++ b/drivers/gpu/drm/i915/display/intel_bios.c
-@@ -1630,6 +1630,12 @@ static const u8 rkl_pch_tgp_ddc_pin_map[] = {
- 	[RKL_DDC_BUS_DDI_E] = GMBUS_PIN_10_TC2_ICP,
- };
- 
-+static const u8 gen9bc_tgp_ddc_pin_map[] = {
-+	[DDC_BUS_DDI_B] = GMBUS_PIN_2_BXT,
-+	[DDC_BUS_DDI_C] = GMBUS_PIN_9_TC1_ICP,
-+	[DDC_BUS_DDI_D] = GMBUS_PIN_10_TC2_ICP,
-+};
-+
- static u8 map_ddc_pin(struct drm_i915_private *dev_priv, u8 vbt_pin)
- {
- 	const u8 *ddc_pin_map;
-@@ -1640,6 +1646,9 @@ static u8 map_ddc_pin(struct drm_i915_private *dev_priv, u8 vbt_pin)
- 	} else if (IS_ROCKETLAKE(dev_priv) && INTEL_PCH_TYPE(dev_priv) == PCH_TGP) {
- 		ddc_pin_map = rkl_pch_tgp_ddc_pin_map;
- 		n_entries = ARRAY_SIZE(rkl_pch_tgp_ddc_pin_map);
-+	} else if (HAS_PCH_TGP(dev_priv) && IS_GEN9_BC(dev_priv)) {
-+		ddc_pin_map = gen9bc_tgp_ddc_pin_map;
-+		n_entries = ARRAY_SIZE(gen9bc_tgp_ddc_pin_map);
- 	} else if (INTEL_PCH_TYPE(dev_priv) >= PCH_ICP) {
- 		ddc_pin_map = icp_ddc_pin_map;
- 		n_entries = ARRAY_SIZE(icp_ddc_pin_map);
-diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-index 3df6913369bc..13f1268e2cff 100644
---- a/drivers/gpu/drm/i915/display/intel_ddi.c
-+++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-@@ -5337,7 +5337,9 @@ static enum hpd_pin dg1_hpd_pin(struct drm_i915_private *dev_priv,
- static enum hpd_pin tgl_hpd_pin(struct drm_i915_private *dev_priv,
- 				enum port port)
- {
--	if (port >= PORT_TC1)
-+	if (IS_GEN9_BC(dev_priv) && port >= PORT_C)
-+		return HPD_PORT_TC1 + port - PORT_C;
-+	else if (port >= PORT_TC1)
- 		return HPD_PORT_TC1 + port - PORT_TC1;
- 	else
- 		return HPD_PORT_A + port - PORT_A;
-@@ -5493,7 +5495,8 @@ void intel_ddi_init(struct drm_i915_private *dev_priv, enum port port)
- 		encoder->hpd_pin = dg1_hpd_pin(dev_priv, port);
- 	else if (IS_ROCKETLAKE(dev_priv))
- 		encoder->hpd_pin = rkl_hpd_pin(dev_priv, port);
--	else if (INTEL_GEN(dev_priv) >= 12)
-+	else if (INTEL_GEN(dev_priv) >= 12 || (IS_GEN9_BC(dev_priv) &&
-+					       HAS_PCH_TGP(dev_priv)))
- 		encoder->hpd_pin = tgl_hpd_pin(dev_priv, port);
- 	else if (IS_JSL_EHL(dev_priv))
- 		encoder->hpd_pin = ehl_hpd_pin(dev_priv, port);
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 0189d379a55e..81c93c49ddef 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -16212,7 +16212,14 @@ static void intel_setup_outputs(struct drm_i915_private *dev_priv)
- 
- 		/* DDI B, C, D, and F detection is indicated by the SFUSE_STRAP
- 		 * register */
--		found = intel_de_read(dev_priv, SFUSE_STRAP);
-+		if (HAS_PCH_TGP(dev_priv)) {
-+			/* W/A due to lack of STRAP config on TGP PCH*/
-+			found = (SFUSE_STRAP_DDIB_DETECTED |
-+				 SFUSE_STRAP_DDIC_DETECTED |
-+				 SFUSE_STRAP_DDID_DETECTED);
-+		} else {
-+			found = intel_de_read(dev_priv, SFUSE_STRAP);
-+		}
- 
- 		if (found & SFUSE_STRAP_DDIB_DETECTED)
- 			intel_ddi_init(dev_priv, PORT_B);
-diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
-index c5959590562b..aa3b4a659f96 100644
---- a/drivers/gpu/drm/i915/display/intel_hdmi.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
-@@ -3130,6 +3130,24 @@ static u8 rkl_port_to_ddc_pin(struct drm_i915_private *dev_priv, enum port port)
- 	return GMBUS_PIN_1_BXT + phy;
- }
- 
-+static u8 gen9bc_port_to_ddc_pin(struct drm_i915_private *i915, enum port port)
-+{
-+	enum phy phy = intel_port_to_phy(i915, port);
-+
-+	drm_WARN_ON(&i915->drm, port == PORT_A);
-+
-+	/*
-+	 * Pin mapping for GEN9 BC depends on which PCH is present.  With TGP,
-+	 * final two outputs use type-c pins, even though they're actually
-+	 * combo outputs.  With CMP, the traditional DDI A-D pins are used for
-+	 * all outputs.
-+	 */
-+	if (INTEL_PCH_TYPE(i915) >= PCH_TGP && phy >= PHY_C)
-+		return GMBUS_PIN_9_TC1_ICP + phy - PHY_C;
-+
-+	return GMBUS_PIN_1_BXT + phy;
-+}
-+
- static u8 dg1_port_to_ddc_pin(struct drm_i915_private *dev_priv, enum port port)
- {
- 	return intel_port_to_phy(dev_priv, port) + 1;
-@@ -3176,6 +3194,8 @@ static u8 intel_hdmi_ddc_pin(struct intel_encoder *encoder)
- 		ddc_pin = dg1_port_to_ddc_pin(dev_priv, port);
- 	else if (IS_ROCKETLAKE(dev_priv))
- 		ddc_pin = rkl_port_to_ddc_pin(dev_priv, port);
-+	else if (IS_GEN9_BC(dev_priv) && HAS_PCH_TGP(dev_priv))
-+		ddc_pin = gen9bc_port_to_ddc_pin(dev_priv, port);
- 	else if (HAS_PCH_MCC(dev_priv))
- 		ddc_pin = mcc_port_to_ddc_pin(dev_priv, port);
- 	else if (INTEL_PCH_TYPE(dev_priv) >= PCH_ICP)
-diff --git a/drivers/gpu/drm/i915/intel_pch.c b/drivers/gpu/drm/i915/intel_pch.c
-index f31c0dabd0cc..c1bc2d032360 100644
---- a/drivers/gpu/drm/i915/intel_pch.c
-+++ b/drivers/gpu/drm/i915/intel_pch.c
-@@ -121,7 +121,8 @@ intel_pch_type(const struct drm_i915_private *dev_priv, unsigned short id)
- 	case INTEL_PCH_TGP2_DEVICE_ID_TYPE:
- 		drm_dbg_kms(&dev_priv->drm, "Found Tiger Lake LP PCH\n");
- 		drm_WARN_ON(&dev_priv->drm, !IS_TIGERLAKE(dev_priv) &&
--			    !IS_ROCKETLAKE(dev_priv));
-+			    !IS_ROCKETLAKE(dev_priv) &&
-+			    !IS_GEN9_BC(dev_priv));
- 		return PCH_TGP;
- 	case INTEL_PCH_JSP_DEVICE_ID_TYPE:
- 	case INTEL_PCH_JSP2_DEVICE_ID_TYPE:
+
+BR,
+Jani.
+
+
 -- 
-2.30.0
-
+Jani Nikula, Intel Open Source Graphics Center
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
