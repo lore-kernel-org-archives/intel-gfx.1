@@ -7,35 +7,37 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E8F0AC433DB
-	for <intel-gfx@archiver.kernel.org>; Fri,  8 Jan 2021 20:40:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DA233C433E0
+	for <intel-gfx@archiver.kernel.org>; Fri,  8 Jan 2021 20:40:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 06FDC23A68
-	for <intel-gfx@archiver.kernel.org>; Fri,  8 Jan 2021 20:40:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 06FDC23A68
+	by mail.kernel.org (Postfix) with ESMTPS id 4836023A7F
+	for <intel-gfx@archiver.kernel.org>; Fri,  8 Jan 2021 20:40:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4836023A7F
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9517D6E8C4;
-	Fri,  8 Jan 2021 20:40:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B2A8B6E811;
+	Fri,  8 Jan 2021 20:40:32 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8AC366E811
- for <intel-gfx@lists.freedesktop.org>; Fri,  8 Jan 2021 20:40:29 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B3BB76E8C5
+ for <intel-gfx@lists.freedesktop.org>; Fri,  8 Jan 2021 20:40:31 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23542759-1500050 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23542761-1500050 
  for <intel-gfx@lists.freedesktop.org>; Fri, 08 Jan 2021 20:40:26 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri,  8 Jan 2021 20:40:20 +0000
-Message-Id: <20210108204026.20682-1-chris@chris-wilson.co.uk>
+Date: Fri,  8 Jan 2021 20:40:22 +0000
+Message-Id: <20210108204026.20682-3-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20210108204026.20682-1-chris@chris-wilson.co.uk>
+References: <20210108204026.20682-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [CI 1/7] drm/i915/gt: Prevent use of engine->wa_ctx
- after error
+Subject: [Intel-gfx] [CI 3/7] drm/i915/selftests: Rearrange ktime_get to
+ reduce latency against CS
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,38 +55,36 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On error we unpin and free the wa_ctx.vma, but do not clear any of the
-derived flags. During lrc_init, we look at the flags and attempt to
-dereference the wa_ctx.vma if they are set. To protect the error path
-where we try to limp along without the wa_ctx, make sure we clear those
-flags!
+In our tests where we measure the elapsed time on both the CPU and CS
+using a udelay, our CS results match the udelay much more accurately
+than the ktime (even when using ktime_get_fast_ns). With preemption
+disabled, we can go one step lower than ktime and use local_clock.
 
-Reported-by: Matt Roper <matthew.d.roper@intel.com>
-Fixes: 604a8f6f1e33 ("drm/i915/lrc: Only enable per-context and per-bb buffers if set")
+Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/2919
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-Cc: Matt Roper <matthew.d.roper@intel.com>
-Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-Cc: Mika Kuoppala <mika.kuoppala@linux.intel.com>
-Cc: <stable@vger.kernel.org> # v4.15+
-Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
+Reviewed-by: Andi Shyti <andi.shyti@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_lrc.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/i915/gt/selftest_engine_pm.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
-index 4e856947fb13..703d9ecc3f7e 100644
---- a/drivers/gpu/drm/i915/gt/intel_lrc.c
-+++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
-@@ -1453,6 +1453,9 @@ static int lrc_setup_wa_ctx(struct intel_engine_cs *engine)
- void lrc_fini_wa_ctx(struct intel_engine_cs *engine)
- {
- 	i915_vma_unpin_and_release(&engine->wa_ctx.vma, 0);
-+
-+	/* Called on error unwind, clear all flags to prevent further use */
-+	memset(&engine->wa_ctx, 0, sizeof(engine->wa_ctx));
- }
+diff --git a/drivers/gpu/drm/i915/gt/selftest_engine_pm.c b/drivers/gpu/drm/i915/gt/selftest_engine_pm.c
+index ca080445695e..c3d965279fc3 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_engine_pm.c
++++ b/drivers/gpu/drm/i915/gt/selftest_engine_pm.c
+@@ -112,11 +112,11 @@ static int __measure_timestamps(struct intel_context *ce,
  
- typedef u32 *(*wa_bb_func_t)(struct intel_engine_cs *engine, u32 *batch);
+ 	/* Run the request for a 100us, sampling timestamps before/after */
+ 	preempt_disable();
+-	*dt = ktime_get_raw_fast_ns();
++	*dt = local_clock();
+ 	write_semaphore(&sema[2], 0);
+ 	udelay(100);
++	*dt = local_clock() - *dt;
+ 	write_semaphore(&sema[2], 1);
+-	*dt = ktime_get_raw_fast_ns() - *dt;
+ 	preempt_enable();
+ 
+ 	if (i915_request_wait(rq, 0, HZ / 2) < 0) {
 -- 
 2.20.1
 
