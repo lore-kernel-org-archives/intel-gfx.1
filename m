@@ -2,52 +2,51 @@ Return-Path: <SRS0=Vm3B=GL=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 47515C433E6
-	for <intel-gfx@archiver.kernel.org>; Fri,  8 Jan 2021 17:45:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 89DD4C433E0
+	for <intel-gfx@archiver.kernel.org>; Fri,  8 Jan 2021 17:45:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E44AD23A61
-	for <intel-gfx@archiver.kernel.org>; Fri,  8 Jan 2021 17:45:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E44AD23A61
+	by mail.kernel.org (Postfix) with ESMTPS id 4067023A61
+	for <intel-gfx@archiver.kernel.org>; Fri,  8 Jan 2021 17:45:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4067023A61
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6CC3F6E85C;
-	Fri,  8 Jan 2021 17:45:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF8F86E860;
+	Fri,  8 Jan 2021 17:45:48 +0000 (UTC)
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 61D6A6E85C
- for <intel-gfx@lists.freedesktop.org>; Fri,  8 Jan 2021 17:45:42 +0000 (UTC)
-IronPort-SDR: kbsOZK6LROlCi5rZcwV0TTWz9yQbonLwx5ZzR+HKCe9BcmEcRRQLIPAhkYoeLDCVcIomcXcHJV
- 6aBSW8jsBxHQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9858"; a="177727543"
-X-IronPort-AV: E=Sophos;i="5.79,332,1602572400"; d="scan'208";a="177727543"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 645B96E860
+ for <intel-gfx@lists.freedesktop.org>; Fri,  8 Jan 2021 17:45:47 +0000 (UTC)
+IronPort-SDR: 4u2e2TUXQr7OElNbizzFsYpPnzJYAXvMErao/Przg0lvTuLthyVtqTa3XOYnJ0OJ1KLyECwBMc
+ 45Yioqiivvug==
+X-IronPort-AV: E=McAfee;i="6000,8403,9858"; a="177727550"
+X-IronPort-AV: E=Sophos;i="5.79,332,1602572400"; d="scan'208";a="177727550"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jan 2021 09:45:41 -0800
-IronPort-SDR: yhS5DeI4spb1mZSa+UffSze2jnMrLO+gcpsmSLz6M0SaNkkgkTNb2Tpux3wLqwHbSrL3U47msd
- zs3Zv2ayJYOA==
-X-IronPort-AV: E=Sophos;i="5.79,332,1602572400"; d="scan'208";a="350939240"
+ 08 Jan 2021 09:45:47 -0800
+IronPort-SDR: spTkB+Qh4tV2O8g+DhbpUFQHRf9TCyWfYUXScYvgHH7wu+PStvSHBW0Q3SiPOzjIlVG/cnR19s
+ miFfLNGKiTeg==
+X-IronPort-AV: E=Sophos;i="5.79,332,1602572400"; d="scan'208";a="388247023"
 Received: from rgwhiteh-mobl.ger.corp.intel.com (HELO localhost)
  ([10.213.205.160])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jan 2021 09:45:40 -0800
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Jan 2021 09:45:42 -0800
 From: Jani Nikula <jani.nikula@intel.com>
-To: Anshuman Gupta <anshuman.gupta@intel.com>
-In-Reply-To: <20201229061532.GB11717@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <cover.1608648128.git.jani.nikula@intel.com>
- <4bf586da0ac828353940c0d5a643bacbb4399d7b.1608648128.git.jani.nikula@intel.com>
- <20201229061532.GB11717@intel.com>
-Date: Fri, 08 Jan 2021 19:45:36 +0200
-Message-ID: <87ft3bxqyn.fsf@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Fri,  8 Jan 2021 19:44:21 +0200
+Message-Id: <15260c28060f3f90276ab395da4d3999ccdb641f.1610127741.git.jani.nikula@intel.com>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <cover.1610127741.git.jani.nikula@intel.com>
+References: <cover.1610127741.git.jani.nikula@intel.com>
 MIME-Version: 1.0
-Subject: Re: [Intel-gfx] [PATCH 04/13] drm/i915/pps: rename
- intel_edp_panel_* to intel_pps_*
+Subject: [Intel-gfx] [PATCH v2 13/17] drm/i915/pps: rename
+ intel_dp_init_panel_power_sequencer* functions
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,26 +59,144 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
+Cc: jani.nikula@intel.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 29 Dec 2020, Anshuman Gupta <anshuman.gupta@intel.com> wrote:
->>  /*
->> - * Must be paired with intel_edp_panel_vdd_off() or
->> - * intel_edp_panel_off().
->> + * Must be paired with intel_pps_vdd_off() or
-> IMHO can we change the comment, there is no function with name intel_pps_vdd_off()
+There are a number of functions that "init" pps in various ways. Try to
+find some more consistency in the naming.
 
-Fixed in v2.
+Rename:
+ - intel_dp_init_panel_power_sequencer -> pps_init_delays
+ - intel_dp_init_panel_power_sequencer_registers -> pps_init_registers
+ - intel_dp_init_panel_power_timestamps -> pps_init_timestamps
 
-BR,
-Jani.
+as this is what the functions do. Skip the intel_ prefix here to
+emphasize these are static and not exported.
 
+No functional changes.
+
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_pps.c | 37 ++++++++++--------------
+ 1 file changed, 16 insertions(+), 21 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_pps.c b/drivers/gpu/drm/i915/display/intel_pps.c
+index 8925df55e22e..58eff6289d12 100644
+--- a/drivers/gpu/drm/i915/display/intel_pps.c
++++ b/drivers/gpu/drm/i915/display/intel_pps.c
+@@ -10,11 +10,9 @@
+ 
+ static void vlv_steal_power_sequencer(struct drm_i915_private *dev_priv,
+ 				      enum pipe pipe);
+-static void
+-intel_dp_init_panel_power_sequencer(struct intel_dp *intel_dp);
+-static void
+-intel_dp_init_panel_power_sequencer_registers(struct intel_dp *intel_dp,
+-					      bool force_disable_vdd);
++
++static void pps_init_delays(struct intel_dp *intel_dp);
++static void pps_init_registers(struct intel_dp *intel_dp, bool force_disable_vdd);
+ 
+ intel_wakeref_t intel_pps_lock(struct intel_dp *intel_dp)
+ {
+@@ -190,8 +188,8 @@ vlv_power_sequencer_pipe(struct intel_dp *intel_dp)
+ 		    dig_port->base.base.name);
+ 
+ 	/* init power sequencer on this pipe and port */
+-	intel_dp_init_panel_power_sequencer(intel_dp);
+-	intel_dp_init_panel_power_sequencer_registers(intel_dp, true);
++	pps_init_delays(intel_dp);
++	pps_init_registers(intel_dp, true);
+ 
+ 	/*
+ 	 * Even vdd force doesn't work until we've made
+@@ -222,7 +220,7 @@ bxt_power_sequencer_idx(struct intel_dp *intel_dp)
+ 	 * Only the HW needs to be reprogrammed, the SW state is fixed and
+ 	 * has been setup during connector init.
+ 	 */
+-	intel_dp_init_panel_power_sequencer_registers(intel_dp, false);
++	pps_init_registers(intel_dp, false);
+ 
+ 	return backlight_controller;
+ }
+@@ -308,8 +306,8 @@ vlv_initial_power_sequencer_setup(struct intel_dp *intel_dp)
+ 		    dig_port->base.base.name,
+ 		    pipe_name(intel_dp->pps_pipe));
+ 
+-	intel_dp_init_panel_power_sequencer(intel_dp);
+-	intel_dp_init_panel_power_sequencer_registers(intel_dp, false);
++	pps_init_delays(intel_dp);
++	pps_init_registers(intel_dp, false);
+ }
+ 
+ void intel_pps_reset_all(struct drm_i915_private *dev_priv)
+@@ -1046,8 +1044,8 @@ void vlv_pps_init(struct intel_encoder *encoder,
+ 		    encoder->base.name);
+ 
+ 	/* init power sequencer on this pipe and port */
+-	intel_dp_init_panel_power_sequencer(intel_dp);
+-	intel_dp_init_panel_power_sequencer_registers(intel_dp, true);
++	pps_init_delays(intel_dp);
++	pps_init_registers(intel_dp, true);
+ }
+ 
+ static void intel_pps_vdd_sanitize(struct intel_dp *intel_dp)
+@@ -1088,7 +1086,7 @@ bool intel_pps_have_power(struct intel_dp *intel_dp)
+ 	return have_power;
+ }
+ 
+-static void intel_dp_init_panel_power_timestamps(struct intel_dp *intel_dp)
++static void pps_init_timestamps(struct intel_dp *intel_dp)
+ {
+ 	intel_dp->panel_power_off_time = ktime_get_boottime();
+ 	intel_dp->last_power_on = jiffies;
+@@ -1154,8 +1152,7 @@ intel_pps_verify_state(struct intel_dp *intel_dp)
+ 	}
+ }
+ 
+-static void
+-intel_dp_init_panel_power_sequencer(struct intel_dp *intel_dp)
++static void pps_init_delays(struct intel_dp *intel_dp)
+ {
+ 	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
+ 	struct edp_power_seq cur, vbt, spec,
+@@ -1250,9 +1247,7 @@ intel_dp_init_panel_power_sequencer(struct intel_dp *intel_dp)
+ 	final->t11_t12 = roundup(final->t11_t12, 100 * 10);
+ }
+ 
+-static void
+-intel_dp_init_panel_power_sequencer_registers(struct intel_dp *intel_dp,
+-					      bool force_disable_vdd)
++static void pps_init_registers(struct intel_dp *intel_dp, bool force_disable_vdd)
+ {
+ 	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
+ 	u32 pp_on, pp_off, port_sel = 0;
+@@ -1354,8 +1349,8 @@ static void intel_dp_pps_init(struct intel_dp *intel_dp)
+ 	if (IS_VALLEYVIEW(dev_priv) || IS_CHERRYVIEW(dev_priv)) {
+ 		vlv_initial_power_sequencer_setup(intel_dp);
+ 	} else {
+-		intel_dp_init_panel_power_sequencer(intel_dp);
+-		intel_dp_init_panel_power_sequencer_registers(intel_dp, false);
++		pps_init_delays(intel_dp);
++		pps_init_registers(intel_dp, false);
+ 	}
+ }
+ 
+@@ -1383,7 +1378,7 @@ void intel_pps_init(struct intel_dp *intel_dp)
+ 	INIT_DELAYED_WORK(&intel_dp->panel_vdd_work, edp_panel_vdd_work);
+ 
+ 	with_intel_pps_lock(intel_dp, wakeref) {
+-		intel_dp_init_panel_power_timestamps(intel_dp);
++		pps_init_timestamps(intel_dp);
+ 		intel_dp_pps_init(intel_dp);
+ 		intel_pps_vdd_sanitize(intel_dp);
+ 	}
 -- 
-Jani Nikula, Intel Open Source Graphics Center
+2.20.1
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
