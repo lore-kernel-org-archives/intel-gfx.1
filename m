@@ -7,35 +7,36 @@ X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D3B84C433DB
-	for <intel-gfx@archiver.kernel.org>; Sat,  9 Jan 2021 16:35:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9CDA0C433E6
+	for <intel-gfx@archiver.kernel.org>; Sat,  9 Jan 2021 16:35:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 767F422D75
-	for <intel-gfx@archiver.kernel.org>; Sat,  9 Jan 2021 16:35:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 767F422D75
+	by mail.kernel.org (Postfix) with ESMTPS id 3899422D75
+	for <intel-gfx@archiver.kernel.org>; Sat,  9 Jan 2021 16:35:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3899422D75
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C7C2E89E36;
-	Sat,  9 Jan 2021 16:35:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC33289F8B;
+	Sat,  9 Jan 2021 16:35:05 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B7F5789E35
- for <intel-gfx@lists.freedesktop.org>; Sat,  9 Jan 2021 16:34:59 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B57D589E36
+ for <intel-gfx@lists.freedesktop.org>; Sat,  9 Jan 2021 16:35:00 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23547977-1500050 
- for <intel-gfx@lists.freedesktop.org>; Sat, 09 Jan 2021 16:34:55 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23547979-1500050 
+ for <intel-gfx@lists.freedesktop.org>; Sat, 09 Jan 2021 16:34:56 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Sat,  9 Jan 2021 16:34:53 +0000
-Message-Id: <20210109163455.28466-1-chris@chris-wilson.co.uk>
+Date: Sat,  9 Jan 2021 16:34:55 +0000
+Message-Id: <20210109163455.28466-3-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20210109163455.28466-1-chris@chris-wilson.co.uk>
+References: <20210109163455.28466-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [CI 1/3] drm/i915/gt: Remove unused function
- 'dword_in_page'
+Subject: [Intel-gfx] [CI 3/3] drm/i915: Refactor marking a request as EIO
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,32 +54,170 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
->> drivers/gpu/drm/i915/gt/intel_lrc.c:17:28: error: unused function 'dword_in_page' [-Werror,-Wunused-function]
-   static inline unsigned int dword_in_page(void *addr)
+When wedging the device, we cancel all outstanding requests and mark
+them as EIO. Rather than duplicate the small function to do so between
+each submission backend, export one.
 
-Reported-by: kernel test robot <lkp@intel.com>
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+Cc: Andi Shyti <andi.shyti@intel.com>
 Reviewed-by: Andi Shyti <andi.shyti@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_lrc.c | 5 -----
- 1 file changed, 5 deletions(-)
+ .../drm/i915/gt/intel_execlists_submission.c  | 19 ++++---------------
+ .../gpu/drm/i915/gt/intel_ring_submission.c   |  6 ++----
+ drivers/gpu/drm/i915/gt/mock_engine.c         | 15 ++-------------
+ drivers/gpu/drm/i915/i915_request.c           | 11 +++++++++++
+ drivers/gpu/drm/i915/i915_request.h           |  3 ++-
+ 5 files changed, 21 insertions(+), 33 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
-index 7956cdaf6b5f..a0fc78c89b61 100644
---- a/drivers/gpu/drm/i915/gt/intel_lrc.c
-+++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
-@@ -14,11 +14,6 @@
- #include "intel_ring.h"
- #include "shmem_utils.h"
+diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+index 4d7ac81303bb..52c1fe62bdfe 100644
+--- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
++++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+@@ -203,17 +203,6 @@ static struct virtual_engine *to_virtual_engine(struct intel_engine_cs *engine)
+ 	return container_of(engine, struct virtual_engine, base);
+ }
  
--static inline unsigned int dword_in_page(void *addr)
+-static void mark_eio(struct i915_request *rq)
 -{
--	return offset_in_page(addr) / sizeof(u32);
+-	if (__i915_request_is_complete(rq))
+-		return;
+-
+-	GEM_BUG_ON(i915_request_signaled(rq));
+-
+-	i915_request_set_error_once(rq, -EIO);
+-	i915_request_mark_complete(rq);
 -}
 -
- static void set_offsets(u32 *regs,
- 			const u8 *data,
- 			const struct intel_engine_cs *engine,
+ static struct i915_request *
+ __active_request(const struct intel_timeline * const tl,
+ 		 struct i915_request *rq,
+@@ -2996,7 +2985,7 @@ static void execlists_reset_cancel(struct intel_engine_cs *engine)
+ 
+ 	/* Mark all executing requests as skipped. */
+ 	list_for_each_entry(rq, &engine->active.requests, sched.link)
+-		mark_eio(rq);
++		i915_request_mark_eio(rq);
+ 	intel_engine_signal_breadcrumbs(engine);
+ 
+ 	/* Flush the queued requests to the timeline list (for retiring). */
+@@ -3005,7 +2994,7 @@ static void execlists_reset_cancel(struct intel_engine_cs *engine)
+ 		int i;
+ 
+ 		priolist_for_each_request_consume(rq, rn, p, i) {
+-			mark_eio(rq);
++			i915_request_mark_eio(rq);
+ 			__i915_request_submit(rq);
+ 		}
+ 
+@@ -3015,7 +3004,7 @@ static void execlists_reset_cancel(struct intel_engine_cs *engine)
+ 
+ 	/* On-hold requests will be flushed to timeline upon their release */
+ 	list_for_each_entry(rq, &engine->active.hold, sched.link)
+-		mark_eio(rq);
++		i915_request_mark_eio(rq);
+ 
+ 	/* Cancel all attached virtual engines */
+ 	while ((rb = rb_first_cached(&execlists->virtual))) {
+@@ -3028,7 +3017,7 @@ static void execlists_reset_cancel(struct intel_engine_cs *engine)
+ 		spin_lock(&ve->base.active.lock);
+ 		rq = fetch_and_zero(&ve->request);
+ 		if (rq) {
+-			mark_eio(rq);
++			i915_request_mark_eio(rq);
+ 
+ 			rq->engine = engine;
+ 			__i915_request_submit(rq);
+diff --git a/drivers/gpu/drm/i915/gt/intel_ring_submission.c b/drivers/gpu/drm/i915/gt/intel_ring_submission.c
+index 4ea741f488a8..1c6d421f6fe5 100644
+--- a/drivers/gpu/drm/i915/gt/intel_ring_submission.c
++++ b/drivers/gpu/drm/i915/gt/intel_ring_submission.c
+@@ -473,10 +473,8 @@ static void reset_cancel(struct intel_engine_cs *engine)
+ 	spin_lock_irqsave(&engine->active.lock, flags);
+ 
+ 	/* Mark all submitted requests as skipped. */
+-	list_for_each_entry(request, &engine->active.requests, sched.link) {
+-		i915_request_set_error_once(request, -EIO);
+-		i915_request_mark_complete(request);
+-	}
++	list_for_each_entry(request, &engine->active.requests, sched.link)
++		i915_request_mark_eio(request);
+ 	intel_engine_signal_breadcrumbs(engine);
+ 
+ 	/* Remaining _unready_ requests will be nop'ed when submitted */
+diff --git a/drivers/gpu/drm/i915/gt/mock_engine.c b/drivers/gpu/drm/i915/gt/mock_engine.c
+index 2f830017c51d..4b4f03b70df7 100644
+--- a/drivers/gpu/drm/i915/gt/mock_engine.c
++++ b/drivers/gpu/drm/i915/gt/mock_engine.c
+@@ -245,17 +245,6 @@ static void mock_reset_rewind(struct intel_engine_cs *engine, bool stalled)
+ 	GEM_BUG_ON(stalled);
+ }
+ 
+-static void mark_eio(struct i915_request *rq)
+-{
+-	if (i915_request_completed(rq))
+-		return;
+-
+-	GEM_BUG_ON(i915_request_signaled(rq));
+-
+-	i915_request_set_error_once(rq, -EIO);
+-	i915_request_mark_complete(rq);
+-}
+-
+ static void mock_reset_cancel(struct intel_engine_cs *engine)
+ {
+ 	struct mock_engine *mock =
+@@ -269,12 +258,12 @@ static void mock_reset_cancel(struct intel_engine_cs *engine)
+ 
+ 	/* Mark all submitted requests as skipped. */
+ 	list_for_each_entry(rq, &engine->active.requests, sched.link)
+-		mark_eio(rq);
++		i915_request_mark_eio(rq);
+ 	intel_engine_signal_breadcrumbs(engine);
+ 
+ 	/* Cancel and submit all pending requests. */
+ 	list_for_each_entry(rq, &mock->hw_queue, mock.link) {
+-		mark_eio(rq);
++		i915_request_mark_eio(rq);
+ 		__i915_request_submit(rq);
+ 	}
+ 	INIT_LIST_HEAD(&mock->hw_queue);
+diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
+index bfd82d8259f4..0b1a46a0d866 100644
+--- a/drivers/gpu/drm/i915/i915_request.c
++++ b/drivers/gpu/drm/i915/i915_request.c
+@@ -515,6 +515,17 @@ void i915_request_set_error_once(struct i915_request *rq, int error)
+ 	} while (!try_cmpxchg(&rq->fence.error, &old, error));
+ }
+ 
++void i915_request_mark_eio(struct i915_request *rq)
++{
++	if (__i915_request_is_complete(rq))
++		return;
++
++	GEM_BUG_ON(i915_request_signaled(rq));
++
++	i915_request_set_error_once(rq, -EIO);
++	i915_request_mark_complete(rq);
++}
++
+ bool __i915_request_submit(struct i915_request *request)
+ {
+ 	struct intel_engine_cs *engine = request->engine;
+diff --git a/drivers/gpu/drm/i915/i915_request.h b/drivers/gpu/drm/i915/i915_request.h
+index a8c413203f72..1bfe214a47e9 100644
+--- a/drivers/gpu/drm/i915/i915_request.h
++++ b/drivers/gpu/drm/i915/i915_request.h
+@@ -309,8 +309,9 @@ __i915_request_create(struct intel_context *ce, gfp_t gfp);
+ struct i915_request * __must_check
+ i915_request_create(struct intel_context *ce);
+ 
+-void i915_request_set_error_once(struct i915_request *rq, int error);
+ void __i915_request_skip(struct i915_request *rq);
++void i915_request_set_error_once(struct i915_request *rq, int error);
++void i915_request_mark_eio(struct i915_request *rq);
+ 
+ struct i915_request *__i915_request_commit(struct i915_request *request);
+ void __i915_request_queue(struct i915_request *rq,
 -- 
 2.20.1
 
