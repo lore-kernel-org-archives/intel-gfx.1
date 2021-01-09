@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B6ABAC433E0
-	for <intel-gfx@archiver.kernel.org>; Sat,  9 Jan 2021 15:50:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id ADBFCC433E0
+	for <intel-gfx@archiver.kernel.org>; Sat,  9 Jan 2021 16:00:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 655CD238A1
-	for <intel-gfx@archiver.kernel.org>; Sat,  9 Jan 2021 15:50:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 655CD238A1
+	by mail.kernel.org (Postfix) with ESMTPS id 2DF31239E4
+	for <intel-gfx@archiver.kernel.org>; Sat,  9 Jan 2021 16:00:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2DF31239E4
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 020F96E89D;
-	Sat,  9 Jan 2021 15:50:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 98B5589875;
+	Sat,  9 Jan 2021 16:00:13 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB39A6E89D
- for <intel-gfx@lists.freedesktop.org>; Sat,  9 Jan 2021 15:50:52 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C50189842
+ for <intel-gfx@lists.freedesktop.org>; Sat,  9 Jan 2021 16:00:11 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23547770-1500050 
- for multiple; Sat, 09 Jan 2021 15:49:32 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23547807-1500050 
+ for multiple; Sat, 09 Jan 2021 15:59:15 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Sat,  9 Jan 2021 15:49:31 +0000
-Message-Id: <20210109154931.10098-3-chris@chris-wilson.co.uk>
+Date: Sat,  9 Jan 2021 15:59:15 +0000
+Message-Id: <20210109155915.20397-1-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210109154931.10098-1-chris@chris-wilson.co.uk>
-References: <20210109154931.10098-1-chris@chris-wilson.co.uk>
+In-Reply-To: <20210109154931.10098-3-chris@chris-wilson.co.uk>
+References: <20210109154931.10098-3-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 3/3] drm/i915: Allow the user to override
- security mitigations
+Subject: [Intel-gfx] [PATCH] drm/i915: Allow the user to override security
+ mitigations
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,7 +97,7 @@ JgorCQkgICAgaTkxNV9taXRpZ2F0ZV9jbGVhcl9yZXNpZHVhbHMoKSkgewogCQkJcmV0ID0gY2xl
 YXJfcmVzaWR1YWxzKHJxKTsKIAkJCWlmIChyZXQpCiAJCQkJcmV0dXJuIHJldDsKZGlmZiAtLWdp
 dCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfbWl0aWdhdGlvbnMuYyBiL2RyaXZlcnMvZ3B1
 L2RybS9pOTE1L2k5MTVfbWl0aWdhdGlvbnMuYwpuZXcgZmlsZSBtb2RlIDEwMDY0NAppbmRleCAw
-MDAwMDAwMDAwMDAuLjgyNWFmNTUwYTExYwotLS0gL2Rldi9udWxsCisrKyBiL2RyaXZlcnMvZ3B1
+MDAwMDAwMDAwMDAuLjAxYWQ3NDcyMWU2NQotLS0gL2Rldi9udWxsCisrKyBiL2RyaXZlcnMvZ3B1
 L2RybS9pOTE1L2k5MTVfbWl0aWdhdGlvbnMuYwpAQCAtMCwwICsxLDExOSBAQAorLy8gU1BEWC1M
 aWNlbnNlLUlkZW50aWZpZXI6IE1JVAorLyoKKyAqIENvcHlyaWdodCDCqSAyMDIxIEludGVsIENv
 cnBvcmF0aW9uCisgKi8KKworI2luY2x1ZGUgPGxpbnV4L2tlcm5lbC5oPgorI2luY2x1ZGUgPGxp
@@ -129,7 +129,7 @@ ZXRfY2hhcnAodmFsLCBrcCk7CisJaWYgKGVycikKKwkJcmV0dXJuIGVycjsKKworCXJldHVybiAw
 OworfQorCitzdGF0aWMgY29uc3Qgc3RydWN0IGtlcm5lbF9wYXJhbV9vcHMgb3BzID0geworCS5z
 ZXQgPSBtaXRpZ2F0aW9uc19zZXQsCisJLmdldCA9IHBhcmFtX2dldF9jaGFycCwKKwkuZnJlZSA9
 IHBhcmFtX2ZyZWVfY2hhcnAKK307CisKK3N0YXRpYyBjaGFyICpwYXJhbTsKK21vZHVsZV9wYXJh
-bV9jYl91bnNhZmUobWl0aWdhdGlvbnMsICZvcHMsICZwYXJhbSwgMDQwMCk7CitNT0RVTEVfUEFS
+bV9jYl91bnNhZmUobWl0aWdhdGlvbnMsICZvcHMsICZwYXJhbSwgMDYwMCk7CitNT0RVTEVfUEFS
 TV9ERVNDKG1pdGlnYXRpb25zLAorIlNlbGVjdGl2ZWx5IGVuYWJsZSBzZWN1cml0eSBtaXRpZ2F0
 aW9ucyBmb3IgYWxsIEludGVswq4gR1BVcy5cbiIKKyJcbiIKKyIgIGF1dG8gLS0gZW5hYmxlcyBh
 bGwgbWl0aWdhdGlvbnMgcmVxdWlyZWQgZm9yIHRoZSBwbGF0Zm9ybSBbZGVmYXVsdF1cbiIKKyIg
