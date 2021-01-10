@@ -2,41 +2,35 @@ Return-Path: <SRS0=zhYU=GO=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.2 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,LOTS_OF_MONEY,MAILING_LIST_MULTI,MONEY_NOHTML,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5EE2FC433E0
-	for <intel-gfx@archiver.kernel.org>; Mon, 11 Jan 2021 14:42:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7C594C433E6
+	for <intel-gfx@archiver.kernel.org>; Mon, 11 Jan 2021 14:42:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C7A20221F8
-	for <intel-gfx@archiver.kernel.org>; Mon, 11 Jan 2021 14:42:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C7A20221F8
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=alpha.franken.de
+	by mail.kernel.org (Postfix) with ESMTPS id 36DB8221F8
+	for <intel-gfx@archiver.kernel.org>; Mon, 11 Jan 2021 14:42:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 36DB8221F8
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=crapouillou.net
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D67E889D4D;
-	Mon, 11 Jan 2021 14:42:01 +0000 (UTC)
-Received: from elvis.franken.de (elvis.franken.de [193.175.24.41])
- by gabe.freedesktop.org (Postfix) with ESMTP id E42986E8F6;
- Sat,  9 Jan 2021 00:52:47 +0000 (UTC)
-Received: from uucp (helo=alpha)
- by elvis.franken.de with local-bsmtp (Exim 3.36 #1)
- id 1ky1e2-0007pu-00; Sat, 09 Jan 2021 00:58:14 +0100
-Received: by alpha.franken.de (Postfix, from userid 1000)
- id 804DDC086F; Sat,  9 Jan 2021 00:58:05 +0100 (CET)
-Date: Sat, 9 Jan 2021 00:58:05 +0100
-From: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-To: Paul Cercueil <paul@crapouillou.net>
-Message-ID: <20210108235805.GA17543@alpha.franken.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E8F889D7F;
+	Mon, 11 Jan 2021 14:42:02 +0000 (UTC)
+Received: from aposti.net (aposti.net [89.234.176.197])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CA2AE89D00;
+ Sun, 10 Jan 2021 11:35:34 +0000 (UTC)
+Date: Sun, 10 Jan 2021 11:35:01 +0000
+From: Paul Cercueil <paul@crapouillou.net>
+To: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+Message-Id: <DUUPMQ.U53A0W7YJPGM@crapouillou.net>
+In-Reply-To: <20210109003352.GA18102@alpha.franken.de>
 References: <JUTMMQ.NNFWKIUV7UUJ1@crapouillou.net>
+ <20210108235805.GA17543@alpha.franken.de>
+ <20210109003352.GA18102@alpha.franken.de>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <JUTMMQ.NNFWKIUV7UUJ1@crapouillou.net>
-User-Agent: Mutt/1.10.1 (2018-07-13)
 X-Mailman-Approved-At: Mon, 11 Jan 2021 14:42:01 +0000
 Subject: Re: [Intel-gfx] [patch V3 13/37] mips/mm/highmem: Switch to generic
  kmap atomic
@@ -72,90 +66,64 @@ Cc: juri.lelli@redhat.com, linux-aio@kvack.org, airlied@linux.ie,
  vgupta@synopsys.com, linux-fsdevel@vger.kernel.org, akpm@linux-foundation.org,
  bristot@redhat.com, davem@davemloft.net, linux-btrfs@vger.kernel.org,
  viro@zeniv.linux.org.uk
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="iso-8859-1"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jan 08, 2021 at 08:20:43PM +0000, Paul Cercueil wrote:
-> Hi Thomas,
-> 
-> 5.11 does not boot anymore on Ingenic SoCs, I bisected it to this commit.
-> 
-> Any idea what could be happening?
+Hi Thomas,
 
-not yet, kernel crash log of a Malta QEMU is below.
+Le sam. 9 janv. 2021 =E0 1:33, Thomas Bogendoerfer =
 
-Thomas.
+<tsbogend@alpha.franken.de> a =E9crit :
+> On Sat, Jan 09, 2021 at 12:58:05AM +0100, Thomas Bogendoerfer wrote:
+>>  On Fri, Jan 08, 2021 at 08:20:43PM +0000, Paul Cercueil wrote:
+>>  > Hi Thomas,
+>>  >
+>>  > 5.11 does not boot anymore on Ingenic SoCs, I bisected it to this =
 
-Kernel bug detected[#1]:
-CPU: 0 PID: 1 Comm: swapper/0 Not tainted 5.11.0-rc1-00017-gccb21774863a #2
-$ 0   : 00000000 00000001 00000000 00000010
-$ 4   : 00000001 000005cf 9e00059f 00000000
-$ 8   : 00118173 809e6db8 9e00059f 00000000
-$12   : 82023c00 00000001 810da04c 0212422f
-$16   : 810da000 00027800 000005cf 80b4bf9c
-$20   : 809e968c 82602400 810da000 0000000b
-$24   : 021558f9 00000000                  
-$28   : 820e0000 820e3928 80b10000 802710d0
-Hi    : 0000346c
-Lo    : 000002dd
-epc   : 80271114 __kmap_local_pfn_prot+0x78/0x1c0
-ra    : 802710d0 __kmap_local_pfn_prot+0x34/0x1c0
-Status: 1000a403	KERNEL EXL IE 
-Cause : 00800034 (ExcCode 0d)
-PrId  : 0001a800 (MIPS P5600)
-Modules linked in:
-Process swapper/0 (pid: 1, threadinfo=(ptrval), task=(ptrval), tls=00000000)
-Stack : 7fffffff 820c2408 820e3990 ffffff04 ffff0a00 80518224 000081a4 810da000
-        00000001 000005cf fff64000 8011c77c 820e3b26 ffffff04 ffff0a00 80518440
-        80b30000 80b4bf64 9e0005cf 000005cf fff64000 80271188 00000000 820e3a60
-        80b10000 80194478 0000005e 80954406 809e0000 810da000 00000001 000005cf
-        fff68000 8011c77c 8088fd44 809f6074 000000f4 00000000 00000000 80b4bf68
-        ...
-Call Trace:
-[<80271114>] __kmap_local_pfn_prot+0x78/0x1c0
-[<8011c77c>] __update_cache+0x16c/0x174
-[<80271188>] __kmap_local_pfn_prot+0xec/0x1c0
-[<8011c77c>] __update_cache+0x16c/0x174
-[<80271188>] __kmap_local_pfn_prot+0xec/0x1c0
-[<8011c77c>] __update_cache+0x16c/0x174
-[<80271188>] __kmap_local_pfn_prot+0xec/0x1c0
-[<8011c77c>] __update_cache+0x16c/0x174
-[<80271188>] __kmap_local_pfn_prot+0xec/0x1c0
-[<8011c77c>] __update_cache+0x16c/0x174
-[<80271188>] __kmap_local_pfn_prot+0xec/0x1c0
-[<8011c77c>] __update_cache+0x16c/0x174
-[<80271188>] __kmap_local_pfn_prot+0xec/0x1c0
-[<8011c77c>] __update_cache+0x16c/0x174
-[<80271188>] __kmap_local_pfn_prot+0xec/0x1c0
-[<8011c77c>] __update_cache+0x16c/0x174
-[<80271188>] __kmap_local_pfn_prot+0xec/0x1c0
-[<8011c77c>] __update_cache+0x16c/0x174
-[<80271188>] __kmap_local_pfn_prot+0xec/0x1c0
-[<8011c77c>] __update_cache+0x16c/0x174
-[<80271188>] __kmap_local_pfn_prot+0xec/0x1c0
-[<8011c77c>] __update_cache+0x16c/0x174
-[<80271188>] __kmap_local_pfn_prot+0xec/0x1c0
-[<8011c77c>] __update_cache+0x16c/0x174
-[<80271188>] __kmap_local_pfn_prot+0xec/0x1c0
-[<8011c77c>] __update_cache+0x16c/0x174
-[<80271188>] __kmap_local_pfn_prot+0xec/0x1c0
-[<8011c77c>] __update_cache+0x16c/0x174
-[<80271188>] __kmap_local_pfn_prot+0xec/0x1c0
-[<8011c77c>] __update_cache+0x16c/0x174
-[<80271188>] __kmap_local_pfn_prot+0xec/0x1c0
-[<802c49a0>] copy_string_kernel+0x168/0x264
-[<802c5d18>] kernel_execve+0xd0/0x164
-[<801006cc>] try_to_run_init_process+0x18/0x5c
-[<80859e0c>] kernel_init+0xd0/0x120
-[<801037f8>] ret_from_kernel_thread+0x14/0x1c
+>> commit.
+>>  >
+>>  > Any idea what could be happening?
+>> =
 
-Code: 8c630564  28640010  38840001 <00040336> 8f82000c  2463ffff  00021100  00431021  2403ffbf 
+>>  not yet, kernel crash log of a Malta QEMU is below.
+> =
 
--- 
-Crap can work. Given enough thrust pigs will fly, but it's not necessarily a
-good idea.                                                [ RFC1925, 2.3 ]
+> update:
+> =
+
+> This dirty hack lets the Malta QEMU boot again:
+> =
+
+> diff --git a/mm/highmem.c b/mm/highmem.c
+> index c3a9ea7875ef..190cdda1149d 100644
+> --- a/mm/highmem.c
+> +++ b/mm/highmem.c
+> @@ -515,7 +515,7 @@ void *__kmap_local_pfn_prot(unsigned long pfn, =
+
+> pgprot_t prot)
+>  	vaddr =3D __fix_to_virt(FIX_KMAP_BEGIN + idx);
+>  	BUG_ON(!pte_none(*(kmap_pte - idx)));
+>  	pteval =3D pfn_pte(pfn, prot);
+> -	set_pte_at(&init_mm, vaddr, kmap_pte - idx, pteval);
+> +	set_pte(kmap_pte - idx, pteval);
+>  	arch_kmap_local_post_map(vaddr, pteval);
+>  	current->kmap_ctrl.pteval[kmap_local_idx()] =3D pteval;
+>  	preempt_enable();
+> =
+
+> set_pte_at() tries to update cache and could do an kmap_atomic() =
+
+> there.
+> Not sure, if this is allowed at this point.
+
+Yes, I can confirm that your workaround works here too.
+
+Cheers,
+-Paul
+
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
