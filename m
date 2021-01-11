@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A913FC433E0
-	for <intel-gfx@archiver.kernel.org>; Mon, 11 Jan 2021 10:58:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CD2C7C433DB
+	for <intel-gfx@archiver.kernel.org>; Mon, 11 Jan 2021 10:58:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 016942250F
-	for <intel-gfx@archiver.kernel.org>; Mon, 11 Jan 2021 10:57:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 016942250F
+	by mail.kernel.org (Postfix) with ESMTPS id 50F9C2222D
+	for <intel-gfx@archiver.kernel.org>; Mon, 11 Jan 2021 10:58:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 50F9C2222D
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A31616E0B6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E68DF6E0BC;
 	Mon, 11 Jan 2021 10:57:56 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8AE916E0A5
- for <intel-gfx@lists.freedesktop.org>; Mon, 11 Jan 2021 10:57:53 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8CEFB6E0B6
+ for <intel-gfx@lists.freedesktop.org>; Mon, 11 Jan 2021 10:57:54 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23557972-1500050 
- for multiple; Mon, 11 Jan 2021 10:57:38 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23557973-1500050 
+ for multiple; Mon, 11 Jan 2021 10:57:39 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 11 Jan 2021 10:57:33 +0000
-Message-Id: <20210111105735.21515-2-chris@chris-wilson.co.uk>
+Date: Mon, 11 Jan 2021 10:57:34 +0000
+Message-Id: <20210111105735.21515-3-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20210111105735.21515-1-chris@chris-wilson.co.uk>
 References: <20210111105735.21515-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 2/4] drm/i915/gt: Check for arbitration after
- writing start seqno
+Subject: [Intel-gfx] [PATCH 3/4] drm/i915/gt: Perform an arbitration check
+ before busywaiting
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,47 +56,38 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On the off chance that we need to arbitrate before launching the
-payload, perform the check after we signal the request is ready to
-start. Assuming instantaneous processing of the CS event, the request
-will then be treated as having started when we make the decisions as to
-how to process that CS event.
+During igt_reset_nop_engine, it was observed that an unexpected failed
+engine reset lead to us busywaiting on the stop-ring semaphore (set
+during the reset preparations) on the first request afterwards. There was
+no explicit MI_ARB_CHECK in this sequence as the presumption was that
+the failed MI_SEMAPHORE_WAIT would itself act as an arbitration point.
+It did not in this circumstance, so force it.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 ---
- drivers/gpu/drm/i915/gt/gen8_engine_cs.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/i915/gt/gen8_engine_cs.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/i915/gt/gen8_engine_cs.c b/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
-index 2e36e0a9d8a6..9a182652a35e 100644
+index 9a182652a35e..e9ac281644cc 100644
 --- a/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
 +++ b/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
-@@ -361,19 +361,19 @@ int gen8_emit_init_breadcrumb(struct i915_request *rq)
- 	if (IS_ERR(cs))
- 		return PTR_ERR(cs);
+@@ -567,6 +567,7 @@ u32 *gen11_emit_fini_breadcrumb_rcs(struct i915_request *rq, u32 *cs)
  
-+	*cs++ = MI_STORE_DWORD_IMM_GEN4 | MI_USE_GGTT;
-+	*cs++ = hwsp_offset(rq);
-+	*cs++ = 0;
-+	*cs++ = rq->fence.seqno - 1;
-+
- 	/*
- 	 * Check if we have been preempted before we even get started.
- 	 *
- 	 * After this point i915_request_started() reports true, even if
- 	 * we get preempted and so are no longer running.
- 	 */
--	*cs++ = MI_ARB_CHECK;
- 	*cs++ = MI_NOOP;
--
--	*cs++ = MI_STORE_DWORD_IMM_GEN4 | MI_USE_GGTT;
--	*cs++ = hwsp_offset(rq);
--	*cs++ = 0;
--	*cs++ = rq->fence.seqno - 1;
+ static u32 *gen12_emit_preempt_busywait(struct i915_request *rq, u32 *cs)
+ {
 +	*cs++ = MI_ARB_CHECK;
+ 	*cs++ = MI_SEMAPHORE_WAIT_TOKEN |
+ 		MI_SEMAPHORE_GLOBAL_GTT |
+ 		MI_SEMAPHORE_POLL |
+@@ -575,7 +576,6 @@ static u32 *gen12_emit_preempt_busywait(struct i915_request *rq, u32 *cs)
+ 	*cs++ = preempt_address(rq->engine);
+ 	*cs++ = 0;
+ 	*cs++ = 0;
+-	*cs++ = MI_NOOP;
  
- 	intel_ring_advance(rq, cs);
- 
+ 	return cs;
+ }
 -- 
 2.20.1
 
