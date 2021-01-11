@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5DADBC433E6
-	for <intel-gfx@archiver.kernel.org>; Mon, 11 Jan 2021 10:57:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A913FC433E0
+	for <intel-gfx@archiver.kernel.org>; Mon, 11 Jan 2021 10:58:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9205F2222D
-	for <intel-gfx@archiver.kernel.org>; Mon, 11 Jan 2021 10:57:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9205F2222D
+	by mail.kernel.org (Postfix) with ESMTPS id 016942250F
+	for <intel-gfx@archiver.kernel.org>; Mon, 11 Jan 2021 10:57:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 016942250F
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 51C566E0A6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A31616E0B6;
 	Mon, 11 Jan 2021 10:57:56 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8C2236E0A6
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8AE916E0A5
  for <intel-gfx@lists.freedesktop.org>; Mon, 11 Jan 2021 10:57:53 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23557974-1500050 
- for multiple; Mon, 11 Jan 2021 10:57:39 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23557972-1500050 
+ for multiple; Mon, 11 Jan 2021 10:57:38 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 11 Jan 2021 10:57:35 +0000
-Message-Id: <20210111105735.21515-4-chris@chris-wilson.co.uk>
+Date: Mon, 11 Jan 2021 10:57:33 +0000
+Message-Id: <20210111105735.21515-2-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20210111105735.21515-1-chris@chris-wilson.co.uk>
 References: <20210111105735.21515-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 4/4] drm/i915/selftests: Include engine name
- after reset failure
+Subject: [Intel-gfx] [PATCH 2/4] drm/i915/gt: Check for arbitration after
+ writing start seqno
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,37 +56,46 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-During igt_reset_nop_engine, an engine reset unexpectedly failed. For the
-next time this happens, mention which engine that was.
+On the off chance that we need to arbitrate before launching the
+payload, perform the check after we signal the request is ready to
+start. Assuming instantaneous processing of the CS event, the request
+will then be treated as having started when we make the decisions as to
+how to process that CS event.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 ---
- drivers/gpu/drm/i915/gt/selftest_hangcheck.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/gt/gen8_engine_cs.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/selftest_hangcheck.c b/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
-index 28f71cc2004d..09301e8b92c7 100644
---- a/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
-+++ b/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
-@@ -506,7 +506,8 @@ static int igt_reset_nop_engine(void *arg)
- 			}
- 			err = intel_engine_reset(engine, NULL);
- 			if (err) {
--				pr_err("i915_reset_engine failed\n");
-+				pr_err("intel_engine_reset(%s) failed, err:%d\n",
-+				       engine->name, err);
- 				break;
- 			}
+diff --git a/drivers/gpu/drm/i915/gt/gen8_engine_cs.c b/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
+index 2e36e0a9d8a6..9a182652a35e 100644
+--- a/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
++++ b/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
+@@ -361,19 +361,19 @@ int gen8_emit_init_breadcrumb(struct i915_request *rq)
+ 	if (IS_ERR(cs))
+ 		return PTR_ERR(cs);
  
-@@ -610,7 +611,8 @@ static int __igt_reset_engine(struct intel_gt *gt, bool active)
++	*cs++ = MI_STORE_DWORD_IMM_GEN4 | MI_USE_GGTT;
++	*cs++ = hwsp_offset(rq);
++	*cs++ = 0;
++	*cs++ = rq->fence.seqno - 1;
++
+ 	/*
+ 	 * Check if we have been preempted before we even get started.
+ 	 *
+ 	 * After this point i915_request_started() reports true, even if
+ 	 * we get preempted and so are no longer running.
+ 	 */
+-	*cs++ = MI_ARB_CHECK;
+ 	*cs++ = MI_NOOP;
+-
+-	*cs++ = MI_STORE_DWORD_IMM_GEN4 | MI_USE_GGTT;
+-	*cs++ = hwsp_offset(rq);
+-	*cs++ = 0;
+-	*cs++ = rq->fence.seqno - 1;
++	*cs++ = MI_ARB_CHECK;
  
- 			err = intel_engine_reset(engine, NULL);
- 			if (err) {
--				pr_err("i915_reset_engine failed\n");
-+				pr_err("intel_engine_reset(%s) failed, err:%d\n",
-+				       engine->name, err);
- 				break;
- 			}
+ 	intel_ring_advance(rq, cs);
  
 -- 
 2.20.1
