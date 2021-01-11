@@ -2,47 +2,40 @@ Return-Path: <SRS0=zhYU=GO=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.2 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D7523C433E0
-	for <intel-gfx@archiver.kernel.org>; Mon, 11 Jan 2021 14:42:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CB64DC433DB
+	for <intel-gfx@archiver.kernel.org>; Mon, 11 Jan 2021 14:52:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 40B00221F8
-	for <intel-gfx@archiver.kernel.org>; Mon, 11 Jan 2021 14:42:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 40B00221F8
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=alpha.franken.de
+	by mail.kernel.org (Postfix) with ESMTPS id 6F173225AB
+	for <intel-gfx@archiver.kernel.org>; Mon, 11 Jan 2021 14:52:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6F173225AB
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7899B6E0EE;
-	Mon, 11 Jan 2021 14:42:02 +0000 (UTC)
-X-Greylist: delayed 2147 seconds by postgrey-1.36 at gabe;
- Sat, 09 Jan 2021 00:34:32 UTC
-Received: from elvis.franken.de (elvis.franken.de [193.175.24.41])
- by gabe.freedesktop.org (Postfix) with ESMTP id B593B6E8E6;
- Sat,  9 Jan 2021 00:34:32 +0000 (UTC)
-Received: from uucp (helo=alpha)
- by elvis.franken.de with local-bsmtp (Exim 3.36 #1)
- id 1ky2D2-0008AZ-00; Sat, 09 Jan 2021 01:34:24 +0100
-Received: by alpha.franken.de (Postfix, from userid 1000)
- id AFC99C0870; Sat,  9 Jan 2021 01:33:52 +0100 (CET)
-Date: Sat, 9 Jan 2021 01:33:52 +0100
-From: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-To: Paul Cercueil <paul@crapouillou.net>
-Message-ID: <20210109003352.GA18102@alpha.franken.de>
-References: <JUTMMQ.NNFWKIUV7UUJ1@crapouillou.net>
- <20210108235805.GA17543@alpha.franken.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B181F6E0ED;
+	Mon, 11 Jan 2021 14:52:16 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 8D9636E0EB;
+ Mon, 11 Jan 2021 14:52:15 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 7E86EA7DFC;
+ Mon, 11 Jan 2021 14:52:15 +0000 (UTC)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210108235805.GA17543@alpha.franken.de>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Mailman-Approved-At: Mon, 11 Jan 2021 14:42:01 +0000
-Subject: Re: [Intel-gfx] [patch V3 13/37] mips/mm/highmem: Switch to generic
- kmap atomic
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Dan Carpenter" <dan.carpenter@oracle.com>
+Date: Mon, 11 Jan 2021 14:52:15 -0000
+Message-ID: <161037673549.25135.10724540793887363649@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <X/xMdcewtft7+QFM@mwanda>
+In-Reply-To: <X/xMdcewtft7+QFM@mwanda>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBk?=
+ =?utf-8?q?rm/i915/selftests=3A_Fix_some_error_codes_=28rev2=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,67 +48,35 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: juri.lelli@redhat.com, linux-aio@kvack.org, airlied@linux.ie,
- nouveau@lists.freedesktop.org, bigeasy@linutronix.de,
- dri-devel@lists.freedesktop.org, linux-mips@vger.kernel.org,
- bsegall@google.com, jcmvbkbc@gmail.com, ray.huang@amd.com, paulus@samba.org,
- kraxel@redhat.com, sparclinux@vger.kernel.org, deanbo422@gmail.com, hch@lst.de,
- paulmck@kernel.org, mpe@ellerman.id.au, x86@kernel.org, linux@armlinux.org.uk,
- linux-csky@vger.kernel.org, mingo@kernel.org, peterz@infradead.org,
- linux-graphics-maintainer@vmware.com, bskeggs@redhat.com, airlied@redhat.com,
- linux-snps-arc@lists.infradead.org, linux-mm@kvack.org, mgorman@suse.de,
- linux-xtensa@linux-xtensa.org, arnd@arndb.de, intel-gfx@lists.freedesktop.org,
- sroland@vmware.com, josef@toxicpanda.com, rostedt@goodmis.org,
- torvalds@linuxfoundation.org, green.hu@gmail.com, dsterba@suse.com,
- tglx@linutronix.de, virtualization@lists.linux-foundation.org,
- dietmar.eggemann@arm.com, linux-arm-kernel@lists.infradead.org,
- chris@zankel.net, monstr@monstr.eu, nickhu@andestech.com, clm@fb.com,
- linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
- christian.koenig@amd.com, bcrl@kvack.org, spice-devel@lists.freedesktop.org,
- vgupta@synopsys.com, linux-fsdevel@vger.kernel.org, akpm@linux-foundation.org,
- bristot@redhat.com, davem@davemloft.net, linux-btrfs@vger.kernel.org,
- viro@zeniv.linux.org.uk
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Sat, Jan 09, 2021 at 12:58:05AM +0100, Thomas Bogendoerfer wrote:
-> On Fri, Jan 08, 2021 at 08:20:43PM +0000, Paul Cercueil wrote:
-> > Hi Thomas,
-> > 
-> > 5.11 does not boot anymore on Ingenic SoCs, I bisected it to this commit.
-> > 
-> > Any idea what could be happening?
-> 
-> not yet, kernel crash log of a Malta QEMU is below.
+== Series Details ==
 
-update:
+Series: drm/i915/selftests: Fix some error codes (rev2)
+URL   : https://patchwork.freedesktop.org/series/85704/
+State : failure
 
-This dirty hack lets the Malta QEMU boot again:
+== Summary ==
 
-diff --git a/mm/highmem.c b/mm/highmem.c
-index c3a9ea7875ef..190cdda1149d 100644
---- a/mm/highmem.c
-+++ b/mm/highmem.c
-@@ -515,7 +515,7 @@ void *__kmap_local_pfn_prot(unsigned long pfn, pgprot_t prot)
- 	vaddr = __fix_to_virt(FIX_KMAP_BEGIN + idx);
- 	BUG_ON(!pte_none(*(kmap_pte - idx)));
- 	pteval = pfn_pte(pfn, prot);
--	set_pte_at(&init_mm, vaddr, kmap_pte - idx, pteval);
-+	set_pte(kmap_pte - idx, pteval);
- 	arch_kmap_local_post_map(vaddr, pteval);
- 	current->kmap_ctrl.pteval[kmap_local_idx()] = pteval;
- 	preempt_enable();
+Applying: drm/i915: selftest_lrc: Fix error code in live_preempt_user()
+Using index info to reconstruct a base tree...
+M	drivers/gpu/drm/i915/gt/selftest_lrc.c
+Falling back to patching base and 3-way merge...
+Auto-merging drivers/gpu/drm/i915/gt/selftest_lrc.c
+CONFLICT (content): Merge conflict in drivers/gpu/drm/i915/gt/selftest_lrc.c
+error: Failed to merge in the changes.
+hint: Use 'git am --show-current-patch=diff' to see the failed patch
+Patch failed at 0001 drm/i915: selftest_lrc: Fix error code in live_preempt_user()
+When you have resolved this problem, run "git am --continue".
+If you prefer to skip this patch, run "git am --skip" instead.
+To restore the original branch and stop patching, run "git am --abort".
 
-set_pte_at() tries to update cache and could do an kmap_atomic() there.
-Not sure, if this is allowed at this point.
 
-Thomas.
-
--- 
-Crap can work. Given enough thrust pigs will fly, but it's not necessarily a
-good idea.                                                [ RFC1925, 2.3 ]
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
