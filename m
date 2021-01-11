@@ -2,42 +2,42 @@ Return-Path: <SRS0=zhYU=GO=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CD2C7C433DB
-	for <intel-gfx@archiver.kernel.org>; Mon, 11 Jan 2021 10:58:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EE5BDC433E0
+	for <intel-gfx@archiver.kernel.org>; Mon, 11 Jan 2021 12:30:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 50F9C2222D
-	for <intel-gfx@archiver.kernel.org>; Mon, 11 Jan 2021 10:58:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 50F9C2222D
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
+	by mail.kernel.org (Postfix) with ESMTPS id 53620223DB
+	for <intel-gfx@archiver.kernel.org>; Mon, 11 Jan 2021 12:30:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 53620223DB
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E68DF6E0BC;
-	Mon, 11 Jan 2021 10:57:56 +0000 (UTC)
-Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8CEFB6E0B6
- for <intel-gfx@lists.freedesktop.org>; Mon, 11 Jan 2021 10:57:54 +0000 (UTC)
-X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
- x-ip-name=78.156.65.138; 
-Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23557973-1500050 
- for multiple; Mon, 11 Jan 2021 10:57:39 +0000
-From: Chris Wilson <chris@chris-wilson.co.uk>
-To: intel-gfx@lists.freedesktop.org
-Date: Mon, 11 Jan 2021 10:57:34 +0000
-Message-Id: <20210111105735.21515-3-chris@chris-wilson.co.uk>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210111105735.21515-1-chris@chris-wilson.co.uk>
-References: <20210111105735.21515-1-chris@chris-wilson.co.uk>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B783289BF5;
+	Mon, 11 Jan 2021 12:30:21 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id BA8F989BF1;
+ Mon, 11 Jan 2021 12:30:20 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id B3EE8A47DB;
+ Mon, 11 Jan 2021 12:30:20 +0000 (UTC)
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 3/4] drm/i915/gt: Perform an arbitration check
- before busywaiting
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Chris Wilson" <chris@chris-wilson.co.uk>
+Date: Mon, 11 Jan 2021 12:30:20 -0000
+Message-ID: <161036822071.25134.4749384849409254075@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20210111105735.21515-1-chris@chris-wilson.co.uk>
+In-Reply-To: <20210111105735.21515-1-chris@chris-wilson.co.uk>
+Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3Igc2Vy?=
+ =?utf-8?q?ies_starting_with_=5B1/4=5D_drm/i915/gt=3A_Disable_arbitration_?=
+ =?utf-8?q?around_Braswell=27s_pdp_updates?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,48 +50,210 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Chris Wilson <chris@chris-wilson.co.uk>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============0748102039=="
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-During igt_reset_nop_engine, it was observed that an unexpected failed
-engine reset lead to us busywaiting on the stop-ring semaphore (set
-during the reset preparations) on the first request afterwards. There was
-no explicit MI_ARB_CHECK in this sequence as the presumption was that
-the failed MI_SEMAPHORE_WAIT would itself act as an arbitration point.
-It did not in this circumstance, so force it.
+--===============0748102039==
+Content-Type: multipart/alternative;
+ boundary="===============8599300406664389964=="
 
-Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
----
- drivers/gpu/drm/i915/gt/gen8_engine_cs.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+--===============8599300406664389964==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-diff --git a/drivers/gpu/drm/i915/gt/gen8_engine_cs.c b/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
-index 9a182652a35e..e9ac281644cc 100644
---- a/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
-+++ b/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
-@@ -567,6 +567,7 @@ u32 *gen11_emit_fini_breadcrumb_rcs(struct i915_request *rq, u32 *cs)
- 
- static u32 *gen12_emit_preempt_busywait(struct i915_request *rq, u32 *cs)
- {
-+	*cs++ = MI_ARB_CHECK;
- 	*cs++ = MI_SEMAPHORE_WAIT_TOKEN |
- 		MI_SEMAPHORE_GLOBAL_GTT |
- 		MI_SEMAPHORE_POLL |
-@@ -575,7 +576,6 @@ static u32 *gen12_emit_preempt_busywait(struct i915_request *rq, u32 *cs)
- 	*cs++ = preempt_address(rq->engine);
- 	*cs++ = 0;
- 	*cs++ = 0;
--	*cs++ = MI_NOOP;
- 
- 	return cs;
- }
--- 
-2.20.1
+== Series Details ==
+
+Series: series starting with [1/4] drm/i915/gt: Disable arbitration around Braswell's pdp updates
+URL   : https://patchwork.freedesktop.org/series/85698/
+State : success
+
+== Summary ==
+
+CI Bug Log - changes from CI_DRM_9577 -> Patchwork_19313
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19313/index.html
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_19313 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@amdgpu/amd_basic@semaphore:
+    - fi-bsw-nick:        NOTRUN -> [SKIP][1] ([fdo#109271]) +17 similar issues
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19313/fi-bsw-nick/igt@amdgpu/amd_basic@semaphore.html
+
+  * igt@i915_pm_rpm@module-reload:
+    - fi-byt-j1900:       [PASS][2] -> [INCOMPLETE][3] ([i915#142] / [i915#2405])
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9577/fi-byt-j1900/igt@i915_pm_rpm@module-reload.html
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19313/fi-byt-j1900/igt@i915_pm_rpm@module-reload.html
+
+  * igt@runner@aborted:
+    - fi-bdw-5557u:       NOTRUN -> [FAIL][4] ([i915#2029])
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19313/fi-bdw-5557u/igt@runner@aborted.html
+    - fi-byt-j1900:       NOTRUN -> [FAIL][5] ([i915#1814] / [i915#2505])
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19313/fi-byt-j1900/igt@runner@aborted.html
+
+  
+#### Possible fixes ####
+
+  * igt@i915_selftest@live@execlists:
+    - fi-bsw-nick:        [INCOMPLETE][6] -> [PASS][7]
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9577/fi-bsw-nick/igt@i915_selftest@live@execlists.html
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19313/fi-bsw-nick/igt@i915_selftest@live@execlists.html
+
+  
+  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
+  [i915#142]: https://gitlab.freedesktop.org/drm/intel/issues/142
+  [i915#1814]: https://gitlab.freedesktop.org/drm/intel/issues/1814
+  [i915#2029]: https://gitlab.freedesktop.org/drm/intel/issues/2029
+  [i915#2405]: https://gitlab.freedesktop.org/drm/intel/issues/2405
+  [i915#2505]: https://gitlab.freedesktop.org/drm/intel/issues/2505
+
+
+Participating hosts (43 -> 37)
+------------------------------
+
+  Missing    (6): fi-ilk-m540 fi-hsw-4200u fi-bsw-cyan fi-ctg-p8600 fi-tgl-y fi-bdw-samus 
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_9577 -> Patchwork_19313
+
+  CI-20190529: 20190529
+  CI_DRM_9577: 27f91f8b83589837494f100212ad62a124633ff7 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_5953: 65c5eea699141e6f942ce0a8fc85db76ce53cd19 @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools
+  Patchwork_19313: ee733a2e21daf6d7c93954cf24da986f557b84ce @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+== Linux commits ==
+
+ee733a2e21da drm/i915/selftests: Include engine name after reset failure
+46bca7571d57 drm/i915/gt: Perform an arbitration check before busywaiting
+63a7d61fbfea drm/i915/gt: Check for arbitration after writing start seqno
+7905e92b2a33 drm/i915/gt: Disable arbitration around Braswell's pdp updates
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19313/index.html
+
+--===============8599300406664389964==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>series starting with [1/4] drm/i915/gt: Disable arbitration around Braswell&#39;s pdp updates</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/85698/">https://patchwork.freedesktop.org/series/85698/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19313/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19313/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_9577 -&gt; Patchwork_19313</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19313/index.html</p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_19313 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@amdgpu/amd_basic@semaphore:</p>
+<ul>
+<li>fi-bsw-nick:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19313/fi-bsw-nick/igt@amdgpu/amd_basic@semaphore.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +17 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_pm_rpm@module-reload:</p>
+<ul>
+<li>fi-byt-j1900:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9577/fi-byt-j1900/igt@i915_pm_rpm@module-reload.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19313/fi-byt-j1900/igt@i915_pm_rpm@module-reload.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/142">i915#142</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/2405">i915#2405</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@runner@aborted:</p>
+<ul>
+<li>
+<p>fi-bdw-5557u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19313/fi-bdw-5557u/igt@runner@aborted.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2029">i915#2029</a>)</p>
+</li>
+<li>
+<p>fi-byt-j1900:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19313/fi-byt-j1900/igt@runner@aborted.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1814">i915#1814</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/2505">i915#2505</a>)</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>igt@i915_selftest@live@execlists:<ul>
+<li>fi-bsw-nick:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9577/fi-bsw-nick/igt@i915_selftest@live@execlists.html">INCOMPLETE</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19313/fi-bsw-nick/igt@i915_selftest@live@execlists.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<h2>Participating hosts (43 -&gt; 37)</h2>
+<p>Missing    (6): fi-ilk-m540 fi-hsw-4200u fi-bsw-cyan fi-ctg-p8600 fi-tgl-y fi-bdw-samus </p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_9577 -&gt; Patchwork_19313</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_9577: 27f91f8b83589837494f100212ad62a124633ff7 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_5953: 65c5eea699141e6f942ce0a8fc85db76ce53cd19 @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools<br />
+  Patchwork_19313: ee733a2e21daf6d7c93954cf24da986f557b84ce @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<p>== Linux commits ==</p>
+<p>ee733a2e21da drm/i915/selftests: Include engine name after reset failure<br />
+46bca7571d57 drm/i915/gt: Perform an arbitration check before busywaiting<br />
+63a7d61fbfea drm/i915/gt: Check for arbitration after writing start seqno<br />
+7905e92b2a33 drm/i915/gt: Disable arbitration around Braswell's pdp updates</p>
+
+</body>
+</html>
+
+--===============8599300406664389964==--
+
+--===============0748102039==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+
+--===============0748102039==--
