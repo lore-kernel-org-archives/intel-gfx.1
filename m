@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 497B0C433E0
-	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jan 2021 12:46:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2B7D1C433E9
+	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jan 2021 12:46:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E50A5230FC
-	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jan 2021 12:46:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E50A5230FC
+	by mail.kernel.org (Postfix) with ESMTPS id D57E3230FC
+	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jan 2021 12:46:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D57E3230FC
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 55F386E97E;
-	Wed, 13 Jan 2021 12:46:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E9026E985;
+	Wed, 13 Jan 2021 12:46:23 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A4846E976
- for <intel-gfx@lists.freedesktop.org>; Wed, 13 Jan 2021 12:46:14 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A6CD6E979
+ for <intel-gfx@lists.freedesktop.org>; Wed, 13 Jan 2021 12:46:11 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23584209-1500050 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23584207-1500050 
  for multiple; Wed, 13 Jan 2021 12:46:02 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 13 Jan 2021 12:45:54 +0000
-Message-Id: <20210113124600.656-4-chris@chris-wilson.co.uk>
+Date: Wed, 13 Jan 2021 12:45:52 +0000
+Message-Id: <20210113124600.656-2-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20210113124600.656-1-chris@chris-wilson.co.uk>
 References: <20210113124600.656-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 04/10] drm/i915/gem: Reduce ctx->engines_mutex
- for get_engines()
+Subject: [Intel-gfx] [PATCH 02/10] drm/i915: Drop i915_request.lock
+ serialisation around await_start
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,82 +56,49 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Take a snapshot of the ctx->engines, so we can avoid taking the
-ctx->engines_mutex for a mere read in get_engines().
+Originally, we used the signal->lock as a means of following the
+previous link in its timeline and peeking at the previous fence.
+However, we have replaced the explicit serialisation with a series of
+very careful probes that anticipate the links being deleted and the
+fences recycled before we are able to acquire a strong reference to it.
+We do not need the signal->lock crutch anymore, nor want the contention.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_context.c | 39 +++++----------------
- 1 file changed, 8 insertions(+), 31 deletions(-)
+ drivers/gpu/drm/i915/i915_request.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-index 4a709c625ccb..4d2f40cf237b 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-@@ -1843,27 +1843,6 @@ set_engines(struct i915_gem_context *ctx,
- 	return 0;
- }
+diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
+index 784c05ac5cca..973eceabbcca 100644
+--- a/drivers/gpu/drm/i915/i915_request.c
++++ b/drivers/gpu/drm/i915/i915_request.c
+@@ -969,9 +969,16 @@ i915_request_await_start(struct i915_request *rq, struct i915_request *signal)
+ 	if (i915_request_started(signal))
+ 		return 0;
  
--static struct i915_gem_engines *
--__copy_engines(struct i915_gem_engines *e)
--{
--	struct i915_gem_engines *copy;
--	unsigned int n;
--
--	copy = alloc_engines(e->num_engines);
--	if (!copy)
--		return ERR_PTR(-ENOMEM);
--
--	for (n = 0; n < e->num_engines; n++) {
--		if (e->engines[n])
--			copy->engines[n] = intel_context_get(e->engines[n]);
--		else
--			copy->engines[n] = NULL;
--	}
--	copy->num_engines = n;
--
--	return copy;
--}
--
- static int
- get_engines(struct i915_gem_context *ctx,
- 	    struct drm_i915_gem_context_param *args)
-@@ -1871,19 +1850,17 @@ get_engines(struct i915_gem_context *ctx,
- 	struct i915_context_param_engines __user *user;
- 	struct i915_gem_engines *e;
- 	size_t n, count, size;
-+	bool user_engines;
- 	int err = 0;
++	/*
++	 * The caller holds a reference on @signal, but we do not serialise
++	 * against it being retired and removed from the lists.
++	 *
++	 * We do not hold a reference to the request before @signal, and
++	 * so must be very careful to ensure that it is not _recycled_ as
++	 * we follow the link backwards.
++	 */
+ 	fence = NULL;
+ 	rcu_read_lock();
+-	spin_lock_irq(&signal->lock);
+ 	do {
+ 		struct list_head *pos = READ_ONCE(signal->link.prev);
+ 		struct i915_request *prev;
+@@ -1002,7 +1009,6 @@ i915_request_await_start(struct i915_request *rq, struct i915_request *signal)
  
--	err = mutex_lock_interruptible(&ctx->engines_mutex);
--	if (err)
--		return err;
-+	e = __context_engines_await(ctx, &user_engines);
-+	if (!e)
-+		return -ENOENT;
- 
--	e = NULL;
--	if (i915_gem_context_user_engines(ctx))
--		e = __copy_engines(i915_gem_context_engines(ctx));
--	mutex_unlock(&ctx->engines_mutex);
--	if (IS_ERR_OR_NULL(e)) {
-+	if (!user_engines) {
-+		i915_sw_fence_complete(&e->fence);
- 		args->size = 0;
--		return PTR_ERR_OR_ZERO(e);
-+		return 0;
- 	}
- 
- 	count = e->num_engines;
-@@ -1934,7 +1911,7 @@ get_engines(struct i915_gem_context *ctx,
- 	args->size = size;
- 
- err_free:
--	free_engines(e);
-+	i915_sw_fence_complete(&e->fence);
- 	return err;
- }
- 
+ 		fence = &prev->fence;
+ 	} while (0);
+-	spin_unlock_irq(&signal->lock);
+ 	rcu_read_unlock();
+ 	if (!fence)
+ 		return 0;
 -- 
 2.20.1
 
