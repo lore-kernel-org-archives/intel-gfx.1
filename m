@@ -7,47 +7,47 @@ X-Spam-Status: No, score=-15.3 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E5204C433DB
-	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jan 2021 11:58:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 064DCC433E0
+	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jan 2021 12:10:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 64F2C22CE3
-	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jan 2021 11:58:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 64F2C22CE3
+	by mail.kernel.org (Postfix) with ESMTPS id 72CBB23120
+	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jan 2021 12:10:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 72CBB23120
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A8E086E80B;
-	Wed, 13 Jan 2021 11:58:43 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 43F036E80B
- for <intel-gfx@lists.freedesktop.org>; Wed, 13 Jan 2021 11:58:42 +0000 (UTC)
-IronPort-SDR: D8nk6mDOZK7vQs+Pkv8fB33H+AOaT8lRLTJpBeXLfT8cVrcfrhG3tyAISwaiuWocXJ2fAWVBoi
- 6LQx1DaPYNag==
-X-IronPort-AV: E=McAfee;i="6000,8403,9862"; a="157373698"
-X-IronPort-AV: E=Sophos;i="5.79,344,1602572400"; d="scan'208";a="157373698"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jan 2021 03:58:41 -0800
-IronPort-SDR: 4/pv3rzib3LHApjQGi+Y3cR8PLxuUcyEX4qSJVGODetefhG/SboDQQt09Ogn1A+7QGeRgqLNMC
- T8eWn3fyiqjA==
-X-IronPort-AV: E=Sophos;i="5.79,344,1602572400"; d="scan'208";a="353438094"
+	by gabe.freedesktop.org (Postfix) with ESMTP id D9FA16E5AB;
+	Wed, 13 Jan 2021 12:10:16 +0000 (UTC)
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 38F6A6E5AB
+ for <intel-gfx@lists.freedesktop.org>; Wed, 13 Jan 2021 12:10:15 +0000 (UTC)
+IronPort-SDR: 0rcRNCPuHAsGR7py2CAtdy3bZeQnkQ5rR5dEIv5o1S091e+eK3a6CwgLmQns45351tGQojIb08
+ ashXoRpt7nyQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9862"; a="239733303"
+X-IronPort-AV: E=Sophos;i="5.79,344,1602572400"; d="scan'208";a="239733303"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jan 2021 04:10:13 -0800
+IronPort-SDR: q4hvaY5W+8kBqTLUJkH7uaIhlV1TQbd8iQ7MRaLSDy4ztEOwhb0zoCiHMhVVoAK8C6hKgRRNP+
+ RjUiHdZuGNmw==
+X-IronPort-AV: E=Sophos;i="5.79,344,1602572400"; d="scan'208";a="363864025"
 Received: from unknown (HELO intel.com) ([10.223.74.179])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jan 2021 03:58:40 -0800
-Date: Wed, 13 Jan 2021 17:14:08 +0530
+ by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jan 2021 04:10:12 -0800
+Date: Wed, 13 Jan 2021 17:25:41 +0530
 From: Anshuman Gupta <anshuman.gupta@intel.com>
 To: Jani Nikula <jani.nikula@intel.com>
-Message-ID: <20210113114405.GP11717@intel.com>
+Message-ID: <20210113115541.GQ11717@intel.com>
 References: <cover.1610127741.git.jani.nikula@intel.com>
- <031b26bf4a680cf3a436d368108380064b8b541f.1610127741.git.jani.nikula@intel.com>
+ <f190c7dadbf4e3d2b216709975fdd50ba0f850d0.1610127741.git.jani.nikula@intel.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <031b26bf4a680cf3a436d368108380064b8b541f.1610127741.git.jani.nikula@intel.com>
+In-Reply-To: <f190c7dadbf4e3d2b216709975fdd50ba0f850d0.1610127741.git.jani.nikula@intel.com>
 User-Agent: Mutt/1.9.4 (2018-02-28)
-Subject: Re: [Intel-gfx] [PATCH v2 14/17] drm/i915/pps: refactor init
- abstractions
+Subject: Re: [Intel-gfx] [PATCH v2 15/17] drm/i915/pps: move pps code over
+ from intel_display.c and refactor
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,94 +66,174 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 2021-01-08 at 19:44:22 +0200, Jani Nikula wrote:
-> Once you realize there is no need to hold the pps mutex when calling
-> pps_init_timestamps() in intel_pps_init(), we can reuse
-> intel_pps_encoder_reset() which has the same code.
+On 2021-01-08 at 19:44:23 +0200, Jani Nikula wrote:
+> intel_display.c has some pps functions that belong to intel_pps.c. Move
+> them over.
 > 
-> Since intel_dp_pps_init() is only called from one place now, move it
-> inline to remove one "init" function altogether.
-> 
-> Finally, remove some initialization from
-> vlv_initial_power_sequencer_setup() and do it in the caller to highlight
-> the similarity, not the difference, in the platforms.
+> While at it, refactor the duplicate intel_pps_init() in intel_display.c
+> into an orthogonal intel_pps_setup() in intel_pps.c, and call it earlier
+> in intel_modeset_init_nogem().
 > 
 > Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 > ---
->  drivers/gpu/drm/i915/display/intel_pps.c | 33 +++++++-----------------
->  1 file changed, 10 insertions(+), 23 deletions(-)
+>  drivers/gpu/drm/i915/display/intel_display.c | 41 ++------------------
+>  drivers/gpu/drm/i915/display/intel_display.h |  1 -
+>  drivers/gpu/drm/i915/display/intel_pps.c     | 34 ++++++++++++++++
+>  drivers/gpu/drm/i915/display/intel_pps.h     |  3 ++
+>  drivers/gpu/drm/i915/i915_drv.c              |  1 +
+>  5 files changed, 42 insertions(+), 38 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/i915/display/intel_pps.c b/drivers/gpu/drm/i915/display/intel_pps.c
-> index 58eff6289d12..b4d026ca3313 100644
-> --- a/drivers/gpu/drm/i915/display/intel_pps.c
-> +++ b/drivers/gpu/drm/i915/display/intel_pps.c
-> @@ -305,9 +305,6 @@ vlv_initial_power_sequencer_setup(struct intel_dp *intel_dp)
->  		    dig_port->base.base.base.id,
->  		    dig_port->base.base.name,
->  		    pipe_name(intel_dp->pps_pipe));
-> -
-> -	pps_init_delays(intel_dp);
-> -	pps_init_registers(intel_dp, false);
+> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+> index 0189d379a55e..f8806c4ecb21 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display.c
+> +++ b/drivers/gpu/drm/i915/display/intel_display.c
+> @@ -81,6 +81,7 @@
+>  #include "intel_overlay.h"
+>  #include "intel_pipe_crc.h"
+>  #include "intel_pm.h"
+> +#include "intel_pps.h"
+>  #include "intel_psr.h"
+>  #include "intel_quirks.h"
+>  #include "intel_sideband.h"
+> @@ -16100,48 +16101,12 @@ static bool intel_ddi_crt_present(struct drm_i915_private *dev_priv)
+>  	return true;
 >  }
 >  
->  void intel_pps_reset_all(struct drm_i915_private *dev_priv)
-> @@ -1342,20 +1339,9 @@ static void pps_init_registers(struct intel_dp *intel_dp, bool force_disable_vdd
->  		    (intel_de_read(dev_priv, regs.pp_ctrl) & BXT_POWER_CYCLE_DELAY_MASK));
->  }
->  
-> -static void intel_dp_pps_init(struct intel_dp *intel_dp)
+> -void intel_pps_unlock_regs_wa(struct drm_i915_private *dev_priv)
 > -{
-> -	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
+> -	int pps_num;
+> -	int pps_idx;
 > -
-> -	if (IS_VALLEYVIEW(dev_priv) || IS_CHERRYVIEW(dev_priv)) {
-> -		vlv_initial_power_sequencer_setup(intel_dp);
-> -	} else {
-> -		pps_init_delays(intel_dp);
-> -		pps_init_registers(intel_dp, false);
+> -	if (HAS_DDI(dev_priv))
+> -		return;
+> -	/*
+> -	 * This w/a is needed at least on CPT/PPT, but to be sure apply it
+> -	 * everywhere where registers can be write protected.
+> -	 */
+> -	if (IS_VALLEYVIEW(dev_priv) || IS_CHERRYVIEW(dev_priv))
+> -		pps_num = 2;
+> -	else
+> -		pps_num = 1;
+> -
+> -	for (pps_idx = 0; pps_idx < pps_num; pps_idx++) {
+> -		u32 val = intel_de_read(dev_priv, PP_CONTROL(pps_idx));
+> -
+> -		val = (val & ~PANEL_UNLOCK_MASK) | PANEL_UNLOCK_REGS;
+> -		intel_de_write(dev_priv, PP_CONTROL(pps_idx), val);
 > -	}
 > -}
 > -
->  void intel_pps_encoder_reset(struct intel_dp *intel_dp)
->  {
-> +	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
->  	intel_wakeref_t wakeref;
->  
->  	if (!intel_dp_is_edp(intel_dp))
-> @@ -1366,20 +1352,21 @@ void intel_pps_encoder_reset(struct intel_dp *intel_dp)
->  		 * Reinit the power sequencer, in case BIOS did something nasty
-		IMHO above comment would need a improvement, or nuke it ?
-		as intel_pps_encoder_reset() will also get called from intel_pps_init()	
-		unlike only while resuming from suspend.
-		Thanks,
-		Anshuman Gupta.
->  		 * with it.
->  		 */
-> -		intel_dp_pps_init(intel_dp);
-> +		if (IS_VALLEYVIEW(i915) || IS_CHERRYVIEW(i915))
-> +			vlv_initial_power_sequencer_setup(intel_dp);
-> +
-> +		pps_init_delays(intel_dp);
-> +		pps_init_registers(intel_dp, false);
-> +
->  		intel_pps_vdd_sanitize(intel_dp);
->  	}
->  }
->  
->  void intel_pps_init(struct intel_dp *intel_dp)
->  {
-> -	intel_wakeref_t wakeref;
+> -static void intel_pps_init(struct drm_i915_private *dev_priv)
+> -{
+> -	if (HAS_PCH_SPLIT(dev_priv) || IS_GEN9_LP(dev_priv))
+> -		dev_priv->pps_mmio_base = PCH_PPS_BASE;
+> -	else if (IS_VALLEYVIEW(dev_priv) || IS_CHERRYVIEW(dev_priv))
+> -		dev_priv->pps_mmio_base = VLV_PPS_BASE;
+> -	else
+> -		dev_priv->pps_mmio_base = PPS_BASE;
 > -
->  	INIT_DELAYED_WORK(&intel_dp->panel_vdd_work, edp_panel_vdd_work);
+> -	intel_pps_unlock_regs_wa(dev_priv);
+> -}
+> -
+>  static void intel_setup_outputs(struct drm_i915_private *dev_priv)
+>  {
+>  	struct intel_encoder *encoder;
+>  	bool dpd_is_edp = false;
 >  
-> -	with_intel_pps_lock(intel_dp, wakeref) {
-> -		pps_init_timestamps(intel_dp);
-> -		intel_dp_pps_init(intel_dp);
-> -		intel_pps_vdd_sanitize(intel_dp);
-> -	}
-> +	pps_init_timestamps(intel_dp);
+> -	intel_pps_init(dev_priv);
+> +	intel_pps_unlock_regs_wa(dev_priv);
+>  
+>  	if (!HAS_DISPLAY(dev_priv))
+>  		return;
+> @@ -17199,6 +17164,8 @@ int intel_modeset_init_nogem(struct drm_i915_private *i915)
+>  
+>  	intel_panel_sanitize_ssc(i915);
+>  
+> +	intel_pps_setup(i915);
 > +
-> +	intel_pps_encoder_reset(intel_dp);
+This is mmio init, could you please guide me why i915_driver_mmio_probe()
+has not chosen to call intel_pps_setup() ?
+>  	intel_gmbus_setup(i915);
+>  
+>  	drm_dbg_kms(&i915->drm, "%d display pipe%s available.\n",
+> diff --git a/drivers/gpu/drm/i915/display/intel_display.h b/drivers/gpu/drm/i915/display/intel_display.h
+> index 7ddbc00a0f41..bbd5dbc61ce9 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display.h
+> +++ b/drivers/gpu/drm/i915/display/intel_display.h
+> @@ -546,7 +546,6 @@ unsigned int intel_rotation_info_size(const struct intel_rotation_info *rot_info
+>  unsigned int intel_remapped_info_size(const struct intel_remapped_info *rem_info);
+>  bool intel_has_pending_fb_unpin(struct drm_i915_private *dev_priv);
+>  int intel_display_suspend(struct drm_device *dev);
+> -void intel_pps_unlock_regs_wa(struct drm_i915_private *dev_priv);
+>  void intel_encoder_destroy(struct drm_encoder *encoder);
+>  struct drm_display_mode *
+>  intel_encoder_current_mode(struct intel_encoder *encoder);
+> diff --git a/drivers/gpu/drm/i915/display/intel_pps.c b/drivers/gpu/drm/i915/display/intel_pps.c
+> index b4d026ca3313..c3a0fc933500 100644
+> --- a/drivers/gpu/drm/i915/display/intel_pps.c
+> +++ b/drivers/gpu/drm/i915/display/intel_pps.c
+> @@ -1370,3 +1370,37 @@ void intel_pps_init(struct intel_dp *intel_dp)
+>  
+>  	intel_pps_encoder_reset(intel_dp);
 >  }
+> +
+> +void intel_pps_unlock_regs_wa(struct drm_i915_private *dev_priv)
+> +{
+> +	int pps_num;
+> +	int pps_idx;
+> +
+> +	if (HAS_DDI(dev_priv))
+> +		return;
+> +	/*
+> +	 * This w/a is needed at least on CPT/PPT, but to be sure apply it
+> +	 * everywhere where registers can be write protected.
+> +	 */
+> +	if (IS_VALLEYVIEW(dev_priv) || IS_CHERRYVIEW(dev_priv))
+> +		pps_num = 2;
+> +	else
+> +		pps_num = 1;
+> +
+> +	for (pps_idx = 0; pps_idx < pps_num; pps_idx++) {
+> +		u32 val = intel_de_read(dev_priv, PP_CONTROL(pps_idx));
+> +
+> +		val = (val & ~PANEL_UNLOCK_MASK) | PANEL_UNLOCK_REGS;
+> +		intel_de_write(dev_priv, PP_CONTROL(pps_idx), val);
+> +	}
+> +}
+> +
+> +void intel_pps_setup(struct drm_i915_private *i915)
+> +{
+> +	if (HAS_PCH_SPLIT(i915) || IS_GEN9_LP(i915))
+> +		i915->pps_mmio_base = PCH_PPS_BASE;
+> +	else if (IS_VALLEYVIEW(i915) || IS_CHERRYVIEW(i915))
+> +		i915->pps_mmio_base = VLV_PPS_BASE;
+> +	else
+> +		i915->pps_mmio_base = PPS_BASE;
+> +}
+> diff --git a/drivers/gpu/drm/i915/display/intel_pps.h b/drivers/gpu/drm/i915/display/intel_pps.h
+> index 22045c5cdc86..fbbcca782e7b 100644
+> --- a/drivers/gpu/drm/i915/display/intel_pps.h
+> +++ b/drivers/gpu/drm/i915/display/intel_pps.h
+> @@ -46,4 +46,7 @@ void intel_pps_reset_all(struct drm_i915_private *i915);
+>  void vlv_pps_init(struct intel_encoder *encoder,
+>  		  const struct intel_crtc_state *crtc_state);
+>  
+> +void intel_pps_unlock_regs_wa(struct drm_i915_private *i915);
+> +void intel_pps_setup(struct drm_i915_private *i915);
+> +
+>  #endif /* __INTEL_PPS_H__ */
+> diff --git a/drivers/gpu/drm/i915/i915_drv.c b/drivers/gpu/drm/i915/i915_drv.c
+> index 3e504247f2da..7282c8f08318 100644
+> --- a/drivers/gpu/drm/i915/i915_drv.c
+> +++ b/drivers/gpu/drm/i915/i915_drv.c
+> @@ -58,6 +58,7 @@
+>  #include "display/intel_hotplug.h"
+>  #include "display/intel_overlay.h"
+>  #include "display/intel_pipe_crc.h"
+> +#include "display/intel_pps.h"
+>  #include "display/intel_sprite.h"
+>  #include "display/intel_vga.h"
+>  
 > -- 
 > 2.20.1
 > 
