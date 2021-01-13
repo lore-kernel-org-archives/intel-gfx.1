@@ -7,32 +7,34 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7FCA5C433E0
-	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jan 2021 12:52:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 00161C433DB
+	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jan 2021 12:59:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9D5FB233F6
-	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jan 2021 12:52:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9D5FB233F6
+	by mail.kernel.org (Postfix) with ESMTPS id 58D9E233FB
+	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jan 2021 12:59:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 58D9E233FB
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1EE976E986;
-	Wed, 13 Jan 2021 12:52:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CCABC6E9A0;
+	Wed, 13 Jan 2021 12:59:49 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 738E96E986
- for <intel-gfx@lists.freedesktop.org>; Wed, 13 Jan 2021 12:52:28 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A753D6E9A0
+ for <intel-gfx@lists.freedesktop.org>; Wed, 13 Jan 2021 12:59:48 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23584309-1500050 
- for multiple; Wed, 13 Jan 2021 12:51:56 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23584419-1500050 
+ for multiple; Wed, 13 Jan 2021 12:59:40 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 13 Jan 2021 12:51:55 +0000
-Message-Id: <20210113125155.1029-1-chris@chris-wilson.co.uk>
+Date: Wed, 13 Jan 2021 12:59:39 +0000
+Message-Id: <20210113125939.10205-1-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20210113125155.1029-1-chris@chris-wilson.co.uk>
+References: <20210113125155.1029-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
 Subject: [Intel-gfx] [PATCH] drm/i915/selftests: Bump the scheduling
  threshold for fast heartbeats
@@ -65,14 +67,14 @@ Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
  1 file changed, 10 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/gt/selftest_engine_heartbeat.c b/drivers/gpu/drm/i915/gt/selftest_engine_heartbeat.c
-index b88aa35ad75b..807c445f7c70 100644
+index b88aa35ad75b..e88a01390dc5 100644
 --- a/drivers/gpu/drm/i915/gt/selftest_engine_heartbeat.c
 +++ b/drivers/gpu/drm/i915/gt/selftest_engine_heartbeat.c
 @@ -197,6 +197,7 @@ static int cmp_u32(const void *_a, const void *_b)
  
  static int __live_heartbeat_fast(struct intel_engine_cs *engine)
  {
-+	const int error_threshold = 20000; /* microseconds */
++	const int error_threshold = max(20000, jffies_to_usecs(6));
  	struct intel_context *ce;
  	struct i915_request *rq;
  	ktime_t t0, t1;
