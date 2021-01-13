@@ -7,37 +7,35 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 74B19C433E0
-	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jan 2021 12:46:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4B62AC433DB
+	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jan 2021 12:46:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D642F230FC
-	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jan 2021 12:46:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D642F230FC
+	by mail.kernel.org (Postfix) with ESMTPS id E45D5230FC
+	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jan 2021 12:46:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E45D5230FC
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 01F6E6E97C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B7BF6E97D;
 	Wed, 13 Jan 2021 12:46:15 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5CCCE6E976
- for <intel-gfx@lists.freedesktop.org>; Wed, 13 Jan 2021 12:46:12 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6970B6E979
+ for <intel-gfx@lists.freedesktop.org>; Wed, 13 Jan 2021 12:46:13 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23584213-1500050 
- for multiple; Wed, 13 Jan 2021 12:46:03 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23584206-1500050 
+ for multiple; Wed, 13 Jan 2021 12:46:01 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 13 Jan 2021 12:45:58 +0000
-Message-Id: <20210113124600.656-8-chris@chris-wilson.co.uk>
+Date: Wed, 13 Jan 2021 12:45:51 +0000
+Message-Id: <20210113124600.656-1-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210113124600.656-1-chris@chris-wilson.co.uk>
-References: <20210113124600.656-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 08/10] drm/i915/gt: Convert stats.active to
- plain unsigned int
+Subject: [Intel-gfx] [PATCH 01/10] drm/i915: Mark up protected uses of
+ 'i915_request_completed'
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,136 +54,245 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-As context-in/out is now always serialised, we do not have to worry
-about concurrent enabling/disable of the busy-stats and can reduce the
-atomic_t active to a plain unsigned int, and the seqlock to a seqcount.
+When we know that we are inside the timeline mutex, or inside the
+submission flow (under active.lock or the holder's rcu lock), we know
+that the rq->hwsp is stable and we can use the simpler direct version.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 ---
- drivers/gpu/drm/i915/gt/intel_engine_cs.c    |  8 ++--
- drivers/gpu/drm/i915/gt/intel_engine_stats.h | 45 ++++++++++++--------
- drivers/gpu/drm/i915/gt/intel_engine_types.h |  4 +-
- 3 files changed, 34 insertions(+), 23 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_context.c   |  2 +-
+ drivers/gpu/drm/i915/gt/intel_breadcrumbs.c   |  4 ++--
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c     |  6 +++---
+ .../drm/i915/gt/intel_execlists_submission.c  |  4 ++--
+ drivers/gpu/drm/i915/gt/intel_reset.c         |  3 +--
+ .../gpu/drm/i915/gt/intel_ring_submission.c   |  4 +++-
+ drivers/gpu/drm/i915/gt/intel_timeline.c      |  4 ++--
+ drivers/gpu/drm/i915/i915_request.c           | 19 +++++++++----------
+ drivers/gpu/drm/i915/i915_scheduler.c         |  2 +-
+ 9 files changed, 24 insertions(+), 24 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+index 68f58762d5e3..cac0c52fc681 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+@@ -408,7 +408,7 @@ __active_engine(struct i915_request *rq, struct intel_engine_cs **active)
+ 	}
+ 
+ 	if (i915_request_is_active(rq)) {
+-		if (!i915_request_completed(rq))
++		if (!__i915_request_is_complete(rq))
+ 			*active = locked;
+ 		ret = true;
+ 	}
+diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
+index be2c285a0ac7..d098fc0c14ec 100644
+--- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
++++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
+@@ -517,8 +517,8 @@ static void print_signals(struct intel_breadcrumbs *b, struct drm_printer *p)
+ 		list_for_each_entry_rcu(rq, &ce->signals, signal_link)
+ 			drm_printf(p, "\t[%llx:%llx%s] @ %dms\n",
+ 				   rq->fence.context, rq->fence.seqno,
+-				   i915_request_completed(rq) ? "!" :
+-				   i915_request_started(rq) ? "*" :
++				   __i915_request_is_complete(rq) ? "!" :
++				   __i915_request_has_started(rq) ? "*" :
+ 				   "",
+ 				   jiffies_to_msecs(jiffies - rq->emitted_jiffies));
+ 	}
 diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-index 005ae2c54273..e85396cadcb8 100644
+index f531207971d1..7583b6e48a9d 100644
 --- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
 +++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-@@ -342,7 +342,7 @@ static int intel_engine_setup(struct intel_gt *gt, enum intel_engine_id id)
- 	engine->schedule = NULL;
+@@ -1800,7 +1800,7 @@ intel_engine_find_active_request(struct intel_engine_cs *engine)
+ 		struct intel_timeline *tl = request->context->timeline;
  
- 	ewma__engine_latency_init(&engine->latency);
--	seqlock_init(&engine->stats.lock);
-+	seqcount_init(&engine->stats.lock);
+ 		list_for_each_entry_from_reverse(request, &tl->requests, link) {
+-			if (i915_request_completed(request))
++			if (__i915_request_is_complete(request))
+ 				break;
  
- 	ATOMIC_INIT_NOTIFIER_HEAD(&engine->context_status_notifier);
+ 			active = request;
+@@ -1811,10 +1811,10 @@ intel_engine_find_active_request(struct intel_engine_cs *engine)
+ 		return active;
  
-@@ -1743,7 +1743,7 @@ static ktime_t __intel_engine_get_busy_time(struct intel_engine_cs *engine,
- 	 * add it to the total.
- 	 */
- 	*now = ktime_get();
--	if (atomic_read(&engine->stats.active))
-+	if (READ_ONCE(engine->stats.active))
- 		total = ktime_add(total, ktime_sub(*now, engine->stats.start));
+ 	list_for_each_entry(request, &engine->active.requests, sched.link) {
+-		if (i915_request_completed(request))
++		if (__i915_request_is_complete(request))
+ 			continue;
  
- 	return total;
-@@ -1762,9 +1762,9 @@ ktime_t intel_engine_get_busy_time(struct intel_engine_cs *engine, ktime_t *now)
- 	ktime_t total;
+-		if (!i915_request_started(request))
++		if (!__i915_request_has_started(request))
+ 			continue;
+ 
+ 		/* More than one preemptible request may match! */
+diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+index d7d5a58990bb..e28f32661df4 100644
+--- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
++++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+@@ -3296,7 +3296,7 @@ static void rcu_virtual_context_destroy(struct work_struct *wrk)
+ 
+ 		old = fetch_and_zero(&ve->request);
+ 		if (old) {
+-			GEM_BUG_ON(!i915_request_completed(old));
++			GEM_BUG_ON(!__i915_request_is_complete(old));
+ 			__i915_request_submit(old);
+ 			i915_request_put(old);
+ 		}
+@@ -3573,7 +3573,7 @@ static void virtual_submit_request(struct i915_request *rq)
+ 	}
+ 
+ 	if (ve->request) { /* background completion from preempt-to-busy */
+-		GEM_BUG_ON(!i915_request_completed(ve->request));
++		GEM_BUG_ON(!__i915_request_is_complete(ve->request));
+ 		__i915_request_submit(ve->request);
+ 		i915_request_put(ve->request);
+ 	}
+diff --git a/drivers/gpu/drm/i915/gt/intel_reset.c b/drivers/gpu/drm/i915/gt/intel_reset.c
+index 9d177297db79..bba385497d7b 100644
+--- a/drivers/gpu/drm/i915/gt/intel_reset.c
++++ b/drivers/gpu/drm/i915/gt/intel_reset.c
+@@ -151,8 +151,7 @@ static void mark_innocent(struct i915_request *rq)
+ void __i915_request_reset(struct i915_request *rq, bool guilty)
+ {
+ 	RQ_TRACE(rq, "guilty? %s\n", yesno(guilty));
+-
+-	GEM_BUG_ON(i915_request_completed(rq));
++	GEM_BUG_ON(__i915_request_is_complete(rq));
+ 
+ 	rcu_read_lock(); /* protect the GEM context */
+ 	if (guilty) {
+diff --git a/drivers/gpu/drm/i915/gt/intel_ring_submission.c b/drivers/gpu/drm/i915/gt/intel_ring_submission.c
+index 657afd8ebc14..c86ae77acc4e 100644
+--- a/drivers/gpu/drm/i915/gt/intel_ring_submission.c
++++ b/drivers/gpu/drm/i915/gt/intel_ring_submission.c
+@@ -405,12 +405,14 @@ static void reset_rewind(struct intel_engine_cs *engine, bool stalled)
+ 
+ 	rq = NULL;
+ 	spin_lock_irqsave(&engine->active.lock, flags);
++	rcu_read_lock();
+ 	list_for_each_entry(pos, &engine->active.requests, sched.link) {
+-		if (!i915_request_completed(pos)) {
++		if (!__i915_request_is_complete(pos)) {
+ 			rq = pos;
+ 			break;
+ 		}
+ 	}
++	rcu_read_unlock();
+ 
+ 	/*
+ 	 * The guilty request will get skipped on a hung engine.
+diff --git a/drivers/gpu/drm/i915/gt/intel_timeline.c b/drivers/gpu/drm/i915/gt/intel_timeline.c
+index 7fe05918a76e..037b0e3ccbed 100644
+--- a/drivers/gpu/drm/i915/gt/intel_timeline.c
++++ b/drivers/gpu/drm/i915/gt/intel_timeline.c
+@@ -582,11 +582,11 @@ int intel_timeline_read_hwsp(struct i915_request *from,
+ 
+ 	rcu_read_lock();
+ 	cl = rcu_dereference(from->hwsp_cacheline);
+-	if (i915_request_completed(from)) /* confirm cacheline is valid */
++	if (i915_request_signaled(from)) /* confirm cacheline is valid */
+ 		goto unlock;
+ 	if (unlikely(!i915_active_acquire_if_busy(&cl->active)))
+ 		goto unlock; /* seqno wrapped and completed! */
+-	if (unlikely(i915_request_completed(from)))
++	if (unlikely(__i915_request_is_complete(from)))
+ 		goto release;
+ 	rcu_read_unlock();
+ 
+diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
+index 0b1a46a0d866..784c05ac5cca 100644
+--- a/drivers/gpu/drm/i915/i915_request.c
++++ b/drivers/gpu/drm/i915/i915_request.c
+@@ -276,7 +276,7 @@ static void remove_from_engine(struct i915_request *rq)
+ 
+ bool i915_request_retire(struct i915_request *rq)
+ {
+-	if (!i915_request_completed(rq))
++	if (!__i915_request_is_complete(rq))
+ 		return false;
+ 
+ 	RQ_TRACE(rq, "\n");
+@@ -342,8 +342,7 @@ void i915_request_retire_upto(struct i915_request *rq)
+ 	struct i915_request *tmp;
+ 
+ 	RQ_TRACE(rq, "\n");
+-
+-	GEM_BUG_ON(!i915_request_completed(rq));
++	GEM_BUG_ON(!__i915_request_is_complete(rq));
  
  	do {
--		seq = read_seqbegin(&engine->stats.lock);
-+		seq = read_seqcount_begin(&engine->stats.lock);
- 		total = __intel_engine_get_busy_time(engine, now);
--	} while (read_seqretry(&engine->stats.lock, seq));
-+	} while (read_seqcount_retry(&engine->stats.lock, seq));
+ 		tmp = list_first_entry(&tl->requests, typeof(*tmp), link);
+@@ -552,7 +551,7 @@ bool __i915_request_submit(struct i915_request *request)
+ 	 * dropped upon retiring. (Otherwise if resubmit a *retired*
+ 	 * request, this would be a horrible use-after-free.)
+ 	 */
+-	if (i915_request_completed(request))
++	if (__i915_request_is_complete(request))
+ 		goto xfer;
  
- 	return total;
- }
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_stats.h b/drivers/gpu/drm/i915/gt/intel_engine_stats.h
-index 58491eae3482..24fbdd94351a 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_stats.h
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_stats.h
-@@ -17,33 +17,44 @@ static inline void intel_engine_context_in(struct intel_engine_cs *engine)
+ 	if (unlikely(intel_context_is_banned(request->context)))
+@@ -652,7 +651,7 @@ void __i915_request_unsubmit(struct i915_request *request)
+ 		i915_request_cancel_breadcrumb(request);
+ 
+ 	/* We've already spun, don't charge on resubmitting. */
+-	if (request->sched.semaphores && i915_request_started(request))
++	if (request->sched.semaphores && __i915_request_has_started(request))
+ 		request->sched.semaphores = 0;
+ 
+ 	/*
+@@ -864,7 +863,7 @@ __i915_request_create(struct intel_context *ce, gfp_t gfp)
+ 	RCU_INIT_POINTER(rq->timeline, tl);
+ 	RCU_INIT_POINTER(rq->hwsp_cacheline, tl->hwsp_cacheline);
+ 	rq->hwsp_seqno = tl->hwsp_seqno;
+-	GEM_BUG_ON(i915_request_completed(rq));
++	GEM_BUG_ON(__i915_request_is_complete(rq));
+ 
+ 	rq->rcustate = get_state_synchronize_rcu(); /* acts as smp_mb() */
+ 
+@@ -978,7 +977,7 @@ i915_request_await_start(struct i915_request *rq, struct i915_request *signal)
+ 		struct i915_request *prev;
+ 
+ 		/* Confirm signal has not been retired, the link is valid */
+-		if (unlikely(i915_request_started(signal)))
++		if (unlikely(__i915_request_has_started(signal)))
+ 			break;
+ 
+ 		/* Is signal the earliest request on its timeline? */
+@@ -1520,7 +1519,7 @@ __i915_request_add_to_timeline(struct i915_request *rq)
+ 	 */
+ 	prev = to_request(__i915_active_fence_set(&timeline->last_request,
+ 						  &rq->fence));
+-	if (prev && !i915_request_completed(prev)) {
++	if (prev && !__i915_request_is_complete(prev)) {
+ 		/*
+ 		 * The requests are supposed to be kept in order. However,
+ 		 * we need to be wary in case the timeline->last_request
+@@ -1897,10 +1896,10 @@ static char queue_status(const struct i915_request *rq)
+ 
+ static const char *run_status(const struct i915_request *rq)
  {
- 	unsigned long flags;
+-	if (i915_request_completed(rq))
++	if (__i915_request_is_complete(rq))
+ 		return "!";
  
--	if (atomic_add_unless(&engine->stats.active, 1, 0))
-+	if (engine->stats.active) {
-+		engine->stats.active++;
- 		return;
--
--	write_seqlock_irqsave(&engine->stats.lock, flags);
--	if (!atomic_add_unless(&engine->stats.active, 1, 0)) {
--		engine->stats.start = ktime_get();
--		atomic_inc(&engine->stats.active);
- 	}
--	write_sequnlock_irqrestore(&engine->stats.lock, flags);
-+
-+	/* The writer is serialised; but the pmu reader may be from hardirq */
-+	local_irq_save(flags);
-+	write_seqcount_begin(&engine->stats.lock);
-+
-+	engine->stats.start = ktime_get();
-+	engine->stats.active++;
-+
-+	write_seqcount_end(&engine->stats.lock);
-+	local_irq_restore(flags);
-+
-+	GEM_BUG_ON(!engine->stats.active);
- }
+-	if (i915_request_started(rq))
++	if (__i915_request_has_started(rq))
+ 		return "*";
  
- static inline void intel_engine_context_out(struct intel_engine_cs *engine)
- {
- 	unsigned long flags;
+ 	if (!i915_sw_fence_signaled(&rq->semaphore))
+diff --git a/drivers/gpu/drm/i915/i915_scheduler.c b/drivers/gpu/drm/i915/i915_scheduler.c
+index 318e359bf5c3..7144239f08df 100644
+--- a/drivers/gpu/drm/i915/i915_scheduler.c
++++ b/drivers/gpu/drm/i915/i915_scheduler.c
+@@ -520,7 +520,7 @@ void i915_request_show_with_schedule(struct drm_printer *m,
+ 		if (signaler->timeline == rq->timeline)
+ 			continue;
  
--	GEM_BUG_ON(!atomic_read(&engine->stats.active));
--
--	if (atomic_add_unless(&engine->stats.active, -1, 1))
-+	GEM_BUG_ON(!engine->stats.active);
-+	if (engine->stats.active > 1) {
-+		engine->stats.active--;
- 		return;
--
--	write_seqlock_irqsave(&engine->stats.lock, flags);
--	if (atomic_dec_and_test(&engine->stats.active)) {
--		engine->stats.total =
--			ktime_add(engine->stats.total,
--				  ktime_sub(ktime_get(), engine->stats.start));
- 	}
--	write_sequnlock_irqrestore(&engine->stats.lock, flags);
-+
-+	local_irq_save(flags);
-+	write_seqcount_begin(&engine->stats.lock);
-+
-+	engine->stats.active--;
-+	engine->stats.total =
-+		ktime_add(engine->stats.total,
-+			  ktime_sub(ktime_get(), engine->stats.start));
-+
-+	write_seqcount_end(&engine->stats.lock);
-+	local_irq_restore(flags);
- }
+-		if (i915_request_completed(signaler))
++		if (__i915_request_is_complete(signaler))
+ 			continue;
  
- #endif /* __INTEL_ENGINE_STATS_H__ */
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_types.h b/drivers/gpu/drm/i915/gt/intel_engine_types.h
-index 75c9093b5e7f..d2346b425547 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_types.h
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_types.h
-@@ -516,12 +516,12 @@ struct intel_engine_cs {
- 		/**
- 		 * @active: Number of contexts currently scheduled in.
- 		 */
--		atomic_t active;
-+		unsigned int active;
- 
- 		/**
- 		 * @lock: Lock protecting the below fields.
- 		 */
--		seqlock_t lock;
-+		seqcount_t lock;
- 
- 		/**
- 		 * @total: Total time this engine was busy.
+ 		i915_request_show(m, signaler, prefix, indent + 2);
 -- 
 2.20.1
 
