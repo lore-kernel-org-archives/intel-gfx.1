@@ -2,52 +2,53 @@ Return-Path: <SRS0=9rZY=GQ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.3 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 446C7C433DB
-	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jan 2021 10:54:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5D16DC433DB
+	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jan 2021 10:55:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8E23B23122
-	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jan 2021 10:54:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8E23B23122
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id D62622339F
+	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jan 2021 10:55:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D62622339F
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 053B36E48C;
-	Wed, 13 Jan 2021 10:54:04 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 447636E48C
- for <intel-gfx@lists.freedesktop.org>; Wed, 13 Jan 2021 10:54:02 +0000 (UTC)
-IronPort-SDR: WQ9fHjV9xSqMqvw7zmn0DiGNMaPjE68jWhQ1dSTqrBEkreLVjLrL6zF7c37AiwxOL2FltB43sx
- JztWH3Y+tHgQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9862"; a="157368282"
-X-IronPort-AV: E=Sophos;i="5.79,344,1602572400"; d="scan'208";a="157368282"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jan 2021 02:53:59 -0800
-IronPort-SDR: FN6pp11EpiG4qNMLb0sRvi8bwvBvSJkna5NB+vlaBy2FfTjQgX11J5QibxFdsOYemihcUK78AS
- 4diupFRXgiqA==
-X-IronPort-AV: E=Sophos;i="5.79,344,1602572400"; d="scan'208";a="348776374"
-Received: from unknown (HELO intel.com) ([10.223.74.179])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jan 2021 02:53:58 -0800
-Date: Wed, 13 Jan 2021 16:09:26 +0530
-From: Anshuman Gupta <anshuman.gupta@intel.com>
-To: Jani Nikula <jani.nikula@intel.com>
-Message-ID: <20210113103926.GL11717@intel.com>
-References: <cover.1610127741.git.jani.nikula@intel.com>
- <b858271bd4d9c4a2ce15a13301d7bd9f7d121eb5.1610127741.git.jani.nikula@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0728C6E41B;
+	Wed, 13 Jan 2021 10:55:24 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 500806E41B
+ for <intel-gfx@lists.freedesktop.org>; Wed, 13 Jan 2021 10:55:23 +0000 (UTC)
+IronPort-SDR: n4RV18PgkKp4B73hdyFHTBN12jO4eQL9N3h/2T0fYEtz+f2OnTaGApCGvBHHfA1qG1H0bQUVZA
+ 1Kf23gwdew1Q==
+X-IronPort-AV: E=McAfee;i="6000,8403,9862"; a="178333306"
+X-IronPort-AV: E=Sophos;i="5.79,344,1602572400"; d="scan'208";a="178333306"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jan 2021 02:55:22 -0800
+IronPort-SDR: waFRfJitg37wke+i7p47PAf7wIX0cK0hGQHkNRqm21PE4Q5+vnHNxhvQAEL5suJ+x+DXJ+PVGC
+ gnv1o9A1iX8Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.79,344,1602572400"; d="scan'208";a="567818152"
+Received: from gaia.fi.intel.com ([10.237.72.192])
+ by orsmga005.jf.intel.com with ESMTP; 13 Jan 2021 02:55:21 -0800
+Received: by gaia.fi.intel.com (Postfix, from userid 1000)
+ id 1F1F15C2054; Wed, 13 Jan 2021 12:52:40 +0200 (EET)
+From: Mika Kuoppala <mika.kuoppala@linux.intel.com>
+To: Chris Wilson <chris@chris-wilson.co.uk>, intel-gfx@lists.freedesktop.org
+In-Reply-To: <161048398029.9280.6299529944985317684@build.alporthouse.com>
+References: <20210108105608.18424-1-chris@chris-wilson.co.uk>
+ <87im82klo9.fsf@gaia.fi.intel.com>
+ <161048398029.9280.6299529944985317684@build.alporthouse.com>
+Date: Wed, 13 Jan 2021 12:52:40 +0200
+Message-ID: <87ft35kt1j.fsf@gaia.fi.intel.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <b858271bd4d9c4a2ce15a13301d7bd9f7d121eb5.1610127741.git.jani.nikula@intel.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Subject: Re: [Intel-gfx] [PATCH v2 04/17] drm/i915/pps: rename
- intel_edp_panel_* to intel_pps_*
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/selftests: Rearrange ktime_get to
+ reduce latency against CS
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,204 +61,47 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 2021-01-08 at 19:44:12 +0200, Jani Nikula wrote:
-> Follow the usual naming pattern for functions. We don't need to repeat
-> "panel" here. No functional changes.
-> 
-> v2: Fix comment (Anshuman)
-> 
-> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
-LGTM.
-Reviewed-by: Anshuman Gupta <anshuman.gupta@intel.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_ddi.c |  8 ++++----
->  drivers/gpu/drm/i915/display/intel_dp.c  | 10 +++++-----
->  drivers/gpu/drm/i915/display/intel_pps.c | 17 ++++++++---------
->  drivers/gpu/drm/i915/display/intel_pps.h | 11 +++++------
->  4 files changed, 22 insertions(+), 24 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-> index f09a597bf730..243ab635aa34 100644
-> --- a/drivers/gpu/drm/i915/display/intel_ddi.c
-> +++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-> @@ -3592,7 +3592,7 @@ static void tgl_ddi_pre_enable_dp(struct intel_atomic_state *state,
->  	 */
->  
->  	/* 2. Enable Panel Power if PPS is required */
-> -	intel_edp_panel_on(intel_dp);
-> +	intel_pps_on(intel_dp);
->  
->  	/*
->  	 * 3. For non-TBT Type-C ports, set FIA lane count
-> @@ -3735,7 +3735,7 @@ static void hsw_ddi_pre_enable_dp(struct intel_atomic_state *state,
->  				 crtc_state->port_clock,
->  				 crtc_state->lane_count);
->  
-> -	intel_edp_panel_on(intel_dp);
-> +	intel_pps_on(intel_dp);
->  
->  	intel_ddi_clk_select(encoder, crtc_state);
->  
-> @@ -3977,8 +3977,8 @@ static void intel_ddi_post_disable_dp(struct intel_atomic_state *state,
->  	if (INTEL_GEN(dev_priv) >= 12)
->  		intel_ddi_disable_pipe_clock(old_crtc_state);
->  
-> -	intel_edp_panel_vdd_on(intel_dp);
-> -	intel_edp_panel_off(intel_dp);
-> +	intel_pps_vdd_on(intel_dp);
-> +	intel_pps_off(intel_dp);
->  
->  	if (!intel_phy_is_tc(dev_priv, phy) ||
->  	    dig_port->tc_mode != TC_PORT_TBT_ALT)
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-> index 421e68bb436f..eac674ad91c8 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-> @@ -3001,10 +3001,10 @@ static void intel_disable_dp(struct intel_atomic_state *state,
->  
->  	/* Make sure the panel is off before trying to change the mode. But also
->  	 * ensure that we have vdd while we switch off the panel. */
-> -	intel_edp_panel_vdd_on(intel_dp);
-> +	intel_pps_vdd_on(intel_dp);
->  	intel_edp_backlight_off(old_conn_state);
->  	intel_dp_set_power(intel_dp, DP_SET_POWER_D3);
-> -	intel_edp_panel_off(intel_dp);
-> +	intel_pps_off(intel_dp);
->  	intel_dp->frl.is_trained = false;
->  	intel_dp->frl.trained_rate_gbps = 0;
->  }
-> @@ -6339,7 +6339,7 @@ void intel_dp_encoder_reset(struct drm_encoder *encoder)
->  			 * something nasty with it.
->  			 */
->  			intel_dp_pps_init(intel_dp);
-> -			intel_edp_panel_vdd_sanitize(intel_dp);
-> +			intel_pps_vdd_sanitize(intel_dp);
->  		}
->  	}
->  }
-> @@ -6513,7 +6513,7 @@ intel_dp_hpd_pulse(struct intel_digital_port *dig_port, bool long_hpd)
->  	struct intel_dp *intel_dp = &dig_port->dp;
->  
->  	if (dig_port->base.type == INTEL_OUTPUT_EDP &&
-> -	    (long_hpd || !intel_edp_have_power(intel_dp))) {
-> +	    (long_hpd || !intel_pps_have_power(intel_dp))) {
->  		/*
->  		 * vdd off can generate a long/short pulse on eDP which
->  		 * would require vdd on to handle it, and thus we
-> @@ -7071,7 +7071,7 @@ static bool intel_edp_init_connector(struct intel_dp *intel_dp,
->  	with_intel_pps_lock(intel_dp, wakeref) {
->  		intel_dp_init_panel_power_timestamps(intel_dp);
->  		intel_dp_pps_init(intel_dp);
-> -		intel_edp_panel_vdd_sanitize(intel_dp);
-> +		intel_pps_vdd_sanitize(intel_dp);
->  	}
->  
->  	/* Cache DPCD and EDID for edp. */
-> diff --git a/drivers/gpu/drm/i915/display/intel_pps.c b/drivers/gpu/drm/i915/display/intel_pps.c
-> index 36d8782d8df1..59215cfd7d97 100644
-> --- a/drivers/gpu/drm/i915/display/intel_pps.c
-> +++ b/drivers/gpu/drm/i915/display/intel_pps.c
-> @@ -558,7 +558,7 @@ static  u32 ilk_get_pp_control(struct intel_dp *intel_dp)
->  /*
->   * Must be paired with edp_panel_vdd_off().
->   * Must hold pps_mutex around the whole on/off sequence.
-> - * Can be nested with intel_edp_panel_vdd_{on,off}() calls.
-> + * Can be nested with intel_pps_vdd_{on,off}() calls.
->   */
->  bool edp_panel_vdd_on(struct intel_dp *intel_dp)
->  {
-> @@ -616,13 +616,12 @@ bool edp_panel_vdd_on(struct intel_dp *intel_dp)
->  }
->  
->  /*
-> - * Must be paired with intel_edp_panel_vdd_off() or
-> - * intel_edp_panel_off().
-> + * Must be paired with intel_pps_off().
->   * Nested calls to these functions are not allowed since
->   * we drop the lock. Caller must use some higher level
->   * locking to prevent nested calls from other threads.
->   */
-> -void intel_edp_panel_vdd_on(struct intel_dp *intel_dp)
-> +void intel_pps_vdd_on(struct intel_dp *intel_dp)
->  {
->  	intel_wakeref_t wakeref;
->  	bool vdd;
-> @@ -708,7 +707,7 @@ static void edp_panel_vdd_schedule_off(struct intel_dp *intel_dp)
->  /*
->   * Must be paired with edp_panel_vdd_on().
->   * Must hold pps_mutex around the whole on/off sequence.
-> - * Can be nested with intel_edp_panel_vdd_{on,off}() calls.
-> + * Can be nested with intel_pps_vdd_{on,off}() calls.
->   */
->  void edp_panel_vdd_off(struct intel_dp *intel_dp, bool sync)
->  {
-> @@ -780,7 +779,7 @@ void edp_panel_on(struct intel_dp *intel_dp)
->  	}
->  }
->  
-> -void intel_edp_panel_on(struct intel_dp *intel_dp)
-> +void intel_pps_on(struct intel_dp *intel_dp)
->  {
->  	intel_wakeref_t wakeref;
->  
-> @@ -832,7 +831,7 @@ void edp_panel_off(struct intel_dp *intel_dp)
->  				fetch_and_zero(&intel_dp->vdd_wakeref));
->  }
->  
-> -void intel_edp_panel_off(struct intel_dp *intel_dp)
-> +void intel_pps_off(struct intel_dp *intel_dp)
->  {
->  	intel_wakeref_t wakeref;
->  
-> @@ -1025,7 +1024,7 @@ void vlv_init_panel_power_sequencer(struct intel_encoder *encoder,
->  	intel_dp_init_panel_power_sequencer_registers(intel_dp, true);
->  }
->  
-> -void intel_edp_panel_vdd_sanitize(struct intel_dp *intel_dp)
-> +void intel_pps_vdd_sanitize(struct intel_dp *intel_dp)
->  {
->  	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
->  	struct intel_digital_port *dig_port = dp_to_dig_port(intel_dp);
-> @@ -1050,7 +1049,7 @@ void intel_edp_panel_vdd_sanitize(struct intel_dp *intel_dp)
->  	edp_panel_vdd_schedule_off(intel_dp);
->  }
->  
-> -bool intel_edp_have_power(struct intel_dp *intel_dp)
-> +bool intel_pps_have_power(struct intel_dp *intel_dp)
->  {
->  	intel_wakeref_t wakeref;
->  	bool have_power = false;
-> diff --git a/drivers/gpu/drm/i915/display/intel_pps.h b/drivers/gpu/drm/i915/display/intel_pps.h
-> index 81e4e9fc3cf5..69f670678d0e 100644
-> --- a/drivers/gpu/drm/i915/display/intel_pps.h
-> +++ b/drivers/gpu/drm/i915/display/intel_pps.h
-> @@ -34,12 +34,11 @@ void edp_panel_on(struct intel_dp *intel_dp);
->  void edp_panel_off(struct intel_dp *intel_dp);
->  void edp_panel_vdd_work(struct work_struct *__work);
->  
-> -void intel_edp_panel_vdd_on(struct intel_dp *intel_dp);
-> -void intel_edp_panel_on(struct intel_dp *intel_dp);
-> -void intel_edp_panel_off(struct intel_dp *intel_dp);
-> -bool intel_edp_have_power(struct intel_dp *intel_dp);
-> -
-> -void intel_edp_panel_vdd_sanitize(struct intel_dp *intel_dp);
-> +void intel_pps_vdd_sanitize(struct intel_dp *intel_dp);
-> +void intel_pps_vdd_on(struct intel_dp *intel_dp);
-> +void intel_pps_on(struct intel_dp *intel_dp);
-> +void intel_pps_off(struct intel_dp *intel_dp);
-> +bool intel_pps_have_power(struct intel_dp *intel_dp);
->  
->  void wait_panel_power_cycle(struct intel_dp *intel_dp);
->  
-> -- 
-> 2.20.1
-> 
+Chris Wilson <chris@chris-wilson.co.uk> writes:
+
+> Quoting Mika Kuoppala (2021-01-12 19:19:34)
+>> Chris Wilson <chris@chris-wilson.co.uk> writes:
+>> 
+>> > In our tests where we measure the elapsed time on both the CPU and CS
+>> > using a udelay, our CS results match the udelay much more accurately
+>> > than the ktime (even when using ktime_get_fast_ns). With preemption
+>> > disabled, we can go one step lower than ktime and use local_clock.
+>> >
+>> > Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/2919
+>> > Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+>> > ---
+>> >  drivers/gpu/drm/i915/gt/selftest_engine_pm.c | 4 ++--
+>> >  1 file changed, 2 insertions(+), 2 deletions(-)
+>> >
+>> > diff --git a/drivers/gpu/drm/i915/gt/selftest_engine_pm.c b/drivers/gpu/drm/i915/gt/selftest_engine_pm.c
+>> > index ca080445695e..c3d965279fc3 100644
+>> > --- a/drivers/gpu/drm/i915/gt/selftest_engine_pm.c
+>> > +++ b/drivers/gpu/drm/i915/gt/selftest_engine_pm.c
+>> > @@ -112,11 +112,11 @@ static int __measure_timestamps(struct intel_context *ce,
+>> >  
+>> >       /* Run the request for a 100us, sampling timestamps before/after */
+>> >       preempt_disable();
+>> 
+>> Do you need to promote this to local_irq_disable() ?
+>
+> Good suggestion. Will try to remember if we still see discrepancies...
+>
+> Interrupt handlers are meant to <5us, right???
+
+With both test types, we might sometimes find out what they are :)
+
+Reviewed-by: Mika Kuoppala <mika.kuoppala@linux.intel.com>
+
+> -Chris
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
