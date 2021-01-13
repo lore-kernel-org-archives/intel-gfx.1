@@ -2,52 +2,53 @@ Return-Path: <SRS0=9rZY=GQ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.3 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B2A79C433DB
-	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jan 2021 11:16:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 23E9FC433DB
+	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jan 2021 11:53:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5B5FA2333F
-	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jan 2021 11:16:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5B5FA2333F
+	by mail.kernel.org (Postfix) with ESMTPS id BA694233ED
+	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jan 2021 11:53:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BA694233ED
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C2E686E514;
-	Wed, 13 Jan 2021 11:16:56 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 82DCE6E514
- for <intel-gfx@lists.freedesktop.org>; Wed, 13 Jan 2021 11:16:55 +0000 (UTC)
-IronPort-SDR: Md3DazWRAU39VNgXTBVaiiKW/kaH3dmAdCl5EdcP62pynkbPgserZhPsi3h4lNZOG7ho9s0dPK
- 6xR/2e57Gwtw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9862"; a="262974442"
-X-IronPort-AV: E=Sophos;i="5.79,344,1602572400"; d="scan'208";a="262974442"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 14C896E7D4;
+	Wed, 13 Jan 2021 11:53:00 +0000 (UTC)
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E0C096E7D4
+ for <intel-gfx@lists.freedesktop.org>; Wed, 13 Jan 2021 11:52:58 +0000 (UTC)
+IronPort-SDR: BAbtZWRvMFWow9A4Eypx5iXcSKk/A4vROj7nyHax0LapHhRU5TK3vs2+PQfB7ML7OXK24iom3J
+ ZLlVjeSZC/PA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9862"; a="239731638"
+X-IronPort-AV: E=Sophos;i="5.79,344,1602572400"; d="scan'208";a="239731638"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jan 2021 03:16:55 -0800
-IronPort-SDR: CyN2LMwljcjrgeFDgV4YTgcPHmt3dXhL67ECtMtRO1DIMTHXoif7KUpemSaq5MUMlGmQrJIb/b
- Ua1pew+Oxbjw==
-X-IronPort-AV: E=Sophos;i="5.79,344,1602572400"; d="scan'208";a="381806831"
-Received: from unknown (HELO intel.com) ([10.223.74.179])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jan 2021 03:52:58 -0800
+IronPort-SDR: Np0+9mjgupxnPtr+WMPLdWM09Yjr/k4mhU8IsBaKzsSYl0IIxtoYjxwsqdnpbpRNzITYa+TNBR
+ QAa/5CthDcvA==
+X-IronPort-AV: E=Sophos;i="5.79,344,1602572400"; d="scan'208";a="381817499"
+Received: from iklein-mobl.ger.corp.intel.com (HELO localhost) ([10.249.40.83])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jan 2021 03:16:53 -0800
-Date: Wed, 13 Jan 2021 16:32:22 +0530
-From: Anshuman Gupta <anshuman.gupta@intel.com>
-To: Jani Nikula <jani.nikula@intel.com>
-Message-ID: <20210113110219.GO11717@intel.com>
-References: <cover.1610127741.git.jani.nikula@intel.com>
- <15260c28060f3f90276ab395da4d3999ccdb641f.1610127741.git.jani.nikula@intel.com>
+ 13 Jan 2021 03:52:56 -0800
+From: Jani Nikula <jani.nikula@intel.com>
+To: "Nautiyal\, Ankit K" <ankit.k.nautiyal@intel.com>,
+ Chris Wilson <chris@chris-wilson.co.uk>, intel-gfx@lists.freedesktop.org
+In-Reply-To: <87wnwny3hb.fsf@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20201223103917.14687-1-chris@chris-wilson.co.uk>
+ <87a6u4okvl.fsf@intel.com> <f6daaf1e-beab-4b9c-c6de-5e0fabe5e16e@intel.com>
+ <87wnwny3hb.fsf@intel.com>
+Date: Wed, 13 Jan 2021 13:52:53 +0200
+Message-ID: <87zh1drr3e.fsf@intel.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <15260c28060f3f90276ab395da4d3999ccdb641f.1610127741.git.jani.nikula@intel.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Subject: Re: [Intel-gfx] [PATCH v2 13/17] drm/i915/pps: rename
- intel_dp_init_panel_power_sequencer* functions
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/display: Bitwise or the conversion
+ colour specifier together
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,147 +61,103 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 2021-01-08 at 19:44:21 +0200, Jani Nikula wrote:
-> There are a number of functions that "init" pps in various ways. Try to
-> find some more consistency in the naming.
-> 
-> Rename:
->  - intel_dp_init_panel_power_sequencer -> pps_init_delays
->  - intel_dp_init_panel_power_sequencer_registers -> pps_init_registers
->  - intel_dp_init_panel_power_timestamps -> pps_init_timestamps
-> 
-> as this is what the functions do. Skip the intel_ prefix here to
-> emphasize these are static and not exported.
-> 
-> No functional changes.
-> 
-> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
-LGTM.
-Reviewed-by: Anshuman Gupta <anshuman.gupta@intel.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_pps.c | 37 ++++++++++--------------
->  1 file changed, 16 insertions(+), 21 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/display/intel_pps.c b/drivers/gpu/drm/i915/display/intel_pps.c
-> index 8925df55e22e..58eff6289d12 100644
-> --- a/drivers/gpu/drm/i915/display/intel_pps.c
-> +++ b/drivers/gpu/drm/i915/display/intel_pps.c
-> @@ -10,11 +10,9 @@
->  
->  static void vlv_steal_power_sequencer(struct drm_i915_private *dev_priv,
->  				      enum pipe pipe);
-> -static void
-> -intel_dp_init_panel_power_sequencer(struct intel_dp *intel_dp);
-> -static void
-> -intel_dp_init_panel_power_sequencer_registers(struct intel_dp *intel_dp,
-> -					      bool force_disable_vdd);
-> +
-> +static void pps_init_delays(struct intel_dp *intel_dp);
-> +static void pps_init_registers(struct intel_dp *intel_dp, bool force_disable_vdd);
->  
->  intel_wakeref_t intel_pps_lock(struct intel_dp *intel_dp)
->  {
-> @@ -190,8 +188,8 @@ vlv_power_sequencer_pipe(struct intel_dp *intel_dp)
->  		    dig_port->base.base.name);
->  
->  	/* init power sequencer on this pipe and port */
-> -	intel_dp_init_panel_power_sequencer(intel_dp);
-> -	intel_dp_init_panel_power_sequencer_registers(intel_dp, true);
-> +	pps_init_delays(intel_dp);
-> +	pps_init_registers(intel_dp, true);
->  
->  	/*
->  	 * Even vdd force doesn't work until we've made
-> @@ -222,7 +220,7 @@ bxt_power_sequencer_idx(struct intel_dp *intel_dp)
->  	 * Only the HW needs to be reprogrammed, the SW state is fixed and
->  	 * has been setup during connector init.
->  	 */
-> -	intel_dp_init_panel_power_sequencer_registers(intel_dp, false);
-> +	pps_init_registers(intel_dp, false);
->  
->  	return backlight_controller;
->  }
-> @@ -308,8 +306,8 @@ vlv_initial_power_sequencer_setup(struct intel_dp *intel_dp)
->  		    dig_port->base.base.name,
->  		    pipe_name(intel_dp->pps_pipe));
->  
-> -	intel_dp_init_panel_power_sequencer(intel_dp);
-> -	intel_dp_init_panel_power_sequencer_registers(intel_dp, false);
-> +	pps_init_delays(intel_dp);
-> +	pps_init_registers(intel_dp, false);
->  }
->  
->  void intel_pps_reset_all(struct drm_i915_private *dev_priv)
-> @@ -1046,8 +1044,8 @@ void vlv_pps_init(struct intel_encoder *encoder,
->  		    encoder->base.name);
->  
->  	/* init power sequencer on this pipe and port */
-> -	intel_dp_init_panel_power_sequencer(intel_dp);
-> -	intel_dp_init_panel_power_sequencer_registers(intel_dp, true);
-> +	pps_init_delays(intel_dp);
-> +	pps_init_registers(intel_dp, true);
->  }
->  
->  static void intel_pps_vdd_sanitize(struct intel_dp *intel_dp)
-> @@ -1088,7 +1086,7 @@ bool intel_pps_have_power(struct intel_dp *intel_dp)
->  	return have_power;
->  }
->  
-> -static void intel_dp_init_panel_power_timestamps(struct intel_dp *intel_dp)
-> +static void pps_init_timestamps(struct intel_dp *intel_dp)
->  {
->  	intel_dp->panel_power_off_time = ktime_get_boottime();
->  	intel_dp->last_power_on = jiffies;
-> @@ -1154,8 +1152,7 @@ intel_pps_verify_state(struct intel_dp *intel_dp)
->  	}
->  }
->  
-> -static void
-> -intel_dp_init_panel_power_sequencer(struct intel_dp *intel_dp)
-> +static void pps_init_delays(struct intel_dp *intel_dp)
->  {
->  	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
->  	struct edp_power_seq cur, vbt, spec,
-> @@ -1250,9 +1247,7 @@ intel_dp_init_panel_power_sequencer(struct intel_dp *intel_dp)
->  	final->t11_t12 = roundup(final->t11_t12, 100 * 10);
->  }
->  
-> -static void
-> -intel_dp_init_panel_power_sequencer_registers(struct intel_dp *intel_dp,
-> -					      bool force_disable_vdd)
-> +static void pps_init_registers(struct intel_dp *intel_dp, bool force_disable_vdd)
->  {
->  	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
->  	u32 pp_on, pp_off, port_sel = 0;
-> @@ -1354,8 +1349,8 @@ static void intel_dp_pps_init(struct intel_dp *intel_dp)
->  	if (IS_VALLEYVIEW(dev_priv) || IS_CHERRYVIEW(dev_priv)) {
->  		vlv_initial_power_sequencer_setup(intel_dp);
->  	} else {
-> -		intel_dp_init_panel_power_sequencer(intel_dp);
-> -		intel_dp_init_panel_power_sequencer_registers(intel_dp, false);
-> +		pps_init_delays(intel_dp);
-> +		pps_init_registers(intel_dp, false);
->  	}
->  }
->  
-> @@ -1383,7 +1378,7 @@ void intel_pps_init(struct intel_dp *intel_dp)
->  	INIT_DELAYED_WORK(&intel_dp->panel_vdd_work, edp_panel_vdd_work);
->  
->  	with_intel_pps_lock(intel_dp, wakeref) {
-> -		intel_dp_init_panel_power_timestamps(intel_dp);
-> +		pps_init_timestamps(intel_dp);
->  		intel_dp_pps_init(intel_dp);
->  		intel_pps_vdd_sanitize(intel_dp);
->  	}
-> -- 
-> 2.20.1
-> 
+On Fri, 08 Jan 2021, Jani Nikula <jani.nikula@intel.com> wrote:
+> On Thu, 24 Dec 2020, "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com> wrote:
+>> Thanks Chris to catch this.
+>>
+>> This definitely should be bitwise Operator, as mentioned by Jani is 
+>> right thing to do.
+>>
+>> The PCON which I had access to, had the F/W which was using 303Ch 
+>> (previously proposed) for color conversion capability, instead of what 
+>> is latest mentioned in the spec ie. 83h.
+>>
+>> While testing, I had to skip this line of code, and hardcoded to older 
+>> register ie. 303Ch.
+>>
+>> I Will get this patch tested and update.
+>
+> In the mean time, the topic/dp-hdmi-2.1-pcon branch has been merged to
+> drm-next and backmerged to drm-intel-next. So drm-intel-next is where
+> the fixes should now land.
+
+Ankit, where are we with this? I'm anxious to merge this.
+
+BR,
+Jani.
+
+
+
+>
+> BR,
+> Jani.
+>
+>
+>>
+>>
+>> Thanks & Regards,
+>>
+>> Ankit
+>>
+>>
+>> On 12/23/2020 4:21 PM, Jani Nikula wrote:
+>>> On Wed, 23 Dec 2020, Chris Wilson <chris@chris-wilson.co.uk> wrote:
+>>>> drivers/gpu/drm/i915/display/intel_dp.c:6922 intel_dp_update_420() warn: should this be a bitwise op?
+>>>> drivers/gpu/drm/i915/display/intel_dp.c:6922 intel_dp_update_420() warn: should this be a bitwise op?
+>>>> drivers/gpu/drm/i915/display/intel_dp.c:6923 intel_dp_update_420() warn: should this be a bitwise op?
+>>>>
+>>>> Inside drm_dp_downstream_rgb_to_ycbcr_conversion(), that paramter
+>>>> 'color_spc' is used as return port_cap[3] & color_spc, implying that it
+>>>> is indeed a mask and not a boolean value.
+>>> So this one belongs in topic/dp-hdmi-2.1-pcon branch.
+>>>
+>>> Purely based on the context this is the right thing to do, so:
+>>>
+>>> Reviewed-by: Jani Nikula <jani.nikula@intel.com>
+>>>
+>>> Ankit, please test the patch in case it uncovers some other
+>>> issues. It'll impact the RGB to YCbCr conversion.
+>>>
+>>> BR,
+>>> Jani.
+>>>
+>>>
+>>>> Fixes: 522508b665df ("drm/i915/display: Let PCON convert from RGB to YCbCr if it can")
+>>>> Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+>>>> Cc: Uma Shankar <uma.shankar@intel.com>
+>>>> Cc: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+>>>> Cc: Jani Nikula <jani.nikula@intel.com>
+>>>> ---
+>>>>   drivers/gpu/drm/i915/display/intel_dp.c | 4 ++--
+>>>>   1 file changed, 2 insertions(+), 2 deletions(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+>>>> index 8b4b2ea52859..157a850a83a7 100644
+>>>> --- a/drivers/gpu/drm/i915/display/intel_dp.c
+>>>> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+>>>> @@ -6918,8 +6918,8 @@ intel_dp_update_420(struct intel_dp *intel_dp)
+>>>>   							intel_dp->downstream_ports);
+>>>>   	rgb_to_ycbcr = drm_dp_downstream_rgb_to_ycbcr_conversion(intel_dp->dpcd,
+>>>>   								 intel_dp->downstream_ports,
+>>>> -								 DP_DS_HDMI_BT601_RGB_YCBCR_CONV ||
+>>>> -								 DP_DS_HDMI_BT709_RGB_YCBCR_CONV ||
+>>>> +								 DP_DS_HDMI_BT601_RGB_YCBCR_CONV |
+>>>> +								 DP_DS_HDMI_BT709_RGB_YCBCR_CONV |
+>>>>   								 DP_DS_HDMI_BT2020_RGB_YCBCR_CONV);
+>>>>   
+>>>>   	if (INTEL_GEN(i915) >= 11) {
+>> _______________________________________________
+>> Intel-gfx mailing list
+>> Intel-gfx@lists.freedesktop.org
+>> https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+
+-- 
+Jani Nikula, Intel Open Source Graphics Center
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
