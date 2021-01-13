@@ -7,59 +7,61 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2A252C433E9
-	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jan 2021 13:50:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1E6E7C433E0
+	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jan 2021 13:50:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A83C6233FB
-	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jan 2021 13:50:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A83C6233FB
+	by mail.kernel.org (Postfix) with ESMTPS id 95FBC23339
+	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jan 2021 13:50:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 95FBC23339
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D838F6E9DC;
-	Wed, 13 Jan 2021 13:50:23 +0000 (UTC)
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [IPv6:2a00:1450:4864:20::431])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C9C796E9DC
- for <intel-gfx@lists.freedesktop.org>; Wed, 13 Jan 2021 13:50:21 +0000 (UTC)
-Received: by mail-wr1-x431.google.com with SMTP id t16so2207396wra.3
- for <intel-gfx@lists.freedesktop.org>; Wed, 13 Jan 2021 05:50:21 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E59A76E9E6;
+	Wed, 13 Jan 2021 13:50:26 +0000 (UTC)
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [IPv6:2a00:1450:4864:20::42b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E30AA6E9DC
+ for <intel-gfx@lists.freedesktop.org>; Wed, 13 Jan 2021 13:50:22 +0000 (UTC)
+Received: by mail-wr1-x42b.google.com with SMTP id c5so2196340wrp.6
+ for <intel-gfx@lists.freedesktop.org>; Wed, 13 Jan 2021 05:50:22 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=ZwXBYrJM9qKVPKPYtJI8yjhIvV2KkPeDmKoz+CVJlHc=;
- b=bzpYCMGS5z3k4l3WIeo2Lh33CM8JjhujxkGFpyyyNRzNKJzzpnLue0cnZxMh4x6oHf
- eCVl8OSG9Axe1NHmrz+kB6NPuOorAFrwhuNw47MacCmBu0o3Pl3ky2OqtASCKwWM8WIH
- U9tV1BZt2YEuhGsFV/az7bC5o2QzPVwDZqlBY=
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=nvT+2CTfKbHCHIxTXmD+DKXWE8FcgOY0OyqMKXLif8Q=;
+ b=NKUIMcSrJVLhOs83499n0cgM2auXTaw3V0wMCpbP6nahPLsfkAPGyoyFNXRG9v4Nsn
+ ikZjMacmCsbVlSXqzqw7YCzLe3NEXA5pvt+0sTC0Uo4RLV/bPoGczi/L2sWLBAJAMKUO
+ S7pQyxfXo/popuIGMo5lZ4TZTZhLrAE7MFZik=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=ZwXBYrJM9qKVPKPYtJI8yjhIvV2KkPeDmKoz+CVJlHc=;
- b=gaTUZOPPDebn5btHcUTIdtb9mVubyfT7ymrQcNm5s3KJlNIh7iXnNHoRyUwMTtIIoB
- NxmZsGX6LLoor8dGgl2SZAtZ5HKiPCnxdnC0hgLCec5cbH+/xHF+jo0M8NaV4zmtazPv
- 8HS/n4dr4FodYeP4hzMkNONu9YXqvwYAwExavUStZg1V+bcHcokB8qyEvLSvp4H8E7Ca
- 7yBkhbheAoQkxqW7Y8+RkMu+NMCsPZAsFvIsxq9oZGk3wQIHBs0HqauV0Fs2C5pFiOsZ
- wx6NoU7KISE2wh/wErFikzblccj8aYvYx1fop0rtLS3C/fp3PqCI5irLyhGgVU0zaRGF
- F4sw==
-X-Gm-Message-State: AOAM531Y9o8aM3yMlZg2dPOH4z28+1qpL1Y/8PcadowK+NaPOWGnhqOZ
- V5xhiKBrUTTLEzq09OdsMoSuxVn/Ub4X7sm7
-X-Google-Smtp-Source: ABdhPJzGWphNJohoIPnV14YY+wwm9p1rbZynTvRFgZcJcJLGZeKlK5X9RsGhgorT4nwIxWDzFr/YtA==
-X-Received: by 2002:a5d:6a4f:: with SMTP id t15mr2841613wrw.62.1610545820608; 
- Wed, 13 Jan 2021 05:50:20 -0800 (PST)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=nvT+2CTfKbHCHIxTXmD+DKXWE8FcgOY0OyqMKXLif8Q=;
+ b=EfggEX9dr7YZ2LkRD29wt+Eknwx0NAANiJTF7KxkGk3BdUzSkaoBvOIysvohtLIklE
+ /7MOun2KjiCSalRmaoyHjU1yLXbg1+BfjAjQthxmqWy3M/ObPCS4wR/1m5dKRUDLUnnR
+ 3544fqoy4xQXWURYj18GG//oUpHRSOvVYZkrF3Dwvyvesz33duchA8YFpAiu3/bgEBNK
+ kQzhTPxjQkpdE7Zy/3ML5vPNiBkObSjcqGLnetaZi/4ZGA4+eNCjSv9sKLIF1wYkybgV
+ /811cWiKu8I5TVLXQc7rKofXgEBA3ToDEy0nPSwh9yPrKzWe0Yq7p3vrU8cG9a/PHnIP
+ 6Zlg==
+X-Gm-Message-State: AOAM533fqi9Ncja2THF9FxtwlpY0Hu4B+hzSmSV/sgS4/Q0o1OuPlb43
+ cLKgHeE+CZU67tX4IdD4th7xIw==
+X-Google-Smtp-Source: ABdhPJzN633ZtBb+JvWBQCilmzXbJKynfVTWxJR1N9WuCGxfKsOqVbeuxDt7n6vPl6QegJN9+Yzw/w==
+X-Received: by 2002:a5d:50c3:: with SMTP id f3mr2694952wrt.287.1610545821657; 
+ Wed, 13 Jan 2021 05:50:21 -0800 (PST)
 Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id u17sm3011205wmj.35.2021.01.13.05.50.19
+ by smtp.gmail.com with ESMTPSA id u17sm3011205wmj.35.2021.01.13.05.50.20
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 13 Jan 2021 05:50:19 -0800 (PST)
+ Wed, 13 Jan 2021 05:50:21 -0800 (PST)
 From: Daniel Vetter <daniel.vetter@ffwll.ch>
 To: LKML <linux-kernel@vger.kernel.org>
-Date: Wed, 13 Jan 2021 14:50:08 +0100
-Message-Id: <20210113135009.3606813-1-daniel.vetter@ffwll.ch>
+Date: Wed, 13 Jan 2021 14:50:09 +0100
+Message-Id: <20210113135009.3606813-2-daniel.vetter@ffwll.ch>
 X-Mailer: git-send-email 2.29.2
+In-Reply-To: <20210113135009.3606813-1-daniel.vetter@ffwll.ch>
+References: <20210113135009.3606813-1-daniel.vetter@ffwll.ch>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 1/2] mm/dmapool: Use might_alloc()
+Subject: [Intel-gfx] [PATCH 2/2] bdi: Use might_alloc()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,32 +91,24 @@ Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
 Cc: Andrew Morton <akpm@linux-foundation.org>
 Cc: linux-mm@kvack.org
 --
-v2: git add everything ... :-/
+v2: git add everything ... oops
 ---
- mm/dmapool.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ mm/backing-dev.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/mm/dmapool.c b/mm/dmapool.c
-index a97c97232337..f3791532fef2 100644
---- a/mm/dmapool.c
-+++ b/mm/dmapool.c
-@@ -28,6 +28,7 @@
- #include <linux/mutex.h>
- #include <linux/poison.h>
- #include <linux/sched.h>
-+#include <linux/sched/mm.h>
- #include <linux/slab.h>
- #include <linux/stat.h>
- #include <linux/spinlock.h>
-@@ -319,7 +320,7 @@ void *dma_pool_alloc(struct dma_pool *pool, gfp_t mem_flags,
- 	size_t offset;
- 	void *retval;
+diff --git a/mm/backing-dev.c b/mm/backing-dev.c
+index e33797579338..5666a0056580 100644
+--- a/mm/backing-dev.c
++++ b/mm/backing-dev.c
+@@ -580,7 +580,7 @@ struct bdi_writeback *wb_get_create(struct backing_dev_info *bdi,
+ {
+ 	struct bdi_writeback *wb;
  
--	might_sleep_if(gfpflags_allow_blocking(mem_flags));
-+	might_alloc(mem_flags);
+-	might_sleep_if(gfpflags_allow_blocking(gfp));
++	might_alloc(gfp);
  
- 	spin_lock_irqsave(&pool->lock, flags);
- 	list_for_each_entry(page, &pool->page_list, page_list) {
+ 	if (!memcg_css->parent)
+ 		return &bdi->wb;
 -- 
 2.29.2
 
