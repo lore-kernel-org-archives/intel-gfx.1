@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 320ACC433E6
-	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jan 2021 12:46:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 497B0C433E0
+	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jan 2021 12:46:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AACAA230FC
-	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jan 2021 12:46:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AACAA230FC
+	by mail.kernel.org (Postfix) with ESMTPS id E50A5230FC
+	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jan 2021 12:46:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E50A5230FC
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0EFF16E981;
-	Wed, 13 Jan 2021 12:46:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 55F386E97E;
+	Wed, 13 Jan 2021 12:46:21 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 99F136E979
- for <intel-gfx@lists.freedesktop.org>; Wed, 13 Jan 2021 12:46:12 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A4846E976
+ for <intel-gfx@lists.freedesktop.org>; Wed, 13 Jan 2021 12:46:14 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23584211-1500050 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23584209-1500050 
  for multiple; Wed, 13 Jan 2021 12:46:02 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 13 Jan 2021 12:45:56 +0000
-Message-Id: <20210113124600.656-6-chris@chris-wilson.co.uk>
+Date: Wed, 13 Jan 2021 12:45:54 +0000
+Message-Id: <20210113124600.656-4-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20210113124600.656-1-chris@chris-wilson.co.uk>
 References: <20210113124600.656-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 06/10] drm/i915/gt: Drop atomic for
- engine->fw_active tracking
+Subject: [Intel-gfx] [PATCH 04/10] drm/i915/gem: Reduce ctx->engines_mutex
+ for get_engines()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,64 +56,81 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Since schedule-in/out is now entirely serialised by the tasklet bitlock,
-we do not need to worry about concurrent in/out operations and so reduce
-the atomic operations to plain instructions.
+Take a snapshot of the ctx->engines, so we can avoid taking the
+ctx->engines_mutex for a mere read in get_engines().
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 ---
- drivers/gpu/drm/i915/gt/intel_engine_cs.c            | 2 +-
- drivers/gpu/drm/i915/gt/intel_engine_types.h         | 2 +-
- drivers/gpu/drm/i915/gt/intel_execlists_submission.c | 4 ++--
- 3 files changed, 4 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_context.c | 39 +++++----------------
+ 1 file changed, 8 insertions(+), 31 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-index 7583b6e48a9d..005ae2c54273 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-@@ -1665,7 +1665,7 @@ void intel_engine_dump(struct intel_engine_cs *engine,
- 			   ktime_to_ms(intel_engine_get_busy_time(engine,
- 								  &dummy)));
- 	drm_printf(m, "\tForcewake: %x domains, %d active\n",
--		   engine->fw_domain, atomic_read(&engine->fw_active));
-+		   engine->fw_domain, READ_ONCE(engine->fw_active));
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+index 4a709c625ccb..4d2f40cf237b 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+@@ -1843,27 +1843,6 @@ set_engines(struct i915_gem_context *ctx,
+ 	return 0;
+ }
  
- 	rcu_read_lock();
- 	rq = READ_ONCE(engine->heartbeat.systole);
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_types.h b/drivers/gpu/drm/i915/gt/intel_engine_types.h
-index df62e793e747..75c9093b5e7f 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_types.h
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_types.h
-@@ -319,7 +319,7 @@ struct intel_engine_cs {
- 	 * as possible.
- 	 */
- 	enum forcewake_domains fw_domain;
--	atomic_t fw_active;
-+	unsigned int fw_active;
+-static struct i915_gem_engines *
+-__copy_engines(struct i915_gem_engines *e)
+-{
+-	struct i915_gem_engines *copy;
+-	unsigned int n;
+-
+-	copy = alloc_engines(e->num_engines);
+-	if (!copy)
+-		return ERR_PTR(-ENOMEM);
+-
+-	for (n = 0; n < e->num_engines; n++) {
+-		if (e->engines[n])
+-			copy->engines[n] = intel_context_get(e->engines[n]);
+-		else
+-			copy->engines[n] = NULL;
+-	}
+-	copy->num_engines = n;
+-
+-	return copy;
+-}
+-
+ static int
+ get_engines(struct i915_gem_context *ctx,
+ 	    struct drm_i915_gem_context_param *args)
+@@ -1871,19 +1850,17 @@ get_engines(struct i915_gem_context *ctx,
+ 	struct i915_context_param_engines __user *user;
+ 	struct i915_gem_engines *e;
+ 	size_t n, count, size;
++	bool user_engines;
+ 	int err = 0;
  
- 	unsigned long context_tag;
+-	err = mutex_lock_interruptible(&ctx->engines_mutex);
+-	if (err)
+-		return err;
++	e = __context_engines_await(ctx, &user_engines);
++	if (!e)
++		return -ENOENT;
  
-diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-index e28f32661df4..d5affdda6eb8 100644
---- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-+++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-@@ -539,7 +539,7 @@ __execlists_schedule_in(struct i915_request *rq)
- 	ce->lrc.ccid |= engine->execlists.ccid;
+-	e = NULL;
+-	if (i915_gem_context_user_engines(ctx))
+-		e = __copy_engines(i915_gem_context_engines(ctx));
+-	mutex_unlock(&ctx->engines_mutex);
+-	if (IS_ERR_OR_NULL(e)) {
++	if (!user_engines) {
++		i915_sw_fence_complete(&e->fence);
+ 		args->size = 0;
+-		return PTR_ERR_OR_ZERO(e);
++		return 0;
+ 	}
  
- 	__intel_gt_pm_get(engine->gt);
--	if (engine->fw_domain && !atomic_fetch_inc(&engine->fw_active))
-+	if (engine->fw_domain && !engine->fw_active++)
- 		intel_uncore_forcewake_get(engine->uncore, engine->fw_domain);
- 	execlists_context_status_change(rq, INTEL_CONTEXT_SCHEDULE_IN);
- 	intel_engine_context_in(engine);
-@@ -645,7 +645,7 @@ static inline void __execlists_schedule_out(struct i915_request *rq)
- 	lrc_update_runtime(ce);
- 	intel_engine_context_out(engine);
- 	execlists_context_status_change(rq, INTEL_CONTEXT_SCHEDULE_OUT);
--	if (engine->fw_domain && !atomic_dec_return(&engine->fw_active))
-+	if (engine->fw_domain && !--engine->fw_active)
- 		intel_uncore_forcewake_put(engine->uncore, engine->fw_domain);
- 	intel_gt_pm_put_async(engine->gt);
+ 	count = e->num_engines;
+@@ -1934,7 +1911,7 @@ get_engines(struct i915_gem_context *ctx,
+ 	args->size = size;
+ 
+ err_free:
+-	free_engines(e);
++	i915_sw_fence_complete(&e->fence);
+ 	return err;
+ }
  
 -- 
 2.20.1
