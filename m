@@ -7,45 +7,45 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 624C3C433E0
-	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jan 2021 22:05:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D4C28C433DB
+	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jan 2021 22:07:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1C1FE23382
-	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jan 2021 22:05:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1C1FE23382
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 977C923370
+	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jan 2021 22:07:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 977C923370
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=Intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3DC2A6EC80;
-	Wed, 13 Jan 2021 22:05:54 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 80F1F6EC6F
- for <intel-gfx@lists.freedesktop.org>; Wed, 13 Jan 2021 22:05:33 +0000 (UTC)
-IronPort-SDR: V+j871Rw5lzg/+hGg9PIvNILv4t52h7afayl4HjV4sMjGwAJnFvXoAkMZI89q4L3huEAEEtgBM
- xQUJw8MsS+7g==
-X-IronPort-AV: E=McAfee;i="6000,8403,9863"; a="165950104"
-X-IronPort-AV: E=Sophos;i="5.79,345,1602572400"; d="scan'208";a="165950104"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jan 2021 14:05:32 -0800
-IronPort-SDR: Q9kcEdYGP2gArXp1b4fWO/4EGsspEXa4hdRg5Rb/7Q/epIYjmIqrP2G0kltUrtHnQTA1YOPPD/
- L+Tiahlf8Hkg==
-X-IronPort-AV: E=Sophos;i="5.79,345,1602572400"; d="scan'208";a="400696571"
-Received: from labuser-z97x-ud5h.jf.intel.com ([10.165.21.211])
- by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-SHA;
- 13 Jan 2021 14:05:32 -0800
-From: Manasi Navare <manasi.d.navare@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Wed, 13 Jan 2021 14:09:28 -0800
-Message-Id: <20210113220935.4151-12-manasi.d.navare@intel.com>
-X-Mailer: git-send-email 2.19.1
-In-Reply-To: <20210113220935.4151-1-manasi.d.navare@intel.com>
-References: <20210113220935.4151-1-manasi.d.navare@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 44A316EC7F;
+	Wed, 13 Jan 2021 22:07:27 +0000 (UTC)
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 29A856EC7F
+ for <Intel-GFX@lists.freedesktop.org>; Wed, 13 Jan 2021 22:07:26 +0000 (UTC)
+IronPort-SDR: MzptrUoVQh95Hwu1TLle/7DJ6JrPbJRqRa3rnRY7WkUEQ99E2boSm8UFp6ySKWmEarYyuv0cB3
+ eA9cYuQxtiFw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9863"; a="239817805"
+X-IronPort-AV: E=Sophos;i="5.79,345,1602572400"; d="scan'208";a="239817805"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jan 2021 14:07:24 -0800
+IronPort-SDR: nwci/TONA7FlXPww/tcpK1ByTeLbZwCRUHUaSQpoKqjlUXppyDjQpluBjh73XoDR8Wh1sOfc0g
+ z3+Tllbx6b0w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.79,345,1602572400"; d="scan'208";a="382023189"
+Received: from relo-linux-5.jf.intel.com ([10.165.21.134])
+ by orsmga008.jf.intel.com with ESMTP; 13 Jan 2021 14:07:24 -0800
+From: John.C.Harrison@Intel.com
+To: Intel-GFX@Lists.FreeDesktop.Org
+Date: Wed, 13 Jan 2021 14:07:24 -0800
+Message-Id: <20210113220724.2484897-1-John.C.Harrison@Intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v4 11/18] drm/i915/display/vrr: Send VRR push to
- flip the frame
+Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
+ Swindon SN3 1RJ
+Subject: [Intel-gfx] [PATCH] drm/i915/uc: Add function to define defaults
+ for GuC/HuC enable
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,66 +58,132 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-VlJSIGFjaGlldmVzIHZibGFuayBzdHJldGNoaW5nIHVzaW5nIHRoZSBIVyBQVVNIIGZ1bmN0aW9u
-YWxpdHkuClNvIG9uY2UgdGhlIFZSUiBpcyBlbmFibGVkIGR1cmluZyBtb2Rlc2V0IHRoZW4gZm9y
-IGVhY2ggZmxpcApyZXF1ZXN0IGZyb20gdXNlcnNwYWNlLCBpbiB0aGUgYXRvbWljIHRhaWwgcGlw
-ZV91cGRhdGVfZW5kKCkKd2UgbmVlZCB0byBzZXQgdGhlIFZSUiBwdXNoIGJpdCBpbiBIVyBmb3Ig
-aXQgdG8gdGVybWluYXRlCnRoZSB2YmxhbmsgYXQgY29uZmlndXJlZCBmbGlwbGluZSBvciBhbnl0
-aW1lIGFmdGVyIGZsaXBsaW5lCm9yIGxhdGVzdCBhdCB0aGUgVm1heC4KClRoZSBIVyBjbGVhcnMg
-dGhlIFBVU0ggYml0IGFmdGVyIHRoZSBkb3VibGUgYnVmZmVyIHVwZGF0ZXMKYXJlIGNvbXBsZXRl
-ZC4KCnYyOgoqIE1vdmUgc2VuZCBwdXNoIHRvIGFmdGVyIGlycSBlbiAoTWFuYXNpKQoqIENhbGwg
-c2VuZCBwdXNoIHVuY29uZGl0aW9uYWxseSAoSmFuaSBOKQoKdjM6CiogU3RhbGwgdy5yLnQgVnJy
-IHZtYXggKE1hbmFzaSwgR2FyeSBTbWl0aCkKCnY0OgoqIFJlbW92ZSB0aGUgcm13IChWaWxsZSkK
-CkNjOiBWaWxsZSBTeXJqw6Rsw6QgPHZpbGxlLnN5cmphbGFAbGludXguaW50ZWwuY29tPgpDYzog
-R2FyeSBTbWl0aCA8Z2FyeS5rLnNtaXRoQGludGVsLmNvbT4KU2lnbmVkLW9mZi1ieTogTWFuYXNp
-IE5hdmFyZSA8bWFuYXNpLmQubmF2YXJlQGludGVsLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0v
-aTkxNS9kaXNwbGF5L2ludGVsX3Nwcml0ZS5jIHwgIDQgKysrKwogZHJpdmVycy9ncHUvZHJtL2k5
-MTUvZGlzcGxheS9pbnRlbF92cnIuYyAgICB8IDEzICsrKysrKysrKysrKysKIGRyaXZlcnMvZ3B1
-L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfdnJyLmggICAgfCAgMSArCiAzIGZpbGVzIGNoYW5nZWQs
-IDE4IGluc2VydGlvbnMoKykKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNw
-bGF5L2ludGVsX3Nwcml0ZS5jIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9z
-cHJpdGUuYwppbmRleCBjZWQ2YWY3Y2RjODQuLjBlODJkMTYyOWQyZCAxMDA2NDQKLS0tIGEvZHJp
-dmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9zcHJpdGUuYworKysgYi9kcml2ZXJzL2dw
-dS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX3Nwcml0ZS5jCkBAIC01MCw2ICs1MCw3IEBACiAjaW5j
-bHVkZSAiaW50ZWxfZHNpLmgiCiAjaW5jbHVkZSAiaW50ZWxfc3ByaXRlLmgiCiAjaW5jbHVkZSAi
-aTl4eF9wbGFuZS5oIgorI2luY2x1ZGUgImludGVsX3Zyci5oIgogCiBpbnQgaW50ZWxfdXNlY3Nf
-dG9fc2NhbmxpbmVzKGNvbnN0IHN0cnVjdCBkcm1fZGlzcGxheV9tb2RlICphZGp1c3RlZF9tb2Rl
-LAogCQkJICAgICBpbnQgdXNlY3MpCkBAIC0yNjYsNiArMjY3LDkgQEAgdm9pZCBpbnRlbF9waXBl
-X3VwZGF0ZV9lbmQoc3RydWN0IGludGVsX2NydGNfc3RhdGUgKm5ld19jcnRjX3N0YXRlKQogCiAJ
-bG9jYWxfaXJxX2VuYWJsZSgpOwogCisJLyogU2VuZCBWUlIgUHVzaCB0byB0ZXJtaW5hdGUgVmJs
-YW5rICovCisJaW50ZWxfdnJyX3NlbmRfcHVzaChuZXdfY3J0Y19zdGF0ZSk7CisKIAlpZiAoaW50
-ZWxfdmdwdV9hY3RpdmUoZGV2X3ByaXYpKQogCQlyZXR1cm47CiAKZGlmZiAtLWdpdCBhL2RyaXZl
-cnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfdnJyLmMgYi9kcml2ZXJzL2dwdS9kcm0vaTkx
-NS9kaXNwbGF5L2ludGVsX3Zyci5jCmluZGV4IGU3ZmIyOTdlOGQyMy4uMWIyNjgwNmQzNDE2IDEw
-MDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX3Zyci5jCisrKyBi
-L2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfdnJyLmMKQEAgLTEyMSwzICsxMjEs
-MTYgQEAgdm9pZCBpbnRlbF92cnJfZW5hYmxlKHN0cnVjdCBpbnRlbF9lbmNvZGVyICplbmNvZGVy
-LAogCWludGVsX2RlX3dyaXRlKGRldl9wcml2LCBUUkFOU19WUlJfRkxJUExJTkUoY3B1X3RyYW5z
-Y29kZXIpLCBjcnRjX3N0YXRlLT52cnIuZmxpcGxpbmUgLSAxKTsKIAlpbnRlbF9kZV93cml0ZShk
-ZXZfcHJpdiwgVFJBTlNfUFVTSChjcHVfdHJhbnNjb2RlciksIFRSQU5TX1BVU0hfRU4pOwogfQor
-Cit2b2lkIGludGVsX3Zycl9zZW5kX3B1c2goY29uc3Qgc3RydWN0IGludGVsX2NydGNfc3RhdGUg
-KmNydGNfc3RhdGUpCit7CisJc3RydWN0IGludGVsX2NydGMgKmNydGMgPSB0b19pbnRlbF9jcnRj
-KGNydGNfc3RhdGUtPnVhcGkuY3J0Yyk7CisJc3RydWN0IGRybV9pOTE1X3ByaXZhdGUgKmRldl9w
-cml2ID0gdG9faTkxNShjcnRjLT5iYXNlLmRldik7CisJZW51bSB0cmFuc2NvZGVyIGNwdV90cmFu
-c2NvZGVyID0gY3J0Y19zdGF0ZS0+Y3B1X3RyYW5zY29kZXI7CisKKwlpZiAoIWNydGNfc3RhdGUt
-PnZyci5lbmFibGUpCisJCXJldHVybjsKKworCWludGVsX2RlX3dyaXRlKGRldl9wcml2LCBUUkFO
-U19QVVNIKGNwdV90cmFuc2NvZGVyKSwKKwkJICAgICAgIFRSQU5TX1BVU0hfRU4gfCBUUkFOU19Q
-VVNIX1NFTkQpOworfQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9p
-bnRlbF92cnIuaCBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfdnJyLmgKaW5k
-ZXggODBjMzNmYmQwNjM5Li4xYjdjNTNiNTYwNGEgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2Ry
-bS9pOTE1L2Rpc3BsYXkvaW50ZWxfdnJyLmgKKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlz
-cGxheS9pbnRlbF92cnIuaApAQCAtMjIsNSArMjIsNiBAQCB2b2lkIGludGVsX3Zycl9jb21wdXRl
-X2NvbmZpZyhzdHJ1Y3QgaW50ZWxfY3J0Y19zdGF0ZSAqY3J0Y19zdGF0ZSwKIAkJCSAgICAgIHN0
-cnVjdCBkcm1fY29ubmVjdG9yX3N0YXRlICpjb25uX3N0YXRlKTsKIHZvaWQgaW50ZWxfdnJyX2Vu
-YWJsZShzdHJ1Y3QgaW50ZWxfZW5jb2RlciAqZW5jb2RlciwKIAkJICAgICAgY29uc3Qgc3RydWN0
-IGludGVsX2NydGNfc3RhdGUgKmNydGNfc3RhdGUpOwordm9pZCBpbnRlbF92cnJfc2VuZF9wdXNo
-KGNvbnN0IHN0cnVjdCBpbnRlbF9jcnRjX3N0YXRlICpjcnRjX3N0YXRlKTsKIAogI2VuZGlmIC8q
-IF9fSU5URUxfVlJSX0hfXyAqLwotLSAKMi4xOS4xCgpfX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fXwpJbnRlbC1nZnggbWFpbGluZyBsaXN0CkludGVsLWdmeEBs
-aXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
-bi9saXN0aW5mby9pbnRlbC1nZngK
+From: John Harrison <John.C.Harrison@Intel.com>
+
+There is a module parameter for controlling what GuC/HuC features are
+enabled. Setting to -1 means 'use the default'. However, the default
+was not well defined, out of date and needs to be different across
+platforms.
+
+The default is now to disable both GuC and HuC on legacy platforms
+where legacy means TGL/RKL and anything prior to Gen12. For new
+platforms, the default is to load HuC but not GuC as GuC submission
+has not yet landed.
+
+Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
+Reviewed-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+---
+ drivers/gpu/drm/i915/gt/uc/intel_uc.c    | 31 ++++++++++++++++++++----
+ drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c |  7 +-----
+ drivers/gpu/drm/i915/i915_params.h       |  1 +
+ 3 files changed, 28 insertions(+), 11 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc.c b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
+index 6a0452815c41..6abb8f2dc33d 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_uc.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
+@@ -15,6 +15,29 @@
+ static const struct intel_uc_ops uc_ops_off;
+ static const struct intel_uc_ops uc_ops_on;
+ 
++static void uc_expand_default_options(struct intel_uc *uc)
++{
++	struct drm_i915_private *i915 = uc_to_gt(uc)->i915;
++
++	if (i915->params.enable_guc != -1)
++		return;
++
++	/* Don't enable GuC/HuC on pre-Gen12 */
++	if (INTEL_GEN(i915) < 12) {
++		i915->params.enable_guc = 0;
++		return;
++	}
++
++	/* Don't enable GuC/HuC on older Gen12 platforms */
++	if (IS_TIGERLAKE(i915) || IS_ROCKETLAKE(i915)) {
++		i915->params.enable_guc = 0;
++		return;
++	}
++
++	/* Default: enable HuC authentication only */
++	i915->params.enable_guc = ENABLE_GUC_LOAD_HUC;
++}
++
+ /* Reset GuC providing us with fresh state for both GuC and HuC.
+  */
+ static int __intel_uc_reset_hw(struct intel_uc *uc)
+@@ -52,9 +75,6 @@ static void __confirm_options(struct intel_uc *uc)
+ 		yesno(intel_uc_wants_guc_submission(uc)),
+ 		yesno(intel_uc_wants_huc(uc)));
+ 
+-	if (i915->params.enable_guc == -1)
+-		return;
+-
+ 	if (i915->params.enable_guc == 0) {
+ 		GEM_BUG_ON(intel_uc_wants_guc(uc));
+ 		GEM_BUG_ON(intel_uc_wants_guc_submission(uc));
+@@ -79,8 +99,7 @@ static void __confirm_options(struct intel_uc *uc)
+ 			 "Incompatible option enable_guc=%d - %s\n",
+ 			 i915->params.enable_guc, "GuC submission is N/A");
+ 
+-	if (i915->params.enable_guc & ~(ENABLE_GUC_SUBMISSION |
+-					  ENABLE_GUC_LOAD_HUC))
++	if (i915->params.enable_guc & ~ENABLE_GUC_MASK)
+ 		drm_info(&i915->drm,
+ 			 "Incompatible option enable_guc=%d - %s\n",
+ 			 i915->params.enable_guc, "undocumented flag");
+@@ -88,6 +107,8 @@ static void __confirm_options(struct intel_uc *uc)
+ 
+ void intel_uc_init_early(struct intel_uc *uc)
+ {
++	uc_expand_default_options(uc);
++
+ 	intel_guc_init_early(&uc->guc);
+ 	intel_huc_init_early(&uc->huc);
+ 
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
+index 602f1a0bc587..67b06fde1225 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
+@@ -152,16 +152,11 @@ __uc_fw_auto_select(struct drm_i915_private *i915, struct intel_uc_fw *uc_fw)
+ 			uc_fw->path = NULL;
+ 		}
+ 	}
+-
+-	/* We don't want to enable GuC/HuC on pre-Gen11 by default */
+-	if (i915->params.enable_guc == -1 && p < INTEL_ICELAKE)
+-		uc_fw->path = NULL;
+ }
+ 
+ static const char *__override_guc_firmware_path(struct drm_i915_private *i915)
+ {
+-	if (i915->params.enable_guc & (ENABLE_GUC_SUBMISSION |
+-				       ENABLE_GUC_LOAD_HUC))
++	if (i915->params.enable_guc & ENABLE_GUC_MASK)
+ 		return i915->params.guc_firmware_path;
+ 	return "";
+ }
+diff --git a/drivers/gpu/drm/i915/i915_params.h b/drivers/gpu/drm/i915/i915_params.h
+index 330c03e2b4f7..f031966af5b7 100644
+--- a/drivers/gpu/drm/i915/i915_params.h
++++ b/drivers/gpu/drm/i915/i915_params.h
+@@ -32,6 +32,7 @@ struct drm_printer;
+ 
+ #define ENABLE_GUC_SUBMISSION		BIT(0)
+ #define ENABLE_GUC_LOAD_HUC		BIT(1)
++#define ENABLE_GUC_MASK			GENMASK(1, 0)
+ 
+ /*
+  * Invoke param, a function-like macro, for each i915 param, with arguments:
+-- 
+2.25.1
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
