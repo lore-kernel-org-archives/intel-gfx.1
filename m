@@ -2,48 +2,52 @@ Return-Path: <SRS0=9rZY=GQ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0A2EAC433E0
-	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jan 2021 14:13:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6324DC433DB
+	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jan 2021 14:16:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9D9A323382
-	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jan 2021 14:13:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9D9A323382
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id E0E27233FB
+	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jan 2021 14:16:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E0E27233FB
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 16C416E9F6;
-	Wed, 13 Jan 2021 14:13:28 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A91E6EA1A
- for <intel-gfx@lists.freedesktop.org>; Wed, 13 Jan 2021 14:13:26 +0000 (UTC)
-IronPort-SDR: ulSyb/n7XtOEM4uDfDz2bjJARHyDnbIKrpgTDXCuUFGN1jGaWgNrr5j8FMMIwbOj5z0urZdI89
- 7ZHP5WNcHx+Q==
-X-IronPort-AV: E=McAfee;i="6000,8403,9862"; a="165881425"
-X-IronPort-AV: E=Sophos;i="5.79,344,1602572400"; d="scan'208";a="165881425"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jan 2021 06:13:25 -0800
-IronPort-SDR: +KshcCxnMZgQL+DfSisFj9xyTU5xRYqiVb4PI5lDkVcf2wRN9R/rvGKHCRPldr68/hiLiRPa6g
- pnxCKK6de72A==
-X-IronPort-AV: E=Sophos;i="5.79,344,1602572400"; d="scan'208";a="381864773"
-Received: from iklein-mobl.ger.corp.intel.com (HELO localhost) ([10.249.40.83])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jan 2021 06:13:23 -0800
-From: Jani Nikula <jani.nikula@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Wed, 13 Jan 2021 16:13:17 +0200
-Message-Id: <20210113141317.30765-1-jani.nikula@intel.com>
-X-Mailer: git-send-email 2.20.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E56D6EA01;
+	Wed, 13 Jan 2021 14:16:41 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 08D2C6EA01
+ for <intel-gfx@lists.freedesktop.org>; Wed, 13 Jan 2021 14:16:39 +0000 (UTC)
+IronPort-SDR: S99n4nui5yf1ngYZgyxTn5gMnQz5X4jdk19wmeBEMu33LDj7LNqi1Nvgiood7jQFuRAK43B75S
+ +4SrcyHtzfsg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9862"; a="157982873"
+X-IronPort-AV: E=Sophos;i="5.79,344,1602572400"; d="scan'208";a="157982873"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jan 2021 06:16:39 -0800
+IronPort-SDR: MEbv50MA+v/8aDl1Mey5z/BsuPdtu0AHd8jnDUY1WR9FUCcSOKopYMOP83Dq3+0Q+Vl+Zq/BYv
+ 2r341NBESjtA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.79,344,1602572400"; d="scan'208";a="572037155"
+Received: from gaia.fi.intel.com ([10.237.72.192])
+ by fmsmga005.fm.intel.com with ESMTP; 13 Jan 2021 06:16:38 -0800
+Received: by gaia.fi.intel.com (Postfix, from userid 1000)
+ id 8E8FF5C2054; Wed, 13 Jan 2021 16:13:57 +0200 (EET)
+From: Mika Kuoppala <mika.kuoppala@linux.intel.com>
+To: Chris Wilson <chris@chris-wilson.co.uk>, intel-gfx@lists.freedesktop.org
+In-Reply-To: <20210113125939.10205-1-chris@chris-wilson.co.uk>
+References: <20210113125155.1029-1-chris@chris-wilson.co.uk>
+ <20210113125939.10205-1-chris@chris-wilson.co.uk>
+Date: Wed, 13 Jan 2021 16:13:57 +0200
+Message-ID: <87czy8lyai.fsf@gaia.fi.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH] drm/i915/selftests: fix the uint*_t types that
- have crept in
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/selftests: Bump the scheduling
+ threshold for fast heartbeats
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,71 +60,73 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com
+Cc: Chris Wilson <chris@chris-wilson.co.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Always prefer the kernel types over stdint types in i915.
+Chris Wilson <chris@chris-wilson.co.uk> writes:
 
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
----
- drivers/gpu/drm/i915/gt/selftest_mocs.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+> Since we are system_highpri_wq, we expected the heartbeat to be
+> scheduled promptly. However, we see delays of over 10ms upsetting our
+> assertions. Accept this as inevitable and bump the error threshold to
+> 20ms (from 6ms).
+>
+> Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+> ---
+>  drivers/gpu/drm/i915/gt/selftest_engine_heartbeat.c | 13 ++++++++++---
+>  1 file changed, 10 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/i915/gt/selftest_engine_heartbeat.c b/drivers/gpu/drm/i915/gt/selftest_engine_heartbeat.c
+> index b88aa35ad75b..e88a01390dc5 100644
+> --- a/drivers/gpu/drm/i915/gt/selftest_engine_heartbeat.c
+> +++ b/drivers/gpu/drm/i915/gt/selftest_engine_heartbeat.c
+> @@ -197,6 +197,7 @@ static int cmp_u32(const void *_a, const void *_b)
+>  
+>  static int __live_heartbeat_fast(struct intel_engine_cs *engine)
+>  {
+> +	const int error_threshold = max(20000, jffies_to_usecs(6));
 
-diff --git a/drivers/gpu/drm/i915/gt/selftest_mocs.c b/drivers/gpu/drm/i915/gt/selftest_mocs.c
-index ca72894918ba..cf373c72359e 100644
---- a/drivers/gpu/drm/i915/gt/selftest_mocs.c
-+++ b/drivers/gpu/drm/i915/gt/selftest_mocs.c
-@@ -99,7 +99,7 @@ static void live_mocs_fini(struct live_mocs *arg)
- 
- static int read_regs(struct i915_request *rq,
- 		     u32 addr, unsigned int count,
--		     uint32_t *offset)
-+		     u32 *offset)
- {
- 	unsigned int i;
- 	u32 *cs;
-@@ -127,7 +127,7 @@ static int read_regs(struct i915_request *rq,
- 
- static int read_mocs_table(struct i915_request *rq,
- 			   const struct drm_i915_mocs_table *table,
--			   uint32_t *offset)
-+			   u32 *offset)
- {
- 	u32 addr;
- 
-@@ -141,7 +141,7 @@ static int read_mocs_table(struct i915_request *rq,
- 
- static int read_l3cc_table(struct i915_request *rq,
- 			   const struct drm_i915_mocs_table *table,
--			   uint32_t *offset)
-+			   u32 *offset)
- {
- 	u32 addr = i915_mmio_reg_offset(GEN9_LNCFCMOCS(0));
- 
-@@ -150,7 +150,7 @@ static int read_l3cc_table(struct i915_request *rq,
- 
- static int check_mocs_table(struct intel_engine_cs *engine,
- 			    const struct drm_i915_mocs_table *table,
--			    uint32_t **vaddr)
-+			    u32 **vaddr)
- {
- 	unsigned int i;
- 	u32 expect;
-@@ -179,7 +179,7 @@ static bool mcr_range(struct drm_i915_private *i915, u32 offset)
- 
- static int check_l3cc_table(struct intel_engine_cs *engine,
- 			    const struct drm_i915_mocs_table *table,
--			    uint32_t **vaddr)
-+			    u32 **vaddr)
- {
- 	/* Can we read the MCR range 0xb00 directly? See intel_workarounds! */
- 	u32 reg = i915_mmio_reg_offset(GEN9_LNCFCMOCS(0));
--- 
-2.20.1
+s/jffies/jiffies
 
+Also for the commit message, 6 jiffies are not 6ms so it needs
+some mending.
+
+-Mika
+
+>  	struct intel_context *ce;
+>  	struct i915_request *rq;
+>  	ktime_t t0, t1;
+> @@ -254,12 +255,18 @@ static int __live_heartbeat_fast(struct intel_engine_cs *engine)
+>  		times[0],
+>  		times[ARRAY_SIZE(times) - 1]);
+>  
+> -	/* Min work delay is 2 * 2 (worst), +1 for scheduling, +1 for slack */
+> -	if (times[ARRAY_SIZE(times) / 2] > jiffies_to_usecs(6)) {
+> +	/*
+> +	 * Ideally, the upper bound on min work delay would be something like
+> +	 * 2 * 2 (worst), +1 for scheduling, +1 for slack. In practice, we
+> +	 * are, even with system_wq_highpri, at the mercy of the CPU scheduler
+> +	 * and may be stuck behind some slow work for many millisecond. Such
+> +	 * as our very own display workers.
+> +	 */
+> +	if (times[ARRAY_SIZE(times) / 2] > error_threshold) {
+>  		pr_err("%s: Heartbeat delay was %uus, expected less than %dus\n",
+>  		       engine->name,
+>  		       times[ARRAY_SIZE(times) / 2],
+> -		       jiffies_to_usecs(6));
+> +		       error_threshold);
+>  		err = -EINVAL;
+>  	}
+>  
+> -- 
+> 2.20.1
+>
+> _______________________________________________
+> Intel-gfx mailing list
+> Intel-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/intel-gfx
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
