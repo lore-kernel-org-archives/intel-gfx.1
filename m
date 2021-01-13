@@ -7,37 +7,35 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2B7D1C433E9
-	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jan 2021 12:46:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7FCA5C433E0
+	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jan 2021 12:52:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D57E3230FC
-	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jan 2021 12:46:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D57E3230FC
+	by mail.kernel.org (Postfix) with ESMTPS id 9D5FB233F6
+	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jan 2021 12:52:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9D5FB233F6
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E9026E985;
-	Wed, 13 Jan 2021 12:46:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1EE976E986;
+	Wed, 13 Jan 2021 12:52:31 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A6CD6E979
- for <intel-gfx@lists.freedesktop.org>; Wed, 13 Jan 2021 12:46:11 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 738E96E986
+ for <intel-gfx@lists.freedesktop.org>; Wed, 13 Jan 2021 12:52:28 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23584207-1500050 
- for multiple; Wed, 13 Jan 2021 12:46:02 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23584309-1500050 
+ for multiple; Wed, 13 Jan 2021 12:51:56 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 13 Jan 2021 12:45:52 +0000
-Message-Id: <20210113124600.656-2-chris@chris-wilson.co.uk>
+Date: Wed, 13 Jan 2021 12:51:55 +0000
+Message-Id: <20210113125155.1029-1-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210113124600.656-1-chris@chris-wilson.co.uk>
-References: <20210113124600.656-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 02/10] drm/i915: Drop i915_request.lock
- serialisation around await_start
+Subject: [Intel-gfx] [PATCH] drm/i915/selftests: Bump the scheduling
+ threshold for fast heartbeats
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,49 +54,50 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Originally, we used the signal->lock as a means of following the
-previous link in its timeline and peeking at the previous fence.
-However, we have replaced the explicit serialisation with a series of
-very careful probes that anticipate the links being deleted and the
-fences recycled before we are able to acquire a strong reference to it.
-We do not need the signal->lock crutch anymore, nor want the contention.
+Since we are system_highpri_wq, we expected the heartbeat to be
+scheduled promptly. However, we see delays of over 10ms upsetting our
+assertions. Accept this as inevitable and bump the error threshold to
+20ms (from 6ms).
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 ---
- drivers/gpu/drm/i915/i915_request.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/gt/selftest_engine_heartbeat.c | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
-index 784c05ac5cca..973eceabbcca 100644
---- a/drivers/gpu/drm/i915/i915_request.c
-+++ b/drivers/gpu/drm/i915/i915_request.c
-@@ -969,9 +969,16 @@ i915_request_await_start(struct i915_request *rq, struct i915_request *signal)
- 	if (i915_request_started(signal))
- 		return 0;
+diff --git a/drivers/gpu/drm/i915/gt/selftest_engine_heartbeat.c b/drivers/gpu/drm/i915/gt/selftest_engine_heartbeat.c
+index b88aa35ad75b..807c445f7c70 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_engine_heartbeat.c
++++ b/drivers/gpu/drm/i915/gt/selftest_engine_heartbeat.c
+@@ -197,6 +197,7 @@ static int cmp_u32(const void *_a, const void *_b)
  
+ static int __live_heartbeat_fast(struct intel_engine_cs *engine)
+ {
++	const int error_threshold = 20000; /* microseconds */
+ 	struct intel_context *ce;
+ 	struct i915_request *rq;
+ 	ktime_t t0, t1;
+@@ -254,12 +255,18 @@ static int __live_heartbeat_fast(struct intel_engine_cs *engine)
+ 		times[0],
+ 		times[ARRAY_SIZE(times) - 1]);
+ 
+-	/* Min work delay is 2 * 2 (worst), +1 for scheduling, +1 for slack */
+-	if (times[ARRAY_SIZE(times) / 2] > jiffies_to_usecs(6)) {
 +	/*
-+	 * The caller holds a reference on @signal, but we do not serialise
-+	 * against it being retired and removed from the lists.
-+	 *
-+	 * We do not hold a reference to the request before @signal, and
-+	 * so must be very careful to ensure that it is not _recycled_ as
-+	 * we follow the link backwards.
++	 * Ideally, the upper bound on min work delay would be something like
++	 * 2 * 2 (worst), +1 for scheduling, +1 for slack. In practice, we
++	 * are, even with system_wq_highpri, at the mercy of the CPU scheduler
++	 * and may be stuck behind some slow work for many millisecond. Such
++	 * as our very own display workers.
 +	 */
- 	fence = NULL;
- 	rcu_read_lock();
--	spin_lock_irq(&signal->lock);
- 	do {
- 		struct list_head *pos = READ_ONCE(signal->link.prev);
- 		struct i915_request *prev;
-@@ -1002,7 +1009,6 @@ i915_request_await_start(struct i915_request *rq, struct i915_request *signal)
++	if (times[ARRAY_SIZE(times) / 2] > error_threshold) {
+ 		pr_err("%s: Heartbeat delay was %uus, expected less than %dus\n",
+ 		       engine->name,
+ 		       times[ARRAY_SIZE(times) / 2],
+-		       jiffies_to_usecs(6));
++		       error_threshold);
+ 		err = -EINVAL;
+ 	}
  
- 		fence = &prev->fence;
- 	} while (0);
--	spin_unlock_irq(&signal->lock);
- 	rcu_read_unlock();
- 	if (!fence)
- 		return 0;
 -- 
 2.20.1
 
