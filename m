@@ -2,50 +2,42 @@ Return-Path: <SRS0=9rZY=GQ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D4C28C433DB
-	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jan 2021 22:07:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 30344C433E0
+	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jan 2021 22:30:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 977C923370
-	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jan 2021 22:07:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 977C923370
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=Intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id C152423136
+	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jan 2021 22:30:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C152423136
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 44A316EC7F;
-	Wed, 13 Jan 2021 22:07:27 +0000 (UTC)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 29A856EC7F
- for <Intel-GFX@lists.freedesktop.org>; Wed, 13 Jan 2021 22:07:26 +0000 (UTC)
-IronPort-SDR: MzptrUoVQh95Hwu1TLle/7DJ6JrPbJRqRa3rnRY7WkUEQ99E2boSm8UFp6ySKWmEarYyuv0cB3
- eA9cYuQxtiFw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9863"; a="239817805"
-X-IronPort-AV: E=Sophos;i="5.79,345,1602572400"; d="scan'208";a="239817805"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jan 2021 14:07:24 -0800
-IronPort-SDR: nwci/TONA7FlXPww/tcpK1ByTeLbZwCRUHUaSQpoKqjlUXppyDjQpluBjh73XoDR8Wh1sOfc0g
- z3+Tllbx6b0w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.79,345,1602572400"; d="scan'208";a="382023189"
-Received: from relo-linux-5.jf.intel.com ([10.165.21.134])
- by orsmga008.jf.intel.com with ESMTP; 13 Jan 2021 14:07:24 -0800
-From: John.C.Harrison@Intel.com
-To: Intel-GFX@Lists.FreeDesktop.Org
-Date: Wed, 13 Jan 2021 14:07:24 -0800
-Message-Id: <20210113220724.2484897-1-John.C.Harrison@Intel.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id E45A96EC8D;
+	Wed, 13 Jan 2021 22:30:45 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 0ED846EC8C;
+ Wed, 13 Jan 2021 22:30:45 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 09773A0118;
+ Wed, 13 Jan 2021 22:30:45 +0000 (UTC)
 MIME-Version: 1.0
-Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
- Swindon SN3 1RJ
-Subject: [Intel-gfx] [PATCH] drm/i915/uc: Add function to define defaults
- for GuC/HuC enable
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Chris Wilson" <chris@chris-wilson.co.uk>
+Date: Wed, 13 Jan 2021 22:30:45 -0000
+Message-ID: <161057704500.11120.303464216999817132@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20210113163115.5740-1-chris@chris-wilson.co.uk>
+In-Reply-To: <20210113163115.5740-1-chris@chris-wilson.co.uk>
+Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3Igc2Vy?=
+ =?utf-8?q?ies_starting_with_drm/i915/selftests=3A_Force_a_failed_engine_r?=
+ =?utf-8?q?eset_=28rev2=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,132 +50,244 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============0921396727=="
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: John Harrison <John.C.Harrison@Intel.com>
+--===============0921396727==
+Content-Type: multipart/alternative;
+ boundary="===============2847664286252205861=="
 
-There is a module parameter for controlling what GuC/HuC features are
-enabled. Setting to -1 means 'use the default'. However, the default
-was not well defined, out of date and needs to be different across
-platforms.
+--===============2847664286252205861==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-The default is now to disable both GuC and HuC on legacy platforms
-where legacy means TGL/RKL and anything prior to Gen12. For new
-platforms, the default is to load HuC but not GuC as GuC submission
-has not yet landed.
+== Series Details ==
 
-Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
-Reviewed-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
----
- drivers/gpu/drm/i915/gt/uc/intel_uc.c    | 31 ++++++++++++++++++++----
- drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c |  7 +-----
- drivers/gpu/drm/i915/i915_params.h       |  1 +
- 3 files changed, 28 insertions(+), 11 deletions(-)
+Series: series starting with drm/i915/selftests: Force a failed engine reset (rev2)
+URL   : https://patchwork.freedesktop.org/series/85824/
+State : success
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc.c b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
-index 6a0452815c41..6abb8f2dc33d 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_uc.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
-@@ -15,6 +15,29 @@
- static const struct intel_uc_ops uc_ops_off;
- static const struct intel_uc_ops uc_ops_on;
- 
-+static void uc_expand_default_options(struct intel_uc *uc)
-+{
-+	struct drm_i915_private *i915 = uc_to_gt(uc)->i915;
-+
-+	if (i915->params.enable_guc != -1)
-+		return;
-+
-+	/* Don't enable GuC/HuC on pre-Gen12 */
-+	if (INTEL_GEN(i915) < 12) {
-+		i915->params.enable_guc = 0;
-+		return;
-+	}
-+
-+	/* Don't enable GuC/HuC on older Gen12 platforms */
-+	if (IS_TIGERLAKE(i915) || IS_ROCKETLAKE(i915)) {
-+		i915->params.enable_guc = 0;
-+		return;
-+	}
-+
-+	/* Default: enable HuC authentication only */
-+	i915->params.enable_guc = ENABLE_GUC_LOAD_HUC;
-+}
-+
- /* Reset GuC providing us with fresh state for both GuC and HuC.
-  */
- static int __intel_uc_reset_hw(struct intel_uc *uc)
-@@ -52,9 +75,6 @@ static void __confirm_options(struct intel_uc *uc)
- 		yesno(intel_uc_wants_guc_submission(uc)),
- 		yesno(intel_uc_wants_huc(uc)));
- 
--	if (i915->params.enable_guc == -1)
--		return;
--
- 	if (i915->params.enable_guc == 0) {
- 		GEM_BUG_ON(intel_uc_wants_guc(uc));
- 		GEM_BUG_ON(intel_uc_wants_guc_submission(uc));
-@@ -79,8 +99,7 @@ static void __confirm_options(struct intel_uc *uc)
- 			 "Incompatible option enable_guc=%d - %s\n",
- 			 i915->params.enable_guc, "GuC submission is N/A");
- 
--	if (i915->params.enable_guc & ~(ENABLE_GUC_SUBMISSION |
--					  ENABLE_GUC_LOAD_HUC))
-+	if (i915->params.enable_guc & ~ENABLE_GUC_MASK)
- 		drm_info(&i915->drm,
- 			 "Incompatible option enable_guc=%d - %s\n",
- 			 i915->params.enable_guc, "undocumented flag");
-@@ -88,6 +107,8 @@ static void __confirm_options(struct intel_uc *uc)
- 
- void intel_uc_init_early(struct intel_uc *uc)
- {
-+	uc_expand_default_options(uc);
-+
- 	intel_guc_init_early(&uc->guc);
- 	intel_huc_init_early(&uc->huc);
- 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
-index 602f1a0bc587..67b06fde1225 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
-@@ -152,16 +152,11 @@ __uc_fw_auto_select(struct drm_i915_private *i915, struct intel_uc_fw *uc_fw)
- 			uc_fw->path = NULL;
- 		}
- 	}
--
--	/* We don't want to enable GuC/HuC on pre-Gen11 by default */
--	if (i915->params.enable_guc == -1 && p < INTEL_ICELAKE)
--		uc_fw->path = NULL;
- }
- 
- static const char *__override_guc_firmware_path(struct drm_i915_private *i915)
- {
--	if (i915->params.enable_guc & (ENABLE_GUC_SUBMISSION |
--				       ENABLE_GUC_LOAD_HUC))
-+	if (i915->params.enable_guc & ENABLE_GUC_MASK)
- 		return i915->params.guc_firmware_path;
- 	return "";
- }
-diff --git a/drivers/gpu/drm/i915/i915_params.h b/drivers/gpu/drm/i915/i915_params.h
-index 330c03e2b4f7..f031966af5b7 100644
---- a/drivers/gpu/drm/i915/i915_params.h
-+++ b/drivers/gpu/drm/i915/i915_params.h
-@@ -32,6 +32,7 @@ struct drm_printer;
- 
- #define ENABLE_GUC_SUBMISSION		BIT(0)
- #define ENABLE_GUC_LOAD_HUC		BIT(1)
-+#define ENABLE_GUC_MASK			GENMASK(1, 0)
- 
- /*
-  * Invoke param, a function-like macro, for each i915 param, with arguments:
--- 
-2.25.1
+== Summary ==
+
+CI Bug Log - changes from CI_DRM_9603 -> Patchwork_19344
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19344/index.html
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_19344 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@gem_exec_suspend@basic-s3:
+    - fi-tgl-y:           [PASS][1] -> [DMESG-WARN][2] ([i915#2411] / [i915#402])
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9603/fi-tgl-y/igt@gem_exec_suspend@basic-s3.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19344/fi-tgl-y/igt@gem_exec_suspend@basic-s3.html
+
+  * igt@kms_addfb_basic@addfb25-y-tiled-small-legacy:
+    - fi-snb-2600:        NOTRUN -> [SKIP][3] ([fdo#109271]) +30 similar issues
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19344/fi-snb-2600/igt@kms_addfb_basic@addfb25-y-tiled-small-legacy.html
+
+  * igt@kms_chamelium@hdmi-crc-fast:
+    - fi-snb-2600:        NOTRUN -> [SKIP][4] ([fdo#109271] / [fdo#111827]) +8 similar issues
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19344/fi-snb-2600/igt@kms_chamelium@hdmi-crc-fast.html
+    - fi-kbl-7500u:       [PASS][5] -> [DMESG-WARN][6] ([i915#2868])
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9603/fi-kbl-7500u/igt@kms_chamelium@hdmi-crc-fast.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19344/fi-kbl-7500u/igt@kms_chamelium@hdmi-crc-fast.html
+
+  * igt@prime_self_import@basic-with_two_bos:
+    - fi-tgl-y:           [PASS][7] -> [DMESG-WARN][8] ([i915#402]) +1 similar issue
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9603/fi-tgl-y/igt@prime_self_import@basic-with_two_bos.html
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19344/fi-tgl-y/igt@prime_self_import@basic-with_two_bos.html
+
+  
+#### Possible fixes ####
+
+  * igt@gem_exec_suspend@basic-s3:
+    - fi-snb-2600:        [DMESG-WARN][9] ([i915#2772]) -> [PASS][10]
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9603/fi-snb-2600/igt@gem_exec_suspend@basic-s3.html
+   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19344/fi-snb-2600/igt@gem_exec_suspend@basic-s3.html
+
+  * igt@i915_selftest@live@gt_heartbeat:
+    - fi-kbl-soraka:      [DMESG-FAIL][11] ([i915#2291] / [i915#541]) -> [PASS][12]
+   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9603/fi-kbl-soraka/igt@i915_selftest@live@gt_heartbeat.html
+   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19344/fi-kbl-soraka/igt@i915_selftest@live@gt_heartbeat.html
+
+  * igt@prime_vgem@basic-userptr:
+    - fi-tgl-y:           [DMESG-WARN][13] ([i915#402]) -> [PASS][14] +1 similar issue
+   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9603/fi-tgl-y/igt@prime_vgem@basic-userptr.html
+   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19344/fi-tgl-y/igt@prime_vgem@basic-userptr.html
+
+  
+  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
+  [fdo#111827]: https://bugs.freedesktop.org/show_bug.cgi?id=111827
+  [i915#2291]: https://gitlab.freedesktop.org/drm/intel/issues/2291
+  [i915#2411]: https://gitlab.freedesktop.org/drm/intel/issues/2411
+  [i915#2772]: https://gitlab.freedesktop.org/drm/intel/issues/2772
+  [i915#2868]: https://gitlab.freedesktop.org/drm/intel/issues/2868
+  [i915#402]: https://gitlab.freedesktop.org/drm/intel/issues/402
+  [i915#541]: https://gitlab.freedesktop.org/drm/intel/issues/541
+
+
+Participating hosts (43 -> 38)
+------------------------------
+
+  Missing    (5): fi-hsw-4200u fi-bsw-cyan fi-ctg-p8600 fi-cml-drallion fi-bdw-samus 
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_9603 -> Patchwork_19344
+
+  CI-20190529: 20190529
+  CI_DRM_9603: 4e758db4f1c2fd3dcfa7bf1cd33a0863978f555c @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_5957: 2a2b3418f7458dfa1fac255cc5c71603f617690a @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools
+  Patchwork_19344: a0c764fda45736ab37c7485e3535e740ccdec543 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+== Linux commits ==
+
+a0c764fda457 drm/i915/selftests: Bump the scheduling error threshold for fast heartbeats
+5b749012dcdb drm/i915/selftests: Force a failed engine reset
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19344/index.html
+
+--===============2847664286252205861==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>series starting with drm/i915/selftests: Force a failed engine reset (rev2)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/85824/">https://patchwork.freedesktop.org/series/85824/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19344/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19344/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_9603 -&gt; Patchwork_19344</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19344/index.html</p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_19344 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@gem_exec_suspend@basic-s3:</p>
+<ul>
+<li>fi-tgl-y:           <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9603/fi-tgl-y/igt@gem_exec_suspend@basic-s3.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19344/fi-tgl-y/igt@gem_exec_suspend@basic-s3.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2411">i915#2411</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/402">i915#402</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_addfb_basic@addfb25-y-tiled-small-legacy:</p>
+<ul>
+<li>fi-snb-2600:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19344/fi-snb-2600/igt@kms_addfb_basic@addfb25-y-tiled-small-legacy.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +30 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_chamelium@hdmi-crc-fast:</p>
+<ul>
+<li>
+<p>fi-snb-2600:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19344/fi-snb-2600/igt@kms_chamelium@hdmi-crc-fast.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://bugs.freedesktop.org/show_bug.cgi?id=111827">fdo#111827</a>) +8 similar issues</p>
+</li>
+<li>
+<p>fi-kbl-7500u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9603/fi-kbl-7500u/igt@kms_chamelium@hdmi-crc-fast.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19344/fi-kbl-7500u/igt@kms_chamelium@hdmi-crc-fast.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2868">i915#2868</a>)</p>
+</li>
+</ul>
+</li>
+<li>
+<p>igt@prime_self_import@basic-with_two_bos:</p>
+<ul>
+<li>fi-tgl-y:           <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9603/fi-tgl-y/igt@prime_self_import@basic-with_two_bos.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19344/fi-tgl-y/igt@prime_self_import@basic-with_two_bos.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/402">i915#402</a>) +1 similar issue</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@gem_exec_suspend@basic-s3:</p>
+<ul>
+<li>fi-snb-2600:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9603/fi-snb-2600/igt@gem_exec_suspend@basic-s3.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2772">i915#2772</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19344/fi-snb-2600/igt@gem_exec_suspend@basic-s3.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@gt_heartbeat:</p>
+<ul>
+<li>fi-kbl-soraka:      <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9603/fi-kbl-soraka/igt@i915_selftest@live@gt_heartbeat.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2291">i915#2291</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/541">i915#541</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19344/fi-kbl-soraka/igt@i915_selftest@live@gt_heartbeat.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@prime_vgem@basic-userptr:</p>
+<ul>
+<li>fi-tgl-y:           <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9603/fi-tgl-y/igt@prime_vgem@basic-userptr.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/402">i915#402</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19344/fi-tgl-y/igt@prime_vgem@basic-userptr.html">PASS</a> +1 similar issue</li>
+</ul>
+</li>
+</ul>
+<h2>Participating hosts (43 -&gt; 38)</h2>
+<p>Missing    (5): fi-hsw-4200u fi-bsw-cyan fi-ctg-p8600 fi-cml-drallion fi-bdw-samus </p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_9603 -&gt; Patchwork_19344</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_9603: 4e758db4f1c2fd3dcfa7bf1cd33a0863978f555c @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_5957: 2a2b3418f7458dfa1fac255cc5c71603f617690a @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools<br />
+  Patchwork_19344: a0c764fda45736ab37c7485e3535e740ccdec543 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<p>== Linux commits ==</p>
+<p>a0c764fda457 drm/i915/selftests: Bump the scheduling error threshold for fast heartbeats<br />
+5b749012dcdb drm/i915/selftests: Force a failed engine reset</p>
+
+</body>
+</html>
+
+--===============2847664286252205861==--
+
+--===============0921396727==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+
+--===============0921396727==--
