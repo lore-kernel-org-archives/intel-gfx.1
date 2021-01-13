@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 762BCC433E9
-	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jan 2021 12:46:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 15B99C433DB
+	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jan 2021 12:46:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A4004230FC
-	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jan 2021 12:46:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A4004230FC
+	by mail.kernel.org (Postfix) with ESMTPS id AEE02230FC
+	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jan 2021 12:46:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AEE02230FC
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC4526E97B;
-	Wed, 13 Jan 2021 12:46:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1BF656E976;
+	Wed, 13 Jan 2021 12:46:15 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 853C56E97C
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 786CF6E97B
  for <intel-gfx@lists.freedesktop.org>; Wed, 13 Jan 2021 12:46:13 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23584208-1500050 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23584210-1500050 
  for multiple; Wed, 13 Jan 2021 12:46:02 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 13 Jan 2021 12:45:53 +0000
-Message-Id: <20210113124600.656-3-chris@chris-wilson.co.uk>
+Date: Wed, 13 Jan 2021 12:45:55 +0000
+Message-Id: <20210113124600.656-5-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20210113124600.656-1-chris@chris-wilson.co.uk>
 References: <20210113124600.656-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 03/10] drm/i915/gem: Reduce ctx->engine_mutex
- for reading the clone source
+Subject: [Intel-gfx] [PATCH 05/10] drm/i915: Reduce test_and_set_bit to
+ set_bit in i915_request_submit()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,98 +56,48 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-When cloning the engines from the source context, we need to ensure that
-the engines are not freed as we copy them, and that the flags we clone
-from the source correspond with the engines we copy across. To do this
-we need only take a reference to the src->engines, rather than hold the
-src->engine_mutex, so long as we verify that nothing changed under the
-read.
+Avoid the full blown memory barrier of test_and_set_bit() by noting the
+completed request and removing it from the lists.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_context.c | 24 +++++++++++++--------
- 1 file changed, 15 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/i915/i915_request.c | 16 +++++++++-------
+ 1 file changed, 9 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-index cac0c52fc681..4a709c625ccb 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-@@ -717,7 +717,8 @@ __create_context(struct drm_i915_private *i915)
- }
+diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
+index 973eceabbcca..22e39d938f17 100644
+--- a/drivers/gpu/drm/i915/i915_request.c
++++ b/drivers/gpu/drm/i915/i915_request.c
+@@ -551,8 +551,10 @@ bool __i915_request_submit(struct i915_request *request)
+ 	 * dropped upon retiring. (Otherwise if resubmit a *retired*
+ 	 * request, this would be a horrible use-after-free.)
+ 	 */
+-	if (__i915_request_is_complete(request))
+-		goto xfer;
++	if (__i915_request_is_complete(request)) {
++		list_del_init(&request->sched.link);
++		goto active;
++	}
  
- static inline struct i915_gem_engines *
--__context_engines_await(const struct i915_gem_context *ctx)
-+__context_engines_await(const struct i915_gem_context *ctx,
-+			bool *user_engines)
- {
- 	struct i915_gem_engines *engines;
+ 	if (unlikely(intel_context_is_banned(request->context)))
+ 		i915_request_set_error_once(request, -EIO);
+@@ -587,11 +589,11 @@ bool __i915_request_submit(struct i915_request *request)
+ 	engine->serial++;
+ 	result = true;
  
-@@ -726,6 +727,10 @@ __context_engines_await(const struct i915_gem_context *ctx)
- 		engines = rcu_dereference(ctx->engines);
- 		GEM_BUG_ON(!engines);
+-xfer:
+-	if (!test_and_set_bit(I915_FENCE_FLAG_ACTIVE, &request->fence.flags)) {
+-		list_move_tail(&request->sched.link, &engine->active.requests);
+-		clear_bit(I915_FENCE_FLAG_PQUEUE, &request->fence.flags);
+-	}
++	GEM_BUG_ON(test_bit(I915_FENCE_FLAG_ACTIVE, &request->fence.flags));
++	list_move_tail(&request->sched.link, &engine->active.requests);
++active:
++	clear_bit(I915_FENCE_FLAG_PQUEUE, &request->fence.flags);
++	set_bit(I915_FENCE_FLAG_ACTIVE, &request->fence.flags);
  
-+		if (user_engines)
-+			*user_engines = i915_gem_context_user_engines(ctx);
-+
-+		/* successful await => strong mb */
- 		if (unlikely(!i915_sw_fence_await(&engines->fence)))
- 			continue;
- 
-@@ -749,7 +754,7 @@ context_apply_all(struct i915_gem_context *ctx,
- 	struct intel_context *ce;
- 	int err = 0;
- 
--	e = __context_engines_await(ctx);
-+	e = __context_engines_await(ctx, NULL);
- 	for_each_gem_engine(ce, e, it) {
- 		err = fn(ce, data);
- 		if (err)
-@@ -1075,7 +1080,7 @@ static int context_barrier_task(struct i915_gem_context *ctx,
- 		return err;
- 	}
- 
--	e = __context_engines_await(ctx);
-+	e = __context_engines_await(ctx, NULL);
- 	if (!e) {
- 		i915_active_release(&cb->base);
- 		return -ENOENT;
-@@ -2095,11 +2100,14 @@ static int copy_ring_size(struct intel_context *dst,
- static int clone_engines(struct i915_gem_context *dst,
- 			 struct i915_gem_context *src)
- {
--	struct i915_gem_engines *e = i915_gem_context_lock_engines(src);
--	struct i915_gem_engines *clone;
-+	struct i915_gem_engines *clone, *e;
- 	bool user_engines;
- 	unsigned long n;
- 
-+	e = __context_engines_await(src, &user_engines);
-+	if (!e)
-+		return -ENOENT;
-+
- 	clone = alloc_engines(e->num_engines);
- 	if (!clone)
- 		goto err_unlock;
-@@ -2141,9 +2149,7 @@ static int clone_engines(struct i915_gem_context *dst,
- 		}
- 	}
- 	clone->num_engines = n;
--
--	user_engines = i915_gem_context_user_engines(src);
--	i915_gem_context_unlock_engines(src);
-+	i915_sw_fence_complete(&e->fence);
- 
- 	/* Serialised by constructor */
- 	engines_idle_release(dst, rcu_replace_pointer(dst->engines, clone, 1));
-@@ -2154,7 +2160,7 @@ static int clone_engines(struct i915_gem_context *dst,
- 	return 0;
- 
- err_unlock:
--	i915_gem_context_unlock_engines(src);
-+	i915_sw_fence_complete(&e->fence);
- 	return -ENOMEM;
- }
- 
+ 	/*
+ 	 * XXX Rollback bonded-execution on __i915_request_unsubmit()?
 -- 
 2.20.1
 
