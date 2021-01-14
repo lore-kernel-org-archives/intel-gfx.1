@@ -2,43 +2,42 @@ Return-Path: <SRS0=EqF4=GR=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_2 autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5E2D0C433DB
-	for <intel-gfx@archiver.kernel.org>; Thu, 14 Jan 2021 21:34:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 66D9FC433E0
+	for <intel-gfx@archiver.kernel.org>; Thu, 14 Jan 2021 21:35:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D108A235DD
-	for <intel-gfx@archiver.kernel.org>; Thu, 14 Jan 2021 21:34:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D108A235DD
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=goodmis.org
+	by mail.kernel.org (Postfix) with ESMTPS id 09407235DD
+	for <intel-gfx@archiver.kernel.org>; Thu, 14 Jan 2021 21:35:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 09407235DD
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D20D6E14C;
-	Thu, 14 Jan 2021 21:34:40 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C37726E14C;
- Thu, 14 Jan 2021 21:34:38 +0000 (UTC)
-Received: from gandalf.local.home (cpe-66-24-58-225.stny.res.rr.com
- [66.24.58.225])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 6820E22BEA;
- Thu, 14 Jan 2021 21:34:37 +0000 (UTC)
-Date: Thu, 14 Jan 2021 16:34:35 -0500
-From: Steven Rostedt <rostedt@goodmis.org>
-To: LKML <linux-kernel@vger.kernel.org>, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org
-Message-ID: <20210114163435.767ccbb0@gandalf.local.home>
-In-Reply-To: <20210114163206.4a562d82@gandalf.local.home>
-References: <20210114163206.4a562d82@gandalf.local.home>
-X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7DAF489EA3;
+	Thu, 14 Jan 2021 21:35:58 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 7715889E35;
+ Thu, 14 Jan 2021 21:35:57 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 6F2CEA7DFF;
+ Thu, 14 Jan 2021 21:35:57 +0000 (UTC)
 MIME-Version: 1.0
-Subject: Re: [Intel-gfx] [BUG] on reboot: bisected to: drm/i915: Shut down
- displays gracefully on reboot
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Matthew Auld" <matthew.auld@intel.com>
+Date: Thu, 14 Jan 2021 21:35:57 -0000
+Message-ID: <161066015745.19647.1844240518604345876@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20210114182402.840247-1-matthew.auld@intel.com>
+In-Reply-To: <20210114182402.840247-1-matthew.auld@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3Igc2Vy?=
+ =?utf-8?q?ies_starting_with_=5B1/3=5D_drm/i915/gem=3A_split_gem=5Fcreate_?=
+ =?utf-8?q?into_own_file?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,79 +50,204 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, chris@chris-wilson.co.uk,
- jani.nikula@intel.com, Linus Torvalds <torvalds@linux-foundation.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============1364030493=="
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+--===============1364030493==
+Content-Type: multipart/alternative;
+ boundary="===============1299124370543863010=="
 
-[ Forgot to add those on the commit itself ]
+--===============1299124370543863010==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
--- Steve
+== Series Details ==
+
+Series: series starting with [1/3] drm/i915/gem: split gem_create into own file
+URL   : https://patchwork.freedesktop.org/series/85875/
+State : success
+
+== Summary ==
+
+CI Bug Log - changes from CI_DRM_9612 -> Patchwork_19360
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19360/index.html
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_19360 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@amdgpu/amd_basic@query-info:
+    - fi-tgl-y:           NOTRUN -> [SKIP][1] ([fdo#109315] / [i915#2575])
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19360/fi-tgl-y/igt@amdgpu/amd_basic@query-info.html
+
+  * igt@vgem_basic@create:
+    - fi-tgl-y:           [PASS][2] -> [DMESG-WARN][3] ([i915#402])
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9612/fi-tgl-y/igt@vgem_basic@create.html
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19360/fi-tgl-y/igt@vgem_basic@create.html
+
+  
+#### Possible fixes ####
+
+  * igt@vgem_basic@debugfs:
+    - fi-tgl-y:           [DMESG-WARN][4] ([i915#402]) -> [PASS][5]
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9612/fi-tgl-y/igt@vgem_basic@debugfs.html
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19360/fi-tgl-y/igt@vgem_basic@debugfs.html
+
+  
+#### Warnings ####
+
+  * igt@debugfs_test@read_all_entries:
+    - fi-tgl-y:           [DMESG-WARN][6] ([i915#402]) -> [DMESG-WARN][7] ([i915#1982] / [i915#402])
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9612/fi-tgl-y/igt@debugfs_test@read_all_entries.html
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19360/fi-tgl-y/igt@debugfs_test@read_all_entries.html
+
+  
+  [fdo#109315]: https://bugs.freedesktop.org/show_bug.cgi?id=109315
+  [i915#1982]: https://gitlab.freedesktop.org/drm/intel/issues/1982
+  [i915#2575]: https://gitlab.freedesktop.org/drm/intel/issues/2575
+  [i915#402]: https://gitlab.freedesktop.org/drm/intel/issues/402
 
 
-On Thu, 14 Jan 2021 16:32:06 -0500
-Steven Rostedt <rostedt@goodmis.org> wrote:
+Participating hosts (41 -> 38)
+------------------------------
 
-> On reboot, one of my test boxes now triggers the following warning:
-> 
->  ------------[ cut here ]------------
->  RPM raw-wakeref not held
->  WARNING: CPU: 4 PID: 1 at drivers/gpu/drm/i915/intel_runtime_pm.h:106 gen6_write32+0x1bc/0x2a0 [i915]
->  Modules linked in: ebtable_filter ebtables bridge stp llc ip6t_REJECT nf_reject_ipv6 vsock vmw_vmci xt_state xt_conntrack nf_conntrack nf_defrag_ipv6 nf_defrag_ipv4 ip6table_filter ip6_tables snd_hda_codec_hdmi snd_hda_codec_realtek snd_hda_codec_generic le
-> 15 snd_hda_intel snd_intel_dspcfg snd_hda_codec snd_hwdep i2c_algo_bit snd_hda_core snd_seq intel_rapl_msr snd_seq_device intel_rapl_common snd_pcm x86_pkg_temp_thermal intel_powerclamp snd_timer snd coretemp kvm_intel soundcore kvm mei_wdt irqbypass joydev 
-> _pmc_bxt hp_wmi wmi_bmof sparse_keymap rfkill iTCO_vendor_support crct10dif_pclmul crc32_pclmul crc32c_intel ghash_clmulni_intel drm_kms_helper i2c_i801 cec drm rapl intel_cstate intel_uncore mei_me i2c_smbus e1000e tpm_infineon wmi serio_raw mei video lpc_i
-> 
->  CPU: 4 PID: 1 Comm: systemd-shutdow Not tainted 5.9.0-rc4-test+ #861
->  Hardware name: Hewlett-Packard HP Compaq Pro 6300 SFF/339A, BIOS K01 v03.03 07/14/2016
->  RIP: 0010:gen6_write32+0x1bc/0x2a0 [i915]
->  Code: 5d 82 e0 0f 0b e9 b5 fe ff ff 80 3d 95 6b 22 00 00 0f 85 b2 fe ff ff 48 c7 c7 04 d2 a4 c0 c6 05 81 6b 22 00 01 e8 f6 5c 82 e0 <0f> 0b e9 98 fe ff ff 80 3d 6d 6b 22 00 00 0f 85 95 fe ff ff 48 c7
->  RSP: 0018:ffffb9c1c002fd08 EFLAGS: 00010296
->  RAX: 0000000000000018 RBX: ffff99aec8881010 RCX: ffff99aeda400000
->  RDX: 0000000000000000 RSI: ffffffffa115d9ef RDI: ffffffffa115d9ef
->  RBP: 0000000000044004 R08: 0000000000000001 R09: 0000000000000000
->  R10: 0000000000000001 R11: 0000000000000001 R12: 0000000000000000
->  R13: 0000000000000001 R14: 00000000ffffffff R15: 0000000000000000
->  FS:  00007f91257a9940(0000) GS:ffff99aeda400000(0000) knlGS:0000000000000000
->  CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
->  CR2: 00007f9126829400 CR3: 00000001088f0006 CR4: 00000000001706e0
->  Call Trace:
->   gen3_irq_reset+0x2e/0xd0 [i915]
->   intel_irq_reset+0x59/0x6a0 [i915]
->   intel_runtime_pm_disable_interrupts+0xe/0x30 [i915]
->   i915_driver_shutdown+0x2e/0x40 [i915]
->   pci_device_shutdown+0x34/0x60
->   device_shutdown+0x15d/0x1b3
->   kernel_restart+0xe/0x30
->   __do_sys_reboot+0x1d7/0x210
->   ? vfs_writev+0x9d/0xe0
->   ? syscall_enter_from_user_mode+0x1d/0x70
->   ? trace_hardirqs_on+0x2c/0xe0
->   do_syscall_64+0x33/0x40
->   entry_SYSCALL_64_after_hwframe+0x44/0xa9
->  RIP: 0033:0x7f912675f2d7
->  Code: 64 89 01 48 83 c8 ff c3 66 2e 0f 1f 84 00 00 00 00 00 90 f3 0f 1e fa 89 fa be 69 19 12 28 bf ad de e1 fe b8 a9 00 00 00 0f 05 <48> 3d 00 f0 ff ff 77 01 c3 48 8b 15 81 8b 0c 00 f7 d8 64 89 02 b8
->  RSP: 002b:00007ffeca28e148 EFLAGS: 00000206 ORIG_RAX: 00000000000000a9
->  RAX: ffffffffffffffda RBX: 0000000000000000 RCX: 00007f912675f2d7
->  RDX: 0000000001234567 RSI: 0000000028121969 RDI: 00000000fee1dead
->  RBP: 00007ffeca28e3d0 R08: 000000000000000a R09: 0000000000000000
->  R10: 0000000000000232 R11: 0000000000000206 R12: 0000000000000001
->  R13: 0000000000000000 R14: 0000000000000000 R15: 00007ffeca28e4b8
->  ---[ end trace 2ed17eabd3ab6938 ]---
->  ------------[ cut here ]------------
-> 
-> The bisect came to this commit:
-> 
->   fe0f1e3bfdfeb53e18f1206aea4f40b9bd1f291c
->   ("drm/i915: Shut down displays gracefully on reboot")
-> 
-> Which makes sense, as it happens on shutdown.
-> 
-> -- Steve
+  Missing    (3): fi-ctg-p8600 fi-bsw-cyan fi-bdw-samus 
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_9612 -> Patchwork_19360
+
+  CI-20190529: 20190529
+  CI_DRM_9612: 3d921d1ad818c1aabb5b2bd3f0861df99e49be9b @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_5959: c5cf0734c4f6c1fa17a6a15b5aa721c3a0b8c494 @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools
+  Patchwork_19360: d2f1450391581a982d427056f62b5c22199a7e6f @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+== Linux commits ==
+
+d2f145039158 drm/i915/region: convert object_create into object_init
+177fa885172b drm/i915/gem: sanity check object size in gem_create
+b246ef5eb0cb drm/i915/gem: split gem_create into own file
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19360/index.html
+
+--===============1299124370543863010==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>series starting with [1/3] drm/i915/gem: split gem_create into own file</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/85875/">https://patchwork.freedesktop.org/series/85875/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19360/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19360/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_9612 -&gt; Patchwork_19360</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19360/index.html</p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_19360 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@amdgpu/amd_basic@query-info:</p>
+<ul>
+<li>fi-tgl-y:           NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19360/fi-tgl-y/igt@amdgpu/amd_basic@query-info.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109315">fdo#109315</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/2575">i915#2575</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@vgem_basic@create:</p>
+<ul>
+<li>fi-tgl-y:           <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9612/fi-tgl-y/igt@vgem_basic@create.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19360/fi-tgl-y/igt@vgem_basic@create.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/402">i915#402</a>)</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>igt@vgem_basic@debugfs:<ul>
+<li>fi-tgl-y:           <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9612/fi-tgl-y/igt@vgem_basic@debugfs.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/402">i915#402</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19360/fi-tgl-y/igt@vgem_basic@debugfs.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<h4>Warnings</h4>
+<ul>
+<li>igt@debugfs_test@read_all_entries:<ul>
+<li>fi-tgl-y:           <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9612/fi-tgl-y/igt@debugfs_test@read_all_entries.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/402">i915#402</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19360/fi-tgl-y/igt@debugfs_test@read_all_entries.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1982">i915#1982</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/402">i915#402</a>)</li>
+</ul>
+</li>
+</ul>
+<h2>Participating hosts (41 -&gt; 38)</h2>
+<p>Missing    (3): fi-ctg-p8600 fi-bsw-cyan fi-bdw-samus </p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_9612 -&gt; Patchwork_19360</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_9612: 3d921d1ad818c1aabb5b2bd3f0861df99e49be9b @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_5959: c5cf0734c4f6c1fa17a6a15b5aa721c3a0b8c494 @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools<br />
+  Patchwork_19360: d2f1450391581a982d427056f62b5c22199a7e6f @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<p>== Linux commits ==</p>
+<p>d2f145039158 drm/i915/region: convert object_create into object_init<br />
+177fa885172b drm/i915/gem: sanity check object size in gem_create<br />
+b246ef5eb0cb drm/i915/gem: split gem_create into own file</p>
+
+</body>
+</html>
+
+--===============1299124370543863010==--
+
+--===============1364030493==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+
+--===============1364030493==--
