@@ -2,41 +2,50 @@ Return-Path: <SRS0=EqF4=GR=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.0 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2E486C433DB
-	for <intel-gfx@archiver.kernel.org>; Thu, 14 Jan 2021 19:55:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 74458C433DB
+	for <intel-gfx@archiver.kernel.org>; Thu, 14 Jan 2021 20:13:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C241F2137B
-	for <intel-gfx@archiver.kernel.org>; Thu, 14 Jan 2021 19:55:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C241F2137B
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id E0A6F2310F
+	for <intel-gfx@archiver.kernel.org>; Thu, 14 Jan 2021 20:13:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E0A6F2310F
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C5DC6E02F;
-	Thu, 14 Jan 2021 19:55:37 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 7414D6E02F;
- Thu, 14 Jan 2021 19:55:36 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 6E063A0019;
- Thu, 14 Jan 2021 19:55:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 600696E0F7;
+	Thu, 14 Jan 2021 20:13:25 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 552C26E0F7
+ for <intel-gfx@lists.freedesktop.org>; Thu, 14 Jan 2021 20:13:24 +0000 (UTC)
+IronPort-SDR: 6Rf0lBPthMknGIlkuceXfQAHfu0ZbpifzbLCu66dHwSWgkr/+QYccQFqWUJO61nz1giT5R2AfT
+ 4UIqHk2oIGCQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9864"; a="177658315"
+X-IronPort-AV: E=Sophos;i="5.79,347,1602572400"; d="scan'208";a="177658315"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Jan 2021 12:13:21 -0800
+IronPort-SDR: UENRD5+yIvmbRRPgfy+LuKEY5b++rCBH2lFT45OpH1hOM8kEuZXxPK16tKUx/fSivkrEa8HxtK
+ eoay1VsGiojA==
+X-IronPort-AV: E=Sophos;i="5.79,347,1602572400"; d="scan'208";a="382394433"
+Received: from ideak-desk.fi.intel.com ([10.237.68.141])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Jan 2021 12:13:20 -0800
+From: Imre Deak <imre.deak@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Thu, 14 Jan 2021 22:13:13 +0200
+Message-Id: <20210114201314.783648-3-imre.deak@intel.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20210114201314.783648-1-imre.deak@intel.com>
+References: <20210114201314.783648-1-imre.deak@intel.com>
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Daniel Vetter" <daniel.vetter@ffwll.ch>
-Date: Thu, 14 Jan 2021 19:55:36 -0000
-Message-ID: <161065413642.19646.8086424791271551957@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20210113140604.3615437-1-daniel.vetter@ffwll.ch>
-In-Reply-To: <20210113140604.3615437-1-daniel.vetter@ffwll.ch>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_drm-buf=3A_Add_debug_option_=28rev2=29?=
+Subject: [Intel-gfx] [PATCH v7 2/3] drm/i915/gem: Add a helper to read data
+ from a GEM object page
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,40 +58,132 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
+Cc: Chris Wilson <chris@chris-wilson.co.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+Add a simple helper to read data with the CPU from the page of a GEM
+object. Do the read either via a kmap if the object has struct pages
+or an iomap otherwise. This is needed by the next patch, reading a u64
+value from the object (w/o requiring the obj to be mapped to the GPU).
 
-Series: drm-buf: Add debug option (rev2)
-URL   : https://patchwork.freedesktop.org/series/85813/
-State : warning
+Suggested by Chris.
 
-== Summary ==
+Cc: Chris Wilson <chris@chris-wilson.co.uk>
+Signed-off-by: Imre Deak <imre.deak@intel.com>
+---
+ drivers/gpu/drm/i915/gem/i915_gem_object.c | 75 ++++++++++++++++++++++
+ drivers/gpu/drm/i915/gem/i915_gem_object.h |  2 +
+ 2 files changed, 77 insertions(+)
 
-$ dim checkpatch origin/drm-tip
-9406d53d49b1 drm-buf: Add debug option
--:64: ERROR:POINTER_LOCATION: "foo * bar" should be "foo *bar"
-#64: FILE: drivers/dma-buf/dma-buf.c:669:
-+static struct sg_table * __map_dma_buf(struct dma_buf_attachment *attach,
-
--:79: WARNING:BLOCK_COMMENT_STYLE: Block comments use a trailing */ on a separate line
-#79: FILE: drivers/dma-buf/dma-buf.c:684:
-+		 * before passing the sgt back to the exporter. */
-
--:108: CHECK:BRACES: Blank lines aren't necessary after an open brace '{'
-#108: FILE: drivers/dma-buf/dma-buf.c:815:
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.c b/drivers/gpu/drm/i915/gem/i915_gem_object.c
+index 00d24000b5e8..010f8d735e40 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_object.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_object.c
+@@ -32,6 +32,7 @@
+ #include "i915_gem_mman.h"
+ #include "i915_gem_object.h"
+ #include "i915_globals.h"
++#include "i915_memcpy.h"
+ #include "i915_trace.h"
+ 
+ static struct i915_global_object {
+@@ -383,6 +384,80 @@ void __i915_gem_object_invalidate_frontbuffer(struct drm_i915_gem_object *obj,
+ 	}
+ }
+ 
++static void
++i915_gem_object_read_from_page_kmap(struct drm_i915_gem_object *obj, unsigned long offset, int size, void *dst)
 +{
++	const void *src_map;
++	const void *src_ptr;
 +
-
--:150: WARNING:FROM_SIGN_OFF_MISMATCH: From:/Signed-off-by: email address mismatch: 'From: Daniel Vetter <daniel.vetter@ffwll.ch>' != 'Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>'
-
-total: 1 errors, 2 warnings, 1 checks, 99 lines checked
-
++	src_map = kmap_atomic(i915_gem_object_get_page(obj, offset >> PAGE_SHIFT));
++
++	src_ptr = src_map + offset_in_page(offset);
++	if (!(obj->cache_coherent & I915_BO_CACHE_COHERENT_FOR_READ))
++		drm_clflush_virt_range((void *)src_ptr, size);
++	memcpy(dst, src_ptr, size);
++
++	kunmap_atomic((void *)src_map);
++}
++
++static void
++i915_gem_object_read_from_page_iomap(struct drm_i915_gem_object *obj, unsigned long offset, int size, void *dst)
++{
++	const void __iomem *src_map;
++	const void __iomem *src_ptr;
++
++	src_map = io_mapping_map_wc(&obj->mm.region->iomap,
++				    i915_gem_object_get_dma_address(obj, offset >> PAGE_SHIFT),
++				    PAGE_SIZE);
++
++	src_ptr = src_map + offset_in_page(offset);
++	if (!i915_memcpy_from_wc(dst, src_ptr, size))
++		memcpy(dst, src_ptr, size);
++
++	io_mapping_unmap((void __iomem *)src_map);
++}
++
++/**
++ * i915_gem_object_read_from_page - read data from the page of a GEM object
++ * @obj: GEM object to read from
++ * @offset: offset within the object
++ * @size: size to read
++ * @dst: buffer to store the read data
++ *
++ * Reads data from @obj after syncing against any pending GPU writes on it.
++ * The requested region to read from can't cross a page boundary.
++ *
++ * Returns 0 on sucess, negative error code on failre.
++ */
++int i915_gem_object_read_from_page(struct drm_i915_gem_object *obj, unsigned long offset, size_t size, void *dst)
++{
++	int ret;
++
++	WARN_ON(offset + size > obj->base.size ||
++		offset_in_page(offset) + size > PAGE_SIZE);
++
++	i915_gem_object_lock(obj, NULL);
++
++	ret = i915_gem_object_wait(obj, 0, MAX_SCHEDULE_TIMEOUT);
++	if (ret)
++		goto unlock;
++
++	ret = i915_gem_object_pin_pages(obj);
++	if (ret)
++		goto unlock;
++
++	if (i915_gem_object_has_struct_page(obj))
++		i915_gem_object_read_from_page_kmap(obj, offset, size, dst);
++	else
++		i915_gem_object_read_from_page_iomap(obj, offset, size, dst);
++
++	i915_gem_object_unpin_pages(obj);
++unlock:
++	i915_gem_object_unlock(obj);
++
++	return ret;
++}
++
+ void i915_gem_init__objects(struct drm_i915_private *i915)
+ {
+ 	INIT_WORK(&i915->mm.free_work, __i915_gem_free_work);
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.h b/drivers/gpu/drm/i915/gem/i915_gem_object.h
+index be14486f63a7..75223f472a2b 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_object.h
++++ b/drivers/gpu/drm/i915/gem/i915_gem_object.h
+@@ -540,4 +540,6 @@ i915_gem_object_invalidate_frontbuffer(struct drm_i915_gem_object *obj,
+ 		__i915_gem_object_invalidate_frontbuffer(obj, origin);
+ }
+ 
++int i915_gem_object_read_from_page(struct drm_i915_gem_object *obj, unsigned long offset, size_t size, void *dst);
++
+ #endif
+-- 
+2.25.1
 
 _______________________________________________
 Intel-gfx mailing list
