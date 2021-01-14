@@ -2,50 +2,44 @@ Return-Path: <SRS0=EqF4=GR=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.5 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D913CC433DB
-	for <intel-gfx@archiver.kernel.org>; Thu, 14 Jan 2021 11:15:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 37F02C433E0
+	for <intel-gfx@archiver.kernel.org>; Thu, 14 Jan 2021 11:16:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9779B238EC
-	for <intel-gfx@archiver.kernel.org>; Thu, 14 Jan 2021 11:15:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9779B238EC
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id E4283238A1
+	for <intel-gfx@archiver.kernel.org>; Thu, 14 Jan 2021 11:16:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E4283238A1
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0951C899E9;
-	Thu, 14 Jan 2021 11:15:29 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB6CA6E243
- for <intel-gfx@lists.freedesktop.org>; Thu, 14 Jan 2021 11:15:25 +0000 (UTC)
-IronPort-SDR: f1FMKLluAsTBXB2b1oWwek3Civ41SG5SG8pFXBZhndEZoccj164Y4t/NZdj07oQZX8+ackkkeD
- acUNuiPpfM6w==
-X-IronPort-AV: E=McAfee;i="6000,8403,9863"; a="242420451"
-X-IronPort-AV: E=Sophos;i="5.79,347,1602572400"; d="scan'208";a="242420451"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Jan 2021 03:15:25 -0800
-IronPort-SDR: SUQMBXdSizLNL4UFRaN9+LpOpo7dSzJf0YGmtdWHJ8JMzMUov8YqvPs9v7rpLFVd/AkcY611QK
- dxGXlCIKSSzQ==
-X-IronPort-AV: E=Sophos;i="5.79,347,1602572400"; d="scan'208";a="349132945"
-Received: from dforourk-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.213.254.146])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Jan 2021 03:15:23 -0800
-From: Jani Nikula <jani.nikula@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Thu, 14 Jan 2021 13:13:55 +0200
-Message-Id: <9fbc056cb9773de6945f07d9318094fb6f5cd10c.1610622609.git.jani.nikula@intel.com>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <cover.1610622609.git.jani.nikula@intel.com>
-References: <cover.1610622609.git.jani.nikula@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 706DC89491;
+	Thu, 14 Jan 2021 11:16:46 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 592AC89491;
+ Thu, 14 Jan 2021 11:16:45 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id E5D7AB7A6;
+ Thu, 14 Jan 2021 11:16:43 +0000 (UTC)
+To: Stephen Rothwell <sfr@canb.auug.org.au>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Intel Graphics <intel-gfx@lists.freedesktop.org>,
+ DRI <dri-devel@lists.freedesktop.org>
+References: <20210114113107.622102e0@canb.auug.org.au>
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Message-ID: <524351d0-506d-bd49-ab50-66316d7e5105@suse.de>
+Date: Thu, 14 Jan 2021 12:16:42 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.0
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 11/11] drm/i915: migrate i9xx plane get config
+In-Reply-To: <20210114113107.622102e0@canb.auug.org.au>
+Subject: Re: [Intel-gfx] linux-next: build failure after merge of the
+ drm-misc tree
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,313 +52,110 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com, Dave Airlie <airlied@redhat.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Linux Next Mailing List <linux-next@vger.kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Content-Type: multipart/mixed; boundary="===============0085917777=="
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Dave Airlie <airlied@redhat.com>
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============0085917777==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="jJL4pOPwDC6gspy7p5JwzKT8iKU9cxx8Y"
 
-Migrate this code out like the skylake code.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--jJL4pOPwDC6gspy7p5JwzKT8iKU9cxx8Y
+Content-Type: multipart/mixed; boundary="oYbDUBfhMYZhf86gzX4V6y4JZK6TwFz2I";
+ protected-headers="v1"
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: Stephen Rothwell <sfr@canb.auug.org.au>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Intel Graphics <intel-gfx@lists.freedesktop.org>,
+ DRI <dri-devel@lists.freedesktop.org>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>
+Message-ID: <524351d0-506d-bd49-ab50-66316d7e5105@suse.de>
+Subject: Re: linux-next: build failure after merge of the drm-misc tree
+References: <20210114113107.622102e0@canb.auug.org.au>
+In-Reply-To: <20210114113107.622102e0@canb.auug.org.au>
 
-!!! FIXME: Dave's s-o-b !!!
+--oYbDUBfhMYZhf86gzX4V6y4JZK6TwFz2I
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
----
- drivers/gpu/drm/i915/display/i9xx_plane.c    | 119 +++++++++++++++++++
- drivers/gpu/drm/i915/display/i9xx_plane.h    |   4 +
- drivers/gpu/drm/i915/display/intel_display.c | 119 -------------------
- 3 files changed, 123 insertions(+), 119 deletions(-)
+Hi
 
-diff --git a/drivers/gpu/drm/i915/display/i9xx_plane.c b/drivers/gpu/drm/i915/display/i9xx_plane.c
-index 6c568079f492..a063a92f04dc 100644
---- a/drivers/gpu/drm/i915/display/i9xx_plane.c
-+++ b/drivers/gpu/drm/i915/display/i9xx_plane.c
-@@ -698,3 +698,122 @@ intel_primary_plane_create(struct drm_i915_private *dev_priv, enum pipe pipe)
- 	return ERR_PTR(ret);
- }
- 
-+static int i9xx_format_to_fourcc(int format)
-+{
-+	switch (format) {
-+	case DISPPLANE_8BPP:
-+		return DRM_FORMAT_C8;
-+	case DISPPLANE_BGRA555:
-+		return DRM_FORMAT_ARGB1555;
-+	case DISPPLANE_BGRX555:
-+		return DRM_FORMAT_XRGB1555;
-+	case DISPPLANE_BGRX565:
-+		return DRM_FORMAT_RGB565;
-+	default:
-+	case DISPPLANE_BGRX888:
-+		return DRM_FORMAT_XRGB8888;
-+	case DISPPLANE_RGBX888:
-+		return DRM_FORMAT_XBGR8888;
-+	case DISPPLANE_BGRA888:
-+		return DRM_FORMAT_ARGB8888;
-+	case DISPPLANE_RGBA888:
-+		return DRM_FORMAT_ABGR8888;
-+	case DISPPLANE_BGRX101010:
-+		return DRM_FORMAT_XRGB2101010;
-+	case DISPPLANE_RGBX101010:
-+		return DRM_FORMAT_XBGR2101010;
-+	case DISPPLANE_BGRA101010:
-+		return DRM_FORMAT_ARGB2101010;
-+	case DISPPLANE_RGBA101010:
-+		return DRM_FORMAT_ABGR2101010;
-+	case DISPPLANE_RGBX161616:
-+		return DRM_FORMAT_XBGR16161616F;
-+	}
-+}
-+
-+void
-+i9xx_get_initial_plane_config(struct intel_crtc *crtc,
-+			      struct intel_initial_plane_config *plane_config)
-+{
-+	struct drm_device *dev = crtc->base.dev;
-+	struct drm_i915_private *dev_priv = to_i915(dev);
-+	struct intel_plane *plane = to_intel_plane(crtc->base.primary);
-+	enum i9xx_plane_id i9xx_plane = plane->i9xx_plane;
-+	enum pipe pipe;
-+	u32 val, base, offset;
-+	int fourcc, pixel_format;
-+	unsigned int aligned_height;
-+	struct drm_framebuffer *fb;
-+	struct intel_framebuffer *intel_fb;
-+
-+	if (!plane->get_hw_state(plane, &pipe))
-+		return;
-+
-+	drm_WARN_ON(dev, pipe != crtc->pipe);
-+
-+	intel_fb = kzalloc(sizeof(*intel_fb), GFP_KERNEL);
-+	if (!intel_fb) {
-+		drm_dbg_kms(&dev_priv->drm, "failed to alloc fb\n");
-+		return;
-+	}
-+
-+	fb = &intel_fb->base;
-+
-+	fb->dev = dev;
-+
-+	val = intel_de_read(dev_priv, DSPCNTR(i9xx_plane));
-+
-+	if (INTEL_GEN(dev_priv) >= 4) {
-+		if (val & DISPPLANE_TILED) {
-+			plane_config->tiling = I915_TILING_X;
-+			fb->modifier = I915_FORMAT_MOD_X_TILED;
-+		}
-+
-+		if (val & DISPPLANE_ROTATE_180)
-+			plane_config->rotation = DRM_MODE_ROTATE_180;
-+	}
-+
-+	if (IS_CHERRYVIEW(dev_priv) && pipe == PIPE_B &&
-+	    val & DISPPLANE_MIRROR)
-+		plane_config->rotation |= DRM_MODE_REFLECT_X;
-+
-+	pixel_format = val & DISPPLANE_PIXFORMAT_MASK;
-+	fourcc = i9xx_format_to_fourcc(pixel_format);
-+	fb->format = drm_format_info(fourcc);
-+
-+	if (IS_HASWELL(dev_priv) || IS_BROADWELL(dev_priv)) {
-+		offset = intel_de_read(dev_priv, DSPOFFSET(i9xx_plane));
-+		base = intel_de_read(dev_priv, DSPSURF(i9xx_plane)) & 0xfffff000;
-+	} else if (INTEL_GEN(dev_priv) >= 4) {
-+		if (plane_config->tiling)
-+			offset = intel_de_read(dev_priv,
-+					       DSPTILEOFF(i9xx_plane));
-+		else
-+			offset = intel_de_read(dev_priv,
-+					       DSPLINOFF(i9xx_plane));
-+		base = intel_de_read(dev_priv, DSPSURF(i9xx_plane)) & 0xfffff000;
-+	} else {
-+		base = intel_de_read(dev_priv, DSPADDR(i9xx_plane));
-+	}
-+	plane_config->base = base;
-+
-+	val = intel_de_read(dev_priv, PIPESRC(pipe));
-+	fb->width = ((val >> 16) & 0xfff) + 1;
-+	fb->height = ((val >> 0) & 0xfff) + 1;
-+
-+	val = intel_de_read(dev_priv, DSPSTRIDE(i9xx_plane));
-+	fb->pitches[0] = val & 0xffffffc0;
-+
-+	aligned_height = intel_fb_align_height(fb, 0, fb->height);
-+
-+	plane_config->size = fb->pitches[0] * aligned_height;
-+
-+	drm_dbg_kms(&dev_priv->drm,
-+		    "%s/%s with fb: size=%dx%d@%d, offset=%x, pitch %d, size 0x%x\n",
-+		    crtc->base.name, plane->base.name, fb->width, fb->height,
-+		    fb->format->cpp[0] * 8, base, fb->pitches[0],
-+		    plane_config->size);
-+
-+	plane_config->fb = intel_fb;
-+}
-+
-diff --git a/drivers/gpu/drm/i915/display/i9xx_plane.h b/drivers/gpu/drm/i915/display/i9xx_plane.h
-index bc2834a62735..191c312a7e97 100644
---- a/drivers/gpu/drm/i915/display/i9xx_plane.h
-+++ b/drivers/gpu/drm/i915/display/i9xx_plane.h
-@@ -10,6 +10,8 @@
- 
- enum pipe;
- struct drm_i915_private;
-+struct intel_crtc;
-+struct intel_initial_plane_config;
- struct intel_plane;
- struct intel_plane_state;
- 
-@@ -21,4 +23,6 @@ int i9xx_check_plane_surface(struct intel_plane_state *plane_state);
- struct intel_plane *
- intel_primary_plane_create(struct drm_i915_private *dev_priv, enum pipe pipe);
- 
-+void i9xx_get_initial_plane_config(struct intel_crtc *crtc,
-+				   struct intel_initial_plane_config *plane_config);
- #endif
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 8abd49cf9c2b..0539357e34b3 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -2162,39 +2162,6 @@ intel_plane_compute_gtt(struct intel_plane_state *plane_state)
- 	return intel_plane_check_stride(plane_state);
- }
- 
--static int i9xx_format_to_fourcc(int format)
--{
--	switch (format) {
--	case DISPPLANE_8BPP:
--		return DRM_FORMAT_C8;
--	case DISPPLANE_BGRA555:
--		return DRM_FORMAT_ARGB1555;
--	case DISPPLANE_BGRX555:
--		return DRM_FORMAT_XRGB1555;
--	case DISPPLANE_BGRX565:
--		return DRM_FORMAT_RGB565;
--	default:
--	case DISPPLANE_BGRX888:
--		return DRM_FORMAT_XRGB8888;
--	case DISPPLANE_RGBX888:
--		return DRM_FORMAT_XBGR8888;
--	case DISPPLANE_BGRA888:
--		return DRM_FORMAT_ARGB8888;
--	case DISPPLANE_RGBA888:
--		return DRM_FORMAT_ABGR8888;
--	case DISPPLANE_BGRX101010:
--		return DRM_FORMAT_XRGB2101010;
--	case DISPPLANE_RGBX101010:
--		return DRM_FORMAT_XBGR2101010;
--	case DISPPLANE_BGRA101010:
--		return DRM_FORMAT_ARGB2101010;
--	case DISPPLANE_RGBA101010:
--		return DRM_FORMAT_ABGR2101010;
--	case DISPPLANE_RGBX161616:
--		return DRM_FORMAT_XBGR16161616F;
--	}
--}
--
- static struct i915_vma *
- initial_plane_vma(struct drm_i915_private *i915,
- 		  struct intel_initial_plane_config *plane_config)
-@@ -5850,92 +5817,6 @@ static void vlv_crtc_clock_get(struct intel_crtc *crtc,
- 	pipe_config->port_clock = vlv_calc_dpll_params(refclk, &clock);
- }
- 
--static void
--i9xx_get_initial_plane_config(struct intel_crtc *crtc,
--			      struct intel_initial_plane_config *plane_config)
--{
--	struct drm_device *dev = crtc->base.dev;
--	struct drm_i915_private *dev_priv = to_i915(dev);
--	struct intel_plane *plane = to_intel_plane(crtc->base.primary);
--	enum i9xx_plane_id i9xx_plane = plane->i9xx_plane;
--	enum pipe pipe;
--	u32 val, base, offset;
--	int fourcc, pixel_format;
--	unsigned int aligned_height;
--	struct drm_framebuffer *fb;
--	struct intel_framebuffer *intel_fb;
--
--	if (!plane->get_hw_state(plane, &pipe))
--		return;
--
--	drm_WARN_ON(dev, pipe != crtc->pipe);
--
--	intel_fb = kzalloc(sizeof(*intel_fb), GFP_KERNEL);
--	if (!intel_fb) {
--		drm_dbg_kms(&dev_priv->drm, "failed to alloc fb\n");
--		return;
--	}
--
--	fb = &intel_fb->base;
--
--	fb->dev = dev;
--
--	val = intel_de_read(dev_priv, DSPCNTR(i9xx_plane));
--
--	if (INTEL_GEN(dev_priv) >= 4) {
--		if (val & DISPPLANE_TILED) {
--			plane_config->tiling = I915_TILING_X;
--			fb->modifier = I915_FORMAT_MOD_X_TILED;
--		}
--
--		if (val & DISPPLANE_ROTATE_180)
--			plane_config->rotation = DRM_MODE_ROTATE_180;
--	}
--
--	if (IS_CHERRYVIEW(dev_priv) && pipe == PIPE_B &&
--	    val & DISPPLANE_MIRROR)
--		plane_config->rotation |= DRM_MODE_REFLECT_X;
--
--	pixel_format = val & DISPPLANE_PIXFORMAT_MASK;
--	fourcc = i9xx_format_to_fourcc(pixel_format);
--	fb->format = drm_format_info(fourcc);
--
--	if (IS_HASWELL(dev_priv) || IS_BROADWELL(dev_priv)) {
--		offset = intel_de_read(dev_priv, DSPOFFSET(i9xx_plane));
--		base = intel_de_read(dev_priv, DSPSURF(i9xx_plane)) & 0xfffff000;
--	} else if (INTEL_GEN(dev_priv) >= 4) {
--		if (plane_config->tiling)
--			offset = intel_de_read(dev_priv,
--					       DSPTILEOFF(i9xx_plane));
--		else
--			offset = intel_de_read(dev_priv,
--					       DSPLINOFF(i9xx_plane));
--		base = intel_de_read(dev_priv, DSPSURF(i9xx_plane)) & 0xfffff000;
--	} else {
--		base = intel_de_read(dev_priv, DSPADDR(i9xx_plane));
--	}
--	plane_config->base = base;
--
--	val = intel_de_read(dev_priv, PIPESRC(pipe));
--	fb->width = ((val >> 16) & 0xfff) + 1;
--	fb->height = ((val >> 0) & 0xfff) + 1;
--
--	val = intel_de_read(dev_priv, DSPSTRIDE(i9xx_plane));
--	fb->pitches[0] = val & 0xffffffc0;
--
--	aligned_height = intel_fb_align_height(fb, 0, fb->height);
--
--	plane_config->size = fb->pitches[0] * aligned_height;
--
--	drm_dbg_kms(&dev_priv->drm,
--		    "%s/%s with fb: size=%dx%d@%d, offset=%x, pitch %d, size 0x%x\n",
--		    crtc->base.name, plane->base.name, fb->width, fb->height,
--		    fb->format->cpp[0] * 8, base, fb->pitches[0],
--		    plane_config->size);
--
--	plane_config->fb = intel_fb;
--}
--
- static void chv_crtc_clock_get(struct intel_crtc *crtc,
- 			       struct intel_crtc_state *pipe_config)
- {
--- 
-2.20.1
+Am 14.01.21 um 01:31 schrieb Stephen Rothwell:
+> Hi all,
+>=20
+> After merging the drm-misc tree, today's linux-next build (arm
+> multi_v7_defconfig) failed like this:
+>=20
+> drivers/gpu/drm/drm_cache.c: In function 'drm_need_swiotlb':
+> drivers/gpu/drm/drm_cache.c:202:6: error: implicit declaration of funct=
+ion 'mem_encrypt_active' [-Werror=3Dimplicit-function-declaration]
+>    202 |  if (mem_encrypt_active())
+>        |      ^~~~~~~~~~~~~~~~~~
+>=20
+>=20
+> Caused by commit
+>=20
+>    3abc66706385 ("drm: Implement drm_need_swiotlb() in drm_cache.c")
+>=20
+> I have used the drm-misc tree from next-20210107 again for today.
+
+Sorry for the breakage. Fixed in drm-misc-next.
+
+Best regards
+Thomas
+
+>=20
+
+--=20
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Maxfeldstr. 5, 90409 N=FCrnberg, Germany
+(HRB 36809, AG N=FCrnberg)
+Gesch=E4ftsf=FChrer: Felix Imend=F6rffer
+
+
+--oYbDUBfhMYZhf86gzX4V6y4JZK6TwFz2I--
+
+--jJL4pOPwDC6gspy7p5JwzKT8iKU9cxx8Y
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmAAKBoFAwAAAAAACgkQlh/E3EQov+Bt
+zA//b9VYy7/b8sble+TS3HnmjvwcuMbp5ETrD8Ju40SU8bM+8Qb9NT6TL9FeAQro5UFKzMt1Jmci
+zXK+lkNyUxUo44hoDIUTVVlvvQQqUYbtB/wMWS6FoKHODyG/jfR9JtTPzmRuSmn2gesrBmZcCGe5
+0FL6UEJHH+U7Xw9Lmlxo7GSsVx6SUbDFNMz82DDoWU5lOd0Z0wMbJO/FVv5nGrlj3LuvDv+bUxf+
+BOWPyseaVLGYCu6ZfSfTWjNF8sN/ZI6XIrWidRjWeBK+rQFMKTqkkZFb+QtfPQLvcHiHlPEFv5FN
+bUfM65PZ4hxLWsdW6qhMSInDEqU6BwmWXph12UvX7ZvROz8xm3u/LqhGX3xNo/plmr/xFY4CkH8p
+BWWrO43zVbrqK1SEj8rQkPECiXXVhu8fD493WOT/dTaZkGbhqUrokLnATUdVBlfSFDurbr30JPSb
+8qAXS/40K6xNYUwpvCkSOxnvmjTH5GLGB8OjMGGhz/bEUx/mQNwIC3uRSjRioiBd+9DA9KMz3lvG
+C0nnQd7i9KwQVrAs3Me/cPmzcEYQUv39vmSLxoPaCGmyxG8VX/rwdPTSZ5EBm68jisj9quvzyEJx
+Kz7QoaUeG4dP6DGtezZ78rH5Yt8FyfPfCrc/YDdqApG4CojSLAPZ22aBQLLPnJM/dBwxtGVbHFt5
+jqU=
+=0oEf
+-----END PGP SIGNATURE-----
+
+--jJL4pOPwDC6gspy7p5JwzKT8iKU9cxx8Y--
+
+--===============0085917777==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+
+--===============0085917777==--
