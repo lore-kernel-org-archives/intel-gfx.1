@@ -2,48 +2,48 @@ Return-Path: <SRS0=EqF4=GR=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,INCLUDES_PULL_REQUEST,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DF8AAC433DB
-	for <intel-gfx@archiver.kernel.org>; Thu, 14 Jan 2021 10:55:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6C841C433E0
+	for <intel-gfx@archiver.kernel.org>; Thu, 14 Jan 2021 11:14:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8A54B239CF
-	for <intel-gfx@archiver.kernel.org>; Thu, 14 Jan 2021 10:55:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8A54B239CF
+	by mail.kernel.org (Postfix) with ESMTPS id 0ECB1238A1
+	for <intel-gfx@archiver.kernel.org>; Thu, 14 Jan 2021 11:14:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0ECB1238A1
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CB33D891F4;
-	Thu, 14 Jan 2021 10:55:04 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B15A891EC;
- Thu, 14 Jan 2021 10:55:03 +0000 (UTC)
-IronPort-SDR: e9mtSoTYEmeajIM5pM+VeM9sJ/Qo9RroTPO896M5IcLJOG7bDaDtpQzdiyQRGqzsFg/V93P9iD
- qBASdbfwdzsQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9863"; a="196997142"
-X-IronPort-AV: E=Sophos;i="5.79,347,1602572400"; d="scan'208";a="196997142"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Jan 2021 02:55:00 -0800
-IronPort-SDR: 5NS0vfQB0197Xd+J0LCoQhDUHrAQbMSjeqMN8WENRipU7pApqTkW+T799tTWiIo8G7tXXHQdKy
- ZeDm1TWrXKFg==
-X-IronPort-AV: E=Sophos;i="5.79,347,1602572400"; d="scan'208";a="424911372"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 38AD36E1F5;
+	Thu, 14 Jan 2021 11:14:10 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A92756E1F5
+ for <intel-gfx@lists.freedesktop.org>; Thu, 14 Jan 2021 11:14:08 +0000 (UTC)
+IronPort-SDR: qea0o/Ixq0catta4u0LNaDlv5zLheF2cG4PQ1EX39DY4uI4E2jJY15ciwVLJAu2k4OhdmTvQ+8
+ q91PpOIlxKmw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9863"; a="158123127"
+X-IronPort-AV: E=Sophos;i="5.79,347,1602572400"; d="scan'208";a="158123127"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Jan 2021 03:14:08 -0800
+IronPort-SDR: iiOokYJj/aBzDRWSQkHiEXd2j+efjyB0RhG2/mF6VSEnYaeR0HRpYCEKpCMvRZ7XpCcB0+3UIq
+ U1eAIO8pBntA==
+X-IronPort-AV: E=Sophos;i="5.79,347,1602572400"; d="scan'208";a="382231905"
 Received: from dforourk-mobl1.ger.corp.intel.com (HELO localhost)
  ([10.213.254.146])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Jan 2021 02:54:56 -0800
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Jan 2021 03:14:05 -0800
 From: Jani Nikula <jani.nikula@intel.com>
-To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel.vetter@ffwll.ch>, 
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Date: Thu, 14 Jan 2021 12:54:53 +0200
-Message-ID: <87sg73pz42.fsf@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Thu, 14 Jan 2021 13:13:44 +0200
+Message-Id: <cover.1610622609.git.jani.nikula@intel.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PULL] drm-intel-fixes
+Subject: [Intel-gfx] [PATCH 00/11] [rfc v7.1] rebased refactor of
+ intel_display
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,90 +56,84 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: , dim-tools@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Maxime Ripard <mripard@kernel.org>, intel-gfx@lists.freedesktop.org
+Cc: jani.nikula@intel.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+I inadvertently pushed some patches this morning that ended up conflicting with
+Dave's series [1], so here's a rebase.
 
-Hi Dave & Daniel -
+Two patches in the end are missing Dave's Signed-off-by.
 
-drm-intel-fixes-2021-01-14:
-drm/i915 fixes for v5.11-rc4:
-- Allow the sysadmin to override security mitigations
-- Restore clear-residual mitigations for ivb/byt
-- Limit VFE threads based on GT
-- GVT: fix vfio edid and full display detection
-- Fix DSI DSC power refcounting
-- Fix LPT CPU mode backlight takeover
-- Disable RPM wakeref assertions during driver shutdown
-- Fix DSI sequence sleeps
+I also fixed some HDRTEST issues. Dave, could I persuade you to enable
+CONFIG_DRM_I915_WERROR=y when building i915 please? It'll keep the headers
+clean.
 
 BR,
 Jani.
 
-The following changes since commit 7c53f6b671f4aba70ff15e1b05148b10d58c2837:
 
-  Linux 5.11-rc3 (2021-01-10 14:34:50 -0800)
+[1] https://patchwork.freedesktop.org/series/85846/
 
-are available in the Git repository at:
 
-  git://anongit.freedesktop.org/drm/drm-intel tags/drm-intel-fixes-2021-01-14
+Dave Airlie (11):
+  drm/i915: refactor some crtc code out of intel display. (v2)
+  drm/i915: refactor pll code out into intel_dpll.c
+  drm/i915: split fdi code out from intel_display.c
+  drm/i915: refactor ddi translations into a separate file
+  drm/i915: migrate hsw fdi code to new file.
+  drm/i915: migrate skl planes code new file (v3)
+  drm/i915: move pipe update code into crtc.
+  drm/i915: split fb scalable checks into g4x and skl versions
+  drm/i915: move is_ccs_modifier to an inline
+  drm/i915: migrate pll enable/disable code to intel_dpll.[ch]
+  drm/i915: migrate i9xx plane get config
 
-for you to fetch changes up to 984cadea032b103c5824a5f29d0a36b3e9df6333:
-
-  drm/i915: Allow the sysadmin to override security mitigations (2021-01-12 19:03:40 +0200)
-
-----------------------------------------------------------------
-drm/i915 fixes for v5.11-rc4:
-- Allow the sysadmin to override security mitigations
-- Restore clear-residual mitigations for ivb/byt
-- Limit VFE threads based on GT
-- GVT: fix vfio edid and full display detection
-- Fix DSI DSC power refcounting
-- Fix LPT CPU mode backlight takeover
-- Disable RPM wakeref assertions during driver shutdown
-- Fix DSI sequence sleeps
-
-----------------------------------------------------------------
-Chris Wilson (4):
-      drm/i915: Disable RPM wakeref assertions during driver shutdown
-      drm/i915/gt: Limit VFE threads based on GT
-      drm/i915/gt: Restore clear-residual mitigations for Ivybridge, Baytrail
-      drm/i915: Allow the sysadmin to override security mitigations
-
-Colin Xu (1):
-      drm/i915/gvt: Fix vfio_edid issue for BXT/APL
-
-Hans de Goede (1):
-      drm/i915/dsi: Use unconditional msleep for the panel_on_delay when there is no reset-deassert MIPI-sequence
-
-Imre Deak (1):
-      drm/i915/icl: Fix initing the DSI DSC power refcount during HW readout
-
-Jani Nikula (2):
-      drm/i915/backlight: fix CPU mode backlight takeover on LPT
-      Merge tag 'gvt-fixes-2020-01-08' of https://github.com/intel/gvt-linux into drm-intel-fixes
-
- drivers/gpu/drm/i915/Makefile                   |   1 +
- drivers/gpu/drm/i915/display/icl_dsi.c          |   4 -
- drivers/gpu/drm/i915/display/intel_panel.c      |   9 +-
- drivers/gpu/drm/i915/display/vlv_dsi.c          |  16 ++-
- drivers/gpu/drm/i915/gt/gen7_renderclear.c      | 157 ++++++++++++++----------
- drivers/gpu/drm/i915/gt/intel_ring_submission.c |   6 +-
- drivers/gpu/drm/i915/gvt/display.c              |  81 ++++++++----
- drivers/gpu/drm/i915/gvt/vgpu.c                 |   5 +-
- drivers/gpu/drm/i915/i915_drv.c                 |   4 +
- drivers/gpu/drm/i915/i915_mitigations.c         | 146 ++++++++++++++++++++++
- drivers/gpu/drm/i915/i915_mitigations.h         |  13 ++
- 11 files changed, 339 insertions(+), 103 deletions(-)
- create mode 100644 drivers/gpu/drm/i915/i915_mitigations.c
- create mode 100644 drivers/gpu/drm/i915/i915_mitigations.h
+ drivers/gpu/drm/i915/Makefile                 |    7 +-
+ drivers/gpu/drm/i915/display/i9xx_plane.c     |  123 +-
+ drivers/gpu/drm/i915/display/i9xx_plane.h     |    4 +
+ drivers/gpu/drm/i915/display/icl_dsi.c        |    1 +
+ drivers/gpu/drm/i915/display/intel_crt.c      |    1 +
+ drivers/gpu/drm/i915/display/intel_crtc.c     |  564 +++
+ drivers/gpu/drm/i915/display/intel_crtc.h     |   22 +
+ drivers/gpu/drm/i915/display/intel_ddi.c      | 1559 +-----
+ drivers/gpu/drm/i915/display/intel_ddi.h      |    8 +-
+ .../drm/i915/display/intel_ddi_buf_trans.c    | 1358 ++++++
+ .../drm/i915/display/intel_ddi_buf_trans.h    |  100 +
+ drivers/gpu/drm/i915/display/intel_display.c  | 4193 +----------------
+ drivers/gpu/drm/i915/display/intel_display.h  |   34 +-
+ .../drm/i915/display/intel_display_types.h    |   51 +
+ drivers/gpu/drm/i915/display/intel_dp.c       |    1 +
+ drivers/gpu/drm/i915/display/intel_dp_mst.c   |    1 +
+ drivers/gpu/drm/i915/display/intel_dpll.c     | 1872 ++++++++
+ drivers/gpu/drm/i915/display/intel_dpll.h     |   41 +
+ drivers/gpu/drm/i915/display/intel_fdi.c      |  822 ++++
+ drivers/gpu/drm/i915/display/intel_fdi.h      |   25 +
+ drivers/gpu/drm/i915/display/intel_pps.c      |    1 +
+ drivers/gpu/drm/i915/display/intel_psr.c      |    1 +
+ drivers/gpu/drm/i915/display/intel_sprite.c   | 1662 +------
+ drivers/gpu/drm/i915/display/intel_sprite.h   |    6 +-
+ .../drm/i915/display/skl_universal_plane.c    | 2263 +++++++++
+ .../drm/i915/display/skl_universal_plane.h    |   33 +
+ drivers/gpu/drm/i915/display/vlv_dsi.c        |    1 +
+ drivers/gpu/drm/i915/intel_pm.c               |    1 +
+ 28 files changed, 7522 insertions(+), 7233 deletions(-)
+ create mode 100644 drivers/gpu/drm/i915/display/intel_crtc.c
+ create mode 100644 drivers/gpu/drm/i915/display/intel_crtc.h
+ create mode 100644 drivers/gpu/drm/i915/display/intel_ddi_buf_trans.c
+ create mode 100644 drivers/gpu/drm/i915/display/intel_ddi_buf_trans.h
+ create mode 100644 drivers/gpu/drm/i915/display/intel_dpll.c
+ create mode 100644 drivers/gpu/drm/i915/display/intel_dpll.h
+ create mode 100644 drivers/gpu/drm/i915/display/intel_fdi.c
+ create mode 100644 drivers/gpu/drm/i915/display/intel_fdi.h
+ create mode 100644 drivers/gpu/drm/i915/display/skl_universal_plane.c
+ create mode 100644 drivers/gpu/drm/i915/display/skl_universal_plane.h
 
 -- 
-Jani Nikula, Intel Open Source Graphics Center
+2.20.1
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
