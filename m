@@ -2,54 +2,50 @@ Return-Path: <SRS0=EqF4=GR=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+X-Spam-Status: No, score=-0.8 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EBC36C433E0
-	for <intel-gfx@archiver.kernel.org>; Thu, 14 Jan 2021 03:02:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 659BDC433DB
+	for <intel-gfx@archiver.kernel.org>; Thu, 14 Jan 2021 03:06:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6FF7223619
-	for <intel-gfx@archiver.kernel.org>; Thu, 14 Jan 2021 03:02:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6FF7223619
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=etezian.org
+	by mail.kernel.org (Postfix) with ESMTPS id F0F0D23619
+	for <intel-gfx@archiver.kernel.org>; Thu, 14 Jan 2021 03:06:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F0F0D23619
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A072689C1F;
-	Thu, 14 Jan 2021 03:02:03 +0000 (UTC)
-Received: from 19.mo7.mail-out.ovh.net (19.mo7.mail-out.ovh.net
- [178.33.251.118])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A5D1989C1F
- for <intel-gfx@lists.freedesktop.org>; Thu, 14 Jan 2021 03:02:01 +0000 (UTC)
-Received: from player795.ha.ovh.net (unknown [10.108.42.215])
- by mo7.mail-out.ovh.net (Postfix) with ESMTP id 1BACA1810B1
- for <intel-gfx@lists.freedesktop.org>; Thu, 14 Jan 2021 04:02:00 +0100 (CET)
-Received: from etezian.org (213-243-141-64.bb.dnainternet.fi [213.243.141.64])
- (Authenticated sender: andi@etezian.org)
- by player795.ha.ovh.net (Postfix) with ESMTPSA id 7061B19CF355D;
- Thu, 14 Jan 2021 03:01:56 +0000 (UTC)
-Authentication-Results: garm.ovh; auth=pass
- (GARM-106R006daff3a86-63e9-4598-acb5-bf9c743495ef,
- 72D3C5DAFF26A6515C48D523C3EFD44FB281F22F) smtp.auth=andi@etezian.org
-X-OVh-ClientIp: 213.243.141.64
-Date: Thu, 14 Jan 2021 05:01:55 +0200
-From: Andi Shyti <andi@etezian.org>
-To: Chris Wilson <chris@chris-wilson.co.uk>
-Message-ID: <X/+0IwEktOtNXVGJ@jack.zhora.eu>
-References: <20210113124600.656-1-chris@chris-wilson.co.uk>
- <20210113124600.656-4-chris@chris-wilson.co.uk>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 85AD389AC0;
+	Thu, 14 Jan 2021 03:06:15 +0000 (UTC)
+Received: from us-smtp-delivery-44.mimecast.com
+ (us-smtp-delivery-44.mimecast.com [205.139.111.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C5B0A89AC0
+ for <intel-gfx@lists.freedesktop.org>; Thu, 14 Jan 2021 03:06:13 +0000 (UTC)
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-572-Xu_kWkYNMTWp7jnau7iv_Q-1; Wed, 13 Jan 2021 22:06:10 -0500
+X-MC-Unique: Xu_kWkYNMTWp7jnau7iv_Q-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
+ [10.5.11.11])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 37450806661
+ for <intel-gfx@lists.freedesktop.org>; Thu, 14 Jan 2021 03:06:09 +0000 (UTC)
+Received: from dreadlord-bne-redhat-com.bne.redhat.com (unknown [10.64.32.209])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 9BB7C6F44A
+ for <intel-gfx@lists.freedesktop.org>; Thu, 14 Jan 2021 03:06:08 +0000 (UTC)
+From: Dave Airlie <airlied@gmail.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Thu, 14 Jan 2021 13:05:55 +1000
+Message-Id: <20210114030606.19831-1-airlied@gmail.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210113124600.656-4-chris@chris-wilson.co.uk>
-X-Ovh-Tracer-Id: 12981625926813663753
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedukedrtdeggdehfecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpeffhffvuffkfhggtggujgesthdtredttddtvdenucfhrhhomheptehnughiucfuhhihthhiuceorghnughisegvthgviihirghnrdhorhhgqeenucggtffrrghtthgvrhhnpedtgfduudfhfeeuueejfeeihedtfeetgfegveehgfeuleelhfduteegieekudeifeenucfkpheptddrtddrtddrtddpvddufedrvdegfedrudeguddrieegnecuvehluhhsthgvrhfuihiivgepvdenucfrrghrrghmpehmohguvgepshhmthhpqdhouhhtpdhhvghlohepphhlrgihvghrjeelhedrhhgrrdhovhhhrdhnvghtpdhinhgvtheptddrtddrtddrtddpmhgrihhlfhhrohhmpegrnhguihesvghtvgiiihgrnhdrohhrghdprhgtphhtthhopehinhhtvghlqdhgfhigsehlihhsthhsrdhfrhgvvgguvghskhhtohhprdhorhhg
-Subject: Re: [Intel-gfx] [PATCH 04/10] drm/i915/gem: Reduce
- ctx->engines_mutex for get_engines()
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: gmail.com
+Subject: [Intel-gfx] [rfc v7] rebased refactor of intel_display
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,24 +58,22 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Chris,
+Hi Jani and Ville,
 
-On Wed, Jan 13, 2021 at 12:45:54PM +0000, Chris Wilson wrote:
-> Take a snapshot of the ctx->engines, so we can avoid taking the
-> ctx->engines_mutex for a mere read in get_engines().
-> 
-> Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+This is a rebased taking into account the changes that happened since
+and the backmerge.
 
-Reviewed-by: Andi Shyti <andi.shyti@intel.com>
+Some of these are reviewed already so it would be good to get them
+pushed asap.
 
-Thanks,
-Andi
+Dave.
+
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
