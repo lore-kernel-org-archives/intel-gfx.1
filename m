@@ -7,38 +7,37 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4D90FC433E6
-	for <intel-gfx@archiver.kernel.org>; Fri, 15 Jan 2021 08:19:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EDA59C433DB
+	for <intel-gfx@archiver.kernel.org>; Fri, 15 Jan 2021 08:19:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DD77222240
-	for <intel-gfx@archiver.kernel.org>; Fri, 15 Jan 2021 08:19:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DD77222240
+	by mail.kernel.org (Postfix) with ESMTPS id 820FB2072D
+	for <intel-gfx@archiver.kernel.org>; Fri, 15 Jan 2021 08:19:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 820FB2072D
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CEF426E190;
-	Fri, 15 Jan 2021 08:19:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 30A526E19A;
+	Fri, 15 Jan 2021 08:19:19 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 35D2F6E188
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 45A316E18F
  for <intel-gfx@lists.freedesktop.org>; Fri, 15 Jan 2021 08:19:17 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23602671-1500050 
- for multiple; Fri, 15 Jan 2021 08:19:11 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23602668-1500050 
+ for multiple; Fri, 15 Jan 2021 08:19:10 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 15 Jan 2021 08:19:08 +0000
-Message-Id: <20210115081908.29494-4-chris@chris-wilson.co.uk>
+Date: Fri, 15 Jan 2021 08:19:05 +0000
+Message-Id: <20210115081908.29494-1-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210115081908.29494-1-chris@chris-wilson.co.uk>
+In-Reply-To: <mika.kuoppala@linux.intel.com>
 References: <mika.kuoppala@linux.intel.com>
- <20210115081908.29494-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 4/4] drm/i915: Mark per-engine-reset as
- supported on gen7
+Subject: [Intel-gfx] [PATCH 1/4] drm/i915/selftests: Prepare the selftests
+ for engine resets with ring submission
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,49 +56,111 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The benefit of only resetting a single engine is that we leave other
-streams of userspace work intact across a hang; vital for process
-isolation. We had wired up individual engine resets for gen6, but only
-enabled it from gen8; now let's turn it on for the forgotten gen7. gen6
-is still a mystery as how to unravel some global state that appears to
-be reset along with an engine (in particular the ppgtt enabling in
-GFX_MODE).
+The engine resets selftests kick the tasklets, safe up until now as only
+execlists supported engine resets.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 ---
- drivers/gpu/drm/i915/i915_pci.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/gt/selftest_hangcheck.c | 18 ++++++++++++++----
+ drivers/gpu/drm/i915/gt/selftest_reset.c     | 11 ++++++++---
+ 2 files changed, 22 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
-index 39608381b4a4..020b5f561f07 100644
---- a/drivers/gpu/drm/i915/i915_pci.c
-+++ b/drivers/gpu/drm/i915/i915_pci.c
-@@ -455,6 +455,7 @@ static const struct intel_device_info snb_m_gt2_info = {
- 	.has_llc = 1, \
- 	.has_rc6 = 1, \
- 	.has_rc6p = 1, \
-+	.has_reset_engine = true, \
- 	.has_rps = true, \
- 	.dma_mask_size = 40, \
- 	.ppgtt_type = INTEL_PPGTT_ALIASING, \
-@@ -513,6 +514,7 @@ static const struct intel_device_info vlv_info = {
- 	.cpu_transcoder_mask = BIT(TRANSCODER_A) | BIT(TRANSCODER_B),
- 	.has_runtime_pm = 1,
- 	.has_rc6 = 1,
-+	.has_reset_engine = true,
- 	.has_rps = true,
- 	.display.has_gmch = 1,
- 	.display.has_hotplug = 1,
-@@ -571,8 +573,7 @@ static const struct intel_device_info hsw_gt3_info = {
- 	.dma_mask_size = 39, \
- 	.ppgtt_type = INTEL_PPGTT_FULL, \
- 	.ppgtt_size = 48, \
--	.has_64bit_reloc = 1, \
--	.has_reset_engine = 1
-+	.has_64bit_reloc = 1
+diff --git a/drivers/gpu/drm/i915/gt/selftest_hangcheck.c b/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
+index 460c3e9542f4..463bb6a700c8 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
++++ b/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
+@@ -704,6 +704,7 @@ static int __igt_reset_engine(struct intel_gt *gt, bool active)
  
- #define BDW_PLATFORM \
- 	GEN8_FEATURES, \
+ 	for_each_engine(engine, gt, id) {
+ 		unsigned int reset_count, reset_engine_count;
++		unsigned long count;
+ 		IGT_TIMEOUT(end_time);
+ 
+ 		if (active && !intel_engine_can_store_dword(engine))
+@@ -721,6 +722,7 @@ static int __igt_reset_engine(struct intel_gt *gt, bool active)
+ 
+ 		st_engine_heartbeat_disable(engine);
+ 		set_bit(I915_RESET_ENGINE + id, &gt->reset.flags);
++		count = 0;
+ 		do {
+ 			if (active) {
+ 				struct i915_request *rq;
+@@ -770,9 +772,13 @@ static int __igt_reset_engine(struct intel_gt *gt, bool active)
+ 				err = -EINVAL;
+ 				break;
+ 			}
++
++			count++;
+ 		} while (time_before(jiffies, end_time));
+ 		clear_bit(I915_RESET_ENGINE + id, &gt->reset.flags);
+ 		st_engine_heartbeat_enable(engine);
++		pr_info("%s: Completed %lu %s resets\n",
++			engine->name, count, active ? "active" : "idle");
+ 
+ 		if (err)
+ 			break;
+@@ -1623,7 +1629,8 @@ static int igt_reset_queue(void *arg)
+ 			prev = rq;
+ 			count++;
+ 		} while (time_before(jiffies, end_time));
+-		pr_info("%s: Completed %d resets\n", engine->name, count);
++		pr_info("%s: Completed %d queued resets\n",
++			engine->name, count);
+ 
+ 		*h.batch = MI_BATCH_BUFFER_END;
+ 		intel_gt_chipset_flush(engine->gt);
+@@ -1720,7 +1727,8 @@ static int __igt_atomic_reset_engine(struct intel_engine_cs *engine,
+ 	GEM_TRACE("i915_reset_engine(%s:%s) under %s\n",
+ 		  engine->name, mode, p->name);
+ 
+-	tasklet_disable(t);
++	if (t->func)
++		tasklet_disable(t);
+ 	if (strcmp(p->name, "softirq"))
+ 		local_bh_disable();
+ 	p->critical_section_begin();
+@@ -1730,8 +1738,10 @@ static int __igt_atomic_reset_engine(struct intel_engine_cs *engine,
+ 	p->critical_section_end();
+ 	if (strcmp(p->name, "softirq"))
+ 		local_bh_enable();
+-	tasklet_enable(t);
+-	tasklet_hi_schedule(t);
++	if (t->func) {
++		tasklet_enable(t);
++		tasklet_hi_schedule(t);
++	}
+ 
+ 	if (err)
+ 		pr_err("i915_reset_engine(%s:%s) failed under %s\n",
+diff --git a/drivers/gpu/drm/i915/gt/selftest_reset.c b/drivers/gpu/drm/i915/gt/selftest_reset.c
+index b7befcfbdcde..8784257ec808 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_reset.c
++++ b/drivers/gpu/drm/i915/gt/selftest_reset.c
+@@ -321,7 +321,10 @@ static int igt_atomic_engine_reset(void *arg)
+ 		goto out_unlock;
+ 
+ 	for_each_engine(engine, gt, id) {
+-		tasklet_disable(&engine->execlists.tasklet);
++		struct tasklet_struct *t = &engine->execlists.tasklet;
++
++		if (t->func)
++			tasklet_disable(t);
+ 		intel_engine_pm_get(engine);
+ 
+ 		for (p = igt_atomic_phases; p->name; p++) {
+@@ -345,8 +348,10 @@ static int igt_atomic_engine_reset(void *arg)
+ 		}
+ 
+ 		intel_engine_pm_put(engine);
+-		tasklet_enable(&engine->execlists.tasklet);
+-		tasklet_hi_schedule(&engine->execlists.tasklet);
++		if (t->func) {
++			tasklet_enable(t);
++			tasklet_hi_schedule(t);
++		}
+ 		if (err)
+ 			break;
+ 	}
 -- 
 2.20.1
 
