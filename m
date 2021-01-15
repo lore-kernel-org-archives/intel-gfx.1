@@ -2,52 +2,43 @@ Return-Path: <SRS0=bvk2=GS=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DC85EC433DB
-	for <intel-gfx@archiver.kernel.org>; Fri, 15 Jan 2021 07:50:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EC34BC433DB
+	for <intel-gfx@archiver.kernel.org>; Fri, 15 Jan 2021 08:19:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7BB9B23118
-	for <intel-gfx@archiver.kernel.org>; Fri, 15 Jan 2021 07:50:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7BB9B23118
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 6A24A2072D
+	for <intel-gfx@archiver.kernel.org>; Fri, 15 Jan 2021 08:19:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6A24A2072D
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C1D5D6E165;
-	Fri, 15 Jan 2021 07:50:36 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C15CD6E165;
- Fri, 15 Jan 2021 07:50:35 +0000 (UTC)
-IronPort-SDR: WK6QJFiOI5c4hwBLlPBb7xEDPjecvkVWzON6JFLJt4z8Lo8gViHH1VYQC9Bkucv4pZJZ0LwRnj
- zPYWjqIrHexQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9864"; a="178600141"
-X-IronPort-AV: E=Sophos;i="5.79,348,1602572400"; d="scan'208";a="178600141"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Jan 2021 23:50:32 -0800
-IronPort-SDR: sE+wicejpdjwI5sz3rL5UivRYWPuYpz0Sz9m2SC0oCkt7LnNQVNXOCiFK41XEwO6phK9OHXeQ3
- nR4jMXqTPgaA==
-X-IronPort-AV: E=Sophos;i="5.79,348,1602572400"; d="scan'208";a="382575810"
-Received: from bmkierna-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.213.221.58])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Jan 2021 23:50:28 -0800
-From: Jani Nikula <jani.nikula@intel.com>
-To: Steven Rostedt <rostedt@goodmis.org>, LKML <linux-kernel@vger.kernel.org>,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-In-Reply-To: <20210114163435.767ccbb0@gandalf.local.home>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20210114163206.4a562d82@gandalf.local.home>
- <20210114163435.767ccbb0@gandalf.local.home>
-Date: Fri, 15 Jan 2021 09:50:25 +0200
-Message-ID: <87mtxaprjy.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA4FF6E17F;
+	Fri, 15 Jan 2021 08:19:18 +0000 (UTC)
+Received: from fireflyinternet.com (unknown [77.68.26.236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 33DE76E182
+ for <intel-gfx@lists.freedesktop.org>; Fri, 15 Jan 2021 08:19:17 +0000 (UTC)
+X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
+ x-ip-name=78.156.65.138; 
+Received: from build.alporthouse.com (unverified [78.156.65.138]) 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23602670-1500050 
+ for multiple; Fri, 15 Jan 2021 08:19:11 +0000
+From: Chris Wilson <chris@chris-wilson.co.uk>
+To: intel-gfx@lists.freedesktop.org
+Date: Fri, 15 Jan 2021 08:19:07 +0000
+Message-Id: <20210115081908.29494-3-chris@chris-wilson.co.uk>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20210115081908.29494-1-chris@chris-wilson.co.uk>
+References: <mika.kuoppala@linux.intel.com>
+ <20210115081908.29494-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: Re: [Intel-gfx] [BUG] on reboot: bisected to: drm/i915: Shut down
- displays gracefully on reboot
+Subject: [Intel-gfx] [PATCH 3/4] drm/i915/gt: Pull ring submission resume
+ under its caller forcewake
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,91 +51,188 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, chris@chris-wilson.co.uk,
- Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Chris Wilson <chris@chris-wilson.co.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 14 Jan 2021, Steven Rostedt <rostedt@goodmis.org> wrote:
-> [ Forgot to add those on the commit itself ]
->
-> -- Steve
->
->
-> On Thu, 14 Jan 2021 16:32:06 -0500
-> Steven Rostedt <rostedt@goodmis.org> wrote:
->
->> On reboot, one of my test boxes now triggers the following warning:
->> 
->>  ------------[ cut here ]------------
->>  RPM raw-wakeref not held
->>  WARNING: CPU: 4 PID: 1 at drivers/gpu/drm/i915/intel_runtime_pm.h:106 gen6_write32+0x1bc/0x2a0 [i915]
->>  Modules linked in: ebtable_filter ebtables bridge stp llc ip6t_REJECT nf_reject_ipv6 vsock vmw_vmci xt_state xt_conntrack nf_conntrack nf_defrag_ipv6 nf_defrag_ipv4 ip6table_filter ip6_tables snd_hda_codec_hdmi snd_hda_codec_realtek snd_hda_codec_generic le
->> 15 snd_hda_intel snd_intel_dspcfg snd_hda_codec snd_hwdep i2c_algo_bit snd_hda_core snd_seq intel_rapl_msr snd_seq_device intel_rapl_common snd_pcm x86_pkg_temp_thermal intel_powerclamp snd_timer snd coretemp kvm_intel soundcore kvm mei_wdt irqbypass joydev 
->> _pmc_bxt hp_wmi wmi_bmof sparse_keymap rfkill iTCO_vendor_support crct10dif_pclmul crc32_pclmul crc32c_intel ghash_clmulni_intel drm_kms_helper i2c_i801 cec drm rapl intel_cstate intel_uncore mei_me i2c_smbus e1000e tpm_infineon wmi serio_raw mei video lpc_i
->> 
->>  CPU: 4 PID: 1 Comm: systemd-shutdow Not tainted 5.9.0-rc4-test+ #861
->>  Hardware name: Hewlett-Packard HP Compaq Pro 6300 SFF/339A, BIOS K01 v03.03 07/14/2016
->>  RIP: 0010:gen6_write32+0x1bc/0x2a0 [i915]
->>  Code: 5d 82 e0 0f 0b e9 b5 fe ff ff 80 3d 95 6b 22 00 00 0f 85 b2 fe ff ff 48 c7 c7 04 d2 a4 c0 c6 05 81 6b 22 00 01 e8 f6 5c 82 e0 <0f> 0b e9 98 fe ff ff 80 3d 6d 6b 22 00 00 0f 85 95 fe ff ff 48 c7
->>  RSP: 0018:ffffb9c1c002fd08 EFLAGS: 00010296
->>  RAX: 0000000000000018 RBX: ffff99aec8881010 RCX: ffff99aeda400000
->>  RDX: 0000000000000000 RSI: ffffffffa115d9ef RDI: ffffffffa115d9ef
->>  RBP: 0000000000044004 R08: 0000000000000001 R09: 0000000000000000
->>  R10: 0000000000000001 R11: 0000000000000001 R12: 0000000000000000
->>  R13: 0000000000000001 R14: 00000000ffffffff R15: 0000000000000000
->>  FS:  00007f91257a9940(0000) GS:ffff99aeda400000(0000) knlGS:0000000000000000
->>  CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
->>  CR2: 00007f9126829400 CR3: 00000001088f0006 CR4: 00000000001706e0
->>  Call Trace:
->>   gen3_irq_reset+0x2e/0xd0 [i915]
->>   intel_irq_reset+0x59/0x6a0 [i915]
->>   intel_runtime_pm_disable_interrupts+0xe/0x30 [i915]
->>   i915_driver_shutdown+0x2e/0x40 [i915]
->>   pci_device_shutdown+0x34/0x60
->>   device_shutdown+0x15d/0x1b3
->>   kernel_restart+0xe/0x30
->>   __do_sys_reboot+0x1d7/0x210
->>   ? vfs_writev+0x9d/0xe0
->>   ? syscall_enter_from_user_mode+0x1d/0x70
->>   ? trace_hardirqs_on+0x2c/0xe0
->>   do_syscall_64+0x33/0x40
->>   entry_SYSCALL_64_after_hwframe+0x44/0xa9
->>  RIP: 0033:0x7f912675f2d7
->>  Code: 64 89 01 48 83 c8 ff c3 66 2e 0f 1f 84 00 00 00 00 00 90 f3 0f 1e fa 89 fa be 69 19 12 28 bf ad de e1 fe b8 a9 00 00 00 0f 05 <48> 3d 00 f0 ff ff 77 01 c3 48 8b 15 81 8b 0c 00 f7 d8 64 89 02 b8
->>  RSP: 002b:00007ffeca28e148 EFLAGS: 00000206 ORIG_RAX: 00000000000000a9
->>  RAX: ffffffffffffffda RBX: 0000000000000000 RCX: 00007f912675f2d7
->>  RDX: 0000000001234567 RSI: 0000000028121969 RDI: 00000000fee1dead
->>  RBP: 00007ffeca28e3d0 R08: 000000000000000a R09: 0000000000000000
->>  R10: 0000000000000232 R11: 0000000000000206 R12: 0000000000000001
->>  R13: 0000000000000000 R14: 0000000000000000 R15: 00007ffeca28e4b8
->>  ---[ end trace 2ed17eabd3ab6938 ]---
->>  ------------[ cut here ]------------
->> 
->> The bisect came to this commit:
->> 
->>   fe0f1e3bfdfeb53e18f1206aea4f40b9bd1f291c
->>   ("drm/i915: Shut down displays gracefully on reboot")
->> 
->> Which makes sense, as it happens on shutdown.
+Take advantage of calling xcs_resume under a forcewake by using direct
+mmio access. In particular, we can avoid the sleeping variants to allow
+resume to be called from softirq context, required for engine resets.
 
-Please try this pull, heading to -rc4, which cointains "drm/i915:
-Disable RPM wakeref assertions during driver shutdown":
+v2: Keep the positing read at the start of resume as a guardian memory
+barrier.
 
-http://lore.kernel.org/r/87sg73pz42.fsf@intel.com
+Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+---
+ .../gpu/drm/i915/gt/intel_ring_submission.c   | 93 +++++++++----------
+ 1 file changed, 42 insertions(+), 51 deletions(-)
 
-
-BR,
-Jani.
-
->> 
->> -- Steve
->
-
+diff --git a/drivers/gpu/drm/i915/gt/intel_ring_submission.c b/drivers/gpu/drm/i915/gt/intel_ring_submission.c
+index 44159595d909..bf2834424add 100644
+--- a/drivers/gpu/drm/i915/gt/intel_ring_submission.c
++++ b/drivers/gpu/drm/i915/gt/intel_ring_submission.c
+@@ -122,31 +122,27 @@ static void set_hwsp(struct intel_engine_cs *engine, u32 offset)
+ 		hwsp = RING_HWS_PGA(engine->mmio_base);
+ 	}
+ 
+-	intel_uncore_write(engine->uncore, hwsp, offset);
+-	intel_uncore_posting_read(engine->uncore, hwsp);
++	intel_uncore_write_fw(engine->uncore, hwsp, offset);
++	intel_uncore_posting_read_fw(engine->uncore, hwsp);
+ }
+ 
+ static void flush_cs_tlb(struct intel_engine_cs *engine)
+ {
+-	struct drm_i915_private *dev_priv = engine->i915;
+-
+-	if (!IS_GEN_RANGE(dev_priv, 6, 7))
++	if (!IS_GEN_RANGE(engine->i915, 6, 7))
+ 		return;
+ 
+ 	/* ring should be idle before issuing a sync flush*/
+-	drm_WARN_ON(&dev_priv->drm,
+-		    (ENGINE_READ(engine, RING_MI_MODE) & MODE_IDLE) == 0);
++	GEM_DEBUG_WARN_ON((ENGINE_READ(engine, RING_MI_MODE) & MODE_IDLE) == 0);
+ 
+-	ENGINE_WRITE(engine, RING_INSTPM,
+-		     _MASKED_BIT_ENABLE(INSTPM_TLB_INVALIDATE |
+-					INSTPM_SYNC_FLUSH));
+-	if (intel_wait_for_register(engine->uncore,
+-				    RING_INSTPM(engine->mmio_base),
+-				    INSTPM_SYNC_FLUSH, 0,
+-				    1000))
+-		drm_err(&dev_priv->drm,
+-			"%s: wait for SyncFlush to complete for TLB invalidation timed out\n",
+-			engine->name);
++	ENGINE_WRITE_FW(engine, RING_INSTPM,
++			_MASKED_BIT_ENABLE(INSTPM_TLB_INVALIDATE |
++					   INSTPM_SYNC_FLUSH));
++	if (__intel_wait_for_register_fw(engine->uncore,
++					 RING_INSTPM(engine->mmio_base),
++					 INSTPM_SYNC_FLUSH, 0,
++					 2000, 0, NULL))
++		ENGINE_TRACE(engine,
++			     "wait for SyncFlush to complete for TLB invalidation timed out\n");
+ }
+ 
+ static void ring_setup_status_page(struct intel_engine_cs *engine)
+@@ -177,13 +173,13 @@ static void set_pp_dir(struct intel_engine_cs *engine)
+ 	if (!vm)
+ 		return;
+ 
+-	ENGINE_WRITE(engine, RING_PP_DIR_DCLV, PP_DIR_DCLV_2G);
+-	ENGINE_WRITE(engine, RING_PP_DIR_BASE, pp_dir(vm));
++	ENGINE_WRITE_FW(engine, RING_PP_DIR_DCLV, PP_DIR_DCLV_2G);
++	ENGINE_WRITE_FW(engine, RING_PP_DIR_BASE, pp_dir(vm));
+ 
+ 	if (INTEL_GEN(engine->i915) >= 7) {
+-		ENGINE_WRITE(engine,
+-			     RING_MODE_GEN7,
+-			     _MASKED_BIT_ENABLE(GFX_PPGTT_ENABLE));
++		ENGINE_WRITE_FW(engine,
++				RING_MODE_GEN7,
++				_MASKED_BIT_ENABLE(GFX_PPGTT_ENABLE));
+ 	}
+ }
+ 
+@@ -191,13 +187,10 @@ static int xcs_resume(struct intel_engine_cs *engine)
+ {
+ 	struct drm_i915_private *dev_priv = engine->i915;
+ 	struct intel_ring *ring = engine->legacy.ring;
+-	int ret = 0;
+ 
+ 	ENGINE_TRACE(engine, "ring:{HEAD:%04x, TAIL:%04x}\n",
+ 		     ring->head, ring->tail);
+ 
+-	intel_uncore_forcewake_get(engine->uncore, FORCEWAKE_ALL);
+-
+ 	if (HWS_NEEDS_PHYSICAL(dev_priv))
+ 		ring_setup_phys_status_page(engine);
+ 	else
+@@ -214,7 +207,7 @@ static int xcs_resume(struct intel_engine_cs *engine)
+ 	 * also enforces ordering), otherwise the hw might lose the new ring
+ 	 * register values.
+ 	 */
+-	ENGINE_WRITE(engine, RING_START, i915_ggtt_offset(ring->vma));
++	ENGINE_WRITE_FW(engine, RING_START, i915_ggtt_offset(ring->vma));
+ 
+ 	/* Check that the ring offsets point within the ring! */
+ 	GEM_BUG_ON(!intel_ring_offset_valid(ring, ring->head));
+@@ -224,46 +217,44 @@ static int xcs_resume(struct intel_engine_cs *engine)
+ 	set_pp_dir(engine);
+ 
+ 	/* First wake the ring up to an empty/idle ring */
+-	ENGINE_WRITE(engine, RING_HEAD, ring->head);
+-	ENGINE_WRITE(engine, RING_TAIL, ring->head);
++	ENGINE_WRITE_FW(engine, RING_HEAD, ring->head);
++	ENGINE_WRITE_FW(engine, RING_TAIL, ring->head);
+ 	ENGINE_POSTING_READ(engine, RING_TAIL);
+ 
+-	ENGINE_WRITE(engine, RING_CTL, RING_CTL_SIZE(ring->size) | RING_VALID);
++	ENGINE_WRITE_FW(engine, RING_CTL,
++			RING_CTL_SIZE(ring->size) | RING_VALID);
+ 
+ 	/* If the head is still not zero, the ring is dead */
+-	if (intel_wait_for_register(engine->uncore,
+-				    RING_CTL(engine->mmio_base),
+-				    RING_VALID, RING_VALID,
+-				    50)) {
+-		drm_err(&dev_priv->drm, "%s initialization failed "
+-			  "ctl %08x (valid? %d) head %08x [%08x] tail %08x [%08x] start %08x [expected %08x]\n",
+-			  engine->name,
+-			  ENGINE_READ(engine, RING_CTL),
+-			  ENGINE_READ(engine, RING_CTL) & RING_VALID,
+-			  ENGINE_READ(engine, RING_HEAD), ring->head,
+-			  ENGINE_READ(engine, RING_TAIL), ring->tail,
+-			  ENGINE_READ(engine, RING_START),
+-			  i915_ggtt_offset(ring->vma));
+-		ret = -EIO;
+-		goto out;
++	if (__intel_wait_for_register_fw(engine->uncore,
++					 RING_CTL(engine->mmio_base),
++					 RING_VALID, RING_VALID,
++					 5000, 0, NULL)) {
++		drm_err(&dev_priv->drm,
++			"%s initialization failed; "
++			"ctl %08x (valid? %d) head %08x [%08x] tail %08x [%08x] start %08x [expected %08x]\n",
++			engine->name,
++			ENGINE_READ(engine, RING_CTL),
++			ENGINE_READ(engine, RING_CTL) & RING_VALID,
++			ENGINE_READ(engine, RING_HEAD), ring->head,
++			ENGINE_READ(engine, RING_TAIL), ring->tail,
++			ENGINE_READ(engine, RING_START),
++			i915_ggtt_offset(ring->vma));
++		return -EIO;
+ 	}
+ 
+ 	if (INTEL_GEN(dev_priv) > 2)
+-		ENGINE_WRITE(engine,
+-			     RING_MI_MODE, _MASKED_BIT_DISABLE(STOP_RING));
++		ENGINE_WRITE_FW(engine,
++				RING_MI_MODE, _MASKED_BIT_DISABLE(STOP_RING));
+ 
+ 	/* Now awake, let it get started */
+ 	if (ring->tail != ring->head) {
+-		ENGINE_WRITE(engine, RING_TAIL, ring->tail);
++		ENGINE_WRITE_FW(engine, RING_TAIL, ring->tail);
+ 		ENGINE_POSTING_READ(engine, RING_TAIL);
+ 	}
+ 
+ 	/* Papering over lost _interrupts_ immediately following the restart */
+ 	intel_engine_signal_breadcrumbs(engine);
+-out:
+-	intel_uncore_forcewake_put(engine->uncore, FORCEWAKE_ALL);
+-
+-	return ret;
++	return 0;
+ }
+ 
+ static void sanitize_hwsp(struct intel_engine_cs *engine)
 -- 
-Jani Nikula, Intel Open Source Graphics Center
+2.20.1
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
