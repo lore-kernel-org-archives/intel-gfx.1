@@ -2,50 +2,121 @@ Return-Path: <SRS0=bvk2=GS=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.0 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E1E25C433DB
-	for <intel-gfx@archiver.kernel.org>; Fri, 15 Jan 2021 15:56:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2D02DC433DB
+	for <intel-gfx@archiver.kernel.org>; Fri, 15 Jan 2021 15:58:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 979272388B
-	for <intel-gfx@archiver.kernel.org>; Fri, 15 Jan 2021 15:56:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 979272388B
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id D6199238E7
+	for <intel-gfx@archiver.kernel.org>; Fri, 15 Jan 2021 15:58:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D6199238E7
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0928789ED3;
-	Fri, 15 Jan 2021 15:56:17 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 919C189ED3
- for <intel-gfx@lists.freedesktop.org>; Fri, 15 Jan 2021 15:56:15 +0000 (UTC)
-IronPort-SDR: F/lqFj1099DOcqFwn/OxZFEIvf8hUgP05UEYyiBYKBWdEAIYY638R5SoEvNymAQ0lsWmRPKqjD
- TveZvvrVpbeg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9864"; a="177788956"
-X-IronPort-AV: E=Sophos;i="5.79,349,1602572400"; d="scan'208";a="177788956"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Jan 2021 07:56:14 -0800
-IronPort-SDR: dWOGe4DYfw+B48S7jHn7DkiNuEI/VgJVwOLd0p6PQmyvUBzTsT+x0aCsVXDv5nejYiT0dvyiGU
- uyF0EmFiKyUw==
-X-IronPort-AV: E=Sophos;i="5.79,349,1602572400"; d="scan'208";a="382709966"
-Received: from avivs-mobl.amr.corp.intel.com (HELO intel.com) ([10.209.107.35])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Jan 2021 07:56:11 -0800
-Date: Fri, 15 Jan 2021 10:56:09 -0500
-From: Rodrigo Vivi <rodrigo.vivi@intel.com>
-To: Chris Wilson <chris@chris-wilson.co.uk>
-Message-ID: <20210115155609.GA3226@intel.com>
-References: <20210115142623.29897-1-chris@chris-wilson.co.uk>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F0786E3F9;
+	Fri, 15 Jan 2021 15:58:51 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2045.outbound.protection.outlook.com [40.107.92.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 99F8889D52;
+ Fri, 15 Jan 2021 15:04:07 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=SJ5kBHXA2/4i8kq671qXo3ye4jSQo9f2ViYB/Qt5rs9PgcChUO8as6PKlFo2l09H7U2434XRj9GMbdHnKIjE90FaKfjEMVplzNPHTqU6aw9zwfD+te9TjBl92lVzDRbkmBYHYoWuB6yHV64HScfGLqaDsu22rIhXAnsS+Ni8Ho70s+XZ5908kaAJJOlus6i/JCE9rTGTgvK2uvKlbk29LQxjwEZrA/SQAbvz1h2R6DBh2UinGhOqTA/Joi13F27aONaJL7GgyHFCbvN3328EW3lVLiJ4mrsh4LihqRwaY5JOf7AL4U+MotcdLIsIf6iLaIU2GZD1s0kGn8gSPp4+iA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2u97677o1xT7Y5Pcq8UXX0toGys6bFBdhxtFRH/nl3o=;
+ b=Jbf/9EDeMaMkQ2F6Fa3F83sBSgs6OQwuZxRjoKPNOc1rq7jTnC3c0jJH+Mv0jWmIFeNLMbdyUaRBPuq/SYglMRGkevBIxDNC4qf9RJ7Jmji9xZgsnf+le3FWbWBV67hoanQel45BLvrstmXmHm0v081QhEmnCZhOFq9DyLtq069qnUsa5HSrlAQHsCbooU77d1BmR5z1Fo8QpGw3zC1LtnmEStPJQIWb5rzTKd2HcO6dhmIRpYo3PW6Ri4hDbIPov6Tnc/F7nGamY4agkZnoAz22+/mm9oPgEkzJzg3Ic7xE4QGAuUZwrSPB/HXat8ItHJaD1lmbbm01PERzwYTn3Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2u97677o1xT7Y5Pcq8UXX0toGys6bFBdhxtFRH/nl3o=;
+ b=oL27IsW1dem9HweBMW/8jwgpfBmOiWCAF4zNdU7GS4px3SiH449QVHX58Dr58prr+v8Rr+wDWN8S6U2svd1EJF01y0Fhm5Z49DAvvhJ7sbCgN0/Lq7SrCUukIKIVswnt9QV8QO1feIYcYflqxP0EDhSe1NI5yiUuRwYRlKel/6Y=
+Authentication-Results: vger.kernel.org; dkim=none (message not signed)
+ header.d=none;vger.kernel.org; dmarc=none action=none header.from=amd.com;
+Received: from DM6PR12MB3916.namprd12.prod.outlook.com (2603:10b6:5:1ca::21)
+ by DM6PR12MB3355.namprd12.prod.outlook.com (2603:10b6:5:115::26) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3742.6; Fri, 15 Jan
+ 2021 15:04:05 +0000
+Received: from DM6PR12MB3916.namprd12.prod.outlook.com
+ ([fe80::f872:3677:28c3:660b]) by DM6PR12MB3916.namprd12.prod.outlook.com
+ ([fe80::f872:3677:28c3:660b%5]) with mapi id 15.20.3763.012; Fri, 15 Jan 2021
+ 15:04:05 +0000
+To: Stephen Rothwell <sfr@canb.auug.org.au>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Intel Graphics <intel-gfx@lists.freedesktop.org>,
+ DRI <dri-devel@lists.freedesktop.org>
+References: <20210115122310.7dd6bb11@canb.auug.org.au>
+From: Nirmoy <nirmodas@amd.com>
+Message-ID: <9bb019ff-cbaa-3b1e-4688-80440a6d5c10@amd.com>
+Date: Fri, 15 Jan 2021 16:03:59 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.0
+In-Reply-To: <20210115122310.7dd6bb11@canb.auug.org.au>
+Content-Language: en-US
+X-Originating-IP: [165.204.84.11]
+X-ClientProxiedBy: BN4PR12CA0020.namprd12.prod.outlook.com
+ (2603:10b6:403:2::30) To DM6PR12MB3916.namprd12.prod.outlook.com
+ (2603:10b6:5:1ca::21)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210115142623.29897-1-chris@chris-wilson.co.uk>
-Subject: Re: [Intel-gfx] [PATCH] drm/i915/gem: Mark private i915_gem_stolen
- functions as static
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from localhost.localdomain (165.204.84.11) by
+ BN4PR12CA0020.namprd12.prod.outlook.com (2603:10b6:403:2::30) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3763.9 via Frontend Transport; Fri, 15 Jan 2021 15:04:02 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 57d19b76-9661-4c2b-3584-08d8b966ccc0
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3355:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM6PR12MB33554351990901A7A4BAFDD18BA70@DM6PR12MB3355.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:32;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: j/1fVnVLuqPdPeB9IDrcRnfm1IdQiqJnuXgdgxle5wuPNj9/xfEMrqjIc5AHbRyyiMVnAaNb6jaTjipRyIllj7n55p8TZrx7QJrOTSuR5x6jHgvTF4CM82JwikHOXfC2nXoAhjP4mYUg6oarZcMikdl9u14zzl8tFNp3k4qluzyP+8IVZe7qMpg+cZPr3Qkv/knAw5OLvME6HBUOTum/B3QLXtUZmbJ5bip3JkSxXri76uicc8MOCkNzN3Vj0bPBXvSvlpy+cp1HVaS3kjFtdNMcxxf18Nr8pU09p/huRvIEkg3ziJXzkIlGARFPu32Mue9vzJdtv4RKfmntvGhumZNUym7Rprrh2h3HxyRj+hPyn8EavpifM4JPMgTh+7WLDW0VTeyP6bc2UYkCy8naIbqRrioTsBSatMtC4qg5aDoH2XFk0It4pO9H8O8WbF192HDLRweD9lWf+B1ijEhylJzd7E6JV0QzyCv5s1BLfzhA3cDZDEPQLwFHZ2IH8m2DX+Ie9341rwiEj9XInGvKzgSox6ZukVvViLJB//cIdmvAhc9eXYZHEBBwzzDdvbUit548dT24H3xO8fhTQWBZnAIKI6rrYftBu5q9/l2X17Q=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB3916.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(136003)(346002)(376002)(396003)(39860400002)(366004)(8676002)(110136005)(956004)(53546011)(2616005)(6512007)(66476007)(186003)(26005)(6506007)(54906003)(4326008)(316002)(52116002)(16526019)(5660300002)(6666004)(6486002)(478600001)(31686004)(2906002)(8936002)(66556008)(83380400001)(36756003)(66946007)(31696002)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: =?Windows-1252?Q?sixYt3kUxBbXuRC0BhqQK2XUicZoicliDqMq+tMfVoxEwN3or2oJlrJM?=
+ =?Windows-1252?Q?DBlJ97cZMtUcwzsVbukrpCQIH/3LJn61BD9ASvJ7jqfodFJuyG/jZuKY?=
+ =?Windows-1252?Q?851GfMZ3mS6GndmYsAf9JHmGbEAtR3Mm+4cUmfxYOuVwUbanbGVYumrW?=
+ =?Windows-1252?Q?//sNDVHeXPa5ZrIf6iuW/GrctZVKLxu8KlXdfEOVG3ziCPSfK1MBTPEg?=
+ =?Windows-1252?Q?ANPcxIiI+1Zsk2jn7Q2yXW5A9vCyfRuP+FiV+63VUmoQ3j8AQyKFUyN0?=
+ =?Windows-1252?Q?k9H6EjvRKG2gE9N4s2ACHUlt1evNlN6gVHwyj/C8h6b+2Od/6BVa0GGH?=
+ =?Windows-1252?Q?tjfmVVqu9zEJoQN19g3I8AA3Crxsyl2WvMaMsyUHeln32FWnmh2pLvAd?=
+ =?Windows-1252?Q?7JGz8huFgKSJ0Ycj+uTtcAPQErVIHPA1JWOW+YhpfOBW1N7gzDqUf3Aq?=
+ =?Windows-1252?Q?UQXqo6IovPrMvdKNOztW6DzvpbEPPm6t1clzCzHNgaHB/1t1+3ku1ze0?=
+ =?Windows-1252?Q?JO0/jPE3GS/cytwnIiVL743xOK8TsEceUnrvTLkD5wcLOppKIqoL1rLI?=
+ =?Windows-1252?Q?ySxLmdzOc7F9iO1Hpd4VFcW/DFeG5krI+vjDCltcE8cHJTJaaa41rt8S?=
+ =?Windows-1252?Q?HYPJ9LnVTwmtKBL9PBVkxue2AZZLVH5vYedmHeEzXwCb1jzP6Jhs402E?=
+ =?Windows-1252?Q?LyvEVpU4vLWgifrduSw66GiNrzEMpGM1wteUozk+KlLeB1Ffyzt8tWch?=
+ =?Windows-1252?Q?SzfwhzJo62oQ8lCMRjuS2vPeZHrGQFPTn/KV065tVwqsj8XET8tI1YlM?=
+ =?Windows-1252?Q?4kfn6X9pl41SkClIXI5kdNHGVpgREWNuCy1klCbf7LVhYIWkIKk6Wx9i?=
+ =?Windows-1252?Q?pXK2h2qZjXcwcwl/TW0fIdYWX3LqlyNoQKNWBNgFgVDwswl2AaZFqOEf?=
+ =?Windows-1252?Q?01v+1ECatcwEnhqDMsgCajPbXgqKOlblKtH8pRjCQ79E/wrP1ixCFL4/?=
+ =?Windows-1252?Q?6cKaLNyyMas0uJt8iFuCDw77bp5Iy8ePeDoIXLZ7U+qDOZemMvl/kI3n?=
+ =?Windows-1252?Q?nROFiPlRI7YxXKDJ?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 57d19b76-9661-4c2b-3584-08d8b966ccc0
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3916.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jan 2021 15:04:04.8804 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Q/GDQYF7+nRJqDu7o3i+BgHfPqi7cbPxrcr4jwAUv46H7otcZYsSFPWDxq0czzZnjfiqKGrk1oCt6CZHWF6cMg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3355
+X-Mailman-Approved-At: Fri, 15 Jan 2021 15:58:50 +0000
+Subject: Re: [Intel-gfx] linux-next: build warnings after merge of the
+ drm-misc tree
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,54 +129,58 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, Matthew Auld <matthew.auld@intel.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Nirmoy Das <nirmoy.das@amd.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Darren Salt <devspam@moreofthesa.me.uk>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-T24gRnJpLCBKYW4gMTUsIDIwMjEgYXQgMDI6MjY6MjNQTSArMDAwMCwgQ2hyaXMgV2lsc29uIHdy
-b3RlOgo+IGRyaXZlcnMvZ3B1L2RybS9pOTE1L2dlbS9pOTE1X2dlbV9zdG9sZW4uYzo2MjQ6NTog
-ZXJyb3I6IG5vIHByZXZpb3VzIHByb3RvdHlwZSBmb3Ig4oCYX19pOTE1X2dlbV9vYmplY3RfY3Jl
-YXRlX3N0b2xlbuKAmSBbLVdlcnJvcj1taXNzaW5nLXByb3RvdHlwZXNdCj4gIGludCBfX2k5MTVf
-Z2VtX29iamVjdF9jcmVhdGVfc3RvbGVuKHN0cnVjdCBpbnRlbF9tZW1vcnlfcmVnaW9uICptZW0s
-Cj4gICAgICBefn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+Cj4gZHJpdmVycy9ncHUvZHJt
-L2k5MTUvZ2VtL2k5MTVfZ2VtX3N0b2xlbi5jOjY0OTo1OiBlcnJvcjogbm8gcHJldmlvdXMgcHJv
-dG90eXBlIGZvciDigJhfaTkxNV9nZW1fb2JqZWN0X3N0b2xlbl9pbml04oCZIFstV2Vycm9yPW1p
-c3NpbmctcHJvdG90eXBlc10KPiAgaW50IF9pOTE1X2dlbV9vYmplY3Rfc3RvbGVuX2luaXQoc3Ry
-dWN0IGludGVsX21lbW9yeV9yZWdpb24gKm1lbSwKPiAgICAgIF5+fn5+fn5+fn5+fn5+fn5+fn5+
-fn5+fn5+fn4KPiAKPiBTaWduZWQtb2ZmLWJ5OiBDaHJpcyBXaWxzb24gPGNocmlzQGNocmlzLXdp
-bHNvbi5jby51az4KPiBDYzogTWF0dGhldyBBdWxkIDxtYXR0aGV3LmF1bGRAaW50ZWwuY29tPgoK
-UmV2aWV3ZWQtYnk6IFJvZHJpZ28gVml2aSA8cm9kcmlnby52aXZpQGludGVsLmNvbT4KCj4gLS0t
-Cj4gIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2dlbS9pOTE1X2dlbV9zdG9sZW4uYyB8IDE0ICsrKysr
-KystLS0tLS0tCj4gIDEgZmlsZSBjaGFuZ2VkLCA3IGluc2VydGlvbnMoKyksIDcgZGVsZXRpb25z
-KC0pCj4gCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2dlbS9pOTE1X2dlbV9z
-dG9sZW4uYyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2dlbS9pOTE1X2dlbV9zdG9sZW4uYwo+IGlu
-ZGV4IDI3ZDk1YmRkYmY0ZC4uYjIyMTQ5MjUzMWVmIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1
-L2RybS9pOTE1L2dlbS9pOTE1X2dlbV9zdG9sZW4uYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9p
-OTE1L2dlbS9pOTE1X2dlbV9zdG9sZW4uYwo+IEBAIC02MjEsOSArNjIxLDkgQEAgc3RhdGljIGNv
-bnN0IHN0cnVjdCBkcm1faTkxNV9nZW1fb2JqZWN0X29wcyBpOTE1X2dlbV9vYmplY3Rfc3RvbGVu
-X29wcyA9IHsKPiAgCS5yZWxlYXNlID0gaTkxNV9nZW1fb2JqZWN0X3JlbGVhc2Vfc3RvbGVuLAo+
-ICB9Owo+ICAKPiAtaW50IF9faTkxNV9nZW1fb2JqZWN0X2NyZWF0ZV9zdG9sZW4oc3RydWN0IGlu
-dGVsX21lbW9yeV9yZWdpb24gKm1lbSwKPiAtCQkJCSAgICBzdHJ1Y3QgZHJtX2k5MTVfZ2VtX29i
-amVjdCAqb2JqLAo+IC0JCQkJICAgIHN0cnVjdCBkcm1fbW1fbm9kZSAqc3RvbGVuKQo+ICtzdGF0
-aWMgaW50IF9faTkxNV9nZW1fb2JqZWN0X2NyZWF0ZV9zdG9sZW4oc3RydWN0IGludGVsX21lbW9y
-eV9yZWdpb24gKm1lbSwKPiArCQkJCQkgICBzdHJ1Y3QgZHJtX2k5MTVfZ2VtX29iamVjdCAqb2Jq
-LAo+ICsJCQkJCSAgIHN0cnVjdCBkcm1fbW1fbm9kZSAqc3RvbGVuKQo+ICB7Cj4gIAlzdGF0aWMg
-c3RydWN0IGxvY2tfY2xhc3Nfa2V5IGxvY2tfY2xhc3M7Cj4gIAl1bnNpZ25lZCBpbnQgY2FjaGVf
-bGV2ZWw7Cj4gQEAgLTY0NiwxMCArNjQ2LDEwIEBAIGludCBfX2k5MTVfZ2VtX29iamVjdF9jcmVh
-dGVfc3RvbGVuKHN0cnVjdCBpbnRlbF9tZW1vcnlfcmVnaW9uICptZW0sCj4gIAlyZXR1cm4gMDsK
-PiAgfQo+ICAKPiAtaW50IF9pOTE1X2dlbV9vYmplY3Rfc3RvbGVuX2luaXQoc3RydWN0IGludGVs
-X21lbW9yeV9yZWdpb24gKm1lbSwKPiAtCQkJCSBzdHJ1Y3QgZHJtX2k5MTVfZ2VtX29iamVjdCAq
-b2JqLAo+IC0JCQkJIHJlc291cmNlX3NpemVfdCBzaXplLAo+IC0JCQkJIHVuc2lnbmVkIGludCBm
-bGFncykKPiArc3RhdGljIGludCBfaTkxNV9nZW1fb2JqZWN0X3N0b2xlbl9pbml0KHN0cnVjdCBp
-bnRlbF9tZW1vcnlfcmVnaW9uICptZW0sCj4gKwkJCQkJc3RydWN0IGRybV9pOTE1X2dlbV9vYmpl
-Y3QgKm9iaiwKPiArCQkJCQlyZXNvdXJjZV9zaXplX3Qgc2l6ZSwKPiArCQkJCQl1bnNpZ25lZCBp
-bnQgZmxhZ3MpCj4gIHsKPiAgCXN0cnVjdCBkcm1faTkxNV9wcml2YXRlICppOTE1ID0gbWVtLT5p
-OTE1Owo+ICAJc3RydWN0IGRybV9tbV9ub2RlICpzdG9sZW47Cj4gLS0gCj4gMi4yMC4xCj4gCj4g
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPiBJbnRlbC1n
-ZnggbWFpbGluZyBsaXN0Cj4gSW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBz
-Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vaW50ZWwtZ2Z4Cl9fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkludGVsLWdmeCBtYWls
-aW5nIGxpc3QKSW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZy
-ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ludGVsLWdmeAo=
+Hi Stephen,
+
+On 1/15/21 2:23 AM, Stephen Rothwell wrote:
+> Hi all,
+>
+> After merging the drm-misc tree, today's linux-next build (x86_64
+> allmodconfig) produced this warning:
+>
+> drivers/gpu/drm/amd/amdgpu/amdgpu_display.c: In function 'amdgpu_display_user_framebuffer_create':
+> drivers/gpu/drm/amd/amdgpu/amdgpu_display.c:929:24: warning: unused variable 'adev' [-Wunused-variable]
+>    929 |  struct amdgpu_device *adev = drm_to_adev(dev);
+>        |                        ^~~~
+>
+> Introduced by commit
+>
+>    8f66090b7bb7 ("drm/amdgpu: Remove references to struct drm_device.pdev")
+
+
+I just sent a patch for this.
+
+
+>
+> drivers/gpu/drm/amd/amdgpu/amdgpu_device.c: In function 'amdgpu_device_resize_fb_bar':
+> drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:1109:6: warning: unused variable 'space_needed' [-Wunused-variable]
+>   1109 |  u64 space_needed = roundup_pow_of_two(adev->gmc.real_vram_size);
+>        |      ^~~~~~~~~~~~
+>
+> Introduced by commit
+>
+>    453f617a30aa ("drm/amdgpu: Resize BAR0 to the maximum available size, even if it doesn't cover VRAM")
+
+
+We have a fix already merged in drm-misc-next for this.
+
+
+Thanks,
+
+Nirmoy
+
+>
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
