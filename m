@@ -2,42 +2,45 @@ Return-Path: <SRS0=bvk2=GS=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EDA59C433DB
-	for <intel-gfx@archiver.kernel.org>; Fri, 15 Jan 2021 08:19:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F151FC433DB
+	for <intel-gfx@archiver.kernel.org>; Fri, 15 Jan 2021 08:22:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 820FB2072D
-	for <intel-gfx@archiver.kernel.org>; Fri, 15 Jan 2021 08:19:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 820FB2072D
+	by mail.kernel.org (Postfix) with ESMTPS id 6D56222583
+	for <intel-gfx@archiver.kernel.org>; Fri, 15 Jan 2021 08:22:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6D56222583
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 30A526E19A;
-	Fri, 15 Jan 2021 08:19:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF20E6E188;
+	Fri, 15 Jan 2021 08:22:17 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 45A316E18F
- for <intel-gfx@lists.freedesktop.org>; Fri, 15 Jan 2021 08:19:17 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 248596E188
+ for <intel-gfx@lists.freedesktop.org>; Fri, 15 Jan 2021 08:22:16 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
-Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23602668-1500050 
- for multiple; Fri, 15 Jan 2021 08:19:10 +0000
-From: Chris Wilson <chris@chris-wilson.co.uk>
-To: intel-gfx@lists.freedesktop.org
-Date: Fri, 15 Jan 2021 08:19:05 +0000
-Message-Id: <20210115081908.29494-1-chris@chris-wilson.co.uk>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <mika.kuoppala@linux.intel.com>
-References: <mika.kuoppala@linux.intel.com>
+Received: from localhost (unverified [78.156.65.138]) 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP (TLS) id
+ 23602707-1500050 for multiple; Fri, 15 Jan 2021 08:22:14 +0000
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 1/4] drm/i915/selftests: Prepare the selftests
- for engine resets with ring submission
+In-Reply-To: <7a7348c3-b915-69dc-e9c3-8b8f05db8077@intel.com>
+References: <20201223103917.14687-1-chris@chris-wilson.co.uk>
+ <87a6u4okvl.fsf@intel.com> <f6daaf1e-beab-4b9c-c6de-5e0fabe5e16e@intel.com>
+ <87wnwny3hb.fsf@intel.com> <87zh1drr3e.fsf@intel.com>
+ <7a7348c3-b915-69dc-e9c3-8b8f05db8077@intel.com>
+From: Chris Wilson <chris@chris-wilson.co.uk>
+To: "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com>,
+ Jani Nikula <jani.nikula@intel.com>, intel-gfx@lists.freedesktop.org
+Date: Fri, 15 Jan 2021 08:22:12 +0000
+Message-ID: <161069893278.19482.3803444937046587332@build.alporthouse.com>
+User-Agent: alot/0.9
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/display: Bitwise or the conversion
+ colour specifier together
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,120 +53,47 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Chris Wilson <chris@chris-wilson.co.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The engine resets selftests kick the tasklets, safe up until now as only
-execlists supported engine resets.
+Quoting Nautiyal, Ankit K (2021-01-15 07:24:36)
+> 
+> On 1/13/2021 5:22 PM, Jani Nikula wrote:
+> > On Fri, 08 Jan 2021, Jani Nikula <jani.nikula@intel.com> wrote:
+> >> On Thu, 24 Dec 2020, "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com> wrote:
+> >>> Thanks Chris to catch this.
+> >>>
+> >>> This definitely should be bitwise Operator, as mentioned by Jani is
+> >>> right thing to do.
+> >>>
+> >>> The PCON which I had access to, had the F/W which was using 303Ch
+> >>> (previously proposed) for color conversion capability, instead of what
+> >>> is latest mentioned in the spec ie. 83h.
+> >>>
+> >>> While testing, I had to skip this line of code, and hardcoded to older
+> >>> register ie. 303Ch.
+> >>>
+> >>> I Will get this patch tested and update.
+> >> In the mean time, the topic/dp-hdmi-2.1-pcon branch has been merged to
+> >> drm-next and backmerged to drm-intel-next. So drm-intel-next is where
+> >> the fixes should now land.
+> > Ankit, where are we with this? I'm anxious to merge this.
+> 
+> Jani, I checked the lastest F/W we had got for source control mode, but 
+> its still having support in older DPCD 303Ch and has not updated to use 
+> DPCD 83h.
+> 
+> So this patch cannot be directly tested.
+> 
+> Since this patch is correctly fixing to use bitwise operator, can we go 
+> ahead with the merge?
 
-Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
----
- drivers/gpu/drm/i915/gt/selftest_hangcheck.c | 18 ++++++++++++++----
- drivers/gpu/drm/i915/gt/selftest_reset.c     | 11 ++++++++---
- 2 files changed, 22 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/gt/selftest_hangcheck.c b/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
-index 460c3e9542f4..463bb6a700c8 100644
---- a/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
-+++ b/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
-@@ -704,6 +704,7 @@ static int __igt_reset_engine(struct intel_gt *gt, bool active)
- 
- 	for_each_engine(engine, gt, id) {
- 		unsigned int reset_count, reset_engine_count;
-+		unsigned long count;
- 		IGT_TIMEOUT(end_time);
- 
- 		if (active && !intel_engine_can_store_dword(engine))
-@@ -721,6 +722,7 @@ static int __igt_reset_engine(struct intel_gt *gt, bool active)
- 
- 		st_engine_heartbeat_disable(engine);
- 		set_bit(I915_RESET_ENGINE + id, &gt->reset.flags);
-+		count = 0;
- 		do {
- 			if (active) {
- 				struct i915_request *rq;
-@@ -770,9 +772,13 @@ static int __igt_reset_engine(struct intel_gt *gt, bool active)
- 				err = -EINVAL;
- 				break;
- 			}
-+
-+			count++;
- 		} while (time_before(jiffies, end_time));
- 		clear_bit(I915_RESET_ENGINE + id, &gt->reset.flags);
- 		st_engine_heartbeat_enable(engine);
-+		pr_info("%s: Completed %lu %s resets\n",
-+			engine->name, count, active ? "active" : "idle");
- 
- 		if (err)
- 			break;
-@@ -1623,7 +1629,8 @@ static int igt_reset_queue(void *arg)
- 			prev = rq;
- 			count++;
- 		} while (time_before(jiffies, end_time));
--		pr_info("%s: Completed %d resets\n", engine->name, count);
-+		pr_info("%s: Completed %d queued resets\n",
-+			engine->name, count);
- 
- 		*h.batch = MI_BATCH_BUFFER_END;
- 		intel_gt_chipset_flush(engine->gt);
-@@ -1720,7 +1727,8 @@ static int __igt_atomic_reset_engine(struct intel_engine_cs *engine,
- 	GEM_TRACE("i915_reset_engine(%s:%s) under %s\n",
- 		  engine->name, mode, p->name);
- 
--	tasklet_disable(t);
-+	if (t->func)
-+		tasklet_disable(t);
- 	if (strcmp(p->name, "softirq"))
- 		local_bh_disable();
- 	p->critical_section_begin();
-@@ -1730,8 +1738,10 @@ static int __igt_atomic_reset_engine(struct intel_engine_cs *engine,
- 	p->critical_section_end();
- 	if (strcmp(p->name, "softirq"))
- 		local_bh_enable();
--	tasklet_enable(t);
--	tasklet_hi_schedule(t);
-+	if (t->func) {
-+		tasklet_enable(t);
-+		tasklet_hi_schedule(t);
-+	}
- 
- 	if (err)
- 		pr_err("i915_reset_engine(%s:%s) failed under %s\n",
-diff --git a/drivers/gpu/drm/i915/gt/selftest_reset.c b/drivers/gpu/drm/i915/gt/selftest_reset.c
-index b7befcfbdcde..8784257ec808 100644
---- a/drivers/gpu/drm/i915/gt/selftest_reset.c
-+++ b/drivers/gpu/drm/i915/gt/selftest_reset.c
-@@ -321,7 +321,10 @@ static int igt_atomic_engine_reset(void *arg)
- 		goto out_unlock;
- 
- 	for_each_engine(engine, gt, id) {
--		tasklet_disable(&engine->execlists.tasklet);
-+		struct tasklet_struct *t = &engine->execlists.tasklet;
-+
-+		if (t->func)
-+			tasklet_disable(t);
- 		intel_engine_pm_get(engine);
- 
- 		for (p = igt_atomic_phases; p->name; p++) {
-@@ -345,8 +348,10 @@ static int igt_atomic_engine_reset(void *arg)
- 		}
- 
- 		intel_engine_pm_put(engine);
--		tasklet_enable(&engine->execlists.tasklet);
--		tasklet_hi_schedule(&engine->execlists.tasklet);
-+		if (t->func) {
-+			tasklet_enable(t);
-+			tasklet_hi_schedule(t);
-+		}
- 		if (err)
- 			break;
- 	}
--- 
-2.20.1
-
+Pushed. One hopes we can find a way to gain coverage for wacky DPCD,
+this sounds like the sort of thing we need an emulator such as chamelium
+for.
+-Chris
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
