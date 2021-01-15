@@ -7,38 +7,38 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6FEA8C433E0
-	for <intel-gfx@archiver.kernel.org>; Fri, 15 Jan 2021 08:19:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4D90FC433E6
+	for <intel-gfx@archiver.kernel.org>; Fri, 15 Jan 2021 08:19:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F082522240
-	for <intel-gfx@archiver.kernel.org>; Fri, 15 Jan 2021 08:19:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F082522240
+	by mail.kernel.org (Postfix) with ESMTPS id DD77222240
+	for <intel-gfx@archiver.kernel.org>; Fri, 15 Jan 2021 08:19:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DD77222240
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA61C6E182;
-	Fri, 15 Jan 2021 08:19:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CEF426E190;
+	Fri, 15 Jan 2021 08:19:22 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 296F46E17F
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 35D2F6E188
  for <intel-gfx@lists.freedesktop.org>; Fri, 15 Jan 2021 08:19:17 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23602669-1500050 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23602671-1500050 
  for multiple; Fri, 15 Jan 2021 08:19:11 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 15 Jan 2021 08:19:06 +0000
-Message-Id: <20210115081908.29494-2-chris@chris-wilson.co.uk>
+Date: Fri, 15 Jan 2021 08:19:08 +0000
+Message-Id: <20210115081908.29494-4-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20210115081908.29494-1-chris@chris-wilson.co.uk>
 References: <mika.kuoppala@linux.intel.com>
  <20210115081908.29494-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 2/4] drm/i915/gt: Lift stop_ring() to
- reset_prepare
+Subject: [Intel-gfx] [PATCH 4/4] drm/i915: Mark per-engine-reset as
+ supported on gen7
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,151 +57,49 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Push the sleeping stop_ring() out of the reset resume function to reset
-prepare; we are not allowed to sleep in the former.
+The benefit of only resetting a single engine is that we leave other
+streams of userspace work intact across a hang; vital for process
+isolation. We had wired up individual engine resets for gen6, but only
+enabled it from gen8; now let's turn it on for the forgotten gen7. gen6
+is still a mystery as how to unravel some global state that appears to
+be reset along with an engine (in particular the ppgtt enabling in
+GFX_MODE).
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 ---
- .../gpu/drm/i915/gt/intel_ring_submission.c   | 97 +++++++------------
- 1 file changed, 36 insertions(+), 61 deletions(-)
+ drivers/gpu/drm/i915/i915_pci.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_ring_submission.c b/drivers/gpu/drm/i915/gt/intel_ring_submission.c
-index 8d0964d2d597..44159595d909 100644
---- a/drivers/gpu/drm/i915/gt/intel_ring_submission.c
-+++ b/drivers/gpu/drm/i915/gt/intel_ring_submission.c
-@@ -157,21 +157,6 @@ static void ring_setup_status_page(struct intel_engine_cs *engine)
- 	flush_cs_tlb(engine);
- }
+diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
+index 39608381b4a4..020b5f561f07 100644
+--- a/drivers/gpu/drm/i915/i915_pci.c
++++ b/drivers/gpu/drm/i915/i915_pci.c
+@@ -455,6 +455,7 @@ static const struct intel_device_info snb_m_gt2_info = {
+ 	.has_llc = 1, \
+ 	.has_rc6 = 1, \
+ 	.has_rc6p = 1, \
++	.has_reset_engine = true, \
+ 	.has_rps = true, \
+ 	.dma_mask_size = 40, \
+ 	.ppgtt_type = INTEL_PPGTT_ALIASING, \
+@@ -513,6 +514,7 @@ static const struct intel_device_info vlv_info = {
+ 	.cpu_transcoder_mask = BIT(TRANSCODER_A) | BIT(TRANSCODER_B),
+ 	.has_runtime_pm = 1,
+ 	.has_rc6 = 1,
++	.has_reset_engine = true,
+ 	.has_rps = true,
+ 	.display.has_gmch = 1,
+ 	.display.has_hotplug = 1,
+@@ -571,8 +573,7 @@ static const struct intel_device_info hsw_gt3_info = {
+ 	.dma_mask_size = 39, \
+ 	.ppgtt_type = INTEL_PPGTT_FULL, \
+ 	.ppgtt_size = 48, \
+-	.has_64bit_reloc = 1, \
+-	.has_reset_engine = 1
++	.has_64bit_reloc = 1
  
--static bool stop_ring(struct intel_engine_cs *engine)
--{
--	intel_engine_stop_cs(engine);
--
--	ENGINE_WRITE(engine, RING_HEAD, ENGINE_READ(engine, RING_TAIL));
--
--	ENGINE_WRITE(engine, RING_HEAD, 0);
--	ENGINE_WRITE(engine, RING_TAIL, 0);
--
--	/* The ring must be empty before it is disabled */
--	ENGINE_WRITE(engine, RING_CTL, 0);
--
--	return (ENGINE_READ(engine, RING_HEAD) & HEAD_ADDR) == 0;
--}
--
- static struct i915_address_space *vm_alias(struct i915_address_space *vm)
- {
- 	if (i915_is_ggtt(vm))
-@@ -213,31 +198,6 @@ static int xcs_resume(struct intel_engine_cs *engine)
- 
- 	intel_uncore_forcewake_get(engine->uncore, FORCEWAKE_ALL);
- 
--	/* WaClearRingBufHeadRegAtInit:ctg,elk */
--	if (!stop_ring(engine)) {
--		/* G45 ring initialization often fails to reset head to zero */
--		drm_dbg(&dev_priv->drm, "%s head not reset to zero "
--			"ctl %08x head %08x tail %08x start %08x\n",
--			engine->name,
--			ENGINE_READ(engine, RING_CTL),
--			ENGINE_READ(engine, RING_HEAD),
--			ENGINE_READ(engine, RING_TAIL),
--			ENGINE_READ(engine, RING_START));
--
--		if (!stop_ring(engine)) {
--			drm_err(&dev_priv->drm,
--				"failed to set %s head to zero "
--				"ctl %08x head %08x tail %08x start %08x\n",
--				engine->name,
--				ENGINE_READ(engine, RING_CTL),
--				ENGINE_READ(engine, RING_HEAD),
--				ENGINE_READ(engine, RING_TAIL),
--				ENGINE_READ(engine, RING_START));
--			ret = -EIO;
--			goto out;
--		}
--	}
--
- 	if (HWS_NEEDS_PHYSICAL(dev_priv))
- 		ring_setup_phys_status_page(engine);
- 	else
-@@ -339,11 +299,21 @@ static void xcs_sanitize(struct intel_engine_cs *engine)
- 	clflush_cache_range(engine->status_page.addr, PAGE_SIZE);
- }
- 
-+static bool stop_ring(struct intel_engine_cs *engine)
-+{
-+	ENGINE_WRITE_FW(engine, RING_HEAD, ENGINE_READ_FW(engine, RING_TAIL));
-+
-+	ENGINE_WRITE_FW(engine, RING_HEAD, 0);
-+	ENGINE_WRITE_FW(engine, RING_TAIL, 0);
-+
-+	/* The ring must be empty before it is disabled */
-+	ENGINE_WRITE_FW(engine, RING_CTL, 0);
-+
-+	return (ENGINE_READ_FW(engine, RING_HEAD) & HEAD_ADDR) == 0;
-+}
-+
- static void reset_prepare(struct intel_engine_cs *engine)
- {
--	struct intel_uncore *uncore = engine->uncore;
--	const u32 base = engine->mmio_base;
--
- 	/*
- 	 * We stop engines, otherwise we might get failed reset and a
- 	 * dead gpu (on elk). Also as modern gpu as kbl can suffer
-@@ -355,30 +325,35 @@ static void reset_prepare(struct intel_engine_cs *engine)
- 	 * WaKBLVECSSemaphoreWaitPoll:kbl (on ALL_ENGINES)
- 	 *
- 	 * WaMediaResetMainRingCleanup:ctg,elk (presumably)
-+	 * WaClearRingBufHeadRegAtInit:ctg,elk
- 	 *
- 	 * FIXME: Wa for more modern gens needs to be validated
- 	 */
- 	ENGINE_TRACE(engine, "\n");
-+	intel_engine_stop_cs(engine);
- 
--	if (intel_engine_stop_cs(engine))
--		ENGINE_TRACE(engine, "timed out on STOP_RING\n");
-+	if (!stop_ring(engine)) {
-+		/* G45 ring initialization often fails to reset head to zero */
-+		drm_dbg(&engine->i915->drm,
-+			"%s head not reset to zero "
-+			"ctl %08x head %08x tail %08x start %08x\n",
-+			engine->name,
-+			ENGINE_READ_FW(engine, RING_CTL),
-+			ENGINE_READ_FW(engine, RING_HEAD),
-+			ENGINE_READ_FW(engine, RING_TAIL),
-+			ENGINE_READ_FW(engine, RING_START));
-+	}
- 
--	intel_uncore_write_fw(uncore,
--			      RING_HEAD(base),
--			      intel_uncore_read_fw(uncore, RING_TAIL(base)));
--	intel_uncore_posting_read_fw(uncore, RING_HEAD(base)); /* paranoia */
--
--	intel_uncore_write_fw(uncore, RING_HEAD(base), 0);
--	intel_uncore_write_fw(uncore, RING_TAIL(base), 0);
--	intel_uncore_posting_read_fw(uncore, RING_TAIL(base));
--
--	/* The ring must be empty before it is disabled */
--	intel_uncore_write_fw(uncore, RING_CTL(base), 0);
--
--	/* Check acts as a post */
--	if (intel_uncore_read_fw(uncore, RING_HEAD(base)))
--		ENGINE_TRACE(engine, "ring head [%x] not parked\n",
--			     intel_uncore_read_fw(uncore, RING_HEAD(base)));
-+	if (!stop_ring(engine)) {
-+		drm_err(&engine->i915->drm,
-+			"failed to set %s head to zero "
-+			"ctl %08x head %08x tail %08x start %08x\n",
-+			engine->name,
-+			ENGINE_READ_FW(engine, RING_CTL),
-+			ENGINE_READ_FW(engine, RING_HEAD),
-+			ENGINE_READ_FW(engine, RING_TAIL),
-+			ENGINE_READ_FW(engine, RING_START));
-+	}
- }
- 
- static void reset_rewind(struct intel_engine_cs *engine, bool stalled)
+ #define BDW_PLATFORM \
+ 	GEN8_FEATURES, \
 -- 
 2.20.1
 
