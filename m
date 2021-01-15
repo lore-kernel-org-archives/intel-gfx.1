@@ -2,75 +2,49 @@ Return-Path: <SRS0=bvk2=GS=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5059CC433DB
-	for <intel-gfx@archiver.kernel.org>; Fri, 15 Jan 2021 04:16:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7FB97C433E9
+	for <intel-gfx@archiver.kernel.org>; Fri, 15 Jan 2021 05:41:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E9A3420781
-	for <intel-gfx@archiver.kernel.org>; Fri, 15 Jan 2021 04:16:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E9A3420781
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
+	by mail.kernel.org (Postfix) with ESMTPS id 3A2F0239EF
+	for <intel-gfx@archiver.kernel.org>; Fri, 15 Jan 2021 05:41:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3A2F0239EF
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7361589AB9;
-	Fri, 15 Jan 2021 04:16:06 +0000 (UTC)
-Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
- [IPv6:2a00:1450:4864:20::234])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 83F6F89AB9
- for <intel-gfx@lists.freedesktop.org>; Fri, 15 Jan 2021 04:16:05 +0000 (UTC)
-Received: by mail-lj1-x234.google.com with SMTP id n11so8983281lji.5
- for <intel-gfx@lists.freedesktop.org>; Thu, 14 Jan 2021 20:16:05 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linux-foundation.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=63J/tLzLebR+d+sU8VZA5VzH3xNPW+K+cgzDeTPBen4=;
- b=CdC54e4XPbsZ3GtDLtnS0hEk8yJVFWCjWeEE1NTkSB0i2IQrdp9OLp6mZJPcsM1BNL
- sJp/79LSbNj8NdFh8B2AG8NI0nt5+iIzCgFM55u/HovT+b6rocnqOCKV4MvZbYzWcof1
- cFLxmg6G7B4nxXs3a2FFm8vXc9U6a9mpM5dBg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=63J/tLzLebR+d+sU8VZA5VzH3xNPW+K+cgzDeTPBen4=;
- b=uRKi47dK1SsVmKGmDHGRyHnJUmIgl7KWe+4bw2bSIkFKSCLLLyQExA9pTTyKm7NNpG
- 40DV+S9NvvFFz8xKpUhzyVHOyqroiK0n+NtNHiin6iWOFxkwis3PIksuT0g6QBq2r4xQ
- qixoPsgmQKAo3JTYdOXnuAJbwKD51Q9+nSljPGaU2HoXaONfTVtUmFM2v/ia/+EOgGiE
- ndPDhh3ljIxAqS+RZKqlZR7atWMJ6qHTkPb8Lawe59ilwwlQkRuxtWD2TvqntghtfqjU
- oSAp/R0RFFQVkBPl26yrBmnOlaRe2eSDUi9Ko4Nc7NnR5L0WrTErM4um/qcYPgQpkXp6
- cqzg==
-X-Gm-Message-State: AOAM532PVHUs8K3S+UV3WTcNkn3vxBoqSnibLAJGrMv+7DhQ3ztibtl2
- C783OYx3O14h00IYKbYTjsBKKWU9dpwT0A==
-X-Google-Smtp-Source: ABdhPJz5F/EThgNPp23qGDl9MY2K4LWi78/j/QiuyVjIy5oX61QmXaUlXWcVXC9UnQEwuhypGJVJXw==
-X-Received: by 2002:a05:651c:1022:: with SMTP id
- w2mr4491640ljm.327.1610684163530; 
- Thu, 14 Jan 2021 20:16:03 -0800 (PST)
-Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com.
- [209.85.208.177])
- by smtp.gmail.com with ESMTPSA id e15sm753334lfc.106.2021.01.14.20.16.01
- for <intel-gfx@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 Jan 2021 20:16:02 -0800 (PST)
-Received: by mail-lj1-f177.google.com with SMTP id u21so8999576lja.0
- for <intel-gfx@lists.freedesktop.org>; Thu, 14 Jan 2021 20:16:01 -0800 (PST)
-X-Received: by 2002:a2e:8995:: with SMTP id c21mr4400396lji.251.1610684161408; 
- Thu, 14 Jan 2021 20:16:01 -0800 (PST)
-MIME-Version: 1.0
-References: <20210114163206.4a562d82@gandalf.local.home>
- <161066015368.19482.10094410867880595092@build.alporthouse.com>
- <20210114170137.002763b3@gandalf.local.home>
-In-Reply-To: <20210114170137.002763b3@gandalf.local.home>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Thu, 14 Jan 2021 20:15:45 -0800
-X-Gmail-Original-Message-ID: <CAHk-=wgqPnjOUa0aDRHXC0UAePrM6kRUD9gR4g2x0mq91FD4xA@mail.gmail.com>
-Message-ID: <CAHk-=wgqPnjOUa0aDRHXC0UAePrM6kRUD9gR4g2x0mq91FD4xA@mail.gmail.com>
-To: Steven Rostedt <rostedt@goodmis.org>
-Subject: Re: [Intel-gfx] [BUG] on reboot: bisected to: drm/i915: Shut down
- displays gracefully on reboot
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D9AC6E153;
+	Fri, 15 Jan 2021 05:41:30 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 69E286E153
+ for <intel-gfx@lists.freedesktop.org>; Fri, 15 Jan 2021 05:41:29 +0000 (UTC)
+IronPort-SDR: 3DHyXfEYeBj1M38U9uewf2j2iHgW7Y0CW9/utd58AQIGltlqNeyVPdN4bcsfj/PIVTnm7j9Ufe
+ 7N5SF83OMBqQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9864"; a="178651573"
+X-IronPort-AV: E=Sophos;i="5.79,348,1602572400"; d="scan'208";a="178651573"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Jan 2021 21:41:28 -0800
+IronPort-SDR: UI4Dskw6Yus8G1cuTwCBX4q0QL2+SYTLGbni+XcPtmDQTJHuM4iSu9sKvgFMpuzb6kgsgcz+SI
+ q5PjWlvV9Xgw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.79,348,1602572400"; d="scan'208";a="352717445"
+Received: from shawnle1-build-machine.itwn.intel.com ([10.5.253.22])
+ by orsmga006.jf.intel.com with ESMTP; 14 Jan 2021 21:41:27 -0800
+From: Lee Shawn C <shawn.c.lee@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Fri, 15 Jan 2021 13:46:04 +0800
+Message-Id: <20210115054604.27726-1-shawn.c.lee@intel.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20210114092236.20477-1-shawn.c.lee@intel.com>
+References: <20210114092236.20477-1-shawn.c.lee@intel.com>
+Subject: [Intel-gfx] [PATCH v2] drm/i915: support two CSC module on gen11
+ and later
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,23 +57,153 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>,
- intel-gfx <intel-gfx@lists.freedesktop.org>,
- LKML <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Chris Wilson <chris@chris-wilson.co.uk>
+Cc: Cooper Chiou <cooper.chiou@intel.com>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jan 14, 2021 at 2:01 PM Steven Rostedt <rostedt@goodmis.org> wrote:
->
-> Thanks, I take it, it will be going into mainline soon.
+There are two CSC on pipeline on gen11 and later platform.
+User space application is allowed to enable CTM and RGB
+to YCbCr coversion at the same time now.
 
-Just got merged - it might be a good idea to verify that your problem is solved.
+v2: check csc capability in {}_color_check function.
 
-            Linus
+Cc: Ville Syrjala <ville.syrjala@linux.intel.com>
+Cc: Imre Deak <imre.deak@intel.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Cooper Chiou <cooper.chiou@intel.com>
+Cc: Shankar Uma <uma.shankar@intel.com>
+
+Signed-off-by: Lee Shawn C <shawn.c.lee@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_color.c   | 45 ++++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_display.c | 13 ------
+ 2 files changed, 45 insertions(+), 13 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_color.c b/drivers/gpu/drm/i915/display/intel_color.c
+index 172d398081ee..22edcd0c9ad5 100644
+--- a/drivers/gpu/drm/i915/display/intel_color.c
++++ b/drivers/gpu/drm/i915/display/intel_color.c
+@@ -1322,10 +1322,35 @@ static u32 i9xx_gamma_mode(struct intel_crtc_state *crtc_state)
+ 		return GAMMA_MODE_MODE_10BIT; /* i965+ only */
+ }
+ 
++static int check_csc(const struct intel_crtc_state *pipe_config)
++{
++	struct drm_i915_private *dev_priv = to_i915(pipe_config->uapi.crtc->dev);
++
++	if ((INTEL_GEN(dev_priv) < 11) &&
++	    (pipe_config->output_format == INTEL_OUTPUT_FORMAT_YCBCR420 ||
++	     pipe_config->output_format == INTEL_OUTPUT_FORMAT_YCBCR444) &&
++	     pipe_config->hw.ctm) {
++		/*
++		 * There is only one pipe CSC unit per pipe, and we need that
++		 * for output conversion from RGB->YCBCR. So if CTM is already
++		 * applied we can't support YCBCR420 output.
++		 */
++		drm_dbg_kms(&dev_priv->drm,
++			    "YCBCR420 and CTM together are not possible\n");
++		return -EINVAL;
++	}
++
++	return 0;
++}
++
+ static int i9xx_color_check(struct intel_crtc_state *crtc_state)
+ {
+ 	int ret;
+ 
++	ret = check_csc(crtc_state);
++	if (ret)
++		return ret;
++
+ 	ret = check_luts(crtc_state);
+ 	if (ret)
+ 		return ret;
+@@ -1374,6 +1399,10 @@ static int chv_color_check(struct intel_crtc_state *crtc_state)
+ {
+ 	int ret;
+ 
++	ret = check_csc(crtc_state);
++	if (ret)
++		return ret;
++
+ 	ret = check_luts(crtc_state);
+ 	if (ret)
+ 		return ret;
+@@ -1427,6 +1456,10 @@ static int ilk_color_check(struct intel_crtc_state *crtc_state)
+ {
+ 	int ret;
+ 
++	ret = check_csc(crtc_state);
++	if (ret)
++		return ret;
++
+ 	ret = check_luts(crtc_state);
+ 	if (ret)
+ 		return ret;
+@@ -1488,6 +1521,10 @@ static int ivb_color_check(struct intel_crtc_state *crtc_state)
+ 	bool limited_color_range = ilk_csc_limited_range(crtc_state);
+ 	int ret;
+ 
++	ret = check_csc(crtc_state);
++	if (ret)
++		return ret;
++
+ 	ret = check_luts(crtc_state);
+ 	if (ret)
+ 		return ret;
+@@ -1527,6 +1564,10 @@ static int glk_color_check(struct intel_crtc_state *crtc_state)
+ {
+ 	int ret;
+ 
++	ret = check_csc(crtc_state);
++	if (ret)
++		return ret;
++
+ 	ret = check_luts(crtc_state);
+ 	if (ret)
+ 		return ret;
+@@ -1592,6 +1633,10 @@ static int icl_color_check(struct intel_crtc_state *crtc_state)
+ {
+ 	int ret;
+ 
++	ret = check_csc(crtc_state);
++	if (ret)
++		return ret;
++
+ 	ret = check_luts(crtc_state);
+ 	if (ret)
+ 		return ret;
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 66990e48c0d4..e60cbe8b0203 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -7835,19 +7835,6 @@ static int intel_crtc_compute_config(struct intel_crtc *crtc,
+ 		return -EINVAL;
+ 	}
+ 
+-	if ((pipe_config->output_format == INTEL_OUTPUT_FORMAT_YCBCR420 ||
+-	     pipe_config->output_format == INTEL_OUTPUT_FORMAT_YCBCR444) &&
+-	     pipe_config->hw.ctm) {
+-		/*
+-		 * There is only one pipe CSC unit per pipe, and we need that
+-		 * for output conversion from RGB->YCBCR. So if CTM is already
+-		 * applied we can't support YCBCR420 output.
+-		 */
+-		drm_dbg_kms(&dev_priv->drm,
+-			    "YCBCR420 and CTM together are not possible\n");
+-		return -EINVAL;
+-	}
+-
+ 	/*
+ 	 * Pipe horizontal size must be even in:
+ 	 * - DVO ganged mode
+-- 
+2.17.1
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
