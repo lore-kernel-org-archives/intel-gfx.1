@@ -7,45 +7,37 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7505AC43381
-	for <intel-gfx@archiver.kernel.org>; Sun, 17 Jan 2021 06:46:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E823BC433E0
+	for <intel-gfx@archiver.kernel.org>; Sun, 17 Jan 2021 09:30:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3FFB222D5B
-	for <intel-gfx@archiver.kernel.org>; Sun, 17 Jan 2021 06:46:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3FFB222D5B
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 0C450225AB
+	for <intel-gfx@archiver.kernel.org>; Sun, 17 Jan 2021 09:30:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0C450225AB
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 20E9A6E062;
-	Sun, 17 Jan 2021 06:46:24 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 18C4F89DF7
- for <Intel-gfx@lists.freedesktop.org>; Sun, 17 Jan 2021 06:45:55 +0000 (UTC)
-IronPort-SDR: qv56CVrMHPse/1PbPOzS1jto39kWGpzLfCXNHeTpuMeF2LbJuyf/hhUypWc9IOOaFzeZQRHr2r
- Lefvcgd9b4tQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9866"; a="158475694"
-X-IronPort-AV: E=Sophos;i="5.79,352,1602572400"; d="scan'208";a="158475694"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jan 2021 22:45:54 -0800
-IronPort-SDR: 6cPKdPmC/iFVE6Orgb7dUZNgdHMIXPrOINPK31XxcjLWNHEyjF/n/PbGLW/TGgfVnmvusRg6lH
- ThJ4uRjzn/qQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.79,352,1602572400"; d="scan'208";a="500346826"
-Received: from sean-virtualbox.fm.intel.com ([10.105.158.96])
- by orsmga004.jf.intel.com with ESMTP; 16 Jan 2021 22:45:54 -0800
-From: "Huang, Sean Z" <sean.z.huang@intel.com>
-To: Intel-gfx@lists.freedesktop.org
-Date: Sat, 16 Jan 2021 22:45:46 -0800
-Message-Id: <20210117064548.8822-12-sean.z.huang@intel.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20210117064548.8822-1-sean.z.huang@intel.com>
-References: <20210106231223.8323-1-sean.z.huang@intel.com>
- <20210117064548.8822-1-sean.z.huang@intel.com>
-Subject: [Intel-gfx] [RFC-v21 11/13] drm/i915/uapi: introduce
- drm_i915_gem_create_ext
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6093D895B9;
+	Sun, 17 Jan 2021 09:30:33 +0000 (UTC)
+Received: from fireflyinternet.com (unknown [77.68.26.236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D7270895B9
+ for <intel-gfx@lists.freedesktop.org>; Sun, 17 Jan 2021 09:30:31 +0000 (UTC)
+X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
+ x-ip-name=78.156.65.138; 
+Received: from build.alporthouse.com (unverified [78.156.65.138]) 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23619767-1500050 
+ for multiple; Sun, 17 Jan 2021 09:30:17 +0000
+From: Chris Wilson <chris@chris-wilson.co.uk>
+To: intel-gfx@lists.freedesktop.org
+Date: Sun, 17 Jan 2021 09:30:15 +0000
+Message-Id: <20210117093015.29143-1-chris@chris-wilson.co.uk>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20210116223117.12860-1-chris@chris-wilson.co.uk>
+References: <20210116223117.12860-1-chris@chris-wilson.co.uk>
+MIME-Version: 1.0
+Subject: [Intel-gfx] [PATCH] drm/i915/gt: Clear CACHE_MODE prior to clearing
+ residuals
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,190 +50,47 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: kumar.gaurav@intel.com, Matthew Auld <matthew.auld@intel.com>,
- Bommu Krishnaiah <krishnaiah.bommu@intel.com>
-MIME-Version: 1.0
+Cc: Chris Wilson <chris@chris-wilson.co.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Bommu Krishnaiah <krishnaiah.bommu@intel.com>
+Since we do a bare context switch with no restore, the clear residual
+kernel runs on dirty state, and we must be careful to avoid executing
+bad state from context registers inherited from a malicious client.
 
-Same old gem_create but with now with extensions support. This is needed
-to support various upcoming usecases. For now we use the extensions
-mechanism to support PAVP.
-
-rev21:
-    - Fix "Fi.CI.CHECKPATCH" warnings
-
-Signed-off-by: Bommu Krishnaiah <krishnaiah.bommu@intel.com>
-Signed-off-by: Matthew Auld <matthew.auld@intel.com>
-Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: Matthew Auld <matthew.auld@intel.com>
-Cc: Telukuntla Sreedhar <sreedhar.telukuntla@intel.com>
+Fixes: 008ead6ef8f5 ("drm/i915/gt: Restore clear-residual mitigations for Ivybridge, Baytrail")
+Fixes: 09aa9e45863e ("drm/i915/gt: Restore clear-residual mitigations for Ivybridge, Baytrail")
+Testcase: igt/gem_ctx_isolation # ivb,vlv
+Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+Cc: Mika Kuoppala <mika.kuoppala@linux.intel.com>
+Cc: Akeem G Abodunrin <akeem.g.abodunrin@intel.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_create.c | 41 ++++++++++++++++++-
- drivers/gpu/drm/i915/i915_drv.c            |  2 +-
- include/uapi/drm/i915_drm.h                | 47 ++++++++++++++++++++++
- 3 files changed, 88 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/gt/gen7_renderclear.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_create.c b/drivers/gpu/drm/i915/gem/i915_gem_create.c
-index 45d60e3d98e3..3ad3413c459f 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_create.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_create.c
-@@ -7,6 +7,7 @@
- #include "gem/i915_gem_region.h"
+diff --git a/drivers/gpu/drm/i915/gt/gen7_renderclear.c b/drivers/gpu/drm/i915/gt/gen7_renderclear.c
+index 56bdcdaa9a88..0490c29788d7 100644
+--- a/drivers/gpu/drm/i915/gt/gen7_renderclear.c
++++ b/drivers/gpu/drm/i915/gt/gen7_renderclear.c
+@@ -390,6 +390,14 @@ static void emit_batch(struct i915_vma * const vma,
+ 						     &cb_kernel_ivb,
+ 						     desc_count);
  
- #include "i915_drv.h"
-+#include "i915_user_extensions.h"
- 
- static int
- i915_gem_create(struct drm_file *file,
-@@ -91,6 +92,35 @@ i915_gem_dumb_create(struct drm_file *file,
- 			       &args->size, &args->handle);
- }
- 
-+struct create_ext {
-+	struct drm_i915_private *i915;
-+};
++	gen7_emit_pipeline_invalidate(&cmds);
++	batch_add(&cmds, MI_LOAD_REGISTER_IMM(2));
++	batch_add(&cmds, i915_mmio_reg_offset(CACHE_MODE_0_GEN7));
++	batch_add(&cmds, 0xffff0000);
++	batch_add(&cmds, i915_mmio_reg_offset(CACHE_MODE_1));
++	batch_add(&cmds, 0xffff0000 | PIXEL_SUBSPAN_COLLECT_OPT_DISABLE);
++	gen7_emit_pipeline_flush(&cmds);
 +
-+static int __create_setparam(struct drm_i915_gem_object_param *args,
-+			     struct create_ext *ext_data)
-+{
-+	if (!(args->param & I915_OBJECT_PARAM)) {
-+		DRM_DEBUG("Missing I915_OBJECT_PARAM namespace\n");
-+		return -EINVAL;
-+	}
-+
-+	return -EINVAL;
-+}
-+
-+static int create_setparam(struct i915_user_extension __user *base, void *data)
-+{
-+	struct drm_i915_gem_create_ext_setparam ext;
-+
-+	if (copy_from_user(&ext, base, sizeof(ext)))
-+		return -EFAULT;
-+
-+	return __create_setparam(&ext.param, data);
-+}
-+
-+static const i915_user_extension_fn create_extensions[] = {
-+	[I915_GEM_CREATE_EXT_SETPARAM] = create_setparam,
-+};
-+
- /**
-  * Creates a new mm object and returns a handle to it.
-  * @dev: drm device pointer
-@@ -102,10 +132,19 @@ i915_gem_create_ioctl(struct drm_device *dev, void *data,
- 		      struct drm_file *file)
- {
- 	struct drm_i915_private *i915 = to_i915(dev);
--	struct drm_i915_gem_create *args = data;
-+	struct create_ext ext_data = { .i915 = i915 };
-+	struct drm_i915_gem_create_ext *args = data;
-+	int ret;
- 
- 	i915_gem_flush_free_objects(i915);
- 
-+	ret = i915_user_extensions(u64_to_user_ptr(args->extensions),
-+				   create_extensions,
-+				   ARRAY_SIZE(create_extensions),
-+				   &ext_data);
-+	if (ret)
-+		return ret;
-+
- 	return i915_gem_create(file,
- 			       intel_memory_region_by_type(i915,
- 							   INTEL_MEMORY_SYSTEM),
-diff --git a/drivers/gpu/drm/i915/i915_drv.c b/drivers/gpu/drm/i915/i915_drv.c
-index 19db49206e0c..0e3d04c50f53 100644
---- a/drivers/gpu/drm/i915/i915_drv.c
-+++ b/drivers/gpu/drm/i915/i915_drv.c
-@@ -1731,7 +1731,7 @@ static const struct drm_ioctl_desc i915_ioctls[] = {
- 	DRM_IOCTL_DEF_DRV(I915_GEM_THROTTLE, i915_gem_throttle_ioctl, DRM_RENDER_ALLOW),
- 	DRM_IOCTL_DEF_DRV(I915_GEM_ENTERVT, drm_noop, DRM_AUTH|DRM_MASTER|DRM_ROOT_ONLY),
- 	DRM_IOCTL_DEF_DRV(I915_GEM_LEAVEVT, drm_noop, DRM_AUTH|DRM_MASTER|DRM_ROOT_ONLY),
--	DRM_IOCTL_DEF_DRV(I915_GEM_CREATE, i915_gem_create_ioctl, DRM_RENDER_ALLOW),
-+	DRM_IOCTL_DEF_DRV(I915_GEM_CREATE_EXT, i915_gem_create_ioctl, DRM_RENDER_ALLOW),
- 	DRM_IOCTL_DEF_DRV(I915_GEM_PREAD, i915_gem_pread_ioctl, DRM_RENDER_ALLOW),
- 	DRM_IOCTL_DEF_DRV(I915_GEM_PWRITE, i915_gem_pwrite_ioctl, DRM_RENDER_ALLOW),
- 	DRM_IOCTL_DEF_DRV(I915_GEM_MMAP, i915_gem_mmap_ioctl, DRM_RENDER_ALLOW),
-diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
-index 00fd1c2bcbb3..aa232ded9951 100644
---- a/include/uapi/drm/i915_drm.h
-+++ b/include/uapi/drm/i915_drm.h
-@@ -392,6 +392,7 @@ typedef struct _drm_i915_sarea {
- #define DRM_IOCTL_I915_GEM_ENTERVT	DRM_IO(DRM_COMMAND_BASE + DRM_I915_GEM_ENTERVT)
- #define DRM_IOCTL_I915_GEM_LEAVEVT	DRM_IO(DRM_COMMAND_BASE + DRM_I915_GEM_LEAVEVT)
- #define DRM_IOCTL_I915_GEM_CREATE	DRM_IOWR(DRM_COMMAND_BASE + DRM_I915_GEM_CREATE, struct drm_i915_gem_create)
-+#define DRM_IOCTL_I915_GEM_CREATE_EXT   DRM_IOWR(DRM_COMMAND_BASE + DRM_I915_GEM_CREATE, struct drm_i915_gem_create_ext)
- #define DRM_IOCTL_I915_GEM_PREAD	DRM_IOW (DRM_COMMAND_BASE + DRM_I915_GEM_PREAD, struct drm_i915_gem_pread)
- #define DRM_IOCTL_I915_GEM_PWRITE	DRM_IOW (DRM_COMMAND_BASE + DRM_I915_GEM_PWRITE, struct drm_i915_gem_pwrite)
- #define DRM_IOCTL_I915_GEM_MMAP		DRM_IOWR(DRM_COMMAND_BASE + DRM_I915_GEM_MMAP, struct drm_i915_gem_mmap)
-@@ -729,6 +730,27 @@ struct drm_i915_gem_create {
- 	__u32 pad;
- };
- 
-+struct drm_i915_gem_create_ext {
-+	/**
-+	 * Requested size for the object.
-+	 *
-+	 * The (page-aligned) allocated size for the object will be returned.
-+	 */
-+	__u64 size;
-+	/**
-+	 * Returned handle for the object.
-+	 *
-+	 * Object handles are nonzero.
-+	 */
-+	__u32 handle;
-+	__u32 pad;
-+#define I915_GEM_CREATE_EXT_SETPARAM (1u << 0)
-+#define I915_GEM_CREATE_EXT_FLAGS_UNKNOWN \
-+	(-(I915_GEM_CREATE_EXT_SETPARAM << 1))
-+	__u64 extensions;
-+
-+};
-+
- struct drm_i915_gem_pread {
- 	/** Handle for the object being read. */
- 	__u32 handle;
-@@ -1708,6 +1730,31 @@ struct drm_i915_gem_context_param {
- 	__u64 value;
- };
- 
-+struct drm_i915_gem_object_param {
-+	/* Object handle (0 for I915_GEM_CREATE_EXT_SETPARAM) */
-+	__u32 handle;
-+
-+	/* Data pointer size */
-+	__u32 size;
-+
-+/*
-+ * I915_OBJECT_PARAM:
-+ *
-+ * Select object namespace for the param.
-+ */
-+#define I915_OBJECT_PARAM  (1ull << 32)
-+
-+	__u64 param;
-+
-+	/* Data value or pointer */
-+	__u64 data;
-+};
-+
-+struct drm_i915_gem_create_ext_setparam {
-+	struct i915_user_extension base;
-+	struct drm_i915_gem_object_param param;
-+};
-+
- /**
-  * Context SSEU programming
-  *
+ 	gen7_emit_pipeline_invalidate(&cmds);
+ 	batch_add(&cmds, PIPELINE_SELECT | PIPELINE_SELECT_MEDIA);
+ 	batch_add(&cmds, MI_NOOP);
 -- 
-2.17.1
+2.20.1
 
 _______________________________________________
 Intel-gfx mailing list
