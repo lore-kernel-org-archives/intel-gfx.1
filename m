@@ -2,40 +2,42 @@ Return-Path: <SRS0=QT0F=GV=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id ECA82C433E0
-	for <intel-gfx@archiver.kernel.org>; Mon, 18 Jan 2021 13:14:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 86658C433DB
+	for <intel-gfx@archiver.kernel.org>; Mon, 18 Jan 2021 13:14:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AA80222B47
-	for <intel-gfx@archiver.kernel.org>; Mon, 18 Jan 2021 13:14:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AA80222B47
+	by mail.kernel.org (Postfix) with ESMTPS id 1F87F22B49
+	for <intel-gfx@archiver.kernel.org>; Mon, 18 Jan 2021 13:14:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1F87F22B49
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D5EFC6E20A;
-	Mon, 18 Jan 2021 13:14:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C42C56E216;
+	Mon, 18 Jan 2021 13:14:35 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B3BF689994;
- Mon, 18 Jan 2021 13:14:31 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3EA2B6E216;
+ Mon, 18 Jan 2021 13:14:34 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id F063BB96A;
- Mon, 18 Jan 2021 13:14:28 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 34CCBB974;
+ Mon, 18 Jan 2021 13:14:32 +0000 (UTC)
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: airlied@linux.ie, daniel@ffwll.ch, jani.nikula@linux.intel.com,
  joonas.lahtinen@linux.intel.com, sroland@vmware.com, zackr@vmware.com
-Date: Mon, 18 Jan 2021 14:14:14 +0100
-Message-Id: <20210118131420.15874-1-tzimmermann@suse.de>
+Date: Mon, 18 Jan 2021 14:14:20 +0100
+Message-Id: <20210118131420.15874-7-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.29.2
+In-Reply-To: <20210118131420.15874-1-tzimmermann@suse.de>
+References: <20210118131420.15874-1-tzimmermann@suse.de>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v4 0/6] drm: Move struct drm_device.pdev to
- legacy
+Subject: [Intel-gfx] [PATCH v4 6/6] drm: Move struct drm_device.pdev to
+ legacy section
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,111 +50,52 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-graphics-maintainer@vmware.com, intel-gfx@lists.freedesktop.org,
- intel-gvt-dev@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
- dri-devel@lists.freedesktop.org
+Cc: intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-graphics-maintainer@vmware.com,
+ Thomas Zimmermann <tzimmermann@suse.de>, Sam Ravnborg <sam@ravnborg.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-I merged more patches into drm-misc-next. I'm mostly sending out v4 of
-this patchset to split the final patch into the core changes and the
-patch for moving pdev behind CONFIG_DRM_LEGACY. The former are required
-to fix a reported bug. [1] There's also a fix to vmwgfx.
-
-The pdev field in struct drm_device points to a PCI device structure and
-goes back to UMS-only days when all DRM drivers were for PCI devices.
-Meanwhile we also support USB, SPI and platform devices. Each of those
-uses the generic device stored in struct drm_device.dev.
-
-To reduce duplication and remove the special case of PCI, this patchset
-converts all modesetting drivers from pdev to dev and makes pdev a field
-for legacy UMS drivers.
-
-For PCI devices, the pointer in struct drm_device.dev can be upcasted to
-struct pci_device; or tested for PCI with dev_is_pci(). In several places
-the code can use the dev field directly.
-
-After converting all drivers and the DRM core, the pdev fields becomes
-only relevant for legacy drivers. In a later patchset, we may want to
-convert these as well and remove pdev entirely.
+Struct drm_device.pdev is being moved to legacy status as only legacy
+DRM drivers use it. A possible follow-up patchset could remove pdev
+entirely.
 
 v4:
-	* merged several patches
-	* moved core changes into separate patch
-	* vmwgfx build fix
-v3:
-	* merged several patches
-	* fix one pdev reference in nouveau (Jeremy)
-	* rebases
-v2:
-	* move whitespace fixes into separate patches (Alex, Sam)
-	* move i915 gt/ and gvt/ changes into separate patches (Joonas)
+	* rebased
 
-[1] https://lore.kernel.org/dri-devel/7851c78c-8c57-3c84-cd49-a72703095a5d@suse.de/
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Acked-by: Sam Ravnborg <sam@ravnborg.org>
+---
+ include/drm/drm_device.h | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-Thomas Zimmermann (6):
-  drm: Upcast struct drm_device.dev to struct pci_device; replace pdev
-  drm/i915: Remove references to struct drm_device.pdev
-  drm/i915/gt: Remove references to struct drm_device.pdev
-  drm/i915/gvt: Remove references to struct drm_device.pdev
-  drm/vmwgfx: Remove reference to struct drm_device.pdev
-  drm: Move struct drm_device.pdev to legacy section
-
- drivers/gpu/drm/drm_agpsupport.c              |  9 ++++---
- drivers/gpu/drm/drm_bufs.c                    |  4 +--
- drivers/gpu/drm/drm_edid.c                    |  7 ++++-
- drivers/gpu/drm/drm_irq.c                     | 12 +++++----
- drivers/gpu/drm/drm_pci.c                     | 26 +++++++++++--------
- drivers/gpu/drm/drm_vm.c                      |  2 +-
- drivers/gpu/drm/i915/display/intel_bios.c     |  2 +-
- drivers/gpu/drm/i915/display/intel_cdclk.c    | 14 +++++-----
- drivers/gpu/drm/i915/display/intel_csr.c      |  2 +-
- drivers/gpu/drm/i915/display/intel_dsi_vbt.c  |  2 +-
- drivers/gpu/drm/i915/display/intel_fbdev.c    |  2 +-
- drivers/gpu/drm/i915/display/intel_gmbus.c    |  2 +-
- .../gpu/drm/i915/display/intel_lpe_audio.c    |  5 ++--
- drivers/gpu/drm/i915/display/intel_opregion.c |  6 ++---
- drivers/gpu/drm/i915/display/intel_overlay.c  |  2 +-
- drivers/gpu/drm/i915/display/intel_panel.c    |  4 +--
- drivers/gpu/drm/i915/display/intel_quirks.c   |  2 +-
- drivers/gpu/drm/i915/display/intel_sdvo.c     |  2 +-
- drivers/gpu/drm/i915/display/intel_vga.c      |  8 +++---
- drivers/gpu/drm/i915/gem/i915_gem_phys.c      |  6 ++---
- drivers/gpu/drm/i915/gem/i915_gem_shmem.c     |  2 +-
- drivers/gpu/drm/i915/gt/intel_engine_cs.c     |  2 +-
- drivers/gpu/drm/i915/gt/intel_ggtt.c          | 10 +++----
- drivers/gpu/drm/i915/gt/intel_ppgtt.c         |  2 +-
- drivers/gpu/drm/i915/gt/intel_rc6.c           |  4 +--
- drivers/gpu/drm/i915/gt/intel_region_lmem.c   |  8 +++---
- drivers/gpu/drm/i915/gt/intel_reset.c         |  6 ++---
- drivers/gpu/drm/i915/gvt/cfg_space.c          |  5 ++--
- drivers/gpu/drm/i915/gvt/firmware.c           | 10 +++----
- drivers/gpu/drm/i915/gvt/gtt.c                | 12 ++++-----
- drivers/gpu/drm/i915/gvt/gvt.c                |  6 ++---
- drivers/gpu/drm/i915/gvt/kvmgt.c              |  4 +--
- drivers/gpu/drm/i915/i915_debugfs.c           |  2 +-
- drivers/gpu/drm/i915/i915_drv.c               | 20 +++++++-------
- drivers/gpu/drm/i915/i915_drv.h               |  2 +-
- drivers/gpu/drm/i915/i915_gem_gtt.c           |  5 ++--
- drivers/gpu/drm/i915/i915_getparam.c          |  5 ++--
- drivers/gpu/drm/i915/i915_gpu_error.c         |  2 +-
- drivers/gpu/drm/i915/i915_irq.c               |  6 ++---
- drivers/gpu/drm/i915/i915_pmu.c               |  2 +-
- drivers/gpu/drm/i915/i915_suspend.c           |  4 +--
- drivers/gpu/drm/i915/i915_switcheroo.c        |  4 +--
- drivers/gpu/drm/i915/i915_vgpu.c              |  2 +-
- drivers/gpu/drm/i915/intel_device_info.c      |  2 +-
- drivers/gpu/drm/i915/intel_runtime_pm.c       |  2 +-
- drivers/gpu/drm/i915/intel_uncore.c           |  4 +--
- .../gpu/drm/i915/selftests/mock_gem_device.c  |  1 -
- drivers/gpu/drm/i915/selftests/mock_gtt.c     |  2 +-
- drivers/gpu/drm/vmwgfx/vmwgfx_drv.c           |  1 -
- include/drm/drm_device.h                      |  6 ++---
- 50 files changed, 137 insertions(+), 125 deletions(-)
-
---
+diff --git a/include/drm/drm_device.h b/include/drm/drm_device.h
+index d647223e8390..c5a195676e8f 100644
+--- a/include/drm/drm_device.h
++++ b/include/drm/drm_device.h
+@@ -279,9 +279,6 @@ struct drm_device {
+ 	/** @agp: AGP data */
+ 	struct drm_agp_head *agp;
+ 
+-	/** @pdev: PCI device structure */
+-	struct pci_dev *pdev;
+-
+ 	/** @num_crtcs: Number of CRTCs on this device */
+ 	unsigned int num_crtcs;
+ 
+@@ -324,6 +321,9 @@ struct drm_device {
+ 	/* List of devices per driver for stealth attach cleanup */
+ 	struct list_head legacy_dev_list;
+ 
++	/* PCI device structure */
++	struct pci_dev *pdev;
++
+ #ifdef __alpha__
+ 	/** @hose: PCI hose, only used on ALPHA platforms. */
+ 	struct pci_controller *hose;
+-- 
 2.29.2
 
 _______________________________________________
