@@ -2,42 +2,55 @@ Return-Path: <SRS0=QT0F=GV=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-15.4 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 81195C433E9
-	for <intel-gfx@archiver.kernel.org>; Mon, 18 Jan 2021 13:14:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 76281C433E0
+	for <intel-gfx@archiver.kernel.org>; Mon, 18 Jan 2021 13:17:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3562022B49
-	for <intel-gfx@archiver.kernel.org>; Mon, 18 Jan 2021 13:14:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3562022B49
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
+	by mail.kernel.org (Postfix) with ESMTPS id 32A6522B4E
+	for <intel-gfx@archiver.kernel.org>; Mon, 18 Jan 2021 13:17:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 32A6522B4E
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 522076E222;
-	Mon, 18 Jan 2021 13:14:36 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 33D0C6E214;
- Mon, 18 Jan 2021 13:14:34 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 322B8B967;
- Mon, 18 Jan 2021 13:14:32 +0000 (UTC)
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: airlied@linux.ie, daniel@ffwll.ch, jani.nikula@linux.intel.com,
- joonas.lahtinen@linux.intel.com, sroland@vmware.com, zackr@vmware.com
-Date: Mon, 18 Jan 2021 14:14:18 +0100
-Message-Id: <20210118131420.15874-5-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.29.2
-In-Reply-To: <20210118131420.15874-1-tzimmermann@suse.de>
-References: <20210118131420.15874-1-tzimmermann@suse.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B00126E213;
+	Mon, 18 Jan 2021 13:17:33 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 53B6D6E213
+ for <Intel-gfx@lists.freedesktop.org>; Mon, 18 Jan 2021 13:17:32 +0000 (UTC)
+IronPort-SDR: 1Xvhg5F83QojFac1dkx0emaRr1XErLpbVLT78Nj7jWIfQXd8QyKHHP/e5JtmyavfYrO4tflzjt
+ R0s8BioYwYLg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9867"; a="158573964"
+X-IronPort-AV: E=Sophos;i="5.79,356,1602572400"; d="scan'208";a="158573964"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Jan 2021 05:17:29 -0800
+IronPort-SDR: QVxQfnbppMfaezqqlqLZAU2bvxKKrSXj2HiqdrwRTgubnadt9aOD8ASqXSgyj+14YSwT5V5C9a
+ TBZraZTutazw==
+X-IronPort-AV: E=Sophos;i="5.79,356,1602572400"; d="scan'208";a="355186885"
+Received: from lcrossx-mobl2.ger.corp.intel.com (HELO [10.252.44.240])
+ ([10.252.44.240])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Jan 2021 05:17:27 -0800
+To: "Huang, Sean Z" <sean.z.huang@intel.com>, Intel-gfx@lists.freedesktop.org
+References: <20210118060730.15425-1-sean.z.huang@intel.com>
+From: Lionel Landwerlin <lionel.g.landwerlin@intel.com>
+Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
+ Swindon SN3 1RJ
+Message-ID: <a8ad4fba-84df-d4c9-64f6-da8aa71f08fb@intel.com>
+Date: Mon, 18 Jan 2021 15:17:24 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.0
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v4 4/6] drm/i915/gvt: Remove references to
- struct drm_device.pdev
+In-Reply-To: <20210118060730.15425-1-sean.z.huang@intel.com>
+Content-Language: en-US
+Subject: Re: [Intel-gfx] [RFC-v21 00/13] Introduce Intel PXP component -
+ Mesa single session
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,215 +63,175 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-graphics-maintainer@vmware.com, Thomas Zimmermann <tzimmermann@suse.de>,
- intel-gvt-dev@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
+Cc: kumar.gaurav@intel.com
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Using struct drm_device.pdev is deprecated. Convert i915 to struct
-drm_device.dev. No functional changes.
+Hi Sean,
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
----
- drivers/gpu/drm/i915/gvt/cfg_space.c |  5 +++--
- drivers/gpu/drm/i915/gvt/firmware.c  | 10 +++++-----
- drivers/gpu/drm/i915/gvt/gtt.c       | 12 ++++++------
- drivers/gpu/drm/i915/gvt/gvt.c       |  6 +++---
- drivers/gpu/drm/i915/gvt/kvmgt.c     |  4 ++--
- 5 files changed, 19 insertions(+), 18 deletions(-)
+FYI, I updated our Mesa drivers with the new 
+I915_CONTEXT_PARAM_PROTECTED_CONTENT requirement to be only at creation 
+time [1] [2] and gave a try to this series.
+It all works fine :
 
-diff --git a/drivers/gpu/drm/i915/gvt/cfg_space.c b/drivers/gpu/drm/i915/gvt/cfg_space.c
-index ad86c5eb5bba..b490e3db2e38 100644
---- a/drivers/gpu/drm/i915/gvt/cfg_space.c
-+++ b/drivers/gpu/drm/i915/gvt/cfg_space.c
-@@ -374,6 +374,7 @@ void intel_vgpu_init_cfg_space(struct intel_vgpu *vgpu,
- 			       bool primary)
- {
- 	struct intel_gvt *gvt = vgpu->gvt;
-+	struct pci_dev *pdev = to_pci_dev(gvt->gt->i915->drm.dev);
- 	const struct intel_gvt_device_info *info = &gvt->device_info;
- 	u16 *gmch_ctl;
- 	u8 next;
-@@ -407,9 +408,9 @@ void intel_vgpu_init_cfg_space(struct intel_vgpu *vgpu,
- 	memset(vgpu_cfg_space(vgpu) + INTEL_GVT_PCI_OPREGION, 0, 4);
- 
- 	vgpu->cfg_space.bar[INTEL_GVT_PCI_BAR_GTTMMIO].size =
--		pci_resource_len(gvt->gt->i915->drm.pdev, 0);
-+		pci_resource_len(pdev, 0);
- 	vgpu->cfg_space.bar[INTEL_GVT_PCI_BAR_APERTURE].size =
--		pci_resource_len(gvt->gt->i915->drm.pdev, 2);
-+		pci_resource_len(pdev, 2);
- 
- 	memset(vgpu_cfg_space(vgpu) + PCI_ROM_ADDRESS, 0, 4);
- 
-diff --git a/drivers/gpu/drm/i915/gvt/firmware.c b/drivers/gpu/drm/i915/gvt/firmware.c
-index 990a181094e3..1a8274a3f4b1 100644
---- a/drivers/gpu/drm/i915/gvt/firmware.c
-+++ b/drivers/gpu/drm/i915/gvt/firmware.c
-@@ -76,7 +76,7 @@ static int mmio_snapshot_handler(struct intel_gvt *gvt, u32 offset, void *data)
- static int expose_firmware_sysfs(struct intel_gvt *gvt)
- {
- 	struct intel_gvt_device_info *info = &gvt->device_info;
--	struct pci_dev *pdev = gvt->gt->i915->drm.pdev;
-+	struct pci_dev *pdev = to_pci_dev(gvt->gt->i915->drm.dev);
- 	struct gvt_firmware_header *h;
- 	void *firmware;
- 	void *p;
-@@ -127,7 +127,7 @@ static int expose_firmware_sysfs(struct intel_gvt *gvt)
- 
- static void clean_firmware_sysfs(struct intel_gvt *gvt)
- {
--	struct pci_dev *pdev = gvt->gt->i915->drm.pdev;
-+	struct pci_dev *pdev = to_pci_dev(gvt->gt->i915->drm.dev);
- 
- 	device_remove_bin_file(&pdev->dev, &firmware_attr);
- 	vfree(firmware_attr.private);
-@@ -151,7 +151,7 @@ static int verify_firmware(struct intel_gvt *gvt,
- 			   const struct firmware *fw)
- {
- 	struct intel_gvt_device_info *info = &gvt->device_info;
--	struct pci_dev *pdev = gvt->gt->i915->drm.pdev;
-+	struct pci_dev *pdev = to_pci_dev(gvt->gt->i915->drm.dev);
- 	struct gvt_firmware_header *h;
- 	unsigned long id, crc32_start;
- 	const void *mem;
-@@ -205,7 +205,7 @@ static int verify_firmware(struct intel_gvt *gvt,
- int intel_gvt_load_firmware(struct intel_gvt *gvt)
- {
- 	struct intel_gvt_device_info *info = &gvt->device_info;
--	struct pci_dev *pdev = gvt->gt->i915->drm.pdev;
-+	struct pci_dev *pdev = to_pci_dev(gvt->gt->i915->drm.dev);
- 	struct intel_gvt_firmware *firmware = &gvt->firmware;
- 	struct gvt_firmware_header *h;
- 	const struct firmware *fw;
-@@ -240,7 +240,7 @@ int intel_gvt_load_firmware(struct intel_gvt *gvt)
- 
- 	gvt_dbg_core("request hw state firmware %s...\n", path);
- 
--	ret = request_firmware(&fw, path, &gvt->gt->i915->drm.pdev->dev);
-+	ret = request_firmware(&fw, path, gvt->gt->i915->drm.dev);
- 	kfree(path);
- 
- 	if (ret)
-diff --git a/drivers/gpu/drm/i915/gvt/gtt.c b/drivers/gpu/drm/i915/gvt/gtt.c
-index 897c007ea96a..6d12a5a401f6 100644
---- a/drivers/gpu/drm/i915/gvt/gtt.c
-+++ b/drivers/gpu/drm/i915/gvt/gtt.c
-@@ -746,7 +746,7 @@ static int detach_oos_page(struct intel_vgpu *vgpu,
- 
- static void ppgtt_free_spt(struct intel_vgpu_ppgtt_spt *spt)
- {
--	struct device *kdev = &spt->vgpu->gvt->gt->i915->drm.pdev->dev;
-+	struct device *kdev = spt->vgpu->gvt->gt->i915->drm.dev;
- 
- 	trace_spt_free(spt->vgpu->id, spt, spt->guest_page.type);
- 
-@@ -831,7 +831,7 @@ static int reclaim_one_ppgtt_mm(struct intel_gvt *gvt);
- static struct intel_vgpu_ppgtt_spt *ppgtt_alloc_spt(
- 		struct intel_vgpu *vgpu, enum intel_gvt_gtt_type type)
- {
--	struct device *kdev = &vgpu->gvt->gt->i915->drm.pdev->dev;
-+	struct device *kdev = vgpu->gvt->gt->i915->drm.dev;
- 	struct intel_vgpu_ppgtt_spt *spt = NULL;
- 	dma_addr_t daddr;
- 	int ret;
-@@ -2402,7 +2402,7 @@ static int alloc_scratch_pages(struct intel_vgpu *vgpu,
- 				vgpu->gvt->device_info.gtt_entry_size_shift;
- 	void *scratch_pt;
- 	int i;
--	struct device *dev = &vgpu->gvt->gt->i915->drm.pdev->dev;
-+	struct device *dev = vgpu->gvt->gt->i915->drm.dev;
- 	dma_addr_t daddr;
- 
- 	if (drm_WARN_ON(&i915->drm,
-@@ -2460,7 +2460,7 @@ static int alloc_scratch_pages(struct intel_vgpu *vgpu,
- static int release_scratch_page_tree(struct intel_vgpu *vgpu)
- {
- 	int i;
--	struct device *dev = &vgpu->gvt->gt->i915->drm.pdev->dev;
-+	struct device *dev = vgpu->gvt->gt->i915->drm.dev;
- 	dma_addr_t daddr;
- 
- 	for (i = GTT_TYPE_PPGTT_PTE_PT; i < GTT_TYPE_MAX; i++) {
-@@ -2732,7 +2732,7 @@ int intel_gvt_init_gtt(struct intel_gvt *gvt)
- {
- 	int ret;
- 	void *page;
--	struct device *dev = &gvt->gt->i915->drm.pdev->dev;
-+	struct device *dev = gvt->gt->i915->drm.dev;
- 	dma_addr_t daddr;
- 
- 	gvt_dbg_core("init gtt\n");
-@@ -2781,7 +2781,7 @@ int intel_gvt_init_gtt(struct intel_gvt *gvt)
-  */
- void intel_gvt_clean_gtt(struct intel_gvt *gvt)
- {
--	struct device *dev = &gvt->gt->i915->drm.pdev->dev;
-+	struct device *dev = gvt->gt->i915->drm.dev;
- 	dma_addr_t daddr = (dma_addr_t)(gvt->gtt.scratch_mfn <<
- 					I915_GTT_PAGE_SHIFT);
- 
-diff --git a/drivers/gpu/drm/i915/gvt/gvt.c b/drivers/gpu/drm/i915/gvt/gvt.c
-index d1d8ee4a5f16..aa7fc0dd1db5 100644
---- a/drivers/gpu/drm/i915/gvt/gvt.c
-+++ b/drivers/gpu/drm/i915/gvt/gvt.c
-@@ -50,7 +50,7 @@ static struct intel_vgpu_type *intel_gvt_find_vgpu_type(struct intel_gvt *gvt,
- 		const char *name)
- {
- 	const char *driver_name =
--		dev_driver_string(&gvt->gt->i915->drm.pdev->dev);
-+		dev_driver_string(gvt->gt->i915->drm.dev);
- 	int i;
- 
- 	name += strlen(driver_name) + 1;
-@@ -189,7 +189,7 @@ static const struct intel_gvt_ops intel_gvt_ops = {
- static void init_device_info(struct intel_gvt *gvt)
- {
- 	struct intel_gvt_device_info *info = &gvt->device_info;
--	struct pci_dev *pdev = gvt->gt->i915->drm.pdev;
-+	struct pci_dev *pdev = to_pci_dev(gvt->gt->i915->drm.dev);
- 
- 	info->max_support_vgpus = 8;
- 	info->cfg_space_size = PCI_CFG_SPACE_EXP_SIZE;
-@@ -376,7 +376,7 @@ int intel_gvt_init_device(struct drm_i915_private *i915)
- 	intel_gvt_debugfs_init(gvt);
- 
- 	gvt_dbg_core("gvt device initialization is done\n");
--	intel_gvt_host.dev = &i915->drm.pdev->dev;
-+	intel_gvt_host.dev = i915->drm.dev;
- 	intel_gvt_host.initialized = true;
- 	return 0;
- 
-diff --git a/drivers/gpu/drm/i915/gvt/kvmgt.c b/drivers/gpu/drm/i915/gvt/kvmgt.c
-index 60f1a386dd06..551f00024e99 100644
---- a/drivers/gpu/drm/i915/gvt/kvmgt.c
-+++ b/drivers/gpu/drm/i915/gvt/kvmgt.c
-@@ -221,7 +221,7 @@ static int gvt_pin_guest_page(struct intel_vgpu *vgpu, unsigned long gfn,
- static int gvt_dma_map_page(struct intel_vgpu *vgpu, unsigned long gfn,
- 		dma_addr_t *dma_addr, unsigned long size)
- {
--	struct device *dev = &vgpu->gvt->gt->i915->drm.pdev->dev;
-+	struct device *dev = vgpu->gvt->gt->i915->drm.dev;
- 	struct page *page = NULL;
- 	int ret;
- 
-@@ -244,7 +244,7 @@ static int gvt_dma_map_page(struct intel_vgpu *vgpu, unsigned long gfn,
- static void gvt_dma_unmap_page(struct intel_vgpu *vgpu, unsigned long gfn,
- 		dma_addr_t dma_addr, unsigned long size)
- {
--	struct device *dev = &vgpu->gvt->gt->i915->drm.pdev->dev;
-+	struct device *dev = vgpu->gvt->gt->i915->drm.dev;
- 
- 	dma_unmap_page(dev, dma_addr, size, PCI_DMA_BIDIRECTIONAL);
- 	gvt_unpin_guest_page(vgpu, gfn, size);
--- 
-2.29.2
+Tested-by: Lionel Landwerlin <lionel.g.landwerlin@intel.com>
+
+Cheers,
+
+-Lionel
+
+[1] : https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/8064
+[2] : https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/8092
+
+On 18/01/2021 08:07, Huang, Sean Z wrote:
+> PXP (Protected Xe Path) is an i915 component, available on
+> GEN12+ that helps to establish the hardware protected session
+> and manage the status of the alive software session, as well
+> as its life cycle.
+>
+> This patch series is to allow the kernel space to create and
+> manage a single hardware session (a.k.a. default session or
+> arbitrary session). So user can allocate the protected buffer,
+> which is encrypted with the leverage of the arbitrary hardware
+> session.
+>
+>
+> rev21:
+>          #01
+>          - Remove the term "Mesa" from the help description of Kconfig
+>          - Remove unnecessary "select INTEL_MEI_TXE" from DRM_I915_PXP
+>            in Kconfig
+>
+>          #02
+>          - Remove "#define KCR_INIT_MASK_SHIFT (16)", but still keep the
+>            macro in this .c file
+>          - Write KCR_INIT reg inly for gen12 during boot, not required
+>            for gen13+
+>
+>          #03
+>          - Remove debug print_hex_dump() from intel_pxp_tee_io_message()
+>          - In struct i915_pxp_component_ops, change "receive" to "recv"
+>
+>          #04:
+>          - Rename SESSION_TYPE_TYPE0, SESSION_TYPE_TYPE1 as
+>            SESSION_TYPE_HWDRM,
+>            SESSION_TYPE_NONHWDRM to have better meaning.
+>          - Remove enum pxp_session_types and enum pxp_protection_modes
+>            from
+>            single session patch series.
+>
+>          #05
+>          In intel_pxp_cmd.c:
+>          - Remove the debug print as well as print_hex_dump()
+>          - Should call i915_gem_object_flush_map() before unpin map
+>          - Using "goto label" instead of bool such as is_engine_pm_get
+>          - We should always return the error if any, instead of skip
+>            with i915_request_set_error_once()
+>
+>          #06
+>          - Fix bug, access i915 pointer before assigning the value at
+>            intel_pxp_irq_handler()
+>          - Writing register GEN11_CRYPTO_RSVD_INTR_ENABLE to enable the
+>            PXP irq
+>          - Remove the unnecessary comment for GEN11_CRYPTO_RSVD_INTR_MASK
+>
+>          #07
+>          - Bug fixing, we need to set the PXP_GLOBAL_TERMINATE 0x320f8
+>            register after arb session termination
+>          - Remove enum pxp_session_types and enum pxp_protection_modes
+>            from
+>            single session patch series.
+>
+>          #11
+>          - Fix "Fi.CI.CHECKPATCH" warnings
+>
+>          #12
+>          - Only allow set I915_CONTEXT_PARAM_PROTECTED_CONTENT during
+>            context
+>            creation (i915_gem_context_create_ioctl), but not allow during
+>            context set param (i915_gem_context_setparam_ioctl)
+>
+>
+> Anshuman Gupta (1):
+>    drm/i915/pxp: Add plane decryption support
+>
+> Bommu Krishnaiah (2):
+>    drm/i915/uapi: introduce drm_i915_gem_create_ext
+>    drm/i915/pxp: User interface for Protected buffer
+>
+> Huang, Sean Z (9):
+>    drm/i915/pxp: Introduce Intel PXP component
+>    drm/i915/pxp: set KCR reg init during the boot time
+>    drm/i915/pxp: Implement funcs to create the TEE channel
+>    drm/i915/pxp: Create the arbitrary session after boot
+>    drm/i915/pxp: Func to send hardware session termination
+>    drm/i915/pxp: Enable PXP irq worker and callback stub
+>    drm/i915/pxp: Destroy arb session upon teardown
+>    drm/i915/pxp: Enable PXP power management
+>    drm/i915/pxp: Expose session state for display protection flip
+>
+> Vitaly Lubart (1):
+>    mei: pxp: export pavp client to me client bus
+>
+>   drivers/gpu/drm/i915/Kconfig                  |  21 ++
+>   drivers/gpu/drm/i915/Makefile                 |   9 +
+>   drivers/gpu/drm/i915/display/intel_sprite.c   |  21 +-
+>   drivers/gpu/drm/i915/gem/i915_gem_context.c   |  15 +-
+>   drivers/gpu/drm/i915/gem/i915_gem_context.h   |   5 +
+>   .../gpu/drm/i915/gem/i915_gem_context_types.h |   1 +
+>   drivers/gpu/drm/i915/gem/i915_gem_create.c    |  68 +++++-
+>   .../gpu/drm/i915/gem/i915_gem_object_types.h  |   5 +
+>   drivers/gpu/drm/i915/gt/intel_gt.c            |   5 +
+>   drivers/gpu/drm/i915/gt/intel_gt_irq.c        |  14 ++
+>   drivers/gpu/drm/i915/gt/intel_gt_pm.c         |   4 +
+>   drivers/gpu/drm/i915/gt/intel_gt_types.h      |   3 +
+>   drivers/gpu/drm/i915/i915_drv.c               |   7 +-
+>   drivers/gpu/drm/i915/i915_drv.h               |   6 +
+>   drivers/gpu/drm/i915/i915_reg.h               |   2 +
+>   drivers/gpu/drm/i915/pxp/intel_pxp.c          | 185 ++++++++++++++
+>   drivers/gpu/drm/i915/pxp/intel_pxp.h          |  64 +++++
+>   drivers/gpu/drm/i915/pxp/intel_pxp_arb.c      | 208 ++++++++++++++++
+>   drivers/gpu/drm/i915/pxp/intel_pxp_arb.h      |  17 ++
+>   drivers/gpu/drm/i915/pxp/intel_pxp_cmd.c      | 223 +++++++++++++++++
+>   drivers/gpu/drm/i915/pxp/intel_pxp_cmd.h      |  19 ++
+>   drivers/gpu/drm/i915/pxp/intel_pxp_context.c  |  28 +++
+>   drivers/gpu/drm/i915/pxp/intel_pxp_context.h  |  15 ++
+>   drivers/gpu/drm/i915/pxp/intel_pxp_pm.c       |  65 +++++
+>   drivers/gpu/drm/i915/pxp/intel_pxp_pm.h       |  31 +++
+>   drivers/gpu/drm/i915/pxp/intel_pxp_tee.c      | 202 +++++++++++++++
+>   drivers/gpu/drm/i915/pxp/intel_pxp_tee.h      |  17 ++
+>   drivers/gpu/drm/i915/pxp/intel_pxp_types.h    |  38 +++
+>   drivers/misc/mei/Kconfig                      |   2 +
+>   drivers/misc/mei/Makefile                     |   1 +
+>   drivers/misc/mei/pxp/Kconfig                  |  13 +
+>   drivers/misc/mei/pxp/Makefile                 |   7 +
+>   drivers/misc/mei/pxp/mei_pxp.c                | 230 ++++++++++++++++++
+>   drivers/misc/mei/pxp/mei_pxp.h                |  18 ++
+>   include/drm/i915_component.h                  |   1 +
+>   include/drm/i915_pxp_tee_interface.h          |  45 ++++
+>   include/uapi/drm/i915_drm.h                   |  66 +++++
+>   37 files changed, 1671 insertions(+), 10 deletions(-)
+>   create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp.c
+>   create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp.h
+>   create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_arb.c
+>   create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_arb.h
+>   create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_cmd.c
+>   create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_cmd.h
+>   create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_context.c
+>   create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_context.h
+>   create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_pm.c
+>   create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_pm.h
+>   create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
+>   create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_tee.h
+>   create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_types.h
+>   create mode 100644 drivers/misc/mei/pxp/Kconfig
+>   create mode 100644 drivers/misc/mei/pxp/Makefile
+>   create mode 100644 drivers/misc/mei/pxp/mei_pxp.c
+>   create mode 100644 drivers/misc/mei/pxp/mei_pxp.h
+>   create mode 100644 include/drm/i915_pxp_tee_interface.h
+>
 
 _______________________________________________
 Intel-gfx mailing list
