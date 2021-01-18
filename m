@@ -2,41 +2,55 @@ Return-Path: <SRS0=QT0F=GV=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2662BC433DB
-	for <intel-gfx@archiver.kernel.org>; Mon, 18 Jan 2021 06:18:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0670EC433DB
+	for <intel-gfx@archiver.kernel.org>; Mon, 18 Jan 2021 06:21:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D0C5322513
-	for <intel-gfx@archiver.kernel.org>; Mon, 18 Jan 2021 06:18:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D0C5322513
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id 9022E22522
+	for <intel-gfx@archiver.kernel.org>; Mon, 18 Jan 2021 06:20:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9022E22522
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3252A6E0D5;
-	Mon, 18 Jan 2021 06:18:20 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id A03396E0D5;
- Mon, 18 Jan 2021 06:18:18 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 9A845A9932;
- Mon, 18 Jan 2021 06:18:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E27CA6E0D6;
+	Mon, 18 Jan 2021 06:20:58 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C7026E0D6
+ for <intel-gfx@lists.freedesktop.org>; Mon, 18 Jan 2021 06:20:57 +0000 (UTC)
+IronPort-SDR: YorI+b3qq/eMv1qlpGkTFBhj4Hmh0AkfjoZg9WOZXuayu7R102yhDnvo9k9xHN5wTlLsrgnazf
+ ugLpXPjdD18A==
+X-IronPort-AV: E=McAfee;i="6000,8403,9867"; a="166430910"
+X-IronPort-AV: E=Sophos;i="5.79,355,1602572400"; 
+ d="asc'?scan'208";a="166430910"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Jan 2021 22:20:55 -0800
+IronPort-SDR: ydAn1tK5cZiUeFEX7uMlnmcII5nzeJmvnboBbfS0LNxnDKMjQ1J1WWsnALBioxmqEEzO5vggmM
+ 1NF2wgomNmpw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.79,355,1602572400"; 
+ d="asc'?scan'208";a="399019489"
+Received: from zhen-hp.sh.intel.com (HELO zhen-hp) ([10.239.160.147])
+ by fmsmga004.fm.intel.com with ESMTP; 17 Jan 2021 22:20:54 -0800
+Date: Mon, 18 Jan 2021 14:04:06 +0800
+From: Zhenyu Wang <zhenyuw@linux.intel.com>
+To: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Message-ID: <20210118060406.GA15982@zhen-hp.sh.intel.com>
+References: <87im8soq2w.fsf@intel.com>
+ <20210114005819.4290-1-xiong.y.zhang@intel.com>
+ <20210114051410.GU15982@zhen-hp.sh.intel.com>
+ <878s8upj75.fsf@intel.com>
+ <161070850877.79726.12218329205250979912@jlahtine-mobl.ger.corp.intel.com>
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Huang, Sean Z" <sean.z.huang@intel.com>
-Date: Mon, 18 Jan 2021 06:18:18 -0000
-Message-ID: <161095069860.28166.10985010137244815137@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20210118060730.15425-1-sean.z.huang@intel.com>
-In-Reply-To: <20210118060730.15425-1-sean.z.huang@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_Introduce_Intel_PXP_component_-_Mesa_single_session_=28rev2?=
- =?utf-8?q?1=29?=
+In-Reply-To: <161070850877.79726.12218329205250979912@jlahtine-mobl.ger.corp.intel.com>
+Subject: Re: [Intel-gfx] [PATCH v4] drm/i915: Try to guess PCH type even
+ without ISA bridge
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,78 +63,102 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Reply-To: Zhenyu Wang <zhenyuw@linux.intel.com>
+Cc: intel-gfx@lists.freedesktop.org, chris@chris-wilson.co.uk
+Content-Type: multipart/mixed; boundary="===============1661299829=="
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
 
-Series: Introduce Intel PXP component - Mesa single session (rev21)
-URL   : https://patchwork.freedesktop.org/series/84620/
-State : warning
+--===============1661299829==
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="idY8LE8SD6/8DnRI"
+Content-Disposition: inline
 
-== Summary ==
 
-$ dim checkpatch origin/drm-tip
-4396cc471fa4 drm/i915/pxp: Introduce Intel PXP component
--:123: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
-#123: 
-new file mode 100644
+--idY8LE8SD6/8DnRI
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-total: 0 errors, 1 warnings, 0 checks, 193 lines checked
-18eb5c1f3813 drm/i915/pxp: set KCR reg init during the boot time
-d3d5b2b2f9ce drm/i915/pxp: Implement funcs to create the TEE channel
--:89: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
-#89: 
-new file mode 100644
+On 2021.01.15 13:01:49 +0200, Joonas Lahtinen wrote:
+> Quoting Jani Nikula (2021-01-15 12:50:54)
+> > On Thu, 14 Jan 2021, Zhenyu Wang <zhenyuw@linux.intel.com> wrote:
+> > > On 2021.01.14 08:58:19 +0800, Xiong Zhang wrote:
+> > >> From: Zhenyu Wang <zhenyuw@linux.intel.com>
+> > >>=20
+> > >> Some vmm like hyperv and crosvm don't supply any ISA bridge to their=
+ guest,
+> > >> when igd passthrough is equipped on these vmm, guest i915 display may
+> > >> couldn't work as guest i915 detects PCH_NONE pch type.
+> > >>=20
+> > >> When i915 runs as guest, this patch guess pch type through gpu type =
+even
+> > >> without ISA bridge.
+> > >>=20
+> > >> v2: Fix CI warning
+> > >> v3: Add HAS_DISPLAY()=3D true condition beforce guessing virt pch, t=
+hen
+> > >>     refactori.
+> > >> v4: Fix CI warning
+> > >>=20
+> > >> Signed-off-by: Zhenyu Wang <zhenyuw@linux.intel.com>
+> > >> Signed-off-by: Xiong Zhang <xiong.y.zhang@intel.com>
+> > >> ---
+> > >>  drivers/gpu/drm/i915/i915_drv.h  |  7 +++++-
+> > >>  drivers/gpu/drm/i915/intel_pch.c | 39 ++++++++++++++++++-----------=
+---
+> > >>  2 files changed, 28 insertions(+), 18 deletions(-)
+> > >>
+> > >
+> > > Good to me, thanks! I think this should change author to you. :)
+> > >
+> > > Reviewed-by: Zhenyu Wang <zhenyuw@linux.intel.com>
+> >=20
+> > Pushed to drm-intel-next, thanks for the patch and review. I ended up
+> > retaining Zhenyu's authorship, and added
+> >=20
+> > Co-developed-by: Xiong Zhang <xiong.y.zhang@intel.com>
+>=20
+> This only works for the majority of SKUs which happen to use the PCH
+> that is most common. I NAKed very similar patch some years back asking
+> for a reliable means to detect the PCH type instead.
+>=20
+> Has there been any attempt to introduce such mechanism?
+>=20
 
-total: 0 errors, 1 warnings, 0 checks, 245 lines checked
-8fe0a04af720 drm/i915/pxp: Create the arbitrary session after boot
--:47: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
-#47: 
-new file mode 100644
+I think the situation is that if just passing through GPU device, as
+full device model depends on userspace VMM, we have no way to properly
+detect PCH type from device, e.g in case of one GEN device which could
+live with two or more different PCH types. It's better if either we
+have properly defined way to detect through GPU device or display arch
+always defines CPU/PCH display in pair.
 
-total: 0 errors, 1 warnings, 0 checks, 271 lines checked
-af0d329ae1de drm/i915/pxp: Func to send hardware session termination
--:61: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
-#61: 
-new file mode 100644
+Currently this tries to assume PCH with best effort that fixed bunch of
+problems. On really mismatch case, how about adding i915 parameter to
+override PCH type? As that won't add dependency on other components..
 
-total: 0 errors, 1 warnings, 0 checks, 188 lines checked
-f3091e967834 drm/i915/pxp: Enable PXP irq worker and callback stub
--:11: WARNING:COMMIT_LOG_LONG_LINE: Possible unwrapped commit description (prefer a maximum 75 chars per line)
-#11: 
-    - Fix bug, access i915 pointer before assigning the value at intel_pxp_irq_handler()
+--idY8LE8SD6/8DnRI
+Content-Type: application/pgp-signature; name="signature.asc"
 
-total: 0 errors, 1 warnings, 0 checks, 246 lines checked
-325e18a57b1d drm/i915/pxp: Destroy arb session upon teardown
-78610e3d2545 drm/i915/pxp: Enable PXP power management
--:78: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
-#78: 
-new file mode 100644
+-----BEGIN PGP SIGNATURE-----
 
-total: 0 errors, 1 warnings, 0 checks, 148 lines checked
-dff69f1a3083 drm/i915/pxp: Expose session state for display protection flip
-d68784e0dd80 mei: pxp: export pavp client to me client bus
--:32: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
-#32: 
-new file mode 100644
+iF0EARECAB0WIQTXuabgHDW6LPt9CICxBBozTXgYJwUCYAUk0QAKCRCxBBozTXgY
+J1B8AKCJ9kjHI9E+4Tp0JZHnwgQVIIZAswCeLfp6zXoURxUEhvQdzKVEm12MhaQ=
+=WSvN
+-----END PGP SIGNATURE-----
 
-total: 0 errors, 1 warnings, 0 checks, 277 lines checked
-cb92589b1f0b drm/i915/uapi: introduce drm_i915_gem_create_ext
--:109: WARNING:LONG_LINE: line length of 120 exceeds 100 columns
-#109: FILE: include/uapi/drm/i915_drm.h:395:
-+#define DRM_IOCTL_I915_GEM_CREATE_EXT   DRM_IOWR(DRM_COMMAND_BASE + DRM_I915_GEM_CREATE, struct drm_i915_gem_create_ext)
+--idY8LE8SD6/8DnRI--
 
-total: 0 errors, 1 warnings, 0 checks, 135 lines checked
-f2d3dd1da350 drm/i915/pxp: User interface for Protected buffer
-c3f48d1b5a60 drm/i915/pxp: Add plane decryption support
-
+--===============1661299829==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+
+--===============1661299829==--
