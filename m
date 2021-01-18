@@ -7,38 +7,38 @@ X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A9C37C433DB
-	for <intel-gfx@archiver.kernel.org>; Mon, 18 Jan 2021 14:54:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 43048C433E9
+	for <intel-gfx@archiver.kernel.org>; Mon, 18 Jan 2021 14:56:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CE8C322C7E
-	for <intel-gfx@archiver.kernel.org>; Mon, 18 Jan 2021 14:54:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CE8C322C7E
+	by mail.kernel.org (Postfix) with ESMTPS id AE23222C7E
+	for <intel-gfx@archiver.kernel.org>; Mon, 18 Jan 2021 14:56:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AE23222C7E
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 660F26E2C7;
-	Mon, 18 Jan 2021 14:54:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 472626E3B7;
+	Mon, 18 Jan 2021 14:56:38 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1A6766E2C7
- for <intel-gfx@lists.freedesktop.org>; Mon, 18 Jan 2021 14:54:35 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB4806E2ED
+ for <intel-gfx@lists.freedesktop.org>; Mon, 18 Jan 2021 14:56:36 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from localhost (unverified [78.156.65.138]) 
  by fireflyinternet.com (Firefly Internet (M1)) with ESMTP (TLS) id
- 23629964-1500050 for multiple; Mon, 18 Jan 2021 14:54:33 +0000
+ 23629988-1500050 for multiple; Mon, 18 Jan 2021 14:56:33 +0000
 MIME-Version: 1.0
-In-Reply-To: <20210118141732.90173-2-matthew.auld@intel.com>
+In-Reply-To: <20210118141732.90173-3-matthew.auld@intel.com>
 References: <20210118141732.90173-1-matthew.auld@intel.com>
- <20210118141732.90173-2-matthew.auld@intel.com>
+ <20210118141732.90173-3-matthew.auld@intel.com>
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: Matthew Auld <matthew.auld@intel.com>, intel-gfx@lists.freedesktop.org
-Date: Mon, 18 Jan 2021 14:54:32 +0000
-Message-ID: <161098167206.301.604373583078584678@build.alporthouse.com>
+Date: Mon, 18 Jan 2021 14:56:32 +0000
+Message-ID: <161098179277.301.14104721392541818320@build.alporthouse.com>
 User-Agent: alot/0.9
-Subject: Re: [Intel-gfx] [PATCH 2/3] drm/i915: prefer FORCE_WC for the
- blitter routines
+Subject: Re: [Intel-gfx] [PATCH 3/3] drm/i915/error: Fix object page offset
+ within a region
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,51 +56,37 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Quoting Matthew Auld (2021-01-18 14:17:31)
+Quoting Matthew Auld (2021-01-18 14:17:32)
 > From: CQ Tang <cq.tang@intel.com>
 > 
-> The pool is shared and so we might find that there is a pool object with
-> an existing mapping, but is mapped with different underlying type, which
-> will result in -EBUSY.
+> io_mapping_map_wc() expects the offset to be relative to the iomapping
+> base address. Currently we just pass in the physical address for the
+> page which only works if the region.start starts at zero.
 > 
 > Signed-off-by: CQ Tang <cq.tang@intel.com>
 > Signed-off-by: Matthew Auld <matthew.auld@intel.com>
 > ---
->  drivers/gpu/drm/i915/gem/i915_gem_object_blt.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+>  drivers/gpu/drm/i915/i915_gpu_error.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
 > 
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object_blt.c b/drivers/gpu/drm/i915/gem/i915_gem_object_blt.c
-> index 10cac9fac79b..c6db745900b3 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_object_blt.c
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_object_blt.c
-> @@ -55,7 +55,7 @@ struct i915_vma *intel_emit_vma_fill_blt(struct intel_context *ce,
->         if (unlikely(err))
->                 goto out_put;
+> diff --git a/drivers/gpu/drm/i915/i915_gpu_error.c b/drivers/gpu/drm/i915/i915_gpu_error.c
+> index 8b163ee1b86d..f962693404b7 100644
+> --- a/drivers/gpu/drm/i915/i915_gpu_error.c
+> +++ b/drivers/gpu/drm/i915/i915_gpu_error.c
+> @@ -1051,7 +1051,9 @@ i915_vma_coredump_create(const struct intel_gt *gt,
+>                 for_each_sgt_daddr(dma, iter, vma->pages) {
+>                         void __iomem *s;
 >  
-> -       cmd = i915_gem_object_pin_map(pool->obj, I915_MAP_WC);
-> +       cmd = i915_gem_object_pin_map(pool->obj, I915_MAP_FORCE_WC);
->         if (IS_ERR(cmd)) {
->                 err = PTR_ERR(cmd);
->                 goto out_unpin;
-> @@ -277,7 +277,7 @@ struct i915_vma *intel_emit_vma_copy_blt(struct intel_context *ce,
->         if (unlikely(err))
->                 goto out_put;
->  
-> -       cmd = i915_gem_object_pin_map(pool->obj, I915_MAP_WC);
-> +       cmd = i915_gem_object_pin_map(pool->obj, I915_MAP_FORCE_WC);
->         if (IS_ERR(cmd)) {
->                 err = PTR_ERR(cmd);
->                 goto out_unpin;
+> -                       s = io_mapping_map_wc(&mem->iomap, dma, PAGE_SIZE);
+> +                       s = io_mapping_map_wc(&mem->iomap,
+> +                                             dma - mem->region.start,
+> +                                             PAGE_SIZE);
 
-FORCE is becoming meaningless.
+From i915_gem_object_get_pages_buddy:
 
-In this case we pin the pages upon acquiring from the pool, which then
-prevents us from changing the mapping type. The purpose of which was so
-that we could cache the mapping between users, and here we are saying
-that cache is made useless. The danger is that we are now thrashing the
-cache, hurting ourselves with the vmap overhead.
+ 	sg_dma_address(sg) = mem->region.start + offset;
 
-Maybe we should move the mapping-type into the buffer-pool cache itself?
+Reviewed-by: Chris Wilson <chris@chris-wilson.co.uk>
 -Chris
 _______________________________________________
 Intel-gfx mailing list
