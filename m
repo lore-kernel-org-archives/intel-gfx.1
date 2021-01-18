@@ -2,49 +2,49 @@ Return-Path: <SRS0=QT0F=GV=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-14.0 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
-	URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3595BC433E0
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EC4BFC433E9
 	for <intel-gfx@archiver.kernel.org>; Mon, 18 Jan 2021 06:08:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EC1CD22512
-	for <intel-gfx@archiver.kernel.org>; Mon, 18 Jan 2021 06:08:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EC1CD22512
+	by mail.kernel.org (Postfix) with ESMTPS id BCA4922512
+	for <intel-gfx@archiver.kernel.org>; Mon, 18 Jan 2021 06:08:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BCA4922512
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 735B96E064;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E25106E0CF;
 	Mon, 18 Jan 2021 06:08:04 +0000 (UTC)
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BF6C689F71
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F54B89F71
  for <Intel-gfx@lists.freedesktop.org>; Mon, 18 Jan 2021 06:07:33 +0000 (UTC)
-IronPort-SDR: hF38SBaNxad+XKpsUlEviaQ6cKmQ25iEp6YHpHHIpFFJcO3FUjr6RlQvv9Qw6WEPQliQt/MsJ7
- 6Wy/6S602C1w==
-X-IronPort-AV: E=McAfee;i="6000,8403,9867"; a="197455399"
-X-IronPort-AV: E=Sophos;i="5.79,355,1602572400"; d="scan'208";a="197455399"
+IronPort-SDR: FtWOltLt/XoOCf2dUc+eB/+f5+XMygGsk09eNlmHGp5YsPRJkpXe8newB8inp8nOkcgTAHBVfc
+ T24QBPKGbC+A==
+X-IronPort-AV: E=McAfee;i="6000,8403,9867"; a="197455397"
+X-IronPort-AV: E=Sophos;i="5.79,355,1602572400"; d="scan'208";a="197455397"
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  17 Jan 2021 22:07:32 -0800
-IronPort-SDR: gGuS87g4KOpDPSw63ctdfgYpc5/VdwUheW6Qx/Mo+L2lnDAGFc1q85cwA1lLcJ6JR8Y0eVFnjK
- 86LTXCWjk2eA==
+IronPort-SDR: V23W2ArlMSOmjzdrOxDhp62G3caT2rzQ/Ccj73qWq8O5peRFw4QQ4Dzj8Oi+Qi7TRk1vKDCN9c
+ Y6FrokbKoPMQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.79,355,1602572400"; d="scan'208";a="399016985"
+X-IronPort-AV: E=Sophos;i="5.79,355,1602572400"; d="scan'208";a="399016979"
 Received: from sean-virtualbox.fm.intel.com ([10.105.158.96])
  by fmsmga004.fm.intel.com with ESMTP; 17 Jan 2021 22:07:32 -0800
 From: "Huang, Sean Z" <sean.z.huang@intel.com>
 To: Intel-gfx@lists.freedesktop.org
-Date: Sun, 17 Jan 2021 22:07:25 -0800
-Message-Id: <20210118060730.15425-9-sean.z.huang@intel.com>
+Date: Sun, 17 Jan 2021 22:07:23 -0800
+Message-Id: <20210118060730.15425-7-sean.z.huang@intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20210118060730.15425-1-sean.z.huang@intel.com>
 References: <20210118060730.15425-1-sean.z.huang@intel.com>
-Subject: [Intel-gfx] [RFC-v21 08/13] drm/i915/pxp: Enable PXP power
- management
+Subject: [Intel-gfx] [RFC-v21 06/13] drm/i915/pxp: Enable PXP irq worker and
+ callback stub
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,207 +64,315 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-During the power event S3+ sleep/resume, hardware will lose all the
-encryption keys for every hardware session, even though the
-software session state was marked as alive after resume. So to
-handle such case, PXP should terminate all the hardware sessions
-and cleanup all the software states after the power cycle.
+Create the irq worker that serves as callback handler, those
+callback stubs should be called while the hardware key teardown
+occurs.
+
+rev21:
+    - Fix bug, access i915 pointer before assigning the value at intel_pxp_irq_handler()
+    - Writing register GEN11_CRYPTO_RSVD_INTR_ENABLE to enable the PXP irq
+    - Remove the unnecessary comment for GEN11_CRYPTO_RSVD_INTR_MASK
 
 Signed-off-by: Huang, Sean Z <sean.z.huang@intel.com>
 ---
- drivers/gpu/drm/i915/Makefile              |  1 +
- drivers/gpu/drm/i915/gt/intel_gt_pm.c      |  4 ++
- drivers/gpu/drm/i915/i915_drv.c            |  4 ++
- drivers/gpu/drm/i915/pxp/intel_pxp_pm.c    | 65 ++++++++++++++++++++++
- drivers/gpu/drm/i915/pxp/intel_pxp_pm.h    | 31 +++++++++++
- drivers/gpu/drm/i915/pxp/intel_pxp_types.h |  1 +
- 6 files changed, 106 insertions(+)
- create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_pm.c
- create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_pm.h
+ drivers/gpu/drm/i915/gt/intel_gt_irq.c       | 14 +++
+ drivers/gpu/drm/i915/i915_reg.h              |  1 +
+ drivers/gpu/drm/i915/pxp/intel_pxp.c         | 99 ++++++++++++++++++++
+ drivers/gpu/drm/i915/pxp/intel_pxp.h         | 23 ++++-
+ drivers/gpu/drm/i915/pxp/intel_pxp_context.c |  3 +
+ drivers/gpu/drm/i915/pxp/intel_pxp_context.h |  1 -
+ drivers/gpu/drm/i915/pxp/intel_pxp_types.h   |  6 ++
+ 7 files changed, 145 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
-index c931ef5e8a85..eba360ed84d8 100644
---- a/drivers/gpu/drm/i915/Makefile
-+++ b/drivers/gpu/drm/i915/Makefile
-@@ -271,6 +271,7 @@ i915-$(CONFIG_DRM_I915_PXP) += \
- 	pxp/intel_pxp_arb.o \
- 	pxp/intel_pxp_cmd.o \
- 	pxp/intel_pxp_context.o \
-+	pxp/intel_pxp_pm.o \
- 	pxp/intel_pxp_tee.o
- 
- # Post-mortem debug and GPU hang state capture
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_pm.c b/drivers/gpu/drm/i915/gt/intel_gt_pm.c
-index c94e8ac884eb..ae0387e419a2 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_pm.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_pm.c
-@@ -20,6 +20,7 @@
- #include "intel_rc6.h"
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_irq.c b/drivers/gpu/drm/i915/gt/intel_gt_irq.c
+index 9830342aa6f4..2241e9abfa3a 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_irq.c
++++ b/drivers/gpu/drm/i915/gt/intel_gt_irq.c
+@@ -14,6 +14,7 @@
+ #include "intel_lrc_reg.h"
+ #include "intel_uncore.h"
  #include "intel_rps.h"
- #include "intel_wakeref.h"
-+#include "pxp/intel_pxp_pm.h"
++#include "pxp/intel_pxp.h"
  
- static void user_forcewake(struct intel_gt *gt, bool suspend)
+ static void guc_irq_handler(struct intel_guc *guc, u16 iir)
  {
-@@ -266,6 +267,8 @@ int intel_gt_resume(struct intel_gt *gt)
+@@ -107,6 +108,9 @@ gen11_other_irq_handler(struct intel_gt *gt, const u8 instance,
+ 	if (instance == OTHER_GTPM_INSTANCE)
+ 		return gen11_rps_irq_handler(&gt->rps, iir);
  
- 	intel_uc_resume(&gt->uc);
- 
-+	intel_pxp_pm_resume(&gt->pxp);
++	if (instance == OTHER_KCR_INSTANCE)
++		return intel_pxp_irq_handler(&gt->pxp, iir);
 +
- 	user_forcewake(gt, false);
- 
- out_fw:
-@@ -300,6 +303,7 @@ void intel_gt_suspend_prepare(struct intel_gt *gt)
- 	user_forcewake(gt, true);
- 	wait_for_suspend(gt);
- 
-+	intel_pxp_pm_prepare_suspend(&gt->pxp);
- 	intel_uc_suspend(&gt->uc);
+ 	WARN_ONCE(1, "unhandled other interrupt instance=0x%x, iir=0x%x\n",
+ 		  instance, iir);
+ }
+@@ -233,6 +237,9 @@ void gen11_gt_irq_reset(struct intel_gt *gt)
+ 	intel_uncore_write(uncore, GEN11_GPM_WGBOXPERF_INTR_MASK,  ~0);
+ 	intel_uncore_write(uncore, GEN11_GUC_SG_INTR_ENABLE, 0);
+ 	intel_uncore_write(uncore, GEN11_GUC_SG_INTR_MASK,  ~0);
++
++	intel_uncore_write(uncore, GEN11_CRYPTO_RSVD_INTR_ENABLE, 0);
++	intel_uncore_write(uncore, GEN11_CRYPTO_RSVD_INTR_MASK,  ~0);
  }
  
-diff --git a/drivers/gpu/drm/i915/i915_drv.c b/drivers/gpu/drm/i915/i915_drv.c
-index e9cb8e9ca172..19db49206e0c 100644
---- a/drivers/gpu/drm/i915/i915_drv.c
-+++ b/drivers/gpu/drm/i915/i915_drv.c
-@@ -68,6 +68,8 @@
- #include "gt/intel_gt_pm.h"
- #include "gt/intel_rc6.h"
+ void gen11_gt_irq_postinstall(struct intel_gt *gt)
+@@ -245,6 +252,10 @@ void gen11_gt_irq_postinstall(struct intel_gt *gt)
+ 	struct intel_uncore *uncore = gt->uncore;
+ 	const u32 dmask = irqs << 16 | irqs;
+ 	const u32 smask = irqs << 16;
++	const u32 smask_pxp =
++		(PXP_IRQ_VECTOR_DISPLAY_PXP_STATE_TERMINATED |
++		 PXP_IRQ_VECTOR_DISPLAY_APP_TERM_PER_FW_REQ |
++		 PXP_IRQ_VECTOR_PXP_DISP_STATE_RESET_COMPLETE) << 16;
  
-+#include "pxp/intel_pxp_pm.h"
+ 	BUILD_BUG_ON(irqs & 0xffff0000);
+ 
+@@ -271,6 +282,9 @@ void gen11_gt_irq_postinstall(struct intel_gt *gt)
+ 	/* Same thing for GuC interrupts */
+ 	intel_uncore_write(uncore, GEN11_GUC_SG_INTR_ENABLE, 0);
+ 	intel_uncore_write(uncore, GEN11_GUC_SG_INTR_MASK,  ~0);
 +
- #include "i915_debugfs.h"
++	intel_uncore_write(uncore, GEN11_CRYPTO_RSVD_INTR_ENABLE, smask_pxp);
++	intel_uncore_write(uncore, GEN11_CRYPTO_RSVD_INTR_MASK,  ~smask_pxp);
+ }
+ 
+ void gen5_gt_irq_handler(struct intel_gt *gt, u32 gt_iir)
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index 249a81575b9d..97bcecada87f 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -7943,6 +7943,7 @@ enum {
+ /* irq instances for OTHER_CLASS */
+ #define OTHER_GUC_INSTANCE	0
+ #define OTHER_GTPM_INSTANCE	1
++#define OTHER_KCR_INSTANCE	4
+ 
+ #define GEN11_INTR_IDENTITY_REG(x)	_MMIO(0x190060 + ((x) * 4))
+ 
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.c b/drivers/gpu/drm/i915/pxp/intel_pxp.c
+index f71677a84405..99cd93e12455 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp.c
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp.c
+@@ -2,6 +2,7 @@
+ /*
+  * Copyright(c) 2020 Intel Corporation.
+  */
++#include <linux/workqueue.h>
  #include "i915_drv.h"
- #include "i915_ioc32.h"
-@@ -1342,6 +1344,8 @@ static int i915_drm_resume_early(struct drm_device *dev)
+ #include "intel_pxp.h"
+ #include "intel_pxp_context.h"
+@@ -14,6 +15,70 @@
+ /* Setting KCR Init bit is required after system boot */
+ #define KCR_INIT_ALLOW_DISPLAY_ME_WRITES (BIT(14) | (BIT(14) << 16))
  
- 	intel_power_domains_resume(dev_priv);
- 
-+	intel_pxp_pm_resume_early(&dev_priv->gt.pxp);
-+
- 	enable_rpm_wakeref_asserts(&dev_priv->runtime_pm);
- 
- 	return ret;
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_pm.c b/drivers/gpu/drm/i915/pxp/intel_pxp_pm.c
-new file mode 100644
-index 000000000000..5a1b5ad4f997
---- /dev/null
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_pm.c
-@@ -0,0 +1,65 @@
-+// SPDX-License-Identifier: MIT
-+/*
-+ * Copyright(c) 2020 Intel Corporation.
-+ */
-+
-+#include "intel_pxp_context.h"
-+#include "intel_pxp_arb.h"
-+#include "intel_pxp_pm.h"
-+
-+void intel_pxp_pm_prepare_suspend(struct intel_pxp *pxp)
++static void intel_pxp_write_irq_mask_reg(struct intel_gt *gt, u32 mask)
 +{
-+	if (!pxp->ctx.inited)
-+		return;
++	lockdep_assert_held(&gt->irq_lock);
 +
-+	mutex_lock(&pxp->ctx.mutex);
-+
-+	/* Disable PXP-IOCTLs */
-+	pxp->ctx.global_state_in_suspend = true;
-+
-+	mutex_unlock(&pxp->ctx.mutex);
++	intel_uncore_write(gt->uncore, GEN11_CRYPTO_RSVD_INTR_MASK, mask << 16);
 +}
 +
-+void intel_pxp_pm_resume_early(struct intel_pxp *pxp)
++static int intel_pxp_teardown_required_callback(struct intel_pxp *pxp)
 +{
-+	if (!pxp->ctx.inited)
-+		return;
++	int ret;
 +
 +	mutex_lock(&pxp->ctx.mutex);
 +
-+	if (pxp->ctx.global_state_in_suspend) {
-+		/* reset the attacked flag even there was a pending */
-+		pxp->ctx.global_state_attacked = false;
++	pxp->ctx.global_state_attacked = true;
 +
-+		pxp->ctx.flag_display_hm_surface_keys = false;
-+	}
-+
-+	mutex_unlock(&pxp->ctx.mutex);
-+}
-+
-+int intel_pxp_pm_resume(struct intel_pxp *pxp)
-+{
-+	int ret = 0;
-+	struct intel_gt *gt = container_of(pxp, typeof(*gt), pxp);
-+
-+	if (!pxp->ctx.inited)
-+		return 0;
-+
-+	mutex_lock(&pxp->ctx.mutex);
-+
-+	/* Re-enable PXP-IOCTLs */
-+	if (pxp->ctx.global_state_in_suspend) {
-+		ret = intel_pxp_arb_terminate_session_with_global_terminate(pxp);
-+		if (ret) {
-+			drm_err(&gt->i915->drm, "Failed to terminate the arb session\n");
-+			goto end;
-+		}
-+
-+		pxp->ctx.global_state_in_suspend = false;
-+	}
-+
-+end:
 +	mutex_unlock(&pxp->ctx.mutex);
 +
 +	return ret;
 +}
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_pm.h b/drivers/gpu/drm/i915/pxp/intel_pxp_pm.h
-new file mode 100644
-index 000000000000..135bfb59aaf7
---- /dev/null
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_pm.h
-@@ -0,0 +1,31 @@
-+/* SPDX-License-Identifier: MIT */
-+/*
-+ * Copyright(c) 2020, Intel Corporation. All rights reserved.
++
++static int intel_pxp_global_terminate_complete_callback(struct intel_pxp *pxp)
++{
++	int ret = 0;
++	struct intel_gt *gt = container_of(pxp, typeof(*gt), pxp);
++
++	mutex_lock(&pxp->ctx.mutex);
++
++	if (pxp->ctx.global_state_attacked) {
++		pxp->ctx.global_state_attacked = false;
++
++		/* Re-create the arb session after teardown handle complete */
++		ret = intel_pxp_arb_create_session(pxp);
++		if (ret) {
++			drm_err(&gt->i915->drm, "Failed to create arb session\n");
++			goto end;
++		}
++	}
++end:
++	mutex_unlock(&pxp->ctx.mutex);
++	return ret;
++}
++
++static void intel_pxp_irq_work(struct work_struct *work)
++{
++	struct intel_pxp *pxp = container_of(work, typeof(*pxp), irq_work);
++	struct intel_gt *gt = container_of(pxp, typeof(*gt), pxp);
++	u32 events = 0;
++
++	spin_lock_irq(&gt->irq_lock);
++	events = fetch_and_zero(&pxp->current_events);
++	spin_unlock_irq(&gt->irq_lock);
++
++	if (events & PXP_IRQ_VECTOR_DISPLAY_PXP_STATE_TERMINATED ||
++	    events & PXP_IRQ_VECTOR_DISPLAY_APP_TERM_PER_FW_REQ)
++		intel_pxp_teardown_required_callback(pxp);
++
++	if (events & PXP_IRQ_VECTOR_PXP_DISP_STATE_RESET_COMPLETE)
++		intel_pxp_global_terminate_complete_callback(pxp);
++
++	spin_lock_irq(&gt->irq_lock);
++	intel_pxp_write_irq_mask_reg(gt, ~pxp->handled_irr);
++	spin_unlock_irq(&gt->irq_lock);
++}
++
+ void intel_pxp_init(struct intel_pxp *pxp)
+ {
+ 	struct intel_gt *gt = container_of(pxp, struct intel_gt, pxp);
+@@ -41,6 +106,12 @@ void intel_pxp_init(struct intel_pxp *pxp)
+ 
+ 	intel_pxp_tee_component_init(pxp);
+ 
++	INIT_WORK(&pxp->irq_work, intel_pxp_irq_work);
++
++	pxp->handled_irr = (PXP_IRQ_VECTOR_DISPLAY_PXP_STATE_TERMINATED |
++			    PXP_IRQ_VECTOR_DISPLAY_APP_TERM_PER_FW_REQ |
++			    PXP_IRQ_VECTOR_PXP_DISP_STATE_RESET_COMPLETE);
++
+ 	drm_info(&gt->i915->drm, "Protected Xe Path (PXP) protected content support initialized\n");
+ }
+ 
+@@ -55,3 +126,31 @@ void intel_pxp_fini(struct intel_pxp *pxp)
+ 
+ 	intel_pxp_ctx_fini(&pxp->ctx);
+ }
++
++/**
++ * intel_pxp_irq_handler - Proxies KCR interrupts to PXP.
++ * @pxp: pointer to pxp struct
++ * @iir: GT interrupt vector associated with the interrupt
++ *
++ * Dispatches each vector element into an IRQ to PXP.
 + */
++void intel_pxp_irq_handler(struct intel_pxp *pxp, u16 iir)
++{
++	const u32 events = iir & pxp->handled_irr;
++	struct intel_gt *gt = container_of(pxp, typeof(*gt), pxp);
 +
-+#ifndef __INTEL_PXP_PM_H__
-+#define __INTEL_PXP_PM_H__
++	if (!gt || !gt->i915 || INTEL_GEN(gt->i915) < 12)
++		return;
 +
-+#include "i915_drv.h"
++	lockdep_assert_held(&gt->irq_lock);
 +
-+#ifdef CONFIG_DRM_I915_PXP
-+void intel_pxp_pm_prepare_suspend(struct intel_pxp *pxp);
++	if (!events) {
++		drm_err(&gt->i915->drm, "pxp irq handler called with zero irr\n");
++		return;
++	}
 +
-+void intel_pxp_pm_resume_early(struct intel_pxp *pxp);
-+int intel_pxp_pm_resume(struct intel_pxp *pxp);
-+#else
-+static inline void intel_pxp_pm_prepare_suspend(struct intel_pxp *pxp)
++	intel_pxp_write_irq_mask_reg(gt, ~0);
++
++	pxp->current_events |= events;
++	schedule_work(&pxp->irq_work);
++}
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.h b/drivers/gpu/drm/i915/pxp/intel_pxp.h
+index f47bc6bea34f..420da2790624 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp.h
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp.h
+@@ -8,15 +8,36 @@
+ 
+ #include "intel_pxp_types.h"
+ 
++#define PXP_IRQ_VECTOR_DISPLAY_PXP_STATE_TERMINATED BIT(1)
++#define PXP_IRQ_VECTOR_DISPLAY_APP_TERM_PER_FW_REQ BIT(2)
++#define PXP_IRQ_VECTOR_PXP_DISP_STATE_RESET_COMPLETE BIT(3)
++
+ #ifdef CONFIG_DRM_I915_PXP
++void intel_pxp_irq_handler(struct intel_pxp *pxp, u16 iir);
++int i915_pxp_teardown_required_callback(struct intel_pxp *pxp);
++int i915_pxp_global_terminate_complete_callback(struct intel_pxp *pxp);
++
+ void intel_pxp_init(struct intel_pxp *pxp);
+ void intel_pxp_fini(struct intel_pxp *pxp);
+ #else
+-static inline void intel_pxp_init(struct intel_pxp *pxp)
++static inline void intel_pxp_irq_handler(struct intel_pxp *pxp, u16 iir)
 +{
 +}
 +
-+static inline void intel_pxp_pm_resume_early(struct intel_pxp *pxp)
-+{
-+}
-+
-+static inline int intel_pxp_pm_resume(struct intel_pxp *pxp)
++static inline int i915_pxp_teardown_required_callback(struct intel_pxp *pxp)
 +{
 +	return 0;
 +}
-+#endif
 +
-+#endif /* __INTEL_PXP_PM_H__ */
++static inline int i915_pxp_global_terminate_complete_callback(struct intel_pxp *pxp)
+ {
+ 	return 0;
+ }
+ 
++static inline void intel_pxp_init(struct intel_pxp *pxp)
++{
++}
++
+ static inline void intel_pxp_fini(struct intel_pxp *pxp)
+ {
+ }
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_context.c b/drivers/gpu/drm/i915/pxp/intel_pxp_context.c
+index 2be6bf2f0d0f..4e820258b7ae 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp_context.c
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_context.c
+@@ -11,7 +11,10 @@
+  */
+ void intel_pxp_ctx_init(struct pxp_context *ctx)
+ {
++	ctx->global_state_attacked = false;
++
+ 	mutex_init(&ctx->mutex);
++
+ 	ctx->inited = true;
+ }
+ 
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_context.h b/drivers/gpu/drm/i915/pxp/intel_pxp_context.h
+index bf2feb4aaf6d..f51021c33d45 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp_context.h
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_context.h
+@@ -8,7 +8,6 @@
+ 
+ #include <linux/mutex.h>
+ #include "intel_pxp_types.h"
+-#include "intel_pxp_arb.h"
+ 
+ void intel_pxp_ctx_init(struct pxp_context *ctx);
+ void intel_pxp_ctx_fini(struct pxp_context *ctx);
 diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_types.h b/drivers/gpu/drm/i915/pxp/intel_pxp_types.h
-index dd7445ff2cb8..e825553db46e 100644
+index 19d43b43e483..dd7445ff2cb8 100644
 --- a/drivers/gpu/drm/i915/pxp/intel_pxp_types.h
 +++ b/drivers/gpu/drm/i915/pxp/intel_pxp_types.h
-@@ -22,6 +22,7 @@ struct pxp_context {
+@@ -7,6 +7,7 @@
+ #define __INTEL_PXP_TYPES_H__
+ 
+ #include <linux/mutex.h>
++#include <linux/workqueue.h>
+ 
+ struct intel_engine_cs;
+ 
+@@ -20,9 +21,14 @@ struct pxp_context {
+ 	bool arb_is_in_play;
  
  	bool flag_display_hm_surface_keys;
- 	bool global_state_attacked;
-+	bool global_state_in_suspend;
++	bool global_state_attacked;
  };
  
  struct intel_pxp {
++	struct work_struct irq_work;
++	u32 handled_irr;
++	u32 current_events;
++
+ 	struct pxp_context ctx;
+ 
+ 	struct intel_engine_cs *vcs_engine;
 -- 
 2.17.1
 
