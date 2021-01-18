@@ -2,40 +2,50 @@ Return-Path: <SRS0=QT0F=GV=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,INCLUDES_PULL_REQUEST,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 29404C433DB
-	for <intel-gfx@archiver.kernel.org>; Mon, 18 Jan 2021 05:15:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1BD3BC433DB
+	for <intel-gfx@archiver.kernel.org>; Mon, 18 Jan 2021 05:24:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CE11A224B8
-	for <intel-gfx@archiver.kernel.org>; Mon, 18 Jan 2021 05:15:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CE11A224B8
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id 343F7221EC
+	for <intel-gfx@archiver.kernel.org>; Mon, 18 Jan 2021 05:24:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 343F7221EC
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F0A289C05;
-	Mon, 18 Jan 2021 05:15:33 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id E9ABC89B11;
- Mon, 18 Jan 2021 05:15:31 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id C24E2A41FB;
- Mon, 18 Jan 2021 05:15:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B16689E14;
+	Mon, 18 Jan 2021 05:24:31 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D740389C49;
+ Mon, 18 Jan 2021 05:24:29 +0000 (UTC)
+IronPort-SDR: 7pge3aXO3JCTm8uL+hCIqfRtsJ/CgWZNhEyZww5tf/TWpogTpyf2p365WKZY0hjK0TfpRf+KSm
+ J6zZUy21x2NQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9867"; a="158533924"
+X-IronPort-AV: E=Sophos;i="5.79,355,1602572400"; 
+ d="asc'?scan'208";a="158533924"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Jan 2021 21:24:29 -0800
+IronPort-SDR: lWBV5ZgGxUT9/rc+2wQ5doQsWTrdx/gqx9gs0v15oAjFId8ZtJz4Y6chgS9C5GvKginfSeQe11
+ WAZSEYEJm07Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.79,355,1602572400"; 
+ d="asc'?scan'208";a="406115866"
+Received: from zhen-hp.sh.intel.com (HELO zhen-hp) ([10.239.160.147])
+ by FMSMGA003.fm.intel.com with ESMTP; 17 Jan 2021 21:24:27 -0800
+Date: Mon, 18 Jan 2021 13:07:39 +0800
+From: Zhenyu Wang <zhenyuw@linux.intel.com>
+To: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ "Vivi, Rodrigo" <rodrigo.vivi@intel.com>,
+ Jani Nikula <jani.nikula@intel.com>
+Message-ID: <20210118050739.GY15982@zhen-hp.sh.intel.com>
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Fred Gao" <fred.gao@intel.com>
-Date: Mon, 18 Jan 2021 05:15:31 -0000
-Message-ID: <161094693176.28166.9359950282668348327@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20201202171249.17083-1-fred.gao@intel.com>
-In-Reply-To: <20201202171249.17083-1-fred.gao@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_vfio/pci=3A_Add_support_for_opregion_v2=2E0+_=28rev2=29?=
+Subject: [Intel-gfx] [PULL] gvt-gt-next
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,32 +58,97 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Reply-To: Zhenyu Wang <zhenyuw@linux.intel.com>
+Cc: intel-gfx <intel-gfx@lists.freedesktop.org>,
+ intel-gvt-dev <intel-gvt-dev@lists.freedesktop.org>, "Lv,
+ Zhiyuan" <zhiyuan.lv@intel.com>, "Yuan, Hang" <hang.yuan@intel.com>
+Content-Type: multipart/mixed; boundary="===============0296105541=="
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
 
-Series: vfio/pci: Add support for opregion v2.0+ (rev2)
-URL   : https://patchwork.freedesktop.org/series/84494/
-State : warning
+--===============0296105541==
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="UPT3ojh+0CqEDtpF"
+Content-Disposition: inline
 
-== Summary ==
 
-$ dim checkpatch origin/drm-tip
-4261de669e0b vfio/pci: Add support for opregion v2.0+
--:74: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
-#74: FILE: drivers/vfio/pci/vfio_pci_igd.c:122:
-+				pci_err(vdev->pdev,
-+				"Extended VBT does not follow opregion !\n"
+--UPT3ojh+0CqEDtpF
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-total: 0 errors, 0 warnings, 1 checks, 77 lines checked
 
+Hi,
+
+This is GVT next for 5.12 against drm-intel-gt-next which is mostly
+for cmd parser enhancement which adds extra check on register load
+depending on initial context and handles vGPU register state
+accordingly.
+
+Thanks.
+--
+The following changes since commit fe7bcfaeb2b775f257348dc7b935f8e80eef3e7d:
+
+  drm/i915/gt: Refactor heartbeat request construction and submission (2020-12-24 18:07:26 +0000)
+
+are available in the Git repository at:
+
+  https://github.com/intel/gvt-linux tags/gvt-gt-next-2021-01-18
+
+for you to fetch changes up to 02dd2b12a685944c4d52c569d05f636372a7b6c7:
+
+  drm/i915/gvt: unify lri cmd handler and mmio handlers (2020-12-25 11:16:32 +0800)
+
+----------------------------------------------------------------
+gvt-gt-next-2021-01-18
+
+- GVT cmd parser enhancement against guest context (Yan)
+
+----------------------------------------------------------------
+Yan Zhao (11):
+      drm/i915/gvt: parse init context to update cmd accessible reg whitelist
+      drm/i915/gvt: scan VM ctx pages
+      drm/i915/gvt: filter cmds "srm" and "lrm" in cmd_handler
+      drm/i915/gvt: filter cmds "lrr-src" and "lrr-dst" in cmd_handler
+      drm/i915/gvt: filter cmd "pipe-ctrl" in cmd_handler
+      drm/i915/gvt: export find_mmio_info
+      drm/i915/gvt: make width of mmio_attribute bigger
+      drm/i915/gvt: introduce a new flag F_CMD_WRITE_PATCH
+      drm/i915/gvt: statically set F_CMD_WRITE_PATCH flag
+      drm/i915/gvt: update F_CMD_WRITE_PATCH flag when parsing init ctx
+      drm/i915/gvt: unify lri cmd handler and mmio handlers
+
+ drivers/gpu/drm/i915/gvt/cmd_parser.c | 335 +++++++++++++++++++++++++++-------
+ drivers/gpu/drm/i915/gvt/cmd_parser.h |   4 +
+ drivers/gpu/drm/i915/gvt/gvt.h        |  37 +++-
+ drivers/gpu/drm/i915/gvt/handlers.c   |  15 +-
+ drivers/gpu/drm/i915/gvt/mmio.h       |   3 +
+ drivers/gpu/drm/i915/gvt/reg.h        |   2 +
+ drivers/gpu/drm/i915/gvt/scheduler.c  |  22 ++-
+ drivers/gpu/drm/i915/gvt/vgpu.c       |   4 +-
+ 8 files changed, 339 insertions(+), 83 deletions(-)
+
+--UPT3ojh+0CqEDtpF
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iF0EARECAB0WIQTXuabgHDW6LPt9CICxBBozTXgYJwUCYAUXlgAKCRCxBBozTXgY
+J0YSAJ4/8ej1m5fQcbNlEveP4mZ/AHvdQgCdEflyY9dwAuDGdP1lcBXNikNTXNc=
+=KneK
+-----END PGP SIGNATURE-----
+
+--UPT3ojh+0CqEDtpF--
+
+--===============0296105541==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+
+--===============0296105541==--
