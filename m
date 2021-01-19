@@ -7,34 +7,37 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E3A67C433E9
-	for <intel-gfx@archiver.kernel.org>; Tue, 19 Jan 2021 21:43:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 03682C433DB
+	for <intel-gfx@archiver.kernel.org>; Tue, 19 Jan 2021 21:43:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 05DDE2310C
-	for <intel-gfx@archiver.kernel.org>; Tue, 19 Jan 2021 21:43:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 05DDE2310C
+	by mail.kernel.org (Postfix) with ESMTPS id 758D822E01
+	for <intel-gfx@archiver.kernel.org>; Tue, 19 Jan 2021 21:43:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 758D822E01
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D73C6E037;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D4EB889FF9;
 	Tue, 19 Jan 2021 21:43:42 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6C6B889FF9
- for <intel-gfx@lists.freedesktop.org>; Tue, 19 Jan 2021 21:43:39 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4EBB989FF9
+ for <intel-gfx@lists.freedesktop.org>; Tue, 19 Jan 2021 21:43:41 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23643962-1500050 
- for <intel-gfx@lists.freedesktop.org>; Tue, 19 Jan 2021 21:43:36 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23643967-1500050 
+ for <intel-gfx@lists.freedesktop.org>; Tue, 19 Jan 2021 21:43:37 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 19 Jan 2021 21:43:31 +0000
-Message-Id: <20210119214336.1463-1-chris@chris-wilson.co.uk>
+Date: Tue, 19 Jan 2021 21:43:36 +0000
+Message-Id: <20210119214336.1463-6-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20210119214336.1463-1-chris@chris-wilson.co.uk>
+References: <20210119214336.1463-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [CI 1/6] drm/i915/gem: Almagamate clflushes on suspend
+Subject: [Intel-gfx] [CI 6/6] drm/i915/gem: Drop lru bumping on display
+ unpinning
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,94 +55,145 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-When flushing objects larger than the CPU cache it is preferrable to use
-a single wbinvd() rather than overlapping clflush(). At runtime, we
-avoid wbinvd() due to its system-wide latencies, but during
-singlethreaded suspend, no one will observe the imposed latency and we
-can opt for the faster wbinvd to clear all objects in a single hit.
+Simplify the frontbuffer unpin by removing the lock requirement. The LRU
+bumping was primarily to protect the GTT from being evicted and from
+frontbuffers being eagerly shrunk. Now we protect frontbuffers from the
+shrinker, and we avoid accidentally evicting from the GTT, so the
+benefit from bumping LRU is no more, and we can save more time by not.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 Reviewed-by: Matthew Auld <matthew.auld@intel.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_pm.c | 41 +++++++++-----------------
- 1 file changed, 14 insertions(+), 27 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display.c |  7 +--
+ drivers/gpu/drm/i915/display/intel_overlay.c |  4 +-
+ drivers/gpu/drm/i915/gem/i915_gem_domain.c   | 45 --------------------
+ drivers/gpu/drm/i915/gem/i915_gem_object.h   |  1 -
+ 4 files changed, 4 insertions(+), 53 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_pm.c b/drivers/gpu/drm/i915/gem/i915_gem_pm.c
-index 40d3e40500fa..215766cc22bf 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_pm.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_pm.c
-@@ -11,6 +11,13 @@
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 32ff9d201aeb..2bd04e631eaa 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -1430,7 +1430,7 @@ intel_pin_and_fence_fb_obj(struct drm_framebuffer *fb,
+ 		 */
+ 		ret = i915_vma_pin_fence(vma);
+ 		if (ret != 0 && INTEL_GEN(dev_priv) < 4) {
+-			i915_gem_object_unpin_from_display_plane(vma);
++			i915_vma_unpin(vma);
+ 			vma = ERR_PTR(ret);
+ 			goto err;
+ 		}
+@@ -1448,12 +1448,9 @@ intel_pin_and_fence_fb_obj(struct drm_framebuffer *fb,
  
- #include "i915_drv.h"
- 
-+#if defined(CONFIG_X86)
-+#include <asm/smp.h>
-+#else
-+#define wbinvd_on_all_cpus() \
-+	pr_warn(DRIVER_NAME ": Missing cache flush in %s\n", __func__)
-+#endif
-+
- void i915_gem_suspend(struct drm_i915_private *i915)
+ void intel_unpin_fb_vma(struct i915_vma *vma, unsigned long flags)
  {
- 	GEM_TRACE("%s\n", dev_name(i915->drm.dev));
-@@ -32,13 +39,6 @@ void i915_gem_suspend(struct drm_i915_private *i915)
- 	i915_gem_drain_freed_objects(i915);
+-	i915_gem_object_lock(vma->obj, NULL);
+ 	if (flags & PLANE_HAS_FENCE)
+ 		i915_vma_unpin_fence(vma);
+-	i915_gem_object_unpin_from_display_plane(vma);
+-	i915_gem_object_unlock(vma->obj);
+-
++	i915_vma_unpin(vma);
+ 	i915_vma_put(vma);
  }
  
--static struct drm_i915_gem_object *first_mm_object(struct list_head *list)
+diff --git a/drivers/gpu/drm/i915/display/intel_overlay.c b/drivers/gpu/drm/i915/display/intel_overlay.c
+index 6be5d8946c69..8edb9b2cdbeb 100644
+--- a/drivers/gpu/drm/i915/display/intel_overlay.c
++++ b/drivers/gpu/drm/i915/display/intel_overlay.c
+@@ -360,7 +360,7 @@ static void intel_overlay_release_old_vma(struct intel_overlay *overlay)
+ 	intel_frontbuffer_flip_complete(overlay->i915,
+ 					INTEL_FRONTBUFFER_OVERLAY(overlay->crtc->pipe));
+ 
+-	i915_gem_object_unpin_from_display_plane(vma);
++	i915_vma_unpin(vma);
+ 	i915_vma_put(vma);
+ }
+ 
+@@ -861,7 +861,7 @@ static int intel_overlay_do_put_image(struct intel_overlay *overlay,
+ 	return 0;
+ 
+ out_unpin:
+-	i915_gem_object_unpin_from_display_plane(vma);
++	i915_vma_unpin(vma);
+ out_pin_section:
+ 	atomic_dec(&dev_priv->gpu_error.pending_fb_pin);
+ 
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_domain.c b/drivers/gpu/drm/i915/gem/i915_gem_domain.c
+index a6257314be9c..36f54cedaaeb 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_domain.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_domain.c
+@@ -434,48 +434,6 @@ i915_gem_object_pin_to_display_plane(struct drm_i915_gem_object *obj,
+ 	return vma;
+ }
+ 
+-static void i915_gem_object_bump_inactive_ggtt(struct drm_i915_gem_object *obj)
 -{
--	return list_first_entry_or_null(list,
--					struct drm_i915_gem_object,
--					mm.link);
+-	struct drm_i915_private *i915 = to_i915(obj->base.dev);
+-	struct i915_vma *vma;
+-
+-	if (list_empty(&obj->vma.list))
+-		return;
+-
+-	mutex_lock(&i915->ggtt.vm.mutex);
+-	spin_lock(&obj->vma.lock);
+-	for_each_ggtt_vma(vma, obj) {
+-		if (!drm_mm_node_allocated(&vma->node))
+-			continue;
+-
+-		GEM_BUG_ON(vma->vm != &i915->ggtt.vm);
+-		list_move_tail(&vma->vm_link, &vma->vm->bound_list);
+-	}
+-	spin_unlock(&obj->vma.lock);
+-	mutex_unlock(&i915->ggtt.vm.mutex);
+-
+-	if (i915_gem_object_is_shrinkable(obj)) {
+-		unsigned long flags;
+-
+-		spin_lock_irqsave(&i915->mm.obj_lock, flags);
+-
+-		if (obj->mm.madv == I915_MADV_WILLNEED &&
+-		    !atomic_read(&obj->mm.shrink_pin))
+-			list_move_tail(&obj->mm.link, &i915->mm.shrink_list);
+-
+-		spin_unlock_irqrestore(&i915->mm.obj_lock, flags);
+-	}
 -}
 -
- void i915_gem_suspend_late(struct drm_i915_private *i915)
- {
- 	struct drm_i915_gem_object *obj;
-@@ -48,6 +48,7 @@ void i915_gem_suspend_late(struct drm_i915_private *i915)
- 		NULL
- 	}, **phase;
- 	unsigned long flags;
-+	bool flush = false;
+-void
+-i915_gem_object_unpin_from_display_plane(struct i915_vma *vma)
+-{
+-	/* Bump the LRU to try and avoid premature eviction whilst flipping  */
+-	i915_gem_object_bump_inactive_ggtt(vma->obj);
+-
+-	i915_vma_unpin(vma);
+-}
+-
+ /**
+  * Moves a single object to the CPU read, and possibly write domain.
+  * @obj: object to act on
+@@ -616,9 +574,6 @@ i915_gem_set_domain_ioctl(struct drm_device *dev, void *data,
+ 	else
+ 		err = i915_gem_object_set_to_cpu_domain(obj, write_domain);
  
- 	/*
- 	 * Neither the BIOS, ourselves or any other kernel
-@@ -73,29 +74,15 @@ void i915_gem_suspend_late(struct drm_i915_private *i915)
+-	/* And bump the LRU for this access */
+-	i915_gem_object_bump_inactive_ggtt(obj);
+-
+ 	i915_gem_object_unlock(obj);
  
- 	spin_lock_irqsave(&i915->mm.obj_lock, flags);
- 	for (phase = phases; *phase; phase++) {
--		LIST_HEAD(keep);
--
--		while ((obj = first_mm_object(*phase))) {
--			list_move_tail(&obj->mm.link, &keep);
--
--			/* Beware the background _i915_gem_free_objects */
--			if (!kref_get_unless_zero(&obj->base.refcount))
--				continue;
--
--			spin_unlock_irqrestore(&i915->mm.obj_lock, flags);
--
--			i915_gem_object_lock(obj, NULL);
--			drm_WARN_ON(&i915->drm,
--			    i915_gem_object_set_to_gtt_domain(obj, false));
--			i915_gem_object_unlock(obj);
--			i915_gem_object_put(obj);
--
--			spin_lock_irqsave(&i915->mm.obj_lock, flags);
-+		list_for_each_entry(obj, *phase, mm.link) {
-+			if (!(obj->cache_coherent & I915_BO_CACHE_COHERENT_FOR_READ))
-+				flush |= (obj->read_domains & I915_GEM_DOMAIN_CPU) == 0;
-+			__start_cpu_write(obj); /* presume auto-hibernate */
- 		}
--
--		list_splice_tail(&keep, *phase);
- 	}
- 	spin_unlock_irqrestore(&i915->mm.obj_lock, flags);
-+	if (flush)
-+		wbinvd_on_all_cpus();
- }
+ 	if (write_domain)
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.h b/drivers/gpu/drm/i915/gem/i915_gem_object.h
+index 0004893450c7..77b2c36b7dac 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_object.h
++++ b/drivers/gpu/drm/i915/gem/i915_gem_object.h
+@@ -492,7 +492,6 @@ i915_gem_object_pin_to_display_plane(struct drm_i915_gem_object *obj,
+ 				     u32 alignment,
+ 				     const struct i915_ggtt_view *view,
+ 				     unsigned int flags);
+-void i915_gem_object_unpin_from_display_plane(struct i915_vma *vma);
  
- void i915_gem_resume(struct drm_i915_private *i915)
+ void i915_gem_object_make_unshrinkable(struct drm_i915_gem_object *obj);
+ void i915_gem_object_make_shrinkable(struct drm_i915_gem_object *obj);
 -- 
 2.20.1
 
