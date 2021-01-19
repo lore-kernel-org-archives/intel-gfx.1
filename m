@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 03682C433DB
-	for <intel-gfx@archiver.kernel.org>; Tue, 19 Jan 2021 21:43:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E3018C433E6
+	for <intel-gfx@archiver.kernel.org>; Tue, 19 Jan 2021 21:43:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 758D822E01
-	for <intel-gfx@archiver.kernel.org>; Tue, 19 Jan 2021 21:43:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 758D822E01
+	by mail.kernel.org (Postfix) with ESMTPS id 36D6522E01
+	for <intel-gfx@archiver.kernel.org>; Tue, 19 Jan 2021 21:43:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 36D6522E01
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D4EB889FF9;
-	Tue, 19 Jan 2021 21:43:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF7466E0F0;
+	Tue, 19 Jan 2021 21:43:45 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4EBB989FF9
- for <intel-gfx@lists.freedesktop.org>; Tue, 19 Jan 2021 21:43:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED9246E0F0
+ for <intel-gfx@lists.freedesktop.org>; Tue, 19 Jan 2021 21:43:43 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23643967-1500050 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23643964-1500050 
  for <intel-gfx@lists.freedesktop.org>; Tue, 19 Jan 2021 21:43:37 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 19 Jan 2021 21:43:36 +0000
-Message-Id: <20210119214336.1463-6-chris@chris-wilson.co.uk>
+Date: Tue, 19 Jan 2021 21:43:33 +0000
+Message-Id: <20210119214336.1463-3-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20210119214336.1463-1-chris@chris-wilson.co.uk>
 References: <20210119214336.1463-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [CI 6/6] drm/i915/gem: Drop lru bumping on display
- unpinning
+Subject: [Intel-gfx] [CI 3/6] drm/i915/gem: Move stolen node into GEM object
+ union
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,145 +55,174 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Simplify the frontbuffer unpin by removing the lock requirement. The LRU
-bumping was primarily to protect the GTT from being evicted and from
-frontbuffers being eagerly shrunk. Now we protect frontbuffers from the
-shrinker, and we avoid accidentally evicting from the GTT, so the
-benefit from bumping LRU is no more, and we can save more time by not.
+The obj->stolen is currently used to identify an object allocated from
+stolen memory. This dates back to when there were just 1.5 types of
+objects, an object backed by shmemfs and an object backed by shmemfs
+with a contiguous physical address. Now that we have several different
+types of objects, we no longer want to treat stolen objects as a special
+case.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 Reviewed-by: Matthew Auld <matthew.auld@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c |  7 +--
- drivers/gpu/drm/i915/display/intel_overlay.c |  4 +-
- drivers/gpu/drm/i915/gem/i915_gem_domain.c   | 45 --------------------
- drivers/gpu/drm/i915/gem/i915_gem_object.h   |  1 -
- 4 files changed, 4 insertions(+), 53 deletions(-)
+ drivers/gpu/drm/i915/display/intel_fbdev.c       | 4 ++--
+ drivers/gpu/drm/i915/gem/i915_gem_object.h       | 2 ++
+ drivers/gpu/drm/i915/gem/i915_gem_object_types.h | 4 ++--
+ drivers/gpu/drm/i915/gem/i915_gem_phys.c         | 2 +-
+ drivers/gpu/drm/i915/gem/i915_gem_shmem.c        | 5 +++++
+ drivers/gpu/drm/i915/gem/i915_gem_stolen.c       | 5 +++++
+ drivers/gpu/drm/i915/gem/i915_gem_stolen.h       | 2 ++
+ drivers/gpu/drm/i915/gt/intel_ring.c             | 2 +-
+ drivers/gpu/drm/i915/gt/shmem_utils.c            | 2 +-
+ drivers/gpu/drm/i915/i915_debugfs.c              | 2 +-
+ 10 files changed, 22 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 32ff9d201aeb..2bd04e631eaa 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -1430,7 +1430,7 @@ intel_pin_and_fence_fb_obj(struct drm_framebuffer *fb,
- 		 */
- 		ret = i915_vma_pin_fence(vma);
- 		if (ret != 0 && INTEL_GEN(dev_priv) < 4) {
--			i915_gem_object_unpin_from_display_plane(vma);
-+			i915_vma_unpin(vma);
- 			vma = ERR_PTR(ret);
- 			goto err;
- 		}
-@@ -1448,12 +1448,9 @@ intel_pin_and_fence_fb_obj(struct drm_framebuffer *fb,
+diff --git a/drivers/gpu/drm/i915/display/intel_fbdev.c b/drivers/gpu/drm/i915/display/intel_fbdev.c
+index 842c04e63214..84f853f113b9 100644
+--- a/drivers/gpu/drm/i915/display/intel_fbdev.c
++++ b/drivers/gpu/drm/i915/display/intel_fbdev.c
+@@ -256,7 +256,7 @@ static int intelfb_create(struct drm_fb_helper *helper,
+ 	 * If the object is stolen however, it will be full of whatever
+ 	 * garbage was left in there.
+ 	 */
+-	if (vma->obj->stolen && !prealloc)
++	if (!i915_gem_object_is_shmem(vma->obj) && !prealloc)
+ 		memset_io(info->screen_base, 0, info->screen_size);
  
- void intel_unpin_fb_vma(struct i915_vma *vma, unsigned long flags)
- {
--	i915_gem_object_lock(vma->obj, NULL);
- 	if (flags & PLANE_HAS_FENCE)
- 		i915_vma_unpin_fence(vma);
--	i915_gem_object_unpin_from_display_plane(vma);
--	i915_gem_object_unlock(vma->obj);
--
-+	i915_vma_unpin(vma);
- 	i915_vma_put(vma);
- }
+ 	/* Use default scratch pixmap (info->pixmap.flags = FB_PIXMAP_SYSTEM) */
+@@ -595,7 +595,7 @@ void intel_fbdev_set_suspend(struct drm_device *dev, int state, bool synchronous
+ 	 * full of whatever garbage was left in there.
+ 	 */
+ 	if (state == FBINFO_STATE_RUNNING &&
+-	    intel_fb_obj(&ifbdev->fb->base)->stolen)
++	    !i915_gem_object_is_shmem(intel_fb_obj(&ifbdev->fb->base)))
+ 		memset_io(info->screen_base, 0, info->screen_size);
  
-diff --git a/drivers/gpu/drm/i915/display/intel_overlay.c b/drivers/gpu/drm/i915/display/intel_overlay.c
-index 6be5d8946c69..8edb9b2cdbeb 100644
---- a/drivers/gpu/drm/i915/display/intel_overlay.c
-+++ b/drivers/gpu/drm/i915/display/intel_overlay.c
-@@ -360,7 +360,7 @@ static void intel_overlay_release_old_vma(struct intel_overlay *overlay)
- 	intel_frontbuffer_flip_complete(overlay->i915,
- 					INTEL_FRONTBUFFER_OVERLAY(overlay->crtc->pipe));
- 
--	i915_gem_object_unpin_from_display_plane(vma);
-+	i915_vma_unpin(vma);
- 	i915_vma_put(vma);
- }
- 
-@@ -861,7 +861,7 @@ static int intel_overlay_do_put_image(struct intel_overlay *overlay,
- 	return 0;
- 
- out_unpin:
--	i915_gem_object_unpin_from_display_plane(vma);
-+	i915_vma_unpin(vma);
- out_pin_section:
- 	atomic_dec(&dev_priv->gpu_error.pending_fb_pin);
- 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_domain.c b/drivers/gpu/drm/i915/gem/i915_gem_domain.c
-index a6257314be9c..36f54cedaaeb 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_domain.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_domain.c
-@@ -434,48 +434,6 @@ i915_gem_object_pin_to_display_plane(struct drm_i915_gem_object *obj,
- 	return vma;
- }
- 
--static void i915_gem_object_bump_inactive_ggtt(struct drm_i915_gem_object *obj)
--{
--	struct drm_i915_private *i915 = to_i915(obj->base.dev);
--	struct i915_vma *vma;
--
--	if (list_empty(&obj->vma.list))
--		return;
--
--	mutex_lock(&i915->ggtt.vm.mutex);
--	spin_lock(&obj->vma.lock);
--	for_each_ggtt_vma(vma, obj) {
--		if (!drm_mm_node_allocated(&vma->node))
--			continue;
--
--		GEM_BUG_ON(vma->vm != &i915->ggtt.vm);
--		list_move_tail(&vma->vm_link, &vma->vm->bound_list);
--	}
--	spin_unlock(&obj->vma.lock);
--	mutex_unlock(&i915->ggtt.vm.mutex);
--
--	if (i915_gem_object_is_shrinkable(obj)) {
--		unsigned long flags;
--
--		spin_lock_irqsave(&i915->mm.obj_lock, flags);
--
--		if (obj->mm.madv == I915_MADV_WILLNEED &&
--		    !atomic_read(&obj->mm.shrink_pin))
--			list_move_tail(&obj->mm.link, &i915->mm.shrink_list);
--
--		spin_unlock_irqrestore(&i915->mm.obj_lock, flags);
--	}
--}
--
--void
--i915_gem_object_unpin_from_display_plane(struct i915_vma *vma)
--{
--	/* Bump the LRU to try and avoid premature eviction whilst flipping  */
--	i915_gem_object_bump_inactive_ggtt(vma->obj);
--
--	i915_vma_unpin(vma);
--}
--
- /**
-  * Moves a single object to the CPU read, and possibly write domain.
-  * @obj: object to act on
-@@ -616,9 +574,6 @@ i915_gem_set_domain_ioctl(struct drm_device *dev, void *data,
- 	else
- 		err = i915_gem_object_set_to_cpu_domain(obj, write_domain);
- 
--	/* And bump the LRU for this access */
--	i915_gem_object_bump_inactive_ggtt(obj);
--
- 	i915_gem_object_unlock(obj);
- 
- 	if (write_domain)
+ 	drm_fb_helper_set_suspend(&ifbdev->helper, state);
 diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.h b/drivers/gpu/drm/i915/gem/i915_gem_object.h
-index 0004893450c7..77b2c36b7dac 100644
+index eaa36414d7f2..9b293ada93bd 100644
 --- a/drivers/gpu/drm/i915/gem/i915_gem_object.h
 +++ b/drivers/gpu/drm/i915/gem/i915_gem_object.h
-@@ -492,7 +492,6 @@ i915_gem_object_pin_to_display_plane(struct drm_i915_gem_object *obj,
- 				     u32 alignment,
- 				     const struct i915_ggtt_view *view,
- 				     unsigned int flags);
--void i915_gem_object_unpin_from_display_plane(struct i915_vma *vma);
+@@ -528,4 +528,6 @@ i915_gem_object_invalidate_frontbuffer(struct drm_i915_gem_object *obj,
+ 		__i915_gem_object_invalidate_frontbuffer(obj, origin);
+ }
  
- void i915_gem_object_make_unshrinkable(struct drm_i915_gem_object *obj);
- void i915_gem_object_make_shrinkable(struct drm_i915_gem_object *obj);
++bool i915_gem_object_is_shmem(const struct drm_i915_gem_object *obj);
++
+ #endif
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
+index ab55b7bb9ca6..217151c18d49 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
++++ b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
+@@ -150,8 +150,6 @@ struct drm_i915_gem_object {
+ 	 */
+ 	struct list_head obj_link;
+ 
+-	/** Stolen memory for this object, instead of being backed by shmem. */
+-	struct drm_mm_node *stolen;
+ 	union {
+ 		struct rcu_head rcu;
+ 		struct llist_node freed;
+@@ -303,6 +301,8 @@ struct drm_i915_gem_object {
+ 			struct work_struct *work;
+ 		} userptr;
+ 
++		struct drm_mm_node *stolen;
++
+ 		unsigned long scratch;
+ 		u64 encode;
+ 
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_phys.c b/drivers/gpu/drm/i915/gem/i915_gem_phys.c
+index 3a4dfe2ef1da..3bb65a1b1d93 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_phys.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_phys.c
+@@ -213,7 +213,7 @@ int i915_gem_object_attach_phys(struct drm_i915_gem_object *obj, int align)
+ 	if (obj->ops == &i915_gem_phys_ops)
+ 		return 0;
+ 
+-	if (obj->ops != &i915_gem_shmem_ops)
++	if (!i915_gem_object_is_shmem(obj))
+ 		return -EINVAL;
+ 
+ 	err = i915_gem_object_unbind(obj, I915_GEM_OBJECT_UNBIND_ACTIVE);
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
+index 722e02164c3e..cf83c208688c 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
+@@ -612,3 +612,8 @@ struct intel_memory_region *i915_gem_shmem_setup(struct drm_i915_private *i915)
+ 					  PAGE_SIZE, 0,
+ 					  &shmem_region_ops);
+ }
++
++bool i915_gem_object_is_shmem(const struct drm_i915_gem_object *obj)
++{
++	return obj->ops == &i915_gem_shmem_ops;
++}
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_stolen.c b/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
+index b221492531ef..551935348ad8 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
+@@ -781,3 +781,8 @@ i915_gem_object_create_stolen_for_preallocated(struct drm_i915_private *i915,
+ 	kfree(stolen);
+ 	return obj;
+ }
++
++bool i915_gem_object_is_stolen(const struct drm_i915_gem_object *obj)
++{
++	return obj->ops == &i915_gem_object_stolen_ops;
++}
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_stolen.h b/drivers/gpu/drm/i915/gem/i915_gem_stolen.h
+index 61e028063f9f..b03489706796 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_stolen.h
++++ b/drivers/gpu/drm/i915/gem/i915_gem_stolen.h
+@@ -30,6 +30,8 @@ i915_gem_object_create_stolen_for_preallocated(struct drm_i915_private *dev_priv
+ 					       resource_size_t stolen_offset,
+ 					       resource_size_t size);
+ 
++bool i915_gem_object_is_stolen(const struct drm_i915_gem_object *obj);
++
+ #define I915_GEM_STOLEN_BIAS SZ_128K
+ 
+ #endif /* __I915_GEM_STOLEN_H__ */
+diff --git a/drivers/gpu/drm/i915/gt/intel_ring.c b/drivers/gpu/drm/i915/gt/intel_ring.c
+index 06385550450c..78d1360caa0f 100644
+--- a/drivers/gpu/drm/i915/gt/intel_ring.c
++++ b/drivers/gpu/drm/i915/gt/intel_ring.c
+@@ -42,7 +42,7 @@ int intel_ring_pin(struct intel_ring *ring, struct i915_gem_ww_ctx *ww)
+ 	/* Ring wraparound at offset 0 sometimes hangs. No idea why. */
+ 	flags = PIN_OFFSET_BIAS | i915_ggtt_pin_bias(vma);
+ 
+-	if (vma->obj->stolen)
++	if (i915_gem_object_is_stolen(vma->obj))
+ 		flags |= PIN_MAPPABLE;
+ 	else
+ 		flags |= PIN_HIGH;
+diff --git a/drivers/gpu/drm/i915/gt/shmem_utils.c b/drivers/gpu/drm/i915/gt/shmem_utils.c
+index 5982b62f913d..a4d8fc9e2374 100644
+--- a/drivers/gpu/drm/i915/gt/shmem_utils.c
++++ b/drivers/gpu/drm/i915/gt/shmem_utils.c
+@@ -33,7 +33,7 @@ struct file *shmem_create_from_object(struct drm_i915_gem_object *obj)
+ 	struct file *file;
+ 	void *ptr;
+ 
+-	if (obj->ops == &i915_gem_shmem_ops) {
++	if (i915_gem_object_is_shmem(obj)) {
+ 		file = obj->base.filp;
+ 		atomic_long_inc(&file->f_count);
+ 		return file;
+diff --git a/drivers/gpu/drm/i915/i915_debugfs.c b/drivers/gpu/drm/i915/i915_debugfs.c
+index 437da318897c..88336ff4bf09 100644
+--- a/drivers/gpu/drm/i915/i915_debugfs.c
++++ b/drivers/gpu/drm/i915/i915_debugfs.c
+@@ -210,7 +210,7 @@ i915_debugfs_describe_obj(struct seq_file *m, struct drm_i915_gem_object *obj)
+ 	spin_unlock(&obj->vma.lock);
+ 
+ 	seq_printf(m, " (pinned x %d)", pin_count);
+-	if (obj->stolen)
++	if (i915_gem_object_is_stolen(obj))
+ 		seq_printf(m, " (stolen: %08llx)", obj->stolen->start);
+ 	if (i915_gem_object_is_framebuffer(obj))
+ 		seq_printf(m, " (fb)");
 -- 
 2.20.1
 
