@@ -7,44 +7,44 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 77C33C433E6
-	for <intel-gfx@archiver.kernel.org>; Tue, 19 Jan 2021 07:43:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C378AC433E0
+	for <intel-gfx@archiver.kernel.org>; Tue, 19 Jan 2021 07:43:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 237132312D
-	for <intel-gfx@archiver.kernel.org>; Tue, 19 Jan 2021 07:43:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 237132312D
+	by mail.kernel.org (Postfix) with ESMTPS id 6AD672312D
+	for <intel-gfx@archiver.kernel.org>; Tue, 19 Jan 2021 07:43:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6AD672312D
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D21316E827;
-	Tue, 19 Jan 2021 07:43:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 86CE16E831;
+	Tue, 19 Jan 2021 07:43:27 +0000 (UTC)
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 86FDE6E828
- for <Intel-gfx@lists.freedesktop.org>; Tue, 19 Jan 2021 07:43:24 +0000 (UTC)
-IronPort-SDR: ZmzYXP0ru+0mzyU0kdM0BIWrGHc8LEniinaUcVFv8keRs8lbi7K0Z3Lg0HIZNibUVLZYas2JI+
- Tr1QPhXSklXw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9868"; a="197592804"
-X-IronPort-AV: E=Sophos;i="5.79,358,1602572400"; d="scan'208";a="197592804"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 732D66E830
+ for <Intel-gfx@lists.freedesktop.org>; Tue, 19 Jan 2021 07:43:25 +0000 (UTC)
+IronPort-SDR: 03e27cZxCeiIpvhZYI6FkL2BbuqSpJG5E7mbZW+18pLdngRxEL2p9Q5QX/KxZFFVhq7DLCJB7Q
+ VD05eW30OK3g==
+X-IronPort-AV: E=McAfee;i="6000,8403,9868"; a="197592813"
+X-IronPort-AV: E=Sophos;i="5.79,358,1602572400"; d="scan'208";a="197592813"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  18 Jan 2021 23:43:23 -0800
-IronPort-SDR: /rX8PYwnuQMeh3IHeG1dWBAUQ/wbm6E3j8CjGhaK2CPXNgqI8dOARvf0oInmTW+bLMoBs8Xge7
- 7PGnwm/a/+cQ==
+IronPort-SDR: 7fVTv2Q8ixusfos+i48ITJrGhVDSxSGvbu5OhtPWb+YoGzRxs/hbfLdFT9rzlTb9n/kFxuWzdn
+ BaINnd4aW51g==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.79,358,1602572400"; d="scan'208";a="466592723"
+X-IronPort-AV: E=Sophos;i="5.79,358,1602572400"; d="scan'208";a="466592746"
 Received: from sean-virtualbox.fm.intel.com ([10.105.158.96])
  by fmsmga001.fm.intel.com with ESMTP; 18 Jan 2021 23:43:23 -0800
 From: "Huang, Sean Z" <sean.z.huang@intel.com>
 To: Intel-gfx@lists.freedesktop.org
-Date: Mon, 18 Jan 2021 23:43:08 -0800
-Message-Id: <20210119074320.28768-2-sean.z.huang@intel.com>
+Date: Mon, 18 Jan 2021 23:43:16 -0800
+Message-Id: <20210119074320.28768-10-sean.z.huang@intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20210119074320.28768-1-sean.z.huang@intel.com>
 References: <20210119074320.28768-1-sean.z.huang@intel.com>
-Subject: [Intel-gfx] [RFC-v23 01/13] drm/i915/pxp: Introduce Intel PXP
- component
+Subject: [Intel-gfx] [RFC-v23 09/13] drm/i915/pxp: Expose session state for
+ display protection flip
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,285 +64,148 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-PXP (Protected Xe Path) is an i915 componment, available on GEN12+,
-that helps to establish the hardware protected session and manage
-the status of the alive software session, as well as its life cycle.
+Implement the intel_pxp_gem_object_status() to allow i915 display
+querying the current PXP session state. In the design, display
+should not perform protection flip on the protected buffers if
+there is no PXP session alive. And Implement the funciton to set
+the protected flag for gem context.
 
-This patch series is to allow the kernel space to create and
-manage a single hardware session (a.k.a default session or
-arbitrary session). So Mesa can allocate the protected buffer,
-which is encrypted with the leverage of the arbitrary hardware
-session.
-
-rev21:
-    - Remove the term "Mesa" from the help description of Kconfig
-    - Remove unnecessary "select INTEL_MEI_TXE" from DRM_I915_PXP
-      in Kconfig
+rev23:
+    - Require user space to explicitly set recoverable flag to
+      false for protected context creation.
 
 Signed-off-by: Huang, Sean Z <sean.z.huang@intel.com>
 ---
- drivers/gpu/drm/i915/Kconfig                 | 21 ++++++++++++++
- drivers/gpu/drm/i915/Makefile                |  5 ++++
- drivers/gpu/drm/i915/gt/intel_gt.c           |  5 ++++
- drivers/gpu/drm/i915/gt/intel_gt_types.h     |  3 ++
- drivers/gpu/drm/i915/pxp/intel_pxp.c         | 29 ++++++++++++++++++++
- drivers/gpu/drm/i915/pxp/intel_pxp.h         | 25 +++++++++++++++++
- drivers/gpu/drm/i915/pxp/intel_pxp_context.c | 25 +++++++++++++++++
- drivers/gpu/drm/i915/pxp/intel_pxp_context.h | 15 ++++++++++
- drivers/gpu/drm/i915/pxp/intel_pxp_types.h   | 23 ++++++++++++++++
- 9 files changed, 151 insertions(+)
- create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp.c
- create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp.h
- create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_context.c
- create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_context.h
- create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_types.h
+ .../gpu/drm/i915/gem/i915_gem_context_types.h |  2 ++
+ drivers/gpu/drm/i915/pxp/intel_pxp.c          | 34 +++++++++++++++++++
+ drivers/gpu/drm/i915/pxp/intel_pxp.h          | 24 +++++++++++++
+ include/uapi/drm/i915_drm.h                   |  9 +++++
+ 4 files changed, 69 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/Kconfig b/drivers/gpu/drm/i915/Kconfig
-index 1e1cb245fca7..f0a8c46126d8 100644
---- a/drivers/gpu/drm/i915/Kconfig
-+++ b/drivers/gpu/drm/i915/Kconfig
-@@ -130,6 +130,27 @@ config DRM_I915_GVT_KVMGT
- 	  Choose this option if you want to enable KVMGT support for
- 	  Intel GVT-g.
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context_types.h b/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
+index 1449f54924e0..7a9872d35fbb 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
++++ b/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
+@@ -134,6 +134,8 @@ struct i915_gem_context {
+ #define UCONTEXT_BANNABLE		2
+ #define UCONTEXT_RECOVERABLE		3
+ #define UCONTEXT_PERSISTENCE		4
++#define UCONTEXT_PROTECTED		5
++#define UCONTEXT_UNRECOVERABLE		6
  
-+config DRM_I915_PXP
-+	bool "Enable Intel PXP support for Intel Gen12+ platform"
-+	depends on DRM_I915
-+	select INTEL_MEI
-+	select INTEL_MEI_ME
-+	select INTEL_MEI_PXP
-+	default y
-+	help
-+	  This option selects INTEL_MEI_ME if it isn't already selected to
-+	  enabled full PXP Services on Intel platforms.
-+
-+	  PXP (Protected Xe Path) is an i915 componment, available on GEN12+,
-+	  that helps to establish the hardware protected session and manage
-+	  the status of the alive software session, as well as its life cycle.
-+
-+	  This patch series is to allow the kernel space to create and
-+	  manage a single hardware session (a.k.a default session or
-+	  arbitrary session). So user space can allocate the protected buffer,
-+	  which is encrypted with the leverage of the arbitrary hardware
-+	  session.
-+
- menu "drm/i915 Debugging"
- depends on DRM_I915
- depends on EXPERT
-diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
-index 006dec54408d..9d27e2d8decc 100644
---- a/drivers/gpu/drm/i915/Makefile
-+++ b/drivers/gpu/drm/i915/Makefile
-@@ -265,6 +265,11 @@ i915-y += \
- 
- i915-y += i915_perf.o
- 
-+# Protected execution platform (PXP) support
-+i915-$(CONFIG_DRM_I915_PXP) += \
-+	pxp/intel_pxp.o \
-+	pxp/intel_pxp_context.o
-+
- # Post-mortem debug and GPU hang state capture
- i915-$(CONFIG_DRM_I915_CAPTURE_ERROR) += i915_gpu_error.o
- i915-$(CONFIG_DRM_I915_SELFTEST) += \
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt/intel_gt.c
-index d8e1ab412634..336ad7deae06 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt.c
-@@ -18,6 +18,7 @@
- #include "intel_uncore.h"
- #include "intel_pm.h"
- #include "shmem_utils.h"
-+#include "pxp/intel_pxp.h"
- 
- void intel_gt_init_early(struct intel_gt *gt, struct drm_i915_private *i915)
- {
-@@ -584,6 +585,8 @@ int intel_gt_init(struct intel_gt *gt)
- 	if (err)
- 		goto err_gt;
- 
-+	intel_pxp_init(&gt->pxp);
-+
- 	goto out_fw;
- err_gt:
- 	__intel_gt_disable(gt);
-@@ -607,6 +610,8 @@ void intel_gt_driver_remove(struct intel_gt *gt)
- {
- 	__intel_gt_disable(gt);
- 
-+	intel_pxp_fini(&gt->pxp);
-+
- 	intel_uc_driver_remove(&gt->uc);
- 
- 	intel_engines_release(gt);
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_types.h b/drivers/gpu/drm/i915/gt/intel_gt_types.h
-index a83d3e18254d..c4760e2722fd 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_types.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_types.h
-@@ -23,6 +23,7 @@
- #include "intel_rc6_types.h"
- #include "intel_rps_types.h"
- #include "intel_wakeref.h"
-+#include "pxp/intel_pxp_types.h"
- 
- struct drm_i915_private;
- struct i915_ggtt;
-@@ -145,6 +146,8 @@ struct intel_gt {
- 		/* Slice/subslice/EU info */
- 		struct sseu_dev_info sseu;
- 	} info;
-+
-+	struct intel_pxp pxp;
- };
- 
- enum intel_gt_scratch_field {
+ 	/**
+ 	 * @flags: small set of booleans
 diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.c b/drivers/gpu/drm/i915/pxp/intel_pxp.c
-new file mode 100644
-index 000000000000..9bc3c7e30654
---- /dev/null
+index e6dd57ec73f5..f2ac5996700d 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp.c
 +++ b/drivers/gpu/drm/i915/pxp/intel_pxp.c
-@@ -0,0 +1,29 @@
-+// SPDX-License-Identifier: MIT
-+/*
-+ * Copyright(c) 2020 Intel Corporation.
-+ */
-+#include "i915_drv.h"
-+#include "intel_pxp.h"
-+#include "intel_pxp_context.h"
+@@ -157,3 +157,37 @@ void intel_pxp_irq_handler(struct intel_pxp *pxp, u16 iir)
+ 	pxp->current_events |= events;
+ 	schedule_work(&pxp->irq_work);
+ }
 +
-+void intel_pxp_init(struct intel_pxp *pxp)
++bool intel_pxp_gem_object_status(struct drm_i915_private *i915)
 +{
-+	struct intel_gt *gt = container_of(pxp, struct intel_gt, pxp);
-+
-+	if (INTEL_GEN(gt->i915) < 12)
-+		return;
-+
-+	intel_pxp_ctx_init(&pxp->ctx);
-+
-+	drm_info(&gt->i915->drm, "Protected Xe Path (PXP) protected content support initialized\n");
++	if (i915->gt.pxp.ctx.inited &&
++	    i915->gt.pxp.ctx.flag_display_hm_surface_keys)
++		return true;
++	else
++		return false;
 +}
 +
-+void intel_pxp_fini(struct intel_pxp *pxp)
++int intel_pxp_gem_context_create_param(struct i915_gem_context *ctx,
++				       struct drm_i915_gem_context_param *args)
 +{
-+	struct intel_gt *gt = container_of(pxp, struct intel_gt, pxp);
++	if (!ctx || !args)
++		return -EINVAL;
 +
-+	if (INTEL_GEN(gt->i915) < 12)
-+		return;
++	if (args->param == I915_CONTEXT_PARAM_PROTECTED_CONTENT) {
++		if (!intel_pxp_arb_session_is_in_play(&ctx->i915->gt.pxp))
++			return -EINVAL;
 +
-+	intel_pxp_ctx_fini(&pxp->ctx);
++		if (args->value)
++			set_bit(UCONTEXT_PROTECTED, &ctx->user_flags);
++	} else if (args->param == I915_CONTEXT_PARAM_RECOVERABLE)
++		if (!args->value)
++			set_bit(UCONTEXT_UNRECOVERABLE, &ctx->user_flags);
++
++	return 0;
++}
++
++bool intel_pxp_gem_context_protected_param_valid(struct i915_gem_context *ctx)
++{
++	return (test_bit(UCONTEXT_PROTECTED, &ctx->user_flags) &&
++		test_bit(UCONTEXT_UNRECOVERABLE, &ctx->user_flags));
 +}
 diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.h b/drivers/gpu/drm/i915/pxp/intel_pxp.h
-new file mode 100644
-index 000000000000..f47bc6bea34f
---- /dev/null
+index 420da2790624..ab461cc1839a 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp.h
 +++ b/drivers/gpu/drm/i915/pxp/intel_pxp.h
-@@ -0,0 +1,25 @@
-+/* SPDX-License-Identifier: MIT */
-+/*
-+ * Copyright(c) 2020, Intel Corporation. All rights reserved.
-+ */
+@@ -12,6 +12,10 @@
+ #define PXP_IRQ_VECTOR_DISPLAY_APP_TERM_PER_FW_REQ BIT(2)
+ #define PXP_IRQ_VECTOR_PXP_DISP_STATE_RESET_COMPLETE BIT(3)
+ 
++struct drm_i915_private;
++struct i915_gem_context;
++struct drm_i915_gem_context_param;
 +
-+#ifndef __INTEL_PXP_H__
-+#define __INTEL_PXP_H__
+ #ifdef CONFIG_DRM_I915_PXP
+ void intel_pxp_irq_handler(struct intel_pxp *pxp, u16 iir);
+ int i915_pxp_teardown_required_callback(struct intel_pxp *pxp);
+@@ -19,6 +23,10 @@ int i915_pxp_global_terminate_complete_callback(struct intel_pxp *pxp);
+ 
+ void intel_pxp_init(struct intel_pxp *pxp);
+ void intel_pxp_fini(struct intel_pxp *pxp);
++bool intel_pxp_gem_object_status(struct drm_i915_private *i915);
++int intel_pxp_gem_context_create_param(struct i915_gem_context *ctx,
++				       struct drm_i915_gem_context_param *args);
++bool intel_pxp_gem_context_protected_param_valid(struct i915_gem_context *ctx);
+ #else
+ static inline void intel_pxp_irq_handler(struct intel_pxp *pxp, u16 iir)
+ {
+@@ -41,6 +49,22 @@ static inline void intel_pxp_init(struct intel_pxp *pxp)
+ static inline void intel_pxp_fini(struct intel_pxp *pxp)
+ {
+ }
 +
-+#include "intel_pxp_types.h"
++static inline bool intel_pxp_gem_object_status(struct drm_i915_private *i915)
++{
++	return false;
++}
 +
-+#ifdef CONFIG_DRM_I915_PXP
-+void intel_pxp_init(struct intel_pxp *pxp);
-+void intel_pxp_fini(struct intel_pxp *pxp);
-+#else
-+static inline void intel_pxp_init(struct intel_pxp *pxp)
++static inline int intel_pxp_gem_context_create_param(struct i915_gem_context *ctx,
++						     struct drm_i915_gem_context_param *args)
 +{
 +	return 0;
 +}
 +
-+static inline void intel_pxp_fini(struct intel_pxp *pxp)
++static inline bool intel_pxp_gem_context_protected_param_valid(struct i915_gem_context *ctx)
 +{
++	return false;
 +}
-+#endif
+ #endif
+ 
+ #endif /* __INTEL_PXP_H__ */
+diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
+index 1987e2ea79a3..00fd1c2bcbb3 100644
+--- a/include/uapi/drm/i915_drm.h
++++ b/include/uapi/drm/i915_drm.h
+@@ -1694,6 +1694,15 @@ struct drm_i915_gem_context_param {
+  * Default is 16 KiB.
+  */
+ #define I915_CONTEXT_PARAM_RINGSIZE	0xc
 +
-+#endif /* __INTEL_PXP_H__ */
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_context.c b/drivers/gpu/drm/i915/pxp/intel_pxp_context.c
-new file mode 100644
-index 000000000000..2be6bf2f0d0f
---- /dev/null
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_context.c
-@@ -0,0 +1,25 @@
-+// SPDX-License-Identifier: MIT
 +/*
-+ * Copyright(c) 2020, Intel Corporation. All rights reserved.
++ * I915_CONTEXT_PARAM_PROTECTED_CONTENT:
++ *
++ * If set to true (1) PAVP content protection is enabled.
++ * When enabled, the context is marked unrecoverable and may
++ * become invalid due to PAVP teardown event or other error.
 + */
-+
-+#include "intel_pxp_context.h"
-+
-+/**
-+ * intel_pxp_ctx_init - To init a pxp context.
-+ * @ctx: pointer to ctx structure.
-+ */
-+void intel_pxp_ctx_init(struct pxp_context *ctx)
-+{
-+	mutex_init(&ctx->mutex);
-+	ctx->inited = true;
-+}
-+
-+/**
-+ * intel_pxp_ctx_fini - To finish the pxp context.
-+ * @ctx: pointer to ctx structure.
-+ */
-+void intel_pxp_ctx_fini(struct pxp_context *ctx)
-+{
-+	ctx->inited = false;
-+}
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_context.h b/drivers/gpu/drm/i915/pxp/intel_pxp_context.h
-new file mode 100644
-index 000000000000..f51021c33d45
---- /dev/null
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_context.h
-@@ -0,0 +1,15 @@
-+/* SPDX-License-Identifier: MIT */
-+/*
-+ * Copyright(c) 2020, Intel Corporation. All rights reserved.
-+ */
-+
-+#ifndef __INTEL_PXP_CONTEXT_H__
-+#define __INTEL_PXP_CONTEXT_H__
-+
-+#include <linux/mutex.h>
-+#include "intel_pxp_types.h"
-+
-+void intel_pxp_ctx_init(struct pxp_context *ctx);
-+void intel_pxp_ctx_fini(struct pxp_context *ctx);
-+
-+#endif /* __INTEL_PXP_CONTEXT_H__ */
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_types.h b/drivers/gpu/drm/i915/pxp/intel_pxp_types.h
-new file mode 100644
-index 000000000000..f9b40ea98b1b
---- /dev/null
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_types.h
-@@ -0,0 +1,23 @@
-+/* SPDX-License-Identifier: MIT */
-+/*
-+ * Copyright(c) 2020, Intel Corporation. All rights reserved.
-+ */
-+
-+#ifndef __INTEL_PXP_TYPES_H__
-+#define __INTEL_PXP_TYPES_H__
-+
-+#include <linux/mutex.h>
-+
-+/* struct pxp_context - Represents combined view of driver and logical HW states. */
-+struct pxp_context {
-+	/** @mutex: mutex to protect the pxp context */
-+	struct mutex mutex;
-+
-+	bool inited;
-+};
-+
-+struct intel_pxp {
-+	struct pxp_context ctx;
-+};
-+
-+#endif /* __INTEL_PXP_TYPES_H__ */
++#define I915_CONTEXT_PARAM_PROTECTED_CONTENT    0xd
+ /* Must be kept compact -- no holes and well documented */
+ 
+ 	__u64 value;
 -- 
 2.17.1
 
