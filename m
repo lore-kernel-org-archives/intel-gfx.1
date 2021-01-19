@@ -2,65 +2,51 @@ Return-Path: <SRS0=gs28=GW=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 577A5C433E0
-	for <intel-gfx@archiver.kernel.org>; Tue, 19 Jan 2021 16:16:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AEA7AC433E0
+	for <intel-gfx@archiver.kernel.org>; Tue, 19 Jan 2021 18:29:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0CC592245C
-	for <intel-gfx@archiver.kernel.org>; Tue, 19 Jan 2021 16:16:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0CC592245C
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 6255E20776
+	for <intel-gfx@archiver.kernel.org>; Tue, 19 Jan 2021 18:29:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6255E20776
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7AE6E6E87F;
-	Tue, 19 Jan 2021 16:16:28 +0000 (UTC)
-Received: from mail-qk1-x733.google.com (mail-qk1-x733.google.com
- [IPv6:2607:f8b0:4864:20::733])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 98CAB6E87F
- for <intel-gfx@lists.freedesktop.org>; Tue, 19 Jan 2021 16:16:27 +0000 (UTC)
-Received: by mail-qk1-x733.google.com with SMTP id k193so1228019qke.6
- for <intel-gfx@lists.freedesktop.org>; Tue, 19 Jan 2021 08:16:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=nVbI0BnAjDTPOLVZg1dy+VzyInYHoK8pjBcOxWzjgxk=;
- b=YYTM5VJjz3YdeYw5eJ2Bdb7mTNUXdmbXCDOmacVgp6lW8VMRa6CTxpXK4HoZq6J7xv
- NXjXZ9Ko/oyC0jM9/JNttkb1F6kiRVbr5zKAXNd8n1xoWneqH+DItS5YrgT/c9EEnZbC
- 194UZ2qfGAtHrq8fI/jQnP/Z1cT5mgqmJqwoU412hwAZCke0fV1Kzk7FJRV7uj/i4DsA
- ZMJW00S2XDfHGvZQiKuF3v0+qXCUFU7KkaDDOO763Nq908JXfQfA/UD23eOJx9RXNUpT
- G5mEhiDBKBYSHvb14O4OQdyu5vAUy+HI3jxvBqP6vE9b5NBEV+NmuruT+7EKzKoRhowh
- 3ebA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=nVbI0BnAjDTPOLVZg1dy+VzyInYHoK8pjBcOxWzjgxk=;
- b=r+Vc2MNYRjtYN/h+598eWoR1YxjkmDmDdZx3t1t76xhErQ+q2PxTusV3QJ2Cu9fbcL
- hxi57L8wXNF6msncfqMsKgviWQ3CNopM2e2mV8QVGQ8kSGb3G5K3TSqpLMKqtyqKYPmK
- pr+tDksBuYxd5Xaxa45IFnQEzvelMsyw8TLAoFmfYblHfGSoluCuVfsyy36BwR1Rye7J
- VP6NKKRwfzAof3lOEX6hrrDV8La0ekjEtzi0L5ht0dqQ/zPFnSERMAhxVVnWMQPDpQhe
- OWZ3WVedkEcmM+ArBF1QGYoIc0/+KaBg9j0YXkPO0++14leShbeD1L/2/hljNrfIx72B
- kGog==
-X-Gm-Message-State: AOAM532bOSq9oCBhu0nHx22QKwuL1aAhiJoY5TDjM49oHGRDSwzYn0VH
- pn2GCxzhW/MPkjIG183lf10A67t6CbuYOwNiA/c=
-X-Google-Smtp-Source: ABdhPJx0CnJq21MKf0ydhAWIj/IKVR9yblnHmyL235IP1dNNeQ8PA9myJ1QLox30GeNjJ5BF6saHImtV4LgSwr1Nrj0=
-X-Received: by 2002:a37:418d:: with SMTP id o135mr5129399qka.426.1611072986781; 
- Tue, 19 Jan 2021 08:16:26 -0800 (PST)
-MIME-Version: 1.0
-References: <20210119144912.12653-1-chris@chris-wilson.co.uk>
- <20210119144912.12653-5-chris@chris-wilson.co.uk>
-In-Reply-To: <20210119144912.12653-5-chris@chris-wilson.co.uk>
-From: Matthew Auld <matthew.william.auld@gmail.com>
-Date: Tue, 19 Jan 2021 16:16:00 +0000
-Message-ID: <CAM0jSHNfGZdve_fkirqHF5TtxDB0szhEP53OKW-gq7Rjfx--yw@mail.gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7CBFF6E431;
+	Tue, 19 Jan 2021 18:01:58 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 52A3B6E431
+ for <intel-gfx@lists.freedesktop.org>; Tue, 19 Jan 2021 18:01:57 +0000 (UTC)
+IronPort-SDR: 7iwUBQOegwyB6lp+2MYM9lfKuwo8vtYlVbH/5airlAoWZff757Q0GPodvAQibWrDMwLKz6OBkx
+ tT+n9V738xUw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9869"; a="166635651"
+X-IronPort-AV: E=Sophos;i="5.79,359,1602572400"; d="scan'208";a="166635651"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Jan 2021 10:01:55 -0800
+IronPort-SDR: IdcIucNdqgi7NK8FeRrYpM1mYFYaCKQ2j0wmFdN6SiricB5rhxtFxON2efefLmAHKK0t/fKAWO
+ CS5mV/Jy6yPQ==
+X-IronPort-AV: E=Sophos;i="5.79,359,1602572400"; d="scan'208";a="355714491"
+Received: from mdroper-desk1.fm.intel.com (HELO
+ mdroper-desk1.amr.corp.intel.com) ([10.1.27.168])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Jan 2021 10:01:55 -0800
+Date: Tue, 19 Jan 2021 10:01:54 -0800
+From: Matt Roper <matthew.d.roper@intel.com>
 To: Chris Wilson <chris@chris-wilson.co.uk>
-Subject: Re: [Intel-gfx] [PATCH 5/6] drm/i915/gem: Make
- i915_gem_object_flush_write_domain() static
+Message-ID: <20210119180154.GK21197@mdroper-desk1.amr.corp.intel.com>
+References: <20210114103822.1766-1-chris@chris-wilson.co.uk>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20210114103822.1766-1-chris@chris-wilson.co.uk>
+Subject: Re: [Intel-gfx] [PATCH v2 1/2] drm/i915/selftests: Exercise
+ relative mmio paths to non-privileged registers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,21 +59,287 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Intel Graphics Development <intel-gfx@lists.freedesktop.org>
+Cc: intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 19 Jan 2021 at 14:49, Chris Wilson <chris@chris-wilson.co.uk> wrote:
->
-> flush_write_domain() is only used within the GEM domain managament code,
-                                                       management
-
-> so move it to i915_gem_domain.c and drop the export.
->
+On Thu, Jan 14, 2021 at 10:38:21AM +0000, Chris Wilson wrote:
+> Verify that context isolation is also preserved when accessing
+> context-local registers with relative-mmio commands.
+> 
 > Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+> ---
+>  drivers/gpu/drm/i915/gt/selftest_lrc.c | 88 ++++++++++++++++++++------
+>  1 file changed, 67 insertions(+), 21 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/gt/selftest_lrc.c b/drivers/gpu/drm/i915/gt/selftest_lrc.c
+> index 920979a89413..a55cbf524692 100644
+> --- a/drivers/gpu/drm/i915/gt/selftest_lrc.c
+> +++ b/drivers/gpu/drm/i915/gt/selftest_lrc.c
+> @@ -911,7 +911,9 @@ create_user_vma(struct i915_address_space *vm, unsigned long size)
+>  }
+>  
+>  static struct i915_vma *
+> -store_context(struct intel_context *ce, struct i915_vma *scratch)
+> +store_context(struct intel_context *ce,
+> +	      struct i915_vma *scratch,
+> +	      bool relative)
+>  {
+>  	struct i915_vma *batch;
+>  	u32 dw, x, *cs, *hw;
+> @@ -940,6 +942,9 @@ store_context(struct intel_context *ce, struct i915_vma *scratch)
+>  	hw += LRC_STATE_OFFSET / sizeof(*hw);
+>  	do {
+>  		u32 len = hw[dw] & 0x7f;
+> +		u32 cmd = MI_STORE_REGISTER_MEM_GEN8;
+> +		u32 offset = 0;
+> +		u32 mask = ~0;
+>  
+>  		if (hw[dw] == 0) {
+>  			dw++;
+> @@ -951,11 +956,19 @@ store_context(struct intel_context *ce, struct i915_vma *scratch)
+>  			continue;
+>  		}
+>  
+> +		if (hw[dw] & MI_LRI_LRM_CS_MMIO) {
+> +			mask = 0xfff;
+> +			if (relative)
+> +				cmd |= MI_LRI_LRM_CS_MMIO;
+> +			else
+> +				offset = ce->engine->mmio_base;
+> +		}
+
+Do we also need to handle bit 17 (MMIO remap) here too?  E.g., a context
+running on a VCS2 engine could have addresses that reference VCS0 if
+this bit is set.
+
+
+Matt
+
+> +
+>  		dw++;
+>  		len = (len + 1) / 2;
+>  		while (len--) {
+> -			*cs++ = MI_STORE_REGISTER_MEM_GEN8;
+> -			*cs++ = hw[dw];
+> +			*cs++ = cmd;
+> +			*cs++ = (hw[dw] & mask) + offset;
+>  			*cs++ = lower_32_bits(scratch->node.start + x);
+>  			*cs++ = upper_32_bits(scratch->node.start + x);
+>  
+> @@ -994,6 +1007,7 @@ static struct i915_request *
+>  record_registers(struct intel_context *ce,
+>  		 struct i915_vma *before,
+>  		 struct i915_vma *after,
+> +		 bool relative,
+>  		 u32 *sema)
+>  {
+>  	struct i915_vma *b_before, *b_after;
+> @@ -1001,11 +1015,11 @@ record_registers(struct intel_context *ce,
+>  	u32 *cs;
+>  	int err;
+>  
+> -	b_before = store_context(ce, before);
+> +	b_before = store_context(ce, before, relative);
+>  	if (IS_ERR(b_before))
+>  		return ERR_CAST(b_before);
+>  
+> -	b_after = store_context(ce, after);
+> +	b_after = store_context(ce, after, relative);
+>  	if (IS_ERR(b_after)) {
+>  		rq = ERR_CAST(b_after);
+>  		goto err_before;
+> @@ -1075,7 +1089,8 @@ record_registers(struct intel_context *ce,
+>  	goto err_after;
+>  }
+>  
+> -static struct i915_vma *load_context(struct intel_context *ce, u32 poison)
+> +static struct i915_vma *
+> +load_context(struct intel_context *ce, u32 poison, bool relative)
+>  {
+>  	struct i915_vma *batch;
+>  	u32 dw, *cs, *hw;
+> @@ -1102,7 +1117,10 @@ static struct i915_vma *load_context(struct intel_context *ce, u32 poison)
+>  	hw = defaults;
+>  	hw += LRC_STATE_OFFSET / sizeof(*hw);
+>  	do {
+> +		u32 cmd = MI_INSTR(0x22, 0);
+>  		u32 len = hw[dw] & 0x7f;
+> +		u32 offset = 0;
+> +		u32 mask = ~0;
+>  
+>  		if (hw[dw] == 0) {
+>  			dw++;
+> @@ -1114,11 +1132,19 @@ static struct i915_vma *load_context(struct intel_context *ce, u32 poison)
+>  			continue;
+>  		}
+>  
+> +		if (hw[dw] & MI_LRI_LRM_CS_MMIO) {
+> +			mask = 0xfff;
+> +			if (relative)
+> +				cmd |= MI_LRI_LRM_CS_MMIO;
+> +			else
+> +				offset = ce->engine->mmio_base;
+> +		}
+> +
+>  		dw++;
+> +		*cs++ = cmd | len;
+>  		len = (len + 1) / 2;
+> -		*cs++ = MI_LOAD_REGISTER_IMM(len);
+>  		while (len--) {
+> -			*cs++ = hw[dw];
+> +			*cs++ = (hw[dw] & mask) + offset;
+>  			*cs++ = poison;
+>  			dw += 2;
+>  		}
+> @@ -1135,14 +1161,18 @@ static struct i915_vma *load_context(struct intel_context *ce, u32 poison)
+>  	return batch;
+>  }
+>  
+> -static int poison_registers(struct intel_context *ce, u32 poison, u32 *sema)
+> +static int
+> +poison_registers(struct intel_context *ce,
+> +		 u32 poison,
+> +		 bool relative,
+> +		 u32 *sema)
+>  {
+>  	struct i915_request *rq;
+>  	struct i915_vma *batch;
+>  	u32 *cs;
+>  	int err;
+>  
+> -	batch = load_context(ce, poison);
+> +	batch = load_context(ce, poison, relative);
+>  	if (IS_ERR(batch))
+>  		return PTR_ERR(batch);
+>  
+> @@ -1192,7 +1222,7 @@ static int compare_isolation(struct intel_engine_cs *engine,
+>  			     struct i915_vma *ref[2],
+>  			     struct i915_vma *result[2],
+>  			     struct intel_context *ce,
+> -			     u32 poison)
+> +			     u32 poison, bool relative)
+>  {
+>  	u32 x, dw, *hw, *lrc;
+>  	u32 *A[2], *B[2];
+> @@ -1241,6 +1271,7 @@ static int compare_isolation(struct intel_engine_cs *engine,
+>  	hw += LRC_STATE_OFFSET / sizeof(*hw);
+>  	do {
+>  		u32 len = hw[dw] & 0x7f;
+> +		bool is_relative = relative;
+>  
+>  		if (hw[dw] == 0) {
+>  			dw++;
+> @@ -1252,6 +1283,9 @@ static int compare_isolation(struct intel_engine_cs *engine,
+>  			continue;
+>  		}
+>  
+> +		if (!(hw[dw] & MI_LRI_LRM_CS_MMIO))
+> +			is_relative = false;
+> +
+>  		dw++;
+>  		len = (len + 1) / 2;
+>  		while (len--) {
+> @@ -1263,9 +1297,10 @@ static int compare_isolation(struct intel_engine_cs *engine,
+>  					break;
+>  
+>  				default:
+> -					pr_err("%s[%d]: Mismatch for register %4x, default %08x, reference %08x, result (%08x, %08x), poison %08x, context %08x\n",
+> -					       engine->name, dw,
+> -					       hw[dw], hw[dw + 1],
+> +					pr_err("%s[%d]: Mismatch for register %4x [using relative? %s], default %08x, reference %08x, result (%08x, %08x), poison %08x, context %08x\n",
+> +					       engine->name, dw, hw[dw],
+> +					       yesno(is_relative),
+> +					       hw[dw + 1],
+>  					       A[0][x], B[0][x], B[1][x],
+>  					       poison, lrc[dw + 1]);
+>  					err = -EINVAL;
+> @@ -1291,7 +1326,8 @@ static int compare_isolation(struct intel_engine_cs *engine,
+>  	return err;
+>  }
+>  
+> -static int __lrc_isolation(struct intel_engine_cs *engine, u32 poison)
+> +static int
+> +__lrc_isolation(struct intel_engine_cs *engine, u32 poison, bool relative)
+>  {
+>  	u32 *sema = memset32(engine->status_page.addr + 1000, 0, 1);
+>  	struct i915_vma *ref[2], *result[2];
+> @@ -1321,7 +1357,7 @@ static int __lrc_isolation(struct intel_engine_cs *engine, u32 poison)
+>  		goto err_ref0;
+>  	}
+>  
+> -	rq = record_registers(A, ref[0], ref[1], sema);
+> +	rq = record_registers(A, ref[0], ref[1], relative, sema);
+>  	if (IS_ERR(rq)) {
+>  		err = PTR_ERR(rq);
+>  		goto err_ref1;
+> @@ -1349,13 +1385,13 @@ static int __lrc_isolation(struct intel_engine_cs *engine, u32 poison)
+>  		goto err_result0;
+>  	}
+>  
+> -	rq = record_registers(A, result[0], result[1], sema);
+> +	rq = record_registers(A, result[0], result[1], relative, sema);
+>  	if (IS_ERR(rq)) {
+>  		err = PTR_ERR(rq);
+>  		goto err_result1;
+>  	}
+>  
+> -	err = poison_registers(B, poison, sema);
+> +	err = poison_registers(B, poison, relative, sema);
+>  	if (err) {
+>  		WRITE_ONCE(*sema, -1);
+>  		i915_request_put(rq);
+> @@ -1369,7 +1405,7 @@ static int __lrc_isolation(struct intel_engine_cs *engine, u32 poison)
+>  	}
+>  	i915_request_put(rq);
+>  
+> -	err = compare_isolation(engine, ref, result, A, poison);
+> +	err = compare_isolation(engine, ref, result, A, poison, relative);
+>  
+>  err_result1:
+>  	i915_vma_put(result[1]);
+> @@ -1431,13 +1467,23 @@ static int live_lrc_isolation(void *arg)
+>  		for (i = 0; i < ARRAY_SIZE(poison); i++) {
+>  			int result;
+>  
+> -			result = __lrc_isolation(engine, poison[i]);
+> +			result = __lrc_isolation(engine, poison[i], false);
+>  			if (result && !err)
+>  				err = result;
+>  
+> -			result = __lrc_isolation(engine, ~poison[i]);
+> +			result = __lrc_isolation(engine, ~poison[i], false);
+>  			if (result && !err)
+>  				err = result;
+> +
+> +			if (intel_engine_has_relative_mmio(engine)) {
+> +				result = __lrc_isolation(engine, poison[i], true);
+> +				if (result && !err)
+> +					err = result;
+> +
+> +				result = __lrc_isolation(engine, ~poison[i], true);
+> +				if (result && !err)
+> +					err = result;
+> +			}
+>  		}
+>  		intel_engine_pm_put(engine);
+>  		if (igt_flush_test(gt->i915)) {
+> -- 
+> 2.20.1
+> 
+> _______________________________________________
+> Intel-gfx mailing list
+> Intel-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+
+-- 
+Matt Roper
+Graphics Software Engineer
+VTT-OSGC Platform Enablement
+Intel Corporation
+(916) 356-2795
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
