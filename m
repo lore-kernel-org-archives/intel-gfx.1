@@ -7,35 +7,37 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9650EC433E0
-	for <intel-gfx@archiver.kernel.org>; Tue, 19 Jan 2021 14:49:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6805EC433DB
+	for <intel-gfx@archiver.kernel.org>; Tue, 19 Jan 2021 14:49:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CA67C207FB
-	for <intel-gfx@archiver.kernel.org>; Tue, 19 Jan 2021 14:49:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CA67C207FB
+	by mail.kernel.org (Postfix) with ESMTPS id C99F820888
+	for <intel-gfx@archiver.kernel.org>; Tue, 19 Jan 2021 14:49:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C99F820888
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3959D6E3DF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F03A6E3F0;
 	Tue, 19 Jan 2021 14:49:26 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 005C36E402
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F3F4B6E3F4
  for <intel-gfx@lists.freedesktop.org>; Tue, 19 Jan 2021 14:49:24 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23640079-1500050 
- for multiple; Tue, 19 Jan 2021 14:49:13 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23640082-1500050 
+ for multiple; Tue, 19 Jan 2021 14:49:14 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 19 Jan 2021 14:49:07 +0000
-Message-Id: <20210119144912.12653-1-chris@chris-wilson.co.uk>
+Date: Tue, 19 Jan 2021 14:49:10 +0000
+Message-Id: <20210119144912.12653-4-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20210119144912.12653-1-chris@chris-wilson.co.uk>
+References: <20210119144912.12653-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 1/6] drm/i915/gem: Almagamate clflushes on
- suspend
+Subject: [Intel-gfx] [PATCH 4/6] drm/i915/gem: Use shrinkable status for
+ unknown swizzle quirks
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,92 +56,213 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-When flushing objects larger than the CPU cache it is preferrable to use
-a single wbinvd() rather than overlapping clflush(). At runtime, we
-avoid wbinvd() due to its system-wide latencies, but during
-singlethreaded suspend, no one will observe the imposed latency and we
-can opt for the faster wbinvd to clear all objects in a single hit.
-
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_pm.c | 40 +++++++++-----------------
- 1 file changed, 13 insertions(+), 27 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_object.h    | 18 ++++++++++++++++++
+ .../gpu/drm/i915/gem/i915_gem_object_types.h  |  7 +------
+ drivers/gpu/drm/i915/gem/i915_gem_pages.c     | 19 +++++++++++--------
+ drivers/gpu/drm/i915/gem/i915_gem_phys.c      |  2 +-
+ drivers/gpu/drm/i915/gem/i915_gem_tiling.c    | 12 ++++++------
+ drivers/gpu/drm/i915/i915_gem.c               | 12 ++++++------
+ .../gpu/drm/i915/selftests/i915_gem_evict.c   | 10 +++++-----
+ 7 files changed, 48 insertions(+), 32 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_pm.c b/drivers/gpu/drm/i915/gem/i915_gem_pm.c
-index 40d3e40500fa..38c1298cb14b 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_pm.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_pm.c
-@@ -11,6 +11,12 @@
- 
- #include "i915_drv.h"
- 
-+#if defined(CONFIG_X86)
-+#include <asm/smp.h>
-+#else
-+#define wbinvd_on_all_cpus()
-+#endif
-+
- void i915_gem_suspend(struct drm_i915_private *i915)
- {
- 	GEM_TRACE("%s\n", dev_name(i915->drm.dev));
-@@ -32,13 +38,6 @@ void i915_gem_suspend(struct drm_i915_private *i915)
- 	i915_gem_drain_freed_objects(i915);
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.h b/drivers/gpu/drm/i915/gem/i915_gem_object.h
+index 3603b702a14e..6e28159a883d 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_object.h
++++ b/drivers/gpu/drm/i915/gem/i915_gem_object.h
+@@ -187,6 +187,24 @@ i915_gem_object_set_volatile(struct drm_i915_gem_object *obj)
+ 	obj->flags |= I915_BO_ALLOC_VOLATILE;
  }
  
--static struct drm_i915_gem_object *first_mm_object(struct list_head *list)
--{
--	return list_first_entry_or_null(list,
--					struct drm_i915_gem_object,
--					mm.link);
--}
--
- void i915_gem_suspend_late(struct drm_i915_private *i915)
- {
- 	struct drm_i915_gem_object *obj;
-@@ -48,6 +47,7 @@ void i915_gem_suspend_late(struct drm_i915_private *i915)
- 		NULL
- 	}, **phase;
- 	unsigned long flags;
-+	bool flush = false;
++static inline bool
++i915_gem_object_has_tiling_quirk(struct drm_i915_gem_object *obj)
++{
++	return test_bit(I915_TILING_QUIRK_BIT, &obj->flags);
++}
++
++static inline void
++i915_gem_object_set_tiling_quirk(struct drm_i915_gem_object *obj)
++{
++	set_bit(I915_TILING_QUIRK_BIT, &obj->flags);
++}
++
++static inline void
++i915_gem_object_clear_tiling_quirk(struct drm_i915_gem_object *obj)
++{
++	clear_bit(I915_TILING_QUIRK_BIT, &obj->flags);
++}
++
+ static inline bool
+ i915_gem_object_type_has(const struct drm_i915_gem_object *obj,
+ 			 unsigned long flags)
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
+index b01b4b307ee7..273694592596 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
++++ b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
+@@ -165,6 +165,7 @@ struct drm_i915_gem_object {
+ #define I915_BO_ALLOC_VOLATILE   BIT(1)
+ #define I915_BO_ALLOC_FLAGS (I915_BO_ALLOC_CONTIGUOUS | I915_BO_ALLOC_VOLATILE)
+ #define I915_BO_READONLY         BIT(2)
++#define I915_TILING_QUIRK_BIT    3 /* unknown swizzling; do not release! */
  
  	/*
- 	 * Neither the BIOS, ourselves or any other kernel
-@@ -73,29 +73,15 @@ void i915_gem_suspend_late(struct drm_i915_private *i915)
+ 	 * Is the object to be mapped as read-only to the GPU
+@@ -273,12 +274,6 @@ struct drm_i915_gem_object {
+ 		 * pages were last acquired.
+ 		 */
+ 		bool dirty:1;
+-
+-		/**
+-		 * This is set if the object has been pinned due to unknown
+-		 * swizzling.
+-		 */
+-		bool quirked:1;
+ 	} mm;
  
- 	spin_lock_irqsave(&i915->mm.obj_lock, flags);
- 	for (phase = phases; *phase; phase++) {
--		LIST_HEAD(keep);
+ 	/** Record of address bit 17 of each page at last unbind. */
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_pages.c b/drivers/gpu/drm/i915/gem/i915_gem_pages.c
+index 3db3c667c486..43028f3539a6 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_pages.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_pages.c
+@@ -16,6 +16,7 @@ void __i915_gem_object_set_pages(struct drm_i915_gem_object *obj,
+ {
+ 	struct drm_i915_private *i915 = to_i915(obj->base.dev);
+ 	unsigned long supported = INTEL_INFO(i915)->page_sizes;
++	bool shrinkable;
+ 	int i;
+ 
+ 	lockdep_assert_held(&obj->mm.lock);
+@@ -38,13 +39,6 @@ void __i915_gem_object_set_pages(struct drm_i915_gem_object *obj,
+ 
+ 	obj->mm.pages = pages;
+ 
+-	if (i915_gem_object_is_tiled(obj) &&
+-	    i915->quirks & QUIRK_PIN_SWIZZLED_PAGES) {
+-		GEM_BUG_ON(obj->mm.quirked);
+-		__i915_gem_object_pin_pages(obj);
+-		obj->mm.quirked = true;
+-	}
 -
--		while ((obj = first_mm_object(*phase))) {
--			list_move_tail(&obj->mm.link, &keep);
--
--			/* Beware the background _i915_gem_free_objects */
--			if (!kref_get_unless_zero(&obj->base.refcount))
--				continue;
--
--			spin_unlock_irqrestore(&i915->mm.obj_lock, flags);
--
--			i915_gem_object_lock(obj, NULL);
--			drm_WARN_ON(&i915->drm,
--			    i915_gem_object_set_to_gtt_domain(obj, false));
--			i915_gem_object_unlock(obj);
--			i915_gem_object_put(obj);
--
--			spin_lock_irqsave(&i915->mm.obj_lock, flags);
-+		list_for_each_entry(obj, *phase, mm.link) {
-+			if (!(obj->cache_coherent & I915_BO_CACHE_COHERENT_FOR_READ))
-+				flush |= (obj->read_domains & I915_GEM_DOMAIN_CPU) == 0;
-+			__start_cpu_write(obj); /* presume auto-hibernate */
- 		}
--
--		list_splice_tail(&keep, *phase);
+ 	GEM_BUG_ON(!sg_page_sizes);
+ 	obj->mm.page_sizes.phys = sg_page_sizes;
+ 
+@@ -63,7 +57,16 @@ void __i915_gem_object_set_pages(struct drm_i915_gem_object *obj,
  	}
- 	spin_unlock_irqrestore(&i915->mm.obj_lock, flags);
-+	if (flush)
-+		wbinvd_on_all_cpus();
+ 	GEM_BUG_ON(!HAS_PAGE_SIZES(i915, obj->mm.page_sizes.sg));
+ 
+-	if (i915_gem_object_is_shrinkable(obj)) {
++	shrinkable = i915_gem_object_is_shrinkable(obj);
++
++	if (i915_gem_object_is_tiled(obj) &&
++	    i915->quirks & QUIRK_PIN_SWIZZLED_PAGES) {
++		GEM_BUG_ON(i915_gem_object_has_tiling_quirk(obj));
++		i915_gem_object_set_tiling_quirk(obj);
++		shrinkable = false;
++	}
++
++	if (shrinkable) {
+ 		struct list_head *list;
+ 		unsigned long flags;
+ 
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_phys.c b/drivers/gpu/drm/i915/gem/i915_gem_phys.c
+index 3bb65a1b1d93..3c0b157e2a35 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_phys.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_phys.c
+@@ -227,7 +227,7 @@ int i915_gem_object_attach_phys(struct drm_i915_gem_object *obj, int align)
+ 		goto err_unlock;
+ 	}
+ 
+-	if (obj->mm.quirked) {
++	if (i915_gem_object_has_tiling_quirk(obj)) {
+ 		err = -EFAULT;
+ 		goto err_unlock;
+ 	}
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_tiling.c b/drivers/gpu/drm/i915/gem/i915_gem_tiling.c
+index ffcaee74a249..b4f720ed80cd 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_tiling.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_tiling.c
+@@ -270,14 +270,14 @@ i915_gem_object_set_tiling(struct drm_i915_gem_object *obj,
+ 	    obj->mm.madv == I915_MADV_WILLNEED &&
+ 	    i915->quirks & QUIRK_PIN_SWIZZLED_PAGES) {
+ 		if (tiling == I915_TILING_NONE) {
+-			GEM_BUG_ON(!obj->mm.quirked);
+-			__i915_gem_object_unpin_pages(obj);
+-			obj->mm.quirked = false;
++			GEM_BUG_ON(!i915_gem_object_has_tiling_quirk(obj));
++			i915_gem_object_make_shrinkable(obj);
++			i915_gem_object_clear_tiling_quirk(obj);
+ 		}
+ 		if (!i915_gem_object_is_tiled(obj)) {
+-			GEM_BUG_ON(obj->mm.quirked);
+-			__i915_gem_object_pin_pages(obj);
+-			obj->mm.quirked = true;
++			GEM_BUG_ON(i915_gem_object_has_tiling_quirk(obj));
++			i915_gem_object_make_unshrinkable(obj);
++			i915_gem_object_set_tiling_quirk(obj);
+ 		}
+ 	}
+ 	mutex_unlock(&obj->mm.lock);
+diff --git a/drivers/gpu/drm/i915/i915_gem.c b/drivers/gpu/drm/i915/i915_gem.c
+index d3a287bf56c5..9a534c4023ef 100644
+--- a/drivers/gpu/drm/i915/i915_gem.c
++++ b/drivers/gpu/drm/i915/i915_gem.c
+@@ -957,14 +957,14 @@ i915_gem_madvise_ioctl(struct drm_device *dev, void *data,
+ 	    i915_gem_object_is_tiled(obj) &&
+ 	    i915->quirks & QUIRK_PIN_SWIZZLED_PAGES) {
+ 		if (obj->mm.madv == I915_MADV_WILLNEED) {
+-			GEM_BUG_ON(!obj->mm.quirked);
+-			__i915_gem_object_unpin_pages(obj);
+-			obj->mm.quirked = false;
++			GEM_BUG_ON(!i915_gem_object_has_tiling_quirk(obj));
++			i915_gem_object_make_shrinkable(obj);
++			i915_gem_object_set_tiling_quirk(obj);
+ 		}
+ 		if (args->madv == I915_MADV_WILLNEED) {
+-			GEM_BUG_ON(obj->mm.quirked);
+-			__i915_gem_object_pin_pages(obj);
+-			obj->mm.quirked = true;
++			GEM_BUG_ON(i915_gem_object_has_tiling_quirk(obj));
++			i915_gem_object_clear_tiling_quirk(obj);
++			i915_gem_object_make_unshrinkable(obj);
+ 		}
+ 	}
+ 
+diff --git a/drivers/gpu/drm/i915/selftests/i915_gem_evict.c b/drivers/gpu/drm/i915/selftests/i915_gem_evict.c
+index 3512bb8433cf..f99bb0113726 100644
+--- a/drivers/gpu/drm/i915/selftests/i915_gem_evict.c
++++ b/drivers/gpu/drm/i915/selftests/i915_gem_evict.c
+@@ -38,8 +38,8 @@ static void quirk_add(struct drm_i915_gem_object *obj,
+ 		      struct list_head *objects)
+ {
+ 	/* quirk is only for live tiled objects, use it to declare ownership */
+-	GEM_BUG_ON(obj->mm.quirked);
+-	obj->mm.quirked = true;
++	GEM_BUG_ON(i915_gem_object_has_tiling_quirk(obj));
++	i915_gem_object_set_tiling_quirk(obj);
+ 	list_add(&obj->st_link, objects);
  }
  
- void i915_gem_resume(struct drm_i915_private *i915)
+@@ -85,7 +85,7 @@ static void unpin_ggtt(struct i915_ggtt *ggtt)
+ 	struct i915_vma *vma;
+ 
+ 	list_for_each_entry(vma, &ggtt->vm.bound_list, vm_link)
+-		if (vma->obj->mm.quirked)
++		if (i915_gem_object_has_tiling_quirk(vma->obj))
+ 			i915_vma_unpin(vma);
+ }
+ 
+@@ -94,8 +94,8 @@ static void cleanup_objects(struct i915_ggtt *ggtt, struct list_head *list)
+ 	struct drm_i915_gem_object *obj, *on;
+ 
+ 	list_for_each_entry_safe(obj, on, list, st_link) {
+-		GEM_BUG_ON(!obj->mm.quirked);
+-		obj->mm.quirked = false;
++		GEM_BUG_ON(!i915_gem_object_has_tiling_quirk(obj));
++		i915_gem_object_set_tiling_quirk(obj);
+ 		i915_gem_object_put(obj);
+ 	}
+ 
 -- 
 2.20.1
 
