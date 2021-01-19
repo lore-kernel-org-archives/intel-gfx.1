@@ -7,49 +7,48 @@ X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 71BF1C433E0
-	for <intel-gfx@archiver.kernel.org>; Tue, 19 Jan 2021 19:08:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4EDACC433E0
+	for <intel-gfx@archiver.kernel.org>; Tue, 19 Jan 2021 19:09:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1B80B20706
-	for <intel-gfx@archiver.kernel.org>; Tue, 19 Jan 2021 19:08:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1B80B20706
+	by mail.kernel.org (Postfix) with ESMTPS id C1ECF20706
+	for <intel-gfx@archiver.kernel.org>; Tue, 19 Jan 2021 19:09:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C1ECF20706
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9999689F2A;
-	Tue, 19 Jan 2021 19:08:02 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8AFB989F2A
- for <intel-gfx@lists.freedesktop.org>; Tue, 19 Jan 2021 19:08:00 +0000 (UTC)
-IronPort-SDR: VpKFcqUDivSyjsEzRy+RQdFoWZA9/Kgf08JxzRrTf6k8pHXi1XtmBxinoR1tSiyD9YsISyIPJK
- aTxiWuxjGqUA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9869"; a="166646402"
-X-IronPort-AV: E=Sophos;i="5.79,359,1602572400"; d="scan'208";a="166646402"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Jan 2021 11:07:59 -0800
-IronPort-SDR: GG6agiYdZ4kN6ubyabjJTDvvEKpunpJb35FrqsnFIZ11cV/AZ6K/g54hqVxEqOHOuVfp/9M46h
- ZyvSQc7URiJg==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0FAF16E332;
+	Tue, 19 Jan 2021 16:42:41 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EC0CA6E332
+ for <intel-gfx@lists.freedesktop.org>; Tue, 19 Jan 2021 16:42:39 +0000 (UTC)
+IronPort-SDR: I8IgJDpTvFQxxE8ootolNEPLHFZ2sNnocD8FuRJP2gVMHPezRAarmfpleRUBGnwUFyeinQSrdN
+ EeXtO7dnsxow==
+X-IronPort-AV: E=McAfee;i="6000,8403,9869"; a="263767378"
+X-IronPort-AV: E=Sophos;i="5.79,359,1602572400"; d="scan'208";a="263767378"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Jan 2021 08:42:39 -0800
+IronPort-SDR: oXoyvDTJRkrIhE0p9DE5Jn2Ifvu/p6HwuCa/voLx/hlRISYbVGRh1dx1ruz7MaptqIJW97TJeM
+ euccrgrEAvpg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.79,359,1602572400"; d="scan'208";a="426580953"
+X-IronPort-AV: E=Sophos;i="5.79,359,1602572400"; d="scan'208";a="347238554"
 Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.174])
- by orsmga001.jf.intel.com with SMTP; 19 Jan 2021 11:07:57 -0800
+ by fmsmga007.fm.intel.com with SMTP; 19 Jan 2021 08:42:36 -0800
 Received: by stinkbox (sSMTP sendmail emulation);
- Tue, 19 Jan 2021 21:07:56 +0200
-Date: Tue, 19 Jan 2021 21:07:56 +0200
+ Tue, 19 Jan 2021 18:42:36 +0200
+Date: Tue, 19 Jan 2021 18:42:36 +0200
 From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Manasi Navare <manasi.d.navare@intel.com>
-Message-ID: <YAcuDDu56wMvNGjy@intel.com>
-References: <20210113220935.4151-1-manasi.d.navare@intel.com>
- <20210113220935.4151-16-manasi.d.navare@intel.com>
+To: Chris Wilson <chris@chris-wilson.co.uk>
+Message-ID: <YAcL/GQ0B3H1lJ5I@intel.com>
+References: <20210118115929.23509-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210113220935.4151-16-manasi.d.navare@intel.com>
+In-Reply-To: <20210118115929.23509-1-chris@chris-wilson.co.uk>
 X-Patchwork-Hint: comment
-Subject: Re: [Intel-gfx] [PATCH v4 15/18] drm/i915/display: Helpers for VRR
- vblank min and max start
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/display: Apply interactive
+ priority to explicit flip fences
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,106 +67,241 @@ Content-Transfer-Encoding: quoted-printable
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jan 13, 2021 at 02:09:32PM -0800, Manasi Navare wrote:
-> From: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
+On Mon, Jan 18, 2021 at 11:59:29AM +0000, Chris Wilson wrote:
+> Currently, if a modeset/pageflip needs to wait for render completion to
+> an object, we boost the priority of that rendering above all other work.
+> We can apply the same interactive priority boosting to explicit fences
+> that we can unwrap into a native i915_request (i.e. sync_file).
 > =
 
-> With VRR the earliest the registers can get latched are at
-> flipline decision boundary, calculate that as vrr_vmin_vblank_start()
-> and the latest the regsiters can get latched are vmax decision boundary
-> calculate that as vrr_vmax_vblank_start()
-> =
-
-> Signed-off-by: Manasi Navare <manasi.d.navare@intel.com>
-> Signed-off-by: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
+> Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+> Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+> Cc: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
 > ---
->  drivers/gpu/drm/i915/display/intel_vrr.c | 36 ++++++++++++++++++++++++
->  drivers/gpu/drm/i915/display/intel_vrr.h |  2 ++
->  2 files changed, 38 insertions(+)
+>  drivers/gpu/drm/i915/display/intel_display.c | 16 +++----
+>  drivers/gpu/drm/i915/gem/i915_gem_object.h   |  3 ++
+>  drivers/gpu/drm/i915/gem/i915_gem_wait.c     | 49 ++++++++++++++------
+>  3 files changed, 44 insertions(+), 24 deletions(-)
 > =
 
-> diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i=
-915/display/intel_vrr.c
-> index 5dc6d578760a..9a18c36e4a9a 100644
-> --- a/drivers/gpu/drm/i915/display/intel_vrr.c
-> +++ b/drivers/gpu/drm/i915/display/intel_vrr.c
-> @@ -45,6 +45,42 @@ intel_vrr_check_modeset(struct intel_atomic_state *sta=
-te)
->  	}
+> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/d=
+rm/i915/display/intel_display.c
+> index b728792e0c27..3a6b2e79c68b 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display.c
+> +++ b/drivers/gpu/drm/i915/display/intel_display.c
+> @@ -13514,15 +13514,6 @@ void intel_plane_unpin_fb(struct intel_plane_sta=
+te *old_plane_state)
+>  		intel_unpin_fb_vma(vma, old_plane_state->flags);
 >  }
 >  =
 
-> +/*
-> + * Without VRR registers get latched at:
-> + *  vblank_start
-> + *
-> + * With VRR the earliest registers can get latched is:
-> + *  intel_vrr_vmin_vblank_start(), which if we want to maintain
-> + *  the correct min vtotal is >=3Dvblank_start+1
-> + *
-> + * The latest point registers can get latched is the vmax decision bound=
-ary:
-> + *  intel_vrr_vmax_vblank_start()
-> + *
-> + * Between those two points the vblank exit starts (and hence registers =
-get
-> + * latched) ASAP after a push is sent.
-> + *
-> + * framestart_delay is programmable 0-3.
-> + */
-> +static int intel_vrr_vblank_exit_length(const struct intel_crtc_state *c=
-rtc_state)
-> +{
-> +	struct intel_crtc *crtc =3D to_intel_crtc(crtc_state->uapi.crtc);
-> +	struct drm_i915_private *i915 =3D to_i915(crtc->base.dev);
-> +
-> +	/* TODO: Not sure why the hw imposes the extra scanline?, also check on=
- TGL */
-
-We can now drop the TGL TODO(s) since I tested it and confirmed it
-follows the same rules.
-
-> +	return crtc_state->vrr.pipeline_full + i915->framestart_delay + 2;
-> +}
-> +
-> +int intel_vrr_vmin_vblank_start(const struct intel_crtc_state *crtc_stat=
-e)
-> +{
-> +	/* Min vblank actually determined by flipline that is always >=3Dvmin+1=
- */
-> +	return crtc_state->vrr.vmin + 1 - intel_vrr_vblank_exit_length(crtc_sta=
-te);
-> +}
-> +
-> +int intel_vrr_vmax_vblank_start(const struct intel_crtc_state *crtc_stat=
-e)
-> +{
-> +	return crtc_state->vrr.vmax - intel_vrr_vblank_exit_length(crtc_state);
-> +}
-> +
->  void
->  intel_vrr_compute_config(struct intel_crtc_state *crtc_state,
->  			 struct drm_connector_state *conn_state)
-> diff --git a/drivers/gpu/drm/i915/display/intel_vrr.h b/drivers/gpu/drm/i=
-915/display/intel_vrr.h
-> index 7610051edad2..d8b6b45557ca 100644
-> --- a/drivers/gpu/drm/i915/display/intel_vrr.h
-> +++ b/drivers/gpu/drm/i915/display/intel_vrr.h
-> @@ -27,5 +27,7 @@ void intel_vrr_send_push(const struct intel_crtc_state =
-*crtc_state);
->  void intel_vrr_disable(const struct intel_crtc_state *old_crtc_state);
->  void intel_vrr_get_config(struct intel_crtc *crtc,
->  			  struct intel_crtc_state *crtc_state);
-> +int intel_vrr_vmax_vblank_start(const struct intel_crtc_state *crtc_stat=
-e);
-> +int intel_vrr_vmin_vblank_start(const struct intel_crtc_state *crtc_stat=
-e);
+> -static void fb_obj_bump_render_priority(struct drm_i915_gem_object *obj)
+> -{
+> -	struct i915_sched_attr attr =3D {
+> -		.priority =3D I915_USER_PRIORITY(I915_PRIORITY_DISPLAY),
+> -	};
+> -
+> -	i915_gem_object_wait_priority(obj, 0, &attr);
+> -}
+> -
+>  /**
+>   * intel_prepare_plane_fb - Prepare fb for usage on plane
+>   * @_plane: drm plane to prepare for
+> @@ -13539,6 +13530,9 @@ int
+>  intel_prepare_plane_fb(struct drm_plane *_plane,
+>  		       struct drm_plane_state *_new_plane_state)
+>  {
+> +	struct i915_sched_attr attr =3D {
+> +		.priority =3D I915_USER_PRIORITY(I915_PRIORITY_DISPLAY),
+> +	};
+>  	struct intel_plane *plane =3D to_intel_plane(_plane);
+>  	struct intel_plane_state *new_plane_state =3D
+>  		to_intel_plane_state(_new_plane_state);
+> @@ -13578,6 +13572,8 @@ intel_prepare_plane_fb(struct drm_plane *_plane,
+>  	}
 >  =
 
->  #endif /* __INTEL_VRR_H__ */
+>  	if (new_plane_state->uapi.fence) { /* explicit fencing */
+> +		i915_gem_fence_wait_priority(new_plane_state->uapi.fence,
+> +					     &attr);
+>  		ret =3D i915_sw_fence_await_dma_fence(&state->commit_ready,
+>  						    new_plane_state->uapi.fence,
+>  						    i915_fence_timeout(dev_priv),
+> @@ -13599,7 +13595,7 @@ intel_prepare_plane_fb(struct drm_plane *_plane,
+>  	if (ret)
+>  		return ret;
+>  =
+
+> -	fb_obj_bump_render_priority(obj);
+> +	i915_gem_object_wait_priority(obj, 0, &attr);
+>  	i915_gem_object_flush_frontbuffer(obj, ORIGIN_DIRTYFB);
+>  =
+
+>  	if (!new_plane_state->uapi.fence) { /* implicit fencing */
+> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.h b/drivers/gpu/drm=
+/i915/gem/i915_gem_object.h
+> index be14486f63a7..31d05bfa57ce 100644
+> --- a/drivers/gpu/drm/i915/gem/i915_gem_object.h
+> +++ b/drivers/gpu/drm/i915/gem/i915_gem_object.h
+> @@ -512,6 +512,9 @@ static inline void __start_cpu_write(struct drm_i915_=
+gem_object *obj)
+>  		obj->cache_dirty =3D true;
+>  }
+>  =
+
+> +void i915_gem_fence_wait_priority(struct dma_fence *fence,
+> +				  const struct i915_sched_attr *attr);
+> +
+>  int i915_gem_object_wait(struct drm_i915_gem_object *obj,
+>  			 unsigned int flags,
+>  			 long timeout);
+> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_wait.c b/drivers/gpu/drm/i=
+915/gem/i915_gem_wait.c
+> index c1b13ac50d0f..3078f3a2864b 100644
+> --- a/drivers/gpu/drm/i915/gem/i915_gem_wait.c
+> +++ b/drivers/gpu/drm/i915/gem/i915_gem_wait.c
+> @@ -5,6 +5,7 @@
+>   */
+>  =
+
+>  #include <linux/dma-fence-array.h>
+> +#include <linux/dma-fence-chain.h>
+>  #include <linux/jiffies.h>
+>  =
+
+>  #include "gt/intel_engine.h"
+> @@ -44,8 +45,7 @@ i915_gem_object_wait_reservation(struct dma_resv *resv,
+>  		unsigned int count, i;
+>  		int ret;
+>  =
+
+> -		ret =3D dma_resv_get_fences_rcu(resv,
+> -							&excl, &count, &shared);
+> +		ret =3D dma_resv_get_fences_rcu(resv, &excl, &count, &shared);
+>  		if (ret)
+>  			return ret;
+>  =
+
+> @@ -91,39 +91,60 @@ i915_gem_object_wait_reservation(struct dma_resv *res=
+v,
+>  	return timeout;
+>  }
+>  =
+
+> -static void __fence_set_priority(struct dma_fence *fence,
+> -				 const struct i915_sched_attr *attr)
+> +static bool fence_set_priority(struct dma_fence *fence,
+> +			       const struct i915_sched_attr *attr)
+>  {
+>  	struct i915_request *rq;
+>  	struct intel_engine_cs *engine;
+>  =
+
+>  	if (dma_fence_is_signaled(fence) || !dma_fence_is_i915(fence))
+> -		return;
+> +		return false;
+>  =
+
+>  	rq =3D to_request(fence);
+>  	engine =3D rq->engine;
+>  =
+
+> -	local_bh_disable();
+>  	rcu_read_lock(); /* RCU serialisation for set-wedged protection */
+>  	if (engine->schedule)
+>  		engine->schedule(rq, attr);
+>  	rcu_read_unlock();
+> -	local_bh_enable(); /* kick the tasklets if queues were reprioritised */
+> +
+> +	return true;
+>  }
+>  =
+
+> -static void fence_set_priority(struct dma_fence *fence,
+> -			       const struct i915_sched_attr *attr)
+> +static inline bool __dma_fence_is_chain(const struct dma_fence *fence)
+>  {
+> +	return fence->ops !=3D &dma_fence_chain_ops;
+> +}
+> +
+> +void i915_gem_fence_wait_priority(struct dma_fence *fence,
+> +				  const struct i915_sched_attr *attr)
+> +{
+> +	if (dma_fence_is_signaled(fence))
+> +		return;
+> +
+> +	local_bh_disable();
+> +
+>  	/* Recurse once into a fence-array */
+>  	if (dma_fence_is_array(fence)) {
+>  		struct dma_fence_array *array =3D to_dma_fence_array(fence);
+>  		int i;
+>  =
+
+>  		for (i =3D 0; i < array->num_fences; i++)
+> -			__fence_set_priority(array->fences[i], attr);
+> +			fence_set_priority(array->fences[i], attr);
+> +	} else if (__dma_fence_is_chain(fence)) {
+> +		struct dma_fence *iter;
+> +
+> +		dma_fence_chain_for_each(iter, fence) {
+> +			if (!fence_set_priority(to_dma_fence_chain(iter)->fence,
+> +						attr))
+> +				break;
+
+Does this mean the fence chain is ordered in some way, ie. the
+rest of the fences in the chain will have been signalled already?
+I couldn't find any description of what a fence chain really is
+anywhere.
+
+Otherwise looks sensible to me.
+Reviewed-by: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
+
+> +		}
+> +		dma_fence_put(iter);
+>  	} else {
+> -		__fence_set_priority(fence, attr);
+> +		fence_set_priority(fence, attr);
+>  	}
+> +
+> +	local_bh_enable(); /* kick the tasklets if queues were reprioritised */
+>  }
+>  =
+
+>  int
+> @@ -139,12 +160,12 @@ i915_gem_object_wait_priority(struct drm_i915_gem_o=
+bject *obj,
+>  		int ret;
+>  =
+
+>  		ret =3D dma_resv_get_fences_rcu(obj->base.resv,
+> -							&excl, &count, &shared);
+> +					      &excl, &count, &shared);
+>  		if (ret)
+>  			return ret;
+>  =
+
+>  		for (i =3D 0; i < count; i++) {
+> -			fence_set_priority(shared[i], attr);
+> +			i915_gem_fence_wait_priority(shared[i], attr);
+>  			dma_fence_put(shared[i]);
+>  		}
+>  =
+
+> @@ -154,7 +175,7 @@ i915_gem_object_wait_priority(struct drm_i915_gem_obj=
+ect *obj,
+>  	}
+>  =
+
+>  	if (excl) {
+> -		fence_set_priority(excl, attr);
+> +		i915_gem_fence_wait_priority(excl, attr);
+>  		dma_fence_put(excl);
+>  	}
+>  	return 0;
 > -- =
 
-> 2.19.1
+> 2.20.1
 
 -- =
 
