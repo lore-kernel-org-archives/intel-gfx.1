@@ -2,70 +2,42 @@ Return-Path: <SRS0=gs28=GW=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
-	version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C9B3DC433DB
-	for <intel-gfx@archiver.kernel.org>; Tue, 19 Jan 2021 09:35:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E19E9C433E0
+	for <intel-gfx@archiver.kernel.org>; Tue, 19 Jan 2021 09:41:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6500822D6F
-	for <intel-gfx@archiver.kernel.org>; Tue, 19 Jan 2021 09:35:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6500822D6F
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 6D4242312E
+	for <intel-gfx@archiver.kernel.org>; Tue, 19 Jan 2021 09:41:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6D4242312E
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF1396E061;
-	Tue, 19 Jan 2021 09:35:30 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 096E96E061
- for <Intel-gfx@lists.freedesktop.org>; Tue, 19 Jan 2021 09:35:29 +0000 (UTC)
-IronPort-SDR: aznQglm0/LKRs866uFHDAL+yCDkX64BcT0Jq/zRIDPJq8xZ7IOa1+qBXiKZ9iwkfd7WhJzeFu9
- MntQNnygKF9A==
-X-IronPort-AV: E=McAfee;i="6000,8403,9868"; a="179051434"
-X-IronPort-AV: E=Sophos;i="5.79,358,1602572400"; d="scan'208";a="179051434"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Jan 2021 01:35:25 -0800
-IronPort-SDR: g1/p9dRB1WznpvHS0PLQaxIMCla3IXXDDsPXKdyKtElkwam8uBOpcsFvl2RmEcAoVJ64RfjQQD
- 0Z1LfEjI5b2Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.79,358,1602572400"; d="scan'208";a="402309082"
-Received: from irsmsx601.ger.corp.intel.com ([163.33.146.7])
- by fmsmga002.fm.intel.com with ESMTP; 19 Jan 2021 01:35:23 -0800
-Received: from bgsmsx604.gar.corp.intel.com (10.67.234.6) by
- irsmsx601.ger.corp.intel.com (163.33.146.7) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1713.5; Tue, 19 Jan 2021 09:35:21 +0000
-Received: from bgsmsx604.gar.corp.intel.com ([10.67.234.6]) by
- BGSMSX604.gar.corp.intel.com ([10.67.234.6]) with mapi id 15.01.1713.004;
- Tue, 19 Jan 2021 15:05:19 +0530
-From: "Gupta, Anshuman" <anshuman.gupta@intel.com>
-To: "Huang, Sean Z" <sean.z.huang@intel.com>,
- "Intel-gfx@lists.freedesktop.org" <Intel-gfx@lists.freedesktop.org>, "Nikula, 
- Jani" <jani.nikula@intel.com>, =?iso-8859-1?Q?Ville_Syrj=E4l=E4?=
- <ville.syrjala@linux.intel.com>
-Thread-Topic: [RFC-v23 13/13] drm/i915/pxp: Add plane decryption support
-Thread-Index: AQHW7jbFjlIdZlP7iEqfz6ipHUqztKoupKqg
-Date: Tue, 19 Jan 2021 09:35:18 +0000
-Message-ID: <9babc226536544f7aa7ec98e80de4b21@intel.com>
-References: <20210119074320.28768-1-sean.z.huang@intel.com>
- <20210119074320.28768-14-sean.z.huang@intel.com>
-In-Reply-To: <20210119074320.28768-14-sean.z.huang@intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-dlp-product: dlpe-windows
-dlp-version: 11.5.1.3
-dlp-reaction: no-action
-x-originating-ip: [10.22.254.132]
+	by gabe.freedesktop.org (Postfix) with ESMTP id 086616E07B;
+	Tue, 19 Jan 2021 09:41:09 +0000 (UTC)
+Received: from fireflyinternet.com (unknown [77.68.26.236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 470896E07B
+ for <intel-gfx@lists.freedesktop.org>; Tue, 19 Jan 2021 09:41:06 +0000 (UTC)
+X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
+ x-ip-name=78.156.65.138; 
+Received: from build.alporthouse.com (unverified [78.156.65.138]) 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23636426-1500050 
+ for multiple; Tue, 19 Jan 2021 09:40:55 +0000
+From: Chris Wilson <chris@chris-wilson.co.uk>
+To: intel-gfx@lists.freedesktop.org
+Date: Tue, 19 Jan 2021 09:40:50 +0000
+Message-Id: <20210119094053.6919-2-chris@chris-wilson.co.uk>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20210119094053.6919-1-chris@chris-wilson.co.uk>
+References: <20210119094053.6919-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: Re: [Intel-gfx] [RFC-v23 13/13] drm/i915/pxp: Add plane decryption
- support
+Subject: [Intel-gfx] [PATCH 2/5] drm/i915/selftests: Prepare the selftests
+ for engine resets with ring submission
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,134 +50,119 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Vetter, Daniel" <daniel.vetter@intel.com>, "Gaurav,
- Kumar" <kumar.gaurav@intel.com>, "Bommu,
- Krishnaiah" <krishnaiah.bommu@intel.com>
+Cc: Chris Wilson <chris@chris-wilson.co.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Jani/Ville
-I had received an offline comment form Gaurav on this patch,
-See below,
-> -----Original Message-----
-> From: Huang, Sean Z <sean.z.huang@intel.com>
-> Sent: Tuesday, January 19, 2021 1:13 PM
-> To: Intel-gfx@lists.freedesktop.org
-> Cc: Gaurav, Kumar <kumar.gaurav@intel.com>; Gupta, Anshuman
-> <anshuman.gupta@intel.com>; Bommu, Krishnaiah
-> <krishnaiah.bommu@intel.com>; Huang, Sean Z <sean.z.huang@intel.com>
-> Subject: [RFC-v23 13/13] drm/i915/pxp: Add plane decryption support
-> 
-> From: Anshuman Gupta <anshuman.gupta@intel.com>
-> 
-> Add support to enable/disable PLANE_SURF Decryption Request bit.
-> It requires only to enable plane decryption support when following
-> condition met.
-> 1. PXP session is enabled.
-> 2. Buffer object is protected.
-> 
-> v2:
-> - Rebased to libva_cp-drm-tip_tgl_cp tree.
-> - Used gen fb obj user_flags instead gem_object_metadata. [Krishna]
-> 
-> v3:
-> - intel_pxp_gem_object_status() API changes.
-> 
-> Cc: Bommu Krishnaiah <krishnaiah.bommu@intel.com>
-> Cc: Huang Sean Z <sean.z.huang@intel.com>
-> Cc: Gaurav Kumar <kumar.gaurav@intel.com>
-> Signed-off-by: Anshuman Gupta <anshuman.gupta@intel.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_sprite.c | 21 ++++++++++++++++++---
->  drivers/gpu/drm/i915/i915_reg.h             |  1 +
->  2 files changed, 19 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/display/intel_sprite.c
-> b/drivers/gpu/drm/i915/display/intel_sprite.c
-> index cf3589fd0ddb..39f8c922ce66 100644
-> --- a/drivers/gpu/drm/i915/display/intel_sprite.c
-> +++ b/drivers/gpu/drm/i915/display/intel_sprite.c
-> @@ -39,6 +39,8 @@
->  #include <drm/drm_plane_helper.h>
->  #include <drm/drm_rect.h>
-> 
-> +#include "pxp/intel_pxp.h"
-> +
->  #include "i915_drv.h"
->  #include "i915_trace.h"
->  #include "i915_vgpu.h"
-> @@ -768,6 +770,11 @@ icl_program_input_csc(struct intel_plane *plane,
->  			  PLANE_INPUT_CSC_POSTOFF(pipe, plane_id, 2),
-> 0x0);  }
-> 
-> +static bool intel_fb_obj_protected(const struct drm_i915_gem_object
-> +*obj) {
-> +	return obj->user_flags & I915_BO_PROTECTED ? true : false; }
-> +
->  static void
->  skl_plane_async_flip(struct intel_plane *plane,
->  		     const struct intel_crtc_state *crtc_state, @@ -804,6
-> +811,7 @@ skl_program_plane(struct intel_plane *plane,
->  	u32 surf_addr = plane_state->color_plane[color_plane].offset;
->  	u32 stride = skl_plane_stride(plane_state, color_plane);
->  	const struct drm_framebuffer *fb = plane_state->hw.fb;
-> +	const struct drm_i915_gem_object *obj = intel_fb_obj(fb);
->  	int aux_plane = intel_main_to_aux_plane(fb, color_plane);
->  	int crtc_x = plane_state->uapi.dst.x1;
->  	int crtc_y = plane_state->uapi.dst.y1; @@ -814,7 +822,7 @@
-> skl_program_plane(struct intel_plane *plane,
->  	u8 alpha = plane_state->hw.alpha >> 8;
->  	u32 plane_color_ctl = 0, aux_dist = 0;
->  	unsigned long irqflags;
-> -	u32 keymsk, keymax;
-> +	u32 keymsk, keymax, plane_surf;
->  	u32 plane_ctl = plane_state->ctl;
-> 
->  	plane_ctl |= skl_plane_ctl_crtc(crtc_state); @@ -890,8 +898,15
-> @@ skl_program_plane(struct intel_plane *plane,
->  	 * the control register just before the surface register.
->  	 */
->  	intel_de_write_fw(dev_priv, PLANE_CTL(pipe, plane_id), plane_ctl);
-> -	intel_de_write_fw(dev_priv, PLANE_SURF(pipe, plane_id),
-> -			  intel_plane_ggtt_offset(plane_state) + surf_addr);
-> +	plane_surf = intel_plane_ggtt_offset(plane_state) + surf_addr;
-> +
-> +	if (intel_pxp_gem_object_status(dev_priv) &&
-> +	    intel_fb_obj_protected(obj))
-> +		plane_surf |= PLANE_SURF_DECRYPTION_ENABLED;
-Here in case of if fb obj is protected but pxp session is not enabled i.e intel_pxp_gem_object_status() returns false, request to show the black frame buffer on display instead of corrupted data.
-                            plane_surf = 0xXXX; //Pointer to black framebuffer
-But above approach would be a hack. 
-@Jani and @Ville could you please guide with the general way of handling this as pxp session keys can be invalidated at any time.
+The engine resets selftests kick the tasklets, safe up until now as only
+execlists supported engine resets.
 
-Thanks,
-Anshuman Gupta.
-> +	else
-> +		plane_surf &= ~PLANE_SURF_DECRYPTION_ENABLED;
-> +
-> +	intel_de_write_fw(dev_priv, PLANE_SURF(pipe, plane_id),
-> plane_surf);
-> 
->  	if (plane_state->scaler_id >= 0)
->  		skl_program_scaler(plane, crtc_state, plane_state); diff --git
-> a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-> index 97bcecada87f..7a4817054bc8 100644
-> --- a/drivers/gpu/drm/i915/i915_reg.h
-> +++ b/drivers/gpu/drm/i915/i915_reg.h
-> @@ -7208,6 +7208,7 @@ enum {
->  #define _PLANE_SURF_3(pipe)	_PIPE(pipe, _PLANE_SURF_3_A,
-> _PLANE_SURF_3_B)
->  #define PLANE_SURF(pipe, plane)	\
->  	_MMIO_PLANE(plane, _PLANE_SURF_1(pipe),
-> _PLANE_SURF_2(pipe))
-> +#define   PLANE_SURF_DECRYPTION_ENABLED		REG_BIT(2)
-> 
->  #define _PLANE_OFFSET_1_B			0x711a4
->  #define _PLANE_OFFSET_2_B			0x712a4
-> --
-> 2.17.1
+Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+---
+ drivers/gpu/drm/i915/gt/selftest_hangcheck.c | 18 ++++++++++++++----
+ drivers/gpu/drm/i915/gt/selftest_reset.c     | 11 ++++++++---
+ 2 files changed, 22 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/gt/selftest_hangcheck.c b/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
+index 460c3e9542f4..463bb6a700c8 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
++++ b/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
+@@ -704,6 +704,7 @@ static int __igt_reset_engine(struct intel_gt *gt, bool active)
+ 
+ 	for_each_engine(engine, gt, id) {
+ 		unsigned int reset_count, reset_engine_count;
++		unsigned long count;
+ 		IGT_TIMEOUT(end_time);
+ 
+ 		if (active && !intel_engine_can_store_dword(engine))
+@@ -721,6 +722,7 @@ static int __igt_reset_engine(struct intel_gt *gt, bool active)
+ 
+ 		st_engine_heartbeat_disable(engine);
+ 		set_bit(I915_RESET_ENGINE + id, &gt->reset.flags);
++		count = 0;
+ 		do {
+ 			if (active) {
+ 				struct i915_request *rq;
+@@ -770,9 +772,13 @@ static int __igt_reset_engine(struct intel_gt *gt, bool active)
+ 				err = -EINVAL;
+ 				break;
+ 			}
++
++			count++;
+ 		} while (time_before(jiffies, end_time));
+ 		clear_bit(I915_RESET_ENGINE + id, &gt->reset.flags);
+ 		st_engine_heartbeat_enable(engine);
++		pr_info("%s: Completed %lu %s resets\n",
++			engine->name, count, active ? "active" : "idle");
+ 
+ 		if (err)
+ 			break;
+@@ -1623,7 +1629,8 @@ static int igt_reset_queue(void *arg)
+ 			prev = rq;
+ 			count++;
+ 		} while (time_before(jiffies, end_time));
+-		pr_info("%s: Completed %d resets\n", engine->name, count);
++		pr_info("%s: Completed %d queued resets\n",
++			engine->name, count);
+ 
+ 		*h.batch = MI_BATCH_BUFFER_END;
+ 		intel_gt_chipset_flush(engine->gt);
+@@ -1720,7 +1727,8 @@ static int __igt_atomic_reset_engine(struct intel_engine_cs *engine,
+ 	GEM_TRACE("i915_reset_engine(%s:%s) under %s\n",
+ 		  engine->name, mode, p->name);
+ 
+-	tasklet_disable(t);
++	if (t->func)
++		tasklet_disable(t);
+ 	if (strcmp(p->name, "softirq"))
+ 		local_bh_disable();
+ 	p->critical_section_begin();
+@@ -1730,8 +1738,10 @@ static int __igt_atomic_reset_engine(struct intel_engine_cs *engine,
+ 	p->critical_section_end();
+ 	if (strcmp(p->name, "softirq"))
+ 		local_bh_enable();
+-	tasklet_enable(t);
+-	tasklet_hi_schedule(t);
++	if (t->func) {
++		tasklet_enable(t);
++		tasklet_hi_schedule(t);
++	}
+ 
+ 	if (err)
+ 		pr_err("i915_reset_engine(%s:%s) failed under %s\n",
+diff --git a/drivers/gpu/drm/i915/gt/selftest_reset.c b/drivers/gpu/drm/i915/gt/selftest_reset.c
+index b7befcfbdcde..8784257ec808 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_reset.c
++++ b/drivers/gpu/drm/i915/gt/selftest_reset.c
+@@ -321,7 +321,10 @@ static int igt_atomic_engine_reset(void *arg)
+ 		goto out_unlock;
+ 
+ 	for_each_engine(engine, gt, id) {
+-		tasklet_disable(&engine->execlists.tasklet);
++		struct tasklet_struct *t = &engine->execlists.tasklet;
++
++		if (t->func)
++			tasklet_disable(t);
+ 		intel_engine_pm_get(engine);
+ 
+ 		for (p = igt_atomic_phases; p->name; p++) {
+@@ -345,8 +348,10 @@ static int igt_atomic_engine_reset(void *arg)
+ 		}
+ 
+ 		intel_engine_pm_put(engine);
+-		tasklet_enable(&engine->execlists.tasklet);
+-		tasklet_hi_schedule(&engine->execlists.tasklet);
++		if (t->func) {
++			tasklet_enable(t);
++			tasklet_hi_schedule(t);
++		}
+ 		if (err)
+ 			break;
+ 	}
+-- 
+2.20.1
 
 _______________________________________________
 Intel-gfx mailing list
