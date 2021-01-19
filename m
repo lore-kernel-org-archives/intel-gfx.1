@@ -7,47 +7,39 @@ X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0ED6DC433DB
-	for <intel-gfx@archiver.kernel.org>; Tue, 19 Jan 2021 10:29:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CBF89C433DB
+	for <intel-gfx@archiver.kernel.org>; Tue, 19 Jan 2021 10:34:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8D92423119
-	for <intel-gfx@archiver.kernel.org>; Tue, 19 Jan 2021 10:29:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8D92423119
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 048D420867
+	for <intel-gfx@archiver.kernel.org>; Tue, 19 Jan 2021 10:34:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 048D420867
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A53426E19B;
-	Tue, 19 Jan 2021 10:29:42 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C9B676E19B
- for <intel-gfx@lists.freedesktop.org>; Tue, 19 Jan 2021 10:29:40 +0000 (UTC)
-IronPort-SDR: BMz4zYYAyjaoM5g6cuKS5sIISqxFl/ABciNQVlDFjQVBnCV12iz2aYEYug3rzOqWQ5ZS7+vLh8
- gQ0/uzWPmvwA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9868"; a="158679636"
-X-IronPort-AV: E=Sophos;i="5.79,358,1602572400"; d="scan'208";a="158679636"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Jan 2021 02:29:37 -0800
-IronPort-SDR: 3rxlj5IfBgkegzyp0FJAPNIakAcest6R9760DrxGZUBIznUPdMnrhBidZJmdUyx2l900vYZu4+
- CdIvo312EGEw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.79,358,1602572400"; d="scan'208";a="355534735"
-Received: from gaia.fi.intel.com ([10.237.72.192])
- by fmsmga008.fm.intel.com with ESMTP; 19 Jan 2021 02:29:35 -0800
-Received: by gaia.fi.intel.com (Postfix, from userid 1000)
- id C6F615C20E6; Tue, 19 Jan 2021 12:26:49 +0200 (EET)
-From: Mika Kuoppala <mika.kuoppala@linux.intel.com>
-To: Chris Wilson <chris@chris-wilson.co.uk>, intel-gfx@lists.freedesktop.org
-In-Reply-To: <20210119094053.6919-2-chris@chris-wilson.co.uk>
-References: <20210119094053.6919-1-chris@chris-wilson.co.uk>
- <20210119094053.6919-2-chris@chris-wilson.co.uk>
-Date: Tue, 19 Jan 2021 12:26:49 +0200
-Message-ID: <871rehkys6.fsf@gaia.fi.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D9166E082;
+	Tue, 19 Jan 2021 10:34:39 +0000 (UTC)
+Received: from fireflyinternet.com (unknown [77.68.26.236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE6C26E082
+ for <intel-gfx@lists.freedesktop.org>; Tue, 19 Jan 2021 10:34:37 +0000 (UTC)
+X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
+ x-ip-name=78.156.65.138; 
+Received: from localhost (unverified [78.156.65.138]) 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP (TLS) id
+ 23637188-1500050 for multiple; Tue, 19 Jan 2021 10:34:34 +0000
 MIME-Version: 1.0
-Subject: Re: [Intel-gfx] [PATCH 2/5] drm/i915/selftests: Prepare the
- selftests for engine resets with ring submission
+In-Reply-To: <87pn21gr5h.fsf@gaia.fi.intel.com>
+References: <20210119094053.6919-1-chris@chris-wilson.co.uk>
+ <87pn21gr5h.fsf@gaia.fi.intel.com>
+From: Chris Wilson <chris@chris-wilson.co.uk>
+To: Mika Kuoppala <mika.kuoppala@linux.intel.com>,
+ intel-gfx@lists.freedesktop.org
+Date: Tue, 19 Jan 2021 10:34:33 +0000
+Message-ID: <161105247378.19402.6684577298292307177@build.alporthouse.com>
+User-Agent: alot/0.9
+Subject: Re: [Intel-gfx] [PATCH 1/5] drm/i915/gt: One more flush for
+ Baytrail clear residuals
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,124 +52,52 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Chris Wilson <chris@chris-wilson.co.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Chris Wilson <chris@chris-wilson.co.uk> writes:
+Quoting Mika Kuoppala (2021-01-19 10:25:14)
+> Chris Wilson <chris@chris-wilson.co.uk> writes:
+> 
+> > CI reports that Baytail requires one more invalidate after CACHE_MODE
+> > for it to be happy.
+> >
+> > Fixes: ace44e13e577 ("drm/i915/gt: Clear CACHE_MODE prior to clearing residuals")
+> > Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+> > Cc: Mika Kuoppala <mika.kuoppala@linux.intel.com>
+> > Cc: Akeem G Abodunrin <akeem.g.abodunrin@intel.com>
+> > ---
+> >  drivers/gpu/drm/i915/gt/gen7_renderclear.c | 9 ++++++---
+> >  1 file changed, 6 insertions(+), 3 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/i915/gt/gen7_renderclear.c b/drivers/gpu/drm/i915/gt/gen7_renderclear.c
+> > index 39478712769f..8551e6de50e8 100644
+> > --- a/drivers/gpu/drm/i915/gt/gen7_renderclear.c
+> > +++ b/drivers/gpu/drm/i915/gt/gen7_renderclear.c
+> > @@ -353,19 +353,21 @@ static void gen7_emit_pipeline_flush(struct batch_chunk *batch)
+> >  
+> >  static void gen7_emit_pipeline_invalidate(struct batch_chunk *batch)
+> >  {
+> > -     u32 *cs = batch_alloc_items(batch, 0, 8);
+> > +     u32 *cs = batch_alloc_items(batch, 0, 10);
+> >  
+> >       /* ivb: Stall before STATE_CACHE_INVALIDATE */
+> > -     *cs++ = GFX_OP_PIPE_CONTROL(4);
+> > +     *cs++ = GFX_OP_PIPE_CONTROL(5);
+> >       *cs++ = PIPE_CONTROL_STALL_AT_SCOREBOARD |
+> >               PIPE_CONTROL_CS_STALL;
+> >       *cs++ = 0;
+> >       *cs++ = 0;
+> > +     *cs++ = 0;
+> 
+> dw[5] seems to be only for gen8+. Does it make a difference?
 
-> The engine resets selftests kick the tasklets, safe up until now as only
-> execlists supported engine resets.
->
-> Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-
-Reviewed-by: Mika Kuoppala <mika.kuoppala@linux.intel.com>
-
-> ---
->  drivers/gpu/drm/i915/gt/selftest_hangcheck.c | 18 ++++++++++++++----
->  drivers/gpu/drm/i915/gt/selftest_reset.c     | 11 ++++++++---
->  2 files changed, 22 insertions(+), 7 deletions(-)
->
-> diff --git a/drivers/gpu/drm/i915/gt/selftest_hangcheck.c b/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
-> index 460c3e9542f4..463bb6a700c8 100644
-> --- a/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
-> +++ b/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
-> @@ -704,6 +704,7 @@ static int __igt_reset_engine(struct intel_gt *gt, bool active)
->  
->  	for_each_engine(engine, gt, id) {
->  		unsigned int reset_count, reset_engine_count;
-> +		unsigned long count;
->  		IGT_TIMEOUT(end_time);
->  
->  		if (active && !intel_engine_can_store_dword(engine))
-> @@ -721,6 +722,7 @@ static int __igt_reset_engine(struct intel_gt *gt, bool active)
->  
->  		st_engine_heartbeat_disable(engine);
->  		set_bit(I915_RESET_ENGINE + id, &gt->reset.flags);
-> +		count = 0;
->  		do {
->  			if (active) {
->  				struct i915_request *rq;
-> @@ -770,9 +772,13 @@ static int __igt_reset_engine(struct intel_gt *gt, bool active)
->  				err = -EINVAL;
->  				break;
->  			}
-> +
-> +			count++;
->  		} while (time_before(jiffies, end_time));
->  		clear_bit(I915_RESET_ENGINE + id, &gt->reset.flags);
->  		st_engine_heartbeat_enable(engine);
-> +		pr_info("%s: Completed %lu %s resets\n",
-> +			engine->name, count, active ? "active" : "idle");
->  
->  		if (err)
->  			break;
-> @@ -1623,7 +1629,8 @@ static int igt_reset_queue(void *arg)
->  			prev = rq;
->  			count++;
->  		} while (time_before(jiffies, end_time));
-> -		pr_info("%s: Completed %d resets\n", engine->name, count);
-> +		pr_info("%s: Completed %d queued resets\n",
-> +			engine->name, count);
->  
->  		*h.batch = MI_BATCH_BUFFER_END;
->  		intel_gt_chipset_flush(engine->gt);
-> @@ -1720,7 +1727,8 @@ static int __igt_atomic_reset_engine(struct intel_engine_cs *engine,
->  	GEM_TRACE("i915_reset_engine(%s:%s) under %s\n",
->  		  engine->name, mode, p->name);
->  
-> -	tasklet_disable(t);
-> +	if (t->func)
-> +		tasklet_disable(t);
->  	if (strcmp(p->name, "softirq"))
->  		local_bh_disable();
->  	p->critical_section_begin();
-> @@ -1730,8 +1738,10 @@ static int __igt_atomic_reset_engine(struct intel_engine_cs *engine,
->  	p->critical_section_end();
->  	if (strcmp(p->name, "softirq"))
->  		local_bh_enable();
-> -	tasklet_enable(t);
-> -	tasklet_hi_schedule(t);
-> +	if (t->func) {
-> +		tasklet_enable(t);
-> +		tasklet_hi_schedule(t);
-> +	}
->  
->  	if (err)
->  		pr_err("i915_reset_engine(%s:%s) failed under %s\n",
-> diff --git a/drivers/gpu/drm/i915/gt/selftest_reset.c b/drivers/gpu/drm/i915/gt/selftest_reset.c
-> index b7befcfbdcde..8784257ec808 100644
-> --- a/drivers/gpu/drm/i915/gt/selftest_reset.c
-> +++ b/drivers/gpu/drm/i915/gt/selftest_reset.c
-> @@ -321,7 +321,10 @@ static int igt_atomic_engine_reset(void *arg)
->  		goto out_unlock;
->  
->  	for_each_engine(engine, gt, id) {
-> -		tasklet_disable(&engine->execlists.tasklet);
-> +		struct tasklet_struct *t = &engine->execlists.tasklet;
-> +
-> +		if (t->func)
-> +			tasklet_disable(t);
->  		intel_engine_pm_get(engine);
->  
->  		for (p = igt_atomic_phases; p->name; p++) {
-> @@ -345,8 +348,10 @@ static int igt_atomic_engine_reset(void *arg)
->  		}
->  
->  		intel_engine_pm_put(engine);
-> -		tasklet_enable(&engine->execlists.tasklet);
-> -		tasklet_hi_schedule(&engine->execlists.tasklet);
-> +		if (t->func) {
-> +			tasklet_enable(t);
-> +			tasklet_hi_schedule(t);
-> +		}
->  		if (err)
->  			break;
->  	}
-> -- 
-> 2.20.1
+Pipe-control has always supported a qword-write, so a packet-length of 4
+or 5 on gen4-7. As I recall the debate for gen8+ was whether
+pipe-control still supported only a dword-write, and so we went with
+always using the qword-length.
+-Chris
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
