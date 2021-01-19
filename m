@@ -2,65 +2,65 @@ Return-Path: <SRS0=gs28=GW=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.6 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+X-Spam-Status: No, score=-5.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
 	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=no autolearn_force=no version=3.4.0
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0E309C43381
-	for <intel-gfx@archiver.kernel.org>; Tue, 19 Jan 2021 19:04:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5789AC4332E
+	for <intel-gfx@archiver.kernel.org>; Tue, 19 Jan 2021 19:04:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B908223107
-	for <intel-gfx@archiver.kernel.org>; Tue, 19 Jan 2021 19:04:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B908223107
+	by mail.kernel.org (Postfix) with ESMTPS id 0D26C20776
+	for <intel-gfx@archiver.kernel.org>; Tue, 19 Jan 2021 19:04:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0D26C20776
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9CF816E423;
-	Tue, 19 Jan 2021 16:38:33 +0000 (UTC)
-Received: from mail-qk1-x733.google.com (mail-qk1-x733.google.com
- [IPv6:2607:f8b0:4864:20::733])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CEE666E423
- for <intel-gfx@lists.freedesktop.org>; Tue, 19 Jan 2021 16:38:31 +0000 (UTC)
-Received: by mail-qk1-x733.google.com with SMTP id 186so22415507qkj.3
- for <intel-gfx@lists.freedesktop.org>; Tue, 19 Jan 2021 08:38:31 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A76B26E107;
+	Tue, 19 Jan 2021 17:26:39 +0000 (UTC)
+Received: from mail-qk1-x731.google.com (mail-qk1-x731.google.com
+ [IPv6:2607:f8b0:4864:20::731])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4726D6E87D
+ for <intel-gfx@lists.freedesktop.org>; Tue, 19 Jan 2021 17:26:38 +0000 (UTC)
+Received: by mail-qk1-x731.google.com with SMTP id k193so1489319qke.6
+ for <intel-gfx@lists.freedesktop.org>; Tue, 19 Jan 2021 09:26:38 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=hSrTW0K2AmyDa3/FHEPEuDsGuQvU/IZ/9DV9Qh4c19M=;
- b=AYysoi+iy2N2oFSLmvhBCqT43mTOegyZ2Rrj3WzbHlWkPPIsv95Wwu42PaP8M172Op
- idal84jgYT5HwQd4qMR4BeL30BGH2/smZOwsVtepXsyrl/mxuLe/OmkurPD7gUlvJhfL
- +NqHreGXSOhIQB5wrZQKFQPXpjfxYAnSpu19y2PGUTRXBsdMexTLw5OQAfEOI/m23KVY
- R0C2bkScxqM1Y79Ub4bp85ZvjDajUOd8gjy7+BcK5Y/kHHV6AZnP6EsQ87zlC0xpo41+
- qZP+2LnCZEsaDMIjx8oUp930PGw4yP/yzxc73H7ptx6V7eZeuto2f/WkoMG2X1h5IQnR
- reiQ==
+ :cc; bh=z8BdSlguMnQpEc7EVbcM2A/DhHj72X5FnIvB6MLxdzw=;
+ b=coWaCDP4RuXGKjZlTWvaus4zkjbnPznfs1ckjyDQgQ5QvytStbvNIhWfEXSCzOPYoW
+ ljRLiSyybm6XlqPOMNNqzw+uDN0tbE4earJfrPsXMsOvqyIVbi2GuGw15zo1UOuVPuz3
+ WTec1lNAF6azDX0BH4qCukhYIaTO0U4m8mf5PuTfRWzMW8BbyN6IeS0OpzL9KzHUBjRZ
+ xISnxjL1Qu/Bmdav27YLpUZVuZluv0vjPfHCfc2YucS1M7daZg/mhkQuk7EaXBTwy7ft
+ +y6ZEJ2NtoPyqo8AXsTkkWGgZvgnpSj3nmR91Dm+/+fK4N6UsrlbyQ3ZB564k0UgmZQY
+ zwUA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=hSrTW0K2AmyDa3/FHEPEuDsGuQvU/IZ/9DV9Qh4c19M=;
- b=LbHQ0zwAyvlOkhUSipxIpWKcOw3/nhokIXmnupg7HtZKPAMPY9ToAlT0YBlkgM0h7v
- zYQfVZTEAa8JHQ+DPtGgHPHhZW4JvX1LygYepUVQIzaclCuiBA70+c8+ubJLv0t/wdrz
- Nni7DWX+A58dx+4kXpY0EtdoTsu1OIIO82ado7K5QJzneXlLm9rr20icHjpI17DnQdrc
- vJSRJnu6+0WVY77H5Ecl9lriVFTldicpw2zzn649Y8MWBiCOyIF5BtNCNs6Mlmv3RDz4
- JCwOkKvOqTzVkuLGO127SmvvItMpruG1g1YLqfl1ys6JSBlkCZ7jeIvTCqYNdCvqHc/N
- RPiQ==
-X-Gm-Message-State: AOAM533Y5EP7OqeTqhbIodGGAxYC2C/Xfz6D8AV1CuSrfRKlP9wXMaUi
- +y5M2GlJpH0AUjuTwvEyJk2dW+9j2YH/kW+Yu51yJNDhcbA=
-X-Google-Smtp-Source: ABdhPJzI/qSxmXoVt9PSrxwfSNdYbGp5z1L8dGVe1IESI2kZwbgeBUM+WfVJOMUVDt8e0YPDShGY6pjO7VOm1WLDp1k=
-X-Received: by 2002:a37:a8c4:: with SMTP id r187mr5012582qke.481.1611074311070; 
- Tue, 19 Jan 2021 08:38:31 -0800 (PST)
+ bh=z8BdSlguMnQpEc7EVbcM2A/DhHj72X5FnIvB6MLxdzw=;
+ b=TchuGUzzt/Sw1dNq01caWoUfraG/Ootnq6ug6mSyLy7Ad1YzC8M0GZDB2dzXOeMB3M
+ nI3omoGjN2j+DG8sFOIq32D3UwSabzClNc7HHG5lEHmwha0aBoBuZ+AQpYD4ipILR++R
+ OmpO+rjWQysKmJcl8uA07AvS5B5W6744tH0JvuW3RCQ9rE5Lzlz7Mn7jJXEj+H7fQILK
+ EB/tGkdsorT79D1ZG02U+y7AwuF5b9pq6TbTAZzV5eF9jAcq5uAr6wYJjoGWUmMMYMDS
+ tONfEW3uh9olmzOmeJtBMVplhP5gXejC3xp6YTd/JISCz+akTfGKqShkhasI9Un+jLDh
+ lJTg==
+X-Gm-Message-State: AOAM5331BeKAiz5RE3fc317hFfP+zm1ABrfItXU1GJonCiXTMli/Osf/
+ 2gPnv9B7CTCvfdiJZESp0IR/yXKxpvYi9gXZrsPWRLpnq9E=
+X-Google-Smtp-Source: ABdhPJzezD2KhTdUbucRmSrgmeA7dRLOoewwv1qW05TCcsbaS7UD2If0VyngtNfCwOoki1Hmzq/zvuDemgF/814NDNw=
+X-Received: by 2002:a05:620a:68e:: with SMTP id
+ f14mr5327262qkh.460.1611077197433; 
+ Tue, 19 Jan 2021 09:26:37 -0800 (PST)
 MIME-Version: 1.0
 References: <20210119144912.12653-1-chris@chris-wilson.co.uk>
- <20210119144912.12653-6-chris@chris-wilson.co.uk>
-In-Reply-To: <20210119144912.12653-6-chris@chris-wilson.co.uk>
+In-Reply-To: <20210119144912.12653-1-chris@chris-wilson.co.uk>
 From: Matthew Auld <matthew.william.auld@gmail.com>
-Date: Tue, 19 Jan 2021 16:38:04 +0000
-Message-ID: <CAM0jSHO_bTSEJgkEAzw2_a3=OYvi1tJKQ3Vew9RrJbCZkfUTyQ@mail.gmail.com>
+Date: Tue, 19 Jan 2021 17:26:11 +0000
+Message-ID: <CAM0jSHOFwZzYpp735Qgc=3fBt62QiXuoC3s_kBZWVp8ePpbmRw@mail.gmail.com>
 To: Chris Wilson <chris@chris-wilson.co.uk>
-Subject: Re: [Intel-gfx] [PATCH 6/6] drm/i915/gem: Drop lru bumping on
- display unpinning
+Subject: Re: [Intel-gfx] [PATCH 1/6] drm/i915/gem: Almagamate clflushes on
+ suspend
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,14 +81,14 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 On Tue, 19 Jan 2021 at 14:49, Chris Wilson <chris@chris-wilson.co.uk> wrote:
 >
-> Simplify the frontbuffer unpin by removing the lock requirement. The LRU
-> bumping was primarily to protect the GTT from being evicted and from
-> frontbuffers being eagerly shrunk. Now we protect frontbuffers from the
-> shrinker, and we avoid accidentally evicting from the GTT, so the
-> benefit from bumping LRU is no more, and we can save more time by not.
-
-For the GTT evict case, where/how do we currently try to prevent
-accidental eviction for fb?
+> When flushing objects larger than the CPU cache it is preferrable to use
+> a single wbinvd() rather than overlapping clflush(). At runtime, we
+> avoid wbinvd() due to its system-wide latencies, but during
+> singlethreaded suspend, no one will observe the imposed latency and we
+> can opt for the faster wbinvd to clear all objects in a single hit.
+>
+> Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+Reviewed-by: Matthew Auld <matthew.auld@intel.com>
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
