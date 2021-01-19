@@ -2,42 +2,117 @@ Return-Path: <SRS0=gs28=GW=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 24118C433E6
-	for <intel-gfx@archiver.kernel.org>; Tue, 19 Jan 2021 19:19:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 65F50C433E6
+	for <intel-gfx@archiver.kernel.org>; Tue, 19 Jan 2021 19:27:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 682B620706
-	for <intel-gfx@archiver.kernel.org>; Tue, 19 Jan 2021 19:19:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 682B620706
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
+	by mail.kernel.org (Postfix) with ESMTPS id 0BB7023103
+	for <intel-gfx@archiver.kernel.org>; Tue, 19 Jan 2021 19:27:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0BB7023103
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=vmware.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F6BB6E429;
-	Tue, 19 Jan 2021 16:53:10 +0000 (UTC)
-Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 76D886E429
- for <intel-gfx@lists.freedesktop.org>; Tue, 19 Jan 2021 16:53:08 +0000 (UTC)
-X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
- x-ip-name=78.156.65.138; 
-Received: from localhost (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP (TLS) id
- 23641524-1500050 for multiple; Tue, 19 Jan 2021 16:53:01 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id BFC9A6E06D;
+	Tue, 19 Jan 2021 19:27:32 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2045.outbound.protection.outlook.com [40.107.223.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EAA376E047;
+ Tue, 19 Jan 2021 19:27:30 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=TCBcsMMLyDSyXYYk1WTLMky1KSaE9GbN9S6/KnPJ+vMnnQEQ4kxSgZK9m//ju7gbZO0C5izOIDHFN6ENPEIko0hfT9XpYGynShOcLhGfqIdj+0s4xkirzq0m2wIGlVwkbKRUUY1cedMXJ2MuaXq9wh6t8QxzujU7ctvve7iFwUHJccrNgRWMtTLEGm97xznTQz+1bFYTQhhtmol7mXbUMg7ufvsJC/l1U2NAe5wnark5wdoFQh7LB/rsN9vzEJnL/lU2oOFnfej/sh78bgc01ZeTDg0LBo/ZOH3DF+Qm1eXfqGFXdwqThxragPkvIHZO69EANRtGGeaS8/gHP4SBew==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=tDnrtRR9j27LvMFwPIOT5Za1n2bgcmBcOE5FS0gLY2s=;
+ b=TtTZqCZFuM8WS5B8hhKnU5dOovhLocoUVWPOH388ZSKwpD+FGihvVhhAyBInAvFtROq5PTnptbWlxW8VnoDVrgSfjY9HSuWuI0jH0EsNSsycwedC+Efrzf4ee0KI1U3mQulA8faZ4NfzDlgqg0JBkW+677IgwB7+4U8bOxwD4xJb6HFBONpOnl9QTvVoG7NKiEXDzEl9GCHNUHqGyIkbpZ9rArqTibDf3x1Bza30QV8QUwOU3zaq9FVphcu+V48eK/aHdhQqCHKCfjrbxlL48FTnzpyTbhJV8cI+WkLX/fsUkgVJfj9GJWlo1pt5ugCBareFfobLEIZowFQlszRo8g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=vmware.com; dmarc=pass action=none header.from=vmware.com;
+ dkim=pass header.d=vmware.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vmware.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=tDnrtRR9j27LvMFwPIOT5Za1n2bgcmBcOE5FS0gLY2s=;
+ b=ZAl4+sQt0zar5jn5EA6g8by/J7FrZipIPisqFG9p5mZjm+7mX7PLPcskxeFoTGf3uEUFyg8GkZ0lUNF6D/YDiKiiSS0vdCq11OarVIAvbMk1TF5QL2TrlIOMXMWDrRrl1eog0aTvAo0xpl090GHHsK1YsG3swgb1aS6e1yHvZE0=
+Received: from (2603:10b6:208:8f::18) by
+ BLAPR05MB7378.namprd05.prod.outlook.com (2603:10b6:208:298::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3784.5; Tue, 19 Jan
+ 2021 19:27:20 +0000
+Received: from BL0PR05MB5186.namprd05.prod.outlook.com
+ ([fe80::856b:10f9:d35c:cde1]) by BL0PR05MB5186.namprd05.prod.outlook.com
+ ([fe80::856b:10f9:d35c:cde1%4]) with mapi id 15.20.3784.010; Tue, 19 Jan 2021
+ 19:27:20 +0000
+From: Zack Rusin <zackr@vmware.com>
+To: Lee Jones <lee.jones@linaro.org>
+Thread-Topic: [PATCH 00/29] [Set 15] Finally rid W=1 warnings from GPU!
+Thread-Index: AQHW62p+Afh7eg9MAECAFEwSMWQpd6opAUIAgAR7cYCAAARggIAAJLMAgAD9y4CAALfKAA==
+Date: Tue, 19 Jan 2021 19:27:20 +0000
+Message-ID: <8DE96253-47A3-4A16-9331-62F547A2CC44@vmware.com>
+References: <20210115181601.3432599-1-lee.jones@linaro.org>
+ <F914D9B9-6DD4-4383-9F7C-8D09FBFE96CE@vmware.com>
+ <YAWhDRkSOHbJ+2Le@phenom.ffwll.local> <20210118150945.GE4903@dell>
+ <YAXDgmWMR9s4OgxN@phenom.ffwll.local> <20210119082927.GJ4903@dell>
+In-Reply-To: <20210119082927.GJ4903@dell>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-mailer: Apple Mail (2.3654.40.0.2.32)
+authentication-results: linaro.org; dkim=none (message not signed)
+ header.d=none;linaro.org; dmarc=none action=none header.from=vmware.com;
+x-originating-ip: [71.175.59.246]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: e9ced637-eb95-498c-2bd3-08d8bcb03d9a
+x-ms-traffictypediagnostic: BLAPR05MB7378:
+x-ld-processed: b39138ca-3cee-4b4a-a4d6-cd83d9dd62f0,ExtAddr
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <BLAPR05MB73788F177B49E0955637FB78CEA39@BLAPR05MB7378.namprd05.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:7691;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: bRYJYhpc5DJU0PAvR/CYJc/A3Z44dZLyfiEWEwnq6/NSU9EBSZ+woGgB57CEs0LDKtR92/e5MHo+jIo9YnUlFwvl2w13m2tV05Y79mfOMHfvSSm/sCWr1M88edkwzmGXai8+byUsDfDgnkvFCgBXMB5ednJOzolf9cVI268x5GXR54A6oB9rO+mNoZfrDbMe9Hu8ewIagCoPyuZa4l1FigoMBYtkIkWI1Ap2Hyd6ngXy/4eSqZf0XXZTccpNtWdNFjA7uxDWTL9xe6XOysbQ/RnSy4/V8h9DC0a/LLCZ7L0JUKqCKS7FXzGCrIWtTeejZWl89FjiQWDpJM2mcYCiEJ7T+xECObkUxFKgyaNVvQ7gNKn04Js9SKUuG5iOe4Ba0kYBJMT/ez7nkjqCA0vvtsTPni5iwG8GMQfBArdTNQ1tC3rqGPr6v5/PtH5pGC+r
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL0PR05MB5186.namprd05.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(136003)(376002)(39860400002)(366004)(396003)(346002)(83380400001)(76116006)(36756003)(2906002)(186003)(8936002)(4326008)(33656002)(316002)(54906003)(66476007)(64756008)(5660300002)(86362001)(66556008)(66446008)(53546011)(71200400001)(6916009)(6486002)(6512007)(66946007)(7416002)(478600001)(7406005)(8676002)(2616005)(26005)(6506007)(45980500001);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata: =?iso-8859-1?Q?TCu+QFTEdaiUDOfB2J449+fIzZVCLxcC1gW7TEWnnI96nC+wAK8CBvfSrn?=
+ =?iso-8859-1?Q?YghDRMZDhqpaTnMyzBaFahz4R8ecjYJlIB1wrYu+5Una6qdeD+aaJpeq2O?=
+ =?iso-8859-1?Q?T4NKbb7pvVYkfcITQlXStEdtl3TcA1dIFzbCfIyECs/bXQmDwDDlbWrhcP?=
+ =?iso-8859-1?Q?RM49Zz/8pCv2EJM2lJRveOf0dM+3k5eVOa79X+9QBMTFp8cR3unQdFKcg3?=
+ =?iso-8859-1?Q?SiZ2OOi9iBTSjayrIrfq5EVgtZPwQWoNQPExcnFA58qqq9gVq0QW66gH5G?=
+ =?iso-8859-1?Q?QYC5KKTknKcY1ZpdKRrAlvpv4vycllYqHxrOCGh6pXP2OSM8Y0lpIZgCV/?=
+ =?iso-8859-1?Q?n3bpdoeo5WCLR2lA2ZBbsKL5yXhK4N7dkUAzMNfL+vas4jqgvSCGcp53Xh?=
+ =?iso-8859-1?Q?8RWc7ROTC8C6Xp9tVcD4Bs6NhC6GsYwM+bOPSlS2pYIM/wAy9cIBYF6RaG?=
+ =?iso-8859-1?Q?6BSuEM1FZopsbiov2UDwDm+lwc6xkwhvj2pXbZjQZ6uGOzOlCwmPWDmEt/?=
+ =?iso-8859-1?Q?QIomay5ENR5VbaSmswwUUvZ28/1ZXqppCj5Npf0reEn4XoXADF0BvhchC9?=
+ =?iso-8859-1?Q?9qd2LQdnC9qeyete3tkKd7qLkAO71Xhnt2rJPo4M8iREwRdqYCSfRmCXw3?=
+ =?iso-8859-1?Q?GiVbiOWieH3ySMGrVLGBeDGnYeoxjygHWa2h+ZmqEW/wOdp2+8cQjqJDhK?=
+ =?iso-8859-1?Q?hEVb0BBWBZtUZrcN0XMKhsLFfwXV/DzGenUzdYPuwp3gV3ZRx1ZQGaowyW?=
+ =?iso-8859-1?Q?J7NZxq03OAmyo0xlDnm7wxMg8y3MqO4/3J8u4zt7CPmQ0vO7nbxNzZhyCN?=
+ =?iso-8859-1?Q?Kodkp07tLOmxjLOKurE+IUQPn1msAp6usoesmErCxKm5BW04FklrA7jinQ?=
+ =?iso-8859-1?Q?4/PQnhQGYzpvQUeiWz/bMLFVKlR99FC/yGP0Cb++tPOPbAPsyLunqYDCUt?=
+ =?iso-8859-1?Q?kJ5de+Vx3U6aPiUmbrsp4RumlgEwZ8tDFehpdIKVKkNR+jEA8O6aa8n6Pv?=
+ =?iso-8859-1?Q?bpWZ/hS/nwG07/7S/prnXXCjvfBPf1emVnQOWc?=
+Content-ID: <F0912769F7D8344F9F5AB490350D9FA0@namprd05.prod.outlook.com>
 MIME-Version: 1.0
-In-Reply-To: <YAcL/GQ0B3H1lJ5I@intel.com>
-References: <20210118115929.23509-1-chris@chris-wilson.co.uk>
- <YAcL/GQ0B3H1lJ5I@intel.com>
-From: Chris Wilson <chris@chris-wilson.co.uk>
-To: Ville Syrjälä <ville.syrjala@linux.intel.com>
-Date: Tue, 19 Jan 2021 16:53:00 +0000
-Message-ID: <161107518018.7548.5387427247860402232@build.alporthouse.com>
-User-Agent: alot/0.9
-Subject: Re: [Intel-gfx] [PATCH] drm/i915/display: Apply interactive
- priority to explicit flip fences
+X-OriginatorOrg: vmware.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BL0PR05MB5186.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e9ced637-eb95-498c-2bd3-08d8bcb03d9a
+X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Jan 2021 19:27:20.5425 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b39138ca-3cee-4b4a-a4d6-cd83d9dd62f0
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Cd3qOwYBlOAK2YzeeoHw+69w0XoGXNBx38ABzKkrIGqdoa4rnHnJzE8OioYLYnvlv40+D6zj8M77tyZTLftYVQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BLAPR05MB7378
+Subject: Re: [Intel-gfx] [PATCH 00/29] [Set 15] Finally rid W=1 warnings
+ from GPU!
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,47 +125,75 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: David Airlie <airlied@linux.ie>,
+ "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>,
+ DRI Development <dri-devel@lists.freedesktop.org>,
+ Eric Anholt <eric@anholt.net>, Jesse Barnes <jesse.barnes@intel.com>,
+ Jan Safrata <jan.nikitenko@gmail.com>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Gareth Hughes <gareth@valinux.com>, Pei Zhang <pei.zhang@intel.com>,
+ Rob Clark <rob.clark@linaro.org>, Min He <min.he@intel.com>,
+ Linux-graphics-maintainer <Linux-graphics-maintainer@vmware.com>,
+ Ben Skeggs <bskeggs@redhat.com>, Dave Airlie <airlied@redhat.com>,
+ Niu Bing <bing.niu@intel.com>,
+ "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
+ jim liu <jim.liu@intel.com>, Roland Scheidegger <sroland@vmware.com>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "linaro-mm-sig@lists.linaro.org" <linaro-mm-sig@lists.linaro.org>,
+ Maxime Ripard <mripard@kernel.org>,
+ "intel-gvt-dev@lists.freedesktop.org" <intel-gvt-dev@lists.freedesktop.org>,
+ Eddie Dong <eddie.dong@intel.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Faith <faith@valinux.com>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Ping Gao <ping.a.gao@intel.com>,
+ =?iso-8859-1?Q?Christian_K=F6nig?= <christian.koenig@amd.com>,
+ Zhiyuan Lv <zhiyuan.lv@intel.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-UXVvdGluZyBWaWxsZSBTeXJqw6Rsw6QgKDIwMjEtMDEtMTkgMTY6NDI6MzYpCj4gT24gTW9uLCBK
-YW4gMTgsIDIwMjEgYXQgMTE6NTk6MjlBTSArMDAwMCwgQ2hyaXMgV2lsc29uIHdyb3RlOgo+ID4g
-K3ZvaWQgaTkxNV9nZW1fZmVuY2Vfd2FpdF9wcmlvcml0eShzdHJ1Y3QgZG1hX2ZlbmNlICpmZW5j
-ZSwKPiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgY29uc3Qgc3RydWN0IGk5MTVf
-c2NoZWRfYXR0ciAqYXR0cikKPiA+ICt7Cj4gPiArICAgICBpZiAoZG1hX2ZlbmNlX2lzX3NpZ25h
-bGVkKGZlbmNlKSkKPiA+ICsgICAgICAgICAgICAgcmV0dXJuOwo+ID4gKwo+ID4gKyAgICAgbG9j
-YWxfYmhfZGlzYWJsZSgpOwo+ID4gKwo+ID4gICAgICAgLyogUmVjdXJzZSBvbmNlIGludG8gYSBm
-ZW5jZS1hcnJheSAqLwo+ID4gICAgICAgaWYgKGRtYV9mZW5jZV9pc19hcnJheShmZW5jZSkpIHsK
-PiA+ICAgICAgICAgICAgICAgc3RydWN0IGRtYV9mZW5jZV9hcnJheSAqYXJyYXkgPSB0b19kbWFf
-ZmVuY2VfYXJyYXkoZmVuY2UpOwo+ID4gICAgICAgICAgICAgICBpbnQgaTsKPiA+ICAKPiA+ICAg
-ICAgICAgICAgICAgZm9yIChpID0gMDsgaSA8IGFycmF5LT5udW1fZmVuY2VzOyBpKyspCj4gPiAt
-ICAgICAgICAgICAgICAgICAgICAgX19mZW5jZV9zZXRfcHJpb3JpdHkoYXJyYXktPmZlbmNlc1tp
-XSwgYXR0cik7Cj4gPiArICAgICAgICAgICAgICAgICAgICAgZmVuY2Vfc2V0X3ByaW9yaXR5KGFy
-cmF5LT5mZW5jZXNbaV0sIGF0dHIpOwo+ID4gKyAgICAgfSBlbHNlIGlmIChfX2RtYV9mZW5jZV9p
-c19jaGFpbihmZW5jZSkpIHsKPiA+ICsgICAgICAgICAgICAgc3RydWN0IGRtYV9mZW5jZSAqaXRl
-cjsKPiA+ICsKPiA+ICsgICAgICAgICAgICAgZG1hX2ZlbmNlX2NoYWluX2Zvcl9lYWNoKGl0ZXIs
-IGZlbmNlKSB7Cj4gPiArICAgICAgICAgICAgICAgICAgICAgaWYgKCFmZW5jZV9zZXRfcHJpb3Jp
-dHkodG9fZG1hX2ZlbmNlX2NoYWluKGl0ZXIpLT5mZW5jZSwKPiA+ICsgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBhdHRyKSkKPiA+ICsgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgIGJyZWFrOwo+IAo+IERvZXMgdGhpcyBtZWFuIHRoZSBmZW5jZSBjaGFpbiBp
-cyBvcmRlcmVkIGluIHNvbWUgd2F5LCBpZS4gdGhlCj4gcmVzdCBvZiB0aGUgZmVuY2VzIGluIHRo
-ZSBjaGFpbiB3aWxsIGhhdmUgYmVlbiBzaWduYWxsZWQgYWxyZWFkeT8KPiBJIGNvdWxkbid0IGZp
-bmQgYW55IGRlc2NyaXB0aW9uIG9mIHdoYXQgYSBmZW5jZSBjaGFpbiByZWFsbHkgaXMKPiBhbnl3
-aGVyZS4KClllcywgYSBmZW5jZSBjaGFpbiBpcyBhIHRpbWVsaW5lIGNvbnN0cnVjdGVkIGJ5IGZl
-bmNlcy4gSXQgaXMgYXNzdW1lZAp0aGUgaW5kaXZpZHVhbCBmZW5jZXMgYXJlIGluIG9yZGVyIGJ1
-dCB0aGF0J3Mgbm90IHN0cmljdGx5IGVuZm9yY2VkLApleGNlcHQgdGhhdCB0aGUgY2hhaW4gaXMg
-YnJva2VuIGJldHdlZW4gZGlmZmVyZW50IGZlbmNlIGNvbnRleHRzLgoKRm9yIG91ciBwdXJwb3Nl
-LCB3ZSByZWFsbHkganVzdCBuZWVkIHRvIGZpbmQgdGhlIGxhc3QgaTkxNV9yZXF1ZXN0IGFzCm9u
-Y2Ugd2UgYXBwbHkgdGhlIHByaW9yaXR5IGJvb3N0IHRvIHRoYXQgb25lLCBldmVyeXRoaW5nIGVh
-cmxpZXIgd2lsbCBiZQpib29zdGVkIGJ5IHByaW9yaXR5IGluaGVyaXRhbmNlLiBXZSBrZWVwIGNo
-YXNpbmcgdGhlIGNoYWluIGFzIGV4dHJhCmJvb3N0cyB3aWxsIGJlIHJlZHVuZGFudCBhbmQgc2tp
-cHBlZC4gU28gZm9yIHNpbXBsaWNpdHksIEkgb3B0ZWQgdG8gYnVtcAp0aGUgY2hhaW4gcmF0aGVy
-IHRoYW4gd29yayBvdXQgaWYgdGhlIGJvb3N0cyBhcmUgbm8gbG9uZ2VyIG5lZWRlZC4gT3Igd2UK
-Y291bGQganVzdCBzdG9wIGFmdGVyIHRoZSBmaXJzdCBhbmQgZXhwZWN0IGl0IHRvIHdvcmsgYXMg
-d2VsbCBhcyB3ZSBjYW4KZXhwZWN0LgotQ2hyaXMKX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRlbC1nZnhAbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4v
-bGlzdGluZm8vaW50ZWwtZ2Z4Cg==
+
+
+> On Jan 19, 2021, at 03:29, Lee Jones <lee.jones@linaro.org> wrote:
+> 
+> On Mon, 18 Jan 2021, Daniel Vetter wrote:
+> 
+>> On Mon, Jan 18, 2021 at 03:09:45PM +0000, Lee Jones wrote:
+>>> On Mon, 18 Jan 2021, Daniel Vetter wrote:
+>>> 
+>>>> On Fri, Jan 15, 2021 at 06:27:15PM +0000, Zack Rusin wrote:
+>>>>> 
+>>>>>> On Jan 15, 2021, at 13:15, Lee Jones <lee.jones@linaro.org> wrote:
+>>>>>> 
+>>>>>> This set is part of a larger effort attempting to clean-up W=1
+>>>>>> kernel builds, which are currently overwhelmingly riddled with
+>>>>>> niggly little warnings.
+>>>>>> 
+>>>>>> Last set!  All clean after this for; Arm, Arm64, PPC, MIPS and x86.
+>>>>> 
+>>>>> Thanks! For all the vmwgfx bits:
+>>>>> Reviewed-by: Zack Rusin <zackr@vmware.com>
+>>>> 
+>>>> Ok I merged everything except vmwgfx (that's for Zack) and i915/nouveau
+>>>> (those generally go through other trees, pls holler if they're stuck).
+>>> 
+>>> Thanks Daniel, you're a superstar!
+>>> 
+>>> So Zack will take the vmwgfx parts?  Despite providing a R-b?
+>> 
+>> I only merge stuff that's defacto abandoned already. Everything else I try
+>> to offload to whomever actually cares :-)
+> 
+> Understood.  Thanks for the explanation.
+> 
+> Hopefully Zack actually cares. :D
+
+hah, I do. I just pushed all of the changes to drm-misc-next. Let me know if I missed anything. Thanks!
+
+z
+
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
