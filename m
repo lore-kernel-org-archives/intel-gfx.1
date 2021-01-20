@@ -2,42 +2,52 @@ Return-Path: <SRS0=b/6W=GX=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,INCLUDES_PULL_REQUEST,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1FEF4C433E6
-	for <intel-gfx@archiver.kernel.org>; Wed, 20 Jan 2021 12:22:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 63245C433E0
+	for <intel-gfx@archiver.kernel.org>; Wed, 20 Jan 2021 12:22:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B5758221FB
-	for <intel-gfx@archiver.kernel.org>; Wed, 20 Jan 2021 12:22:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B5758221FB
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
+	by mail.kernel.org (Postfix) with ESMTPS id E333B221FB
+	for <intel-gfx@archiver.kernel.org>; Wed, 20 Jan 2021 12:22:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E333B221FB
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2482A6E415;
-	Wed, 20 Jan 2021 12:22:31 +0000 (UTC)
-Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B1BC6E3E3
- for <intel-gfx@lists.freedesktop.org>; Wed, 20 Jan 2021 12:22:26 +0000 (UTC)
-X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
- x-ip-name=78.156.65.138; 
-Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23649225-1500050 
- for multiple; Wed, 20 Jan 2021 12:22:18 +0000
-From: Chris Wilson <chris@chris-wilson.co.uk>
-To: intel-gfx@lists.freedesktop.org
-Date: Wed, 20 Jan 2021 12:22:05 +0000
-Message-Id: <20210120122205.2808-10-chris@chris-wilson.co.uk>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210120122205.2808-1-chris@chris-wilson.co.uk>
-References: <20210120122205.2808-1-chris@chris-wilson.co.uk>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C0416E88D;
+	Wed, 20 Jan 2021 12:22:36 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D5CA46E896;
+ Wed, 20 Jan 2021 12:22:31 +0000 (UTC)
+IronPort-SDR: OacjFYAWwc26TRQud1oqJvny7DKZzQPkdmx+khfW5unI9P43weqVszgMNDzdLr/nc0wRnuGeGt
+ yjy45OwW3MoA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9869"; a="179180895"
+X-IronPort-AV: E=Sophos;i="5.79,361,1602572400"; d="scan'208";a="179180895"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Jan 2021 04:22:00 -0800
+IronPort-SDR: AM6kg/WyVX5ohHUnkA0fVkiau9fNHvSoyrknbzZHT+YCV8CjoUz8yJJUN/hwbUTuACz8w6Rq8y
+ FFeXtBysFCFA==
+X-IronPort-AV: E=Sophos;i="5.79,361,1602572400"; d="scan'208";a="467055157"
+Received: from nwhinnet-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.252.19.23])
+ by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Jan 2021 04:21:56 -0800
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 10/10] drm/i915: Improve DFS for priority
- inheritance
+In-Reply-To: <20210118050739.GY15982@zhen-hp.sh.intel.com>
+References: <20210118050739.GY15982@zhen-hp.sh.intel.com>
+To: "Vivi, Rodrigo" <rodrigo.vivi@intel.com>,
+ Jani Nikula <jani.nikula@intel.com>, Zhenyu Wang <zhenyuw@linux.intel.com>
+From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Message-ID: <161114531233.12022.4976651928998688735@jlahtine-mobl.ger.corp.intel.com>
+User-Agent: alot/0.8.1
+Date: Wed, 20 Jan 2021 14:21:53 +0200
+Subject: Re: [Intel-gfx] [PULL] gvt-gt-next
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,148 +60,81 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Chris Wilson <chris@chris-wilson.co.uk>
+Cc: intel-gfx <intel-gfx@lists.freedesktop.org>,
+ intel-gvt-dev <intel-gvt-dev@lists.freedesktop.org>, "Lv,
+ Zhiyuan" <zhiyuan.lv@intel.com>, "Yuan, Hang" <hang.yuan@intel.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The core of the scheduling algorithm is that we compute the topological
-order of the fence DAG. Knowing that we have a DAG, we should be able to
-use a DFS to compute the topological sort in linear time. However,
-during the conversion of the recursive algorithm into an iterative one,
-the memoization of how far we had progressed down a branch was
-forgotten. The result was that instead of running in linear time, it was
-running in geometric time and could easily run for a few hundred
-milliseconds given a wide enough graph, not the microseconds as required.
+Quoting Zhenyu Wang (2021-01-18 07:07:39)
+> 
+> Hi,
+> 
+> This is GVT next for 5.12 against drm-intel-gt-next which is mostly
+> for cmd parser enhancement which adds extra check on register load
+> depending on initial context and handles vGPU register state
+> accordingly.
 
-Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
----
- drivers/gpu/drm/i915/i915_scheduler.c | 58 ++++++++++++++++-----------
- 1 file changed, 34 insertions(+), 24 deletions(-)
+I think we were bit inconclusive on this last time.
 
-diff --git a/drivers/gpu/drm/i915/i915_scheduler.c b/drivers/gpu/drm/i915/i915_scheduler.c
-index 4802c9b1081d..9139a91f0aa3 100644
---- a/drivers/gpu/drm/i915/i915_scheduler.c
-+++ b/drivers/gpu/drm/i915/i915_scheduler.c
-@@ -234,6 +234,26 @@ void __i915_priolist_free(struct i915_priolist *p)
- 	kmem_cache_free(global.slab_priorities, p);
- }
- 
-+static struct i915_request *
-+stack_push(struct i915_request *rq,
-+	   struct i915_request *stack,
-+	   struct list_head *pos)
-+{
-+	stack->sched.dfs.prev = pos;
-+	rq->sched.dfs.next = (struct list_head *)stack;
-+	return rq;
-+}
-+
-+static struct i915_request *
-+stack_pop(struct i915_request *rq,
-+	  struct list_head **pos)
-+{
-+	rq = (struct i915_request *)rq->sched.dfs.next;
-+	if (rq)
-+		*pos = rq->sched.dfs.prev;
-+	return rq;
-+}
-+
- static inline bool need_preempt(int prio, int active)
- {
- 	/*
-@@ -298,11 +318,10 @@ static void ipi_priority(struct i915_request *rq, int prio)
- static void __i915_request_set_priority(struct i915_request *rq, int prio)
- {
- 	struct intel_engine_cs *engine = rq->engine;
--	struct i915_request *rn;
-+	struct list_head *pos = &rq->sched.signalers_list;
- 	struct list_head *plist;
--	LIST_HEAD(dfs);
- 
--	list_add(&rq->sched.dfs, &dfs);
-+	plist = i915_sched_lookup_priolist(engine, prio);
- 
- 	/*
- 	 * Recursively bump all dependent priorities to match the new request.
-@@ -322,40 +341,31 @@ static void __i915_request_set_priority(struct i915_request *rq, int prio)
- 	 * end result is a topological list of requests in reverse order, the
- 	 * last element in the list is the request we must execute first.
- 	 */
--	list_for_each_entry(rq, &dfs, sched.dfs) {
--		struct i915_dependency *p;
--
--		/* Also release any children on this engine that are ready */
--		GEM_BUG_ON(rq->engine != engine);
--
--		for_each_signaler(p, rq) {
-+	rq->sched.dfs.next = NULL;
-+	do {
-+		list_for_each_continue(pos, &rq->sched.signalers_list) {
-+			struct i915_dependency *p =
-+				list_entry(pos, typeof(*p), signal_link);
- 			struct i915_request *s =
- 				container_of(p->signaler, typeof(*s), sched);
- 
--			GEM_BUG_ON(s == rq);
--
- 			if (rq_prio(s) >= prio)
- 				continue;
- 
- 			if (__i915_request_is_complete(s))
- 				continue;
- 
--			if (s->engine != rq->engine) {
-+			if (s->engine != engine) {
- 				ipi_priority(s, prio);
- 				continue;
- 			}
- 
--			list_move_tail(&s->sched.dfs, &dfs);
-+			/* Remember our position along this branch */
-+			rq = stack_push(s, rq, pos);
-+			pos = &rq->sched.signalers_list;
- 		}
--	}
- 
--	plist = i915_sched_lookup_priolist(engine, prio);
--
--	/* Fifo and depth-first replacement ensure our deps execute first */
--	list_for_each_entry_safe_reverse(rq, rn, &dfs, sched.dfs) {
--		GEM_BUG_ON(rq->engine != engine);
--
--		INIT_LIST_HEAD(&rq->sched.dfs);
-+		RQ_TRACE(rq, "set-priority:%d\n", prio);
- 		WRITE_ONCE(rq->sched.attr.priority, prio);
- 
- 		/*
-@@ -369,12 +379,13 @@ static void __i915_request_set_priority(struct i915_request *rq, int prio)
- 		if (!i915_request_is_ready(rq))
- 			continue;
- 
-+		GEM_BUG_ON(rq->engine != engine);
- 		if (i915_request_in_priority_queue(rq))
- 			list_move_tail(&rq->sched.link, plist);
- 
- 		/* Defer (tasklet) submission until after all updates. */
- 		kick_submission(engine, rq, prio);
--	}
-+	} while ((rq = stack_pop(rq, &pos)));
- }
- 
- void i915_request_set_priority(struct i915_request *rq, int prio)
-@@ -444,7 +455,6 @@ void i915_sched_node_init(struct i915_sched_node *node)
- 	INIT_LIST_HEAD(&node->signalers_list);
- 	INIT_LIST_HEAD(&node->waiters_list);
- 	INIT_LIST_HEAD(&node->link);
--	INIT_LIST_HEAD(&node->dfs);
- 
- 	node->ipi_link = NULL;
- 
--- 
-2.20.1
+Even if this does not have any dependency to drm-intel-gt-next I can
+pull this to drm-intel-gt-next. The only caveat is that for any -fixes,
+there needs to be a backmerge to drm-intel-next.
 
+Not sure if this is a problem. Do we want to make it a recurring practice
+to backmerge drm-intel-gt-next into drm-intel-next after it lands in
+drm-next?
+
+So to recap: Do we want to pull to drm-intel-next whenever there are no
+dependencies to drm-intel-gt-next, to avoid a backmerge? Or do we want
+to always do a backmerge in anticipation of -fixes.
+
+Regards, Joonas
+
+> Thanks.
+> --
+> The following changes since commit fe7bcfaeb2b775f257348dc7b935f8e80eef3e7d:
+> 
+>   drm/i915/gt: Refactor heartbeat request construction and submission (2020-12-24 18:07:26 +0000)
+> 
+> are available in the Git repository at:
+> 
+>   https://github.com/intel/gvt-linux tags/gvt-gt-next-2021-01-18
+> 
+> for you to fetch changes up to 02dd2b12a685944c4d52c569d05f636372a7b6c7:
+> 
+>   drm/i915/gvt: unify lri cmd handler and mmio handlers (2020-12-25 11:16:32 +0800)
+> 
+> ----------------------------------------------------------------
+> gvt-gt-next-2021-01-18
+> 
+> - GVT cmd parser enhancement against guest context (Yan)
+> 
+> ----------------------------------------------------------------
+> Yan Zhao (11):
+>       drm/i915/gvt: parse init context to update cmd accessible reg whitelist
+>       drm/i915/gvt: scan VM ctx pages
+>       drm/i915/gvt: filter cmds "srm" and "lrm" in cmd_handler
+>       drm/i915/gvt: filter cmds "lrr-src" and "lrr-dst" in cmd_handler
+>       drm/i915/gvt: filter cmd "pipe-ctrl" in cmd_handler
+>       drm/i915/gvt: export find_mmio_info
+>       drm/i915/gvt: make width of mmio_attribute bigger
+>       drm/i915/gvt: introduce a new flag F_CMD_WRITE_PATCH
+>       drm/i915/gvt: statically set F_CMD_WRITE_PATCH flag
+>       drm/i915/gvt: update F_CMD_WRITE_PATCH flag when parsing init ctx
+>       drm/i915/gvt: unify lri cmd handler and mmio handlers
+> 
+>  drivers/gpu/drm/i915/gvt/cmd_parser.c | 335 +++++++++++++++++++++++++++-------
+>  drivers/gpu/drm/i915/gvt/cmd_parser.h |   4 +
+>  drivers/gpu/drm/i915/gvt/gvt.h        |  37 +++-
+>  drivers/gpu/drm/i915/gvt/handlers.c   |  15 +-
+>  drivers/gpu/drm/i915/gvt/mmio.h       |   3 +
+>  drivers/gpu/drm/i915/gvt/reg.h        |   2 +
+>  drivers/gpu/drm/i915/gvt/scheduler.c  |  22 ++-
+>  drivers/gpu/drm/i915/gvt/vgpu.c       |   4 +-
+>  8 files changed, 339 insertions(+), 83 deletions(-)
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
