@@ -7,37 +7,35 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 281DAC433E0
-	for <intel-gfx@archiver.kernel.org>; Wed, 20 Jan 2021 11:11:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0B94FC433DB
+	for <intel-gfx@archiver.kernel.org>; Wed, 20 Jan 2021 11:11:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 66C3722227
-	for <intel-gfx@archiver.kernel.org>; Wed, 20 Jan 2021 11:11:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 66C3722227
+	by mail.kernel.org (Postfix) with ESMTPS id 5FA9C22227
+	for <intel-gfx@archiver.kernel.org>; Wed, 20 Jan 2021 11:11:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5FA9C22227
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 02DEF6E165;
-	Wed, 20 Jan 2021 11:11:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 29A7C6E161;
+	Wed, 20 Jan 2021 11:11:32 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 562A46E161;
- Wed, 20 Jan 2021 11:11:29 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 62C066E161;
+ Wed, 20 Jan 2021 11:11:30 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from haswell.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23648310-1500050 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23648309-1500050 
  for multiple; Wed, 20 Jan 2021 11:11:16 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 20 Jan 2021 11:11:15 +0000
-Message-Id: <20210120111115.846341-2-chris@chris-wilson.co.uk>
+Date: Wed, 20 Jan 2021 11:11:14 +0000
+Message-Id: <20210120111115.846341-1-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.30.0
-In-Reply-To: <20210120111115.846341-1-chris@chris-wilson.co.uk>
-References: <20210120111115.846341-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH i-g-t 2/2] i915/gem_create: Exercise an
- impossible allocation
+Subject: [Intel-gfx] [PATCH i-g-t 1/2] i915/gem_create: Check wrap condition
+ for -1
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,48 +55,37 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The largest processor in the works can support 57b of address space, far
-more memory than we can afford to use in CI! It is safe to assume that
-we will not have 64b processors for some time, so we can use the top bit
-to exercise our oversized object detection.
+Check that we correctly reject an object size that will intentionally
+wrap upon aligning to a page.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 ---
- tests/i915/gem_create.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+ tests/i915/gem_create.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
 diff --git a/tests/i915/gem_create.c b/tests/i915/gem_create.c
-index 432ccdefa..3610b3cda 100644
+index bf6531844..432ccdefa 100644
 --- a/tests/i915/gem_create.c
 +++ b/tests/i915/gem_create.c
-@@ -90,6 +90,17 @@ static void invalid_size_test(int fd)
- 	igt_assert_eq(create.handle, 0);
- }
+@@ -79,11 +79,15 @@ static int create_ioctl(int fd, struct drm_i915_gem_create *create)
  
-+static void massive_test(int fd)
-+{
+ static void invalid_size_test(int fd)
+ {
+-	struct drm_i915_gem_create create = {
+-		.size = 0,
+-	};
 +	struct drm_i915_gem_create create = { };
+ 
++	create.size = 0; /* zero-sized objects are not allowed */
+ 	igt_assert_eq(create_ioctl(fd, &create), -EINVAL);
 +
-+	/* No system has this much memory... Yet small enough not to wrap */
-+	create.size = -1ull << 32;
-+	igt_assert_eq(create_ioctl(fd, &create), -E2BIG);
++	create.size = -1ull; /* will wrap to 0 on aligning to page */
++	igt_assert_eq(create_ioctl(fd, &create), -EINVAL);
 +
 +	igt_assert_eq(create.handle, 0);
-+}
-+
+ }
+ 
  /*
-  * Creating an object with non-aligned size request and assert the buffer is
-  * page aligned. And test the write into the padded extra memory.
-@@ -289,6 +300,9 @@ igt_main
- 	igt_subtest("create-invalid-size")
- 		invalid_size_test(fd);
- 
-+	igt_subtest("create-massive")
-+		massive_test(fd);
-+
- 	igt_subtest("create-valid-nonaligned")
- 		valid_nonaligned_size(fd);
- 
 -- 
 2.30.0
 
