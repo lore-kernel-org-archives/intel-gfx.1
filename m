@@ -7,37 +7,44 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 62D5FC433DB
-	for <intel-gfx@archiver.kernel.org>; Wed, 20 Jan 2021 10:38:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 60672C433DB
+	for <intel-gfx@archiver.kernel.org>; Wed, 20 Jan 2021 10:45:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id ED6E82333F
-	for <intel-gfx@archiver.kernel.org>; Wed, 20 Jan 2021 10:38:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org ED6E82333F
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
+	by mail.kernel.org (Postfix) with ESMTPS id 1064823332
+	for <intel-gfx@archiver.kernel.org>; Wed, 20 Jan 2021 10:45:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1064823332
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B5886E15A;
-	Wed, 20 Jan 2021 10:38:46 +0000 (UTC)
-Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B67DC6E041;
- Wed, 20 Jan 2021 10:38:43 +0000 (UTC)
-X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
- x-ip-name=78.156.65.138; 
-Received: from haswell.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23647938-1500050 
- for multiple; Wed, 20 Jan 2021 10:38:36 +0000
-From: Chris Wilson <chris@chris-wilson.co.uk>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 940036E041;
+	Wed, 20 Jan 2021 10:45:15 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 05FC36E041
+ for <intel-gfx@lists.freedesktop.org>; Wed, 20 Jan 2021 10:45:13 +0000 (UTC)
+IronPort-SDR: oBtimX69CXv8bwmKQxbZYU5P2hpuPLLOyWaZtKbeocyEFElNXaV3VuUn98UcGvj84w+tp2DRgY
+ zplmH08ntpXg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9869"; a="263892609"
+X-IronPort-AV: E=Sophos;i="5.79,360,1602572400"; d="scan'208";a="263892609"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Jan 2021 02:45:12 -0800
+IronPort-SDR: apZQn976wjAjsTFn48JMrCARNFIT7iDIxW8DI3pL4SPGUnDtSz0mLXkPbkziomiCW1bBoQJwwM
+ EeRPAH3u4Lhw==
+X-IronPort-AV: E=Sophos;i="5.79,360,1602572400"; d="scan'208";a="391509803"
+Received: from unknown (HELO genxfsim-desktop.iind.intel.com) ([10.223.74.179])
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Jan 2021 02:45:09 -0800
+From: Anshuman Gupta <anshuman.gupta@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 20 Jan 2021 10:38:36 +0000
-Message-Id: <20210120103836.777132-1-chris@chris-wilson.co.uk>
-X-Mailer: git-send-email 2.30.0
-In-Reply-To: <20210119231729.751316-1-chris@chris-wilson.co.uk>
-References: <20210119231729.751316-1-chris@chris-wilson.co.uk>
+Date: Wed, 20 Jan 2021 16:00:32 +0530
+Message-Id: <20210120103032.15198-1-anshuman.gupta@intel.com>
+X-Mailer: git-send-email 2.26.2
+In-Reply-To: <20210119064655.1605-3-anshuman.gupta@intel.com>
+References: <20210119064655.1605-3-anshuman.gupta@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH i-g-t] i915/gem_exec_parallel: Launch 1s worth
- of threads
+Subject: [Intel-gfx] [PATCH v2 2/2] drm/i915/hdcp: Fix uninitialized symbol
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,203 +57,71 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: igt-dev@lists.freedesktop.org, Chris Wilson <chris@chris-wilson.co.uk>
+Cc: Dan Carpenter <dan.carpenter@oracle.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Let's not assume that the thread execution is instantaneous, but apply a
-time limit as well as a maximum number so that the test should always run
-in bounded time.
+Move (num_hdcp_streams > 0) condition to stream_encryption()
+code block, where it actually belongs.
+This fixes the static analysis error of uninitialized symbol 'ret'.
 
-Also limit each thread to submitting only two pieces of outstanding work,
-to minimise over-saturation. We use two alternating batches as a generic
-way of tracking their fences.
+v2:
+- return 0 as the return value is already checked. [Ankit]
 
-Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+Cc: Ramalingam C <ramalingam.c@intel.com>
+Reported-by: kernel test robot <lkp@intel.com>
+Reported-by: Dan Carpenter <dan.carpenter@oracle.com>
+Reviewed-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Signed-off-by: Anshuman Gupta <anshuman.gupta@intel.com>
 ---
- tests/i915/gem_exec_parallel.c | 62 +++++++++++++++++++++++-----------
- 1 file changed, 42 insertions(+), 20 deletions(-)
+ drivers/gpu/drm/i915/display/intel_hdcp.c | 20 ++++++++++----------
+ 1 file changed, 10 insertions(+), 10 deletions(-)
 
-diff --git a/tests/i915/gem_exec_parallel.c b/tests/i915/gem_exec_parallel.c
-index d3dd06a65..4f0fbdd02 100644
---- a/tests/i915/gem_exec_parallel.c
-+++ b/tests/i915/gem_exec_parallel.c
-@@ -48,6 +48,7 @@ static inline uint32_t hash32(uint32_t val)
- #define USERPTR 0x4
- 
- #define NUMOBJ 16
-+#define MAXTHREADS 4096
- 
- struct thread {
- 	pthread_t thread;
-@@ -64,15 +65,15 @@ struct thread {
- static void *thread(void *data)
- {
- 	struct thread *t = data;
--	struct drm_i915_gem_exec_object2 obj[2];
--	struct drm_i915_gem_relocation_entry reloc;
-+	struct drm_i915_gem_exec_object2 obj[3];
-+	struct drm_i915_gem_relocation_entry reloc[2];
- 	struct drm_i915_gem_execbuffer2 execbuf;
- 	uint32_t batch[16];
- 	uint16_t used;
- 	int fd, i;
- 
- 	pthread_mutex_lock(t->mutex);
--	while (*t->go == 0)
-+	while (READ_ONCE(*t->go) == 0)
- 		pthread_cond_wait(t->cond, t->mutex);
- 	pthread_mutex_unlock(t->mutex);
- 
-@@ -101,21 +102,28 @@ static void *thread(void *data)
- 	memset(obj, 0, sizeof(obj));
- 	obj[0].flags = EXEC_OBJECT_WRITE;
- 
--	memset(&reloc, 0, sizeof(reloc));
--	reloc.offset = sizeof(uint32_t);
-+	memset(reloc, 0, sizeof(reloc));
-+	reloc[0].offset = sizeof(uint32_t);
- 	if (t->gen < 8 && t->gen >= 4)
--		reloc.offset += sizeof(uint32_t);
--	reloc.read_domains = I915_GEM_DOMAIN_INSTRUCTION;
--	reloc.write_domain = I915_GEM_DOMAIN_INSTRUCTION;
--	reloc.delta = 4*t->id;
-+		reloc[0].offset += sizeof(uint32_t);
-+	reloc[0].read_domains = I915_GEM_DOMAIN_INSTRUCTION;
-+	reloc[0].write_domain = I915_GEM_DOMAIN_INSTRUCTION;
-+	reloc[0].delta = 4*t->id;
-+	reloc[1] = reloc[0];
-+
- 	obj[1].handle = gem_create(fd, 4096);
--	obj[1].relocs_ptr = to_user_pointer(&reloc);
-+	obj[1].relocs_ptr = to_user_pointer(&reloc[0]);
- 	obj[1].relocation_count = 1;
- 	gem_write(fd, obj[1].handle, 0, batch, sizeof(batch));
- 
-+	obj[2].handle = gem_create(fd, 4096);
-+	obj[2].relocs_ptr = to_user_pointer(&reloc[1]);
-+	obj[2].relocation_count = 1;
-+	gem_write(fd, obj[2].handle, 0, batch, sizeof(batch));
-+
- 	memset(&execbuf, 0, sizeof(execbuf));
- 	execbuf.buffers_ptr = to_user_pointer(obj);
--	execbuf.buffer_count = 2;
-+	execbuf.buffer_count = 2; /* NB !ARRAY_SIZE(obj), keep one in reserve */
- 	execbuf.flags = t->engine;
- 	execbuf.flags |= I915_EXEC_HANDLE_LUT;
- 	execbuf.flags |= I915_EXEC_NO_RELOC;
-@@ -129,6 +137,8 @@ static void *thread(void *data)
- 	igt_until_timeout(1) {
- 		unsigned int x = rand() % NUMOBJ;
- 
-+		igt_swap(obj[1], obj[2]);
-+
- 		used |= 1u << x;
- 		obj[0].handle = t->scratch[x];
- 
-@@ -139,10 +149,13 @@ static void *thread(void *data)
- 
- 		if (t->flags & FDS)
- 			gem_close(fd, obj[0].handle);
-+
-+		gem_sync(fd, obj[2].handle);
+diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.c b/drivers/gpu/drm/i915/display/intel_hdcp.c
+index 581ccb038b87..ae1371c36a32 100644
+--- a/drivers/gpu/drm/i915/display/intel_hdcp.c
++++ b/drivers/gpu/drm/i915/display/intel_hdcp.c
+@@ -878,15 +878,15 @@ static int _intel_hdcp_disable(struct intel_connector *connector)
+ 		}
+ 		drm_dbg_kms(&dev_priv->drm, "HDCP 1.4 transcoder: %s stream encryption disabled\n",
+ 			    transcoder_name(hdcp->stream_transcoder));
++		/*
++		 * If there are other connectors on this port using HDCP,
++		 * don't disable it until it disabled HDCP encryption for
++		 * all connectors in MST topology.
++		 */
++		if (dig_port->num_hdcp_streams > 0)
++			return 0;
  	}
  
- 	if (t->flags & CONTEXTS)
- 		gem_context_destroy(fd, execbuf.rsvd1);
-+	gem_close(fd, obj[2].handle);
- 	gem_close(fd, obj[1].handle);
- 	if (t->flags & FDS)
- 		close(fd);
-@@ -153,7 +166,7 @@ static void *thread(void *data)
+-	/*
+-	 * If there are other connectors on this port using HDCP, don't disable it
+-	 * until it disabled HDCP encryption for all connectors in MST topology.
+-	 */
+-	if (dig_port->num_hdcp_streams > 0)
+-		return ret;
+-
+ 	hdcp->hdcp_encrypted = false;
+ 	intel_de_write(dev_priv, HDCP_CONF(dev_priv, cpu_transcoder, port), 0);
+ 	if (intel_de_wait_for_clear(dev_priv,
+@@ -1947,10 +1947,10 @@ static int _intel_hdcp2_disable(struct intel_connector *connector)
+ 		}
+ 		drm_dbg_kms(&i915->drm, "HDCP 2.2 transcoder: %s stream encryption disabled\n",
+ 			    transcoder_name(hdcp->stream_transcoder));
+-	}
  
- static void check_bo(int fd, uint32_t handle, int pass, struct thread *threads)
- {
--	uint32_t x = hash32(handle * pass) % 1024;
-+	uint32_t x = hash32(handle * pass) % MAXTHREADS;
- 	uint32_t result;
+-	if (dig_port->num_hdcp_streams > 0)
+-		return ret;
++		if (dig_port->num_hdcp_streams > 0)
++			return 0;
++	}
  
- 	if (!(threads[x].used & (1 << pass)))
-@@ -167,18 +180,20 @@ static void check_bo(int fd, uint32_t handle, int pass, struct thread *threads)
+ 	ret = hdcp2_disable_encryption(connector);
  
- static uint32_t handle_create(int fd, unsigned int flags, void **data)
- {
-+	unsigned int size = MAXTHREADS * sizeof(uint32_t);
-+
- 	if (flags & USERPTR) {
- 		uint32_t handle;
- 		void *ptr;
- 
--		posix_memalign(&ptr, 4096, 4096);
--		gem_userptr(fd, ptr, 4096, 0, 0, &handle);
-+		posix_memalign(&ptr, 4096, size);
-+		gem_userptr(fd, ptr, size, 0, 0, &handle);
- 		*data = ptr;
- 
- 		return handle;
- 	}
- 
--	return gem_create(fd, 4096);
-+	return gem_create(fd, size);
- }
- 
- static void handle_close(int fd, unsigned int flags, uint32_t handle, void *data)
-@@ -197,7 +212,9 @@ static void all(int fd, struct intel_execution_engine2 *engine, unsigned flags)
- 	struct thread *threads;
- 	pthread_mutex_t mutex;
- 	pthread_cond_t cond;
-+	struct timespec tv;
- 	void *arg[NUMOBJ];
-+	int count;
- 	int go;
- 	int i;
- 
-@@ -227,7 +244,7 @@ static void all(int fd, struct intel_execution_engine2 *engine, unsigned flags)
- 			scratch[i] = gem_flink(fd, handle[i]);
- 	}
- 
--	threads = calloc(1024, sizeof(struct thread));
-+	threads = calloc(MAXTHREADS, sizeof(struct thread));
- 	igt_assert(threads);
- 
- 	intel_detect_and_clear_missed_interrupts(fd);
-@@ -235,7 +252,8 @@ static void all(int fd, struct intel_execution_engine2 *engine, unsigned flags)
- 	pthread_cond_init(&cond, 0);
- 	go = 0;
- 
--	for (i = 0; i < 1024; i++) {
-+	memset(&tv, 0, sizeof(tv));
-+	for (i = 0; i < MAXTHREADS && !igt_seconds_elapsed(&tv); i++) {
- 		threads[i].id = i;
- 		threads[i].fd = fd;
- 		threads[i].gen = gen;
-@@ -246,15 +264,19 @@ static void all(int fd, struct intel_execution_engine2 *engine, unsigned flags)
- 		threads[i].cond = &cond;
- 		threads[i].go = &go;
- 
--		pthread_create(&threads[i].thread, 0, thread, &threads[i]);
-+		if (pthread_create(&threads[i].thread, 0, thread, &threads[i]))
-+			break;
- 	}
-+	count = i;
-+	igt_info("Launched %d threads\n", count);
-+	igt_require(count);
- 
- 	pthread_mutex_lock(&mutex);
--	go = 1024;
-+	WRITE_ONCE(go, count);
- 	pthread_cond_broadcast(&cond);
- 	pthread_mutex_unlock(&mutex);
- 
--	for (i = 0; i < 1024; i++)
-+	for (i = 0; i < count; i++)
- 		pthread_join(threads[i].thread, NULL);
- 
- 	for (i = 0; i < NUMOBJ; i++) {
 -- 
-2.30.0
+2.26.2
 
 _______________________________________________
 Intel-gfx mailing list
