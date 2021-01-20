@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 58822C433E6
-	for <intel-gfx@archiver.kernel.org>; Wed, 20 Jan 2021 12:22:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 84F6EC433E9
+	for <intel-gfx@archiver.kernel.org>; Wed, 20 Jan 2021 12:22:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0F095221FB
-	for <intel-gfx@archiver.kernel.org>; Wed, 20 Jan 2021 12:22:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0F095221FB
+	by mail.kernel.org (Postfix) with ESMTPS id 3499F221FB
+	for <intel-gfx@archiver.kernel.org>; Wed, 20 Jan 2021 12:22:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3499F221FB
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E9C1F6E89F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB9CD6E8A0;
 	Wed, 20 Jan 2021 12:22:36 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F03116E87A
- for <intel-gfx@lists.freedesktop.org>; Wed, 20 Jan 2021 12:22:27 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 143016E3EE
+ for <intel-gfx@lists.freedesktop.org>; Wed, 20 Jan 2021 12:22:26 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23649221-1500050 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23649224-1500050 
  for multiple; Wed, 20 Jan 2021 12:22:18 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 20 Jan 2021 12:22:01 +0000
-Message-Id: <20210120122205.2808-6-chris@chris-wilson.co.uk>
+Date: Wed, 20 Jan 2021 12:22:04 +0000
+Message-Id: <20210120122205.2808-9-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20210120122205.2808-1-chris@chris-wilson.co.uk>
 References: <20210120122205.2808-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 06/10] drm/i915: Teach the i915_dependency to
- use a double-lock
+Subject: [Intel-gfx] [PATCH 09/10] drm/i915/selftests: Exercise priority
+ inheritance around an engine loop
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,210 +56,255 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Currently, we construct and teardown the i915_dependency chains using a
-global spinlock. As the lists are entirely local, it should be possible
-to use an double-lock with an explicit nesting [signaler -> waiter,
-always] and so avoid the costly convenience of a global spinlock.
+Exercise rescheduling priority inheritance around a sequence of requests
+that wrap around all the engines.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 ---
- drivers/gpu/drm/i915/i915_request.c         |  2 +-
- drivers/gpu/drm/i915/i915_scheduler.c       | 65 +++++++++++++--------
- drivers/gpu/drm/i915/i915_scheduler.h       |  2 +-
- drivers/gpu/drm/i915/i915_scheduler_types.h |  2 +
- 4 files changed, 46 insertions(+), 25 deletions(-)
+ .../gpu/drm/i915/selftests/i915_scheduler.c   | 219 ++++++++++++++++++
+ 1 file changed, 219 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
-index abda565dfe62..df2ab39b394d 100644
---- a/drivers/gpu/drm/i915/i915_request.c
-+++ b/drivers/gpu/drm/i915/i915_request.c
-@@ -330,7 +330,7 @@ bool i915_request_retire(struct i915_request *rq)
- 	intel_context_unpin(rq->context);
+diff --git a/drivers/gpu/drm/i915/selftests/i915_scheduler.c b/drivers/gpu/drm/i915/selftests/i915_scheduler.c
+index cb67de304aeb..e6910f4c429d 100644
+--- a/drivers/gpu/drm/i915/selftests/i915_scheduler.c
++++ b/drivers/gpu/drm/i915/selftests/i915_scheduler.c
+@@ -7,6 +7,7 @@
  
- 	free_capture_list(rq);
--	i915_sched_node_fini(&rq->sched);
-+	i915_sched_node_retire(&rq->sched);
- 	i915_request_put(rq);
+ #include "gt/intel_context.h"
+ #include "gt/intel_gpu_commands.h"
++#include "gt/intel_ring.h"
+ #include "gt/selftest_engine_heartbeat.h"
+ #include "selftests/igt_spinner.h"
+ #include "selftests/i915_random.h"
+@@ -512,10 +513,228 @@ static int igt_priority_chains(void *arg)
+ 	return igt_schedule_chains(arg, igt_priority);
+ }
  
- 	return true;
-diff --git a/drivers/gpu/drm/i915/i915_scheduler.c b/drivers/gpu/drm/i915/i915_scheduler.c
-index dbdd4128f13d..96fe1e22dad7 100644
---- a/drivers/gpu/drm/i915/i915_scheduler.c
-+++ b/drivers/gpu/drm/i915/i915_scheduler.c
-@@ -19,6 +19,17 @@ static struct i915_global_scheduler {
- 
- static DEFINE_SPINLOCK(schedule_lock);
- 
-+static struct i915_sched_node *node_get(struct i915_sched_node *node)
++static struct i915_request *
++__write_timestamp(struct intel_engine_cs *engine,
++		  struct drm_i915_gem_object *obj,
++		  int slot,
++		  struct i915_request *prev)
 +{
-+	i915_request_get(container_of(node, struct i915_request, sched));
-+	return node;
++	struct i915_request *rq = ERR_PTR(-EINVAL);
++	struct intel_context *ce;
++	struct i915_vma *vma;
++	int err = 0;
++	u32 *cs;
++
++	ce = intel_context_create(engine);
++	if (IS_ERR(ce))
++		return ERR_CAST(ce);
++
++	vma = i915_vma_instance(obj, ce->vm, NULL);
++	if (IS_ERR(vma)) {
++		err = PTR_ERR(vma);
++		goto out_ce;
++	}
++
++	err = i915_vma_pin(vma, 0, 0, PIN_USER);
++	if (err)
++		goto out_ce;
++
++	rq = intel_context_create_request(ce);
++	if (IS_ERR(rq)) {
++		err = PTR_ERR(rq);
++		goto out_unpin;
++	}
++
++	i915_vma_lock(vma);
++	err = i915_vma_move_to_active(vma, rq, EXEC_OBJECT_WRITE);
++	i915_vma_unlock(vma);
++	if (err)
++		goto out_request;
++
++	if (prev) {
++		err = i915_request_await_dma_fence(rq, &prev->fence);
++		if (err)
++			goto out_request;
++	}
++
++	if (engine->emit_init_breadcrumb) {
++		err = engine->emit_init_breadcrumb(rq);
++		if (err)
++			goto out_request;
++	}
++
++	cs = intel_ring_begin(rq, 4);
++	if (IS_ERR(cs)) {
++		err = PTR_ERR(cs);
++		goto out_request;
++	}
++
++	*cs++ = MI_STORE_REGISTER_MEM_GEN8;
++	*cs++ = i915_mmio_reg_offset(RING_TIMESTAMP(engine->mmio_base));
++	*cs++ = lower_32_bits(vma->node.start) + sizeof(u32) * slot;
++	*cs++ = upper_32_bits(vma->node.start);
++	intel_ring_advance(rq, cs);
++
++	i915_request_get(rq);
++out_request:
++	i915_request_add(rq);
++out_unpin:
++	i915_vma_unpin(vma);
++out_ce:
++	intel_context_put(ce);
++	i915_request_put(prev);
++	return err ? ERR_PTR(err) : rq;
 +}
 +
-+static void node_put(struct i915_sched_node *node)
++static struct i915_request *create_spinner(struct drm_i915_private *i915,
++					   struct igt_spinner *spin)
 +{
-+	i915_request_put(container_of(node, struct i915_request, sched));
++	struct intel_engine_cs *engine;
++
++	for_each_uabi_engine(engine, i915) {
++		struct intel_context *ce;
++		struct i915_request *rq;
++
++		if (igt_spinner_init(spin, engine->gt))
++			return ERR_PTR(-ENOMEM);
++
++		ce = intel_context_create(engine);
++		if (IS_ERR(ce))
++			return ERR_CAST(ce);
++
++		rq = igt_spinner_create_request(spin, ce, MI_NOOP);
++		intel_context_put(ce);
++		if (rq == ERR_PTR(-ENODEV))
++			continue;
++		if (IS_ERR(rq))
++			return rq;
++
++		i915_request_get(rq);
++		i915_request_add(rq);
++		return rq;
++	}
++
++	return ERR_PTR(-ENODEV);
 +}
 +
- static const struct i915_request *
- node_to_request(const struct i915_sched_node *node)
- {
-@@ -353,6 +364,8 @@ void i915_request_set_priority(struct i915_request *rq, int prio)
- 
- void i915_sched_node_init(struct i915_sched_node *node)
- {
-+	spin_lock_init(&node->lock);
-+
- 	INIT_LIST_HEAD(&node->signalers_list);
- 	INIT_LIST_HEAD(&node->waiters_list);
- 	INIT_LIST_HEAD(&node->link);
-@@ -377,10 +390,17 @@ i915_dependency_alloc(void)
- 	return kmem_cache_alloc(global.slab_dependencies, GFP_KERNEL);
- }
- 
-+static void
-+rcu_dependency_free(struct rcu_head *rcu)
++static int __igt_schedule_cycle(struct drm_i915_private *i915,
++				bool (*fn)(struct i915_request *rq,
++					   unsigned long v, unsigned long e))
 +{
-+	kmem_cache_free(global.slab_dependencies,
-+			container_of(rcu, typeof(struct i915_dependency), rcu));
++	struct intel_engine_cs *engine;
++	struct drm_i915_gem_object *obj;
++	struct igt_spinner spin;
++	struct i915_request *rq;
++	unsigned long count, n;
++	u32 *time, last;
++	int err;
++
++	/*
++	 * Queue a bunch of ordered requests (each waiting on the previous)
++	 * around the engines a couple of times. Each request will write
++	 * the timestamp it executes at into the scratch, with the expectation
++	 * that the timestamp will be in our desired execution order.
++	 */
++
++	if (INTEL_GEN(i915) < 8)
++		return 0;
++
++	obj = i915_gem_object_create_internal(i915, SZ_64K);
++	if (IS_ERR(obj))
++		return PTR_ERR(obj);
++
++	time = i915_gem_object_pin_map(obj, I915_MAP_WC);
++	if (IS_ERR(time)) {
++		err = PTR_ERR(time);
++		goto out_obj;
++	}
++
++	rq = create_spinner(i915, &spin);
++	if (IS_ERR(rq)) {
++		err = PTR_ERR(rq);
++		goto out_obj;
++	}
++
++	err = 0;
++	count = 0;
++	for_each_uabi_engine(engine, i915) {
++		if (!intel_engine_has_scheduler(engine))
++			continue;
++
++		rq = __write_timestamp(engine, obj, count, rq);
++		if (IS_ERR(rq)) {
++			err = PTR_ERR(rq);
++			break;
++		}
++
++		count++;
++	}
++	for_each_uabi_engine(engine, i915) {
++		if (!intel_engine_has_scheduler(engine))
++			continue;
++
++		rq = __write_timestamp(engine, obj, count, rq);
++		if (IS_ERR(rq)) {
++			err = PTR_ERR(rq);
++			break;
++		}
++
++		count++;
++	}
++	GEM_BUG_ON(count * sizeof(u32) > obj->base.size);
++	if (err || !count)
++		goto out_spin;
++
++	fn(rq, count + 1, count);
++	igt_spinner_end(&spin);
++
++	if (i915_request_wait(rq, 0, HZ / 2) < 0) {
++		err = -ETIME;
++		goto out_request;
++	}
++
++	last = time[0];
++	for (n = 1; n < count; n++) {
++		if (i915_seqno_passed(last, time[n])) {
++			pr_err("Timestamp[%lu] %x before previous %x\n",
++			       n, time[n], last);
++			err = -EINVAL;
++			break;
++		}
++		last = time[n];
++	}
++
++out_request:
++	i915_request_put(rq);
++out_spin:
++	igt_spinner_fini(&spin);
++out_obj:
++	i915_gem_object_put(obj);
++	return 0;
 +}
 +
- static void
- i915_dependency_free(struct i915_dependency *dep)
- {
--	kmem_cache_free(global.slab_dependencies, dep);
-+	call_rcu(&dep->rcu, rcu_dependency_free);
- }
- 
- bool __i915_sched_node_add_dependency(struct i915_sched_node *node,
-@@ -390,24 +410,27 @@ bool __i915_sched_node_add_dependency(struct i915_sched_node *node,
- {
- 	bool ret = false;
- 
--	spin_lock_irq(&schedule_lock);
-+	/* The signal->lock is always the outer lock in this double-lock. */
-+	spin_lock(&signal->lock);
- 
- 	if (!node_signaled(signal)) {
- 		INIT_LIST_HEAD(&dep->dfs_link);
- 		dep->signaler = signal;
--		dep->waiter = node;
-+		dep->waiter = node_get(node);
- 		dep->flags = flags;
- 
- 		/* All set, now publish. Beware the lockless walkers. */
-+		spin_lock_nested(&node->lock, SINGLE_DEPTH_NESTING);
- 		list_add_rcu(&dep->signal_link, &node->signalers_list);
- 		list_add_rcu(&dep->wait_link, &signal->waiters_list);
-+		spin_unlock(&node->lock);
- 
- 		/* Propagate the chains */
- 		node->flags |= signal->flags;
- 		ret = true;
- 	}
- 
--	spin_unlock_irq(&schedule_lock);
-+	spin_unlock(&signal->lock);
- 
- 	return ret;
- }
-@@ -429,39 +452,36 @@ int i915_sched_node_add_dependency(struct i915_sched_node *node,
- 	return 0;
- }
- 
--void i915_sched_node_fini(struct i915_sched_node *node)
-+void i915_sched_node_retire(struct i915_sched_node *node)
- {
- 	struct i915_dependency *dep, *tmp;
- 
--	spin_lock_irq(&schedule_lock);
--
- 	/*
- 	 * Everyone we depended upon (the fences we wait to be signaled)
- 	 * should retire before us and remove themselves from our list.
- 	 * However, retirement is run independently on each timeline and
--	 * so we may be called out-of-order.
-+	 * so we may be called out-of-order. As we need to avoid taking
-+	 * the signaler's lock, just mark up our completion and be wary
-+	 * in traversing the signalers->waiters_list.
- 	 */
--	list_for_each_entry_safe(dep, tmp, &node->signalers_list, signal_link) {
--		GEM_BUG_ON(!list_empty(&dep->dfs_link));
--
--		list_del_rcu(&dep->wait_link);
--		if (dep->flags & I915_DEPENDENCY_ALLOC)
--			i915_dependency_free(dep);
--	}
--	INIT_LIST_HEAD(&node->signalers_list);
- 
- 	/* Remove ourselves from everyone who depends upon us */
-+	spin_lock(&node->lock);
- 	list_for_each_entry_safe(dep, tmp, &node->waiters_list, wait_link) {
--		GEM_BUG_ON(dep->signaler != node);
--		GEM_BUG_ON(!list_empty(&dep->dfs_link));
-+		struct i915_sched_node *w = dep->waiter;
- 
-+		GEM_BUG_ON(dep->signaler != node);
++static bool noop(struct i915_request *rq, unsigned long v, unsigned long e)
++{
++	return true;
++}
 +
-+		spin_lock_nested(&w->lock, SINGLE_DEPTH_NESTING);
- 		list_del_rcu(&dep->signal_link);
-+		spin_unlock(&w->lock);
-+		node_put(w);
++static int igt_schedule_cycle(void *arg)
++{
++	return __igt_schedule_cycle(arg, noop);
++}
 +
- 		if (dep->flags & I915_DEPENDENCY_ALLOC)
- 			i915_dependency_free(dep);
- 	}
--	INIT_LIST_HEAD(&node->waiters_list);
--
--	spin_unlock_irq(&schedule_lock);
-+	INIT_LIST_HEAD_RCU(&node->waiters_list);
-+	spin_unlock(&node->lock);
- }
- 
- void i915_request_show_with_schedule(struct drm_printer *m,
-@@ -512,8 +532,7 @@ static struct i915_global_scheduler global = { {
- int __init i915_global_scheduler_init(void)
++static int igt_priority_cycle(void *arg)
++{
++	return __igt_schedule_cycle(arg, igt_priority);
++}
++
+ int i915_scheduler_live_selftests(struct drm_i915_private *i915)
  {
- 	global.slab_dependencies = KMEM_CACHE(i915_dependency,
--					      SLAB_HWCACHE_ALIGN |
--					      SLAB_TYPESAFE_BY_RCU);
-+					      SLAB_HWCACHE_ALIGN);
- 	if (!global.slab_dependencies)
- 		return -ENOMEM;
+ 	static const struct i915_subtest tests[] = {
+ 		SUBTEST(igt_priority_chains),
++
++		SUBTEST(igt_schedule_cycle),
++		SUBTEST(igt_priority_cycle),
+ 	};
  
-diff --git a/drivers/gpu/drm/i915/i915_scheduler.h b/drivers/gpu/drm/i915/i915_scheduler.h
-index ccee506c9a26..a045be784c67 100644
---- a/drivers/gpu/drm/i915/i915_scheduler.h
-+++ b/drivers/gpu/drm/i915/i915_scheduler.h
-@@ -33,7 +33,7 @@ int i915_sched_node_add_dependency(struct i915_sched_node *node,
- 				   struct i915_sched_node *signal,
- 				   unsigned long flags);
- 
--void i915_sched_node_fini(struct i915_sched_node *node);
-+void i915_sched_node_retire(struct i915_sched_node *node);
- 
- void i915_request_set_priority(struct i915_request *request, int prio);
- 
-diff --git a/drivers/gpu/drm/i915/i915_scheduler_types.h b/drivers/gpu/drm/i915/i915_scheduler_types.h
-index 343ed44d5ed4..623bf41fcf35 100644
---- a/drivers/gpu/drm/i915/i915_scheduler_types.h
-+++ b/drivers/gpu/drm/i915/i915_scheduler_types.h
-@@ -60,6 +60,7 @@ struct i915_sched_attr {
-  * others.
-  */
- struct i915_sched_node {
-+	spinlock_t lock; /* protect the lists */
- 	struct list_head signalers_list; /* those before us, we depend upon */
- 	struct list_head waiters_list; /* those after us, they depend upon us */
- 	struct list_head link;
-@@ -75,6 +76,7 @@ struct i915_dependency {
- 	struct list_head signal_link;
- 	struct list_head wait_link;
- 	struct list_head dfs_link;
-+	struct rcu_head rcu;
- 	unsigned long flags;
- #define I915_DEPENDENCY_ALLOC		BIT(0)
- #define I915_DEPENDENCY_EXTERNAL	BIT(1)
+ 	return i915_subtests(tests, i915);
 -- 
 2.20.1
 
