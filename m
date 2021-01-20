@@ -7,44 +7,43 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 60672C433DB
-	for <intel-gfx@archiver.kernel.org>; Wed, 20 Jan 2021 10:45:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E7141C433E0
+	for <intel-gfx@archiver.kernel.org>; Wed, 20 Jan 2021 10:47:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1064823332
-	for <intel-gfx@archiver.kernel.org>; Wed, 20 Jan 2021 10:45:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1064823332
+	by mail.kernel.org (Postfix) with ESMTPS id 77F702070A
+	for <intel-gfx@archiver.kernel.org>; Wed, 20 Jan 2021 10:47:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 77F702070A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 940036E041;
-	Wed, 20 Jan 2021 10:45:15 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 05FC36E041
- for <intel-gfx@lists.freedesktop.org>; Wed, 20 Jan 2021 10:45:13 +0000 (UTC)
-IronPort-SDR: oBtimX69CXv8bwmKQxbZYU5P2hpuPLLOyWaZtKbeocyEFElNXaV3VuUn98UcGvj84w+tp2DRgY
- zplmH08ntpXg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9869"; a="263892609"
-X-IronPort-AV: E=Sophos;i="5.79,360,1602572400"; d="scan'208";a="263892609"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jan 2021 02:45:12 -0800
-IronPort-SDR: apZQn976wjAjsTFn48JMrCARNFIT7iDIxW8DI3pL4SPGUnDtSz0mLXkPbkziomiCW1bBoQJwwM
- EeRPAH3u4Lhw==
-X-IronPort-AV: E=Sophos;i="5.79,360,1602572400"; d="scan'208";a="391509803"
-Received: from unknown (HELO genxfsim-desktop.iind.intel.com) ([10.223.74.179])
- by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jan 2021 02:45:09 -0800
-From: Anshuman Gupta <anshuman.gupta@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 104916E15D;
+	Wed, 20 Jan 2021 10:47:24 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 85FCD6E15D
+ for <intel-gfx@lists.freedesktop.org>; Wed, 20 Jan 2021 10:47:22 +0000 (UTC)
+IronPort-SDR: s7xTV/1xpDMjhvAn/OzuF0UCyQkzXUbYViKQnu5oSmFrPmLnHGQ9fV9eHO0GEeHCJDX2Z2dPkV
+ RtBiQyygBUIQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9869"; a="166746976"
+X-IronPort-AV: E=Sophos;i="5.79,360,1602572400"; d="scan'208";a="166746976"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Jan 2021 02:47:21 -0800
+IronPort-SDR: 9CILEvtDx5JA9YtLGhVnINB2qAGPe66ri4IHTUsneJm03nDB0bcoYSn9hnvU0yOnvVhZ8549TF
+ IbNect2WcGRg==
+X-IronPort-AV: E=Sophos;i="5.79,360,1602572400"; d="scan'208";a="467037384"
+Received: from vvujicic-mobl.ger.corp.intel.com (HELO
+ mwauld-desk1.ger.corp.intel.com) ([10.252.19.22])
+ by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Jan 2021 02:47:20 -0800
+From: Matthew Auld <matthew.auld@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 20 Jan 2021 16:00:32 +0530
-Message-Id: <20210120103032.15198-1-anshuman.gupta@intel.com>
+Date: Wed, 20 Jan 2021 10:47:14 +0000
+Message-Id: <20210120104714.112812-1-matthew.auld@intel.com>
 X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20210119064655.1605-3-anshuman.gupta@intel.com>
-References: <20210119064655.1605-3-anshuman.gupta@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v2 2/2] drm/i915/hdcp: Fix uninitialized symbol
+Subject: [Intel-gfx] [PATCH] drm/i915/region: don't leak the object on error
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,69 +56,45 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dan Carpenter <dan.carpenter@oracle.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Move (num_hdcp_streams > 0) condition to stream_encryption()
-code block, where it actually belongs.
-This fixes the static analysis error of uninitialized symbol 'ret'.
+Sanity check the object size before allocating a new gem object.
 
-v2:
-- return 0 as the return value is already checked. [Ankit]
-
-Cc: Ramalingam C <ramalingam.c@intel.com>
-Reported-by: kernel test robot <lkp@intel.com>
-Reported-by: Dan Carpenter <dan.carpenter@oracle.com>
-Reviewed-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Signed-off-by: Anshuman Gupta <anshuman.gupta@intel.com>
+Fixes: 97d553963250 ("drm/i915/region: convert object_create into object_init")
+Signed-off-by: Matthew Auld <matthew.auld@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_hdcp.c | 20 ++++++++++----------
- 1 file changed, 10 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_region.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.c b/drivers/gpu/drm/i915/display/intel_hdcp.c
-index 581ccb038b87..ae1371c36a32 100644
---- a/drivers/gpu/drm/i915/display/intel_hdcp.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdcp.c
-@@ -878,15 +878,15 @@ static int _intel_hdcp_disable(struct intel_connector *connector)
- 		}
- 		drm_dbg_kms(&dev_priv->drm, "HDCP 1.4 transcoder: %s stream encryption disabled\n",
- 			    transcoder_name(hdcp->stream_transcoder));
-+		/*
-+		 * If there are other connectors on this port using HDCP,
-+		 * don't disable it until it disabled HDCP encryption for
-+		 * all connectors in MST topology.
-+		 */
-+		if (dig_port->num_hdcp_streams > 0)
-+			return 0;
- 	}
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_region.c b/drivers/gpu/drm/i915/gem/i915_gem_region.c
+index 4834a0b272f4..3e3dad22a683 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_region.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_region.c
+@@ -161,10 +161,6 @@ i915_gem_object_create_region(struct intel_memory_region *mem,
+ 	GEM_BUG_ON(!size);
+ 	GEM_BUG_ON(!IS_ALIGNED(size, I915_GTT_MIN_ALIGNMENT));
  
--	/*
--	 * If there are other connectors on this port using HDCP, don't disable it
--	 * until it disabled HDCP encryption for all connectors in MST topology.
--	 */
--	if (dig_port->num_hdcp_streams > 0)
--		return ret;
+-	obj = i915_gem_object_alloc();
+-	if (!obj)
+-		return ERR_PTR(-ENOMEM);
 -
- 	hdcp->hdcp_encrypted = false;
- 	intel_de_write(dev_priv, HDCP_CONF(dev_priv, cpu_transcoder, port), 0);
- 	if (intel_de_wait_for_clear(dev_priv,
-@@ -1947,10 +1947,10 @@ static int _intel_hdcp2_disable(struct intel_connector *connector)
- 		}
- 		drm_dbg_kms(&i915->drm, "HDCP 2.2 transcoder: %s stream encryption disabled\n",
- 			    transcoder_name(hdcp->stream_transcoder));
--	}
+ 	/*
+ 	 * XXX: There is a prevalence of the assumption that we fit the
+ 	 * object's page count inside a 32bit _signed_ variable. Let's document
+@@ -178,6 +174,10 @@ i915_gem_object_create_region(struct intel_memory_region *mem,
+ 	if (overflows_type(size, obj->base.size))
+ 		return ERR_PTR(-E2BIG);
  
--	if (dig_port->num_hdcp_streams > 0)
--		return ret;
-+		if (dig_port->num_hdcp_streams > 0)
-+			return 0;
-+	}
- 
- 	ret = hdcp2_disable_encryption(connector);
- 
++	obj = i915_gem_object_alloc();
++	if (!obj)
++		return ERR_PTR(-ENOMEM);
++
+ 	err = mem->ops->init_object(mem, obj, size, flags);
+ 	if (err)
+ 		goto err_object_free;
 -- 
 2.26.2
 
