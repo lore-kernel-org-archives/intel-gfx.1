@@ -5,46 +5,39 @@ X-Spam-Level:
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 20C46C433DB
-	for <intel-gfx@archiver.kernel.org>; Wed, 20 Jan 2021 11:07:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 281DAC433E0
+	for <intel-gfx@archiver.kernel.org>; Wed, 20 Jan 2021 11:11:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CC08F22A84
-	for <intel-gfx@archiver.kernel.org>; Wed, 20 Jan 2021 11:07:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CC08F22A84
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 66C3722227
+	for <intel-gfx@archiver.kernel.org>; Wed, 20 Jan 2021 11:11:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 66C3722227
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 060F56E160;
-	Wed, 20 Jan 2021 11:07:23 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BF5176E048;
- Wed, 20 Jan 2021 11:07:21 +0000 (UTC)
-IronPort-SDR: Hn8lOCGYx4jVr4Vb9d33R/RmXAhBY8+oMwWO4o8R9Jr4BExTYu78BjNMFGliOh/edbzE4fU89B
- vveHWt8+KDMA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9869"; a="166749396"
-X-IronPort-AV: E=Sophos;i="5.79,361,1602572400"; d="scan'208";a="166749396"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jan 2021 03:07:20 -0800
-IronPort-SDR: VE4z5akVVYbUUZY1kHUMTxwRqGQcbZkCTHSGQvToKJ7xlbs6fL6oSZMcz4nZgNeAY1L3gF4/IS
- IKCZrS1VdSzg==
-X-IronPort-AV: E=Sophos;i="5.79,361,1602572400"; d="scan'208";a="384798622"
-Received: from oreunova-mobl1.ccr.corp.intel.com (HELO localhost)
- ([10.252.45.61])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jan 2021 03:07:17 -0800
-From: Jani Nikula <jani.nikula@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 02DEF6E165;
+	Wed, 20 Jan 2021 11:11:31 +0000 (UTC)
+Received: from fireflyinternet.com (unknown [77.68.26.236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 562A46E161;
+ Wed, 20 Jan 2021 11:11:29 +0000 (UTC)
+X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
+ x-ip-name=78.156.65.138; 
+Received: from haswell.alporthouse.com (unverified [78.156.65.138]) 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23648310-1500050 
+ for multiple; Wed, 20 Jan 2021 11:11:16 +0000
+From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 20 Jan 2021 13:07:08 +0200
-Message-Id: <20210120110708.32131-1-jani.nikula@intel.com>
-X-Mailer: git-send-email 2.20.1
+Date: Wed, 20 Jan 2021 11:11:15 +0000
+Message-Id: <20210120111115.846341-2-chris@chris-wilson.co.uk>
+X-Mailer: git-send-email 2.30.0
+In-Reply-To: <20210120111115.846341-1-chris@chris-wilson.co.uk>
+References: <20210120111115.846341-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH] drm/msm/dp: fix build after dp quirk helper
- change
+Subject: [Intel-gfx] [PATCH i-g-t 2/2] i915/gem_create: Exercise an
+ impossible allocation
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,65 +50,57 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Stephen Rothwell <sfr@canb.auug.org.au>, jani.nikula@intel.com,
- Daniel Vetter <daniel.vetter@ffwll.ch>, dri-devel@lists.freedesktop.org
+Cc: igt-dev@lists.freedesktop.org, matthew.auld@intel.com,
+ Chris Wilson <chris@chris-wilson.co.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Commit 7c553f8b5a7d ("drm/dp: Revert "drm/dp: Introduce EDID-based
-quirks"") removed drm_dp_get_edid_quirks() and changed the signature of
-drm_dp_has_quirk() while they were still being used in msm. Fix the
-breakage. Functionally, removing the EDID-based quirks has no impact on
-msm.
+The largest processor in the works can support 57b of address space, far
+more memory than we can afford to use in CI! It is safe to assume that
+we will not have 64b processors for some time, so we can use the top bit
+to exercise our oversized object detection.
 
-[The above commit was merged to drm-intel-next; make two wrongs a right
-by merging this fix through drm-intel-next as well.]
-
-Reported-by: Stephen Rothwell <sfr@canb.auug.org.au>
-References: http://lore.kernel.org/r/20210120105715.4391dd95@canb.auug.org.au
-Fixes: 7c553f8b5a7d ("drm/dp: Revert "drm/dp: Introduce EDID-based quirks"")
-Cc: Lyude Paul <lyude@redhat.com>
-Acked-by: Daniel Vetter <daniel.vetter@ffwll.ch>
-Cc: Rob Clark <robdclark@gmail.com>
-Cc: Sean Paul <sean@poorly.run>
-Cc: dri-devel@lists.freedesktop.org
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
-
+Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 ---
+ tests/i915/gem_create.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-Note: I admit to not even build testing this one. I'd need a config,
-possibly also a toolchain setup for that.
----
- drivers/gpu/drm/msm/dp/dp_ctrl.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-index e3462f5d96d7..36b39c381b3f 100644
---- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
-+++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-@@ -1420,16 +1420,14 @@ void dp_ctrl_host_deinit(struct dp_ctrl *dp_ctrl)
- static bool dp_ctrl_use_fixed_nvid(struct dp_ctrl_private *ctrl)
- {
- 	u8 *dpcd = ctrl->panel->dpcd;
--	u32 edid_quirks = 0;
- 
--	edid_quirks = drm_dp_get_edid_quirks(ctrl->panel->edid);
- 	/*
- 	 * For better interop experience, used a fixed NVID=0x8000
- 	 * whenever connected to a VGA dongle downstream.
- 	 */
- 	if (drm_dp_is_branch(dpcd))
--		return (drm_dp_has_quirk(&ctrl->panel->desc, edid_quirks,
--				DP_DPCD_QUIRK_CONSTANT_N));
-+		return (drm_dp_has_quirk(&ctrl->panel->desc,
-+					 DP_DPCD_QUIRK_CONSTANT_N));
- 
- 	return false;
+diff --git a/tests/i915/gem_create.c b/tests/i915/gem_create.c
+index 432ccdefa..3610b3cda 100644
+--- a/tests/i915/gem_create.c
++++ b/tests/i915/gem_create.c
+@@ -90,6 +90,17 @@ static void invalid_size_test(int fd)
+ 	igt_assert_eq(create.handle, 0);
  }
+ 
++static void massive_test(int fd)
++{
++	struct drm_i915_gem_create create = { };
++
++	/* No system has this much memory... Yet small enough not to wrap */
++	create.size = -1ull << 32;
++	igt_assert_eq(create_ioctl(fd, &create), -E2BIG);
++
++	igt_assert_eq(create.handle, 0);
++}
++
+ /*
+  * Creating an object with non-aligned size request and assert the buffer is
+  * page aligned. And test the write into the padded extra memory.
+@@ -289,6 +300,9 @@ igt_main
+ 	igt_subtest("create-invalid-size")
+ 		invalid_size_test(fd);
+ 
++	igt_subtest("create-massive")
++		massive_test(fd);
++
+ 	igt_subtest("create-valid-nonaligned")
+ 		valid_nonaligned_size(fd);
+ 
 -- 
-2.20.1
+2.30.0
 
 _______________________________________________
 Intel-gfx mailing list
