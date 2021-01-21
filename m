@@ -2,53 +2,41 @@ Return-Path: <SRS0=DGqE=GY=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.2 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-0.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F0484C433E0
-	for <intel-gfx@archiver.kernel.org>; Thu, 21 Jan 2021 22:32:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5AB46C433E0
+	for <intel-gfx@archiver.kernel.org>; Thu, 21 Jan 2021 22:32:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 92833239EF
-	for <intel-gfx@archiver.kernel.org>; Thu, 21 Jan 2021 22:32:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 92833239EF
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id EBE35239EF
+	for <intel-gfx@archiver.kernel.org>; Thu, 21 Jan 2021 22:32:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EBE35239EF
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DEFF46E928;
-	Thu, 21 Jan 2021 22:32:29 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7EBFA6E928
- for <intel-gfx@lists.freedesktop.org>; Thu, 21 Jan 2021 22:32:28 +0000 (UTC)
-IronPort-SDR: UcnRcFChVYfVpwIYzaPUaEPF8N+kdsSfqVIsLFqJvQBJCeBTODtt7l3GnyTCvl6FOys+v3UnCG
- y+gEvA1eYIiQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9871"; a="178578874"
-X-IronPort-AV: E=Sophos;i="5.79,365,1602572400"; d="scan'208";a="178578874"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jan 2021 14:32:26 -0800
-IronPort-SDR: 1BY1r/Sw42gYTj6Pdj255Y4gwGUCaJjGvIr4rhm8pAMihmmQC87JYI2fCewtfQxxRMOG29PMpl
- c7vP7mCfdheg==
-X-IronPort-AV: E=Sophos;i="5.79,365,1602572400"; d="scan'208";a="356683161"
-Received: from labuser-z97x-ud5h.jf.intel.com (HELO labuser-Z97X-UD5H)
- ([10.165.21.211])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jan 2021 14:32:26 -0800
-Date: Thu, 21 Jan 2021 14:36:53 -0800
-From: "Navare, Manasi" <manasi.d.navare@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Message-ID: <20210121223653.GA26331@labuser-Z97X-UD5H>
-References: <20210113220935.4151-1-manasi.d.navare@intel.com>
- <20210113220935.4151-5-manasi.d.navare@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 425AE6E96F;
+	Thu, 21 Jan 2021 22:32:52 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 3BCEC6E967;
+ Thu, 21 Jan 2021 22:32:50 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 3707FA41FB;
+ Thu, 21 Jan 2021 22:32:50 +0000 (UTC)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210113220935.4151-5-manasi.d.navare@intel.com>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-Subject: Re: [Intel-gfx] [PATCH v4 04/18] drm/i915: Extract
- intel_mode_vblank_start()
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Chris Wilson" <chris@chris-wilson.co.uk>
+Date: Thu, 21 Jan 2021 22:32:50 -0000
+Message-ID: <161126837022.14013.12434345414351990496@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20210121132558.2893-1-chris@chris-wilson.co.uk>
+In-Reply-To: <20210121132558.2893-1-chris@chris-wilson.co.uk>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJBVDogZmFpbHVyZSBmb3IgZHJt?=
+ =?utf-8?q?/i915/gvt=3A_Add_missing_forward_decl_of_intel=5Fvgpu_for_HDRTE?=
+ =?utf-8?q?ST?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,79 +49,84 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============1113751846=="
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jan 13, 2021 at 02:09:21PM -0800, Manasi Navare wrote:
-> From: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
-> =
+--===============1113751846==
+Content-Type: multipart/alternative;
+ boundary="===============4742451836978189080=="
 
-> We want to calculate the vblank_start for vblank evasion
-> differently for vrr. To make that nicer lets first extract
-> the current non-vrr case to a helper.
-> =
+--===============4742451836978189080==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-> Signed-off-by: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
+== Series Details ==
 
-Reviewed-by: Manasi Navare <manasi.d.navare@intel.com>
+Series: drm/i915/gvt: Add missing forward decl of intel_vgpu for HDRTEST
+URL   : https://patchwork.freedesktop.org/series/86138/
+State : failure
 
-Manasi
+== Summary ==
 
-> ---
->  drivers/gpu/drm/i915/display/intel_sprite.c | 14 +++++++++++---
->  1 file changed, 11 insertions(+), 3 deletions(-)
-> =
+Applying: drm/i915/gvt: Add missing forward decl of intel_vgpu for HDRTEST
+Using index info to reconstruct a base tree...
+M	drivers/gpu/drm/i915/gvt/cmd_parser.h
+Falling back to patching base and 3-way merge...
+No changes -- Patch already applied.
 
-> diff --git a/drivers/gpu/drm/i915/display/intel_sprite.c b/drivers/gpu/dr=
-m/i915/display/intel_sprite.c
-> index cf3589fd0ddb..ced6af7cdc84 100644
-> --- a/drivers/gpu/drm/i915/display/intel_sprite.c
-> +++ b/drivers/gpu/drm/i915/display/intel_sprite.c
-> @@ -62,6 +62,16 @@ int intel_usecs_to_scanlines(const struct drm_display_=
-mode *adjusted_mode,
->  			    1000 * adjusted_mode->crtc_htotal);
->  }
->  =
 
-> +static int intel_mode_vblank_start(const struct drm_display_mode *mode)
-> +{
-> +	int vblank_start =3D mode->crtc_vblank_start;
-> +
-> +	if (mode->flags & DRM_MODE_FLAG_INTERLACE)
-> +		vblank_start =3D DIV_ROUND_UP(vblank_start, 2);
-> +
-> +	return vblank_start;
-> +}
-> +
->  /**
->   * intel_pipe_update_start() - start update of a set of display registers
->   * @new_crtc_state: the new crtc state
-> @@ -90,9 +100,7 @@ void intel_pipe_update_start(const struct intel_crtc_s=
-tate *new_crtc_state)
->  	if (new_crtc_state->uapi.async_flip)
->  		return;
->  =
 
-> -	vblank_start =3D adjusted_mode->crtc_vblank_start;
-> -	if (adjusted_mode->flags & DRM_MODE_FLAG_INTERLACE)
-> -		vblank_start =3D DIV_ROUND_UP(vblank_start, 2);
-> +	vblank_start =3D intel_mode_vblank_start(adjusted_mode);
->  =
+--===============4742451836978189080==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
->  	/* FIXME needs to be calibrated sensibly */
->  	min =3D vblank_start - intel_usecs_to_scanlines(adjusted_mode,
-> -- =
 
-> 2.19.1
-> =
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
 
-> _______________________________________________
-> Intel-gfx mailing list
-> Intel-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/gvt: Add missing forward decl of intel_vgpu for HDRTEST</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/86138/">https://patchwork.freedesktop.org/series/86138/</a></td></tr>
+<tr><td><b>State:</b></td><td>failure</td></tr>
+
+</table>
+
+
+    <p>Applying: drm/i915/gvt: Add missing forward decl of intel_vgpu for HDRTEST<br />
+Using index info to reconstruct a base tree...<br />
+M   drivers/gpu/drm/i915/gvt/cmd_parser.h<br />
+Falling back to patching base and 3-way merge...<br />
+No changes -- Patch already applied.</p>
+
+</body>
+</html>
+
+--===============4742451836978189080==--
+
+--===============1113751846==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+
+--===============1113751846==--
