@@ -2,56 +2,44 @@ Return-Path: <SRS0=DGqE=GY=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.3 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,MAILING_LIST_MULTI,NICE_REPLY_A,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8A765C433DB
-	for <intel-gfx@archiver.kernel.org>; Thu, 21 Jan 2021 11:00:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B4CDFC433DB
+	for <intel-gfx@archiver.kernel.org>; Thu, 21 Jan 2021 11:04:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1F37223787
-	for <intel-gfx@archiver.kernel.org>; Thu, 21 Jan 2021 11:00:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1F37223787
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 02E96238A0
+	for <intel-gfx@archiver.kernel.org>; Thu, 21 Jan 2021 11:04:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 02E96238A0
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 517ED6E509;
-	Thu, 21 Jan 2021 11:00:33 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0423C6E509
- for <intel-gfx@lists.freedesktop.org>; Thu, 21 Jan 2021 11:00:31 +0000 (UTC)
-IronPort-SDR: Str+Q9pitVkySSMF2Rax2qPn68UTIF+/SqSitXCxpXxdzBPlzNgZFEhix9JuQObwoMF56ENdD4
- In1/Z8fqWMgQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9870"; a="166349874"
-X-IronPort-AV: E=Sophos;i="5.79,363,1602572400"; d="scan'208";a="166349874"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jan 2021 03:00:29 -0800
-IronPort-SDR: 8gAX8q3gOeb7qUjb0Rax/Fza82GFwlpYfWuQaO5rHeC/1dnzFONQsvdHzr1uqaSLsWapgJJWza
- WJdqCi3bA9BQ==
-X-IronPort-AV: E=Sophos;i="5.79,363,1602572400"; d="scan'208";a="356422599"
-Received: from pscheper-mobl1.ger.corp.intel.com (HELO [10.252.50.106])
- ([10.252.50.106])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jan 2021 03:00:27 -0800
-To: Chris Wilson <chris@chris-wilson.co.uk>,
- Matthew Auld <matthew.william.auld@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 115FE6E52C;
+	Thu, 21 Jan 2021 11:04:03 +0000 (UTC)
+Received: from fireflyinternet.com (unknown [77.68.26.236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6D5106E52C
+ for <intel-gfx@lists.freedesktop.org>; Thu, 21 Jan 2021 11:04:01 +0000 (UTC)
+X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
+ x-ip-name=78.156.65.138; 
+Received: from localhost (unverified [78.156.65.138]) 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP (TLS) id
+ 23658876-1500050 for multiple; Thu, 21 Jan 2021 11:03:29 +0000
+MIME-Version: 1.0
+In-Reply-To: <5c5f16c9-9885-3eba-ee1b-21e491094acc@linux.intel.com>
 References: <20210120154019.5146-1-chris@chris-wilson.co.uk>
  <CAM0jSHPUoT2eKs0MgUoJ9UBB96hgtZGmQuZSDrE8vGkRSOXpoQ@mail.gmail.com>
  <161116596844.3420.4138630766326614766@build.alporthouse.com>
  <161117638753.7444.16304169600967757321@build.alporthouse.com>
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Organization: Intel Corporation UK Plc
-Message-ID: <5c5f16c9-9885-3eba-ee1b-21e491094acc@linux.intel.com>
-Date: Thu, 21 Jan 2021 11:00:25 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.5.0
-MIME-Version: 1.0
-In-Reply-To: <161117638753.7444.16304169600967757321@build.alporthouse.com>
-Content-Language: en-US
+ <5c5f16c9-9885-3eba-ee1b-21e491094acc@linux.intel.com>
+From: Chris Wilson <chris@chris-wilson.co.uk>
+To: Matthew Auld <matthew.william.auld@gmail.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Date: Thu, 21 Jan 2021 11:03:29 +0000
+Message-ID: <161122700938.32666.8387306897872756634@build.alporthouse.com>
+User-Agent: alot/0.9
 Subject: Re: [Intel-gfx] [PATCH] drm/i915/gem: Allow importing of shmemfs
  objects into any device
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -68,41 +56,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
  Matthew Auld <matthew.auld@intel.com>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-
-On 20/01/2021 20:59, Chris Wilson wrote:
-> Quoting Chris Wilson (2021-01-20 18:06:08)
->> Quoting Matthew Auld (2021-01-20 17:46:10)
->>> On Wed, 20 Jan 2021 at 15:40, Chris Wilson <chris@chris-wilson.co.uk> wrote:
->>>>
->>>> If we import a shmemfs object between devices, for example from
->>>> Tigerlake to DG1, we can simply reuse the native object and its backing
->>>> store.
->>>
->>> Hmmm interesting, so does that include re-using the actual sg mapping
->>> for the backing pages? Does that work out-of-the-box between different
->>> devices assuming we have iommu enabled?
->>
->> Indeed interesting; the dma_addr_t are supposed to be local to a device.
+Quoting Tvrtko Ursulin (2021-01-21 11:00:25)
 > 
-> On reflection, we are expected to use cross-device dma_addr_t with
-> dma-buf. It's the exporter who assigns the dma_addr_t for the importer
-> to use, and they are always given from the original device.
+> On 20/01/2021 20:59, Chris Wilson wrote:
+> > Quoting Chris Wilson (2021-01-20 18:06:08)
+> >> Quoting Matthew Auld (2021-01-20 17:46:10)
+> >>> On Wed, 20 Jan 2021 at 15:40, Chris Wilson <chris@chris-wilson.co.uk> wrote:
+> >>>>
+> >>>> If we import a shmemfs object between devices, for example from
+> >>>> Tigerlake to DG1, we can simply reuse the native object and its backing
+> >>>> store.
+> >>>
+> >>> Hmmm interesting, so does that include re-using the actual sg mapping
+> >>> for the backing pages? Does that work out-of-the-box between different
+> >>> devices assuming we have iommu enabled?
+> >>
+> >> Indeed interesting; the dma_addr_t are supposed to be local to a device.
+> > 
+> > On reflection, we are expected to use cross-device dma_addr_t with
+> > dma-buf. It's the exporter who assigns the dma_addr_t for the importer
+> > to use, and they are always given from the original device.
+> > 
+> > Maybe not so bad. Definitely needs testing to see what happens in
+> > practice.
 > 
-> Maybe not so bad. Definitely needs testing to see what happens in
-> practice.
+> What about object migration? I did not spot anything preventing it once 
+> object was exported like this so owning device could move it to device 
+> memory afterwards which would probably be bad.
 
-What about object migration? I did not spot anything preventing it once 
-object was exported like this so owning device could move it to device 
-memory afterwards which would probably be bad.
-
-Regards,
-
-Tvrtko
+Depends on how you do your migration, but your migration should be
+checking that it is allowed to migrate the object first.
+-Chris
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
