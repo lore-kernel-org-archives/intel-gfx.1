@@ -2,53 +2,50 @@ Return-Path: <SRS0=DGqE=GY=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6F598C433DB
-	for <intel-gfx@archiver.kernel.org>; Thu, 21 Jan 2021 19:47:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A53E8C433DB
+	for <intel-gfx@archiver.kernel.org>; Thu, 21 Jan 2021 20:09:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0208D20888
-	for <intel-gfx@archiver.kernel.org>; Thu, 21 Jan 2021 19:47:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0208D20888
+	by mail.kernel.org (Postfix) with ESMTPS id 4733123A5C
+	for <intel-gfx@archiver.kernel.org>; Thu, 21 Jan 2021 20:09:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4733123A5C
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6107C6E936;
-	Thu, 21 Jan 2021 19:47:49 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF7B36E936
- for <Intel-gfx@lists.freedesktop.org>; Thu, 21 Jan 2021 19:47:48 +0000 (UTC)
-IronPort-SDR: C1iT2jz7coUvbxwSx/X4CLDkeij0M9EpgJpFhj+VrcHeFBGKZgn44GYO7nJm/Nd5zowymSO/fL
- Y7SItdgKRQEw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9871"; a="175822182"
-X-IronPort-AV: E=Sophos;i="5.79,365,1602572400"; d="scan'208";a="175822182"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jan 2021 11:47:47 -0800
-IronPort-SDR: CxPmW0tMch60Lly8wk7Hspsq4jR7qpkRyXCXDZIpQ4WvJTQgrgdQty2VHudFTmz8cRST9Ied7G
- x58m3Nt8G3aQ==
-X-IronPort-AV: E=Sophos;i="5.79,365,1602572400"; d="scan'208";a="407429396"
-Received: from vkotamar-mobl1.amr.corp.intel.com (HELO intel.com)
- ([10.209.172.214])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jan 2021 11:47:46 -0800
-Date: Thu, 21 Jan 2021 14:47:45 -0500
-From: Rodrigo Vivi <rodrigo.vivi@intel.com>
-To: "Huang, Sean Z" <sean.z.huang@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Message-ID: <20210121194745.GE3970@intel.com>
-References: <20210119074320.28768-1-sean.z.huang@intel.com>
- <20210119074320.28768-10-sean.z.huang@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D6F16E134;
+	Thu, 21 Jan 2021 20:09:28 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2754C6E160
+ for <intel-gfx@lists.freedesktop.org>; Thu, 21 Jan 2021 20:09:27 +0000 (UTC)
+IronPort-SDR: s75t+9u/V9ex5C+o2Q4xKMsNt14bHvpQ+9inSaUeIundJgAdBAIEohEp8uFVuWi3cvjIFpftaD
+ UKaMZzUvRdeA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9871"; a="159114858"
+X-IronPort-AV: E=Sophos;i="5.79,365,1602572400"; d="scan'208";a="159114858"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Jan 2021 12:09:26 -0800
+IronPort-SDR: kPyP3N5+8q1j4eD4vdh1QCdWxRaGbew5rCfacMtQrzVacIyfJG76F30X6bHLtXK72PyS0WFTiz
+ XeY4JYN77iCQ==
+X-IronPort-AV: E=Sophos;i="5.79,365,1602572400"; d="scan'208";a="427491032"
+Received: from orsosgc001.ra.intel.com ([10.23.184.150])
+ by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Jan 2021 12:09:25 -0800
+From: Ashutosh Dixit <ashutosh.dixit@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Thu, 21 Jan 2021 12:09:22 -0800
+Message-Id: <f73c1e911c4ba52d4cecc28997821e10341c4085.1611258840.git.ashutosh.dixit@intel.com>
+X-Mailer: git-send-email 2.29.2
+In-Reply-To: <cover.1611258840.git.ashutosh.dixit@intel.com>
+References: <cover.1611258840.git.ashutosh.dixit@intel.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210119074320.28768-10-sean.z.huang@intel.com>
-Subject: Re: [Intel-gfx] [RFC-v23 09/13] drm/i915/pxp: Expose session state
- for display protection flip
+Subject: [Intel-gfx] [CI 1/1] drm/i915: Disable pread/pwrite ioctl's for IGT
+ testing
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,170 +58,76 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: kumar.gaurav@intel.com, Intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Jan 18, 2021 at 11:43:16PM -0800, Huang, Sean Z wrote:
-> Implement the intel_pxp_gem_object_status() to allow i915 display
-> querying the current PXP session state. In the design, display
-> should not perform protection flip on the protected buffers if
-> there is no PXP session alive. And Implement the funciton to set
-> the protected flag for gem context.
-> 
-> rev23:
->     - Require user space to explicitly set recoverable flag to
->       false for protected context creation.
-> 
-> Signed-off-by: Huang, Sean Z <sean.z.huang@intel.com>
-> ---
->  .../gpu/drm/i915/gem/i915_gem_context_types.h |  2 ++
->  drivers/gpu/drm/i915/pxp/intel_pxp.c          | 34 +++++++++++++++++++
->  drivers/gpu/drm/i915/pxp/intel_pxp.h          | 24 +++++++++++++
->  include/uapi/drm/i915_drm.h                   |  9 +++++
->  4 files changed, 69 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context_types.h b/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
-> index 1449f54924e0..7a9872d35fbb 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
-> @@ -134,6 +134,8 @@ struct i915_gem_context {
->  #define UCONTEXT_BANNABLE		2
->  #define UCONTEXT_RECOVERABLE		3
->  #define UCONTEXT_PERSISTENCE		4
-> +#define UCONTEXT_PROTECTED		5
-> +#define UCONTEXT_UNRECOVERABLE		6
+FOR CI ONLY. PLEASE DON'T REVIEW.
 
-I don't believe we want to extend this.
+The upstream guidance at this time is to start phasing out
+pread/pwrite ioctl's, the rationale being (a) the functionality can be
+done entirely in userspace with a combination of mmap + memcpy, and
+(b) no existing user mode clients actually use the pread/pwrite
+interface.
 
-if I understood corectly, the request was to make sure that
-UCONTEXT_RECOVERABLE is not set, not to create the negative one...
+The plan is to phase out these ioctls for _new_ Gen12+ platforms. However,
+since this patch is actually for CI and the real changes which need to be
+validated are in IGT, in this patch we are disabling pread/pwrite for
+existing Gen11 and Gen12 platforms. This will be changed once IGT changes
+are validated and finalized.
 
-Joonas?
+Signed-off-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
+---
+ drivers/gpu/drm/i915/i915_gem.c | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
 
->  
->  	/**
->  	 * @flags: small set of booleans
-> diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.c b/drivers/gpu/drm/i915/pxp/intel_pxp.c
-> index e6dd57ec73f5..f2ac5996700d 100644
-> --- a/drivers/gpu/drm/i915/pxp/intel_pxp.c
-> +++ b/drivers/gpu/drm/i915/pxp/intel_pxp.c
-> @@ -157,3 +157,37 @@ void intel_pxp_irq_handler(struct intel_pxp *pxp, u16 iir)
->  	pxp->current_events |= events;
->  	schedule_work(&pxp->irq_work);
->  }
-> +
-> +bool intel_pxp_gem_object_status(struct drm_i915_private *i915)
-> +{
-> +	if (i915->gt.pxp.ctx.inited &&
-> +	    i915->gt.pxp.ctx.flag_display_hm_surface_keys)
-> +		return true;
-> +	else
-> +		return false;
-> +}
-> +
-> +int intel_pxp_gem_context_create_param(struct i915_gem_context *ctx,
-> +				       struct drm_i915_gem_context_param *args)
-> +{
-> +	if (!ctx || !args)
-> +		return -EINVAL;
-> +
-> +	if (args->param == I915_CONTEXT_PARAM_PROTECTED_CONTENT) {
-> +		if (!intel_pxp_arb_session_is_in_play(&ctx->i915->gt.pxp))
-> +			return -EINVAL;
-> +
-> +		if (args->value)
-> +			set_bit(UCONTEXT_PROTECTED, &ctx->user_flags);
-> +	} else if (args->param == I915_CONTEXT_PARAM_RECOVERABLE)
-> +		if (!args->value)
-> +			set_bit(UCONTEXT_UNRECOVERABLE, &ctx->user_flags);
-> +
-> +	return 0;
-> +}
-> +
-> +bool intel_pxp_gem_context_protected_param_valid(struct i915_gem_context *ctx)
-> +{
-> +	return (test_bit(UCONTEXT_PROTECTED, &ctx->user_flags) &&
-> +		test_bit(UCONTEXT_UNRECOVERABLE, &ctx->user_flags));
-> +}
-> diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.h b/drivers/gpu/drm/i915/pxp/intel_pxp.h
-> index 420da2790624..ab461cc1839a 100644
-> --- a/drivers/gpu/drm/i915/pxp/intel_pxp.h
-> +++ b/drivers/gpu/drm/i915/pxp/intel_pxp.h
-> @@ -12,6 +12,10 @@
->  #define PXP_IRQ_VECTOR_DISPLAY_APP_TERM_PER_FW_REQ BIT(2)
->  #define PXP_IRQ_VECTOR_PXP_DISP_STATE_RESET_COMPLETE BIT(3)
->  
-> +struct drm_i915_private;
-> +struct i915_gem_context;
-> +struct drm_i915_gem_context_param;
-> +
->  #ifdef CONFIG_DRM_I915_PXP
->  void intel_pxp_irq_handler(struct intel_pxp *pxp, u16 iir);
->  int i915_pxp_teardown_required_callback(struct intel_pxp *pxp);
-> @@ -19,6 +23,10 @@ int i915_pxp_global_terminate_complete_callback(struct intel_pxp *pxp);
->  
->  void intel_pxp_init(struct intel_pxp *pxp);
->  void intel_pxp_fini(struct intel_pxp *pxp);
-> +bool intel_pxp_gem_object_status(struct drm_i915_private *i915);
-> +int intel_pxp_gem_context_create_param(struct i915_gem_context *ctx,
-> +				       struct drm_i915_gem_context_param *args);
-> +bool intel_pxp_gem_context_protected_param_valid(struct i915_gem_context *ctx);
->  #else
->  static inline void intel_pxp_irq_handler(struct intel_pxp *pxp, u16 iir)
->  {
-> @@ -41,6 +49,22 @@ static inline void intel_pxp_init(struct intel_pxp *pxp)
->  static inline void intel_pxp_fini(struct intel_pxp *pxp)
->  {
->  }
-> +
-> +static inline bool intel_pxp_gem_object_status(struct drm_i915_private *i915)
-> +{
-> +	return false;
-> +}
-> +
-> +static inline int intel_pxp_gem_context_create_param(struct i915_gem_context *ctx,
-> +						     struct drm_i915_gem_context_param *args)
-> +{
-> +	return 0;
-> +}
-> +
-> +static inline bool intel_pxp_gem_context_protected_param_valid(struct i915_gem_context *ctx)
-> +{
-> +	return false;
-> +}
->  #endif
->  
->  #endif /* __INTEL_PXP_H__ */
-> diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
-> index 1987e2ea79a3..00fd1c2bcbb3 100644
-> --- a/include/uapi/drm/i915_drm.h
-> +++ b/include/uapi/drm/i915_drm.h
-> @@ -1694,6 +1694,15 @@ struct drm_i915_gem_context_param {
->   * Default is 16 KiB.
->   */
->  #define I915_CONTEXT_PARAM_RINGSIZE	0xc
-> +
-> +/*
-> + * I915_CONTEXT_PARAM_PROTECTED_CONTENT:
-> + *
-> + * If set to true (1) PAVP content protection is enabled.
-> + * When enabled, the context is marked unrecoverable and may
-> + * become invalid due to PAVP teardown event or other error.
-> + */
-> +#define I915_CONTEXT_PARAM_PROTECTED_CONTENT    0xd
->  /* Must be kept compact -- no holes and well documented */
->  
->  	__u64 value;
-> -- 
-> 2.17.1
-> 
-> _______________________________________________
-> Intel-gfx mailing list
-> Intel-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+diff --git a/drivers/gpu/drm/i915/i915_gem.c b/drivers/gpu/drm/i915/i915_gem.c
+index 9b04dff5eb32..1c799d0006c8 100644
+--- a/drivers/gpu/drm/i915/i915_gem.c
++++ b/drivers/gpu/drm/i915/i915_gem.c
+@@ -366,6 +366,18 @@ i915_gem_gtt_pread(struct drm_i915_gem_object *obj,
+ 	return ret;
+ }
+ 
++static bool gem_has_pread_pwrite(struct drm_device *dev)
++{
++	/*
++	 * FIXME: Finally we only want to enable this for _new_ Gen12+
++	 * platforms but for now for CI purposes declare pread/pwrite are
++	 * unavailable for all Gen11 and Gen12 platforms so that the IGT
++	 * changes which handle absence of pread/pwrite ioctl's can be
++	 * validated.
++	*/
++	return INTEL_GEN(to_i915(dev)) < 11;
++}
++
+ /**
+  * Reads data from the object referenced by handle.
+  * @dev: drm device pointer
+@@ -382,6 +394,9 @@ i915_gem_pread_ioctl(struct drm_device *dev, void *data,
+ 	struct drm_i915_gem_object *obj;
+ 	int ret;
+ 
++	if (!gem_has_pread_pwrite(dev))
++		return -EOPNOTSUPP;
++
+ 	if (args->size == 0)
+ 		return 0;
+ 
+@@ -687,6 +702,9 @@ i915_gem_pwrite_ioctl(struct drm_device *dev, void *data,
+ 	struct drm_i915_gem_object *obj;
+ 	int ret;
+ 
++	if (!gem_has_pread_pwrite(dev))
++		return -EOPNOTSUPP;
++
+ 	if (args->size == 0)
+ 		return 0;
+ 
+-- 
+2.29.2
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
