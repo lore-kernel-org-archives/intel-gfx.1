@@ -7,38 +7,48 @@ X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 231A4C433DB
-	for <intel-gfx@archiver.kernel.org>; Thu, 21 Jan 2021 16:09:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6CC7FC433E0
+	for <intel-gfx@archiver.kernel.org>; Thu, 21 Jan 2021 16:09:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 990A123A1E
-	for <intel-gfx@archiver.kernel.org>; Thu, 21 Jan 2021 16:09:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 990A123A1E
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
+	by mail.kernel.org (Postfix) with ESMTPS id D49A323A1E
+	for <intel-gfx@archiver.kernel.org>; Thu, 21 Jan 2021 16:09:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D49A323A1E
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=etezian.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8EA806E09E;
-	Thu, 21 Jan 2021 16:08:59 +0000 (UTC)
-Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C9436E093
- for <Intel-gfx@lists.freedesktop.org>; Thu, 21 Jan 2021 16:08:56 +0000 (UTC)
-X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
- x-ip-name=78.156.65.138; 
-Received: from localhost (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP (TLS) id
- 23662533-1500050 for multiple; Thu, 21 Jan 2021 16:08:52 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 427516E093;
+	Thu, 21 Jan 2021 16:09:47 +0000 (UTC)
+Received: from 2.mo3.mail-out.ovh.net (2.mo3.mail-out.ovh.net [46.105.75.36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E80226E093
+ for <intel-gfx@lists.freedesktop.org>; Thu, 21 Jan 2021 16:09:45 +0000 (UTC)
+Received: from player688.ha.ovh.net (unknown [10.110.115.111])
+ by mo3.mail-out.ovh.net (Postfix) with ESMTP id 922AC2718EC
+ for <intel-gfx@lists.freedesktop.org>; Thu, 21 Jan 2021 16:49:59 +0100 (CET)
+Received: from etezian.org (213-243-141-64.bb.dnainternet.fi [213.243.141.64])
+ (Authenticated sender: andi@etezian.org)
+ by player688.ha.ovh.net (Postfix) with ESMTPSA id F2EB31A3019AC;
+ Thu, 21 Jan 2021 15:49:53 +0000 (UTC)
+Authentication-Results: garm.ovh; auth=pass
+ (GARM-105G0066b14ca50-f8f7-4455-ad37-e001e1e8492d,
+ CAC1A779C7E69CC0B09A0D0E1FF85449833E868F) smtp.auth=andi@etezian.org
+X-OVh-ClientIp: 213.243.141.64
+Date: Thu, 21 Jan 2021 17:49:49 +0200
+From: Andi Shyti <andi@etezian.org>
+To: Chris Wilson <chris@chris-wilson.co.uk>
+Message-ID: <YAmincp4malZTRBe@jack.zhora.eu>
+References: <20210120122205.2808-1-chris@chris-wilson.co.uk>
+ <20210120122205.2808-5-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-In-Reply-To: <20210119074320.28768-2-sean.z.huang@intel.com>
-References: <20210119074320.28768-1-sean.z.huang@intel.com>
- <20210119074320.28768-2-sean.z.huang@intel.com>
-From: Chris Wilson <chris@chris-wilson.co.uk>
-To: "Huang, Sean Z" <sean.z.huang@intel.com>, Intel-gfx@lists.freedesktop.org
-Date: Thu, 21 Jan 2021 16:08:52 +0000
-Message-ID: <161124533227.3166.9812914686571768459@build.alporthouse.com>
-User-Agent: alot/0.9
-Subject: Re: [Intel-gfx] [RFC-v23 01/13] drm/i915/pxp: Introduce Intel PXP
- component
+Content-Disposition: inline
+In-Reply-To: <20210120122205.2808-5-chris@chris-wilson.co.uk>
+X-Ovh-Tracer-Id: 11720336556518523401
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeduledrudeggdekgecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpeffhffvuffkfhggtggujgesthdtredttddtvdenucfhrhhomheptehnughiucfuhhihthhiuceorghnughisegvthgviihirghnrdhorhhgqeenucggtffrrghtthgvrhhnpedtgfduudfhfeeuueejfeeihedtfeetgfegveehgfeuleelhfduteegieekudeifeenucfkpheptddrtddrtddrtddpvddufedrvdegfedrudeguddrieegnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmohguvgepshhmthhpqdhouhhtpdhhvghlohepphhlrgihvghrieekkedrhhgrrdhovhhhrdhnvghtpdhinhgvtheptddrtddrtddrtddpmhgrihhlfhhrohhmpegrnhguihesvghtvgiiihgrnhdrohhrghdprhgtphhtthhopehinhhtvghlqdhgfhigsehlihhsthhsrdhfrhgvvgguvghskhhtohhprdhorhhg
+Subject: Re: [Intel-gfx] [PATCH 05/10] drm/i915: Replace engine->schedule()
+ with a known request operation
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,265 +61,53 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: kumar.gaurav@intel.com
+Cc: intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Quoting Huang, Sean Z (2021-01-19 07:43:08)
-> PXP (Protected Xe Path) is an i915 componment, available on GEN12+,
-> that helps to establish the hardware protected session and manage
-> the status of the alive software session, as well as its life cycle.
+Hi Chris,
+
+On Wed, Jan 20, 2021 at 12:22:00PM +0000, Chris Wilson wrote:
+> Looking to the future, we want to set the scheduling attributes
+> explicitly and so replace the generic engine->schedule() with the more
+> direct i915_request_set_priority()
 > 
-> This patch series is to allow the kernel space to create and
-> manage a single hardware session (a.k.a default session or
-> arbitrary session). So Mesa can allocate the protected buffer,
-> which is encrypted with the leverage of the arbitrary hardware
-> session.
+> What it loses in removing the 'schedule' name from the function, it
+> gains in having an explicit entry point with a stated goal.
 > 
-> rev21:
->     - Remove the term "Mesa" from the help description of Kconfig
->     - Remove unnecessary "select INTEL_MEI_TXE" from DRM_I915_PXP
->       in Kconfig
-> 
-> Signed-off-by: Huang, Sean Z <sean.z.huang@intel.com>
+> Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 > ---
->  drivers/gpu/drm/i915/Kconfig                 | 21 ++++++++++++++
->  drivers/gpu/drm/i915/Makefile                |  5 ++++
->  drivers/gpu/drm/i915/gt/intel_gt.c           |  5 ++++
->  drivers/gpu/drm/i915/gt/intel_gt_types.h     |  3 ++
->  drivers/gpu/drm/i915/pxp/intel_pxp.c         | 29 ++++++++++++++++++++
->  drivers/gpu/drm/i915/pxp/intel_pxp.h         | 25 +++++++++++++++++
->  drivers/gpu/drm/i915/pxp/intel_pxp_context.c | 25 +++++++++++++++++
->  drivers/gpu/drm/i915/pxp/intel_pxp_context.h | 15 ++++++++++
->  drivers/gpu/drm/i915/pxp/intel_pxp_types.h   | 23 ++++++++++++++++
->  9 files changed, 151 insertions(+)
->  create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp.c
->  create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp.h
->  create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_context.c
->  create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_context.h
->  create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_types.h
+>  drivers/gpu/drm/i915/display/intel_display.c  |  5 ++-
+>  drivers/gpu/drm/i915/gem/i915_gem_object.h    |  5 ++-
+>  drivers/gpu/drm/i915/gem/i915_gem_wait.c      | 29 +++++-----------
+>  drivers/gpu/drm/i915/gt/intel_engine_cs.c     |  3 --
+>  .../gpu/drm/i915/gt/intel_engine_heartbeat.c  |  4 +--
+>  drivers/gpu/drm/i915/gt/intel_engine_types.h  | 29 ++++++++--------
+>  drivers/gpu/drm/i915/gt/intel_engine_user.c   |  2 +-
+>  .../drm/i915/gt/intel_execlists_submission.c  |  3 +-
+>  drivers/gpu/drm/i915/gt/selftest_execlists.c  | 33 +++++--------------
+>  drivers/gpu/drm/i915/gt/selftest_hangcheck.c  | 11 +++----
+>  .../gpu/drm/i915/gt/uc/intel_guc_submission.c |  1 -
+>  drivers/gpu/drm/i915/i915_request.c           | 10 +++---
+>  drivers/gpu/drm/i915/i915_scheduler.c         | 15 +++++----
+>  drivers/gpu/drm/i915/i915_scheduler.h         |  3 +-
+>  14 files changed, 59 insertions(+), 94 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/i915/Kconfig b/drivers/gpu/drm/i915/Kconfig
-> index 1e1cb245fca7..f0a8c46126d8 100644
-> --- a/drivers/gpu/drm/i915/Kconfig
-> +++ b/drivers/gpu/drm/i915/Kconfig
-> @@ -130,6 +130,27 @@ config DRM_I915_GVT_KVMGT
->           Choose this option if you want to enable KVMGT support for
->           Intel GVT-g.
->  
-> +config DRM_I915_PXP
-> +       bool "Enable Intel PXP support for Intel Gen12+ platform"
-> +       depends on DRM_I915
-> +       select INTEL_MEI
-> +       select INTEL_MEI_ME
-> +       select INTEL_MEI_PXP
-> +       default y
-
-That's a bitter pill to swallow. Note that
-
-	INTEL_MEI depends on x86 && PCI
-
-so we really should only be
-
-	depends on INTEL_MEI if X86 && PCI
-
-> +       help
-> +         This option selects INTEL_MEI_ME if it isn't already selected to
-> +         enabled full PXP Services on Intel platforms.
-> +
-> +         PXP (Protected Xe Path) is an i915 componment, available on GEN12+,
-
-GEN12+ GPUs
-
-We have to be careful to distinguish GPU generation from processor
-generation. Too easy for the reader to confuse.
-
-> +         that helps to establish the hardware protected session and manage
-> +         the status of the alive software session, as well as its life cycle.
-> +
-
-> +         This patch series is to allow the kernel space to create and
-> +         manage a single hardware session (a.k.a default session or
-> +         arbitrary session). So user space can allocate the protected buffer,
-> +         which is encrypted with the leverage of the arbitrary hardware
-> +         session.
-
-Patch series in a user help message? This paragraph looks like it
-doesn't belong here.
-
-> +
->  menu "drm/i915 Debugging"
->  depends on DRM_I915
->  depends on EXPERT
-> diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
-> index 006dec54408d..9d27e2d8decc 100644
-> --- a/drivers/gpu/drm/i915/Makefile
-> +++ b/drivers/gpu/drm/i915/Makefile
-> @@ -265,6 +265,11 @@ i915-y += \
->  
->  i915-y += i915_perf.o
->  
-> +# Protected execution platform (PXP) support
-> +i915-$(CONFIG_DRM_I915_PXP) += \
-> +       pxp/intel_pxp.o \
-> +       pxp/intel_pxp_context.o
-> +
->  # Post-mortem debug and GPU hang state capture
->  i915-$(CONFIG_DRM_I915_CAPTURE_ERROR) += i915_gpu_error.o
->  i915-$(CONFIG_DRM_I915_SELFTEST) += \
-> diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt/intel_gt.c
-> index d8e1ab412634..336ad7deae06 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_gt.c
-> +++ b/drivers/gpu/drm/i915/gt/intel_gt.c
-> @@ -18,6 +18,7 @@
->  #include "intel_uncore.h"
->  #include "intel_pm.h"
->  #include "shmem_utils.h"
-> +#include "pxp/intel_pxp.h"
->  
->  void intel_gt_init_early(struct intel_gt *gt, struct drm_i915_private *i915)
+> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+> index 6f04f85812fe..265344d98cbb 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display.c
+> +++ b/drivers/gpu/drm/i915/display/intel_display.c
+> @@ -13543,7 +13543,6 @@ int
+>  intel_prepare_plane_fb(struct drm_plane *_plane,
+>  		       struct drm_plane_state *_new_plane_state)
 >  {
-> @@ -584,6 +585,8 @@ int intel_gt_init(struct intel_gt *gt)
->         if (err)
->                 goto err_gt;
->  
-> +       intel_pxp_init(&gt->pxp);
-> +
->         goto out_fw;
->  err_gt:
->         __intel_gt_disable(gt);
-> @@ -607,6 +610,8 @@ void intel_gt_driver_remove(struct intel_gt *gt)
->  {
->         __intel_gt_disable(gt);
->  
-> +       intel_pxp_fini(&gt->pxp);
-> +
->         intel_uc_driver_remove(&gt->uc);
->  
->         intel_engines_release(gt);
-> diff --git a/drivers/gpu/drm/i915/gt/intel_gt_types.h b/drivers/gpu/drm/i915/gt/intel_gt_types.h
-> index a83d3e18254d..c4760e2722fd 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_gt_types.h
-> +++ b/drivers/gpu/drm/i915/gt/intel_gt_types.h
-> @@ -23,6 +23,7 @@
->  #include "intel_rc6_types.h"
->  #include "intel_rps_types.h"
->  #include "intel_wakeref.h"
-> +#include "pxp/intel_pxp_types.h"
->  
->  struct drm_i915_private;
->  struct i915_ggtt;
-> @@ -145,6 +146,8 @@ struct intel_gt {
->                 /* Slice/subslice/EU info */
->                 struct sseu_dev_info sseu;
->         } info;
-> +
-> +       struct intel_pxp pxp;
->  };
->  
->  enum intel_gt_scratch_field {
-> diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.c b/drivers/gpu/drm/i915/pxp/intel_pxp.c
-> new file mode 100644
-> index 000000000000..9bc3c7e30654
-> --- /dev/null
-> +++ b/drivers/gpu/drm/i915/pxp/intel_pxp.c
-> @@ -0,0 +1,29 @@
-> +// SPDX-License-Identifier: MIT
-> +/*
-> + * Copyright(c) 2020 Intel Corporation.
-> + */
-> +#include "i915_drv.h"
-> +#include "intel_pxp.h"
-> +#include "intel_pxp_context.h"
-> +
-> +void intel_pxp_init(struct intel_pxp *pxp)
-> +{
-> +       struct intel_gt *gt = container_of(pxp, struct intel_gt, pxp);
-> +
-> +       if (INTEL_GEN(gt->i915) < 12)
-> +               return;
-> +
-> +       intel_pxp_ctx_init(&pxp->ctx);
-> +
-> +       drm_info(&gt->i915->drm, "Protected Xe Path (PXP) protected content support initialized\n");
-> +}
-> +
-> +void intel_pxp_fini(struct intel_pxp *pxp)
-> +{
-> +       struct intel_gt *gt = container_of(pxp, struct intel_gt, pxp);
-> +
-> +       if (INTEL_GEN(gt->i915) < 12)
-> +               return;
-> +
-> +       intel_pxp_ctx_fini(&pxp->ctx);
-> +}
-> diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.h b/drivers/gpu/drm/i915/pxp/intel_pxp.h
-> new file mode 100644
-> index 000000000000..f47bc6bea34f
-> --- /dev/null
-> +++ b/drivers/gpu/drm/i915/pxp/intel_pxp.h
-> @@ -0,0 +1,25 @@
-> +/* SPDX-License-Identifier: MIT */
-> +/*
-> + * Copyright(c) 2020, Intel Corporation. All rights reserved.
-> + */
-> +
-> +#ifndef __INTEL_PXP_H__
-> +#define __INTEL_PXP_H__
-> +
-> +#include "intel_pxp_types.h"
-> +
-> +#ifdef CONFIG_DRM_I915_PXP
-> +void intel_pxp_init(struct intel_pxp *pxp);
-> +void intel_pxp_fini(struct intel_pxp *pxp);
-> +#else
-> +static inline void intel_pxp_init(struct intel_pxp *pxp)
-> +{
-> +       return 0;
-> +}
-> +
-> +static inline void intel_pxp_fini(struct intel_pxp *pxp)
-> +{
-> +}
-> +#endif
-> +
-> +#endif /* __INTEL_PXP_H__ */
-> diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_context.c b/drivers/gpu/drm/i915/pxp/intel_pxp_context.c
-> new file mode 100644
-> index 000000000000..2be6bf2f0d0f
-> --- /dev/null
-> +++ b/drivers/gpu/drm/i915/pxp/intel_pxp_context.c
-> @@ -0,0 +1,25 @@
-> +// SPDX-License-Identifier: MIT
-> +/*
-> + * Copyright(c) 2020, Intel Corporation. All rights reserved.
-> + */
-> +
-> +#include "intel_pxp_context.h"
-> +
-> +/**
-> + * intel_pxp_ctx_init - To init a pxp context.
-> + * @ctx: pointer to ctx structure.
-> + */
-> +void intel_pxp_ctx_init(struct pxp_context *ctx)
-> +{
-> +       mutex_init(&ctx->mutex);
-> +       ctx->inited = true;
-> +}
-> +
-> +/**
-> + * intel_pxp_ctx_fini - To finish the pxp context.
-> + * @ctx: pointer to ctx structure.
-> + */
-> +void intel_pxp_ctx_fini(struct pxp_context *ctx)
-> +{
-> +       ctx->inited = false;
+> -	struct i915_sched_attr attr = { .priority = I915_PRIORITY_DISPLAY };
 
-Is something wrong with the setup code? What has access to PXP beyond
-your control?
--Chris
+do we still need the 'i915_scheduler_types' type?
+
+Andi
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
