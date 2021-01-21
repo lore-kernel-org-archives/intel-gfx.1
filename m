@@ -8,49 +8,48 @@ X-Spam-Status: No, score=-10.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A9DBEC433E6
-	for <intel-gfx@archiver.kernel.org>; Thu, 21 Jan 2021 21:59:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4BD74C433E9
+	for <intel-gfx@archiver.kernel.org>; Thu, 21 Jan 2021 21:59:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5C21C23A5C
-	for <intel-gfx@archiver.kernel.org>; Thu, 21 Jan 2021 21:59:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5C21C23A5C
+	by mail.kernel.org (Postfix) with ESMTPS id 0E68E23A5C
+	for <intel-gfx@archiver.kernel.org>; Thu, 21 Jan 2021 21:59:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0E68E23A5C
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E30716E962;
-	Thu, 21 Jan 2021 21:59:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D17486E96A;
+	Thu, 21 Jan 2021 21:59:53 +0000 (UTC)
 Received: from us-smtp-delivery-44.mimecast.com
  (us-smtp-delivery-44.mimecast.com [205.139.111.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 185DA6E963
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4735E6E966
  for <intel-gfx@lists.freedesktop.org>; Thu, 21 Jan 2021 21:59:48 +0000 (UTC)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-442-TfEpgxLBMGaMNjSm4Ei33g-1; Thu, 21 Jan 2021 16:59:45 -0500
-X-MC-Unique: TfEpgxLBMGaMNjSm4Ei33g-1
+ us-mta-442-IZ9_jlsIM4mH9rw6Ek_S3w-1; Thu, 21 Jan 2021 16:59:45 -0500
+X-MC-Unique: IZ9_jlsIM4mH9rw6Ek_S3w-1
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
  [10.5.11.11])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5C32380A5F4;
- Thu, 21 Jan 2021 21:59:41 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A080B835E04
+ for <intel-gfx@lists.freedesktop.org>; Thu, 21 Jan 2021 21:59:43 +0000 (UTC)
 Received: from dreadlord-bne-redhat-com.bne.redhat.com (unknown [10.64.32.209])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 65BDC19CB1;
- Thu, 21 Jan 2021 21:59:40 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id D734319CB1;
+ Thu, 21 Jan 2021 21:59:42 +0000 (UTC)
 From: Dave Airlie <airlied@gmail.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 22 Jan 2021 07:59:21 +1000
-Message-Id: <20210121215924.18964-9-airlied@gmail.com>
+Date: Fri, 22 Jan 2021 07:59:23 +1000
+Message-Id: <20210121215924.18964-11-airlied@gmail.com>
 In-Reply-To: <20210121215924.18964-1-airlied@gmail.com>
 References: <20210121215924.18964-1-airlied@gmail.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=airlied@gmail.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: gmail.com
-Subject: [Intel-gfx] [PATCH 08/10] drm/i915: migrate i9xx plane get config
+Subject: [Intel-gfx] [PATCH 10/10] drm/i915: move ddi pll state get to dpll
+ mgr
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,173 +63,491 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Dave Airlie <airlied@redhat.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-RnJvbTogRGF2ZSBBaXJsaWUgPGFpcmxpZWRAcmVkaGF0LmNvbT4KCk1pZ3JhdGUgdGhpcyBjb2Rl
-IG91dCBsaWtlIHRoZSBza3lsYWtlIGNvZGUuCgpTaWduZWQtb2ZmLWJ5OiBEYXZlIEFpcmxpZSA8
-YWlybGllZEByZWRoYXQuY29tPgpSZXZpZXdlZC1ieTogVmlsbGUgU3lyasOkbMOkIDx2aWxsZS5z
-eXJqYWxhQGxpbnV4LmludGVsLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5
-L2k5eHhfcGxhbmUuYyAgICB8IDExOSArKysrKysrKysrKysrKysrKysrCiBkcml2ZXJzL2dwdS9k
-cm0vaTkxNS9kaXNwbGF5L2k5eHhfcGxhbmUuaCAgICB8ICAgNCArCiBkcml2ZXJzL2dwdS9kcm0v
-aTkxNS9kaXNwbGF5L2ludGVsX2Rpc3BsYXkuYyB8IDExOSAtLS0tLS0tLS0tLS0tLS0tLS0tCiAz
-IGZpbGVzIGNoYW5nZWQsIDEyMyBpbnNlcnRpb25zKCspLCAxMTkgZGVsZXRpb25zKC0pCgpkaWZm
-IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pOXh4X3BsYW5lLmMgYi9kcml2
-ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2k5eHhfcGxhbmUuYwppbmRleCA2YzU2ODA3OWY0OTIu
-LmEwNjNhOTJmMDRkYyAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9p
-OXh4X3BsYW5lLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pOXh4X3BsYW5l
-LmMKQEAgLTY5OCwzICs2OTgsMTIyIEBAIGludGVsX3ByaW1hcnlfcGxhbmVfY3JlYXRlKHN0cnVj
-dCBkcm1faTkxNV9wcml2YXRlICpkZXZfcHJpdiwgZW51bSBwaXBlIHBpcGUpCiAJcmV0dXJuIEVS
-Ul9QVFIocmV0KTsKIH0KIAorc3RhdGljIGludCBpOXh4X2Zvcm1hdF90b19mb3VyY2MoaW50IGZv
-cm1hdCkKK3sKKwlzd2l0Y2ggKGZvcm1hdCkgeworCWNhc2UgRElTUFBMQU5FXzhCUFA6CisJCXJl
-dHVybiBEUk1fRk9STUFUX0M4OworCWNhc2UgRElTUFBMQU5FX0JHUkE1NTU6CisJCXJldHVybiBE
-Uk1fRk9STUFUX0FSR0IxNTU1OworCWNhc2UgRElTUFBMQU5FX0JHUlg1NTU6CisJCXJldHVybiBE
-Uk1fRk9STUFUX1hSR0IxNTU1OworCWNhc2UgRElTUFBMQU5FX0JHUlg1NjU6CisJCXJldHVybiBE
-Uk1fRk9STUFUX1JHQjU2NTsKKwlkZWZhdWx0OgorCWNhc2UgRElTUFBMQU5FX0JHUlg4ODg6CisJ
-CXJldHVybiBEUk1fRk9STUFUX1hSR0I4ODg4OworCWNhc2UgRElTUFBMQU5FX1JHQlg4ODg6CisJ
-CXJldHVybiBEUk1fRk9STUFUX1hCR1I4ODg4OworCWNhc2UgRElTUFBMQU5FX0JHUkE4ODg6CisJ
-CXJldHVybiBEUk1fRk9STUFUX0FSR0I4ODg4OworCWNhc2UgRElTUFBMQU5FX1JHQkE4ODg6CisJ
-CXJldHVybiBEUk1fRk9STUFUX0FCR1I4ODg4OworCWNhc2UgRElTUFBMQU5FX0JHUlgxMDEwMTA6
-CisJCXJldHVybiBEUk1fRk9STUFUX1hSR0IyMTAxMDEwOworCWNhc2UgRElTUFBMQU5FX1JHQlgx
-MDEwMTA6CisJCXJldHVybiBEUk1fRk9STUFUX1hCR1IyMTAxMDEwOworCWNhc2UgRElTUFBMQU5F
-X0JHUkExMDEwMTA6CisJCXJldHVybiBEUk1fRk9STUFUX0FSR0IyMTAxMDEwOworCWNhc2UgRElT
-UFBMQU5FX1JHQkExMDEwMTA6CisJCXJldHVybiBEUk1fRk9STUFUX0FCR1IyMTAxMDEwOworCWNh
-c2UgRElTUFBMQU5FX1JHQlgxNjE2MTY6CisJCXJldHVybiBEUk1fRk9STUFUX1hCR1IxNjE2MTYx
-NkY7CisJfQorfQorCit2b2lkCitpOXh4X2dldF9pbml0aWFsX3BsYW5lX2NvbmZpZyhzdHJ1Y3Qg
-aW50ZWxfY3J0YyAqY3J0YywKKwkJCSAgICAgIHN0cnVjdCBpbnRlbF9pbml0aWFsX3BsYW5lX2Nv
-bmZpZyAqcGxhbmVfY29uZmlnKQoreworCXN0cnVjdCBkcm1fZGV2aWNlICpkZXYgPSBjcnRjLT5i
-YXNlLmRldjsKKwlzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqZGV2X3ByaXYgPSB0b19pOTE1KGRl
-dik7CisJc3RydWN0IGludGVsX3BsYW5lICpwbGFuZSA9IHRvX2ludGVsX3BsYW5lKGNydGMtPmJh
-c2UucHJpbWFyeSk7CisJZW51bSBpOXh4X3BsYW5lX2lkIGk5eHhfcGxhbmUgPSBwbGFuZS0+aTl4
-eF9wbGFuZTsKKwllbnVtIHBpcGUgcGlwZTsKKwl1MzIgdmFsLCBiYXNlLCBvZmZzZXQ7CisJaW50
-IGZvdXJjYywgcGl4ZWxfZm9ybWF0OworCXVuc2lnbmVkIGludCBhbGlnbmVkX2hlaWdodDsKKwlz
-dHJ1Y3QgZHJtX2ZyYW1lYnVmZmVyICpmYjsKKwlzdHJ1Y3QgaW50ZWxfZnJhbWVidWZmZXIgKmlu
-dGVsX2ZiOworCisJaWYgKCFwbGFuZS0+Z2V0X2h3X3N0YXRlKHBsYW5lLCAmcGlwZSkpCisJCXJl
-dHVybjsKKworCWRybV9XQVJOX09OKGRldiwgcGlwZSAhPSBjcnRjLT5waXBlKTsKKworCWludGVs
-X2ZiID0ga3phbGxvYyhzaXplb2YoKmludGVsX2ZiKSwgR0ZQX0tFUk5FTCk7CisJaWYgKCFpbnRl
-bF9mYikgeworCQlkcm1fZGJnX2ttcygmZGV2X3ByaXYtPmRybSwgImZhaWxlZCB0byBhbGxvYyBm
-YlxuIik7CisJCXJldHVybjsKKwl9CisKKwlmYiA9ICZpbnRlbF9mYi0+YmFzZTsKKworCWZiLT5k
-ZXYgPSBkZXY7CisKKwl2YWwgPSBpbnRlbF9kZV9yZWFkKGRldl9wcml2LCBEU1BDTlRSKGk5eHhf
-cGxhbmUpKTsKKworCWlmIChJTlRFTF9HRU4oZGV2X3ByaXYpID49IDQpIHsKKwkJaWYgKHZhbCAm
-IERJU1BQTEFORV9USUxFRCkgeworCQkJcGxhbmVfY29uZmlnLT50aWxpbmcgPSBJOTE1X1RJTElO
-R19YOworCQkJZmItPm1vZGlmaWVyID0gSTkxNV9GT1JNQVRfTU9EX1hfVElMRUQ7CisJCX0KKwor
-CQlpZiAodmFsICYgRElTUFBMQU5FX1JPVEFURV8xODApCisJCQlwbGFuZV9jb25maWctPnJvdGF0
-aW9uID0gRFJNX01PREVfUk9UQVRFXzE4MDsKKwl9CisKKwlpZiAoSVNfQ0hFUlJZVklFVyhkZXZf
-cHJpdikgJiYgcGlwZSA9PSBQSVBFX0IgJiYKKwkgICAgdmFsICYgRElTUFBMQU5FX01JUlJPUikK
-KwkJcGxhbmVfY29uZmlnLT5yb3RhdGlvbiB8PSBEUk1fTU9ERV9SRUZMRUNUX1g7CisKKwlwaXhl
-bF9mb3JtYXQgPSB2YWwgJiBESVNQUExBTkVfUElYRk9STUFUX01BU0s7CisJZm91cmNjID0gaTl4
-eF9mb3JtYXRfdG9fZm91cmNjKHBpeGVsX2Zvcm1hdCk7CisJZmItPmZvcm1hdCA9IGRybV9mb3Jt
-YXRfaW5mbyhmb3VyY2MpOworCisJaWYgKElTX0hBU1dFTEwoZGV2X3ByaXYpIHx8IElTX0JST0FE
-V0VMTChkZXZfcHJpdikpIHsKKwkJb2Zmc2V0ID0gaW50ZWxfZGVfcmVhZChkZXZfcHJpdiwgRFNQ
-T0ZGU0VUKGk5eHhfcGxhbmUpKTsKKwkJYmFzZSA9IGludGVsX2RlX3JlYWQoZGV2X3ByaXYsIERT
-UFNVUkYoaTl4eF9wbGFuZSkpICYgMHhmZmZmZjAwMDsKKwl9IGVsc2UgaWYgKElOVEVMX0dFTihk
-ZXZfcHJpdikgPj0gNCkgeworCQlpZiAocGxhbmVfY29uZmlnLT50aWxpbmcpCisJCQlvZmZzZXQg
-PSBpbnRlbF9kZV9yZWFkKGRldl9wcml2LAorCQkJCQkgICAgICAgRFNQVElMRU9GRihpOXh4X3Bs
-YW5lKSk7CisJCWVsc2UKKwkJCW9mZnNldCA9IGludGVsX2RlX3JlYWQoZGV2X3ByaXYsCisJCQkJ
-CSAgICAgICBEU1BMSU5PRkYoaTl4eF9wbGFuZSkpOworCQliYXNlID0gaW50ZWxfZGVfcmVhZChk
-ZXZfcHJpdiwgRFNQU1VSRihpOXh4X3BsYW5lKSkgJiAweGZmZmZmMDAwOworCX0gZWxzZSB7CisJ
-CWJhc2UgPSBpbnRlbF9kZV9yZWFkKGRldl9wcml2LCBEU1BBRERSKGk5eHhfcGxhbmUpKTsKKwl9
-CisJcGxhbmVfY29uZmlnLT5iYXNlID0gYmFzZTsKKworCXZhbCA9IGludGVsX2RlX3JlYWQoZGV2
-X3ByaXYsIFBJUEVTUkMocGlwZSkpOworCWZiLT53aWR0aCA9ICgodmFsID4+IDE2KSAmIDB4ZmZm
-KSArIDE7CisJZmItPmhlaWdodCA9ICgodmFsID4+IDApICYgMHhmZmYpICsgMTsKKworCXZhbCA9
-IGludGVsX2RlX3JlYWQoZGV2X3ByaXYsIERTUFNUUklERShpOXh4X3BsYW5lKSk7CisJZmItPnBp
-dGNoZXNbMF0gPSB2YWwgJiAweGZmZmZmZmMwOworCisJYWxpZ25lZF9oZWlnaHQgPSBpbnRlbF9m
-Yl9hbGlnbl9oZWlnaHQoZmIsIDAsIGZiLT5oZWlnaHQpOworCisJcGxhbmVfY29uZmlnLT5zaXpl
-ID0gZmItPnBpdGNoZXNbMF0gKiBhbGlnbmVkX2hlaWdodDsKKworCWRybV9kYmdfa21zKCZkZXZf
-cHJpdi0+ZHJtLAorCQkgICAgIiVzLyVzIHdpdGggZmI6IHNpemU9JWR4JWRAJWQsIG9mZnNldD0l
-eCwgcGl0Y2ggJWQsIHNpemUgMHgleFxuIiwKKwkJICAgIGNydGMtPmJhc2UubmFtZSwgcGxhbmUt
-PmJhc2UubmFtZSwgZmItPndpZHRoLCBmYi0+aGVpZ2h0LAorCQkgICAgZmItPmZvcm1hdC0+Y3Bw
-WzBdICogOCwgYmFzZSwgZmItPnBpdGNoZXNbMF0sCisJCSAgICBwbGFuZV9jb25maWctPnNpemUp
-OworCisJcGxhbmVfY29uZmlnLT5mYiA9IGludGVsX2ZiOworfQorCmRpZmYgLS1naXQgYS9kcml2
-ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2k5eHhfcGxhbmUuaCBiL2RyaXZlcnMvZ3B1L2RybS9p
-OTE1L2Rpc3BsYXkvaTl4eF9wbGFuZS5oCmluZGV4IGJjMjgzNGE2MjczNS4uMTkxYzMxMmE3ZTk3
-IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2k5eHhfcGxhbmUuaAor
-KysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2k5eHhfcGxhbmUuaApAQCAtMTAsNiAr
-MTAsOCBAQAogCiBlbnVtIHBpcGU7CiBzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZTsKK3N0cnVjdCBp
-bnRlbF9jcnRjOworc3RydWN0IGludGVsX2luaXRpYWxfcGxhbmVfY29uZmlnOwogc3RydWN0IGlu
-dGVsX3BsYW5lOwogc3RydWN0IGludGVsX3BsYW5lX3N0YXRlOwogCkBAIC0yMSw0ICsyMyw2IEBA
-IGludCBpOXh4X2NoZWNrX3BsYW5lX3N1cmZhY2Uoc3RydWN0IGludGVsX3BsYW5lX3N0YXRlICpw
-bGFuZV9zdGF0ZSk7CiBzdHJ1Y3QgaW50ZWxfcGxhbmUgKgogaW50ZWxfcHJpbWFyeV9wbGFuZV9j
-cmVhdGUoc3RydWN0IGRybV9pOTE1X3ByaXZhdGUgKmRldl9wcml2LCBlbnVtIHBpcGUgcGlwZSk7
-CiAKK3ZvaWQgaTl4eF9nZXRfaW5pdGlhbF9wbGFuZV9jb25maWcoc3RydWN0IGludGVsX2NydGMg
-KmNydGMsCisJCQkJICAgc3RydWN0IGludGVsX2luaXRpYWxfcGxhbmVfY29uZmlnICpwbGFuZV9j
-b25maWcpOwogI2VuZGlmCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5
-L2ludGVsX2Rpc3BsYXkuYyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGlz
-cGxheS5jCmluZGV4IDdhODRlMTliYzhjMC4uM2RiODBiMjE0MzlmIDEwMDY0NAotLS0gYS9kcml2
-ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Rpc3BsYXkuYworKysgYi9kcml2ZXJzL2dw
-dS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Rpc3BsYXkuYwpAQCAtMjE2MiwzOSArMjE2Miw2IEBA
-IGludGVsX3BsYW5lX2NvbXB1dGVfZ3R0KHN0cnVjdCBpbnRlbF9wbGFuZV9zdGF0ZSAqcGxhbmVf
-c3RhdGUpCiAJcmV0dXJuIGludGVsX3BsYW5lX2NoZWNrX3N0cmlkZShwbGFuZV9zdGF0ZSk7CiB9
-CiAKLXN0YXRpYyBpbnQgaTl4eF9mb3JtYXRfdG9fZm91cmNjKGludCBmb3JtYXQpCi17Ci0Jc3dp
-dGNoIChmb3JtYXQpIHsKLQljYXNlIERJU1BQTEFORV84QlBQOgotCQlyZXR1cm4gRFJNX0ZPUk1B
-VF9DODsKLQljYXNlIERJU1BQTEFORV9CR1JBNTU1OgotCQlyZXR1cm4gRFJNX0ZPUk1BVF9BUkdC
-MTU1NTsKLQljYXNlIERJU1BQTEFORV9CR1JYNTU1OgotCQlyZXR1cm4gRFJNX0ZPUk1BVF9YUkdC
-MTU1NTsKLQljYXNlIERJU1BQTEFORV9CR1JYNTY1OgotCQlyZXR1cm4gRFJNX0ZPUk1BVF9SR0I1
-NjU7Ci0JZGVmYXVsdDoKLQljYXNlIERJU1BQTEFORV9CR1JYODg4OgotCQlyZXR1cm4gRFJNX0ZP
-Uk1BVF9YUkdCODg4ODsKLQljYXNlIERJU1BQTEFORV9SR0JYODg4OgotCQlyZXR1cm4gRFJNX0ZP
-Uk1BVF9YQkdSODg4ODsKLQljYXNlIERJU1BQTEFORV9CR1JBODg4OgotCQlyZXR1cm4gRFJNX0ZP
-Uk1BVF9BUkdCODg4ODsKLQljYXNlIERJU1BQTEFORV9SR0JBODg4OgotCQlyZXR1cm4gRFJNX0ZP
-Uk1BVF9BQkdSODg4ODsKLQljYXNlIERJU1BQTEFORV9CR1JYMTAxMDEwOgotCQlyZXR1cm4gRFJN
-X0ZPUk1BVF9YUkdCMjEwMTAxMDsKLQljYXNlIERJU1BQTEFORV9SR0JYMTAxMDEwOgotCQlyZXR1
-cm4gRFJNX0ZPUk1BVF9YQkdSMjEwMTAxMDsKLQljYXNlIERJU1BQTEFORV9CR1JBMTAxMDEwOgot
-CQlyZXR1cm4gRFJNX0ZPUk1BVF9BUkdCMjEwMTAxMDsKLQljYXNlIERJU1BQTEFORV9SR0JBMTAx
-MDEwOgotCQlyZXR1cm4gRFJNX0ZPUk1BVF9BQkdSMjEwMTAxMDsKLQljYXNlIERJU1BQTEFORV9S
-R0JYMTYxNjE2OgotCQlyZXR1cm4gRFJNX0ZPUk1BVF9YQkdSMTYxNjE2MTZGOwotCX0KLX0KLQog
-c3RhdGljIHN0cnVjdCBpOTE1X3ZtYSAqCiBpbml0aWFsX3BsYW5lX3ZtYShzdHJ1Y3QgZHJtX2k5
-MTVfcHJpdmF0ZSAqaTkxNSwKIAkJICBzdHJ1Y3QgaW50ZWxfaW5pdGlhbF9wbGFuZV9jb25maWcg
-KnBsYW5lX2NvbmZpZykKQEAgLTU4NjYsOTIgKzU4MzMsNiBAQCBzdGF0aWMgdm9pZCB2bHZfY3J0
-Y19jbG9ja19nZXQoc3RydWN0IGludGVsX2NydGMgKmNydGMsCiAJcGlwZV9jb25maWctPnBvcnRf
-Y2xvY2sgPSB2bHZfY2FsY19kcGxsX3BhcmFtcyhyZWZjbGssICZjbG9jayk7CiB9CiAKLXN0YXRp
-YyB2b2lkCi1pOXh4X2dldF9pbml0aWFsX3BsYW5lX2NvbmZpZyhzdHJ1Y3QgaW50ZWxfY3J0YyAq
-Y3J0YywKLQkJCSAgICAgIHN0cnVjdCBpbnRlbF9pbml0aWFsX3BsYW5lX2NvbmZpZyAqcGxhbmVf
-Y29uZmlnKQotewotCXN0cnVjdCBkcm1fZGV2aWNlICpkZXYgPSBjcnRjLT5iYXNlLmRldjsKLQlz
-dHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqZGV2X3ByaXYgPSB0b19pOTE1KGRldik7Ci0Jc3RydWN0
-IGludGVsX3BsYW5lICpwbGFuZSA9IHRvX2ludGVsX3BsYW5lKGNydGMtPmJhc2UucHJpbWFyeSk7
-Ci0JZW51bSBpOXh4X3BsYW5lX2lkIGk5eHhfcGxhbmUgPSBwbGFuZS0+aTl4eF9wbGFuZTsKLQll
-bnVtIHBpcGUgcGlwZTsKLQl1MzIgdmFsLCBiYXNlLCBvZmZzZXQ7Ci0JaW50IGZvdXJjYywgcGl4
-ZWxfZm9ybWF0OwotCXVuc2lnbmVkIGludCBhbGlnbmVkX2hlaWdodDsKLQlzdHJ1Y3QgZHJtX2Zy
-YW1lYnVmZmVyICpmYjsKLQlzdHJ1Y3QgaW50ZWxfZnJhbWVidWZmZXIgKmludGVsX2ZiOwotCi0J
-aWYgKCFwbGFuZS0+Z2V0X2h3X3N0YXRlKHBsYW5lLCAmcGlwZSkpCi0JCXJldHVybjsKLQotCWRy
-bV9XQVJOX09OKGRldiwgcGlwZSAhPSBjcnRjLT5waXBlKTsKLQotCWludGVsX2ZiID0ga3phbGxv
-YyhzaXplb2YoKmludGVsX2ZiKSwgR0ZQX0tFUk5FTCk7Ci0JaWYgKCFpbnRlbF9mYikgewotCQlk
-cm1fZGJnX2ttcygmZGV2X3ByaXYtPmRybSwgImZhaWxlZCB0byBhbGxvYyBmYlxuIik7Ci0JCXJl
-dHVybjsKLQl9Ci0KLQlmYiA9ICZpbnRlbF9mYi0+YmFzZTsKLQotCWZiLT5kZXYgPSBkZXY7Ci0K
-LQl2YWwgPSBpbnRlbF9kZV9yZWFkKGRldl9wcml2LCBEU1BDTlRSKGk5eHhfcGxhbmUpKTsKLQot
-CWlmIChJTlRFTF9HRU4oZGV2X3ByaXYpID49IDQpIHsKLQkJaWYgKHZhbCAmIERJU1BQTEFORV9U
-SUxFRCkgewotCQkJcGxhbmVfY29uZmlnLT50aWxpbmcgPSBJOTE1X1RJTElOR19YOwotCQkJZmIt
-Pm1vZGlmaWVyID0gSTkxNV9GT1JNQVRfTU9EX1hfVElMRUQ7Ci0JCX0KLQotCQlpZiAodmFsICYg
-RElTUFBMQU5FX1JPVEFURV8xODApCi0JCQlwbGFuZV9jb25maWctPnJvdGF0aW9uID0gRFJNX01P
-REVfUk9UQVRFXzE4MDsKLQl9Ci0KLQlpZiAoSVNfQ0hFUlJZVklFVyhkZXZfcHJpdikgJiYgcGlw
-ZSA9PSBQSVBFX0IgJiYKLQkgICAgdmFsICYgRElTUFBMQU5FX01JUlJPUikKLQkJcGxhbmVfY29u
-ZmlnLT5yb3RhdGlvbiB8PSBEUk1fTU9ERV9SRUZMRUNUX1g7Ci0KLQlwaXhlbF9mb3JtYXQgPSB2
-YWwgJiBESVNQUExBTkVfUElYRk9STUFUX01BU0s7Ci0JZm91cmNjID0gaTl4eF9mb3JtYXRfdG9f
-Zm91cmNjKHBpeGVsX2Zvcm1hdCk7Ci0JZmItPmZvcm1hdCA9IGRybV9mb3JtYXRfaW5mbyhmb3Vy
-Y2MpOwotCi0JaWYgKElTX0hBU1dFTEwoZGV2X3ByaXYpIHx8IElTX0JST0FEV0VMTChkZXZfcHJp
-dikpIHsKLQkJb2Zmc2V0ID0gaW50ZWxfZGVfcmVhZChkZXZfcHJpdiwgRFNQT0ZGU0VUKGk5eHhf
-cGxhbmUpKTsKLQkJYmFzZSA9IGludGVsX2RlX3JlYWQoZGV2X3ByaXYsIERTUFNVUkYoaTl4eF9w
-bGFuZSkpICYgMHhmZmZmZjAwMDsKLQl9IGVsc2UgaWYgKElOVEVMX0dFTihkZXZfcHJpdikgPj0g
-NCkgewotCQlpZiAocGxhbmVfY29uZmlnLT50aWxpbmcpCi0JCQlvZmZzZXQgPSBpbnRlbF9kZV9y
-ZWFkKGRldl9wcml2LAotCQkJCQkgICAgICAgRFNQVElMRU9GRihpOXh4X3BsYW5lKSk7Ci0JCWVs
-c2UKLQkJCW9mZnNldCA9IGludGVsX2RlX3JlYWQoZGV2X3ByaXYsCi0JCQkJCSAgICAgICBEU1BM
-SU5PRkYoaTl4eF9wbGFuZSkpOwotCQliYXNlID0gaW50ZWxfZGVfcmVhZChkZXZfcHJpdiwgRFNQ
-U1VSRihpOXh4X3BsYW5lKSkgJiAweGZmZmZmMDAwOwotCX0gZWxzZSB7Ci0JCWJhc2UgPSBpbnRl
-bF9kZV9yZWFkKGRldl9wcml2LCBEU1BBRERSKGk5eHhfcGxhbmUpKTsKLQl9Ci0JcGxhbmVfY29u
-ZmlnLT5iYXNlID0gYmFzZTsKLQotCXZhbCA9IGludGVsX2RlX3JlYWQoZGV2X3ByaXYsIFBJUEVT
-UkMocGlwZSkpOwotCWZiLT53aWR0aCA9ICgodmFsID4+IDE2KSAmIDB4ZmZmKSArIDE7Ci0JZmIt
-PmhlaWdodCA9ICgodmFsID4+IDApICYgMHhmZmYpICsgMTsKLQotCXZhbCA9IGludGVsX2RlX3Jl
-YWQoZGV2X3ByaXYsIERTUFNUUklERShpOXh4X3BsYW5lKSk7Ci0JZmItPnBpdGNoZXNbMF0gPSB2
-YWwgJiAweGZmZmZmZmMwOwotCi0JYWxpZ25lZF9oZWlnaHQgPSBpbnRlbF9mYl9hbGlnbl9oZWln
-aHQoZmIsIDAsIGZiLT5oZWlnaHQpOwotCi0JcGxhbmVfY29uZmlnLT5zaXplID0gZmItPnBpdGNo
-ZXNbMF0gKiBhbGlnbmVkX2hlaWdodDsKLQotCWRybV9kYmdfa21zKCZkZXZfcHJpdi0+ZHJtLAot
-CQkgICAgIiVzLyVzIHdpdGggZmI6IHNpemU9JWR4JWRAJWQsIG9mZnNldD0leCwgcGl0Y2ggJWQs
-IHNpemUgMHgleFxuIiwKLQkJICAgIGNydGMtPmJhc2UubmFtZSwgcGxhbmUtPmJhc2UubmFtZSwg
-ZmItPndpZHRoLCBmYi0+aGVpZ2h0LAotCQkgICAgZmItPmZvcm1hdC0+Y3BwWzBdICogOCwgYmFz
-ZSwgZmItPnBpdGNoZXNbMF0sCi0JCSAgICBwbGFuZV9jb25maWctPnNpemUpOwotCi0JcGxhbmVf
-Y29uZmlnLT5mYiA9IGludGVsX2ZiOwotfQotCiBzdGF0aWMgdm9pZCBjaHZfY3J0Y19jbG9ja19n
-ZXQoc3RydWN0IGludGVsX2NydGMgKmNydGMsCiAJCQkgICAgICAgc3RydWN0IGludGVsX2NydGNf
-c3RhdGUgKnBpcGVfY29uZmlnKQogewotLSAKMi4yNy4wCgpfX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fXwpJbnRlbC1nZnggbWFpbGluZyBsaXN0CkludGVsLWdm
-eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
-bG1hbi9saXN0aW5mby9pbnRlbC1nZngK
+From: Dave Airlie <airlied@redhat.com>
+
+This just migrates the hsw+ code to a better place.
+
+Signed-off-by: Dave Airlie <airlied@redhat.com>
+---
+ drivers/gpu/drm/i915/display/intel_display.c  | 212 +----------------
+ drivers/gpu/drm/i915/display/intel_dpll_mgr.c | 216 ++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_dpll_mgr.h |   2 +
+ 3 files changed, 219 insertions(+), 211 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 793e61f3dd26..2e35805ad00f 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -6534,205 +6534,6 @@ static bool ilk_get_pipe_config(struct intel_crtc *crtc,
+ 	return ret;
+ }
+ 
+-static void dg1_get_ddi_pll(struct drm_i915_private *dev_priv, enum port port,
+-			    struct intel_crtc_state *pipe_config)
+-{
+-	enum icl_port_dpll_id port_dpll_id = ICL_PORT_DPLL_DEFAULT;
+-	enum phy phy = intel_port_to_phy(dev_priv, port);
+-	struct icl_port_dpll *port_dpll;
+-	struct intel_shared_dpll *pll;
+-	enum intel_dpll_id id;
+-	bool pll_active;
+-	u32 clk_sel;
+-
+-	clk_sel = intel_de_read(dev_priv, DG1_DPCLKA_CFGCR0(phy)) & DG1_DPCLKA_CFGCR0_DDI_CLK_SEL_MASK(phy);
+-	id = DG1_DPCLKA_CFGCR0_DDI_CLK_SEL_DPLL_MAP(clk_sel, phy);
+-
+-	if (WARN_ON(id > DPLL_ID_DG1_DPLL3))
+-		return;
+-
+-	pll = intel_get_shared_dpll_by_id(dev_priv, id);
+-	port_dpll = &pipe_config->icl_port_dplls[port_dpll_id];
+-
+-	port_dpll->pll = pll;
+-	pll_active = intel_dpll_get_hw_state(dev_priv, pll,
+-					     &port_dpll->hw_state);
+-	drm_WARN_ON(&dev_priv->drm, !pll_active);
+-
+-	icl_set_active_port_dpll(pipe_config, port_dpll_id);
+-}
+-
+-static void icl_get_ddi_pll(struct drm_i915_private *dev_priv, enum port port,
+-			    struct intel_crtc_state *pipe_config)
+-{
+-	enum phy phy = intel_port_to_phy(dev_priv, port);
+-	enum icl_port_dpll_id port_dpll_id;
+-	struct icl_port_dpll *port_dpll;
+-	struct intel_shared_dpll *pll;
+-	enum intel_dpll_id id;
+-	bool pll_active;
+-	u32 temp;
+-
+-	if (intel_phy_is_combo(dev_priv, phy)) {
+-		u32 mask, shift;
+-
+-		if (IS_ROCKETLAKE(dev_priv)) {
+-			mask = RKL_DPCLKA_CFGCR0_DDI_CLK_SEL_MASK(phy);
+-			shift = RKL_DPCLKA_CFGCR0_DDI_CLK_SEL_SHIFT(phy);
+-		} else {
+-			mask = ICL_DPCLKA_CFGCR0_DDI_CLK_SEL_MASK(phy);
+-			shift = ICL_DPCLKA_CFGCR0_DDI_CLK_SEL_SHIFT(phy);
+-		}
+-
+-		temp = intel_de_read(dev_priv, ICL_DPCLKA_CFGCR0) & mask;
+-		id = temp >> shift;
+-		port_dpll_id = ICL_PORT_DPLL_DEFAULT;
+-	} else if (intel_phy_is_tc(dev_priv, phy)) {
+-		u32 clk_sel = intel_de_read(dev_priv, DDI_CLK_SEL(port)) & DDI_CLK_SEL_MASK;
+-
+-		if (clk_sel == DDI_CLK_SEL_MG) {
+-			id = icl_tc_port_to_pll_id(intel_port_to_tc(dev_priv,
+-								    port));
+-			port_dpll_id = ICL_PORT_DPLL_MG_PHY;
+-		} else {
+-			drm_WARN_ON(&dev_priv->drm,
+-				    clk_sel < DDI_CLK_SEL_TBT_162);
+-			id = DPLL_ID_ICL_TBTPLL;
+-			port_dpll_id = ICL_PORT_DPLL_DEFAULT;
+-		}
+-	} else {
+-		drm_WARN(&dev_priv->drm, 1, "Invalid port %x\n", port);
+-		return;
+-	}
+-
+-	pll = intel_get_shared_dpll_by_id(dev_priv, id);
+-	port_dpll = &pipe_config->icl_port_dplls[port_dpll_id];
+-
+-	port_dpll->pll = pll;
+-	pll_active = intel_dpll_get_hw_state(dev_priv, pll,
+-					     &port_dpll->hw_state);
+-	drm_WARN_ON(&dev_priv->drm, !pll_active);
+-
+-	icl_set_active_port_dpll(pipe_config, port_dpll_id);
+-}
+-
+-static void cnl_get_ddi_pll(struct drm_i915_private *dev_priv, enum port port,
+-			    struct intel_crtc_state *pipe_config)
+-{
+-	struct intel_shared_dpll *pll;
+-	enum intel_dpll_id id;
+-	bool pll_active;
+-	u32 temp;
+-
+-	temp = intel_de_read(dev_priv, DPCLKA_CFGCR0) & DPCLKA_CFGCR0_DDI_CLK_SEL_MASK(port);
+-	id = temp >> DPCLKA_CFGCR0_DDI_CLK_SEL_SHIFT(port);
+-
+-	if (drm_WARN_ON(&dev_priv->drm, id < SKL_DPLL0 || id > SKL_DPLL2))
+-		return;
+-
+-	pll = intel_get_shared_dpll_by_id(dev_priv, id);
+-
+-	pipe_config->shared_dpll = pll;
+-	pll_active = intel_dpll_get_hw_state(dev_priv, pll,
+-					     &pipe_config->dpll_hw_state);
+-	drm_WARN_ON(&dev_priv->drm, !pll_active);
+-}
+-
+-static void bxt_get_ddi_pll(struct drm_i915_private *dev_priv,
+-				enum port port,
+-				struct intel_crtc_state *pipe_config)
+-{
+-	struct intel_shared_dpll *pll;
+-	enum intel_dpll_id id;
+-	bool pll_active;
+-
+-	switch (port) {
+-	case PORT_A:
+-		id = DPLL_ID_SKL_DPLL0;
+-		break;
+-	case PORT_B:
+-		id = DPLL_ID_SKL_DPLL1;
+-		break;
+-	case PORT_C:
+-		id = DPLL_ID_SKL_DPLL2;
+-		break;
+-	default:
+-		drm_err(&dev_priv->drm, "Incorrect port type\n");
+-		return;
+-	}
+-
+-	pll = intel_get_shared_dpll_by_id(dev_priv, id);
+-
+-	pipe_config->shared_dpll = pll;
+-	pll_active = intel_dpll_get_hw_state(dev_priv, pll,
+-					     &pipe_config->dpll_hw_state);
+-	drm_WARN_ON(&dev_priv->drm, !pll_active);
+-}
+-
+-static void skl_get_ddi_pll(struct drm_i915_private *dev_priv, enum port port,
+-			    struct intel_crtc_state *pipe_config)
+-{
+-	struct intel_shared_dpll *pll;
+-	enum intel_dpll_id id;
+-	bool pll_active;
+-	u32 temp;
+-
+-	temp = intel_de_read(dev_priv, DPLL_CTRL2) & DPLL_CTRL2_DDI_CLK_SEL_MASK(port);
+-	id = temp >> (port * 3 + 1);
+-
+-	if (drm_WARN_ON(&dev_priv->drm, id < SKL_DPLL0 || id > SKL_DPLL3))
+-		return;
+-
+-	pll = intel_get_shared_dpll_by_id(dev_priv, id);
+-
+-	pipe_config->shared_dpll = pll;
+-	pll_active = intel_dpll_get_hw_state(dev_priv, pll,
+-					     &pipe_config->dpll_hw_state);
+-	drm_WARN_ON(&dev_priv->drm, !pll_active);
+-}
+-
+-static void hsw_get_ddi_pll(struct drm_i915_private *dev_priv, enum port port,
+-			    struct intel_crtc_state *pipe_config)
+-{
+-	struct intel_shared_dpll *pll;
+-	enum intel_dpll_id id;
+-	u32 ddi_pll_sel = intel_de_read(dev_priv, PORT_CLK_SEL(port));
+-	bool pll_active;
+-
+-	switch (ddi_pll_sel) {
+-	case PORT_CLK_SEL_WRPLL1:
+-		id = DPLL_ID_WRPLL1;
+-		break;
+-	case PORT_CLK_SEL_WRPLL2:
+-		id = DPLL_ID_WRPLL2;
+-		break;
+-	case PORT_CLK_SEL_SPLL:
+-		id = DPLL_ID_SPLL;
+-		break;
+-	case PORT_CLK_SEL_LCPLL_810:
+-		id = DPLL_ID_LCPLL_810;
+-		break;
+-	case PORT_CLK_SEL_LCPLL_1350:
+-		id = DPLL_ID_LCPLL_1350;
+-		break;
+-	case PORT_CLK_SEL_LCPLL_2700:
+-		id = DPLL_ID_LCPLL_2700;
+-		break;
+-	default:
+-		MISSING_CASE(ddi_pll_sel);
+-		fallthrough;
+-	case PORT_CLK_SEL_NONE:
+-		return;
+-	}
+-
+-	pll = intel_get_shared_dpll_by_id(dev_priv, id);
+-
+-	pipe_config->shared_dpll = pll;
+-	pll_active = intel_dpll_get_hw_state(dev_priv, pll,
+-					     &pipe_config->dpll_hw_state);
+-	drm_WARN_ON(&dev_priv->drm, !pll_active);
+-}
+-
+ static bool hsw_get_transcoder_state(struct intel_crtc *crtc,
+ 				     struct intel_crtc_state *pipe_config,
+ 				     struct intel_display_power_domain_set *power_domain_set)
+@@ -6889,18 +6690,7 @@ static void hsw_get_ddi_port_state(struct intel_crtc *crtc,
+ 			port = TRANS_DDI_FUNC_CTL_VAL_TO_PORT(tmp);
+ 	}
+ 
+-	if (IS_DG1(dev_priv))
+-		dg1_get_ddi_pll(dev_priv, port, pipe_config);
+-	else if (INTEL_GEN(dev_priv) >= 11)
+-		icl_get_ddi_pll(dev_priv, port, pipe_config);
+-	else if (IS_CANNONLAKE(dev_priv))
+-		cnl_get_ddi_pll(dev_priv, port, pipe_config);
+-	else if (IS_GEN9_LP(dev_priv))
+-		bxt_get_ddi_pll(dev_priv, port, pipe_config);
+-	else if (IS_GEN9_BC(dev_priv))
+-		skl_get_ddi_pll(dev_priv, port, pipe_config);
+-	else
+-		hsw_get_ddi_pll(dev_priv, port, pipe_config);
++	intel_get_ddi_pll(dev_priv, port, pipe_config);
+ 
+ 	/*
+ 	 * Haswell has only FDI/PCH transcoder A. It is which is connected to
+diff --git a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
+index f6ad257a260e..30ace3be59de 100644
+--- a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
++++ b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
+@@ -4640,3 +4640,219 @@ void intel_dpll_dump_hw_state(struct drm_i915_private *dev_priv,
+ 			    hw_state->fp1);
+ 	}
+ }
++
++static void dg1_get_ddi_pll(struct drm_i915_private *dev_priv, enum port port,
++			    struct intel_crtc_state *pipe_config)
++{
++	enum icl_port_dpll_id port_dpll_id = ICL_PORT_DPLL_DEFAULT;
++	enum phy phy = intel_port_to_phy(dev_priv, port);
++	struct icl_port_dpll *port_dpll;
++	struct intel_shared_dpll *pll;
++	enum intel_dpll_id id;
++	bool pll_active;
++	u32 clk_sel;
++
++	clk_sel = intel_de_read(dev_priv, DG1_DPCLKA_CFGCR0(phy)) & DG1_DPCLKA_CFGCR0_DDI_CLK_SEL_MASK(phy);
++	id = DG1_DPCLKA_CFGCR0_DDI_CLK_SEL_DPLL_MAP(clk_sel, phy);
++
++	if (WARN_ON(id > DPLL_ID_DG1_DPLL3))
++		return;
++
++	pll = intel_get_shared_dpll_by_id(dev_priv, id);
++	port_dpll = &pipe_config->icl_port_dplls[port_dpll_id];
++
++	port_dpll->pll = pll;
++	pll_active = intel_dpll_get_hw_state(dev_priv, pll,
++					     &port_dpll->hw_state);
++	drm_WARN_ON(&dev_priv->drm, !pll_active);
++
++	icl_set_active_port_dpll(pipe_config, port_dpll_id);
++}
++
++static void icl_get_ddi_pll(struct drm_i915_private *dev_priv, enum port port,
++			    struct intel_crtc_state *pipe_config)
++{
++	enum phy phy = intel_port_to_phy(dev_priv, port);
++	enum icl_port_dpll_id port_dpll_id;
++	struct icl_port_dpll *port_dpll;
++	struct intel_shared_dpll *pll;
++	enum intel_dpll_id id;
++	bool pll_active;
++	u32 temp;
++
++	if (intel_phy_is_combo(dev_priv, phy)) {
++		u32 mask, shift;
++
++		if (IS_ROCKETLAKE(dev_priv)) {
++			mask = RKL_DPCLKA_CFGCR0_DDI_CLK_SEL_MASK(phy);
++			shift = RKL_DPCLKA_CFGCR0_DDI_CLK_SEL_SHIFT(phy);
++		} else {
++			mask = ICL_DPCLKA_CFGCR0_DDI_CLK_SEL_MASK(phy);
++			shift = ICL_DPCLKA_CFGCR0_DDI_CLK_SEL_SHIFT(phy);
++		}
++
++		temp = intel_de_read(dev_priv, ICL_DPCLKA_CFGCR0) & mask;
++		id = temp >> shift;
++		port_dpll_id = ICL_PORT_DPLL_DEFAULT;
++	} else if (intel_phy_is_tc(dev_priv, phy)) {
++		u32 clk_sel = intel_de_read(dev_priv, DDI_CLK_SEL(port)) & DDI_CLK_SEL_MASK;
++
++		if (clk_sel == DDI_CLK_SEL_MG) {
++			id = icl_tc_port_to_pll_id(intel_port_to_tc(dev_priv,
++								    port));
++			port_dpll_id = ICL_PORT_DPLL_MG_PHY;
++		} else {
++			drm_WARN_ON(&dev_priv->drm,
++				    clk_sel < DDI_CLK_SEL_TBT_162);
++			id = DPLL_ID_ICL_TBTPLL;
++			port_dpll_id = ICL_PORT_DPLL_DEFAULT;
++		}
++	} else {
++		drm_WARN(&dev_priv->drm, 1, "Invalid port %x\n", port);
++		return;
++	}
++
++	pll = intel_get_shared_dpll_by_id(dev_priv, id);
++	port_dpll = &pipe_config->icl_port_dplls[port_dpll_id];
++
++	port_dpll->pll = pll;
++	pll_active = intel_dpll_get_hw_state(dev_priv, pll,
++					     &port_dpll->hw_state);
++	drm_WARN_ON(&dev_priv->drm, !pll_active);
++
++	icl_set_active_port_dpll(pipe_config, port_dpll_id);
++}
++
++static void cnl_get_ddi_pll(struct drm_i915_private *dev_priv, enum port port,
++			    struct intel_crtc_state *pipe_config)
++{
++	struct intel_shared_dpll *pll;
++	enum intel_dpll_id id;
++	bool pll_active;
++	u32 temp;
++
++	temp = intel_de_read(dev_priv, DPCLKA_CFGCR0) & DPCLKA_CFGCR0_DDI_CLK_SEL_MASK(port);
++	id = temp >> DPCLKA_CFGCR0_DDI_CLK_SEL_SHIFT(port);
++
++	if (drm_WARN_ON(&dev_priv->drm, id < SKL_DPLL0 || id > SKL_DPLL2))
++		return;
++
++	pll = intel_get_shared_dpll_by_id(dev_priv, id);
++
++	pipe_config->shared_dpll = pll;
++	pll_active = intel_dpll_get_hw_state(dev_priv, pll,
++					     &pipe_config->dpll_hw_state);
++	drm_WARN_ON(&dev_priv->drm, !pll_active);
++}
++
++static void bxt_get_ddi_pll(struct drm_i915_private *dev_priv,
++				enum port port,
++				struct intel_crtc_state *pipe_config)
++{
++	struct intel_shared_dpll *pll;
++	enum intel_dpll_id id;
++	bool pll_active;
++
++	switch (port) {
++	case PORT_A:
++		id = DPLL_ID_SKL_DPLL0;
++		break;
++	case PORT_B:
++		id = DPLL_ID_SKL_DPLL1;
++		break;
++	case PORT_C:
++		id = DPLL_ID_SKL_DPLL2;
++		break;
++	default:
++		drm_err(&dev_priv->drm, "Incorrect port type\n");
++		return;
++	}
++
++	pll = intel_get_shared_dpll_by_id(dev_priv, id);
++
++	pipe_config->shared_dpll = pll;
++	pll_active = intel_dpll_get_hw_state(dev_priv, pll,
++					     &pipe_config->dpll_hw_state);
++	drm_WARN_ON(&dev_priv->drm, !pll_active);
++}
++
++static void skl_get_ddi_pll(struct drm_i915_private *dev_priv, enum port port,
++			    struct intel_crtc_state *pipe_config)
++{
++	struct intel_shared_dpll *pll;
++	enum intel_dpll_id id;
++	bool pll_active;
++	u32 temp;
++
++	temp = intel_de_read(dev_priv, DPLL_CTRL2) & DPLL_CTRL2_DDI_CLK_SEL_MASK(port);
++	id = temp >> (port * 3 + 1);
++
++	if (drm_WARN_ON(&dev_priv->drm, id < SKL_DPLL0 || id > SKL_DPLL3))
++		return;
++
++	pll = intel_get_shared_dpll_by_id(dev_priv, id);
++
++	pipe_config->shared_dpll = pll;
++	pll_active = intel_dpll_get_hw_state(dev_priv, pll,
++					     &pipe_config->dpll_hw_state);
++	drm_WARN_ON(&dev_priv->drm, !pll_active);
++}
++
++static void hsw_get_ddi_pll(struct drm_i915_private *dev_priv, enum port port,
++			    struct intel_crtc_state *pipe_config)
++{
++	struct intel_shared_dpll *pll;
++	enum intel_dpll_id id;
++	u32 ddi_pll_sel = intel_de_read(dev_priv, PORT_CLK_SEL(port));
++	bool pll_active;
++
++	switch (ddi_pll_sel) {
++	case PORT_CLK_SEL_WRPLL1:
++		id = DPLL_ID_WRPLL1;
++		break;
++	case PORT_CLK_SEL_WRPLL2:
++		id = DPLL_ID_WRPLL2;
++		break;
++	case PORT_CLK_SEL_SPLL:
++		id = DPLL_ID_SPLL;
++		break;
++	case PORT_CLK_SEL_LCPLL_810:
++		id = DPLL_ID_LCPLL_810;
++		break;
++	case PORT_CLK_SEL_LCPLL_1350:
++		id = DPLL_ID_LCPLL_1350;
++		break;
++	case PORT_CLK_SEL_LCPLL_2700:
++		id = DPLL_ID_LCPLL_2700;
++		break;
++	default:
++		MISSING_CASE(ddi_pll_sel);
++		fallthrough;
++	case PORT_CLK_SEL_NONE:
++		return;
++	}
++
++	pll = intel_get_shared_dpll_by_id(dev_priv, id);
++
++	pipe_config->shared_dpll = pll;
++	pll_active = intel_dpll_get_hw_state(dev_priv, pll,
++					     &pipe_config->dpll_hw_state);
++	drm_WARN_ON(&dev_priv->drm, !pll_active);
++}
++
++void intel_get_ddi_pll(struct drm_i915_private *dev_priv, enum port port,
++		       struct intel_crtc_state *pipe_config)
++{
++	if (IS_DG1(dev_priv))
++		dg1_get_ddi_pll(dev_priv, port, pipe_config);
++	else if (INTEL_GEN(dev_priv) >= 11)
++		icl_get_ddi_pll(dev_priv, port, pipe_config);
++	else if (IS_CANNONLAKE(dev_priv))
++		cnl_get_ddi_pll(dev_priv, port, pipe_config);
++	else if (IS_GEN9_LP(dev_priv))
++		bxt_get_ddi_pll(dev_priv, port, pipe_config);
++	else if (IS_GEN9_BC(dev_priv))
++		skl_get_ddi_pll(dev_priv, port, pipe_config);
++	else
++		hsw_get_ddi_pll(dev_priv, port, pipe_config);
++}
+diff --git a/drivers/gpu/drm/i915/display/intel_dpll_mgr.h b/drivers/gpu/drm/i915/display/intel_dpll_mgr.h
+index 2eb7618ef957..fe4e99355d6d 100644
+--- a/drivers/gpu/drm/i915/display/intel_dpll_mgr.h
++++ b/drivers/gpu/drm/i915/display/intel_dpll_mgr.h
+@@ -418,4 +418,6 @@ void intel_dpll_dump_hw_state(struct drm_i915_private *dev_priv,
+ enum intel_dpll_id icl_tc_port_to_pll_id(enum tc_port tc_port);
+ bool intel_dpll_is_combophy(enum intel_dpll_id id);
+ 
++void intel_get_ddi_pll(struct drm_i915_private *dev_priv, enum port port,
++		       struct intel_crtc_state *pipe_config);
+ #endif /* _INTEL_DPLL_MGR_H_ */
+-- 
+2.27.0
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
