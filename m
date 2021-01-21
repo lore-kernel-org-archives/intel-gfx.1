@@ -2,39 +2,56 @@ Return-Path: <SRS0=DGqE=GY=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EB467C433DB
-	for <intel-gfx@archiver.kernel.org>; Thu, 21 Jan 2021 15:17:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 35043C433E0
+	for <intel-gfx@archiver.kernel.org>; Thu, 21 Jan 2021 15:25:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3DE0E239EB
-	for <intel-gfx@archiver.kernel.org>; Thu, 21 Jan 2021 15:17:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3DE0E239EB
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
+	by mail.kernel.org (Postfix) with ESMTPS id B42E623A04
+	for <intel-gfx@archiver.kernel.org>; Thu, 21 Jan 2021 15:25:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B42E623A04
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=etezian.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B5E3F6E8B8;
-	Thu, 21 Jan 2021 15:17:03 +0000 (UTC)
-Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA4FF6E8B8
- for <intel-gfx@lists.freedesktop.org>; Thu, 21 Jan 2021 15:17:00 +0000 (UTC)
-X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
- x-ip-name=78.156.65.138; 
-Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23661941-1500050 
- for multiple; Thu, 21 Jan 2021 15:16:46 +0000
-From: Chris Wilson <chris@chris-wilson.co.uk>
-To: intel-gfx@lists.freedesktop.org
-Date: Thu, 21 Jan 2021 15:16:45 +0000
-Message-Id: <20210121151645.10628-1-chris@chris-wilson.co.uk>
-X-Mailer: git-send-email 2.20.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F0E16E8E2;
+	Thu, 21 Jan 2021 15:25:48 +0000 (UTC)
+X-Greylist: delayed 391 seconds by postgrey-1.36 at gabe;
+ Thu, 21 Jan 2021 15:25:47 UTC
+Received: from 8.mo179.mail-out.ovh.net (8.mo179.mail-out.ovh.net
+ [46.105.75.26])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1672D6E8E2
+ for <intel-gfx@lists.freedesktop.org>; Thu, 21 Jan 2021 15:25:47 +0000 (UTC)
+Received: from player739.ha.ovh.net (unknown [10.108.57.140])
+ by mo179.mail-out.ovh.net (Postfix) with ESMTP id B4D93183466
+ for <intel-gfx@lists.freedesktop.org>; Thu, 21 Jan 2021 16:25:44 +0100 (CET)
+Received: from etezian.org (213-243-141-64.bb.dnainternet.fi [213.243.141.64])
+ (Authenticated sender: andi@etezian.org)
+ by player739.ha.ovh.net (Postfix) with ESMTPSA id 2DC0A163B9A37;
+ Thu, 21 Jan 2021 15:25:38 +0000 (UTC)
+Authentication-Results: garm.ovh; auth=pass
+ (GARM-97G00257db3f70-fd98-4c35-849c-d7d09cfcfaac,
+ CAC1A779C7E69CC0B09A0D0E1FF85449833E868F) smtp.auth=andi@etezian.org
+X-OVh-ClientIp: 213.243.141.64
+Date: Thu, 21 Jan 2021 17:25:36 +0200
+From: Andi Shyti <andi@etezian.org>
+To: Chris Wilson <chris@chris-wilson.co.uk>
+Message-ID: <YAmc8GIbho3YasE+@jack.zhora.eu>
+References: <20210120122205.2808-1-chris@chris-wilson.co.uk>
+ <20210120122205.2808-4-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH] drm/i915: Check for all subplatform bits
+Content-Disposition: inline
+In-Reply-To: <20210120122205.2808-4-chris@chris-wilson.co.uk>
+X-Ovh-Tracer-Id: 11310790464913326601
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeduledrudeggdejlecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpeffhffvuffkfhggtggujgesthdtredttddtvdenucfhrhhomheptehnughiucfuhhihthhiuceorghnughisegvthgviihirghnrdhorhhgqeenucggtffrrghtthgvrhhnpedtgfduudfhfeeuueejfeeihedtfeetgfegveehgfeuleelhfduteegieekudeifeenucfkpheptddrtddrtddrtddpvddufedrvdegfedrudeguddrieegnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmohguvgepshhmthhpqdhouhhtpdhhvghlohepphhlrgihvghrjeefledrhhgrrdhovhhhrdhnvghtpdhinhgvtheptddrtddrtddrtddpmhgrihhlfhhrohhmpegrnhguihesvghtvgiiihgrnhdrohhrghdprhgtphhtthhopehinhhtvghlqdhgfhigsehlihhsthhsrdhfrhgvvgguvghskhhtohhprdhorhhg
+Subject: Re: [Intel-gfx] [PATCH 04/10] drm/i915: Remove
+ I915_USER_PRIORITY_SHIFT
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,73 +64,24 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Chris Wilson <chris@chris-wilson.co.uk>
+Cc: intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+Hi Chris,
 
-Current code is checking only 2 bits in the subplatform, but actually 3
-bits are allocated for the field. Check all 3 bits.
+On Wed, Jan 20, 2021 at 12:21:59PM +0000, Chris Wilson wrote:
+> As we do not have any internal priority levels, the priority can be set
+> directed from the user values.
+> 
+> Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 
-v2: Apply the SUBPLATFORM_MASK bikeshed as it turns out we missed
-another place BITS was used as a MASK.
+Reviewed-by: Andi Shyti <andi.shyti@intel.com>
 
-Fixes: 805446c8347c9 (drm/i915: Introduce concept of a sub-platform)
-Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
-Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com> #v1
-Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-Link: https://patchwork.freedesktop.org/patch/msgid/20210120012111.44184-2-umesh.nerlige.ramappa@intel.com
----
- drivers/gpu/drm/i915/i915_drv.h          | 2 +-
- drivers/gpu/drm/i915/intel_device_info.c | 2 +-
- drivers/gpu/drm/i915/intel_device_info.h | 1 +
- 3 files changed, 3 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index f0222de2d216..7efb501e22d2 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -1343,7 +1343,7 @@ intel_subplatform(const struct intel_runtime_info *info, enum intel_platform p)
- {
- 	const unsigned int pi = __platform_mask_index(info, p);
- 
--	return info->platform_mask[pi] & INTEL_SUBPLATFORM_BITS;
-+	return info->platform_mask[pi] & INTEL_SUBPLATFORM_MASK;
- }
- 
- static __always_inline bool
-diff --git a/drivers/gpu/drm/i915/intel_device_info.c b/drivers/gpu/drm/i915/intel_device_info.c
-index 699412c14c1d..7d98a718a051 100644
---- a/drivers/gpu/drm/i915/intel_device_info.c
-+++ b/drivers/gpu/drm/i915/intel_device_info.c
-@@ -223,7 +223,7 @@ void intel_device_info_subplatform_init(struct drm_i915_private *i915)
- 		}
- 	}
- 
--	GEM_BUG_ON(mask & ~INTEL_SUBPLATFORM_BITS);
-+	GEM_BUG_ON(mask & ~INTEL_SUBPLATFORM_MASK);
- 
- 	RUNTIME_INFO(i915)->platform_mask[pi] |= mask;
- }
-diff --git a/drivers/gpu/drm/i915/intel_device_info.h b/drivers/gpu/drm/i915/intel_device_info.h
-index 79dab5a6f272..2ceafedeb62f 100644
---- a/drivers/gpu/drm/i915/intel_device_info.h
-+++ b/drivers/gpu/drm/i915/intel_device_info.h
-@@ -94,6 +94,7 @@ enum intel_platform {
-  */
- 
- #define INTEL_SUBPLATFORM_BITS (3)
-+#define INTEL_SUBPLATFORM_MASK GENMASK(INTEL_SUBPLATFORM_BITS - 1, 0)
- 
- /* HSW/BDW/SKL/KBL/CFL */
- #define INTEL_SUBPLATFORM_ULT	(0)
--- 
-2.20.1
-
+Thanks,
+Andi
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
