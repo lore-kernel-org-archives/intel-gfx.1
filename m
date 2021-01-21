@@ -2,51 +2,50 @@ Return-Path: <SRS0=DGqE=GY=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,INCLUDES_PULL_REQUEST,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-0.7 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 97610C433E0
-	for <intel-gfx@archiver.kernel.org>; Thu, 21 Jan 2021 04:25:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C0D72C433DB
+	for <intel-gfx@archiver.kernel.org>; Thu, 21 Jan 2021 04:25:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 241452368A
-	for <intel-gfx@archiver.kernel.org>; Thu, 21 Jan 2021 04:25:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 241452368A
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 5FC132368A
+	for <intel-gfx@archiver.kernel.org>; Thu, 21 Jan 2021 04:25:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5FC132368A
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F6506E4CF;
-	Thu, 21 Jan 2021 04:25:25 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 78B936E4CF;
- Thu, 21 Jan 2021 04:25:24 +0000 (UTC)
-IronPort-SDR: Ashjm6d9zqMBPcTKKh68kCXG6mE0IEJxSTOJS/RZW/3DphlbY6DKNoBgkvZIpCl1a2LWSsqXp0
- It6ozLjPxqVw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9870"; a="264029887"
-X-IronPort-AV: E=Sophos;i="5.79,363,1602572400"; 
- d="asc'?scan'208";a="264029887"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jan 2021 20:25:23 -0800
-IronPort-SDR: HouJadK6x1wqvTyK1HVhidPTFE9SgoeYIhZyTwL0rpoARUGshumW9JyVNVBSmTcW1IUlBkpasU
- QFt5eYXdizGA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.79,363,1602572400"; 
- d="asc'?scan'208";a="571559510"
-Received: from zhen-hp.sh.intel.com (HELO zhen-hp) ([10.239.160.147])
- by fmsmga006.fm.intel.com with ESMTP; 20 Jan 2021 20:25:20 -0800
-Date: Thu, 21 Jan 2021 12:08:25 +0800
-From: Zhenyu Wang <zhenyuw@linux.intel.com>
-To: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Message-ID: <20210121040825.GG15982@zhen-hp.sh.intel.com>
-References: <20210118050739.GY15982@zhen-hp.sh.intel.com>
- <161114531233.12022.4976651928998688735@jlahtine-mobl.ger.corp.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C77B6E4D2;
+	Thu, 21 Jan 2021 04:25:43 +0000 (UTC)
+Received: from us-smtp-delivery-44.mimecast.com
+ (us-smtp-delivery-44.mimecast.com [207.211.30.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A41A96E4D2
+ for <intel-gfx@lists.freedesktop.org>; Thu, 21 Jan 2021 04:25:41 +0000 (UTC)
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-545-Lk_v08JGMbmdhLsqzfOKAw-1; Wed, 20 Jan 2021 23:25:37 -0500
+X-MC-Unique: Lk_v08JGMbmdhLsqzfOKAw-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
+ [10.5.11.22])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 45002C73A0
+ for <intel-gfx@lists.freedesktop.org>; Thu, 21 Jan 2021 04:25:36 +0000 (UTC)
+Received: from dreadlord-bne-redhat-com.bne.redhat.com (unknown [10.64.32.209])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 7C96E10002A6
+ for <intel-gfx@lists.freedesktop.org>; Thu, 21 Jan 2021 04:25:35 +0000 (UTC)
+From: Dave Airlie <airlied@gmail.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Thu, 21 Jan 2021 14:25:24 +1000
+Message-Id: <20210121042532.9057-1-airlied@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <161114531233.12022.4976651928998688735@jlahtine-mobl.ger.corp.intel.com>
-Subject: Re: [Intel-gfx] [PULL] gvt-gt-next
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: gmail.com
+Subject: [Intel-gfx] [rfc v8] remaining intel_display.c refactors
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,137 +58,21 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Zhenyu Wang <zhenyuw@linux.intel.com>
-Cc: Jani Nikula <jani.nikula@intel.com>,
- intel-gfx <intel-gfx@lists.freedesktop.org>, "Yuan,
- Hang" <hang.yuan@intel.com>, "Lv, Zhiyuan" <zhiyuan.lv@intel.com>,
- intel-gvt-dev <intel-gvt-dev@lists.freedesktop.org>
-Content-Type: multipart/mixed; boundary="===============1238625625=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+This rebases, fixes up the headers (thanks Jani, for pointing that out),
+and adds missing tags and review tags.
 
---===============1238625625==
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="GV0iVqYguTV4Q9ER"
-Content-Disposition: inline
+I think only patch 3 is missing an r-b, I've fixed the header issues
+he pointed out.
 
+Dave.
 
---GV0iVqYguTV4Q9ER
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On 2021.01.20 14:21:53 +0200, Joonas Lahtinen wrote:
-> Quoting Zhenyu Wang (2021-01-18 07:07:39)
-> >=20
-> > Hi,
-> >=20
-> > This is GVT next for 5.12 against drm-intel-gt-next which is mostly
-> > for cmd parser enhancement which adds extra check on register load
-> > depending on initial context and handles vGPU register state
-> > accordingly.
->=20
-> I think we were bit inconclusive on this last time.
->
-
-Sorry about that, I was thinking we might just follow your previous idea.
-
-> Even if this does not have any dependency to drm-intel-gt-next I can
-> pull this to drm-intel-gt-next. The only caveat is that for any -fixes,
-> there needs to be a backmerge to drm-intel-next.
->=20
-> Not sure if this is a problem. Do we want to make it a recurring practice
-> to backmerge drm-intel-gt-next into drm-intel-next after it lands in
-> drm-next?
->
-
-So -gt-next won't do -gt-next-fixes, right? For -next-fixes, we always do
-drm-next backmerge, right?
-
-> So to recap: Do we want to pull to drm-intel-next whenever there are no
-> dependencies to drm-intel-gt-next, to avoid a backmerge?
-
-yeah, that's fine to me. But for this time gvt-next pull, it's really targe=
-ting
-for -gt-next which has some dependency, I can double check to confirm.
-
-Thanks.
-
-> Or do we want
-> to always do a backmerge in anticipation of -fixes.
->=20
-> Regards, Joonas
->=20
-> > Thanks.
-> > --
-> > The following changes since commit fe7bcfaeb2b775f257348dc7b935f8e80eef=
-3e7d:
-> >=20
-> >   drm/i915/gt: Refactor heartbeat request construction and submission (=
-2020-12-24 18:07:26 +0000)
-> >=20
-> > are available in the Git repository at:
-> >=20
-> >   https://github.com/intel/gvt-linux tags/gvt-gt-next-2021-01-18
-> >=20
-> > for you to fetch changes up to 02dd2b12a685944c4d52c569d05f636372a7b6c7:
-> >=20
-> >   drm/i915/gvt: unify lri cmd handler and mmio handlers (2020-12-25 11:=
-16:32 +0800)
-> >=20
-> > ----------------------------------------------------------------
-> > gvt-gt-next-2021-01-18
-> >=20
-> > - GVT cmd parser enhancement against guest context (Yan)
-> >=20
-> > ----------------------------------------------------------------
-> > Yan Zhao (11):
-> >       drm/i915/gvt: parse init context to update cmd accessible reg whi=
-telist
-> >       drm/i915/gvt: scan VM ctx pages
-> >       drm/i915/gvt: filter cmds "srm" and "lrm" in cmd_handler
-> >       drm/i915/gvt: filter cmds "lrr-src" and "lrr-dst" in cmd_handler
-> >       drm/i915/gvt: filter cmd "pipe-ctrl" in cmd_handler
-> >       drm/i915/gvt: export find_mmio_info
-> >       drm/i915/gvt: make width of mmio_attribute bigger
-> >       drm/i915/gvt: introduce a new flag F_CMD_WRITE_PATCH
-> >       drm/i915/gvt: statically set F_CMD_WRITE_PATCH flag
-> >       drm/i915/gvt: update F_CMD_WRITE_PATCH flag when parsing init ctx
-> >       drm/i915/gvt: unify lri cmd handler and mmio handlers
-> >=20
-> >  drivers/gpu/drm/i915/gvt/cmd_parser.c | 335 ++++++++++++++++++++++++++=
-+-------
-> >  drivers/gpu/drm/i915/gvt/cmd_parser.h |   4 +
-> >  drivers/gpu/drm/i915/gvt/gvt.h        |  37 +++-
-> >  drivers/gpu/drm/i915/gvt/handlers.c   |  15 +-
-> >  drivers/gpu/drm/i915/gvt/mmio.h       |   3 +
-> >  drivers/gpu/drm/i915/gvt/reg.h        |   2 +
-> >  drivers/gpu/drm/i915/gvt/scheduler.c  |  22 ++-
-> >  drivers/gpu/drm/i915/gvt/vgpu.c       |   4 +-
-> >  8 files changed, 339 insertions(+), 83 deletions(-)
-
---GV0iVqYguTV4Q9ER
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iF0EARECAB0WIQTXuabgHDW6LPt9CICxBBozTXgYJwUCYAj+NQAKCRCxBBozTXgY
-J4JzAJ401rluF67Du7mlSySPw0qe7x6zJwCgjeIe30awyMLe8MM06inxD4mAQ9A=
-=ayv3
------END PGP SIGNATURE-----
-
---GV0iVqYguTV4Q9ER--
-
---===============1238625625==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
 
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-
---===============1238625625==--
