@@ -2,68 +2,52 @@ Return-Path: <SRS0=DGqE=GY=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 55D70C433DB
-	for <intel-gfx@archiver.kernel.org>; Thu, 21 Jan 2021 11:49:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0D474C433DB
+	for <intel-gfx@archiver.kernel.org>; Thu, 21 Jan 2021 11:50:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E56082395B
-	for <intel-gfx@archiver.kernel.org>; Thu, 21 Jan 2021 11:49:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E56082395B
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 9AFDE2395B
+	for <intel-gfx@archiver.kernel.org>; Thu, 21 Jan 2021 11:50:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9AFDE2395B
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5AFB36E536;
-	Thu, 21 Jan 2021 11:49:53 +0000 (UTC)
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [IPv6:2a00:1450:4864:20::12a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C3016E833;
- Thu, 21 Jan 2021 11:49:51 +0000 (UTC)
-Received: by mail-lf1-x12a.google.com with SMTP id m22so2101013lfg.5;
- Thu, 21 Jan 2021 03:49:51 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=5RQ3dZ9V+4H622pwrLJOT/5mi2FLMEQRPOfPaSG6GIk=;
- b=aFeLc+koJ4b8P4Dp8DvQABAO1iKIfXqM61V5AtF/oCAcOu4c727wmyfin8d54IXRp6
- fqFFMQKxMrZLG1xnlQLMSR1HSlVDdU6Fo9E9dxsNeAUY2D9BVUonfjUd3NS7svJfcFCL
- fZi6f/4wNuhxHVppFLpRIkVeErTKjtLhnTo+KwVnmQUtseJuBp63DJPtKx8xmYxriHaN
- NyYsIY7kc2hb1SjgJV31W4H6T/oNnvMPsfFtPyXHzguDZc+DRWoSPRrKgjaOA32dF55Z
- Dq5N6uPryEue1I9fRNJ4IPmzMT2yON73VvXhd3LYu+sT9BJ486gBiwcOZ8UG9QQ+ybqm
- dqhA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=5RQ3dZ9V+4H622pwrLJOT/5mi2FLMEQRPOfPaSG6GIk=;
- b=tX5s+9eh64m67lLKhM/bJ1S3svS8Ypu2LfwewpiWCSu2ZaSV52f3aO648G8tZ5NREi
- aF7nOuLULvRJ6GdyFDbUQ7a5BmVdlVyvgAsmQpLtFdlSi/YDbvHYr6VPJspTuKIGJktS
- 3hiCeZUgSpWyrMFIHKMGmPxqix6ulaN6QBcu7VrBS27jy9o4ZlQA2A0vh4eT4p5csTIF
- 1tUw3YEYL9Qpni7QfL1GmrJ4SLndjflAchnDfRWLn3HkMaP/PQ/W+wMdw86eS8A9BKnc
- rRx7wYCjjMR2/yu46oyaH5Fbw55uwPX1NhXBrdBJrHEOEWz1NQF2i3I1ne4iIJJnYwTl
- 5HVQ==
-X-Gm-Message-State: AOAM530VYMLxDVM/At/fk28KHM2seyCO/KKNyJNlfo55PfuYNS1b8vvx
- G8FgImfNFf2eTxWc7nLaddUZX49eKwiJASEAponHqESN/BI=
-X-Google-Smtp-Source: ABdhPJwbh8nh5mgue4Ai+hNZO2hVTDGReWvmZ+MyhMojSyFIC4LTiI2IE3kvd2uXo3byZ1l8oSfxpzpOPPnr7VjPPjA=
-X-Received: by 2002:a19:e20a:: with SMTP id z10mr7012401lfg.295.1611229789884; 
- Thu, 21 Jan 2021 03:49:49 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B519589F6B;
+	Thu, 21 Jan 2021 11:50:33 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A641E6E419
+ for <intel-gfx@lists.freedesktop.org>; Thu, 21 Jan 2021 11:50:32 +0000 (UTC)
+IronPort-SDR: euv/IkiDzdezS2WtBTirZTyYneRvq/2GNXB2YI+LlCFnbtmsr9M7artmNTcdMMyhaY5t52dThs
+ xhCVr0KqSLLQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9870"; a="243328731"
+X-IronPort-AV: E=Sophos;i="5.79,363,1602572400"; d="scan'208";a="243328731"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Jan 2021 03:50:27 -0800
+IronPort-SDR: pryr+EuWA276tTpCrwbM3Z0VIkQTRhIpGPgBb+pz62B63pSmpNsZOuiUTNPRzL/3+zYAoZ4C19
+ ph69nbvHwwXw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.79,363,1602572400"; d="scan'208";a="347889280"
+Received: from gaia.fi.intel.com ([10.237.72.192])
+ by fmsmga007.fm.intel.com with ESMTP; 21 Jan 2021 03:50:26 -0800
+Received: by gaia.fi.intel.com (Postfix, from userid 1000)
+ id 6206A5C20E9; Thu, 21 Jan 2021 13:47:39 +0200 (EET)
+From: Mika Kuoppala <mika.kuoppala@linux.intel.com>
+To: Chris Wilson <chris@chris-wilson.co.uk>, intel-gfx@lists.freedesktop.org
+In-Reply-To: <20210120121718.26435-2-chris@chris-wilson.co.uk>
+References: <20210120121718.26435-1-chris@chris-wilson.co.uk>
+ <20210120121718.26435-2-chris@chris-wilson.co.uk>
+Date: Thu, 21 Jan 2021 13:47:39 +0200
+Message-ID: <87pn1yjyuc.fsf@gaia.fi.intel.com>
 MIME-Version: 1.0
-References: <20210120110708.32131-1-jani.nikula@intel.com>
- <92f48ffdfa30c3941e0fd22337217f0b10d75ec8.camel@redhat.com>
- <875z3qmt5b.fsf@intel.com>
- <CAOMZO5Du9+DTYpuG3FNLRrO_LJVSJa3cdJWWwt_qzQDthGESkg@mail.gmail.com>
- <8735yums94.fsf@intel.com>
-In-Reply-To: <8735yums94.fsf@intel.com>
-From: Fabio Estevam <festevam@gmail.com>
-Date: Thu, 21 Jan 2021 08:49:37 -0300
-Message-ID: <CAOMZO5DBXerrJEvvXnfzjB376SMKVJTyo9MRD0H0u9pz8p+2yg@mail.gmail.com>
-To: Jani Nikula <jani.nikula@intel.com>
-Subject: Re: [Intel-gfx] [PATCH] drm/msm/dp: fix build after dp quirk helper
- change
+Subject: Re: [Intel-gfx] [PATCH 2/2] drm/i915/gt: Skip over completed active
+ execlists, again
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,20 +60,112 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Stephen Rothwell <sfr@canb.auug.org.au>,
- Daniel Vetter <daniel.vetter@ffwll.ch>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- DRI mailing list <dri-devel@lists.freedesktop.org>
+Cc: Chris Wilson <chris@chris-wilson.co.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jan 21, 2021 at 8:41 AM Jani Nikula <jani.nikula@intel.com> wrote:
+Chris Wilson <chris@chris-wilson.co.uk> writes:
 
-> On top of what? Current drm-tip?
+> Now that we are careful to always force-restore contexts upon rewinding
+> (where necessary), we can restore our optimisation to skip over
+> completed active execlists when dequeuing.
+>
+> Referenecs: 35f3fd8182ba ("drm/i915/execlists: Workaround switching back to a completed context")
+> References: 8ab3a3812aa9 ("drm/i915/gt: Incrementally check for rewinding")
+> Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+> Cc: Mika Kuoppala <mika.kuoppala@linux.intel.com>
 
-It was on top of next-20210121.
+Reviewed-by: Mika Kuoppala <mika.kuoppala@linux.intel.com>
+
+> ---
+>  .../drm/i915/gt/intel_execlists_submission.c  | 34 +++++++++----------
+>  1 file changed, 16 insertions(+), 18 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+> index 524c8b54d220..ac1be7a632d3 100644
+> --- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+> +++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+> @@ -1224,12 +1224,20 @@ static void set_preempt_timeout(struct intel_engine_cs *engine,
+>  		     active_preempt_timeout(engine, rq));
+>  }
+>  
+> +static bool completed(const struct i915_request *rq)
+> +{
+> +	if (i915_request_has_sentinel(rq))
+> +		return false;
+> +
+> +	return __i915_request_is_complete(rq);
+> +}
+> +
+>  static void execlists_dequeue(struct intel_engine_cs *engine)
+>  {
+>  	struct intel_engine_execlists * const execlists = &engine->execlists;
+>  	struct i915_request **port = execlists->pending;
+>  	struct i915_request ** const last_port = port + execlists->port_mask;
+> -	struct i915_request *last = *execlists->active;
+> +	struct i915_request *last, * const *active;
+>  	struct virtual_engine *ve;
+>  	struct rb_node *rb;
+>  	bool submit = false;
+> @@ -1266,21 +1274,13 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
+>  	 * i.e. we will retrigger preemption following the ack in case
+>  	 * of trouble.
+>  	 *
+> -	 * In theory we can skip over completed contexts that have not
+> -	 * yet been processed by events (as those events are in flight):
+> -	 *
+> -	 * while ((last = *active) && i915_request_completed(last))
+> -	 *	active++;
+> -	 *
+> -	 * However, the GPU cannot handle this as it will ultimately
+> -	 * find itself trying to jump back into a context it has just
+> -	 * completed and barf.
+>  	 */
+> +	active = execlists->active;
+> +	while ((last = *active) && completed(last))
+> +		active++;
+>  
+>  	if (last) {
+> -		if (__i915_request_is_complete(last)) {
+> -			goto check_secondary;
+> -		} else if (need_preempt(engine, last)) {
+> +		if (need_preempt(engine, last)) {
+>  			ENGINE_TRACE(engine,
+>  				     "preempting last=%llx:%lld, prio=%d, hint=%d\n",
+>  				     last->fence.context,
+> @@ -1359,9 +1359,7 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
+>  			 * we hopefully coalesce several updates into a single
+>  			 * submission.
+>  			 */
+> -check_secondary:
+> -			if (!list_is_last(&last->sched.link,
+> -					  &engine->active.requests)) {
+> +			if (active[1]) {
+>  				/*
+>  				 * Even if ELSP[1] is occupied and not worthy
+>  				 * of timeslices, our queue might be.
+> @@ -1562,7 +1560,7 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
+>  	 * of ordered contexts.
+>  	 */
+>  	if (submit &&
+> -	    memcmp(execlists->active,
+> +	    memcmp(active,
+>  		   execlists->pending,
+>  		   (port - execlists->pending) * sizeof(*port))) {
+>  		*port = NULL;
+> @@ -1570,7 +1568,7 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
+>  			execlists_schedule_in(*port, port - execlists->pending);
+>  
+>  		WRITE_ONCE(execlists->yield, -1);
+> -		set_preempt_timeout(engine, *execlists->active);
+> +		set_preempt_timeout(engine, *active);
+>  		execlists_submit_ports(engine);
+>  	} else {
+>  		ring_set_paused(engine, 0);
+> -- 
+> 2.20.1
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
