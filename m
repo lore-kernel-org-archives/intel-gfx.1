@@ -7,36 +7,42 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1CE72C433DB
-	for <intel-gfx@archiver.kernel.org>; Fri, 22 Jan 2021 15:06:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 43C8CC433DB
+	for <intel-gfx@archiver.kernel.org>; Fri, 22 Jan 2021 15:10:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D483923A5C
-	for <intel-gfx@archiver.kernel.org>; Fri, 22 Jan 2021 15:06:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D483923A5C
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
+	by mail.kernel.org (Postfix) with ESMTPS id D13CB23AA1
+	for <intel-gfx@archiver.kernel.org>; Fri, 22 Jan 2021 15:10:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D13CB23AA1
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=canonical.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6CBF26EA1C;
-	Fri, 22 Jan 2021 15:06:50 +0000 (UTC)
-Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9075A6E9FE
- for <intel-gfx@lists.freedesktop.org>; Fri, 22 Jan 2021 15:06:33 +0000 (UTC)
-X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
- x-ip-name=78.156.65.138; 
-Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23672678-1500050 
- for multiple; Fri, 22 Jan 2021 15:06:23 +0000
-From: Chris Wilson <chris@chris-wilson.co.uk>
-To: intel-gfx@lists.freedesktop.org
-Date: Fri, 22 Jan 2021 15:06:17 +0000
-Message-Id: <20210122150622.21088-5-chris@chris-wilson.co.uk>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210122150622.21088-1-chris@chris-wilson.co.uk>
-References: <20210122150622.21088-1-chris@chris-wilson.co.uk>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3AF5C892E5;
+	Fri, 22 Jan 2021 15:10:04 +0000 (UTC)
+Received: from youngberry.canonical.com (youngberry.canonical.com
+ [91.189.89.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C53CD89B51;
+ Fri, 22 Jan 2021 15:10:02 +0000 (UTC)
+Received: from 1.general.cking.uk.vpn ([10.172.193.212] helo=localhost)
+ by youngberry.canonical.com with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
+ (envelope-from <colin.king@canonical.com>)
+ id 1l2y4U-00008M-10; Fri, 22 Jan 2021 15:09:58 +0000
+From: Colin King <colin.king@canonical.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, Ramalingam C <ramalingam.c@intel.com>,
+ Anshuman Gupta <anshuman.gupta@intel.com>,
+ Uma Shankar <uma.shankar@intel.com>, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Date: Fri, 22 Jan 2021 15:09:57 +0000
+Message-Id: <20210122150957.209779-1-colin.king@canonical.com>
+X-Mailer: git-send-email 2.29.2
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 05/10] drm/i915/gt: Remove a bonus newline
+Subject: [Intel-gfx] [PATCH][next] drm/i915/hdcp: Fix return of value in
+ uninitialized variable ret
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,47 +55,41 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Chris Wilson <chris@chris-wilson.co.uk>
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Trailing newlines before closing the function are best forgotten, or
-else checkpatch moans.
+From: Colin Ian King <colin.king@canonical.com>
 
-Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+Currently when there are other connectors on the port using HDCP the
+function _intel_hdcp_disable returns a garbage uninitialized value in
+variable ret.  I believe the intention is to return 0, so return this
+literal value instead of the value in ret.
+
+Addresses-Coverity: ("Uninitialized scalar return")
+Fixes: 899c8762f981 ("drm/i915/hdcp: Configure HDCP2.2 MST steram encryption status")
+Signed-off-by: Colin Ian King <colin.king@canonical.com>
 ---
- drivers/gpu/drm/i915/gt/intel_gt_clock_utils.c | 1 -
- drivers/gpu/drm/i915/gt/intel_rc6.c            | 1 -
- 2 files changed, 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_hdcp.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_clock_utils.c b/drivers/gpu/drm/i915/gt/intel_gt_clock_utils.c
-index a4242ca8dcd7..582fcaee11aa 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_clock_utils.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_clock_utils.c
-@@ -165,7 +165,6 @@ void intel_gt_init_clock_frequency(struct intel_gt *gt)
- 		 gt->clock_period_ns,
- 		 div_u64(mul_u32_u32(gt->clock_period_ns, S32_MAX),
- 			 USEC_PER_SEC));
--
- }
+diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.c b/drivers/gpu/drm/i915/display/intel_hdcp.c
+index db8dff2eeb0a..a0e7b0bf892b 100644
+--- a/drivers/gpu/drm/i915/display/intel_hdcp.c
++++ b/drivers/gpu/drm/i915/display/intel_hdcp.c
+@@ -883,7 +883,7 @@ static int _intel_hdcp_disable(struct intel_connector *connector)
+ 	 * until it disabled HDCP encryption for all connectors in MST topology.
+ 	 */
+ 	if (dig_port->num_hdcp_streams > 0)
+-		return ret;
++		return 0;
  
- #if IS_ENABLED(CONFIG_DRM_I915_DEBUG_GEM)
-diff --git a/drivers/gpu/drm/i915/gt/intel_rc6.c b/drivers/gpu/drm/i915/gt/intel_rc6.c
-index 76966def123d..91c1f58c1b25 100644
---- a/drivers/gpu/drm/i915/gt/intel_rc6.c
-+++ b/drivers/gpu/drm/i915/gt/intel_rc6.c
-@@ -175,7 +175,6 @@ static void gen9_rc6_enable(struct intel_rc6 *rc6)
- 	/* 3a: Enable RC6 */
- 	set(uncore, GEN6_RC6_THRESHOLD, 37500); /* 37.5/125ms per EI */
- 
--
- 	rc6->ctl_enable =
- 		GEN6_RC_CTL_HW_ENABLE |
- 		GEN6_RC_CTL_RC6_ENABLE |
+ 	hdcp->hdcp_encrypted = false;
+ 	intel_de_write(dev_priv, HDCP_CONF(dev_priv, cpu_transcoder, port), 0);
 -- 
-2.20.1
+2.29.2
 
 _______________________________________________
 Intel-gfx mailing list
