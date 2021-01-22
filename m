@@ -2,53 +2,51 @@ Return-Path: <SRS0=EOwD=GZ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
-	NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EA060C433DB
-	for <intel-gfx@archiver.kernel.org>; Fri, 22 Jan 2021 10:27:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1C526C433DB
+	for <intel-gfx@archiver.kernel.org>; Fri, 22 Jan 2021 11:20:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AF9DE2376F
-	for <intel-gfx@archiver.kernel.org>; Fri, 22 Jan 2021 10:27:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AF9DE2376F
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id AC9BD22DBF
+	for <intel-gfx@archiver.kernel.org>; Fri, 22 Jan 2021 11:20:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AC9BD22DBF
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 57BE689D73;
-	Fri, 22 Jan 2021 10:27:27 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F057489D73
- for <intel-gfx@lists.freedesktop.org>; Fri, 22 Jan 2021 10:27:25 +0000 (UTC)
-IronPort-SDR: kdRlo2Zx1hJyfDjKx10A/FMYB32sFaa/SJ0WMA64qmDTfzdP25bcVaSWmO87AdMFdLBBHMVTnX
- bBAU9XjrIgiw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9871"; a="198181325"
-X-IronPort-AV: E=Sophos;i="5.79,366,1602572400"; d="scan'208";a="198181325"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jan 2021 02:27:25 -0800
-IronPort-SDR: 6+8wOWlJjWzNUVVhTOUYuI38TGBXhAas0+Za4mtWanSQzB1g0m67iO7llQHlIS0kl0o2Mv+T4B
- aytBJxwYsLwQ==
-X-IronPort-AV: E=Sophos;i="5.79,366,1602572400"; d="scan'208";a="385711041"
-Received: from lcfenner-mobl1.ger.corp.intel.com (HELO [10.252.20.148])
- ([10.252.20.148])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jan 2021 02:27:23 -0800
+	by gabe.freedesktop.org (Postfix) with ESMTP id E65AB891CC;
+	Fri, 22 Jan 2021 11:20:18 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E62B4891CC
+ for <intel-gfx@lists.freedesktop.org>; Fri, 22 Jan 2021 11:20:17 +0000 (UTC)
+IronPort-SDR: ftUium92brbN4E7GnxRkm63tINtuX+0w29fXyFpIlqBWDUI0CIbwsMZA2Ngb0xBZJILkUK4t+D
+ tIKYsX3cmQ+Q==
+X-IronPort-AV: E=McAfee;i="6000,8403,9871"; a="175921788"
+X-IronPort-AV: E=Sophos;i="5.79,366,1602572400"; d="scan'208";a="175921788"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Jan 2021 03:20:17 -0800
+IronPort-SDR: f7LObXWK1qg5bNM+YXf68HrisfA8vAw5nZkHZGYG/qtraXN311Y4TuUOoCNBGCzmZUAHoTPcj2
+ Ck1GQmCCspig==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.79,366,1602572400"; d="scan'208";a="351804788"
+Received: from gaia.fi.intel.com ([10.237.72.192])
+ by orsmga003.jf.intel.com with ESMTP; 22 Jan 2021 03:20:16 -0800
+Received: by gaia.fi.intel.com (Postfix, from userid 1000)
+ id 7175C5C20E6; Fri, 22 Jan 2021 13:17:28 +0200 (EET)
+From: Mika Kuoppala <mika.kuoppala@linux.intel.com>
 To: Chris Wilson <chris@chris-wilson.co.uk>, intel-gfx@lists.freedesktop.org
-References: <20210121232807.16618-1-chris@chris-wilson.co.uk>
-From: Matthew Auld <matthew.auld@intel.com>
-Message-ID: <5b188fea-2417-fa6a-7a8c-c2d240b359f7@intel.com>
-Date: Fri, 22 Jan 2021 10:27:21 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.0
+In-Reply-To: <20210121223902.7890-1-chris@chris-wilson.co.uk>
+References: <20210121223902.7890-1-chris@chris-wilson.co.uk>
+Date: Fri, 22 Jan 2021 13:17:28 +0200
+Message-ID: <87a6t1jk53.fsf@gaia.fi.intel.com>
 MIME-Version: 1.0
-In-Reply-To: <20210121232807.16618-1-chris@chris-wilson.co.uk>
-Content-Language: en-GB
-Subject: Re: [Intel-gfx] [PATCH] drm/i915: Always flush the active worker
- before returning from the wait
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/gt: Only print an error if the
+ resume fails after the reset
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,33 +59,70 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stable@vger.kernel.org
+Cc: Chris Wilson <chris@chris-wilson.co.uk>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 21/01/2021 23:28, Chris Wilson wrote:
-> The first thing the active retirement worker does is decrement the
-> i915_active count.
-> 
-> The first thing we do during i915_active_wait is try to increment the
-> i915_active count, but only if already active [non-zero].
-> 
-> The wait may see that the retirement is already started and so marked the
-> i915_active as idle, and skip waiting for the retirement handler.
-> However, the caller of i915_active_wait may immediately free the
-> i915_active upon returning (e.g. i915_vma_destroy) so we must not return
-> before the concurrent access from the worker are completed. We must
-> always flush the worker.
-> 
-> Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/2473
-> Fixes: 274cbf20fd10 ("drm/i915: Push the i915_active.retire into a worker")
+Chris Wilson <chris@chris-wilson.co.uk> writes:
+
+> If we fail to stop the ring before the reset, we try the reset anyway.
+> Then we only report a failure if the engine fails to resume after the
+> reset, therefore we don't need to print a premature error message during
+> the prepare.
+
+Resonable to only yell if we cant proceed.
+
+>
 > Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-> Cc: Matthew Auld <matthew.auld@intel.com>
-> Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-> Cc: <stable@vger.kernel.org> # v5.5+
-Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+
+Reviewed-by: Mika Kuoppala <mika.kuoppala@linux.intel.com>
+
+> ---
+>  drivers/gpu/drm/i915/gt/intel_ring_submission.c | 15 ++-------------
+>  1 file changed, 2 insertions(+), 13 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/i915/gt/intel_ring_submission.c b/drivers/gpu/drm/i915/gt/intel_ring_submission.c
+> index e4db4318f634..2d497ecdd433 100644
+> --- a/drivers/gpu/drm/i915/gt/intel_ring_submission.c
+> +++ b/drivers/gpu/drm/i915/gt/intel_ring_submission.c
+> @@ -333,8 +333,8 @@ static void reset_prepare(struct intel_engine_cs *engine)
+>  	ENGINE_TRACE(engine, "\n");
+>  	intel_engine_stop_cs(engine);
+>  
+> -	if (!stop_ring(engine)) {
+> -		/* G45 ring initialization often fails to reset head to zero */
+> +	/* G45 ring initialization often fails to reset head to zero */
+> +	if (!stop_ring(engine) && !stop_ring(engine))
+>  		ENGINE_TRACE(engine,
+>  			     "HEAD not reset to zero, "
+>  			     "{ CTL:%08x, HEAD:%08x, TAIL:%08x, START:%08x }\n",
+> @@ -342,17 +342,6 @@ static void reset_prepare(struct intel_engine_cs *engine)
+>  			     ENGINE_READ_FW(engine, RING_HEAD),
+>  			     ENGINE_READ_FW(engine, RING_TAIL),
+>  			     ENGINE_READ_FW(engine, RING_START));
+> -		if (!stop_ring(engine)) {
+> -			drm_err(&engine->i915->drm,
+> -				"failed to set %s head to zero "
+> -				"ctl %08x head %08x tail %08x start %08x\n",
+> -				engine->name,
+> -				ENGINE_READ_FW(engine, RING_CTL),
+> -				ENGINE_READ_FW(engine, RING_HEAD),
+> -				ENGINE_READ_FW(engine, RING_TAIL),
+> -				ENGINE_READ_FW(engine, RING_START));
+> -		}
+> -	}
+>  }
+>  
+>  static void reset_rewind(struct intel_engine_cs *engine, bool stalled)
+> -- 
+> 2.20.1
+>
+> _______________________________________________
+> Intel-gfx mailing list
+> Intel-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/intel-gfx
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
