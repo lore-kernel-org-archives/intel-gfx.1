@@ -7,37 +7,38 @@ X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 13A72C433DB
-	for <intel-gfx@archiver.kernel.org>; Fri, 22 Jan 2021 18:24:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B1425C433E0
+	for <intel-gfx@archiver.kernel.org>; Fri, 22 Jan 2021 18:26:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A274D23A6A
-	for <intel-gfx@archiver.kernel.org>; Fri, 22 Jan 2021 18:24:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A274D23A6A
+	by mail.kernel.org (Postfix) with ESMTPS id 4C8B223A6A
+	for <intel-gfx@archiver.kernel.org>; Fri, 22 Jan 2021 18:26:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4C8B223A6A
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 368C76EA29;
-	Fri, 22 Jan 2021 18:24:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D2EEF6E9FA;
+	Fri, 22 Jan 2021 18:26:01 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 986F36EA29
- for <intel-gfx@lists.freedesktop.org>; Fri, 22 Jan 2021 18:24:53 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1BB506E9FA
+ for <intel-gfx@lists.freedesktop.org>; Fri, 22 Jan 2021 18:25:59 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from localhost (unverified [78.156.65.138]) 
  by fireflyinternet.com (Firefly Internet (M1)) with ESMTP (TLS) id
- 23675122-1500050 for multiple; Fri, 22 Jan 2021 18:24:49 +0000
+ 23675127-1500050 for multiple; Fri, 22 Jan 2021 18:25:56 +0000
 MIME-Version: 1.0
-In-Reply-To: <20210122181514.541436-1-matthew.auld@intel.com>
+In-Reply-To: <20210122181514.541436-2-matthew.auld@intel.com>
 References: <20210122181514.541436-1-matthew.auld@intel.com>
+ <20210122181514.541436-2-matthew.auld@intel.com>
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: Matthew Auld <matthew.auld@intel.com>, intel-gfx@lists.freedesktop.org
-Date: Fri, 22 Jan 2021 18:24:49 +0000
-Message-ID: <161133988942.24506.14089524757817074193@build.alporthouse.com>
+Date: Fri, 22 Jan 2021 18:25:56 +0000
+Message-ID: <161133995615.24506.5856273623361483796@build.alporthouse.com>
 User-Agent: alot/0.9
-Subject: Re: [Intel-gfx] [PATCH 1/2] drm/i915/dmabuf: don't trust the
- dma_buf->size
+Subject: Re: [Intel-gfx] [PATCH 2/2] drm/i915: consolidate 2big error
+ checking for object sizes
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,15 +56,13 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Quoting Matthew Auld (2021-01-22 18:15:13)
-> At least for the time being, we need to limit our object sizes such that
-> the number of pages can fit within a 32b signed int. It looks like we
-> should also apply the same restriction to any imported dma-buf.
+Quoting Matthew Auld (2021-01-22 18:15:14)
+> Throw it into a simple helper, and throw a warning if we encounter an
+> object which has been initialised with an object size that exceeds our
+> limit of INT_MAX pages.
 > 
+> Suggested-by: Chris Wilson <chris@chris-wilson.co.uk>
 > Signed-off-by: Matthew Auld <matthew.auld@intel.com>
-
-From behind the grumbling that we really should have sorted this out by
-now,
 Reviewed-by: Chris Wilson <chris@chris-wilson.co.uk>
 -Chris
 _______________________________________________
