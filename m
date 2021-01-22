@@ -7,37 +7,36 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AADEBC43381
-	for <intel-gfx@archiver.kernel.org>; Fri, 22 Jan 2021 19:29:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D57C4C433E0
+	for <intel-gfx@archiver.kernel.org>; Fri, 22 Jan 2021 19:29:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6ADC823AF8
-	for <intel-gfx@archiver.kernel.org>; Fri, 22 Jan 2021 19:29:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6ADC823AF8
+	by mail.kernel.org (Postfix) with ESMTPS id 9E7CC23AF8
+	for <intel-gfx@archiver.kernel.org>; Fri, 22 Jan 2021 19:29:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9E7CC23AF8
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 86B806EA46;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1DD556EA3E;
 	Fri, 22 Jan 2021 19:29:24 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CDF0F6EA39
- for <intel-gfx@lists.freedesktop.org>; Fri, 22 Jan 2021 19:29:20 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EA1DD6EA36
+ for <intel-gfx@lists.freedesktop.org>; Fri, 22 Jan 2021 19:29:19 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23675685-1500050 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23675687-1500050 
  for <intel-gfx@lists.freedesktop.org>; Fri, 22 Jan 2021 19:29:13 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 22 Jan 2021 19:29:06 +0000
-Message-Id: <20210122192913.4518-3-chris@chris-wilson.co.uk>
+Date: Fri, 22 Jan 2021 19:29:08 +0000
+Message-Id: <20210122192913.4518-5-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20210122192913.4518-1-chris@chris-wilson.co.uk>
 References: <20210122192913.4518-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [CI 03/10] drm/i915/gt: Remove repeated words from
- comments
+Subject: [Intel-gfx] [CI 05/10] drm/i915/gt: Remove a bonus newline
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,84 +54,40 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Checkpatch spotted a few repeated words in the comment, genuine
-mistakes.
+Trailing newlines before closing the function are best forgotten, or
+else checkpatch moans.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 Reviewed-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_execlists_submission.c | 2 +-
- drivers/gpu/drm/i915/gt/intel_ggtt.c                 | 2 +-
- drivers/gpu/drm/i915/gt/intel_reset_types.h          | 2 +-
- drivers/gpu/drm/i915/gt/intel_workarounds.c          | 2 +-
- drivers/gpu/drm/i915/gt/selftest_execlists.c         | 2 +-
- 5 files changed, 5 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_gt_clock_utils.c | 1 -
+ drivers/gpu/drm/i915/gt/intel_rc6.c            | 1 -
+ 2 files changed, 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-index 3e680bfa9d13..304d4b8e08e1 100644
---- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-+++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-@@ -3108,7 +3108,7 @@ static void execlists_release(struct intel_engine_cs *engine)
- static void
- logical_ring_default_vfuncs(struct intel_engine_cs *engine)
- {
--	/* Default vfuncs which can be overriden by each engine. */
-+	/* Default vfuncs which can be overridden by each engine. */
- 
- 	engine->resume = execlists_resume;
- 
-diff --git a/drivers/gpu/drm/i915/gt/intel_ggtt.c b/drivers/gpu/drm/i915/gt/intel_ggtt.c
-index eece0844fbe9..dac07d66f658 100644
---- a/drivers/gpu/drm/i915/gt/intel_ggtt.c
-+++ b/drivers/gpu/drm/i915/gt/intel_ggtt.c
-@@ -92,7 +92,7 @@ int i915_ggtt_init_hw(struct drm_i915_private *i915)
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_clock_utils.c b/drivers/gpu/drm/i915/gt/intel_gt_clock_utils.c
+index a4242ca8dcd7..582fcaee11aa 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_clock_utils.c
++++ b/drivers/gpu/drm/i915/gt/intel_gt_clock_utils.c
+@@ -165,7 +165,6 @@ void intel_gt_init_clock_frequency(struct intel_gt *gt)
+ 		 gt->clock_period_ns,
+ 		 div_u64(mul_u32_u32(gt->clock_period_ns, S32_MAX),
+ 			 USEC_PER_SEC));
+-
  }
  
- /*
-- * Certain Gen5 chipsets require require idling the GPU before
-+ * Certain Gen5 chipsets require idling the GPU before
-  * unmapping anything from the GTT when VT-d is enabled.
-  */
- static bool needs_idle_maps(struct drm_i915_private *i915)
-diff --git a/drivers/gpu/drm/i915/gt/intel_reset_types.h b/drivers/gpu/drm/i915/gt/intel_reset_types.h
-index add6b86d9d03..9312b29f5a97 100644
---- a/drivers/gpu/drm/i915/gt/intel_reset_types.h
-+++ b/drivers/gpu/drm/i915/gt/intel_reset_types.h
-@@ -32,7 +32,7 @@ struct intel_reset {
- 	 *
- 	 * #I915_WEDGED_ON_INIT - If we fail to initialize the GPU we can no
- 	 * longer use the GPU - similar to #I915_WEDGED bit. The difference in
--	 * in the way we're handling "forced" unwedged (e.g. through debugfs),
-+	 * the way we're handling "forced" unwedged (e.g. through debugfs),
- 	 * which is not allowed in case we failed to initialize.
- 	 *
- 	 * #I915_WEDGED_ON_FINI - Similar to #I915_WEDGED_ON_INIT, except we
-diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-index e51e6977016a..8abfd6ad9718 100644
---- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
-+++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-@@ -280,7 +280,7 @@ static void gen8_ctx_workarounds_init(struct intel_engine_cs *engine,
- 		     PARTIAL_INSTRUCTION_SHOOTDOWN_DISABLE);
+ #if IS_ENABLED(CONFIG_DRM_I915_DEBUG_GEM)
+diff --git a/drivers/gpu/drm/i915/gt/intel_rc6.c b/drivers/gpu/drm/i915/gt/intel_rc6.c
+index 76966def123d..91c1f58c1b25 100644
+--- a/drivers/gpu/drm/i915/gt/intel_rc6.c
++++ b/drivers/gpu/drm/i915/gt/intel_rc6.c
+@@ -175,7 +175,6 @@ static void gen9_rc6_enable(struct intel_rc6 *rc6)
+ 	/* 3a: Enable RC6 */
+ 	set(uncore, GEN6_RC6_THRESHOLD, 37500); /* 37.5/125ms per EI */
  
- 	/* Use Force Non-Coherent whenever executing a 3D context. This is a
--	 * workaround for for a possible hang in the unlikely event a TLB
-+	 * workaround for a possible hang in the unlikely event a TLB
- 	 * invalidation occurs during a PSD flush.
- 	 */
- 	/* WaForceEnableNonCoherent:bdw,chv */
-diff --git a/drivers/gpu/drm/i915/gt/selftest_execlists.c b/drivers/gpu/drm/i915/gt/selftest_execlists.c
-index 4f2853a83075..6cfa9a89d891 100644
---- a/drivers/gpu/drm/i915/gt/selftest_execlists.c
-+++ b/drivers/gpu/drm/i915/gt/selftest_execlists.c
-@@ -2864,7 +2864,7 @@ static int __live_preempt_ring(struct intel_engine_cs *engine,
- 	err = wait_for_submit(engine, rq, HZ / 2);
- 	i915_request_put(rq);
- 	if (err) {
--		pr_err("%s: preemption request was not submited\n",
-+		pr_err("%s: preemption request was not submitted\n",
- 		       engine->name);
- 		err = -ETIME;
- 	}
+-
+ 	rc6->ctl_enable =
+ 		GEN6_RC_CTL_HW_ENABLE |
+ 		GEN6_RC_CTL_RC6_ENABLE |
 -- 
 2.20.1
 
