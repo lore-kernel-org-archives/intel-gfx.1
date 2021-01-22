@@ -2,58 +2,65 @@ Return-Path: <SRS0=EOwD=GZ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F0446C433DB
-	for <intel-gfx@archiver.kernel.org>; Fri, 22 Jan 2021 13:18:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8A15EC433E0
+	for <intel-gfx@archiver.kernel.org>; Fri, 22 Jan 2021 14:17:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AC07D23428
-	for <intel-gfx@archiver.kernel.org>; Fri, 22 Jan 2021 13:18:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AC07D23428
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=163.com
+	by mail.kernel.org (Postfix) with ESMTPS id 4AE14239EE
+	for <intel-gfx@archiver.kernel.org>; Fri, 22 Jan 2021 14:17:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4AE14239EE
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 733B96E9F1;
-	Fri, 22 Jan 2021 13:18:35 +0000 (UTC)
-X-Greylist: delayed 1006 seconds by postgrey-1.36 at gabe;
- Fri, 22 Jan 2021 02:16:05 UTC
-Received: from m12-16.163.com (m12-16.163.com [220.181.12.16])
- by gabe.freedesktop.org (Postfix) with SMTP id D24BD89CCE
- for <intel-gfx@lists.freedesktop.org>; Fri, 22 Jan 2021 02:16:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:Subject:Date:Message-Id; bh=FUpAD7mi2xl59ZcPW1
- 4M9M2HliTKwesJrNAhCSn/9vo=; b=ZMBKAimrzBI5kDL2jdY3K/DOjJ8tNCtJxD
- ai2RcnzVY9tRD7/Nub/O57WOCJVN00fYRjF0T4tBRuaza70Iagx1cntXj0DUBRSB
- RoEoMvLUsd9YstaFzNmS3A7oAtSfTUm3saOMQCiCDN7ebMGvKNzRSFNvGRXQt4S9
- 6nXeKiufk=
-Received: from localhost.localdomain (unknown [119.3.119.20])
- by smtp12 (Coremail) with SMTP id EMCowAC3GSziMApgmL4iYQ--.52373S4;
- Fri, 22 Jan 2021 09:56:54 +0800 (CST)
-From: Pan Bian <bianpan2016@163.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, Chris Wilson <chris@chris-wilson.co.uk>,
- Matthew Auld <matthew.auld@intel.com>, Andi Shyti <andi.shyti@intel.com>,
- Mika Kuoppala <mika.kuoppala@linux.intel.com>
-Date: Thu, 21 Jan 2021 17:56:40 -0800
-Message-Id: <20210122015640.16002-1-bianpan2016@163.com>
-X-Mailer: git-send-email 2.17.1
-X-CM-TRANSID: EMCowAC3GSziMApgmL4iYQ--.52373S4
-X-Coremail-Antispam: 1Uf129KBjvdXoWrKrWUAFyxKrW7KrW5Cw4xXrb_yoWfWrbEg3
- y7Zr97WrWDCFn0vFn8uwsxAFyIkF1rZr4xtw1xta1ftr13Aa1DWFZ7ZFyUXr4xWayUXF9F
- qF1kZFsIvrnrujkaLaAFLSUrUUUUUb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
- 9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IUbw0etUUUUU==
-X-Originating-IP: [119.3.119.20]
-X-CM-SenderInfo: held01tdqsiiqw6rljoofrz/1tbiNgYiclWBlvTBgwAAsU
-X-Mailman-Approved-At: Fri, 22 Jan 2021 13:18:34 +0000
-Subject: [Intel-gfx] [PATCH] drm/i915/selftest: Fix potential memory leak
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A7B16E9F8;
+	Fri, 22 Jan 2021 14:17:09 +0000 (UTC)
+Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
+ [IPv6:2a00:1450:4864:20::231])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F85D6E9F7;
+ Fri, 22 Jan 2021 14:17:08 +0000 (UTC)
+Received: by mail-lj1-x231.google.com with SMTP id f2so1473863ljp.11;
+ Fri, 22 Jan 2021 06:17:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=Z8mwIEDpENHQPtwMCv6y4VpkGncW2XJYSp++OhLzpYA=;
+ b=FRBjvbSwVivVTxWnYEWwg4AouTZMQEH5Y1rUZuPiiwnslT4Cu3m5MPUjO9ynXqVQlW
+ pDetYZSSe0KsN53qMQLIzuYNpxBlyEeA6tPJWO5ta3x03XAXRrECbCDxVzfgqeN1bH8T
+ th9L1zbnmU8PIB+4Vg9vIqQLI0cGYeARtbJ7MZ3XYqlwmv9VQrgkNLI9AIaxvxQn8S+G
+ CE1eyOx06iKWIneyUcTflyJlyOoljSlH08XACHfNZjl61NEBDq1WM2I1RRf96ClXJVka
+ gXScf7Xr5Qs+dGFcZs52Hk1x9oJw61VB3txeudE6cYcUbZ/gJSba8h+XKyFXJfWfSnxu
+ sBbw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=Z8mwIEDpENHQPtwMCv6y4VpkGncW2XJYSp++OhLzpYA=;
+ b=oFHTDjVxIOoTJw9HBJM4XEw/i6w71EER6yPPEQdyBb/LUHaXCdWQ2/9ZA2neV6qa7H
+ 5vHsSkXpapxZTiLEskyqQd2OyBcw4sHPFmgEnillk05NY8KPRBZyZkiXEVKFv51Ln0ia
+ acsNL7jYWaZ8gKq2O16mfEiJXqk91uOo+z9DIyUdp6WVIlokLHX2Otbb0JD7W5vZeBDq
+ n59M79Qj2O97ztVKvGsfzUzFK16TIkVh80IDkGyyxEpNtgt6JevDQa7lpIBzvlmBc0hL
+ beDFbAln+S4Vz5AyhkBNpmcA0h7Kpkjc+JgqDDrBB1SCkYSFirpKJAwUXOZzIN1hpvY8
+ hECQ==
+X-Gm-Message-State: AOAM530xlQgVMpkT2sVw26ItN5ruA6pfl8DyXbSA7uxIBpq7Oy22ueB8
+ 0Tg4h/vw8FEbHKtx2w6crKgXaF5hWSkpZn9CyC8=
+X-Google-Smtp-Source: ABdhPJzyisHq22Ug6u0KO4MdJ4uEr89O5oqn0gzi6cM0EjaFF7KBpntpUSBtybFHfqIgtdWD5xh6CUxgIKWEIqXteQk=
+X-Received: by 2002:a2e:b556:: with SMTP id a22mr849240ljn.264.1611325026603; 
+ Fri, 22 Jan 2021 06:17:06 -0800 (PST)
+MIME-Version: 1.0
+References: <20210122113855.25770-1-andriy.shevchenko@linux.intel.com>
+In-Reply-To: <20210122113855.25770-1-andriy.shevchenko@linux.intel.com>
+From: Patrik Jakobsson <patrik.r.jakobsson@gmail.com>
+Date: Fri, 22 Jan 2021 15:16:55 +0100
+Message-ID: <CAMeQTsa4byizTHkno_ndGpNskAgrEUU3f43p3qAfnGsXt2OoVQ@mail.gmail.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Subject: Re: [Intel-gfx] [PATCH v1 1/2] drm/gma500: Convert to use new SCU
+ IPC API
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,40 +73,27 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Pan Bian <bianpan2016@163.com>, intel-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
-MIME-Version: 1.0
+Cc: David Airlie <airlied@linux.ie>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Linus Walleij <linus.walleij@linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Object out is not released on path that no VMA instance found. The root
-cause is jumping to an unexpected label on the error path.
+On Fri, Jan 22, 2021 at 12:39 PM Andy Shevchenko
+<andriy.shevchenko@linux.intel.com> wrote:
+>
+> Convert the GMA500 driver to use the new SCU IPC API. This allows us
+> to get rid of the duplicate PMC IPC implementation which is now covered
+> in SCU IPC driver.
+>
+> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> Acked-by: Linus Walleij <linus.walleij@linaro.org>
 
-Fixes: a47e788c2310 ("drm/i915/selftests: Exercise CS TLB invalidation")
-Signed-off-by: Pan Bian <bianpan2016@163.com>
----
- drivers/gpu/drm/i915/selftests/i915_gem_gtt.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c b/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
-index c53a222e3dec..713770fb2b92 100644
---- a/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
-+++ b/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
-@@ -1880,7 +1880,7 @@ static int igt_cs_tlb(void *arg)
- 	vma = i915_vma_instance(out, vm, NULL);
- 	if (IS_ERR(vma)) {
- 		err = PTR_ERR(vma);
--		goto out_put_batch;
-+		goto out_put_out;
- 	}
- 
- 	err = i915_vma_pin(vma, 0, 0,
--- 
-2.17.1
-
-
+Both patches look good. Do you want me to take them through drm-misc? Otherwise:
+Acked-by: Patrik Jakobsson <patrik.r.jakobsson@gmail.com>
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
