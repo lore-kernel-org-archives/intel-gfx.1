@@ -2,42 +2,51 @@ Return-Path: <SRS0=EOwD=GZ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 81BC6C433E0
-	for <intel-gfx@archiver.kernel.org>; Fri, 22 Jan 2021 18:12:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6C544C433E0
+	for <intel-gfx@archiver.kernel.org>; Fri, 22 Jan 2021 18:15:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 41DA523A9C
-	for <intel-gfx@archiver.kernel.org>; Fri, 22 Jan 2021 18:12:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 41DA523A9C
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id 26E0623A9C
+	for <intel-gfx@archiver.kernel.org>; Fri, 22 Jan 2021 18:15:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 26E0623A9C
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B93D76EA2B;
-	Fri, 22 Jan 2021 18:12:33 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 4D0E96EA29;
- Fri, 22 Jan 2021 18:12:33 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 4A114A8831;
- Fri, 22 Jan 2021 18:12:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A736A6EA2C;
+	Fri, 22 Jan 2021 18:15:23 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE33D6EA2C
+ for <intel-gfx@lists.freedesktop.org>; Fri, 22 Jan 2021 18:15:22 +0000 (UTC)
+IronPort-SDR: +xYkHXi6/5hfmy1L7mIAyu58vze7VYw9hcgq5T7YGf6v3DKfyrK14kH0yz0oWgP81mwmQaD/t2
+ WVykaKcSm7hg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9872"; a="243560503"
+X-IronPort-AV: E=Sophos;i="5.79,367,1602572400"; d="scan'208";a="243560503"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Jan 2021 10:15:21 -0800
+IronPort-SDR: IUv99eYiGY5ZD8u1Z+PE7y1F+Y2W2Iw8Od++l05DpX3enn9U+B7AaoUHZJaH6LeaxD3qSDmFtj
+ nNAVhOaT7MFA==
+X-IronPort-AV: E=Sophos;i="5.79,367,1602572400"; d="scan'208";a="357118713"
+Received: from lcfenner-mobl1.ger.corp.intel.com (HELO
+ mwauld-desk1.ger.corp.intel.com) ([10.252.20.148])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Jan 2021 10:15:20 -0800
+From: Matthew Auld <matthew.auld@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Fri, 22 Jan 2021 18:15:14 +0000
+Message-Id: <20210122181514.541436-2-matthew.auld@intel.com>
+X-Mailer: git-send-email 2.26.2
+In-Reply-To: <20210122181514.541436-1-matthew.auld@intel.com>
+References: <20210122181514.541436-1-matthew.auld@intel.com>
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Chris Wilson" <chris@chris-wilson.co.uk>
-Date: Fri, 22 Jan 2021 18:12:33 -0000
-Message-ID: <161133915329.14037.15954467700249050088@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20210122122903.23893-1-chris@chris-wilson.co.uk>
-In-Reply-To: <20210122122903.23893-1-chris@chris-wilson.co.uk>
-Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3Igc2Vy?=
- =?utf-8?q?ies_starting_with_=5BCI=2C1/9=5D_drm/i915/gt=3A_Show_the_per-en?=
- =?utf-8?q?gine_runtime_in_sysfs?=
+Subject: [Intel-gfx] [PATCH 2/2] drm/i915: consolidate 2big error checking
+ for object sizes
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,238 +59,135 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
-Content-Type: multipart/mixed; boundary="===============0423809765=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============0423809765==
-Content-Type: multipart/alternative;
- boundary="===============6235740097224140969=="
+Throw it into a simple helper, and throw a warning if we encounter an
+object which has been initialised with an object size that exceeds our
+limit of INT_MAX pages.
 
---===============6235740097224140969==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Suggested-by: Chris Wilson <chris@chris-wilson.co.uk>
+Signed-off-by: Matthew Auld <matthew.auld@intel.com>
+---
+ drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c  |  9 +------
+ drivers/gpu/drm/i915/gem/i915_gem_object.h  | 26 +++++++++++++++++++++
+ drivers/gpu/drm/i915/gem/i915_gem_region.c  | 12 +---------
+ drivers/gpu/drm/i915/gem/i915_gem_userptr.c | 16 +------------
+ 4 files changed, 29 insertions(+), 34 deletions(-)
 
-== Series Details ==
-
-Series: series starting with [CI,1/9] drm/i915/gt: Show the per-engine runtime in sysfs
-URL   : https://patchwork.freedesktop.org/series/86180/
-State : success
-
-== Summary ==
-
-CI Bug Log - changes from CI_DRM_9670 -> Patchwork_19458
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19458/index.html
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_19458 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@amdgpu/amd_basic@userptr:
-    - fi-byt-j1900:       NOTRUN -> [SKIP][1] ([fdo#109271]) +17 similar issues
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19458/fi-byt-j1900/igt@amdgpu/amd_basic@userptr.html
-
-  * igt@i915_selftest@live@execlists:
-    - fi-bsw-n3050:       [PASS][2] -> [INCOMPLETE][3] ([i915#2940])
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9670/fi-bsw-n3050/igt@i915_selftest@live@execlists.html
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19458/fi-bsw-n3050/igt@i915_selftest@live@execlists.html
-
-  * igt@prime_self_import@basic-with_one_bo_two_files:
-    - fi-tgl-y:           [PASS][4] -> [DMESG-WARN][5] ([i915#402]) +1 similar issue
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9670/fi-tgl-y/igt@prime_self_import@basic-with_one_bo_two_files.html
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19458/fi-tgl-y/igt@prime_self_import@basic-with_one_bo_two_files.html
-
-  * igt@runner@aborted:
-    - fi-bsw-n3050:       NOTRUN -> [FAIL][6] ([i915#1436] / [i915#1602])
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19458/fi-bsw-n3050/igt@runner@aborted.html
-
-  
-#### Possible fixes ####
-
-  * igt@i915_pm_rpm@module-reload:
-    - fi-byt-j1900:       [INCOMPLETE][7] ([i915#142] / [i915#2405]) -> [PASS][8]
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9670/fi-byt-j1900/igt@i915_pm_rpm@module-reload.html
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19458/fi-byt-j1900/igt@i915_pm_rpm@module-reload.html
-
-  * igt@vgem_basic@setversion:
-    - fi-tgl-y:           [DMESG-WARN][9] ([i915#402]) -> [PASS][10] +1 similar issue
-   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9670/fi-tgl-y/igt@vgem_basic@setversion.html
-   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19458/fi-tgl-y/igt@vgem_basic@setversion.html
-
-  
-  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
-  [i915#142]: https://gitlab.freedesktop.org/drm/intel/issues/142
-  [i915#1436]: https://gitlab.freedesktop.org/drm/intel/issues/1436
-  [i915#1602]: https://gitlab.freedesktop.org/drm/intel/issues/1602
-  [i915#2405]: https://gitlab.freedesktop.org/drm/intel/issues/2405
-  [i915#2940]: https://gitlab.freedesktop.org/drm/intel/issues/2940
-  [i915#402]: https://gitlab.freedesktop.org/drm/intel/issues/402
-
-
-Participating hosts (41 -> 36)
-------------------------------
-
-  Missing    (5): fi-cml-u2 fi-ilk-m540 fi-hsw-4200u fi-bsw-cyan fi-bdw-samus 
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_9670 -> Patchwork_19458
-
-  CI-20190529: 20190529
-  CI_DRM_9670: 85fd189b9fbfb6e7af8d956d37be012fdd6ae0ad @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_5964: 0949766cb9846d7d55fac9cdf31d3d8e8ed1d0c6 @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools
-  Patchwork_19458: f9ddf343aca7d240e4753edc6ff0558c33706a3a @ git://anongit.freedesktop.org/gfx-ci/linux
-
-
-== Linux commits ==
-
-f9ddf343aca7 drm/i915: Prefer software tracked context busyness
-b40ff240571c drm/i915: Track context current active time
-8e88ef16dcba drm/i915: Expose per-engine client busyness
-c0afe9f31448 drm/i915: Track all user contexts per client
-d45fa54ad356 drm/i915: Track runtime spent in closed and unreachable GEM contexts
-75e5024b112a drm/i915: Make GEM contexts track DRM clients
-af88b0746faf drm/i915: Update client name on context create
-43ff78825da2 drm/i915: Expose list of clients in sysfs
-e718194c32ae drm/i915/gt: Show the per-engine runtime in sysfs
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19458/index.html
-
---===============6235740097224140969==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>series starting with [CI,1/9] drm/i915/gt: Show the per-engine runtime in sysfs</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/86180/">https://patchwork.freedesktop.org/series/86180/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19458/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19458/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_9670 -&gt; Patchwork_19458</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19458/index.html</p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_19458 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@amdgpu/amd_basic@userptr:</p>
-<ul>
-<li>fi-byt-j1900:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19458/fi-byt-j1900/igt@amdgpu/amd_basic@userptr.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +17 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@execlists:</p>
-<ul>
-<li>fi-bsw-n3050:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9670/fi-bsw-n3050/igt@i915_selftest@live@execlists.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19458/fi-bsw-n3050/igt@i915_selftest@live@execlists.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2940">i915#2940</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@prime_self_import@basic-with_one_bo_two_files:</p>
-<ul>
-<li>fi-tgl-y:           <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9670/fi-tgl-y/igt@prime_self_import@basic-with_one_bo_two_files.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19458/fi-tgl-y/igt@prime_self_import@basic-with_one_bo_two_files.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/402">i915#402</a>) +1 similar issue</li>
-</ul>
-</li>
-<li>
-<p>igt@runner@aborted:</p>
-<ul>
-<li>fi-bsw-n3050:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19458/fi-bsw-n3050/igt@runner@aborted.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1436">i915#1436</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/1602">i915#1602</a>)</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>
-<p>igt@i915_pm_rpm@module-reload:</p>
-<ul>
-<li>fi-byt-j1900:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9670/fi-byt-j1900/igt@i915_pm_rpm@module-reload.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/142">i915#142</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/2405">i915#2405</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19458/fi-byt-j1900/igt@i915_pm_rpm@module-reload.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@vgem_basic@setversion:</p>
-<ul>
-<li>fi-tgl-y:           <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9670/fi-tgl-y/igt@vgem_basic@setversion.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/402">i915#402</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19458/fi-tgl-y/igt@vgem_basic@setversion.html">PASS</a> +1 similar issue</li>
-</ul>
-</li>
-</ul>
-<h2>Participating hosts (41 -&gt; 36)</h2>
-<p>Missing    (5): fi-cml-u2 fi-ilk-m540 fi-hsw-4200u fi-bsw-cyan fi-bdw-samus </p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_9670 -&gt; Patchwork_19458</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_9670: 85fd189b9fbfb6e7af8d956d37be012fdd6ae0ad @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_5964: 0949766cb9846d7d55fac9cdf31d3d8e8ed1d0c6 @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools<br />
-  Patchwork_19458: f9ddf343aca7d240e4753edc6ff0558c33706a3a @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<p>== Linux commits ==</p>
-<p>f9ddf343aca7 drm/i915: Prefer software tracked context busyness<br />
-b40ff240571c drm/i915: Track context current active time<br />
-8e88ef16dcba drm/i915: Expose per-engine client busyness<br />
-c0afe9f31448 drm/i915: Track all user contexts per client<br />
-d45fa54ad356 drm/i915: Track runtime spent in closed and unreachable GEM contexts<br />
-75e5024b112a drm/i915: Make GEM contexts track DRM clients<br />
-af88b0746faf drm/i915: Update client name on context create<br />
-43ff78825da2 drm/i915: Expose list of clients in sysfs<br />
-e718194c32ae drm/i915/gt: Show the per-engine runtime in sysfs</p>
-
-</body>
-</html>
-
---===============6235740097224140969==--
-
---===============0423809765==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c b/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
+index dc11497f830b..5cc8a0b2387f 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
+@@ -244,14 +244,7 @@ struct drm_gem_object *i915_gem_prime_import(struct drm_device *dev,
+ 		}
+ 	}
+ 
+-	/*
+-	 * XXX: There is a prevalence of the assumption that we fit the
+-	 * object's page count inside a 32bit _signed_ variable. Let's document
+-	 * this and catch if we ever need to fix it. In the meantime, if you do
+-	 * spot such a local variable, please consider fixing!
+-	 */
+-
+-	if (dma_buf->size >> PAGE_SHIFT > INT_MAX)
++	if (i915_gem_object_size_2big(dma_buf->size))
+ 		return ERR_PTR(-E2BIG);
+ 
+ 	/* need to attach */
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.h b/drivers/gpu/drm/i915/gem/i915_gem_object.h
+index d0ae834d787a..3411ad197fa6 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_object.h
++++ b/drivers/gpu/drm/i915/gem/i915_gem_object.h
+@@ -16,6 +16,32 @@
+ #include "i915_gem_gtt.h"
+ #include "i915_vma_types.h"
+ 
++/*
++ * XXX: There is a prevalence of the assumption that we fit the
++ * object's page count inside a 32bit _signed_ variable. Let's document
++ * this and catch if we ever need to fix it. In the meantime, if you do
++ * spot such a local variable, please consider fixing!
++ *
++ * Aside from our own locals (for which we have no excuse!):
++ * - sg_table embeds unsigned int for num_pages
++ * - get_user_pages*() mixed ints with longs
++ */
++#define GEM_CHECK_SIZE_OVERFLOW(sz) \
++	GEM_WARN_ON((sz) >> PAGE_SHIFT > INT_MAX)
++
++static inline bool i915_gem_object_size_2big(u64 size)
++{
++	struct drm_i915_gem_object *obj;
++
++	if (GEM_CHECK_SIZE_OVERFLOW(size))
++		return true;
++
++	if (overflows_type(size, obj->base.size))
++		return true;
++
++	return false;
++}
++
+ void i915_gem_init__objects(struct drm_i915_private *i915);
+ 
+ struct drm_i915_gem_object *i915_gem_object_alloc(void);
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_region.c b/drivers/gpu/drm/i915/gem/i915_gem_region.c
+index 3e3dad22a683..77dfa908f156 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_region.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_region.c
+@@ -161,17 +161,7 @@ i915_gem_object_create_region(struct intel_memory_region *mem,
+ 	GEM_BUG_ON(!size);
+ 	GEM_BUG_ON(!IS_ALIGNED(size, I915_GTT_MIN_ALIGNMENT));
+ 
+-	/*
+-	 * XXX: There is a prevalence of the assumption that we fit the
+-	 * object's page count inside a 32bit _signed_ variable. Let's document
+-	 * this and catch if we ever need to fix it. In the meantime, if you do
+-	 * spot such a local variable, please consider fixing!
+-	 */
+-
+-	if (size >> PAGE_SHIFT > INT_MAX)
+-		return ERR_PTR(-E2BIG);
+-
+-	if (overflows_type(size, obj->base.size))
++	if (i915_gem_object_size_2big(size))
+ 		return ERR_PTR(-E2BIG);
+ 
+ 	obj = i915_gem_object_alloc();
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_userptr.c b/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
+index f2eaed6aca3d..3e4785c2dfa2 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
+@@ -770,21 +770,7 @@ i915_gem_userptr_ioctl(struct drm_device *dev,
+ 			    I915_USERPTR_UNSYNCHRONIZED))
+ 		return -EINVAL;
+ 
+-	/*
+-	 * XXX: There is a prevalence of the assumption that we fit the
+-	 * object's page count inside a 32bit _signed_ variable. Let's document
+-	 * this and catch if we ever need to fix it. In the meantime, if you do
+-	 * spot such a local variable, please consider fixing!
+-	 *
+-	 * Aside from our own locals (for which we have no excuse!):
+-	 * - sg_table embeds unsigned int for num_pages
+-	 * - get_user_pages*() mixed ints with longs
+-	 */
+-
+-	if (args->user_size >> PAGE_SHIFT > INT_MAX)
+-		return -E2BIG;
+-
+-	if (overflows_type(args->user_size, obj->base.size))
++	if (i915_gem_object_size_2big(args->user_size))
+ 		return -E2BIG;
+ 
+ 	if (!args->user_size)
+-- 
+2.26.2
 
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-
---===============0423809765==--
