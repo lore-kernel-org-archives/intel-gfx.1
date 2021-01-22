@@ -2,54 +2,58 @@ Return-Path: <SRS0=EOwD=GZ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-14.5 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8B946C433E0
-	for <intel-gfx@archiver.kernel.org>; Fri, 22 Jan 2021 13:13:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F0446C433DB
+	for <intel-gfx@archiver.kernel.org>; Fri, 22 Jan 2021 13:18:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 22DF6223C8
-	for <intel-gfx@archiver.kernel.org>; Fri, 22 Jan 2021 13:13:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 22DF6223C8
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id AC07D23428
+	for <intel-gfx@archiver.kernel.org>; Fri, 22 Jan 2021 13:18:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AC07D23428
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=163.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A99DD6E91C;
-	Fri, 22 Jan 2021 13:13:11 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C3436E91C
- for <intel-gfx@lists.freedesktop.org>; Fri, 22 Jan 2021 13:13:10 +0000 (UTC)
-IronPort-SDR: DHVCSqf/arBrljRIHKq5UKxM0jNS1tCdFSa+H/4CuoWXnxMJ1JZOiIzK20ZuJIEglPOqxJSxNR
- x9BJ2gdKZfJw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9871"; a="159219231"
-X-IronPort-AV: E=Sophos;i="5.79,366,1602572400"; d="scan'208";a="159219231"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jan 2021 05:13:09 -0800
-IronPort-SDR: l1Ck2/4CFlMubPBj53cMbEgqlcw40ueoCOuJvl6fWIIq7CdTstV8ioLu4oc95VmK05vfT+QVx1
- VOtxUeUU0M3w==
-X-IronPort-AV: E=Sophos;i="5.79,366,1602572400"; d="scan'208";a="385751939"
-Received: from gtidhar-mobl.ger.corp.intel.com (HELO [10.214.206.196])
- ([10.214.206.196])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jan 2021 05:13:08 -0800
-To: Chris Wilson <chris@chris-wilson.co.uk>, intel-gfx@lists.freedesktop.org
-References: <20210122122903.23893-1-chris@chris-wilson.co.uk>
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Organization: Intel Corporation UK Plc
-Message-ID: <c7ca37ce-0db5-e273-c2ac-eefcbf75931e@linux.intel.com>
-Date: Fri, 22 Jan 2021 13:13:05 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.5.0
-MIME-Version: 1.0
-In-Reply-To: <20210122122903.23893-1-chris@chris-wilson.co.uk>
-Content-Language: en-US
-Subject: Re: [Intel-gfx] [CI 1/9] drm/i915/gt: Show the per-engine runtime
- in sysfs
+	by gabe.freedesktop.org (Postfix) with ESMTP id 733B96E9F1;
+	Fri, 22 Jan 2021 13:18:35 +0000 (UTC)
+X-Greylist: delayed 1006 seconds by postgrey-1.36 at gabe;
+ Fri, 22 Jan 2021 02:16:05 UTC
+Received: from m12-16.163.com (m12-16.163.com [220.181.12.16])
+ by gabe.freedesktop.org (Postfix) with SMTP id D24BD89CCE
+ for <intel-gfx@lists.freedesktop.org>; Fri, 22 Jan 2021 02:16:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=From:Subject:Date:Message-Id; bh=FUpAD7mi2xl59ZcPW1
+ 4M9M2HliTKwesJrNAhCSn/9vo=; b=ZMBKAimrzBI5kDL2jdY3K/DOjJ8tNCtJxD
+ ai2RcnzVY9tRD7/Nub/O57WOCJVN00fYRjF0T4tBRuaza70Iagx1cntXj0DUBRSB
+ RoEoMvLUsd9YstaFzNmS3A7oAtSfTUm3saOMQCiCDN7ebMGvKNzRSFNvGRXQt4S9
+ 6nXeKiufk=
+Received: from localhost.localdomain (unknown [119.3.119.20])
+ by smtp12 (Coremail) with SMTP id EMCowAC3GSziMApgmL4iYQ--.52373S4;
+ Fri, 22 Jan 2021 09:56:54 +0800 (CST)
+From: Pan Bian <bianpan2016@163.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, Chris Wilson <chris@chris-wilson.co.uk>,
+ Matthew Auld <matthew.auld@intel.com>, Andi Shyti <andi.shyti@intel.com>,
+ Mika Kuoppala <mika.kuoppala@linux.intel.com>
+Date: Thu, 21 Jan 2021 17:56:40 -0800
+Message-Id: <20210122015640.16002-1-bianpan2016@163.com>
+X-Mailer: git-send-email 2.17.1
+X-CM-TRANSID: EMCowAC3GSziMApgmL4iYQ--.52373S4
+X-Coremail-Antispam: 1Uf129KBjvdXoWrKrWUAFyxKrW7KrW5Cw4xXrb_yoWfWrbEg3
+ y7Zr97WrWDCFn0vFn8uwsxAFyIkF1rZr4xtw1xta1ftr13Aa1DWFZ7ZFyUXr4xWayUXF9F
+ qF1kZFsIvrnrujkaLaAFLSUrUUUUUb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+ 9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IUbw0etUUUUU==
+X-Originating-IP: [119.3.119.20]
+X-CM-SenderInfo: held01tdqsiiqw6rljoofrz/1tbiNgYiclWBlvTBgwAAsU
+X-Mailman-Approved-At: Fri, 22 Jan 2021 13:18:34 +0000
+Subject: [Intel-gfx] [PATCH] drm/i915/selftest: Fix potential memory leak
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,69 +66,40 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Pan Bian <bianpan2016@163.com>, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+Object out is not released on path that no VMA instance found. The root
+cause is jumping to an unexpected label on the error path.
 
-On 22/01/2021 12:28, Chris Wilson wrote:
-> Since we already report the per-engine runtime via PMU (using sampling
-> if a direct measure is not available), and in debugfs, also trivially
-> include the information for each engine under sysfs as a read-only
-> property. We only present the total milliseconds to hide any misleading
-> accuracy and to purposely reduce the precision of the global
-> unprivileged information.
-> 
-> Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-> Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-> Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-> ---
->   drivers/gpu/drm/i915/gt/sysfs_engines.c | 17 +++++++++++++++++
->   1 file changed, 17 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/i915/gt/sysfs_engines.c b/drivers/gpu/drm/i915/gt/sysfs_engines.c
-> index 967031056202..57ef5383dd4e 100644
-> --- a/drivers/gpu/drm/i915/gt/sysfs_engines.c
-> +++ b/drivers/gpu/drm/i915/gt/sysfs_engines.c
-> @@ -411,6 +411,19 @@ heartbeat_default(struct kobject *kobj, struct kobj_attribute *attr, char *buf)
->   static struct kobj_attribute heartbeat_interval_def =
->   __ATTR(heartbeat_interval_ms, 0444, heartbeat_default, NULL);
->   
-> +static ssize_t
-> +runtime_show(struct kobject *kobj, struct kobj_attribute *attr, char *buf)
-> +{
-> +	struct intel_engine_cs *engine = kobj_to_engine(kobj);
-> +	ktime_t dummy;
-> +
-> +	return sprintf(buf, "%llu\n",
-> +		       ktime_to_ms(intel_engine_get_busy_time(engine, &dummy)));
-> +}
-> +
-> +static struct kobj_attribute runtime_attr =
-> +__ATTR(runtime_ms, 0444, runtime_show, NULL);
-> +
->   static void kobj_engine_release(struct kobject *kobj)
->   {
->   	kfree(kobj);
-> @@ -521,6 +534,10 @@ void intel_engines_add_sysfs(struct drm_i915_private *i915)
->   		    sysfs_create_file(kobj, &preempt_timeout_attr.attr))
->   			goto err_engine;
->   
-> +		if (intel_engine_supports_stats(engine) &&
-> +		    sysfs_create_file(kobj, &runtime_attr.attr))
-> +			goto err_engine;
-> +
->   		add_defaults(container_of(kobj, struct kobj_engine, base));
->   
->   		if (0) {
-> 
+Fixes: a47e788c2310 ("drm/i915/selftests: Exercise CS TLB invalidation")
+Signed-off-by: Pan Bian <bianpan2016@163.com>
+---
+ drivers/gpu/drm/i915/selftests/i915_gem_gtt.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+diff --git a/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c b/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
+index c53a222e3dec..713770fb2b92 100644
+--- a/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
++++ b/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
+@@ -1880,7 +1880,7 @@ static int igt_cs_tlb(void *arg)
+ 	vma = i915_vma_instance(out, vm, NULL);
+ 	if (IS_ERR(vma)) {
+ 		err = PTR_ERR(vma);
+-		goto out_put_batch;
++		goto out_put_out;
+ 	}
+ 
+ 	err = i915_vma_pin(vma, 0, 0,
+-- 
+2.17.1
 
-Regards,
 
-Tvrtko
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
