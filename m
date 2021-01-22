@@ -7,36 +7,36 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D2287C433E0
-	for <intel-gfx@archiver.kernel.org>; Fri, 22 Jan 2021 12:29:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 155D5C433DB
+	for <intel-gfx@archiver.kernel.org>; Fri, 22 Jan 2021 12:29:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6061622202
+	by mail.kernel.org (Postfix) with ESMTPS id 864CA23437
 	for <intel-gfx@archiver.kernel.org>; Fri, 22 Jan 2021 12:29:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6061622202
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 864CA23437
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B2E76E9EE;
-	Fri, 22 Jan 2021 12:29:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6250D6E9E6;
+	Fri, 22 Jan 2021 12:29:13 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ECA266E9E4
- for <intel-gfx@lists.freedesktop.org>; Fri, 22 Jan 2021 12:29:09 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA67F6E9E5
+ for <intel-gfx@lists.freedesktop.org>; Fri, 22 Jan 2021 12:29:10 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23670787-1500050 
- for <intel-gfx@lists.freedesktop.org>; Fri, 22 Jan 2021 12:29:04 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23670783-1500050 
+ for <intel-gfx@lists.freedesktop.org>; Fri, 22 Jan 2021 12:29:03 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 22 Jan 2021 12:29:01 +0000
-Message-Id: <20210122122903.23893-7-chris@chris-wilson.co.uk>
+Date: Fri, 22 Jan 2021 12:28:57 +0000
+Message-Id: <20210122122903.23893-3-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20210122122903.23893-1-chris@chris-wilson.co.uk>
 References: <20210122122903.23893-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [CI 7/9] drm/i915: Expose per-engine client busyness
+Subject: [Intel-gfx] [CI 3/9] drm/i915: Update client name on context create
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,130 +49,306 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-RnJvbTogVHZydGtvIFVyc3VsaW4gPHR2cnRrby51cnN1bGluQGludGVsLmNvbT4KCkV4cG9zZSBw
-ZXItY2xpZW50IGFuZCBwZXItZW5naW5lIGJ1c3luZXNzIHVuZGVyIHRoZSBwcmV2aW91c2x5IGFk
-ZGVkIHN5c2ZzCmNsaWVudCByb290LgoKVGhlIG5ldyBmaWxlcyBhcmUgb25lIHBlci1lbmdpbmUg
-aW5zdGFuY2UgYW5kIGxvY2F0ZWQgdW5kZXIgdGhlICdidXN5JwpkaXJlY3RvcnkuIEVhY2ggY29u
-dGFpbnMgYSBtb25vdG9uaWNhbGx5IGluY3JlYXNpbmcgbmFuby1zZWNvbmQgcmVzb2x1dGlvbgp0
-aW1lcyBlYWNoIGNsaWVudCdzIGpvYnMgd2VyZSBleGVjdXRpbmcgb24gdGhlIEdQVS4KClRoaXMg
-ZW5hYmxlcyB1c2Vyc3BhY2UgdG8gY3JlYXRlIGEgdG9wLWxpa2UgdG9vbCBmb3IgR1BVIHV0aWxp
-emF0aW9uOgoKPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
-PT09PT09PT09PT09PT09PT09PT09PT09PT0KaW50ZWwtZ3B1LXRvcCAtICA5MzUvIDkzNSBNSHo7
-ICAgIDAlIFJDNjsgMTQuNzMgV2F0dHM7ICAgICAxMDk3IGlycXMvcwoKICAgICAgSU1DIHJlYWRz
-OiAgICAgMTQwMSBNaUIvcwogICAgIElNQyB3cml0ZXM6ICAgICAgICA0IE1pQi9zCgogICAgICAg
-ICAgRU5HSU5FICAgICAgQlVTWSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIE1JX1NF
-TUEgTUlfV0FJVAogICAgIFJlbmRlci8zRC8wICAgNjMuNzMlIHzilojilojilojilojilojiloji
-lojilojilojilojilojilojilojilojilojilojilojilojiloggICAgICAgICAgIHwgICAgICAz
-JSAgICAgIDAlCiAgICAgICBCbGl0dGVyLzAgICAgOS41MyUgfOKWiOKWiOKWiiAgICAgICAgICAg
-ICAgICAgICAgICAgICAgIHwgICAgICA2JSAgICAgIDAlCiAgICAgICAgIFZpZGVvLzAgICAzOS4z
-MiUgfOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiiAgICAgICAgICAgICAgICAg
-IHwgICAgIDE2JSAgICAgIDAlCiAgICAgICAgIFZpZGVvLzEgICAxNS42MiUgfOKWiOKWiOKWiOKW
-iOKWiyAgICAgICAgICAgICAgICAgICAgICAgICB8ICAgICAgMCUgICAgICAwJQogIFZpZGVvRW5o
-YW5jZS8wICAgIDAuMDAlIHwgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8ICAgICAgMCUg
-ICAgICAwJQoKICBQSUQgICAgICAgICAgICBOQU1FICAgICBSQ1MgICAgICAgICAgQkNTICAgICAg
-ICAgIFZDUyAgICAgICAgIFZFQ1MKIDQwODQgICAgICAgIGdlbV93c2ltIHzilojilojilojiloji
-lojilowgICAgIHx84paIICAgICAgICAgIHx8ICAgICAgICAgICB8fCAgICAgICAgICAgfAogNDA4
-NiAgICAgICAgZ2VtX3dzaW0gfOKWiOKWjCAgICAgICAgIHx8ICAgICAgICAgICB8fOKWiOKWiOKW
-iCAgICAgICAgfHwgICAgICAgICAgIHwKPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
-PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0KCnYyOiBVc2UgaW50ZWxf
-Y29udGV4dF9lbmdpbmVfZ2V0X2J1c3lfdGltZS4KdjM6IE5ldyBkaXJlY3Rvcnkgc3RydWN0dXJl
-Lgp2NDogUmViYXNlLgp2NTogc3lzZnNfYXR0cl9pbml0Lgp2NjogU21hbGwgdGlkeSBpbiBpOTE1
-X2dlbV9hZGRfY2xpZW50Lgp2NzogUmViYXNlIHRvIGJlIGVuZ2luZSBjbGFzcyBiYXNlZC4Kdjg6
-CiAqIEFsd2F5cyBlbmFibGUgc3RhdHMuCiAqIFdhbGsgYWxsIGNsaWVudCBjb250ZXh0cy4Kdjk6
-CiAqIFNraXAgdW5zdXBwb3J0ZWQgZW5naW5lIGNsYXNzZXMuIChDaHJpcykKICogVXNlIHNjaGVk
-dWxlciBjYXBzLiAoQ2hyaXMpCnYxMDoKICogVXNlIHBwaHdzcCBydW50aW1lIG9ubHkuCgpMaW5r
-OiBodHRwczovL3BhdGNod29yay5mcmVlZGVza3RvcC5vcmcvc2VyaWVzLzcxMTgyLyAjIGludGVs
-X2dwdV90b3AKU2lnbmVkLW9mZi1ieTogVHZydGtvIFVyc3VsaW4gPHR2cnRrby51cnN1bGluQGlu
-dGVsLmNvbT4KUmV2aWV3ZWQtYnk6IEFyYXZpbmQgSWRkYW1zZXR0eSA8YXJhdmluZC5pZGRhbXNl
-dHR5QGludGVsLmNvbT4KUmV2aWV3ZWQtYnk6IENocmlzIFdpbHNvbiA8Y2hyaXNAY2hyaXMtd2ls
-c29uLmNvLnVrPgpTaWduZWQtb2ZmLWJ5OiBDaHJpcyBXaWxzb24gPGNocmlzQGNocmlzLXdpbHNv
-bi5jby51az4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X2RybV9jbGllbnQuYyB8IDEw
-MyArKysrKysrKysrKysrKysrKysrKysrKystCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X2Ry
-bV9jbGllbnQuaCB8ICAxMCArKysKIDIgZmlsZXMgY2hhbmdlZCwgMTEyIGluc2VydGlvbnMoKyks
-IDEgZGVsZXRpb24oLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X2Ry
-bV9jbGllbnQuYyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfZHJtX2NsaWVudC5jCmluZGV4
-IGU1ZGZhMGJhYWUyZi4uNDVmY2M0ZWYyN2U3IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0v
-aTkxNS9pOTE1X2RybV9jbGllbnQuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X2Ry
-bV9jbGllbnQuYwpAQCAtOSw2ICs5LDExIEBACiAKICNpbmNsdWRlIDxkcm0vZHJtX3ByaW50Lmg+
-CiAKKyNpbmNsdWRlIDx1YXBpL2RybS9pOTE1X2RybS5oPgorCisjaW5jbHVkZSAiZ2VtL2k5MTVf
-Z2VtX2NvbnRleHQuaCIKKyNpbmNsdWRlICJndC9pbnRlbF9lbmdpbmVfdXNlci5oIgorCiAjaW5j
-bHVkZSAiaTkxNV9kcm1fY2xpZW50LmgiCiAjaW5jbHVkZSAiaTkxNV9kcnYuaCIKICNpbmNsdWRl
-ICJpOTE1X2dlbS5oIgpAQCAtNTUsNiArNjAsOTcgQEAgc2hvd19jbGllbnRfcGlkKHN0cnVjdCBk
-ZXZpY2UgKmtkZXYsIHN0cnVjdCBkZXZpY2VfYXR0cmlidXRlICphdHRyLCBjaGFyICpidWYpCiAJ
-cmV0dXJuIHJldDsKIH0KIAorc3RhdGljIHU2NCBwcGh3c3BfYnVzeV9hZGQoc3RydWN0IGk5MTVf
-Z2VtX2NvbnRleHQgKmN0eCwgdW5zaWduZWQgaW50IGNsYXNzKQoreworCXN0cnVjdCBpOTE1X2dl
-bV9lbmdpbmVzICplbmdpbmVzID0gcmN1X2RlcmVmZXJlbmNlKGN0eC0+ZW5naW5lcyk7CisJc3Ry
-dWN0IGk5MTVfZ2VtX2VuZ2luZXNfaXRlciBpdDsKKwlzdHJ1Y3QgaW50ZWxfY29udGV4dCAqY2U7
-CisJdTY0IHRvdGFsID0gMDsKKworCWZvcl9lYWNoX2dlbV9lbmdpbmUoY2UsIGVuZ2luZXMsIGl0
-KSB7CisJCWlmIChjZS0+ZW5naW5lLT51YWJpX2NsYXNzID09IGNsYXNzKQorCQkJdG90YWwgKz0g
-Y2UtPnJ1bnRpbWUudG90YWw7CisJfQorCisJcmV0dXJuIHRvdGFsOworfQorCitzdGF0aWMgc3Np
-emVfdAorc2hvd19jbGllbnRfYnVzeShzdHJ1Y3QgZGV2aWNlICprZGV2LCBzdHJ1Y3QgZGV2aWNl
-X2F0dHJpYnV0ZSAqYXR0ciwgY2hhciAqYnVmKQoreworCXN0cnVjdCBpOTE1X2VuZ2luZV9idXN5
-X2F0dHJpYnV0ZSAqaTkxNV9hdHRyID0KKwkJY29udGFpbmVyX29mKGF0dHIsIHR5cGVvZigqaTkx
-NV9hdHRyKSwgYXR0cik7CisJdW5zaWduZWQgaW50IGNsYXNzID0gaTkxNV9hdHRyLT5lbmdpbmVf
-Y2xhc3M7CisJc3RydWN0IGk5MTVfZHJtX2NsaWVudCAqY2xpZW50ID0gaTkxNV9hdHRyLT5jbGll
-bnQ7CisJdTY0IHRvdGFsID0gYXRvbWljNjRfcmVhZCgmY2xpZW50LT5wYXN0X3J1bnRpbWVbY2xh
-c3NdKTsKKwlzdHJ1Y3QgbGlzdF9oZWFkICpsaXN0ID0gJmNsaWVudC0+Y3R4X2xpc3Q7CisJc3Ry
-dWN0IGk5MTVfZ2VtX2NvbnRleHQgKmN0eDsKKworCXJjdV9yZWFkX2xvY2soKTsKKwlsaXN0X2Zv
-cl9lYWNoX2VudHJ5X3JjdShjdHgsIGxpc3QsIGNsaWVudF9saW5rKQorCQl0b3RhbCArPSBwcGh3
-c3BfYnVzeV9hZGQoY3R4LCBjbGFzcyk7CisJcmN1X3JlYWRfdW5sb2NrKCk7CisKKwl0b3RhbCAq
-PSBjbGllbnQtPmNsaWVudHMtPmk5MTUtPmd0LmNsb2NrX3BlcmlvZF9uczsKKworCXJldHVybiBz
-bnByaW50ZihidWYsIFBBR0VfU0laRSwgIiVsbHVcbiIsIHRvdGFsKTsKK30KKworc3RhdGljIGNv
-bnN0IGNoYXIgKiBjb25zdCB1YWJpX2NsYXNzX25hbWVzW10gPSB7CisJW0k5MTVfRU5HSU5FX0NM
-QVNTX1JFTkRFUl0gPSAiMCIsCisJW0k5MTVfRU5HSU5FX0NMQVNTX0NPUFldID0gIjEiLAorCVtJ
-OTE1X0VOR0lORV9DTEFTU19WSURFT10gPSAiMiIsCisJW0k5MTVfRU5HSU5FX0NMQVNTX1ZJREVP
-X0VOSEFOQ0VdID0gIjMiLAorfTsKKworc3RhdGljIGludCBfX2NsaWVudF9yZWdpc3Rlcl9zeXNm
-c19idXN5KHN0cnVjdCBpOTE1X2RybV9jbGllbnQgKmNsaWVudCkKK3sKKwlzdHJ1Y3QgaTkxNV9k
-cm1fY2xpZW50cyAqY2xpZW50cyA9IGNsaWVudC0+Y2xpZW50czsKKwl1bnNpZ25lZCBpbnQgaTsK
-KwlpbnQgcmV0ID0gMDsKKworCWlmICghSEFTX0xPR0lDQUxfUklOR19DT05URVhUUyhjbGllbnRz
-LT5pOTE1KSkKKwkJcmV0dXJuIDA7CisKKwljbGllbnQtPmJ1c3lfcm9vdCA9IGtvYmplY3RfY3Jl
-YXRlX2FuZF9hZGQoImJ1c3kiLCBjbGllbnQtPnJvb3QpOworCWlmICghY2xpZW50LT5idXN5X3Jv
-b3QpCisJCXJldHVybiAtRU5PTUVNOworCisJZm9yIChpID0gMDsgaSA8IEFSUkFZX1NJWkUodWFi
-aV9jbGFzc19uYW1lcyk7IGkrKykgeworCQlzdHJ1Y3QgaTkxNV9lbmdpbmVfYnVzeV9hdHRyaWJ1
-dGUgKmk5MTVfYXR0ciA9CisJCQkmY2xpZW50LT5hdHRyLmJ1c3lbaV07CisJCXN0cnVjdCBkZXZp
-Y2VfYXR0cmlidXRlICphdHRyID0gJmk5MTVfYXR0ci0+YXR0cjsKKworCQlpZiAoIWludGVsX2Vu
-Z2luZV9sb29rdXBfdXNlcihjbGllbnRzLT5pOTE1LCBpLCAwKSkKKwkJCWNvbnRpbnVlOworCisJ
-CWk5MTVfYXR0ci0+Y2xpZW50ID0gY2xpZW50OworCQlpOTE1X2F0dHItPmVuZ2luZV9jbGFzcyA9
-IGk7CisKKwkJc3lzZnNfYXR0cl9pbml0KCZhdHRyLT5hdHRyKTsKKworCQlhdHRyLT5hdHRyLm5h
-bWUgPSB1YWJpX2NsYXNzX25hbWVzW2ldOworCQlhdHRyLT5hdHRyLm1vZGUgPSAwNDQ0OworCQlh
-dHRyLT5zaG93ID0gc2hvd19jbGllbnRfYnVzeTsKKworCQlyZXQgPSBzeXNmc19jcmVhdGVfZmls
-ZShjbGllbnQtPmJ1c3lfcm9vdCwKKwkJCQkJKHN0cnVjdCBhdHRyaWJ1dGUgKilhdHRyKTsKKwkJ
-aWYgKHJldCkKKwkJCWdvdG8gZXJyOworCX0KKworCXJldHVybiAwOworCitlcnI6CisJa29iamVj
-dF9wdXQoY2xpZW50LT5idXN5X3Jvb3QpOworCXJldHVybiByZXQ7Cit9CisKK3N0YXRpYyB2b2lk
-IF9fY2xpZW50X3VucmVnaXN0ZXJfc3lzZnNfYnVzeShzdHJ1Y3QgaTkxNV9kcm1fY2xpZW50ICpj
-bGllbnQpCit7CisJa29iamVjdF9wdXQoZmV0Y2hfYW5kX3plcm8oJmNsaWVudC0+YnVzeV9yb290
-KSk7Cit9CisKIHN0YXRpYyBpbnQgX19jbGllbnRfcmVnaXN0ZXJfc3lzZnMoc3RydWN0IGk5MTVf
-ZHJtX2NsaWVudCAqY2xpZW50KQogewogCWNvbnN0IHN0cnVjdCB7CkBAIC05MCw5ICsxODYsMTIg
-QEAgc3RhdGljIGludCBfX2NsaWVudF9yZWdpc3Rlcl9zeXNmcyhzdHJ1Y3QgaTkxNV9kcm1fY2xp
-ZW50ICpjbGllbnQpCiAKIAkJcmV0ID0gc3lzZnNfY3JlYXRlX2ZpbGUoY2xpZW50LT5yb290LCAo
-c3RydWN0IGF0dHJpYnV0ZSAqKWF0dHIpOwogCQlpZiAocmV0KQotCQkJYnJlYWs7CisJCQlnb3Rv
-IG91dDsKIAl9CiAKKwlyZXQgPSBfX2NsaWVudF9yZWdpc3Rlcl9zeXNmc19idXN5KGNsaWVudCk7
-CisKK291dDoKIAlpZiAocmV0KQogCQlrb2JqZWN0X3B1dChjbGllbnQtPnJvb3QpOwogCkBAIC0x
-MDEsNiArMjAwLDggQEAgc3RhdGljIGludCBfX2NsaWVudF9yZWdpc3Rlcl9zeXNmcyhzdHJ1Y3Qg
-aTkxNV9kcm1fY2xpZW50ICpjbGllbnQpCiAKIHN0YXRpYyB2b2lkIF9fY2xpZW50X3VucmVnaXN0
-ZXJfc3lzZnMoc3RydWN0IGk5MTVfZHJtX2NsaWVudCAqY2xpZW50KQogeworCV9fY2xpZW50X3Vu
-cmVnaXN0ZXJfc3lzZnNfYnVzeShjbGllbnQpOworCiAJa29iamVjdF9wdXQoZmV0Y2hfYW5kX3pl
-cm8oJmNsaWVudC0+cm9vdCkpOwogfQogCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkx
-NS9pOTE1X2RybV9jbGllbnQuaCBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfZHJtX2NsaWVu
-dC5oCmluZGV4IDEzZjkyMTQyZTQ3NC4uODM2NjBmYTlkMmQ3IDEwMDY0NAotLS0gYS9kcml2ZXJz
-L2dwdS9kcm0vaTkxNS9pOTE1X2RybV9jbGllbnQuaAorKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkx
-NS9pOTE1X2RybV9jbGllbnQuaApAQCAtMzAsNiArMzAsMTQgQEAgc3RydWN0IGk5MTVfZHJtX2Ns
-aWVudHMgewogCXN0cnVjdCBrb2JqZWN0ICpyb290OwogfTsKIAorc3RydWN0IGk5MTVfZHJtX2Ns
-aWVudDsKKworc3RydWN0IGk5MTVfZW5naW5lX2J1c3lfYXR0cmlidXRlIHsKKwlzdHJ1Y3QgZGV2
-aWNlX2F0dHJpYnV0ZSBhdHRyOworCXN0cnVjdCBpOTE1X2RybV9jbGllbnQgKmNsaWVudDsKKwl1
-bnNpZ25lZCBpbnQgZW5naW5lX2NsYXNzOworfTsKKwogc3RydWN0IGk5MTVfZHJtX2NsaWVudF9u
-YW1lIHsKIAlzdHJ1Y3QgcmN1X2hlYWQgcmN1OwogCXN0cnVjdCBpOTE1X2RybV9jbGllbnQgKmNs
-aWVudDsKQEAgLTU0LDkgKzYyLDExIEBAIHN0cnVjdCBpOTE1X2RybV9jbGllbnQgewogCXN0cnVj
-dCBpOTE1X2RybV9jbGllbnRzICpjbGllbnRzOwogCiAJc3RydWN0IGtvYmplY3QgKnJvb3Q7CisJ
-c3RydWN0IGtvYmplY3QgKmJ1c3lfcm9vdDsKIAlzdHJ1Y3QgewogCQlzdHJ1Y3QgZGV2aWNlX2F0
-dHJpYnV0ZSBwaWQ7CiAJCXN0cnVjdCBkZXZpY2VfYXR0cmlidXRlIG5hbWU7CisJCXN0cnVjdCBp
-OTE1X2VuZ2luZV9idXN5X2F0dHJpYnV0ZSBidXN5W01BWF9FTkdJTkVfQ0xBU1MgKyAxXTsKIAl9
-IGF0dHI7CiAKIAkvKioKLS0gCjIuMjAuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRlbC1nZnhAbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlz
-dGluZm8vaW50ZWwtZ2Z4Cg==
+From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+
+Some clients have the DRM fd passed to them over a socket by the X server.
+
+Grab the real client and pid when they create their first context and
+update the exposed data for more useful enumeration.
+
+To enable lockless access to client name and pid data from the following
+patches, we also make these fields rcu protected. In this way asynchronous
+code paths where both contexts which remain after the client exit, and
+access to client name and pid as they are getting updated due context
+creation running in parallel with name/pid queries.
+
+v2:
+ * Do not leak the pid reference and borrow context idr_lock. (Chris)
+
+v3:
+ * More avoiding leaks. (Chris)
+
+v4:
+ * Move update completely to drm client. (Chris)
+ * Do not lose previous client data on failure to re-register and simplify
+   update to only touch what it needs.
+
+v5:
+ * Reuse ext_data local. (Chris)
+
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+Reviewed-by: Chris Wilson <chris@chris-wilson.co.uk>
+Reviewed-by: Aravind Iddamsetty <aravind.iddamsetty@intel.com>
+Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+---
+ drivers/gpu/drm/i915/gem/i915_gem_context.c |  5 ++
+ drivers/gpu/drm/i915/i915_drm_client.c      | 93 +++++++++++++++++----
+ drivers/gpu/drm/i915/i915_drm_client.h      | 34 +++++++-
+ 3 files changed, 115 insertions(+), 17 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+index 61a7360c4d9a..c35f2ff4431c 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+@@ -76,6 +76,7 @@
+ #include "gt/intel_gpu_commands.h"
+ #include "gt/intel_ring.h"
+ 
++#include "i915_drm_client.h"
+ #include "i915_gem_context.h"
+ #include "i915_globals.h"
+ #include "i915_trace.h"
+@@ -2315,6 +2316,10 @@ int i915_gem_context_create_ioctl(struct drm_device *dev, void *data,
+ 		return -EIO;
+ 	}
+ 
++	ret = i915_drm_client_update(ext_data.fpriv->client, current);
++	if (ret)
++		return ret;
++
+ 	ext_data.ctx = i915_gem_create_context(i915, args->flags);
+ 	if (IS_ERR(ext_data.ctx))
+ 		return PTR_ERR(ext_data.ctx);
+diff --git a/drivers/gpu/drm/i915/i915_drm_client.c b/drivers/gpu/drm/i915/i915_drm_client.c
+index f3ef2d4c1faf..accc5b7e7c06 100644
+--- a/drivers/gpu/drm/i915/i915_drm_client.c
++++ b/drivers/gpu/drm/i915/i915_drm_client.c
+@@ -7,7 +7,10 @@
+ #include <linux/slab.h>
+ #include <linux/types.h>
+ 
++#include <drm/drm_print.h>
++
+ #include "i915_drm_client.h"
++#include "i915_drv.h"
+ #include "i915_gem.h"
+ #include "i915_utils.h"
+ 
+@@ -25,10 +28,15 @@ show_client_name(struct device *kdev, struct device_attribute *attr, char *buf)
+ {
+ 	struct i915_drm_client *client =
+ 		container_of(attr, typeof(*client), attr.name);
++	int ret;
+ 
+-	return snprintf(buf, PAGE_SIZE,
+-			READ_ONCE(client->closed) ? "<%s>" : "%s",
+-			client->name);
++	rcu_read_lock();
++	ret = snprintf(buf, PAGE_SIZE,
++		       READ_ONCE(client->closed) ? "<%s>" : "%s",
++		       i915_drm_client_name(client));
++	rcu_read_unlock();
++
++	return ret;
+ }
+ 
+ static ssize_t
+@@ -36,10 +44,15 @@ show_client_pid(struct device *kdev, struct device_attribute *attr, char *buf)
+ {
+ 	struct i915_drm_client *client =
+ 		container_of(attr, typeof(*client), attr.pid);
++	int ret;
+ 
+-	return snprintf(buf, PAGE_SIZE,
+-			READ_ONCE(client->closed) ? "<%u>" : "%u",
+-			pid_nr(client->pid));
++	rcu_read_lock();
++	ret = snprintf(buf, PAGE_SIZE,
++		       READ_ONCE(client->closed) ? "<%u>" : "%u",
++		       pid_nr(i915_drm_client_pid(client)));
++	rcu_read_unlock();
++
++	return ret;
+ }
+ 
+ static int __client_register_sysfs(struct i915_drm_client *client)
+@@ -91,20 +104,46 @@ static void __client_unregister_sysfs(struct i915_drm_client *client)
+ 	kobject_put(fetch_and_zero(&client->root));
+ }
+ 
++static struct i915_drm_client_name *get_name(struct i915_drm_client *client,
++					     struct task_struct *task)
++{
++	struct i915_drm_client_name *name;
++	int len = strlen(task->comm);
++
++	name = kmalloc(struct_size(name, name, len + 1), GFP_KERNEL);
++	if (!name)
++		return NULL;
++
++	init_rcu_head(&name->rcu);
++	name->client = client;
++	name->pid = get_task_pid(task, PIDTYPE_PID);
++	memcpy(name->name, task->comm, len + 1);
++
++	return name;
++}
++
++static void free_name(struct rcu_head *rcu)
++{
++	struct i915_drm_client_name *name =
++		container_of(rcu, typeof(*name), rcu);
++
++	put_pid(name->pid);
++	kfree(name);
++}
++
+ static int
+ __i915_drm_client_register(struct i915_drm_client *client,
+ 			   struct task_struct *task)
+ {
+ 	struct i915_drm_clients *clients = client->clients;
+-	char *name;
++	struct i915_drm_client_name *name;
+ 	int ret;
+ 
+-	name = kstrdup(task->comm, GFP_KERNEL);
++	name = get_name(client, task);
+ 	if (!name)
+ 		return -ENOMEM;
+ 
+-	client->pid = get_task_pid(task, PIDTYPE_PID);
+-	client->name = name;
++	RCU_INIT_POINTER(client->name, name);
+ 
+ 	if (!clients->root)
+ 		return 0; /* intel_fbdev_init registers a client before sysfs */
+@@ -116,18 +155,22 @@ __i915_drm_client_register(struct i915_drm_client *client,
+ 	return 0;
+ 
+ err_sysfs:
+-	put_pid(client->pid);
+-	kfree(client->name);
+-
++	RCU_INIT_POINTER(client->name, NULL);
++	call_rcu(&name->rcu, free_name);
+ 	return ret;
+ }
+ 
+ static void __i915_drm_client_unregister(struct i915_drm_client *client)
+ {
++	struct i915_drm_client_name *name;
++
+ 	__client_unregister_sysfs(client);
+ 
+-	put_pid(fetch_and_zero(&client->pid));
+-	kfree(fetch_and_zero(&client->name));
++	mutex_lock(&client->update_lock);
++	name = rcu_replace_pointer(client->name, NULL, true);
++	mutex_unlock(&client->update_lock);
++
++	call_rcu(&name->rcu, free_name);
+ }
+ 
+ static void __rcu_i915_drm_client_free(struct work_struct *wrk)
+@@ -152,6 +195,7 @@ i915_drm_client_add(struct i915_drm_clients *clients, struct task_struct *task)
+ 		return ERR_PTR(-ENOMEM);
+ 
+ 	kref_init(&client->kref);
++	mutex_init(&client->update_lock);
+ 	client->clients = clients;
+ 	INIT_RCU_WORK(&client->rcu, __rcu_i915_drm_client_free);
+ 
+@@ -189,6 +233,25 @@ void i915_drm_client_close(struct i915_drm_client *client)
+ 	i915_drm_client_put(client);
+ }
+ 
++int
++i915_drm_client_update(struct i915_drm_client *client,
++		       struct task_struct *task)
++{
++	struct i915_drm_client_name *name;
++
++	name = get_name(client, task);
++	if (!name)
++		return -ENOMEM;
++
++	mutex_lock(&client->update_lock);
++	if (name->pid != rcu_dereference_protected(client->name, true)->pid)
++		name = rcu_replace_pointer(client->name, name, true);
++	mutex_unlock(&client->update_lock);
++
++	call_rcu(&name->rcu, free_name);
++	return 0;
++}
++
+ void i915_drm_clients_fini(struct i915_drm_clients *clients)
+ {
+ 	while (!xa_empty(&clients->xarray)) {
+diff --git a/drivers/gpu/drm/i915/i915_drm_client.h b/drivers/gpu/drm/i915/i915_drm_client.h
+index 150f8e8d34e6..556a59d6b834 100644
+--- a/drivers/gpu/drm/i915/i915_drm_client.h
++++ b/drivers/gpu/drm/i915/i915_drm_client.h
+@@ -9,6 +9,7 @@
+ #include <linux/device.h>
+ #include <linux/kobject.h>
+ #include <linux/kref.h>
++#include <linux/mutex.h>
+ #include <linux/pid.h>
+ #include <linux/rcupdate.h>
+ #include <linux/sched.h>
+@@ -25,14 +26,22 @@ struct i915_drm_clients {
+ 	struct kobject *root;
+ };
+ 
++struct i915_drm_client_name {
++	struct rcu_head rcu;
++	struct i915_drm_client *client;
++	struct pid *pid;
++	char name[];
++};
++
+ struct i915_drm_client {
+ 	struct kref kref;
+ 
+ 	struct rcu_work rcu;
+ 
++	struct mutex update_lock; /* Serializes name and pid updates. */
++
+ 	unsigned int id;
+-	struct pid *pid;
+-	char *name;
++	struct i915_drm_client_name __rcu *name;
+ 	bool closed;
+ 
+ 	struct i915_drm_clients *clients;
+@@ -66,6 +75,27 @@ void i915_drm_client_close(struct i915_drm_client *client);
+ struct i915_drm_client *i915_drm_client_add(struct i915_drm_clients *clients,
+ 					    struct task_struct *task);
+ 
++int i915_drm_client_update(struct i915_drm_client *client,
++			   struct task_struct *task);
++
++static inline const struct i915_drm_client_name *
++__i915_drm_client_name(const struct i915_drm_client *client)
++{
++	return rcu_dereference(client->name);
++}
++
++static inline const char *
++i915_drm_client_name(const struct i915_drm_client *client)
++{
++	return __i915_drm_client_name(client)->name;
++}
++
++static inline struct pid *
++i915_drm_client_pid(const struct i915_drm_client *client)
++{
++	return __i915_drm_client_name(client)->pid;
++}
++
+ void i915_drm_clients_fini(struct i915_drm_clients *clients);
+ 
+ #endif /* !__I915_DRM_CLIENT_H__ */
+-- 
+2.20.1
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
