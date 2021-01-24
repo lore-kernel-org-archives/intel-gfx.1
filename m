@@ -2,42 +2,41 @@ Return-Path: <SRS0=vegk=G3=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0EA98C433E0
-	for <intel-gfx@archiver.kernel.org>; Sun, 24 Jan 2021 14:45:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 58DE8C433DB
+	for <intel-gfx@archiver.kernel.org>; Sun, 24 Jan 2021 15:31:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AE7CA22D73
-	for <intel-gfx@archiver.kernel.org>; Sun, 24 Jan 2021 14:45:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AE7CA22D73
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id CEDC722E03
+	for <intel-gfx@archiver.kernel.org>; Sun, 24 Jan 2021 15:31:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CEDC722E03
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1BDB389DA5;
-	Sun, 24 Jan 2021 14:45:44 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 9615589D9B;
- Sun, 24 Jan 2021 14:45:42 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 84A7BA0099;
- Sun, 24 Jan 2021 14:45:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 38D2F89CAF;
+	Sun, 24 Jan 2021 15:31:41 +0000 (UTC)
+Received: from fireflyinternet.com (unknown [77.68.26.236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD2A989E43
+ for <intel-gfx@lists.freedesktop.org>; Sun, 24 Jan 2021 15:31:39 +0000 (UTC)
+X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
+ x-ip-name=78.156.65.138; 
+Received: from build.alporthouse.com (unverified [78.156.65.138]) 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23686705-1500050 
+ for <intel-gfx@lists.freedesktop.org>; Sun, 24 Jan 2021 15:31:35 +0000
+From: Chris Wilson <chris@chris-wilson.co.uk>
+To: intel-gfx@lists.freedesktop.org
+Date: Sun, 24 Jan 2021 15:31:31 +0000
+Message-Id: <20210124153136.19124-3-chris@chris-wilson.co.uk>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20210124153136.19124-1-chris@chris-wilson.co.uk>
+References: <20210124153136.19124-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Chris Wilson" <chris@chris-wilson.co.uk>
-Date: Sun, 24 Jan 2021 14:45:42 -0000
-Message-ID: <161149954251.10312.18072564603963067459@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20210124135406.28756-1-chris@chris-wilson.co.uk>
-In-Reply-To: <20210124135406.28756-1-chris@chris-wilson.co.uk>
-Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3Igc2Vy?=
- =?utf-8?q?ies_starting_with_drm/i915=3A_Remove_guard_page_insertion_aroun?=
- =?utf-8?q?d_unevictable_nodes_=28rev2=29?=
+Subject: [Intel-gfx] [CI 3/8] drm/i915: Update client name on context create
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,186 +49,307 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
-Content-Type: multipart/mixed; boundary="===============1568643356=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============1568643356==
-Content-Type: multipart/alternative;
- boundary="===============5620179317072719335=="
+From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
---===============5620179317072719335==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Some clients have the DRM fd passed to them over a socket by the X server.
 
-== Series Details ==
+Grab the real client and pid when they create their first context and
+update the exposed data for more useful enumeration.
 
-Series: series starting with drm/i915: Remove guard page insertion around unevictable nodes (rev2)
-URL   : https://patchwork.freedesktop.org/series/86220/
-State : success
+To enable lockless access to client name and pid data from the following
+patches, we also make these fields rcu protected. In this way asynchronous
+code paths where both contexts which remain after the client exit, and
+access to client name and pid as they are getting updated due context
+creation running in parallel with name/pid queries.
 
-== Summary ==
+v2:
+ * Do not leak the pid reference and borrow context idr_lock. (Chris)
 
-CI Bug Log - changes from CI_DRM_9675 -> Patchwork_19474
-====================================================
+v3:
+ * More avoiding leaks. (Chris)
 
-Summary
--------
+v4:
+ * Move update completely to drm client. (Chris)
+ * Do not lose previous client data on failure to re-register and simplify
+   update to only touch what it needs.
 
-  **SUCCESS**
+v5:
+ * Reuse ext_data local. (Chris)
 
-  No regressions found.
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+Reviewed-by: Chris Wilson <chris@chris-wilson.co.uk>
+Reviewed-by: Aravind Iddamsetty <aravind.iddamsetty@intel.com>
+Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+Link: https://patchwork.freedesktop.org/patch/msgid/20210123153733.18139-3-chris@chris-wilson.co.uk
+---
+ drivers/gpu/drm/i915/gem/i915_gem_context.c |  5 ++
+ drivers/gpu/drm/i915/i915_drm_client.c      | 93 +++++++++++++++++----
+ drivers/gpu/drm/i915/i915_drm_client.h      | 34 +++++++-
+ 3 files changed, 115 insertions(+), 17 deletions(-)
 
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19474/index.html
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_19474 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@debugfs_test@read_all_entries:
-    - fi-tgl-y:           [PASS][1] -> [DMESG-WARN][2] ([i915#402]) +1 similar issue
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9675/fi-tgl-y/igt@debugfs_test@read_all_entries.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19474/fi-tgl-y/igt@debugfs_test@read_all_entries.html
-
-  * igt@i915_selftest@live@blt:
-    - fi-snb-2600:        [PASS][3] -> [DMESG-FAIL][4] ([i915#1409])
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9675/fi-snb-2600/igt@i915_selftest@live@blt.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19474/fi-snb-2600/igt@i915_selftest@live@blt.html
-
-  
-#### Possible fixes ####
-
-  * igt@gem_close_race@basic-threads:
-    - fi-tgl-y:           [DMESG-WARN][5] ([i915#402]) -> [PASS][6] +1 similar issue
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9675/fi-tgl-y/igt@gem_close_race@basic-threads.html
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19474/fi-tgl-y/igt@gem_close_race@basic-threads.html
-
-  
-  [i915#1409]: https://gitlab.freedesktop.org/drm/intel/issues/1409
-  [i915#402]: https://gitlab.freedesktop.org/drm/intel/issues/402
-
-
-Participating hosts (41 -> 37)
-------------------------------
-
-  Missing    (4): fi-ilk-m540 fi-bsw-cyan fi-bdw-samus fi-hsw-4200u 
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_9675 -> Patchwork_19474
-
-  CI-20190529: 20190529
-  CI_DRM_9675: f84d1efce492ef0f46cf4fa1bf01b17ce1627fe4 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_5968: 267fa33c0947fbbb642098098ff6e5902f9a3d94 @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools
-  Patchwork_19474: ef937ce200af05b71504476de427b0b4f054f4b9 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-
-== Linux commits ==
-
-ef937ce200af drm/i915/gt: Always try to reserve GGTT address 0x0
-d8da1202f742 drm/i915: Remove guard page insertion around unevictable nodes
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19474/index.html
-
---===============5620179317072719335==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>series starting with drm/i915: Remove guard page insertion around unevictable nodes (rev2)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/86220/">https://patchwork.freedesktop.org/series/86220/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19474/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19474/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_9675 -&gt; Patchwork_19474</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19474/index.html</p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_19474 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@debugfs_test@read_all_entries:</p>
-<ul>
-<li>fi-tgl-y:           <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9675/fi-tgl-y/igt@debugfs_test@read_all_entries.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19474/fi-tgl-y/igt@debugfs_test@read_all_entries.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/402">i915#402</a>) +1 similar issue</li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@blt:</p>
-<ul>
-<li>fi-snb-2600:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9675/fi-snb-2600/igt@i915_selftest@live@blt.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19474/fi-snb-2600/igt@i915_selftest@live@blt.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1409">i915#1409</a>)</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>igt@gem_close_race@basic-threads:<ul>
-<li>fi-tgl-y:           <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9675/fi-tgl-y/igt@gem_close_race@basic-threads.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/402">i915#402</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19474/fi-tgl-y/igt@gem_close_race@basic-threads.html">PASS</a> +1 similar issue</li>
-</ul>
-</li>
-</ul>
-<h2>Participating hosts (41 -&gt; 37)</h2>
-<p>Missing    (4): fi-ilk-m540 fi-bsw-cyan fi-bdw-samus fi-hsw-4200u </p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_9675 -&gt; Patchwork_19474</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_9675: f84d1efce492ef0f46cf4fa1bf01b17ce1627fe4 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_5968: 267fa33c0947fbbb642098098ff6e5902f9a3d94 @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools<br />
-  Patchwork_19474: ef937ce200af05b71504476de427b0b4f054f4b9 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<p>== Linux commits ==</p>
-<p>ef937ce200af drm/i915/gt: Always try to reserve GGTT address 0x0<br />
-d8da1202f742 drm/i915: Remove guard page insertion around unevictable nodes</p>
-
-</body>
-</html>
-
---===============5620179317072719335==--
-
---===============1568643356==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+index 61a7360c4d9a..c35f2ff4431c 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+@@ -76,6 +76,7 @@
+ #include "gt/intel_gpu_commands.h"
+ #include "gt/intel_ring.h"
+ 
++#include "i915_drm_client.h"
+ #include "i915_gem_context.h"
+ #include "i915_globals.h"
+ #include "i915_trace.h"
+@@ -2315,6 +2316,10 @@ int i915_gem_context_create_ioctl(struct drm_device *dev, void *data,
+ 		return -EIO;
+ 	}
+ 
++	ret = i915_drm_client_update(ext_data.fpriv->client, current);
++	if (ret)
++		return ret;
++
+ 	ext_data.ctx = i915_gem_create_context(i915, args->flags);
+ 	if (IS_ERR(ext_data.ctx))
+ 		return PTR_ERR(ext_data.ctx);
+diff --git a/drivers/gpu/drm/i915/i915_drm_client.c b/drivers/gpu/drm/i915/i915_drm_client.c
+index 7c2d36860ac1..ad3d36c9dee2 100644
+--- a/drivers/gpu/drm/i915/i915_drm_client.c
++++ b/drivers/gpu/drm/i915/i915_drm_client.c
+@@ -7,7 +7,10 @@
+ #include <linux/slab.h>
+ #include <linux/types.h>
+ 
++#include <drm/drm_print.h>
++
+ #include "i915_drm_client.h"
++#include "i915_drv.h"
+ #include "i915_gem.h"
+ #include "i915_utils.h"
+ 
+@@ -25,10 +28,15 @@ show_client_name(struct device *kdev, struct device_attribute *attr, char *buf)
+ {
+ 	struct i915_drm_client *client =
+ 		container_of(attr, typeof(*client), attr.name);
++	int ret;
+ 
+-	return sysfs_emit(buf,
+-			  READ_ONCE(client->closed) ? "<%s>\n" : "%s\n",
+-			  client->name);
++	rcu_read_lock();
++	ret = sysfs_emit(buf,
++			 READ_ONCE(client->closed) ? "<%s>\n" : "%s\n",
++			 i915_drm_client_name(client));
++	rcu_read_unlock();
++
++	return ret;
+ }
+ 
+ static ssize_t
+@@ -36,10 +44,15 @@ show_client_pid(struct device *kdev, struct device_attribute *attr, char *buf)
+ {
+ 	struct i915_drm_client *client =
+ 		container_of(attr, typeof(*client), attr.pid);
++	int ret;
+ 
+-	return sysfs_emit(buf,
+-			  READ_ONCE(client->closed) ? "<%u>\n" : "%u\n",
+-			  pid_nr(client->pid));
++	rcu_read_lock();
++	ret = sysfs_emit(buf,
++			 READ_ONCE(client->closed) ? "<%u>\n" : "%u\n",
++			 pid_nr(i915_drm_client_pid(client)));
++	rcu_read_unlock();
++
++	return ret;
+ }
+ 
+ static int __client_register_sysfs(struct i915_drm_client *client)
+@@ -91,20 +104,46 @@ static void __client_unregister_sysfs(struct i915_drm_client *client)
+ 	kobject_put(fetch_and_zero(&client->root));
+ }
+ 
++static struct i915_drm_client_name *get_name(struct i915_drm_client *client,
++					     struct task_struct *task)
++{
++	struct i915_drm_client_name *name;
++	int len = strlen(task->comm);
++
++	name = kmalloc(struct_size(name, name, len + 1), GFP_KERNEL);
++	if (!name)
++		return NULL;
++
++	init_rcu_head(&name->rcu);
++	name->client = client;
++	name->pid = get_task_pid(task, PIDTYPE_PID);
++	memcpy(name->name, task->comm, len + 1);
++
++	return name;
++}
++
++static void free_name(struct rcu_head *rcu)
++{
++	struct i915_drm_client_name *name =
++		container_of(rcu, typeof(*name), rcu);
++
++	put_pid(name->pid);
++	kfree(name);
++}
++
+ static int
+ __i915_drm_client_register(struct i915_drm_client *client,
+ 			   struct task_struct *task)
+ {
+ 	struct i915_drm_clients *clients = client->clients;
+-	char *name;
++	struct i915_drm_client_name *name;
+ 	int ret;
+ 
+-	name = kstrdup(task->comm, GFP_KERNEL);
++	name = get_name(client, task);
+ 	if (!name)
+ 		return -ENOMEM;
+ 
+-	client->pid = get_task_pid(task, PIDTYPE_PID);
+-	client->name = name;
++	RCU_INIT_POINTER(client->name, name);
+ 
+ 	if (!clients->root)
+ 		return 0; /* intel_fbdev_init registers a client before sysfs */
+@@ -116,18 +155,22 @@ __i915_drm_client_register(struct i915_drm_client *client,
+ 	return 0;
+ 
+ err_sysfs:
+-	put_pid(client->pid);
+-	kfree(client->name);
+-
++	RCU_INIT_POINTER(client->name, NULL);
++	call_rcu(&name->rcu, free_name);
+ 	return ret;
+ }
+ 
+ static void __i915_drm_client_unregister(struct i915_drm_client *client)
+ {
++	struct i915_drm_client_name *name;
++
+ 	__client_unregister_sysfs(client);
+ 
+-	put_pid(fetch_and_zero(&client->pid));
+-	kfree(fetch_and_zero(&client->name));
++	mutex_lock(&client->update_lock);
++	name = rcu_replace_pointer(client->name, NULL, true);
++	mutex_unlock(&client->update_lock);
++
++	call_rcu(&name->rcu, free_name);
+ }
+ 
+ static void __rcu_i915_drm_client_free(struct work_struct *wrk)
+@@ -152,6 +195,7 @@ i915_drm_client_add(struct i915_drm_clients *clients, struct task_struct *task)
+ 		return ERR_PTR(-ENOMEM);
+ 
+ 	kref_init(&client->kref);
++	mutex_init(&client->update_lock);
+ 	client->clients = clients;
+ 	INIT_RCU_WORK(&client->rcu, __rcu_i915_drm_client_free);
+ 
+@@ -189,6 +233,25 @@ void i915_drm_client_close(struct i915_drm_client *client)
+ 	i915_drm_client_put(client);
+ }
+ 
++int
++i915_drm_client_update(struct i915_drm_client *client,
++		       struct task_struct *task)
++{
++	struct i915_drm_client_name *name;
++
++	name = get_name(client, task);
++	if (!name)
++		return -ENOMEM;
++
++	mutex_lock(&client->update_lock);
++	if (name->pid != rcu_dereference_protected(client->name, true)->pid)
++		name = rcu_replace_pointer(client->name, name, true);
++	mutex_unlock(&client->update_lock);
++
++	call_rcu(&name->rcu, free_name);
++	return 0;
++}
++
+ void i915_drm_clients_fini(struct i915_drm_clients *clients)
+ {
+ 	while (!xa_empty(&clients->xarray)) {
+diff --git a/drivers/gpu/drm/i915/i915_drm_client.h b/drivers/gpu/drm/i915/i915_drm_client.h
+index 150f8e8d34e6..556a59d6b834 100644
+--- a/drivers/gpu/drm/i915/i915_drm_client.h
++++ b/drivers/gpu/drm/i915/i915_drm_client.h
+@@ -9,6 +9,7 @@
+ #include <linux/device.h>
+ #include <linux/kobject.h>
+ #include <linux/kref.h>
++#include <linux/mutex.h>
+ #include <linux/pid.h>
+ #include <linux/rcupdate.h>
+ #include <linux/sched.h>
+@@ -25,14 +26,22 @@ struct i915_drm_clients {
+ 	struct kobject *root;
+ };
+ 
++struct i915_drm_client_name {
++	struct rcu_head rcu;
++	struct i915_drm_client *client;
++	struct pid *pid;
++	char name[];
++};
++
+ struct i915_drm_client {
+ 	struct kref kref;
+ 
+ 	struct rcu_work rcu;
+ 
++	struct mutex update_lock; /* Serializes name and pid updates. */
++
+ 	unsigned int id;
+-	struct pid *pid;
+-	char *name;
++	struct i915_drm_client_name __rcu *name;
+ 	bool closed;
+ 
+ 	struct i915_drm_clients *clients;
+@@ -66,6 +75,27 @@ void i915_drm_client_close(struct i915_drm_client *client);
+ struct i915_drm_client *i915_drm_client_add(struct i915_drm_clients *clients,
+ 					    struct task_struct *task);
+ 
++int i915_drm_client_update(struct i915_drm_client *client,
++			   struct task_struct *task);
++
++static inline const struct i915_drm_client_name *
++__i915_drm_client_name(const struct i915_drm_client *client)
++{
++	return rcu_dereference(client->name);
++}
++
++static inline const char *
++i915_drm_client_name(const struct i915_drm_client *client)
++{
++	return __i915_drm_client_name(client)->name;
++}
++
++static inline struct pid *
++i915_drm_client_pid(const struct i915_drm_client *client)
++{
++	return __i915_drm_client_name(client)->pid;
++}
++
+ void i915_drm_clients_fini(struct i915_drm_clients *clients);
+ 
+ #endif /* !__I915_DRM_CLIENT_H__ */
+-- 
+2.20.1
 
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-
---===============1568643356==--
