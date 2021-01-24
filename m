@@ -7,35 +7,37 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5D2AAC433E6
-	for <intel-gfx@archiver.kernel.org>; Sun, 24 Jan 2021 13:54:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0C64EC433DB
+	for <intel-gfx@archiver.kernel.org>; Sun, 24 Jan 2021 13:57:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CCF4E22B2C
-	for <intel-gfx@archiver.kernel.org>; Sun, 24 Jan 2021 13:54:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CCF4E22B2C
+	by mail.kernel.org (Postfix) with ESMTPS id 8A99C22B2C
+	for <intel-gfx@archiver.kernel.org>; Sun, 24 Jan 2021 13:57:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8A99C22B2C
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D415B89C61;
-	Sun, 24 Jan 2021 13:54:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DFBE489DA9;
+	Sun, 24 Jan 2021 13:57:34 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 74E1689B45
- for <intel-gfx@lists.freedesktop.org>; Sun, 24 Jan 2021 13:54:14 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8570489DA9
+ for <intel-gfx@lists.freedesktop.org>; Sun, 24 Jan 2021 13:57:33 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23686205-1500050 
- for multiple; Sun, 24 Jan 2021 13:54:05 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23686229-1500050 
+ for multiple; Sun, 24 Jan 2021 13:57:25 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Sun, 24 Jan 2021 13:54:05 +0000
-Message-Id: <20210124135406.28756-1-chris@chris-wilson.co.uk>
+Date: Sun, 24 Jan 2021 13:57:26 +0000
+Message-Id: <20210124135726.1795-1-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20210124135406.28756-1-chris@chris-wilson.co.uk>
+References: <20210124135406.28756-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 1/2] drm/i915: Remove guard page insertion
- around unevictable nodes
+Subject: [Intel-gfx] [PATCH] drm/i915: Remove guard page insertion around
+ unevictable nodes
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,11 +62,11 @@ irregular unevictable nodes.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 ---
- drivers/gpu/drm/i915/i915_drv.h       | 2 --
- drivers/gpu/drm/i915/i915_gem_evict.c | 6 ++++--
- drivers/gpu/drm/i915/i915_vma.h       | 9 ++++++++-
- drivers/gpu/drm/i915/i915_vma_types.h | 2 ++
- 4 files changed, 14 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/i915/i915_drv.h       |  2 --
+ drivers/gpu/drm/i915/i915_gem_evict.c |  6 ++++--
+ drivers/gpu/drm/i915/i915_vma.h       | 10 +++++++++-
+ drivers/gpu/drm/i915/i915_vma_types.h |  2 ++
+ 4 files changed, 15 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
 index 99cf861df92d..69c5a185ecff 100644
@@ -100,17 +102,18 @@ index 4d2d59a9942b..aef88fdb9f66 100644
  			}
  		}
 diff --git a/drivers/gpu/drm/i915/i915_vma.h b/drivers/gpu/drm/i915/i915_vma.h
-index a64adc8c883b..609e8be142e6 100644
+index a64adc8c883b..dac953815118 100644
 --- a/drivers/gpu/drm/i915/i915_vma.h
 +++ b/drivers/gpu/drm/i915/i915_vma.h
-@@ -283,10 +283,17 @@ static inline bool i915_vma_is_bound(const struct i915_vma *vma,
+@@ -283,10 +283,18 @@ static inline bool i915_vma_is_bound(const struct i915_vma *vma,
  	return atomic_read(&vma->flags) & where;
  }
  
 +static inline bool i915_node_color_matches(const struct drm_mm_node *node,
 +					   unsigned long color)
 +{
-+	return color == I915_COLOR_UNEVICTABLE || node->color == color;
++	return (node->color | color) == I915_COLOR_UNEVICTABLE ||
++	       	node->color == color;
 +}
 +
  static inline bool i915_node_color_differs(const struct drm_mm_node *node,
