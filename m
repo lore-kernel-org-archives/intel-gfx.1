@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 49642C433E6
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F0712C433E0
 	for <intel-gfx@archiver.kernel.org>; Mon, 25 Jan 2021 14:02:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EF1AE23104
-	for <intel-gfx@archiver.kernel.org>; Mon, 25 Jan 2021 14:02:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EF1AE23104
+	by mail.kernel.org (Postfix) with ESMTPS id A98C623104
+	for <intel-gfx@archiver.kernel.org>; Mon, 25 Jan 2021 14:02:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A98C623104
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B81B86E170;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 133F56E13A;
 	Mon, 25 Jan 2021 14:02:01 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 23C2289F5F
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E97289DB7
  for <intel-gfx@lists.freedesktop.org>; Mon, 25 Jan 2021 14:01:58 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23693627-1500050 
- for multiple; Mon, 25 Jan 2021 14:01:36 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23693645-1500050 
+ for multiple; Mon, 25 Jan 2021 14:01:40 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 25 Jan 2021 14:01:02 +0000
-Message-Id: <20210125140136.10494-7-chris@chris-wilson.co.uk>
+Date: Mon, 25 Jan 2021 14:01:18 +0000
+Message-Id: <20210125140136.10494-23-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20210125140136.10494-1-chris@chris-wilson.co.uk>
 References: <20210125140136.10494-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 07/41] drm/i915/selftests: Exercise priority
- inheritance around an engine loop
+Subject: [Intel-gfx] [PATCH 23/41] drm/i915/gt: Specify a deadline for the
+ heartbeat
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,261 +56,65 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Exercise rescheduling priority inheritance around a sequence of requests
-that wrap around all the engines.
+As we know when we expect the heartbeat to be checked for completion,
+pass this information along as its deadline. We still do not complain if
+the deadline is missed, at least until we have tried a few times, but it
+will allow for quicker hang detection on systems where deadlines are
+adhered to.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 ---
- .../gpu/drm/i915/selftests/i915_scheduler.c   | 225 ++++++++++++++++++
- 1 file changed, 225 insertions(+)
+ drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c | 16 ++++++++++++++--
+ 1 file changed, 14 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/selftests/i915_scheduler.c b/drivers/gpu/drm/i915/selftests/i915_scheduler.c
-index cb67de304aeb..ad2a44449c44 100644
---- a/drivers/gpu/drm/i915/selftests/i915_scheduler.c
-+++ b/drivers/gpu/drm/i915/selftests/i915_scheduler.c
-@@ -7,6 +7,7 @@
- 
- #include "gt/intel_context.h"
- #include "gt/intel_gpu_commands.h"
-+#include "gt/intel_ring.h"
- #include "gt/selftest_engine_heartbeat.h"
- #include "selftests/igt_spinner.h"
- #include "selftests/i915_random.h"
-@@ -512,10 +513,234 @@ static int igt_priority_chains(void *arg)
- 	return igt_schedule_chains(arg, igt_priority);
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c b/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
+index 2d1f0a4da13c..defc71d4c729 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
++++ b/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
+@@ -65,6 +65,16 @@ static void heartbeat_commit(struct i915_request *rq,
+ 	__i915_request_queue(rq, attr);
  }
  
-+static struct i915_request *
-+__write_timestamp(struct intel_engine_cs *engine,
-+		  struct drm_i915_gem_object *obj,
-+		  int slot,
-+		  struct i915_request *prev)
++static void set_heartbeat_deadline(struct intel_engine_cs *engine,
++				   struct i915_request *rq)
 +{
-+	struct i915_request *rq = ERR_PTR(-EINVAL);
-+	bool use_64b = INTEL_GEN(engine->i915) >= 8;
-+	struct intel_context *ce;
-+	struct i915_vma *vma;
-+	int err = 0;
-+	u32 *cs;
++	unsigned long interval;
 +
-+	ce = intel_context_create(engine);
-+	if (IS_ERR(ce))
-+		return ERR_CAST(ce);
-+
-+	vma = i915_vma_instance(obj, ce->vm, NULL);
-+	if (IS_ERR(vma)) {
-+		err = PTR_ERR(vma);
-+		goto out_ce;
-+	}
-+
-+	err = i915_vma_pin(vma, 0, 0, PIN_USER);
-+	if (err)
-+		goto out_ce;
-+
-+	rq = intel_context_create_request(ce);
-+	if (IS_ERR(rq)) {
-+		err = PTR_ERR(rq);
-+		goto out_unpin;
-+	}
-+
-+	i915_vma_lock(vma);
-+	err = i915_vma_move_to_active(vma, rq, EXEC_OBJECT_WRITE);
-+	i915_vma_unlock(vma);
-+	if (err)
-+		goto out_request;
-+
-+	if (prev) {
-+		err = i915_request_await_dma_fence(rq, &prev->fence);
-+		if (err)
-+			goto out_request;
-+	}
-+
-+	if (engine->emit_init_breadcrumb) {
-+		err = engine->emit_init_breadcrumb(rq);
-+		if (err)
-+			goto out_request;
-+	}
-+
-+	cs = intel_ring_begin(rq, 4);
-+	if (IS_ERR(cs)) {
-+		err = PTR_ERR(cs);
-+		goto out_request;
-+	}
-+
-+	*cs++ = MI_STORE_REGISTER_MEM + use_64b;
-+	*cs++ = i915_mmio_reg_offset(RING_TIMESTAMP(engine->mmio_base));
-+	*cs++ = lower_32_bits(vma->node.start) + sizeof(u32) * slot;
-+	*cs++ = upper_32_bits(vma->node.start);
-+	intel_ring_advance(rq, cs);
-+
-+	i915_request_get(rq);
-+out_request:
-+	i915_request_add(rq);
-+out_unpin:
-+	i915_vma_unpin(vma);
-+out_ce:
-+	intel_context_put(ce);
-+	i915_request_put(prev);
-+	return err ? ERR_PTR(err) : rq;
++	interval = READ_ONCE(engine->props.heartbeat_interval_ms);
++	if (interval)
++		i915_request_set_deadline(rq, ktime_get() + (interval << 20));
 +}
 +
-+static struct i915_request *create_spinner(struct drm_i915_private *i915,
-+					   struct igt_spinner *spin)
-+{
-+	struct intel_engine_cs *engine;
-+
-+	for_each_uabi_engine(engine, i915) {
-+		struct intel_context *ce;
-+		struct i915_request *rq;
-+
-+		if (igt_spinner_init(spin, engine->gt))
-+			return ERR_PTR(-ENOMEM);
-+
-+		ce = intel_context_create(engine);
-+		if (IS_ERR(ce))
-+			return ERR_CAST(ce);
-+
-+		rq = igt_spinner_create_request(spin, ce, MI_NOOP);
-+		intel_context_put(ce);
-+		if (rq == ERR_PTR(-ENODEV))
-+			continue;
-+		if (IS_ERR(rq))
-+			return rq;
-+
-+		i915_request_get(rq);
-+		i915_request_add(rq);
-+		return rq;
-+	}
-+
-+	return ERR_PTR(-ENODEV);
-+}
-+
-+static bool has_timestamp(const struct drm_i915_private *i915)
-+{
-+	return INTEL_GEN(i915) >= 6;
-+}
-+
-+static int __igt_schedule_cycle(struct drm_i915_private *i915,
-+				bool (*fn)(struct i915_request *rq,
-+					   unsigned long v, unsigned long e))
-+{
-+	struct intel_engine_cs *engine;
-+	struct drm_i915_gem_object *obj;
-+	struct igt_spinner spin;
-+	struct i915_request *rq;
-+	unsigned long count, n;
-+	u32 *time, last;
-+	int err;
-+
-+	/*
-+	 * Queue a bunch of ordered requests (each waiting on the previous)
-+	 * around the engines a couple of times. Each request will write
-+	 * the timestamp it executes at into the scratch, with the expectation
-+	 * that the timestamp will be in our desired execution order.
-+	 */
-+
-+	if (!i915->caps.scheduler || !has_timestamp(i915))
-+		return 0;
-+
-+	obj = i915_gem_object_create_internal(i915, SZ_64K);
-+	if (IS_ERR(obj))
-+		return PTR_ERR(obj);
-+
-+	time = i915_gem_object_pin_map(obj, I915_MAP_WC);
-+	if (IS_ERR(time)) {
-+		err = PTR_ERR(time);
-+		goto out_obj;
-+	}
-+
-+	rq = create_spinner(i915, &spin);
-+	if (IS_ERR(rq)) {
-+		err = PTR_ERR(rq);
-+		goto out_obj;
-+	}
-+
-+	err = 0;
-+	count = 0;
-+	for_each_uabi_engine(engine, i915) {
-+		if (!intel_engine_has_scheduler(engine))
-+			continue;
-+
-+		rq = __write_timestamp(engine, obj, count, rq);
-+		if (IS_ERR(rq)) {
-+			err = PTR_ERR(rq);
-+			break;
-+		}
-+
-+		count++;
-+	}
-+	for_each_uabi_engine(engine, i915) {
-+		if (!intel_engine_has_scheduler(engine))
-+			continue;
-+
-+		rq = __write_timestamp(engine, obj, count, rq);
-+		if (IS_ERR(rq)) {
-+			err = PTR_ERR(rq);
-+			break;
-+		}
-+
-+		count++;
-+	}
-+	GEM_BUG_ON(count * sizeof(u32) > obj->base.size);
-+	if (err || !count)
-+		goto out_spin;
-+
-+	fn(rq, count + 1, count);
-+	igt_spinner_end(&spin);
-+
-+	if (i915_request_wait(rq, 0, HZ / 2) < 0) {
-+		err = -ETIME;
-+		goto out_request;
-+	}
-+
-+	last = time[0];
-+	for (n = 1; n < count; n++) {
-+		if (i915_seqno_passed(last, time[n])) {
-+			pr_err("Timestamp[%lu] %x before previous %x\n",
-+			       n, time[n], last);
-+			err = -EINVAL;
-+			break;
-+		}
-+		last = time[n];
-+	}
-+
-+out_request:
-+	i915_request_put(rq);
-+out_spin:
-+	igt_spinner_fini(&spin);
-+out_obj:
-+	i915_gem_object_put(obj);
-+	return err;
-+}
-+
-+static bool noop(struct i915_request *rq, unsigned long v, unsigned long e)
-+{
-+	return true;
-+}
-+
-+static int igt_schedule_cycle(void *arg)
-+{
-+	return __igt_schedule_cycle(arg, noop);
-+}
-+
-+static int igt_priority_cycle(void *arg)
-+{
-+	return __igt_schedule_cycle(arg, igt_priority);
-+}
-+
- int i915_scheduler_live_selftests(struct drm_i915_private *i915)
+ static void show_heartbeat(const struct i915_request *rq,
+ 			   struct intel_engine_cs *engine)
  {
- 	static const struct i915_subtest tests[] = {
- 		SUBTEST(igt_priority_chains),
-+
-+		SUBTEST(igt_schedule_cycle),
-+		SUBTEST(igt_priority_cycle),
- 	};
+@@ -114,8 +124,7 @@ static void heartbeat(struct work_struct *wrk)
+ 			 * but all other contexts, including the kernel
+ 			 * context are stuck waiting for the signal.
+ 			 */
+-		} else if (intel_engine_has_scheduler(engine) &&
+-			   rq->sched.attr.priority < I915_PRIORITY_BARRIER) {
++		} else if (rq->sched.attr.priority < I915_PRIORITY_BARRIER) {
+ 			/*
+ 			 * Gradually raise the priority of the heartbeat to
+ 			 * give high priority work [which presumably desires
+@@ -129,6 +138,8 @@ static void heartbeat(struct work_struct *wrk)
+ 				attr.priority = I915_PRIORITY_BARRIER;
  
- 	return i915_subtests(tests, i915);
+ 			local_bh_disable();
++			if (attr.priority == I915_PRIORITY_BARRIER)
++				i915_request_set_deadline(rq, 0);
+ 			i915_request_set_priority(rq, attr.priority);
+ 			local_bh_enable();
+ 		} else {
+@@ -161,6 +172,7 @@ static void heartbeat(struct work_struct *wrk)
+ 	if (IS_ERR(rq))
+ 		goto unlock;
+ 
++	set_heartbeat_deadline(engine, rq);
+ 	heartbeat_commit(rq, &attr);
+ 
+ unlock:
 -- 
 2.20.1
 
