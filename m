@@ -7,34 +7,36 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C5E1BC433DB
-	for <intel-gfx@archiver.kernel.org>; Mon, 25 Jan 2021 21:52:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E6052C433E0
+	for <intel-gfx@archiver.kernel.org>; Mon, 25 Jan 2021 22:02:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6F96A22510
-	for <intel-gfx@archiver.kernel.org>; Mon, 25 Jan 2021 21:52:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6F96A22510
+	by mail.kernel.org (Postfix) with ESMTPS id 62BE622573
+	for <intel-gfx@archiver.kernel.org>; Mon, 25 Jan 2021 22:02:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 62BE622573
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C607C6E0FD;
-	Mon, 25 Jan 2021 21:52:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C770B6E284;
+	Mon, 25 Jan 2021 22:02:07 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 232866E0FD
- for <intel-gfx@lists.freedesktop.org>; Mon, 25 Jan 2021 21:52:50 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1DF106E284
+ for <intel-gfx@lists.freedesktop.org>; Mon, 25 Jan 2021 22:02:05 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23697746-1500050 
- for <intel-gfx@lists.freedesktop.org>; Mon, 25 Jan 2021 21:52:45 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23697794-1500050 
+ for multiple; Mon, 25 Jan 2021 22:01:51 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 25 Jan 2021 21:52:47 +0000
-Message-Id: <20210125215247.6905-1-chris@chris-wilson.co.uk>
+Date: Mon, 25 Jan 2021 22:01:52 +0000
+Message-Id: <20210125220152.24070-1-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20210125215247.6905-1-chris@chris-wilson.co.uk>
+References: <20210125215247.6905-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [CI] drm/i915: Disable atomics in L3 for gen9
+Subject: [Intel-gfx] [PATCH] drm/i915: Disable atomics in L3 for gen9
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,6 +49,8 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Jason Ekstrand <jason@jlesktrand.net>,
+ Chris Wilson <chris@chris-wilson.co.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
@@ -70,7 +74,7 @@ Reviewed-by: Jason Ekstrand <jason@jlesktrand.net>
  2 files changed, 15 insertions(+)
 
 diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-index 82e15c8c7a97..7a1d8c68aefb 100644
+index 82e15c8c7a97..71d1c19c868b 100644
 --- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
 +++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
 @@ -1840,6 +1840,14 @@ rcs_engine_wa_init(struct intel_engine_cs *engine, struct i915_wa_list *wal)
@@ -79,12 +83,12 @@ index 82e15c8c7a97..7a1d8c68aefb 100644
  			    GEN8_LQSC_FLUSH_COHERENT_LINES);
 +
 +		/* Disable atomics in L3 to prevent unrecoverable hangs */
-+		wa_write_masked_or(wal, GEN9_SCRATCH_LNCF1,
-+				   GEN9_LNCF_NONIA_COHERENT_ATOMICS_ENABLE, 0);
-+		wa_write_masked_or(wal, GEN8_L3SQCREG4,
-+				   GEN8_LQSQ_NONIA_COHERENT_ATOMICS_ENABLE, 0);
-+		wa_write_masked_or(wal, GEN9_SCRATCH1,
-+				   EVICTION_PERF_FIX_ENABLE, 0);
++		wa_write_clr_set(wal, GEN9_SCRATCH_LNCF1,
++				 GEN9_LNCF_NONIA_COHERENT_ATOMICS_ENABLE, 0);
++		wa_write_clr_set(wal, GEN8_L3SQCREG4,
++				 GEN8_LQSQ_NONIA_COHERENT_ATOMICS_ENABLE, 0);
++		wa_write_clr_set(wal, GEN9_SCRATCH1,
++				 EVICTION_PERF_FIX_ENABLE, 0);
  	}
  
  	if (IS_HASWELL(i915)) {
