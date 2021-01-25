@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D8603C433E6
-	for <intel-gfx@archiver.kernel.org>; Mon, 25 Jan 2021 14:18:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 519A0C433E0
+	for <intel-gfx@archiver.kernel.org>; Mon, 25 Jan 2021 14:18:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 60CAF22B3B
-	for <intel-gfx@archiver.kernel.org>; Mon, 25 Jan 2021 14:18:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 60CAF22B3B
+	by mail.kernel.org (Postfix) with ESMTPS id F357B2228A
+	for <intel-gfx@archiver.kernel.org>; Mon, 25 Jan 2021 14:18:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F357B2228A
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C6AF76E1A7;
-	Mon, 25 Jan 2021 14:18:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 756986E1FB;
+	Mon, 25 Jan 2021 14:18:24 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DEE126E2A3
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9AA266E21D
  for <intel-gfx@lists.freedesktop.org>; Mon, 25 Jan 2021 14:18:13 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23693940-1500050 
- for multiple; Mon, 25 Jan 2021 14:18:03 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23693938-1500050 
+ for multiple; Mon, 25 Jan 2021 14:18:02 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 25 Jan 2021 14:17:59 +0000
-Message-Id: <20210125141803.14378-4-chris@chris-wilson.co.uk>
+Date: Mon, 25 Jan 2021 14:17:57 +0000
+Message-Id: <20210125141803.14378-2-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20210125141803.14378-1-chris@chris-wilson.co.uk>
 References: <20210125141803.14378-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 4/8] drm/i915/selftests: Remove redundant
- set-to-gtt-domain
+Subject: [Intel-gfx] [PATCH 2/8] drm/i915/selftests: Use a coherent map to
+ setup scratch batch buffers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,66 +56,59 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Since the vma's backing store is flushed upon first creation, remove the
-manual calls to set-to-gtt-domain.
+Instead of manipulating the object's cache domain, just use the device
+coherent map to write the batch buffer.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 ---
- .../gpu/drm/i915/gem/selftests/i915_gem_mman.c   | 16 ----------------
- drivers/gpu/drm/i915/selftests/i915_vma.c        |  6 ------
- 2 files changed, 22 deletions(-)
+ .../drm/i915/gem/selftests/i915_gem_context.c    | 16 +++++++++-------
+ 1 file changed, 9 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
-index d429c7643ff2..39293d98f34d 100644
---- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
-+++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
-@@ -104,14 +104,6 @@ static int check_partial_mapping(struct drm_i915_gem_object *obj,
- 	GEM_BUG_ON(i915_gem_object_get_tiling(obj) != tile->tiling);
- 	GEM_BUG_ON(i915_gem_object_get_stride(obj) != tile->stride);
+diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
+index d3f87dc4eda3..e02299fffe60 100644
+--- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
++++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
+@@ -1622,7 +1622,7 @@ static int read_from_scratch(struct i915_gem_context *ctx,
+ 		if (err)
+ 			goto out_vm;
+ 
+-		cmd = i915_gem_object_pin_map(obj, I915_MAP_WB);
++		cmd = i915_gem_object_pin_map(obj, I915_MAP_WC);
+ 		if (IS_ERR(cmd)) {
+ 			err = PTR_ERR(cmd);
+ 			goto out;
+@@ -1658,7 +1658,7 @@ static int read_from_scratch(struct i915_gem_context *ctx,
+ 		if (err)
+ 			goto out_vm;
+ 
+-		cmd = i915_gem_object_pin_map(obj, I915_MAP_WB);
++		cmd = i915_gem_object_pin_map(obj, I915_MAP_WC);
+ 		if (IS_ERR(cmd)) {
+ 			err = PTR_ERR(cmd);
+ 			goto out;
+@@ -1707,15 +1707,17 @@ static int read_from_scratch(struct i915_gem_context *ctx,
+ 
+ 	i915_vma_unpin(vma);
+ 
++	i915_request_get(rq);
+ 	i915_request_add(rq);
  
 -	i915_gem_object_lock(obj, NULL);
--	err = i915_gem_object_set_to_gtt_domain(obj, true);
+-	err = i915_gem_object_set_to_cpu_domain(obj, false);
 -	i915_gem_object_unlock(obj);
--	if (err) {
--		pr_err("Failed to flush to GTT write domain; err=%d\n", err);
--		return err;
--	}
--
- 	page = i915_prandom_u32_max_state(npages, prng);
- 	view = compute_partial_view(obj, page, MIN_CHUNK_PAGES);
+-	if (err)
++	if (i915_request_wait(rq, 0, HZ / 5) < 0) {
++		i915_request_put(rq);
++		err = -ETIME;
+ 		goto out_vm;
++	}
++	i915_request_put(rq);
  
-@@ -189,14 +181,6 @@ static int check_partial_mappings(struct drm_i915_gem_object *obj,
- 	GEM_BUG_ON(i915_gem_object_get_tiling(obj) != tile->tiling);
- 	GEM_BUG_ON(i915_gem_object_get_stride(obj) != tile->stride);
- 
--	i915_gem_object_lock(obj, NULL);
--	err = i915_gem_object_set_to_gtt_domain(obj, true);
--	i915_gem_object_unlock(obj);
--	if (err) {
--		pr_err("Failed to flush to GTT write domain; err=%d\n", err);
--		return err;
--	}
--
- 	for_each_prime_number_from(page, 1, npages) {
- 		struct i915_ggtt_view view =
- 			compute_partial_view(obj, page, MIN_CHUNK_PAGES);
-diff --git a/drivers/gpu/drm/i915/selftests/i915_vma.c b/drivers/gpu/drm/i915/selftests/i915_vma.c
-index 1b6125e4c1ac..065a9d82ad5c 100644
---- a/drivers/gpu/drm/i915/selftests/i915_vma.c
-+++ b/drivers/gpu/drm/i915/selftests/i915_vma.c
-@@ -892,12 +892,6 @@ static int igt_vma_remapped_gtt(void *arg)
- 			unsigned int x, y;
- 			int err;
- 
--			i915_gem_object_lock(obj, NULL);
--			err = i915_gem_object_set_to_gtt_domain(obj, true);
--			i915_gem_object_unlock(obj);
--			if (err)
--				goto out;
--
- 			vma = i915_gem_object_ggtt_pin(obj, &view, 0, 0, PIN_MAPPABLE);
- 			if (IS_ERR(vma)) {
- 				err = PTR_ERR(vma);
+-	cmd = i915_gem_object_pin_map(obj, I915_MAP_WB);
++	cmd = i915_gem_object_pin_map(obj, I915_MAP_WC);
+ 	if (IS_ERR(cmd)) {
+ 		err = PTR_ERR(cmd);
+ 		goto out_vm;
 -- 
 2.20.1
 
