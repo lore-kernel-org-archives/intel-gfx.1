@@ -7,43 +7,37 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E6661C433DB
-	for <intel-gfx@archiver.kernel.org>; Mon, 25 Jan 2021 14:09:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 513E8C433DB
+	for <intel-gfx@archiver.kernel.org>; Mon, 25 Jan 2021 14:18:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A56322145D
-	for <intel-gfx@archiver.kernel.org>; Mon, 25 Jan 2021 14:09:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A56322145D
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 8F41F22D04
+	for <intel-gfx@archiver.kernel.org>; Mon, 25 Jan 2021 14:18:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8F41F22D04
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D4996E16D;
-	Mon, 25 Jan 2021 14:09:33 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7009E6E16D
- for <intel-gfx@lists.freedesktop.org>; Mon, 25 Jan 2021 14:09:32 +0000 (UTC)
-IronPort-SDR: Xl9QijlUnzJF/u3HinN8JIYuLhPKTd+uev/yW1OiwZbmCYpycJCncNdxyYwJ/EGYIM6rccU/xN
- UCwWg5ifqTxg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9874"; a="166831982"
-X-IronPort-AV: E=Sophos;i="5.79,373,1602572400"; d="scan'208";a="166831982"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Jan 2021 06:08:22 -0800
-IronPort-SDR: JGA2aGuASrZ0v9WU4WXswDWCIxu5PcZ46uQBechFcwA2MWQhJp3SGq9aVRQn4JfFdpqt2mkjCy
- GE91GQlsO/tQ==
-X-IronPort-AV: E=Sophos;i="5.79,373,1602572400"; d="scan'208";a="472319462"
-Received: from iduggana-mobl.amr.corp.intel.com (HELO
- aswarup-mobl.amr.corp.intel.com) ([10.254.81.9])
- by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Jan 2021 06:08:18 -0800
-From: Aditya Swarup <aditya.swarup@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A7AD6E1D3;
+	Mon, 25 Jan 2021 14:18:14 +0000 (UTC)
+Received: from fireflyinternet.com (unknown [77.68.26.236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0261D6E1B2
+ for <intel-gfx@lists.freedesktop.org>; Mon, 25 Jan 2021 14:18:12 +0000 (UTC)
+X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
+ x-ip-name=78.156.65.138; 
+Received: from build.alporthouse.com (unverified [78.156.65.138]) 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23693943-1500050 
+ for multiple; Mon, 25 Jan 2021 14:18:03 +0000
+From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 25 Jan 2021 06:07:43 -0800
-Message-Id: <20210125140753.347998-1-aditya.swarup@intel.com>
-X-Mailer: git-send-email 2.27.0
+Date: Mon, 25 Jan 2021 14:18:02 +0000
+Message-Id: <20210125141803.14378-7-chris@chris-wilson.co.uk>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20210125141803.14378-1-chris@chris-wilson.co.uk>
+References: <20210125141803.14378-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 00/10] Alderlake-S platform enabling patches
+Subject: [Intel-gfx] [PATCH 7/8] drm/i915/selftests: Remove redundant
+ set-to-gtt-domain before batch submission
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,66 +50,35 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>
+Cc: Chris Wilson <chris@chris-wilson.co.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This patch revises all the changes suggested in rev 3 of
-Introduce Alderlake-S series for first 10 patches.
-https://patchwork.freedesktop.org/patch/405772/?series=82917&rev=3
+In construction the rpcs_query batch we know that it is device coherent
+and ready for execution, the set-to-gtt-domain here is redudant.
 
-Most of the patches have already been reviewed and are good for merge.
-I will resend rest of the series once we have focussed reviews on the
-pending patches.
+Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+---
+ drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-Please ignore the patch:
-x86/gpu: Add Alderlake-S stolen memory support
-as it was picked up to prevent compilation issues and maintaining
-sequence of patches.
-The correct location for picking the latest revision of that patch is 
-here:
-https://patchwork.freedesktop.org/series/86239/
-
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>
-Cc: Matt Roper <matthew.d.roper@intel.com>
-Signed-off-by: Aditya Swarup <aditya.swarup@intel.com>
-
-Aditya Swarup (5):
-  drm/i915/adl_s: Configure DPLL for ADL-S
-  drm/i915/adl_s: Configure Port clock registers for ADL-S
-  drm/i915/adl_s: Initialize display for ADL-S
-  drm/i915/adl_s: Add adl-s ddc pin mapping
-  drm/i915/adl_s: Add vbt port and aux channel settings for adls
-
-Anusha Srivatsa (3):
-  drm/i915/adl_s: Add PCH support
-  drm/i915/adl_s: Add Interrupt Support
-  drm/i915/adl_s: Add PHYs for Alderlake S
-
-Caz Yokoyama (1):
-  x86/gpu: Add Alderlake-S stolen memory support
-
-Matt Roper (1):
-  drm/i915/adl_s: Update combo PHY master/slave relationships
-
- arch/x86/kernel/early-quirks.c                |  1 +
- drivers/gpu/drm/i915/display/intel_bios.c     | 70 +++++++++++++++----
- .../gpu/drm/i915/display/intel_combo_phy.c    | 11 ++-
- drivers/gpu/drm/i915/display/intel_ddi.c      | 62 ++++++++++------
- drivers/gpu/drm/i915/display/intel_display.c  | 31 +++++---
- drivers/gpu/drm/i915/display/intel_dpll_mgr.c | 38 ++++++++--
- drivers/gpu/drm/i915/display/intel_hdmi.c     | 20 +++++-
- drivers/gpu/drm/i915/display/intel_vbt_defs.h |  4 ++
- drivers/gpu/drm/i915/i915_irq.c               |  3 +-
- drivers/gpu/drm/i915/i915_reg.h               | 50 +++++++++++--
- drivers/gpu/drm/i915/intel_pch.c              |  8 ++-
- drivers/gpu/drm/i915/intel_pch.h              |  3 +
- 12 files changed, 246 insertions(+), 55 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
+index e02299fffe60..df949320f2b5 100644
+--- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
++++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
+@@ -954,8 +954,6 @@ emit_rpcs_query(struct drm_i915_gem_object *obj,
+ 	err = i915_gem_object_lock(obj, &ww);
+ 	if (!err)
+ 		err = i915_gem_object_lock(rpcs, &ww);
+-	if (!err)
+-		err = i915_gem_object_set_to_gtt_domain(obj, false);
+ 	if (!err)
+ 		err = i915_vma_pin_ww(vma, &ww, 0, 0, PIN_USER);
+ 	if (err)
 -- 
-2.27.0
+2.20.1
 
 _______________________________________________
 Intel-gfx mailing list
