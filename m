@@ -2,56 +2,41 @@ Return-Path: <SRS0=x+Hj=G4=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 16F14C433E0
-	for <intel-gfx@archiver.kernel.org>; Mon, 25 Jan 2021 13:09:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 120B0C433DB
+	for <intel-gfx@archiver.kernel.org>; Mon, 25 Jan 2021 13:12:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AC95322D50
-	for <intel-gfx@archiver.kernel.org>; Mon, 25 Jan 2021 13:09:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AC95322D50
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
+	by mail.kernel.org (Postfix) with ESMTPS id B521022D50
+	for <intel-gfx@archiver.kernel.org>; Mon, 25 Jan 2021 13:12:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B521022D50
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0657D89241;
-	Mon, 25 Jan 2021 13:09:58 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2FCFF891E7;
- Mon, 25 Jan 2021 13:09:35 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id CC2AC230FF;
- Mon, 25 Jan 2021 13:09:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1611580174;
- bh=y5SD7INd+SJt7jxXfJP2LnyGCDy2q11vfjo9M/wnIVg=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=CzHvKf0g4XRU3kZT+EAi1uu/b8urWuaKUoh7B2C4vgC224fDtXQv2oHgNFop9yhZT
- 2NAVkLC7L51W5AAHJatCrAxQaZGGe8ikLSGTJyflMWj71WwoMujeWrPVS93iC1TKwI
- x8IXnE2nOh3LtWah61deyMxC6o408RKhwybxqQHAd+opNvhFi5a0T4aRl8m1xi1DH6
- wsKNG/eN4JKz1Sz+I59YIY7HdRNsZBImAyvqYbJLknXsqtZGg59Fa+dNZ2fW1Tb9ok
- XisCQGg02FTISRO4Tr0H83Lqk2GgUor15GeedhP0qyrOoICJ9TKfPHZdLC53amcu9N
- 55hpWqNriPU0w==
-Received: by mail-ot1-f50.google.com with SMTP id i20so12661192otl.7;
- Mon, 25 Jan 2021 05:09:34 -0800 (PST)
-X-Gm-Message-State: AOAM533iFFiO4ltmg6eCi9M7bGeyifxdyjwgCMR+uOxhdYVBEBxWLaZg
- yWWILebaPdrigZxxLfSqySJBLjRAvjgLhKjj6YE=
-X-Google-Smtp-Source: ABdhPJyuJJk9G4dOr5X/W/Oejpn00xm3L5Vgy94ryIckeQco5eZlFX7WU57R1TChXjR/NR+IHQywGOH1ZsrZxjRin3w=
-X-Received: by 2002:a9d:741a:: with SMTP id n26mr388999otk.210.1611580174003; 
- Mon, 25 Jan 2021 05:09:34 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2725D89B68;
+	Mon, 25 Jan 2021 13:12:28 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id B14C989B68;
+ Mon, 25 Jan 2021 13:12:26 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id AA61FA73C9;
+ Mon, 25 Jan 2021 13:12:26 +0000 (UTC)
 MIME-Version: 1.0
-References: <20210125122650.4178417-1-arnd@kernel.org>
- <161157800073.27462.7610644354455990065@build.alporthouse.com>
-In-Reply-To: <161157800073.27462.7610644354455990065@build.alporthouse.com>
-From: Arnd Bergmann <arnd@kernel.org>
-Date: Mon, 25 Jan 2021 14:09:18 +0100
-X-Gmail-Original-Message-ID: <CAK8P3a2nWZnHfxqsKpq4iA1yYkJcVw01OewsZ9WSKUczoUR0+g@mail.gmail.com>
-Message-ID: <CAK8P3a2nWZnHfxqsKpq4iA1yYkJcVw01OewsZ9WSKUczoUR0+g@mail.gmail.com>
-To: Chris Wilson <chris@chris-wilson.co.uk>
-X-Mailman-Approved-At: Mon, 25 Jan 2021 13:09:56 +0000
-Subject: Re: [Intel-gfx] [PATCH] i915: Fix DRM_I915_WERROR dependencies
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Aditya Swarup" <aditya.swarup@intel.com>
+Date: Mon, 25 Jan 2021 13:12:26 -0000
+Message-ID: <161158034669.3417.15272150268354973639@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20210125105931.268977-1-aditya.swarup@intel.com>
+In-Reply-To: <20210125105931.268977-1-aditya.swarup@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgQWRk?=
+ =?utf-8?q?_Alderlake-S_stolen_memory_changes=2E?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,34 +49,227 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Arnd Bergmann <arnd@arndb.de>, David Airlie <airlied@linux.ie>,
- Intel Graphics <intel-gfx@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============0380000611=="
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Jan 25, 2021 at 1:33 PM Chris Wilson <chris@chris-wilson.co.uk> wrote:
->
-> Quoting Arnd Bergmann (2021-01-25 12:26:44)
-> > From: Arnd Bergmann <arnd@arndb.de>
-> >
-> > CONFIG_DRM_I915_DEBUG now selects CONFIG_DRM_I915_WERROR, but fails
-> > to honor its dependencies:
-> >
-> > WARNING: unmet direct dependencies detected for DRM_I915_WERROR
-> >   Depends on [n]: HAS_IOMEM [=y] && DRM_I915 [=m] && EXPERT [=y] && !COMPILE_TEST [=y]
-> >   Selected by [m]:
-> >   - DRM_I915_DEBUG [=y] && HAS_IOMEM [=y] && EXPERT [=y] && DRM_I915 [=m]
->
-> DRM_I915_DEBUG now depends on !COMPILE_TEST and EXPERT.
+--===============0380000611==
+Content-Type: multipart/alternative;
+ boundary="===============5394548726536082756=="
 
-Works for me, thanks!
+--===============5394548726536082756==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-      Arnd
+== Series Details ==
+
+Series: Add Alderlake-S stolen memory changes.
+URL   : https://patchwork.freedesktop.org/series/86239/
+State : success
+
+== Summary ==
+
+CI Bug Log - changes from CI_DRM_9679 -> Patchwork_19479
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19479/index.html
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_19479 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@amdgpu/amd_cs_nop@fork-compute0:
+    - fi-tgl-u2:          NOTRUN -> [SKIP][1] ([fdo#109315] / [i915#2575]) +17 similar issues
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19479/fi-tgl-u2/igt@amdgpu/amd_cs_nop@fork-compute0.html
+
+  * igt@gem_huc_copy@huc-copy:
+    - fi-tgl-u2:          NOTRUN -> [SKIP][2] ([i915#2190])
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19479/fi-tgl-u2/igt@gem_huc_copy@huc-copy.html
+
+  * igt@i915_module_load@reload:
+    - fi-kbl-7500u:       [PASS][3] -> [DMESG-WARN][4] ([i915#2605])
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9679/fi-kbl-7500u/igt@i915_module_load@reload.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19479/fi-kbl-7500u/igt@i915_module_load@reload.html
+
+  * igt@kms_chamelium@dp-hpd-fast:
+    - fi-tgl-u2:          NOTRUN -> [SKIP][5] ([fdo#109284] / [fdo#111827]) +8 similar issues
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19479/fi-tgl-u2/igt@kms_chamelium@dp-hpd-fast.html
+
+  * igt@kms_force_connector_basic@force-load-detect:
+    - fi-tgl-u2:          NOTRUN -> [SKIP][6] ([fdo#109285])
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19479/fi-tgl-u2/igt@kms_force_connector_basic@force-load-detect.html
+
+  
+#### Possible fixes ####
+
+  * igt@kms_chamelium@common-hpd-after-suspend:
+    - fi-icl-u2:          [DMESG-WARN][7] ([i915#2203]) -> [PASS][8]
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9679/fi-icl-u2/igt@kms_chamelium@common-hpd-after-suspend.html
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19479/fi-icl-u2/igt@kms_chamelium@common-hpd-after-suspend.html
+
+  
+  {name}: This element is suppressed. This means it is ignored when computing
+          the status of the difference (SUCCESS, WARNING, or FAILURE).
+
+  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
+  [fdo#109284]: https://bugs.freedesktop.org/show_bug.cgi?id=109284
+  [fdo#109285]: https://bugs.freedesktop.org/show_bug.cgi?id=109285
+  [fdo#109315]: https://bugs.freedesktop.org/show_bug.cgi?id=109315
+  [fdo#111827]: https://bugs.freedesktop.org/show_bug.cgi?id=111827
+  [i915#2190]: https://gitlab.freedesktop.org/drm/intel/issues/2190
+  [i915#2203]: https://gitlab.freedesktop.org/drm/intel/issues/2203
+  [i915#2575]: https://gitlab.freedesktop.org/drm/intel/issues/2575
+  [i915#2605]: https://gitlab.freedesktop.org/drm/intel/issues/2605
+
+
+Participating hosts (36 -> 34)
+------------------------------
+
+  Additional (1): fi-tgl-u2 
+  Missing    (3): fi-ctg-p8600 fi-ilk-m540 fi-hsw-4200u 
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_9679 -> Patchwork_19479
+
+  CI-20190529: 20190529
+  CI_DRM_9679: f2467849acce5e1e824c5ca5e1a12ce69eb695a6 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_5971: abef2b7d6ff30f3b948b3e5d39653debb73083f3 @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools
+  Patchwork_19479: 6cbe021f414ec2d5f8e5e5e34e50a03932bc6320 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+== Linux commits ==
+
+6cbe021f414e x86/gpu: Add Alderlake-S stolen memory support
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19479/index.html
+
+--===============5394548726536082756==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>Add Alderlake-S stolen memory changes.</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/86239/">https://patchwork.freedesktop.org/series/86239/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19479/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19479/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_9679 -&gt; Patchwork_19479</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19479/index.html</p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_19479 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@amdgpu/amd_cs_nop@fork-compute0:</p>
+<ul>
+<li>fi-tgl-u2:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19479/fi-tgl-u2/igt@amdgpu/amd_cs_nop@fork-compute0.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109315">fdo#109315</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/2575">i915#2575</a>) +17 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@gem_huc_copy@huc-copy:</p>
+<ul>
+<li>fi-tgl-u2:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19479/fi-tgl-u2/igt@gem_huc_copy@huc-copy.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2190">i915#2190</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_module_load@reload:</p>
+<ul>
+<li>fi-kbl-7500u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9679/fi-kbl-7500u/igt@i915_module_load@reload.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19479/fi-kbl-7500u/igt@i915_module_load@reload.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2605">i915#2605</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_chamelium@dp-hpd-fast:</p>
+<ul>
+<li>fi-tgl-u2:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19479/fi-tgl-u2/igt@kms_chamelium@dp-hpd-fast.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109284">fdo#109284</a> / <a href="https://bugs.freedesktop.org/show_bug.cgi?id=111827">fdo#111827</a>) +8 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_force_connector_basic@force-load-detect:</p>
+<ul>
+<li>fi-tgl-u2:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19479/fi-tgl-u2/igt@kms_force_connector_basic@force-load-detect.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109285">fdo#109285</a>)</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>igt@kms_chamelium@common-hpd-after-suspend:<ul>
+<li>fi-icl-u2:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9679/fi-icl-u2/igt@kms_chamelium@common-hpd-after-suspend.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2203">i915#2203</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19479/fi-icl-u2/igt@kms_chamelium@common-hpd-after-suspend.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<p>{name}: This element is suppressed. This means it is ignored when computing<br />
+          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
+<h2>Participating hosts (36 -&gt; 34)</h2>
+<p>Additional (1): fi-tgl-u2 <br />
+  Missing    (3): fi-ctg-p8600 fi-ilk-m540 fi-hsw-4200u </p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_9679 -&gt; Patchwork_19479</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_9679: f2467849acce5e1e824c5ca5e1a12ce69eb695a6 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_5971: abef2b7d6ff30f3b948b3e5d39653debb73083f3 @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools<br />
+  Patchwork_19479: 6cbe021f414ec2d5f8e5e5e34e50a03932bc6320 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<p>== Linux commits ==</p>
+<p>6cbe021f414e x86/gpu: Add Alderlake-S stolen memory support</p>
+
+</body>
+</html>
+
+--===============5394548726536082756==--
+
+--===============0380000611==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+
+--===============0380000611==--
