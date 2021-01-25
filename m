@@ -2,41 +2,41 @@ Return-Path: <SRS0=x+Hj=G4=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E5CA7C433E0
-	for <intel-gfx@archiver.kernel.org>; Mon, 25 Jan 2021 12:33:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6FC85C433DB
+	for <intel-gfx@archiver.kernel.org>; Mon, 25 Jan 2021 12:34:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5983122242
-	for <intel-gfx@archiver.kernel.org>; Mon, 25 Jan 2021 12:33:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5983122242
+	by mail.kernel.org (Postfix) with ESMTPS id 178F922242
+	for <intel-gfx@archiver.kernel.org>; Mon, 25 Jan 2021 12:34:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 178F922242
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F05D389F9F;
-	Mon, 25 Jan 2021 12:33:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8AA216E0AB;
+	Mon, 25 Jan 2021 12:34:39 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id E25A889CF8;
- Mon, 25 Jan 2021 12:33:39 +0000 (UTC)
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 75E1889FD4;
+ Mon, 25 Jan 2021 12:34:38 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id DA977A8836;
- Mon, 25 Jan 2021 12:33:39 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id 7260AA8836;
+ Mon, 25 Jan 2021 12:34:38 +0000 (UTC)
 MIME-Version: 1.0
 From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Dan Carpenter" <dan.carpenter@oracle.com>
-Date: Mon, 25 Jan 2021 12:33:39 -0000
-Message-ID: <161157801986.3418.3603538991305799484@emeril.freedesktop.org>
+To: "Gwan-gyeong Mun" <gwan-gyeong.mun@intel.com>
+Date: Mon, 25 Jan 2021 12:34:38 -0000
+Message-ID: <161157807846.3418.16059409572259021130@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
-References: <YA6F3oF8mRaNQWjb@mwanda>
-In-Reply-To: <YA6F3oF8mRaNQWjb@mwanda>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJBVDogZmFpbHVyZSBmb3IgZHJt?=
- =?utf-8?q?/i915/gvt=3A_fix_uninitialized_return_in_intel=5Fgvt=5Fupdate?=
- =?utf-8?q?=5Freg=5Fwhitelist=28=29?=
+References: <20210120144215.924233-1-gwan-gyeong.mun@intel.com>
+In-Reply-To: <20210120144215.924233-1-gwan-gyeong.mun@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBz?=
+ =?utf-8?q?eries_starting_with_=5Bv12=2C1/2=5D_drm/i915/display=3A_Support?=
+ =?utf-8?q?_PSR_Multiple_Instances_=28rev2=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,84 +51,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Reply-To: intel-gfx@lists.freedesktop.org
 Cc: intel-gfx@lists.freedesktop.org
-Content-Type: multipart/mixed; boundary="===============0107283839=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============0107283839==
-Content-Type: multipart/alternative;
- boundary="===============4855283770564247177=="
-
---===============4855283770564247177==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
 == Series Details ==
 
-Series: drm/i915/gvt: fix uninitialized return in intel_gvt_update_reg_whitelist()
-URL   : https://patchwork.freedesktop.org/series/86235/
+Series: series starting with [v12,1/2] drm/i915/display: Support PSR Multiple Instances (rev2)
+URL   : https://patchwork.freedesktop.org/series/86091/
 State : failure
 
 == Summary ==
 
-Applying: drm/i915/gvt: fix uninitialized return in intel_gvt_update_reg_whitelist()
+Applying: drm/i915/display: Support PSR Multiple Instances
 Using index info to reconstruct a base tree...
-M	drivers/gpu/drm/i915/gvt/cmd_parser.c
+M	drivers/gpu/drm/i915/display/intel_display.c
+M	drivers/gpu/drm/i915/display/intel_display_debugfs.c
+M	drivers/gpu/drm/i915/display/intel_display_types.h
+M	drivers/gpu/drm/i915/display/intel_dp.c
+M	drivers/gpu/drm/i915/display/intel_psr.c
+M	drivers/gpu/drm/i915/display/intel_sprite.c
+M	drivers/gpu/drm/i915/i915_drv.h
 Falling back to patching base and 3-way merge...
-Auto-merging drivers/gpu/drm/i915/gvt/cmd_parser.c
-No changes -- Patch already applied.
+Auto-merging drivers/gpu/drm/i915/i915_drv.h
+Auto-merging drivers/gpu/drm/i915/display/intel_sprite.c
+Auto-merging drivers/gpu/drm/i915/display/intel_psr.c
+CONFLICT (content): Merge conflict in drivers/gpu/drm/i915/display/intel_psr.c
+Auto-merging drivers/gpu/drm/i915/display/intel_dp.c
+Auto-merging drivers/gpu/drm/i915/display/intel_display_types.h
+CONFLICT (content): Merge conflict in drivers/gpu/drm/i915/display/intel_display_types.h
+Auto-merging drivers/gpu/drm/i915/display/intel_display_debugfs.c
+Auto-merging drivers/gpu/drm/i915/display/intel_display.c
+error: Failed to merge in the changes.
+hint: Use 'git am --show-current-patch=diff' to see the failed patch
+Patch failed at 0001 drm/i915/display: Support PSR Multiple Instances
+When you have resolved this problem, run "git am --continue".
+If you prefer to skip this patch, run "git am --skip" instead.
+To restore the original branch and stop patching, run "git am --abort".
 
-
-
---===============4855283770564247177==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/gvt: fix uninitialized return in intel_gvt_update_reg_whitelist()</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/86235/">https://patchwork.freedesktop.org/series/86235/</a></td></tr>
-<tr><td><b>State:</b></td><td>failure</td></tr>
-
-</table>
-
-
-    <p>Applying: drm/i915/gvt: fix uninitialized return in intel_gvt_update_reg_whitelist()<br />
-Using index info to reconstruct a base tree...<br />
-M   drivers/gpu/drm/i915/gvt/cmd_parser.c<br />
-Falling back to patching base and 3-way merge...<br />
-Auto-merging drivers/gpu/drm/i915/gvt/cmd_parser.c<br />
-No changes -- Patch already applied.</p>
-
-</body>
-</html>
-
---===============4855283770564247177==--
-
---===============0107283839==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
 
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-
---===============0107283839==--
