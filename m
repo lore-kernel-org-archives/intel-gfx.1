@@ -7,37 +7,46 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 42BC9C433E9
-	for <intel-gfx@archiver.kernel.org>; Mon, 25 Jan 2021 14:02:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2666BC433E0
+	for <intel-gfx@archiver.kernel.org>; Mon, 25 Jan 2021 14:08:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E8040230FD
-	for <intel-gfx@archiver.kernel.org>; Mon, 25 Jan 2021 14:02:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E8040230FD
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
+	by mail.kernel.org (Postfix) with ESMTPS id DFD5822C9E
+	for <intel-gfx@archiver.kernel.org>; Mon, 25 Jan 2021 14:08:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DFD5822C9E
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F33D06E1BD;
-	Mon, 25 Jan 2021 14:02:37 +0000 (UTC)
-Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6AE836E0FE
- for <intel-gfx@lists.freedesktop.org>; Mon, 25 Jan 2021 14:02:10 +0000 (UTC)
-X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
- x-ip-name=78.156.65.138; 
-Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23693641-1500050 
- for multiple; Mon, 25 Jan 2021 14:01:39 +0000
-From: Chris Wilson <chris@chris-wilson.co.uk>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6AC306E15D;
+	Mon, 25 Jan 2021 14:08:51 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E09316E054
+ for <intel-gfx@lists.freedesktop.org>; Mon, 25 Jan 2021 14:08:49 +0000 (UTC)
+IronPort-SDR: g36qQkfMmLvevxHE0F4mCsSiKQHGyOnJT8wBZ4/gA0Z33+mhov9LUZOseC9tpKxWDng3KzTsHZ
+ 95bd2VYwWN+w==
+X-IronPort-AV: E=McAfee;i="6000,8403,9874"; a="179879100"
+X-IronPort-AV: E=Sophos;i="5.79,373,1602572400"; d="scan'208";a="179879100"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Jan 2021 06:08:28 -0800
+IronPort-SDR: PrOCqdp9md9j0WwAs0EduA78tXGrh/dE5fOPcfoJBGaEVVXibdvPtyq3GGG2zowRCuN5nlvzNV
+ WsV0lrrIiP2A==
+X-IronPort-AV: E=Sophos;i="5.79,373,1602572400"; d="scan'208";a="472319525"
+Received: from iduggana-mobl.amr.corp.intel.com (HELO
+ aswarup-mobl.amr.corp.intel.com) ([10.254.81.9])
+ by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Jan 2021 06:08:27 -0800
+From: Aditya Swarup <aditya.swarup@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 25 Jan 2021 14:01:14 +0000
-Message-Id: <20210125140136.10494-19-chris@chris-wilson.co.uk>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210125140136.10494-1-chris@chris-wilson.co.uk>
-References: <20210125140136.10494-1-chris@chris-wilson.co.uk>
+Date: Mon, 25 Jan 2021 06:07:44 -0800
+Message-Id: <20210125140753.347998-2-aditya.swarup@intel.com>
+X-Mailer: git-send-email 2.27.0
+In-Reply-To: <20210125140753.347998-1-aditya.swarup@intel.com>
+References: <20210125140753.347998-1-aditya.swarup@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 19/41] drm/i915/gt: Show scheduler queues when
- dumping state
+Subject: [Intel-gfx] [PATCH 01/10] x86/gpu: Add Alderlake-S stolen memory
+ support
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,87 +59,49 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: thomas.hellstrom@intel.com, Chris Wilson <chris@chris-wilson.co.uk>
+Cc: Lucas De Marchi <lucas.demarchi@intel.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Move the scheduler pretty printer from out of the execlists state to
-match its more common location.
+From: Caz Yokoyama <caz.yokoyama@intel.com>
 
-Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+Alderlake-S is a Gen 12 based hybrid processor architeture. As it
+belongs to Gen 12 family, it uses the same GTT stolen memory settings
+like its predecessors - ICL(Gen 11) and TGL(Gen 12). This patch inherits
+the gen11 and gen 9 quirks for determining base and size of stolen
+memory.
+
+Note that this patch depends on commit 0883d63b19bb
+("drm/i915/adl_s: Add ADL-S platform info and PCI ids")
+
+Bspec: 52055
+Bspec: 49589
+Bspec: 49636
+
+Cc: Lucas De Marchi <lucas.demarchi@intel.com>
+Signed-off-by: Caz Yokoyama <caz.yokoyama@intel.com>
+Signed-off-by: Aditya Swarup <aditya.swarup@intel.com>
+Reviewed-by: Lucas De Marchi <lucas.demarchi@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_engine_cs.c | 34 +++++++++++++----------
- 1 file changed, 19 insertions(+), 15 deletions(-)
+ arch/x86/kernel/early-quirks.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-index cdd07aeada05..2f9a8960144b 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-@@ -1443,20 +1443,15 @@ static void intel_engine_print_registers(struct intel_engine_cs *engine,
+diff --git a/arch/x86/kernel/early-quirks.c b/arch/x86/kernel/early-quirks.c
+index a4b5af03dcc1..6edd1e2ee8af 100644
+--- a/arch/x86/kernel/early-quirks.c
++++ b/arch/x86/kernel/early-quirks.c
+@@ -551,6 +551,7 @@ static const struct pci_device_id intel_early_ids[] __initconst = {
+ 	INTEL_EHL_IDS(&gen11_early_ops),
+ 	INTEL_TGL_12_IDS(&gen11_early_ops),
+ 	INTEL_RKL_IDS(&gen11_early_ops),
++	INTEL_ADLS_IDS(&gen11_early_ops),
+ };
  
- 	if (intel_engine_in_guc_submission_mode(engine)) {
- 		/* nothing to print yet */
--	} else if (HAS_EXECLISTS(dev_priv)) {
--		struct i915_request * const *port, *rq;
- 		const u32 *hws =
- 			&engine->status_page.addr[I915_HWS_CSB_BUF0_INDEX];
- 		const u8 num_entries = execlists->csb_size;
- 		unsigned int idx;
- 		u8 read, write;
- 
--		drm_printf(m, "\tExeclist tasklet queued? %s (%s), preempt? %s, timeslice? %s\n",
--			   yesno(test_bit(TASKLET_STATE_SCHED,
--					  &engine->active.tasklet.state)),
--			   enableddisabled(!atomic_read(&engine->active.tasklet.count)),
--			   repr_timer(&engine->execlists.preempt),
--			   repr_timer(&engine->execlists.timer));
-+		drm_printf(m, "\tExeclists preempt? %s, timeslice? %s\n",
-+			   repr_timer(&execlists->preempt),
-+			   repr_timer(&execlists->timer));
- 
- 		read = execlists->csb_head;
- 		write = READ_ONCE(*execlists->csb_write);
-@@ -1477,6 +1472,22 @@ static void intel_engine_print_registers(struct intel_engine_cs *engine,
- 			drm_printf(m, "\tExeclist CSB[%d]: 0x%08x, context: %d\n",
- 				   idx, hws[idx * 2], hws[idx * 2 + 1]);
- 		}
-+	} else if (INTEL_GEN(dev_priv) > 6) {
-+		drm_printf(m, "\tPP_DIR_BASE: 0x%08x\n",
-+			   ENGINE_READ(engine, RING_PP_DIR_BASE));
-+		drm_printf(m, "\tPP_DIR_BASE_READ: 0x%08x\n",
-+			   ENGINE_READ(engine, RING_PP_DIR_BASE_READ));
-+		drm_printf(m, "\tPP_DIR_DCLV: 0x%08x\n",
-+			   ENGINE_READ(engine, RING_PP_DIR_DCLV));
-+	}
-+
-+	if (engine->active.tasklet.func) {
-+		struct i915_request * const *port, *rq;
-+
-+		drm_printf(m, "\tTasklet queued? %s (%s)\n",
-+			   yesno(test_bit(TASKLET_STATE_SCHED,
-+					  &engine->active.tasklet.state)),
-+			   enableddisabled(!atomic_read(&engine->active.tasklet.count)));
- 
- 		i915_sched_lock_bh(&engine->active);
- 		rcu_read_lock();
-@@ -1510,13 +1521,6 @@ static void intel_engine_print_registers(struct intel_engine_cs *engine,
- 		}
- 		rcu_read_unlock();
- 		i915_sched_unlock_bh(&engine->active);
--	} else if (INTEL_GEN(dev_priv) > 6) {
--		drm_printf(m, "\tPP_DIR_BASE: 0x%08x\n",
--			   ENGINE_READ(engine, RING_PP_DIR_BASE));
--		drm_printf(m, "\tPP_DIR_BASE_READ: 0x%08x\n",
--			   ENGINE_READ(engine, RING_PP_DIR_BASE_READ));
--		drm_printf(m, "\tPP_DIR_DCLV: 0x%08x\n",
--			   ENGINE_READ(engine, RING_PP_DIR_DCLV));
- 	}
- }
- 
+ struct resource intel_graphics_stolen_res __ro_after_init = DEFINE_RES_MEM(0, 0);
 -- 
-2.20.1
+2.27.0
 
 _______________________________________________
 Intel-gfx mailing list
