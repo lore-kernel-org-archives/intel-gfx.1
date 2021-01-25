@@ -2,54 +2,41 @@ Return-Path: <SRS0=x+Hj=G4=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-0.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BD08EC433DB
-	for <intel-gfx@archiver.kernel.org>; Mon, 25 Jan 2021 11:42:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E5CA7C433E0
+	for <intel-gfx@archiver.kernel.org>; Mon, 25 Jan 2021 12:33:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 572A722B3F
-	for <intel-gfx@archiver.kernel.org>; Mon, 25 Jan 2021 11:42:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 572A722B3F
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 5983122242
+	for <intel-gfx@archiver.kernel.org>; Mon, 25 Jan 2021 12:33:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5983122242
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 92F9389C9D;
-	Mon, 25 Jan 2021 11:42:13 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2319189C9D
- for <intel-gfx@lists.freedesktop.org>; Mon, 25 Jan 2021 11:42:12 +0000 (UTC)
-IronPort-SDR: TMrBD69l2I65v5Um3/qgGRY2xQYUTulISXIVPBRfda96rE5szENagZUArKuGrokN0rh4ydlgxa
- o9MKKMq+JpJg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9874"; a="167387060"
-X-IronPort-AV: E=Sophos;i="5.79,373,1602572400"; d="scan'208";a="167387060"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Jan 2021 03:42:11 -0800
-IronPort-SDR: UqQYupAM2IzczpqlgHCfaa2M+Wr7BXs9d0kwnnecbZABOAoR6KaifZs8Df4nRIg+/JrsZsoH7R
- 6H0AhLC9jZIg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.79,373,1602572400"; d="scan'208";a="429253903"
-Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.174])
- by orsmga001.jf.intel.com with SMTP; 25 Jan 2021 03:42:09 -0800
-Received: by stinkbox (sSMTP sendmail emulation);
- Mon, 25 Jan 2021 13:42:08 +0200
-Date: Mon, 25 Jan 2021 13:42:08 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Manasi Navare <manasi.d.navare@intel.com>
-Message-ID: <YA6ukB0Pq8HzczJw@intel.com>
-References: <20210122232647.22688-1-manasi.d.navare@intel.com>
- <20210122232647.22688-15-manasi.d.navare@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id F05D389F9F;
+	Mon, 25 Jan 2021 12:33:40 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id E25A889CF8;
+ Mon, 25 Jan 2021 12:33:39 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id DA977A8836;
+ Mon, 25 Jan 2021 12:33:39 +0000 (UTC)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210122232647.22688-15-manasi.d.navare@intel.com>
-X-Patchwork-Hint: comment
-Subject: Re: [Intel-gfx] [CI v5 15/18] drm/i915/display: Helpers for VRR
- vblank min and max start
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Dan Carpenter" <dan.carpenter@oracle.com>
+Date: Mon, 25 Jan 2021 12:33:39 -0000
+Message-ID: <161157801986.3418.3603538991305799484@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <YA6F3oF8mRaNQWjb@mwanda>
+In-Reply-To: <YA6F3oF8mRaNQWjb@mwanda>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJBVDogZmFpbHVyZSBmb3IgZHJt?=
+ =?utf-8?q?/i915/gvt=3A_fix_uninitialized_return_in_intel=5Fgvt=5Fupdate?=
+ =?utf-8?q?=5Freg=5Fwhitelist=28=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,121 +49,86 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Cc: intel-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/mixed; boundary="===============0107283839=="
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jan 22, 2021 at 03:26:44PM -0800, Manasi Navare wrote:
-> From: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
-> =
+--===============0107283839==
+Content-Type: multipart/alternative;
+ boundary="===============4855283770564247177=="
 
-> With VRR the earliest the registers can get latched are at
-> flipline decision boundary, calculate that as vrr_vmin_vblank_start()
-> and the latest the regsiters can get latched are vmax decision boundary
-> calculate that as vrr_vmax_vblank_start()
-> =
+--===============4855283770564247177==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-> v2:
-> * Remove TODO and adjust extra scanline const (Manasi)
-> =
+== Series Details ==
 
-> Signed-off-by: Manasi Navare <manasi.d.navare@intel.com>
-> Signed-off-by: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
-> Reviewed-by: Manasi Navare <manasi.d.navare@intel.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_vrr.c | 36 ++++++++++++++++++++++++
->  drivers/gpu/drm/i915/display/intel_vrr.h |  2 ++
->  2 files changed, 38 insertions(+)
-> =
+Series: drm/i915/gvt: fix uninitialized return in intel_gvt_update_reg_whitelist()
+URL   : https://patchwork.freedesktop.org/series/86235/
+State : failure
 
-> diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i=
-915/display/intel_vrr.c
-> index c71254563a10..49ff5add90e0 100644
-> --- a/drivers/gpu/drm/i915/display/intel_vrr.c
-> +++ b/drivers/gpu/drm/i915/display/intel_vrr.c
-> @@ -45,6 +45,42 @@ intel_vrr_check_modeset(struct intel_atomic_state *sta=
-te)
->  	}
->  }
->  =
+== Summary ==
 
-> +/*
-> + * Without VRR registers get latched at:
-> + *  vblank_start
-> + *
-> + * With VRR the earliest registers can get latched is:
-> + *  intel_vrr_vmin_vblank_start(), which if we want to maintain
-> + *  the correct min vtotal is >=3Dvblank_start+1
-> + *
-> + * The latest point registers can get latched is the vmax decision bound=
-ary:
-> + *  intel_vrr_vmax_vblank_start()
-> + *
-> + * Between those two points the vblank exit starts (and hence registers =
-get
-> + * latched) ASAP after a push is sent.
-> + *
-> + * framestart_delay is programmable 0-3.
+Applying: drm/i915/gvt: fix uninitialized return in intel_gvt_update_reg_whitelist()
+Using index info to reconstruct a base tree...
+M	drivers/gpu/drm/i915/gvt/cmd_parser.c
+Falling back to patching base and 3-way merge...
+Auto-merging drivers/gpu/drm/i915/gvt/cmd_parser.c
+No changes -- Patch already applied.
 
-"1-4" now
 
-> + */
-> +static int intel_vrr_vblank_exit_length(const struct intel_crtc_state *c=
-rtc_state)
-> +{
-> +	struct intel_crtc *crtc =3D to_intel_crtc(crtc_state->uapi.crtc);
-> +	struct drm_i915_private *i915 =3D to_i915(crtc->base.dev);
-> +
-> +	/* The hw imposes the extra scanline before frame start */
-> +	return crtc_state->vrr.pipeline_full + i915->framestart_delay + 1;
-> +}
-> +
-> +int intel_vrr_vmin_vblank_start(const struct intel_crtc_state *crtc_stat=
-e)
-> +{
-> +	/* Min vblank actually determined by flipline that is always >=3Dvmin+1=
- */
-> +	return crtc_state->vrr.vmin + 1 - intel_vrr_vblank_exit_length(crtc_sta=
-te);
-> +}
-> +
-> +int intel_vrr_vmax_vblank_start(const struct intel_crtc_state *crtc_stat=
-e)
-> +{
-> +	return crtc_state->vrr.vmax - intel_vrr_vblank_exit_length(crtc_state);
-> +}
-> +
->  void
->  intel_vrr_compute_config(struct intel_crtc_state *crtc_state,
->  			 struct drm_connector_state *conn_state)
-> diff --git a/drivers/gpu/drm/i915/display/intel_vrr.h b/drivers/gpu/drm/i=
-915/display/intel_vrr.h
-> index 7610051edad2..d8b6b45557ca 100644
-> --- a/drivers/gpu/drm/i915/display/intel_vrr.h
-> +++ b/drivers/gpu/drm/i915/display/intel_vrr.h
-> @@ -27,5 +27,7 @@ void intel_vrr_send_push(const struct intel_crtc_state =
-*crtc_state);
->  void intel_vrr_disable(const struct intel_crtc_state *old_crtc_state);
->  void intel_vrr_get_config(struct intel_crtc *crtc,
->  			  struct intel_crtc_state *crtc_state);
-> +int intel_vrr_vmax_vblank_start(const struct intel_crtc_state *crtc_stat=
-e);
-> +int intel_vrr_vmin_vblank_start(const struct intel_crtc_state *crtc_stat=
-e);
->  =
 
->  #endif /* __INTEL_VRR_H__ */
-> -- =
+--===============4855283770564247177==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-> 2.19.1
 
--- =
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
 
-Ville Syrj=E4l=E4
-Intel
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/gvt: fix uninitialized return in intel_gvt_update_reg_whitelist()</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/86235/">https://patchwork.freedesktop.org/series/86235/</a></td></tr>
+<tr><td><b>State:</b></td><td>failure</td></tr>
+
+</table>
+
+
+    <p>Applying: drm/i915/gvt: fix uninitialized return in intel_gvt_update_reg_whitelist()<br />
+Using index info to reconstruct a base tree...<br />
+M   drivers/gpu/drm/i915/gvt/cmd_parser.c<br />
+Falling back to patching base and 3-way merge...<br />
+Auto-merging drivers/gpu/drm/i915/gvt/cmd_parser.c<br />
+No changes -- Patch already applied.</p>
+
+</body>
+</html>
+
+--===============4855283770564247177==--
+
+--===============0107283839==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+
+--===============0107283839==--
