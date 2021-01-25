@@ -2,41 +2,41 @@ Return-Path: <SRS0=x+Hj=G4=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2EFF7C433E0
-	for <intel-gfx@archiver.kernel.org>; Mon, 25 Jan 2021 17:00:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6D9DAC433E0
+	for <intel-gfx@archiver.kernel.org>; Mon, 25 Jan 2021 17:01:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E5A6D2223E
-	for <intel-gfx@archiver.kernel.org>; Mon, 25 Jan 2021 17:00:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E5A6D2223E
+	by mail.kernel.org (Postfix) with ESMTPS id 2296120658
+	for <intel-gfx@archiver.kernel.org>; Mon, 25 Jan 2021 17:01:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2296120658
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 617756E329;
-	Mon, 25 Jan 2021 17:00:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD9266E28A;
+	Mon, 25 Jan 2021 17:01:16 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
  [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id E0F5A6E28A;
- Mon, 25 Jan 2021 17:00:21 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id BDB6D6E28A;
+ Mon, 25 Jan 2021 17:01:15 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id D5A70AA916;
- Mon, 25 Jan 2021 17:00:21 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id BBA9BAA916;
+ Mon, 25 Jan 2021 17:01:15 +0000 (UTC)
 MIME-Version: 1.0
 From: Patchwork <patchwork@emeril.freedesktop.org>
-To: =?utf-8?b?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Date: Mon, 25 Jan 2021 17:00:21 -0000
-Message-ID: <161159402187.3417.8052067325159742084@emeril.freedesktop.org>
+To: "Arnd Bergmann" <arnd@kernel.org>
+Date: Mon, 25 Jan 2021 17:01:15 -0000
+Message-ID: <161159407576.3419.4924895837906045182@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
-References: <161149524220215@kroah.com>
-In-Reply-To: <161149524220215@kroah.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBk?=
- =?utf-8?q?rm/i915=3A_Only_enable_DFP_4=3A4=3A4-=3E4=3A2=3A0_conversion_wh?=
- =?utf-8?q?en_outputting_YCbCr_4=3A4=3A4?=
+References: <20210125122650.4178417-1-arnd@kernel.org>
+In-Reply-To: <20210125122650.4178417-1-arnd@kernel.org>
+Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgaTkx?=
+ =?utf-8?q?5=3A_Fix_DRM=5FI915=5FWERROR_dependencies?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,30 +51,134 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Reply-To: intel-gfx@lists.freedesktop.org
 Cc: intel-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============1484773716=="
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+--===============1484773716==
+Content-Type: multipart/alternative;
+ boundary="===============1108784142989400112=="
+
+--===============1108784142989400112==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
 == Series Details ==
 
-Series: drm/i915: Only enable DFP 4:4:4->4:2:0 conversion when outputting YCbCr 4:4:4
-URL   : https://patchwork.freedesktop.org/series/86256/
-State : failure
+Series: i915: Fix DRM_I915_WERROR dependencies
+URL   : https://patchwork.freedesktop.org/series/86252/
+State : success
 
 == Summary ==
 
-Applying: drm/i915: Only enable DFP 4:4:4->4:2:0 conversion when outputting YCbCr 4:4:4
-error: sha1 information is lacking or useless (drivers/gpu/drm/i915/display/intel_ddi.c).
-error: could not build fake ancestor
-hint: Use 'git am --show-current-patch=diff' to see the failed patch
-Patch failed at 0001 drm/i915: Only enable DFP 4:4:4->4:2:0 conversion when outputting YCbCr 4:4:4
-When you have resolved this problem, run "git am --continue".
-If you prefer to skip this patch, run "git am --skip" instead.
-To restore the original branch and stop patching, run "git am --abort".
+CI Bug Log - changes from CI_DRM_9680 -> Patchwork_19483
+====================================================
 
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19483/index.html
+
+
+Changes
+-------
+
+  No changes found
+
+
+Participating hosts (39 -> 34)
+------------------------------
+
+  Missing    (5): fi-jsl-1 fi-ilk-m540 fi-hsw-4200u fi-ctg-p8600 fi-tgl-y 
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_9680 -> Patchwork_19483
+
+  CI-20190529: 20190529
+  CI_DRM_9680: 9e03236ed9687144929d42404341384cc1e501b7 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_5971: abef2b7d6ff30f3b948b3e5d39653debb73083f3 @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools
+  Patchwork_19483: c669467abc3014e2572d55bc756177959cd56e2e @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+== Linux commits ==
+
+c669467abc30 i915: Fix DRM_I915_WERROR dependencies
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19483/index.html
+
+--===============1108784142989400112==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>i915: Fix DRM_I915_WERROR dependencies</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/86252/">https://patchwork.freedesktop.org/series/86252/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19483/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19483/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_9680 -&gt; Patchwork_19483</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19483/index.html</p>
+<h2>Changes</h2>
+<p>No changes found</p>
+<h2>Participating hosts (39 -&gt; 34)</h2>
+<p>Missing    (5): fi-jsl-1 fi-ilk-m540 fi-hsw-4200u fi-ctg-p8600 fi-tgl-y </p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_9680 -&gt; Patchwork_19483</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_9680: 9e03236ed9687144929d42404341384cc1e501b7 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_5971: abef2b7d6ff30f3b948b3e5d39653debb73083f3 @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools<br />
+  Patchwork_19483: c669467abc3014e2572d55bc756177959cd56e2e @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<p>== Linux commits ==</p>
+<p>c669467abc30 i915: Fix DRM_I915_WERROR dependencies</p>
+
+</body>
+</html>
+
+--===============1108784142989400112==--
+
+--===============1484773716==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+
+--===============1484773716==--
