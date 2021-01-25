@@ -2,79 +2,43 @@ Return-Path: <SRS0=x+Hj=G4=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNPARSEABLE_RELAY,URIBL_BLOCKED
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 683FDC433E9
-	for <intel-gfx@archiver.kernel.org>; Mon, 25 Jan 2021 08:48:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B2ED6C433E0
+	for <intel-gfx@archiver.kernel.org>; Mon, 25 Jan 2021 09:43:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 16A4022CF6
-	for <intel-gfx@archiver.kernel.org>; Mon, 25 Jan 2021 08:48:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 16A4022CF6
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=oracle.com
+	by mail.kernel.org (Postfix) with ESMTPS id E9AF422472
+	for <intel-gfx@archiver.kernel.org>; Mon, 25 Jan 2021 09:43:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E9AF422472
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F4CD89F92;
-	Mon, 25 Jan 2021 08:48:50 +0000 (UTC)
-Received: from aserp2120.oracle.com (aserp2120.oracle.com [141.146.126.78])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B4B2789BBD;
- Mon, 25 Jan 2021 08:48:48 +0000 (UTC)
-Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
- by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 10P8ip5d172065;
- Mon, 25 Jan 2021 08:48:44 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=date : from : to : cc
- : subject : message-id : mime-version : content-type; s=corp-2020-01-29;
- bh=L7ODlPnGNK523JXoce5JEfvkhpSmcTncF671W+J7cIU=;
- b=eTRlnR7XuSgeu0LL4RsbbWa1Ml5/4QHkE0w91KCnH5aKKLhH1DYvmNGD50O2JA+yDMAw
- BpVd8ZKBcy7quqocM8CErg+RJVWEFqq/XYxefJ0JviZxY8q63kv+MjBlTjbLJMhgait7
- FZGGFxC4+smCZGetNlrvA0cCFKxQDylAv5EJa64QEdaLCsoKrJ2pPdwVS1XS3JrgsIEd
- dAGYo3qWaN2HEdY4iZe5PT92w2jrmtMHKtNk1+XguS3lUTteEDNc4etNuOZMtFHhKRw0
- vbZ3iWaJLE7gWkxokZcsLJVPRoE7D7VuH2EVciODTXRV5DGkbWMZW1OtCtxfN8pqeg1A AA== 
-Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
- by aserp2120.oracle.com with ESMTP id 368brkc476-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 25 Jan 2021 08:48:44 +0000
-Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
- by userp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 10P8jT9S128273;
- Mon, 25 Jan 2021 08:48:42 GMT
-Received: from userv0122.oracle.com (userv0122.oracle.com [156.151.31.75])
- by userp3020.oracle.com with ESMTP id 368wjpdy5m-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 25 Jan 2021 08:48:42 +0000
-Received: from abhmp0002.oracle.com (abhmp0002.oracle.com [141.146.116.8])
- by userv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 10P8me0J010887;
- Mon, 25 Jan 2021 08:48:40 GMT
-Received: from mwanda (/102.36.221.92) by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Mon, 25 Jan 2021 00:48:39 -0800
-Date: Mon, 25 Jan 2021 11:48:30 +0300
-From: Dan Carpenter <dan.carpenter@oracle.com>
-To: Zhenyu Wang <zhenyuw@linux.intel.com>
-Message-ID: <YA6F3oF8mRaNQWjb@mwanda>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 02DF689D5C;
+	Mon, 25 Jan 2021 09:43:45 +0000 (UTC)
+Received: from fireflyinternet.com (unknown [77.68.26.236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F0B5089D5C
+ for <intel-gfx@lists.freedesktop.org>; Mon, 25 Jan 2021 09:43:43 +0000 (UTC)
+X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
+ x-ip-name=78.156.65.138; 
+Received: from localhost (unverified [78.156.65.138]) 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP (TLS) id
+ 23690664-1500050 for multiple; Mon, 25 Jan 2021 09:41:44 +0000
 MIME-Version: 1.0
-Content-Disposition: inline
-X-Mailer: git-send-email haha only kidding
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=9874
- signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0
- suspectscore=0
- adultscore=0 mlxscore=0 malwarescore=0 spamscore=0 mlxlogscore=999
- bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2009150000 definitions=main-2101250052
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=9874
- signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
- impostorscore=0
- phishscore=0 bulkscore=0 priorityscore=1501 mlxlogscore=999
- lowpriorityscore=0 spamscore=0 mlxscore=0 suspectscore=0 malwarescore=0
- clxscore=1011 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2009150000 definitions=main-2101250052
-Subject: [Intel-gfx] [PATCH] drm/i915/gvt: fix uninitialized return in
- intel_gvt_update_reg_whitelist()
+In-Reply-To: <YA6FkPn5S4ZDUGxq@mwanda>
+References: <YA6FkPn5S4ZDUGxq@mwanda>
+From: Chris Wilson <chris@chris-wilson.co.uk>
+To: Dan Carpenter <dan.carpenter@oracle.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>
+Date: Mon, 25 Jan 2021 09:41:45 +0000
+Message-ID: <161156770515.31416.10551968844084650525@build.alporthouse.com>
+User-Agent: alot/0.9
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/gem: Fix oops in error handling
+ code
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,60 +51,29 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Yan Zhao <yan.y.zhao@intel.com>, David Airlie <airlied@linux.ie>,
- intel-gfx@lists.freedesktop.org, kernel-janitors@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- intel-gvt-dev@lists.freedesktop.org
+Cc: David Airlie <airlied@linux.ie>, intel-gfx@lists.freedesktop.org,
+ kernel-janitors@vger.kernel.org, "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Wambui Karuga <wambui.karugax@gmail.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Smatch found an uninitialized variable bug in this code:
+Quoting Dan Carpenter (2021-01-25 08:47:12)
+> This code will Oops when it tries to i915_gem_object_free(obj) because
+> "obj" is an error pointer.
+> 
+> Fixes: 97d553963250 ("drm/i915/region: convert object_create into object_init")
+> Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
 
-    drivers/gpu/drm/i915/gvt/cmd_parser.c:3191 intel_gvt_update_reg_whitelist()
-    error: uninitialized symbol 'ret'.
+It will indeed. On the preallocated path, so only during modprobe so
+unlikely but also fatal bsod. It would also take brute force
+selftest to generate the error, but as that doesn't serve any other
+purpose, leave it to static analysis.
 
-The first thing that Smatch complains about is that "ret" isn't set if
-we don't enter the "for_each_engine(engine, &dev_priv->gt, id) {" loop.
-Presumably we always have at least one engine so that's a false
-positive.
-
-But it's definitely a bug to not set "ret" if i915_gem_object_pin_map()
-fails.
-
-Let's fix the bug and silence the false positive.
-
-Fixes: 493f30cd086e ("drm/i915/gvt: parse init context to update cmd accessible reg whitelist")
-Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
----
- drivers/gpu/drm/i915/gvt/cmd_parser.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/i915/gvt/cmd_parser.c b/drivers/gpu/drm/i915/gvt/cmd_parser.c
-index 7fb91de06557..d54ea0e4681d 100644
---- a/drivers/gpu/drm/i915/gvt/cmd_parser.c
-+++ b/drivers/gpu/drm/i915/gvt/cmd_parser.c
-@@ -3103,7 +3103,7 @@ void intel_gvt_update_reg_whitelist(struct intel_vgpu *vgpu)
- 	struct intel_vgpu_submission *s = &vgpu->submission;
- 	struct i915_request *requests[I915_NUM_ENGINES] = {};
- 	bool is_ctx_pinned[I915_NUM_ENGINES] = {};
--	int ret;
-+	int ret = 0;
- 
- 	if (gvt->is_reg_whitelist_updated)
- 		return;
-@@ -3157,6 +3157,7 @@ void intel_gvt_update_reg_whitelist(struct intel_vgpu *vgpu)
- 		if (IS_ERR(vaddr)) {
- 			gvt_err("failed to pin init ctx obj, ring=%d, err=%lx\n",
- 				id, PTR_ERR(vaddr));
-+			ret = PTR_ERR(vaddr);
- 			goto out;
- 		}
- 
--- 
-2.29.2
-
+Reviewed-by: Chris Wilson <chris@chris-wilson.co.uk>
+-Chris
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
