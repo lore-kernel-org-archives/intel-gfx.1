@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BCBD5C433E0
-	for <intel-gfx@archiver.kernel.org>; Tue, 26 Jan 2021 15:40:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C5846C433E0
+	for <intel-gfx@archiver.kernel.org>; Tue, 26 Jan 2021 15:41:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 27DD5206A5
-	for <intel-gfx@archiver.kernel.org>; Tue, 26 Jan 2021 15:40:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 27DD5206A5
+	by mail.kernel.org (Postfix) with ESMTPS id 50FD3206A5
+	for <intel-gfx@archiver.kernel.org>; Tue, 26 Jan 2021 15:41:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 50FD3206A5
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C60A06E0DA;
-	Tue, 26 Jan 2021 15:40:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E7B6B6E0DB;
+	Tue, 26 Jan 2021 15:41:24 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BD1CD6E0DA
- for <intel-gfx@lists.freedesktop.org>; Tue, 26 Jan 2021 15:40:36 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 640336E0DB
+ for <intel-gfx@lists.freedesktop.org>; Tue, 26 Jan 2021 15:41:23 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from localhost (unverified [78.156.65.138]) 
  by fireflyinternet.com (Firefly Internet (M1)) with ESMTP (TLS) id
- 23705223-1500050 for multiple; Tue, 26 Jan 2021 15:40:30 +0000
+ 23705232-1500050 for multiple; Tue, 26 Jan 2021 15:41:17 +0000
 MIME-Version: 1.0
-In-Reply-To: <20210126151259.253885-6-matthew.auld@intel.com>
+In-Reply-To: <20210126151259.253885-8-matthew.auld@intel.com>
 References: <20210126151259.253885-1-matthew.auld@intel.com>
- <20210126151259.253885-6-matthew.auld@intel.com>
+ <20210126151259.253885-8-matthew.auld@intel.com>
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: Matthew Auld <matthew.auld@intel.com>, intel-gfx@lists.freedesktop.org
-Date: Tue, 26 Jan 2021 15:40:32 +0000
-Message-ID: <161167563266.2943.1182199416607100535@build.alporthouse.com>
+Date: Tue, 26 Jan 2021 15:41:19 +0000
+Message-ID: <161167567928.2943.12860780405738928102@build.alporthouse.com>
 User-Agent: alot/0.9
-Subject: Re: [Intel-gfx] [PATCH v2 6/8] drm/i915: allocate context from LMEM
+Subject: Re: [Intel-gfx] [PATCH v2 8/8] drm/i915: allocate cmd ring in lmem
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,18 +50,18 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Michel Thierry <michel.thierry@intel.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Quoting Matthew Auld (2021-01-26 15:12:57)
-> Prefer allocating the context from LMEM on dgfx.
+Quoting Matthew Auld (2021-01-26 15:12:59)
+> From: Michel Thierry <michel.thierry@intel.com>
 > 
-> Based on a patch from Michel Thierry.
+> Prefer allocating the cmd ring from LMEM on dgfx.
 > 
-> v2: flatten the chain
-> 
+> Signed-off-by: Michel Thierry <michel.thierry@intel.com>
 > Signed-off-by: Matthew Auld <matthew.auld@intel.com>
 Reviewed-by: Chris Wilson <chris@chris-wilson.co.uk>
 -Chris
