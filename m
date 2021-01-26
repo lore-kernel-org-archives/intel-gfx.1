@@ -2,51 +2,53 @@ Return-Path: <SRS0=J6ZK=G5=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-14.3 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BF16EC433DB
-	for <intel-gfx@archiver.kernel.org>; Tue, 26 Jan 2021 09:46:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4FD21C433E0
+	for <intel-gfx@archiver.kernel.org>; Tue, 26 Jan 2021 10:09:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6A91D2255F
-	for <intel-gfx@archiver.kernel.org>; Tue, 26 Jan 2021 09:46:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6A91D2255F
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id D37E2207B3
+	for <intel-gfx@archiver.kernel.org>; Tue, 26 Jan 2021 10:09:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D37E2207B3
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 00BE689A56;
-	Tue, 26 Jan 2021 09:46:56 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7DC736E0C2
- for <intel-gfx@lists.freedesktop.org>; Tue, 26 Jan 2021 09:46:42 +0000 (UTC)
-IronPort-SDR: icHMVUy1QoOVpqGtp0hScII+wXQjmYWCFHxCFaqsgJbXVSLD0WhFRO7/4d9biv3tRQG9MO55xU
- XJcn+4zqOu8Q==
-X-IronPort-AV: E=McAfee;i="6000,8403,9875"; a="159651570"
-X-IronPort-AV: E=Sophos;i="5.79,375,1602572400"; d="scan'208";a="159651570"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jan 2021 01:46:42 -0800
-IronPort-SDR: wcn201g7CCXncMKhPkBHyLMQXdddwu9sXR5va4GaxjDi6MeChw3c4V6pDiihkbHjSio7p2d/rq
- F4PQDmxNwHLg==
-X-IronPort-AV: E=Sophos;i="5.79,375,1602572400"; d="scan'208";a="387766446"
-Received: from shogg-mobl.ger.corp.intel.com (HELO
- mwauld-desk1.ger.corp.intel.com) ([10.252.19.250])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jan 2021 01:46:41 -0800
-From: Matthew Auld <matthew.auld@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Tue, 26 Jan 2021 09:46:09 +0000
-Message-Id: <20210126094612.163290-4-matthew.auld@intel.com>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20210126094612.163290-1-matthew.auld@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1896A893EC;
+	Tue, 26 Jan 2021 10:09:17 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 41512893EC
+ for <intel-gfx@lists.freedesktop.org>; Tue, 26 Jan 2021 10:09:16 +0000 (UTC)
+IronPort-SDR: yP0KJzuV7Yrp3RUITX5Amts/SlFlPQhwMaISY+ftmX65QOWwBaZQZAwAiuBCapTmHl0gmpItTI
+ 6eoy9Qiyk79w==
+X-IronPort-AV: E=McAfee;i="6000,8403,9875"; a="179959030"
+X-IronPort-AV: E=Sophos;i="5.79,375,1602572400"; d="scan'208";a="179959030"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Jan 2021 02:09:15 -0800
+IronPort-SDR: uVWCanJ4TRL/4Fkp18OGaQKggZxKXynU7BGzaus9wHJoKYAU+AJZgDJNvCtWCzGZKkNydr+8v/
+ e6OSdiU18PZA==
+X-IronPort-AV: E=Sophos;i="5.79,375,1602572400"; d="scan'208";a="361931467"
+Received: from jackedwa-mobl.ger.corp.intel.com (HELO [10.214.230.137])
+ ([10.214.230.137])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Jan 2021 02:09:12 -0800
+To: Matthew Auld <matthew.auld@intel.com>, intel-gfx@lists.freedesktop.org
 References: <20210126094612.163290-1-matthew.auld@intel.com>
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Organization: Intel Corporation UK Plc
+Message-ID: <4868954d-e4a3-a72b-c114-39f8ee00404b@linux.intel.com>
+Date: Tue, 26 Jan 2021 10:09:09 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.5.0
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 4/7] drm/i915/dg1: Reserve first 1MB of local
- memory
+In-Reply-To: <20210126094612.163290-1-matthew.auld@intel.com>
+Content-Language: en-US
+Subject: Re: [Intel-gfx] [PATCH 1/7] drm/i915: setup the LMEM region
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,106 +61,146 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
+Cc: Jani Nikula <jani.nikula@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Imre Deak <imre.deak@intel.com>
 
-On DG1 A0/B0 steppings the first 1MB of local memory must be reserved.
-One reason for this is that the 0xA0000-0xB0000 range is not accessible
-by the display, probably since this region is redirected to another
-memory location for legacy VGA compatibility.
+On 26/01/2021 09:46, Matthew Auld wrote:
+> Hook up the LMEM region. Addresses will start from zero, and for CPU
+> access we get LMEM_BAR which is just a 1:1 mapping of said region.
+> 
+> Based on a patch from Michel Thierry.
+> 
+> v2 by Jani:
+> - use intel_uncore_read/intel_uncore_write
+> - remove trailing blank line
+> 
+> v3: s/drm_info/drm_dbg for info which in non-pertinent for the user
+> 
+> Cc: Lucas De Marchi <lucas.demarchi@intel.com>
+> Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+> Signed-off-by: Matthew Auld <matthew.auld@intel.com>
+> Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+> ---
+>   drivers/gpu/drm/i915/gt/intel_region_lmem.c | 37 +++++++++++++++++++++
+>   drivers/gpu/drm/i915/gt/intel_region_lmem.h |  2 ++
+>   drivers/gpu/drm/i915/i915_reg.h             |  3 ++
+>   drivers/gpu/drm/i915/intel_memory_region.c  | 11 +++++-
+>   4 files changed, 52 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/gt/intel_region_lmem.c b/drivers/gpu/drm/i915/gt/intel_region_lmem.c
+> index 28a1d5e1fb92..bdd38efe0811 100644
+> --- a/drivers/gpu/drm/i915/gt/intel_region_lmem.c
+> +++ b/drivers/gpu/drm/i915/gt/intel_region_lmem.c
+> @@ -136,3 +136,40 @@ intel_setup_fake_lmem(struct drm_i915_private *i915)
+>   
+>   	return mem;
+>   }
+> +
+> +static struct intel_memory_region *
+> +setup_lmem(struct drm_i915_private *i915)
+> +{ > +	struct pci_dev *pdev = i915->drm.pdev;
+> +	struct intel_memory_region *mem;
+> +	resource_size_t io_start;
+> +	resource_size_t size;
+> +
+> +	/* Enables Local Memory functionality in GAM */
+> +	intel_uncore_write(&i915->uncore, GEN12_LMEM_CFG_ADDR,
+> +			   intel_uncore_read(&i915->uncore, GEN12_LMEM_CFG_ADDR) | LMEM_ENABLE);
 
-BSpec: 50586
-Testcase: igt/kms_big_fb/linear-64bpp-rotate-0
+You could use intel_uncore_rmw as well for some minimal improvement in 
+readability. Just a passing by observation, no need to respin if it 
+doesn't fit the schedules.
 
-v2:
-- Reserve the memory on B0 as well.
+> +
+> +	io_start = pci_resource_start(pdev, 2);
+> +	size = pci_resource_len(pdev, 2);
+> +
+> +	mem = intel_memory_region_create(i915,
+> +					 0,
+> +					 size,
+> +					 I915_GTT_PAGE_SIZE_4K,
+> +					 io_start,
+> +					 &intel_region_lmem_ops);
+> +	if (!IS_ERR(mem)) {
+> +		drm_dbg(&i915->drm, "Intel graphics LMEM: %pR\n", &mem->region);
+> +		drm_dbg(&i915->drm, "Intel graphics LMEM IO start: %pa\n",
+> +			 &mem->io_start);
+> +		drm_info(&i915->drm, "Intel graphics LMEM size: %pa\n", &size);
+> +	}
+> +
+> +	return mem;
+> +}
+> +
+> +struct intel_memory_region *
+> +i915_gem_setup_lmem(struct drm_i915_private *i915)
+> +{
+> +	return setup_lmem(i915);
+> +}
 
-v3: replace DRM_DEBUG/DRM_ERROR with drm_dbg/drm_err
+Was it ever discussed if there was an easy way (and if it makes sense 
+actually) to move this from GEM to GT (in name and input parameter?
 
-Signed-off-by: Imre Deak <imre.deak@intel.com>
-Signed-off-by: Matthew Auld <matthew.auld@intel.com>
----
- drivers/gpu/drm/i915/gt/intel_region_lmem.c | 53 +++++++++++++++++++++
- 1 file changed, 53 insertions(+)
+Regards,
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_region_lmem.c b/drivers/gpu/drm/i915/gt/intel_region_lmem.c
-index 30959c1e535f..13ec2ecce2e7 100644
---- a/drivers/gpu/drm/i915/gt/intel_region_lmem.c
-+++ b/drivers/gpu/drm/i915/gt/intel_region_lmem.c
-@@ -137,6 +137,49 @@ intel_setup_fake_lmem(struct drm_i915_private *i915)
- 	return mem;
- }
- 
-+static void get_legacy_lowmem_region(struct intel_uncore *uncore,
-+				     u64 *start, u32 *size)
-+{
-+	*start = 0;
-+	*size = 0;
-+
-+	if (!IS_DG1_REVID(uncore->i915, DG1_REVID_A0, DG1_REVID_B0))
-+		return;
-+
-+	*size = SZ_1M;
-+
-+	drm_dbg(&uncore->i915->drm, "LMEM: reserved legacy low-memory [0x%llx-0x%llx]\n",
-+		*start, *start + *size);
-+}
-+
-+static int reserve_lowmem_region(struct intel_uncore *uncore,
-+				 struct intel_memory_region *mem)
-+{
-+
-+	u64 reserve_start;
-+	u64 reserve_end;
-+	u64 region_start;
-+	u32 region_size;
-+	int ret;
-+
-+	get_legacy_lowmem_region(uncore, &region_start, &region_size);
-+	reserve_start = region_start;
-+	reserve_end = region_start + region_size;
-+
-+	if (!reserve_end)
-+		return 0;
-+
-+	drm_dbg(&uncore->i915->drm, "LMEM: reserving low-memory region [0x%llx-0x%llx]\n",
-+		reserve_start, reserve_end);
-+	ret = i915_buddy_alloc_range(&mem->mm, &mem->reserved,
-+				     reserve_start,
-+				     reserve_end - reserve_start);
-+	if (ret)
-+		drm_err(&uncore->i915->drm, "LMEM: reserving low memory region failed\n");
-+
-+	return ret;
-+}
-+
- static struct intel_memory_region *
- setup_lmem(struct drm_i915_private *i915)
- {
-@@ -161,6 +204,16 @@ setup_lmem(struct drm_i915_private *i915)
- 					 I915_GTT_PAGE_SIZE_4K,
- 					 io_start,
- 					 &intel_region_lmem_ops);
-+	if (!IS_ERR(mem)) {
-+		int err;
-+
-+		err = reserve_lowmem_region(uncore, mem);
-+		if (err) {
-+			intel_memory_region_put(mem);
-+			return ERR_PTR(err);
-+		}
-+	}
-+
- 	if (!IS_ERR(mem)) {
- 		drm_dbg(&i915->drm, "Intel graphics LMEM: %pR\n", &mem->region);
- 		drm_dbg(&i915->drm, "Intel graphics LMEM IO start: %pa\n",
--- 
-2.26.2
+Tvrtko
 
+> diff --git a/drivers/gpu/drm/i915/gt/intel_region_lmem.h b/drivers/gpu/drm/i915/gt/intel_region_lmem.h
+> index 8ea43e538dab..b32222bd493c 100644
+> --- a/drivers/gpu/drm/i915/gt/intel_region_lmem.h
+> +++ b/drivers/gpu/drm/i915/gt/intel_region_lmem.h
+> @@ -8,6 +8,8 @@
+>   
+>   struct drm_i915_private;
+>   
+> +struct intel_memory_region *i915_gem_setup_lmem(struct drm_i915_private *i915);
+> +
+>   struct intel_memory_region *
+>   intel_setup_fake_lmem(struct drm_i915_private *i915);
+>   
+> diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+> index e7e41a3c467e..28001b5a3cb5 100644
+> --- a/drivers/gpu/drm/i915/i915_reg.h
+> +++ b/drivers/gpu/drm/i915/i915_reg.h
+> @@ -12111,6 +12111,9 @@ enum skl_power_gate {
+>   
+>   #define GEN12_GLOBAL_MOCS(i)	_MMIO(0x4000 + (i) * 4) /* Global MOCS regs */
+>   
+> +#define GEN12_LMEM_CFG_ADDR		_MMIO(0xcf58)
+> +#define   LMEM_ENABLE			(1 << 31)
+> +
+>   /* gamt regs */
+>   #define GEN8_L3_LRA_1_GPGPU _MMIO(0x4dd4)
+>   #define   GEN8_L3_LRA_1_GPGPU_DEFAULT_VALUE_BDW  0x67F1427F /* max/min for LRA1/2 */
+> diff --git a/drivers/gpu/drm/i915/intel_memory_region.c b/drivers/gpu/drm/i915/intel_memory_region.c
+> index 1bfcdd89b241..9ce4a81c48b1 100644
+> --- a/drivers/gpu/drm/i915/intel_memory_region.c
+> +++ b/drivers/gpu/drm/i915/intel_memory_region.c
+> @@ -259,7 +259,16 @@ int intel_memory_regions_hw_probe(struct drm_i915_private *i915)
+>   			mem = i915_gem_stolen_setup(i915);
+>   			break;
+>   		case INTEL_MEMORY_LOCAL:
+> -			mem = intel_setup_fake_lmem(i915);
+> +#if IS_ENABLED(CONFIG_DRM_I915_SELFTEST)
+> +			if (IS_ENABLED(CONFIG_DRM_I915_UNSTABLE_FAKE_LMEM)) {
+> +				if (INTEL_GEN(i915) >= 9 && i915_selftest.live < 0 &&
+> +				    i915->params.fake_lmem_start)
+> +					mem = intel_setup_fake_lmem(i915);
+> +			}
+> +#endif
+> +
+> +			if (IS_ERR(mem))
+> +				mem = i915_gem_setup_lmem(i915);
+>   			break;
+>   		}
+>   
+> 
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
