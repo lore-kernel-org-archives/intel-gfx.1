@@ -7,38 +7,37 @@ X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CA4EFC433E0
-	for <intel-gfx@archiver.kernel.org>; Tue, 26 Jan 2021 15:31:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 01DF0C433E0
+	for <intel-gfx@archiver.kernel.org>; Tue, 26 Jan 2021 15:35:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5719322D58
-	for <intel-gfx@archiver.kernel.org>; Tue, 26 Jan 2021 15:31:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5719322D58
+	by mail.kernel.org (Postfix) with ESMTPS id 91FCB22D04
+	for <intel-gfx@archiver.kernel.org>; Tue, 26 Jan 2021 15:35:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 91FCB22D04
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE1A86E46B;
-	Tue, 26 Jan 2021 15:31:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E87089D9A;
+	Tue, 26 Jan 2021 15:35:57 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 908166E46B
- for <intel-gfx@lists.freedesktop.org>; Tue, 26 Jan 2021 15:31:23 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E59BC89D9A
+ for <intel-gfx@lists.freedesktop.org>; Tue, 26 Jan 2021 15:35:55 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from localhost (unverified [78.156.65.138]) 
  by fireflyinternet.com (Firefly Internet (M1)) with ESMTP (TLS) id
- 23705126-1500050 for multiple; Tue, 26 Jan 2021 15:31:18 +0000
+ 23705180-1500050 for multiple; Tue, 26 Jan 2021 15:35:49 +0000
 MIME-Version: 1.0
-In-Reply-To: <20210126151259.253885-3-matthew.auld@intel.com>
+In-Reply-To: <20210126151259.253885-4-matthew.auld@intel.com>
 References: <20210126151259.253885-1-matthew.auld@intel.com>
- <20210126151259.253885-3-matthew.auld@intel.com>
+ <20210126151259.253885-4-matthew.auld@intel.com>
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: Matthew Auld <matthew.auld@intel.com>, intel-gfx@lists.freedesktop.org
-Date: Tue, 26 Jan 2021 15:31:19 +0000
-Message-ID: <161167507978.2943.12894973989711479272@build.alporthouse.com>
+Date: Tue, 26 Jan 2021 15:35:51 +0000
+Message-ID: <161167535110.2943.16119545695449363866@build.alporthouse.com>
 User-Agent: alot/0.9
-Subject: Re: [Intel-gfx] [PATCH v2 3/8] drm/i915: reserve stolen for LMEM
- region
+Subject: Re: [Intel-gfx] [PATCH v2 4/8] drm/i915: introduce mem->reserved
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,51 +50,67 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Abdiel Janulgue <abdiel.janulgue@linux.intel.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Quoting Matthew Auld (2021-01-26 15:12:54)
-> From: CQ Tang <cq.tang@intel.com>
+Quoting Matthew Auld (2021-01-26 15:12:55)
+> From: Abdiel Janulgue <abdiel.janulgue@linux.intel.com>
 > 
-> The lmem region needs to remove the stolen part, which should just be a
-> case of snipping it off the end.
+> In the following patch we need to reserve regions unaccessible to the
+> driver during initialization, so add mem->reserved for collecting such
+> regions.
 > 
-> Signed-off-by: CQ Tang <cq.tang@intel.com>
+> Cc: Imre Deak <imre.deak@intel.com>
+> Signed-off-by: Abdiel Janulgue <abdiel.janulgue@linux.intel.com>
 > Signed-off-by: Matthew Auld <matthew.auld@intel.com>
 > ---
->  drivers/gpu/drm/i915/gt/intel_region_lmem.c | 12 ++++++++----
->  drivers/gpu/drm/i915/i915_reg.h             |  2 ++
->  2 files changed, 10 insertions(+), 4 deletions(-)
+>  drivers/gpu/drm/i915/intel_memory_region.c    |  2 +
+>  drivers/gpu/drm/i915/intel_memory_region.h    |  2 +
+>  .../drm/i915/selftests/intel_memory_region.c  | 89 +++++++++++++++++++
+>  3 files changed, 93 insertions(+)
 > 
-> diff --git a/drivers/gpu/drm/i915/gt/intel_region_lmem.c b/drivers/gpu/drm/i915/gt/intel_region_lmem.c
-> index b676dc67dc2a..4da808e35ecb 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_region_lmem.c
-> +++ b/drivers/gpu/drm/i915/gt/intel_region_lmem.c
-> @@ -141,17 +141,20 @@ intel_gt_setup_fake_lmem(struct intel_gt *gt)
->  static struct intel_memory_region *setup_lmem(struct intel_gt *gt)
->  {
->         struct drm_i915_private *i915 = gt->i915;
-> +       struct intel_uncore *uncore = &i915->uncore;
-
-gt->uncore
-
-(See the plan is starting to come together!)
-
->         struct pci_dev *pdev = i915->drm.pdev;
->         struct intel_memory_region *mem;
->         resource_size_t io_start;
-> -       resource_size_t size;
-> +       resource_size_t lmem_size;
-> +
-> +       /* Stolen starts from GSMBASE on DG1 */
-> +       lmem_size = intel_uncore_read64(uncore, GEN12_GSMBASE);
+> diff --git a/drivers/gpu/drm/i915/intel_memory_region.c b/drivers/gpu/drm/i915/intel_memory_region.c
+> index b1b610bfff09..803a414c9523 100644
+> --- a/drivers/gpu/drm/i915/intel_memory_region.c
+> +++ b/drivers/gpu/drm/i915/intel_memory_region.c
+> @@ -156,6 +156,7 @@ int intel_memory_region_init_buddy(struct intel_memory_region *mem)
 >  
->         io_start = pci_resource_start(pdev, 2);
-> -       size = pci_resource_len(pdev, 2);
+>  void intel_memory_region_release_buddy(struct intel_memory_region *mem)
+>  {
+> +       i915_buddy_free_list(&mem->mm, &mem->reserved);
+>         i915_buddy_fini(&mem->mm);
+>  }
+>  
+> @@ -185,6 +186,7 @@ intel_memory_region_create(struct drm_i915_private *i915,
+>         mutex_init(&mem->objects.lock);
+>         INIT_LIST_HEAD(&mem->objects.list);
+>         INIT_LIST_HEAD(&mem->objects.purgeable);
+> +       INIT_LIST_HEAD(&mem->reserved);
+>  
+>         mutex_init(&mem->mm_lock);
+>  
+> diff --git a/drivers/gpu/drm/i915/intel_memory_region.h b/drivers/gpu/drm/i915/intel_memory_region.h
+> index 6ffc0673f005..8c9947bba3e8 100644
+> --- a/drivers/gpu/drm/i915/intel_memory_region.h
+> +++ b/drivers/gpu/drm/i915/intel_memory_region.h
+> @@ -89,6 +89,8 @@ struct intel_memory_region {
+>         unsigned int id;
+>         char name[8];
+>  
+> +       struct list_head reserved;
 
-Trust nobody, certainly not the HW. Check that lmem_size is < size.
+So you added this, but this is not exercised by the selftest either.
+
+I think you want to complete the API with
+intel_memory_region_reserve(mem, start, size/end)
+
+And then inspect the mem->reserved rather than the local list.
+
+Presumably check the mem->reserved is empty on entry, and then it's
+safe to call i915_buddy_free_list(&mem->mm, &mem->reserved) directly.
 -Chris
 _______________________________________________
 Intel-gfx mailing list
