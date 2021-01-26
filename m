@@ -7,43 +7,35 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8520EC433E6
-	for <intel-gfx@archiver.kernel.org>; Tue, 26 Jan 2021 10:30:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 91BA5C433E6
+	for <intel-gfx@archiver.kernel.org>; Tue, 26 Jan 2021 10:31:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2D20023108
-	for <intel-gfx@archiver.kernel.org>; Tue, 26 Jan 2021 10:30:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2D20023108
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id A81EB23110
+	for <intel-gfx@archiver.kernel.org>; Tue, 26 Jan 2021 10:31:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A81EB23110
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 733B089B67;
-	Tue, 26 Jan 2021 10:30:34 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D76589B67
- for <intel-gfx@lists.freedesktop.org>; Tue, 26 Jan 2021 10:30:33 +0000 (UTC)
-IronPort-SDR: LOu4AdbyworobGcmfNb2kXUD9Bx9/QIjC++Eaw1bMP4jfAEGJUV/3T6O68OYffBxowIAf50mSL
- thSB8JeFWUAg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9875"; a="264703878"
-X-IronPort-AV: E=Sophos;i="5.79,375,1602572400"; d="scan'208";a="264703878"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jan 2021 02:30:29 -0800
-IronPort-SDR: LAxL0S65jZQ1wpDfte0QZaLdgV6o9nMmMFvihiINmT+U7kdvmoH1X5GI+oRGIm1FXbNmHsRcDI
- u3TGSCP3kzcg==
-X-IronPort-AV: E=Sophos;i="5.79,375,1602572400"; d="scan'208";a="369059401"
-Received: from shogg-mobl.ger.corp.intel.com (HELO
- mwauld-desk1.ger.corp.intel.com) ([10.252.19.250])
- by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jan 2021 02:30:27 -0800
-From: Matthew Auld <matthew.auld@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA9FC6E161;
+	Tue, 26 Jan 2021 10:31:07 +0000 (UTC)
+Received: from fireflyinternet.com (unknown [77.68.26.236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A3B086E0C2;
+ Tue, 26 Jan 2021 10:31:06 +0000 (UTC)
+X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
+ x-ip-name=78.156.65.138; 
+Received: from haswell.alporthouse.com (unverified [78.156.65.138]) 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23701414-1500050 
+ for multiple; Tue, 26 Jan 2021 10:30:58 +0000
+From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 26 Jan 2021 10:30:19 +0000
-Message-Id: <20210126103019.177622-1-matthew.auld@intel.com>
-X-Mailer: git-send-email 2.26.2
+Date: Tue, 26 Jan 2021 10:30:58 +0000
+Message-Id: <20210126103059.2881327-1-chris@chris-wilson.co.uk>
+X-Mailer: git-send-email 2.30.0
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH] drm/i915/buddy: document the unused header bits
+Subject: [Intel-gfx] [PATCH i-g-t 1/2] i915/sysfs_client: Ignore clients
+ being closed as we read their sysfs
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,138 +48,69 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: igt-dev@lists.freedesktop.org, Chris Wilson <chris@chris-wilson.co.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The largest possible order is (63-PAGE_SHIFT), given that our min chunk
-size is PAGE_SIZE. With that we should only need at most 6 bits to
-represent all possible orders, giving us back 4 bits for other potential
-uses.  Include a simple selftest to verify this.
+An earlier client from an old test may still be lingering and disappear
+as we scan the sysfs. Be graceful and let it go without tripping over it.
 
-Signed-off-by: Matthew Auld <matthew.auld@intel.com>
-Reviewed-by: Chris Wilson <chris@chris-wilson.co.uk>
+Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 ---
- drivers/gpu/drm/i915/i915_buddy.c           |  3 ++
- drivers/gpu/drm/i915/i915_buddy.h           |  7 ++-
- drivers/gpu/drm/i915/selftests/i915_buddy.c | 48 +++++++++++++++++++++
- 3 files changed, 56 insertions(+), 2 deletions(-)
+ tests/i915/sysfs_clients.c | 19 +++++++++----------
+ 1 file changed, 9 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_buddy.c b/drivers/gpu/drm/i915/i915_buddy.c
-index 20babbdb297d..3a2f6eecb2fc 100644
---- a/drivers/gpu/drm/i915/i915_buddy.c
-+++ b/drivers/gpu/drm/i915/i915_buddy.c
-@@ -48,6 +48,8 @@ static struct i915_buddy_block *i915_block_alloc(struct i915_buddy_block *parent
+diff --git a/tests/i915/sysfs_clients.c b/tests/i915/sysfs_clients.c
+index 6be52c04f..a3a1f81e1 100644
+--- a/tests/i915/sysfs_clients.c
++++ b/tests/i915/sysfs_clients.c
+@@ -62,11 +62,13 @@
+ 
+ static void strterm(char *s, int len)
  {
- 	struct i915_buddy_block *block;
- 
-+	GEM_BUG_ON(order > I915_BUDDY_MAX_ORDER);
-+
- 	block = kmem_cache_zalloc(global.slab_blocks, GFP_KERNEL);
- 	if (!block)
- 		return NULL;
-@@ -56,6 +58,7 @@ static struct i915_buddy_block *i915_block_alloc(struct i915_buddy_block *parent
- 	block->header |= order;
- 	block->parent = parent;
- 
-+	GEM_BUG_ON(block->header & I915_BUDDY_HEADER_UNUSED);
- 	return block;
+-	igt_assert(len > 0);
+-
+-	s[len] = '\0';
+-	if (s[len - 1] == '\n')
+-		s[len - 1] = '\0';
++	if (len < 0) {
++		*s = '\0';
++	} else {
++		s[len] = '\0';
++		if (s[len - 1] == '\n')
++			s[len - 1] = '\0';
++	}
  }
  
-diff --git a/drivers/gpu/drm/i915/i915_buddy.h b/drivers/gpu/drm/i915/i915_buddy.h
-index ed41f3507cdc..9ce5200f4001 100644
---- a/drivers/gpu/drm/i915/i915_buddy.h
-+++ b/drivers/gpu/drm/i915/i915_buddy.h
-@@ -15,7 +15,9 @@ struct i915_buddy_block {
- #define   I915_BUDDY_ALLOCATED	   (1 << 10)
- #define   I915_BUDDY_FREE	   (2 << 10)
- #define   I915_BUDDY_SPLIT	   (3 << 10)
--#define I915_BUDDY_HEADER_ORDER  GENMASK_ULL(9, 0)
-+/* Free to be used, if needed in the future */
-+#define I915_BUDDY_HEADER_UNUSED GENMASK_ULL(9, 6)
-+#define I915_BUDDY_HEADER_ORDER  GENMASK_ULL(5, 0)
- 	u64 header;
+ static void pidname(int i915, int clients)
+@@ -78,7 +80,6 @@ static void pidname(int i915, int clients)
+ 	long count;
+ 	pid_t pid;
+ 	DIR *dir;
+-	int len;
  
- 	struct i915_buddy_block *left;
-@@ -34,7 +36,8 @@ struct i915_buddy_block {
- 	struct list_head tmp_link;
- };
+ 	dir = fdopendir(dup(clients));
+ 	igt_assert(dir);
+@@ -90,13 +91,11 @@ static void pidname(int i915, int clients)
+ 			continue;
  
--#define I915_BUDDY_MAX_ORDER  I915_BUDDY_HEADER_ORDER
-+/* Order-zero must be at least PAGE_SIZE */
-+#define I915_BUDDY_MAX_ORDER (63 - PAGE_SHIFT)
+ 		snprintf(buf, sizeof(buf), "%s/name", de->d_name);
+-		len = igt_sysfs_read(clients, buf, buf, sizeof(buf) - 1);
+-		igt_assert_f(len > 0, "failed to open '%s/name'\n", de->d_name);
+-		strterm(buf, len);
++		strterm(buf, igt_sysfs_read(clients, buf, buf, sizeof(buf) - 1));
+ 		igt_debug("%s: %s\n", de->d_name, buf);
  
- /*
-  * Binary Buddy System.
-diff --git a/drivers/gpu/drm/i915/selftests/i915_buddy.c b/drivers/gpu/drm/i915/selftests/i915_buddy.c
-index 632b912b0bc9..f0f5c4df8dbc 100644
---- a/drivers/gpu/drm/i915/selftests/i915_buddy.c
-+++ b/drivers/gpu/drm/i915/selftests/i915_buddy.c
-@@ -727,6 +727,53 @@ static int igt_buddy_alloc_range(void *arg)
- 	return err;
- }
+ 		/* Ignore closed clients created by drm_driver_open() */
+-		if (*buf == '<')
++		if (*buf == '\0' || *buf == '<')
+ 			continue;
  
-+static int igt_buddy_alloc_limit(void *arg)
-+{
-+	struct i915_buddy_block *block;
-+	struct i915_buddy_mm mm;
-+	const u64 size = U64_MAX;
-+	int err;
-+
-+	err = i915_buddy_init(&mm, size, PAGE_SIZE);
-+	if (err)
-+		return err;
-+
-+	if (mm.max_order != I915_BUDDY_MAX_ORDER) {
-+		pr_err("mm.max_order(%d) != %d\n",
-+		       mm.max_order, I915_BUDDY_MAX_ORDER);
-+		err = -EINVAL;
-+		goto out_fini;
-+	}
-+
-+	block = i915_buddy_alloc(&mm, mm.max_order);
-+	if (IS_ERR(block)) {
-+		err = PTR_ERR(block);
-+		goto out_fini;
-+	}
-+
-+	if (i915_buddy_block_order(block) != mm.max_order) {
-+		pr_err("block order(%d) != %d\n",
-+		       i915_buddy_block_order(block), mm.max_order);
-+		err = -EINVAL;
-+		goto out_free;
-+	}
-+
-+	if (i915_buddy_block_size(&mm, block) !=
-+	    BIT_ULL(mm.max_order) * PAGE_SIZE) {
-+		pr_err("block size(%llu) != %llu\n",
-+		       i915_buddy_block_size(&mm, block),
-+		       BIT_ULL(mm.max_order) * PAGE_SIZE);
-+		err = -EINVAL;
-+		goto out_free;
-+	}
-+
-+out_free:
-+	i915_buddy_free(&mm, block);
-+out_fini:
-+	i915_buddy_fini(&mm);
-+	return err;
-+}
-+
- int i915_buddy_mock_selftests(void)
- {
- 	static const struct i915_subtest tests[] = {
-@@ -735,6 +782,7 @@ int i915_buddy_mock_selftests(void)
- 		SUBTEST(igt_buddy_alloc_pathological),
- 		SUBTEST(igt_buddy_alloc_smoke),
- 		SUBTEST(igt_buddy_alloc_range),
-+		SUBTEST(igt_buddy_alloc_limit),
- 	};
- 
- 	return i915_subtests(tests, NULL);
+ 		close(me);
 -- 
-2.26.2
+2.30.0
 
 _______________________________________________
 Intel-gfx mailing list
