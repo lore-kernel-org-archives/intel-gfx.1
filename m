@@ -2,55 +2,48 @@ Return-Path: <SRS0=J6ZK=G5=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5B158C433DB
-	for <intel-gfx@archiver.kernel.org>; Tue, 26 Jan 2021 20:01:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 01259C433DB
+	for <intel-gfx@archiver.kernel.org>; Tue, 26 Jan 2021 20:08:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id ED00922B3B
-	for <intel-gfx@archiver.kernel.org>; Tue, 26 Jan 2021 20:01:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org ED00922B3B
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=etezian.org
+	by mail.kernel.org (Postfix) with ESMTPS id 92DC3221FB
+	for <intel-gfx@archiver.kernel.org>; Tue, 26 Jan 2021 20:08:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 92DC3221FB
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9312E899A3;
-	Tue, 26 Jan 2021 20:01:52 +0000 (UTC)
-X-Greylist: delayed 8400 seconds by postgrey-1.36 at gabe;
- Tue, 26 Jan 2021 20:01:51 UTC
-Received: from 1.mo4.mail-out.ovh.net (1.mo4.mail-out.ovh.net [178.33.248.196])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E671899A3
- for <intel-gfx@lists.freedesktop.org>; Tue, 26 Jan 2021 20:01:51 +0000 (UTC)
-Received: from player798.ha.ovh.net (unknown [10.110.103.195])
- by mo4.mail-out.ovh.net (Postfix) with ESMTP id 90BA2264C02
- for <intel-gfx@lists.freedesktop.org>; Tue, 26 Jan 2021 18:34:54 +0100 (CET)
-Received: from etezian.org (213-243-141-64.bb.dnainternet.fi [213.243.141.64])
- (Authenticated sender: andi@etezian.org)
- by player798.ha.ovh.net (Postfix) with ESMTPSA id 8E7561A82BCDE;
- Tue, 26 Jan 2021 17:34:49 +0000 (UTC)
-Authentication-Results: garm.ovh; auth=pass
- (GARM-96R001e0fe970e-34a9-41d5-bec1-bfca8970be0b,
- FCD1BBE7D880F588B4D98BD35E77FB0D8B597664) smtp.auth=andi@etezian.org
-X-OVh-ClientIp: 213.243.141.64
-Date: Tue, 26 Jan 2021 19:34:48 +0200
-From: Andi Shyti <andi@etezian.org>
-To: Chris Wilson <chris@chris-wilson.co.uk>
-Message-ID: <YBBSuH3DQuVrd+oa@jack.zhora.eu>
-References: <20210120122205.2808-1-chris@chris-wilson.co.uk>
- <20210120122205.2808-10-chris@chris-wilson.co.uk>
+	by gabe.freedesktop.org (Postfix) with ESMTP id C0EA389D4B;
+	Tue, 26 Jan 2021 20:08:24 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF6D989D1D
+ for <intel-gfx@lists.freedesktop.org>; Tue, 26 Jan 2021 20:08:22 +0000 (UTC)
+IronPort-SDR: NNa5Nz6vSpLH7WEo7XASBN17sjUWQ1tgxZN94UbQhPWNBIiSQZB3z1u5VSkv5wAmrepOaua1Aj
+ DL3YJ11BBiQg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9876"; a="177393092"
+X-IronPort-AV: E=Sophos;i="5.79,377,1602572400"; d="scan'208";a="177393092"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Jan 2021 12:08:22 -0800
+IronPort-SDR: w6JbOUV45NS0YZL+c1XxNEqyAJWpQmUXHc5FgEeONMg5iZ2DZrWCnfzQBXsUiIy0dCkEblbn9w
+ II7uvOMBwXjA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.79,377,1602572400"; d="scan'208";a="573040965"
+Received: from jhli-desk1.jf.intel.com ([10.54.74.156])
+ by orsmga005.jf.intel.com with ESMTP; 26 Jan 2021 12:08:21 -0800
+From: Juston Li <juston.li@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Tue, 26 Jan 2021 12:08:03 -0800
+Message-Id: <20210126200805.2499944-1-juston.li@intel.com>
+X-Mailer: git-send-email 2.29.2
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210120122205.2808-10-chris@chris-wilson.co.uk>
-X-Ovh-Tracer-Id: 5961921481763635721
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeduledrvdeigdegudcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpeffhffvuffkfhggtggujgesthdtredttddtvdenucfhrhhomheptehnughiucfuhhihthhiuceorghnughisegvthgviihirghnrdhorhhgqeenucggtffrrghtthgvrhhnpedtgfduudfhfeeuueejfeeihedtfeetgfegveehgfeuleelhfduteegieekudeifeenucfkpheptddrtddrtddrtddpvddufedrvdegfedrudeguddrieegnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmohguvgepshhmthhpqdhouhhtpdhhvghlohepphhlrgihvghrjeelkedrhhgrrdhovhhhrdhnvghtpdhinhgvtheptddrtddrtddrtddpmhgrihhlfhhrohhmpegrnhguihesvghtvgiiihgrnhdrohhrghdprhgtphhtthhopehinhhtvghlqdhgfhigsehlihhsthhsrdhfrhgvvgguvghskhhtohhprdhorhhg
-Subject: Re: [Intel-gfx] [PATCH 10/10] drm/i915: Improve DFS for priority
- inheritance
+Subject: [Intel-gfx] [PATCH 1/3] drm/i915/hdcp: update cp_irq_count_cached
+ in intel_dp_hdcp2_read_msg()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,35 +56,71 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org
+Cc: seanpaul@chromium.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Chris,
+Update cp_irq_count_cached when we handle reading the messages rather
+than writing a message to make sure the value is up to date and not
+stale from a previously handled CP_IRQ. AKE flow  doesn't always respond
+to a read with a write msg.
 
-On Wed, Jan 20, 2021 at 12:22:05PM +0000, Chris Wilson wrote:
-> The core of the scheduling algorithm is that we compute the topological
-> order of the fence DAG. Knowing that we have a DAG, we should be able to
-> use a DFS to compute the topological sort in linear time. However,
-> during the conversion of the recursive algorithm into an iterative one,
-> the memoization of how far we had progressed down a branch was
+E.g. currently AKE_Send_Pairing_Info will "timeout" because we received
+a CP_IRQ for reading AKE_Send_H_Prime but no write occurred between that
+and reading AKE_Send_Pairing_Info so cp_irq_count_cached is stale
+causing the wait to return right away rather than waiting for a new
+CP_IRQ.
 
-memoization?
+Signed-off-by: Juston Li <juston.li@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_dp_hdcp.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-> forgotten. The result was that instead of running in linear time, it was
-> running in geometric time and could easily run for a few hundred
-> milliseconds given a wide enough graph, not the microseconds as required.
-> 
-> Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_hdcp.c b/drivers/gpu/drm/i915/display/intel_dp_hdcp.c
+index f372e25edab4..56a1a0ed20fe 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_hdcp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_hdcp.c
+@@ -442,8 +442,6 @@ static
+ int intel_dp_hdcp2_write_msg(struct intel_digital_port *dig_port,
+ 			     void *buf, size_t size)
+ {
+-	struct intel_dp *dp = &dig_port->dp;
+-	struct intel_hdcp *hdcp = &dp->attached_connector->hdcp;
+ 	unsigned int offset;
+ 	u8 *byte = buf;
+ 	ssize_t ret, bytes_to_write, len;
+@@ -459,8 +457,6 @@ int intel_dp_hdcp2_write_msg(struct intel_digital_port *dig_port,
+ 	bytes_to_write = size - 1;
+ 	byte++;
+ 
+-	hdcp->cp_irq_count_cached = atomic_read(&hdcp->cp_irq_count);
+-
+ 	while (bytes_to_write) {
+ 		len = bytes_to_write > DP_AUX_MAX_PAYLOAD_BYTES ?
+ 				DP_AUX_MAX_PAYLOAD_BYTES : bytes_to_write;
+@@ -508,6 +504,8 @@ static
+ int intel_dp_hdcp2_read_msg(struct intel_digital_port *dig_port,
+ 			    u8 msg_id, void *buf, size_t size)
+ {
++	struct intel_dp *dp = &dig_port->dp;
++	struct intel_hdcp *hdcp = &dp->attached_connector->hdcp;
+ 	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
+ 	unsigned int offset;
+ 	u8 *byte = buf;
+@@ -523,6 +521,8 @@ int intel_dp_hdcp2_read_msg(struct intel_digital_port *dig_port,
+ 	if (ret < 0)
+ 		return ret;
+ 
++	hdcp->cp_irq_count_cached = atomic_read(&hdcp->cp_irq_count);
++
+ 	if (msg_id == HDCP_2_2_REP_SEND_RECVID_LIST) {
+ 		ret = get_receiver_id_list_size(dig_port);
+ 		if (ret < 0)
+-- 
+2.29.2
 
-I have seen this patch long time ago... I'm r-b'eing starting
-from the last patch :)
-
-Reviewed-by: Andi Shyti <andi.shyti@intel.com>
-
-Andi
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
