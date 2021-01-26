@@ -7,45 +7,45 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 77BA4C433DB
-	for <intel-gfx@archiver.kernel.org>; Tue, 26 Jan 2021 15:13:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4DB5DC433E6
+	for <intel-gfx@archiver.kernel.org>; Tue, 26 Jan 2021 15:13:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3948D206B5
-	for <intel-gfx@archiver.kernel.org>; Tue, 26 Jan 2021 15:13:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3948D206B5
+	by mail.kernel.org (Postfix) with ESMTPS id 19874206B5
+	for <intel-gfx@archiver.kernel.org>; Tue, 26 Jan 2021 15:13:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 19874206B5
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DBBC26E47A;
-	Tue, 26 Jan 2021 15:13:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B9A006E483;
+	Tue, 26 Jan 2021 15:13:26 +0000 (UTC)
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 94D096E462
- for <intel-gfx@lists.freedesktop.org>; Tue, 26 Jan 2021 15:13:12 +0000 (UTC)
-IronPort-SDR: co+XPHt1y6G74xXo2xxSDfTo3FyPFAOZ3/aCL3ogpncwe/Y1xn1Vcb5q1jUqOu7N2SNlgonV1u
- Ji/bf7yUs9/w==
-X-IronPort-AV: E=McAfee;i="6000,8403,9876"; a="243995128"
-X-IronPort-AV: E=Sophos;i="5.79,375,1602572400"; d="scan'208";a="243995128"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC7426E47B
+ for <intel-gfx@lists.freedesktop.org>; Tue, 26 Jan 2021 15:13:16 +0000 (UTC)
+IronPort-SDR: 2rXQmPg/vSF07x8mMpETcRtiuZ/uprPp7urupwBS6AwwV46vMkr7btC7sE3i3Q5qLMYU0pCO/c
+ 6wfsaYKsFEoA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9876"; a="243995141"
+X-IronPort-AV: E=Sophos;i="5.79,375,1602572400"; d="scan'208";a="243995141"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jan 2021 07:13:12 -0800
-IronPort-SDR: HCV+vLJA33U56ZlRlDxEFTKzY/ll1hwW2/GOISDjB6yeZ8yADmbHotLzPbT4aw62jAanMun3TV
- 1TVFYGOFNpCw==
-X-IronPort-AV: E=Sophos;i="5.79,375,1602572400"; d="scan'208";a="387856703"
+ 26 Jan 2021 07:13:16 -0800
+IronPort-SDR: +Fuw4FGkWCR+gm82Mnl0pTm0/IKGRsOo83LO10tX9B7go+JCZBiQjg0eUQT1SrGtF3kLkb0t5q
+ Wmi6AJ74CABw==
+X-IronPort-AV: E=Sophos;i="5.79,375,1602572400"; d="scan'208";a="387856766"
 Received: from shogg-mobl.ger.corp.intel.com (HELO
  mwauld-desk1.ger.corp.intel.com) ([10.252.19.250])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jan 2021 07:13:11 -0800
+ 26 Jan 2021 07:13:15 -0800
 From: Matthew Auld <matthew.auld@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 26 Jan 2021 15:12:55 +0000
-Message-Id: <20210126151259.253885-4-matthew.auld@intel.com>
+Date: Tue, 26 Jan 2021 15:12:59 +0000
+Message-Id: <20210126151259.253885-8-matthew.auld@intel.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20210126151259.253885-1-matthew.auld@intel.com>
 References: <20210126151259.253885-1-matthew.auld@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v2 4/8] drm/i915: introduce mem->reserved
+Subject: [Intel-gfx] [PATCH v2 8/8] drm/i915: allocate cmd ring in lmem
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,171 +58,33 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Abdiel Janulgue <abdiel.janulgue@linux.intel.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Michel Thierry <michel.thierry@intel.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Abdiel Janulgue <abdiel.janulgue@linux.intel.com>
-
-In the following patch we need to reserve regions unaccessible to the
-driver during initialization, so add mem->reserved for collecting such
-regions.
-
-Cc: Imre Deak <imre.deak@intel.com>
-Signed-off-by: Abdiel Janulgue <abdiel.janulgue@linux.intel.com>
-Signed-off-by: Matthew Auld <matthew.auld@intel.com>
----
- drivers/gpu/drm/i915/intel_memory_region.c    |  2 +
- drivers/gpu/drm/i915/intel_memory_region.h    |  2 +
- .../drm/i915/selftests/intel_memory_region.c  | 89 +++++++++++++++++++
- 3 files changed, 93 insertions(+)
-
-diff --git a/drivers/gpu/drm/i915/intel_memory_region.c b/drivers/gpu/drm/i915/intel_memory_region.c
-index b1b610bfff09..803a414c9523 100644
---- a/drivers/gpu/drm/i915/intel_memory_region.c
-+++ b/drivers/gpu/drm/i915/intel_memory_region.c
-@@ -156,6 +156,7 @@ int intel_memory_region_init_buddy(struct intel_memory_region *mem)
- 
- void intel_memory_region_release_buddy(struct intel_memory_region *mem)
- {
-+	i915_buddy_free_list(&mem->mm, &mem->reserved);
- 	i915_buddy_fini(&mem->mm);
- }
- 
-@@ -185,6 +186,7 @@ intel_memory_region_create(struct drm_i915_private *i915,
- 	mutex_init(&mem->objects.lock);
- 	INIT_LIST_HEAD(&mem->objects.list);
- 	INIT_LIST_HEAD(&mem->objects.purgeable);
-+	INIT_LIST_HEAD(&mem->reserved);
- 
- 	mutex_init(&mem->mm_lock);
- 
-diff --git a/drivers/gpu/drm/i915/intel_memory_region.h b/drivers/gpu/drm/i915/intel_memory_region.h
-index 6ffc0673f005..8c9947bba3e8 100644
---- a/drivers/gpu/drm/i915/intel_memory_region.h
-+++ b/drivers/gpu/drm/i915/intel_memory_region.h
-@@ -89,6 +89,8 @@ struct intel_memory_region {
- 	unsigned int id;
- 	char name[8];
- 
-+	struct list_head reserved;
-+
- 	dma_addr_t remap_addr;
- 
- 	struct {
-diff --git a/drivers/gpu/drm/i915/selftests/intel_memory_region.c b/drivers/gpu/drm/i915/selftests/intel_memory_region.c
-index ce7adfa3bca0..79e5c5a6b563 100644
---- a/drivers/gpu/drm/i915/selftests/intel_memory_region.c
-+++ b/drivers/gpu/drm/i915/selftests/intel_memory_region.c
-@@ -144,6 +144,94 @@ static bool is_contiguous(struct drm_i915_gem_object *obj)
- 	return true;
- }
- 
-+static int igt_reserve_range(struct intel_memory_region *mem,
-+			     struct list_head *reserved,
-+			     u64 offset,
-+			     u64 size)
-+{
-+	int ret;
-+	LIST_HEAD(blocks);
-+
-+	ret = i915_buddy_alloc_range(&mem->mm, &blocks, offset, size);
-+	if (!ret)
-+		list_splice_tail(&blocks, reserved);
-+
-+	return ret;
-+}
-+
-+static int igt_mock_reserve(void *arg)
-+{
-+	struct drm_i915_gem_object *obj;
-+	struct intel_memory_region *mem = arg;
-+	resource_size_t avail = resource_size(&mem->region);
-+	I915_RND_STATE(prng);
-+	LIST_HEAD(objects);
-+	LIST_HEAD(reserved);
-+	u32 i, offset, count, *order;
-+	u64 allocated, cur_avail;
-+	const u32 chunk_size = SZ_32M;
-+	int err = 0;
-+
-+	count = avail / chunk_size;
-+	order = i915_random_order(count, &prng);
-+	if (!order)
-+		return 0;
-+
-+	/* Reserve a bunch of ranges within the region */
-+	for (i = 0; i < count; ++i) {
-+		u64 start = order[i] * chunk_size;
-+		u64 size = i915_prandom_u32_max_state(chunk_size, &prng);
-+
-+		/* Allow for some really big holes */
-+		if (!size)
-+			continue;
-+
-+		size = round_up(size, PAGE_SIZE);
-+		offset = igt_random_offset(&prng, 0, chunk_size, size,
-+					   PAGE_SIZE);
-+
-+		err = igt_reserve_range(mem, &reserved, start + offset, size);
-+		if (err) {
-+			pr_err("%s failed to reserve range", __func__);
-+			goto out_close;
-+		}
-+
-+		/* XXX: maybe sanity check the block range here? */
-+		avail -= size;
-+	}
-+
-+	/* Try to see if we can allocate from the remaining space */
-+	allocated = 0;
-+	cur_avail = avail;
-+	do {
-+		u64 size = i915_prandom_u32_max_state(cur_avail, &prng);
-+
-+		size = max_t(u64, round_up(size, PAGE_SIZE), (u64)PAGE_SIZE);
-+		obj = igt_object_create(mem, &objects, size, 0);
-+
-+		if (IS_ERR(obj)) {
-+			if (PTR_ERR(obj) == -ENXIO)
-+				break;
-+
-+			err = PTR_ERR(obj);
-+			goto out_close;
-+		}
-+		cur_avail -= size;
-+		allocated += size;
-+	} while (1);
-+
-+	if (allocated != avail) {
-+		pr_err("%s mismatch between allocation and free space", __func__);
-+		err = -EINVAL;
-+	}
-+
-+out_close:
-+	kfree(order);
-+	close_objects(mem, &objects);
-+	i915_buddy_free_list(&mem->mm, &reserved);
-+	return err;
-+}
-+
- static int igt_mock_contiguous(void *arg)
- {
- 	struct intel_memory_region *mem = arg;
-@@ -930,6 +1018,7 @@ static int perf_memcpy(void *arg)
- int intel_memory_region_mock_selftests(void)
- {
- 	static const struct i915_subtest tests[] = {
-+		SUBTEST(igt_mock_reserve),
- 		SUBTEST(igt_mock_fill),
- 		SUBTEST(igt_mock_contiguous),
- 		SUBTEST(igt_mock_splintered_region),
--- 
-2.26.2
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+RnJvbTogTWljaGVsIFRoaWVycnkgPG1pY2hlbC50aGllcnJ5QGludGVsLmNvbT4KClByZWZlciBh
+bGxvY2F0aW5nIHRoZSBjbWQgcmluZyBmcm9tIExNRU0gb24gZGdmeC4KClNpZ25lZC1vZmYtYnk6
+IE1pY2hlbCBUaGllcnJ5IDxtaWNoZWwudGhpZXJyeUBpbnRlbC5jb20+ClNpZ25lZC1vZmYtYnk6
+IE1hdHRoZXcgQXVsZCA8bWF0dGhldy5hdWxkQGludGVsLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9k
+cm0vaTkxNS9ndC9pbnRlbF9yaW5nLmMgfCA1ICsrKy0tCiAxIGZpbGUgY2hhbmdlZCwgMyBpbnNl
+cnRpb25zKCspLCAyIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9p
+OTE1L2d0L2ludGVsX3JpbmcuYyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2d0L2ludGVsX3Jpbmcu
+YwppbmRleCAyOWM4N2IzYzIzYmMuLmFlZTBhNzdjNzdlMCAxMDA2NDQKLS0tIGEvZHJpdmVycy9n
+cHUvZHJtL2k5MTUvZ3QvaW50ZWxfcmluZy5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2d0
+L2ludGVsX3JpbmcuYwpAQCAtMyw2ICszLDcgQEAKICAqIENvcHlyaWdodCDCqSAyMDE5IEludGVs
+IENvcnBvcmF0aW9uCiAgKi8KIAorI2luY2x1ZGUgImdlbS9pOTE1X2dlbV9sbWVtLmgiCiAjaW5j
+bHVkZSAiZ2VtL2k5MTVfZ2VtX29iamVjdC5oIgogCiAjaW5jbHVkZSAiaTkxNV9kcnYuaCIKQEAg
+LTEwOCw4ICsxMDksOCBAQCBzdGF0aWMgc3RydWN0IGk5MTVfdm1hICpjcmVhdGVfcmluZ192bWEo
+c3RydWN0IGk5MTVfZ2d0dCAqZ2d0dCwgaW50IHNpemUpCiAJc3RydWN0IGRybV9pOTE1X2dlbV9v
+YmplY3QgKm9iajsKIAlzdHJ1Y3QgaTkxNV92bWEgKnZtYTsKIAotCW9iaiA9IEVSUl9QVFIoLUVO
+T0RFVik7Ci0JaWYgKGk5MTVfZ2d0dF9oYXNfYXBlcnR1cmUoZ2d0dCkpCisJb2JqID0gaTkxNV9n
+ZW1fb2JqZWN0X2NyZWF0ZV9sbWVtKGk5MTUsIHNpemUsIEk5MTVfQk9fQUxMT0NfVk9MQVRJTEUp
+OworCWlmIChJU19FUlIob2JqKSAmJiBpOTE1X2dndHRfaGFzX2FwZXJ0dXJlKGdndHQpKQogCQlv
+YmogPSBpOTE1X2dlbV9vYmplY3RfY3JlYXRlX3N0b2xlbihpOTE1LCBzaXplKTsKIAlpZiAoSVNf
+RVJSKG9iaikpCiAJCW9iaiA9IGk5MTVfZ2VtX29iamVjdF9jcmVhdGVfaW50ZXJuYWwoaTkxNSwg
+c2l6ZSk7Ci0tIAoyLjI2LjIKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fCkludGVsLWdmeCBtYWlsaW5nIGxpc3QKSW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNr
+dG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2lu
+dGVsLWdmeAo=
