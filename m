@@ -2,42 +2,42 @@ Return-Path: <SRS0=J6ZK=G5=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8C5ECC433DB
-	for <intel-gfx@archiver.kernel.org>; Tue, 26 Jan 2021 01:57:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2F310C433E0
+	for <intel-gfx@archiver.kernel.org>; Tue, 26 Jan 2021 02:01:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F1B3D207D0
-	for <intel-gfx@archiver.kernel.org>; Tue, 26 Jan 2021 01:57:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F1B3D207D0
+	by mail.kernel.org (Postfix) with ESMTPS id AE66A207D0
+	for <intel-gfx@archiver.kernel.org>; Tue, 26 Jan 2021 02:00:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AE66A207D0
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D6AE6E3EC;
-	Tue, 26 Jan 2021 01:57:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C18396E3F4;
+	Tue, 26 Jan 2021 02:00:58 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
  [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id B0F936E3CE;
- Tue, 26 Jan 2021 01:57:26 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id A42AF6E3CE;
+ Tue, 26 Jan 2021 02:00:57 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id A98D4A73C9;
- Tue, 26 Jan 2021 01:57:26 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id 949A3A73C7;
+ Tue, 26 Jan 2021 02:00:57 +0000 (UTC)
 MIME-Version: 1.0
 From: Patchwork <patchwork@emeril.freedesktop.org>
-To: john.c.harrison@intel.com
-Date: Tue, 26 Jan 2021 01:57:26 -0000
-Message-ID: <161162624666.9812.10386423966656463456@emeril.freedesktop.org>
+To: "Chris Wilson" <chris@chris-wilson.co.uk>
+Date: Tue, 26 Jan 2021 02:00:57 -0000
+Message-ID: <161162645758.9812.9183021965654787691@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
-References: <20210125224200.3146462-1-John.C.Harrison@Intel.com>
-In-Reply-To: <20210125224200.3146462-1-John.C.Harrison@Intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZHJt?=
- =?utf-8?q?/i915/uc=3A_Use_platform_specific_defaults_for_GuC/HuC_enabling?=
- =?utf-8?q?_=28rev2=29?=
+References: <20210125231847.1152-1-chris@chris-wilson.co.uk>
+In-Reply-To: <20210125231847.1152-1-chris@chris-wilson.co.uk>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_Revert_=22x86/setup=3A_don=27t_remove_E820=5FTYPE=5FRAM_for?=
+ =?utf-8?q?_pfn_0=22_=28rev2=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,182 +52,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Reply-To: intel-gfx@lists.freedesktop.org
 Cc: intel-gfx@lists.freedesktop.org
-Content-Type: multipart/mixed; boundary="===============1873157117=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============1873157117==
-Content-Type: multipart/alternative;
- boundary="===============3895915885616563669=="
-
---===============3895915885616563669==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
 == Series Details ==
 
-Series: drm/i915/uc: Use platform specific defaults for GuC/HuC enabling (rev2)
-URL   : https://patchwork.freedesktop.org/series/86100/
-State : success
+Series: Revert "x86/setup: don't remove E820_TYPE_RAM for pfn 0" (rev2)
+URL   : https://patchwork.freedesktop.org/series/86274/
+State : warning
 
 == Summary ==
 
-CI Bug Log - changes from CI_DRM_9682 -> Patchwork_19497
-====================================================
+$ dim checkpatch origin/drm-tip
+a0c875ca8332 Revert "x86/setup: don't remove E820_TYPE_RAM for pfn 0"
+-:9: WARNING:COMMIT_MESSAGE: Missing commit description - Add an appropriate one
 
-Summary
--------
+-:45: ERROR:MISSING_SIGN_OFF: Missing Signed-off-by: line(s)
 
-  **SUCCESS**
+total: 1 errors, 1 warnings, 0 checks, 32 lines checked
 
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19497/index.html
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_19497 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@fbdev@write:
-    - fi-tgl-y:           [PASS][1] -> [DMESG-WARN][2] ([i915#402]) +1 similar issue
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9682/fi-tgl-y/igt@fbdev@write.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19497/fi-tgl-y/igt@fbdev@write.html
-
-  * igt@kms_flip@basic-flip-vs-wf_vblank@b-vga1:
-    - fi-pnv-d510:        [PASS][3] -> [FAIL][4] ([i915#2122])
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9682/fi-pnv-d510/igt@kms_flip@basic-flip-vs-wf_vblank@b-vga1.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19497/fi-pnv-d510/igt@kms_flip@basic-flip-vs-wf_vblank@b-vga1.html
-
-  
-#### Possible fixes ####
-
-  * igt@gem_ctx_create@basic:
-    - fi-tgl-y:           [DMESG-WARN][5] ([i915#402]) -> [PASS][6] +1 similar issue
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9682/fi-tgl-y/igt@gem_ctx_create@basic.html
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19497/fi-tgl-y/igt@gem_ctx_create@basic.html
-
-  
-  [i915#2122]: https://gitlab.freedesktop.org/drm/intel/issues/2122
-  [i915#402]: https://gitlab.freedesktop.org/drm/intel/issues/402
-
-
-Participating hosts (40 -> 35)
-------------------------------
-
-  Missing    (5): fi-jsl-1 fi-ilk-m540 fi-hsw-4200u fi-tgl-u2 fi-ctg-p8600 
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_9682 -> Patchwork_19497
-
-  CI-20190529: 20190529
-  CI_DRM_9682: 35ee6d505b478462c04952da1a4fbc03991af114 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_5971: abef2b7d6ff30f3b948b3e5d39653debb73083f3 @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools
-  Patchwork_19497: 4c9b8d9213f61a51880612c720f74378f158139b @ git://anongit.freedesktop.org/gfx-ci/linux
-
-
-== Linux commits ==
-
-4c9b8d9213f6 drm/i915/uc: Use platform specific defaults for GuC/HuC enabling
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19497/index.html
-
---===============3895915885616563669==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/uc: Use platform specific defaults for GuC/HuC enabling (rev2)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/86100/">https://patchwork.freedesktop.org/series/86100/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19497/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19497/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_9682 -&gt; Patchwork_19497</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19497/index.html</p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_19497 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@fbdev@write:</p>
-<ul>
-<li>fi-tgl-y:           <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9682/fi-tgl-y/igt@fbdev@write.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19497/fi-tgl-y/igt@fbdev@write.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/402">i915#402</a>) +1 similar issue</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_flip@basic-flip-vs-wf_vblank@b-vga1:</p>
-<ul>
-<li>fi-pnv-d510:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9682/fi-pnv-d510/igt@kms_flip@basic-flip-vs-wf_vblank@b-vga1.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19497/fi-pnv-d510/igt@kms_flip@basic-flip-vs-wf_vblank@b-vga1.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2122">i915#2122</a>)</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>igt@gem_ctx_create@basic:<ul>
-<li>fi-tgl-y:           <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9682/fi-tgl-y/igt@gem_ctx_create@basic.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/402">i915#402</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19497/fi-tgl-y/igt@gem_ctx_create@basic.html">PASS</a> +1 similar issue</li>
-</ul>
-</li>
-</ul>
-<h2>Participating hosts (40 -&gt; 35)</h2>
-<p>Missing    (5): fi-jsl-1 fi-ilk-m540 fi-hsw-4200u fi-tgl-u2 fi-ctg-p8600 </p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_9682 -&gt; Patchwork_19497</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_9682: 35ee6d505b478462c04952da1a4fbc03991af114 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_5971: abef2b7d6ff30f3b948b3e5d39653debb73083f3 @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools<br />
-  Patchwork_19497: 4c9b8d9213f61a51880612c720f74378f158139b @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<p>== Linux commits ==</p>
-<p>4c9b8d9213f6 drm/i915/uc: Use platform specific defaults for GuC/HuC enabling</p>
-
-</body>
-</html>
-
---===============3895915885616563669==--
-
---===============1873157117==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
 
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-
---===============1873157117==--
