@@ -7,45 +7,46 @@ X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 99EF4C433E6
-	for <intel-gfx@archiver.kernel.org>; Wed, 27 Jan 2021 13:14:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CB521C433E9
+	for <intel-gfx@archiver.kernel.org>; Wed, 27 Jan 2021 13:14:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 59052207A0
-	for <intel-gfx@archiver.kernel.org>; Wed, 27 Jan 2021 13:14:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 59052207A0
+	by mail.kernel.org (Postfix) with ESMTPS id 7C405207A0
+	for <intel-gfx@archiver.kernel.org>; Wed, 27 Jan 2021 13:14:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7C405207A0
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 228556E819;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D9286E81C;
 	Wed, 27 Jan 2021 13:14:35 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 56FD76E7F5
- for <intel-gfx@lists.freedesktop.org>; Wed, 27 Jan 2021 13:14:30 +0000 (UTC)
-IronPort-SDR: Omm/QcKejhd6bJY7J2Cs9q44p1ir7jZW8Hx+EeqAOiXs+a3ktyhjQnGaSnGdLBZHAk0CnYIx+o
- 7VtNV6Ms3h0A==
-X-IronPort-AV: E=McAfee;i="6000,8403,9876"; a="180209893"
-X-IronPort-AV: E=Sophos;i="5.79,379,1602572400"; d="scan'208";a="180209893"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 28B106E7F1
+ for <intel-gfx@lists.freedesktop.org>; Wed, 27 Jan 2021 13:14:28 +0000 (UTC)
+IronPort-SDR: SH/nmGMEe1ZzEKrE/W8XlSsoj0jKrSFLXXDic0UfsTkkhL0OswsWSnq4uw+dQhsRsCZYMGn3FD
+ RAFwm5wRVDZw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9876"; a="180209885"
+X-IronPort-AV: E=Sophos;i="5.79,379,1602572400"; d="scan'208";a="180209885"
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Jan 2021 05:14:30 -0800
-IronPort-SDR: C4s30J+aQdY+zPuuJJRhW4ir1Z6mMJbmEb82BZ9gLfVjeV/1V0kZjanhlanNDrJVU1NR8DGFbe
- oH6B7LqU89JA==
-X-IronPort-AV: E=Sophos;i="5.79,379,1602572400"; d="scan'208";a="369471255"
+ 27 Jan 2021 05:14:28 -0800
+IronPort-SDR: u+e1yLx/AR7Knfef/Z0dc4/JT1vnv686OUoxo4DuorOqwvdScPD8E9A7z1zPrtJalUpM9k9/Of
+ BsV9oJZxyPCw==
+X-IronPort-AV: E=Sophos;i="5.79,379,1602572400"; d="scan'208";a="369471244"
 Received: from gladkina-mobl.ger.corp.intel.com (HELO
  mwauld-desk1.ger.corp.intel.com) ([10.252.19.195])
  by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Jan 2021 05:14:29 -0800
+ 27 Jan 2021 05:14:27 -0800
 From: Matthew Auld <matthew.auld@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 27 Jan 2021 13:14:16 +0000
-Message-Id: <20210127131417.393872-7-matthew.auld@intel.com>
+Date: Wed, 27 Jan 2021 13:14:14 +0000
+Message-Id: <20210127131417.393872-5-matthew.auld@intel.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20210127131417.393872-1-matthew.auld@intel.com>
 References: <20210127131417.393872-1-matthew.auld@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v5 7/8] drm/i915: move engine scratch to LMEM
+Subject: [Intel-gfx] [PATCH v5 5/8] drm/i915/dg1: Reserve first 1MB of local
+ memory
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,45 +64,103 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Prefer allocating the engine scratch from LMEM on dgfx.
+From: Imre Deak <imre.deak@intel.com>
 
-v2: flatten the chain
+On DG1 A0/B0 steppings the first 1MB of local memory must be reserved.
+One reason for this is that the 0xA0000-0xB0000 range is not accessible
+by the display, probably since this region is redirected to another
+memory location for legacy VGA compatibility.
 
+BSpec: 50586
+Testcase: igt/kms_big_fb/linear-64bpp-rotate-0
+
+v2:
+- Reserve the memory on B0 as well.
+
+v3: replace DRM_DEBUG/DRM_ERROR with drm_dbg/drm_err
+
+v4: fix the insanity
+
+Signed-off-by: Imre Deak <imre.deak@intel.com>
 Signed-off-by: Matthew Auld <matthew.auld@intel.com>
 Reviewed-by: Chris Wilson <chris@chris-wilson.co.uk>
 ---
- drivers/gpu/drm/i915/gt/intel_gt.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_region_lmem.c | 41 +++++++++++++++++++++
+ 1 file changed, 41 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt/intel_gt.c
-index 9ac67e0534b7..35ff68ada4f1 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt.c
-@@ -4,6 +4,8 @@
-  */
+diff --git a/drivers/gpu/drm/i915/gt/intel_region_lmem.c b/drivers/gpu/drm/i915/gt/intel_region_lmem.c
+index 04b84f6df770..de92948ca024 100644
+--- a/drivers/gpu/drm/i915/gt/intel_region_lmem.c
++++ b/drivers/gpu/drm/i915/gt/intel_region_lmem.c
+@@ -143,6 +143,38 @@ intel_gt_setup_fake_lmem(struct intel_gt *gt)
+ 	return mem;
+ }
  
- #include "debugfs_gt.h"
++static bool get_legacy_lowmem_region(struct intel_uncore *uncore,
++				     u64 *start, u32 *size)
++{
++	if (!IS_DG1_REVID(uncore->i915, DG1_REVID_A0, DG1_REVID_B0))
++		return false;
 +
-+#include "gem/i915_gem_lmem.h"
- #include "i915_drv.h"
- #include "intel_context.h"
- #include "intel_gt.h"
-@@ -378,11 +380,13 @@ static int intel_gt_init_scratch(struct intel_gt *gt, unsigned int size)
- 	struct i915_vma *vma;
- 	int ret;
++	*start = 0;
++	*size = SZ_1M;
++
++	drm_dbg(&uncore->i915->drm, "LMEM: reserved legacy low-memory [0x%llx-0x%llx]\n",
++		*start, *start + *size);
++
++	return true;
++}
++
++static int reserve_lowmem_region(struct intel_uncore *uncore,
++				 struct intel_memory_region *mem)
++{
++	u64 reserve_start;
++	u32 reserve_size;
++	int ret;
++
++	if (!get_legacy_lowmem_region(uncore, &reserve_start, &reserve_size))
++		return 0;
++
++	ret = intel_memory_region_reserve(mem, reserve_start, reserve_size);
++	if (ret)
++		drm_err(&uncore->i915->drm, "LMEM: reserving low memory region failed\n");
++
++	return ret;
++}
++
+ static struct intel_memory_region *setup_lmem(struct intel_gt *gt)
+ {
+ 	struct drm_i915_private *i915 = gt->i915;
+@@ -151,6 +183,7 @@ static struct intel_memory_region *setup_lmem(struct intel_gt *gt)
+ 	struct intel_memory_region *mem;
+ 	resource_size_t io_start;
+ 	resource_size_t lmem_size;
++	int err;
  
--	obj = i915_gem_object_create_stolen(i915, size);
-+	obj = i915_gem_object_create_lmem(i915, size, I915_BO_ALLOC_VOLATILE);
-+	if (IS_ERR(obj))
-+		obj = i915_gem_object_create_stolen(i915, size);
- 	if (IS_ERR(obj))
- 		obj = i915_gem_object_create_internal(i915, size);
- 	if (IS_ERR(obj)) {
--		DRM_ERROR("Failed to allocate scratch page\n");
-+		drm_err(&i915->drm, "Failed to allocate scratch page\n");
- 		return PTR_ERR(obj);
- 	}
+ 	if (!IS_DGFX(i915))
+ 		return ERR_PTR(-ENODEV);
+@@ -170,6 +203,10 @@ static struct intel_memory_region *setup_lmem(struct intel_gt *gt)
+ 	if (IS_ERR(mem))
+ 		return mem;
  
++	err = reserve_lowmem_region(uncore, mem);
++	if (err)
++		goto err_region_put;
++
+ 	drm_dbg(&i915->drm, "Local memory: %pR\n", &mem->region);
+ 	drm_dbg(&i915->drm, "Local memory IO start: %pa\n",
+ 		&mem->io_start);
+@@ -177,6 +214,10 @@ static struct intel_memory_region *setup_lmem(struct intel_gt *gt)
+ 		 &lmem_size);
+ 
+ 	return mem;
++
++err_region_put:
++	intel_memory_region_put(mem);
++	return ERR_PTR(err);
+ }
+ 
+ struct intel_memory_region *intel_gt_setup_lmem(struct intel_gt *gt)
 -- 
 2.26.2
 
