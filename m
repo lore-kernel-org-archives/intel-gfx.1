@@ -2,47 +2,50 @@ Return-Path: <SRS0=t6nC=G7=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6AA80C433E0
-	for <intel-gfx@archiver.kernel.org>; Thu, 28 Jan 2021 19:24:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 65045C433E6
+	for <intel-gfx@archiver.kernel.org>; Thu, 28 Jan 2021 19:24:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E3BEC64E42
-	for <intel-gfx@archiver.kernel.org>; Thu, 28 Jan 2021 19:24:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E3BEC64E42
+	by mail.kernel.org (Postfix) with ESMTPS id 1165F64E42
+	for <intel-gfx@archiver.kernel.org>; Thu, 28 Jan 2021 19:24:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1165F64E42
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1AC0C6E9D4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 63D956E9D7;
 	Thu, 28 Jan 2021 19:24:39 +0000 (UTC)
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 229A96E9D3
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BBC9A6E9CF
  for <intel-gfx@lists.freedesktop.org>; Thu, 28 Jan 2021 19:24:38 +0000 (UTC)
-IronPort-SDR: akQV4U3YS6DBRXUCrbGesRUQHbZQfIF98Lmxu1IkV4fuWZ9ZAtO185h/lc56QmiDitmL4H02n3
- P9oew5n/DyNA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9878"; a="244384028"
-X-IronPort-AV: E=Sophos;i="5.79,383,1602572400"; d="scan'208";a="244384028"
+IronPort-SDR: iraUkg4wliUl4xL6Fx37UdvB4x1cI4KdfoD/iR6xxZPJTOleo1JutCOAEyCfFATo6a2wUS9HNM
+ IT3D3R+SlYSA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9878"; a="244384033"
+X-IronPort-AV: E=Sophos;i="5.79,383,1602572400"; d="scan'208";a="244384033"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  28 Jan 2021 11:24:37 -0800
-IronPort-SDR: OSPncfO+PetZdIK1vWVSjPCbCcs4kakEHHZZLR5g/oWAXKxcF9iYgEQjGzlr1LNy8i6pCNtpha
- 51eeDUZdF0YQ==
-X-IronPort-AV: E=Sophos;i="5.79,383,1602572400"; d="scan'208";a="411110138"
+IronPort-SDR: 1SKqWopOb+isLtfvzPyvRT6z7Pv/CfK7eaOF/LwrbIFhuexCtA28H5cM2N6NEXzqvpNsjTgSuJ
+ JkTH99li9oBw==
+X-IronPort-AV: E=Sophos;i="5.79,383,1602572400"; d="scan'208";a="411110152"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.168])
  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jan 2021 11:24:36 -0800
+ 28 Jan 2021 11:24:37 -0800
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 28 Jan 2021 11:23:55 -0800
-Message-Id: <20210128192413.1715802-1-matthew.d.roper@intel.com>
+Date: Thu, 28 Jan 2021 11:23:59 -0800
+Message-Id: <20210128192413.1715802-5-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
+In-Reply-To: <20210128192413.1715802-1-matthew.d.roper@intel.com>
+References: <20210128192413.1715802-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 00/18] Preliminary Display13 support
+Subject: [Intel-gfx] [PATCH 04/18] drm/i915/display13: Define plane
+ capabilities
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,74 +58,96 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Lucas De Marchi <lucas.demarchi@intel.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-VXBjb21pbmcgcGxhdGZvcm1zIHdpbGwgYmUgdXNpbmcgYSAiRGlzcGxheTEzIiBkZXNpZ24uICBE
-ZXNwaXRlIHRoZQp2ZXJzaW9uIG51bWJlciBidW1wLCBEaXNwbGF5MTMgaXMgYSBwcmV0dHkgbmF0
-dXJhbCBldm9sdXRpb24gZnJvbQpEaXNwbGF5MTIgKHdoaWNoIHdlJ3ZlIGJlZW4gdXNpbmcgb24g
-VEdMLCBSS0wsIERHMSwgYW5kIEFETC1TKS4KClRoaXMgc2VyaWVzIHByb3ZpZGVzIHRoZSBiYXNp
-YyBEaXNwbGF5MTMgc3VwcG9ydCB0aGF0IGlzbid0IHRpZWQgdG8KYSBzcGVjaWZpYyBwbGF0Zm9y
-bTsgYW55IHBsYXRmb3JtcyBpbmNvcnBvcmF0aW5nIHRoZSBEaXNwbGF5MTMgSVAgd2lsbApoYXZl
-IGFkZGl0aW9uYWwgcGxhdGZvcm0tc3BlY2lmaWMgZGlzcGxheSBwYXRjaGVzIGFzIHdlbGwuCgpO
-b3RlIHRoYXQgdGhlcmUgYXJlIGEgZmV3IGdlbmVyYWwgRGlzcGxheTEzIGNoYW5nZXMgdGhhdCBh
-cmVuJ3QgaW5jbHVkZWQKaW4gdGhpcyBzZXJpZXMgYW5kIHdpbGwgYmUgc2VudCBzZXBhcmF0ZWx5
-OgogKiBUaWxlZCBzdXJmYWNlcyBuZWVkIHRvIGJlIG1hcHBlZCBpbnRvIHRoZSBHR1RUIGluIGEg
-c3BlY2lhbCB3YXkKICAgKHVzaW5nICJEaXNwbGF5IFBhZ2UgVGFibGVzIikuCiAqIENvbG9yIG1h
-bmFnZW1lbnQgaXMgcHJvZ3JhbW1lZCBkaWZmZXJlbnRseSBvbiBEaXNwbGF5MTMgKHVzaW5nIGEK
-ICAgbG9nYXJpdGhtaWMgc2NoZW1lKS4gIFNpbmNlIHRoaXMgcmVsYXRlcyB0byBzb21lIG5ldyBE
-Uk0gcHJvcGVydHkKICAgdWFwaSwgd2UnbGwganVzdCBsZWF2ZSBjb2xvciBtYW5hZ2VtZW50IG1v
-c3RseSBkaXNhYmxlZCBpbiB0aGlzCiAgIHNlcmllcyBhbmQgZW5hYmxlIHRoZSBuZXcgbG9nYXJp
-dGhtaWMgY29sb3IgbWFuYWdlbWVudCBsYXRlci4KClRoZSBjaGFuZ2VzIGZvciBEaXNwbGF5MTMg
-aGF2ZSBzb21lIG1pbm9yIGNvbnRleHR1YWwgY29uZmxpY3RzIHdpdGggdGhlCkFETC1TIHNlcmll
-cyB0aGF0IEFkaXR5YSBjdXJyZW50bHkgaGFzIGluIGZsaWdodC4gIFNpbmNlIHRoZSBBREwtUwpw
-YXRjaGVzIHdpbGwgYmUgbGFuZGluZyBhbnkgdGltZSBub3csIEkndmUgYmFzZWQgdGhlIHBhdGNo
-ZXMgaGVyZSBvbiB0b3AKb2YgdGhlIGluLWZsaWdodCBBREwtUyBwYXRjaGVzLgoKSnVoYS1QZWtr
-YSBIZWlra2lsw6QgKDEpOgogIGRybS9pOTE1L2Rpc3BsYXkxMzogU3VwcG9ydCAxMjhrIHBsYW5l
-IHN0cmlkZQoKTWF0dCBSb3BlciAoMTApOgogIGRybS9pOTE1L2Rpc3BsYXkxMzogYWRkIERpc3Bs
-YXkxMyBjaGFyYWN0ZXJpc3RpY3MKICBkcm0vaTkxNS9kaXNwbGF5MTM6IEhhbmRsZSBwcm9wZXIg
-QVVYIGludGVycnVwdCBiaXRzCiAgZHJtL2k5MTUvZGlzcGxheTEzOiBFbmhhbmNlZCBwaXBlIHVu
-ZGVycnVuIHJlcG9ydGluZwogIGRybS9pOTE1L2Rpc3BsYXkxMzogRGVmaW5lIHBsYW5lIGNhcGFi
-aWxpdGllcwogIGRybS9pOTE1L2Rpc3BsYXkxMzogT25seSBlbmFibGUgbGVnYWN5IGdhbW1hIGZv
-ciBub3cKICBkcm0vaTkxNS9kaXNwbGF5MTM6IEFkZCBEaXNwbGF5MTMgcG93ZXIgd2VsbHMKICBk
-cm0vaTkxNS9kaXNwbGF5MTM6IEhhbmRsZSBuZXcgbG9jYXRpb24gb2Ygb3V0cHV0cyBEIGFuZCBF
-CiAgZHJtL2k5MTUvZGlzcGxheTEzOiBJbmNyZWFzZSBtYXhpbXVtIHdhdGVybWFyayBsaW5lcyB0
-byAyNTUKICBkcm0vaTkxNS9kaXNwbGF5MTM6IFJlcXVpcmVkIGJhbmR3aWR0aCBpbmNyZWFzZXMg
-d2hlbiBWVC1kIGlzIGFjdGl2ZQogIGRybS9pOTE1L2Rpc3BsYXkxMzogQWRkIFdhXzE0MDExNTAz
-MDMwOmQxMwoKTmlzY2hhbCBWYXJpZGUgKDEpOgogIGRybS9pOTE1L2Rpc3BsYXkxMzogRW5hYmxp
-bmcgZGl0aGVyaW5nIGFmdGVyIHRoZSBDQzEgcGlwZQoKVW1hIFNoYW5rYXIgKDEpOgogIGRybS9p
-OTE1L2Rpc3BsYXkxMzogSGFuZGxlIExQU1AgZm9yIERpc3BsYXkgMTMKClZhbmRpdGEgS3Vsa2Fy
-bmkgKDUpOgogIGRybS9pOTE1L2Rpc3BsYXkvZHNjOiBSZWZhY3RvciBpbnRlbF9kcF9kc2NfY29t
-cHV0ZV9icHAKICBkcm0vaTkxNS9kaXNwbGF5MTM6IFN1cHBvcnQgRFAxLjQgY29tcHJlc3Npb24g
-QlBQcwogIGRybS9pOTE1L2Rpc3BsYXkxMzogR2V0IHNsaWNlIGhlaWdodCBiZWZvcmUgY29tcHV0
-aW5nIHJjIHBhcmFtcwogIGRybS9pOTE1L2Rpc3BsYXkxMzogQ2FsY3VsYXRlIFZEU0MgUkMgcGFy
-YW1ldGVycwogIGRybS9pOTE1L2Rpc3BsYXkxMzogQWRkIHJjX3FwX3RhYmxlIGZvciByY3BhcmFt
-cyBjYWxjdWxhdGlvbgoKIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfYmlvcy5j
-ICAgICB8ICAgOCArLQogZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9idy5jICAg
-ICAgIHwgICAzICsKIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfY29sb3IuYyAg
-ICB8ICAxNiArCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2RkaS5jICAgICAg
-fCAgIDggKy0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGlzcGxheS5jICB8
-ICAyMSArLQogZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kaXNwbGF5LmggIHwg
-ICA4ICsKIC4uLi9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Rpc3BsYXlfZGVidWdmcy5jICB8ICAg
-NyArCiAuLi4vZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kaXNwbGF5X3Bvd2VyLmMgICAgfCA0MjYg
-KysrKysrKysrKysrKysrKystCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Rw
-LmMgICAgICAgfCAgNjAgKystCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Rw
-X2F1eC5jICAgfCAgMTQgKy0KIC4uLi9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2ZpZm9fdW5kZXJy
-dW4uYyAgICB8ICA1NSArKy0KIC4uLi9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9xcF90YWJs
-ZXMuaCAgICB8IDI5NCArKysrKysrKysrKysKIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkv
-aW50ZWxfc3ByaXRlLmMgICB8ICA0MCArLQogZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9p
-bnRlbF92ZHNjLmMgICAgIHwgMTIzICsrKystCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X2Ry
-di5oICAgICAgICAgICAgICAgfCAgIDEgKwogZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV9pcnEu
-YyAgICAgICAgICAgICAgIHwgIDI4ICstCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X3BjaS5j
-ICAgICAgICAgICAgICAgfCAgMjIgKwogZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV9yZWcuaCAg
-ICAgICAgICAgICAgIHwgIDI5ICstCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9pbnRlbF9kZXZpY2Vf
-aW5mby5jICAgICAgfCAgIDIgKy0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2ludGVsX2RldmljZV9p
-bmZvLmggICAgICB8ICAgMiArCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9pbnRlbF9wbS5jICAgICAg
-ICAgICAgICAgfCAgMTUgKy0KIDIxIGZpbGVzIGNoYW5nZWQsIDExMTYgaW5zZXJ0aW9ucygrKSwg
-NjYgZGVsZXRpb25zKC0pCiBjcmVhdGUgbW9kZSAxMDA2NDQgZHJpdmVycy9ncHUvZHJtL2k5MTUv
-ZGlzcGxheS9pbnRlbF9xcF90YWJsZXMuaAoKLS0gCjIuMjUuNAoKX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRl
-bC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-L21haWxtYW4vbGlzdGluZm8vaW50ZWwtZ2Z4Cg==
+Display13's plane support is identical to RKL --- 5 universal + 1 cursor
+with NV12 UV support on planes 1-3 and NV12 Y support on planes 4-5.
+
+Bspec: 53657
+Bspec: 49251
+Cc: Lucas De Marchi <lucas.demarchi@intel.com>
+Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_sprite.c | 16 ++++++++++++----
+ drivers/gpu/drm/i915/i915_irq.c             |  2 +-
+ drivers/gpu/drm/i915/intel_device_info.c    |  2 +-
+ 3 files changed, 14 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_sprite.c b/drivers/gpu/drm/i915/display/intel_sprite.c
+index ec931a08ff28..81bb5eb1cd15 100644
+--- a/drivers/gpu/drm/i915/display/intel_sprite.c
++++ b/drivers/gpu/drm/i915/display/intel_sprite.c
+@@ -382,7 +382,7 @@ int intel_plane_check_src_coordinates(struct intel_plane_state *plane_state)
+ 
+ static u8 icl_nv12_y_plane_mask(struct drm_i915_private *i915)
+ {
+-	if (HAS_D12_PLANE_MINIMIZATION(i915))
++	if (HAS_DISPLAY13(i915) || HAS_D12_PLANE_MINIMIZATION(i915))
+ 		return BIT(PLANE_SPRITE2) | BIT(PLANE_SPRITE3);
+ 	else
+ 		return BIT(PLANE_SPRITE4) | BIT(PLANE_SPRITE5);
+@@ -2322,6 +2322,11 @@ static int skl_plane_check_fb(const struct intel_crtc_state *crtc_state,
+ 	}
+ 
+ 	if (drm_rotation_90_or_270(rotation)) {
++		if (HAS_DISPLAY13(dev_priv)) {
++			DRM_DEBUG_KMS("90/270 rotation not supported on this platform\n");
++			return -EINVAL;
++		}
++
+ 		if (fb->modifier != I915_FORMAT_MOD_Y_TILED &&
+ 		    fb->modifier != I915_FORMAT_MOD_Yf_TILED) {
+ 			drm_dbg_kms(&dev_priv->drm,
+@@ -3338,9 +3343,12 @@ skl_universal_plane_create(struct drm_i915_private *dev_priv,
+ 	if (ret)
+ 		goto fail;
+ 
+-	supported_rotations =
+-		DRM_MODE_ROTATE_0 | DRM_MODE_ROTATE_90 |
+-		DRM_MODE_ROTATE_180 | DRM_MODE_ROTATE_270;
++	if (HAS_DISPLAY13(dev_priv))
++		supported_rotations = DRM_MODE_ROTATE_0 | DRM_MODE_ROTATE_180;
++	else
++		supported_rotations =
++			DRM_MODE_ROTATE_0 | DRM_MODE_ROTATE_90 |
++			DRM_MODE_ROTATE_180 | DRM_MODE_ROTATE_270;
+ 
+ 	if (INTEL_GEN(dev_priv) >= 10)
+ 		supported_rotations |= DRM_MODE_REFLECT_X;
+diff --git a/drivers/gpu/drm/i915/i915_irq.c b/drivers/gpu/drm/i915/i915_irq.c
+index 407b42706a14..bb4fad71c429 100644
+--- a/drivers/gpu/drm/i915/i915_irq.c
++++ b/drivers/gpu/drm/i915/i915_irq.c
+@@ -2290,7 +2290,7 @@ static u32 gen8_de_port_aux_mask(struct drm_i915_private *dev_priv)
+ 
+ static u32 gen8_de_pipe_fault_mask(struct drm_i915_private *dev_priv)
+ {
+-	if (HAS_D12_PLANE_MINIMIZATION(dev_priv))
++	if (HAS_DISPLAY13(dev_priv) || HAS_D12_PLANE_MINIMIZATION(dev_priv))
+ 		return RKL_DE_PIPE_IRQ_FAULT_ERRORS;
+ 	else if (INTEL_GEN(dev_priv) >= 11)
+ 		return GEN11_DE_PIPE_IRQ_FAULT_ERRORS;
+diff --git a/drivers/gpu/drm/i915/intel_device_info.c b/drivers/gpu/drm/i915/intel_device_info.c
+index 92ad3e7d1f6f..200d4eceaa4e 100644
+--- a/drivers/gpu/drm/i915/intel_device_info.c
++++ b/drivers/gpu/drm/i915/intel_device_info.c
+@@ -265,7 +265,7 @@ void intel_device_info_runtime_init(struct drm_i915_private *dev_priv)
+ 
+ 	BUILD_BUG_ON(BITS_PER_TYPE(intel_engine_mask_t) < I915_NUM_ENGINES);
+ 
+-	if (HAS_D12_PLANE_MINIMIZATION(dev_priv))
++	if (HAS_DISPLAY13(dev_priv) || HAS_D12_PLANE_MINIMIZATION(dev_priv))
+ 		for_each_pipe(dev_priv, pipe)
+ 			runtime->num_sprites[pipe] = 4;
+ 	else if (INTEL_GEN(dev_priv) >= 11)
+-- 
+2.25.4
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
