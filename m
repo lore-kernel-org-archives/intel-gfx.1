@@ -2,40 +2,42 @@ Return-Path: <SRS0=t6nC=G7=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2C505C433E0
-	for <intel-gfx@archiver.kernel.org>; Thu, 28 Jan 2021 13:31:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 60A11C433E0
+	for <intel-gfx@archiver.kernel.org>; Thu, 28 Jan 2021 13:31:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D615B64DD6
-	for <intel-gfx@archiver.kernel.org>; Thu, 28 Jan 2021 13:31:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D615B64DD6
+	by mail.kernel.org (Postfix) with ESMTPS id 1097464DD8
+	for <intel-gfx@archiver.kernel.org>; Thu, 28 Jan 2021 13:31:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1097464DD8
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0EFB26E958;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C5E06E96D;
 	Thu, 28 Jan 2021 13:31:34 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC3D36E94B;
- Thu, 28 Jan 2021 13:31:31 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9FD716E952;
+ Thu, 28 Jan 2021 13:31:32 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 3B243B0E6;
- Thu, 28 Jan 2021 13:31:30 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 30A45B113;
+ Thu, 28 Jan 2021 13:31:31 +0000 (UTC)
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: airlied@linux.ie, daniel@ffwll.ch, jani.nikula@linux.intel.com,
  joonas.lahtinen@linux.intel.com, chris@chris-wilson.co.uk
-Date: Thu, 28 Jan 2021 14:31:22 +0100
-Message-Id: <20210128133127.2311-1-tzimmermann@suse.de>
+Date: Thu, 28 Jan 2021 14:31:24 +0100
+Message-Id: <20210128133127.2311-3-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.30.0
+In-Reply-To: <20210128133127.2311-1-tzimmermann@suse.de>
+References: <20210128133127.2311-1-tzimmermann@suse.de>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v6 0/5] drm: Move struct drm_device.pdev to
- legacy
+Subject: [Intel-gfx] [PATCH v6 2/5] drm/i915/gt: Remove references to struct
+ drm_device.pdev
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,98 +57,150 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-V6 of the patchset fixes i915/selftests to do the assigment of pdev
-in a later patch. This was forgotten in v5.
+Using struct drm_device.pdev is deprecated. Convert i915 to struct
+drm_device.dev. No functional changes.
 
-The pdev field in struct drm_device points to a PCI device structure and
-goes back to UMS-only days when all DRM drivers were for PCI devices.
-Meanwhile we also support USB, SPI and platform devices. Each of those
-uses the generic device stored in struct drm_device.dev.
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Reviewed-by: Chris Wilson <chris@chris-wilson.co.uk>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c |  2 +-
+ drivers/gpu/drm/i915/gt/intel_ggtt.c      | 10 +++++-----
+ drivers/gpu/drm/i915/gt/intel_ppgtt.c     |  2 +-
+ drivers/gpu/drm/i915/gt/intel_rc6.c       |  4 ++--
+ drivers/gpu/drm/i915/gt/intel_reset.c     |  6 +++---
+ 5 files changed, 12 insertions(+), 12 deletions(-)
 
-To reduce duplication and remove the special case of PCI, this patchset
-converts all modesetting drivers from pdev to dev and makes pdev a field
-for legacy UMS drivers.
-
-For PCI devices, the pointer in struct drm_device.dev can be upcasted to
-struct pci_device; or tested for PCI with dev_is_pci(). In several places
-the code can use the dev field directly.
-
-After converting all drivers and the DRM core, the pdev fields becomes
-only relevant for legacy drivers. In a later patchset, we may want to
-convert these as well and remove pdev entirely.
-
-v6:
-	* also remove assignment in i915/selftests in later patch (Chris)
-v5:
-	* remove assignment in later patch (Chris)
-v4:
-	* merged several patches
-	* moved core changes into separate patch
-	* vmwgfx build fix
-v3:
-	* merged several patches
-	* fix one pdev reference in nouveau (Jeremy)
-	* rebases
-v2:
-	* move whitespace fixes into separate patches (Alex, Sam)
-	* move i915 gt/ and gvt/ changes into separate patches (Joonas)
-
-Thomas Zimmermann (5):
-  drm/i915: Remove references to struct drm_device.pdev
-  drm/i915/gt: Remove references to struct drm_device.pdev
-  drm/i915/gvt: Remove references to struct drm_device.pdev
-  drm/i915: Don't assign to struct drm_device.pdev
-  drm: Move struct drm_device.pdev to legacy section
-
- drivers/gpu/drm/i915/display/intel_bios.c     |  2 +-
- drivers/gpu/drm/i915/display/intel_cdclk.c    | 14 ++++++-------
- drivers/gpu/drm/i915/display/intel_csr.c      |  2 +-
- drivers/gpu/drm/i915/display/intel_dsi_vbt.c  |  2 +-
- drivers/gpu/drm/i915/display/intel_fbdev.c    |  2 +-
- drivers/gpu/drm/i915/display/intel_gmbus.c    |  2 +-
- .../gpu/drm/i915/display/intel_lpe_audio.c    |  5 +++--
- drivers/gpu/drm/i915/display/intel_opregion.c |  6 +++---
- drivers/gpu/drm/i915/display/intel_overlay.c  |  2 +-
- drivers/gpu/drm/i915/display/intel_panel.c    |  4 ++--
- drivers/gpu/drm/i915/display/intel_quirks.c   |  2 +-
- drivers/gpu/drm/i915/display/intel_sdvo.c     |  2 +-
- drivers/gpu/drm/i915/display/intel_vga.c      |  8 ++++----
- drivers/gpu/drm/i915/gem/i915_gem_phys.c      |  6 +++---
- drivers/gpu/drm/i915/gem/i915_gem_shmem.c     |  2 +-
- drivers/gpu/drm/i915/gt/intel_engine_cs.c     |  2 +-
- drivers/gpu/drm/i915/gt/intel_ggtt.c          | 10 +++++-----
- drivers/gpu/drm/i915/gt/intel_ppgtt.c         |  2 +-
- drivers/gpu/drm/i915/gt/intel_rc6.c           |  4 ++--
- drivers/gpu/drm/i915/gt/intel_region_lmem.c   |  8 ++++----
- drivers/gpu/drm/i915/gt/intel_reset.c         |  6 +++---
- drivers/gpu/drm/i915/gvt/cfg_space.c          |  5 +++--
- drivers/gpu/drm/i915/gvt/firmware.c           | 10 +++++-----
- drivers/gpu/drm/i915/gvt/gtt.c                | 12 +++++------
- drivers/gpu/drm/i915/gvt/gvt.c                |  6 +++---
- drivers/gpu/drm/i915/gvt/kvmgt.c              |  4 ++--
- drivers/gpu/drm/i915/i915_debugfs.c           |  2 +-
- drivers/gpu/drm/i915/i915_drv.c               | 20 +++++++++----------
- drivers/gpu/drm/i915/i915_drv.h               |  2 +-
- drivers/gpu/drm/i915/i915_gem_gtt.c           |  5 ++---
- drivers/gpu/drm/i915/i915_getparam.c          |  5 +++--
- drivers/gpu/drm/i915/i915_gpu_error.c         |  2 +-
- drivers/gpu/drm/i915/i915_irq.c               |  6 +++---
- drivers/gpu/drm/i915/i915_pmu.c               |  2 +-
- drivers/gpu/drm/i915/i915_suspend.c           |  4 ++--
- drivers/gpu/drm/i915/i915_switcheroo.c        |  4 ++--
- drivers/gpu/drm/i915/i915_vgpu.c              |  2 +-
- drivers/gpu/drm/i915/intel_device_info.c      |  2 +-
- drivers/gpu/drm/i915/intel_runtime_pm.c       |  2 +-
- drivers/gpu/drm/i915/intel_uncore.c           |  4 ++--
- .../gpu/drm/i915/selftests/mock_gem_device.c  |  1 -
- drivers/gpu/drm/i915/selftests/mock_gtt.c     |  2 +-
- include/drm/drm_device.h                      |  6 +++---
- 43 files changed, 100 insertions(+), 101 deletions(-)
-
-
-base-commit: 3836b7fdfad40e2bac5dc882332f42bed6942cf4
-prerequisite-patch-id: c2b2f08f0eccc9f5df0c0da49fa1d36267deb11d
---
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+index ac9e020dbc9e..9b6b9f60336a 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
++++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+@@ -1250,7 +1250,7 @@ bool intel_engine_is_idle(struct intel_engine_cs *engine)
+ 
+ 	/* Waiting to drain ELSP? */
+ 	if (execlists_active(&engine->execlists)) {
+-		synchronize_hardirq(engine->i915->drm.pdev->irq);
++		synchronize_hardirq(to_pci_dev(engine->i915->drm.dev)->irq);
+ 
+ 		intel_engine_flush_submission(engine);
+ 
+diff --git a/drivers/gpu/drm/i915/gt/intel_ggtt.c b/drivers/gpu/drm/i915/gt/intel_ggtt.c
+index dac07d66f658..9c701e5a00bc 100644
+--- a/drivers/gpu/drm/i915/gt/intel_ggtt.c
++++ b/drivers/gpu/drm/i915/gt/intel_ggtt.c
+@@ -769,7 +769,7 @@ static unsigned int chv_get_total_gtt_size(u16 gmch_ctrl)
+ static int ggtt_probe_common(struct i915_ggtt *ggtt, u64 size)
+ {
+ 	struct drm_i915_private *i915 = ggtt->vm.i915;
+-	struct pci_dev *pdev = i915->drm.pdev;
++	struct pci_dev *pdev = to_pci_dev(i915->drm.dev);
+ 	phys_addr_t phys_addr;
+ 	int ret;
+ 
+@@ -839,7 +839,7 @@ static struct resource pci_resource(struct pci_dev *pdev, int bar)
+ static int gen8_gmch_probe(struct i915_ggtt *ggtt)
+ {
+ 	struct drm_i915_private *i915 = ggtt->vm.i915;
+-	struct pci_dev *pdev = i915->drm.pdev;
++	struct pci_dev *pdev = to_pci_dev(i915->drm.dev);
+ 	unsigned int size;
+ 	u16 snb_gmch_ctl;
+ 
+@@ -983,7 +983,7 @@ static u64 iris_pte_encode(dma_addr_t addr,
+ static int gen6_gmch_probe(struct i915_ggtt *ggtt)
+ {
+ 	struct drm_i915_private *i915 = ggtt->vm.i915;
+-	struct pci_dev *pdev = i915->drm.pdev;
++	struct pci_dev *pdev = to_pci_dev(i915->drm.dev);
+ 	unsigned int size;
+ 	u16 snb_gmch_ctl;
+ 
+@@ -1046,7 +1046,7 @@ static int i915_gmch_probe(struct i915_ggtt *ggtt)
+ 	phys_addr_t gmadr_base;
+ 	int ret;
+ 
+-	ret = intel_gmch_probe(i915->bridge_dev, i915->drm.pdev, NULL);
++	ret = intel_gmch_probe(i915->bridge_dev, to_pci_dev(i915->drm.dev), NULL);
+ 	if (!ret) {
+ 		drm_err(&i915->drm, "failed to set up gmch\n");
+ 		return -EIO;
+@@ -1091,7 +1091,7 @@ static int ggtt_probe_hw(struct i915_ggtt *ggtt, struct intel_gt *gt)
+ 
+ 	ggtt->vm.gt = gt;
+ 	ggtt->vm.i915 = i915;
+-	ggtt->vm.dma = &i915->drm.pdev->dev;
++	ggtt->vm.dma = i915->drm.dev;
+ 
+ 	if (INTEL_GEN(i915) <= 5)
+ 		ret = i915_gmch_probe(ggtt);
+diff --git a/drivers/gpu/drm/i915/gt/intel_ppgtt.c b/drivers/gpu/drm/i915/gt/intel_ppgtt.c
+index 96b85a10ef33..3f940ae27028 100644
+--- a/drivers/gpu/drm/i915/gt/intel_ppgtt.c
++++ b/drivers/gpu/drm/i915/gt/intel_ppgtt.c
+@@ -301,7 +301,7 @@ void ppgtt_init(struct i915_ppgtt *ppgtt, struct intel_gt *gt)
+ 
+ 	ppgtt->vm.gt = gt;
+ 	ppgtt->vm.i915 = i915;
+-	ppgtt->vm.dma = &i915->drm.pdev->dev;
++	ppgtt->vm.dma = i915->drm.dev;
+ 	ppgtt->vm.total = BIT_ULL(INTEL_INFO(i915)->ppgtt_size);
+ 
+ 	i915_address_space_init(&ppgtt->vm, VM_CLASS_PPGTT);
+diff --git a/drivers/gpu/drm/i915/gt/intel_rc6.c b/drivers/gpu/drm/i915/gt/intel_rc6.c
+index 91c1f58c1b25..3b7e62debe7e 100644
+--- a/drivers/gpu/drm/i915/gt/intel_rc6.c
++++ b/drivers/gpu/drm/i915/gt/intel_rc6.c
+@@ -483,14 +483,14 @@ static bool rc6_supported(struct intel_rc6 *rc6)
+ static void rpm_get(struct intel_rc6 *rc6)
+ {
+ 	GEM_BUG_ON(rc6->wakeref);
+-	pm_runtime_get_sync(&rc6_to_i915(rc6)->drm.pdev->dev);
++	pm_runtime_get_sync(rc6_to_i915(rc6)->drm.dev);
+ 	rc6->wakeref = true;
+ }
+ 
+ static void rpm_put(struct intel_rc6 *rc6)
+ {
+ 	GEM_BUG_ON(!rc6->wakeref);
+-	pm_runtime_put(&rc6_to_i915(rc6)->drm.pdev->dev);
++	pm_runtime_put(rc6_to_i915(rc6)->drm.dev);
+ 	rc6->wakeref = false;
+ }
+ 
+diff --git a/drivers/gpu/drm/i915/gt/intel_reset.c b/drivers/gpu/drm/i915/gt/intel_reset.c
+index 107430e1e864..416415b4bbe3 100644
+--- a/drivers/gpu/drm/i915/gt/intel_reset.c
++++ b/drivers/gpu/drm/i915/gt/intel_reset.c
+@@ -177,7 +177,7 @@ static int i915_do_reset(struct intel_gt *gt,
+ 			 intel_engine_mask_t engine_mask,
+ 			 unsigned int retry)
+ {
+-	struct pci_dev *pdev = gt->i915->drm.pdev;
++	struct pci_dev *pdev = to_pci_dev(gt->i915->drm.dev);
+ 	int err;
+ 
+ 	/* Assert reset for at least 20 usec, and wait for acknowledgement. */
+@@ -206,7 +206,7 @@ static int g33_do_reset(struct intel_gt *gt,
+ 			intel_engine_mask_t engine_mask,
+ 			unsigned int retry)
+ {
+-	struct pci_dev *pdev = gt->i915->drm.pdev;
++	struct pci_dev *pdev = to_pci_dev(gt->i915->drm.dev);
+ 
+ 	pci_write_config_byte(pdev, I915_GDRST, GRDOM_RESET_ENABLE);
+ 	return wait_for_atomic(g4x_reset_complete(pdev), 50);
+@@ -216,7 +216,7 @@ static int g4x_do_reset(struct intel_gt *gt,
+ 			intel_engine_mask_t engine_mask,
+ 			unsigned int retry)
+ {
+-	struct pci_dev *pdev = gt->i915->drm.pdev;
++	struct pci_dev *pdev = to_pci_dev(gt->i915->drm.dev);
+ 	struct intel_uncore *uncore = gt->uncore;
+ 	int ret;
+ 
+-- 
 2.30.0
 
 _______________________________________________
