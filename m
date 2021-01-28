@@ -2,54 +2,41 @@ Return-Path: <SRS0=t6nC=G7=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 19FA6C433E0
-	for <intel-gfx@archiver.kernel.org>; Thu, 28 Jan 2021 13:54:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9A31AC433E0
+	for <intel-gfx@archiver.kernel.org>; Thu, 28 Jan 2021 13:54:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9844164DD8
-	for <intel-gfx@archiver.kernel.org>; Thu, 28 Jan 2021 13:54:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9844164DD8
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 10F4B64DD6
+	for <intel-gfx@archiver.kernel.org>; Thu, 28 Jan 2021 13:54:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 10F4B64DD6
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 19817898E4;
-	Thu, 28 Jan 2021 13:54:53 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 740ED898E4
- for <intel-gfx@lists.freedesktop.org>; Thu, 28 Jan 2021 13:54:52 +0000 (UTC)
-IronPort-SDR: 2qw7bF+wF1AkKwhWh4gVs/yGFrnLvNKOLG0KqRPCJ9H6kPwvNnNVBzk9e/lnfkEWyUAeMDdrBK
- nUVA6DNKtQoA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9877"; a="199067611"
-X-IronPort-AV: E=Sophos;i="5.79,382,1602572400"; d="scan'208";a="199067611"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jan 2021 05:54:52 -0800
-IronPort-SDR: Mm7gPm0MgWf1yF3EZk6YLHaX8IuWruvEpl/GRxggb2XEWeGhyBGOJctEDA5ZSQZpJ7tc+OqB8T
- K66iI/tjg17g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.79,382,1602572400"; d="scan'208";a="363737732"
-Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
- by fmsmga008.fm.intel.com with SMTP; 28 Jan 2021 05:54:49 -0800
-Received: by stinkbox (sSMTP sendmail emulation);
- Thu, 28 Jan 2021 15:54:48 +0200
-Date: Thu, 28 Jan 2021 15:54:48 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Imre Deak <imre.deak@intel.com>
-Message-ID: <YBLCKKLil4zto+U7@intel.com>
-References: <20210125173636.1733812-1-imre.deak@intel.com>
- <20210125173636.1733812-2-imre.deak@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 86EAA89BAF;
+	Thu, 28 Jan 2021 13:54:57 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 600A689BAF;
+ Thu, 28 Jan 2021 13:54:56 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 5DE4AA8169;
+ Thu, 28 Jan 2021 13:54:56 +0000 (UTC)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210125173636.1733812-2-imre.deak@intel.com>
-X-Patchwork-Hint: comment
-Subject: Re: [Intel-gfx] [PATCH 2/2] drm/i915: Fix the MST PBN divider
- calculation
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Matthew Auld" <matthew.auld@intel.com>
+Date: Thu, 28 Jan 2021 13:54:56 -0000
+Message-ID: <161184209638.13618.10283652381309810265@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20210127131417.393872-1-matthew.auld@intel.com>
+In-Reply-To: <20210127131417.393872-1-matthew.auld@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?series_starting_with_=5Bv5=2C1/8=5D_drm/i915=3A_make_local-memo?=
+ =?utf-8?q?ry_probing_a_GT_operation_=28rev2=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,83 +49,72 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, Ville Syrjala <ville.syrjala@intel.com>,
- stable@vger.kernel.org
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Jan 25, 2021 at 07:36:36PM +0200, Imre Deak wrote:
-> Atm the driver will calculate a wrong MST timeslots/MTP (aka time unit)
-> value for MST streams if the link parameters (link rate or lane count)
-> are limited in a way independent of the sink capabilities (reported by
-> DPCD).
-> =
+== Series Details ==
 
-> One example of such a limitation is when a MUX between the sink and
-> source connects only a limited number of lanes to the display and
-> connects the rest of the lanes to other peripherals (USB).
-> =
+Series: series starting with [v5,1/8] drm/i915: make local-memory probing a GT operation (rev2)
+URL   : https://patchwork.freedesktop.org/series/86355/
+State : warning
 
-> Another issue is that atm MST core calculates the divider based on the
-> backwards compatible DPCD (at address 0x0000) vs. the extended
-> capability info (at address 0x2200). This can result in leaving some
-> part of the MST BW unused (For instance in case of the WD19TB dock).
-> =
+== Summary ==
 
-> Fix the above two issues by calculating the PBN divider value based on
-> the rate and lane count link parameters that the driver uses for all
-> other computation.
-> =
+$ dim sparse --fast origin/drm-tip
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
+-
++drivers/gpu/drm/i915/gt/intel_engine_stats.h:27:9: warning: trying to copy expression type 31
++drivers/gpu/drm/i915/gt/intel_engine_stats.h:27:9: warning: trying to copy expression type 31
++drivers/gpu/drm/i915/gt/intel_engine_stats.h:27:9: warning: trying to copy expression type 31
++drivers/gpu/drm/i915/gt/intel_engine_stats.h:32:9: warning: trying to copy expression type 31
++drivers/gpu/drm/i915/gt/intel_engine_stats.h:32:9: warning: trying to copy expression type 31
++drivers/gpu/drm/i915/gt/intel_engine_stats.h:49:9: warning: trying to copy expression type 31
++drivers/gpu/drm/i915/gt/intel_engine_stats.h:49:9: warning: trying to copy expression type 31
++drivers/gpu/drm/i915/gt/intel_engine_stats.h:49:9: warning: trying to copy expression type 31
++drivers/gpu/drm/i915/gt/intel_engine_stats.h:56:9: warning: trying to copy expression type 31
++drivers/gpu/drm/i915/gt/intel_engine_stats.h:56:9: warning: trying to copy expression type 31
++drivers/gpu/drm/i915/gt/intel_reset.c:1327:5: warning: context imbalance in 'intel_gt_reset_trylock' - different lock contexts for basic block
++drivers/gpu/drm/i915/gvt/mmio.c:295:23: warning: memcpy with byte count of 279040
++drivers/gpu/drm/i915/i915_perf.c:1450:15: warning: memset with byte count of 16777216
++drivers/gpu/drm/i915/i915_perf.c:1504:15: warning: memset with byte count of 16777216
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'fwtable_read16' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'fwtable_read32' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'fwtable_read64' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'fwtable_read8' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'fwtable_write16' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'fwtable_write32' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'fwtable_write8' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen11_fwtable_read16' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen11_fwtable_read32' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen11_fwtable_read64' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen11_fwtable_read8' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen11_fwtable_write16' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen11_fwtable_write32' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen11_fwtable_write8' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen12_fwtable_read16' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen12_fwtable_read32' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen12_fwtable_read64' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen12_fwtable_read8' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen12_fwtable_write16' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen12_fwtable_write32' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen12_fwtable_write8' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen6_read16' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen6_read32' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen6_read64' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen6_read8' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen6_write16' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen6_write32' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen6_write8' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen8_write16' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen8_write32' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen8_write8' - different lock contexts for basic block
 
-> Bugzilla: https://gitlab.freedesktop.org/drm/intel/-/issues/2977
-> Cc: Lyude Paul <lyude@redhat.com>
-> Cc: Ville Syrjala <ville.syrjala@intel.com>
-> Cc: <stable@vger.kernel.org>
-> Signed-off-by: Imre Deak <imre.deak@intel.com>
 
-Looks all right to fix some of the immediate problems.
-
-Reviewed-by: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
-
-> ---
->  drivers/gpu/drm/i915/display/intel_dp_mst.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
-> =
-
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/dr=
-m/i915/display/intel_dp_mst.c
-> index d6a1b961a0e8..b4621ed0127e 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-> @@ -68,7 +68,9 @@ static int intel_dp_mst_compute_link_config(struct inte=
-l_encoder *encoder,
->  =
-
->  		slots =3D drm_dp_atomic_find_vcpi_slots(state, &intel_dp->mst_mgr,
->  						      connector->port,
-> -						      crtc_state->pbn, 0);
-> +						      crtc_state->pbn,
-> +						      drm_dp_get_vc_payload_bw(crtc_state->port_clock,
-> +									       crtc_state->lane_count));
->  		if (slots =3D=3D -EDEADLK)
->  			return slots;
->  		if (slots >=3D 0)
-> -- =
-
-> 2.25.1
-> =
-
-> _______________________________________________
-> Intel-gfx mailing list
-> Intel-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-
--- =
-
-Ville Syrj=E4l=E4
-Intel
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
