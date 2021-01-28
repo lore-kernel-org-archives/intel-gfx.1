@@ -2,52 +2,50 @@ Return-Path: <SRS0=t6nC=G7=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.7 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4AFDCC433DB
-	for <intel-gfx@archiver.kernel.org>; Thu, 28 Jan 2021 04:21:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1A47DC433E6
+	for <intel-gfx@archiver.kernel.org>; Thu, 28 Jan 2021 05:30:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C276F64DD1
-	for <intel-gfx@archiver.kernel.org>; Thu, 28 Jan 2021 04:21:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C276F64DD1
+	by mail.kernel.org (Postfix) with ESMTPS id AC8B564DCE
+	for <intel-gfx@archiver.kernel.org>; Thu, 28 Jan 2021 05:30:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AC8B564DCE
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E60B89E5A;
-	Thu, 28 Jan 2021 04:21:43 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 511B789E5A
- for <intel-gfx@lists.freedesktop.org>; Thu, 28 Jan 2021 04:21:42 +0000 (UTC)
-IronPort-SDR: EY8G6+peRGUOq6xDTh7WSd/DQ93WTP0eXouDjDZpYkETnSqIV2LcHEDkRFa4GLXzTvjL5gY4w2
- IxeBO8F7kkOQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9877"; a="176669243"
-X-IronPort-AV: E=Sophos;i="5.79,381,1602572400"; d="scan'208";a="176669243"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Jan 2021 20:21:40 -0800
-IronPort-SDR: ZUhD5GTqVOQkhH5dbwVsu0kR9cD7rpq67z2CNXajaxPhsiLhqDMFY01T6+8lclaTeicxq0B71b
- gwv/tUL2oSHw==
-X-IronPort-AV: E=Sophos;i="5.79,381,1602572400"; d="scan'208";a="407377690"
-Received: from lmrivera-mobl.amr.corp.intel.com (HELO ldmartin-desk1)
- ([10.209.63.13])
- by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Jan 2021 20:21:38 -0800
-Date: Wed, 27 Jan 2021 20:21:35 -0800
-From: Lucas De Marchi <lucas.demarchi@intel.com>
-To: =?utf-8?B?Sm9zw6k=?= Roberto de Souza <jose.souza@intel.com>
-Message-ID: <20210128042135.jr3wpwcbnis7dkw2@ldmartin-desk1>
-References: <20210127165402.117829-1-jose.souza@intel.com>
- <20210127165402.117829-3-jose.souza@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 297C46E85B;
+	Thu, 28 Jan 2021 05:30:36 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DDCE66E8C9
+ for <intel-gfx@lists.freedesktop.org>; Thu, 28 Jan 2021 05:30:35 +0000 (UTC)
+IronPort-SDR: ODhQSuWPBfvTY8zk5ergY5U3c6KMztkP3tfODK9qo1qirl/MPw0FsuwsZb59FoaqlM1xNlqIla
+ VZorKWQI65Lw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9877"; a="167279151"
+X-IronPort-AV: E=Sophos;i="5.79,381,1602572400"; d="scan'208";a="167279151"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Jan 2021 21:30:34 -0800
+IronPort-SDR: FR50fn/zK0lvFPhdGAzIE1rRtNRRqx0QDgiGNPZj11HSwlODHKY9TUDaytL+9Ckb//Ta7cDOA3
+ YCXXkK9lUaRg==
+X-IronPort-AV: E=Sophos;i="5.79,381,1602572400"; d="scan'208";a="430386065"
+Received: from kamathas-mobl1.amr.corp.intel.com (HELO
+ aswarup-mobl.amr.corp.intel.com) ([10.251.24.125])
+ by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Jan 2021 21:30:35 -0800
+From: Aditya Swarup <aditya.swarup@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Wed, 27 Jan 2021 21:30:16 -0800
+Message-Id: <20210128053024.23540-2-aditya.swarup@intel.com>
+X-Mailer: git-send-email 2.27.0
+In-Reply-To: <20210128053024.23540-1-aditya.swarup@intel.com>
+References: <20210128053024.23540-1-aditya.swarup@intel.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210127165402.117829-3-jose.souza@intel.com>
-Subject: Re: [Intel-gfx] [PATCH v2 3/4] drm/i915: Fail driver probe when
- unable to load DRAM information
+Subject: [Intel-gfx] [PATCH 1/9] drm/i915/adl_s: Update PHY_MISC programming
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,126 +58,40 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="iso-8859-1"; Format="flowed"
+Cc: Jani Nikula <jani.nikula@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jan 27, 2021 at 08:54:01AM -0800, Jose Souza wrote:
->DRAM information is required to properly program display.
->Before "drm/i915/gen11+: Only load DRAM information from pcode" we
->were failing driver load if unable to fetch DRAM information from
->pcode form GEN11+ but we should also extend it to GEN9 plaforms.
->
->Signed-off-by: Jos=E9 Roberto de Souza <jose.souza@intel.com>
-
-makes sense and seems correct. But this needs to be tested on DG1 that
-is not on CI and AFAIR misbehaved when trying to get this info from
-pcode.  If that is passing now,
-
-
-Reviewed-by: Lucas De Marchi <lucas.demarchi@intel.com>
-
-Lucas De Marchi
-
->---
-> drivers/gpu/drm/i915/i915_drv.c   |  6 +++++-
-> drivers/gpu/drm/i915/intel_dram.c | 13 +++++++++----
-> drivers/gpu/drm/i915/intel_dram.h |  2 +-
-> 3 files changed, 15 insertions(+), 6 deletions(-)
->
->diff --git a/drivers/gpu/drm/i915/i915_drv.c b/drivers/gpu/drm/i915/i915_d=
-rv.c
->index aec0e870dc25..7ff58ea30c7c 100644
->--- a/drivers/gpu/drm/i915/i915_drv.c
->+++ b/drivers/gpu/drm/i915/i915_drv.c
->@@ -622,12 +622,16 @@ static int i915_driver_hw_probe(struct drm_i915_priv=
-ate *dev_priv)
-> 	 * Fill the dram structure to get the system dram info. This will be
-> 	 * used for memory latency calculation.
-> 	 */
->-	intel_dram_detect(dev_priv);
->+	ret =3D intel_dram_detect(dev_priv);
->+	if (ret)
->+		goto err_dram;
->
-> 	intel_bw_init_hw(dev_priv);
->
-> 	return 0;
->
->+err_dram:
->+	intel_gvt_driver_remove(dev_priv);
-> err_msi:
-> 	if (pdev->msi_enabled)
-> 		pci_disable_msi(pdev);
->diff --git a/drivers/gpu/drm/i915/intel_dram.c b/drivers/gpu/drm/i915/inte=
-l_dram.c
->index 4d5ab206eacb..6ce56eedaf12 100644
->--- a/drivers/gpu/drm/i915/intel_dram.c
->+++ b/drivers/gpu/drm/i915/intel_dram.c
->@@ -484,7 +484,7 @@ static int gen12_get_dram_info(struct drm_i915_private=
- *i915)
-> 	return icl_pcode_read_mem_global_info(i915);
-> }
->
->-void intel_dram_detect(struct drm_i915_private *i915)
->+int intel_dram_detect(struct drm_i915_private *i915)
-> {
-> 	struct dram_info *dram_info =3D &i915->dram_info;
-> 	int ret;
->@@ -497,7 +497,7 @@ void intel_dram_detect(struct drm_i915_private *i915)
-> 	dram_info->is_16gb_dimm =3D !IS_GEN9_LP(i915);
->
-> 	if (INTEL_GEN(i915) < 9 || !HAS_DISPLAY(i915))
->-		return;
->+		return 0;
->
-> 	if (INTEL_GEN(i915) >=3D 12)
-> 		ret =3D gen12_get_dram_info(i915);
->@@ -507,13 +507,18 @@ void intel_dram_detect(struct drm_i915_private *i915)
-> 		ret =3D bxt_get_dram_info(i915);
-> 	else
-> 		ret =3D skl_get_dram_info(i915);
->-	if (ret)
->-		return;
->+
->+	if (ret) {
->+		drm_warn(&i915->drm, "Unable to load dram information\n");
->+		return ret;
->+	}
->
-> 	drm_dbg_kms(&i915->drm, "DRAM channels: %u\n", dram_info->num_channels);
->
-> 	drm_dbg_kms(&i915->drm, "DRAM 16Gb DIMMs: %s\n",
-> 		    yesno(dram_info->is_16gb_dimm));
->+
->+	return 0;
-> }
->
-> static u32 gen9_edram_size_mb(struct drm_i915_private *i915, u32 cap)
->diff --git a/drivers/gpu/drm/i915/intel_dram.h b/drivers/gpu/drm/i915/inte=
-l_dram.h
->index 4ba13c13162c..2a0f283b1a1d 100644
->--- a/drivers/gpu/drm/i915/intel_dram.h
->+++ b/drivers/gpu/drm/i915/intel_dram.h
->@@ -9,6 +9,6 @@
-> struct drm_i915_private;
->
-> void intel_dram_edram_detect(struct drm_i915_private *i915);
->-void intel_dram_detect(struct drm_i915_private *i915);
->+int intel_dram_detect(struct drm_i915_private *i915);
->
-> #endif /* __INTEL_DRAM_H__ */
->-- =
-
->2.30.0
->
->_______________________________________________
->Intel-gfx mailing list
->Intel-gfx@lists.freedesktop.org
->https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+RnJvbTogTWF0dCBSb3BlciA8bWF0dGhldy5kLnJvcGVyQGludGVsLmNvbT4KCkFETC1TIHN3aXRj
+aGVzIHVwIHdoaWNoIFBIWXMgYXJlIGNvbnNpZGVyZWQgYSBtYXN0ZXIgdG8gb3RoZXIgUEhZczsK
+UEhZLUMgaXMgbm8gbG9uZ2VyIGEgbWFzdGVyLCBidXQgUEhZLUQgaXMgbm93LgoKQnNwZWM6IDQ5
+MjkxCkNjOiBKYW5pIE5pa3VsYSA8amFuaS5uaWt1bGFAaW50ZWwuY29tPgpDYzogVmlsbGUgU3ly
+asOkbMOkIDx2aWxsZS5zeXJqYWxhQGxpbnV4LmludGVsLmNvbT4KQ2M6IEltcmUgRGVhayA8aW1y
+ZS5kZWFrQGludGVsLmNvbT4KQ2M6IEx1Y2FzIERlIE1hcmNoaSA8bHVjYXMuZGVtYXJjaGlAaW50
+ZWwuY29tPgpTaWduZWQtb2ZmLWJ5OiBNYXR0IFJvcGVyIDxtYXR0aGV3LmQucm9wZXJAaW50ZWwu
+Y29tPgpTaWduZWQtb2ZmLWJ5OiBBZGl0eWEgU3dhcnVwIDxhZGl0eWEuc3dhcnVwQGludGVsLmNv
+bT4KUmV2aWV3ZWQtYnk6IEFkaXR5YSBTd2FydXAgPGFkaXR5YS5zd2FydXBAaW50ZWwuY29tPgot
+LS0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfY29tYm9fcGh5LmMgfCAxMiAr
+KysrKysrKystLS0KIDEgZmlsZSBjaGFuZ2VkLCA5IGluc2VydGlvbnMoKyksIDMgZGVsZXRpb25z
+KC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9jb21i
+b19waHkuYyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfY29tYm9fcGh5LmMK
+aW5kZXggZGQ0NWNiYWZjZjQyLi5jNTU4MTNjNjE5NGEgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1
+L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfY29tYm9fcGh5LmMKKysrIGIvZHJpdmVycy9ncHUvZHJt
+L2k5MTUvZGlzcGxheS9pbnRlbF9jb21ib19waHkuYwpAQCAtMTg3LDEwICsxODcsMTYgQEAgc3Rh
+dGljIGJvb2wgaGFzX3BoeV9taXNjKHN0cnVjdCBkcm1faTkxNV9wcml2YXRlICppOTE1LCBlbnVt
+IHBoeSBwaHkpCiAJICogU29tZSBwbGF0Zm9ybXMgb25seSBleHBlY3QgUEhZX01JU0MgdG8gYmUg
+cHJvZ3JhbW1lZCBmb3IgUEhZLUEgYW5kCiAJICogUEhZLUIgYW5kIG1heSBub3QgZXZlbiBoYXZl
+IGluc3RhbmNlcyBvZiB0aGUgcmVnaXN0ZXIgZm9yIHRoZQogCSAqIG90aGVyIGNvbWJvIFBIWSdz
+LgorCSAqCisJICogQURMLVMgdGVjaG5pY2FsbHkgaGFzIHRocmVlIGluc3RhbmNlcyBvZiBQSFlf
+TUlTQywgYnV0IG9ubHkgcmVxdWlyZXMKKwkgKiB0aGF0IHdlIHByb2dyYW0gaXQgZm9yIFBIWSBB
+LgogCSAqLwotCWlmIChJU19KU0xfRUhMKGk5MTUpIHx8Ci0JICAgIElTX1JPQ0tFVExBS0UoaTkx
+NSkgfHwKLQkgICAgSVNfREcxKGk5MTUpKQorCisJaWYgKElTX0FMREVSTEFLRV9TKGk5MTUpKQor
+CQlyZXR1cm4gcGh5ID09IFBIWV9BOworCWVsc2UgaWYgKElTX0pTTF9FSEwoaTkxNSkgfHwKKwkJ
+IElTX1JPQ0tFVExBS0UoaTkxNSkgfHwKKwkJIElTX0RHMShpOTE1KSkKIAkJcmV0dXJuIHBoeSA8
+IFBIWV9DOwogCiAJcmV0dXJuIHRydWU7Ci0tIAoyLjI3LjAKCl9fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fCkludGVsLWdmeCBtYWlsaW5nIGxpc3QKSW50ZWwt
+Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
+YWlsbWFuL2xpc3RpbmZvL2ludGVsLWdmeAo=
