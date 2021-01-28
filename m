@@ -7,45 +7,45 @@ X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 65045C433E6
-	for <intel-gfx@archiver.kernel.org>; Thu, 28 Jan 2021 19:24:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 32BD7C433DB
+	for <intel-gfx@archiver.kernel.org>; Thu, 28 Jan 2021 19:24:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1165F64E42
-	for <intel-gfx@archiver.kernel.org>; Thu, 28 Jan 2021 19:24:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1165F64E42
+	by mail.kernel.org (Postfix) with ESMTPS id BC6C864E37
+	for <intel-gfx@archiver.kernel.org>; Thu, 28 Jan 2021 19:24:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BC6C864E37
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 63D956E9D7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC16F6E9E6;
 	Thu, 28 Jan 2021 19:24:39 +0000 (UTC)
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BBC9A6E9CF
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5AF8B6E9CF
  for <intel-gfx@lists.freedesktop.org>; Thu, 28 Jan 2021 19:24:38 +0000 (UTC)
-IronPort-SDR: iraUkg4wliUl4xL6Fx37UdvB4x1cI4KdfoD/iR6xxZPJTOleo1JutCOAEyCfFATo6a2wUS9HNM
- IT3D3R+SlYSA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9878"; a="244384033"
-X-IronPort-AV: E=Sophos;i="5.79,383,1602572400"; d="scan'208";a="244384033"
+IronPort-SDR: 4sSCfD+m1KN6Uh05OqWaRPUb+JM9qn3wvoivCNGQxkA+PfokWDwYStkqQywAVxLXKF1sFKug1k
+ x46EcizPLVFQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9878"; a="244384030"
+X-IronPort-AV: E=Sophos;i="5.79,383,1602572400"; d="scan'208";a="244384030"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  28 Jan 2021 11:24:37 -0800
-IronPort-SDR: 1SKqWopOb+isLtfvzPyvRT6z7Pv/CfK7eaOF/LwrbIFhuexCtA28H5cM2N6NEXzqvpNsjTgSuJ
- JkTH99li9oBw==
-X-IronPort-AV: E=Sophos;i="5.79,383,1602572400"; d="scan'208";a="411110152"
+IronPort-SDR: 6iWty1rckElKr/urcLFX9M3AU2o//z77ii8+XIownXlZqax8VMuYYf2FD2N7wOcAOBdVN2x2sF
+ v1X1Hs5gzXNg==
+X-IronPort-AV: E=Sophos;i="5.79,383,1602572400"; d="scan'208";a="411110145"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.168])
  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jan 2021 11:24:37 -0800
+ 28 Jan 2021 11:24:36 -0800
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 28 Jan 2021 11:23:59 -0800
-Message-Id: <20210128192413.1715802-5-matthew.d.roper@intel.com>
+Date: Thu, 28 Jan 2021 11:23:57 -0800
+Message-Id: <20210128192413.1715802-3-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20210128192413.1715802-1-matthew.d.roper@intel.com>
 References: <20210128192413.1715802-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 04/18] drm/i915/display13: Define plane
- capabilities
+Subject: [Intel-gfx] [PATCH 02/18] drm/i915/display13: Handle proper AUX
+ interrupt bits
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,92 +58,57 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Display13's plane support is identical to RKL --- 5 universal + 1 cursor
-with NV12 UV support on planes 1-3 and NV12 Y support on planes 4-5.
+Display13 has new AUX interrupt bits for DDI-D and DDI-E.
 
-Bspec: 53657
-Bspec: 49251
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>
+Bspec: 50064
+Cc: Anusha Srivatsa <anusha.srivatsa@intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_sprite.c | 16 ++++++++++++----
- drivers/gpu/drm/i915/i915_irq.c             |  2 +-
- drivers/gpu/drm/i915/intel_device_info.c    |  2 +-
- 3 files changed, 14 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/i915/i915_irq.c | 12 +++++++++++-
+ drivers/gpu/drm/i915/i915_reg.h |  2 ++
+ 2 files changed, 13 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_sprite.c b/drivers/gpu/drm/i915/display/intel_sprite.c
-index ec931a08ff28..81bb5eb1cd15 100644
---- a/drivers/gpu/drm/i915/display/intel_sprite.c
-+++ b/drivers/gpu/drm/i915/display/intel_sprite.c
-@@ -382,7 +382,7 @@ int intel_plane_check_src_coordinates(struct intel_plane_state *plane_state)
- 
- static u8 icl_nv12_y_plane_mask(struct drm_i915_private *i915)
- {
--	if (HAS_D12_PLANE_MINIMIZATION(i915))
-+	if (HAS_DISPLAY13(i915) || HAS_D12_PLANE_MINIMIZATION(i915))
- 		return BIT(PLANE_SPRITE2) | BIT(PLANE_SPRITE3);
- 	else
- 		return BIT(PLANE_SPRITE4) | BIT(PLANE_SPRITE5);
-@@ -2322,6 +2322,11 @@ static int skl_plane_check_fb(const struct intel_crtc_state *crtc_state,
- 	}
- 
- 	if (drm_rotation_90_or_270(rotation)) {
-+		if (HAS_DISPLAY13(dev_priv)) {
-+			DRM_DEBUG_KMS("90/270 rotation not supported on this platform\n");
-+			return -EINVAL;
-+		}
-+
- 		if (fb->modifier != I915_FORMAT_MOD_Y_TILED &&
- 		    fb->modifier != I915_FORMAT_MOD_Yf_TILED) {
- 			drm_dbg_kms(&dev_priv->drm,
-@@ -3338,9 +3343,12 @@ skl_universal_plane_create(struct drm_i915_private *dev_priv,
- 	if (ret)
- 		goto fail;
- 
--	supported_rotations =
--		DRM_MODE_ROTATE_0 | DRM_MODE_ROTATE_90 |
--		DRM_MODE_ROTATE_180 | DRM_MODE_ROTATE_270;
-+	if (HAS_DISPLAY13(dev_priv))
-+		supported_rotations = DRM_MODE_ROTATE_0 | DRM_MODE_ROTATE_180;
-+	else
-+		supported_rotations =
-+			DRM_MODE_ROTATE_0 | DRM_MODE_ROTATE_90 |
-+			DRM_MODE_ROTATE_180 | DRM_MODE_ROTATE_270;
- 
- 	if (INTEL_GEN(dev_priv) >= 10)
- 		supported_rotations |= DRM_MODE_REFLECT_X;
 diff --git a/drivers/gpu/drm/i915/i915_irq.c b/drivers/gpu/drm/i915/i915_irq.c
-index 407b42706a14..bb4fad71c429 100644
+index 06937a2d2714..1bced71470a5 100644
 --- a/drivers/gpu/drm/i915/i915_irq.c
 +++ b/drivers/gpu/drm/i915/i915_irq.c
-@@ -2290,7 +2290,7 @@ static u32 gen8_de_port_aux_mask(struct drm_i915_private *dev_priv)
- 
- static u32 gen8_de_pipe_fault_mask(struct drm_i915_private *dev_priv)
+@@ -2251,7 +2251,17 @@ static u32 gen8_de_port_aux_mask(struct drm_i915_private *dev_priv)
  {
--	if (HAS_D12_PLANE_MINIMIZATION(dev_priv))
-+	if (HAS_DISPLAY13(dev_priv) || HAS_D12_PLANE_MINIMIZATION(dev_priv))
- 		return RKL_DE_PIPE_IRQ_FAULT_ERRORS;
- 	else if (INTEL_GEN(dev_priv) >= 11)
- 		return GEN11_DE_PIPE_IRQ_FAULT_ERRORS;
-diff --git a/drivers/gpu/drm/i915/intel_device_info.c b/drivers/gpu/drm/i915/intel_device_info.c
-index 92ad3e7d1f6f..200d4eceaa4e 100644
---- a/drivers/gpu/drm/i915/intel_device_info.c
-+++ b/drivers/gpu/drm/i915/intel_device_info.c
-@@ -265,7 +265,7 @@ void intel_device_info_runtime_init(struct drm_i915_private *dev_priv)
+ 	u32 mask;
  
- 	BUILD_BUG_ON(BITS_PER_TYPE(intel_engine_mask_t) < I915_NUM_ENGINES);
- 
--	if (HAS_D12_PLANE_MINIMIZATION(dev_priv))
-+	if (HAS_DISPLAY13(dev_priv) || HAS_D12_PLANE_MINIMIZATION(dev_priv))
- 		for_each_pipe(dev_priv, pipe)
- 			runtime->num_sprites[pipe] = 4;
- 	else if (INTEL_GEN(dev_priv) >= 11)
+-	if (INTEL_GEN(dev_priv) >= 12)
++	if (HAS_DISPLAY13(dev_priv))
++		return TGL_DE_PORT_AUX_DDIA |
++			TGL_DE_PORT_AUX_DDIB |
++			TGL_DE_PORT_AUX_DDIC |
++			D13_DE_PORT_AUX_DDID |
++			D13_DE_PORT_AUX_DDIE |
++			TGL_DE_PORT_AUX_USBC1 |
++			TGL_DE_PORT_AUX_USBC2 |
++			TGL_DE_PORT_AUX_USBC3 |
++			TGL_DE_PORT_AUX_USBC4;
++	else if (INTEL_GEN(dev_priv) >= 12)
+ 		return TGL_DE_PORT_AUX_DDIA |
+ 			TGL_DE_PORT_AUX_DDIB |
+ 			TGL_DE_PORT_AUX_DDIC |
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index 3031897239a0..10fd0e3af2d4 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -7858,6 +7858,8 @@ enum {
+ #define  TGL_DE_PORT_AUX_USBC3		(1 << 10)
+ #define  TGL_DE_PORT_AUX_USBC2		(1 << 9)
+ #define  TGL_DE_PORT_AUX_USBC1		(1 << 8)
++#define  D13_DE_PORT_AUX_DDIE		(1 << 13)
++#define  D13_DE_PORT_AUX_DDID		(1 << 12)
+ #define  TGL_DE_PORT_AUX_DDIC		(1 << 2)
+ #define  TGL_DE_PORT_AUX_DDIB		(1 << 1)
+ #define  TGL_DE_PORT_AUX_DDIA		(1 << 0)
 -- 
 2.25.4
 
