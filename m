@@ -2,57 +2,71 @@ Return-Path: <SRS0=t6nC=G7=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.3 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1F437C433E0
-	for <intel-gfx@archiver.kernel.org>; Thu, 28 Jan 2021 16:42:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 54E8EC433DB
+	for <intel-gfx@archiver.kernel.org>; Thu, 28 Jan 2021 16:43:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7D8F364E07
-	for <intel-gfx@archiver.kernel.org>; Thu, 28 Jan 2021 16:42:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7D8F364E07
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 10FE860C3D
+	for <intel-gfx@archiver.kernel.org>; Thu, 28 Jan 2021 16:43:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 10FE860C3D
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 01CA06E221;
-	Thu, 28 Jan 2021 16:42:53 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E5C06E221
- for <intel-gfx@lists.freedesktop.org>; Thu, 28 Jan 2021 16:42:51 +0000 (UTC)
-IronPort-SDR: g2s0y0QFUgqxykfHo5xy2+gaRooKb+NYOQwqL2iV4JfwEgPj9QS+vjmCvlHBJepnBZvEnJDLiW
- JSm31W50Mesg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9878"; a="265098686"
-X-IronPort-AV: E=Sophos;i="5.79,383,1602572400"; d="scan'208";a="265098686"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jan 2021 08:42:50 -0800
-IronPort-SDR: P8wEcbQ+PH3EWLOBPBtluGSx4mobr+d1NzSXFR2USj/qGvJohMX8nhFtT3RTfIhVNCo7GXLDOl
- ehj1fLiRXWSA==
-X-IronPort-AV: E=Sophos;i="5.79,383,1602572400"; d="scan'208";a="363840147"
-Received: from nkaspi-mobl.ger.corp.intel.com (HELO [10.214.246.60])
- ([10.214.246.60])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jan 2021 08:42:47 -0800
-To: Chris Wilson <chris@chris-wilson.co.uk>, intel-gfx@lists.freedesktop.org
-References: <20210125140136.10494-1-chris@chris-wilson.co.uk>
- <20210125140136.10494-20-chris@chris-wilson.co.uk>
- <7537d75b-3292-05aa-1ef2-b65aca4d3d73@linux.intel.com>
- <161185117340.2943.10174190803342821813@build.alporthouse.com>
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Organization: Intel Corporation UK Plc
-Message-ID: <f4f42b32-d536-6f2f-0118-be7fedcd94db@linux.intel.com>
-Date: Thu, 28 Jan 2021 16:42:44 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.5.0
-MIME-Version: 1.0
-In-Reply-To: <161185117340.2943.10174190803342821813@build.alporthouse.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D8436E999;
+	Thu, 28 Jan 2021 16:43:44 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D95786E999
+ for <intel-gfx@lists.freedesktop.org>; Thu, 28 Jan 2021 16:43:43 +0000 (UTC)
+IronPort-SDR: sxKUfMi1hhQHFadVKP7/DCMozX0jh/tyBLyJN5BBgLfORXAV2o/RaBtWUdgyjbnEIG96J2N2X2
+ K6Bu8LshtY6g==
+X-IronPort-AV: E=McAfee;i="6000,8403,9878"; a="159438738"
+X-IronPort-AV: E=Sophos;i="5.79,383,1602572400"; d="scan'208";a="159438738"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Jan 2021 08:43:43 -0800
+IronPort-SDR: AyFnBy5CMSbrL+SrD2PhqTLZ9li882cTMKju1Ja2Vm0M4aBuYAtjsQrdEa3KkYk6eEd6mY2DYp
+ ZaTuFhMdrjJg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.79,383,1602572400"; d="scan'208";a="578684685"
+Received: from orsmsx604.amr.corp.intel.com ([10.22.229.17])
+ by fmsmga005.fm.intel.com with ESMTP; 28 Jan 2021 08:43:43 -0800
+Received: from orsmsx611.amr.corp.intel.com (10.22.229.24) by
+ ORSMSX604.amr.corp.intel.com (10.22.229.17) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2106.2; Thu, 28 Jan 2021 08:43:42 -0800
+Received: from orsmsx610.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX611.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2106.2; Thu, 28 Jan 2021 08:43:42 -0800
+Received: from orsmsx610.amr.corp.intel.com ([10.22.229.23]) by
+ ORSMSX610.amr.corp.intel.com ([10.22.229.23]) with mapi id 15.01.2106.002;
+ Thu, 28 Jan 2021 08:43:42 -0800
+From: "Souza, Jose" <jose.souza@intel.com>
+To: "De Marchi, Lucas" <lucas.demarchi@intel.com>
+Thread-Topic: [Intel-gfx] [PATCH v2 3/4] drm/i915: Fail driver probe when
+ unable to load DRAM information
+Thread-Index: AQHW9MzdExYaDQwVg0OclRf6DFjViKo89qOAgADPtQA=
+Date: Thu, 28 Jan 2021 16:43:42 +0000
+Message-ID: <4c638aa3c9b9e9c0eb5c7089f28659b5acfb3b79.camel@intel.com>
+References: <20210127165402.117829-1-jose.souza@intel.com>
+ <20210127165402.117829-3-jose.souza@intel.com>
+ <20210128042135.jr3wpwcbnis7dkw2@ldmartin-desk1>
+In-Reply-To: <20210128042135.jr3wpwcbnis7dkw2@ldmartin-desk1>
+Accept-Language: en-US
 Content-Language: en-US
-Subject: Re: [Intel-gfx] [PATCH 20/41] drm/i915: Replace priolist rbtree
- with a skiplist
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.1.200.100]
+Content-ID: <32781BA059C2FC48ABA1475B109A7664@intel.com>
+MIME-Version: 1.0
+Subject: Re: [Intel-gfx] [PATCH v2 3/4] drm/i915: Fail driver probe when
+ unable to load DRAM information
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,269 +79,85 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: thomas.hellstrom@intel.com
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Cc: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-
-On 28/01/2021 16:26, Chris Wilson wrote:
-> Quoting Tvrtko Ursulin (2021-01-28 15:56:19)
->> On 25/01/2021 14:01, Chris Wilson wrote:
->>> diff --git a/drivers/gpu/drm/i915/i915_priolist_types.h b/drivers/gpu/drm/i915/i915_priolist_types.h
->>> index bc2fa84f98a8..1200c3df6a4a 100644
->>> --- a/drivers/gpu/drm/i915/i915_priolist_types.h
->>> +++ b/drivers/gpu/drm/i915/i915_priolist_types.h
->>> @@ -38,10 +38,36 @@ enum {
->>>    #define I915_PRIORITY_UNPREEMPTABLE INT_MAX
->>>    #define I915_PRIORITY_BARRIER (I915_PRIORITY_UNPREEMPTABLE - 1)
->>>    
->>> +#ifdef CONFIG_64BIT
->>> +#define I915_PRIOLIST_HEIGHT 12
->>> +#else
->>> +#define I915_PRIOLIST_HEIGHT 11
->>> +#endif
->>
->> I did not get this. On one hand I could think pointers are larger on
->> 64-bit so go for fewer levels, if size was a concern. But on the other
->> hand 32-bit is less important these days, definitely much less as a
->> performance platform. So going for less memory use => worse performance
->> on a less important platform, which typically could be more memory
->> constrained? Not sure I see it as that important either way to be
->> distinctive but a comment would satisfy me.
-> 
-> Just aligned to the cacheline. The struct is 128B on 64b and 64B on 32b.
-> On 64B, we will scale to around 16 million requests in flight and 4
-> million on 32b. Which should be enough.
-> 
-> If we shrunk 64b to a 64B node, we would only scale to 256 requests
-> which limit we definitely will exceed.
-
-Ok thanks, pouring it into a comment is implied.
-
-> 
->>>    struct i915_priolist {
->>>        struct list_head requests;
->>
->> What would be on this list? Request can only be on one at a time, so I
->> was thinking these nodes would have pointers to list of that priority,
->> rather than lists themselves. Assuming there can be multiple nodes of
->> the same priority in the 2d hierarcy. Possibly I don't understand the
->> layout.
-> 
-> A request is only on one list (queue, active, hold). But we may still
-> have more than one request at the same deadline, though that will likely
-> be limited to priority-inheritance and timeslice deferrals.
-> 
-> Since we would need pointer to the request, we could only reclaim a
-> single pointer here, which is not enough to warrant reducing the overall
-> node size. And while there is at least one user of request->sched.link,
-> the list maintenance will still be incurred. Using request->sched.link
-> remains a convenient interface.
-
-Lost you.
-
-Is the data structure like this and I will limit to priorities for 
-simplicity:
-
-    Level1:	[-1]------------->[1]
-    Level0: 	[-1]---->[0]----->[1]
-[SENTINEL]
-
-Each of the boxes is struct i915_priolist?
-
-Sentinel contains pointers to first i915_priolist for each level. Or 
-maybe it could contain just a single pointer to highest level (most 
-sparse) list.
-
-And then each box is i915_priolist, single linked to next, in order.
-
-But it should also have a single pointer for down, or up (or both)? I 
-don't understand why you have up to "max levels" pointers in each.
-
-And each box should then contain a pointer to a list of requests. I 
-cannot each have it's own list since there are duplicates.
-
-But obviously I am understanding something way wrong.
-
-> 
->>
->>> -     struct rb_node node;
->>>        int priority;
->>> +
->>> +     int level;
->>> +     struct i915_priolist *next[I915_PRIOLIST_HEIGHT];
->>
->> Does every node need maximum height or you could allocated depending on
->> current height?
-> 
-> Every slab allocation here is a power of 2, so there are only a few
-> different options that are worthwhile (on 64b the only other choice is
-> [4], unless you want to go larger to [28]). It did not feel like enough
-> benefit to justify the extra code.
-> 
->>> -static void assert_priolists(struct i915_sched_engine * const se)
->>> -{
->>> -     struct rb_node *rb;
->>> -     long last_prio;
->>> -
->>> -     if (!IS_ENABLED(CONFIG_DRM_I915_DEBUG_GEM))
->>> -             return;
->>> -
->>> -     GEM_BUG_ON(rb_first_cached(&se->queue) !=
->>> -                rb_first(&se->queue.rb_root));
->>> -
->>> -     last_prio = INT_MAX;
->>> -     for (rb = rb_first_cached(&se->queue); rb; rb = rb_next(rb)) {
->>> -             const struct i915_priolist *p = to_priolist(rb);
->>> -
->>> -             GEM_BUG_ON(p->priority > last_prio);
->>> -             last_prio = p->priority;
->>> -     }
->>> +     root->prng = next_pseudo_random32(root->prng);
->>> +     return  __ffs(root->prng) / 2;
->>
->> Where is the relationship to I915_PRIOLIST_HEIGHT? Feels root->prng %
->> I915_PRIOLIST_HEIGHT would be more obvious here unless I am terribly
->> mistaken. Or at least put a comment saying why the hack.
-> 
-> HEIGHT is the maximum possible for our struct. skiplists only want to
-> increment the height of the tree one step at a time. So we choose a level
-> with decreasing probability, and then limit that to the maximum height of
-> the current tree + 1, clamped to HEIGHT.
-> 
-> You might notice that unlike traditional skiplists, this uses a
-
-That's optimistic, that I would notice that. I'll stick to the basics 
-for now. :)
-
-Regards,
-
-Tvrtko
-
-> probability of 0.25 for each additional level. A neat trick discovered by
-> Con Kolivas (I haven't found it mentioned elsewhere) as the cost of the
-> extra level (using P=.5) is the same as the extra chain length with
-> P=.25. So you can scale to higher number of requests by packing more
-> requests into each level.
-> 
-> So that is split between randomly choosing a level and then working out
-> the height of the node.
-> 
->>>    static struct list_head *
->>>    lookup_priolist(struct intel_engine_cs *engine, int prio)
->>>    {
->>> +     struct i915_priolist *update[I915_PRIOLIST_HEIGHT];
->>>        struct i915_sched_engine * const se = &engine->active;
->>> -     struct i915_priolist *p;
->>> -     struct rb_node **parent, *rb;
->>> -     bool first = true;
->>> -
->>> -     lockdep_assert_held(&engine->active.lock);
->>> -     assert_priolists(se);
->>> +     struct i915_priolist_root *root = &se->queue;
->>> +     struct i915_priolist *pl, *tmp;
->>> +     int lvl;
->>>    
->>> +     lockdep_assert_held(&se->lock);
->>>        if (unlikely(se->no_priolist))
->>>                prio = I915_PRIORITY_NORMAL;
->>>    
->>> +     for_each_priolist(pl, root) { /* recycle any empty elements before us */
->>> +             if (pl->priority >= prio || !list_empty(&pl->requests))
->>> +                     break;
->>> +
->>> +             i915_priolist_advance(root, pl);
->>> +     }
->>> +
->>>    find_priolist:
->>> -     /* most positive priority is scheduled first, equal priorities fifo */
->>> -     rb = NULL;
->>> -     parent = &se->queue.rb_root.rb_node;
->>> -     while (*parent) {
->>> -             rb = *parent;
->>> -             p = to_priolist(rb);
->>> -             if (prio > p->priority) {
->>> -                     parent = &rb->rb_left;
->>> -             } else if (prio < p->priority) {
->>> -                     parent = &rb->rb_right;
->>> -                     first = false;
->>> -             } else {
->>> -                     return &p->requests;
->>> -             }
->>> +     pl = &root->sentinel;
->>> +     lvl = pl->level;
->>> +     while (lvl >= 0) {
->>> +             while (tmp = pl->next[lvl], tmp->priority >= prio)
->>> +                     pl = tmp;
->>> +             if (pl->priority == prio)
->>> +                     goto out;
->>> +             update[lvl--] = pl;
->>>        }
->>>    
->>>        if (prio == I915_PRIORITY_NORMAL) {
->>> -             p = &se->default_priolist;
->>> +             pl = &se->default_priolist;
->>> +     } else if (!pl_empty(&root->sentinel.requests)) {
->>> +             pl = pl_pop(&root->sentinel.requests);
->>>        } else {
->>> -             p = kmem_cache_alloc(global.slab_priorities, GFP_ATOMIC);
->>> +             pl = kmem_cache_alloc(global.slab_priorities, GFP_ATOMIC);
->>>                /* Convert an allocation failure to a priority bump */
->>> -             if (unlikely(!p)) {
->>> +             if (unlikely(!pl)) {
->>>                        prio = I915_PRIORITY_NORMAL; /* recurses just once */
->>>    
->>> -                     /* To maintain ordering with all rendering, after an
->>> +                     /*
->>> +                      * To maintain ordering with all rendering, after an
->>>                         * allocation failure we have to disable all scheduling.
->>>                         * Requests will then be executed in fifo, and schedule
->>>                         * will ensure that dependencies are emitted in fifo.
->>> @@ -260,18 +304,103 @@ lookup_priolist(struct intel_engine_cs *engine, int prio)
->>>                }
->>>        }
->>>    
->>> -     p->priority = prio;
->>> -     INIT_LIST_HEAD(&p->requests);
->>> +     pl->priority = prio;
->>> +     INIT_LIST_HEAD(&pl->requests);
->>>    
->>> -     rb_link_node(&p->node, rb, parent);
->>> -     rb_insert_color_cached(&p->node, &se->queue, first);
->>> +     lvl = random_level(root);
->>> +     if (lvl > root->sentinel.level) {
->>> +             if (root->sentinel.level < I915_PRIOLIST_HEIGHT - 1) {
->>> +                     lvl = ++root->sentinel.level;
->>
->> root->sentinel.level is maximum currently populated height? So if
->> random_level said insert at 4 but there are currently only 2 levels,
->> height will grow by one only?
-> 
-> Yes. The idea is keep the number of next[] as small as possible for the
-> number of nodes in the tree. (Since the height of the tree is the
-> constant overhead in list traversal.)
-> 
->>> +                     update[lvl] = &root->sentinel;
->>> +             } else {
->>> +                     lvl = I915_PRIOLIST_HEIGHT - 1;
->>
->> But if maximum level already has been reached then this branch does not
->> set anything to update[],
-> 
-> at the next level.
-> 
->> relying on the while loop earlier in the
->> function has populated it? How should I think of the update array?
-> 
-> The update[] is the array of nodes just before the position we need to
-> insert. So update[] needs only be the height of the tree at that time,
-> and if we decide to grow the tree, update[height] will be the root node,
-> as we will be the first in that level.
-> -Chris
-> 
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+T24gV2VkLCAyMDIxLTAxLTI3IGF0IDIwOjIxIC0wODAwLCBMdWNhcyBEZSBNYXJjaGkgd3JvdGU6
+DQo+IE9uIFdlZCwgSmFuIDI3LCAyMDIxIGF0IDA4OjU0OjAxQU0gLTA4MDAsIEpvc2UgU291emEg
+d3JvdGU6DQo+ID4gRFJBTSBpbmZvcm1hdGlvbiBpcyByZXF1aXJlZCB0byBwcm9wZXJseSBwcm9n
+cmFtIGRpc3BsYXkuDQo+ID4gQmVmb3JlICJkcm0vaTkxNS9nZW4xMSs6IE9ubHkgbG9hZCBEUkFN
+IGluZm9ybWF0aW9uIGZyb20gcGNvZGUiIHdlDQo+ID4gd2VyZSBmYWlsaW5nIGRyaXZlciBsb2Fk
+IGlmIHVuYWJsZSB0byBmZXRjaCBEUkFNIGluZm9ybWF0aW9uIGZyb20NCj4gPiBwY29kZSBmb3Jt
+IEdFTjExKyBidXQgd2Ugc2hvdWxkIGFsc28gZXh0ZW5kIGl0IHRvIEdFTjkgcGxhZm9ybXMuDQo+
+ID4gDQo+ID4gU2lnbmVkLW9mZi1ieTogSm9zw6kgUm9iZXJ0byBkZSBTb3V6YSA8am9zZS5zb3V6
+YUBpbnRlbC5jb20+DQo+IA0KPiBtYWtlcyBzZW5zZSBhbmQgc2VlbXMgY29ycmVjdC4gQnV0IHRo
+aXMgbmVlZHMgdG8gYmUgdGVzdGVkIG9uIERHMSB0aGF0DQo+IGlzIG5vdCBvbiBDSSBhbmQgQUZB
+SVIgbWlzYmVoYXZlZCB3aGVuIHRyeWluZyB0byBnZXQgdGhpcyBpbmZvIGZyb20NCj4gcGNvZGUu
+ICBJZiB0aGF0IGlzIHBhc3Npbmcgbm93LA0KDQpPa2F5LCB3aWxsIHNlbmQgdGhlIDMgb3RoZXIg
+YW5kIG1lcmdlIGFzIHNvb24gYXMgSSBnZXQgQ0kgcmVzdWx0cy4NCldpbGwgZG8gc29tZSBtb3Jl
+IHRlc3Rpbmcgd2l0aCB0aGlzIG9uZSBiZWZvcmUgbWVyZ2luZyBpdCwgaXQgbWlnaHQgYmUgY2F1
+c2luZyBzb21lIHJlZ3Jlc3Npb24gaW4gZmktZ2xrLWRzaS4NCg0KdGhhbmtzIGZvciB0aGUgcmV2
+aWV3cy4NCg0KPiANCj4gDQo+IFJldmlld2VkLWJ5OiBMdWNhcyBEZSBNYXJjaGkgPGx1Y2FzLmRl
+bWFyY2hpQGludGVsLmNvbT4NCj4gDQo+IEx1Y2FzIERlIE1hcmNoaQ0KPiANCj4gPiAtLS0NCj4g
+PiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X2Rydi5jICAgfCAgNiArKysrKy0NCj4gPiBkcml2
+ZXJzL2dwdS9kcm0vaTkxNS9pbnRlbF9kcmFtLmMgfCAxMyArKysrKysrKystLS0tDQo+ID4gZHJp
+dmVycy9ncHUvZHJtL2k5MTUvaW50ZWxfZHJhbS5oIHwgIDIgKy0NCj4gPiAzIGZpbGVzIGNoYW5n
+ZWQsIDE1IGluc2VydGlvbnMoKyksIDYgZGVsZXRpb25zKC0pDQo+ID4gDQo+ID4gZGlmZiAtLWdp
+dCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfZHJ2LmMgYi9kcml2ZXJzL2dwdS9kcm0vaTkx
+NS9pOTE1X2Rydi5jDQo+ID4gaW5kZXggYWVjMGU4NzBkYzI1Li43ZmY1OGVhMzBjN2MgMTAwNjQ0
+DQo+ID4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV9kcnYuYw0KPiA+ICsrKyBiL2Ry
+aXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfZHJ2LmMNCj4gPiBAQCAtNjIyLDEyICs2MjIsMTYgQEAg
+c3RhdGljIGludCBpOTE1X2RyaXZlcl9od19wcm9iZShzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZSAq
+ZGV2X3ByaXYpDQo+ID4gCSAqIEZpbGwgdGhlIGRyYW0gc3RydWN0dXJlIHRvIGdldCB0aGUgc3lz
+dGVtIGRyYW0gaW5mby4gVGhpcyB3aWxsIGJlDQo+ID4gCSAqIHVzZWQgZm9yIG1lbW9yeSBsYXRl
+bmN5IGNhbGN1bGF0aW9uLg0KPiA+IAkgKi8NCj4gPiAtCWludGVsX2RyYW1fZGV0ZWN0KGRldl9w
+cml2KTsNCj4gPiArCXJldCA9IGludGVsX2RyYW1fZGV0ZWN0KGRldl9wcml2KTsNCj4gPiArCWlm
+IChyZXQpDQo+ID4gKwkJZ290byBlcnJfZHJhbTsNCj4gPiANCj4gPiAJaW50ZWxfYndfaW5pdF9o
+dyhkZXZfcHJpdik7DQo+ID4gDQo+ID4gCXJldHVybiAwOw0KPiA+IA0KPiA+ICtlcnJfZHJhbToN
+Cj4gPiArCWludGVsX2d2dF9kcml2ZXJfcmVtb3ZlKGRldl9wcml2KTsNCj4gPiBlcnJfbXNpOg0K
+PiA+IAlpZiAocGRldi0+bXNpX2VuYWJsZWQpDQo+ID4gCQlwY2lfZGlzYWJsZV9tc2kocGRldik7
+DQo+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2ludGVsX2RyYW0uYyBiL2Ry
+aXZlcnMvZ3B1L2RybS9pOTE1L2ludGVsX2RyYW0uYw0KPiA+IGluZGV4IDRkNWFiMjA2ZWFjYi4u
+NmNlNTZlZWRhZjEyIDEwMDY0NA0KPiA+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2ludGVs
+X2RyYW0uYw0KPiA+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2ludGVsX2RyYW0uYw0KPiA+
+IEBAIC00ODQsNyArNDg0LDcgQEAgc3RhdGljIGludCBnZW4xMl9nZXRfZHJhbV9pbmZvKHN0cnVj
+dCBkcm1faTkxNV9wcml2YXRlICppOTE1KQ0KPiA+IAlyZXR1cm4gaWNsX3Bjb2RlX3JlYWRfbWVt
+X2dsb2JhbF9pbmZvKGk5MTUpOw0KPiA+IH0NCj4gPiANCj4gPiAtdm9pZCBpbnRlbF9kcmFtX2Rl
+dGVjdChzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqaTkxNSkNCj4gPiAraW50IGludGVsX2RyYW1f
+ZGV0ZWN0KHN0cnVjdCBkcm1faTkxNV9wcml2YXRlICppOTE1KQ0KPiA+IHsNCj4gPiAJc3RydWN0
+IGRyYW1faW5mbyAqZHJhbV9pbmZvID0gJmk5MTUtPmRyYW1faW5mbzsNCj4gPiAJaW50IHJldDsN
+Cj4gPiBAQCAtNDk3LDcgKzQ5Nyw3IEBAIHZvaWQgaW50ZWxfZHJhbV9kZXRlY3Qoc3RydWN0IGRy
+bV9pOTE1X3ByaXZhdGUgKmk5MTUpDQo+ID4gCWRyYW1faW5mby0+aXNfMTZnYl9kaW1tID0gIUlT
+X0dFTjlfTFAoaTkxNSk7DQo+ID4gDQo+ID4gCWlmIChJTlRFTF9HRU4oaTkxNSkgPCA5IHx8ICFI
+QVNfRElTUExBWShpOTE1KSkNCj4gPiAtCQlyZXR1cm47DQo+ID4gKwkJcmV0dXJuIDA7DQo+ID4g
+DQo+ID4gCWlmIChJTlRFTF9HRU4oaTkxNSkgPj0gMTIpDQo+ID4gCQlyZXQgPSBnZW4xMl9nZXRf
+ZHJhbV9pbmZvKGk5MTUpOw0KPiA+IEBAIC01MDcsMTMgKzUwNywxOCBAQCB2b2lkIGludGVsX2Ry
+YW1fZGV0ZWN0KHN0cnVjdCBkcm1faTkxNV9wcml2YXRlICppOTE1KQ0KPiA+IAkJcmV0ID0gYnh0
+X2dldF9kcmFtX2luZm8oaTkxNSk7DQo+ID4gCWVsc2UNCj4gPiAJCXJldCA9IHNrbF9nZXRfZHJh
+bV9pbmZvKGk5MTUpOw0KPiA+IC0JaWYgKHJldCkNCj4gPiAtCQlyZXR1cm47DQo+ID4gKw0KPiA+
+ICsJaWYgKHJldCkgew0KPiA+ICsJCWRybV93YXJuKCZpOTE1LT5kcm0sICJVbmFibGUgdG8gbG9h
+ZCBkcmFtIGluZm9ybWF0aW9uXG4iKTsNCj4gPiArCQlyZXR1cm4gcmV0Ow0KPiA+ICsJfQ0KPiA+
+IA0KPiA+IAlkcm1fZGJnX2ttcygmaTkxNS0+ZHJtLCAiRFJBTSBjaGFubmVsczogJXVcbiIsIGRy
+YW1faW5mby0+bnVtX2NoYW5uZWxzKTsNCj4gPiANCj4gPiAJZHJtX2RiZ19rbXMoJmk5MTUtPmRy
+bSwgIkRSQU0gMTZHYiBESU1NczogJXNcbiIsDQo+ID4gCQkgICAgeWVzbm8oZHJhbV9pbmZvLT5p
+c18xNmdiX2RpbW0pKTsNCj4gPiArDQo+ID4gKwlyZXR1cm4gMDsNCj4gPiB9DQo+ID4gDQo+ID4g
+c3RhdGljIHUzMiBnZW45X2VkcmFtX3NpemVfbWIoc3RydWN0IGRybV9pOTE1X3ByaXZhdGUgKmk5
+MTUsIHUzMiBjYXApDQo+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2ludGVs
+X2RyYW0uaCBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2ludGVsX2RyYW0uaA0KPiA+IGluZGV4IDRi
+YTEzYzEzMTYyYy4uMmEwZjI4M2IxYTFkIDEwMDY0NA0KPiA+IC0tLSBhL2RyaXZlcnMvZ3B1L2Ry
+bS9pOTE1L2ludGVsX2RyYW0uaA0KPiA+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2ludGVs
+X2RyYW0uaA0KPiA+IEBAIC05LDYgKzksNiBAQA0KPiA+IHN0cnVjdCBkcm1faTkxNV9wcml2YXRl
+Ow0KPiA+IA0KPiA+IHZvaWQgaW50ZWxfZHJhbV9lZHJhbV9kZXRlY3Qoc3RydWN0IGRybV9pOTE1
+X3ByaXZhdGUgKmk5MTUpOw0KPiA+IC12b2lkIGludGVsX2RyYW1fZGV0ZWN0KHN0cnVjdCBkcm1f
+aTkxNV9wcml2YXRlICppOTE1KTsNCj4gPiAraW50IGludGVsX2RyYW1fZGV0ZWN0KHN0cnVjdCBk
+cm1faTkxNV9wcml2YXRlICppOTE1KTsNCj4gPiANCj4gPiAjZW5kaWYgLyogX19JTlRFTF9EUkFN
+X0hfXyAqLw0KPiA+IC0tIA0KPiA+IDIuMzAuMA0KPiA+IA0KPiA+IF9fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQo+ID4gSW50ZWwtZ2Z4IG1haWxpbmcgbGlz
+dA0KPiA+IEludGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4gPiBodHRwczovL2xpc3Rz
+LmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ludGVsLWdmeA0KDQpfX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpJbnRlbC1nZnggbWFpbGluZyBs
+aXN0CkludGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVz
+a3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9pbnRlbC1nZngK
