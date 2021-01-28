@@ -7,45 +7,45 @@ X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 65CDDC433DB
-	for <intel-gfx@archiver.kernel.org>; Thu, 28 Jan 2021 19:24:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4D8C7C433E6
+	for <intel-gfx@archiver.kernel.org>; Thu, 28 Jan 2021 19:25:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1C11364E46
+	by mail.kernel.org (Postfix) with ESMTPS id E377364E46
 	for <intel-gfx@archiver.kernel.org>; Thu, 28 Jan 2021 19:24:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1C11364E46
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E377364E46
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B52F6E9F3;
-	Thu, 28 Jan 2021 19:24:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 94AA86E9E3;
+	Thu, 28 Jan 2021 19:24:49 +0000 (UTC)
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E0AF6E9E2
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7FA9C6E9DA
  for <intel-gfx@lists.freedesktop.org>; Thu, 28 Jan 2021 19:24:39 +0000 (UTC)
-IronPort-SDR: 7aghiIbcwp54GR9KfXqMKgp44DyZyUpnC6tuZFj6zWkMkaD17H3qPkbWr1dKaGFPu6EGRS9/bT
- zTPgcUFFKxoA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9878"; a="244384041"
-X-IronPort-AV: E=Sophos;i="5.79,383,1602572400"; d="scan'208";a="244384041"
+IronPort-SDR: ODWif1/1fXNQrY7kMOk9GtCm7jg/SAB0CYPJMmQ5o66BFqrgkULFR9nr+LU8YFniEJUzRBmwOK
+ Zw1x+LzvAHmw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9878"; a="244384040"
+X-IronPort-AV: E=Sophos;i="5.79,383,1602572400"; d="scan'208";a="244384040"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  28 Jan 2021 11:24:38 -0800
-IronPort-SDR: kwURJkDC8NGCKZ/+52MW05m/3Nf9L9lrEKp8YDDVg/TGX9nRcos3lyYhUQ5605Hr8njwhCPUx6
- FKqp+PDlGavg==
-X-IronPort-AV: E=Sophos;i="5.79,383,1602572400"; d="scan'208";a="411110183"
+IronPort-SDR: 6aQUEH7biBsuIX2YdF0+VLO1xDIeJckUDhb+LInO+WlMziT9F2OrV6nufv2JjkxEdOJvmvQ1A+
+ ZLfeyCWJFlYg==
+X-IronPort-AV: E=Sophos;i="5.79,383,1602572400"; d="scan'208";a="411110176"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.168])
  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  28 Jan 2021 11:24:37 -0800
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 28 Jan 2021 11:24:08 -0800
-Message-Id: <20210128192413.1715802-14-matthew.d.roper@intel.com>
+Date: Thu, 28 Jan 2021 11:24:06 -0800
+Message-Id: <20210128192413.1715802-12-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20210128192413.1715802-1-matthew.d.roper@intel.com>
 References: <20210128192413.1715802-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 13/18] drm/i915/display/dsc: Refactor
- intel_dp_dsc_compute_bpp
+Subject: [Intel-gfx] [PATCH 11/18] drm/i915/display13: Required bandwidth
+ increases when VT-d is active
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,66 +63,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Vandita Kulkarni <vandita.kulkarni@intel.com>
+If VT-d is active, the memory bandwidth usage of the display is 5%
+higher.  Take this into account when determining whether we can support
+a display configuration.
 
-Move the platform specific max bpc calculation into
-intel_dp_dsc_compute_bpp function
-
-Cc: Manasi Navare <manasi.d.navare@intel.com>
-Signed-off-by: Vandita Kulkarni <vandita.kulkarni@intel.com>
+Bspec: 64631
+Cc: Matt Atwood <matthew.s.atwood@intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c | 20 ++++++++++----------
- 1 file changed, 10 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/i915/display/intel_bw.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 8c12d5375607..a531103fb0b5 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -1212,10 +1212,18 @@ intel_dp_compute_link_config_fast(struct intel_dp *intel_dp,
- 	return -EINVAL;
+diff --git a/drivers/gpu/drm/i915/display/intel_bw.c b/drivers/gpu/drm/i915/display/intel_bw.c
+index 32522ec1ffb9..14cb3fbf0039 100644
+--- a/drivers/gpu/drm/i915/display/intel_bw.c
++++ b/drivers/gpu/drm/i915/display/intel_bw.c
+@@ -398,6 +398,9 @@ static unsigned int intel_bw_data_rate(struct drm_i915_private *dev_priv,
+ 	for_each_pipe(dev_priv, pipe)
+ 		data_rate += bw_state->data_rate[pipe];
+ 
++	if (HAS_DISPLAY13(dev_priv) && intel_vtd_active())
++		data_rate = data_rate * 105 / 100;
++
+ 	return data_rate;
  }
  
--static int intel_dp_dsc_compute_bpp(struct intel_dp *intel_dp, u8 dsc_max_bpc)
-+static int intel_dp_dsc_compute_bpp(struct intel_dp *intel_dp, u8 max_req_bpc)
- {
-+	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
- 	int i, num_bpc;
- 	u8 dsc_bpc[3] = {0};
-+	u8 dsc_max_bpc;
-+
-+	/* Max DSC Input BPC for ICL is 10 and for TGL+ is 12 */
-+	if (INTEL_GEN(i915) >= 12)
-+		dsc_max_bpc = min_t(u8, 12, max_req_bpc);
-+	else
-+		dsc_max_bpc = min_t(u8, 10, max_req_bpc);
- 
- 	num_bpc = drm_dp_dsc_sink_supported_input_bpcs(intel_dp->dsc_dpcd,
- 						       dsc_bpc);
-@@ -1303,7 +1311,6 @@ static int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
- 	struct drm_i915_private *dev_priv = to_i915(dig_port->base.base.dev);
- 	const struct drm_display_mode *adjusted_mode =
- 		&pipe_config->hw.adjusted_mode;
--	u8 dsc_max_bpc;
- 	int pipe_bpp;
- 	int ret;
- 
-@@ -1313,14 +1320,7 @@ static int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
- 	if (!intel_dp_supports_dsc(intel_dp, pipe_config))
- 		return -EINVAL;
- 
--	/* Max DSC Input BPC for ICL is 10 and for TGL+ is 12 */
--	if (INTEL_GEN(dev_priv) >= 12)
--		dsc_max_bpc = min_t(u8, 12, conn_state->max_requested_bpc);
--	else
--		dsc_max_bpc = min_t(u8, 10,
--				    conn_state->max_requested_bpc);
--
--	pipe_bpp = intel_dp_dsc_compute_bpp(intel_dp, dsc_max_bpc);
-+	pipe_bpp = intel_dp_dsc_compute_bpp(intel_dp, conn_state->max_requested_bpc);
- 
- 	/* Min Input BPC for ICL+ is 8 */
- 	if (pipe_bpp < 8 * 3) {
 -- 
 2.25.4
 
