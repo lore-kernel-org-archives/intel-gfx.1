@@ -7,45 +7,45 @@ X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 75849C433E6
-	for <intel-gfx@archiver.kernel.org>; Thu, 28 Jan 2021 19:24:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 49CBFC433E9
+	for <intel-gfx@archiver.kernel.org>; Thu, 28 Jan 2021 19:24:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 19A1764E37
+	by mail.kernel.org (Postfix) with ESMTPS id 007CD64E4A
 	for <intel-gfx@archiver.kernel.org>; Thu, 28 Jan 2021 19:24:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 19A1764E37
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 007CD64E4A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F8036E9E4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 13EA16E9E5;
 	Thu, 28 Jan 2021 19:24:49 +0000 (UTC)
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D9DB26E9E5
- for <intel-gfx@lists.freedesktop.org>; Thu, 28 Jan 2021 19:24:39 +0000 (UTC)
-IronPort-SDR: kyAm85y+DdIgtg3gATFMRe4qeQteTt470yNXmsk/TuXwHBNiewRfPbABoN7GNRcD3KqIhfUsFU
- AGS4RusPVwJQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9878"; a="244384043"
-X-IronPort-AV: E=Sophos;i="5.79,383,1602572400"; d="scan'208";a="244384043"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 90C906E9D3
+ for <intel-gfx@lists.freedesktop.org>; Thu, 28 Jan 2021 19:24:38 +0000 (UTC)
+IronPort-SDR: hph6esJbf5WVOH0ltVMOvYwX0QSs8QyfelfEqNrCgUuQwUVRa5H/9sdb+ibvHzidY+E/sMDbx4
+ bb1G7JKFoyYQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9878"; a="244384032"
+X-IronPort-AV: E=Sophos;i="5.79,383,1602572400"; d="scan'208";a="244384032"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jan 2021 11:24:38 -0800
-IronPort-SDR: x7q9OUdHaRsJ3+ikJJ7pxvHyD/nOsFTUxlpkJxspRBlxJRe2/B2SUtT0km9b0uzUqMHWu30wcW
- TVvoFEkwQkXw==
-X-IronPort-AV: E=Sophos;i="5.79,383,1602572400"; d="scan'208";a="411110195"
+ 28 Jan 2021 11:24:37 -0800
+IronPort-SDR: FEMhxdaptaZ1eoN9JaX7oQ+zdkTvAIcXeU58Dm3+M//jIGz+S1taQsriJws/B3BvcIIQ76vRO+
+ buZDOWVaR71Q==
+X-IronPort-AV: E=Sophos;i="5.79,383,1602572400"; d="scan'208";a="411110149"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.168])
  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jan 2021 11:24:37 -0800
+ 28 Jan 2021 11:24:36 -0800
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 28 Jan 2021 11:24:11 -0800
-Message-Id: <20210128192413.1715802-17-matthew.d.roper@intel.com>
+Date: Thu, 28 Jan 2021 11:23:58 -0800
+Message-Id: <20210128192413.1715802-4-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20210128192413.1715802-1-matthew.d.roper@intel.com>
 References: <20210128192413.1715802-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 16/18] drm/i915/display13: Calculate VDSC RC
- parameters
+Subject: [Intel-gfx] [PATCH 03/18] drm/i915/display13: Enhanced pipe
+ underrun reporting
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,173 +58,190 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Juha-Pekka Heikkil <juha-pekka.heikkila@intel.com>,
- Mohammed Khajapasha <mohammed.khajapasha@intel.com>
+Cc: Lucas De Marchi <lucas.demarchi@intel.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Vandita Kulkarni <vandita.kulkarni@intel.com>
+Display13 brings enhanced underrun recovery:  the hardware can somewhat
+mitigate underruns by using an interpolated replacement pixel (soft
+underrun) or the previous pixel (hard underrun).  Furthermore, underruns
+can now be caused downstream by the port, even if the pipe itself is
+operating properly.  The interrupt register gives us extra bits to
+determine hard/soft underruns and whether the underrun was caused by the
+port, so let's pass the iir down to the underrun handler and print some
+more descriptive errors on Display13 platforms.
 
-Add methods to calculate rc parameters for all bpps, against the fixed
-arrays that we already have for 8,10,12 valid o/p bpps, to cover RGB 444
-formats.  Our hw doesnt support YUV compression yet.  The calculations
-used here are from VESA C model for DSC 1.1
+The context of the underrun is also available via PIPE_STATUS, but since
+we have the same information in the IIR we don't have a need to read
+from there.  PIPE_STATUS might be useful in debugfs in the future
+though.
 
-Cc: Manasi Navare <manasi.d.navare@intel.com>
-Cc: Juha-Pekka Heikkil <juha-pekka.heikkila@intel.com>
-Signed-off-by: Vandita Kulkarni <vandita.kulkarni@intel.com>
-Signed-off-by: Mohammed Khajapasha <mohammed.khajapasha@intel.com>
+Bspec: 50335
+Bspec: 50366
+Cc: Lucas De Marchi <lucas.demarchi@intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_vdsc.c | 98 ++++++++++++++++++++---
- 1 file changed, 88 insertions(+), 10 deletions(-)
+ .../drm/i915/display/intel_fifo_underrun.c    | 55 ++++++++++++++++++-
+ drivers/gpu/drm/i915/i915_irq.c               | 14 ++++-
+ drivers/gpu/drm/i915/i915_reg.h               |  7 +++
+ 3 files changed, 73 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_vdsc.c b/drivers/gpu/drm/i915/display/intel_vdsc.c
-index 8d8be0a006c7..41edcb7fdb47 100644
---- a/drivers/gpu/drm/i915/display/intel_vdsc.c
-+++ b/drivers/gpu/drm/i915/display/intel_vdsc.c
-@@ -5,7 +5,7 @@
-  * Author: Gaurav K Singh <gaurav.k.singh@intel.com>
-  *         Manasi Navare <manasi.d.navare@intel.com>
-  */
--
-+#include <linux/limits.h>
- #include "i915_drv.h"
- #include "intel_display_types.h"
- #include "intel_dsi.h"
-@@ -376,12 +376,74 @@ static bool is_pipe_dsc(const struct intel_crtc_state *crtc_state)
- 	return true;
+diff --git a/drivers/gpu/drm/i915/display/intel_fifo_underrun.c b/drivers/gpu/drm/i915/display/intel_fifo_underrun.c
+index 813a4f7033e1..6c377f0fc1b3 100644
+--- a/drivers/gpu/drm/i915/display/intel_fifo_underrun.c
++++ b/drivers/gpu/drm/i915/display/intel_fifo_underrun.c
+@@ -359,6 +359,39 @@ bool intel_set_pch_fifo_underrun_reporting(struct drm_i915_private *dev_priv,
+ 	return old;
  }
  
-+static void
-+calculate_rc_params(struct rc_parameters *rc,
-+		    struct drm_dsc_config *vdsc_cfg)
++static u32
++underrun_pipestat_mask(struct drm_i915_private *dev_priv)
 +{
-+	int bpc = vdsc_cfg->bits_per_component;
-+	int bpp = vdsc_cfg->bits_per_pixel >> 4;
-+	int ofs_und6[] = { 0, -2, -2, -4, -6, -6, -8, -8, -8, -10, -10, -12, -12, -12, -12 };
-+	int ofs_und8[] = { 2, 0, 0, -2, -4, -6, -8, -8, -8, -10, -10, -10, -12, -12, -12 };
-+	int ofs_und12[] = { 2, 0, 0, -2, -4, -6, -8, -8, -8, -10, -10, -10, -12, -12, -12 };
-+	int ofs_und15[] = { 10, 8, 6, 4, 2, 0, -2, -4, -6, -8, -10, -10, -12, -12, -12 };
-+	int qp_bpc_modifier = (bpc - 8) * 2;
-+	u32 res, buf_i;
++	u32 mask = PIPE_FIFO_UNDERRUN_STATUS;
 +
-+	if (vdsc_cfg->slice_height >= 8)
-+		rc->first_line_bpg_offset = 12 + DIV_ROUND_UP((9 * min(34, vdsc_cfg->slice_height - 8)), 100);
-+	else
-+		rc->first_line_bpg_offset = 2 * (vdsc_cfg->slice_height - 1);
++	if (HAS_DISPLAY13(dev_priv))
++		mask |= PIPE_STAT_SOFT_UNDERRUN_D13 |
++			PIPE_STAT_HARD_UNDERRUN_D13 |
++			PIPE_STAT_PORT_UNDERRUN_D13;
 +
-+	/* Our hw supports only 444 modes as of today */
-+	if (bpp >= 12)
-+		rc->initial_offset = 2048;
-+	else if (bpp >= 10)
-+		rc->initial_offset = 5632 - DIV_ROUND_UP(((bpp - 10) * 3584), 2);
-+	else if (bpp >= 8)
-+		rc->initial_offset = 6144 - DIV_ROUND_UP(((bpp - 8) * 512), 2);
-+	else
-+		rc->initial_offset = 6144;
-+
-+	/* initial_xmit_delay = rc_model_size/2/compression_bpp */
-+	rc->initial_xmit_delay = DIV_ROUND_UP(DSC_RC_MODEL_SIZE_CONST, 2 * bpp);
-+
-+	rc->flatness_min_qp = 3 + qp_bpc_modifier;
-+	rc->flatness_max_qp = 12 + qp_bpc_modifier;
-+
-+	rc->rc_quant_incr_limit0 = 11 + qp_bpc_modifier;
-+	rc->rc_quant_incr_limit1 = 11 + qp_bpc_modifier;
-+
-+	for (buf_i = 0; buf_i < DSC_NUM_BUF_RANGES; buf_i++) {
-+		/* Calculate range_bgp_offset */
-+		if (bpp <= 6) {
-+			rc->rc_range_params[buf_i].range_bpg_offset = ofs_und6[buf_i];
-+		} else if (bpp <= 8) {
-+			res = DIV_ROUND_UP(((bpp - 6) * (ofs_und8[buf_i] - ofs_und6[buf_i])), 2);
-+			rc->rc_range_params[buf_i].range_bpg_offset =
-+								ofs_und6[buf_i] + res;
-+		} else if (bpp <= 12) {
-+			rc->rc_range_params[buf_i].range_bpg_offset =
-+								ofs_und8[buf_i];
-+		} else if (bpp <= 15) {
-+			res = DIV_ROUND_UP(((bpp - 12) * (ofs_und15[buf_i] - ofs_und12[buf_i])), 3);
-+			rc->rc_range_params[buf_i].range_bpg_offset =
-+								ofs_und12[buf_i] + res;
-+		} else {
-+			rc->rc_range_params[buf_i].range_bpg_offset =
-+								ofs_und15[buf_i];
-+		}
-+	}
-+	return;
++	return mask;
 +}
 +
- int intel_dsc_compute_params(struct intel_encoder *encoder,
- 			     struct intel_crtc_state *pipe_config)
++static const char *
++pipe_underrun_reason(u32 pipestat_underruns)
++{
++	if (pipestat_underruns & PIPE_STAT_SOFT_UNDERRUN_D13)
++		/*
++		 * Hardware used replacement/interpolated pixels at
++		 * underrun locations.
++		 */
++		return "soft";
++	else if (pipestat_underruns & PIPE_STAT_HARD_UNDERRUN_D13)
++		/*
++		 * Hardware used previous pixel value at underrun
++		 * locations.
++		 */
++		return "hard";
++	else
++		/* Old platform or no extra soft/hard bit set */
++		return "FIFO";
++}
++
+ /**
+  * intel_cpu_fifo_underrun_irq_handler - handle CPU fifo underrun interrupt
+  * @dev_priv: i915 device instance
+@@ -372,6 +405,7 @@ void intel_cpu_fifo_underrun_irq_handler(struct drm_i915_private *dev_priv,
+ 					 enum pipe pipe)
  {
-+	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
- 	struct drm_dsc_config *vdsc_cfg = &pipe_config->dsc.config;
- 	u16 compressed_bpp = pipe_config->dsc.compressed_bpp;
- 	const struct rc_parameters *rc_params;
-+	struct rc_parameters *rc = NULL;
- 	u8 i = 0;
+ 	struct intel_crtc *crtc = intel_get_crtc_for_pipe(dev_priv, pipe);
++	u32 underruns = 0;
  
- 	vdsc_cfg->pic_width = pipe_config->hw.adjusted_mode.crtc_hdisplay;
-@@ -416,9 +478,24 @@ int intel_dsc_compute_params(struct intel_encoder *encoder,
- 		vdsc_cfg->rc_buf_thresh[13] = 0x7D;
+ 	/* We may be called too early in init, thanks BIOS! */
+ 	if (crtc == NULL)
+@@ -382,10 +416,27 @@ void intel_cpu_fifo_underrun_irq_handler(struct drm_i915_private *dev_priv,
+ 	    crtc->cpu_fifo_underrun_disabled)
+ 		return;
+ 
++	/*
++	 * On Display13, we can find out whether an underrun is soft/hard from
++	 * either the iir or PIPE_STAT, but we can only determine if underruns
++	 * were due to downstream port logic from PIPE_STAT.
++	 */
++	underruns = intel_uncore_read(&dev_priv->uncore, ICL_PIPESTAT(pipe)) &
++		underrun_pipestat_mask(dev_priv);
++	intel_uncore_write(&dev_priv->uncore, ICL_PIPESTAT(pipe), underruns);
++
+ 	if (intel_set_cpu_fifo_underrun_reporting(dev_priv, pipe, false)) {
+ 		trace_intel_cpu_fifo_underrun(dev_priv, pipe);
+-		drm_err(&dev_priv->drm, "CPU pipe %c FIFO underrun\n",
+-			pipe_name(pipe));
++
++		if (underruns & PIPE_STAT_PORT_UNDERRUN_D13)
++			/* Underrun was caused downstream from the pipes */
++			drm_err(&dev_priv->drm, "Port triggered a %s underrun on pipe %c\n",
++				pipe_underrun_reason(underruns),
++				pipe_name(pipe));
++		else
++			drm_err(&dev_priv->drm, "CPU pipe %c %s underrun\n",
++				pipe_name(pipe),
++				pipe_underrun_reason(underruns));
  	}
  
--	rc_params = get_rc_params(compressed_bpp, vdsc_cfg->bits_per_component);
--	if (!rc_params)
--		return -EINVAL;
-+	/*
-+	 * From Display13 onwards we supports compression bpps in steps of 1
-+	 * upto uncompressed bpp-1, hence add calculations for all the rc
-+	 * parameters
-+	 */
-+	if (HAS_DISPLAY13(dev_priv)) {
-+		rc = kmalloc(sizeof(*rc), GFP_KERNEL);
-+		if (!rc)
-+			return -ENOMEM;
-+
-+		calculate_rc_params(rc, vdsc_cfg);
-+		rc_params = rc;
-+	} else {
-+		rc_params = get_rc_params(compressed_bpp,
-+					  vdsc_cfg->bits_per_component);
-+		if (!rc_params)
-+			return -EINVAL;
-+	}
- 
- 	vdsc_cfg->first_line_bpg_offset = rc_params->first_line_bpg_offset;
- 	vdsc_cfg->initial_xmit_delay = rc_params->initial_xmit_delay;
-@@ -444,20 +521,21 @@ int intel_dsc_compute_params(struct intel_encoder *encoder,
- 
- 	/*
- 	 * BitsPerComponent value determines mux_word_size:
--	 * When BitsPerComponent is 12bpc, muxWordSize will be equal to 64 bits
--	 * When BitsPerComponent is 8 or 10bpc, muxWordSize will be equal to
--	 * 48 bits
-+	 * When BitsPerComponent is less than or 10bpc, muxWordSize will be equal to
-+	 * 48 bits otherwise 64
- 	 */
--	if (vdsc_cfg->bits_per_component == 8 ||
--	    vdsc_cfg->bits_per_component == 10)
-+	if (vdsc_cfg->bits_per_component <= 10)
- 		vdsc_cfg->mux_word_size = DSC_MUX_WORD_SIZE_8_10_BPC;
--	else if (vdsc_cfg->bits_per_component == 12)
-+	else
- 		vdsc_cfg->mux_word_size = DSC_MUX_WORD_SIZE_12_BPC;
- 
- 	/* InitialScaleValue is a 6 bit value with 3 fractional bits (U3.3) */
- 	vdsc_cfg->initial_scale_value = (vdsc_cfg->rc_model_size << 3) /
- 		(vdsc_cfg->rc_model_size - vdsc_cfg->initial_offset);
- 
-+	if (rc)
-+		kfree(rc);
-+
- 	return 0;
+ 	intel_fbc_handle_fifo_underrun_irq(dev_priv);
+diff --git a/drivers/gpu/drm/i915/i915_irq.c b/drivers/gpu/drm/i915/i915_irq.c
+index 1bced71470a5..407b42706a14 100644
+--- a/drivers/gpu/drm/i915/i915_irq.c
++++ b/drivers/gpu/drm/i915/i915_irq.c
+@@ -2389,6 +2389,18 @@ static void gen11_dsi_te_interrupt_handler(struct drm_i915_private *dev_priv,
+ 	intel_uncore_write(&dev_priv->uncore, DSI_INTR_IDENT_REG(port), tmp);
  }
  
++static u32
++underrun_iir_mask(struct drm_i915_private *dev_priv)
++{
++	u32 mask = GEN8_PIPE_FIFO_UNDERRUN;
++
++	if (HAS_DISPLAY13(dev_priv))
++		mask |= D13_PIPE_SOFT_UNDERRUN |
++			D13_PIPE_HARD_UNDERRUN;
++
++	return mask;
++}
++
+ static irqreturn_t
+ gen8_de_irq_handler(struct drm_i915_private *dev_priv, u32 master_ctl)
+ {
+@@ -2497,7 +2509,7 @@ gen8_de_irq_handler(struct drm_i915_private *dev_priv, u32 master_ctl)
+ 		if (iir & GEN8_PIPE_CDCLK_CRC_DONE)
+ 			hsw_pipe_crc_irq_handler(dev_priv, pipe);
+ 
+-		if (iir & GEN8_PIPE_FIFO_UNDERRUN)
++		if (iir & underrun_iir_mask(dev_priv))
+ 			intel_cpu_fifo_underrun_irq_handler(dev_priv, pipe);
+ 
+ 		fault_errors = iir & gen8_de_pipe_fault_mask(dev_priv);
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index 10fd0e3af2d4..a57593f7d7b1 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -6039,14 +6039,18 @@ enum {
+ #define   PIPECONF_DITHER_TYPE_ST2 (2 << 2)
+ #define   PIPECONF_DITHER_TYPE_TEMP (3 << 2)
+ #define _PIPEASTAT		0x70024
++#define _PIPEASTAT_ICL		0x70058
+ #define   PIPE_FIFO_UNDERRUN_STATUS		(1UL << 31)
+ #define   SPRITE1_FLIP_DONE_INT_EN_VLV		(1UL << 30)
+ #define   PIPE_CRC_ERROR_ENABLE			(1UL << 29)
+ #define   PIPE_CRC_DONE_ENABLE			(1UL << 28)
++#define   PIPE_STAT_SOFT_UNDERRUN_D13		(1UL << 28)
+ #define   PERF_COUNTER2_INTERRUPT_EN		(1UL << 27)
+ #define   PIPE_GMBUS_EVENT_ENABLE		(1UL << 27)
++#define   PIPE_STAT_HARD_UNDERRUN_D13		(1UL << 27)
+ #define   PLANE_FLIP_DONE_INT_EN_VLV		(1UL << 26)
+ #define   PIPE_HOTPLUG_INTERRUPT_ENABLE		(1UL << 26)
++#define   PIPE_STAT_PORT_UNDERRUN_D13		(1UL << 26)
+ #define   PIPE_VSYNC_INTERRUPT_ENABLE		(1UL << 25)
+ #define   PIPE_DISPLAY_LINE_COMPARE_ENABLE	(1UL << 24)
+ #define   PIPE_DPST_EVENT_ENABLE		(1UL << 23)
+@@ -6111,6 +6115,7 @@ enum {
+ #define PIPEFRAME(pipe)		_MMIO_PIPE2(pipe, _PIPEAFRAMEHIGH)
+ #define PIPEFRAMEPIXEL(pipe)	_MMIO_PIPE2(pipe, _PIPEAFRAMEPIXEL)
+ #define PIPESTAT(pipe)		_MMIO_PIPE2(pipe, _PIPEASTAT)
++#define ICL_PIPESTAT(pipe)	_MMIO_PIPE2(pipe, _PIPEASTAT_ICL)
+ 
+ #define  _PIPEAGCMAX           0x70010
+ #define  _PIPEBGCMAX           0x71010
+@@ -7789,6 +7794,8 @@ enum {
+ #define  GEN8_PIPE_FIFO_UNDERRUN	(1 << 31)
+ #define  GEN8_PIPE_CDCLK_CRC_ERROR	(1 << 29)
+ #define  GEN8_PIPE_CDCLK_CRC_DONE	(1 << 28)
++#define  D13_PIPE_SOFT_UNDERRUN		(1 << 22)
++#define  D13_PIPE_HARD_UNDERRUN		(1 << 21)
+ #define  GEN8_PIPE_CURSOR_FAULT		(1 << 10)
+ #define  GEN8_PIPE_SPRITE_FAULT		(1 << 9)
+ #define  GEN8_PIPE_PRIMARY_FAULT	(1 << 8)
 -- 
 2.25.4
 
