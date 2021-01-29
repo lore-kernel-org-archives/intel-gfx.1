@@ -2,51 +2,57 @@ Return-Path: <SRS0=0PWK=HA=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-14.3 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7B136C433E0
-	for <intel-gfx@archiver.kernel.org>; Fri, 29 Jan 2021 18:30:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F343CC433E6
+	for <intel-gfx@archiver.kernel.org>; Fri, 29 Jan 2021 18:30:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F0DC764E04
-	for <intel-gfx@archiver.kernel.org>; Fri, 29 Jan 2021 18:30:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F0DC764E04
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 64FFD64E08
+	for <intel-gfx@archiver.kernel.org>; Fri, 29 Jan 2021 18:30:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 64FFD64E08
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7AF3A6EBAC;
-	Fri, 29 Jan 2021 18:30:19 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F9D96EBA0
- for <intel-gfx@lists.freedesktop.org>; Fri, 29 Jan 2021 18:30:00 +0000 (UTC)
-IronPort-SDR: 7fpwIIRnims0P1JdpiRHR+ti1b7cl0w6Tv4Wd9ZWVAI1heKyiapReiL1DXb+B7UkrTQm2Kv9k7
- qOjyQ9Ts7adQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9879"; a="168131283"
-X-IronPort-AV: E=Sophos;i="5.79,386,1602572400"; d="scan'208";a="168131283"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jan 2021 10:29:59 -0800
-IronPort-SDR: Z1/6/niyh10KgPW22UuLk7yNg5M2BBzzb14LWbum0OoNM8UdEGsSgaWoV6mb2SdYcmWf3esomg
- 6/B+/U7r4hiA==
-X-IronPort-AV: E=Sophos;i="5.79,386,1602572400"; d="scan'208";a="474952955"
-Received: from dhamor-mobl.amr.corp.intel.com (HELO
- aswarup-mobl.amr.corp.intel.com) ([10.251.22.55])
- by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jan 2021 10:29:59 -0800
-From: Aditya Swarup <aditya.swarup@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Fri, 29 Jan 2021 10:29:43 -0800
-Message-Id: <20210129182945.217078-7-aditya.swarup@intel.com>
-X-Mailer: git-send-email 2.27.0
-In-Reply-To: <20210129182945.217078-1-aditya.swarup@intel.com>
-References: <20210129182945.217078-1-aditya.swarup@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id CEC8F6EBAA;
+	Fri, 29 Jan 2021 18:30:52 +0000 (UTC)
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C1376EBAA;
+ Fri, 29 Jan 2021 18:30:51 +0000 (UTC)
+IronPort-SDR: f1r8yXrsliwDKysnjPh3HJG/M3hVZpwwl88dfBiE2jWFri0tamrHkNoElZUXdgtNn2co3MjSZ3
+ nEGxjfhGpllA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9879"; a="241985450"
+X-IronPort-AV: E=Sophos;i="5.79,386,1602572400"; d="scan'208";a="241985450"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Jan 2021 10:30:49 -0800
+IronPort-SDR: TAtEMBi8iZS/iGjSW4UadjzyrnS3pvUVn5FpjVSdtUXG2CfAiKRJ48FTKJFI4DXPCRQoWLzCI8
+ wGCuFe9czIIw==
+X-IronPort-AV: E=Sophos;i="5.79,386,1602572400"; d="scan'208";a="389408506"
+Received: from spalapa-mobl1.ger.corp.intel.com (HELO [10.252.47.4])
+ ([10.252.47.4])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Jan 2021 10:30:48 -0800
+To: Chris Wilson <chris@chris-wilson.co.uk>, intel-gfx@lists.freedesktop.org
+References: <20210126130505.2938391-1-chris@chris-wilson.co.uk>
+ <20210126130505.2938391-2-chris@chris-wilson.co.uk>
+ <7b1ef598-71d0-e289-1288-a09d1b3ad977@linux.intel.com>
+ <161191397768.867.9069693179059780036@build.alporthouse.com>
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Organization: Intel Corporation UK Plc
+Message-ID: <2bfce884-2fc7-4212-eebc-140608f1a6c8@linux.intel.com>
+Date: Fri, 29 Jan 2021 18:30:46 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.5.0
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 6/8] drm/i915/adl_s: Update memory bandwidth
- parameters
+In-Reply-To: <161191397768.867.9069693179059780036@build.alporthouse.com>
+Content-Language: en-US
+Subject: Re: [Intel-gfx] [PATCH i-g-t 2/2] i915/sysfs_clients: Check that
+ client ids are cyclic
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,46 +65,192 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jani Nikula <jani.nikula@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: igt-dev@lists.freedesktop.org
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-RnJvbTogVGVqYXMgVXBhZGh5YXkgPHRlamFza3VtYXJ4LnN1cmVuZHJha3VtYXIudXBhZGh5YXlA
-aW50ZWwuY29tPgoKSnVzdCBsaWtlIFJLTCwgdGhlIEFETF9TIHBsYXRmb3JtIGFsc28gaGFzIGRp
-ZmZlcmVudCBtZW1vcnkKY2hhcmFjdGVyaXN0aWNzIGZyb20gcGFzdCBwbGF0Zm9ybXMuICBVcGRh
-dGUgdGhlIHZhbHVlcyB1c2VkCmJ5IG91ciBtZW1vcnkgYmFuZHdpZHRoIGNhbGN1bGF0aW9ucyBh
-Y2NvcmRpbmdseS4KCnYyOiBGaXggbWlub3Igbml0cGljayBmb3Igc2hpZnRpbmcgQURMUyBjYXNl
-IGFib3ZlIFJLTChiYXNlZCBvbiBwbGF0Zm9ybQpvcmRlcikuKG1kcm9wZXIpCgpCc3BlYzogNjQ2
-MzEKQ2M6IE1hdHQgUm9wZXIgPG1hdHRoZXcuZC5yb3BlckBpbnRlbC5jb20+CkNjOiBMdWNhcyBE
-ZSBNYXJjaGkgPGx1Y2FzLmRlbWFyY2hpQGludGVsLmNvbT4KQ2M6IEphbmkgTmlrdWxhIDxqYW5p
-Lm5pa3VsYUBpbnRlbC5jb20+CkNjOiBWaWxsZSBTeXJqw6Rsw6QgPHZpbGxlLnN5cmphbGFAbGlu
-dXguaW50ZWwuY29tPgpDYzogSW1yZSBEZWFrIDxpbXJlLmRlYWtAaW50ZWwuY29tPgpTaWduZWQt
-b2ZmLWJ5OiBUZWphcyBVcGFkaHlheSA8dGVqYXNrdW1hcnguc3VyZW5kcmFrdW1hci51cGFkaHlh
-eUBpbnRlbC5jb20+ClNpZ25lZC1vZmYtYnk6IEFkaXR5YSBTd2FydXAgPGFkaXR5YS5zd2FydXBA
-aW50ZWwuY29tPgpSZXZpZXdlZC1ieTogQW51c2hhIFNyaXZhdHNhIDxhbnVzaGEuc3JpdmF0c2FA
-aW50ZWwuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfYncuYyB8
-IDExICsrKysrKysrKystCiAxIGZpbGUgY2hhbmdlZCwgMTAgaW5zZXJ0aW9ucygrKSwgMSBkZWxl
-dGlvbigtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxf
-YncuYyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfYncuYwppbmRleCA0YjVh
-MzBhYzg0YmMuLmVjODAzODYxYWNiMiAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUv
-ZGlzcGxheS9pbnRlbF9idy5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50
-ZWxfYncuYwpAQCAtMTQyLDYgKzE0MiwxMiBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IGludGVsX3Nh
-X2luZm8gcmtsX3NhX2luZm8gPSB7CiAJLmRpc3BsYXlydGlkcyA9IDEyOCwKIH07CiAKK3N0YXRp
-YyBjb25zdCBzdHJ1Y3QgaW50ZWxfc2FfaW5mbyBhZGxzX3NhX2luZm8gPSB7CisJLmRlYnVyc3Qg
-PSAxNiwKKwkuZGVwcm9nYndsaW1pdCA9IDM4LCAvKiBHQi9zICovCisJLmRpc3BsYXlydGlkcyA9
-IDI1NiwKK307CisKIHN0YXRpYyBpbnQgaWNsX2dldF9id19pbmZvKHN0cnVjdCBkcm1faTkxNV9w
-cml2YXRlICpkZXZfcHJpdiwgY29uc3Qgc3RydWN0IGludGVsX3NhX2luZm8gKnNhKQogewogCXN0
-cnVjdCBpbnRlbF9xZ3ZfaW5mbyBxaSA9IHt9OwpAQCAtMjUxLDcgKzI1NywxMCBAQCB2b2lkIGlu
-dGVsX2J3X2luaXRfaHcoc3RydWN0IGRybV9pOTE1X3ByaXZhdGUgKmRldl9wcml2KQogCWlmICgh
-SEFTX0RJU1BMQVkoZGV2X3ByaXYpKQogCQlyZXR1cm47CiAKLQlpZiAoSVNfUk9DS0VUTEFLRShk
-ZXZfcHJpdikpCisKKwlpZiAoSVNfQUxERVJMQUtFX1MoZGV2X3ByaXYpKQorCQlpY2xfZ2V0X2J3
-X2luZm8oZGV2X3ByaXYsICZhZGxzX3NhX2luZm8pOworCWVsc2UgaWYgKElTX1JPQ0tFVExBS0Uo
-ZGV2X3ByaXYpKQogCQlpY2xfZ2V0X2J3X2luZm8oZGV2X3ByaXYsICZya2xfc2FfaW5mbyk7CiAJ
-ZWxzZSBpZiAoSVNfR0VOKGRldl9wcml2LCAxMikpCiAJCWljbF9nZXRfYndfaW5mbyhkZXZfcHJp
-diwgJnRnbF9zYV9pbmZvKTsKLS0gCjIuMjcuMAoKX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRlbC1nZnhAbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4v
-bGlzdGluZm8vaW50ZWwtZ2Z4Cg==
+
+On 29/01/2021 09:52, Chris Wilson wrote:
+> Quoting Tvrtko Ursulin (2021-01-29 09:18:50)
+>> On 26/01/2021 13:05, Chris Wilson wrote:
+>>> The client id used is a cyclic allocator as that reduces the likelihood
+>>> of userspace seeing the same id used again (and so confusing the new
+>>> client as the old). Verify that each new client has an id greater than
+>>> the last.
+>>>
+>>> Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+>>> Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+>>> ---
+>>>    tests/i915/sysfs_clients.c | 129 +++++++++++++++++++++++++++++++------
+>>>    1 file changed, 108 insertions(+), 21 deletions(-)
+>>>
+>>> diff --git a/tests/i915/sysfs_clients.c b/tests/i915/sysfs_clients.c
+>>> index a3a1f81e1..d2c1ebc5f 100644
+>>> --- a/tests/i915/sysfs_clients.c
+>>> +++ b/tests/i915/sysfs_clients.c
+>>> @@ -8,6 +8,7 @@
+>>>    #include <errno.h>
+>>>    #include <fcntl.h>
+>>>    #include <inttypes.h>
+>>> +#include <limits.h>
+>>>    #include <math.h>
+>>>    #include <sched.h>
+>>>    #include <sys/socket.h>
+>>> @@ -47,6 +48,8 @@
+>>>    #define assert_within_epsilon(x, ref, tolerance) \
+>>>        __assert_within_epsilon(x, ref, tolerance / 100., tolerance / 100.)
+>>>    
+>>> +#define BUFSZ 280
+>>> +
+>>>    #define MI_BATCH_BUFFER_START (0x31 << 23)
+>>>    #define MI_BATCH_BUFFER_END (0xa << 23)
+>>>    #define MI_ARB_CHECK (0x5 << 23)
+>>> @@ -75,7 +78,7 @@ static void pidname(int i915, int clients)
+>>>    {
+>>>        struct dirent *de;
+>>>        int sv[2], rv[2];
+>>> -     char buf[280];
+>>> +     char buf[BUFSZ];
+>>>        int me = -1;
+>>>        long count;
+>>>        pid_t pid;
+>>> @@ -180,7 +183,7 @@ static long count_clients(int clients)
+>>>    {
+>>>        struct dirent *de;
+>>>        long count = 0;
+>>> -     char buf[280];
+>>> +     char buf[BUFSZ];
+>>>        DIR *dir;
+>>>    
+>>>        dir = fdopendir(dup(clients));
+>>> @@ -229,32 +232,113 @@ static void create(int i915, int clients)
+>>>        igt_assert_eq(count_clients(clients), 1);
+>>>    }
+>>>    
+>>> +static const char *find_client(int clients, pid_t pid, char *buf)
+>>> +{
+>>> +     DIR *dir = fdopendir(dup(clients));
+>>> +
+>>> +     /* Reading a dir as it changes does not appear to be stable, SEP */
+>>> +     for (int pass = 0; pass < 2; pass++) {
+>>> +             struct dirent *de;
+>>> +
+>>> +             rewinddir(dir);
+>>> +             while ((de = readdir(dir))) {
+>>> +                     if (!isdigit(de->d_name[0]))
+>>> +                             continue;
+>>> +
+>>> +                     snprintf(buf, BUFSZ, "%s/pid", de->d_name);
+>>> +                     igt_sysfs_read(clients, buf, buf, sizeof(buf));
+>>> +                     if (atoi(buf) != pid)
+>>> +                             continue;
+>>> +
+>>> +                     strncpy(buf, de->d_name, BUFSZ);
+>>> +                     goto out;
+>>> +             }
+>>> +     }
+>>> +     *buf = '\0';
+>>> +out:
+>>> +     closedir(dir);
+>>> +     return buf;
+>>> +}
+>>> +
+>>>    static int find_me(int clients, pid_t pid)
+>>>    {
+>>> -     struct dirent *de;
+>>> -     char buf[280];
+>>> -     int me = -1;
+>>> -     DIR *dir;
+>>> +     char buf[BUFSZ];
+>>>    
+>>> -     dir = fdopendir(dup(clients));
+>>> -     igt_assert(dir);
+>>> -     rewinddir(dir);
+>>> +     return openat(clients,
+>>> +                   find_client(clients, pid, buf),
+>>> +                   O_DIRECTORY | O_RDONLY);
+>>> +}
+>>>    
+>>> -     while ((de = readdir(dir))) {
+>>> -             if (!isdigit(de->d_name[0]))
+>>> -                     continue;
+>>> +static int reopen_directory(int fd)
+>>> +{
+>>> +     char buf[BUFSZ];
+>>> +     int dir;
+>>>    
+>>> -             snprintf(buf, sizeof(buf), "%s/pid", de->d_name);
+>>> -             igt_sysfs_read(clients, buf, buf, sizeof(buf));
+>>> -             if (atoi(buf) != pid)
+>>> -                     continue;
+>>> +     snprintf(buf, sizeof(buf), "/proc/self/fd/%d", fd);
+>>> +     dir = open(buf, O_RDONLY);
+>>
+>> Maybe O_DIRECTORY if it is open_directory.
+>>
+>>> +     igt_assert_fd(dir);
+>>>    
+>>> -             me = openat(clients, de->d_name, O_DIRECTORY | O_RDONLY);
+>>> -             break;
+>>> +     return dir;
+>>> +}
+>>> +
+>>> +static unsigned int my_id(int clients, pid_t pid)
+>>> +{
+>>> +     char buf[BUFSZ];
+>>> +
+>>> +     return atoi(find_client(clients, pid, buf));
+>>> +}
+>>> +
+>>> +static unsigned int recycle_client(int i915, int clients)
+>>> +{
+>>> +     int device, client;
+>>> +
+>>> +     device = gem_reopen_driver(i915);
+>>> +     client = my_id(clients, getpid());
+>>> +     close(device);
+>>> +
+>>> +     return client;
+>>> +}
+>>> +
+>>> +static void recycle(int i915, int clients)
+>>> +{
+>>> +     const int ncpus = sysconf(_SC_NPROCESSORS_ONLN);
+>>> +
+>>> +     /*
+>>> +      * As we open and close clients, we do not expect to reuse old ids,
+>>> +      * i.e. we use a cyclic ida. This reduces the likelihood of userspace
+>>> +      * watchers becoming confused and mistaking the new client as a
+>>> +      * continuation of the old.
+>>> +      */
+>>> +     igt_require(my_id(clients, getpid()) < INT_MAX / 2);
+>>
+>> Hm this is a bit dodgy - it will cause "permanent" skips if running the
+>> test in a loop. Just for the client > last assert below? I guess it is
+>> hard to handle wrap with forked clients.
+> 
+> It takes about a day to reach 2 billion ids on a fast machine. For CI, I
+> think we are safe.
+> 
+> We could do the (int)(A - B) > 0 to handle the wrap, that would be more
+> sensible.
+> 
+> [...]
+> 
+>> Okay better than nothing.
+> 
+> But first we need to resolve the failure to find itself. :(
+
+Forgot about that.. Start with one child for now?
+
+Regards,
+
+Tvrtko
+
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
