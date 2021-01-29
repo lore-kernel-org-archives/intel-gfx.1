@@ -2,48 +2,50 @@ Return-Path: <SRS0=0PWK=HA=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B79B6C433DB
-	for <intel-gfx@archiver.kernel.org>; Fri, 29 Jan 2021 18:29:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 77A21C433E0
+	for <intel-gfx@archiver.kernel.org>; Fri, 29 Jan 2021 18:29:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 50C7B64E08
-	for <intel-gfx@archiver.kernel.org>; Fri, 29 Jan 2021 18:29:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 50C7B64E08
+	by mail.kernel.org (Postfix) with ESMTPS id 2A50D64E04
+	for <intel-gfx@archiver.kernel.org>; Fri, 29 Jan 2021 18:29:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2A50D64E04
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 698846EB41;
-	Fri, 29 Jan 2021 18:29:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 73A596EBA1;
+	Fri, 29 Jan 2021 18:29:58 +0000 (UTC)
 Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 310C86EB41
- for <intel-gfx@lists.freedesktop.org>; Fri, 29 Jan 2021 18:29:54 +0000 (UTC)
-IronPort-SDR: +t6rPymeoyrMztFh9wJLZqawzo4euOxMDMMfcf4EHttDCPaHSSbgCtTBm2v/P6TTEN7LxtaU8Z
- I4OAIHgpYQQA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9879"; a="168131267"
-X-IronPort-AV: E=Sophos;i="5.79,386,1602572400"; d="scan'208";a="168131267"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E3BFD6EBA0
+ for <intel-gfx@lists.freedesktop.org>; Fri, 29 Jan 2021 18:29:57 +0000 (UTC)
+IronPort-SDR: jB59RPoIK8HxM2Yk98dCMKY8Q6Ts9KspumZ36NL40ej+6SYBRBGO29C+zhmD0Y7ergSVyQ291N
+ gSLpKh41G+tQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9879"; a="168131274"
+X-IronPort-AV: E=Sophos;i="5.79,386,1602572400"; d="scan'208";a="168131274"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jan 2021 10:29:53 -0800
-IronPort-SDR: VzSXsRrAPFNAD2UXfPoS4GC/2A81Ly3S6Xu8Z6FU2Wx3shsPBGar1hf6KX0FKBrMlw2LunioQo
- rO17kjCyObdw==
-X-IronPort-AV: E=Sophos;i="5.79,386,1602572400"; d="scan'208";a="474952889"
+ 29 Jan 2021 10:29:57 -0800
+IronPort-SDR: PW6J10XnRfTrCo5AG/5d2uwp5PQAMXpWc27NKGSi5z8xuD1pyS63yQE2HgcESzcQ1yjYdmgVfs
+ 6lAH7eW69bIw==
+X-IronPort-AV: E=Sophos;i="5.79,386,1602572400"; d="scan'208";a="474952917"
 Received: from dhamor-mobl.amr.corp.intel.com (HELO
  aswarup-mobl.amr.corp.intel.com) ([10.251.22.55])
  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jan 2021 10:29:52 -0800
+ 29 Jan 2021 10:29:57 -0800
 From: Aditya Swarup <aditya.swarup@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 29 Jan 2021 10:29:37 -0800
-Message-Id: <20210129182945.217078-1-aditya.swarup@intel.com>
+Date: Fri, 29 Jan 2021 10:29:39 -0800
+Message-Id: <20210129182945.217078-3-aditya.swarup@intel.com>
 X-Mailer: git-send-email 2.27.0
+In-Reply-To: <20210129182945.217078-1-aditya.swarup@intel.com>
+References: <20210129182945.217078-1-aditya.swarup@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 0/8] Final set of patches for ADLS enabling
+Subject: [Intel-gfx] [PATCH 2/8] drm/i915/adl_s: Add power wells
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,44 +58,47 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Lucas De Marchi <lucas.demarchi@intel.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-VGhlc2UgYXJlIHRoZSBmaW5hbCBzZXQgb2YgcGF0Y2hlcyByZXF1aXJlZCBmb3IgZW5hYmxpbmcg
-QURMLVMuIFRoZQpwYXRjaGVzIGhhdmUgYmVlbiB0ZXN0ZWQgb24gcGxhdGZvcm0gYW5kIGFsbCBk
-aXNwbGF5IG91dHB1dHMgYXJlCndvcmtpbmcuCgp2MjogQWRkcmVzcyBtaW5vciBuaXRwaWNrcyBw
-cm92aWRlZCBieSBtZHJvcGVyLgoKUGF0Y2ggImRybS9pOTE1L2FkbF9zOiBNQ0hCQVIgbWVtb3J5
-IGluZm8gcmVnaXN0ZXJzIGFyZSBtb3ZlZCIKY2FuIGJlIGlnbm9yZWQgYXMgSm9zZSdzIHN1Ym1p
-c3Npb24gCmh0dHBzOi8vcGF0Y2h3b3JrLmZyZWVkZXNrdG9wLm9yZy9zZXJpZXMvODYwOTIvCmFs
-bG93cyB1cyB0byBmZXRjaCBkcmFtIGluZm8gZnJvbSBwY29kZS4KCkN1cnJlbnRseSBpbiBoaXMg
-c2VyaWVzLCBJIGRpZG4ndCBzZWUgcmVtb3ZhbCBvZgpza2xfZHJhbV9nZXRfY2hhbm5lbHNfaW5m
-bygpLiBTbyBqdXN0IHRvIGdldCBjbGVhciByZXN1bHRzIGZyb20gQ0ksIEkKaGF2ZSBpbmNsdWRl
-ZCB0aGUgTUNIQkFSIHBhdGNoIGluIHNlcmllcy4KCnYzOgotIERyb3AgTUNIQkFSIHBhdGNoIGFu
-ZCByZWJhc2Ugb24gbGF0ZXN0IGRybS10aXAgdGhhdCBhZGRzIHN1cHBvcnQgZm9yCiAgcmVhZGlu
-ZyBEUkFNIGluZm8gdGhyb3VnaCBQQ09ERS4KLSBSZXZlcnQgdG8gU1RFUF9BMCBmb3IgRGlzcGxh
-eSBXQSBhcyB0aGVyZSBpcyBubyBTVEVQX0ExIGZvciBBRExTLgoKQWRpdHlhIFN3YXJ1cCAoMik6
-CiAgZHJtL2k5MTUvYWRsX3M6IEFkZCBkaXNwbGF5IFdBcyBmb3IgQURMLVMKICBkcm0vaTkxNS9h
-ZGxfczogQWRkIEdUIGFuZCBDVFggV0FzIGZvciBBREwtUwoKQW51c2hhIFNyaXZhdHNhICgxKToK
-ICBkcm0vaTkxNS9hZGxfczogTG9hZCBETUMKCkpvc8OpIFJvYmVydG8gZGUgU291emEgKDEpOgog
-IGRybS9pOTE1L2Rpc3BsYXk6IEFkZCBIQVNfRDEyX1BMQU5FX01JTklNSVpBVElPTgoKTHVjYXMg
-RGUgTWFyY2hpICgxKToKICBkcm0vaTkxNS9hZGxfczogQWRkIHBvd2VyIHdlbGxzCgpNYXR0IFJv
-cGVyICgyKToKICBkcm0vaTkxNS9hZGxfczogVXBkYXRlIFBIWV9NSVNDIHByb2dyYW1taW5nCiAg
-ZHJtL2k5MTUvYWRsX3M6IFJlLXVzZSBUR0wgR3VDL0h1QyBmaXJtd2FyZQoKVGVqYXMgVXBhZGh5
-YXkgKDEpOgogIGRybS9pOTE1L2FkbF9zOiBVcGRhdGUgbWVtb3J5IGJhbmR3aWR0aCBwYXJhbWV0
-ZXJzCgogZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9idy5jICAgICAgIHwgMTEg
-KysrKystCiAuLi4vZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfY29tYm9fcGh5LmMgICAgfCAx
-MiArKysrKy0tCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Nzci5jICAgICAg
-fCAxMCArKysrKy0KIC4uLi9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Rpc3BsYXlfcG93ZXIuYyAg
-ICB8ICA5ICsrLS0tCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX3Nwcml0ZS5j
-ICAgfCAgNiArKy0tCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9ndC9pbnRlbF93b3JrYXJvdW5kcy5j
-ICAgfCAzNCArKysrKysrKysrKystLS0tLS0tCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9ndC91Yy9p
-bnRlbF91Y19mdy5jICAgICAgfCAgNCArKy0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfZHJ2
-LmggICAgICAgICAgICAgICB8ICAzICsrCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X2lycS5j
-ICAgICAgICAgICAgICAgfCAgMiArLQogZHJpdmVycy9ncHUvZHJtL2k5MTUvaW50ZWxfZGV2aWNl
-X2luZm8uYyAgICAgIHwgIDggKysrLS0KIDEwIGZpbGVzIGNoYW5nZWQsIDcwIGluc2VydGlvbnMo
-KyksIDI5IGRlbGV0aW9ucygtKQoKLS0gCjIuMjcuMAoKX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRlbC1nZnhA
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
-YW4vbGlzdGluZm8vaW50ZWwtZ2Z4Cg==
+From: Lucas De Marchi <lucas.demarchi@intel.com>
+
+TGL power wells can be re-used for ADL-S with the exception of the fake
+power well for TC_COLD, just like DG-1.
+
+BSpec: 53597
+Bspec: 49231
+
+Cc: Imre Deak <imre.deak@intel.com>
+Cc: Matt Roper <matthew.d.roper@intel.com>
+Cc: Aditya Swarup <aditya.swarup@intel.com>
+Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+Signed-off-by: Aditya Swarup <aditya.swarup@intel.com>
+Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_display_power.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
+index 708f0b7e0990..cccfd45a67cf 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_power.c
++++ b/drivers/gpu/drm/i915/display/intel_display_power.c
+@@ -4689,7 +4689,7 @@ int intel_power_domains_init(struct drm_i915_private *dev_priv)
+ 	 * The enabling order will be from lower to higher indexed wells,
+ 	 * the disabling order is reversed.
+ 	 */
+-	if (IS_DG1(dev_priv)) {
++	if (IS_ALDERLAKE_S(dev_priv) || IS_DG1(dev_priv)) {
+ 		err = set_power_wells_mask(power_domains, tgl_power_wells,
+ 					   BIT_ULL(TGL_DISP_PW_TC_COLD_OFF));
+ 	} else if (IS_ROCKETLAKE(dev_priv)) {
+-- 
+2.27.0
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
