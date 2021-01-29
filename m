@@ -2,40 +2,42 @@ Return-Path: <SRS0=0PWK=HA=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A4E20C433E0
-	for <intel-gfx@archiver.kernel.org>; Fri, 29 Jan 2021 00:49:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A72C8C433DB
+	for <intel-gfx@archiver.kernel.org>; Fri, 29 Jan 2021 01:28:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C2AE764D99
-	for <intel-gfx@archiver.kernel.org>; Fri, 29 Jan 2021 00:49:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C2AE764D99
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
+	by mail.kernel.org (Postfix) with ESMTPS id 33F6D64DF1
+	for <intel-gfx@archiver.kernel.org>; Fri, 29 Jan 2021 01:28:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 33F6D64DF1
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EAF456EA65;
-	Fri, 29 Jan 2021 00:49:48 +0000 (UTC)
-Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C60686EA64
- for <intel-gfx@lists.freedesktop.org>; Fri, 29 Jan 2021 00:49:43 +0000 (UTC)
-X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
- x-ip-name=78.156.65.138; 
-Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23731781-1500050 
- for multiple; Fri, 29 Jan 2021 00:49:35 +0000
-From: Chris Wilson <chris@chris-wilson.co.uk>
-To: intel-gfx@lists.freedesktop.org
-Date: Fri, 29 Jan 2021 00:49:32 +0000
-Message-Id: <20210129004933.29755-1-chris@chris-wilson.co.uk>
-X-Mailer: git-send-email 2.20.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 26E356E2ED;
+	Fri, 29 Jan 2021 01:28:02 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 1EF3A6E2E6;
+ Fri, 29 Jan 2021 01:28:01 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 14EEAAA3D8;
+ Fri, 29 Jan 2021 01:28:01 +0000 (UTC)
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 1/2] drm/i915/gvt: Parse default state to update
- reg whitelist
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Chris Wilson" <chris@chris-wilson.co.uk>
+Date: Fri, 29 Jan 2021 01:28:01 -0000
+Message-ID: <161188368105.15522.17730833649558274091@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20210129004933.29755-1-chris@chris-wilson.co.uk>
+In-Reply-To: <20210129004933.29755-1-chris@chris-wilson.co.uk>
+Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3Igc2Vy?=
+ =?utf-8?q?ies_starting_with_=5B1/2=5D_drm/i915/gvt=3A_Parse_default_state?=
+ =?utf-8?q?_to_update_reg_whitelist?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,177 +50,212 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Yan Zhao <yan.y.zhao@intel.com>, Chris Wilson <chris@chris-wilson.co.uk>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============0526398555=="
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Rather than break existing context objects by incorrectly forcing them
-to rogue cache coherency and trying to assert a new mapping, read the
-reg whitelist from the default context image.
+--===============0526398555==
+Content-Type: multipart/alternative;
+ boundary="===============4289466116691292318=="
 
-And use gvt->gt, never &dev_priv->gt.
+--===============4289466116691292318==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Fixes: 493f30cd086e ("drm/i915/gvt: parse init context to update cmd accessible reg whitelist")
-Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: Kevin Tian <kevin.tian@intel.com>
-Cc: Wang Zhi <zhi.a.wang@intel.com>
-Cc: Yan Zhao <yan.y.zhao@intel.com>
-Cc: Zhenyu Wang <zhenyuw@linux.intel.com>
-Cc: Zhi Wang <zhi.a.wang@intel.com>
----
- drivers/gpu/drm/i915/gvt/cmd_parser.c | 93 ++++++---------------------
- 1 file changed, 20 insertions(+), 73 deletions(-)
+== Series Details ==
 
-diff --git a/drivers/gpu/drm/i915/gvt/cmd_parser.c b/drivers/gpu/drm/i915/gvt/cmd_parser.c
-index 9a7087830cc2..ec6ea11d747f 100644
---- a/drivers/gpu/drm/i915/gvt/cmd_parser.c
-+++ b/drivers/gpu/drm/i915/gvt/cmd_parser.c
-@@ -41,6 +41,7 @@
- #include "gt/intel_lrc.h"
- #include "gt/intel_ring.h"
- #include "gt/intel_gt_requests.h"
-+#include "gt/shmem_utils.h"
- #include "gvt.h"
- #include "i915_pvinfo.h"
- #include "trace.h"
-@@ -3087,71 +3088,28 @@ int intel_gvt_scan_and_shadow_wa_ctx(struct intel_shadow_wa_ctx *wa_ctx)
-  */
- void intel_gvt_update_reg_whitelist(struct intel_vgpu *vgpu)
- {
-+	const unsigned long start = LRC_STATE_PN * PAGE_SIZE;
- 	struct intel_gvt *gvt = vgpu->gvt;
--	struct drm_i915_private *dev_priv = gvt->gt->i915;
- 	struct intel_engine_cs *engine;
- 	enum intel_engine_id id;
--	const unsigned long start = LRC_STATE_PN * PAGE_SIZE;
--	struct i915_request *rq;
--	struct intel_vgpu_submission *s = &vgpu->submission;
--	struct i915_request *requests[I915_NUM_ENGINES] = {};
--	bool is_ctx_pinned[I915_NUM_ENGINES] = {};
--	int ret = 0;
- 
- 	if (gvt->is_reg_whitelist_updated)
- 		return;
- 
--	for_each_engine(engine, &dev_priv->gt, id) {
--		ret = intel_context_pin(s->shadow[id]);
--		if (ret) {
--			gvt_vgpu_err("fail to pin shadow ctx\n");
--			goto out;
--		}
--		is_ctx_pinned[id] = true;
--
--		rq = i915_request_create(s->shadow[id]);
--		if (IS_ERR(rq)) {
--			gvt_vgpu_err("fail to alloc default request\n");
--			ret = -EIO;
--			goto out;
--		}
--		requests[id] = i915_request_get(rq);
--		i915_request_add(rq);
--	}
--
--	if (intel_gt_wait_for_idle(&dev_priv->gt,
--				I915_GEM_IDLE_TIMEOUT) == -ETIME) {
--		ret = -EIO;
--		goto out;
--	}
--
- 	/* scan init ctx to update cmd accessible list */
--	for_each_engine(engine, &dev_priv->gt, id) {
--		int size = engine->context_size - PAGE_SIZE;
--		void *vaddr;
-+	for_each_engine(engine, gvt->gt, id) {
- 		struct parser_exec_state s;
--		struct drm_i915_gem_object *obj;
--		struct i915_request *rq;
-+		void *vaddr;
-+		int ret;
- 
--		rq = requests[id];
--		GEM_BUG_ON(!i915_request_completed(rq));
--		GEM_BUG_ON(!intel_context_is_pinned(rq->context));
--		obj = rq->context->state->obj;
-+		if (!engine->default_state)
-+			continue;
- 
--		if (!obj) {
--			ret = -EIO;
--			goto out;
--		}
--
--		i915_gem_object_set_cache_coherency(obj,
--						    I915_CACHE_LLC);
--
--		vaddr = i915_gem_object_pin_map(obj, I915_MAP_WB);
-+		vaddr = shmem_pin_map(engine->default_state);
- 		if (IS_ERR(vaddr)) {
--			gvt_err("failed to pin init ctx obj, ring=%d, err=%lx\n",
--				id, PTR_ERR(vaddr));
--			ret = PTR_ERR(vaddr);
--			goto out;
-+			gvt_err("failed to map %s->default state, err:%zd\n",
-+				engine->name, PTR_ERR(vaddr));
-+			return;
- 		}
- 
- 		s.buf_type = RING_BUFFER_CTX;
-@@ -3159,9 +3117,9 @@ void intel_gvt_update_reg_whitelist(struct intel_vgpu *vgpu)
- 		s.vgpu = vgpu;
- 		s.engine = engine;
- 		s.ring_start = 0;
--		s.ring_size = size;
-+		s.ring_size = engine->context_size - start;
- 		s.ring_head = 0;
--		s.ring_tail = size;
-+		s.ring_tail = s.ring_size;
- 		s.rb_va = vaddr + start;
- 		s.workload = NULL;
- 		s.is_ctx_wa = false;
-@@ -3169,29 +3127,18 @@ void intel_gvt_update_reg_whitelist(struct intel_vgpu *vgpu)
- 
- 		/* skipping the first RING_CTX_SIZE(0x50) dwords */
- 		ret = ip_gma_set(&s, RING_CTX_SIZE);
--		if (ret) {
--			i915_gem_object_unpin_map(obj);
--			goto out;
-+		if (ret == 0) {
-+			ret = command_scan(&s, 0, s.ring_size, 0, s.ring_size);
-+			if (ret)
-+				gvt_err("Scan init ctx error\n");
- 		}
- 
--		ret = command_scan(&s, 0, size, 0, size);
-+		shmem_unpin_map(engine->default_state, vaddr);
- 		if (ret)
--			gvt_err("Scan init ctx error\n");
--
--		i915_gem_object_unpin_map(obj);
-+			return;
- 	}
- 
--out:
--	if (!ret)
--		gvt->is_reg_whitelist_updated = true;
--
--	for (id = 0; id < I915_NUM_ENGINES ; id++) {
--		if (requests[id])
--			i915_request_put(requests[id]);
--
--		if (is_ctx_pinned[id])
--			intel_context_unpin(s->shadow[id]);
--	}
-+	gvt->is_reg_whitelist_updated = true;
- }
- 
- int intel_gvt_scan_engine_context(struct intel_vgpu_workload *workload)
--- 
-2.20.1
+Series: series starting with [1/2] drm/i915/gvt: Parse default state to update reg whitelist
+URL   : https://patchwork.freedesktop.org/series/86425/
+State : success
+
+== Summary ==
+
+CI Bug Log - changes from CI_DRM_9696 -> Patchwork_19535
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19535/index.html
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_19535 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@amdgpu/amd_basic@semaphore:
+    - fi-bsw-nick:        NOTRUN -> [SKIP][1] ([fdo#109271]) +17 similar issues
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19535/fi-bsw-nick/igt@amdgpu/amd_basic@semaphore.html
+
+  * igt@debugfs_test@read_all_entries:
+    - fi-tgl-y:           [PASS][2] -> [DMESG-WARN][3] ([i915#402]) +2 similar issues
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9696/fi-tgl-y/igt@debugfs_test@read_all_entries.html
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19535/fi-tgl-y/igt@debugfs_test@read_all_entries.html
+
+  * igt@kms_chamelium@dp-crc-fast:
+    - fi-cml-u2:          [PASS][4] -> [FAIL][5] ([i915#1161] / [i915#262])
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9696/fi-cml-u2/igt@kms_chamelium@dp-crc-fast.html
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19535/fi-cml-u2/igt@kms_chamelium@dp-crc-fast.html
+
+  
+#### Possible fixes ####
+
+  * igt@i915_selftest@live@execlists:
+    - fi-bsw-nick:        [INCOMPLETE][6] ([i915#2940]) -> [PASS][7]
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9696/fi-bsw-nick/igt@i915_selftest@live@execlists.html
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19535/fi-bsw-nick/igt@i915_selftest@live@execlists.html
+
+  * igt@kms_addfb_basic@addfb25-framebuffer-vs-set-tiling:
+    - fi-tgl-y:           [DMESG-WARN][8] ([i915#402]) -> [PASS][9] +2 similar issues
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9696/fi-tgl-y/igt@kms_addfb_basic@addfb25-framebuffer-vs-set-tiling.html
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19535/fi-tgl-y/igt@kms_addfb_basic@addfb25-framebuffer-vs-set-tiling.html
+
+  
+  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
+  [i915#1161]: https://gitlab.freedesktop.org/drm/intel/issues/1161
+  [i915#262]: https://gitlab.freedesktop.org/drm/intel/issues/262
+  [i915#2940]: https://gitlab.freedesktop.org/drm/intel/issues/2940
+  [i915#402]: https://gitlab.freedesktop.org/drm/intel/issues/402
+
+
+Participating hosts (44 -> 39)
+------------------------------
+
+  Missing    (5): fi-jsl-1 fi-ilk-m540 fi-hsw-4200u fi-bsw-cyan fi-bdw-samus 
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_9696 -> Patchwork_19535
+
+  CI-20190529: 20190529
+  CI_DRM_9696: 9fee71c4c03d8101401b895315a97f970036c6a0 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_5977: 0b6967520b15e73773eace7937ed8c17ba411bc0 @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools
+  Patchwork_19535: 31e991c6343c14920a80bccd776d828805bc8ebf @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+== Linux commits ==
+
+31e991c6343c drm/i915/gvt: Purge dev_priv->gt
+d6ae99d96b25 drm/i915/gvt: Parse default state to update reg whitelist
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19535/index.html
+
+--===============4289466116691292318==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>series starting with [1/2] drm/i915/gvt: Parse default state to update reg whitelist</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/86425/">https://patchwork.freedesktop.org/series/86425/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19535/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19535/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_9696 -&gt; Patchwork_19535</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19535/index.html</p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_19535 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@amdgpu/amd_basic@semaphore:</p>
+<ul>
+<li>fi-bsw-nick:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19535/fi-bsw-nick/igt@amdgpu/amd_basic@semaphore.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +17 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@debugfs_test@read_all_entries:</p>
+<ul>
+<li>fi-tgl-y:           <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9696/fi-tgl-y/igt@debugfs_test@read_all_entries.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19535/fi-tgl-y/igt@debugfs_test@read_all_entries.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/402">i915#402</a>) +2 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_chamelium@dp-crc-fast:</p>
+<ul>
+<li>fi-cml-u2:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9696/fi-cml-u2/igt@kms_chamelium@dp-crc-fast.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19535/fi-cml-u2/igt@kms_chamelium@dp-crc-fast.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1161">i915#1161</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/262">i915#262</a>)</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@i915_selftest@live@execlists:</p>
+<ul>
+<li>fi-bsw-nick:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9696/fi-bsw-nick/igt@i915_selftest@live@execlists.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2940">i915#2940</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19535/fi-bsw-nick/igt@i915_selftest@live@execlists.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@kms_addfb_basic@addfb25-framebuffer-vs-set-tiling:</p>
+<ul>
+<li>fi-tgl-y:           <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9696/fi-tgl-y/igt@kms_addfb_basic@addfb25-framebuffer-vs-set-tiling.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/402">i915#402</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19535/fi-tgl-y/igt@kms_addfb_basic@addfb25-framebuffer-vs-set-tiling.html">PASS</a> +2 similar issues</li>
+</ul>
+</li>
+</ul>
+<h2>Participating hosts (44 -&gt; 39)</h2>
+<p>Missing    (5): fi-jsl-1 fi-ilk-m540 fi-hsw-4200u fi-bsw-cyan fi-bdw-samus </p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_9696 -&gt; Patchwork_19535</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_9696: 9fee71c4c03d8101401b895315a97f970036c6a0 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_5977: 0b6967520b15e73773eace7937ed8c17ba411bc0 @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools<br />
+  Patchwork_19535: 31e991c6343c14920a80bccd776d828805bc8ebf @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<p>== Linux commits ==</p>
+<p>31e991c6343c drm/i915/gvt: Purge dev_priv-&gt;gt<br />
+d6ae99d96b25 drm/i915/gvt: Parse default state to update reg whitelist</p>
+
+</body>
+</html>
+
+--===============4289466116691292318==--
+
+--===============0526398555==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+
+--===============0526398555==--
