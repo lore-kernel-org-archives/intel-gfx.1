@@ -2,53 +2,55 @@ Return-Path: <SRS0=0PWK=HA=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 599E6C433DB
-	for <intel-gfx@archiver.kernel.org>; Fri, 29 Jan 2021 17:09:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 76598C433E0
+	for <intel-gfx@archiver.kernel.org>; Fri, 29 Jan 2021 17:18:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EA3F164D9A
-	for <intel-gfx@archiver.kernel.org>; Fri, 29 Jan 2021 17:09:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EA3F164D9A
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 319CC64D92
+	for <intel-gfx@archiver.kernel.org>; Fri, 29 Jan 2021 17:18:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 319CC64D92
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E8656EB1D;
-	Fri, 29 Jan 2021 17:09:54 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE11D6EB1D
- for <intel-gfx@lists.freedesktop.org>; Fri, 29 Jan 2021 17:09:52 +0000 (UTC)
-IronPort-SDR: 1Mdp5n9mDb6kA8hjvN8VET6a/p8iFywuoTaVbkVVMsCXx/OuAlqJgEhaO32ma/dLOXld4VsZtP
- bDkaUjWwkqEw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9879"; a="179675130"
-X-IronPort-AV: E=Sophos;i="5.79,386,1602572400"; d="scan'208";a="179675130"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jan 2021 09:09:51 -0800
-IronPort-SDR: ljK7OJx3JCGnHAqqnF6kbpnRrn72wNX34ZZilKaydRYezIrtcjC1U9RvXjBfPMIINQJsC+8rbi
- gypjZcXYwcIw==
-X-IronPort-AV: E=Sophos;i="5.79,386,1602572400"; d="scan'208";a="574103528"
-Received: from unknown (HELO sdutt-i7) ([10.165.21.147])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jan 2021 09:09:51 -0800
-Date: Fri, 29 Jan 2021 09:01:01 -0800
-From: Matthew Brost <matthew.brost@intel.com>
-To: Chris Wilson <chris@chris-wilson.co.uk>
-Message-ID: <20210129170101.GA29614@sdutt-i7>
-References: <20210125140136.10494-1-chris@chris-wilson.co.uk>
- <20210125140136.10494-20-chris@chris-wilson.co.uk>
- <20210128225604.GA20650@sdutt-i7>
- <161191625882.867.12917284563227933093@build.alporthouse.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A61526EB80;
+	Fri, 29 Jan 2021 17:18:13 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CBDEC6EB80
+ for <intel-gfx@lists.freedesktop.org>; Fri, 29 Jan 2021 17:18:11 +0000 (UTC)
+IronPort-SDR: Ing+iKTW9xzpenOSqIM87+Q93zaiM1tjR/NgL4t0BRZrrpQx8srRI8vB5TkmVnyuazsv7IMNCG
+ iY44yApOvHVA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9879"; a="177891853"
+X-IronPort-AV: E=Sophos;i="5.79,386,1602572400"; d="scan'208";a="177891853"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Jan 2021 09:18:09 -0800
+IronPort-SDR: mthzFK5XSPOmte4IPr1AGUAgelZ2uDIBB508jKsPEgdD/e/XOCZ1Ny7qg1wUoRE8njNH2Ot0hY
+ jkNiIZ5mB0uQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.79,386,1602572400"; d="scan'208";a="357855934"
+Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
+ by orsmga006.jf.intel.com with SMTP; 29 Jan 2021 09:18:04 -0800
+Received: by stinkbox (sSMTP sendmail emulation);
+ Fri, 29 Jan 2021 19:18:03 +0200
+Date: Fri, 29 Jan 2021 19:18:03 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Imre Deak <imre.deak@intel.com>
+Message-ID: <YBRDS8ye67GY+kdM@intel.com>
+References: <20210128155948.13678-1-ville.syrjala@linux.intel.com>
+ <20210128155948.13678-3-ville.syrjala@linux.intel.com>
+ <20210129170633.GC183052@ideak-desk.fi.intel.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <161191625882.867.12917284563227933093@build.alporthouse.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Subject: Re: [Intel-gfx] [PATCH 20/41] drm/i915: Replace priolist rbtree
- with a skiplist
+In-Reply-To: <20210129170633.GC183052@ideak-desk.fi.intel.com>
+X-Patchwork-Hint: comment
+Subject: Re: [Intel-gfx] [PATCH 3/5] drm/i915: Power up combo PHY lanes for
+ for HDMI as well
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,52 +63,76 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, thomas.hellstrom@intel.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: intel-gfx@lists.freedesktop.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jan 29, 2021 at 10:30:58AM +0000, Chris Wilson wrote:
-> Quoting Matthew Brost (2021-01-28 22:56:04)
-> > On Mon, Jan 25, 2021 at 02:01:15PM +0000, Chris Wilson wrote:
-> > > Replace the priolist rbtree with a skiplist. The crucial difference is
-> > > that walking and removing the first element of a skiplist is O(1), but
-> > > O(lgN) for an rbtree, as we need to rebalance on remove. This is a
-> > > hindrance for submission latency as it occurs between picking a request
-> > > for the priolist and submitting it to hardware, as well effectively
-> > > trippling the number of O(lgN) operations required under the irqoff lock.
-> > > This is critical to reducing the latency jitter with multiple clients.
-> > > 
-> > > The downsides to skiplists are that lookup/insertion is only
-> > > probablistically O(lgN) and there is a significant memory penalty to
-> > > as each skip node is larger than the rbtree equivalent. Furthermore, we
-> > > don't use dynamic arrays for the skiplist, so the allocation is fixed,
-> > > and imposes an upper bound on the scalability wrt to the number of
-> > > inflight requests.
-> > > 
-> > 
-> > This is a fun data structure but IMO might be overkill to maintain this
-> > code in the i915. The UMDs have effectively agreed to use only 3 levels,
-> > is O(lgN) where N == 3 really a big deal? With GuC submission we will
-> > statically map all user levels into 3 buckets. If we are doing that, do
-> > we even need a complex data structure? i.e. Could use just use can
-> > array of linked lists?
-> 
-> Because we need to scale the bst to handle a unqiue key per request with
-> thousands of requests [this is not only about priorities]. And as you
-> will see from the results, even with just a single priority in the system
-> (so one entry in either the skiplist or rbtree), the skiplist is beating 
-> the rbtree as measured by the lock hold time around insert/dequeue of
-> requests. That surprised me.
+On Fri, Jan 29, 2021 at 07:06:33PM +0200, Imre Deak wrote:
+> On Thu, Jan 28, 2021 at 05:59:46PM +0200, Ville Syrjala wrote:
+> > From: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
+> > =
 
-Ok, seems reasonable. Skips list are pretty cool, wondering if at some
-point we should make skip list code a bit more generic so it can
-possibly be levered in other parts of the i915 / kernel.
+> > Currently we only explicitly power up the combo PHY lanes
+> > for DP. The spec says we should do it for HDMI as well.
+> > =
 
-Matt
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
+> > ---
+> >  drivers/gpu/drm/i915/display/intel_ddi.c | 2 ++
+> >  1 file changed, 2 insertions(+)
+> > =
 
-> -Chris
+> > diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm=
+/i915/display/intel_ddi.c
+> > index 88cc6e2fbe91..8fbeb8c24efb 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_ddi.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+> > @@ -4337,6 +4337,8 @@ static void intel_enable_ddi_hdmi(struct intel_at=
+omic_state *state,
+> >  		intel_de_write(dev_priv, reg, val);
+> >  	}
+> >  =
+
+> > +	intel_ddi_power_up_lanes(encoder, crtc_state);
+> > +
+> =
+
+> Not sure if it matters, but the spec says to apply WA #1143 just before
+> enabling DDI_BUF_CTL.
+
+intel_ddi_power_up_lanes() is a nop for pre-icl, so we still do that.
+Also not sure what the final fate of that w/a will be since apparently
+it's not working as intended.
+
+That said I was debating with myself what order to put these in, but
+in the end I chose this order because the w/a is related to the
+vswing programming, and so wanted to keep it next to the BUF_TRANS
+programming.
+
+> =
+
+> =
+
+> >  	/* In HDMI/DVI mode, the port width, and swing/emphasis values
+> >  	 * are ignored so nothing special needs to be done besides
+> >  	 * enabling the port.
+> > -- =
+
+> > 2.26.2
+> > =
+
+> > _______________________________________________
+> > Intel-gfx mailing list
+> > Intel-gfx@lists.freedesktop.org
+> > https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+
+-- =
+
+Ville Syrj=E4l=E4
+Intel
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
