@@ -6,36 +6,36 @@ X-Spam-Status: No, score=-3.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 942FFC433E0
-	for <intel-gfx@archiver.kernel.org>; Mon,  1 Feb 2021 19:41:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D2163C433E6
+	for <intel-gfx@archiver.kernel.org>; Mon,  1 Feb 2021 19:42:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0BA4064DBA
-	for <intel-gfx@archiver.kernel.org>; Mon,  1 Feb 2021 19:41:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0BA4064DBA
+	by mail.kernel.org (Postfix) with ESMTPS id 860C664DBA
+	for <intel-gfx@archiver.kernel.org>; Mon,  1 Feb 2021 19:42:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 860C664DBA
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 701F56E43F;
-	Mon,  1 Feb 2021 19:41:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 15E1A6E471;
+	Mon,  1 Feb 2021 19:42:38 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
  [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id B21316E43F;
- Mon,  1 Feb 2021 19:41:34 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 4B3F46E471;
+ Mon,  1 Feb 2021 19:42:37 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id AC9D7A9A42;
- Mon,  1 Feb 2021 19:41:34 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id 47F44A9A42;
+ Mon,  1 Feb 2021 19:42:37 +0000 (UTC)
 MIME-Version: 1.0
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: =?utf-8?b?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Date: Mon, 01 Feb 2021 19:41:34 -0000
-Message-ID: <161220849467.18681.10881192761001577409@emeril.freedesktop.org>
+Date: Mon, 01 Feb 2021 19:42:37 -0000
+Message-ID: <161220855729.18680.16858737424157819933@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <20210201183343.15292-1-ville.syrjala@linux.intel.com>
 In-Reply-To: <20210201183343.15292-1-ville.syrjala@linux.intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_drm/i915=3A_Clean_up_the_DDI_clock_routing_mess?=
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?drm/i915=3A_Clean_up_the_DDI_clock_routing_mess?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,27 +63,42 @@ State : warning
 
 == Summary ==
 
-$ dim checkpatch origin/drm-tip
-83a4bb6e6220 drm/i915: Extract icl_dpclka_cfgcr0_reg()
-55c608204619 drm/i915: Extract icl_dpclka_cfgcr0_clk_sel*()
-896a544d3328 drm/i915: Introduce .{enable, disable}_clock() encoder vfuncs
-732fae08fafa drm/i915: Extract hsw_ddi_{enable, disable}_clock()
-e75c39a95d43 drm/i915: Extract skl_ddi_{enable, disable}_clock()
-26c2a16ac8ae drm/i195: Extract cnl_ddi_{enable, disable}_clock()
-d9f0d9ea2d01 drm/i915: Convert DG1 over to .{enable, disable}_clock()
-aa859cf415e0 drm/i915: Extract icl+ .{enable, disable}_clock() vfuncs
--:12: WARNING:COMMIT_LOG_LONG_LINE: Possible unwrapped commit description (prefer a maximum 75 chars per line)
-#12: 
-   and ICL_DPCLKA_CFGCR0_TC_CLK_OFF part form icl_{map,unmap}_plls_to_ports()
-
-total: 0 errors, 1 warnings, 0 checks, 227 lines checked
-e9b82425593e drm/i915: Use intel_de_rmw() for DDI clock routing
-acdaeff0d22f drm/i915: Sprinkle a few missing locks around shared DDI clock registers
-fa3178994587 drm/i915: Sprinkle WARN(!pll) into icl/dg1 .clock_enable()
-1f48cc5cbdb8 drm/i915: Extract _cnl_ddi_{enable, disable}_clock()
-7c936097f280 drm/i915: Split alds/rkl from icl_ddi_combo_{enable, disable}_clock()
-5f0caa42e34a drm/i915: Use .disable_clock() for pll sanitation
-a5c9c286cd25 drm/i915: Relocate icl_sanitize_encoder_pll_mapping()
+$ dim sparse --fast origin/drm-tip
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
+-
++drivers/gpu/drm/i915/gt/intel_reset.c:1327:5: warning: context imbalance in 'intel_gt_reset_trylock' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'fwtable_read16' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'fwtable_read32' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'fwtable_read64' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'fwtable_read8' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'fwtable_write16' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'fwtable_write32' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'fwtable_write8' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen11_fwtable_read16' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen11_fwtable_read32' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen11_fwtable_read64' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen11_fwtable_read8' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen11_fwtable_write16' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen11_fwtable_write32' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen11_fwtable_write8' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen12_fwtable_read16' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen12_fwtable_read32' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen12_fwtable_read64' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen12_fwtable_read8' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen12_fwtable_write16' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen12_fwtable_write32' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen12_fwtable_write8' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen6_read16' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen6_read32' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen6_read64' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen6_read8' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen6_write16' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen6_write32' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen6_write8' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen8_write16' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen8_write32' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen8_write8' - different lock contexts for basic block
 
 
 _______________________________________________
