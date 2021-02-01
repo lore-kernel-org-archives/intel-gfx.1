@@ -2,38 +2,74 @@ Return-Path: <SRS0=l6T8=HD=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-0.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6BD72C433E0
-	for <intel-gfx@archiver.kernel.org>; Mon,  1 Feb 2021 12:50:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 55A34C433E9
+	for <intel-gfx@archiver.kernel.org>; Mon,  1 Feb 2021 12:51:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D2EA464D9E
-	for <intel-gfx@archiver.kernel.org>; Mon,  1 Feb 2021 12:50:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D2EA464D9E
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id E135464E31
+	for <intel-gfx@archiver.kernel.org>; Mon,  1 Feb 2021 12:51:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E135464E31
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 21A306E1B1;
-	Mon,  1 Feb 2021 12:50:43 +0000 (UTC)
-Received: from mblankhorst.nl (mblankhorst.nl
- [IPv6:2a02:2308::216:3eff:fe92:dfa3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 480646E1B1
- for <intel-gfx@lists.freedesktop.org>; Mon,  1 Feb 2021 12:50:41 +0000 (UTC)
-From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Mon,  1 Feb 2021 13:50:37 +0100
-Message-Id: <20210201125037.1537079-1-maarten.lankhorst@linux.intel.com>
-X-Mailer: git-send-email 2.30.0
-In-Reply-To: <20210128162612.927917-27-maarten.lankhorst@linux.intel.com>
-References: <20210128162612.927917-27-maarten.lankhorst@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E5DF6E57E;
+	Mon,  1 Feb 2021 12:51:31 +0000 (UTC)
+Received: from mail-io1-xd2b.google.com (mail-io1-xd2b.google.com
+ [IPv6:2607:f8b0:4864:20::d2b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2EAC26E1B6;
+ Mon,  1 Feb 2021 00:23:56 +0000 (UTC)
+Received: by mail-io1-xd2b.google.com with SMTP id h11so15556639ioh.11;
+ Sun, 31 Jan 2021 16:23:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=j+6+ulDyi6U2H4iOXB1YcmGEFxqpm4cmiSLEvcnumSM=;
+ b=s1g6LEQIF+dRC17p5+kv6440BGJWxhEMy5hCfpxzKTZM8FDxRyxZjUCyPgyDbOrLDW
+ U5IUIU6xdJNPdQZRxUMCW1F6bGEAXaIUDUG3ShOpg0/JgZ4/T0lNkGZp86Tj9XNVNb72
+ Rsod/lgNXYeNgeX45zAROu1OswZu1yn2DDKxmCpnBnKgffFDoMrXgxrhLnQPR3pN3FXY
+ RW+8zoIEwNnmj47+3cmHMKcVGFUBWPH3IOPJorf18yhDEmE8wzQJTcZ+k1Xp3To+T+Pm
+ 8rd+/Dre/88BjUu2Nifgn4nj2lowDigMcgsSQTXdjgpxF15X1jSucUAe4KYFamWCRnZj
+ wpjQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=j+6+ulDyi6U2H4iOXB1YcmGEFxqpm4cmiSLEvcnumSM=;
+ b=TaBbzTVrOfJgbXNYdF4dT5E7w+d6/DeW3vtLZYYUTEYYPiukyIm/mzbvOMEky2dixY
+ jsZOXdgoy2f/at+bFkFp+phi/OszcC8whUoi5yDLKxrgQE33oYufudy/sCI/O3dOVdhW
+ p8ECA7XE9hvSsQ7Vnw2gXRBIGylXTH4ZSgVeqVxFX+wzqA3eIc5l1BZCLqULyOlJys2h
+ jRpJbyGoquqVDB/PTWP6ITYOc4texMlT029VNklueKyPh5k74r8RoQHPlp/EsqiT7Coe
+ DAk45QAbBPCbsTv4pZV1nPAfA+z+H5YckiYWCfPHcJcAKtt+KAPGohvG5diqs8xx9ypa
+ FSkg==
+X-Gm-Message-State: AOAM530uxIoDhe5LmLEGpShAkodFmygsVRg2wtHvg6HQWJFScJ1M4wrU
+ G6dgukS6juZEj02jbO9uzXg=
+X-Google-Smtp-Source: ABdhPJzgviUON/XVeRLneYaAH+MkQxXranKXNIXDdgdgEmilNO5S0tjJHKrvgcRM3w2tULg85ADxfQ==
+X-Received: by 2002:a5d:9710:: with SMTP id h16mr4362661iol.192.1612139035501; 
+ Sun, 31 Jan 2021 16:23:55 -0800 (PST)
+Received: from llvm-development.us-central1-a.c.llvm-285123.internal
+ (131.28.69.34.bc.googleusercontent.com. [34.69.28.131])
+ by smtp.gmail.com with ESMTPSA id r1sm7874186iot.8.2021.01.31.16.23.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 31 Jan 2021 16:23:54 -0800 (PST)
+Date: Mon, 1 Feb 2021 00:23:53 +0000
+From: Vinicius Tinti <viniciustinti@gmail.com>
+To: Chris Wilson <chris@chris-wilson.co.uk>
+Message-ID: <CALD9WKyonuPTPBzLHyLGd0V+w9SQavPdv0c_nBgLOyr6_5QnjQ@mail.gmail.com>
+References: <20210129181519.69963-1-viniciustinti@gmail.com>
+ <161195375417.17568.2762721732398065240@build.alporthouse.com>
+ <20210130123411.GB1822@llvm-development.us-central1-a.c.llvm-285123.internal>
+ <161201071009.32035.9188382145053741268@build.alporthouse.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH] drm/i915: Make lrc_init_wa_ctx compatible with
- ww locking, v3.
+Content-Disposition: inline
+In-Reply-To: <161201071009.32035.9188382145053741268@build.alporthouse.com>
+X-Mailman-Approved-At: Mon, 01 Feb 2021 12:51:29 +0000
+Subject: Re: [Intel-gfx] [PATCH] drm/i915: Remove unreachable code
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,73 +82,75 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: intel-gfx@lists.freedesktop.org, Nick Desaulniers <ndesaulniers@google.com>,
+ linux-kernel@vger.kernel.org, clang-built-linux@googlegroups.com,
+ dri-devel@lists.freedesktop.org, Nathan Chancellor <natechancellor@gmail.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-TWFrZSBjcmVhdGlvbiBzZXBhcmF0ZSBmcm9tIHBpbm5pbmcsIGluIG9yZGVyIHRvIHRha2UgdGhl
-IGxvY2sgb25seQpvbmNlLCBhbmQgcGluIHRoZSBtYXBwaW5nIHdpdGggdGhlIGxvY2sgaGVsZC4K
-CkNoYW5nZXMgc2luY2UgdjE6Ci0gUmViYXNlIG9uIHRvcCBvZiB1cHN0cmVhbSBjaGFuZ2VzLgpD
-aGFuZ2VzIHNpbmNlIHYyOgotIEZ1bGx5IGNsZWFyIHdhX2N0eCBvbiBlcnJvci4KClNpZ25lZC1v
-ZmYtYnk6IE1hYXJ0ZW4gTGFua2hvcnN0IDxtYWFydGVuLmxhbmtob3JzdEBsaW51eC5pbnRlbC5j
-b20+ClJldmlld2VkLWJ5OiBUaG9tYXMgSGVsbHN0csO2bSA8dGhvbWFzLmhlbGxzdHJvbUBsaW51
-eC5pbnRlbC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3QvaW50ZWxfbHJjLmMgfCA0
-OSArKysrKysrKysrKysrKysrKysrKysrLS0tLS0tLQogMSBmaWxlIGNoYW5nZWQsIDM4IGluc2Vy
-dGlvbnMoKyksIDExIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9p
-OTE1L2d0L2ludGVsX2xyYy5jIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3QvaW50ZWxfbHJjLmMK
-aW5kZXggODUwOGI4ZDcwMWMxLi5hMmI5MTZkMjdhMzkgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1
-L2RybS9pOTE1L2d0L2ludGVsX2xyYy5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2d0L2lu
-dGVsX2xyYy5jCkBAIC0xNDIxLDcgKzE0MjEsNyBAQCBnZW4xMF9pbml0X2luZGlyZWN0Y3R4X2Ji
-KHN0cnVjdCBpbnRlbF9lbmdpbmVfY3MgKmVuZ2luZSwgdTMyICpiYXRjaCkKIAogI2RlZmluZSBD
-VFhfV0FfQkJfU0laRSAoUEFHRV9TSVpFKQogCi1zdGF0aWMgaW50IGxyY19zZXR1cF93YV9jdHgo
-c3RydWN0IGludGVsX2VuZ2luZV9jcyAqZW5naW5lKQorc3RhdGljIGludCBscmNfY3JlYXRlX3dh
-X2N0eChzdHJ1Y3QgaW50ZWxfZW5naW5lX2NzICplbmdpbmUpCiB7CiAJc3RydWN0IGRybV9pOTE1
-X2dlbV9vYmplY3QgKm9iajsKIAlzdHJ1Y3QgaTkxNV92bWEgKnZtYTsKQEAgLTE0MzcsMTAgKzE0
-MzcsNiBAQCBzdGF0aWMgaW50IGxyY19zZXR1cF93YV9jdHgoc3RydWN0IGludGVsX2VuZ2luZV9j
-cyAqZW5naW5lKQogCQlnb3RvIGVycjsKIAl9CiAKLQllcnIgPSBpOTE1X2dndHRfcGluKHZtYSwg
-TlVMTCwgMCwgUElOX0hJR0gpOwotCWlmIChlcnIpCi0JCWdvdG8gZXJyOwotCiAJZW5naW5lLT53
-YV9jdHgudm1hID0gdm1hOwogCXJldHVybiAwOwogCkBAIC0xNDUyLDkgKzE0NDgsNiBAQCBzdGF0
-aWMgaW50IGxyY19zZXR1cF93YV9jdHgoc3RydWN0IGludGVsX2VuZ2luZV9jcyAqZW5naW5lKQog
-dm9pZCBscmNfZmluaV93YV9jdHgoc3RydWN0IGludGVsX2VuZ2luZV9jcyAqZW5naW5lKQogewog
-CWk5MTVfdm1hX3VucGluX2FuZF9yZWxlYXNlKCZlbmdpbmUtPndhX2N0eC52bWEsIDApOwotCi0J
-LyogQ2FsbGVkIG9uIGVycm9yIHVud2luZCwgY2xlYXIgYWxsIGZsYWdzIHRvIHByZXZlbnQgZnVy
-dGhlciB1c2UgKi8KLQltZW1zZXQoJmVuZ2luZS0+d2FfY3R4LCAwLCBzaXplb2YoZW5naW5lLT53
-YV9jdHgpKTsKIH0KIAogdHlwZWRlZiB1MzIgKigqd2FfYmJfZnVuY190KShzdHJ1Y3QgaW50ZWxf
-ZW5naW5lX2NzICplbmdpbmUsIHUzMiAqYmF0Y2gpOwpAQCAtMTQ2Niw2ICsxNDU5LDcgQEAgdm9p
-ZCBscmNfaW5pdF93YV9jdHgoc3RydWN0IGludGVsX2VuZ2luZV9jcyAqZW5naW5lKQogCQkmd2Ff
-Y3R4LT5pbmRpcmVjdF9jdHgsICZ3YV9jdHgtPnBlcl9jdHgKIAl9OwogCXdhX2JiX2Z1bmNfdCB3
-YV9iYl9mbltBUlJBWV9TSVpFKHdhX2JiKV07CisJc3RydWN0IGk5MTVfZ2VtX3d3X2N0eCB3dzsK
-IAl2b2lkICpiYXRjaCwgKmJhdGNoX3B0cjsKIAl1bnNpZ25lZCBpbnQgaTsKIAlpbnQgZXJyOwpA
-QCAtMTQ5NCw3ICsxNDg4LDcgQEAgdm9pZCBscmNfaW5pdF93YV9jdHgoc3RydWN0IGludGVsX2Vu
-Z2luZV9jcyAqZW5naW5lKQogCQlyZXR1cm47CiAJfQogCi0JZXJyID0gbHJjX3NldHVwX3dhX2N0
-eChlbmdpbmUpOworCWVyciA9IGxyY19jcmVhdGVfd2FfY3R4KGVuZ2luZSk7CiAJaWYgKGVycikg
-ewogCQkvKgogCQkgKiBXZSBjb250aW51ZSBldmVuIGlmIHdlIGZhaWwgdG8gaW5pdGlhbGl6ZSBX
-QSBiYXRjaApAQCAtMTUwNyw3ICsxNTAxLDIyIEBAIHZvaWQgbHJjX2luaXRfd2FfY3R4KHN0cnVj
-dCBpbnRlbF9lbmdpbmVfY3MgKmVuZ2luZSkKIAkJcmV0dXJuOwogCX0KIAorCWlmICghZW5naW5l
-LT53YV9jdHgudm1hKQorCQlyZXR1cm47CisKKwlpOTE1X2dlbV93d19jdHhfaW5pdCgmd3csIHRy
-dWUpOworcmV0cnk6CisJZXJyID0gaTkxNV9nZW1fb2JqZWN0X2xvY2sod2FfY3R4LT52bWEtPm9i
-aiwgJnd3KTsKKwlpZiAoIWVycikKKwkJZXJyID0gaTkxNV9nZ3R0X3Bpbih3YV9jdHgtPnZtYSwg
-Jnd3LCAwLCBQSU5fSElHSCk7CisJaWYgKGVycikKKwkJZ290byBlcnI7CisKIAliYXRjaCA9IGk5
-MTVfZ2VtX29iamVjdF9waW5fbWFwKHdhX2N0eC0+dm1hLT5vYmosIEk5MTVfTUFQX1dCKTsKKwlp
-ZiAoSVNfRVJSKGJhdGNoKSkgeworCQllcnIgPSBQVFJfRVJSKGJhdGNoKTsKKwkJZ290byBlcnJf
-dW5waW47CisJfQogCiAJLyoKIAkgKiBFbWl0IHRoZSB0d28gd29ya2Fyb3VuZCBiYXRjaCBidWZm
-ZXJzLCByZWNvcmRpbmcgdGhlIG9mZnNldCBmcm9tIHRoZQpAQCAtMTUzMiw4ICsxNTQxLDI2IEBA
-IHZvaWQgbHJjX2luaXRfd2FfY3R4KHN0cnVjdCBpbnRlbF9lbmdpbmVfY3MgKmVuZ2luZSkKIAlf
-X2k5MTVfZ2VtX29iamVjdF9yZWxlYXNlX21hcCh3YV9jdHgtPnZtYS0+b2JqKTsKIAogCS8qIFZl
-cmlmeSB0aGF0IHdlIGNhbiBoYW5kbGUgZmFpbHVyZSB0byBzZXR1cCB0aGUgd2FfY3R4ICovCi0J
-aWYgKGVyciB8fCBpOTE1X2luamVjdF9wcm9iZV9lcnJvcihlbmdpbmUtPmk5MTUsIC1FTk9ERVYp
-KQotCQlscmNfZmluaV93YV9jdHgoZW5naW5lKTsKKwlpZiAoIWVycikKKwkJZXJyID0gaTkxNV9p
-bmplY3RfcHJvYmVfZXJyb3IoZW5naW5lLT5pOTE1LCAtRU5PREVWKTsKKworZXJyX3VucGluOgor
-CWlmIChlcnIpCisJCWk5MTVfdm1hX3VucGluKHdhX2N0eC0+dm1hKTsKK2VycjoKKwlpZiAoZXJy
-ID09IC1FREVBRExLKSB7CisJCWVyciA9IGk5MTVfZ2VtX3d3X2N0eF9iYWNrb2ZmKCZ3dyk7CisJ
-CWlmICghZXJyKQorCQkJZ290byByZXRyeTsKKwl9CisJaTkxNV9nZW1fd3dfY3R4X2ZpbmkoJnd3
-KTsKKworCWlmIChlcnIpIHsKKwkJaTkxNV92bWFfcHV0KGVuZ2luZS0+d2FfY3R4LnZtYSk7CisK
-KwkJLyogQ2xlYXIgYWxsIGZsYWdzIHRvIHByZXZlbnQgZnVydGhlciB1c2UgKi8KKwkJbWVtc2V0
-KHdhX2N0eCwgMCwgc2l6ZW9mKCp3YV9jdHgpKTsKKwl9CiB9CiAKIHN0YXRpYyB2b2lkIHN0X3J1
-bnRpbWVfdW5kZXJmbG93KHN0cnVjdCBpbnRlbF9jb250ZXh0X3N0YXRzICpzdGF0cywgczMyIGR0
-KQotLSAKMi4zMC4wCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fXwpJbnRlbC1nZnggbWFpbGluZyBsaXN0CkludGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
-cmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9pbnRlbC1n
-ZngK
+On Sat, Jan 30, 2021 at 9:45 AM Chris Wilson <chris@chris-wilson.co.uk> wrote:
+>
+> Quoting Vinicius Tinti (2021-01-30 12:34:11)
+> > On Fri, Jan 29, 2021 at 08:55:54PM +0000, Chris Wilson wrote:
+> > > Quoting Vinicius Tinti (2021-01-29 18:15:19)
+> > > > By enabling -Wunreachable-code-aggressive on Clang the following code
+> > > > paths are unreachable.
+> > >
+> > > That code exists as commentary and, especially for sdvo, library
+> > > functions that we may need in future.
+> >
+> > I would argue that this code could be removed since it is in git history.
+> > It can be restored when needed.
+> >
+> > This will make the code cleaner.
+>
+> It doesn't change the control flow, so no complexity argument. It
+> removes documentation from the code, so I have the opposite opinion.
+
+The last change in sdvo related to this function is from commit
+ce22c320b8ca ("drm/i915/sdvo: convert to encoder disable/enable"), which
+dates from 2012.
+
+It has not been used or changed for a long time. I think it could be
+converted to a block comment. This will preserve the documentation
+purpose. What do you think?
+
+All this will avoid having "if (0)".
+
+> > > The ivb-gt1 case => as we now set the gt level for ivb, should we not
+> > > enable the optimisation for ivb unaffected by the w/a? Just no one has
+> > > taken the time to see if it causes a regression.
+> >
+> > I don't know. I just found out that the code is unreachable.
+> >
+> > > For error state, the question remains whether we should revert to
+> > > uncompressed data if the compressed stream is larger than the original.
+> >
+> > I don't know too.
+> >
+> > In this last two cases the code could be commented and the decisions
+> > and problems explained in the comment section.
+>
+> They already are, that is the point.
+
+I meant making them a block comment. For example:
+
+/*
+ * Enabling HiZ Raw Stall Optimization, at this point, causes corruption.
+ *
+ * Calling wa_masked_dis with the arguments wal, CACHE_MODE_0_GEN7,
+ * HIZ_RAW_STALL_OPT_DISABLE will cause an HiZ corruption on ivb:g1.
+ */
+
+/*
+ * Should fallback to uncompressed if we increase size
+ * (zstream->total_out > zstream->total_in) by returning -E2BIG?
+ */
+
+> -Chris
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
