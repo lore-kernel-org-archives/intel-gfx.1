@@ -7,35 +7,37 @@ X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7306FC433E0
-	for <intel-gfx@archiver.kernel.org>; Mon,  1 Feb 2021 08:58:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1F527C433E6
+	for <intel-gfx@archiver.kernel.org>; Mon,  1 Feb 2021 08:58:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2591D64E3F
+	by mail.kernel.org (Postfix) with ESMTPS id ABBD064E33
 	for <intel-gfx@archiver.kernel.org>; Mon,  1 Feb 2021 08:58:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2591D64E3F
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org ABBD064E33
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C4636E4E6;
-	Mon,  1 Feb 2021 08:57:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 55C156E491;
+	Mon,  1 Feb 2021 08:57:42 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8EC926E4B1
- for <intel-gfx@lists.freedesktop.org>; Mon,  1 Feb 2021 08:57:35 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4BEEF6E4A7
+ for <intel-gfx@lists.freedesktop.org>; Mon,  1 Feb 2021 08:57:33 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23757714-1500050 
- for multiple; Mon, 01 Feb 2021 08:57:15 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23757762-1500050 
+ for multiple; Mon, 01 Feb 2021 08:57:22 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon,  1 Feb 2021 08:56:19 +0000
-Message-Id: <20210201085715.27435-1-chris@chris-wilson.co.uk>
+Date: Mon,  1 Feb 2021 08:56:59 +0000
+Message-Id: <20210201085715.27435-41-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20210201085715.27435-1-chris@chris-wilson.co.uk>
+References: <20210201085715.27435-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 01/57] drm/i915/gt: Restrict the GT clock
- override to just Icelake
+Subject: [Intel-gfx] [PATCH 41/57] drm/i915: Move saturated workload
+ detection back to the context
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,28 +56,149 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-It appears that Elkhart Lake uses the same clock for CTX_TIMESTAMP as
-CS_TIMESTAMP, leaving Icelake as the odd one out.
+When we introduced the saturated workload detection to tell us to back
+off from semaphore usage [semaphores have a noticeable impact on
+contended bus cycles with the CPU for some heavy workloads], we first
+introduced it as a per-context tracker. This allows individual contexts
+to try and optimise their own usage, but we found that with the local
+tracking and the no-semaphore boosting, the first context to disable
+semaphores got a massive priority boost and so would starve the rest and
+all new contexts (as they started with semaphores enabled and lower
+priority). Hence we moved the saturated workload detection to the
+engine, and a consequence had to disable semaphores on virtual engines.
 
-Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/3024
+Now that we do not have semaphore priority boosting, and try to fairly
+schedule irrespective of semaphore usage, we can move the tracking back
+to the context and virtual engines can now utilise the faster inter-engine
+synchronisation. If we see that any context fairs to use the semaphore,
+because the system is oversubscribed and was busy doing something else
+instead of spinning on the semaphore, we disable further usage of
+semaphores with that context until it idles again. This should restrict
+the semaphores to lightly utilised system where the latency between
+requests is more noticeable, and curtail the bus-contention from checking
+for signaled semaphores.
+
+References: 44d89409a12e ("drm/i915: Make the semaphore saturation mask global")
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 ---
- drivers/gpu/drm/i915/gt/intel_gt_clock_utils.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/i915/gt/intel_context.c           |  3 +++
+ drivers/gpu/drm/i915/gt/intel_context_types.h     |  2 ++
+ drivers/gpu/drm/i915/gt/intel_engine_pm.c         |  2 --
+ drivers/gpu/drm/i915/gt/intel_engine_types.h      |  2 --
+ .../gpu/drm/i915/gt/intel_execlists_submission.c  | 15 ---------------
+ drivers/gpu/drm/i915/i915_request.c               |  6 +++---
+ 6 files changed, 8 insertions(+), 22 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_clock_utils.c b/drivers/gpu/drm/i915/gt/intel_gt_clock_utils.c
-index f8c79efb1a87..09b290fe0867 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_clock_utils.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_clock_utils.c
-@@ -160,7 +160,7 @@ void intel_gt_init_clock_frequency(struct intel_gt *gt)
- 		gt->clock_period_ns = intel_gt_clock_interval_to_ns(gt, 1);
+diff --git a/drivers/gpu/drm/i915/gt/intel_context.c b/drivers/gpu/drm/i915/gt/intel_context.c
+index daf537d1e415..57b6bde2b736 100644
+--- a/drivers/gpu/drm/i915/gt/intel_context.c
++++ b/drivers/gpu/drm/i915/gt/intel_context.c
+@@ -344,6 +344,9 @@ static int __intel_context_active(struct i915_active *active)
+ {
+ 	struct intel_context *ce = container_of(active, typeof(*ce), active);
  
- 	/* Icelake appears to use another fixed frequency for CTX_TIMESTAMP */
--	if (IS_GEN(gt->i915, 11))
-+	if (IS_ICELAKE(gt->i915))
- 		gt->clock_period_ns = NSEC_PER_SEC / 13750000;
++	CE_TRACE(ce, "active\n");
++	ce->saturated = 0;
++
+ 	intel_context_get(ce);
  
- 	GT_TRACE(gt,
+ 	/* everything should already be activated by intel_context_pre_pin() */
+diff --git a/drivers/gpu/drm/i915/gt/intel_context_types.h b/drivers/gpu/drm/i915/gt/intel_context_types.h
+index 0ea18c9e2aca..d1a35c3055a7 100644
+--- a/drivers/gpu/drm/i915/gt/intel_context_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_context_types.h
+@@ -109,6 +109,8 @@ struct intel_context {
+ 	} lrc;
+ 	u32 tag; /* cookie passed to HW to track this context on submission */
+ 
++	intel_engine_mask_t saturated; /* submitting semaphores too late? */
++
+ 	/** stats: Context GPU engine busyness tracking. */
+ 	struct intel_context_stats {
+ 		u64 active;
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_pm.c b/drivers/gpu/drm/i915/gt/intel_engine_pm.c
+index ef5064ea54e5..44948abe4bf8 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_pm.c
++++ b/drivers/gpu/drm/i915/gt/intel_engine_pm.c
+@@ -253,8 +253,6 @@ static int __engine_park(struct intel_wakeref *wf)
+ 	struct intel_engine_cs *engine =
+ 		container_of(wf, typeof(*engine), wakeref);
+ 
+-	engine->saturated = 0;
+-
+ 	/*
+ 	 * If one and only one request is completed between pm events,
+ 	 * we know that we are inside the kernel context and it is
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_types.h b/drivers/gpu/drm/i915/gt/intel_engine_types.h
+index dc12cbdfda46..e94c99dee5cb 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_engine_types.h
+@@ -303,8 +303,6 @@ struct intel_engine_cs {
+ 
+ 	struct intel_context *kernel_context; /* pinned */
+ 
+-	intel_engine_mask_t saturated; /* submitting semaphores too late? */
+-
+ 	struct {
+ 		struct delayed_work work;
+ 		struct i915_request *systole;
+diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+index 9c929688a955..e8f192984e88 100644
+--- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
++++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+@@ -3413,21 +3413,6 @@ intel_execlists_create_virtual(struct intel_engine_cs **siblings,
+ 	ve->base.instance = I915_ENGINE_CLASS_INVALID_VIRTUAL;
+ 	ve->base.uabi_instance = I915_ENGINE_CLASS_INVALID_VIRTUAL;
+ 
+-	/*
+-	 * The decision on whether to submit a request using semaphores
+-	 * depends on the saturated state of the engine. We only compute
+-	 * this during HW submission of the request, and we need for this
+-	 * state to be globally applied to all requests being submitted
+-	 * to this engine. Virtual engines encompass more than one physical
+-	 * engine and so we cannot accurately tell in advance if one of those
+-	 * engines is already saturated and so cannot afford to use a semaphore
+-	 * and be pessimized in priority for doing so -- if we are the only
+-	 * context using semaphores after all other clients have stopped, we
+-	 * will be starved on the saturated system. Such a global switch for
+-	 * semaphores is less than ideal, but alas is the current compromise.
+-	 */
+-	ve->base.saturated = ALL_ENGINES;
+-
+ 	snprintf(ve->base.name, sizeof(ve->base.name), "virtual");
+ 
+ 	intel_engine_init_execlists(&ve->base);
+diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
+index aa12289ea14b..352083889b97 100644
+--- a/drivers/gpu/drm/i915/i915_request.c
++++ b/drivers/gpu/drm/i915/i915_request.c
+@@ -516,7 +516,7 @@ bool __i915_request_submit(struct i915_request *request)
+ 	 */
+ 	if (request->sched.semaphores &&
+ 	    i915_sw_fence_signaled(&request->semaphore))
+-		engine->saturated |= request->sched.semaphores;
++		request->context->saturated |= request->sched.semaphores;
+ 
+ 	engine->emit_fini_breadcrumb(request,
+ 				     request->ring->vaddr + request->postfix);
+@@ -977,7 +977,7 @@ already_busywaiting(struct i915_request *rq)
+ 	 *
+ 	 * See the are-we-too-late? check in __i915_request_submit().
+ 	 */
+-	return rq->sched.semaphores | READ_ONCE(rq->engine->saturated);
++	return rq->sched.semaphores | READ_ONCE(rq->context->saturated);
+ }
+ 
+ static int
+@@ -1071,7 +1071,7 @@ emit_semaphore_wait(struct i915_request *to,
+ 	if (__emit_semaphore_wait(to, from, from->fence.seqno))
+ 		goto await_fence;
+ 
+-	to->sched.semaphores |= mask;
++	to->sched.semaphores |= mask & ~to->engine->mask;
+ 	wait = &to->semaphore;
+ 
+ await_fence:
 -- 
 2.20.1
 
