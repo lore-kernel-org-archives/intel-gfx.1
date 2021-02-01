@@ -2,74 +2,62 @@ Return-Path: <SRS0=l6T8=HD=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 55A34C433E9
-	for <intel-gfx@archiver.kernel.org>; Mon,  1 Feb 2021 12:51:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6821BC433E0
+	for <intel-gfx@archiver.kernel.org>; Mon,  1 Feb 2021 12:58:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E135464E31
-	for <intel-gfx@archiver.kernel.org>; Mon,  1 Feb 2021 12:51:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E135464E31
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id A665864DAE
+	for <intel-gfx@archiver.kernel.org>; Mon,  1 Feb 2021 12:58:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A665864DAE
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=shipmail.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E5DF6E57E;
-	Mon,  1 Feb 2021 12:51:31 +0000 (UTC)
-Received: from mail-io1-xd2b.google.com (mail-io1-xd2b.google.com
- [IPv6:2607:f8b0:4864:20::d2b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2EAC26E1B6;
- Mon,  1 Feb 2021 00:23:56 +0000 (UTC)
-Received: by mail-io1-xd2b.google.com with SMTP id h11so15556639ioh.11;
- Sun, 31 Jan 2021 16:23:56 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=j+6+ulDyi6U2H4iOXB1YcmGEFxqpm4cmiSLEvcnumSM=;
- b=s1g6LEQIF+dRC17p5+kv6440BGJWxhEMy5hCfpxzKTZM8FDxRyxZjUCyPgyDbOrLDW
- U5IUIU6xdJNPdQZRxUMCW1F6bGEAXaIUDUG3ShOpg0/JgZ4/T0lNkGZp86Tj9XNVNb72
- Rsod/lgNXYeNgeX45zAROu1OswZu1yn2DDKxmCpnBnKgffFDoMrXgxrhLnQPR3pN3FXY
- RW+8zoIEwNnmj47+3cmHMKcVGFUBWPH3IOPJorf18yhDEmE8wzQJTcZ+k1Xp3To+T+Pm
- 8rd+/Dre/88BjUu2Nifgn4nj2lowDigMcgsSQTXdjgpxF15X1jSucUAe4KYFamWCRnZj
- wpjQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=j+6+ulDyi6U2H4iOXB1YcmGEFxqpm4cmiSLEvcnumSM=;
- b=TaBbzTVrOfJgbXNYdF4dT5E7w+d6/DeW3vtLZYYUTEYYPiukyIm/mzbvOMEky2dixY
- jsZOXdgoy2f/at+bFkFp+phi/OszcC8whUoi5yDLKxrgQE33oYufudy/sCI/O3dOVdhW
- p8ECA7XE9hvSsQ7Vnw2gXRBIGylXTH4ZSgVeqVxFX+wzqA3eIc5l1BZCLqULyOlJys2h
- jRpJbyGoquqVDB/PTWP6ITYOc4texMlT029VNklueKyPh5k74r8RoQHPlp/EsqiT7Coe
- DAk45QAbBPCbsTv4pZV1nPAfA+z+H5YckiYWCfPHcJcAKtt+KAPGohvG5diqs8xx9ypa
- FSkg==
-X-Gm-Message-State: AOAM530uxIoDhe5LmLEGpShAkodFmygsVRg2wtHvg6HQWJFScJ1M4wrU
- G6dgukS6juZEj02jbO9uzXg=
-X-Google-Smtp-Source: ABdhPJzgviUON/XVeRLneYaAH+MkQxXranKXNIXDdgdgEmilNO5S0tjJHKrvgcRM3w2tULg85ADxfQ==
-X-Received: by 2002:a5d:9710:: with SMTP id h16mr4362661iol.192.1612139035501; 
- Sun, 31 Jan 2021 16:23:55 -0800 (PST)
-Received: from llvm-development.us-central1-a.c.llvm-285123.internal
- (131.28.69.34.bc.googleusercontent.com. [34.69.28.131])
- by smtp.gmail.com with ESMTPSA id r1sm7874186iot.8.2021.01.31.16.23.54
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 31 Jan 2021 16:23:54 -0800 (PST)
-Date: Mon, 1 Feb 2021 00:23:53 +0000
-From: Vinicius Tinti <viniciustinti@gmail.com>
-To: Chris Wilson <chris@chris-wilson.co.uk>
-Message-ID: <CALD9WKyonuPTPBzLHyLGd0V+w9SQavPdv0c_nBgLOyr6_5QnjQ@mail.gmail.com>
-References: <20210129181519.69963-1-viniciustinti@gmail.com>
- <161195375417.17568.2762721732398065240@build.alporthouse.com>
- <20210130123411.GB1822@llvm-development.us-central1-a.c.llvm-285123.internal>
- <161201071009.32035.9188382145053741268@build.alporthouse.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1133B6E588;
+	Mon,  1 Feb 2021 12:58:12 +0000 (UTC)
+Received: from ste-pvt-msa1.bahnhof.se (ste-pvt-msa1.bahnhof.se
+ [213.80.101.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E077B6E588
+ for <intel-gfx@lists.freedesktop.org>; Mon,  1 Feb 2021 12:58:10 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+ by ste-pvt-msa1.bahnhof.se (Postfix) with ESMTP id 07C533F3ED;
+ Mon,  1 Feb 2021 13:58:08 +0100 (CET)
+Authentication-Results: ste-pvt-msa1.bahnhof.se; dkim=pass (1024-bit key;
+ unprotected) header.d=shipmail.org header.i=@shipmail.org header.b=R7lLR4oU; 
+ dkim-atps=neutral
+X-Virus-Scanned: Debian amavisd-new at bahnhof.se
+Received: from ste-pvt-msa1.bahnhof.se ([127.0.0.1])
+ by localhost (ste-pvt-msa1.bahnhof.se [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id wjqmREeiNJgd; Mon,  1 Feb 2021 13:58:07 +0100 (CET)
+Received: by ste-pvt-msa1.bahnhof.se (Postfix) with ESMTPA id B1C2F3F39A;
+ Mon,  1 Feb 2021 13:58:06 +0100 (CET)
+Received: from [192.168.0.209] (h-205-35.A357.priv.bahnhof.se [155.4.205.35])
+ by mail1.shipmail.org (Postfix) with ESMTPSA id EB1C4360070;
+ Mon,  1 Feb 2021 13:58:05 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=shipmail.org; s=mail;
+ t=1612184285; bh=QwD3DpLJgLvBRgOIHa/uUfl/LSr2Te7qv1+lhJ6zmwQ=;
+ h=Subject:To:References:From:Date:In-Reply-To:From;
+ b=R7lLR4oU62ZgpqTqeEN2R+sTZp9Zto27m7aQ4xE6/ehd5/JFU8Xbsf3eTj+McVntF
+ EJljAnchqiDb3cZton2XBTYXg4U9UDtn3yAGPIBYRTzf2eYgQcHhp6HuYEPwSzXuAV
+ sVQU3W5SqK91g32EJcAPoqOr4l/Vv/MzvA02p7XU=
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ intel-gfx@lists.freedesktop.org
+References: <20210129131137.1245023-1-maarten.lankhorst@linux.intel.com>
+From: =?UTF-8?Q?Thomas_Hellstr=c3=b6m_=28Intel=29?= <thomas_os@shipmail.org>
+Message-ID: <b0877df9-3550-be57-9a57-28fce730d918@shipmail.org>
+Date: Mon, 1 Feb 2021 13:58:05 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.5.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <161201071009.32035.9188382145053741268@build.alporthouse.com>
-X-Mailman-Approved-At: Mon, 01 Feb 2021 12:51:29 +0000
-Subject: Re: [Intel-gfx] [PATCH] drm/i915: Remove unreachable code
+In-Reply-To: <20210129131137.1245023-1-maarten.lankhorst@linux.intel.com>
+Content-Language: en-US
+Subject: Re: [Intel-gfx] [PATCH] drm/i915: Add missing -EDEADLK path in
+ execbuffer ggtt pinning.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,75 +70,20 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, Nick Desaulniers <ndesaulniers@google.com>,
- linux-kernel@vger.kernel.org, clang-built-linux@googlegroups.com,
- dri-devel@lists.freedesktop.org, Nathan Chancellor <natechancellor@gmail.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Sat, Jan 30, 2021 at 9:45 AM Chris Wilson <chris@chris-wilson.co.uk> wrote:
->
-> Quoting Vinicius Tinti (2021-01-30 12:34:11)
-> > On Fri, Jan 29, 2021 at 08:55:54PM +0000, Chris Wilson wrote:
-> > > Quoting Vinicius Tinti (2021-01-29 18:15:19)
-> > > > By enabling -Wunreachable-code-aggressive on Clang the following code
-> > > > paths are unreachable.
-> > >
-> > > That code exists as commentary and, especially for sdvo, library
-> > > functions that we may need in future.
-> >
-> > I would argue that this code could be removed since it is in git history.
-> > It can be restored when needed.
-> >
-> > This will make the code cleaner.
->
-> It doesn't change the control flow, so no complexity argument. It
-> removes documentation from the code, so I have the opposite opinion.
-
-The last change in sdvo related to this function is from commit
-ce22c320b8ca ("drm/i915/sdvo: convert to encoder disable/enable"), which
-dates from 2012.
-
-It has not been used or changed for a long time. I think it could be
-converted to a block comment. This will preserve the documentation
-purpose. What do you think?
-
-All this will avoid having "if (0)".
-
-> > > The ivb-gt1 case => as we now set the gt level for ivb, should we not
-> > > enable the optimisation for ivb unaffected by the w/a? Just no one has
-> > > taken the time to see if it causes a regression.
-> >
-> > I don't know. I just found out that the code is unreachable.
-> >
-> > > For error state, the question remains whether we should revert to
-> > > uncompressed data if the compressed stream is larger than the original.
-> >
-> > I don't know too.
-> >
-> > In this last two cases the code could be commented and the decisions
-> > and problems explained in the comment section.
->
-> They already are, that is the point.
-
-I meant making them a block comment. For example:
-
-/*
- * Enabling HiZ Raw Stall Optimization, at this point, causes corruption.
- *
- * Calling wa_masked_dis with the arguments wal, CACHE_MODE_0_GEN7,
- * HIZ_RAW_STALL_OPT_DISABLE will cause an HiZ corruption on ivb:g1.
- */
-
-/*
- * Should fallback to uncompressed if we increase size
- * (zstream->total_out > zstream->total_in) by returning -E2BIG?
- */
-
-> -Chris
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+Ck9uIDEvMjkvMjEgMjoxMSBQTSwgTWFhcnRlbiBMYW5raG9yc3Qgd3JvdGU6Cj4gSW4gcmVsb2Nf
+aW9tYXAgd2Ugc3dhbGxvdyB0aGUgLUVERUFETEsgZXJyb3IsIGJ1dCB0aGlzIG5lZWRzIHRvCj4g
+YmUgcmV0dXJuZWQgZm9yIC1FREVBRExLIGhhbmRsaW5nLiBBZGQgdGhlIG1pc3NpbmcgY2hlY2sg
+dG8KPiBtYWtlIGJzdyBwYXNzIGFnYWluLgo+Cj4gVGVzdGNhc2U6IGdlbV9leGVjX2ZlbmNlLmJh
+c2ljLWF3YWl0Cj4KPiBTaWduZWQtb2ZmLWJ5OiBNYWFydGVuIExhbmtob3JzdCA8bWFhcnRlbi5s
+YW5raG9yc3RAbGludXguaW50ZWwuY29tPgo+IC0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL2k5MTUv
+Z2VtL2k5MTVfZ2VtX2V4ZWNidWZmZXIuYyB8IDIgKysKPiAgIDEgZmlsZSBjaGFuZ2VkLCAyIGlu
+c2VydGlvbnMoKykKClJldmlld2VkLWJ5OiBUaG9tYXMgSGVsbHN0csO2bSA8dGhvbWFzLmhlbGxz
+dHJvbUBsaW51eC5pbnRlbC5jb20+CgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRlbC1nZnhAbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
+Zm8vaW50ZWwtZ2Z4Cg==
