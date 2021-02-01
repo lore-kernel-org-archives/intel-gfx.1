@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BDC83C433DB
-	for <intel-gfx@archiver.kernel.org>; Mon,  1 Feb 2021 08:58:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D4ED2C43381
+	for <intel-gfx@archiver.kernel.org>; Mon,  1 Feb 2021 08:58:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5BAFA64E41
-	for <intel-gfx@archiver.kernel.org>; Mon,  1 Feb 2021 08:58:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5BAFA64E41
+	by mail.kernel.org (Postfix) with ESMTPS id 8B6CB64E3F
+	for <intel-gfx@archiver.kernel.org>; Mon,  1 Feb 2021 08:58:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8B6CB64E3F
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F06D6E4F8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 540B96E508;
 	Mon,  1 Feb 2021 08:57:44 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B1B996E4E6
- for <intel-gfx@lists.freedesktop.org>; Mon,  1 Feb 2021 08:57:35 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 281986E4B5
+ for <intel-gfx@lists.freedesktop.org>; Mon,  1 Feb 2021 08:57:34 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23757725-1500050 
- for multiple; Mon, 01 Feb 2021 08:57:17 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23757743-1500050 
+ for multiple; Mon, 01 Feb 2021 08:57:20 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon,  1 Feb 2021 08:56:30 +0000
-Message-Id: <20210201085715.27435-12-chris@chris-wilson.co.uk>
+Date: Mon,  1 Feb 2021 08:56:48 +0000
+Message-Id: <20210201085715.27435-30-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20210201085715.27435-1-chris@chris-wilson.co.uk>
 References: <20210201085715.27435-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 12/57] drm/i915/selftests: Exercise priority
- inheritance around an engine loop
+Subject: [Intel-gfx] [PATCH 30/57] drm/i915: Move timeslicing flag to
+ scheduler
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,261 +56,149 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Exercise rescheduling priority inheritance around a sequence of requests
-that wrap around all the engines.
+Whether a scheduler chooses to implement timeslicing is up to it, and
+not an underlying property of the HW engine. The scheduler does depend
+on the HW supporting preemption.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 ---
- .../gpu/drm/i915/selftests/i915_scheduler.c   | 225 ++++++++++++++++++
- 1 file changed, 225 insertions(+)
+ drivers/gpu/drm/i915/gt/intel_engine.h         |  6 ++++++
+ drivers/gpu/drm/i915/gt/intel_engine_types.h   | 18 ++++--------------
+ .../drm/i915/gt/intel_execlists_submission.c   |  9 ++++++---
+ drivers/gpu/drm/i915/gt/selftest_execlists.c   |  2 +-
+ drivers/gpu/drm/i915/i915_scheduler_types.h    | 10 ++++++++++
+ 5 files changed, 27 insertions(+), 18 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/selftests/i915_scheduler.c b/drivers/gpu/drm/i915/selftests/i915_scheduler.c
-index d095fab2ccec..acc666f755d7 100644
---- a/drivers/gpu/drm/i915/selftests/i915_scheduler.c
-+++ b/drivers/gpu/drm/i915/selftests/i915_scheduler.c
-@@ -7,6 +7,7 @@
- 
- #include "gt/intel_context.h"
- #include "gt/intel_gpu_commands.h"
-+#include "gt/intel_ring.h"
- #include "gt/selftest_engine_heartbeat.h"
- #include "selftests/igt_spinner.h"
- #include "selftests/i915_random.h"
-@@ -504,10 +505,234 @@ static int igt_priority_chains(void *arg)
- 	return igt_schedule_chains(arg, igt_priority);
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine.h b/drivers/gpu/drm/i915/gt/intel_engine.h
+index 4f0163457aed..ca3a9cb06328 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine.h
++++ b/drivers/gpu/drm/i915/gt/intel_engine.h
+@@ -279,4 +279,10 @@ intel_engine_flush_scheduler(struct intel_engine_cs *engine)
+ 	i915_sched_flush(intel_engine_get_scheduler(engine));
  }
  
-+static struct i915_request *
-+__write_timestamp(struct intel_engine_cs *engine,
-+		  struct drm_i915_gem_object *obj,
-+		  int slot,
-+		  struct i915_request *prev)
++static inline bool
++intel_engine_has_timeslices(struct intel_engine_cs *engine)
 +{
-+	struct i915_request *rq = ERR_PTR(-EINVAL);
-+	bool use_64b = INTEL_GEN(engine->i915) >= 8;
-+	struct intel_context *ce;
-+	struct i915_vma *vma;
-+	int err = 0;
-+	u32 *cs;
-+
-+	ce = intel_context_create(engine);
-+	if (IS_ERR(ce))
-+		return ERR_CAST(ce);
-+
-+	vma = i915_vma_instance(obj, ce->vm, NULL);
-+	if (IS_ERR(vma)) {
-+		err = PTR_ERR(vma);
-+		goto out_ce;
-+	}
-+
-+	err = i915_vma_pin(vma, 0, 0, PIN_USER);
-+	if (err)
-+		goto out_ce;
-+
-+	rq = intel_context_create_request(ce);
-+	if (IS_ERR(rq)) {
-+		err = PTR_ERR(rq);
-+		goto out_unpin;
-+	}
-+
-+	i915_vma_lock(vma);
-+	err = i915_vma_move_to_active(vma, rq, EXEC_OBJECT_WRITE);
-+	i915_vma_unlock(vma);
-+	if (err)
-+		goto out_request;
-+
-+	if (prev) {
-+		err = i915_request_await_dma_fence(rq, &prev->fence);
-+		if (err)
-+			goto out_request;
-+	}
-+
-+	if (engine->emit_init_breadcrumb) {
-+		err = engine->emit_init_breadcrumb(rq);
-+		if (err)
-+			goto out_request;
-+	}
-+
-+	cs = intel_ring_begin(rq, 4);
-+	if (IS_ERR(cs)) {
-+		err = PTR_ERR(cs);
-+		goto out_request;
-+	}
-+
-+	*cs++ = MI_STORE_REGISTER_MEM + use_64b;
-+	*cs++ = i915_mmio_reg_offset(RING_TIMESTAMP(engine->mmio_base));
-+	*cs++ = lower_32_bits(vma->node.start) + sizeof(u32) * slot;
-+	*cs++ = upper_32_bits(vma->node.start);
-+	intel_ring_advance(rq, cs);
-+
-+	i915_request_get(rq);
-+out_request:
-+	i915_request_add(rq);
-+out_unpin:
-+	i915_vma_unpin(vma);
-+out_ce:
-+	intel_context_put(ce);
-+	i915_request_put(prev);
-+	return err ? ERR_PTR(err) : rq;
++	return i915_sched_has_timeslices(intel_engine_get_scheduler(engine));
 +}
 +
-+static struct i915_request *create_spinner(struct drm_i915_private *i915,
-+					   struct igt_spinner *spin)
-+{
-+	struct intel_engine_cs *engine;
-+
-+	for_each_uabi_engine(engine, i915) {
-+		struct intel_context *ce;
-+		struct i915_request *rq;
-+
-+		if (igt_spinner_init(spin, engine->gt))
-+			return ERR_PTR(-ENOMEM);
-+
-+		ce = intel_context_create(engine);
-+		if (IS_ERR(ce))
-+			return ERR_CAST(ce);
-+
-+		rq = igt_spinner_create_request(spin, ce, MI_NOOP);
-+		intel_context_put(ce);
-+		if (rq == ERR_PTR(-ENODEV))
-+			continue;
-+		if (IS_ERR(rq))
-+			return rq;
-+
-+		i915_request_get(rq);
-+		i915_request_add(rq);
-+		return rq;
-+	}
-+
-+	return ERR_PTR(-ENODEV);
-+}
-+
-+static bool has_timestamp(const struct drm_i915_private *i915)
-+{
-+	return INTEL_GEN(i915) >= 7;
-+}
-+
-+static int __igt_schedule_cycle(struct drm_i915_private *i915,
-+				bool (*fn)(struct i915_request *rq,
-+					   unsigned long v, unsigned long e))
-+{
-+	struct intel_engine_cs *engine;
-+	struct drm_i915_gem_object *obj;
-+	struct igt_spinner spin;
-+	struct i915_request *rq;
-+	unsigned long count, n;
-+	u32 *time, last;
-+	int err;
-+
-+	/*
-+	 * Queue a bunch of ordered requests (each waiting on the previous)
-+	 * around the engines a couple of times. Each request will write
-+	 * the timestamp it executes at into the scratch, with the expectation
-+	 * that the timestamp will be in our desired execution order.
-+	 */
-+
-+	if (!i915->caps.scheduler || !has_timestamp(i915))
-+		return 0;
-+
-+	obj = i915_gem_object_create_internal(i915, SZ_64K);
-+	if (IS_ERR(obj))
-+		return PTR_ERR(obj);
-+
-+	time = i915_gem_object_pin_map(obj, I915_MAP_WC);
-+	if (IS_ERR(time)) {
-+		err = PTR_ERR(time);
-+		goto out_obj;
-+	}
-+
-+	rq = create_spinner(i915, &spin);
-+	if (IS_ERR(rq)) {
-+		err = PTR_ERR(rq);
-+		goto out_obj;
-+	}
-+
-+	err = 0;
-+	count = 0;
-+	for_each_uabi_engine(engine, i915) {
-+		if (!intel_engine_has_scheduler(engine))
-+			continue;
-+
-+		rq = __write_timestamp(engine, obj, count, rq);
-+		if (IS_ERR(rq)) {
-+			err = PTR_ERR(rq);
-+			break;
-+		}
-+
-+		count++;
-+	}
-+	for_each_uabi_engine(engine, i915) {
-+		if (!intel_engine_has_scheduler(engine))
-+			continue;
-+
-+		rq = __write_timestamp(engine, obj, count, rq);
-+		if (IS_ERR(rq)) {
-+			err = PTR_ERR(rq);
-+			break;
-+		}
-+
-+		count++;
-+	}
-+	GEM_BUG_ON(count * sizeof(u32) > obj->base.size);
-+	if (err || !count)
-+		goto out_spin;
-+
-+	fn(rq, count + 1, count);
-+	igt_spinner_end(&spin);
-+
-+	if (i915_request_wait(rq, 0, HZ / 2) < 0) {
-+		err = -ETIME;
-+		goto out_request;
-+	}
-+
-+	last = time[0];
-+	for (n = 1; n < count; n++) {
-+		if (i915_seqno_passed(last, time[n])) {
-+			pr_err("Timestamp[%lu] %x before previous %x\n",
-+			       n, time[n], last);
-+			err = -EINVAL;
-+			break;
-+		}
-+		last = time[n];
-+	}
-+
-+out_request:
-+	i915_request_put(rq);
-+out_spin:
-+	igt_spinner_fini(&spin);
-+out_obj:
-+	i915_gem_object_put(obj);
-+	return err;
-+}
-+
-+static bool noop(struct i915_request *rq, unsigned long v, unsigned long e)
-+{
-+	return true;
-+}
-+
-+static int igt_schedule_cycle(void *arg)
-+{
-+	return __igt_schedule_cycle(arg, noop);
-+}
-+
-+static int igt_priority_cycle(void *arg)
-+{
-+	return __igt_schedule_cycle(arg, igt_priority);
-+}
-+
- int i915_scheduler_live_selftests(struct drm_i915_private *i915)
- {
- 	static const struct i915_subtest tests[] = {
- 		SUBTEST(igt_priority_chains),
-+
-+		SUBTEST(igt_schedule_cycle),
-+		SUBTEST(igt_priority_cycle),
- 	};
+ #endif /* _INTEL_RINGBUFFER_H_ */
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_types.h b/drivers/gpu/drm/i915/gt/intel_engine_types.h
+index a3024a0de1de..96a0aec29672 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_engine_types.h
+@@ -442,11 +442,10 @@ struct intel_engine_cs {
+ #define I915_ENGINE_SUPPORTS_STATS   BIT(1)
+ #define I915_ENGINE_HAS_PREEMPTION   BIT(2)
+ #define I915_ENGINE_HAS_SEMAPHORES   BIT(3)
+-#define I915_ENGINE_HAS_TIMESLICES   BIT(4)
+-#define I915_ENGINE_NEEDS_BREADCRUMB_TASKLET BIT(5)
+-#define I915_ENGINE_IS_VIRTUAL       BIT(6)
+-#define I915_ENGINE_HAS_RELATIVE_MMIO BIT(7)
+-#define I915_ENGINE_REQUIRES_CMD_PARSER BIT(8)
++#define I915_ENGINE_NEEDS_BREADCRUMB_TASKLET BIT(4)
++#define I915_ENGINE_IS_VIRTUAL       BIT(5)
++#define I915_ENGINE_HAS_RELATIVE_MMIO BIT(6)
++#define I915_ENGINE_REQUIRES_CMD_PARSER BIT(7)
+ 	unsigned int flags;
  
- 	return i915_subtests(tests, i915);
+ 	/*
+@@ -541,15 +540,6 @@ intel_engine_has_semaphores(const struct intel_engine_cs *engine)
+ 	return engine->flags & I915_ENGINE_HAS_SEMAPHORES;
+ }
+ 
+-static inline bool
+-intel_engine_has_timeslices(const struct intel_engine_cs *engine)
+-{
+-	if (!IS_ACTIVE(CONFIG_DRM_I915_TIMESLICE_DURATION))
+-		return false;
+-
+-	return engine->flags & I915_ENGINE_HAS_TIMESLICES;
+-}
+-
+ static inline bool
+ intel_engine_needs_breadcrumb_tasklet(const struct intel_engine_cs *engine)
+ {
+diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+index 3217cb4369ad..d4b6d262265a 100644
+--- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
++++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+@@ -1023,7 +1023,7 @@ static bool needs_timeslice(const struct intel_engine_cs *engine,
+ {
+ 	const struct i915_sched *se = &engine->sched;
+ 
+-	if (!intel_engine_has_timeslices(engine))
++	if (!i915_sched_has_timeslices(se))
+ 		return false;
+ 
+ 	/* If not currently active, or about to switch, wait for next event */
+@@ -2918,8 +2918,6 @@ logical_ring_default_vfuncs(struct intel_engine_cs *engine)
+ 		engine->flags |= I915_ENGINE_HAS_SEMAPHORES;
+ 		if (can_preempt(engine)) {
+ 			engine->flags |= I915_ENGINE_HAS_PREEMPTION;
+-			if (IS_ACTIVE(CONFIG_DRM_I915_TIMESLICE_DURATION))
+-				engine->flags |= I915_ENGINE_HAS_TIMESLICES;
+ 		}
+ 	}
+ 
+@@ -2927,6 +2925,11 @@ logical_ring_default_vfuncs(struct intel_engine_cs *engine)
+ 		engine->emit_bb_start = gen8_emit_bb_start;
+ 	else
+ 		engine->emit_bb_start = gen8_emit_bb_start_noarb;
++
++	if (IS_ACTIVE(CONFIG_DRM_I915_TIMESLICE_DURATION) &&
++	    intel_engine_has_preemption(engine))
++		__set_bit(I915_SCHED_HAS_TIMESLICES_BIT,
++			  &engine->sched.flags);
+ }
+ 
+ static void logical_ring_default_irqs(struct intel_engine_cs *engine)
+diff --git a/drivers/gpu/drm/i915/gt/selftest_execlists.c b/drivers/gpu/drm/i915/gt/selftest_execlists.c
+index cfc0f4b9fbc5..147cbfd6dec0 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_execlists.c
++++ b/drivers/gpu/drm/i915/gt/selftest_execlists.c
+@@ -3825,7 +3825,7 @@ static unsigned int
+ __select_siblings(struct intel_gt *gt,
+ 		  unsigned int class,
+ 		  struct intel_engine_cs **siblings,
+-		  bool (*filter)(const struct intel_engine_cs *))
++		  bool (*filter)(struct intel_engine_cs *))
+ {
+ 	unsigned int n = 0;
+ 	unsigned int inst;
+diff --git a/drivers/gpu/drm/i915/i915_scheduler_types.h b/drivers/gpu/drm/i915/i915_scheduler_types.h
+index cb1eddb7edc8..dfb29b8c2bee 100644
+--- a/drivers/gpu/drm/i915/i915_scheduler_types.h
++++ b/drivers/gpu/drm/i915/i915_scheduler_types.h
+@@ -12,12 +12,14 @@
+ #include <linux/workqueue.h>
+ 
+ #include "i915_priolist_types.h"
++#include "i915_utils.h"
+ 
+ struct drm_printer;
+ struct i915_request;
+ 
+ enum {
+ 	I915_SCHED_ACTIVE_BIT = 0,
++	I915_SCHED_HAS_TIMESLICES_BIT,
+ };
+ 
+ /**
+@@ -184,4 +186,12 @@ static inline bool i915_sched_is_active(const struct i915_sched *se)
+ 	return test_bit(I915_SCHED_ACTIVE_BIT, &se->flags);
+ }
+ 
++static inline bool i915_sched_has_timeslices(const struct i915_sched *se)
++{
++	if (!IS_ACTIVE(CONFIG_DRM_I915_TIMESLICE_DURATION))
++		return false;
++
++	return test_bit(I915_SCHED_HAS_TIMESLICES_BIT, &se->flags);
++}
++
+ #endif /* _I915_SCHEDULER_TYPES_H_ */
 -- 
 2.20.1
 
