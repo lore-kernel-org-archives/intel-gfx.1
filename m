@@ -2,42 +2,54 @@ Return-Path: <SRS0=l6T8=HD=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-14.3 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E19ECC433DB
-	for <intel-gfx@archiver.kernel.org>; Mon,  1 Feb 2021 08:21:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C7EACC433E0
+	for <intel-gfx@archiver.kernel.org>; Mon,  1 Feb 2021 08:36:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 781A964DCC
-	for <intel-gfx@archiver.kernel.org>; Mon,  1 Feb 2021 08:21:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 781A964DCC
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
+	by mail.kernel.org (Postfix) with ESMTPS id 393D664DDB
+	for <intel-gfx@archiver.kernel.org>; Mon,  1 Feb 2021 08:36:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 393D664DDB
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B35F6E446;
-	Mon,  1 Feb 2021 08:21:18 +0000 (UTC)
-Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE7BA6E42D;
- Mon,  1 Feb 2021 08:21:14 +0000 (UTC)
-X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
- x-ip-name=78.156.65.138; 
-Received: from localhost (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP (TLS) id
- 23757383-1500050 for multiple; Mon, 01 Feb 2021 08:21:11 +0000
-MIME-Version: 1.0
-In-Reply-To: <577e01ed-a463-301f-8fc8-c553c0b46ba7@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 970866E48F;
+	Mon,  1 Feb 2021 08:36:21 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D16E6E48F;
+ Mon,  1 Feb 2021 08:36:20 +0000 (UTC)
+IronPort-SDR: nIFfK+CFIICXHhQJrhhrFsDNSY3h7v1iQ3O/m5ERyikRHmznTN6TS0GJagOvV9rJBBKBLblQId
+ iz111gPpe8rQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9881"; a="180797446"
+X-IronPort-AV: E=Sophos;i="5.79,392,1602572400"; d="scan'208";a="180797446"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Feb 2021 00:36:09 -0800
+IronPort-SDR: bpnPlMWLhl+S4W8gJyIgTUCbJqAQIQ1kXxDQnL7f1wmpO2f/pskFJs7FYXkV8aMLIn0+TfKldK
+ zj0iCrdce3ZA==
+X-IronPort-AV: E=Sophos;i="5.79,392,1602572400"; d="scan'208";a="369288921"
+Received: from rmeir2x-mobl.ger.corp.intel.com (HELO [10.214.231.94])
+ ([10.214.231.94])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Feb 2021 00:36:07 -0800
+To: Chris Wilson <chris@chris-wilson.co.uk>, intel-gfx@lists.freedesktop.org
 References: <20210131031153.3399123-1-chris@chris-wilson.co.uk>
  <577e01ed-a463-301f-8fc8-c553c0b46ba7@linux.intel.com>
-From: Chris Wilson <chris@chris-wilson.co.uk>
-To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- intel-gfx@lists.freedesktop.org
-Date: Mon, 01 Feb 2021 08:21:11 +0000
-Message-ID: <161216767124.30865.12019098192632057390@build.alporthouse.com>
-User-Agent: alot/0.9
+ <161216767124.30865.12019098192632057390@build.alporthouse.com>
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Organization: Intel Corporation UK Plc
+Message-ID: <abe2678a-f798-d625-0f59-f6ebf1ef5e4f@linux.intel.com>
+Date: Mon, 1 Feb 2021 08:36:04 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.5.0
+MIME-Version: 1.0
+In-Reply-To: <161216767124.30865.12019098192632057390@build.alporthouse.com>
+Content-Language: en-US
 Subject: Re: [Intel-gfx] [PATCH i-g-t] intel_gpu_top: Hide unused clients
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -52,59 +64,92 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: igt-dev@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Quoting Tvrtko Ursulin (2021-02-01 08:14:45)
+
+On 01/02/2021 08:21, Chris Wilson wrote:
+> Quoting Tvrtko Ursulin (2021-02-01 08:14:45)
+>>
+>> On 31/01/2021 03:11, Chris Wilson wrote:
+>>> Keep new clients hidden until they utilise the GPU.
+>>>
+>>> Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+>>> Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+>>> ---
+>>>    tools/intel_gpu_top.c | 5 ++++-
+>>>    1 file changed, 4 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/tools/intel_gpu_top.c b/tools/intel_gpu_top.c
+>>> index 60ff62d28..66a8effa6 100644
+>>> --- a/tools/intel_gpu_top.c
+>>> +++ b/tools/intel_gpu_top.c
+>>> @@ -828,8 +828,11 @@ static void update_client(struct client *c, unsigned int pid, char *name)
+>>>                c->last[i] = val[i];
+>>>        }
+>>>    
+>>> -     c->samples++;
+>>> +     if (!c->total_runtime)
+>>> +             return;
+>>> +
+>>>        c->status = ALIVE;
+>>> +     c->samples++;
+>>>    }
+>>>    
+>>>    static void
+>>>
+>>
+>> Not sure we need to do it at this level and not instead at presentation
+>> time.
 > 
-> On 31/01/2021 03:11, Chris Wilson wrote:
-> > Keep new clients hidden until they utilise the GPU.
-> > 
-> > Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-> > Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-> > ---
-> >   tools/intel_gpu_top.c | 5 ++++-
-> >   1 file changed, 4 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/tools/intel_gpu_top.c b/tools/intel_gpu_top.c
-> > index 60ff62d28..66a8effa6 100644
-> > --- a/tools/intel_gpu_top.c
-> > +++ b/tools/intel_gpu_top.c
-> > @@ -828,8 +828,11 @@ static void update_client(struct client *c, unsigned int pid, char *name)
-> >               c->last[i] = val[i];
-> >       }
-> >   
-> > -     c->samples++;
-> > +     if (!c->total_runtime)
-> > +             return;
-> > +
-> >       c->status = ALIVE;
-> > +     c->samples++;
-> >   }
-> >   
-> >   static void
-> > 
+> My goal was just presentation :(
+
+Something like this would be presentation time:
+
+diff --git a/tools/intel_gpu_top.c b/tools/intel_gpu_top.c
+index 60ff62d28e5d..f7c5cc3bf19f 100644
+--- a/tools/intel_gpu_top.c
++++ b/tools/intel_gpu_top.c
+@@ -1942,6 +1942,9 @@ print_client(struct client *c, struct engines 
+*engines, double t, int lines,
+         unsigned int i;
+
+         if (output_mode == INTERACTIVE) {
++               if (!c->total_runtime) /* make a key toggle? */
++                       return;
++
+                 lines++;
+
+                 printf("%6u %17s ", c->pid, c->print_name);
+
+But it worries me a bit to do it by default.
+
 > 
-> Not sure we need to do it at this level and not instead at presentation 
-> time.
+>> Plus, in default sort mode they would be at the end of the list,
+>> so behind the more active clients. Or you go into sort by id and they
+>> annoy you there?
+> 
+> No. I had a bunch of "Xorg" when launching steam which never became
+> anything. So I guess just a bunch of dlopen("libgl") spawing a bunch of
+> clients that we never used for anything more than gl[X]GetString, but
+> leaked the fd.
 
-My goal was just presentation :(
+But they were at the end, so potentially even cut of if enough 
+interesting clients? Or you actually sorted by id? Or something else is 
+broken?
 
-> Plus, in default sort mode they would be at the end of the list, 
-> so behind the more active clients. Or you go into sort by id and they 
-> annoy you there?
+> 
+> [Why does steam need 10% of the gpu to update an icon on the toolbar
+> which is hidden while minimised? Why do games sit in static menus at
+> 100% gpu? Why?]
 
-No. I had a bunch of "Xorg" when launching steam which never became
-anything. So I guess just a bunch of dlopen("libgl") spawing a bunch of
-clients that we never used for anything more than gl[X]GetString, but
-leaked the fd.
+Yep, I have this issue with animated KDE tray icons. :I
 
-[Why does steam need 10% of the gpu to update an icon on the toolbar
-which is hidden while minimised? Why do games sit in static menus at
-100% gpu? Why?]
--Chris
+Regards,
+
+Tvrtko
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
