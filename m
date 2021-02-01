@@ -7,36 +7,37 @@ X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 96B32C433DB
-	for <intel-gfx@archiver.kernel.org>; Mon,  1 Feb 2021 08:54:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 82D19C433E6
+	for <intel-gfx@archiver.kernel.org>; Mon,  1 Feb 2021 08:57:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D08DF64E36
-	for <intel-gfx@archiver.kernel.org>; Mon,  1 Feb 2021 08:54:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D08DF64E36
+	by mail.kernel.org (Postfix) with ESMTPS id DFFB064E33
+	for <intel-gfx@archiver.kernel.org>; Mon,  1 Feb 2021 08:57:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DFFB064E33
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2FF6C6E483;
-	Mon,  1 Feb 2021 08:54:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E2776E4AA;
+	Mon,  1 Feb 2021 08:57:33 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 33F1E6E483
- for <intel-gfx@lists.freedesktop.org>; Mon,  1 Feb 2021 08:54:08 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 74F936E48C
+ for <intel-gfx@lists.freedesktop.org>; Mon,  1 Feb 2021 08:57:31 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
-Received: from haswell.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23757689-1500050 
- for multiple; Mon, 01 Feb 2021 08:53:58 +0000
+Received: from build.alporthouse.com (unverified [78.156.65.138]) 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23757744-1500050 
+ for multiple; Mon, 01 Feb 2021 08:57:21 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon,  1 Feb 2021 08:53:58 +0000
-Message-Id: <20210201085358.3408367-1-chris@chris-wilson.co.uk>
-X-Mailer: git-send-email 2.30.0
-In-Reply-To: <20210131031153.3399123-1-chris@chris-wilson.co.uk>
-References: <20210131031153.3399123-1-chris@chris-wilson.co.uk>
+Date: Mon,  1 Feb 2021 08:56:49 +0000
+Message-Id: <20210201085715.27435-31-chris@chris-wilson.co.uk>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20210201085715.27435-1-chris@chris-wilson.co.uk>
+References: <20210201085715.27435-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH i-g-t] intel_gpu_top: Hide unused clients
+Subject: [Intel-gfx] [PATCH 31/57] drm/i915/gt: Declare when we enabled
+ timeslicing
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,48 +56,89 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hide inactive clients by pressing 'i' (toggle in interactive mode).
+Let userspace know if they can trust timeslicing by including it as part
+of the I915_PARAM_HAS_SCHEDULER::I915_SCHEDULER_CAP_TIMESLICING
 
+v2: Only declare timeslicing if we can safely preempt userspace.
+
+Fixes: 8ee36e048c98 ("drm/i915/execlists: Minimalistic timeslicing")
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 ---
- tools/intel_gpu_top.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ drivers/gpu/drm/i915/gt/intel_engine_user.c | 26 +++++++++++++++------
+ include/uapi/drm/i915_drm.h                 |  1 +
+ 2 files changed, 20 insertions(+), 7 deletions(-)
 
-diff --git a/tools/intel_gpu_top.c b/tools/intel_gpu_top.c
-index 60ff62d28..edf0dedac 100644
---- a/tools/intel_gpu_top.c
-+++ b/tools/intel_gpu_top.c
-@@ -1595,6 +1595,7 @@ print_imc(struct engines *engines, double t, int lines, int con_w, int con_h)
- }
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_user.c b/drivers/gpu/drm/i915/gt/intel_engine_user.c
+index 64eccdf32a22..50911fbe6368 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_user.c
++++ b/drivers/gpu/drm/i915/gt/intel_engine_user.c
+@@ -90,13 +90,17 @@ static void sort_engines(struct drm_i915_private *i915,
+ static void set_scheduler_caps(struct drm_i915_private *i915)
+ {
+ 	static const struct {
+-		u8 engine;
+-		u8 sched;
+-	} map[] = {
++		u8 flag;
++		u8 cap;
++	} engine_map[] = {
+ #define MAP(x, y) { ilog2(I915_ENGINE_##x), ilog2(I915_SCHEDULER_CAP_##y) }
+ 		MAP(HAS_PREEMPTION, PREEMPTION),
+ 		MAP(HAS_SEMAPHORES, SEMAPHORES),
+ 		MAP(SUPPORTS_STATS, ENGINE_BUSY_STATS),
++#undef MAP
++	}, sched_map[] = {
++#define MAP(x, y) { ilog2(I915_SCHED_##x), ilog2(I915_SCHEDULER_CAP_##y) }
++		MAP(HAS_TIMESLICES_BIT, TIMESLICING),
+ #undef MAP
+ 	};
+ 	struct intel_engine_cs *engine;
+@@ -105,6 +109,7 @@ static void set_scheduler_caps(struct drm_i915_private *i915)
+ 	enabled = 0;
+ 	disabled = 0;
+ 	for_each_uabi_engine(engine, i915) { /* all engines must agree! */
++		struct i915_sched *se = intel_engine_get_scheduler(engine);
+ 		int i;
  
- static bool class_view;
-+static bool filter_idle;
+ 		if (intel_engine_has_scheduler(engine))
+@@ -114,11 +119,18 @@ static void set_scheduler_caps(struct drm_i915_private *i915)
+ 			disabled |= (I915_SCHEDULER_CAP_ENABLED |
+ 				     I915_SCHEDULER_CAP_PRIORITY);
  
- static int
- print_engines_header(struct engines *engines, double t,
-@@ -1689,6 +1690,9 @@ print_engines_footer(struct engines *engines, double t,
- 	pops->close_struct();
- 
- 	if (output_mode == INTERACTIVE) {
-+		if (filter_idle && !c->total_runtime)
-+			return;
+-		for (i = 0; i < ARRAY_SIZE(map); i++) {
+-			if (engine->flags & BIT(map[i].engine))
+-				enabled |= BIT(map[i].sched);
++		for (i = 0; i < ARRAY_SIZE(engine_map); i++) {
++			if (engine->flags & BIT(engine_map[i].flag))
++				enabled |= BIT(engine_map[i].cap);
+ 			else
+-				disabled |= BIT(map[i].sched);
++				disabled |= BIT(engine_map[i].cap);
++		}
 +
- 		if (lines++ < con_h)
- 			printf("\n");
++		for (i = 0; i < ARRAY_SIZE(sched_map); i++) {
++			if (se->flags & BIT(sched_map[i].flag))
++				enabled |= BIT(sched_map[i].cap);
++			else
++				disabled |= BIT(sched_map[i].cap);
+ 		}
  	}
-@@ -2115,6 +2119,9 @@ static void process_stdin(unsigned int timeout_us)
- 		case 'q':
- 			stop_top = true;
- 			break;
-+		case 'i':
-+			filter_idle ^= true;
-+			break;
- 		case '1':
- 			class_view ^= true;
- 			break;
+ 
+diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
+index 1987e2ea79a3..cda0f391d965 100644
+--- a/include/uapi/drm/i915_drm.h
++++ b/include/uapi/drm/i915_drm.h
+@@ -524,6 +524,7 @@ typedef struct drm_i915_irq_wait {
+ #define   I915_SCHEDULER_CAP_PREEMPTION	(1ul << 2)
+ #define   I915_SCHEDULER_CAP_SEMAPHORES	(1ul << 3)
+ #define   I915_SCHEDULER_CAP_ENGINE_BUSY_STATS	(1ul << 4)
++#define   I915_SCHEDULER_CAP_TIMESLICING	(1ul << 5)
+ 
+ #define I915_PARAM_HUC_STATUS		 42
+ 
 -- 
-2.30.0
+2.20.1
 
 _______________________________________________
 Intel-gfx mailing list
