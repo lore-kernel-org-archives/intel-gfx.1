@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 79C88C433DB
-	for <intel-gfx@archiver.kernel.org>; Mon,  1 Feb 2021 08:58:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 18CAEC433E6
+	for <intel-gfx@archiver.kernel.org>; Mon,  1 Feb 2021 08:58:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 10F6764E33
+	by mail.kernel.org (Postfix) with ESMTPS id A27C664E3F
 	for <intel-gfx@archiver.kernel.org>; Mon,  1 Feb 2021 08:58:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 10F6764E33
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A27C664E3F
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D52976E4AD;
-	Mon,  1 Feb 2021 08:57:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1556C6E499;
+	Mon,  1 Feb 2021 08:57:42 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 21B5F6E45D
- for <intel-gfx@lists.freedesktop.org>; Mon,  1 Feb 2021 08:57:33 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 89B7C6E4A2
+ for <intel-gfx@lists.freedesktop.org>; Mon,  1 Feb 2021 08:57:32 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23757748-1500050 
- for multiple; Mon, 01 Feb 2021 08:57:21 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23757780-1500050 
+ for multiple; Mon, 01 Feb 2021 08:57:24 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon,  1 Feb 2021 08:56:51 +0000
-Message-Id: <20210201085715.27435-33-chris@chris-wilson.co.uk>
+Date: Mon,  1 Feb 2021 08:57:08 +0000
+Message-Id: <20210201085715.27435-50-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20210201085715.27435-1-chris@chris-wilson.co.uk>
 References: <20210201085715.27435-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 33/57] drm/i915: Move busywaiting control to the
- scheduler
+Subject: [Intel-gfx] [PATCH 50/57] Restore "drm/i915: drop
+ engine_pin/unpin_breadcrumbs_irq"
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,146 +56,66 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Busy-waiting is used for preempt-to-busy by schedulers, if they so
-choose. Since it is not a property of the engine, but that of the
-submission backend, move the flag from out of the engine to
-i915_sched_engine.
+This was removed in commit 478ffad6d690 ("drm/i915: drop
+engine_pin/unpin_breadcrumbs_irq") as the last user had been removed,
+but now there is a promise of a new user in the next patch.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+Reviewed-by: Mika Kuoppala <mika.kuoppala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/gt/gen8_engine_cs.c      |  4 ++--
- .../drm/i915/gt/intel_execlists_submission.c  |  6 +++++-
- drivers/gpu/drm/i915/gt/selftest_lrc.c        | 19 +++++++++++++------
- drivers/gpu/drm/i915/i915_request.h           |  5 +++++
- drivers/gpu/drm/i915/i915_scheduler_types.h   |  6 ++++++
- 5 files changed, 31 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_breadcrumbs.c | 24 +++++++++++++++++++++
+ drivers/gpu/drm/i915/gt/intel_breadcrumbs.h |  3 +++
+ 2 files changed, 27 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gt/gen8_engine_cs.c b/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
-index cac80af7ad1c..8791e03ebe61 100644
---- a/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
-+++ b/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
-@@ -507,7 +507,7 @@ gen8_emit_fini_breadcrumb_tail(struct i915_request *rq, u32 *cs)
- 	*cs++ = MI_USER_INTERRUPT;
- 
- 	*cs++ = MI_ARB_ON_OFF | MI_ARB_ENABLE;
--	if (intel_engine_has_semaphores(rq->engine))
-+	if (i915_request_use_busywait(rq))
- 		cs = emit_preempt_busywait(rq, cs);
- 
- 	rq->tail = intel_ring_offset(rq, cs);
-@@ -599,7 +599,7 @@ gen12_emit_fini_breadcrumb_tail(struct i915_request *rq, u32 *cs)
- 	*cs++ = MI_USER_INTERRUPT;
- 
- 	*cs++ = MI_ARB_ON_OFF | MI_ARB_ENABLE;
--	if (intel_engine_has_semaphores(rq->engine))
-+	if (i915_request_use_busywait(rq))
- 		cs = gen12_emit_preempt_busywait(rq, cs);
- 
- 	rq->tail = intel_ring_offset(rq, cs);
-diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-index d4b6d262265a..9245499d2082 100644
---- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-+++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-@@ -304,7 +304,7 @@ static bool need_preempt(const struct intel_engine_cs *engine,
- 	const struct i915_sched *se = &engine->sched;
- 	int last_prio;
- 
--	if (!intel_engine_has_semaphores(engine))
-+	if (!i915_sched_use_busywait(se))
- 		return false;
- 
- 	/*
-@@ -2930,6 +2930,10 @@ logical_ring_default_vfuncs(struct intel_engine_cs *engine)
- 	    intel_engine_has_preemption(engine))
- 		__set_bit(I915_SCHED_HAS_TIMESLICES_BIT,
- 			  &engine->sched.flags);
-+
-+	if (intel_engine_has_preemption(engine))
-+		__set_bit(I915_SCHED_USE_BUSYWAIT_BIT,
-+			  &engine->sched.flags);
+diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
+index 38cc42783dfb..9e67810c7767 100644
+--- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
++++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
+@@ -310,6 +310,30 @@ void intel_breadcrumbs_reset(struct intel_breadcrumbs *b)
+ 	spin_unlock_irqrestore(&b->irq_lock, flags);
  }
  
- static void logical_ring_default_irqs(struct intel_engine_cs *engine)
-diff --git a/drivers/gpu/drm/i915/gt/selftest_lrc.c b/drivers/gpu/drm/i915/gt/selftest_lrc.c
-index 279091e41b41..6d73add47109 100644
---- a/drivers/gpu/drm/i915/gt/selftest_lrc.c
-+++ b/drivers/gpu/drm/i915/gt/selftest_lrc.c
-@@ -679,9 +679,11 @@ static int live_lrc_gpr(void *arg)
- 		if (err)
- 			goto err;
- 
--		err = __live_lrc_gpr(engine, scratch, true);
--		if (err)
--			goto err;
-+		if (intel_engine_has_preemption(engine)) {
-+			err = __live_lrc_gpr(engine, scratch, true);
-+			if (err)
-+				goto err;
-+		}
- 
- err:
- 		st_engine_heartbeat_enable(engine);
-@@ -859,9 +861,11 @@ static int live_lrc_timestamp(void *arg)
- 			if (err)
- 				break;
- 
--			err = __lrc_timestamp(&data, true);
--			if (err)
--				break;
-+			if (intel_engine_has_preemption(data.engine)) {
-+				err = __lrc_timestamp(&data, true);
-+				if (err)
-+					break;
-+			}
- 		}
- 
- err:
-@@ -1508,6 +1512,9 @@ static int live_lrc_isolation(void *arg)
- 		    skip_isolation(engine))
- 			continue;
- 
-+		if (!intel_engine_has_preemption(engine))
-+			continue;
-+
- 		intel_engine_pm_get(engine);
- 		for (i = 0; i < ARRAY_SIZE(poison); i++) {
- 			int result;
-diff --git a/drivers/gpu/drm/i915/i915_request.h b/drivers/gpu/drm/i915/i915_request.h
-index 8eea25cb043e..7c29d33e7d51 100644
---- a/drivers/gpu/drm/i915/i915_request.h
-+++ b/drivers/gpu/drm/i915/i915_request.h
-@@ -642,4 +642,9 @@ static inline bool i915_request_use_semaphores(const struct i915_request *rq)
- 	return intel_engine_has_semaphores(rq->engine);
- }
- 
-+static inline bool i915_request_use_busywait(const struct i915_request *rq)
++void intel_breadcrumbs_pin_irq(struct intel_breadcrumbs *b)
 +{
-+	return i915_sched_use_busywait(i915_request_get_scheduler(rq));
++	if (GEM_DEBUG_WARN_ON(!b->irq_engine))
++		return;
++
++	spin_lock_irq(&b->irq_lock);
++	if (!b->irq_enabled++)
++		irq_enable(b->irq_engine);
++	GEM_BUG_ON(!b->irq_enabled); /* no overflow! */
++	spin_unlock_irq(&b->irq_lock);
 +}
 +
- #endif /* I915_REQUEST_H */
-diff --git a/drivers/gpu/drm/i915/i915_scheduler_types.h b/drivers/gpu/drm/i915/i915_scheduler_types.h
-index b4a0e4e26bfd..37475024c0de 100644
---- a/drivers/gpu/drm/i915/i915_scheduler_types.h
-+++ b/drivers/gpu/drm/i915/i915_scheduler_types.h
-@@ -21,6 +21,7 @@ enum {
- 	I915_SCHED_ACTIVE_BIT = 0,
- 	I915_SCHED_HAS_TIMESLICES_BIT,
- 	I915_SCHED_NEEDS_BREADCRUMB_BIT,
-+	I915_SCHED_USE_BUSYWAIT_BIT,
- };
- 
- /**
-@@ -201,4 +202,9 @@ i915_sched_needs_breadcrumb_tasklet(const struct i915_sched *se)
- 	return test_bit(I915_SCHED_NEEDS_BREADCRUMB_BIT, &se->flags);
- }
- 
-+static inline bool i915_sched_use_busywait(const struct i915_sched *se)
++void intel_breadcrumbs_unpin_irq(struct intel_breadcrumbs *b)
 +{
-+	return test_bit(I915_SCHED_USE_BUSYWAIT_BIT, &se->flags);
++	if (GEM_DEBUG_WARN_ON(!b->irq_engine))
++		return;
++
++	spin_lock_irq(&b->irq_lock);
++	GEM_BUG_ON(!b->irq_enabled); /* no underflow! */
++	if (!--b->irq_enabled)
++		irq_disable(b->irq_engine);
++	spin_unlock_irq(&b->irq_lock);
 +}
 +
- #endif /* _I915_SCHEDULER_TYPES_H_ */
+ void __intel_breadcrumbs_park(struct intel_breadcrumbs *b)
+ {
+ 	if (!READ_ONCE(b->irq_armed))
+diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.h b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.h
+index 3ce5ce270b04..c2bb3a79ca9f 100644
+--- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.h
++++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.h
+@@ -19,6 +19,9 @@ struct intel_breadcrumbs *
+ intel_breadcrumbs_create(struct intel_engine_cs *irq_engine);
+ void intel_breadcrumbs_free(struct intel_breadcrumbs *b);
+ 
++void intel_breadcrumbs_pin_irq(struct intel_breadcrumbs *b);
++void intel_breadcrumbs_unpin_irq(struct intel_breadcrumbs *b);
++
+ void intel_breadcrumbs_reset(struct intel_breadcrumbs *b);
+ void __intel_breadcrumbs_park(struct intel_breadcrumbs *b);
+ 
 -- 
 2.20.1
 
