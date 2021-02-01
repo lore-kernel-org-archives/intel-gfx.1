@@ -2,45 +2,41 @@ Return-Path: <SRS0=l6T8=HD=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.7 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D1D14C433E0
-	for <intel-gfx@archiver.kernel.org>; Mon,  1 Feb 2021 08:49:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 96B32C433DB
+	for <intel-gfx@archiver.kernel.org>; Mon,  1 Feb 2021 08:54:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0D46864E36
-	for <intel-gfx@archiver.kernel.org>; Mon,  1 Feb 2021 08:49:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0D46864E36
+	by mail.kernel.org (Postfix) with ESMTPS id D08DF64E36
+	for <intel-gfx@archiver.kernel.org>; Mon,  1 Feb 2021 08:54:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D08DF64E36
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 879986E466;
-	Mon,  1 Feb 2021 08:49:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2FF6C6E483;
+	Mon,  1 Feb 2021 08:54:09 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 354826E466;
- Mon,  1 Feb 2021 08:49:36 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 33F1E6E483
+ for <intel-gfx@lists.freedesktop.org>; Mon,  1 Feb 2021 08:54:08 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
-Received: from localhost (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP (TLS) id
- 23757662-1500050 for multiple; Mon, 01 Feb 2021 08:49:32 +0000
-MIME-Version: 1.0
-In-Reply-To: <abe2678a-f798-d625-0f59-f6ebf1ef5e4f@linux.intel.com>
-References: <20210131031153.3399123-1-chris@chris-wilson.co.uk>
- <577e01ed-a463-301f-8fc8-c553c0b46ba7@linux.intel.com>
- <161216767124.30865.12019098192632057390@build.alporthouse.com>
- <abe2678a-f798-d625-0f59-f6ebf1ef5e4f@linux.intel.com>
+Received: from haswell.alporthouse.com (unverified [78.156.65.138]) 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23757689-1500050 
+ for multiple; Mon, 01 Feb 2021 08:53:58 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
-To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- intel-gfx@lists.freedesktop.org
-Date: Mon, 01 Feb 2021 08:49:32 +0000
-Message-ID: <161216937277.30865.15090400644839237744@build.alporthouse.com>
-User-Agent: alot/0.9
-Subject: Re: [Intel-gfx] [PATCH i-g-t] intel_gpu_top: Hide unused clients
+To: intel-gfx@lists.freedesktop.org
+Date: Mon,  1 Feb 2021 08:53:58 +0000
+Message-Id: <20210201085358.3408367-1-chris@chris-wilson.co.uk>
+X-Mailer: git-send-email 2.30.0
+In-Reply-To: <20210131031153.3399123-1-chris@chris-wilson.co.uk>
+References: <20210131031153.3399123-1-chris@chris-wilson.co.uk>
+MIME-Version: 1.0
+Subject: [Intel-gfx] [PATCH i-g-t] intel_gpu_top: Hide unused clients
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,96 +49,55 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: igt-dev@lists.freedesktop.org
+Cc: Chris Wilson <chris@chris-wilson.co.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Quoting Tvrtko Ursulin (2021-02-01 08:36:04)
-> 
-> On 01/02/2021 08:21, Chris Wilson wrote:
-> > Quoting Tvrtko Ursulin (2021-02-01 08:14:45)
-> >>
-> >> On 31/01/2021 03:11, Chris Wilson wrote:
-> >>> Keep new clients hidden until they utilise the GPU.
-> >>>
-> >>> Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-> >>> Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-> >>> ---
-> >>>    tools/intel_gpu_top.c | 5 ++++-
-> >>>    1 file changed, 4 insertions(+), 1 deletion(-)
-> >>>
-> >>> diff --git a/tools/intel_gpu_top.c b/tools/intel_gpu_top.c
-> >>> index 60ff62d28..66a8effa6 100644
-> >>> --- a/tools/intel_gpu_top.c
-> >>> +++ b/tools/intel_gpu_top.c
-> >>> @@ -828,8 +828,11 @@ static void update_client(struct client *c, unsigned int pid, char *name)
-> >>>                c->last[i] = val[i];
-> >>>        }
-> >>>    
-> >>> -     c->samples++;
-> >>> +     if (!c->total_runtime)
-> >>> +             return;
-> >>> +
-> >>>        c->status = ALIVE;
-> >>> +     c->samples++;
-> >>>    }
-> >>>    
-> >>>    static void
-> >>>
-> >>
-> >> Not sure we need to do it at this level and not instead at presentation
-> >> time.
-> > 
-> > My goal was just presentation :(
-> 
-> Something like this would be presentation time:
-> 
-> diff --git a/tools/intel_gpu_top.c b/tools/intel_gpu_top.c
-> index 60ff62d28e5d..f7c5cc3bf19f 100644
-> --- a/tools/intel_gpu_top.c
-> +++ b/tools/intel_gpu_top.c
-> @@ -1942,6 +1942,9 @@ print_client(struct client *c, struct engines 
-> *engines, double t, int lines,
->          unsigned int i;
-> 
->          if (output_mode == INTERACTIVE) {
-> +               if (!c->total_runtime) /* make a key toggle? */
-> +                       return;
-> +
->                  lines++;
-> 
->                  printf("%6u %17s ", c->pid, c->print_name);
-> 
-> But it worries me a bit to do it by default.
+Hide inactive clients by pressing 'i' (toggle in interactive mode).
 
-I was about to argue then remembered top behaves the same (although a
-process cannot exist without consuming at least some CPU resources,
-whereas a client can never touch the GPU or allocate GPU memory).
+Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+---
+ tools/intel_gpu_top.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-But if we are borrow ideas for filtering the view from top... :)
+diff --git a/tools/intel_gpu_top.c b/tools/intel_gpu_top.c
+index 60ff62d28..edf0dedac 100644
+--- a/tools/intel_gpu_top.c
++++ b/tools/intel_gpu_top.c
+@@ -1595,6 +1595,7 @@ print_imc(struct engines *engines, double t, int lines, int con_w, int con_h)
+ }
+ 
+ static bool class_view;
++static bool filter_idle;
+ 
+ static int
+ print_engines_header(struct engines *engines, double t,
+@@ -1689,6 +1690,9 @@ print_engines_footer(struct engines *engines, double t,
+ 	pops->close_struct();
+ 
+ 	if (output_mode == INTERACTIVE) {
++		if (filter_idle && !c->total_runtime)
++			return;
++
+ 		if (lines++ < con_h)
+ 			printf("\n");
+ 	}
+@@ -2115,6 +2119,9 @@ static void process_stdin(unsigned int timeout_us)
+ 		case 'q':
+ 			stop_top = true;
+ 			break;
++		case 'i':
++			filter_idle ^= true;
++			break;
+ 		case '1':
+ 			class_view ^= true;
+ 			break;
+-- 
+2.30.0
 
-For top, it's 'i' and there's o%CPU>x
-
-> >> Plus, in default sort mode they would be at the end of the list,
-> >> so behind the more active clients. Or you go into sort by id and they
-> >> annoy you there?
-> > 
-> > No. I had a bunch of "Xorg" when launching steam which never became
-> > anything. So I guess just a bunch of dlopen("libgl") spawing a bunch of
-> > clients that we never used for anything more than gl[X]GetString, but
-> > leaked the fd.
-> 
-> But they were at the end, so potentially even cut of if enough 
-> interesting clients? Or you actually sorted by id? Or something else is 
-> broken?
-
-But they were there! Unwanted DRI3 fd, abandoned, left homeless before
-being used. Even if they are used, there's still a window where we would
-see "Xorg" become "realname" (granted there's still a window as we
-sample pidname before totalruntime), it irks me.
--Chris
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
