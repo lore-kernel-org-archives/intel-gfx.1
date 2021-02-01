@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 94352C433E6
-	for <intel-gfx@archiver.kernel.org>; Mon,  1 Feb 2021 08:58:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2F18EC43381
+	for <intel-gfx@archiver.kernel.org>; Mon,  1 Feb 2021 08:58:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3B23A64E33
+	by mail.kernel.org (Postfix) with ESMTPS id BD95C64E3F
 	for <intel-gfx@archiver.kernel.org>; Mon,  1 Feb 2021 08:58:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3B23A64E33
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BD95C64E3F
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F397F6E50E;
-	Mon,  1 Feb 2021 08:57:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8FC126E511;
+	Mon,  1 Feb 2021 08:57:38 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 653376E4AD
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 25A8F6E48B
  for <intel-gfx@lists.freedesktop.org>; Mon,  1 Feb 2021 08:57:33 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23757756-1500050 
- for multiple; Mon, 01 Feb 2021 08:57:22 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23757747-1500050 
+ for multiple; Mon, 01 Feb 2021 08:57:21 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon,  1 Feb 2021 08:56:56 +0000
-Message-Id: <20210201085715.27435-38-chris@chris-wilson.co.uk>
+Date: Mon,  1 Feb 2021 08:56:50 +0000
+Message-Id: <20210201085715.27435-32-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20210201085715.27435-1-chris@chris-wilson.co.uk>
 References: <20210201085715.27435-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 38/57] drm/i915/gt: Specify a deadline for the
- heartbeat
+Subject: [Intel-gfx] [PATCH 32/57] drm/i915: Move needs-breadcrumb flags to
+ scheduler
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,55 +56,107 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-As we know when we expect the heartbeat to be checked for completion,
-pass this information along as its deadline. We still do not complain if
-the deadline is missed, at least until we have tried a few times, but it
-will allow for quicker hang detection on systems where deadlines are
-adhered to.
+Whether the scheduler depends on interrupt delivery for forward progress
+is a property of the scheduler backend not of the underlying engine, so
+move the flag from inside the engine to i915_sched_engine.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 ---
- drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+ drivers/gpu/drm/i915/gt/intel_engine.h            |  6 ++++++
+ drivers/gpu/drm/i915/gt/intel_engine_types.h      | 13 +++----------
+ drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c |  2 +-
+ drivers/gpu/drm/i915/i915_scheduler_types.h       |  7 +++++++
+ 4 files changed, 17 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c b/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
-index f1811e79401e..0f0bf9e4d34f 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
-@@ -65,6 +65,16 @@ static void heartbeat_commit(struct i915_request *rq,
- 	__i915_request_queue(rq, attr);
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine.h b/drivers/gpu/drm/i915/gt/intel_engine.h
+index ca3a9cb06328..db5419ba1dc8 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine.h
++++ b/drivers/gpu/drm/i915/gt/intel_engine.h
+@@ -285,4 +285,10 @@ intel_engine_has_timeslices(struct intel_engine_cs *engine)
+ 	return i915_sched_has_timeslices(intel_engine_get_scheduler(engine));
  }
  
-+static void set_heartbeat_deadline(struct intel_engine_cs *engine,
-+				   struct i915_request *rq)
++static inline bool
++intel_engine_needs_breadcrumb_tasklet(struct intel_engine_cs *engine)
 +{
-+	unsigned long interval;
-+
-+	interval = READ_ONCE(engine->props.heartbeat_interval_ms);
-+	if (interval)
-+		i915_request_set_deadline(rq, ktime_get() + (interval << 20));
++	return i915_sched_needs_breadcrumb_tasklet(intel_engine_get_scheduler(engine));
 +}
 +
- static void show_heartbeat(const struct i915_request *rq,
- 			   struct intel_engine_cs *engine)
+ #endif /* _INTEL_RINGBUFFER_H_ */
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_types.h b/drivers/gpu/drm/i915/gt/intel_engine_types.h
+index 96a0aec29672..f856bd9b7dae 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_engine_types.h
+@@ -442,10 +442,9 @@ struct intel_engine_cs {
+ #define I915_ENGINE_SUPPORTS_STATS   BIT(1)
+ #define I915_ENGINE_HAS_PREEMPTION   BIT(2)
+ #define I915_ENGINE_HAS_SEMAPHORES   BIT(3)
+-#define I915_ENGINE_NEEDS_BREADCRUMB_TASKLET BIT(4)
+-#define I915_ENGINE_IS_VIRTUAL       BIT(5)
+-#define I915_ENGINE_HAS_RELATIVE_MMIO BIT(6)
+-#define I915_ENGINE_REQUIRES_CMD_PARSER BIT(7)
++#define I915_ENGINE_IS_VIRTUAL       BIT(4)
++#define I915_ENGINE_HAS_RELATIVE_MMIO BIT(5)
++#define I915_ENGINE_REQUIRES_CMD_PARSER BIT(6)
+ 	unsigned int flags;
+ 
+ 	/*
+@@ -540,12 +539,6 @@ intel_engine_has_semaphores(const struct intel_engine_cs *engine)
+ 	return engine->flags & I915_ENGINE_HAS_SEMAPHORES;
+ }
+ 
+-static inline bool
+-intel_engine_needs_breadcrumb_tasklet(const struct intel_engine_cs *engine)
+-{
+-	return engine->flags & I915_ENGINE_NEEDS_BREADCRUMB_TASKLET;
+-}
+-
+ static inline bool
+ intel_engine_is_virtual(const struct intel_engine_cs *engine)
  {
-@@ -128,6 +138,8 @@ static void heartbeat(struct work_struct *wrk)
- 				attr.priority = I915_PRIORITY_BARRIER;
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+index 887f38fb671f..e8c66d868c59 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+@@ -606,7 +606,6 @@ static void guc_default_vfuncs(struct intel_engine_cs *engine)
+ 	}
+ 	engine->set_default_submission = guc_set_default_submission;
  
- 			local_bh_disable();
-+			if (attr.priority == I915_PRIORITY_BARRIER)
-+				i915_request_set_deadline(rq, 0);
- 			i915_request_set_priority(rq, attr.priority);
- 			local_bh_enable();
- 		} else {
-@@ -160,6 +172,7 @@ static void heartbeat(struct work_struct *wrk)
- 	if (IS_ERR(rq))
- 		goto unlock;
+-	engine->flags |= I915_ENGINE_NEEDS_BREADCRUMB_TASKLET;
+ 	engine->flags |= I915_ENGINE_HAS_PREEMPTION;
  
-+	set_heartbeat_deadline(engine, rq);
- 	heartbeat_commit(rq, &attr);
+ 	/*
+@@ -656,6 +655,7 @@ int intel_guc_submission_setup(struct intel_engine_cs *engine)
  
- unlock:
+ 	tasklet_setup(&engine->sched.tasklet, guc_submission_tasklet);
+ 	__set_bit(I915_SCHED_ACTIVE_BIT, &engine->sched.flags);
++	__set_bit(I915_SCHED_NEEDS_BREADCRUMB_BIT, &engine->sched.flags);
+ 
+ 	guc_default_vfuncs(engine);
+ 	guc_default_irqs(engine);
+diff --git a/drivers/gpu/drm/i915/i915_scheduler_types.h b/drivers/gpu/drm/i915/i915_scheduler_types.h
+index dfb29b8c2bee..b4a0e4e26bfd 100644
+--- a/drivers/gpu/drm/i915/i915_scheduler_types.h
++++ b/drivers/gpu/drm/i915/i915_scheduler_types.h
+@@ -20,6 +20,7 @@ struct i915_request;
+ enum {
+ 	I915_SCHED_ACTIVE_BIT = 0,
+ 	I915_SCHED_HAS_TIMESLICES_BIT,
++	I915_SCHED_NEEDS_BREADCRUMB_BIT,
+ };
+ 
+ /**
+@@ -194,4 +195,10 @@ static inline bool i915_sched_has_timeslices(const struct i915_sched *se)
+ 	return test_bit(I915_SCHED_HAS_TIMESLICES_BIT, &se->flags);
+ }
+ 
++static inline bool
++i915_sched_needs_breadcrumb_tasklet(const struct i915_sched *se)
++{
++	return test_bit(I915_SCHED_NEEDS_BREADCRUMB_BIT, &se->flags);
++}
++
+ #endif /* _I915_SCHEDULER_TYPES_H_ */
 -- 
 2.20.1
 
