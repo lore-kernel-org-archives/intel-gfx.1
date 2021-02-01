@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 02C57C43381
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 95F38C433E9
 	for <intel-gfx@archiver.kernel.org>; Mon,  1 Feb 2021 08:58:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9A9D464E3F
-	for <intel-gfx@archiver.kernel.org>; Mon,  1 Feb 2021 08:58:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9A9D464E3F
+	by mail.kernel.org (Postfix) with ESMTPS id 4C47964E40
+	for <intel-gfx@archiver.kernel.org>; Mon,  1 Feb 2021 08:58:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4C47964E40
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD74E6E4CF;
-	Mon,  1 Feb 2021 08:57:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 39B6A6E506;
+	Mon,  1 Feb 2021 08:57:44 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E7986E4BB
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 06C3B6E48C
  for <intel-gfx@lists.freedesktop.org>; Mon,  1 Feb 2021 08:57:34 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23757738-1500050 
- for multiple; Mon, 01 Feb 2021 08:57:20 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23757731-1500050 
+ for multiple; Mon, 01 Feb 2021 08:57:18 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon,  1 Feb 2021 08:56:43 +0000
-Message-Id: <20210201085715.27435-25-chris@chris-wilson.co.uk>
+Date: Mon,  1 Feb 2021 08:56:36 +0000
+Message-Id: <20210201085715.27435-18-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20210201085715.27435-1-chris@chris-wilson.co.uk>
 References: <20210201085715.27435-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 25/57] drm/i915: Move submit_request to
- i915_sched_engine
+Subject: [Intel-gfx] [PATCH 18/57] drm/i915: Extract the ability to defer
+ and rerun a request later
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,225 +56,213 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Claim the submit_request vfunc as the entry point into the scheduler
-backend for ready requests.
+Lift the ability to defer a request until later from execlists into the
+common layer.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 ---
- drivers/gpu/drm/i915/gt/intel_engine_types.h         |  8 --------
- drivers/gpu/drm/i915/gt/intel_execlists_submission.c | 11 ++++++-----
- drivers/gpu/drm/i915/gt/intel_reset.c                |  2 +-
- drivers/gpu/drm/i915/gt/intel_ring_submission.c      |  4 ++--
- drivers/gpu/drm/i915/gt/mock_engine.c                |  4 +++-
- drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c    |  2 +-
- drivers/gpu/drm/i915/i915_request.c                  |  2 +-
- drivers/gpu/drm/i915/i915_scheduler.c                |  2 ++
- drivers/gpu/drm/i915/i915_scheduler_types.h          |  9 +++++++++
- drivers/gpu/drm/i915/selftests/i915_request.c        |  3 +--
- 10 files changed, 26 insertions(+), 21 deletions(-)
+ .../drm/i915/gt/intel_execlists_submission.c  | 57 +++--------------
+ drivers/gpu/drm/i915/i915_scheduler.c         | 63 +++++++++++++++++--
+ drivers/gpu/drm/i915/i915_scheduler.h         |  5 +-
+ 3 files changed, 67 insertions(+), 58 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_types.h b/drivers/gpu/drm/i915/gt/intel_engine_types.h
-index 97fe5e395a85..6b0bde292916 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_types.h
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_types.h
-@@ -416,14 +416,6 @@ struct intel_engine_cs {
- 						 u32 *cs);
- 	unsigned int	emit_fini_breadcrumb_dw;
- 
--	/* Pass the request to the hardware queue (e.g. directly into
--	 * the legacy ringbuffer or to the end of an execlist).
--	 *
--	 * This is called from an atomic context with irqs disabled; must
--	 * be irq safe.
--	 */
--	void		(*submit_request)(struct i915_request *rq);
--
- 	/*
- 	 * Called on signaling of a SUBMIT_FENCE, passing along the signaling
- 	 * request down to the bonded pairs.
 diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-index be79a352e512..33c1a833df20 100644
+index 853021314786..b56e321ef003 100644
 --- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
 +++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-@@ -483,7 +483,7 @@ resubmit_virtual_request(struct i915_request *rq, struct virtual_engine *ve)
- 
- 	clear_bit(I915_FENCE_FLAG_PQUEUE, &rq->fence.flags);
- 	WRITE_ONCE(rq->engine, &ve->base);
--	ve->base.submit_request(rq);
-+	ve->base.sched.submit_request(rq);
- 
- 	spin_unlock_irq(&se->lock);
+@@ -978,54 +978,6 @@ static void virtual_xfer_context(struct virtual_engine *ve,
+ 	}
  }
-@@ -2766,7 +2766,7 @@ static bool can_preempt(struct intel_engine_cs *engine)
  
- static void execlists_set_default_submission(struct intel_engine_cs *engine)
+-static void defer_request(struct i915_request *rq, struct list_head * const pl)
+-{
+-	LIST_HEAD(list);
+-
+-	/*
+-	 * We want to move the interrupted request to the back of
+-	 * the round-robin list (i.e. its priority level), but
+-	 * in doing so, we must then move all requests that were in
+-	 * flight and were waiting for the interrupted request to
+-	 * be run after it again.
+-	 */
+-	do {
+-		struct i915_dependency *p;
+-
+-		GEM_BUG_ON(i915_request_is_active(rq));
+-		list_move_tail(&rq->sched.link, pl);
+-
+-		for_each_waiter(p, rq) {
+-			struct i915_request *w =
+-				container_of(p->waiter, typeof(*w), sched);
+-
+-			if (p->flags & I915_DEPENDENCY_WEAK)
+-				continue;
+-
+-			/* Leave semaphores spinning on the other engines */
+-			if (w->engine != rq->engine)
+-				continue;
+-
+-			/* No waiter should start before its signaler */
+-			GEM_BUG_ON(i915_request_has_initial_breadcrumb(w) &&
+-				   __i915_request_has_started(w) &&
+-				   !__i915_request_is_complete(rq));
+-
+-			if (!i915_request_is_ready(w))
+-				continue;
+-
+-			if (rq_prio(w) < rq_prio(rq))
+-				continue;
+-
+-			GEM_BUG_ON(rq_prio(w) > rq_prio(rq));
+-			GEM_BUG_ON(i915_request_is_active(w));
+-			list_move_tail(&w->sched.link, &list);
+-		}
+-
+-		rq = list_first_entry_or_null(&list, typeof(*rq), sched.link);
+-	} while (rq);
+-}
+-
+ static void defer_active(struct intel_engine_cs *engine)
  {
--	engine->submit_request = i915_request_enqueue;
-+	engine->sched.submit_request = i915_request_enqueue;
- 	engine->sched.tasklet.callback = execlists_submission_tasklet;
+ 	struct i915_request *rq;
+@@ -1034,7 +986,14 @@ static void defer_active(struct intel_engine_cs *engine)
+ 	if (!rq)
+ 		return;
+ 
+-	defer_request(rq, i915_sched_lookup_priolist(engine, rq_prio(rq)));
++	/*
++	 * We want to move the interrupted request to the back of
++	 * the round-robin list (i.e. its priority level), but
++	 * in doing so, we must then move all requests that were in
++	 * flight and were waiting for the interrupted request to
++	 * be run after it again.
++	 */
++	__i915_sched_defer_request(engine, rq);
  }
  
-@@ -3227,7 +3227,7 @@ static void virtual_submit_request(struct i915_request *rq)
- 		     rq->fence.context,
- 		     rq->fence.seqno);
- 
--	GEM_BUG_ON(ve->base.submit_request != virtual_submit_request);
-+	GEM_BUG_ON(ve->base.sched.submit_request != virtual_submit_request);
- 
- 	spin_lock_irqsave(&se->lock, flags);
- 
-@@ -3341,12 +3341,10 @@ intel_execlists_create_virtual(struct intel_engine_cs **siblings,
- 	ve->base.cops = &virtual_context_ops;
- 	ve->base.request_alloc = execlists_request_alloc;
- 
--	ve->base.submit_request = virtual_submit_request;
- 	ve->base.bond_execute = virtual_bond_execute;
- 
- 	INIT_LIST_HEAD(virtual_queue(ve));
- 	ve->base.execlists.queue_priority_hint = INT_MIN;
--	tasklet_setup(&ve->base.sched.tasklet, virtual_submission_tasklet);
- 
- 	intel_context_init(&ve->context, &ve->base);
- 
-@@ -3427,6 +3425,9 @@ intel_execlists_create_virtual(struct intel_engine_cs **siblings,
- 			ve->base.mask,
- 			ENGINE_VIRTUAL);
- 
-+	ve->base.sched.submit_request = virtual_submit_request;
-+	tasklet_setup(&ve->base.sched.tasklet, virtual_submission_tasklet);
-+
- 	virtual_engine_initial_hint(ve);
- 	return &ve->context;
- 
-diff --git a/drivers/gpu/drm/i915/gt/intel_reset.c b/drivers/gpu/drm/i915/gt/intel_reset.c
-index 4a8f982a1a4f..e5cb92c7d0f8 100644
---- a/drivers/gpu/drm/i915/gt/intel_reset.c
-+++ b/drivers/gpu/drm/i915/gt/intel_reset.c
-@@ -820,7 +820,7 @@ static void __intel_gt_set_wedged(struct intel_gt *gt)
- 		__intel_gt_reset(gt, ALL_ENGINES);
- 
- 	for_each_engine(engine, gt, id)
--		engine->submit_request = nop_submit_request;
-+		engine->sched.submit_request = nop_submit_request;
- 
- 	/*
- 	 * Make sure no request can slip through without getting completed by
-diff --git a/drivers/gpu/drm/i915/gt/intel_ring_submission.c b/drivers/gpu/drm/i915/gt/intel_ring_submission.c
-index 8af1bc77e15e..a7d49ea71900 100644
---- a/drivers/gpu/drm/i915/gt/intel_ring_submission.c
-+++ b/drivers/gpu/drm/i915/gt/intel_ring_submission.c
-@@ -970,12 +970,12 @@ static void gen6_bsd_submit_request(struct i915_request *request)
- 
- static void i9xx_set_default_submission(struct intel_engine_cs *engine)
- {
--	engine->submit_request = i9xx_submit_request;
-+	engine->sched.submit_request = i9xx_submit_request;
- }
- 
- static void gen6_bsd_set_default_submission(struct intel_engine_cs *engine)
- {
--	engine->submit_request = gen6_bsd_submit_request;
-+	engine->sched.submit_request = gen6_bsd_submit_request;
- }
- 
- static void ring_release(struct intel_engine_cs *engine)
-diff --git a/drivers/gpu/drm/i915/gt/mock_engine.c b/drivers/gpu/drm/i915/gt/mock_engine.c
-index 8b1c2727d25c..cae736e34bda 100644
---- a/drivers/gpu/drm/i915/gt/mock_engine.c
-+++ b/drivers/gpu/drm/i915/gt/mock_engine.c
-@@ -302,7 +302,8 @@ struct intel_engine_cs *mock_engine(struct drm_i915_private *i915,
- 	engine->base.request_alloc = mock_request_alloc;
- 	engine->base.emit_flush = mock_emit_flush;
- 	engine->base.emit_fini_breadcrumb = mock_emit_breadcrumb;
--	engine->base.submit_request = mock_submit_request;
-+
-+	engine->base.sched.submit_request = mock_submit_request;
- 
- 	engine->base.reset.prepare = mock_reset_prepare;
- 	engine->base.reset.rewind = mock_reset_rewind;
-@@ -333,6 +334,7 @@ int mock_engine_init(struct intel_engine_cs *engine)
- 			engine->name,
- 			engine->mask,
- 			ENGINE_MOCK);
-+	engine->sched.submit_request = mock_submit_request;
- 
- 	intel_engine_init_execlists(engine);
- 	intel_engine_init__pm(engine);
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index 15e4ec5ae73a..db6ac5a12834 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -572,7 +572,7 @@ static int guc_resume(struct intel_engine_cs *engine)
- 
- static void guc_set_default_submission(struct intel_engine_cs *engine)
- {
--	engine->submit_request = i915_request_enqueue;
-+	engine->sched.submit_request = i915_request_enqueue;
- }
- 
- static void guc_release(struct intel_engine_cs *engine)
-diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
-index 1b52dcaa023d..c03d3cedf497 100644
---- a/drivers/gpu/drm/i915/i915_request.c
-+++ b/drivers/gpu/drm/i915/i915_request.c
-@@ -700,7 +700,7 @@ submit_notify(struct i915_sw_fence *fence, enum i915_sw_fence_notify state)
- 		 * proceeding.
- 		 */
- 		rcu_read_lock();
--		request->engine->submit_request(request);
-+		i915_request_get_scheduler(request)->submit_request(request);
- 		rcu_read_unlock();
- 		break;
- 
+ static bool
 diff --git a/drivers/gpu/drm/i915/i915_scheduler.c b/drivers/gpu/drm/i915/i915_scheduler.c
-index 697127981249..620db6430a10 100644
+index 351c0c0055b5..bfd37ee801fd 100644
 --- a/drivers/gpu/drm/i915/i915_scheduler.c
 +++ b/drivers/gpu/drm/i915/i915_scheduler.c
-@@ -111,6 +111,8 @@ void i915_sched_init(struct i915_sched *se,
+@@ -179,8 +179,8 @@ static void assert_priolists(struct intel_engine_execlists * const execlists)
+ 	}
+ }
  
- 	i915_sched_init_ipi(&se->ipi);
+-struct list_head *
+-i915_sched_lookup_priolist(struct intel_engine_cs *engine, int prio)
++static struct list_head *
++lookup_priolist(struct intel_engine_cs *engine, int prio)
+ {
+ 	struct intel_engine_execlists * const execlists = &engine->execlists;
+ 	struct i915_priolist *p;
+@@ -332,7 +332,7 @@ static void __i915_request_set_priority(struct i915_request *rq, int prio)
+ 	struct list_head *pos = &rq->sched.signalers_list;
+ 	struct list_head *plist;
  
-+	se->submit_request = i915_request_enqueue;
-+
+-	plist = i915_sched_lookup_priolist(engine, prio);
++	plist = lookup_priolist(engine, prio);
+ 
  	/*
- 	 * Due to an interesting quirk in lockdep's internal debug tracking,
- 	 * after setting a subclass we must ensure the lock is used. Otherwise,
-diff --git a/drivers/gpu/drm/i915/i915_scheduler_types.h b/drivers/gpu/drm/i915/i915_scheduler_types.h
-index 9b09749358ad..effd035dcb78 100644
---- a/drivers/gpu/drm/i915/i915_scheduler_types.h
-+++ b/drivers/gpu/drm/i915/i915_scheduler_types.h
-@@ -28,6 +28,15 @@ struct i915_sched {
+ 	 * Recursively bump all dependent priorities to match the new request.
+@@ -463,12 +463,63 @@ void i915_request_set_priority(struct i915_request *rq, int prio)
+ 	spin_unlock_irqrestore(&engine->active.lock, flags);
+ }
  
- 	unsigned long mask; /* available scheduling channels */
- 
-+	/*
-+	 * Pass the request to the hardware queue (e.g. directly into
-+	 * the legacy ringbuffer or to the end of an execlist).
-+	 *
-+	 * This is called from an atomic context with irqs disabled; must
-+	 * be irq safe.
-+	 */
-+	void		(*submit_request)(struct i915_request *rq);
++void __i915_sched_defer_request(struct intel_engine_cs *engine,
++				struct i915_request *rq)
++{
++	struct list_head *pl;
++	LIST_HEAD(list);
 +
- 	struct list_head requests; /* active request, on HW */
- 	struct list_head hold; /* ready requests, but on hold */
- 	/**
-diff --git a/drivers/gpu/drm/i915/selftests/i915_request.c b/drivers/gpu/drm/i915/selftests/i915_request.c
-index 39c619bccb74..8035ea7565ed 100644
---- a/drivers/gpu/drm/i915/selftests/i915_request.c
-+++ b/drivers/gpu/drm/i915/selftests/i915_request.c
-@@ -242,10 +242,9 @@ static int igt_request_rewind(void *arg)
- 	i915_request_get(vip);
- 	i915_request_add(vip);
- 	rcu_read_lock();
--	request->engine->submit_request(request);
-+	i915_request_get_scheduler(request)->submit_request(request);
- 	rcu_read_unlock();
++	lockdep_assert_held(&engine->active.lock);
++	GEM_BUG_ON(!test_bit(I915_FENCE_FLAG_PQUEUE, &rq->fence.flags));
++
++	/*
++	 * When we defer a request, we must maintain its order with respect
++	 * to those that are waiting upon it. So we traverse its chain of
++	 * waiters and move any that are earlier than the request to after it.
++	 */
++	pl = lookup_priolist(engine, rq_prio(rq));
++	do {
++		struct i915_dependency *p;
++
++		GEM_BUG_ON(i915_request_is_active(rq));
++		list_move_tail(&rq->sched.link, pl);
++
++		for_each_waiter(p, rq) {
++			struct i915_request *w =
++				container_of(p->waiter, typeof(*w), sched);
++
++			if (p->flags & I915_DEPENDENCY_WEAK)
++				continue;
++
++			/* Leave semaphores spinning on the other engines */
++			if (w->engine != engine)
++				continue;
++
++			/* No waiter should start before its signaler */
++			GEM_BUG_ON(i915_request_has_initial_breadcrumb(w) &&
++				   __i915_request_has_started(w) &&
++				   !__i915_request_is_complete(rq));
++
++			if (!i915_request_is_ready(w))
++				continue;
++
++			if (rq_prio(w) < rq_prio(rq))
++				continue;
++
++			GEM_BUG_ON(rq_prio(w) > rq_prio(rq));
++			GEM_BUG_ON(i915_request_is_active(w));
++			list_move_tail(&w->sched.link, &list);
++		}
++
++		rq = list_first_entry_or_null(&list, typeof(*rq), sched.link);
++	} while (rq);
++}
++
+ static void queue_request(struct intel_engine_cs *engine,
+ 			  struct i915_request *rq)
+ {
+ 	GEM_BUG_ON(!list_empty(&rq->sched.link));
+-	list_add_tail(&rq->sched.link,
+-		      i915_sched_lookup_priolist(engine, rq_prio(rq)));
++	list_add_tail(&rq->sched.link, lookup_priolist(engine, rq_prio(rq)));
+ 	set_bit(I915_FENCE_FLAG_PQUEUE, &rq->fence.flags);
+ }
  
+@@ -567,7 +618,7 @@ __i915_sched_rewind_requests(struct intel_engine_cs *engine)
+ 		GEM_BUG_ON(rq_prio(rq) == I915_PRIORITY_INVALID);
+ 		if (rq_prio(rq) != prio) {
+ 			prio = rq_prio(rq);
+-			pl = i915_sched_lookup_priolist(engine, prio);
++			pl = lookup_priolist(engine, prio);
+ 		}
+ 		GEM_BUG_ON(RB_EMPTY_ROOT(&engine->execlists.queue.rb_root));
+ 
+diff --git a/drivers/gpu/drm/i915/i915_scheduler.h b/drivers/gpu/drm/i915/i915_scheduler.h
+index 9860459fedb1..00ce0a9d519d 100644
+--- a/drivers/gpu/drm/i915/i915_scheduler.h
++++ b/drivers/gpu/drm/i915/i915_scheduler.h
+@@ -44,6 +44,8 @@ void i915_request_enqueue(struct i915_request *request);
+ 
+ struct i915_request *
+ __i915_sched_rewind_requests(struct intel_engine_cs *engine);
++void __i915_sched_defer_request(struct intel_engine_cs *engine,
++				struct i915_request *request);
+ 
+ bool __i915_sched_suspend_request(struct intel_engine_cs *engine,
+ 				  struct i915_request *rq);
+@@ -55,9 +57,6 @@ bool i915_sched_suspend_request(struct intel_engine_cs *engine,
+ void i915_sched_resume_request(struct intel_engine_cs *engine,
+ 			       struct i915_request *rq);
+ 
+-struct list_head *
+-i915_sched_lookup_priolist(struct intel_engine_cs *engine, int prio);
 -
- 	if (i915_request_wait(vip, 0, HZ) == -ETIME) {
- 		pr_err("timed out waiting for high priority request\n");
- 		goto err;
+ void __i915_priolist_free(struct i915_priolist *p);
+ static inline void i915_priolist_free(struct i915_priolist *p)
+ {
 -- 
 2.20.1
 
