@@ -1,40 +1,51 @@
-Return-Path: <SRS0=iFby=HC=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
+Return-Path: <SRS0=l6T8=HD=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7AE56C433DB
-	for <intel-gfx@archiver.kernel.org>; Sun, 31 Jan 2021 03:12:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2E8D7C433DB
+	for <intel-gfx@archiver.kernel.org>; Mon,  1 Feb 2021 02:11:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EF7A664E18
-	for <intel-gfx@archiver.kernel.org>; Sun, 31 Jan 2021 03:12:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EF7A664E18
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
+	by mail.kernel.org (Postfix) with ESMTPS id 895A664E0F
+	for <intel-gfx@archiver.kernel.org>; Mon,  1 Feb 2021 02:11:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 895A664E0F
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=canb.auug.org.au
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 436F96E153;
-	Sun, 31 Jan 2021 03:12:06 +0000 (UTC)
-Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C0536E153;
- Sun, 31 Jan 2021 03:12:05 +0000 (UTC)
-X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
- x-ip-name=78.156.65.138; 
-Received: from haswell.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23749459-1500050 
- for multiple; Sun, 31 Jan 2021 03:11:53 +0000
-From: Chris Wilson <chris@chris-wilson.co.uk>
-To: intel-gfx@lists.freedesktop.org
-Date: Sun, 31 Jan 2021 03:11:53 +0000
-Message-Id: <20210131031153.3399123-1-chris@chris-wilson.co.uk>
-X-Mailer: git-send-email 2.30.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id BFF416E3D8;
+	Mon,  1 Feb 2021 02:10:56 +0000 (UTC)
+Received: from ozlabs.org (ozlabs.org [IPv6:2401:3900:2:1::2])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 23BE66E3D6;
+ Mon,  1 Feb 2021 02:10:54 +0000 (UTC)
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mail.ozlabs.org (Postfix) with ESMTPSA id 4DTWd85N7zz9srY;
+ Mon,  1 Feb 2021 13:10:51 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=canb.auug.org.au;
+ s=201702; t=1612145452;
+ bh=RQMWa2ShLO0GqlUDQFlorzJ5Ee+a7zwuQBEVXVbMpbU=;
+ h=Date:From:To:Cc:Subject:From;
+ b=B/IUWZF1L+NrqoKf4xmPzapI2QMpOV2DmxWWAX1yEgydndyCf9ygtOvWxrWtMd9r7
+ fcoiTBDw8Ze8UIRL/AABX6Yxq1Y/kbC+SBptIvzd6epY28noY2eIt7k07P8vvxp2D0
+ x1VxvSOVLWful678yBsG5XK2S98cb2FRYyrf6m3qD37ngtmEmukm53TnreGwQiLGTV
+ cMh4+7Dk8brvf06RpzylB49uLM9sWPXaenw5xjNEVTjl5TF0bCjaD0SC7Pia1NVLz0
+ OLMP0mfDENyhr0IkDHctbwf3Qjv3NSIx3fwoGtB79MMz+ElRPrGxvqR/373wDK6zor
+ g6Ng3Ugp2YAGA==
+Date: Mon, 1 Feb 2021 13:10:50 +1100
+From: Stephen Rothwell <sfr@canb.auug.org.au>
+To: Daniel Vetter <daniel.vetter@ffwll.ch>, Intel Graphics
+ <intel-gfx@lists.freedesktop.org>, DRI <dri-devel@lists.freedesktop.org>
+Message-ID: <20210201131050.6ac8ea63@canb.auug.org.au>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH i-g-t] intel_gpu_top: Hide unused clients
+Subject: [Intel-gfx] linux-next: build failure after merge of the drm-misc
+ tree
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,41 +58,155 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: igt-dev@lists.freedesktop.org, Chris Wilson <chris@chris-wilson.co.uk>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Linux Next Mailing List <linux-next@vger.kernel.org>,
+ Luben Tuikov <luben.tuikov@amd.com>,
+ Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Content-Type: multipart/mixed; boundary="===============0531466099=="
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Keep new clients hidden until they utilise the GPU.
+--===============0531466099==
+Content-Type: multipart/signed; boundary="Sig_/NK9oM7n=8nY/gN.b/KbjIo/";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
 
-Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
----
- tools/intel_gpu_top.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+--Sig_/NK9oM7n=8nY/gN.b/KbjIo/
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/tools/intel_gpu_top.c b/tools/intel_gpu_top.c
-index 60ff62d28..66a8effa6 100644
---- a/tools/intel_gpu_top.c
-+++ b/tools/intel_gpu_top.c
-@@ -828,8 +828,11 @@ static void update_client(struct client *c, unsigned int pid, char *name)
- 		c->last[i] = val[i];
- 	}
- 
--	c->samples++;
-+	if (!c->total_runtime)
-+		return;
-+
- 	c->status = ALIVE;
-+	c->samples++;
- }
- 
- static void
--- 
-2.30.0
+Hi all,
+
+After merging the drm-misc tree, today's linux-next build (x86_64
+allmodconfig) failed like this:
+
+drivers/gpu/drm/v3d/v3d_sched.c:263:1: error: return type is an incomplete =
+type
+  263 | v3d_gpu_reset_for_timeout(struct v3d_dev *v3d, struct drm_sched_job=
+ *sched_job)
+      | ^~~~~~~~~~~~~~~~~~~~~~~~~
+drivers/gpu/drm/v3d/v3d_sched.c: In function 'v3d_gpu_reset_for_timeout':
+drivers/gpu/drm/v3d/v3d_sched.c:289:9: error: 'return' with a value, in fun=
+ction returning void [-Werror=3Dreturn-type]
+  289 |  return DRM_GPU_SCHED_STAT_NOMINAL;
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~
+drivers/gpu/drm/v3d/v3d_sched.c:263:1: note: declared here
+  263 | v3d_gpu_reset_for_timeout(struct v3d_dev *v3d, struct drm_sched_job=
+ *sched_job)
+      | ^~~~~~~~~~~~~~~~~~~~~~~~~
+drivers/gpu/drm/v3d/v3d_sched.c: At top level:
+drivers/gpu/drm/v3d/v3d_sched.c:298:1: error: return type is an incomplete =
+type
+  298 | v3d_cl_job_timedout(struct drm_sched_job *sched_job, enum v3d_queue=
+ q,
+      | ^~~~~~~~~~~~~~~~~~~
+drivers/gpu/drm/v3d/v3d_sched.c: In function 'v3d_cl_job_timedout':
+drivers/gpu/drm/v3d/v3d_sched.c:309:10: error: 'return' with a value, in fu=
+nction returning void [-Werror=3Dreturn-type]
+  309 |   return DRM_GPU_SCHED_STAT_NOMINAL;
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~
+drivers/gpu/drm/v3d/v3d_sched.c:298:1: note: declared here
+  298 | v3d_cl_job_timedout(struct drm_sched_job *sched_job, enum v3d_queue=
+ q,
+      | ^~~~~~~~~~~~~~~~~~~
+drivers/gpu/drm/v3d/v3d_sched.c: At top level:
+drivers/gpu/drm/v3d/v3d_sched.c:316:1: error: return type is an incomplete =
+type
+  316 | v3d_bin_job_timedout(struct drm_sched_job *sched_job)
+      | ^~~~~~~~~~~~~~~~~~~~
+drivers/gpu/drm/v3d/v3d_sched.c:325:1: error: return type is an incomplete =
+type
+  325 | v3d_render_job_timedout(struct drm_sched_job *sched_job)
+      | ^~~~~~~~~~~~~~~~~~~~~~~
+drivers/gpu/drm/v3d/v3d_sched.c:334:1: error: return type is an incomplete =
+type
+  334 | v3d_generic_job_timedout(struct drm_sched_job *sched_job)
+      | ^~~~~~~~~~~~~~~~~~~~~~~~
+drivers/gpu/drm/v3d/v3d_sched.c:342:1: error: return type is an incomplete =
+type
+  342 | v3d_csd_job_timedout(struct drm_sched_job *sched_job)
+      | ^~~~~~~~~~~~~~~~~~~~
+drivers/gpu/drm/v3d/v3d_sched.c: In function 'v3d_csd_job_timedout':
+drivers/gpu/drm/v3d/v3d_sched.c:353:10: error: 'return' with a value, in fu=
+nction returning void [-Werror=3Dreturn-type]
+  353 |   return DRM_GPU_SCHED_STAT_NOMINAL;
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~
+drivers/gpu/drm/v3d/v3d_sched.c:342:1: note: declared here
+  342 | v3d_csd_job_timedout(struct drm_sched_job *sched_job)
+      | ^~~~~~~~~~~~~~~~~~~~
+drivers/gpu/drm/v3d/v3d_sched.c: At top level:
+drivers/gpu/drm/v3d/v3d_sched.c:362:18: error: initialization of 'enum drm_=
+gpu_sched_stat (*)(struct drm_sched_job *)' from incompatible pointer type =
+'void (*)(struct drm_sched_job *)' [-Werror=3Dincompatible-pointer-types]
+  362 |  .timedout_job =3D v3d_bin_job_timedout,
+      |                  ^~~~~~~~~~~~~~~~~~~~
+drivers/gpu/drm/v3d/v3d_sched.c:362:18: note: (near initialization for 'v3d=
+_bin_sched_ops.timedout_job')
+drivers/gpu/drm/v3d/v3d_sched.c:369:18: error: initialization of 'enum drm_=
+gpu_sched_stat (*)(struct drm_sched_job *)' from incompatible pointer type =
+'void (*)(struct drm_sched_job *)' [-Werror=3Dincompatible-pointer-types]
+  369 |  .timedout_job =3D v3d_render_job_timedout,
+      |                  ^~~~~~~~~~~~~~~~~~~~~~~
+drivers/gpu/drm/v3d/v3d_sched.c:369:18: note: (near initialization for 'v3d=
+_render_sched_ops.timedout_job')
+drivers/gpu/drm/v3d/v3d_sched.c:376:18: error: initialization of 'enum drm_=
+gpu_sched_stat (*)(struct drm_sched_job *)' from incompatible pointer type =
+'void (*)(struct drm_sched_job *)' [-Werror=3Dincompatible-pointer-types]
+  376 |  .timedout_job =3D v3d_generic_job_timedout,
+      |                  ^~~~~~~~~~~~~~~~~~~~~~~~
+drivers/gpu/drm/v3d/v3d_sched.c:376:18: note: (near initialization for 'v3d=
+_tfu_sched_ops.timedout_job')
+drivers/gpu/drm/v3d/v3d_sched.c:383:18: error: initialization of 'enum drm_=
+gpu_sched_stat (*)(struct drm_sched_job *)' from incompatible pointer type =
+'void (*)(struct drm_sched_job *)' [-Werror=3Dincompatible-pointer-types]
+  383 |  .timedout_job =3D v3d_csd_job_timedout,
+      |                  ^~~~~~~~~~~~~~~~~~~~
+drivers/gpu/drm/v3d/v3d_sched.c:383:18: note: (near initialization for 'v3d=
+_csd_sched_ops.timedout_job')
+drivers/gpu/drm/v3d/v3d_sched.c:390:18: error: initialization of 'enum drm_=
+gpu_sched_stat (*)(struct drm_sched_job *)' from incompatible pointer type =
+'void (*)(struct drm_sched_job *)' [-Werror=3Dincompatible-pointer-types]
+  390 |  .timedout_job =3D v3d_generic_job_timedout,
+      |                  ^~~~~~~~~~~~~~~~~~~~~~~~
+drivers/gpu/drm/v3d/v3d_sched.c:390:18: note: (near initialization for 'v3d=
+_cache_clean_sched_ops.timedout_job')
+
+Caused by commit
+
+  a6a1f036c74e ("drm/scheduler: Job timeout handler returns status (v3)")
+
+I have used the drm-misc tree from next-20210129 for today.
+
+--=20
+Cheers,
+Stephen Rothwell
+
+--Sig_/NK9oM7n=8nY/gN.b/KbjIo/
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEENIC96giZ81tWdLgKAVBC80lX0GwFAmAXYyoACgkQAVBC80lX
+0GweCQf+LRzJrP4D4Ztpbsb41AJEP7tfUQiMq/HvEqijwOY7wknNHd383hNhM4uB
+MN/y8IL4wx+2rd4vPjmPJLkUKF0nhmSrvFK4jRE2CrLfLigqIwPzZfx4LShSlcQO
+VBZZLtegJjFuOMDsbWvMAe3Ackr9h9Hv5Yk4Z2Kxmcwvl4xU7B2pQt3zBi1FDs+K
+v/ix8xF5A5ap2niEp+3npz3Np2JMVCSaETeHTcEYl8jrqcFybCig4GIf0k9C6F31
+pX1WcEL8Atg1vE1wV/dqbAEnQIyhVpwfxrPnr4o1I+Gtp8LjtBtmWzTxdNBK2fAo
+2TcdWTo9Eh9WFDF4JP/COAFATUvlsQ==
+=GaHe
+-----END PGP SIGNATURE-----
+
+--Sig_/NK9oM7n=8nY/gN.b/KbjIo/--
+
+--===============0531466099==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+
+--===============0531466099==--
