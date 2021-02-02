@@ -7,37 +7,35 @@ X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 87F3AC433E0
-	for <intel-gfx@archiver.kernel.org>; Tue,  2 Feb 2021 15:15:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BE503C433DB
+	for <intel-gfx@archiver.kernel.org>; Tue,  2 Feb 2021 15:30:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 54AFB64F54
-	for <intel-gfx@archiver.kernel.org>; Tue,  2 Feb 2021 15:15:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 54AFB64F54
+	by mail.kernel.org (Postfix) with ESMTPS id 0678E64E93
+	for <intel-gfx@archiver.kernel.org>; Tue,  2 Feb 2021 15:30:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0678E64E93
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8111D6E92B;
-	Tue,  2 Feb 2021 15:15:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 880E36E193;
+	Tue,  2 Feb 2021 15:30:10 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE1C16E942
- for <intel-gfx@lists.freedesktop.org>; Tue,  2 Feb 2021 15:14:54 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 30ED06E193
+ for <intel-gfx@lists.freedesktop.org>; Tue,  2 Feb 2021 15:30:08 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23773710-1500050 
- for <intel-gfx@lists.freedesktop.org>; Tue, 02 Feb 2021 15:14:44 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23773928-1500050 
+ for multiple; Tue, 02 Feb 2021 15:29:57 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue,  2 Feb 2021 15:14:33 +0000
-Message-Id: <20210202151445.20002-2-chris@chris-wilson.co.uk>
+Date: Tue,  2 Feb 2021 15:29:57 +0000
+Message-Id: <20210202152957.9834-1-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210202151445.20002-1-chris@chris-wilson.co.uk>
-References: <20210202151445.20002-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [CI 02/14] drm/i915/gt: Move submission_method into
- intel_gt
+Subject: [Intel-gfx] [PATCH] drm/i915: Remove notion of GEM from
+ i915_gem_shrinker_taints_mutex
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,262 +48,105 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Chris Wilson <chris@chris-wilson.co.uk>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Since we setup the submission method for the engines once, it is easy to
-assign an enum and use that instead of probing into the backends.
-
-Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
----
- drivers/gpu/drm/i915/gt/intel_engine.h               |  8 +++++++-
- drivers/gpu/drm/i915/gt/intel_engine_cs.c            | 12 ++++++++----
- drivers/gpu/drm/i915/gt/intel_execlists_submission.c |  8 --------
- drivers/gpu/drm/i915/gt/intel_execlists_submission.h |  3 ---
- drivers/gpu/drm/i915/gt/intel_gt_types.h             |  7 +++++++
- drivers/gpu/drm/i915/gt/intel_reset.c                |  7 +++----
- drivers/gpu/drm/i915/gt/selftest_execlists.c         |  2 +-
- drivers/gpu/drm/i915/gt/selftest_ring_submission.c   |  2 +-
- drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c    |  5 -----
- drivers/gpu/drm/i915/gt/uc/intel_guc_submission.h    |  1 -
- drivers/gpu/drm/i915/i915_perf.c                     | 10 +++++-----
- 11 files changed, 32 insertions(+), 33 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine.h b/drivers/gpu/drm/i915/gt/intel_engine.h
-index 47ee8578e511..8d9184920c51 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine.h
-+++ b/drivers/gpu/drm/i915/gt/intel_engine.h
-@@ -13,8 +13,9 @@
- #include "i915_reg.h"
- #include "i915_request.h"
- #include "i915_selftest.h"
--#include "gt/intel_timeline.h"
- #include "intel_engine_types.h"
-+#include "intel_gt_types.h"
-+#include "intel_timeline.h"
- #include "intel_workarounds.h"
- 
- struct drm_printer;
-@@ -262,6 +263,11 @@ void intel_engine_init_active(struct intel_engine_cs *engine,
- #define ENGINE_MOCK	1
- #define ENGINE_VIRTUAL	2
- 
-+static inline bool intel_engine_uses_guc(const struct intel_engine_cs *engine)
-+{
-+	return engine->gt->submission_method >= INTEL_SUBMISSION_GUC;
-+}
-+
- static inline bool
- intel_engine_has_preempt_reset(const struct intel_engine_cs *engine)
- {
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-index 56fb9cece71b..dab8d734e272 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-@@ -891,12 +891,16 @@ int intel_engines_init(struct intel_gt *gt)
- 	enum intel_engine_id id;
- 	int err;
- 
--	if (intel_uc_uses_guc_submission(&gt->uc))
-+	if (intel_uc_uses_guc_submission(&gt->uc)) {
-+		gt->submission_method = INTEL_SUBMISSION_GUC;
- 		setup = intel_guc_submission_setup;
--	else if (HAS_EXECLISTS(gt->i915))
-+	} else if (HAS_EXECLISTS(gt->i915)) {
-+		gt->submission_method = INTEL_SUBMISSION_ELSP;
- 		setup = intel_execlists_submission_setup;
--	else
-+	} else {
-+		gt->submission_method = INTEL_SUBMISSION_RING;
- 		setup = intel_ring_submission_setup;
-+	}
- 
- 	for_each_engine(engine, gt, id) {
- 		err = engine_setup_common(engine);
-@@ -1467,7 +1471,7 @@ static void intel_engine_print_registers(struct intel_engine_cs *engine,
- 		drm_printf(m, "\tIPEHR: 0x%08x\n", ENGINE_READ(engine, IPEHR));
- 	}
- 
--	if (intel_engine_in_guc_submission_mode(engine)) {
-+	if (intel_engine_uses_guc(engine)) {
- 		/* nothing to print yet */
- 	} else if (HAS_EXECLISTS(dev_priv)) {
- 		struct i915_request * const *port, *rq;
-diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-index 5d824e1cfcba..4ddd2099a931 100644
---- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-+++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-@@ -1757,7 +1757,6 @@ process_csb(struct intel_engine_cs *engine, struct i915_request **inactive)
- 	 */
- 	GEM_BUG_ON(!tasklet_is_locked(&execlists->tasklet) &&
- 		   !reset_in_progress(execlists));
--	GEM_BUG_ON(!intel_engine_in_execlists_submission_mode(engine));
- 
- 	/*
- 	 * Note that csb_write, csb_status may be either in HWSP or mmio.
-@@ -3897,13 +3896,6 @@ void intel_execlists_show_requests(struct intel_engine_cs *engine,
- 	spin_unlock_irqrestore(&engine->active.lock, flags);
- }
- 
--bool
--intel_engine_in_execlists_submission_mode(const struct intel_engine_cs *engine)
--{
--	return engine->set_default_submission ==
--	       execlists_set_default_submission;
--}
--
- #if IS_ENABLED(CONFIG_DRM_I915_SELFTEST)
- #include "selftest_execlists.c"
- #endif
-diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.h b/drivers/gpu/drm/i915/gt/intel_execlists_submission.h
-index a8fd7adefd82..f7bd3fccfee8 100644
---- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.h
-+++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.h
-@@ -41,7 +41,4 @@ int intel_virtual_engine_attach_bond(struct intel_engine_cs *engine,
- 				     const struct intel_engine_cs *master,
- 				     const struct intel_engine_cs *sibling);
- 
--bool
--intel_engine_in_execlists_submission_mode(const struct intel_engine_cs *engine);
--
- #endif /* __INTEL_EXECLISTS_SUBMISSION_H__ */
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_types.h b/drivers/gpu/drm/i915/gt/intel_gt_types.h
-index 91d20daca536..626af37c7790 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_types.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_types.h
-@@ -29,6 +29,12 @@ struct i915_ggtt;
- struct intel_engine_cs;
- struct intel_uncore;
- 
-+enum intel_submission_method {
-+	INTEL_SUBMISSION_RING,
-+	INTEL_SUBMISSION_ELSP,
-+	INTEL_SUBMISSION_GUC,
-+};
-+
- struct intel_gt {
- 	struct drm_i915_private *i915;
- 	struct intel_uncore *uncore;
-@@ -108,6 +114,7 @@ struct intel_gt {
- 	struct intel_engine_cs *engine[I915_NUM_ENGINES];
- 	struct intel_engine_cs *engine_class[MAX_ENGINE_CLASS + 1]
- 					    [MAX_ENGINE_INSTANCE + 1];
-+	enum intel_submission_method submission_method;
- 
- 	/*
- 	 * Default address space (either GGTT or ppGTT depending on arch).
-diff --git a/drivers/gpu/drm/i915/gt/intel_reset.c b/drivers/gpu/drm/i915/gt/intel_reset.c
-index c8cf3981ad7f..3577d55401f7 100644
---- a/drivers/gpu/drm/i915/gt/intel_reset.c
-+++ b/drivers/gpu/drm/i915/gt/intel_reset.c
-@@ -1113,7 +1113,6 @@ static int intel_gt_reset_engine(struct intel_engine_cs *engine)
- int __intel_engine_reset_bh(struct intel_engine_cs *engine, const char *msg)
- {
- 	struct intel_gt *gt = engine->gt;
--	bool uses_guc = intel_engine_in_guc_submission_mode(engine);
- 	int ret;
- 
- 	ENGINE_TRACE(engine, "flags=%lx\n", gt->reset.flags);
-@@ -1129,10 +1128,10 @@ int __intel_engine_reset_bh(struct intel_engine_cs *engine, const char *msg)
- 			   "Resetting %s for %s\n", engine->name, msg);
- 	atomic_inc(&engine->i915->gpu_error.reset_engine_count[engine->uabi_class]);
- 
--	if (!uses_guc)
--		ret = intel_gt_reset_engine(engine);
--	else
-+	if (intel_engine_uses_guc(engine))
- 		ret = intel_guc_reset_engine(&engine->gt->uc.guc, engine);
-+	else
-+		ret = intel_gt_reset_engine(engine);
- 	if (ret) {
- 		/* If we fail here, we expect to fallback to a global reset */
- 		ENGINE_TRACE(engine, "Failed to reset, err: %d\n", ret);
-diff --git a/drivers/gpu/drm/i915/gt/selftest_execlists.c b/drivers/gpu/drm/i915/gt/selftest_execlists.c
-index 5d7fac383add..9304a35384aa 100644
---- a/drivers/gpu/drm/i915/gt/selftest_execlists.c
-+++ b/drivers/gpu/drm/i915/gt/selftest_execlists.c
-@@ -4715,7 +4715,7 @@ int intel_execlists_live_selftests(struct drm_i915_private *i915)
- 		SUBTEST(live_virtual_reset),
- 	};
- 
--	if (!HAS_EXECLISTS(i915))
-+	if (i915->gt.submission_method != INTEL_SUBMISSION_ELSP)
- 		return 0;
- 
- 	if (intel_gt_is_wedged(&i915->gt))
-diff --git a/drivers/gpu/drm/i915/gt/selftest_ring_submission.c b/drivers/gpu/drm/i915/gt/selftest_ring_submission.c
-index 3350e7c995bc..6cd9f6bc240c 100644
---- a/drivers/gpu/drm/i915/gt/selftest_ring_submission.c
-+++ b/drivers/gpu/drm/i915/gt/selftest_ring_submission.c
-@@ -291,7 +291,7 @@ int intel_ring_submission_live_selftests(struct drm_i915_private *i915)
- 		SUBTEST(live_ctx_switch_wa),
- 	};
- 
--	if (HAS_EXECLISTS(i915))
-+	if (i915->gt.submission_method > INTEL_SUBMISSION_RING)
- 		return 0;
- 
- 	return intel_gt_live_subtests(tests, &i915->gt);
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index f72faa0b8339..17b551a0c89f 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -745,8 +745,3 @@ void intel_guc_submission_init_early(struct intel_guc *guc)
- {
- 	guc->submission_selected = __guc_submission_selected(guc);
- }
--
--bool intel_engine_in_guc_submission_mode(const struct intel_engine_cs *engine)
--{
--	return engine->set_default_submission == guc_set_default_submission;
--}
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.h
-index 5f7b9e6347d0..3f7005018939 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.h
-@@ -20,7 +20,6 @@ void intel_guc_submission_fini(struct intel_guc *guc);
- int intel_guc_preempt_work_create(struct intel_guc *guc);
- void intel_guc_preempt_work_destroy(struct intel_guc *guc);
- int intel_guc_submission_setup(struct intel_engine_cs *engine);
--bool intel_engine_in_guc_submission_mode(const struct intel_engine_cs *engine);
- 
- static inline bool intel_guc_submission_is_supported(struct intel_guc *guc)
- {
-diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
-index 112ba5f2ce90..89665e14ab01 100644
---- a/drivers/gpu/drm/i915/i915_perf.c
-+++ b/drivers/gpu/drm/i915/i915_perf.c
-@@ -1273,11 +1273,7 @@ static int oa_get_render_ctx_id(struct i915_perf_stream *stream)
- 	case 8:
- 	case 9:
- 	case 10:
--		if (intel_engine_in_execlists_submission_mode(ce->engine)) {
--			stream->specific_ctx_id_mask =
--				(1U << GEN8_CTX_ID_WIDTH) - 1;
--			stream->specific_ctx_id = stream->specific_ctx_id_mask;
--		} else {
-+		if (intel_engine_uses_guc(ce->engine)) {
- 			/*
- 			 * When using GuC, the context descriptor we write in
- 			 * i915 is read by GuC and rewritten before it's
-@@ -1296,6 +1292,10 @@ static int oa_get_render_ctx_id(struct i915_perf_stream *stream)
- 			 */
- 			stream->specific_ctx_id_mask =
- 				(1U << (GEN8_CTX_ID_WIDTH - 1)) - 1;
-+		} else {
-+			stream->specific_ctx_id_mask =
-+				(1U << GEN8_CTX_ID_WIDTH) - 1;
-+			stream->specific_ctx_id = stream->specific_ctx_id_mask;
- 		}
- 		break;
- 
--- 
-2.20.1
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+U2luY2Ugd2UgZHJvcHBlZCB0aGUgdXNlIG9mIGRldi0+c3RydWN0X211dGV4IGZyb20gaW5zaWRl
+IHRoZSBzaHJpbmtlciwKd2Ugbm8gbG9uZ2VyIGluY2x1ZGUgdGhhdCBhcyBwYXJ0IG9mIG91ciBm
+c19yZWNsYWltIHRhaW50aW5nLiBXZSBjYW4KZHJvcCB0aGUgaTkxNSBhcmd1bWVudCBhbmQgcmVi
+cmFuZCBpdCBhcyBhIGdlbmVyaWMgZnNfcmVjbGFpbSB0YWludGVyLgoKU2lnbmVkLW9mZi1ieTog
+Q2hyaXMgV2lsc29uIDxjaHJpc0BjaHJpcy13aWxzb24uY28udWs+CkNjOiBUaG9tYXMgSGVsbHN0
+csO2bSA8dGhvbWFzLmhlbGxzdHJvbUBsaW51eC5pbnRlbC5jb20+Ci0tLQogZHJpdmVycy9ncHUv
+ZHJtL2k5MTUvZ2VtL2k5MTVfZ2VtX29iamVjdC5jICAgfCAgMyArLS0KIGRyaXZlcnMvZ3B1L2Ry
+bS9pOTE1L2dlbS9pOTE1X2dlbV9zaHJpbmtlci5jIHwgMTQgLS0tLS0tLS0tLS0tLS0KIGRyaXZl
+cnMvZ3B1L2RybS9pOTE1L2dlbS9pOTE1X2dlbV9zaHJpbmtlci5oIHwgIDIgLS0KIGRyaXZlcnMv
+Z3B1L2RybS9pOTE1L2d0L2ludGVsX2d0dC5jICAgICAgICAgIHwgIDIgKy0KIGRyaXZlcnMvZ3B1
+L2RybS9pOTE1L2d0L2ludGVsX3Jlc2V0LmMgICAgICAgIHwgIDIgKy0KIGRyaXZlcnMvZ3B1L2Ry
+bS9pOTE1L2k5MTVfdXRpbHMuYyAgICAgICAgICAgIHwgMTMgKysrKysrKysrKysrKwogZHJpdmVy
+cy9ncHUvZHJtL2k5MTUvaTkxNV91dGlscy5oICAgICAgICAgICAgfCAgMiArKwogNyBmaWxlcyBj
+aGFuZ2VkLCAxOCBpbnNlcnRpb25zKCspLCAyMCBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9k
+cml2ZXJzL2dwdS9kcm0vaTkxNS9nZW0vaTkxNV9nZW1fb2JqZWN0LmMgYi9kcml2ZXJzL2dwdS9k
+cm0vaTkxNS9nZW0vaTkxNV9nZW1fb2JqZWN0LmMKaW5kZXggNzBmNzk4NDA1ZjdmLi42Y2RmZjVm
+YzU4ODIgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2dlbS9pOTE1X2dlbV9vYmpl
+Y3QuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9nZW0vaTkxNV9nZW1fb2JqZWN0LmMKQEAg
+LTg2LDggKzg2LDcgQEAgdm9pZCBpOTE1X2dlbV9vYmplY3RfaW5pdChzdHJ1Y3QgZHJtX2k5MTVf
+Z2VtX29iamVjdCAqb2JqLAogCW11dGV4X2luaXQoJm9iai0+bW0uZ2V0X2RtYV9wYWdlLmxvY2sp
+OwogCiAJaWYgKElTX0VOQUJMRUQoQ09ORklHX0xPQ0tERVApICYmIGk5MTVfZ2VtX29iamVjdF9p
+c19zaHJpbmthYmxlKG9iaikpCi0JCWk5MTVfZ2VtX3Nocmlua2VyX3RhaW50c19tdXRleCh0b19p
+OTE1KG9iai0+YmFzZS5kZXYpLAotCQkJCQkgICAgICAgJm9iai0+bW0ubG9jayk7CisJCWZzX3Jl
+Y2xhaW1fdGFpbnRzX211dGV4KCZvYmotPm1tLmxvY2spOwogfQogCiAvKioKZGlmZiAtLWdpdCBh
+L2RyaXZlcnMvZ3B1L2RybS9pOTE1L2dlbS9pOTE1X2dlbV9zaHJpbmtlci5jIGIvZHJpdmVycy9n
+cHUvZHJtL2k5MTUvZ2VtL2k5MTVfZ2VtX3Nocmlua2VyLmMKaW5kZXggYzJkYmExY2Q5NTMyLi5i
+NjRhMDc4ODM4MWYgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2dlbS9pOTE1X2dl
+bV9zaHJpbmtlci5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2dlbS9pOTE1X2dlbV9zaHJp
+bmtlci5jCkBAIC00MTUsMjAgKzQxNSw2IEBAIHZvaWQgaTkxNV9nZW1fZHJpdmVyX3VucmVnaXN0
+ZXJfX3Nocmlua2VyKHN0cnVjdCBkcm1faTkxNV9wcml2YXRlICppOTE1KQogCXVucmVnaXN0ZXJf
+c2hyaW5rZXIoJmk5MTUtPm1tLnNocmlua2VyKTsKIH0KIAotdm9pZCBpOTE1X2dlbV9zaHJpbmtl
+cl90YWludHNfbXV0ZXgoc3RydWN0IGRybV9pOTE1X3ByaXZhdGUgKmk5MTUsCi0JCQkJICAgIHN0
+cnVjdCBtdXRleCAqbXV0ZXgpCi17Ci0JaWYgKCFJU19FTkFCTEVEKENPTkZJR19MT0NLREVQKSkK
+LQkJcmV0dXJuOwotCi0JZnNfcmVjbGFpbV9hY3F1aXJlKEdGUF9LRVJORUwpOwotCi0JbXV0ZXhf
+YWNxdWlyZSgmbXV0ZXgtPmRlcF9tYXAsIDAsIDAsIF9SRVRfSVBfKTsKLQltdXRleF9yZWxlYXNl
+KCZtdXRleC0+ZGVwX21hcCwgX1JFVF9JUF8pOwotCi0JZnNfcmVjbGFpbV9yZWxlYXNlKEdGUF9L
+RVJORUwpOwotfQotCiAjZGVmaW5lIG9ial90b19pOTE1KG9ial9fKSB0b19pOTE1KChvYmpfXykt
+PmJhc2UuZGV2KQogCiB2b2lkIGk5MTVfZ2VtX29iamVjdF9tYWtlX3Vuc2hyaW5rYWJsZShzdHJ1
+Y3QgZHJtX2k5MTVfZ2VtX29iamVjdCAqb2JqKQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
+L2k5MTUvZ2VtL2k5MTVfZ2VtX3Nocmlua2VyLmggYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9nZW0v
+aTkxNV9nZW1fc2hyaW5rZXIuaAppbmRleCBiMzk3ZDc3ODU3ODkuLmEyNTc1NGE1MWFjMyAxMDA2
+NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ2VtL2k5MTVfZ2VtX3Nocmlua2VyLmgKKysr
+IGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ2VtL2k5MTVfZ2VtX3Nocmlua2VyLmgKQEAgLTI1LDcg
+KzI1LDUgQEAgdW5zaWduZWQgbG9uZyBpOTE1X2dlbV9zaHJpbmsoc3RydWN0IGRybV9pOTE1X3By
+aXZhdGUgKmk5MTUsCiB1bnNpZ25lZCBsb25nIGk5MTVfZ2VtX3Nocmlua19hbGwoc3RydWN0IGRy
+bV9pOTE1X3ByaXZhdGUgKmk5MTUpOwogdm9pZCBpOTE1X2dlbV9kcml2ZXJfcmVnaXN0ZXJfX3No
+cmlua2VyKHN0cnVjdCBkcm1faTkxNV9wcml2YXRlICppOTE1KTsKIHZvaWQgaTkxNV9nZW1fZHJp
+dmVyX3VucmVnaXN0ZXJfX3Nocmlua2VyKHN0cnVjdCBkcm1faTkxNV9wcml2YXRlICppOTE1KTsK
+LXZvaWQgaTkxNV9nZW1fc2hyaW5rZXJfdGFpbnRzX211dGV4KHN0cnVjdCBkcm1faTkxNV9wcml2
+YXRlICppOTE1LAotCQkJCSAgICBzdHJ1Y3QgbXV0ZXggKm11dGV4KTsKIAogI2VuZGlmIC8qIF9f
+STkxNV9HRU1fU0hSSU5LRVJfSF9fICovCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkx
+NS9ndC9pbnRlbF9ndHQuYyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2d0L2ludGVsX2d0dC5jCmlu
+ZGV4IDA0YWE2NjAxZTk4NC4uZDM0NzcwYWU0YzlhIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9k
+cm0vaTkxNS9ndC9pbnRlbF9ndHQuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9ndC9pbnRl
+bF9ndHQuYwpAQCAtOTcsNyArOTcsNyBAQCB2b2lkIGk5MTVfYWRkcmVzc19zcGFjZV9pbml0KHN0
+cnVjdCBpOTE1X2FkZHJlc3Nfc3BhY2UgKnZtLCBpbnQgc3ViY2xhc3MpCiAJICovCiAJbXV0ZXhf
+aW5pdCgmdm0tPm11dGV4KTsKIAlsb2NrZGVwX3NldF9zdWJjbGFzcygmdm0tPm11dGV4LCBzdWJj
+bGFzcyk7Ci0JaTkxNV9nZW1fc2hyaW5rZXJfdGFpbnRzX211dGV4KHZtLT5pOTE1LCAmdm0tPm11
+dGV4KTsKKwlmc19yZWNsYWltX3RhaW50c19tdXRleCgmdm0tPm11dGV4KTsKIAogCUdFTV9CVUdf
+T04oIXZtLT50b3RhbCk7CiAJZHJtX21tX2luaXQoJnZtLT5tbSwgMCwgdm0tPnRvdGFsKTsKZGlm
+ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2d0L2ludGVsX3Jlc2V0LmMgYi9kcml2ZXJz
+L2dwdS9kcm0vaTkxNS9ndC9pbnRlbF9yZXNldC5jCmluZGV4IGM4Y2YzOTgxYWQ3Zi4uNzYzOGZi
+MmE0NWY0IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9ndC9pbnRlbF9yZXNldC5j
+CisrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2d0L2ludGVsX3Jlc2V0LmMKQEAgLTE0MDEsNyAr
+MTQwMSw3IEBAIHZvaWQgaW50ZWxfZ3RfaW5pdF9yZXNldChzdHJ1Y3QgaW50ZWxfZ3QgKmd0KQog
+CSAqIHdpdGhpbiB0aGUgc2hyaW5rZXIsIHdlIGZvcmJpZCBvdXJzZWx2ZXMgZnJvbSBwZXJmb3Jt
+aW5nIGFueQogCSAqIGZzLXJlY2xhaW0gb3IgdGFraW5nIHJlbGF0ZWQgbG9ja3MgZHVyaW5nIHJl
+c2V0LgogCSAqLwotCWk5MTVfZ2VtX3Nocmlua2VyX3RhaW50c19tdXRleChndC0+aTkxNSwgJmd0
+LT5yZXNldC5tdXRleCk7CisJZnNfcmVjbGFpbV90YWludHNfbXV0ZXgoJmd0LT5yZXNldC5tdXRl
+eCk7CiAKIAkvKiBubyBHUFUgdW50aWwgd2UgYXJlIHJlYWR5ISAqLwogCV9fc2V0X2JpdChJOTE1
+X1dFREdFRCwgJmd0LT5yZXNldC5mbGFncyk7CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
+aTkxNS9pOTE1X3V0aWxzLmMgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X3V0aWxzLmMKaW5k
+ZXggZjllNzgwZGVlOWRlLi45MGM3ZjBjNDgzOGMgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2Ry
+bS9pOTE1L2k5MTVfdXRpbHMuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X3V0aWxz
+LmMKQEAgLTExNCwzICsxMTQsMTYgQEAgdm9pZCBzZXRfdGltZXJfbXMoc3RydWN0IHRpbWVyX2xp
+c3QgKnQsIHVuc2lnbmVkIGxvbmcgdGltZW91dCkKIAkvKiBLZWVwIHQtPmV4cGlyZXMgPSAwIHJl
+c2VydmVkIHRvIGluZGljYXRlIGEgY2FuY2VsZWQgdGltZXIuICovCiAJbW9kX3RpbWVyKHQsIGpp
+ZmZpZXMgKyB0aW1lb3V0ID86IDEpOwogfQorCit2b2lkIGZzX3JlY2xhaW1fdGFpbnRzX211dGV4
+KHN0cnVjdCBtdXRleCAqbXV0ZXgpCit7CisJaWYgKCFJU19FTkFCTEVEKENPTkZJR19MT0NLREVQ
+KSkKKwkJcmV0dXJuOworCisJZnNfcmVjbGFpbV9hY3F1aXJlKEdGUF9LRVJORUwpOworCisJbXV0
+ZXhfYWNxdWlyZSgmbXV0ZXgtPmRlcF9tYXAsIDAsIDAsIF9SRVRfSVBfKTsKKwltdXRleF9yZWxl
+YXNlKCZtdXRleC0+ZGVwX21hcCwgX1JFVF9JUF8pOworCisJZnNfcmVjbGFpbV9yZWxlYXNlKEdG
+UF9LRVJORUwpOworfQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV91dGls
+cy5oIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV91dGlscy5oCmluZGV4IGFiZDRkY2Q5Zjc5
+Yy4uM2Y2MTZkMDBkZTQyIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X3V0
+aWxzLmgKKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV91dGlscy5oCkBAIC0yNjYsNiAr
+MjY2LDggQEAgc3RhdGljIGlubGluZSBpbnQgbGlzdF9pc19sYXN0X3JjdShjb25zdCBzdHJ1Y3Qg
+bGlzdF9oZWFkICpsaXN0LAogCXJldHVybiBSRUFEX09OQ0UobGlzdC0+bmV4dCkgPT0gaGVhZDsK
+IH0KIAordm9pZCBmc19yZWNsYWltX3RhaW50c19tdXRleChzdHJ1Y3QgbXV0ZXggKm11dGV4KTsK
+Kwogc3RhdGljIGlubGluZSB1bnNpZ25lZCBsb25nIG1zZWNzX3RvX2ppZmZpZXNfdGltZW91dChj
+b25zdCB1bnNpZ25lZCBpbnQgbSkKIHsKIAl1bnNpZ25lZCBsb25nIGogPSBtc2Vjc190b19qaWZm
+aWVzKG0pOwotLSAKMi4yMC4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fXwpJbnRlbC1nZnggbWFpbGluZyBsaXN0CkludGVsLWdmeEBsaXN0cy5mcmVlZGVz
+a3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9p
+bnRlbC1nZngK
