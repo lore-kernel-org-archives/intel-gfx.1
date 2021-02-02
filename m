@@ -2,43 +2,45 @@ Return-Path: <SRS0=9DaN=HE=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 614D9C433DB
-	for <intel-gfx@archiver.kernel.org>; Tue,  2 Feb 2021 20:44:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 946C3C433DB
+	for <intel-gfx@archiver.kernel.org>; Tue,  2 Feb 2021 21:14:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C243D64F61
-	for <intel-gfx@archiver.kernel.org>; Tue,  2 Feb 2021 20:44:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C243D64F61
+	by mail.kernel.org (Postfix) with ESMTPS id BA20564E38
+	for <intel-gfx@archiver.kernel.org>; Tue,  2 Feb 2021 21:14:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BA20564E38
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4CB3389C84;
-	Tue,  2 Feb 2021 20:44:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 438C289D64;
+	Tue,  2 Feb 2021 21:14:41 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F14C589C84
- for <intel-gfx@lists.freedesktop.org>; Tue,  2 Feb 2021 20:44:08 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 87A9A89D64
+ for <intel-gfx@lists.freedesktop.org>; Tue,  2 Feb 2021 21:14:39 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from localhost (unverified [78.156.65.138]) 
  by fireflyinternet.com (Firefly Internet (M1)) with ESMTP (TLS) id
- 23777115-1500050 for multiple; Tue, 02 Feb 2021 20:44:00 +0000
+ 23777304-1500050 for multiple; Tue, 02 Feb 2021 21:14:34 +0000
 MIME-Version: 1.0
-In-Reply-To: <20210202201044.GE66899@orsosgc001.ra.intel.com>
-References: <20210202075417.28230-1-umesh.nerlige.ramappa@intel.com>
- <161225425527.704.15100937094980533411@build.alporthouse.com>
- <20210202201044.GE66899@orsosgc001.ra.intel.com>
+In-Reply-To: <161228783372.1150.6556483629376691686@build.alporthouse.com>
+References: <20210202151445.20002-1-chris@chris-wilson.co.uk>
+ <20210202151445.20002-8-chris@chris-wilson.co.uk>
+ <2097da50-efe4-1b23-67b5-9a43a70198c9@linux.intel.com>
+ <161228783372.1150.6556483629376691686@build.alporthouse.com>
 From: Chris Wilson <chris@chris-wilson.co.uk>
-To: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
-Date: Tue, 02 Feb 2021 20:44:01 +0000
-Message-ID: <161229864133.28247.5042397934712917550@build.alporthouse.com>
+To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ intel-gfx@lists.freedesktop.org
+Date: Tue, 02 Feb 2021 21:14:35 +0000
+Message-ID: <161230047545.28247.13315008950874636165@build.alporthouse.com>
 User-Agent: alot/0.9
-Subject: Re: [Intel-gfx] [PATCH 1/3] i915/perf: Store a mask of valid OA
- formats for a platform
+Subject: Re: [Intel-gfx] [CI 08/14] drm/i915/selftests: Force a rewind if at
+ first we don't succeed
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,70 +53,25 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Quoting Umesh Nerlige Ramappa (2021-02-02 20:10:44)
-> On Tue, Feb 02, 2021 at 08:24:15AM +0000, Chris Wilson wrote:
-> >Ok, this looks as compact and readable as writing it as a bunch of
-> >tables. I presume there's a reason you didn't just use generation rather
-> >than platform.
-> >
-> >switch (gen) {
-> >case 7:
-> >       haswell();
-> >       break;
-> >case 8 .. 11:
-> >       broadwell();
-> >       break;
-> >case 12:
-> >       tigerlake();
-> >       break;
-> >}
-> >if you wanted to stick with a switch rather than an if-else tree for the
-> >ranges.
-> 
-> only haswell is supported on gen7 and gen12 may define new formats that 
-> are platform specific.
-> 
-> How about a mix? -
-> 
-> if (gen == 7 && haswell)
->         haswell();
-> else if (gen >= 8 && gen <= 11)
->         broadwell;
-> else
->         gen12_formats();
-> 
-> gen12_formats can choose to use the switch if formats vary between 
-> platforms.
+Quoting Chris Wilson (2021-02-02 17:43:53)
+> Let's see how horrible it is to cycle elements on defer. (Curse the
+> irqlock pollution.)
 
-I didn't mind the platform switch too much, so no need to change at the
-moment. I just worry that it's more typing to maintain :)
+While that did work. I do not have a good idea on how to do list
+rotation on an RCU list. I can see that it must require a pair of
+synchronize_rcu, and that spells disaster (at least for handling it
+inline).
 
-What I thought you were going to do (from the subject) were tables with
-a platform_mask for applicability,  but that I feell would be just as
-much typing, now and in the future.
+Another way might be to randomize the deadlines along each branch to the
+tree... Except we don't have deadlines at this point and we can't so
+freely change the priorities.
 
-
-I thought support started at Haswell, so the other gen7 were not a
-concern? But yes, if we look at how we end up doing it else where it's a
-mix of gen and platform
-
-if (gen >= 12)
-	gen12_formats;
-else if (gen >= 8)
-	gen8_formats;
-else if (IS_HSW)
-	hsw_formats;
-else
-	MISSING_CASE(gen)
-
-At the end of the day, you're the person who is typing this, so it's up
-to you how much effort you want to spend now to save later. :)
+Hmm.
 -Chris
 _______________________________________________
 Intel-gfx mailing list
