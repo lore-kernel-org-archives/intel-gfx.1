@@ -7,36 +7,34 @@ X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8392EC433DB
-	for <intel-gfx@archiver.kernel.org>; Tue,  2 Feb 2021 21:20:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 72BC4C433DB
+	for <intel-gfx@archiver.kernel.org>; Tue,  2 Feb 2021 21:20:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EE4F964F61
-	for <intel-gfx@archiver.kernel.org>; Tue,  2 Feb 2021 21:20:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EE4F964F61
+	by mail.kernel.org (Postfix) with ESMTPS id DF31E64F61
+	for <intel-gfx@archiver.kernel.org>; Tue,  2 Feb 2021 21:20:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DF31E64F61
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3BA216E9A1;
-	Tue,  2 Feb 2021 21:20:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 85E286E9A0;
+	Tue,  2 Feb 2021 21:20:34 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 68CD16E0A2
- for <intel-gfx@lists.freedesktop.org>; Tue,  2 Feb 2021 21:20:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D3D56E9A0
+ for <intel-gfx@lists.freedesktop.org>; Tue,  2 Feb 2021 21:20:33 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23777330-1500050 
- for <intel-gfx@lists.freedesktop.org>; Tue, 02 Feb 2021 21:20:10 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23777334-1500050 
+ for <intel-gfx@lists.freedesktop.org>; Tue, 02 Feb 2021 21:20:29 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue,  2 Feb 2021 21:20:11 +0000
-Message-Id: <20210202212011.28814-3-chris@chris-wilson.co.uk>
+Date: Tue,  2 Feb 2021 21:20:30 +0000
+Message-Id: <20210202212030.29015-1-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210202212011.28814-1-chris@chris-wilson.co.uk>
-References: <20210202212011.28814-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [CI 3/3] Oops with "ALSA: jack: implement software jack
+Subject: [Intel-gfx] [CI] Oops with "ALSA: jack: implement software jack
  injection via debugfs"
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
