@@ -2,41 +2,40 @@ Return-Path: <SRS0=9DaN=HE=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3D58BC433DB
-	for <intel-gfx@archiver.kernel.org>; Tue,  2 Feb 2021 22:09:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4CF16C433DB
+	for <intel-gfx@archiver.kernel.org>; Tue,  2 Feb 2021 22:12:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E246964F49
-	for <intel-gfx@archiver.kernel.org>; Tue,  2 Feb 2021 22:09:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E246964F49
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id ABA1B64DDB
+	for <intel-gfx@archiver.kernel.org>; Tue,  2 Feb 2021 22:12:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org ABA1B64DDB
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7EE566E86D;
-	Tue,  2 Feb 2021 22:09:23 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 748996E4C9;
- Tue,  2 Feb 2021 22:09:22 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 6EE95A00E6;
- Tue,  2 Feb 2021 22:09:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4472D89EBD;
+	Tue,  2 Feb 2021 22:12:38 +0000 (UTC)
+Received: from fireflyinternet.com (unknown [77.68.26.236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 72DBC89EB8
+ for <intel-gfx@lists.freedesktop.org>; Tue,  2 Feb 2021 22:12:36 +0000 (UTC)
+X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
+ x-ip-name=78.156.65.138; 
+Received: from build.alporthouse.com (unverified [78.156.65.138]) 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23777549-1500050 
+ for <intel-gfx@lists.freedesktop.org>; Tue, 02 Feb 2021 22:12:31 +0000
+From: Chris Wilson <chris@chris-wilson.co.uk>
+To: intel-gfx@lists.freedesktop.org
+Date: Tue,  2 Feb 2021 22:12:21 +0000
+Message-Id: <20210202221233.28223-1-chris@chris-wilson.co.uk>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Chris Wilson" <chris@chris-wilson.co.uk>
-Date: Tue, 02 Feb 2021 22:09:22 -0000
-Message-ID: <161230376242.19548.13005755461734614034@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20210202212011.28814-1-chris@chris-wilson.co.uk>
-In-Reply-To: <20210202212011.28814-1-chris@chris-wilson.co.uk>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBz?=
- =?utf-8?q?eries_starting_with_=5BCI=2C1/3=5D_***_HAX_FOR_CI_***_Revert_?=
- =?utf-8?q?=22rtc=3A_mc146818=3A_Detect_and_handle_broken_RTCs=22?=
+Subject: [Intel-gfx] [CI 01/13] Oops with "ALSA: jack: implement software
+ jack injection via debugfs"
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,39 +48,71 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+From: Takashi Iwai <tiwai@suse.de>
 
-Series: series starting with [CI,1/3] *** HAX FOR CI *** Revert "rtc: mc146818: Detect and handle broken RTCs"
-URL   : https://patchwork.freedesktop.org/series/86596/
-State : failure
+On Tue, 02 Feb 2021 17:30:36 +0100,
+Chris Wilson wrote:
+>
+> commit 2d670ea2bd53 ("ALSA: jack: implement software jack injection via
+> debugfs") is causing issues for our CI as we see a use-after-free on
+> module unload (on all machines):
+>
+> https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9715/fi-skl-6700k2/pstore0-1612277467_Oops_1.txt
 
-== Summary ==
+Could you try the patch below?  The unload test was completely
+forgotten.
 
-Applying: *** HAX FOR CI *** Revert "rtc: mc146818: Detect and handle broken RTCs"
-Using index info to reconstruct a base tree...
-M	drivers/rtc/rtc-cmos.c
-M	drivers/rtc/rtc-mc146818-lib.c
-Falling back to patching base and 3-way merge...
-No changes -- Patch already applied.
-Applying: drm-tip: 2021y-02m-02d-12h-50m-06s UTC integration manifest
-Using index info to reconstruct a base tree...
-Falling back to patching base and 3-way merge...
-CONFLICT (add/add): Merge conflict in integration-manifest
-Auto-merging integration-manifest
-error: Failed to merge in the changes.
-hint: Use 'git am --show-current-patch=diff' to see the failed patch
-Patch failed at 0002 drm-tip: 2021y-02m-02d-12h-50m-06s UTC integration manifest
-When you have resolved this problem, run "git am --continue".
-If you prefer to skip this patch, run "git am --skip" instead.
-To restore the original branch and stop patching, run "git am --abort".
+thanks,
 
+Takashi
+
+-- 8< --
+From: Takashi Iwai <tiwai@suse.de>
+Subject: [PATCH] ALSA: core: Fix the debugfs removal at snd_card_free()
+
+The debugfs_remove() call should have been done at the right place
+before the card object gets freed.
+
+Fixes: 2d670ea2bd53 ("ALSA: jack: implement software jack injection via debugfs")
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/core/init.c | 9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
+
+diff --git a/sound/core/init.c b/sound/core/init.c
+index d4e78b176793..84b573e9c1f9 100644
+--- a/sound/core/init.c
++++ b/sound/core/init.c
+@@ -487,6 +487,10 @@ static int snd_card_do_free(struct snd_card *card)
+ 		dev_warn(card->dev, "unable to free card info\n");
+ 		/* Not fatal error */
+ 	}
++#ifdef CONFIG_SND_DEBUG
++	debugfs_remove(card->debugfs_root);
++	card->debugfs_root = NULL;
++#endif
+ 	if (card->release_completion)
+ 		complete(card->release_completion);
+ 	kfree(card);
+@@ -537,11 +541,6 @@ int snd_card_free(struct snd_card *card)
+ 	/* wait, until all devices are ready for the free operation */
+ 	wait_for_completion(&released);
+ 
+-#ifdef CONFIG_SND_DEBUG
+-	debugfs_remove(card->debugfs_root);
+-	card->debugfs_root = NULL;
+-#endif
+-
+ 	return 0;
+ }
+ EXPORT_SYMBOL(snd_card_free);
+-- 
+2.20.1
 
 _______________________________________________
 Intel-gfx mailing list
