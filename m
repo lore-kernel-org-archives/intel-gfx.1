@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EB2F4C433E6
-	for <intel-gfx@archiver.kernel.org>; Tue,  2 Feb 2021 15:15:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B0520C433DB
+	for <intel-gfx@archiver.kernel.org>; Tue,  2 Feb 2021 15:15:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B53BD64F54
-	for <intel-gfx@archiver.kernel.org>; Tue,  2 Feb 2021 15:15:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B53BD64F54
+	by mail.kernel.org (Postfix) with ESMTPS id 7CAF864F54
+	for <intel-gfx@archiver.kernel.org>; Tue,  2 Feb 2021 15:15:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7CAF864F54
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 79B346E938;
-	Tue,  2 Feb 2021 15:14:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 057A76E943;
+	Tue,  2 Feb 2021 15:14:56 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DBB6B6E938
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 991586E921
  for <intel-gfx@lists.freedesktop.org>; Tue,  2 Feb 2021 15:14:53 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23773712-1500050 
- for <intel-gfx@lists.freedesktop.org>; Tue, 02 Feb 2021 15:14:44 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23773715-1500050 
+ for <intel-gfx@lists.freedesktop.org>; Tue, 02 Feb 2021 15:14:45 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue,  2 Feb 2021 15:14:35 +0000
-Message-Id: <20210202151445.20002-4-chris@chris-wilson.co.uk>
+Date: Tue,  2 Feb 2021 15:14:37 +0000
+Message-Id: <20210202151445.20002-6-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20210202151445.20002-1-chris@chris-wilson.co.uk>
 References: <20210202151445.20002-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [CI 04/14] drm/i915: Replace engine->schedule() with a
- known request operation
+Subject: [Intel-gfx] [CI 06/14] drm/i915/selftests: Measure set-priority
+ duration
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,616 +50,330 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Looking to the future, we want to set the scheduling attributes
-explicitly and so replace the generic engine->schedule() with the more
-direct i915_request_set_priority()
-
-What it loses in removing the 'schedule' name from the function, it
-gains in having an explicit entry point with a stated goal.
-
-Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
----
- drivers/gpu/drm/i915/display/intel_display.c  |  5 ++-
- drivers/gpu/drm/i915/gem/i915_gem_object.h    |  5 ++-
- drivers/gpu/drm/i915/gem/i915_gem_wait.c      | 29 +++++-----------
- drivers/gpu/drm/i915/gt/intel_engine_cs.c     |  3 --
- .../gpu/drm/i915/gt/intel_engine_heartbeat.c  |  4 +--
- drivers/gpu/drm/i915/gt/intel_engine_types.h  | 27 ++++++++-------
- drivers/gpu/drm/i915/gt/intel_engine_user.c   |  2 +-
- .../drm/i915/gt/intel_execlists_submission.c  |  3 +-
- drivers/gpu/drm/i915/gt/selftest_execlists.c  | 33 +++++--------------
- drivers/gpu/drm/i915/gt/selftest_hangcheck.c  | 11 +++----
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c |  3 +-
- drivers/gpu/drm/i915/i915_request.c           | 10 +++---
- drivers/gpu/drm/i915/i915_request.h           |  5 +++
- drivers/gpu/drm/i915/i915_scheduler.c         | 15 +++++----
- drivers/gpu/drm/i915/i915_scheduler.h         |  3 +-
- 15 files changed, 64 insertions(+), 94 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index d8f10589e09e..aca964f7ba72 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -13662,7 +13662,6 @@ int
- intel_prepare_plane_fb(struct drm_plane *_plane,
- 		       struct drm_plane_state *_new_plane_state)
- {
--	struct i915_sched_attr attr = { .priority = I915_PRIORITY_DISPLAY };
- 	struct intel_plane *plane = to_intel_plane(_plane);
- 	struct intel_plane_state *new_plane_state =
- 		to_intel_plane_state(_new_plane_state);
-@@ -13703,7 +13702,7 @@ intel_prepare_plane_fb(struct drm_plane *_plane,
- 
- 	if (new_plane_state->uapi.fence) { /* explicit fencing */
- 		i915_gem_fence_wait_priority(new_plane_state->uapi.fence,
--					     &attr);
-+					     I915_PRIORITY_DISPLAY);
- 		ret = i915_sw_fence_await_dma_fence(&state->commit_ready,
- 						    new_plane_state->uapi.fence,
- 						    i915_fence_timeout(dev_priv),
-@@ -13725,7 +13724,7 @@ intel_prepare_plane_fb(struct drm_plane *_plane,
- 	if (ret)
- 		return ret;
- 
--	i915_gem_object_wait_priority(obj, 0, &attr);
-+	i915_gem_object_wait_priority(obj, 0, I915_PRIORITY_DISPLAY);
- 	i915_gem_object_flush_frontbuffer(obj, ORIGIN_DIRTYFB);
- 
- 	if (!new_plane_state->uapi.fence) { /* implicit fencing */
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.h b/drivers/gpu/drm/i915/gem/i915_gem_object.h
-index 3411ad197fa6..325766abca21 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_object.h
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_object.h
-@@ -549,15 +549,14 @@ static inline void __start_cpu_write(struct drm_i915_gem_object *obj)
- 		obj->cache_dirty = true;
- }
- 
--void i915_gem_fence_wait_priority(struct dma_fence *fence,
--				  const struct i915_sched_attr *attr);
-+void i915_gem_fence_wait_priority(struct dma_fence *fence, int prio);
- 
- int i915_gem_object_wait(struct drm_i915_gem_object *obj,
- 			 unsigned int flags,
- 			 long timeout);
- int i915_gem_object_wait_priority(struct drm_i915_gem_object *obj,
- 				  unsigned int flags,
--				  const struct i915_sched_attr *attr);
-+				  int prio);
- 
- void __i915_gem_object_flush_frontbuffer(struct drm_i915_gem_object *obj,
- 					 enum fb_op_origin origin);
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_wait.c b/drivers/gpu/drm/i915/gem/i915_gem_wait.c
-index 4b9856d5ba14..d79bf16083bd 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_wait.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_wait.c
-@@ -91,22 +91,12 @@ i915_gem_object_wait_reservation(struct dma_resv *resv,
- 	return timeout;
- }
- 
--static void fence_set_priority(struct dma_fence *fence,
--			       const struct i915_sched_attr *attr)
-+static void fence_set_priority(struct dma_fence *fence, int prio)
- {
--	struct i915_request *rq;
--	struct intel_engine_cs *engine;
--
- 	if (dma_fence_is_signaled(fence) || !dma_fence_is_i915(fence))
- 		return;
- 
--	rq = to_request(fence);
--	engine = rq->engine;
--
--	rcu_read_lock(); /* RCU serialisation for set-wedged protection */
--	if (engine->schedule)
--		engine->schedule(rq, attr);
--	rcu_read_unlock();
-+	i915_request_set_priority(to_request(fence), prio);
- }
- 
- static inline bool __dma_fence_is_chain(const struct dma_fence *fence)
-@@ -114,8 +104,7 @@ static inline bool __dma_fence_is_chain(const struct dma_fence *fence)
- 	return fence->ops == &dma_fence_chain_ops;
- }
- 
--void i915_gem_fence_wait_priority(struct dma_fence *fence,
--				  const struct i915_sched_attr *attr)
-+void i915_gem_fence_wait_priority(struct dma_fence *fence, int prio)
- {
- 	if (dma_fence_is_signaled(fence))
- 		return;
-@@ -128,19 +117,19 @@ void i915_gem_fence_wait_priority(struct dma_fence *fence,
- 		int i;
- 
- 		for (i = 0; i < array->num_fences; i++)
--			fence_set_priority(array->fences[i], attr);
-+			fence_set_priority(array->fences[i], prio);
- 	} else if (__dma_fence_is_chain(fence)) {
- 		struct dma_fence *iter;
- 
- 		/* The chain is ordered; if we boost the last, we boost all */
- 		dma_fence_chain_for_each(iter, fence) {
- 			fence_set_priority(to_dma_fence_chain(iter)->fence,
--					   attr);
-+					   prio);
- 			break;
- 		}
- 		dma_fence_put(iter);
- 	} else {
--		fence_set_priority(fence, attr);
-+		fence_set_priority(fence, prio);
- 	}
- 
- 	local_bh_enable(); /* kick the tasklets if queues were reprioritised */
-@@ -149,7 +138,7 @@ void i915_gem_fence_wait_priority(struct dma_fence *fence,
- int
- i915_gem_object_wait_priority(struct drm_i915_gem_object *obj,
- 			      unsigned int flags,
--			      const struct i915_sched_attr *attr)
-+			      int prio)
- {
- 	struct dma_fence *excl;
- 
-@@ -164,7 +153,7 @@ i915_gem_object_wait_priority(struct drm_i915_gem_object *obj,
- 			return ret;
- 
- 		for (i = 0; i < count; i++) {
--			i915_gem_fence_wait_priority(shared[i], attr);
-+			i915_gem_fence_wait_priority(shared[i], prio);
- 			dma_fence_put(shared[i]);
- 		}
- 
-@@ -174,7 +163,7 @@ i915_gem_object_wait_priority(struct drm_i915_gem_object *obj,
- 	}
- 
- 	if (excl) {
--		i915_gem_fence_wait_priority(excl, attr);
-+		i915_gem_fence_wait_priority(excl, prio);
- 		dma_fence_put(excl);
- 	}
- 	return 0;
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-index 2a453ba5f25a..92a3c8a43e14 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-@@ -326,9 +326,6 @@ static int intel_engine_setup(struct intel_gt *gt, enum intel_engine_id id)
- 	if (engine->context_size)
- 		DRIVER_CAPS(i915)->has_logical_contexts = true;
- 
--	/* Nothing to do here, execute in order of dependencies */
--	engine->schedule = NULL;
--
- 	ewma__engine_latency_init(&engine->latency);
- 
- 	ATOMIC_INIT_NOTIFIER_HEAD(&engine->context_status_notifier);
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c b/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
-index 778bcae5ef2c..0b026cde9f09 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
-@@ -114,7 +114,7 @@ static void heartbeat(struct work_struct *wrk)
- 			 * but all other contexts, including the kernel
- 			 * context are stuck waiting for the signal.
- 			 */
--		} else if (engine->schedule &&
-+		} else if (intel_engine_has_scheduler(engine) &&
- 			   rq->sched.attr.priority < I915_PRIORITY_BARRIER) {
- 			/*
- 			 * Gradually raise the priority of the heartbeat to
-@@ -129,7 +129,7 @@ static void heartbeat(struct work_struct *wrk)
- 				attr.priority = I915_PRIORITY_BARRIER;
- 
- 			local_bh_disable();
--			engine->schedule(rq, &attr);
-+			i915_request_set_priority(rq, attr.priority);
- 			local_bh_enable();
- 		} else {
- 			if (IS_ENABLED(CONFIG_DRM_I915_DEBUG_GEM))
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_types.h b/drivers/gpu/drm/i915/gt/intel_engine_types.h
-index 7fd035d45263..cb81f0d93189 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_types.h
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_types.h
-@@ -454,14 +454,6 @@ struct intel_engine_cs {
- 	void            (*bond_execute)(struct i915_request *rq,
- 					struct dma_fence *signal);
- 
--	/*
--	 * Call when the priority on a request has changed and it and its
--	 * dependencies may need rescheduling. Note the request itself may
--	 * not be ready to run!
--	 */
--	void		(*schedule)(struct i915_request *request,
--				    const struct i915_sched_attr *attr);
--
- 	void		(*release)(struct intel_engine_cs *engine);
- 
- 	struct intel_engine_execlists execlists;
-@@ -479,12 +471,13 @@ struct intel_engine_cs {
- 
- #define I915_ENGINE_USING_CMD_PARSER BIT(0)
- #define I915_ENGINE_SUPPORTS_STATS   BIT(1)
--#define I915_ENGINE_HAS_PREEMPTION   BIT(2)
--#define I915_ENGINE_HAS_SEMAPHORES   BIT(3)
--#define I915_ENGINE_HAS_TIMESLICES   BIT(4)
--#define I915_ENGINE_IS_VIRTUAL       BIT(5)
--#define I915_ENGINE_HAS_RELATIVE_MMIO BIT(6)
--#define I915_ENGINE_REQUIRES_CMD_PARSER BIT(7)
-+#define I915_ENGINE_HAS_SCHEDULER    BIT(2)
-+#define I915_ENGINE_HAS_PREEMPTION   BIT(3)
-+#define I915_ENGINE_HAS_SEMAPHORES   BIT(4)
-+#define I915_ENGINE_HAS_TIMESLICES   BIT(5)
-+#define I915_ENGINE_IS_VIRTUAL       BIT(6)
-+#define I915_ENGINE_HAS_RELATIVE_MMIO BIT(7)
-+#define I915_ENGINE_REQUIRES_CMD_PARSER BIT(8)
- 	unsigned int flags;
- 
- 	/*
-@@ -567,6 +560,12 @@ intel_engine_supports_stats(const struct intel_engine_cs *engine)
- 	return engine->flags & I915_ENGINE_SUPPORTS_STATS;
- }
- 
-+static inline bool
-+intel_engine_has_scheduler(const struct intel_engine_cs *engine)
-+{
-+	return engine->flags & I915_ENGINE_HAS_SCHEDULER;
-+}
-+
- static inline bool
- intel_engine_has_preemption(const struct intel_engine_cs *engine)
- {
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_user.c b/drivers/gpu/drm/i915/gt/intel_engine_user.c
-index 1cbd84eb24e4..64eccdf32a22 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_user.c
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_user.c
-@@ -107,7 +107,7 @@ static void set_scheduler_caps(struct drm_i915_private *i915)
- 	for_each_uabi_engine(engine, i915) { /* all engines must agree! */
- 		int i;
- 
--		if (engine->schedule)
-+		if (intel_engine_has_scheduler(engine))
- 			enabled |= (I915_SCHEDULER_CAP_ENABLED |
- 				    I915_SCHEDULER_CAP_PRIORITY);
- 		else
-diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-index ed62e4b549d2..6b8984c64b60 100644
---- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-+++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-@@ -3125,7 +3125,6 @@ static bool can_preempt(struct intel_engine_cs *engine)
- static void execlists_set_default_submission(struct intel_engine_cs *engine)
- {
- 	engine->submit_request = execlists_submit_request;
--	engine->schedule = i915_schedule;
- 	engine->execlists.tasklet.callback = execlists_submission_tasklet;
- }
- 
-@@ -3187,6 +3186,7 @@ logical_ring_default_vfuncs(struct intel_engine_cs *engine)
- 	}
- 	engine->irq_handler = execlists_irq_handler;
- 
-+	engine->flags |= I915_ENGINE_HAS_SCHEDULER;
- 	engine->flags |= I915_ENGINE_SUPPORTS_STATS;
- 	if (!intel_vgpu_active(engine->i915)) {
- 		engine->flags |= I915_ENGINE_HAS_SEMAPHORES;
-@@ -3699,7 +3699,6 @@ intel_execlists_create_virtual(struct intel_engine_cs **siblings,
- 	ve->base.cops = &virtual_context_ops;
- 	ve->base.request_alloc = execlists_request_alloc;
- 
--	ve->base.schedule = i915_schedule;
- 	ve->base.submit_request = virtual_submit_request;
- 	ve->base.bond_execute = virtual_bond_execute;
- 
-diff --git a/drivers/gpu/drm/i915/gt/selftest_execlists.c b/drivers/gpu/drm/i915/gt/selftest_execlists.c
-index 9304a35384aa..951e2bf867e1 100644
---- a/drivers/gpu/drm/i915/gt/selftest_execlists.c
-+++ b/drivers/gpu/drm/i915/gt/selftest_execlists.c
-@@ -268,12 +268,8 @@ static int live_unlite_restore(struct intel_gt *gt, int prio)
- 		i915_request_put(rq[0]);
- 
- 		if (prio) {
--			struct i915_sched_attr attr = {
--				.priority = prio,
--			};
--
- 			/* Alternatively preempt the spinner with ce[1] */
--			engine->schedule(rq[1], &attr);
-+			i915_request_set_priority(rq[1], prio);
- 		}
- 
- 		/* And switch back to ce[0] for good measure */
-@@ -873,9 +869,6 @@ release_queue(struct intel_engine_cs *engine,
- 	      struct i915_vma *vma,
- 	      int idx, int prio)
- {
--	struct i915_sched_attr attr = {
--		.priority = prio,
--	};
- 	struct i915_request *rq;
- 	u32 *cs;
- 
-@@ -900,7 +893,7 @@ release_queue(struct intel_engine_cs *engine,
- 	i915_request_add(rq);
- 
- 	local_bh_disable();
--	engine->schedule(rq, &attr);
-+	i915_request_set_priority(rq, prio);
- 	local_bh_enable(); /* kick tasklet */
- 
- 	i915_request_put(rq);
-@@ -1310,7 +1303,6 @@ static int live_timeslice_queue(void *arg)
- 		goto err_pin;
- 
- 	for_each_engine(engine, gt, id) {
--		struct i915_sched_attr attr = { .priority = I915_PRIORITY_MAX };
- 		struct i915_request *rq, *nop;
- 
- 		if (!intel_engine_has_preemption(engine))
-@@ -1325,7 +1317,7 @@ static int live_timeslice_queue(void *arg)
- 			err = PTR_ERR(rq);
- 			goto err_heartbeat;
- 		}
--		engine->schedule(rq, &attr);
-+		i915_request_set_priority(rq, I915_PRIORITY_MAX);
- 		err = wait_for_submit(engine, rq, HZ / 2);
- 		if (err) {
- 			pr_err("%s: Timed out trying to submit semaphores\n",
-@@ -1806,7 +1798,6 @@ static int live_late_preempt(void *arg)
- 	struct i915_gem_context *ctx_hi, *ctx_lo;
- 	struct igt_spinner spin_hi, spin_lo;
- 	struct intel_engine_cs *engine;
--	struct i915_sched_attr attr = {};
- 	enum intel_engine_id id;
- 	int err = -ENOMEM;
- 
-@@ -1866,8 +1857,7 @@ static int live_late_preempt(void *arg)
- 			goto err_wedged;
- 		}
- 
--		attr.priority = I915_PRIORITY_MAX;
--		engine->schedule(rq, &attr);
-+		i915_request_set_priority(rq, I915_PRIORITY_MAX);
- 
- 		if (!igt_wait_for_spinner(&spin_hi, rq)) {
- 			pr_err("High priority context failed to preempt the low priority context\n");
-@@ -2412,7 +2402,6 @@ static int live_preempt_cancel(void *arg)
- 
- static int live_suppress_self_preempt(void *arg)
- {
--	struct i915_sched_attr attr = { .priority = I915_PRIORITY_MAX };
- 	struct intel_gt *gt = arg;
- 	struct intel_engine_cs *engine;
- 	struct preempt_client a, b;
-@@ -2480,7 +2469,7 @@ static int live_suppress_self_preempt(void *arg)
- 			i915_request_add(rq_b);
- 
- 			GEM_BUG_ON(i915_request_completed(rq_a));
--			engine->schedule(rq_a, &attr);
-+			i915_request_set_priority(rq_a, I915_PRIORITY_MAX);
- 			igt_spinner_end(&a.spin);
- 
- 			if (!igt_wait_for_spinner(&b.spin, rq_b)) {
-@@ -2545,7 +2534,6 @@ static int live_chain_preempt(void *arg)
- 		goto err_client_hi;
- 
- 	for_each_engine(engine, gt, id) {
--		struct i915_sched_attr attr = { .priority = I915_PRIORITY_MAX };
- 		struct igt_live_test t;
- 		struct i915_request *rq;
- 		int ring_size, count, i;
-@@ -2612,7 +2600,7 @@ static int live_chain_preempt(void *arg)
- 
- 			i915_request_get(rq);
- 			i915_request_add(rq);
--			engine->schedule(rq, &attr);
-+			i915_request_set_priority(rq, I915_PRIORITY_MAX);
- 
- 			igt_spinner_end(&hi.spin);
- 			if (i915_request_wait(rq, 0, HZ / 5) < 0) {
-@@ -2964,14 +2952,12 @@ static int live_preempt_gang(void *arg)
- 			return -EIO;
- 
- 		do {
--			struct i915_sched_attr attr = { .priority = prio++ };
--
- 			err = create_gang(engine, &rq);
- 			if (err)
- 				break;
- 
- 			/* Submit each spinner at increasing priority */
--			engine->schedule(rq, &attr);
-+			i915_request_set_priority(rq, prio++);
- 		} while (prio <= I915_PRIORITY_MAX &&
- 			 !__igt_timeout(end_time, NULL));
- 		pr_debug("%s: Preempt chain of %d requests\n",
-@@ -3192,9 +3178,6 @@ static int preempt_user(struct intel_engine_cs *engine,
- 			struct i915_vma *global,
- 			int id)
- {
--	struct i915_sched_attr attr = {
--		.priority = I915_PRIORITY_MAX
--	};
- 	struct i915_request *rq;
- 	int err = 0;
- 	u32 *cs;
-@@ -3219,7 +3202,7 @@ static int preempt_user(struct intel_engine_cs *engine,
- 	i915_request_get(rq);
- 	i915_request_add(rq);
- 
--	engine->schedule(rq, &attr);
-+	i915_request_set_priority(rq, I915_PRIORITY_MAX);
- 
- 	if (i915_request_wait(rq, 0, HZ / 2) < 0)
- 		err = -ETIME;
-diff --git a/drivers/gpu/drm/i915/gt/selftest_hangcheck.c b/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
-index d6ce4075602c..8cad102922e7 100644
---- a/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
-+++ b/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
-@@ -858,12 +858,11 @@ static int active_engine(void *data)
- 		rq[idx] = i915_request_get(new);
- 		i915_request_add(new);
- 
--		if (engine->schedule && arg->flags & TEST_PRIORITY) {
--			struct i915_sched_attr attr = {
--				.priority =
--					i915_prandom_u32_max_state(512, &prng),
--			};
--			engine->schedule(rq[idx], &attr);
-+		if (intel_engine_has_scheduler(engine) &&
-+		    arg->flags & TEST_PRIORITY) {
-+			int prio = i915_prandom_u32_max_state(512, &prng);
-+
-+			i915_request_set_priority(rq[idx], prio);
- 		}
- 
- 		err = active_request_put(old);
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index 96a38466299e..7db2c9decf21 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -637,8 +637,6 @@ static void guc_default_vfuncs(struct intel_engine_cs *engine)
- 	engine->cops = &guc_context_ops;
- 	engine->request_alloc = guc_request_alloc;
- 
--	engine->schedule = i915_schedule;
--
- 	engine->reset.prepare = guc_reset_prepare;
- 	engine->reset.rewind = guc_reset_rewind;
- 	engine->reset.cancel = guc_reset_cancel;
-@@ -653,6 +651,7 @@ static void guc_default_vfuncs(struct intel_engine_cs *engine)
- 	}
- 	engine->set_default_submission = guc_set_default_submission;
- 
-+	engine->flags |= I915_ENGINE_HAS_SCHEDULER;
- 	engine->flags |= I915_ENGINE_HAS_PREEMPTION;
- 
- 	/*
-diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
-index a336d6c40d8b..916e74fbab6c 100644
---- a/drivers/gpu/drm/i915/i915_request.c
-+++ b/drivers/gpu/drm/i915/i915_request.c
-@@ -1223,7 +1223,7 @@ __i915_request_await_execution(struct i915_request *to,
- 	}
- 
- 	/* Couple the dependency tree for PI on this exposed to->fence */
--	if (to->engine->schedule) {
-+	if (i915_request_use_scheduler(to)) {
- 		err = i915_sched_node_add_dependency(&to->sched,
- 						     &from->sched,
- 						     I915_DEPENDENCY_WEAK);
-@@ -1364,7 +1364,7 @@ i915_request_await_request(struct i915_request *to, struct i915_request *from)
- 		return 0;
- 	}
- 
--	if (to->engine->schedule) {
-+	if (i915_request_use_scheduler(to)) {
- 		ret = i915_sched_node_add_dependency(&to->sched,
- 						     &from->sched,
- 						     I915_DEPENDENCY_EXTERNAL);
-@@ -1551,7 +1551,7 @@ __i915_request_add_to_timeline(struct i915_request *rq)
- 			__i915_sw_fence_await_dma_fence(&rq->submit,
- 							&prev->fence,
- 							&rq->dmaq);
--		if (rq->engine->schedule)
-+		if (i915_request_use_scheduler(rq))
- 			__i915_sched_node_add_dependency(&rq->sched,
- 							 &prev->sched,
- 							 &rq->dep,
-@@ -1623,8 +1623,8 @@ void __i915_request_queue(struct i915_request *rq,
- 	 * decide whether to preempt the entire chain so that it is ready to
- 	 * run at the earliest possible convenience.
- 	 */
--	if (attr && rq->engine->schedule)
--		rq->engine->schedule(rq, attr);
-+	if (attr)
-+		i915_request_set_priority(rq, attr->priority);
- 
- 	local_bh_disable();
- 	__i915_request_queue_bh(rq);
-diff --git a/drivers/gpu/drm/i915/i915_request.h b/drivers/gpu/drm/i915/i915_request.h
-index c0bd4cb8786a..9ce074ffc1dd 100644
---- a/drivers/gpu/drm/i915/i915_request.h
-+++ b/drivers/gpu/drm/i915/i915_request.h
-@@ -616,4 +616,9 @@ i915_request_active_timeline(const struct i915_request *rq)
- 					 lockdep_is_held(&rq->engine->active.lock));
- }
- 
-+static inline bool i915_request_use_scheduler(const struct i915_request *rq)
-+{
-+	return intel_engine_has_scheduler(rq->engine);
-+}
-+
- #endif /* I915_REQUEST_H */
-diff --git a/drivers/gpu/drm/i915/i915_scheduler.c b/drivers/gpu/drm/i915/i915_scheduler.c
-index 85d18037a915..84a55df88687 100644
---- a/drivers/gpu/drm/i915/i915_scheduler.c
-+++ b/drivers/gpu/drm/i915/i915_scheduler.c
-@@ -227,10 +227,8 @@ static void kick_submission(struct intel_engine_cs *engine,
- 	rcu_read_unlock();
- }
- 
--static void __i915_schedule(struct i915_sched_node *node,
--			    const struct i915_sched_attr *attr)
-+static void __i915_schedule(struct i915_sched_node *node, int prio)
- {
--	const int prio = max(attr->priority, node->attr.priority);
- 	struct intel_engine_cs *engine;
- 	struct i915_dependency *dep, *p;
- 	struct i915_dependency stack;
-@@ -244,6 +242,8 @@ static void __i915_schedule(struct i915_sched_node *node,
- 	if (node_signaled(node))
- 		return;
- 
-+	prio = max(prio, node->attr.priority);
-+
- 	stack.signaler = node;
- 	list_add(&stack.dfs_link, &dfs);
- 
-@@ -297,7 +297,7 @@ static void __i915_schedule(struct i915_sched_node *node,
- 	 */
- 	if (node->attr.priority == I915_PRIORITY_INVALID) {
- 		GEM_BUG_ON(!list_empty(&node->link));
--		node->attr = *attr;
-+		node->attr.priority = prio;
- 
- 		if (stack.dfs_link.next == stack.dfs_link.prev)
- 			return;
-@@ -352,10 +352,13 @@ static void __i915_schedule(struct i915_sched_node *node,
- 	spin_unlock(&engine->active.lock);
- }
- 
--void i915_schedule(struct i915_request *rq, const struct i915_sched_attr *attr)
-+void i915_request_set_priority(struct i915_request *rq, int prio)
- {
-+	if (!i915_request_use_scheduler(rq))
-+		return;
-+
- 	spin_lock_irq(&schedule_lock);
--	__i915_schedule(&rq->sched, attr);
-+	__i915_schedule(&rq->sched, prio);
- 	spin_unlock_irq(&schedule_lock);
- }
- 
-diff --git a/drivers/gpu/drm/i915/i915_scheduler.h b/drivers/gpu/drm/i915/i915_scheduler.h
-index 8c5ed6fe0994..a045be784c67 100644
---- a/drivers/gpu/drm/i915/i915_scheduler.h
-+++ b/drivers/gpu/drm/i915/i915_scheduler.h
-@@ -35,8 +35,7 @@ int i915_sched_node_add_dependency(struct i915_sched_node *node,
- 
- void i915_sched_node_retire(struct i915_sched_node *node);
- 
--void i915_schedule(struct i915_request *request,
--		   const struct i915_sched_attr *attr);
-+void i915_request_set_priority(struct i915_request *request, int prio);
- 
- struct list_head *
- i915_sched_lookup_priolist(struct intel_engine_cs *engine, int prio);
--- 
-2.20.1
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+QXMgYSB0b3BvbG9naWNhbCBzb3J0LCB3ZSBleHBlY3QgaXQgdG8gcnVuIGluIGxpbmVhciBncmFw
+aCB0aW1lLApPKFYrRSkuIEluIHJlbW92aW5nIHRoZSByZWN1cnNpb24sIGl0IGlzIG5vIGxvbmdl
+ciBhIERGUyBidXQgcmF0aGVyIGEKQkZTLCBhbmQgcGVyZm9ybXMgYXMgTyhWRSkuIExldCdzIGRl
+bW9uc3RyYXRlIGhvdyBiYWQgdGhpcyBpcyB3aXRoIGEgZmV3CmV4YW1wbGVzLCBhbmQgYnVpbGQg
+YSBmZXcgdGVzdCBjYXNlcyB0byB2ZXJpZnkgYSBwb3RlbnRpYWwgZml4LgoKU2lnbmVkLW9mZi1i
+eTogQ2hyaXMgV2lsc29uIDxjaHJpc0BjaHJpcy13aWxzb24uY28udWs+Ci0tLQogZHJpdmVycy9n
+cHUvZHJtL2k5MTUvaTkxNV9zY2hlZHVsZXIuYyAgICAgICAgIHwgICA0ICsKIC4uLi9kcm0vaTkx
+NS9zZWxmdGVzdHMvaTkxNV9saXZlX3NlbGZ0ZXN0cy5oICB8ICAgMSArCiAuLi4vZHJtL2k5MTUv
+c2VsZnRlc3RzL2k5MTVfcGVyZl9zZWxmdGVzdHMuaCAgfCAgIDEgKwogLi4uL2dwdS9kcm0vaTkx
+NS9zZWxmdGVzdHMvaTkxNV9zY2hlZHVsZXIuYyAgIHwgNjcyICsrKysrKysrKysrKysrKysrKwog
+NCBmaWxlcyBjaGFuZ2VkLCA2NzggaW5zZXJ0aW9ucygrKQogY3JlYXRlIG1vZGUgMTAwNjQ0IGRy
+aXZlcnMvZ3B1L2RybS9pOTE1L3NlbGZ0ZXN0cy9pOTE1X3NjaGVkdWxlci5jCgpkaWZmIC0tZ2l0
+IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV9zY2hlZHVsZXIuYyBiL2RyaXZlcnMvZ3B1L2Ry
+bS9pOTE1L2k5MTVfc2NoZWR1bGVyLmMKaW5kZXggMDM1ZTRiZTVkNTczLi4yN2JkYTc2MTdiMjkg
+MTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfc2NoZWR1bGVyLmMKKysrIGIv
+ZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV9zY2hlZHVsZXIuYwpAQCAtNjA5LDYgKzYwOSwxMCBA
+QCB2b2lkIGk5MTVfcmVxdWVzdF9zaG93X3dpdGhfc2NoZWR1bGUoc3RydWN0IGRybV9wcmludGVy
+ICptLAogCXJjdV9yZWFkX3VubG9jaygpOwogfQogCisjaWYgSVNfRU5BQkxFRChDT05GSUdfRFJN
+X0k5MTVfU0VMRlRFU1QpCisjaW5jbHVkZSAic2VsZnRlc3RzL2k5MTVfc2NoZWR1bGVyLmMiCisj
+ZW5kaWYKKwogc3RhdGljIHZvaWQgaTkxNV9nbG9iYWxfc2NoZWR1bGVyX3Nocmluayh2b2lkKQog
+ewogCWttZW1fY2FjaGVfc2hyaW5rKGdsb2JhbC5zbGFiX2RlcGVuZGVuY2llcyk7CmRpZmYgLS1n
+aXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9zZWxmdGVzdHMvaTkxNV9saXZlX3NlbGZ0ZXN0cy5o
+IGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvc2VsZnRlc3RzL2k5MTVfbGl2ZV9zZWxmdGVzdHMuaApp
+bmRleCBhOTJjMGU5YjdlNmIuLjIyMDBhNWJhYTY4ZSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUv
+ZHJtL2k5MTUvc2VsZnRlc3RzL2k5MTVfbGl2ZV9zZWxmdGVzdHMuaAorKysgYi9kcml2ZXJzL2dw
+dS9kcm0vaTkxNS9zZWxmdGVzdHMvaTkxNV9saXZlX3NlbGZ0ZXN0cy5oCkBAIC0yNiw2ICsyNiw3
+IEBAIHNlbGZ0ZXN0KGd0X21vY3MsIGludGVsX21vY3NfbGl2ZV9zZWxmdGVzdHMpCiBzZWxmdGVz
+dChndF9wbSwgaW50ZWxfZ3RfcG1fbGl2ZV9zZWxmdGVzdHMpCiBzZWxmdGVzdChndF9oZWFydGJl
+YXQsIGludGVsX2hlYXJ0YmVhdF9saXZlX3NlbGZ0ZXN0cykKIHNlbGZ0ZXN0KHJlcXVlc3RzLCBp
+OTE1X3JlcXVlc3RfbGl2ZV9zZWxmdGVzdHMpCitzZWxmdGVzdChzY2hlZHVsZXIsIGk5MTVfc2No
+ZWR1bGVyX2xpdmVfc2VsZnRlc3RzKQogc2VsZnRlc3QoYWN0aXZlLCBpOTE1X2FjdGl2ZV9saXZl
+X3NlbGZ0ZXN0cykKIHNlbGZ0ZXN0KG9iamVjdHMsIGk5MTVfZ2VtX29iamVjdF9saXZlX3NlbGZ0
+ZXN0cykKIHNlbGZ0ZXN0KG1tYW4sIGk5MTVfZ2VtX21tYW5fbGl2ZV9zZWxmdGVzdHMpCmRpZmYg
+LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9zZWxmdGVzdHMvaTkxNV9wZXJmX3NlbGZ0ZXN0
+cy5oIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvc2VsZnRlc3RzL2k5MTVfcGVyZl9zZWxmdGVzdHMu
+aAppbmRleCBjMjM4OWY4YTI1N2QuLjEzN2UzNTI4M2ZlZSAxMDA2NDQKLS0tIGEvZHJpdmVycy9n
+cHUvZHJtL2k5MTUvc2VsZnRlc3RzL2k5MTVfcGVyZl9zZWxmdGVzdHMuaAorKysgYi9kcml2ZXJz
+L2dwdS9kcm0vaTkxNS9zZWxmdGVzdHMvaTkxNV9wZXJmX3NlbGZ0ZXN0cy5oCkBAIC0xNyw1ICsx
+Nyw2IEBACiAgKi8KIHNlbGZ0ZXN0KGVuZ2luZV9jcywgaW50ZWxfZW5naW5lX2NzX3BlcmZfc2Vs
+ZnRlc3RzKQogc2VsZnRlc3QocmVxdWVzdCwgaTkxNV9yZXF1ZXN0X3BlcmZfc2VsZnRlc3RzKQor
+c2VsZnRlc3Qoc2NoZWR1bGVyLCBpOTE1X3NjaGVkdWxlcl9wZXJmX3NlbGZ0ZXN0cykKIHNlbGZ0
+ZXN0KGJsdCwgaTkxNV9nZW1fb2JqZWN0X2JsdF9wZXJmX3NlbGZ0ZXN0cykKIHNlbGZ0ZXN0KHJl
+Z2lvbiwgaW50ZWxfbWVtb3J5X3JlZ2lvbl9wZXJmX3NlbGZ0ZXN0cykKZGlmZiAtLWdpdCBhL2Ry
+aXZlcnMvZ3B1L2RybS9pOTE1L3NlbGZ0ZXN0cy9pOTE1X3NjaGVkdWxlci5jIGIvZHJpdmVycy9n
+cHUvZHJtL2k5MTUvc2VsZnRlc3RzL2k5MTVfc2NoZWR1bGVyLmMKbmV3IGZpbGUgbW9kZSAxMDA2
+NDQKaW5kZXggMDAwMDAwMDAwMDAwLi5kMDk1ZmFiMmNjZWMKLS0tIC9kZXYvbnVsbAorKysgYi9k
+cml2ZXJzL2dwdS9kcm0vaTkxNS9zZWxmdGVzdHMvaTkxNV9zY2hlZHVsZXIuYwpAQCAtMCwwICsx
+LDY3MiBAQAorLy8gU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IE1JVAorLyoKKyAqIENvcHlyaWdo
+dCDCqSAyMDIwIEludGVsIENvcnBvcmF0aW9uCisgKi8KKworI2luY2x1ZGUgImk5MTVfc2VsZnRl
+c3QuaCIKKworI2luY2x1ZGUgImd0L2ludGVsX2NvbnRleHQuaCIKKyNpbmNsdWRlICJndC9pbnRl
+bF9ncHVfY29tbWFuZHMuaCIKKyNpbmNsdWRlICJndC9zZWxmdGVzdF9lbmdpbmVfaGVhcnRiZWF0
+LmgiCisjaW5jbHVkZSAic2VsZnRlc3RzL2lndF9zcGlubmVyLmgiCisjaW5jbHVkZSAic2VsZnRl
+c3RzL2k5MTVfcmFuZG9tLmgiCisKK3N0YXRpYyB2b2lkIHNjaGVkdWxpbmdfZGlzYWJsZShzdHJ1
+Y3QgaW50ZWxfZW5naW5lX2NzICplbmdpbmUpCit7CisJZW5naW5lLT5wcm9wcy5wcmVlbXB0X3Rp
+bWVvdXRfbXMgPSAwOworCWVuZ2luZS0+cHJvcHMudGltZXNsaWNlX2R1cmF0aW9uX21zID0gMDsK
+KworCXN0X2VuZ2luZV9oZWFydGJlYXRfZGlzYWJsZShlbmdpbmUpOworfQorCitzdGF0aWMgdm9p
+ZCBzY2hlZHVsaW5nX2VuYWJsZShzdHJ1Y3QgaW50ZWxfZW5naW5lX2NzICplbmdpbmUpCit7CisJ
+c3RfZW5naW5lX2hlYXJ0YmVhdF9lbmFibGUoZW5naW5lKTsKKworCWVuZ2luZS0+cHJvcHMucHJl
+ZW1wdF90aW1lb3V0X21zID0KKwkJZW5naW5lLT5kZWZhdWx0cy5wcmVlbXB0X3RpbWVvdXRfbXM7
+CisJZW5naW5lLT5wcm9wcy50aW1lc2xpY2VfZHVyYXRpb25fbXMgPQorCQllbmdpbmUtPmRlZmF1
+bHRzLnRpbWVzbGljZV9kdXJhdGlvbl9tczsKK30KKworc3RhdGljIGludCBmaXJzdF9lbmdpbmUo
+c3RydWN0IGRybV9pOTE1X3ByaXZhdGUgKmk5MTUsCisJCQlpbnQgKCpjaGFpbikoc3RydWN0IGlu
+dGVsX2VuZ2luZV9jcyAqZW5naW5lLAorCQkJCSAgICAgdW5zaWduZWQgbG9uZyBwYXJhbSwKKwkJ
+CQkgICAgIGJvb2wgKCpmbikoc3RydWN0IGk5MTVfcmVxdWVzdCAqcnEsCisJCQkJCQl1bnNpZ25l
+ZCBsb25nIHYsCisJCQkJCQl1bnNpZ25lZCBsb25nIGUpKSwKKwkJCXVuc2lnbmVkIGxvbmcgcGFy
+YW0sCisJCQlib29sICgqZm4pKHN0cnVjdCBpOTE1X3JlcXVlc3QgKnJxLAorCQkJCSAgIHVuc2ln
+bmVkIGxvbmcgdiwgdW5zaWduZWQgbG9uZyBlKSkKK3sKKwlzdHJ1Y3QgaW50ZWxfZW5naW5lX2Nz
+ICplbmdpbmU7CisKKwlmb3JfZWFjaF91YWJpX2VuZ2luZShlbmdpbmUsIGk5MTUpIHsKKwkJaWYg
+KCFpbnRlbF9lbmdpbmVfaGFzX3NjaGVkdWxlcihlbmdpbmUpKQorCQkJY29udGludWU7CisKKwkJ
+cmV0dXJuIGNoYWluKGVuZ2luZSwgcGFyYW0sIGZuKTsKKwl9CisKKwlyZXR1cm4gMDsKK30KKwor
+c3RhdGljIGludCBhbGxfZW5naW5lcyhzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqaTkxNSwKKwkJ
+ICAgICAgIGludCAoKmNoYWluKShzdHJ1Y3QgaW50ZWxfZW5naW5lX2NzICplbmdpbmUsCisJCQkJ
+ICAgIHVuc2lnbmVkIGxvbmcgcGFyYW0sCisJCQkJICAgIGJvb2wgKCpmbikoc3RydWN0IGk5MTVf
+cmVxdWVzdCAqcnEsCisJCQkJCSAgICAgICB1bnNpZ25lZCBsb25nIHYsCisJCQkJCSAgICAgICB1
+bnNpZ25lZCBsb25nIGUpKSwKKwkJICAgICAgIHVuc2lnbmVkIGxvbmcgcGFyYW0sCisJCSAgICAg
+ICBib29sICgqZm4pKHN0cnVjdCBpOTE1X3JlcXVlc3QgKnJxLAorCQkJCSAgdW5zaWduZWQgbG9u
+ZyB2LCB1bnNpZ25lZCBsb25nIGUpKQoreworCXN0cnVjdCBpbnRlbF9lbmdpbmVfY3MgKmVuZ2lu
+ZTsKKwlpbnQgZXJyOworCisJZm9yX2VhY2hfdWFiaV9lbmdpbmUoZW5naW5lLCBpOTE1KSB7CisJ
+CWlmICghaW50ZWxfZW5naW5lX2hhc19zY2hlZHVsZXIoZW5naW5lKSkKKwkJCWNvbnRpbnVlOwor
+CisJCWVyciA9IGNoYWluKGVuZ2luZSwgcGFyYW0sIGZuKTsKKwkJaWYgKGVycikKKwkJCXJldHVy
+biBlcnI7CisJfQorCisJcmV0dXJuIDA7Cit9CisKK3N0YXRpYyBib29sIGNoZWNrX2NvbnRleHRf
+b3JkZXIoc3RydWN0IGludGVsX2VuZ2luZV9jcyAqZW5naW5lKQoreworCXU2NCBsYXN0X3NlcW5v
+LCBsYXN0X2NvbnRleHQ7CisJdW5zaWduZWQgbG9uZyBjb3VudDsKKwlib29sIHJlc3VsdCA9IGZh
+bHNlOworCXN0cnVjdCByYl9ub2RlICpyYjsKKwlpbnQgbGFzdF9wcmlvOworCisJLyogV2UgZXhw
+ZWN0IHRoZSBleGVjdXRpb24gb3JkZXIgdG8gZm9sbG93IGFzY2VuZGluZyBmZW5jZS1jb250ZXh0
+ICovCisJc3Bpbl9sb2NrX2lycSgmZW5naW5lLT5hY3RpdmUubG9jayk7CisKKwljb3VudCA9IDA7
+CisJbGFzdF9jb250ZXh0ID0gMDsKKwlsYXN0X3NlcW5vID0gMDsKKwlsYXN0X3ByaW8gPSAwOwor
+CWZvciAocmIgPSByYl9maXJzdF9jYWNoZWQoJmVuZ2luZS0+ZXhlY2xpc3RzLnF1ZXVlKTsgcmI7
+IHJiID0gcmJfbmV4dChyYikpIHsKKwkJc3RydWN0IGk5MTVfcHJpb2xpc3QgKnAgPSByYl9lbnRy
+eShyYiwgdHlwZW9mKCpwKSwgbm9kZSk7CisJCXN0cnVjdCBpOTE1X3JlcXVlc3QgKnJxOworCisJ
+CXByaW9saXN0X2Zvcl9lYWNoX3JlcXVlc3QocnEsIHApIHsKKwkJCWlmIChycS0+ZmVuY2UuY29u
+dGV4dCA8IGxhc3RfY29udGV4dCB8fAorCQkJICAgIChycS0+ZmVuY2UuY29udGV4dCA9PSBsYXN0
+X2NvbnRleHQgJiYKKwkJCSAgICAgcnEtPmZlbmNlLnNlcW5vIDwgbGFzdF9zZXFubykpIHsKKwkJ
+CQlwcl9lcnIoIlslbHVdICVsbHg6JWxsZCBbcHJpbzolZF0gYWZ0ZXIgJWxseDolbGxkIFtwcmlv
+OiVkXVxuIiwKKwkJCQkgICAgICAgY291bnQsCisJCQkJICAgICAgIHJxLT5mZW5jZS5jb250ZXh0
+LAorCQkJCSAgICAgICBycS0+ZmVuY2Uuc2Vxbm8sCisJCQkJICAgICAgIHJxX3ByaW8ocnEpLAor
+CQkJCSAgICAgICBsYXN0X2NvbnRleHQsCisJCQkJICAgICAgIGxhc3Rfc2Vxbm8sCisJCQkJICAg
+ICAgIGxhc3RfcHJpbyk7CisJCQkJZ290byBvdXRfdW5sb2NrOworCQkJfQorCisJCQlsYXN0X2Nv
+bnRleHQgPSBycS0+ZmVuY2UuY29udGV4dDsKKwkJCWxhc3Rfc2Vxbm8gPSBycS0+ZmVuY2Uuc2Vx
+bm87CisJCQlsYXN0X3ByaW8gPSBycV9wcmlvKHJxKTsKKwkJCWNvdW50Kys7CisJCX0KKwl9CisJ
+cmVzdWx0ID0gdHJ1ZTsKK291dF91bmxvY2s6CisJc3Bpbl91bmxvY2tfaXJxKCZlbmdpbmUtPmFj
+dGl2ZS5sb2NrKTsKKworCXJldHVybiByZXN1bHQ7Cit9CisKK3N0YXRpYyBpbnQgX19zaW5nbGVf
+Y2hhaW4oc3RydWN0IGludGVsX2VuZ2luZV9jcyAqZW5naW5lLCB1bnNpZ25lZCBsb25nIGxlbmd0
+aCwKKwkJCSAgYm9vbCAoKmZuKShzdHJ1Y3QgaTkxNV9yZXF1ZXN0ICpycSwKKwkJCQkgICAgIHVu
+c2lnbmVkIGxvbmcgdiwgdW5zaWduZWQgbG9uZyBlKSkKK3sKKwlzdHJ1Y3QgaW50ZWxfY29udGV4
+dCAqY2U7CisJc3RydWN0IGlndF9zcGlubmVyIHNwaW47CisJc3RydWN0IGk5MTVfcmVxdWVzdCAq
+cnE7CisJdW5zaWduZWQgbG9uZyBjb3VudDsKKwl1bnNpZ25lZCBsb25nIG1pbjsKKwlpbnQgZXJy
+ID0gMDsKKworCWlmICghaW50ZWxfZW5naW5lX2Nhbl9zdG9yZV9kd29yZChlbmdpbmUpKQorCQly
+ZXR1cm4gMDsKKworCXNjaGVkdWxpbmdfZGlzYWJsZShlbmdpbmUpOworCisJaWYgKGlndF9zcGlu
+bmVyX2luaXQoJnNwaW4sIGVuZ2luZS0+Z3QpKSB7CisJCWVyciA9IC1FTk9NRU07CisJCWdvdG8g
+ZXJyX2hlYXJ0YmVhdDsKKwl9CisKKwljZSA9IGludGVsX2NvbnRleHRfY3JlYXRlKGVuZ2luZSk7
+CisJaWYgKElTX0VSUihjZSkpIHsKKwkJZXJyID0gUFRSX0VSUihjZSk7CisJCWdvdG8gZXJyX3Nw
+aW47CisJfQorCWNlLT5yaW5nID0gX19pbnRlbF9jb250ZXh0X3Jpbmdfc2l6ZShTWl81MTJLKTsK
+KworCXJxID0gaWd0X3NwaW5uZXJfY3JlYXRlX3JlcXVlc3QoJnNwaW4sIGNlLCBNSV9OT09QKTsK
+KwlpZiAoSVNfRVJSKHJxKSkgeworCQllcnIgPSBQVFJfRVJSKHJxKTsKKwkJZ290byBlcnJfY29u
+dGV4dDsKKwl9CisJaTkxNV9yZXF1ZXN0X2FkZChycSk7CisJbWluID0gY2UtPnJpbmctPnNpemUg
+LSBjZS0+cmluZy0+c3BhY2U7CisKKwljb3VudCA9IDE7CisJd2hpbGUgKGNvdW50IDwgbGVuZ3Ro
+ICYmIGNlLT5yaW5nLT5zcGFjZSA+IG1pbikgeworCQlycSA9IGludGVsX2NvbnRleHRfY3JlYXRl
+X3JlcXVlc3QoY2UpOworCQlpZiAoSVNfRVJSKHJxKSkgeworCQkJZXJyID0gUFRSX0VSUihycSk7
+CisJCQlicmVhazsKKwkJfQorCQlpOTE1X3JlcXVlc3RfYWRkKHJxKTsKKwkJY291bnQrKzsKKwl9
+CisJaW50ZWxfZW5naW5lX2ZsdXNoX3N1Ym1pc3Npb24oZW5naW5lKTsKKworCWV4ZWNsaXN0c19h
+Y3RpdmVfbG9ja19iaCgmZW5naW5lLT5leGVjbGlzdHMpOworCWlmIChmbihycSwgY291bnQsIGNv
+dW50IC0gMSkgJiYgIWNoZWNrX2NvbnRleHRfb3JkZXIoZW5naW5lKSkKKwkJZXJyID0gLUVJTlZB
+TDsKKwlleGVjbGlzdHNfYWN0aXZlX3VubG9ja19iaCgmZW5naW5lLT5leGVjbGlzdHMpOworCisJ
+aWd0X3NwaW5uZXJfZW5kKCZzcGluKTsKK2Vycl9jb250ZXh0OgorCWludGVsX2NvbnRleHRfcHV0
+KGNlKTsKK2Vycl9zcGluOgorCWlndF9zcGlubmVyX2ZpbmkoJnNwaW4pOworZXJyX2hlYXJ0YmVh
+dDoKKwlzY2hlZHVsaW5nX2VuYWJsZShlbmdpbmUpOworCXJldHVybiBlcnI7Cit9CisKK3N0YXRp
+YyBpbnQgX193aWRlX2NoYWluKHN0cnVjdCBpbnRlbF9lbmdpbmVfY3MgKmVuZ2luZSwgdW5zaWdu
+ZWQgbG9uZyB3aWR0aCwKKwkJCWJvb2wgKCpmbikoc3RydWN0IGk5MTVfcmVxdWVzdCAqcnEsCisJ
+CQkJICAgdW5zaWduZWQgbG9uZyB2LCB1bnNpZ25lZCBsb25nIGUpKQoreworCXN0cnVjdCBpbnRl
+bF9jb250ZXh0ICoqY2U7CisJc3RydWN0IGk5MTVfcmVxdWVzdCAqKnJxOworCXN0cnVjdCBpZ3Rf
+c3Bpbm5lciBzcGluOworCXVuc2lnbmVkIGxvbmcgY291bnQ7CisJdW5zaWduZWQgbG9uZyBpLCBq
+OworCWludCBlcnIgPSAwOworCisJaWYgKCFpbnRlbF9lbmdpbmVfY2FuX3N0b3JlX2R3b3JkKGVu
+Z2luZSkpCisJCXJldHVybiAwOworCisJc2NoZWR1bGluZ19kaXNhYmxlKGVuZ2luZSk7CisKKwlp
+ZiAoaWd0X3NwaW5uZXJfaW5pdCgmc3BpbiwgZW5naW5lLT5ndCkpIHsKKwkJZXJyID0gLUVOT01F
+TTsKKwkJZ290byBlcnJfaGVhcnRiZWF0OworCX0KKworCWNlID0ga21hbGxvY19hcnJheSh3aWR0
+aCwgc2l6ZW9mKCpjZSksIEdGUF9LRVJORUwpOworCWlmICghY2UpIHsKKwkJZXJyID0gLUVOT01F
+TTsKKwkJZ290byBlcnJfc3BpbjsKKwl9CisKKwlmb3IgKGkgPSAwOyBpIDwgd2lkdGg7IGkrKykg
+eworCQljZVtpXSA9IGludGVsX2NvbnRleHRfY3JlYXRlKGVuZ2luZSk7CisJCWlmIChJU19FUlIo
+Y2VbaV0pKSB7CisJCQllcnIgPSBQVFJfRVJSKGNlW2ldKTsKKwkJCXdpZHRoID0gaTsKKwkJCWdv
+dG8gZXJyX2NvbnRleHQ7CisJCX0KKwl9CisKKwlycSA9IGttYWxsb2NfYXJyYXkod2lkdGgsIHNp
+emVvZigqcnEpLCBHRlBfS0VSTkVMKTsKKwlpZiAoIXJxKSB7CisJCWVyciA9IC1FTk9NRU07CisJ
+CWdvdG8gZXJyX2NvbnRleHQ7CisJfQorCisJcnFbMF0gPSBpZ3Rfc3Bpbm5lcl9jcmVhdGVfcmVx
+dWVzdCgmc3BpbiwgY2VbMF0sIE1JX05PT1ApOworCWlmIChJU19FUlIocnFbMF0pKSB7CisJCWVy
+ciA9IFBUUl9FUlIocnFbMF0pOworCQlnb3RvIGVycl9mcmVlOworCX0KKwlpOTE1X3JlcXVlc3Rf
+YWRkKHJxWzBdKTsKKworCWNvdW50ID0gMDsKKwlmb3IgKGkgPSAxOyBpIDwgd2lkdGg7IGkrKykg
+eworCQlHRU1fQlVHX09OKGk5MTVfcmVxdWVzdF9jb21wbGV0ZWQocnFbMF0pKTsKKworCQlycVtp
+XSA9IGludGVsX2NvbnRleHRfY3JlYXRlX3JlcXVlc3QoY2VbaV0pOworCQlpZiAoSVNfRVJSKHJx
+W2ldKSkgeworCQkJZXJyID0gUFRSX0VSUihycVtpXSk7CisJCQlicmVhazsKKwkJfQorCQlmb3Ig
+KGogPSAwOyBqIDwgaTsgaisrKSB7CisJCQllcnIgPSBpOTE1X3JlcXVlc3RfYXdhaXRfZG1hX2Zl
+bmNlKHJxW2ldLAorCQkJCQkJCSAgICZycVtqXS0+ZmVuY2UpOworCQkJaWYgKGVycikKKwkJCQli
+cmVhazsKKwkJCWNvdW50Kys7CisJCX0KKwkJaTkxNV9yZXF1ZXN0X2FkZChycVtpXSk7CisJfQor
+CWludGVsX2VuZ2luZV9mbHVzaF9zdWJtaXNzaW9uKGVuZ2luZSk7CisKKwlleGVjbGlzdHNfYWN0
+aXZlX2xvY2tfYmgoJmVuZ2luZS0+ZXhlY2xpc3RzKTsKKwlpZiAoZm4ocnFbaSAtIDFdLCBpLCBj
+b3VudCkgJiYgIWNoZWNrX2NvbnRleHRfb3JkZXIoZW5naW5lKSkKKwkJZXJyID0gLUVJTlZBTDsK
+KwlleGVjbGlzdHNfYWN0aXZlX3VubG9ja19iaCgmZW5naW5lLT5leGVjbGlzdHMpOworCisJaWd0
+X3NwaW5uZXJfZW5kKCZzcGluKTsKK2Vycl9mcmVlOgorCWtmcmVlKHJxKTsKK2Vycl9jb250ZXh0
+OgorCWZvciAoaSA9IDA7IGkgPCB3aWR0aDsgaSsrKQorCQlpbnRlbF9jb250ZXh0X3B1dChjZVtp
+XSk7CisJa2ZyZWUoY2UpOworZXJyX3NwaW46CisJaWd0X3NwaW5uZXJfZmluaSgmc3Bpbik7Citl
+cnJfaGVhcnRiZWF0OgorCXNjaGVkdWxpbmdfZW5hYmxlKGVuZ2luZSk7CisJcmV0dXJuIGVycjsK
+K30KKworc3RhdGljIGludCBfX2ludl9jaGFpbihzdHJ1Y3QgaW50ZWxfZW5naW5lX2NzICplbmdp
+bmUsIHVuc2lnbmVkIGxvbmcgd2lkdGgsCisJCSAgICAgICBib29sICgqZm4pKHN0cnVjdCBpOTE1
+X3JlcXVlc3QgKnJxLAorCQkJCSAgdW5zaWduZWQgbG9uZyB2LCB1bnNpZ25lZCBsb25nIGUpKQor
+eworCXN0cnVjdCBpbnRlbF9jb250ZXh0ICoqY2U7CisJc3RydWN0IGk5MTVfcmVxdWVzdCAqKnJx
+OworCXN0cnVjdCBpZ3Rfc3Bpbm5lciBzcGluOworCXVuc2lnbmVkIGxvbmcgY291bnQ7CisJdW5z
+aWduZWQgbG9uZyBpLCBqOworCWludCBlcnIgPSAwOworCisJaWYgKCFpbnRlbF9lbmdpbmVfY2Fu
+X3N0b3JlX2R3b3JkKGVuZ2luZSkpCisJCXJldHVybiAwOworCisJc2NoZWR1bGluZ19kaXNhYmxl
+KGVuZ2luZSk7CisKKwlpZiAoaWd0X3NwaW5uZXJfaW5pdCgmc3BpbiwgZW5naW5lLT5ndCkpIHsK
+KwkJZXJyID0gLUVOT01FTTsKKwkJZ290byBlcnJfaGVhcnRiZWF0OworCX0KKworCWNlID0ga21h
+bGxvY19hcnJheSh3aWR0aCwgc2l6ZW9mKCpjZSksIEdGUF9LRVJORUwpOworCWlmICghY2UpIHsK
+KwkJZXJyID0gLUVOT01FTTsKKwkJZ290byBlcnJfc3BpbjsKKwl9CisKKwlmb3IgKGkgPSAwOyBp
+IDwgd2lkdGg7IGkrKykgeworCQljZVtpXSA9IGludGVsX2NvbnRleHRfY3JlYXRlKGVuZ2luZSk7
+CisJCWlmIChJU19FUlIoY2VbaV0pKSB7CisJCQllcnIgPSBQVFJfRVJSKGNlW2ldKTsKKwkJCXdp
+ZHRoID0gaTsKKwkJCWdvdG8gZXJyX2NvbnRleHQ7CisJCX0KKwl9CisKKwlycSA9IGttYWxsb2Nf
+YXJyYXkod2lkdGgsIHNpemVvZigqcnEpLCBHRlBfS0VSTkVMKTsKKwlpZiAoIXJxKSB7CisJCWVy
+ciA9IC1FTk9NRU07CisJCWdvdG8gZXJyX2NvbnRleHQ7CisJfQorCisJcnFbMF0gPSBpZ3Rfc3Bp
+bm5lcl9jcmVhdGVfcmVxdWVzdCgmc3BpbiwgY2VbMF0sIE1JX05PT1ApOworCWlmIChJU19FUlIo
+cnFbMF0pKSB7CisJCWVyciA9IFBUUl9FUlIocnFbMF0pOworCQlnb3RvIGVycl9mcmVlOworCX0K
+KwlpOTE1X3JlcXVlc3RfYWRkKHJxWzBdKTsKKworCWNvdW50ID0gMDsKKwlmb3IgKGkgPSAxOyBp
+IDwgd2lkdGg7IGkrKykgeworCQlHRU1fQlVHX09OKGk5MTVfcmVxdWVzdF9jb21wbGV0ZWQocnFb
+MF0pKTsKKworCQlycVtpXSA9IGludGVsX2NvbnRleHRfY3JlYXRlX3JlcXVlc3QoY2VbaV0pOwor
+CQlpZiAoSVNfRVJSKHJxW2ldKSkgeworCQkJZXJyID0gUFRSX0VSUihycVtpXSk7CisJCQlicmVh
+azsKKwkJfQorCQlmb3IgKGogPSBpOyBqID4gMDsgai0tKSB7CisJCQllcnIgPSBpOTE1X3JlcXVl
+c3RfYXdhaXRfZG1hX2ZlbmNlKHJxW2ldLAorCQkJCQkJCSAgICZycVtqIC0gMV0tPmZlbmNlKTsK
+KwkJCWlmIChlcnIpCisJCQkJYnJlYWs7CisJCQljb3VudCsrOworCQl9CisJCWk5MTVfcmVxdWVz
+dF9hZGQocnFbaV0pOworCX0KKwlpbnRlbF9lbmdpbmVfZmx1c2hfc3VibWlzc2lvbihlbmdpbmUp
+OworCisJZXhlY2xpc3RzX2FjdGl2ZV9sb2NrX2JoKCZlbmdpbmUtPmV4ZWNsaXN0cyk7CisJaWYg
+KGZuKHJxW2kgLSAxXSwgaSwgY291bnQpICYmICFjaGVja19jb250ZXh0X29yZGVyKGVuZ2luZSkp
+CisJCWVyciA9IC1FSU5WQUw7CisJZXhlY2xpc3RzX2FjdGl2ZV91bmxvY2tfYmgoJmVuZ2luZS0+
+ZXhlY2xpc3RzKTsKKworCWlndF9zcGlubmVyX2VuZCgmc3Bpbik7CitlcnJfZnJlZToKKwlrZnJl
+ZShycSk7CitlcnJfY29udGV4dDoKKwlmb3IgKGkgPSAwOyBpIDwgd2lkdGg7IGkrKykKKwkJaW50
+ZWxfY29udGV4dF9wdXQoY2VbaV0pOworCWtmcmVlKGNlKTsKK2Vycl9zcGluOgorCWlndF9zcGlu
+bmVyX2ZpbmkoJnNwaW4pOworZXJyX2hlYXJ0YmVhdDoKKwlzY2hlZHVsaW5nX2VuYWJsZShlbmdp
+bmUpOworCXJldHVybiBlcnI7Cit9CisKK3N0YXRpYyBpbnQgX19zcGFyc2VfY2hhaW4oc3RydWN0
+IGludGVsX2VuZ2luZV9jcyAqZW5naW5lLCB1bnNpZ25lZCBsb25nIHdpZHRoLAorCQkJICBib29s
+ICgqZm4pKHN0cnVjdCBpOTE1X3JlcXVlc3QgKnJxLAorCQkJCSAgICAgdW5zaWduZWQgbG9uZyB2
+LCB1bnNpZ25lZCBsb25nIGUpKQoreworCXN0cnVjdCBpbnRlbF9jb250ZXh0ICoqY2U7CisJc3Ry
+dWN0IGk5MTVfcmVxdWVzdCAqKnJxOworCXN0cnVjdCBpZ3Rfc3Bpbm5lciBzcGluOworCUk5MTVf
+Uk5EX1NUQVRFKHBybmcpOworCXVuc2lnbmVkIGxvbmcgY291bnQ7CisJdW5zaWduZWQgbG9uZyBp
+LCBqOworCWludCBlcnIgPSAwOworCisJaWYgKCFpbnRlbF9lbmdpbmVfY2FuX3N0b3JlX2R3b3Jk
+KGVuZ2luZSkpCisJCXJldHVybiAwOworCisJc2NoZWR1bGluZ19kaXNhYmxlKGVuZ2luZSk7CisK
+KwlpZiAoaWd0X3NwaW5uZXJfaW5pdCgmc3BpbiwgZW5naW5lLT5ndCkpIHsKKwkJZXJyID0gLUVO
+T01FTTsKKwkJZ290byBlcnJfaGVhcnRiZWF0OworCX0KKworCWNlID0ga21hbGxvY19hcnJheSh3
+aWR0aCwgc2l6ZW9mKCpjZSksIEdGUF9LRVJORUwpOworCWlmICghY2UpIHsKKwkJZXJyID0gLUVO
+T01FTTsKKwkJZ290byBlcnJfc3BpbjsKKwl9CisKKwlmb3IgKGkgPSAwOyBpIDwgd2lkdGg7IGkr
+KykgeworCQljZVtpXSA9IGludGVsX2NvbnRleHRfY3JlYXRlKGVuZ2luZSk7CisJCWlmIChJU19F
+UlIoY2VbaV0pKSB7CisJCQllcnIgPSBQVFJfRVJSKGNlW2ldKTsKKwkJCXdpZHRoID0gaTsKKwkJ
+CWdvdG8gZXJyX2NvbnRleHQ7CisJCX0KKwl9CisKKwlycSA9IGttYWxsb2NfYXJyYXkod2lkdGgs
+IHNpemVvZigqcnEpLCBHRlBfS0VSTkVMKTsKKwlpZiAoIXJxKSB7CisJCWVyciA9IC1FTk9NRU07
+CisJCWdvdG8gZXJyX2NvbnRleHQ7CisJfQorCisJcnFbMF0gPSBpZ3Rfc3Bpbm5lcl9jcmVhdGVf
+cmVxdWVzdCgmc3BpbiwgY2VbMF0sIE1JX05PT1ApOworCWlmIChJU19FUlIocnFbMF0pKSB7CisJ
+CWVyciA9IFBUUl9FUlIocnFbMF0pOworCQlnb3RvIGVycl9mcmVlOworCX0KKwlpOTE1X3JlcXVl
+c3RfYWRkKHJxWzBdKTsKKworCWNvdW50ID0gMDsKKwlmb3IgKGkgPSAxOyBpIDwgd2lkdGg7IGkr
+KykgeworCQlHRU1fQlVHX09OKGk5MTVfcmVxdWVzdF9jb21wbGV0ZWQocnFbMF0pKTsKKworCQly
+cVtpXSA9IGludGVsX2NvbnRleHRfY3JlYXRlX3JlcXVlc3QoY2VbaV0pOworCQlpZiAoSVNfRVJS
+KHJxW2ldKSkgeworCQkJZXJyID0gUFRSX0VSUihycVtpXSk7CisJCQlicmVhazsKKwkJfQorCisJ
+CWlmIChlcnIgPT0gMCAmJiBpID4gMSkgeworCQkJaiA9IGk5MTVfcHJhbmRvbV91MzJfbWF4X3N0
+YXRlKGkgLSAxLCAmcHJuZyk7CisJCQllcnIgPSBpOTE1X3JlcXVlc3RfYXdhaXRfZG1hX2ZlbmNl
+KHJxW2ldLAorCQkJCQkJCSAgICZycVtqXS0+ZmVuY2UpOworCQkJY291bnQrKzsKKwkJfQorCisJ
+CWlmIChlcnIgPT0gMCkgeworCQkJZXJyID0gaTkxNV9yZXF1ZXN0X2F3YWl0X2RtYV9mZW5jZShy
+cVtpXSwKKwkJCQkJCQkgICAmcnFbaSAtIDFdLT5mZW5jZSk7CisJCQljb3VudCsrOworCQl9CisK
+KwkJaWYgKGVyciA9PSAwICYmIGkgPiAyKSB7CisJCQlqID0gaTkxNV9wcmFuZG9tX3UzMl9tYXhf
+c3RhdGUoaSAtIDIsICZwcm5nKTsKKwkJCWVyciA9IGk5MTVfcmVxdWVzdF9hd2FpdF9kbWFfZmVu
+Y2UocnFbaV0sCisJCQkJCQkJICAgJnJxW2pdLT5mZW5jZSk7CisJCQljb3VudCsrOworCQl9CisK
+KwkJaTkxNV9yZXF1ZXN0X2FkZChycVtpXSk7CisJCWlmIChlcnIpCisJCQlicmVhazsKKwl9CisJ
+aW50ZWxfZW5naW5lX2ZsdXNoX3N1Ym1pc3Npb24oZW5naW5lKTsKKworCWV4ZWNsaXN0c19hY3Rp
+dmVfbG9ja19iaCgmZW5naW5lLT5leGVjbGlzdHMpOworCWlmIChmbihycVtpIC0gMV0sIGksIGNv
+dW50KSAmJiAhY2hlY2tfY29udGV4dF9vcmRlcihlbmdpbmUpKQorCQllcnIgPSAtRUlOVkFMOwor
+CWV4ZWNsaXN0c19hY3RpdmVfdW5sb2NrX2JoKCZlbmdpbmUtPmV4ZWNsaXN0cyk7CisKKwlpZ3Rf
+c3Bpbm5lcl9lbmQoJnNwaW4pOworZXJyX2ZyZWU6CisJa2ZyZWUocnEpOworZXJyX2NvbnRleHQ6
+CisJZm9yIChpID0gMDsgaSA8IHdpZHRoOyBpKyspCisJCWludGVsX2NvbnRleHRfcHV0KGNlW2ld
+KTsKKwlrZnJlZShjZSk7CitlcnJfc3BpbjoKKwlpZ3Rfc3Bpbm5lcl9maW5pKCZzcGluKTsKK2Vy
+cl9oZWFydGJlYXQ6CisJc2NoZWR1bGluZ19lbmFibGUoZW5naW5lKTsKKwlyZXR1cm4gZXJyOwor
+fQorCitzdGF0aWMgaW50IGlndF9zY2hlZHVsZV9jaGFpbnMoc3RydWN0IGRybV9pOTE1X3ByaXZh
+dGUgKmk5MTUsCisJCQkgICAgICAgYm9vbCAoKmZuKShzdHJ1Y3QgaTkxNV9yZXF1ZXN0ICpycSwK
+KwkJCQkJICB1bnNpZ25lZCBsb25nIHYsIHVuc2lnbmVkIGxvbmcgZSkpCit7CisJc3RhdGljIGlu
+dCAoKiBjb25zdCBjaGFpbnNbXSkoc3RydWN0IGludGVsX2VuZ2luZV9jcyAqZW5naW5lLAorCQkJ
+CSAgICAgIHVuc2lnbmVkIGxvbmcgbGVuZ3RoLAorCQkJCSAgICAgIGJvb2wgKCpmbikoc3RydWN0
+IGk5MTVfcmVxdWVzdCAqcnEsCisJCQkJCQkgdW5zaWduZWQgbG9uZyB2LCB1bnNpZ25lZCBsb25n
+IGUpKSA9IHsKKwkJX19zaW5nbGVfY2hhaW4sCisJCV9fd2lkZV9jaGFpbiwKKwkJX19pbnZfY2hh
+aW4sCisJCV9fc3BhcnNlX2NoYWluLAorCX07CisJaW50IG4sIGVycjsKKworCWZvciAobiA9IDA7
+IG4gPCBBUlJBWV9TSVpFKGNoYWlucyk7IG4rKykgeworCQllcnIgPSBhbGxfZW5naW5lcyhpOTE1
+LCBjaGFpbnNbbl0sIDE3LCBmbik7CisJCWlmIChlcnIpCisJCQlyZXR1cm4gZXJyOworCX0KKwor
+CXJldHVybiAwOworfQorCitzdGF0aWMgYm9vbCBpZ3RfcHJpb3JpdHkoc3RydWN0IGk5MTVfcmVx
+dWVzdCAqcnEsCisJCQkgdW5zaWduZWQgbG9uZyB2LCB1bnNpZ25lZCBsb25nIGUpCit7CisJaTkx
+NV9yZXF1ZXN0X3NldF9wcmlvcml0eShycSwgSTkxNV9QUklPUklUWV9CQVJSSUVSKTsKKwlHRU1f
+QlVHX09OKHJxX3ByaW8ocnEpICE9IEk5MTVfUFJJT1JJVFlfQkFSUklFUik7CisJcmV0dXJuIHRy
+dWU7Cit9CisKK3N0YXRpYyBpbnQgaWd0X3ByaW9yaXR5X2NoYWlucyh2b2lkICphcmcpCit7CisJ
+cmV0dXJuIGlndF9zY2hlZHVsZV9jaGFpbnMoYXJnLCBpZ3RfcHJpb3JpdHkpOworfQorCitpbnQg
+aTkxNV9zY2hlZHVsZXJfbGl2ZV9zZWxmdGVzdHMoc3RydWN0IGRybV9pOTE1X3ByaXZhdGUgKmk5
+MTUpCit7CisJc3RhdGljIGNvbnN0IHN0cnVjdCBpOTE1X3N1YnRlc3QgdGVzdHNbXSA9IHsKKwkJ
+U1VCVEVTVChpZ3RfcHJpb3JpdHlfY2hhaW5zKSwKKwl9OworCisJcmV0dXJuIGk5MTVfc3VidGVz
+dHModGVzdHMsIGk5MTUpOworfQorCitzdGF0aWMgaW50IGNoYWlucyhzdHJ1Y3QgZHJtX2k5MTVf
+cHJpdmF0ZSAqaTkxNSwKKwkJICBpbnQgKCpjaGFpbikoc3RydWN0IGRybV9pOTE1X3ByaXZhdGUg
+Kmk5MTUsCisJCQkgICAgICAgdW5zaWduZWQgbG9uZyBsZW5ndGgsCisJCQkgICAgICAgYm9vbCAo
+KmZuKShzdHJ1Y3QgaTkxNV9yZXF1ZXN0ICpycSwKKwkJCQkJICB1bnNpZ25lZCBsb25nIHYsIHVu
+c2lnbmVkIGxvbmcgZSkpLAorCQkgIGJvb2wgKCpmbikoc3RydWN0IGk5MTVfcmVxdWVzdCAqcnEs
+CisJCQkgICAgIHVuc2lnbmVkIGxvbmcgdiwgdW5zaWduZWQgbG9uZyBlKSkKK3sKKwl1bnNpZ25l
+ZCBsb25nIHhbXSA9IHsgMSwgNCwgMTYsIDY0LCAxMjgsIDI1NiwgNTEyLCAxMDI0LCA0MDk2IH07
+CisJaW50IGksIGVycjsKKworCWZvciAoaSA9IDA7IGkgPCBBUlJBWV9TSVpFKHgpOyBpKyspIHsK
+KwkJSUdUX1RJTUVPVVQoZW5kX3RpbWUpOworCisJCWVyciA9IGNoYWluKGk5MTUsIHhbaV0sIGZu
+KTsKKwkJaWYgKGVycikKKwkJCXJldHVybiBlcnI7CisKKwkJaWYgKF9faWd0X3RpbWVvdXQoZW5k
+X3RpbWUsIE5VTEwpKQorCQkJYnJlYWs7CisJfQorCisJcmV0dXJuIDA7Cit9CisKK3N0YXRpYyBp
+bnQgc2luZ2xlX2NoYWluKHN0cnVjdCBkcm1faTkxNV9wcml2YXRlICppOTE1LAorCQkJdW5zaWdu
+ZWQgbG9uZyBsZW5ndGgsCisJCQlib29sICgqZm4pKHN0cnVjdCBpOTE1X3JlcXVlc3QgKnJxLAor
+CQkJCSAgIHVuc2lnbmVkIGxvbmcgdiwgdW5zaWduZWQgbG9uZyBlKSkKK3sKKwlyZXR1cm4gZmly
+c3RfZW5naW5lKGk5MTUsIF9fc2luZ2xlX2NoYWluLCBsZW5ndGgsIGZuKTsKK30KKworc3RhdGlj
+IGludCBzaW5nbGUoc3RydWN0IGRybV9pOTE1X3ByaXZhdGUgKmk5MTUsCisJCSAgYm9vbCAoKmZu
+KShzdHJ1Y3QgaTkxNV9yZXF1ZXN0ICpycSwKKwkJCSAgICAgdW5zaWduZWQgbG9uZyB2LCB1bnNp
+Z25lZCBsb25nIGUpKQoreworCXJldHVybiBjaGFpbnMoaTkxNSwgc2luZ2xlX2NoYWluLCBmbik7
+Cit9CisKK3N0YXRpYyBpbnQgd2lkZV9jaGFpbihzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqaTkx
+NSwKKwkJICAgICAgdW5zaWduZWQgbG9uZyB3aWR0aCwKKwkJICAgICAgYm9vbCAoKmZuKShzdHJ1
+Y3QgaTkxNV9yZXF1ZXN0ICpycSwKKwkJCQkgdW5zaWduZWQgbG9uZyB2LCB1bnNpZ25lZCBsb25n
+IGUpKQoreworCXJldHVybiBmaXJzdF9lbmdpbmUoaTkxNSwgX193aWRlX2NoYWluLCB3aWR0aCwg
+Zm4pOworfQorCitzdGF0aWMgaW50IHdpZGUoc3RydWN0IGRybV9pOTE1X3ByaXZhdGUgKmk5MTUs
+CisJCWJvb2wgKCpmbikoc3RydWN0IGk5MTVfcmVxdWVzdCAqcnEsCisJCQkgICB1bnNpZ25lZCBs
+b25nIHYsIHVuc2lnbmVkIGxvbmcgZSkpCit7CisJcmV0dXJuIGNoYWlucyhpOTE1LCB3aWRlX2No
+YWluLCBmbik7Cit9CisKK3N0YXRpYyBpbnQgaW52X2NoYWluKHN0cnVjdCBkcm1faTkxNV9wcml2
+YXRlICppOTE1LAorCQkgICAgIHVuc2lnbmVkIGxvbmcgd2lkdGgsCisJCSAgICAgYm9vbCAoKmZu
+KShzdHJ1Y3QgaTkxNV9yZXF1ZXN0ICpycSwKKwkJCQl1bnNpZ25lZCBsb25nIHYsIHVuc2lnbmVk
+IGxvbmcgZSkpCit7CisJcmV0dXJuIGZpcnN0X2VuZ2luZShpOTE1LCBfX2ludl9jaGFpbiwgd2lk
+dGgsIGZuKTsKK30KKworc3RhdGljIGludCBpbnYoc3RydWN0IGRybV9pOTE1X3ByaXZhdGUgKmk5
+MTUsCisJICAgICAgIGJvb2wgKCpmbikoc3RydWN0IGk5MTVfcmVxdWVzdCAqcnEsCisJCQkgIHVu
+c2lnbmVkIGxvbmcgdiwgdW5zaWduZWQgbG9uZyBlKSkKK3sKKwlyZXR1cm4gY2hhaW5zKGk5MTUs
+IGludl9jaGFpbiwgZm4pOworfQorCitzdGF0aWMgaW50IHNwYXJzZV9jaGFpbihzdHJ1Y3QgZHJt
+X2k5MTVfcHJpdmF0ZSAqaTkxNSwKKwkJCXVuc2lnbmVkIGxvbmcgd2lkdGgsCisJCQlib29sICgq
+Zm4pKHN0cnVjdCBpOTE1X3JlcXVlc3QgKnJxLAorCQkJCSAgIHVuc2lnbmVkIGxvbmcgdiwgdW5z
+aWduZWQgbG9uZyBlKSkKK3sKKwlyZXR1cm4gZmlyc3RfZW5naW5lKGk5MTUsIF9fc3BhcnNlX2No
+YWluLCB3aWR0aCwgZm4pOworfQorCitzdGF0aWMgaW50IHNwYXJzZShzdHJ1Y3QgZHJtX2k5MTVf
+cHJpdmF0ZSAqaTkxNSwKKwkJICBib29sICgqZm4pKHN0cnVjdCBpOTE1X3JlcXVlc3QgKnJxLAor
+CQkJICAgICB1bnNpZ25lZCBsb25nIHYsIHVuc2lnbmVkIGxvbmcgZSkpCit7CisJcmV0dXJuIGNo
+YWlucyhpOTE1LCBzcGFyc2VfY2hhaW4sIGZuKTsKK30KKworc3RhdGljIHZvaWQgcmVwb3J0KGNv
+bnN0IGNoYXIgKndoYXQsIHVuc2lnbmVkIGxvbmcgdiwgdW5zaWduZWQgbG9uZyBlLCB1NjQgZHQp
+Cit7CisJcHJfaW5mbygiKCU0bHUsICU3bHUpLCAlczolMTBsbHVuc1xuIiwgdiwgZSwgd2hhdCwg
+ZHQpOworfQorCitzdGF0aWMgdTY0IF9fc2V0X3ByaW9yaXR5KHN0cnVjdCBpOTE1X3JlcXVlc3Qg
+KnJxLCBpbnQgcHJpbykKK3sKKwl1NjQgZHQ7CisKKwlwcmVlbXB0X2Rpc2FibGUoKTsKKwlkdCA9
+IGt0aW1lX2dldF9yYXdfZmFzdF9ucygpOworCWk5MTVfcmVxdWVzdF9zZXRfcHJpb3JpdHkocnEs
+IHByaW8pOworCWR0ID0ga3RpbWVfZ2V0X3Jhd19mYXN0X25zKCkgLSBkdDsKKwlwcmVlbXB0X2Vu
+YWJsZSgpOworCisJcmV0dXJuIGR0OworfQorCitzdGF0aWMgYm9vbCBzZXRfcHJpb3JpdHkoc3Ry
+dWN0IGk5MTVfcmVxdWVzdCAqcnEsCisJCQkgdW5zaWduZWQgbG9uZyB2LCB1bnNpZ25lZCBsb25n
+IGUpCit7CisJcmVwb3J0KCJzZXQtcHJpb3JpdHkiLCB2LCBlLCBfX3NldF9wcmlvcml0eShycSwg
+STkxNV9QUklPUklUWV9CQVJSSUVSKSk7CisJcmV0dXJuIHRydWU7Cit9CisKK3N0YXRpYyBpbnQg
+c2luZ2xlX3ByaW9yaXR5KHZvaWQgKmFyZykKK3sKKwlyZXR1cm4gc2luZ2xlKGFyZywgc2V0X3By
+aW9yaXR5KTsKK30KKworc3RhdGljIGludCB3aWRlX3ByaW9yaXR5KHZvaWQgKmFyZykKK3sKKwly
+ZXR1cm4gd2lkZShhcmcsIHNldF9wcmlvcml0eSk7Cit9CisKK3N0YXRpYyBpbnQgaW52X3ByaW9y
+aXR5KHZvaWQgKmFyZykKK3sKKwlyZXR1cm4gaW52KGFyZywgc2V0X3ByaW9yaXR5KTsKK30KKwor
+c3RhdGljIGludCBzcGFyc2VfcHJpb3JpdHkodm9pZCAqYXJnKQoreworCXJldHVybiBzcGFyc2Uo
+YXJnLCBzZXRfcHJpb3JpdHkpOworfQorCitpbnQgaTkxNV9zY2hlZHVsZXJfcGVyZl9zZWxmdGVz
+dHMoc3RydWN0IGRybV9pOTE1X3ByaXZhdGUgKmk5MTUpCit7CisJc3RhdGljIGNvbnN0IHN0cnVj
+dCBpOTE1X3N1YnRlc3QgdGVzdHNbXSA9IHsKKwkJU1VCVEVTVChzaW5nbGVfcHJpb3JpdHkpLAor
+CQlTVUJURVNUKHdpZGVfcHJpb3JpdHkpLAorCQlTVUJURVNUKGludl9wcmlvcml0eSksCisJCVNV
+QlRFU1Qoc3BhcnNlX3ByaW9yaXR5KSwKKwl9OworCXN0YXRpYyBjb25zdCBzdHJ1Y3QgeworCQlj
+b25zdCBjaGFyICpuYW1lOworCQlzaXplX3Qgc3o7CisJfSB0eXBlc1tdID0geworI2RlZmluZSBU
+KHQpIHsgI3QsIHNpemVvZihzdHJ1Y3QgdCkgfQorCQlUKGk5MTVfcHJpb2xpc3QpLAorCQlUKGk5
+MTVfc2NoZWRfYXR0ciksCisJCVQoaTkxNV9zY2hlZF9ub2RlKSwKKwkJVChpOTE1X2RlcGVuZGVu
+Y3kpLAorI3VuZGVmIFQKKwkJe30KKwl9OworCXR5cGVvZigqdHlwZXMpICp0OworCisJZm9yICh0
+ID0gdHlwZXM7IHQtPm5hbWU7IHQrKykKKwkJcHJfaW5mbygic2l6ZW9mKCVzKTogJXpkXG4iLCB0
+LT5uYW1lLCB0LT5zeik7CisKKwlyZXR1cm4gaTkxNV9zdWJ0ZXN0cyh0ZXN0cywgaTkxNSk7Cit9
+Ci0tIAoyLjIwLjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fCkludGVsLWdmeCBtYWlsaW5nIGxpc3QKSW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
+ZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ludGVsLWdm
+eAo=
