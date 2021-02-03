@@ -6,37 +6,37 @@ X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BBCB8C433E6
-	for <intel-gfx@archiver.kernel.org>; Wed,  3 Feb 2021 17:16:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2AD8EC433E0
+	for <intel-gfx@archiver.kernel.org>; Wed,  3 Feb 2021 17:24:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2DDBB64F87
-	for <intel-gfx@archiver.kernel.org>; Wed,  3 Feb 2021 17:16:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2DDBB64F87
+	by mail.kernel.org (Postfix) with ESMTPS id 8C78564F8C
+	for <intel-gfx@archiver.kernel.org>; Wed,  3 Feb 2021 17:24:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8C78564F8C
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 933916EB63;
-	Wed,  3 Feb 2021 17:16:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E70C76E5A5;
+	Wed,  3 Feb 2021 17:24:07 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
  [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 02C466EB61;
- Wed,  3 Feb 2021 17:16:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 8BAE16EAD0;
+ Wed,  3 Feb 2021 17:24:06 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id F13B1A47E1;
- Wed,  3 Feb 2021 17:16:36 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id 85608A363B;
+ Wed,  3 Feb 2021 17:24:06 +0000 (UTC)
 MIME-Version: 1.0
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Chris Wilson" <chris@chris-wilson.co.uk>
-Date: Wed, 03 Feb 2021 17:16:36 -0000
-Message-ID: <161237259696.943.6354872408153273432@emeril.freedesktop.org>
+Date: Wed, 03 Feb 2021 17:24:06 -0000
+Message-ID: <161237304651.943.13391810467452196913@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
-References: <20210203111806.7311-1-chris@chris-wilson.co.uk>
-In-Reply-To: <20210203111806.7311-1-chris@chris-wilson.co.uk>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBz?=
- =?utf-8?q?eries_starting_with_=5BCI=2C01/12=5D_drm/i915/gt=3A_Move_engine?=
- =?utf-8?q?_setup_out_of_set=5Fdefault=5Fsubmission?=
+References: <20210203124740.9354-1-chris@chris-wilson.co.uk>
+In-Reply-To: <20210203124740.9354-1-chris@chris-wilson.co.uk>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_drm/i915=3A_Prevent_waiting_inside_ring_construction_for_cr?=
+ =?utf-8?q?itical_sections_=28rev3=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,29 +58,20 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 == Series Details ==
 
-Series: series starting with [CI,01/12] drm/i915/gt: Move engine setup out of set_default_submission
-URL   : https://patchwork.freedesktop.org/series/86639/
-State : failure
+Series: drm/i915: Prevent waiting inside ring construction for critical sections (rev3)
+URL   : https://patchwork.freedesktop.org/series/86644/
+State : warning
 
 == Summary ==
 
-Applying: drm/i915/gt: Move engine setup out of set_default_submission
-Using index info to reconstruct a base tree...
-M	drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-M	drivers/gpu/drm/i915/gt/intel_ring_submission.c
-M	drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-Falling back to patching base and 3-way merge...
-Auto-merging drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-CONFLICT (content): Merge conflict in drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-Auto-merging drivers/gpu/drm/i915/gt/intel_ring_submission.c
-Auto-merging drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-CONFLICT (content): Merge conflict in drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-error: Failed to merge in the changes.
-hint: Use 'git am --show-current-patch=diff' to see the failed patch
-Patch failed at 0001 drm/i915/gt: Move engine setup out of set_default_submission
-When you have resolved this problem, run "git am --continue".
-If you prefer to skip this patch, run "git am --skip" instead.
-To restore the original branch and stop patching, run "git am --abort".
+$ dim checkpatch origin/drm-tip
+c2a787bb37c7 drm/i915: Prevent waiting inside ring construction for critical sections
+-:30: ERROR:SPACING: spaces required around that '=' (ctx:VxW)
+#30: FILE: drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c:1263:
++	unsigned long flags= 0;
+ 	                   ^
+
+total: 1 errors, 0 warnings, 0 checks, 185 lines checked
 
 
 _______________________________________________
