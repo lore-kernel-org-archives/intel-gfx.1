@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 92F8EC433DB
-	for <intel-gfx@archiver.kernel.org>; Wed,  3 Feb 2021 09:02:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4B589C433E6
+	for <intel-gfx@archiver.kernel.org>; Wed,  3 Feb 2021 09:02:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CFE6664F72
-	for <intel-gfx@archiver.kernel.org>; Wed,  3 Feb 2021 09:02:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CFE6664F72
+	by mail.kernel.org (Postfix) with ESMTPS id CC8BF64F72
+	for <intel-gfx@archiver.kernel.org>; Wed,  3 Feb 2021 09:02:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CC8BF64F72
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6BF456EA23;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E70916EA20;
 	Wed,  3 Feb 2021 09:02:10 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C4FB6EA1D
- for <intel-gfx@lists.freedesktop.org>; Wed,  3 Feb 2021 09:02:08 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 273866EA1D
+ for <intel-gfx@lists.freedesktop.org>; Wed,  3 Feb 2021 09:02:10 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.65.138; 
 Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23780359-1500050 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23780362-1500050 
  for <intel-gfx@lists.freedesktop.org>; Wed, 03 Feb 2021 09:02:04 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed,  3 Feb 2021 09:02:00 +0000
-Message-Id: <20210203090205.25818-3-chris@chris-wilson.co.uk>
+Date: Wed,  3 Feb 2021 09:02:03 +0000
+Message-Id: <20210203090205.25818-6-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20210203090205.25818-1-chris@chris-wilson.co.uk>
 References: <20210203090205.25818-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [CI 3/8] drm/i915/selftests: Replace the unbounded
- set-domain with an explicit wait
+Subject: [Intel-gfx] [CI 6/8] drm/i915/selftests: Replace an unbounded
+ set-domain wait with a timeout
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,69 +55,35 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-After running client_blt, we flush the object by changing its domain.
-This causes us to wait forever instead of an bounded wait suitable for
-the selftest timeout. So do an explicit wait with a suitable timeout --
-which in turn means we have to limit the size of the object/blit to run
-within reason.
+After the memory-region test completes, it flushes the test by calling
+set-to-cpu-domain. Use the igt_flush_test as it includes a timeout,
+recovery and reports and error for miscreant tests.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 Reviewed-by: Matthew Auld <matthew.auld@intel.com>
 ---
- .../i915/gem/selftests/i915_gem_client_blt.c  | 26 ++++++++++++++-----
- 1 file changed, 20 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/i915/selftests/intel_memory_region.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_client_blt.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_client_blt.c
-index 6a674a7994df..175581724d44 100644
---- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_client_blt.c
-+++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_client_blt.c
-@@ -23,12 +23,19 @@ static int __igt_client_fill(struct intel_engine_cs *engine)
- 	I915_RND_STATE(prng);
- 	IGT_TIMEOUT(end);
- 	u32 *vaddr;
-+	u64 limit;
- 	int err = 0;
+diff --git a/drivers/gpu/drm/i915/selftests/intel_memory_region.c b/drivers/gpu/drm/i915/selftests/intel_memory_region.c
+index 64348528e1d5..3e583139f767 100644
+--- a/drivers/gpu/drm/i915/selftests/intel_memory_region.c
++++ b/drivers/gpu/drm/i915/selftests/intel_memory_region.c
+@@ -738,11 +738,10 @@ static int igt_lmem_write_cpu(void *arg)
+ 	if (err)
+ 		goto out_unpin;
  
-+	/* Try to keep the blits within the timeout */
-+	limit = min_t(u64, ce->vm->total >> 4,
-+		      jiffies_to_msecs(i915_selftest.timeout_jiffies) * SZ_2M);
-+	if (!limit)
-+		limit = SZ_4K;
-+
- 	intel_engine_pm_get(engine);
- 	do {
- 		const u32 max_block_size = S16_MAX * PAGE_SIZE;
--		u32 sz = min_t(u64, ce->vm->total >> 4, prandom_u32_state(&prng));
-+		u32 sz = min_t(u64, limit, prandom_u32_state(&prng));
- 		u32 phys_sz = sz % (max_block_size + 1);
- 		u32 val = prandom_u32_state(&prng);
- 		u32 i;
-@@ -73,13 +80,20 @@ static int __igt_client_fill(struct intel_engine_cs *engine)
- 		if (err)
- 			goto err_unpin;
+-	i915_gem_object_lock(obj, NULL);
+-	err = i915_gem_object_set_to_wc_domain(obj, true);
+-	i915_gem_object_unlock(obj);
+-	if (err)
++	if (igt_flush_test(engine->i915)) {
++		err = -EIO;
+ 		goto out_unpin;
++	}
  
--		i915_gem_object_lock(obj, NULL);
--		err = i915_gem_object_set_to_cpu_domain(obj, false);
--		i915_gem_object_unlock(obj);
--		if (err)
-+		err = i915_gem_object_wait(obj,
-+					   I915_WAIT_INTERRUPTIBLE,
-+					   2 * i915_selftest.timeout_jiffies);
-+		if (err) {
-+			pr_err("%s fill %zxB timed out\n",
-+			       engine->name, obj->base.size);
- 			goto err_unpin;
-+		}
- 
--		for (i = 0; i < huge_gem_object_phys_size(obj) / sizeof(u32); ++i) {
-+		for (i = 0;
-+		     i < huge_gem_object_phys_size(obj) / sizeof(u32);
-+		     i += 17) {
-+			if (!(obj->cache_coherent & I915_BO_CACHE_COHERENT_FOR_READ))
-+				clflush(&vaddr[i]);
- 			if (vaddr[i] != val) {
- 				pr_err("vaddr[%u]=%x, expected=%x\n", i,
- 				       vaddr[i], val);
+ 	count = ARRAY_SIZE(bytes);
+ 	order = i915_random_order(count * count, &prng);
 -- 
 2.20.1
 
