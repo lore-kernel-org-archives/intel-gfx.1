@@ -7,46 +7,43 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8AB2CC433DB
-	for <intel-gfx@archiver.kernel.org>; Wed,  3 Feb 2021 12:12:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4968EC433E6
+	for <intel-gfx@archiver.kernel.org>; Wed,  3 Feb 2021 12:12:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4981E64E46
-	for <intel-gfx@archiver.kernel.org>; Wed,  3 Feb 2021 12:12:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4981E64E46
+	by mail.kernel.org (Postfix) with ESMTPS id 0196B64F96
+	for <intel-gfx@archiver.kernel.org>; Wed,  3 Feb 2021 12:12:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0196B64F96
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AC07D89D8D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E557E89DA7;
 	Wed,  3 Feb 2021 12:12:07 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5896E89D89
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 92C7589D89
  for <intel-gfx@lists.freedesktop.org>; Wed,  3 Feb 2021 12:12:06 +0000 (UTC)
-IronPort-SDR: 3dvPLb0tJ36hhBTeDOwGgSPCuIbqcD0HWS/meOEQp3BDhA9Nss8gwQ7bwcM3mcJsmq4l/36fYZ
- 08oJokpfY0zw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9883"; a="160196289"
-X-IronPort-AV: E=Sophos;i="5.79,398,1602572400"; d="scan'208";a="160196289"
+IronPort-SDR: JKSCaPSEVvatGqvA2462YRDrG/z0+wQWy0G3OlHptBoDRopb61AXKQQQZIv1qTC/1jWnmTzsmA
+ 3gDCqEq8j46g==
+X-IronPort-AV: E=McAfee;i="6000,8403,9883"; a="160196286"
+X-IronPort-AV: E=Sophos;i="5.79,398,1602572400"; d="scan'208";a="160196286"
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Feb 2021 04:12:05 -0800
-IronPort-SDR: rAkMM5iqxNMdv5qgwr9RO7UvEzg+c9Vd4hG5sz8Xr76FBkCxad3cIas5VQIo6Emoz8avgS4/0I
- tRVidKQJD1dg==
-X-IronPort-AV: E=Sophos;i="5.79,398,1602572400"; d="scan'208";a="372359049"
+ 03 Feb 2021 04:12:03 -0800
+IronPort-SDR: U/91DQJTY+KRcmjG5iVcGfnrDrrh/Vhw63OeDDRfvBF4zg6lt6SBIukY2b5vdbofTKRMhjg7lj
+ Tl7tQRSfgxug==
+X-IronPort-AV: E=Sophos;i="5.79,398,1602572400"; d="scan'208";a="372359024"
 Received: from mcampone-mobl1.ger.corp.intel.com (HELO
  mwauld-desk1.ger.corp.intel.com) ([10.252.21.36])
  by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Feb 2021 04:12:04 -0800
+ 03 Feb 2021 04:12:01 -0800
 From: Matthew Auld <matthew.auld@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed,  3 Feb 2021 12:11:18 +0000
-Message-Id: <20210203121119.481146-3-matthew.auld@intel.com>
+Date: Wed,  3 Feb 2021 12:11:16 +0000
+Message-Id: <20210203121119.481146-1-matthew.auld@intel.com>
 X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20210203121119.481146-1-matthew.auld@intel.com>
-References: <20210203121119.481146-1-matthew.auld@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 3/4] drm/i915/gtt: make ggtt.insert_page depend
- on mappable aperture
+Subject: [Intel-gfx] [PATCH 1/4] drm/i915: Distinction of memory regions
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,47 +56,36 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The vm insert_page is useful to insert a vma-less page into the GGTT,
-which so far is always to map something through the mappable aperture,
-usually when the entire VMA doesn't fit, or if we specifically don't
-want to hog it, since it's generally quite limited in size.
-
-On platforms including DG1 the mappable aperture is gone, and so
-insert_page is effectively unused and untested. In the next patch we
-need to extend the flags to include the PTE_LM bit when binding into the
-GGTT, so rather than extend insert_page to potentially account for this,
-we can instead just drop support for the hook on such platforms, at
-least until we come up with a valid use.
-
-Signed-off-by: Matthew Auld <matthew.auld@intel.com>
----
- drivers/gpu/drm/i915/gt/intel_ggtt.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/i915/gt/intel_ggtt.c b/drivers/gpu/drm/i915/gt/intel_ggtt.c
-index fc399ac16eda..30187483cd92 100644
---- a/drivers/gpu/drm/i915/gt/intel_ggtt.c
-+++ b/drivers/gpu/drm/i915/gt/intel_ggtt.c
-@@ -882,7 +882,9 @@ static int gen8_gmch_probe(struct i915_ggtt *ggtt)
- 
- 	ggtt->vm.total = (size / sizeof(gen8_pte_t)) * I915_GTT_PAGE_SIZE;
- 	ggtt->vm.cleanup = gen6_gmch_remove;
--	ggtt->vm.insert_page = gen8_ggtt_insert_page;
-+
-+	if (ggtt->mappable_end)
-+		ggtt->vm.insert_page = gen8_ggtt_insert_page;
- 	ggtt->vm.clear_range = nop_clear_range;
- 	if (intel_scanout_needs_vtd_wa(i915))
- 		ggtt->vm.clear_range = gen8_ggtt_clear_range;
--- 
-2.26.2
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+RnJvbTogWmJpZ25pZXcgS2VtcGN6ecWEc2tpIDx6Ymlnbmlldy5rZW1wY3p5bnNraUBpbnRlbC5j
+b20+CgpJbiBwcmVwYXJhdGlvbiBmb3IgWGUgSFAgbXVsdGktdGlsZSBhcmNoaXRlY3R1cmUgd2l0
+aCBtdWx0aXBsZSBtZW1vcnkKcmVnaW9ucywgd2UgbmVlZCB0byBiZSBhYmxlIGRpZmZlcmVudGlh
+dGUgbXVsdGlwbGUgaW5zdGFuY2VzIG9mIGRldmljZQpsb2NhbC1tZW1vcnkuCgpTaWduZWQtb2Zm
+LWJ5OiBaYmlnbmlldyBLZW1wY3p5xYRza2kgPHpiaWduaWV3LmtlbXBjenluc2tpQGludGVsLmNv
+bT4KU2lnbmVkLW9mZi1ieTogTWF0dGhldyBBdWxkIDxtYXR0aGV3LmF1bGRAaW50ZWwuY29tPgot
+LS0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2d0L2ludGVsX2d0LmMgICAgICAgICAgfCAyICsrCiBk
+cml2ZXJzL2dwdS9kcm0vaTkxNS9ndC9pbnRlbF9yZWdpb25fbG1lbS5jIHwgMiAtLQogMiBmaWxl
+cyBjaGFuZ2VkLCAyIGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEv
+ZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3QvaW50ZWxfZ3QuYyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1
+L2d0L2ludGVsX2d0LmMKaW5kZXggMzVmZjY4YWRhNGYxLi5jYTc2ZjkzYmMwM2QgMTAwNjQ0Ci0t
+LSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2d0L2ludGVsX2d0LmMKKysrIGIvZHJpdmVycy9ncHUv
+ZHJtL2k5MTUvZ3QvaW50ZWxfZ3QuYwpAQCAtNjgsNiArNjgsOCBAQCBpbnQgaW50ZWxfZ3RfcHJv
+YmVfbG1lbShzdHJ1Y3QgaW50ZWxfZ3QgKmd0KQogCW1lbS0+dHlwZSA9IElOVEVMX01FTU9SWV9M
+T0NBTDsKIAltZW0tPmluc3RhbmNlID0gMDsKIAorCWludGVsX21lbW9yeV9yZWdpb25fc2V0X25h
+bWUobWVtLCAibG9jYWwldSIsIG1lbS0+aW5zdGFuY2UpOworCiAJR0VNX0JVR19PTighSEFTX1JF
+R0lPTihpOTE1LCBpZCkpOwogCUdFTV9CVUdfT04oaTkxNS0+bW0ucmVnaW9uc1tpZF0pOwogCWk5
+MTUtPm1tLnJlZ2lvbnNbaWRdID0gbWVtOwpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5
+MTUvZ3QvaW50ZWxfcmVnaW9uX2xtZW0uYyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2d0L2ludGVs
+X3JlZ2lvbl9sbWVtLmMKaW5kZXggOGM0OThlOTZiMDFkLi5iZTZmMmM4ZjUxODQgMTAwNjQ0Ci0t
+LSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2d0L2ludGVsX3JlZ2lvbl9sbWVtLmMKKysrIGIvZHJp
+dmVycy9ncHUvZHJtL2k5MTUvZ3QvaW50ZWxfcmVnaW9uX2xtZW0uYwpAQCAtOTAsOCArOTAsNiBA
+QCByZWdpb25fbG1lbV9pbml0KHN0cnVjdCBpbnRlbF9tZW1vcnlfcmVnaW9uICptZW0pCiAJaWYg
+KHJldCkKIAkJaW9fbWFwcGluZ19maW5pKCZtZW0tPmlvbWFwKTsKIAotCWludGVsX21lbW9yeV9y
+ZWdpb25fc2V0X25hbWUobWVtLCAibG9jYWwiKTsKLQogCXJldHVybiByZXQ7CiB9CiAKLS0gCjIu
+MjYuMgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KSW50
+ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRlbC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBz
+Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vaW50ZWwtZ2Z4Cg==
