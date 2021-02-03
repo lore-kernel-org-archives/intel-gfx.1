@@ -7,46 +7,44 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 31FCCC433DB
-	for <intel-gfx@archiver.kernel.org>; Wed,  3 Feb 2021 11:45:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EE387C433E6
+	for <intel-gfx@archiver.kernel.org>; Wed,  3 Feb 2021 11:45:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BA69B64F72
-	for <intel-gfx@archiver.kernel.org>; Wed,  3 Feb 2021 11:45:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BA69B64F72
+	by mail.kernel.org (Postfix) with ESMTPS id 994A264F72
+	for <intel-gfx@archiver.kernel.org>; Wed,  3 Feb 2021 11:45:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 994A264F72
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 68E886EA79;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7EEFC6EA7E;
 	Wed,  3 Feb 2021 11:45:18 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C2516EA7D;
- Wed,  3 Feb 2021 11:45:17 +0000 (UTC)
-IronPort-SDR: chD9EiTmRhdCqmEAog6Vq2SEqtdUgWLmVwWiSaLcWRa9NbCnDSLsUY4i0iKOpE9zKxCVcaer1B
- /HM9LSFK1GWA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9883"; a="177519831"
-X-IronPort-AV: E=Sophos;i="5.79,398,1602572400"; d="scan'208";a="177519831"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D3AEA6EA7D;
+ Wed,  3 Feb 2021 11:45:16 +0000 (UTC)
+IronPort-SDR: 86eykhktsA4ecrNzlxQBI+66VKaETqyC1x4m+A44u22I3xRamCrpv7LDo7/pTR0Wub8gRjie5z
+ +fIvaLOwOfwA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9883"; a="177519821"
+X-IronPort-AV: E=Sophos;i="5.79,398,1602572400"; d="scan'208";a="177519821"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Feb 2021 03:45:16 -0800
-IronPort-SDR: chev5RfynbI6z3+oJYpgIemUngW7/I/QpzNm77bt5p40Hzbf/+Yq0WBAYkc6LjaWBWPjlBlaXG
- 4Orw9n0cpPfw==
-X-IronPort-AV: E=Sophos;i="5.79,398,1602572400"; d="scan'208";a="392405912"
+ 03 Feb 2021 03:45:09 -0800
+IronPort-SDR: EJeKohU5qVksynqvKfF2JAo1QWixegByRgrXFcp0NE4Vb6C3tZLhNHehNRkCXXJI1YRsXIojuI
+ 3ipnOXrj25kw==
+X-IronPort-AV: E=Sophos;i="5.79,398,1602572400"; d="scan'208";a="392405899"
 Received: from eransege-mobl.ger.corp.intel.com (HELO localhost.localdomain)
  ([10.214.208.106])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Feb 2021 03:45:08 -0800
+ 03 Feb 2021 03:45:06 -0800
 From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 To: igt-dev@lists.freedesktop.org
-Date: Wed,  3 Feb 2021 11:44:56 +0000
-Message-Id: <20210203114456.895974-2-tvrtko.ursulin@linux.intel.com>
+Date: Wed,  3 Feb 2021 11:44:55 +0000
+Message-Id: <20210203114456.895974-1-tvrtko.ursulin@linux.intel.com>
 X-Mailer: git-send-email 2.27.0
-In-Reply-To: <20210203114456.895974-1-tvrtko.ursulin@linux.intel.com>
-References: <20210203114456.895974-1-tvrtko.ursulin@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH i-g-t 2/2] intel_gpu_top: Add option to sort by
- PID
+Subject: [Intel-gfx] [PATCH i-g-t 1/2] intel_gpu_top: Show banner messages
+ when cycling sort modes
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,93 +65,59 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-Useful to mimick top view.
+It is useful to let the user know what is the currently active sort mode.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 ---
- man/intel_gpu_top.rst |  2 +-
- tools/intel_gpu_top.c | 46 +++++++++++++++++++++++++++++++------------
- 2 files changed, 34 insertions(+), 14 deletions(-)
+ tools/intel_gpu_top.c | 15 +++++++++++++--
+ 1 file changed, 13 insertions(+), 2 deletions(-)
 
-diff --git a/man/intel_gpu_top.rst b/man/intel_gpu_top.rst
-index 118d8b953a70..b145d85c0440 100644
---- a/man/intel_gpu_top.rst
-+++ b/man/intel_gpu_top.rst
-@@ -56,7 +56,7 @@ Supported keys:
-     'q'    Exit from the tool.
-     '1'    Toggle between aggregated engine class and physical engine mode.
-     'n'    Toggle display of numeric client busyness overlay.
--    's'    Toggle between sort modes (runtime, total runtime, client id).
-+    's'    Toggle between sort modes (runtime, total runtime, pid, client id).
-     'i'    Toggle display of clients which used no GPU time.
- 
- DEVICE SELECTION
 diff --git a/tools/intel_gpu_top.c b/tools/intel_gpu_top.c
-index b409106f3718..24a87d2f4f3f 100644
+index 584aa21b198a..b409106f3718 100644
 --- a/tools/intel_gpu_top.c
 +++ b/tools/intel_gpu_top.c
-@@ -959,6 +959,24 @@ static int client_id_cmp(const void *_a, const void *_b)
- 	return (int)b->id - a->id;
+@@ -1479,6 +1479,8 @@ print_header_token(const char *cont, int lines, int con_w, int con_h, int *rem,
+ 	return lines;
  }
  
-+static int client_pid_cmp(const void *_a, const void *_b)
-+{
-+	const struct client *a = _a;
-+	const struct client *b = _b;
-+	int pid_a, pid_b;
++static const char *header_msg;
 +
-+	pid_a = a->status == ALIVE ? a->pid : INT_MAX;
-+	pid_b = b->status == ALIVE ? b->pid : INT_MAX;
-+
-+	pid_b -= pid_a;
-+	if (pid_b > 0)
-+		return -1;
-+	if (pid_b < 0)
-+		return 1;
-+
-+	return (int)a->id - b->id;
-+}
-+
- static int (*client_cmp)(const void *, const void *) = client_last_cmp;
+ static int
+ print_header(const struct igt_device_card *card,
+ 	     const char *codename,
+@@ -1593,8 +1595,14 @@ print_header(const struct igt_device_card *card,
+ 		if (lines++ < con_h)
+ 			printf("\n");
  
- static void sort_clients(struct clients *clients)
-@@ -2149,21 +2167,23 @@ static void interactive_stdin(void)
+-		if (lines++ < con_h)
+-			printf("\n");
++		if (lines++ < con_h) {
++			if (header_msg) {
++				printf(" >>> %s\n", header_msg);
++				header_msg = NULL;
++			} else {
++				printf("\n");
++			}
++		}
+ 	}
  
- static void select_client_sort(void)
- {
-+	struct {
-+		int (*cmp)(const void *, const void *);
-+		const char *msg;
-+	} cmp[] = {
-+		{ client_last_cmp, "Sorting clients by current GPU usage." },
-+		{ client_total_cmp, "Sorting clients by accummulated GPU usage." },
-+		{ client_pid_cmp, "Sorting clients by pid." },
-+		{ client_id_cmp, "Sorting clients by sysfs id." },
-+	};
- 	static unsigned int client_sort;
- 
--	switch (++client_sort % 3) {
--	case 0:
--		client_cmp = client_last_cmp;
--		header_msg = "Sorting clients by current GPU usage.";
--		break;
--	case 1:
--		client_cmp = client_total_cmp;
--		header_msg = "Sorting clients by accummulated GPU usage.";
--		break;
--	case 2:
--		client_cmp = client_id_cmp;
--		header_msg = "Sorting clients by sysfs id.";
--	}
-+	++client_sort;
-+	if (client_sort >= ARRAY_SIZE(cmp))
-+		client_sort = 0;
-+
-+	client_cmp = cmp[client_sort].cmp;
-+	header_msg = cmp[client_sort].msg;
+ 	return lines;
+@@ -2146,12 +2154,15 @@ static void select_client_sort(void)
+ 	switch (++client_sort % 3) {
+ 	case 0:
+ 		client_cmp = client_last_cmp;
++		header_msg = "Sorting clients by current GPU usage.";
+ 		break;
+ 	case 1:
+ 		client_cmp = client_total_cmp;
++		header_msg = "Sorting clients by accummulated GPU usage.";
+ 		break;
+ 	case 2:
+ 		client_cmp = client_id_cmp;
++		header_msg = "Sorting clients by sysfs id.";
+ 	}
  }
  
- static void process_stdin(unsigned int timeout_us)
 -- 
 2.27.0
 
