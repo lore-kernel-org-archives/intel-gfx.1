@@ -7,37 +7,45 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 44096C433DB
-	for <intel-gfx@archiver.kernel.org>; Wed,  3 Feb 2021 09:02:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 24427C433DB
+	for <intel-gfx@archiver.kernel.org>; Wed,  3 Feb 2021 09:09:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C723764F6C
-	for <intel-gfx@archiver.kernel.org>; Wed,  3 Feb 2021 09:02:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C723764F6C
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
+	by mail.kernel.org (Postfix) with ESMTPS id AE7E864F78
+	for <intel-gfx@archiver.kernel.org>; Wed,  3 Feb 2021 09:09:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AE7E864F78
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BCD3B6EA28;
-	Wed,  3 Feb 2021 09:02:15 +0000 (UTC)
-Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0CF976EA24
- for <intel-gfx@lists.freedesktop.org>; Wed,  3 Feb 2021 09:02:10 +0000 (UTC)
-X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
- x-ip-name=78.156.65.138; 
-Received: from build.alporthouse.com (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23780360-1500050 
- for <intel-gfx@lists.freedesktop.org>; Wed, 03 Feb 2021 09:02:04 +0000
-From: Chris Wilson <chris@chris-wilson.co.uk>
-To: intel-gfx@lists.freedesktop.org
-Date: Wed,  3 Feb 2021 09:02:01 +0000
-Message-Id: <20210203090205.25818-4-chris@chris-wilson.co.uk>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210203090205.25818-1-chris@chris-wilson.co.uk>
-References: <20210203090205.25818-1-chris@chris-wilson.co.uk>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1039D6EA29;
+	Wed,  3 Feb 2021 09:09:19 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BCB686EA27;
+ Wed,  3 Feb 2021 09:09:17 +0000 (UTC)
+IronPort-SDR: p81RXsLLt0TfAtQ9iewoiMhI4wxCtYRMGP7Dy0EhWmdizXqAod31ndJMZSIqhAUB1TnJbBJEEe
+ dhwWPXMoevpA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9883"; a="181086012"
+X-IronPort-AV: E=Sophos;i="5.79,398,1602572400"; d="scan'208";a="181086012"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Feb 2021 01:09:16 -0800
+IronPort-SDR: iBUxEd65Y1Bmv38cbCxVhzippc/Vipg9M4cOgIQTCg43ApvuJ47hqTdSrzWSmNnYRRnw8nxedQ
+ QcyQiqxux6KA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.79,398,1602572400"; d="scan'208";a="406488887"
+Received: from anand-nuc8i7beh.iind.intel.com ([10.145.162.17])
+ by fmsmga004.fm.intel.com with ESMTP; 03 Feb 2021 01:09:12 -0800
+From: Anand Moon <anandx.ram.moon@intel.com>
+To: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>
+Date: Wed,  3 Feb 2021 14:40:29 +0530
+Message-Id: <20210203091029.2089-1-anandx.ram.moon@intel.com>
+X-Mailer: git-send-email 2.30.0
 MIME-Version: 1.0
-Subject: [Intel-gfx] [CI 4/8] drm/i915/selftests: Remove redundant
- set-to-gtt-domain
+Subject: [Intel-gfx] [PATCH] drm/i915/adl_s: ADL-S platform Update PCI ids
+ for Mobile BGA
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,74 +58,36 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Anand Moon <anandx.ram.moon@intel.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Since the vma's backing store is flushed upon first creation, remove the
-manual calls to set-to-gtt-domain.
+As per Bspec: 53655 Update PCI ids for Mobile BGA.
 
-Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-Reviewed-by: Matthew Auld <matthew.auld@intel.com>
----
- .../gpu/drm/i915/gem/selftests/i915_gem_mman.c   | 16 ----------------
- drivers/gpu/drm/i915/selftests/i915_vma.c        |  6 ------
- 2 files changed, 22 deletions(-)
+Cc: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: David Airlie <airlied@linux.ie>
+Cc: Daniel Vetter <daniel@ffwll.ch>
+Signed-off-by: Anand Moon <anandx.ram.moon@intel.com>
 
-diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
-index d429c7643ff2..39293d98f34d 100644
---- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
-+++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
-@@ -104,14 +104,6 @@ static int check_partial_mapping(struct drm_i915_gem_object *obj,
- 	GEM_BUG_ON(i915_gem_object_get_tiling(obj) != tile->tiling);
- 	GEM_BUG_ON(i915_gem_object_get_stride(obj) != tile->stride);
- 
--	i915_gem_object_lock(obj, NULL);
--	err = i915_gem_object_set_to_gtt_domain(obj, true);
--	i915_gem_object_unlock(obj);
--	if (err) {
--		pr_err("Failed to flush to GTT write domain; err=%d\n", err);
--		return err;
--	}
--
- 	page = i915_prandom_u32_max_state(npages, prng);
- 	view = compute_partial_view(obj, page, MIN_CHUNK_PAGES);
- 
-@@ -189,14 +181,6 @@ static int check_partial_mappings(struct drm_i915_gem_object *obj,
- 	GEM_BUG_ON(i915_gem_object_get_tiling(obj) != tile->tiling);
- 	GEM_BUG_ON(i915_gem_object_get_stride(obj) != tile->stride);
- 
--	i915_gem_object_lock(obj, NULL);
--	err = i915_gem_object_set_to_gtt_domain(obj, true);
--	i915_gem_object_unlock(obj);
--	if (err) {
--		pr_err("Failed to flush to GTT write domain; err=%d\n", err);
--		return err;
--	}
--
- 	for_each_prime_number_from(page, 1, npages) {
- 		struct i915_ggtt_view view =
- 			compute_partial_view(obj, page, MIN_CHUNK_PAGES);
-diff --git a/drivers/gpu/drm/i915/selftests/i915_vma.c b/drivers/gpu/drm/i915/selftests/i915_vma.c
-index 1b6125e4c1ac..065a9d82ad5c 100644
---- a/drivers/gpu/drm/i915/selftests/i915_vma.c
-+++ b/drivers/gpu/drm/i915/selftests/i915_vma.c
-@@ -892,12 +892,6 @@ static int igt_vma_remapped_gtt(void *arg)
- 			unsigned int x, y;
- 			int err;
- 
--			i915_gem_object_lock(obj, NULL);
--			err = i915_gem_object_set_to_gtt_domain(obj, true);
--			i915_gem_object_unlock(obj);
--			if (err)
--				goto out;
--
- 			vma = i915_gem_object_ggtt_pin(obj, &view, 0, 0, PIN_MAPPABLE);
- 			if (IS_ERR(vma)) {
- 				err = PTR_ERR(vma);
+diff --git a/include/drm/i915_pciids.h b/include/drm/i915_pciids.h
+index ebd0dd1c35b3..3be25768321d 100644
+--- a/include/drm/i915_pciids.h
++++ b/include/drm/i915_pciids.h
+@@ -640,6 +640,8 @@
+ 	INTEL_VGA_DEVICE(0x4681, info), \
+ 	INTEL_VGA_DEVICE(0x4682, info), \
+ 	INTEL_VGA_DEVICE(0x4683, info), \
++	INTEL_VGA_DEVICE(0x4688, info), \
++	INTEL_VGA_DEVICE(0x4689, info), \
+ 	INTEL_VGA_DEVICE(0x4690, info), \
+ 	INTEL_VGA_DEVICE(0x4691, info), \
+ 	INTEL_VGA_DEVICE(0x4692, info), \
 -- 
-2.20.1
+2.30.0
 
 _______________________________________________
 Intel-gfx mailing list
