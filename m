@@ -2,69 +2,42 @@ Return-Path: <SRS0=vatO=HF=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-13.9 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
+	URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3BB69C433DB
-	for <intel-gfx@archiver.kernel.org>; Wed,  3 Feb 2021 16:51:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BEDC2C433E0
+	for <intel-gfx@archiver.kernel.org>; Wed,  3 Feb 2021 16:53:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C6A8064F7C
-	for <intel-gfx@archiver.kernel.org>; Wed,  3 Feb 2021 16:51:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C6A8064F7C
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id EC15464E35
+	for <intel-gfx@archiver.kernel.org>; Wed,  3 Feb 2021 16:53:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EC15464E35
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 10A5D6EB09;
-	Wed,  3 Feb 2021 16:51:28 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 244706EB09
- for <intel-gfx@lists.freedesktop.org>; Wed,  3 Feb 2021 16:51:27 +0000 (UTC)
-IronPort-SDR: 9CTp/jY7V/TozvyhxNmirmueI6Qo48mlvbx2Rgp1IkF7mPrctOf0IaMyEk7jA5H20otdHf5lU6
- t1baf3AahzDg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9884"; a="181216293"
-X-IronPort-AV: E=Sophos;i="5.79,398,1602572400"; d="scan'208";a="181216293"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Feb 2021 08:51:24 -0800
-IronPort-SDR: ocwLWdx2xaYhr2dyzSSlhSz28mD2cO3Iw/40QdU7eAtgAY47Wmx/X9fc7pTelNTGc35tcQopZb
- svgzfpYPh9vA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.79,398,1602572400"; d="scan'208";a="414573835"
-Received: from irsmsx602.ger.corp.intel.com ([163.33.146.8])
- by fmsmga002.fm.intel.com with ESMTP; 03 Feb 2021 08:51:23 -0800
-Received: from fmsmsx611.amr.corp.intel.com (10.18.126.91) by
- irsmsx602.ger.corp.intel.com (163.33.146.8) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1713.5; Wed, 3 Feb 2021 16:51:22 +0000
-Received: from fmsmsx611.amr.corp.intel.com ([10.18.126.91]) by
- fmsmsx611.amr.corp.intel.com ([10.18.126.91]) with mapi id 15.01.2106.002;
- Wed, 3 Feb 2021 08:51:21 -0800
-From: "Tang, CQ" <cq.tang@intel.com>
-To: "Auld, Matthew" <matthew.auld@intel.com>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
-Thread-Topic: [Intel-gfx] [PATCH v3 3/3] drm/i915/gtt/dg1: add PTE_LM plumbing
- for GGTT
-Thread-Index: AQHW+kC1aB4dKezT2ESM0+ZtUMe3fKpGpMXA
-Date: Wed, 3 Feb 2021 16:51:20 +0000
-Message-ID: <9a947b5a0cea4072b2e8371c3c17249b@intel.com>
-References: <20210203152333.511453-1-matthew.auld@intel.com>
- <20210203152333.511453-3-matthew.auld@intel.com>
-In-Reply-To: <20210203152333.511453-3-matthew.auld@intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-dlp-product: dlpe-windows
-dlp-reaction: no-action
-dlp-version: 11.5.1.3
-x-originating-ip: [10.1.200.100]
+	by gabe.freedesktop.org (Postfix) with ESMTP id 61C626EB34;
+	Wed,  3 Feb 2021 16:53:04 +0000 (UTC)
+Received: from fireflyinternet.com (unknown [77.68.26.236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B69226EB3F
+ for <intel-gfx@lists.freedesktop.org>; Wed,  3 Feb 2021 16:53:02 +0000 (UTC)
+X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
+ x-ip-name=78.156.65.138; 
+Received: from build.alporthouse.com (unverified [78.156.65.138]) 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23778157-1500050 
+ for <intel-gfx@lists.freedesktop.org>; Wed, 03 Feb 2021 16:52:58 +0000
+From: Chris Wilson <chris@chris-wilson.co.uk>
+To: intel-gfx@lists.freedesktop.org
+Date: Wed,  3 Feb 2021 16:52:54 +0000
+Message-Id: <20210203165259.13087-4-chris@chris-wilson.co.uk>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20210203165259.13087-1-chris@chris-wilson.co.uk>
+References: <20210203165259.13087-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: Re: [Intel-gfx] [PATCH v3 3/3] drm/i915/gtt/dg1: add PTE_LM
- plumbing for GGTT
+Subject: [Intel-gfx] [CI 4/9] drm/i915/selftests: Exercise priority
+ inheritance around an engine loop
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,156 +50,260 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Chris Wilson <chris@chris-wilson.co.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+Exercise rescheduling priority inheritance around a sequence of requests
+that wrap around all the engines.
 
+Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+---
+ .../gpu/drm/i915/selftests/i915_scheduler.c   | 215 ++++++++++++++++++
+ 1 file changed, 215 insertions(+)
 
-> -----Original Message-----
-> From: Intel-gfx <intel-gfx-bounces@lists.freedesktop.org> On Behalf Of
-> Matthew Auld
-> Sent: Wednesday, February 3, 2021 7:24 AM
-> To: intel-gfx@lists.freedesktop.org
-> Cc: Chris Wilson <chris@chris-wilson.co.uk>
-> Subject: [Intel-gfx] [PATCH v3 3/3] drm/i915/gtt/dg1: add PTE_LM plumbing
-> for GGTT
-> 
-> For the PTEs we get an LM bit, to signal whether the page resides in SMEM or
-> LMEM.
-> 
-> Based on a patch from Michel Thierry.
-> 
-> Signed-off-by: Matthew Auld <matthew.auld@intel.com>
-> Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-> Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-> Reviewed-by: Chris Wilson <chris@chris-wilson.co.uk>
-> ---
->  drivers/gpu/drm/i915/gt/intel_ggtt.c | 24 +++++++++++++++++++-----
-> drivers/gpu/drm/i915/gt/intel_gtt.h  |  4 +++-
->  2 files changed, 22 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/gt/intel_ggtt.c
-> b/drivers/gpu/drm/i915/gt/intel_ggtt.c
-> index fc399ac16eda..b0b8ded834f0 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_ggtt.c
-> +++ b/drivers/gpu/drm/i915/gt/intel_ggtt.c
-> @@ -10,6 +10,8 @@
-> 
->  #include <drm/i915_drm.h>
-> 
-> +#include "gem/i915_gem_lmem.h"
-> +
->  #include "intel_gt.h"
->  #include "i915_drv.h"
->  #include "i915_scatterlist.h"
-> @@ -189,7 +191,12 @@ static u64 gen8_ggtt_pte_encode(dma_addr_t addr,
->  				enum i915_cache_level level,
->  				u32 flags)
->  {
-> -	return addr | _PAGE_PRESENT;
-> +	gen8_pte_t pte = addr | _PAGE_PRESENT;
-> +
-> +	if (flags & PTE_LM)
-> +		pte |= GEN12_GGTT_PTE_LM;
-> +
-> +	return pte;
->  }
-> 
->  static void gen8_set_pte(void __iomem *addr, gen8_pte_t pte) @@ -201,13
-> +208,13 @@ static void gen8_ggtt_insert_page(struct i915_address_space
-> *vm,
->  				  dma_addr_t addr,
->  				  u64 offset,
->  				  enum i915_cache_level level,
-> -				  u32 unused)
-> +				  u32 flags)
->  {
->  	struct i915_ggtt *ggtt = i915_vm_to_ggtt(vm);
->  	gen8_pte_t __iomem *pte =
->  		(gen8_pte_t __iomem *)ggtt->gsm + offset /
-> I915_GTT_PAGE_SIZE;
-> 
-> -	gen8_set_pte(pte, gen8_ggtt_pte_encode(addr, level, 0));
-> +	gen8_set_pte(pte, gen8_ggtt_pte_encode(addr, level, flags));
-> 
->  	ggtt->invalidate(ggtt);
->  }
-> @@ -217,7 +224,7 @@ static void gen8_ggtt_insert_entries(struct
-> i915_address_space *vm,
->  				     enum i915_cache_level level,
->  				     u32 flags)
->  {
-> -	const gen8_pte_t pte_encode = gen8_ggtt_pte_encode(0, level, 0);
-> +	const gen8_pte_t pte_encode = gen8_ggtt_pte_encode(0, level,
-> flags);
->  	struct i915_ggtt *ggtt = i915_vm_to_ggtt(vm);
->  	gen8_pte_t __iomem *gte;
->  	gen8_pte_t __iomem *end;
-> @@ -459,6 +466,8 @@ static void ggtt_bind_vma(struct i915_address_space
-> *vm,
->  	pte_flags = 0;
->  	if (i915_gem_object_is_readonly(obj))
->  		pte_flags |= PTE_READ_ONLY;
-> +	if (i915_gem_object_is_lmem(obj))
-> +		pte_flags |= PTE_LM;
-> 
->  	vm->insert_entries(vm, vma, cache_level, pte_flags);
->  	vma->page_sizes.gtt = I915_GTT_PAGE_SIZE; @@ -794,6 +803,7 @@
-> static int ggtt_probe_common(struct i915_ggtt *ggtt, u64 size)
->  	struct drm_i915_private *i915 = ggtt->vm.i915;
->  	struct pci_dev *pdev = to_pci_dev(i915->drm.dev);
->  	phys_addr_t phys_addr;
-> +	u32 pte_flags;
->  	int ret;
-> 
->  	/* For Modern GENs the PTEs and register space are split in the BAR
-> */ @@ -823,9 +833,13 @@ static int ggtt_probe_common(struct i915_ggtt
-> *ggtt, u64 size)
->  		return ret;
->  	}
-> 
-> +	pte_flags = 0;
-> +	if (i915_gem_object_is_lmem(ggtt->vm.scratch[0]))
-> +		pte_flags |= PTE_LM;
-> +
->  	ggtt->vm.scratch[0]->encode =
->  		ggtt->vm.pte_encode(px_dma(ggtt->vm.scratch[0]),
-> -				    I915_CACHE_NONE, 0);
-> +				    I915_CACHE_NONE, pte_flags);
-> 
->  	return 0;
->  }
-> diff --git a/drivers/gpu/drm/i915/gt/intel_gtt.h
-> b/drivers/gpu/drm/i915/gt/intel_gtt.h
-> index 0eef625dd787..24b5808df16d 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_gtt.h
-> +++ b/drivers/gpu/drm/i915/gt/intel_gtt.h
-> @@ -85,7 +85,9 @@ typedef u64 gen8_pte_t;
->  #define BYT_PTE_SNOOPED_BY_CPU_CACHES	REG_BIT(2)
->  #define BYT_PTE_WRITEABLE		REG_BIT(1)
-> 
-> -#define GEN12_PPGTT_PTE_LM BIT_ULL(11)
-> +#define GEN12_PPGTT_PTE_LM	BIT_ULL(11)
-> +
-> +#define GEN12_GGTT_PTE_LM	BIT_ULL(1)
+diff --git a/drivers/gpu/drm/i915/selftests/i915_scheduler.c b/drivers/gpu/drm/i915/selftests/i915_scheduler.c
+index 9700d4e3302b..298c31ee550c 100644
+--- a/drivers/gpu/drm/i915/selftests/i915_scheduler.c
++++ b/drivers/gpu/drm/i915/selftests/i915_scheduler.c
+@@ -7,6 +7,7 @@
+ 
+ #include "gt/intel_context.h"
+ #include "gt/intel_gpu_commands.h"
++#include "gt/intel_ring.h"
+ #include "gt/selftest_engine_heartbeat.h"
+ #include "selftests/igt_spinner.h"
+ #include "selftests/i915_random.h"
+@@ -504,10 +505,224 @@ static int igt_priority_chains(void *arg)
+ 	return igt_schedule_chains(arg, igt_priority);
+ }
+ 
++static struct i915_request *
++__write_timestamp(struct intel_engine_cs *engine,
++		  struct drm_i915_gem_object *obj,
++		  int slot,
++		  struct i915_request *prev)
++{
++	struct i915_request *rq = ERR_PTR(-EINVAL);
++	bool use_64b = INTEL_GEN(engine->i915) >= 8;
++	struct intel_context *ce;
++	struct i915_vma *vma;
++	int err = 0;
++	u32 *cs;
++
++	ce = intel_context_create(engine);
++	if (IS_ERR(ce))
++		return ERR_CAST(ce);
++
++	vma = i915_vma_instance(obj, ce->vm, NULL);
++	if (IS_ERR(vma)) {
++		err = PTR_ERR(vma);
++		goto out_ce;
++	}
++
++	err = i915_vma_pin(vma, 0, 0, PIN_USER);
++	if (err)
++		goto out_ce;
++
++	rq = intel_context_create_request(ce);
++	if (IS_ERR(rq)) {
++		err = PTR_ERR(rq);
++		goto out_unpin;
++	}
++
++	i915_vma_lock(vma);
++	err = i915_vma_move_to_active(vma, rq, EXEC_OBJECT_WRITE);
++	i915_vma_unlock(vma);
++	if (err)
++		goto out_request;
++
++	if (prev) {
++		err = i915_request_await_dma_fence(rq, &prev->fence);
++		if (err)
++			goto out_request;
++	}
++
++	if (engine->emit_init_breadcrumb) {
++		err = engine->emit_init_breadcrumb(rq);
++		if (err)
++			goto out_request;
++	}
++
++	cs = intel_ring_begin(rq, 4);
++	if (IS_ERR(cs)) {
++		err = PTR_ERR(cs);
++		goto out_request;
++	}
++
++	*cs++ = MI_STORE_REGISTER_MEM + use_64b;
++	*cs++ = i915_mmio_reg_offset(RING_TIMESTAMP(engine->mmio_base));
++	*cs++ = lower_32_bits(vma->node.start) + sizeof(u32) * slot;
++	*cs++ = upper_32_bits(vma->node.start);
++	intel_ring_advance(rq, cs);
++
++	i915_request_get(rq);
++out_request:
++	i915_request_add(rq);
++out_unpin:
++	i915_vma_unpin(vma);
++out_ce:
++	intel_context_put(ce);
++	i915_request_put(prev);
++	return err ? ERR_PTR(err) : rq;
++}
++
++static struct i915_request *create_spinner(struct drm_i915_private *i915,
++					   struct igt_spinner *spin)
++{
++	struct intel_engine_cs *engine;
++
++	for_each_uabi_engine(engine, i915) {
++		struct intel_context *ce;
++		struct i915_request *rq;
++
++		if (igt_spinner_init(spin, engine->gt))
++			return ERR_PTR(-ENOMEM);
++
++		ce = intel_context_create(engine);
++		if (IS_ERR(ce))
++			return ERR_CAST(ce);
++
++		rq = igt_spinner_create_request(spin, ce, MI_NOOP);
++		intel_context_put(ce);
++		if (rq == ERR_PTR(-ENODEV))
++			continue;
++		if (IS_ERR(rq))
++			return rq;
++
++		i915_request_get(rq);
++		i915_request_add(rq);
++		return rq;
++	}
++
++	return ERR_PTR(-ENODEV);
++}
++
++static bool has_timestamp(const struct drm_i915_private *i915)
++{
++	return INTEL_GEN(i915) >= 7;
++}
++
++static int __igt_schedule_cycle(struct drm_i915_private *i915,
++				bool (*fn)(struct i915_request *rq,
++					   unsigned long v, unsigned long e))
++{
++	struct intel_engine_cs *engine;
++	struct drm_i915_gem_object *obj;
++	struct igt_spinner spin;
++	struct i915_request *rq;
++	unsigned long count, n;
++	u32 *time, last;
++	int err, loop;
++
++	/*
++	 * Queue a bunch of ordered requests (each waiting on the previous)
++	 * around the engines a couple of times. Each request will write
++	 * the timestamp it executes at into the scratch, with the expectation
++	 * that the timestamp will be in our desired execution order.
++	 */
++
++	if (!i915->caps.scheduler || !has_timestamp(i915))
++		return 0;
++
++	obj = i915_gem_object_create_internal(i915, SZ_64K);
++	if (IS_ERR(obj))
++		return PTR_ERR(obj);
++
++	time = i915_gem_object_pin_map(obj, I915_MAP_WC);
++	if (IS_ERR(time)) {
++		err = PTR_ERR(time);
++		goto out_obj;
++	}
++
++	rq = create_spinner(i915, &spin);
++	if (IS_ERR(rq)) {
++		err = PTR_ERR(rq);
++		goto out_obj;
++	}
++
++	err = 0;
++	count = 0;
++	for (loop = 0; !err && loop < 3; loop++) {
++		for_each_uabi_engine(engine, i915) {
++			if (!intel_engine_has_scheduler(engine))
++				continue;
++
++			rq = __write_timestamp(engine, obj, count, rq);
++			if (IS_ERR(rq)) {
++				err = PTR_ERR(rq);
++				break;
++			}
++
++			count++;
++		}
++	}
++	GEM_BUG_ON(count * sizeof(u32) > obj->base.size);
++	if (err || !count)
++		goto out_spin;
++
++	fn(rq, count + 1, count);
++	igt_spinner_end(&spin);
++
++	if (i915_request_wait(rq, 0, HZ / 2) < 0) {
++		err = -ETIME;
++		goto out_request;
++	}
++
++	last = time[0];
++	for (n = 1; n < count; n++) {
++		if (i915_seqno_passed(last, time[n])) {
++			pr_err("Timestamp[%lu] %x before previous %x\n",
++			       n, time[n], last);
++			err = -EINVAL;
++			break;
++		}
++		last = time[n];
++	}
++
++out_request:
++	i915_request_put(rq);
++out_spin:
++	igt_spinner_fini(&spin);
++out_obj:
++	i915_gem_object_put(obj);
++	return err;
++}
++
++static bool noop(struct i915_request *rq, unsigned long v, unsigned long e)
++{
++	return true;
++}
++
++static int igt_schedule_cycle(void *arg)
++{
++	return __igt_schedule_cycle(arg, noop);
++}
++
++static int igt_priority_cycle(void *arg)
++{
++	return __igt_schedule_cycle(arg, igt_priority);
++}
++
+ int i915_scheduler_live_selftests(struct drm_i915_private *i915)
+ {
+ 	static const struct i915_subtest tests[] = {
+ 		SUBTEST(igt_priority_chains),
++
++		SUBTEST(igt_schedule_cycle),
++		SUBTEST(igt_priority_cycle),
+ 	};
+ 
+ 	return i915_subtests(tests, i915);
+-- 
+2.20.1
 
-Where does the Bspec say bit-1 is for LMEM?
-
---CQ
-
-> 
->  /*
->   * Cacheability Control is a 4-bit value. The low three bits are stored in bits
-> --
-> 2.26.2
-> 
-> _______________________________________________
-> Intel-gfx mailing list
-> Intel-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/intel-gfx
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
