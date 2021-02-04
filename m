@@ -2,51 +2,43 @@ Return-Path: <SRS0=bw6s=HG=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 67F26C433E6
-	for <intel-gfx@archiver.kernel.org>; Thu,  4 Feb 2021 12:21:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0689CC433DB
+	for <intel-gfx@archiver.kernel.org>; Thu,  4 Feb 2021 12:33:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 19483614A5
-	for <intel-gfx@archiver.kernel.org>; Thu,  4 Feb 2021 12:21:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 19483614A5
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 6E34E64E0B
+	for <intel-gfx@archiver.kernel.org>; Thu,  4 Feb 2021 12:33:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6E34E64E0B
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 72DF16ECA9;
-	Thu,  4 Feb 2021 12:21:43 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6542B6ECA7
- for <intel-gfx@lists.freedesktop.org>; Thu,  4 Feb 2021 12:21:42 +0000 (UTC)
-IronPort-SDR: 1djxR7qGBjZB+Trk/38n5fyN7hqpWFEqcKpakvk1Oq+f6EucU5etFLqFWQ8T3sJ9x+8BhL3ZNZ
- cpXtSgITryFg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9884"; a="178664975"
-X-IronPort-AV: E=Sophos;i="5.79,400,1602572400"; d="scan'208";a="178664975"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Feb 2021 04:21:42 -0800
-IronPort-SDR: rigA3I7F7z6w1xHzc9wNByDuCyTCXCV+baIGKMRDeExzxrFp6PeC4d29U6W5mM9U8zOYy5sTpe
- bip3e8w/oj7A==
-X-IronPort-AV: E=Sophos;i="5.79,400,1602572400"; d="scan'208";a="393139818"
-Received: from obell-mobl1.ger.corp.intel.com (HELO
- mwauld-desk1.ger.corp.intel.com) ([10.252.22.80])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Feb 2021 04:21:41 -0800
-From: Matthew Auld <matthew.auld@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Thu,  4 Feb 2021 12:21:26 +0000
-Message-Id: <20210204122126.647201-2-matthew.auld@intel.com>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20210204122126.647201-1-matthew.auld@intel.com>
-References: <20210204122126.647201-1-matthew.auld@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id EBCB96E05F;
+	Thu,  4 Feb 2021 12:33:00 +0000 (UTC)
+Received: from fireflyinternet.com (unknown [77.68.26.236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 33C9E6E05F
+ for <intel-gfx@lists.freedesktop.org>; Thu,  4 Feb 2021 12:32:59 +0000 (UTC)
+X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
+ x-ip-name=78.156.69.177; 
+Received: from localhost (unverified [78.156.69.177]) 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP (TLS) id
+ 23786203-1500050 for multiple; Thu, 04 Feb 2021 12:32:56 +0000
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 2/2] drm/i915: give stolen system memory its own
- class
+In-Reply-To: <20210204122126.647201-2-matthew.auld@intel.com>
+References: <20210204122126.647201-1-matthew.auld@intel.com>
+ <20210204122126.647201-2-matthew.auld@intel.com>
+From: Chris Wilson <chris@chris-wilson.co.uk>
+To: Matthew Auld <matthew.auld@intel.com>, intel-gfx@lists.freedesktop.org
+Date: Thu, 04 Feb 2021 12:32:55 +0000
+Message-ID: <161244197522.4856.486159522413636446@build.alporthouse.com>
+User-Agent: alot/0.9
+Subject: Re: [Intel-gfx] [PATCH 2/2] drm/i915: give stolen system memory its
+ own class
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,121 +56,17 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-In some future patches we will need to also support a stolen region
-carved from device local memory, on platforms like DG1. To handle this
-we can simply describe each in terms of its own memory class.
+Quoting Matthew Auld (2021-02-04 12:21:26)
+> In some future patches we will need to also support a stolen region
+> carved from device local memory, on platforms like DG1. To handle this
+> we can simply describe each in terms of its own memory class.
+> 
+> Signed-off-by: Matthew Auld <matthew.auld@intel.com>
 
-Signed-off-by: Matthew Auld <matthew.auld@intel.com>
----
- drivers/gpu/drm/i915/gem/i915_gem_stolen.c | 4 ++--
- drivers/gpu/drm/i915/i915_drv.c            | 2 +-
- drivers/gpu/drm/i915/i915_pci.c            | 2 +-
- drivers/gpu/drm/i915/intel_memory_region.c | 6 +++---
- drivers/gpu/drm/i915/intel_memory_region.h | 6 +++---
- 5 files changed, 10 insertions(+), 10 deletions(-)
+Straightforward,
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_stolen.c b/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
-index a1e197a6e999..c5f85296a45f 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
-@@ -686,7 +686,7 @@ struct drm_i915_gem_object *
- i915_gem_object_create_stolen(struct drm_i915_private *i915,
- 			      resource_size_t size)
- {
--	return i915_gem_object_create_region(i915->mm.regions[INTEL_REGION_STOLEN],
-+	return i915_gem_object_create_region(i915->mm.regions[INTEL_REGION_STOLEN_SMEM],
- 					     size, I915_BO_ALLOC_CONTIGUOUS);
- }
- 
-@@ -726,7 +726,7 @@ i915_gem_object_create_stolen_for_preallocated(struct drm_i915_private *i915,
- 					       resource_size_t stolen_offset,
- 					       resource_size_t size)
- {
--	struct intel_memory_region *mem = i915->mm.regions[INTEL_REGION_STOLEN];
-+	struct intel_memory_region *mem = i915->mm.regions[INTEL_REGION_STOLEN_SMEM];
- 	struct drm_i915_gem_object *obj;
- 	struct drm_mm_node *stolen;
- 	int ret;
-diff --git a/drivers/gpu/drm/i915/i915_drv.c b/drivers/gpu/drm/i915/i915_drv.c
-index d7aa5d4e3e94..eb9329163d52 100644
---- a/drivers/gpu/drm/i915/i915_drv.c
-+++ b/drivers/gpu/drm/i915/i915_drv.c
-@@ -849,7 +849,7 @@ int i915_driver_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
- 		if (INTEL_GEN(i915) >= 9 && i915_selftest.live < 0 &&
- 		    i915->params.fake_lmem_start) {
- 			mkwrite_device_info(i915)->memory_regions =
--				REGION_SMEM | REGION_LMEM | REGION_STOLEN;
-+				REGION_SMEM | REGION_LMEM | REGION_STOLEN_SMEM;
- 			GEM_BUG_ON(!HAS_LMEM(i915));
- 		}
- 	}
-diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
-index 6cff7cf0f17b..d09db36b8287 100644
---- a/drivers/gpu/drm/i915/i915_pci.c
-+++ b/drivers/gpu/drm/i915/i915_pci.c
-@@ -154,7 +154,7 @@
- 	.page_sizes = I915_GTT_PAGE_SIZE_4K
- 
- #define GEN_DEFAULT_REGIONS \
--	.memory_regions = REGION_SMEM | REGION_STOLEN
-+	.memory_regions = REGION_SMEM | REGION_STOLEN_SMEM
- 
- #define I830_FEATURES \
- 	GEN(2), \
-diff --git a/drivers/gpu/drm/i915/intel_memory_region.c b/drivers/gpu/drm/i915/intel_memory_region.c
-index 287a647aaaa3..9bfe61194a90 100644
---- a/drivers/gpu/drm/i915/intel_memory_region.c
-+++ b/drivers/gpu/drm/i915/intel_memory_region.c
-@@ -18,8 +18,8 @@ static const struct {
-                .class = INTEL_MEMORY_LOCAL,
-                .instance = 0,
-        },
--       [INTEL_REGION_STOLEN] = {
--               .class = INTEL_MEMORY_STOLEN,
-+       [INTEL_REGION_STOLEN_SMEM] = {
-+               .class = INTEL_MEMORY_STOLEN_SYSTEM,
-                .instance = 0,
-        },
- };
-@@ -278,7 +278,7 @@ int intel_memory_regions_hw_probe(struct drm_i915_private *i915)
- 		case INTEL_MEMORY_SYSTEM:
- 			mem = i915_gem_shmem_setup(i915);
- 			break;
--		case INTEL_MEMORY_STOLEN:
-+		case INTEL_MEMORY_STOLEN_SYSTEM:
- 			mem = i915_gem_stolen_setup(i915);
- 			break;
- 		default:
-diff --git a/drivers/gpu/drm/i915/intel_memory_region.h b/drivers/gpu/drm/i915/intel_memory_region.h
-index 8baf2536d7a5..edd49067c8ca 100644
---- a/drivers/gpu/drm/i915/intel_memory_region.h
-+++ b/drivers/gpu/drm/i915/intel_memory_region.h
-@@ -25,19 +25,19 @@ struct sg_table;
- enum intel_memory_type {
- 	INTEL_MEMORY_SYSTEM = 0,
- 	INTEL_MEMORY_LOCAL,
--	INTEL_MEMORY_STOLEN,
-+	INTEL_MEMORY_STOLEN_SYSTEM,
- };
- 
- enum intel_region_id {
- 	INTEL_REGION_SMEM = 0,
- 	INTEL_REGION_LMEM,
--	INTEL_REGION_STOLEN,
-+	INTEL_REGION_STOLEN_SMEM,
- 	INTEL_REGION_UNKNOWN, /* Should be last */
- };
- 
- #define REGION_SMEM     BIT(INTEL_REGION_SMEM)
- #define REGION_LMEM     BIT(INTEL_REGION_LMEM)
--#define REGION_STOLEN   BIT(INTEL_REGION_STOLEN)
-+#define REGION_STOLEN_SMEM   BIT(INTEL_REGION_STOLEN_SMEM)
- 
- #define I915_ALLOC_MIN_PAGE_SIZE  BIT(0)
- #define I915_ALLOC_CONTIGUOUS     BIT(1)
--- 
-2.26.2
-
+Reviewed-by: Chris Wilson <chris@chris-wilson.co.uk>
+-Chris
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
