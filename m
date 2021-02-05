@@ -2,41 +2,63 @@ Return-Path: <SRS0=PZs0=HH=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
+X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E175DC43381
-	for <intel-gfx@archiver.kernel.org>; Fri,  5 Feb 2021 23:45:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CCC80C433E6
+	for <intel-gfx@archiver.kernel.org>; Fri,  5 Feb 2021 23:45:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 94C6B64FFE
-	for <intel-gfx@archiver.kernel.org>; Fri,  5 Feb 2021 23:45:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 94C6B64FFE
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id 890EC64FFF
+	for <intel-gfx@archiver.kernel.org>; Fri,  5 Feb 2021 23:45:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 890EC64FFF
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A5AF46F521;
-	Fri,  5 Feb 2021 23:45:35 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id EAAC76F521;
- Fri,  5 Feb 2021 23:45:34 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id E5C96AADD0;
- Fri,  5 Feb 2021 23:45:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0693F6F529;
+	Fri,  5 Feb 2021 23:45:41 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5C3F06F52A
+ for <intel-gfx@lists.freedesktop.org>; Fri,  5 Feb 2021 23:45:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1612568738;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=9qg0OOS5m94MqUzMPuQVuiHcWMuHoVtQIrp4RF85meQ=;
+ b=OtpxIh1P2fqRa917B/OW3/0FxBnzlfKtzVOyua5CLfxVapNJckmhSZWuhzwGhsG1bRpHPt
+ 4E9cSpv6+xHPRVYeLFg1J2sFupv1bdXNs0gpc+SFInjSmrtlbMJKi7sqcNK9IyI6OsoUK8
+ 9LBZdcpY3mpCucmjvMrUid3GyAjzl4E=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-325-BuvRR7lVPGaqq8G6DA9SHg-1; Fri, 05 Feb 2021 18:45:33 -0500
+X-MC-Unique: BuvRR7lVPGaqq8G6DA9SHg-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
+ [10.5.11.23])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C42C01005D49;
+ Fri,  5 Feb 2021 23:45:30 +0000 (UTC)
+Received: from Whitewolf.redhat.com (ovpn-116-79.rdu2.redhat.com
+ [10.10.116.79])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 6D80319727;
+ Fri,  5 Feb 2021 23:45:28 +0000 (UTC)
+From: Lyude Paul <lyude@redhat.com>
+To: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org
+Date: Fri,  5 Feb 2021 18:45:07 -0500
+Message-Id: <20210205234515.1216538-4-lyude@redhat.com>
+In-Reply-To: <20210205234515.1216538-1-lyude@redhat.com>
+References: <20210205234515.1216538-1-lyude@redhat.com>
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Ville Syrjala" <ville.syrjala@linux.intel.com>
-Date: Fri, 05 Feb 2021 23:45:34 -0000
-Message-ID: <161256873493.1861.8981397250405918470@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20210205202322.27608-1-ville.syrjala@linux.intel.com>
-In-Reply-To: <20210205202322.27608-1-ville.syrjala@linux.intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZHJt?=
- =?utf-8?q?/i915=3A_Nuke_INTEL=5FOUTPUT=5FFORMAT=5FINVALID?=
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+Subject: [Intel-gfx] [RFC v3 03/10] drm/i915/dpcd_bl: Remove redundant AUX
+ backlight frequency calculations
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,184 +71,158 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
-Content-Type: multipart/mixed; boundary="===============0212938887=="
+Cc: Jani Nikula <jani.nikula@intel.com>, David Airlie <airlied@linux.ie>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ open list <linux-kernel@vger.kernel.org>, greg.depoire@gmail.com,
+ Sean Paul <seanpaul@chromium.org>, Dave Airlie <airlied@redhat.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============0212938887==
-Content-Type: multipart/alternative;
- boundary="===============1486670181902204679=="
+Noticed this while moving all of the VESA backlight code in i915 over to
+DRM helpers: it would appear that we calculate the frequency value we want
+to write to DP_EDP_BACKLIGHT_FREQ_SET twice even though this value never
+actually changes during runtime. So, let's simplify things by just caching
+this value in intel_panel.backlight, and re-writing it as-needed.
 
---===============1486670181902204679==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Changes since v1:
+* Wrap panel->backlight.edp.vesa.pwm_freq_pre_divider in
+  DP_EDP_BACKLIGHT_FREQ_AUX_SET_CAP check - Jani
 
-== Series Details ==
+Signed-off-by: Lyude Paul <lyude@redhat.com>
+Cc: Jani Nikula <jani.nikula@intel.com>
+Cc: Dave Airlie <airlied@gmail.com>
+Cc: greg.depoire@gmail.com
+---
+ .../drm/i915/display/intel_display_types.h    |  1 +
+ .../drm/i915/display/intel_dp_aux_backlight.c | 65 ++++++-------------
+ 2 files changed, 20 insertions(+), 46 deletions(-)
 
-Series: drm/i915: Nuke INTEL_OUTPUT_FORMAT_INVALID
-URL   : https://patchwork.freedesktop.org/series/86782/
-State : success
-
-== Summary ==
-
-CI Bug Log - changes from CI_DRM_9740 -> Patchwork_19612
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19612/index.html
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_19612 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@kms_chamelium@dp-crc-fast:
-    - fi-kbl-7500u:       [PASS][1] -> [FAIL][2] ([i915#1372])
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9740/fi-kbl-7500u/igt@kms_chamelium@dp-crc-fast.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19612/fi-kbl-7500u/igt@kms_chamelium@dp-crc-fast.html
-
-  * igt@prime_vgem@basic-fence-flip:
-    - fi-tgl-y:           [PASS][3] -> [DMESG-WARN][4] ([i915#402]) +2 similar issues
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9740/fi-tgl-y/igt@prime_vgem@basic-fence-flip.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19612/fi-tgl-y/igt@prime_vgem@basic-fence-flip.html
-
-  
-#### Possible fixes ####
-
-  * igt@prime_self_import@basic-with_one_bo_two_files:
-    - fi-tgl-y:           [DMESG-WARN][5] ([i915#402]) -> [PASS][6] +1 similar issue
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9740/fi-tgl-y/igt@prime_self_import@basic-with_one_bo_two_files.html
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19612/fi-tgl-y/igt@prime_self_import@basic-with_one_bo_two_files.html
-
-  
-  [i915#1372]: https://gitlab.freedesktop.org/drm/intel/issues/1372
-  [i915#402]: https://gitlab.freedesktop.org/drm/intel/issues/402
-
-
-Participating hosts (43 -> 37)
-------------------------------
-
-  Missing    (6): fi-jsl-1 fi-ilk-m540 fi-hsw-4200u fi-bsw-cyan fi-ctg-p8600 fi-bdw-samus 
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_9740 -> Patchwork_19612
-
-  CI-20190529: 20190529
-  CI_DRM_9740: d0d6b3dabc3c5f35990abedf7361eb27f7123f4d @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_5993: b1225ec25d5671a985c5bb48739111d2e8a723cf @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools
-  Patchwork_19612: e56cfddfefbcd620929a70777759227a688e8450 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-
-== Linux commits ==
-
-e56cfddfefbc drm/i915: Nuke INTEL_OUTPUT_FORMAT_INVALID
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19612/index.html
-
---===============1486670181902204679==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915: Nuke INTEL_OUTPUT_FORMAT_INVALID</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/86782/">https://patchwork.freedesktop.org/series/86782/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19612/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19612/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_9740 -&gt; Patchwork_19612</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19612/index.html</p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_19612 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@kms_chamelium@dp-crc-fast:</p>
-<ul>
-<li>fi-kbl-7500u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9740/fi-kbl-7500u/igt@kms_chamelium@dp-crc-fast.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19612/fi-kbl-7500u/igt@kms_chamelium@dp-crc-fast.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1372">i915#1372</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@prime_vgem@basic-fence-flip:</p>
-<ul>
-<li>fi-tgl-y:           <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9740/fi-tgl-y/igt@prime_vgem@basic-fence-flip.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19612/fi-tgl-y/igt@prime_vgem@basic-fence-flip.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/402">i915#402</a>) +2 similar issues</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>igt@prime_self_import@basic-with_one_bo_two_files:<ul>
-<li>fi-tgl-y:           <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9740/fi-tgl-y/igt@prime_self_import@basic-with_one_bo_two_files.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/402">i915#402</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19612/fi-tgl-y/igt@prime_self_import@basic-with_one_bo_two_files.html">PASS</a> +1 similar issue</li>
-</ul>
-</li>
-</ul>
-<h2>Participating hosts (43 -&gt; 37)</h2>
-<p>Missing    (6): fi-jsl-1 fi-ilk-m540 fi-hsw-4200u fi-bsw-cyan fi-ctg-p8600 fi-bdw-samus </p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_9740 -&gt; Patchwork_19612</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_9740: d0d6b3dabc3c5f35990abedf7361eb27f7123f4d @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_5993: b1225ec25d5671a985c5bb48739111d2e8a723cf @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools<br />
-  Patchwork_19612: e56cfddfefbcd620929a70777759227a688e8450 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<p>== Linux commits ==</p>
-<p>e56cfddfefbc drm/i915: Nuke INTEL_OUTPUT_FORMAT_INVALID</p>
-
-</body>
-</html>
-
---===============1486670181902204679==--
-
---===============0212938887==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
+index 307ff4b771f4..f4b26e1dbaaf 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_types.h
++++ b/drivers/gpu/drm/i915/display/intel_display_types.h
+@@ -264,6 +264,7 @@ struct intel_panel {
+ 		union {
+ 			struct {
+ 				u8 pwmgen_bit_count;
++				u8 pwm_freq_pre_divider;
+ 			} vesa;
+ 			struct {
+ 				bool sdr_uses_aux;
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
+index 651884390137..62294967f430 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
+@@ -373,50 +373,6 @@ intel_dp_aux_vesa_set_backlight(const struct drm_connector_state *conn_state,
+ 	}
+ }
+ 
+-/*
+- * Set PWM Frequency divider to match desired frequency in vbt.
+- * The PWM Frequency is calculated as 27Mhz / (F x P).
+- * - Where F = PWM Frequency Pre-Divider value programmed by field 7:0 of the
+- *             EDP_BACKLIGHT_FREQ_SET register (DPCD Address 00728h)
+- * - Where P = 2^Pn, where Pn is the value programmed by field 4:0 of the
+- *             EDP_PWMGEN_BIT_COUNT register (DPCD Address 00724h)
+- */
+-static bool intel_dp_aux_vesa_set_pwm_freq(struct intel_connector *connector)
+-{
+-	struct drm_i915_private *dev_priv = to_i915(connector->base.dev);
+-	struct intel_dp *intel_dp = intel_attached_dp(connector);
+-	const u8 pn = connector->panel.backlight.edp.vesa.pwmgen_bit_count;
+-	int freq, fxp, f, fxp_actual, fxp_min, fxp_max;
+-
+-	freq = dev_priv->vbt.backlight.pwm_freq_hz;
+-	if (!freq) {
+-		drm_dbg_kms(&dev_priv->drm,
+-			    "Use panel default backlight frequency\n");
+-		return false;
+-	}
+-
+-	fxp = DIV_ROUND_CLOSEST(KHz(DP_EDP_BACKLIGHT_FREQ_BASE_KHZ), freq);
+-	f = clamp(DIV_ROUND_CLOSEST(fxp, 1 << pn), 1, 255);
+-	fxp_actual = f << pn;
+-
+-	/* Ensure frequency is within 25% of desired value */
+-	fxp_min = DIV_ROUND_CLOSEST(fxp * 3, 4);
+-	fxp_max = DIV_ROUND_CLOSEST(fxp * 5, 4);
+-
+-	if (fxp_min > fxp_actual || fxp_actual > fxp_max) {
+-		drm_dbg_kms(&dev_priv->drm, "Actual frequency out of range\n");
+-		return false;
+-	}
+-
+-	if (drm_dp_dpcd_writeb(&intel_dp->aux,
+-			       DP_EDP_BACKLIGHT_FREQ_SET, (u8) f) < 0) {
+-		drm_dbg_kms(&dev_priv->drm,
+-			    "Failed to write aux backlight freq\n");
+-		return false;
+-	}
+-	return true;
+-}
+-
+ static void
+ intel_dp_aux_vesa_enable_backlight(const struct intel_crtc_state *crtc_state,
+ 				   const struct drm_connector_state *conn_state, u32 level)
+@@ -459,9 +415,13 @@ intel_dp_aux_vesa_enable_backlight(const struct intel_crtc_state *crtc_state,
+ 		break;
+ 	}
+ 
+-	if (intel_dp->edp_dpcd[2] & DP_EDP_BACKLIGHT_FREQ_AUX_SET_CAP)
+-		if (intel_dp_aux_vesa_set_pwm_freq(connector))
++	if (panel->backlight.edp.vesa.pwm_freq_pre_divider) {
++		if (drm_dp_dpcd_writeb(&intel_dp->aux, DP_EDP_BACKLIGHT_FREQ_SET,
++				       panel->backlight.edp.vesa.pwm_freq_pre_divider) == 1)
+ 			new_dpcd_buf |= DP_EDP_BACKLIGHT_FREQ_AUX_SET_ENABLE;
++		else
++			drm_dbg_kms(&i915->drm, "Failed to write aux backlight frequency\n");
++	}
+ 
+ 	if (new_dpcd_buf != dpcd_buf) {
+ 		if (drm_dp_dpcd_writeb(&intel_dp->aux,
+@@ -482,6 +442,14 @@ static void intel_dp_aux_vesa_disable_backlight(const struct drm_connector_state
+ 				  false);
+ }
+ 
++/*
++ * Compute PWM frequency divider value based off the frequency provided to us by the vbt.
++ * The PWM Frequency is calculated as 27Mhz / (F x P).
++ * - Where F = PWM Frequency Pre-Divider value programmed by field 7:0 of the
++ *             EDP_BACKLIGHT_FREQ_SET register (DPCD Address 00728h)
++ * - Where P = 2^Pn, where Pn is the value programmed by field 4:0 of the
++ *             EDP_PWMGEN_BIT_COUNT register (DPCD Address 00724h)
++ */
+ static u32 intel_dp_aux_vesa_calc_max_backlight(struct intel_connector *connector)
+ {
+ 	struct drm_i915_private *i915 = to_i915(connector->base.dev);
+@@ -533,8 +501,10 @@ static u32 intel_dp_aux_vesa_calc_max_backlight(struct intel_connector *connecto
+ 	pn_min &= DP_EDP_PWMGEN_BIT_COUNT_MASK;
+ 	pn_max &= DP_EDP_PWMGEN_BIT_COUNT_MASK;
+ 
++	/* Ensure frequency is within 25% of desired value */
+ 	fxp_min = DIV_ROUND_CLOSEST(fxp * 3, 4);
+ 	fxp_max = DIV_ROUND_CLOSEST(fxp * 5, 4);
++
+ 	if (fxp_min < (1 << pn_min) || (255 << pn_max) < fxp_max) {
+ 		drm_dbg_kms(&i915->drm,
+ 			    "VBT defined backlight frequency out of range\n");
+@@ -555,7 +525,10 @@ static u32 intel_dp_aux_vesa_calc_max_backlight(struct intel_connector *connecto
+ 			    "Failed to write aux pwmgen bit count\n");
+ 		return max_backlight;
+ 	}
++
+ 	panel->backlight.edp.vesa.pwmgen_bit_count = pn;
++	if (intel_dp->edp_dpcd[2] & DP_EDP_BACKLIGHT_FREQ_AUX_SET_CAP)
++		panel->backlight.edp.vesa.pwm_freq_pre_divider = f;
+ 
+ 	max_backlight = (1 << pn) - 1;
+ 
+-- 
+2.29.2
 
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-
---===============0212938887==--
