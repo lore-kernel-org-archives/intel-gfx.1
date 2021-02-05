@@ -2,40 +2,64 @@ Return-Path: <SRS0=PZs0=HH=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 58852C433E0
-	for <intel-gfx@archiver.kernel.org>; Fri,  5 Feb 2021 13:03:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A0F8CC433E6
+	for <intel-gfx@archiver.kernel.org>; Fri,  5 Feb 2021 13:05:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7FA3764DFD
-	for <intel-gfx@archiver.kernel.org>; Fri,  5 Feb 2021 13:03:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7FA3764DFD
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
+	by mail.kernel.org (Postfix) with ESMTPS id 22D7764DFD
+	for <intel-gfx@archiver.kernel.org>; Fri,  5 Feb 2021 13:05:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 22D7764DFD
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E9AA36E252;
-	Fri,  5 Feb 2021 13:03:23 +0000 (UTC)
-Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F58B6E252;
- Fri,  5 Feb 2021 13:03:22 +0000 (UTC)
-X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
- x-ip-name=78.156.69.177; 
-Received: from build.alporthouse.com (unverified [78.156.69.177]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23797864-1500050 
- for multiple; Fri, 05 Feb 2021 13:03:08 +0000
-From: Chris Wilson <chris@chris-wilson.co.uk>
-To: intel-gfx@lists.freedesktop.org
-Date: Fri,  5 Feb 2021 13:03:07 +0000
-Message-Id: <20210205130307.8294-1-chris@chris-wilson.co.uk>
-X-Mailer: git-send-email 2.20.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 007616E2C8;
+	Fri,  5 Feb 2021 13:05:34 +0000 (UTC)
+Received: from mail-ot1-x32c.google.com (mail-ot1-x32c.google.com
+ [IPv6:2607:f8b0:4864:20::32c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F27D6E2C0
+ for <intel-gfx@lists.freedesktop.org>; Fri,  5 Feb 2021 13:05:33 +0000 (UTC)
+Received: by mail-ot1-x32c.google.com with SMTP id d1so6756319otl.13
+ for <intel-gfx@lists.freedesktop.org>; Fri, 05 Feb 2021 05:05:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=meHuzs6N41tZwNz5Z8o9DqX2fcdLCbhLwuuynzEyeWM=;
+ b=caNcsbg+cluV4xsl+wtBGBB0+tBVxphrCq08ie5y62VKKrrvFqHJl4eLA753W6yxcx
+ +DsfIeed0slxZgU+awR4rrvFavZxYfvGEqGNS7qi3cj7ZT7FTuj9kwiuXEmbea+Uklvt
+ S+/Onew+8DaR2I0iNwiG8CXgsWbaVu9d9oMHc=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=meHuzs6N41tZwNz5Z8o9DqX2fcdLCbhLwuuynzEyeWM=;
+ b=jwcqi8v76uPC7pRvEfpN3L/u04z+M9hxl0B3riEJONqwjr7GM6K9WrHwsptrP1CRDC
+ 2KKcG/JPRpE+pITPwaevsguseJrLym6K32e/L10IgoVx0cgFihX/ZbDICZ+0KWhMIGMW
+ LXC0j1kWwDqShka1sjwLKBcXUC9lq9SdbrMfrhLiD8uHM1iYlgCoV/Bhamplz+r64hYl
+ nd3YvZT7tKjNigKa9u0DYr+hsCRTX5NqiC7ONTa4CS1Spj43WuZyE8wMcURcEuWXoE6C
+ fdAQ0AplwnOALRtyzz4LlMkSwyCgWTBCKtvXSgoV8wBD7TxfcPQMA4uSzqkADoMoO7l8
+ N/dg==
+X-Gm-Message-State: AOAM531iysgzVbCz88cM7xXq+r1Lg+ardcwO2fHKfWnixGvEpRWpOIiY
+ f1iHctKxwzi1VpIctgiuziIeu99q9JXcz2miKUMw/Q==
+X-Google-Smtp-Source: ABdhPJzng89M/HFnFqHXCqLK/NUEuD1p6NqDzjg+NI3npAgpIIrnhRIkeejWN9f+opFyGRDm7xIyl4Yf2/s72s+33io=
+X-Received: by 2002:a9d:6c96:: with SMTP id c22mr3221863otr.303.1612530332640; 
+ Fri, 05 Feb 2021 05:05:32 -0800 (PST)
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH] drm/i915: Autoselect CONFIG_CHECKPOINT_RESTORE
- for SYS_kcmp
+References: <20210204155846.5aef94a8@canb.auug.org.au>
+ <CAHp75Vct=jSQxu187hwz4Wrc_xRKiTmKFt_bgT-m-z=iW31drg@mail.gmail.com>
+ <CAHp75Vc_xJFpUECZenOYEyJ6YDzfDFmJe9cTeGh0x-c_fKQPHw@mail.gmail.com>
+ <CAMeQTsYK5GoL=VNB0CPrGi0Y-804N1q24dkii20OuV8=ckhmuA@mail.gmail.com>
+In-Reply-To: <CAMeQTsYK5GoL=VNB0CPrGi0Y-804N1q24dkii20OuV8=ckhmuA@mail.gmail.com>
+From: Daniel Vetter <daniel.vetter@ffwll.ch>
+Date: Fri, 5 Feb 2021 14:05:21 +0100
+Message-ID: <CAKMK7uFSF0cHZh6KikMf2MmBykZazE5HGA1ejJU++GWyfuTmfQ@mail.gmail.com>
+To: Patrik Jakobsson <patrik.r.jakobsson@gmail.com>
+Subject: Re: [Intel-gfx] linux-next: manual merge of the drivers-x86 tree
+ with the drm-misc tree
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,45 +72,45 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jani Nikula <jani.nikula@intel.com>, Daniel Vetter <daniel.vetter@ffwll.ch>,
- dri-devel@lists.freedesktop.org, Chris Wilson <chris@chris-wilson.co.uk>
+Cc: Stephen Rothwell <sfr@canb.auug.org.au>, Mark Gross <mark.gross@intel.com>,
+ Intel Graphics <intel-gfx@lists.freedesktop.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ DRI <dri-devel@lists.freedesktop.org>,
+ Andy Shevchenko <andy.shevchenko@gmail.com>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-gallium (iris) depends on os_same_file_description() to disambiguate
-screens and so avoid importing the same screen fd twice as two distinct
-entities (that share all the kernel resources, so actions on screen
-affect the other and would cause random faiure). As they depend on it,
-so must we. os_same_file_description() uses SYS_kcmp to check the file
-tables for the equivalent struct file, but SYS_kcmp is hidden behind
-CONFIG_CHECKPOINT_RESTORE. As this is not default, we must select it for
-ourselves to ensure that our userspace is fully supported.
+On Fri, Feb 5, 2021 at 12:14 PM Patrik Jakobsson
+<patrik.r.jakobsson@gmail.com> wrote:
+>
+> On Fri, Feb 5, 2021 at 12:07 PM Andy Shevchenko
+> <andy.shevchenko@gmail.com> wrote:
+> >
+> > On Thu, Feb 4, 2021 at 11:04 AM Andy Shevchenko
+> > <andy.shevchenko@gmail.com> wrote:
+> > >> Today's linux-next merge of the drivers-x86 tree got a conflict in:
+> > >
+> > > Thanks. I already asked Patrik yesterday day if DRM missed to pull an immutable tag I provided. I think they can pull and resolve conflicts themselves. Alternatively it would be easy to resolve by Linus by removing Kconfig lines along with mentioned files,
+> >
+> > Patrik, I have sent a PR again, so you may consider pulling it, thanks!
+>
+> Daniel, is this something you can pull into drm or ask one of the
+> drm-misc maintainers to do?
 
-Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/3046
-Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-Cc: Jani Nikula <jani.nikula@intel.com>
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
----
- drivers/gpu/drm/i915/Kconfig | 1 +
- 1 file changed, 1 insertion(+)
+We've already created the conflict, and my understanding is that Linus
+wants to have visibility into conflict-y stuff and doesn't mind at all
+resolving conflicts. Hence for 5.12 I think we're fine as-is.
 
-diff --git a/drivers/gpu/drm/i915/Kconfig b/drivers/gpu/drm/i915/Kconfig
-index 1e1cb245fca7..470a5214bd33 100644
---- a/drivers/gpu/drm/i915/Kconfig
-+++ b/drivers/gpu/drm/i915/Kconfig
-@@ -21,6 +21,7 @@ config DRM_I915
- 	select ACPI_VIDEO if ACPI
- 	select ACPI_BUTTON if ACPI
- 	select SYNC_FILE
-+	select CHECKPOINT_RESTORE # gallium depends on SYS_kcmp
- 	select IOSF_MBI
- 	select CRC32
- 	select SND_HDA_I915 if SND_HDA_CORE
+Thanks, Daniel
 -- 
-2.20.1
-
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
