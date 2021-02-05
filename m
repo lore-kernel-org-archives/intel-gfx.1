@@ -2,68 +2,49 @@ Return-Path: <SRS0=PZs0=HH=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+X-Spam-Status: No, score=-13.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9434FC433E0
-	for <intel-gfx@archiver.kernel.org>; Fri,  5 Feb 2021 15:59:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BE13CC433E0
+	for <intel-gfx@archiver.kernel.org>; Fri,  5 Feb 2021 16:18:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E60E064DE1
-	for <intel-gfx@archiver.kernel.org>; Fri,  5 Feb 2021 15:59:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E60E064DE1
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	by mail.kernel.org (Postfix) with ESMTPS id E9F8F64FF0
+	for <intel-gfx@archiver.kernel.org>; Fri,  5 Feb 2021 16:18:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E9F8F64FF0
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 45C4B6F47C;
-	Fri,  5 Feb 2021 15:59:17 +0000 (UTC)
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [IPv6:2a00:1450:4864:20::336])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 43C426F47C
- for <intel-gfx@lists.freedesktop.org>; Fri,  5 Feb 2021 15:59:16 +0000 (UTC)
-Received: by mail-wm1-x336.google.com with SMTP id j11so6416112wmi.3
- for <intel-gfx@lists.freedesktop.org>; Fri, 05 Feb 2021 07:59:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=9+YqAe6hSzkQfksEGq7Ywri2e2DUbD6/mSZNF0QOTf0=;
- b=AJLqnzaUvH3x/gtl0NcXy/B2j9r44Rn25KoSGVJ6qU7n+ZLBdGUTxKqMYbsfvu+YKi
- h4YSk2ERtHGD/nB3JB3mETWXTrMLPW6gC6GBcH6Es+KMd4ZIlq9x/9uwnXXJqAXA4q+D
- JfRYRfkzbqe/mgFqqBTpBVNUJd8cmyR5LAz9U=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=9+YqAe6hSzkQfksEGq7Ywri2e2DUbD6/mSZNF0QOTf0=;
- b=hw9rEkssS1XbI28pxGVzwyUrcPMF6K5P0gOtHj5Br7JWk9+j426DsJQ5bvnCydXXbV
- Hr/3Kl5hYdd/Gxv1rEnyPBR0Bx/VQasDYF3IF5u/LRKLZDl9qa3Lih+kSbRbfX3cxEgw
- oL3XjOXwN1q2gCQDVxcJMviaZ0+76gjs9v5tTTwj3Ihmr476LVSkjGNMR53fuIsIZ9us
- qpVayI/Iz1cQvIP2Q43G2MQ5tUYppZAEpC62xtbEHcT+bgh0urWn8tUjELJ6BIiENHJr
- RsMCn+bUvIofNq9ZdaW/Ytr/EZb93d3JZvNyoQr48F7rm6UjjStaibj0HhKKigP6Thhi
- UHJA==
-X-Gm-Message-State: AOAM531sYK9aV2MmsMv7uqjeldGZWnr2V9Ioo55P3ChsdPxBPL+0cz7w
- aPxyGpz/hl7XfaLRrElpPM/A31dCR9qEhgMn
-X-Google-Smtp-Source: ABdhPJzk5W54Ne64f4WW7jHwnbNPhlmkeWCgJM2ko35NQ51dV6sRmbKogsIhdRw8bH2q7pzMsCnVbw==
-X-Received: by 2002:a1c:68d4:: with SMTP id d203mr4063138wmc.153.1612540754940; 
- Fri, 05 Feb 2021 07:59:14 -0800 (PST)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id f4sm12598197wrs.34.2021.02.05.07.59.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 05 Feb 2021 07:59:14 -0800 (PST)
-Date: Fri, 5 Feb 2021 16:59:12 +0100
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Chris Wilson <chris@chris-wilson.co.uk>,
-	Dave Airlie <airlied@gmail.com>
-Message-ID: <YB1rUCQoa+wCEh1o@phenom.ffwll.local>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 17ED26F484;
+	Fri,  5 Feb 2021 16:18:51 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE1836F484
+ for <intel-gfx@lists.freedesktop.org>; Fri,  5 Feb 2021 16:18:49 +0000 (UTC)
+Received: from gallifrey.ext.pengutronix.de
+ ([2001:67c:670:201:5054:ff:fe8d:eefb] helo=[IPv6:::1])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <l.stach@pengutronix.de>)
+ id 1l83oi-00056A-OL; Fri, 05 Feb 2021 17:18:44 +0100
+Message-ID: <b01fefdd8b6fa7c8f1f863daf18a25b32f6ac29c.camel@pengutronix.de>
+From: Lucas Stach <l.stach@pengutronix.de>
+To: Daniel Vetter <daniel@ffwll.ch>, Chris Wilson
+ <chris@chris-wilson.co.uk>,  Dave Airlie <airlied@gmail.com>
+Date: Fri, 05 Feb 2021 17:18:42 +0100
+In-Reply-To: <YB1rUCQoa+wCEh1o@phenom.ffwll.local>
 References: <20210205130307.8294-1-chris@chris-wilson.co.uk>
- <YB1rKLGvpnFDom11@phenom.ffwll.local>
+ <YB1rKLGvpnFDom11@phenom.ffwll.local> <YB1rUCQoa+wCEh1o@phenom.ffwll.local>
+User-Agent: Evolution 3.38.3 (3.38.3-1.fc33) 
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <YB1rKLGvpnFDom11@phenom.ffwll.local>
-X-Operating-System: Linux phenom 5.7.0-1-amd64 
+X-SA-Exim-Connect-IP: 2001:67c:670:201:5054:ff:fe8d:eefb
+X-SA-Exim-Mail-From: l.stach@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: intel-gfx@lists.freedesktop.org
 Subject: Re: [Intel-gfx] [PATCH] drm/i915: Autoselect
  CONFIG_CHECKPOINT_RESTORE for SYS_kcmp
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -80,71 +61,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Jani Nikula <jani.nikula@intel.com>, Daniel Vetter <daniel.vetter@ffwll.ch>,
  intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Feb 05, 2021 at 04:58:32PM +0100, Daniel Vetter wrote:
-> On Fri, Feb 05, 2021 at 01:03:07PM +0000, Chris Wilson wrote:
-> > gallium (iris) depends on os_same_file_description() to disambiguate
-> > screens and so avoid importing the same screen fd twice as two distinct
-> > entities (that share all the kernel resources, so actions on screen
-> > affect the other and would cause random faiure). As they depend on it,
-> > so must we. os_same_file_description() uses SYS_kcmp to check the file
-> > tables for the equivalent struct file, but SYS_kcmp is hidden behind
-> > CONFIG_CHECKPOINT_RESTORE. As this is not default, we must select it for
-> > ourselves to ensure that our userspace is fully supported.
-> > 
-> > Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/3046
-> > Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-> > Cc: Jani Nikula <jani.nikula@intel.com>
-> > Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
-> 
-> Hm shouldn't we crank this up to CONFIG_DRM?
-> 
-> Or embedded folks going to be unhappy about that? If so I guess we'd need
-> to pull out just the SYS_kcmp part ...
-> 
-> Asking because I think Bas is also looking at this, and it's not great if
-> we're building on this and then users end up with very subtly broken gl/vk
-> stacks :-/
-
-Forgot to add Airlie.
--Daniel
-
-> -Daniel
-> 
-> > ---
-> >  drivers/gpu/drm/i915/Kconfig | 1 +
-> >  1 file changed, 1 insertion(+)
-> > 
-> > diff --git a/drivers/gpu/drm/i915/Kconfig b/drivers/gpu/drm/i915/Kconfig
-> > index 1e1cb245fca7..470a5214bd33 100644
-> > --- a/drivers/gpu/drm/i915/Kconfig
-> > +++ b/drivers/gpu/drm/i915/Kconfig
-> > @@ -21,6 +21,7 @@ config DRM_I915
-> >  	select ACPI_VIDEO if ACPI
-> >  	select ACPI_BUTTON if ACPI
-> >  	select SYNC_FILE
-> > +	select CHECKPOINT_RESTORE # gallium depends on SYS_kcmp
-> >  	select IOSF_MBI
-> >  	select CRC32
-> >  	select SND_HDA_I915 if SND_HDA_CORE
-> > -- 
-> > 2.20.1
-> > 
-> 
-> -- 
-> Daniel Vetter
-> Software Engineer, Intel Corporation
-> http://blog.ffwll.ch
-
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+QW0gRnJlaXRhZywgZGVtIDA1LjAyLjIwMjEgdW0gMTY6NTkgKzAxMDAgc2NocmllYiBEYW5pZWwg
+VmV0dGVyOgo+IE9uIEZyaSwgRmViIDA1LCAyMDIxIGF0IDA0OjU4OjMyUE0gKzAxMDAsIERhbmll
+bCBWZXR0ZXIgd3JvdGU6Cj4gPiBPbiBGcmksIEZlYiAwNSwgMjAyMSBhdCAwMTowMzowN1BNICsw
+MDAwLCBDaHJpcyBXaWxzb24gd3JvdGU6Cj4gPiA+IGdhbGxpdW0gKGlyaXMpIGRlcGVuZHMgb24g
+b3Nfc2FtZV9maWxlX2Rlc2NyaXB0aW9uKCkgdG8gZGlzYW1iaWd1YXRlCj4gPiA+IHNjcmVlbnMg
+YW5kIHNvIGF2b2lkIGltcG9ydGluZyB0aGUgc2FtZSBzY3JlZW4gZmQgdHdpY2UgYXMgdHdvIGRp
+c3RpbmN0Cj4gPiA+IGVudGl0aWVzICh0aGF0IHNoYXJlIGFsbCB0aGUga2VybmVsIHJlc291cmNl
+cywgc28gYWN0aW9ucyBvbiBzY3JlZW4KPiA+ID4gYWZmZWN0IHRoZSBvdGhlciBhbmQgd291bGQg
+Y2F1c2UgcmFuZG9tIGZhaXVyZSkuIEFzIHRoZXkgZGVwZW5kIG9uIGl0LAo+ID4gPiBzbyBtdXN0
+IHdlLiBvc19zYW1lX2ZpbGVfZGVzY3JpcHRpb24oKSB1c2VzIFNZU19rY21wIHRvIGNoZWNrIHRo
+ZSBmaWxlCj4gPiA+IHRhYmxlcyBmb3IgdGhlIGVxdWl2YWxlbnQgc3RydWN0IGZpbGUsIGJ1dCBT
+WVNfa2NtcCBpcyBoaWRkZW4gYmVoaW5kCj4gPiA+IENPTkZJR19DSEVDS1BPSU5UX1JFU1RPUkUu
+IEFzIHRoaXMgaXMgbm90IGRlZmF1bHQsIHdlIG11c3Qgc2VsZWN0IGl0IGZvcgo+ID4gPiBvdXJz
+ZWx2ZXMgdG8gZW5zdXJlIHRoYXQgb3VyIHVzZXJzcGFjZSBpcyBmdWxseSBzdXBwb3J0ZWQuCj4g
+PiA+IAo+ID4gPiBDbG9zZXM6IGh0dHBzOi8vZ2l0bGFiLmZyZWVkZXNrdG9wLm9yZy9kcm0vaW50
+ZWwvLS9pc3N1ZXMvMzA0Ngo+ID4gPiBTaWduZWQtb2ZmLWJ5OiBDaHJpcyBXaWxzb24gPGNocmlz
+QGNocmlzLXdpbHNvbi5jby51az4KPiA+ID4gQ2M6IEphbmkgTmlrdWxhIDxqYW5pLm5pa3VsYUBp
+bnRlbC5jb20+Cj4gPiA+IENjOiBEYW5pZWwgVmV0dGVyIDxkYW5pZWwudmV0dGVyQGZmd2xsLmNo
+Pgo+ID4gCj4gPiBIbSBzaG91bGRuJ3Qgd2UgY3JhbmsgdGhpcyB1cCB0byBDT05GSUdfRFJNPwo+
+ID4gCj4gPiBPciBlbWJlZGRlZCBmb2xrcyBnb2luZyB0byBiZSB1bmhhcHB5IGFib3V0IHRoYXQ/
+IElmIHNvIEkgZ3Vlc3Mgd2UnZCBuZWVkCj4gPiB0byBwdWxsIG91dCBqdXN0IHRoZSBTWVNfa2Nt
+cCBwYXJ0IC4uLgo+ID4gCj4gPiBBc2tpbmcgYmVjYXVzZSBJIHRoaW5rIEJhcyBpcyBhbHNvIGxv
+b2tpbmcgYXQgdGhpcywgYW5kIGl0J3Mgbm90IGdyZWF0IGlmCj4gPiB3ZSdyZSBidWlsZGluZyBv
+biB0aGlzIGFuZCB0aGVuIHVzZXJzIGVuZCB1cCB3aXRoIHZlcnkgc3VidGx5IGJyb2tlbiBnbC92
+awo+ID4gc3RhY2tzIDotLwoKYW1kZ3B1IGdhbGxpdW0gd2luc3lzIHNlZW1zIHRvIGFsc28gcmVx
+dWlyZSB0aGlzLCBzbyBzZWxlY3RpbmcgaXQgZnJvbQpoaWdoZXIgdXAgaW4gdGhlIEtjb25maWcg
+dHJlZSBtYWtlcyBzZW5zZSBhbmQgSSBkb24ndCB0aGluayBlbWJlZGRlZAp3b3VsZCBiZSBtYXNz
+aXZlbHkgdW5oYXBweSBhYm91dCB0aGlzLiBIb3dldmVyIGtjbXAgc2VlbXMgdG8gYmUgdXNlZnVs
+Cm9uIGl0cyBvd24gYW5kIHB1bGxpbmcgaXQgb3V0IG9mIENIRUNLUE9JTlRfUkVTVE9SRSBzb3Vu
+ZHMgbGlrZSB0aGUKcmlnaHQgdGhpbmcgdG8gZG8uCgpSZWdhcmRzLApMdWNhcwoKPiAKPiA+IC1E
+YW5pZWwKPiA+IAo+ID4gPiAtLS0KPiA+ID4gwqBkcml2ZXJzL2dwdS9kcm0vaTkxNS9LY29uZmln
+IHwgMSArCj4gPiA+IMKgMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspCj4gPiA+IAo+ID4g
+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvS2NvbmZpZyBiL2RyaXZlcnMvZ3B1
+L2RybS9pOTE1L0tjb25maWcKPiA+ID4gaW5kZXggMWUxY2IyNDVmY2E3Li40NzBhNTIxNGJkMzMg
+MTAwNjQ0Cj4gPiA+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L0tjb25maWcKPiA+ID4gKysr
+IGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvS2NvbmZpZwo+ID4gPiBAQCAtMjEsNiArMjEsNyBAQCBj
+b25maWcgRFJNX0k5MTUKPiA+ID4gwqAJc2VsZWN0IEFDUElfVklERU8gaWYgQUNQSQo+ID4gPiDC
+oAlzZWxlY3QgQUNQSV9CVVRUT04gaWYgQUNQSQo+ID4gPiDCoAlzZWxlY3QgU1lOQ19GSUxFCj4g
+PiA+ICsJc2VsZWN0IENIRUNLUE9JTlRfUkVTVE9SRSAjIGdhbGxpdW0gZGVwZW5kcyBvbiBTWVNf
+a2NtcAo+ID4gPiDCoAlzZWxlY3QgSU9TRl9NQkkKPiA+ID4gwqAJc2VsZWN0IENSQzMyCj4gPiA+
+IMKgCXNlbGVjdCBTTkRfSERBX0k5MTUgaWYgU05EX0hEQV9DT1JFCj4gPiA+IC0tIAo+ID4gPiAy
+LjIwLjEKPiA+ID4gCj4gPiAKPiA+IC0tIAo+ID4gRGFuaWVsIFZldHRlcgo+ID4gU29mdHdhcmUg
+RW5naW5lZXIsIEludGVsIENvcnBvcmF0aW9uCj4gPiBodHRwOi8vYmxvZy5mZndsbC5jaAo+IAoK
+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkludGVsLWdm
+eCBtYWlsaW5nIGxpc3QKSW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xp
+c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ludGVsLWdmeAo=
