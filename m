@@ -5,53 +5,50 @@ X-Spam-Level:
 X-Spam-Status: No, score=-15.2 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0F3EEC433E6
-	for <intel-gfx@archiver.kernel.org>; Fri,  5 Feb 2021 20:18:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9CBD6C433E6
+	for <intel-gfx@archiver.kernel.org>; Fri,  5 Feb 2021 20:22:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AF9CD64FBB
-	for <intel-gfx@archiver.kernel.org>; Fri,  5 Feb 2021 20:18:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AF9CD64FBB
+	by mail.kernel.org (Postfix) with ESMTPS id 438E464FBA
+	for <intel-gfx@archiver.kernel.org>; Fri,  5 Feb 2021 20:22:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 438E464FBA
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1BDE06F4C8;
-	Fri,  5 Feb 2021 20:18:20 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5BC496F4BE;
- Fri,  5 Feb 2021 20:18:18 +0000 (UTC)
-IronPort-SDR: 94pXTp3t9V2/9f138RvJqMMASwzjtulNhFBs0fZS9KpzV9jjQsH5ceaiwL+oww5han6Q1tXaI+
- 68+tBuYmHjRA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9886"; a="169158729"
-X-IronPort-AV: E=Sophos;i="5.81,156,1610438400"; d="scan'208";a="169158729"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Feb 2021 12:18:17 -0800
-IronPort-SDR: RHKaEntJ0e15lMChnEZXWaCA3DmCYyowIXjJx3IYqenDU2c7Zto4gvlNjWznXQTLGEVs3UO/gp
- QsrJg5ogUQQg==
-X-IronPort-AV: E=Sophos;i="5.81,156,1610438400"; d="scan'208";a="434588117"
+	by gabe.freedesktop.org (Postfix) with ESMTP id A46976F4C3;
+	Fri,  5 Feb 2021 20:22:49 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B06A46F4C3
+ for <intel-gfx@lists.freedesktop.org>; Fri,  5 Feb 2021 20:22:48 +0000 (UTC)
+IronPort-SDR: KA1T+rmw7kXWHwrT0/JmayoXxbp1Popr3miPGu5Sr8WDWBrIz2pjVoZFB+0ukOtAo0TRhKgTwn
+ cX+yedetpSyg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9886"; a="178924876"
+X-IronPort-AV: E=Sophos;i="5.81,156,1610438400"; d="scan'208";a="178924876"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Feb 2021 12:22:47 -0800
+IronPort-SDR: QJUYTNd6A8j8PcrVPQWzsrZa011qEXfPVTZ6R582j6nrJQ/nt3dFsR/D4lIpqaxmE9Ti43XvrL
+ 5kNIqRhoEasg==
+X-IronPort-AV: E=Sophos;i="5.81,156,1610438400"; d="scan'208";a="484449687"
 Received: from labuser-z97x-ud5h.jf.intel.com (HELO labuser-Z97X-UD5H)
  ([10.165.21.211])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Feb 2021 12:18:17 -0800
-Date: Fri, 5 Feb 2021 12:22:32 -0800
+ by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Feb 2021 12:22:46 -0800
+Date: Fri, 5 Feb 2021 12:27:41 -0800
 From: "Navare, Manasi" <manasi.d.navare@intel.com>
-To: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-Message-ID: <20210205202232.GA969@labuser-Z97X-UD5H>
-References: <20210204064842.11595-1-ankit.k.nautiyal@intel.com>
- <20210204064842.11595-2-ankit.k.nautiyal@intel.com>
- <YB2jT9p3N8Py6KUU@intel.com>
- <20210205200741.GA911@labuser-Z97X-UD5H>
- <YB2lWCmdkj8P7sCM@intel.com>
+To: Khaled Almahallawy <khaled.almahallawy@intel.com>
+Message-ID: <20210205202741.GB969@labuser-Z97X-UD5H>
+References: <20210205064531.3158292-1-khaled.almahallawy@intel.com>
+ <20210205190936.3172458-1-khaled.almahallawy@intel.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <YB2lWCmdkj8P7sCM@intel.com>
+In-Reply-To: <20210205190936.3172458-1-khaled.almahallawy@intel.com>
 User-Agent: Mutt/1.5.24 (2015-08-30)
-Subject: Re: [Intel-gfx] [PATCH 1/3] i915/display/intel_dp: Read PCON DSC
- ENC caps only for DPCD rev >= 1.4
+Subject: Re: [Intel-gfx] [PATCH v2] drm/i915: Add link rate and lane count
+ to i915_display_info
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,101 +61,81 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Feb 05, 2021 at 10:06:48PM +0200, Ville Syrj=E4l=E4 wrote:
-> On Fri, Feb 05, 2021 at 12:07:41PM -0800, Navare, Manasi wrote:
-> > On Fri, Feb 05, 2021 at 09:58:07PM +0200, Ville Syrj=E4l=E4 wrote:
-> > > On Thu, Feb 04, 2021 at 12:18:40PM +0530, Ankit Nautiyal wrote:
-> > > > DP-HDMI2.1 PCON has DSC encoder caps defined in registers 0x92-0x9E.
-> > > > Do not read the registers if DPCD rev < 1.4.
-> > > > =
-
-> > > > Fixes: https://gitlab.freedesktop.org/drm/intel/-/issues/2868
-> > > > Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-> > > > ---
-> > > >  drivers/gpu/drm/i915/display/intel_dp.c | 4 +++-
-> > > >  1 file changed, 3 insertions(+), 1 deletion(-)
-> > > > =
-
-> > > > diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/=
-drm/i915/display/intel_dp.c
-> > > > index 8c12d5375607..2b83f0f433a2 100644
-> > > > --- a/drivers/gpu/drm/i915/display/intel_dp.c
-> > > > +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-> > > > @@ -2489,9 +2489,11 @@ static void intel_dp_get_pcon_dsc_cap(struct=
- intel_dp *intel_dp)
-> > > >  	struct drm_i915_private *i915 =3D dp_to_i915(intel_dp);
-> > > >  =
-
-> > > >  	/* Clear the cached register set to avoid using stale values */
-> > > > -
-> > > >  	memset(intel_dp->pcon_dsc_dpcd, 0, sizeof(intel_dp->pcon_dsc_dpcd=
-));
-> > > >  =
-
-> > > > +	if (intel_dp->dpcd[DP_DPCD_REV] < 0x14)
-> > > > +		return;
-> > > > +
-> > > =
-
-> > > Can't check the spec, but makes sense that this stuff is only valid
-> > > for recent DCPD revisions.
-> > > =
-
-> > > Acked-by: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
-> > =
-
-> > Yes checked the DP 1.4 spec and this is correct
+On Fri, Feb 05, 2021 at 11:09:36AM -0800, Khaled Almahallawy wrote:
+> Link rate and lane count information are more easier and faster to check =
+in i915_display_info
+> than checking kernel logs for people not familiar with i915 in the follow=
+ing scenarios:
+> * Debugging DP tunnel bandwidth usage in Thunderbolt driver.
+> * In USB4 certification, it is a requirement to know which link rate used=
+ by
+>   monitor to prove that DP tunnel handle up to HBR3
+> * In PHY Compliance, when the connector propes are not mounted correctly,
+>   some display lanes will not show up in the DP Oscilloscope and will fai=
+l CTS.
+>   Just give the tester an easy way to identify where the problem is.
 > =
 
-> I didn't think this is in the DP spec, but rather some special extra
-> spec which I do not have.
+> v2(Ville): Uniform style for '=3D' and use 'port clock' instead of 'link =
+rate'
 
-Yes I meant just double checked that the DSC support itself from DP 1.4 and=
- hence
-makes sense that the PCON DSC regs also from >=3D 1.4
+Yes this is really good, having this as part of display_info.
+I am just wondering if this makes sense to be part of connector_info or crt=
+c_info
+What would be more readable and intuitive. But again since its part
+of crtc_state, may be easier to be part of crtc_info.
 
 Manasi
 
+
 > =
 
-> > =
-
-> > Reviewed-by: Manasi Navare <manasi.d.navare@intel.com>
-> > =
-
-> > Manasi
-> > =
-
-> > > =
-
-> > > >  	if (drm_dp_dpcd_read(&intel_dp->aux, DP_PCON_DSC_ENCODER,
-> > > >  			     intel_dp->pcon_dsc_dpcd,
-> > > >  			     sizeof(intel_dp->pcon_dsc_dpcd)) < 0)
-> > > > -- =
-
-> > > > 2.29.2
-> > > =
-
-> > > -- =
-
-> > > Ville Syrj=E4l=E4
-> > > Intel
-> > > _______________________________________________
-> > > Intel-gfx mailing list
-> > > Intel-gfx@lists.freedesktop.org
-> > > https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+> Cc: Imre Deak <imre.deak@intel.com>
+> Cc: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
+> CC: Jos=E9 Roberto de Souza <jose.souza@intel.com>
+> Signed-off-by: Khaled Almahallawy <khaled.almahallawy@intel.com>
+> ---
+>  drivers/gpu/drm/i915/display/intel_display_debugfs.c | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
 > =
 
+> diff --git a/drivers/gpu/drm/i915/display/intel_display_debugfs.c b/drive=
+rs/gpu/drm/i915/display/intel_display_debugfs.c
+> index d62b18d5ecd8..cb088a0a26f3 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+> +++ b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+> @@ -990,9 +990,10 @@ static void intel_crtc_info(struct seq_file *m, stru=
+ct intel_crtc *crtc)
+>  			   yesno(crtc_state->hw.active),
+>  			   DRM_MODE_ARG(&crtc_state->hw.adjusted_mode));
+>  =
+
+> -		seq_printf(m, "\tpipe src size=3D%dx%d, dither=3D%s, bpp=3D%d\n",
+> +		seq_printf(m, "\tpipe src size=3D%dx%d, dither=3D%s, bpp=3D%d, port cl=
+ock=3D%d, lane count=3D%d\n",
+>  			   crtc_state->pipe_src_w, crtc_state->pipe_src_h,
+> -			   yesno(crtc_state->dither), crtc_state->pipe_bpp);
+> +			   yesno(crtc_state->dither), crtc_state->pipe_bpp,
+> +			   crtc_state->port_clock, crtc_state->lane_count);
+>  =
+
+>  		intel_scaler_info(m, crtc);
+>  	}
 > -- =
 
-> Ville Syrj=E4l=E4
-> Intel
+> 2.25.1
+> =
+
+> _______________________________________________
+> Intel-gfx mailing list
+> Intel-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/intel-gfx
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
