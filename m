@@ -2,53 +2,49 @@ Return-Path: <SRS0=PZs0=HH=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.2 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9CBD6C433E6
-	for <intel-gfx@archiver.kernel.org>; Fri,  5 Feb 2021 20:22:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BEB68C433DB
+	for <intel-gfx@archiver.kernel.org>; Fri,  5 Feb 2021 20:23:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 438E464FBA
-	for <intel-gfx@archiver.kernel.org>; Fri,  5 Feb 2021 20:22:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 438E464FBA
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 57D2064FD5
+	for <intel-gfx@archiver.kernel.org>; Fri,  5 Feb 2021 20:23:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 57D2064FD5
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A46976F4C3;
-	Fri,  5 Feb 2021 20:22:49 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B06A46F4C3
- for <intel-gfx@lists.freedesktop.org>; Fri,  5 Feb 2021 20:22:48 +0000 (UTC)
-IronPort-SDR: KA1T+rmw7kXWHwrT0/JmayoXxbp1Popr3miPGu5Sr8WDWBrIz2pjVoZFB+0ukOtAo0TRhKgTwn
- cX+yedetpSyg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9886"; a="178924876"
-X-IronPort-AV: E=Sophos;i="5.81,156,1610438400"; d="scan'208";a="178924876"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Feb 2021 12:22:47 -0800
-IronPort-SDR: QJUYTNd6A8j8PcrVPQWzsrZa011qEXfPVTZ6R582j6nrJQ/nt3dFsR/D4lIpqaxmE9Ti43XvrL
- 5kNIqRhoEasg==
-X-IronPort-AV: E=Sophos;i="5.81,156,1610438400"; d="scan'208";a="484449687"
-Received: from labuser-z97x-ud5h.jf.intel.com (HELO labuser-Z97X-UD5H)
- ([10.165.21.211])
- by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Feb 2021 12:22:46 -0800
-Date: Fri, 5 Feb 2021 12:27:41 -0800
-From: "Navare, Manasi" <manasi.d.navare@intel.com>
-To: Khaled Almahallawy <khaled.almahallawy@intel.com>
-Message-ID: <20210205202741.GB969@labuser-Z97X-UD5H>
-References: <20210205064531.3158292-1-khaled.almahallawy@intel.com>
- <20210205190936.3172458-1-khaled.almahallawy@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D96486F4C6;
+	Fri,  5 Feb 2021 20:23:26 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D9C36F4C6
+ for <intel-gfx@lists.freedesktop.org>; Fri,  5 Feb 2021 20:23:26 +0000 (UTC)
+IronPort-SDR: B2JDl6wszAQB0y7luw23aKIVqSQWoDzSJ2T2H10HKUVeoIkgmSt89p8xNQWV/0Q0y0l5iRvqKT
+ wLclD5foRfKw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9886"; a="180708593"
+X-IronPort-AV: E=Sophos;i="5.81,156,1610438400"; d="scan'208";a="180708593"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Feb 2021 12:23:25 -0800
+IronPort-SDR: qCNAdYCu6CfqNNZbz7+4Wosp97+EQMYHWIjIKM/dsIMayQRPZrbhMU8xRGn1bEfpYhLE/Wq7zf
+ DWKnHZAXgSkQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.81,156,1610438400"; d="scan'208";a="434589318"
+Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
+ by orsmga001.jf.intel.com with SMTP; 05 Feb 2021 12:23:23 -0800
+Received: by stinkbox (sSMTP sendmail emulation);
+ Fri, 05 Feb 2021 22:23:22 +0200
+From: Ville Syrjala <ville.syrjala@linux.intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Fri,  5 Feb 2021 22:23:22 +0200
+Message-Id: <20210205202322.27608-1-ville.syrjala@linux.intel.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210205190936.3172458-1-khaled.almahallawy@intel.com>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-Subject: Re: [Intel-gfx] [PATCH v2] drm/i915: Add link rate and lane count
- to i915_display_info
+Subject: [Intel-gfx] [PATCH] drm/i915: Nuke INTEL_OUTPUT_FORMAT_INVALID
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,82 +57,68 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Feb 05, 2021 at 11:09:36AM -0800, Khaled Almahallawy wrote:
-> Link rate and lane count information are more easier and faster to check =
-in i915_display_info
-> than checking kernel logs for people not familiar with i915 in the follow=
-ing scenarios:
-> * Debugging DP tunnel bandwidth usage in Thunderbolt driver.
-> * In USB4 certification, it is a requirement to know which link rate used=
- by
->   monitor to prove that DP tunnel handle up to HBR3
-> * In PHY Compliance, when the connector propes are not mounted correctly,
->   some display lanes will not show up in the DP Oscilloscope and will fai=
-l CTS.
->   Just give the tester an easy way to identify where the problem is.
-> =
-
-> v2(Ville): Uniform style for '=3D' and use 'port clock' instead of 'link =
-rate'
-
-Yes this is really good, having this as part of display_info.
-I am just wondering if this makes sense to be part of connector_info or crt=
-c_info
-What would be more readable and intuitive. But again since its part
-of crtc_state, may be easier to be part of crtc_info.
-
-Manasi
-
-
-> =
-
-> Cc: Imre Deak <imre.deak@intel.com>
-> Cc: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
-> CC: Jos=E9 Roberto de Souza <jose.souza@intel.com>
-> Signed-off-by: Khaled Almahallawy <khaled.almahallawy@intel.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_display_debugfs.c | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
-> =
-
-> diff --git a/drivers/gpu/drm/i915/display/intel_display_debugfs.c b/drive=
-rs/gpu/drm/i915/display/intel_display_debugfs.c
-> index d62b18d5ecd8..cb088a0a26f3 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-> +++ b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-> @@ -990,9 +990,10 @@ static void intel_crtc_info(struct seq_file *m, stru=
-ct intel_crtc *crtc)
->  			   yesno(crtc_state->hw.active),
->  			   DRM_MODE_ARG(&crtc_state->hw.adjusted_mode));
->  =
-
-> -		seq_printf(m, "\tpipe src size=3D%dx%d, dither=3D%s, bpp=3D%d\n",
-> +		seq_printf(m, "\tpipe src size=3D%dx%d, dither=3D%s, bpp=3D%d, port cl=
-ock=3D%d, lane count=3D%d\n",
->  			   crtc_state->pipe_src_w, crtc_state->pipe_src_h,
-> -			   yesno(crtc_state->dither), crtc_state->pipe_bpp);
-> +			   yesno(crtc_state->dither), crtc_state->pipe_bpp,
-> +			   crtc_state->port_clock, crtc_state->lane_count);
->  =
-
->  		intel_scaler_info(m, crtc);
->  	}
-> -- =
-
-> 2.25.1
-> =
-
-> _______________________________________________
-> Intel-gfx mailing list
-> Intel-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+RnJvbTogVmlsbGUgU3lyasOkbMOkIDx2aWxsZS5zeXJqYWxhQGxpbnV4LmludGVsLmNvbT4KCldl
+IHRlbmQgdG8gdXNlIG91dHB1dF9mb3JtYXQhPVJHQiBhcyBhIHNob3J0aGFuZCBmb3IgWUNiQ3Is
+IGJ1dAp0aGlzIGZhaWxzIGlmIHdlIGhhdmUgYSBkaXNhYmxlZCBjcnRjIHdoZXJlIG91dHB1dF9m
+b3JtYXQ9PUlOVkFMSUQuCldlJ3JlIG5vdyBnZXR0aW5nIHNvbWUgZmFpbCBmcm9tIGludGVsX2Nv
+bG9yX2NoZWNrKCkgd2hlbiB3ZSBoYXZlOgogaHcuZW5hYmxlPT1mYWxzZQogaHcuY3RtIT1OVUxM
+CiBvdXRwdXRfZm9ybWF0PT1JTlZBTElECgpMZXQncyBhdm9pZCB0aGF0IGJ5IHRocm93aW5nIElO
+VEVMX09VVFBVVF9GT1JNQVRfSU5WQUxJRCB0byB0aGUKZHVtcHN0ZXIsIGFuZCB0aHVzIGV2ZXJ5
+dGhpbmcgZGVmYXVsdHMgdG8gUkdCIHdoZW4gdGhlIGNydGMKaXMgZGlzYWJsZWQuCgpUaGlzIGRv
+ZXMgYmVnIHRoZSBkZWVwZXIgcXVlc3Rpb24gb2YgaG93IG11Y2ggb2YgdGhlIHN0YXRlCnNob3Vs
+ZCB3ZSBpbiBmYWN0IGJlIHZhbGlkYXRpbmcgd2hlbiBody91YXBpLmVuYWJsZT09ZmFsc2UuCkFu
+ZCBzaG91bGQgd2UgZXZlbiBiZSBkb2luZyB0aGUgdWFwaS0+aHcgY29weSB3aGVuCnVhcGkuZW5h
+YmxlPT1mYWxzZT8gU28gZmFyIEkndmUgbm90IGJlZW4gYWJsZSB0byBjb21lIHVwIHdpdGgKc2F0
+aXNmYWN0b3J5IGFuc3dlcnMgZm9yIG15c2VsZiwgc28gSSdtIHB1dHRpbmcgaXQgb2ZmIGZvciB0
+aGUKbW9tZW50LgoKQ2M6IExlZSBTaGF3biBDIDxzaGF3bi5jLmxlZUBpbnRlbC5jb20+CkZpeGVz
+OiAwYWE1YzM4MzVjOGEgKCJkcm0vaTkxNTogc3VwcG9ydCB0d28gQ1NDIG1vZHVsZSBvbiBnZW4x
+MSBhbmQgbGF0ZXIiKQpDbG9zZXM6IGh0dHBzOi8vZ2l0bGFiLmZyZWVkZXNrdG9wLm9yZy9kcm0v
+aW50ZWwvLS9pc3N1ZXMvMjk2NApTaWduZWQtb2ZmLWJ5OiBWaWxsZSBTeXJqw6Rsw6QgPHZpbGxl
+LnN5cmphbGFAbGludXguaW50ZWwuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3Bs
+YXkvaW50ZWxfY3J0Yy5jICAgICAgICAgIHwgMSAtCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNw
+bGF5L2ludGVsX2Rpc3BsYXkuYyAgICAgICB8IDMgKy0tCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9k
+aXNwbGF5L2ludGVsX2Rpc3BsYXlfdHlwZXMuaCB8IDEgLQogMyBmaWxlcyBjaGFuZ2VkLCAxIGlu
+c2VydGlvbigrKSwgNCBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
+aTkxNS9kaXNwbGF5L2ludGVsX2NydGMuYyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkv
+aW50ZWxfY3J0Yy5jCmluZGV4IDU3YjBhM2ViZTkwOC4uOGU3N2NhN2RkZjExIDEwMDY0NAotLS0g
+YS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2NydGMuYworKysgYi9kcml2ZXJz
+L2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2NydGMuYwpAQCAtMTA5LDcgKzEwOSw2IEBAIHZv
+aWQgaW50ZWxfY3J0Y19zdGF0ZV9yZXNldChzdHJ1Y3QgaW50ZWxfY3J0Y19zdGF0ZSAqY3J0Y19z
+dGF0ZSwKIAljcnRjX3N0YXRlLT5jcHVfdHJhbnNjb2RlciA9IElOVkFMSURfVFJBTlNDT0RFUjsK
+IAljcnRjX3N0YXRlLT5tYXN0ZXJfdHJhbnNjb2RlciA9IElOVkFMSURfVFJBTlNDT0RFUjsKIAlj
+cnRjX3N0YXRlLT5oc3dfd29ya2Fyb3VuZF9waXBlID0gSU5WQUxJRF9QSVBFOwotCWNydGNfc3Rh
+dGUtPm91dHB1dF9mb3JtYXQgPSBJTlRFTF9PVVRQVVRfRk9STUFUX0lOVkFMSUQ7CiAJY3J0Y19z
+dGF0ZS0+c2NhbGVyX3N0YXRlLnNjYWxlcl9pZCA9IC0xOwogCWNydGNfc3RhdGUtPm1zdF9tYXN0
+ZXJfdHJhbnNjb2RlciA9IElOVkFMSURfVFJBTlNDT0RFUjsKIH0KZGlmZiAtLWdpdCBhL2RyaXZl
+cnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGlzcGxheS5jIGIvZHJpdmVycy9ncHUvZHJt
+L2k5MTUvZGlzcGxheS9pbnRlbF9kaXNwbGF5LmMKaW5kZXggOTJjMTRmM2YwYWJmLi40NmQwMDkz
+MTg3ZjggMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGlz
+cGxheS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGlzcGxheS5j
+CkBAIC0xMDIyMCw3ICsxMDIyMCw2IEBAIHN0YXRpYyB2b2lkIHNucHJpbnRmX291dHB1dF90eXBl
+cyhjaGFyICpidWYsIHNpemVfdCBsZW4sCiB9CiAKIHN0YXRpYyBjb25zdCBjaGFyICogY29uc3Qg
+b3V0cHV0X2Zvcm1hdF9zdHJbXSA9IHsKLQlbSU5URUxfT1VUUFVUX0ZPUk1BVF9JTlZBTElEXSA9
+ICJJbnZhbGlkIiwKIAlbSU5URUxfT1VUUFVUX0ZPUk1BVF9SR0JdID0gIlJHQiIsCiAJW0lOVEVM
+X09VVFBVVF9GT1JNQVRfWUNCQ1I0MjBdID0gIllDQkNSNDoyOjAiLAogCVtJTlRFTF9PVVRQVVRf
+Rk9STUFUX1lDQkNSNDQ0XSA9ICJZQ0JDUjQ6NDo0IiwKQEAgLTEwMjI5LDcgKzEwMjI4LDcgQEAg
+c3RhdGljIGNvbnN0IGNoYXIgKiBjb25zdCBvdXRwdXRfZm9ybWF0X3N0cltdID0gewogc3RhdGlj
+IGNvbnN0IGNoYXIgKm91dHB1dF9mb3JtYXRzKGVudW0gaW50ZWxfb3V0cHV0X2Zvcm1hdCBmb3Jt
+YXQpCiB7CiAJaWYgKGZvcm1hdCA+PSBBUlJBWV9TSVpFKG91dHB1dF9mb3JtYXRfc3RyKSkKLQkJ
+Zm9ybWF0ID0gSU5URUxfT1VUUFVUX0ZPUk1BVF9JTlZBTElEOworCQlyZXR1cm4gImludmFsaWQi
+OwogCXJldHVybiBvdXRwdXRfZm9ybWF0X3N0cltmb3JtYXRdOwogfQogCmRpZmYgLS1naXQgYS9k
+cml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Rpc3BsYXlfdHlwZXMuaCBiL2RyaXZl
+cnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGlzcGxheV90eXBlcy5oCmluZGV4IDMwN2Zm
+NGI3NzFmNC4uYjNhYzM5ZmVhNmYwIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9k
+aXNwbGF5L2ludGVsX2Rpc3BsYXlfdHlwZXMuaAorKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9k
+aXNwbGF5L2ludGVsX2Rpc3BsYXlfdHlwZXMuaApAQCAtODMwLDcgKzgzMCw2IEBAIHN0cnVjdCBp
+bnRlbF9jcnRjX3dtX3N0YXRlIHsKIH07CiAKIGVudW0gaW50ZWxfb3V0cHV0X2Zvcm1hdCB7Ci0J
+SU5URUxfT1VUUFVUX0ZPUk1BVF9JTlZBTElELAogCUlOVEVMX09VVFBVVF9GT1JNQVRfUkdCLAog
+CUlOVEVMX09VVFBVVF9GT1JNQVRfWUNCQ1I0MjAsCiAJSU5URUxfT1VUUFVUX0ZPUk1BVF9ZQ0JD
+UjQ0NCwKLS0gCjIuMjYuMgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRlbC1nZnhAbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vaW50
+ZWwtZ2Z4Cg==
