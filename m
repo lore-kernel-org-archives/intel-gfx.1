@@ -2,71 +2,49 @@ Return-Path: <SRS0=PZs0=HH=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 061DEC433E0
-	for <intel-gfx@archiver.kernel.org>; Fri,  5 Feb 2021 15:46:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3C50AC433DB
+	for <intel-gfx@archiver.kernel.org>; Fri,  5 Feb 2021 15:58:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 79F2764DCC
-	for <intel-gfx@archiver.kernel.org>; Fri,  5 Feb 2021 15:46:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 79F2764DCC
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	by mail.kernel.org (Postfix) with ESMTPS id 87F4364E5D
+	for <intel-gfx@archiver.kernel.org>; Fri,  5 Feb 2021 15:58:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 87F4364E5D
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C3C346F476;
-	Fri,  5 Feb 2021 15:46:32 +0000 (UTC)
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [IPv6:2a00:1450:4864:20::434])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 99D0D6F473
- for <intel-gfx@lists.freedesktop.org>; Fri,  5 Feb 2021 15:46:31 +0000 (UTC)
-Received: by mail-wr1-x434.google.com with SMTP id c12so8172012wrc.7
- for <intel-gfx@lists.freedesktop.org>; Fri, 05 Feb 2021 07:46:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to;
- bh=u7/SEuxGGSvFM5z0jDsJr4RJEXZQqJFQ1pl7RdrOS98=;
- b=Z/eoqfWBxwZ/W2rEqpKdTLi2fo3bgkS/h1YY3EKe6gCPQ3n5bjVH4v+HLxNhtb2R1y
- g+8+1Y2T5RGYjNLVBqntdJJ+un1ajfX9as+XycVTsnv99ZVhVlAqCb5IgQVokK9a4kyN
- x3w4YwZPsXEdF712drA8fTHLKh+969eg5fxIM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to;
- bh=u7/SEuxGGSvFM5z0jDsJr4RJEXZQqJFQ1pl7RdrOS98=;
- b=IQkLrmFKl1d/k9f8x4yJP8i8EdF4tZlr9I55LxYs2SiSft6hwf6/F2v5zITqgE1VRL
- rUELCpaueY2aPVIgqGlBdR8VHUmuE+sDeIN6snOnetub+LEZ6m5Ui4Al+sKdjbt9iFmm
- uEzdgwcoMUG5KWNsdZKcTKRMPhzh6G+bKHsIXgYtaztdo3cHHQ8jDjakegfZMuVnoYlu
- kIn9/u0y+SPcpuSWIAmm7gmApQQH8d0FeyVMXLeyOEcHKyo24cZgbigJmimo8IKzPDa8
- HKywbp/aAR7/UGeWW5UfuzKEn794mQGteapaf8CTbK78c+CjIdpGgm0qHSyvfOHzljNm
- AKBg==
-X-Gm-Message-State: AOAM532ipH3JysQiNxs0qkA6HRyw3PdWw5A9iyTzmhrf4JCB5NhOCoF2
- GDtdxd57T+AgadyH71uKVzrGxA==
-X-Google-Smtp-Source: ABdhPJz1uu37n/Ve0IhcDHT+Qsa7AZj2hRN+Msh59y87I6TiAg+GOL/u5CF2lNYUekYTivYeYqoZEg==
-X-Received: by 2002:a05:6000:8c:: with SMTP id
- m12mr5726096wrx.101.1612539990351; 
- Fri, 05 Feb 2021 07:46:30 -0800 (PST)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id q9sm10386588wme.18.2021.02.05.07.46.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 05 Feb 2021 07:46:29 -0800 (PST)
-Date: Fri, 5 Feb 2021 16:46:27 +0100
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-Message-ID: <YB1oU6asAR3ki4ZT@phenom.ffwll.local>
-References: <20210204020400.29628-1-ville.syrjala@linux.intel.com>
- <YBwTgHwZwMr8PwMr@phenom.ffwll.local> <YBwY8DZnrPNXYvfy@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D4E016F47A;
+	Fri,  5 Feb 2021 15:58:14 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2FE986F47A
+ for <intel-gfx@lists.freedesktop.org>; Fri,  5 Feb 2021 15:58:14 +0000 (UTC)
+IronPort-SDR: 0HfrmwtvsieggFLe2xchJWpaOLo9YYO8EEEuHdq1RxtkfxBOsgJBnt6t/EOkd9s+FLjM4hYlU4
+ gPSbd3rzlS6w==
+X-IronPort-AV: E=McAfee;i="6000,8403,9885"; a="181514198"
+X-IronPort-AV: E=Sophos;i="5.81,155,1610438400"; d="scan'208";a="181514198"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Feb 2021 07:58:13 -0800
+IronPort-SDR: VhoeKCYA+PDKquIOudl6zK4V5p6jTLXOxFuoAx9EBSxQbhH87S1pyB7CxlProdJw21sL9mHIEZ
+ 6WbROA4Z13AQ==
+X-IronPort-AV: E=Sophos;i="5.81,155,1610438400"; d="scan'208";a="373429949"
+Received: from cabrazil-mobl.amr.corp.intel.com (HELO josouza-mobl2.intel.com)
+ ([10.254.177.163])
+ by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Feb 2021 07:58:11 -0800
+From: =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Fri,  5 Feb 2021 07:59:31 -0800
+Message-Id: <20210205155931.198122-1-jose.souza@intel.com>
+X-Mailer: git-send-email 2.30.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <YBwY8DZnrPNXYvfy@intel.com>
-X-Operating-System: Linux phenom 5.7.0-1-amd64 
-Subject: Re: [Intel-gfx] [PATCH] drm/vblank: Avoid storing a timestamp for
- the same frame twice
+Subject: [Intel-gfx] [PATCH] drm/i915/display: Allow PSR2 selective fetch to
+ be enabled at run-time
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,167 +57,49 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org,
- Dhinakaran Pandiyan <dhinakaran.pandiyan@intel.com>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Feb 04, 2021 at 05:55:28PM +0200, Ville Syrj=E4l=E4 wrote:
-> On Thu, Feb 04, 2021 at 04:32:16PM +0100, Daniel Vetter wrote:
-> > On Thu, Feb 04, 2021 at 04:04:00AM +0200, Ville Syrjala wrote:
-> > > From: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
-> > > =
-
-> > > drm_vblank_restore() exists because certain power saving states
-> > > can clobber the hardware frame counter. The way it does this is
-> > > by guesstimating how many frames were missed purely based on
-> > > the difference between the last stored timestamp vs. a newly
-> > > sampled timestamp.
-> > > =
-
-> > > If we should call this function before a full frame has
-> > > elapsed since we sampled the last timestamp we would end up
-> > > with a possibly slightly different timestamp value for the
-> > > same frame. Currently we will happily overwrite the already
-> > > stored timestamp for the frame with the new value. This
-> > > could cause userspace to observe two different timestamps
-> > > for the same frame (and the timestamp could even go
-> > > backwards depending on how much error we introduce when
-> > > correcting the timestamp based on the scanout position).
-> > > =
-
-> > > To avoid that let's not update the stored timestamp unless we're
-> > > also incrementing the sequence counter. We do still want to update
-> > > vblank->last with the freshly sampled hw frame counter value so
-> > > that subsequent vblank irqs/queries can actually use the hw frame
-> > > counter to determine how many frames have elapsed.
-> > =
-
-> > Hm I'm not getting the reason for why we store the updated hw vblank
-> > counter?
-> =
-
-> Because next time a vblank irq happens the code will do:
-> diff =3D current_hw_counter - vblank->last
-> =
-
-> which won't work very well if vblank->last is garbage.
-> =
-
-> Updating vblank->last is pretty much why drm_vblank_restore()
-> exists at all.
-
-Oh sure, _restore has to update this, together with the timestamp.
-
-But your code adds such an update where we update the hw vblank counter,
-but not the timestamp, and that feels buggy. Either we're still in the
-same frame, and then we should story nothing. Or we advanced, and then we
-probably want a new timestampt for that frame too.
-
-Advancing the vblank counter and not advancing the timestamp sounds like a
-bug in our code.
-
-> > There's definitely a race when we grab the hw timestamp at a bad time
-> > (which can't happen for the irq handler, realistically), so maybe we
-> > should first adjust that to make sure we never store anything inconsist=
-ent
-> > in the vblank state?
-> =
-
-> Not sure what race you mean, or what inconsistent thing we store?
-
-For the drm_handle_vblank code we have some fudge so we don't compute
-something silly when the irq fires (like it often does) before
-top-of-frame. Ofc that fudge is inheritedly racy, if the irq is extremely
-delay (almost an entire frame) we'll get it wrong.
-
-In practice it doesn't matter.
-
-Now _restore can be called anytime, so we might end up in situations where
-the exact point where we jump to the next frame count, and the exact time
-where the hw counter jumps, don't lign up. And I think in that case funny
-things can happen, and I'm not sure your approach of "update hw counter
-but don't update timestamp" is the right way.
-
-I think if we instead ignore any update if our fudge-corrected timestamp
-is roughly the same, then we handle that race correctly and there's no
-jumping around.
-
-Cheers, Daniel
-
-> > And when we have that we should be able to pull the inc =3D=3D 0 check =
-out
-> > into _restore(), including comment. Which I think should be cleaner.
-> > =
-
-> > Or I'm totally off with why you want to store the hw vblank counter?
-> > =
-
-> > > =
-
-> > > Cc: Dhinakaran Pandiyan <dhinakaran.pandiyan@intel.com>
-> > > Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-> > > Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
-> > > Signed-off-by: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
-> > > ---
-> > >  drivers/gpu/drm/drm_vblank.c | 11 +++++++++++
-> > >  1 file changed, 11 insertions(+)
-> > > =
-
-> > > diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/drm_vblan=
-k.c
-> > > index 893165eeddf3..e127a7db2088 100644
-> > > --- a/drivers/gpu/drm/drm_vblank.c
-> > > +++ b/drivers/gpu/drm/drm_vblank.c
-> > > @@ -176,6 +176,17 @@ static void store_vblank(struct drm_device *dev,=
- unsigned int pipe,
-> > >  =
-
-> > >  	vblank->last =3D last;
-> > >  =
-
-> > > +	/*
-> > > +	 * drm_vblank_restore() wants to always update
-> > > +	 * vblank->last since we can't trust the frame counter
-> > > +	 * across power saving states. But we don't want to alter
-> > > +	 * the stored timestamp for the same frame number since
-> > > +	 * that would cause userspace to potentially observe two
-> > > +	 * different timestamps for the same frame.
-> > > +	 */
-> > > +	if (vblank_count_inc =3D=3D 0)
-> > > +		return;
-> > > +
-> > >  	write_seqlock(&vblank->seqlock);
-> > >  	vblank->time =3D t_vblank;
-> > >  	atomic64_add(vblank_count_inc, &vblank->count);
-> > > -- =
-
-> > > 2.26.2
-> > > =
-
-> > =
-
-> > -- =
-
-> > Daniel Vetter
-> > Software Engineer, Intel Corporation
-> > http://blog.ffwll.ch
-> =
-
-> -- =
-
-> Ville Syrj=E4l=E4
-> Intel
-
--- =
-
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+UmlnaHQgbm93IENJIGlzIGJsYWNrbGlzdGluZyBtb2R1bGUgcmVsb2FkLCBzbyB3ZSBuZWVkIHRv
+IGJlIGFibGUgdG8KZW5hYmxlIFBTUjIgc2VsZWN0aXZlIGZldGNoIGluIHJ1biB0aW1lIHRvIHRl
+c3QgdGhpcyBmZWF0dXJlIGJlZm9yZQplbmFibGUgaXQgYnkgZGVmYXVsdC4KQ2hhbmdlcyBpbiBJ
+R1Qgd2lsbCBhbHNvIGJlIG5lZWRlZC4KCkNjOiBHd2FuLWd5ZW9uZyBNdW4gPGd3YW4tZ3llb25n
+Lm11bkBpbnRlbC5jb20+ClNpZ25lZC1vZmYtYnk6IEpvc8OpIFJvYmVydG8gZGUgU291emEgPGpv
+c2Uuc291emFAaW50ZWwuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50
+ZWxfZGlzcGxheV90eXBlcy5oIHwgMSArCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2lu
+dGVsX3Bzci5jICAgICAgICAgICB8IDYgKysrKy0tCiAyIGZpbGVzIGNoYW5nZWQsIDUgaW5zZXJ0
+aW9ucygrKSwgMiBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkx
+NS9kaXNwbGF5L2ludGVsX2Rpc3BsYXlfdHlwZXMuaCBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rp
+c3BsYXkvaW50ZWxfZGlzcGxheV90eXBlcy5oCmluZGV4IDMwN2ZmNGI3NzFmNC4uZDc4NTMwYWJm
+ZWYyIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Rpc3Bs
+YXlfdHlwZXMuaAorKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Rpc3Bs
+YXlfdHlwZXMuaApAQCAtMTQyNCw2ICsxNDI0LDcgQEAgc3RydWN0IGludGVsX3BzciB7CiAjZGVm
+aW5lIEk5MTVfUFNSX0RFQlVHX0RJU0FCTEUJCTB4MDEKICNkZWZpbmUgSTkxNV9QU1JfREVCVUdf
+RU5BQkxFCQkweDAyCiAjZGVmaW5lIEk5MTVfUFNSX0RFQlVHX0ZPUkNFX1BTUjEJMHgwMworI2Rl
+ZmluZSBJOTE1X1BTUl9ERUJVR19FTkFCTEVfU0VMX0ZFVENICTB4NAogI2RlZmluZSBJOTE1X1BT
+Ul9ERUJVR19JUlEJCTB4MTAKIAogCXUzMiBkZWJ1ZzsKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
+L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfcHNyLmMgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNw
+bGF5L2ludGVsX3Bzci5jCmluZGV4IDI4NDIzMzU2ZDUzYi4uZWFiYjlhMGMyMTY0IDEwMDY0NAot
+LS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX3Bzci5jCisrKyBiL2RyaXZl
+cnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfcHNyLmMKQEAgLTY4Myw3ICs2ODMsOCBAQCBz
+dGF0aWMgYm9vbCBpbnRlbF9wc3IyX3NlbF9mZXRjaF9jb25maWdfdmFsaWQoc3RydWN0IGludGVs
+X2RwICppbnRlbF9kcCwKIAlzdHJ1Y3QgaW50ZWxfcGxhbmUgKnBsYW5lOwogCWludCBpOwogCi0J
+aWYgKCFkZXZfcHJpdi0+cGFyYW1zLmVuYWJsZV9wc3IyX3NlbF9mZXRjaCkgeworCWlmICghZGV2
+X3ByaXYtPnBhcmFtcy5lbmFibGVfcHNyMl9zZWxfZmV0Y2ggJiYKKwkgICAgaW50ZWxfZHAtPnBz
+ci5kZWJ1ZyAhPSBJOTE1X1BTUl9ERUJVR19FTkFCTEVfU0VMX0ZFVENIKSB7CiAJCWRybV9kYmdf
+a21zKCZkZXZfcHJpdi0+ZHJtLAogCQkJICAgICJQU1IyIHNlbCBmZXRjaCBub3QgZW5hYmxlZCwg
+ZGlzYWJsZWQgYnkgcGFyYW1ldGVyXG4iKTsKIAkJcmV0dXJuIGZhbHNlOwpAQCAtMTQ0Nyw3ICsx
+NDQ4LDggQEAgdm9pZCBpbnRlbF9wc3JfdXBkYXRlKHN0cnVjdCBpbnRlbF9kcCAqaW50ZWxfZHAs
+CiAJZW5hYmxlID0gY3J0Y19zdGF0ZS0+aGFzX3BzcjsKIAlwc3IyX2VuYWJsZSA9IGNydGNfc3Rh
+dGUtPmhhc19wc3IyOwogCi0JaWYgKGVuYWJsZSA9PSBwc3ItPmVuYWJsZWQgJiYgcHNyMl9lbmFi
+bGUgPT0gcHNyLT5wc3IyX2VuYWJsZWQpIHsKKwlpZiAoZW5hYmxlID09IHBzci0+ZW5hYmxlZCAm
+JiBwc3IyX2VuYWJsZSA9PSBwc3ItPnBzcjJfZW5hYmxlZCAmJgorCSAgICBjcnRjX3N0YXRlLT5l
+bmFibGVfcHNyMl9zZWxfZmV0Y2ggPT0gcHNyLT5wc3IyX3NlbF9mZXRjaF9lbmFibGVkKSB7CiAJ
+CS8qIEZvcmNlIGEgUFNSIGV4aXQgd2hlbiBlbmFibGluZyBDUkMgdG8gYXZvaWQgQ1JDIHRpbWVv
+dXRzICovCiAJCWlmIChjcnRjX3N0YXRlLT5jcmNfZW5hYmxlZCAmJiBwc3ItPmVuYWJsZWQpCiAJ
+CQlwc3JfZm9yY2VfaHdfdHJhY2tpbmdfZXhpdChpbnRlbF9kcCk7Ci0tIAoyLjMwLjAKCl9fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkludGVsLWdmeCBtYWls
+aW5nIGxpc3QKSW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZy
+ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ludGVsLWdmeAo=
