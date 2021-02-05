@@ -1,62 +1,45 @@
 Return-Path: <SRS0=PZs0=HH=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
-X-Spam-Level: **
-X-Spam-Status: No, score=2.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Level: 
+X-Spam-Status: No, score=-3.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6511FC433DB
-	for <intel-gfx@archiver.kernel.org>; Fri,  5 Feb 2021 13:08:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1F719C433E0
+	for <intel-gfx@archiver.kernel.org>; Fri,  5 Feb 2021 13:09:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F27F864F38
-	for <intel-gfx@archiver.kernel.org>; Fri,  5 Feb 2021 13:08:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F27F864F38
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 4A0D964F3A
+	for <intel-gfx@archiver.kernel.org>; Fri,  5 Feb 2021 13:09:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4A0D964F3A
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 652336E2D5;
-	Fri,  5 Feb 2021 13:08:03 +0000 (UTC)
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [IPv6:2a00:1450:4864:20::532])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B32D7897F5
- for <intel-gfx@lists.freedesktop.org>; Thu,  4 Feb 2021 13:36:50 +0000 (UTC)
-Received: by mail-ed1-x532.google.com with SMTP id df22so4164403edb.1
- for <intel-gfx@lists.freedesktop.org>; Thu, 04 Feb 2021 05:36:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=6Puo/qjllLNLmfWe2RSzvJwUnGg4WHNNM3A+8y14qB8=;
- b=RPOgyh434hRTrCjINTKhinEAjyO3Wxq5X2AemuTUgDGlQcavVKeEBbjYhMLaE8Tpam
- 3/2+LpF1E42tlFgQxYGLN/YkQ1tX5qTpwjMp48wHWIsniDWW5xhRL3CLHLj7UKKm0FZi
- kddldMUiSHfRI9L97aB4uEU2jTl+K5+OEqHLQGTuQSZyS6TQhaHGJD5IVosXVI5GbaQh
- 5TBEXLqwmA7e7aEGzbdPgWvgzgtV50L8WbEz3novIXXNUJA06sfWDhzYBJl2pdNwsqAE
- SR/oHDZMG0Wm+QnyVbgP35EG3kYWNCrFiYYv2qOw59s8duNjEKqSw6DHL1Nw8X5+Ztvh
- i61Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=6Puo/qjllLNLmfWe2RSzvJwUnGg4WHNNM3A+8y14qB8=;
- b=WsRp8PM9KojqO/yf71Q2fSZA1GAMWuEGcTpNRPHlckpmDpBDEfulu4+nmHA6AJ7v9x
- nB2HpEvOY9i8nxzzbONeAP5PhM6GBt8Np0rfqsy0b5OtIi5NGGDw6DmqBTtcO/jlSPEq
- hWTGqMdJJOMrtYjyaXXQGpjV6u89UnF2Xk6xtvLh7tjChi3783Yps8zzl08EVBTTnNuk
- cIT1OH0FtbElKG0gPtWGTIoqTOhcP+b+gXJDzJS6wK2Xzfe3/Vv3IGmNVpBHwngowvqu
- Y3sJKJkJ9Rvr3bi0g/aQ5l0xxZFUIpxjVa6sR9CbPyNq+p7YKczExozznPvmz4NguFum
- T9tQ==
-X-Gm-Message-State: AOAM533tIIWb9NlET/M/E54tFK6ZfCwycPsAq7KtraVLNlRpJB6yXxUu
- ishZ6//IGyjf5CAfDl9Uz2ecRV6YtyKr5BqtcMW8HrAh
-X-Google-Smtp-Source: ABdhPJzDmtTXxLRsTgFdw3P8pELxuMimfoGsm+Hh4g56YjgM6RNy+oqlNBoozPgGG3OGX9ef6V/FWXRdl/Nd6Stc/Yg=
-X-Received: by 2002:aa7:d34e:: with SMTP id m14mr844525edr.38.1612445809271;
- Thu, 04 Feb 2021 05:36:49 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B71996E328;
+	Fri,  5 Feb 2021 13:09:10 +0000 (UTC)
+Received: from fireflyinternet.com (unknown [77.68.26.236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D9AB6E328
+ for <intel-gfx@lists.freedesktop.org>; Fri,  5 Feb 2021 13:09:08 +0000 (UTC)
+X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
+ x-ip-name=78.156.69.177; 
+Received: from localhost (unverified [78.156.69.177]) 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP (TLS) id
+ 23797957-1500050 for multiple; Fri, 05 Feb 2021 13:09:05 +0000
 MIME-Version: 1.0
-From: FIKRI ADLY AKBAR18 <fbae48630@gmail.com>
-Date: Thu, 4 Feb 2021 20:36:35 +0700
-Message-ID: <CAG5=aZ+Kp_xMgb8X39xuhnd=Z4ZWEvdfZLsofOAQo0adPwe=MQ@mail.gmail.com>
-To: intel-gfx@lists.freedesktop.org
-X-Mailman-Approved-At: Fri, 05 Feb 2021 13:08:02 +0000
-Subject: Re: [Intel-gfx] [PATCH 32/56] drm/i915: Move scheduler queue
+In-Reply-To: <SN6PR11MB323124F642BB6673B40E2923E7B29@SN6PR11MB3231.namprd11.prod.outlook.com>
+References: <20210104103036.1443-1-saichandana.s@intel.com>
+ <20210115130110.2650-1-saichandana.s@intel.com>
+ <161071683896.19482.14027072347342754368@build.alporthouse.com>
+ <SN6PR11MB323124F642BB6673B40E2923E7B29@SN6PR11MB3231.namprd11.prod.outlook.com>
+From: Chris Wilson <chris@chris-wilson.co.uk>
+To: "S, Saichandana" <saichandana.s@intel.com>, intel-gfx@lists.freedesktop.org
+Date: Fri, 05 Feb 2021 13:09:04 +0000
+Message-ID: <161253054434.17965.6315708704973801912@build.alporthouse.com>
+User-Agent: alot/0.9
+Subject: Re: [Intel-gfx] [PATCH v4] drm/i915/debugfs : PM_REQ and PM_RES
+ registers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,34 +52,49 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0832807168=="
+Cc: "Nikula, Jani" <jani.nikula@intel.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============0832807168==
-Content-Type: multipart/alternative; boundary="000000000000ae662f05ba82cb28"
+Quoting S, Saichandana (2021-02-05 13:05:20)
+> 
+> 
+> > -----Original Message-----
+> > From: Chris Wilson <chris@chris-wilson.co.uk>
+> > Sent: Friday, January 15, 2021 6:51 PM
+> > To: S, Saichandana <saichandana.s@intel.com>; intel-
+> > gfx@lists.freedesktop.org
+> > Cc: Nikula, Jani <jani.nikula@intel.com>; S, Saichandana
+> > <saichandana.s@intel.com>
+> > Subject: Re: [Intel-gfx] [PATCH v4] drm/i915/debugfs : PM_REQ and
+> > PM_RES registers
+> > 
+> > Quoting Saichandana S (2021-01-15 13:01:10)
+> > > +static int i915_pm_req_res_info(struct seq_file *m, void *unused) {
+> > > +       struct drm_i915_private *i915 = node_to_i915(m->private);
+> > > +       struct intel_csr *csr = &i915->csr;
+> > > +       u32 DC9_status;
+> > > +
+> > > +       if (!HAS_CSR(i915))
+> > > +               return -ENODEV;
+> > > +       if (!csr->dmc_payload)
+> > > +               return 0;
+> > > +       DC9_status = intel_de_read(i915, PM_RSP_DBG_1) &
+> > > + PM_RESP_DC9_READY;
+> > 
+> > A read without waking the device up? Wait until IGT sees this.
+> > [wrap with with_intel_runtime_pm(&i915->runtime_pm, wakeref)] -Chris
+> >
+> >Using wakeref, doesn't allow i915 to go to suspend state, further blocking display DC9 entry. Thus wakeref IGT test will fail.
+> >[S, Saichandana]
 
---000000000000ae662f05ba82cb28
-Content-Type: text/plain; charset="UTF-8"
+And yet you cannot read this register without waking the device up.
 
-
-
---000000000000ae662f05ba82cb28
-Content-Type: text/html; charset="UTF-8"
-
-<div dir="auto"></div>
-
---000000000000ae662f05ba82cb28--
-
---===============0832807168==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+Do we conclude that this is a bad test design?
+-Chris
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-
---===============0832807168==--
