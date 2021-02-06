@@ -2,41 +2,42 @@ Return-Path: <SRS0=amze=HI=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 46D55C433E6
-	for <intel-gfx@archiver.kernel.org>; Sat,  6 Feb 2021 00:20:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B7882C433E6
+	for <intel-gfx@archiver.kernel.org>; Sat,  6 Feb 2021 01:20:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EB92765013
-	for <intel-gfx@archiver.kernel.org>; Sat,  6 Feb 2021 00:20:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EB92765013
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id 03BB96501A
+	for <intel-gfx@archiver.kernel.org>; Sat,  6 Feb 2021 01:20:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 03BB96501A
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8754E6F52A;
-	Sat,  6 Feb 2021 00:20:11 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 1A32A6F52A;
- Sat,  6 Feb 2021 00:20:10 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 0AC28A47DB;
- Sat,  6 Feb 2021 00:20:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 623FF6F548;
+	Sat,  6 Feb 2021 01:20:29 +0000 (UTC)
+Received: from fireflyinternet.com (unknown [77.68.26.236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B42686F542
+ for <intel-gfx@lists.freedesktop.org>; Sat,  6 Feb 2021 01:20:27 +0000 (UTC)
+X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
+ x-ip-name=78.156.69.177; 
+Received: from build.alporthouse.com (unverified [78.156.69.177]) 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23803963-1500050 
+ for <intel-gfx@lists.freedesktop.org>; Sat, 06 Feb 2021 01:20:20 +0000
+From: Chris Wilson <chris@chris-wilson.co.uk>
+To: intel-gfx@lists.freedesktop.org
+Date: Sat,  6 Feb 2021 01:20:19 +0000
+Message-Id: <20210206012019.27451-5-chris@chris-wilson.co.uk>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20210206012019.27451-1-chris@chris-wilson.co.uk>
+References: <20210206012019.27451-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Ville Syrjala" <ville.syrjala@linux.intel.com>
-Date: Sat, 06 Feb 2021 00:20:10 -0000
-Message-ID: <161257081001.3570.18275756440664086267@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20210205214634.19341-1-ville.syrjala@linux.intel.com>
-In-Reply-To: <20210205214634.19341-1-ville.syrjala@linux.intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZHJt?=
- =?utf-8?q?/i915=3A_Clean_up_the_DDI_clock_routing_mess_=28rev3=29?=
+Subject: [Intel-gfx] [CI 5/5] drm/i915/gt: Only kick the scheduler on
+ timeslice/preemption change
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,247 +50,50 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
-Content-Type: multipart/mixed; boundary="===============0160036373=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============0160036373==
-Content-Type: multipart/alternative;
- boundary="===============3130629477091638907=="
+Kick the scheduler to allow it to see the timeslice duration change,
+don't peek into execlists.
 
---===============3130629477091638907==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+---
+ drivers/gpu/drm/i915/gt/sysfs_engines.c | 8 ++------
+ 1 file changed, 2 insertions(+), 6 deletions(-)
 
-== Series Details ==
-
-Series: drm/i915: Clean up the DDI clock routing mess (rev3)
-URL   : https://patchwork.freedesktop.org/series/86544/
-State : success
-
-== Summary ==
-
-CI Bug Log - changes from CI_DRM_9740 -> Patchwork_19613
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19613/index.html
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_19613 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@gem_huc_copy@huc-copy:
-    - fi-byt-j1900:       NOTRUN -> [SKIP][1] ([fdo#109271]) +27 similar issues
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19613/fi-byt-j1900/igt@gem_huc_copy@huc-copy.html
-
-  * igt@i915_selftest@live@execlists:
-    - fi-bsw-nick:        [PASS][2] -> [INCOMPLETE][3] ([i915#2940])
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9740/fi-bsw-nick/igt@i915_selftest@live@execlists.html
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19613/fi-bsw-nick/igt@i915_selftest@live@execlists.html
-
-  * igt@kms_chamelium@hdmi-crc-fast:
-    - fi-byt-j1900:       NOTRUN -> [SKIP][4] ([fdo#109271] / [fdo#111827]) +8 similar issues
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19613/fi-byt-j1900/igt@kms_chamelium@hdmi-crc-fast.html
-
-  * igt@runner@aborted:
-    - fi-bsw-nick:        NOTRUN -> [FAIL][5] ([i915#1436])
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19613/fi-bsw-nick/igt@runner@aborted.html
-
-  * igt@vgem_basic@mmap:
-    - fi-tgl-y:           [PASS][6] -> [DMESG-WARN][7] ([i915#402]) +2 similar issues
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9740/fi-tgl-y/igt@vgem_basic@mmap.html
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19613/fi-tgl-y/igt@vgem_basic@mmap.html
-
-  
-#### Possible fixes ####
-
-  * igt@prime_self_import@basic-with_one_bo_two_files:
-    - fi-tgl-y:           [DMESG-WARN][8] ([i915#402]) -> [PASS][9] +1 similar issue
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9740/fi-tgl-y/igt@prime_self_import@basic-with_one_bo_two_files.html
-   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19613/fi-tgl-y/igt@prime_self_import@basic-with_one_bo_two_files.html
-
-  
-  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
-  [fdo#111827]: https://bugs.freedesktop.org/show_bug.cgi?id=111827
-  [i915#1436]: https://gitlab.freedesktop.org/drm/intel/issues/1436
-  [i915#2940]: https://gitlab.freedesktop.org/drm/intel/issues/2940
-  [i915#402]: https://gitlab.freedesktop.org/drm/intel/issues/402
-
-
-Participating hosts (43 -> 38)
-------------------------------
-
-  Additional (1): fi-byt-j1900 
-  Missing    (6): fi-jsl-1 fi-ilk-m540 fi-hsw-4200u fi-bsw-cyan fi-ctg-p8600 fi-bdw-samus 
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_9740 -> Patchwork_19613
-
-  CI-20190529: 20190529
-  CI_DRM_9740: d0d6b3dabc3c5f35990abedf7361eb27f7123f4d @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_5993: b1225ec25d5671a985c5bb48739111d2e8a723cf @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools
-  Patchwork_19613: 418fa1f5fb93cd720e9911ed4f809cdd22adeca4 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-
-== Linux commits ==
-
-418fa1f5fb93 drm/i915: s/dev_priv/i915/ for the remainder of DDI clock routing
-649993c52249 drm/i915: Relocate icl_sanitize_encoder_pll_mapping()
-47f613addb9d drm/i915: Use .disable_clock() for pll sanitation
-ecafbcddb924 drm/i915: Split adl-s/rkl from icl_ddi_combo_{enable, disable}_clock()
-89983fc4363a drm/i915: Extract _cnl_ddi_{enable, disable}_clock()
-f987335252b3 drm/i915: Sprinkle WARN(!pll) into icl/dg1 .clock_enable()
-9b04986ef8f2 drm/i915: Sprinkle a few missing locks around shared DDI clock registers
-37115fc6c61d drm/i915: Use intel_de_rmw() for DDI clock routing
-2d0451ebdcae drm/i915: Extract icl+ .{enable, disable}_clock() vfuncs
-77273dccc0c5 drm/i915: Convert DG1 over to .{enable, disable}_clock()
-00e920f321c9 drm/i195: Extract cnl_ddi_{enable, disable}_clock()
-ee8eea416db2 drm/i915: Extract skl_ddi_{enable, disable}_clock()
-9d4d81c6506a drm/i915: Extract hsw_ddi_{enable, disable}_clock()
-714543e726a1 drm/i915: Introduce .{enable, disable}_clock() encoder vfuncs
-fb756117b976 drm/i915: Use intel_ddi_clk_select() for FDI
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19613/index.html
-
---===============3130629477091638907==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915: Clean up the DDI clock routing mess (rev3)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/86544/">https://patchwork.freedesktop.org/series/86544/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19613/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19613/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_9740 -&gt; Patchwork_19613</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19613/index.html</p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_19613 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@gem_huc_copy@huc-copy:</p>
-<ul>
-<li>fi-byt-j1900:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19613/fi-byt-j1900/igt@gem_huc_copy@huc-copy.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +27 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@execlists:</p>
-<ul>
-<li>fi-bsw-nick:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9740/fi-bsw-nick/igt@i915_selftest@live@execlists.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19613/fi-bsw-nick/igt@i915_selftest@live@execlists.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2940">i915#2940</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_chamelium@hdmi-crc-fast:</p>
-<ul>
-<li>fi-byt-j1900:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19613/fi-byt-j1900/igt@kms_chamelium@hdmi-crc-fast.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://bugs.freedesktop.org/show_bug.cgi?id=111827">fdo#111827</a>) +8 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@runner@aborted:</p>
-<ul>
-<li>fi-bsw-nick:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19613/fi-bsw-nick/igt@runner@aborted.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1436">i915#1436</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@vgem_basic@mmap:</p>
-<ul>
-<li>fi-tgl-y:           <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9740/fi-tgl-y/igt@vgem_basic@mmap.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19613/fi-tgl-y/igt@vgem_basic@mmap.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/402">i915#402</a>) +2 similar issues</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>igt@prime_self_import@basic-with_one_bo_two_files:<ul>
-<li>fi-tgl-y:           <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9740/fi-tgl-y/igt@prime_self_import@basic-with_one_bo_two_files.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/402">i915#402</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19613/fi-tgl-y/igt@prime_self_import@basic-with_one_bo_two_files.html">PASS</a> +1 similar issue</li>
-</ul>
-</li>
-</ul>
-<h2>Participating hosts (43 -&gt; 38)</h2>
-<p>Additional (1): fi-byt-j1900 <br />
-  Missing    (6): fi-jsl-1 fi-ilk-m540 fi-hsw-4200u fi-bsw-cyan fi-ctg-p8600 fi-bdw-samus </p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_9740 -&gt; Patchwork_19613</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_9740: d0d6b3dabc3c5f35990abedf7361eb27f7123f4d @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_5993: b1225ec25d5671a985c5bb48739111d2e8a723cf @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools<br />
-  Patchwork_19613: 418fa1f5fb93cd720e9911ed4f809cdd22adeca4 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<p>== Linux commits ==</p>
-<p>418fa1f5fb93 drm/i915: s/dev_priv/i915/ for the remainder of DDI clock routing<br />
-649993c52249 drm/i915: Relocate icl_sanitize_encoder_pll_mapping()<br />
-47f613addb9d drm/i915: Use .disable_clock() for pll sanitation<br />
-ecafbcddb924 drm/i915: Split adl-s/rkl from icl_ddi_combo_{enable, disable}<em>clock()<br />
-89983fc4363a drm/i915: Extract _cnl_ddi</em>{enable, disable}<em>clock()<br />
-f987335252b3 drm/i915: Sprinkle WARN(!pll) into icl/dg1 .clock_enable()<br />
-9b04986ef8f2 drm/i915: Sprinkle a few missing locks around shared DDI clock registers<br />
-37115fc6c61d drm/i915: Use intel_de_rmw() for DDI clock routing<br />
-2d0451ebdcae drm/i915: Extract icl+ .{enable, disable}_clock() vfuncs<br />
-77273dccc0c5 drm/i915: Convert DG1 over to .{enable, disable}_clock()<br />
-00e920f321c9 drm/i195: Extract cnl_ddi</em>{enable, disable}<em>clock()<br />
-ee8eea416db2 drm/i915: Extract skl_ddi</em>{enable, disable}<em>clock()<br />
-9d4d81c6506a drm/i915: Extract hsw_ddi</em>{enable, disable}_clock()<br />
-714543e726a1 drm/i915: Introduce .{enable, disable}_clock() encoder vfuncs<br />
-fb756117b976 drm/i915: Use intel_ddi_clk_select() for FDI</p>
-
-</body>
-</html>
-
---===============3130629477091638907==--
-
---===============0160036373==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/drivers/gpu/drm/i915/gt/sysfs_engines.c b/drivers/gpu/drm/i915/gt/sysfs_engines.c
+index 57ef5383dd4e..70506f43d6be 100644
+--- a/drivers/gpu/drm/i915/gt/sysfs_engines.c
++++ b/drivers/gpu/drm/i915/gt/sysfs_engines.c
+@@ -222,9 +222,7 @@ timeslice_store(struct kobject *kobj, struct kobj_attribute *attr,
+ 		return -EINVAL;
+ 
+ 	WRITE_ONCE(engine->props.timeslice_duration_ms, duration);
+-
+-	if (execlists_active(&engine->execlists))
+-		set_timer_ms(&engine->execlists.timer, duration);
++	intel_engine_kick_scheduler(engine);
+ 
+ 	return count;
+ }
+@@ -326,9 +324,7 @@ preempt_timeout_store(struct kobject *kobj, struct kobj_attribute *attr,
+ 		return -EINVAL;
+ 
+ 	WRITE_ONCE(engine->props.preempt_timeout_ms, timeout);
+-
+-	if (READ_ONCE(engine->execlists.pending[0]))
+-		set_timer_ms(&engine->execlists.preempt, timeout);
++	intel_engine_kick_scheduler(engine);
+ 
+ 	return count;
+ }
+-- 
+2.20.1
 
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-
---===============0160036373==--
