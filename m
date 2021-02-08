@@ -7,44 +7,46 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3E3D9C433DB
-	for <intel-gfx@archiver.kernel.org>; Mon,  8 Feb 2021 16:25:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 08E9AC433E0
+	for <intel-gfx@archiver.kernel.org>; Mon,  8 Feb 2021 16:25:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D3A5464E88
-	for <intel-gfx@archiver.kernel.org>; Mon,  8 Feb 2021 16:25:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D3A5464E88
+	by mail.kernel.org (Postfix) with ESMTPS id 9826B64E87
+	for <intel-gfx@archiver.kernel.org>; Mon,  8 Feb 2021 16:25:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9826B64E87
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 58CD46E943;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CEEDE6E944;
 	Mon,  8 Feb 2021 16:25:17 +0000 (UTC)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BBE886E943
- for <intel-gfx@lists.freedesktop.org>; Mon,  8 Feb 2021 16:25:15 +0000 (UTC)
-IronPort-SDR: 27w4grwMLxDZY8tqN06xF75S2hl6dms65g3/G+f5UKW8GLKU7qf82Ulj/DgJQUVcZyQNCqu4K5
- esvu4n/AMTFA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9889"; a="266571481"
-X-IronPort-AV: E=Sophos;i="5.81,162,1610438400"; d="scan'208";a="266571481"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E57D6E943
+ for <intel-gfx@lists.freedesktop.org>; Mon,  8 Feb 2021 16:25:16 +0000 (UTC)
+IronPort-SDR: I1iPehBZuHmaW5X1tObM2+8d5pMsJnXhN2TvXHe3kfKV55/bjt0qMPatn4Uc4Zqww7sjiirAUt
+ kJrFEIsONaAQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9889"; a="266571488"
+X-IronPort-AV: E=Sophos;i="5.81,162,1610438400"; d="scan'208";a="266571488"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Feb 2021 08:25:14 -0800
-IronPort-SDR: 5YwgYY6gPycvIJftJoKbKyi0OM/1O24wKPJJPFPDN4jnhOV+OvMaNc4hc8OaZbav8YclGlAMqt
- HnSgGsfJgVRA==
-X-IronPort-AV: E=Sophos;i="5.81,162,1610438400"; d="scan'208";a="395544449"
+ 08 Feb 2021 08:25:16 -0800
+IronPort-SDR: OD2eCXnBF4f8LgvBCCr1OPvPShsf6sX8BCvDdmuIRlYoqLqABbWCJX0nD7J4Q71lo308bhe0om
+ 6K+RFdJfsduQ==
+X-IronPort-AV: E=Sophos;i="5.81,162,1610438400"; d="scan'208";a="395544495"
 Received: from jjcunnix-mobl2.ger.corp.intel.com (HELO
  mwauld-desk1.ger.corp.intel.com) ([10.252.0.58])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Feb 2021 08:25:12 -0800
+ 08 Feb 2021 08:25:14 -0800
 From: Matthew Auld <matthew.auld@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon,  8 Feb 2021 16:24:47 +0000
-Message-Id: <20210208162450.108067-1-matthew.auld@intel.com>
+Date: Mon,  8 Feb 2021 16:24:49 +0000
+Message-Id: <20210208162450.108067-3-matthew.auld@intel.com>
 X-Mailer: git-send-email 2.26.2
+In-Reply-To: <20210208162450.108067-1-matthew.auld@intel.com>
+References: <20210208162450.108067-1-matthew.auld@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 1/4] drm/i915: Create stolen memory region from
- local memory
+Subject: [Intel-gfx] [PATCH 3/4] drm/i915/stolen: enforce the min_page_size
+ contract
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,267 +66,59 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: CQ Tang <cq.tang@intel.com>
 
-Add "REGION_STOLEN" device info to dg1, create stolen memory
-region from upper portion of local device memory, starting
-from DSMBASE.
-
-v2:
-    - s/drm_info/drm_dbg; userspace likely doesn't care about stolen.
-    - mem->type is only setup after the region probe, so setting the name
-      as stolen-local or stolen-system based on this value won't work. Split
-      system vs local stolen setup to fix this.
-    - kill all the region->devmem/is_devmem stuff. We already differentiate
-      the different types of stolen so such things shouldn't be needed
-      anymore.
+Since stolen can now be device local-memory underneath, we should try to
+enforce any min_page_size restrictions when allocating pages.
 
 Signed-off-by: CQ Tang <cq.tang@intel.com>
 Signed-off-by: Matthew Auld <matthew.auld@intel.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_stolen.c | 90 ++++++++++++++++++++--
- drivers/gpu/drm/i915/gem/i915_gem_stolen.h |  3 +
- drivers/gpu/drm/i915/i915_pci.c            |  2 +-
- drivers/gpu/drm/i915/i915_reg.h            |  1 +
- drivers/gpu/drm/i915/intel_memory_region.c |  5 ++
- drivers/gpu/drm/i915/intel_memory_region.h |  5 +-
- 6 files changed, 96 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_stolen.c | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/gem/i915_gem_stolen.c b/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
-index c5f85296a45f..dfc3076abd0c 100644
+index dfc3076abd0c..0722b909cd09 100644
 --- a/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
 +++ b/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
-@@ -10,6 +10,7 @@
- #include <drm/drm_mm.h>
- #include <drm/i915_drm.h>
- 
-+#include "gem/i915_gem_lmem.h"
- #include "gem/i915_gem_region.h"
- #include "i915_drv.h"
- #include "i915_gem_stolen.h"
-@@ -121,6 +122,14 @@ static int i915_adjust_stolen(struct drm_i915_private *i915,
- 		}
- 	}
- 
-+	/*
-+	 * With device local memory, we don't need to check the address range,
-+	 * this is device memory physical address, could overlap with system
-+	 * memory.
-+	 */
-+	if (HAS_LMEM(i915))
-+		return 0;
-+
- 	/*
- 	 * Verify that nothing else uses this physical address. Stolen
- 	 * memory should be reserved by the BIOS and hidden from the
-@@ -682,17 +691,30 @@ static int _i915_gem_object_stolen_init(struct intel_memory_region *mem,
- 	return ret;
- }
- 
-+struct intel_memory_region *i915_stolen_region(struct drm_i915_private *i915)
-+{
-+	if (HAS_LMEM(i915))
-+		return i915->mm.regions[INTEL_REGION_STOLEN_LMEM];
-+
-+	return i915->mm.regions[INTEL_REGION_STOLEN_SMEM];
-+}
-+
- struct drm_i915_gem_object *
- i915_gem_object_create_stolen(struct drm_i915_private *i915,
- 			      resource_size_t size)
+@@ -32,6 +32,7 @@ int i915_gem_stolen_insert_node_in_range(struct drm_i915_private *i915,
+ 					 struct drm_mm_node *node, u64 size,
+ 					 unsigned alignment, u64 start, u64 end)
  {
--	return i915_gem_object_create_region(i915->mm.regions[INTEL_REGION_STOLEN_SMEM],
-+	return i915_gem_object_create_region(i915_stolen_region(i915),
- 					     size, I915_BO_ALLOC_CONTIGUOUS);
- }
- 
- static int init_stolen(struct intel_memory_region *mem)
- {
--	intel_memory_region_set_name(mem, "stolen");
-+	if (HAS_LMEM(mem->i915)) {
-+		if (!io_mapping_init_wc(&mem->iomap,
-+					mem->io_start,
-+					resource_size(&mem->region)))
-+			return -EIO;
-+	}
- 
- 	/*
- 	 * Initialise stolen early so that we may reserve preallocated
-@@ -712,13 +734,65 @@ static const struct intel_memory_region_ops i915_region_stolen_ops = {
- 	.init_object = _i915_gem_object_stolen_init,
- };
- 
-+static struct intel_memory_region *
-+setup_lmem_stolen(struct drm_i915_private *i915)
-+{
-+	struct intel_uncore *uncore = &i915->uncore;
-+	struct pci_dev *pdev = i915->drm.pdev;
-+	struct intel_memory_region *mem;
-+	resource_size_t io_start;
-+	resource_size_t lmem_size;
-+	u64 lmem_base;
-+
-+	if (!IS_DGFX(i915))
-+		return ERR_PTR(-ENODEV);
-+
-+	lmem_base = intel_uncore_read64(uncore, GEN12_DSMBASE);
-+	lmem_size = pci_resource_len(pdev, 2) - lmem_base;
-+	io_start = pci_resource_start(pdev, 2) + lmem_base;
-+
-+	mem = intel_memory_region_create(i915, lmem_base, lmem_size,
-+					 I915_GTT_PAGE_SIZE_4K, io_start,
-+					 &i915_region_stolen_ops);
-+	if (IS_ERR(mem))
-+		return mem;
-+
-+	drm_dbg(&i915->drm, "Stolen Local memory: %pR\n", &mem->region);
-+	drm_dbg(&i915->drm, "Stolen Local memory IO start: %pa\n",
-+		&mem->io_start);
-+
-+	intel_memory_region_set_name(mem, "stolen-local");
-+
-+	return mem;
-+}
-+
-+static struct intel_memory_region*
-+setup_smem_stolen(struct drm_i915_private *i915)
-+{
-+	struct intel_memory_region *mem;
-+
-+	mem = intel_memory_region_create(i915,
-+					 intel_graphics_stolen_res.start,
-+					 resource_size(&intel_graphics_stolen_res),
-+					 PAGE_SIZE, 0,
-+					 &i915_region_stolen_ops);
-+	if (IS_ERR(mem))
-+		return mem;
-+
-+	intel_memory_region_set_name(mem, "stolen-system");
-+
-+	return mem;
-+}
-+
- struct intel_memory_region *i915_gem_stolen_setup(struct drm_i915_private *i915)
- {
--	return intel_memory_region_create(i915,
--					  intel_graphics_stolen_res.start,
--					  resource_size(&intel_graphics_stolen_res),
--					  PAGE_SIZE, 0,
--					  &i915_region_stolen_ops);
-+	struct intel_memory_region *mem;
-+
-+	mem = setup_lmem_stolen(i915);
-+	if (mem == ERR_PTR(-ENODEV))
-+		mem = setup_smem_stolen(i915);
-+
-+	return mem;
- }
- 
- struct drm_i915_gem_object *
-@@ -726,7 +800,7 @@ i915_gem_object_create_stolen_for_preallocated(struct drm_i915_private *i915,
- 					       resource_size_t stolen_offset,
- 					       resource_size_t size)
- {
--	struct intel_memory_region *mem = i915->mm.regions[INTEL_REGION_STOLEN_SMEM];
 +	struct intel_memory_region *mem = i915_stolen_region(i915);
- 	struct drm_i915_gem_object *obj;
- 	struct drm_mm_node *stolen;
  	int ret;
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_stolen.h b/drivers/gpu/drm/i915/gem/i915_gem_stolen.h
-index b03489706796..2d1ce7fec61c 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_stolen.h
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_stolen.h
-@@ -22,6 +22,9 @@ int i915_gem_stolen_insert_node_in_range(struct drm_i915_private *dev_priv,
- void i915_gem_stolen_remove_node(struct drm_i915_private *dev_priv,
- 				 struct drm_mm_node *node);
- struct intel_memory_region *i915_gem_stolen_setup(struct drm_i915_private *i915);
+ 
+ 	if (!drm_mm_initialized(&i915->mm.stolen))
+@@ -41,6 +42,10 @@ int i915_gem_stolen_insert_node_in_range(struct drm_i915_private *i915,
+ 	if (INTEL_GEN(i915) >= 8 && start < 4096)
+ 		start = 4096;
+ 
++	if (GEM_WARN_ON(!IS_ALIGNED(size, mem->min_page_size)) ||
++	    GEM_WARN_ON(!IS_ALIGNED(alignment, mem->min_page_size)))
++		return -EINVAL;
 +
-+struct intel_memory_region *i915_stolen_region(struct drm_i915_private *i915);
-+
- struct drm_i915_gem_object *
- i915_gem_object_create_stolen(struct drm_i915_private *dev_priv,
- 			      resource_size_t size);
-diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
-index d09db36b8287..c8309fb5e307 100644
---- a/drivers/gpu/drm/i915/i915_pci.c
-+++ b/drivers/gpu/drm/i915/i915_pci.c
-@@ -906,7 +906,7 @@ static const struct intel_device_info rkl_info = {
+ 	mutex_lock(&i915->mm.stolen_lock);
+ 	ret = drm_mm_insert_node_in_range(&i915->mm.stolen, node,
+ 					  size, alignment, 0,
+@@ -674,7 +679,8 @@ static int _i915_gem_object_stolen_init(struct intel_memory_region *mem,
+ 	if (!stolen)
+ 		return -ENOMEM;
  
- #define GEN12_DGFX_FEATURES \
- 	GEN12_FEATURES, \
--	.memory_regions = REGION_SMEM | REGION_LMEM, \
-+	.memory_regions = REGION_SMEM | REGION_LMEM | REGION_STOLEN_LMEM, \
- 	.has_master_unit_irq = 1, \
- 	.has_llc = 0, \
- 	.has_snoop = 1, \
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 224ad897af34..22e4ad440238 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -12164,6 +12164,7 @@ enum skl_power_gate {
- #define GEN12_GLOBAL_MOCS(i)	_MMIO(0x4000 + (i) * 4) /* Global MOCS regs */
+-	ret = i915_gem_stolen_insert_node(i915, stolen, size, 4096);
++	ret = i915_gem_stolen_insert_node(i915, stolen, size,
++					  mem->min_page_size);
+ 	if (ret)
+ 		goto err_free;
  
- #define GEN12_GSMBASE			_MMIO(0x108100)
-+#define GEN12_DSMBASE			_MMIO(0x1080C0)
+@@ -814,8 +820,8 @@ i915_gem_object_create_stolen_for_preallocated(struct drm_i915_private *i915,
  
- /* gamt regs */
- #define GEN8_L3_LRA_1_GPGPU _MMIO(0x4dd4)
-diff --git a/drivers/gpu/drm/i915/intel_memory_region.c b/drivers/gpu/drm/i915/intel_memory_region.c
-index bf837b6bb185..39390185582f 100644
---- a/drivers/gpu/drm/i915/intel_memory_region.c
-+++ b/drivers/gpu/drm/i915/intel_memory_region.c
-@@ -22,6 +22,10 @@ static const struct {
- 		.class = INTEL_MEMORY_STOLEN_SYSTEM,
- 		.instance = 0,
- 	},
-+	[INTEL_REGION_STOLEN_LMEM] = {
-+		.class = INTEL_MEMORY_STOLEN_LOCAL,
-+		.instance = 0,
-+	},
- };
+ 	/* KISS and expect everything to be page-aligned */
+ 	if (GEM_WARN_ON(size == 0) ||
+-	    GEM_WARN_ON(!IS_ALIGNED(size, I915_GTT_PAGE_SIZE)) ||
+-	    GEM_WARN_ON(!IS_ALIGNED(stolen_offset, I915_GTT_MIN_ALIGNMENT)))
++	    GEM_WARN_ON(!IS_ALIGNED(size, mem->min_page_size)) ||
++	    GEM_WARN_ON(!IS_ALIGNED(stolen_offset, mem->min_page_size)))
+ 		return ERR_PTR(-EINVAL);
  
- struct intel_memory_region *
-@@ -278,6 +282,7 @@ int intel_memory_regions_hw_probe(struct drm_i915_private *i915)
- 		case INTEL_MEMORY_SYSTEM:
- 			mem = i915_gem_shmem_setup(i915);
- 			break;
-+		case INTEL_MEMORY_STOLEN_LOCAL: /* fallthrough */
- 		case INTEL_MEMORY_STOLEN_SYSTEM:
- 			mem = i915_gem_stolen_setup(i915);
- 			break;
-diff --git a/drivers/gpu/drm/i915/intel_memory_region.h b/drivers/gpu/drm/i915/intel_memory_region.h
-index edd49067c8ca..4c8ec15af55f 100644
---- a/drivers/gpu/drm/i915/intel_memory_region.h
-+++ b/drivers/gpu/drm/i915/intel_memory_region.h
-@@ -26,18 +26,21 @@ enum intel_memory_type {
- 	INTEL_MEMORY_SYSTEM = 0,
- 	INTEL_MEMORY_LOCAL,
- 	INTEL_MEMORY_STOLEN_SYSTEM,
-+	INTEL_MEMORY_STOLEN_LOCAL,
- };
- 
- enum intel_region_id {
- 	INTEL_REGION_SMEM = 0,
- 	INTEL_REGION_LMEM,
- 	INTEL_REGION_STOLEN_SMEM,
-+	INTEL_REGION_STOLEN_LMEM,
- 	INTEL_REGION_UNKNOWN, /* Should be last */
- };
- 
- #define REGION_SMEM     BIT(INTEL_REGION_SMEM)
- #define REGION_LMEM     BIT(INTEL_REGION_LMEM)
- #define REGION_STOLEN_SMEM   BIT(INTEL_REGION_STOLEN_SMEM)
-+#define REGION_STOLEN_LMEM   BIT(INTEL_REGION_STOLEN_LMEM)
- 
- #define I915_ALLOC_MIN_PAGE_SIZE  BIT(0)
- #define I915_ALLOC_CONTIGUOUS     BIT(1)
-@@ -82,7 +85,7 @@ struct intel_memory_region {
- 	u16 type;
- 	u16 instance;
- 	enum intel_region_id id;
--	char name[8];
-+	char name[16];
- 
- 	struct list_head reserved;
- 
+ 	stolen = kzalloc(sizeof(*stolen), GFP_KERNEL);
 -- 
 2.26.2
 
