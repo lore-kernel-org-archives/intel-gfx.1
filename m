@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CBBE9C43381
-	for <intel-gfx@archiver.kernel.org>; Mon,  8 Feb 2021 10:53:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 24053C433E6
+	for <intel-gfx@archiver.kernel.org>; Mon,  8 Feb 2021 10:53:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5395064E7A
-	for <intel-gfx@archiver.kernel.org>; Mon,  8 Feb 2021 10:53:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5395064E7A
+	by mail.kernel.org (Postfix) with ESMTPS id ADD0E64E45
+	for <intel-gfx@archiver.kernel.org>; Mon,  8 Feb 2021 10:53:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org ADD0E64E45
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 16CC86E86C;
-	Mon,  8 Feb 2021 10:53:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 502556E877;
+	Mon,  8 Feb 2021 10:53:06 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 79EA76E86C
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 418126E869
  for <intel-gfx@lists.freedesktop.org>; Mon,  8 Feb 2021 10:52:56 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.69.177; 
 Received: from build.alporthouse.com (unverified [78.156.69.177]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23809231-1500050 
- for multiple; Mon, 08 Feb 2021 10:52:45 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23809229-1500050 
+ for multiple; Mon, 08 Feb 2021 10:52:44 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon,  8 Feb 2021 10:52:29 +0000
-Message-Id: <20210208105236.28498-24-chris@chris-wilson.co.uk>
+Date: Mon,  8 Feb 2021 10:52:27 +0000
+Message-Id: <20210208105236.28498-22-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20210208105236.28498-1-chris@chris-wilson.co.uk>
 References: <20210208105236.28498-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 24/31] Restore "drm/i915: drop
- engine_pin/unpin_breadcrumbs_irq"
+Subject: [Intel-gfx] [PATCH 22/31] drm/i915/selftests: Exercise relative
+ timeline modes
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,66 +56,133 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This was removed in commit 478ffad6d690 ("drm/i915: drop
-engine_pin/unpin_breadcrumbs_irq") as the last user had been removed,
-but now there is a promise of a new user in the next patch.
+A quick test to verify that the backend accepts each type of timeline
+and can use them to track and control request emission.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-Reviewed-by: Mika Kuoppala <mika.kuoppala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_breadcrumbs.c | 24 +++++++++++++++++++++
- drivers/gpu/drm/i915/gt/intel_breadcrumbs.h |  3 +++
- 2 files changed, 27 insertions(+)
+ drivers/gpu/drm/i915/gt/selftest_timeline.c | 105 ++++++++++++++++++++
+ 1 file changed, 105 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-index 38cc42783dfb..9e67810c7767 100644
---- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-@@ -310,6 +310,30 @@ void intel_breadcrumbs_reset(struct intel_breadcrumbs *b)
- 	spin_unlock_irqrestore(&b->irq_lock, flags);
+diff --git a/drivers/gpu/drm/i915/gt/selftest_timeline.c b/drivers/gpu/drm/i915/gt/selftest_timeline.c
+index 6b412228a6fd..dcc03522b277 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_timeline.c
++++ b/drivers/gpu/drm/i915/gt/selftest_timeline.c
+@@ -1364,9 +1364,114 @@ static int live_hwsp_recycle(void *arg)
+ 	return err;
  }
  
-+void intel_breadcrumbs_pin_irq(struct intel_breadcrumbs *b)
++static int live_hwsp_relative(void *arg)
 +{
-+	if (GEM_DEBUG_WARN_ON(!b->irq_engine))
-+		return;
++	struct intel_gt *gt = arg;
++	struct intel_engine_cs *engine;
++	enum intel_engine_id id;
 +
-+	spin_lock_irq(&b->irq_lock);
-+	if (!b->irq_enabled++)
-+		irq_enable(b->irq_engine);
-+	GEM_BUG_ON(!b->irq_enabled); /* no overflow! */
-+	spin_unlock_irq(&b->irq_lock);
++	/*
++	 * Check backend support for different timeline modes.
++	 */
++
++	for_each_engine(engine, gt, id) {
++		enum intel_timeline_mode mode;
++
++		if (!intel_engine_has_scheduler(engine))
++			continue;
++
++		for (mode = INTEL_TIMELINE_ABSOLUTE;
++		     mode <= INTEL_TIMELINE_RELATIVE_ENGINE;
++		     mode++) {
++			struct intel_timeline *tl;
++			struct i915_request *rq;
++			struct intel_context *ce;
++			const char *msg;
++			int err;
++
++			if (mode == INTEL_TIMELINE_RELATIVE_CONTEXT &&
++			    !HAS_EXECLISTS(gt->i915))
++				continue;
++
++			ce = intel_context_create(engine);
++			if (IS_ERR(ce))
++				return PTR_ERR(ce);
++
++			err = intel_context_alloc_state(ce);
++			if (err) {
++				intel_context_put(ce);
++				return err;
++			}
++
++			switch (mode) {
++			case INTEL_TIMELINE_ABSOLUTE:
++				tl = intel_timeline_create(gt);
++				msg = "local";
++				break;
++
++			case INTEL_TIMELINE_RELATIVE_CONTEXT:
++				tl = __intel_timeline_create(gt,
++							     ce->state,
++							     INTEL_TIMELINE_RELATIVE_CONTEXT |
++							     0x400);
++				msg = "ppHWSP";
++				break;
++
++			case INTEL_TIMELINE_RELATIVE_ENGINE:
++				tl = __intel_timeline_create(gt,
++							     engine->status_page.vma,
++							     0x400);
++				msg = "HWSP";
++				break;
++			default:
++				continue;
++			}
++			if (IS_ERR(tl)) {
++				intel_context_put(ce);
++				return PTR_ERR(tl);
++			}
++
++			pr_info("Testing %s timeline on %s\n",
++				msg, engine->name);
++
++			intel_timeline_put(ce->timeline);
++			ce->timeline = tl;
++
++			err = intel_timeline_pin(tl, NULL);
++			if (err) {
++				intel_context_put(ce);
++				return err;
++			}
++			tl->seqno = 0xc0000000;
++			WRITE_ONCE(*(u32 *)tl->hwsp_seqno, tl->seqno);
++			intel_timeline_unpin(tl);
++
++			rq = intel_context_create_request(ce);
++			intel_context_put(ce);
++			if (IS_ERR(rq))
++				return PTR_ERR(rq);
++
++			GEM_BUG_ON(rcu_access_pointer(rq->timeline) != tl);
++
++			i915_request_get(rq);
++			i915_request_add(rq);
++
++			if (i915_request_wait(rq, 0, HZ / 5) < 0) {
++				i915_request_put(rq);
++				return -EIO;
++			}
++
++			i915_request_put(rq);
++		}
++	}
++
++	return 0;
 +}
 +
-+void intel_breadcrumbs_unpin_irq(struct intel_breadcrumbs *b)
-+{
-+	if (GEM_DEBUG_WARN_ON(!b->irq_engine))
-+		return;
-+
-+	spin_lock_irq(&b->irq_lock);
-+	GEM_BUG_ON(!b->irq_enabled); /* no underflow! */
-+	if (!--b->irq_enabled)
-+		irq_disable(b->irq_engine);
-+	spin_unlock_irq(&b->irq_lock);
-+}
-+
- void __intel_breadcrumbs_park(struct intel_breadcrumbs *b)
+ int intel_timeline_live_selftests(struct drm_i915_private *i915)
  {
- 	if (!READ_ONCE(b->irq_armed))
-diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.h b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.h
-index 3ce5ce270b04..c2bb3a79ca9f 100644
---- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.h
-+++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.h
-@@ -19,6 +19,9 @@ struct intel_breadcrumbs *
- intel_breadcrumbs_create(struct intel_engine_cs *irq_engine);
- void intel_breadcrumbs_free(struct intel_breadcrumbs *b);
- 
-+void intel_breadcrumbs_pin_irq(struct intel_breadcrumbs *b);
-+void intel_breadcrumbs_unpin_irq(struct intel_breadcrumbs *b);
-+
- void intel_breadcrumbs_reset(struct intel_breadcrumbs *b);
- void __intel_breadcrumbs_park(struct intel_breadcrumbs *b);
- 
+ 	static const struct i915_subtest tests[] = {
++		SUBTEST(live_hwsp_relative),
+ 		SUBTEST(live_hwsp_recycle),
+ 		SUBTEST(live_hwsp_engine),
+ 		SUBTEST(live_hwsp_alternate),
 -- 
 2.20.1
 
