@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 46412C433E9
-	for <intel-gfx@archiver.kernel.org>; Mon,  8 Feb 2021 10:53:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 45373C433E6
+	for <intel-gfx@archiver.kernel.org>; Mon,  8 Feb 2021 10:53:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D667764E7A
-	for <intel-gfx@archiver.kernel.org>; Mon,  8 Feb 2021 10:53:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D667764E7A
+	by mail.kernel.org (Postfix) with ESMTPS id D636364E45
+	for <intel-gfx@archiver.kernel.org>; Mon,  8 Feb 2021 10:53:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D636364E45
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B2C536E881;
-	Mon,  8 Feb 2021 10:53:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 03F916E884;
+	Mon,  8 Feb 2021 10:53:15 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 960706E86D
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8971A6E86C
  for <intel-gfx@lists.freedesktop.org>; Mon,  8 Feb 2021 10:52:57 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.69.177; 
 Received: from build.alporthouse.com (unverified [78.156.69.177]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23809209-1500050 
- for multiple; Mon, 08 Feb 2021 10:52:41 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23809218-1500050 
+ for multiple; Mon, 08 Feb 2021 10:52:43 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon,  8 Feb 2021 10:52:07 +0000
-Message-Id: <20210208105236.28498-2-chris@chris-wilson.co.uk>
+Date: Mon,  8 Feb 2021 10:52:16 +0000
+Message-Id: <20210208105236.28498-11-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20210208105236.28498-1-chris@chris-wilson.co.uk>
 References: <20210208105236.28498-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 02/31] drm/i915: Move context revocation to
- scheduler
+Subject: [Intel-gfx] [PATCH 11/31] drm/i915/gt: Specify a deadline for the
+ heartbeat
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,300 +56,55 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Centralise the means by which to remove a context from execution to the
-scheduler, allowing the backends to specialise as necessary. Note that
-without backend support, we can simplify the procedure to forcibly reset
-the HW to remove the context.
+As we know when we expect the heartbeat to be checked for completion,
+pass this information along as its deadline. We still do not complain if
+the deadline is missed, at least until we have tried a few times, but it
+will allow for quicker hang detection on systems where deadlines are
+adhered to.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_context.c   | 117 +-----------------
- .../drm/i915/gt/intel_execlists_submission.c  |  47 +++++++
- drivers/gpu/drm/i915/i915_scheduler.c         |  20 +++
- drivers/gpu/drm/i915/i915_scheduler_types.h   |   5 +
- 4 files changed, 75 insertions(+), 114 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-index ca37d93ef5e7..be75f861db67 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-@@ -382,104 +382,9 @@ __context_engines_static(const struct i915_gem_context *ctx)
- 	return rcu_dereference_protected(ctx->engines, true);
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c b/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
+index 1d0e7daa6285..47e1cd25a20e 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
++++ b/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
+@@ -134,6 +134,16 @@ static void heartbeat_commit(struct i915_request *rq,
+ 	__i915_request_queue(rq, attr);
  }
  
--static void __reset_context(struct i915_gem_context *ctx,
--			    struct intel_engine_cs *engine)
--{
--	intel_gt_handle_error(engine->gt, engine->mask, 0,
--			      "context closure in %s", ctx->name);
--}
--
--static bool __cancel_engine(struct intel_engine_cs *engine)
--{
--	/*
--	 * Send a "high priority pulse" down the engine to cause the
--	 * current request to be momentarily preempted. (If it fails to
--	 * be preempted, it will be reset). As we have marked our context
--	 * as banned, any incomplete request, including any running, will
--	 * be skipped following the preemption.
--	 *
--	 * If there is no hangchecking (one of the reasons why we try to
--	 * cancel the context) and no forced preemption, there may be no
--	 * means by which we reset the GPU and evict the persistent hog.
--	 * Ergo if we are unable to inject a preemptive pulse that can
--	 * kill the banned context, we fallback to doing a local reset
--	 * instead.
--	 */
--	return intel_engine_pulse(engine) == 0;
--}
--
--static bool
--__active_engine(struct i915_request *rq, struct intel_engine_cs **active)
--{
--	struct intel_engine_cs *engine, *locked;
--	bool ret = false;
--
--	/*
--	 * Serialise with __i915_request_submit() so that it sees
--	 * is-banned?, or we know the request is already inflight.
--	 *
--	 * Note that rq->engine is unstable, and so we double
--	 * check that we have acquired the lock on the final engine.
--	 */
--	locked = READ_ONCE(rq->engine);
--	spin_lock_irq(&locked->sched.lock);
--	while (unlikely(locked != (engine = READ_ONCE(rq->engine)))) {
--		spin_unlock(&locked->sched.lock);
--		locked = engine;
--		spin_lock(&locked->sched.lock);
--	}
--
--	if (i915_request_is_active(rq)) {
--		if (!__i915_request_is_complete(rq))
--			*active = locked;
--		ret = true;
--	}
--
--	spin_unlock_irq(&locked->sched.lock);
--
--	return ret;
--}
--
--static struct intel_engine_cs *active_engine(struct intel_context *ce)
--{
--	struct intel_engine_cs *engine = NULL;
--	struct i915_request *rq;
--
--	if (intel_context_has_inflight(ce))
--		return intel_context_inflight(ce);
--
--	if (!ce->timeline)
--		return NULL;
--
--	/*
--	 * rq->link is only SLAB_TYPESAFE_BY_RCU, we need to hold a reference
--	 * to the request to prevent it being transferred to a new timeline
--	 * (and onto a new timeline->requests list).
--	 */
--	rcu_read_lock();
--	list_for_each_entry_reverse(rq, &ce->timeline->requests, link) {
--		bool found;
--
--		/* timeline is already completed upto this point? */
--		if (!i915_request_get_rcu(rq))
--			break;
--
--		/* Check with the backend if the request is inflight */
--		found = true;
--		if (likely(rcu_access_pointer(rq->timeline) == ce->timeline))
--			found = __active_engine(rq, &engine);
--
--		i915_request_put(rq);
--		if (found)
--			break;
--	}
--	rcu_read_unlock();
--
--	return engine;
--}
--
- static void kill_engines(struct i915_gem_engines *engines, bool ban)
++static void set_heartbeat_deadline(struct intel_engine_cs *engine,
++				   struct i915_request *rq)
++{
++	unsigned long interval;
++
++	interval = READ_ONCE(engine->props.heartbeat_interval_ms);
++	if (interval)
++		i915_request_set_deadline(rq, ktime_get() + (interval << 20));
++}
++
+ static void show_heartbeat(const struct i915_request *rq,
+ 			   struct intel_engine_cs *engine)
  {
-+	const int error = ban ? -EIO : -EAGAIN;
- 	struct i915_gem_engines_iter it;
- 	struct intel_context *ce;
+@@ -224,6 +234,8 @@ static void heartbeat(struct work_struct *wrk)
+ 				     RQ_ARG(rq), attr.priority);
  
-@@ -491,28 +396,12 @@ static void kill_engines(struct i915_gem_engines *engines, bool ban)
- 	 * engines on which there are incomplete requests.
- 	 */
- 	for_each_gem_engine(ce, engines, it) {
--		struct intel_engine_cs *engine;
-+		struct i915_sched *se = intel_engine_get_scheduler(ce->engine);
+ 			local_bh_disable();
++			if (attr.priority == I915_PRIORITY_BARRIER)
++				i915_request_set_deadline(rq, 0);
+ 			i915_request_set_priority(rq, attr.priority);
+ 			local_bh_enable();
+ 		} else {
+@@ -267,6 +279,7 @@ static void heartbeat(struct work_struct *wrk)
+ 	if (IS_ERR(rq))
+ 		goto unlock;
  
- 		if (ban && intel_context_set_banned(ce))
- 			continue;
++	set_heartbeat_deadline(engine, rq);
+ 	heartbeat_commit(rq, &attr);
  
--		/*
--		 * Check the current active state of this context; if we
--		 * are currently executing on the GPU we need to evict
--		 * ourselves. On the other hand, if we haven't yet been
--		 * submitted to the GPU or if everything is complete,
--		 * we have nothing to do.
--		 */
--		engine = active_engine(ce);
--
--		/* First attempt to gracefully cancel the context */
--		if (engine && !__cancel_engine(engine) && ban)
--			/*
--			 * If we are unable to send a preemptive pulse to bump
--			 * the context from the GPU, we have to resort to a full
--			 * reset. We hope the collateral damage is worth it.
--			 */
--			__reset_context(engines->ctx, engine);
-+		se->revoke_context(ce, ban ? engines->ctx->name : NULL, error);
- 	}
- }
- 
-diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-index 85ff5fe861b4..e51112302fb8 100644
---- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-+++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-@@ -114,6 +114,7 @@
- #include "gen8_engine_cs.h"
- #include "intel_breadcrumbs.h"
- #include "intel_context.h"
-+#include "intel_engine_heartbeat.h"
- #include "intel_engine_pm.h"
- #include "intel_engine_stats.h"
- #include "intel_execlists_submission.h"
-@@ -2774,6 +2775,50 @@ execlists_active_request(const struct i915_sched *se)
- 	return rq;
- }
- 
-+static bool __cancel_engine(struct intel_engine_cs *engine)
-+{
-+	/*
-+	 * Send a "high priority pulse" down the engine to cause the
-+	 * current request to be momentarily preempted. (If it fails to
-+	 * be preempted, it will be reset). As we have marked our context
-+	 * as banned, any incomplete request, including any running, will
-+	 * be skipped following the preemption.
-+	 *
-+	 * If there is no hangchecking (one of the reasons why we try to
-+	 * cancel the context) and no forced preemption, there may be no
-+	 * means by which we reset the GPU and evict the persistent hog.
-+	 * Ergo if we are unable to inject a preemptive pulse that can
-+	 * kill the banned context, we fallback to doing a local reset
-+	 * instead.
-+	 */
-+	return intel_engine_pulse(engine) == 0;
-+}
-+
-+static void
-+execlists_revoke_context(struct intel_context *ce, const char *force, int error)
-+{
-+	struct intel_engine_cs *engine;
-+
-+	/*
-+	 * Check the current active state of this context; if we
-+	 * are currently executing on the GPU we need to evict
-+	 * ourselves. On the other hand, if we haven't yet been
-+	 * submitted to the GPU or if everything is complete,
-+	 * we have nothing to do.
-+	 */
-+	engine = intel_context_inflight(ce);
-+
-+	/* First attempt to gracefully cancel the context */
-+	if (engine && !__cancel_engine(engine) && force)
-+		/*
-+		 * If we are unable to send a preemptive pulse to bump
-+		 * the context from the GPU, we have to resort to a full
-+		 * reset. We hope the collateral damage is worth it.
-+		 */
-+		intel_gt_handle_error(engine->gt, engine->mask, 0,
-+				      "context revoked from %s", force);
-+}
-+
- static bool can_preempt(struct intel_engine_cs *engine)
- {
- 	if (INTEL_GEN(engine->i915) > 8)
-@@ -2911,6 +2956,7 @@ static void init_execlists(struct intel_engine_cs *engine)
- 	u32 base = engine->mmio_base;
- 
- 	engine->sched.active_request = execlists_active_request;
-+	engine->sched.revoke_context = execlists_revoke_context;
- 	engine->sched.show = execlists_show;
- 	tasklet_setup(&engine->sched.tasklet, execlists_submission_tasklet);
- 
-@@ -3454,6 +3500,7 @@ intel_execlists_create_virtual(struct intel_engine_cs **siblings,
- 			ENGINE_VIRTUAL);
- 
- 	ve->base.sched.submit_request = virtual_submit_request;
-+	ve->base.sched.revoke_context = execlists_revoke_context;
- 	tasklet_setup(&ve->base.sched.tasklet, virtual_submission_tasklet);
- 
- 	virtual_engine_initial_hint(ve);
-diff --git a/drivers/gpu/drm/i915/i915_scheduler.c b/drivers/gpu/drm/i915/i915_scheduler.c
-index a8fb787278e6..7855601a4958 100644
---- a/drivers/gpu/drm/i915/i915_scheduler.c
-+++ b/drivers/gpu/drm/i915/i915_scheduler.c
-@@ -135,6 +135,25 @@ i915_sched_default_active_request(const struct i915_sched *se)
- 	return active;
- }
- 
-+static bool context_active(struct intel_context *ce)
-+{
-+	return i915_active_fence_isset(&ce->timeline->last_request);
-+}
-+
-+static void
-+i915_sched_default_revoke_context(struct intel_context *ce,
-+				  const char *force,
-+				  int error)
-+{
-+	/*
-+	 * Without backend support, we cannot remove the context from the
-+	 * HW gracefully. All we can do is force a reset, as a last resort.
-+	 */
-+	if (force && context_active(ce))
-+		intel_gt_handle_error(ce->engine->gt, ce->engine->mask, 0,
-+				      "context revoked from %s", force);
-+}
-+
- void i915_sched_init(struct i915_sched *se,
- 		     struct device *dev,
- 		     const char *name,
-@@ -158,6 +177,7 @@ void i915_sched_init(struct i915_sched *se,
- 
- 	se->submit_request = i915_request_enqueue;
- 	se->active_request = i915_sched_default_active_request;
-+	se->revoke_context = i915_sched_default_revoke_context;
- }
- 
- void i915_sched_park(struct i915_sched *se)
-diff --git a/drivers/gpu/drm/i915/i915_scheduler_types.h b/drivers/gpu/drm/i915/i915_scheduler_types.h
-index a8502c94d7c5..84232a07163f 100644
---- a/drivers/gpu/drm/i915/i915_scheduler_types.h
-+++ b/drivers/gpu/drm/i915/i915_scheduler_types.h
-@@ -15,6 +15,7 @@
- 
- struct drm_printer;
- struct i915_request;
-+struct intel_context;
- 
- /**
-  * struct i915_sched - funnels requests towards hardware
-@@ -40,6 +41,10 @@ struct i915_sched {
- 
- 	struct i915_request *(*active_request)(const struct i915_sched *se);
- 
-+	void (*revoke_context)(struct intel_context *ce,
-+			       const char *whom,
-+			       int error);
-+
- 	void (*show)(struct drm_printer *m,
- 		     struct i915_sched *se,
- 		     void (*show_request)(struct drm_printer *m,
+ unlock:
 -- 
 2.20.1
 
