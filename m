@@ -2,52 +2,60 @@ Return-Path: <SRS0=Rx2D=HK=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
+	URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 05244C433DB
-	for <intel-gfx@archiver.kernel.org>; Mon,  8 Feb 2021 11:29:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2ED2EC433E0
+	for <intel-gfx@archiver.kernel.org>; Mon,  8 Feb 2021 11:34:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8449B64E92
-	for <intel-gfx@archiver.kernel.org>; Mon,  8 Feb 2021 11:29:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8449B64E92
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id AC6F864E8C
+	for <intel-gfx@archiver.kernel.org>; Mon,  8 Feb 2021 11:34:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AC6F864E8C
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D811A6E886;
-	Mon,  8 Feb 2021 11:29:52 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 17DDB6E886
- for <intel-gfx@lists.freedesktop.org>; Mon,  8 Feb 2021 11:29:52 +0000 (UTC)
-IronPort-SDR: DrTGPzmb2iy2HRGWrGkXIv+dw1GKweh0OxqDUnDwuRSYE8wIKb6v4YwMOXXT3UD3jIHz1NJ7BW
- L3bFU25TM8EQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9888"; a="161447473"
-X-IronPort-AV: E=Sophos;i="5.81,161,1610438400"; d="scan'208";a="161447473"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Feb 2021 03:29:51 -0800
-IronPort-SDR: 8/L6W2fj/3OWvtBU0PZNdaRYQOu+UiQXKnNiNXEcDw5Hzno7tjkM7/1L5tknvMsvM7MwVnwmgs
- EZF0+1+JQNmA==
-X-IronPort-AV: E=Sophos;i="5.81,161,1610438400"; d="scan'208";a="377630516"
-Received: from anveshag-mobl1.amr.corp.intel.com (HELO intel.com)
- ([10.209.119.193])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Feb 2021 03:29:49 -0800
-Date: Mon, 8 Feb 2021 06:29:48 -0500
-From: Rodrigo Vivi <rodrigo.vivi@intel.com>
-To: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-Message-ID: <20210208112948.GD4798@intel.com>
-References: <20210206020925.36729-1-daniele.ceraolospurio@intel.com>
- <20210206020925.36729-2-daniele.ceraolospurio@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 310AD6E89E;
+	Mon,  8 Feb 2021 11:34:45 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A04D6E89E
+ for <intel-gfx@lists.freedesktop.org>; Mon,  8 Feb 2021 11:34:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1612784081;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=bJzjfpKQDXUTrhd/jJ7jwPu/B+J6oLNodRb+ffVR+9o=;
+ b=i32eae1nKh0cEvk+Yi7J/Dx1CBWkJJxKIOpyyw9jBKVqIHSX7C8x2cBvV2WKOJTN9XsK6j
+ 0eKEhq0VHVnDA8MlBo6L68pD0h4I/oagvBK/Ds+ndtrsj4pLHNr0Cc3sh5qdNKu+WmfSqI
+ LLCLNJaS40Y7/UKw6TEYj7Mz/7lad78=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-213-5S6thMDWOIORihOXxYxBhg-1; Mon, 08 Feb 2021 06:34:40 -0500
+X-MC-Unique: 5S6thMDWOIORihOXxYxBhg-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
+ [10.5.11.23])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B54551005501;
+ Mon,  8 Feb 2021 11:34:38 +0000 (UTC)
+Received: from virtlab701.virt.lab.eng.bos.redhat.com
+ (virtlab701.virt.lab.eng.bos.redhat.com [10.19.152.228])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 1E0A619C71;
+ Mon,  8 Feb 2021 11:34:38 +0000 (UTC)
+From: Paolo Bonzini <pbonzini@redhat.com>
+To: linux-kernel@vger.kernel.org,
+	intel-gvt-dev@lists.freedesktop.org
+Date: Mon,  8 Feb 2021 06:34:37 -0500
+Message-Id: <20210208113437.94661-1-pbonzini@redhat.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210206020925.36729-2-daniele.ceraolospurio@intel.com>
-Subject: Re: [Intel-gfx] [RFC 01/14] drm/i915/pxp: Define PXP component
- interface
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+Subject: [Intel-gfx] [FYI PATCH] i915: kvmgt: the KVM mmu_lock is now an
+ rwlock
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,111 +69,83 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: intel-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Feb 05, 2021 at 06:09:12PM -0800, Daniele Ceraolo Spurio wrote:
-> This will be used for communication between the i915 driver and the mei
-> one. Defining it in a stand-alone patch to avoid circualr dependedencies
-> between the patches modifying the 2 drivers.
-> =
+Adjust the KVMGT page tracking callbacks.
 
-> Split out from an original patch from  Huang, Sean Z
-> =
+Cc: Zhenyu Wang <zhenyuw@linux.intel.com>
+Cc: Zhi Wang <zhi.a.wang@intel.com>
+Cc: intel-gvt-dev@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+---
+ drivers/gpu/drm/i915/gvt/kvmgt.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-> Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-> ---
->  include/drm/i915_component.h         |  1 +
->  include/drm/i915_pxp_tee_interface.h | 45 ++++++++++++++++++++++++++++
->  2 files changed, 46 insertions(+)
->  create mode 100644 include/drm/i915_pxp_tee_interface.h
-> =
+diff --git a/drivers/gpu/drm/i915/gvt/kvmgt.c b/drivers/gpu/drm/i915/gvt/kvmgt.c
+index 60f1a386dd06..b4348256ae95 100644
+--- a/drivers/gpu/drm/i915/gvt/kvmgt.c
++++ b/drivers/gpu/drm/i915/gvt/kvmgt.c
+@@ -1703,7 +1703,7 @@ static int kvmgt_page_track_add(unsigned long handle, u64 gfn)
+ 		return -EINVAL;
+ 	}
+ 
+-	spin_lock(&kvm->mmu_lock);
++	write_lock(&kvm->mmu_lock);
+ 
+ 	if (kvmgt_gfn_is_write_protected(info, gfn))
+ 		goto out;
+@@ -1712,7 +1712,7 @@ static int kvmgt_page_track_add(unsigned long handle, u64 gfn)
+ 	kvmgt_protect_table_add(info, gfn);
+ 
+ out:
+-	spin_unlock(&kvm->mmu_lock);
++	write_unlock(&kvm->mmu_lock);
+ 	srcu_read_unlock(&kvm->srcu, idx);
+ 	return 0;
+ }
+@@ -1737,7 +1737,7 @@ static int kvmgt_page_track_remove(unsigned long handle, u64 gfn)
+ 		return -EINVAL;
+ 	}
+ 
+-	spin_lock(&kvm->mmu_lock);
++	write_lock(&kvm->mmu_lock);
+ 
+ 	if (!kvmgt_gfn_is_write_protected(info, gfn))
+ 		goto out;
+@@ -1746,7 +1746,7 @@ static int kvmgt_page_track_remove(unsigned long handle, u64 gfn)
+ 	kvmgt_protect_table_del(info, gfn);
+ 
+ out:
+-	spin_unlock(&kvm->mmu_lock);
++	write_unlock(&kvm->mmu_lock);
+ 	srcu_read_unlock(&kvm->srcu, idx);
+ 	return 0;
+ }
+@@ -1772,7 +1772,7 @@ static void kvmgt_page_track_flush_slot(struct kvm *kvm,
+ 	struct kvmgt_guest_info *info = container_of(node,
+ 					struct kvmgt_guest_info, track_node);
+ 
+-	spin_lock(&kvm->mmu_lock);
++	write_lock(&kvm->mmu_lock);
+ 	for (i = 0; i < slot->npages; i++) {
+ 		gfn = slot->base_gfn + i;
+ 		if (kvmgt_gfn_is_write_protected(info, gfn)) {
+@@ -1781,7 +1781,7 @@ static void kvmgt_page_track_flush_slot(struct kvm *kvm,
+ 			kvmgt_protect_table_del(info, gfn);
+ 		}
+ 	}
+-	spin_unlock(&kvm->mmu_lock);
++	write_unlock(&kvm->mmu_lock);
+ }
+ 
+ static bool __kvmgt_vgpu_exist(struct intel_vgpu *vgpu, struct kvm *kvm)
+-- 
+2.26.2
 
-> diff --git a/include/drm/i915_component.h b/include/drm/i915_component.h
-> index 55c3b123581b..c1e2a43d2d1e 100644
-> --- a/include/drm/i915_component.h
-> +++ b/include/drm/i915_component.h
-> @@ -29,6 +29,7 @@
->  enum i915_component_type {
->  	I915_COMPONENT_AUDIO =3D 1,
->  	I915_COMPONENT_HDCP,
-> +	I915_COMPONENT_PXP
->  };
->  =
-
->  /* MAX_PORT is the number of port
-> diff --git a/include/drm/i915_pxp_tee_interface.h b/include/drm/i915_pxp_=
-tee_interface.h
-> new file mode 100644
-> index 000000000000..0efd14702b4b
-> --- /dev/null
-> +++ b/include/drm/i915_pxp_tee_interface.h
-> @@ -0,0 +1,45 @@
-> +/* SPDX-License-Identifier: MIT */
-> +/*
-> + * Copyright =A9 2020 Intel Corporation
-> + *
-> + * Authors:
-> + * Vitaly Lubart <vitaly.lubart@intel.com>
-> + */
-> +
-> +#ifndef _I915_PXP_TEE_INTERFACE_H_
-> +#define _I915_PXP_TEE_INTERFACE_H_
-> +
-> +#include <linux/mutex.h>
-> +#include <linux/device.h>
-> +
-> +/**
-> + * struct i915_pxp_component_ops - ops for PXP services.
-> + * @owner: Module providing the ops
-> + * @send: sends data to PXP
-> + * @receive: receives data from PXP
-> + */
-> +struct i915_pxp_component_ops {
-> +	/**
-> +	 * @owner: owner of the module provding the ops
-> +	 */
-> +	struct module *owner;
-> +
-> +	int (*send)(struct device *dev, const void *message, size_t size);
-> +	int (*recv)(struct device *dev, void *buffer, size_t size);
-> +};
-> +
-> +/**
-> + * struct i915_pxp_component_master - Used for communication between i915
-
-Could we have a better name than "master" here?
-
-main? controller?
-
-> + * and TEE drivers for the PXP services
-> + * @tee_dev: device that provide the PXP service from TEE Bus.
-> + * @pxp_ops: Ops implemented by TEE driver, used by i915 driver.
-> + */
-> +struct i915_pxp_comp_master {
-
-also use a consistency here:
-or we go fully with component or fully with comp...
-
-> +	struct device *tee_dev;
-> +	const struct i915_pxp_component_ops *ops;
-> +
-> +	/* To protect the above members. */
-> +	struct mutex mutex;
-> +};
-> +
-> +#endif /* _I915_TEE_PXP_INTERFACE_H_ */
-> -- =
-
-> 2.29.2
-> =
-
-> _______________________________________________
-> Intel-gfx mailing list
-> Intel-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/intel-gfx
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
