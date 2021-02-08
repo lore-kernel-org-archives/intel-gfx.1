@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 41098C433E0
-	for <intel-gfx@archiver.kernel.org>; Mon,  8 Feb 2021 10:53:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CBBE9C43381
+	for <intel-gfx@archiver.kernel.org>; Mon,  8 Feb 2021 10:53:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CB02E64E7B
+	by mail.kernel.org (Postfix) with ESMTPS id 5395064E7A
 	for <intel-gfx@archiver.kernel.org>; Mon,  8 Feb 2021 10:53:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CB02E64E7B
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5395064E7A
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 76F696E86B;
-	Mon,  8 Feb 2021 10:53:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 16CC86E86C;
+	Mon,  8 Feb 2021 10:53:00 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F25306E874
- for <intel-gfx@lists.freedesktop.org>; Mon,  8 Feb 2021 10:52:59 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 79EA76E86C
+ for <intel-gfx@lists.freedesktop.org>; Mon,  8 Feb 2021 10:52:56 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.69.177; 
 Received: from build.alporthouse.com (unverified [78.156.69.177]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23809223-1500050 
- for multiple; Mon, 08 Feb 2021 10:52:44 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23809231-1500050 
+ for multiple; Mon, 08 Feb 2021 10:52:45 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon,  8 Feb 2021 10:52:21 +0000
-Message-Id: <20210208105236.28498-16-chris@chris-wilson.co.uk>
+Date: Mon,  8 Feb 2021 10:52:29 +0000
+Message-Id: <20210208105236.28498-24-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20210208105236.28498-1-chris@chris-wilson.co.uk>
 References: <20210208105236.28498-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 16/31] drm/i915/gt: Delay taking irqoff for
- execlists submission
+Subject: [Intel-gfx] [PATCH 24/31] Restore "drm/i915: drop
+ engine_pin/unpin_breadcrumbs_irq"
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,170 +56,65 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Before we take the irqsafe spinlock to dequeue requests and submit them
-to HW, first do the check whether we need to take any action (i.e.
-whether the HW is ready for some work, or if we need to preempt the
-currently executing context) without taking the lock. We will then
-likely skip taking the spinlock, and so reduce contention.
+This was removed in commit 478ffad6d690 ("drm/i915: drop
+engine_pin/unpin_breadcrumbs_irq") as the last user had been removed,
+but now there is a promise of a new user in the next patch.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+Reviewed-by: Mika Kuoppala <mika.kuoppala@linux.intel.com>
 ---
- .../drm/i915/gt/intel_execlists_submission.c  | 88 ++++++++-----------
- 1 file changed, 39 insertions(+), 49 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_breadcrumbs.c | 24 +++++++++++++++++++++
+ drivers/gpu/drm/i915/gt/intel_breadcrumbs.h |  3 +++
+ 2 files changed, 27 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-index 083204baedf9..b7d28d09c9c1 100644
---- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-+++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-@@ -1016,24 +1016,6 @@ static void virtual_xfer_context(struct virtual_engine *ve,
- 	}
+diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
+index 38cc42783dfb..9e67810c7767 100644
+--- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
++++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
+@@ -310,6 +310,30 @@ void intel_breadcrumbs_reset(struct intel_breadcrumbs *b)
+ 	spin_unlock_irqrestore(&b->irq_lock, flags);
  }
  
--static void defer_active(struct intel_engine_cs *engine)
--{
--	struct i915_request *rq;
--
--	rq = __i915_sched_rewind_requests(engine);
--	if (!rq)
--		return;
--
--	/*
--	 * We want to move the interrupted request to the back of
--	 * the round-robin list (i.e. its priority level), but
--	 * in doing so, we must then move all requests that were in
--	 * flight and were waiting for the interrupted request to
--	 * be run after it again.
--	 */
--	__i915_sched_defer_request(engine, rq);
--}
--
- static bool
- timeslice_yield(const struct intel_engine_execlists *el,
- 		const struct i915_request *rq)
-@@ -1315,8 +1297,6 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
- 	 * and context switches) submission.
- 	 */
- 
--	spin_lock(&se->lock);
--
- 	/*
- 	 * If the queue is higher priority than the last
- 	 * request in the currently active context, submit afresh.
-@@ -1339,24 +1319,7 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
- 				     rq_deadline(last),
- 				     rq_prio(last));
- 			record_preemption(execlists);
--
--			/*
--			 * Don't let the RING_HEAD advance past the breadcrumb
--			 * as we unwind (and until we resubmit) so that we do
--			 * not accidentally tell it to go backwards.
--			 */
--			ring_set_paused(engine, 1);
--
--			/*
--			 * Note that we have not stopped the GPU at this point,
--			 * so we are unwinding the incomplete requests as they
--			 * remain inflight and so by the time we do complete
--			 * the preemption, some of the unwound requests may
--			 * complete!
--			 */
--			__i915_sched_rewind_requests(engine);
--
--			last = NULL;
-+			last = (void *)1;
- 		} else if (timeslice_expired(engine, last)) {
- 			ENGINE_TRACE(engine,
- 				     "expired:%s last=%llx:%llu, deadline=%llu, now=%llu, yield?=%s\n",
-@@ -1383,8 +1346,6 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
- 			 * same context again, grant it a full timeslice.
- 			 */
- 			cancel_timer(&execlists->timer);
--			ring_set_paused(engine, 1);
--			defer_active(engine);
- 
- 			/*
- 			 * Unlike for preemption, if we rewind and continue
-@@ -1399,7 +1360,7 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
- 			 * normal save/restore will preserve state and allow
- 			 * us to later continue executing the same request.
- 			 */
--			last = NULL;
-+			last = (void *)3;
- 		} else {
- 			/*
- 			 * Otherwise if we already have a request pending
-@@ -1415,12 +1376,46 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
- 				 * Even if ELSP[1] is occupied and not worthy
- 				 * of timeslices, our queue might be.
- 				 */
--				spin_unlock(&se->lock);
- 				return;
- 			}
- 		}
- 	}
- 
-+	local_irq_disable(); /* irq remains off until after ELSP write */
-+	spin_lock(&se->lock);
++void intel_breadcrumbs_pin_irq(struct intel_breadcrumbs *b)
++{
++	if (GEM_DEBUG_WARN_ON(!b->irq_engine))
++		return;
 +
-+	if ((unsigned long)last & 1) {
-+		bool defer = (unsigned long)last & 2;
++	spin_lock_irq(&b->irq_lock);
++	if (!b->irq_enabled++)
++		irq_enable(b->irq_engine);
++	GEM_BUG_ON(!b->irq_enabled); /* no overflow! */
++	spin_unlock_irq(&b->irq_lock);
++}
 +
-+		/*
-+		 * Don't let the RING_HEAD advance past the breadcrumb
-+		 * as we unwind (and until we resubmit) so that we do
-+		 * not accidentally tell it to go backwards.
-+		 */
-+		ring_set_paused(engine, (unsigned long)last);
++void intel_breadcrumbs_unpin_irq(struct intel_breadcrumbs *b)
++{
++	if (GEM_DEBUG_WARN_ON(!b->irq_engine))
++		return;
 +
-+		/*
-+		 * Note that we have not stopped the GPU at this point,
-+		 * so we are unwinding the incomplete requests as they
-+		 * remain inflight and so by the time we do complete
-+		 * the preemption, some of the unwound requests may
-+		 * complete!
-+		 */
-+		last = __i915_sched_rewind_requests(engine);
++	spin_lock_irq(&b->irq_lock);
++	GEM_BUG_ON(!b->irq_enabled); /* no underflow! */
++	if (!--b->irq_enabled)
++		irq_disable(b->irq_engine);
++	spin_unlock_irq(&b->irq_lock);
++}
 +
-+		/*
-+		 * We want to move the interrupted request to the back of
-+		 * the round-robin list (i.e. its priority level), but
-+		 * in doing so, we must then move all requests that were in
-+		 * flight and were waiting for the interrupted request to
-+		 * be run after it again.
-+		 */
-+		if (last && defer)
-+			__i915_sched_defer_request(engine, last);
-+
-+		last = NULL;
-+	}
-+
- 	if (!RB_EMPTY_ROOT(&execlists->virtual.rb_root))
- 		virtual_requeue(engine, last);
+ void __intel_breadcrumbs_park(struct intel_breadcrumbs *b)
+ {
+ 	if (!READ_ONCE(b->irq_armed))
+diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.h b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.h
+index 3ce5ce270b04..c2bb3a79ca9f 100644
+--- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.h
++++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.h
+@@ -19,6 +19,9 @@ struct intel_breadcrumbs *
+ intel_breadcrumbs_create(struct intel_engine_cs *irq_engine);
+ void intel_breadcrumbs_free(struct intel_breadcrumbs *b);
  
-@@ -1529,13 +1524,8 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
- 			i915_request_put(*port);
- 		*execlists->pending = NULL;
- 	}
--}
- 
--static void execlists_dequeue_irq(struct intel_engine_cs *engine)
--{
--	local_irq_disable(); /* Suspend interrupts across request submission */
--	execlists_dequeue(engine);
--	local_irq_enable(); /* flush irq_work (e.g. breadcrumb enabling) */
-+	local_irq_enable();
- }
- 
- static void clear_ports(struct i915_request **ports, int count)
-@@ -2187,7 +2177,7 @@ static void execlists_submission_tasklet(struct tasklet_struct *t)
- 		execlists_reset(engine);
- 
- 	if (!engine->execlists.pending[0]) {
--		execlists_dequeue_irq(engine);
-+		execlists_dequeue(engine);
- 		start_timeslice(engine);
- 	}
++void intel_breadcrumbs_pin_irq(struct intel_breadcrumbs *b);
++void intel_breadcrumbs_unpin_irq(struct intel_breadcrumbs *b);
++
+ void intel_breadcrumbs_reset(struct intel_breadcrumbs *b);
+ void __intel_breadcrumbs_park(struct intel_breadcrumbs *b);
  
 -- 
 2.20.1
