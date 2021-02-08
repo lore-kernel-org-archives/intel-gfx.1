@@ -2,56 +2,55 @@ Return-Path: <SRS0=Rx2D=HK=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.4 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,TRACKER_ID,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-14.5 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9AFE8C433E0
-	for <intel-gfx@archiver.kernel.org>; Mon,  8 Feb 2021 11:44:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 256D0C433E6
+	for <intel-gfx@archiver.kernel.org>; Mon,  8 Feb 2021 11:44:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3D3DC60231
-	for <intel-gfx@archiver.kernel.org>; Mon,  8 Feb 2021 11:44:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3D3DC60231
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 713F560231
+	for <intel-gfx@archiver.kernel.org>; Mon,  8 Feb 2021 11:44:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 713F560231
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F34756E8B0;
-	Mon,  8 Feb 2021 11:44:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 236BF6E8AD;
+	Mon,  8 Feb 2021 11:44:20 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1FD3F6E8A5;
- Mon,  8 Feb 2021 11:44:17 +0000 (UTC)
-IronPort-SDR: 15gqx5dg7Hv5Iq3+6Eez2U5DM98JVr2h005bdD3uH2MsW8riU5d7g6mfHNqt1v9L6FcmPjIsrh
- 9FvfIThg7oiA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9888"; a="181844236"
-X-IronPort-AV: E=Sophos;i="5.81,161,1610438400"; d="scan'208";a="181844236"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 780D96E8AD
+ for <intel-gfx@lists.freedesktop.org>; Mon,  8 Feb 2021 11:44:18 +0000 (UTC)
+IronPort-SDR: 93HEumOSePkBUj0NUtFeKFO6fYfmxRCNqX/LreTqblSp7WJ6qjyPtR3P7eTXez/7xWPmzg6Wgi
+ Ciw+iKCgkFtQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9888"; a="181844239"
+X-IronPort-AV: E=Sophos;i="5.81,161,1610438400"; d="scan'208";a="181844239"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Feb 2021 03:44:14 -0800
-IronPort-SDR: zFbPBwX9l7Kq0OA2FaDpm8zxNarF9RsBs9UVUIsdCWuTaPW3+klDzINKPdhtPaNgz5rWCw+ABw
- a0e5N1brPncg==
-X-IronPort-AV: E=Sophos;i="5.81,161,1610438400"; d="scan'208";a="395353876"
-Received: from aknautiy-mobl.gar.corp.intel.com (HELO [10.213.70.150])
- ([10.213.70.150])
+ 08 Feb 2021 03:44:18 -0800
+IronPort-SDR: oVSNLfQxSzuH7aGlzurOr3bfiIQSyVLZbh9CuPNptoLv0GiEqw/KO/XH8o4darCHARUMNuDwWj
+ cGh7o7a3cghQ==
+X-IronPort-AV: E=Sophos;i="5.81,161,1610438400"; d="scan'208";a="395353883"
+Received: from dlauner-mobl.ger.corp.intel.com (HELO [10.214.195.182])
+ ([10.214.195.182])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Feb 2021 03:44:12 -0800
-To: Jani Nikula <jani.nikula@linux.intel.com>, intel-gfx@lists.freedesktop.org
-References: <20210204064842.11595-1-ankit.k.nautiyal@intel.com>
- <20210204064842.11595-2-ankit.k.nautiyal@intel.com>
- <87blcueroq.fsf@intel.com>
-From: "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com>
-Message-ID: <82d5cf44-4618-6d1d-2219-a5ac80d00d7a@intel.com>
-Date: Mon, 8 Feb 2021 17:14:09 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.0
+ 08 Feb 2021 03:44:17 -0800
+To: Chris Wilson <chris@chris-wilson.co.uk>, intel-gfx@lists.freedesktop.org
+References: <20210208105236.28498-1-chris@chris-wilson.co.uk>
+ <20210208105236.28498-5-chris@chris-wilson.co.uk>
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Organization: Intel Corporation UK Plc
+Message-ID: <3c5d700a-41f0-b224-e6ae-332af5afb2f5@linux.intel.com>
+Date: Mon, 8 Feb 2021 11:44:14 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.1
 MIME-Version: 1.0
-In-Reply-To: <87blcueroq.fsf@intel.com>
+In-Reply-To: <20210208105236.28498-5-chris@chris-wilson.co.uk>
 Content-Language: en-US
-Subject: Re: [Intel-gfx] [PATCH 1/3] i915/display/intel_dp: Read PCON DSC
- ENC caps only for DPCD rev >= 1.4
+Subject: Re: [Intel-gfx] [PATCH 05/31] drm/i915/gt: Declare when we enabled
+ timeslicing
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,63 +63,58 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org
 Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 
-On 2/8/2021 4:45 PM, Jani Nikula wrote:
-> On Thu, 04 Feb 2021, Ankit Nautiyal <ankit.k.nautiyal@intel.com> wrote:
->> DP-HDMI2.1 PCON has DSC encoder caps defined in registers 0x92-0x9E.
->> Do not read the registers if DPCD rev < 1.4.
->>
->> Fixes: https://gitlab.freedesktop.org/drm/intel/-/issues/2868
-> Please use Fixes: to reference commits that this patch fixes.
->
-> Please use Closes: to reference issues that this patch fixes.
->
-> No need to resend for this, can be fixed while applying, but please tell
-> me the commit that introduced the problem.
->
-> BR,
-> Jani.
->
-Alright will take care. Please find below the commit that introduced this:
+On 08/02/2021 10:52, Chris Wilson wrote:
+> Let userspace know if they can trust timeslicing by including it as part
+> of the I915_PARAM_HAS_SCHEDULER::I915_SCHEDULER_CAP_TIMESLICING
+> 
+> v2: Only declare timeslicing if we can safely preempt userspace.
+> 
+> Fixes: 8ee36e048c98 ("drm/i915/execlists: Minimalistic timeslicing")
+> Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+> Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+> Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+> ---
+>   drivers/gpu/drm/i915/gt/intel_engine_user.c | 1 +
+>   include/uapi/drm/i915_drm.h                 | 1 +
+>   2 files changed, 2 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/i915/gt/intel_engine_user.c b/drivers/gpu/drm/i915/gt/intel_engine_user.c
+> index 3d3cdc080c32..3fab439ba22b 100644
+> --- a/drivers/gpu/drm/i915/gt/intel_engine_user.c
+> +++ b/drivers/gpu/drm/i915/gt/intel_engine_user.c
+> @@ -102,6 +102,7 @@ static void set_scheduler_caps(struct drm_i915_private *i915)
+>   #define MAP(x, y) { I915_SCHED_##x, ilog2(I915_SCHEDULER_CAP_##y) }
+>   		MAP(ACTIVE_BIT, ENABLED),
+>   		MAP(PRIORITY_BIT, PRIORITY),
+> +		MAP(TIMESLICE_BIT, TIMESLICING),
+>   #undef MAP
+>   	};
+>   	struct intel_engine_cs *engine;
+> diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
+> index 1987e2ea79a3..cda0f391d965 100644
+> --- a/include/uapi/drm/i915_drm.h
+> +++ b/include/uapi/drm/i915_drm.h
+> @@ -524,6 +524,7 @@ typedef struct drm_i915_irq_wait {
+>   #define   I915_SCHEDULER_CAP_PREEMPTION	(1ul << 2)
+>   #define   I915_SCHEDULER_CAP_SEMAPHORES	(1ul << 3)
+>   #define   I915_SCHEDULER_CAP_ENGINE_BUSY_STATS	(1ul << 4)
+> +#define   I915_SCHEDULER_CAP_TIMESLICING	(1ul << 5)
+>   
+>   #define I915_PARAM_HUC_STATUS		 42
+>   
+> 
 
-b9d96dacdc3d983eae234b52401edb56dbceb764
+Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-Patch : drm/i915: Read DSC capabilities of the HDMI2.1 PCON encoder 
-https://patchwork.freedesktop.org/patch/408779/
+Regards,
 
-
-Thanks & Regards,
-
-Ankit
-
->> Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
->> ---
->>   drivers/gpu/drm/i915/display/intel_dp.c | 4 +++-
->>   1 file changed, 3 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
->> index 8c12d5375607..2b83f0f433a2 100644
->> --- a/drivers/gpu/drm/i915/display/intel_dp.c
->> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
->> @@ -2489,9 +2489,11 @@ static void intel_dp_get_pcon_dsc_cap(struct intel_dp *intel_dp)
->>   	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
->>   
->>   	/* Clear the cached register set to avoid using stale values */
->> -
->>   	memset(intel_dp->pcon_dsc_dpcd, 0, sizeof(intel_dp->pcon_dsc_dpcd));
->>   
->> +	if (intel_dp->dpcd[DP_DPCD_REV] < 0x14)
->> +		return;
->> +
->>   	if (drm_dp_dpcd_read(&intel_dp->aux, DP_PCON_DSC_ENCODER,
->>   			     intel_dp->pcon_dsc_dpcd,
->>   			     sizeof(intel_dp->pcon_dsc_dpcd)) < 0)
+Tvrtko
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
