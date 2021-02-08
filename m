@@ -2,52 +2,49 @@ Return-Path: <SRS0=Rx2D=HK=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BF68FC433E6
-	for <intel-gfx@archiver.kernel.org>; Mon,  8 Feb 2021 17:35:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5EE65C433E0
+	for <intel-gfx@archiver.kernel.org>; Mon,  8 Feb 2021 17:40:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 707A764DB2
-	for <intel-gfx@archiver.kernel.org>; Mon,  8 Feb 2021 17:35:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 707A764DB2
+	by mail.kernel.org (Postfix) with ESMTPS id 0B44D64E7E
+	for <intel-gfx@archiver.kernel.org>; Mon,  8 Feb 2021 17:40:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0B44D64E7E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE2086E96D;
-	Mon,  8 Feb 2021 17:35:40 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 196326E974
- for <intel-gfx@lists.freedesktop.org>; Mon,  8 Feb 2021 17:35:39 +0000 (UTC)
-IronPort-SDR: pEfPUwLWk6DM2UHnL9jtLoPwexuM2XorzwZwNhE5YpG9c3uS4RfpIHsRcu6Km3LJ7WC6Xs0LTJ
- PbxR/qgEbXOA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9889"; a="178239817"
-X-IronPort-AV: E=Sophos;i="5.81,162,1610438400"; d="scan'208";a="178239817"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Feb 2021 09:35:38 -0800
-IronPort-SDR: rolYh43HV8ezlFgpOWwZYiOJqCpbPoNiPoQLqNumUNpZN9G3T7VTiC5mpstXvw3DLSiLffvgIi
- xiYZ0jnH6wJA==
-X-IronPort-AV: E=Sophos;i="5.81,162,1610438400"; d="scan'208";a="435703160"
-Received: from anveshag-mobl1.amr.corp.intel.com (HELO intel.com)
- ([10.209.119.193])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Feb 2021 09:35:37 -0800
-Date: Mon, 8 Feb 2021 12:35:36 -0500
-From: Rodrigo Vivi <rodrigo.vivi@intel.com>
-To: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-Message-ID: <20210208173536.GG4798@intel.com>
-References: <20210206020925.36729-1-daniele.ceraolospurio@intel.com>
- <20210206020925.36729-6-daniele.ceraolospurio@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 442AE890EF;
+	Mon,  8 Feb 2021 17:40:38 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D86F895EE
+ for <intel-gfx@lists.freedesktop.org>; Mon,  8 Feb 2021 17:40:37 +0000 (UTC)
+IronPort-SDR: i6VQhGBkvyO6/je80iuaYL5Y+mlyvkw49of6p3A1S8/XtbAwKTJNZTOhKeg2oThb2zo/T4Uyl9
+ rPXukAg9BQyg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9889"; a="200812315"
+X-IronPort-AV: E=Sophos;i="5.81,162,1610438400"; d="scan'208";a="200812315"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Feb 2021 09:40:37 -0800
+IronPort-SDR: Bv6xREK4nrQCR/D8nQFBwZIAChjE3CCMpaaMjZFhGf5zdCcuYYfZdwLeODrIZGv6W8l4O64CER
+ SZD1k8ID8dxA==
+X-IronPort-AV: E=Sophos;i="5.81,162,1610438400"; d="scan'208";a="377857782"
+Received: from orsosgc001.ra.intel.com ([10.23.184.150])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Feb 2021 09:40:36 -0800
+From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Mon,  8 Feb 2021 09:40:28 -0800
+Message-Id: <20210208174029.45621-2-umesh.nerlige.ramappa@intel.com>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20210208174029.45621-1-umesh.nerlige.ramappa@intel.com>
+References: <20210208174029.45621-1-umesh.nerlige.ramappa@intel.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210206020925.36729-6-daniele.ceraolospurio@intel.com>
-Subject: Re: [Intel-gfx] [RFC 05/14] drm/i915/pxp: set KCR reg init during
- the boot time
+Subject: [Intel-gfx] [PATCH 2/3] i915/perf: Move OA formats to single array
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,99 +57,102 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Huang@freedesktop.org, intel-gfx@lists.freedesktop.org,
- Sean Z <sean.z.huang@intel.com>
+Cc: Chris Wilson <chris.p.wilson@intel.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Feb 05, 2021 at 06:09:16PM -0800, Daniele Ceraolo Spurio wrote:
-> Set the KCR init during the boot time, which is required by hardware,
-> to allow us doing further protection operation such as sending commands
-> to GPU or TEE.
-> 
-> Signed-off-by: Huang, Sean Z <sean.z.huang@intel.com>
-> Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-> ---
->  drivers/gpu/drm/i915/pxp/intel_pxp.c | 29 +++++++++++++++++++++++++++-
->  1 file changed, 28 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.c b/drivers/gpu/drm/i915/pxp/intel_pxp.c
-> index 4ddc8a71a3e7..950daee5b907 100644
-> --- a/drivers/gpu/drm/i915/pxp/intel_pxp.c
-> +++ b/drivers/gpu/drm/i915/pxp/intel_pxp.c
-> @@ -6,6 +6,24 @@
->  #include "gt/intel_context.h"
->  #include "i915_drv.h"
->  
-> +/* KCR register definitions */
-> +#define KCR_INIT _MMIO(0x320f0)
-> +
-> +/* Setting KCR Init bit is required after system boot */
-> +#define KCR_INIT_ALLOW_DISPLAY_ME_WRITES REG_BIT(14)
+Variations in OA formats in the different gens has led to creation of
+several sparse arrays to store the formats.
 
-I still don't like the spread register defines... we will soon have some weird duplications...
+Move oa formats into a single array and format_mask to check for
+platform specific oa formats.
 
-but seems a new trend...
+Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+Reviewed-by: Lionel Landwerlin <lionel.g.landwerlin@intel.com>
+---
+ drivers/gpu/drm/i915/i915_perf.c | 19 ++-----------------
+ 1 file changed, 2 insertions(+), 17 deletions(-)
 
-rant aside:
+diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
+index 7b6aab5f3e46..e7e097ec70e7 100644
+--- a/drivers/gpu/drm/i915/i915_perf.c
++++ b/drivers/gpu/drm/i915/i915_perf.c
+@@ -302,7 +302,7 @@ static u32 i915_oa_max_sample_rate = 100000;
+  * code assumes all reports have a power-of-two size and ~(size - 1) can
+  * be used as a mask to align the OA tail pointer.
+  */
+-static const struct i915_oa_format hsw_oa_formats[I915_OA_FORMAT_MAX] = {
++static const struct i915_oa_format oa_formats[I915_OA_FORMAT_MAX] = {
+ 	[I915_OA_FORMAT_A13]	    = { 0, 64 },
+ 	[I915_OA_FORMAT_A29]	    = { 1, 128 },
+ 	[I915_OA_FORMAT_A13_B8_C8]  = { 2, 128 },
+@@ -311,17 +311,9 @@ static const struct i915_oa_format hsw_oa_formats[I915_OA_FORMAT_MAX] = {
+ 	[I915_OA_FORMAT_A45_B8_C8]  = { 5, 256 },
+ 	[I915_OA_FORMAT_B4_C8_A16]  = { 6, 128 },
+ 	[I915_OA_FORMAT_C4_B8]	    = { 7, 64 },
+-};
+-
+-static const struct i915_oa_format gen8_plus_oa_formats[I915_OA_FORMAT_MAX] = {
+ 	[I915_OA_FORMAT_A12]		    = { 0, 64 },
+ 	[I915_OA_FORMAT_A12_B8_C8]	    = { 2, 128 },
+ 	[I915_OA_FORMAT_A32u40_A4u32_B8_C8] = { 5, 256 },
+-	[I915_OA_FORMAT_C4_B8]		    = { 7, 64 },
+-};
+-
+-static const struct i915_oa_format gen12_oa_formats[I915_OA_FORMAT_MAX] = {
+-	[I915_OA_FORMAT_A32u40_A4u32_B8_C8] = { 5, 256 },
+ };
+ 
+ #define SAMPLE_OA_REPORT      (1<<0)
+@@ -4333,6 +4325,7 @@ void i915_perf_init(struct drm_i915_private *i915)
+ 
+ 	/* XXX const struct i915_perf_ops! */
+ 
++	perf->oa_formats = oa_formats;
+ 	if (IS_HASWELL(i915)) {
+ 		perf->ops.is_valid_b_counter_reg = gen7_is_valid_b_counter_addr;
+ 		perf->ops.is_valid_mux_reg = hsw_is_valid_mux_addr;
+@@ -4343,8 +4336,6 @@ void i915_perf_init(struct drm_i915_private *i915)
+ 		perf->ops.oa_disable = gen7_oa_disable;
+ 		perf->ops.read = gen7_oa_read;
+ 		perf->ops.oa_hw_tail_read = gen7_oa_hw_tail_read;
+-
+-		perf->oa_formats = hsw_oa_formats;
+ 	} else if (HAS_LOGICAL_RING_CONTEXTS(i915)) {
+ 		/* Note: that although we could theoretically also support the
+ 		 * legacy ringbuffer mode on BDW (and earlier iterations of
+@@ -4355,8 +4346,6 @@ void i915_perf_init(struct drm_i915_private *i915)
+ 		perf->ops.read = gen8_oa_read;
+ 
+ 		if (IS_GEN_RANGE(i915, 8, 9)) {
+-			perf->oa_formats = gen8_plus_oa_formats;
+-
+ 			perf->ops.is_valid_b_counter_reg =
+ 				gen7_is_valid_b_counter_addr;
+ 			perf->ops.is_valid_mux_reg =
+@@ -4387,8 +4376,6 @@ void i915_perf_init(struct drm_i915_private *i915)
+ 				perf->gen8_valid_ctx_bit = BIT(16);
+ 			}
+ 		} else if (IS_GEN_RANGE(i915, 10, 11)) {
+-			perf->oa_formats = gen8_plus_oa_formats;
+-
+ 			perf->ops.is_valid_b_counter_reg =
+ 				gen7_is_valid_b_counter_addr;
+ 			perf->ops.is_valid_mux_reg =
+@@ -4411,8 +4398,6 @@ void i915_perf_init(struct drm_i915_private *i915)
+ 			}
+ 			perf->gen8_valid_ctx_bit = BIT(16);
+ 		} else if (IS_GEN(i915, 12)) {
+-			perf->oa_formats = gen12_oa_formats;
+-
+ 			perf->ops.is_valid_b_counter_reg =
+ 				gen12_is_valid_b_counter_addr;
+ 			perf->ops.is_valid_mux_reg =
+-- 
+2.20.1
 
-Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
-
-> +
-> +static void kcr_pxp_enable(struct intel_gt *gt)
-> +{
-> +	intel_uncore_write(gt->uncore, KCR_INIT,
-> +			   _MASKED_BIT_ENABLE(KCR_INIT_ALLOW_DISPLAY_ME_WRITES));
-> +}
-> +
-> +static void kcr_pxp_disable(struct intel_gt *gt)
-> +{
-> +	intel_uncore_write(gt->uncore, KCR_INIT,
-> +			   _MASKED_BIT_DISABLE(KCR_INIT_ALLOW_DISPLAY_ME_WRITES));
-> +}
-> +
->  static int create_vcs_context(struct intel_pxp *pxp)
->  {
->  	struct intel_gt *gt = pxp_to_gt(pxp);
-> @@ -43,19 +61,28 @@ void intel_pxp_init(struct intel_pxp *pxp)
->  	if (!HAS_PXP(gt->i915))
->  		return;
->  
-> +	kcr_pxp_enable(gt);
-> +
->  	ret = create_vcs_context(pxp);
->  	if (ret)
-> -		return;
-> +		goto out_kcr;
->  
->  	drm_info(&gt->i915->drm, "Protected Xe Path (PXP) protected content support initialized\n");
->  
->  	return;
-> +
-> +out_kcr:
-> +	kcr_pxp_disable(gt);
->  }
->  
->  void intel_pxp_fini(struct intel_pxp *pxp)
->  {
-> +	struct intel_gt *gt = pxp_to_gt(pxp);
-> +
->  	if (!intel_pxp_is_enabled(pxp))
->  		return;
->  
->  	destroy_vcs_context(pxp);
-> +
-> +	kcr_pxp_disable(gt);
->  }
-> -- 
-> 2.29.2
-> 
-> _______________________________________________
-> Intel-gfx mailing list
-> Intel-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/intel-gfx
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
