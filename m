@@ -2,41 +2,66 @@ Return-Path: <SRS0=Rx2D=HK=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-0.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8EE9CC433DB
-	for <intel-gfx@archiver.kernel.org>; Mon,  8 Feb 2021 20:50:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8CFA2C433DB
+	for <intel-gfx@archiver.kernel.org>; Mon,  8 Feb 2021 20:55:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1F9A664E75
-	for <intel-gfx@archiver.kernel.org>; Mon,  8 Feb 2021 20:50:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1F9A664E75
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id 2730264E75
+	for <intel-gfx@archiver.kernel.org>; Mon,  8 Feb 2021 20:55:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2730264E75
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 275976E9FA;
-	Mon,  8 Feb 2021 20:50:45 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 7101C6E9F8;
- Mon,  8 Feb 2021 20:50:44 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 699D4A0BA8;
- Mon,  8 Feb 2021 20:50:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F73A6E9FB;
+	Mon,  8 Feb 2021 20:55:33 +0000 (UTC)
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [IPv6:2a00:1450:4864:20::52c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D11C6E9FB
+ for <intel-gfx@lists.freedesktop.org>; Mon,  8 Feb 2021 20:55:32 +0000 (UTC)
+Received: by mail-ed1-x52c.google.com with SMTP id s3so20622517edi.7
+ for <intel-gfx@lists.freedesktop.org>; Mon, 08 Feb 2021 12:55:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=2R5cIzIXet9GM6dz4SIcwXdp+qiJPCxayFqnXxYjxjw=;
+ b=uduEefrEvrM0g2Ug2r6s0muEflS4MfZe2rT9RP1nXv/VFIGgWs75iwG9+7enYg55s7
+ gTOSubSmlfK2tGI4JDeqLHHozyVNHzVL7swRjiybMU1Sbmyx94kYXSpmJiJq6fHCdjUO
+ ISSWHG+QX/Sw/7HuItjxNBDgxFljq7ZbfCZ17vsr1UxPohjAbDZyOOrXSQ42FfYzDtQ/
+ CPH3KQQXRqQ68lwdfIx6A9odcL7215uWXkXPF/U7NAYjhvwo8XzIiV6pAwg4OauM61yR
+ 4mUdCkNwzB3ZjPidngVXP181LRHqdfUmxhD0RG1wsMz4jWuX4wtyfZCECK9nMc5gjnnm
+ +Z5w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=2R5cIzIXet9GM6dz4SIcwXdp+qiJPCxayFqnXxYjxjw=;
+ b=O8JVzaRM9+AUiw8gT499Tc5TBcZI4Oz4e5d+EqTrdYHJeAIpMrSOPYtodSBkKLghwd
+ yY94Tbyo1rL0qfKQNCtle4jBtqlfbJs/ZQOLaFOaV1c0YS2lT4DoQp6PbhyAGRjpSbYr
+ zidX+YST2pABk977UXNhG2F0Yf6Plf+Fd5YdsP1UwUtFirbsNZ2UNyAwlP8VQm8WEeVd
+ zPAC2laFOwDUMggu/USteEIID1c9OpY8WnBHwcS5sZ5aB+x8idaZ12ajQkjfBOfMnVJl
+ GBvQ9sXaHPlJvdhqGTJuV6tQcn8tLCFGss4w/uEs3jc9q+k+WBaFaflrxhlE0C4jfAwx
+ w2MQ==
+X-Gm-Message-State: AOAM531tCAdLGdwkFA1T5QdEYsp+XXn9jAL1k73KUhOPt8bwfkb4Fv1i
+ VHbP9n3endW6i30vOz6G0iQX3FymBtcIGX9itFw=
+X-Google-Smtp-Source: ABdhPJzKSrqUoI2XKkjCWjmHnyCD2h/LiI39Cwke9hmSrYgf1xQc4lUGFTqa2HsycW0ydauEL8+TyhdHO9hBoODtj3s=
+X-Received: by 2002:a05:6402:702:: with SMTP id
+ w2mr19524378edx.78.1612817730957; 
+ Mon, 08 Feb 2021 12:55:30 -0800 (PST)
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Matthew Auld" <matthew.auld@intel.com>
-Date: Mon, 08 Feb 2021 20:50:44 -0000
-Message-ID: <161281744440.27713.16807861396973792945@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20210208174217.140790-1-matthew.auld@intel.com>
-In-Reply-To: <20210208174217.140790-1-matthew.auld@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_series_starting_with_=5B1/2=5D_drm/i915=3A_rework_gem=5Fcre?=
- =?utf-8?q?ate_flow_for_upcoming_extensions?=
+References: <20210208105236.28498-1-chris@chris-wilson.co.uk>
+ <20210208105236.28498-30-chris@chris-wilson.co.uk>
+In-Reply-To: <20210208105236.28498-30-chris@chris-wilson.co.uk>
+From: Dave Airlie <airlied@gmail.com>
+Date: Tue, 9 Feb 2021 06:55:19 +1000
+Message-ID: <CAPM=9tzVb=eN84xSY+_q8Cgv7dwidCyh9kr7N411YmM+NhLbNQ@mail.gmail.com>
+To: Chris Wilson <chris@chris-wilson.co.uk>
+Subject: Re: [Intel-gfx] [PATCH 30/31] drm/i915: Support secure dispatch on
+ gen6/gen7
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,42 +74,39 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
+Cc: Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ Matthew Auld <matthew.auld@intel.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+On Mon, 8 Feb 2021 at 20:53, Chris Wilson <chris@chris-wilson.co.uk> wrote:
+>
+> Re-enable secure dispatch for gen6/gen7, primarily to workaround the
+> command parser and overly zealous command validation on Haswell. For
+> example this prevents making accurate measurements using a journal for
+> store results from the GPU without CPU intervention.
 
-Series: series starting with [1/2] drm/i915: rework gem_create flow for upcoming extensions
-URL   : https://patchwork.freedesktop.org/series/86866/
-State : warning
+There's 31 patches in this series, and I can't find any 00/31 or
+justification for any of this work.
 
-== Summary ==
+I see patches like this which seem to undo work done for security
+reasons under CVE patches with no oversight.
 
-$ dim checkpatch origin/drm-tip
-2da1a8f2c4e3 drm/i915: rework gem_create flow for upcoming extensions
--:115: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
-#115: FILE: drivers/gpu/drm/i915/gem/i915_gem_create.c:107:
-+			     intel_memory_region_by_type(to_i915(dev),
-+							      mem_type),
+Again, the GT team is not doing the right thing here, stop focusing on
+individual pieces of Chris's work, push back for high level
+architectural reviews and I want them on the list in public.
 
-total: 0 errors, 0 warnings, 1 checks, 137 lines checked
-4bd834f7238f drm/i915/uapi: introduce drm_i915_gem_create_ext
--:161: WARNING:LONG_LINE: line length of 124 exceeds 100 columns
-#161: FILE: include/uapi/drm/i915_drm.h:396:
-+#define DRM_IOCTL_I915_GEM_CREATE_EXT	DRM_IOWR(DRM_COMMAND_BASE + DRM_I915_GEM_CREATE_EXT, struct drm_i915_gem_create_ext)
+All I want from the GT team in the next pull request is dma_resv
+locking work and restoring the hangcheck timers that seems like a
+regression that Chris found acceptable and nobody has pushed back on.
 
--:212: CHECK:SPACING: spaces preferred around that '<<' (ctx:VxV)
-#212: FILE: include/uapi/drm/i915_drm.h:1740:
-+#define I915_OBJECT_PARAM  (1ull<<32)
-                                 ^
+For like the 500th time, if you want DG1 and stuff in the tree, stop
+this shit already, real reviewers, high-level architectural reviews,
+NAK the bullshit in public on the list.
 
-total: 0 errors, 1 warnings, 1 checks, 180 lines checked
-
-
+Dave.
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
