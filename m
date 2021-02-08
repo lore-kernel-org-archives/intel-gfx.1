@@ -2,50 +2,48 @@ Return-Path: <SRS0=Rx2D=HK=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-14.8 required=3.0 tests=BAYES_00,
+	DATE_IN_FUTURE_06_12,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 00832C433E0
-	for <intel-gfx@archiver.kernel.org>; Mon,  8 Feb 2021 11:05:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DFF27C433E0
+	for <intel-gfx@archiver.kernel.org>; Mon,  8 Feb 2021 11:11:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 78D5164E0B
-	for <intel-gfx@archiver.kernel.org>; Mon,  8 Feb 2021 11:05:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 78D5164E0B
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 6F3EE64E0B
+	for <intel-gfx@archiver.kernel.org>; Mon,  8 Feb 2021 11:11:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6F3EE64E0B
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E23796E3F7;
-	Mon,  8 Feb 2021 11:05:56 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BD01E6E3F7
- for <intel-gfx@lists.freedesktop.org>; Mon,  8 Feb 2021 11:05:55 +0000 (UTC)
-IronPort-SDR: otQuD1BcgaluAiKQxsM5vRoatrHKWYknmuf6uiA+ST1SJIf0L/K2nBlbwnKOCukujfmTJerZQT
- C1jgpJMEPGKg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9888"; a="181840914"
-X-IronPort-AV: E=Sophos;i="5.81,161,1610438400"; d="scan'208";a="181840914"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Feb 2021 03:05:52 -0800
-IronPort-SDR: IVJO18z5iOpiCE6lHpxwPkKBqk+pGd/9ss6tUv/SPu69+s0KvqvAB+bt4BfXf8iPI8rrYUzkUe
- zEdW6mqGuvNg==
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA55F6E88C;
+	Mon,  8 Feb 2021 11:11:03 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B54F6E88A;
+ Mon,  8 Feb 2021 11:11:01 +0000 (UTC)
+IronPort-SDR: 2Ty2/A586oDDu+Gmb5RU41K4qdMkv7yTSI2ricRTD+MOZQ2suYFih21a0TCJnnGNbJyaMOoJg0
+ baTYq9UIdfXg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9888"; a="179134980"
+X-IronPort-AV: E=Sophos;i="5.81,161,1610438400"; d="scan'208";a="179134980"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Feb 2021 03:11:00 -0800
+IronPort-SDR: tQPxxlIxpgU2syF+t+y9/8vgr96RxgVSdqB1ryYM3UPrbvR2D4MYql2e8nyZDkEvcykN4FKdS0
+ hOIBPdZZ0vHg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.81,161,1610438400"; d="scan'208";a="585633314"
-Received: from linux-akn.iind.intel.com ([10.223.34.148])
- by fmsmga005.fm.intel.com with ESMTP; 08 Feb 2021 03:05:50 -0800
-From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Mon,  8 Feb 2021 16:26:02 +0530
-Message-Id: <20210208105602.25151-1-ankit.k.nautiyal@intel.com>
-X-Mailer: git-send-email 2.29.2
-In-Reply-To: <20210208104338.25023-1-ankit.k.nautiyal@intel.com>
-References: <20210208104338.25023-1-ankit.k.nautiyal@intel.com>
-MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v2] drm/i915: Fix HAS_LSPCON macro for platforms
- between GEN9 and GEN10
+X-IronPort-AV: E=Sophos;i="5.81,161,1610438400"; d="scan'208";a="395345985"
+Received: from zhangyu-optiplex-7040.bj.intel.com ([10.238.154.148])
+ by orsmga008.jf.intel.com with ESMTP; 08 Feb 2021 03:10:56 -0800
+From: Yu Zhang <yu.c.zhang@linux.intel.com>
+To: zhenyuw@linux.intel.com,
+	zhi.a.wang@intel.com
+Date: Tue,  9 Feb 2021 02:52:10 +0800
+Message-Id: <20210208185210.6002-1-yu.c.zhang@linux.intel.com>
+X-Mailer: git-send-email 2.17.1
+Subject: [Intel-gfx] [PATCH] drm/i915/gvt/kvmgt: Fix the build failure in
+ kvmgt.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,37 +56,88 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: kvm@vger.kernel.org, airlied@linux.ie, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ intel-gvt-dev@lists.freedesktop.org
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Legacy LSPCON chip from MCA and Parade is only used for platforms
-between GEN9 and GEN10. Fixing the HAS_LSPCON macro to reflect the same.
+Previously, commit 531810caa9f4 ("KVM: x86/mmu: Use
+an rwlock for the x86 MMU") replaced KVM's mmu_lock
+with type rwlock_t. This will cause a build failure
+in kvmgt, which uses the same lock when trying to add/
+remove some GFNs to/from the page tracker. Fix it with
+write_lock/unlocks in kvmgt.
 
-v2: Added the missing 'drm/' to subject (Jani N).
-
-Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Acked-by: Jani Nikula <jani.nikula@intel.com>
+Reported-by: Stephen Rothwell <sfr@canb.auug.org.au>
+Signed-off-by: Yu Zhang <yu.c.zhang@linux.intel.com>
 ---
- drivers/gpu/drm/i915/i915_drv.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/i915/gvt/kvmgt.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index 4fc9a8691873..fd04fc434ca6 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -1763,7 +1763,7 @@ tgl_stepping_get(struct drm_i915_private *dev_priv)
+diff --git a/drivers/gpu/drm/i915/gvt/kvmgt.c b/drivers/gpu/drm/i915/gvt/kvmgt.c
+index 60f1a386dd06..b4348256ae95 100644
+--- a/drivers/gpu/drm/i915/gvt/kvmgt.c
++++ b/drivers/gpu/drm/i915/gvt/kvmgt.c
+@@ -1703,7 +1703,7 @@ static int kvmgt_page_track_add(unsigned long handle, u64 gfn)
+ 		return -EINVAL;
+ 	}
  
- #define HAS_GMCH(dev_priv) (INTEL_INFO(dev_priv)->display.has_gmch)
+-	spin_lock(&kvm->mmu_lock);
++	write_lock(&kvm->mmu_lock);
  
--#define HAS_LSPCON(dev_priv) (INTEL_GEN(dev_priv) >= 9)
-+#define HAS_LSPCON(dev_priv) (IS_GEN_RANGE(dev_priv, 9, 10))
+ 	if (kvmgt_gfn_is_write_protected(info, gfn))
+ 		goto out;
+@@ -1712,7 +1712,7 @@ static int kvmgt_page_track_add(unsigned long handle, u64 gfn)
+ 	kvmgt_protect_table_add(info, gfn);
  
- /* DPF == dynamic parity feature */
- #define HAS_L3_DPF(dev_priv) (INTEL_INFO(dev_priv)->has_l3_dpf)
+ out:
+-	spin_unlock(&kvm->mmu_lock);
++	write_unlock(&kvm->mmu_lock);
+ 	srcu_read_unlock(&kvm->srcu, idx);
+ 	return 0;
+ }
+@@ -1737,7 +1737,7 @@ static int kvmgt_page_track_remove(unsigned long handle, u64 gfn)
+ 		return -EINVAL;
+ 	}
+ 
+-	spin_lock(&kvm->mmu_lock);
++	write_lock(&kvm->mmu_lock);
+ 
+ 	if (!kvmgt_gfn_is_write_protected(info, gfn))
+ 		goto out;
+@@ -1746,7 +1746,7 @@ static int kvmgt_page_track_remove(unsigned long handle, u64 gfn)
+ 	kvmgt_protect_table_del(info, gfn);
+ 
+ out:
+-	spin_unlock(&kvm->mmu_lock);
++	write_unlock(&kvm->mmu_lock);
+ 	srcu_read_unlock(&kvm->srcu, idx);
+ 	return 0;
+ }
+@@ -1772,7 +1772,7 @@ static void kvmgt_page_track_flush_slot(struct kvm *kvm,
+ 	struct kvmgt_guest_info *info = container_of(node,
+ 					struct kvmgt_guest_info, track_node);
+ 
+-	spin_lock(&kvm->mmu_lock);
++	write_lock(&kvm->mmu_lock);
+ 	for (i = 0; i < slot->npages; i++) {
+ 		gfn = slot->base_gfn + i;
+ 		if (kvmgt_gfn_is_write_protected(info, gfn)) {
+@@ -1781,7 +1781,7 @@ static void kvmgt_page_track_flush_slot(struct kvm *kvm,
+ 			kvmgt_protect_table_del(info, gfn);
+ 		}
+ 	}
+-	spin_unlock(&kvm->mmu_lock);
++	write_unlock(&kvm->mmu_lock);
+ }
+ 
+ static bool __kvmgt_vgpu_exist(struct intel_vgpu *vgpu, struct kvm *kvm)
 -- 
-2.29.2
+2.17.1
 
 _______________________________________________
 Intel-gfx mailing list
