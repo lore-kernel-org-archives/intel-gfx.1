@@ -2,54 +2,43 @@ Return-Path: <SRS0=0Its=HL=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.5 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 47F58C433E6
-	for <intel-gfx@archiver.kernel.org>; Tue,  9 Feb 2021 09:37:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2545CC433E0
+	for <intel-gfx@archiver.kernel.org>; Tue,  9 Feb 2021 09:38:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B881664E77
-	for <intel-gfx@archiver.kernel.org>; Tue,  9 Feb 2021 09:37:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B881664E77
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id AD86564E7D
+	for <intel-gfx@archiver.kernel.org>; Tue,  9 Feb 2021 09:38:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AD86564E7D
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 296396EAA8;
-	Tue,  9 Feb 2021 09:37:25 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 719986EAA8
- for <intel-gfx@lists.freedesktop.org>; Tue,  9 Feb 2021 09:37:24 +0000 (UTC)
-IronPort-SDR: Sur8VrRzAZLRDr1YtM2tWQDHxKNkSj5MUo4byvbMPs6PWcDZpXkHpcO/frZmsCOCHxfpWdzPCi
- p/Cn+735bf4g==
-X-IronPort-AV: E=McAfee;i="6000,8403,9889"; a="266688601"
-X-IronPort-AV: E=Sophos;i="5.81,164,1610438400"; d="scan'208";a="266688601"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Feb 2021 01:37:24 -0800
-IronPort-SDR: K4p38r1B2XhycYP26zCj00elMBMbzgQEiBSrDC1OThlkvbUhjBUqHWcvWS7NGM9LOCHh75hG9B
- kcCnTrep7u1g==
-X-IronPort-AV: E=Sophos;i="5.81,164,1610438400"; d="scan'208";a="396047770"
-Received: from gmaoz-mobl.ger.corp.intel.com (HELO [10.249.82.228])
- ([10.249.82.228])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Feb 2021 01:37:22 -0800
-To: Chris Wilson <chris@chris-wilson.co.uk>, intel-gfx@lists.freedesktop.org
-References: <20210208105236.28498-1-chris@chris-wilson.co.uk>
- <20210208105236.28498-10-chris@chris-wilson.co.uk>
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Organization: Intel Corporation UK Plc
-Message-ID: <9073d73f-d6ff-ae3a-0944-e62a6d190e2f@linux.intel.com>
-Date: Tue, 9 Feb 2021 09:37:19 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B25189DCF;
+	Tue,  9 Feb 2021 09:38:41 +0000 (UTC)
+Received: from fireflyinternet.com (unknown [77.68.26.236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B999489DCF
+ for <intel-gfx@lists.freedesktop.org>; Tue,  9 Feb 2021 09:38:38 +0000 (UTC)
+X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
+ x-ip-name=78.156.69.177; 
+Received: from localhost (unverified [78.156.69.177]) 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP (TLS) id
+ 23819239-1500050 for multiple; Tue, 09 Feb 2021 09:22:08 +0000
 MIME-Version: 1.0
-In-Reply-To: <20210208105236.28498-10-chris@chris-wilson.co.uk>
-Content-Language: en-US
-Subject: Re: [Intel-gfx] [PATCH 10/31] drm/i915: Fair low-latency scheduling
+In-Reply-To: <20210209021918.16234-1-ville.syrjala@linux.intel.com>
+References: <20210209021918.16234-1-ville.syrjala@linux.intel.com>
+From: Chris Wilson <chris@chris-wilson.co.uk>
+To: Ville Syrjala <ville.syrjala@linux.intel.com>,
+ intel-gfx@lists.freedesktop.org
+Date: Tue, 09 Feb 2021 09:22:09 +0000
+Message-ID: <161286252973.7943.3574089157194446990@build.alporthouse.com>
+User-Agent: alot/0.9
+Subject: Re: [Intel-gfx] [PATCH 1/3] drm/i915: Disallow plane x+w>stride on
+ ilk+ with X-tiling
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,102 +51,88 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-
-On 08/02/2021 10:52, Chris Wilson wrote:
-
-> diff --git a/drivers/gpu/drm/i915/Kconfig.profile b/drivers/gpu/drm/i915/Kconfig.profile
-> index 35bbe2b80596..f1d009906f71 100644
-> --- a/drivers/gpu/drm/i915/Kconfig.profile
-> +++ b/drivers/gpu/drm/i915/Kconfig.profile
-> @@ -1,3 +1,65 @@
-> +choice
-> +	prompt "Preferred scheduler"
-> +	default DRM_I915_SCHED_VIRTUAL_DEADLINE
-> +	help
-> +	  Select the preferred method to decide the order of execution.
-> +
-> +	  The scheduler is used for two purposes. First to defer unready
-> +	  jobs to not block execution of independent ready clients, so
-> +	  preventing GPU stalls while work waits for other tasks. The second
-> +	  purpose is to decide which task to run next, as well as decide
-> +	  if that task should preempt the currently running task, or if
-> +	  the current task has exceeded its allotment of GPU time and should
-> +	  be replaced.
-> +
-> +	config DRM_I915_SCHED_FIFO
-> +	bool "FIFO"
-> +	help
-> +	  No task reordering, tasks are executed in order of readiness.
-> +	  First in, first out.
-> +
-> +	  Unready tasks do not block execution of other, independent clients.
-> +	  A client will not be scheduled for execution until all of its
-> +	  prerequisite work has completed.
-> +
-> +	  This disables the scheduler and puts it into a pass-through mode.
-> +
-> +	config DRM_I915_SCHED_PRIORITY
-> +	bool "Priority"
-> +	help
-> +	  Strict priority ordering, equal priority tasks are executed
-> +	  in order of readiness. Clients are liable to starve other clients,
-> +	  causing uneven execution and excess task latency. High priority
-> +	  clients will preempt lower priority clients and will run
-> +	  uninterrupted.
-> +
-> +	  Note that interactive desktops will implicitly perform priority
-> +	  boosting to minimise frame jitter.
-> +
-> +	config DRM_I915_SCHED_VIRTUAL_DEADLINE
-> +	bool "Virtual Deadline"
-> +	help
-> +	  A fair scheduler based on MuQSS with priority-hinting.
-> +
-> +	  When a task is ready for execution, it is given a quota (from the
-> +	  engine's timeslice) and a virtual deadline. The virtual deadline is
-> +	  derived from the current time and the timeslice scaled by the
-> +	  task's priority. Higher priority tasks are given an earlier
-> +	  deadline and receive a large portion of the execution bandwidth.
-> +
-> +	  Requests are then executed in order of deadline completion.
-> +	  Requests with earlier deadlines and higher priority than currently
-> +	  executing on the engine will preempt the active task.
-> +
-> +endchoice
-> +
-> +config DRM_I915_SCHED
-> +	int
-> +	default 2 if DRM_I915_SCHED_VIRTUAL_DEADLINE
-> +	default 1 if DRM_I915_SCHED_PRIORITY
-> +	default 0 if DRM_I915_SCHED_FIFO
-> +	default -1
-
-Default -1 would mean it would ask the user and not default to deadline?
-
-Implementation wise it is very neat how you did it so there is basically 
-very little cost for the compiled out options. And code maintenance cost 
-to support multiple options is pretty trivial as well.
-
-Only cost I can see is potential bug reports if "wrong" scheduler was 
-picked by someone. What do you envisage, or who, would be the use cases 
-for not going with deadline? (I think deadline should be default.)
-
-Then there is a question of how these kconfig will interact, or at least 
-what their semantics would be, considering the GuC.
-
-I think we can modify the kconfig blurb to say they only apply to 
-execlists platforms, once we get a GuC scheduling platform upstream. And 
-fudge some sched mode bits for sysfs reporting in that case.
-
-Regards,
-
-Tvrtko
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+UXVvdGluZyBWaWxsZSBTeXJqYWxhICgyMDIxLTAyLTA5IDAyOjE5OjE2KQo+IEZyb206IFZpbGxl
+IFN5cmrDpGzDpCA8dmlsbGUuc3lyamFsYUBsaW51eC5pbnRlbC5jb20+Cj4gCj4gaWxrKyBwbGFu
+ZXMgZ2V0IG5vdGFibHkgdW5oYXBweSB3aGVuIHRoZSBwbGFuZSB4K3cgZXhjZWVkcwo+IHRoZSBz
+dHJpZGUuIFRoaXMgd2Fzbid0IGEgcHJvYmxlbSBwcmV2aW91c2x5IGJlY2F1c2Ugd2UKPiBhbHdh
+eXMgYWxpZ25lZCBTVVJGIHRvIHRoZSBjbG9zZXN0IHRpbGUgYm91bmRhcnkgc28gdGhlCj4geCBv
+ZmZzZXQgbmV2ZXIgZ290IHBhcnRpY3VsYXJseSBsYXJnZS4gQnV0IG5vdyB3aXRoIGFzeW5jCj4g
+ZmxpcHMgd2UgaGF2ZSB0byBhbGlnbiB0byAyNTZLaUIgaW5zdGVhZCBhbmQgdGh1cyB0aGlzCj4g
+YmVjb21lcyBhIHJlYWwgaXNzdWUuCj4gCj4gT24gaWxrL3NuYi9pdmIgaXQgbG9va3MgbGlrZSB0
+aGUgYWNjZXNzZXMganVzdCBqdXN0IHdyYXAKPiBlYXJseSB0byB0aGUgbmV4dCB0aWxlIHJvdyB3
+aGVuIHNjYW5vdXQgZ29lcyBwYXN0IHRoZQo+IFNVUkYrbipzdHJpZGUgYm91bmRhcnksIGhzdy9i
+ZHcgc3VmZmVyIG1vcmUgaGVhdmlseSBhbmQKPiBzdGFydCB0byB1bmRlcnJ1biBjb25zdGFudGx5
+LiBpOTY1L2c0eCBhcHBlYXIgdG8gYmUgaW1tdW5lLgo+IHZsdi9jaHYgSSd2ZSBub3QgeWV0IGNo
+ZWNrZWQuCj4gCj4gTGV0J3MgYm9ycm93IGFub3RoZXIgdHJpY2sgZnJvbSB0aGUgc2tsKyBjb2Rl
+IGFuZCBzZWFyY2gKPiBiYWNrd2FyZHMgZm9yIGEgYmV0dGVyIFNVUkYgb2Zmc2V0IGluIHRoZSBo
+b3BlcyBvZiBnZXR0aW5nIHRoZQo+IHggb2Zmc2V0IGJlbG93IHRoZSBsaW1pdC4gSUlSQyB3aGVu
+IEkgcmFuIGludG8gYSBzaW1pbGFyIGlzc3VlCj4gb24gc2tsIHllYXJzIGFnbyBpdCB3YXMgY2F1
+c2luZyB0aGUgaGFyZHdhcmUgdG8gZmFsbCBvdmVyCj4gcHJldHR5IGhhcmQgYXMgd2VsbC4KPiAK
+PiBBbmQgbGV0J3MgYmUgY29uc2lzdGVudCBhbmQgaW5jbHVkZSBpOTY1L2c0eCBpbiB0aGUgY2hl
+Y2sKPiBhcyB3ZWxsLCBqdXN0IGluIGNhc2UgSSBqdXN0IGdvdCBzdXBlciBsdWNreSBzb21laG93
+IHdoZW4KPiBJIHdhc24ndCBhYmxlIHRvIHJlcHJvZHVjZSB0aGUgaXNzdWUuIE5vdCB0aGF0IGl0
+IHJlYWxseQo+IG1hdHRlcnMgc2luY2Ugd2Ugc3RpbGwgdXNlIDRrIFNVUkYgYWxpZ25tZW50IGZv
+ciBpOTY1L2c0eAo+IGFueXdheS4KPiAKPiBGaXhlczogNmVkZTZiMDYxNmIyICgiZHJtL2k5MTU6
+IEltcGxlbWVudCBhc3luYyBmbGlwcyBmb3Igdmx2L2NodiIpCj4gRml4ZXM6IDRiYjE4MDU0YWRj
+NCAoImRybS9pOTE1OiBJbXBsZW1lbnQgYXN5bmMgZmxpcCBmb3IgaWxrL3NuYiIpCj4gRml4ZXM6
+IDJhNjM2ZTI0MGM3NyAoImRybS9pOTE1OiBJbXBsZW1lbnQgYXN5bmMgZmxpcCBmb3IgaXZiL2hz
+dyIpCj4gRml4ZXM6IGNkYTE5NWYxM2FiZCAoImRybS9pOTE1OiBJbXBsZW1lbnQgYXN5bmMgZmxp
+cHMgZm9yIGJkdyIpCj4gU2lnbmVkLW9mZi1ieTogVmlsbGUgU3lyasOkbMOkIDx2aWxsZS5zeXJq
+YWxhQGxpbnV4LmludGVsLmNvbT4KPiAtLS0KPiAgZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxh
+eS9pOXh4X3BsYW5lLmMgfCAyNyArKysrKysrKysrKysrKysrKysrKysrKwo+ICAxIGZpbGUgY2hh
+bmdlZCwgMjcgaW5zZXJ0aW9ucygrKQo+IAo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
+aTkxNS9kaXNwbGF5L2k5eHhfcGxhbmUuYyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkv
+aTl4eF9wbGFuZS5jCj4gaW5kZXggMDUyM2UyYzc5ZDE2Li44YTUyYmVhZWQyZGEgMTAwNjQ0Cj4g
+LS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pOXh4X3BsYW5lLmMKPiArKysgYi9k
+cml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2k5eHhfcGxhbmUuYwo+IEBAIC0yNTUsNiArMjU1
+LDMzIEBAIGludCBpOXh4X2NoZWNrX3BsYW5lX3N1cmZhY2Uoc3RydWN0IGludGVsX3BsYW5lX3N0
+YXRlICpwbGFuZV9zdGF0ZSkKPiAgICAgICAgIGVsc2UKPiAgICAgICAgICAgICAgICAgb2Zmc2V0
+ID0gMDsKPiAgCj4gKyAgICAgICAvKgo+ICsgICAgICAgICogV2hlbiB1c2luZyBhbiBYLXRpbGVk
+IHN1cmZhY2UgdGhlIHBsYW5lIHN0YXJ0cyB0bwo+ICsgICAgICAgICogbWlzYmVoYXZlIGlmIHRo
+ZSB4IG9mZnNldCArIHdpZHRoIGV4Y2VlZHMgdGhlIHN0cmlkZS4KPiArICAgICAgICAqIGhzdy9i
+ZHc6IHVuZGVycnVuIGdhbG9yZQo+ICsgICAgICAgICogaWxrL3NuYi9pdmI6IHdyYXAgdG8gdGhl
+IG5leHQgdGlsZSByb3cgbWlkIHNjYW5vdXQKPiArICAgICAgICAqIGk5NjUvZzR4OiBzbyBmYXIg
+YXBwZWFyIGltbXVuZSB0byB0aGlzCj4gKyAgICAgICAgKiB2bHYvY2h2OiBUT0RPIGNoZWNrCj4g
+KyAgICAgICAgKgo+ICsgICAgICAgICogTGluZWFyIHN1cmZhY2VzIHNlZW0gdG8gd29yayBqdXN0
+IGZpbmUsIGV2ZW4gb24gaHN3L2Jkdwo+ICsgICAgICAgICogZGVzcGl0ZSB0aGVtIG5vdCB1c2lu
+ZyB0aGUgbGluZWFyIG9mZnNldCBhbnltb3JlLgo+ICsgICAgICAgICovCj4gKyAgICAgICBpZiAo
+SU5URUxfR0VOKGRldl9wcml2KSA+PSA0ICYmIGZiLT5tb2RpZmllciA9PSBJOTE1X0ZPUk1BVF9N
+T0RfWF9USUxFRCkgewo+ICsgICAgICAgICAgICAgICB1MzIgYWxpZ25tZW50ID0gaW50ZWxfc3Vy
+Zl9hbGlnbm1lbnQoZmIsIDApOwo+ICsgICAgICAgICAgICAgICBpbnQgY3BwID0gZmItPmZvcm1h
+dC0+Y3BwWzBdOwo+ICsKPiArICAgICAgICAgICAgICAgd2hpbGUgKChzcmNfeCArIHNyY193KSAq
+IGNwcCA+IHBsYW5lX3N0YXRlLT5jb2xvcl9wbGFuZVswXS5zdHJpZGUpIHsKPiArICAgICAgICAg
+ICAgICAgICAgICAgICBpZiAob2Zmc2V0ID09IDApIHsKPiArICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIGRybV9kYmdfa21zKCZkZXZfcHJpdi0+ZHJtLAo+ICsgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgIlVuYWJsZSB0byBmaW5kIHN1aXRhYmxlIGRpc3Bs
+YXkgc3VyZmFjZSBvZmZzZXQgZHVlIHRvIFgtdGlsaW5nXG4iKTsKPiArICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgIHJldHVybiAtRUlOVkFMOwo+ICsgICAgICAgICAgICAgICAgICAgICAg
+IH0KPiArCj4gKyAgICAgICAgICAgICAgICAgICAgICAgb2Zmc2V0ID0gaW50ZWxfcGxhbmVfYWRq
+dXN0X2FsaWduZWRfb2Zmc2V0KCZzcmNfeCwgJnNyY195LCBwbGFuZV9zdGF0ZSwgMCwKPiArICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgb2Zmc2V0LCBvZmZzZXQgLSBhbGlnbm1lbnQpOwoKQXMgb2Zmc2V0IGRlY3JlYXNlcywg
+c3JjX3ggZ29lcyB1cDsgYnV0IG1vZHVsdXMgdGhlIHBpdGNoLiBTbyBsb25nIGFzCnRoZSBhbGln
+bm1lbnQgaXMgbm90IGEgbXVsdGlwbGUgb2YgdGhlIHBpdGNoLCBzcmNfeCB3aWxsIGNoYW5nZSBv
+biBlYWNoCml0ZXJhdGlvbi4gQW5kIGFmdGVyIHRoZSBhZGp1c3RtZW50LCB0aGUgb2Zmc2V0IGlz
+IHN0b3JlZCBpbgpwbGFuZV9zdGF0ZS4KClNvIHRoaXMgbG9vcCB3b3VsZCBmYWlsIGZvciBhbnkg
+cG93ZXItb2YtdHdvIHN0cmlkZSwgYnV0IGF0IHRoZSBzYW1lCnRpbWUgdGhhdCB3b3VsZCBwdXQg
+dGhlIHNyY194ICsgc3JjX3cgb3V0LW9mLWJvdW5kcyBpbiB0aGUgc3VwcGxpZWQKY29vcmRpbmF0
+ZXMuIFRoZSBvbmx5IHdheSBzcmNfeCArIHNyY193IHdvdWxkIGV4Y2VlZCBzdHJpZGUgbGVnYWxs
+eSBpcwppZiB3ZSBoYXZlIGNob3NlbiBhbiBhbGlnbmVkIG9mZnNldCB0aGF0IGNhdXNlcyB0aGF0
+LCB0aHVzIHRoZXJlIHNob3VsZApleGlzdCBhbiBvZmZzZXQgd2hlcmUgc3JjX3ggKyBzcmNfdyBk
+b2VzIG5vdCBleGNlZWQgdGhlIHN0cmlkZS4KClRoZSByZWFzb24gZm9yIGNob29zaW5nIGEgbmVh
+cmJ5IHRpbGUgb2Zmc2V0IHdhcyB0byByZWR1Y2Ugc3JjX3gvc3JjX3kKdG8gZml0IHdpdGhpbiB0
+aGUgY3J0YyBsaW1pdHMuIFdoaWxlIHJlbWFwcGluZyBjb3VsZCBiZSB1c2VkIHRvIHNvbHZlCnRo
+YXQsIHRoZSBhbGlnbmVkX29mZnNldCBjb21wdXRhdGlvbiBhbGxvd3MgcmV1c2Ugb2YgYSBzaW5n
+bGUgdmlldy4KClNpbmNlIG9mZnNldCwgc3JjX3ggYXJlIGEgZnVuY3Rpb24gb2YgdGhlIHBsYW5l
+IGlucHV0IHBhcmFtZXRlcnMsIHRoaXMKc2hvdWxkIGJlIHBvc3NpYmxlIHRvIGV4ZXJjaXNlIHdp
+dGggY2FyZWZ1bGx5IHNlbGVjdGVkIGZyYW1lYnVmZmVycyBhbmQKbW9kZXNldHRpbmcuIFJpZ2h0
+PyBJcyB0aGVyZSBhIHRlc3QgY2FzZSBmb3IgdGhpcz8KClJldmlld2VkLWJ5OiBDaHJpcyBXaWxz
+b24gPGNocmlzQGNocmlzLXdpbHNvbi5jby51az4KLUNocmlzCl9fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fCkludGVsLWdmeCBtYWlsaW5nIGxpc3QKSW50ZWwt
+Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
+YWlsbWFuL2xpc3RpbmZvL2ludGVsLWdmeAo=
