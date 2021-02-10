@@ -2,42 +2,56 @@ Return-Path: <SRS0=KPZb=HM=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AB734C433E0
-	for <intel-gfx@archiver.kernel.org>; Wed, 10 Feb 2021 22:20:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4CA0AC433E0
+	for <intel-gfx@archiver.kernel.org>; Wed, 10 Feb 2021 22:24:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 691E464E02
-	for <intel-gfx@archiver.kernel.org>; Wed, 10 Feb 2021 22:20:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 691E464E02
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
+	by mail.kernel.org (Postfix) with ESMTPS id E1FFC64ECF
+	for <intel-gfx@archiver.kernel.org>; Wed, 10 Feb 2021 22:24:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E1FFC64ECF
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F12826ED0E;
-	Wed, 10 Feb 2021 22:20:09 +0000 (UTC)
-Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5FC5A6ED0D
- for <intel-gfx@lists.freedesktop.org>; Wed, 10 Feb 2021 22:20:04 +0000 (UTC)
-X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
- x-ip-name=78.156.69.177; 
-Received: from build.alporthouse.com (unverified [78.156.69.177]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23839047-1500050 
- for multiple; Wed, 10 Feb 2021 22:19:53 +0000
-From: Chris Wilson <chris@chris-wilson.co.uk>
-To: intel-gfx@lists.freedesktop.org
-Date: Wed, 10 Feb 2021 22:19:53 +0000
-Message-Id: <20210210221955.10025-4-chris@chris-wilson.co.uk>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210210221955.10025-1-chris@chris-wilson.co.uk>
-References: <20210210221955.10025-1-chris@chris-wilson.co.uk>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A2636ED12;
+	Wed, 10 Feb 2021 22:24:33 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C1A696ED12
+ for <intel-gfx@lists.freedesktop.org>; Wed, 10 Feb 2021 22:24:31 +0000 (UTC)
+IronPort-SDR: nWj6OJNYaglfxS8VkKPOCCPQpKNc/rZ4dat2MwD7uo6C+CESl+ddduIk+Tu1Br0Nt1YIaCD7OR
+ rsaLIndZBn0Q==
+X-IronPort-AV: E=McAfee;i="6000,8403,9891"; a="169287841"
+X-IronPort-AV: E=Sophos;i="5.81,169,1610438400"; d="scan'208";a="169287841"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Feb 2021 14:24:30 -0800
+IronPort-SDR: KXDJRPaxpA7KjBKEMtzgPA/G++zeRmbFiaUbwYXYnlrQ1KF74klHFooknBNANUH3WwRRII2quD
+ PRUcXtPtP93g==
+X-IronPort-AV: E=Sophos;i="5.81,169,1610438400"; d="scan'208";a="421226429"
+Received: from sganes2-mobl1.amr.corp.intel.com (HELO ldmartin-desk1)
+ ([10.212.30.225])
+ by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Feb 2021 14:24:30 -0800
+Date: Wed, 10 Feb 2021 14:24:29 -0800
+From: Lucas De Marchi <lucas.demarchi@intel.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Message-ID: <20210210222429.pnqihigewlearcza@ldmartin-desk1>
+X-Patchwork-Hint: comment
+References: <20210128192413.1715802-1-matthew.d.roper@intel.com>
+ <20210128192413.1715802-18-matthew.d.roper@intel.com>
+ <87h7n0hu9p.fsf@intel.com>
+ <161191892944.12947.12934684852512611563@build.alporthouse.com>
+ <87eei4hrz7.fsf@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 4/6] drm/i915/selftests: Restrict partial-tiling
- to write into the object
+Content-Disposition: inline
+In-Reply-To: <87eei4hrz7.fsf@intel.com>
+Subject: Re: [Intel-gfx] [PATCH 17/18] drm/i915/display13: Add rc_qp_table
+ for rcparams calculation
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,53 +64,69 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Chris Wilson <chris@chris-wilson.co.uk>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: intel-gfx@lists.freedesktop.org, Chris Wilson <chris@chris-wilson.co.uk>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="iso-8859-1"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Check that the address we are about to write into maps into the object
-to avoid stray writes into the scratch page.
+On Fri, Jan 29, 2021 at 02:01:32PM +0200, Jani Nikula wrote:
+>On Fri, 29 Jan 2021, Chris Wilson <chris@chris-wilson.co.uk> wrote:
+>> Quoting Jani Nikula (2021-01-29 11:12:02)
+>>> On Thu, 28 Jan 2021, Matt Roper <matthew.d.roper@intel.com> wrote:
+>>> > From: Vandita Kulkarni <vandita.kulkarni@intel.com>
+>>> >
+>>> > Add the qp table for 444 formats, for 8bpc, 10bpc and 12bpc, as given=
+ by
+>>> > the VESA C model for DSC 1.1
+>>> >
+>>> > Cc: Manasi Navare <manasi.d.navare@intel.com>
+>>> > Signed-off-by: Vandita Kulkarni <vandita.kulkarni@intel.com>
+>>> > Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+>>> > ---
+>>> >  .../gpu/drm/i915/display/intel_qp_tables.h    | 294 ++++++++++++++++=
+++
+>>> >  drivers/gpu/drm/i915/display/intel_vdsc.c     |  22 +-
+>>> >  2 files changed, 315 insertions(+), 1 deletion(-)
+>>> >  create mode 100644 drivers/gpu/drm/i915/display/intel_qp_tables.h
+>>> >
+>>> > diff --git a/drivers/gpu/drm/i915/display/intel_qp_tables.h b/drivers=
+/gpu/drm/i915/display/intel_qp_tables.h
+>>> > new file mode 100644
+>>> > index 000000000000..13694d5220d4
+>>> > --- /dev/null
+>>> > +++ b/drivers/gpu/drm/i915/display/intel_qp_tables.h
+>>> > @@ -0,0 +1,294 @@
+>>> > +/* SPDX-License-Identifier: MIT */
+>>> > +/*
+>>> > + * Copyright =A9 2019 Intel Corporation
+>>> > + */
+>>> > +
+>>>
+>>> The include guard is missing.
+>>
+>> Should we even be putting large tables into a header?
+>>
+>> Would this be better as a .c?
+>
+>Agreed.
 
-Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
----
- drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c | 11 +++++------
- 1 file changed, 5 insertions(+), 6 deletions(-)
+ugh... that huge table on a header and even marked as __maybe_unused is
+very ugly. We should really not do that.
 
-diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
-index 39293d98f34d..df558ce95a94 100644
---- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
-+++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
-@@ -104,9 +104,12 @@ static int check_partial_mapping(struct drm_i915_gem_object *obj,
- 	GEM_BUG_ON(i915_gem_object_get_tiling(obj) != tile->tiling);
- 	GEM_BUG_ON(i915_gem_object_get_stride(obj) != tile->stride);
- 
--	page = i915_prandom_u32_max_state(npages, prng);
--	view = compute_partial_view(obj, page, MIN_CHUNK_PAGES);
-+	do {
-+		page = i915_prandom_u32_max_state(npages, prng);
-+		offset = tiled_offset(tile, page << PAGE_SHIFT);
-+	} while (offset >= obj->base.size);
- 
-+	view = compute_partial_view(obj, page, MIN_CHUNK_PAGES);
- 	vma = i915_gem_object_ggtt_pin(obj, &view, 0, 0, PIN_MAPPABLE);
- 	if (IS_ERR(vma)) {
- 		pr_err("Failed to pin partial view: offset=%lu; err=%d\n",
-@@ -129,10 +132,6 @@ static int check_partial_mapping(struct drm_i915_gem_object *obj,
- 	iowrite32(page, io + n * PAGE_SIZE / sizeof(*io));
- 	i915_vma_unpin_iomap(vma);
- 
--	offset = tiled_offset(tile, page << PAGE_SHIFT);
--	if (offset >= obj->base.size)
--		goto out;
--
- 	intel_gt_flush_ggtt_writes(&to_i915(obj->base.dev)->gt);
- 
- 	p = i915_gem_object_get_page(obj, offset >> PAGE_SHIFT);
--- 
-2.20.1
+Lucas De Marchi
 
+>
+>BR,
+>Jani.
+>
+>-- =
+
+>Jani Nikula, Intel Open Source Graphics Center
+>_______________________________________________
+>Intel-gfx mailing list
+>Intel-gfx@lists.freedesktop.org
+>https://lists.freedesktop.org/mailman/listinfo/intel-gfx
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
