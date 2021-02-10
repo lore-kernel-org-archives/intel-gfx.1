@@ -7,37 +7,36 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 10303C433E6
-	for <intel-gfx@archiver.kernel.org>; Wed, 10 Feb 2021 22:20:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8D325C433E0
+	for <intel-gfx@archiver.kernel.org>; Wed, 10 Feb 2021 22:20:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A7C6F64EAC
-	for <intel-gfx@archiver.kernel.org>; Wed, 10 Feb 2021 22:20:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A7C6F64EAC
+	by mail.kernel.org (Postfix) with ESMTPS id 5473564E02
+	for <intel-gfx@archiver.kernel.org>; Wed, 10 Feb 2021 22:20:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5473564E02
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA8586ED0B;
-	Wed, 10 Feb 2021 22:20:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC4D96ED0A;
+	Wed, 10 Feb 2021 22:20:09 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5858C6ED0B
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5763F6E087
  for <intel-gfx@lists.freedesktop.org>; Wed, 10 Feb 2021 22:20:04 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.69.177; 
 Received: from build.alporthouse.com (unverified [78.156.69.177]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23839045-1500050 
- for multiple; Wed, 10 Feb 2021 22:19:53 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23839049-1500050 
+ for multiple; Wed, 10 Feb 2021 22:19:54 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 10 Feb 2021 22:19:51 +0000
-Message-Id: <20210210221955.10025-2-chris@chris-wilson.co.uk>
+Date: Wed, 10 Feb 2021 22:19:55 +0000
+Message-Id: <20210210221955.10025-6-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20210210221955.10025-1-chris@chris-wilson.co.uk>
 References: <20210210221955.10025-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 2/6] drm/i915: Clear internal GT state on
- hibernate
+Subject: [Intel-gfx] [PATCH 6/6] drm/i915: Remove unused debug functions
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,26 +55,53 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Call intel_gt_suspend_late() to disable the GT before hibernation.
+Remove or hide unused debug functions from clang, or else it moans.
 
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_pm.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/i915/i915_sw_fence.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_pm.c b/drivers/gpu/drm/i915/gem/i915_gem_pm.c
-index 000e1cd8e920..da0ef483ad6b 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_pm.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_pm.c
-@@ -115,6 +115,8 @@ int i915_gem_freeze_late(struct drm_i915_private *i915)
- 	 * the objects as well, see i915_gem_freeze()
- 	 */
+diff --git a/drivers/gpu/drm/i915/i915_sw_fence.c b/drivers/gpu/drm/i915/i915_sw_fence.c
+index dfabf291e5cd..566bc48e5b0c 100644
+--- a/drivers/gpu/drm/i915/i915_sw_fence.c
++++ b/drivers/gpu/drm/i915/i915_sw_fence.c
+@@ -49,10 +49,12 @@ static inline void debug_fence_init(struct i915_sw_fence *fence)
+ 	debug_object_init(fence, &i915_sw_fence_debug_descr);
+ }
  
-+	intel_gt_suspend_late(&i915->gt);
-+
- 	with_intel_runtime_pm(&i915->runtime_pm, wakeref)
- 		i915_gem_shrink(i915, -1UL, NULL, ~0);
- 	i915_gem_drain_freed_objects(i915);
++#if IS_ENABLED(CONFIG_DRM_I915_SELFTEST)
+ static inline void debug_fence_init_onstack(struct i915_sw_fence *fence)
+ {
+ 	debug_object_init_on_stack(fence, &i915_sw_fence_debug_descr);
+ }
++#endif
+ 
+ static inline void debug_fence_activate(struct i915_sw_fence *fence)
+ {
+@@ -92,9 +94,11 @@ static inline void debug_fence_init(struct i915_sw_fence *fence)
+ {
+ }
+ 
++#if IS_ENABLED(CONFIG_DRM_I915_SELFTEST)
+ static inline void debug_fence_init_onstack(struct i915_sw_fence *fence)
+ {
+ }
++#endif
+ 
+ static inline void debug_fence_activate(struct i915_sw_fence *fence)
+ {
+@@ -113,10 +117,6 @@ static inline void debug_fence_destroy(struct i915_sw_fence *fence)
+ {
+ }
+ 
+-static inline void debug_fence_free(struct i915_sw_fence *fence)
+-{
+-}
+-
+ static inline void debug_fence_assert(struct i915_sw_fence *fence)
+ {
+ }
 -- 
 2.20.1
 
