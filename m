@@ -7,32 +7,34 @@ X-Spam-Status: No, score=-13.9 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
 	URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 614C3C433DB
-	for <intel-gfx@archiver.kernel.org>; Wed, 10 Feb 2021 10:06:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 329D4C433E6
+	for <intel-gfx@archiver.kernel.org>; Wed, 10 Feb 2021 10:15:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C60CF64E3B
-	for <intel-gfx@archiver.kernel.org>; Wed, 10 Feb 2021 10:06:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C60CF64E3B
+	by mail.kernel.org (Postfix) with ESMTPS id 85F9D64D9F
+	for <intel-gfx@archiver.kernel.org>; Wed, 10 Feb 2021 10:15:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 85F9D64D9F
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2EFB86E160;
-	Wed, 10 Feb 2021 10:06:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC4416E1AA;
+	Wed, 10 Feb 2021 10:15:38 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 249536E160
- for <intel-gfx@lists.freedesktop.org>; Wed, 10 Feb 2021 10:06:15 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A9336E185
+ for <intel-gfx@lists.freedesktop.org>; Wed, 10 Feb 2021 10:15:36 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.69.177; 
 Received: from build.alporthouse.com (unverified [78.156.69.177]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23830833-1500050 
- for multiple; Wed, 10 Feb 2021 10:06:05 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23830959-1500050 
+ for multiple; Wed, 10 Feb 2021 10:15:26 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 10 Feb 2021 10:06:07 +0000
-Message-Id: <20210210100607.5884-1-chris@chris-wilson.co.uk>
+Date: Wed, 10 Feb 2021 10:15:28 +0000
+Message-Id: <20210210101528.6204-1-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20210210100607.5884-1-chris@chris-wilson.co.uk>
+References: <20210210100607.5884-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
 Subject: [Intel-gfx] [PATCH] drm/i915: Check for scratch page scribbling
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -62,12 +64,12 @@ Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
  .../drm/i915/gem/selftests/i915_gem_context.c | 19 +++++++--
  drivers/gpu/drm/i915/gt/intel_engine_cs.c     | 31 +-------------
  drivers/gpu/drm/i915/gt/intel_gt_pm.c         |  4 ++
- drivers/gpu/drm/i915/gt/intel_gtt.c           | 41 +++++++++++++++++++
+ drivers/gpu/drm/i915/gt/intel_gtt.c           | 42 +++++++++++++++++++
  drivers/gpu/drm/i915/gt/intel_gtt.h           |  1 +
  drivers/gpu/drm/i915/i915_scheduler.c         | 33 +--------------
  drivers/gpu/drm/i915/i915_utils.c             | 29 +++++++++++++
  drivers/gpu/drm/i915/i915_utils.h             |  3 ++
- 8 files changed, 97 insertions(+), 64 deletions(-)
+ 8 files changed, 98 insertions(+), 64 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
 index df949320f2b5..b0c349a46e6a 100644
@@ -195,10 +197,15 @@ index 0bd303d2823e..38375a006a99 100644
  	i915_pmu_gt_parked(i915);
  	intel_rps_park(&gt->rps);
 diff --git a/drivers/gpu/drm/i915/gt/intel_gtt.c b/drivers/gpu/drm/i915/gt/intel_gtt.c
-index d34770ae4c9a..e39715c32713 100644
+index d34770ae4c9a..b1dec27c5195 100644
 --- a/drivers/gpu/drm/i915/gt/intel_gtt.c
 +++ b/drivers/gpu/drm/i915/gt/intel_gtt.c
-@@ -162,6 +162,44 @@ static void poison_scratch_page(struct drm_i915_gem_object *scratch)
+@@ -158,10 +158,49 @@ static void poison_scratch_page(struct drm_i915_gem_object *scratch)
+ 
+ 		vaddr = kmap(page);
+ 		memset(vaddr, val, PAGE_SIZE);
++		set_page_dirty(pages); /* keep the poisoned contents */
+ 		kunmap(page);
  	}
  }
  
@@ -243,7 +250,7 @@ index d34770ae4c9a..e39715c32713 100644
  int setup_scratch_page(struct i915_address_space *vm)
  {
  	unsigned long size;
-@@ -229,6 +267,9 @@ void free_scratch(struct i915_address_space *vm)
+@@ -229,6 +268,9 @@ void free_scratch(struct i915_address_space *vm)
  {
  	int i;
  
