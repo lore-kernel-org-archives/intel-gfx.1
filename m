@@ -2,48 +2,43 @@ Return-Path: <SRS0=TgQB=HN=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-18.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,INCLUDES_PULL_REQUEST,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0137BC433DB
-	for <intel-gfx@archiver.kernel.org>; Thu, 11 Feb 2021 08:57:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 22316C433DB
+	for <intel-gfx@archiver.kernel.org>; Thu, 11 Feb 2021 08:58:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AAD9B64E38
-	for <intel-gfx@archiver.kernel.org>; Thu, 11 Feb 2021 08:57:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AAD9B64E38
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 973F264E16
+	for <intel-gfx@archiver.kernel.org>; Thu, 11 Feb 2021 08:57:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 973F264E16
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF5B989D2F;
-	Thu, 11 Feb 2021 08:57:00 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ADC5189C93;
- Thu, 11 Feb 2021 08:56:59 +0000 (UTC)
-IronPort-SDR: G5hlvHZ3DVl9te+k+VvIZnrNcH3QEMyZKCnPf9VI8Kxz7lkKcLsZfWlZqjpP20GBE3Pe1x7M3V
- Mxvit2Te3CmQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9891"; a="179653622"
-X-IronPort-AV: E=Sophos;i="5.81,169,1610438400"; d="scan'208";a="179653622"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Feb 2021 00:56:57 -0800
-IronPort-SDR: clnvHx+5JhClvYBPyzFj/9IOPAjqOk5+fwBiikZMh5s1hXRxarJVDYJC8nGBNkqGIuIbIq0lw7
- ssyylZcybyzA==
-X-IronPort-AV: E=Sophos;i="5.81,169,1610438400"; d="scan'208";a="397174085"
-Received: from hblancoa-mobl.ger.corp.intel.com (HELO localhost)
- ([10.252.36.99])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Feb 2021 00:56:53 -0800
-From: Jani Nikula <jani.nikula@intel.com>
-To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel.vetter@ffwll.ch>, 
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Date: Thu, 11 Feb 2021 10:56:50 +0200
-Message-ID: <87r1lnc78t.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 15E416E40D;
+	Thu, 11 Feb 2021 08:57:59 +0000 (UTC)
+Received: from fireflyinternet.com (unknown [77.68.26.236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 41A886E40D
+ for <intel-gfx@lists.freedesktop.org>; Thu, 11 Feb 2021 08:57:57 +0000 (UTC)
+X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
+ x-ip-name=78.156.69.177; 
+Received: from localhost (unverified [78.156.69.177]) 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP (TLS) id
+ 23834935-1500050 for multiple; Thu, 11 Feb 2021 08:57:47 +0000
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PULL] drm-intel-fixes
+In-Reply-To: <20210211042517.GJ82362@intel.com>
+References: <20210210221955.10025-1-chris@chris-wilson.co.uk>
+ <20210211042517.GJ82362@intel.com>
+From: Chris Wilson <chris@chris-wilson.co.uk>
+To: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Date: Thu, 11 Feb 2021 08:57:45 +0000
+Message-ID: <161303386546.13035.3606386396573664382@build.alporthouse.com>
+User-Agent: alot/0.9
+Subject: Re: [Intel-gfx] [PATCH 1/6] drm/i915/gt: Sanitize GPU during
+ prepare-to-suspend
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,36 +51,61 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: , dim-tools@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Maxime Ripard <mripard@kernel.org>, intel-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: intel-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-CkhpIERhdmUgJiBEYW5pZWwgLQoKQ2FsbWluZyBkb3duLCBqdXN0IGEgY291cGxlIG9mIENjOiBz
-dGFibGUgZml4ZXMgbm93LgoKCmRybS1pbnRlbC1maXhlcy0yMDIxLTAyLTExOgpkcm0vaTkxNSBm
-aXhlcyBmb3IgdjUuMTEgZmluYWw6Ci0gRW5zdXJlIFR5cGUtQyBGSUEgaXMgcG93ZXJlZCB3aGVu
-IGluaXRpYWxpemluZwotIEZpeCBvdmVybGF5IGZyb250YnVmZmVyIHRyYWNraW5nCgpCUiwKSmFu
-aS4KClRoZSBmb2xsb3dpbmcgY2hhbmdlcyBzaW5jZSBjb21taXQgOTJiZjIyNjE0YjIxYTI3MDZm
-NDk5M2IyNzgwMTdlNDM3Zjc3ODViMzoKCiAgTGludXggNS4xMS1yYzcgKDIwMjEtMDItMDcgMTM6
-NTc6MzggLTA4MDApCgphcmUgYXZhaWxhYmxlIGluIHRoZSBHaXQgcmVwb3NpdG9yeSBhdDoKCiAg
-Z2l0Oi8vYW5vbmdpdC5mcmVlZGVza3RvcC5vcmcvZHJtL2RybS1pbnRlbCB0YWdzL2RybS1pbnRl
-bC1maXhlcy0yMDIxLTAyLTExCgpmb3IgeW91IHRvIGZldGNoIGNoYW5nZXMgdXAgdG8gNWZlYmEw
-ZTkwNWM0OTVhMjE3YWVhOWRiNGVhOTEwOTNkOGZlNWRkZToKCiAgZHJtL2k5MTU6IEZpeCBvdmVy
-bGF5IGZyb250YnVmZmVyIHRyYWNraW5nICgyMDIxLTAyLTEwIDExOjAzOjU2ICswMjAwKQoKLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLQpkcm0vaTkxNSBmaXhlcyBmb3IgdjUuMTEgZmluYWw6Ci0gRW5zdXJlIFR5cGUtQyBGSUEg
-aXMgcG93ZXJlZCB3aGVuIGluaXRpYWxpemluZwotIEZpeCBvdmVybGF5IGZyb250YnVmZmVyIHRy
-YWNraW5nCgotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tCkltcmUgRGVhayAoMSk6CiAgICAgIGRybS9pOTE1L3RnbCs6IE1ha2Ug
-c3VyZSBUeXBlQyBGSUEgaXMgcG93ZXJlZCB1cCB3aGVuIGluaXRpYWxpemluZyBpdAoKVmlsbGUg
-U3lyasOkbMOkICgxKToKICAgICAgZHJtL2k5MTU6IEZpeCBvdmVybGF5IGZyb250YnVmZmVyIHRy
-YWNraW5nCgogZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9vdmVybGF5LmMgfCAx
-NyArKysrLS0tCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX3RjLmMgICAgICB8
-IDY3ICsrKysrKysrKysrKysrKy0tLS0tLS0tLS0tLS0KIDIgZmlsZXMgY2hhbmdlZCwgNDUgaW5z
-ZXJ0aW9ucygrKSwgMzkgZGVsZXRpb25zKC0pCgotLSAKSmFuaSBOaWt1bGEsIEludGVsIE9wZW4g
-U291cmNlIEdyYXBoaWNzIENlbnRlcgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fXwpJbnRlbC1nZnggbWFpbGluZyBsaXN0CkludGVsLWdmeEBsaXN0cy5mcmVl
-ZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
-by9pbnRlbC1nZngK
+Quoting Rodrigo Vivi (2021-02-11 04:25:17)
+> On Wed, Feb 10, 2021 at 10:19:50PM +0000, Chris Wilson wrote:
+> > After calling intel_gt_suspend_prepare(), the driver starts to turn off
+> > various subsystems, such as clearing the GGTT, before calling
+> > intel_gt_suspend_late() to relinquish control over the GT. However, if
+> > we still have internal GPU state active as we clear the GGTT, the GPU
+> > may write back its internal state to the residual GGTT addresses that
+> > are now pointing into scratch. Let's reset the GPU to clear that
+> > internal state as soon we have idled the GPU in prepare-to-suspend.
+> > 
+> > Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+> > ---
+> >  drivers/gpu/drm/i915/gt/intel_gt_pm.c | 5 ++++-
+> >  1 file changed, 4 insertions(+), 1 deletion(-)
+> > 
+> > diff --git a/drivers/gpu/drm/i915/gt/intel_gt_pm.c b/drivers/gpu/drm/i915/gt/intel_gt_pm.c
+> > index 0bd303d2823e..f41612faa269 100644
+> > --- a/drivers/gpu/drm/i915/gt/intel_gt_pm.c
+> > +++ b/drivers/gpu/drm/i915/gt/intel_gt_pm.c
+> > @@ -295,6 +295,9 @@ void intel_gt_suspend_prepare(struct intel_gt *gt)
+> >       wait_for_suspend(gt);
+> 
+> you just wedged the gpu here...
+
+Potentially. As a means to clear a stuck GPU and force it to idle.
+ 
+> >       intel_uc_suspend(&gt->uc);
+> > +
+> > +     /* Flush all the contexts and internal state before turning off GGTT */
+> > +     gt_sanitize(gt, false);
+> 
+> and now we are unsetting wedge here...
+> 
+> is this right?
+
+But irrelevant, since it is undone on any of the resume pathways which
+must be taken by this point.
+
+Resume has been for many years the method to unwedge a GPU; with the
+presumption being that the intervening PCI level reset would be enough
+to recover the GPU. Otherwise, it would presumably quite quickly go back
+into the wedged state.
+
+The wedging on suspend is just there to cancel outstanding work. Which
+is not what we want (we just want to remove work), but is what we have
+for the moment. The sanitize is to make sure we don't leak our state
+beyond our control of the HW.
+-Chris
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
