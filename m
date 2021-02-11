@@ -2,56 +2,48 @@ Return-Path: <SRS0=TgQB=HN=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.4 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8C92FC433DB
-	for <intel-gfx@archiver.kernel.org>; Thu, 11 Feb 2021 11:01:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 27B9AC433DB
+	for <intel-gfx@archiver.kernel.org>; Thu, 11 Feb 2021 11:08:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0F35A64E23
-	for <intel-gfx@archiver.kernel.org>; Thu, 11 Feb 2021 11:01:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0F35A64E23
+	by mail.kernel.org (Postfix) with ESMTPS id D6BE764D73
+	for <intel-gfx@archiver.kernel.org>; Thu, 11 Feb 2021 11:08:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D6BE764D73
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 745FA6EE1D;
-	Thu, 11 Feb 2021 11:01:36 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 47CDD6EE1D
- for <intel-gfx@lists.freedesktop.org>; Thu, 11 Feb 2021 11:01:35 +0000 (UTC)
-IronPort-SDR: PYva6dS2YYFfb4MC/AxIv/De4w2/KRb9OBu6FRkikgfwb+R9dpDvahCstUikFppvnBzjdZmBYx
- elsQde5v7ADA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9891"; a="181448232"
-X-IronPort-AV: E=Sophos;i="5.81,170,1610438400"; d="scan'208";a="181448232"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Feb 2021 03:01:31 -0800
-IronPort-SDR: jp1YEHKFVonGgI0Qkmwk1liXyXi8mFFxpscrI4ZE2fuMyOBqVRlvS1VXs41ZkcvUiSp6ljmjlD
- Wl9rZzR1mnew==
-X-IronPort-AV: E=Sophos;i="5.81,170,1610438400"; d="scan'208";a="375822980"
-Received: from aleski-mobl.ger.corp.intel.com (HELO [10.249.155.40])
- ([10.249.155.40])
- by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Feb 2021 03:01:30 -0800
-To: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>,
- intel-gfx@lists.freedesktop.org
-References: <20210210190106.8586-1-umesh.nerlige.ramappa@intel.com>
-From: Lionel Landwerlin <lionel.g.landwerlin@intel.com>
-Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
- Swindon SN3 1RJ
-Message-ID: <06bb7241-3da4-ac24-95ce-130d2f8a6722@intel.com>
-Date: Thu, 11 Feb 2021 13:01:28 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D61B6E42C;
+	Thu, 11 Feb 2021 11:08:29 +0000 (UTC)
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9BF746E42C
+ for <intel-gfx@lists.freedesktop.org>; Thu, 11 Feb 2021 11:08:28 +0000 (UTC)
+IronPort-SDR: W1uJW78/OMY/6hJr9f6DNH9jIf1Xr/l5vgkSxiRv2fz0rhQH94+fsHgeBLne33eA3cn4TGoY6y
+ QafniK3vQMvg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9891"; a="243715730"
+X-IronPort-AV: E=Sophos;i="5.81,170,1610438400"; d="scan'208";a="243715730"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Feb 2021 03:08:26 -0800
+IronPort-SDR: D0+vnOGAVlR76ua+Dh9CjOlPDe1ZojxhlYr0xs/PSaAPPq/O0wkqo+S+mKh6NZud31vZ+F69w8
+ 5Ft2fDHc/x/g==
+X-IronPort-AV: E=Sophos;i="5.81,170,1610438400"; d="scan'208";a="380559161"
+Received: from linux-desktop.iind.intel.com ([10.223.34.178])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Feb 2021 03:08:22 -0800
+From: Uma Shankar <uma.shankar@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Thu, 11 Feb 2021 17:12:09 +0530
+Message-Id: <20210211114209.23866-1-uma.shankar@intel.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-In-Reply-To: <20210210190106.8586-1-umesh.nerlige.ramappa@intel.com>
-Content-Language: en-US
-Subject: Re: [Intel-gfx] [PATCH] i915/perf: Drop the check for report reason
- in OA
+Subject: [Intel-gfx] [PATCH] drm/i915/display: Handle lane polarity for DDI
+ port
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,44 +56,82 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 10/02/2021 21:01, Umesh Nerlige Ramappa wrote:
-> After fixing the OA_TAIL_PTR corruption, there are no more reports with
-> reason field of zero. Drop the check for report reason.
->
-> Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+Lane Reversal is required for some of the DDI ports. This information
+is populated in VBT and driver should read the same and set the
+polarity while enabling the port. This patch handles the same.
 
+It helps fix a display blankout issue on DP ports on certain
+platforms.
 
-I thought I push this patch already :|
+Signed-off-by: Uma Shankar <uma.shankar@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_bios.c | 17 +++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_bios.h |  2 ++
+ drivers/gpu/drm/i915/display/intel_ddi.c  |  3 +++
+ 3 files changed, 22 insertions(+)
 
-Reviewed-by: Lionel Landwerlin <lionel.g.landwerlin@intel.com>
-
-
-> ---
->   drivers/gpu/drm/i915/i915_perf.c | 5 -----
->   1 file changed, 5 deletions(-)
->
-> diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
-> index 93f3e2c5c89a..c15bead2dac7 100644
-> --- a/drivers/gpu/drm/i915/i915_perf.c
-> +++ b/drivers/gpu/drm/i915/i915_perf.c
-> @@ -725,11 +725,6 @@ static int gen8_append_oa_reports(struct i915_perf_stream *stream,
->   			  (IS_GEN(stream->perf->i915, 12) ?
->   			   OAREPORT_REASON_MASK_EXTENDED :
->   			   OAREPORT_REASON_MASK));
-> -		if (reason == 0) {
-> -			if (__ratelimit(&stream->perf->spurious_report_rs))
-> -				DRM_NOTE("Skipping spurious, invalid OA report\n");
-> -			continue;
-> -		}
->   
->   		ctx_id = report32[2] & stream->specific_ctx_id_mask;
->   
-
+diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
+index 7118530a1c38..dd51413e7f45 100644
+--- a/drivers/gpu/drm/i915/display/intel_bios.c
++++ b/drivers/gpu/drm/i915/display/intel_bios.c
+@@ -2674,6 +2674,23 @@ intel_bios_is_lspcon_present(const struct drm_i915_private *i915,
+ 	return HAS_LSPCON(i915) && child && child->lspcon;
+ }
+ 
++/**
++ * intel_bios_is_lane_reversal_needed - if lane reversal needed on port
++ * @i915:       i915 device instance
++ * @port:       port to check
++ *
++ * Return true if port requires lane reversal
++ */
++bool
++intel_bios_is_lane_reversal_needed(const struct drm_i915_private *i915,
++				   enum port port)
++{
++	const struct child_device_config *child =
++		i915->vbt.ddi_port_info[port].child;
++
++	return child && child->lane_reversal;
++}
++
+ enum aux_ch intel_bios_port_aux_ch(struct drm_i915_private *dev_priv,
+ 				   enum port port)
+ {
+diff --git a/drivers/gpu/drm/i915/display/intel_bios.h b/drivers/gpu/drm/i915/display/intel_bios.h
+index e29e79faa01b..f25190ecfe97 100644
+--- a/drivers/gpu/drm/i915/display/intel_bios.h
++++ b/drivers/gpu/drm/i915/display/intel_bios.h
+@@ -241,6 +241,8 @@ bool intel_bios_is_port_hpd_inverted(const struct drm_i915_private *i915,
+ 				     enum port port);
+ bool intel_bios_is_lspcon_present(const struct drm_i915_private *i915,
+ 				  enum port port);
++bool intel_bios_is_lane_reversal_needed(const struct drm_i915_private *i915,
++					enum port port);
+ enum aux_ch intel_bios_port_aux_ch(struct drm_i915_private *dev_priv, enum port port);
+ bool intel_bios_get_dsc_params(struct intel_encoder *encoder,
+ 			       struct intel_crtc_state *crtc_state,
+diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
+index 3c4003605f93..2d6906f6995f 100644
+--- a/drivers/gpu/drm/i915/display/intel_ddi.c
++++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+@@ -4082,6 +4082,9 @@ void intel_ddi_init(struct drm_i915_private *dev_priv, enum port port)
+ 			intel_de_read(dev_priv, DDI_BUF_CTL(port))
+ 			& (DDI_BUF_PORT_REVERSAL | DDI_A_4_LANES);
+ 
++	if (intel_bios_is_lane_reversal_needed(dev_priv, port))
++		dig_port->saved_port_bits |= DDI_BUF_PORT_REVERSAL;
++
+ 	dig_port->dp.output_reg = INVALID_MMIO_REG;
+ 	dig_port->max_lanes = intel_ddi_max_lanes(dig_port);
+ 	dig_port->aux_ch = intel_bios_port_aux_ch(dev_priv, port);
+-- 
+2.26.2
 
 _______________________________________________
 Intel-gfx mailing list
