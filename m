@@ -2,45 +2,57 @@ Return-Path: <SRS0=AGhj=HO=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AEA14C433DB
-	for <intel-gfx@archiver.kernel.org>; Fri, 12 Feb 2021 16:07:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DF849C433DB
+	for <intel-gfx@archiver.kernel.org>; Fri, 12 Feb 2021 16:31:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 634EA64E70
-	for <intel-gfx@archiver.kernel.org>; Fri, 12 Feb 2021 16:07:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 634EA64E70
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
+	by mail.kernel.org (Postfix) with ESMTPS id 66B6261490
+	for <intel-gfx@archiver.kernel.org>; Fri, 12 Feb 2021 16:31:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 66B6261490
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 973E46EE97;
-	Fri, 12 Feb 2021 16:07:38 +0000 (UTC)
-Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A5B46E12C;
- Fri, 12 Feb 2021 16:07:36 +0000 (UTC)
-X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
- x-ip-name=78.156.69.177; 
-Received: from localhost (unverified [78.156.69.177]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP (TLS) id
- 23851777-1500050 for multiple; Fri, 12 Feb 2021 16:07:31 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 078766EE9A;
+	Fri, 12 Feb 2021 16:31:30 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 189486EE9A
+ for <intel-gfx@lists.freedesktop.org>; Fri, 12 Feb 2021 16:31:29 +0000 (UTC)
+IronPort-SDR: nb9h4de+3vg9H1q33v/tsU1prSENlexby/3OdQZPUTP6iJaSITM1YzToz3KXiWlkpqGCUs1u/L
+ qbaoA8ptIThA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9893"; a="178932729"
+X-IronPort-AV: E=Sophos;i="5.81,174,1610438400"; d="scan'208";a="178932729"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Feb 2021 08:31:28 -0800
+IronPort-SDR: eb2YP3ZlvelFY1tEYNHURkG7Gwmz8PGRXmCtz8bjEFKT+1fumNELfsmyUrGade31DNNdON6Ej7
+ 1HuYBTlCufxg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.81,174,1610438400"; d="scan'208";a="399919227"
+Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
+ by orsmga007.jf.intel.com with SMTP; 12 Feb 2021 08:31:25 -0800
+Received: by stinkbox (sSMTP sendmail emulation);
+ Fri, 12 Feb 2021 18:31:24 +0200
+Date: Fri, 12 Feb 2021 18:31:24 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: "20210201150228.10001-1-shawn.c.lee@intel.com"
+ <20210201150228.10001-1-shawn.c.lee@intel.com>
+Message-ID: <YCatXIv24wONgjqc@intel.com>
+References: <20210201150228.10001-1-shawn.c.lee@intel.com>
+ <YB2p+Xa8PkFQT1L8@intel.com>
+ <BY5PR11MB4307E25E1688D66A7B6028BBA38F9@BY5PR11MB4307.namprd11.prod.outlook.com>
+ <YCQPLmUTGxjXFybM@intel.com>
+ <BY5PR11MB430732026C34DCB710E62A8AA38C9@BY5PR11MB4307.namprd11.prod.outlook.com>
 MIME-Version: 1.0
-In-Reply-To: <CACvgo50CUgQbBb2=Y4BXyUyoP0x+mwAzT35Oc-kQm+sJyESzcg@mail.gmail.com>
-References: <20210204121121.2660-1-chris@chris-wilson.co.uk>
- <20210204121121.2660-3-chris@chris-wilson.co.uk>
- <CACvgo51auuU-AR5nPPo-7Q8Ho84cqOYXuTjgjGDzmPjXRtjZ0w@mail.gmail.com>
- <161314296740.4581.15495829753022855916@build.alporthouse.com>
- <CACvgo50CUgQbBb2=Y4BXyUyoP0x+mwAzT35Oc-kQm+sJyESzcg@mail.gmail.com>
-From: Chris Wilson <chris@chris-wilson.co.uk>
-To: Emil Velikov <emil.l.velikov@gmail.com>
-Date: Fri, 12 Feb 2021 16:07:30 +0000
-Message-ID: <161314605098.4581.3932403848428974421@build.alporthouse.com>
-User-Agent: alot/0.9
-Subject: Re: [Intel-gfx] [RFC 3/3] drm/i915/gt: Export device and
- per-process runtimes via procfs
+Content-Disposition: inline
+In-Reply-To: <BY5PR11MB430732026C34DCB710E62A8AA38C9@BY5PR11MB4307.namprd11.prod.outlook.com>
+X-Patchwork-Hint: comment
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/vbt: update DP max link rate table
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,87 +65,130 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- ML dri-devel <dri-devel@lists.freedesktop.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: "Chiou, Cooper" <cooper.chiou@intel.com>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>, "Tseng,
+ William" <william.tseng@intel.com>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Quoting Emil Velikov (2021-02-12 15:45:04)
-> On Fri, 12 Feb 2021 at 15:16, Chris Wilson <chris@chris-wilson.co.uk> wrote:
+On Thu, Feb 11, 2021 at 05:22:05AM +0000, Lee, Shawn C wrote:
+> =
+
+> On Wed, Feb 10, 2021 at 04:51 p.m, Ville Syrj=E4l=E4 wrote:
+> >On Mon, Feb 08, 2021 at 01:31:57PM +0000, Lee, Shawn C wrote:
+> >> On Fri, Feb 05, 2021, at 8:26 p.m, Ville Syrj=E4l=E4 wrote:
+> >> >On Mon, Feb 01, 2021 at 11:02:28PM +0800, Lee Shawn C wrote:
+> >> >> According to Bspec #20124, max link rate table for DP was updated =
+
+> >> >> at BDB version 230. Max link rate can support upto UHBR.
+> >> >> =
+
+> >> >> After migrate to BDB v230, the definition for LBR, HBR2 and HBR3 =
+
+> >> >> were changed. For backward compatibility. If BDB version was from =
+
+> >> >> 216 to 229. Driver have to follow original rule to configure DP max =
+
+> >> >> link rate value from VBT.
+> >> >> =
+
+> >> >> Cc: Ville Syrjala <ville.syrjala@linux.intel.com>
+> >> >> Cc: Imre Deak <imre.deak@intel.com>
+> >> >> Cc: Jani Nikula <jani.nikula@linux.intel.com>
+> >> >> Cc: Cooper Chiou <cooper.chiou@intel.com>
+> >> >> Cc: William Tseng <william.tseng@intel.com>
+> >> >> Signed-off-by: Lee Shawn C <shawn.c.lee@intel.com>
+> >> >> ---
+> >> >>  drivers/gpu/drm/i915/display/intel_bios.c     | 24 +++++++++++++++=
++++-
+> >> >>  drivers/gpu/drm/i915/display/intel_vbt_defs.h | 14 +++++++----
+> >> >>  2 files changed, 32 insertions(+), 6 deletions(-)
+> >> >> =
+
+> >> >> diff --git a/drivers/gpu/drm/i915/display/intel_bios.c
+> >> >> b/drivers/gpu/drm/i915/display/intel_bios.c
+> >> >> index 04337ac6f8c4..be1f732e6550 100644
+> >> >> --- a/drivers/gpu/drm/i915/display/intel_bios.c
+> >> >> +++ b/drivers/gpu/drm/i915/display/intel_bios.c
+> >> >> @@ -1876,7 +1876,15 @@ static void parse_ddi_port(struct drm_i915_p=
+rivate *dev_priv,
+> >> >>  	/* DP max link rate for CNL+ */
+> >> >>  	if (bdb_version >=3D 216) {
+> >> >>  		switch (child->dp_max_link_rate) {
+> >> >> -		default:
+> >> >> +		case VBT_DP_MAX_LINK_RATE_UHBR20:
+> >> >> +			info->dp_max_link_rate =3D 2000000;
+> >> >> +			break;
+> >> >> +		case VBT_DP_MAX_LINK_RATE_UHBR13P5:
+> >> >> +			info->dp_max_link_rate =3D 1350000;
+> >> >> +			break;
+> >> >> +		case VBT_DP_MAX_LINK_RATE_UHBR10:
+> >> >> +			info->dp_max_link_rate =3D 1000000;
+> >> >> +			break;
+> >> >>  		case VBT_DP_MAX_LINK_RATE_HBR3:
+> >> >>  			info->dp_max_link_rate =3D 810000;
+> >> >>  			break;
+> >> >> @@ -1889,7 +1897,21 @@ static void parse_ddi_port(struct drm_i915_p=
+rivate *dev_priv,
+> >> >>  		case VBT_DP_MAX_LINK_RATE_LBR:
+> >> >>  			info->dp_max_link_rate =3D 162000;
+> >> >>  			break;
+> >> >> +		case VBT_DP_MAX_LINK_RATE_DEFAULT:
+> >> >> +		default:
+> >> >> +			info->dp_max_link_rate =3D 0;
+> >> >> +			break;
+> >> >> +		}
+> >> >> +
+> >> >> +		if (bdb_version < 230) {
+> >> >> +			if (child->dp_max_link_rate =3D=3D VBT_DP_MAX_LINK_RATE_DEFAULT)
+> >> >> +				info->dp_max_link_rate =3D 810000;
+> >> >> +			else if (child->dp_max_link_rate =3D=3D VBT_DP_MAX_LINK_RATE_LB=
+R)
+> >> >> +				info->dp_max_link_rate =3D 540000;
+> >> >> +			else if (child->dp_max_link_rate =3D=3D VBT_DP_MAX_LINK_RATE_HB=
+R2)
+> >> >> +				info->dp_max_link_rate =3D 162000;
+> >> >>  		}
+> >> >
+> >> >I would split this into two separate functions, one does the new mapp=
+ing, the other the old mapping. =
+
+> >> >
+> >> =
+
+> >> I will split this into two separate functions in patch v2.
 > >
-> > Quoting Emil Velikov (2021-02-12 14:57:56)
-> > > Hi Chris,
-> > >
-> > > On Thu, 4 Feb 2021 at 12:11, Chris Wilson <chris@chris-wilson.co.uk> wrote:
-> > > >
-> > > > Register with /proc/gpu to provide the client runtimes for generic
-> > > > top-like overview, e.g. gnome-system-monitor can use this information to
-> > > > show the per-process multi-GPU usage.
-> > > >
-> > > Exposing this information to userspace sounds great IMHO and like the
-> > > proposed "channels" for the device engines.
-> > > If it were me, I would have the channel names a) exposed to userspace
-> > > and b) be a "fixed set".
+> >Actually looking through the VBT history this seems to have been
+> >retroactively changed for already rev 216+ to follow the new
+> >definitions. And naturally no actual explanation given. So it's
+> >the same old VBT=3D=3Dsnafu as always.
 > >
-> > - Total
-> > - Graphics
-> > - Compute
-> > - Unified
-> > - Video
-> > - Copy
-> > - Display
-> > - Other
+> >I guess the real question is whether any machines migth have shipped
+> >that depened on the old defitions? Unless someone manages to
+> >find that out I think we might just have to change this to follow
+> >only the new style and hope we don't regress a lot of machines.
 > >
-> > Enough versatility for the foreseeable future?
-> > But plan for extension.
-> >
-> With a bit of documentation about "unified" (is it a metric also
-> counted towards any of the rest) it would be perfect.
+> =
 
-With unified I was trying to find a place to things that are neither
-wholly graphics nor compute, as some may prefer not to categorise
-themselves as one or the other. Also whether or not some cores are more
-compute than others (so should there be an AI/RT/ALU?)
+> Agree that we should just have the change follow new definition.
+> But as you mentioned, we are not sure any machines have shipped
+> with the old definition. :(
+> =
 
-> For future extension one might consider splitting video into
-> encoder/decoder/post-processing.
+> In my opinion, we should follow the new style. If we got bug report,
+> then we can consider to add some codes for backward compatible.
 
-Ok, I wasn't sure how commonly those functions were split on different
-HW.
+I went trawling in some really dark waters and found out that
+Windows seems to do what you did originally, ie. use the
+old definition for 216+, and the new definition for 230+.
+So we should just do the same.
 
-> > The other aspect then is the capacity of each channel. We can keep it
-> > simple as the union/average (whichever the driver has to hand) runtime in
-> > nanoseconds over all IP blocks within a channel.
-> 
-> Not sure what you mean with capacity. Are you referring to having
-> multiple instances of the same engine (say 3 separate copy engines)?
-> Personally I'm inclined to keep these separate entries, since some
-> hardware can have multiple ones.
-> 
-> For example - before the latest changes nouveau had 8 copy engines,
-> 3+3 video 'generic' video (enc,dec)oder engines, amongst others.
+-- =
 
-Yes, most HW have multiple engines within a family. Trying to keep it
-simple, I thought presenting just one runtime metric for the whole
-channel. Especially for the single-line per device format I had picked :)
-
-If we switch to a more extensible format,
-
-	-'$device0' : 
-		-$channel0 : {
-			Total : $total # avg/union over all engines
-			Engines : [ $0, $1, ... ]
-		}
-		...
-
-	-'$device1' : 
-		...
-
-Using the same fixed channel names, and dev_name(), pesky concerns such
-as keeping it as a simple scanf can be forgotten.
--Chris
+Ville Syrj=E4l=E4
+Intel
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
