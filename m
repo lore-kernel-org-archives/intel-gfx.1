@@ -7,32 +7,34 @@ X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 61E6FC433DB
-	for <intel-gfx@archiver.kernel.org>; Fri, 12 Feb 2021 14:29:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 03C20C433DB
+	for <intel-gfx@archiver.kernel.org>; Fri, 12 Feb 2021 14:29:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 77D2764E3D
-	for <intel-gfx@archiver.kernel.org>; Fri, 12 Feb 2021 14:29:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 77D2764E3D
+	by mail.kernel.org (Postfix) with ESMTPS id 6E95F64E3B
+	for <intel-gfx@archiver.kernel.org>; Fri, 12 Feb 2021 14:29:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6E95F64E3B
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ECF916E115;
-	Fri, 12 Feb 2021 14:29:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B53F6E194;
+	Fri, 12 Feb 2021 14:29:52 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 840B66E115
- for <intel-gfx@lists.freedesktop.org>; Fri, 12 Feb 2021 14:29:33 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5CCB96E194;
+ Fri, 12 Feb 2021 14:29:50 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.69.177; 
 Received: from haswell.alporthouse.com (unverified [78.156.69.177]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23850589-1500050 
- for multiple; Fri, 12 Feb 2021 14:29:26 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23850592-1500050 
+ for multiple; Fri, 12 Feb 2021 14:29:43 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 12 Feb 2021 14:29:26 +0000
-Message-Id: <20210212142926.27547-1-chris@chris-wilson.co.uk>
+Date: Fri, 12 Feb 2021 14:29:42 +0000
+Message-Id: <20210212142942.27603-1-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.30.0
+In-Reply-To: <20210212142926.27547-1-chris@chris-wilson.co.uk>
+References: <20210212142926.27547-1-chris@chris-wilson.co.uk>
 MIME-Version: 1.0
 Subject: [Intel-gfx] [PATCH i-g-t] i915/gem_userptr_blts: Move readonly test
  into common block
@@ -48,7 +50,7 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Chris Wilson <chris@chris-wilson.co.uk>
+Cc: igt-dev@lists.freedesktop.org, Chris Wilson <chris@chris-wilson.co.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
