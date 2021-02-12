@@ -2,52 +2,41 @@ Return-Path: <SRS0=AGhj=HO=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-3.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0020BC433E0
-	for <intel-gfx@archiver.kernel.org>; Fri, 12 Feb 2021 16:33:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E3058C433E0
+	for <intel-gfx@archiver.kernel.org>; Fri, 12 Feb 2021 16:46:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 99C426186A
-	for <intel-gfx@archiver.kernel.org>; Fri, 12 Feb 2021 16:33:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 99C426186A
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 84DF064DD5
+	for <intel-gfx@archiver.kernel.org>; Fri, 12 Feb 2021 16:46:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 84DF064DD5
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3307B6EEA2;
-	Fri, 12 Feb 2021 16:33:30 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E67F96EEA3
- for <intel-gfx@lists.freedesktop.org>; Fri, 12 Feb 2021 16:33:28 +0000 (UTC)
-IronPort-SDR: g5wBbce/fLbUps9rKLjbcjxRstOIvrOx9dT/tkYmS2Q2zI65Q+EJGTp8YMhMB6D9cif5+Q4Fl3
- 7huzICDf37nQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9893"; a="201587735"
-X-IronPort-AV: E=Sophos;i="5.81,174,1610438400"; d="scan'208";a="201587735"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Feb 2021 08:33:28 -0800
-IronPort-SDR: mKzeOOae8T9QKibUqVQJHoVrfyRCcGRYE4t7VZB/NrTwz81Zh7siBoVoe6YBLwNIUXCEJs16rY
- PBci52IjCL3Q==
-X-IronPort-AV: E=Sophos;i="5.81,174,1610438400"; d="scan'208";a="381502795"
-Received: from eliteleevi.tm.intel.com ([10.237.54.20])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Feb 2021 08:33:26 -0800
-Date: Fri, 12 Feb 2021 18:29:57 +0200 (EET)
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-X-X-Sender: kvehmane@eliteleevi.tm.intel.com
-To: Chris Wilson <chris@chris-wilson.co.uk>
-In-Reply-To: <161314333325.4581.15533944489214714871@build.alporthouse.com>
-Message-ID: <alpine.DEB.2.22.394.2102121827510.864696@eliteleevi.tm.intel.com>
-References: <20210212145302.2461406-1-kai.vehmanen@linux.intel.com>
- <161314333325.4581.15533944489214714871@build.alporthouse.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7 02160 Espoo
+	by gabe.freedesktop.org (Postfix) with ESMTP id 11AC66E1E6;
+	Fri, 12 Feb 2021 16:46:23 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 8A1D06E1E6;
+ Fri, 12 Feb 2021 16:46:21 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 8329AA363B;
+ Fri, 12 Feb 2021 16:46:21 +0000 (UTC)
 MIME-Version: 1.0
-Subject: Re: [Intel-gfx] [PATCH] Revert "HAX sound: Disable probing snd_hda
- with DG1"
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Kai Vehmanen" <kai.vehmanen@linux.intel.com>
+Date: Fri, 12 Feb 2021 16:46:21 -0000
+Message-ID: <161314838150.25820.2627241301279172461@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20210212145302.2461406-1-kai.vehmanen@linux.intel.com>
+In-Reply-To: <20210212145302.2461406-1-kai.vehmanen@linux.intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_Revert_=22HAX_sound=3A_Disable_probing_snd=5Fhda_with_DG1?=
+ =?utf-8?q?=22?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,32 +49,29 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, lucas.demarchi@intel.com
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+== Series Details ==
 
-On Fri, 12 Feb 2021, Chris Wilson wrote:
+Series: Revert "HAX sound: Disable probing snd_hda with DG1"
+URL   : https://patchwork.freedesktop.org/series/87039/
+State : warning
 
-> Quoting Kai Vehmanen (2021-02-12 14:53:02)
-> > This reverts commit 3632610d38316bca9b0cd9d649ce3cefab58520a.
-> > 
-> > DG1 has been supported in upstream since v5.10 with commit
-> > 69b08bdfa818 ("ALSA: hda - add Intel DG1 PCI and HDMI ids").
-> 
-> Exactly, otherwise this patch wouldn't have been required to stop CI
-> from timing out upon snd probing the hdmi components. You need the other
-> half to be supported as well before CI is ready.
+== Summary ==
 
-aa, got it, so this is there as i915 doesn't have DG1 in i915_pci.c 
-id list. Right.
+$ dim checkpatch origin/drm-tip
+ef24b6852d1c Revert "HAX sound: Disable probing snd_hda with DG1"
+-:9: ERROR:GIT_COMMIT_ID: Please use git commit description style 'commit <12+ chars of sha1> ("<title line>")' - ie: 'commit 69b08bdfa818 ("ALSA: hda - add Intel DG1 PCI and HDMI ids")'
+#9: 
+69b08bdfa818 ("ALSA: hda - add Intel DG1 PCI and HDMI ids").
 
-PS And indeed, the 60sec timeout in these cases is pretty annoying.
+total: 1 errors, 0 warnings, 0 checks, 43 lines checked
 
-Br, Kai
 
 _______________________________________________
 Intel-gfx mailing list
