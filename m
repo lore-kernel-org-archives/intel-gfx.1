@@ -2,41 +2,50 @@ Return-Path: <SRS0=AGhj=HO=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 33E0BC433E0
-	for <intel-gfx@archiver.kernel.org>; Fri, 12 Feb 2021 17:51:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BB23BC433DB
+	for <intel-gfx@archiver.kernel.org>; Fri, 12 Feb 2021 18:20:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C76F364E89
-	for <intel-gfx@archiver.kernel.org>; Fri, 12 Feb 2021 17:51:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C76F364E89
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id 7205C64E8E
+	for <intel-gfx@archiver.kernel.org>; Fri, 12 Feb 2021 18:20:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7205C64E8E
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A1796EEA3;
-	Fri, 12 Feb 2021 17:51:06 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 2EC206EEA3;
- Fri, 12 Feb 2021 17:51:05 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 1C6FAA47DB;
- Fri, 12 Feb 2021 17:51:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 141586E1D8;
+	Fri, 12 Feb 2021 18:20:44 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED7D96E1D8
+ for <intel-gfx@lists.freedesktop.org>; Fri, 12 Feb 2021 18:20:42 +0000 (UTC)
+IronPort-SDR: avTWEcsA6IVQgOnJ5wXVrVrfYqvV+0yk/bkZyA9zu1pyLsLYBQRuVQeh7m1xjsPaqnu5O/7SP6
+ 7LgMv8x7tYsw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9893"; a="161599194"
+X-IronPort-AV: E=Sophos;i="5.81,174,1610438400"; d="scan'208";a="161599194"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Feb 2021 10:20:41 -0800
+IronPort-SDR: fy+zKhG/7PrOuKrTSeiuUSXeTWEWLhx53UX0W2Pr+gw8HuOH+Nnik0X2fOTdUrvlHpQgGte9WI
+ 0uf75VJNqepg==
+X-IronPort-AV: E=Sophos;i="5.81,174,1610438400"; d="scan'208";a="491231844"
+Received: from sarcot-mobl1.amr.corp.intel.com (HELO josouza-mobl2.intel.com)
+ ([10.254.56.203])
+ by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Feb 2021 10:20:40 -0800
+From: =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Fri, 12 Feb 2021 10:22:01 -0800
+Message-Id: <20210212182201.155043-3-jose.souza@intel.com>
+X-Mailer: git-send-email 2.30.1
+In-Reply-To: <20210212182201.155043-1-jose.souza@intel.com>
+References: <20210212182201.155043-1-jose.souza@intel.com>
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Kai Vehmanen" <kai.vehmanen@linux.intel.com>
-Date: Fri, 12 Feb 2021 17:51:05 -0000
-Message-ID: <161315226511.25820.4633121852210109401@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20210212150838.2568483-1-kai.vehmanen@linux.intel.com>
-In-Reply-To: <20210212150838.2568483-1-kai.vehmanen@linux.intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZHJt?=
- =?utf-8?q?/i915/audio=3A_set_HDA_link_parameters_in_driver?=
+Subject: [Intel-gfx] [PATCH 3/3] drm/i915: Fix plane watermark mismatches
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,198 +58,30 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
-Content-Type: multipart/mixed; boundary="===============1530714343=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============1530714343==
-Content-Type: multipart/alternative;
- boundary="===============3748857465484362750=="
-
---===============3748857465484362750==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-== Series Details ==
-
-Series: drm/i915/audio: set HDA link parameters in driver
-URL   : https://patchwork.freedesktop.org/series/87040/
-State : success
-
-== Summary ==
-
-CI Bug Log - changes from CI_DRM_9771 -> Patchwork_19671
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19671/index.html
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_19671 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@amdgpu/amd_basic@userptr:
-    - fi-byt-j1900:       NOTRUN -> [SKIP][1] ([fdo#109271]) +17 similar issues
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19671/fi-byt-j1900/igt@amdgpu/amd_basic@userptr.html
-
-  * igt@prime_self_import@basic-with_one_bo:
-    - fi-tgl-y:           [PASS][2] -> [DMESG-WARN][3] ([i915#402]) +1 similar issue
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9771/fi-tgl-y/igt@prime_self_import@basic-with_one_bo.html
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19671/fi-tgl-y/igt@prime_self_import@basic-with_one_bo.html
-
-  
-#### Possible fixes ####
-
-  * igt@i915_pm_rpm@module-reload:
-    - fi-byt-j1900:       [INCOMPLETE][4] ([i915#142] / [i915#2405]) -> [PASS][5]
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9771/fi-byt-j1900/igt@i915_pm_rpm@module-reload.html
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19671/fi-byt-j1900/igt@i915_pm_rpm@module-reload.html
-
-  * igt@prime_self_import@basic-with_one_bo_two_files:
-    - fi-tgl-y:           [DMESG-WARN][6] ([i915#402]) -> [PASS][7] +2 similar issues
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9771/fi-tgl-y/igt@prime_self_import@basic-with_one_bo_two_files.html
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19671/fi-tgl-y/igt@prime_self_import@basic-with_one_bo_two_files.html
-
-  
-  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
-  [i915#142]: https://gitlab.freedesktop.org/drm/intel/issues/142
-  [i915#2405]: https://gitlab.freedesktop.org/drm/intel/issues/2405
-  [i915#402]: https://gitlab.freedesktop.org/drm/intel/issues/402
-
-
-Participating hosts (45 -> 40)
-------------------------------
-
-  Missing    (5): fi-ilk-m540 fi-hsw-4200u fi-bsw-cyan fi-ctg-p8600 fi-bdw-samus 
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_9771 -> Patchwork_19671
-
-  CI-20190529: 20190529
-  CI_DRM_9771: 1b095889c6780e40f6161bfb824b5e944fd69547 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_6003: 627cc5353535d61fa33c5f7ff7e64f154c84f10a @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools
-  Patchwork_19671: 5bbdfd09dd7825215e43fb824c5117577e5dbf56 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-
-== Linux commits ==
-
-5bbdfd09dd78 drm/i915/audio: set HDA link parameters in driver
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19671/index.html
-
---===============3748857465484362750==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/audio: set HDA link parameters in driver</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/87040/">https://patchwork.freedesktop.org/series/87040/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19671/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19671/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_9771 -&gt; Patchwork_19671</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19671/index.html</p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_19671 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@amdgpu/amd_basic@userptr:</p>
-<ul>
-<li>fi-byt-j1900:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19671/fi-byt-j1900/igt@amdgpu/amd_basic@userptr.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +17 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@prime_self_import@basic-with_one_bo:</p>
-<ul>
-<li>fi-tgl-y:           <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9771/fi-tgl-y/igt@prime_self_import@basic-with_one_bo.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19671/fi-tgl-y/igt@prime_self_import@basic-with_one_bo.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/402">i915#402</a>) +1 similar issue</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>
-<p>igt@i915_pm_rpm@module-reload:</p>
-<ul>
-<li>fi-byt-j1900:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9771/fi-byt-j1900/igt@i915_pm_rpm@module-reload.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/142">i915#142</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/2405">i915#2405</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19671/fi-byt-j1900/igt@i915_pm_rpm@module-reload.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@prime_self_import@basic-with_one_bo_two_files:</p>
-<ul>
-<li>fi-tgl-y:           <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9771/fi-tgl-y/igt@prime_self_import@basic-with_one_bo_two_files.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/402">i915#402</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19671/fi-tgl-y/igt@prime_self_import@basic-with_one_bo_two_files.html">PASS</a> +2 similar issues</li>
-</ul>
-</li>
-</ul>
-<h2>Participating hosts (45 -&gt; 40)</h2>
-<p>Missing    (5): fi-ilk-m540 fi-hsw-4200u fi-bsw-cyan fi-ctg-p8600 fi-bdw-samus </p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_9771 -&gt; Patchwork_19671</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_9771: 1b095889c6780e40f6161bfb824b5e944fd69547 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_6003: 627cc5353535d61fa33c5f7ff7e64f154c84f10a @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools<br />
-  Patchwork_19671: 5bbdfd09dd7825215e43fb824c5117577e5dbf56 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<p>== Linux commits ==</p>
-<p>5bbdfd09dd78 drm/i915/audio: set HDA link parameters in driver</p>
-
-</body>
-</html>
-
---===============3748857465484362750==--
-
---===============1530714343==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-
---===============1530714343==--
+Rm91bmQgYSBzeXN0ZW0gd2VyZSBmaXJtd2FyZS9CSU9TIGxlZnQgdGhlIHBsYW5lX3Jlc19iIGFu
+ZCBwbGFuZV9yZXNfbApzZXQgd2l0aCBub24temVybyB2YWx1ZXMgZm9yIGRpc2FibGUgcGxhbmVz
+LgpBcyB0aGUgcGxhbmVzIGFyZSBkaXNhYmxlZCBpOTE1IHdpbGwgbm90IGV2ZW4gdHJ5IHRvIHNh
+bml0aXplIGl0IHNvCmhlcmUgcmV0dXJuaW5nIGVhcmxpZXIgaWYgYm90aCBza2xfd21fbGV2ZWxz
+IGJlaW5nIGNvbXBhcmVkIGFyZQpkaXNhYmxlZCwgaWYgdGhhdCBpcyB0cnVlIG5vIG5lZWQgdG8g
+Y2hlY2sgdGhlIG90aGVyIGZpZWxkcyBhcyBIVwp3aWxsIGlnbm9yZSBpdC4KClNpZ25lZC1vZmYt
+Ynk6IEpvc8OpIFJvYmVydG8gZGUgU291emEgPGpvc2Uuc291emFAaW50ZWwuY29tPgotLS0KIGRy
+aXZlcnMvZ3B1L2RybS9pOTE1L2ludGVsX3BtLmMgfCAyICsrCiAxIGZpbGUgY2hhbmdlZCwgMiBp
+bnNlcnRpb25zKCspCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvaW50ZWxfcG0u
+YyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2ludGVsX3BtLmMKaW5kZXggOGNjNjdmOWM0ZTU4Li5j
+NjMwZGMxMGMzNGIgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2ludGVsX3BtLmMK
+KysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvaW50ZWxfcG0uYwpAQCAtNTYzMyw2ICs1NjMzLDgg
+QEAgdm9pZCBza2xfd3JpdGVfY3Vyc29yX3dtKHN0cnVjdCBpbnRlbF9wbGFuZSAqcGxhbmUsCiBi
+b29sIHNrbF93bV9sZXZlbF9lcXVhbHMoY29uc3Qgc3RydWN0IHNrbF93bV9sZXZlbCAqbDEsCiAJ
+CQkgY29uc3Qgc3RydWN0IHNrbF93bV9sZXZlbCAqbDIpCiB7CisJaWYgKGwxLT5wbGFuZV9lbiA9
+PSBmYWxzZSAmJiBsMi0+cGxhbmVfZW4gPT0gZmFsc2UpCisJCXJldHVybiB0cnVlOwogCXJldHVy
+biBsMS0+cGxhbmVfZW4gPT0gbDItPnBsYW5lX2VuICYmCiAJCWwxLT5pZ25vcmVfbGluZXMgPT0g
+bDItPmlnbm9yZV9saW5lcyAmJgogCQlsMS0+cGxhbmVfcmVzX2wgPT0gbDItPnBsYW5lX3Jlc19s
+ICYmCi0tIAoyLjMwLjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fCkludGVsLWdmeCBtYWlsaW5nIGxpc3QKSW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
+Lm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ludGVs
+LWdmeAo=
