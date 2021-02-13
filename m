@@ -7,44 +7,45 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3A5CCC433E6
-	for <intel-gfx@archiver.kernel.org>; Sat, 13 Feb 2021 04:28:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 54367C433DB
+	for <intel-gfx@archiver.kernel.org>; Sat, 13 Feb 2021 04:28:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B5A4E64E8D
-	for <intel-gfx@archiver.kernel.org>; Sat, 13 Feb 2021 04:28:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B5A4E64E8D
+	by mail.kernel.org (Postfix) with ESMTPS id E2D2C64DB2
+	for <intel-gfx@archiver.kernel.org>; Sat, 13 Feb 2021 04:28:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E2D2C64DB2
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F4806E2E3;
-	Sat, 13 Feb 2021 04:28:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 66BE46E39B;
+	Sat, 13 Feb 2021 04:28:13 +0000 (UTC)
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7132B6E288
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A5E3A6E2E3
  for <intel-gfx@lists.freedesktop.org>; Sat, 13 Feb 2021 04:28:09 +0000 (UTC)
-IronPort-SDR: fwe4/5NwXuuhhj3Zk1DjBvs8KBKi8NvYHddtYA3HmplznT86RLF6htJaDCkkCCPliS5Ylsz7Jj
- A47AtkdAo3qw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9893"; a="246573777"
-X-IronPort-AV: E=Sophos;i="5.81,175,1610438400"; d="scan'208";a="246573777"
+IronPort-SDR: D/ZoFrZ1G3cjyB1i/iZey+w6bmErqCl+k1vtyOj0uByJw7zpLh8iEygmT2KGEK/xTyY1KDycEt
+ 8Ca0cdp3Ty+A==
+X-IronPort-AV: E=McAfee;i="6000,8403,9893"; a="246573779"
+X-IronPort-AV: E=Sophos;i="5.81,175,1610438400"; d="scan'208";a="246573779"
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  12 Feb 2021 20:28:08 -0800
-IronPort-SDR: j+I+4PXGj5YxVZfPWZx9j+EZ+huVRuksa/DWeUWcde0Yn6MuMwAP2514MoLlXORtjf6kibSbWd
- MUc7/h0yj85A==
-X-IronPort-AV: E=Sophos;i="5.81,175,1610438400"; d="scan'208";a="511516602"
+IronPort-SDR: MPmMHTFypdKKm1p3DiePLGGRCGegDD+aY7bGiFvRkXrVK9gRazWTiC+n+tEqdbun6FAyHpjPCF
+ xLLDJhAEZ+aA==
+X-IronPort-AV: E=Sophos;i="5.81,175,1610438400"; d="scan'208";a="511516607"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.202])
  by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  12 Feb 2021 20:28:08 -0800
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 12 Feb 2021 20:27:54 -0800
-Message-Id: <20210213042756.953007-2-lucas.demarchi@intel.com>
+Date: Fri, 12 Feb 2021 20:27:56 -0800
+Message-Id: <20210213042756.953007-4-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.29.2
 In-Reply-To: <20210213042756.953007-1-lucas.demarchi@intel.com>
 References: <20210213042756.953007-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [CI 2/4] drm/i915: group display-related register calls
+Subject: [Intel-gfx] [CI 4/4] drm/i915: move intel_init_audio_hooks inside
+ display
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,122 +63,49 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-intel_gt_driver_register() may be called earlier than
-intel_opregion_register() and acpi_video_register(), so move it up.
-
-intel_display_debugfs_register() may be called later, together with the
-other display-related initializations. There is a slight change in
-behavior that sysfs files will show up before the display-related
-debugfs files, but that shouldn't be a problem - userspace shouldn't be
-relying in debugfs.
-
-This allows us to group all the display-related calls under a single
-check for "HAS_DISPLAY()" that can be later moved to a better place.
+intel_init_audio_hooks() sets up hooks in the display struct and only
+makes sense when we have display. Move it inside
+intel_init_display_hooks() so it isn't called when we don't have
+display.
 
 Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
-Reviewed-by: Chris Wilson <chris@chris-wilson.co.uk>
 ---
- drivers/gpu/drm/i915/i915_drv.c | 64 +++++++++++++++++----------------
- 1 file changed, 34 insertions(+), 30 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display.c | 1 +
+ drivers/gpu/drm/i915/i915_drv.c              | 2 --
+ 2 files changed, 1 insertion(+), 2 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index bb814126d4a3..0dc5cb36667a 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -12478,6 +12478,7 @@ static const struct drm_mode_config_funcs intel_mode_funcs = {
+ void intel_init_display_hooks(struct drm_i915_private *dev_priv)
+ {
+ 	intel_init_cdclk_hooks(dev_priv);
++	intel_init_audio_hooks(dev_priv);
+ 
+ 	intel_dpll_init_clock_hook(dev_priv);
+ 
 diff --git a/drivers/gpu/drm/i915/i915_drv.c b/drivers/gpu/drm/i915/i915_drv.c
-index 1f65c15775a0..e3d83c75d968 100644
+index 8c5d46ba847b..3edd5e47ad68 100644
 --- a/drivers/gpu/drm/i915/i915_drv.c
 +++ b/drivers/gpu/drm/i915/i915_drv.c
-@@ -681,38 +681,39 @@ static void i915_driver_register(struct drm_i915_private *dev_priv)
- 	}
+@@ -46,7 +46,6 @@
+ #include <drm/drm_probe_helper.h>
  
- 	i915_debugfs_register(dev_priv);
--	if (HAS_DISPLAY(dev_priv))
--		intel_display_debugfs_register(dev_priv);
- 	i915_setup_sysfs(dev_priv);
+ #include "display/intel_acpi.h"
+-#include "display/intel_audio.h"
+ #include "display/intel_bw.h"
+ #include "display/intel_cdclk.h"
+ #include "display/intel_csr.h"
+@@ -353,7 +352,6 @@ static int i915_driver_early_probe(struct drm_i915_private *dev_priv)
+ 	intel_irq_init(dev_priv);
+ 	intel_init_display_hooks(dev_priv);
+ 	intel_init_clock_gating_hooks(dev_priv);
+-	intel_init_audio_hooks(dev_priv);
  
- 	/* Depends on sysfs having been initialized */
- 	i915_perf_register(dev_priv);
+ 	intel_detect_preproduction_hw(dev_priv);
  
-+	intel_gt_driver_register(&dev_priv->gt);
-+
- 	if (HAS_DISPLAY(dev_priv)) {
-+		intel_display_debugfs_register(dev_priv);
-+
- 		/* Must be done after probing outputs */
- 		intel_opregion_register(dev_priv);
- 		acpi_video_register();
--	}
- 
--	intel_gt_driver_register(&dev_priv->gt);
--
--	intel_audio_init(dev_priv);
-+		intel_audio_init(dev_priv);
- 
--	/*
--	 * Some ports require correctly set-up hpd registers for detection to
--	 * work properly (leading to ghost connected connector status), e.g. VGA
--	 * on gm45.  Hence we can only set up the initial fbdev config after hpd
--	 * irqs are fully enabled. We do it last so that the async config
--	 * cannot run before the connectors are registered.
--	 */
--	intel_fbdev_initial_config_async(dev);
-+		/*
-+		 * Some ports require correctly set-up hpd registers for
-+		 * detection to work properly (leading to ghost connected
-+		 * connector status), e.g. VGA on gm45.  Hence we can only set
-+		 * up the initial fbdev config after hpd irqs are fully
-+		 * enabled. We do it last so that the async config cannot run
-+		 * before the connectors are registered.
-+		 */
-+		intel_fbdev_initial_config_async(dev);
- 
--	/*
--	 * We need to coordinate the hotplugs with the asynchronous fbdev
--	 * configuration, for which we use the fbdev->async_cookie.
--	 */
--	if (HAS_DISPLAY(dev_priv))
-+		/*
-+		 * We need to coordinate the hotplugs with the asynchronous
-+		 * fbdev configuration, for which we use the
-+		 * fbdev->async_cookie.
-+		 */
- 		drm_kms_helper_poll_init(dev);
-+	}
- 
- 	intel_power_domains_enable(dev_priv);
- 	intel_runtime_pm_enable(&dev_priv->runtime_pm);
-@@ -736,20 +737,23 @@ static void i915_driver_unregister(struct drm_i915_private *dev_priv)
- 	intel_runtime_pm_disable(&dev_priv->runtime_pm);
- 	intel_power_domains_disable(dev_priv);
- 
--	intel_fbdev_unregister(dev_priv);
--	intel_audio_deinit(dev_priv);
-+	if (HAS_DISPLAY(dev_priv)) {
-+		intel_fbdev_unregister(dev_priv);
-+		intel_audio_deinit(dev_priv);
-+
-+		/*
-+		 * After flushing the fbdev (incl. a late async config which
-+		 * will have delayed queuing of a hotplug event), then flush
-+		 * the hotplug events.
-+		 */
-+		drm_kms_helper_poll_fini(&dev_priv->drm);
-+		drm_atomic_helper_shutdown(&dev_priv->drm);
- 
--	/*
--	 * After flushing the fbdev (incl. a late async config which will
--	 * have delayed queuing of a hotplug event), then flush the hotplug
--	 * events.
--	 */
--	drm_kms_helper_poll_fini(&dev_priv->drm);
--	drm_atomic_helper_shutdown(&dev_priv->drm);
-+		acpi_video_unregister();
-+		intel_opregion_unregister(dev_priv);
-+	}
- 
- 	intel_gt_driver_unregister(&dev_priv->gt);
--	acpi_video_unregister();
--	intel_opregion_unregister(dev_priv);
- 
- 	i915_perf_unregister(dev_priv);
- 	i915_pmu_unregister(dev_priv);
 -- 
 2.29.2
 
