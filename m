@@ -2,50 +2,41 @@ Return-Path: <SRS0=GbfI=HP=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 55ED9C433E6
-	for <intel-gfx@archiver.kernel.org>; Sat, 13 Feb 2021 04:28:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2F5D6C433E0
+	for <intel-gfx@archiver.kernel.org>; Sat, 13 Feb 2021 04:40:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E6B7964DB2
-	for <intel-gfx@archiver.kernel.org>; Sat, 13 Feb 2021 04:28:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E6B7964DB2
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id D670D64E64
+	for <intel-gfx@archiver.kernel.org>; Sat, 13 Feb 2021 04:40:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D670D64E64
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D0D86E828;
-	Sat, 13 Feb 2021 04:28:14 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 06DD86E2E3
- for <intel-gfx@lists.freedesktop.org>; Sat, 13 Feb 2021 04:28:09 +0000 (UTC)
-IronPort-SDR: BrPs283c6hTptS3Khd5bYiwKvyJqgLh2SbjR4V5FeCWrP8wEEJ0serCunsLLCJRN2uBa5r2srJ
- jDbCdcLFCenQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9893"; a="246573778"
-X-IronPort-AV: E=Sophos;i="5.81,175,1610438400"; d="scan'208";a="246573778"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Feb 2021 20:28:08 -0800
-IronPort-SDR: u7b59xpvL4Z/70xo+yO+tuRHei6d+DDkWPw1/mYeoiVCXXmXl5LwRzmn9ZJ53r6FH/rylLbjB3
- DI1lXL016PbA==
-X-IronPort-AV: E=Sophos;i="5.81,175,1610438400"; d="scan'208";a="511516605"
-Received: from lucas-s2600cw.jf.intel.com ([10.165.21.202])
- by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Feb 2021 20:28:08 -0800
-From: Lucas De Marchi <lucas.demarchi@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Fri, 12 Feb 2021 20:27:55 -0800
-Message-Id: <20210213042756.953007-3-lucas.demarchi@intel.com>
-X-Mailer: git-send-email 2.29.2
-In-Reply-To: <20210213042756.953007-1-lucas.demarchi@intel.com>
-References: <20210213042756.953007-1-lucas.demarchi@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A80E6E25A;
+	Sat, 13 Feb 2021 04:40:12 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id D5FA56E25A;
+ Sat, 13 Feb 2021 04:40:10 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id C4F94A47EA;
+ Sat, 13 Feb 2021 04:40:10 +0000 (UTC)
 MIME-Version: 1.0
-Subject: [Intel-gfx] [CI 3/4] drm/i915/display: move register functions to
- display/
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Lucas De Marchi" <lucas.demarchi@intel.com>
+Date: Sat, 13 Feb 2021 04:40:10 -0000
+Message-ID: <161319121077.28860.17264843688616138941@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20210213042756.953007-1-lucas.demarchi@intel.com>
+In-Reply-To: <20210213042756.953007-1-lucas.demarchi@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?series_starting_with_=5BCI=2C1/4=5D_drm/i915=3A_stop_registerin?=
+ =?utf-8?q?g_if_drm=5Fdev=5Fregister=28=29_fails?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,194 +49,62 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Now that all display-related functions are grouped in
-i915_driver_register(), move them to display/ so we reduce the amount of
-display calls from the rest of the driver.
+== Series Details ==
 
-Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
-Reviewed-by: Chris Wilson <chris@chris-wilson.co.uk>
----
- drivers/gpu/drm/i915/display/intel_display.c | 53 ++++++++++++++++++++
- drivers/gpu/drm/i915/display/intel_display.h |  3 ++
- drivers/gpu/drm/i915/i915_drv.c              | 45 +----------------
- 3 files changed, 58 insertions(+), 43 deletions(-)
+Series: series starting with [CI,1/4] drm/i915: stop registering if drm_dev_register() fails
+URL   : https://patchwork.freedesktop.org/series/87062/
+State : warning
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 23ec68498800..bb814126d4a3 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -24,6 +24,7 @@
-  *	Eric Anholt <eric@anholt.net>
-  */
- 
-+#include <acpi/video.h>
- #include <linux/i2c.h>
- #include <linux/input.h>
- #include <linux/intel-iommu.h>
-@@ -43,6 +44,7 @@
- #include <drm/drm_probe_helper.h>
- #include <drm/drm_rect.h>
- 
-+#include "display/intel_audio.h"
- #include "display/intel_crt.h"
- #include "display/intel_ddi.h"
- #include "display/intel_display_debugfs.h"
-@@ -13944,6 +13946,57 @@ void intel_modeset_driver_remove_nogem(struct drm_i915_private *i915)
- 	intel_bios_driver_remove(i915);
- }
- 
-+void intel_display_driver_register(struct drm_i915_private *i915)
-+{
-+	if (!HAS_DISPLAY(i915))
-+		return;
-+
-+	intel_display_debugfs_register(i915);
-+
-+	/* Must be done after probing outputs */
-+	intel_opregion_register(i915);
-+	acpi_video_register();
-+
-+	intel_audio_init(i915);
-+
-+	/*
-+	 * Some ports require correctly set-up hpd registers for
-+	 * detection to work properly (leading to ghost connected
-+	 * connector status), e.g. VGA on gm45.  Hence we can only set
-+	 * up the initial fbdev config after hpd irqs are fully
-+	 * enabled. We do it last so that the async config cannot run
-+	 * before the connectors are registered.
-+	 */
-+	intel_fbdev_initial_config_async(&i915->drm);
-+
-+	/*
-+	 * We need to coordinate the hotplugs with the asynchronous
-+	 * fbdev configuration, for which we use the
-+	 * fbdev->async_cookie.
-+	 */
-+	drm_kms_helper_poll_init(&i915->drm);
-+}
-+
-+void intel_display_driver_unregister(struct drm_i915_private *i915)
-+{
-+	if (!HAS_DISPLAY(i915))
-+		return;
-+
-+	intel_fbdev_unregister(i915);
-+	intel_audio_deinit(i915);
-+
-+	/*
-+	 * After flushing the fbdev (incl. a late async config which
-+	 * will have delayed queuing of a hotplug event), then flush
-+	 * the hotplug events.
-+	 */
-+	drm_kms_helper_poll_fini(&i915->drm);
-+	drm_atomic_helper_shutdown(&i915->drm);
-+
-+	acpi_video_unregister();
-+	intel_opregion_unregister(i915);
-+}
-+
- #if IS_ENABLED(CONFIG_DRM_I915_CAPTURE_ERROR)
- 
- struct intel_display_error_state {
-diff --git a/drivers/gpu/drm/i915/display/intel_display.h b/drivers/gpu/drm/i915/display/intel_display.h
-index e3757ecabbf7..375ec2bccebd 100644
---- a/drivers/gpu/drm/i915/display/intel_display.h
-+++ b/drivers/gpu/drm/i915/display/intel_display.h
-@@ -654,6 +654,9 @@ u32 intel_plane_adjust_aligned_offset(int *x, int *y,
- unsigned int intel_tile_width_bytes(const struct drm_framebuffer *fb, int color_plane);
- unsigned int intel_tile_height(const struct drm_framebuffer *fb, int color_plane);
- 
-+void intel_display_driver_register(struct drm_i915_private *i915);
-+void intel_display_driver_unregister(struct drm_i915_private *i915);
-+
- /* modesetting */
- void intel_modeset_init_hw(struct drm_i915_private *i915);
- int intel_modeset_init_noirq(struct drm_i915_private *i915);
-diff --git a/drivers/gpu/drm/i915/i915_drv.c b/drivers/gpu/drm/i915/i915_drv.c
-index e3d83c75d968..8c5d46ba847b 100644
---- a/drivers/gpu/drm/i915/i915_drv.c
-+++ b/drivers/gpu/drm/i915/i915_drv.c
-@@ -38,7 +38,6 @@
- #include <linux/slab.h>
- #include <linux/vga_switcheroo.h>
- #include <linux/vt.h>
--#include <acpi/video.h>
- 
- #include <drm/drm_atomic_helper.h>
- #include <drm/drm_ioctl.h>
-@@ -51,7 +50,6 @@
- #include "display/intel_bw.h"
- #include "display/intel_cdclk.h"
- #include "display/intel_csr.h"
--#include "display/intel_display_debugfs.h"
- #include "display/intel_display_types.h"
- #include "display/intel_dp.h"
- #include "display/intel_fbdev.h"
-@@ -688,32 +686,7 @@ static void i915_driver_register(struct drm_i915_private *dev_priv)
- 
- 	intel_gt_driver_register(&dev_priv->gt);
- 
--	if (HAS_DISPLAY(dev_priv)) {
--		intel_display_debugfs_register(dev_priv);
+== Summary ==
+
+$ dim sparse --fast origin/drm-tip
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
 -
--		/* Must be done after probing outputs */
--		intel_opregion_register(dev_priv);
--		acpi_video_register();
--
--		intel_audio_init(dev_priv);
--
--		/*
--		 * Some ports require correctly set-up hpd registers for
--		 * detection to work properly (leading to ghost connected
--		 * connector status), e.g. VGA on gm45.  Hence we can only set
--		 * up the initial fbdev config after hpd irqs are fully
--		 * enabled. We do it last so that the async config cannot run
--		 * before the connectors are registered.
--		 */
--		intel_fbdev_initial_config_async(dev);
--
--		/*
--		 * We need to coordinate the hotplugs with the asynchronous
--		 * fbdev configuration, for which we use the
--		 * fbdev->async_cookie.
--		 */
--		drm_kms_helper_poll_init(dev);
--	}
-+	intel_display_driver_register(dev_priv);
- 
- 	intel_power_domains_enable(dev_priv);
- 	intel_runtime_pm_enable(&dev_priv->runtime_pm);
-@@ -737,21 +710,7 @@ static void i915_driver_unregister(struct drm_i915_private *dev_priv)
- 	intel_runtime_pm_disable(&dev_priv->runtime_pm);
- 	intel_power_domains_disable(dev_priv);
- 
--	if (HAS_DISPLAY(dev_priv)) {
--		intel_fbdev_unregister(dev_priv);
--		intel_audio_deinit(dev_priv);
--
--		/*
--		 * After flushing the fbdev (incl. a late async config which
--		 * will have delayed queuing of a hotplug event), then flush
--		 * the hotplug events.
--		 */
--		drm_kms_helper_poll_fini(&dev_priv->drm);
--		drm_atomic_helper_shutdown(&dev_priv->drm);
--
--		acpi_video_unregister();
--		intel_opregion_unregister(dev_priv);
--	}
-+	intel_display_driver_unregister(dev_priv);
- 
- 	intel_gt_driver_unregister(&dev_priv->gt);
- 
--- 
-2.29.2
++drivers/gpu/drm/i915/gt/intel_reset.c:1323:5: warning: context imbalance in 'intel_gt_reset_trylock' - different lock contexts for basic block
++drivers/gpu/drm/i915/gvt/mmio.c:295:23: warning: memcpy with byte count of 279040
++drivers/gpu/drm/i915/i915_perf.c:1437:15: warning: memset with byte count of 16777216
++drivers/gpu/drm/i915/i915_perf.c:1491:15: warning: memset with byte count of 16777216
++drivers/gpu/drm/i915/intel_wakeref.c:137:19: warning: context imbalance in 'wakeref_auto_timeout' - unexpected unlock
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'fwtable_read16' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'fwtable_read32' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'fwtable_read64' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'fwtable_read8' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'fwtable_write16' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'fwtable_write32' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'fwtable_write8' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen11_fwtable_read16' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen11_fwtable_read32' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen11_fwtable_read64' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen11_fwtable_read8' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen11_fwtable_write16' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen11_fwtable_write32' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen11_fwtable_write8' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen12_fwtable_read16' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen12_fwtable_read32' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen12_fwtable_read64' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen12_fwtable_read8' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen12_fwtable_write16' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen12_fwtable_write32' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen12_fwtable_write8' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen6_read16' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen6_read32' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen6_read64' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen6_read8' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen6_write16' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen6_write32' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen6_write8' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen8_write16' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen8_write32' - different lock contexts for basic block
++./include/linux/spinlock.h:409:9: warning: context imbalance in 'gen8_write8' - different lock contexts for basic block
+
 
 _______________________________________________
 Intel-gfx mailing list
