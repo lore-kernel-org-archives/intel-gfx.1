@@ -2,81 +2,41 @@ Return-Path: <SRS0=GsLQ=HR=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNPARSEABLE_RELAY autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E73F9C433DB
-	for <intel-gfx@archiver.kernel.org>; Mon, 15 Feb 2021 15:59:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1CE83C433DB
+	for <intel-gfx@archiver.kernel.org>; Mon, 15 Feb 2021 16:00:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9501864DEB
-	for <intel-gfx@archiver.kernel.org>; Mon, 15 Feb 2021 15:59:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9501864DEB
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=oracle.com
+	by mail.kernel.org (Postfix) with ESMTPS id D03ED64DDA
+	for <intel-gfx@archiver.kernel.org>; Mon, 15 Feb 2021 16:00:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D03ED64DDA
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 346086E159;
-	Mon, 15 Feb 2021 15:59:01 +0000 (UTC)
-Received: from aserp2120.oracle.com (aserp2120.oracle.com [141.146.126.78])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA5076E8D2
- for <intel-gfx@lists.freedesktop.org>; Mon, 15 Feb 2021 15:58:59 +0000 (UTC)
-Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
- by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 11FFncPI096510;
- Mon, 15 Feb 2021 15:58:48 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=date : from : to : cc
- : subject : message-id : mime-version : content-type; s=corp-2020-01-29;
- bh=/jt2JJ/DfjR1OlH6tBCcf9qWPcgljJpwfUrXp0Yi6QM=;
- b=K2r544vBO+R3H89WELNzk4w1i2Zc0l96bmTB17uxZHNkGCDMbmGsrD9pSivrdBpq/8Dx
- 1TGU/msnf22lvAZ4SCNj6lAgrBjA/VUYQpGOxOSlBkU2DXtNsrYbs4i7vL60U+Iwvdm2
- 9bsNF+8G9LTrFy/LIElr0Ql+A6BEwNqVpW7cKJO2O8qH6dXfwvKC7qGNnt8kpKamuOkY
- b1m0wOQGlp6FTZ7VKemh0jJbEBImrmCeT7zw/Brue3Uv9/Z+lLeGvWjgtfoZX26Edb//
- lrOmL4eD6poTXkZOSYEo4DtB9HMBINJ3UVfzf6QNfmChPpfTvkHsfW2I48gx+8ESB5fs 8Q== 
-Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
- by aserp2120.oracle.com with ESMTP id 36pd9a3wya-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 15 Feb 2021 15:58:48 +0000
-Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
- by userp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 11FFnxJn009988;
- Mon, 15 Feb 2021 15:58:46 GMT
-Received: from userv0122.oracle.com (userv0122.oracle.com [156.151.31.75])
- by userp3030.oracle.com with ESMTP id 36prpvsfcx-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 15 Feb 2021 15:58:46 +0000
-Received: from abhmp0001.oracle.com (abhmp0001.oracle.com [141.146.116.7])
- by userv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 11FFwaIX003437;
- Mon, 15 Feb 2021 15:58:36 GMT
-Received: from mwanda (/102.36.221.92) by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Mon, 15 Feb 2021 07:58:35 -0800
-Date: Mon, 15 Feb 2021 18:58:27 +0300
-From: Dan Carpenter <dan.carpenter@oracle.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Chris Wilson <chris@chris-wilson.co.uk>
-Message-ID: <YCqaI95UW9L7Mg/L@mwanda>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5110C6E8D8;
+	Mon, 15 Feb 2021 16:00:57 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 02A936E8D5;
+ Mon, 15 Feb 2021 16:00:57 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id EF188A41FB;
+ Mon, 15 Feb 2021 16:00:56 +0000 (UTC)
 MIME-Version: 1.0
-Content-Disposition: inline
-X-Mailer: git-send-email haha only kidding
-X-Proofpoint-IMR: 1
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=9896
- signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 bulkscore=0
- mlxlogscore=999
- phishscore=0 adultscore=0 mlxscore=0 suspectscore=0 malwarescore=0
- spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2009150000 definitions=main-2102150125
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=9896
- signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 clxscore=1011
- impostorscore=0
- mlxscore=0 phishscore=0 mlxlogscore=999 spamscore=0 bulkscore=0
- priorityscore=1501 malwarescore=0 suspectscore=0 adultscore=0
- lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2009150000 definitions=main-2102150125
-Subject: [Intel-gfx] [PATCH] drm/i915/selftest: Fix an error code in
- mock_context_barrier()
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Andy Shevchenko" <andriy.shevchenko@linux.intel.com>
+Date: Mon, 15 Feb 2021 16:00:56 -0000
+Message-ID: <161340485694.26463.5414032788356742655@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20210215142137.64476-1-andriy.shevchenko@linux.intel.com>
+In-Reply-To: <20210215142137.64476-1-andriy.shevchenko@linux.intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_series_starting_with_=5Bv1=2C1/3=5D_string=3A_Consolidate_y?=
+ =?utf-8?q?esno=28=29_helpers_under_string=2Eh_hood?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,37 +49,31 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: kernel-janitors@vger.kernel.org, David Airlie <airlied@linux.ie>,
- intel-gfx@lists.freedesktop.org,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@intel.com>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-If the igt_request_alloc() call fails then this should return a
-negative error code, but currently it returns success.
+== Series Details ==
 
-Fixes: 85fddf0b0027 ("drm/i915: Introduce a context barrier callback")
-Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
----
- drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c | 1 +
- 1 file changed, 1 insertion(+)
+Series: series starting with [v1,1/3] string: Consolidate yesno() helpers under string.h hood
+URL   : https://patchwork.freedesktop.org/series/87096/
+State : warning
 
-diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
-index d3f87dc4eda3..c30b583522ca 100644
---- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
-+++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
-@@ -1942,6 +1942,7 @@ static int mock_context_barrier(void *arg)
- 	rq = igt_request_alloc(ctx, i915->gt.engine[RCS0]);
- 	if (IS_ERR(rq)) {
- 		pr_err("Request allocation failed!\n");
-+		err = PTR_ERR(rq);
- 		goto out;
- 	}
- 	i915_request_add(rq);
--- 
-2.30.0
+== Summary ==
+
+$ dim checkpatch origin/drm-tip
+1160da278ef5 string: Consolidate yesno() helpers under string.h hood
+-:6: WARNING:COMMIT_LOG_LONG_LINE: Possible unwrapped commit description (prefer a maximum 75 chars per line)
+#6: 
+We have already few similar implementation and a lot of code that can benefit
+
+total: 0 errors, 1 warnings, 0 checks, 69 lines checked
+3affb778da50 string: Move onoff() helper under string.h hood
+bd1f4ebe13b4 string: Move enableddisabled() helper under string.h hood
+
 
 _______________________________________________
 Intel-gfx mailing list
