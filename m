@@ -7,35 +7,35 @@ X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D6FC8C433DB
-	for <intel-gfx@archiver.kernel.org>; Tue, 16 Feb 2021 12:47:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C95B6C433E0
+	for <intel-gfx@archiver.kernel.org>; Tue, 16 Feb 2021 12:49:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 60BEA64D5D
-	for <intel-gfx@archiver.kernel.org>; Tue, 16 Feb 2021 12:47:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 60BEA64D5D
+	by mail.kernel.org (Postfix) with ESMTPS id 0F7AD64D5D
+	for <intel-gfx@archiver.kernel.org>; Tue, 16 Feb 2021 12:49:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0F7AD64D5D
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BDB1788EE9;
-	Tue, 16 Feb 2021 12:47:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 82CE66E94F;
+	Tue, 16 Feb 2021 12:49:39 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ED0ED88CBF;
- Tue, 16 Feb 2021 12:47:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A8F36E94D;
+ Tue, 16 Feb 2021 12:49:37 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.69.177; 
 Received: from localhost (unverified [78.156.69.177]) 
  by fireflyinternet.com (Firefly Internet (M1)) with ESMTP (TLS) id
- 23880805-1500050 for multiple; Tue, 16 Feb 2021 12:47:02 +0000
+ 23880829-1500050 for multiple; Tue, 16 Feb 2021 12:49:35 +0000
 MIME-Version: 1.0
 In-Reply-To: <20210216105050.309803-1-tvrtko.ursulin@linux.intel.com>
 References: <20210216105050.309803-1-tvrtko.ursulin@linux.intel.com>
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
  igt-dev@lists.freedesktop.org
-Date: Tue, 16 Feb 2021 12:47:00 +0000
-Message-ID: <161347962042.8311.4583278071537199442@build.alporthouse.com>
+Date: Tue, 16 Feb 2021 12:49:33 +0000
+Message-ID: <161347977326.8311.2289376711332554853@build.alporthouse.com>
 User-Agent: alot/0.9
 Subject: Re: [Intel-gfx] [PATCH i-g-t] tests/i915/perf_pmu: Subtest to
  measure sampling error for 100% busy
@@ -100,11 +100,23 @@ Quoting Tvrtko Ursulin (2021-02-16 10:50:50)
 > +       igt_stats_t s;
 >         uint64_t val;
 >         int fd;
+>  
+> @@ -290,11 +295,40 @@ single(int gem_fd, const struct intel_execution_engine2 *e, unsigned int flags)
+>         else
+>                 spin = NULL;
+>  
+> -       val = pmu_read_single(fd);
+> -       slept = measured_usleep(batch_duration_ns / 1000);
+> -       if (flags & TEST_TRAILING_IDLE)
+> -               end_spin(gem_fd, spin, flags);
+> -       val = pmu_read_single(fd) - val;
+> +       igt_stats_init_with_size(&s, loops);
+> +
+> +       while (--loops) {
 
-Something to record is that TEST_TRAILING_IDLE and TEST_LONG are mutually
-exclusive.
+while (loops--)
 
-So assert(igt_hweight(flags & (TEST_TRAILING_IDLE | TEST_LONG)) <= 1); ?
+/o\
 -Chris
 _______________________________________________
 Intel-gfx mailing list
