@@ -2,90 +2,48 @@ Return-Path: <SRS0=t69m=HT=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 55620C433E0
-	for <intel-gfx@archiver.kernel.org>; Wed, 17 Feb 2021 15:04:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 12B39C433E0
+	for <intel-gfx@archiver.kernel.org>; Wed, 17 Feb 2021 15:32:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 02C7D64E2F
-	for <intel-gfx@archiver.kernel.org>; Wed, 17 Feb 2021 15:04:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 02C7D64E2F
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
+	by mail.kernel.org (Postfix) with ESMTPS id C93E564E0F
+	for <intel-gfx@archiver.kernel.org>; Wed, 17 Feb 2021 15:32:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C93E564E0F
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 618086E115;
-	Wed, 17 Feb 2021 15:04:20 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [216.205.24.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C19B46E115
- for <intel-gfx@lists.freedesktop.org>; Wed, 17 Feb 2021 15:04:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1613574257;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=GWJYJpfiavYGoze7DduR+6q+2HwCelf19ffydNBhPPc=;
- b=Lolxnb4uVUwCSQWa95lr5SDBHy5PPXoIUs8jJBsCq5Kk+euP5Iu0wmrJNJmzMpAqu6Buhn
- sVKIWiK8sIGC91ivnEwzRMVO446q842vVDdFcumMavXPHd+rqNwaqiepDU2AP5wQQlrmL7
- 84GfVwiL97C0+L6g4hJyoVN8MNSUOwo=
-Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com
- [209.85.218.71]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-475-HCO-cWvIOiewOPkleD-RGg-1; Wed, 17 Feb 2021 10:04:15 -0500
-X-MC-Unique: HCO-cWvIOiewOPkleD-RGg-1
-Received: by mail-ej1-f71.google.com with SMTP id ce24so1227945ejc.17
- for <intel-gfx@lists.freedesktop.org>; Wed, 17 Feb 2021 07:04:14 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=GWJYJpfiavYGoze7DduR+6q+2HwCelf19ffydNBhPPc=;
- b=IYliK36AcseRnabAee7BHd17Pdhge52wGzL0s1a+XtMcWl4U8p+DdGKOaUlbq2mR67
- aG9Bl/RfG4nFP12tRrwS3aHMXSt00JTQcy/SRQJOI2vpTYKEml+UXyzn8eyxVYpV0/zV
- ImFhIC2uTDnmOtMIeUR4txztzi+j0a0ft9R3xkM4ZXaGWeizANUg8IZ2DDVejq8NbSbi
- 60ZKkhACZFYjFVr5e4gNQZlSKrHmEb8RqYHiEScS9tTMooEt7tSv2XTnHsFC0BAq+D/B
- fQWclJa/1qC+tVflisUwOb4BUjEeAY/XaJaoh6R57oAye2boaw2h0oA9vUURG3b9YYsX
- HCKA==
-X-Gm-Message-State: AOAM531MICq2grGPsGswKsyTlAFPRka2WHYMZp9PCL5mhl79NXB/voIw
- 0StM5nNqs4I/3Qx07MasHHe0gCiOdG0rtptiY6PnqRNZr6yzOGUV2Z/3GY+AWVRgjOK8rmzAP4F
- 6uEZqVYYx37Z3lOkMrJdmnf9qybpB
-X-Received: by 2002:a17:906:2787:: with SMTP id
- j7mr17682702ejc.291.1613574253075; 
- Wed, 17 Feb 2021 07:04:13 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJyi0Rn++fwfvb33fhbVcvUdXk7bs4m++3DkFdd1P3x/xmgS8v6w9FGeGX0gjFf+wU0kzGxX7w==
-X-Received: by 2002:a17:906:2787:: with SMTP id
- j7mr17682678ejc.291.1613574252793; 
- Wed, 17 Feb 2021 07:04:12 -0800 (PST)
-Received: from x1.localdomain
- (2001-1c00-0c1e-bf00-1054-9d19-e0f0-8214.cable.dynamic.v6.ziggo.nl.
- [2001:1c00:c1e:bf00:1054:9d19:e0f0:8214])
- by smtp.gmail.com with ESMTPSA id g3sm1126995ejz.91.2021.02.17.07.04.12
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 17 Feb 2021 07:04:12 -0800 (PST)
-To: Sean Young <sean@mess.org>, Hans Verkuil <hverkuil@xs4all.nl>
-References: <91b0f6c8-79ca-d04f-1ae0-66bf954dd421@redhat.com>
- <8d24dad6-cb2a-da91-bd38-887a7aa3282f@xs4all.nl>
- <20210217143223.GA28632@gofer.mess.org>
-From: Hans de Goede <hdegoede@redhat.com>
-Message-ID: <1c081320-d040-12b7-fbd6-e6b8c03c2ae8@redhat.com>
-Date: Wed, 17 Feb 2021 16:04:11 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.0
-MIME-Version: 1.0
-In-Reply-To: <20210217143223.GA28632@gofer.mess.org>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Subject: Re: [Intel-gfx] Issue with cec_register_adapter calling
- request_module() from an async context when called from intel_dp_detect
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6972789C56;
+	Wed, 17 Feb 2021 15:32:56 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8090489C56
+ for <intel-gfx@lists.freedesktop.org>; Wed, 17 Feb 2021 15:32:54 +0000 (UTC)
+IronPort-SDR: Q3YsNJzNakMrH/2HujSy8AebCLweoFwZIzg/LRmb9fCUm2gV9qWaaQXyiYWa7OtArLsfwme5Ht
+ laYrSR+kHDeg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9897"; a="180662508"
+X-IronPort-AV: E=Sophos;i="5.81,184,1610438400"; d="scan'208";a="180662508"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Feb 2021 07:32:53 -0800
+IronPort-SDR: GKR2wD9QGFuTsK8LE30JNJuAl4g33k6H2cji0pWkPQQYhAhMztgPgdL7WQZDnlmxfVyAGk9nwj
+ moXaaKX0Br1Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.81,184,1610438400"; d="scan'208";a="439401793"
+Received: from shawnle1-build-machine.itwn.intel.com ([10.5.253.22])
+ by orsmga001.jf.intel.com with ESMTP; 17 Feb 2021 07:32:52 -0800
+From: Lee Shawn C <shawn.c.lee@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Wed, 17 Feb 2021 23:39:35 +0800
+Message-Id: <20210217153935.8528-1-shawn.c.lee@intel.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20210201150228.10001-1-shawn.c.lee@intel.com>
+References: <20210201150228.10001-1-shawn.c.lee@intel.com>
+Subject: [Intel-gfx] [PATCH v3] drm/i915/vbt: update DP max link rate table
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,137 +56,175 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx <intel-gfx@lists.freedesktop.org>,
- Linux Media Mailing List <linux-media@vger.kernel.org>
+Cc: Cooper Chiou <cooper.chiou@intel.com>,
+ William Tseng <william.tseng@intel.com>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+According to Bspec #20124, max link rate table for DP was updated
+at BDB version 230. Max link rate can support upto UHBR.
 
-On 2/17/21 3:32 PM, Sean Young wrote:
-> On Wed, Feb 17, 2021 at 01:41:46PM +0100, Hans Verkuil wrote:
->> Hi Hans,
->>
->> On 17/02/2021 13:24, Hans de Goede wrote:
->>> <resend with the linux-media list added to the Cc>
->>>
->>> Hi Hans,
->>>
->>> Fedora has a (opt-in) system to automatically collect backtraces from software
->>> crashing on users systems.
->>>
->>> This includes collecting kernel backtraces (including once triggered by
->>> WARN macros) while looking a the top 10 of the most reported backtrace during the
->>> last 2 weeks report from ABRT: https://retrace.fedoraproject.org/faf/problems/
->>>
->>> I noticed the following backtrace:
->>> https://retrace.fedoraproject.org/faf/problems/8150/
->>> which has been reported 170000 times by Fedora users who have opted-in during the
->>> last 14 days.
->>>
->>> The issue here is that cec_register_adapter ends up calling request_module()
->>> from an async context, triggering this warn in kernel/kmod.c __request_module():
->>>
->>>         /*
->>>          * We don't allow synchronous module loading from async.  Module
->>>          * init may invoke async_synchronize_full() which will end up
->>>          * waiting for this task which already is waiting for the module
->>>          * loading to complete, leading to a deadlock.
->>>          */
->>>         WARN_ON_ONCE(wait && current_is_async());
->>>
->>> The call-path leading to this goes like this:
->>>
->>>  ? kvasprintf+0x6d/0xa0
->>>  ? kobject_set_name_vargs+0x6f/0x90
->>>  rc_map_get+0x30/0x60
->>
->> It's not CEC, it is rc_map_get that calls request_module() for rc-cec.ko.
->>
->> I've added Sean Young to the CC list.
->>
->> Sean, is it possible to treat rc-cec as a built-in if MEDIA_CEC_RC is set?
->>
->> I think this issue is very specific to CEC. I would not expect to see this
->> with any other rc keymap.
-> 
-> So CEC creates an RC device with a keymap (cec keymap, of course) and then
-> the keymap needs to be loaded. We certainly don't want all keymaps as
-> builtins, that would be a waste.
-> 
-> The cec keymap is scanned once to build a map from cec codes to linux
-> keycodes; making it builtin is not ideal, and makes the build system a
-> bit messy.
-> 
-> I don't think we can load the keymap later, user space may start remapping
-> the keymap from udev.
-> 
-> Possibly we could create the cec or rc device later but this could be a bit
-> messy.
-> 
-> Could CEC specify:
-> 
-> #if IS_ENABLED(CONFIG_MEDIA_CEC_RC)
-> MODULE_SOFTDEP("rc-cec")
-> #endif
+After migrate to BDB v230, the definition for LBR, HBR2 and HBR3
+were changed. For backward compatibility. If BDB version was
+from 216 to 229. Driver have to follow original rule to configure
+DP max link rate value from VBT.
 
-That would need to be:
+v2: split the mapping table to two for old and new BDB definition.
+v3: return link rate instead of assigning it.
 
-MODULE_SOFTDEP("pre: rc-cec")
+Cc: Ville Syrjala <ville.syrjala@linux.intel.com>
+Cc: Imre Deak <imre.deak@intel.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Cooper Chiou <cooper.chiou@intel.com>
+Cc: William Tseng <william.tseng@intel.com>
+Signed-off-by: Lee Shawn C <shawn.c.lee@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_bios.c     | 78 +++++++++++++++----
+ drivers/gpu/drm/i915/display/intel_vbt_defs.h | 23 ++++--
+ 2 files changed, 80 insertions(+), 21 deletions(-)
 
-I see that the drm_kms_helper and i915 drivers both depend on the cec module already,
-so yes if that module will request for rc-cec to be loaded before it is loaded
-(and thus before i915 is loaded) then that should work around this.
-
-Assuming the user is using a module-loader which honors the softdep...
-
-Also this assumes that rc_map_get is smart enough to not call request_module()
-if the module is already loaded, is that the case ?
-
-Regards,
-
-Hans
-
-
-
-
->>>  rc_register_device+0x108/0x510
->>>  cec_register_adapter+0x5c/0x280 [cec]
->>>  drm_dp_cec_set_edid+0x11e/0x178 [drm_kms_helper]
->>>  intel_dp_set_edid+0x8d/0xc0 [i915]
->>>  intel_dp_detect+0x188/0x5c0 [i915]
->>>  drm_helper_probe_single_connector_modes+0xc2/0x6d0 [drm_kms_helper]
->>>  ? krealloc+0x7b/0xb0
->>>  drm_client_modeset_probe+0x25b/0x1320 [drm]
->>>  ? kfree+0x1ea/0x200
->>>  ? sched_clock+0x5/0x10
->>>  ? sched_clock_cpu+0xc/0xa0
->>>  __drm_fb_helper_initial_config_and_unlock+0x37/0x470 [drm_kms_helper]
->>>  ? _cond_resched+0x16/0x40
->>>  intel_fbdev_initial_config+0x14/0x30 [i915]
->>>  async_run_entry_fn+0x39/0x160
->>>
->>> So 2 questions:
->>>
->>> 1. Can we get this fixed please ?
->>>    Related to this, what happens if we make this an async modprobe
->>>    (when running from async context) is that a problem, or is it fine
->>>    if the rc_map module gets loaded later ?
->>>
->>> 2. If the answer to 1. is "tricky", "maybe" or some such then can we
->>> look into a workaround here ? E.g. do we know in advance which module
->>> is going to be requested (1), or does that depend on the EDID data ?
->>>
->>> Regards,
->>>
->>> Hans
->>>
->>>
->>> 1) And can we thus do tricks with a softdep on it ?
->>>
-> 
+diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
+index 7902d4c2673e..d8305c351b77 100644
+--- a/drivers/gpu/drm/i915/display/intel_bios.c
++++ b/drivers/gpu/drm/i915/display/intel_bios.c
+@@ -1759,6 +1759,64 @@ static enum port dvo_port_to_port(struct drm_i915_private *dev_priv,
+ 					  dvo_port);
+ }
+ 
++static int parse_bdb_230_dp_max_link_rate(const int vbt_max_link_rate)
++{
++	int link_rate;
++
++	switch (vbt_max_link_rate) {
++	case BDB_230_VBT_DP_MAX_LINK_RATE_UHBR20:
++		link_rate = 2000000;
++		break;
++	case BDB_230_VBT_DP_MAX_LINK_RATE_UHBR13P5:
++		link_rate = 1350000;
++		break;
++	case BDB_230_VBT_DP_MAX_LINK_RATE_UHBR10:
++		link_rate = 1000000;
++		break;
++	case BDB_230_VBT_DP_MAX_LINK_RATE_HBR3:
++		link_rate = 810000;
++		break;
++	case BDB_230_VBT_DP_MAX_LINK_RATE_HBR2:
++		link_rate = 540000;
++		break;
++	case BDB_230_VBT_DP_MAX_LINK_RATE_HBR:
++		link_rate = 270000;
++		break;
++	case BDB_230_VBT_DP_MAX_LINK_RATE_LBR:
++		link_rate = 162000;
++		break;
++	case BDB_230_VBT_DP_MAX_LINK_RATE_DEF:
++	default:
++		link_rate = 0;
++		break;
++	}
++
++	return link_rate;
++}
++
++static int parse_bdb_216_dp_max_link_rate(const int vbt_max_link_rate)
++{
++	int link_rate;
++
++	switch (vbt_max_link_rate) {
++	default:
++	case BDB_216_VBT_DP_MAX_LINK_RATE_HBR3:
++		link_rate = 810000;
++		break;
++	case BDB_216_VBT_DP_MAX_LINK_RATE_HBR2:
++		link_rate = 540000;
++		break;
++	case BDB_216_VBT_DP_MAX_LINK_RATE_HBR:
++		link_rate = 270000;
++		break;
++	case BDB_216_VBT_DP_MAX_LINK_RATE_LBR:
++		link_rate = 162000;
++		break;
++	}
++
++	return link_rate;
++}
++
+ static void parse_ddi_port(struct drm_i915_private *dev_priv,
+ 			   struct display_device_data *devdata,
+ 			   u8 bdb_version)
+@@ -1884,21 +1942,11 @@ static void parse_ddi_port(struct drm_i915_private *dev_priv,
+ 
+ 	/* DP max link rate for CNL+ */
+ 	if (bdb_version >= 216) {
+-		switch (child->dp_max_link_rate) {
+-		default:
+-		case VBT_DP_MAX_LINK_RATE_HBR3:
+-			info->dp_max_link_rate = 810000;
+-			break;
+-		case VBT_DP_MAX_LINK_RATE_HBR2:
+-			info->dp_max_link_rate = 540000;
+-			break;
+-		case VBT_DP_MAX_LINK_RATE_HBR:
+-			info->dp_max_link_rate = 270000;
+-			break;
+-		case VBT_DP_MAX_LINK_RATE_LBR:
+-			info->dp_max_link_rate = 162000;
+-			break;
+-		}
++		if (bdb_version >= 230)
++			info->dp_max_link_rate = parse_bdb_230_dp_max_link_rate(child->dp_max_link_rate);
++		else
++			info->dp_max_link_rate = parse_bdb_216_dp_max_link_rate(child->dp_max_link_rate);
++
+ 		drm_dbg_kms(&dev_priv->drm,
+ 			    "Port %c VBT DP max link rate: %d\n",
+ 			    port_name(port), info->dp_max_link_rate);
+diff --git a/drivers/gpu/drm/i915/display/intel_vbt_defs.h b/drivers/gpu/drm/i915/display/intel_vbt_defs.h
+index 6d10fa037751..0d80b04b34be 100644
+--- a/drivers/gpu/drm/i915/display/intel_vbt_defs.h
++++ b/drivers/gpu/drm/i915/display/intel_vbt_defs.h
+@@ -343,10 +343,21 @@ enum vbt_gmbus_ddi {
+ #define DP_AUX_H 0x80
+ #define DP_AUX_I 0x90
+ 
+-#define VBT_DP_MAX_LINK_RATE_HBR3	0
+-#define VBT_DP_MAX_LINK_RATE_HBR2	1
+-#define VBT_DP_MAX_LINK_RATE_HBR	2
+-#define VBT_DP_MAX_LINK_RATE_LBR	3
++/* DP max link rate 216+ */
++#define BDB_216_VBT_DP_MAX_LINK_RATE_HBR3	0
++#define BDB_216_VBT_DP_MAX_LINK_RATE_HBR2	1
++#define BDB_216_VBT_DP_MAX_LINK_RATE_HBR	2
++#define BDB_216_VBT_DP_MAX_LINK_RATE_LBR	3
++
++/* DP max link rate 230+ */
++#define BDB_230_VBT_DP_MAX_LINK_RATE_DEF	0
++#define BDB_230_VBT_DP_MAX_LINK_RATE_LBR	1
++#define BDB_230_VBT_DP_MAX_LINK_RATE_HBR	2
++#define BDB_230_VBT_DP_MAX_LINK_RATE_HBR2	3
++#define BDB_230_VBT_DP_MAX_LINK_RATE_HBR3	4
++#define BDB_230_VBT_DP_MAX_LINK_RATE_UHBR10	5
++#define BDB_230_VBT_DP_MAX_LINK_RATE_UHBR13P5	6
++#define BDB_230_VBT_DP_MAX_LINK_RATE_UHBR20	7
+ 
+ /*
+  * The child device config, aka the display device data structure, provides a
+@@ -445,8 +456,8 @@ struct child_device_config {
+ 	u16 dp_gpio_pin_num;					/* 195 */
+ 	u8 dp_iboost_level:4;					/* 196 */
+ 	u8 hdmi_iboost_level:4;					/* 196 */
+-	u8 dp_max_link_rate:2;					/* 216 CNL+ */
+-	u8 dp_max_link_rate_reserved:6;				/* 216 */
++	u8 dp_max_link_rate:3;					/* 230 CNL+ */
++	u8 dp_max_link_rate_reserved:5;				/* 230 */
+ } __packed;
+ 
+ struct bdb_general_definitions {
+-- 
+2.17.1
 
 _______________________________________________
 Intel-gfx mailing list
