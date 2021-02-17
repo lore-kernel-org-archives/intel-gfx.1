@@ -4,57 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AB4D8C433E0
-	for <intel-gfx@archiver.kernel.org>; Wed, 17 Feb 2021 02:54:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D33C4C433DB
+	for <intel-gfx@archiver.kernel.org>; Wed, 17 Feb 2021 02:54:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3C33B64D79
-	for <intel-gfx@archiver.kernel.org>; Wed, 17 Feb 2021 02:54:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3C33B64D79
+	by mail.kernel.org (Postfix) with ESMTPS id 9202C64DA8
+	for <intel-gfx@archiver.kernel.org>; Wed, 17 Feb 2021 02:54:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9202C64DA8
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 93D5789B96;
-	Wed, 17 Feb 2021 02:54:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 998476E4A5;
+	Wed, 17 Feb 2021 02:54:16 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [63.128.21.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 02E1989B96
- for <intel-gfx@lists.freedesktop.org>; Wed, 17 Feb 2021 02:54:11 +0000 (UTC)
+ (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2989B89C82
+ for <intel-gfx@lists.freedesktop.org>; Wed, 17 Feb 2021 02:54:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1613530450;
+ s=mimecast20190719; t=1613530454;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding;
- bh=oFGrBJPKqfvgLkksZDaaK4VeUcWGvcONB5s1v8mHWEI=;
- b=NAV6KdrdVz9WPZq8D7hCZSIduiBoj8E0tmOhFyme7WcvbzHkw3cL3/DF9spF/zbU9ajUSA
- u9vDccQrsQ7SI/PlgmkGEHBjo/Mp0XW5eK32IOm3xu92aoLBunC3OERgvBXot62TGABp2F
- qADossYo18bIK6MAlAMK8TzjtmDyvtM=
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=pGpyvpoZaV2XZR1+BH6GoXWIxB5qeFgJto6v9O6bjeo=;
+ b=BLsnPvADkZF627O/kkMk+ujocoxOH2r7LRDNbXHAgTXZlWlgGmLT8pRUBe38MFqyNzT/Bo
+ RRRDvaPx3alwiff6NJH7bEH7KyrOM95Hv6Q/OILQD+IAFXywRgt+QuvfCmn/UP/Ow2CoK6
+ og8oyziFREK7R3OLbO+PgJ6MAB41zNo=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-536-cClbJUquP3CnzgS4T2u9bg-1; Tue, 16 Feb 2021 21:54:08 -0500
-X-MC-Unique: cClbJUquP3CnzgS4T2u9bg-1
+ us-mta-157-PYuQhyyoOl6d2aqUESWFYA-1; Tue, 16 Feb 2021 21:54:10 -0500
+X-MC-Unique: PYuQhyyoOl6d2aqUESWFYA-1
 Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
  [10.5.11.22])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 253A18030BB;
- Wed, 17 Feb 2021 02:54:07 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id EBBEAC28A;
+ Wed, 17 Feb 2021 02:54:08 +0000 (UTC)
 Received: from Whitewolf.redhat.com (ovpn-113-106.rdu2.redhat.com
  [10.10.113.106])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 697DB10016FA;
- Wed, 17 Feb 2021 02:54:05 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 7F1F010016F7;
+ Wed, 17 Feb 2021 02:54:07 +0000 (UTC)
 From: Lyude Paul <lyude@redhat.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 16 Feb 2021 21:53:36 -0500
-Message-Id: <20210217025337.1929015-1-lyude@redhat.com>
+Date: Tue, 16 Feb 2021 21:53:37 -0500
+Message-Id: <20210217025337.1929015-2-lyude@redhat.com>
+In-Reply-To: <20210217025337.1929015-1-lyude@redhat.com>
+References: <20210217025337.1929015-1-lyude@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
-Subject: [Intel-gfx] [PATCH v3 1/2] drm/i915/gen9bc: Handle TGP PCH during
- suspend/resume
+Subject: [Intel-gfx] [PATCH v3 2/2] drm/i915/icp+: Use icp_hpd_irq_setup()
+ instead of spt_hpd_irq_setup()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,125 +77,32 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Tejas Upadhyay <tejaskumarx.surendrakumar.upadhyay@intel.com>
+While reviewing patches for handling workarounds related to gen9 bc, Imre
+from Intel discovered that we're using spt_hpd_irq_setup() on ICP+ PCHs
+despite it being almost the same as icp_hpd_irq_setup(). Since we need to
+be calling icp_hpd_irq_setup() to ensure that CML-S/TGP platforms function
+correctly anyway, let's move platforms using PCH_ICP which aren't handled
+by gen11_hpd_irq_setup() over to icp_hpd_irq_setup().
 
-For Legacy S3 suspend/resume GEN9 BC needs to enable and
-setup TGP PCH.
-
-v2:
-* Move Wa_14010685332 into it's own function - vsyrjala
-* Add TODO comment about figuring out if we can move this workaround - imre
-v3:
-* Rename cnp_irq_post_reset() to cnp_display_clock_wa()
-* Add TODO item mentioning we need to clarify which platforms this
-  workaround applies to
-* Just use ibx_irq_reset() in gen8_irq_reset(). This code should be
-  functionally equivalent on gen9 bc to the code v2 added
-* Drop icp_hpd_irq_setup() call in spt_hpd_irq_setup(), this looks to be
-  more or less identical to spt_hpd_irq_setup() minus additionally enabling
-  one port. Will update i915 to use icp_hpd_irq_setup() for ICP in a
-  separate patch.
-
-Cc: Matt Roper <matthew.d.roper@intel.com>
-Signed-off-by: Tejas Upadhyay <tejaskumarx.surendrakumar.upadhyay@intel.com>
+Cc: Tejas Upadhyay <tejaskumarx.surendrakumar.upadhyay@intel.com>
 Signed-off-by: Lyude Paul <lyude@redhat.com>
 ---
- drivers/gpu/drm/i915/i915_irq.c | 52 +++++++++++++++++++++------------
- 1 file changed, 33 insertions(+), 19 deletions(-)
+ drivers/gpu/drm/i915/i915_irq.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
 diff --git a/drivers/gpu/drm/i915/i915_irq.c b/drivers/gpu/drm/i915/i915_irq.c
-index 98145a7f28a4..f86b147f588f 100644
+index f86b147f588f..7ec61187a315 100644
 --- a/drivers/gpu/drm/i915/i915_irq.c
 +++ b/drivers/gpu/drm/i915/i915_irq.c
-@@ -3040,6 +3040,24 @@ static void valleyview_irq_reset(struct drm_i915_private *dev_priv)
- 	spin_unlock_irq(&dev_priv->irq_lock);
- }
- 
-+static void cnp_display_clock_wa(struct drm_i915_private *dev_priv)
-+{
-+	struct intel_uncore *uncore = &dev_priv->uncore;
-+
-+	/*
-+	 * Wa_14010685332:icl+
-+	 * TODO: Clarify which platforms this applies to
-+	 * TODO: Figure out if this workaround can be applied in the s0ix suspend/resume handlers as
-+	 * on earlier platforms and whether the workaround is also needed for runtime suspend/resume
-+	 */
-+	if (INTEL_PCH_TYPE(dev_priv) == PCH_CNP ||
-+	    (INTEL_PCH_TYPE(dev_priv) >= PCH_TGP && INTEL_PCH_TYPE(dev_priv) < PCH_DG1)) {
-+		intel_uncore_rmw(uncore, SOUTH_CHICKEN1, SBCLK_RUN_REFCLK_DIS,
-+				 SBCLK_RUN_REFCLK_DIS);
-+		intel_uncore_rmw(uncore, SOUTH_CHICKEN1, SBCLK_RUN_REFCLK_DIS, 0);
-+	}
-+}
-+
- static void gen8_irq_reset(struct drm_i915_private *dev_priv)
- {
- 	struct intel_uncore *uncore = &dev_priv->uncore;
-@@ -3061,8 +3079,9 @@ static void gen8_irq_reset(struct drm_i915_private *dev_priv)
- 	GEN3_IRQ_RESET(uncore, GEN8_DE_MISC_);
- 	GEN3_IRQ_RESET(uncore, GEN8_PCU_);
- 
--	if (HAS_PCH_SPLIT(dev_priv))
--		ibx_irq_reset(dev_priv);
-+	ibx_irq_reset(dev_priv);
-+
-+	cnp_display_clock_wa(dev_priv);
- }
- 
- static void gen11_display_irq_reset(struct drm_i915_private *dev_priv)
-@@ -3104,15 +3123,7 @@ static void gen11_display_irq_reset(struct drm_i915_private *dev_priv)
- 	if (INTEL_PCH_TYPE(dev_priv) >= PCH_ICP)
- 		GEN3_IRQ_RESET(uncore, SDE);
- 
--	/* Wa_14010685332:cnp/cmp,tgp,adp */
--	if (INTEL_PCH_TYPE(dev_priv) == PCH_CNP ||
--	    (INTEL_PCH_TYPE(dev_priv) >= PCH_TGP &&
--	     INTEL_PCH_TYPE(dev_priv) < PCH_DG1)) {
--		intel_uncore_rmw(uncore, SOUTH_CHICKEN1,
--				 SBCLK_RUN_REFCLK_DIS, SBCLK_RUN_REFCLK_DIS);
--		intel_uncore_rmw(uncore, SOUTH_CHICKEN1,
--				 SBCLK_RUN_REFCLK_DIS, 0);
--	}
-+	cnp_display_clock_wa(dev_priv);
- }
- 
- static void gen11_irq_reset(struct drm_i915_private *dev_priv)
-@@ -3764,9 +3775,19 @@ static void gen8_de_irq_postinstall(struct drm_i915_private *dev_priv)
- 	}
- }
- 
-+static void icp_irq_postinstall(struct drm_i915_private *dev_priv)
-+{
-+	struct intel_uncore *uncore = &dev_priv->uncore;
-+	u32 mask = SDE_GMBUS_ICP;
-+
-+	GEN3_IRQ_INIT(uncore, SDE, ~mask, 0xffffffff);
-+}
-+
- static void gen8_irq_postinstall(struct drm_i915_private *dev_priv)
- {
--	if (HAS_PCH_SPLIT(dev_priv))
-+	if (INTEL_PCH_TYPE(dev_priv) >= PCH_ICP)
-+		icp_irq_postinstall(dev_priv);
-+	else if (HAS_PCH_SPLIT(dev_priv))
- 		ibx_irq_postinstall(dev_priv);
- 
- 	gen8_gt_irq_postinstall(&dev_priv->gt);
-@@ -3775,13 +3796,6 @@ static void gen8_irq_postinstall(struct drm_i915_private *dev_priv)
- 	gen8_master_intr_enable(dev_priv->uncore.regs);
- }
- 
--static void icp_irq_postinstall(struct drm_i915_private *dev_priv)
--{
--	struct intel_uncore *uncore = &dev_priv->uncore;
--	u32 mask = SDE_GMBUS_ICP;
--
--	GEN3_IRQ_INIT(uncore, SDE, ~mask, 0xffffffff);
--}
- 
- static void gen11_irq_postinstall(struct drm_i915_private *dev_priv)
- {
+@@ -4320,6 +4320,8 @@ void intel_irq_init(struct drm_i915_private *dev_priv)
+ 			dev_priv->display.hpd_irq_setup = gen11_hpd_irq_setup;
+ 		else if (IS_GEN9_LP(dev_priv))
+ 			dev_priv->display.hpd_irq_setup = bxt_hpd_irq_setup;
++		else if (INTEL_PCH_TYPE(dev_priv) >= PCH_ICP)
++			dev_priv->display.hpd_irq_setup = icp_hpd_irq_setup;
+ 		else if (INTEL_PCH_TYPE(dev_priv) >= PCH_SPT)
+ 			dev_priv->display.hpd_irq_setup = spt_hpd_irq_setup;
+ 		else
 -- 
 2.29.2
 
