@@ -2,53 +2,41 @@ Return-Path: <SRS0=Vblo=HU=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3E522C433E0
-	for <intel-gfx@archiver.kernel.org>; Thu, 18 Feb 2021 11:42:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B3570C433DB
+	for <intel-gfx@archiver.kernel.org>; Thu, 18 Feb 2021 11:59:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AAD4B60C41
-	for <intel-gfx@archiver.kernel.org>; Thu, 18 Feb 2021 11:42:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AAD4B60C41
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=mess.org
+	by mail.kernel.org (Postfix) with ESMTPS id 3327A64E4B
+	for <intel-gfx@archiver.kernel.org>; Thu, 18 Feb 2021 11:59:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3327A64E4B
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 205626E3F2;
-	Thu, 18 Feb 2021 11:42:35 +0000 (UTC)
-X-Greylist: delayed 507 seconds by postgrey-1.36 at gabe;
- Wed, 17 Feb 2021 14:40:55 UTC
-Received: from gofer.mess.org (gofer.mess.org [IPv6:2a02:8011:d000:212::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C8E196E108
- for <intel-gfx@lists.freedesktop.org>; Wed, 17 Feb 2021 14:40:55 +0000 (UTC)
-Received: by gofer.mess.org (Postfix, from userid 1000)
- id D6CDFC63F2; Wed, 17 Feb 2021 14:32:23 +0000 (GMT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=mess.org; s=2020;
- t=1613572343; bh=rB0xNHQK3NjoXnbXqZMtS+Hyu+RZH2b/RIPMh5lVSdg=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=TY4VRBrvl219qdHNVmeBK87wGwcSMYAJASc0NRd8+Ci/ClompIOoO+htVQJmbo3VD
- yPSGc9Z2FJbGzf10IJLke45gQ2Y/aG/HnLx5856fPqNS7+Z8gQuPAVHqRNcuRbTL1T
- xLuZ7VevDTbFfkQvDxz0XPsvK+fbv133u0pR7aYoVrX3aLhvEqr9hRxKvuVO6nGevI
- rTXAZ2Nr1brg3crpCyVBIN6JU13FYXA+ZAUVHTgsxNmdtaoESPx3jQs1VCjoCgAgC0
- DK0nUfrn/TH7lDDsbBjkTzunWh85zgo8Hm066uLq+zz5Fmbgg7KhSdFZIlmIvDHRqq
- a1hpEm25qkmRw==
-Date: Wed, 17 Feb 2021 14:32:23 +0000
-From: Sean Young <sean@mess.org>
-To: Hans Verkuil <hverkuil@xs4all.nl>
-Message-ID: <20210217143223.GA28632@gofer.mess.org>
-References: <91b0f6c8-79ca-d04f-1ae0-66bf954dd421@redhat.com>
- <8d24dad6-cb2a-da91-bd38-887a7aa3282f@xs4all.nl>
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF7746E463;
+	Thu, 18 Feb 2021 11:59:03 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id D07D06E463;
+ Thu, 18 Feb 2021 11:59:01 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id C8553A8831;
+ Thu, 18 Feb 2021 11:59:01 +0000 (UTC)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <8d24dad6-cb2a-da91-bd38-887a7aa3282f@xs4all.nl>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Mailman-Approved-At: Thu, 18 Feb 2021 11:42:33 +0000
-Subject: Re: [Intel-gfx] Issue with cec_register_adapter calling
- request_module() from an async context when called from intel_dp_detect
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Lee Shawn C" <shawn.c.lee@intel.com>
+Date: Thu, 18 Feb 2021 11:59:01 -0000
+Message-ID: <161364954178.23765.15042655682878697537@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20210201150228.10001-1-shawn.c.lee@intel.com>
+In-Reply-To: <20210201150228.10001-1-shawn.c.lee@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZHJt?=
+ =?utf-8?q?/i915/vbt=3A_update_DP_max_link_rate_table_=28rev6=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,124 +49,236 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx <intel-gfx@lists.freedesktop.org>,
- Linux Media Mailing List <linux-media@vger.kernel.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============0932684747=="
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Feb 17, 2021 at 01:41:46PM +0100, Hans Verkuil wrote:
-> Hi Hans,
-> 
-> On 17/02/2021 13:24, Hans de Goede wrote:
-> > <resend with the linux-media list added to the Cc>
-> > 
-> > Hi Hans,
-> > 
-> > Fedora has a (opt-in) system to automatically collect backtraces from software
-> > crashing on users systems.
-> > 
-> > This includes collecting kernel backtraces (including once triggered by
-> > WARN macros) while looking a the top 10 of the most reported backtrace during the
-> > last 2 weeks report from ABRT: https://retrace.fedoraproject.org/faf/problems/
-> > 
-> > I noticed the following backtrace:
-> > https://retrace.fedoraproject.org/faf/problems/8150/
-> > which has been reported 170000 times by Fedora users who have opted-in during the
-> > last 14 days.
-> > 
-> > The issue here is that cec_register_adapter ends up calling request_module()
-> > from an async context, triggering this warn in kernel/kmod.c __request_module():
-> > 
-> >         /*
-> >          * We don't allow synchronous module loading from async.  Module
-> >          * init may invoke async_synchronize_full() which will end up
-> >          * waiting for this task which already is waiting for the module
-> >          * loading to complete, leading to a deadlock.
-> >          */
-> >         WARN_ON_ONCE(wait && current_is_async());
-> > 
-> > The call-path leading to this goes like this:
-> > 
-> >  ? kvasprintf+0x6d/0xa0
-> >  ? kobject_set_name_vargs+0x6f/0x90
-> >  rc_map_get+0x30/0x60
-> 
-> It's not CEC, it is rc_map_get that calls request_module() for rc-cec.ko.
-> 
-> I've added Sean Young to the CC list.
-> 
-> Sean, is it possible to treat rc-cec as a built-in if MEDIA_CEC_RC is set?
-> 
-> I think this issue is very specific to CEC. I would not expect to see this
-> with any other rc keymap.
+--===============0932684747==
+Content-Type: multipart/alternative;
+ boundary="===============7441977187621690217=="
 
-So CEC creates an RC device with a keymap (cec keymap, of course) and then
-the keymap needs to be loaded. We certainly don't want all keymaps as
-builtins, that would be a waste.
+--===============7441977187621690217==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-The cec keymap is scanned once to build a map from cec codes to linux
-keycodes; making it builtin is not ideal, and makes the build system a
-bit messy.
+== Series Details ==
 
-I don't think we can load the keymap later, user space may start remapping
-the keymap from udev.
+Series: drm/i915/vbt: update DP max link rate table (rev6)
+URL   : https://patchwork.freedesktop.org/series/86539/
+State : success
 
-Possibly we could create the cec or rc device later but this could be a bit
-messy.
+== Summary ==
 
-Could CEC specify:
+CI Bug Log - changes from CI_DRM_9783 -> Patchwork_19700
+====================================================
 
-#if IS_ENABLED(CONFIG_MEDIA_CEC_RC)
-MODULE_SOFTDEP("rc-cec")
-#endif
+Summary
+-------
 
-?
+  **SUCCESS**
 
-Sean
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19700/index.html
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_19700 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@i915_selftest@live@gt_lrc:
+    - fi-tgl-y:           NOTRUN -> [DMESG-FAIL][1] ([i915#2373])
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19700/fi-tgl-y/igt@i915_selftest@live@gt_lrc.html
+
+  * igt@i915_selftest@live@gt_pm:
+    - fi-tgl-y:           NOTRUN -> [DMESG-FAIL][2] ([i915#1759])
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19700/fi-tgl-y/igt@i915_selftest@live@gt_pm.html
+
+  * igt@kms_chamelium@vga-edid-read:
+    - fi-tgl-y:           NOTRUN -> [SKIP][3] ([fdo#111827]) +8 similar issues
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19700/fi-tgl-y/igt@kms_chamelium@vga-edid-read.html
+
+  * igt@kms_force_connector_basic@force-load-detect:
+    - fi-tgl-y:           NOTRUN -> [SKIP][4] ([fdo#109285])
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19700/fi-tgl-y/igt@kms_force_connector_basic@force-load-detect.html
+
+  * igt@prime_self_import@basic-with_one_bo_two_files:
+    - fi-tgl-y:           NOTRUN -> [DMESG-WARN][5] ([i915#402]) +1 similar issue
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19700/fi-tgl-y/igt@prime_self_import@basic-with_one_bo_two_files.html
+
+  
+#### Possible fixes ####
+
+  * igt@i915_selftest@live@blt:
+    - fi-snb-2520m:       [DMESG-FAIL][6] -> [PASS][7]
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9783/fi-snb-2520m/igt@i915_selftest@live@blt.html
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19700/fi-snb-2520m/igt@i915_selftest@live@blt.html
+
+  
+  {name}: This element is suppressed. This means it is ignored when computing
+          the status of the difference (SUCCESS, WARNING, or FAILURE).
+
+  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
+  [fdo#109285]: https://bugs.freedesktop.org/show_bug.cgi?id=109285
+  [fdo#109289]: https://bugs.freedesktop.org/show_bug.cgi?id=109289
+  [fdo#109315]: https://bugs.freedesktop.org/show_bug.cgi?id=109315
+  [fdo#111827]: https://bugs.freedesktop.org/show_bug.cgi?id=111827
+  [i915#1072]: https://gitlab.freedesktop.org/drm/intel/issues/1072
+  [i915#1759]: https://gitlab.freedesktop.org/drm/intel/issues/1759
+  [i915#2283]: https://gitlab.freedesktop.org/drm/intel/issues/2283
+  [i915#2373]: https://gitlab.freedesktop.org/drm/intel/issues/2373
+  [i915#2582]: https://gitlab.freedesktop.org/drm/intel/issues/2582
+  [i915#3004]: https://gitlab.freedesktop.org/drm/intel/issues/3004
+  [i915#3005]: https://gitlab.freedesktop.org/drm/intel/issues/3005
+  [i915#3011]: https://gitlab.freedesktop.org/drm/intel/issues/3011
+  [i915#3012]: https://gitlab.freedesktop.org/drm/intel/issues/3012
+  [i915#3013]: https://gitlab.freedesktop.org/drm/intel/issues/3013
+  [i915#3014]: https://gitlab.freedesktop.org/drm/intel/issues/3014
+  [i915#3015]: https://gitlab.freedesktop.org/drm/intel/issues/3015
+  [i915#402]: https://gitlab.freedesktop.org/drm/intel/issues/402
+  [i915#533]: https://gitlab.freedesktop.org/drm/intel/issues/533
 
 
-> 
-> Regards,
-> 
-> 	Hans
-> 
-> >  rc_register_device+0x108/0x510
-> >  cec_register_adapter+0x5c/0x280 [cec]
-> >  drm_dp_cec_set_edid+0x11e/0x178 [drm_kms_helper]
-> >  intel_dp_set_edid+0x8d/0xc0 [i915]
-> >  intel_dp_detect+0x188/0x5c0 [i915]
-> >  drm_helper_probe_single_connector_modes+0xc2/0x6d0 [drm_kms_helper]
-> >  ? krealloc+0x7b/0xb0
-> >  drm_client_modeset_probe+0x25b/0x1320 [drm]
-> >  ? kfree+0x1ea/0x200
-> >  ? sched_clock+0x5/0x10
-> >  ? sched_clock_cpu+0xc/0xa0
-> >  __drm_fb_helper_initial_config_and_unlock+0x37/0x470 [drm_kms_helper]
-> >  ? _cond_resched+0x16/0x40
-> >  intel_fbdev_initial_config+0x14/0x30 [i915]
-> >  async_run_entry_fn+0x39/0x160
-> > 
-> > So 2 questions:
-> > 
-> > 1. Can we get this fixed please ?
-> >    Related to this, what happens if we make this an async modprobe
-> >    (when running from async context) is that a problem, or is it fine
-> >    if the rc_map module gets loaded later ?
-> > 
-> > 2. If the answer to 1. is "tricky", "maybe" or some such then can we
-> > look into a workaround here ? E.g. do we know in advance which module
-> > is going to be requested (1), or does that depend on the EDID data ?
-> > 
-> > Regards,
-> > 
-> > Hans
-> > 
-> > 
-> > 1) And can we thus do tricks with a softdep on it ?
-> > 
+Participating hosts (42 -> 40)
+------------------------------
+
+  Additional (2): fi-tgl-y fi-hsw-gt1 
+  Missing    (4): fi-ilk-m540 fi-bsw-cyan fi-bdw-samus fi-hsw-4200u 
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_9783 -> Patchwork_19700
+
+  CI-20190529: 20190529
+  CI_DRM_9783: 498a1b2bfd0ecf4401c2f653a82e9ae2c80c9145 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_6005: b69a3c463f0aec46b19c14ac24351d292cb11c08 @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools
+  Patchwork_19700: fa8c00f1e8a25472372da9c784892698352367ee @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+== Linux commits ==
+
+fa8c00f1e8a2 drm/i915/vbt: update DP max link rate table
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19700/index.html
+
+--===============7441977187621690217==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/vbt: update DP max link rate table (rev6)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/86539/">https://patchwork.freedesktop.org/series/86539/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19700/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19700/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_9783 -&gt; Patchwork_19700</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19700/index.html</p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_19700 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@i915_selftest@live@gt_lrc:</p>
+<ul>
+<li>fi-tgl-y:           NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19700/fi-tgl-y/igt@i915_selftest@live@gt_lrc.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2373">i915#2373</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@gt_pm:</p>
+<ul>
+<li>fi-tgl-y:           NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19700/fi-tgl-y/igt@i915_selftest@live@gt_pm.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1759">i915#1759</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_chamelium@vga-edid-read:</p>
+<ul>
+<li>fi-tgl-y:           NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19700/fi-tgl-y/igt@kms_chamelium@vga-edid-read.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=111827">fdo#111827</a>) +8 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_force_connector_basic@force-load-detect:</p>
+<ul>
+<li>fi-tgl-y:           NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19700/fi-tgl-y/igt@kms_force_connector_basic@force-load-detect.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109285">fdo#109285</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@prime_self_import@basic-with_one_bo_two_files:</p>
+<ul>
+<li>fi-tgl-y:           NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19700/fi-tgl-y/igt@prime_self_import@basic-with_one_bo_two_files.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/402">i915#402</a>) +1 similar issue</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>igt@i915_selftest@live@blt:<ul>
+<li>fi-snb-2520m:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9783/fi-snb-2520m/igt@i915_selftest@live@blt.html">DMESG-FAIL</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19700/fi-snb-2520m/igt@i915_selftest@live@blt.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<p>{name}: This element is suppressed. This means it is ignored when computing<br />
+          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
+<h2>Participating hosts (42 -&gt; 40)</h2>
+<p>Additional (2): fi-tgl-y fi-hsw-gt1 <br />
+  Missing    (4): fi-ilk-m540 fi-bsw-cyan fi-bdw-samus fi-hsw-4200u </p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_9783 -&gt; Patchwork_19700</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_9783: 498a1b2bfd0ecf4401c2f653a82e9ae2c80c9145 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_6005: b69a3c463f0aec46b19c14ac24351d292cb11c08 @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools<br />
+  Patchwork_19700: fa8c00f1e8a25472372da9c784892698352367ee @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<p>== Linux commits ==</p>
+<p>fa8c00f1e8a2 drm/i915/vbt: update DP max link rate table</p>
+
+</body>
+</html>
+
+--===============7441977187621690217==--
+
+--===============0932684747==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+
+--===============0932684747==--
