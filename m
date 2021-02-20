@@ -7,31 +7,31 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 94D75C433E0
-	for <intel-gfx@archiver.kernel.org>; Sat, 20 Feb 2021 11:09:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DCD88C433DB
+	for <intel-gfx@archiver.kernel.org>; Sat, 20 Feb 2021 11:10:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CEBEA64ED6
-	for <intel-gfx@archiver.kernel.org>; Sat, 20 Feb 2021 11:09:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CEBEA64ED6
+	by mail.kernel.org (Postfix) with ESMTPS id 815CF64ED6
+	for <intel-gfx@archiver.kernel.org>; Sat, 20 Feb 2021 11:10:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 815CF64ED6
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 72A286E0C6;
-	Sat, 20 Feb 2021 11:09:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F5D96E14D;
+	Sat, 20 Feb 2021 11:10:53 +0000 (UTC)
 Received: from fireflyinternet.com (unknown [77.68.26.236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F1B46E0C6
- for <intel-gfx@lists.freedesktop.org>; Sat, 20 Feb 2021 11:09:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D8C6D6E14D
+ for <intel-gfx@lists.freedesktop.org>; Sat, 20 Feb 2021 11:10:51 +0000 (UTC)
 X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
  x-ip-name=78.156.69.177; 
 Received: from build.alporthouse.com (unverified [78.156.69.177]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23919950-1500050 
- for multiple; Sat, 20 Feb 2021 11:08:50 +0000
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP id 23919965-1500050 
+ for multiple; Sat, 20 Feb 2021 11:10:38 +0000
 From: Chris Wilson <chris@chris-wilson.co.uk>
 To: intel-gfx@lists.freedesktop.org
-Date: Sat, 20 Feb 2021 11:08:48 +0000
-Message-Id: <20210220110848.24898-1-chris@chris-wilson.co.uk>
+Date: Sat, 20 Feb 2021 11:10:38 +0000
+Message-Id: <20210220111038.25050-1-chris@chris-wilson.co.uk>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20210215155616.26330-3-chris@chris-wilson.co.uk>
 References: <20210215155616.26330-3-chris@chris-wilson.co.uk>
@@ -49,7 +49,7 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Imre Deak <imre.dead@intel.com>, Matthew Auld <matthew.auld@intel.com>,
+Cc: Matthew Auld <matthew.auld@intel.com>,
  Chris Wilson <chris@chris-wilson.co.uk>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
@@ -80,7 +80,7 @@ IDE2OCBQVEUgYW5kIGNhdXRpb3VzbHkgZW5zdXJlIHRoYXQgYSBmdWxsCnRpbGUgcm93IGFyb3Vu
 ZCB0aGUgdm1hIGlzIGluY2x1ZGVkIHdpdGggdGhlIGd1YXJkLgoKU2lnbmVkLW9mZi1ieTogQ2hy
 aXMgV2lsc29uIDxjaHJpc0BjaHJpcy13aWxzb24uY28udWs+CkNjOiBWaWxsZSBTeXJqw6Rsw6Qg
 PHZpbGxlLnN5cmphbGFAbGludXguaW50ZWwuY29tPgpDYzogTWF0dGhldyBBdWxkIDxtYXR0aGV3
-LmF1bGRAaW50ZWwuY29tPgpDYzogSW1yZSBEZWFrIDxpbXJlLmRlYWRAaW50ZWwuY29tPgpSZXZp
+LmF1bGRAaW50ZWwuY29tPgpDYzogSW1yZSBEZWFrIDxpbXJlLmRlYWtAaW50ZWwuY29tPgpSZXZp
 ZXdlZC1ieTogTWF0dGhldyBBdWxkIDxtYXR0aGV3LmF1bGRAaW50ZWwuY29tPgotLS0KIGRyaXZl
 cnMvZ3B1L2RybS9pOTE1L2dlbS9pOTE1X2dlbV9kb21haW4uYyB8IDEzICsrKysrKysrKysrCiBk
 cml2ZXJzL2dwdS9kcm0vaTkxNS9ndC9pbnRlbF9nZ3R0LmMgICAgICAgfCAyNSArLS0tLS0tLS0t
