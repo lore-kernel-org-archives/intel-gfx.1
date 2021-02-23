@@ -7,46 +7,46 @@ X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B4455C433E6
-	for <intel-gfx@archiver.kernel.org>; Tue, 23 Feb 2021 15:36:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 515F2C433E0
+	for <intel-gfx@archiver.kernel.org>; Tue, 23 Feb 2021 15:36:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 724D264E20
-	for <intel-gfx@archiver.kernel.org>; Tue, 23 Feb 2021 15:36:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 724D264E20
+	by mail.kernel.org (Postfix) with ESMTPS id 1F3E564E4D
+	for <intel-gfx@archiver.kernel.org>; Tue, 23 Feb 2021 15:36:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1F3E564E4D
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 135D86E9CC;
-	Tue, 23 Feb 2021 15:36:07 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1DE676E9CC
- for <intel-gfx@lists.freedesktop.org>; Tue, 23 Feb 2021 15:36:06 +0000 (UTC)
-IronPort-SDR: NkpDUdS+xd2OjUu8NMiBu2868be50IpRCQq+lvrFU1uLsoWBVonyR8MNv5Cg9MqqMnFoYVvzcl
- 4bv44LJNCc9A==
-X-IronPort-AV: E=McAfee;i="6000,8403,9903"; a="184134928"
-X-IronPort-AV: E=Sophos;i="5.81,200,1610438400"; d="scan'208";a="184134928"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Feb 2021 07:35:56 -0800
-IronPort-SDR: 2QzuTT2GjeBhyaj2e4KxFPA96EuWGNnnv1ehDZAku551vnhzDy5fCHlvvxen0SKbXWbQVS5hXZ
- fuW9N35sSgDA==
-X-IronPort-AV: E=Sophos;i="5.81,200,1610438400"; d="scan'208";a="441770360"
+	by gabe.freedesktop.org (Postfix) with ESMTP id A88A46E9D7;
+	Tue, 23 Feb 2021 15:36:10 +0000 (UTC)
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 358376E9D8
+ for <intel-gfx@lists.freedesktop.org>; Tue, 23 Feb 2021 15:36:07 +0000 (UTC)
+IronPort-SDR: 8H1OsaN1Qha5le3zzOkhub/2DOS1VX8N7DAzlK0z071Cydo1m7KV2xVIvxC4L/NT3ahRgNxL38
+ /9NM1M/xh8fg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9903"; a="246255692"
+X-IronPort-AV: E=Sophos;i="5.81,200,1610438400"; d="scan'208";a="246255692"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Feb 2021 07:36:07 -0800
+IronPort-SDR: LDDcy4/NxNP7tynEvEOEVjA91V7aLptO0o34bthO7nAVGhbm9vs4AMxCsi8zCHYJ5job+bUQcO
+ 6EpIN8VUpE3w==
+X-IronPort-AV: E=Sophos;i="5.81,200,1610438400"; d="scan'208";a="380532209"
 Received: from kcushion-mobl1.ger.corp.intel.com (HELO localhost)
  ([10.249.40.63])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Feb 2021 07:35:33 -0800
+ by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Feb 2021 07:36:05 -0800
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 23 Feb 2021 17:35:07 +0200
-Message-Id: <ce70cb096421ce3dcdd3740773316bb75507da11.1614094093.git.jani.nikula@intel.com>
+Date: Tue, 23 Feb 2021 17:35:09 +0200
+Message-Id: <f839d5c060dd695c7340d2231484c0b664c86c82.1614094093.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <cover.1614094093.git.jani.nikula@intel.com>
 References: <cover.1614094093.git.jani.nikula@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v2 2/7] drm/i915: split out stepping info to a
- new file
+Subject: [Intel-gfx] [PATCH v2 4/7] drm/i915: switch KBL to the new stepping
+ scheme
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,150 +60,275 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: jani.nikula@intel.com, lucas.demarchi@intel.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Z3QvaW50ZWxfd29ya2Fyb3VuZHMuYyBpcyBkZWNpZGVkbHkgdGhlIHdyb25nIHBsYWNlIGZvciBo
-YW5kbGluZwpzdGVwcGluZyBpbmZvLiBBZGQgbmV3IGludGVsX3N0ZXBwaW5nLltjaF0gZm9yIHRo
-ZSBkYXRhLCBhbmQgbW92ZSB0aGUKc3RlcHBpbmcgYXJyYXlzIHRoZXJlLiBObyBmdW5jdGlvbmFs
-IGNoYW5nZXMuCgpTaWduZWQtb2ZmLWJ5OiBKYW5pIE5pa3VsYSA8amFuaS5uaWt1bGFAaW50ZWwu
-Y29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L01ha2VmaWxlICAgICAgICAgICAgICAgfCAg
-MSArCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9ndC9pbnRlbF93b3JrYXJvdW5kcy5jIHwgMzkgLS0t
-LS0tLS0tLS0tLS0tLS0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfZHJ2LmggICAgICAgICAg
-ICAgfCAxNyArLS0tLS0tLQogZHJpdmVycy9ncHUvZHJtL2k5MTUvaW50ZWxfc3RlcHBpbmcuYyAg
-ICAgICB8IDQ2ICsrKysrKysrKysrKysrKysrKysrKwogZHJpdmVycy9ncHUvZHJtL2k5MTUvaW50
-ZWxfc3RlcHBpbmcuaCAgICAgICB8IDI1ICsrKysrKysrKysrCiA1IGZpbGVzIGNoYW5nZWQsIDcz
-IGluc2VydGlvbnMoKyksIDU1IGRlbGV0aW9ucygtKQogY3JlYXRlIG1vZGUgMTAwNjQ0IGRyaXZl
-cnMvZ3B1L2RybS9pOTE1L2ludGVsX3N0ZXBwaW5nLmMKIGNyZWF0ZSBtb2RlIDEwMDY0NCBkcml2
-ZXJzL2dwdS9kcm0vaTkxNS9pbnRlbF9zdGVwcGluZy5oCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
-cHUvZHJtL2k5MTUvTWFrZWZpbGUgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9NYWtlZmlsZQppbmRl
-eCA0NTU0ZjEwYTBmYzcuLjU1NWZkNGNmOTFkNiAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJt
-L2k5MTUvTWFrZWZpbGUKKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvTWFrZWZpbGUKQEAgLTUz
-LDYgKzUzLDcgQEAgaTkxNS15ICs9IGk5MTVfY29uZmlnLm8gXAogCSAgaW50ZWxfcG0ubyBcCiAJ
-ICBpbnRlbF9ydW50aW1lX3BtLm8gXAogCSAgaW50ZWxfc2lkZWJhbmQubyBcCisJICBpbnRlbF9z
-dGVwcGluZy5vIFwKIAkgIGludGVsX3VuY29yZS5vIFwKIAkgIGludGVsX3dha2VyZWYubyBcCiAJ
-ICB2bHZfc3VzcGVuZC5vCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9ndC9pbnRl
-bF93b3JrYXJvdW5kcy5jIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3QvaW50ZWxfd29ya2Fyb3Vu
-ZHMuYwppbmRleCAzYjRhN2RhNjBmMGIuLjI4MjdkNGYyZTA4NiAxMDA2NDQKLS0tIGEvZHJpdmVy
-cy9ncHUvZHJtL2k5MTUvZ3QvaW50ZWxfd29ya2Fyb3VuZHMuYworKysgYi9kcml2ZXJzL2dwdS9k
-cm0vaTkxNS9ndC9pbnRlbF93b3JrYXJvdW5kcy5jCkBAIC01Miw0NSArNTIsNiBAQAogICogLSBQ
-dWJsaWMgZnVuY3Rpb25zIHRvIGluaXQgb3IgYXBwbHkgdGhlIGdpdmVuIHdvcmthcm91bmQgdHlw
-ZS4KICAqLwogCi0vKgotICogS0JMIHJldmlzaW9uIElEIG9yZGVyaW5nIGlzIGJpemFycmU7IGhp
-Z2hlciByZXZpc2lvbiBJRCdzIG1hcCB0byBsb3dlcgotICogc3RlcHBpbmdzIGluIHNvbWUgY2Fz
-ZXMuICBTbyByYXRoZXIgdGhhbiB0ZXN0IGFnYWluc3QgdGhlIHJldmlzaW9uIElECi0gKiBkaXJl
-Y3RseSwgbGV0J3MgbWFwIHRoYXQgaW50byBvdXIgb3duIHJhbmdlIG9mIGluY3JlYXNpbmcgSUQn
-cyB0aGF0IHdlCi0gKiBjYW4gdGVzdCBhZ2FpbnN0IGluIGEgcmVndWxhciBtYW5uZXIuCi0gKi8K
-LQotY29uc3Qgc3RydWN0IGk5MTVfcmV2X3N0ZXBwaW5ncyBrYmxfcmV2aWRzW10gPSB7Ci0JWzBd
-ID0geyAuZ3Rfc3RlcHBpbmcgPSBLQkxfUkVWSURfQTAsIC5kaXNwX3N0ZXBwaW5nID0gS0JMX1JF
-VklEX0EwIH0sCi0JWzFdID0geyAuZ3Rfc3RlcHBpbmcgPSBLQkxfUkVWSURfQjAsIC5kaXNwX3N0
-ZXBwaW5nID0gS0JMX1JFVklEX0IwIH0sCi0JWzJdID0geyAuZ3Rfc3RlcHBpbmcgPSBLQkxfUkVW
-SURfQzAsIC5kaXNwX3N0ZXBwaW5nID0gS0JMX1JFVklEX0IwIH0sCi0JWzNdID0geyAuZ3Rfc3Rl
-cHBpbmcgPSBLQkxfUkVWSURfRDAsIC5kaXNwX3N0ZXBwaW5nID0gS0JMX1JFVklEX0IwIH0sCi0J
-WzRdID0geyAuZ3Rfc3RlcHBpbmcgPSBLQkxfUkVWSURfRjAsIC5kaXNwX3N0ZXBwaW5nID0gS0JM
-X1JFVklEX0MwIH0sCi0JWzVdID0geyAuZ3Rfc3RlcHBpbmcgPSBLQkxfUkVWSURfQzAsIC5kaXNw
-X3N0ZXBwaW5nID0gS0JMX1JFVklEX0IxIH0sCi0JWzZdID0geyAuZ3Rfc3RlcHBpbmcgPSBLQkxf
-UkVWSURfRDEsIC5kaXNwX3N0ZXBwaW5nID0gS0JMX1JFVklEX0IxIH0sCi0JWzddID0geyAuZ3Rf
-c3RlcHBpbmcgPSBLQkxfUkVWSURfRzAsIC5kaXNwX3N0ZXBwaW5nID0gS0JMX1JFVklEX0MwIH0s
-Ci19OwotCi1jb25zdCBzdHJ1Y3QgaTkxNV9yZXZfc3RlcHBpbmdzIHRnbF91eV9yZXZpZF9zdGVw
-X3RibFtdID0gewotCVswXSA9IHsgLmd0X3N0ZXBwaW5nID0gU1RFUF9BMCwgLmRpc3Bfc3RlcHBp
-bmcgPSBTVEVQX0EwIH0sCi0JWzFdID0geyAuZ3Rfc3RlcHBpbmcgPSBTVEVQX0IwLCAuZGlzcF9z
-dGVwcGluZyA9IFNURVBfQzAgfSwKLQlbMl0gPSB7IC5ndF9zdGVwcGluZyA9IFNURVBfQjEsIC5k
-aXNwX3N0ZXBwaW5nID0gU1RFUF9DMCB9LAotCVszXSA9IHsgLmd0X3N0ZXBwaW5nID0gU1RFUF9D
-MCwgLmRpc3Bfc3RlcHBpbmcgPSBTVEVQX0QwIH0sCi19OwotCi0vKiBTYW1lIEdUIHN0ZXBwaW5n
-IGJldHdlZW4gdGdsX3V5X3JldmlkcyBhbmQgdGdsX3JldmlkcyBkb24ndCBtZWFuIHRoZSBzYW1l
-IEhXICovCi1jb25zdCBzdHJ1Y3QgaTkxNV9yZXZfc3RlcHBpbmdzIHRnbF9yZXZpZF9zdGVwX3Ri
-bFtdID0gewotCVswXSA9IHsgLmd0X3N0ZXBwaW5nID0gU1RFUF9BMCwgLmRpc3Bfc3RlcHBpbmcg
-PSBTVEVQX0IwIH0sCi0JWzFdID0geyAuZ3Rfc3RlcHBpbmcgPSBTVEVQX0IwLCAuZGlzcF9zdGVw
-cGluZyA9IFNURVBfRDAgfSwKLX07Ci0KLWNvbnN0IHN0cnVjdCBpOTE1X3Jldl9zdGVwcGluZ3Mg
-YWRsc19yZXZpZF9zdGVwX3RibFtdID0gewotCVsweDBdID0geyAuZ3Rfc3RlcHBpbmcgPSBTVEVQ
-X0EwLCAuZGlzcF9zdGVwcGluZyA9IFNURVBfQTAgfSwKLQlbMHgxXSA9IHsgLmd0X3N0ZXBwaW5n
-ID0gU1RFUF9BMCwgLmRpc3Bfc3RlcHBpbmcgPSBTVEVQX0EyIH0sCi0JWzB4NF0gPSB7IC5ndF9z
-dGVwcGluZyA9IFNURVBfQjAsIC5kaXNwX3N0ZXBwaW5nID0gU1RFUF9CMCB9LAotCVsweDhdID0g
-eyAuZ3Rfc3RlcHBpbmcgPSBTVEVQX0MwLCAuZGlzcF9zdGVwcGluZyA9IFNURVBfQjAgfSwKLQlb
-MHhDXSA9IHsgLmd0X3N0ZXBwaW5nID0gU1RFUF9EMCwgLmRpc3Bfc3RlcHBpbmcgPSBTVEVQX0Mw
-IH0sCi19OwotCiBzdGF0aWMgdm9pZCB3YV9pbml0X3N0YXJ0KHN0cnVjdCBpOTE1X3dhX2xpc3Qg
-KndhbCwgY29uc3QgY2hhciAqbmFtZSwgY29uc3QgY2hhciAqZW5naW5lX25hbWUpCiB7CiAJd2Fs
-LT5uYW1lID0gbmFtZTsKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfZHJ2
-LmggYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X2Rydi5oCmluZGV4IDRiNDU3YTNjNjU4Zi4u
-NDA3MTFiZTFmOGYwIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X2Rydi5o
-CisrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfZHJ2LmgKQEAgLTkyLDYgKzkyLDcgQEAK
-ICNpbmNsdWRlICJpbnRlbF91bmNvcmUuaCIKICNpbmNsdWRlICJpbnRlbF93YWtlcmVmLmgiCiAj
-aW5jbHVkZSAiaW50ZWxfd29wY20uaCIKKyNpbmNsdWRlICJpbnRlbF9zdGVwcGluZy5oIgogCiAj
-aW5jbHVkZSAiaTkxNV9kcm1fY2xpZW50LmgiCiAjaW5jbHVkZSAiaTkxNV9nZW0uaCIKQEAgLTE0
-NzEsMTQgKzE0NzIsNiBAQCBlbnVtIHsKIAlLQkxfUkVWSURfRzAsCiB9OwogCi1zdHJ1Y3QgaTkx
-NV9yZXZfc3RlcHBpbmdzIHsKLQl1OCBndF9zdGVwcGluZzsKLQl1OCBkaXNwX3N0ZXBwaW5nOwot
-fTsKLQotLyogRGVmaW5lZCBpbiBpbnRlbF93b3JrYXJvdW5kcy5jICovCi1leHRlcm4gY29uc3Qg
-c3RydWN0IGk5MTVfcmV2X3N0ZXBwaW5ncyBrYmxfcmV2aWRzW107Ci0KICNkZWZpbmUgSVNfS0JM
-X0dUX1JFVklEKGRldl9wcml2LCBzaW5jZSwgdW50aWwpIFwKIAkoSVNfS0FCWUxBS0UoZGV2X3By
-aXYpICYmIFwKIAkga2JsX3Jldmlkc1tJTlRFTF9SRVZJRChkZXZfcHJpdildLmd0X3N0ZXBwaW5n
-ID49IHNpbmNlICYmIFwKQEAgLTE1MjcsMTQgKzE1MjAsNiBAQCBlbnVtIHsKIAlTVEVQX0QwLAog
-fTsKIAotI2RlZmluZSBUR0xfVVlfUkVWSURfU1RFUF9UQkxfU0laRQk0Ci0jZGVmaW5lIFRHTF9S
-RVZJRF9TVEVQX1RCTF9TSVpFCQkyCi0jZGVmaW5lIEFETFNfUkVWSURfU1RFUF9UQkxfU0laRQkx
-MwotCi1leHRlcm4gY29uc3Qgc3RydWN0IGk5MTVfcmV2X3N0ZXBwaW5ncyB0Z2xfdXlfcmV2aWRf
-c3RlcF90YmxbVEdMX1VZX1JFVklEX1NURVBfVEJMX1NJWkVdOwotZXh0ZXJuIGNvbnN0IHN0cnVj
-dCBpOTE1X3Jldl9zdGVwcGluZ3MgdGdsX3JldmlkX3N0ZXBfdGJsW1RHTF9SRVZJRF9TVEVQX1RC
-TF9TSVpFXTsKLWV4dGVybiBjb25zdCBzdHJ1Y3QgaTkxNV9yZXZfc3RlcHBpbmdzIGFkbHNfcmV2
-aWRfc3RlcF90YmxbQURMU19SRVZJRF9TVEVQX1RCTF9TSVpFXTsKLQogc3RhdGljIGlubGluZSBj
-b25zdCBzdHJ1Y3QgaTkxNV9yZXZfc3RlcHBpbmdzICoKIHRnbF9zdGVwcGluZ19nZXQoc3RydWN0
-IGRybV9pOTE1X3ByaXZhdGUgKmRldl9wcml2KQogewpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
-ZHJtL2k5MTUvaW50ZWxfc3RlcHBpbmcuYyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2ludGVsX3N0
-ZXBwaW5nLmMKbmV3IGZpbGUgbW9kZSAxMDA2NDQKaW5kZXggMDAwMDAwMDAwMDAwLi5iNWI0YmVj
-ZDZjODYKLS0tIC9kZXYvbnVsbAorKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pbnRlbF9zdGVw
-cGluZy5jCkBAIC0wLDAgKzEsNDYgQEAKKy8vIFNQRFgtTGljZW5zZS1JZGVudGlmaWVyOiBNSVQK
-Ky8qCisgKiBDb3B5cmlnaHQgwqkgMjAyMCwyMDIxIEludGVsIENvcnBvcmF0aW9uCisgKi8KKwor
-I2luY2x1ZGUgImk5MTVfZHJ2LmgiCisjaW5jbHVkZSAiaW50ZWxfc3RlcHBpbmcuaCIKKworLyoK
-KyAqIEtCTCByZXZpc2lvbiBJRCBvcmRlcmluZyBpcyBiaXphcnJlOyBoaWdoZXIgcmV2aXNpb24g
-SUQncyBtYXAgdG8gbG93ZXIKKyAqIHN0ZXBwaW5ncyBpbiBzb21lIGNhc2VzLiAgU28gcmF0aGVy
-IHRoYW4gdGVzdCBhZ2FpbnN0IHRoZSByZXZpc2lvbiBJRAorICogZGlyZWN0bHksIGxldCdzIG1h
-cCB0aGF0IGludG8gb3VyIG93biByYW5nZSBvZiBpbmNyZWFzaW5nIElEJ3MgdGhhdCB3ZQorICog
-Y2FuIHRlc3QgYWdhaW5zdCBpbiBhIHJlZ3VsYXIgbWFubmVyLgorICovCisKK2NvbnN0IHN0cnVj
-dCBpOTE1X3Jldl9zdGVwcGluZ3Mga2JsX3Jldmlkc1tdID0geworCVswXSA9IHsgLmd0X3N0ZXBw
-aW5nID0gS0JMX1JFVklEX0EwLCAuZGlzcF9zdGVwcGluZyA9IEtCTF9SRVZJRF9BMCB9LAorCVsx
-XSA9IHsgLmd0X3N0ZXBwaW5nID0gS0JMX1JFVklEX0IwLCAuZGlzcF9zdGVwcGluZyA9IEtCTF9S
-RVZJRF9CMCB9LAorCVsyXSA9IHsgLmd0X3N0ZXBwaW5nID0gS0JMX1JFVklEX0MwLCAuZGlzcF9z
-dGVwcGluZyA9IEtCTF9SRVZJRF9CMCB9LAorCVszXSA9IHsgLmd0X3N0ZXBwaW5nID0gS0JMX1JF
-VklEX0QwLCAuZGlzcF9zdGVwcGluZyA9IEtCTF9SRVZJRF9CMCB9LAorCVs0XSA9IHsgLmd0X3N0
-ZXBwaW5nID0gS0JMX1JFVklEX0YwLCAuZGlzcF9zdGVwcGluZyA9IEtCTF9SRVZJRF9DMCB9LAor
-CVs1XSA9IHsgLmd0X3N0ZXBwaW5nID0gS0JMX1JFVklEX0MwLCAuZGlzcF9zdGVwcGluZyA9IEtC
-TF9SRVZJRF9CMSB9LAorCVs2XSA9IHsgLmd0X3N0ZXBwaW5nID0gS0JMX1JFVklEX0QxLCAuZGlz
-cF9zdGVwcGluZyA9IEtCTF9SRVZJRF9CMSB9LAorCVs3XSA9IHsgLmd0X3N0ZXBwaW5nID0gS0JM
-X1JFVklEX0cwLCAuZGlzcF9zdGVwcGluZyA9IEtCTF9SRVZJRF9DMCB9LAorfTsKKworY29uc3Qg
-c3RydWN0IGk5MTVfcmV2X3N0ZXBwaW5ncyB0Z2xfdXlfcmV2aWRfc3RlcF90YmxbXSA9IHsKKwlb
-MF0gPSB7IC5ndF9zdGVwcGluZyA9IFNURVBfQTAsIC5kaXNwX3N0ZXBwaW5nID0gU1RFUF9BMCB9
-LAorCVsxXSA9IHsgLmd0X3N0ZXBwaW5nID0gU1RFUF9CMCwgLmRpc3Bfc3RlcHBpbmcgPSBTVEVQ
-X0MwIH0sCisJWzJdID0geyAuZ3Rfc3RlcHBpbmcgPSBTVEVQX0IxLCAuZGlzcF9zdGVwcGluZyA9
-IFNURVBfQzAgfSwKKwlbM10gPSB7IC5ndF9zdGVwcGluZyA9IFNURVBfQzAsIC5kaXNwX3N0ZXBw
-aW5nID0gU1RFUF9EMCB9LAorfTsKKworLyogU2FtZSBHVCBzdGVwcGluZyBiZXR3ZWVuIHRnbF91
-eV9yZXZpZHMgYW5kIHRnbF9yZXZpZHMgZG9uJ3QgbWVhbiB0aGUgc2FtZSBIVyAqLworY29uc3Qg
-c3RydWN0IGk5MTVfcmV2X3N0ZXBwaW5ncyB0Z2xfcmV2aWRfc3RlcF90YmxbXSA9IHsKKwlbMF0g
-PSB7IC5ndF9zdGVwcGluZyA9IFNURVBfQTAsIC5kaXNwX3N0ZXBwaW5nID0gU1RFUF9CMCB9LAor
-CVsxXSA9IHsgLmd0X3N0ZXBwaW5nID0gU1RFUF9CMCwgLmRpc3Bfc3RlcHBpbmcgPSBTVEVQX0Qw
-IH0sCit9OworCitjb25zdCBzdHJ1Y3QgaTkxNV9yZXZfc3RlcHBpbmdzIGFkbHNfcmV2aWRfc3Rl
-cF90YmxbXSA9IHsKKwlbMHgwXSA9IHsgLmd0X3N0ZXBwaW5nID0gU1RFUF9BMCwgLmRpc3Bfc3Rl
-cHBpbmcgPSBTVEVQX0EwIH0sCisJWzB4MV0gPSB7IC5ndF9zdGVwcGluZyA9IFNURVBfQTAsIC5k
-aXNwX3N0ZXBwaW5nID0gU1RFUF9BMiB9LAorCVsweDRdID0geyAuZ3Rfc3RlcHBpbmcgPSBTVEVQ
-X0IwLCAuZGlzcF9zdGVwcGluZyA9IFNURVBfQjAgfSwKKwlbMHg4XSA9IHsgLmd0X3N0ZXBwaW5n
-ID0gU1RFUF9DMCwgLmRpc3Bfc3RlcHBpbmcgPSBTVEVQX0IwIH0sCisJWzB4Q10gPSB7IC5ndF9z
-dGVwcGluZyA9IFNURVBfRDAsIC5kaXNwX3N0ZXBwaW5nID0gU1RFUF9DMCB9LAorfTsKZGlmZiAt
-LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2ludGVsX3N0ZXBwaW5nLmggYi9kcml2ZXJzL2dw
-dS9kcm0vaTkxNS9pbnRlbF9zdGVwcGluZy5oCm5ldyBmaWxlIG1vZGUgMTAwNjQ0CmluZGV4IDAw
-MDAwMDAwMDAwMC4uMjIxOTA1ZmRjMDgyCi0tLSAvZGV2L251bGwKKysrIGIvZHJpdmVycy9ncHUv
-ZHJtL2k5MTUvaW50ZWxfc3RlcHBpbmcuaApAQCAtMCwwICsxLDI1IEBACisvKiBTUERYLUxpY2Vu
-c2UtSWRlbnRpZmllcjogTUlUICovCisvKgorICogQ29weXJpZ2h0IMKpIDIwMjAsMjAyMSBJbnRl
-bCBDb3Jwb3JhdGlvbgorICovCisKKyNpZm5kZWYgX19JTlRFTF9TVEVQUElOR19IX18KKyNkZWZp
-bmUgX19JTlRFTF9TVEVQUElOR19IX18KKworI2luY2x1ZGUgPGxpbnV4L3R5cGVzLmg+CisKK3N0
-cnVjdCBpOTE1X3Jldl9zdGVwcGluZ3MgeworCXU4IGd0X3N0ZXBwaW5nOworCXU4IGRpc3Bfc3Rl
-cHBpbmc7Cit9OworCisjZGVmaW5lIFRHTF9VWV9SRVZJRF9TVEVQX1RCTF9TSVpFCTQKKyNkZWZp
-bmUgVEdMX1JFVklEX1NURVBfVEJMX1NJWkUJCTIKKyNkZWZpbmUgQURMU19SRVZJRF9TVEVQX1RC
-TF9TSVpFCTEzCisKK2V4dGVybiBjb25zdCBzdHJ1Y3QgaTkxNV9yZXZfc3RlcHBpbmdzIGtibF9y
-ZXZpZHNbXTsKK2V4dGVybiBjb25zdCBzdHJ1Y3QgaTkxNV9yZXZfc3RlcHBpbmdzIHRnbF91eV9y
-ZXZpZF9zdGVwX3RibFtUR0xfVVlfUkVWSURfU1RFUF9UQkxfU0laRV07CitleHRlcm4gY29uc3Qg
-c3RydWN0IGk5MTVfcmV2X3N0ZXBwaW5ncyB0Z2xfcmV2aWRfc3RlcF90YmxbVEdMX1JFVklEX1NU
-RVBfVEJMX1NJWkVdOworZXh0ZXJuIGNvbnN0IHN0cnVjdCBpOTE1X3Jldl9zdGVwcGluZ3MgYWRs
-c19yZXZpZF9zdGVwX3RibFtBRExTX1JFVklEX1NURVBfVEJMX1NJWkVdOworCisjZW5kaWYgLyog
-X19JTlRFTF9TVEVQUElOR19IX18gKi8KLS0gCjIuMjAuMQoKX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRlbC1n
-ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
-aWxtYW4vbGlzdGluZm8vaW50ZWwtZ2Z4Cg==
+Add new symbolic names for revision ids, and convert KBL revids to use
+them via the new stepping check macros.
+
+This also fixes theoretical out of bounds access to kbl_revids array.
+
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+
+---
+
+The initialization sounds like an early part of
+intel_device_info_runtime_init(), and indeed touches runtime info.
+---
+ drivers/gpu/drm/i915/gt/gen8_engine_cs.c    |  2 +-
+ drivers/gpu/drm/i915/gt/intel_workarounds.c |  6 +-
+ drivers/gpu/drm/i915/i915_drv.c             |  3 +-
+ drivers/gpu/drm/i915/i915_drv.h             | 24 ++-----
+ drivers/gpu/drm/i915/intel_pm.c             |  4 +-
+ drivers/gpu/drm/i915/intel_stepping.c       | 69 ++++++++++++++++++---
+ drivers/gpu/drm/i915/intel_stepping.h       | 11 +++-
+ 7 files changed, 82 insertions(+), 37 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/gt/gen8_engine_cs.c b/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
+index cac80af7ad1c..74e8acc72da0 100644
+--- a/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
++++ b/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
+@@ -42,7 +42,7 @@ int gen8_emit_flush_rcs(struct i915_request *rq, u32 mode)
+ 			vf_flush_wa = true;
+ 
+ 		/* WaForGAMHang:kbl */
+-		if (IS_KBL_GT_REVID(rq->engine->i915, 0, KBL_REVID_B0))
++		if (IS_KBL_GT_STEP(rq->engine->i915, 0, STEP_B0))
+ 			dc_flush_wa = true;
+ 	}
+ 
+diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+index 2827d4f2e086..0c502a733779 100644
+--- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
++++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+@@ -481,7 +481,7 @@ static void kbl_ctx_workarounds_init(struct intel_engine_cs *engine,
+ 	gen9_ctx_workarounds_init(engine, wal);
+ 
+ 	/* WaToEnableHwFixForPushConstHWBug:kbl */
+-	if (IS_KBL_GT_REVID(i915, KBL_REVID_C0, REVID_FOREVER))
++	if (IS_KBL_GT_STEP(i915, STEP_C0, STEP_FOREVER))
+ 		wa_masked_en(wal, COMMON_SLICE_CHICKEN2,
+ 			     GEN8_SBE_DISABLE_REPLAY_BUF_OPTIMIZATION);
+ 
+@@ -899,7 +899,7 @@ kbl_gt_workarounds_init(struct drm_i915_private *i915, struct i915_wa_list *wal)
+ 	gen9_gt_workarounds_init(i915, wal);
+ 
+ 	/* WaDisableDynamicCreditSharing:kbl */
+-	if (IS_KBL_GT_REVID(i915, 0, KBL_REVID_B0))
++	if (IS_KBL_GT_STEP(i915, 0, STEP_B0))
+ 		wa_write_or(wal,
+ 			    GAMT_CHKN_BIT_REG,
+ 			    GAMT_CHKN_DISABLE_DYNAMIC_CREDIT_SHARING);
+@@ -2020,7 +2020,7 @@ xcs_engine_wa_init(struct intel_engine_cs *engine, struct i915_wa_list *wal)
+ 	struct drm_i915_private *i915 = engine->i915;
+ 
+ 	/* WaKBLVECSSemaphoreWaitPoll:kbl */
+-	if (IS_KBL_GT_REVID(i915, KBL_REVID_A0, KBL_REVID_E0)) {
++	if (IS_KBL_GT_STEP(i915, STEP_A0, STEP_E0)) {
+ 		wa_write(wal,
+ 			 RING_SEMA_WAIT_POLL(engine->mmio_base),
+ 			 1);
+diff --git a/drivers/gpu/drm/i915/i915_drv.c b/drivers/gpu/drm/i915/i915_drv.c
+index 3edd5e47ad68..bd955ec9bd5d 100644
+--- a/drivers/gpu/drm/i915/i915_drv.c
++++ b/drivers/gpu/drm/i915/i915_drv.c
+@@ -273,7 +273,7 @@ static void intel_detect_preproduction_hw(struct drm_i915_private *dev_priv)
+ 	pre |= IS_HSW_EARLY_SDV(dev_priv);
+ 	pre |= IS_SKL_REVID(dev_priv, 0, SKL_REVID_F0);
+ 	pre |= IS_BXT_REVID(dev_priv, 0, BXT_REVID_B_LAST);
+-	pre |= IS_KBL_GT_REVID(dev_priv, 0, KBL_REVID_A0);
++	pre |= IS_KBL_GT_STEP(dev_priv, 0, STEP_A0);
+ 	pre |= IS_GLK_REVID(dev_priv, 0, GLK_REVID_A2);
+ 
+ 	if (pre) {
+@@ -307,6 +307,7 @@ static int i915_driver_early_probe(struct drm_i915_private *dev_priv)
+ 		return -ENODEV;
+ 
+ 	intel_device_info_subplatform_init(dev_priv);
++	intel_stepping_init(dev_priv);
+ 
+ 	intel_uncore_mmio_debug_init_early(&dev_priv->mmio_debug);
+ 	intel_uncore_init_early(&dev_priv->uncore, dev_priv);
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index e8717c886be3..8f0e66ac2561 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -1475,26 +1475,10 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
+ #define IS_BXT_REVID(dev_priv, since, until) \
+ 	(IS_BROXTON(dev_priv) && IS_REVID(dev_priv, since, until))
+ 
+-enum {
+-	KBL_REVID_A0,
+-	KBL_REVID_B0,
+-	KBL_REVID_B1,
+-	KBL_REVID_C0,
+-	KBL_REVID_D0,
+-	KBL_REVID_D1,
+-	KBL_REVID_E0,
+-	KBL_REVID_F0,
+-	KBL_REVID_G0,
+-};
+-
+-#define IS_KBL_GT_REVID(dev_priv, since, until) \
+-	(IS_KABYLAKE(dev_priv) && \
+-	 kbl_revids[INTEL_REVID(dev_priv)].gt_stepping >= since && \
+-	 kbl_revids[INTEL_REVID(dev_priv)].gt_stepping <= until)
+-#define IS_KBL_DISP_REVID(dev_priv, since, until) \
+-	(IS_KABYLAKE(dev_priv) && \
+-	 kbl_revids[INTEL_REVID(dev_priv)].disp_stepping >= since && \
+-	 kbl_revids[INTEL_REVID(dev_priv)].disp_stepping <= until)
++#define IS_KBL_GT_STEP(dev_priv, since, until) \
++	(IS_KABYLAKE(dev_priv) && IS_GT_STEP(dev_priv, since, until))
++#define IS_KBL_DISPLAY_STEP(dev_priv, since, until) \
++	(IS_KABYLAKE(dev_priv) && IS_DISPLAY_STEP(dev_priv, since, until))
+ 
+ #define GLK_REVID_A0		0x0
+ #define GLK_REVID_A1		0x1
+diff --git a/drivers/gpu/drm/i915/intel_pm.c b/drivers/gpu/drm/i915/intel_pm.c
+index 8cc67f9c4e58..dbf87892193a 100644
+--- a/drivers/gpu/drm/i915/intel_pm.c
++++ b/drivers/gpu/drm/i915/intel_pm.c
+@@ -7169,12 +7169,12 @@ static void kbl_init_clock_gating(struct drm_i915_private *dev_priv)
+ 		   FBC_LLC_FULLY_OPEN);
+ 
+ 	/* WaDisableSDEUnitClockGating:kbl */
+-	if (IS_KBL_GT_REVID(dev_priv, 0, KBL_REVID_B0))
++	if (IS_KBL_GT_STEP(dev_priv, 0, STEP_B0))
+ 		intel_uncore_write(&dev_priv->uncore, GEN8_UCGCTL6, intel_uncore_read(&dev_priv->uncore, GEN8_UCGCTL6) |
+ 			   GEN8_SDEUNIT_CLOCK_GATE_DISABLE);
+ 
+ 	/* WaDisableGamClockGating:kbl */
+-	if (IS_KBL_GT_REVID(dev_priv, 0, KBL_REVID_B0))
++	if (IS_KBL_GT_STEP(dev_priv, 0, STEP_B0))
+ 		intel_uncore_write(&dev_priv->uncore, GEN6_UCGCTL1, intel_uncore_read(&dev_priv->uncore, GEN6_UCGCTL1) |
+ 			   GEN6_GAMUNIT_CLOCK_GATE_DISABLE);
+ 
+diff --git a/drivers/gpu/drm/i915/intel_stepping.c b/drivers/gpu/drm/i915/intel_stepping.c
+index b5b4becd6c86..67155b94d6d3 100644
+--- a/drivers/gpu/drm/i915/intel_stepping.c
++++ b/drivers/gpu/drm/i915/intel_stepping.c
+@@ -13,15 +13,17 @@
+  * can test against in a regular manner.
+  */
+ 
+-const struct i915_rev_steppings kbl_revids[] = {
+-	[0] = { .gt_stepping = KBL_REVID_A0, .disp_stepping = KBL_REVID_A0 },
+-	[1] = { .gt_stepping = KBL_REVID_B0, .disp_stepping = KBL_REVID_B0 },
+-	[2] = { .gt_stepping = KBL_REVID_C0, .disp_stepping = KBL_REVID_B0 },
+-	[3] = { .gt_stepping = KBL_REVID_D0, .disp_stepping = KBL_REVID_B0 },
+-	[4] = { .gt_stepping = KBL_REVID_F0, .disp_stepping = KBL_REVID_C0 },
+-	[5] = { .gt_stepping = KBL_REVID_C0, .disp_stepping = KBL_REVID_B1 },
+-	[6] = { .gt_stepping = KBL_REVID_D1, .disp_stepping = KBL_REVID_B1 },
+-	[7] = { .gt_stepping = KBL_REVID_G0, .disp_stepping = KBL_REVID_C0 },
++
++/* FIXME: what about REVID_E0 */
++static const struct i915_rev_steppings kbl_revids[] = {
++	[0] = { .gt_stepping = STEP_A0, .disp_stepping = STEP_A0 },
++	[1] = { .gt_stepping = STEP_B0, .disp_stepping = STEP_B0 },
++	[2] = { .gt_stepping = STEP_C0, .disp_stepping = STEP_B0 },
++	[3] = { .gt_stepping = STEP_D0, .disp_stepping = STEP_B0 },
++	[4] = { .gt_stepping = STEP_F0, .disp_stepping = STEP_C0 },
++	[5] = { .gt_stepping = STEP_C0, .disp_stepping = STEP_B1 },
++	[6] = { .gt_stepping = STEP_D1, .disp_stepping = STEP_B1 },
++	[7] = { .gt_stepping = STEP_G0, .disp_stepping = STEP_C0 },
+ };
+ 
+ const struct i915_rev_steppings tgl_uy_revid_step_tbl[] = {
+@@ -44,3 +46,52 @@ const struct i915_rev_steppings adls_revid_step_tbl[] = {
+ 	[0x8] = { .gt_stepping = STEP_C0, .disp_stepping = STEP_B0 },
+ 	[0xC] = { .gt_stepping = STEP_D0, .disp_stepping = STEP_C0 },
+ };
++
++void intel_stepping_init(struct drm_i915_private *i915)
++{
++	const struct i915_rev_steppings *revids = NULL;
++	int size = 0;
++	int revid = INTEL_REVID(i915);
++	struct i915_rev_steppings stepping = {};
++
++	if (IS_KABYLAKE(i915)) {
++		revids = kbl_revids;
++		size = ARRAY_SIZE(kbl_revids);
++	}
++
++	/* Not using the stepping scheme for the platform yet. */
++	if (!revids)
++		return;
++
++	if (revid < size && revids[revid].gt_stepping != STEP_NONE) {
++		stepping = revids[revid];
++	} else {
++		drm_dbg(&i915->drm, "Unknown revid 0x%02x\n", revid);
++
++		/*
++		 * If we hit a gap in the revid array, use the information for
++		 * the next revid.
++		 *
++		 * This may be wrong in all sorts of ways, especially if the
++		 * steppings in the array are not monotonically increasing, but
++		 * it's better than defaulting to 0.
++		 */
++		while (revid < size && revids[revid].gt_stepping == STEP_NONE)
++			revid++;
++
++		if (revid < size) {
++			drm_dbg(&i915->drm, "Using steppings for revid 0x%02x\n",
++				revid);
++			stepping = revids[revid];
++		} else {
++			drm_dbg(&i915->drm, "Using future steppings\n");
++			stepping.gt_stepping = STEP_FUTURE;
++			stepping.disp_stepping = STEP_FUTURE;
++		}
++	}
++
++	if (drm_WARN_ON(&i915->drm, stepping.gt_stepping == STEP_NONE))
++		return;
++
++	RUNTIME_INFO(i915)->stepping = stepping;
++}
+diff --git a/drivers/gpu/drm/i915/intel_stepping.h b/drivers/gpu/drm/i915/intel_stepping.h
+index 3d24299e9128..8c7f17b405b2 100644
+--- a/drivers/gpu/drm/i915/intel_stepping.h
++++ b/drivers/gpu/drm/i915/intel_stepping.h
+@@ -8,6 +8,8 @@
+ 
+ #include <linux/types.h>
+ 
++struct drm_i915_private;
++
+ struct i915_rev_steppings {
+ 	u8 gt_stepping;
+ 	u8 disp_stepping;
+@@ -17,7 +19,6 @@ struct i915_rev_steppings {
+ #define TGL_REVID_STEP_TBL_SIZE		2
+ #define ADLS_REVID_STEP_TBL_SIZE	13
+ 
+-extern const struct i915_rev_steppings kbl_revids[];
+ extern const struct i915_rev_steppings tgl_uy_revid_step_tbl[TGL_UY_REVID_STEP_TBL_SIZE];
+ extern const struct i915_rev_steppings tgl_revid_step_tbl[TGL_REVID_STEP_TBL_SIZE];
+ extern const struct i915_rev_steppings adls_revid_step_tbl[ADLS_REVID_STEP_TBL_SIZE];
+@@ -34,6 +35,14 @@ enum intel_stepping {
+ 	STEP_B1,
+ 	STEP_C0,
+ 	STEP_D0,
++	STEP_D1,
++	STEP_E0,
++	STEP_F0,
++	STEP_G0,
++	STEP_FUTURE,
++	STEP_FOREVER,
+ };
+ 
++void intel_stepping_init(struct drm_i915_private *i915);
++
+ #endif /* __INTEL_STEPPING_H__ */
+-- 
+2.20.1
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
