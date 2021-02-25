@@ -2,82 +2,48 @@ Return-Path: <SRS0=rhBX=H3=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,INCLUDES_PULL_REQUEST,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3A217C433DB
-	for <intel-gfx@archiver.kernel.org>; Thu, 25 Feb 2021 14:05:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B1174C433DB
+	for <intel-gfx@archiver.kernel.org>; Thu, 25 Feb 2021 14:44:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D757A64F11
-	for <intel-gfx@archiver.kernel.org>; Thu, 25 Feb 2021 14:05:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D757A64F11
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 50F1D64E28
+	for <intel-gfx@archiver.kernel.org>; Thu, 25 Feb 2021 14:44:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 50F1D64E28
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 615986ECA4;
-	Thu, 25 Feb 2021 14:05:27 +0000 (UTC)
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [IPv6:2a00:1450:4864:20::535])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB5E26EC8A;
- Thu, 25 Feb 2021 10:28:34 +0000 (UTC)
-Received: by mail-ed1-x535.google.com with SMTP id h10so6142790edl.6;
- Thu, 25 Feb 2021 02:28:34 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=TVKAjWBFusaHyTtxALPIeACysl8qlhJqMmxF1Z/3BQc=;
- b=KvT6uHV3ltQQhKNAxhivu1WaoQNP6hJd5KdyNGhOZzV3MFX5tYjNtdWuTP9AjxAm9u
- t/N1MkyWh8kg69o8urHsk7zDck/zOgNio6qdWVGet3ki3S9ysgXQblGyreIP5Ph77p6y
- EwPT8y17+qmJx8LH1tG6oiIcwq9Fj8SGseVhOB8JKtsFaRnNkB7NJBmnWgRjKcT2iIOk
- S6xvGKbX/th/EYMn2UPD+kklrD1e3BQ7mEFUCSEdzwlviaulkxoq1JjKeX/we/Lid9ve
- thgLqK+DQ3yQv6sdq63aRRPiPRh+ux2fQvmPwRS+Faz0MZaG7bKGu328voC0IKZamAvr
- ujuA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=TVKAjWBFusaHyTtxALPIeACysl8qlhJqMmxF1Z/3BQc=;
- b=YRnZEtoiox+TapmQIINPhq8ZWPkOGbKTScpaAIKViEJpRNRIKNJAzrkWcxH3J6+Q4Z
- 4Q6eDKM4wCUPJk4h5NLJQgpNQ0FfPzAdYzM0n3Gzo91QWmaT7+wm7HATUX/hIKyE+X2E
- TagjGvks8l5mN8dwQBY4MiLHUJ0pvqFLDKLhc49gxrmWLEtj96wER2Mt/bqQdCcRk6Ll
- GdfJpSC620YSXqRJI4Xcu19hk2D/xEArNtuQzze6jg2xxOntEqgnt/5bHENmHBndQgyo
- jy15tpSnoG7GpdYslRAhM2dhxzmzf8B9RRGsH2g7cpwFmz5YKxDJMnUsohsN0mlHq4Jv
- vd+g==
-X-Gm-Message-State: AOAM530jUGmOKhX+TPm7JlcFXDFIxahXI7gmnZ6RXCmCq0XnH1Evk5q/
- dgrwY+LYrpgukmKtR64WHEs=
-X-Google-Smtp-Source: ABdhPJxQxWpA8AILfgr1cKP4yfsCw8NTRfhgVfgrxKucOL6WpWcAlGS0EyTXuI5Jrm/OQ3hF+5Bjbw==
-X-Received: by 2002:a05:6402:c15:: with SMTP id
- co21mr2140459edb.115.1614248913374; 
- Thu, 25 Feb 2021 02:28:33 -0800 (PST)
-Received: from ?IPv6:2a02:908:1252:fb60:fc8:43:f4c0:95af?
- ([2a02:908:1252:fb60:fc8:43:f4c0:95af])
- by smtp.gmail.com with ESMTPSA id v11sm2635553eds.14.2021.02.25.02.28.32
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 25 Feb 2021 02:28:32 -0800 (PST)
-To: Daniel Vetter <daniel.vetter@ffwll.ch>,
- =?UTF-8?Q?Thomas_Hellstr=c3=b6m_=28Intel=29?= <thomas_os@shipmail.org>
-References: <20210223105951.912577-1-daniel.vetter@ffwll.ch>
- <1a7c2295-6241-f2bf-4a78-6cadd43bc248@shipmail.org>
- <CAKMK7uHzRb6Q_LgPUrrHn18sorYo7ysTgB+PNE36LDUUsJpHDg@mail.gmail.com>
- <f43311c8-a02a-1a29-a53b-88e599c92187@shipmail.org>
- <CAKMK7uE2UrOruQPWG9KPBQ781f9Bq9xpVRNserAC9BZ2VzDutQ@mail.gmail.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <b30dacb0-edea-0a3c-6163-0f329e58ba61@gmail.com>
-Date: Thu, 25 Feb 2021 11:28:31 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 906A26EC9F;
+	Thu, 25 Feb 2021 14:44:22 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0C4786E188;
+ Thu, 25 Feb 2021 14:44:20 +0000 (UTC)
+IronPort-SDR: WnRE0w3nzr5c4Pd38Tk8nUHqKC/8zhjs1ogH3QHlRKoR3TfAkRcLMQFrv9/Gac7u2kRco9smxe
+ 07EpMCB0cFRQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9905"; a="249602292"
+X-IronPort-AV: E=Sophos;i="5.81,205,1610438400"; d="scan'208";a="249602292"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Feb 2021 06:44:19 -0800
+IronPort-SDR: O1WWtD91MUdtYDqhshMux0fiNELB7uz1j6p3uHtU4Plr5jktJx8hvwxB2G+D5/roWbWqGVjfLh
+ LF5a/lKOGOjA==
+X-IronPort-AV: E=Sophos;i="5.81,205,1610438400"; d="scan'208";a="433982534"
+Received: from smilbran-mobl2.amr.corp.intel.com (HELO intel.com)
+ ([10.209.140.65])
+ by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Feb 2021 06:43:51 -0800
+Date: Thu, 25 Feb 2021 09:43:48 -0500
+From: Rodrigo Vivi <rodrigo.vivi@intel.com>
+To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel.vetter@ffwll.ch>
+Message-ID: <YDe3pBPV5Kx3hpk6@intel.com>
 MIME-Version: 1.0
-In-Reply-To: <CAKMK7uE2UrOruQPWG9KPBQ781f9Bq9xpVRNserAC9BZ2VzDutQ@mail.gmail.com>
-Content-Language: en-US
-X-Mailman-Approved-At: Thu, 25 Feb 2021 14:05:25 +0000
-Subject: Re: [Intel-gfx] [Linaro-mm-sig] [PATCH 1/2] dma-buf: Require
- VM_PFNMAP vma for mmap
+Content-Disposition: inline
+Subject: [Intel-gfx] [PULL] drm-intel-next-fixes
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,91 +56,75 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- DRI Development <dri-devel@lists.freedesktop.org>,
- "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
- Jason Gunthorpe <jgg@ziepe.ca>, John Stultz <john.stultz@linaro.org>,
- Matthew Wilcox <willy@infradead.org>, Daniel Vetter <daniel.vetter@intel.com>,
- Suren Baghdasaryan <surenb@google.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: dim-tools@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Maxime Ripard <mripard@kernel.org>, intel-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-QW0gMjQuMDIuMjEgdW0gMTA6MzEgc2NocmllYiBEYW5pZWwgVmV0dGVyOgo+IE9uIFdlZCwgRmVi
-IDI0LCAyMDIxIGF0IDEwOjE2IEFNIFRob21hcyBIZWxsc3Ryw7ZtIChJbnRlbCkKPiA8dGhvbWFz
-X29zQHNoaXBtYWlsLm9yZz4gd3JvdGU6Cj4+Cj4+IE9uIDIvMjQvMjEgOTo0NSBBTSwgRGFuaWVs
-IFZldHRlciB3cm90ZToKPj4+IE9uIFdlZCwgRmViIDI0LCAyMDIxIGF0IDg6NDYgQU0gVGhvbWFz
-IEhlbGxzdHLDtm0gKEludGVsKQo+Pj4gPHRob21hc19vc0BzaGlwbWFpbC5vcmc+IHdyb3RlOgo+
-Pj4+IE9uIDIvMjMvMjEgMTE6NTkgQU0sIERhbmllbCBWZXR0ZXIgd3JvdGU6Cj4+Pj4+IHRsZHI7
-IERNQSBidWZmZXJzIGFyZW4ndCBub3JtYWwgbWVtb3J5LCBleHBlY3RpbmcgdGhhdCB5b3UgY2Fu
-IHVzZQo+Pj4+PiB0aGVtIGxpa2UgdGhhdCAobGlrZSBjYWxsaW5nIGdldF91c2VyX3BhZ2VzIHdv
-cmtzLCBvciB0aGF0IHRoZXkncmUKPj4+Pj4gYWNjb3VudGluZyBsaWtlIGFueSBvdGhlciBub3Jt
-YWwgbWVtb3J5KSBjYW5ub3QgYmUgZ3VhcmFudGVlZC4KPj4+Pj4KPj4+Pj4gU2luY2Ugc29tZSB1
-c2Vyc3BhY2Ugb25seSBydW5zIG9uIGludGVncmF0ZWQgZGV2aWNlcywgd2hlcmUgYWxsCj4+Pj4+
-IGJ1ZmZlcnMgYXJlIGFjdHVhbGx5IGFsbCByZXNpZGVudCBzeXN0ZW0gbWVtb3J5LCB0aGVyZSdz
-IGEgaHVnZQo+Pj4+PiB0ZW1wdGF0aW9uIHRvIGFzc3VtZSB0aGF0IGEgc3RydWN0IHBhZ2UgaXMg
-YWx3YXlzIHByZXNlbnQgYW5kIHVzZWFibGUKPj4+Pj4gbGlrZSBmb3IgYW55IG1vcmUgcGFnZWNh
-Y2hlIGJhY2tlZCBtbWFwLiBUaGlzIGhhcyB0aGUgcG90ZW50aWFsIHRvCj4+Pj4+IHJlc3VsdCBp
-biBhIHVhcGkgbmlnaHRtYXJlLgo+Pj4+Pgo+Pj4+PiBUbyBzdG9wIHRoaXMgZ2FwIHJlcXVpcmUg
-dGhhdCBETUEgYnVmZmVyIG1tYXBzIGFyZSBWTV9QRk5NQVAsIHdoaWNoCj4+Pj4+IGJsb2NrcyBn
-ZXRfdXNlcl9wYWdlcyBhbmQgYWxsIHRoZSBvdGhlciBzdHJ1Y3QgcGFnZSBiYXNlZAo+Pj4+PiBp
-bmZyYXN0cnVjdHVyZSBmb3IgZXZlcnlvbmUuIEluIHNwaXJpdCB0aGlzIGlzIHRoZSB1YXBpIGNv
-dW50ZXJwYXJ0IHRvCj4+Pj4+IHRoZSBrZXJuZWwtaW50ZXJuYWwgQ09ORklHX0RNQUJVRl9ERUJV
-Ry4KPj4+Pj4KPj4+Pj4gTW90aXZhdGVkIGJ5IGEgcmVjZW50IHBhdGNoIHdoaWNoIHdhbnRlZCB0
-byBzd2ljaCB0aGUgc3lzdGVtIGRtYS1idWYKPj4+Pj4gaGVhcCB0byB2bV9pbnNlcnRfcGFnZSBp
-bnN0ZWFkIG9mIHZtX2luc2VydF9wZm4uCj4+Pj4+Cj4+Pj4+IHYyOgo+Pj4+Pgo+Pj4+PiBKYXNv
-biBicm91Z2h0IHVwIHRoYXQgd2UgYWxzbyB3YW50IHRvIGd1YXJhbnRlZSB0aGF0IGFsbCBwdGVz
-IGhhdmUgdGhlCj4+Pj4+IHB0ZV9zcGVjaWFsIGZsYWcgc2V0LCB0byBjYXRjaCBmYXN0IGdldF91
-c2VyX3BhZ2VzIChvbiBhcmNoaXRlY3R1cmVzCj4+Pj4+IHRoYXQgc3VwcG9ydCB0aGlzKS4gQWxs
-b3dpbmcgVk1fTUlYRURNQVAgKGxpa2UgVk1fU1BFQ0lBTCBkb2VzKSB3b3VsZAo+Pj4+PiBzdGls
-bCBhbGxvdyB2bV9pbnNlcnRfcGFnZSwgYnV0IGxpbWl0aW5nIHRvIFZNX1BGTk1BUCB3aWxsIGNh
-dGNoIHRoYXQuCj4+Pj4+Cj4+Pj4+ICAgIEZyb20gYXVkaXRpbmcgdGhlIHZhcmlvdXMgZnVuY3Rp
-b25zIHRvIGluc2VydCBwZm4gcHRlIGVudGlyZXMKPj4+Pj4gKHZtX2luc2VydF9wZm5fcHJvdCwg
-cmVtYXBfcGZuX3JhbmdlIGFuZCBhbGwgaXQncyBjYWxsZXJzIGxpa2UKPj4+Pj4gZG1hX21tYXBf
-d2MpIGl0IGxvb2tzIGxpa2UgVk1fUEZOTUFQIGlzIGFscmVhZHkgcmVxdWlyZWQgYW55d2F5LCBz
-bwo+Pj4+PiB0aGlzIHNob3VsZCBiZSB0aGUgY29ycmVjdCBmbGFnIHRvIGNoZWNrIGZvci4KPj4+
-Pj4KPj4+PiBJZiB3ZSByZXF1aXJlIFZNX1BGTk1BUCwgZm9yIG9yZGluYXJ5IHBhZ2UgbWFwcGlu
-Z3MsIHdlIGFsc28gbmVlZCB0bwo+Pj4+IGRpc2FsbG93IENPVyBtYXBwaW5ncywgc2luY2UgaXQg
-d2lsbCBub3Qgd29yayBvbiBhcmNoaXRlY3R1cmVzIHRoYXQKPj4+PiBkb24ndCBoYXZlIENPTkZJ
-R19BUkNIX0hBU19QVEVfU1BFQ0lBTCwgKHNlZSB0aGUgZG9jcyBmb3Igdm1fbm9ybWFsX3BhZ2Uo
-KSkuCj4+PiBIbSBJIGZpZ3VyZWQgZXZlcnlvbmUganVzdCB1c2VzIE1BUF9TSEFSRUQgZm9yIGJ1
-ZmZlciBvYmplY3RzIHNpbmNlCj4+PiBDT1cgcmVhbGx5IG1ha2VzIGFic29sdXRlbHkgbm8gc2Vu
-c2UuIEhvdyB3b3VsZCB3ZSBlbmZvcmNlIHRoaXM/Cj4+IFBlcmhhcHMgcmV0dXJuaW5nIC1FSU5W
-QUwgb24gaXNfY293X21hcHBpbmcoKSBhdCBtbWFwIHRpbWUuIEVpdGhlciB0aGF0Cj4+IG9yIGFs
-bG93aW5nIE1JWEVETUFQLgo+Pgo+Pj4+IEFsc28gd29ydGggbm90aW5nIGlzIHRoZSBjb21tZW50
-IGluICB0dG1fYm9fbW1hcF92bWFfc2V0dXAoKSB3aXRoCj4+Pj4gcG9zc2libGUgcGVyZm9ybWFu
-Y2UgaW1wbGljYXRpb25zIHdpdGggeDg2ICsgUEFUICsgVk1fUEZOTUFQICsgbm9ybWFsCj4+Pj4g
-cGFnZXMuIFRoYXQncyBhIHZlcnkgb2xkIGNvbW1lbnQsIHRob3VnaCwgYW5kIG1pZ2h0IG5vdCBi
-ZSB2YWxpZCBhbnltb3JlLgo+Pj4gSSB0aGluayB0aGF0J3Mgd2h5IHR0bSBoYXMgYSBwYWdlIGNh
-Y2hlIGZvciB0aGVzZSwgYmVjYXVzZSBpdCBpbmRlZWQKPj4+IHN1Y2tzLiBUaGUgUEFUIGNoYW5n
-ZXMgb24gcGFnZXMgYXJlIHJhdGhlciBleHBlbnNpdmUuCj4+IElJUkMgdGhlIHBhZ2UgY2FjaGUg
-d2FzIGltcGxlbWVudGVkIGJlY2F1c2Ugb2YgdGhlIHNsb3duZXNzIG9mIHRoZQo+PiBjYWNoaW5n
-IG1vZGUgdHJhbnNpdGlvbiBpdHNlbGYsIG1vcmUgc3BlY2lmaWNhbGx5IHRoZSB3YmludmQoKSBj
-YWxsICsKPj4gZ2xvYmFsIFRMQiBmbHVzaC4KClllcywgZXhhY3RseSB0aGF0LiBUaGUgZ2xvYmFs
-IFRMQiBmbHVzaCBpcyB3aGF0IHJlYWxseSBicmVha3Mgb3VyIG5lY2sgCmhlcmUgZnJvbSBhIHBl
-cmZvcm1hbmNlIHBlcnNwZWN0aXZlLgoKPj4+IFRoZXJlIGlzIHN0aWxsIGFuIGlzc3VlIGZvciBp
-b21lbSBtYXBwaW5ncywgYmVjYXVzZSB0aGUgUEFUIHZhbGlkYXRpb24KPj4+IGRvZXMgYSBsaW5l
-YXIgd2FsayBvZiB0aGUgcmVzb3VyY2UgdHJlZSAobG9sKSBmb3IgZXZlcnkgdm1faW5zZXJ0X3Bm
-bi4KPj4+IEJ1dCBmb3IgaTkxNSBhdCBsZWFzdCB0aGlzIGlzIGZpeGVkIGJ5IHVzaW5nIHRoZSBp
-b19tYXBwaW5nCj4+PiBpbmZyYXN0cnVjdHVyZSwgd2hpY2ggZG9lcyB0aGUgUEFUIHJlc2VydmF0
-aW9uIG9ubHkgb25jZSB3aGVuIHlvdSBzZXQKPj4+IHVwIHRoZSBtYXBwaW5nIGFyZWEgYXQgZHJp
-dmVyIGxvYWQuCj4+IFllcywgSSBndWVzcyB0aGF0IHdhcyB0aGUgaXNzdWUgdGhhdCB0aGUgY29t
-bWVudCBkZXNjcmliZXMsIGJ1dCB0aGUKPj4gaXNzdWUgd2Fzbid0IHRoZXJlIHdpdGggdm1faW5z
-ZXJ0X21peGVkKCkgKyBWTV9NSVhFRE1BUC4KPj4KPj4+IEFsc28gVFRNIHVzZXMgVk1fUEZOTUFQ
-IHJpZ2h0IG5vdyBmb3IgZXZlcnl0aGluZywgc28gaXQgY2FuJ3QgYmUgYQo+Pj4gcHJvYmxlbSB0
-aGF0IGh1cnRzIG11Y2ggOi0pCj4+IEhtbSwgYm90aCA1LjExIGFuZCBkcm0tdGlwIGFwcGVhcnMg
-dG8gc3RpbGwgdXNlIE1JWEVETUFQPwo+Pgo+PiBodHRwczovL2VsaXhpci5ib290bGluLmNvbS9s
-aW51eC9sYXRlc3Qvc291cmNlL2RyaXZlcnMvZ3B1L2RybS90dG0vdHRtX2JvX3ZtLmMjTDU1NAo+
-IFVoIHRoYXQncyBiYWQsIGJlY2F1c2UgbWl4ZWQgbWFwcyBwb2ludGluZyBhdCBzdHJ1Y3QgcGFn
-ZSB3b250IHN0b3AKPiBndXAuIEF0IGxlYXN0IGFmYWlrLgoKSHVpPyBJJ20gcHJldHR5IHN1cmUg
-TUlYRURNQVAgc3RvcHMgZ3VwIGFzIHdlbGwuIE90aGVyd2lzZSB3ZSB3b3VsZCBoYXZlIAphbHJl
-YWR5IHNlZW4gdG9ucyBvZiBwcm9ibGVtcyB3aXRoIHRoZSBwYWdlIGNhY2hlLgoKUmVnYXJkcywK
-Q2hyaXN0aWFuLgoKPiBDaHJpc3RpYW4sIGRvIHdlIG5lZWQgdG8gcGF0Y2ggdGhpcyB1cCwgYW5k
-IG1heWJlIGZpeCB1cCB0dG0gZmF1bHQKPiBoYW5kbGVyIHRvIHVzZSBpb19tYXBwaW5nIHNvIHRo
-ZSB2bV9pbnNlcnRfcGZuIHN0dWZmIGlzIGZhc3Q/Cj4gLURhbmllbAoKX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJ
-bnRlbC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnL21haWxtYW4vbGlzdGluZm8vaW50ZWwtZ2Z4Cg==
+Hi Dave and Daniel,
+
+Here goes drm-intel-next-fixes-2021-02-25:
+
+A fix for color format check from Ville, plus the re-enable of -Wuninitiali=
+zed
+from Nathan, and the GVT fixes including fixes for ww locking, cmd parser a=
+nd
+a general cleanup of dev_priv->gt.
+
+Thanks,
+Rodrigo.
+
+The following changes since commit 81ce8f04aa96f7f6cae05770f68b5d15be91f5a2:
+
+  drm/i915/gt: Correct surface base address for renderclear (2021-02-17 06:=
+19:04 -0500)
+
+are available in the Git repository at:
+
+  git://anongit.freedesktop.org/drm/drm-intel tags/drm-intel-next-fixes-202=
+1-02-25
+
+for you to fetch changes up to ed428ffc28521b9f1b6a71584d1875318a122859:
+
+  drm/i915: Nuke INTEL_OUTPUT_FORMAT_INVALID (2021-02-23 09:38:14 -0500)
+
+----------------------------------------------------------------
+A fix for color format check from Ville, plus the re-enable of -Wuninitiali=
+zed
+from Nathan, and the GVT fixes including fixes for ww locking, cmd parser a=
+nd
+a general cleanup of dev_priv->gt.
+
+----------------------------------------------------------------
+Chris Wilson (2):
+      drm/i915/gvt: Parse default state to update reg whitelist
+      drm/i915/gvt: Purge dev_priv->gt
+
+Nathan Chancellor (1):
+      drm/i915: Enable -Wuninitialized
+
+Rodrigo Vivi (1):
+      Merge tag 'gvt-next-fixes-2021-02-22' of https://github.com/intel/gvt=
+-linux into drm-intel-next-fixes
+
+Ville Syrj=E4l=E4 (1):
+      drm/i915: Nuke INTEL_OUTPUT_FORMAT_INVALID
+
+Zhi Wang (1):
+      drm/i915/gvt: Introduce per object locking in GVT scheduler.
+
+ drivers/gpu/drm/i915/Makefile                      |  1 -
+ drivers/gpu/drm/i915/display/intel_crtc.c          |  1 -
+ drivers/gpu/drm/i915/display/intel_display.c       |  3 +-
+ drivers/gpu/drm/i915/display/intel_display_types.h |  1 -
+ drivers/gpu/drm/i915/gvt/cmd_parser.c              | 93 +++++-------------=
+----
+ drivers/gpu/drm/i915/gvt/execlist.c                |  8 +-
+ drivers/gpu/drm/i915/gvt/scheduler.c               | 52 +++++++++---
+ 7 files changed, 65 insertions(+), 94 deletions(-)
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
