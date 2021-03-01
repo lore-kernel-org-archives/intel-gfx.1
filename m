@@ -2,55 +2,72 @@ Return-Path: <SRS0=Mptj=H7=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-0.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8B0E5C433DB
-	for <intel-gfx@archiver.kernel.org>; Mon,  1 Mar 2021 14:10:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7F282C433E0
+	for <intel-gfx@archiver.kernel.org>; Mon,  1 Mar 2021 14:52:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4DDE964D73
-	for <intel-gfx@archiver.kernel.org>; Mon,  1 Mar 2021 14:10:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4DDE964D73
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linuxfoundation.org
+	by mail.kernel.org (Postfix) with ESMTPS id 2259A64DEF
+	for <intel-gfx@archiver.kernel.org>; Mon,  1 Mar 2021 14:52:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2259A64DEF
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D24ED6E5BB;
-	Mon,  1 Mar 2021 14:10:17 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F289A6E5BB
- for <intel-gfx@lists.freedesktop.org>; Mon,  1 Mar 2021 14:10:16 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 6528D64D99;
- Mon,  1 Mar 2021 14:10:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1614607816;
- bh=MpORY1LSS6duWPJ6gsbDFWyR60Ty4kPP2cIOqbGO5xE=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=EhiRmv9XuCYUsjCgHNTx9OZEKlrYso8t1YBo2T+GSndID3VDaP4GpDbIp+Rn1gi+o
- R+HUWULG4kDTQKcddGOAyx6U++EZpjGoxncBeFS7iDqr2aaKx+sW3tMNubFjFkcbvY
- GqoGg2FylKbs0OSHYauax4haOf2rbvpXrrxwwiQs=
-Date: Mon, 1 Mar 2021 15:10:13 +0100
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Hans de Goede <hdegoede@redhat.com>
-Message-ID: <YDz1xcbN050kIR6P@kroah.com>
-References: <161282685855.9448.10484374241892252440@build.alporthouse.com>
- <f1070486-891a-8ec0-0390-b9aeb03178ce@redhat.com>
- <161291205642.6673.10994709665368036431@build.alporthouse.com>
- <02fd493c-957f-890d-d0ad-ebd4119f55f2@redhat.com>
- <161296131275.7731.862746142230006325@build.alporthouse.com>
- <8f550b67-2c7c-c726-09d1-dc8842152974@redhat.com>
- <161304059194.7731.17263409378570191651@build.alporthouse.com>
- <e00f5813-37c6-52e7-4fd3-691be9d062d9@redhat.com>
- <96614fc1-c92d-1532-fd92-beb19e490075@redhat.com>
- <YCqEs8FaSBukRcaZ@kroah.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7675389D64;
+	Mon,  1 Mar 2021 14:52:13 +0000 (UTC)
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [IPv6:2a00:1450:4864:20::32b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6751C6E581
+ for <intel-gfx@lists.freedesktop.org>; Mon,  1 Mar 2021 10:11:17 +0000 (UTC)
+Received: by mail-wm1-x32b.google.com with SMTP id l22so3351794wme.1
+ for <intel-gfx@lists.freedesktop.org>; Mon, 01 Mar 2021 02:11:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=MX15dBiXZcWyzGAvFkLUhEhdCV72/Xas5u1znK0dMvo=;
+ b=rz8TKO5aIm0lGNGLoIJ6g2LZ6mkBp/InvHapV2RQ56HPWwABOPTeN1hP9F6GW3abf1
+ msm/oDG8qqAN5B1Ol/NSv2NeilnG6cZN3qlkZ+zAb7ui4faJhHUZRZ53IY58qPyWYx5M
+ 5xtauoX7zVnWWHfg5oIAbYClCOmd3L/EXiezSG1CaeHx+l6rI9g2X4XqJX0sRQfLS+Wj
+ QvzUmwMGuGQymH2WuaWea1J4sswrjU5BT+ixrk/UCruJZj9GJnXTSaLpABi2xWhtKuzU
+ BzzFK6yM68L3aV9NcbN3T794EVrwrA4W1a22UzWXCgUH5wGbgCfEK5kZr59J1wN9rD1G
+ Vtlw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=MX15dBiXZcWyzGAvFkLUhEhdCV72/Xas5u1znK0dMvo=;
+ b=Jfu3+fNl4HJV59nEZw1XajpDoU8t5Sqdk7ix9qNC+kGt0GgKP4Pt95HFA/sKgX55tx
+ Lgp7XZ0Ab+ejoGbWp0BsMOty8Eg7hG28fJ7zkwMBakx/0MoNloCsSpVhv/vMnKNndZAx
+ F7lTLa69/18VYBKmsqX+OI4Snan9IMwKCRYyNWDFhEtZ6IAX/1XqdpYfkE6+DDEBK+RM
+ Dw910qgBRlYRhu7wOqa1eunzZLKuBJRuaJgyfwk9RjEjdIZA3sF+vZ3sszasWSwjdbLJ
+ TMA1/qy+nVGlM3dY1NBOEEIM2zxZmnQOOFo8dxCjOd9aFCJ8tY1stlptx4VER1/c2o6U
+ G8Wg==
+X-Gm-Message-State: AOAM530qEoTj4pWTTSAO1gc123K11q2FfX35ZXtB+BziFsXAsFvduNG8
+ /mwnCVbzDxXXXqcMnsz7ENaiZoPlxuw=
+X-Google-Smtp-Source: ABdhPJylH92j0+/cB/cJVh9sPvVbryZ/lnJ8NjoeB/vnuY9rnQ4t8z2WXNlKjurEyhPUUNxYtyJ4qw==
+X-Received: by 2002:a1c:7301:: with SMTP id d1mr14910413wmb.33.1614593476136; 
+ Mon, 01 Mar 2021 02:11:16 -0800 (PST)
+Received: from archlinux.localnet (80.142.94.90.dynamic.jazztel.es.
+ [90.94.142.80])
+ by smtp.gmail.com with ESMTPSA id l15sm8530242wme.43.2021.03.01.02.11.14
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 01 Mar 2021 02:11:15 -0800 (PST)
+From: Diego Calleja <diegocg@gmail.com>
+To: Greg KH <gregkh@linuxfoundation.org>
+Date: Mon, 01 Mar 2021 11:11:13 +0100
+Message-ID: <1969510.QSeQnKm9EC@archlinux>
+In-Reply-To: <YDyvNoiRAQwT4boR@kroah.com>
+References: <3423617.kz1aARBMGD@archlinux> <1911334.sV3ZJath2r@archlinux>
+ <YDyvNoiRAQwT4boR@kroah.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <YCqEs8FaSBukRcaZ@kroah.com>
-Subject: Re: [Intel-gfx] [5.10.y regression] i915 clear-residuals mitigation
- is causing gfx issues
+X-Mailman-Approved-At: Mon, 01 Mar 2021 14:52:13 +0000
+Subject: Re: [Intel-gfx] -stable regression in Intel graphics,
+ introduced in Linux 5.10.9
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,106 +80,43 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx <intel-gfx@lists.freedesktop.org>, stable@vger.kernel.org,
- Chris Wilson <chris@chris-wilson.co.uk>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: intel-gfx@lists.freedesktop.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Feb 15, 2021 at 03:26:59PM +0100, Greg Kroah-Hartman wrote:
-> On Sun, Feb 14, 2021 at 05:00:44PM +0100, Hans de Goede wrote:
-> > Hi,
-> > 
-> > On 2/11/21 1:26 PM, Hans de Goede wrote:
-> > > Hi,
-> > > 
-> > > On 2/11/21 11:49 AM, Chris Wilson wrote:
-> > >> Quoting Hans de Goede (2021-02-11 10:36:13)
-> > >>> Hi,
-> > >>>
-> > >>> On 2/10/21 1:48 PM, Chris Wilson wrote:
-> > >>>> Quoting Hans de Goede (2021-02-10 10:37:19)
-> > >>>>> Hi,
-> > >>>>>
-> > >>>>> On 2/10/21 12:07 AM, Chris Wilson wrote:
-> > >>>>>> Quoting Hans de Goede (2021-02-09 11:46:46)
-> > >>>>>>> Hi,
-> > >>>>>>>
-> > >>>>>>> On 2/9/21 12:27 AM, Chris Wilson wrote:
-> > >>>>>>>> Quoting Hans de Goede (2021-02-08 20:38:58)
-> > >>>>>>>>> Hi All,
-> > >>>>>>>>>
-> > >>>>>>>>> We (Fedora) have been receiving reports from multiple users about gfx issues / glitches
-> > >>>>>>>>> stating with 5.10.9. All reporters are users of Ivy Bridge / Haswell iGPUs and all
-> > >>>>>>>>> reporters report that adding i915.mitigations=off to the cmdline fixes things, see:
-> > >>>>>>>>
-> > >>>>>>>> I tried to reproduce this on the w/e on hsw-gt1, to no avail; and piglit
-> > >>>>>>>> did not report any differences with and without mitigations. I have yet
-> > >>>>>>>> to test other platforms. So I don't yet have an alternative.
-> > >>>>>>>
-> > >>>>>>> Note the original / first reporter of:
-> > >>>>>>>
-> > >>>>>>> https://bugzilla.redhat.com/show_bug.cgi?id=1925346
-> > >>>>>>>
-> > >>>>>>> Is using hsw-gt2, so it seems that the problem is not just the enabling of
-> > >>>>>>> the mitigations on ivy-bridge / bay-trail but that there actually is
-> > >>>>>>> a regression on devices where the WA worked fine before...
-> > >>>>>>
-> > >>>>>> There have been 3 crashes uploaded related to v5.10.9, and in all 3
-> > >>>>>> cases the ACTHD has been in the first page. This strongly suggests that
-> > >>>>>> the w/a is scribbling over address 0. And there's then a very good
-> > >>>>>> chance that
-> > >>>>>>
-> > >>>>>> commit 29d35b73ead4e41aa0d1a954c9bfbdce659ec5d6
-> > >>>>>> Author: Chris Wilson <chris@chris-wilson.co.uk>
-> > >>>>>> Date:   Mon Jan 25 12:50:33 2021 +0000
-> > >>>>>>
-> > >>>>>>     drm/i915/gt: Always try to reserve GGTT address 0x0
-> > >>>>>>     
-> > >>>>>>     commit 489140b5ba2e7cc4b853c29e0591895ddb462a82 upstream.
-> > >>>>>>
-> > >>>>>> in v5.10.14 is sufficient to hide the issue.
-> > >>>>>
-> > >>>>> That one actually is already in v5.10.13 and the various reportes of these
-> > >>>>> issues have already tested 5.10.13. They did mention that it took longer
-> > >>>>> to reproduce with 5.10.13 then with 5.10.10, but that could also be due to:
-> > >>>>>
-> > >>>>> "drm/i915/gt: Clear CACHE_MODE prior to clearing residuals"
-> > >>>>> https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?h=linux-5.10.y&id=520d05a77b2866eb4cb9e548e1d8c8abcfe60ec5
-> > >>>>
-> > >>>> Started looking for scratch page overwrites, and found this little gem:
-> > >>>> https://patchwork.freedesktop.org/patch/420436/?series=86947&rev=1
-> > >>>>
-> > >>>> Looks promising wrt the cause of overwriting random addresses -- and
-> > >>>> I hope that is the explanation for the glitches/hangs. I have a hsw gt2
-> > >>>> with gnome shell, piglit is happy, but I suspect it is all due to
-> > >>>> placement and so will only occur at random.
-> > >>>
-> > >>> If you can give me a list of commits to cherry-pick then I can prepare
-> > >>> a Fedora 5.10.y kernel which those added for the group of Fedora users
-> > >>> who are hitting this to test.
-> > >>
-> > >> e627d5923cae ("drm/i915/gt: One more flush for Baytrail clear residuals")
-> > >> d30bbd62b1bf ("drm/i915/gt: Flush before changing register state")
-> > >> 1914911f4aa0 ("drm/i915/gt: Correct surface base address for renderclear")
-> > > 
-> > > Thanks, the test-kernel is building now. I will let you know when I have
-> > > heard back from the Fedora users (this will likely take 1-2 days).
-> > 
-> > I've heard back from 2 of the reporters who were seeing issues with 5.10.9+
-> > 
-> > And I'm happy to report 5.10.15 + the 3 commits mentioned above cherry-picked
-> > on top fixes the graphics glitches for them.
-> > 
-> > So if we can get these 3 commits into 5.10.y and 5.11.y then this should be
-> > resolved.
-> 
-> Great!
-> 
-> Hopefully these will show up in Linus's tree soon...
+El lunes, 1 de marzo de 2021 10:09:10 (CET) Greg KH escribi=F3:
+> I do not see all 3 commits in Linus's tree already, am I missing
+> something?
+> =
 
-I think I have the needed 3 commits now.
+> What are the git ids that you are looking at?
+
+I used grep on the git log, the commits are there but seem to have differen=
+t commit ids (except for the first one)
+
+commit e627d5923cae93fa4188f4c4afba6486169a1337
+Author: Chris Wilson <chris@chris-wilson.co.uk>
+Date:   Tue Jan 19 11:07:57 2021 +0000
+
+    drm/i915/gt: One more flush for Baytrail clear residuals
+
+
+commit d5109f739c9f14a3bda249cb48b16de1065932f0
+Author: Chris Wilson <chris@chris-wilson.co.uk>
+Date:   Mon Jan 25 22:02:47 2021 +0000
+
+    drm/i915/gt: Flush before changing register state
+
+
+commit 81ce8f04aa96f7f6cae05770f68b5d15be91f5a2
+Author: Chris Wilson <chris@chris-wilson.co.uk>
+Date:   Wed Feb 10 12:27:28 2021 +0000
+
+    drm/i915/gt: Correct surface base address for renderclear
+
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
