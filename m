@@ -2,71 +2,52 @@ Return-Path: <SRS0=Mptj=H7=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-15.3 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AD911C433E0
-	for <intel-gfx@archiver.kernel.org>; Mon,  1 Mar 2021 09:21:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 27300C433DB
+	for <intel-gfx@archiver.kernel.org>; Mon,  1 Mar 2021 09:23:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4B44A64D9E
-	for <intel-gfx@archiver.kernel.org>; Mon,  1 Mar 2021 09:21:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4B44A64D9E
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=shipmail.org
+	by mail.kernel.org (Postfix) with ESMTPS id BC09464D9E
+	for <intel-gfx@archiver.kernel.org>; Mon,  1 Mar 2021 09:23:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BC09464D9E
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC2A26E526;
-	Mon,  1 Mar 2021 09:21:23 +0000 (UTC)
-Received: from ste-pvt-msa1.bahnhof.se (ste-pvt-msa1.bahnhof.se
- [213.80.101.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C7C1189FD9;
- Mon,  1 Mar 2021 09:21:21 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by ste-pvt-msa1.bahnhof.se (Postfix) with ESMTP id CDE5D3F3A1;
- Mon,  1 Mar 2021 10:21:19 +0100 (CET)
-Authentication-Results: ste-pvt-msa1.bahnhof.se; dkim=pass (1024-bit key;
- unprotected) header.d=shipmail.org header.i=@shipmail.org header.b=pTwKGOoe; 
- dkim-atps=neutral
-X-Virus-Scanned: Debian amavisd-new at bahnhof.se
-Received: from ste-pvt-msa1.bahnhof.se ([127.0.0.1])
- by localhost (ste-pvt-msa1.bahnhof.se [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id tcU_ueMgXl_O; Mon,  1 Mar 2021 10:21:19 +0100 (CET)
-Received: by ste-pvt-msa1.bahnhof.se (Postfix) with ESMTPA id AFBB83F393;
- Mon,  1 Mar 2021 10:21:16 +0100 (CET)
-Received: from [10.249.254.148] (unknown [192.198.151.43])
- by mail1.shipmail.org (Postfix) with ESMTPSA id E9C783600BA;
- Mon,  1 Mar 2021 10:21:14 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=shipmail.org; s=mail;
- t=1614590476; bh=v/6gYa+I8Tt8B9P3C8K3rFhm+y2ThcWR/NttZk59Mig=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=pTwKGOoeZY6eQEETMEQFzNBP9mngHUBwdZttR6CPWTgPJ2KDTyLMNuMQIRYHqdH3k
- QVkSi3bBIaNdTDnlUwK6I5ZGdqMl3XtNuurr+MqgJmryh5kAKP/lI0iA7Ih0c4cW74
- ECt01QAIkTQUiQU988RWC/zJVXRzMqBUVNpyULPo=
-To: Daniel Vetter <daniel@ffwll.ch>
-References: <f43311c8-a02a-1a29-a53b-88e599c92187@shipmail.org>
- <CAKMK7uE2UrOruQPWG9KPBQ781f9Bq9xpVRNserAC9BZ2VzDutQ@mail.gmail.com>
- <b30dacb0-edea-0a3c-6163-0f329e58ba61@gmail.com>
- <YDd/hlf8uM3+lxhr@phenom.ffwll.local>
- <CAKMK7uFezcV52oTZbHeve2HFFATeCGyK6zTT6nE1KVP69QRr0A@mail.gmail.com>
- <61c5c371-debe-4ca0-a067-ce306e51ef88@shipmail.org>
- <CAKMK7uFUiJyMP0E5JUzMOx=NyMW+ZObGsaFOh409x0LOvGbnzg@mail.gmail.com>
- <0d69bd00-e673-17cf-c9e3-ccbcd52649a6@shipmail.org>
- <CAKMK7uE=8+hj-MUFXHFoG_hAbz_Obi8a99+DE5_d1K+KZaG+tQ@mail.gmail.com>
- <b367b7e8-f202-4d23-d672-a5c9bc7fcec1@shipmail.org>
- <YDyuYk8x5QeX83s6@phenom.ffwll.local>
-From: =?UTF-8?Q?Thomas_Hellstr=c3=b6m_=28Intel=29?= <thomas_os@shipmail.org>
-Message-ID: <be8f2503-ffcb-eb58-83be-26fa0fc1837a@shipmail.org>
-Date: Mon, 1 Mar 2021 10:21:13 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 50FC96E526;
+	Mon,  1 Mar 2021 09:23:13 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B68496E526
+ for <intel-gfx@lists.freedesktop.org>; Mon,  1 Mar 2021 09:23:12 +0000 (UTC)
+IronPort-SDR: /3tJ0Y1BWx39CShzxD0MeXYccjYIKPZpLcMeGNfHNGArH/JHjVTo+l2YjwsbcP8J/2T69asUzW
+ 00m6OYbMEV4g==
+X-IronPort-AV: E=McAfee;i="6000,8403,9909"; a="206011700"
+X-IronPort-AV: E=Sophos;i="5.81,215,1610438400"; d="scan'208";a="206011700"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Mar 2021 01:23:08 -0800
+IronPort-SDR: 3IXf9J47IAM9NPN+vIZu+5v2MV7mEZVlqe9BH6jqA0l6APCra/DOsjPWew3bRaONvpHlq0tCWk
+ LwDGwStUDItg==
+X-IronPort-AV: E=Sophos;i="5.81,215,1610438400"; d="scan'208";a="595358886"
+Received: from unknown (HELO intel.com) ([10.237.72.91])
+ by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Mar 2021 01:23:07 -0800
+Date: Mon, 1 Mar 2021 11:24:54 +0200
+From: "Lisovskiy, Stanislav" <stanislav.lisovskiy@intel.com>
+To: Ville Syrjala <ville.syrjala@linux.intel.com>
+Message-ID: <20210301092454.GC22174@intel.com>
+References: <20210226153204.1270-1-ville.syrjala@linux.intel.com>
+ <20210226153204.1270-7-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
-In-Reply-To: <YDyuYk8x5QeX83s6@phenom.ffwll.local>
-Content-Language: en-US
-Subject: Re: [Intel-gfx] [Linaro-mm-sig] [PATCH 1/2] dma-buf: Require
- VM_PFNMAP vma for mmap
+Content-Disposition: inline
+In-Reply-To: <20210226153204.1270-7-ville.syrjala@linux.intel.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+Subject: Re: [Intel-gfx] [PATCH 6/7] drm/i915: Check tgl+ SAGV watermarks
+ properly
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,75 +60,231 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Matthew Wilcox <willy@infradead.org>,
- "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
- Jason Gunthorpe <jgg@ziepe.ca>, John Stultz <john.stultz@linaro.org>,
- DRI Development <dri-devel@lists.freedesktop.org>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
- Daniel Vetter <daniel.vetter@intel.com>,
- Suren Baghdasaryan <surenb@google.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: intel-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Ck9uIDMvMS8yMSAxMDowNSBBTSwgRGFuaWVsIFZldHRlciB3cm90ZToKPiBPbiBNb24sIE1hciAw
-MSwgMjAyMSBhdCAwOTozOTo1M0FNICswMTAwLCBUaG9tYXMgSGVsbHN0csO2bSAoSW50ZWwpIHdy
-b3RlOgo+PiBIaSwKPj4KPj4gT24gMy8xLzIxIDk6MjggQU0sIERhbmllbCBWZXR0ZXIgd3JvdGU6
-Cj4+PiBPbiBTYXQsIEZlYiAyNywgMjAyMSBhdCA5OjA2IEFNIFRob21hcyBIZWxsc3Ryw7ZtIChJ
-bnRlbCkKPj4+IDx0aG9tYXNfb3NAc2hpcG1haWwub3JnPiB3cm90ZToKPj4+PiBPbiAyLzI2LzIx
-IDI6MjggUE0sIERhbmllbCBWZXR0ZXIgd3JvdGU6Cj4+Pj4+IFNvIEkgdGhpbmsgaXQgc3RvcHMg
-Z3VwLiBCdXQgSSBoYXZlbid0IHZlcmlmaWVkIGF0IGFsbC4gV291bGQgYmUgZ29vZAo+Pj4+PiBp
-ZiBDaHJpc3RpYW4gY2FuIGNoZWNrIHRoaXMgd2l0aCBzb21lIGRpcmVjdCBpbyB0byBhIGJ1ZmZl
-ciBpbiBzeXN0ZW0KPj4+Pj4gbWVtb3J5Lgo+Pj4+IEhtbSwKPj4+Pgo+Pj4+IERvY3MgKGFnYWlu
-IHZtX25vcm1hbF9wYWdlKCkgc2F5KQo+Pj4+Cj4+Pj4gICAgICogVk1fTUlYRURNQVAgbWFwcGlu
-Z3MgY2FuIGxpa2V3aXNlIGNvbnRhaW4gbWVtb3J5IHdpdGggb3Igd2l0aG91dCAic3RydWN0Cj4+
-Pj4gICAgICogcGFnZSIgYmFja2luZywgaG93ZXZlciB0aGUgZGlmZmVyZW5jZSBpcyB0aGF0IF9h
-bGxfIHBhZ2VzIHdpdGggYSBzdHJ1Y3QKPj4+PiAgICAgKiBwYWdlICh0aGF0IGlzLCB0aG9zZSB3
-aGVyZSBwZm5fdmFsaWQgaXMgdHJ1ZSkgYXJlIHJlZmNvdW50ZWQgYW5kCj4+Pj4gY29uc2lkZXJl
-ZAo+Pj4+ICAgICAqIG5vcm1hbCBwYWdlcyBieSB0aGUgVk0uIFRoZSBkaXNhZHZhbnRhZ2UgaXMg
-dGhhdCBwYWdlcyBhcmUgcmVmY291bnRlZAo+Pj4+ICAgICAqICh3aGljaCBjYW4gYmUgc2xvd2Vy
-IGFuZCBzaW1wbHkgbm90IGFuIG9wdGlvbiBmb3Igc29tZSBQRk5NQVAKPj4+PiB1c2VycykuIFRo
-ZQo+Pj4+ICAgICAqIGFkdmFudGFnZSBpcyB0aGF0IHdlIGRvbid0IGhhdmUgdG8gZm9sbG93IHRo
-ZSBzdHJpY3QgbGluZWFyaXR5IHJ1bGUgb2YKPj4+PiAgICAgKiBQRk5NQVAgbWFwcGluZ3MgaW4g
-b3JkZXIgdG8gc3VwcG9ydCBDT1dhYmxlIG1hcHBpbmdzLgo+Pj4+Cj4+Pj4gYnV0IGl0J3MgdHJ1
-ZSBfX3ZtX2luc2VydF9taXhlZCgpIGVuZHMgdXAgaW4gdGhlIGluc2VydF9wZm4oKSBwYXRoLCBz
-bwo+Pj4+IHRoZSBhYm92ZSBpc24ndCByZWFsbHkgdHJ1ZSwgd2hpY2ggbWFrZXMgbWUgd29uZGVy
-IGlmIGFuZCBpbiB0aGF0IGNhc2UKPj4+PiB3aHkgdGhlcmUgY291bGQgYW55IGxvbmdlciBldmVy
-IGJlIGEgc2lnbmlmaWNhbnQgcGVyZm9ybWFuY2UgZGlmZmVyZW5jZQo+Pj4+IGJldHdlZW4gTUlY
-RURNQVAgYW5kIFBGTk1BUC4KPj4+IFllYWggaXQncyBkZWZpbml0ZWx5IGNvbmZ1c2luZy4gSSBn
-dWVzcyBJJ2xsIGhhY2sgdXAgYSBwYXRjaCBhbmQgc2VlCj4+PiB3aGF0IHN0aWNrcy4KPj4+Cj4+
-Pj4gQlRXIHJlZ2FyZGluZyB0aGUgVFRNIGh1Z2VwdGVzLCBJIGRvbid0IHRoaW5rIHdlIGV2ZXIg
-bGFuZGVkIHRoYXQgZGV2bWFwCj4+Pj4gaGFjaywgc28gdGhleSBhcmUgKGZvciB0aGUgbm9uLWd1
-cCBjYXNlKSByZWx5aW5nIG9uCj4+Pj4gdm1hX2lzX3NwZWNpYWxfaHVnZSgpLiBGb3IgdGhlIGd1
-cCBjYXNlLCBJIHRoaW5rIHRoZSBidWcgaXMgc3RpbGwgdGhlcmUuCj4+PiBNYXliZSB0aGVyZSdz
-IGFub3RoZXIgZGV2bWFwIGhhY2ssIGJ1dCB0aGUgdHRtX3ZtX2luc2VydCBmdW5jdGlvbnMgZG8K
-Pj4+IHVzZSBQRk5fREVWIGFuZCBhbGwgdGhhdC4gQW5kIEkgdGhpbmsgdGhhdCBzdG9wcyBndXBf
-ZmFzdCBmcm9tIHRyeWluZwo+Pj4gdG8gZmluZCB0aGUgdW5kZXJseWluZyBwYWdlLgo+Pj4gLURh
-bmllbAo+PiBIbW0gcGVyaGFwcyBpdCBtaWdodCwgYnV0IEkgZG9uJ3QgdGhpbmsgc28uIFRoZSBm
-aXggSSB0cmllZCBvdXQgd2FzIHRvIHNldAo+Pgo+PiBQRk5fREVWIHwgUEZOX01BUCBmb3IgaHVn
-ZSBQVEVzIHdoaWNoIGNhdXNlcyBwZm5fZGV2bWFwKCkgdG8gYmUgdHJ1ZSwgYW5kCj4+IHRoZW4K
-Pj4KPj4gZm9sbG93X2Rldm1hcF9wbWQoKS0+Z2V0X2Rldl9wYWdlbWFwKCkgd2hpY2ggcmV0dXJu
-cyBOVUxMIGFuZCBndXBfZmFzdCgpCj4+IGJhY2tzIG9mZiwKPj4KPj4gaW4gdGhlIGVuZCB0aGF0
-IHdvdWxkIG1lYW4gc2V0dGluZyBpbiBzdG9uZSB0aGF0ICJpZiB0aGVyZSBpcyBhIGh1Z2UgZGV2
-bWFwCj4+IHBhZ2UgdGFibGUgZW50cnkgZm9yIHdoaWNoIHdlIGhhdmVuJ3QgcmVnaXN0ZXJlZCBh
-bnkgZGV2bWFwIHN0cnVjdCBwYWdlcwo+PiAoZ2V0X2Rldl9wYWdlbWFwIHJldHVybnMgTlVMTCks
-IHdlIHNob3VsZCB0cmVhdCB0aGF0IGFzIGEgInNwZWNpYWwiIGh1Z2UKPj4gcGFnZSB0YWJsZSBl
-bnRyeSIuCj4+Cj4+ICBGcm9tIHdoYXQgSSBjYW4gdGVsbCwgYWxsIGNvZGUgY2FsbGluZyBnZXRf
-ZGV2X3BhZ2VtYXAoKSBhbHJlYWR5IGRvZXMgdGhhdCwKPj4gaXQncyBqdXN0IGEgcXVlc3Rpb24g
-b2YgZ2V0dGluZyBpdCBhY2NlcHRlZCBhbmQgZm9ybWFsaXppbmcgaXQuCj4gT2ggSSB0aG91Z2h0
-IHRoYXQncyBhbHJlYWR5IGhvdyBpdCB3b3Jrcywgc2luY2UgSSBkaWRuJ3Qgc3BvdCBhbnl0aGlu
-Zwo+IGVsc2UgdGhhdCB3b3VsZCBibG9jayBndXBfZmFzdCBmcm9tIGZhbGxpbmcgb3Zlci4gSSBn
-dWVzcyByZWFsbHkgd291bGQKPiBuZWVkIHNvbWUgdGVzdGNhc2VzIHRvIG1ha2Ugc3VyZSBkaXJl
-Y3QgaS9vICh0aGF0J3MgdGhlIGVhc2llc3QgdG8gdGVzdCkKPiBmYWlscyBsaWtlIHdlIGV4cGVj
-dC4KClllYWgsIElJUkMgdGhlICJ8IFBGTl9NQVAiIGlzIHRoZSBtaXNzaW5nIHBpZWNlIGZvciBU
-VE0gaHVnZSBwdGVzLiAKT3RoZXJ3aXNlIHBtZF9kZXZtYXAoKSB3aWxsIG5vdCByZXR1cm4gdHJ1
-ZSBhbmQgc2luY2UgdGhlcmUgaXMgbm8gCnBtZF9zcGVjaWFsKCkgdGhpbmdzIGJyZWFrLgoKL1Ro
-b21hcwoKCgo+IC1EYW5pZWwKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRlbC1nZnhAbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vaW50
-ZWwtZ2Z4Cg==
+On Fri, Feb 26, 2021 at 05:32:03PM +0200, Ville Syrjala wrote:
+> From: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
+> =
+
+> We know which WM0 (normal vs. SAGV) we supposedly programmed
+> into the hardware, so just check against that instead of accepting
+> either watermark as valid.
+> =
+
+> Cc: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
+> Signed-off-by: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
+
+Reviewed-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
+
+> ---
+>  drivers/gpu/drm/i915/display/intel_display.c | 88 +++++++++-----------
+>  drivers/gpu/drm/i915/intel_pm.c              |  4 +-
+>  drivers/gpu/drm/i915/intel_pm.h              |  5 ++
+>  3 files changed, 47 insertions(+), 50 deletions(-)
+> =
+
+> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/d=
+rm/i915/display/intel_display.c
+> index e34e5a9da5c1..e2ef31a93407 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display.c
+> +++ b/drivers/gpu/drm/i915/display/intel_display.c
+> @@ -9377,41 +9377,40 @@ static void verify_wm_state(struct intel_crtc *cr=
+tc,
+>  =
+
+>  	/* planes */
+>  	for_each_universal_plane(dev_priv, pipe, plane) {
+> -		struct skl_plane_wm *hw_plane_wm, *sw_plane_wm;
+> -
+> -		hw_plane_wm =3D &hw->wm.planes[plane];
+> -		sw_plane_wm =3D &sw_wm->planes[plane];
+> +		const struct skl_wm_level *hw_wm_level, *sw_wm_level;
+>  =
+
+>  		/* Watermarks */
+>  		for (level =3D 0; level <=3D max_level; level++) {
+> -			if (skl_wm_level_equals(&hw_plane_wm->wm[level],
+> -						&sw_plane_wm->wm[level]) ||
+> -			    (level =3D=3D 0 && skl_wm_level_equals(&hw_plane_wm->wm[level],
+> -							       &sw_plane_wm->sagv.wm0)))
+> +			hw_wm_level =3D &hw->wm.planes[plane].wm[level];
+> +			sw_wm_level =3D skl_plane_wm_level(sw_wm, plane, level);
+> +
+> +			if (skl_wm_level_equals(hw_wm_level, sw_wm_level))
+>  				continue;
+>  =
+
+>  			drm_err(&dev_priv->drm,
+>  				"mismatch in WM pipe %c plane %d level %d (expected e=3D%d b=3D%u l=
+=3D%u, got e=3D%d b=3D%u l=3D%u)\n",
+>  				pipe_name(pipe), plane + 1, level,
+> -				sw_plane_wm->wm[level].plane_en,
+> -				sw_plane_wm->wm[level].plane_res_b,
+> -				sw_plane_wm->wm[level].plane_res_l,
+> -				hw_plane_wm->wm[level].plane_en,
+> -				hw_plane_wm->wm[level].plane_res_b,
+> -				hw_plane_wm->wm[level].plane_res_l);
+> +				sw_wm_level->plane_en,
+> +				sw_wm_level->plane_res_b,
+> +				sw_wm_level->plane_res_l,
+> +				hw_wm_level->plane_en,
+> +				hw_wm_level->plane_res_b,
+> +				hw_wm_level->plane_res_l);
+>  		}
+>  =
+
+> -		if (!skl_wm_level_equals(&hw_plane_wm->trans_wm,
+> -					 &sw_plane_wm->trans_wm)) {
+> +		hw_wm_level =3D &hw->wm.planes[plane].trans_wm;
+> +		sw_wm_level =3D skl_plane_trans_wm(sw_wm, plane);
+> +
+> +		if (!skl_wm_level_equals(hw_wm_level, sw_wm_level)) {
+>  			drm_err(&dev_priv->drm,
+>  				"mismatch in trans WM pipe %c plane %d (expected e=3D%d b=3D%u l=3D%=
+u, got e=3D%d b=3D%u l=3D%u)\n",
+>  				pipe_name(pipe), plane + 1,
+> -				sw_plane_wm->trans_wm.plane_en,
+> -				sw_plane_wm->trans_wm.plane_res_b,
+> -				sw_plane_wm->trans_wm.plane_res_l,
+> -				hw_plane_wm->trans_wm.plane_en,
+> -				hw_plane_wm->trans_wm.plane_res_b,
+> -				hw_plane_wm->trans_wm.plane_res_l);
+> +				sw_wm_level->plane_en,
+> +				sw_wm_level->plane_res_b,
+> +				sw_wm_level->plane_res_l,
+> +				hw_wm_level->plane_en,
+> +				hw_wm_level->plane_res_b,
+> +				hw_wm_level->plane_res_l);
+>  		}
+>  =
+
+>  		/* DDB */
+> @@ -9434,43 +9433,36 @@ static void verify_wm_state(struct intel_crtc *cr=
+tc,
+>  	 * once the plane becomes visible, we can skip this check
+>  	 */
+>  	if (1) {
+> -		struct skl_plane_wm *hw_plane_wm, *sw_plane_wm;
+> -
+> -		hw_plane_wm =3D &hw->wm.planes[PLANE_CURSOR];
+> -		sw_plane_wm =3D &sw_wm->planes[PLANE_CURSOR];
+> +		const struct skl_wm_level *hw_wm_level, *sw_wm_level;
+>  =
+
+>  		/* Watermarks */
+>  		for (level =3D 0; level <=3D max_level; level++) {
+> -			if (skl_wm_level_equals(&hw_plane_wm->wm[level],
+> -						&sw_plane_wm->wm[level]) ||
+> -			    (level =3D=3D 0 && skl_wm_level_equals(&hw_plane_wm->wm[level],
+> -							       &sw_plane_wm->sagv.wm0)))
+> -				continue;
+> -
+> +			hw_wm_level =3D &hw->wm.planes[PLANE_CURSOR].wm[level];
+> +			sw_wm_level =3D skl_plane_wm_level(sw_wm, PLANE_CURSOR, level);
+>  			drm_err(&dev_priv->drm,
+>  				"mismatch in WM pipe %c cursor level %d (expected e=3D%d b=3D%u l=3D=
+%u, got e=3D%d b=3D%u l=3D%u)\n",
+>  				pipe_name(pipe), level,
+> -				sw_plane_wm->wm[level].plane_en,
+> -				sw_plane_wm->wm[level].plane_res_b,
+> -				sw_plane_wm->wm[level].plane_res_l,
+> -				hw_plane_wm->wm[level].plane_en,
+> -				hw_plane_wm->wm[level].plane_res_b,
+> -				hw_plane_wm->wm[level].plane_res_l);
+> +				sw_wm_level->plane_en,
+> +				sw_wm_level->plane_res_b,
+> +				sw_wm_level->plane_res_l,
+> +				hw_wm_level->plane_en,
+> +				hw_wm_level->plane_res_b,
+> +				hw_wm_level->plane_res_l);
+>  		}
+>  =
+
+> -		if (!skl_wm_level_equals(&hw_plane_wm->trans_wm,
+> -					 &sw_plane_wm->trans_wm) &&
+> -		    !skl_wm_level_equals(&hw_plane_wm->trans_wm,
+> -					 &sw_plane_wm->sagv.trans_wm)) {
+> +		hw_wm_level =3D &hw->wm.planes[PLANE_CURSOR].trans_wm;
+> +		sw_wm_level =3D skl_plane_trans_wm(sw_wm, PLANE_CURSOR);
+> +
+> +		if (!skl_wm_level_equals(hw_wm_level, sw_wm_level)) {
+>  			drm_err(&dev_priv->drm,
+>  				"mismatch in trans WM pipe %c cursor (expected e=3D%d b=3D%u l=3D%u,=
+ got e=3D%d b=3D%u l=3D%u)\n",
+>  				pipe_name(pipe),
+> -				sw_plane_wm->trans_wm.plane_en,
+> -				sw_plane_wm->trans_wm.plane_res_b,
+> -				sw_plane_wm->trans_wm.plane_res_l,
+> -				hw_plane_wm->trans_wm.plane_en,
+> -				hw_plane_wm->trans_wm.plane_res_b,
+> -				hw_plane_wm->trans_wm.plane_res_l);
+> +				sw_wm_level->plane_en,
+> +				sw_wm_level->plane_res_b,
+> +				sw_wm_level->plane_res_l,
+> +				hw_wm_level->plane_en,
+> +				hw_wm_level->plane_res_b,
+> +				hw_wm_level->plane_res_l);
+>  		}
+>  =
+
+>  		/* DDB */
+> diff --git a/drivers/gpu/drm/i915/intel_pm.c b/drivers/gpu/drm/i915/intel=
+_pm.c
+> index 9d9ba63fc395..854ffecd98d9 100644
+> --- a/drivers/gpu/drm/i915/intel_pm.c
+> +++ b/drivers/gpu/drm/i915/intel_pm.c
+> @@ -4745,7 +4745,7 @@ icl_get_total_relative_data_rate(struct intel_atomi=
+c_state *state,
+>  	return total_data_rate;
+>  }
+>  =
+
+> -static const struct skl_wm_level *
+> +const struct skl_wm_level *
+>  skl_plane_wm_level(const struct skl_pipe_wm *pipe_wm,
+>  		   enum plane_id plane_id,
+>  		   int level)
+> @@ -4758,7 +4758,7 @@ skl_plane_wm_level(const struct skl_pipe_wm *pipe_w=
+m,
+>  	return &wm->wm[level];
+>  }
+>  =
+
+> -static const struct skl_wm_level *
+> +const struct skl_wm_level *
+>  skl_plane_trans_wm(const struct skl_pipe_wm *pipe_wm,
+>  		   enum plane_id plane_id)
+>  {
+> diff --git a/drivers/gpu/drm/i915/intel_pm.h b/drivers/gpu/drm/i915/intel=
+_pm.h
+> index 97550cf0b6df..669c8d505677 100644
+> --- a/drivers/gpu/drm/i915/intel_pm.h
+> +++ b/drivers/gpu/drm/i915/intel_pm.h
+> @@ -52,6 +52,11 @@ bool intel_can_enable_sagv(struct drm_i915_private *de=
+v_priv,
+>  			   const struct intel_bw_state *bw_state);
+>  void intel_sagv_pre_plane_update(struct intel_atomic_state *state);
+>  void intel_sagv_post_plane_update(struct intel_atomic_state *state);
+> +const struct skl_wm_level *skl_plane_wm_level(const struct skl_pipe_wm *=
+pipe_wm,
+> +					      enum plane_id plane_id,
+> +					      int level);
+> +const struct skl_wm_level *skl_plane_trans_wm(const struct skl_pipe_wm *=
+pipe_wm,
+> +					      enum plane_id plane_id);
+>  bool skl_wm_level_equals(const struct skl_wm_level *l1,
+>  			 const struct skl_wm_level *l2);
+>  bool skl_ddb_allocation_overlaps(const struct skl_ddb_entry *ddb,
+> -- =
+
+> 2.26.2
+> =
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
