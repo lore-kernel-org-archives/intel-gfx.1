@@ -2,42 +2,51 @@ Return-Path: <SRS0=Mptj=H7=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-15.3 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4D1F0C433DB
-	for <intel-gfx@archiver.kernel.org>; Mon,  1 Mar 2021 09:24:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 60E5DC433E0
+	for <intel-gfx@archiver.kernel.org>; Mon,  1 Mar 2021 09:25:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EE4FD64E09
-	for <intel-gfx@archiver.kernel.org>; Mon,  1 Mar 2021 09:24:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EE4FD64E09
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
+	by mail.kernel.org (Postfix) with ESMTPS id EB96964E01
+	for <intel-gfx@archiver.kernel.org>; Mon,  1 Mar 2021 09:25:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EB96964E01
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 798B66E527;
-	Mon,  1 Mar 2021 09:24:36 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 12D426E526;
- Mon,  1 Mar 2021 09:24:35 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 0AD23A47E2;
- Mon,  1 Mar 2021 09:24:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B2896E526;
+	Mon,  1 Mar 2021 09:25:25 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B0B556E526
+ for <intel-gfx@lists.freedesktop.org>; Mon,  1 Mar 2021 09:25:24 +0000 (UTC)
+IronPort-SDR: pDPb48p7HSQrh9QRr2CQN4/ebayRu78BCyngWvN4cPqbXlSNwSX9ayQ5dzCmk0ReBzZWqvw6Ic
+ tuoh0m+r5tMg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9909"; a="185731446"
+X-IronPort-AV: E=Sophos;i="5.81,215,1610438400"; d="scan'208";a="185731446"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Mar 2021 01:25:23 -0800
+IronPort-SDR: Fer3Zjwle2pSeG+jaeWSfKzkVEuxSERjyDsy5D52uCSt8p+zUz03d4voVj5VhWA4vTtZJ8RpPo
+ J/xBHgb59FwQ==
+X-IronPort-AV: E=Sophos;i="5.81,215,1610438400"; d="scan'208";a="595359423"
+Received: from unknown (HELO intel.com) ([10.237.72.91])
+ by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Mar 2021 01:25:22 -0800
+Date: Mon, 1 Mar 2021 11:27:08 +0200
+From: "Lisovskiy, Stanislav" <stanislav.lisovskiy@intel.com>
+To: Ville Syrjala <ville.syrjala@linux.intel.com>
+Message-ID: <20210301092708.GD22174@intel.com>
+References: <20210226153204.1270-1-ville.syrjala@linux.intel.com>
+ <20210226153204.1270-8-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Christoph Hellwig" <hch@lst.de>
-Date: Mon, 01 Mar 2021 09:24:35 -0000
-Message-ID: <161459067503.9388.12940302789390340941@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20210301083320.943079-1-hch@lst.de>
-In-Reply-To: <20210301083320.943079-1-hch@lst.de>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJBVDogZmFpbHVyZSBmb3Igc2Vy?=
- =?utf-8?q?ies_starting_with_=5B1/2=5D_mm=3A_add_remap=5Fpfn=5Frange=5Fnot?=
- =?utf-8?q?rack?=
+Content-Disposition: inline
+In-Reply-To: <20210226153204.1270-8-ville.syrjala@linux.intel.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+Subject: Re: [Intel-gfx] [PATCH 7/7] drm/i915: Clean up verify_wm_state()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,233 +59,226 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Cc: intel-gfx@lists.freedesktop.org
-Content-Type: multipart/mixed; boundary="===============1974538576=="
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============1974538576==
-Content-Type: multipart/alternative;
- boundary="===============1242021169609386583=="
+On Fri, Feb 26, 2021 at 05:32:04PM +0200, Ville Syrjala wrote:
+> From: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
+> =
 
---===============1242021169609386583==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+> Get rid of the nonsense cursor special case in verify_wm_state()
+> by just iterating through all the planes. And let's use the
+> canonical [PLANE:..] style in the debug prints while at it.
 
-== Series Details ==
+Great move!
 
-Series: series starting with [1/2] mm: add remap_pfn_range_notrack
-URL   : https://patchwork.freedesktop.org/series/87479/
-State : failure
+Reviewed-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
 
-== Summary ==
+> =
 
-CI Bug Log - changes from CI_DRM_9816 -> Patchwork_19735
-====================================================
+> Cc: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
+> Signed-off-by: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
+> ---
+>  drivers/gpu/drm/i915/display/intel_display.c | 88 ++++----------------
+>  drivers/gpu/drm/i915/display/intel_display.h |  5 --
+>  2 files changed, 17 insertions(+), 76 deletions(-)
+> =
 
-Summary
--------
+> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/d=
+rm/i915/display/intel_display.c
+> index e2ef31a93407..e0ecd8eea68d 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display.c
+> +++ b/drivers/gpu/drm/i915/display/intel_display.c
+> @@ -9348,11 +9348,10 @@ static void verify_wm_state(struct intel_crtc *cr=
+tc,
+>  		struct skl_ddb_entry ddb_uv[I915_MAX_PLANES];
+>  		struct skl_pipe_wm wm;
+>  	} *hw;
+> -	struct skl_pipe_wm *sw_wm;
+> -	struct skl_ddb_entry *hw_ddb_entry, *sw_ddb_entry;
+> +	const struct skl_pipe_wm *sw_wm =3D &new_crtc_state->wm.skl.optimal;
+> +	int level, max_level =3D ilk_wm_max_level(dev_priv);
+> +	struct intel_plane *plane;
+>  	u8 hw_enabled_slices;
+> -	const enum pipe pipe =3D crtc->pipe;
+> -	int plane, level, max_level =3D ilk_wm_max_level(dev_priv);
+>  =
 
-  **FAILURE**
+>  	if (INTEL_GEN(dev_priv) < 9 || !new_crtc_state->hw.active)
+>  		return;
+> @@ -9362,7 +9361,6 @@ static void verify_wm_state(struct intel_crtc *crtc,
+>  		return;
+>  =
 
-  Serious unknown changes coming with Patchwork_19735 absolutely need to be
-  verified manually.
-  
-  If you think the reported changes have nothing to do with the changes
-  introduced in Patchwork_19735, please notify your bug team to allow them
-  to document this new failure mode, which will reduce false positives in CI.
+>  	skl_pipe_wm_get_hw_state(crtc, &hw->wm);
+> -	sw_wm =3D &new_crtc_state->wm.skl.optimal;
+>  =
 
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19735/index.html
+>  	skl_pipe_ddb_get_hw_state(crtc, hw->ddb_y, hw->ddb_uv);
+>  =
 
-Possible new issues
--------------------
+> @@ -9375,21 +9373,21 @@ static void verify_wm_state(struct intel_crtc *cr=
+tc,
+>  			dev_priv->dbuf.enabled_slices,
+>  			hw_enabled_slices);
+>  =
 
-  Here are the unknown changes that may have been introduced in Patchwork_19735:
+> -	/* planes */
+> -	for_each_universal_plane(dev_priv, pipe, plane) {
+> +	for_each_intel_plane_on_crtc(&dev_priv->drm, crtc, plane) {
+> +		const struct skl_ddb_entry *hw_ddb_entry, *sw_ddb_entry;
+>  		const struct skl_wm_level *hw_wm_level, *sw_wm_level;
+>  =
 
-### IGT changes ###
+>  		/* Watermarks */
+>  		for (level =3D 0; level <=3D max_level; level++) {
+> -			hw_wm_level =3D &hw->wm.planes[plane].wm[level];
+> -			sw_wm_level =3D skl_plane_wm_level(sw_wm, plane, level);
+> +			hw_wm_level =3D &hw->wm.planes[plane->id].wm[level];
+> +			sw_wm_level =3D skl_plane_wm_level(sw_wm, plane->id, level);
+>  =
 
-#### Possible regressions ####
+>  			if (skl_wm_level_equals(hw_wm_level, sw_wm_level))
+>  				continue;
+>  =
 
-  * igt@gem_exec_gttfill@basic:
-    - fi-kbl-8809g:       [PASS][1] -> [TIMEOUT][2]
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9816/fi-kbl-8809g/igt@gem_exec_gttfill@basic.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19735/fi-kbl-8809g/igt@gem_exec_gttfill@basic.html
+>  			drm_err(&dev_priv->drm,
+> -				"mismatch in WM pipe %c plane %d level %d (expected e=3D%d b=3D%u l=
+=3D%u, got e=3D%d b=3D%u l=3D%u)\n",
+> -				pipe_name(pipe), plane + 1, level,
+> +				"[PLANE:%d:%s] mismatch in WM%d (expected e=3D%d b=3D%u l=3D%u, got =
+e=3D%d b=3D%u l=3D%u)\n",
+> +				plane->base.base.id, plane->base.name, level,
+>  				sw_wm_level->plane_en,
+>  				sw_wm_level->plane_res_b,
+>  				sw_wm_level->plane_res_l,
+> @@ -9398,13 +9396,13 @@ static void verify_wm_state(struct intel_crtc *cr=
+tc,
+>  				hw_wm_level->plane_res_l);
+>  		}
+>  =
 
-  
-Known issues
-------------
+> -		hw_wm_level =3D &hw->wm.planes[plane].trans_wm;
+> -		sw_wm_level =3D skl_plane_trans_wm(sw_wm, plane);
+> +		hw_wm_level =3D &hw->wm.planes[plane->id].trans_wm;
+> +		sw_wm_level =3D skl_plane_trans_wm(sw_wm, plane->id);
+>  =
 
-  Here are the changes found in Patchwork_19735 that come from known issues:
+>  		if (!skl_wm_level_equals(hw_wm_level, sw_wm_level)) {
+>  			drm_err(&dev_priv->drm,
+> -				"mismatch in trans WM pipe %c plane %d (expected e=3D%d b=3D%u l=3D%=
+u, got e=3D%d b=3D%u l=3D%u)\n",
+> -				pipe_name(pipe), plane + 1,
+> +				"[PLANE:%d:%s] mismatch in trans WM (expected e=3D%d b=3D%u l=3D%u, =
+got e=3D%d b=3D%u l=3D%u)\n",
+> +				plane->base.base.id, plane->base.name,
+>  				sw_wm_level->plane_en,
+>  				sw_wm_level->plane_res_b,
+>  				sw_wm_level->plane_res_l,
+> @@ -9414,65 +9412,13 @@ static void verify_wm_state(struct intel_crtc *cr=
+tc,
+>  		}
+>  =
 
-### IGT changes ###
+>  		/* DDB */
+> -		hw_ddb_entry =3D &hw->ddb_y[plane];
+> -		sw_ddb_entry =3D &new_crtc_state->wm.skl.plane_ddb_y[plane];
+> +		hw_ddb_entry =3D &hw->ddb_y[plane->id];
+> +		sw_ddb_entry =3D &new_crtc_state->wm.skl.plane_ddb_y[plane->id];
+>  =
 
-#### Issues hit ####
+>  		if (!skl_ddb_entry_equal(hw_ddb_entry, sw_ddb_entry)) {
+>  			drm_err(&dev_priv->drm,
+> -				"mismatch in DDB state pipe %c plane %d (expected (%u,%u), found (%u=
+,%u))\n",
+> -				pipe_name(pipe), plane + 1,
+> -				sw_ddb_entry->start, sw_ddb_entry->end,
+> -				hw_ddb_entry->start, hw_ddb_entry->end);
+> -		}
+> -	}
+> -
+> -	/*
+> -	 * cursor
+> -	 * If the cursor plane isn't active, we may not have updated it's ddb
+> -	 * allocation. In that case since the ddb allocation will be updated
+> -	 * once the plane becomes visible, we can skip this check
+> -	 */
+> -	if (1) {
+> -		const struct skl_wm_level *hw_wm_level, *sw_wm_level;
+> -
+> -		/* Watermarks */
+> -		for (level =3D 0; level <=3D max_level; level++) {
+> -			hw_wm_level =3D &hw->wm.planes[PLANE_CURSOR].wm[level];
+> -			sw_wm_level =3D skl_plane_wm_level(sw_wm, PLANE_CURSOR, level);
+> -			drm_err(&dev_priv->drm,
+> -				"mismatch in WM pipe %c cursor level %d (expected e=3D%d b=3D%u l=3D=
+%u, got e=3D%d b=3D%u l=3D%u)\n",
+> -				pipe_name(pipe), level,
+> -				sw_wm_level->plane_en,
+> -				sw_wm_level->plane_res_b,
+> -				sw_wm_level->plane_res_l,
+> -				hw_wm_level->plane_en,
+> -				hw_wm_level->plane_res_b,
+> -				hw_wm_level->plane_res_l);
+> -		}
+> -
+> -		hw_wm_level =3D &hw->wm.planes[PLANE_CURSOR].trans_wm;
+> -		sw_wm_level =3D skl_plane_trans_wm(sw_wm, PLANE_CURSOR);
+> -
+> -		if (!skl_wm_level_equals(hw_wm_level, sw_wm_level)) {
+> -			drm_err(&dev_priv->drm,
+> -				"mismatch in trans WM pipe %c cursor (expected e=3D%d b=3D%u l=3D%u,=
+ got e=3D%d b=3D%u l=3D%u)\n",
+> -				pipe_name(pipe),
+> -				sw_wm_level->plane_en,
+> -				sw_wm_level->plane_res_b,
+> -				sw_wm_level->plane_res_l,
+> -				hw_wm_level->plane_en,
+> -				hw_wm_level->plane_res_b,
+> -				hw_wm_level->plane_res_l);
+> -		}
+> -
+> -		/* DDB */
+> -		hw_ddb_entry =3D &hw->ddb_y[PLANE_CURSOR];
+> -		sw_ddb_entry =3D &new_crtc_state->wm.skl.plane_ddb_y[PLANE_CURSOR];
+> -
+> -		if (!skl_ddb_entry_equal(hw_ddb_entry, sw_ddb_entry)) {
+> -			drm_err(&dev_priv->drm,
+> -				"mismatch in DDB state pipe %c cursor (expected (%u,%u), found (%u,%=
+u))\n",
+> -				pipe_name(pipe),
+> +				"[PLANE:%d:%s] mismatch in DDB (expected (%u,%u), found (%u,%u))\n",
+> +				plane->base.base.id, plane->base.name,
+>  				sw_ddb_entry->start, sw_ddb_entry->end,
+>  				hw_ddb_entry->start, hw_ddb_entry->end);
+>  		}
+> diff --git a/drivers/gpu/drm/i915/display/intel_display.h b/drivers/gpu/d=
+rm/i915/display/intel_display.h
+> index 61080152319f..216047233a6d 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display.h
+> +++ b/drivers/gpu/drm/i915/display/intel_display.h
+> @@ -353,11 +353,6 @@ enum phy_fia {
+>  	for_each_cpu_transcoder(__dev_priv, __t) \
+>  		for_each_if ((__mask) & BIT(__t))
+>  =
 
-  * igt@gem_linear_blits@basic:
-    - fi-kbl-8809g:       [PASS][3] -> [TIMEOUT][4] ([i915#2502]) +1 similar issue
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9816/fi-kbl-8809g/igt@gem_linear_blits@basic.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19735/fi-kbl-8809g/igt@gem_linear_blits@basic.html
+> -#define for_each_universal_plane(__dev_priv, __pipe, __p)		\
+> -	for ((__p) =3D 0;							\
+> -	     (__p) < RUNTIME_INFO(__dev_priv)->num_sprites[(__pipe)] + 1;	\
+> -	     (__p)++)
+> -
+>  #define for_each_sprite(__dev_priv, __p, __s)				\
+>  	for ((__s) =3D 0;							\
+>  	     (__s) < RUNTIME_INFO(__dev_priv)->num_sprites[(__p)];	\
+> -- =
 
-  * igt@prime_self_import@basic-with_two_bos:
-    - fi-tgl-y:           [PASS][5] -> [DMESG-WARN][6] ([i915#402]) +1 similar issue
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9816/fi-tgl-y/igt@prime_self_import@basic-with_two_bos.html
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19735/fi-tgl-y/igt@prime_self_import@basic-with_two_bos.html
-
-  * igt@runner@aborted:
-    - fi-bdw-5557u:       NOTRUN -> [FAIL][7] ([i915#1602] / [i915#2029] / [i915#2369])
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19735/fi-bdw-5557u/igt@runner@aborted.html
-
-  
-#### Possible fixes ####
-
-  * igt@prime_self_import@basic-with_one_bo_two_files:
-    - fi-tgl-y:           [DMESG-WARN][8] ([i915#402]) -> [PASS][9] +2 similar issues
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9816/fi-tgl-y/igt@prime_self_import@basic-with_one_bo_two_files.html
-   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19735/fi-tgl-y/igt@prime_self_import@basic-with_one_bo_two_files.html
-
-  
-  [i915#1602]: https://gitlab.freedesktop.org/drm/intel/issues/1602
-  [i915#2029]: https://gitlab.freedesktop.org/drm/intel/issues/2029
-  [i915#2369]: https://gitlab.freedesktop.org/drm/intel/issues/2369
-  [i915#2502]: https://gitlab.freedesktop.org/drm/intel/issues/2502
-  [i915#402]: https://gitlab.freedesktop.org/drm/intel/issues/402
-
-
-Participating hosts (41 -> 37)
-------------------------------
-
-  Missing    (4): fi-ctg-p8600 fi-ilk-m540 fi-bsw-cyan fi-bdw-samus 
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_9816 -> Patchwork_19735
-
-  CI-20190529: 20190529
-  CI_DRM_9816: 7295445db2c0c10c9e0308e8bef521eb3b051d3a @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_6015: aa44cddf4ef689f8a3726fcbeedc03f08b12bd82 @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools
-  Patchwork_19735: 2abf3eefad4df507fb89f8f83c7b59cca6aadb05 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-
-== Linux commits ==
-
-2abf3eefad4d i915: use remap_pfn_range_notrack
-4595e8c87551 mm: add remap_pfn_range_notrack
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19735/index.html
-
---===============1242021169609386583==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>series starting with [1/2] mm: add remap_pfn_range_notrack</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/87479/">https://patchwork.freedesktop.org/series/87479/</a></td></tr>
-<tr><td><b>State:</b></td><td>failure</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19735/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19735/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_9816 -&gt; Patchwork_19735</h1>
-<h2>Summary</h2>
-<p><strong>FAILURE</strong></p>
-<p>Serious unknown changes coming with Patchwork_19735 absolutely need to be<br />
-  verified manually.</p>
-<p>If you think the reported changes have nothing to do with the changes<br />
-  introduced in Patchwork_19735, please notify your bug team to allow them<br />
-  to document this new failure mode, which will reduce false positives in CI.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19735/index.html</p>
-<h2>Possible new issues</h2>
-<p>Here are the unknown changes that may have been introduced in Patchwork_19735:</p>
-<h3>IGT changes</h3>
-<h4>Possible regressions</h4>
-<ul>
-<li>igt@gem_exec_gttfill@basic:<ul>
-<li>fi-kbl-8809g:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9816/fi-kbl-8809g/igt@gem_exec_gttfill@basic.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19735/fi-kbl-8809g/igt@gem_exec_gttfill@basic.html">TIMEOUT</a></li>
-</ul>
-</li>
-</ul>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_19735 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@gem_linear_blits@basic:</p>
-<ul>
-<li>fi-kbl-8809g:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9816/fi-kbl-8809g/igt@gem_linear_blits@basic.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19735/fi-kbl-8809g/igt@gem_linear_blits@basic.html">TIMEOUT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2502">i915#2502</a>) +1 similar issue</li>
-</ul>
-</li>
-<li>
-<p>igt@prime_self_import@basic-with_two_bos:</p>
-<ul>
-<li>fi-tgl-y:           <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9816/fi-tgl-y/igt@prime_self_import@basic-with_two_bos.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19735/fi-tgl-y/igt@prime_self_import@basic-with_two_bos.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/402">i915#402</a>) +1 similar issue</li>
-</ul>
-</li>
-<li>
-<p>igt@runner@aborted:</p>
-<ul>
-<li>fi-bdw-5557u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19735/fi-bdw-5557u/igt@runner@aborted.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1602">i915#1602</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/2029">i915#2029</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/2369">i915#2369</a>)</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>igt@prime_self_import@basic-with_one_bo_two_files:<ul>
-<li>fi-tgl-y:           <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_9816/fi-tgl-y/igt@prime_self_import@basic-with_one_bo_two_files.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/402">i915#402</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_19735/fi-tgl-y/igt@prime_self_import@basic-with_one_bo_two_files.html">PASS</a> +2 similar issues</li>
-</ul>
-</li>
-</ul>
-<h2>Participating hosts (41 -&gt; 37)</h2>
-<p>Missing    (4): fi-ctg-p8600 fi-ilk-m540 fi-bsw-cyan fi-bdw-samus </p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_9816 -&gt; Patchwork_19735</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_9816: 7295445db2c0c10c9e0308e8bef521eb3b051d3a @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_6015: aa44cddf4ef689f8a3726fcbeedc03f08b12bd82 @ git://anongit.freedesktop.org/xorg/app/intel-gpu-tools<br />
-  Patchwork_19735: 2abf3eefad4df507fb89f8f83c7b59cca6aadb05 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<p>== Linux commits ==</p>
-<p>2abf3eefad4d i915: use remap_pfn_range_notrack<br />
-4595e8c87551 mm: add remap_pfn_range_notrack</p>
-
-</body>
-</html>
-
---===============1242021169609386583==--
-
---===============1974538576==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+> 2.26.2
+> =
 
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-
---===============1974538576==--
