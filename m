@@ -2,80 +2,50 @@ Return-Path: <SRS0=1UtA=IB=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7CA91C433DB
-	for <intel-gfx@archiver.kernel.org>; Wed,  3 Mar 2021 01:01:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3DF07C433DB
+	for <intel-gfx@archiver.kernel.org>; Wed,  3 Mar 2021 01:07:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 19A3964F1E
-	for <intel-gfx@archiver.kernel.org>; Wed,  3 Mar 2021 01:01:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 19A3964F1E
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
+	by mail.kernel.org (Postfix) with ESMTPS id C977C64E1F
+	for <intel-gfx@archiver.kernel.org>; Wed,  3 Mar 2021 01:07:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C977C64E1F
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 78C216E30F;
-	Wed,  3 Mar 2021 01:01:47 +0000 (UTC)
-Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
- [IPv6:2a00:1450:4864:20::129])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F2F4D6E30F
- for <intel-gfx@lists.freedesktop.org>; Wed,  3 Mar 2021 01:01:45 +0000 (UTC)
-Received: by mail-lf1-x129.google.com with SMTP id z11so34283311lfb.9
- for <intel-gfx@lists.freedesktop.org>; Tue, 02 Mar 2021 17:01:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linux-foundation.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=OIV9sys/VM3XXe3OUXsbOwdDnvoGoPf0M6wyTBcUS7o=;
- b=Fm/QyImgOETEl2V1Mlpd0epYKKBCXigL2jbpLY93RbrHRct6WvHsYzOGSsiEfUp4+L
- z9kxg8C/7TISHjJjJYhPwLR83b5hM8apit5eHM4H+Ghc/wgSfECx/S/KapC1y91Oo8Ok
- 55nje5RAye2iG64+hrt/r79heIpWRrfu7d5nA=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=OIV9sys/VM3XXe3OUXsbOwdDnvoGoPf0M6wyTBcUS7o=;
- b=OF+JlG3Tp+Ne2x7Q7Y3d5fZ7Z+8mX0pKR5D20Gw/itlcoHn0VHF9E069o2C+CzU6kJ
- C16yJaNJdazd4ai7S+JaPBUAof3AB2r8KMjQnWPXsV+YOyLceTv1bzO+1V6uru4DiGFB
- 1+vcFgp87YVLETdDpGAt9dMhHL+Y93FXvlPp7uv6rhmsMlfYSVJgj1rxET2EKk25MZL5
- egyFIbs1yj3xziptG8DXDGGrWvPY4NsttniBSWvx7EKniujHX8VV8oJhTLuMbr9N902P
- x9H//Euo9eqQVP7i31hKhPQvG1cqX7GdyR1HZOKq2GPZXR7kn1howlqY1vSJMr+eS7Mn
- zBEQ==
-X-Gm-Message-State: AOAM531aMJsZYn30shGo9n5irVFxikpHq5Wi2EGaakgOqYIwTczHwU2T
- e2d7nQb/SuRS70Mqh0CpfbKCztMgCqOfsg==
-X-Google-Smtp-Source: ABdhPJwNtn/yrXbBgxNkL3X1olwy+0XcCpSzWMI+dtcxfSOpN6oOGWhScRwhxzNgEA7iWu0CN/rfww==
-X-Received: by 2002:a19:b81:: with SMTP id 123mr12773221lfl.553.1614733303816; 
- Tue, 02 Mar 2021 17:01:43 -0800 (PST)
-Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com.
- [209.85.167.49])
- by smtp.gmail.com with ESMTPSA id d3sm2793984lfg.122.2021.03.02.17.01.42
- for <intel-gfx@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 02 Mar 2021 17:01:42 -0800 (PST)
-Received: by mail-lf1-f49.google.com with SMTP id d3so34304688lfg.10
- for <intel-gfx@lists.freedesktop.org>; Tue, 02 Mar 2021 17:01:42 -0800 (PST)
-X-Received: by 2002:a05:6512:a8c:: with SMTP id
- m12mr13972416lfu.253.1614733302255; 
- Tue, 02 Mar 2021 17:01:42 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 070F66E3CE;
+	Wed,  3 Mar 2021 01:07:50 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED14D6E342
+ for <intel-gfx@lists.freedesktop.org>; Wed,  3 Mar 2021 01:07:48 +0000 (UTC)
+IronPort-SDR: WATAeOiSwVeoyINBJAOf6GNncWiT4w6KbNiQ8MMzSMmWDKLje3ZbO17xSEAQVdUV7pyeCS05jD
+ ogId50cAnENg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9911"; a="187115121"
+X-IronPort-AV: E=Sophos;i="5.81,218,1610438400"; d="scan'208";a="187115121"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Mar 2021 17:07:44 -0800
+IronPort-SDR: CmkSpaQ8Vip+fKhLi5vqtVfd9Paz0+1Z7i6LNcm5lzB/mXGE0wDEy3CM6X7COeNnVmsQxtTXmz
+ gvTUjFyz5J7Q==
+X-IronPort-AV: E=Sophos;i="5.81,218,1610438400"; d="scan'208";a="518071487"
+Received: from lucas-s2600cw.jf.intel.com ([10.165.21.202])
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Mar 2021 17:07:44 -0800
+From: Lucas De Marchi <lucas.demarchi@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Tue,  2 Mar 2021 17:07:27 -0800
+Message-Id: <20210303010728.3605269-3-lucas.demarchi@intel.com>
+X-Mailer: git-send-email 2.30.1
+In-Reply-To: <20210303010728.3605269-1-lucas.demarchi@intel.com>
+References: <20210303010728.3605269-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
-References: <e12dfaac0aa242f4a10d8c5b920a98db@intel.com>
- <51946a94b1154605bd7dda2c77ab12fc@intel.com>
- <fb8a2d722d4b4c008eeb1ffae87233be@intel.com>
- <CAPM=9tzLJAgjo=+JCNJrVaz3RY3D66tG+zdw_nCCTQGSwFbwCg@mail.gmail.com>
- <CAHk-=whxZJXkuvX2j56QH6ANA_girjWK3nQCPJGuOWwfYEgtag@mail.gmail.com>
- <CAPM=9twngQ=T6WgJBVje9PUtYrSa4LyZgsMZKEykCRc_MObrHw@mail.gmail.com>
- <CAHk-=wjyoO7Evytd_DxEhx1yFKf2GNvBjynhgRkHFkeqyxcQAw@mail.gmail.com>
- <e5eceeca-c13d-efea-bbf7-c1d94ab81685@kernel.dk>
- <f436251f-2eab-df40-7d0a-0f32b40f5996@kernel.dk>
-In-Reply-To: <f436251f-2eab-df40-7d0a-0f32b40f5996@kernel.dk>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Tue, 2 Mar 2021 17:01:26 -0800
-X-Gmail-Original-Message-ID: <CAHk-=wjmKrGZ+WaBpEb0CbGw7SjRCw1+yjufVa7++5PpLj69Lw@mail.gmail.com>
-Message-ID: <CAHk-=wjmKrGZ+WaBpEb0CbGw7SjRCw1+yjufVa7++5PpLj69Lw@mail.gmail.com>
-To: Jens Axboe <axboe@kernel.dk>
-Subject: Re: [Intel-gfx] Public i915 CI shardruns are disabled
+Subject: [Intel-gfx] [PATCH 3/4] drm/i915: Wa_14010826681 does the same as
+ Wa_22010271021
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,28 +58,43 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Damien Le Moal <damien.lemoal@wdc.com>,
- Chaitanya Kulkarni <chaitanya.kulkarni@wdc.com>, "Sarvela,
- Tomi P" <tomi.p.sarvela@intel.com>,
- Johannes Thumshirn <johannes.thumshirn@wdc.com>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- Linux Memory Management List <linux-mm@kvack.org>,
- Andrew Morton <akpm@linux-foundation.org>, Christoph Hellwig <hch@lst.de>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Mar 2, 2021 at 4:36 PM Jens Axboe <axboe@kernel.dk> wrote:
->
-> Or if you want a pull, just let me know. Have another misc patch to
-> flush out anyway that doesn't belong in any of my usual branches.
+From: Caz Yokoyama <caz.yokoyama@intel.com>
 
-Ok, if you have something else pending anyway, let's do that. Send me
-the pull request, and I'll take it asap.
+Add a comment marking Wa_14010826681 as the same as Wa_22010271021
+for easy verification.
 
-Thanks,
-               Linus
+Bspec: 54508, 52890
+
+Cc: Clinton Taylor <clinton.a.taylor@intel.com>
+Cc: Matt Roper <matthew.d.roper@intel.com>
+Signed-off-by: Caz Yokoyama <caz.yokoyama@intel.com>
+Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_workarounds.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+index 9e6e405aabac..e678fa8d2ab9 100644
+--- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
++++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+@@ -1682,7 +1682,8 @@ rcs_engine_wa_init(struct intel_engine_cs *engine, struct i915_wa_list *wal)
+ 
+ 		/*
+ 		 * Wa_1606700617:tgl,dg1
+-		 * Wa_22010271021:tgl,rkl,dg1, adl-s
++		 * Wa_22010271021:tgl,rkl,dg1,adl-s
++		 * Wa_14010826681:tgl,dg1
+ 		 */
+ 		wa_masked_en(wal,
+ 			     GEN9_CS_DEBUG_MODE1,
+-- 
+2.30.1
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
