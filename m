@@ -7,48 +7,51 @@ X-Spam-Status: No, score=-12.2 required=3.0 tests=BAYES_00,DATE_IN_PAST_24_48,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 82ECBC433E6
-	for <intel-gfx@archiver.kernel.org>; Thu,  4 Mar 2021 15:20:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 204F0C433E6
+	for <intel-gfx@archiver.kernel.org>; Thu,  4 Mar 2021 15:20:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 435E164F6C
-	for <intel-gfx@archiver.kernel.org>; Thu,  4 Mar 2021 15:20:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 435E164F6C
+	by mail.kernel.org (Postfix) with ESMTPS id ADB2764F6C
+	for <intel-gfx@archiver.kernel.org>; Thu,  4 Mar 2021 15:20:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org ADB2764F6C
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linutronix.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D93C36E4BA;
-	Thu,  4 Mar 2021 15:20:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD09A6EA0F;
+	Thu,  4 Mar 2021 15:20:13 +0000 (UTC)
+X-Greylist: delayed 366 seconds by postgrey-1.36 at gabe;
+ Thu, 04 Mar 2021 15:20:12 UTC
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1274C6EA0F;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 057696E4BA;
  Thu,  4 Mar 2021 15:20:12 +0000 (UTC)
-Message-Id: <20210303132711.487711828@linutronix.de>
+Message-Id: <20210303132712.077853188@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1614870847;
+ s=2020; t=1614870853;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:  references:references;
- bh=rJE6TfIVVBhUiw4RP/fALBnIsuzL/pXFN6DWG6//yDc=;
- b=DdgdpNUstaCQQp7YZTE5STTaQn8aWHYCROUbnlQvqMDHJoXuu/PCF3+vSeMK3n+K9n6BZP
- rhXkBucdIm3hKv2Ry+vckd2S/3a3xrfq7i1LTyXRoZe5ol/4t7AIsAdmwhk69LLel3VtCF
- DHytdPNb/tmLe2tB27KyWVP8DuvKQnCJjp9acbNHr5R2Juc8bS8pSI1XJ8F7B6bk4bPXl2
- GdNVO5PP8a1xH5m7Pe6wTgQxmT2zAGS6LbCI/eD3OY/H6rhk0SWbBxJ3W10Zz223cRsw1e
- 22Pg+JNZxEOC2T6V0dFlRwYzQ6ZQwBz77QpFsEPr19+HD6TMfOP+4qzr8zZ3Lg==
+ bh=vxawU6WKg1yAdTzwxrwR7A69cfqTRPEP3GzbWm7j6PI=;
+ b=LX6ER4CAc5RBvSn/4Sh0tSlX2kpHC1KfR7bKF6Bx4m+WqypmrPPtsQWDI+0qkI2qj0dKH9
+ q3CuC5FUl22+d71u7vWfpqnp5HnifLp/M5QmGMGSNF2Dn117m3Qb+1OY5NglP/RAdvlhhx
+ RxkcOSuWrB75nBY/AueAI+oYiBkfF3J7FUuOfam73IA+j7E8ZL25d4XGyFbU8dA38d+QZI
+ KOGj7IA5rV3z8EDovPDLYkbVg+EUoZjnEgr4aKnM3y1DEGpqQNdXGpGdLJbITkqL/Wuh7+
+ qnE9PqdYbE1oskv+BGJf6UsfsWzdCXZ1eBIYxJoxK6puCd6780muD3se3rKctg==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1614870847;
+ s=2020e; t=1614870853;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:  references:references;
- bh=rJE6TfIVVBhUiw4RP/fALBnIsuzL/pXFN6DWG6//yDc=;
- b=eVdvhEFWtouHdvBn5qUl5XDmNbqC9EasL94g7pQARkVIiPzX9TlLt0cRQEF+e/ZDBDl3ho
- dKJMbuZp9HjKD8Bw==
-Date: Wed, 03 Mar 2021 14:20:25 +0100
+ bh=vxawU6WKg1yAdTzwxrwR7A69cfqTRPEP3GzbWm7j6PI=;
+ b=mNo5mK70whIQOzTO5Gqg7GGZ1K+G8Bi2DJq4ELQUjaQI7UigGmWbIz4DJ0+ZdeawSGyZzS
+ xE5CavRZ1AJUw4Cg==
+Date: Wed, 03 Mar 2021 14:20:30 +0100
 From: Thomas Gleixner <tglx@linutronix.de>
 To: LKML <linux-kernel@vger.kernel.org>
 References: <20210303132023.077167457@linutronix.de>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [patch 2/7] drm/vmgfx: Replace kmap_atomic()
+Subject: [Intel-gfx] [patch 7/7] io-mapping: Remove
+ io_mapping_map_atomic_wc()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,100 +81,134 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Thomas Gleixner <tglx@linutronix.de>
 
-There is no reason to disable pagefaults and preemption as a side effect of
-kmap_atomic_prot().
-
-Use kmap_local_page_prot() instead and document the reasoning for the
-mapping usage with the given pgprot.
-
-Remove the NULL pointer check for the map. These functions return a valid
-address for valid pages and the return was bogus anyway as it would have
-left preemption and pagefaults disabled.
+No more users. Get rid of it and remove the traces in documentation.
 
 Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
-Cc: VMware Graphics <linux-graphics-maintainer@vmware.com>
-Cc: Roland Scheidegger <sroland@vmware.com>
-Cc: Zack Rusin <zackr@vmware.com>
-Cc: David Airlie <airlied@linux.ie>
-Cc: Daniel Vetter <daniel@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org
+Cc: Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-mm@kvack.org
 ---
- drivers/gpu/drm/vmwgfx/vmwgfx_blit.c |   30 ++++++++++++------------------
- 1 file changed, 12 insertions(+), 18 deletions(-)
+ Documentation/driver-api/io-mapping.rst |   22 +++++-----------
+ include/linux/io-mapping.h              |   42 +-------------------------------
+ 2 files changed, 9 insertions(+), 55 deletions(-)
 
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_blit.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_blit.c
-@@ -375,12 +375,12 @@ static int vmw_bo_cpu_blit_line(struct v
- 		copy_size = min_t(u32, copy_size, PAGE_SIZE - src_page_offset);
+--- a/Documentation/driver-api/io-mapping.rst
++++ b/Documentation/driver-api/io-mapping.rst
+@@ -21,19 +21,15 @@ mappable, while 'size' indicates how lar
+ enable. Both are in bytes.
  
- 		if (unmap_src) {
--			kunmap_atomic(d->src_addr);
-+			kunmap_local(d->src_addr);
- 			d->src_addr = NULL;
- 		}
+ This _wc variant provides a mapping which may only be used with
+-io_mapping_map_atomic_wc(), io_mapping_map_local_wc() or
+-io_mapping_map_wc().
++io_mapping_map_local_wc() or io_mapping_map_wc().
  
- 		if (unmap_dst) {
--			kunmap_atomic(d->dst_addr);
-+			kunmap_local(d->dst_addr);
- 			d->dst_addr = NULL;
- 		}
+ With this mapping object, individual pages can be mapped either temporarily
+ or long term, depending on the requirements. Of course, temporary maps are
+-more efficient. They come in two flavours::
++more efficient.
  
-@@ -388,12 +388,8 @@ static int vmw_bo_cpu_blit_line(struct v
- 			if (WARN_ON_ONCE(dst_page >= d->dst_num_pages))
- 				return -EINVAL;
+ 	void *io_mapping_map_local_wc(struct io_mapping *mapping,
+ 				      unsigned long offset)
  
--			d->dst_addr =
--				kmap_atomic_prot(d->dst_pages[dst_page],
--						 d->dst_prot);
--			if (!d->dst_addr)
--				return -ENOMEM;
+-	void *io_mapping_map_atomic_wc(struct io_mapping *mapping,
+-				       unsigned long offset)
 -
-+			d->dst_addr = kmap_local_page_prot(d->dst_pages[dst_page],
-+							   d->dst_prot);
- 			d->mapped_dst = dst_page;
- 		}
+ 'offset' is the offset within the defined mapping region.  Accessing
+ addresses beyond the region specified in the creation function yields
+ undefined results. Using an offset which is not page aligned yields an
+@@ -50,9 +46,6 @@ io_mapping_map_local_wc() has a side eff
+ migration to make the mapping code work. No caller can rely on this side
+ effect.
  
-@@ -401,12 +397,8 @@ static int vmw_bo_cpu_blit_line(struct v
- 			if (WARN_ON_ONCE(src_page >= d->src_num_pages))
- 				return -EINVAL;
- 
--			d->src_addr =
--				kmap_atomic_prot(d->src_pages[src_page],
--						 d->src_prot);
--			if (!d->src_addr)
--				return -ENOMEM;
+-io_mapping_map_atomic_wc() has the side effect of disabling preemption and
+-pagefaults. Don't use in new code. Use io_mapping_map_local_wc() instead.
 -
-+			d->src_addr = kmap_local_page_prot(d->src_pages[src_page],
-+							   d->src_prot);
- 			d->mapped_src = src_page;
- 		}
- 		diff->do_cpy(diff, d->dst_addr + dst_page_offset,
-@@ -436,8 +428,10 @@ static int vmw_bo_cpu_blit_line(struct v
-  *
-  * Performs a CPU blit from one buffer object to another avoiding a full
-  * bo vmap which may exhaust- or fragment vmalloc space.
-- * On supported architectures (x86), we're using kmap_atomic which avoids
-- * cross-processor TLB- and cache flushes and may, on non-HIGHMEM systems
-+ *
-+ * On supported architectures (x86), we're using kmap_local_prot() which
-+ * avoids cross-processor TLB- and cache flushes. kmap_local_prot() will
-+ * either map a highmem page with the proper pgprot on HIGHMEM=y systems or
-  * reference already set-up mappings.
-  *
-  * Neither of the buffer objects may be placed in PCI memory
-@@ -500,9 +494,9 @@ int vmw_bo_cpu_blit(struct ttm_buffer_ob
- 	}
- out:
- 	if (d.src_addr)
--		kunmap_atomic(d.src_addr);
-+		kunmap_local(d.src_addr);
- 	if (d.dst_addr)
--		kunmap_atomic(d.dst_addr);
-+		kunmap_local(d.dst_addr);
+ Nested mappings need to be undone in reverse order because the mapping
+ code uses a stack for keeping track of them::
  
- 	return ret;
+@@ -65,11 +58,10 @@ Nested mappings need to be undone in rev
+ The mappings are released with::
+ 
+ 	void io_mapping_unmap_local(void *vaddr)
+-	void io_mapping_unmap_atomic(void *vaddr)
+ 
+-'vaddr' must be the value returned by the last io_mapping_map_local_wc() or
+-io_mapping_map_atomic_wc() call. This unmaps the specified mapping and
+-undoes the side effects of the mapping functions.
++'vaddr' must be the value returned by the last io_mapping_map_local_wc()
++call. This unmaps the specified mapping and undoes eventual side effects of
++the mapping function.
+ 
+ If you need to sleep while holding a mapping, you can use the regular
+ variant, although this may be significantly slower::
+@@ -77,8 +69,8 @@ If you need to sleep while holding a map
+ 	void *io_mapping_map_wc(struct io_mapping *mapping,
+ 				unsigned long offset)
+ 
+-This works like io_mapping_map_atomic/local_wc() except it has no side
+-effects and the pointer is globaly visible.
++This works like io_mapping_map_local_wc() except it has no side effects and
++the pointer is globaly visible.
+ 
+ The mappings are released with::
+ 
+--- a/include/linux/io-mapping.h
++++ b/include/linux/io-mapping.h
+@@ -60,28 +60,7 @@ io_mapping_fini(struct io_mapping *mappi
+ 	iomap_free(mapping->base, mapping->size);
  }
-
+ 
+-/* Atomic map/unmap */
+-static inline void __iomem *
+-io_mapping_map_atomic_wc(struct io_mapping *mapping,
+-			 unsigned long offset)
+-{
+-	resource_size_t phys_addr;
+-
+-	BUG_ON(offset >= mapping->size);
+-	phys_addr = mapping->base + offset;
+-	preempt_disable();
+-	pagefault_disable();
+-	return __iomap_local_pfn_prot(PHYS_PFN(phys_addr), mapping->prot);
+-}
+-
+-static inline void
+-io_mapping_unmap_atomic(void __iomem *vaddr)
+-{
+-	kunmap_local_indexed((void __force *)vaddr);
+-	pagefault_enable();
+-	preempt_enable();
+-}
+-
++/* Temporary mappings which are only valid in the current context */
+ static inline void __iomem *
+ io_mapping_map_local_wc(struct io_mapping *mapping, unsigned long offset)
+ {
+@@ -163,24 +142,7 @@ io_mapping_unmap(void __iomem *vaddr)
+ {
+ }
+ 
+-/* Atomic map/unmap */
+-static inline void __iomem *
+-io_mapping_map_atomic_wc(struct io_mapping *mapping,
+-			 unsigned long offset)
+-{
+-	preempt_disable();
+-	pagefault_disable();
+-	return io_mapping_map_wc(mapping, offset, PAGE_SIZE);
+-}
+-
+-static inline void
+-io_mapping_unmap_atomic(void __iomem *vaddr)
+-{
+-	io_mapping_unmap(vaddr);
+-	pagefault_enable();
+-	preempt_enable();
+-}
+-
++/* Temporary mappings which are only valid in the current context */
+ static inline void __iomem *
+ io_mapping_map_local_wc(struct io_mapping *mapping, unsigned long offset)
+ {
 
 _______________________________________________
 Intel-gfx mailing list
