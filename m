@@ -7,45 +7,43 @@ X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3DF07C433DB
-	for <intel-gfx@archiver.kernel.org>; Wed,  3 Mar 2021 01:07:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E0EDBC433E6
+	for <intel-gfx@archiver.kernel.org>; Wed,  3 Mar 2021 01:07:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C977C64E1F
-	for <intel-gfx@archiver.kernel.org>; Wed,  3 Mar 2021 01:07:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C977C64E1F
+	by mail.kernel.org (Postfix) with ESMTPS id 6EEA264FA0
+	for <intel-gfx@archiver.kernel.org>; Wed,  3 Mar 2021 01:07:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6EEA264FA0
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 070F66E3CE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 28DBD6E52C;
 	Wed,  3 Mar 2021 01:07:50 +0000 (UTC)
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ED14D6E342
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8650A6E3F9
  for <intel-gfx@lists.freedesktop.org>; Wed,  3 Mar 2021 01:07:48 +0000 (UTC)
-IronPort-SDR: WATAeOiSwVeoyINBJAOf6GNncWiT4w6KbNiQ8MMzSMmWDKLje3ZbO17xSEAQVdUV7pyeCS05jD
- ogId50cAnENg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9911"; a="187115121"
-X-IronPort-AV: E=Sophos;i="5.81,218,1610438400"; d="scan'208";a="187115121"
+IronPort-SDR: ppOLO/dTQcgMTasuyz5BTUK0oJSqqMRjYenEj72QoD5TJ87bona4gpEqUiY5OcUOtS29DMv/CA
+ HjP73QjeM/aA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9911"; a="187115119"
+X-IronPort-AV: E=Sophos;i="5.81,218,1610438400"; d="scan'208";a="187115119"
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  02 Mar 2021 17:07:44 -0800
-IronPort-SDR: CmkSpaQ8Vip+fKhLi5vqtVfd9Paz0+1Z7i6LNcm5lzB/mXGE0wDEy3CM6X7COeNnVmsQxtTXmz
- gvTUjFyz5J7Q==
-X-IronPort-AV: E=Sophos;i="5.81,218,1610438400"; d="scan'208";a="518071487"
+IronPort-SDR: fwjMMFMcGlFEzo/5DE6HDOHfzUDMcgNJWJCaSLVX9Crw6rIka3IBE3DS3neonm/6jJFj487nef
+ niIw7ba5IGhw==
+X-IronPort-AV: E=Sophos;i="5.81,218,1610438400"; d="scan'208";a="518071481"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.202])
  by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  02 Mar 2021 17:07:44 -0800
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue,  2 Mar 2021 17:07:27 -0800
-Message-Id: <20210303010728.3605269-3-lucas.demarchi@intel.com>
+Date: Tue,  2 Mar 2021 17:07:25 -0800
+Message-Id: <20210303010728.3605269-1-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.30.1
-In-Reply-To: <20210303010728.3605269-1-lucas.demarchi@intel.com>
-References: <20210303010728.3605269-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 3/4] drm/i915: Wa_14010826681 does the same as
- Wa_22010271021
+Subject: [Intel-gfx] [PATCH 1/4] drm/i915/gen12: Add recommended hardware
+ tuning value
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,33 +63,112 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Caz Yokoyama <caz.yokoyama@intel.com>
 
-Add a comment marking Wa_14010826681 as the same as Wa_22010271021
-for easy verification.
+Follow Bspec 31870 to set recommended tuning values for certain GT
+register.  These values aren't workarounds per-se, but it's best to
+handle them in the same general area of the driver, especially since
+there may be real workarounds that update other bits of the same
+registers.
 
-Bspec: 54508, 52890
+At the moment the only value we need to worry about is the
+TDS_TIMER setting in FF_MODE2.  This setting was previously
+described as "Wa_1604555607" on some platforms, but the spec
+tells us that we should continue to program this on all current
+gen12 platforms, even those that do not have that WA.
+
+Bspec: 31870
 
 Cc: Clinton Taylor <clinton.a.taylor@intel.com>
 Cc: Matt Roper <matthew.d.roper@intel.com>
 Signed-off-by: Caz Yokoyama <caz.yokoyama@intel.com>
 Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_workarounds.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/gt/intel_workarounds.c | 48 ++++++++++++++++-----
+ 1 file changed, 37 insertions(+), 11 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-index 9e6e405aabac..e678fa8d2ab9 100644
+index 3b4a7da60f0b..f6d9b849aa62 100644
 --- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
 +++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-@@ -1682,7 +1682,8 @@ rcs_engine_wa_init(struct intel_engine_cs *engine, struct i915_wa_list *wal)
+@@ -646,9 +646,38 @@ static void icl_ctx_workarounds_init(struct intel_engine_cs *engine,
+ 	wa_masked_en(wal, GEN9_ROW_CHICKEN4, GEN11_DIS_PICK_2ND_EU);
+ }
  
- 		/*
- 		 * Wa_1606700617:tgl,dg1
--		 * Wa_22010271021:tgl,rkl,dg1, adl-s
-+		 * Wa_22010271021:tgl,rkl,dg1,adl-s
-+		 * Wa_14010826681:tgl,dg1
- 		 */
- 		wa_masked_en(wal,
- 			     GEN9_CS_DEBUG_MODE1,
++/*
++ * These settings aren't actually workarounds, but general tuning settings that
++ * need to be programmed on several platforms.
++ */
++static void gen12_ctx_gt_tuning_init(struct intel_engine_cs *engine,
++				     struct i915_wa_list *wal)
++{
++	/*
++	 * Although some platforms refer to it as Wa_1604555607, we need to
++	 * program it even on those that don't explicitly list that
++	 * workaround.
++	 *
++	 * Note that the implementation of this workaround is further modified
++	 * according to the FF_MODE2 guidance given by Wa_1608008084:gen12.
++	 *
++	 * FF_MODE2 register will return the wrong value when read. The default
++	 * value for this register is zero for all fields and there are no bit
++	 * masks. So instead of doing a RMW we should just write TDS timer
++	 * value. For the same reason read verification is ignored.
++	 */
++	wa_add(wal,
++	       FF_MODE2,
++	       FF_MODE2_TDS_TIMER_MASK,
++	       FF_MODE2_TDS_TIMER_128,
++	       0);
++}
++
+ static void gen12_ctx_workarounds_init(struct intel_engine_cs *engine,
+ 				       struct i915_wa_list *wal)
+ {
++	gen12_ctx_gt_tuning_init(engine, wal);
++
+ 	/*
+ 	 * Wa_1409142259:tgl
+ 	 * Wa_1409347922:tgl
+@@ -675,19 +704,15 @@ static void tgl_ctx_workarounds_init(struct intel_engine_cs *engine,
+ 	gen12_ctx_workarounds_init(engine, wal);
+ 
+ 	/*
+-	 * Wa_1604555607:tgl,rkl
++	 * Wa_16011163337
+ 	 *
+-	 * Note that the implementation of this workaround is further modified
+-	 * according to the FF_MODE2 guidance given by Wa_1608008084:gen12.
+-	 * FF_MODE2 register will return the wrong value when read. The default
+-	 * value for this register is zero for all fields and there are no bit
+-	 * masks. So instead of doing a RMW we should just write the GS Timer
+-	 * and TDS timer values for Wa_1604555607 and Wa_16011163337.
++	 * Like in gen12_ctx_gt_tuning_init(), read verification is ignored due
++	 * to Wa_1608008084.
+ 	 */
+ 	wa_add(wal,
+ 	       FF_MODE2,
+-	       FF_MODE2_GS_TIMER_MASK | FF_MODE2_TDS_TIMER_MASK,
+-	       FF_MODE2_GS_TIMER_224  | FF_MODE2_TDS_TIMER_128,
++	       FF_MODE2_GS_TIMER_MASK,
++	       FF_MODE2_GS_TIMER_224,
+ 	       0);
+ }
+ 
+@@ -707,12 +732,13 @@ static void dg1_ctx_workarounds_init(struct intel_engine_cs *engine,
+ 	/*
+ 	 * Wa_16011163337
+ 	 *
+-	 * Like in tgl_ctx_workarounds_init(), read verification is ignored due
++	 * Like in gen12_ctx_gt_tuning_init(), read verification is ignored due
+ 	 * to Wa_1608008084.
+ 	 */
+ 	wa_add(wal,
+ 	       FF_MODE2,
+-	       FF_MODE2_GS_TIMER_MASK, FF_MODE2_GS_TIMER_224, 0);
++	       FF_MODE2_GS_TIMER_MASK,
++	       FF_MODE2_GS_TIMER_224, 0);
+ }
+ 
+ static void
 -- 
 2.30.1
 
