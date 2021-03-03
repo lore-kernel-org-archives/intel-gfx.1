@@ -7,45 +7,44 @@ X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2F321C433E0
-	for <intel-gfx@archiver.kernel.org>; Wed,  3 Mar 2021 01:07:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 60B18C433E6
+	for <intel-gfx@archiver.kernel.org>; Wed,  3 Mar 2021 01:07:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CA17C64E1F
-	for <intel-gfx@archiver.kernel.org>; Wed,  3 Mar 2021 01:07:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CA17C64E1F
+	by mail.kernel.org (Postfix) with ESMTPS id E386A64FA0
+	for <intel-gfx@archiver.kernel.org>; Wed,  3 Mar 2021 01:07:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E386A64FA0
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F8D86E314;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 61C996E329;
 	Wed,  3 Mar 2021 01:07:51 +0000 (UTC)
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4DDC56E364
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B83A56E364
  for <intel-gfx@lists.freedesktop.org>; Wed,  3 Mar 2021 01:07:48 +0000 (UTC)
-IronPort-SDR: LMMvgqlN/fs4KTpLfCYUADMAvLCeNpzot3hraiQRfM5QM1Ovt2RUUStzG/qBRwFBuVpXBm6nvn
- ieu/R9pCslhQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9911"; a="187115120"
-X-IronPort-AV: E=Sophos;i="5.81,218,1610438400"; d="scan'208";a="187115120"
+IronPort-SDR: TmzEK3Xc0meU+B5R70t1zscnWlAOY6Hc0BdVg4wLtrTax1oARUKNnowh7fgvkHAjcwBOnGtnWK
+ 0DZsTwMHxWcw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9911"; a="187115122"
+X-IronPort-AV: E=Sophos;i="5.81,218,1610438400"; d="scan'208";a="187115122"
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  02 Mar 2021 17:07:44 -0800
-IronPort-SDR: nMo3mcUSGV+3SboK1rFjxGckKI6OKUPtpn0bKbBhmUI7sNtlHxmoJiZ+sF+Of2V552YdmfGvAy
- zcxulnW/qsmA==
-X-IronPort-AV: E=Sophos;i="5.81,218,1610438400"; d="scan'208";a="518071484"
+IronPort-SDR: QYug0cCP5VCSwqvPKQLYSwSakVDGZtUog/0za3j0FgVSWbHhrslT1aqfLyYqBVgOtLRp5eVNXQ
+ CDM6dkUqdNGg==
+X-IronPort-AV: E=Sophos;i="5.81,218,1610438400"; d="scan'208";a="518071490"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.202])
  by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  02 Mar 2021 17:07:44 -0800
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue,  2 Mar 2021 17:07:26 -0800
-Message-Id: <20210303010728.3605269-2-lucas.demarchi@intel.com>
+Date: Tue,  2 Mar 2021 17:07:28 -0800
+Message-Id: <20210303010728.3605269-4-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.30.1
 In-Reply-To: <20210303010728.3605269-1-lucas.demarchi@intel.com>
 References: <20210303010728.3605269-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 2/4] drm/i915/icl: add Wa_22010271021 for all
- gen11
+Subject: [Intel-gfx] [PATCH 4/4] drm/i915/dg1: WA GPU hang at RCC
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,45 +57,50 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Jianjun Liu <Jianjun.liu@intel.com>, Zhen Han <zhen.han@intel.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Caz Yokoyama <caz.yokoyama@intel.com>
+From: Zhen Han <zhen.han@intel.com>
 
-Wa_22010271021 does not apply only to EHL, but to all gen11 platforms.
+GPU hangs at RCC. According to Wa_14012131227 we shouldn't have a hang
+due to RHWO, but that is what we are observing, even without media
+compressible render target. Feedback from HW engineers is to leave RHWO
+disabled.
 
-Bspec: 33450, 52887
-
-Cc: Clinton Taylor <clinton.a.taylor@intel.com>
-Cc: Matt Roper <matthew.d.roper@intel.com>
-Signed-off-by: Caz Yokoyama <caz.yokoyama@intel.com>
+Cc: Jianjun Liu <Jianjun.liu@intel.com>
+Cc: Chuansheng Liu <chuansheng.liu@intel.com>
+Cc: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
+Signed-off-by: Zhen Han <zhen.han@intel.com>
 Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_workarounds.c | 9 ++++-----
- 1 file changed, 4 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_workarounds.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
 diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-index f6d9b849aa62..9e6e405aabac 100644
+index e678fa8d2ab9..5235fb70a69a 100644
 --- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
 +++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-@@ -1820,11 +1820,10 @@ rcs_engine_wa_init(struct intel_engine_cs *engine, struct i915_wa_list *wal)
- 			    GEN7_FF_THREAD_MODE,
- 			    GEN12_FF_TESSELATION_DOP_GATE_DISABLE);
+@@ -739,6 +739,17 @@ static void dg1_ctx_workarounds_init(struct intel_engine_cs *engine,
+ 	       FF_MODE2,
+ 	       FF_MODE2_GS_TIMER_MASK,
+ 	       FF_MODE2_GS_TIMER_224, 0);
++
++	/*
++	 * Wa_14012131227
++	 *
++	 * Although the WA is described as causing corruption when using media
++	 * compressible render target, leaving RHWO enabled is also causing
++	 * gpu hang when using multiple concurrent render and media workloads.
++	 * Disable it completely for now.
++	 */
++	wa_masked_en(wal, GEN7_COMMON_SLICE_CHICKEN1,
++		     GEN9_RHWO_OPTIMIZATION_DISABLE);
+ }
  
--		/* Wa_22010271021:ehl */
--		if (IS_JSL_EHL(i915))
--			wa_masked_en(wal,
--				     GEN9_CS_DEBUG_MODE1,
--				     FF_DOP_CLOCK_GATE_DISABLE);
-+		/* Wa_22010271021:gen11 */
-+		wa_masked_en(wal,
-+			     GEN9_CS_DEBUG_MODE1,
-+			     FF_DOP_CLOCK_GATE_DISABLE);
- 	}
- 
- 	if (IS_GEN_RANGE(i915, 9, 12)) {
+ static void
 -- 
 2.30.1
 
