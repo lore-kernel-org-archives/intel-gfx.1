@@ -2,52 +2,52 @@ Return-Path: <SRS0=S1mG=IC=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 70F5FC433E0
-	for <intel-gfx@archiver.kernel.org>; Thu,  4 Mar 2021 16:53:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8415CC433E0
+	for <intel-gfx@archiver.kernel.org>; Thu,  4 Mar 2021 17:04:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2609B64F55
-	for <intel-gfx@archiver.kernel.org>; Thu,  4 Mar 2021 16:53:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2609B64F55
+	by mail.kernel.org (Postfix) with ESMTPS id 3555C64F59
+	for <intel-gfx@archiver.kernel.org>; Thu,  4 Mar 2021 17:04:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3555C64F59
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6CAEA6EA44;
-	Thu,  4 Mar 2021 16:53:44 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 58A4C6EA22;
- Thu,  4 Mar 2021 16:53:42 +0000 (UTC)
-IronPort-SDR: vhkCr4MupO38Q0kKh5I7UyxDc9otib5bFhCwycwtt8xQ0In6oZfmARlNQqxJ45JZzyZ7cp7rVR
- LA5Dk3x5Yuyw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9913"; a="272458890"
-X-IronPort-AV: E=Sophos;i="5.81,222,1610438400"; d="scan'208";a="272458890"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Mar 2021 08:53:41 -0800
-IronPort-SDR: s5Z30VFK8gVq0YQkVUQ23+yR46psCJF5tzIAwYnqhkLBFxXV9GCNtNfKpRnDgkjmPdcyklVPWT
- chPGT95/3bwA==
+	by gabe.freedesktop.org (Postfix) with ESMTP id D44326EA3E;
+	Thu,  4 Mar 2021 17:04:33 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D53CB6EA2F
+ for <intel-gfx@lists.freedesktop.org>; Thu,  4 Mar 2021 17:04:32 +0000 (UTC)
+IronPort-SDR: tAWTeCL05RgCTLOaNSRYSpLmXfrZyNCv/WGp6J9MgmQ971iOlIkJS0YNoqolvJfTOrNXXIbgT5
+ KV/DdnAbKxYA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9913"; a="187508623"
+X-IronPort-AV: E=Sophos;i="5.81,222,1610438400"; d="scan'208";a="187508623"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Mar 2021 09:04:27 -0800
+IronPort-SDR: AltA5dR9fA4DAmqDVM8/nkSgf51FDjw9HTsf8tqdMdkgZlh/iZfXbrMkh82GFtVZGAAMAULCJJ
+ g2ZBwN/9GSfg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.81,222,1610438400"; d="scan'208";a="445795887"
+X-IronPort-AV: E=Sophos;i="5.81,222,1610438400"; d="scan'208";a="407888936"
 Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
- by orsmga001.jf.intel.com with SMTP; 04 Mar 2021 08:53:38 -0800
+ by orsmga008.jf.intel.com with SMTP; 04 Mar 2021 09:04:25 -0800
 Received: by stinkbox (sSMTP sendmail emulation);
- Thu, 04 Mar 2021 18:53:37 +0200
-Date: Thu, 4 Mar 2021 18:53:37 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Steven Rostedt <rostedt@goodmis.org>
-Message-ID: <YEEQkT0DZWyZgvAL@intel.com>
-References: <20210301115946.295279c1@gandalf.local.home>
- <YD0ie6qcKBgGgcNW@intel.com>
+ Thu, 04 Mar 2021 19:04:25 +0200
+From: Ville Syrjala <ville.syrjala@linux.intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Thu,  4 Mar 2021 19:04:18 +0200
+Message-Id: <20210304170421.10901-2-ville.syrjala@linux.intel.com>
+X-Mailer: git-send-email 2.26.2
+In-Reply-To: <20210304170421.10901-1-ville.syrjala@linux.intel.com>
+References: <20210304170421.10901-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <YD0ie6qcKBgGgcNW@intel.com>
-X-Patchwork-Hint: comment
-Subject: Re: [Intel-gfx] [WARNING] v5.12-rc1 in intel_pipe_disable tracepoint
+Subject: [Intel-gfx] [PATCH 1/4] drm/i915: Move pipe enable/disable
+ tracepoints to intel_crtc_vblank_{on, off}()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,98 +60,73 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, intel-gfx@lists.freedesktop.org,
- Linus Torvalds <torvalds@linux-foundation.org>,
- LKML <linux-kernel@vger.kernel.org>, dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Cc: Steven Rostedt <rostedt@goodmis.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Mar 01, 2021 at 07:20:59PM +0200, Ville Syrj=E4l=E4 wrote:
-> On Mon, Mar 01, 2021 at 11:59:46AM -0500, Steven Rostedt wrote:
-> > =
-
-> > On my test box with latest v5.12-rc1, running with all trace events
-> > enabled, I consistently trigger this warning.
-> > =
-
-> > It appears to get triggered by the trace_intel_pipe_disable() code.
-> > =
-
-> > -- Steve
-> > =
-
-> >  ------------[ cut here ]------------
-> >  i915 0000:00:02.0: drm_WARN_ON_ONCE(drm_drv_uses_atomic_modeset(dev))
-> >  WARNING: CPU: 7 PID: 1258 at drivers/gpu/drm/drm_vblank.c:728 drm_crtc=
-_vblank_helper_get_vblank_timestamp_internal+0x319/0x330 [drm]
-> >  Modules linked in: ebtable_filter ebtables bridge stp llc vsock vmw_vm=
-ci ipt_REJECT nf_reject_ipv4 iptable_filter ip6t_REJECT nf_reject_ipv6 xt_s=
-tate xt_conntrack nf_conntrack nf_defrag_ipv6 nf_defrag_ipv4 ip6table_filte=
-r ip6_tables snd_hda_codec_hdmi snd_h
-> > ek snd_hda_codec_generic ledtrig_audio snd_hda_intel snd_intel_dspcfg s=
-nd_hda_codec joydev snd_hwdep intel_rapl_msr snd_hda_core hp_wmi i915 iTCO_=
-wdt snd_seq intel_rapl_common iTCO_vendor_support wmi_bmof sparse_keymap sn=
-d_seq_device rfkill snd_pcm x86_pkg_t
-> > d_timer i2c_algo_bit drm_kms_helper mei_me intel_powerclamp snd mei sou=
-ndcore i2c_i801 drm coretemp lpc_ich e1000e kvm_intel i2c_smbus kvm irqbypa=
-ss crct10dif_pclmul crc32_pclmul crc32c_intel serio_raw ghash_clmulni_intel=
- video tpm_infineon wmi ip_tables
-> >  CPU: 7 PID: 1258 Comm: Xorg Tainted: G        W         5.12.0-rc1-tes=
-t+ #12
-> >  Hardware name: Hewlett-Packard HP Compaq Pro 6300 SFF/339A, BIOS K01 v=
-03.03 07/14/2016
-> >  RIP: 0010:drm_crtc_vblank_helper_get_vblank_timestamp_internal+0x319/0=
-x330 [drm]
-> >  Code: 4c 8b 6f 50 4d 85 ed 75 03 4c 8b 2f e8 60 92 45 c2 48 c7 c1 28 a=
-5 3c c0 4c 89 ea 48 c7 c7 15 5a 3c c0 48 89 c6 e8 1f e7 7b c2 <0f> 0b e9 e2=
- fe ff ff e8 fb 6c 81 c2 66 66 2e 0f 1f 84 00 00 00 00
-> >  RSP: 0018:ffffb77580ea7920 EFLAGS: 00010082
-> >  RAX: 0000000000000000 RBX: ffff8afe500c0000 RCX: 0000000000000000
-> >  RDX: 0000000000000004 RSI: ffffffff833c86b8 RDI: 0000000000000001
-> >  RBP: ffffb77580ea7990 R08: 000000700c782173 R09: 0000000000000000
-> >  R10: 0000000000000001 R11: 0000000000000001 R12: 0000000000000000
-> >  R13: ffff8afe41c7eff0 R14: ffffffffc05e0410 R15: ffff8afe456a2bf8
-> >  FS:  00007f8f91869f00(0000) GS:ffff8afe5aa00000(0000) knlGS:0000000000=
-000000
-> >  CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> >  CR2: 00007f9523a6cad0 CR3: 0000000001b78002 CR4: 00000000001706e0
-> >  Call Trace:
-> >   drm_get_last_vbltimestamp+0xaa/0xc0 [drm]
-> >   drm_update_vblank_count+0x90/0x2d0 [drm]
-> >   drm_crtc_accurate_vblank_count+0x3e/0xc0 [drm]
-> >   intel_crtc_get_vblank_counter+0x43/0x50 [i915]
-> >   trace_event_raw_event_intel_pipe_disable+0x87/0x110 [i915]
-> >   intel_disable_pipe+0x1a8/0x210 [i915]
-> =
-
-> Hmm. Yeah we do vblank_off() before pipe_disable() which wants
-> to still grab the frame counter in the tracepoint. I think we
-> could reorder those two without causing any problems. Either
-> that or we put the tracepoint before vblank_off().
-> =
-
-> >   ilk_crtc_disable+0x85/0x390 [i915]
-> =
-
-> But this part is confusing me. intel_crtc_get_vblank_counter() is
-> only supposed to do drm_crtc_accurate_vblank_count() fallback when
-> the hardware lacks a working frame counter, and that should only
-> be the case for ancient gen2 or semi-ancient i965gm TV output,
-> ilk_crtc_disable() is not the function we should be calling in
-> either of those cases.
-
-OK, figured this out. It can happen on any platform due to
-never initializing .max_vblank_count for pipes that were
-disabled at boot. Also spotted some other issues in this
-code that needs fixing. I'll mail out some patches...
-
--- =
-
-Ville Syrj=E4l=E4
-Intel
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+RnJvbTogVmlsbGUgU3lyasOkbMOkIDx2aWxsZS5zeXJqYWxhQGxpbnV4LmludGVsLmNvbT4KCk9u
+IHBsYXRmb3Jtcy9vdXRwdXRzIHdpdGhvdXQgYSB3b3JraW5nIGZyYW1lIGNvdW50ZXIgd2UgcmVs
+eQpvbiB0aGUgdmJsYW5rIGNvZGUgdG8gY29vayB1cCB0aGUgZnJhbWUgY291bnRlciBmcm9tIHRo
+ZSB0aW1lc3RhbXBzLgpUaGF0IHJlcXVpcmVzIHRoYXQgdmJsYW5rIHN1cHBvcnQgaXMgZW5hYmxl
+ZC4gVGh1cyB3ZSBuZWVkIHRvCm1vdmUgdGhlIHBpcGUgZW5hYmxlL2Rpc2FibGUgdHJhY2Vwb2lu
+dHMgdG8gdGhlIG90aGVyIHNpZGUKb2YgdGhlIGRybV92Ymxhbmtfe29uLG9mZn0oKSBjYWxscy4g
+VGhlcmUgc2hvdWxkbid0IHJlYWxseSBiZQptdWNoIGhhcHBlbmluZyBiZXR3ZWVuIHRoZXNlIG9s
+ZCBhbmQgbmV3IGNhbGwgc2l0ZXMgc28gdGhlCnRyYWNlcG9pbnRzIHNob3VsZCBzdGlsbCBwcm92
+aWRlIHJlYXNvbmFibGUgZGF0YS4KClRoZSBhbHRlcm5hdGl2ZSB3b3VsZCBiZSB0byBnaXZlIHVw
+IG9uIGhhdmluZyB0aGUgZnJhbWUgY291bnRlcgp2YWx1ZXMgaW4gdGhlIHRyYWNlIHdoaWNoIHdv
+dWxkIHJlbmRlciB0aGUgdHJhY2Vwb2ludHMgbW9yZSBvcgpsZXNzIHBvaW50bGVzcy4KClJlcG9y
+dGVkLWJ5OiBTdGV2ZW4gUm9zdGVkdCA8cm9zdGVkdEBnb29kbWlzLm9yZz4KU2lnbmVkLW9mZi1i
+eTogVmlsbGUgU3lyasOkbMOkIDx2aWxsZS5zeXJqYWxhQGxpbnV4LmludGVsLmNvbT4KLS0tCiBk
+cml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2NydGMuYyAgICB8IDE2ICsrKysrKysr
+KysrKysrKysKIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGlzcGxheS5jIHwg
+IDggKy0tLS0tLS0KIDIgZmlsZXMgY2hhbmdlZCwgMTcgaW5zZXJ0aW9ucygrKSwgNyBkZWxldGlv
+bnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Ny
+dGMuYyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfY3J0Yy5jCmluZGV4IDg4
+YjQ0YWM1MGFhZS4uZmQ4YTY2Y2VjZTgwIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkx
+NS9kaXNwbGF5L2ludGVsX2NydGMuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5
+L2ludGVsX2NydGMuYwpAQCAtMjgsNiArMjgsOCBAQAogI2luY2x1ZGUgImk5eHhfcGxhbmUuaCIK
+ICNpbmNsdWRlICJza2xfdW5pdmVyc2FsX3BsYW5lLmgiCiAKKyNpbmNsdWRlICJpOTE1X3RyYWNl
+LmgiCisKIHN0YXRpYyB2b2lkIGFzc2VydF92YmxhbmtfZGlzYWJsZWQoc3RydWN0IGRybV9jcnRj
+ICpjcnRjKQogewogCWlmIChJOTE1X1NUQVRFX1dBUk5fT04oZHJtX2NydGNfdmJsYW5rX2dldChj
+cnRjKSA9PSAwKSkKQEAgLTg0LDEyICs4NiwyNiBAQCB2b2lkIGludGVsX2NydGNfdmJsYW5rX29u
+KGNvbnN0IHN0cnVjdCBpbnRlbF9jcnRjX3N0YXRlICpjcnRjX3N0YXRlKQogCWRybV9jcnRjX3Nl
+dF9tYXhfdmJsYW5rX2NvdW50KCZjcnRjLT5iYXNlLAogCQkJCSAgICAgIGludGVsX2NydGNfbWF4
+X3ZibGFua19jb3VudChjcnRjX3N0YXRlKSk7CiAJZHJtX2NydGNfdmJsYW5rX29uKCZjcnRjLT5i
+YXNlKTsKKworCS8qCisJICogU2hvdWxkIHJlYWxseSBoYXBwZW4gZXhhY3RseSB3aGVuIHdlIGVu
+YWJsZSB0aGUgcGlwZQorCSAqIGJ1dCB3ZSB3YW50IHRoZSBmcmFtZSBjb3VudGVycyBpbiB0aGUg
+dHJhY2UsIGFuZCB0aGF0CisJICogcmVxdWlyZXMgdmJsYW5rIHN1cHBvcnQgb24gc29tZSBwbGF0
+Zm9ybXMvb3V0cHV0cy4KKwkgKi8KKwl0cmFjZV9pbnRlbF9waXBlX2VuYWJsZShjcnRjKTsKIH0K
+IAogdm9pZCBpbnRlbF9jcnRjX3ZibGFua19vZmYoY29uc3Qgc3RydWN0IGludGVsX2NydGNfc3Rh
+dGUgKmNydGNfc3RhdGUpCiB7CiAJc3RydWN0IGludGVsX2NydGMgKmNydGMgPSB0b19pbnRlbF9j
+cnRjKGNydGNfc3RhdGUtPnVhcGkuY3J0Yyk7CiAKKwkvKgorCSAqIFNob3VsZCByZWFsbHkgaGFw
+cGVuIGV4YWN0bHkgd2hlbiB3ZSBkaXNhYmxlIHRoZSBwaXBlCisJICogYnV0IHdlIHdhbnQgdGhl
+IGZyYW1lIGNvdW50ZXJzIGluIHRoZSB0cmFjZSwgYW5kIHRoYXQKKwkgKiByZXF1aXJlcyB2Ymxh
+bmsgc3VwcG9ydCBvbiBzb21lIHBsYXRmb3Jtcy9vdXRwdXRzLgorCSAqLworCXRyYWNlX2ludGVs
+X3BpcGVfZGlzYWJsZShjcnRjKTsKKwogCWRybV9jcnRjX3ZibGFua19vZmYoJmNydGMtPmJhc2Up
+OwogCWFzc2VydF92YmxhbmtfZGlzYWJsZWQoJmNydGMtPmJhc2UpOwogfQpkaWZmIC0tZ2l0IGEv
+ZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kaXNwbGF5LmMgYi9kcml2ZXJzL2dw
+dS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Rpc3BsYXkuYwppbmRleCBiMzQ2ZjZjZWI0YTIuLjE2
+YjVjYjczZGRhYyAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRl
+bF9kaXNwbGF5LmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kaXNw
+bGF5LmMKQEAgLTc5NCw4ICs3OTQsNiBAQCB2b2lkIGludGVsX2VuYWJsZV9waXBlKGNvbnN0IHN0
+cnVjdCBpbnRlbF9jcnRjX3N0YXRlICpuZXdfY3J0Y19zdGF0ZSkKIAkJLyogRklYTUU6IGFzc2Vy
+dCBDUFUgcG9ydCBjb25kaXRpb25zIGZvciBTTkIrICovCiAJfQogCi0JdHJhY2VfaW50ZWxfcGlw
+ZV9lbmFibGUoY3J0Yyk7Ci0KIAlyZWcgPSBQSVBFQ09ORihjcHVfdHJhbnNjb2Rlcik7CiAJdmFs
+ID0gaW50ZWxfZGVfcmVhZChkZXZfcHJpdiwgcmVnKTsKIAlpZiAodmFsICYgUElQRUNPTkZfRU5B
+QkxFKSB7CkBAIC04MzUsOCArODMzLDYgQEAgdm9pZCBpbnRlbF9kaXNhYmxlX3BpcGUoY29uc3Qg
+c3RydWN0IGludGVsX2NydGNfc3RhdGUgKm9sZF9jcnRjX3N0YXRlKQogCSAqLwogCWFzc2VydF9w
+bGFuZXNfZGlzYWJsZWQoY3J0Yyk7CiAKLQl0cmFjZV9pbnRlbF9waXBlX2Rpc2FibGUoY3J0Yyk7
+Ci0KIAlyZWcgPSBQSVBFQ09ORihjcHVfdHJhbnNjb2Rlcik7CiAJdmFsID0gaW50ZWxfZGVfcmVh
+ZChkZXZfcHJpdiwgcmVnKTsKIAlpZiAoKHZhbCAmIFBJUEVDT05GX0VOQUJMRSkgPT0gMCkKQEAg
+LTQwMjMsMTAgKzQwMTksOCBAQCBzdGF0aWMgdm9pZCBoc3dfY3J0Y19lbmFibGUoc3RydWN0IGlu
+dGVsX2F0b21pY19zdGF0ZSAqc3RhdGUsCiAJaWYgKElOVEVMX0dFTihkZXZfcHJpdikgPj0gMTEp
+CiAJCWljbF9waXBlX21idXNfZW5hYmxlKGNydGMpOwogCi0JaWYgKG5ld19jcnRjX3N0YXRlLT5i
+aWdqb2luZXJfc2xhdmUpIHsKLQkJdHJhY2VfaW50ZWxfcGlwZV9lbmFibGUoY3J0Yyk7CisJaWYg
+KG5ld19jcnRjX3N0YXRlLT5iaWdqb2luZXJfc2xhdmUpCiAJCWludGVsX2NydGNfdmJsYW5rX29u
+KG5ld19jcnRjX3N0YXRlKTsKLQl9CiAKIAlpbnRlbF9lbmNvZGVyc19lbmFibGUoc3RhdGUsIGNy
+dGMpOwogCi0tIAoyLjI2LjIKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fCkludGVsLWdmeCBtYWlsaW5nIGxpc3QKSW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNr
+dG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2lu
+dGVsLWdmeAo=
