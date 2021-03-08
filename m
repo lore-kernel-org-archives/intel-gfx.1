@@ -2,69 +2,80 @@ Return-Path: <SRS0=f97i=IG=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-2.0 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 176C5C433DB
-	for <intel-gfx@archiver.kernel.org>; Mon,  8 Mar 2021 12:49:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 35274C433E0
+	for <intel-gfx@archiver.kernel.org>; Mon,  8 Mar 2021 12:49:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C24226501F
-	for <intel-gfx@archiver.kernel.org>; Mon,  8 Mar 2021 12:49:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C24226501F
+	by mail.kernel.org (Postfix) with ESMTPS id DC7BC6501F
+	for <intel-gfx@archiver.kernel.org>; Mon,  8 Mar 2021 12:49:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DC7BC6501F
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 589A36E249;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD9E16E7F5;
 	Mon,  8 Mar 2021 12:49:46 +0000 (UTC)
-Received: from mail-pg1-x530.google.com (mail-pg1-x530.google.com
- [IPv6:2607:f8b0:4864:20::530])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D63A89C1B;
- Mon,  8 Mar 2021 09:07:30 +0000 (UTC)
-Received: by mail-pg1-x530.google.com with SMTP id o38so6003408pgm.9;
- Mon, 08 Mar 2021 01:07:30 -0800 (PST)
+Received: from mail-pl1-x62e.google.com (mail-pl1-x62e.google.com
+ [IPv6:2607:f8b0:4864:20::62e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 223386E842;
+ Mon,  8 Mar 2021 09:26:23 +0000 (UTC)
+Received: by mail-pl1-x62e.google.com with SMTP id s16so4563727plr.9;
+ Mon, 08 Mar 2021 01:26:23 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id;
- bh=rio9oywo5wOO4WrAVB/UN3oilFTR2R4R6Vr0uKN6cks=;
- b=HOc5grBLgA+ZRASYLntuKJqmLM17ZiyL97DMJK1FLt3y9SbUv3HR1y9bP7VNAh7LYc
- hGMzPh3fdiirR1QkFRNPSQokeSeifJjbSJCCBtKh26Fa3bOlMLGvBQ6IDRov0bHIYmdT
- V1LXvCB8IEBRSRNqLLFXKDm5JLmEWij/cuDHtW9rug61n/7hVgsa9lV59B431QJub/MB
- ptFt5vG7TvvRxJ5BUaTlBGA2U+nA8ZKGxXXOTMNasyAPtE8FuK4Wz8xspjmjFEpVWJBv
- iSrE24IAKCz2q+QT67g6cQ5pFYT6gDoq3EhYp2Bn8Ga+sGAN4rbjtuoClws05XirLRvu
- SPxg==
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=Mw3YhMxze+L33OOW35Ho/s9cEaxtf/agG+UY/pcXArs=;
+ b=hvV1hCXVhbql3sIE2x5KITH12j1TCohVZgr541DF/zxzZs2XPgdAnRxc1thDIHgSZe
+ qceBGfqVr+ZsnSdEZ86dXUHxCuQDbEkO48qvc0su5Gbh/clbE+H7nacjp1B/9A2WoYxI
+ kw4c7sMRYnTG6M+NmT8Ede+uMewZm+3JWNrX3RbQBVNhDMCGX2Cg5M0bZH4jUuDHIidw
+ 6Vm8xT/Rz966POOGXHJtVx0LPi1o+9ARnIL0PvPvzNy/LSy8qfZgW8jnpdte51XWxBwj
+ VUv5NxzXNBeC6lVx6N0mAnKIO9/Vui7BTPJVVuJ3o8j7KCpD7R/k+LNfdEEY6rgRuGGr
+ vgUg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=rio9oywo5wOO4WrAVB/UN3oilFTR2R4R6Vr0uKN6cks=;
- b=e+XZT6LR94ixUSjQ9C5qet6cRTp6ZPov/4gWSOXOTAKHBEhgZS43Q8EkL/fL5nrST0
- us6Ttbz0437qHeLrqyZtJFBYKgMb8RdpaIw64knrc7rVcj09FQ/C2fSDI9RGxHeflEru
- lDJ+mAh20PAUEMmBBJZbpLdLeAYc9RsdbVcfIKdXqdjkzcoEzQyQ+YgniH1lR2QQrI/q
- W47YpLrGHHwIoYoZ/wSr8dgmHfm8TiKqW0hJQqhzXM5tpgLG5H2Yj9PohT90vQYZvSjK
- NGjoqaeY89EdSmQDqlp/5FaVf8bQJnXGbopE92EnqudrRGAbUh8QRC6B259vFjPD1d5H
- vgvw==
-X-Gm-Message-State: AOAM531oqd94xOR9xctstrGG2y5lWEw2nozKANAy9GCsKUMvbVY3E9N3
- EZntWlHXih9o9xV8IAKqyxELhopzLEYThUCy
-X-Google-Smtp-Source: ABdhPJx4r0fB0RLk/Qo6mRWj36/f3U85RpNQWE6AxHogrs4qnyw2tLUGMyOr+6BA3TixqMdSGryazA==
-X-Received: by 2002:a63:5962:: with SMTP id j34mr19434247pgm.331.1615194449905; 
- Mon, 08 Mar 2021 01:07:29 -0800 (PST)
-Received: from localhost.localdomain ([45.135.186.99])
- by smtp.gmail.com with ESMTPSA id m5sm8357274pfd.96.2021.03.08.01.07.26
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 08 Mar 2021 01:07:29 -0800 (PST)
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=Mw3YhMxze+L33OOW35Ho/s9cEaxtf/agG+UY/pcXArs=;
+ b=F0AAeDPlxegxGF2tdo+IB8JDCW4tbWxH1yV/FlPEb3ho5WcSmBuH19p0NqePMR2gJ6
+ Dbjq6kodnn+TtluOq5o+86w0ACPnZ6u4H/N5uQ0xqZNL2l8xwkuIhJAEx8XDrZNv9WKK
+ mti4nhNNvwgGGyyQ4o1QbYeorhQ9K8J/S6WtjhxMjCbCUiwwqNraMkV48EogdrU0IMzq
+ C3NYqIy4uQJCVAsiHxmuULrZa3mlKJNen0yyrM6wwUuMta7aiv0QKsA2WfvbEXEfXjCB
+ yAbTb6KioJOfRwQW/o8BCoSI9Jf4pMxoj/YVafE5KXGheb2vB8pKN56cmLBRXXIJZ71E
+ xBKA==
+X-Gm-Message-State: AOAM530C8nDOH0QqUeIGAQy06/FnQkY4QaOEGJXXDBqDSSIAHaGkPu91
+ DJyDZtSqe/SN+/tLowD0+e0=
+X-Google-Smtp-Source: ABdhPJxlPBadOVC2V3yLEF0pVBVAi7/notfNs+wqE4D5BV1pj3tj1U1TpfdDJMHmyTZN9iHH8zrjVg==
+X-Received: by 2002:a17:90a:8408:: with SMTP id
+ j8mr22411294pjn.1.1615195582670; 
+ Mon, 08 Mar 2021 01:26:22 -0800 (PST)
+Received: from [10.187.0.14] ([45.135.186.66])
+ by smtp.gmail.com with ESMTPSA id k13sm10095045pfg.3.2021.03.08.01.26.19
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 08 Mar 2021 01:26:22 -0800 (PST)
+To: Chris Wilson <chris@chris-wilson.co.uk>, airlied@linux.ie,
+ daniel@ffwll.ch, jani.nikula@linux.intel.com,
+ joonas.lahtinen@linux.intel.com, lkml@SDF.ORG, matthew.auld@intel.com,
+ rodrigo.vivi@intel.com
+References: <20210308085952.8153-1-baijiaju1990@gmail.com>
+ <161519509650.8241.14778072091965189208@build.alporthouse.com>
 From: Jia-Ju Bai <baijiaju1990@gmail.com>
-To: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
- rodrigo.vivi@intel.com, airlied@linux.ie, daniel@ffwll.ch,
- chris@chris-wilson.co.uk, matthew.auld@intel.com
-Date: Mon,  8 Mar 2021 01:07:22 -0800
-Message-Id: <20210308090722.8392-1-baijiaju1990@gmail.com>
-X-Mailer: git-send-email 2.17.1
+Message-ID: <d01ccf05-abbf-7f65-396d-31735d9b31f1@gmail.com>
+Date: Mon, 8 Mar 2021 17:26:18 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
+MIME-Version: 1.0
+In-Reply-To: <161519509650.8241.14778072091965189208@build.alporthouse.com>
+Content-Language: en-US
 X-Mailman-Approved-At: Mon, 08 Mar 2021 12:49:45 +0000
-Subject: [Intel-gfx] [PATCH] gpu: drm: i915: fix error return code of
- igt_threaded_blt()
+Subject: Re: [Intel-gfx] [PATCH] gpu: drm: i915: fix error return code of
+ igt_buddy_alloc_smoke()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,48 +88,31 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, Jia-Ju Bai <baijiaju1990@gmail.com>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+Cc: intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-When kcalloc() returns NULL to tsk or thread, no error code of 
-igt_threaded_blt() is returned.
-To fix this bug, -ENOMEM is returned as error code.
 
-Fixes: 0e99f939f08f ("drm/i915/selftests/blt: add some kthreads into the mix")
-Reported-by: TOTE Robot <oslab@tsinghua.edu.cn>
-Signed-off-by: Jia-Ju Bai <baijiaju1990@gmail.com>
----
- drivers/gpu/drm/i915/gem/selftests/i915_gem_object_blt.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_object_blt.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_object_blt.c
-index 23b6e11bbc3e..b54ba8a1fcec 100644
---- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_object_blt.c
-+++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_object_blt.c
-@@ -471,11 +471,13 @@ static int igt_threaded_blt(struct intel_engine_cs *engine,
- 
- 	tsk = kcalloc(n_cpus, sizeof(struct task_struct *), GFP_KERNEL);
- 	if (!tsk)
--		return 0;
-+		return -ENOMEM;
- 
- 	thread = kcalloc(n_cpus, sizeof(struct igt_thread_arg), GFP_KERNEL);
--	if (!thread)
-+	if (!thread) {
-+		err = -ENOMEM;
- 		goto out_tsk;
-+	}
- 
- 	thread[0].file = mock_file(engine->i915);
- 	if (IS_ERR(thread[0].file)) {
--- 
-2.17.1
+On 2021/3/8 17:18, Chris Wilson wrote:
+> Quoting Jia-Ju Bai (2021-03-08 08:59:52)
+>> When i915_random_order() returns NULL to order, no error return code of
+>> igt_buddy_alloc_smoke() is assigned.
+>> To fix this bug, err is assigned with -EINVAL in this case.
+> It would not be EINVAL since that is used for a reference failure, but
+> in this case the idea was to return 0 as no testing was done and the
+> ENOMEM was raised before testing began i.e. not an internal and
+> unexpected driver allocation failure.
+> -Chris
 
+Okay, thanks for your reply :)
+
+
+Best wishes,
+Jia-Ju Bai
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
