@@ -2,53 +2,55 @@ Return-Path: <SRS0=Dys0=IH=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-15.3 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AD075C433DB
-	for <intel-gfx@archiver.kernel.org>; Tue,  9 Mar 2021 00:13:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4C814C433DB
+	for <intel-gfx@archiver.kernel.org>; Tue,  9 Mar 2021 00:47:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 42D7F65287
-	for <intel-gfx@archiver.kernel.org>; Tue,  9 Mar 2021 00:13:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 42D7F65287
+	by mail.kernel.org (Postfix) with ESMTPS id F3D0864EF0
+	for <intel-gfx@archiver.kernel.org>; Tue,  9 Mar 2021 00:47:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F3D0864EF0
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B8CB16E413;
-	Tue,  9 Mar 2021 00:13:37 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 713556E413
- for <intel-gfx@lists.freedesktop.org>; Tue,  9 Mar 2021 00:13:36 +0000 (UTC)
-IronPort-SDR: 0TxfnZY1xKK+MiLwB+hDGc2X1eIbABM7VsLMq8o6caOd4KozS6kUNY1wbNI+jo3BXwfiCATGmG
- TKjJUaPwYzcw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9917"; a="188234642"
-X-IronPort-AV: E=Sophos;i="5.81,233,1610438400"; d="scan'208";a="188234642"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Mar 2021 16:13:34 -0800
-IronPort-SDR: jzbVjaNWoZFPqQ51eJReL5Fin/sFlGS4qz4CAOG27bzwLYGnYbg9nH+v+HRD2IoB1bOWlmzfcF
- N8TfJJb23RIw==
-X-IronPort-AV: E=Sophos;i="5.81,233,1610438400"; d="scan'208";a="602373939"
-Received: from sbalasub-mobl1.amr.corp.intel.com (HELO ldmartin-desk1)
- ([10.209.97.66])
- by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Mar 2021 16:13:33 -0800
-Date: Mon, 8 Mar 2021 16:13:33 -0800
-From: Lucas De Marchi <lucas.demarchi@intel.com>
-To: Jani Nikula <jani.nikula@intel.com>
-Message-ID: <20210309001333.dpvq4z2c5rcahagh@ldmartin-desk1>
-X-Patchwork-Hint: comment
-References: <cover.1615211711.git.jani.nikula@intel.com>
- <ae5fd92591787c371c0d234d4f0e7281b4165962.1615211711.git.jani.nikula@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8AA8989854;
+	Tue,  9 Mar 2021 00:47:16 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB01E6E413;
+ Tue,  9 Mar 2021 00:47:14 +0000 (UTC)
+IronPort-SDR: TybAHZg9FyTVorU3Bru3x3ZSl4rvrxpwAkYWXGY4lMfoymgDvP07szYQ4z/NhUARbCE16XqrDE
+ QI+SgZOK5V6w==
+X-IronPort-AV: E=McAfee;i="6000,8403,9917"; a="167401407"
+X-IronPort-AV: E=Sophos;i="5.81,233,1610438400"; d="scan'208";a="167401407"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Mar 2021 16:47:06 -0800
+IronPort-SDR: EGDcmkmHrPCKSbrcfIpPV2OwpUEJCtgzdgzBtTUZzPcxF49CyDFxIuLtorCRoHao9Vsyb6BMWJ
+ bhK6XyJpYL7g==
+X-IronPort-AV: E=Sophos;i="5.81,233,1610438400"; d="scan'208";a="409514158"
+Received: from labuser-z97x-ud5h.jf.intel.com (HELO labuser-Z97X-UD5H)
+ ([10.165.21.211])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Mar 2021 16:47:06 -0800
+Date: Mon, 8 Mar 2021 16:52:58 -0800
+From: "Navare, Manasi" <manasi.d.navare@intel.com>
+To: Pekka Paalanen <ppaalanen@gmail.com>
+Message-ID: <20210309005252.GA27491@labuser-Z97X-UD5H>
+References: <20210302204132.12058-1-manasi.d.navare@intel.com>
+ <20210303104744.2c064f09@eldfell>
+ <20210303204433.GA15819@labuser-Z97X-UD5H>
+ <20210304104223.6b3490bc@eldfell>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <ae5fd92591787c371c0d234d4f0e7281b4165962.1615211711.git.jani.nikula@intel.com>
-Subject: Re: [Intel-gfx] [PATCH v3 2/8] drm/i915: split out stepping info to
- a new file
+In-Reply-To: <20210304104223.6b3490bc@eldfell>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+Subject: Re: [Intel-gfx] [PATCH] drm/atomic: Add the crtc to affected crtc
+ only if uapi.enable = true
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,262 +63,158 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, chris@chris-wilson.co.uk
+Cc: Daniel Vetter <daniel.vetter@intel.com>, intel-gfx@lists.freedesktop.org,
+ Daniel Stone <daniels@collabora.com>, dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="iso-8859-1"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Mar 08, 2021 at 03:56:39PM +0200, Jani Nikula wrote:
->gt/intel_workarounds.c is decidedly the wrong place for handling
->stepping info. Add new intel_step.[ch] for the data, and move the
->stepping arrays there. No functional changes.
->
->v2: Rename stepping->step
->
->Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+On Thu, Mar 04, 2021 at 10:42:23AM +0200, Pekka Paalanen wrote:
+> On Wed, 3 Mar 2021 12:44:33 -0800
+> "Navare, Manasi" <manasi.d.navare@intel.com> wrote:
+> =
+
+> > On Wed, Mar 03, 2021 at 10:47:44AM +0200, Pekka Paalanen wrote:
+> > > On Tue,  2 Mar 2021 12:41:32 -0800
+> > > Manasi Navare <manasi.d.navare@intel.com> wrote:
+> > >   =
+
+> > > > In case of a modeset where a mode gets split across mutiple CRTCs
+> > > > in the driver specific implementation (bigjoiner in i915) we wrongl=
+y count
+> > > > the affected CRTCs based on the drm_crtc_mask and indicate the stol=
+en CRTC as
+> > > > an affected CRTC in atomic_check_only().
+> > > > This triggers a warning since affected CRTCs doent match requested =
+CRTC.
+> > > > =
+
+> > > > To fix this in such bigjoiner configurations, we should only
+> > > > increment affected crtcs if that CRTC is enabled in UAPI not
+> > > > if it is just used internally in the driver to split the mode.  =
+
+> > > =
+
+> > > Hi,
+> > > =
+
+> > > I think that makes sense to me. Stealing CRTCs that are not currently
+> > > used by the userspace (display server) should be ok, as long as that
+> > > is completely invisible to userspace: meaning that it does not cause
+> > > userspace to unexpectedly e.g. receive or miss per-crtc atomic
+> > > completion events.  =
+
+> > =
+
+> > Yes since we are only doing atomic_check_only() here, the stolen
+> =
+
+> But the real not-test-only commit will follow if this test-only commit
+> succeeds, and keeping the guarantees for the real commit are important.
+
+Hmm well after the actual real commit, since the second crtc is stolen
+even though it is not being used for the display output, it is
+used for joiner so the uapi.enable will be true after the real commit.
+
+so actually the assertion would fail in this case.
+
+@Ville @Danvet any suggestions here in that case?
+
+Manasi
+
+> =
+
+> > crtc is completely invisible to the userspace and hence that is =
+
+> > indicated by uapi.enable which is not true for this stolen
+> > crtc. However if allow modeset flag set, then it will do a full
+> > modeset and indicate the uapi.enable for this stolen crtc as well
+> > since that cannot be used for other modeset requested by userspace.
+> > =
+
+> > > =
+
+> > > Can that also be asserted somehow, or does this already do that?  =
+
+> > =
+
+> > Not clear what you want the assertion for? Could you elaborate
+> =
+
+> As assertion that when the real atomic commit happens and then
+> completion events are fired, they match exactly the affected crtcs mask.
+> =
+
+> I understand this may be off-topic for this particular patch, but since
+> we are discussing the topic, such checks would be really nice. I'm
+> curious if such checks already exist.
+> =
+
+> =
+
+> Thanks,
+> pq
+> =
+
+> > =
+
+> > Manasi
+> > =
+
+> > > =
+
+> > > =
+
+> > > Thanks,
+> > > pq
+> > >   =
+
+> > > > Cc: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
+> > > > Cc: Simon Ser <contact@emersion.fr>
+> > > > Cc: Pekka Paalanen <pekka.paalanen@collabora.co.uk>
+> > > > Cc: Daniel Stone <daniels@collabora.com>
+> > > > Cc: Daniel Vetter <daniel.vetter@intel.com>
+> > > > Cc: dri-devel@lists.freedesktop.org
+> > > > Signed-off-by: Manasi Navare <manasi.d.navare@intel.com>
+> > > > ---
+> > > >  drivers/gpu/drm/drm_atomic.c | 6 ++++--
+> > > >  1 file changed, 4 insertions(+), 2 deletions(-)
+> > > > =
+
+> > > > diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_ato=
+mic.c
+> > > > index 5b4547e0f775..d7acd6bbd97e 100644
+> > > > --- a/drivers/gpu/drm/drm_atomic.c
+> > > > +++ b/drivers/gpu/drm/drm_atomic.c
+> > > > @@ -1358,8 +1358,10 @@ int drm_atomic_check_only(struct drm_atomic_=
+state *state)
+> > > >  		}
+> > > >  	}
+> > > >  =
+
+> > > > -	for_each_new_crtc_in_state(state, crtc, new_crtc_state, i)
+> > > > -		affected_crtc |=3D drm_crtc_mask(crtc);
+> > > > +	for_each_new_crtc_in_state(state, crtc, new_crtc_state, i) {
+> > > > +		if (new_crtc_state->enable)
+> > > > +			affected_crtc |=3D drm_crtc_mask(crtc);
+> > > > +	}
+> > > >  =
+
+> > > >  	/*
+> > > >  	 * For commits that allow modesets drivers can add other CRTCs to=
+ the  =
+
+> > >   =
+
+> > =
+
+> > =
+
+> =
 
 
-Reviewed-by: Lucas De Marchi <lucas.demarchi@intel.com>
 
-but what branch is this supposed to go to?
-
-Lucas De Marchi
-
->---
-> drivers/gpu/drm/i915/Makefile               |  1 +
-> drivers/gpu/drm/i915/gt/intel_workarounds.c | 39 -----------------
-> drivers/gpu/drm/i915/i915_drv.h             | 19 +--------
-> drivers/gpu/drm/i915/intel_step.c           | 46 +++++++++++++++++++++
-> drivers/gpu/drm/i915/intel_step.h           | 25 +++++++++++
-> 5 files changed, 74 insertions(+), 56 deletions(-)
-> create mode 100644 drivers/gpu/drm/i915/intel_step.c
-> create mode 100644 drivers/gpu/drm/i915/intel_step.h
->
->diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
->index bc6138880c67..a9fb426d5e41 100644
->--- a/drivers/gpu/drm/i915/Makefile
->+++ b/drivers/gpu/drm/i915/Makefile
->@@ -53,6 +53,7 @@ i915-y +=3D i915_config.o \
-> 	  intel_pm.o \
-> 	  intel_runtime_pm.o \
-> 	  intel_sideband.o \
->+	  intel_step.o \
-> 	  intel_uncore.o \
-> 	  intel_wakeref.o \
-> 	  vlv_suspend.o
->diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm=
-/i915/gt/intel_workarounds.c
->index 3b4a7da60f0b..2827d4f2e086 100644
->--- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
->+++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
->@@ -52,45 +52,6 @@
->  * - Public functions to init or apply the given workaround type.
->  */
->
->-/*
->- * KBL revision ID ordering is bizarre; higher revision ID's map to lower
->- * steppings in some cases.  So rather than test against the revision ID
->- * directly, let's map that into our own range of increasing ID's that we
->- * can test against in a regular manner.
->- */
->-
->-const struct i915_rev_steppings kbl_revids[] =3D {
->-	[0] =3D { .gt_stepping =3D KBL_REVID_A0, .disp_stepping =3D KBL_REVID_A0=
- },
->-	[1] =3D { .gt_stepping =3D KBL_REVID_B0, .disp_stepping =3D KBL_REVID_B0=
- },
->-	[2] =3D { .gt_stepping =3D KBL_REVID_C0, .disp_stepping =3D KBL_REVID_B0=
- },
->-	[3] =3D { .gt_stepping =3D KBL_REVID_D0, .disp_stepping =3D KBL_REVID_B0=
- },
->-	[4] =3D { .gt_stepping =3D KBL_REVID_F0, .disp_stepping =3D KBL_REVID_C0=
- },
->-	[5] =3D { .gt_stepping =3D KBL_REVID_C0, .disp_stepping =3D KBL_REVID_B1=
- },
->-	[6] =3D { .gt_stepping =3D KBL_REVID_D1, .disp_stepping =3D KBL_REVID_B1=
- },
->-	[7] =3D { .gt_stepping =3D KBL_REVID_G0, .disp_stepping =3D KBL_REVID_C0=
- },
->-};
->-
->-const struct i915_rev_steppings tgl_uy_revid_step_tbl[] =3D {
->-	[0] =3D { .gt_stepping =3D STEP_A0, .disp_stepping =3D STEP_A0 },
->-	[1] =3D { .gt_stepping =3D STEP_B0, .disp_stepping =3D STEP_C0 },
->-	[2] =3D { .gt_stepping =3D STEP_B1, .disp_stepping =3D STEP_C0 },
->-	[3] =3D { .gt_stepping =3D STEP_C0, .disp_stepping =3D STEP_D0 },
->-};
->-
->-/* Same GT stepping between tgl_uy_revids and tgl_revids don't mean the s=
-ame HW */
->-const struct i915_rev_steppings tgl_revid_step_tbl[] =3D {
->-	[0] =3D { .gt_stepping =3D STEP_A0, .disp_stepping =3D STEP_B0 },
->-	[1] =3D { .gt_stepping =3D STEP_B0, .disp_stepping =3D STEP_D0 },
->-};
->-
->-const struct i915_rev_steppings adls_revid_step_tbl[] =3D {
->-	[0x0] =3D { .gt_stepping =3D STEP_A0, .disp_stepping =3D STEP_A0 },
->-	[0x1] =3D { .gt_stepping =3D STEP_A0, .disp_stepping =3D STEP_A2 },
->-	[0x4] =3D { .gt_stepping =3D STEP_B0, .disp_stepping =3D STEP_B0 },
->-	[0x8] =3D { .gt_stepping =3D STEP_C0, .disp_stepping =3D STEP_B0 },
->-	[0xC] =3D { .gt_stepping =3D STEP_D0, .disp_stepping =3D STEP_C0 },
->-};
->-
-> static void wa_init_start(struct i915_wa_list *wal, const char *name, con=
-st char *engine_name)
-> {
-> 	wal->name =3D name;
->diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_d=
-rv.h
->index 2f511bf2bd82..02170edd6628 100644
->--- a/drivers/gpu/drm/i915/i915_drv.h
->+++ b/drivers/gpu/drm/i915/i915_drv.h
->@@ -86,9 +86,10 @@
-> #include "gt/uc/intel_uc.h"
->
-> #include "intel_device_info.h"
->+#include "intel_memory_region.h"
-> #include "intel_pch.h"
-> #include "intel_runtime_pm.h"
->-#include "intel_memory_region.h"
->+#include "intel_step.h"
-> #include "intel_uncore.h"
-> #include "intel_wakeref.h"
-> #include "intel_wopcm.h"
->@@ -1471,14 +1472,6 @@ enum {
-> 	KBL_REVID_G0,
-> };
->
->-struct i915_rev_steppings {
->-	u8 gt_stepping;
->-	u8 disp_stepping;
->-};
->-
->-/* Defined in intel_workarounds.c */
->-extern const struct i915_rev_steppings kbl_revids[];
->-
-> #define IS_KBL_GT_REVID(dev_priv, since, until) \
-> 	(IS_KABYLAKE(dev_priv) && \
-> 	 kbl_revids[INTEL_REVID(dev_priv)].gt_stepping >=3D since && \
->@@ -1527,14 +1520,6 @@ enum {
-> 	STEP_D0,
-> };
->
->-#define TGL_UY_REVID_STEP_TBL_SIZE	4
->-#define TGL_REVID_STEP_TBL_SIZE		2
->-#define ADLS_REVID_STEP_TBL_SIZE	13
->-
->-extern const struct i915_rev_steppings tgl_uy_revid_step_tbl[TGL_UY_REVID=
-_STEP_TBL_SIZE];
->-extern const struct i915_rev_steppings tgl_revid_step_tbl[TGL_REVID_STEP_=
-TBL_SIZE];
->-extern const struct i915_rev_steppings adls_revid_step_tbl[ADLS_REVID_STE=
-P_TBL_SIZE];
->-
-> static inline const struct i915_rev_steppings *
-> tgl_stepping_get(struct drm_i915_private *dev_priv)
-> {
->diff --git a/drivers/gpu/drm/i915/intel_step.c b/drivers/gpu/drm/i915/inte=
-l_step.c
->new file mode 100644
->index 000000000000..e19820cbe8e3
->--- /dev/null
->+++ b/drivers/gpu/drm/i915/intel_step.c
->@@ -0,0 +1,46 @@
->+// SPDX-License-Identifier: MIT
->+/*
->+ * Copyright =A9 2020,2021 Intel Corporation
->+ */
->+
->+#include "i915_drv.h"
->+#include "intel_step.h"
->+
->+/*
->+ * KBL revision ID ordering is bizarre; higher revision ID's map to lower
->+ * steppings in some cases.  So rather than test against the revision ID
->+ * directly, let's map that into our own range of increasing ID's that we
->+ * can test against in a regular manner.
->+ */
->+
->+const struct i915_rev_steppings kbl_revids[] =3D {
->+	[0] =3D { .gt_stepping =3D KBL_REVID_A0, .disp_stepping =3D KBL_REVID_A0=
- },
->+	[1] =3D { .gt_stepping =3D KBL_REVID_B0, .disp_stepping =3D KBL_REVID_B0=
- },
->+	[2] =3D { .gt_stepping =3D KBL_REVID_C0, .disp_stepping =3D KBL_REVID_B0=
- },
->+	[3] =3D { .gt_stepping =3D KBL_REVID_D0, .disp_stepping =3D KBL_REVID_B0=
- },
->+	[4] =3D { .gt_stepping =3D KBL_REVID_F0, .disp_stepping =3D KBL_REVID_C0=
- },
->+	[5] =3D { .gt_stepping =3D KBL_REVID_C0, .disp_stepping =3D KBL_REVID_B1=
- },
->+	[6] =3D { .gt_stepping =3D KBL_REVID_D1, .disp_stepping =3D KBL_REVID_B1=
- },
->+	[7] =3D { .gt_stepping =3D KBL_REVID_G0, .disp_stepping =3D KBL_REVID_C0=
- },
->+};
->+
->+const struct i915_rev_steppings tgl_uy_revid_step_tbl[] =3D {
->+	[0] =3D { .gt_stepping =3D STEP_A0, .disp_stepping =3D STEP_A0 },
->+	[1] =3D { .gt_stepping =3D STEP_B0, .disp_stepping =3D STEP_C0 },
->+	[2] =3D { .gt_stepping =3D STEP_B1, .disp_stepping =3D STEP_C0 },
->+	[3] =3D { .gt_stepping =3D STEP_C0, .disp_stepping =3D STEP_D0 },
->+};
->+
->+/* Same GT stepping between tgl_uy_revids and tgl_revids don't mean the s=
-ame HW */
->+const struct i915_rev_steppings tgl_revid_step_tbl[] =3D {
->+	[0] =3D { .gt_stepping =3D STEP_A0, .disp_stepping =3D STEP_B0 },
->+	[1] =3D { .gt_stepping =3D STEP_B0, .disp_stepping =3D STEP_D0 },
->+};
->+
->+const struct i915_rev_steppings adls_revid_step_tbl[] =3D {
->+	[0x0] =3D { .gt_stepping =3D STEP_A0, .disp_stepping =3D STEP_A0 },
->+	[0x1] =3D { .gt_stepping =3D STEP_A0, .disp_stepping =3D STEP_A2 },
->+	[0x4] =3D { .gt_stepping =3D STEP_B0, .disp_stepping =3D STEP_B0 },
->+	[0x8] =3D { .gt_stepping =3D STEP_C0, .disp_stepping =3D STEP_B0 },
->+	[0xC] =3D { .gt_stepping =3D STEP_D0, .disp_stepping =3D STEP_C0 },
->+};
->diff --git a/drivers/gpu/drm/i915/intel_step.h b/drivers/gpu/drm/i915/inte=
-l_step.h
->new file mode 100644
->index 000000000000..af922ae3bb4e
->--- /dev/null
->+++ b/drivers/gpu/drm/i915/intel_step.h
->@@ -0,0 +1,25 @@
->+/* SPDX-License-Identifier: MIT */
->+/*
->+ * Copyright =A9 2020,2021 Intel Corporation
->+ */
->+
->+#ifndef __INTEL_STEP_H__
->+#define __INTEL_STEP_H__
->+
->+#include <linux/types.h>
->+
->+struct i915_rev_steppings {
->+	u8 gt_stepping;
->+	u8 disp_stepping;
->+};
->+
->+#define TGL_UY_REVID_STEP_TBL_SIZE	4
->+#define TGL_REVID_STEP_TBL_SIZE		2
->+#define ADLS_REVID_STEP_TBL_SIZE	13
->+
->+extern const struct i915_rev_steppings kbl_revids[];
->+extern const struct i915_rev_steppings tgl_uy_revid_step_tbl[TGL_UY_REVID=
-_STEP_TBL_SIZE];
->+extern const struct i915_rev_steppings tgl_revid_step_tbl[TGL_REVID_STEP_=
-TBL_SIZE];
->+extern const struct i915_rev_steppings adls_revid_step_tbl[ADLS_REVID_STE=
-P_TBL_SIZE];
->+
->+#endif /* __INTEL_STEP_H__ */
->-- =
-
->2.20.1
->
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
