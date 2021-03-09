@@ -2,52 +2,55 @@ Return-Path: <SRS0=Dys0=IH=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-15.3 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
-	version=3.4.0
+	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D8B75C433E0
-	for <intel-gfx@archiver.kernel.org>; Tue,  9 Mar 2021 00:51:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 38393C433E0
+	for <intel-gfx@archiver.kernel.org>; Tue,  9 Mar 2021 04:28:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 884626523D
-	for <intel-gfx@archiver.kernel.org>; Tue,  9 Mar 2021 00:51:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 884626523D
+	by mail.kernel.org (Postfix) with ESMTPS id EA8AC6528A
+	for <intel-gfx@archiver.kernel.org>; Tue,  9 Mar 2021 04:28:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EA8AC6528A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E61D889854;
-	Tue,  9 Mar 2021 00:51:56 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A6F4489854
- for <intel-gfx@lists.freedesktop.org>; Tue,  9 Mar 2021 00:51:55 +0000 (UTC)
-IronPort-SDR: G1xQbZ5CO2M6xpZnxcxHMIdDF0Y6k5DzKEJTdoqI8f9zgr4dQbkS1IhGaStq1WPr6fTf8wC4v2
- ZVnLmlmaEnhA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9917"; a="252160306"
-X-IronPort-AV: E=Sophos;i="5.81,233,1610438400"; d="scan'208";a="252160306"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Mar 2021 16:51:53 -0800
-IronPort-SDR: 0xG/kfVBuD4/1OmskSfbFQkv+ZcQ9S3KtZUhK4mcrvbhKXljEDGImDIQOznZIXxPe7GaNp49Mb
- IAyvo80D4iHA==
-X-IronPort-AV: E=Sophos;i="5.81,233,1610438400"; d="scan'208";a="602385196"
-Received: from sbalasub-mobl1.amr.corp.intel.com (HELO ldmartin-desk1)
- ([10.209.97.66])
- by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Mar 2021 16:51:53 -0800
-Date: Mon, 8 Mar 2021 16:51:52 -0800
-From: Lucas De Marchi <lucas.demarchi@intel.com>
-To: Jani Nikula <jani.nikula@intel.com>
-Message-ID: <20210309005152.ohqj3zm6xb5u77ps@ldmartin-desk1>
-References: <cover.1613580193.git.jani.nikula@intel.com>
- <23911ee2dee946211f180ac92512ccbb87bbfcfe.1613580193.git.jani.nikula@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 02BAB6E45E;
+	Tue,  9 Mar 2021 04:28:48 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2357B6E428;
+ Tue,  9 Mar 2021 04:28:46 +0000 (UTC)
+IronPort-SDR: 6mVKxSfYAAunoBKXNS9WL2fGF7U5bZvg9LRGL1FR1hfIGiQhNpa3OpXXJwz4NWEpP4/9UnxtrE
+ PmvJEvhIOO8Q==
+X-IronPort-AV: E=McAfee;i="6000,8403,9917"; a="168069851"
+X-IronPort-AV: E=Sophos;i="5.81,234,1610438400"; d="scan'208";a="168069851"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Mar 2021 20:28:45 -0800
+IronPort-SDR: ExVPP9kmYh92w+EmCqg3hJMZdvTMVqdKNKgXfZG5fPG5YM8m2Z9t/sKT/2l7Y3kUTNK5/gbB6l
+ gVhShxn1Cq4g==
+X-IronPort-AV: E=Sophos;i="5.81,234,1610438400"; d="scan'208";a="409572613"
+Received: from aknautiy-mobl.gar.corp.intel.com (HELO [10.215.132.107])
+ ([10.215.132.107])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Mar 2021 20:28:42 -0800
+From: "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>, intel-gfx@lists.freedesktop.org
+References: <20210204064842.11595-1-ankit.k.nautiyal@intel.com>
+ <20210204064842.11595-2-ankit.k.nautiyal@intel.com>
+ <87blcueroq.fsf@intel.com> <82d5cf44-4618-6d1d-2219-a5ac80d00d7a@intel.com>
+Message-ID: <035b7941-9e6e-fbd2-8825-11d3d07bb71a@intel.com>
+Date: Tue, 9 Mar 2021 09:58:35 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <23911ee2dee946211f180ac92512ccbb87bbfcfe.1613580193.git.jani.nikula@intel.com>
-Subject: Re: [Intel-gfx] [PATCH 05/12] drm/i915/bios: create fake child
- devices on missing VBT
+In-Reply-To: <82d5cf44-4618-6d1d-2219-a5ac80d00d7a@intel.com>
+Content-Language: en-US
+Subject: Re: [Intel-gfx] [PATCH 1/3] i915/display/intel_dp: Read PCON DSC
+ ENC caps only for DPCD rev >= 1.4
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,127 +63,55 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="iso-8859-1"; Format="flowed"
+Cc: dri-devel@lists.freedesktop.org
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Feb 17, 2021 at 07:03:35PM +0200, Jani Nikula wrote:
->Instead of initialing data directly in ddi_port_info array, create fake
->child devices for default outputs when the VBT is missing. This makes
->further unification of output handling easier.
->
->This will make intel_bios_is_port_present() return true for the fake
->child devices. This may cause subtle changes in a handful of places.
->
->Cc: Lucas De Marchi <lucas.demarchi@intel.com>
->Cc: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
->Signed-off-by: Jani Nikula <jani.nikula@intel.com>
->---
-> drivers/gpu/drm/i915/display/intel_bios.c | 47 ++++++++++++++++++-----
-> 1 file changed, 37 insertions(+), 10 deletions(-)
->
->diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i=
-915/display/intel_bios.c
->index b9d99324d66d..59d315b395c2 100644
->--- a/drivers/gpu/drm/i915/display/intel_bios.c
->+++ b/drivers/gpu/drm/i915/display/intel_bios.c
->@@ -2063,8 +2063,8 @@ init_vbt_missing_defaults(struct drm_i915_private *i=
-915)
-> 		return;
->
-> 	for_each_port_masked(port, ports) {
->-		struct ddi_vbt_port_info *info =3D
->-			&i915->vbt.ddi_port_info[port];
->+		struct display_device_data *devdata;
->+		struct child_device_config *child;
-> 		enum phy phy =3D intel_port_to_phy(i915, port);
->
-> 		/*
->@@ -2074,11 +2074,38 @@ init_vbt_missing_defaults(struct drm_i915_private =
-*i915)
-> 		if (intel_phy_is_tc(i915, phy))
-> 			continue;
->
->-		info->supports_dvi =3D (port !=3D PORT_A && port !=3D PORT_E);
->-		info->supports_hdmi =3D info->supports_dvi;
->-		info->supports_dp =3D (port !=3D PORT_E);
->-		info->supports_edp =3D (port =3D=3D PORT_A);
->+		/* Create fake child device config */
->+		devdata =3D kzalloc(sizeof(*devdata), GFP_KERNEL);
->+		if (!devdata)
->+			break;
->+
->+		child =3D &devdata->child;
->+
->+		if (port =3D=3D PORT_F)
->+			child->dvo_port =3D DVO_PORT_HDMIF;
->+		else if (port =3D=3D PORT_E)
->+			child->dvo_port =3D DVO_PORT_HDMIE;
->+		else
->+			child->dvo_port =3D DVO_PORT_HDMIA + port;
-
-initially I was confused here, but after checking I understoo why you're
-doing this, since DVO_PORT_HDMIE/DVO_PORT_HDMIF doesn't follow
-DVO_PORT_HDMID
-
-
-Reviewed-by: Lucas De Marchi <lucas.demarchi@intel.com>
-
-Lucas De Marchi
-
->+
->+		if (port !=3D PORT_A && port !=3D PORT_E)
->+			child->device_type |=3D DEVICE_TYPE_TMDS_DVI_SIGNALING;
->+
->+		if (port !=3D PORT_E)
->+			child->device_type |=3D DEVICE_TYPE_DISPLAYPORT_OUTPUT;
->+
->+		if (port =3D=3D PORT_A)
->+			child->device_type |=3D DEVICE_TYPE_INTERNAL_CONNECTOR;
->+
->+		list_add_tail(&devdata->node, &i915->vbt.display_devices);
->+
->+		drm_dbg_kms(&i915->drm,
->+			    "Generating default VBT child device with type 0x04%x on port %c\n=
-",
->+			    child->device_type, port_name(port));
-> 	}
->+
->+	/* Bypass some minimum baseline VBT version checks */
->+	i915->vbt.version =3D 155;
-> }
->
-> static const struct bdb_header *get_bdb_header(const struct vbt_header *v=
-bt)
->@@ -2255,10 +2282,6 @@ void intel_bios_init(struct drm_i915_private *i915)
-> 	/* Depends on child device list */
-> 	parse_compression_parameters(i915, bdb);
->
->-	/* Further processing on pre-parsed data */
->-	parse_sdvo_device_mapping(i915);
->-	parse_ddi_ports(i915);
->-
-> out:
-> 	if (!vbt) {
-> 		drm_info(&i915->drm,
->@@ -2266,6 +2289,10 @@ void intel_bios_init(struct drm_i915_private *i915)
-> 		init_vbt_missing_defaults(i915);
-> 	}
->
->+	/* Further processing on pre-parsed or generated child device data */
->+	parse_sdvo_device_mapping(i915);
->+	parse_ddi_ports(i915);
->+
-> 	kfree(oprom_vbt);
-> }
->
->-- =
-
->2.20.1
->
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+QXMgSSByZWFsaXplZCwgdGhpcyBwYXRjaCBpcyBtaXhpbmcgRFBDRCByZXYgYW5kIERQIHZlcnNp
+b24sIG5lZWQgYW4gCmFwcHJvcHJpYXRlIGNoZWNrIGluc3RlYWQuCgpBcyBmb3IgdGhlIGdpdGxh
+YiBpc3N1ZSAKaHR0cHM6Ly9naXRsYWIuZnJlZWRlc2t0b3Aub3JnL2RybS9pbnRlbC8tL2lzc3Vl
+cy8yODY4IHRoaXMgc2VlbXMgdG8gYmUgCm5vdCBkdWUgdG8gYSBEUENEIHJlZ2lzdGVyIG5vdCBk
+ZWZpbmVkIGZvciBhbiBvbGRlciBzaW5rLgoKVGhlIERQQ0QgcmVhZCBpbiB0aGF0IGNhc2Ugc2hv
+dWxkIGhhdmUgYmVlbiAwLCBpbnN0ZWFkIG9mIHRpbWVvdXQuCgpJIHdpbGwgZHJvcCB0aGlzIHBh
+dGNoIGZvciBub3csIGZyb20gdGhlIHNlcmllcyBhbmQgcmV2aXNpdCBpdCBsYXRlci4KClRoYW5r
+cyAmIFJlZ2FyZHMsCgpBbmtpdAoKT24gMi84LzIwMjEgNToxNCBQTSwgTmF1dGl5YWwsIEFua2l0
+IEsgd3JvdGU6Cj4KPiBPbiAyLzgvMjAyMSA0OjQ1IFBNLCBKYW5pIE5pa3VsYSB3cm90ZToKPj4g
+T24gVGh1LCAwNCBGZWIgMjAyMSwgQW5raXQgTmF1dGl5YWwgPGFua2l0LmsubmF1dGl5YWxAaW50
+ZWwuY29tPiB3cm90ZToKPj4+IERQLUhETUkyLjEgUENPTiBoYXMgRFNDIGVuY29kZXIgY2FwcyBk
+ZWZpbmVkIGluIHJlZ2lzdGVycyAweDkyLTB4OUUuCj4+PiBEbyBub3QgcmVhZCB0aGUgcmVnaXN0
+ZXJzIGlmIERQQ0QgcmV2IDwgMS40Lgo+Pj4KPj4+IEZpeGVzOiBodHRwczovL2dpdGxhYi5mcmVl
+ZGVza3RvcC5vcmcvZHJtL2ludGVsLy0vaXNzdWVzLzI4NjgKPj4gUGxlYXNlIHVzZSBGaXhlczog
+dG8gcmVmZXJlbmNlIGNvbW1pdHMgdGhhdCB0aGlzIHBhdGNoIGZpeGVzLgo+Pgo+PiBQbGVhc2Ug
+dXNlIENsb3NlczogdG8gcmVmZXJlbmNlIGlzc3VlcyB0aGF0IHRoaXMgcGF0Y2ggZml4ZXMuCj4+
+Cj4+IE5vIG5lZWQgdG8gcmVzZW5kIGZvciB0aGlzLCBjYW4gYmUgZml4ZWQgd2hpbGUgYXBwbHlp
+bmcsIGJ1dCBwbGVhc2UgdGVsbAo+PiBtZSB0aGUgY29tbWl0IHRoYXQgaW50cm9kdWNlZCB0aGUg
+cHJvYmxlbS4KPj4KPj4gQlIsCj4+IEphbmkuCj4+Cj4gQWxyaWdodCB3aWxsIHRha2UgY2FyZS4g
+UGxlYXNlIGZpbmQgYmVsb3cgdGhlIGNvbW1pdCB0aGF0IGludHJvZHVjZWQgCj4gdGhpczoKPgo+
+IGI5ZDk2ZGFjZGMzZDk4M2VhZTIzNGI1MjQwMWVkYjU2ZGJjZWI3NjQKPgo+IFBhdGNoIDogZHJt
+L2k5MTU6IFJlYWQgRFNDIGNhcGFiaWxpdGllcyBvZiB0aGUgSERNSTIuMSBQQ09OIGVuY29kZXIg
+Cj4gaHR0cHM6Ly9wYXRjaHdvcmsuZnJlZWRlc2t0b3Aub3JnL3BhdGNoLzQwODc3OS8KPgo+Cj4g
+VGhhbmtzICYgUmVnYXJkcywKPgo+IEFua2l0Cj4KPj4+IFNpZ25lZC1vZmYtYnk6IEFua2l0IE5h
+dXRpeWFsIDxhbmtpdC5rLm5hdXRpeWFsQGludGVsLmNvbT4KPj4+IC0tLQo+Pj4gwqAgZHJpdmVy
+cy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kcC5jIHwgNCArKystCj4+PiDCoCAxIGZpbGUg
+Y2hhbmdlZCwgMyBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pCj4+Pgo+Pj4gZGlmZiAtLWdp
+dCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZHAuYyAKPj4+IGIvZHJpdmVy
+cy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kcC5jCj4+PiBpbmRleCA4YzEyZDUzNzU2MDcu
+LjJiODNmMGY0MzNhMiAxMDA2NDQKPj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3Bs
+YXkvaW50ZWxfZHAuYwo+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRl
+bF9kcC5jCj4+PiBAQCAtMjQ4OSw5ICsyNDg5LDExIEBAIHN0YXRpYyB2b2lkIGludGVsX2RwX2dl
+dF9wY29uX2RzY19jYXAoc3RydWN0IAo+Pj4gaW50ZWxfZHAgKmludGVsX2RwKQo+Pj4gwqDCoMKg
+wqDCoCBzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqaTkxNSA9IGRwX3RvX2k5MTUoaW50ZWxfZHAp
+Owo+Pj4gwqAgwqDCoMKgwqDCoCAvKiBDbGVhciB0aGUgY2FjaGVkIHJlZ2lzdGVyIHNldCB0byBh
+dm9pZCB1c2luZyBzdGFsZSB2YWx1ZXMgKi8KPj4+IC0KPj4+IMKgwqDCoMKgwqAgbWVtc2V0KGlu
+dGVsX2RwLT5wY29uX2RzY19kcGNkLCAwLCAKPj4+IHNpemVvZihpbnRlbF9kcC0+cGNvbl9kc2Nf
+ZHBjZCkpOwo+Pj4gwqAgK8KgwqDCoCBpZiAoaW50ZWxfZHAtPmRwY2RbRFBfRFBDRF9SRVZdIDwg
+MHgxNCkKPj4+ICvCoMKgwqDCoMKgwqDCoCByZXR1cm47Cj4+PiArCj4+PiDCoMKgwqDCoMKgIGlm
+IChkcm1fZHBfZHBjZF9yZWFkKCZpbnRlbF9kcC0+YXV4LCBEUF9QQ09OX0RTQ19FTkNPREVSLAo+
+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGludGVsX2RwLT5wY29uX2Rz
+Y19kcGNkLAo+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHNpemVvZihp
+bnRlbF9kcC0+cGNvbl9kc2NfZHBjZCkpIDwgMCkKX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRlbC1nZnhAbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4v
+bGlzdGluZm8vaW50ZWwtZ2Z4Cg==
