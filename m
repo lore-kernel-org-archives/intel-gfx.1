@@ -7,45 +7,45 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B4D34C433E6
-	for <intel-gfx@archiver.kernel.org>; Wed, 10 Mar 2021 22:17:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B2350C433DB
+	for <intel-gfx@archiver.kernel.org>; Wed, 10 Mar 2021 22:17:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 78CF064FB9
-	for <intel-gfx@archiver.kernel.org>; Wed, 10 Mar 2021 22:17:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 78CF064FB9
+	by mail.kernel.org (Postfix) with ESMTPS id 75FF664FB9
+	for <intel-gfx@archiver.kernel.org>; Wed, 10 Mar 2021 22:17:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 75FF664FB9
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B77726EA7B;
-	Wed, 10 Mar 2021 22:17:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 515BD6EA86;
+	Wed, 10 Mar 2021 22:17:51 +0000 (UTC)
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C7406EA78
- for <intel-gfx@lists.freedesktop.org>; Wed, 10 Mar 2021 22:17:49 +0000 (UTC)
-IronPort-SDR: ChpdD/cqfKNc2winOpmt0VV0kcQDibeMmVw+p2keC2UTR4Ev3B/qYvEigWG2FbeukJBTOY1M4j
- LWtTnNT9uZDA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9919"; a="252592071"
-X-IronPort-AV: E=Sophos;i="5.81,238,1610438400"; d="scan'208";a="252592071"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 95A766EA77
+ for <intel-gfx@lists.freedesktop.org>; Wed, 10 Mar 2021 22:17:47 +0000 (UTC)
+IronPort-SDR: tgSgf/kHSOkh37kASqum0oHRifuEjzYjZDoWnITAkd3SKH0VEE07PhkNzukrKIxWDVJbyGv/y7
+ Lc8SBwOpgl7Q==
+X-IronPort-AV: E=McAfee;i="6000,8403,9919"; a="252592066"
+X-IronPort-AV: E=Sophos;i="5.81,238,1610438400"; d="scan'208";a="252592066"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Mar 2021 14:17:49 -0800
-IronPort-SDR: 0l3GYrr5tZ4U70rFRlc573b30ooVQiH/dNQ6xZwnPcUqdGbJcjNx6vhX8gN2ZYutZVivGqihUW
- CqTrROSbiNCw==
-X-IronPort-AV: E=Sophos;i="5.81,238,1610438400"; d="scan'208";a="403852226"
+ 10 Mar 2021 14:17:47 -0800
+IronPort-SDR: seQM9rJY/sapdOm2dns4bgLE/PreHZzuB2d+H7SFfcUWcAPsrroDXnmwwFbWKj/SJ4OpXzICV/
+ /8he/mcHy1qg==
+X-IronPort-AV: E=Sophos;i="5.81,238,1610438400"; d="scan'208";a="403852215"
 Received: from ideak-desk.fi.intel.com ([10.237.68.141])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Mar 2021 14:17:48 -0800
+ 10 Mar 2021 14:17:46 -0800
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 11 Mar 2021 00:17:23 +0200
-Message-Id: <20210310221736.2963264-11-imre.deak@intel.com>
+Date: Thu, 11 Mar 2021 00:17:21 +0200
+Message-Id: <20210310221736.2963264-9-imre.deak@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210310221736.2963264-1-imre.deak@intel.com>
 References: <20210310221736.2963264-1-imre.deak@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 10/23] drm/i915/intel_fb: Pull FB plane
- functions from intel_sprite.c
+Subject: [Intel-gfx] [PATCH 08/23] drm/i915/intel_fb: Pull FB plane
+ functions from skl_universal_plane.c
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,130 +63,134 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Move the FB plane specific function from intel_sprite.c to intel_fb.c
+Move the FB plane related functions from skl_universal_plane.c to
+intel_fb.c.
 
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_fb.c     | 32 +++++++++++++++++++++
- drivers/gpu/drm/i915/display/intel_fb.h     |  4 +++
- drivers/gpu/drm/i915/display/intel_sprite.c | 32 ---------------------
- drivers/gpu/drm/i915/display/intel_sprite.h |  1 -
- 4 files changed, 36 insertions(+), 33 deletions(-)
+ drivers/gpu/drm/i915/display/intel_fb.c       | 32 +++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_fb.h       |  4 +++
+ .../drm/i915/display/skl_universal_plane.c    | 34 -------------------
+ .../drm/i915/display/skl_universal_plane.h    |  2 --
+ 4 files changed, 36 insertions(+), 36 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_fb.c b/drivers/gpu/drm/i915/display/intel_fb.c
-index 74157d5f2d7f..8ebcded6a472 100644
+index 29b8ec087f53..977ee2acaed1 100644
 --- a/drivers/gpu/drm/i915/display/intel_fb.c
 +++ b/drivers/gpu/drm/i915/display/intel_fb.c
-@@ -64,3 +64,35 @@ int skl_main_to_aux_plane(const struct drm_framebuffer *fb, int main_plane)
- 	else
- 		return 0;
+@@ -26,3 +26,35 @@ bool is_gen12_ccs_cc_plane(const struct drm_framebuffer *fb, int plane)
+ 	return fb->modifier == I915_FORMAT_MOD_Y_TILED_GEN12_RC_CCS_CC &&
+ 	       plane == 2;
  }
 +
-+int intel_plane_check_stride(const struct intel_plane_state *plane_state)
++int main_to_ccs_plane(const struct drm_framebuffer *fb, int main_plane)
 +{
-+	struct intel_plane *plane = to_intel_plane(plane_state->uapi.plane);
-+	const struct drm_framebuffer *fb = plane_state->hw.fb;
-+	unsigned int rotation = plane_state->hw.rotation;
-+	u32 stride, max_stride;
++	drm_WARN_ON(fb->dev, !is_ccs_modifier(fb->modifier) ||
++		    (main_plane && main_plane >= fb->format->num_planes / 2));
 +
-+	/*
-+	 * We ignore stride for all invisible planes that
-+	 * can be remapped. Otherwise we could end up
-+	 * with a false positive when the remapping didn't
-+	 * kick in due the plane being invisible.
-+	 */
-+	if (intel_plane_can_remap(plane_state) &&
-+	    !plane_state->uapi.visible)
++	return fb->format->num_planes / 2 + main_plane;
++}
++
++int skl_ccs_to_main_plane(const struct drm_framebuffer *fb, int ccs_plane)
++{
++	drm_WARN_ON(fb->dev, !is_ccs_modifier(fb->modifier) ||
++		    ccs_plane < fb->format->num_planes / 2);
++
++	if (is_gen12_ccs_cc_plane(fb, ccs_plane))
 +		return 0;
 +
-+	/* FIXME other color planes? */
-+	stride = plane_state->color_plane[0].stride;
-+	max_stride = plane->max_stride(plane, fb->format->format,
-+				       fb->modifier, rotation);
++	return ccs_plane - fb->format->num_planes / 2;
++}
 +
-+	if (stride > max_stride) {
-+		DRM_DEBUG_KMS("[FB:%d] stride (%d) exceeds [PLANE:%d:%s] max stride (%d)\n",
-+			      fb->base.id, stride,
-+			      plane->base.base.id, plane->base.name, max_stride);
-+		return -EINVAL;
-+	}
++int skl_main_to_aux_plane(const struct drm_framebuffer *fb, int main_plane)
++{
++	struct drm_i915_private *i915 = to_i915(fb->dev);
 +
-+	return 0;
++	if (is_ccs_modifier(fb->modifier))
++		return main_to_ccs_plane(fb, main_plane);
++	else if (INTEL_GEN(i915) < 11 &&
++		 intel_format_info_is_yuv_semiplanar(fb->format, fb->modifier))
++		return 1;
++	else
++		return 0;
 +}
 diff --git a/drivers/gpu/drm/i915/display/intel_fb.h b/drivers/gpu/drm/i915/display/intel_fb.h
-index 6ea220438f9a..8c15f4c9561b 100644
+index 64e6a2521320..3cde53c75cb3 100644
 --- a/drivers/gpu/drm/i915/display/intel_fb.h
 +++ b/drivers/gpu/drm/i915/display/intel_fb.h
-@@ -10,6 +10,8 @@
- 
- struct drm_framebuffer;
- 
-+struct intel_plane_state;
-+
- bool is_ccs_plane(const struct drm_framebuffer *fb, int plane);
+@@ -14,4 +14,8 @@ bool is_ccs_plane(const struct drm_framebuffer *fb, int plane);
  bool is_gen12_ccs_plane(const struct drm_framebuffer *fb, int plane);
  bool is_gen12_ccs_cc_plane(const struct drm_framebuffer *fb, int plane);
-@@ -20,4 +22,6 @@ int main_to_ccs_plane(const struct drm_framebuffer *fb, int main_plane);
- int skl_ccs_to_main_plane(const struct drm_framebuffer *fb, int ccs_plane);
- int skl_main_to_aux_plane(const struct drm_framebuffer *fb, int main_plane);
  
-+int intel_plane_check_stride(const struct intel_plane_state *plane_state);
++int main_to_ccs_plane(const struct drm_framebuffer *fb, int main_plane);
++int skl_ccs_to_main_plane(const struct drm_framebuffer *fb, int ccs_plane);
++int skl_main_to_aux_plane(const struct drm_framebuffer *fb, int main_plane);
 +
  #endif /* __INTEL_FB_H__ */
-diff --git a/drivers/gpu/drm/i915/display/intel_sprite.c b/drivers/gpu/drm/i915/display/intel_sprite.c
-index 4cbdb8fd4bb1..0815f10b2246 100644
---- a/drivers/gpu/drm/i915/display/intel_sprite.c
-+++ b/drivers/gpu/drm/i915/display/intel_sprite.c
-@@ -49,38 +49,6 @@
- #include "i9xx_plane.h"
- #include "intel_vrr.h"
+diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers/gpu/drm/i915/display/skl_universal_plane.c
+index 3ff1008b0b4a..9a456b3d19a9 100644
+--- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
++++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
+@@ -915,40 +915,6 @@ static u32 glk_plane_color_ctl(const struct intel_crtc_state *crtc_state,
+ 	return plane_color_ctl;
+ }
  
--int intel_plane_check_stride(const struct intel_plane_state *plane_state)
+-static int
+-main_to_ccs_plane(const struct drm_framebuffer *fb, int main_plane)
 -{
--	struct intel_plane *plane = to_intel_plane(plane_state->uapi.plane);
--	const struct drm_framebuffer *fb = plane_state->hw.fb;
--	unsigned int rotation = plane_state->hw.rotation;
--	u32 stride, max_stride;
+-	drm_WARN_ON(fb->dev, !is_ccs_modifier(fb->modifier) ||
+-		    (main_plane && main_plane >= fb->format->num_planes / 2));
 -
--	/*
--	 * We ignore stride for all invisible planes that
--	 * can be remapped. Otherwise we could end up
--	 * with a false positive when the remapping didn't
--	 * kick in due the plane being invisible.
--	 */
--	if (intel_plane_can_remap(plane_state) &&
--	    !plane_state->uapi.visible)
--		return 0;
--
--	/* FIXME other color planes? */
--	stride = plane_state->color_plane[0].stride;
--	max_stride = plane->max_stride(plane, fb->format->format,
--				       fb->modifier, rotation);
--
--	if (stride > max_stride) {
--		DRM_DEBUG_KMS("[FB:%d] stride (%d) exceeds [PLANE:%d:%s] max stride (%d)\n",
--			      fb->base.id, stride,
--			      plane->base.base.id, plane->base.name, max_stride);
--		return -EINVAL;
--	}
--
--	return 0;
+-	return fb->format->num_planes / 2 + main_plane;
 -}
 -
- int intel_plane_check_src_coordinates(struct intel_plane_state *plane_state)
- {
- 	const struct drm_framebuffer *fb = plane_state->hw.fb;
-diff --git a/drivers/gpu/drm/i915/display/intel_sprite.h b/drivers/gpu/drm/i915/display/intel_sprite.h
-index f6989da2dc4b..c085eb87705c 100644
---- a/drivers/gpu/drm/i915/display/intel_sprite.h
-+++ b/drivers/gpu/drm/i915/display/intel_sprite.h
-@@ -35,7 +35,6 @@ int intel_sprite_set_colorkey_ioctl(struct drm_device *dev, void *data,
- 				    struct drm_file *file_priv);
- void intel_pipe_update_start(const struct intel_crtc_state *new_crtc_state);
- void intel_pipe_update_end(struct intel_crtc_state *new_crtc_state);
--int intel_plane_check_stride(const struct intel_plane_state *plane_state);
- int intel_plane_check_src_coordinates(struct intel_plane_state *plane_state);
- int chv_plane_check_rotation(const struct intel_plane_state *plane_state);
+-int skl_ccs_to_main_plane(const struct drm_framebuffer *fb, int ccs_plane)
+-{
+-	drm_WARN_ON(fb->dev, !is_ccs_modifier(fb->modifier) ||
+-		    ccs_plane < fb->format->num_planes / 2);
+-
+-	if (is_gen12_ccs_cc_plane(fb, ccs_plane))
+-		return 0;
+-
+-	return ccs_plane - fb->format->num_planes / 2;
+-}
+-
+-static int
+-skl_main_to_aux_plane(const struct drm_framebuffer *fb, int main_plane)
+-{
+-	struct drm_i915_private *i915 = to_i915(fb->dev);
+-
+-	if (is_ccs_modifier(fb->modifier))
+-		return main_to_ccs_plane(fb, main_plane);
+-	else if (INTEL_GEN(i915) < 11 &&
+-		 intel_format_info_is_yuv_semiplanar(fb->format, fb->modifier))
+-		return 1;
+-	else
+-		return 0;
+-}
+-
+ static void
+ skl_program_plane(struct intel_plane *plane,
+ 		  const struct intel_crtc_state *crtc_state,
+diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.h b/drivers/gpu/drm/i915/display/skl_universal_plane.h
+index 818266653630..351040b64dc7 100644
+--- a/drivers/gpu/drm/i915/display/skl_universal_plane.h
++++ b/drivers/gpu/drm/i915/display/skl_universal_plane.h
+@@ -8,7 +8,6 @@
+ 
+ #include <linux/types.h>
+ 
+-struct drm_framebuffer;
+ struct drm_i915_private;
+ struct intel_crtc;
+ struct intel_initial_plane_config;
+@@ -26,7 +25,6 @@ void skl_get_initial_plane_config(struct intel_crtc *crtc,
+ 
+ int skl_format_to_fourcc(int format, bool rgb_order, bool alpha);
+ 
+-int skl_ccs_to_main_plane(const struct drm_framebuffer *fb, int ccs_plane);
+ int skl_calc_main_surface_offset(const struct intel_plane_state *plane_state,
+ 				 int *x, int *y, u32 *offset);
  
 -- 
 2.25.1
