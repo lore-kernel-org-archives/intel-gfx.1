@@ -7,45 +7,45 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4E946C433E0
-	for <intel-gfx@archiver.kernel.org>; Wed, 10 Mar 2021 22:17:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7F03DC433DB
+	for <intel-gfx@archiver.kernel.org>; Wed, 10 Mar 2021 22:17:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 12C7B64FB9
-	for <intel-gfx@archiver.kernel.org>; Wed, 10 Mar 2021 22:17:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 12C7B64FB9
+	by mail.kernel.org (Postfix) with ESMTPS id 408A164FB9
+	for <intel-gfx@archiver.kernel.org>; Wed, 10 Mar 2021 22:17:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 408A164FB9
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 46DA489E86;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F56E89E5B;
 	Wed, 10 Mar 2021 22:17:45 +0000 (UTC)
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E01489E08
- for <intel-gfx@lists.freedesktop.org>; Wed, 10 Mar 2021 22:17:43 +0000 (UTC)
-IronPort-SDR: u5N/wlOEEv9dFzTGIgoxB+bpOwPdBLN6mfy9z73BsNFJG/+pugGWgclztHQ0JDtTnbK1hoH03w
- ysdwNPQknmpA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9919"; a="252592057"
-X-IronPort-AV: E=Sophos;i="5.81,238,1610438400"; d="scan'208";a="252592057"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A97A589E06
+ for <intel-gfx@lists.freedesktop.org>; Wed, 10 Mar 2021 22:17:41 +0000 (UTC)
+IronPort-SDR: YJDRkL/mrzso4e7f0iK8RE/x9kmp1G8zvDatbHYP6TkXAi66zXlKsgh8GH3CgGlskD4VH8ziRF
+ j16X+L+7jJeQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9919"; a="252592051"
+X-IronPort-AV: E=Sophos;i="5.81,238,1610438400"; d="scan'208";a="252592051"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Mar 2021 14:17:43 -0800
-IronPort-SDR: K6nmPq0XJ9NeSd3u5nvMdVHPzBXti0X7ZgR2aKtDoG50qz2nrOKcULBRs4vqeUQIcc4Dk04m09
- xUsMRg8EP8CQ==
-X-IronPort-AV: E=Sophos;i="5.81,238,1610438400"; d="scan'208";a="403852183"
+ 10 Mar 2021 14:17:41 -0800
+IronPort-SDR: LvXjYKEzLm3ZMaoSthCSvE9BaQ35OfYEhNJP1Wk3njAkRu40VAuyxocfOXKCmjrn2rvtiBPSXn
+ hr92ToplG18A==
+X-IronPort-AV: E=Sophos;i="5.81,238,1610438400"; d="scan'208";a="403852170"
 Received: from ideak-desk.fi.intel.com ([10.237.68.141])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Mar 2021 14:17:42 -0800
+ 10 Mar 2021 14:17:40 -0800
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 11 Mar 2021 00:17:17 +0200
-Message-Id: <20210310221736.2963264-5-imre.deak@intel.com>
+Date: Thu, 11 Mar 2021 00:17:15 +0200
+Message-Id: <20210310221736.2963264-3-imre.deak@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210310221736.2963264-1-imre.deak@intel.com>
 References: <20210310221736.2963264-1-imre.deak@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 04/23] drm/i915: Make sure i915_ggtt_view is
- inited when creating an FB
+Subject: [Intel-gfx] [PATCH 02/23] drm/i915/selftest: Fix error handling in
+ igt_vma_remapped_gtt()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,28 +63,34 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This probably doesn't cause an issue, since the code checks the view
-type dependent size of the views before comparing them, but let's follow
-the practice to bzero the whole struct when initializing it.
+An inner scope version of err shadows the variable in the outer scope,
+and err doesn't get set after a failure, fix these.
 
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/i915/selftests/i915_vma.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 12b54e032bc1..7bc541b75eef 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -1003,6 +1003,8 @@ intel_fill_fb_ggtt_view(struct i915_ggtt_view *view,
- 			const struct drm_framebuffer *fb,
- 			unsigned int rotation)
- {
-+	memset(view, 0, sizeof(*view));
-+
- 	view->type = I915_GGTT_VIEW_NORMAL;
- 	if (drm_rotation_90_or_270(rotation)) {
- 		view->type = I915_GGTT_VIEW_ROTATED;
+diff --git a/drivers/gpu/drm/i915/selftests/i915_vma.c b/drivers/gpu/drm/i915/selftests/i915_vma.c
+index 065a9d82ad5c..2c067343d65f 100644
+--- a/drivers/gpu/drm/i915/selftests/i915_vma.c
++++ b/drivers/gpu/drm/i915/selftests/i915_vma.c
+@@ -890,7 +890,6 @@ static int igt_vma_remapped_gtt(void *arg)
+ 			struct i915_vma *vma;
+ 			u32 __iomem *map;
+ 			unsigned int x, y;
+-			int err;
+ 
+ 			vma = i915_gem_object_ggtt_pin(obj, &view, 0, 0, PIN_MAPPABLE);
+ 			if (IS_ERR(vma)) {
+@@ -956,6 +955,7 @@ static int igt_vma_remapped_gtt(void *arg)
+ 						       *t == I915_GGTT_VIEW_ROTATED ? "Rotated" : "Remapped",
+ 						       val, exp);
+ 						i915_vma_unpin_iomap(vma);
++						err = -EINVAL;
+ 						goto out;
+ 					}
+ 				}
 -- 
 2.25.1
 
