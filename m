@@ -7,45 +7,45 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E11F0C43381
-	for <intel-gfx@archiver.kernel.org>; Wed, 10 Mar 2021 22:18:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E19DAC433DB
+	for <intel-gfx@archiver.kernel.org>; Wed, 10 Mar 2021 22:18:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AB5FE64FB9
-	for <intel-gfx@archiver.kernel.org>; Wed, 10 Mar 2021 22:18:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AB5FE64FB9
+	by mail.kernel.org (Postfix) with ESMTPS id AF73564FAF
+	for <intel-gfx@archiver.kernel.org>; Wed, 10 Mar 2021 22:18:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AF73564FAF
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C0126EA82;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BDA9D6EA84;
 	Wed, 10 Mar 2021 22:18:01 +0000 (UTC)
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E28A36EA88
- for <intel-gfx@lists.freedesktop.org>; Wed, 10 Mar 2021 22:17:59 +0000 (UTC)
-IronPort-SDR: s5LjQNLBsB6vb+D946fqlGtrYwCZPGxPtdoqqZZGUmfTJgbAcPxhDe/b0DSoJ6xdW+WU3SGMr4
- RuhFM9DWDSzg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9919"; a="252592102"
-X-IronPort-AV: E=Sophos;i="5.81,238,1610438400"; d="scan'208";a="252592102"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 05E2C6EA7F
+ for <intel-gfx@lists.freedesktop.org>; Wed, 10 Mar 2021 22:17:55 +0000 (UTC)
+IronPort-SDR: 998rDDB9kaBEJ+VQw0DriFaMIuTozyXpwj46bjwYOe0tskm7EtXctuHtdhCvLNoyqllgPgVh8J
+ EWMTDvmRxIXA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9919"; a="252592091"
+X-IronPort-AV: E=Sophos;i="5.81,238,1610438400"; d="scan'208";a="252592091"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Mar 2021 14:17:59 -0800
-IronPort-SDR: arZDglyGAiY4uxSMzZse3TkcKsVvk0N7Ff1V0p4rN/WIRsmzNzBfh84PVx8IkBtvUnvxdNS6Nd
- vTUjFc7J+RcQ==
-X-IronPort-AV: E=Sophos;i="5.81,238,1610438400"; d="scan'208";a="403852297"
+ 10 Mar 2021 14:17:55 -0800
+IronPort-SDR: dqS3/kwLzqwl1y0gwO9TQ2w1lM2Ly4opz3lIty3s7USTR+tWbwSegxef5PdJp/i0CMM7akih2I
+ 7/GiSHL6TPvQ==
+X-IronPort-AV: E=Sophos;i="5.81,238,1610438400"; d="scan'208";a="403852273"
 Received: from ideak-desk.fi.intel.com ([10.237.68.141])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Mar 2021 14:17:58 -0800
+ 10 Mar 2021 14:17:54 -0800
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 11 Mar 2021 00:17:33 +0200
-Message-Id: <20210310221736.2963264-21-imre.deak@intel.com>
+Date: Thu, 11 Mar 2021 00:17:29 +0200
+Message-Id: <20210310221736.2963264-17-imre.deak@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210310221736.2963264-1-imre.deak@intel.com>
 References: <20210310221736.2963264-1-imre.deak@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 20/23] drm/i915: s/stride/src_stride/ in the
- intel_remapped_plane_info struct
+Subject: [Intel-gfx] [PATCH 16/23] drm/i915/intel_fb: Factor out
+ calc_plane_normal_size()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,249 +63,148 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-An upcoming patch adds a new dst_stride field to the
-intel_remapped_plane_info struct, so for clarity rename the current
-stride field to src_stride.
+Factor out to a new function the logic to calculate an FB plane's
+normal-view size.
+
+Instead of using intel_remapped_plane_info, which is related only to
+remapping, add a helper to get the tile pitch and rows for an FB plane,
+so these helpers can be used both by the normal size calculation and the
+remapping code.
+
+Also add a new fb_plane_view_dims struct in which we can pass around the
+view (either FB plane or plane source) and tile dimensions conveniently
+to functions calculating further view parameters.
 
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_fb.c   | 12 ++---
- drivers/gpu/drm/i915/gt/intel_ggtt.c      |  4 +-
- drivers/gpu/drm/i915/i915_debugfs.c       |  8 +--
- drivers/gpu/drm/i915/i915_vma_types.h     |  2 +-
- drivers/gpu/drm/i915/selftests/i915_vma.c | 60 +++++++++++------------
- 5 files changed, 43 insertions(+), 43 deletions(-)
+ drivers/gpu/drm/i915/display/intel_fb.c | 82 ++++++++++++++++++-------
+ 1 file changed, 61 insertions(+), 21 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_fb.c b/drivers/gpu/drm/i915/display/intel_fb.c
-index 51c56f0a4a99..6cf0820e3177 100644
+index 62a8e37dca38..f661b21b119d 100644
 --- a/drivers/gpu/drm/i915/display/intel_fb.c
 +++ b/drivers/gpu/drm/i915/display/intel_fb.c
-@@ -591,8 +591,8 @@ static void init_plane_view_dims(const struct intel_framebuffer *fb, int color_p
- 	intel_tile_dims(&fb->base, color_plane, &dims->tile_width, &dims->tile_height);
+@@ -634,6 +634,59 @@ static u32 setup_fb_rotation(int plane, const struct intel_remapped_plane_info *
+ 	return plane_info->width * plane_info->height;
  }
  
--static unsigned int plane_view_stride_tiles(const struct intel_framebuffer *fb, int color_plane,
--					    const struct fb_plane_view_dims *dims)
-+static unsigned int plane_view_src_stride_tiles(const struct intel_framebuffer *fb, int color_plane,
-+						const struct fb_plane_view_dims *dims)
++struct fb_plane_view_dims {
++	unsigned int width, height;
++	unsigned int tile_width, tile_height;
++};
++
++static void init_plane_view_dims(const struct intel_framebuffer *fb, int color_plane,
++				 unsigned int width, unsigned int height,
++				 struct fb_plane_view_dims *dims)
++{
++	dims->width = width;
++	dims->height = height;
++
++	intel_tile_dims(&fb->base, color_plane, &dims->tile_width, &dims->tile_height);
++}
++
++static unsigned int plane_view_stride_tiles(const struct intel_framebuffer *fb, int color_plane,
++					    const struct fb_plane_view_dims *dims)
++{
++	const struct drm_framebuffer *drm_fb = &fb->base;
++
++	return DIV_ROUND_UP(drm_fb->pitches[color_plane],
++			    dims->tile_width * drm_fb->format->cpp[color_plane]);
++}
++
++static unsigned int plane_view_tile_rows(const struct intel_framebuffer *fb, int color_plane,
++					 const struct fb_plane_view_dims *dims,
++					 int y)
++{
++	return DIV_ROUND_UP(y + dims->height, dims->tile_height);
++}
++
++static int calc_plane_normal_size(const struct intel_framebuffer *fb, int color_plane,
++				  const struct fb_plane_view_dims *dims,
++				  int x, int y)
++{
++	const struct drm_framebuffer *drm_fb = &fb->base;
++	struct drm_i915_private *i915 = to_i915(drm_fb->dev);
++	int pages;
++
++	if (is_surface_linear(drm_fb, color_plane)) {
++		unsigned int size;
++
++		size = (y + dims->height) * drm_fb->pitches[color_plane] +
++		       x * drm_fb->format->cpp[color_plane];
++		pages = DIV_ROUND_UP(size, intel_tile_size(i915));
++	} else {
++		pages = plane_view_stride_tiles(fb, color_plane, dims) *
++			plane_view_tile_rows(fb, color_plane, dims, y);
++	}
++
++	return pages;
++}
++
+ int intel_fill_fb_info(struct drm_i915_private *i915, struct drm_framebuffer *fb)
  {
- 	const struct drm_framebuffer *drm_fb = &fb->base;
- 
-@@ -619,7 +619,7 @@ static u32 calc_plane_remap_info(const struct intel_framebuffer *fb, int color_p
- 	unsigned int tile_width = dims->tile_width;
- 	unsigned int tile_height = dims->tile_height;
+ 	struct intel_framebuffer *intel_fb = to_intel_framebuffer(fb);
+@@ -644,6 +697,7 @@ int intel_fill_fb_info(struct drm_i915_private *i915, struct drm_framebuffer *fb
  	unsigned int tile_size = intel_tile_size(i915);
--	unsigned int stride_tiles = plane_view_stride_tiles(fb, color_plane, dims);
-+	unsigned int src_stride_tiles = plane_view_src_stride_tiles(fb, color_plane, dims);
- 	unsigned int width_tiles = DIV_ROUND_UP(x + dims->width, dims->tile_width);
- 	unsigned int height_tiles = plane_view_tile_rows(fb, color_plane, dims, y);
- 	unsigned int pitch_tiles;
-@@ -627,12 +627,12 @@ static u32 calc_plane_remap_info(const struct intel_framebuffer *fb, int color_p
  
- 	drm_WARN_ON(&i915->drm,
- 		    overflows_type(obj_offset, gtt_remap_info->offset) ||
--		    overflows_type(stride_tiles, gtt_remap_info->stride) ||
-+		    overflows_type(src_stride_tiles, gtt_remap_info->src_stride) ||
- 		    overflows_type(width_tiles, gtt_remap_info->width) ||
- 		    overflows_type(height_tiles, gtt_remap_info->height));
+ 	for (i = 0; i < num_planes; i++) {
++		struct fb_plane_view_dims view_dims;
+ 		unsigned int width, height;
+ 		unsigned int cpp, size;
+ 		u32 offset;
+@@ -669,6 +723,8 @@ int intel_fill_fb_info(struct drm_i915_private *i915, struct drm_framebuffer *fb
+ 		if (ret)
+ 			return ret;
  
- 	gtt_remap_info->offset = obj_offset;
--	gtt_remap_info->stride = stride_tiles;
-+	gtt_remap_info->src_stride = src_stride_tiles;
- 	gtt_remap_info->width = width_tiles;
- 	gtt_remap_info->height = height_tiles;
++		init_plane_view_dims(intel_fb, i, width, height, &view_dims);
++
+ 		/*
+ 		 * First pixel of the framebuffer from
+ 		 * the start of the normal gtt mapping.
+@@ -680,38 +736,22 @@ int intel_fill_fb_info(struct drm_i915_private *i915, struct drm_framebuffer *fb
  
-@@ -691,7 +691,7 @@ static int calc_plane_normal_size(const struct intel_framebuffer *fb, int color_
- 		       x * drm_fb->format->cpp[color_plane];
- 		pages = DIV_ROUND_UP(size, intel_tile_size(i915));
- 	} else {
--		pages = plane_view_stride_tiles(fb, color_plane, dims) *
-+		pages = plane_view_src_stride_tiles(fb, color_plane, dims) *
- 			plane_view_tile_rows(fb, color_plane, dims, y);
+ 		if (!is_surface_linear(fb, i)) {
+ 			struct intel_remapped_plane_info plane_info;
+-			unsigned int tile_width, tile_height;
+-
+-			intel_tile_dims(fb, i, &tile_width, &tile_height);
+ 
+ 			plane_info.offset = offset;
+-			plane_info.stride = DIV_ROUND_UP(fb->pitches[i],
+-							 tile_width * cpp);
+-			plane_info.width = DIV_ROUND_UP(x + width, tile_width);
+-			plane_info.height = DIV_ROUND_UP(y + height,
+-							 tile_height);
+-
+-			/* how many tiles does this plane need */
+-			size = plane_info.stride * plane_info.height;
+-			/*
+-			 * If the plane isn't horizontally tile aligned,
+-			 * we need one more tile.
+-			 */
+-			if (x != 0)
+-				size++;
++			plane_info.stride = plane_view_stride_tiles(intel_fb, i, &view_dims);
++			plane_info.width = DIV_ROUND_UP(x + width, view_dims.tile_width);
++			plane_info.height = plane_view_tile_rows(intel_fb, i, &view_dims, y);
+ 
+ 			gtt_offset_rotated +=
+ 				setup_fb_rotation(i, &plane_info,
+ 						  gtt_offset_rotated,
+ 						  x, y, width, height,
+ 						  tile_size,
+-						  tile_width, tile_height,
++						  view_dims.tile_width, view_dims.tile_height,
+ 						  fb);
+-		} else {
+-			size = DIV_ROUND_UP((y + height) * fb->pitches[i] +
+-					    x * cpp, tile_size);
+ 		}
+ 
++		size = calc_plane_normal_size(intel_fb, i, &view_dims, x, y);
+ 		/* how many tiles in total needed in the bo */
+ 		max_size = max(max_size, offset + size);
  	}
- 
-diff --git a/drivers/gpu/drm/i915/gt/intel_ggtt.c b/drivers/gpu/drm/i915/gt/intel_ggtt.c
-index b0b8ded834f0..9a5b038e1ea3 100644
---- a/drivers/gpu/drm/i915/gt/intel_ggtt.c
-+++ b/drivers/gpu/drm/i915/gt/intel_ggtt.c
-@@ -1314,7 +1314,7 @@ intel_rotate_pages(struct intel_rotation_info *rot_info,
- 	for (i = 0 ; i < ARRAY_SIZE(rot_info->plane); i++) {
- 		sg = rotate_pages(obj, rot_info->plane[i].offset,
- 				  rot_info->plane[i].width, rot_info->plane[i].height,
--				  rot_info->plane[i].stride, st, sg);
-+				  rot_info->plane[i].src_stride, st, sg);
- 	}
- 
- 	return st;
-@@ -1398,7 +1398,7 @@ intel_remap_pages(struct intel_remapped_info *rem_info,
- 	for (i = 0 ; i < ARRAY_SIZE(rem_info->plane); i++) {
- 		sg = remap_pages(obj, rem_info->plane[i].offset,
- 				 rem_info->plane[i].width, rem_info->plane[i].height,
--				 rem_info->plane[i].stride, st, sg);
-+				 rem_info->plane[i].src_stride, st, sg);
- 	}
- 
- 	i915_sg_trim(st);
-diff --git a/drivers/gpu/drm/i915/i915_debugfs.c b/drivers/gpu/drm/i915/i915_debugfs.c
-index 51133b8fabb4..48032c0288ee 100644
---- a/drivers/gpu/drm/i915/i915_debugfs.c
-+++ b/drivers/gpu/drm/i915/i915_debugfs.c
-@@ -176,11 +176,11 @@ i915_debugfs_describe_obj(struct seq_file *m, struct drm_i915_gem_object *obj)
- 				seq_printf(m, ", rotated [(%ux%u, stride=%u, offset=%u), (%ux%u, stride=%u, offset=%u)]",
- 					   vma->ggtt_view.rotated.plane[0].width,
- 					   vma->ggtt_view.rotated.plane[0].height,
--					   vma->ggtt_view.rotated.plane[0].stride,
-+					   vma->ggtt_view.rotated.plane[0].src_stride,
- 					   vma->ggtt_view.rotated.plane[0].offset,
- 					   vma->ggtt_view.rotated.plane[1].width,
- 					   vma->ggtt_view.rotated.plane[1].height,
--					   vma->ggtt_view.rotated.plane[1].stride,
-+					   vma->ggtt_view.rotated.plane[1].src_stride,
- 					   vma->ggtt_view.rotated.plane[1].offset);
- 				break;
- 
-@@ -188,11 +188,11 @@ i915_debugfs_describe_obj(struct seq_file *m, struct drm_i915_gem_object *obj)
- 				seq_printf(m, ", remapped [(%ux%u, stride=%u, offset=%u), (%ux%u, stride=%u, offset=%u)]",
- 					   vma->ggtt_view.remapped.plane[0].width,
- 					   vma->ggtt_view.remapped.plane[0].height,
--					   vma->ggtt_view.remapped.plane[0].stride,
-+					   vma->ggtt_view.remapped.plane[0].src_stride,
- 					   vma->ggtt_view.remapped.plane[0].offset,
- 					   vma->ggtt_view.remapped.plane[1].width,
- 					   vma->ggtt_view.remapped.plane[1].height,
--					   vma->ggtt_view.remapped.plane[1].stride,
-+					   vma->ggtt_view.remapped.plane[1].src_stride,
- 					   vma->ggtt_view.remapped.plane[1].offset);
- 				break;
- 
-diff --git a/drivers/gpu/drm/i915/i915_vma_types.h b/drivers/gpu/drm/i915/i915_vma_types.h
-index 358b4306fc00..f7f2aa168c9e 100644
---- a/drivers/gpu/drm/i915/i915_vma_types.h
-+++ b/drivers/gpu/drm/i915/i915_vma_types.h
-@@ -100,7 +100,7 @@ struct intel_remapped_plane_info {
- 	u32 offset;
- 	u16 width;
- 	u16 height;
--	u16 stride;
-+	u16 src_stride;
- 	u16 unused_mbz;
- } __packed;
- 
-diff --git a/drivers/gpu/drm/i915/selftests/i915_vma.c b/drivers/gpu/drm/i915/selftests/i915_vma.c
-index 86c590b4522c..06f1827329d0 100644
---- a/drivers/gpu/drm/i915/selftests/i915_vma.c
-+++ b/drivers/gpu/drm/i915/selftests/i915_vma.c
-@@ -361,7 +361,7 @@ static unsigned long rotated_index(const struct intel_rotation_info *r,
- 				   unsigned int x,
- 				   unsigned int y)
- {
--	return (r->plane[n].stride * (r->plane[n].height - y - 1) +
-+	return (r->plane[n].src_stride * (r->plane[n].height - y - 1) +
- 		r->plane[n].offset + x);
- }
- 
-@@ -411,7 +411,7 @@ static unsigned long remapped_index(const struct intel_remapped_info *r,
- 				    unsigned int x,
- 				    unsigned int y)
- {
--	return (r->plane[n].stride * y +
-+	return (r->plane[n].src_stride * y +
- 		r->plane[n].offset + x);
- }
- 
-@@ -479,21 +479,21 @@ static int igt_vma_rotate_remap(void *arg)
- 	struct i915_address_space *vm = &ggtt->vm;
- 	struct drm_i915_gem_object *obj;
- 	const struct intel_remapped_plane_info planes[] = {
--		{ .width = 1, .height = 1, .stride = 1 },
--		{ .width = 2, .height = 2, .stride = 2 },
--		{ .width = 4, .height = 4, .stride = 4 },
--		{ .width = 8, .height = 8, .stride = 8 },
-+		{ .width = 1, .height = 1, .src_stride = 1 },
-+		{ .width = 2, .height = 2, .src_stride = 2 },
-+		{ .width = 4, .height = 4, .src_stride = 4 },
-+		{ .width = 8, .height = 8, .src_stride = 8 },
- 
--		{ .width = 3, .height = 5, .stride = 3 },
--		{ .width = 3, .height = 5, .stride = 4 },
--		{ .width = 3, .height = 5, .stride = 5 },
-+		{ .width = 3, .height = 5, .src_stride = 3 },
-+		{ .width = 3, .height = 5, .src_stride = 4 },
-+		{ .width = 3, .height = 5, .src_stride = 5 },
- 
--		{ .width = 5, .height = 3, .stride = 5 },
--		{ .width = 5, .height = 3, .stride = 7 },
--		{ .width = 5, .height = 3, .stride = 9 },
-+		{ .width = 5, .height = 3, .src_stride = 5 },
-+		{ .width = 5, .height = 3, .src_stride = 7 },
-+		{ .width = 5, .height = 3, .src_stride = 9 },
- 
--		{ .width = 4, .height = 6, .stride = 6 },
--		{ .width = 6, .height = 4, .stride = 6 },
-+		{ .width = 4, .height = 6, .src_stride = 6 },
-+		{ .width = 6, .height = 4, .src_stride = 6 },
- 		{ }
- 	}, *a, *b;
- 	enum i915_ggtt_view_type types[] = {
-@@ -523,8 +523,8 @@ static int igt_vma_rotate_remap(void *arg)
- 			plane_info[0] = *a;
- 			plane_info[1] = *b;
- 
--			max_offset = max(plane_info[0].stride * plane_info[0].height,
--					 plane_info[1].stride * plane_info[1].height);
-+			max_offset = max(plane_info[0].src_stride * plane_info[0].height,
-+					 plane_info[1].src_stride * plane_info[1].height);
- 			GEM_BUG_ON(max_offset > max_pages);
- 			max_offset = max_pages - max_offset;
- 
-@@ -596,11 +596,11 @@ static int igt_vma_rotate_remap(void *arg)
- 							       "rotated" : "remapped", n,
- 							       plane_info[0].width,
- 							       plane_info[0].height,
--							       plane_info[0].stride,
-+							       plane_info[0].src_stride,
- 							       plane_info[0].offset,
- 							       plane_info[1].width,
- 							       plane_info[1].height,
--							       plane_info[1].stride,
-+							       plane_info[1].src_stride,
- 							       plane_info[1].offset);
- 							err = -EINVAL;
- 							goto out_object;
-@@ -853,21 +853,21 @@ static int igt_vma_remapped_gtt(void *arg)
- {
- 	struct drm_i915_private *i915 = arg;
- 	const struct intel_remapped_plane_info planes[] = {
--		{ .width = 1, .height = 1, .stride = 1 },
--		{ .width = 2, .height = 2, .stride = 2 },
--		{ .width = 4, .height = 4, .stride = 4 },
--		{ .width = 8, .height = 8, .stride = 8 },
-+		{ .width = 1, .height = 1, .src_stride = 1 },
-+		{ .width = 2, .height = 2, .src_stride = 2 },
-+		{ .width = 4, .height = 4, .src_stride = 4 },
-+		{ .width = 8, .height = 8, .src_stride = 8 },
- 
--		{ .width = 3, .height = 5, .stride = 3 },
--		{ .width = 3, .height = 5, .stride = 4 },
--		{ .width = 3, .height = 5, .stride = 5 },
-+		{ .width = 3, .height = 5, .src_stride = 3 },
-+		{ .width = 3, .height = 5, .src_stride = 4 },
-+		{ .width = 3, .height = 5, .src_stride = 5 },
- 
--		{ .width = 5, .height = 3, .stride = 5 },
--		{ .width = 5, .height = 3, .stride = 7 },
--		{ .width = 5, .height = 3, .stride = 9 },
-+		{ .width = 5, .height = 3, .src_stride = 5 },
-+		{ .width = 5, .height = 3, .src_stride = 7 },
-+		{ .width = 5, .height = 3, .src_stride = 9 },
- 
--		{ .width = 4, .height = 6, .stride = 6 },
--		{ .width = 6, .height = 4, .stride = 6 },
-+		{ .width = 4, .height = 6, .src_stride = 6 },
-+		{ .width = 6, .height = 4, .src_stride = 6 },
- 		{ }
- 	}, *p;
- 	enum i915_ggtt_view_type types[] = {
 -- 
 2.25.1
 
