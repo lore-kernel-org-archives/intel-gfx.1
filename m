@@ -7,45 +7,45 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 56E79C433DB
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AAA55C433E9
 	for <intel-gfx@archiver.kernel.org>; Wed, 10 Mar 2021 22:18:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 23E5164FC3
+	by mail.kernel.org (Postfix) with ESMTPS id 77F9A64FB9
 	for <intel-gfx@archiver.kernel.org>; Wed, 10 Mar 2021 22:18:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 23E5164FC3
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 77F9A64FB9
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A17DD6EA8A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BB7BF6EA8B;
 	Wed, 10 Mar 2021 22:18:06 +0000 (UTC)
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DDF4A6EA7F
- for <intel-gfx@lists.freedesktop.org>; Wed, 10 Mar 2021 22:17:58 +0000 (UTC)
-IronPort-SDR: eLH4kcMH7oJuspo6UmNgvnMbC2KbYb8NW20j/R0rqNGyQKCLFB4gk26oSpcIFK97DwvKgIlhtj
- l03INEtxS/JQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9919"; a="252592101"
-X-IronPort-AV: E=Sophos;i="5.81,238,1610438400"; d="scan'208";a="252592101"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF1316EA87
+ for <intel-gfx@lists.freedesktop.org>; Wed, 10 Mar 2021 22:18:01 +0000 (UTC)
+IronPort-SDR: Lf4z6PlO9vtLUCShSNQOyMbmgrUzoOncfF5yvzOIylLABg9+LI70GnIS9ffrWCRHF7kJO5trXO
+ f6U2bJBx5C7w==
+X-IronPort-AV: E=McAfee;i="6000,8403,9919"; a="252592110"
+X-IronPort-AV: E=Sophos;i="5.81,238,1610438400"; d="scan'208";a="252592110"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Mar 2021 14:17:58 -0800
-IronPort-SDR: FHcLtUCOZineJbaq5fWKki3q7MdnRrbsCRq9SeXx8xPQOuCqAp1HSs7XrbTSmj9sbQApc6pb9a
- yrFTnka6cCOQ==
-X-IronPort-AV: E=Sophos;i="5.81,238,1610438400"; d="scan'208";a="403852292"
+ 10 Mar 2021 14:18:01 -0800
+IronPort-SDR: pVXVn0578bGsmB8BkAFjziNj0OLPxCFdHGWMwLsDxxM9wNHv9loPCs6yf700KeNVjjdtJK9lE9
+ e9F8kgN78xuA==
+X-IronPort-AV: E=Sophos;i="5.81,238,1610438400"; d="scan'208";a="403852311"
 Received: from ideak-desk.fi.intel.com ([10.237.68.141])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Mar 2021 14:17:57 -0800
+ 10 Mar 2021 14:18:00 -0800
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 11 Mar 2021 00:17:32 +0200
-Message-Id: <20210310221736.2963264-20-imre.deak@intel.com>
+Date: Thu, 11 Mar 2021 00:17:35 +0200
+Message-Id: <20210310221736.2963264-23-imre.deak@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210310221736.2963264-1-imre.deak@intel.com>
 References: <20210310221736.2963264-1-imre.deak@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 19/23] drm/i915/selftest: Unify use of
- intel_remapped_plane_info in igt_vma_rotate_remap()
+Subject: [Intel-gfx] [PATCH 22/23] drm/i915/selftest: Add remap/rotate vma
+ subtests when dst_stride!=width/height
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,147 +63,183 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Always use the modified copy of the intel_remapped_plane_info variables.
-An upcoming patch updates the dst_stride field in these copies after
-which we can't use the original versions.
+Add selftests to test the POT stride padding functionality added in the
+previous patch.
 
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/i915/selftests/i915_vma.c | 61 ++++++++++++-----------
- 1 file changed, 33 insertions(+), 28 deletions(-)
+ drivers/gpu/drm/i915/selftests/i915_vma.c | 93 +++++++++++++++++++++--
+ 1 file changed, 86 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/selftests/i915_vma.c b/drivers/gpu/drm/i915/selftests/i915_vma.c
-index 3d557b8a2098..86c590b4522c 100644
+index 4631db0cdfe5..b88de1257ee9 100644
 --- a/drivers/gpu/drm/i915/selftests/i915_vma.c
 +++ b/drivers/gpu/drm/i915/selftests/i915_vma.c
-@@ -516,21 +516,23 @@ static int igt_vma_rotate_remap(void *arg)
- 	for (a = planes; a->width; a++) {
- 		for (b = planes + ARRAY_SIZE(planes); b-- != planes; ) {
- 			struct i915_ggtt_view view = { };
-+			struct intel_remapped_plane_info *plane_info = view.rotated.plane;
- 			unsigned int n, max_offset;
+@@ -373,6 +373,8 @@ assert_rotated(struct drm_i915_gem_object *obj,
+ 	unsigned int x, y;
  
--			max_offset = max(a->stride * a->height,
--					 b->stride * b->height);
-+			view.type = *t;
-+			plane_info[0] = *a;
-+			plane_info[1] = *b;
+ 	for (x = 0; x < r->plane[n].width; x++) {
++		unsigned int left;
 +
-+			max_offset = max(plane_info[0].stride * plane_info[0].height,
-+					 plane_info[1].stride * plane_info[1].height);
- 			GEM_BUG_ON(max_offset > max_pages);
- 			max_offset = max_pages - max_offset;
+ 		for (y = 0; y < r->plane[n].height; y++) {
+ 			unsigned long src_idx;
+ 			dma_addr_t src;
+@@ -401,6 +403,31 @@ assert_rotated(struct drm_i915_gem_object *obj,
  
--			view.type = *t;
--			view.rotated.plane[0] = *a;
--			view.rotated.plane[1] = *b;
--
--			for_each_prime_number_from(view.rotated.plane[0].offset, 0, max_offset) {
--				for_each_prime_number_from(view.rotated.plane[1].offset, 0, max_offset) {
-+			for_each_prime_number_from(plane_info[0].offset, 0, max_offset) {
-+				for_each_prime_number_from(plane_info[1].offset, 0, max_offset) {
- 					struct scatterlist *sg;
- 					struct i915_vma *vma;
-+					unsigned int expected_pages;
+ 			sg = sg_next(sg);
+ 		}
++
++		left = (r->plane[n].dst_stride - y) * PAGE_SIZE;
++
++		if (!left)
++			continue;
++
++		if (!sg) {
++			pr_err("Invalid sg table: too short at plane %d, (%d, %d)!\n",
++			       n, x, y);
++			return ERR_PTR(-EINVAL);
++		}
++
++		if (sg_dma_len(sg) != left) {
++			pr_err("Invalid sg.length, found %d, expected %u for rotated page (%d, %d)\n",
++			       sg_dma_len(sg), left, x, y);
++			return ERR_PTR(-EINVAL);
++		}
++
++		if (sg_dma_address(sg) != 0) {
++			pr_err("Invalid address, found %pad, expected 0 for remapped page (%d, %d)\n",
++			       &sg_dma_address(sg), x, y);
++			return ERR_PTR(-EINVAL);
++		}
++
++		sg = sg_next(sg);
+ 	}
  
- 					vma = checked_vma_instance(obj, vm, &view);
- 					if (IS_ERR(vma)) {
-@@ -544,25 +546,27 @@ static int igt_vma_rotate_remap(void *arg)
+ 	return sg;
+@@ -462,15 +489,55 @@ assert_remapped(struct drm_i915_gem_object *obj,
+ 			if (!left)
+ 				sg = sg_next(sg);
+ 		}
++
++		if (left) {
++			pr_err("Unexpected sg tail with %d size for remapped page (%d, %d)\n",
++			       left,
++			       x, y);
++			return ERR_PTR(-EINVAL);
++		}
++
++		left = (r->plane[n].dst_stride - r->plane[n].width) * PAGE_SIZE;
++
++		if (!left)
++			continue;
++
++		if (!sg) {
++			pr_err("Invalid sg table: too short at plane %d, (%d, %d)!\n",
++			       n, x, y);
++			return ERR_PTR(-EINVAL);
++		}
++
++		if (sg_dma_len(sg) != left) {
++			pr_err("Invalid sg.length, found %u, expected %u for remapped page (%d, %d)\n",
++			       sg_dma_len(sg), left,
++			       x, y);
++			return ERR_PTR(-EINVAL);
++		}
++
++		if (sg_dma_address(sg) != 0) {
++			pr_err("Invalid address, found %pad, expected 0 for remapped page (%d, %d)\n",
++			       &sg_dma_address(sg),
++			       x, y);
++			return ERR_PTR(-EINVAL);
++		}
++
++		sg = sg_next(sg);
++		left = 0;
+ 	}
+ 
+ 	return sg;
+ }
+ 
+-static unsigned int rotated_size(const struct intel_remapped_plane_info *a,
+-				 const struct intel_remapped_plane_info *b)
++static unsigned int remapped_size(enum i915_ggtt_view_type view_type,
++				  const struct intel_remapped_plane_info *a,
++				  const struct intel_remapped_plane_info *b)
+ {
+-	return a->width * a->height + b->width * b->height;
++
++	if (view_type == I915_GGTT_VIEW_ROTATED)
++		return a->dst_stride * a->width + b->dst_stride * b->width;
++	else
++		return a->dst_stride * a->height + b->dst_stride * b->height;
+ }
+ 
+ static int igt_vma_rotate_remap(void *arg)
+@@ -494,6 +561,11 @@ static int igt_vma_rotate_remap(void *arg)
+ 
+ 		{ .width = 4, .height = 6, .src_stride = 6 },
+ 		{ .width = 6, .height = 4, .src_stride = 6 },
++
++		{ .width = 2, .height = 2, .src_stride = 2, .dst_stride = 2 },
++		{ .width = 3, .height = 3, .src_stride = 3, .dst_stride = 4 },
++		{ .width = 5, .height = 6, .src_stride = 7, .dst_stride = 8 },
++
+ 		{ }
+ 	}, *a, *b;
+ 	enum i915_ggtt_view_type types[] = {
+@@ -555,7 +627,7 @@ static int igt_vma_rotate_remap(void *arg)
  						goto out_object;
  					}
  
-+					expected_pages = rotated_size(&plane_info[0], &plane_info[1]);
-+
+-					expected_pages = rotated_size(&plane_info[0], &plane_info[1]);
++					expected_pages = remapped_size(view.type, &plane_info[0], &plane_info[1]);
+ 
  					if (view.type == I915_GGTT_VIEW_ROTATED &&
--					    vma->size != rotated_size(a, b) * PAGE_SIZE) {
-+					    vma->size != expected_pages * PAGE_SIZE) {
- 						pr_err("VMA is wrong size, expected %lu, found %llu\n",
--						       PAGE_SIZE * rotated_size(a, b), vma->size);
-+						       PAGE_SIZE * expected_pages, vma->size);
- 						err = -EINVAL;
- 						goto out_object;
- 					}
- 
- 					if (view.type == I915_GGTT_VIEW_REMAPPED &&
--					    vma->size > rotated_size(a, b) * PAGE_SIZE) {
-+					    vma->size > expected_pages * PAGE_SIZE) {
- 						pr_err("VMA is wrong size, expected %lu, found %llu\n",
--						       PAGE_SIZE * rotated_size(a, b), vma->size);
-+						       PAGE_SIZE * expected_pages, vma->size);
- 						err = -EINVAL;
- 						goto out_object;
- 					}
- 
--					if (vma->pages->nents > rotated_size(a, b)) {
-+					if (vma->pages->nents > expected_pages) {
- 						pr_err("sg table is wrong sizeo, expected %u, found %u nents\n",
--						       rotated_size(a, b), vma->pages->nents);
-+						       expected_pages, vma->pages->nents);
- 						err = -EINVAL;
- 						goto out_object;
- 					}
-@@ -590,14 +594,14 @@ static int igt_vma_rotate_remap(void *arg)
- 							pr_err("Inconsistent %s VMA pages for plane %d: [(%d, %d, %d, %d), (%d, %d, %d, %d)]\n",
+ 					    vma->size != expected_pages * PAGE_SIZE) {
+@@ -600,16 +672,18 @@ static int igt_vma_rotate_remap(void *arg)
+ 						else
+ 							sg = assert_remapped(obj, &view.remapped, n, sg);
+ 						if (IS_ERR(sg)) {
+-							pr_err("Inconsistent %s VMA pages for plane %d: [(%d, %d, %d, %d), (%d, %d, %d, %d)]\n",
++							pr_err("Inconsistent %s VMA pages for plane %d: [(%d, %d, %d, %d, %d), (%d, %d, %d, %d, %d)]\n",
  							       view.type == I915_GGTT_VIEW_ROTATED ?
  							       "rotated" : "remapped", n,
--							       view.rotated.plane[0].width,
--							       view.rotated.plane[0].height,
--							       view.rotated.plane[0].stride,
--							       view.rotated.plane[0].offset,
--							       view.rotated.plane[1].width,
--							       view.rotated.plane[1].height,
--							       view.rotated.plane[1].stride,
--							       view.rotated.plane[1].offset);
-+							       plane_info[0].width,
-+							       plane_info[0].height,
-+							       plane_info[0].stride,
-+							       plane_info[0].offset,
-+							       plane_info[1].width,
-+							       plane_info[1].height,
-+							       plane_info[1].stride,
-+							       plane_info[1].offset);
+ 							       plane_info[0].width,
+ 							       plane_info[0].height,
+ 							       plane_info[0].src_stride,
++							       plane_info[0].dst_stride,
+ 							       plane_info[0].offset,
+ 							       plane_info[1].width,
+ 							       plane_info[1].height,
+ 							       plane_info[1].src_stride,
++							       plane_info[1].dst_stride,
+ 							       plane_info[1].offset);
  							err = -EINVAL;
  							goto out_object;
- 						}
-@@ -887,6 +891,7 @@ static int igt_vma_remapped_gtt(void *arg)
- 				.type = *t,
- 				.rotated.plane[0] = *p,
- 			};
-+			struct intel_remapped_plane_info *plane_info = view.rotated.plane;
- 			struct i915_vma *vma;
- 			u32 __iomem *map;
- 			unsigned int x, y;
-@@ -906,15 +911,15 @@ static int igt_vma_remapped_gtt(void *arg)
- 				goto out;
- 			}
+@@ -877,6 +951,11 @@ static int igt_vma_remapped_gtt(void *arg)
  
--			for (y = 0 ; y < p->height; y++) {
--				for (x = 0 ; x < p->width; x++) {
-+			for (y = 0 ; y < plane_info[0].height; y++) {
-+				for (x = 0 ; x < plane_info[0].width; x++) {
- 					unsigned int offset;
+ 		{ .width = 4, .height = 6, .src_stride = 6 },
+ 		{ .width = 6, .height = 4, .src_stride = 6 },
++
++		{ .width = 2, .height = 2, .src_stride = 2, .dst_stride = 2 },
++		{ .width = 3, .height = 3, .src_stride = 3, .dst_stride = 4 },
++		{ .width = 5, .height = 6, .src_stride = 7, .dst_stride = 8 },
++
+ 		{ }
+ 	}, *p;
+ 	enum i915_ggtt_view_type types[] = {
+@@ -930,9 +1009,9 @@ static int igt_vma_remapped_gtt(void *arg)
  					u32 val = y << 16 | x;
  
  					if (*t == I915_GGTT_VIEW_ROTATED)
--						offset = (x * p->height + y) * PAGE_SIZE;
-+						offset = (x * plane_info[0].height + y) * PAGE_SIZE;
+-						offset = (x * plane_info[0].height + y) * PAGE_SIZE;
++						offset = (x * plane_info[0].dst_stride + y) * PAGE_SIZE;
  					else
--						offset = (y * p->width + x) * PAGE_SIZE;
-+						offset = (y * plane_info[0].width + x) * PAGE_SIZE;
+-						offset = (y * plane_info[0].width + x) * PAGE_SIZE;
++						offset = (y * plane_info[0].dst_stride + x) * PAGE_SIZE;
  
  					iowrite32(val, &map[offset / sizeof(*map)]);
  				}
-@@ -937,8 +942,8 @@ static int igt_vma_remapped_gtt(void *arg)
- 				goto out;
- 			}
- 
--			for (y = 0 ; y < p->height; y++) {
--				for (x = 0 ; x < p->width; x++) {
-+			for (y = 0 ; y < plane_info[0].height; y++) {
-+				for (x = 0 ; x < plane_info[0].width; x++) {
- 					unsigned int offset, src_idx;
- 					u32 exp = y << 16 | x;
- 					u32 val;
 -- 
 2.25.1
 
