@@ -7,45 +7,45 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6E57AC433E0
-	for <intel-gfx@archiver.kernel.org>; Thu, 11 Mar 2021 22:36:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 01D97C433E6
+	for <intel-gfx@archiver.kernel.org>; Thu, 11 Mar 2021 22:36:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 12B2964F26
+	by mail.kernel.org (Postfix) with ESMTPS id B136164F26
 	for <intel-gfx@archiver.kernel.org>; Thu, 11 Mar 2021 22:36:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 12B2964F26
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B136164F26
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 831206EE87;
-	Thu, 11 Mar 2021 22:36:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0CE4E6EE90;
+	Thu, 11 Mar 2021 22:36:47 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 66EEE6EE86
- for <intel-gfx@lists.freedesktop.org>; Thu, 11 Mar 2021 22:36:45 +0000 (UTC)
-IronPort-SDR: h3iEYWBrVRx0TmYm73q4JhuzdmIFA6gyIr09EPapnMHs7Gg9C4mF7fGnG6ARLsP6LB1f3MBqgq
- /pMJEkguIVKw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9920"; a="185395071"
-X-IronPort-AV: E=Sophos;i="5.81,241,1610438400"; d="scan'208";a="185395071"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B5F46EE8C
+ for <intel-gfx@lists.freedesktop.org>; Thu, 11 Mar 2021 22:36:46 +0000 (UTC)
+IronPort-SDR: fpHGozLEroF1vlNt9rde4mhZ219psWBIwbe5Udp0G6w6BkgwLPev/B2B3K02ZZZsY8DqcFzfMP
+ NrnfP6eHE1eg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9920"; a="185395067"
+X-IronPort-AV: E=Sophos;i="5.81,241,1610438400"; d="scan'208";a="185395067"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  11 Mar 2021 14:36:44 -0800
-IronPort-SDR: GGdZAk42H4j9OHDHvz5uH2zghGJiZ/oquaZYzqfHJqv1XH57sVTfn2hBxfNrtDB+jUKgctQv5g
- 5bwggsnD7O/A==
-X-IronPort-AV: E=Sophos;i="5.81,241,1610438400"; d="scan'208";a="438852671"
+IronPort-SDR: N2j6hcyNlELGVRQflLGglAqekbkOqso8YGsVDTrCEcCmxrdmlp64CDB34dSf9nY5f4tX8bC9Fk
+ RbShkx+1dKNQ==
+X-IronPort-AV: E=Sophos;i="5.81,241,1610438400"; d="scan'208";a="438852659"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.168])
  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  11 Mar 2021 14:36:44 -0800
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 11 Mar 2021 14:35:45 -0800
-Message-Id: <20210311223632.3191939-10-matthew.d.roper@intel.com>
+Date: Thu, 11 Mar 2021 14:35:41 -0800
+Message-Id: <20210311223632.3191939-6-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20210311223632.3191939-1-matthew.d.roper@intel.com>
 References: <20210311223632.3191939-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 09/56] drm/i915/xelpd: Enhanced pipe underrun
- reporting
+Subject: [Intel-gfx] [PATCH 05/56] drm/i915: Convert INTEL_GEN() to
+ DISPLAY_VER() as appropriate in i915_irq.c
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,126 +58,291 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-WEVfTFBEIGJyaW5ncyBlbmhhbmNlZCB1bmRlcnJ1biByZWNvdmVyeTogIHRoZSBoYXJkd2FyZSBj
-YW4gc29tZXdoYXQKbWl0aWdhdGUgdW5kZXJydW5zIGJ5IHVzaW5nIGFuIGludGVycG9sYXRlZCBy
-ZXBsYWNlbWVudCBwaXhlbCAoc29mdAp1bmRlcnJ1bikgb3IgdGhlIHByZXZpb3VzIHBpeGVsICho
-YXJkIHVuZGVycnVuKS4gIEZ1cnRoZXJtb3JlLCB1bmRlcnJ1bnMKY2FuIG5vdyBiZSBjYXVzZWQg
-ZG93bnN0cmVhbSBieSB0aGUgcG9ydCwgZXZlbiBpZiB0aGUgcGlwZSBpdHNlbGYgaXMKb3BlcmF0
-aW5nIHByb3Blcmx5LiAgVGhlIGludGVycnVwdCByZWdpc3RlciBhbmQgUElQRV9TVEFUVVMgcmVn
-aXN0ZXIKZ2l2ZSB1cyBleHRyYSBiaXRzIHRvIHJlY29nbml6ZSBoYXJkL3NvZnQgdW5kZXJydW5z
-IGFuZCBkZXRlcm1pbmUKd2hldGhlciB0aGUgdW5kZXJydW4gd2FzIGNhdXNlZCBieSB0aGUgcG9y
-dCwgc28gd2UnbGwgdXNlIHRoYXQKaW5mb3JtYXRpb24gdG8gcHJpbnQgc29tZSBtb3JlIGRlc2Ny
-aXB0aXZlIGVycm9ycyB3aGVuIHVuZGVycnVucyBvY2N1ci4KCnYyOgogLSBLZWVwIElDTCdzIFBJ
-UEVfU1RBVFVTIGRlZmluZWQgc2VwYXJhdGVseSBmcm9tIHRoZSBvbGQgR01DSCBwaXBlCiAgIHN0
-YXR1cyByZWdpc3Rlci4gIChWaWxsZSkKIC0gT25seSByZWFkL2NsZWFyIHRoZSBQSVBFX1NUQVRV
-UyByZWdpc3RlciBvbiBwbGF0Zm9ybXMgd2l0aAogICBkaXNwbGF5IHZlciA+PSAxMS4gKEx1Y2Fz
-KQoKQnNwZWM6IDUwMzM1CkJzcGVjOiA1MDM2NgpDYzogTHVjYXMgRGUgTWFyY2hpIDxsdWNhcy5k
-ZW1hcmNoaUBpbnRlbC5jb20+CkNjOiBWaWxsZSBTeXJqw6Rsw6QgPHZpbGxlLnN5cmphbGFAbGlu
-dXguaW50ZWwuY29tPgpTaWduZWQtb2ZmLWJ5OiBNYXR0IFJvcGVyIDxtYXR0aGV3LmQucm9wZXJA
-aW50ZWwuY29tPgotLS0KIC4uLi9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2ZpZm9fdW5kZXJydW4u
-YyAgICB8IDY1ICsrKysrKysrKysrKysrKysrKy0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVf
-aXJxLmMgICAgICAgICAgICAgICB8IDE0ICsrKy0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVf
-cmVnLmggICAgICAgICAgICAgICB8ICA4ICsrKwogMyBmaWxlcyBjaGFuZ2VkLCA4NCBpbnNlcnRp
-b25zKCspLCAzIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1
-L2Rpc3BsYXkvaW50ZWxfZmlmb191bmRlcnJ1bi5jIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlz
-cGxheS9pbnRlbF9maWZvX3VuZGVycnVuLmMKaW5kZXggNWIxMTM2ODM4YjljLi5mZTkzMTVhOWZj
-NTEgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZmlmb191
-bmRlcnJ1bi5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZmlmb191
-bmRlcnJ1bi5jCkBAIC0zNTksNiArMzU5LDM5IEBAIGJvb2wgaW50ZWxfc2V0X3BjaF9maWZvX3Vu
-ZGVycnVuX3JlcG9ydGluZyhzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqZGV2X3ByaXYsCiAJcmV0
-dXJuIG9sZDsKIH0KIAorc3RhdGljIHUzMgordW5kZXJydW5fcGlwZXN0YXRfbWFzayhzdHJ1Y3Qg
-ZHJtX2k5MTVfcHJpdmF0ZSAqZGV2X3ByaXYpCit7CisJdTMyIG1hc2sgPSBQSVBFX0ZJRk9fVU5E
-RVJSVU5fU1RBVFVTOworCisJaWYgKERJU1BMQVlfVkVSKGRldl9wcml2KSA+PSAxMykKKwkJbWFz
-ayB8PSBQSVBFX1NUQVRfU09GVF9VTkRFUlJVTl9YRUxQRCB8CisJCQlQSVBFX1NUQVRfSEFSRF9V
-TkRFUlJVTl9YRUxQRCB8CisJCQlQSVBFX1NUQVRfUE9SVF9VTkRFUlJVTl9YRUxQRDsKKworCXJl
-dHVybiBtYXNrOworfQorCitzdGF0aWMgY29uc3QgY2hhciAqCitwaXBlX3VuZGVycnVuX3JlYXNv
-bih1MzIgcGlwZXN0YXRfdW5kZXJydW5zKQoreworCWlmIChwaXBlc3RhdF91bmRlcnJ1bnMgJiBQ
-SVBFX1NUQVRfU09GVF9VTkRFUlJVTl9YRUxQRCkKKwkJLyoKKwkJICogSGFyZHdhcmUgdXNlZCBy
-ZXBsYWNlbWVudC9pbnRlcnBvbGF0ZWQgcGl4ZWxzIGF0CisJCSAqIHVuZGVycnVuIGxvY2F0aW9u
-cy4KKwkJICovCisJCXJldHVybiAic29mdCI7CisJZWxzZSBpZiAocGlwZXN0YXRfdW5kZXJydW5z
-ICYgUElQRV9TVEFUX0hBUkRfVU5ERVJSVU5fWEVMUEQpCisJCS8qCisJCSAqIEhhcmR3YXJlIHVz
-ZWQgcHJldmlvdXMgcGl4ZWwgdmFsdWUgYXQgdW5kZXJydW4KKwkJICogbG9jYXRpb25zLgorCQkg
-Ki8KKwkJcmV0dXJuICJoYXJkIjsKKwllbHNlCisJCS8qIE9sZCBwbGF0Zm9ybSBvciBubyBleHRy
-YSBzb2Z0L2hhcmQgYml0IHNldCAqLworCQlyZXR1cm4gIkZJRk8iOworfQorCiAvKioKICAqIGlu
-dGVsX2NwdV9maWZvX3VuZGVycnVuX2lycV9oYW5kbGVyIC0gaGFuZGxlIENQVSBmaWZvIHVuZGVy
-cnVuIGludGVycnVwdAogICogQGRldl9wcml2OiBpOTE1IGRldmljZSBpbnN0YW5jZQpAQCAtMzcy
-LDYgKzQwNSw3IEBAIHZvaWQgaW50ZWxfY3B1X2ZpZm9fdW5kZXJydW5faXJxX2hhbmRsZXIoc3Ry
-dWN0IGRybV9pOTE1X3ByaXZhdGUgKmRldl9wcml2LAogCQkJCQkgZW51bSBwaXBlIHBpcGUpCiB7
-CiAJc3RydWN0IGludGVsX2NydGMgKmNydGMgPSBpbnRlbF9nZXRfY3J0Y19mb3JfcGlwZShkZXZf
-cHJpdiwgcGlwZSk7CisJdTMyIHVuZGVycnVucyA9IDA7CiAKIAkvKiBXZSBtYXkgYmUgY2FsbGVk
-IHRvbyBlYXJseSBpbiBpbml0LCB0aGFua3MgQklPUyEgKi8KIAlpZiAoY3J0YyA9PSBOVUxMKQpA
-QCAtMzgyLDEwICs0MTYsMzcgQEAgdm9pZCBpbnRlbF9jcHVfZmlmb191bmRlcnJ1bl9pcnFfaGFu
-ZGxlcihzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqZGV2X3ByaXYsCiAJICAgIGNydGMtPmNwdV9m
-aWZvX3VuZGVycnVuX2Rpc2FibGVkKQogCQlyZXR1cm47CiAKKwkvKgorCSAqIFN0YXJ0aW5nIHdp
-dGggZGlzcGxheSB2ZXJzaW9uIDExLCB0aGUgUElQRV9TVEFUIHJlZ2lzdGVyIHJlY29yZHMKKwkg
-KiB3aGV0aGVyIGFuIHVuZGVycnVuIGhhcyBoYXBwZW5lZCwgYW5kIG9uIFhFTFBEKywgaXQgd2ls
-bCBhbHNvIHJlY29yZAorCSAqIHdoZXRoZXIgdGhlIHVuZGVycnVuIHdhcyBzb2Z0L2hhcmQgYW5k
-IHdoZXRoZXIgaXQgd2FzIHRyaWdnZXJlZCBieQorCSAqIHRoZSBkb3duc3RyZWFtIHBvcnQgbG9n
-aWMuICBXZSBzaG91bGQgY2xlYXIgdGhlc2UgYml0cyAod2hpY2ggdXNlCisJICogd3JpdGUtMS10
-by1jbGVhciBsb2dpYykgdG9vLgorCSAqCisJICogTm90ZSB0aGF0IGFsdGhvdWdoIHRoZSBJSVIg
-Z2l2ZXMgdXMgdGhlIHNhbWUgdW5kZXJydW4gYW5kIHNvZnQvaGFyZAorCSAqIGluZm9ybWF0aW9u
-LCBQSVBFX1NUQVQgaXMgdGhlIG9ubHkgcGxhY2Ugd2UgY2FuIGZpbmQgb3V0IHdoZXRoZXIKKwkg
-KiB0aGUgdW5kZXJydW4gd2FzIGNhdXNlZCBieSB0aGUgZG93bnN0cmVhbSBwb3J0LgorCSAqLwor
-CWlmIChESVNQTEFZX1ZFUihkZXZfcHJpdikgPj0gMTEpIHsKKwkJdW5kZXJydW5zID0gaW50ZWxf
-dW5jb3JlX3JlYWQoJmRldl9wcml2LT51bmNvcmUsCisJCQkJCSAgICAgIElDTF9QSVBFU1RBVFVT
-KHBpcGUpKSAmCisJCQl1bmRlcnJ1bl9waXBlc3RhdF9tYXNrKGRldl9wcml2KTsKKwkJaW50ZWxf
-dW5jb3JlX3dyaXRlKCZkZXZfcHJpdi0+dW5jb3JlLCBJQ0xfUElQRVNUQVRVUyhwaXBlKSwKKwkJ
-CQkgICB1bmRlcnJ1bnMpOworCX0KKwogCWlmIChpbnRlbF9zZXRfY3B1X2ZpZm9fdW5kZXJydW5f
-cmVwb3J0aW5nKGRldl9wcml2LCBwaXBlLCBmYWxzZSkpIHsKIAkJdHJhY2VfaW50ZWxfY3B1X2Zp
-Zm9fdW5kZXJydW4oZGV2X3ByaXYsIHBpcGUpOwotCQlkcm1fZXJyKCZkZXZfcHJpdi0+ZHJtLCAi
-Q1BVIHBpcGUgJWMgRklGTyB1bmRlcnJ1blxuIiwKLQkJCXBpcGVfbmFtZShwaXBlKSk7CisKKwkJ
-aWYgKHVuZGVycnVucyAmIFBJUEVfU1RBVF9QT1JUX1VOREVSUlVOX1hFTFBEKQorCQkJLyogVW5k
-ZXJydW4gd2FzIGNhdXNlZCBkb3duc3RyZWFtIGZyb20gdGhlIHBpcGVzICovCisJCQlkcm1fZXJy
-KCZkZXZfcHJpdi0+ZHJtLCAiUG9ydCB0cmlnZ2VyZWQgYSAlcyB1bmRlcnJ1biBvbiBwaXBlICVj
-XG4iLAorCQkJCXBpcGVfdW5kZXJydW5fcmVhc29uKHVuZGVycnVucyksCisJCQkJcGlwZV9uYW1l
-KHBpcGUpKTsKKwkJZWxzZQorCQkJZHJtX2VycigmZGV2X3ByaXYtPmRybSwgIkNQVSBwaXBlICVj
-ICVzIHVuZGVycnVuXG4iLAorCQkJCXBpcGVfbmFtZShwaXBlKSwKKwkJCQlwaXBlX3VuZGVycnVu
-X3JlYXNvbih1bmRlcnJ1bnMpKTsKIAl9CiAKIAlpbnRlbF9mYmNfaGFuZGxlX2ZpZm9fdW5kZXJy
-dW5faXJxKGRldl9wcml2KTsKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVf
-aXJxLmMgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X2lycS5jCmluZGV4IGM5ZTAzOTczNTAy
-Yy4uOGJlYjVlMTkzYmE1IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X2ly
-cS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfaXJxLmMKQEAgLTI0MjQsNiArMjQy
-NCwxOCBAQCBzdGF0aWMgdTMyIGdlbjhfZGVfcGlwZV9mbGlwX2RvbmVfbWFzayhzdHJ1Y3QgZHJt
-X2k5MTVfcHJpdmF0ZSAqaTkxNSkKIAkJcmV0dXJuIEdFTjhfUElQRV9QUklNQVJZX0ZMSVBfRE9O
-RTsKIH0KIAorc3RhdGljIHUzMgordW5kZXJydW5faWlyX21hc2soc3RydWN0IGRybV9pOTE1X3By
-aXZhdGUgKmRldl9wcml2KQoreworCXUzMiBtYXNrID0gR0VOOF9QSVBFX0ZJRk9fVU5ERVJSVU47
-CisKKwlpZiAoRElTUExBWV9WRVIoZGV2X3ByaXYpID49IDEzKQorCQltYXNrIHw9IFhFTFBEX1BJ
-UEVfU09GVF9VTkRFUlJVTiB8CisJCQlYRUxQRF9QSVBFX0hBUkRfVU5ERVJSVU47CisKKwlyZXR1
-cm4gbWFzazsKK30KKwogc3RhdGljIGlycXJldHVybl90CiBnZW44X2RlX2lycV9oYW5kbGVyKHN0
-cnVjdCBkcm1faTkxNV9wcml2YXRlICpkZXZfcHJpdiwgdTMyIG1hc3Rlcl9jdGwpCiB7CkBAIC0y
-NTMyLDcgKzI1NDQsNyBAQCBnZW44X2RlX2lycV9oYW5kbGVyKHN0cnVjdCBkcm1faTkxNV9wcml2
-YXRlICpkZXZfcHJpdiwgdTMyIG1hc3Rlcl9jdGwpCiAJCWlmIChpaXIgJiBHRU44X1BJUEVfQ0RD
-TEtfQ1JDX0RPTkUpCiAJCQloc3dfcGlwZV9jcmNfaXJxX2hhbmRsZXIoZGV2X3ByaXYsIHBpcGUp
-OwogCi0JCWlmIChpaXIgJiBHRU44X1BJUEVfRklGT19VTkRFUlJVTikKKwkJaWYgKGlpciAmIHVu
-ZGVycnVuX2lpcl9tYXNrKGRldl9wcml2KSkKIAkJCWludGVsX2NwdV9maWZvX3VuZGVycnVuX2ly
-cV9oYW5kbGVyKGRldl9wcml2LCBwaXBlKTsKIAogCQlmYXVsdF9lcnJvcnMgPSBpaXIgJiBnZW44
-X2RlX3BpcGVfZmF1bHRfbWFzayhkZXZfcHJpdik7CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
-cm0vaTkxNS9pOTE1X3JlZy5oIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV9yZWcuaAppbmRl
-eCA0NzVkMTRkYjI4NDQuLjliYmU5NGNkZGQ5MyAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJt
-L2k5MTUvaTkxNV9yZWcuaAorKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X3JlZy5oCkBA
-IC02MTM5LDYgKzYxMzksMTIgQEAgZW51bSB7CiAjZGVmaW5lICAgU0tMX0JPVFRPTV9DT0xPUl9D
-U0NfRU5BQkxFCSgxIDw8IDMwKQogI2RlZmluZSBTS0xfQk9UVE9NX0NPTE9SKHBpcGUpCQlfTU1J
-T19QSVBFMihwaXBlLCBfU0tMX0JPVFRPTV9DT0xPUl9BKQogCisjZGVmaW5lIF9JQ0xfUElQRV9B
-X1NUQVRVUwkJCTB4NzAwNTgKKyNkZWZpbmUgSUNMX1BJUEVTVEFUVVMocGlwZSkJCQlfTU1JT19Q
-SVBFMihwaXBlLCBfSUNMX1BJUEVfQV9TVEFUVVMpCisjZGVmaW5lICAgUElQRV9TVEFUX1NPRlRf
-VU5ERVJSVU5fWEVMUEQJCVJFR19CSVQoMjgpCisjZGVmaW5lICAgUElQRV9TVEFUX0hBUkRfVU5E
-RVJSVU5fWEVMUEQJCVJFR19CSVQoMjcpCisjZGVmaW5lICAgUElQRV9TVEFUX1BPUlRfVU5ERVJS
-VU5fWEVMUEQJCVJFR19CSVQoMjYpCisKICNkZWZpbmUgVkxWX0RQRkxJUFNUQVQJCQkJX01NSU8o
-VkxWX0RJU1BMQVlfQkFTRSArIDB4NzAwMjgpCiAjZGVmaW5lICAgUElQRUJfTElORV9DT01QQVJF
-X0lOVF9FTgkJKDEgPDwgMjkpCiAjZGVmaW5lICAgUElQRUJfSExJTkVfSU5UX0VOCQkJKDEgPDwg
-MjgpCkBAIC03NzkyLDYgKzc3OTgsOCBAQCBlbnVtIHsKICNkZWZpbmUgIEdFTjhfUElQRV9GSUZP
-X1VOREVSUlVOCSgxIDw8IDMxKQogI2RlZmluZSAgR0VOOF9QSVBFX0NEQ0xLX0NSQ19FUlJPUgko
-MSA8PCAyOSkKICNkZWZpbmUgIEdFTjhfUElQRV9DRENMS19DUkNfRE9ORQkoMSA8PCAyOCkKKyNk
-ZWZpbmUgIFhFTFBEX1BJUEVfU09GVF9VTkRFUlJVTgkoMSA8PCAyMikKKyNkZWZpbmUgIFhFTFBE
-X1BJUEVfSEFSRF9VTkRFUlJVTgkoMSA8PCAyMSkKICNkZWZpbmUgIEdFTjhfUElQRV9DVVJTT1Jf
-RkFVTFQJCSgxIDw8IDEwKQogI2RlZmluZSAgR0VOOF9QSVBFX1NQUklURV9GQVVMVAkJKDEgPDwg
-OSkKICNkZWZpbmUgIEdFTjhfUElQRV9QUklNQVJZX0ZBVUxUCSgxIDw8IDgpCi0tIAoyLjI1LjQK
-Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkludGVsLWdm
-eCBtYWlsaW5nIGxpc3QKSW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xp
-c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ludGVsLWdmeAo=
+Convert the display-specific usage of INTEL_GEN, while leaving the
+non-display usage as-is for now.
+
+In the near-future we'll probably want to think about moving display
+interrupt handling to its own file under the display/ directory.
+
+Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+---
+ drivers/gpu/drm/i915/i915_irq.c | 66 ++++++++++++++++-----------------
+ 1 file changed, 33 insertions(+), 33 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/i915_irq.c b/drivers/gpu/drm/i915/i915_irq.c
+index 44aed4cbf894..23be88d59055 100644
+--- a/drivers/gpu/drm/i915/i915_irq.c
++++ b/drivers/gpu/drm/i915/i915_irq.c
+@@ -192,13 +192,13 @@ static void intel_hpd_init_pins(struct drm_i915_private *dev_priv)
+ 		return;
+ 	}
+ 
+-	if (INTEL_GEN(dev_priv) >= 11)
++	if (DISPLAY_VER(dev_priv) >= 11)
+ 		hpd->hpd = hpd_gen11;
+ 	else if (IS_GEN9_LP(dev_priv))
+ 		hpd->hpd = hpd_bxt;
+-	else if (INTEL_GEN(dev_priv) >= 8)
++	else if (DISPLAY_VER(dev_priv) >= 8)
+ 		hpd->hpd = hpd_bdw;
+-	else if (INTEL_GEN(dev_priv) >= 7)
++	else if (DISPLAY_VER(dev_priv) >= 7)
+ 		hpd->hpd = hpd_ivb;
+ 	else
+ 		hpd->hpd = hpd_ilk;
+@@ -477,7 +477,7 @@ u32 i915_pipestat_enable_mask(struct drm_i915_private *dev_priv,
+ 
+ 	lockdep_assert_held(&dev_priv->irq_lock);
+ 
+-	if (INTEL_GEN(dev_priv) < 5)
++	if (DISPLAY_VER(dev_priv) < 5)
+ 		goto out;
+ 
+ 	/*
+@@ -579,7 +579,7 @@ static void i915_enable_asle_pipestat(struct drm_i915_private *dev_priv)
+ 	spin_lock_irq(&dev_priv->irq_lock);
+ 
+ 	i915_enable_pipestat(dev_priv, PIPE_B, PIPE_LEGACY_BLC_EVENT_STATUS);
+-	if (INTEL_GEN(dev_priv) >= 4)
++	if (DISPLAY_VER(dev_priv) >= 4)
+ 		i915_enable_pipestat(dev_priv, PIPE_A,
+ 				     PIPE_LEGACY_BLC_EVENT_STATUS);
+ 
+@@ -806,7 +806,7 @@ static int __intel_get_crtc_scanline(struct intel_crtc *crtc)
+ 	if (mode->flags & DRM_MODE_FLAG_INTERLACE)
+ 		vtotal /= 2;
+ 
+-	if (IS_GEN(dev_priv, 2))
++	if (DISPLAY_VER(dev_priv) == 2)
+ 		position = intel_de_read_fw(dev_priv, PIPEDSL(pipe)) & DSL_LINEMASK_GEN2;
+ 	else
+ 		position = intel_de_read_fw(dev_priv, PIPEDSL(pipe)) & DSL_LINEMASK_GEN3;
+@@ -856,8 +856,8 @@ static bool i915_get_crtc_scanoutpos(struct drm_crtc *_crtc,
+ 	int position;
+ 	int vbl_start, vbl_end, hsync_start, htotal, vtotal;
+ 	unsigned long irqflags;
+-	bool use_scanline_counter = INTEL_GEN(dev_priv) >= 5 ||
+-		IS_G4X(dev_priv) || IS_GEN(dev_priv, 2) ||
++	bool use_scanline_counter = DISPLAY_VER(dev_priv) >= 5 ||
++		IS_G4X(dev_priv) || DISPLAY_VER(dev_priv) == 2 ||
+ 		crtc->mode_flags & I915_MODE_FLAG_USE_SCANLINE_COUNTER;
+ 
+ 	if (drm_WARN_ON(&dev_priv->drm, !mode->crtc_clock)) {
+@@ -1304,7 +1304,7 @@ static void display_pipe_crc_irq_handler(struct drm_i915_private *dev_priv,
+ 	 * don't trust that one either.
+ 	 */
+ 	if (pipe_crc->skipped <= 0 ||
+-	    (INTEL_GEN(dev_priv) >= 8 && pipe_crc->skipped == 1)) {
++	    (DISPLAY_VER(dev_priv) >= 8 && pipe_crc->skipped == 1)) {
+ 		pipe_crc->skipped++;
+ 		spin_unlock(&pipe_crc->lock);
+ 		return;
+@@ -1366,12 +1366,12 @@ static void i9xx_pipe_crc_irq_handler(struct drm_i915_private *dev_priv,
+ {
+ 	u32 res1, res2;
+ 
+-	if (INTEL_GEN(dev_priv) >= 3)
++	if (DISPLAY_VER(dev_priv) >= 3)
+ 		res1 = intel_uncore_read(&dev_priv->uncore, PIPE_CRC_RES_RES1_I915(pipe));
+ 	else
+ 		res1 = 0;
+ 
+-	if (INTEL_GEN(dev_priv) >= 5 || IS_G4X(dev_priv))
++	if (DISPLAY_VER(dev_priv) >= 5 || IS_G4X(dev_priv))
+ 		res2 = intel_uncore_read(&dev_priv->uncore, PIPE_CRC_RES_RES2_G4X(pipe));
+ 	else
+ 		res2 = 0;
+@@ -2077,7 +2077,7 @@ static void ilk_display_irq_handler(struct drm_i915_private *dev_priv,
+ 		intel_uncore_write(&dev_priv->uncore, SDEIIR, pch_iir);
+ 	}
+ 
+-	if (IS_GEN(dev_priv, 5) && de_iir & DE_PCU_EVENT)
++	if (DISPLAY_VER(dev_priv) == 5 && de_iir & DE_PCU_EVENT)
+ 		gen5_rps_irq_handler(&dev_priv->gt.rps);
+ }
+ 
+@@ -2184,7 +2184,7 @@ static irqreturn_t ilk_irq_handler(int irq, void *arg)
+ 	de_iir = raw_reg_read(regs, DEIIR);
+ 	if (de_iir) {
+ 		raw_reg_write(regs, DEIIR, de_iir);
+-		if (INTEL_GEN(i915) >= 7)
++		if (DISPLAY_VER(i915) >= 7)
+ 			ivb_display_irq_handler(i915, de_iir);
+ 		else
+ 			ilk_display_irq_handler(i915, de_iir);
+@@ -2269,7 +2269,7 @@ static u32 gen8_de_port_aux_mask(struct drm_i915_private *dev_priv)
+ {
+ 	u32 mask;
+ 
+-	if (INTEL_GEN(dev_priv) >= 12)
++	if (DISPLAY_VER(dev_priv) >= 12)
+ 		return TGL_DE_PORT_AUX_DDIA |
+ 			TGL_DE_PORT_AUX_DDIB |
+ 			TGL_DE_PORT_AUX_DDIC |
+@@ -2282,15 +2282,15 @@ static u32 gen8_de_port_aux_mask(struct drm_i915_private *dev_priv)
+ 
+ 
+ 	mask = GEN8_AUX_CHANNEL_A;
+-	if (INTEL_GEN(dev_priv) >= 9)
++	if (DISPLAY_VER(dev_priv) >= 9)
+ 		mask |= GEN9_AUX_CHANNEL_B |
+ 			GEN9_AUX_CHANNEL_C |
+ 			GEN9_AUX_CHANNEL_D;
+ 
+-	if (IS_CNL_WITH_PORT_F(dev_priv) || IS_GEN(dev_priv, 11))
++	if (IS_CNL_WITH_PORT_F(dev_priv) || DISPLAY_VER(dev_priv) == 11)
+ 		mask |= CNL_AUX_CHANNEL_F;
+ 
+-	if (IS_GEN(dev_priv, 11))
++	if (DISPLAY_VER(dev_priv) == 11)
+ 		mask |= ICL_AUX_CHANNEL_E;
+ 
+ 	return mask;
+@@ -2300,9 +2300,9 @@ static u32 gen8_de_pipe_fault_mask(struct drm_i915_private *dev_priv)
+ {
+ 	if (HAS_D12_PLANE_MINIMIZATION(dev_priv))
+ 		return RKL_DE_PIPE_IRQ_FAULT_ERRORS;
+-	else if (INTEL_GEN(dev_priv) >= 11)
++	else if (DISPLAY_VER(dev_priv) >= 11)
+ 		return GEN11_DE_PIPE_IRQ_FAULT_ERRORS;
+-	else if (INTEL_GEN(dev_priv) >= 9)
++	else if (DISPLAY_VER(dev_priv) >= 9)
+ 		return GEN9_DE_PIPE_IRQ_FAULT_ERRORS;
+ 	else
+ 		return GEN8_DE_PIPE_IRQ_FAULT_ERRORS;
+@@ -2326,7 +2326,7 @@ gen8_de_misc_irq_handler(struct drm_i915_private *dev_priv, u32 iir)
+ 		for_each_intel_encoder_with_psr(&dev_priv->drm, encoder) {
+ 			struct intel_dp *intel_dp = enc_to_intel_dp(encoder);
+ 
+-			if (INTEL_GEN(dev_priv) >= 12)
++			if (DISPLAY_VER(dev_priv) >= 12)
+ 				iir_reg = TRANS_PSR_IIR(intel_dp->psr.transcoder);
+ 			else
+ 				iir_reg = EDP_PSR_IIR;
+@@ -2340,7 +2340,7 @@ gen8_de_misc_irq_handler(struct drm_i915_private *dev_priv, u32 iir)
+ 			intel_psr_irq_handler(intel_dp, psr_iir);
+ 
+ 			/* prior GEN12 only have one EDP PSR */
+-			if (INTEL_GEN(dev_priv) < 12)
++			if (DISPLAY_VER(dev_priv) < 12)
+ 				break;
+ 		}
+ 	}
+@@ -2408,7 +2408,7 @@ static void gen11_dsi_te_interrupt_handler(struct drm_i915_private *dev_priv,
+ 
+ static u32 gen8_de_pipe_flip_done_mask(struct drm_i915_private *i915)
+ {
+-	if (INTEL_GEN(i915) >= 9)
++	if (DISPLAY_VER(i915) >= 9)
+ 		return GEN9_PIPE_PLANE1_FLIP_DONE;
+ 	else
+ 		return GEN8_PIPE_PRIMARY_FLIP_DONE;
+@@ -2433,7 +2433,7 @@ gen8_de_irq_handler(struct drm_i915_private *dev_priv, u32 master_ctl)
+ 		}
+ 	}
+ 
+-	if (INTEL_GEN(dev_priv) >= 11 && (master_ctl & GEN11_DE_HPD_IRQ)) {
++	if (DISPLAY_VER(dev_priv) >= 11 && (master_ctl & GEN11_DE_HPD_IRQ)) {
+ 		iir = intel_uncore_read(&dev_priv->uncore, GEN11_DE_HPD_IIR);
+ 		if (iir) {
+ 			intel_uncore_write(&dev_priv->uncore, GEN11_DE_HPD_IIR, iir);
+@@ -2479,7 +2479,7 @@ gen8_de_irq_handler(struct drm_i915_private *dev_priv, u32 master_ctl)
+ 				found = true;
+ 			}
+ 
+-			if (INTEL_GEN(dev_priv) >= 11) {
++			if (DISPLAY_VER(dev_priv) >= 11) {
+ 				u32 te_trigger = iir & (DSI0_TE | DSI1_TE);
+ 
+ 				if (te_trigger) {
+@@ -2809,7 +2809,7 @@ int ilk_enable_vblank(struct drm_crtc *crtc)
+ 	struct drm_i915_private *dev_priv = to_i915(crtc->dev);
+ 	enum pipe pipe = to_intel_crtc(crtc)->pipe;
+ 	unsigned long irqflags;
+-	u32 bit = INTEL_GEN(dev_priv) >= 7 ?
++	u32 bit = DISPLAY_VER(dev_priv) >= 7 ?
+ 		DE_PIPE_VBLANK_IVB(pipe) : DE_PIPE_VBLANK(pipe);
+ 
+ 	spin_lock_irqsave(&dev_priv->irq_lock, irqflags);
+@@ -2920,7 +2920,7 @@ void ilk_disable_vblank(struct drm_crtc *crtc)
+ 	struct drm_i915_private *dev_priv = to_i915(crtc->dev);
+ 	enum pipe pipe = to_intel_crtc(crtc)->pipe;
+ 	unsigned long irqflags;
+-	u32 bit = INTEL_GEN(dev_priv) >= 7 ?
++	u32 bit = DISPLAY_VER(dev_priv) >= 7 ?
+ 		DE_PIPE_VBLANK_IVB(pipe) : DE_PIPE_VBLANK(pipe);
+ 
+ 	spin_lock_irqsave(&dev_priv->irq_lock, irqflags);
+@@ -3094,7 +3094,7 @@ static void gen11_display_irq_reset(struct drm_i915_private *dev_priv)
+ 
+ 	intel_uncore_write(uncore, GEN11_DISPLAY_INT_CTL, 0);
+ 
+-	if (INTEL_GEN(dev_priv) >= 12) {
++	if (DISPLAY_VER(dev_priv) >= 12) {
+ 		enum transcoder trans;
+ 
+ 		for_each_cpu_transcoder_masked(dev_priv, trans, trans_mask) {
+@@ -3523,7 +3523,7 @@ static void ilk_hpd_irq_setup(struct drm_i915_private *dev_priv)
+ 	enabled_irqs = intel_hpd_enabled_irqs(dev_priv, dev_priv->hotplug.hpd);
+ 	hotplug_irqs = intel_hpd_hotplug_irqs(dev_priv, dev_priv->hotplug.hpd);
+ 
+-	if (INTEL_GEN(dev_priv) >= 8)
++	if (DISPLAY_VER(dev_priv) >= 8)
+ 		bdw_update_port_irq(dev_priv, hotplug_irqs, enabled_irqs);
+ 	else
+ 		ilk_update_display_irq(dev_priv, hotplug_irqs, enabled_irqs);
+@@ -3714,13 +3714,13 @@ static void gen8_de_irq_postinstall(struct drm_i915_private *dev_priv)
+ 		BIT(TRANSCODER_C) | BIT(TRANSCODER_D);
+ 	enum pipe pipe;
+ 
+-	if (INTEL_GEN(dev_priv) <= 10)
++	if (DISPLAY_VER(dev_priv) <= 10)
+ 		de_misc_masked |= GEN8_DE_MISC_GSE;
+ 
+ 	if (IS_GEN9_LP(dev_priv))
+ 		de_port_masked |= BXT_DE_PORT_GMBUS;
+ 
+-	if (INTEL_GEN(dev_priv) >= 11) {
++	if (DISPLAY_VER(dev_priv) >= 11) {
+ 		enum port port;
+ 
+ 		if (intel_bios_is_dsi_present(dev_priv, &port))
+@@ -3737,7 +3737,7 @@ static void gen8_de_irq_postinstall(struct drm_i915_private *dev_priv)
+ 	else if (IS_BROADWELL(dev_priv))
+ 		de_port_enables |= BDW_DE_PORT_HOTPLUG_MASK;
+ 
+-	if (INTEL_GEN(dev_priv) >= 12) {
++	if (DISPLAY_VER(dev_priv) >= 12) {
+ 		enum transcoder trans;
+ 
+ 		for_each_cpu_transcoder_masked(dev_priv, trans, trans_mask) {
+@@ -3766,7 +3766,7 @@ static void gen8_de_irq_postinstall(struct drm_i915_private *dev_priv)
+ 	GEN3_IRQ_INIT(uncore, GEN8_DE_PORT_, ~de_port_masked, de_port_enables);
+ 	GEN3_IRQ_INIT(uncore, GEN8_DE_MISC_, ~de_misc_masked, de_misc_masked);
+ 
+-	if (INTEL_GEN(dev_priv) >= 11) {
++	if (DISPLAY_VER(dev_priv) >= 11) {
+ 		u32 de_hpd_masked = 0;
+ 		u32 de_hpd_enables = GEN11_DE_TC_HOTPLUG_MASK |
+ 				     GEN11_DE_TBT_HOTPLUG_MASK;
+@@ -4317,7 +4317,7 @@ void intel_irq_init(struct drm_i915_private *dev_priv)
+ 	} else {
+ 		if (HAS_PCH_DG1(dev_priv))
+ 			dev_priv->display.hpd_irq_setup = dg1_hpd_irq_setup;
+-		else if (INTEL_GEN(dev_priv) >= 11)
++		else if (DISPLAY_VER(dev_priv) >= 11)
+ 			dev_priv->display.hpd_irq_setup = gen11_hpd_irq_setup;
+ 		else if (IS_GEN9_LP(dev_priv))
+ 			dev_priv->display.hpd_irq_setup = bxt_hpd_irq_setup;
+-- 
+2.25.4
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
