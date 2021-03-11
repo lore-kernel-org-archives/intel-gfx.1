@@ -7,44 +7,44 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 59AEFC433E9
-	for <intel-gfx@archiver.kernel.org>; Thu, 11 Mar 2021 22:37:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 10C49C433E6
+	for <intel-gfx@archiver.kernel.org>; Thu, 11 Mar 2021 22:37:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 28B3864F88
+	by mail.kernel.org (Postfix) with ESMTPS id D251964F26
 	for <intel-gfx@archiver.kernel.org>; Thu, 11 Mar 2021 22:37:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 28B3864F88
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D251964F26
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3CA186EEB3;
-	Thu, 11 Mar 2021 22:36:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE3F86EF3F;
+	Thu, 11 Mar 2021 22:36:58 +0000 (UTC)
 Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC8EC6EE86
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 060B86EE9A
  for <intel-gfx@lists.freedesktop.org>; Thu, 11 Mar 2021 22:36:48 +0000 (UTC)
-IronPort-SDR: tUi8Km9oevRy/fCvbBlEZvB7rba+n7OKr/GwuOPLMyn8Y23sGo4poXouPu9TyhZCfSYQ6CoESl
- UQYYLTpDyqUA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9920"; a="250116440"
-X-IronPort-AV: E=Sophos;i="5.81,241,1610438400"; d="scan'208";a="250116440"
+IronPort-SDR: W/afDpsDkP4OPSMUN7pJ7QgIFfQ0Yrfw5oA9PhjsHe3oX9gK6XEa/sYX8Datnyj7cuRC5pmhmx
+ hSL9mofvpOgg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9920"; a="250116441"
+X-IronPort-AV: E=Sophos;i="5.81,241,1610438400"; d="scan'208";a="250116441"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  11 Mar 2021 14:36:46 -0800
-IronPort-SDR: Lb6QZI3WW4GkMyeQqljDzzsGZzQEosRMtgUhocdZ8W48i6hPD8cVbjvdHWF/cMPCfjCnuSpqUN
- 9tTeLIIviJTg==
-X-IronPort-AV: E=Sophos;i="5.81,241,1610438400"; d="scan'208";a="438852724"
+IronPort-SDR: 36FvoT/7LL3GgSouYM72xS3i0rDczggZk7UjY+S+U+uuck5AbMTQxpVqBToINxw2evEoS1yS7d
+ I9NVDQ6e0sAQ==
+X-IronPort-AV: E=Sophos;i="5.81,241,1610438400"; d="scan'208";a="438852734"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.168])
  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  11 Mar 2021 14:36:45 -0800
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 11 Mar 2021 14:36:02 -0800
-Message-Id: <20210311223632.3191939-27-matthew.d.roper@intel.com>
+Date: Thu, 11 Mar 2021 14:36:05 -0800
+Message-Id: <20210311223632.3191939-30-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20210311223632.3191939-1-matthew.d.roper@intel.com>
 References: <20210311223632.3191939-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 26/56] drm/i915/adl_p: Add PCH support
+Subject: [Intel-gfx] [PATCH 29/56] drm/i915/adl_p: Load DMC
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,94 +57,82 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Lucas De Marchi <lucas.demarchi@intel.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Clinton Taylor <Clinton.A.Taylor@intel.com>
+From: Anusha Srivatsa <anusha.srivatsa@intel.com>
 
-Add ADP-P PCH device ID and assign as ADL PCH if found. Previously we
-would assign the DDC pin map based on the PCH, but it can also change
-based on the CPU. From Bspec 20124: "The physical port to pin pair
-mapping are defined in the Bspec per PCH. Mapping can further change
-based on CPU Si used as CPU and PCH can be mixed and matched".
+Load DMC v2.08 on ADLP. The release notes mention that
+this version enables few power savings features.
 
-Bspec: 20124
-Cc: Matt Atwood <matthew.s.atwood@intel.com>
-Cc: Matt Roper <matthew.d.roper@intel.com>
+Cc: Lucas De Marchi <lucas.demarchi@intel.com>
+Cc: Clint Taylor <clinton.a.taylor@intel.com>
+Signed-off-by: Anusha Srivatsa <anusha.srivatsa@intel.com>
 Signed-off-by: Clinton Taylor <Clinton.A.Taylor@intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_bios.c | 2 +-
- drivers/gpu/drm/i915/display/intel_hdmi.c | 2 +-
- drivers/gpu/drm/i915/intel_pch.c          | 6 ++++--
- drivers/gpu/drm/i915/intel_pch.h          | 1 +
- 4 files changed, 7 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/i915/display/intel_csr.c         | 10 +++++++++-
+ .../gpu/drm/i915/display/intel_display_power.c   | 16 +++++++++++++++-
+ 2 files changed, 24 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
-index e4cef54726b4..5f8d14be1265 100644
---- a/drivers/gpu/drm/i915/display/intel_bios.c
-+++ b/drivers/gpu/drm/i915/display/intel_bios.c
-@@ -1649,7 +1649,7 @@ static u8 map_ddc_pin(struct drm_i915_private *dev_priv, u8 vbt_pin)
- 	const u8 *ddc_pin_map;
- 	int n_entries;
+diff --git a/drivers/gpu/drm/i915/display/intel_csr.c b/drivers/gpu/drm/i915/display/intel_csr.c
+index 82360593b0a6..863e4566e645 100644
+--- a/drivers/gpu/drm/i915/display/intel_csr.c
++++ b/drivers/gpu/drm/i915/display/intel_csr.c
+@@ -40,6 +40,10 @@
  
--	if (HAS_PCH_ADP(dev_priv)) {
-+	if (IS_ALDERLAKE_S(dev_priv)) {
- 		ddc_pin_map = adls_ddc_pin_map;
- 		n_entries = ARRAY_SIZE(adls_ddc_pin_map);
- 	} else if (INTEL_PCH_TYPE(dev_priv) >= PCH_DG1) {
-diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
-index 4f285c7d54c4..2a2b01026564 100644
---- a/drivers/gpu/drm/i915/display/intel_hdmi.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
-@@ -3213,7 +3213,7 @@ static u8 intel_hdmi_ddc_pin(struct intel_encoder *encoder)
- 		return ddc_pin;
- 	}
+ #define GEN12_CSR_MAX_FW_SIZE		ICL_CSR_MAX_FW_SIZE
  
--	if (HAS_PCH_ADP(dev_priv))
-+	if (IS_ALDERLAKE_S(dev_priv))
- 		ddc_pin = adls_port_to_ddc_pin(dev_priv, port);
- 	else if (INTEL_PCH_TYPE(dev_priv) >= PCH_DG1)
- 		ddc_pin = dg1_port_to_ddc_pin(dev_priv, port);
-diff --git a/drivers/gpu/drm/i915/intel_pch.c b/drivers/gpu/drm/i915/intel_pch.c
-index 7476f0e063c6..98a17dd1bda4 100644
---- a/drivers/gpu/drm/i915/intel_pch.c
-+++ b/drivers/gpu/drm/i915/intel_pch.c
-@@ -130,8 +130,10 @@ intel_pch_type(const struct drm_i915_private *dev_priv, unsigned short id)
- 		drm_WARN_ON(&dev_priv->drm, !IS_JSL_EHL(dev_priv));
- 		return PCH_JSP;
- 	case INTEL_PCH_ADP_DEVICE_ID_TYPE:
-+	case INTEL_PCH_ADP2_DEVICE_ID_TYPE:
- 		drm_dbg_kms(&dev_priv->drm, "Found Alder Lake PCH\n");
--		drm_WARN_ON(&dev_priv->drm, !IS_ALDERLAKE_S(dev_priv));
-+		drm_WARN_ON(&dev_priv->drm, !IS_ALDERLAKE_S(dev_priv) &&
-+			    !IS_ALDERLAKE_P(dev_priv));
- 		return PCH_ADP;
- 	default:
- 		return PCH_NONE;
-@@ -161,7 +163,7 @@ intel_virt_detect_pch(const struct drm_i915_private *dev_priv,
- 	 * make an educated guess as to which PCH is really there.
++#define ADLP_CSR_PATH			"i915/adlp_dmc_ver2_08.bin"
++#define ADLP_CSR_VERSION_REQUIRED	CSR_VERSION(2, 8)
++MODULE_FIRMWARE(ADLP_CSR_PATH);
++
+ #define ADLS_CSR_PATH			"i915/adls_dmc_ver2_01.bin"
+ #define ADLS_CSR_VERSION_REQUIRED	CSR_VERSION(2, 1)
+ MODULE_FIRMWARE(ADLS_CSR_PATH);
+@@ -693,7 +697,11 @@ void intel_csr_ucode_init(struct drm_i915_private *dev_priv)
  	 */
+ 	intel_csr_runtime_pm_get(dev_priv);
  
--	if (IS_ALDERLAKE_S(dev_priv))
-+	if (IS_ALDERLAKE_S(dev_priv) || IS_ALDERLAKE_P(dev_priv))
- 		id = INTEL_PCH_ADP_DEVICE_ID_TYPE;
- 	else if (IS_TIGERLAKE(dev_priv) || IS_ROCKETLAKE(dev_priv))
- 		id = INTEL_PCH_TGP_DEVICE_ID_TYPE;
-diff --git a/drivers/gpu/drm/i915/intel_pch.h b/drivers/gpu/drm/i915/intel_pch.h
-index 7318377503b0..e2f3f30c6445 100644
---- a/drivers/gpu/drm/i915/intel_pch.h
-+++ b/drivers/gpu/drm/i915/intel_pch.h
-@@ -55,6 +55,7 @@ enum intel_pch {
- #define INTEL_PCH_JSP_DEVICE_ID_TYPE		0x4D80
- #define INTEL_PCH_JSP2_DEVICE_ID_TYPE		0x3880
- #define INTEL_PCH_ADP_DEVICE_ID_TYPE		0x7A80
-+#define INTEL_PCH_ADP2_DEVICE_ID_TYPE		0x5180
- #define INTEL_PCH_P2X_DEVICE_ID_TYPE		0x7100
- #define INTEL_PCH_P3X_DEVICE_ID_TYPE		0x7000
- #define INTEL_PCH_QEMU_DEVICE_ID_TYPE		0x2900 /* qemu q35 has 2918 */
+-	if (IS_ALDERLAKE_S(dev_priv)) {
++	if (IS_ALDERLAKE_P(dev_priv)) {
++		csr->fw_path = ADLP_CSR_PATH;
++		csr->required_version = ADLP_CSR_VERSION_REQUIRED;
++		csr->max_fw_size = GEN12_CSR_MAX_FW_SIZE;
++	} else if (IS_ALDERLAKE_S(dev_priv)) {
+ 		csr->fw_path = ADLS_CSR_PATH;
+ 		csr->required_version = ADLS_CSR_VERSION_REQUIRED;
+ 		csr->max_fw_size = GEN12_CSR_MAX_FW_SIZE;
+diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
+index 8bb5203dd2da..3b30604e850a 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_power.c
++++ b/drivers/gpu/drm/i915/display/intel_display_power.c
+@@ -4953,7 +4953,21 @@ static u32 get_allowed_dc_mask(const struct drm_i915_private *dev_priv,
+ 	int requested_dc;
+ 	int max_dc;
+ 
+-	if (IS_DG1(dev_priv))
++	if (!HAS_DISPLAY(dev_priv))
++		return 0;
++
++	if (DISPLAY_VER(dev_priv) == 13)
++		/*
++		 * FIXME: We need to disable DC-states for two reasons:
++		 *
++		 *  - Although not documented in the bspec, we've been told
++		 *    that we need to upload Pipe DMC firmwares in addition
++		 *    to the main DMC firmware for DC5 to work properly.
++		 *    We need proper bspec documentation before we can handle
++		 *    this.
++		 */
++		max_dc = 0;
++	else if (IS_DG1(dev_priv))
+ 		max_dc = 3;
+ 	else if (DISPLAY_VER(dev_priv) >= 12)
+ 		max_dc = 4;
 -- 
 2.25.4
 
