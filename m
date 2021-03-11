@@ -7,45 +7,44 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C37C5C433E9
-	for <intel-gfx@archiver.kernel.org>; Thu, 11 Mar 2021 22:37:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B5485C433E0
+	for <intel-gfx@archiver.kernel.org>; Thu, 11 Mar 2021 22:37:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 902C364F26
-	for <intel-gfx@archiver.kernel.org>; Thu, 11 Mar 2021 22:37:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 902C364F26
+	by mail.kernel.org (Postfix) with ESMTPS id 72AD464F88
+	for <intel-gfx@archiver.kernel.org>; Thu, 11 Mar 2021 22:37:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 72AD464F88
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 16D8E6EE93;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 142076EE91;
 	Thu, 11 Mar 2021 22:36:54 +0000 (UTC)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 009B86EEAD
- for <intel-gfx@lists.freedesktop.org>; Thu, 11 Mar 2021 22:36:49 +0000 (UTC)
-IronPort-SDR: ivNqSVRFGb725dKUOJ1N2dPrEBtpTsrfoJA+2EbvrCbTb7tCgpFzvEc/cGvyhHpXGsAXvM9j8g
- Y2VOtg9S546A==
-X-IronPort-AV: E=McAfee;i="6000,8403,9920"; a="250116450"
-X-IronPort-AV: E=Sophos;i="5.81,241,1610438400"; d="scan'208";a="250116450"
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 91C8E6EE84
+ for <intel-gfx@lists.freedesktop.org>; Thu, 11 Mar 2021 22:36:45 +0000 (UTC)
+IronPort-SDR: RpkZCjWDRGMP37TH6gSLHbcokLEAFlz8JhcGZNPqWNKUPKu/M88RxExnFhuMV1Qsb/ufbvnD02
+ iEyiDPYnXpeQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9920"; a="185395062"
+X-IronPort-AV: E=Sophos;i="5.81,241,1610438400"; d="scan'208";a="185395062"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Mar 2021 14:36:47 -0800
-IronPort-SDR: CWiMESX3PMPaZegvckVQHWXK1w+LBMci/ZhsKwVk9FAdGOS1FHdqBBNloo8p1TbA5E3nwHEeIs
- zcVPHmevsalg==
-X-IronPort-AV: E=Sophos;i="5.81,241,1610438400"; d="scan'208";a="438852756"
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Mar 2021 14:36:44 -0800
+IronPort-SDR: bgkuDg6hYwDQKSv2A5E4IIwGBvBeE5dOQp77hT18yIszH16QBjorT3yTJbzzqWbxfETvXeXELf
+ G/HFXFO9LoPg==
+X-IronPort-AV: E=Sophos;i="5.81,241,1610438400"; d="scan'208";a="438852647"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.168])
  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Mar 2021 14:36:45 -0800
+ 11 Mar 2021 14:36:43 -0800
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 11 Mar 2021 14:36:12 -0800
-Message-Id: <20210311223632.3191939-37-matthew.d.roper@intel.com>
+Date: Thu, 11 Mar 2021 14:35:38 -0800
+Message-Id: <20210311223632.3191939-3-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20210311223632.3191939-1-matthew.d.roper@intel.com>
 References: <20210311223632.3191939-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 36/56] drm/i915/adl_p: Don't config MBUS and
- DBUF during display initialization
+Subject: [Intel-gfx] [PATCH 02/56] drm/i915: Add DISPLAY_VER()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,39 +57,91 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-RnJvbTogSm9zw6kgUm9iZXJ0byBkZSBTb3V6YSA8am9zZS5zb3V6YUBpbnRlbC5jb20+CgpBbGRl
-cmxha2UtUCBkb24ndCBoYXZlIHByb2dyYW1pbmcgc2VxdWVuY2VzIGZvciBNQlVTIG9yIERCVUYg
-ZHVyaW5nCmRpc3BsYXkgaW5pdGlhbGl6YWl0b24sIGluc3RlYWQgaXQgcmVxdWlyZXMgcHJvZ3Jh
-bWluZyB0byB0aG9zZQpyZWdpc3RlcnMgZHVyaW5nIG1vZGVzZXQgYmVjYXVzZSBpdCB0byBkZXBl
-bmQgb24gdGhlIHBpcGVzIGxlZnQKZW5hYmxlZC4KCkJzcGVjOiA0OTIxMwpDYzogTWF0dCBSb3Bl
-ciA8bWF0dGhldy5kLnJvcGVyQGludGVsLmNvbT4KU2lnbmVkLW9mZi1ieTogSm9zw6kgUm9iZXJ0
-byBkZSBTb3V6YSA8am9zZS5zb3V6YUBpbnRlbC5jb20+ClNpZ25lZC1vZmYtYnk6IENsaW50b24g
-VGF5bG9yIDxDbGludG9uLkEuVGF5bG9yQGludGVsLmNvbT4KU2lnbmVkLW9mZi1ieTogTWF0dCBS
-b3BlciA8bWF0dGhldy5kLnJvcGVyQGludGVsLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vaTkx
-NS9kaXNwbGF5L2ludGVsX2Rpc3BsYXlfcG93ZXIuYyB8IDYgKysrKysrCiAxIGZpbGUgY2hhbmdl
-ZCwgNiBpbnNlcnRpb25zKCspCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlz
-cGxheS9pbnRlbF9kaXNwbGF5X3Bvd2VyLmMgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5
-L2ludGVsX2Rpc3BsYXlfcG93ZXIuYwppbmRleCAxOWQyMGE4YzI3OGMuLmU2ZWRkNTI3MjA3MiAx
-MDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kaXNwbGF5X3Bv
-d2VyLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kaXNwbGF5X3Bv
-d2VyLmMKQEAgLTUyNDksNiArNTI0OSw5IEBAIHN0YXRpYyB2b2lkIGdlbjEyX2RidWZfc2xpY2Vz
-X2NvbmZpZyhzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqZGV2X3ByaXYpCiAJY29uc3QgaW50IG51
-bV9zbGljZXMgPSBJTlRFTF9JTkZPKGRldl9wcml2KS0+bnVtX3N1cHBvcnRlZF9kYnVmX3NsaWNl
-czsKIAllbnVtIGRidWZfc2xpY2Ugc2xpY2U7CiAKKwlpZiAoSVNfQUxERVJMQUtFX1AoZGV2X3By
-aXYpKQorCQlyZXR1cm47CisKIAlmb3IgKHNsaWNlID0gREJVRl9TMTsgc2xpY2UgPCAoREJVRl9T
-MSArIG51bV9zbGljZXMpOyBzbGljZSsrKQogCQlpbnRlbF9kZV9ybXcoZGV2X3ByaXYsIERCVUZf
-Q1RMX1Moc2xpY2UpLAogCQkJICAgICBEQlVGX1RSQUNLRVJfU1RBVEVfU0VSVklDRV9NQVNLLApA
-QCAtNTI2MCw2ICs1MjYzLDkgQEAgc3RhdGljIHZvaWQgaWNsX21idXNfaW5pdChzdHJ1Y3QgZHJt
-X2k5MTVfcHJpdmF0ZSAqZGV2X3ByaXYpCiAJdW5zaWduZWQgbG9uZyBhYm94X3JlZ3MgPSBJTlRF
-TF9JTkZPKGRldl9wcml2KS0+YWJveF9tYXNrOwogCXUzMiBtYXNrLCB2YWwsIGk7CiAKKwlpZiAo
-SVNfQUxERVJMQUtFX1AoZGV2X3ByaXYpKQorCQlyZXR1cm47CisKIAltYXNrID0gTUJVU19BQk9Y
-X0JUX0NSRURJVF9QT09MMV9NQVNLIHwKIAkJTUJVU19BQk9YX0JUX0NSRURJVF9QT09MMl9NQVNL
-IHwKIAkJTUJVU19BQk9YX0JfQ1JFRElUX01BU0sgfAotLSAKMi4yNS40CgpfX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpJbnRlbC1nZnggbWFpbGluZyBsaXN0
-CkludGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
-cC5vcmcvbWFpbG1hbi9saXN0aW5mby9pbnRlbC1nZngK
+Although we've long referred to platforms by a single "GEN" number, the
+hardware teams have recommended that we stop doing this since the
+various component IP blocks are going to start using independent number
+schemes with varying cadence.  To support this, hardware platforms a bit
+down the road are going to start providing MMIO registers that the
+driver can read to obtain the "graphics version," "media version," and
+"display version" without needing to do a PCI ID -> platform -> version
+translation.
+
+Although our current platforms don't yet expose these registers (and the
+next couple we release probably won't have them yet either), the
+hardware teams would still like to see us move to this independent
+numbering scheme now in preparation.  For i915 that means we should try
+to eliminate all usage of INTEL_GEN() throughout our code and instead
+replace it with separate GRAPHICS_VER(), MEDIA_VER(), and DISPLAY_VER()
+constructs in the code.  For old platforms, these will all usually give
+the same value for each IP block (aside from a few special cases like
+GLK which we can no more accurately represent as graphics=9 +
+display=10), but future platforms will have more flexibility to bump IP
+version numbers independently.
+
+The next hardware platform we'll be upstreaming (very soon!) will have a
+display version of 13 and a graphics version of 12, so let's just the
+first step of breaking out DISPLAY_VER(), but leaving the rest of
+INTEL_GEN() untouched for now.  For now we'll automatically
+derive the display version from the platform's INTEL_GEN() value except
+in cases where an alternative display version is explicitly provided in
+the device info structure.
+
+Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+---
+ drivers/gpu/drm/i915/i915_drv.h          | 2 ++
+ drivers/gpu/drm/i915/i915_pci.c          | 2 +-
+ drivers/gpu/drm/i915/intel_device_info.h | 3 +++
+ 3 files changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index 4fe90a9782e8..5ec0524d3418 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -1247,6 +1247,8 @@ static inline struct drm_i915_private *pdev_to_i915(struct pci_dev *pdev)
+ #define INTEL_GEN(dev_priv)	(INTEL_INFO(dev_priv)->gen)
+ #define INTEL_DEVID(dev_priv)	(RUNTIME_INFO(dev_priv)->device_id)
+ 
++#define DISPLAY_VER(i915)	INTEL_INFO(i915)->display_ver
++
+ #define REVID_FOREVER		0xff
+ #define INTEL_REVID(dev_priv)	(to_pci_dev((dev_priv)->drm.dev)->revision)
+ 
+diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
+index a9f24f2bda33..3543611cf0fc 100644
+--- a/drivers/gpu/drm/i915/i915_pci.c
++++ b/drivers/gpu/drm/i915/i915_pci.c
+@@ -36,7 +36,7 @@
+ #include "i915_selftest.h"
+ 
+ #define PLATFORM(x) .platform = (x)
+-#define GEN(x) .gen = (x), .gen_mask = BIT((x) - 1)
++#define GEN(x) .gen = (x), .gen_mask = BIT((x) - 1), .display_ver = x
+ 
+ #define I845_PIPE_OFFSETS \
+ 	.pipe_offsets = { \
+diff --git a/drivers/gpu/drm/i915/intel_device_info.h b/drivers/gpu/drm/i915/intel_device_info.h
+index d44f64b57b7a..3c7db9c690f4 100644
+--- a/drivers/gpu/drm/i915/intel_device_info.h
++++ b/drivers/gpu/drm/i915/intel_device_info.h
+@@ -162,6 +162,9 @@ struct intel_device_info {
+ 
+ 	u8 gen;
+ 	u8 gt; /* GT number, 0 if undefined */
++
++	u8 display_ver;
++
+ 	intel_engine_mask_t platform_engine_mask; /* Engines supported by the HW */
+ 
+ 	enum intel_platform platform;
+-- 
+2.25.4
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
