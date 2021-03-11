@@ -7,45 +7,45 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5D374C433DB
-	for <intel-gfx@archiver.kernel.org>; Thu, 11 Mar 2021 15:34:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4DF6FC433E6
+	for <intel-gfx@archiver.kernel.org>; Thu, 11 Mar 2021 15:34:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 058E964FA8
-	for <intel-gfx@archiver.kernel.org>; Thu, 11 Mar 2021 15:34:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 058E964FA8
+	by mail.kernel.org (Postfix) with ESMTPS id E0ED664F94
+	for <intel-gfx@archiver.kernel.org>; Thu, 11 Mar 2021 15:34:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E0ED664F94
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 124806EDF8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9DC826EDFB;
 	Thu, 11 Mar 2021 15:34:32 +0000 (UTC)
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 16B0D6EDF8
- for <intel-gfx@lists.freedesktop.org>; Thu, 11 Mar 2021 15:34:31 +0000 (UTC)
-IronPort-SDR: ojjlTM07QpR5uJUU0iVG8ryzQtXJnSBmLIeLfVr/zpQyS/mFrTFj7E6whfUK5GKiip9Mv/snYg
- cjFkEipn4AYg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9920"; a="175797241"
-X-IronPort-AV: E=Sophos;i="5.81,241,1610438400"; d="scan'208";a="175797241"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A05BB6EDDE
+ for <intel-gfx@lists.freedesktop.org>; Thu, 11 Mar 2021 15:34:30 +0000 (UTC)
+IronPort-SDR: fp9+1uLZyYN4wYUZyQ8fhb0Qv3NvJt/sIubG7iQlnBP/HMJjf7kxlr2QLDaPY/gmDak5ch3/Kw
+ mRXhTVfvBjuA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9920"; a="175797236"
+X-IronPort-AV: E=Sophos;i="5.81,241,1610438400"; d="scan'208";a="175797236"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  11 Mar 2021 07:34:29 -0800
-IronPort-SDR: /2J8ATTAqpA3TkcA2VAOocFTalwtBd8xYC8VSSMR219/ZV8ldm33OZH0eSVgRngpLebUfcS03u
- VWWkiZYHuncQ==
-X-IronPort-AV: E=Sophos;i="5.81,241,1610438400"; d="scan'208";a="589251660"
+IronPort-SDR: nF7VCXFztA29WXzU45p3+05yBpOnyBFV6LA5ICVgOO3EjyikgrJLM0rjtIIrZsnlFCmLMbZuNh
+ CCe5CDDmySAg==
+X-IronPort-AV: E=Sophos;i="5.81,241,1610438400"; d="scan'208";a="589251651"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.168])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  11 Mar 2021 07:34:29 -0800
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 11 Mar 2021 07:34:01 -0800
-Message-Id: <20210311153415.3024607-10-matthew.d.roper@intel.com>
+Date: Thu, 11 Mar 2021 07:33:58 -0800
+Message-Id: <20210311153415.3024607-7-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20210311153415.3024607-1-matthew.d.roper@intel.com>
 References: <20210311153415.3024607-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v2 09/23] drm/i915/xelpd: Enhanced pipe underrun
- reporting
+Subject: [Intel-gfx] [PATCH v2 06/23] drm/i915/display: Simplify GLK display
+ version tests
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,126 +58,544 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-WEVfTFBEIGJyaW5ncyBlbmhhbmNlZCB1bmRlcnJ1biByZWNvdmVyeTogIHRoZSBoYXJkd2FyZSBj
-YW4gc29tZXdoYXQKbWl0aWdhdGUgdW5kZXJydW5zIGJ5IHVzaW5nIGFuIGludGVycG9sYXRlZCBy
-ZXBsYWNlbWVudCBwaXhlbCAoc29mdAp1bmRlcnJ1bikgb3IgdGhlIHByZXZpb3VzIHBpeGVsICho
-YXJkIHVuZGVycnVuKS4gIEZ1cnRoZXJtb3JlLCB1bmRlcnJ1bnMKY2FuIG5vdyBiZSBjYXVzZWQg
-ZG93bnN0cmVhbSBieSB0aGUgcG9ydCwgZXZlbiBpZiB0aGUgcGlwZSBpdHNlbGYgaXMKb3BlcmF0
-aW5nIHByb3Blcmx5LiAgVGhlIGludGVycnVwdCByZWdpc3RlciBhbmQgUElQRV9TVEFUVVMgcmVn
-aXN0ZXIKZ2l2ZSB1cyBleHRyYSBiaXRzIHRvIHJlY29nbml6ZSBoYXJkL3NvZnQgdW5kZXJydW5z
-IGFuZCBkZXRlcm1pbmUKd2hldGhlciB0aGUgdW5kZXJydW4gd2FzIGNhdXNlZCBieSB0aGUgcG9y
-dCwgc28gd2UnbGwgdXNlIHRoYXQKaW5mb3JtYXRpb24gdG8gcHJpbnQgc29tZSBtb3JlIGRlc2Ny
-aXB0aXZlIGVycm9ycyB3aGVuIHVuZGVycnVucyBvY2N1ci4KCnYyOgogLSBLZWVwIElDTCdzIFBJ
-UEVfU1RBVFVTIGRlZmluZWQgc2VwYXJhdGVseSBmcm9tIHRoZSBvbGQgR01DSCBwaXBlCiAgIHN0
-YXR1cyByZWdpc3Rlci4gIChWaWxsZSkKIC0gT25seSByZWFkL2NsZWFyIHRoZSBQSVBFX1NUQVRV
-UyByZWdpc3RlciBvbiBwbGF0Zm9ybXMgd2l0aAogICBkaXNwbGF5IHZlciA+PSAxMS4gKEx1Y2Fz
-KQoKQnNwZWM6IDUwMzM1CkJzcGVjOiA1MDM2NgpDYzogTHVjYXMgRGUgTWFyY2hpIDxsdWNhcy5k
-ZW1hcmNoaUBpbnRlbC5jb20+CkNjOiBWaWxsZSBTeXJqw6Rsw6QgPHZpbGxlLnN5cmphbGFAbGlu
-dXguaW50ZWwuY29tPgpTaWduZWQtb2ZmLWJ5OiBNYXR0IFJvcGVyIDxtYXR0aGV3LmQucm9wZXJA
-aW50ZWwuY29tPgotLS0KIC4uLi9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2ZpZm9fdW5kZXJydW4u
-YyAgICB8IDY1ICsrKysrKysrKysrKysrKysrKy0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVf
-aXJxLmMgICAgICAgICAgICAgICB8IDE0ICsrKy0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVf
-cmVnLmggICAgICAgICAgICAgICB8ICA4ICsrKwogMyBmaWxlcyBjaGFuZ2VkLCA4NCBpbnNlcnRp
-b25zKCspLCAzIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1
-L2Rpc3BsYXkvaW50ZWxfZmlmb191bmRlcnJ1bi5jIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlz
-cGxheS9pbnRlbF9maWZvX3VuZGVycnVuLmMKaW5kZXggNWIxMTM2ODM4YjljLi5mZTkzMTVhOWZj
-NTEgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZmlmb191
-bmRlcnJ1bi5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZmlmb191
-bmRlcnJ1bi5jCkBAIC0zNTksNiArMzU5LDM5IEBAIGJvb2wgaW50ZWxfc2V0X3BjaF9maWZvX3Vu
-ZGVycnVuX3JlcG9ydGluZyhzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqZGV2X3ByaXYsCiAJcmV0
-dXJuIG9sZDsKIH0KIAorc3RhdGljIHUzMgordW5kZXJydW5fcGlwZXN0YXRfbWFzayhzdHJ1Y3Qg
-ZHJtX2k5MTVfcHJpdmF0ZSAqZGV2X3ByaXYpCit7CisJdTMyIG1hc2sgPSBQSVBFX0ZJRk9fVU5E
-RVJSVU5fU1RBVFVTOworCisJaWYgKERJU1BMQVlfVkVSKGRldl9wcml2KSA+PSAxMykKKwkJbWFz
-ayB8PSBQSVBFX1NUQVRfU09GVF9VTkRFUlJVTl9YRUxQRCB8CisJCQlQSVBFX1NUQVRfSEFSRF9V
-TkRFUlJVTl9YRUxQRCB8CisJCQlQSVBFX1NUQVRfUE9SVF9VTkRFUlJVTl9YRUxQRDsKKworCXJl
-dHVybiBtYXNrOworfQorCitzdGF0aWMgY29uc3QgY2hhciAqCitwaXBlX3VuZGVycnVuX3JlYXNv
-bih1MzIgcGlwZXN0YXRfdW5kZXJydW5zKQoreworCWlmIChwaXBlc3RhdF91bmRlcnJ1bnMgJiBQ
-SVBFX1NUQVRfU09GVF9VTkRFUlJVTl9YRUxQRCkKKwkJLyoKKwkJICogSGFyZHdhcmUgdXNlZCBy
-ZXBsYWNlbWVudC9pbnRlcnBvbGF0ZWQgcGl4ZWxzIGF0CisJCSAqIHVuZGVycnVuIGxvY2F0aW9u
-cy4KKwkJICovCisJCXJldHVybiAic29mdCI7CisJZWxzZSBpZiAocGlwZXN0YXRfdW5kZXJydW5z
-ICYgUElQRV9TVEFUX0hBUkRfVU5ERVJSVU5fWEVMUEQpCisJCS8qCisJCSAqIEhhcmR3YXJlIHVz
-ZWQgcHJldmlvdXMgcGl4ZWwgdmFsdWUgYXQgdW5kZXJydW4KKwkJICogbG9jYXRpb25zLgorCQkg
-Ki8KKwkJcmV0dXJuICJoYXJkIjsKKwllbHNlCisJCS8qIE9sZCBwbGF0Zm9ybSBvciBubyBleHRy
-YSBzb2Z0L2hhcmQgYml0IHNldCAqLworCQlyZXR1cm4gIkZJRk8iOworfQorCiAvKioKICAqIGlu
-dGVsX2NwdV9maWZvX3VuZGVycnVuX2lycV9oYW5kbGVyIC0gaGFuZGxlIENQVSBmaWZvIHVuZGVy
-cnVuIGludGVycnVwdAogICogQGRldl9wcml2OiBpOTE1IGRldmljZSBpbnN0YW5jZQpAQCAtMzcy
-LDYgKzQwNSw3IEBAIHZvaWQgaW50ZWxfY3B1X2ZpZm9fdW5kZXJydW5faXJxX2hhbmRsZXIoc3Ry
-dWN0IGRybV9pOTE1X3ByaXZhdGUgKmRldl9wcml2LAogCQkJCQkgZW51bSBwaXBlIHBpcGUpCiB7
-CiAJc3RydWN0IGludGVsX2NydGMgKmNydGMgPSBpbnRlbF9nZXRfY3J0Y19mb3JfcGlwZShkZXZf
-cHJpdiwgcGlwZSk7CisJdTMyIHVuZGVycnVucyA9IDA7CiAKIAkvKiBXZSBtYXkgYmUgY2FsbGVk
-IHRvbyBlYXJseSBpbiBpbml0LCB0aGFua3MgQklPUyEgKi8KIAlpZiAoY3J0YyA9PSBOVUxMKQpA
-QCAtMzgyLDEwICs0MTYsMzcgQEAgdm9pZCBpbnRlbF9jcHVfZmlmb191bmRlcnJ1bl9pcnFfaGFu
-ZGxlcihzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqZGV2X3ByaXYsCiAJICAgIGNydGMtPmNwdV9m
-aWZvX3VuZGVycnVuX2Rpc2FibGVkKQogCQlyZXR1cm47CiAKKwkvKgorCSAqIFN0YXJ0aW5nIHdp
-dGggZGlzcGxheSB2ZXJzaW9uIDExLCB0aGUgUElQRV9TVEFUIHJlZ2lzdGVyIHJlY29yZHMKKwkg
-KiB3aGV0aGVyIGFuIHVuZGVycnVuIGhhcyBoYXBwZW5lZCwgYW5kIG9uIFhFTFBEKywgaXQgd2ls
-bCBhbHNvIHJlY29yZAorCSAqIHdoZXRoZXIgdGhlIHVuZGVycnVuIHdhcyBzb2Z0L2hhcmQgYW5k
-IHdoZXRoZXIgaXQgd2FzIHRyaWdnZXJlZCBieQorCSAqIHRoZSBkb3duc3RyZWFtIHBvcnQgbG9n
-aWMuICBXZSBzaG91bGQgY2xlYXIgdGhlc2UgYml0cyAod2hpY2ggdXNlCisJICogd3JpdGUtMS10
-by1jbGVhciBsb2dpYykgdG9vLgorCSAqCisJICogTm90ZSB0aGF0IGFsdGhvdWdoIHRoZSBJSVIg
-Z2l2ZXMgdXMgdGhlIHNhbWUgdW5kZXJydW4gYW5kIHNvZnQvaGFyZAorCSAqIGluZm9ybWF0aW9u
-LCBQSVBFX1NUQVQgaXMgdGhlIG9ubHkgcGxhY2Ugd2UgY2FuIGZpbmQgb3V0IHdoZXRoZXIKKwkg
-KiB0aGUgdW5kZXJydW4gd2FzIGNhdXNlZCBieSB0aGUgZG93bnN0cmVhbSBwb3J0LgorCSAqLwor
-CWlmIChESVNQTEFZX1ZFUihkZXZfcHJpdikgPj0gMTEpIHsKKwkJdW5kZXJydW5zID0gaW50ZWxf
-dW5jb3JlX3JlYWQoJmRldl9wcml2LT51bmNvcmUsCisJCQkJCSAgICAgIElDTF9QSVBFU1RBVFVT
-KHBpcGUpKSAmCisJCQl1bmRlcnJ1bl9waXBlc3RhdF9tYXNrKGRldl9wcml2KTsKKwkJaW50ZWxf
-dW5jb3JlX3dyaXRlKCZkZXZfcHJpdi0+dW5jb3JlLCBJQ0xfUElQRVNUQVRVUyhwaXBlKSwKKwkJ
-CQkgICB1bmRlcnJ1bnMpOworCX0KKwogCWlmIChpbnRlbF9zZXRfY3B1X2ZpZm9fdW5kZXJydW5f
-cmVwb3J0aW5nKGRldl9wcml2LCBwaXBlLCBmYWxzZSkpIHsKIAkJdHJhY2VfaW50ZWxfY3B1X2Zp
-Zm9fdW5kZXJydW4oZGV2X3ByaXYsIHBpcGUpOwotCQlkcm1fZXJyKCZkZXZfcHJpdi0+ZHJtLCAi
-Q1BVIHBpcGUgJWMgRklGTyB1bmRlcnJ1blxuIiwKLQkJCXBpcGVfbmFtZShwaXBlKSk7CisKKwkJ
-aWYgKHVuZGVycnVucyAmIFBJUEVfU1RBVF9QT1JUX1VOREVSUlVOX1hFTFBEKQorCQkJLyogVW5k
-ZXJydW4gd2FzIGNhdXNlZCBkb3duc3RyZWFtIGZyb20gdGhlIHBpcGVzICovCisJCQlkcm1fZXJy
-KCZkZXZfcHJpdi0+ZHJtLCAiUG9ydCB0cmlnZ2VyZWQgYSAlcyB1bmRlcnJ1biBvbiBwaXBlICVj
-XG4iLAorCQkJCXBpcGVfdW5kZXJydW5fcmVhc29uKHVuZGVycnVucyksCisJCQkJcGlwZV9uYW1l
-KHBpcGUpKTsKKwkJZWxzZQorCQkJZHJtX2VycigmZGV2X3ByaXYtPmRybSwgIkNQVSBwaXBlICVj
-ICVzIHVuZGVycnVuXG4iLAorCQkJCXBpcGVfbmFtZShwaXBlKSwKKwkJCQlwaXBlX3VuZGVycnVu
-X3JlYXNvbih1bmRlcnJ1bnMpKTsKIAl9CiAKIAlpbnRlbF9mYmNfaGFuZGxlX2ZpZm9fdW5kZXJy
-dW5faXJxKGRldl9wcml2KTsKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVf
-aXJxLmMgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X2lycS5jCmluZGV4IGM5ZTAzOTczNTAy
-Yy4uOGJlYjVlMTkzYmE1IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X2ly
-cS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfaXJxLmMKQEAgLTI0MjQsNiArMjQy
-NCwxOCBAQCBzdGF0aWMgdTMyIGdlbjhfZGVfcGlwZV9mbGlwX2RvbmVfbWFzayhzdHJ1Y3QgZHJt
-X2k5MTVfcHJpdmF0ZSAqaTkxNSkKIAkJcmV0dXJuIEdFTjhfUElQRV9QUklNQVJZX0ZMSVBfRE9O
-RTsKIH0KIAorc3RhdGljIHUzMgordW5kZXJydW5faWlyX21hc2soc3RydWN0IGRybV9pOTE1X3By
-aXZhdGUgKmRldl9wcml2KQoreworCXUzMiBtYXNrID0gR0VOOF9QSVBFX0ZJRk9fVU5ERVJSVU47
-CisKKwlpZiAoRElTUExBWV9WRVIoZGV2X3ByaXYpID49IDEzKQorCQltYXNrIHw9IFhFTFBEX1BJ
-UEVfU09GVF9VTkRFUlJVTiB8CisJCQlYRUxQRF9QSVBFX0hBUkRfVU5ERVJSVU47CisKKwlyZXR1
-cm4gbWFzazsKK30KKwogc3RhdGljIGlycXJldHVybl90CiBnZW44X2RlX2lycV9oYW5kbGVyKHN0
-cnVjdCBkcm1faTkxNV9wcml2YXRlICpkZXZfcHJpdiwgdTMyIG1hc3Rlcl9jdGwpCiB7CkBAIC0y
-NTMyLDcgKzI1NDQsNyBAQCBnZW44X2RlX2lycV9oYW5kbGVyKHN0cnVjdCBkcm1faTkxNV9wcml2
-YXRlICpkZXZfcHJpdiwgdTMyIG1hc3Rlcl9jdGwpCiAJCWlmIChpaXIgJiBHRU44X1BJUEVfQ0RD
-TEtfQ1JDX0RPTkUpCiAJCQloc3dfcGlwZV9jcmNfaXJxX2hhbmRsZXIoZGV2X3ByaXYsIHBpcGUp
-OwogCi0JCWlmIChpaXIgJiBHRU44X1BJUEVfRklGT19VTkRFUlJVTikKKwkJaWYgKGlpciAmIHVu
-ZGVycnVuX2lpcl9tYXNrKGRldl9wcml2KSkKIAkJCWludGVsX2NwdV9maWZvX3VuZGVycnVuX2ly
-cV9oYW5kbGVyKGRldl9wcml2LCBwaXBlKTsKIAogCQlmYXVsdF9lcnJvcnMgPSBpaXIgJiBnZW44
-X2RlX3BpcGVfZmF1bHRfbWFzayhkZXZfcHJpdik7CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
-cm0vaTkxNS9pOTE1X3JlZy5oIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV9yZWcuaAppbmRl
-eCA0NzVkMTRkYjI4NDQuLjliYmU5NGNkZGQ5MyAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJt
-L2k5MTUvaTkxNV9yZWcuaAorKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X3JlZy5oCkBA
-IC02MTM5LDYgKzYxMzksMTIgQEAgZW51bSB7CiAjZGVmaW5lICAgU0tMX0JPVFRPTV9DT0xPUl9D
-U0NfRU5BQkxFCSgxIDw8IDMwKQogI2RlZmluZSBTS0xfQk9UVE9NX0NPTE9SKHBpcGUpCQlfTU1J
-T19QSVBFMihwaXBlLCBfU0tMX0JPVFRPTV9DT0xPUl9BKQogCisjZGVmaW5lIF9JQ0xfUElQRV9B
-X1NUQVRVUwkJCTB4NzAwNTgKKyNkZWZpbmUgSUNMX1BJUEVTVEFUVVMocGlwZSkJCQlfTU1JT19Q
-SVBFMihwaXBlLCBfSUNMX1BJUEVfQV9TVEFUVVMpCisjZGVmaW5lICAgUElQRV9TVEFUX1NPRlRf
-VU5ERVJSVU5fWEVMUEQJCVJFR19CSVQoMjgpCisjZGVmaW5lICAgUElQRV9TVEFUX0hBUkRfVU5E
-RVJSVU5fWEVMUEQJCVJFR19CSVQoMjcpCisjZGVmaW5lICAgUElQRV9TVEFUX1BPUlRfVU5ERVJS
-VU5fWEVMUEQJCVJFR19CSVQoMjYpCisKICNkZWZpbmUgVkxWX0RQRkxJUFNUQVQJCQkJX01NSU8o
-VkxWX0RJU1BMQVlfQkFTRSArIDB4NzAwMjgpCiAjZGVmaW5lICAgUElQRUJfTElORV9DT01QQVJF
-X0lOVF9FTgkJKDEgPDwgMjkpCiAjZGVmaW5lICAgUElQRUJfSExJTkVfSU5UX0VOCQkJKDEgPDwg
-MjgpCkBAIC03NzkyLDYgKzc3OTgsOCBAQCBlbnVtIHsKICNkZWZpbmUgIEdFTjhfUElQRV9GSUZP
-X1VOREVSUlVOCSgxIDw8IDMxKQogI2RlZmluZSAgR0VOOF9QSVBFX0NEQ0xLX0NSQ19FUlJPUgko
-MSA8PCAyOSkKICNkZWZpbmUgIEdFTjhfUElQRV9DRENMS19DUkNfRE9ORQkoMSA8PCAyOCkKKyNk
-ZWZpbmUgIFhFTFBEX1BJUEVfU09GVF9VTkRFUlJVTgkoMSA8PCAyMikKKyNkZWZpbmUgIFhFTFBE
-X1BJUEVfSEFSRF9VTkRFUlJVTgkoMSA8PCAyMSkKICNkZWZpbmUgIEdFTjhfUElQRV9DVVJTT1Jf
-RkFVTFQJCSgxIDw8IDEwKQogI2RlZmluZSAgR0VOOF9QSVBFX1NQUklURV9GQVVMVAkJKDEgPDwg
-OSkKICNkZWZpbmUgIEdFTjhfUElQRV9QUklNQVJZX0ZBVUxUCSgxIDw8IDgpCi0tIAoyLjI1LjQK
-Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkludGVsLWdm
-eCBtYWlsaW5nIGxpc3QKSW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xp
-c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ludGVsLWdmeAo=
+GLK has always been a bit of a special case since it reports INTEL_GEN()
+as 9, but has version 10 display IP.  Now we can properly represent the
+display version as 10 and simplify the display generation tests
+throughout the display code.
+
+Aside from manually adding the version to the glk_info structure, the
+rest of this patch is generated with a Coccinelle semantic patch:
+
+        @@ expression dev_priv; @@
+        - DISPLAY_VER(dev_priv) >= 10 || IS_GEMINILAKE(dev_priv)
+        + DISPLAY_VER(dev_priv) >= 10
+
+        @@ expression dev_priv, E; @@
+        - E || DISPLAY_VER(dev_priv) >= 10 || IS_GEMINILAKE(dev_priv)
+        + E || DISPLAY_VER(dev_priv) >= 10
+
+        @@ expression dev_priv; @@
+        - IS_GEMINILAKE(dev_priv) || DISPLAY_VER(dev_priv) >= 10
+        + DISPLAY_VER(dev_priv) >= 10
+
+        @@ expression dev_priv; @@
+        - IS_GEMINILAKE(dev_priv) || DISPLAY_VER(dev_priv) == 10
+        + DISPLAY_VER(dev_priv) == 10
+
+        @@ expression dev_priv; @@
+        - DISPLAY_VER(dev_priv) > 9 || IS_GEMINILAKE(dev_priv)
+        + DISPLAY_VER(dev_priv) > 9
+
+        @@ expression dev_priv; @@
+        - IS_GEMINILAKE(dev_priv) || IS_CANNONLAKE(dev_priv)
+        + DISPLAY_VER(dev_priv) == 10
+
+        @@ expression dev_priv; @@
+        - IS_CANNONLAKE(dev_priv) || IS_GEMINILAKE(dev_priv)
+        + DISPLAY_VER(dev_priv) == 10
+
+        @@ expression dev_priv; @@
+        - DISPLAY_VER(dev_priv) < 10 && !IS_GEMINILAKE(dev_priv)
+        + DISPLAY_VER(dev_priv) < 10
+
+        @@ expression dev_priv; @@
+        - (DISPLAY_VER(dev_priv) == 9) && !IS_GEMINILAKE(dev_priv)
+        + DISPLAY_VER(dev_priv) == 9
+
+Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_atomic.c   |  7 ++---
+ drivers/gpu/drm/i915/display/intel_audio.c    |  2 +-
+ drivers/gpu/drm/i915/display/intel_cdclk.c    | 10 +++----
+ drivers/gpu/drm/i915/display/intel_color.c    |  8 +++---
+ drivers/gpu/drm/i915/display/intel_ddi.c      |  2 +-
+ drivers/gpu/drm/i915/display/intel_display.c  |  7 ++---
+ drivers/gpu/drm/i915/display/intel_dp.c       |  4 +--
+ drivers/gpu/drm/i915/display/intel_fbc.c      |  4 +--
+ drivers/gpu/drm/i915/display/intel_hdcp.c     |  1 -
+ drivers/gpu/drm/i915/display/intel_hdmi.c     | 13 ++++-----
+ drivers/gpu/drm/i915/display/intel_psr.c      |  7 ++---
+ .../drm/i915/display/skl_universal_plane.c    | 28 +++++++++----------
+ drivers/gpu/drm/i915/i915_pci.c               |  1 +
+ 13 files changed, 45 insertions(+), 49 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_atomic.c b/drivers/gpu/drm/i915/display/intel_atomic.c
+index 8b1ecd86a688..d0b5414127df 100644
+--- a/drivers/gpu/drm/i915/display/intel_atomic.c
++++ b/drivers/gpu/drm/i915/display/intel_atomic.c
+@@ -332,8 +332,7 @@ static void intel_atomic_setup_scaler(struct intel_crtc_scaler_state *scaler_sta
+ 	    plane_state->hw.fb->format->is_yuv &&
+ 	    plane_state->hw.fb->format->num_planes > 1) {
+ 		struct intel_plane *plane = to_intel_plane(plane_state->uapi.plane);
+-		if (DISPLAY_VER(dev_priv) == 9 &&
+-		    !IS_GEMINILAKE(dev_priv)) {
++		if (DISPLAY_VER(dev_priv) == 9) {
+ 			mode = SKL_PS_SCALER_MODE_NV12;
+ 		} else if (icl_is_hdr_plane(dev_priv, plane->id)) {
+ 			/*
+@@ -351,7 +350,7 @@ static void intel_atomic_setup_scaler(struct intel_crtc_scaler_state *scaler_sta
+ 			if (linked)
+ 				mode |= PS_PLANE_Y_SEL(linked->id);
+ 		}
+-	} else if (DISPLAY_VER(dev_priv) > 9 || IS_GEMINILAKE(dev_priv)) {
++	} else if (DISPLAY_VER(dev_priv) > 9) {
+ 		mode = PS_SCALER_MODE_NORMAL;
+ 	} else if (num_scalers_need == 1 && intel_crtc->num_scalers > 1) {
+ 		/*
+@@ -460,7 +459,7 @@ int intel_atomic_setup_scalers(struct drm_i915_private *dev_priv,
+ 				 * isn't necessary to change between HQ and dyn mode
+ 				 * on those platforms.
+ 				 */
+-				if (DISPLAY_VER(dev_priv) >= 10 || IS_GEMINILAKE(dev_priv))
++				if (DISPLAY_VER(dev_priv) >= 10)
+ 					continue;
+ 
+ 				plane = drm_plane_from_index(&dev_priv->drm, i);
+diff --git a/drivers/gpu/drm/i915/display/intel_audio.c b/drivers/gpu/drm/i915/display/intel_audio.c
+index eefe211ed958..2d21a7796598 100644
+--- a/drivers/gpu/drm/i915/display/intel_audio.c
++++ b/drivers/gpu/drm/i915/display/intel_audio.c
+@@ -1022,7 +1022,7 @@ static unsigned long i915_audio_component_get_power(struct device *kdev)
+ 		if (IS_GEMINILAKE(dev_priv))
+ 			glk_force_audio_cdclk(dev_priv, true);
+ 
+-		if (DISPLAY_VER(dev_priv) >= 10 || IS_GEMINILAKE(dev_priv))
++		if (DISPLAY_VER(dev_priv) >= 10)
+ 			intel_de_write(dev_priv, AUD_PIN_BUF_CTL,
+ 				       (intel_de_read(dev_priv, AUD_PIN_BUF_CTL) | AUD_PIN_BUF_ENABLE));
+ 	}
+diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i915/display/intel_cdclk.c
+index 640b6423f23b..1c7cdd17f89a 100644
+--- a/drivers/gpu/drm/i915/display/intel_cdclk.c
++++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
+@@ -1433,7 +1433,7 @@ static void bxt_get_cdclk(struct drm_i915_private *dev_priv,
+ 		break;
+ 	case BXT_CDCLK_CD2X_DIV_SEL_1_5:
+ 		drm_WARN(&dev_priv->drm,
+-			 IS_GEMINILAKE(dev_priv) || DISPLAY_VER(dev_priv) >= 10,
++			 DISPLAY_VER(dev_priv) >= 10,
+ 			 "Unsupported divider\n");
+ 		div = 3;
+ 		break;
+@@ -1592,7 +1592,7 @@ static void bxt_set_cdclk(struct drm_i915_private *dev_priv,
+ 		break;
+ 	case 3:
+ 		drm_WARN(&dev_priv->drm,
+-			 IS_GEMINILAKE(dev_priv) || DISPLAY_VER(dev_priv) >= 10,
++			 DISPLAY_VER(dev_priv) >= 10,
+ 			 "Unsupported divider\n");
+ 		divider = BXT_CDCLK_CD2X_DIV_SEL_1_5;
+ 		break;
+@@ -2000,7 +2000,7 @@ static int intel_pixel_rate_to_cdclk(const struct intel_crtc_state *crtc_state)
+ 	struct drm_i915_private *dev_priv = to_i915(crtc_state->uapi.crtc->dev);
+ 	int pixel_rate = crtc_state->pixel_rate;
+ 
+-	if (DISPLAY_VER(dev_priv) >= 10 || IS_GEMINILAKE(dev_priv))
++	if (DISPLAY_VER(dev_priv) >= 10)
+ 		return DIV_ROUND_UP(pixel_rate, 2);
+ 	else if (DISPLAY_VER(dev_priv) == 9 ||
+ 		 IS_BROADWELL(dev_priv) || IS_HASWELL(dev_priv))
+@@ -2050,7 +2050,7 @@ int intel_crtc_compute_min_cdclk(const struct intel_crtc_state *crtc_state)
+ 	    crtc_state->has_audio &&
+ 	    crtc_state->port_clock >= 540000 &&
+ 	    crtc_state->lane_count == 4) {
+-		if (IS_CANNONLAKE(dev_priv) || IS_GEMINILAKE(dev_priv)) {
++		if (DISPLAY_VER(dev_priv) == 10) {
+ 			/* Display WA #1145: glk,cnl */
+ 			min_cdclk = max(316800, min_cdclk);
+ 		} else if (DISPLAY_VER(dev_priv) == 9 || IS_BROADWELL(dev_priv)) {
+@@ -2590,7 +2590,7 @@ static int intel_compute_max_dotclk(struct drm_i915_private *dev_priv)
+ {
+ 	int max_cdclk_freq = dev_priv->max_cdclk_freq;
+ 
+-	if (DISPLAY_VER(dev_priv) >= 10 || IS_GEMINILAKE(dev_priv))
++	if (DISPLAY_VER(dev_priv) >= 10)
+ 		return 2 * max_cdclk_freq;
+ 	else if (DISPLAY_VER(dev_priv) == 9 ||
+ 		 IS_BROADWELL(dev_priv) || IS_HASWELL(dev_priv))
+diff --git a/drivers/gpu/drm/i915/display/intel_color.c b/drivers/gpu/drm/i915/display/intel_color.c
+index 558f21c6803b..c7cf7360309c 100644
+--- a/drivers/gpu/drm/i915/display/intel_color.c
++++ b/drivers/gpu/drm/i915/display/intel_color.c
+@@ -737,7 +737,7 @@ static void ivb_load_lut_ext_max(const struct intel_crtc_state *crtc_state)
+ 	 * ToDo: Extend the ABI to be able to program values
+ 	 * from 3.0 to 7.0
+ 	 */
+-	if (DISPLAY_VER(dev_priv) >= 10 || IS_GEMINILAKE(dev_priv)) {
++	if (DISPLAY_VER(dev_priv) >= 10) {
+ 		intel_dsb_reg_write(crtc_state, PREC_PAL_EXT2_GC_MAX(pipe, 0),
+ 				    1 << 16);
+ 		intel_dsb_reg_write(crtc_state, PREC_PAL_EXT2_GC_MAX(pipe, 1),
+@@ -1711,7 +1711,7 @@ int intel_color_get_gamma_bit_precision(const struct intel_crtc_state *crtc_stat
+ 	} else {
+ 		if (DISPLAY_VER(dev_priv) >= 11)
+ 			return icl_gamma_precision(crtc_state);
+-		else if (IS_CANNONLAKE(dev_priv) || IS_GEMINILAKE(dev_priv))
++		else if (DISPLAY_VER(dev_priv) == 10)
+ 			return glk_gamma_precision(crtc_state);
+ 		else if (IS_IRONLAKE(dev_priv))
+ 			return ilk_gamma_precision(crtc_state);
+@@ -2119,7 +2119,7 @@ void intel_color_init(struct intel_crtc *crtc)
+ 	} else {
+ 		if (DISPLAY_VER(dev_priv) >= 11)
+ 			dev_priv->display.color_check = icl_color_check;
+-		else if (DISPLAY_VER(dev_priv) >= 10 || IS_GEMINILAKE(dev_priv))
++		else if (DISPLAY_VER(dev_priv) >= 10)
+ 			dev_priv->display.color_check = glk_color_check;
+ 		else if (DISPLAY_VER(dev_priv) >= 7)
+ 			dev_priv->display.color_check = ivb_color_check;
+@@ -2136,7 +2136,7 @@ void intel_color_init(struct intel_crtc *crtc)
+ 		if (DISPLAY_VER(dev_priv) >= 11) {
+ 			dev_priv->display.load_luts = icl_load_luts;
+ 			dev_priv->display.read_luts = icl_read_luts;
+-		} else if (IS_CANNONLAKE(dev_priv) || IS_GEMINILAKE(dev_priv)) {
++		} else if (DISPLAY_VER(dev_priv) == 10) {
+ 			dev_priv->display.load_luts = glk_load_luts;
+ 			dev_priv->display.read_luts = glk_read_luts;
+ 		} else if (DISPLAY_VER(dev_priv) >= 8) {
+diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
+index 3e641b36bbd3..9e677220f276 100644
+--- a/drivers/gpu/drm/i915/display/intel_ddi.c
++++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+@@ -174,7 +174,7 @@ static void intel_wait_ddi_buf_active(struct drm_i915_private *dev_priv,
+ 				      enum port port)
+ {
+ 	/* Wait > 518 usecs for DDI_BUF_CTL to be non idle */
+-	if (DISPLAY_VER(dev_priv) < 10 && !IS_GEMINILAKE(dev_priv)) {
++	if (DISPLAY_VER(dev_priv) < 10) {
+ 		usleep_range(518, 1000);
+ 		return;
+ 	}
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 933b9d791691..10cedd4d6828 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -3257,7 +3257,7 @@ static bool needs_nv12_wa(const struct intel_crtc_state *crtc_state)
+ 		return false;
+ 
+ 	/* WA Display #0827: Gen9:all */
+-	if (DISPLAY_VER(dev_priv) == 9 && !IS_GEMINILAKE(dev_priv))
++	if (DISPLAY_VER(dev_priv) == 9)
+ 		return true;
+ 
+ 	return false;
+@@ -3987,7 +3987,7 @@ static void hsw_crtc_enable(struct intel_atomic_state *state,
+ 	crtc->active = true;
+ 
+ 	/* Display WA #1180: WaDisableScalarClockGating: glk, cnl */
+-	psl_clkgate_wa = (IS_GEMINILAKE(dev_priv) || IS_CANNONLAKE(dev_priv)) &&
++	psl_clkgate_wa = (DISPLAY_VER(dev_priv) == 10) &&
+ 		new_crtc_state->pch_pfit.enabled;
+ 	if (psl_clkgate_wa)
+ 		glk_pipe_scaler_clock_gating_wa(dev_priv, pipe, true);
+@@ -13327,8 +13327,7 @@ static void intel_modeset_readout_hw_state(struct drm_device *dev)
+ 			 * use plane->min_cdclk() :(
+ 			 */
+ 			if (plane_state->uapi.visible && plane->min_cdclk) {
+-				if (crtc_state->double_wide ||
+-				    DISPLAY_VER(dev_priv) >= 10 || IS_GEMINILAKE(dev_priv))
++				if (crtc_state->double_wide || DISPLAY_VER(dev_priv) >= 10)
+ 					crtc_state->min_cdclk[plane->id] =
+ 						DIV_ROUND_UP(crtc_state->pixel_rate, 2);
+ 				else
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 04bf536f6a12..95c1f25e1bf3 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -823,7 +823,7 @@ intel_dp_mode_valid(struct drm_connector *connector,
+ 	 * Output bpp is stored in 6.4 format so right shift by 4 to get the
+ 	 * integer value since we support only integer values of bpp.
+ 	 */
+-	if ((DISPLAY_VER(dev_priv) >= 10 || IS_GEMINILAKE(dev_priv)) &&
++	if ((DISPLAY_VER(dev_priv) >= 10) &&
+ 	    drm_dp_sink_supports_dsc(intel_dp->dsc_dpcd)) {
+ 		if (intel_dp_is_edp(intel_dp)) {
+ 			dsc_max_output_bpp =
+@@ -3681,7 +3681,7 @@ intel_edp_init_dpcd(struct intel_dp *intel_dp)
+ 	intel_dp_set_common_rates(intel_dp);
+ 
+ 	/* Read the eDP DSC DPCD registers */
+-	if (DISPLAY_VER(dev_priv) >= 10 || IS_GEMINILAKE(dev_priv))
++	if (DISPLAY_VER(dev_priv) >= 10)
+ 		intel_dp_get_dsc_sink_cap(intel_dp);
+ 
+ 	/*
+diff --git a/drivers/gpu/drm/i915/display/intel_fbc.c b/drivers/gpu/drm/i915/display/intel_fbc.c
+index f888e1c6ff7a..2abb03cf0e71 100644
+--- a/drivers/gpu/drm/i915/display/intel_fbc.c
++++ b/drivers/gpu/drm/i915/display/intel_fbc.c
+@@ -653,7 +653,7 @@ static bool intel_fbc_hw_tracking_covers_screen(struct intel_crtc *crtc)
+ 	struct intel_fbc *fbc = &dev_priv->fbc;
+ 	unsigned int effective_w, effective_h, max_w, max_h;
+ 
+-	if (DISPLAY_VER(dev_priv) >= 10 || IS_GEMINILAKE(dev_priv)) {
++	if (DISPLAY_VER(dev_priv) >= 10) {
+ 		max_w = 5120;
+ 		max_h = 4096;
+ 	} else if (DISPLAY_VER(dev_priv) >= 8 || IS_HASWELL(dev_priv)) {
+@@ -1036,7 +1036,7 @@ bool intel_fbc_pre_update(struct intel_atomic_state *state,
+ 		 * if at least one frame has already passed.
+ 		 */
+ 		if (fbc->activated &&
+-		    (DISPLAY_VER(dev_priv) >= 10 || IS_GEMINILAKE(dev_priv)))
++		    (DISPLAY_VER(dev_priv) >= 10))
+ 			need_vblank_wait = true;
+ 		fbc->activated = false;
+ 	}
+diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.c b/drivers/gpu/drm/i915/display/intel_hdcp.c
+index d418fe796263..f13704562049 100644
+--- a/drivers/gpu/drm/i915/display/intel_hdcp.c
++++ b/drivers/gpu/drm/i915/display/intel_hdcp.c
+@@ -2177,7 +2177,6 @@ static bool is_hdcp2_supported(struct drm_i915_private *dev_priv)
+ 		return false;
+ 
+ 	return (DISPLAY_VER(dev_priv) >= 10 ||
+-		IS_GEMINILAKE(dev_priv) ||
+ 		IS_KABYLAKE(dev_priv) ||
+ 		IS_COFFEELAKE(dev_priv) ||
+ 		IS_COMETLAKE(dev_priv));
+diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
+index b122c46a5657..4f285c7d54c4 100644
+--- a/drivers/gpu/drm/i915/display/intel_hdmi.c
++++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
+@@ -583,7 +583,7 @@ static u32 hsw_infoframes_enabled(struct intel_encoder *encoder,
+ 		VIDEO_DIP_ENABLE_GCP_HSW | VIDEO_DIP_ENABLE_VS_HSW |
+ 		VIDEO_DIP_ENABLE_GMP_HSW | VIDEO_DIP_ENABLE_SPD_HSW);
+ 
+-	if (DISPLAY_VER(dev_priv) >= 10 || IS_GEMINILAKE(dev_priv))
++	if (DISPLAY_VER(dev_priv) >= 10)
+ 		mask |= VIDEO_DIP_ENABLE_DRM_GLK;
+ 
+ 	return val & mask;
+@@ -839,7 +839,7 @@ intel_hdmi_compute_drm_infoframe(struct intel_encoder *encoder,
+ 	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
+ 	int ret;
+ 
+-	if (!(DISPLAY_VER(dev_priv) >= 10 || IS_GEMINILAKE(dev_priv)))
++	if (!(DISPLAY_VER(dev_priv) >= 10))
+ 		return true;
+ 
+ 	if (!crtc_state->has_infoframe)
+@@ -2157,7 +2157,7 @@ static int intel_hdmi_source_max_tmds_clock(struct intel_encoder *encoder)
+ 	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
+ 	int max_tmds_clock, vbt_max_tmds_clock;
+ 
+-	if (DISPLAY_VER(dev_priv) >= 10 || IS_GEMINILAKE(dev_priv))
++	if (DISPLAY_VER(dev_priv) >= 10)
+ 		max_tmds_clock = 594000;
+ 	else if (DISPLAY_VER(dev_priv) >= 8 || IS_HASWELL(dev_priv))
+ 		max_tmds_clock = 300000;
+@@ -2546,8 +2546,7 @@ int intel_hdmi_compute_config(struct intel_encoder *encoder,
+ 
+ 	pipe_config->lane_count = 4;
+ 
+-	if (scdc->scrambling.supported && (DISPLAY_VER(dev_priv) >= 10 ||
+-					   IS_GEMINILAKE(dev_priv))) {
++	if (scdc->scrambling.supported && (DISPLAY_VER(dev_priv) >= 10)) {
+ 		if (scdc->scrambling.low_rates)
+ 			pipe_config->hdmi_scrambling = true;
+ 
+@@ -2965,7 +2964,7 @@ intel_hdmi_add_properties(struct intel_hdmi *intel_hdmi, struct drm_connector *c
+ 	intel_attach_hdmi_colorspace_property(connector);
+ 	drm_connector_attach_content_type_property(connector);
+ 
+-	if (DISPLAY_VER(dev_priv) >= 10 || IS_GEMINILAKE(dev_priv))
++	if (DISPLAY_VER(dev_priv) >= 10)
+ 		drm_object_attach_property(&connector->base,
+ 			connector->dev->mode_config.hdr_output_metadata_property, 0);
+ 
+@@ -3320,7 +3319,7 @@ void intel_hdmi_init_connector(struct intel_digital_port *dig_port,
+ 	connector->doublescan_allowed = 0;
+ 	connector->stereo_allowed = 1;
+ 
+-	if (DISPLAY_VER(dev_priv) >= 10 || IS_GEMINILAKE(dev_priv))
++	if (DISPLAY_VER(dev_priv) >= 10)
+ 		connector->ycbcr_420_allowed = true;
+ 
+ 	intel_connector->polled = DRM_CONNECTOR_POLL_HPD;
+diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
+index f6d1bc3269b2..e71d2dd6a4a5 100644
+--- a/drivers/gpu/drm/i915/display/intel_psr.c
++++ b/drivers/gpu/drm/i915/display/intel_psr.c
+@@ -524,7 +524,7 @@ static void hsw_activate_psr2(struct intel_dp *intel_dp)
+ 	val = psr_compute_idle_frames(intel_dp) << EDP_PSR2_IDLE_FRAME_SHIFT;
+ 
+ 	val |= EDP_PSR2_ENABLE | EDP_SU_TRACK_ENABLE;
+-	if (DISPLAY_VER(dev_priv) >= 10 || IS_GEMINILAKE(dev_priv))
++	if (DISPLAY_VER(dev_priv) >= 10)
+ 		val |= EDP_Y_COORDINATE_ENABLE;
+ 
+ 	val |= EDP_PSR2_FRAME_BEFORE_SU(intel_dp->psr.sink_sync_latency + 1);
+@@ -765,7 +765,7 @@ static bool intel_psr2_config_valid(struct intel_dp *intel_dp,
+ 		psr_max_h = 5120;
+ 		psr_max_v = 3200;
+ 		max_bpp = 30;
+-	} else if (DISPLAY_VER(dev_priv) >= 10 || IS_GEMINILAKE(dev_priv)) {
++	} else if (DISPLAY_VER(dev_priv) >= 10) {
+ 		psr_max_h = 4096;
+ 		psr_max_v = 2304;
+ 		max_bpp = 24;
+@@ -909,8 +909,7 @@ static void intel_psr_enable_source(struct intel_dp *intel_dp,
+ 	if (IS_HASWELL(dev_priv) || IS_BROADWELL(dev_priv))
+ 		hsw_psr_setup_aux(intel_dp);
+ 
+-	if (intel_dp->psr.psr2_enabled && (DISPLAY_VER(dev_priv) == 9 &&
+-					   !IS_GEMINILAKE(dev_priv))) {
++	if (intel_dp->psr.psr2_enabled && (DISPLAY_VER(dev_priv) == 9)) {
+ 		i915_reg_t reg = CHICKEN_TRANS(cpu_transcoder);
+ 		u32 chicken = intel_de_read(dev_priv, reg);
+ 
+diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers/gpu/drm/i915/display/skl_universal_plane.c
+index 91e5d8a5d4a9..f24aaadec70d 100644
+--- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
++++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
+@@ -294,7 +294,7 @@ skl_plane_ratio(const struct intel_crtc_state *crtc_state,
+ 	const struct drm_framebuffer *fb = plane_state->hw.fb;
+ 
+ 	if (fb->format->cpp[0] == 8) {
+-		if (DISPLAY_VER(dev_priv) >= 10 || IS_GEMINILAKE(dev_priv)) {
++		if (DISPLAY_VER(dev_priv) >= 10) {
+ 			*num = 10;
+ 			*den = 8;
+ 		} else {
+@@ -317,7 +317,7 @@ static int skl_plane_min_cdclk(const struct intel_crtc_state *crtc_state,
+ 	skl_plane_ratio(crtc_state, plane_state, &num, &den);
+ 
+ 	/* two pixels per clock on glk+ */
+-	if (DISPLAY_VER(dev_priv) >= 10 || IS_GEMINILAKE(dev_priv))
++	if (DISPLAY_VER(dev_priv) >= 10)
+ 		den *= 2;
+ 
+ 	return DIV_ROUND_UP(pixel_rate * num, den);
+@@ -810,7 +810,7 @@ static u32 skl_plane_ctl_crtc(const struct intel_crtc_state *crtc_state)
+ 	struct drm_i915_private *dev_priv = to_i915(crtc_state->uapi.crtc->dev);
+ 	u32 plane_ctl = 0;
+ 
+-	if (DISPLAY_VER(dev_priv) >= 10 || IS_GEMINILAKE(dev_priv))
++	if (DISPLAY_VER(dev_priv) >= 10)
+ 		return plane_ctl;
+ 
+ 	if (crtc_state->gamma_enable)
+@@ -834,7 +834,7 @@ static u32 skl_plane_ctl(const struct intel_crtc_state *crtc_state,
+ 
+ 	plane_ctl = PLANE_CTL_ENABLE;
+ 
+-	if (DISPLAY_VER(dev_priv) < 10 && !IS_GEMINILAKE(dev_priv)) {
++	if (DISPLAY_VER(dev_priv) < 10) {
+ 		plane_ctl |= skl_plane_ctl_alpha(plane_state);
+ 		plane_ctl |= PLANE_CTL_PLANE_GAMMA_DISABLE;
+ 
+@@ -976,7 +976,7 @@ skl_program_plane(struct intel_plane *plane,
+ 
+ 	plane_ctl |= skl_plane_ctl_crtc(crtc_state);
+ 
+-	if (DISPLAY_VER(dev_priv) >= 10 || IS_GEMINILAKE(dev_priv))
++	if (DISPLAY_VER(dev_priv) >= 10)
+ 		plane_color_ctl = plane_state->color_ctl |
+ 			glk_plane_color_ctl_crtc(crtc_state);
+ 
+@@ -1017,7 +1017,7 @@ skl_program_plane(struct intel_plane *plane,
+ 		intel_de_write_fw(dev_priv, PLANE_CUS_CTL(pipe, plane_id),
+ 				  plane_state->cus_ctl);
+ 
+-	if (DISPLAY_VER(dev_priv) >= 10 || IS_GEMINILAKE(dev_priv))
++	if (DISPLAY_VER(dev_priv) >= 10)
+ 		intel_de_write_fw(dev_priv, PLANE_COLOR_CTL(pipe, plane_id),
+ 				  plane_color_ctl);
+ 
+@@ -1222,7 +1222,7 @@ static int skl_plane_check_dst_coordinates(const struct intel_crtc_state *crtc_s
+ 	 * than the cursor ending less than 4 pixels from the left edge of the
+ 	 * screen may cause FIFO underflow and display corruption.
+ 	 */
+-	if ((IS_GEMINILAKE(dev_priv) || IS_CANNONLAKE(dev_priv)) &&
++	if ((DISPLAY_VER(dev_priv) == 10) &&
+ 	    (crtc_x + crtc_w < 4 || crtc_x > pipe_src_w - 4)) {
+ 		drm_dbg_kms(&dev_priv->drm,
+ 			    "requested plane X %s position %d invalid (valid range %d-%d)\n",
+@@ -1262,7 +1262,7 @@ static int skl_plane_max_scale(struct drm_i915_private *dev_priv,
+ 	 * the best case.
+ 	 * FIXME need to properly check this later.
+ 	 */
+-	if (DISPLAY_VER(dev_priv) >= 10 || IS_GEMINILAKE(dev_priv) ||
++	if (DISPLAY_VER(dev_priv) >= 10 ||
+ 	    !intel_format_info_is_yuv_semiplanar(fb->format, fb->modifier))
+ 		return 0x30000 - 1;
+ 	else
+@@ -1687,7 +1687,7 @@ static int skl_plane_check(struct intel_crtc_state *crtc_state,
+ 
+ 	plane_state->ctl = skl_plane_ctl(crtc_state, plane_state);
+ 
+-	if (DISPLAY_VER(dev_priv) >= 10 || IS_GEMINILAKE(dev_priv))
++	if (DISPLAY_VER(dev_priv) >= 10)
+ 		plane_state->color_ctl = glk_plane_color_ctl(crtc_state,
+ 							     plane_state);
+ 
+@@ -1719,7 +1719,7 @@ static bool skl_plane_has_planar(struct drm_i915_private *dev_priv,
+ 	if (IS_SKYLAKE(dev_priv) || IS_BROXTON(dev_priv))
+ 		return false;
+ 
+-	if (DISPLAY_VER(dev_priv) == 9 && !IS_GEMINILAKE(dev_priv) && pipe == PIPE_C)
++	if (DISPLAY_VER(dev_priv) == 9 && pipe == PIPE_C)
+ 		return false;
+ 
+ 	if (plane_id != PLANE_PRIMARY && plane_id != PLANE_SPRITE0)
+@@ -2013,7 +2013,7 @@ skl_universal_plane_create(struct drm_i915_private *dev_priv,
+ 		plane->min_width = icl_plane_min_width;
+ 		plane->max_width = icl_plane_max_width;
+ 		plane->max_height = icl_plane_max_height;
+-	} else if (DISPLAY_VER(dev_priv) >= 10 || IS_GEMINILAKE(dev_priv)) {
++	} else if (DISPLAY_VER(dev_priv) >= 10) {
+ 		plane->max_width = glk_plane_max_width;
+ 		plane->max_height = skl_plane_max_height;
+ 	} else {
+@@ -2038,7 +2038,7 @@ skl_universal_plane_create(struct drm_i915_private *dev_priv,
+ 	if (DISPLAY_VER(dev_priv) >= 11)
+ 		formats = icl_get_plane_formats(dev_priv, pipe,
+ 						plane_id, &num_formats);
+-	else if (DISPLAY_VER(dev_priv) >= 10 || IS_GEMINILAKE(dev_priv))
++	else if (DISPLAY_VER(dev_priv) >= 10)
+ 		formats = glk_get_plane_formats(dev_priv, pipe,
+ 						plane_id, &num_formats);
+ 	else
+@@ -2084,7 +2084,7 @@ skl_universal_plane_create(struct drm_i915_private *dev_priv,
+ 
+ 	supported_csc = BIT(DRM_COLOR_YCBCR_BT601) | BIT(DRM_COLOR_YCBCR_BT709);
+ 
+-	if (DISPLAY_VER(dev_priv) >= 10 || IS_GEMINILAKE(dev_priv))
++	if (DISPLAY_VER(dev_priv) >= 10)
+ 		supported_csc |= BIT(DRM_COLOR_YCBCR_BT2020);
+ 
+ 	drm_plane_create_color_properties(&plane->base,
+@@ -2164,7 +2164,7 @@ skl_get_initial_plane_config(struct intel_crtc *crtc,
+ 	else
+ 		pixel_format = val & PLANE_CTL_FORMAT_MASK;
+ 
+-	if (DISPLAY_VER(dev_priv) >= 10 || IS_GEMINILAKE(dev_priv)) {
++	if (DISPLAY_VER(dev_priv) >= 10) {
+ 		alpha = intel_de_read(dev_priv,
+ 				      PLANE_COLOR_CTL(pipe, plane_id));
+ 		alpha &= PLANE_COLOR_ALPHA_MASK;
+diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
+index 3543611cf0fc..5bfd94e2cc6f 100644
+--- a/drivers/gpu/drm/i915/i915_pci.c
++++ b/drivers/gpu/drm/i915/i915_pci.c
+@@ -723,6 +723,7 @@ static const struct intel_device_info bxt_info = {
+ static const struct intel_device_info glk_info = {
+ 	GEN9_LP_FEATURES,
+ 	PLATFORM(INTEL_GEMINILAKE),
++	.display_ver = 10,
+ 	.ddb_size = 1024,
+ 	GLK_COLORS,
+ };
+-- 
+2.25.4
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
