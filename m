@@ -7,45 +7,45 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 32029C433DB
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C37C5C433E9
 	for <intel-gfx@archiver.kernel.org>; Thu, 11 Mar 2021 22:37:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D789164F88
-	for <intel-gfx@archiver.kernel.org>; Thu, 11 Mar 2021 22:37:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D789164F88
+	by mail.kernel.org (Postfix) with ESMTPS id 902C364F26
+	for <intel-gfx@archiver.kernel.org>; Thu, 11 Mar 2021 22:37:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 902C364F26
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 228376EEA3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 16D8E6EE93;
 	Thu, 11 Mar 2021 22:36:54 +0000 (UTC)
 Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D175B6EE8E
- for <intel-gfx@lists.freedesktop.org>; Thu, 11 Mar 2021 22:36:48 +0000 (UTC)
-IronPort-SDR: BzxgSy03UoRZLJcrCTdKBpV0xukEyvSu6GAnMSX9UdWag3PsDE5QG6xv76JRXqwc1Q1t9DEmR1
- oqjyYRwdOFtw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9920"; a="250116436"
-X-IronPort-AV: E=Sophos;i="5.81,241,1610438400"; d="scan'208";a="250116436"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 009B86EEAD
+ for <intel-gfx@lists.freedesktop.org>; Thu, 11 Mar 2021 22:36:49 +0000 (UTC)
+IronPort-SDR: ivNqSVRFGb725dKUOJ1N2dPrEBtpTsrfoJA+2EbvrCbTb7tCgpFzvEc/cGvyhHpXGsAXvM9j8g
+ Y2VOtg9S546A==
+X-IronPort-AV: E=McAfee;i="6000,8403,9920"; a="250116450"
+X-IronPort-AV: E=Sophos;i="5.81,241,1610438400"; d="scan'208";a="250116450"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Mar 2021 14:36:45 -0800
-IronPort-SDR: asiDJdLqoiESSi4xFnv2tCmnIzXzSIP/nHmrAHzLZkKes1ATxHXxv19khom9CpWbdcfrWy//RC
- pneihRDdeecA==
-X-IronPort-AV: E=Sophos;i="5.81,241,1610438400"; d="scan'208";a="438852716"
+ 11 Mar 2021 14:36:47 -0800
+IronPort-SDR: CWiMESX3PMPaZegvckVQHWXK1w+LBMci/ZhsKwVk9FAdGOS1FHdqBBNloo8p1TbA5E3nwHEeIs
+ zcVPHmevsalg==
+X-IronPort-AV: E=Sophos;i="5.81,241,1610438400"; d="scan'208";a="438852756"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.168])
  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  11 Mar 2021 14:36:45 -0800
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 11 Mar 2021 14:35:59 -0800
-Message-Id: <20210311223632.3191939-24-matthew.d.roper@intel.com>
+Date: Thu, 11 Mar 2021 14:36:12 -0800
+Message-Id: <20210311223632.3191939-37-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20210311223632.3191939-1-matthew.d.roper@intel.com>
 References: <20210311223632.3191939-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 23/56] drm/i915/xelpd: Add VRR guardband for VRR
- CTL
+Subject: [Intel-gfx] [PATCH 36/56] drm/i915/adl_p: Don't config MBUS and
+ DBUF during display initialization
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,208 +58,39 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Manasi Navare <manasi.d.navare@intel.com>
-
-On XE_LPD, VRR CTL register adds a new VRR Guardband bitfield
-replacing the pipeline full and deprecating the pipeline override
-bit.
-
-This patch adds this corresponding bitfield in the register defs,
-crtc state vrr structure and populates this in vrr compute
-config and vrr enable functions. It also adds the corresponding
-HW state readout for this field.
-
-Cc: Aditya Swarup <aditya.swarup@intel.com>
-Cc: Ville Syrjala <ville.syrjala@linux.intel.com>
-Signed-off-by: Manasi Navare <manasi.d.navare@intel.com>
----
- drivers/gpu/drm/i915/display/intel_display.c  |  8 ++-
- .../drm/i915/display/intel_display_types.h    |  2 +-
- drivers/gpu/drm/i915/display/intel_vrr.c      | 56 +++++++++++++------
- drivers/gpu/drm/i915/i915_drv.h               |  3 +
- drivers/gpu/drm/i915/i915_reg.h               |  2 +
- 5 files changed, 51 insertions(+), 20 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 926707fd00e3..d032f1782bcb 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -8127,10 +8127,11 @@ static void intel_dump_pipe_config(const struct intel_crtc_state *pipe_config,
- 	    intel_hdmi_infoframe_enable(DP_SDP_VSC))
- 		intel_dump_dp_vsc_sdp(dev_priv, &pipe_config->infoframes.vsc);
- 
--	drm_dbg_kms(&dev_priv->drm, "vrr: %s, vmin: %d, vmax: %d, pipeline full: %d, flipline: %d, vmin vblank: %d, vmax vblank: %d\n",
-+	drm_dbg_kms(&dev_priv->drm, "vrr: %s, vmin: %d, vmax: %d, pipeline full: %d, guardband: %d flipline: %d, vmin vblank: %d, vmax vblank: %d\n",
- 		    yesno(pipe_config->vrr.enable),
- 		    pipe_config->vrr.vmin, pipe_config->vrr.vmax,
--		    pipe_config->vrr.pipeline_full, pipe_config->vrr.flipline,
-+		    pipe_config->vrr.pipeline_full, pipe_config->vrr.guardband,
-+		    pipe_config->vrr.flipline,
- 		    intel_vrr_vmin_vblank_start(pipe_config),
- 		    intel_vrr_vmax_vblank_start(pipe_config));
- 
-@@ -9136,6 +9137,7 @@ intel_pipe_config_compare(const struct intel_crtc_state *current_config,
- 	PIPE_CONF_CHECK_I(vrr.vmax);
- 	PIPE_CONF_CHECK_I(vrr.flipline);
- 	PIPE_CONF_CHECK_I(vrr.pipeline_full);
-+	PIPE_CONF_CHECK_I(vrr.guardband);
- 
- #undef PIPE_CONF_CHECK_X
- #undef PIPE_CONF_CHECK_I
-@@ -12608,6 +12610,8 @@ int intel_modeset_init_noirq(struct drm_i915_private *i915)
- 
- 	i915->framestart_delay = 1; /* 1-4 */
- 
-+	i915->window2_delay = 0; /* No DSB so no window2 delay */
-+
- 	intel_mode_config_init(i915);
- 
- 	ret = intel_cdclk_init(i915);
-diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-index f159dce0f744..b2257213b8e8 100644
---- a/drivers/gpu/drm/i915/display/intel_display_types.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-@@ -1171,7 +1171,7 @@ struct intel_crtc_state {
- 	struct {
- 		bool enable;
- 		u8 pipeline_full;
--		u16 flipline, vmin, vmax;
-+		u16 flipline, vmin, vmax, guardband;
- 	} vrr;
- 
- 	/* Stream Splitter for eDP MSO */
-diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
-index a9c2b2fd9252..7013163f4978 100644
---- a/drivers/gpu/drm/i915/display/intel_vrr.c
-+++ b/drivers/gpu/drm/i915/display/intel_vrr.c
-@@ -67,7 +67,10 @@ static int intel_vrr_vblank_exit_length(const struct intel_crtc_state *crtc_stat
- 	struct drm_i915_private *i915 = to_i915(crtc->base.dev);
- 
- 	/* The hw imposes the extra scanline before frame start */
--	return crtc_state->vrr.pipeline_full + i915->framestart_delay + 1;
-+	if (DISPLAY_VER(i915) >= 13)
-+		return crtc_state->vrr.guardband + i915->framestart_delay + 1;
-+	else
-+		return crtc_state->vrr.pipeline_full + i915->framestart_delay + 1;
- }
- 
- int intel_vrr_vmin_vblank_start(const struct intel_crtc_state *crtc_state)
-@@ -85,6 +88,8 @@ void
- intel_vrr_compute_config(struct intel_crtc_state *crtc_state,
- 			 struct drm_connector_state *conn_state)
- {
-+	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
-+	struct drm_i915_private *i915 = to_i915(crtc->base.dev);
- 	struct intel_connector *connector =
- 		to_intel_connector(conn_state->connector);
- 	struct drm_display_mode *adjusted_mode = &crtc_state->hw.adjusted_mode;
-@@ -123,17 +128,26 @@ intel_vrr_compute_config(struct intel_crtc_state *crtc_state,
- 	crtc_state->vrr.flipline = crtc_state->vrr.vmin + 1;
- 
- 	/*
--	 * FIXME: s/4/framestart_delay+1/ to get consistent
--	 * earliest/latest points for register latching regardless
--	 * of the framestart_delay used?
--	 *
--	 * FIXME: this really needs the extra scanline to provide consistent
--	 * behaviour for all framestart_delay values. Otherwise with
--	 * framestart_delay==3 we will end up extending the min vblank by
--	 * one extra line.
-+	 * For XE_LPD+, we use guardband and pipeline override
-+	 * is deprecated.
- 	 */
--	crtc_state->vrr.pipeline_full =
--		min(255, crtc_state->vrr.vmin - adjusted_mode->crtc_vdisplay - 4 - 1);
-+	if (DISPLAY_VER(i915) >= 13)
-+		crtc_state->vrr.guardband =
-+			crtc_state->vrr.vmin - adjusted_mode->crtc_vdisplay -
-+			i915->window2_delay;
-+	else
-+		/*
-+		 * FIXME: s/4/framestart_delay+1/ to get consistent
-+		 * earliest/latest points for register latching regardless
-+		 * of the framestart_delay used?
-+		 *
-+		 * FIXME: this really needs the extra scanline to provide consistent
-+		 * behaviour for all framestart_delay values. Otherwise with
-+		 * framestart_delay==3 we will end up extending the min vblank by
-+		 * one extra line.
-+		 */
-+		crtc_state->vrr.pipeline_full =
-+			min(255, crtc_state->vrr.vmin - adjusted_mode->crtc_vdisplay - 4 - 1);
- 
- 	crtc_state->mode_flags |= I915_MODE_FLAG_VRR;
- }
-@@ -148,10 +162,15 @@ void intel_vrr_enable(struct intel_encoder *encoder,
- 	if (!crtc_state->vrr.enable)
- 		return;
- 
--	trans_vrr_ctl = VRR_CTL_VRR_ENABLE |
--		VRR_CTL_IGN_MAX_SHIFT | VRR_CTL_FLIP_LINE_EN |
--		VRR_CTL_PIPELINE_FULL(crtc_state->vrr.pipeline_full) |
--		VRR_CTL_PIPELINE_FULL_OVERRIDE;
-+	if (DISPLAY_VER(dev_priv) >= 13)
-+		trans_vrr_ctl = VRR_CTL_VRR_ENABLE |
-+			VRR_CTL_IGN_MAX_SHIFT | VRR_CTL_FLIP_LINE_EN |
-+			XELPD_VRR_CTL_VRR_GUARDBAND(crtc_state->vrr.guardband);
-+	else
-+		trans_vrr_ctl = VRR_CTL_VRR_ENABLE |
-+			VRR_CTL_IGN_MAX_SHIFT | VRR_CTL_FLIP_LINE_EN |
-+			VRR_CTL_PIPELINE_FULL(crtc_state->vrr.pipeline_full) |
-+			VRR_CTL_PIPELINE_FULL_OVERRIDE;
- 
- 	intel_de_write(dev_priv, TRANS_VRR_VMIN(cpu_transcoder), crtc_state->vrr.vmin - 1);
- 	intel_de_write(dev_priv, TRANS_VRR_VMAX(cpu_transcoder), crtc_state->vrr.vmax - 1);
-@@ -198,8 +217,11 @@ void intel_vrr_get_config(struct intel_crtc *crtc,
- 	if (!crtc_state->vrr.enable)
- 		return;
- 
--	if (trans_vrr_ctl & VRR_CTL_PIPELINE_FULL_OVERRIDE)
--		crtc_state->vrr.pipeline_full = REG_FIELD_GET(VRR_CTL_PIPELINE_FULL_MASK, trans_vrr_ctl);
-+	if (DISPLAY_VER(dev_priv) >= 13)
-+		crtc_state->vrr.guardband = REG_FIELD_GET(XELPD_VRR_CTL_VRR_GUARDBAND_MASK, trans_vrr_ctl);
-+	else
-+		if (trans_vrr_ctl & VRR_CTL_PIPELINE_FULL_OVERRIDE)
-+			crtc_state->vrr.pipeline_full = REG_FIELD_GET(VRR_CTL_PIPELINE_FULL_MASK, trans_vrr_ctl);
- 	if (trans_vrr_ctl & VRR_CTL_FLIP_LINE_EN)
- 		crtc_state->vrr.flipline = intel_de_read(dev_priv, TRANS_VRR_FLIPLINE(cpu_transcoder)) + 1;
- 	crtc_state->vrr.vmax = intel_de_read(dev_priv, TRANS_VRR_VMAX(cpu_transcoder)) + 1;
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index 5ec0524d3418..30103b22c086 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -1139,6 +1139,9 @@ struct drm_i915_private {
- 
- 	u8 framestart_delay;
- 
-+	/* Window2 specifies time required to program DSB (Window2) in number of scan lines */
-+	u8 window2_delay;
-+
- 	u8 pch_ssc_use;
- 
- 	/* For i915gm/i945gm vblank irq workaround */
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 95fd6bb8f0ff..6a48e046dedf 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -4356,6 +4356,8 @@ enum {
- #define   VRR_CTL_PIPELINE_FULL_MASK		REG_GENMASK(10, 3)
- #define   VRR_CTL_PIPELINE_FULL(x)		REG_FIELD_PREP(VRR_CTL_PIPELINE_FULL_MASK, (x))
- #define   VRR_CTL_PIPELINE_FULL_OVERRIDE	REG_BIT(0)
-+#define	  XELPD_VRR_CTL_VRR_GUARDBAND_MASK	REG_GENMASK(15, 0)
-+#define	  XELPD_VRR_CTL_VRR_GUARDBAND(x)	REG_FIELD_PREP(XELPD_VRR_CTL_VRR_GUARDBAND_MASK, (x))
- 
- #define _TRANS_VRR_VMAX_A		0x60424
- #define _TRANS_VRR_VMAX_B		0x61424
--- 
-2.25.4
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+RnJvbTogSm9zw6kgUm9iZXJ0byBkZSBTb3V6YSA8am9zZS5zb3V6YUBpbnRlbC5jb20+CgpBbGRl
+cmxha2UtUCBkb24ndCBoYXZlIHByb2dyYW1pbmcgc2VxdWVuY2VzIGZvciBNQlVTIG9yIERCVUYg
+ZHVyaW5nCmRpc3BsYXkgaW5pdGlhbGl6YWl0b24sIGluc3RlYWQgaXQgcmVxdWlyZXMgcHJvZ3Jh
+bWluZyB0byB0aG9zZQpyZWdpc3RlcnMgZHVyaW5nIG1vZGVzZXQgYmVjYXVzZSBpdCB0byBkZXBl
+bmQgb24gdGhlIHBpcGVzIGxlZnQKZW5hYmxlZC4KCkJzcGVjOiA0OTIxMwpDYzogTWF0dCBSb3Bl
+ciA8bWF0dGhldy5kLnJvcGVyQGludGVsLmNvbT4KU2lnbmVkLW9mZi1ieTogSm9zw6kgUm9iZXJ0
+byBkZSBTb3V6YSA8am9zZS5zb3V6YUBpbnRlbC5jb20+ClNpZ25lZC1vZmYtYnk6IENsaW50b24g
+VGF5bG9yIDxDbGludG9uLkEuVGF5bG9yQGludGVsLmNvbT4KU2lnbmVkLW9mZi1ieTogTWF0dCBS
+b3BlciA8bWF0dGhldy5kLnJvcGVyQGludGVsLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vaTkx
+NS9kaXNwbGF5L2ludGVsX2Rpc3BsYXlfcG93ZXIuYyB8IDYgKysrKysrCiAxIGZpbGUgY2hhbmdl
+ZCwgNiBpbnNlcnRpb25zKCspCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlz
+cGxheS9pbnRlbF9kaXNwbGF5X3Bvd2VyLmMgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5
+L2ludGVsX2Rpc3BsYXlfcG93ZXIuYwppbmRleCAxOWQyMGE4YzI3OGMuLmU2ZWRkNTI3MjA3MiAx
+MDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kaXNwbGF5X3Bv
+d2VyLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kaXNwbGF5X3Bv
+d2VyLmMKQEAgLTUyNDksNiArNTI0OSw5IEBAIHN0YXRpYyB2b2lkIGdlbjEyX2RidWZfc2xpY2Vz
+X2NvbmZpZyhzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqZGV2X3ByaXYpCiAJY29uc3QgaW50IG51
+bV9zbGljZXMgPSBJTlRFTF9JTkZPKGRldl9wcml2KS0+bnVtX3N1cHBvcnRlZF9kYnVmX3NsaWNl
+czsKIAllbnVtIGRidWZfc2xpY2Ugc2xpY2U7CiAKKwlpZiAoSVNfQUxERVJMQUtFX1AoZGV2X3By
+aXYpKQorCQlyZXR1cm47CisKIAlmb3IgKHNsaWNlID0gREJVRl9TMTsgc2xpY2UgPCAoREJVRl9T
+MSArIG51bV9zbGljZXMpOyBzbGljZSsrKQogCQlpbnRlbF9kZV9ybXcoZGV2X3ByaXYsIERCVUZf
+Q1RMX1Moc2xpY2UpLAogCQkJICAgICBEQlVGX1RSQUNLRVJfU1RBVEVfU0VSVklDRV9NQVNLLApA
+QCAtNTI2MCw2ICs1MjYzLDkgQEAgc3RhdGljIHZvaWQgaWNsX21idXNfaW5pdChzdHJ1Y3QgZHJt
+X2k5MTVfcHJpdmF0ZSAqZGV2X3ByaXYpCiAJdW5zaWduZWQgbG9uZyBhYm94X3JlZ3MgPSBJTlRF
+TF9JTkZPKGRldl9wcml2KS0+YWJveF9tYXNrOwogCXUzMiBtYXNrLCB2YWwsIGk7CiAKKwlpZiAo
+SVNfQUxERVJMQUtFX1AoZGV2X3ByaXYpKQorCQlyZXR1cm47CisKIAltYXNrID0gTUJVU19BQk9Y
+X0JUX0NSRURJVF9QT09MMV9NQVNLIHwKIAkJTUJVU19BQk9YX0JUX0NSRURJVF9QT09MMl9NQVNL
+IHwKIAkJTUJVU19BQk9YX0JfQ1JFRElUX01BU0sgfAotLSAKMi4yNS40CgpfX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpJbnRlbC1nZnggbWFpbGluZyBsaXN0
+CkludGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
+cC5vcmcvbWFpbG1hbi9saXN0aW5mby9pbnRlbC1nZngK
