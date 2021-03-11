@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 01D97C433E6
-	for <intel-gfx@archiver.kernel.org>; Thu, 11 Mar 2021 22:36:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F1989C433E9
+	for <intel-gfx@archiver.kernel.org>; Thu, 11 Mar 2021 22:36:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B136164F26
-	for <intel-gfx@archiver.kernel.org>; Thu, 11 Mar 2021 22:36:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B136164F26
+	by mail.kernel.org (Postfix) with ESMTPS id BC4FF64F88
+	for <intel-gfx@archiver.kernel.org>; Thu, 11 Mar 2021 22:36:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BC4FF64F88
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0CE4E6EE90;
-	Thu, 11 Mar 2021 22:36:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0D4C96EE8D;
+	Thu, 11 Mar 2021 22:36:48 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B5F46EE8C
- for <intel-gfx@lists.freedesktop.org>; Thu, 11 Mar 2021 22:36:46 +0000 (UTC)
-IronPort-SDR: fpHGozLEroF1vlNt9rde4mhZ219psWBIwbe5Udp0G6w6BkgwLPev/B2B3K02ZZZsY8DqcFzfMP
- NrnfP6eHE1eg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9920"; a="185395067"
-X-IronPort-AV: E=Sophos;i="5.81,241,1610438400"; d="scan'208";a="185395067"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF75C6EE86
+ for <intel-gfx@lists.freedesktop.org>; Thu, 11 Mar 2021 22:36:45 +0000 (UTC)
+IronPort-SDR: Ygt/x1fbQPEQu2faOdZVJ39V4VPF3fjoTim53qJR2rYimSWJcjRcU1Yc8DhxY5TDeoS43q54NG
+ J7fi2YrExJtA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9920"; a="185395061"
+X-IronPort-AV: E=Sophos;i="5.81,241,1610438400"; d="scan'208";a="185395061"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  11 Mar 2021 14:36:44 -0800
-IronPort-SDR: N2j6hcyNlELGVRQflLGglAqekbkOqso8YGsVDTrCEcCmxrdmlp64CDB34dSf9nY5f4tX8bC9Fk
- RbShkx+1dKNQ==
-X-IronPort-AV: E=Sophos;i="5.81,241,1610438400"; d="scan'208";a="438852659"
+IronPort-SDR: HJAF0ZM1QJqfpU+cxnawCf4UYNnLtcmahvGVknnYHs7ZJSkZXY8Fqoh2SIuknhMIWjxGJ+eX9F
+ JeBt4vwiOgxg==
+X-IronPort-AV: E=Sophos;i="5.81,241,1610438400"; d="scan'208";a="438852645"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.168])
  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Mar 2021 14:36:44 -0800
+ 11 Mar 2021 14:36:43 -0800
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 11 Mar 2021 14:35:41 -0800
-Message-Id: <20210311223632.3191939-6-matthew.d.roper@intel.com>
+Date: Thu, 11 Mar 2021 14:35:37 -0800
+Message-Id: <20210311223632.3191939-2-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20210311223632.3191939-1-matthew.d.roper@intel.com>
 References: <20210311223632.3191939-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 05/56] drm/i915: Convert INTEL_GEN() to
- DISPLAY_VER() as appropriate in i915_irq.c
+Subject: [Intel-gfx] [PATCH 01/56] drm/i915/display: Convert gen5/gen6 tests
+ to IS_IRONLAKE/IS_SANDYBRIDGE
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,282 +63,335 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Convert the display-specific usage of INTEL_GEN, while leaving the
-non-display usage as-is for now.
+ILK is the only platform that we consider "gen5" and SNB is the only
+platform we consider "gen6."  Add an IS_SANDYBRIDGE() macro and then
+replace numeric platform tests for these two generations with direct
+platform tests with the following Coccinelle semantic patch:
 
-In the near-future we'll probably want to think about moving display
-interrupt handling to its own file under the display/ directory.
+        @@ expression dev_priv; @@
+        - IS_GEN(dev_priv, 5)
+        + IS_IRONLAKE(dev_priv)
+
+        @@ expression dev_priv; @@
+        - IS_GEN(dev_priv, 6)
+        + IS_SANDYBRIDGE(dev_priv)
+
+        @@ expression dev_priv; @@
+        - IS_GEN_RANGE(dev_priv, 5, 6)
+        + IS_SANDYBRIDGE(dev_priv) || IS_IRONLAKE(dev_priv)
+
+This will simplify our upcoming patches which eliminate INTEL_GEN()
+usage in the display code.
 
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 ---
- drivers/gpu/drm/i915/i915_irq.c | 66 ++++++++++++++++-----------------
- 1 file changed, 33 insertions(+), 33 deletions(-)
+ drivers/gpu/drm/i915/display/i9xx_plane.c          |  4 ++--
+ drivers/gpu/drm/i915/display/intel_cdclk.c         |  4 ++--
+ drivers/gpu/drm/i915/display/intel_cursor.c        |  2 +-
+ drivers/gpu/drm/i915/display/intel_display.c       | 12 ++++++------
+ drivers/gpu/drm/i915/display/intel_dp.c            |  6 +++---
+ drivers/gpu/drm/i915/display/intel_dp_aux.c        |  2 +-
+ drivers/gpu/drm/i915/display/intel_fbc.c           |  6 +++---
+ drivers/gpu/drm/i915/display/intel_fdi.c           |  6 +++---
+ drivers/gpu/drm/i915/display/intel_fifo_underrun.c |  2 +-
+ drivers/gpu/drm/i915/display/intel_pipe_crc.c      |  4 ++--
+ drivers/gpu/drm/i915/display/intel_pps.c           |  6 +++---
+ drivers/gpu/drm/i915/display/intel_sprite.c        |  4 ++--
+ drivers/gpu/drm/i915/i915_drv.h                    |  1 +
+ 13 files changed, 30 insertions(+), 29 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_irq.c b/drivers/gpu/drm/i915/i915_irq.c
-index 44aed4cbf894..23be88d59055 100644
---- a/drivers/gpu/drm/i915/i915_irq.c
-+++ b/drivers/gpu/drm/i915/i915_irq.c
-@@ -192,13 +192,13 @@ static void intel_hpd_init_pins(struct drm_i915_private *dev_priv)
+diff --git a/drivers/gpu/drm/i915/display/i9xx_plane.c b/drivers/gpu/drm/i915/display/i9xx_plane.c
+index 8a52beaed2da..95933cc13d58 100644
+--- a/drivers/gpu/drm/i915/display/i9xx_plane.c
++++ b/drivers/gpu/drm/i915/display/i9xx_plane.c
+@@ -161,8 +161,8 @@ static u32 i9xx_plane_ctl(const struct intel_crtc_state *crtc_state,
+ 
+ 	dspcntr = DISPLAY_PLANE_ENABLE;
+ 
+-	if (IS_G4X(dev_priv) || IS_GEN(dev_priv, 5) ||
+-	    IS_GEN(dev_priv, 6) || IS_IVYBRIDGE(dev_priv))
++	if (IS_G4X(dev_priv) || IS_IRONLAKE(dev_priv) ||
++	    IS_SANDYBRIDGE(dev_priv) || IS_IVYBRIDGE(dev_priv))
+ 		dspcntr |= DISPPLANE_TRICKLE_FEED_DISABLE;
+ 
+ 	switch (fb->format->format) {
+diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i915/display/intel_cdclk.c
+index a9019287f7d5..83678feb8897 100644
+--- a/drivers/gpu/drm/i915/display/intel_cdclk.c
++++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
+@@ -2916,9 +2916,9 @@ void intel_init_cdclk_hooks(struct drm_i915_private *dev_priv)
+ 		dev_priv->display.get_cdclk = hsw_get_cdclk;
+ 	else if (IS_VALLEYVIEW(dev_priv) || IS_CHERRYVIEW(dev_priv))
+ 		dev_priv->display.get_cdclk = vlv_get_cdclk;
+-	else if (IS_GEN(dev_priv, 6) || IS_IVYBRIDGE(dev_priv))
++	else if (IS_SANDYBRIDGE(dev_priv) || IS_IVYBRIDGE(dev_priv))
+ 		dev_priv->display.get_cdclk = fixed_400mhz_get_cdclk;
+-	else if (IS_GEN(dev_priv, 5))
++	else if (IS_IRONLAKE(dev_priv))
+ 		dev_priv->display.get_cdclk = fixed_450mhz_get_cdclk;
+ 	else if (IS_GM45(dev_priv))
+ 		dev_priv->display.get_cdclk = gm45_get_cdclk;
+diff --git a/drivers/gpu/drm/i915/display/intel_cursor.c b/drivers/gpu/drm/i915/display/intel_cursor.c
+index 21fe4d2753e9..3057179dd4eb 100644
+--- a/drivers/gpu/drm/i915/display/intel_cursor.c
++++ b/drivers/gpu/drm/i915/display/intel_cursor.c
+@@ -360,7 +360,7 @@ static u32 i9xx_cursor_ctl(const struct intel_crtc_state *crtc_state,
+ 		to_i915(plane_state->uapi.plane->dev);
+ 	u32 cntl = 0;
+ 
+-	if (IS_GEN(dev_priv, 6) || IS_IVYBRIDGE(dev_priv))
++	if (IS_SANDYBRIDGE(dev_priv) || IS_IVYBRIDGE(dev_priv))
+ 		cntl |= MCURSOR_TRICKLE_FEED_DISABLE;
+ 
+ 	switch (drm_rect_width(&plane_state->uapi.dst)) {
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 5bfc06c46e28..f47bbe042a64 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -359,7 +359,7 @@ static void assert_fdi_tx_pll_enabled(struct drm_i915_private *dev_priv,
+ 	u32 val;
+ 
+ 	/* ILK FDI PLL is always enabled */
+-	if (IS_GEN(dev_priv, 5))
++	if (IS_IRONLAKE(dev_priv))
  		return;
- 	}
  
--	if (INTEL_GEN(dev_priv) >= 11)
-+	if (DISPLAY_VER(dev_priv) >= 11)
- 		hpd->hpd = hpd_gen11;
- 	else if (IS_GEN9_LP(dev_priv))
- 		hpd->hpd = hpd_bxt;
--	else if (INTEL_GEN(dev_priv) >= 8)
-+	else if (DISPLAY_VER(dev_priv) >= 8)
- 		hpd->hpd = hpd_bdw;
--	else if (INTEL_GEN(dev_priv) >= 7)
-+	else if (DISPLAY_VER(dev_priv) >= 7)
- 		hpd->hpd = hpd_ivb;
- 	else
- 		hpd->hpd = hpd_ilk;
-@@ -477,7 +477,7 @@ u32 i915_pipestat_enable_mask(struct drm_i915_private *dev_priv,
- 
- 	lockdep_assert_held(&dev_priv->irq_lock);
- 
--	if (INTEL_GEN(dev_priv) < 5)
-+	if (DISPLAY_VER(dev_priv) < 5)
- 		goto out;
- 
- 	/*
-@@ -579,7 +579,7 @@ static void i915_enable_asle_pipestat(struct drm_i915_private *dev_priv)
- 	spin_lock_irq(&dev_priv->irq_lock);
- 
- 	i915_enable_pipestat(dev_priv, PIPE_B, PIPE_LEGACY_BLC_EVENT_STATUS);
--	if (INTEL_GEN(dev_priv) >= 4)
-+	if (DISPLAY_VER(dev_priv) >= 4)
- 		i915_enable_pipestat(dev_priv, PIPE_A,
- 				     PIPE_LEGACY_BLC_EVENT_STATUS);
- 
-@@ -806,7 +806,7 @@ static int __intel_get_crtc_scanline(struct intel_crtc *crtc)
- 	if (mode->flags & DRM_MODE_FLAG_INTERLACE)
- 		vtotal /= 2;
- 
--	if (IS_GEN(dev_priv, 2))
-+	if (DISPLAY_VER(dev_priv) == 2)
- 		position = intel_de_read_fw(dev_priv, PIPEDSL(pipe)) & DSL_LINEMASK_GEN2;
- 	else
- 		position = intel_de_read_fw(dev_priv, PIPEDSL(pipe)) & DSL_LINEMASK_GEN3;
-@@ -856,8 +856,8 @@ static bool i915_get_crtc_scanoutpos(struct drm_crtc *_crtc,
- 	int position;
- 	int vbl_start, vbl_end, hsync_start, htotal, vtotal;
- 	unsigned long irqflags;
--	bool use_scanline_counter = INTEL_GEN(dev_priv) >= 5 ||
--		IS_G4X(dev_priv) || IS_GEN(dev_priv, 2) ||
-+	bool use_scanline_counter = DISPLAY_VER(dev_priv) >= 5 ||
-+		IS_G4X(dev_priv) || DISPLAY_VER(dev_priv) == 2 ||
- 		crtc->mode_flags & I915_MODE_FLAG_USE_SCANLINE_COUNTER;
- 
- 	if (drm_WARN_ON(&dev_priv->drm, !mode->crtc_clock)) {
-@@ -1304,7 +1304,7 @@ static void display_pipe_crc_irq_handler(struct drm_i915_private *dev_priv,
- 	 * don't trust that one either.
+ 	/* On Haswell, DDI ports are responsible for the FDI PLL setup */
+@@ -7439,7 +7439,7 @@ int intel_plane_atomic_calc_changes(const struct intel_crtc_state *old_crtc_stat
+ 	 * plane, not only sprite plane.
  	 */
- 	if (pipe_crc->skipped <= 0 ||
--	    (INTEL_GEN(dev_priv) >= 8 && pipe_crc->skipped == 1)) {
-+	    (DISPLAY_VER(dev_priv) >= 8 && pipe_crc->skipped == 1)) {
- 		pipe_crc->skipped++;
- 		spin_unlock(&pipe_crc->lock);
- 		return;
-@@ -1366,12 +1366,12 @@ static void i9xx_pipe_crc_irq_handler(struct drm_i915_private *dev_priv,
+ 	if (plane->id != PLANE_CURSOR &&
+-	    (IS_GEN_RANGE(dev_priv, 5, 6) ||
++	    (IS_SANDYBRIDGE(dev_priv) || IS_IRONLAKE(dev_priv) ||
+ 	     IS_IVYBRIDGE(dev_priv)) &&
+ 	    (turn_on || (!needs_scaling(old_plane_state) &&
+ 			 needs_scaling(plane_state))))
+@@ -11599,7 +11599,7 @@ static bool ilk_has_edp_a(struct drm_i915_private *dev_priv)
+ 	if ((intel_de_read(dev_priv, DP_A) & DP_DETECTED) == 0)
+ 		return false;
+ 
+-	if (IS_GEN(dev_priv, 5) && (intel_de_read(dev_priv, FUSE_STRAP) & ILK_eDP_A_DISABLE))
++	if (IS_IRONLAKE(dev_priv) && (intel_de_read(dev_priv, FUSE_STRAP) & ILK_eDP_A_DISABLE))
+ 		return false;
+ 
+ 	return true;
+@@ -12407,12 +12407,12 @@ static void sanitize_watermarks(struct drm_i915_private *dev_priv)
+ 
+ static void intel_update_fdi_pll_freq(struct drm_i915_private *dev_priv)
  {
- 	u32 res1, res2;
+-	if (IS_GEN(dev_priv, 5)) {
++	if (IS_IRONLAKE(dev_priv)) {
+ 		u32 fdi_pll_clk =
+ 			intel_de_read(dev_priv, FDI_PLL_BIOS_0) & FDI_PLL_FB_CLOCK_MASK;
  
--	if (INTEL_GEN(dev_priv) >= 3)
-+	if (DISPLAY_VER(dev_priv) >= 3)
- 		res1 = intel_uncore_read(&dev_priv->uncore, PIPE_CRC_RES_RES1_I915(pipe));
- 	else
- 		res1 = 0;
- 
--	if (INTEL_GEN(dev_priv) >= 5 || IS_G4X(dev_priv))
-+	if (DISPLAY_VER(dev_priv) >= 5 || IS_G4X(dev_priv))
- 		res2 = intel_uncore_read(&dev_priv->uncore, PIPE_CRC_RES_RES2_G4X(pipe));
- 	else
- 		res2 = 0;
-@@ -2077,7 +2077,7 @@ static void ilk_display_irq_handler(struct drm_i915_private *dev_priv,
- 		intel_uncore_write(&dev_priv->uncore, SDEIIR, pch_iir);
- 	}
- 
--	if (IS_GEN(dev_priv, 5) && de_iir & DE_PCU_EVENT)
-+	if (DISPLAY_VER(dev_priv) == 5 && de_iir & DE_PCU_EVENT)
- 		gen5_rps_irq_handler(&dev_priv->gt.rps);
- }
- 
-@@ -2184,7 +2184,7 @@ static irqreturn_t ilk_irq_handler(int irq, void *arg)
- 	de_iir = raw_reg_read(regs, DEIIR);
- 	if (de_iir) {
- 		raw_reg_write(regs, DEIIR, de_iir);
--		if (INTEL_GEN(i915) >= 7)
-+		if (DISPLAY_VER(i915) >= 7)
- 			ivb_display_irq_handler(i915, de_iir);
- 		else
- 			ilk_display_irq_handler(i915, de_iir);
-@@ -2269,7 +2269,7 @@ static u32 gen8_de_port_aux_mask(struct drm_i915_private *dev_priv)
- {
- 	u32 mask;
- 
--	if (INTEL_GEN(dev_priv) >= 12)
-+	if (DISPLAY_VER(dev_priv) >= 12)
- 		return TGL_DE_PORT_AUX_DDIA |
- 			TGL_DE_PORT_AUX_DDIB |
- 			TGL_DE_PORT_AUX_DDIC |
-@@ -2282,15 +2282,15 @@ static u32 gen8_de_port_aux_mask(struct drm_i915_private *dev_priv)
- 
- 
- 	mask = GEN8_AUX_CHANNEL_A;
--	if (INTEL_GEN(dev_priv) >= 9)
-+	if (DISPLAY_VER(dev_priv) >= 9)
- 		mask |= GEN9_AUX_CHANNEL_B |
- 			GEN9_AUX_CHANNEL_C |
- 			GEN9_AUX_CHANNEL_D;
- 
--	if (IS_CNL_WITH_PORT_F(dev_priv) || IS_GEN(dev_priv, 11))
-+	if (IS_CNL_WITH_PORT_F(dev_priv) || DISPLAY_VER(dev_priv) == 11)
- 		mask |= CNL_AUX_CHANNEL_F;
- 
--	if (IS_GEN(dev_priv, 11))
-+	if (DISPLAY_VER(dev_priv) == 11)
- 		mask |= ICL_AUX_CHANNEL_E;
- 
- 	return mask;
-@@ -2300,9 +2300,9 @@ static u32 gen8_de_pipe_fault_mask(struct drm_i915_private *dev_priv)
- {
- 	if (HAS_D12_PLANE_MINIMIZATION(dev_priv))
- 		return RKL_DE_PIPE_IRQ_FAULT_ERRORS;
--	else if (INTEL_GEN(dev_priv) >= 11)
-+	else if (DISPLAY_VER(dev_priv) >= 11)
- 		return GEN11_DE_PIPE_IRQ_FAULT_ERRORS;
--	else if (INTEL_GEN(dev_priv) >= 9)
-+	else if (DISPLAY_VER(dev_priv) >= 9)
- 		return GEN9_DE_PIPE_IRQ_FAULT_ERRORS;
- 	else
- 		return GEN8_DE_PIPE_IRQ_FAULT_ERRORS;
-@@ -2326,7 +2326,7 @@ gen8_de_misc_irq_handler(struct drm_i915_private *dev_priv, u32 iir)
- 		for_each_intel_encoder_with_psr(&dev_priv->drm, encoder) {
- 			struct intel_dp *intel_dp = enc_to_intel_dp(encoder);
- 
--			if (INTEL_GEN(dev_priv) >= 12)
-+			if (DISPLAY_VER(dev_priv) >= 12)
- 				iir_reg = TRANS_PSR_IIR(intel_dp->psr.transcoder);
- 			else
- 				iir_reg = EDP_PSR_IIR;
-@@ -2340,7 +2340,7 @@ gen8_de_misc_irq_handler(struct drm_i915_private *dev_priv, u32 iir)
- 			intel_psr_irq_handler(intel_dp, psr_iir);
- 
- 			/* prior GEN12 only have one EDP PSR */
--			if (INTEL_GEN(dev_priv) < 12)
-+			if (DISPLAY_VER(dev_priv) < 12)
- 				break;
- 		}
- 	}
-@@ -2408,7 +2408,7 @@ static void gen11_dsi_te_interrupt_handler(struct drm_i915_private *dev_priv,
- 
- static u32 gen8_de_pipe_flip_done_mask(struct drm_i915_private *i915)
- {
--	if (INTEL_GEN(i915) >= 9)
-+	if (DISPLAY_VER(i915) >= 9)
- 		return GEN9_PIPE_PLANE1_FLIP_DONE;
- 	else
- 		return GEN8_PIPE_PRIMARY_FLIP_DONE;
-@@ -2433,7 +2433,7 @@ gen8_de_irq_handler(struct drm_i915_private *dev_priv, u32 master_ctl)
- 		}
- 	}
- 
--	if (INTEL_GEN(dev_priv) >= 11 && (master_ctl & GEN11_DE_HPD_IRQ)) {
-+	if (DISPLAY_VER(dev_priv) >= 11 && (master_ctl & GEN11_DE_HPD_IRQ)) {
- 		iir = intel_uncore_read(&dev_priv->uncore, GEN11_DE_HPD_IIR);
- 		if (iir) {
- 			intel_uncore_write(&dev_priv->uncore, GEN11_DE_HPD_IIR, iir);
-@@ -2479,7 +2479,7 @@ gen8_de_irq_handler(struct drm_i915_private *dev_priv, u32 master_ctl)
- 				found = true;
- 			}
- 
--			if (INTEL_GEN(dev_priv) >= 11) {
-+			if (DISPLAY_VER(dev_priv) >= 11) {
- 				u32 te_trigger = iir & (DSI0_TE | DSI1_TE);
- 
- 				if (te_trigger) {
-@@ -2809,7 +2809,7 @@ int ilk_enable_vblank(struct drm_crtc *crtc)
- 	struct drm_i915_private *dev_priv = to_i915(crtc->dev);
- 	enum pipe pipe = to_intel_crtc(crtc)->pipe;
- 	unsigned long irqflags;
--	u32 bit = INTEL_GEN(dev_priv) >= 7 ?
-+	u32 bit = DISPLAY_VER(dev_priv) >= 7 ?
- 		DE_PIPE_VBLANK_IVB(pipe) : DE_PIPE_VBLANK(pipe);
- 
- 	spin_lock_irqsave(&dev_priv->irq_lock, irqflags);
-@@ -2920,7 +2920,7 @@ void ilk_disable_vblank(struct drm_crtc *crtc)
- 	struct drm_i915_private *dev_priv = to_i915(crtc->dev);
- 	enum pipe pipe = to_intel_crtc(crtc)->pipe;
- 	unsigned long irqflags;
--	u32 bit = INTEL_GEN(dev_priv) >= 7 ?
-+	u32 bit = DISPLAY_VER(dev_priv) >= 7 ?
- 		DE_PIPE_VBLANK_IVB(pipe) : DE_PIPE_VBLANK(pipe);
- 
- 	spin_lock_irqsave(&dev_priv->irq_lock, irqflags);
-@@ -3094,7 +3094,7 @@ static void gen11_display_irq_reset(struct drm_i915_private *dev_priv)
- 
- 	intel_uncore_write(uncore, GEN11_DISPLAY_INT_CTL, 0);
- 
--	if (INTEL_GEN(dev_priv) >= 12) {
-+	if (DISPLAY_VER(dev_priv) >= 12) {
- 		enum transcoder trans;
- 
- 		for_each_cpu_transcoder_masked(dev_priv, trans, trans_mask) {
-@@ -3523,7 +3523,7 @@ static void ilk_hpd_irq_setup(struct drm_i915_private *dev_priv)
- 	enabled_irqs = intel_hpd_enabled_irqs(dev_priv, dev_priv->hotplug.hpd);
- 	hotplug_irqs = intel_hpd_hotplug_irqs(dev_priv, dev_priv->hotplug.hpd);
- 
--	if (INTEL_GEN(dev_priv) >= 8)
-+	if (DISPLAY_VER(dev_priv) >= 8)
- 		bdw_update_port_irq(dev_priv, hotplug_irqs, enabled_irqs);
- 	else
- 		ilk_update_display_irq(dev_priv, hotplug_irqs, enabled_irqs);
-@@ -3714,13 +3714,13 @@ static void gen8_de_irq_postinstall(struct drm_i915_private *dev_priv)
- 		BIT(TRANSCODER_C) | BIT(TRANSCODER_D);
- 	enum pipe pipe;
- 
--	if (INTEL_GEN(dev_priv) <= 10)
-+	if (DISPLAY_VER(dev_priv) <= 10)
- 		de_misc_masked |= GEN8_DE_MISC_GSE;
- 
- 	if (IS_GEN9_LP(dev_priv))
- 		de_port_masked |= BXT_DE_PORT_GMBUS;
- 
--	if (INTEL_GEN(dev_priv) >= 11) {
-+	if (DISPLAY_VER(dev_priv) >= 11) {
- 		enum port port;
- 
- 		if (intel_bios_is_dsi_present(dev_priv, &port))
-@@ -3737,7 +3737,7 @@ static void gen8_de_irq_postinstall(struct drm_i915_private *dev_priv)
- 	else if (IS_BROADWELL(dev_priv))
- 		de_port_enables |= BDW_DE_PORT_HOTPLUG_MASK;
- 
--	if (INTEL_GEN(dev_priv) >= 12) {
-+	if (DISPLAY_VER(dev_priv) >= 12) {
- 		enum transcoder trans;
- 
- 		for_each_cpu_transcoder_masked(dev_priv, trans, trans_mask) {
-@@ -3766,7 +3766,7 @@ static void gen8_de_irq_postinstall(struct drm_i915_private *dev_priv)
- 	GEN3_IRQ_INIT(uncore, GEN8_DE_PORT_, ~de_port_masked, de_port_enables);
- 	GEN3_IRQ_INIT(uncore, GEN8_DE_MISC_, ~de_misc_masked, de_misc_masked);
- 
--	if (INTEL_GEN(dev_priv) >= 11) {
-+	if (DISPLAY_VER(dev_priv) >= 11) {
- 		u32 de_hpd_masked = 0;
- 		u32 de_hpd_enables = GEN11_DE_TC_HOTPLUG_MASK |
- 				     GEN11_DE_TBT_HOTPLUG_MASK;
-@@ -4317,7 +4317,7 @@ void intel_irq_init(struct drm_i915_private *dev_priv)
+ 		dev_priv->fdi_pll_freq = (fdi_pll_clk + 2) * 10000;
+-	} else if (IS_GEN(dev_priv, 6) || IS_IVYBRIDGE(dev_priv)) {
++	} else if (IS_SANDYBRIDGE(dev_priv) || IS_IVYBRIDGE(dev_priv)) {
+ 		dev_priv->fdi_pll_freq = 270000;
  	} else {
- 		if (HAS_PCH_DG1(dev_priv))
- 			dev_priv->display.hpd_irq_setup = dg1_hpd_irq_setup;
--		else if (INTEL_GEN(dev_priv) >= 11)
-+		else if (DISPLAY_VER(dev_priv) >= 11)
- 			dev_priv->display.hpd_irq_setup = gen11_hpd_irq_setup;
- 		else if (IS_GEN9_LP(dev_priv))
- 			dev_priv->display.hpd_irq_setup = bxt_hpd_irq_setup;
+ 		return;
+@@ -13057,7 +13057,7 @@ static bool has_bogus_dpll_config(const struct intel_crtc_state *crtc_state)
+ 	 * without several WARNs, but for now let's take the easy
+ 	 * road.
+ 	 */
+-	return IS_GEN(dev_priv, 6) &&
++	return IS_SANDYBRIDGE(dev_priv) &&
+ 		crtc_state->hw.active &&
+ 		crtc_state->shared_dpll &&
+ 		crtc_state->port_clock == 0;
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index b6b5776f5a66..31263250e7f9 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -2049,7 +2049,7 @@ static void ilk_edp_pll_on(struct intel_dp *intel_dp,
+ 	 * 1. Wait for the start of vertical blank on the enabled pipe going to FDI
+ 	 * 2. Program DP PLL enable
+ 	 */
+-	if (IS_GEN(dev_priv, 5))
++	if (IS_IRONLAKE(dev_priv))
+ 		intel_wait_for_vblank_if_active(dev_priv, !crtc->pipe);
+ 
+ 	intel_dp->DP |= DP_PLL_ENABLE;
+@@ -5399,7 +5399,7 @@ intel_dp_update_420(struct intel_dp *intel_dp)
+ 	 * ILK doesn't seem capable of DP YCbCr output. The
+ 	 * displayed image is severly corrupted. SNB+ is fine.
+ 	 */
+-	if (IS_GEN(i915, 5))
++	if (IS_IRONLAKE(i915))
+ 		return;
+ 
+ 	is_branch = drm_dp_is_branch(intel_dp->dpcd);
+@@ -6817,7 +6817,7 @@ bool intel_dp_init(struct drm_i915_private *dev_priv,
+ 		dig_port->dp.set_signal_levels = vlv_set_signal_levels;
+ 	else if (IS_IVYBRIDGE(dev_priv) && port == PORT_A)
+ 		dig_port->dp.set_signal_levels = ivb_cpu_edp_set_signal_levels;
+-	else if (IS_GEN(dev_priv, 6) && port == PORT_A)
++	else if (IS_SANDYBRIDGE(dev_priv) && port == PORT_A)
+ 		dig_port->dp.set_signal_levels = snb_cpu_edp_set_signal_levels;
+ 	else
+ 		dig_port->dp.set_signal_levels = g4x_set_signal_levels;
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux.c b/drivers/gpu/drm/i915/display/intel_dp_aux.c
+index eaebf123310a..4ba08aa4680b 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_aux.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_aux.c
+@@ -128,7 +128,7 @@ static u32 g4x_get_aux_send_ctl(struct intel_dp *intel_dp,
+ 			to_i915(dig_port->base.base.dev);
+ 	u32 precharge, timeout;
+ 
+-	if (IS_GEN(dev_priv, 6))
++	if (IS_SANDYBRIDGE(dev_priv))
+ 		precharge = 3;
+ 	else
+ 		precharge = 5;
+diff --git a/drivers/gpu/drm/i915/display/intel_fbc.c b/drivers/gpu/drm/i915/display/intel_fbc.c
+index 5fd4fa4805ef..c7beda2e35bc 100644
+--- a/drivers/gpu/drm/i915/display/intel_fbc.c
++++ b/drivers/gpu/drm/i915/display/intel_fbc.c
+@@ -255,16 +255,16 @@ static void ilk_fbc_activate(struct drm_i915_private *dev_priv)
+ 
+ 	if (params->fence_id >= 0) {
+ 		dpfc_ctl |= DPFC_CTL_FENCE_EN;
+-		if (IS_GEN(dev_priv, 5))
++		if (IS_IRONLAKE(dev_priv))
+ 			dpfc_ctl |= params->fence_id;
+-		if (IS_GEN(dev_priv, 6)) {
++		if (IS_SANDYBRIDGE(dev_priv)) {
+ 			intel_de_write(dev_priv, SNB_DPFC_CTL_SA,
+ 				       SNB_CPU_FENCE_ENABLE | params->fence_id);
+ 			intel_de_write(dev_priv, DPFC_CPU_FENCE_OFFSET,
+ 				       params->fence_y_offset);
+ 		}
+ 	} else {
+-		if (IS_GEN(dev_priv, 6)) {
++		if (IS_SANDYBRIDGE(dev_priv)) {
+ 			intel_de_write(dev_priv, SNB_DPFC_CTL_SA, 0);
+ 			intel_de_write(dev_priv, DPFC_CPU_FENCE_OFFSET, 0);
+ 		}
+diff --git a/drivers/gpu/drm/i915/display/intel_fdi.c b/drivers/gpu/drm/i915/display/intel_fdi.c
+index 60b29110099a..d719cd9c5b73 100644
+--- a/drivers/gpu/drm/i915/display/intel_fdi.c
++++ b/drivers/gpu/drm/i915/display/intel_fdi.c
+@@ -373,7 +373,7 @@ static void gen6_fdi_link_train(struct intel_crtc *crtc,
+ 	temp = intel_de_read(dev_priv, reg);
+ 	temp &= ~FDI_LINK_TRAIN_NONE;
+ 	temp |= FDI_LINK_TRAIN_PATTERN_2;
+-	if (IS_GEN(dev_priv, 6)) {
++	if (IS_SANDYBRIDGE(dev_priv)) {
+ 		temp &= ~FDI_LINK_TRAIN_VOL_EMP_MASK;
+ 		/* SNB-B */
+ 		temp |= FDI_LINK_TRAIN_400MV_0DB_SNB_B;
+@@ -810,9 +810,9 @@ void ilk_fdi_disable(struct intel_crtc *crtc)
+ void
+ intel_fdi_init_hook(struct drm_i915_private *dev_priv)
+ {
+-	if (IS_GEN(dev_priv, 5)) {
++	if (IS_IRONLAKE(dev_priv)) {
+ 		dev_priv->display.fdi_link_train = ilk_fdi_link_train;
+-	} else if (IS_GEN(dev_priv, 6)) {
++	} else if (IS_SANDYBRIDGE(dev_priv)) {
+ 		dev_priv->display.fdi_link_train = gen6_fdi_link_train;
+ 	} else if (IS_IVYBRIDGE(dev_priv)) {
+ 		/* FIXME: detect B0+ stepping and use auto training */
+diff --git a/drivers/gpu/drm/i915/display/intel_fifo_underrun.c b/drivers/gpu/drm/i915/display/intel_fifo_underrun.c
+index 813a4f7033e1..a3715cd42ed0 100644
+--- a/drivers/gpu/drm/i915/display/intel_fifo_underrun.c
++++ b/drivers/gpu/drm/i915/display/intel_fifo_underrun.c
+@@ -269,7 +269,7 @@ static bool __intel_set_cpu_fifo_underrun_reporting(struct drm_device *dev,
+ 
+ 	if (HAS_GMCH(dev_priv))
+ 		i9xx_set_fifo_underrun_reporting(dev, pipe, enable, old);
+-	else if (IS_GEN_RANGE(dev_priv, 5, 6))
++	else if (IS_SANDYBRIDGE(dev_priv) || IS_IRONLAKE(dev_priv))
+ 		ilk_set_fifo_underrun_reporting(dev, pipe, enable);
+ 	else if (IS_GEN(dev_priv, 7))
+ 		ivb_set_fifo_underrun_reporting(dev, pipe, enable, old);
+diff --git a/drivers/gpu/drm/i915/display/intel_pipe_crc.c b/drivers/gpu/drm/i915/display/intel_pipe_crc.c
+index a9a5df2fee4d..3c4024409d85 100644
+--- a/drivers/gpu/drm/i915/display/intel_pipe_crc.c
++++ b/drivers/gpu/drm/i915/display/intel_pipe_crc.c
+@@ -415,7 +415,7 @@ static int get_new_crc_ctl_reg(struct drm_i915_private *dev_priv,
+ 		return i9xx_pipe_crc_ctl_reg(dev_priv, pipe, source, val);
+ 	else if (IS_VALLEYVIEW(dev_priv) || IS_CHERRYVIEW(dev_priv))
+ 		return vlv_pipe_crc_ctl_reg(dev_priv, pipe, source, val);
+-	else if (IS_GEN_RANGE(dev_priv, 5, 6))
++	else if (IS_SANDYBRIDGE(dev_priv) || IS_IRONLAKE(dev_priv))
+ 		return ilk_pipe_crc_ctl_reg(source, val);
+ 	else if (INTEL_GEN(dev_priv) < 9)
+ 		return ivb_pipe_crc_ctl_reg(dev_priv, pipe, source, val);
+@@ -545,7 +545,7 @@ intel_is_valid_crc_source(struct drm_i915_private *dev_priv,
+ 		return i9xx_crc_source_valid(dev_priv, source);
+ 	else if (IS_VALLEYVIEW(dev_priv) || IS_CHERRYVIEW(dev_priv))
+ 		return vlv_crc_source_valid(dev_priv, source);
+-	else if (IS_GEN_RANGE(dev_priv, 5, 6))
++	else if (IS_SANDYBRIDGE(dev_priv) || IS_IRONLAKE(dev_priv))
+ 		return ilk_crc_source_valid(dev_priv, source);
+ 	else if (INTEL_GEN(dev_priv) < 9)
+ 		return ivb_crc_source_valid(dev_priv, source);
+diff --git a/drivers/gpu/drm/i915/display/intel_pps.c b/drivers/gpu/drm/i915/display/intel_pps.c
+index f20ba71f4307..27477cafdc38 100644
+--- a/drivers/gpu/drm/i915/display/intel_pps.c
++++ b/drivers/gpu/drm/i915/display/intel_pps.c
+@@ -777,7 +777,7 @@ void intel_pps_on_unlocked(struct intel_dp *intel_dp)
+ 
+ 	pp_ctrl_reg = _pp_ctrl_reg(intel_dp);
+ 	pp = ilk_get_pp_control(intel_dp);
+-	if (IS_GEN(dev_priv, 5)) {
++	if (IS_IRONLAKE(dev_priv)) {
+ 		/* ILK workaround: disable reset around power sequence */
+ 		pp &= ~PANEL_POWER_RESET;
+ 		intel_de_write(dev_priv, pp_ctrl_reg, pp);
+@@ -785,7 +785,7 @@ void intel_pps_on_unlocked(struct intel_dp *intel_dp)
+ 	}
+ 
+ 	pp |= PANEL_POWER_ON;
+-	if (!IS_GEN(dev_priv, 5))
++	if (!IS_IRONLAKE(dev_priv))
+ 		pp |= PANEL_POWER_RESET;
+ 
+ 	intel_de_write(dev_priv, pp_ctrl_reg, pp);
+@@ -794,7 +794,7 @@ void intel_pps_on_unlocked(struct intel_dp *intel_dp)
+ 	wait_panel_on(intel_dp);
+ 	intel_dp->pps.last_power_on = jiffies;
+ 
+-	if (IS_GEN(dev_priv, 5)) {
++	if (IS_IRONLAKE(dev_priv)) {
+ 		pp |= PANEL_POWER_RESET; /* restore panel reset bit */
+ 		intel_de_write(dev_priv, pp_ctrl_reg, pp);
+ 		intel_de_posting_read(dev_priv, pp_ctrl_reg);
+diff --git a/drivers/gpu/drm/i915/display/intel_sprite.c b/drivers/gpu/drm/i915/display/intel_sprite.c
+index 4cbdb8fd4bb1..fb506409a63b 100644
+--- a/drivers/gpu/drm/i915/display/intel_sprite.c
++++ b/drivers/gpu/drm/i915/display/intel_sprite.c
+@@ -1078,7 +1078,7 @@ static u32 g4x_sprite_ctl(const struct intel_crtc_state *crtc_state,
+ 
+ 	dvscntr = DVS_ENABLE;
+ 
+-	if (IS_GEN(dev_priv, 6))
++	if (IS_SANDYBRIDGE(dev_priv))
+ 		dvscntr |= DVS_TRICKLE_FEED_DISABLE;
+ 
+ 	switch (fb->format->format) {
+@@ -1838,7 +1838,7 @@ intel_sprite_plane_create(struct drm_i915_private *dev_priv,
+ 		plane->min_cdclk = g4x_sprite_min_cdclk;
+ 
+ 		modifiers = i9xx_plane_format_modifiers;
+-		if (IS_GEN(dev_priv, 6)) {
++		if (IS_SANDYBRIDGE(dev_priv)) {
+ 			formats = snb_plane_formats;
+ 			num_formats = ARRAY_SIZE(snb_plane_formats);
+ 
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index 1d45d7492d10..4fe90a9782e8 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -1356,6 +1356,7 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
+ #define IS_IRONLAKE(dev_priv)	IS_PLATFORM(dev_priv, INTEL_IRONLAKE)
+ #define IS_IRONLAKE_M(dev_priv) \
+ 	(IS_PLATFORM(dev_priv, INTEL_IRONLAKE) && IS_MOBILE(dev_priv))
++#define IS_SANDYBRIDGE(dev_priv) IS_PLATFORM(dev_priv, INTEL_SANDYBRIDGE)
+ #define IS_IVYBRIDGE(dev_priv)	IS_PLATFORM(dev_priv, INTEL_IVYBRIDGE)
+ #define IS_IVB_GT1(dev_priv)	(IS_IVYBRIDGE(dev_priv) && \
+ 				 INTEL_INFO(dev_priv)->gt == 1)
 -- 
 2.25.4
 
