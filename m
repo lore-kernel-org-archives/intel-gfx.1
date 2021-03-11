@@ -7,44 +7,45 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 740ECC433E6
-	for <intel-gfx@archiver.kernel.org>; Thu, 11 Mar 2021 15:34:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3D9A2C43381
+	for <intel-gfx@archiver.kernel.org>; Thu, 11 Mar 2021 15:34:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1B96364F46
+	by mail.kernel.org (Postfix) with ESMTPS id DB2E364F94
 	for <intel-gfx@archiver.kernel.org>; Thu, 11 Mar 2021 15:34:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1B96364F46
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DB2E364F94
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 29C596EDEB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A97106EDEE;
 	Thu, 11 Mar 2021 15:34:40 +0000 (UTC)
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A94396EDF3
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 44B0B6EDFF
  for <intel-gfx@lists.freedesktop.org>; Thu, 11 Mar 2021 15:34:31 +0000 (UTC)
-IronPort-SDR: 8/8xMqUaHehpb1FM2RTr2rXa9u12peQ5Nxj1KYwBChZkGCIg1rkXOS0sDhLZObAXW4R9CNMWQl
- 1XxkDhdnPmWw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9920"; a="175797248"
-X-IronPort-AV: E=Sophos;i="5.81,241,1610438400"; d="scan'208";a="175797248"
+IronPort-SDR: Oo3BcDoqtjrUgYe3wFiuKIvc0n1aTtChT8x6p9H0wycStLdJe722xx9vUx+qgkbQEsdzbpdm55
+ swrGIfAhyldg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9920"; a="175797242"
+X-IronPort-AV: E=Sophos;i="5.81,241,1610438400"; d="scan'208";a="175797242"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Mar 2021 07:34:31 -0800
-IronPort-SDR: f1yxzC9OAzaHFSqQshPHd4nfvdT4lWV42kFhfK1JfdqO8PRPmTwWsYdTUWgEbRpfZhEM+e5YM0
- F9I+S3hxNqRw==
-X-IronPort-AV: E=Sophos;i="5.81,241,1610438400"; d="scan'208";a="589251678"
+ 11 Mar 2021 07:34:30 -0800
+IronPort-SDR: A3boQGFWtrveBrlq2M/4duEP8lGntI6wnN3B5zB4iuzAMIeGA/U2sB0b6+2oFFN5xBP0IqE/TP
+ xWzuHCCzBrHA==
+X-IronPort-AV: E=Sophos;i="5.81,241,1610438400"; d="scan'208";a="589251663"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.168])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Mar 2021 07:34:30 -0800
+ 11 Mar 2021 07:34:29 -0800
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 11 Mar 2021 07:34:06 -0800
-Message-Id: <20210311153415.3024607-15-matthew.d.roper@intel.com>
+Date: Thu, 11 Mar 2021 07:34:02 -0800
+Message-Id: <20210311153415.3024607-11-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20210311153415.3024607-1-matthew.d.roper@intel.com>
 References: <20210311153415.3024607-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v2 14/23] drm/i915/xelpd: Handle LPSP for XE_LPD
+Subject: [Intel-gfx] [PATCH v2 10/23] drm/i915/xelpd: Define plane
+ capabilities
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,44 +64,81 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Uma Shankar <uma.shankar@intel.com>
-
-Enable LPSP for XE_LPD and get the proper power well
-enable check in place. For XE_LPD it is PW2 which
-need to check for LPSP.
+XE_LPD's plane support is identical to RKL and ADL-S --- 5 universal + 1
+cursor with NV12 UV support on planes 1-3 and NV12 Y support on planes
+4-5.
 
 v2:
- - Move the XE_LPD check outside of the switch.  (Lucas)
+ - Drop the extra 90/270 rotation check in skl_plane_check_fb(); the DRM
+   property code will already prevent userspace from passing us values
+   that weren't advertised.  (Lucas)
 
-Cc: Anshuman Gupta <anshuman.gupta@intel.com>
-Cc: Animesh Manna <animesh.manna@intel.com>
-Cc: Matt Roper <matthew.d.roper@intel.com>
+Bspec: 53657
+Bspec: 49251
 Cc: Lucas De Marchi <lucas.demarchi@intel.com>
-Suggested-by: Matt Roper <matthew.d.roper@intel.com>
-Signed-off-by: Uma Shankar <uma.shankar@intel.com>
-Signed-off-by: Anshuman Gupta <anshuman.gupta@intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+Reviewed-by: Lucas De Marchi <lucas.demarchi@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display_debugfs.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/gpu/drm/i915/display/skl_universal_plane.c | 11 +++++++----
+ drivers/gpu/drm/i915/i915_irq.c                    |  2 +-
+ drivers/gpu/drm/i915/intel_device_info.c           |  2 +-
+ 3 files changed, 9 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_debugfs.c b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-index 1666aa23092b..a5338dbb4503 100644
---- a/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-@@ -1339,6 +1339,12 @@ static int i915_lpsp_status(struct seq_file *m, void *unused)
- {
- 	struct drm_i915_private *i915 = node_to_i915(m->private);
+diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers/gpu/drm/i915/display/skl_universal_plane.c
+index f24aaadec70d..2280694f19c7 100644
+--- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
++++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
+@@ -266,7 +266,7 @@ int skl_format_to_fourcc(int format, bool rgb_order, bool alpha)
  
-+	if (DISPLAY_VER(i915) >= 13) {
-+		LPSP_STATUS(!intel_lpsp_power_well_enabled(i915,
-+							   SKL_DISP_PW_2));
-+		return 0;
-+	}
-+
- 	switch (DISPLAY_VER(i915)) {
- 	case 12:
- 	case 11:
+ static u8 icl_nv12_y_plane_mask(struct drm_i915_private *i915)
+ {
+-	if (HAS_D12_PLANE_MINIMIZATION(i915))
++	if (DISPLAY_VER(i915) >= 13 || HAS_D12_PLANE_MINIMIZATION(i915))
+ 		return BIT(PLANE_SPRITE2) | BIT(PLANE_SPRITE3);
+ 	else
+ 		return BIT(PLANE_SPRITE4) | BIT(PLANE_SPRITE5);
+@@ -2071,9 +2071,12 @@ skl_universal_plane_create(struct drm_i915_private *dev_priv,
+ 	if (ret)
+ 		goto fail;
+ 
+-	supported_rotations =
+-		DRM_MODE_ROTATE_0 | DRM_MODE_ROTATE_90 |
+-		DRM_MODE_ROTATE_180 | DRM_MODE_ROTATE_270;
++	if (DISPLAY_VER(dev_priv) >= 13)
++		supported_rotations = DRM_MODE_ROTATE_0 | DRM_MODE_ROTATE_180;
++	else
++		supported_rotations =
++			DRM_MODE_ROTATE_0 | DRM_MODE_ROTATE_90 |
++			DRM_MODE_ROTATE_180 | DRM_MODE_ROTATE_270;
+ 
+ 	if (DISPLAY_VER(dev_priv) >= 10)
+ 		supported_rotations |= DRM_MODE_REFLECT_X;
+diff --git a/drivers/gpu/drm/i915/i915_irq.c b/drivers/gpu/drm/i915/i915_irq.c
+index 8beb5e193ba5..a1ac15f972ee 100644
+--- a/drivers/gpu/drm/i915/i915_irq.c
++++ b/drivers/gpu/drm/i915/i915_irq.c
+@@ -2308,7 +2308,7 @@ static u32 gen8_de_port_aux_mask(struct drm_i915_private *dev_priv)
+ 
+ static u32 gen8_de_pipe_fault_mask(struct drm_i915_private *dev_priv)
+ {
+-	if (HAS_D12_PLANE_MINIMIZATION(dev_priv))
++	if (DISPLAY_VER(dev_priv) >= 13 || HAS_D12_PLANE_MINIMIZATION(dev_priv))
+ 		return RKL_DE_PIPE_IRQ_FAULT_ERRORS;
+ 	else if (DISPLAY_VER(dev_priv) >= 11)
+ 		return GEN11_DE_PIPE_IRQ_FAULT_ERRORS;
+diff --git a/drivers/gpu/drm/i915/intel_device_info.c b/drivers/gpu/drm/i915/intel_device_info.c
+index aeb28d589b2b..8a55cdfc802c 100644
+--- a/drivers/gpu/drm/i915/intel_device_info.c
++++ b/drivers/gpu/drm/i915/intel_device_info.c
+@@ -265,7 +265,7 @@ void intel_device_info_runtime_init(struct drm_i915_private *dev_priv)
+ 
+ 	BUILD_BUG_ON(BITS_PER_TYPE(intel_engine_mask_t) < I915_NUM_ENGINES);
+ 
+-	if (HAS_D12_PLANE_MINIMIZATION(dev_priv))
++	if (DISPLAY_VER(dev_priv) >= 13 || HAS_D12_PLANE_MINIMIZATION(dev_priv))
+ 		for_each_pipe(dev_priv, pipe)
+ 			runtime->num_sprites[pipe] = 4;
+ 	else if (INTEL_GEN(dev_priv) >= 11)
 -- 
 2.25.4
 
