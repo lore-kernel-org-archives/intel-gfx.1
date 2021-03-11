@@ -4,36 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 97907C433E6
-	for <intel-gfx@archiver.kernel.org>; Thu, 11 Mar 2021 13:49:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 01D41C433DB
+	for <intel-gfx@archiver.kernel.org>; Thu, 11 Mar 2021 13:49:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 39C6964F97
+	by mail.kernel.org (Postfix) with ESMTPS id 987C664F9C
 	for <intel-gfx@archiver.kernel.org>; Thu, 11 Mar 2021 13:49:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 39C6964F97
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 987C664F9C
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ACA386ECAC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D40776ECAD;
 	Thu, 11 Mar 2021 13:49:10 +0000 (UTC)
 Received: from mblankhorst.nl (mblankhorst.nl
  [IPv6:2a02:2308::216:3eff:fe92:dfa3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 380206EC97
- for <intel-gfx@lists.freedesktop.org>; Thu, 11 Mar 2021 13:48:53 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 837476EC95
+ for <intel-gfx@lists.freedesktop.org>; Thu, 11 Mar 2021 13:48:54 +0000 (UTC)
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 11 Mar 2021 14:42:12 +0100
-Message-Id: <20210311134249.588632-33-maarten.lankhorst@linux.intel.com>
+Date: Thu, 11 Mar 2021 14:42:46 +0100
+Message-Id: <20210311134249.588632-67-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.30.1
 In-Reply-To: <20210311134249.588632-1-maarten.lankhorst@linux.intel.com>
 References: <20210311134249.588632-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v8 32/69] drm/i915: Prepare for obj->mm.lock
- removal, v2.
+Subject: [Intel-gfx] [PATCH v8 66/69] drm/i915: Add ww parameter to
+ get_pages() callback
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,95 +46,240 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@intel.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-RnJvbTogVGhvbWFzIEhlbGxzdHLDtm0gPHRob21hcy5oZWxsc3Ryb21AaW50ZWwuY29tPgoKU3Rv
-bGVuIG9iamVjdHMgbmVlZCB0byBsb2NrLCBhbmQgd2UgbWF5IGNhbGwgcHV0X3BhZ2VzIHdoZW4K
-cmVmY291bnQgZHJvcHMgdG8gMCwgZW5zdXJlIGFsbCBjYWxscyBhcmUgaGFuZGxlZCBjb3JyZWN0
-bHkuCgpDaGFuZ2VzIHNpbmNlIHYxOgotIFJlYmFzZSBvbiB0b3Agb2YgdXBzdHJlYW0gY2hhbmdl
-cy4KCklkZWEtZnJvbTogVGhvbWFzIEhlbGxzdHLDtm0gPHRob21hcy5oZWxsc3Ryb21AaW50ZWwu
-Y29tPgpTaWduZWQtb2ZmLWJ5OiBNYWFydGVuIExhbmtob3JzdCA8bWFhcnRlbi5sYW5raG9yc3RA
-bGludXguaW50ZWwuY29tPgpTaWduZWQtb2ZmLWJ5OiBUaG9tYXMgSGVsbHN0csO2bSA8dGhvbWFz
-LmhlbGxzdHJvbUBsaW51eC5pbnRlbC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2k5MTUvZ2Vt
-L2k5MTVfZ2VtX29iamVjdC5oIHwgMTQgKysrKysrKysrKysrKysKIGRyaXZlcnMvZ3B1L2RybS9p
-OTE1L2dlbS9pOTE1X2dlbV9wYWdlcy5jICB8IDE0ICsrKysrKysrKysrKy0tCiBkcml2ZXJzL2dw
-dS9kcm0vaTkxNS9nZW0vaTkxNV9nZW1fc3RvbGVuLmMgfCAxMiArKysrKysrLS0tLS0KIDMgZmls
-ZXMgY2hhbmdlZCwgMzMgaW5zZXJ0aW9ucygrKSwgNyBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQg
-YS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9nZW0vaTkxNV9nZW1fb2JqZWN0LmggYi9kcml2ZXJzL2dw
-dS9kcm0vaTkxNS9nZW0vaTkxNV9nZW1fb2JqZWN0LmgKaW5kZXggOTgzZjJkNGIyYTg1Li43NGRl
-MTk1YjU3ZGUgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2dlbS9pOTE1X2dlbV9v
-YmplY3QuaAorKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9nZW0vaTkxNV9nZW1fb2JqZWN0LmgK
-QEAgLTE0NCw2ICsxNDQsMjAgQEAgaTkxNV9nZW1fb2JqZWN0X3B1dChzdHJ1Y3QgZHJtX2k5MTVf
-Z2VtX29iamVjdCAqb2JqKQogCiAjZGVmaW5lIGFzc2VydF9vYmplY3RfaGVsZChvYmopIGRtYV9y
-ZXN2X2Fzc2VydF9oZWxkKChvYmopLT5iYXNlLnJlc3YpCiAKKy8qCisgKiBJZiBtb3JlIHRoYW4g
-b25lIHBvdGVudGlhbCBzaW11bHRhbmVvdXMgbG9ja2VyLCBhc3NlcnQgaGVsZC4KKyAqLworc3Rh
-dGljIGlubGluZSB2b2lkIGFzc2VydF9vYmplY3RfaGVsZF9zaGFyZWQoc3RydWN0IGRybV9pOTE1
-X2dlbV9vYmplY3QgKm9iaikKK3sKKwkvKgorCSAqIE5vdGUgbW0gbGlzdCBsb29rdXAgaXMgcHJv
-dGVjdGVkIGJ5CisJICoga3JlZl9nZXRfdW5sZXNzX3plcm8oKS4KKwkgKi8KKwlpZiAoSVNfRU5B
-QkxFRChDT05GSUdfTE9DS0RFUCkgJiYKKwkgICAga3JlZl9yZWFkKCZvYmotPmJhc2UucmVmY291
-bnQpID4gMCkKKwkJbG9ja2RlcF9hc3NlcnRfaGVsZCgmb2JqLT5tbS5sb2NrKTsKK30KKwogc3Rh
-dGljIGlubGluZSBpbnQgX19pOTE1X2dlbV9vYmplY3RfbG9jayhzdHJ1Y3QgZHJtX2k5MTVfZ2Vt
-X29iamVjdCAqb2JqLAogCQkJCQkgc3RydWN0IGk5MTVfZ2VtX3d3X2N0eCAqd3csCiAJCQkJCSBi
-b29sIGludHIpCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9nZW0vaTkxNV9nZW1f
-cGFnZXMuYyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2dlbS9pOTE1X2dlbV9wYWdlcy5jCmluZGV4
-IGEyNDYxN2FmM2M5My4uMmQwMDY1ZmE2ZTgwIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0v
-aTkxNS9nZW0vaTkxNV9nZW1fcGFnZXMuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9nZW0v
-aTkxNV9nZW1fcGFnZXMuYwpAQCAtMTksNyArMTksNyBAQCB2b2lkIF9faTkxNV9nZW1fb2JqZWN0
-X3NldF9wYWdlcyhzdHJ1Y3QgZHJtX2k5MTVfZ2VtX29iamVjdCAqb2JqLAogCWJvb2wgc2hyaW5r
-YWJsZTsKIAlpbnQgaTsKIAotCWxvY2tkZXBfYXNzZXJ0X2hlbGQoJm9iai0+bW0ubG9jayk7CisJ
-YXNzZXJ0X29iamVjdF9oZWxkX3NoYXJlZChvYmopOwogCiAJaWYgKGk5MTVfZ2VtX29iamVjdF9p
-c192b2xhdGlsZShvYmopKQogCQlvYmotPm1tLm1hZHYgPSBJOTE1X01BRFZfRE9OVE5FRUQ7CkBA
-IC03MCw2ICs3MCw3IEBAIHZvaWQgX19pOTE1X2dlbV9vYmplY3Rfc2V0X3BhZ2VzKHN0cnVjdCBk
-cm1faTkxNV9nZW1fb2JqZWN0ICpvYmosCiAJCXN0cnVjdCBsaXN0X2hlYWQgKmxpc3Q7CiAJCXVu
-c2lnbmVkIGxvbmcgZmxhZ3M7CiAKKwkJbG9ja2RlcF9hc3NlcnRfaGVsZCgmb2JqLT5tbS5sb2Nr
-KTsKIAkJc3Bpbl9sb2NrX2lycXNhdmUoJmk5MTUtPm1tLm9ial9sb2NrLCBmbGFncyk7CiAKIAkJ
-aTkxNS0+bW0uc2hyaW5rX2NvdW50Kys7CkBAIC05MSw2ICs5Miw4IEBAIGludCBfX19faTkxNV9n
-ZW1fb2JqZWN0X2dldF9wYWdlcyhzdHJ1Y3QgZHJtX2k5MTVfZ2VtX29iamVjdCAqb2JqKQogCXN0
-cnVjdCBkcm1faTkxNV9wcml2YXRlICppOTE1ID0gdG9faTkxNShvYmotPmJhc2UuZGV2KTsKIAlp
-bnQgZXJyOwogCisJYXNzZXJ0X29iamVjdF9oZWxkX3NoYXJlZChvYmopOworCiAJaWYgKHVubGlr
-ZWx5KG9iai0+bW0ubWFkdiAhPSBJOTE1X01BRFZfV0lMTE5FRUQpKSB7CiAJCWRybV9kYmcoJmk5
-MTUtPmRybSwKIAkJCSJBdHRlbXB0aW5nIHRvIG9idGFpbiBhIHB1cmdlYWJsZSBvYmplY3RcbiIp
-OwpAQCAtMTE4LDYgKzEyMSw4IEBAIGludCBfX2k5MTVfZ2VtX29iamVjdF9nZXRfcGFnZXMoc3Ry
-dWN0IGRybV9pOTE1X2dlbV9vYmplY3QgKm9iaikKIAlpZiAoZXJyKQogCQlyZXR1cm4gZXJyOwog
-CisJYXNzZXJ0X29iamVjdF9oZWxkX3NoYXJlZChvYmopOworCiAJaWYgKHVubGlrZWx5KCFpOTE1
-X2dlbV9vYmplY3RfaGFzX3BhZ2VzKG9iaikpKSB7CiAJCUdFTV9CVUdfT04oaTkxNV9nZW1fb2Jq
-ZWN0X2hhc19waW5uZWRfcGFnZXMob2JqKSk7CiAKQEAgLTE0NSw3ICsxNTAsNyBAQCB2b2lkIGk5
-MTVfZ2VtX29iamVjdF90cnVuY2F0ZShzdHJ1Y3QgZHJtX2k5MTVfZ2VtX29iamVjdCAqb2JqKQog
-LyogVHJ5IHRvIGRpc2NhcmQgdW53YW50ZWQgcGFnZXMgKi8KIHZvaWQgaTkxNV9nZW1fb2JqZWN0
-X3dyaXRlYmFjayhzdHJ1Y3QgZHJtX2k5MTVfZ2VtX29iamVjdCAqb2JqKQogewotCWxvY2tkZXBf
-YXNzZXJ0X2hlbGQoJm9iai0+bW0ubG9jayk7CisJYXNzZXJ0X29iamVjdF9oZWxkX3NoYXJlZChv
-YmopOwogCUdFTV9CVUdfT04oaTkxNV9nZW1fb2JqZWN0X2hhc19wYWdlcyhvYmopKTsKIAogCWlm
-IChvYmotPm9wcy0+d3JpdGViYWNrKQpAQCAtMTc2LDYgKzE4MSw4IEBAIF9faTkxNV9nZW1fb2Jq
-ZWN0X3Vuc2V0X3BhZ2VzKHN0cnVjdCBkcm1faTkxNV9nZW1fb2JqZWN0ICpvYmopCiB7CiAJc3Ry
-dWN0IHNnX3RhYmxlICpwYWdlczsKIAorCWFzc2VydF9vYmplY3RfaGVsZF9zaGFyZWQob2JqKTsK
-KwogCXBhZ2VzID0gZmV0Y2hfYW5kX3plcm8oJm9iai0+bW0ucGFnZXMpOwogCWlmIChJU19FUlJf
-T1JfTlVMTChwYWdlcykpCiAJCXJldHVybiBwYWdlczsKQEAgLTIwMyw2ICsyMTAsOSBAQCBpbnQg
-X19pOTE1X2dlbV9vYmplY3RfcHV0X3BhZ2VzX2xvY2tlZChzdHJ1Y3QgZHJtX2k5MTVfZ2VtX29i
-amVjdCAqb2JqKQogCWlmIChpOTE1X2dlbV9vYmplY3RfaGFzX3Bpbm5lZF9wYWdlcyhvYmopKQog
-CQlyZXR1cm4gLUVCVVNZOwogCisJLyogTWF5IGJlIGNhbGxlZCBieSBzaHJpbmtlciBmcm9tIHdp
-dGhpbiBnZXRfcGFnZXMoKSAob24gYW5vdGhlciBibykgKi8KKwlhc3NlcnRfb2JqZWN0X2hlbGRf
-c2hhcmVkKG9iaik7CisKIAlpOTE1X2dlbV9vYmplY3RfcmVsZWFzZV9tbWFwX29mZnNldChvYmop
-OwogCiAJLyoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2dlbS9pOTE1X2dlbV9z
-dG9sZW4uYyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2dlbS9pOTE1X2dlbV9zdG9sZW4uYwppbmRl
-eCA3Y2RiMzJkODgxZDkuLmIwNTk3ZGUyMDZkZSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJt
-L2k5MTUvZ2VtL2k5MTVfZ2VtX3N0b2xlbi5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2dl
-bS9pOTE1X2dlbV9zdG9sZW4uYwpAQCAtNjM3LDEzICs2MzcsMTUgQEAgc3RhdGljIGludCBfX2k5
-MTVfZ2VtX29iamVjdF9jcmVhdGVfc3RvbGVuKHN0cnVjdCBpbnRlbF9tZW1vcnlfcmVnaW9uICpt
-ZW0sCiAJY2FjaGVfbGV2ZWwgPSBIQVNfTExDKG1lbS0+aTkxNSkgPyBJOTE1X0NBQ0hFX0xMQyA6
-IEk5MTVfQ0FDSEVfTk9ORTsKIAlpOTE1X2dlbV9vYmplY3Rfc2V0X2NhY2hlX2NvaGVyZW5jeShv
-YmosIGNhY2hlX2xldmVsKTsKIAotCWVyciA9IGk5MTVfZ2VtX29iamVjdF9waW5fcGFnZXMob2Jq
-KTsKLQlpZiAoZXJyKQotCQlyZXR1cm4gZXJyOworCWlmIChXQVJOX09OKCFpOTE1X2dlbV9vYmpl
-Y3RfdHJ5bG9jayhvYmopKSkKKwkJcmV0dXJuIC1FQlVTWTsKIAotCWk5MTVfZ2VtX29iamVjdF9p
-bml0X21lbW9yeV9yZWdpb24ob2JqLCBtZW0pOworCWVyciA9IGk5MTVfZ2VtX29iamVjdF9waW5f
-cGFnZXMob2JqKTsKKwlpZiAoIWVycikKKwkJaTkxNV9nZW1fb2JqZWN0X2luaXRfbWVtb3J5X3Jl
-Z2lvbihvYmosIG1lbSk7CisJaTkxNV9nZW1fb2JqZWN0X3VubG9jayhvYmopOwogCi0JcmV0dXJu
-IDA7CisJcmV0dXJuIGVycjsKIH0KIAogc3RhdGljIGludCBfaTkxNV9nZW1fb2JqZWN0X3N0b2xl
-bl9pbml0KHN0cnVjdCBpbnRlbF9tZW1vcnlfcmVnaW9uICptZW0sCi0tIAoyLjMwLjEKCl9fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkludGVsLWdmeCBtYWls
-aW5nIGxpc3QKSW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZy
-ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ludGVsLWdmeAo=
+We will need this to support eviction with lmem, so
+explicitly pass ww as a parameter.
+
+Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+---
+ drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c           | 3 ++-
+ drivers/gpu/drm/i915/gem/i915_gem_internal.c         | 3 ++-
+ drivers/gpu/drm/i915/gem/i915_gem_object_types.h     | 3 ++-
+ drivers/gpu/drm/i915/gem/i915_gem_pages.c            | 2 +-
+ drivers/gpu/drm/i915/gem/i915_gem_region.c           | 3 ++-
+ drivers/gpu/drm/i915/gem/i915_gem_region.h           | 4 +++-
+ drivers/gpu/drm/i915/gem/i915_gem_shmem.c            | 3 ++-
+ drivers/gpu/drm/i915/gem/i915_gem_stolen.c           | 3 ++-
+ drivers/gpu/drm/i915/gem/i915_gem_userptr.c          | 3 ++-
+ drivers/gpu/drm/i915/gem/selftests/huge_gem_object.c | 3 ++-
+ drivers/gpu/drm/i915/gem/selftests/huge_pages.c      | 9 ++++++---
+ drivers/gpu/drm/i915/gvt/dmabuf.c                    | 3 ++-
+ drivers/gpu/drm/i915/selftests/i915_gem_gtt.c        | 3 ++-
+ 13 files changed, 30 insertions(+), 15 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c b/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
+index 7636c2644ccf..5821524e391c 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
+@@ -199,7 +199,8 @@ struct dma_buf *i915_gem_prime_export(struct drm_gem_object *gem_obj, int flags)
+ 	return drm_gem_dmabuf_export(gem_obj->dev, &exp_info);
+ }
+ 
+-static int i915_gem_object_get_pages_dmabuf(struct drm_i915_gem_object *obj)
++static int i915_gem_object_get_pages_dmabuf(struct drm_i915_gem_object *obj,
++					    struct i915_gem_ww_ctx *ww)
+ {
+ 	struct sg_table *pages;
+ 	unsigned int sg_page_sizes;
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_internal.c b/drivers/gpu/drm/i915/gem/i915_gem_internal.c
+index 21cc40897ca8..90777fb5f5e0 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_internal.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_internal.c
+@@ -30,7 +30,8 @@ static void internal_free_pages(struct sg_table *st)
+ 	kfree(st);
+ }
+ 
+-static int i915_gem_object_get_pages_internal(struct drm_i915_gem_object *obj)
++static int i915_gem_object_get_pages_internal(struct drm_i915_gem_object *obj,
++					      struct i915_gem_ww_ctx *ww)
+ {
+ 	struct drm_i915_private *i915 = to_i915(obj->base.dev);
+ 	struct sg_table *st;
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
+index a5bc42c7087a..280f54a75ab1 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
++++ b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
+@@ -50,7 +50,8 @@ struct drm_i915_gem_object_ops {
+ 	 * being released or under memory pressure (where we attempt to
+ 	 * reap pages for the shrinker).
+ 	 */
+-	int (*get_pages)(struct drm_i915_gem_object *obj);
++	int (*get_pages)(struct drm_i915_gem_object *obj,
++			 struct i915_gem_ww_ctx *ww);
+ 	void (*put_pages)(struct drm_i915_gem_object *obj,
+ 			  struct sg_table *pages);
+ 	void (*truncate)(struct drm_i915_gem_object *obj);
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_pages.c b/drivers/gpu/drm/i915/gem/i915_gem_pages.c
+index aed8a37ccdc9..58e222030e10 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_pages.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_pages.c
+@@ -100,7 +100,7 @@ int ____i915_gem_object_get_pages(struct drm_i915_gem_object *obj)
+ 		return -EFAULT;
+ 	}
+ 
+-	err = obj->ops->get_pages(obj);
++	err = obj->ops->get_pages(obj, NULL);
+ 	GEM_BUG_ON(!err && !i915_gem_object_has_pages(obj));
+ 
+ 	return err;
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_region.c b/drivers/gpu/drm/i915/gem/i915_gem_region.c
+index 6a84fb6dde24..6cb8b70c19bf 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_region.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_region.c
+@@ -20,7 +20,8 @@ i915_gem_object_put_pages_buddy(struct drm_i915_gem_object *obj,
+ }
+ 
+ int
+-i915_gem_object_get_pages_buddy(struct drm_i915_gem_object *obj)
++i915_gem_object_get_pages_buddy(struct drm_i915_gem_object *obj,
++				struct i915_gem_ww_ctx *ww)
+ {
+ 	const u64 max_segment = i915_sg_segment_size();
+ 	struct intel_memory_region *mem = obj->mm.region;
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_region.h b/drivers/gpu/drm/i915/gem/i915_gem_region.h
+index ebddc86d78f7..c6f250aac925 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_region.h
++++ b/drivers/gpu/drm/i915/gem/i915_gem_region.h
+@@ -9,10 +9,12 @@
+ #include <linux/types.h>
+ 
+ struct intel_memory_region;
++struct i915_gem_ww_ctx;
+ struct drm_i915_gem_object;
+ struct sg_table;
+ 
+-int i915_gem_object_get_pages_buddy(struct drm_i915_gem_object *obj);
++int i915_gem_object_get_pages_buddy(struct drm_i915_gem_object *obj,
++				    struct i915_gem_ww_ctx *ww);
+ void i915_gem_object_put_pages_buddy(struct drm_i915_gem_object *obj,
+ 				     struct sg_table *pages);
+ 
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
+index a9bfa66c8da1..3f80a017959a 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
+@@ -25,7 +25,8 @@ static void check_release_pagevec(struct pagevec *pvec)
+ 	cond_resched();
+ }
+ 
+-static int shmem_get_pages(struct drm_i915_gem_object *obj)
++static int shmem_get_pages(struct drm_i915_gem_object *obj,
++			   struct i915_gem_ww_ctx *ww)
+ {
+ 	struct drm_i915_private *i915 = to_i915(obj->base.dev);
+ 	struct intel_memory_region *mem = obj->mm.region;
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_stolen.c b/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
+index b0597de206de..5b732b0fe5ce 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
+@@ -568,7 +568,8 @@ i915_pages_create_for_stolen(struct drm_device *dev,
+ 	return st;
+ }
+ 
+-static int i915_gem_object_get_pages_stolen(struct drm_i915_gem_object *obj)
++static int i915_gem_object_get_pages_stolen(struct drm_i915_gem_object *obj,
++					    struct i915_gem_ww_ctx *ww)
+ {
+ 	struct sg_table *pages =
+ 		i915_pages_create_for_stolen(obj->base.dev,
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_userptr.c b/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
+index 09b4219eab5d..693d0dbe9ed2 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
+@@ -126,7 +126,8 @@ static void i915_gem_object_userptr_drop_ref(struct drm_i915_gem_object *obj)
+ 	}
+ }
+ 
+-static int i915_gem_userptr_get_pages(struct drm_i915_gem_object *obj)
++static int i915_gem_userptr_get_pages(struct drm_i915_gem_object *obj,
++				      struct i915_gem_ww_ctx *ww)
+ {
+ 	struct drm_i915_private *i915 = to_i915(obj->base.dev);
+ 	const unsigned long num_pages = obj->base.size >> PAGE_SHIFT;
+diff --git a/drivers/gpu/drm/i915/gem/selftests/huge_gem_object.c b/drivers/gpu/drm/i915/gem/selftests/huge_gem_object.c
+index 0c8ecfdf5405..6ce237a5e38d 100644
+--- a/drivers/gpu/drm/i915/gem/selftests/huge_gem_object.c
++++ b/drivers/gpu/drm/i915/gem/selftests/huge_gem_object.c
+@@ -25,7 +25,8 @@ static void huge_free_pages(struct drm_i915_gem_object *obj,
+ 	kfree(pages);
+ }
+ 
+-static int huge_get_pages(struct drm_i915_gem_object *obj)
++static int huge_get_pages(struct drm_i915_gem_object *obj,
++			  struct i915_gem_ww_ctx *ww)
+ {
+ #define GFP (GFP_KERNEL | __GFP_NOWARN | __GFP_RETRY_MAYFAIL)
+ 	const unsigned long nreal = obj->scratch / PAGE_SIZE;
+diff --git a/drivers/gpu/drm/i915/gem/selftests/huge_pages.c b/drivers/gpu/drm/i915/gem/selftests/huge_pages.c
+index d85ca79ac433..80eeb59aae67 100644
+--- a/drivers/gpu/drm/i915/gem/selftests/huge_pages.c
++++ b/drivers/gpu/drm/i915/gem/selftests/huge_pages.c
+@@ -56,7 +56,8 @@ static void huge_pages_free_pages(struct sg_table *st)
+ 	kfree(st);
+ }
+ 
+-static int get_huge_pages(struct drm_i915_gem_object *obj)
++static int get_huge_pages(struct drm_i915_gem_object *obj,
++			  struct i915_gem_ww_ctx *ww)
+ {
+ #define GFP (GFP_KERNEL | __GFP_NOWARN | __GFP_NORETRY)
+ 	unsigned int page_mask = obj->mm.page_mask;
+@@ -179,7 +180,8 @@ huge_pages_object(struct drm_i915_private *i915,
+ 	return obj;
+ }
+ 
+-static int fake_get_huge_pages(struct drm_i915_gem_object *obj)
++static int fake_get_huge_pages(struct drm_i915_gem_object *obj,
++			       struct i915_gem_ww_ctx *ww)
+ {
+ 	struct drm_i915_private *i915 = to_i915(obj->base.dev);
+ 	const u64 max_len = rounddown_pow_of_two(UINT_MAX);
+@@ -234,7 +236,8 @@ static int fake_get_huge_pages(struct drm_i915_gem_object *obj)
+ 	return 0;
+ }
+ 
+-static int fake_get_huge_pages_single(struct drm_i915_gem_object *obj)
++static int fake_get_huge_pages_single(struct drm_i915_gem_object *obj,
++				      struct i915_gem_ww_ctx *ww)
+ {
+ 	struct drm_i915_private *i915 = to_i915(obj->base.dev);
+ 	struct sg_table *st;
+diff --git a/drivers/gpu/drm/i915/gvt/dmabuf.c b/drivers/gpu/drm/i915/gvt/dmabuf.c
+index d4f883f35b95..609257aaf711 100644
+--- a/drivers/gpu/drm/i915/gvt/dmabuf.c
++++ b/drivers/gpu/drm/i915/gvt/dmabuf.c
+@@ -55,7 +55,8 @@ static void vgpu_unpin_dma_address(struct intel_vgpu *vgpu,
+ }
+ 
+ static int vgpu_gem_get_pages(
+-		struct drm_i915_gem_object *obj)
++		struct drm_i915_gem_object *obj,
++		struct i915_gem_ww_ctx *ww)
+ {
+ 	struct drm_i915_private *dev_priv = to_i915(obj->base.dev);
+ 	struct intel_vgpu *vgpu;
+diff --git a/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c b/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
+index 2e4f06eaacc1..fc92fed7a04a 100644
+--- a/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
++++ b/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
+@@ -50,7 +50,8 @@ static void fake_free_pages(struct drm_i915_gem_object *obj,
+ 	kfree(pages);
+ }
+ 
+-static int fake_get_pages(struct drm_i915_gem_object *obj)
++static int fake_get_pages(struct drm_i915_gem_object *obj,
++			  struct i915_gem_ww_ctx *ww)
+ {
+ #define GFP (GFP_KERNEL | __GFP_NOWARN | __GFP_NORETRY)
+ #define PFN_BIAS 0x1000
+-- 
+2.30.1
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
