@@ -4,48 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1BD48C433E0
-	for <intel-gfx@archiver.kernel.org>; Thu, 11 Mar 2021 15:34:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BC872C433E6
+	for <intel-gfx@archiver.kernel.org>; Thu, 11 Mar 2021 15:34:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6189F64FA8
-	for <intel-gfx@archiver.kernel.org>; Thu, 11 Mar 2021 15:34:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6189F64FA8
+	by mail.kernel.org (Postfix) with ESMTPS id 663C364FA8
+	for <intel-gfx@archiver.kernel.org>; Thu, 11 Mar 2021 15:34:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 663C364FA8
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 91ECB6EDFA;
-	Thu, 11 Mar 2021 15:34:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E1456EE00;
+	Thu, 11 Mar 2021 15:34:33 +0000 (UTC)
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 759956EDF0
- for <intel-gfx@lists.freedesktop.org>; Thu, 11 Mar 2021 15:34:30 +0000 (UTC)
-IronPort-SDR: O4A7e09d5qzPlm4oPTQcwezws5wMMbQJSLiyIIk+KfGJV8HWVt3qchPzkyP5uKc80yKnVsWaP5
- zXPdYk/OsmbQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9920"; a="175797239"
-X-IronPort-AV: E=Sophos;i="5.81,241,1610438400"; d="scan'208";a="175797239"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 093A46EDF3
+ for <intel-gfx@lists.freedesktop.org>; Thu, 11 Mar 2021 15:34:32 +0000 (UTC)
+IronPort-SDR: xDnqIHqdQR/UY9d3R67u6uRFLrdY92e67Yzhl5j7UFA4SdJU+rjbFDQXDCl+yhRsad0KZR6/IT
+ MENnTGfoTFFA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9920"; a="175797251"
+X-IronPort-AV: E=Sophos;i="5.81,241,1610438400"; d="scan'208";a="175797251"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Mar 2021 07:34:29 -0800
-IronPort-SDR: s598jZZntg+RhIMUVTlK8GulFfbu6gGQDUmlTNiABes1F3jT/nZCDPPaN4Kxdxnu79IPaZzT9H
- 9C4M7xoFIgJA==
-X-IronPort-AV: E=Sophos;i="5.81,241,1610438400"; d="scan'208";a="589251654"
+ 11 Mar 2021 07:34:31 -0800
+IronPort-SDR: 8bI0psbTtKDAWL4GooBndIykZq8MKcfhtSw8RGW8J5ydpPoRljfemzAh7zv9CzQ+OZ2TRUeoPF
+ zA/mLB4LeR1w==
+X-IronPort-AV: E=Sophos;i="5.81,241,1610438400"; d="scan'208";a="589251688"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.168])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Mar 2021 07:34:29 -0800
+ 11 Mar 2021 07:34:31 -0800
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 11 Mar 2021 07:33:59 -0800
-Message-Id: <20210311153415.3024607-8-matthew.d.roper@intel.com>
+Date: Thu, 11 Mar 2021 07:34:09 -0800
+Message-Id: <20210311153415.3024607-18-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20210311153415.3024607-1-matthew.d.roper@intel.com>
 References: <20210311153415.3024607-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v2 07/23] drm/i915/xelpd: add XE_LPD display
- characteristics
+Subject: [Intel-gfx] [PATCH v2 17/23] drm/i915/xelpd: Add Wa_14011503030
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,40 +62,41 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Let's start preparing for upcoming platforms that will use an XE_LPD
-design.
-
-v2:
- - Use the now-preferred "XE_LPD" term to refer to this design
- - Utilize DISPLAY_VER() rather than a feature flag
- - Drop unused mbus_size field (Lucas)
-
+Cc: Aditya Swarup <aditya.swarup@intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 ---
- drivers/gpu/drm/i915/i915_pci.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ drivers/gpu/drm/i915/display/intel_display_power.c | 4 ++++
+ drivers/gpu/drm/i915/i915_reg.h                    | 2 ++
+ 2 files changed, 6 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
-index 5bfd94e2cc6f..3f06502e1d85 100644
---- a/drivers/gpu/drm/i915/i915_pci.c
-+++ b/drivers/gpu/drm/i915/i915_pci.c
-@@ -936,6 +936,16 @@ static const struct intel_device_info adl_s_info = {
- 	.dma_mask_size = 46,
- };
- 
-+#define XE_LPD_FEATURES \
-+	.display_ver = 13,						\
-+	.display.has_psr_hw_tracking = 0,				\
-+	.abox_mask = GENMASK(1, 0),					\
-+	.pipe_mask = BIT(PIPE_A) | BIT(PIPE_B) | BIT(PIPE_C) | BIT(PIPE_D), \
-+	.cpu_transcoder_mask = BIT(TRANSCODER_A) | BIT(TRANSCODER_B) |	\
-+		BIT(TRANSCODER_C) | BIT(TRANSCODER_D),			\
-+	.ddb_size = 4096,						\
-+	.num_supported_dbuf_slices = 4
+diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
+index 2cccf45837d3..8bb5203dd2da 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_power.c
++++ b/drivers/gpu/drm/i915/display/intel_display_power.c
+@@ -5840,6 +5840,10 @@ static void icl_display_core_init(struct drm_i915_private *dev_priv,
+ 		      DCPR_MASK_LPMODE | DCPR_MASK_MAXLATENCY_MEMUP_CLR;
+ 		intel_uncore_rmw(&dev_priv->uncore, GEN11_CHICKEN_DCPR_2, 0, val);
+ 	}
 +
- #undef GEN
- #undef PLATFORM
++	/* Wa_14011503030:xelpd */
++	if (DISPLAY_VER(dev_priv) >= 13)
++		intel_de_write(dev_priv, XELPD_DISPLAY_ERR_FATAL_MASK, ~0);
+ }
  
+ static void icl_display_core_uninit(struct drm_i915_private *dev_priv)
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index 348b94a69b96..95fd6bb8f0ff 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -7780,6 +7780,8 @@ enum {
+ #define  GEN8_GT_BCS_IRQ		(1 << 1)
+ #define  GEN8_GT_RCS_IRQ		(1 << 0)
+ 
++#define XELPD_DISPLAY_ERR_FATAL_MASK	_MMIO(0x4421c)
++
+ #define GEN8_GT_ISR(which) _MMIO(0x44300 + (0x10 * (which)))
+ #define GEN8_GT_IMR(which) _MMIO(0x44304 + (0x10 * (which)))
+ #define GEN8_GT_IIR(which) _MMIO(0x44308 + (0x10 * (which)))
 -- 
 2.25.4
 
