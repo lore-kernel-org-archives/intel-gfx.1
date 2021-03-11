@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EDBA0C433DB
-	for <intel-gfx@archiver.kernel.org>; Thu, 11 Mar 2021 15:34:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 94148C43381
+	for <intel-gfx@archiver.kernel.org>; Thu, 11 Mar 2021 15:34:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9301864F94
-	for <intel-gfx@archiver.kernel.org>; Thu, 11 Mar 2021 15:34:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9301864F94
+	by mail.kernel.org (Postfix) with ESMTPS id 357EB64F46
+	for <intel-gfx@archiver.kernel.org>; Thu, 11 Mar 2021 15:34:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 357EB64F46
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C5986EDFF;
-	Thu, 11 Mar 2021 15:34:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 02A3C6EE04;
+	Thu, 11 Mar 2021 15:34:34 +0000 (UTC)
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DFB656EDF6
- for <intel-gfx@lists.freedesktop.org>; Thu, 11 Mar 2021 15:34:30 +0000 (UTC)
-IronPort-SDR: /hUB9aRnPJldLNZ36Y2mDmwPLRu5rQPQEhiTU9hitnzi4FI9FALI7MqZiQzBDtHDWHpE0NINrq
- 8QOyOZySNLXg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9920"; a="175797240"
-X-IronPort-AV: E=Sophos;i="5.81,241,1610438400"; d="scan'208";a="175797240"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A8306EDF5
+ for <intel-gfx@lists.freedesktop.org>; Thu, 11 Mar 2021 15:34:32 +0000 (UTC)
+IronPort-SDR: Dak5etE6XjWsW7Zdsl1r+T8AIaFPxt+IDOajREwFPUwUVOLYZ/i+6MGbXHOEc5oAe6JN4oVb4H
+ UR0QCOVUQ1ZQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9920"; a="175797252"
+X-IronPort-AV: E=Sophos;i="5.81,241,1610438400"; d="scan'208";a="175797252"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Mar 2021 07:34:29 -0800
-IronPort-SDR: 0xsiCqMj5XkZXQjsKCshuhT7kxs3BQdvtK0dz8LMJMoX//7PEEbkpiufiH7gBuB0nmXqdQ27HM
- 7dz/zlhARX7A==
-X-IronPort-AV: E=Sophos;i="5.81,241,1610438400"; d="scan'208";a="589251657"
+ 11 Mar 2021 07:34:31 -0800
+IronPort-SDR: 7yPUYdbPFtdonYp13JI2tHV5hXG8PDArgKEM9mJJaqSRVaX/wsMwyF7whXfLoXHSAR/Mmzv44h
+ DvKOmoVpp+FQ==
+X-IronPort-AV: E=Sophos;i="5.81,241,1610438400"; d="scan'208";a="589251692"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.168])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Mar 2021 07:34:29 -0800
+ 11 Mar 2021 07:34:31 -0800
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 11 Mar 2021 07:34:00 -0800
-Message-Id: <20210311153415.3024607-9-matthew.d.roper@intel.com>
+Date: Thu, 11 Mar 2021 07:34:10 -0800
+Message-Id: <20210311153415.3024607-19-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20210311153415.3024607-1-matthew.d.roper@intel.com>
 References: <20210311153415.3024607-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v2 08/23] drm/i915/xelpd: Handle proper AUX
- interrupt bits
+Subject: [Intel-gfx] [PATCH v2 18/23] drm/i915/display/dsc: Refactor
+ intel_dp_dsc_compute_bpp
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,85 +58,71 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-XE_LPD has new AUX interrupt bits for DDI-D and DDI-E that take the
-spots that were used by TC5/TC6 on Display12 platforms.
+From: Vandita Kulkarni <vandita.kulkarni@intel.com>
 
-While we're at it, let's convert the bit definitions for all TGL+ aux
-bits over to the modern REG_BIT() notation.
+Move the platform specific max bpc calculation into
+intel_dp_dsc_compute_bpp function
 
-v2:
- - Maintain bit order rather than logical order.  (Lucas)
- - Convert surrounding code to REG_BIT() notation.  (Lucas)
-
-Bspec: 50064
-Cc: Anusha Srivatsa <anusha.srivatsa@intel.com>
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>
+Cc: Manasi Navare <manasi.d.navare@intel.com>
+Signed-off-by: Vandita Kulkarni <vandita.kulkarni@intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 ---
- drivers/gpu/drm/i915/i915_irq.c | 12 +++++++++++-
- drivers/gpu/drm/i915/i915_reg.h | 20 +++++++++++---------
- 2 files changed, 22 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp.c | 20 ++++++++++----------
+ 1 file changed, 10 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_irq.c b/drivers/gpu/drm/i915/i915_irq.c
-index 23be88d59055..c9e03973502c 100644
---- a/drivers/gpu/drm/i915/i915_irq.c
-+++ b/drivers/gpu/drm/i915/i915_irq.c
-@@ -2269,7 +2269,17 @@ static u32 gen8_de_port_aux_mask(struct drm_i915_private *dev_priv)
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 95c1f25e1bf3..f64098cd1273 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -1213,10 +1213,18 @@ intel_dp_compute_link_config_fast(struct intel_dp *intel_dp,
+ 	return -EINVAL;
+ }
+ 
+-static int intel_dp_dsc_compute_bpp(struct intel_dp *intel_dp, u8 dsc_max_bpc)
++static int intel_dp_dsc_compute_bpp(struct intel_dp *intel_dp, u8 max_req_bpc)
  {
- 	u32 mask;
++	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
+ 	int i, num_bpc;
+ 	u8 dsc_bpc[3] = {0};
++	u8 dsc_max_bpc;
++
++	/* Max DSC Input BPC for ICL is 10 and for TGL+ is 12 */
++	if (DISPLAY_VER(i915) >= 12)
++		dsc_max_bpc = min_t(u8, 12, max_req_bpc);
++	else
++		dsc_max_bpc = min_t(u8, 10, max_req_bpc);
  
+ 	num_bpc = drm_dp_dsc_sink_supported_input_bpcs(intel_dp->dsc_dpcd,
+ 						       dsc_bpc);
+@@ -1304,7 +1312,6 @@ static int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
+ 	struct drm_i915_private *dev_priv = to_i915(dig_port->base.base.dev);
+ 	const struct drm_display_mode *adjusted_mode =
+ 		&pipe_config->hw.adjusted_mode;
+-	u8 dsc_max_bpc;
+ 	int pipe_bpp;
+ 	int ret;
+ 
+@@ -1314,14 +1321,7 @@ static int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
+ 	if (!intel_dp_supports_dsc(intel_dp, pipe_config))
+ 		return -EINVAL;
+ 
+-	/* Max DSC Input BPC for ICL is 10 and for TGL+ is 12 */
 -	if (DISPLAY_VER(dev_priv) >= 12)
-+	if (DISPLAY_VER(dev_priv) >= 13)
-+		return TGL_DE_PORT_AUX_DDIA |
-+			TGL_DE_PORT_AUX_DDIB |
-+			TGL_DE_PORT_AUX_DDIC |
-+			XELPD_DE_PORT_AUX_DDID |
-+			XELPD_DE_PORT_AUX_DDIE |
-+			TGL_DE_PORT_AUX_USBC1 |
-+			TGL_DE_PORT_AUX_USBC2 |
-+			TGL_DE_PORT_AUX_USBC3 |
-+			TGL_DE_PORT_AUX_USBC4;
-+	else if (DISPLAY_VER(dev_priv) >= 12)
- 		return TGL_DE_PORT_AUX_DDIA |
- 			TGL_DE_PORT_AUX_DDIB |
- 			TGL_DE_PORT_AUX_DDIC |
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index e5dd0203991b..475d14db2844 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -7855,15 +7855,17 @@ enum {
- #define  BDW_DE_PORT_HOTPLUG_MASK	GEN8_DE_PORT_HOTPLUG(HPD_PORT_A)
- #define  BXT_DE_PORT_GMBUS		(1 << 1)
- #define  GEN8_AUX_CHANNEL_A		(1 << 0)
--#define  TGL_DE_PORT_AUX_USBC6		(1 << 13)
--#define  TGL_DE_PORT_AUX_USBC5		(1 << 12)
--#define  TGL_DE_PORT_AUX_USBC4		(1 << 11)
--#define  TGL_DE_PORT_AUX_USBC3		(1 << 10)
--#define  TGL_DE_PORT_AUX_USBC2		(1 << 9)
--#define  TGL_DE_PORT_AUX_USBC1		(1 << 8)
--#define  TGL_DE_PORT_AUX_DDIC		(1 << 2)
--#define  TGL_DE_PORT_AUX_DDIB		(1 << 1)
--#define  TGL_DE_PORT_AUX_DDIA		(1 << 0)
-+#define  TGL_DE_PORT_AUX_USBC6		REG_BIT(13)
-+#define  XELPD_DE_PORT_AUX_DDIE		REG_BIT(13)
-+#define  TGL_DE_PORT_AUX_USBC5		REG_BIT(12)
-+#define  XELPD_DE_PORT_AUX_DDID		REG_BIT(12)
-+#define  TGL_DE_PORT_AUX_USBC4		REG_BIT(11)
-+#define  TGL_DE_PORT_AUX_USBC3		REG_BIT(10)
-+#define  TGL_DE_PORT_AUX_USBC2		REG_BIT(9)
-+#define  TGL_DE_PORT_AUX_USBC1		REG_BIT(8)
-+#define  TGL_DE_PORT_AUX_DDIC		REG_BIT(2)
-+#define  TGL_DE_PORT_AUX_DDIB		REG_BIT(1)
-+#define  TGL_DE_PORT_AUX_DDIA		REG_BIT(0)
+-		dsc_max_bpc = min_t(u8, 12, conn_state->max_requested_bpc);
+-	else
+-		dsc_max_bpc = min_t(u8, 10,
+-				    conn_state->max_requested_bpc);
+-
+-	pipe_bpp = intel_dp_dsc_compute_bpp(intel_dp, dsc_max_bpc);
++	pipe_bpp = intel_dp_dsc_compute_bpp(intel_dp, conn_state->max_requested_bpc);
  
- #define GEN8_DE_MISC_ISR _MMIO(0x44460)
- #define GEN8_DE_MISC_IMR _MMIO(0x44464)
+ 	/* Min Input BPC for ICL+ is 8 */
+ 	if (pipe_bpp < 8 * 3) {
 -- 
 2.25.4
 
