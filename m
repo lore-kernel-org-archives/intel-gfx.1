@@ -7,45 +7,45 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D2B9CC43381
-	for <intel-gfx@archiver.kernel.org>; Thu, 11 Mar 2021 22:37:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9A4D4C433DB
+	for <intel-gfx@archiver.kernel.org>; Thu, 11 Mar 2021 22:37:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A33F764F26
-	for <intel-gfx@archiver.kernel.org>; Thu, 11 Mar 2021 22:37:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A33F764F26
+	by mail.kernel.org (Postfix) with ESMTPS id 6F7BA64F26
+	for <intel-gfx@archiver.kernel.org>; Thu, 11 Mar 2021 22:37:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6F7BA64F26
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 411266EF21;
-	Thu, 11 Mar 2021 22:36:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC8E86EEAB;
+	Thu, 11 Mar 2021 22:36:55 +0000 (UTC)
 Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 417256EEB1
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AFE2C6EE9B
  for <intel-gfx@lists.freedesktop.org>; Thu, 11 Mar 2021 22:36:50 +0000 (UTC)
-IronPort-SDR: ntyA4+A+OotbJG+xg/L8LVPIZ82iUFuyOMzbBo8HxOimxf3rt4L/iS7uvzCzKHvBNoHgpN3YhC
- Wv3qm495w+sw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9920"; a="250116455"
-X-IronPort-AV: E=Sophos;i="5.81,241,1610438400"; d="scan'208";a="250116455"
+IronPort-SDR: TCPTHZpFT7JbYLgxUkzVofz654xiZDoPlFaUqB//Lz5Obm7iD4+Flz3IJWsIDbDBidT7GoMFP2
+ c393MBcwg/ug==
+X-IronPort-AV: E=McAfee;i="6000,8403,9920"; a="250116463"
+X-IronPort-AV: E=Sophos;i="5.81,241,1610438400"; d="scan'208";a="250116463"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Mar 2021 14:36:47 -0800
-IronPort-SDR: HpCp5dnPKpk/Ro/SApMKYwVey91MIrnRpXP44gPP8OI6Qe2fftD6R9iQzrY4o5MsbglhSwKdHW
- HOq0XMm0gBsQ==
-X-IronPort-AV: E=Sophos;i="5.81,241,1610438400"; d="scan'208";a="438852785"
+ 11 Mar 2021 14:36:48 -0800
+IronPort-SDR: TkAe0bIz0vQGCMiXzF76slYhyO+vqghkYxlMzeFtLA9Ps/sRTTYx1o0Ho818Agsv4cakPCnOfj
+ UdXfSOBOCedg==
+X-IronPort-AV: E=Sophos;i="5.81,241,1610438400"; d="scan'208";a="438852808"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.168])
  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Mar 2021 14:36:45 -0800
+ 11 Mar 2021 14:36:46 -0800
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 11 Mar 2021 14:36:21 -0800
-Message-Id: <20210311223632.3191939-46-matthew.d.roper@intel.com>
+Date: Thu, 11 Mar 2021 14:36:29 -0800
+Message-Id: <20210311223632.3191939-54-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20210311223632.3191939-1-matthew.d.roper@intel.com>
 References: <20210311223632.3191939-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 45/56] drm/i915/adl_p: Enable/disable loadgen
- sharing
+Subject: [Intel-gfx] [PATCH 53/56] drm/i915/display/adl_p: Implement
+ Wa_22011320316
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,62 +58,69 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Mika Kahola <mika.kahola@intel.com>
-
-Disable loadgen sharing for DP link rate 1.62 GHz and HDMI 5.94 GHz.
-For all other modes, we can enable loadgen sharing feature.
-
-BSpec: 55359
-
-Cc: Imre Deak <imre.deak@intel.com>
-Signed-off-by: Mika Kahola <mika.kahola@intel.com>
-Signed-off-by: Clinton Taylor <Clinton.A.Taylor@intel.com>
-Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
----
- drivers/gpu/drm/i915/display/intel_ddi.c | 8 ++++++++
- drivers/gpu/drm/i915/i915_reg.h          | 1 +
- 2 files changed, 9 insertions(+)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-index 7a2a5c92899b..f97d6c488fcd 100644
---- a/drivers/gpu/drm/i915/display/intel_ddi.c
-+++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-@@ -1460,6 +1460,14 @@ tgl_dkl_phy_ddi_vswing_sequence(struct intel_encoder *encoder,
- 		val = intel_de_read(dev_priv, DKL_TX_DPCNTL2(tc_port));
- 		val &= ~DKL_TX_DP20BITMODE;
- 		intel_de_write(dev_priv, DKL_TX_DPCNTL2(tc_port), val);
-+
-+		if ((intel_crtc_has_dp_encoder(crtc_state) &&
-+		    crtc_state->port_clock == 162000) ||
-+		    (intel_crtc_has_type(crtc_state, INTEL_OUTPUT_HDMI) &&
-+		    crtc_state->port_clock == 594000))
-+			val |= DKL_TX_LOADGEN_SHARING_PMD_DISABLE;
-+		else
-+			val &= ~DKL_TX_LOADGEN_SHARING_PMD_DISABLE;
- 	}
- }
- 
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 0adde69a60f4..275fd4b5c549 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -10866,6 +10866,7 @@ enum skl_power_gate {
- 						     _DKL_TX_DPCNTL1)
- 
- #define _DKL_TX_DPCNTL2				0x2C8
-+#define  DKL_TX_LOADGEN_SHARING_PMD_DISABLE            REG_BIT(12)
- #define  DKL_TX_DP20BITMODE				(1 << 2)
- #define DKL_TX_DPCNTL2(tc_port) _MMIO(_PORT(tc_port, \
- 						     _DKL_PHY1_BASE, \
--- 
-2.25.4
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+RnJvbTogSm9zw6kgUm9iZXJ0byBkZSBTb3V6YSA8am9zZS5zb3V6YUBpbnRlbC5jb20+CgpJbXBs
+ZW1lbnRhdGlvbiBkZXRhaWxzIGFyZSBpbiB0aGUgSFNEIDIyMDExMzIwMzE2LCByZXF1aXJpbmcg
+Q0QgY2xvY2sKdG8gYmUgYXQgbGVhc3QgMzA3TUh6IHRvIG1ha2UgREMgc3RhdGVzIHRvIHdvcmsu
+CgpDYzogTWF0dCBSb3BlciA8bWF0dGhldy5kLnJvcGVyQGludGVsLmNvbT4KQ2M6IEFudXNoYSBT
+cml2YXRzYSA8YW51c2hhLnNyaXZhdHNhQGludGVsLmNvbT4KU2lnbmVkLW9mZi1ieTogSm9zw6kg
+Um9iZXJ0byBkZSBTb3V6YSA8am9zZS5zb3V6YUBpbnRlbC5jb20+ClNpZ25lZC1vZmYtYnk6IENs
+aW50b24gVGF5bG9yIDxDbGludG9uLkEuVGF5bG9yQGludGVsLmNvbT4KU2lnbmVkLW9mZi1ieTog
+TWF0dCBSb3BlciA8bWF0dGhldy5kLnJvcGVyQGludGVsLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9k
+cm0vaTkxNS9kaXNwbGF5L2ludGVsX2NkY2xrLmMgfCAyMSArKysrKysrKysrKysrKysrKysrKy0K
+IGRyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfZHJ2LmggICAgICAgICAgICB8ICA3ICsrKysrKysK
+IDIgZmlsZXMgY2hhbmdlZCwgMjcgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQoKZGlmZiAt
+LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfY2RjbGsuYyBiL2RyaXZl
+cnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfY2RjbGsuYwppbmRleCA0MmM0NjJjYWUwMzIu
+LjA5ZTU1YWUzYzQ3MSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9p
+bnRlbF9jZGNsay5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfY2Rj
+bGsuYwpAQCAtMTI1Nyw2ICsxMjU3LDIxIEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgaW50ZWxfY2Rj
+bGtfdmFscyBya2xfY2RjbGtfdGFibGVbXSA9IHsKIAl7fQogfTsKIAorc3RhdGljIGNvbnN0IHN0
+cnVjdCBpbnRlbF9jZGNsa192YWxzIGFkbHBfYV9zdGVwX2NkY2xrX3RhYmxlW10gPSB7CisJeyAu
+cmVmY2xrID0gMTkyMDAsIC5jZGNsayA9IDMwNzIwMCwgLmRpdmlkZXIgPSAyLCAucmF0aW8gPSAz
+MiB9LAorCXsgLnJlZmNsayA9IDE5MjAwLCAuY2RjbGsgPSA1NTY4MDAsIC5kaXZpZGVyID0gMiwg
+LnJhdGlvID0gNTggfSwKKwl7IC5yZWZjbGsgPSAxOTIwMCwgLmNkY2xrID0gNjUyODAwLCAuZGl2
+aWRlciA9IDIsIC5yYXRpbyA9IDY4IH0sCisKKwl7IC5yZWZjbGsgPSAyNDAwMCwgLmNkY2xrID0g
+MzEyMDAwLCAuZGl2aWRlciA9IDIsIC5yYXRpbyA9IDI2IH0sCisJeyAucmVmY2xrID0gMjQwMDAs
+IC5jZGNsayA9IDU1MjAwMCwgLmRpdmlkZXIgPSAyLCAucmF0aW8gPSA0NiB9LAorCXsgLnJlZmNs
+ayA9IDI0NDAwLCAuY2RjbGsgPSA2NDgwMDAsIC5kaXZpZGVyID0gMiwgLnJhdGlvID0gNTQgfSwK
+KworCXsgLnJlZmNsayA9IDM4NDAwLCAuY2RjbGsgPSAzMDcyMDAsIC5kaXZpZGVyID0gMiwgLnJh
+dGlvID0gMTYgfSwKKwl7IC5yZWZjbGsgPSAzODQwMCwgLmNkY2xrID0gNTU2ODAwLCAuZGl2aWRl
+ciA9IDIsIC5yYXRpbyA9IDI5IH0sCisJeyAucmVmY2xrID0gMzg0MDAsIC5jZGNsayA9IDY1Mjgw
+MCwgLmRpdmlkZXIgPSAyLCAucmF0aW8gPSAzNCB9LAorCXt9Cit9OworCiBzdGF0aWMgY29uc3Qg
+c3RydWN0IGludGVsX2NkY2xrX3ZhbHMgYWRscF9jZGNsa190YWJsZVtdID0gewogCXsgLnJlZmNs
+ayA9IDE5MjAwLCAuY2RjbGsgPSAxNzI4MDAsIC5kaXZpZGVyID0gMywgLnJhdGlvID0gMjcgfSwK
+IAl7IC5yZWZjbGsgPSAxOTIwMCwgLmNkY2xrID0gMTkyMDAwLCAuZGl2aWRlciA9IDIsIC5yYXRp
+byA9IDIwIH0sCkBAIC0yODM2LDcgKzI4NTEsMTEgQEAgdm9pZCBpbnRlbF9pbml0X2NkY2xrX2hv
+b2tzKHN0cnVjdCBkcm1faTkxNV9wcml2YXRlICpkZXZfcHJpdikKIAkJZGV2X3ByaXYtPmRpc3Bs
+YXkuYndfY2FsY19taW5fY2RjbGsgPSBza2xfYndfY2FsY19taW5fY2RjbGs7CiAJCWRldl9wcml2
+LT5kaXNwbGF5Lm1vZGVzZXRfY2FsY19jZGNsayA9IGJ4dF9tb2Rlc2V0X2NhbGNfY2RjbGs7CiAJ
+CWRldl9wcml2LT5kaXNwbGF5LmNhbGNfdm9sdGFnZV9sZXZlbCA9IHRnbF9jYWxjX3ZvbHRhZ2Vf
+bGV2ZWw7Ci0JCWRldl9wcml2LT5jZGNsay50YWJsZSA9IGFkbHBfY2RjbGtfdGFibGU7CisJCS8q
+IFdhXzIyMDExMzIwMzE2OmFkbHBbYTBdICovCisJCWlmIChJU19BRExQX1JFVklEKGRldl9wcml2
+LCBBRExQX1JFVklEX0EwLCBBRExQX1JFVklEX0EwKSkKKwkJCWRldl9wcml2LT5jZGNsay50YWJs
+ZSA9IGFkbHBfYV9zdGVwX2NkY2xrX3RhYmxlOworCQllbHNlCisJCQlkZXZfcHJpdi0+Y2RjbGsu
+dGFibGUgPSBhZGxwX2NkY2xrX3RhYmxlOwogCX0gZWxzZSBpZiAoSVNfUk9DS0VUTEFLRShkZXZf
+cHJpdikpIHsKIAkJZGV2X3ByaXYtPmRpc3BsYXkuc2V0X2NkY2xrID0gYnh0X3NldF9jZGNsazsK
+IAkJZGV2X3ByaXYtPmRpc3BsYXkuYndfY2FsY19taW5fY2RjbGsgPSBza2xfYndfY2FsY19taW5f
+Y2RjbGs7CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X2Rydi5oIGIvZHJp
+dmVycy9ncHUvZHJtL2k5MTUvaTkxNV9kcnYuaAppbmRleCAxMGI5OWY5ZTM4MGIuLjZhYjI3NTY2
+YjU3MCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV9kcnYuaAorKysgYi9k
+cml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X2Rydi5oCkBAIC0xNjEyLDYgKzE2MTIsMTMgQEAgdGds
+X3N0ZXBwaW5nX2dldChzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqZGV2X3ByaXYpCiAJIHRnbF9z
+dGVwcGluZ19nZXQocCktPmd0X3N0ZXBwaW5nID49IChzaW5jZSkgJiYgXAogCSB0Z2xfc3RlcHBp
+bmdfZ2V0KHApLT5ndF9zdGVwcGluZyA8PSAodW50aWwpKQogCisjZGVmaW5lIEFETFBfUkVWSURf
+QTAJCTB4MAorI2RlZmluZSBBRExQX1JFVklEX0IwCQkweDQKKyNkZWZpbmUgQURMUF9SRVZJRF9D
+MAkJMHg4CisKKyNkZWZpbmUgSVNfQURMUF9SRVZJRChwLCBzaW5jZSwgdW50aWwpIFwKKwkoSVNf
+QUxERVJMQUtFX1AocCkgJiYgSVNfUkVWSUQocCwgc2luY2UsIHVudGlsKSkKKwogI2RlZmluZSBJ
+U19MUChkZXZfcHJpdikJKElOVEVMX0lORk8oZGV2X3ByaXYpLT5pc19scCkKICNkZWZpbmUgSVNf
+R0VOOV9MUChkZXZfcHJpdikJKElTX0dFTihkZXZfcHJpdiwgOSkgJiYgSVNfTFAoZGV2X3ByaXYp
+KQogI2RlZmluZSBJU19HRU45X0JDKGRldl9wcml2KQkoSVNfR0VOKGRldl9wcml2LCA5KSAmJiAh
+SVNfTFAoZGV2X3ByaXYpKQotLSAKMi4yNS40CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fXwpJbnRlbC1nZnggbWFpbGluZyBsaXN0CkludGVsLWdmeEBsaXN0
+cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9s
+aXN0aW5mby9pbnRlbC1nZngK
