@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E09B1C433E6
-	for <intel-gfx@archiver.kernel.org>; Thu, 11 Mar 2021 15:34:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5D374C433DB
+	for <intel-gfx@archiver.kernel.org>; Thu, 11 Mar 2021 15:34:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 699D664FA8
-	for <intel-gfx@archiver.kernel.org>; Thu, 11 Mar 2021 15:34:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 699D664FA8
+	by mail.kernel.org (Postfix) with ESMTPS id 058E964FA8
+	for <intel-gfx@archiver.kernel.org>; Thu, 11 Mar 2021 15:34:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 058E964FA8
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E50EF6EDF7;
-	Thu, 11 Mar 2021 15:34:29 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E1F356EDF4
- for <intel-gfx@lists.freedesktop.org>; Thu, 11 Mar 2021 15:34:28 +0000 (UTC)
-IronPort-SDR: LIVq5B1d32PXRuQ/MAoXio08j7fN4kFUbDMFVdfxlBZVvfyi2Wn17ONhpGVAB/RFmkj34xJVyG
- nGGBV/tuq90w==
-X-IronPort-AV: E=McAfee;i="6000,8403,9920"; a="185327262"
-X-IronPort-AV: E=Sophos;i="5.81,241,1610438400"; d="scan'208";a="185327262"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 124806EDF8;
+	Thu, 11 Mar 2021 15:34:32 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 16B0D6EDF8
+ for <intel-gfx@lists.freedesktop.org>; Thu, 11 Mar 2021 15:34:31 +0000 (UTC)
+IronPort-SDR: ojjlTM07QpR5uJUU0iVG8ryzQtXJnSBmLIeLfVr/zpQyS/mFrTFj7E6whfUK5GKiip9Mv/snYg
+ cjFkEipn4AYg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9920"; a="175797241"
+X-IronPort-AV: E=Sophos;i="5.81,241,1610438400"; d="scan'208";a="175797241"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Mar 2021 07:34:28 -0800
-IronPort-SDR: 1jwXYCb7Ep9d1KshEtmLmWUGzB02XEp2d1lI69w/4U6TruYwhUrIcAhlq6vJy954AuZAH5PmcI
- C9MjUu9EiCSQ==
-X-IronPort-AV: E=Sophos;i="5.81,241,1610438400"; d="scan'208";a="589251631"
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Mar 2021 07:34:29 -0800
+IronPort-SDR: /2J8ATTAqpA3TkcA2VAOocFTalwtBd8xYC8VSSMR219/ZV8ldm33OZH0eSVgRngpLebUfcS03u
+ VWWkiZYHuncQ==
+X-IronPort-AV: E=Sophos;i="5.81,241,1610438400"; d="scan'208";a="589251660"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.168])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Mar 2021 07:34:28 -0800
+ 11 Mar 2021 07:34:29 -0800
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 11 Mar 2021 07:33:53 -0800
-Message-Id: <20210311153415.3024607-2-matthew.d.roper@intel.com>
+Date: Thu, 11 Mar 2021 07:34:01 -0800
+Message-Id: <20210311153415.3024607-10-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20210311153415.3024607-1-matthew.d.roper@intel.com>
 References: <20210311153415.3024607-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v2 01/23] drm/i915/display: Convert gen5/gen6
- tests to IS_IRONLAKE/IS_SANDYBRIDGE
+Subject: [Intel-gfx] [PATCH v2 09/23] drm/i915/xelpd: Enhanced pipe underrun
+ reporting
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,344 +58,126 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Lucas De Marchi <lucas.demarchi@intel.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-ILK is the only platform that we consider "gen5" and SNB is the only
-platform we consider "gen6."  Add an IS_SANDYBRIDGE() macro and then
-replace numeric platform tests for these two generations with direct
-platform tests with the following Coccinelle semantic patch:
-
-        @@ expression dev_priv; @@
-        - IS_GEN(dev_priv, 5)
-        + IS_IRONLAKE(dev_priv)
-
-        @@ expression dev_priv; @@
-        - IS_GEN(dev_priv, 6)
-        + IS_SANDYBRIDGE(dev_priv)
-
-        @@ expression dev_priv; @@
-        - IS_GEN_RANGE(dev_priv, 5, 6)
-        + IS_SANDYBRIDGE(dev_priv) || IS_IRONLAKE(dev_priv)
-
-This will simplify our upcoming patches which eliminate INTEL_GEN()
-usage in the display code.
-
-Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
----
- drivers/gpu/drm/i915/display/i9xx_plane.c          |  4 ++--
- drivers/gpu/drm/i915/display/intel_cdclk.c         |  4 ++--
- drivers/gpu/drm/i915/display/intel_cursor.c        |  2 +-
- drivers/gpu/drm/i915/display/intel_display.c       | 12 ++++++------
- drivers/gpu/drm/i915/display/intel_dp.c            |  6 +++---
- drivers/gpu/drm/i915/display/intel_dp_aux.c        |  2 +-
- drivers/gpu/drm/i915/display/intel_fbc.c           |  6 +++---
- drivers/gpu/drm/i915/display/intel_fdi.c           |  6 +++---
- drivers/gpu/drm/i915/display/intel_fifo_underrun.c |  2 +-
- drivers/gpu/drm/i915/display/intel_pipe_crc.c      |  4 ++--
- drivers/gpu/drm/i915/display/intel_pps.c           |  6 +++---
- drivers/gpu/drm/i915/display/intel_sprite.c        |  4 ++--
- drivers/gpu/drm/i915/i915_drv.h                    |  1 +
- 13 files changed, 30 insertions(+), 29 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/display/i9xx_plane.c b/drivers/gpu/drm/i915/display/i9xx_plane.c
-index 8a52beaed2da..95933cc13d58 100644
---- a/drivers/gpu/drm/i915/display/i9xx_plane.c
-+++ b/drivers/gpu/drm/i915/display/i9xx_plane.c
-@@ -161,8 +161,8 @@ static u32 i9xx_plane_ctl(const struct intel_crtc_state *crtc_state,
- 
- 	dspcntr = DISPLAY_PLANE_ENABLE;
- 
--	if (IS_G4X(dev_priv) || IS_GEN(dev_priv, 5) ||
--	    IS_GEN(dev_priv, 6) || IS_IVYBRIDGE(dev_priv))
-+	if (IS_G4X(dev_priv) || IS_IRONLAKE(dev_priv) ||
-+	    IS_SANDYBRIDGE(dev_priv) || IS_IVYBRIDGE(dev_priv))
- 		dspcntr |= DISPPLANE_TRICKLE_FEED_DISABLE;
- 
- 	switch (fb->format->format) {
-diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i915/display/intel_cdclk.c
-index a9019287f7d5..83678feb8897 100644
---- a/drivers/gpu/drm/i915/display/intel_cdclk.c
-+++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
-@@ -2916,9 +2916,9 @@ void intel_init_cdclk_hooks(struct drm_i915_private *dev_priv)
- 		dev_priv->display.get_cdclk = hsw_get_cdclk;
- 	else if (IS_VALLEYVIEW(dev_priv) || IS_CHERRYVIEW(dev_priv))
- 		dev_priv->display.get_cdclk = vlv_get_cdclk;
--	else if (IS_GEN(dev_priv, 6) || IS_IVYBRIDGE(dev_priv))
-+	else if (IS_SANDYBRIDGE(dev_priv) || IS_IVYBRIDGE(dev_priv))
- 		dev_priv->display.get_cdclk = fixed_400mhz_get_cdclk;
--	else if (IS_GEN(dev_priv, 5))
-+	else if (IS_IRONLAKE(dev_priv))
- 		dev_priv->display.get_cdclk = fixed_450mhz_get_cdclk;
- 	else if (IS_GM45(dev_priv))
- 		dev_priv->display.get_cdclk = gm45_get_cdclk;
-diff --git a/drivers/gpu/drm/i915/display/intel_cursor.c b/drivers/gpu/drm/i915/display/intel_cursor.c
-index 21fe4d2753e9..3057179dd4eb 100644
---- a/drivers/gpu/drm/i915/display/intel_cursor.c
-+++ b/drivers/gpu/drm/i915/display/intel_cursor.c
-@@ -360,7 +360,7 @@ static u32 i9xx_cursor_ctl(const struct intel_crtc_state *crtc_state,
- 		to_i915(plane_state->uapi.plane->dev);
- 	u32 cntl = 0;
- 
--	if (IS_GEN(dev_priv, 6) || IS_IVYBRIDGE(dev_priv))
-+	if (IS_SANDYBRIDGE(dev_priv) || IS_IVYBRIDGE(dev_priv))
- 		cntl |= MCURSOR_TRICKLE_FEED_DISABLE;
- 
- 	switch (drm_rect_width(&plane_state->uapi.dst)) {
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 5bfc06c46e28..f47bbe042a64 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -359,7 +359,7 @@ static void assert_fdi_tx_pll_enabled(struct drm_i915_private *dev_priv,
- 	u32 val;
- 
- 	/* ILK FDI PLL is always enabled */
--	if (IS_GEN(dev_priv, 5))
-+	if (IS_IRONLAKE(dev_priv))
- 		return;
- 
- 	/* On Haswell, DDI ports are responsible for the FDI PLL setup */
-@@ -7439,7 +7439,7 @@ int intel_plane_atomic_calc_changes(const struct intel_crtc_state *old_crtc_stat
- 	 * plane, not only sprite plane.
- 	 */
- 	if (plane->id != PLANE_CURSOR &&
--	    (IS_GEN_RANGE(dev_priv, 5, 6) ||
-+	    (IS_SANDYBRIDGE(dev_priv) || IS_IRONLAKE(dev_priv) ||
- 	     IS_IVYBRIDGE(dev_priv)) &&
- 	    (turn_on || (!needs_scaling(old_plane_state) &&
- 			 needs_scaling(plane_state))))
-@@ -11599,7 +11599,7 @@ static bool ilk_has_edp_a(struct drm_i915_private *dev_priv)
- 	if ((intel_de_read(dev_priv, DP_A) & DP_DETECTED) == 0)
- 		return false;
- 
--	if (IS_GEN(dev_priv, 5) && (intel_de_read(dev_priv, FUSE_STRAP) & ILK_eDP_A_DISABLE))
-+	if (IS_IRONLAKE(dev_priv) && (intel_de_read(dev_priv, FUSE_STRAP) & ILK_eDP_A_DISABLE))
- 		return false;
- 
- 	return true;
-@@ -12407,12 +12407,12 @@ static void sanitize_watermarks(struct drm_i915_private *dev_priv)
- 
- static void intel_update_fdi_pll_freq(struct drm_i915_private *dev_priv)
- {
--	if (IS_GEN(dev_priv, 5)) {
-+	if (IS_IRONLAKE(dev_priv)) {
- 		u32 fdi_pll_clk =
- 			intel_de_read(dev_priv, FDI_PLL_BIOS_0) & FDI_PLL_FB_CLOCK_MASK;
- 
- 		dev_priv->fdi_pll_freq = (fdi_pll_clk + 2) * 10000;
--	} else if (IS_GEN(dev_priv, 6) || IS_IVYBRIDGE(dev_priv)) {
-+	} else if (IS_SANDYBRIDGE(dev_priv) || IS_IVYBRIDGE(dev_priv)) {
- 		dev_priv->fdi_pll_freq = 270000;
- 	} else {
- 		return;
-@@ -13057,7 +13057,7 @@ static bool has_bogus_dpll_config(const struct intel_crtc_state *crtc_state)
- 	 * without several WARNs, but for now let's take the easy
- 	 * road.
- 	 */
--	return IS_GEN(dev_priv, 6) &&
-+	return IS_SANDYBRIDGE(dev_priv) &&
- 		crtc_state->hw.active &&
- 		crtc_state->shared_dpll &&
- 		crtc_state->port_clock == 0;
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index b6b5776f5a66..31263250e7f9 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -2049,7 +2049,7 @@ static void ilk_edp_pll_on(struct intel_dp *intel_dp,
- 	 * 1. Wait for the start of vertical blank on the enabled pipe going to FDI
- 	 * 2. Program DP PLL enable
- 	 */
--	if (IS_GEN(dev_priv, 5))
-+	if (IS_IRONLAKE(dev_priv))
- 		intel_wait_for_vblank_if_active(dev_priv, !crtc->pipe);
- 
- 	intel_dp->DP |= DP_PLL_ENABLE;
-@@ -5399,7 +5399,7 @@ intel_dp_update_420(struct intel_dp *intel_dp)
- 	 * ILK doesn't seem capable of DP YCbCr output. The
- 	 * displayed image is severly corrupted. SNB+ is fine.
- 	 */
--	if (IS_GEN(i915, 5))
-+	if (IS_IRONLAKE(i915))
- 		return;
- 
- 	is_branch = drm_dp_is_branch(intel_dp->dpcd);
-@@ -6817,7 +6817,7 @@ bool intel_dp_init(struct drm_i915_private *dev_priv,
- 		dig_port->dp.set_signal_levels = vlv_set_signal_levels;
- 	else if (IS_IVYBRIDGE(dev_priv) && port == PORT_A)
- 		dig_port->dp.set_signal_levels = ivb_cpu_edp_set_signal_levels;
--	else if (IS_GEN(dev_priv, 6) && port == PORT_A)
-+	else if (IS_SANDYBRIDGE(dev_priv) && port == PORT_A)
- 		dig_port->dp.set_signal_levels = snb_cpu_edp_set_signal_levels;
- 	else
- 		dig_port->dp.set_signal_levels = g4x_set_signal_levels;
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux.c b/drivers/gpu/drm/i915/display/intel_dp_aux.c
-index eaebf123310a..4ba08aa4680b 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_aux.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_aux.c
-@@ -128,7 +128,7 @@ static u32 g4x_get_aux_send_ctl(struct intel_dp *intel_dp,
- 			to_i915(dig_port->base.base.dev);
- 	u32 precharge, timeout;
- 
--	if (IS_GEN(dev_priv, 6))
-+	if (IS_SANDYBRIDGE(dev_priv))
- 		precharge = 3;
- 	else
- 		precharge = 5;
-diff --git a/drivers/gpu/drm/i915/display/intel_fbc.c b/drivers/gpu/drm/i915/display/intel_fbc.c
-index 5fd4fa4805ef..c7beda2e35bc 100644
---- a/drivers/gpu/drm/i915/display/intel_fbc.c
-+++ b/drivers/gpu/drm/i915/display/intel_fbc.c
-@@ -255,16 +255,16 @@ static void ilk_fbc_activate(struct drm_i915_private *dev_priv)
- 
- 	if (params->fence_id >= 0) {
- 		dpfc_ctl |= DPFC_CTL_FENCE_EN;
--		if (IS_GEN(dev_priv, 5))
-+		if (IS_IRONLAKE(dev_priv))
- 			dpfc_ctl |= params->fence_id;
--		if (IS_GEN(dev_priv, 6)) {
-+		if (IS_SANDYBRIDGE(dev_priv)) {
- 			intel_de_write(dev_priv, SNB_DPFC_CTL_SA,
- 				       SNB_CPU_FENCE_ENABLE | params->fence_id);
- 			intel_de_write(dev_priv, DPFC_CPU_FENCE_OFFSET,
- 				       params->fence_y_offset);
- 		}
- 	} else {
--		if (IS_GEN(dev_priv, 6)) {
-+		if (IS_SANDYBRIDGE(dev_priv)) {
- 			intel_de_write(dev_priv, SNB_DPFC_CTL_SA, 0);
- 			intel_de_write(dev_priv, DPFC_CPU_FENCE_OFFSET, 0);
- 		}
-diff --git a/drivers/gpu/drm/i915/display/intel_fdi.c b/drivers/gpu/drm/i915/display/intel_fdi.c
-index 60b29110099a..d719cd9c5b73 100644
---- a/drivers/gpu/drm/i915/display/intel_fdi.c
-+++ b/drivers/gpu/drm/i915/display/intel_fdi.c
-@@ -373,7 +373,7 @@ static void gen6_fdi_link_train(struct intel_crtc *crtc,
- 	temp = intel_de_read(dev_priv, reg);
- 	temp &= ~FDI_LINK_TRAIN_NONE;
- 	temp |= FDI_LINK_TRAIN_PATTERN_2;
--	if (IS_GEN(dev_priv, 6)) {
-+	if (IS_SANDYBRIDGE(dev_priv)) {
- 		temp &= ~FDI_LINK_TRAIN_VOL_EMP_MASK;
- 		/* SNB-B */
- 		temp |= FDI_LINK_TRAIN_400MV_0DB_SNB_B;
-@@ -810,9 +810,9 @@ void ilk_fdi_disable(struct intel_crtc *crtc)
- void
- intel_fdi_init_hook(struct drm_i915_private *dev_priv)
- {
--	if (IS_GEN(dev_priv, 5)) {
-+	if (IS_IRONLAKE(dev_priv)) {
- 		dev_priv->display.fdi_link_train = ilk_fdi_link_train;
--	} else if (IS_GEN(dev_priv, 6)) {
-+	} else if (IS_SANDYBRIDGE(dev_priv)) {
- 		dev_priv->display.fdi_link_train = gen6_fdi_link_train;
- 	} else if (IS_IVYBRIDGE(dev_priv)) {
- 		/* FIXME: detect B0+ stepping and use auto training */
-diff --git a/drivers/gpu/drm/i915/display/intel_fifo_underrun.c b/drivers/gpu/drm/i915/display/intel_fifo_underrun.c
-index 813a4f7033e1..a3715cd42ed0 100644
---- a/drivers/gpu/drm/i915/display/intel_fifo_underrun.c
-+++ b/drivers/gpu/drm/i915/display/intel_fifo_underrun.c
-@@ -269,7 +269,7 @@ static bool __intel_set_cpu_fifo_underrun_reporting(struct drm_device *dev,
- 
- 	if (HAS_GMCH(dev_priv))
- 		i9xx_set_fifo_underrun_reporting(dev, pipe, enable, old);
--	else if (IS_GEN_RANGE(dev_priv, 5, 6))
-+	else if (IS_SANDYBRIDGE(dev_priv) || IS_IRONLAKE(dev_priv))
- 		ilk_set_fifo_underrun_reporting(dev, pipe, enable);
- 	else if (IS_GEN(dev_priv, 7))
- 		ivb_set_fifo_underrun_reporting(dev, pipe, enable, old);
-diff --git a/drivers/gpu/drm/i915/display/intel_pipe_crc.c b/drivers/gpu/drm/i915/display/intel_pipe_crc.c
-index a9a5df2fee4d..3c4024409d85 100644
---- a/drivers/gpu/drm/i915/display/intel_pipe_crc.c
-+++ b/drivers/gpu/drm/i915/display/intel_pipe_crc.c
-@@ -415,7 +415,7 @@ static int get_new_crc_ctl_reg(struct drm_i915_private *dev_priv,
- 		return i9xx_pipe_crc_ctl_reg(dev_priv, pipe, source, val);
- 	else if (IS_VALLEYVIEW(dev_priv) || IS_CHERRYVIEW(dev_priv))
- 		return vlv_pipe_crc_ctl_reg(dev_priv, pipe, source, val);
--	else if (IS_GEN_RANGE(dev_priv, 5, 6))
-+	else if (IS_SANDYBRIDGE(dev_priv) || IS_IRONLAKE(dev_priv))
- 		return ilk_pipe_crc_ctl_reg(source, val);
- 	else if (INTEL_GEN(dev_priv) < 9)
- 		return ivb_pipe_crc_ctl_reg(dev_priv, pipe, source, val);
-@@ -545,7 +545,7 @@ intel_is_valid_crc_source(struct drm_i915_private *dev_priv,
- 		return i9xx_crc_source_valid(dev_priv, source);
- 	else if (IS_VALLEYVIEW(dev_priv) || IS_CHERRYVIEW(dev_priv))
- 		return vlv_crc_source_valid(dev_priv, source);
--	else if (IS_GEN_RANGE(dev_priv, 5, 6))
-+	else if (IS_SANDYBRIDGE(dev_priv) || IS_IRONLAKE(dev_priv))
- 		return ilk_crc_source_valid(dev_priv, source);
- 	else if (INTEL_GEN(dev_priv) < 9)
- 		return ivb_crc_source_valid(dev_priv, source);
-diff --git a/drivers/gpu/drm/i915/display/intel_pps.c b/drivers/gpu/drm/i915/display/intel_pps.c
-index f20ba71f4307..27477cafdc38 100644
---- a/drivers/gpu/drm/i915/display/intel_pps.c
-+++ b/drivers/gpu/drm/i915/display/intel_pps.c
-@@ -777,7 +777,7 @@ void intel_pps_on_unlocked(struct intel_dp *intel_dp)
- 
- 	pp_ctrl_reg = _pp_ctrl_reg(intel_dp);
- 	pp = ilk_get_pp_control(intel_dp);
--	if (IS_GEN(dev_priv, 5)) {
-+	if (IS_IRONLAKE(dev_priv)) {
- 		/* ILK workaround: disable reset around power sequence */
- 		pp &= ~PANEL_POWER_RESET;
- 		intel_de_write(dev_priv, pp_ctrl_reg, pp);
-@@ -785,7 +785,7 @@ void intel_pps_on_unlocked(struct intel_dp *intel_dp)
- 	}
- 
- 	pp |= PANEL_POWER_ON;
--	if (!IS_GEN(dev_priv, 5))
-+	if (!IS_IRONLAKE(dev_priv))
- 		pp |= PANEL_POWER_RESET;
- 
- 	intel_de_write(dev_priv, pp_ctrl_reg, pp);
-@@ -794,7 +794,7 @@ void intel_pps_on_unlocked(struct intel_dp *intel_dp)
- 	wait_panel_on(intel_dp);
- 	intel_dp->pps.last_power_on = jiffies;
- 
--	if (IS_GEN(dev_priv, 5)) {
-+	if (IS_IRONLAKE(dev_priv)) {
- 		pp |= PANEL_POWER_RESET; /* restore panel reset bit */
- 		intel_de_write(dev_priv, pp_ctrl_reg, pp);
- 		intel_de_posting_read(dev_priv, pp_ctrl_reg);
-diff --git a/drivers/gpu/drm/i915/display/intel_sprite.c b/drivers/gpu/drm/i915/display/intel_sprite.c
-index 4cbdb8fd4bb1..fb506409a63b 100644
---- a/drivers/gpu/drm/i915/display/intel_sprite.c
-+++ b/drivers/gpu/drm/i915/display/intel_sprite.c
-@@ -1078,7 +1078,7 @@ static u32 g4x_sprite_ctl(const struct intel_crtc_state *crtc_state,
- 
- 	dvscntr = DVS_ENABLE;
- 
--	if (IS_GEN(dev_priv, 6))
-+	if (IS_SANDYBRIDGE(dev_priv))
- 		dvscntr |= DVS_TRICKLE_FEED_DISABLE;
- 
- 	switch (fb->format->format) {
-@@ -1838,7 +1838,7 @@ intel_sprite_plane_create(struct drm_i915_private *dev_priv,
- 		plane->min_cdclk = g4x_sprite_min_cdclk;
- 
- 		modifiers = i9xx_plane_format_modifiers;
--		if (IS_GEN(dev_priv, 6)) {
-+		if (IS_SANDYBRIDGE(dev_priv)) {
- 			formats = snb_plane_formats;
- 			num_formats = ARRAY_SIZE(snb_plane_formats);
- 
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index 1d45d7492d10..4fe90a9782e8 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -1356,6 +1356,7 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
- #define IS_IRONLAKE(dev_priv)	IS_PLATFORM(dev_priv, INTEL_IRONLAKE)
- #define IS_IRONLAKE_M(dev_priv) \
- 	(IS_PLATFORM(dev_priv, INTEL_IRONLAKE) && IS_MOBILE(dev_priv))
-+#define IS_SANDYBRIDGE(dev_priv) IS_PLATFORM(dev_priv, INTEL_SANDYBRIDGE)
- #define IS_IVYBRIDGE(dev_priv)	IS_PLATFORM(dev_priv, INTEL_IVYBRIDGE)
- #define IS_IVB_GT1(dev_priv)	(IS_IVYBRIDGE(dev_priv) && \
- 				 INTEL_INFO(dev_priv)->gt == 1)
--- 
-2.25.4
-
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+WEVfTFBEIGJyaW5ncyBlbmhhbmNlZCB1bmRlcnJ1biByZWNvdmVyeTogIHRoZSBoYXJkd2FyZSBj
+YW4gc29tZXdoYXQKbWl0aWdhdGUgdW5kZXJydW5zIGJ5IHVzaW5nIGFuIGludGVycG9sYXRlZCBy
+ZXBsYWNlbWVudCBwaXhlbCAoc29mdAp1bmRlcnJ1bikgb3IgdGhlIHByZXZpb3VzIHBpeGVsICho
+YXJkIHVuZGVycnVuKS4gIEZ1cnRoZXJtb3JlLCB1bmRlcnJ1bnMKY2FuIG5vdyBiZSBjYXVzZWQg
+ZG93bnN0cmVhbSBieSB0aGUgcG9ydCwgZXZlbiBpZiB0aGUgcGlwZSBpdHNlbGYgaXMKb3BlcmF0
+aW5nIHByb3Blcmx5LiAgVGhlIGludGVycnVwdCByZWdpc3RlciBhbmQgUElQRV9TVEFUVVMgcmVn
+aXN0ZXIKZ2l2ZSB1cyBleHRyYSBiaXRzIHRvIHJlY29nbml6ZSBoYXJkL3NvZnQgdW5kZXJydW5z
+IGFuZCBkZXRlcm1pbmUKd2hldGhlciB0aGUgdW5kZXJydW4gd2FzIGNhdXNlZCBieSB0aGUgcG9y
+dCwgc28gd2UnbGwgdXNlIHRoYXQKaW5mb3JtYXRpb24gdG8gcHJpbnQgc29tZSBtb3JlIGRlc2Ny
+aXB0aXZlIGVycm9ycyB3aGVuIHVuZGVycnVucyBvY2N1ci4KCnYyOgogLSBLZWVwIElDTCdzIFBJ
+UEVfU1RBVFVTIGRlZmluZWQgc2VwYXJhdGVseSBmcm9tIHRoZSBvbGQgR01DSCBwaXBlCiAgIHN0
+YXR1cyByZWdpc3Rlci4gIChWaWxsZSkKIC0gT25seSByZWFkL2NsZWFyIHRoZSBQSVBFX1NUQVRV
+UyByZWdpc3RlciBvbiBwbGF0Zm9ybXMgd2l0aAogICBkaXNwbGF5IHZlciA+PSAxMS4gKEx1Y2Fz
+KQoKQnNwZWM6IDUwMzM1CkJzcGVjOiA1MDM2NgpDYzogTHVjYXMgRGUgTWFyY2hpIDxsdWNhcy5k
+ZW1hcmNoaUBpbnRlbC5jb20+CkNjOiBWaWxsZSBTeXJqw6Rsw6QgPHZpbGxlLnN5cmphbGFAbGlu
+dXguaW50ZWwuY29tPgpTaWduZWQtb2ZmLWJ5OiBNYXR0IFJvcGVyIDxtYXR0aGV3LmQucm9wZXJA
+aW50ZWwuY29tPgotLS0KIC4uLi9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2ZpZm9fdW5kZXJydW4u
+YyAgICB8IDY1ICsrKysrKysrKysrKysrKysrKy0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVf
+aXJxLmMgICAgICAgICAgICAgICB8IDE0ICsrKy0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVf
+cmVnLmggICAgICAgICAgICAgICB8ICA4ICsrKwogMyBmaWxlcyBjaGFuZ2VkLCA4NCBpbnNlcnRp
+b25zKCspLCAzIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1
+L2Rpc3BsYXkvaW50ZWxfZmlmb191bmRlcnJ1bi5jIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlz
+cGxheS9pbnRlbF9maWZvX3VuZGVycnVuLmMKaW5kZXggNWIxMTM2ODM4YjljLi5mZTkzMTVhOWZj
+NTEgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZmlmb191
+bmRlcnJ1bi5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZmlmb191
+bmRlcnJ1bi5jCkBAIC0zNTksNiArMzU5LDM5IEBAIGJvb2wgaW50ZWxfc2V0X3BjaF9maWZvX3Vu
+ZGVycnVuX3JlcG9ydGluZyhzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqZGV2X3ByaXYsCiAJcmV0
+dXJuIG9sZDsKIH0KIAorc3RhdGljIHUzMgordW5kZXJydW5fcGlwZXN0YXRfbWFzayhzdHJ1Y3Qg
+ZHJtX2k5MTVfcHJpdmF0ZSAqZGV2X3ByaXYpCit7CisJdTMyIG1hc2sgPSBQSVBFX0ZJRk9fVU5E
+RVJSVU5fU1RBVFVTOworCisJaWYgKERJU1BMQVlfVkVSKGRldl9wcml2KSA+PSAxMykKKwkJbWFz
+ayB8PSBQSVBFX1NUQVRfU09GVF9VTkRFUlJVTl9YRUxQRCB8CisJCQlQSVBFX1NUQVRfSEFSRF9V
+TkRFUlJVTl9YRUxQRCB8CisJCQlQSVBFX1NUQVRfUE9SVF9VTkRFUlJVTl9YRUxQRDsKKworCXJl
+dHVybiBtYXNrOworfQorCitzdGF0aWMgY29uc3QgY2hhciAqCitwaXBlX3VuZGVycnVuX3JlYXNv
+bih1MzIgcGlwZXN0YXRfdW5kZXJydW5zKQoreworCWlmIChwaXBlc3RhdF91bmRlcnJ1bnMgJiBQ
+SVBFX1NUQVRfU09GVF9VTkRFUlJVTl9YRUxQRCkKKwkJLyoKKwkJICogSGFyZHdhcmUgdXNlZCBy
+ZXBsYWNlbWVudC9pbnRlcnBvbGF0ZWQgcGl4ZWxzIGF0CisJCSAqIHVuZGVycnVuIGxvY2F0aW9u
+cy4KKwkJICovCisJCXJldHVybiAic29mdCI7CisJZWxzZSBpZiAocGlwZXN0YXRfdW5kZXJydW5z
+ICYgUElQRV9TVEFUX0hBUkRfVU5ERVJSVU5fWEVMUEQpCisJCS8qCisJCSAqIEhhcmR3YXJlIHVz
+ZWQgcHJldmlvdXMgcGl4ZWwgdmFsdWUgYXQgdW5kZXJydW4KKwkJICogbG9jYXRpb25zLgorCQkg
+Ki8KKwkJcmV0dXJuICJoYXJkIjsKKwllbHNlCisJCS8qIE9sZCBwbGF0Zm9ybSBvciBubyBleHRy
+YSBzb2Z0L2hhcmQgYml0IHNldCAqLworCQlyZXR1cm4gIkZJRk8iOworfQorCiAvKioKICAqIGlu
+dGVsX2NwdV9maWZvX3VuZGVycnVuX2lycV9oYW5kbGVyIC0gaGFuZGxlIENQVSBmaWZvIHVuZGVy
+cnVuIGludGVycnVwdAogICogQGRldl9wcml2OiBpOTE1IGRldmljZSBpbnN0YW5jZQpAQCAtMzcy
+LDYgKzQwNSw3IEBAIHZvaWQgaW50ZWxfY3B1X2ZpZm9fdW5kZXJydW5faXJxX2hhbmRsZXIoc3Ry
+dWN0IGRybV9pOTE1X3ByaXZhdGUgKmRldl9wcml2LAogCQkJCQkgZW51bSBwaXBlIHBpcGUpCiB7
+CiAJc3RydWN0IGludGVsX2NydGMgKmNydGMgPSBpbnRlbF9nZXRfY3J0Y19mb3JfcGlwZShkZXZf
+cHJpdiwgcGlwZSk7CisJdTMyIHVuZGVycnVucyA9IDA7CiAKIAkvKiBXZSBtYXkgYmUgY2FsbGVk
+IHRvbyBlYXJseSBpbiBpbml0LCB0aGFua3MgQklPUyEgKi8KIAlpZiAoY3J0YyA9PSBOVUxMKQpA
+QCAtMzgyLDEwICs0MTYsMzcgQEAgdm9pZCBpbnRlbF9jcHVfZmlmb191bmRlcnJ1bl9pcnFfaGFu
+ZGxlcihzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqZGV2X3ByaXYsCiAJICAgIGNydGMtPmNwdV9m
+aWZvX3VuZGVycnVuX2Rpc2FibGVkKQogCQlyZXR1cm47CiAKKwkvKgorCSAqIFN0YXJ0aW5nIHdp
+dGggZGlzcGxheSB2ZXJzaW9uIDExLCB0aGUgUElQRV9TVEFUIHJlZ2lzdGVyIHJlY29yZHMKKwkg
+KiB3aGV0aGVyIGFuIHVuZGVycnVuIGhhcyBoYXBwZW5lZCwgYW5kIG9uIFhFTFBEKywgaXQgd2ls
+bCBhbHNvIHJlY29yZAorCSAqIHdoZXRoZXIgdGhlIHVuZGVycnVuIHdhcyBzb2Z0L2hhcmQgYW5k
+IHdoZXRoZXIgaXQgd2FzIHRyaWdnZXJlZCBieQorCSAqIHRoZSBkb3duc3RyZWFtIHBvcnQgbG9n
+aWMuICBXZSBzaG91bGQgY2xlYXIgdGhlc2UgYml0cyAod2hpY2ggdXNlCisJICogd3JpdGUtMS10
+by1jbGVhciBsb2dpYykgdG9vLgorCSAqCisJICogTm90ZSB0aGF0IGFsdGhvdWdoIHRoZSBJSVIg
+Z2l2ZXMgdXMgdGhlIHNhbWUgdW5kZXJydW4gYW5kIHNvZnQvaGFyZAorCSAqIGluZm9ybWF0aW9u
+LCBQSVBFX1NUQVQgaXMgdGhlIG9ubHkgcGxhY2Ugd2UgY2FuIGZpbmQgb3V0IHdoZXRoZXIKKwkg
+KiB0aGUgdW5kZXJydW4gd2FzIGNhdXNlZCBieSB0aGUgZG93bnN0cmVhbSBwb3J0LgorCSAqLwor
+CWlmIChESVNQTEFZX1ZFUihkZXZfcHJpdikgPj0gMTEpIHsKKwkJdW5kZXJydW5zID0gaW50ZWxf
+dW5jb3JlX3JlYWQoJmRldl9wcml2LT51bmNvcmUsCisJCQkJCSAgICAgIElDTF9QSVBFU1RBVFVT
+KHBpcGUpKSAmCisJCQl1bmRlcnJ1bl9waXBlc3RhdF9tYXNrKGRldl9wcml2KTsKKwkJaW50ZWxf
+dW5jb3JlX3dyaXRlKCZkZXZfcHJpdi0+dW5jb3JlLCBJQ0xfUElQRVNUQVRVUyhwaXBlKSwKKwkJ
+CQkgICB1bmRlcnJ1bnMpOworCX0KKwogCWlmIChpbnRlbF9zZXRfY3B1X2ZpZm9fdW5kZXJydW5f
+cmVwb3J0aW5nKGRldl9wcml2LCBwaXBlLCBmYWxzZSkpIHsKIAkJdHJhY2VfaW50ZWxfY3B1X2Zp
+Zm9fdW5kZXJydW4oZGV2X3ByaXYsIHBpcGUpOwotCQlkcm1fZXJyKCZkZXZfcHJpdi0+ZHJtLCAi
+Q1BVIHBpcGUgJWMgRklGTyB1bmRlcnJ1blxuIiwKLQkJCXBpcGVfbmFtZShwaXBlKSk7CisKKwkJ
+aWYgKHVuZGVycnVucyAmIFBJUEVfU1RBVF9QT1JUX1VOREVSUlVOX1hFTFBEKQorCQkJLyogVW5k
+ZXJydW4gd2FzIGNhdXNlZCBkb3duc3RyZWFtIGZyb20gdGhlIHBpcGVzICovCisJCQlkcm1fZXJy
+KCZkZXZfcHJpdi0+ZHJtLCAiUG9ydCB0cmlnZ2VyZWQgYSAlcyB1bmRlcnJ1biBvbiBwaXBlICVj
+XG4iLAorCQkJCXBpcGVfdW5kZXJydW5fcmVhc29uKHVuZGVycnVucyksCisJCQkJcGlwZV9uYW1l
+KHBpcGUpKTsKKwkJZWxzZQorCQkJZHJtX2VycigmZGV2X3ByaXYtPmRybSwgIkNQVSBwaXBlICVj
+ICVzIHVuZGVycnVuXG4iLAorCQkJCXBpcGVfbmFtZShwaXBlKSwKKwkJCQlwaXBlX3VuZGVycnVu
+X3JlYXNvbih1bmRlcnJ1bnMpKTsKIAl9CiAKIAlpbnRlbF9mYmNfaGFuZGxlX2ZpZm9fdW5kZXJy
+dW5faXJxKGRldl9wcml2KTsKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVf
+aXJxLmMgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X2lycS5jCmluZGV4IGM5ZTAzOTczNTAy
+Yy4uOGJlYjVlMTkzYmE1IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X2ly
+cS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfaXJxLmMKQEAgLTI0MjQsNiArMjQy
+NCwxOCBAQCBzdGF0aWMgdTMyIGdlbjhfZGVfcGlwZV9mbGlwX2RvbmVfbWFzayhzdHJ1Y3QgZHJt
+X2k5MTVfcHJpdmF0ZSAqaTkxNSkKIAkJcmV0dXJuIEdFTjhfUElQRV9QUklNQVJZX0ZMSVBfRE9O
+RTsKIH0KIAorc3RhdGljIHUzMgordW5kZXJydW5faWlyX21hc2soc3RydWN0IGRybV9pOTE1X3By
+aXZhdGUgKmRldl9wcml2KQoreworCXUzMiBtYXNrID0gR0VOOF9QSVBFX0ZJRk9fVU5ERVJSVU47
+CisKKwlpZiAoRElTUExBWV9WRVIoZGV2X3ByaXYpID49IDEzKQorCQltYXNrIHw9IFhFTFBEX1BJ
+UEVfU09GVF9VTkRFUlJVTiB8CisJCQlYRUxQRF9QSVBFX0hBUkRfVU5ERVJSVU47CisKKwlyZXR1
+cm4gbWFzazsKK30KKwogc3RhdGljIGlycXJldHVybl90CiBnZW44X2RlX2lycV9oYW5kbGVyKHN0
+cnVjdCBkcm1faTkxNV9wcml2YXRlICpkZXZfcHJpdiwgdTMyIG1hc3Rlcl9jdGwpCiB7CkBAIC0y
+NTMyLDcgKzI1NDQsNyBAQCBnZW44X2RlX2lycV9oYW5kbGVyKHN0cnVjdCBkcm1faTkxNV9wcml2
+YXRlICpkZXZfcHJpdiwgdTMyIG1hc3Rlcl9jdGwpCiAJCWlmIChpaXIgJiBHRU44X1BJUEVfQ0RD
+TEtfQ1JDX0RPTkUpCiAJCQloc3dfcGlwZV9jcmNfaXJxX2hhbmRsZXIoZGV2X3ByaXYsIHBpcGUp
+OwogCi0JCWlmIChpaXIgJiBHRU44X1BJUEVfRklGT19VTkRFUlJVTikKKwkJaWYgKGlpciAmIHVu
+ZGVycnVuX2lpcl9tYXNrKGRldl9wcml2KSkKIAkJCWludGVsX2NwdV9maWZvX3VuZGVycnVuX2ly
+cV9oYW5kbGVyKGRldl9wcml2LCBwaXBlKTsKIAogCQlmYXVsdF9lcnJvcnMgPSBpaXIgJiBnZW44
+X2RlX3BpcGVfZmF1bHRfbWFzayhkZXZfcHJpdik7CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
+cm0vaTkxNS9pOTE1X3JlZy5oIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV9yZWcuaAppbmRl
+eCA0NzVkMTRkYjI4NDQuLjliYmU5NGNkZGQ5MyAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJt
+L2k5MTUvaTkxNV9yZWcuaAorKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X3JlZy5oCkBA
+IC02MTM5LDYgKzYxMzksMTIgQEAgZW51bSB7CiAjZGVmaW5lICAgU0tMX0JPVFRPTV9DT0xPUl9D
+U0NfRU5BQkxFCSgxIDw8IDMwKQogI2RlZmluZSBTS0xfQk9UVE9NX0NPTE9SKHBpcGUpCQlfTU1J
+T19QSVBFMihwaXBlLCBfU0tMX0JPVFRPTV9DT0xPUl9BKQogCisjZGVmaW5lIF9JQ0xfUElQRV9B
+X1NUQVRVUwkJCTB4NzAwNTgKKyNkZWZpbmUgSUNMX1BJUEVTVEFUVVMocGlwZSkJCQlfTU1JT19Q
+SVBFMihwaXBlLCBfSUNMX1BJUEVfQV9TVEFUVVMpCisjZGVmaW5lICAgUElQRV9TVEFUX1NPRlRf
+VU5ERVJSVU5fWEVMUEQJCVJFR19CSVQoMjgpCisjZGVmaW5lICAgUElQRV9TVEFUX0hBUkRfVU5E
+RVJSVU5fWEVMUEQJCVJFR19CSVQoMjcpCisjZGVmaW5lICAgUElQRV9TVEFUX1BPUlRfVU5ERVJS
+VU5fWEVMUEQJCVJFR19CSVQoMjYpCisKICNkZWZpbmUgVkxWX0RQRkxJUFNUQVQJCQkJX01NSU8o
+VkxWX0RJU1BMQVlfQkFTRSArIDB4NzAwMjgpCiAjZGVmaW5lICAgUElQRUJfTElORV9DT01QQVJF
+X0lOVF9FTgkJKDEgPDwgMjkpCiAjZGVmaW5lICAgUElQRUJfSExJTkVfSU5UX0VOCQkJKDEgPDwg
+MjgpCkBAIC03NzkyLDYgKzc3OTgsOCBAQCBlbnVtIHsKICNkZWZpbmUgIEdFTjhfUElQRV9GSUZP
+X1VOREVSUlVOCSgxIDw8IDMxKQogI2RlZmluZSAgR0VOOF9QSVBFX0NEQ0xLX0NSQ19FUlJPUgko
+MSA8PCAyOSkKICNkZWZpbmUgIEdFTjhfUElQRV9DRENMS19DUkNfRE9ORQkoMSA8PCAyOCkKKyNk
+ZWZpbmUgIFhFTFBEX1BJUEVfU09GVF9VTkRFUlJVTgkoMSA8PCAyMikKKyNkZWZpbmUgIFhFTFBE
+X1BJUEVfSEFSRF9VTkRFUlJVTgkoMSA8PCAyMSkKICNkZWZpbmUgIEdFTjhfUElQRV9DVVJTT1Jf
+RkFVTFQJCSgxIDw8IDEwKQogI2RlZmluZSAgR0VOOF9QSVBFX1NQUklURV9GQVVMVAkJKDEgPDwg
+OSkKICNkZWZpbmUgIEdFTjhfUElQRV9QUklNQVJZX0ZBVUxUCSgxIDw8IDgpCi0tIAoyLjI1LjQK
+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkludGVsLWdm
+eCBtYWlsaW5nIGxpc3QKSW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xp
+c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ludGVsLWdmeAo=
