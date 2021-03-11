@@ -4,35 +4,35 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BBFAEC433E0
-	for <intel-gfx@archiver.kernel.org>; Thu, 11 Mar 2021 13:49:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F17D7C433E6
+	for <intel-gfx@archiver.kernel.org>; Thu, 11 Mar 2021 13:49:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 56FA764F98
-	for <intel-gfx@archiver.kernel.org>; Thu, 11 Mar 2021 13:49:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 56FA764F98
+	by mail.kernel.org (Postfix) with ESMTPS id 9040C64F97
+	for <intel-gfx@archiver.kernel.org>; Thu, 11 Mar 2021 13:49:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9040C64F97
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 50A1E6EC9F;
-	Thu, 11 Mar 2021 13:48:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D88C6ECBB;
+	Thu, 11 Mar 2021 13:48:56 +0000 (UTC)
 Received: from mblankhorst.nl (mblankhorst.nl [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8655F6EC99
- for <intel-gfx@lists.freedesktop.org>; Thu, 11 Mar 2021 13:48:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3CD336ECA2
+ for <intel-gfx@lists.freedesktop.org>; Thu, 11 Mar 2021 13:48:53 +0000 (UTC)
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 11 Mar 2021 14:42:09 +0100
-Message-Id: <20210311134249.588632-30-maarten.lankhorst@linux.intel.com>
+Date: Thu, 11 Mar 2021 14:42:47 +0100
+Message-Id: <20210311134249.588632-68-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.30.1
 In-Reply-To: <20210311134249.588632-1-maarten.lankhorst@linux.intel.com>
 References: <20210311134249.588632-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v8 29/69] drm/i915: Defer pin calls in buffer
- pool until first use by caller.
+Subject: [Intel-gfx] [PATCH v8 67/69] drm/i915: Add ww context to
+ prepare_(read/write)
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,114 +45,176 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-V2UgbmVlZCB0byB0YWtlIHRoZSBvYmogbG9jayB0byBwaW4gcGFnZXMsIHNvIHdhaXQgdW50aWwg
-dGhlIGNhbGxlcnMKaGF2ZSBkb25lIHNvLCBiZWZvcmUgbWFraW5nIHRoZSBvYmplY3QgdW5zaHJp
-bmthYmxlLgoKU2lnbmVkLW9mZi1ieTogTWFhcnRlbiBMYW5raG9yc3QgPG1hYXJ0ZW4ubGFua2hv
-cnN0QGxpbnV4LmludGVsLmNvbT4KUmV2aWV3ZWQtYnk6IFRob21hcyBIZWxsc3Ryw7ZtIDx0aG9t
-YXMuaGVsbHN0cm9tQGxpbnV4LmludGVsLmNvbT4KLS0tCiAuLi4vZ3B1L2RybS9pOTE1L2dlbS9p
-OTE1X2dlbV9leGVjYnVmZmVyLmMgICAgfCAgMiArCiAuLi4vZ3B1L2RybS9pOTE1L2dlbS9pOTE1
-X2dlbV9vYmplY3RfYmx0LmMgICAgfCAgNiArKysKIC4uLi9ncHUvZHJtL2k5MTUvZ3QvaW50ZWxf
-Z3RfYnVmZmVyX3Bvb2wuYyAgICB8IDQ3ICsrKysrKysrKy0tLS0tLS0tLS0KIC4uLi9ncHUvZHJt
-L2k5MTUvZ3QvaW50ZWxfZ3RfYnVmZmVyX3Bvb2wuaCAgICB8ICA1ICsrCiAuLi4vZHJtL2k5MTUv
-Z3QvaW50ZWxfZ3RfYnVmZmVyX3Bvb2xfdHlwZXMuaCAgfCAgMSArCiA1IGZpbGVzIGNoYW5nZWQs
-IDM1IGluc2VydGlvbnMoKyksIDI2IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMv
-Z3B1L2RybS9pOTE1L2dlbS9pOTE1X2dlbV9leGVjYnVmZmVyLmMgYi9kcml2ZXJzL2dwdS9kcm0v
-aTkxNS9nZW0vaTkxNV9nZW1fZXhlY2J1ZmZlci5jCmluZGV4IDY0ZDBlNWZjY2VjZS4uOTdiMGQx
-MTM0YjY2IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9nZW0vaTkxNV9nZW1fZXhl
-Y2J1ZmZlci5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2dlbS9pOTE1X2dlbV9leGVjYnVm
-ZmVyLmMKQEAgLTEzMzUsNiArMTMzNSw3IEBAIHN0YXRpYyBpbnQgX19yZWxvY19ncHVfYWxsb2Mo
-c3RydWN0IGk5MTVfZXhlY2J1ZmZlciAqZWIsCiAJCWVyciA9IFBUUl9FUlIoY21kKTsKIAkJZ290
-byBlcnJfcG9vbDsKIAl9CisJaW50ZWxfZ3RfYnVmZmVyX3Bvb2xfbWFya191c2VkKHBvb2wpOwog
-CiAJbWVtc2V0MzIoY21kLCAwLCBwb29sLT5vYmotPmJhc2Uuc2l6ZSAvIHNpemVvZih1MzIpKTsK
-IApAQCAtMjYzMCw2ICsyNjMxLDcgQEAgc3RhdGljIGludCBlYl9wYXJzZShzdHJ1Y3QgaTkxNV9l
-eGVjYnVmZmVyICplYikKIAkJZXJyID0gUFRSX0VSUihzaGFkb3cpOwogCQlnb3RvIGVycjsKIAl9
-CisJaW50ZWxfZ3RfYnVmZmVyX3Bvb2xfbWFya191c2VkKHBvb2wpOwogCWk5MTVfZ2VtX29iamVj
-dF9zZXRfcmVhZG9ubHkoc2hhZG93LT5vYmopOwogCXNoYWRvdy0+cHJpdmF0ZSA9IHBvb2w7CiAK
-ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2dlbS9pOTE1X2dlbV9vYmplY3RfYmx0
-LmMgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9nZW0vaTkxNV9nZW1fb2JqZWN0X2JsdC5jCmluZGV4
-IGQ2ZGFjMjFmY2UwYi4uZGY4ZThjMThjNmM5IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0v
-aTkxNS9nZW0vaTkxNV9nZW1fb2JqZWN0X2JsdC5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1
-L2dlbS9pOTE1X2dlbV9vYmplY3RfYmx0LmMKQEAgLTU1LDYgKzU1LDkgQEAgc3RydWN0IGk5MTVf
-dm1hICppbnRlbF9lbWl0X3ZtYV9maWxsX2JsdChzdHJ1Y3QgaW50ZWxfY29udGV4dCAqY2UsCiAJ
-aWYgKHVubGlrZWx5KGVycikpCiAJCWdvdG8gb3V0X3B1dDsKIAorCS8qIHdlIHBpbm5lZCB0aGUg
-cG9vbCwgbWFyayBpdCBhcyBzdWNoICovCisJaW50ZWxfZ3RfYnVmZmVyX3Bvb2xfbWFya191c2Vk
-KHBvb2wpOworCiAJY21kID0gaTkxNV9nZW1fb2JqZWN0X3Bpbl9tYXAocG9vbC0+b2JqLCBwb29s
-LT50eXBlKTsKIAlpZiAoSVNfRVJSKGNtZCkpIHsKIAkJZXJyID0gUFRSX0VSUihjbWQpOwpAQCAt
-Mjc3LDYgKzI4MCw5IEBAIHN0cnVjdCBpOTE1X3ZtYSAqaW50ZWxfZW1pdF92bWFfY29weV9ibHQo
-c3RydWN0IGludGVsX2NvbnRleHQgKmNlLAogCWlmICh1bmxpa2VseShlcnIpKQogCQlnb3RvIG91
-dF9wdXQ7CiAKKwkvKiB3ZSBwaW5uZWQgdGhlIHBvb2wsIG1hcmsgaXQgYXMgc3VjaCAqLworCWlu
-dGVsX2d0X2J1ZmZlcl9wb29sX21hcmtfdXNlZChwb29sKTsKKwogCWNtZCA9IGk5MTVfZ2VtX29i
-amVjdF9waW5fbWFwKHBvb2wtPm9iaiwgcG9vbC0+dHlwZSk7CiAJaWYgKElTX0VSUihjbWQpKSB7
-CiAJCWVyciA9IFBUUl9FUlIoY21kKTsKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1
-L2d0L2ludGVsX2d0X2J1ZmZlcl9wb29sLmMgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9ndC9pbnRl
-bF9ndF9idWZmZXJfcG9vbC5jCmluZGV4IDA2ZDg0Y2YwOTU3MC4uYzU5NDY4MTA3NTk4IDEwMDY0
-NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9ndC9pbnRlbF9ndF9idWZmZXJfcG9vbC5jCisr
-KyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2d0L2ludGVsX2d0X2J1ZmZlcl9wb29sLmMKQEAgLTk4
-LDI4ICs5OCw2IEBAIHN0YXRpYyB2b2lkIHBvb2xfZnJlZV93b3JrKHN0cnVjdCB3b3JrX3N0cnVj
-dCAqd3JrKQogCQkJCSAgICAgIHJvdW5kX2ppZmZpZXNfdXBfcmVsYXRpdmUoSFopKTsKIH0KIAot
-c3RhdGljIGludCBwb29sX2FjdGl2ZShzdHJ1Y3QgaTkxNV9hY3RpdmUgKnJlZikKLXsKLQlzdHJ1
-Y3QgaW50ZWxfZ3RfYnVmZmVyX3Bvb2xfbm9kZSAqbm9kZSA9Ci0JCWNvbnRhaW5lcl9vZihyZWYs
-IHR5cGVvZigqbm9kZSksIGFjdGl2ZSk7Ci0Jc3RydWN0IGRtYV9yZXN2ICpyZXN2ID0gbm9kZS0+
-b2JqLT5iYXNlLnJlc3Y7Ci0JaW50IGVycjsKLQotCWlmIChkbWFfcmVzdl90cnlsb2NrKHJlc3Yp
-KSB7Ci0JCWRtYV9yZXN2X2FkZF9leGNsX2ZlbmNlKHJlc3YsIE5VTEwpOwotCQlkbWFfcmVzdl91
-bmxvY2socmVzdik7Ci0JfQotCi0JZXJyID0gaTkxNV9nZW1fb2JqZWN0X3Bpbl9wYWdlcyhub2Rl
-LT5vYmopOwotCWlmIChlcnIpCi0JCXJldHVybiBlcnI7Ci0KLQkvKiBIaWRlIHRoaXMgcGlubmVk
-IG9iamVjdCBmcm9tIHRoZSBzaHJpbmtlciB1bnRpbCByZXRpcmVkICovCi0JaTkxNV9nZW1fb2Jq
-ZWN0X21ha2VfdW5zaHJpbmthYmxlKG5vZGUtPm9iaik7Ci0KLQlyZXR1cm4gMDsKLX0KLQogX19p
-OTE1X2FjdGl2ZV9jYWxsCiBzdGF0aWMgdm9pZCBwb29sX3JldGlyZShzdHJ1Y3QgaTkxNV9hY3Rp
-dmUgKnJlZikKIHsKQEAgLTEyOSwxMCArMTA3LDEzIEBAIHN0YXRpYyB2b2lkIHBvb2xfcmV0aXJl
-KHN0cnVjdCBpOTE1X2FjdGl2ZSAqcmVmKQogCXN0cnVjdCBsaXN0X2hlYWQgKmxpc3QgPSBidWNr
-ZXRfZm9yX3NpemUocG9vbCwgbm9kZS0+b2JqLT5iYXNlLnNpemUpOwogCXVuc2lnbmVkIGxvbmcg
-ZmxhZ3M7CiAKLQlpOTE1X2dlbV9vYmplY3RfdW5waW5fcGFnZXMobm9kZS0+b2JqKTsKKwlpZiAo
-bm9kZS0+cGlubmVkKSB7CisJCWk5MTVfZ2VtX29iamVjdF91bnBpbl9wYWdlcyhub2RlLT5vYmop
-OwogCi0JLyogUmV0dXJuIHRoaXMgb2JqZWN0IHRvIHRoZSBzaHJpbmtlciBwb29sICovCi0JaTkx
-NV9nZW1fb2JqZWN0X21ha2VfcHVyZ2VhYmxlKG5vZGUtPm9iaik7CisJCS8qIFJldHVybiB0aGlz
-IG9iamVjdCB0byB0aGUgc2hyaW5rZXIgcG9vbCAqLworCQlpOTE1X2dlbV9vYmplY3RfbWFrZV9w
-dXJnZWFibGUobm9kZS0+b2JqKTsKKwkJbm9kZS0+cGlubmVkID0gZmFsc2U7CisJfQogCiAJR0VN
-X0JVR19PTihub2RlLT5hZ2UpOwogCXNwaW5fbG9ja19pcnFzYXZlKCZwb29sLT5sb2NrLCBmbGFn
-cyk7CkBAIC0xNDQsNiArMTI1LDE5IEBAIHN0YXRpYyB2b2lkIHBvb2xfcmV0aXJlKHN0cnVjdCBp
-OTE1X2FjdGl2ZSAqcmVmKQogCQkJICAgICAgcm91bmRfamlmZmllc191cF9yZWxhdGl2ZShIWikp
-OwogfQogCit2b2lkIGludGVsX2d0X2J1ZmZlcl9wb29sX21hcmtfdXNlZChzdHJ1Y3QgaW50ZWxf
-Z3RfYnVmZmVyX3Bvb2xfbm9kZSAqbm9kZSkKK3sKKwlhc3NlcnRfb2JqZWN0X2hlbGQobm9kZS0+
-b2JqKTsKKworCWlmIChub2RlLT5waW5uZWQpCisJCXJldHVybjsKKworCV9faTkxNV9nZW1fb2Jq
-ZWN0X3Bpbl9wYWdlcyhub2RlLT5vYmopOworCS8qIEhpZGUgdGhpcyBwaW5uZWQgb2JqZWN0IGZy
-b20gdGhlIHNocmlua2VyIHVudGlsIHJldGlyZWQgKi8KKwlpOTE1X2dlbV9vYmplY3RfbWFrZV91
-bnNocmlua2FibGUobm9kZS0+b2JqKTsKKwlub2RlLT5waW5uZWQgPSB0cnVlOworfQorCiBzdGF0
-aWMgc3RydWN0IGludGVsX2d0X2J1ZmZlcl9wb29sX25vZGUgKgogbm9kZV9jcmVhdGUoc3RydWN0
-IGludGVsX2d0X2J1ZmZlcl9wb29sICpwb29sLCBzaXplX3Qgc3osCiAJICAgIGVudW0gaTkxNV9t
-YXBfdHlwZSB0eXBlKQpAQCAtMTU5LDcgKzE1Myw4IEBAIG5vZGVfY3JlYXRlKHN0cnVjdCBpbnRl
-bF9ndF9idWZmZXJfcG9vbCAqcG9vbCwgc2l6ZV90IHN6LAogCiAJbm9kZS0+YWdlID0gMDsKIAlu
-b2RlLT5wb29sID0gcG9vbDsKLQlpOTE1X2FjdGl2ZV9pbml0KCZub2RlLT5hY3RpdmUsIHBvb2xf
-YWN0aXZlLCBwb29sX3JldGlyZSk7CisJbm9kZS0+cGlubmVkID0gZmFsc2U7CisJaTkxNV9hY3Rp
-dmVfaW5pdCgmbm9kZS0+YWN0aXZlLCBOVUxMLCBwb29sX3JldGlyZSk7CiAKIAlvYmogPSBpOTE1
-X2dlbV9vYmplY3RfY3JlYXRlX2ludGVybmFsKGd0LT5pOTE1LCBzeik7CiAJaWYgKElTX0VSUihv
-YmopKSB7CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9ndC9pbnRlbF9ndF9idWZm
-ZXJfcG9vbC5oIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3QvaW50ZWxfZ3RfYnVmZmVyX3Bvb2wu
-aAppbmRleCA2MDY4ZjhmMTc2MmUuLjQ4N2I4YTU1MjBmMSAxMDA2NDQKLS0tIGEvZHJpdmVycy9n
-cHUvZHJtL2k5MTUvZ3QvaW50ZWxfZ3RfYnVmZmVyX3Bvb2wuaAorKysgYi9kcml2ZXJzL2dwdS9k
-cm0vaTkxNS9ndC9pbnRlbF9ndF9idWZmZXJfcG9vbC5oCkBAIC0xOCwxMCArMTgsMTUgQEAgc3Ry
-dWN0IGludGVsX2d0X2J1ZmZlcl9wb29sX25vZGUgKgogaW50ZWxfZ3RfZ2V0X2J1ZmZlcl9wb29s
-KHN0cnVjdCBpbnRlbF9ndCAqZ3QsIHNpemVfdCBzaXplLAogCQkJIGVudW0gaTkxNV9tYXBfdHlw
-ZSB0eXBlKTsKIAordm9pZCBpbnRlbF9ndF9idWZmZXJfcG9vbF9tYXJrX3VzZWQoc3RydWN0IGlu
-dGVsX2d0X2J1ZmZlcl9wb29sX25vZGUgKm5vZGUpOworCiBzdGF0aWMgaW5saW5lIGludAogaW50
-ZWxfZ3RfYnVmZmVyX3Bvb2xfbWFya19hY3RpdmUoc3RydWN0IGludGVsX2d0X2J1ZmZlcl9wb29s
-X25vZGUgKm5vZGUsCiAJCQkJIHN0cnVjdCBpOTE1X3JlcXVlc3QgKnJxKQogeworCS8qIGRpZCB3
-ZSBjYWxsIG1hcmtfdXNlZD8gKi8KKwlHRU1fV0FSTl9PTighbm9kZS0+cGlubmVkKTsKKwogCXJl
-dHVybiBpOTE1X2FjdGl2ZV9hZGRfcmVxdWVzdCgmbm9kZS0+YWN0aXZlLCBycSk7CiB9CiAKZGlm
-ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2d0L2ludGVsX2d0X2J1ZmZlcl9wb29sX3R5
-cGVzLmggYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9ndC9pbnRlbF9ndF9idWZmZXJfcG9vbF90eXBl
-cy5oCmluZGV4IGM0OWI4NGZlNTE2NC4uZGYxZDc1ZDA4Y2QyIDEwMDY0NAotLS0gYS9kcml2ZXJz
-L2dwdS9kcm0vaTkxNS9ndC9pbnRlbF9ndF9idWZmZXJfcG9vbF90eXBlcy5oCisrKyBiL2RyaXZl
-cnMvZ3B1L2RybS9pOTE1L2d0L2ludGVsX2d0X2J1ZmZlcl9wb29sX3R5cGVzLmgKQEAgLTMwLDYg
-KzMwLDcgQEAgc3RydWN0IGludGVsX2d0X2J1ZmZlcl9wb29sX25vZGUgewogCX07CiAJdW5zaWdu
-ZWQgbG9uZyBhZ2U7CiAJZW51bSBpOTE1X21hcF90eXBlIHR5cGU7CisJdTMyIHBpbm5lZDsKIH07
-CiAKICNlbmRpZiAvKiBJTlRFTF9HVF9CVUZGRVJfUE9PTF9UWVBFU19IICovCi0tIAoyLjMwLjEK
-Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkludGVsLWdm
-eCBtYWlsaW5nIGxpc3QKSW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xp
-c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ludGVsLWdmeAo=
+This will allow us to explicitly pass the ww to pin_pages, when it starts taking it.
+
+Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+---
+ drivers/gpu/drm/i915/gem/i915_gem_domain.c              | 2 ++
+ drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c          | 7 ++++---
+ drivers/gpu/drm/i915/gem/i915_gem_object.h              | 2 ++
+ drivers/gpu/drm/i915/gem/selftests/huge_pages.c         | 2 +-
+ drivers/gpu/drm/i915/gem/selftests/i915_gem_coherency.c | 4 ++--
+ drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c   | 4 ++--
+ drivers/gpu/drm/i915/i915_gem.c                         | 4 ++--
+ 7 files changed, 15 insertions(+), 10 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_domain.c b/drivers/gpu/drm/i915/gem/i915_gem_domain.c
+index e3537922183b..a5b3a21faf9c 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_domain.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_domain.c
+@@ -534,6 +534,7 @@ i915_gem_set_domain_ioctl(struct drm_device *dev, void *data,
+  * flush the object from the CPU cache.
+  */
+ int i915_gem_object_prepare_read(struct drm_i915_gem_object *obj,
++				 struct i915_gem_ww_ctx *ww,
+ 				 unsigned int *needs_clflush)
+ {
+ 	int ret;
+@@ -578,6 +579,7 @@ int i915_gem_object_prepare_read(struct drm_i915_gem_object *obj,
+ }
+ 
+ int i915_gem_object_prepare_write(struct drm_i915_gem_object *obj,
++				  struct i915_gem_ww_ctx *ww,
+ 				  unsigned int *needs_clflush)
+ {
+ 	int ret;
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+index df4f124dc61f..74667be619b1 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+@@ -1147,9 +1147,10 @@ static void reloc_cache_reset(struct reloc_cache *cache, struct i915_execbuffer
+ }
+ 
+ static void *reloc_kmap(struct drm_i915_gem_object *obj,
+-			struct reloc_cache *cache,
++			struct i915_execbuffer *eb,
+ 			unsigned long pageno)
+ {
++	struct reloc_cache *cache = &eb->reloc_cache;
+ 	void *vaddr;
+ 	struct page *page;
+ 
+@@ -1159,7 +1160,7 @@ static void *reloc_kmap(struct drm_i915_gem_object *obj,
+ 		unsigned int flushes;
+ 		int err;
+ 
+-		err = i915_gem_object_prepare_write(obj, &flushes);
++		err = i915_gem_object_prepare_write(obj, &eb->ww, &flushes);
+ 		if (err)
+ 			return ERR_PTR(err);
+ 
+@@ -1259,7 +1260,7 @@ static void *reloc_vaddr(struct drm_i915_gem_object *obj,
+ 		if ((cache->vaddr & KMAP) == 0)
+ 			vaddr = reloc_iomap(obj, eb, page);
+ 		if (!vaddr)
+-			vaddr = reloc_kmap(obj, cache, page);
++			vaddr = reloc_kmap(obj, eb, page);
+ 	}
+ 
+ 	return vaddr;
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.h b/drivers/gpu/drm/i915/gem/i915_gem_object.h
+index 7a252dc4237f..1a8ec4035112 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_object.h
++++ b/drivers/gpu/drm/i915/gem/i915_gem_object.h
+@@ -480,8 +480,10 @@ static inline void i915_gem_object_unpin_map(struct drm_i915_gem_object *obj)
+ void __i915_gem_object_release_map(struct drm_i915_gem_object *obj);
+ 
+ int i915_gem_object_prepare_read(struct drm_i915_gem_object *obj,
++				 struct i915_gem_ww_ctx *ww,
+ 				 unsigned int *needs_clflush);
+ int i915_gem_object_prepare_write(struct drm_i915_gem_object *obj,
++				  struct i915_gem_ww_ctx *ww,
+ 				  unsigned int *needs_clflush);
+ #define CLFLUSH_BEFORE	BIT(0)
+ #define CLFLUSH_AFTER	BIT(1)
+diff --git a/drivers/gpu/drm/i915/gem/selftests/huge_pages.c b/drivers/gpu/drm/i915/gem/selftests/huge_pages.c
+index 80eeb59aae67..8b07bb77bb86 100644
+--- a/drivers/gpu/drm/i915/gem/selftests/huge_pages.c
++++ b/drivers/gpu/drm/i915/gem/selftests/huge_pages.c
+@@ -987,7 +987,7 @@ __cpu_check_shmem(struct drm_i915_gem_object *obj, u32 dword, u32 val)
+ 	int err;
+ 
+ 	i915_gem_object_lock(obj, NULL);
+-	err = i915_gem_object_prepare_read(obj, &needs_flush);
++	err = i915_gem_object_prepare_read(obj, NULL, &needs_flush);
+ 	if (err)
+ 		goto err_unlock;
+ 
+diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_coherency.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_coherency.c
+index 8f2e447bd503..8f5b1e44d534 100644
+--- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_coherency.c
++++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_coherency.c
+@@ -29,7 +29,7 @@ static int cpu_set(struct context *ctx, unsigned long offset, u32 v)
+ 	int err;
+ 
+ 	i915_gem_object_lock(ctx->obj, NULL);
+-	err = i915_gem_object_prepare_write(ctx->obj, &needs_clflush);
++	err = i915_gem_object_prepare_write(ctx->obj, NULL, &needs_clflush);
+ 	if (err)
+ 		goto out;
+ 
+@@ -62,7 +62,7 @@ static int cpu_get(struct context *ctx, unsigned long offset, u32 *v)
+ 	int err;
+ 
+ 	i915_gem_object_lock(ctx->obj, NULL);
+-	err = i915_gem_object_prepare_read(ctx->obj, &needs_clflush);
++	err = i915_gem_object_prepare_read(ctx->obj, NULL, &needs_clflush);
+ 	if (err)
+ 		goto out;
+ 
+diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
+index 82d5d37e9b66..af5f29a8a7f2 100644
+--- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
++++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
+@@ -462,7 +462,7 @@ static int cpu_fill(struct drm_i915_gem_object *obj, u32 value)
+ 	int err;
+ 
+ 	i915_gem_object_lock(obj, NULL);
+-	err = i915_gem_object_prepare_write(obj, &need_flush);
++	err = i915_gem_object_prepare_write(obj, NULL, &need_flush);
+ 	if (err)
+ 		goto out;
+ 
+@@ -492,7 +492,7 @@ static noinline int cpu_check(struct drm_i915_gem_object *obj,
+ 	int err;
+ 
+ 	i915_gem_object_lock(obj, NULL);
+-	err = i915_gem_object_prepare_read(obj, &needs_flush);
++	err = i915_gem_object_prepare_read(obj, NULL, &needs_flush);
+ 	if (err)
+ 		goto out_unlock;
+ 
+diff --git a/drivers/gpu/drm/i915/i915_gem.c b/drivers/gpu/drm/i915/i915_gem.c
+index 81c7f2b5a585..a935c05809d5 100644
+--- a/drivers/gpu/drm/i915/i915_gem.c
++++ b/drivers/gpu/drm/i915/i915_gem.c
+@@ -216,7 +216,7 @@ i915_gem_shmem_pread(struct drm_i915_gem_object *obj,
+ 	if (ret)
+ 		goto err_unlock;
+ 
+-	ret = i915_gem_object_prepare_read(obj, &needs_clflush);
++	ret = i915_gem_object_prepare_read(obj, NULL, &needs_clflush);
+ 	if (ret)
+ 		goto err_unpin;
+ 
+@@ -637,7 +637,7 @@ i915_gem_shmem_pwrite(struct drm_i915_gem_object *obj,
+ 	if (ret)
+ 		goto err_unlock;
+ 
+-	ret = i915_gem_object_prepare_write(obj, &needs_clflush);
++	ret = i915_gem_object_prepare_write(obj, NULL, &needs_clflush);
+ 	if (ret)
+ 		goto err_unpin;
+ 
+-- 
+2.30.1
+
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
