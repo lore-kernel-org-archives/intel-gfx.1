@@ -2,64 +2,52 @@ Return-Path: <SRS0=hFQw=IK=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4BBB4C433DB
-	for <intel-gfx@archiver.kernel.org>; Fri, 12 Mar 2021 01:37:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 52F53C433DB
+	for <intel-gfx@archiver.kernel.org>; Fri, 12 Mar 2021 02:26:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D378A64F76
-	for <intel-gfx@archiver.kernel.org>; Fri, 12 Mar 2021 01:37:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D378A64F76
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id EE2B864F70
+	for <intel-gfx@archiver.kernel.org>; Fri, 12 Mar 2021 02:26:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EE2B864F70
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 43D8589C1A;
-	Fri, 12 Mar 2021 01:37:22 +0000 (UTC)
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [IPv6:2a00:1450:4864:20::52e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F16C89B06;
- Fri, 12 Mar 2021 01:37:20 +0000 (UTC)
-Received: by mail-ed1-x52e.google.com with SMTP id z1so5734186edb.8;
- Thu, 11 Mar 2021 17:37:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=4lzaQZFF4QQwUeiSDrtC0Cs527ZYrAZKnT600UIQ/cg=;
- b=c4JJPmmvuJHdI+/0NauBwXXRWw9s0DYM6HTPqe8ErjcNSYt/ETWt9cL1k1os7Vtvki
- zl9OFiR4LMSQc9xh+s1kECYCUIDoXMKcmYgFscMrG2y4l2Hgpr3acX1feeSC6kZaueNF
- //CbT2WqCZcOsMEyK+BtD0c14VaYbcZpX6B0S9ozyYYCeoQJWZtQvdIFrSoasDDbUgIg
- +R0wa09lUbMGaBPfi0J+V5d4XAS0aTDl4ySUB7OO537I+zYUkcAwQhnN25OduL2e7mZc
- I3u43yR9PWgU0etSA/FSDLkLyr44kPw+R1y0GVwHOdDYll3pPBY8fLlzzsZvbPLjr5Q0
- HhQw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=4lzaQZFF4QQwUeiSDrtC0Cs527ZYrAZKnT600UIQ/cg=;
- b=F8c83xDNSynLtG8FERSmOyoRNwsqB1GbANVAbuU7wnHU5rwERwRSGK6cDeL29m56a6
- wT747lsjM9YbpPX4O0gP+p/BSJnGQ2dMHv8RoV/Tyeq6veyHdj3mWxz4KrWl8IMKdqCq
- lIrMHuZPYC+NzEi3FvntAdgpZdqoF6CgjGS7eufsRmJrZW++t6xyrnHc4HQfGB3C+k5T
- oew/lCzLO80zvLVCEEam43KPELd5ETyKyyLpnJGvtlgV2qmfxlpn2iYaKT+BCJKKbhrx
- X1iwUa4lyz07HEDV8T0tftSOe0DmBpC0ieCyCNiqJ5rcD3oRjuT54ALV8jvD0MjlLS7y
- v7wQ==
-X-Gm-Message-State: AOAM533fkEaQMU8WlvT2Xzmpezzg3XtCwZdB2xe4kerQFKbv7i/AKLPq
- FebxVIpuO28N1GspOFN1rwV5dnbMEXAPWRoLHb0=
-X-Google-Smtp-Source: ABdhPJy/TMZFe/Vay8eQHzGp4K5UeW2DtipJBH/KXKcbdfOpGd5G03GuPgotfZTOfw3xw5Ko5BT22fuuhIDcXyTHP3s=
-X-Received: by 2002:a05:6402:170f:: with SMTP id
- y15mr11499020edu.127.1615513039260; 
- Thu, 11 Mar 2021 17:37:19 -0800 (PST)
-MIME-Version: 1.0
-References: <YEn+yXnNFFoW5+CF@intel.com>
-In-Reply-To: <YEn+yXnNFFoW5+CF@intel.com>
-From: Dave Airlie <airlied@gmail.com>
-Date: Fri, 12 Mar 2021 11:36:51 +1000
-Message-ID: <CAPM=9tyi=qSSbkgh_cmDWiRfsnxyd+5shNFXdce2xZityUkUpQ@mail.gmail.com>
-To: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Subject: Re: [Intel-gfx] [PULL] drm-intel-fixes
+	by gabe.freedesktop.org (Postfix) with ESMTP id 603BE6E54C;
+	Fri, 12 Mar 2021 02:26:06 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B54046E54C;
+ Fri, 12 Mar 2021 02:26:05 +0000 (UTC)
+IronPort-SDR: fMXGFzaV6qzHt+DqNixVS4vAe6kGb6paGTNmBoED74wmXszU59ZxISMn38S9HrnzwEvYAJgOht
+ TQVGNoiz06fg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9920"; a="186397546"
+X-IronPort-AV: E=Sophos;i="5.81,241,1610438400"; d="scan'208";a="186397546"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Mar 2021 18:26:02 -0800
+IronPort-SDR: 69/Q1cw3CDQEMGXcD3rGQhCZhM/Mj+l856rVZjODSZAQGmQMyL7HhOYjhACLCWaXct8S5Gg8Bg
+ Wl5W+9L9HjSw==
+X-IronPort-AV: E=Sophos;i="5.81,241,1610438400"; d="scan'208";a="510203285"
+Received: from adixit-mobl1.amr.corp.intel.com (HELO adixit-arch.intel.com)
+ ([10.254.58.194])
+ by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Mar 2021 18:26:01 -0800
+Date: Thu, 11 Mar 2021 18:25:07 -0800
+Message-ID: <87sg51un0c.wl-ashutosh.dixit@intel.com>
+From: "Dixit, Ashutosh" <ashutosh.dixit@intel.com>
+To: Jason Ekstrand <jason@jlekstrand.net>
+In-Reply-To: <20210310210049.723206-1-jason@jlekstrand.net>
+References: <20210310210049.723206-1-jason@jlekstrand.net>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?ISO-8859-4?Q?Goj=F2?=) APEL-LB/10.8 EasyPG/1.0.0
+ Emacs/27.1 (x86_64-pc-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Subject: Re: [Intel-gfx] [PATCH] i915: Drop legacy execbuffer support
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,43 +60,29 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "DRM maintainer tools announcements, discussion,
- and development" <dim-tools@lists.freedesktop.org>,
- Daniel Vetter <daniel.vetter@ffwll.ch>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Maxime Ripard <mripard@kernel.org>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 11 Mar 2021 at 21:28, Rodrigo Vivi <rodrigo.vivi@intel.com> wrote:
+On Wed, 10 Mar 2021 13:00:49 -0800, Jason Ekstrand wrote:
 >
-> Hi Dave and Daniel,
+> libdrm has supported the newer execbuffer2 ioctl and using it by default
+> when it exists since libdrm commit b50964027bef249a0cc3d511de05c2464e0a1e22
+> which landed Mar 2, 2010.  The i915 and i965 drivers in Mesa at the time
+> both used libdrm and so did the Intel X11 back-end.  The SNA back-end
+> for X11 has always used execbuffer2.
 >
-> Things are very quiet. Only 1 fix this round.
-> Since I will be out next week, if this trend continues I will
-> accumulate 2 weeks and send when in -rc4.
->
-> Here goes drm-intel-fixes-2021-03-11:
->
-> - Wedge the GPU if command parser setup fails (Tvrtko)
->
-> Thanks,
-> Rodrigo.
->
-> The following changes since commit fe07bfda2fb9cdef8a4d4008a409bb02f35f1bd8:
->
->   Linux 5.12-rc1 (2021-02-28 16:05:19 -0800)
+> Signed-off-by: Jason Ekstrand <jason@jlekstrand.net>
+> ---
+>  .../gpu/drm/i915/gem/i915_gem_execbuffer.c    | 100 ------------------
+>  drivers/gpu/drm/i915/gem/i915_gem_ioctls.h    |   2 -
+>  drivers/gpu/drm/i915/i915_drv.c               |   2 +-
+>  3 files changed, 1 insertion(+), 103 deletions(-)
 
-This was based on 5.12-rc1 against my request earlier in the week to
-not do that. but since it was a single patch I just cherry-picked it
-across.
-
-Can we make sure no fixes or next based on rc1 arrive please.
-
-Dave.
+Don't we want to clean up references to legacy execbuffer in
+include/uapi/drm/i915_drm.h too?
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
