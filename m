@@ -2,68 +2,64 @@ Return-Path: <SRS0=R2gn=IU=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-0.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8A921C433DB
-	for <intel-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 09:10:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 43333C433E0
+	for <intel-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 09:10:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8502861931
-	for <intel-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 09:10:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8502861931
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linaro.org
+	by mail.kernel.org (Postfix) with ESMTPS id CE6DD61929
+	for <intel-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 09:10:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CE6DD61929
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmx.net
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 96CBB89DC0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE53389DC7;
 	Mon, 22 Mar 2021 09:10:09 +0000 (UTC)
-Received: from mail-pj1-x102f.google.com (mail-pj1-x102f.google.com
- [IPv6:2607:f8b0:4864:20::102f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 955056E9EC
- for <intel-gfx@lists.freedesktop.org>; Fri, 19 Mar 2021 11:35:35 +0000 (UTC)
-Received: by mail-pj1-x102f.google.com with SMTP id
- ga23-20020a17090b0397b02900c0b81bbcd4so6612659pjb.0
- for <intel-gfx@lists.freedesktop.org>; Fri, 19 Mar 2021 04:35:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=oKHyKM5HpgM64/v1vzFdLp1d/ZtBozUZ21Nb1Kh1LfE=;
- b=oA4VSa+nu/9W7HEreKS2m+YjOanl3TPCruPFBgMTvzGK1JsQbrp7ZQne4hciU+1JpL
- tC2hWULRXHHPm4YwQNXxvUbUHsNu+x7lQ8tKHvDxk7FyQH65oZsd+VfiJrYfgCeNw0x0
- 2EN2PSSWRcAdVl/GZMvNDl5QVcWps3mc2u+aTI6dsRha6h0AuWq8HTAlXVRbHO39y8q4
- WZkfB+U/TXLwbSlwImsWvK008U6xWpuA1uj8mdfmuDOUeq0ILBuWvf9PQZDnWX1pHpET
- Cgam/1cfnlVfvmOO9ujm+CmSjw2dgkAUvDDxyLpJFCwN1ntNUPTBIZ28vTqcL+GsxyRT
- dvOQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=oKHyKM5HpgM64/v1vzFdLp1d/ZtBozUZ21Nb1Kh1LfE=;
- b=YobbzE+oeotBF1252Sr7LPxt4Dw9re5gbmWyQwBj7fOlTNZ6lvtcnYOA18B+2l00iD
- ZndKlHbia+rZbiklI2lNEIif5S9yKrSrvLW/Qo0ACV2Yut5Tki9g7CAts5XbOtcEZH47
- irMjWmOaS3BkSUOZNI/sS0aUHXidk0aFn/EbwS/cx3DeF6pbvERNPmeIxdR0K2L34p02
- NqKGGIh6v9YzvLXNpjBYztJR5Uv7/8Dj0spi/hXfCmg5iKhnjtrQHsq/+04CcN0FVR2y
- L71uIBQr+nx2UN+Y9Tl7eUjd10eaumMgE+XJBFkDgjb0cFITge+CvEphsOGBju7zbz9c
- xzJg==
-X-Gm-Message-State: AOAM530gE16EB0ALiINMb/Duo8kZU+bfQItwn/tET/T21diKTZJndN5m
- PRU3sJlrJNW3Psc0Iztdi+NuK6EYSS1TyF1i3hAlVQ==
-X-Google-Smtp-Source: ABdhPJyYOsIuX8edCxIL4tkKbNSgbtWLcodZmdaiaQmxoRZST0LiH2O2E/Mhxco68rpGovr0mKxDhbougBexQ4y0Q9k=
-X-Received: by 2002:a17:902:e752:b029:e6:822c:355c with SMTP id
- p18-20020a170902e752b02900e6822c355cmr14084469plf.69.1616153735064; Fri, 19
- Mar 2021 04:35:35 -0700 (PDT)
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.22])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D29C89F55
+ for <intel-gfx@lists.freedesktop.org>; Sun, 14 Mar 2021 10:30:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
+ s=badeba3b8450; t=1615717813;
+ bh=bU4lPCqu2GZT9PWfQVMXtMOJiLDOK+tw1FmlaIjSoPs=;
+ h=X-UI-Sender-Class:Subject:From:To:Date;
+ b=ks69f66wQNPuyJGFmJyR9bqnEGJzrslSjJLN7WybbHChKNoXFikO57ZmzGeBkCCoP
+ gnzY0/QebRKNL5XhiT9rilE43UkLNHmTJjd6CwRDpaWkPViAwXMiK/uxSpvtAPmg9f
+ /J2aychO416Tayuv4jmGzN9Nn5hN5wigh/E5UTEM=
+X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
+Received: from [192.168.0.4] ([84.157.29.67]) by mail.gmx.net (mrgmx105
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1N7iCg-1lqVq30uP4-014oeq for
+ <intel-gfx@lists.freedesktop.org>; Sun, 14 Mar 2021 11:30:13 +0100
+Message-ID: <28b8cfd3f29d3e5ed4224c687ef173d6c45e028d.camel@gmx.net>
+From: Mario =?ISO-8859-1?Q?H=FCttel?= <mario.huettel@gmx.net>
+To: intel-gfx@lists.freedesktop.org
+Date: Sun, 14 Mar 2021 11:30:12 +0100
+User-Agent: Evolution 3.38.4 
 MIME-Version: 1.0
-References: <20210219215326.2227596-1-lyude@redhat.com>
- <20210219215326.2227596-28-lyude@redhat.com>
-In-Reply-To: <20210219215326.2227596-28-lyude@redhat.com>
-From: Robert Foss <robert.foss@linaro.org>
-Date: Fri, 19 Mar 2021 12:35:24 +0100
-Message-ID: <CAG3jFyuvnDQXXJKaY7zqi01_BG7pvFj0_9DJ2eAr2C=FvUtL1A@mail.gmail.com>
-To: Lyude Paul <lyude@redhat.com>
-X-Mailman-Approved-At: Mon, 22 Mar 2021 09:10:08 +0000
-Subject: Re: [Intel-gfx] [PATCH 27/30] drm/dp_mst: Pass
- drm_dp_mst_topology_mgr to drm_dp_get_vc_payload_bw()
+X-Provags-ID: V03:K1:WG0wwccSBzEh3BBqmVA3Yi4Ua9BnVPqwaOTK1IMCu261+GIDsNF
+ naB64HlK/uKSGFCEeuzGb2h79i1SrGBoPZ5qEbZt6BqtqEZdqBEGzhEMN43LkqQeE0DCTtx
+ 2rSEhvtwowlHOtvsqbcXZibTLPoY+GBFyjdf8ZiwtRBe9TMoVJf3LxkPXzwC0CBlakjAb6R
+ Va9MNhVoEiGPGC2qH0wyA==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:W2TxSagt+Z4=:NJ0iso421EAqhCHcZKtjqW
+ iyFObzizoDRWt9rMjiDkfU8gly7SB5s4TSHe2i44UyATZbZaYuCQXTmEqaNZI1/pfyIWeZz3w
+ Fzh32Ofja9qelULhuFni6OMYFm2R3d/l7p4MZJc2J4s6c17WcV3Xt9hRx0lh3SnhcMKlKTrFC
+ ema3s4UldsXs5mXKzQai06cvs8kXQokjZDGd6KmoyGN8w287nh5JuUG5Jb8pOygD+BCrg9Vuq
+ i5kCHdlF/dl0RI+UDb77hcNPI4rqStQ4PdXE5JnD3PJ1XmjaJA4UNFx8nuRTJphqNjg/bd7GV
+ 1YuwTMLqzPDKpuF2c3jE3SxxVtXT1JqgFwUmZki3pi0QGkm5H1GmJvfGZJFAM6/pC65eRjK0a
+ NWpqEsheaG9ALgLhVk6ywIhvg0TLeYdIb1W0kzcUiP3R8jeILxd/CAokQAzkBUze1zQ8o+1H0
+ J4zJLr2mXSxL6uW4QdV4HOzSUyScPftQzimXYhFBjjwCq9mrx3zDPvI2C9/X68AzrZRCBICVH
+ uuwsYxmu/UbLmGWg72Nvoh6eHj+Ee74J1wJ6bdCwShFbEoK+geHmsBNs/Xvn0OUf5J1FAp+mK
+ lWUwlNZk5TrfPt9Gh1L+x4T3uDzpPrBwDNLpW5pnd3YXB2vgc3puiz8rOxLdTzJqZN/nSpju0
+ R8i+QlAzC9Sy/mzExyw3kZtP2AXt1j/6ZS11Be6NSZGrnKMxYQnb1pYAijFyK2z1mCYwLrXiR
+ jeNd3xFzQ+8aopyQJ/oko/yLsmYQfYtwFvWAPyka5HL5kBeIw1lrWrkpqckvYFeujW2jMh7Ih
+ 9Sza4x9E4k2w7Re6A50asKrPK3jA1ts2/bbrx9E2H3Qkaz2scMouwwHQ/9O9OrWYH9uYFt3CO
+ fDW0tp+d/SaNK6uDlgHw==
+X-Mailman-Approved-At: Mon, 22 Mar 2021 09:10:09 +0000
+Subject: [Intel-gfx] [bug report] drm/i915: Computer does not shutdown,
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,108 +72,44 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Maxime Ripard <mripard@kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, David Airlie <airlied@linux.ie>,
- nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- open list <linux-kernel@vger.kernel.org>,
- Lucas De Marchi <lucas.demarchi@intel.com>, amd-gfx@lists.freedesktop.org,
- Thomas Zimmermann <tzimmermann@suse.de>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hey Lyude,
+Hello,
 
-Thanks for the patch.
+It seems, like the mailing list, didn't accept my email. So I'll send
+it again:
 
-On Fri, 19 Feb 2021 at 23:03, Lyude Paul <lyude@redhat.com> wrote:
->
-> Since this is one of the few functions in drm_dp_mst_topology.c that
-> doesn't have any way of getting access to a drm_device, let's pass the
-> drm_dp_mst_topology_mgr down to this function so that it can use
-> drm_dbg_kms().
->
-> Signed-off-by: Lyude Paul <lyude@redhat.com>
-> ---
->  drivers/gpu/drm/drm_dp_mst_topology.c       | 7 +++++--
->  drivers/gpu/drm/i915/display/intel_dp_mst.c | 3 ++-
->  include/drm/drm_dp_mst_helper.h             | 3 ++-
->  3 files changed, 9 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/drm_dp_mst_topology.c b/drivers/gpu/drm/drm_dp_mst_topology.c
-> index cf4f2f85711e..fb66df39e0bb 100644
-> --- a/drivers/gpu/drm/drm_dp_mst_topology.c
-> +++ b/drivers/gpu/drm/drm_dp_mst_topology.c
-> @@ -3631,6 +3631,7 @@ static int drm_dp_send_up_ack_reply(struct drm_dp_mst_topology_mgr *mgr,
->
->  /**
->   * drm_dp_get_vc_payload_bw - get the VC payload BW for an MST link
-> + * @mgr: The &drm_dp_mst_topology_mgr to use
->   * @link_rate: link rate in 10kbits/s units
->   * @link_lane_count: lane count
->   *
-> @@ -3639,7 +3640,8 @@ static int drm_dp_send_up_ack_reply(struct drm_dp_mst_topology_mgr *mgr,
->   * convert the number of PBNs required for a given stream to the number of
->   * timeslots this stream requires in each MTP.
->   */
-> -int drm_dp_get_vc_payload_bw(int link_rate, int link_lane_count)
-> +int drm_dp_get_vc_payload_bw(const struct drm_dp_mst_topology_mgr *mgr,
-> +                            int link_rate, int link_lane_count)
->  {
->         if (link_rate == 0 || link_lane_count == 0)
->                 DRM_DEBUG_KMS("invalid link rate/lane count: (%d / %d)\n",
-> @@ -3704,7 +3706,8 @@ int drm_dp_mst_topology_mgr_set_mst(struct drm_dp_mst_topology_mgr *mgr, bool ms
->                         goto out_unlock;
->                 }
->
-> -               mgr->pbn_div = drm_dp_get_vc_payload_bw(drm_dp_bw_code_to_link_rate(mgr->dpcd[1]),
-> +               mgr->pbn_div = drm_dp_get_vc_payload_bw(mgr,
-> +                                                       drm_dp_bw_code_to_link_rate(mgr->dpcd[1]),
->                                                         mgr->dpcd[2] & DP_MAX_LANE_COUNT_MASK);
->                 if (mgr->pbn_div == 0) {
->                         ret = -EINVAL;
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-> index 8e316146b6d1..60ca0fa32d15 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-> @@ -70,7 +70,8 @@ static int intel_dp_mst_compute_link_config(struct intel_encoder *encoder,
->                 slots = drm_dp_atomic_find_vcpi_slots(state, &intel_dp->mst_mgr,
->                                                       connector->port,
->                                                       crtc_state->pbn,
-> -                                                     drm_dp_get_vc_payload_bw(crtc_state->port_clock,
-> +                                                     drm_dp_get_vc_payload_bw(&intel_dp->mst_mgr,
-> +                                                                              crtc_state->port_clock,
->                                                                                crtc_state->lane_count));
+I want to report a bug. I have a PC with Intel i7-6700K processor (with
+integrated graphics) and an AsRock Fatal1ty Z170 Gaming K6 mainboard. I
+use the CPU's integrated graphics.
+My system is Archlinux with Kernel v5.11.6.
 
-checkpatch --strict is unhappy about this chunk
+Using this setup, my PC works normally. However, when I shut it down,
+the power is not cut. Fans keep spinning and LEDs stay on. I couldn't
+detect any other problem when shutting down. Drives etc. stop as
+expected and the video is blank. Even after waiting several hours, the
+system doesn't power down.
 
-WARNING: line length of 102 exceeds 100 columns
-#61: FILE: drivers/gpu/drm/i915/display/intel_dp_mst.c:73:
-+                                           crtc_state->port_clock,
+Restarts work normally.
 
-Maybe the results of drm_dp_get_vc_payload_bw() can be but in a
-temporary variable.
+I haven't yet found any other people on the internet that have the same
+bug.
 
->                 if (slots == -EDEADLK)
->                         return slots;
-> diff --git a/include/drm/drm_dp_mst_helper.h b/include/drm/drm_dp_mst_helper.h
-> index bd1c39907b92..20dc705642bd 100644
-> --- a/include/drm/drm_dp_mst_helper.h
-> +++ b/include/drm/drm_dp_mst_helper.h
-> @@ -783,7 +783,8 @@ drm_dp_mst_detect_port(struct drm_connector *connector,
->
->  struct edid *drm_dp_mst_get_edid(struct drm_connector *connector, struct drm_dp_mst_topology_mgr *mgr, struct drm_dp_mst_port *port);
->
-> -int drm_dp_get_vc_payload_bw(int link_rate, int link_lane_count);
-> +int drm_dp_get_vc_payload_bw(const struct drm_dp_mst_topology_mgr *mgr,
-> +                            int link_rate, int link_lane_count);
->
->  int drm_dp_calc_pbn_mode(int clock, int bpp, bool dsc);
->
-> --
-> 2.29.2
->
+I used git bisect to find the commit that causes this behavior on my
+machine. The result is: fe0f1e3bfdfeb53e18f1206aea4f40b9bd1f291c is the
+first bad commit.
+
+I hope this is the correct mailing list for this issue.
+
+Let me know if you need more information or someone to test it.
+
+Thanks
+
+Mario
+
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
