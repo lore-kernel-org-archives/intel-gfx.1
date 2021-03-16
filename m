@@ -4,66 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2B996C433C1
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D4B6CC433DB
 	for <intel-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 09:10:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D450361931
-	for <intel-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 09:10:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D450361931
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linaro.org
+	by mail.kernel.org (Postfix) with ESMTPS id 8E63561929
+	for <intel-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 09:10:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8E63561929
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=suse.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C85289E0E;
-	Mon, 22 Mar 2021 09:10:27 +0000 (UTC)
-Received: from mail-pj1-x1033.google.com (mail-pj1-x1033.google.com
- [IPv6:2607:f8b0:4864:20::1033])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C9976EA31
- for <intel-gfx@lists.freedesktop.org>; Fri, 19 Mar 2021 14:45:57 +0000 (UTC)
-Received: by mail-pj1-x1033.google.com with SMTP id
- k23-20020a17090a5917b02901043e35ad4aso6796252pji.3
- for <intel-gfx@lists.freedesktop.org>; Fri, 19 Mar 2021 07:45:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=TDOGGWm21psnrXGlHEe6HvlgMdBE2hycDbnwOwrR0qU=;
- b=UlA8BUn9E5sUqHuUQiDVI3TjSNEzIgglN6StA4KCyVdX76E7TgzijdMXlwYNtcOU0U
- oK0YUt9NaUKh9OYWeJPjOkj4C5gutCsoHgMAvOd4Co8G5QdGHna9dHm7ddeuPGYGq/UU
- Si3mf/vcqt4SyjTxw+ErupnhAHbv7gJlYCmf1cF8qg82nbjZAt3Z/IIoFUghJvvgtcHU
- +FleiDUKLNV1+6e/kdi2/1LZ5WlwKchV5dNwMhB4LJ5WQEEREoixVpYSoLkG/fUbcn/z
- iqEMWMaGTVyjVI457AtXUukS3iu0mLK0n5p3e4aIfbfoRaFuJj8XAwJkM4jRv0vRhq69
- yzqg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=TDOGGWm21psnrXGlHEe6HvlgMdBE2hycDbnwOwrR0qU=;
- b=XgzHLQdrbRnr5tKIpQBZj/RhE8NKVCR+Ivsc0nuDVdQL5iWnt+0F1pLoxLM+Q1XVsk
- 0BaiE2lYtMp+26VXpQGfkC88DdR2xoPwR0qY0l1vwyDUgu+aKY3g9THKXxrWYfWMkHzG
- PCnC1rITye/wOch7JtdevBKLgKuOo0J+xbn3uA8H5aXQ2V62TdQl1CSiHUdTEAz/BQi6
- yXkxNMRSjKEK0WiJghv798/0ukbUG/r0AzNAflEG5uh4svwI2lFH7c20PkdXIt0oh0Yn
- riIXer6+UAAHytGXvXB85tG4NkA0S3ouSLylt2btIiNW3FzmTcO/96oxAB6siOY+taYH
- 4FMQ==
-X-Gm-Message-State: AOAM530hCWV3t6H621i1rjTdZqLJA0j4S9d5hnxGQSmb8GUrSNqWtxvB
- cRG0nLAtYXpIAdiExa61QoSA+V4OPN2VwrZp02S4yw==
-X-Google-Smtp-Source: ABdhPJxweZfNiCPg9C7NrDu3mAB+yl61lfkYpCt6KNMgXUL5b8ziQQV9oK2kr7DsR12MgPe9uLa2ifDL7vrvhQ8WUh4=
-X-Received: by 2002:a17:902:e752:b029:e6:822c:355c with SMTP id
- p18-20020a170902e752b02900e6822c355cmr14735796plf.69.1616165156604; Fri, 19
- Mar 2021 07:45:56 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 93BE189E15;
+	Mon, 22 Mar 2021 09:10:25 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9862F6E420
+ for <intel-gfx@lists.freedesktop.org>; Tue, 16 Mar 2021 19:04:58 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+ t=1615921497; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Uyf6E+H1YXI0cL9QhZdsFGXH1uBKRc1Kbk7vPe0D4QU=;
+ b=LGrMMbKyRb2b6FFkgR+sG8KdCwdkavBwtqJ4lXhQ7/WZlRl57kw4zBq9FoLPzTkvClzcr2
+ j8ykwSOvCyG0F8QWahP0B6BO3ToT+Kv3+XQnRyvoa3QggFjqaOZVaTWkkxCTU0ZUhYe8bA
+ l9tvmkxnJ3VkIG0yPlwajaJ3MhOCQVw=
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 37CE0AC24;
+ Tue, 16 Mar 2021 19:04:57 +0000 (UTC)
+Message-ID: <8bee31ec7d936b6b70549d35207aacbd40508dfd.camel@suse.com>
+From: Santiago Zarate <santiago.zarate@suse.com>
+To: Imre Deak <imre.deak@intel.com>, intel-gfx@lists.freedesktop.org
+Date: Tue, 16 Mar 2021 20:04:56 +0100
+In-Reply-To: <20210316165426.3388513-1-imre.deak@intel.com>
+References: <20210316165426.3388513-1-imre.deak@intel.com>
+User-Agent: Evolution 3.38.4 
 MIME-Version: 1.0
-References: <20210219215326.2227596-1-lyude@redhat.com>
- <20210219215326.2227596-14-lyude@redhat.com>
-In-Reply-To: <20210219215326.2227596-14-lyude@redhat.com>
-From: Robert Foss <robert.foss@linaro.org>
-Date: Fri, 19 Mar 2021 15:45:45 +0100
-Message-ID: <CAG3jFyuJ=_Ab_LXNANs7VQAkgB16KC47zmibK1fXUKGvrGNUEw@mail.gmail.com>
-To: Lyude Paul <lyude@redhat.com>
 X-Mailman-Approved-At: Mon, 22 Mar 2021 09:10:08 +0000
-Subject: Re: [Intel-gfx] [PATCH 13/30] drm/bridge/analogix/dp_core:
- Unregister DP AUX channel on error in analogix_dp_probe()
+Subject: Re: [Intel-gfx] drm/i915/ilk-glk: Fix link training on links with
+ LTTPRs
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,54 +59,79 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jernej Skrabec <jernej.skrabec@siol.net>, Joe Perches <joe@perches.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Neil Armstrong <narmstrong@baylibre.com>, David Airlie <airlied@linux.ie>,
- nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- Jonas Karlman <jonas@kwiboo.se>, open list <linux-kernel@vger.kernel.org>,
- Andrzej Hajda <a.hajda@samsung.com>, Tomi Valkeinen <tomi.valkeinen@ti.com>,
- amd-gfx@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Andy Yan <andy.yan@rock-chips.com>, Sam Ravnborg <sam@ravnborg.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Takashi Iwai <tiwai@suse.de>, stable@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hey Lyude,
-
-Thanks for the patch, it looks good to me.
-
-Reviewed-by: Robert Foss <robert.foss@linaro.org>
-
-On Fri, 19 Feb 2021 at 22:58, Lyude Paul <lyude@redhat.com> wrote:
->
-> Just another drive-by fix I noticed while going through the tree to cleanup
-> DP aux adapter registration - make sure we unregister the DP AUX dev if
-> analogix_dp_probe() fails.
->
-> Signed-off-by: Lyude Paul <lyude@redhat.com>
-> ---
->  drivers/gpu/drm/bridge/analogix/analogix_dp_core.c | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-> index aa1bb86293fd..f115233b1cb9 100644
-> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-> @@ -1782,6 +1782,7 @@ int analogix_dp_bind(struct analogix_dp_device *dp, struct drm_device *drm_dev)
->
->  err_disable_pm_runtime:
->         pm_runtime_disable(dp->dev);
-> +       drm_dp_aux_unregister(&dp->aux);
->
->         return ret;
->  }
-> --
-> 2.29.2
->
-_______________________________________________
-Intel-gfx mailing list
-Intel-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+VGVzdGVkLUJ5OiBTYW50aWFnbyBaYXJhdGUgPHNhbnRpYWdvLnphcmF0ZUBzdXNlLmNvbT4KClRl
+c3RlZCB3aXRoIGtlcm5lbCBidWlsdCBpbiBvYnMsIHNlZQpodHRwczovL2FwaWJ1Z3ppbGxhLnN1
+c2UuY29tL3Nob3dfYnVnLmNnaT9pZD0xMTgzMjk0I2MxOSBmb3IgbW9yZQpkZXRhaWxzCgpSZWdh
+cmRzLCAKClNhbnRpYWdvCgpPbiBUdWUsIDIwMjEtMDMtMTYgYXQgMTg6NTQgKzAyMDAsIEltcmUg
+RGVhayB3cm90ZToKPiBUaGUgc3BlYyByZXF1aXJlcyB0byB1c2UgYXQgbGVhc3QgMy4ybXMgZm9y
+IHRoZSBBVVggdGltZW91dCBwZXJpb2QgaWYKPiB0aGVyZSBhcmUgTFQtdHVuYWJsZSBQSFkgUmVw
+ZWF0ZXJzIG9uIHRoZSBsaW5rICgyLjExLjIpLiBBbiB1cGNvbWluZwo+IHNwZWMgdXBkYXRlIG1h
+a2VzIHRoaXMgbW9yZSBzcGVjaWZpYywgYnkgcmVxdWlyaW5nIGEgMy4ybXMgbWluaW11bQo+IHRp
+bWVvdXQgcGVyaW9kIGZvciB0aGUgTFRUUFIgZGV0ZWN0aW9uIHJlYWRpbmcgdGhlIDB4RjAwMDAt
+MHhGMDAwNwo+IHJhbmdlICgzLjYuNS4xKS4KPiAKPiBBY2NvcmRpbmdseSBkaXNhYmxlIExUVFBS
+IGRldGVjdGlvbiB1bnRpbCBHTEssIHdoZXJlIHRoZSBtYXhpbXVtCj4gdGltZW91dAo+IHdlIGNh
+biBzZXQgaXMgb25seSAxLjZtcy4KPiAKPiBMaW5rIHRyYWluaW5nIGluIHRoZSBub24tdHJhbnNw
+YXJlbnQgbW9kZSBpcyBrbm93biB0byBmYWlsIGF0IGxlYXN0IG9uCj4gc29tZSBTS0wgc3lzdGVt
+cyB3aXRoIGEgV0QxOSBkb2NrIG9uIHRoZSBsaW5rLCB3aGljaCBleHBvc2VzIGFuIExUVFBSCj4g
+KHNlZSB0aGUgUmVmZXJlbmNlcyBiZWxvdykuIFdoaWxlIHRoaXMgY291bGQgaGF2ZSBkaWZmZXJl
+bnQgcmVhc29ucwo+IGJlc2lkZXMgdGhlIHRvbyBzaG9ydCBBVVggdGltZW91dCB1c2VkLCBub3Qg
+ZGV0ZWN0aW5nIExUVFBScyAoYW5kIHNvCj4gbm90Cj4gdXNpbmcgdGhlIG5vbi10cmFuc3BhcmVu
+dCBMVCBtb2RlKSBmaXhlcyBsaW5rIHRyYWluaW5nIG9uIHRoZXNlCj4gc3lzdGVtcy4KPiAKPiBX
+aGlsZSBhdCBpdCBhZGQgYSBjb2RlIGNvbW1lbnQgYWJvdXQgdGhlIHBsYXRmb3JtIHNwZWNpZmlj
+IG1heGltdW0KPiB0aW1lb3V0IHZhbHVlcy4KPiAKPiBSZXBvcnRlZC1ieTogVGFrYXNoaSBJd2Fp
+IDx0aXdhaUBzdXNlLmRlPgo+IFJlZmVyZW5jZXM6IGh0dHBzOi8vZ2l0bGFiLmZyZWVkZXNrdG9w
+Lm9yZy9kcm0vaW50ZWwvLS9pc3N1ZXMvMzE2Ngo+IEZpeGVzOiBiMzBlZGZkOGQwYjQgKCJkcm0v
+aTkxNTogU3dpdGNoIHRvIExUVFBSIG5vbi10cmFuc3BhcmVudCBtb2RlCj4gbGluayB0cmFpbmlu
+ZyIpCj4gQ2M6IDxzdGFibGVAdmdlci5rZXJuZWwub3JnPiAjIHY1LjExCj4gQ2M6IFRha2FzaGkg
+SXdhaSA8dGl3YWlAc3VzZS5kZT4KPiBTaWduZWQtb2ZmLWJ5OiBJbXJlIERlYWsgPGltcmUuZGVh
+a0BpbnRlbC5jb20+Cj4gLS0tCj4gwqBkcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVs
+X2RwX2F1eC5jwqDCoMKgwqDCoMKgwqDCoMKgwqAgfCA3ICsrKysrKysKPiDCoGRyaXZlcnMvZ3B1
+L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZHBfbGlua190cmFpbmluZy5jIHwgOCArKysrKysrKwo+
+IMKgMiBmaWxlcyBjaGFuZ2VkLCAxNSBpbnNlcnRpb25zKCspCj4gCj4gZGlmZiAtLWdpdCBhL2Ry
+aXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZHBfYXV4LmMKPiBiL2RyaXZlcnMvZ3B1
+L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZHBfYXV4LmMKPiBpbmRleCBlYWViZjEyMzMxMGEuLmI1
+ODFlOGFjY2UwNyAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2lu
+dGVsX2RwX2F1eC5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9k
+cF9hdXguYwo+IEBAIC0xMzMsNiArMTMzLDcgQEAgc3RhdGljIHUzMiBnNHhfZ2V0X2F1eF9zZW5k
+X2N0bChzdHJ1Y3QgaW50ZWxfZHAKPiAqaW50ZWxfZHAsCj4gwqDCoMKgwqDCoMKgwqDCoGVsc2UK
+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoHByZWNoYXJnZSA9IDU7Cj4gwqAKPiAr
+wqDCoMKgwqDCoMKgwqAvKiBNYXggdGltZW91dCB2YWx1ZSBvbiBJTEstQkRXOiAxLjZtcyAqLwo+
+IMKgwqDCoMKgwqDCoMKgwqBpZiAoSVNfQlJPQURXRUxMKGRldl9wcml2KSkKPiDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoHRpbWVvdXQgPSBEUF9BVVhfQ0hfQ1RMX1RJTUVfT1VUXzYw
+MHVzOwo+IMKgwqDCoMKgwqDCoMKgwqBlbHNlCj4gQEAgLTE1OSw2ICsxNjAsMTIgQEAgc3RhdGlj
+IHUzMiBza2xfZ2V0X2F1eF9zZW5kX2N0bChzdHJ1Y3QgaW50ZWxfZHAKPiAqaW50ZWxfZHAsCj4g
+wqDCoMKgwqDCoMKgwqDCoGVudW0gcGh5IHBoeSA9IGludGVsX3BvcnRfdG9fcGh5KGk5MTUsIGRp
+Z19wb3J0LT5iYXNlLnBvcnQpOwo+IMKgwqDCoMKgwqDCoMKgwqB1MzIgcmV0Owo+IMKgCj4gK8Kg
+wqDCoMKgwqDCoMKgLyoKPiArwqDCoMKgwqDCoMKgwqAgKiBNYXggdGltZW91dCB2YWx1ZXM6Cj4g
+K8KgwqDCoMKgwqDCoMKgICogU0tMLUdMSzogMS42bXMKPiArwqDCoMKgwqDCoMKgwqAgKiBDTkw6
+IDMuMm1zCj4gK8KgwqDCoMKgwqDCoMKgICogSUNMKzogNG1zCj4gK8KgwqDCoMKgwqDCoMKgICov
+Cj4gwqDCoMKgwqDCoMKgwqDCoHJldCA9IERQX0FVWF9DSF9DVExfU0VORF9CVVNZIHwKPiDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBEUF9BVVhfQ0hfQ1RMX0RPTkUgfAo+IMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgIERQX0FVWF9DSF9DVExfSU5URVJSVVBUIHwKPiBkaWZmIC0tZ2l0IGEv
+ZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kcF9saW5rX3RyYWluaW5nLmMKPiBi
+L2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZHBfbGlua190cmFpbmluZy5jCj4g
+aW5kZXggMTliYTdjN2NiYWFiLi5kZTZkNzBhMjliNDcgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9n
+cHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kcF9saW5rX3RyYWluaW5nLmMKPiArKysgYi9kcml2
+ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2RwX2xpbmtfdHJhaW5pbmcuYwo+IEBAIC0x
+MjMsMTAgKzEyMywxOCBAQCBpbnRlbF9kcF9zZXRfbHR0cHJfdHJhbnNwYXJlbnRfbW9kZShzdHJ1
+Y3QKPiBpbnRlbF9kcCAqaW50ZWxfZHAsIGJvb2wgZW5hYmxlKQo+IMKgICovCj4gwqBpbnQgaW50
+ZWxfZHBfbHR0cHJfaW5pdChzdHJ1Y3QgaW50ZWxfZHAgKmludGVsX2RwKQo+IMKgewo+ICvCoMKg
+wqDCoMKgwqDCoHN0cnVjdCBkcm1faTkxNV9wcml2YXRlICppOTE1ID0gZHBfdG9faTkxNShpbnRl
+bF9kcCk7Cj4gwqDCoMKgwqDCoMKgwqDCoGludCBsdHRwcl9jb3VudDsKPiDCoMKgwqDCoMKgwqDC
+oMKgYm9vbCByZXQ7Cj4gwqDCoMKgwqDCoMKgwqDCoGludCBpOwo+IMKgCj4gK8KgwqDCoMKgwqDC
+oMKgLyoKPiArwqDCoMKgwqDCoMKgwqAgKiBEZXRlY3RpbmcgTFRUUFJzIG11c3QgYmUgYXZvaWRl
+ZCBvbiBwbGF0Zm9ybXMgd2l0aCBhbiBBVVgKPiB0aW1lb3V0Cj4gK8KgwqDCoMKgwqDCoMKgICog
+cGVyaW9kIDwgMy4ybXMuIChzZWUgRFAgU3RhbmRhcmQgdjIuMCwgMi4xMS4yLCAzLjYuNi4xKS4K
+PiArwqDCoMKgwqDCoMKgwqAgKi8KPiArwqDCoMKgwqDCoMKgwqBpZiAoSU5URUxfR0VOKGk5MTUp
+IDwgMTApCj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoHJldHVybiAwOwo+ICsKPiDC
+oMKgwqDCoMKgwqDCoMKgaWYgKGludGVsX2RwX2lzX2VkcChpbnRlbF9kcCkpCj4gwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqByZXR1cm4gMDsKPiDCoAoKCl9fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkludGVsLWdmeCBtYWlsaW5nIGxpc3QKSW50
+ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
+Zy9tYWlsbWFuL2xpc3RpbmZvL2ludGVsLWdmeAo=
