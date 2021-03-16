@@ -2,47 +2,50 @@ Return-Path: <SRS0=yXj8=IO=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-21.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E2546C433E0
-	for <intel-gfx@archiver.kernel.org>; Tue, 16 Mar 2021 05:29:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E2136C433DB
+	for <intel-gfx@archiver.kernel.org>; Tue, 16 Mar 2021 05:29:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 84BFB65067
-	for <intel-gfx@archiver.kernel.org>; Tue, 16 Mar 2021 05:29:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 84BFB65067
+	by mail.kernel.org (Postfix) with ESMTPS id 90E6C65012
+	for <intel-gfx@archiver.kernel.org>; Tue, 16 Mar 2021 05:29:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 90E6C65012
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF9646E201;
-	Tue, 16 Mar 2021 05:29:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D21A56E207;
+	Tue, 16 Mar 2021 05:29:28 +0000 (UTC)
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 28B556E201
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 961C16E207
  for <intel-gfx@lists.freedesktop.org>; Tue, 16 Mar 2021 05:29:27 +0000 (UTC)
-IronPort-SDR: 5/gAIJPe50A8eD9iZVXxnPxKSRDV5mgsXuGvpuTJv1uk0pWxjDo4aFAijjnb5Bmg4Qy+HlF354
- LhK65dJQw25g==
-X-IronPort-AV: E=McAfee;i="6000,8403,9924"; a="169119291"
-X-IronPort-AV: E=Sophos;i="5.81,251,1610438400"; d="scan'208";a="169119291"
+IronPort-SDR: WbLIyNu2KPxF/jSGuewDU8wuoOI55t+1SePV3N/A8s3rSy1UMCm63VvAZKYVz2mO/5L5i0AOpk
+ LfCmSEA8lt5w==
+X-IronPort-AV: E=McAfee;i="6000,8403,9924"; a="169119294"
+X-IronPort-AV: E=Sophos;i="5.81,251,1610438400"; d="scan'208";a="169119294"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Mar 2021 22:29:26 -0700
-IronPort-SDR: 3GOWXAXCJy7nhuilDvhoDXk9K8tQHIPaIN4NvJZKllHtxMS3QiuyyXbywmA+De7t4o3mOwjNwD
- DAwUKo0es8gg==
-X-IronPort-AV: E=Sophos;i="5.81,251,1610438400"; d="scan'208";a="405423135"
+ 15 Mar 2021 22:29:27 -0700
+IronPort-SDR: oi3doHhrRCdu8nakHtPA0UyRSG+qGFWeW8E4g1dubPwkawrYJ/RXGNNe6KnVS/mUhbFQzk4eZg
+ mgeTobCbB5ZQ==
+X-IronPort-AV: E=Sophos;i="5.81,251,1610438400"; d="scan'208";a="405423139"
 Received: from orsosgc001.ra.intel.com ([10.23.184.150])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  15 Mar 2021 22:29:26 -0700
 From: Ashutosh Dixit <ashutosh.dixit@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 15 Mar 2021 22:29:18 -0700
-Message-Id: <cover.1615872114.git.ashutosh.dixit@intel.com>
+Date: Mon, 15 Mar 2021 22:29:21 -0700
+Message-Id: <febcb90117daabe7b2ad59a6d1fc979f26febba2.1615872114.git.ashutosh.dixit@intel.com>
 X-Mailer: git-send-email 2.29.2
+In-Reply-To: <cover.1615872114.git.ashutosh.dixit@intel.com>
+References: <cover.1615872114.git.ashutosh.dixit@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 0/3] drm/i915: Drop legacy IOCTLs on new HW
+Subject: [Intel-gfx] [PATCH 3/3] drm/i915: Disable pread/pwrite ioctl's for
+ future platforms (v3)
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,26 +63,86 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-These three patches exist to clean up some of our IOCTL mess in i915.
-We've got more clean-up we should do eventually, but these are some of the
-easiest to drop and most egregious cases.
+The rationale for this change is roughly as follows:
 
-Test-with: 20210315225356.2865-1-ashutosh.dixit@intel.com
+ 1. The functionality can be done entirely in userspace with a
+    combination of mmap + memcpy
 
-Ashutosh Dixit (1):
-  drm/i915: Disable pread/pwrite ioctl's for future platforms (v3)
+ 2. The only reason anyone in userspace is still using it is because
+    someone implemented bo_subdata that way in libdrm ages ago and
+    they're all too lazy to write the 5 lines of code to do a map.
 
-Jason Ekstrand (2):
-  drm/i915/gem: Drop legacy execbuffer support (v2)
-  drm/i915/gem: Drop relocation support on all new hardware (v5)
+ 3. This falls cleanly into the category of things which will only get
+    more painful with local memory support.
 
- .../gpu/drm/i915/gem/i915_gem_execbuffer.c    | 113 ++----------------
- drivers/gpu/drm/i915/gem/i915_gem_ioctls.h    |   2 -
- drivers/gpu/drm/i915/i915_drv.c               |   2 +-
- drivers/gpu/drm/i915/i915_gem.c               |  14 +++
- include/uapi/drm/i915_drm.h                   |   1 +
- 5 files changed, 26 insertions(+), 106 deletions(-)
+These ioctls aren't used much anymore by "real" userspace drivers.
+Vulkan has never used them and neither has the iris GL driver.  The old
+i965 GL driver does use PWRITE for glBufferSubData but it only supports
+up through Gen11; Gen12 was never enabled in i965.  The compute driver
+has never used PREAD/PWRITE.  The only remaining user is the media
+driver which uses it exactly twice and they're easily removed [1] so
+expecting them to drop it going forward is reasonable.
 
+IGT changes which handle this kernel change have also been submitted [2].
+
+[1] https://github.com/intel/media-driver/pull/1160
+[2] https://patchwork.freedesktop.org/series/81384/
+
+v2 (Jason Ekstrand):
+ - Improved commit message with the status of all usermode drivers
+ - A more future-proof platform check
+
+v3 (Jason Ekstrand):
+ - Drop the HAS_LMEM checks as they're already covered by the version
+   checks
+
+Signed-off-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
+Signed-off-by: Jason Ekstrand <jason@jlekstrand.net>
+Reviewed-by: Jason Ekstrand <jason@jlekstrand.net>
+---
+ drivers/gpu/drm/i915/i915_gem.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
+
+diff --git a/drivers/gpu/drm/i915/i915_gem.c b/drivers/gpu/drm/i915/i915_gem.c
+index b2e3b5cfccb4a..80915467e0d84 100644
+--- a/drivers/gpu/drm/i915/i915_gem.c
++++ b/drivers/gpu/drm/i915/i915_gem.c
+@@ -374,10 +374,17 @@ int
+ i915_gem_pread_ioctl(struct drm_device *dev, void *data,
+ 		     struct drm_file *file)
+ {
++	struct drm_i915_private *i915 = to_i915(dev);
+ 	struct drm_i915_gem_pread *args = data;
+ 	struct drm_i915_gem_object *obj;
+ 	int ret;
+ 
++	/* PREAD is disallowed for all platforms after TGL-LP.  This also
++	 * covers all platforms with local memory.
++	 */
++	if (INTEL_GEN(i915) >= 12 && !IS_TIGERLAKE(i915))
++		return -EOPNOTSUPP;
++
+ 	if (args->size == 0)
+ 		return 0;
+ 
+@@ -675,10 +682,17 @@ int
+ i915_gem_pwrite_ioctl(struct drm_device *dev, void *data,
+ 		      struct drm_file *file)
+ {
++	struct drm_i915_private *i915 = to_i915(dev);
+ 	struct drm_i915_gem_pwrite *args = data;
+ 	struct drm_i915_gem_object *obj;
+ 	int ret;
+ 
++	/* PWRITE is disallowed for all platforms after TGL-LP.  This also
++	 * covers all platforms with local memory.
++	 */
++	if (INTEL_GEN(i915) >= 12 && !IS_TIGERLAKE(i915))
++		return -EOPNOTSUPP;
++
+ 	if (args->size == 0)
+ 		return 0;
+ 
 -- 
 2.29.2
 
