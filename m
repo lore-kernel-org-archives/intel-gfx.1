@@ -7,45 +7,46 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 25EFAC433E0
-	for <intel-gfx@archiver.kernel.org>; Tue, 16 Mar 2021 16:23:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1D905C433E9
+	for <intel-gfx@archiver.kernel.org>; Tue, 16 Mar 2021 16:23:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A22E164EFC
-	for <intel-gfx@archiver.kernel.org>; Tue, 16 Mar 2021 16:23:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A22E164EFC
+	by mail.kernel.org (Postfix) with ESMTPS id C0CD764EFC
+	for <intel-gfx@archiver.kernel.org>; Tue, 16 Mar 2021 16:23:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C0CD764EFC
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F7EF6E41D;
-	Tue, 16 Mar 2021 16:23:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1567F89CA2;
+	Tue, 16 Mar 2021 16:23:45 +0000 (UTC)
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C37F289CA2;
- Tue, 16 Mar 2021 16:23:40 +0000 (UTC)
-IronPort-SDR: BsD0FRzdWXv+GL5sijwv6FHxroBaeQc+6qbN3e2QRqxYSFg7IMLrHku0wUhI6wNdR71lnO2fYV
- dZBdKJtw83mg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9925"; a="209231224"
-X-IronPort-AV: E=Sophos;i="5.81,251,1610438400"; d="scan'208";a="209231224"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 990786E422;
+ Tue, 16 Mar 2021 16:23:43 +0000 (UTC)
+IronPort-SDR: fz14Shv/Y29QpbS+ldR95v9P3ruEVQtalXmPOAZ0nqJYmKUVtt2SdJESZah8iJjymmocEalYu7
+ 7JNIxf6hi9Kw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9925"; a="209231242"
+X-IronPort-AV: E=Sophos;i="5.81,251,1610438400"; d="scan'208";a="209231242"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Mar 2021 09:23:40 -0700
-IronPort-SDR: g444deZpES3Yg2GqcrUzmUQ1Iu+fTR92R9TmruZ4K5U6XKmNMoSbZvBeQBMXmQJeZSka07ohcn
- 4nZEOlIaVL6g==
-X-IronPort-AV: E=Sophos;i="5.81,251,1610438400"; d="scan'208";a="412274165"
+ 16 Mar 2021 09:23:43 -0700
+IronPort-SDR: IrBjQVy3ppCoaNH0y+dGmNXvWnctFiVGArCLI54NnwATQA8wm4UHFrZI+ZQuTKMSDaLeuY/wAx
+ KN3SkO6Mv1PA==
+X-IronPort-AV: E=Sophos;i="5.81,251,1610438400"; d="scan'208";a="412274174"
 Received: from lmirensk-mobl1.ger.corp.intel.com (HELO localhost.localdomain)
  ([10.214.195.153])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Mar 2021 09:23:38 -0700
+ 16 Mar 2021 09:23:40 -0700
 From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 To: Intel-gfx@lists.freedesktop.org
-Date: Tue, 16 Mar 2021 16:23:22 +0000
-Message-Id: <20210316162326.1994039-3-tvrtko.ursulin@linux.intel.com>
+Date: Tue, 16 Mar 2021 16:23:23 +0000
+Message-Id: <20210316162326.1994039-4-tvrtko.ursulin@linux.intel.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20210316162326.1994039-1-tvrtko.ursulin@linux.intel.com>
 References: <20210316162326.1994039-1-tvrtko.ursulin@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 2/6] drm/i915: Restrict sentinel requests further
+Subject: [Intel-gfx] [PATCH 3/6] drm/i915: Handle async cancellation in
+ sentinel assert
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,28 +67,31 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-Disallow sentinel requests follow previous sentinels to make request
-cancellation work better when faced with a chain of requests which have
-all been marked as in error.
+With the watchdog cancelling requests asynchronously to preempt-to-busy we
+need to relax one assert making it apply only to requests not in error.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_execlists_submission.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/i915/gt/intel_execlists_submission.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-index 4c2acb5a6c0a..4b870eca9693 100644
+index 4b870eca9693..a886f0c9b288 100644
 --- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
 +++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-@@ -896,7 +896,7 @@ static bool can_merge_rq(const struct i915_request *prev,
- 	if (__i915_request_is_complete(next))
- 		return true;
- 
--	if (unlikely((i915_request_flags(prev) ^ i915_request_flags(next)) &
-+	if (unlikely((i915_request_flags(prev) | i915_request_flags(next)) &
- 		     (BIT(I915_FENCE_FLAG_NOPREEMPT) |
- 		      BIT(I915_FENCE_FLAG_SENTINEL))))
- 		return false;
+@@ -752,8 +752,11 @@ assert_pending_valid(const struct intel_engine_execlists *execlists,
+ 		 * Sentinels are supposed to be the last request so they flush
+ 		 * the current execution off the HW. Check that they are the only
+ 		 * request in the pending submission.
++		 *
++		 * Due async nature of preempt-to-busy and request cancellation
++		 * we need to skip this assert for cancelled requests.
+ 		 */
+-		if (sentinel) {
++		if (sentinel && !rq->fence.error) {
+ 			GEM_TRACE_ERR("%s: context:%llx after sentinel in pending[%zd]\n",
+ 				      engine->name,
+ 				      ce->timeline->fence_context,
 -- 
 2.27.0
 
