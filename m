@@ -2,50 +2,51 @@ Return-Path: <SRS0=yXj8=IO=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EA7ACC433DB
-	for <intel-gfx@archiver.kernel.org>; Tue, 16 Mar 2021 05:29:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 226E0C433E0
+	for <intel-gfx@archiver.kernel.org>; Tue, 16 Mar 2021 05:35:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9C7CE65090
-	for <intel-gfx@archiver.kernel.org>; Tue, 16 Mar 2021 05:29:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9C7CE65090
+	by mail.kernel.org (Postfix) with ESMTPS id C1EDF650B7
+	for <intel-gfx@archiver.kernel.org>; Tue, 16 Mar 2021 05:35:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C1EDF650B7
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C4936E210;
-	Tue, 16 Mar 2021 05:29:31 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6C91B6E201
- for <intel-gfx@lists.freedesktop.org>; Tue, 16 Mar 2021 05:29:27 +0000 (UTC)
-IronPort-SDR: 8vysl9ujQsn8pM9OBmX56TVSNY2vwzRnnf7NK0eezoZEaRjN65lnoxtfRLD2cZxVI8p6wRO5GR
- dtonLsNrg6gA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9924"; a="169119293"
-X-IronPort-AV: E=Sophos;i="5.81,251,1610438400"; d="scan'208";a="169119293"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Mar 2021 22:29:26 -0700
-IronPort-SDR: sHBBLbsiWqpq5g/VklnJpa1a8JXMh/lqOhmtik/pBBtEHgz5vrSokkTDzF7t7HnQ3rV3BSEEAm
- xj3MydUFl/OA==
-X-IronPort-AV: E=Sophos;i="5.81,251,1610438400"; d="scan'208";a="405423138"
-Received: from orsosgc001.ra.intel.com ([10.23.184.150])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Mar 2021 22:29:26 -0700
-From: Ashutosh Dixit <ashutosh.dixit@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Mon, 15 Mar 2021 22:29:20 -0700
-Message-Id: <9f92ca239245bce8db9c90a4d643d8101ffc9269.1615872114.git.ashutosh.dixit@intel.com>
-X-Mailer: git-send-email 2.29.2
-In-Reply-To: <cover.1615872114.git.ashutosh.dixit@intel.com>
-References: <cover.1615872114.git.ashutosh.dixit@intel.com>
-MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 2/3] drm/i915/gem: Drop relocation support on
- all new hardware (v5)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3D6C86E20F;
+	Tue, 16 Mar 2021 05:35:39 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A4306E201;
+ Tue, 16 Mar 2021 05:35:37 +0000 (UTC)
+IronPort-SDR: anNUAL+r8ZJ2ubDrKar7OVpxA9zL48OgPvJ8HvPpE1SFPGOuJku6Z8rfxBkF5SoXm+Xb6O4FPV
+ VTnDPK3xun6w==
+X-IronPort-AV: E=McAfee;i="6000,8403,9924"; a="176800016"
+X-IronPort-AV: E=Sophos;i="5.81,251,1610438400"; d="scan'208";a="176800016"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Mar 2021 22:35:36 -0700
+IronPort-SDR: A6VGvcNfxZnArVXRh/knsAy3WJiecX+nx/HhGb6yR1XjI1fZPXncsjSMyCkRCKmGDm8hfsioeZ
+ l0IWipZLrlkw==
+X-IronPort-AV: E=Sophos;i="5.81,251,1610438400"; d="scan'208";a="449604805"
+Received: from adixit-mobl1.amr.corp.intel.com (HELO adixit-arch.intel.com)
+ ([10.212.239.217])
+ by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Mar 2021 22:35:36 -0700
+Date: Mon, 15 Mar 2021 22:31:23 -0700
+Message-ID: <87eegfis0k.wl-ashutosh.dixit@intel.com>
+From: "Dixit, Ashutosh" <ashutosh.dixit@intel.com>
+To: Jason Ekstrand <jason@jlekstrand.net>
+In-Reply-To: <20210315143428.1471489-1-jason@jlekstrand.net>
+References: <20210315143428.1471489-1-jason@jlekstrand.net>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?ISO-8859-4?Q?Goj=F2?=) APEL-LB/10.8 EasyPG/1.0.0
+ Emacs/27.1 (x86_64-pc-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Subject: Re: [Intel-gfx] [PATCH 0/3] drm/i915: Drop legacy IOCTLs on new HW
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,72 +59,60 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-RnJvbTogSmFzb24gRWtzdHJhbmQgPGphc29uQGpsZWtzdHJhbmQubmV0PgoKVGhlIFZ1bGthbiBk
-cml2ZXIgaW4gTWVzYSBmb3IgSW50ZWwgaGFyZHdhcmUgbmV2ZXIgdXNlcyByZWxvY2F0aW9ucyBp
-ZgppdCdzIHJ1bm5pbmcgb24gYSB2ZXJzaW9uIG9mIGk5MTUgdGhhdCBzdXBwb3J0cyBhdCBsZWFz
-dCBzb2Z0cGluIHdoaWNoCmFsbCB2ZXJzaW9ucyBvZiBpOTE1IHN1cHBvcnRpbmcgR2VuMTIgZG8u
-ICBPbiB0aGUgT3BlbkdMIHNpZGUsIEdlbjEyKyBpcwpvbmx5IHN1cHBvcnRlZCBieSBpcmlzIHdo
-aWNoIG5ldmVyIHVzZXMgcmVsb2NhdGlvbnMuICBUaGUgb2xkZXIgaTk2NQpkcml2ZXIgaW4gTWVz
-YSBkb2VzIHVzZSByZWxvY2F0aW9ucyBidXQgaXQgb25seSBzdXBwb3J0cyBJbnRlbCBoYXJkd2Fy
-ZQp0aHJvdWdoIEdlbjExIGFuZCBoYXMgYmVlbiBkZXByZWNhdGVkIGZvciBhbGwgaGFyZHdhcmUg
-R2VuOSsuICBUaGUKY29tcHV0ZSBkcml2ZXIgYWxzbyBuZXZlciB1c2VzIHJlbG9jYXRpb25zLiAg
-VGhpcyBvbmx5IGxlYXZlcyB0aGUgbWVkaWEKZHJpdmVyIHdoaWNoIGlzIHN1cHBvc2VkIHRvIGJl
-IHN3aXRjaGluZyB0byBzb2Z0cGluIGdvaW5nIGZvcndhcmQuCk1ha2luZyBzb2Z0cGluIGEgcmVx
-dWlyZW1lbnQgZm9yIGFsbCBmdXR1cmUgaGFyZHdhcmUgc2VlbXMgcmVhc29uYWJsZS4KClRoZXJl
-IGlzIG9uZSBwaWVjZSBvZiBoYXJkd2FyZSBlbmFibGVkIGJ5IGRlZmF1bHQgaW4gaTkxNTogUktM
-IHdoaWNoIHdhcwplbmFibGVkIGJ5IGUyMmZhNmYwYTk3NiB3aGljaCBoYXMgbm90IHlldCBsYW5k
-ZWQgaW4gZHJtLW5leHQgc28gdGhpcwphbG1vc3QgYnV0IG5vdCByZWFsbHkgYSB1c2Vyc3BhY2Ug
-QVBJIGNoYW5nZSBmb3IgUktMLiAgSWYgaXQgYmVjb21lcyBhCnByb2JsZW0sIHdlIGNhbiBhbHdh
-eXMgYWRkICFJU19ST0NLRVRMQUtFKGViLT5pOTE1KSB0byB0aGUgY29uZGl0aW9uLgoKUmVqZWN0
-aW5nIHJlbG9jYXRpb25zIHN0YXJ0aW5nIHdpdGggbmV3ZXIgR2VuMTIgcGxhdGZvcm1zIGhhcyB0
-aGUKYmVuZWZpdCB0aGF0IHdlIGRvbid0IGhhdmUgdG8gYm90aGVyIHN1cHBvcnRpbmcgaXQgb24g
-cGxhdGZvcm1zIHdpdGgKbG9jYWwgbWVtb3J5LiAgR2l2ZW4gaG93IG11Y2ggQ1BVIHRvdWNoaW5n
-IG9mIG1lbW9yeSBpcyByZXF1aXJlZCBmb3IKcmVsb2NhdGlvbnMsIG5vdCBoYXZpbmcgdG8gZG8g
-c28gb24gcGxhdGZvcm1zIHdoZXJlIG5vdCBhbGwgbWVtb3J5IGlzCmRpcmVjdGx5IENQVS1hY2Nl
-c3NpYmxlIGNhcnJpZXMgc2lnbmlmaWNhbnQgYWR2YW50YWdlcy4KCnYyIChKYXNvbiBFa3N0cmFu
-ZCk6CiAtIEFsbG93IFRHTC1MUCBwbGF0Zm9ybXMgYXMgdGhleSd2ZSBhbHJlYWR5IHNoaXBwZWQK
-CnYzIChKYXNvbiBFa3N0cmFuZCk6CiAtIFdBUk5fT04gcGxhdGZvcm1zIHdpdGggTE1FTSBzdXBw
-b3J0IGluIGNhc2UgdGhlIGNoZWNrIGlzIHdyb25nCgp2NCAoSmFzb24gRWtzdHJhbmQpOgogLSBD
-YWxsIG91dCBSb2NrZXQgTGFrZSBpbiB0aGUgY29tbWl0IG1lc3NhZ2UKCnY1IChKYXNvbiBFa3N0
-cmFuZCk6CiAtIERyb3AgdGhlIEhBU19MTUVNIGNoZWNrIGFzIGl0J3MgYWxyZWFkeSBjb3ZlcmVk
-IGJ5IHRoZSB2ZXJzaW9uIGNoZWNrCgpTaWduZWQtb2ZmLWJ5OiBKYXNvbiBFa3N0cmFuZCA8amFz
-b25Aamxla3N0cmFuZC5uZXQ+ClJldmlld2VkLWJ5OiBaYmlnbmlldyBLZW1wY3p5xYRza2kgPHpi
-aWduaWV3LmtlbXBjenluc2tpQGludGVsLmNvbT4KUmV2aWV3ZWQtYnk6IE1hYXJ0ZW4gTGFua2hv
-cnN0IDxtYWFydGVuLmxhbmtob3JzdEBsaW51eC5pbnRlbC5jb20+Ci0tLQogZHJpdmVycy9ncHUv
-ZHJtL2k5MTUvZ2VtL2k5MTVfZ2VtX2V4ZWNidWZmZXIuYyB8IDEzICsrKysrKysrKystLS0KIDEg
-ZmlsZSBjaGFuZ2VkLCAxMCBpbnNlcnRpb25zKCspLCAzIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdp
-dCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2dlbS9pOTE1X2dlbV9leGVjYnVmZmVyLmMgYi9kcml2
-ZXJzL2dwdS9kcm0vaTkxNS9nZW0vaTkxNV9nZW1fZXhlY2J1ZmZlci5jCmluZGV4IDk5NzcyZjM3
-YmZmNjAuLmY2NmNmZjI5NDNiYWEgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2dl
-bS9pOTE1X2dlbV9leGVjYnVmZmVyLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ2VtL2k5
-MTVfZ2VtX2V4ZWNidWZmZXIuYwpAQCAtMTc2NCw3ICsxNzY0LDggQEAgZWJfcmVsb2NhdGVfdm1h
-X3Nsb3coc3RydWN0IGk5MTVfZXhlY2J1ZmZlciAqZWIsIHN0cnVjdCBlYl92bWEgKmV2KQogCXJl
-dHVybiBlcnI7CiB9CiAKLXN0YXRpYyBpbnQgY2hlY2tfcmVsb2NhdGlvbnMoY29uc3Qgc3RydWN0
-IGRybV9pOTE1X2dlbV9leGVjX29iamVjdDIgKmVudHJ5KQorc3RhdGljIGludCBjaGVja19yZWxv
-Y2F0aW9ucyhjb25zdCBzdHJ1Y3QgaTkxNV9leGVjYnVmZmVyICplYiwKKwkJCSAgICAgY29uc3Qg
-c3RydWN0IGRybV9pOTE1X2dlbV9leGVjX29iamVjdDIgKmVudHJ5KQogewogCWNvbnN0IGNoYXIg
-X191c2VyICphZGRyLCAqZW5kOwogCXVuc2lnbmVkIGxvbmcgc2l6ZTsKQEAgLTE3NzQsNiArMTc3
-NSwxMiBAQCBzdGF0aWMgaW50IGNoZWNrX3JlbG9jYXRpb25zKGNvbnN0IHN0cnVjdCBkcm1faTkx
-NV9nZW1fZXhlY19vYmplY3QyICplbnRyeSkKIAlpZiAoc2l6ZSA9PSAwKQogCQlyZXR1cm4gMDsK
-IAorCS8qIFJlbG9jYXRpb25zIGFyZSBkaXNhbGxvd2VkIGZvciBhbGwgcGxhdGZvcm1zIGFmdGVy
-IFRHTC1MUC4gIFRoaXMKKwkgKiBhbHNvIGNvdmVycyBhbGwgcGxhdGZvcm1zIHdpdGggbG9jYWwg
-bWVtb3J5LgorCSAqLworCWlmIChJTlRFTF9HRU4oZWItPmk5MTUpID49IDEyICYmICFJU19USUdF
-UkxBS0UoZWItPmk5MTUpKQorCQlyZXR1cm4gLUVJTlZBTDsKKwogCWlmIChzaXplID4gTl9SRUxP
-QyhVTE9OR19NQVgpKQogCQlyZXR1cm4gLUVJTlZBTDsKIApAQCAtMTgwNyw3ICsxODE0LDcgQEAg
-c3RhdGljIGludCBlYl9jb3B5X3JlbG9jYXRpb25zKGNvbnN0IHN0cnVjdCBpOTE1X2V4ZWNidWZm
-ZXIgKmViKQogCQlpZiAobnJlbG9jID09IDApCiAJCQljb250aW51ZTsKIAotCQllcnIgPSBjaGVj
-a19yZWxvY2F0aW9ucygmZWItPmV4ZWNbaV0pOworCQllcnIgPSBjaGVja19yZWxvY2F0aW9ucyhl
-YiwgJmViLT5leGVjW2ldKTsKIAkJaWYgKGVycikKIAkJCWdvdG8gZXJyOwogCkBAIC0xODgwLDcg
-KzE4ODcsNyBAQCBzdGF0aWMgaW50IGViX3ByZWZhdWx0X3JlbG9jYXRpb25zKGNvbnN0IHN0cnVj
-dCBpOTE1X2V4ZWNidWZmZXIgKmViKQogCWZvciAoaSA9IDA7IGkgPCBjb3VudDsgaSsrKSB7CiAJ
-CWludCBlcnI7CiAKLQkJZXJyID0gY2hlY2tfcmVsb2NhdGlvbnMoJmViLT5leGVjW2ldKTsKKwkJ
-ZXJyID0gY2hlY2tfcmVsb2NhdGlvbnMoZWIsICZlYi0+ZXhlY1tpXSk7CiAJCWlmIChlcnIpCiAJ
-CQlyZXR1cm4gZXJyOwogCX0KLS0gCjIuMjkuMgoKX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRlbC1nZnhAbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4v
-bGlzdGluZm8vaW50ZWwtZ2Z4Cg==
+On Mon, 15 Mar 2021 07:34:25 -0700, Jason Ekstrand wrote:
+>
+> These three patches exist to clean up some of our IOCTL mess in i915.
+> We've got more clean-up we should do eventually, but these are some of the
+> easiest to drop and most egregious cases.
+>
+> Test-with: 20210121083742.46592-1-ashutosh.dixit@intel.com
+
+Hi Jason,
+
+Sorry the above IGT build is too old and has been discarded so no tests
+were running on actual HW as is mentioned here:
+
+https://intel-gfx-ci.01.org/test-with.html
+
+I resubmitted the IGT patch today so we have a newer IGT build and have
+just resubmitted this series with that IGT build. There are no other
+changes with the actual patches themselves.
+
+Thanks.
+--
+Ashutosh
+
+
+
+>
+> Ashutosh Dixit (1):
+>   drm/i915: Disable pread/pwrite ioctl's for future platforms (v3)
+>
+> Jason Ekstrand (2):
+>   drm/i915/gem: Drop legacy execbuffer support (v2)
+>   drm/i915/gem: Drop relocation support on all new hardware (v5)
+>
+>  .../gpu/drm/i915/gem/i915_gem_execbuffer.c    | 113 ++----------------
+>  drivers/gpu/drm/i915/gem/i915_gem_ioctls.h    |   2 -
+>  drivers/gpu/drm/i915/i915_drv.c               |   2 +-
+>  drivers/gpu/drm/i915/i915_gem.c               |  14 +++
+>  include/uapi/drm/i915_drm.h                   |   1 +
+>  5 files changed, 26 insertions(+), 106 deletions(-)
+>
+> --
+> 2.29.2
+>
+> _______________________________________________
+> Intel-gfx mailing list
+> Intel-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+_______________________________________________
+Intel-gfx mailing list
+Intel-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/intel-gfx
