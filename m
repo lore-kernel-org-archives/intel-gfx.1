@@ -2,68 +2,51 @@ Return-Path: <SRS0=yXj8=IO=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6C162C433DB
-	for <intel-gfx@archiver.kernel.org>; Tue, 16 Mar 2021 14:38:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4F1C0C432C3
+	for <intel-gfx@archiver.kernel.org>; Tue, 16 Mar 2021 16:19:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 34FC26507A
-	for <intel-gfx@archiver.kernel.org>; Tue, 16 Mar 2021 14:38:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 34FC26507A
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 1247A65092
+	for <intel-gfx@archiver.kernel.org>; Tue, 16 Mar 2021 16:19:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1247A65092
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD6FD89E0C;
-	Tue, 16 Mar 2021 14:38:39 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EAC5E89E0C
- for <intel-gfx@lists.freedesktop.org>; Tue, 16 Mar 2021 14:38:38 +0000 (UTC)
-IronPort-SDR: MbASaonP4KwNRDZOLv+gjHwt5iGOAW9G0BJ+4dAq1V2K0M8MHVyoTPFZM1AF2BdbdErZViOn9K
- IYhxc1u0g1wg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9924"; a="189362679"
-X-IronPort-AV: E=Sophos;i="5.81,251,1610438400"; d="scan'208";a="189362679"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Mar 2021 07:38:38 -0700
-IronPort-SDR: sN/70fYWUWWSd5plxB9QacdxsoXXkAKWRVgekrQByJr0OodYZx+79H2lJQtuh7fP32c2eSAdGs
- d7U9tEGeGRrw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.81,251,1610438400"; d="scan'208";a="440105312"
-Received: from irsmsx603.ger.corp.intel.com ([163.33.146.9])
- by FMSMGA003.fm.intel.com with ESMTP; 16 Mar 2021 07:38:37 -0700
-Received: from orsmsx610.amr.corp.intel.com (10.22.229.23) by
- irsmsx603.ger.corp.intel.com (163.33.146.9) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2106.2; Tue, 16 Mar 2021 14:38:35 +0000
-Received: from orsmsx610.amr.corp.intel.com ([10.22.229.23]) by
- ORSMSX610.amr.corp.intel.com ([10.22.229.23]) with mapi id 15.01.2106.013;
- Tue, 16 Mar 2021 07:38:34 -0700
-From: "Souza, Jose" <jose.souza@intel.com>
-To: "Mun, Gwan-gyeong" <gwan-gyeong.mun@intel.com>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
-Thread-Topic: [PATCH] drm/i915/display/psr: Add sink not reliable check to
- intel_psr_work()
-Thread-Index: AQHXF0R1GNUd2bQR/kufcQmm+RycB6qA4fWAgAH9BACABEyDgA==
-Date: Tue, 16 Mar 2021 14:38:34 +0000
-Message-ID: <bcad3bf35917433c39107a23a3d997a250691a6e.camel@intel.com>
-References: <20210312133430.1478156-1-gwan-gyeong.mun@intel.com>
- <85d3edee2ca1da2ed4cf09fe6451b6a079b2fd51.camel@intel.com>
- <b66c0c1ade0bf80c3dc799b0e9498d540bcf4a51.camel@intel.com>
-In-Reply-To: <b66c0c1ade0bf80c3dc799b0e9498d540bcf4a51.camel@intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.1.200.100]
-Content-ID: <A5162F0970F58F4EA28FC751C4E6C49C@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 90ACF6E405;
+	Tue, 16 Mar 2021 16:19:18 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EC3D36E405;
+ Tue, 16 Mar 2021 16:19:16 +0000 (UTC)
+IronPort-SDR: 6oowVjn/SmIlzyjR3VevXGuouOaoYM2HEFDCbkWJUrGwZxx8VAuQNhRmqK0FkL8gVSja7YzIHJ
+ eRd7LdPac3ng==
+X-IronPort-AV: E=McAfee;i="6000,8403,9925"; a="176885372"
+X-IronPort-AV: E=Sophos;i="5.81,251,1610438400"; d="scan'208";a="176885372"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Mar 2021 09:18:56 -0700
+IronPort-SDR: /3DqOGwpEnZpP1FuwIT83MkOqikhUkaTK5VQj7HiMbti48+NvPhQGUtUAtS/HFKHRx9fCTzYGV
+ YA58lX7QCVYg==
+X-IronPort-AV: E=Sophos;i="5.81,251,1610438400"; d="scan'208";a="412272400"
+Received: from lmirensk-mobl1.ger.corp.intel.com (HELO localhost.localdomain)
+ ([10.214.195.153])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Mar 2021 09:18:54 -0700
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+To: igt-dev@lists.freedesktop.org
+Date: Tue, 16 Mar 2021 16:18:39 +0000
+Message-Id: <20210316161840.1993818-2-tvrtko.ursulin@linux.intel.com>
+X-Mailer: git-send-email 2.27.0
+In-Reply-To: <20210316161840.1993818-1-tvrtko.ursulin@linux.intel.com>
+References: <20210316161840.1993818-1-tvrtko.ursulin@linux.intel.com>
 MIME-Version: 1.0
-Subject: Re: [Intel-gfx] [PATCH] drm/i915/display/psr: Add sink not reliable
- check to intel_psr_work()
+Subject: [Intel-gfx] [PATCH i-g-t 1/2] lib: Add helper for reading modparam
+ values
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,73 +59,74 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Sat, 2021-03-13 at 20:01 +0000, Mun, Gwan-gyeong wrote:
-> On Fri, 2021-03-12 at 05:37 -0800, Souza, Jose wrote:
-> > On Fri, 2021-03-12 at 15:34 +0200, Gwan-gyeong Mun wrote:
-> > > If the sink state is not reliable, it does not need to wait for
-> > > PSR "IDLE state" for re-enabling PSR. And it should not try to re-
-> > > enable
-> > > PSR.
-> > > 
-> > > Signed-off-by: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
-> > > ---
-> > >  drivers/gpu/drm/i915/display/intel_psr.c | 3 +++
-> > >  1 file changed, 3 insertions(+)
-> > > 
-> > > diff --git a/drivers/gpu/drm/i915/display/intel_psr.c
-> > > b/drivers/gpu/drm/i915/display/intel_psr.c
-> > > index cd434285e3b7..7f555407de06 100644
-> > > --- a/drivers/gpu/drm/i915/display/intel_psr.c
-> > > +++ b/drivers/gpu/drm/i915/display/intel_psr.c
-> > > @@ -1686,6 +1686,9 @@ static void intel_psr_work(struct work_struct
-> > > *work)
-> > >         if (READ_ONCE(intel_dp->psr.irq_aux_error))
-> > >                 intel_psr_handle_irq(intel_dp);
-> > >  
-> > > 
-> > > 
-> > > 
-> 1. In intel_psr_irq_handler()
->    when the psr error happens,
->      intel_dp->psr.irq_aux_error = true; 
->       schedule_work(&intel_dp->psr.work);
-> 
-> 
-> 2. In intel_psr_work()
->     ...
->    if (READ_ONCE(intel_dp->psr.irq_aux_error))
->      intel_psr_handle_irq(intel_dp); 
-> 	 -> intel_psr_disable_locked(intel_dp); 
->             psr->sink_not_reliable = true;  
->     ...
-> 
-> 
-> IMO, when this scenario happens, the below code seems to be needed.
+From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
+Add __igt_params_get for simple reading of modparams.
 
-Information like this should be in the commit message.
-Do not add another check, just do a goto close to the function that handles irq_aux_error.
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+---
+ lib/igt_params.c | 26 ++++++++++++++++++++++++++
+ lib/igt_params.h |  2 ++
+ 2 files changed, 28 insertions(+)
 
-> 
-> > > +       if (intel_dp->psr.sink_not_reliable)
-> > > +               goto unlock;
-> > 
-> > I can't think any scenario that this will hit.
-> > Before set sink_not_reliable PSR will be disabled so it will be caught
-> > in the first check of intel_psr_work().
-> > 
-> > > +
-> > >         /*
-> > >          * We have to make sure PSR is ready for re-enable
-> > >          * otherwise it keeps disabled until next full enable/disable
-> > > cycle.
-> > 
-> 
+diff --git a/lib/igt_params.c b/lib/igt_params.c
+index c06416988baa..1dc6de77b2e0 100644
+--- a/lib/igt_params.c
++++ b/lib/igt_params.c
+@@ -156,6 +156,32 @@ int igt_params_open(int device)
+ 	return params;
+ }
+ 
++/**
++ * __igt_params_get:
++ * @device: fd of the device
++ * @parameter: the name of the parameter to set
++ *
++ * This reads the value of the modparam.
++ *
++ * Returns:
++ * A nul-terminated string, must be freed by caller after use, or NULL
++ * on failure.
++ */
++char *__igt_params_get(int device, const char *parameter)
++{
++	char *str;
++	int dir;
++
++	dir = igt_params_open(device);
++	if (dir < 0)
++		return NULL;
++
++	str = igt_sysfs_get(dir, parameter);
++	close(dir);
++
++	return str;
++}
++
+ __attribute__((format(printf, 3, 0)))
+ static bool __igt_params_set(int device, const char *parameter,
+ 			     const char *fmt, va_list ap, bool save)
+diff --git a/lib/igt_params.h b/lib/igt_params.h
+index bbd6f3ee6582..6494786f0696 100644
+--- a/lib/igt_params.h
++++ b/lib/igt_params.h
+@@ -28,6 +28,8 @@
+ 
+ int igt_params_open(int device);
+ 
++char *__igt_params_get(int device, const char *parameter);
++
+ __attribute__((format(printf, 3, 4)))
+ bool igt_params_set(int device, const char *parameter, const char *fmt, ...);
+ 
+-- 
+2.27.0
 
 _______________________________________________
 Intel-gfx mailing list
