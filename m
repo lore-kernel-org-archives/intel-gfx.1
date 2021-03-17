@@ -7,40 +7,40 @@ X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 88644C433E6
-	for <intel-gfx@archiver.kernel.org>; Wed, 17 Mar 2021 19:18:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D193FC433DB
+	for <intel-gfx@archiver.kernel.org>; Wed, 17 Mar 2021 19:23:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 247FF6157E
-	for <intel-gfx@archiver.kernel.org>; Wed, 17 Mar 2021 19:18:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 247FF6157E
+	by mail.kernel.org (Postfix) with ESMTPS id 74D3264E77
+	for <intel-gfx@archiver.kernel.org>; Wed, 17 Mar 2021 19:23:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 74D3264E77
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B2CD6E081;
-	Wed, 17 Mar 2021 19:18:45 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C79B6E081
- for <intel-gfx@lists.freedesktop.org>; Wed, 17 Mar 2021 19:18:44 +0000 (UTC)
-IronPort-SDR: rMQQ2Q3CQEpc7Iprzu3s0Tv6zwFqs/sTD0IJ3EOsaL7UFJg3IPh5U9N5mTowvDcvsh+qWKiyFg
- I4THxxf/2wyw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9926"; a="186174481"
-X-IronPort-AV: E=Sophos;i="5.81,257,1610438400"; d="scan'208";a="186174481"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Mar 2021 12:18:43 -0700
-IronPort-SDR: eSyMo70tSGy3YgAIyZ9Rv+++00WURb07l5oG5VRMcjUlSIZG7SLdKo8Yga0hUUjvv+kPdAZBkh
- 83ib4x7a56FA==
-X-IronPort-AV: E=Sophos;i="5.81,257,1610438400"; d="scan'208";a="374275709"
+	by gabe.freedesktop.org (Postfix) with ESMTP id D34A26E081;
+	Wed, 17 Mar 2021 19:23:16 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 330B56E081
+ for <intel-gfx@lists.freedesktop.org>; Wed, 17 Mar 2021 19:23:16 +0000 (UTC)
+IronPort-SDR: wVgP2hr316i47VLJXpuRFTIZ3ebdzq8O78kgm8F9sU6mEUk4PvO212qqutrIaHVp8HKNHbfakl
+ K1kvXX16w71Q==
+X-IronPort-AV: E=McAfee;i="6000,8403,9926"; a="169448288"
+X-IronPort-AV: E=Sophos;i="5.81,257,1610438400"; d="scan'208";a="169448288"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Mar 2021 12:23:15 -0700
+IronPort-SDR: /52I58DWI4Kn+44AsEw6Q6mxIPmJDLoaspcM9EmZMKraasXnkvVCn582zKCUpEITCrYH418x36
+ Rt84cKt9BTaA==
+X-IronPort-AV: E=Sophos;i="5.81,257,1610438400"; d="scan'208";a="602354640"
 Received: from jksalasr-mobl1.amr.corp.intel.com (HELO ldmartin-desk2)
  ([10.212.42.17])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Mar 2021 12:18:43 -0700
-Date: Wed, 17 Mar 2021 12:18:42 -0700
+ by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Mar 2021 12:23:15 -0700
+Date: Wed, 17 Mar 2021 12:23:14 -0700
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: Jani Nikula <jani.nikula@intel.com>
-Message-ID: <20210317191842.plywiy4uds3yxh2d@ldmartin-desk2>
+Message-ID: <20210317192314.55oa2jblpenl7uzl@ldmartin-desk2>
 X-Patchwork-Hint: comment
 References: <cover.1615998927.git.jani.nikula@intel.com>
  <17288137452f731a820e737582672f836660a26f.1615998927.git.jani.nikula@intel.com>
@@ -119,14 +119,6 @@ On Wed, Mar 17, 2021 at 06:36:42PM +0200, Jani Nikula wrote:
 >+	 * If we have multiple ports supposedly sharing the pin, then dvi/hdmi
 >+	 * couldn't exist on the shared port. Otherwise they share the same ddc
 >+	 * bin and system couldn't communicate with them separately.
-
-while at it, may be worth fixing the typo s/bin/pin/
-
-
-Reviewed-by: Lucas De Marchi <lucas.demarchi@intel.com>
-
-Lucas De Marchi
-
 >+	 *
 >+	 * Give inverse child device order the priority, last one wins. Yes,
 >+	 * there are real machines (eg. Asrock B250M-HDV) where VBT has both
@@ -177,6 +169,12 @@ Lucas De Marchi
 >-	}
 >+	/*
 >+	 * If we have multiple ports supposedlt sharing the aux channel, then DP
+
+and another typo: supposedly. Might as well be a patch on top fixing
+these, up to you.
+
+Lucas De Marchi
+
 >+	 * couldn't exist on the shared port. Otherwise they share the same aux
 >+	 * channel and system couldn't communicate with them separately.
 >+	 *
