@@ -2,64 +2,75 @@ Return-Path: <SRS0=R2gn=IU=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-7.0 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 43333C433E0
-	for <intel-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 09:10:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 65F3AC433DB
+	for <intel-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 09:10:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CE6DD61929
-	for <intel-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 09:10:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CE6DD61929
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmx.net
+	by mail.kernel.org (Postfix) with ESMTPS id 1B42E61929
+	for <intel-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 09:10:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1B42E61929
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE53389DC7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EE12C89DD3;
 	Mon, 22 Mar 2021 09:10:09 +0000 (UTC)
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.22])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D29C89F55
- for <intel-gfx@lists.freedesktop.org>; Sun, 14 Mar 2021 10:30:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
- s=badeba3b8450; t=1615717813;
- bh=bU4lPCqu2GZT9PWfQVMXtMOJiLDOK+tw1FmlaIjSoPs=;
- h=X-UI-Sender-Class:Subject:From:To:Date;
- b=ks69f66wQNPuyJGFmJyR9bqnEGJzrslSjJLN7WybbHChKNoXFikO57ZmzGeBkCCoP
- gnzY0/QebRKNL5XhiT9rilE43UkLNHmTJjd6CwRDpaWkPViAwXMiK/uxSpvtAPmg9f
- /J2aychO416Tayuv4jmGzN9Nn5hN5wigh/E5UTEM=
-X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
-Received: from [192.168.0.4] ([84.157.29.67]) by mail.gmx.net (mrgmx105
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1N7iCg-1lqVq30uP4-014oeq for
- <intel-gfx@lists.freedesktop.org>; Sun, 14 Mar 2021 11:30:13 +0100
-Message-ID: <28b8cfd3f29d3e5ed4224c687ef173d6c45e028d.camel@gmx.net>
-From: Mario =?ISO-8859-1?Q?H=FCttel?= <mario.huettel@gmx.net>
+Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
+ [IPv6:2a00:1450:4864:20::531])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 053B16E02B
+ for <intel-gfx@lists.freedesktop.org>; Wed, 17 Mar 2021 21:01:55 +0000 (UTC)
+Received: by mail-ed1-x531.google.com with SMTP id h10so3964134edt.13
+ for <intel-gfx@lists.freedesktop.org>; Wed, 17 Mar 2021 14:01:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=in-reply-to:to:from:subject:message-id:date:user-agent:mime-version
+ :content-transfer-encoding:content-language;
+ bh=uT+dux+2hvy/k4yibWIepWagDCyEDVjI47X2i3xAMX8=;
+ b=paK65oohvJZrGG9KVeKwPA3nj3t7b7Qj5GxP79zTJl2yIvqiCY3hy26a7h7UVXh5+a
+ rNru28qBBCxUhqLgBffinW8nIfZuCm6DjpdoaGpVIO0uA3YXV44hbu48MQKowh9K46oW
+ qcSqh6NubPJAcHlLbnTyMyTozJg9wWaidft91+z2l1rQ+/0V/54+velSaHgRpRSO/2eF
+ ln396ABjlllXt2T0t7iD23yJ/6EwoRZPA8V6LUErCknSeUBIYp5N0mXd1JCeyiz8cLaR
+ xC7NJ/AfZD4wDwsMuaVfHL8RK9ajyU5xC6IQC33BsZJ7l12HeyLD93JZN2yPFsi5qH2h
+ 7+yg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:in-reply-to:to:from:subject:message-id:date
+ :user-agent:mime-version:content-transfer-encoding:content-language;
+ bh=uT+dux+2hvy/k4yibWIepWagDCyEDVjI47X2i3xAMX8=;
+ b=DgKbr/bUo6xNQgHI0yWzQh3xOwL9UWol9r9hZzChyWsgUL4EZmoSH3Z/fS5lMkAbBF
+ I0WLlV4eo/Vo08i74lHUowTUSc4Pi0rnCQi/6f/zcRO2DhUzDmM+iB1zUepSQPRhCoTw
+ XoQ5ezeGimT4vWF/QbmiF7ce1GDSy/+hmx8+VzUX5m8J6VcW0y4xIxFSpX3TxaErofpS
+ HRU46yvC76kDsra4wk7xGhMhAFYnvuYjho1rL6ApOnuM6AfP52LOipjed+7Wbyh4x82k
+ z9SKyD/YluWCcJY3+Pt4uNx9iBKSe2VyQoFduVHnDb/MNZ5c64uD5i2BTAeKcss0HyJ9
+ lYoA==
+X-Gm-Message-State: AOAM531KUfxjL5cFql3dm8AuiptRX5XjM+xrWDfb6XpieP2DvXeM0tmG
+ oigEs0s2sN2x8r7YTtl3DgJypSvSpP5ViA==
+X-Google-Smtp-Source: ABdhPJyGQIJRh4eeqUpi7CiggTRimNJ9hJnXDGNJvx3PmCjAdXVap1z9BcCDz8fAayQF6DhxMNqUTw==
+X-Received: by 2002:a05:6402:1c98:: with SMTP id
+ cy24mr44388058edb.296.1616014913434; 
+ Wed, 17 Mar 2021 14:01:53 -0700 (PDT)
+Received: from [10.0.5.152] (24-113-252-168.wavecable.com. [24.113.252.168])
+ by smtp.gmail.com with ESMTPSA id gj26sm31566ejb.67.2021.03.17.14.01.52
+ for <intel-gfx@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 17 Mar 2021 14:01:53 -0700 (PDT)
+In-Reply-To: <20210317184901.4029798-1-imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Sun, 14 Mar 2021 11:30:12 +0100
-User-Agent: Evolution 3.38.4 
+From: "Zephaniah E. Loss-Cutler-Hull" <zephaniah@gmail.com>
+Message-ID: <208d393c-bcdf-b0b4-18bf-9f6c390a87ab@gmail.com>
+Date: Wed, 17 Mar 2021 14:01:50 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Firefox/78.0 Thunderbird/78.7.1
 MIME-Version: 1.0
-X-Provags-ID: V03:K1:WG0wwccSBzEh3BBqmVA3Yi4Ua9BnVPqwaOTK1IMCu261+GIDsNF
- naB64HlK/uKSGFCEeuzGb2h79i1SrGBoPZ5qEbZt6BqtqEZdqBEGzhEMN43LkqQeE0DCTtx
- 2rSEhvtwowlHOtvsqbcXZibTLPoY+GBFyjdf8ZiwtRBe9TMoVJf3LxkPXzwC0CBlakjAb6R
- Va9MNhVoEiGPGC2qH0wyA==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:W2TxSagt+Z4=:NJ0iso421EAqhCHcZKtjqW
- iyFObzizoDRWt9rMjiDkfU8gly7SB5s4TSHe2i44UyATZbZaYuCQXTmEqaNZI1/pfyIWeZz3w
- Fzh32Ofja9qelULhuFni6OMYFm2R3d/l7p4MZJc2J4s6c17WcV3Xt9hRx0lh3SnhcMKlKTrFC
- ema3s4UldsXs5mXKzQai06cvs8kXQokjZDGd6KmoyGN8w287nh5JuUG5Jb8pOygD+BCrg9Vuq
- i5kCHdlF/dl0RI+UDb77hcNPI4rqStQ4PdXE5JnD3PJ1XmjaJA4UNFx8nuRTJphqNjg/bd7GV
- 1YuwTMLqzPDKpuF2c3jE3SxxVtXT1JqgFwUmZki3pi0QGkm5H1GmJvfGZJFAM6/pC65eRjK0a
- NWpqEsheaG9ALgLhVk6ywIhvg0TLeYdIb1W0kzcUiP3R8jeILxd/CAokQAzkBUze1zQ8o+1H0
- J4zJLr2mXSxL6uW4QdV4HOzSUyScPftQzimXYhFBjjwCq9mrx3zDPvI2C9/X68AzrZRCBICVH
- uuwsYxmu/UbLmGWg72Nvoh6eHj+Ee74J1wJ6bdCwShFbEoK+geHmsBNs/Xvn0OUf5J1FAp+mK
- lWUwlNZk5TrfPt9Gh1L+x4T3uDzpPrBwDNLpW5pnd3YXB2vgc3puiz8rOxLdTzJqZN/nSpju0
- R8i+QlAzC9Sy/mzExyw3kZtP2AXt1j/6ZS11Be6NSZGrnKMxYQnb1pYAijFyK2z1mCYwLrXiR
- jeNd3xFzQ+8aopyQJ/oko/yLsmYQfYtwFvWAPyka5HL5kBeIw1lrWrkpqckvYFeujW2jMh7Ih
- 9Sza4x9E4k2w7Re6A50asKrPK3jA1ts2/bbrx9E2H3Qkaz2scMouwwHQ/9O9OrWYH9uYFt3CO
- fDW0tp+d/SaNK6uDlgHw==
-X-Mailman-Approved-At: Mon, 22 Mar 2021 09:10:09 +0000
-Subject: [Intel-gfx] [bug report] drm/i915: Computer does not shutdown,
+Content-Language: en-US
+X-Mailman-Approved-At: Mon, 22 Mar 2021 09:10:08 +0000
+Subject: Re: [Intel-gfx] drm/i915: Fix DP LTTPR link training mode
+ initialization
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,38 +88,7 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hello,
-
-It seems, like the mailing list, didn't accept my email. So I'll send
-it again:
-
-I want to report a bug. I have a PC with Intel i7-6700K processor (with
-integrated graphics) and an AsRock Fatal1ty Z170 Gaming K6 mainboard. I
-use the CPU's integrated graphics.
-My system is Archlinux with Kernel v5.11.6.
-
-Using this setup, my PC works normally. However, when I shut it down,
-the power is not cut. Fans keep spinning and LEDs stay on. I couldn't
-detect any other problem when shutting down. Drives etc. stop as
-expected and the video is blank. Even after waiting several hours, the
-system doesn't power down.
-
-Restarts work normally.
-
-I haven't yet found any other people on the internet that have the same
-bug.
-
-I used git bisect to find the commit that causes this behavior on my
-machine. The result is: fe0f1e3bfdfeb53e18f1206aea4f40b9bd1f291c is the
-first bad commit.
-
-I hope this is the correct mailing list for this issue.
-
-Let me know if you need more information or someone to test it.
-
-Thanks
-
-Mario
+Tested-by: Zephaniah E. Loss-Cutler-Hull <zephaniah@gmail.com>
 
 _______________________________________________
 Intel-gfx mailing list
