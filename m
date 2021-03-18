@@ -1,73 +1,52 @@
-Return-Path: <SRS0=PXPa=IP=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
+Return-Path: <SRS0=MMuT=IQ=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 88A6CC433DB
-	for <intel-gfx@archiver.kernel.org>; Wed, 17 Mar 2021 23:40:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E68A9C433DB
+	for <intel-gfx@archiver.kernel.org>; Thu, 18 Mar 2021 01:02:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5030164EED
-	for <intel-gfx@archiver.kernel.org>; Wed, 17 Mar 2021 23:40:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5030164EED
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=jlekstrand.net
+	by mail.kernel.org (Postfix) with ESMTPS id CA29864E01
+	for <intel-gfx@archiver.kernel.org>; Thu, 18 Mar 2021 01:02:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CA29864E01
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=canb.auug.org.au
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 352016E86B;
-	Wed, 17 Mar 2021 23:40:33 +0000 (UTC)
-Received: from mail-pg1-x535.google.com (mail-pg1-x535.google.com
- [IPv6:2607:f8b0:4864:20::535])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 77EC56E866
- for <intel-gfx@lists.freedesktop.org>; Wed, 17 Mar 2021 23:40:29 +0000 (UTC)
-Received: by mail-pg1-x535.google.com with SMTP id e33so236593pgm.13
- for <intel-gfx@lists.freedesktop.org>; Wed, 17 Mar 2021 16:40:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=jlekstrand-net.20150623.gappssmtp.com; s=20150623;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=dfMiQCdwCNe1OiqI/ZVWrockrPu/tqpTbyOstM3VDRk=;
- b=r0xKLvoLwPzNR1OL7YToBVl+77IK6mujSyYVmNPZru8GoSi+qxTk8yYTO+Ugu5/pK9
- 6Qf5o5I7zG43epdlwvXJENJ5jmc67Oj8C8omG4vxktC8zxV2aLB4/4iksR38QBNiTGqG
- 1SqqC5fKbLYIibkpyuHfGnifYpnAxc8yMIeNY82MJdEhvhIRF0AnrZzl3uiWRHUR7Ilx
- VyAa0vIESqIlPGLG9ch0nbmBEdWTttOiUULMZS/sH+8h8ihhZI97CYwMkF42fEDf3gMz
- Smf1hY36XCRiN16M5qwgeExwJ28pOjYX+sjvPxkPt4qDupYN8y+EBVugt29QNRaqqxZ+
- 7cIQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=dfMiQCdwCNe1OiqI/ZVWrockrPu/tqpTbyOstM3VDRk=;
- b=TtRQF1gfT8N2QExxrCu5eJpzxhW73uFTWZ/AIbDtW39bgVtxKhN6FbuIVvp0+71Fkg
- MZkksYIm3cDaQls4Cgc9veatD7nq4w14nhDuolNBJiyme10JiMZ45dB76I14cPwYSCJb
- 2RttARSpR7FEVTpYMv54+KAZQFkSAFWnCla2kztLmsEEwqB+1fBXNs5qEzYzybYX+3/T
- +j1s9n6L1GRuKCgQfxIB53+AD+ZNILP0NmzBDT/XIDleg96mq9wZ0NDQKuCA/ypOYvUV
- 98uusz2n9sD8N9yjvHYY8TOMU6S7P3CxrtY3RgViRAKrS7gBXSn0JHS0x3m8wemvhTW2
- f8Rw==
-X-Gm-Message-State: AOAM531cS3k4kQQZgn+cwr/M2zYbq0Fq5o6JPNU3K1br5ehAs0X8lvi7
- h0ygagKR+0fGH0r37XqgV24PxNgaLPEgrg==
-X-Google-Smtp-Source: ABdhPJziWi2pM+dte/7Y/DCYQF7rCnNXD44vzFZLEM1p1AICbjuN+KBvpWzDjLnzO2huboWUFJK33g==
-X-Received: by 2002:a63:2e87:: with SMTP id u129mr4581461pgu.107.1616024428978; 
- Wed, 17 Mar 2021 16:40:28 -0700 (PDT)
-Received: from omlet.lan (jfdmzpr05-ext.jf.intel.com. [134.134.139.74])
- by smtp.gmail.com with ESMTPSA id p3sm148399pgi.24.2021.03.17.16.40.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 17 Mar 2021 16:40:28 -0700 (PDT)
-From: Jason Ekstrand <jason@jlekstrand.net>
-To: dri-devel@lists.freedesktop.org,
-	intel-gfx@lists.freedesktop.org
-Date: Wed, 17 Mar 2021 18:40:13 -0500
-Message-Id: <20210317234014.2271006-5-jason@jlekstrand.net>
-X-Mailer: git-send-email 2.29.2
-In-Reply-To: <20210317234014.2271006-1-jason@jlekstrand.net>
-References: <20210315143428.1471489-1-jason@jlekstrand.net>
- <20210317234014.2271006-1-jason@jlekstrand.net>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 730B56E862;
+	Thu, 18 Mar 2021 01:02:32 +0000 (UTC)
+Received: from ozlabs.org (ozlabs.org [203.11.71.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B29C26E06E;
+ Thu, 18 Mar 2021 01:02:30 +0000 (UTC)
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mail.ozlabs.org (Postfix) with ESMTPSA id 4F17zL5VWJz9sW5;
+ Thu, 18 Mar 2021 12:02:22 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=canb.auug.org.au;
+ s=201702; t=1616029348;
+ bh=eHnajfXpFjdDfsAqUJl4e1LeqfH+swSe/7cEiSQT42s=;
+ h=Date:From:To:Cc:Subject:From;
+ b=l2DpR/zl20WaZNiWbMGAUulClkYx2Cu9g8c5cdwIO9ZGomxPJ/KCJIvbH+9fPN6Im
+ CKCZDyixJW12f59UWcuS8uBnZfIWsCQDkvjs7B2Nal0uv5LX0ecbfaTlGEqI2OGfAM
+ VpJIjxhw+deICaRTovpON3xVoMBj5pfm5EHxTn/5E4nLALi3yh//m3jKRXjlLukk39
+ Mmiged9tUKObYy+8FFfq3CQrMIuSZEmlzZSo8R8ulPwSlbP6qGG6k7qKqsC93CRH4r
+ F0X8v5sgXBmEvReMuScs4l2OnAlLgZOSqInZxbI8JRcmeCSLvW2vaU8YyiiVMzdqjo
+ VsqmWeYv+0nAA==
+Date: Thu, 18 Mar 2021 12:02:21 +1100
+From: Stephen Rothwell <sfr@canb.auug.org.au>
+To: Dave Airlie <airlied@linux.ie>, Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Intel Graphics <intel-gfx@lists.freedesktop.org>, DRI
+ <dri-devel@lists.freedesktop.org>
+Message-ID: <20210318120221.6dc8f33b@canb.auug.org.au>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH 4/5] drm/i915: Drop the CONTEXT_CLONE API
+Subject: [Intel-gfx] linux-next: manual merge of the drm tree with the
+ drm-misc-fixes tree
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,286 +59,78 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Menglong Dong <dong.menglong@zte.com.cn>,
+ Junlin Yang <yangjunlin@yulong.com>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Content-Type: multipart/mixed; boundary="===============1351169874=="
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-It's never been used by any real userspace.  It's used by IGT as a
-short-cut for sharing VMs and other stuff between contexts.
+--===============1351169874==
+Content-Type: multipart/signed; boundary="Sig_/oZ.TksL4dDhKBuenfDKgVzi";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
 
-Signed-off-by: Jason Ekstrand <jason@jlekstrand.net>
-Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
----
- drivers/gpu/drm/i915/gem/i915_gem_context.c | 217 +-------------------
- include/uapi/drm/i915_drm.h                 |  16 +-
- 2 files changed, 6 insertions(+), 227 deletions(-)
+--Sig_/oZ.TksL4dDhKBuenfDKgVzi
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-index ca37d93ef5e78..92256f4e50764 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-@@ -2103,225 +2103,14 @@ static int create_setparam(struct i915_user_extension __user *ext, void *data)
- 	return ctx_setparam(arg->fpriv, arg->ctx, &local.param);
- }
- 
--static int copy_ring_size(struct intel_context *dst,
--			  struct intel_context *src)
-+static int invalid_ext(struct i915_user_extension __user *ext, void *data)
- {
--	long sz;
--
--	sz = intel_context_get_ring_size(src);
--	if (sz < 0)
--		return sz;
--
--	return intel_context_set_ring_size(dst, sz);
--}
--
--static int clone_engines(struct i915_gem_context *dst,
--			 struct i915_gem_context *src)
--{
--	struct i915_gem_engines *clone, *e;
--	bool user_engines;
--	unsigned long n;
--
--	e = __context_engines_await(src, &user_engines);
--	if (!e)
--		return -ENOENT;
--
--	clone = alloc_engines(e->num_engines);
--	if (!clone)
--		goto err_unlock;
--
--	for (n = 0; n < e->num_engines; n++) {
--		struct intel_engine_cs *engine;
--
--		if (!e->engines[n]) {
--			clone->engines[n] = NULL;
--			continue;
--		}
--		engine = e->engines[n]->engine;
--
--		/*
--		 * Virtual engines are singletons; they can only exist
--		 * inside a single context, because they embed their
--		 * HW context... As each virtual context implies a single
--		 * timeline (each engine can only dequeue a single request
--		 * at any time), it would be surprising for two contexts
--		 * to use the same engine. So let's create a copy of
--		 * the virtual engine instead.
--		 */
--		if (intel_engine_is_virtual(engine))
--			clone->engines[n] =
--				intel_execlists_clone_virtual(engine);
--		else
--			clone->engines[n] = intel_context_create(engine);
--		if (IS_ERR_OR_NULL(clone->engines[n])) {
--			__free_engines(clone, n);
--			goto err_unlock;
--		}
--
--		intel_context_set_gem(clone->engines[n], dst);
--
--		/* Copy across the preferred ringsize */
--		if (copy_ring_size(clone->engines[n], e->engines[n])) {
--			__free_engines(clone, n + 1);
--			goto err_unlock;
--		}
--	}
--	clone->num_engines = n;
--	i915_sw_fence_complete(&e->fence);
--
--	/* Serialised by constructor */
--	engines_idle_release(dst, rcu_replace_pointer(dst->engines, clone, 1));
--	if (user_engines)
--		i915_gem_context_set_user_engines(dst);
--	else
--		i915_gem_context_clear_user_engines(dst);
--	return 0;
--
--err_unlock:
--	i915_sw_fence_complete(&e->fence);
--	return -ENOMEM;
--}
--
--static int clone_flags(struct i915_gem_context *dst,
--		       struct i915_gem_context *src)
--{
--	dst->user_flags = src->user_flags;
--	return 0;
--}
--
--static int clone_schedattr(struct i915_gem_context *dst,
--			   struct i915_gem_context *src)
--{
--	dst->sched = src->sched;
--	return 0;
--}
--
--static int clone_sseu(struct i915_gem_context *dst,
--		      struct i915_gem_context *src)
--{
--	struct i915_gem_engines *e = i915_gem_context_lock_engines(src);
--	struct i915_gem_engines *clone;
--	unsigned long n;
--	int err;
--
--	/* no locking required; sole access under constructor*/
--	clone = __context_engines_static(dst);
--	if (e->num_engines != clone->num_engines) {
--		err = -EINVAL;
--		goto unlock;
--	}
--
--	for (n = 0; n < e->num_engines; n++) {
--		struct intel_context *ce = e->engines[n];
--
--		if (clone->engines[n]->engine->class != ce->engine->class) {
--			/* Must have compatible engine maps! */
--			err = -EINVAL;
--			goto unlock;
--		}
--
--		/* serialises with set_sseu */
--		err = intel_context_lock_pinned(ce);
--		if (err)
--			goto unlock;
--
--		clone->engines[n]->sseu = ce->sseu;
--		intel_context_unlock_pinned(ce);
--	}
--
--	err = 0;
--unlock:
--	i915_gem_context_unlock_engines(src);
--	return err;
--}
--
--static int clone_timeline(struct i915_gem_context *dst,
--			  struct i915_gem_context *src)
--{
--	if (src->timeline)
--		__assign_timeline(dst, src->timeline);
--
--	return 0;
--}
--
--static int clone_vm(struct i915_gem_context *dst,
--		    struct i915_gem_context *src)
--{
--	struct i915_address_space *vm;
--	int err = 0;
--
--	if (!rcu_access_pointer(src->vm))
--		return 0;
--
--	rcu_read_lock();
--	vm = context_get_vm_rcu(src);
--	rcu_read_unlock();
--
--	if (!mutex_lock_interruptible(&dst->mutex)) {
--		__assign_ppgtt(dst, vm);
--		mutex_unlock(&dst->mutex);
--	} else {
--		err = -EINTR;
--	}
--
--	i915_vm_put(vm);
--	return err;
--}
--
--static int create_clone(struct i915_user_extension __user *ext, void *data)
--{
--	static int (* const fn[])(struct i915_gem_context *dst,
--				  struct i915_gem_context *src) = {
--#define MAP(x, y) [ilog2(I915_CONTEXT_CLONE_##x)] = y
--		MAP(ENGINES, clone_engines),
--		MAP(FLAGS, clone_flags),
--		MAP(SCHEDATTR, clone_schedattr),
--		MAP(SSEU, clone_sseu),
--		MAP(TIMELINE, clone_timeline),
--		MAP(VM, clone_vm),
--#undef MAP
--	};
--	struct drm_i915_gem_context_create_ext_clone local;
--	const struct create_ext *arg = data;
--	struct i915_gem_context *dst = arg->ctx;
--	struct i915_gem_context *src;
--	int err, bit;
--
--	if (copy_from_user(&local, ext, sizeof(local)))
--		return -EFAULT;
--
--	BUILD_BUG_ON(GENMASK(BITS_PER_TYPE(local.flags) - 1, ARRAY_SIZE(fn)) !=
--		     I915_CONTEXT_CLONE_UNKNOWN);
--
--	if (local.flags & I915_CONTEXT_CLONE_UNKNOWN)
--		return -EINVAL;
--
--	if (local.rsvd)
--		return -EINVAL;
--
--	rcu_read_lock();
--	src = __i915_gem_context_lookup_rcu(arg->fpriv, local.clone_id);
--	rcu_read_unlock();
--	if (!src)
--		return -ENOENT;
--
--	GEM_BUG_ON(src == dst);
--
--	for (bit = 0; bit < ARRAY_SIZE(fn); bit++) {
--		if (!(local.flags & BIT(bit)))
--			continue;
--
--		err = fn[bit](dst, src);
--		if (err)
--			return err;
--	}
--
--	return 0;
-+	return -EINVAL;
- }
- 
- static const i915_user_extension_fn create_extensions[] = {
- 	[I915_CONTEXT_CREATE_EXT_SETPARAM] = create_setparam,
--	[I915_CONTEXT_CREATE_EXT_CLONE] = create_clone,
-+	[I915_CONTEXT_CREATE_EXT_CLONE] = invalid_ext,
- };
- 
- static bool client_is_banned(struct drm_i915_file_private *file_priv)
-diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
-index ddc47bbf48b6d..0ed1b88afedd5 100644
---- a/include/uapi/drm/i915_drm.h
-+++ b/include/uapi/drm/i915_drm.h
-@@ -1853,20 +1853,10 @@ struct drm_i915_gem_context_create_ext_setparam {
- 	struct drm_i915_gem_context_param param;
- };
- 
--struct drm_i915_gem_context_create_ext_clone {
-+/* This API has been removed.  On the off chance someone somewhere has
-+ * attempted to use it, never re-use this extension number.
-+ */
- #define I915_CONTEXT_CREATE_EXT_CLONE 1
--	struct i915_user_extension base;
--	__u32 clone_id;
--	__u32 flags;
--#define I915_CONTEXT_CLONE_ENGINES	(1u << 0)
--#define I915_CONTEXT_CLONE_FLAGS	(1u << 1)
--#define I915_CONTEXT_CLONE_SCHEDATTR	(1u << 2)
--#define I915_CONTEXT_CLONE_SSEU		(1u << 3)
--#define I915_CONTEXT_CLONE_TIMELINE	(1u << 4)
--#define I915_CONTEXT_CLONE_VM		(1u << 5)
--#define I915_CONTEXT_CLONE_UNKNOWN -(I915_CONTEXT_CLONE_VM << 1)
--	__u64 rsvd;
--};
- 
- struct drm_i915_gem_context_destroy {
- 	__u32 ctx_id;
--- 
-2.29.2
+Hi all,
+
+Today's linux-next merge of the drm tree got a conflict in:
+
+  drivers/gpu/drm/omapdrm/dss/dsi.c
+
+between commit:
+
+  690911544275 ("drm/omap: dsi: fix unsigned expression compared with zero")
+
+from the drm-misc-fixes tree and commit:
+
+  bbd13d6a7b2e ("drm/omap: dsi: fix unreachable code in dsi_vc_send_short()=
+")
+
+from the drm tree.
+
+I fixed it up (these do basically the same thing, so I used the former
+version) and can carry the fix as necessary. This is now fixed as far as
+linux-next is concerned, but any non trivial conflicts should be mentioned
+to your upstream maintainer when your tree is submitted for merging.
+You may also want to consider cooperating with the maintainer of the
+conflicting tree to minimise any particularly complex conflicts.
+
+--=20
+Cheers,
+Stephen Rothwell
+
+--Sig_/oZ.TksL4dDhKBuenfDKgVzi
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEENIC96giZ81tWdLgKAVBC80lX0GwFAmBSpp0ACgkQAVBC80lX
+0GzsEAgAmAl5/2tglQc8Eo/ncN6jarRCoL3sucB5Zy9s3kE8SORVB8B3cqWKum0U
+n7R735XgojEs8nJLgIbXIy7gUOF8yIoSAHGWHKI0JLLUlP7gtpwEg3uTmO+zjIPD
+Z60oA0t0sAtYAGyLIJHGGnt56aGJ5KWEzhEnj0xBG1A8qtAB/Fr2Yg/UvZRNmLXn
+SW07t6LeBR5V+NJ6zX8EiveEiVsVI0j+DsP3y8t79UD01pRr7AJ+OiYf2xrTTgWo
+KXFKeFST+fq5n0CBCOtwj7pcihNFj4r9+2hv3VoMqPQQMJ3ZYqyAUOvVEJv9xYLl
+cnPb28mXq1CGz+pnH4CFGOcjFCu3ZA==
+=ry2h
+-----END PGP SIGNATURE-----
+
+--Sig_/oZ.TksL4dDhKBuenfDKgVzi--
+
+--===============1351169874==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+
+--===============1351169874==--
