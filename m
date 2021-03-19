@@ -7,45 +7,45 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5CC4EC433DB
-	for <intel-gfx@archiver.kernel.org>; Fri, 19 Mar 2021 17:36:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A5D73C433C1
+	for <intel-gfx@archiver.kernel.org>; Fri, 19 Mar 2021 17:36:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1A7AA61925
-	for <intel-gfx@archiver.kernel.org>; Fri, 19 Mar 2021 17:36:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1A7AA61925
+	by mail.kernel.org (Postfix) with ESMTPS id 69B446197A
+	for <intel-gfx@archiver.kernel.org>; Fri, 19 Mar 2021 17:36:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 69B446197A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AC6C26E0C4;
-	Fri, 19 Mar 2021 17:36:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EFC736E0CF;
+	Fri, 19 Mar 2021 17:36:36 +0000 (UTC)
 Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8FBD36E0C4
- for <intel-gfx@lists.freedesktop.org>; Fri, 19 Mar 2021 17:36:34 +0000 (UTC)
-IronPort-SDR: RedHfYKfFTwq5DKycx/d2XbVBBdQ31UB0JfP8UWh+PmM2GJVTNrrHUznujj4HO7ki8SzZnhImd
- 3O879YWTehwg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9928"; a="177522283"
-X-IronPort-AV: E=Sophos;i="5.81,262,1610438400"; d="scan'208";a="177522283"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 11BD46E0C4
+ for <intel-gfx@lists.freedesktop.org>; Fri, 19 Mar 2021 17:36:35 +0000 (UTC)
+IronPort-SDR: SoXetMNoY0VUZLvbXWMFBVsBtRsNpS75S8XJ2b5wutiuV6isB405/NZZRrnLY64PtWTQudC7z9
+ V4jzCJSmxJFA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9928"; a="177522281"
+X-IronPort-AV: E=Sophos;i="5.81,262,1610438400"; d="scan'208";a="177522281"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  19 Mar 2021 10:36:33 -0700
-IronPort-SDR: 8wUgfvspyzzWND2YKNmS/IG96rZzViEHWuDl/Irvz++tvmMST6+RXzM2a0zMJiJ/i4ayPRLHph
- dZCAwOgz97gg==
-X-IronPort-AV: E=Sophos;i="5.81,262,1610438400"; d="scan'208";a="450943583"
+IronPort-SDR: 57UkcBg4D6K3GiWshx79AlEj/RLIKHYJ9ExQEkupjKwPntYyjJbRgec3qeeWmCMcwOPBXCfjid
+ Iz0LZ+Q9RVsA==
+X-IronPort-AV: E=Sophos;i="5.81,262,1610438400"; d="scan'208";a="450943577"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.202])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  19 Mar 2021 10:36:33 -0700
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 19 Mar 2021 10:36:03 -0700
-Message-Id: <20210319173603.521779-4-lucas.demarchi@intel.com>
+Date: Fri, 19 Mar 2021 10:36:01 -0700
+Message-Id: <20210319173603.521779-2-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.30.1
 In-Reply-To: <20210319173603.521779-1-lucas.demarchi@intel.com>
 References: <20210319173603.521779-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v2 3/3] drm/i915/display: remove strap checks
- from gen 9
+Subject: [Intel-gfx] [PATCH v2 1/3] drm/i915/display: move vbt check to
+ intel_ddi_init()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,82 +63,56 @@ Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Direction on gen9+ was to stop reading the straps and only rely on the
-VBT for marking the port presence. This happened while dealing with
-WaIgnoreDDIAStrap and instead of using it as a WA, it should now be the
-normal flow. See commit 885d3e5b6f08 ("drm/i915/display: fix comment on
-skl straps").
+Since commit 45c0673aac97 ("drm/i915/bios: start using the
+intel_bios_encoder_data directly") we lookup the devdata for each port
+in intel_ddi_init() and just return if the port is not present in VBT
+(or if we didn't create a fake devdata for it if VBT is not available).
 
-For gen 10 it's hard to say if this will work or not since I can't test
-it, so leave it with the same behavior as before.
+So in intel_display.c we don't have to check
+intel_bios_is_port_present(), just rely on the check in
+intel_ddi_init().
 
-For PCH_TGP we should still rely on the VBT to make ports E and F not
-available.
+v2: Rebase 45c0673aac97 re-using that check in intel_ddi_init() instead
+of adding a new one.
 
 Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c | 36 ++++++--------------
- 1 file changed, 11 insertions(+), 25 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display.c | 14 ++++++--------
+ 1 file changed, 6 insertions(+), 8 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 82471961e721..b9af1f1e347e 100644
+index 7b38b9a38b85..c793cbecfb3b 100644
 --- a/drivers/gpu/drm/i915/display/intel_display.c
 +++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -11687,34 +11687,25 @@ static void intel_setup_outputs(struct drm_i915_private *dev_priv)
- 		intel_ddi_init(dev_priv, PORT_B);
+@@ -11672,13 +11672,13 @@ static void intel_setup_outputs(struct drm_i915_private *dev_priv)
  		intel_ddi_init(dev_priv, PORT_C);
- 		vlv_dsi_init(dev_priv);
-+	} else if (IS_GEN(dev_priv, 9)) {
-+		intel_ddi_init(dev_priv, PORT_A);
-+		intel_ddi_init(dev_priv, PORT_B);
-+		intel_ddi_init(dev_priv, PORT_C);
-+		intel_ddi_init(dev_priv, PORT_D);
-+		intel_ddi_init(dev_priv, PORT_E);
-+		intel_ddi_init(dev_priv, PORT_F);
- 	} else if (HAS_DDI(dev_priv)) {
--		int found;
-+		u32 found;
- 
- 		if (intel_ddi_crt_present(dev_priv))
- 			intel_crt_init(dev_priv);
- 
--		/*
--		 * Haswell uses DDI functions to detect digital outputs.
--		 * On SKL pre-D0 the strap isn't connected. Later SKUs may or
--		 * may not have it - it was supposed to be fixed by the same
--		 * time we stopped using straps. Assume it's there.
--		 */
-+		/* Haswell uses DDI functions to detect digital outputs. */
- 		found = intel_de_read(dev_priv, DDI_BUF_CTL(PORT_A)) & DDI_INIT_DISPLAY_DETECTED;
--		/* WaIgnoreDDIAStrap: skl */
--		if (found || IS_GEN9_BC(dev_priv))
-+		if (found)
- 			intel_ddi_init(dev_priv, PORT_A);
- 
--		/* DDI B, C, D, and F detection is indicated by the SFUSE_STRAP
--		 * register */
--		if (HAS_PCH_TGP(dev_priv)) {
--			/* W/A due to lack of STRAP config on TGP PCH*/
--			found = (SFUSE_STRAP_DDIB_DETECTED |
--				 SFUSE_STRAP_DDIC_DETECTED |
--				 SFUSE_STRAP_DDID_DETECTED);
--		} else {
--			found = intel_de_read(dev_priv, SFUSE_STRAP);
--		}
--
-+		found = intel_de_read(dev_priv, SFUSE_STRAP);
- 		if (found & SFUSE_STRAP_DDIB_DETECTED)
- 			intel_ddi_init(dev_priv, PORT_B);
- 		if (found & SFUSE_STRAP_DDIC_DETECTED)
-@@ -11723,11 +11714,6 @@ static void intel_setup_outputs(struct drm_i915_private *dev_priv)
- 			intel_ddi_init(dev_priv, PORT_D);
- 		if (found & SFUSE_STRAP_DDIF_DETECTED)
+ 		intel_ddi_init(dev_priv, PORT_D);
+ 		intel_ddi_init(dev_priv, PORT_E);
++
+ 		/*
+-		 * On some ICL SKUs port F is not present. No strap bits for
+-		 * this, so rely on VBT.
+-		 * Work around broken VBTs on SKUs known to have no port F.
++		 * On some ICL SKUs port F is not present, but broken VBTs mark
++		 * the port as present. Only try to initialize port F for the
++		 * SKUs that may actually have it.
+ 		 */
+-		if (IS_ICL_WITH_PORT_F(dev_priv) &&
+-		    intel_bios_is_port_present(dev_priv, PORT_F))
++		if (IS_ICL_WITH_PORT_F(dev_priv))
  			intel_ddi_init(dev_priv, PORT_F);
--		/*
--		 * On SKL we don't have a way to detect DDI-E so we rely on VBT.
--		 */
--		if (IS_GEN9_BC(dev_priv))
--			intel_ddi_init(dev_priv, PORT_E);
+ 
+ 		icl_dsi_init(dev_priv);
+@@ -11732,10 +11732,8 @@ static void intel_setup_outputs(struct drm_i915_private *dev_priv)
+ 		/*
+ 		 * On SKL we don't have a way to detect DDI-E so we rely on VBT.
+ 		 */
+-		if (IS_GEN9_BC(dev_priv) &&
+-		    intel_bios_is_port_present(dev_priv, PORT_E))
++		if (IS_GEN9_BC(dev_priv))
+ 			intel_ddi_init(dev_priv, PORT_E);
+-
  	} else if (HAS_PCH_SPLIT(dev_priv)) {
  		int found;
  
