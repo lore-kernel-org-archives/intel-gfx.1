@@ -2,66 +2,68 @@ Return-Path: <SRS0=R2gn=IU=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E2D9EC433E2
-	for <intel-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 09:10:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 83172C433C1
+	for <intel-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 09:10:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 854D161929
-	for <intel-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 09:10:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 854D161929
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmx.net
+	by mail.kernel.org (Postfix) with ESMTPS id 223B261929
+	for <intel-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 09:10:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 223B261929
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linaro.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9DE6189DE6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D3F3589DF7;
 	Mon, 22 Mar 2021 09:10:10 +0000 (UTC)
-X-Greylist: delayed 306 seconds by postgrey-1.36 at gabe;
- Sat, 13 Mar 2021 21:31:18 UTC
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.22])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F6FB6E091
- for <intel-gfx@lists.freedesktop.org>; Sat, 13 Mar 2021 21:31:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
- s=badeba3b8450; t=1615671075;
- bh=/LnjI6MxOSKQOpnbvDth5WmSDythBgfIOy/wJXZlo+w=;
- h=X-UI-Sender-Class:Subject:From:To:Cc:Date;
- b=Ac0JdxaC9ffqeiXIHTMl4hR+7b+RTxwEcPeRDn11Ewfq0a5BKCbgUbubLngOL0YYQ
- oZA2SleO6M7ud54stvuMAMAAdrPRovC2mekcPCLhv1iQ64wUc4SCvP+94AsAZRyNEj
- GOf4Y+RHbQ+nfwvjTmChD1FE3MgVYPpf4jVGy2SI=
-X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
-Received: from [192.168.0.4] ([84.155.190.211]) by mail.gmx.net (mrgmx104
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1M9Wuq-1lOVA2338m-005bPu; Sat, 13
- Mar 2021 22:26:06 +0100
-Message-ID: <042237f49ed1fd719126a3407d7c909e49addbea.camel@gmx.net>
-From: Mario =?ISO-8859-1?Q?H=FCttel?= <mario.huettel@gmx.net>
-To: intel-gfx@lists.freedesktop.org
-Date: Sat, 13 Mar 2021 22:26:05 +0100
-User-Agent: Evolution 3.38.4 
+Received: from mail-pj1-x1034.google.com (mail-pj1-x1034.google.com
+ [IPv6:2607:f8b0:4864:20::1034])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9573F6EA2E
+ for <intel-gfx@lists.freedesktop.org>; Fri, 19 Mar 2021 14:43:55 +0000 (UTC)
+Received: by mail-pj1-x1034.google.com with SMTP id
+ kr3-20020a17090b4903b02900c096fc01deso4959773pjb.4
+ for <intel-gfx@lists.freedesktop.org>; Fri, 19 Mar 2021 07:43:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=86LC+1JkNbbYNnfKum5G/BlJ9HpQquJ6GZDdITyjMEY=;
+ b=ESqHg/Y6nunNSt2A+n9NWRNhz9fMlfBI4MSa8ZUCLsFHV6hBHTbyKTb5LvtUBy3sDl
+ tZ3TZCOfAxuslM6hVBzvZBG+WDWr6+KKfr45IXsC++3CgBLssBEmOYJPoltIUCj5Ab5r
+ Ps5BzO93U4v5ATBIff4UXI55yoi3tueb3M2Mxsxr8AalFKT0qmZjt0ytDLMrSuh+Xjv2
+ nn1qSIhjlu63a0/GM1HyDQ0gsQjhbyl0d2JTYfEuiD0xDFDASfbE81sV/e6NUMEG69T/
+ p4rrhKaWnvLHgogq2P8lT5x0kwhxjSmRELfZbJfWCaMnzgbK6aqmocai87gZbkTlRmnh
+ tqaQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=86LC+1JkNbbYNnfKum5G/BlJ9HpQquJ6GZDdITyjMEY=;
+ b=it57jvcfPdmJeAQ/7XDNxzP7XLtNWsI7uGZDOjMaL9NGu+fGLzbeyA8DtYVZM8YcIl
+ FeYhmgvlcNUyH6LJ117WGiMtiWX+dsLLiTeINSn7X3+G1olzHyTGDV/IMYyJvObm66w7
+ mNsNHRW/69D9RTWZTJHa75EHiP/U6JIzk/l7bQ9AXgIeNgHEYDuQNprnojTirqGk6gIv
+ ymuPW8lNvsuyqbTGrNOfG4X1iSI27aZnENEri2AM7o86sxMdI0jee0eD8N4qQFkeXxMW
+ MFJFqdr8MRihqj4jeUSles0ur/81JW94/IShDrQNZLdg07sgpNORIocpyBwXyZ3LG/8k
+ YUkA==
+X-Gm-Message-State: AOAM533Xu0GvC8lTaFWsC7QXKnpY6TyI2QAJfYFHd+7xiMfcA6u6/50x
+ 8huuipFylRMk+bUAyH8L/irCo2gelJknckoU6o50cw==
+X-Google-Smtp-Source: ABdhPJxMIHdTlGCXNCULSxlRJJagvj2AatBYPGQF37Ua2ikdmUUVJ4WnoNWSgNo0fgfSZ+4tH2iCCodydlKkCHKtvhM=
+X-Received: by 2002:a17:90a:be07:: with SMTP id
+ a7mr10386254pjs.75.1616165035134; 
+ Fri, 19 Mar 2021 07:43:55 -0700 (PDT)
 MIME-Version: 1.0
-X-Provags-ID: V03:K1:ZFfHUbvavtj6gHHjNICSFWrFyxTV5TdOvEHsCemudYP19iZi8AS
- taJtPSRqRVAI8DaEACn+VnFmsYv+6mhPRYRqgOwkOobYWhr4xnXewX+QqSdJfUkAi//ZLf+
- v42sEBoQ8s9Vw+GesgA/GF9Ozv9mMGXgm9ae4X7KC30iy7FK+l/xRWLUyr+mj1qZzUwB5ht
- rQDAN82ioP/vK60YElcJw==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:1IgzVpy6cIU=:miWV3O8LJ6Q5b9OMMNn21J
- VcySQDCTNcyB1/zKYp9IImcjpTNXZAYptaMV6jXEQvgKnwBDrhM2JyeOWGwQrZoIWGksZZvWa
- uHI5oImtamDzMZOZhIR7jGAtk4bdhzbgd6uMKK4GHjwUdgEeg6kplDJpT2M8GHuVJ1zdGeJVf
- Xg9lO6DUrvWLdlpzjYHdXmHvGtWnqw418bi39JXH7CnQatbcFt4lK/ZxGdUjJ0WMsPjb1s0sD
- 33AgYPzMODO1WqCYVFBhVHZ+nQUTHleAaQ/ZRoL03XWObVQ/d+K/Asg8g7RZ7trMw2tNS6boR
- kc1zr5RBemJeSQYNz5U5c6bpoJajjx9PADPy0dEWUuV0H3nTp1T0OgwT/b5c5JDXFZpTXG/Jj
- dkV/JFZUHq0B2oY04oltW4pUutjWsyEBQx2AqUQDguwVpUclJwGPQOzl09As2PhUGFuCektht
- CEQ3yXWuXMibZ9qOHe3upRRxH9Qj6A8ilZ9MSJGY22LVCRLLuCsiHjqAqWwqkvQvoWFCJ//H5
- QmCNq0pH7TRfxRzGqTLeLcj4oLMbxRQ71KJ9YGaS/Nu2F4fFy0HWqdKyvZOPRKze1Muj7x0HW
- +dFkVbTJ76s/GHjg4yQKJeHYYtt71H2+rie1SUCe1jvsWdhSa3CCRmhkRYw2hYn8093THxR32
- gmGfaTpKTEniWB0SrV/weX9mfpsKxo03/iScArscBjk8op195vWccSSh25yjUW7dirI0aTS8M
- Vtp6RcbXCLllFL01fI97NRnXuHm4Sr3NpuJHqmV1RNcsIO/gTvBRV9OpdDDOXYP6SAJnWywDX
- x5F6gbNnUc0VF+KVX5kmdOsrg2bgkW7+gD6WCZXbWzRyzUkKaI85eTyEsXADbpuQrDdQruNoX
- XPUBXwJAlcVkvyhKZL/w==
-X-Mailman-Approved-At: Mon, 22 Mar 2021 09:10:09 +0000
-Subject: [Intel-gfx] BUG in i915/i915_pci.c, commit fe0f1e3
+References: <20210219215326.2227596-1-lyude@redhat.com>
+ <20210219215326.2227596-12-lyude@redhat.com>
+In-Reply-To: <20210219215326.2227596-12-lyude@redhat.com>
+From: Robert Foss <robert.foss@linaro.org>
+Date: Fri, 19 Mar 2021 15:43:44 +0100
+Message-ID: <CAG3jFyvMb+ENOnM4Ug8Vkfk1uGThQj=+M96mf3ef0e9jzapoCw@mail.gmail.com>
+To: Lyude Paul <lyude@redhat.com>
+X-Mailman-Approved-At: Mon, 22 Mar 2021 09:10:08 +0000
+Subject: Re: [Intel-gfx] [PATCH 11/30] drm/bridge/analogix/anx6345: Don't
+ link encoder until after connector registration
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,39 +76,71 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Neil Armstrong <narmstrong@baylibre.com>, David Airlie <airlied@linux.ie>,
+ nouveau@lists.freedesktop.org, dri-devel <dri-devel@lists.freedesktop.org>,
+ Andrzej Hajda <a.hajda@samsung.com>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Sam Ravnborg <sam@ravnborg.org>, amd-gfx@lists.freedesktop.org,
+ Vasily Khoruzhick <anarsoul@gmail.com>, Icenowy Zheng <icenowy@aosc.io>,
+ Jonas Karlman <jonas@kwiboo.se>, intel-gfx@lists.freedesktop.org,
+ Jernej Skrabec <jernej.skrabec@siol.net>,
+ open list <linux-kernel@vger.kernel.org>, Torsten Duwe <duwe@lst.de>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Joe Perches <joe@perches.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hello,
+Hey Lyude,
 
-I want to report a bug. I have a PC with Intel i7-6700K processor (with
-integrated graphics) and an AsRock Fatal1ty Z170 Gaming K6 mainboard. I
-use the CPU's integrated graphics.
-My system is Archlinux with Kernel v5.11.6.
+Thanks for the patch, it looks good to me.
 
-Using this setup, my PC works normally. However, when I shut it down,
-the power is not cut. Fans and LEDs keep spinning. I couldn't detect
-any other problem when shutting down. Drives etc. stop as expected and
-the video is blank. Even after waiting several hours, the system
-doesn't power down.
-I haven't yet found any other people on the internet that have the same
-bug.
+Reviewed-by: Robert Foss <robert.foss@linaro.org>
 
-I used git bisect to find the commit that causes this behavior on my
-machine. The result is: fe0f1e3bfdfeb53e18f1206aea4f40b9bd1f291c is the
-first bad commit.
-
-I hope this is the correct mailing list for this issue.
-
-Let me know if you need more information or someone to test it.
-
-Thanks
-
-Mario
-
-
+On Fri, 19 Feb 2021 at 22:58, Lyude Paul <lyude@redhat.com> wrote:
+>
+> Another case of linking an encoder to a connector after the connector's
+> been registered. The proper place to do this is before connector
+> registration, so let's fix that.
+>
+> Signed-off-by: Lyude Paul <lyude@redhat.com>
+> ---
+>  drivers/gpu/drm/bridge/analogix/analogix-anx6345.c | 12 ++++++------
+>  1 file changed, 6 insertions(+), 6 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/bridge/analogix/analogix-anx6345.c b/drivers/gpu/drm/bridge/analogix/analogix-anx6345.c
+> index 8e016ba7c54a..6258f16da0e8 100644
+> --- a/drivers/gpu/drm/bridge/analogix/analogix-anx6345.c
+> +++ b/drivers/gpu/drm/bridge/analogix/analogix-anx6345.c
+> @@ -556,12 +556,6 @@ static int anx6345_bridge_attach(struct drm_bridge *bridge,
+>         drm_connector_helper_add(&anx6345->connector,
+>                                  &anx6345_connector_helper_funcs);
+>
+> -       err = drm_connector_register(&anx6345->connector);
+> -       if (err) {
+> -               DRM_ERROR("Failed to register connector: %d\n", err);
+> -               return err;
+> -       }
+> -
+>         anx6345->connector.polled = DRM_CONNECTOR_POLL_HPD;
+>
+>         err = drm_connector_attach_encoder(&anx6345->connector,
+> @@ -571,6 +565,12 @@ static int anx6345_bridge_attach(struct drm_bridge *bridge,
+>                 return err;
+>         }
+>
+> +       err = drm_connector_register(&anx6345->connector);
+> +       if (err) {
+> +               DRM_ERROR("Failed to register connector: %d\n", err);
+> +               return err;
+> +       }
+> +
+>         return 0;
+>  }
+>
+> --
+> 2.29.2
+>
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
