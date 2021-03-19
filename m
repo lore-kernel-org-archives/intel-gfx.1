@@ -2,49 +2,41 @@ Return-Path: <SRS0=r5PR=IR=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0A661C433DB
-	for <intel-gfx@archiver.kernel.org>; Fri, 19 Mar 2021 10:17:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6D306C433E0
+	for <intel-gfx@archiver.kernel.org>; Fri, 19 Mar 2021 10:55:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B78CD64EF6
-	for <intel-gfx@archiver.kernel.org>; Fri, 19 Mar 2021 10:17:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B78CD64EF6
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id E45EA64F69
+	for <intel-gfx@archiver.kernel.org>; Fri, 19 Mar 2021 10:55:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E45EA64F69
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=emeril.freedesktop.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 35ED46E9E5;
-	Fri, 19 Mar 2021 10:17:26 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B46DB6E9E5
- for <intel-gfx@lists.freedesktop.org>; Fri, 19 Mar 2021 10:17:19 +0000 (UTC)
-IronPort-SDR: q+wJsraDkzYmM4YSuc4iHQXOs2DCS0e0aDJ0A33n+QoWmLimpiw22xq1fD5n68h7+nhUZKdyAl
- AUBM5RH3HwDA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9927"; a="274935047"
-X-IronPort-AV: E=Sophos;i="5.81,261,1610438400"; d="scan'208";a="274935047"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Mar 2021 03:17:19 -0700
-IronPort-SDR: VnHLkHnqhYzlrj1iMnpr9mt+ctCGWTgx3YFQ6V3MgALHLG75VtdjF66K8IKm/KKhEmQyTfWL/0
- yoTBtLPUG5Qw==
-X-IronPort-AV: E=Sophos;i="5.81,261,1610438400"; d="scan'208";a="374911311"
-Received: from unknown (HELO genxfsim-desktop.iind.intel.com) ([10.223.74.179])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Mar 2021 03:17:17 -0700
-From: Anshuman Gupta <anshuman.gupta@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Fri, 19 Mar 2021 15:32:08 +0530
-Message-Id: <20210319100208.5886-4-anshuman.gupta@intel.com>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20210319100208.5886-1-anshuman.gupta@intel.com>
-References: <20210319100208.5886-1-anshuman.gupta@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7ABEE6E9B6;
+	Fri, 19 Mar 2021 10:55:26 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id F1EAB6E20C;
+ Fri, 19 Mar 2021 10:55:24 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id E8673A7525;
+ Fri, 19 Mar 2021 10:55:24 +0000 (UTC)
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v2 3/3] drm/i915/hdcp: return correct error code
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Anshuman Gupta" <anshuman.gupta@intel.com>
+Date: Fri, 19 Mar 2021 10:55:24 -0000
+Message-ID: <161615132491.8629.16730425417713103166@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20210127100051.30595-1-anshuman.gupta@intel.com>
+In-Reply-To: <20210127100051.30595-1-anshuman.gupta@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_drm/i915/hdcp=3A_mst_streams_type1_capability_check_=28rev2?=
+ =?utf-8?q?=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,41 +49,29 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-hdcp2_enable_stream_encryption shouldn't get called in case
-of any port authentication or encryption error, though
-hdcp2_enable_stream_encryption checks for link encryption
-before enabling stream encryption and returns error but
-this return error code won't be correct in case of any error
-due to port authentication and encryption.
+== Series Details ==
 
-Cc: Ramalingam C <ramalingam.c@intel.com>
-Reviewed-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Series: drm/i915/hdcp: mst streams type1 capability check (rev2)
+URL   : https://patchwork.freedesktop.org/series/86345/
+State : warning
+
+== Summary ==
+
+$ dim checkpatch origin/drm-tip
+bb93c668b788 drm/i915/hdcp: mst streams type1 capability check
+-:18: WARNING:BAD_SIGN_OFF: Duplicate signature
+#18: 
 Signed-off-by: Anshuman Gupta <anshuman.gupta@intel.com>
----
- drivers/gpu/drm/i915/display/intel_hdcp.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.c b/drivers/gpu/drm/i915/display/intel_hdcp.c
-index 9a70c164c377..21d6c73784b3 100644
---- a/drivers/gpu/drm/i915/display/intel_hdcp.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdcp.c
-@@ -1896,7 +1896,8 @@ static int hdcp2_authenticate_and_encrypt(struct intel_connector *connector)
- 		}
- 	}
- 
--	ret = hdcp2_enable_stream_encryption(connector);
-+	if (!ret)
-+		ret = hdcp2_enable_stream_encryption(connector);
- 
- 	return ret;
- }
--- 
-2.26.2
+total: 0 errors, 1 warnings, 0 checks, 96 lines checked
+
 
 _______________________________________________
 Intel-gfx mailing list
