@@ -2,49 +2,85 @@ Return-Path: <SRS0=r5PR=IR=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B0D44C433E0
-	for <intel-gfx@archiver.kernel.org>; Fri, 19 Mar 2021 11:53:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C3E43C433E9
+	for <intel-gfx@archiver.kernel.org>; Fri, 19 Mar 2021 12:49:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3640B60234
-	for <intel-gfx@archiver.kernel.org>; Fri, 19 Mar 2021 11:53:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3640B60234
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 8715764E5B
+	for <intel-gfx@archiver.kernel.org>; Fri, 19 Mar 2021 12:49:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8715764E5B
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=cerno.tech
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C20316E9CD;
-	Fri, 19 Mar 2021 11:53:43 +0000 (UTC)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2CDA96E9CD
- for <intel-gfx@lists.freedesktop.org>; Fri, 19 Mar 2021 11:53:42 +0000 (UTC)
-IronPort-SDR: PVyU5evdbHZyU4xGRvPsyADHhxq9F5vqoh1w9qGlCfHKvFkQDnIJExfkon3G9ywotQAQznCBMo
- bDO9y2/BFLmA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9927"; a="251229758"
-X-IronPort-AV: E=Sophos;i="5.81,261,1610438400"; d="scan'208";a="251229758"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Mar 2021 04:53:41 -0700
-IronPort-SDR: KBsffjmVZWGq3TiSIlumY4x3pURp+EmskZ48sD2cNqZ8KXNOQMpcMI9Il7zzmoETDc04hdUtCQ
- XfUGhuWfCKsg==
-X-IronPort-AV: E=Sophos;i="5.81,261,1610438400"; d="scan'208";a="413482590"
-Received: from koehlcla-mobl.ger.corp.intel.com (HELO localhost)
- ([10.252.50.135])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Mar 2021 04:53:38 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Fri, 19 Mar 2021 13:53:33 +0200
-Message-Id: <20210319115333.8330-1-jani.nikula@intel.com>
-X-Mailer: git-send-email 2.20.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 054C46E9D9;
+	Fri, 19 Mar 2021 12:49:34 +0000 (UTC)
+Received: from new1-smtp.messagingengine.com (new1-smtp.messagingengine.com
+ [66.111.4.221])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A9D36E9AD;
+ Fri, 19 Mar 2021 12:49:31 +0000 (UTC)
+Received: from compute6.internal (compute6.nyi.internal [10.202.2.46])
+ by mailnew.nyi.internal (Postfix) with ESMTP id A55F8580984;
+ Fri, 19 Mar 2021 08:49:29 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute6.internal (MEProxy); Fri, 19 Mar 2021 08:49:29 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
+ from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding; s=fm2; bh=c847Pq0vLWucL
+ jucHu8bhUQZoFlP9PYipIboZySW8YA=; b=jWAF4kTuTgo9rWxNz0xBUXd9WaFz8
+ US6xn4N+2+CsTPCV9x69muVZFfTcq7aRNhmLRqnNraSvUqpZ0WM5mdYD10qEnuHw
+ 2OAspz2/UqTroCCOOft0vzbdnnfs0zcEEEaYijueqwPT+7NQs+qFc1ukpBRkllFT
+ /z1G7bqPz6rM16oZjXkc7tJRSASN0n2VmOrPpwkVT81xdfqWJwkx6x04lVKIEf/R
+ r4T+wCwounq77YYrqLuKi4w1DQbcHW6qqpBWJQPl2AG8b87q5D5JxsAUH4n7w7a/
+ AmWAQcHDjoCjlnJp55fKi/TgiUPkNJoisIxrzsAtzFYW2OOjx5cwqF70A==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:date:from
+ :in-reply-to:message-id:mime-version:references:subject:to
+ :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+ fm2; bh=c847Pq0vLWucLjucHu8bhUQZoFlP9PYipIboZySW8YA=; b=YdYHB386
+ HJVB70an0FuXVvwJZtdvCaNCdSzf+74bTxqXKdE1fNrIzJkvZWiu2yZrkm6YO3rF
+ RIbt/9mfDjxv4DZ/s7cJvKlauCC8el2baAcXH2ErU8CG+HzVJc+GqtkPio8kh6QQ
+ 3GMeMgZIb6M3YI7Qr9x9KQOropYoKzF3dNzsYFq2rBma13r3N7vlJ8udN24xafse
+ WVObDt9pcVjhDtblZkNorI5JRIcH8SJpA5cQutFwOHjIjLHc3R3BuBFosMseO1mq
+ dXoW6CUmnwwJT0Z3P+utCyYVmtHP5O+HlVlIRCVN/EVBNPPhI4kGvWz96/Z1i/WJ
+ 47PP7QJSu7I7Rw==
+X-ME-Sender: <xms:2J1UYCwzEtSGD3w1K0dZ_OikURIbegaYlyvsXDZWCthc5ahkEF1CmA>
+ <xme:2J1UYORtP0LkOFbVatpNvaBKMCAr2IYZWkRj7KDD_v5p4_WY7qPX4nD2YLUwUQUj7
+ VlabIe9ATKa0j_mlf0>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrudefkedggeehucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhephffvufffkffojghfggfgsedtkeertdertddtnecuhfhrohhmpeforgigihhm
+ vgcutfhiphgrrhguuceomhgrgihimhgvsegtvghrnhhordhtvggthheqnecuggftrfgrth
+ htvghrnhepvdekleevfeffkeejhfffueelteelfeduieefheduudfggffhhfffheevveeh
+ hedvnecukfhppeeltddrkeelrdeikedrjeeinecuvehluhhsthgvrhfuihiivgeptdenuc
+ frrghrrghmpehmrghilhhfrhhomhepmhgrgihimhgvsegtvghrnhhordhtvggthh
+X-ME-Proxy: <xmx:2J1UYEX6TC-F-ghrJ8__Tt30uu70Mzhv_wkiEde8isQ55lKdibwMMg>
+ <xmx:2J1UYIj5Hx_XuM_nwB1XMXBpYaTIaDPLr6xaVdaOx0_N4Zy4oiuFKg>
+ <xmx:2J1UYEAzcTCUwN066K2x4wtxXlpj9xZO9hZENd_SIwFtG1ZB2viagw>
+ <xmx:2Z1UYHbj4q9z_ShIeZvwiBBNaiWpnAFJ196cwHiTi3uqauSbAkSrwQ>
+Received: from localhost (lfbn-tou-1-1502-76.w90-89.abo.wanadoo.fr
+ [90.89.68.76])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 244761080054;
+ Fri, 19 Mar 2021 08:49:28 -0400 (EDT)
+From: Maxime Ripard <maxime@cerno.tech>
+To: dri-devel@lists.freedesktop.org, Daniel Vetter <daniel.vetter@intel.com>,
+ David Airlie <airlied@linux.ie>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Maxime Ripard <maxime@cerno.tech>
+Date: Fri, 19 Mar 2021 13:49:21 +0100
+Message-Id: <20210319124922.144726-2-maxime@cerno.tech>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20210319124922.144726-1-maxime@cerno.tech>
+References: <20210319124922.144726-1-maxime@cerno.tech>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH] drm/i915/dsc: fix DSS CTL register usage for
- ICL DSI transcoders
+Subject: [Intel-gfx] [PATCH 2/3] drm/connector: Add helper to compare HDR
+ metadata
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,61 +93,197 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com, stable@vger.kernel.org
+Cc: Tim Gover <tim.gover@raspberrypi.com>,
+ Neil Armstrong <narmstrong@baylibre.com>, Eric Anholt <eric@anholt.net>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Phil Elwell <phil@raspberrypi.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, amd-gfx@lists.freedesktop.org,
+ Harry Wentland <harry.wentland@amd.com>, Jonas Karlman <jonas@kwiboo.se>,
+ Leo Li <sunpeng.li@amd.com>, intel-gfx@lists.freedesktop.org,
+ Maxime Ripard <mripard@kernel.org>, Jernej Skrabec <jernej.skrabec@siol.net>,
+ Dom Cobley <dom@raspberrypi.com>, Andrzej Hajda <a.hajda@samsung.com>,
+ linux-kernel@vger.kernel.org, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Use the correct DSS CTL registers for ICL DSI transcoders.
+All the drivers that support the HDR metadata property have a similar
+function to compare the metadata from one connector state to the next,
+and force a mode change if they differ.
 
-As a side effect, this also brings back the sanity check for trying to
-use pipe DSC registers on pipe A on ICL.
+All these functions run pretty much the same code, so let's turn it into
+an helper that can be shared across those drivers.
 
-Fixes: 8a029c113b17 ("drm/i915/dp: Modify VDSC helpers to configure DSC for Bigjoiner slave")
-References: http://lore.kernel.org/r/87eegxq2lq.fsf@intel.com
-Cc: Manasi Navare <manasi.d.navare@intel.com>
-Cc: Animesh Manna <animesh.manna@intel.com>
-Cc: Vandita Kulkarni <vandita.kulkarni@intel.com>
-Cc: <stable@vger.kernel.org> # v5.11+
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
-
+Signed-off-by: Maxime Ripard <maxime@cerno.tech>
 ---
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 21 +-------------
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi.c     | 17 +----------
+ drivers/gpu/drm/drm_connector.c               | 28 +++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_atomic.c   | 13 +--------
+ include/drm/drm_connector.h                   |  2 ++
+ 5 files changed, 33 insertions(+), 48 deletions(-)
 
-Untested, I don't have the platform.
----
- drivers/gpu/drm/i915/display/intel_vdsc.c | 10 ++--------
- 1 file changed, 2 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_vdsc.c b/drivers/gpu/drm/i915/display/intel_vdsc.c
-index f58cc5700784..a86c57d117f2 100644
---- a/drivers/gpu/drm/i915/display/intel_vdsc.c
-+++ b/drivers/gpu/drm/i915/display/intel_vdsc.c
-@@ -1014,20 +1014,14 @@ static i915_reg_t dss_ctl1_reg(const struct intel_crtc_state *crtc_state)
- {
- 	enum pipe pipe = to_intel_crtc(crtc_state->uapi.crtc)->pipe;
- 
--	if (crtc_state->cpu_transcoder == TRANSCODER_EDP)
--		return DSS_CTL1;
--
--	return ICL_PIPE_DSS_CTL1(pipe);
-+	return is_pipe_dsc(crtc_state) ? ICL_PIPE_DSS_CTL1(pipe) : DSS_CTL1;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 06908a3cee0f..4eb5201e566a 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -5924,25 +5924,6 @@ static int fill_hdr_info_packet(const struct drm_connector_state *state,
+ 	return 0;
  }
  
- static i915_reg_t dss_ctl2_reg(const struct intel_crtc_state *crtc_state)
- {
- 	enum pipe pipe = to_intel_crtc(crtc_state->uapi.crtc)->pipe;
- 
--	if (crtc_state->cpu_transcoder == TRANSCODER_EDP)
--		return DSS_CTL2;
+-static bool
+-is_hdr_metadata_different(const struct drm_connector_state *old_state,
+-			  const struct drm_connector_state *new_state)
+-{
+-	struct drm_property_blob *old_blob = old_state->hdr_output_metadata;
+-	struct drm_property_blob *new_blob = new_state->hdr_output_metadata;
 -
--	return ICL_PIPE_DSS_CTL2(pipe);
-+	return is_pipe_dsc(crtc_state) ? ICL_PIPE_DSS_CTL2(pipe) : DSS_CTL2;
+-	if (old_blob != new_blob) {
+-		if (old_blob && new_blob &&
+-		    old_blob->length == new_blob->length)
+-			return memcmp(old_blob->data, new_blob->data,
+-				      old_blob->length);
+-
+-		return true;
+-	}
+-
+-	return false;
+-}
+-
+ static int
+ amdgpu_dm_connector_atomic_check(struct drm_connector *conn,
+ 				 struct drm_atomic_state *state)
+@@ -5960,7 +5941,7 @@ amdgpu_dm_connector_atomic_check(struct drm_connector *conn,
+ 	if (!crtc)
+ 		return 0;
+ 
+-	if (is_hdr_metadata_different(old_con_state, new_con_state)) {
++	if (!drm_connector_atomic_hdr_metadata_equal(old_con_state, new_con_state)) {
+ 		struct dc_info_packet hdr_infopacket;
+ 
+ 		ret = fill_hdr_info_packet(new_con_state, &hdr_infopacket);
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+index f24bbb840dbf..f871e33c2fc9 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+@@ -2395,21 +2395,6 @@ static int dw_hdmi_connector_get_modes(struct drm_connector *connector)
+ 	return ret;
  }
  
- void intel_dsc_enable(struct intel_encoder *encoder,
+-static bool hdr_metadata_equal(const struct drm_connector_state *old_state,
+-			       const struct drm_connector_state *new_state)
+-{
+-	struct drm_property_blob *old_blob = old_state->hdr_output_metadata;
+-	struct drm_property_blob *new_blob = new_state->hdr_output_metadata;
+-
+-	if (!old_blob || !new_blob)
+-		return old_blob == new_blob;
+-
+-	if (old_blob->length != new_blob->length)
+-		return false;
+-
+-	return !memcmp(old_blob->data, new_blob->data, old_blob->length);
+-}
+-
+ static int dw_hdmi_connector_atomic_check(struct drm_connector *connector,
+ 					  struct drm_atomic_state *state)
+ {
+@@ -2423,7 +2408,7 @@ static int dw_hdmi_connector_atomic_check(struct drm_connector *connector,
+ 	if (!crtc)
+ 		return 0;
+ 
+-	if (!hdr_metadata_equal(old_state, new_state)) {
++	if (!drm_connector_atomic_hdr_metadata_equal(old_state, new_state)) {
+ 		crtc_state = drm_atomic_get_crtc_state(state, crtc);
+ 		if (IS_ERR(crtc_state))
+ 			return PTR_ERR(crtc_state);
+diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
+index e25248e23e18..d781a3a1e9bf 100644
+--- a/drivers/gpu/drm/drm_connector.c
++++ b/drivers/gpu/drm/drm_connector.c
+@@ -2170,6 +2170,34 @@ int drm_connector_attach_hdr_output_metadata_property(struct drm_connector *conn
+ }
+ EXPORT_SYMBOL(drm_connector_attach_hdr_output_metadata_property);
+ 
++/**
++ * drm_connector_atomic_hdr_metadata_equal - checks if the hdr metadata changed
++ * @old_state: old connector state to compare
++ * @new_state: new connector state to compare
++ *
++ * This is used by HDR-enabled drivers to test whether the HDR metadata
++ * have changed between two different connector state (and thus probably
++ * requires a full blown mode change).
++ *
++ * Returns:
++ * True if the metadata are equal, False otherwise
++ */
++bool drm_connector_atomic_hdr_metadata_equal(struct drm_connector_state *old_state,
++					     struct drm_connector_state *new_state)
++{
++	struct drm_property_blob *old_blob = old_state->hdr_output_metadata;
++	struct drm_property_blob *new_blob = new_state->hdr_output_metadata;
++
++	if (!old_blob || !new_blob)
++		return old_blob == new_blob;
++
++	if (old_blob->length != new_blob->length)
++		return false;
++
++	return !memcmp(old_blob->data, new_blob->data, old_blob->length);
++}
++EXPORT_SYMBOL(drm_connector_atomic_hdr_metadata_equal);
++
+ /**
+  * drm_connector_set_vrr_capable_property - sets the variable refresh rate
+  * capable property for a connector
+diff --git a/drivers/gpu/drm/i915/display/intel_atomic.c b/drivers/gpu/drm/i915/display/intel_atomic.c
+index e00fdc47c0eb..efec9454af5a 100644
+--- a/drivers/gpu/drm/i915/display/intel_atomic.c
++++ b/drivers/gpu/drm/i915/display/intel_atomic.c
+@@ -109,16 +109,6 @@ int intel_digital_connector_atomic_set_property(struct drm_connector *connector,
+ 	return -EINVAL;
+ }
+ 
+-static bool blob_equal(const struct drm_property_blob *a,
+-		       const struct drm_property_blob *b)
+-{
+-	if (a && b)
+-		return a->length == b->length &&
+-			!memcmp(a->data, b->data, a->length);
+-
+-	return !a == !b;
+-}
+-
+ int intel_digital_connector_atomic_check(struct drm_connector *conn,
+ 					 struct drm_atomic_state *state)
+ {
+@@ -149,8 +139,7 @@ int intel_digital_connector_atomic_check(struct drm_connector *conn,
+ 	    new_conn_state->base.picture_aspect_ratio != old_conn_state->base.picture_aspect_ratio ||
+ 	    new_conn_state->base.content_type != old_conn_state->base.content_type ||
+ 	    new_conn_state->base.scaling_mode != old_conn_state->base.scaling_mode ||
+-	    !blob_equal(new_conn_state->base.hdr_output_metadata,
+-			old_conn_state->base.hdr_output_metadata))
++	    !drm_connector_atomic_hdr_metadata_equal(old_state, new_state))
+ 		crtc_state->mode_changed = true;
+ 
+ 	return 0;
+diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+index 32172dab8427..1f51d73ca715 100644
+--- a/include/drm/drm_connector.h
++++ b/include/drm/drm_connector.h
+@@ -1672,6 +1672,8 @@ int drm_connector_attach_scaling_mode_property(struct drm_connector *connector,
+ int drm_connector_attach_vrr_capable_property(
+ 		struct drm_connector *connector);
+ int drm_connector_attach_hdr_output_metadata_property(struct drm_connector *connector);
++bool drm_connector_atomic_hdr_metadata_equal(struct drm_connector_state *old_state,
++					     struct drm_connector_state *new_state);
+ int drm_mode_create_aspect_ratio_property(struct drm_device *dev);
+ int drm_mode_create_hdmi_colorspace_property(struct drm_connector *connector);
+ int drm_mode_create_dp_colorspace_property(struct drm_connector *connector);
 -- 
-2.20.1
+2.30.2
 
 _______________________________________________
 Intel-gfx mailing list
