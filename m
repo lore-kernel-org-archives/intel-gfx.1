@@ -2,59 +2,52 @@ Return-Path: <SRS0=r5PR=IR=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-15.3 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
-	version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BC1E2C433DB
-	for <intel-gfx@archiver.kernel.org>; Fri, 19 Mar 2021 21:07:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D2811C433DB
+	for <intel-gfx@archiver.kernel.org>; Fri, 19 Mar 2021 21:11:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 62AEA6196E
-	for <intel-gfx@archiver.kernel.org>; Fri, 19 Mar 2021 21:07:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 62AEA6196E
+	by mail.kernel.org (Postfix) with ESMTPS id 8A20F61927
+	for <intel-gfx@archiver.kernel.org>; Fri, 19 Mar 2021 21:11:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8A20F61927
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E7A516EAC2;
-	Fri, 19 Mar 2021 21:07:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE0476EAC3;
+	Fri, 19 Mar 2021 21:11:12 +0000 (UTC)
 Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 57F846EAC2
- for <intel-gfx@lists.freedesktop.org>; Fri, 19 Mar 2021 21:07:22 +0000 (UTC)
-IronPort-SDR: lWU5ScyjEeytbUMnPqZb5SnoXRrnbjVnlYt+PBql9pnYCD75D5gZp5Az+NXDvLVbUD5cnKuTer
- MZ7HKIYh+avw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9928"; a="177553837"
-X-IronPort-AV: E=Sophos;i="5.81,262,1610438400"; d="scan'208";a="177553837"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 43B1B6EAC3
+ for <intel-gfx@lists.freedesktop.org>; Fri, 19 Mar 2021 21:11:11 +0000 (UTC)
+IronPort-SDR: 0cjrSaIif22CcvdHrlDB3zn+kPvqurFeyuo24MsrQSKoDuPvPxvJ0+ht1y0mikCEPuD3ZOu30w
+ CSqpTvYhUJYw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9928"; a="177554242"
+X-IronPort-AV: E=Sophos;i="5.81,262,1610438400"; d="scan'208";a="177554242"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Mar 2021 14:07:21 -0700
-IronPort-SDR: qFyC78lYzL3H4s7kEfMI6QnCXbgumfdqX30yEgSPhy6VJG95UjrTN4Ard3Rc2CWGMMsIhXSdd5
- tViG7/enlp4A==
-X-IronPort-AV: E=Sophos;i="5.81,262,1610438400"; d="scan'208";a="413659746"
-Received: from ideak-desk.fi.intel.com ([10.237.68.141])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Mar 2021 14:07:18 -0700
-Date: Fri, 19 Mar 2021 23:07:15 +0200
-From: Imre Deak <imre.deak@intel.com>
-To: Lyude Paul <lyude@redhat.com>
-Message-ID: <20210319210715.GP94006@ideak-desk.fi.intel.com>
-References: <20210317184901.4029798-1-imre.deak@intel.com>
- <20210317184901.4029798-2-imre.deak@intel.com>
- <YFOO4FOmOB8yp3me@intel.com>
- <20210318174907.GE4128033@ideak-desk.fi.intel.com>
- <20210318180645.GG4128033@ideak-desk.fi.intel.com>
- <e1e9f9ea76071af914b37352fc201d09f378a55b.camel@intel.com>
- <20210318231749.GA23036@ideak-desk.fi.intel.com>
- <ce79f22e1f7f7e6bf4424e5f9d2d657d8215480d.camel@redhat.com>
- <20210319172941.GI94006@ideak-desk.fi.intel.com>
- <b5d3fce1421f152db70a775241739df7d7dd364f.camel@redhat.com>
+ 19 Mar 2021 14:11:10 -0700
+IronPort-SDR: V95WVIvYFb9SujGzxA3DdYy09zTWIW4sueWHImh3oTN5AmDvrwKUXLBZTK9yhuhhBWYjWKDtv3
+ ksXXZ/QEvFiQ==
+X-IronPort-AV: E=Sophos;i="5.81,262,1610438400"; d="scan'208";a="406943972"
+Received: from labuser-z97x-ud5h.jf.intel.com (HELO labuser-Z97X-UD5H)
+ ([10.165.21.211])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Mar 2021 14:11:08 -0700
+Date: Fri, 19 Mar 2021 14:17:18 -0700
+From: "Navare, Manasi" <manasi.d.navare@intel.com>
+To: Ville Syrjala <ville.syrjala@linux.intel.com>
+Message-ID: <20210319211710.GB6359@labuser-Z97X-UD5H>
+References: <20210305153610.12177-1-ville.syrjala@linux.intel.com>
+ <20210305153610.12177-2-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <b5d3fce1421f152db70a775241739df7d7dd364f.camel@redhat.com>
-Subject: Re: [Intel-gfx] [PATCH v2 1/3] drm/i915/ilk-glk: Fix link training
- on links with LTTPRs
+In-Reply-To: <20210305153610.12177-2-ville.syrjala@linux.intel.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+Subject: Re: [Intel-gfx] [PATCH 1/6] drm/i915: Fix enabled_planes bitmask
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,296 +60,80 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: imre.deak@intel.com
-Cc: "mail@bodograumann.de" <mail@bodograumann.de>,
- "santiago.zarate@suse.com" <santiago.zarate@suse.com>,
- "tiwai@suse.de" <tiwai@suse.de>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "stable@vger.kernel.org" <stable@vger.kernel.org>
+Cc: intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Mar 19, 2021 at 04:44:26PM -0400, Lyude Paul wrote:
-> > > > [...]
-> > > > I think it would work if we can make the retries configurable and s=
-et it
-> > > > to
-> > > > =A0=A0=A0=A0=A0=A0=A0=A0retries =3D total_timeout / platform_specif=
-ic_timeout_per_retry
-> > > > =
-
-> > > > where total_timeout would be something reasonable like 1 sec.
-> > > =
-
-> > > I actually think I'm more open to the idea of configurable retries af=
-ter
-> > > learning that apparently this is a thing that the i2c subsystem does =
-- so
-> > > there's more precedence for it in the rest of the kernel than I origi=
-nally
-> > > thought.
-> > > =
-
-> > > I'm still curious if we need these extra retries in here though - the=
-re seems
-> > > to
-> > > be one set of retries that is actually platform specific, and then ju=
-st a
-> > > random
-> > > set of 5 retries that don't seem to have anything to do with platform=
- specific
-> > > behavior - so I think it'd still be worth giving a shot at getting ri=
-d of that
-> > =
-
-> > The platform specific part of the timeout is the one desctibed in the
-> > maximum timeout values comments.
+On Fri, Mar 05, 2021 at 05:36:05PM +0200, Ville Syrjala wrote:
+> From: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
 > =
 
-> You mean the
+> The enabled_planes bitmask was supposed to track logically enabled
+> planes (ie. fb!=3DNULL and crtc!=3DNULL), but instead we end up putting
+> even disabled planes into the bitmask since
+> intel_plane_atomic_check_with_state() only takes the early exit
+> if the plane was disabled and stays disabled. I think I misread
+> the early said codepath to exit whenever the plane is logically
+> disabled, which is not true.
 > =
 
-> 		/* Must try at least 3 times according to DP spec */
-> 		for (try =3D 0; try < 5; try++) {
-> =
+> So let's fix this up properly and set the bit only when the plane
+> actually is logically enabled.
 
-> bit? I thought that wasn't related to platform specific retries at all, s=
-ince
-> the code in that loop seems to only reference parts of the DP spec, and t=
-hat the
-> =
+Hmm yes makes sense, I guess I added the check in skl_plane_check_fb to ret=
+urn if !fb
+but I think thats a bug there since I return 0 there instead of return a -E=
+INVAL or something.
 
-> 	while ((aux_clock_divider =3D intel_dp->get_aux_clock_divider(intel_dp, =
-clock++))) {
-> =
+Because if we return a negative value there then if !fb, skl_plane_check wi=
+ll return that
+and we will return from plane->check_plane so just moving the enabled plane=
+s bitmask assignment
+to after the check_plane will do no need to check for if (fb) there again r=
+ight?
 
-> Loop was the portion that was platform specific, since it prompts the dri=
-ver to
-> retry the transaction with different aux clock divider rates depending on=
- the
-> platform in use. Feel free to correct me if I'm wrong though.
-
-Nope. I meant every HW transaction will have a platform specific
-timeout. For instance it's 1.6ms on SKL, but 4ms on ICL. So now since
-the overall retry count is 32 * 5 =3D 160, on SKL we'll retry for ~2.6
-seconds, on ICL we'll retry for ~6.4 seconds (disregarding now the extra
-400usec delay inserted by drm_dp_dpcd_access(), which adds a fixed
-~1.3ms delay).
-
-This is what I think should be normalized, so that we have the same
-amount of overall maximum timeout period on all platforms.
-
-> Also - with the timeouts we're seeing, does the LTTPR return NAKs at all?=
- That's
-> still another thing I had suggested alternate workarounds for so that we =
-could
-> terminate transactions immediately on NAKs, so I wonder if that could sav=
-e time
-> here as well.
-
-There's not much LTTPR specific in that wrt. what sinks would do
-normally (no NAKs for read, only for writes) except LTTPRs may rewrite
-NAKs to ACKs to account for buggy monitors returning NAKs when reading
-the 0xf0000 -> range. But I'd suggest not dealing with this aspect now,
-just sanitize the above retry thing, as you suggested, remove the i915
-retry loop and make the drm retry loop configurable.
-
-(In any case I also had the idea to stop transactions early when HPD
- gets deasserted, but not sure if that's completely robust.)
-
-> > > > > Thanks
-> > > > > Khaled
-> > > > > =
-
-> > > > > > =
-
-> > > > > > > > Anyways, this seems about the only thing we can do given the
-> > > > > > > > limited
-> > > > > > > > hw capabilities.
-> > > > > > > > Reviewed-by: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.c=
-om>
-> > > > > > > > =
-
-> > > > > > > > > Accordingly disable LTTPR detection until GLK, where the
-> > > > > > > > > maximum timeout
-> > > > > > > > > we can set is only 1.6ms.
-> > > > > > > > > =
-
-> > > > > > > > > Link training in the non-transparent mode is known to fai=
-l at
-> > > > > > > > > least on
-> > > > > > > > > some SKL systems with a WD19 dock on the link, which expo=
-ses an
-> > > > > > > > > LTTPR
-> > > > > > > > > (see the References below). While this could have differe=
-nt
-> > > > > > > > > reasons
-> > > > > > > > > besides the too short AUX timeout used, not detecting LTT=
-PRs
-> > > > > > > > > (and so not
-> > > > > > > > > using the non-transparent LT mode) fixes link training on=
- these
-> > > > > > > > > systems.
-> > > > > > > > > =
-
-> > > > > > > > > While at it add a code comment about the platform specific
-> > > > > > > > > maximum
-> > > > > > > > > timeout values.
-> > > > > > > > > =
-
-> > > > > > > > > v2: Add a comment about the g4x maximum timeout as well.
-> > > > > > > > > (Ville)
-> > > > > > > > > =
-
-> > > > > > > > > Reported-by: Takashi Iwai <tiwai@suse.de>
-> > > > > > > > > Reported-and-tested-by: Santiago Zarate <
-> > > > > > > > > santiago.zarate@suse.com>
-> > > > > > > > > Reported-and-tested-by: Bodo Graumann <mail@bodograumann.=
-de>
-> > > > > > > > > References:
-> > > > > > > > > https://gitlab.freedesktop.org/drm/intel/-/issues/3166
-> > > > > > > > > Fixes: b30edfd8d0b4 ("drm/i915: Switch to LTTPR non-trans=
-parent
-> > > > > > > > > mode link training")
-> > > > > > > > > Cc: <stable@vger.kernel.org> # v5.11
-> > > > > > > > > Cc: Takashi Iwai <tiwai@suse.de>
-> > > > > > > > > Cc: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
-> > > > > > > > > Signed-off-by: Imre Deak <imre.deak@intel.com>
-> > > > > > > > > ---
-> > > > > > > > > =A0drivers/gpu/drm/i915/display/intel_dp_aux.c=A0=A0=A0=
-=A0=A0=A0 |=A0 7 +++++++
-> > > > > > > > > =A0.../gpu/drm/i915/display/intel_dp_link_training.c | 15
-> > > > > > > > > ++++++++++++---
-> > > > > > > > > =A02 files changed, 19 insertions(+), 3 deletions(-)
-> > > > > > > > > =
-
-> > > > > > > > > diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux.c
-> > > > > > > > > b/drivers/gpu/drm/i915/display/intel_dp_aux.c
-> > > > > > > > > index eaebf123310a..10fe17b7280d 100644
-> > > > > > > > > --- a/drivers/gpu/drm/i915/display/intel_dp_aux.c
-> > > > > > > > > +++ b/drivers/gpu/drm/i915/display/intel_dp_aux.c
-> > > > > > > > > @@ -133,6 +133,7 @@ static u32 g4x_get_aux_send_ctl(struct
-> > > > > > > > > intel_dp *intel_dp,
-> > > > > > > > > =A0else
-> > > > > > > > > =A0precharge =3D 5;
-> > > > > > > > > =
-
-> > > > > > > > > +/* Max timeout value on G4x-BDW: 1.6ms */
-> > > > > > > > > =A0if (IS_BROADWELL(dev_priv))
-> > > > > > > > > =A0timeout =3D DP_AUX_CH_CTL_TIME_OUT_600us;
-> > > > > > > > > =A0else
-> > > > > > > > > @@ -159,6 +160,12 @@ static u32 skl_get_aux_send_ctl(stru=
-ct
-> > > > > > > > > intel_dp *intel_dp,
-> > > > > > > > > =A0enum phy phy =3D intel_port_to_phy(i915, dig_port-
-> > > > > > > > > > base.port);
-> > > > > > > > > =A0u32 ret;
-> > > > > > > > > =
-
-> > > > > > > > > +/*
-> > > > > > > > > + * Max timeout values:
-> > > > > > > > > + * SKL-GLK: 1.6ms
-> > > > > > > > > + * CNL: 3.2ms
-> > > > > > > > > + * ICL+: 4ms
-> > > > > > > > > + */
-> > > > > > > > > =A0ret =3D DP_AUX_CH_CTL_SEND_BUSY |
-> > > > > > > > > =A0=A0=A0=A0=A0=A0 DP_AUX_CH_CTL_DONE |
-> > > > > > > > > =A0=A0=A0=A0=A0=A0 DP_AUX_CH_CTL_INTERRUPT |
-> > > > > > > > > diff --git
-> > > > > > > > > a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-> > > > > > > > > b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-> > > > > > > > > index 19ba7c7cbaab..c0e25c75c105 100644
-> > > > > > > > > --- a/drivers/gpu/drm/i915/display/intel_dp_link_training=
-.c
-> > > > > > > > > +++ b/drivers/gpu/drm/i915/display/intel_dp_link_training=
-.c
-> > > > > > > > > @@ -82,6 +82,18 @@ static void
-> > > > > > > > > intel_dp_read_lttpr_phy_caps(struct intel_dp *intel_dp,
-> > > > > > > > > =
-
-> > > > > > > > > =A0static bool intel_dp_read_lttpr_common_caps(struct int=
-el_dp
-> > > > > > > > > *intel_dp)
-> > > > > > > > > =A0{
-> > > > > > > > > +struct drm_i915_private *i915 =3D dp_to_i915(intel_dp);
-> > > > > > > > > +
-> > > > > > > > > +if (intel_dp_is_edp(intel_dp))
-> > > > > > > > > +return false;
-> > > > > > > > > +
-> > > > > > > > > +/*
-> > > > > > > > > + * Detecting LTTPRs must be avoided on platforms with
-> > > > > > > > > an AUX timeout
-> > > > > > > > > + * period < 3.2ms. (see DP Standard v2.0, 2.11.2,
-> > > > > > > > > 3.6.6.1).
-> > > > > > > > > + */
-> > > > > > > > > +if (INTEL_GEN(i915) < 10)
-> > > > > > > > > +return false;
-> > > > > > > > > +
-> > > > > > > > > =A0if (drm_dp_read_lttpr_common_caps(&intel_dp->aux,
-> > > > > > > > > =A0=A0 intel_dp-
-> > > > > > > > > > lttpr_common_caps) < 0) {
-> > > > > > > > > =A0memset(intel_dp->lttpr_common_caps, 0,
-> > > > > > > > > @@ -127,9 +139,6 @@ int intel_dp_lttpr_init(struct intel_=
-dp
-> > > > > > > > > *intel_dp)
-> > > > > > > > > =A0bool ret;
-> > > > > > > > > =A0int i;
-> > > > > > > > > =
-
-> > > > > > > > > -if (intel_dp_is_edp(intel_dp))
-> > > > > > > > > -return 0;
-> > > > > > > > > -
-> > > > > > > > > =A0ret =3D intel_dp_read_lttpr_common_caps(intel_dp);
-> > > > > > > > > =A0if (!ret)
-> > > > > > > > > =A0return 0;
-> > > > > > > > > --
-> > > > > > > > > 2.25.1
-> > > > > > > > =
-
-> > > > > > > > --
-> > > > > > > > Ville Syrj=E4l=E4
-> > > > > > > > Intel
-> > > > =
-
-> > > =
-
-> > > -- =
-
-> > > Sincerely,
-> > > =A0=A0 Lyude Paul (she/her)
-> > > =A0=A0 Software Engineer at Red Hat
-> > > =A0=A0 =
-
-> > > Note: I deal with a lot of emails and have a lot of bugs on my plate.=
- If
-> > > you've
-> > > asked me a question, are waiting for a review/merge on a patch, etc. =
-and I
-> > > haven't responded in a while, please feel free to send me another ema=
-il to
-> > > check
-> > > on my status. I don't bite!
-> > > =
-
-> > =
+Manasi
 
 > =
 
+> Cc: Manasi Navare <manasi.d.navare@intel.com>
+> Fixes: ee42ec19ca2e ("drm/i915: Track logically enabled planes for hw sta=
+te")
+> Signed-off-by: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
+> ---
+>  drivers/gpu/drm/i915/display/intel_atomic_plane.c | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
+> =
+
+> diff --git a/drivers/gpu/drm/i915/display/intel_atomic_plane.c b/drivers/=
+gpu/drm/i915/display/intel_atomic_plane.c
+> index 4683f98f7e54..c3f2962aa1eb 100644
+> --- a/drivers/gpu/drm/i915/display/intel_atomic_plane.c
+> +++ b/drivers/gpu/drm/i915/display/intel_atomic_plane.c
+> @@ -317,12 +317,13 @@ int intel_plane_atomic_check_with_state(const struc=
+t intel_crtc_state *old_crtc_
+>  	if (!new_plane_state->hw.crtc && !old_plane_state->hw.crtc)
+>  		return 0;
+>  =
+
+> -	new_crtc_state->enabled_planes |=3D BIT(plane->id);
+> -
+>  	ret =3D plane->check_plane(new_crtc_state, new_plane_state);
+>  	if (ret)
+>  		return ret;
+>  =
+
+> +	if (fb)
+> +		new_crtc_state->enabled_planes |=3D BIT(plane->id);
+> +
+>  	/* FIXME pre-g4x don't work like this */
+>  	if (new_plane_state->uapi.visible)
+>  		new_crtc_state->active_planes |=3D BIT(plane->id);
 > -- =
 
-> Sincerely,
->    Lyude Paul (she/her)
->    Software Engineer at Red Hat
->    =
-
-> Note: I deal with a lot of emails and have a lot of bugs on my plate. If =
-you've
-> asked me a question, are waiting for a review/merge on a patch, etc. and I
-> haven't responded in a while, please feel free to send me another email t=
-o check
-> on my status. I don't bite!
+> 2.26.2
 > =
 
 _______________________________________________
