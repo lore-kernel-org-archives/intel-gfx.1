@@ -2,75 +2,67 @@ Return-Path: <SRS0=R2gn=IU=lists.freedesktop.org=intel-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1872EC433C1
-	for <intel-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 09:10:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1395BC433E0
+	for <intel-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 09:10:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B552C61931
-	for <intel-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 09:10:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B552C61931
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 9A4ED61929
+	for <intel-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 09:10:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9A4ED61929
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linaro.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=intel-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 13A1789DD5;
-	Mon, 22 Mar 2021 09:10:10 +0000 (UTC)
-Received: from mail-qt1-x82e.google.com (mail-qt1-x82e.google.com
- [IPv6:2607:f8b0:4864:20::82e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A5EB96E14F;
- Sun, 14 Mar 2021 04:45:34 +0000 (UTC)
-Received: by mail-qt1-x82e.google.com with SMTP id c6so6956459qtc.1;
- Sat, 13 Mar 2021 20:45:34 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=Uoe5TNNaDysbUQasfNAqY0hOSuNv/3CSSDD6bzJQ5fI=;
- b=WRjAdYjdxjs92mVp66j7D7szHl3IbeBRjO+ofLvwzD64sD9QZXZeZ+pSXF8O3MRGbb
- OwveQBhhxwxPv0tAA2vKfzZ+NdQxwrGNwEay93SQFFjGfCfxgh0JMYoFNa4lEQDgAbn9
- pDAqLIHPk9lqkyjQzEHW5mnW8PsX/afur8eptyiKNLL4n48BQ5sgvaCBW84e4zbFUV8h
- nvRV89nzfsIihF9mw2cmPdegTAp4DGB9SRxrG6UNlL1bp9EDUqoVoCdA0TPLs5X5SGP2
- D6YPugWoiJZR0RbsuwQyTSaC3ydtk+eOFv7Jv8QB7vO7mzD4962JS8YuEsGuUNY2/Gzj
- 2lCg==
+	by gabe.freedesktop.org (Postfix) with ESMTP id D511589DCF;
+	Mon, 22 Mar 2021 09:10:09 +0000 (UTC)
+Received: from mail-pg1-x52e.google.com (mail-pg1-x52e.google.com
+ [IPv6:2607:f8b0:4864:20::52e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A03BF6E9F0
+ for <intel-gfx@lists.freedesktop.org>; Fri, 19 Mar 2021 11:39:50 +0000 (UTC)
+Received: by mail-pg1-x52e.google.com with SMTP id n11so3485275pgm.12
+ for <intel-gfx@lists.freedesktop.org>; Fri, 19 Mar 2021 04:39:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=6touTvWtKFiW8FAA9I+lUxn/libxVWo4D2ycjd25CNU=;
+ b=JysePC4oS+r9hVAnL5SOOkUpYnTLbOFQQ89XBI4a3okMNXDpjjRNgKnhI8n1mFVCuY
+ CYHmq0/MmYe7MH5etoA4lUm1pNAWWBtsSd/Jo+y85dzqOp37tRYZtng7n3cXDkovId2l
+ s4S7yzUEuR2VMrcRvMJJNp1r1vjvfcSmAY7lpSVvoN2q2U13aGtE2z2jMjRV3FUQKH8C
+ oItkVR7wpMOYsTSyMqtYOcYgug9B674bCr+97emKzvLeYYPIKKMhmRIPi+JndlIjIBPe
+ 1SLFuybx6CVuNrHGMw5iE39jH3jq24GE5Ivy2rZh6GpmGtLx9cUzEdJmhfFtwZG2S7zn
+ DUPA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=Uoe5TNNaDysbUQasfNAqY0hOSuNv/3CSSDD6bzJQ5fI=;
- b=amCMj8cLnaKHxSCQBj2FArJtrEpUVZMhtHW9BK9yBDnC3UcoMW7JabqsEPBQkCIVCB
- rs2Uy6wE/ED7IR/QLK/DglkS0SFBRzdHpm17h2c70HaTgughsGiY0RTHCYP0+gdgaKmi
- em9Lr75aZHIkItvOJ68UthFcSsxdk2q79gXoIU3KaIP6P2dOwhTD0XbBp2WQ4CVA7CHe
- APUlKl0E6ukjU8qwotn+vBKgTfrd4zEZbbs3AP7L/rgAHdDb+GYVr6YZSRjDWB6VCcUH
- wT1d12IxDBcMLipw4h4mX4I//PSy0dpOM8F0JZ5E/VO1zfMHTbb3vy1Ac+/FoOS8AUYn
- tRjA==
-X-Gm-Message-State: AOAM533d/EhkkCIF9hftKG3g5fKZ0Tx+aimEl2OUkLQljB0GX1gJdHk7
- UYcAAXWdkePREX3uFIjwZp0=
-X-Google-Smtp-Source: ABdhPJy2CqupncRenrFBI7C8/dOxkolIyk5MmQG0y9rTuawAaMe1sJkMeoqec5OQ01ETtylsnBEshQ==
-X-Received: by 2002:ac8:149a:: with SMTP id l26mr17763644qtj.210.1615697133669; 
- Sat, 13 Mar 2021 20:45:33 -0800 (PST)
-Received: from localhost.localdomain ([37.19.198.30])
- by smtp.gmail.com with ESMTPSA id f27sm8005836qkh.118.2021.03.13.20.45.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 13 Mar 2021 20:45:33 -0800 (PST)
-From: Bhaskar Chowdhury <unixbhaskar@gmail.com>
-To: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
- rodrigo.vivi@intel.com, airlied@linux.ie, daniel@ffwll.ch,
- chris@chris-wilson.co.uk, tvrtko.ursulin@intel.com,
- mika.kuoppala@linux.intel.com, maarten.lankhorst@linux.intel.com,
- unixbhaskar@gmail.com, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Date: Sun, 14 Mar 2021 10:13:03 +0530
-Message-Id: <20210314044303.9220-1-unixbhaskar@gmail.com>
-X-Mailer: git-send-email 2.26.2
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=6touTvWtKFiW8FAA9I+lUxn/libxVWo4D2ycjd25CNU=;
+ b=CV70UKy44xnBIRHQmKLkm3Iz+L7e2pw1BzKZCn9KBvHIywBLaliP6QXyLPvJAXukLL
+ GK8Ppp0gW8IaBBH1sg51eYFAL3noslw//RSOKW7p8Lbd2Wg+nbT0QFrsh/LfWAdst5si
+ rTG/oYO1lFCUwhhcMAEVl9Zqkdx6yAaR2cWvxV0uQvJkxKJem2VMuZYvLaiS7wr8rRQ3
+ xu4Ae7wtFX3BUUvxusRdYZZQvGuXRxrp3zH/YwzAnROwFbuPxyw4gJw7/JoIjePhbfFN
+ EHQIqza2ycxQDCYY7Pd/MF0PD4UbY4vAPkPfSw3oCjcCg0CdJWGmiwmny9NeBD2xnmqY
+ 4W4A==
+X-Gm-Message-State: AOAM531OH9nTnZH1Xc+R9rHbv+vhrLYH7/vjIVm8cfAvXhvaedTu9bvz
+ CIt7PyFkGiSL/u4CY+M1qYMytDU2BOSPTHGlxPwnpA==
+X-Google-Smtp-Source: ABdhPJyeCqjCUphOyfVJedr3z+m21c12HGU9r+h+y+1wFK9EpIFLFL0pv6Yl7m8YnEM3dvGLTDyQu9pkjTUfd9ZHA8k=
+X-Received: by 2002:aa7:980a:0:b029:20c:5402:5de9 with SMTP id
+ e10-20020aa7980a0000b029020c54025de9mr8791358pfl.18.1616153990103; Fri, 19
+ Mar 2021 04:39:50 -0700 (PDT)
 MIME-Version: 1.0
+References: <20210219215326.2227596-1-lyude@redhat.com>
+ <20210219215326.2227596-29-lyude@redhat.com>
+In-Reply-To: <20210219215326.2227596-29-lyude@redhat.com>
+From: Robert Foss <robert.foss@linaro.org>
+Date: Fri, 19 Mar 2021 12:39:38 +0100
+Message-ID: <CAG3jFyveBSyS7k9D44m5e=8+HSvVsVhkXOokxyFOcRYDvHmWSw@mail.gmail.com>
+To: Lyude Paul <lyude@redhat.com>
 X-Mailman-Approved-At: Mon, 22 Mar 2021 09:10:08 +0000
-Subject: [Intel-gfx] [PATCH] gpu: drm: i915: gt: Rudimentary typo fix in the
- file intel_timeline.c
+Subject: Re: [Intel-gfx] [PATCH 28/30] drm/dp: Convert drm_dp_helper.c to
+ using drm_err/drm_dbg_*()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,36 +75,379 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: rdunlap@infradead.org
+Cc: Maxime Ripard <mripard@kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>, David Airlie <airlied@linux.ie>,
+ nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ open list <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org,
+ Thomas Zimmermann <tzimmermann@suse.de>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+Hey Lyude,
 
-s/bariers/barriers/
+Thanks for the patch.
 
-Signed-off-by: Bhaskar Chowdhury <unixbhaskar@gmail.com>
----
- drivers/gpu/drm/i915/gt/intel_timeline.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+On Fri, 19 Feb 2021 at 23:03, Lyude Paul <lyude@redhat.com> wrote:
+>
+> Now that we've added a back-pointer to drm_device to drm_dp_aux, made
+> drm_dp_aux available to any functions in drm_dp_helper.c which need to
+> print to the kernel log, and ensured all of our logging uses a consistent
+> format, let's do the final step of the conversion and actually move
+> everything over to using drm_err() and drm_dbg_*().
+>
+> This was done by using the following cocci script:
+>
+>   @@
+>   expression list expr;
+>   @@
+>
+>   (
+>   - DRM_DEBUG_KMS(expr);
+>   + drm_dbg_kms(aux->drm_dev, expr);
+>   |
+>   - DRM_DEBUG_DP(expr);
+>   + drm_dbg_dp(aux->drm_dev, expr);
+>   |
+>   - DRM_DEBUG_ATOMIC(expr);
+>   + drm_dbg_atomic(aux->drm_dev, expr);
+>   |
+>   - DRM_DEBUG_KMS_RATELIMITED(expr);
+>   + drm_dbg_kms_ratelimited(aux->drm_dev, expr);
+>   |
+>   - DRM_ERROR(expr);
+>   + drm_err(aux->drm_dev, expr);
+>   )
+>
+> Followed by correcting the resulting line-wrapping in the results by hand.
+>
+> Signed-off-by: Lyude Paul <lyude@redhat.com>
+> ---
+>  drivers/gpu/drm/drm_dp_helper.c | 122 ++++++++++++++++----------------
+>  1 file changed, 60 insertions(+), 62 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/drm_dp_helper.c b/drivers/gpu/drm/drm_dp_helper.c
+> index b5e2671baf22..0a787ddf39fd 100644
+> --- a/drivers/gpu/drm/drm_dp_helper.c
+> +++ b/drivers/gpu/drm/drm_dp_helper.c
+> @@ -139,8 +139,8 @@ void drm_dp_link_train_clock_recovery_delay(const struct drm_dp_aux *aux,
+>                                          DP_TRAINING_AUX_RD_MASK;
+>
+>         if (rd_interval > 4)
+> -               DRM_DEBUG_KMS("%s: AUX interval %lu, out of range (max 4)\n",
+> -                             aux->name, rd_interval);
+> +               drm_dbg_kms(aux->drm_dev, "%s: AUX interval %lu, out of range (max 4)\n",
+> +                           aux->name, rd_interval);
+>
+>         if (rd_interval == 0 || dpcd[DP_DPCD_REV] >= DP_DPCD_REV_14)
+>                 rd_interval = 100;
+> @@ -155,8 +155,8 @@ static void __drm_dp_link_train_channel_eq_delay(const struct drm_dp_aux *aux,
+>                                                  unsigned long rd_interval)
+>  {
+>         if (rd_interval > 4)
+> -               DRM_DEBUG_KMS("%s: AUX interval %lu, out of range (max 4)\n",
+> -                             aux->name, rd_interval);
+> +               drm_dbg_kms(aux->drm_dev, "%s: AUX interval %lu, out of range (max 4)\n",
+> +                           aux->name, rd_interval);
+>
+>         if (rd_interval == 0)
+>                 rd_interval = 400;
+> @@ -220,11 +220,12 @@ drm_dp_dump_access(const struct drm_dp_aux *aux,
+>         const char *arrow = request == DP_AUX_NATIVE_READ ? "->" : "<-";
+>
+>         if (ret > 0)
+> -               DRM_DEBUG_DP("%s: 0x%05x AUX %s (ret=%3d) %*ph\n",
+> -                            aux->name, offset, arrow, ret, min(ret, 20), buffer);
+> +               drm_dbg_dp(aux->drm_dev, "%s: 0x%05x AUX %s (ret=%3d) %*ph\n",
+> +                          aux->name, offset, arrow, ret, min(ret, 20),
+> +                          buffer);
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_timeline.c b/drivers/gpu/drm/i915/gt/intel_timeline.c
-index 8015964043eb..2b921c1796dc 100644
---- a/drivers/gpu/drm/i915/gt/intel_timeline.c
-+++ b/drivers/gpu/drm/i915/gt/intel_timeline.c
-@@ -416,7 +416,7 @@ void intel_timeline_exit(struct intel_timeline *tl)
- 	spin_unlock(&timelines->lock);
+checkpatch --strict is unhappy with this chunk
 
- 	/*
--	 * Since this timeline is idle, all bariers upon which we were waiting
-+	 * Since this timeline is idle, all barriers upon which we were waiting
- 	 * must also be complete and so we can discard the last used barriers
- 	 * without loss of information.
- 	 */
---
-2.26.2
+ERROR: code indent should use tabs where possible
+#75: FILE: drivers/gpu/drm/drm_dp_helper.c:224:
++^I^I           aux->name, offset, arrow, ret, min(ret, 20),$
 
+ERROR: code indent should use tabs where possible
+#76: FILE: drivers/gpu/drm/drm_dp_helper.c:225:
+
+
+>         else
+> -               DRM_DEBUG_DP("%s: 0x%05x AUX %s (ret=%3d)\n",
+> -                            aux->name, offset, arrow, ret);
+> +               drm_dbg_dp(aux->drm_dev, "%s: 0x%05x AUX %s (ret=%3d)\n",
+> +                          aux->name, offset, arrow, ret);
+
+checkpatch --strict is unhappy with this chunk
+
+ERROR: code indent should use tabs where possible
+#81: FILE: drivers/gpu/drm/drm_dp_helper.c:228:
++^I^I           aux->name, offset, arrow, ret);$
+
+
+>  }
+>
+>  /**
+> @@ -287,8 +288,8 @@ static int drm_dp_dpcd_access(struct drm_dp_aux *aux, u8 request,
+>                         err = ret;
+>         }
+>
+> -       DRM_DEBUG_KMS("%s: Too many retries, giving up. First error: %d\n",
+> -                     aux->name, err);
+> +       drm_dbg_kms(aux->drm_dev, "%s: Too many retries, giving up. First error: %d\n",
+> +                   aux->name, err);
+>         ret = err;
+>
+>  unlock:
+> @@ -524,44 +525,44 @@ bool drm_dp_send_real_edid_checksum(struct drm_dp_aux *aux,
+>
+>         if (drm_dp_dpcd_read(aux, DP_DEVICE_SERVICE_IRQ_VECTOR,
+>                              &auto_test_req, 1) < 1) {
+> -               DRM_ERROR("%s: DPCD failed read at register 0x%x\n",
+> -                         aux->name, DP_DEVICE_SERVICE_IRQ_VECTOR);
+> +               drm_err(aux->drm_dev, "%s: DPCD failed read at register 0x%x\n",
+> +                       aux->name, DP_DEVICE_SERVICE_IRQ_VECTOR);
+>                 return false;
+>         }
+>         auto_test_req &= DP_AUTOMATED_TEST_REQUEST;
+>
+>         if (drm_dp_dpcd_read(aux, DP_TEST_REQUEST, &link_edid_read, 1) < 1) {
+> -               DRM_ERROR("%s: DPCD failed read at register 0x%x\n",
+> -                         aux->name, DP_TEST_REQUEST);
+> +               drm_err(aux->drm_dev, "%s: DPCD failed read at register 0x%x\n",
+> +                       aux->name, DP_TEST_REQUEST);
+>                 return false;
+>         }
+>         link_edid_read &= DP_TEST_LINK_EDID_READ;
+>
+>         if (!auto_test_req || !link_edid_read) {
+> -               DRM_DEBUG_KMS("%s: Source DUT does not support TEST_EDID_READ\n",
+> -                             aux->name);
+> +               drm_dbg_kms(aux->drm_dev, "%s: Source DUT does not support TEST_EDID_READ\n",
+> +                           aux->name);
+>                 return false;
+>         }
+>
+>         if (drm_dp_dpcd_write(aux, DP_DEVICE_SERVICE_IRQ_VECTOR,
+>                               &auto_test_req, 1) < 1) {
+> -               DRM_ERROR("%s: DPCD failed write at register 0x%x\n",
+> -                         aux->name, DP_DEVICE_SERVICE_IRQ_VECTOR);
+> +               drm_err(aux->drm_dev, "%s: DPCD failed write at register 0x%x\n",
+> +                       aux->name, DP_DEVICE_SERVICE_IRQ_VECTOR);
+>                 return false;
+>         }
+>
+>         /* send back checksum for the last edid extension block data */
+>         if (drm_dp_dpcd_write(aux, DP_TEST_EDID_CHECKSUM,
+>                               &real_edid_checksum, 1) < 1) {
+> -               DRM_ERROR("%s: DPCD failed write at register 0x%x\n",
+> -                         aux->name, DP_TEST_EDID_CHECKSUM);
+> +               drm_err(aux->drm_dev, "%s: DPCD failed write at register 0x%x\n",
+> +                       aux->name, DP_TEST_EDID_CHECKSUM);
+>                 return false;
+>         }
+>
+>         test_resp |= DP_TEST_EDID_CHECKSUM_WRITE;
+>         if (drm_dp_dpcd_write(aux, DP_TEST_RESPONSE, &test_resp, 1) < 1) {
+> -               DRM_ERROR("%s: DPCD failed write at register 0x%x\n",
+> -                         aux->name, DP_TEST_RESPONSE);
+> +               drm_err(aux->drm_dev, "%s: DPCD failed write at register 0x%x\n",
+> +                       aux->name, DP_TEST_RESPONSE);
+>                 return false;
+>         }
+>
+> @@ -604,17 +605,16 @@ static int drm_dp_read_extended_dpcd_caps(struct drm_dp_aux *aux,
+>                 return -EIO;
+>
+>         if (dpcd[DP_DPCD_REV] > dpcd_ext[DP_DPCD_REV]) {
+> -               DRM_DEBUG_KMS("%s: Extended DPCD rev less than base DPCD rev (%d > %d)\n",
+> -                             aux->name, dpcd[DP_DPCD_REV],
+> -                             dpcd_ext[DP_DPCD_REV]);
+> +               drm_dbg_kms(aux->drm_dev,
+> +                           "%s: Extended DPCD rev less than base DPCD rev (%d > %d)\n",
+> +                           aux->name, dpcd[DP_DPCD_REV], dpcd_ext[DP_DPCD_REV]);
+>                 return 0;
+>         }
+>
+>         if (!memcmp(dpcd, dpcd_ext, sizeof(dpcd_ext)))
+>                 return 0;
+>
+> -       DRM_DEBUG_KMS("%s: Base DPCD: %*ph\n",
+> -                     aux->name, DP_RECEIVER_CAP_SIZE, dpcd);
+> +       drm_dbg_kms(aux->drm_dev, "%s: Base DPCD: %*ph\n", aux->name, DP_RECEIVER_CAP_SIZE, dpcd);
+>
+>         memcpy(dpcd, dpcd_ext, sizeof(dpcd_ext));
+>
+> @@ -649,8 +649,7 @@ int drm_dp_read_dpcd_caps(struct drm_dp_aux *aux,
+>         if (ret < 0)
+>                 return ret;
+>
+> -       DRM_DEBUG_KMS("%s: DPCD: %*ph\n",
+> -                     aux->name, DP_RECEIVER_CAP_SIZE, dpcd);
+> +       drm_dbg_kms(aux->drm_dev, "%s: DPCD: %*ph\n", aux->name, DP_RECEIVER_CAP_SIZE, dpcd);
+>
+>         return ret;
+>  }
+> @@ -694,8 +693,7 @@ int drm_dp_read_downstream_info(struct drm_dp_aux *aux,
+>         if (ret != len)
+>                 return -EIO;
+>
+> -       DRM_DEBUG_KMS("%s: DPCD DFP: %*ph\n",
+> -                     aux->name, len, downstream_ports);
+> +       drm_dbg_kms(aux->drm_dev, "%s: DPCD DFP: %*ph\n", aux->name, len, downstream_ports);
+>
+>         return 0;
+>  }
+> @@ -1412,11 +1410,11 @@ static int drm_dp_i2c_do_msg(struct drm_dp_aux *aux, struct drm_dp_aux_msg *msg)
+>                          * Avoid spamming the kernel log with timeout errors.
+>                          */
+>                         if (ret == -ETIMEDOUT)
+> -                               DRM_DEBUG_KMS_RATELIMITED("%s: transaction timed out\n",
+> -                                                         aux->name);
+> +                               drm_dbg_kms_ratelimited(aux->drm_dev, "%s: transaction timed out\n",
+> +                                                       aux->name);
+>                         else
+> -                               DRM_DEBUG_KMS("%s: transaction failed: %d\n",
+> -                                             aux->name, ret);
+> +                               drm_dbg_kms(aux->drm_dev, "%s: transaction failed: %d\n",
+> +                                           aux->name, ret);
+>                         return ret;
+>                 }
+>
+> @@ -1430,12 +1428,12 @@ static int drm_dp_i2c_do_msg(struct drm_dp_aux *aux, struct drm_dp_aux_msg *msg)
+>                         break;
+>
+>                 case DP_AUX_NATIVE_REPLY_NACK:
+> -                       DRM_DEBUG_KMS("%s: native nack (result=%d, size=%zu)\n",
+> -                                     aux->name, ret, msg->size);
+> +                       drm_dbg_kms(aux->drm_dev, "%s: native nack (result=%d, size=%zu)\n",
+> +                                   aux->name, ret, msg->size);
+>                         return -EREMOTEIO;
+>
+>                 case DP_AUX_NATIVE_REPLY_DEFER:
+> -                       DRM_DEBUG_KMS("%s: native defer\n", aux->name);
+> +                       drm_dbg_kms(aux->drm_dev, "%s: native defer\n", aux->name);
+>                         /*
+>                          * We could check for I2C bit rate capabilities and if
+>                          * available adjust this interval. We could also be
+> @@ -1449,8 +1447,8 @@ static int drm_dp_i2c_do_msg(struct drm_dp_aux *aux, struct drm_dp_aux_msg *msg)
+>                         continue;
+>
+>                 default:
+> -                       DRM_ERROR("%s: invalid native reply %#04x\n",
+> -                                 aux->name, msg->reply);
+> +                       drm_err(aux->drm_dev, "%s: invalid native reply %#04x\n",
+> +                               aux->name, msg->reply);
+>                         return -EREMOTEIO;
+>                 }
+>
+> @@ -1465,13 +1463,13 @@ static int drm_dp_i2c_do_msg(struct drm_dp_aux *aux, struct drm_dp_aux_msg *msg)
+>                         return ret;
+>
+>                 case DP_AUX_I2C_REPLY_NACK:
+> -                       DRM_DEBUG_KMS("%s: I2C nack (result=%d, size=%zu)\n",
+> -                                     aux->name, ret, msg->size);
+> +                       drm_dbg_kms(aux->drm_dev, "%s: I2C nack (result=%d, size=%zu)\n",
+> +                                   aux->name, ret, msg->size);
+>                         aux->i2c_nack_count++;
+>                         return -EREMOTEIO;
+>
+>                 case DP_AUX_I2C_REPLY_DEFER:
+> -                       DRM_DEBUG_KMS("%s: I2C defer\n", aux->name);
+> +                       drm_dbg_kms(aux->drm_dev, "%s: I2C defer\n", aux->name);
+>                         /* DP Compliance Test 4.2.2.5 Requirement:
+>                          * Must have at least 7 retries for I2C defers on the
+>                          * transaction to pass this test
+> @@ -1485,13 +1483,13 @@ static int drm_dp_i2c_do_msg(struct drm_dp_aux *aux, struct drm_dp_aux_msg *msg)
+>                         continue;
+>
+>                 default:
+> -                       DRM_ERROR("%s: invalid I2C reply %#04x\n",
+> -                                 aux->name, msg->reply);
+> +                       drm_err(aux->drm_dev, "%s: invalid I2C reply %#04x\n",
+> +                               aux->name, msg->reply);
+>                         return -EREMOTEIO;
+>                 }
+>         }
+>
+> -       DRM_DEBUG_KMS("%s: Too many retries, giving up\n", aux->name);
+> +       drm_dbg_kms(aux->drm_dev, "%s: Too many retries, giving up\n", aux->name);
+>         return -EREMOTEIO;
+>  }
+>
+> @@ -1520,8 +1518,9 @@ static int drm_dp_i2c_drain_msg(struct drm_dp_aux *aux, struct drm_dp_aux_msg *o
+>                         return err == 0 ? -EPROTO : err;
+>
+>                 if (err < msg.size && err < ret) {
+> -                       DRM_DEBUG_KMS("%s: Partial I2C reply: requested %zu bytes got %d bytes\n",
+> -                                     aux->name, msg.size, err);
+> +                       drm_dbg_kms(aux->drm_dev,
+> +                                   "%s: Partial I2C reply: requested %zu bytes got %d bytes\n",
+> +                                   aux->name, msg.size, err);
+>                         ret = err;
+>                 }
+>
+> @@ -1700,12 +1699,11 @@ static void drm_dp_aux_crc_work(struct work_struct *work)
+>                 }
+>
+>                 if (ret == -EAGAIN) {
+> -                       DRM_DEBUG_KMS("%s: Get CRC failed after retrying: %d\n",
+> -                                     aux->name, ret);
+> +                       drm_dbg_kms(aux->drm_dev, "%s: Get CRC failed after retrying: %d\n",
+> +                                   aux->name, ret);
+>                         continue;
+>                 } else if (ret) {
+> -                       DRM_DEBUG_KMS("%s: Failed to get a CRC: %d\n",
+> -                                     aux->name, ret);
+> +                       drm_dbg_kms(aux->drm_dev, "%s: Failed to get a CRC: %d\n", aux->name, ret);
+>                         continue;
+>                 }
+>
+> @@ -2001,13 +1999,12 @@ int drm_dp_read_desc(struct drm_dp_aux *aux, struct drm_dp_desc *desc,
+>
+>         dev_id_len = strnlen(ident->device_id, sizeof(ident->device_id));
+>
+> -       DRM_DEBUG_KMS("%s: DP %s: OUI %*phD dev-ID %*pE HW-rev %d.%d SW-rev %d.%d quirks 0x%04x\n",
+> -                     aux->name, is_branch ? "branch" : "sink",
+> -                     (int)sizeof(ident->oui), ident->oui,
+> -                     dev_id_len, ident->device_id,
+> -                     ident->hw_rev >> 4, ident->hw_rev & 0xf,
+> -                     ident->sw_major_rev, ident->sw_minor_rev,
+> -                     desc->quirks);
+> +       drm_dbg_kms(aux->drm_dev,
+> +                   "%s: DP %s: OUI %*phD dev-ID %*pE HW-rev %d.%d SW-rev %d.%d quirks 0x%04x\n",
+> +                   aux->name, is_branch ? "branch" : "sink",
+> +                   (int)sizeof(ident->oui), ident->oui, dev_id_len,
+> +                   ident->device_id, ident->hw_rev >> 4, ident->hw_rev & 0xf,
+> +                   ident->sw_major_rev, ident->sw_minor_rev, desc->quirks);
+>
+>         return 0;
+>  }
+> @@ -2769,7 +2766,8 @@ int drm_dp_pcon_frl_enable(struct drm_dp_aux *aux)
+>         if (ret < 0)
+>                 return ret;
+>         if (!(buf & DP_PCON_ENABLE_SOURCE_CTL_MODE)) {
+> -               DRM_DEBUG_KMS("%s: PCON in Autonomous mode, can't enable FRL\n", aux->name);
+> +               drm_dbg_kms(aux->drm_dev, "%s: PCON in Autonomous mode, can't enable FRL\n",
+> +                           aux->name);
+>                 return -EINVAL;
+>         }
+>         buf |= DP_PCON_ENABLE_HDMI_LINK;
+> @@ -2864,8 +2862,8 @@ void drm_dp_pcon_hdmi_frl_link_error_count(struct drm_dp_aux *aux,
+>                         num_error = 0;
+>                 }
+>
+> -               DRM_ERROR("%s: More than %d errors since the last read for lane %d",
+> -                         aux->name, num_error, i);
+> +               drm_err(aux->drm_dev, "%s: More than %d errors since the last read for lane %d",
+> +                       aux->name, num_error, i);
+>         }
+>  }
+>  EXPORT_SYMBOL(drm_dp_pcon_hdmi_frl_link_error_count);
+> --
+> 2.29.2
+>
 _______________________________________________
 Intel-gfx mailing list
 Intel-gfx@lists.freedesktop.org
